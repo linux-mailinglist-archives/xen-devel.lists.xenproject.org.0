@@ -2,43 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A455B431AED
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Oct 2021 15:27:29 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.212277.370097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E6B9431B0F
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Oct 2021 15:28:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.212288.370108 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcSff-00058e-2J; Mon, 18 Oct 2021 13:27:19 +0000
+	id 1mcSgo-0005vC-C2; Mon, 18 Oct 2021 13:28:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 212277.370097; Mon, 18 Oct 2021 13:27:19 +0000
+Received: by outflank-mailman (output) from mailman id 212288.370108; Mon, 18 Oct 2021 13:28:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcSfe-00056l-VY; Mon, 18 Oct 2021 13:27:18 +0000
-Received: by outflank-mailman (input) for mailman id 212277;
- Mon, 18 Oct 2021 13:27:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mcSgo-0005sx-8z; Mon, 18 Oct 2021 13:28:30 +0000
+Received: by outflank-mailman (input) for mailman id 212288;
+ Mon, 18 Oct 2021 13:28:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6zTk=PG=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mcSfc-0004zx-Vg
- for xen-devel@lists.xenproject.org; Mon, 18 Oct 2021 13:27:17 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 00a2aabf-2fdd-42ac-941c-58d1c2f9be6f;
- Mon, 18 Oct 2021 13:27:15 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4739A21958;
- Mon, 18 Oct 2021 13:27:14 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1260314059;
- Mon, 18 Oct 2021 13:27:14 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id PzbJAjJ2bWGDXAAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 18 Oct 2021 13:27:14 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mcSgm-0005sp-VU
+ for xen-devel@lists.xenproject.org; Mon, 18 Oct 2021 13:28:28 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mcSgm-0005oM-UQ
+ for xen-devel@lists.xenproject.org; Mon, 18 Oct 2021 13:28:28 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mcSgm-0005f6-TM
+ for xen-devel@lists.xenproject.org; Mon, 18 Oct 2021 13:28:28 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1mcSgj-0005y7-DJ; Mon, 18 Oct 2021 14:28:25 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,210 +41,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 00a2aabf-2fdd-42ac-941c-58d1c2f9be6f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1634563634; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6y1HL0tNLVB6bTTlF9XivWo4KKigNSCoipEwckZUBjg=;
-	b=ftNqJTWDYK5c3xkbRSTgbV8wDCOtwX4Rcg/A72qVNnGVIQwahTa+/dexrapyLIEtK8kboY
-	N70nj6PUKzKuq293cI8uMlEqO8LzrGXJFTlTulNwsd+lrkB/jXA/CSErJACqXnCyIhOwpJ
-	medUDJNoDiKhzn4DCoMgZi3sxozGpkQ=
-Subject: Re: [PATCH 04/12] xen/x86: modify hvm_memory_op() prototype
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20211015125152.25198-1-jgross@suse.com>
- <20211015125152.25198-5-jgross@suse.com>
- <71fae3b2-9f90-878c-50f1-e9c0d7cf7e5c@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <d5c5854f-6bd1-db12-b530-ffc628f473f7@suse.com>
-Date: Mon, 18 Oct 2021 15:27:13 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:To:Date:
+	Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=QDSsGB2ZzXBnBQwu3bnaniFd7ileFmPeuhH7RFjCycM=; b=JrdtvK+CNm4O2ZxBffK08ILk3U
+	IfpLcVVtFYoBGw7kNW2gyWAH+TVVBBR/Q9dPdM10oEykc4C180AWo1kCQyMqzc1tD2PBf9iCfuOXu
+	iu6jsXePTmNNYA4ebK9CHSyUMeuFelfNjtMOi8qDwfMPcFaMkKqJnd5mWkxah1HeZwuI=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <71fae3b2-9f90-878c-50f1-e9c0d7cf7e5c@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="iIYlgAyLGauNgStIOXwqbyBNNZ4JYChNv"
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24941.30329.51635.566269@mariner.uk.xensource.com>
+Date: Mon, 18 Oct 2021 14:28:25 +0100
+To: Juergen Gross <jgross@suse.com>,
+    xen-devel@lists.xenproject.org,
+    Andrew Cooper <andrew.cooper3@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    Jan Beulich <jbeulich@suse.com>,
+    Julien Grall <julien@xen.org>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    Wei Liu <wl@xen.org>,
+    Samuel Thibault <samuel.thibault@ens-lyon.org>,
+    Community Manager <community.manager@xenproject.org>
+Subject: Re: [PATCH v3 0/3] disable building of pv-grub and qemu-trad per
+ default
+In-Reply-To: <24913.55427.402592.660538@mariner.uk.xensource.com>
+References: <20210910055518.562-1-jgross@suse.com>
+	<24891.31480.165445.521062@mariner.uk.xensource.com>
+	<d894799e-27c6-bbbd-8d65-3e32c1aff843@suse.com>
+	<24913.55427.402592.660538@mariner.uk.xensource.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---iIYlgAyLGauNgStIOXwqbyBNNZ4JYChNv
-Content-Type: multipart/mixed; boundary="s7d4xFdzAzZaBDKm9vjN4aOOC8N7CrDQd";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <d5c5854f-6bd1-db12-b530-ffc628f473f7@suse.com>
-Subject: Re: [PATCH 04/12] xen/x86: modify hvm_memory_op() prototype
-References: <20211015125152.25198-1-jgross@suse.com>
- <20211015125152.25198-5-jgross@suse.com>
- <71fae3b2-9f90-878c-50f1-e9c0d7cf7e5c@suse.com>
-In-Reply-To: <71fae3b2-9f90-878c-50f1-e9c0d7cf7e5c@suse.com>
+I wrote (27th September):
+> Juergen Gross writes ("Re: [PATCH v3 0/3] disable building of pv-grub and qemu-trad per default"):
+> > On 10.09.21 17:34, Ian Jackson wrote:
+> > > Juergen Gross writes ("[PATCH v3 0/3] disable building of pv-grub and qemu-trad per default"):
+> > >> This is a first step of deprecating pv-grub and qemu-trad including
+> > >> ioemu-stubdom. Switch the default to not building it.
+> > > 
+> > > This is now fully acked.  But can we wait with committing it until we
+> > > have a decision about whether to (a) have osstest explicitly enable
+> > > the pv-grub and qemu-trad builds (b) have osstest stop testing these
+> > > configurations ?
+> > 
+> > Any decisions made?
+> 
+> No-one seems to have had any opinions.   I'll take ...
+> 
+> > FWIW I'd be fine dropping pv-grub builds and tests in OSStets, but I'd
+> > rather keep testing qemu-trad stubdom tests.
+> 
+> ... that as a proposal :-).  think that is probably the right tradeoff.
+> 
+> I think that means that means we need osstest patches to edit
+> make-flight and ts-xen-build which
+> 
+>  * Explictly enables stubdom qemu build
+>  * Drops the pv-grub tests
+> 
+> and those need to go in first.
+> 
+> With my RM hat on, I think those changes to osstest may need a release
+> ack since they have missed the LPD, but I will grant such an ack.
+> 
+> As for the patches themselves, I may get to that tomorrow, but
+> contributions would be very welcome.
 
---s7d4xFdzAzZaBDKm9vjN4aOOC8N7CrDQd
-Content-Type: multipart/mixed;
- boundary="------------B87677EE8F426A41AE78453C"
-Content-Language: en-US
+Evidently I didn't get to that "tomorrow".  But while checking up on
+this with git-log -G I found osstest commit:
 
-This is a multi-part message in MIME format.
---------------B87677EE8F426A41AE78453C
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+  8dee6e333622d830b7a9373989f63b526a85cd94
+  make-flight: Drop pvgrub (pvgrub1) tests
 
-On 18.10.21 14:31, Jan Beulich wrote:
-> On 15.10.2021 14:51, Juergen Gross wrote:
->> hvm_memory_op() should take an unsigned long as cmd, like
->> do_memory_op().
->>
->> As hvm_memory_op() is basically just calling do_memory_op() (or
->> compat_memory_op()) passing through the parameters the cmd parameter
->> should have no smaller size than that of the called functions.
->>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->=20
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->=20
-> Nevertheless ...
->=20
->> --- a/xen/arch/x86/hvm/hypercall.c
->> +++ b/xen/arch/x86/hvm/hypercall.c
->> @@ -31,7 +31,7 @@
->>   #include <public/hvm/hvm_op.h>
->>   #include <public/hvm/params.h>
->>  =20
->> -static long hvm_memory_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->> +static long hvm_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM(v=
-oid) arg)
->>   {
->>       long rc;
->=20
-> ... I think this would even better be dealt with by splitting the
-> function into a native one (using unsigned long) and a compat one
-> (using unsigned int).
+I think this means
+  [PATCH v3 2/3] stubdom: disable building pv-grub
+from this series can go in immediately.
 
-Why? In 32-bit case the value is naturally limited to 32 bits width
-zero-extending perfectly fine to unsigned long.
+With my RM hat on: I think this reduces risk, overall.  There is some
+risk of immediately build breakage but the patch could be readily
+reverted.
 
-Otherwise I couldn't use the same definition later.
+Accordingly, patch 2/3 disabling pv-grub is
+  Release-Acked-by: Ian Jackson <iwj@xenproject.org>
 
+It also has my tools ack so I will commit it in a moment.
 
-Juergen
+I think 3/3 is waiting for the osstest patch.  In principle with my RM
+hat on I think these could go in but it would have to be very soon,
+and the osstest change has to go in first.
 
---------------B87677EE8F426A41AE78453C
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------B87677EE8F426A41AE78453C--
-
---s7d4xFdzAzZaBDKm9vjN4aOOC8N7CrDQd--
-
---iIYlgAyLGauNgStIOXwqbyBNNZ4JYChNv
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFtdjEFAwAAAAAACgkQsN6d1ii/Ey8n
-PAf/R06fShcGSrzoTAZN/2dtBQmG5nd3o7SGTjvCJA26jXesz6cP/STaLNOvX4WDd+juuPHbgQYw
-sMSLTkaUVs6VEaUVf9NsoiTM3I6NriZczdY0Myzg6L+6NRUB6tocdScHlwUkWCi0cc4pNYrH8RsA
-Um4MfRjs33i9KySte9TA62GJE1ekFzv7O/ZBNOa8X4CuTjba/t28YAhKu5NLaBwsFCMFTDuKnj0s
-DI0kDzjlivJpJQhLO/UW7at2u9KVJNGjSyh8ctNlWqE/tUQb90ROQroeI5YwltQat3msxyvsrqvL
-u52t4QAMmsaJxlJjegg04TtfspfKCASf/dTdnkv9BQ==
-=zyly
------END PGP SIGNATURE-----
-
---iIYlgAyLGauNgStIOXwqbyBNNZ4JYChNv--
+Ian.
 
