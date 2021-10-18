@@ -2,28 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF47243141E
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Oct 2021 12:10:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.211932.369625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D970C431459
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Oct 2021 12:12:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.211939.369637 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcPaa-0003mP-67; Mon, 18 Oct 2021 10:09:52 +0000
+	id 1mcPck-00059D-Jv; Mon, 18 Oct 2021 10:12:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 211932.369625; Mon, 18 Oct 2021 10:09:52 +0000
+Received: by outflank-mailman (output) from mailman id 211939.369637; Mon, 18 Oct 2021 10:12:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcPaa-0003kG-2X; Mon, 18 Oct 2021 10:09:52 +0000
-Received: by outflank-mailman (input) for mailman id 211932;
- Mon, 18 Oct 2021 10:09:50 +0000
+	id 1mcPck-00056g-Fi; Mon, 18 Oct 2021 10:12:06 +0000
+Received: by outflank-mailman (input) for mailman id 211939;
+ Mon, 18 Oct 2021 10:12:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LiEI=PG=citrix.com=Jane.Malalane@srs-us1.protection.inumbo.net>)
- id 1mcPaY-0003k6-Hj
- for xen-devel@lists.xenproject.org; Mon, 18 Oct 2021 10:09:50 +0000
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0d31f0e1-f092-4008-b469-16449d62ce38;
- Mon, 18 Oct 2021 10:09:49 +0000 (UTC)
+ <SRS0=J+Bz=PG=arm.com=Bertrand.Marquis@srs-us1.protection.inumbo.net>)
+ id 1mcPci-00056Y-NT
+ for xen-devel@lists.xenproject.org; Mon, 18 Oct 2021 10:12:04 +0000
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.2.78]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2a57b5db-03e4-41ef-9ee0-923736e4d26d;
+ Mon, 18 Oct 2021 10:12:02 +0000 (UTC)
+Received: from AS9PR0301CA0040.eurprd03.prod.outlook.com
+ (2603:10a6:20b:469::26) by AM8PR08MB6562.eurprd08.prod.outlook.com
+ (2603:10a6:20b:355::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Mon, 18 Oct
+ 2021 10:11:59 +0000
+Received: from AM5EUR03FT007.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:469:cafe::36) by AS9PR0301CA0040.outlook.office365.com
+ (2603:10a6:20b:469::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.14 via Frontend
+ Transport; Mon, 18 Oct 2021 10:11:59 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT007.mail.protection.outlook.com (10.152.16.145) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4608.15 via Frontend Transport; Mon, 18 Oct 2021 10:11:59 +0000
+Received: ("Tessian outbound f1898412aff1:v103");
+ Mon, 18 Oct 2021 10:11:59 +0000
+Received: from 78425616ff20.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 8641D81B-8312-46D6-B525-9273C9EA7A63.1; 
+ Mon, 18 Oct 2021 10:11:48 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 78425616ff20.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 18 Oct 2021 10:11:48 +0000
+Received: from DB6PR0801MB2024.eurprd08.prod.outlook.com (2603:10a6:4:74::9)
+ by DB7PR08MB4604.eurprd08.prod.outlook.com (2603:10a6:10:34::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.15; Mon, 18 Oct
+ 2021 10:11:44 +0000
+Received: from DB6PR0801MB2024.eurprd08.prod.outlook.com
+ ([fe80::45c9:9096:a15b:6955]) by DB6PR0801MB2024.eurprd08.prod.outlook.com
+ ([fe80::45c9:9096:a15b:6955%4]) with mapi id 15.20.4608.018; Mon, 18 Oct 2021
+ 10:11:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,246 +69,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d31f0e1-f092-4008-b469-16449d62ce38
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1634551789;
-  h=from:to:cc:subject:date:message-id:mime-version;
-  bh=YWJg+zDnYt6xqu2Z8qpX70ggtGzngAo5flx3bGFEqa4=;
-  b=RAd31PhkezORLwMiTvPkThxdjZ19S0/Y8e8CeEx2kRxxTO6A9G0XX/ca
-   yv82cqQ2gmKjzFvboYBtkLFx5j2hAaAHwuGIZSZ7tad1RWpRhskNGx8hk
-   yJA9C47opXJ9xUeHJee3K1FB/s2hpFky8BFE5TPUxBPKRSwjmEE7/fe9T
-   Y=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 1YOxloufTNMrsdWlRFOWGjFlI5kMf0sL6+91kVewiwBqlgQTNZBIauyNNvEsyc4f6ZS9xSeYUI
- vIVVlu8IpKRLiiFZJXFipp3UukUp/SNyvHttB4e44XdF1x/61RpQsotwQUyv03XqS2hk6I8Kr6
- 2oVbIxXmUEiPvzvWTOLDdm6796lSCx88I+pCaH2wmEzTx59XH354IMaZ1UN1xBWAIdZ514Omb0
- Cf5NnHBY+z8tu4nSQv5XFfscVRvBHWDyybxDOmsqHalpEaLfCGG+YjPtSQLRKh1adaUPVWEuP8
- /3AVJjHGYTn/vH3EnPT7dt07
-X-SBRS: 5.1
-X-MesageID: 55422929
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:9ciN4a9UQudHN9jqOhImDrUDSXmTJUtcMsCJ2f8bNWPcYEJGY0x3n
- TdLDTqBa6uDYGfweYh2Pdzj9ElX657cn95kHARvqy48E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
- +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhGGeIdA970Ug6wrZg0tYx6TSEK1jlV
- e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
- I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhb7
- 94X6rK6SDwSN7HhqPwASAB3AQ5HaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
- 6ZCcXZUM07F17neLLGTE4GAguwBJc/meqYWvnhkxDfUJf0nXYrCU+PB4towMDIY250SR6yPP
- ZtxhTxHQh/uWzEXOW8rKNFng8Ol2lbZLjtGkQfAzUYwyzeKl1EguFT3C/LKfvSaSMMTmVyXz
- krH4GbREhwcLMaYyzeO7jSrnOCntTP2XsceGaO18tZugUaP3SoDBRsOT1y5rPKlzEmkVLpix
- 1c8o3R06/JorQryE4e7D0bQTGO4UgA0cf1bSbIU4gC28aPIzjaBG3MdYSxuUYlz3CMpfgAC2
- liMltLvIDVgtryJVH6QnoupQSOO1Ts9djBaO3dVJecRy5y6+ttr10OQJjp2OPft1oWdJN3m/
- 9ydQMHSbZ0ohskXy77zw1nDhz+9znQiZl9ovluJNo5JAwUQWWJEW2BKwQWDhRqjBNzAJrVkg
- JTis5LPhAzpJcrV/BFhuM1XQNmUCw+taVUwe2JHEZg77CiK8HW+Z41W6zwWDB43aZpYKGK4O
- hOP41I5CHpv0J2CN/4fj2WZUJxC8EQdPY69CqC8giRmM/CdizNrDAkxPBXNjggBYWAnkL0lO
- IfzTCpfJS1yNEiT9xLvH711+eZynkgWnDqPLbimn0XP+efPPxa9FOZaWGZim8hktctoVi2Oq
- I0BXyZLoj0CONDDjt7/qtJKcg1WcCFmXPgbaaV/L4a+H+avI0l5Y9e5/F/rU9UNc319mria8
- 3ejdFVfzVaj13TLJR/TMiJoaa/1XIY5pnU+ZHR+MVGt0nklQICu8KZAKMdnIeh5rLRunaxuU
- v0IW8ScGfATGD7JzCsQMMvmp4t4eRX12Q/XZ3i5YCIydoJLThDS/oO2ZRPm8SQDV3LltcY3r
- 7C6+BncRJ4PG1ZrAMrMMar9xFKtp3kN3ul1WhKQcNVUfUzt9qlsKjDw0aBrc51dd02by2LDh
- QiMABoeqe3cmKMP8YHE1fKesoOkM+piBU4GTWPV2qm7aHvB9W25zI4eDOvRJWLBVHn58bmJb
- PlOy62uK+UOmVtHvtYuE7tvyq5itdLjq6UDk1ZhFXTPKV+qFqlhMj+N2swW7v9BwbpQuA2XX
- EOT+4YFZeXVaZ29SFNBdhA4aumj1O0PnmiA5Ps4F0z2+Str8efVSk5VJRSN1HRQIbYd3FnJG
- gv9VBr6MzCCtyc=
-IronPort-HdrOrdr: A9a23:qoTIvaHcPl4XqMxkpLqE5seALOsnbusQ8zAXPiFKJSC9F/byqy
- nAppsmPHPP5gr5OktBpTnwAsi9qBrnnPYejLX5Vo3SPzUO1lHYSb1K3M/PxCDhBj271sM179
- YFT0GmMqyTMWRH
-X-IronPort-AV: E=Sophos;i="5.85,381,1624334400"; 
-   d="scan'208";a="55422929"
-From: Jane Malalane <jane.malalane@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Jane Malalane <jane.malalane@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: [PATCH] tests/resource: Extend to check that the grant frames are mapped correctly
-Date: Mon, 18 Oct 2021 11:08:48 +0100
-Message-ID: <20211018100848.10612-1-jane.malalane@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-Inumbo-ID: 2a57b5db-03e4-41ef-9ee0-923736e4d26d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C7LgqLdTNDEDiVDBQehlXhP6YASeoTWOaWwPp34w2Ls=;
+ b=WXefGkkz31y21dJynhvEsOXJkyWzR5CSSrFEgTur4wzUv1mFPY7j4Om5QR3Sh1zT8sIPcmbQc1qAKwRAO3JGX9KPNPdWYKg/hMjgwyjj3AeX8BLZSCfO+rt6LTWyCSsw8US+iKMTZDun5u0S/9KmMngWn9eVkLTQXZ3KUGeg/xw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: b49b5daeddc9e32c
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kAptvQcsXVIIaz4JLbk8pCvuNcqUcZ2Dp4DrsILIPn5ilKa71IWBpl2CdBX/NoPbu4aEr8Q3wQRalgn5yzLmLsFqAikgRNB/WU8spvpcoPJ36RNLhrCmzntQywhN/zA2Y1a5TXwyR56fYwyrGPdTgKD8lc4gQUBDST2MyMVwmz7mf6rYMvIT18WznKJzo9WzF7soEjxv2Ans4Vi43XdIKxe3EP1KHHn61RzcvHz1aYwh9sFAGhEf7+A38YLr2+2VcWS64eSnK7/CqDFoDhe4bYnTQPZfoe6oQ6LNQjdo9Z2qgq55X/BAy98uVQ9J6rF/6UtkTkAW2/aix83NDuShWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C7LgqLdTNDEDiVDBQehlXhP6YASeoTWOaWwPp34w2Ls=;
+ b=bp7k1sO+uUWs06hfIuoSIQmg1+E/Gou1HrDL0POiAPMky+0hYov2JVBo3MmwZIny46WBu6YiHUVjRRZqILwu/r8ujpu03hyXYzjjfL+FG0ZtDjXmxpf7HoqtVVTG9hp+XJTfhblVKCS7/wEhriXOAJRxCADYX7P6lXkeN3F28M/QGvvDdnXju339x+mLRXBbFyLWquBEcJKluMMg4kcxah1CZP+thtteMcVBu0MjlEmLo0iknGt5kWMQs3+N0rYTg6mTRVkuYGZ0Za8lacoG6sUFVPIDncGMcAwdYDyHQzcvDZmqJn20aXU8gN4oqxFIrlWwyHywh4PNDnu2kWaXfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C7LgqLdTNDEDiVDBQehlXhP6YASeoTWOaWwPp34w2Ls=;
+ b=WXefGkkz31y21dJynhvEsOXJkyWzR5CSSrFEgTur4wzUv1mFPY7j4Om5QR3Sh1zT8sIPcmbQc1qAKwRAO3JGX9KPNPdWYKg/hMjgwyjj3AeX8BLZSCfO+rt6LTWyCSsw8US+iKMTZDun5u0S/9KmMngWn9eVkLTQXZ3KUGeg/xw=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Rahul Singh <Rahul.Singh@arm.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
+	<roger.pau@citrix.com>, "iwj@xenproject.org" <iwj@xenproject.org>,
+	"sstabellini@kernel.org" <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v8 2/5] xen/arm: Enable the existing x86 virtual PCI
+ support for ARM
+Thread-Topic: [PATCH v8 2/5] xen/arm: Enable the existing x86 virtual PCI
+ support for ARM
+Thread-Index: AQHXweULx+Lzp09rU0elFmx0jxVt5qvYZOcAgAAoaQA=
+Date: Mon, 18 Oct 2021 10:11:44 +0000
+Message-ID: <FBC4FA6D-AF07-437A-BD81-52708B139070@arm.com>
+References: <cover.1634315461.git.bertrand.marquis@arm.com>
+ <e2b10f56043155e4bb8eae824723045ccc042f8e.1634315461.git.bertrand.marquis@arm.com>
+ <ca5558b2-25c6-90d2-284b-03cbbb02691f@suse.com>
+In-Reply-To: <ca5558b2-25c6-90d2-284b-03cbbb02691f@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3654.120.0.1.13)
+Authentication-Results-Original: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-Correlation-Id: d9ddf5d6-9988-4960-ef2b-08d9921fb932
+x-ms-traffictypediagnostic: DB7PR08MB4604:|AM8PR08MB6562:
+x-ms-exchange-transport-forked: True
+X-Microsoft-Antispam-PRVS:
+	<AM8PR08MB65622918F2E2484E3C6CDBBB9DBC9@AM8PR08MB6562.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ /Y0zFDS/K6cTyN6LnQeIxqRecqwC/hFVMxt3uxu3hyBjqvzQ7jyo1XMjJd5RcP5/+DtH4J0DXDKKO7LsijWqUTIIAWadUVksNZmngiHjlVyLDAa56sGcxPhPG3AFcf1SF84iTPKQ6aM2CesoEqzyH9g/nvWAi3vgHPDmCCzfUbtATH5UvvAhRV6iiXdP92tVjbwj+qWrxAr03hbcVEfIgacSXdeCPREOgXV3bfe3xKel8PQHS8QXq3l3v63P4xvBBVvki4iSxUe+xfgJ6THevv86MBQKXKvwSYVjLkbTSedinM9exd0AWpMu7PXZrEoWObFPKoFtZR6lSLng9UaXJdHu4cSAE0IlbhWxlnSrAzbJLZCqE9U2ZtkBaGEqlFjFG/zSgp8RVk9+KpjvyKRH2psMsqQrb9DWo2CSKwjceBJhO9xBNehAWBX4A1GZOUmI/3QcfPXUzbDmTmFMy1v+GPJNBoozxBdr5CJihlNczJMR2mheIYOvYSi49stbw5dg7P85SC9vNyWiWojOTwDnoilbILoM32Q02fUFJKQyaFgey8p3EsooYqKP7I5cx2hrKhy6S+3B9ty2r7gdq+0XAh3d6MZpzzCdVe7N/740ePBqbavQhwqgJfvgQYiqCD+JtjBF/TPBEUlyW0qvoEKkNxtxTnQdjys8s+n08mjVn12ktatmV1LCTWa6nI5T0aZ24MMBTI11ocTEAnDz6rZPEJQIlwDgCpZGyxQQ0m+XkP9k6wKYcbsAzyeAx3hguRQ+Bb7MtEsn9qTyRURttbUkPA==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0801MB2024.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(33656002)(38100700002)(122000001)(316002)(4326008)(6506007)(38070700005)(66946007)(66476007)(6916009)(53546011)(7416002)(26005)(83380400001)(36756003)(2906002)(64756008)(76116006)(91956017)(186003)(508600001)(5660300002)(8676002)(2616005)(66556008)(66446008)(71200400001)(6486002)(6512007)(86362001)(54906003)(8936002)(2004002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <E72AE75A5CE81147AF279F12B82DE16B@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB4604
+Original-Authentication-Results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT007.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	eb21536e-d583-42ed-88a8-08d9921fb030
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	iucLUbjV4Wx5IkWR50fDFccnJmfSmDv9aqTItWLUAvz9eAMMb74zPROlzNZekTbAFSVPxvz+mu8R6QvExpbkRA+v8EWfXyn3B7zHLZLzXfC0HenIcxfSrdTo2cKxoaXzsHHSeVMCv+ybf1LDvnNRV/Gti1hAdByNL84/AQbB+XQhoawVCP/BOcIc5+VyOgZX28r2tvktsruOVXRbbi8zpLa/bJEZFO1UdyEu01Wb0opUbwULvtCDTvWyBcOxFAhhOzQ0mP7BTeND8lMwgvRbES4+FkSVpk0hX9tF+YnaM69bQnE35JmdQ+vYww3Ofcy5NYC9gp3JvuNpJNbkDhmNvghcdwcAnZW7a54JYZEPMfInNYJNTqMkF5b+wBapScg06QcU7NpQt6JjvtlEAOrt3pyIQxQTv0H2CySFwR9s/1RQllY6ej5huT7KbcI7zAO5/CdyaNEJNE6SligvSOmj3VBhHO5XgwF7QYsnKkUTyB+u/c2U3I+HQ1uvwKIyJ0iHNTOkMRsXsxIpSRiIdKZ8dR9FPDzkrf7Qak4ZP0C4iK9sLTB8ey0BX0wiyrb9mpa3YDvGTV3r3OmulxJ3Pz086RllyJYQqAVOCEHZgwnKmrGeLR9AHDUgz7eqFgqiwK69AfV6eBexv9ucNVWzIfjLyv6orENezacmJjM+0MmnCgbM/3G4eipZuWcUKyunPOBxo800nUlYIZRQ8WFoLFcZxiu+ycy+XzeyVyR+1drxYjQ=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(8936002)(6512007)(82310400003)(5660300002)(6486002)(2906002)(36756003)(356005)(26005)(81166007)(53546011)(186003)(6506007)(70206006)(83380400001)(36860700001)(8676002)(6862004)(508600001)(316002)(86362001)(47076005)(336012)(2616005)(33656002)(4326008)(70586007)(54906003)(2004002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2021 10:11:59.7790
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9ddf5d6-9988-4960-ef2b-08d9921fb932
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT007.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB6562
 
-Previously, we checked that we could map 40 pages with nothing
-complaining. Now we're adding extra logic to check that those 40
-frames are "correct".
+Hi Jan,
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
----
-CC: Ian Jackson <iwj@xenproject.org>
-CC: Wei Liu <wl@xen.org>
----
- tools/tests/resource/Makefile        |  2 +
- tools/tests/resource/test-resource.c | 81 +++++++++++++++++++++++++++++++++---
- 2 files changed, 77 insertions(+), 6 deletions(-)
+> On 18 Oct 2021, at 08:47, Jan Beulich <jbeulich@suse.com> wrote:
+>=20
+> On 15.10.2021 18:51, Bertrand Marquis wrote:
+>> --- /dev/null
+>> +++ b/xen/arch/arm/vpci.c
+>> @@ -0,0 +1,77 @@
+>> +/*
+>> + * xen/arch/arm/vpci.c
+>> + *
+>> + * This program is free software; you can redistribute it and/or modify
+>> + * it under the terms of the GNU General Public License as published by
+>> + * the Free Software Foundation; either version 2 of the License, or
+>> + * (at your option) any later version.
+>> + *
+>> + * This program is distributed in the hope that it will be useful,
+>> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+>> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+>> + * GNU General Public License for more details.
+>> + */
+>> +#include <xen/sched.h>
+>> +#include <xen/vpci.h>
+>> +
+>> +#include <asm/mmio.h>
+>> +
+>> +static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
+>> +                          register_t *r, void *p)
+>> +{
+>> +    pci_sbdf_t sbdf;
+>> +    /* data is needed to prevent a pointer cast on 32bit */
+>> +    unsigned long data;
+>> +
+>> +    /* We ignore segment part and always handle segment 0 */
+>> +    sbdf.sbdf =3D VPCI_ECAM_BDF(info->gpa);
+>> +
+>> +    if ( vpci_ecam_read(sbdf, ECAM_REG_OFFSET(info->gpa),
+>> +                        1U << info->dabt.size, &data) )
+>> +    {
+>=20
+> Here it is quite clear that the SBDF you pass into vpci_ecam_read() is
+> the virtual one. The function then calls vpci_read(), which in turn
+> will call vpci_read_hw() in a number of situations (first and foremost
+> whenever pci_get_pdev_by_domain() returns NULL). That function as well
+> as pci_get_pdev_by_domain() use the passed in SBDF as if it was a
+> physical one; I'm unable to spot any translation. Yet I do recall
+> seeing assignment of a virtual device and function number somewhere
+> (perhaps another of the related series), so the model also doesn't
+> look to assume 1:1 mapping of SBDF.
 
-diff --git a/tools/tests/resource/Makefile b/tools/tests/resource/Makefile
-index 1c3aee4ff7..b3cd70c06d 100644
---- a/tools/tests/resource/Makefile
-+++ b/tools/tests/resource/Makefile
-@@ -31,10 +31,12 @@ CFLAGS += -Werror
- CFLAGS += $(CFLAGS_xeninclude)
- CFLAGS += $(CFLAGS_libxenctrl)
- CFLAGS += $(CFLAGS_libxenforeginmemory)
-+CFLAGS += $(CFLAGS_libxengnttab)
- CFLAGS += $(APPEND_CFLAGS)
- 
- LDFLAGS += $(LDLIBS_libxenctrl)
- LDFLAGS += $(LDLIBS_libxenforeignmemory)
-+LDFLAGS += $(LDLIBS_libxengnttab)
- LDFLAGS += $(APPEND_LDFLAGS)
- 
- %.o: Makefile
-diff --git a/tools/tests/resource/test-resource.c b/tools/tests/resource/test-resource.c
-index 1caaa60e62..fa4ca6217f 100644
---- a/tools/tests/resource/test-resource.c
-+++ b/tools/tests/resource/test-resource.c
-@@ -6,6 +6,7 @@
- 
- #include <xenctrl.h>
- #include <xenforeignmemory.h>
-+#include <xengnttab.h>
- #include <xen-tools/libs.h>
- 
- static unsigned int nr_failures;
-@@ -17,13 +18,16 @@ static unsigned int nr_failures;
- 
- static xc_interface *xch;
- static xenforeignmemory_handle *fh;
-+static xengnttab_handle *gh;
- 
--static void test_gnttab(uint32_t domid, unsigned int nr_frames)
-+static void test_gnttab(uint32_t domid, unsigned int nr_frames, unsigned long gfn)
- {
-     xenforeignmemory_resource_handle *res;
--    void *addr = NULL;
-+    grant_entry_v1_t *gnttab;
-     size_t size;
-     int rc;
-+    uint32_t refs[nr_frames], domids[nr_frames];
-+    void *grants;
- 
-     printf("  Test grant table\n");
- 
-@@ -51,18 +55,52 @@ static void test_gnttab(uint32_t domid, unsigned int nr_frames)
-     res = xenforeignmemory_map_resource(
-         fh, domid, XENMEM_resource_grant_table,
-         XENMEM_resource_grant_table_id_shared, 0, size >> XC_PAGE_SHIFT,
--        &addr, PROT_READ | PROT_WRITE, 0);
-+        (void *)&gnttab, PROT_READ | PROT_WRITE, 0);
- 
-     /*
-      * Failure here with E2BIG indicates Xen is missing the bugfix to map
-      * resources larger than 32 frames.
-      */
-     if ( !res )
--        return fail("    Fail: Map %d - %s\n", errno, strerror(errno));
-+        return fail("    Fail: Map grant table %d - %s\n", errno, strerror(errno));
- 
-+    /* Put each gref at a unique offset in its frame. */
-+    for ( unsigned int i = 0; i < nr_frames; i++ )
-+    {
-+        unsigned int gref = i * (XC_PAGE_SIZE / sizeof(*gnttab)) + i;
-+
-+        refs[i] = gref;
-+        domids[i] = domid;
-+
-+        gnttab[gref].domid = 0;
-+        gnttab[gref].frame = gfn;
-+        gnttab[gref].flags = GTF_permit_access;
-+    }
-+
-+    /* Map grants. */
-+    grants = xengnttab_map_grant_refs(gh, nr_frames, domids, refs, PROT_READ | PROT_WRITE);
-+
-+    /* Failure here indicates either that the frames were not mapped
-+     * in the correct order or xenforeignmemory_map_resource() didn't
-+     * give us the frames we asked for to begin with.
-+     */
-+    if ( grants == NULL )
-+    {
-+        fail("    Fail: Map grants %d - %s\n", errno, strerror(errno));
-+        goto out;
-+    }
-+
-+    /* Unmap grants. */
-+    rc = xengnttab_unmap(gh, grants, nr_frames);
-+
-+    if ( rc )
-+        fail("    Fail: Unmap grants %d - %s\n", errno, strerror(errno));
-+
-+    /* Unmap grant table. */
-+ out:
-     rc = xenforeignmemory_unmap_resource(fh, res);
-     if ( rc )
--        return fail("    Fail: Unmap %d - %s\n", errno, strerror(errno));
-+        return fail("    Fail: Unmap grant table %d - %s\n", errno, strerror(errno));
- }
- 
- static void test_domain_configurations(void)
-@@ -107,6 +145,7 @@ static void test_domain_configurations(void)
-         struct test *t = &tests[i];
-         uint32_t domid = 0;
-         int rc;
-+        xen_pfn_t ram[1] = { 0 };
- 
-         printf("Test %s\n", t->name);
- 
-@@ -123,8 +162,25 @@ static void test_domain_configurations(void)
- 
-         printf("  Created d%u\n", domid);
- 
--        test_gnttab(domid, t->create.max_grant_frames);
-+        rc = xc_domain_setmaxmem(xch, domid, -1);
-+        if ( rc )
-+        {
-+            fail("  Failed to set max memory for domain: %d - %s\n",
-+                 errno, strerror(errno));
-+            goto test_done;
-+        }
-+
-+        rc = xc_domain_populate_physmap_exact(xch, domid, ARRAY_SIZE(ram), 0, 0, ram);
-+        if ( rc )
-+        {
-+            fail("  Failed to populate physmap domain: %d - %s\n",
-+                 errno, strerror(errno));
-+            goto test_done;
-+        }
-+
-+        test_gnttab(domid, t->create.max_grant_frames, ram[0]);
- 
-+    test_done:
-         rc = xc_domain_destroy(xch, domid);
-         if ( rc )
-             fail("  Failed to destroy domain: %d - %s\n",
-@@ -138,13 +194,26 @@ int main(int argc, char **argv)
- 
-     xch = xc_interface_open(NULL, NULL, 0);
-     fh = xenforeignmemory_open(NULL, 0);
-+    gh = xengnttab_open(NULL, 0);
- 
-     if ( !xch )
-         err(1, "xc_interface_open");
-     if ( !fh )
-         err(1, "xenforeignmemory_open");
-+    if ( !gh )
-+        err(1, "xengnttab_open");
- 
-     test_domain_configurations();
- 
-     return !!nr_failures;
- }
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
--- 
-2.11.0
+This question was answered by Oleksandr I think.
+
+>=20
+>> --- a/xen/drivers/passthrough/pci.c
+>> +++ b/xen/drivers/passthrough/pci.c
+>> @@ -756,6 +756,19 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+>>     if ( !pdev->domain )
+>>     {
+>>         pdev->domain =3D hardware_domain;
+>> +#ifdef CONFIG_ARM
+>> +        /*
+>> +         * On ARM PCI devices discovery will be done by Dom0. Add vpci =
+handler
+>> +         * when Dom0 inform XEN to add the PCI devices in XEN.
+>> +         */
+>> +        ret =3D vpci_add_handlers(pdev);
+>> +        if ( ret )
+>> +        {
+>> +            printk(XENLOG_ERR "Setup of vPCI failed: %d\n", ret);
+>> +            pdev->domain =3D NULL;
+>> +            goto out;
+>> +        }
+>> +#endif
+>>         ret =3D iommu_add_device(pdev);
+>>         if ( ret )
+>>         {
+>=20
+> Upon failure, vpci_add_handlers() will itself call vpci_remove_handlers()=
+.
+> What about iommu_add_device() failure? The device will have ->domain
+> zapped, but all vPCI handlers still in place. This aspect of insufficient
+> error cleanup was pointed out already in review of v1.
+
+Yes a call to vpci_remove_device should be made on the error path out if
+iommu_add_device is failing. This should also be done in fact in=20
+pci_remove_device before cleanup the msi.
+We will push a patch with a proposal for a fix for this.
+
+>=20
+> Furthermore already in v1 I questioned why this would be Arm-specific: On
+> x86 this code path is going to be taken for all devices Xen wasn't able
+> to discover at boot (anything on segments we wouldn't consider config
+> space access safe on without reassurance by Dom0 plus SR-IOV VFs, at the
+> very least). Hence it is my understanding that something along these
+> lines is actually also needed for PVH Dom0. I've just checked, and
+> according to my mailbox that comment was actually left unresponded to.
+>=20
+> Roger, am I missing anything here as to PVH Dom0 getting handlers put in
+> place?
+
+From Roger answer I understood that it will be needed (in the future).=20
+When and if this is needed, the ifdef CONFIG_ARM can be removed
+but this would change x86 code behaviour so I do not think it would
+have been right to do that in this serie.
+
+>=20
+> Of course as soon as the CONFIG_ARM conditionals were dropped, the
+> __hwdom_init issue would become an "active" one.
+
+We will push a proposal for a fix for that.
+If I understand Roger right, vpci_add_handler will also be needed in runtim=
+e
+on x86 in the future so maybe it would even be right to remove the flag alt=
+ogether ?
+
+Regards
+Bertrand
+
+>=20
+> Jan
+>=20
 
 
