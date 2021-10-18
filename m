@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03E7D4322E4
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Oct 2021 17:31:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.212449.370318 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDB794322F5
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Oct 2021 17:34:45 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.212456.370330 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcUbp-0003nu-9h; Mon, 18 Oct 2021 15:31:29 +0000
+	id 1mcUeX-0004Ov-Nx; Mon, 18 Oct 2021 15:34:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 212449.370318; Mon, 18 Oct 2021 15:31:29 +0000
+Received: by outflank-mailman (output) from mailman id 212456.370330; Mon, 18 Oct 2021 15:34:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcUbp-0003k8-6Y; Mon, 18 Oct 2021 15:31:29 +0000
-Received: by outflank-mailman (input) for mailman id 212449;
- Mon, 18 Oct 2021 15:31:28 +0000
+	id 1mcUeX-0004N7-Kg; Mon, 18 Oct 2021 15:34:17 +0000
+Received: by outflank-mailman (input) for mailman id 212456;
+ Mon, 18 Oct 2021 15:34:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=6zTk=PG=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mcUbo-0003k2-1s
- for xen-devel@lists.xenproject.org; Mon, 18 Oct 2021 15:31:28 +0000
+ id 1mcUeW-0004N1-8a
+ for xen-devel@lists.xenproject.org; Mon, 18 Oct 2021 15:34:16 +0000
 Received: from smtp-out1.suse.de (unknown [195.135.220.28])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 645b8893-8fe7-48a1-b408-8b20a99f1489;
- Mon, 18 Oct 2021 15:31:27 +0000 (UTC)
+ id ab8d8f8a-4d0f-4ff0-bcc4-b2921fc796fd;
+ Mon, 18 Oct 2021 15:34:15 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7BEBD21961;
- Mon, 18 Oct 2021 15:31:26 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 41BBE21961;
+ Mon, 18 Oct 2021 15:34:14 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 33BA113E74;
- Mon, 18 Oct 2021 15:31:26 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1B825140B1;
+ Mon, 18 Oct 2021 15:34:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id PYJZC06TbWHpHwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 18 Oct 2021 15:31:26 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id nsZtBfaTbWGUIQAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 18 Oct 2021 15:34:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,100 +50,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 645b8893-8fe7-48a1-b408-8b20a99f1489
+X-Inumbo-ID: ab8d8f8a-4d0f-4ff0-bcc4-b2921fc796fd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1634571086; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1634571254; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Bebn0aIVvHG2YKd1gePyAeqWFN8ricr7tbVd8kUDnY8=;
-	b=aiUDnNIFyKhfPW4LwA8ofBKE/ulW15aqs3jXivEsuZ8XA3TIqZEbFmbs5KGp2uggdvrTAn
-	fyuNUUjFEDEmxGA5L6BFoBVhn5gL9+6pL3YHcFOayea3CwrDFEDSFrsoTtwI8CfMGK17Dn
-	6xaEWzV/dnwTbfbft50yD0YoAD4en2Q=
-Subject: Re: [PATCH 03/12] xen: harmonize return types of hypercall handlers
+	bh=kFk64Uh32heiFEGqzzb3aE+jycVincgZmQe5hOMAeJI=;
+	b=Ex0k38cJW3oqtIF3k3otjk0W/XnJIVPrgRByYULvklSx/Q+ABjGUNUIA+dpMa/sJ1x7o/Y
+	shiyDNj+BifihS96BZ7PC4M7XzZ8TmiC7OiArE3lyV+XdS8qcaGcfR6rFd1gF3D6dpXi6G
+	AB1dH/QIR5a5Ik59Atp447MXY/arNmY=
+Subject: Re: [PATCH 04/12] xen/x86: modify hvm_memory_op() prototype
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Christopher Clark <christopher.w.clark@gmail.com>,
- xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <20211015125152.25198-1-jgross@suse.com>
- <20211015125152.25198-4-jgross@suse.com>
- <7bd0cff1-6e88-f8dd-d857-229e75dd2772@suse.com>
- <0ca6cdf1-330b-f47f-dea8-442c3cc268ea@suse.com>
- <838aace7-8076-3c78-cb53-faef04162568@suse.com>
+ <20211015125152.25198-5-jgross@suse.com>
+ <71fae3b2-9f90-878c-50f1-e9c0d7cf7e5c@suse.com>
+ <d5c5854f-6bd1-db12-b530-ffc628f473f7@suse.com>
+ <0a1aee06-41da-7045-4bdd-33993ce3741e@suse.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <ccff48c8-2602-d9e1-09c2-bb8ea34199b6@suse.com>
-Date: Mon, 18 Oct 2021 17:31:25 +0200
+Message-ID: <a2031437-d5c9-158e-d569-e34d79880ad4@suse.com>
+Date: Mon, 18 Oct 2021 17:34:13 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <838aace7-8076-3c78-cb53-faef04162568@suse.com>
+In-Reply-To: <0a1aee06-41da-7045-4bdd-33993ce3741e@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="IZ7raxpQLwcLC0WnNJktuPV4tK1wc2PKd"
+ boundary="8MZ0cbvgWoPdEv2qmeX6bjF7EgWiEG1EU"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---IZ7raxpQLwcLC0WnNJktuPV4tK1wc2PKd
-Content-Type: multipart/mixed; boundary="f28DWcDy3mVdrwdjhptSCPNPhd0OHDMWj";
+--8MZ0cbvgWoPdEv2qmeX6bjF7EgWiEG1EU
+Content-Type: multipart/mixed; boundary="5kVMQvNheUEqyv8MsIx7sCpjZq82VNTFb";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Christopher Clark <christopher.w.clark@gmail.com>,
- xen-devel@lists.xenproject.org
-Message-ID: <ccff48c8-2602-d9e1-09c2-bb8ea34199b6@suse.com>
-Subject: Re: [PATCH 03/12] xen: harmonize return types of hypercall handlers
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+Message-ID: <a2031437-d5c9-158e-d569-e34d79880ad4@suse.com>
+Subject: Re: [PATCH 04/12] xen/x86: modify hvm_memory_op() prototype
 References: <20211015125152.25198-1-jgross@suse.com>
- <20211015125152.25198-4-jgross@suse.com>
- <7bd0cff1-6e88-f8dd-d857-229e75dd2772@suse.com>
- <0ca6cdf1-330b-f47f-dea8-442c3cc268ea@suse.com>
- <838aace7-8076-3c78-cb53-faef04162568@suse.com>
-In-Reply-To: <838aace7-8076-3c78-cb53-faef04162568@suse.com>
+ <20211015125152.25198-5-jgross@suse.com>
+ <71fae3b2-9f90-878c-50f1-e9c0d7cf7e5c@suse.com>
+ <d5c5854f-6bd1-db12-b530-ffc628f473f7@suse.com>
+ <0a1aee06-41da-7045-4bdd-33993ce3741e@suse.com>
+In-Reply-To: <0a1aee06-41da-7045-4bdd-33993ce3741e@suse.com>
 
---f28DWcDy3mVdrwdjhptSCPNPhd0OHDMWj
+--5kVMQvNheUEqyv8MsIx7sCpjZq82VNTFb
 Content-Type: multipart/mixed;
- boundary="------------18F8228651698E4AAF501EC8"
+ boundary="------------FAFE546B6B3A6EE8C0C875FC"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------18F8228651698E4AAF501EC8
+--------------FAFE546B6B3A6EE8C0C875FC
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 18.10.21 16:25, Jan Beulich wrote:
-> On 18.10.2021 15:24, Juergen Gross wrote:
->> On 18.10.21 13:55, Jan Beulich wrote:
+On 18.10.21 16:28, Jan Beulich wrote:
+> On 18.10.2021 15:27, Juergen Gross wrote:
+>> On 18.10.21 14:31, Jan Beulich wrote:
 >>> On 15.10.2021 14:51, Juergen Gross wrote:
->>>> Change the type of the cmd parameter for [do|compat]_kexec_op() to
->>>> unsigned int, as this is more appropriate for the compat case.
->>>
->>> The change for the compat case is fine, but for native you change
->>> behavior for callers passing values equaling valid KEXEC_CMD_*
->>> modulo 2=C2=B3=C2=B2.
->>
->> TBH, I don't think this is really a problem. Or do you think there
->> really is a user of this interface relying on a -ENOSYS in this
->> case?
->=20
-> That's a secondary consideration of mine only. The primary one is
-> that invoking with an invalid sub-op should fail, such that in the
-> future we can assign meaning to the upper bits, if need be. See
-> their use for continuations in memory-op, for example.
+>>>> hvm_memory_op() should take an unsigned long as cmd, like
+>>>> do_memory_op().
+>>>>
+>>>> As hvm_memory_op() is basically just calling do_memory_op() (or
+>>>> compat_memory_op()) passing through the parameters the cmd parameter=
 
-But this would mean to exclude such usage of upper bits for 32 bit
-systems in case this difference should matter.
+>>>> should have no smaller size than that of the called functions.
+>>>>
+>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>
+>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> Nevertheless ...
+>>>
+>>>> --- a/xen/arch/x86/hvm/hypercall.c
+>>>> +++ b/xen/arch/x86/hvm/hypercall.c
+>>>> @@ -31,7 +31,7 @@
+>>>>    #include <public/hvm/hvm_op.h>
+>>>>    #include <public/hvm/params.h>
+>>>>   =20
+>>>> -static long hvm_memory_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg=
+)
+>>>> +static long hvm_memory_op(unsigned long cmd, XEN_GUEST_HANDLE_PARAM=
+(void) arg)
+>>>>    {
+>>>>        long rc;
+>>>
+>>> ... I think this would even better be dealt with by splitting the
+>>> function into a native one (using unsigned long) and a compat one
+>>> (using unsigned int).
+>>
+>> Why? In 32-bit case the value is naturally limited to 32 bits width
+>> zero-extending perfectly fine to unsigned long.
+>=20
+> It all ends up working fine, yes. Else I wouldn't have given R-b.
+> But the .compat slot of the hypercall table really should use a
+> prototype without unsigned long, and then the calls wouldn't
+> zero-extend the arguments anymore. And then the declaration would
+> be wrong, as then it would need to be the callee to zero-extend if
+> it wants to use 64-bit values.
+>=20
+>> Otherwise I couldn't use the same definition later.
+>=20
+> Right. And this will be less of a problem once the function pointer
+> tables are gone, as then the compiler sees the real parameter types
+> for the individual functions.
+
+Okay, I understand that.
+
+I'd prefer to do that as a followup patch (series) then.
 
 
 Juergen
 
-
---------------18F8228651698E4AAF501EC8
+--------------FAFE546B6B3A6EE8C0C875FC
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -235,25 +258,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------18F8228651698E4AAF501EC8--
+--------------FAFE546B6B3A6EE8C0C875FC--
 
---f28DWcDy3mVdrwdjhptSCPNPhd0OHDMWj--
+--5kVMQvNheUEqyv8MsIx7sCpjZq82VNTFb--
 
---IZ7raxpQLwcLC0WnNJktuPV4tK1wc2PKd
+--8MZ0cbvgWoPdEv2qmeX6bjF7EgWiEG1EU
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFtk00FAwAAAAAACgkQsN6d1ii/Ey9A
-/gf/QiZ5fVV31RdsfmSg9G2jEx9rhKO4SH/Q0i7qXl73JSDLR3IVXt64MUrmMizuCJYGiMYU3WCt
-youyADI1k7l74UBQiIlCebiOwmLcYxyONNolAQC8RJMth0KkgN5cpTIIlLdAM1rVJRyXj0NUjk0I
-wo3rgVVXx6FGLjaHPi/PTgU7kvBAZt/ZrDhJS87OQe2N5VEluFEFYH/6+sXacAje+B/7LR/831PR
-L7oZs2BQ1/SfnGUmj6aB9zi6jviVShzS2YmyaPAxNEH7HiB183nERgKOkzFtELtRYGimoNjZNJn0
-dCGe217vI5fYrTFQD0jDgrfJhdXyj/YInSpO/iaDPA==
-=p8m/
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFtk/UFAwAAAAAACgkQsN6d1ii/Ey8N
+4Af+P01EOJmlM+bsehtC/fX34VpNM7DVlAp8FlzxZFR1/J4fBD7+zY9NEZPU6dCtrw/7orVaki+H
+2HBs+O0WaOIZhQ/Lw/vueMa4U5ZKfLCkrkpe4K0C7jwXC2fNcdLqVqQtTF9iLWbvjciHSAXpqo5Q
+TggrSYju//pIjXjT2xavluX2bow5hqxaVNXPKTGZkgRQCtZF44CRyFxkuT9hoowZYFf13+MeK/ux
+BTgI/fXGSk9yKskG+nfKeSByA5qWvliDwfanJizR+aSD6iGKJHTMYW0npwO1VUHzydZNhNlqkYCO
+P9d5j/DIKzitSbr5SD07dJPLdY7LQ91bACnPyXgawQ==
+=zXDP
 -----END PGP SIGNATURE-----
 
---IZ7raxpQLwcLC0WnNJktuPV4tK1wc2PKd--
+--8MZ0cbvgWoPdEv2qmeX6bjF7EgWiEG1EU--
 
