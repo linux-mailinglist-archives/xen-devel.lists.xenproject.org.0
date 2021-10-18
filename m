@@ -2,45 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7FFB431243
-	for <lists+xen-devel@lfdr.de>; Mon, 18 Oct 2021 10:39:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.211851.369527 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D8AB431256
+	for <lists+xen-devel@lfdr.de>; Mon, 18 Oct 2021 10:43:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.211858.369538 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcOAN-00074Q-AP; Mon, 18 Oct 2021 08:38:43 +0000
+	id 1mcOEl-0008QU-Rc; Mon, 18 Oct 2021 08:43:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 211851.369527; Mon, 18 Oct 2021 08:38:43 +0000
+Received: by outflank-mailman (output) from mailman id 211858.369538; Mon, 18 Oct 2021 08:43:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcOAN-00071o-6D; Mon, 18 Oct 2021 08:38:43 +0000
-Received: by outflank-mailman (input) for mailman id 211851;
- Mon, 18 Oct 2021 08:38:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mcOEl-0008Og-OK; Mon, 18 Oct 2021 08:43:15 +0000
+Received: by outflank-mailman (input) for mailman id 211858;
+ Mon, 18 Oct 2021 08:43:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=628V=PG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mcOAL-00071i-RI
- for xen-devel@lists.xenproject.org; Mon, 18 Oct 2021 08:38:41 +0000
+ id 1mcOEk-0008Oa-2G
+ for xen-devel@lists.xenproject.org; Mon, 18 Oct 2021 08:43:14 +0000
 Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 82e4ad75-bedf-48fd-9f53-1dcf919e020c;
- Mon, 18 Oct 2021 08:38:40 +0000 (UTC)
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur02lp2052.outbound.protection.outlook.com [104.47.4.52]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-39-3XkZYGabOLSDjlqgclbChg-1; Mon, 18 Oct 2021 10:38:38 +0200
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6d5ceb2e-2fef-11ec-82d0-12813bfff9fa;
+ Mon, 18 Oct 2021 08:43:12 +0000 (UTC)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2176.outbound.protection.outlook.com [104.47.17.176])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-33-54Dsm5k0O7yp7hAzmGZIhw-1; Mon, 18 Oct 2021 10:43:10 +0200
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VE1PR04MB6384.eurprd04.prod.outlook.com (2603:10a6:803:126::17)
+ by VI1PR04MB4608.eurprd04.prod.outlook.com (2603:10a6:803:72::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Mon, 18 Oct
- 2021 08:38:36 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4587.25; Mon, 18 Oct
+ 2021 08:43:09 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4608.018; Mon, 18 Oct 2021
- 08:38:36 +0000
+ 08:43:09 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM6P194CA0059.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:84::36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4608.16 via Frontend Transport; Mon, 18 Oct 2021 08:38:35 +0000
+ AM5PR0402CA0005.eurprd04.prod.outlook.com (2603:10a6:203:90::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16 via Frontend
+ Transport; Mon, 18 Oct 2021 08:43:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,220 +54,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82e4ad75-bedf-48fd-9f53-1dcf919e020c
+X-Inumbo-ID: 6d5ceb2e-2fef-11ec-82d0-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1634546319;
+	t=1634546591;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=J3AZQt9zXFJ0tnSQRCHKAPpeLF3APpzN7f9iqQsmzuk=;
-	b=nAeVTnOFRug8eWCW3IwMlDUXniwAivbOLZ7xO4V5v+fVUUS1U+perPPniaQl3ZSW0cic5Y
-	n4vTtSESCAUUUIucnBX6Z54mHeJAtTTs52dj7QbboVuRPoX7VLqhUZ97iuiLE7GZy+N6Uv
-	kAMIK56iNptESFUTSZN3cf1UYNi66a8=
-X-MC-Unique: 3XkZYGabOLSDjlqgclbChg-1
+	bh=kzawKHRM+YDpQu86QEL4tfIbOhZUcRbkP6EYJTYzHmU=;
+	b=ivzw4Ebuq8d9S1jWM5Fx/cS1lacUAOWO3xiImEAOG/9/OvmDpuz05SZsL3ti9o+ZcJS3ws
+	B2CafEOPpGP9oJBP+pWczQ8O7C+8s2szGGgzWQkWTJIrb44vXcm7LjXZ6Vth9C9Si/kIDL
+	aRYaGWv8Ea9sMuawWylsSfNTzrDZdwM=
+X-MC-Unique: 54Dsm5k0O7yp7hAzmGZIhw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TK0ps7+4B4M5/44isJrjLK4unrcopgRHIW61ARhWfBg2xfgt2IqyrQ2Af3u3A3Rwicsx6fZisLhWG/KX3Cbvk4k3HP47ALrHyQErU5FwPfcK+xoR97N7QA+JpiCtKPexQipKix3OR49/d6OjN5MrC3BReBI0JSuj5cvxme+uEFHjK3bkKJVkM3v86j5xI0y21YPw1Oo4o8wm5ILG0f+o5DNcYGNAhWNXtjvNYhy65fDqh6gAgijCjXAxob1rTSu0rFTrKt0rE+GW8nVoVVls5mCwYzBDwW4vtlJX17zL/iKLx7CEpT2fvNNvGFnhdbC12ZKfEXTMAWHAHbDbMDhp5w==
+ b=Y/Pwc07tS7KAbXwVq1SoEZ2mbSe7WPG9lrUvUqIqKf16DHML+Vf6iKZrCP3PPSY0acnlnqrwkHXQ/skd7Sf9hqmEVJC6GC7asjQS52RvonWy9USV8Dqxff0NOzs+SN+Dk9bKWHu87DJqjJWKbTTj9eHdgnHlMrLzIWozzAzBE/5g08ODLPk47vGFl7EfxjhDUFTkH+ZsUDfEKk89+PnvUiPfK1dY3bsHS7lYrGmt/6e2Yr6Dp/7vNssoQicP2wzeUMmMcRKKaSDOKPFMeQsp/PG7a/kNbTjfLJSu1roPFUpPenL/53RnbkXrM+3w9vEtqkIKkngC2fwprqS1q3TW5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fndire85mAACL4pbJGncAywmLzcxt7aJCh+9xcbCQdo=;
- b=Yxa084fsfn+PtIKAI7yv8xcke6wtvx+O96/Vqx3F9B1m65AqSewUtecvjQ91FAr26zUzmdCkRQBK0sSKoCNymmEDrk0AIMq8UknYDKmkh+L1V95GsQIN3HdKmf059mMEzEDmXypLdDa8jlzxY2HnKGsI2ih1XRaZGre1kyyHECZRgQsDImCMQ22s1e654vp6oTfuoJG5kp8GMHY4lDMB5jsikMSGl1IlOsib+pNhfjry8GP4672agdHf93WCrg136ua6qh038onlqCe3deaq/BEeDLhoDvx4HA4MaY8q0B9NZ9hYLbwBQRrLJgQ7f/BVniWmGzApok+eNHgb63ze0g==
+ bh=kzawKHRM+YDpQu86QEL4tfIbOhZUcRbkP6EYJTYzHmU=;
+ b=DaI1ObrAD1i9OIlx00B++2QxS8G4ASDqwnMlZ/PfPCWESNmtAHSnY3kHHZxGKmdqOpqNZlztubRafD3kljxNPzoLMSVRWea6dYdHrtVNTgpr/PlNkSwrLqlZC5dBcCqLNzeWR+0ZNTGXH9IxC/wA6e8zue3N6PaGEMZXTKDqpxo3wet9bdlFQubO0X4Xgeo2nrnkLtS1zDJZQC1Nsn1bhMqW+r1ut5WJIpMzgC2cAWz87b8S9yQx/+3hUVRj3r+xZ577PLQYmraj1X8q77vckjabQPHRSKIkId1wWpOvGawpi0xe/OWB35XjRJa/hQWbjzDaxd5aaoN/beD9IGAaFQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
  header.d=none;lists.xenproject.org; dmarc=none action=none
  header.from=suse.com;
-Subject: Re: [PATCH v8 2/5] xen/arm: Enable the existing x86 virtual PCI
- support for ARM
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>,
- Rahul Singh <rahul.singh@arm.com>, iwj@xenproject.org,
- sstabellini@kernel.org, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-References: <cover.1634315461.git.bertrand.marquis@arm.com>
- <e2b10f56043155e4bb8eae824723045ccc042f8e.1634315461.git.bertrand.marquis@arm.com>
- <ca5558b2-25c6-90d2-284b-03cbbb02691f@suse.com>
- <YW0qa2CXcnWZNCf7@MacBook-Air-de-Roger.local>
+Subject: Re: [XEN PATCH v7 41/51] build,x86: remove the need for build32.mk
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20210824105038.1257926-1-anthony.perard@citrix.com>
+ <20210824105038.1257926-42-anthony.perard@citrix.com>
+ <c99f2bc5-b1dc-7647-4199-a6a731730967@suse.com> <YWmjvqyIyCP6IXmh@perard>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <466083bd-a4d3-0cb6-ebae-11a3e9f67a8f@suse.com>
-Date: Mon, 18 Oct 2021 10:38:34 +0200
+Message-ID: <19e598b6-547d-fa90-83c5-66eaa3787268@suse.com>
+Date: Mon, 18 Oct 2021 10:43:07 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
-In-Reply-To: <YW0qa2CXcnWZNCf7@MacBook-Air-de-Roger.local>
+In-Reply-To: <YWmjvqyIyCP6IXmh@perard>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6P194CA0059.EURP194.PROD.OUTLOOK.COM
- (2603:10a6:209:84::36) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM5PR0402CA0005.eurprd04.prod.outlook.com
+ (2603:10a6:203:90::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 269a01ce-7646-4424-081b-08d99212ad0c
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6384:
+X-MS-Office365-Filtering-Correlation-Id: 7f656f41-a649-4eb2-9205-08d992134fb8
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4608:
 X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB63840C0D082B41B6DFDDC414B3BC9@VE1PR04MB6384.eurprd04.prod.outlook.com>
+	<VI1PR04MB4608733863807551BF3C15A5B3BC9@VI1PR04MB4608.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	5eohtPsyy+4T8kY5It9lTbSkTBLqyTMoIW56HPq1cl/GY9aITmBXhBDaFezeC8VnimVf2YqT7sAXFl1khNybx4hE3w33OLWOP8VvJxpsKw/XPhveDAIM2LLG97EGiq535pPWyFAR+uqU6lelzkqx0ib6GtdDQtPxO9ZXGiF7c6OCGhYP+sfm7okfMHe/EDZAj09qXPH7VLtYpjj82qWXZlGU1AuyvXtNBb0cJLZ98IcyUEicuFmB5LSpagr8UYbDOCnIVWANcHqljpSa7Kto9Bo1qgyUcmqqxPU86n8MjdnGTIL8Pi0TTMTr5Qpatlp18gToBuPqhAuDRgRer6w7+qF3bXvb2BnLuvdG90tdpROsqQiItnvZeq+z4PMLMCaklVk5J5tPEFC9bO/F6r40wuSAcok3atNlpJRzrPZ+YlFOxKtbBZ81REa5PV+1AKBMSwxSyRtPXvwkRt69iT9bOxzq7ws/PGITFBySsFHYw/ED60fGYN24kUI2ZKq5GcTSE62JBHXc2aWMA0Ue3/KSBlbO4MLHVbMysmzL71nyr7o0QXNjvH/7xtM0MFdDp0Ec8/0V+Ew1r4zxa0z0J5jqrGihUJFUScH7g9OVwxtCnd4NlLYMysFpSlqhalrSxtGAKacoRfjf57RflRLu7ULqTHl07+L0hJftVogE0jXRh8n8wdzn9Wu+vfhXWk1aAj2RW/VSZK03godTr0YW4iaTINLKUjVLKlvXeliBYx4FAPgE9isyB4cAgU9idPeRv9TJ
+	Fg5NZdrapVW0gfN9p24qqfTZkuzB4EyiMu0pbvEPIIVLyjHddvM+IrYP43yvOM8e3dLxjpBl7f+5e2ojjrU4sPgAYwQwckv56e5NEk0DraIMeVCTyXvB2j3v89P6yEKSbEILtbQagXt40IDVArq5RVVNpmycjSOYHllMxhuLswpCxCVqG7l+lI06slxYw0JlcEGbbe+EQkM2EobbeEFtQN+P+CZoujdWA6PZqmtj17tFx4Jw6nM/lG3f7sdsu+B0paCuhyne0BuHXKMsZhqaMCp/1Vl1DhmJF7c9sWvDtazFMkU8PBsQjlgmot+GIVilE3IYB+7ezi8XUfUb/BvIey3X49zYEP3MajpouxaUbmtzOdZ21w4lpfBvqDrzmDsQ85FP4FIC9p52Yyb/m1ozildGu6Xf+DpkRNXFgvi/bAEgObFTHsxktITHRJjPWLL5Nf3W8UjzU+AGBzWj7oHZV0cYtF8KHhaTtxxxkXEGjiJ2ceK05ozo9EyaYLCE+c+bC5ugfLoqsMIi7cGZxS/Gf+QE0UzDmqNnQ/XNSkuNae8SdmJj2FMZrV4r8C0guInnbDNiO7Mqz2pQvaHWyomU/flfWrD7bLkNGIxhc6inZfqKAdcY4QUjRyrMkitz2POehw8T3OUxNcjFLfpg2k8Fo3jUyyjBscZuHtKWSfpcVqUGtNcHQuylEty1BKXuePoetDI5tJsGAHSPnG8QzaBYYetfuZGp+Ad4tPBrVzkMbrc=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(54906003)(956004)(53546011)(6486002)(2616005)(186003)(2906002)(66476007)(8936002)(316002)(26005)(4326008)(5660300002)(36756003)(16576012)(6916009)(86362001)(83380400001)(38100700002)(7416002)(66946007)(31686004)(31696002)(66556008)(508600001)(8676002)(2004002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8676002)(6486002)(54906003)(16576012)(186003)(53546011)(36756003)(8936002)(508600001)(316002)(2906002)(4326008)(26005)(5660300002)(66556008)(6916009)(66946007)(66476007)(31696002)(31686004)(38100700002)(2616005)(86362001)(956004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?4lggAL+3IghaaRF8gGWUua48h0kxyPIsetGUjGwZlaW+W/++C7bArhlM6pae?=
- =?us-ascii?Q?vDe0bzyE/muh2b/OeBCkjH7jjfs9iCEckty5aUAL1BnPUNKI9f3gzDp12hpW?=
- =?us-ascii?Q?1tcEbC+P7RieS9ZDHQ5hEtbukz0fhYDYPWxCJQzjT4+/7YrtfrwzrQjrGocd?=
- =?us-ascii?Q?4Qz3Oz4L0aXrvDz7X1l6jOwVGi9EkgfsoIsEqisoGWnnUO7G1LkTj3k6MOJ5?=
- =?us-ascii?Q?vr8CuzfCYZcA09stkMOvAI3KQ31S7WuO8QUTJCBxUBLIsqOjuJH53xH4+eMZ?=
- =?us-ascii?Q?+MpRUpG+pDApF7YFJas5GmFmrZLoQZrl3xDmDyzFiTIczLexfTjpV5vQ+Bwu?=
- =?us-ascii?Q?X71ZIAnJuG4tAwkxCG1iMvK43OADpDob2u79F2Jr51HkadxUzgtnkj97ynec?=
- =?us-ascii?Q?gYJfzhsu+XCwbVGkJMwRF8Z+evwNCbIeVgRmQBiELGtChZCBnliV8aiEUwos?=
- =?us-ascii?Q?xUrypCDzFxa0zHvzb4+6xAyEJ09sE8nLfTeLJTcAnKlGesdqc8cfHllycrpx?=
- =?us-ascii?Q?86CTI5kLm3T4KE93qBS5hGU9tzCUEe5TGUxIhBqugzKWoXY20PJxbKNOa+Mj?=
- =?us-ascii?Q?hd56H/KqMJ9xliSDc93yNBWY3wH+tfpuavyKOQcR6M1H37LRcfW/T4H61sCE?=
- =?us-ascii?Q?skqfzm/7s61I+5Ev/Di+I2I3yCJu/UU/7aQm7jGgkmxLiJyEnHIViDVbaLYY?=
- =?us-ascii?Q?4b7Tk/1A6/OljHBTk4fuKc96NF+aWNzdu3TugQa0NH2wr96T9Ncy1SMdfHsH?=
- =?us-ascii?Q?U5rE7PRnlD1tzOfpsONfKH8hAaU5ibgGxgDTsSEUT5Cq7kvKx2mAB5qh0K1H?=
- =?us-ascii?Q?9ZxWmyHEFYd/aGUcp3Grypg+Oy6QXrXFpibUtEII7ln3AOO7qD0+jlO1lPTg?=
- =?us-ascii?Q?wjr9630/902x4YN9vt3pIAr4ZlKZcCUttwnfob/ObLViEJjX/G9OF8v09MFE?=
- =?us-ascii?Q?Lr1w7s0iPXmJ/cLkakJPhkBHCykSoP/vpHtOgWEE52T3aY/PqG2Azq/omt/8?=
- =?us-ascii?Q?wC1p9BxTuFzO2yxvf+l0Y+HjxXulb4Cl7fMzM/AXkkEDy3K9LPhLFct1jrwB?=
- =?us-ascii?Q?Q1kBvmDX65NnVVygy59vvQ+f5lT7bFvx8UqBerMyHfgDdOIkagKN7pdeHagB?=
- =?us-ascii?Q?LqEq+ivz1yDSBomah93x9/evcfnw0WZSpZgwY9eVX+w1OYR0QNR6fjJTSCHd?=
- =?us-ascii?Q?uXKrYosya2+e3JEouoaT6fcEIXsDDHQtKChulo9IwugkdrPGk2t+MXEMe1mN?=
- =?us-ascii?Q?k/q3c3oO2UrY+fw+4kqPAI1uwwx6GV3q/hnDGYkWIOMPQnJx9ZidCZ0nGPf9?=
- =?us-ascii?Q?QCRNI2UqxzIbhqyj9vgw4gAk?=
+	=?utf-8?B?dnJnWHBsOERUV1hpai8ySjFHVi9VUGJtL0FaUjVzOXRIWEx6aVJJcUFGcXdp?=
+ =?utf-8?B?VTRMbVRtbWJpYTF0MG8wNVExOFI2VVdFbjhhWUVzVmNXSWFic2pOZUJveTcy?=
+ =?utf-8?B?YkhPOVE4ZUZ5a2sySk04MDQ2dUw1R3B0Y20rUnhUdzZBdllBVGllUyt3aDFp?=
+ =?utf-8?B?Y0t5MmgvVGUvVTB2WVZwY1grbjZwaWVoRzNseEQveHExOXo2R2ZOVWlteHFI?=
+ =?utf-8?B?VUxxYXZKd2NOS1RQYVJ1bk9NbjI4eTNiUCtvS1RZOWtwRGc5K25ubEZzVlpu?=
+ =?utf-8?B?ZVE2VXY0TEJkYkgvbGNpcWhxRFdHV0hwTWFOc2NTQXVLRzAyY0FuMWR0Z1lw?=
+ =?utf-8?B?ek1oTGROQWVNVEhTU0JkS2lUaDM4bktVU3VPZFBFbTVrTE5GNXpOWmtoQ1g3?=
+ =?utf-8?B?M2I4NWxHT3FrQVBGQ1o2YnlvcDFqN1B2ZlRWalB0bE85RUFmWkdZeTR0UFhk?=
+ =?utf-8?B?enpXUWE4U1k5bFBYNVZWOVBkdGtvbUhqemY1ek1kVkgrZ1MzSXRLMGxnb1pv?=
+ =?utf-8?B?bFlJTjE4V0lobklMZnc4QS9qQlM3SE1DRlZUcUNSb084Z1pUVDZvakUzRlRX?=
+ =?utf-8?B?Mkg3Nk9ZK01DY0tqSFBRUmpwSXBpclZLZkErZWU2dTRyVm1oaHRQcjVoamx4?=
+ =?utf-8?B?dzdCVE5Ic0hyamJhdWNrakpRMUpaQjNkUVNhTE95Tnd4ZU1MbEdiWWVva3Ba?=
+ =?utf-8?B?cG9VR05ZRWtMdW10OXJ1WTIxSjVUaHMxa0Z6RHdrR21rRWtXenpVNERiZTJH?=
+ =?utf-8?B?L0NhZkxDbEM3NmxiV3lsSTI0TkRrTko1ZnZKSVBtTXFucnVIQ0o2dUExWEVB?=
+ =?utf-8?B?TjN4Q21nRFk5MDhFM0JTdGgvb0tqODQ4OW5PcStOVUVDSWF1NkVpMlE1SU96?=
+ =?utf-8?B?TlEvSnVOcXVQMzIzSGlCdjdZTmdWa0IwRnZtaGUvUjFncGxwdzYwUzMvdXV0?=
+ =?utf-8?B?ZjhGcDcvaTdWOTBzeEt2eExvdEZ0Y2Vrc3BhSDc4aFNNK1lzcEYrWG02Y2xM?=
+ =?utf-8?B?bHR5MFhOdTV1d1ZsSWZXcDVvM3Q2TTNPMDRyWWl0NEZlMDYvMHJsZTdWM1BF?=
+ =?utf-8?B?d3AwZ3lQZmg4Rmloemw2R2hDL3NEUUVjR0VscmNCNlIrcXY2NUtlcEF0d1Ja?=
+ =?utf-8?B?S3BUeTZORE90ZlNUV0V4MHdtS3RzN1dHTTBZUEZIRjFUVUxKWi90bkI2ZVRJ?=
+ =?utf-8?B?a0lueU5rUGtqU1I3ZnVsaTlLWW1xZjVwUTF5MzI5SHNxWnpxUzlLeFhjM2VW?=
+ =?utf-8?B?c1VtV3MxQWF2ajdTMU1Ob3hyd3pqSlpJRk1rc3pCTXBEL2lhSitaZ3VMbDRS?=
+ =?utf-8?B?MUE3bTVrZ1piRnFkRWloaXRhbXhVSE53SkhSUDNEb2w4Q2FSV21HNjhGNU1R?=
+ =?utf-8?B?VWh1YkZkM2U2c0FMTDNOK1hiTWd5YldxWXBSb1h0L2ZTRHlqQVh3bk9GTk92?=
+ =?utf-8?B?NTduMFZVWjB1V1lxdXFMVGNzTHVXU1Awcys1b2xlSDVMS2wvci9oWmJsOEs0?=
+ =?utf-8?B?Ukh6S09XMk00MVBrZWZHQTJjZDYxZ2FFbFVJUEV3ZUNtWklOWXU2U2RBUjJW?=
+ =?utf-8?B?UmtOMDZZbVlIamNGMTZZNUNKbHV0cWdVUTNXaG15MGpmYW1wYTNBZGdpRzJV?=
+ =?utf-8?B?ZHYxUHFaNGJMRGZXd0R5WUFWVFZ4aXMrTFJqSXRiWXB5RVlteGd1aWtud0d3?=
+ =?utf-8?B?V1JBNTg1bUZTa0lTMUk1TFg4V1p0TFJXOEVWYWVRbjJmK1lIR1NlMDl0dUJY?=
+ =?utf-8?Q?CeGpO/l08+5nSCCjRV2iADa1MGmCZ0Gf7TDTb1w?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 269a01ce-7646-4424-081b-08d99212ad0c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f656f41-a649-4eb2-9205-08d992134fb8
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2021 08:38:36.0648
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Oct 2021 08:43:08.9995
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DTr6Syu0iws7knyHMwBolN04l5mklfOhezL4OC4BqUKvViKnNz7PeCY/2RVWJxwhJqxY46sMpHaBAn+atuXHfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6384
+X-MS-Exchange-CrossTenant-UserPrincipalName: 54MKGRZ6npjE/XH2rfmi4D2ynr/SBI3RL1pLl5sOm5feTILyYtMuGtq5pZn2iA3EIwsYTATu64Xiv8Sc1V3P4g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4608
 
-On 18.10.2021 10:03, Roger Pau Monn=C3=A9 wrote:
-> On Mon, Oct 18, 2021 at 09:47:06AM +0200, Jan Beulich wrote:
->> On 15.10.2021 18:51, Bertrand Marquis wrote:
->>> --- /dev/null
->>> +++ b/xen/arch/arm/vpci.c
->>> @@ -0,0 +1,77 @@
->>> +/*
->>> + * xen/arch/arm/vpci.c
->>> + *
->>> + * This program is free software; you can redistribute it and/or modif=
-y
->>> + * it under the terms of the GNU General Public License as published b=
-y
->>> + * the Free Software Foundation; either version 2 of the License, or
->>> + * (at your option) any later version.
->>> + *
->>> + * This program is distributed in the hope that it will be useful,
->>> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
->>> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->>> + * GNU General Public License for more details.
->>> + */
->>> +#include <xen/sched.h>
->>> +#include <xen/vpci.h>
->>> +
->>> +#include <asm/mmio.h>
->>> +
->>> +static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
->>> +                          register_t *r, void *p)
->>> +{
->>> +    pci_sbdf_t sbdf;
->>> +    /* data is needed to prevent a pointer cast on 32bit */
->>> +    unsigned long data;
->>> +
->>> +    /* We ignore segment part and always handle segment 0 */
->>> +    sbdf.sbdf =3D VPCI_ECAM_BDF(info->gpa);
->>> +
->>> +    if ( vpci_ecam_read(sbdf, ECAM_REG_OFFSET(info->gpa),
->>> +                        1U << info->dabt.size, &data) )
->>> +    {
+On 15.10.2021 17:52, Anthony PERARD wrote:
+> On Thu, Oct 14, 2021 at 10:32:05AM +0200, Jan Beulich wrote:
+>> On 24.08.2021 12:50, Anthony PERARD wrote:
+>>> -$(obj)/cmdline.S: $(src)/cmdline.c $(CMDLINE_DEPS) $(src)/build32.lds
+>>> -	$(MAKE) -f $(BASEDIR)/$(src)/build32.mk -C $(obj) $(@F) CMDLINE_DEPS="$(CMDLINE_DEPS)"
+>>> +CFLAGS_x86_32 := -m32 -march=i686
+>>> +CFLAGS_x86_32 += -fno-strict-aliasing
+>>> +CFLAGS_x86_32 += -std=gnu99
+>>> +CFLAGS_x86_32 += -Wall -Wstrict-prototypes
+>>> +$(call cc-option-add,CFLAGS_x86_32,CC,-Wdeclaration-after-statement)
+>>> +$(call cc-option-add,CFLAGS_x86_32,CC,-Wno-unused-but-set-variable)
+>>> +$(call cc-option-add,CFLAGS_x86_32,CC,-Wno-unused-local-typedefs)
+>>> +$(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
+>>> +CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float
+>>> +CFLAGS_x86_32 += -I$(srctree)/include
 >>
->> Here it is quite clear that the SBDF you pass into vpci_ecam_read() is
->> the virtual one. The function then calls vpci_read(), which in turn
->> will call vpci_read_hw() in a number of situations (first and foremost
->> whenever pci_get_pdev_by_domain() returns NULL). That function as well
->> as pci_get_pdev_by_domain() use the passed in SBDF as if it was a
->> physical one; I'm unable to spot any translation. Yet I do recall
->> seeing assignment of a virtual device and function number somewhere
->> (perhaps another of the related series), so the model also doesn't
->> look to assume 1:1 mapping of SBDF.
->>
->>> --- a/xen/drivers/passthrough/pci.c
->>> +++ b/xen/drivers/passthrough/pci.c
->>> @@ -756,6 +756,19 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
->>>      if ( !pdev->domain )
->>>      {
->>>          pdev->domain =3D hardware_domain;
->>> +#ifdef CONFIG_ARM
->>> +        /*
->>> +         * On ARM PCI devices discovery will be done by Dom0. Add vpci=
- handler
->>> +         * when Dom0 inform XEN to add the PCI devices in XEN.
->>> +         */
->>> +        ret =3D vpci_add_handlers(pdev);
->>> +        if ( ret )
->>> +        {
->>> +            printk(XENLOG_ERR "Setup of vPCI failed: %d\n", ret);
->>> +            pdev->domain =3D NULL;
->>> +            goto out;
->>> +        }
->>> +#endif
->>>          ret =3D iommu_add_device(pdev);
->>>          if ( ret )
->>>          {
->>
->> Upon failure, vpci_add_handlers() will itself call vpci_remove_handlers(=
-).
->> What about iommu_add_device() failure? The device will have ->domain
->> zapped, but all vPCI handlers still in place. This aspect of insufficien=
-t
->> error cleanup was pointed out already in review of v1.
->>
->> Furthermore already in v1 I questioned why this would be Arm-specific: O=
-n
->> x86 this code path is going to be taken for all devices Xen wasn't able
->> to discover at boot (anything on segments we wouldn't consider config
->> space access safe on without reassurance by Dom0 plus SR-IOV VFs, at the
->> very least).
->=20
-> My original plans for SR-IOV VFs on PVH dom0 involved trapping
-> accesses to the SR-IOV capability and detecting the creation of VFs
-> without the need for dom0 to notify them to Xen. This would avoid dom0
-> having to call PHYSDEVOP_pci_device_add for that case.
->=20
-> I might be confused, but I think we also spoke about other (non SR-IOV
-> related) cases where PCI devices might appear after certain actions by
-> dom0, so I think we need to keep the PHYSDEVOP_pci_device_add for PVH
-> dom0.
+>> I'm afraid I'm not convinced that having to keep this in sync with the
+>> original is in fair balance with the removal of build32.mk.
+> 
+> Why would this needs to be kept in sync with the original? I would
+> actually like to get rid of Config.mk, I don't see the point in sharing
+> CFLAGS between a kernel and userspace binaries. Also, I hope one day
+> that we can have the hypervisor in its own repo, and thus they won't be
+> any Config.mk to keep in sync with.
 
-Right, hotplugged ones, which I forgot to mention in my earlier reply.
+My point wasn't about Config.mk as the reference in particular, but ...
 
->> Hence it is my understanding that something along these
->> lines is actually also needed for PVH Dom0. I've just checked, and
->> according to my mailbox that comment was actually left unresponded to.
->>
->> Roger, am I missing anything here as to PVH Dom0 getting handlers put in
->> place?
->=20
-> No, I think we will need those, likewise for run-time reported MCFG
-> regions.
+> The goal of this patch is less about removing build32.mk, and more about
+> using the rest of the build system infrastructure to build those few
+> 32bits objects, and been able to use the automatic dependencies
+> generation and other things without having to duplicate them.
+> 
+> It probably make the build a bit faster as there is two less invocation
+> of $(MAKE) (which parse Config.mk).
+> 
+> As for a possible change: instead of having those x86_32 flags in
+> arch/x86/boot/, I could have them in arch/x86/arch.mk. Linux does
+> something like that were it prepare REALMODE_CFLAGS.
+> 
+> I know it's a bit annoying to have another list x86_32 cflags, but I
+> don't see how we can extract them from Config.mk (in a Makefile where we
+> want to use both x86_32 and x86_64 flags).
 
-Yes, this was what I referred to by "without reassurance by Dom0".
-Thanks for confirming.
+... about the general (apparent) plan to have two sets of flags, which
+may not strictly _need_ to remain in sync, but better would. So while
+I appreciate the alternative of putting stuff in arch.mk, I'd still
+like to see common things like -W... to get probed for and added to
+whichever variable just once.
 
 Jan
 
