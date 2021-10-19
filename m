@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AAFE433AEF
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Oct 2021 17:43:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.213361.371543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A26D433BBF
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Oct 2021 18:09:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.213371.371555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcrGN-0003xI-S0; Tue, 19 Oct 2021 15:42:51 +0000
+	id 1mcrfY-00073e-U0; Tue, 19 Oct 2021 16:08:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 213361.371543; Tue, 19 Oct 2021 15:42:51 +0000
+Received: by outflank-mailman (output) from mailman id 213371.371555; Tue, 19 Oct 2021 16:08:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcrGN-0003vF-NW; Tue, 19 Oct 2021 15:42:51 +0000
-Received: by outflank-mailman (input) for mailman id 213361;
- Tue, 19 Oct 2021 15:42:50 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mcrGM-0003v5-64; Tue, 19 Oct 2021 15:42:50 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mcrGM-0004cc-2n; Tue, 19 Oct 2021 15:42:50 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mcrGL-0004Qc-Rc; Tue, 19 Oct 2021 15:42:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mcrGL-0003L1-R7; Tue, 19 Oct 2021 15:42:49 +0000
+	id 1mcrfY-00070x-QF; Tue, 19 Oct 2021 16:08:52 +0000
+Received: by outflank-mailman (input) for mailman id 213371;
+ Tue, 19 Oct 2021 16:08:51 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XJzt=PH=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
+ id 1mcrfX-00070r-RY
+ for xen-devel@lists.xenproject.org; Tue, 19 Oct 2021 16:08:51 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id a12943d4-a8b9-4cb6-8e80-eb5c673e7b72;
+ Tue, 19 Oct 2021 16:08:50 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DB7D22F;
+ Tue, 19 Oct 2021 09:08:49 -0700 (PDT)
+Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
+ [10.1.199.62])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6E46A3F694;
+ Tue, 19 Oct 2021 09:08:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +42,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=9OlrxyvPi/nBwGZ3XfahcS9CL191mJBilVX5ryCK5Zk=; b=7HzJokiVcnY/ie2U1jfB8B2R72
-	gSn4Vk3BdBeItVuo4WJZAXtDxDCAbHeORRolTzBntIeSq+hNXLM1RnU2c0tFTwfdpQO2RfBGiDFmz
-	VE/myAzb10SOlNZLz4Twjc2+NuDAPdfWwSJ0i5b2eoairqV9X6BEcFXE/fNPxR8MbObQ=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165671-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: a12943d4-a8b9-4cb6-8e80-eb5c673e7b72
+From: Bertrand Marquis <bertrand.marquis@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: iwj@xenproject.org,
+	Oleksandr_Andrushchenko@epam.com,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Paul Durrant <paul@xen.org>
+Subject: [PATCH v2 0/1] Fixes: PCI devices passthrough on Arm
+Date: Tue, 19 Oct 2021 17:08:27 +0100
+Message-Id: <cover.1634659471.git.bertrand.marquis@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [ovmf test] 165671: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=90246a6d9f6fda3536d042d02867123caabe3aaa
-X-Osstest-Versions-That:
-    ovmf=91a978ce7e0c7a327cff1d9411b0e1c9dae8824a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 19 Oct 2021 15:42:49 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 165671 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165671/
+This patch serie is a follow-up after various findings on d59168dc05
+("xen/arm: Enable the existing x86 virtual PCI support for ARM") as of
+agreed in [1].
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 90246a6d9f6fda3536d042d02867123caabe3aaa
-baseline version:
- ovmf                 91a978ce7e0c7a327cff1d9411b0e1c9dae8824a
+It does the following:
+- enable vpci_add_handlers on x86 and not only on arm
+- remove __hwdom_init flag for vpci_add_handlers
+- add missing vpci handler cleanup in error path during pci_device_add
+  and pci_device_remove
 
-Last test of basis   165657  2021-10-19 04:10:05 Z    0 days
-Testing same since   165671  2021-10-19 11:10:00 Z    0 days    1 attempts
+[1] https://marc.info/?l=xen-devel&m=163455502020100&w=2
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Guo Dong <guo.dong@intel.com>
+In the second version of the serie, the 3 patches have been merged into
+one single patch.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Bertrand Marquis (1):
+  xen/pci: Install vpci handlers on x86 and fix exit path
 
+ xen/arch/arm/xen.lds.S        | 9 +--------
+ xen/arch/x86/xen.lds.S        | 9 +--------
+ xen/drivers/passthrough/pci.c | 8 ++++----
+ xen/drivers/vpci/vpci.c       | 2 +-
+ xen/include/xen/vpci.h        | 2 ++
+ 5 files changed, 9 insertions(+), 21 deletions(-)
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+-- 
+2.25.1
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   91a978ce7e..90246a6d9f  90246a6d9f6fda3536d042d02867123caabe3aaa -> xen-tested-master
 
