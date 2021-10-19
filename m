@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FE9F432A56
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Oct 2021 01:26:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.212569.370465 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3AD8432B3F
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Oct 2021 02:43:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.212582.370490 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcc0g-00041f-Pt; Mon, 18 Oct 2021 23:25:38 +0000
+	id 1mcdDO-0004Bc-Jt; Tue, 19 Oct 2021 00:42:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 212569.370465; Mon, 18 Oct 2021 23:25:38 +0000
+Received: by outflank-mailman (output) from mailman id 212582.370490; Tue, 19 Oct 2021 00:42:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcc0g-0003zs-M6; Mon, 18 Oct 2021 23:25:38 +0000
-Received: by outflank-mailman (input) for mailman id 212569;
- Mon, 18 Oct 2021 23:25:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=l/eG=PG=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mcc0f-0003zm-6c
- for xen-devel@lists.xenproject.org; Mon, 18 Oct 2021 23:25:37 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b2121ca2-306a-11ec-82ec-12813bfff9fa;
- Mon, 18 Oct 2021 23:25:35 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 191C460F9D;
- Mon, 18 Oct 2021 23:25:35 +0000 (UTC)
+	id 1mcdDO-00049l-GS; Tue, 19 Oct 2021 00:42:50 +0000
+Received: by outflank-mailman (input) for mailman id 212582;
+ Tue, 19 Oct 2021 00:42:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mcdDN-00049b-Rm; Tue, 19 Oct 2021 00:42:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mcdDN-0001Q4-IP; Tue, 19 Oct 2021 00:42:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mcdDN-0001Al-BO; Tue, 19 Oct 2021 00:42:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mcdDN-0005GE-At; Tue, 19 Oct 2021 00:42:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,119 +42,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b2121ca2-306a-11ec-82ec-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1634599535;
-	bh=hFE2XMKZEEaE0AdOIMQvOnc3ShElY8i3tLDTQ1Yuopg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=k/Rrfxg3zYqRhHlyTdVxFNYK/s52dV93ICn1Ee9k50KveyLLbbujLkYaZn89CTlbL
-	 AZivkgG9KhdmMhYusuHMP5fQlwS5jiWoTJue/uZTTLxRE8y7G93PEmv5XU+VXKOdWD
-	 ZHsPSlGiSX+jGaO7WNUB+g3YMm2TvVYNcs2J0vL+qcCSpCahohUtdICyttJak5NZbo
-	 CRXfJwe/HTsOUNy5LylWt9L2CrJzAR6gkIFf7pRyh7+TLwwU0i8e8gH54+MUdELdaU
-	 B7mmPWNDKVh8haGxbyowjfwFfWrSYe3JC+5uFx3iGBzb91MJqmmG+Jm/Enh6coXTb+
-	 rslSQl76X2VlQ==
-Date: Mon, 18 Oct 2021 16:25:26 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Juergen Gross <jgross@suse.com>
-cc: xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>, 
-    Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v6 1/2] tools/xenstore: set oom score for xenstore daemon
- on Linux
-In-Reply-To: <20211012134148.6280-2-jgross@suse.com>
-Message-ID: <alpine.DEB.2.21.2110181616400.21467@sstabellini-ThinkPad-T480s>
-References: <20211012134148.6280-1-jgross@suse.com> <20211012134148.6280-2-jgross@suse.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=a5Li1yhTsJtbFPmeFHPVX3b7gXAwI0/4DcZSibNwioU=; b=Ve9lsPAG4pnM1pTsKEYWyzdczz
+	s8vsAl7dY9Hyx/07Ur6W27fVUMZsfzxtYAfTmvLR9BEIsAnZRifaCqFi9/PGW/ySfZrMp7AreGjni
+	1QKvSkpRSA8AhnWIL5RY64ZX0y0TOgBQEoFBruvNOzXlXG0Z3PgGRGk/OZaVf8DtRsR4=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165642-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 165642: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:leak-check/basis(11):fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:leak-check/basis(11):fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:leak-check/basis(11):fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:leak-check/basis(11):fail:regression
+X-Osstest-Versions-This:
+    xen=3ae80dea4601764818d1e5b84bd1e4479c0d4790
+X-Osstest-Versions-That:
+    xen=c11b8d25fbe9c0155e91409594ea6701008409ed
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 19 Oct 2021 00:42:49 +0000
 
-Hi Juergen, Ian,
+flight 165642 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165642/
 
-This patch broke gitlab-ci:
+Regressions :-(
 
-https://gitlab.com/xen-project/xen/-/jobs/1690080806
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 11 leak-check/basis(11) fail REGR. vs. 165635
+ test-amd64-amd64-libvirt     11 leak-check/basis(11)     fail REGR. vs. 165635
+ test-arm64-arm64-xl-xsm      11 leak-check/basis(11)     fail REGR. vs. 165635
+ test-armhf-armhf-xl          11 leak-check/basis(11)     fail REGR. vs. 165635
 
----
- * Executing: /lib/rc/sh/openrc-run.sh /lib/rc/sh/openrc-run.sh /etc/init.d/local start
- * Starting local ... *   Executing "/etc/local.d/xen.start" .../etc/xen/scripts/launch-xenstore: line 64: * 10: syntax error: operand expected (error token is "* 10")
+version targeted for testing:
+ xen                  3ae80dea4601764818d1e5b84bd1e4479c0d4790
+baseline version:
+ xen                  c11b8d25fbe9c0155e91409594ea6701008409ed
 
-illegal value daemon for XENSTORETYPE
----
+Last test of basis   165635  2021-10-18 13:00:26 Z    0 days
+Testing same since   165638  2021-10-18 16:01:36 Z    0 days    2 attempts
 
-See below about what the issue is and a potential fix.
+------------------------------------------------------------
+People who touched revisions under test:
+  Ian Jackson <iwj@xenproject.org>
+  Juergen Gross <jgross@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-libvirt                                     fail    
 
 
-On Tue, 12 Oct 2021, Juergen Gross wrote:
-> Xenstored is absolutely mandatory for a Xen host and it can't be
-> restarted, so being killed by OOM-killer in case of memory shortage is
-> to be avoided.
-> 
-> Set /proc/$pid/oom_score_adj (if available) per default to -500 (this
-> translates to 50% of dom0 memory size) in order to allow xenstored to
-> use large amounts of memory without being killed.
-> 
-> The percentage of dom0 memory above which the oom killer is allowed to
-> kill xenstored can be set via XENSTORED_OOM_MEM_THRESHOLD in
-> xencommons.
-> 
-> Make sure the pid file isn't a left-over from a previous run delete it
-> before starting xenstored.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> Reviewed-by: Ian Jackson <iwj@xenproject.org>
-> ---
-> V2:
-> - set oom score from launch script (Julien Grall)
-> - split off open file descriptor limit setting (Julien Grall)
-> V3:
-> - make oom killer threshold configurable (Julien Grall)
-> V4:
-> - extend comment (Ian Jackson)
-> ---
->  tools/hotplug/Linux/init.d/sysconfig.xencommons.in | 9 +++++++++
->  tools/hotplug/Linux/launch-xenstore.in             | 6 ++++++
->  2 files changed, 15 insertions(+)
-> 
-> diff --git a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-> index 00cf7f91d4..b83101ab7e 100644
-> --- a/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-> +++ b/tools/hotplug/Linux/init.d/sysconfig.xencommons.in
-> @@ -48,6 +48,15 @@ XENSTORED_ARGS=
->  # Only evaluated if XENSTORETYPE is "daemon".
->  #XENSTORED_TRACE=[yes|on|1]
->  
-> +## Type: integer
-> +## Default: 50
-> +#
-> +# Percentage of dom0 memory size the xenstore daemon can use before the
-> +# OOM killer is allowed to kill it.
-> +# The specified value is multiplied by -10 and echoed to
-> +# /proc/PID/oom_score_adj.
-> +#XENSTORED_OOM_MEM_THRESHOLD=50
-> +
->  ## Type: string
->  ## Default: @LIBEXEC@/boot/xenstore-stubdom.gz
->  #
-> diff --git a/tools/hotplug/Linux/launch-xenstore.in b/tools/hotplug/Linux/launch-xenstore.in
-> index 019f9d6f4d..1747c96065 100644
-> --- a/tools/hotplug/Linux/launch-xenstore.in
-> +++ b/tools/hotplug/Linux/launch-xenstore.in
-> @@ -59,11 +59,17 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
->  		echo "No xenstored found"
->  		exit 1
->  	}
-> +	[ -z "$XENSTORED_OOM_MEM_THRESHOLD" ] || XENSTORED_OOM_MEM_THRESHOLD=50
-> +	XS_OOM_SCORE=-$(($XENSTORED_OOM_MEM_THRESHOLD * 10))
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-These are the problematic lines. They don't work with busybox's bash
-implementation. Originally I thought it was an issue with busybox bash
-implementation but it looks like they don't even work with normal bash.
-Specifically the first line is an issue, it should be:
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-if [ -z "$XENSTORED_OOM_MEM_THRESHOLD" ]
-then
-    XENSTORED_OOM_MEM_THRESHOLD=50
-fi
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Right?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 3ae80dea4601764818d1e5b84bd1e4479c0d4790
+Author: Juergen Gross <jgross@suse.com>
+Date:   Fri Sep 10 07:55:17 2021 +0200
+
+    stubdom: disable building pv-grub
+    
+    The stubdom based pv-grub is using a very outdated version of grub
+    (0.97) and should not be used any longer. Mainline grub has support for
+    PV guests for a long time now, so that should be used as a boot loader
+    of a PV domain.
+    
+    So disable building pv-grub per default. In case someone really wants
+    to continue using it he/she can still use a pv-grub binary from an older
+    Xen version or manually enable building it via:
+    
+      configure --enable-pv-grub
+    
+    [ This was already disabled in osstest by 8dee6e333622
+      "make-flight: Drop pvgrub (pvgrub1) tests" -iwj ]
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+    Acked-by: Ian Jackson <iwj@xenproject.org>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit 9cfeb83cbe23a873de512211d7ecd989348b9df0
+Author: Juergen Gross <jgross@suse.com>
+Date:   Tue Oct 12 15:41:48 2021 +0200
+
+    tools/xenstore: set open file descriptor limit for xenstored
+    
+    Add a configuration item for the maximum number of open file
+    descriptors xenstored should be allowed to have.
+    
+    The default should be "unlimited" in order not to restrict xenstored
+    in the number of domains it can support, but unfortunately the kernel
+    is normally limiting the maximum value via /proc/sys/fs/nr_open [1],
+    [2]. So check that file to exist and if it does, limit the maximum
+    value to the one specified by /proc/sys/fs/nr_open.
+    
+    As an aid for the admin configuring the value add a comment specifying
+    the common needs of xenstored for the different domain types.
+    
+    [1]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=60fd760fb9ff7034360bab7137c917c0330628c2
+    [2]: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=0c2d64fb6cae9aae480f6a46cfe79f8d7d48b59f
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Ian Jackson <iwj@xenproject.org>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+
+commit f282182af32939107d47943aba242d3189ec6f90
+Author: Juergen Gross <jgross@suse.com>
+Date:   Tue Oct 12 15:41:47 2021 +0200
+
+    tools/xenstore: set oom score for xenstore daemon on Linux
+    
+    Xenstored is absolutely mandatory for a Xen host and it can't be
+    restarted, so being killed by OOM-killer in case of memory shortage is
+    to be avoided.
+    
+    Set /proc/$pid/oom_score_adj (if available) per default to -500 (this
+    translates to 50% of dom0 memory size) in order to allow xenstored to
+    use large amounts of memory without being killed.
+    
+    The percentage of dom0 memory above which the oom killer is allowed to
+    kill xenstored can be set via XENSTORED_OOM_MEM_THRESHOLD in
+    xencommons.
+    
+    Make sure the pid file isn't a left-over from a previous run delete it
+    before starting xenstored.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Ian Jackson <iwj@xenproject.org>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+(qemu changes not included)
 
