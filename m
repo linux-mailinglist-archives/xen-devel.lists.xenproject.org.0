@@ -2,34 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C053F433473
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Oct 2021 13:12:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.213020.371109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D91F433496
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Oct 2021 13:22:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.213028.371120 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcn2o-0007dS-IG; Tue, 19 Oct 2021 11:12:34 +0000
+	id 1mcnBh-0000fA-E9; Tue, 19 Oct 2021 11:21:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 213020.371109; Tue, 19 Oct 2021 11:12:34 +0000
+Received: by outflank-mailman (output) from mailman id 213028.371120; Tue, 19 Oct 2021 11:21:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcn2o-0007av-ET; Tue, 19 Oct 2021 11:12:34 +0000
-Received: by outflank-mailman (input) for mailman id 213020;
- Tue, 19 Oct 2021 11:12:32 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mcnBh-0000dN-Ac; Tue, 19 Oct 2021 11:21:45 +0000
+Received: by outflank-mailman (input) for mailman id 213028;
+ Tue, 19 Oct 2021 11:21:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mcn2m-0007ap-J7
- for xen-devel@lists.xenproject.org; Tue, 19 Oct 2021 11:12:32 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mcn2m-0008Jh-E7
- for xen-devel@lists.xenproject.org; Tue, 19 Oct 2021 11:12:32 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mcn2m-0005h6-Cy
- for xen-devel@lists.xenproject.org; Tue, 19 Oct 2021 11:12:32 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1mcn2h-0000HA-5X; Tue, 19 Oct 2021 12:12:27 +0100
+ (envelope-from <SRS0=d5uN=PH=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mcnBg-0000dH-HC
+ for xen-devel@lists.xenproject.org; Tue, 19 Oct 2021 11:21:44 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ec1c0218-679b-49d5-b6c0-69dc2d4f7723;
+ Tue, 19 Oct 2021 11:21:43 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9251621A5D;
+ Tue, 19 Oct 2021 11:21:42 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6F0AD13B64;
+ Tue, 19 Oct 2021 11:21:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id obzHGUaqbmHvbAAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 19 Oct 2021 11:21:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,46 +50,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=LUe2Ak75LytPlP8rpM0g533w8devNdiFA5X4cNaR5GA=; b=48SzX5AzfpOAH6b2zo7LvmhI0Q
-	MjpDK/BnIaGHDIkmPsosXbdbA9UPiIITrhw6Na+eKTSczhPDhHJLS+cc++YTizyzoXH2xtWdhbUwk
-	VZXcexk8jCnK1VsQIOOwOOG+ziL6U2Y6AA+/2s7k8URH9mftMQolk2cM2QdtLuzhjiss=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: ec1c0218-679b-49d5-b6c0-69dc2d4f7723
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1634642502; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=Bsjm34oU7y3pSkCQQqWxgmwlC+hZeXr6taiQjgu1WUA=;
+	b=J8GtlNiEgia7Z5PVFRhYonYLv4mz4AuqppfaXY5AX71VWg5A77IlAQGqvTzQaRF9S7EOFZ
+	AR+zGxCSp/rKKPTktAUujF4HZoRtpaB7cAVMR+1LzludHraZp7XWQdByiukHu6jkRRVy5/
+	5ki32Y+OGNIBdeq1IfnXFk6n7LGFsNM=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2] tools: fix oom setting of xenstored
+Date: Tue, 19 Oct 2021 13:21:40 +0200
+Message-Id: <20211019112140.26988-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24942.43034.758402.850001@mariner.uk.xensource.com>
-Date: Tue, 19 Oct 2021 12:12:26 +0100
-To: jbeulich@suse.com,
-    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-    Bertrand Marquis <bertrand.marquis@arm.com>,
-    sstabellini@kernel.org,
-    Oleksandr_Andrushchenko@epam.com,
-    Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH 0/3] Fixes: PCI devices passthrough on Arm
-In-Reply-To: <cover.1634639117.git.bertrand.marquis@arm.com>
-References: <cover.1634639117.git.bertrand.marquis@arm.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Transfer-Encoding: 8bit
 
-Bertrand Marquis writes ("[PATCH 0/3] Fixes: PCI devices passthrough on Arm"):
-> This patch serie is a follow-up after various findings on d59168dc05
-> ("xen/arm: Enable the existing x86 virtual PCI support for ARM") as of
-> agreed in [1].
-> 
-> It does the following:
-> - enable vpci_add_handlers on x86 and not only on arm
-> - remove __hwdom_init flag for vpci_add_handlers
-> - add missing vpci handler cleanup in error path during pci_device_add
->   and pci_device_remove
+Commit f282182af32939 ("tools/xenstore: set oom score for xenstore
+daemon on Linux") introduced a regression when not setting the oom
+value in the xencommons file. Fix that.
 
-Thanks.  Roger, Jan, what do you think of this ?
+Fixes: f282182af32939 ("tools/xenstore: set oom score for xenstore daemon on Linux")
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2: use ${var:-} (Jan Beulich)
+---
+ tools/hotplug/Linux/launch-xenstore.in | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-I have no qualms from my RM POV other than that I want a fix
-resolves the concenrs previously expressed by maintainers.
+diff --git a/tools/hotplug/Linux/launch-xenstore.in b/tools/hotplug/Linux/launch-xenstore.in
+index 8438af9977..e854ca1eb8 100644
+--- a/tools/hotplug/Linux/launch-xenstore.in
++++ b/tools/hotplug/Linux/launch-xenstore.in
+@@ -60,8 +60,7 @@ test -f @CONFIG_DIR@/@CONFIG_LEAF_DIR@/xencommons && . @CONFIG_DIR@/@CONFIG_LEAF
+ 		echo "No xenstored found"
+ 		exit 1
+ 	}
+-	[ -z "$XENSTORED_OOM_MEM_THRESHOLD" ] || XENSTORED_OOM_MEM_THRESHOLD=50
+-	XS_OOM_SCORE=-$(($XENSTORED_OOM_MEM_THRESHOLD * 10))
++	XS_OOM_SCORE=-$((${XENSTORED_OOM_MEM_THRESHOLD:-50} * 10))
+ 
+ 	[ "$XENSTORED_MAX_OPEN_FDS" = "unlimited" ] || {
+ 		[ -z "${XENSTORED_MAX_OPEN_FDS//[0-9]}" ] &&
+-- 
+2.26.2
 
-Thanks,
-Ian.
 
