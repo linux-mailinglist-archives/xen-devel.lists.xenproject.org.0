@@ -2,47 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C03FC43353A
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Oct 2021 13:59:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.213081.371196 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C7FF433559
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Oct 2021 14:04:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.213094.371206 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcnlW-0007Dh-Vc; Tue, 19 Oct 2021 11:58:46 +0000
+	id 1mcnrB-0000Rb-VO; Tue, 19 Oct 2021 12:04:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 213081.371196; Tue, 19 Oct 2021 11:58:46 +0000
+Received: by outflank-mailman (output) from mailman id 213094.371206; Tue, 19 Oct 2021 12:04:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mcnlW-0007Bu-Sa; Tue, 19 Oct 2021 11:58:46 +0000
-Received: by outflank-mailman (input) for mailman id 213081;
- Tue, 19 Oct 2021 11:58:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gzZp=PH=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mcnlV-0007Bo-Im
- for xen-devel@lists.xenproject.org; Tue, 19 Oct 2021 11:58:45 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e8440162-30d3-11ec-8310-12813bfff9fa;
- Tue, 19 Oct 2021 11:58:44 +0000 (UTC)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2105.outbound.protection.outlook.com [104.47.18.105])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-22-JWtOaqJwMuOJ__xEu6-qAg-1; Tue, 19 Oct 2021 13:58:42 +0200
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VE1PR04MB6477.eurprd04.prod.outlook.com (2603:10a6:803:11e::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Tue, 19 Oct
- 2021 11:58:40 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::4d37:ec64:4e90:b16b%7]) with mapi id 15.20.4608.018; Tue, 19 Oct 2021
- 11:58:40 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AS9PR05CA0036.eurprd05.prod.outlook.com (2603:10a6:20b:489::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.14 via Frontend
- Transport; Tue, 19 Oct 2021 11:58:39 +0000
+	id 1mcnrB-0000Pj-SG; Tue, 19 Oct 2021 12:04:37 +0000
+Received: by outflank-mailman (input) for mailman id 213094;
+ Tue, 19 Oct 2021 12:04:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OTOV=PH=gmail.com=ysaikiran1997@srs-us1.protection.inumbo.net>)
+ id 1mcnrA-0000Pd-3j
+ for xen-devel@lists.xenproject.org; Tue, 19 Oct 2021 12:04:36 +0000
+Received: from mail-yb1-xb2d.google.com (unknown [2607:f8b0:4864:20::b2d])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bac3b836-899c-446b-83fc-62e6e0ad7b43;
+ Tue, 19 Oct 2021 12:04:34 +0000 (UTC)
+Received: by mail-yb1-xb2d.google.com with SMTP id o134so1891181ybc.2
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Oct 2021 05:04:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,125 +37,406 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8440162-30d3-11ec-8310-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1634644723;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=e3t5qAKT9NWcAOGqvmaO/tEUOVCc1dM24pv3gFcBevs=;
-	b=jjjSb0yS3bnqoELdHMp/+x3ua8MFJrkgVR9n0J5TDDC+CZkBM8smZ87kAAYiPtBuLHI6eJ
-	MUPJ0alOgjrDIhb7sZBDKwveZUCz4Gr5Bcjnqbj36AdrIWJrY5hsXbCwbaIdhHmLP7Jkmp
-	AazSG7WYZ3IsTPl38u4PYnEgFRhhNm4=
-X-MC-Unique: JWtOaqJwMuOJ__xEu6-qAg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=j85tR9HGhBnQWOeBcNcMSMW2y3WSoWhl/pYtpu+J/2tYSMusjitli+zf0uI8hFmf5JE8t+Vitb5Mcs/A6/NHzTwqAs+hf91ty7IHu3Hthpc+F9Cxi7Lvvvc6awvbzR2QUrj1xqo5m9XSnC+VsQ0by0XjFnL/NOseeXKorXhVYN8Li7nS28ghm5xyE0MdNPsw5PPxSzHmppiVetTRHQ1QFslLTlbb4sWEPsqOw1kRsZu68ey7lLMenrpvHAHL5ndwsVyIZaC1Oci0m1xqr1OhcX5aatIsrDEVdccAqsAw1IzPFd0CDRybEBkyAThVIAOaGFIA3DfrSxCJQ8wpQBHKew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wgyosl3QygnUlkHnRHQyRCmYyM6G4bogLBtPNqF/C+c=;
- b=GOsfBdvQNetY/1IMeGM67240mCYsatjuMpLqPCJDQKJufCi0treUlo4/2HqL/f67RtmpG3/feP0InRtkYX3riyG3McX9H3BRgQiYBilnqvWBIPSmbZ3inv7vdo4/gO9fQm5qAdRzqJdrytpk2fPWKsPIaLa8BLQQjB4Gu6acGC5HRBshMFjSnYOyG38gdO4YnLQUT9FQTr0g2zyMCt1OEtyzToylrrVdfjtuMlKkE3Qvf6KKLAxLFJ3W9Q3PIrXORubBCv3WjefocYWNB0YR/U6sW5uXFptELoYC9tvHuxYaL4jiPGTZzrRBSbfcnaDeF3ANoVqWEYUj/9KcoKHp7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: citrix.com; dkim=none (message not signed)
- header.d=none;citrix.com; dmarc=none action=none header.from=suse.com;
-Subject: Re: [PATCH] x86/PoD: defer nested P2M flushes
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>
-References: <e47d51c6-1b4b-2f72-6e12-070df66c30e2@suse.com>
- <YW6g9w9XeWKsxYMV@MacBook-Air-de-Roger.local>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <9e444a8b-58e9-ea37-0e22-474e430be5e5@suse.com>
-Date: Tue, 19 Oct 2021 13:58:38 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <YW6g9w9XeWKsxYMV@MacBook-Air-de-Roger.local>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS9PR05CA0036.eurprd05.prod.outlook.com
- (2603:10a6:20b:489::20) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: bac3b836-899c-446b-83fc-62e6e0ad7b43
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=7zJgQhUIQrg5eCINZFMpiDcYJ3sNVsxZp8iHqFYbLzw=;
+        b=js0UcFx6NyR6/ckLPQOr19y+i0VRf+uCuP0GNgOaVHa00uV3X/kHt6/Y0XYsBYNE6N
+         U75FFplF7ykWyMDxYXHZEcvBDEkbSu4LaKOHDzPNrYoYCEl8Lr0FK/+3OBUMkpBKSzK4
+         xWP1iAeXkuJW7Mq7Fg9Ie6mDlO49bHPLudn3dQMnR3XQyA9nMtIz/b1Ighs3je9oJv8g
+         0g3YeYnjrM2tSvPT08Hiy1XLgmJEqgRADyRquunZoNlPPjdBNlPL98ZkMkeW9CB7hR4M
+         97yMeUoPJCJcFaO5Zk6PYTLAxbRXOPfkehwRIaO4QreX29ADKAMWwmN75NQ15Z30xdvz
+         kozQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=7zJgQhUIQrg5eCINZFMpiDcYJ3sNVsxZp8iHqFYbLzw=;
+        b=v689kyai3lgM28Lz36VVG68Zl43nAWdCge0bOFpse0CN4Jb1p+CUW9MN+lbqKJaleP
+         n2+gkwohu4Y/aD+48+Euzo6Vx6ma97e2897Q7TrmBpFkLwspsEOnRuWJrT/Lh6gfqSjq
+         363vDcSA4jfIgFkB3+WDtE4TKgY4jftYfc21QrArJYQoQkC1ndZsWPY5cM806tR3hfUQ
+         Y75WrqUrD+vrWQa7EVttGi7MmQ+vF8zSK5Pq2/KsEuwV3nB5y5k3M3/5yxQPkj5lKR8U
+         B9fJfaGicvenyT1Uzz1vTUG8I6Oc1wjwpMBsQQBFwaALU8tcLxr9dQD+C/rh6hRu/gLS
+         FewA==
+X-Gm-Message-State: AOAM531s9tYIQtGjUeDjI+S10bypenYaIR2U79syF210Zzp6tglMsJpx
+	1BA6o9ugsUtXaxLznj+ZnvTXAvh9oNQKodYaKTk=
+X-Google-Smtp-Source: ABdhPJz0A/ZVOB3B7unfUuxoMUnJrzG9VZBv3Tr3hH8G0FccgmI1whPia2lmM+by22SG6xNpMzhYCgbKWXPuJhHUFXI=
+X-Received: by 2002:a25:2610:: with SMTP id m16mr35183968ybm.508.1634645073790;
+ Tue, 19 Oct 2021 05:04:33 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7ce63965-45d0-4545-c1ad-08d992f7ca88
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6477:
-X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB64770B72B4DCECB5AC1E93A9B3BD9@VE1PR04MB6477.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	wWjD8Hf8g8Ck5gMMj2lwkOV1KmpiMGDudPW96BkAXHSwoqO92gf+b0Xr3lzkHTKmekVYEG1igKqBGWOGKo7o0F352wa2qG/IRMCox1FP+Ue9JmkLFYPUWhn1ttfyNQ5sCgKNsOBc6IGN/VU6g1oniqu8KwQyV7KIJq61YGKpjssPuXbDyPGOcaAlcN5EO2ZKQWC6duWjn6p5S7PDGkwD1QW3MkEBENXeFLNJ+II9rijsCDg60DM25q7FStP8wxX8R0Fk/kY4bfO//RUe9t/LyZRS0m3VG+Nw/5ANJCvj2xc4RUeWSnHQAwvZPmgHGsKkzO1aWHY3zpIivgIbWHMOHZID+XKaXKNHqQMR2lUGNJZeRB2bWHi8KxLca0FZpKIh2U7gMVFCLPYu/IKIGPKDEr05efB/VYRNsyjscRPH1R8XO5Rb/tyChpWklif+JEe2/tKST8r8ohQQ1kzMOcvQzMkYlYP8FvEVVbHPCyYCGAWF2MlyCPy/3AzmLt0Eal4eyZHkicX7UMRAYh21PUyOBm7qYici3wqFq3lzQgSAua+W4MRAR++i5bk8vQc2Tkp4C2myCA+dt81Yy7u9trFU9oGgNu9/m43fFAo9WEqjvleWrHnYEDWUwUjBqLBEulbG5oC6E2m0yt2xSmf2oPxCSadmYAeDkAQdR2bUNFBxUPn9zNS1++EYuXErUUpLv+zW7X/Bax5EWiJRWJoTP5gXgwKcMLcZNfXW9wOX2yNL2Pw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2616005)(8676002)(66946007)(66556008)(66476007)(86362001)(508600001)(956004)(31686004)(53546011)(5660300002)(6916009)(26005)(8936002)(83380400001)(186003)(38100700002)(31696002)(6486002)(36756003)(2906002)(316002)(4326008)(16576012)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?929CfyPDD9i1gJVwtKaKG3nK0fhgEqmvbGXnA5tnbIfzvLxlpDZGVfwSj6KT?=
- =?us-ascii?Q?fS6lQzMpAxmj8HoU3r9HtEsJY9Lv3VA1wleeCR8nPzsdzBqKKcFz5dvegb86?=
- =?us-ascii?Q?D4Q/4eSB6INekZdzq4SJonei81cInl8u/7V3xBs6dUr2cp2ijivIepyBX1rl?=
- =?us-ascii?Q?u6UYbKSnMSKBUnYd1wewml929PKlwCMwL7HK9Bbyjoi1YZi1asriCPr8idlv?=
- =?us-ascii?Q?TaUchsHQkccljLtaGf+ZZXXYvY779aTTVD4+6vvAzI5WPNG0AquspU4SIRfn?=
- =?us-ascii?Q?oVPlabh1y8HzUMkb/bG9DizE8pzZ+lmN7QHp6Pq3VNkX+Ug8DRSQXX3SzN1E?=
- =?us-ascii?Q?tdl824P0vNees9jKhn3MHtAwrBfeiNKXimh4l/ocGGht82soIDzwSnErFi1r?=
- =?us-ascii?Q?gIYyV/Mg6UevcbdSvRRy7LWfFIHi57oiyGeX0mUxMcNrr/gz3OYEwasSj6I6?=
- =?us-ascii?Q?deGyr+FZcXzH/foVjbYacoDia2xULhJg9VGZ7XqCJtEKkrU7A/o+2N+3Ex7u?=
- =?us-ascii?Q?xT042f8+JDFbWk7sX1fjXRidre31oDlnNwPoJesaVE8J76cxqLh92CRGbmH9?=
- =?us-ascii?Q?Vy2WWELBQNelqfXDz3sfmfYJM7hu4rPgaBmljzOcvbOceC+BxMjRaWn38njG?=
- =?us-ascii?Q?lXDrjpkcIHhpH/vVQ+IBMAZ6/pM9ZMIc38c6GDghp7+GDkOJOZyIzTAf33n6?=
- =?us-ascii?Q?TyNnlYWZ01o52ZDM2TCeHZseNcgJZFfT6WWdykmiQLMY8U/qptW7c2XGOdeh?=
- =?us-ascii?Q?LvrEe/k+o7sxu6xhFVYy5ZJOEw9xUBtzlT1/k9ael2AjHyUKX0ghsFqRbVSE?=
- =?us-ascii?Q?e90XGKRJs+78bqvOElCb3KP2g3oO82ZkiVKg/LB1Qf3acZ4EPneUxSsukrnd?=
- =?us-ascii?Q?AQjmKVjSXQfMMtUY9nJxKY89GAiEpTBvvixVxs2mxyNfIELgzXmDOUw5FjrJ?=
- =?us-ascii?Q?F7NU/H3CCTd1r/hjs9hXYulB9TVlH4dqFJ7KgEwMCHDYWZYI0jaQb1k9T/0o?=
- =?us-ascii?Q?/T5haOVzLQvbTxWwWp1VW9H5LAwQbEH5X/A0a+gIFislCP8b94715DMf7YOI?=
- =?us-ascii?Q?bMiwbyF6XxBvOsqC4zStbo23dPoC5RvkWOqshugfAVcitszCiteJxGG8i+HG?=
- =?us-ascii?Q?3Wk+l5qqoC9JYGM0RHJ8O0LbEVh6RtMklguj4bhA98YwKuMM8x2YTKiTzqWO?=
- =?us-ascii?Q?iZL4LI88WKzoOTJfp8T3BRNz+GekP5e7pOYvTym+cLHb3FYwb0s0h4KN2U7y?=
- =?us-ascii?Q?MvdHVXfOkEaTR8XPdiy8DbF1liACdrwQ/OYPnq1IqlfXRZT5OGrrPpigv2K9?=
- =?us-ascii?Q?1ZkABwJ67oo+1ZuWdTXF/J5m?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ce63965-45d0-4545-c1ad-08d992f7ca88
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Oct 2021 11:58:40.3612
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PR1T47Eq6w+ehXkifTeziQMs/xgmvZBiqGWrz5K9AyTUgaJ+stAj/WObk3wFX2OKBgZp94HRspKqI/WHvqm37g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6477
+References: <33C29853-D896-4E4E-91D3-4D2FA89A9B91@hxcore.ol>
+ <eb5fd47b-6bc9-2eec-7f46-9ab9a42c9f1f@xen.org> <CAEsO4uzsCnsTtTmYHAT4NN6=girCY2NHHdAHbH6GG33D7jwe_A@mail.gmail.com>
+ <alpine.DEB.2.21.2109131437030.10523@sstabellini-ThinkPad-T480s>
+ <CAEsO4uwpiDO2QoqLRTOxpsYM9YSPAsbX0P=gagdEy21pk1VsPQ@mail.gmail.com>
+ <alpine.DEB.2.21.2109141825330.21985@sstabellini-ThinkPad-T480s>
+ <CAEsO4uyjNs97Cx8n2owDk4kKTVCycji377pm7aXHcPWzeszUTw@mail.gmail.com>
+ <alpine.DEB.2.21.2109301942370.3209@sstabellini-ThinkPad-T480s>
+ <CAEsO4ux_AqXBeCtbwnPAdnBnVYHTur_2EfcZBTuN4QKCq4ko8Q@mail.gmail.com>
+ <alpine.DEB.2.21.2110131711280.9408@sstabellini-ThinkPad-T480s>
+ <CAEsO4uxo_A4pEwP6dHK8kvYtKcbSr-ewqX1v-KLsEkyHNLFyUA@mail.gmail.com> <alpine.DEB.2.21.2110141536090.9408@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.2110141536090.9408@sstabellini-ThinkPad-T480s>
+From: Sai Kiran Kumar Reddy Y <ysaikiran1997@gmail.com>
+Date: Tue, 19 Oct 2021 17:34:22 +0530
+Message-ID: <CAEsO4uzwNHiLEZVEy90uua9YRud=Bmj=EPhzbhyk0tsEai=UQg@mail.gmail.com>
+Subject: Re: Xen Booting Problem on ARM Machine
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Jan Beulich <jbeulich@suse.com>, Luca Fancellu <luca.fancellu@arm.com>, 
+	xen-devel@lists.xenproject.org, kannan@cimware.in
+Content-Type: multipart/alternative; boundary="000000000000f50b8005ceb37649"
 
-On 19.10.2021 12:41, Roger Pau Monn=C3=A9 wrote:
-> On Mon, Oct 11, 2021 at 10:17:08AM +0200, Jan Beulich wrote:
->> With NPT or shadow in use, the p2m_set_entry() -> p2m_pt_set_entry() ->
->> write_p2m_entry() -> p2m_flush_nestedp2m() call sequence triggers a lock
->> order violation when the PoD lock is held around it. Hence such flushing
->> needs to be deferred. Steal the approach from p2m_change_type_range().
->>
->> Similarly for EPT I think ept_set_entry() -> ept_sync_domain() ->
->> ept_sync_domain_prepare() -> p2m_flush_nestedp2m() is affected.
->=20
-> I'm slightly worried by this path because it doesn't seem to
-> acknowledge defer_nested_flush.
+--000000000000f50b8005ceb37649
+Content-Type: text/plain; charset="UTF-8"
 
-Oh, yes. Iirc I did look at that logic, write down the remark, and
-then forgot to add the conditional to ept_sync_domain_prepare().
-The interactions with the real (host) flush are kind of ugly there,
-though - we then further depend on the ->defer_flush / ->need_flush
-logic, which is EPT-only. But I think I've convinced myself that
-this ought to work out.
+Hi,
 
-> Maybe the flag should be checked by
-> p2m_flush_nestedp2m instead of leaving it to the callers?
+Thanks for your inputs. As you have mentioned, I tried to boot Xen directly
+from EFI, thereby skipping GRUB. I made sure that kernel, xen.cfg and
+ramdisk are on the first FAT partition. I still get "All 128 bootinfo
+membanks exhausted error". The following link has my grub.cfg config. file
+and also the snapshot of the error.
 
-I'm not sure this would be a good idea, as there are more callers.
+Link:
+https://drive.google.com/drive/folders/1o7WT5oB7UsaZBeY5m4mWSidT5NalzvvJ?usp=sharing
 
-Jan
+I feel that even with EFI bootloader, there's some issue with bootinfo mem
+banks and it maynot be a bug in GRUB. Let me know your thoughts on this.
 
+Thanks in advance,
+
+Regards,
+Sai Kiran.
+
+On Fri, Oct 15, 2021 at 4:19 AM Stefano Stabellini <sstabellini@kernel.org>
+wrote:
+
+> On Thu, 14 Oct 2021, Sai Kiran Kumar Reddy Y wrote:
+> > On Thu, Oct 14, 2021 at 5:45 AM Stefano Stabellini <
+> sstabellini@kernel.org> wrote:
+> >       On Wed, 13 Oct 2021, Sai Kiran Kumar Reddy Y wrote:
+> >       > On Fri, Oct 1, 2021 at 8:17 AM Stefano Stabellini <
+> sstabellini@kernel.org> wrote:
+> >       >       Yes there are other ways but without serial is going to be
+> difficult
+> >       >       because you are not going to see anything until everything
+> works.
+> >       >
+> >       >       How do you boot Xen and Dom0 exactly from EDK2? Are you
+> using GRUB or
+> >       >       loading Xen directly from the EDK2 prompt? Please provide
+> as many
+> >       >       details as possible so that I might be able to spot any
+> errors.
+> >       >
+> >       > I am using GRUB to load Xen. In the GRUB menu, I see two
+> options.
+> >       > Option 1: Debian 11 with latest Linux Kernel
+> >       > Option 2: Debian 11(with Xen hypervisor) with latest Kernel
+> >       >
+> >       >       Can you provide the Device Tree you are using? If you are
+> not passing
+> >       >       any Device Tree  binary explicitely, then it might be
+> passed
+> >       >       automatically from EDK2 to Linux/Xen. In that case, just
+> boot from Linux
+> >       >       then do the following to retrieve the Device Tree:
+> >       >
+> >       >       dtc -I fs -O dts /proc/device-tree > host.dts
+> >       >
+> >       >       Then please attach host.dts to this email thread.
+> >       >
+> >       > Yeah, you are right. It looks like LInux is booting from ACPI.
+> In the bootloader menu, "Automatic ACPI configuration" is
+> >       disabled. So, I
+> >       > thought that Linux may be booting from Device Tree. I have tried
+> the "dtc" command you mentioned. But it looks like there's
+> >       no device-tree
+> >       > under "/proc". I also tried to get DT info, from
+> "/sys/firmware/devicetree/base" . But, there's no info. under devicetree
+> >       folder. I am not
+> >       > quite sure how to get the DT info, if the Linux is booting from
+> ACPI. I am attaching .dsl files, that contain the acpi info.
+> >
+> >       OK, so it is pretty clear that even if "Automatic ACPI
+> configuration" is
+> >       disabled, it is still booting with ACPI.
+> >
+> >
+> >       >       Also for your information it looks like Linux actually
+> booted from ACPI,
+> >       >       not from Device Tree, as you can see from all the "ACPI"
+> messages in the
+> >       >       kernel logs.
+> >       >
+> >       >       If you need to boot from ACPI, then you need to enable
+> ACPI support in
+> >       >       Xen, which is disabled by default. You can do that using
+> make
+> >       >       menuconfig.
+> >       >
+> >       > In the make menuconfig of Xen, I do not see any option to enable
+> ACPI.
+> >
+> >       You definitely need to enable ACPI support in Xen, if you are
+> booting
+> >       from ACPI, otherwise nothing is going to work.
+> >
+> >       On the latest staging (https://gitlab.com/xen-project/xen) you can
+> >       enable ACPI as follows:
+> >
+> >
+> >       # export CROSS_COMPILE=/path/to/cross-compiler
+> >       # export XEN_TARGET_ARCH=arm64
+> >       # cd xen.git/xen
+> >       # make menuconfig
+> >       #   --> Configure UNSUPPORTED features
+> >       #   --> Architecture Features --> ACPI
+> >       # make
+> >
+> >
+> > Hi
+> >
+> > I got the code from Gitlab and installed it, enabling ACPI support in
+> Xen. As I reboot the system, I am able to see 2 options like before.
+> > Option 1: Debian with latest kernel
+> > Option 2 : Debian with Xen
+> >
+> > I have selected Option 2. I did not see any bootinfo membanks error.
+> However, there is the following error in GRUB(just for a fraction of a
+> > second).
+> >
+> > "Using modules provided by boot loader in FDT
+> >   Xen 4.16-unstable (c/s Wed Oct 13 13 13:28:43 2021 -0700
+> git:4cfab4425d) EFI Loader
+> >   Couldn't obtain the File System Protocol Interface: ErrCode:
+> 0x8000000000000002"
+> >
+> > I have enabled earlyprintk. I do not see any messages in the Serial.
+> There seems to be some problem with the gitlab version of Xen.
+>
+> The error comes from xen/common/efi/boot.c:get_parent_handle
+>
+> Xen is booted as EFI binary and it is trying to load other binaries
+> using the EFI File System Protocol Interface which is one of the EFI
+> Boot Services.
+>
+> A wild guess is that somehow Grub is calling ExitBootServices, which
+> closes all Boot Services interfaces, before executing Xen. It should not
+> happen if Grub is executing Xen as EFI binary. I cannot explain how it
+> is possible. It looks like a bug in Grub.
+>
+> Can you post the Grub config file that you are using?
+>
+>
+> Usually before Grub there is the proper EFI bootloader, tipically EDK2.
+> You should be able to boot Xen directly from the EFI bootloader too,
+> from its prompt, just by executing "xen". You need to place the xen
+> binary in the first FAT partition together with a xen.cfg config file as
+> follows:
+>
+> ---
+> options=console=com1 com1=115200 loglvl=all noreboot
+> kernel=vmlinuz-3.0.31-0.4-xen [domain 0 command line options]
+> ramdisk=initrd-3.0.31-0.4-xen
+> ---
+>
+> options is to specify the Xen command line.
+> kernel is to specify the Linux kernel to use and its command line.
+> ramdisk is to specify the Linux ramdisk.
+>
+> Both kernel and ramdisk needs to be on the FAT partition too.
+>
+>
+> That way you skip Grub and you might be able to skip any related
+> problems with ExitBootServices.
+
+--000000000000f50b8005ceb37649
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi,<div><br></div><div>Thanks for your inputs. As you have=
+=C2=A0mentioned, I tried to boot Xen directly from EFI, thereby skipping GR=
+UB. I made sure that kernel, xen.cfg and ramdisk are on the first FAT parti=
+tion. I still get &quot;All 128 bootinfo membanks exhausted error&quot;. Th=
+e following link has my grub.cfg config. file and also the snapshot of the =
+error.</div><div><br></div><div>Link:=C2=A0<a href=3D"https://drive.google.=
+com/drive/folders/1o7WT5oB7UsaZBeY5m4mWSidT5NalzvvJ?usp=3Dsharing">https://=
+drive.google.com/drive/folders/1o7WT5oB7UsaZBeY5m4mWSidT5NalzvvJ?usp=3Dshar=
+ing</a></div><div><br></div><div>I feel that even with EFI bootloader, ther=
+e&#39;s some issue with bootinfo mem banks and it maynot be a bug in GRUB. =
+Let me know your thoughts on this.</div><div><br></div><div>Thanks in advan=
+ce,</div><div><br></div><div>Regards,</div><div>Sai Kiran.</div></div><br><=
+div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Oct=
+ 15, 2021 at 4:19 AM Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@k=
+ernel.org">sstabellini@kernel.org</a>&gt; wrote:<br></div><blockquote class=
+=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rg=
+b(204,204,204);padding-left:1ex">On Thu, 14 Oct 2021, Sai Kiran Kumar Reddy=
+ Y wrote:<br>
+&gt; On Thu, Oct 14, 2021 at 5:45 AM Stefano Stabellini &lt;<a href=3D"mail=
+to:sstabellini@kernel.org" target=3D"_blank">sstabellini@kernel.org</a>&gt;=
+ wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0On Wed, 13 Oct 2021, Sai Kiran Kumar Reddy Y=
+ wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; On Fri, Oct 1, 2021 at 8:17 AM Stefano =
+Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org" target=3D"_blank">=
+sstabellini@kernel.org</a>&gt; wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Yes there are=
+ other ways but without serial is going to be difficult<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0because you a=
+re not going to see anything until everything works.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0How do you bo=
+ot Xen and Dom0 exactly from EDK2? Are you using GRUB or<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0loading Xen d=
+irectly from the EDK2 prompt? Please provide as many<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0details as po=
+ssible so that I might be able to spot any errors.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; I am using GRUB to load Xen. In the GRU=
+B menu, I see two options.=C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Option 1: Debian 11 with latest Linux K=
+ernel<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Option 2: Debian 11(with Xen hypervisor=
+) with latest Kernel<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Can you provi=
+de the Device Tree you are using? If you are not passing<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0any Device Tr=
+ee=C2=A0 binary explicitely, then it might be passed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0automatically=
+ from EDK2 to Linux/Xen. In that case, just boot from Linux<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0then do the f=
+ollowing to retrieve the Device Tree:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0dtc -I fs -O =
+dts /proc/device-tree &gt; host.dts<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Then please a=
+ttach host.dts to this email thread.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Yeah, you are right. It looks like LInu=
+x is booting from ACPI. In the bootloader menu, &quot;Automatic ACPI config=
+uration&quot; is<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0disabled. So, I<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; thought that Linux may be booting from =
+Device Tree. I have tried the &quot;dtc&quot; command you mentioned. But it=
+ looks like there&#39;s<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0no device-tree<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; under &quot;/proc&quot;. I also tried t=
+o get DT info, from &quot;/sys/firmware/devicetree/base&quot; . But, there&=
+#39;s no info. under devicetree<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0folder. I am not<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; quite sure how to get the DT info, if t=
+he Linux is booting from ACPI. I am attaching .dsl files, that contain the =
+acpi info.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0OK, so it is pretty clear that even if &quot=
+;Automatic ACPI configuration&quot; is<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0disabled, it is still booting with ACPI.<br>
+&gt; <br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Also for your=
+ information it looks like Linux actually booted from ACPI,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0not from Devi=
+ce Tree, as you can see from all the &quot;ACPI&quot; messages in the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0kernel logs.<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0If you need t=
+o boot from ACPI, then you need to enable ACPI support in<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Xen, which is=
+ disabled by default. You can do that using make<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0menuconfig.<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; In the make menuconfig of Xen, I do not=
+ see any option to enable ACPI.=C2=A0=C2=A0<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0You definitely need to enable ACPI support i=
+n Xen, if you are booting<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0from ACPI, otherwise nothing is going to wor=
+k.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0On the latest staging (<a href=3D"https://gi=
+tlab.com/xen-project/xen" rel=3D"noreferrer" target=3D"_blank">https://gitl=
+ab.com/xen-project/xen</a>) you can<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0enable ACPI as follows:<br>
+&gt; <br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0# export CROSS_COMPILE=3D/path/to/cross-comp=
+iler<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0# export XEN_TARGET_ARCH=3Darm64<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0# cd xen.git/xen<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0# make menuconfig<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0#=C2=A0 =C2=A0--&gt; Configure UNSUPPORTED f=
+eatures<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0#=C2=A0 =C2=A0--&gt; Architecture Features -=
+-&gt; ACPI<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0# make<br>
+&gt; <br>
+&gt; <br>
+&gt; Hi<br>
+&gt; <br>
+&gt; I got the code from Gitlab and installed it, enabling ACPI support in =
+Xen. As I reboot the system, I am able to see 2 options like before.=C2=A0<=
+br>
+&gt; Option 1: Debian with latest kernel<br>
+&gt; Option 2 : Debian with Xen<br>
+&gt; <br>
+&gt; I have selected Option 2. I did not see any bootinfo membanks=C2=A0err=
+or. However, there is the following error in GRUB(just for a fraction of a<=
+br>
+&gt; second).=C2=A0<br>
+&gt; <br>
+&gt; &quot;Using modules provided by boot loader in FDT<br>
+&gt; =C2=A0 Xen 4.16-unstable (c/s Wed Oct 13 13 13:28:43 2021 -0700 git:4c=
+fab4425d) EFI Loader<br>
+&gt; =C2=A0 Couldn&#39;t obtain the File System Protocol Interface: ErrCode=
+: 0x8000000000000002&quot;<br>
+&gt; <br>
+&gt; I have enabled earlyprintk. I do not see any messages in the Serial. T=
+here seems to be some problem with the gitlab version of Xen.<br>
+<br>
+The error comes from xen/common/efi/boot.c:get_parent_handle<br>
+<br>
+Xen is booted as EFI binary and it is trying to load other binaries<br>
+using the EFI File System Protocol Interface which is one of the EFI<br>
+Boot Services.<br>
+<br>
+A wild guess is that somehow Grub is calling ExitBootServices, which<br>
+closes all Boot Services interfaces, before executing Xen. It should not<br=
+>
+happen if Grub is executing Xen as EFI binary. I cannot explain how it<br>
+is possible. It looks like a bug in Grub.<br>
+<br>
+Can you post the Grub config file that you are using?<br>
+<br>
+<br>
+Usually before Grub there is the proper EFI bootloader, tipically EDK2.<br>
+You should be able to boot Xen directly from the EFI bootloader too,<br>
+from its prompt, just by executing &quot;xen&quot;. You need to place the x=
+en<br>
+binary in the first FAT partition together with a xen.cfg config file as<br=
+>
+follows:<br>
+<br>
+---<br>
+options=3Dconsole=3Dcom1 com1=3D115200 loglvl=3Dall noreboot<br>
+kernel=3Dvmlinuz-3.0.31-0.4-xen [domain 0 command line options]<br>
+ramdisk=3Dinitrd-3.0.31-0.4-xen<br>
+---<br>
+<br>
+options is to specify the Xen command line.<br>
+kernel is to specify the Linux kernel to use and its command line.<br>
+ramdisk is to specify the Linux ramdisk.<br>
+<br>
+Both kernel and ramdisk needs to be on the FAT partition too.<br>
+<br>
+<br>
+That way you skip Grub and you might be able to skip any related<br>
+problems with ExitBootServices.</blockquote></div>
+
+--000000000000f50b8005ceb37649--
 
