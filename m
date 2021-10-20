@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62B8143488D
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FCE543488C
 	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 12:06:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.213759.372078 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.213760.372089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1md8Tn-0007fR-Pw; Wed, 20 Oct 2021 10:05:51 +0000
+	id 1md8Tr-0007wQ-1z; Wed, 20 Oct 2021 10:05:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 213759.372078; Wed, 20 Oct 2021 10:05:51 +0000
+Received: by outflank-mailman (output) from mailman id 213760.372089; Wed, 20 Oct 2021 10:05:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1md8Tn-0007de-Mo; Wed, 20 Oct 2021 10:05:51 +0000
-Received: by outflank-mailman (input) for mailman id 213759;
- Wed, 20 Oct 2021 10:05:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1md8Tq-0007u9-UZ; Wed, 20 Oct 2021 10:05:54 +0000
+Received: by outflank-mailman (input) for mailman id 213760;
+ Wed, 20 Oct 2021 10:05:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=faDG=PI=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1md8Tm-0007dY-OL
- for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 10:05:50 +0000
+ id 1md8To-0007sq-Ox
+ for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 10:05:52 +0000
 Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 4d65871e-318d-11ec-8336-12813bfff9fa;
- Wed, 20 Oct 2021 10:05:50 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id c43af9f5-e5cc-4bd9-91d2-639f0220f85b;
+ Wed, 20 Oct 2021 10:05:51 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C5A59ED1;
- Wed, 20 Oct 2021 03:05:49 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8BB1F106F;
+ Wed, 20 Oct 2021 03:05:51 -0700 (PDT)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 423B03F70D;
- Wed, 20 Oct 2021 03:05:48 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 088FA3F70D;
+ Wed, 20 Oct 2021 03:05:49 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +42,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4d65871e-318d-11ec-8336-12813bfff9fa
+X-Inumbo-ID: c43af9f5-e5cc-4bd9-91d2-639f0220f85b
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: iwj@xenproject.org,
@@ -56,31 +55,65 @@ Cc: iwj@xenproject.org,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>,
 	Paul Durrant <paul@xen.org>
-Subject: [PATCH v3 0/1] Fixes: PCI devices passthrough on Arm
-Date: Wed, 20 Oct 2021 11:05:36 +0100
-Message-Id: <cover.1634723903.git.bertrand.marquis@arm.com>
+Subject: [PATCH v3 1/1] xen/pci: Install vpci handlers on x86 and fix error paths
+Date: Wed, 20 Oct 2021 11:05:37 +0100
+Message-Id: <c82cc9c933e09806c9d043c61d92bd793060f9ab.1634723903.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1634723903.git.bertrand.marquis@arm.com>
+References: <cover.1634723903.git.bertrand.marquis@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch serie is a follow-up after various findings on d59168dc05
-("xen/arm: Enable the existing x86 virtual PCI support for ARM") as of
-agreed in [1].
+Xen might not be able to discover at boot time all devices or some devices
+might appear after specific actions from dom0.
+In this case dom0 can use the PHYSDEVOP_pci_device_add to signal some
+PCI devices to Xen.
+As those devices where not known from Xen before, the vpci handlers must
+be properly installed during pci_device_add for x86 PVH Dom0, in the
+same way as what is done currently on arm (where Xen does not detect PCI
+devices but relies on Dom0 to declare them all the time).
 
-It does the following:
-- enable vpci_add_handlers on x86 and not only on arm
-- remove __hwdom_init flag for vpci_add_handlers
-- add missing vpci handler cleanup in error path during pci_device_add
-  and pci_device_remove
+So this patch is removing the ifdef protecting the call to
+vpci_add_handlers and the comment which was arm specific.
 
-[1] https://marc.info/?l=xen-devel&m=163455502020100&w=2
+vpci_add_handlers is called on during pci_device_add which can be called
+at runtime through hypercall physdev_op.
+Remove __hwdom_init as the call is not limited anymore to hardware
+domain init and fix linker script to only keep vpci_array in rodata
+section.
 
-In the second version of the serie, the 3 patches have been merged into
-one single patch.
+Add missing vpci handlers cleanup during pci_device_remove and in case
+of error with iommu during pci_device_add.
 
-Bertrand Marquis (1):
-  xen/pci: Install vpci handlers on x86 and fix error paths
+Move code adding the domain to the pdev domain_list as vpci_add_handlers
+needs this to be set and remove it from the list in the error path.
 
+Exit early of vpci_remove_device if the domain has no vpci support.
+
+Add empty static inline for vpci_remove_device when CONFIG_VPCI is not
+defined.
+
+Add an ASSERT in vpci_add_handlers to check that the function is not
+called twice for the same device.
+
+Fixes: d59168dc05 ("xen/arm: Enable the existing x86 virtual PCI support
+for ARM")
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+---
+Changes in v3
+- change title (s/exit/error/ and s/path/paths)
+- add early exit in vpci_remove_device if the domain has no vpci support
+- add ASSERT in vpci_add_handlers to check that the call is only made
+once per device
+- move the call adding the domain in the pdev domain list and remove it
+in the error path
+Changes in v2
+- add comment suggested by Jan on top of vpci_add_handlers call
+- merge the 3 patches of the serie in one patch and renamed it
+- fix x86 and arm linker script to only keep vpci_array in rodata and
+only when CONFIG_VPCI is set.
+---
  xen/arch/arm/xen.lds.S        |  9 +--------
  xen/arch/x86/xen.lds.S        |  9 +--------
  xen/drivers/passthrough/pci.c | 14 ++++++++------
@@ -88,6 +121,153 @@ Bertrand Marquis (1):
  xen/include/xen/vpci.h        |  2 ++
  5 files changed, 19 insertions(+), 23 deletions(-)
 
+diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
+index b773f91f1c..08016948ab 100644
+--- a/xen/arch/arm/xen.lds.S
++++ b/xen/arch/arm/xen.lds.S
+@@ -60,7 +60,7 @@ SECTIONS
+        *(.proc.info)
+        __proc_info_end = .;
+ 
+-#if defined(CONFIG_HAS_VPCI) && defined(CONFIG_LATE_HWDOM)
++#ifdef CONFIG_HAS_VPCI
+        . = ALIGN(POINTER_ALIGN);
+        __start_vpci_array = .;
+        *(SORT(.data.vpci.*))
+@@ -189,13 +189,6 @@ SECTIONS
+        *(.init_array)
+        *(SORT(.init_array.*))
+        __ctors_end = .;
+-
+-#if defined(CONFIG_HAS_VPCI) && !defined(CONFIG_LATE_HWDOM)
+-       . = ALIGN(POINTER_ALIGN);
+-       __start_vpci_array = .;
+-       *(SORT(.data.vpci.*))
+-       __end_vpci_array = .;
+-#endif
+   } :text
+   __init_end_efi = .;
+   . = ALIGN(STACK_SIZE);
+diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+index 11b1da2154..87e344d4dd 100644
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -134,7 +134,7 @@ SECTIONS
+        *(.ex_table.pre)
+        __stop___pre_ex_table = .;
+ 
+-#if defined(CONFIG_HAS_VPCI) && defined(CONFIG_LATE_HWDOM)
++#ifdef CONFIG_HAS_VPCI
+        . = ALIGN(POINTER_ALIGN);
+        __start_vpci_array = .;
+        *(SORT(.data.vpci.*))
+@@ -247,13 +247,6 @@ SECTIONS
+        *(.init_array)
+        *(SORT(.init_array.*))
+        __ctors_end = .;
+-
+-#if defined(CONFIG_HAS_VPCI) && !defined(CONFIG_LATE_HWDOM)
+-       . = ALIGN(POINTER_ALIGN);
+-       __start_vpci_array = .;
+-       *(SORT(.data.vpci.*))
+-       __end_vpci_array = .;
+-#endif
+   } PHDR(text)
+ 
+   . = ALIGN(SECTION_ALIGN);
+diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+index 35e0190796..0d8ab2e716 100644
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -756,27 +756,28 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+     if ( !pdev->domain )
+     {
+         pdev->domain = hardware_domain;
+-#ifdef CONFIG_ARM
++        list_add(&pdev->domain_list, &hardware_domain->pdev_list);
++
+         /*
+-         * On ARM PCI devices discovery will be done by Dom0. Add vpci handler
+-         * when Dom0 inform XEN to add the PCI devices in XEN.
++         * For devices not discovered by Xen during boot, add vPCI handlers
++         * when Dom0 first informs Xen about such devices.
+          */
+         ret = vpci_add_handlers(pdev);
+         if ( ret )
+         {
+             printk(XENLOG_ERR "Setup of vPCI failed: %d\n", ret);
++            list_del(&pdev->domain_list);
+             pdev->domain = NULL;
+             goto out;
+         }
+-#endif
+         ret = iommu_add_device(pdev);
+         if ( ret )
+         {
++            vpci_remove_device(pdev);
++            list_del(&pdev->domain_list);
+             pdev->domain = NULL;
+             goto out;
+         }
+-
+-        list_add(&pdev->domain_list, &hardware_domain->pdev_list);
+     }
+     else
+         iommu_enable_device(pdev);
+@@ -819,6 +820,7 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
+     list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
+         if ( pdev->bus == bus && pdev->devfn == devfn )
+         {
++            vpci_remove_device(pdev);
+             pci_cleanup_msi(pdev);
+             ret = iommu_remove_device(pdev);
+             if ( pdev->domain )
+diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+index decf7d87a1..657697fe34 100644
+--- a/xen/drivers/vpci/vpci.c
++++ b/xen/drivers/vpci/vpci.c
+@@ -37,6 +37,9 @@ extern vpci_register_init_t *const __end_vpci_array[];
+ 
+ void vpci_remove_device(struct pci_dev *pdev)
+ {
++    if ( !has_vpci(pdev->domain) )
++        return;
++
+     spin_lock(&pdev->vpci->lock);
+     while ( !list_empty(&pdev->vpci->handlers) )
+     {
+@@ -54,7 +57,7 @@ void vpci_remove_device(struct pci_dev *pdev)
+     pdev->vpci = NULL;
+ }
+ 
+-int __hwdom_init vpci_add_handlers(struct pci_dev *pdev)
++int vpci_add_handlers(struct pci_dev *pdev)
+ {
+     unsigned int i;
+     int rc = 0;
+@@ -62,6 +65,9 @@ int __hwdom_init vpci_add_handlers(struct pci_dev *pdev)
+     if ( !has_vpci(pdev->domain) )
+         return 0;
+ 
++    /* We should not get here twice for the same device. */
++    ASSERT(!pdev->vpci);
++
+     pdev->vpci = xzalloc(struct vpci);
+     if ( !pdev->vpci )
+         return -ENOMEM;
+diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+index 6746c2589a..9ea66e033f 100644
+--- a/xen/include/xen/vpci.h
++++ b/xen/include/xen/vpci.h
+@@ -230,6 +230,8 @@ static inline int vpci_add_handlers(struct pci_dev *pdev)
+     return 0;
+ }
+ 
++static inline void vpci_remove_device(struct pci_dev *pdev) { }
++
+ static inline void vpci_dump_msi(void) { }
+ 
+ static inline uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg,
 -- 
 2.25.1
 
