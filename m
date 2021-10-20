@@ -2,35 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FCE543488C
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 12:06:16 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.213760.372089 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94F5C4348B2
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 12:11:38 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.213776.372101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1md8Tr-0007wQ-1z; Wed, 20 Oct 2021 10:05:55 +0000
+	id 1md8Ya-0001Hi-OO; Wed, 20 Oct 2021 10:10:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 213760.372089; Wed, 20 Oct 2021 10:05:55 +0000
+Received: by outflank-mailman (output) from mailman id 213776.372101; Wed, 20 Oct 2021 10:10:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1md8Tq-0007u9-UZ; Wed, 20 Oct 2021 10:05:54 +0000
-Received: by outflank-mailman (input) for mailman id 213760;
- Wed, 20 Oct 2021 10:05:52 +0000
+	id 1md8Ya-0001Ft-Kp; Wed, 20 Oct 2021 10:10:48 +0000
+Received: by outflank-mailman (input) for mailman id 213776;
+ Wed, 20 Oct 2021 10:10:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=faDG=PI=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1md8To-0007sq-Ox
- for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 10:05:52 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id c43af9f5-e5cc-4bd9-91d2-639f0220f85b;
- Wed, 20 Oct 2021 10:05:51 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8BB1F106F;
- Wed, 20 Oct 2021 03:05:51 -0700 (PDT)
-Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
- [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 088FA3F70D;
- Wed, 20 Oct 2021 03:05:49 -0700 (PDT)
+ <SRS0=MOn5=PI=arm.com=Hongda.Deng@srs-us1.protection.inumbo.net>)
+ id 1md8YZ-0001Fn-S3
+ for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 10:10:48 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
+ [40.107.21.63]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4a3c7332-bf90-4079-bea1-394b53564784;
+ Wed, 20 Oct 2021 10:10:44 +0000 (UTC)
+Received: from AS9PR04CA0058.eurprd04.prod.outlook.com (2603:10a6:20b:46a::23)
+ by DBBPR08MB6105.eurprd08.prod.outlook.com (2603:10a6:10:20d::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Wed, 20 Oct
+ 2021 10:10:42 +0000
+Received: from VE1EUR03FT031.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:46a:cafe::e5) by AS9PR04CA0058.outlook.office365.com
+ (2603:10a6:20b:46a::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.16 via Frontend
+ Transport; Wed, 20 Oct 2021 10:10:42 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT031.mail.protection.outlook.com (10.152.18.69) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4608.15 via Frontend Transport; Wed, 20 Oct 2021 10:10:41 +0000
+Received: ("Tessian outbound 8e26f7114b75:v103");
+ Wed, 20 Oct 2021 10:10:41 +0000
+Received: from 0a7e79187a79.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ CEC86D9F-CB6D-4F6C-89CE-056E4C97ADFA.1; 
+ Wed, 20 Oct 2021 10:10:35 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0a7e79187a79.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 20 Oct 2021 10:10:35 +0000
+Received: from AM6PR08CA0004.eurprd08.prod.outlook.com (2603:10a6:20b:b2::16)
+ by HE1PR0801MB2091.eurprd08.prod.outlook.com (2603:10a6:3:51::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Wed, 20 Oct
+ 2021 10:10:33 +0000
+Received: from AM5EUR03FT039.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:b2:cafe::c4) by AM6PR08CA0004.outlook.office365.com
+ (2603:10a6:20b:b2::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.16 via Frontend
+ Transport; Wed, 20 Oct 2021 10:10:33 +0000
+Received: from nebula.arm.com (40.67.248.234) by
+ AM5EUR03FT039.mail.protection.outlook.com (10.152.17.185) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4608.15 via Frontend Transport; Wed, 20 Oct 2021 10:10:32 +0000
+Received: from AZ-NEU-EX03.Arm.com (10.251.24.31) by AZ-NEU-EX03.Arm.com
+ (10.251.24.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.14; Wed, 20 Oct
+ 2021 10:10:31 +0000
+Received: from hongda-OptiPlex-7070.shanghai.arm.com (10.169.190.17) by
+ mail.arm.com (10.251.24.31) with Microsoft SMTP Server id 15.1.2308.14 via
+ Frontend Transport; Wed, 20 Oct 2021 10:10:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,233 +81,239 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c43af9f5-e5cc-4bd9-91d2-639f0220f85b
-From: Bertrand Marquis <bertrand.marquis@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: iwj@xenproject.org,
-	Oleksandr_Andrushchenko@epam.com,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>
-Subject: [PATCH v3 1/1] xen/pci: Install vpci handlers on x86 and fix error paths
-Date: Wed, 20 Oct 2021 11:05:37 +0100
-Message-Id: <c82cc9c933e09806c9d043c61d92bd793060f9ab.1634723903.git.bertrand.marquis@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1634723903.git.bertrand.marquis@arm.com>
-References: <cover.1634723903.git.bertrand.marquis@arm.com>
+X-Inumbo-ID: 4a3c7332-bf90-4079-bea1-394b53564784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WDANhBkc8QVomqkcXiK4L7RcGe5Epnl8Ui8zqFtlpS0=;
+ b=5cktR1FRD/cYJ8lkrgYX8RwaEoelCobwvl35mjArdxJnJU1k5jv1dwQNRlOb3753M8xibPtkUYshPmDkBXqOGDXixijVEEijAcEs6DqSDqHHLZ7/651eajfk2cmEDZw8xUu+6rl11+LmhbMjM4g2lwZKn7l7EUKQv73z4+M7abk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
+ verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
+ action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 10458c9cf0127461
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Xq6jn29Qe3uNyaOJlVfdZ2SArrEmqocEZIEom+oUO0rgFwmaKotEk21yHzylTEFcMoDZUIDrTjQkQaaIHF1EapUSH4jbTD9XCrSPVxpkSHNXzM4H2kazRwni/Qg/dlEk/sDN1GY9xldpigF6Wi+wQAAT0Li7YMz6dzfEpxplrnEc4+Gph04hDY66zfKDy2tI/6Jeiwyk1P3trwEqBHDjzNpt6NotZTIFiEE/W0d/ZnE4XP6zWBUSCg1gH9NzJyOXuoRkO7j1QMBjmmfxlDoeSZY1wPuSp1o6/hUVylleDZs8hrX79falVyre3w4LdnCAqPkq3k4V04+JTVIyBc42dQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WDANhBkc8QVomqkcXiK4L7RcGe5Epnl8Ui8zqFtlpS0=;
+ b=bNUoF2Wum/p/0KBqexyk1y7SgrSyovMExdI9KBW4XQCEzV31K3qmh+sFu5GdZZiv1d7se8q40uzcYNAr2EJtiJtHvrnFnmwlKZ6nFuDMugVi5qdxVKYSaZpVu+joZ7ASQhbsJlcFLxpvmasxV74rkuQZ1NGaLqRTCqjiL8/Exo1selmbtJDXqwJ/pvuSSPgcH6E090EQvCKz+q03Z0rg43ylA9NoA+TNLNfhPA1EW09HvS3IOZv1bMgTPN1Yh7XYwblQLnvcuDYWn6cT/ZT8XLb+TeVb1hRTRk9g07JTgKLpBo/AWVoD7IYQ3/iUxG3USkfiKT5mclIyF8nobQjeGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 40.67.248.234) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WDANhBkc8QVomqkcXiK4L7RcGe5Epnl8Ui8zqFtlpS0=;
+ b=5cktR1FRD/cYJ8lkrgYX8RwaEoelCobwvl35mjArdxJnJU1k5jv1dwQNRlOb3753M8xibPtkUYshPmDkBXqOGDXixijVEEijAcEs6DqSDqHHLZ7/651eajfk2cmEDZw8xUu+6rl11+LmhbMjM4g2lwZKn7l7EUKQv73z4+M7abk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
+ smtp.mailfrom=arm.com; lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=pass action=none
+ header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 40.67.248.234 as permitted sender) receiver=protection.outlook.com;
+ client-ip=40.67.248.234; helo=nebula.arm.com;
+From: Hongda Deng <Hongda.Deng@arm.com>
+To: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
+	<julien@xen.org>
+CC: <Bertrand.Marquis@arm.com>, <Wei.Chen@arm.com>, <Hongda.Deng@arm.com>
+Subject: [PATCH v3] xen/arm: vgic to ignore GICD ICPENDRn registers access
+Date: Wed, 20 Oct 2021 18:10:21 +0800
+Message-ID: <20211020101021.9793-1-Hongda.Deng@arm.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 1
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b3526b82-e820-41ad-0b7c-08d993b1df78
+X-MS-TrafficTypeDiagnostic: HE1PR0801MB2091:|DBBPR08MB6105:
+X-Microsoft-Antispam-PRVS:
+	<DBBPR08MB61058BEF30EB3624FAE35CA1E6BE9@DBBPR08MB6105.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;OLM:4941;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 5H0WkS0ajXlOvtauoU/cCbpztD3V/99oL3j+RqxFQ49H9hbd/2vsM9JRK/tQTdysaOtqkLJfXTAa9ZAgXTilo/qkQkzVFQPk/1fHkrmHd+2wPgOSyeQ7eSgUIRR8KDOIFYsWZS2tJXjPSII/70srQ+2BYWEGDi+xSB6y0fskJRQeI2bTh50MPFEW5T6XDziQOfI+dnrbPNzQ981JKoURnRnXklhD4JxsPhJ1A3bh1YYSowhA/Q+QbFwmjaUR8z+UYhqHgU+PVvvHUV84zKI5EX7zdRV+0wwJ81n9gA8ol0r44v5PW5wsHvtkV9LBNimi9zTogYFE23s3el1MPGg8t95kZR4N2JjUbaB50iOqNBPrIhLh1NwII8kmqvN4bkGbCQWJ72XbQ6rLiFRrY+FDJNYnoyHTY4VCrHvNNjdkoXxHdrpkmzPA3nFwDG3zXpT9qHBP1dZK69Flnx5dZ42dRKGWOS9ArEeWrEDxLuD+FC+ZA3lpsO1LM2X4A+HJ+eJJt5i4oXvf4xVfOGxwfDvBbBhRqDUvEn4/cBya28hSJcJjSclJnBC4QuqluaPkwSSL+OkYkUZNtwS6G07bQi54k0v9JYBvpao3S+2qlwyEjE85jxL2H3H2eEdYDcMB2knhsFzyCILPn2E+gRypYyxm01rjVMeuk1oa7E5zG1WZFNULc6Sw2Zk/UrxkU9yL3fczwXd8M+XwncfpWAWJ4WIkmhG/uYr8fWcYl2N1+xmPhta2e7R16BpwnBYS3L52ER+JY676px/2h0Mcd69c/hH5quYEOAopm93W67NLAvICYfg7KEtyZb+T2YlZKbFvkj0P
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(5660300002)(70586007)(70206006)(186003)(26005)(7696005)(110136005)(6666004)(966005)(54906003)(508600001)(86362001)(36756003)(8936002)(316002)(1076003)(2616005)(426003)(8676002)(81166007)(4326008)(356005)(83380400001)(82310400003)(36860700001)(2906002)(47076005)(336012)(36900700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0801MB2091
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT031.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	b1d089a1-72d6-4c44-5e0a-08d993b1da07
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ozfNYeKkboAcp1XSHua6lV7jQDlrc3ohJou0/GhSMK2SbZsyiTJS9ZuFsb7DVtQSBw0t3j1ALA7o732HYnwosOur5SHKPhXLADWL4bENO3DjnuGBfD3K6aVJvTXqvYK31tXZAxYJgsHTjnNR9Hm9iD0x+VjVcyQGdnfHFu0waynD0PSoHRdS+6eE8M9sc0PSl+WyBD6XRr1c4JpGPPI+zFPEB7UTvDBRt0zJdjhcjGAW1XaCts5+jXHc99Gk70VaIJMY5jVIlZLVSOLHUzPfY7Je9f6I5JiXiqQADITYH4qbxH47gWOR+6sA7mgbeYdm21ziziI5OSEGByg4y4T78NIClUanOoUN7e9Ba48kHCqjdyiQOuvNrRSrozkFE/J0yp2GbNcla7DmHFiUPStWbt7Hy2RM5NY7e/Dnjrd5U05E1fONSZzik0S2SNJ/n+VPzLUpAM8E9nUzosIM2oNH/VOM3IepT2Ztvx0D+BhxhX8ju3TEREeOOe2ni5RIDbLplCy5RAWyL4yUDNC3yS+qBQchSoaTXvzYuYTM/TRdNgBCLFQret08q8+csPXNp8JpLsWqXPTHksBCt9zqic79PPPw4G7KKpFlFvnSzArIlKCLPROZ7a0KbossfrmMnVm429SUEIRKREbtCvAVl+6liLdV7kvCyPK93pPUkGlVUUluj1Zm7AQ1zJvms3/eq58yhUcTSTSb6QGldZ5/VUQgjhPdnQLrMM4o8KPxY9qeJ4Q1f2uR+e1ADfsISCcl/hEPxV9oKiaiUvtomFbcDNJ3MM6r882WM8BaBn6EJ3Zynmw=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(83380400001)(8676002)(26005)(81166007)(70586007)(36860700001)(110136005)(336012)(316002)(54906003)(1076003)(186003)(4326008)(86362001)(8936002)(2616005)(426003)(966005)(7696005)(508600001)(6666004)(70206006)(47076005)(2906002)(82310400003)(5660300002)(36756003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2021 10:10:41.6247
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3526b82-e820-41ad-0b7c-08d993b1df78
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT031.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB6105
 
-Xen might not be able to discover at boot time all devices or some devices
-might appear after specific actions from dom0.
-In this case dom0 can use the PHYSDEVOP_pci_device_add to signal some
-PCI devices to Xen.
-As those devices where not known from Xen before, the vpci handlers must
-be properly installed during pci_device_add for x86 PVH Dom0, in the
-same way as what is done currently on arm (where Xen does not detect PCI
-devices but relies on Dom0 to declare them all the time).
+Currently, Xen will return IO unhandled when guests access GICD ICPENRn
+registers. This will raise a data abort inside guest. For Linux Guest,
+these virtual registers will not be accessed. But for Zephyr, in its
+GIC initialization code, these virtual registers will be accessed. And
+zephyr guest will get an IO data abort in initilization stage and enter
+fatal error. Emulating ICPENDR is not easy with the existing vGIC, so
+we currently ignore these virtual registers access and print a message
+about whether they are already pending instead of returning unhandled.
+More details can be found at [1].
 
-So this patch is removing the ifdef protecting the call to
-vpci_add_handlers and the comment which was arm specific.
+[1] https://github.com/zephyrproject-rtos/zephyr/blob/eaf6cf745df3807e6e
+cc941c3a30de6c179ae359/drivers/interrupt_controller/intc_gicv3.c#L274
 
-vpci_add_handlers is called on during pci_device_add which can be called
-at runtime through hypercall physdev_op.
-Remove __hwdom_init as the call is not limited anymore to hardware
-domain init and fix linker script to only keep vpci_array in rodata
-section.
-
-Add missing vpci handlers cleanup during pci_device_remove and in case
-of error with iommu during pci_device_add.
-
-Move code adding the domain to the pdev domain_list as vpci_add_handlers
-needs this to be set and remove it from the list in the error path.
-
-Exit early of vpci_remove_device if the domain has no vpci support.
-
-Add empty static inline for vpci_remove_device when CONFIG_VPCI is not
-defined.
-
-Add an ASSERT in vpci_add_handlers to check that the function is not
-called twice for the same device.
-
-Fixes: d59168dc05 ("xen/arm: Enable the existing x86 virtual PCI support
-for ARM")
-Suggested-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+Signed-off-by: Hongda Deng <hongda.deng@arm.com>
 ---
-Changes in v3
-- change title (s/exit/error/ and s/path/paths)
-- add early exit in vpci_remove_device if the domain has no vpci support
-- add ASSERT in vpci_add_handlers to check that the call is only made
-once per device
-- move the call adding the domain in the pdev domain list and remove it
-in the error path
-Changes in v2
-- add comment suggested by Jan on top of vpci_add_handlers call
-- merge the 3 patches of the serie in one patch and renamed it
-- fix x86 and arm linker script to only keep vpci_array in rodata and
-only when CONFIG_VPCI is set.
+Changes since v2:
+ *  Avoid to print messages when there is no pending interrupt
+ *  Add helper vgic_check_inflight_irqs_pending to check pending status
+ *  Print a message for each interrupt separately
+Changes since v1:
+ *  Check pending states by going through vcpu->arch.vgic.inflight_irqs
+    instead of checking hardware registers
 ---
- xen/arch/arm/xen.lds.S        |  9 +--------
- xen/arch/x86/xen.lds.S        |  9 +--------
- xen/drivers/passthrough/pci.c | 14 ++++++++------
- xen/drivers/vpci/vpci.c       |  8 +++++++-
- xen/include/xen/vpci.h        |  2 ++
- 5 files changed, 19 insertions(+), 23 deletions(-)
+ xen/arch/arm/vgic-v2.c     | 10 ++++++----
+ xen/arch/arm/vgic-v3.c     | 16 ++++++++--------
+ xen/arch/arm/vgic.c        | 36 ++++++++++++++++++++++++++++++++++++
+ xen/include/asm-arm/vgic.h |  3 ++-
+ 4 files changed, 52 insertions(+), 13 deletions(-)
 
-diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
-index b773f91f1c..08016948ab 100644
---- a/xen/arch/arm/xen.lds.S
-+++ b/xen/arch/arm/xen.lds.S
-@@ -60,7 +60,7 @@ SECTIONS
-        *(.proc.info)
-        __proc_info_end = .;
+diff --git a/xen/arch/arm/vgic-v2.c b/xen/arch/arm/vgic-v2.c
+index b2da886adc..7c30da327c 100644
+--- a/xen/arch/arm/vgic-v2.c
++++ b/xen/arch/arm/vgic-v2.c
+@@ -481,10 +481,12 @@ static int vgic_v2_distr_mmio_write(struct vcpu *v, mmio_info_t *info,
  
--#if defined(CONFIG_HAS_VPCI) && defined(CONFIG_LATE_HWDOM)
-+#ifdef CONFIG_HAS_VPCI
-        . = ALIGN(POINTER_ALIGN);
-        __start_vpci_array = .;
-        *(SORT(.data.vpci.*))
-@@ -189,13 +189,6 @@ SECTIONS
-        *(.init_array)
-        *(SORT(.init_array.*))
-        __ctors_end = .;
--
--#if defined(CONFIG_HAS_VPCI) && !defined(CONFIG_LATE_HWDOM)
--       . = ALIGN(POINTER_ALIGN);
--       __start_vpci_array = .;
--       *(SORT(.data.vpci.*))
--       __end_vpci_array = .;
--#endif
-   } :text
-   __init_end_efi = .;
-   . = ALIGN(STACK_SIZE);
-diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index 11b1da2154..87e344d4dd 100644
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -134,7 +134,7 @@ SECTIONS
-        *(.ex_table.pre)
-        __stop___pre_ex_table = .;
- 
--#if defined(CONFIG_HAS_VPCI) && defined(CONFIG_LATE_HWDOM)
-+#ifdef CONFIG_HAS_VPCI
-        . = ALIGN(POINTER_ALIGN);
-        __start_vpci_array = .;
-        *(SORT(.data.vpci.*))
-@@ -247,13 +247,6 @@ SECTIONS
-        *(.init_array)
-        *(SORT(.init_array.*))
-        __ctors_end = .;
--
--#if defined(CONFIG_HAS_VPCI) && !defined(CONFIG_LATE_HWDOM)
--       . = ALIGN(POINTER_ALIGN);
--       __start_vpci_array = .;
--       *(SORT(.data.vpci.*))
--       __end_vpci_array = .;
--#endif
-   } PHDR(text)
- 
-   . = ALIGN(SECTION_ALIGN);
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index 35e0190796..0d8ab2e716 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -756,27 +756,28 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
-     if ( !pdev->domain )
-     {
-         pdev->domain = hardware_domain;
--#ifdef CONFIG_ARM
-+        list_add(&pdev->domain_list, &hardware_domain->pdev_list);
+     case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
+         if ( dabt.size != DABT_WORD ) goto bad_width;
+-        printk(XENLOG_G_ERR
+-               "%pv: vGICD: unhandled word write %#"PRIregister" to ICPENDR%d\n",
+-               v, r, gicd_reg - GICD_ICPENDR);
+-        return 0;
++        rank = vgic_rank_offset(v, 1, gicd_reg - GICD_ICPENDR, DABT_WORD);
++        if ( rank == NULL ) goto write_ignore;
 +
-         /*
--         * On ARM PCI devices discovery will be done by Dom0. Add vpci handler
--         * when Dom0 inform XEN to add the PCI devices in XEN.
-+         * For devices not discovered by Xen during boot, add vPCI handlers
-+         * when Dom0 first informs Xen about such devices.
-          */
-         ret = vpci_add_handlers(pdev);
-         if ( ret )
-         {
-             printk(XENLOG_ERR "Setup of vPCI failed: %d\n", ret);
-+            list_del(&pdev->domain_list);
-             pdev->domain = NULL;
-             goto out;
-         }
--#endif
-         ret = iommu_add_device(pdev);
-         if ( ret )
-         {
-+            vpci_remove_device(pdev);
-+            list_del(&pdev->domain_list);
-             pdev->domain = NULL;
-             goto out;
-         }
--
--        list_add(&pdev->domain_list, &hardware_domain->pdev_list);
++        vgic_check_inflight_irqs_pending(v->domain, v, rank->index, r);
++
++        goto write_ignore_32;
+ 
+     case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
+         if ( dabt.size != DABT_WORD ) goto bad_width;
+diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+index cb5a70c42e..4913301d22 100644
+--- a/xen/arch/arm/vgic-v3.c
++++ b/xen/arch/arm/vgic-v3.c
+@@ -817,10 +817,12 @@ static int __vgic_v3_distr_common_mmio_write(const char *name, struct vcpu *v,
+ 
+     case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
+         if ( dabt.size != DABT_WORD ) goto bad_width;
+-        printk(XENLOG_G_ERR
+-               "%pv: %s: unhandled word write %#"PRIregister" to ICPENDR%d\n",
+-               v, name, r, reg - GICD_ICPENDR);
+-        return 0;
++        rank = vgic_rank_offset(v, 1, reg - GICD_ICPENDR, DABT_WORD);
++        if ( rank == NULL ) goto write_ignore;
++
++        vgic_check_inflight_irqs_pending(v->domain, v, rank->index, r);
++
++        goto write_ignore_32;
+ 
+     case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
+         if ( dabt.size != DABT_WORD ) goto bad_width;
+@@ -987,10 +989,8 @@ static int vgic_v3_rdistr_sgi_mmio_write(struct vcpu *v, mmio_info_t *info,
+ 
+     case VREG32(GICR_ICPENDR0):
+         if ( dabt.size != DABT_WORD ) goto bad_width;
+-        printk(XENLOG_G_ERR
+-               "%pv: vGICR: SGI: unhandled word write %#"PRIregister" to ICPENDR0\n",
+-               v, r);
+-        return 0;
++        return __vgic_v3_distr_common_mmio_write("vGICR: SGI", v,
++                                                 info, gicr_reg, r);
+ 
+     case VREG32(GICR_IGRPMODR0):
+         /* We do not implement security extensions for guests, write ignore */
+diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
+index 8f9400a519..0565557814 100644
+--- a/xen/arch/arm/vgic.c
++++ b/xen/arch/arm/vgic.c
+@@ -726,6 +726,42 @@ unsigned int vgic_max_vcpus(unsigned int domctl_vgic_version)
      }
-     else
-         iommu_enable_device(pdev);
-@@ -819,6 +820,7 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
-     list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
-         if ( pdev->bus == bus && pdev->devfn == devfn )
-         {
-+            vpci_remove_device(pdev);
-             pci_cleanup_msi(pdev);
-             ret = iommu_remove_device(pdev);
-             if ( pdev->domain )
-diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index decf7d87a1..657697fe34 100644
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -37,6 +37,9 @@ extern vpci_register_init_t *const __end_vpci_array[];
- 
- void vpci_remove_device(struct pci_dev *pdev)
- {
-+    if ( !has_vpci(pdev->domain) )
-+        return;
-+
-     spin_lock(&pdev->vpci->lock);
-     while ( !list_empty(&pdev->vpci->handlers) )
-     {
-@@ -54,7 +57,7 @@ void vpci_remove_device(struct pci_dev *pdev)
-     pdev->vpci = NULL;
  }
  
--int __hwdom_init vpci_add_handlers(struct pci_dev *pdev)
-+int vpci_add_handlers(struct pci_dev *pdev)
- {
-     unsigned int i;
-     int rc = 0;
-@@ -62,6 +65,9 @@ int __hwdom_init vpci_add_handlers(struct pci_dev *pdev)
-     if ( !has_vpci(pdev->domain) )
-         return 0;
- 
-+    /* We should not get here twice for the same device. */
-+    ASSERT(!pdev->vpci);
++void vgic_check_inflight_irqs_pending(struct domain *d, struct vcpu *v,
++                                      unsigned int rank, uint32_t r)
++{
++    const unsigned long mask = r;
++    unsigned int i;
++    unsigned long flags;
++    struct pending_irq *p;
++    bool private = rank == 0;
++    struct vcpu *v_target;
 +
-     pdev->vpci = xzalloc(struct vpci);
-     if ( !pdev->vpci )
-         return -ENOMEM;
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 6746c2589a..9ea66e033f 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -230,6 +230,8 @@ static inline int vpci_add_handlers(struct pci_dev *pdev)
-     return 0;
- }
- 
-+static inline void vpci_remove_device(struct pci_dev *pdev) { }
++    for_each_set_bit( i, &mask, 32 )
++    {
++        unsigned int irq = i + 32 * rank;
 +
- static inline void vpci_dump_msi(void) { }
++        if ( private )
++            v_target = vgic_get_target_vcpu(v, irq);
++        else
++            v_target = vgic_get_target_vcpu(d->vcpu[0], irq);
++
++        spin_lock_irqsave(&v_target->arch.vgic.lock, flags);
++
++        p = irq_to_pending(v_target, irq);
++
++        if ( unlikely(!p) )
++        {
++            spin_unlock_irqrestore(&v_target->arch.vgic.lock, flags);
++            continue;
++        }
++
++        if ( !list_empty(&p->inflight) )
++            printk("%pv trying to clear pending interrupt %u.\n", v, irq);
++
++        spin_unlock_irqrestore(&v_target->arch.vgic.lock, flags);
++    }
++}
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/include/asm-arm/vgic.h b/xen/include/asm-arm/vgic.h
+index 62c2ae538d..abcaae2969 100644
+--- a/xen/include/asm-arm/vgic.h
++++ b/xen/include/asm-arm/vgic.h
+@@ -298,7 +298,8 @@ extern bool vgic_to_sgi(struct vcpu *v, register_t sgir,
+                         enum gic_sgi_mode irqmode, int virq,
+                         const struct sgi_target *target);
+ extern bool vgic_migrate_irq(struct vcpu *old, struct vcpu *new, unsigned int irq);
+-
++extern void vgic_check_inflight_irqs_pending(struct domain *d, struct vcpu *v,
++                                             unsigned int rank, uint32_t r);
+ #endif /* !CONFIG_NEW_VGIC */
  
- static inline uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg,
+ /*** Common VGIC functions used by Xen arch code ****/
 -- 
-2.25.1
+2.17.1
 
 
