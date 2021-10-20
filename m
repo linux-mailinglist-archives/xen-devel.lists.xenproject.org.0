@@ -2,43 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 712544345CF
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 09:18:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.213597.371872 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 103354345D2
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 09:20:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.213604.371883 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1md5ry-0006Yy-3g; Wed, 20 Oct 2021 07:18:38 +0000
+	id 1md5to-0007vl-FU; Wed, 20 Oct 2021 07:20:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 213597.371872; Wed, 20 Oct 2021 07:18:38 +0000
+Received: by outflank-mailman (output) from mailman id 213604.371883; Wed, 20 Oct 2021 07:20:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1md5rx-0006X7-W1; Wed, 20 Oct 2021 07:18:37 +0000
-Received: by outflank-mailman (input) for mailman id 213597;
- Wed, 20 Oct 2021 07:18:36 +0000
+	id 1md5to-0007to-Bs; Wed, 20 Oct 2021 07:20:32 +0000
+Received: by outflank-mailman (input) for mailman id 213604;
+ Wed, 20 Oct 2021 07:20:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jFZ1=PI=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1md5rw-0006Wz-Sw
- for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 07:18:36 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=faDG=PI=arm.com=Bertrand.Marquis@srs-us1.protection.inumbo.net>)
+ id 1md5tn-0007tg-7n
+ for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 07:20:31 +0000
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com (unknown
+ [2a01:111:f400:fe0a::616])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6854f230-07e9-4a5e-a695-e96d56644841;
- Wed, 20 Oct 2021 07:18:36 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 53BF421A71;
- Wed, 20 Oct 2021 07:18:35 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D5DD613F77;
- Wed, 20 Oct 2021 07:18:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 5WYnMcrCb2F/QAAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 20 Oct 2021 07:18:34 +0000
+ id bc51d7f0-8b85-492f-b806-c0a0734cce56;
+ Wed, 20 Oct 2021 07:20:29 +0000 (UTC)
+Received: from AM6P191CA0021.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:8b::34)
+ by PAXPR08MB7017.eurprd08.prod.outlook.com (2603:10a6:102:1df::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.16; Wed, 20 Oct
+ 2021 07:20:13 +0000
+Received: from AM5EUR03FT033.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:209:8b:cafe::d1) by AM6P191CA0021.outlook.office365.com
+ (2603:10a6:209:8b::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18 via Frontend
+ Transport; Wed, 20 Oct 2021 07:20:13 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT033.mail.protection.outlook.com (10.152.16.99) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4608.15 via Frontend Transport; Wed, 20 Oct 2021 07:20:12 +0000
+Received: ("Tessian outbound d5def7722ff7:v103");
+ Wed, 20 Oct 2021 07:20:12 +0000
+Received: from b8c3f0b3de5c.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 257286E2-135B-43D7-89E6-6A77AB12B1C1.1; 
+ Wed, 20 Oct 2021 07:20:06 +0000
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id b8c3f0b3de5c.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 20 Oct 2021 07:20:06 +0000
+Received: from DB6PR0801MB2024.eurprd08.prod.outlook.com (2603:10a6:4:74::9)
+ by DBAPR08MB5669.eurprd08.prod.outlook.com (2603:10a6:10:1ac::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.16; Wed, 20 Oct
+ 2021 07:20:05 +0000
+Received: from DB6PR0801MB2024.eurprd08.prod.outlook.com
+ ([fe80::45c9:9096:a15b:6955]) by DB6PR0801MB2024.eurprd08.prod.outlook.com
+ ([fe80::45c9:9096:a15b:6955%4]) with mapi id 15.20.4608.018; Wed, 20 Oct 2021
+ 07:20:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,225 +70,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6854f230-07e9-4a5e-a695-e96d56644841
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1634714315; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iAQRyXnHPCQuPOhNfqeQHZjQbKH9JXABicZP+6qsUWc=;
-	b=LrlJSuvfBb2UdhyZl6hnXQbLwlG/OtZqJJ5PiAYX0x7ZNLlpNx9hXiNbRkJFYiZxjILHJQ
-	CSCw02KJXtlqEM3rQAMAefq3QHLUThPxcwydmSTtVdaDloWoQUqd7k5/60BcEidyK3Cp3B
-	iU9CMHG/S/sJTm/6LMM/5sTCHnCkfeU=
-Subject: Re: [PATCH 06/12] xen: generate hypercall interface related code
+X-Inumbo-ID: bc51d7f0-8b85-492f-b806-c0a0734cce56
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pgLoShxjE0tsm+9XqRmsUpQMj7E0iZFFD1gvy2/y5Ko=;
+ b=IiRuH26BPCJJQ+ugtjdB/G/8TkgAuOTOn6GXNbdhjkdF1XUNJeqoeYhjQVqaS1NfdNOuGbAtuaAIdIYqI9+BVNeMIcL+hhqIcx0UeVVYuTh2QJ8tRGkndB4P8VhvFItWw/mV4e0EQueQFWRrtvbfd+ubtsqVbRqEhHa6/zMKrfc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: a4eeb3e3e973e77d
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZX1BEcWDHmgE5jtJWj4/g7zT2ok2YB0w+sxuWMdRjd1shnuqg7DIN0eCEj/pkd5mrCuCxX4Dd6VzajAhT5OHEHA/O+3Sxlp3q7knsaloAd9rBWByGyJTeHhPJzSlJxoJQY1ryKGht9m7CWexTxrCeavBTVpJkxegbtP9sP7k9vicmlvm9/HoHVr2VfTkrJjo1Z4b8YaszpFcof9UlOGVScs4rzTfhaHLno79xAF0iIfF18PYpa6wbfbR7f5Ww7C6tIKGT6U3Y8x5LDDXGm2dJ4YesMWkHm9KV6/YMyGBv4XpSv9RXNKA+2LlR+WwH1+yjaZqPl4k7kK2mdriSO/mHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pgLoShxjE0tsm+9XqRmsUpQMj7E0iZFFD1gvy2/y5Ko=;
+ b=gi1Uh/v9sYxLDfu6PtOMgJj7JIDevp5QLdbu1CNF2KV9DLIH7qxG4pwLAtFnsV6QTZgV7DJADCqaVog2QmdXttT+jMFAvcguPAe4pQ3kVG1dytGwZd2maog19PabAf2B/8iQCKXL2+CCTBHm1+XX95+b4re/3HiXetqeFlhXu2SS2D+7ACW4o7J64UVCgYYG/yg5WYWd3KTnhvQYkxbbh49IJT8vFGv84silVIuPmcUQOUpLqxecPPexgh5KBld/1RALo6Ed35dX/dfOkQicg8QCG4d1umigF9K//pKhSWUhZzZpUumCjZKHsx8HuWFXwhPzSGgkhvJjOqcvrwK1Sg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pgLoShxjE0tsm+9XqRmsUpQMj7E0iZFFD1gvy2/y5Ko=;
+ b=IiRuH26BPCJJQ+ugtjdB/G/8TkgAuOTOn6GXNbdhjkdF1XUNJeqoeYhjQVqaS1NfdNOuGbAtuaAIdIYqI9+BVNeMIcL+hhqIcx0UeVVYuTh2QJ8tRGkndB4P8VhvFItWw/mV4e0EQueQFWRrtvbfd+ubtsqVbRqEhHa6/zMKrfc=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20211015125152.25198-1-jgross@suse.com>
- <20211015125152.25198-7-jgross@suse.com>
- <e5f55c9e-5615-7d10-c86c-db1a3c724f43@suse.com>
- <e547b584-54e6-3227-82a8-ff1301eddb21@suse.com>
- <c7f5e7eb-7558-4812-0a5b-d02683396704@suse.com>
- <52ccd0e5-249d-658d-aae1-c28ced7e1314@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <bc1c64ce-e8cd-4000-7e78-70c35f729ec2@suse.com>
-Date: Wed, 20 Oct 2021 09:18:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <52ccd0e5-249d-658d-aae1-c28ced7e1314@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="loQb1UQImVkEjI6LXhGHypddmMt0g9KHu"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---loQb1UQImVkEjI6LXhGHypddmMt0g9KHu
-Content-Type: multipart/mixed; boundary="SOHCMkLWjRC6RGVo20pqshjjdh4jNwjUE";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <bc1c64ce-e8cd-4000-7e78-70c35f729ec2@suse.com>
-Subject: Re: [PATCH 06/12] xen: generate hypercall interface related code
-References: <20211015125152.25198-1-jgross@suse.com>
- <20211015125152.25198-7-jgross@suse.com>
- <e5f55c9e-5615-7d10-c86c-db1a3c724f43@suse.com>
- <e547b584-54e6-3227-82a8-ff1301eddb21@suse.com>
- <c7f5e7eb-7558-4812-0a5b-d02683396704@suse.com>
- <52ccd0e5-249d-658d-aae1-c28ced7e1314@suse.com>
-In-Reply-To: <52ccd0e5-249d-658d-aae1-c28ced7e1314@suse.com>
-
---SOHCMkLWjRC6RGVo20pqshjjdh4jNwjUE
-Content-Type: multipart/mixed;
- boundary="------------4FB16F3F35E9C41DD1185983"
+CC: Ian Jackson <iwj@xenproject.org>, "Oleksandr_Andrushchenko@epam.com"
+	<Oleksandr_Andrushchenko@epam.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, Paul Durrant <paul@xen.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 1/1] xen/pci: Install vpci handlers on x86 and fix exit
+ path
+Thread-Topic: [PATCH v2 1/1] xen/pci: Install vpci handlers on x86 and fix
+ exit path
+Thread-Index: AQHXxQOsddT9Ttg6SUi4XsLpyj6SjavbeuKAgAAA5YA=
+Date: Wed, 20 Oct 2021 07:20:05 +0000
+Message-ID: <0FC6BD8A-1805-4C10-A95C-EA199D870F06@arm.com>
+References: <cover.1634659471.git.bertrand.marquis@arm.com>
+ <d788dcce9e344a39f6761633f0e96774ab42c2aa.1634659471.git.bertrand.marquis@arm.com>
+ <9f77b70f-93b8-2b54-3aa1-5de677d858cc@suse.com>
+In-Reply-To: <9f77b70f-93b8-2b54-3aa1-5de677d858cc@suse.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------4FB16F3F35E9C41DD1185983
-Content-Type: text/plain; charset=utf-8; format=flowed
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3654.120.0.1.13)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-Correlation-Id: 2f4c90bf-ad7c-4d32-1e5b-08d9939a0ea0
+x-ms-traffictypediagnostic: DBAPR08MB5669:|PAXPR08MB7017:
+X-Microsoft-Antispam-PRVS:
+	<PAXPR08MB701719C2E10C0D4CE90F1BA19DBE9@PAXPR08MB7017.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:7691;OLM:7691;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ Uuo3buEUWYCxv05yXtaE/WpOPT9b2jzgN7zu1O6GBaGzEf6/FVLxHqmKDKzrkgh34yQkiGS7UGXwUypX7bYvNY2JOjlSkbklYzNiQpc52OhgrWIm/JO5FDOus+4iPVDNyuRQFvqnR6QBogD2GlcINHjMXkWiHBWHzRMcD4CEWFqjcwo6hY53SG4z1mu+lUm2HQ6WwvOZV5r2Ok/1Sm0pgJFutx+TgUOJ77A52yw/NsYPB9qZC918WdbtXd58IJRj2AYTuIns21KB/G3ixVkgJR1DR+2/Z12/wO3HBiXS3xZ+OXoZaoJt+6F3xXUnokT3/xbr4VqlcV4lTDlKiOYaXb36kzvansXxqE32ceHRig80N1l31RkMZpu7yjag1FaO8u/Ft0Tn9ofchW6mZEiwxQq2beKhTJAXRqPQeAoAx58Jp5y6IH9hfU0C2sy2XAbOE7xejfShW7yP78DLpBkUvPPIlLccV6SpvDQqRlx2/UmnX50Fz2aRWH9eRNjkQJBQoDe+QR4nmrwKwZ9T1PIO7gq74nxHxct6mZggQrEzw2k7dTnszJ/bPZcsEtXy2CAtcfyY00uJfCOLu2kuI5ZDC7VlfgrJX9dWgL/Y1kgi9l5zstZr+TlKtUaXBno4fxz/Bp4R7JhZUe7uNmhCnRabi0/KqPovW0M0MD40x2GlowqdpTTGZufCdgK7pNryA52J3aVwfCcM+gqTtqmHVVtCbykncNNxUXQ6SrqRd26iu3BLkax4MPME0m43nZ+w09eg
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0801MB2024.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(508600001)(66476007)(53546011)(5660300002)(316002)(26005)(6506007)(91956017)(66556008)(64756008)(83380400001)(33656002)(66446008)(6486002)(122000001)(38100700002)(54906003)(86362001)(6512007)(76116006)(66946007)(71200400001)(36756003)(8676002)(4326008)(7416002)(8936002)(2616005)(38070700005)(6916009)(2906002)(186003)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <ADF13321F35B8747A13164C6B3438EAB@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR08MB5669
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT033.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	5138217e-a413-4fe7-37c1-08d9939a0a4d
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	N/qgmvGphTQY8lQctAI56hbhNcW2BhvKSHQvnU5tZ9c5Mg10RW/MMV69A1/7g0AD2/RyaaFDwjLayPlZ4TOAvyUNyGeN2oH/VrAmL0IRSI/gi9UgegNaS0kYBbBw9rmGU/HyOP9vNX+dc0oEtU2/uMo3A/J53pp47LTEZ9wmsAbeem/JEPVRBkw7A0W/aH68aogH5rNOKuN9Yi2KEIwbEoTPlfa0NMPuoEZ8lY90lP+3jFwrkCgyRB02dupJth1ZOpBiPtvmWRJSKp1H6znRQFguD3yK6YNsElwP0uMwmuUItQQVIv34rFRIMWIDNaFxhM4jDV8iaoXzpAxRGjIhUZMl2tKJK5LydpDwkKQa5y6cMx/VP0StGoe1vOaZDOhUSEefliq4uJM6peoElM8JVGt3JHx+nyuqvhzYKnKW3ta8OVkJOgy5LMtcBJXdarLvIY8T916TxHVzHTmSRqC1PwjFYWzCm5mtzAtqFi2tdG5YT8E/nahGKGFMMuhbfZ+0FHPtOZGbHuE4tZTqPeaKuFevDBWVjOlDYKWAySeXZMJ+BTQt2qh7l6FnLKr9DxyPSGiohMH/bVib1zsCxZgtRtIONf5ycLZt/n2mtc6/SkGblau8cgAGJAkm4w7reQDaXYUCbpo+WFC8MOrBjR3gxwqiRhfBA17Ak8vqHVsIVwRHwKTQh8U0OOA5pQpz+VSqi+iNkGj3Ze43itwV79IRUw==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(86362001)(6512007)(5660300002)(36860700001)(6486002)(54906003)(8936002)(83380400001)(8676002)(47076005)(2616005)(70586007)(356005)(316002)(186003)(82310400003)(26005)(4326008)(508600001)(6862004)(70206006)(81166007)(53546011)(2906002)(336012)(6506007)(33656002)(36756003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2021 07:20:12.8727
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f4c90bf-ad7c-4d32-1e5b-08d9939a0ea0
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT033.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB7017
 
-On 20.10.21 09:11, Jan Beulich wrote:
-> On 20.10.2021 09:02, Juergen Gross wrote:
->> On 18.10.21 17:28, Juergen Gross wrote:
->>> On 18.10.21 14:58, Jan Beulich wrote:
->>>> On 15.10.2021 14:51, Juergen Gross wrote:
->>>>> --- a/.gitignore
->>>>> +++ b/.gitignore
->>>>> @@ -332,10 +332,12 @@ xen/include/asm-x86/asm-macros.h
->>>>>  =C2=A0 xen/include/compat/*
->>>>>  =C2=A0 xen/include/config/
->>>>>  =C2=A0 xen/include/generated/
->>>>> +xen/include//hypercall-defs.i
->>>>
->>>> Nit: Stray double slash (unless this has a meaning I'm unaware of).
->>>
->>> Oh, right. No special meaning AFAIK.
->>>
->>>> Yet then I wonder: Shouldn't *.i be among the patterns at the top of=
+Hi,
 
->>>> the file, like *.o is?
->>>
->>> Yes, I can do that. Probably via a separate patch then.
->>
->> I can't do that, as we have one source file in our git tree matching
->> this pattern: tools/libs/stat/bindings/swig/xenstat.i is used as an
->> input file for swig for generating perl and python bindings. And the
->> .i suffix seems to be the common one for swig input files.
+> On 20 Oct 2021, at 08:16, Jan Beulich <jbeulich@suse.com> wrote:
 >=20
-> Ugly. Since we have a rule to produce *.i in xen/Rules.mk, I think we
-> really should have these ignored. Perhaps a good enough reason to put
-> *.i in xen/.gitignore? And while at it perhaps also *.s? Unless
-> there's a way to specify a pattern for an entire subtree - it's not
-> clear to me whether xen/*.i in ./.gitignore would cover subdirs of
-> xen/ as well ...
+> On 19.10.2021 18:08, Bertrand Marquis wrote:
+>> Xen might not be able to discover at boot time all devices or some devic=
+es
+>> might appear after specific actions from dom0.
+>> In this case dom0 can use the PHYSDEVOP_pci_device_add to signal some
+>> PCI devices to Xen.
+>> As those devices where not known from Xen before, the vpci handlers must
+>> be properly installed during pci_device_add for x86 PVH Dom0, in the
+>> same way as what is done currently on arm (where Xen does not detect PCI
+>> devices but relies on Dom0 to declare them all the time).
+>>=20
+>> So this patch is removing the ifdef protecting the call to
+>> vpci_add_handlers and the comment which was arm specific.
+>>=20
+>> vpci_add_handlers is called on during pci_device_add which can be called
+>> at runtime through hypercall physdev_op.
+>> Remove __hwdom_init as the call is not limited anymore to hardware
+>> domain init and fix linker script to only keep vpci_array in rodata
+>> section.
+>>=20
+>> Add missing vpci handlers cleanup during pci_device_remove and in case
+>> of error with iommu during pci_device_add.
+>>=20
+>> Add empty static inline for vpci_remove_device when CONFIG_VPCI is not
+>> defined.
+>>=20
+>> Fixes: d59168dc05 ("xen/arm: Enable the existing x86 virtual PCI support
+>> for ARM")
+>> Suggested-by: Jan Beulich <jbeulich@suse.com>
+>> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+>=20
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-xen/**/*.i will do that. From the gitignore syntax description:
+Thank.
 
-   A slash followed by two consecutive asterisks then a slash matches
-   zero or more directories. For example, "a/**/b" matches "a/b",
-   "a/x/b", "a/x/y/b" and so on.
+>=20
+> I'm inclined to suggest s/exit/error/ in the title though (and maybe
+> also s/path/paths/), which would be easy enough to do while committing.
 
-So I'll go with adding xen/**/*.i and xen/**/*.s to .gitignore.
+@Ian: Please tell me if this is ok to be fixed during commit.
 
+> But first we need Roger's ack here anyway ...
 
-Juergen
+Yes.
 
---------------4FB16F3F35E9C41DD1185983
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Cheers
+Bertrand
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+>=20
+> Jan
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------4FB16F3F35E9C41DD1185983--
-
---SOHCMkLWjRC6RGVo20pqshjjdh4jNwjUE--
-
---loQb1UQImVkEjI6LXhGHypddmMt0g9KHu
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFvwsoFAwAAAAAACgkQsN6d1ii/Ey+i
-iQf/Vi+dp/2Vhl+ph3UOZ16ecTAVsjHeByD8YUZ30DtXoqqdqdP6rxLL9qxXowMze56S7Hlg8OjH
-9Vu3xNNmYEZce6vPvi6Aa2J+gBP6D+WBq4wtGfSZEhg27sv53HpjwdC0hPbIqDN0G59K0GcdXs5A
-Afv5bG07VgY3S4+pGS8bBrNEC8bfDLCNbdmxdkA6AENyEFeKfihMhd1sdrxEgLIYe7ZiptaddCZe
-dpqgWcpJopKnxOhLt+j3CJlXP0a/rUBvtzUSnWOTKEpAHeqABkGs8tGq2uIRNh6tVlkgMsiNUTg2
-OmZ4UaqH/aApDrNDQVwygqeK7U7fVmkfjKqT/BNWGw==
-=GzOu
------END PGP SIGNATURE-----
-
---loQb1UQImVkEjI6LXhGHypddmMt0g9KHu--
 
