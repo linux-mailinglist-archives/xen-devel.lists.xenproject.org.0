@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D07AB434A37
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 13:38:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.213859.372210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1633C434A6E
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 13:45:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.213867.372222 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1md9v5-0005SE-Ex; Wed, 20 Oct 2021 11:38:07 +0000
+	id 1mdA2F-0006sT-8P; Wed, 20 Oct 2021 11:45:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 213859.372210; Wed, 20 Oct 2021 11:38:07 +0000
+Received: by outflank-mailman (output) from mailman id 213867.372222; Wed, 20 Oct 2021 11:45:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1md9v5-0005QL-Bd; Wed, 20 Oct 2021 11:38:07 +0000
-Received: by outflank-mailman (input) for mailman id 213859;
- Wed, 20 Oct 2021 11:38:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mdA2F-0006qO-51; Wed, 20 Oct 2021 11:45:31 +0000
+Received: by outflank-mailman (input) for mailman id 213867;
+ Wed, 20 Oct 2021 11:45:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1md9v4-0005QF-1W
- for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 11:38:06 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1md9v3-0003vc-R4; Wed, 20 Oct 2021 11:38:05 +0000
-Received: from [54.239.6.185] (helo=[192.168.28.129])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1md9v3-0007os-Kx; Wed, 20 Oct 2021 11:38:05 +0000
+ (envelope-from <SRS0=jFZ1=PI=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mdA2D-0006qI-GS
+ for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 11:45:29 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id fdbb9b73-9318-4109-9492-cdc126991f55;
+ Wed, 20 Oct 2021 11:45:28 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A3F371FDA0;
+ Wed, 20 Oct 2021 11:45:27 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2687613AFE;
+ Wed, 20 Oct 2021 11:45:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id n5J5B1cBcGGyRQAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 20 Oct 2021 11:45:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,328 +50,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=kQjCWWtOI7g0EdEvV5l4EedgBWlhHpwyi9Wu79MEUMY=; b=22MfwAZ5nZXkwz+e5o9UKwlC/h
-	d3DBFSivJoeS+prY7FWMFv7s262vdRlVMzIU0G8odIGhfo92DaB92adg7vW5iJHLbXyLDk6XWcV4y
-	OhgVELmRY61mE451p7WJ/Lu/yiP1eOpVuyvR7HcHJ/ErnY91asBd4UEdb6sj8XKR9VEk=;
-Message-ID: <034a0836-7bf6-8f86-0d93-38ebd8817ed2@xen.org>
-Date: Wed, 20 Oct 2021 12:38:03 +0100
+X-Inumbo-ID: fdbb9b73-9318-4109-9492-cdc126991f55
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1634730327; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MfMr7xDgBMORSAcevQGXNZhMVrmu5n8C9a6uNTYGF8A=;
+	b=GXUImd9sI+V1t42XbQtAf9oU+G2aVeUFZxpxso0Sozxdji3HfoRjDqQXseDjjraIy7OKKg
+	zkyDb0nFlt0SlTjJRyP4Wb8LmgRbDmV7z5drADVDBGuXwDAs/njLoO46hGk+YTC4Bskz6A
+	RmGT8iFjO/OXMb2BwAPAB0zLjSC20no=
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20210922082123.54374-1-roger.pau@citrix.com>
+ <20210922082123.54374-3-roger.pau@citrix.com>
+ <f5564634-5f9e-0b94-f73a-d44ae65c30f4@suse.com>
+ <0b58667f-b6bc-d5b5-2dd1-0c8996367319@suse.com>
+ <YW/NipJMLH0Zz05s@MacBook-Air-de-Roger.local>
+ <a3d9388a-e2f5-76aa-d51a-2d74afb92bbd@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v2 2/6] gnttab: allow setting max version per-domain
+Message-ID: <19c25cbf-8697-b970-91e5-195f07a5222a@suse.com>
+Date: Wed, 20 Oct 2021 13:45:26 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.0
-Subject: Re: [PATCH v2 5/6] xen/arm: if direct-map domain use native UART
- address and IRQ number for vPL011
-To: Penny Zheng <penny.zheng@arm.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org
-Cc: Wei.Chen@arm.com, Bertrand.Marquis@arm.com
-References: <20211015030945.2082898-1-penny.zheng@arm.com>
- <20211015030945.2082898-6-penny.zheng@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20211015030945.2082898-6-penny.zheng@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <a3d9388a-e2f5-76aa-d51a-2d74afb92bbd@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="1fkSp4VMzBO8cyJHSkWawTmj7a6yPzO6V"
 
-Hi Penny,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--1fkSp4VMzBO8cyJHSkWawTmj7a6yPzO6V
+Content-Type: multipart/mixed; boundary="YevP9PZvckMQptO720Ak6QVp5z6Y1P2Ix";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+Message-ID: <19c25cbf-8697-b970-91e5-195f07a5222a@suse.com>
+Subject: Re: [PATCH v2 2/6] gnttab: allow setting max version per-domain
+References: <20210922082123.54374-1-roger.pau@citrix.com>
+ <20210922082123.54374-3-roger.pau@citrix.com>
+ <f5564634-5f9e-0b94-f73a-d44ae65c30f4@suse.com>
+ <0b58667f-b6bc-d5b5-2dd1-0c8996367319@suse.com>
+ <YW/NipJMLH0Zz05s@MacBook-Air-de-Roger.local>
+ <a3d9388a-e2f5-76aa-d51a-2d74afb92bbd@suse.com>
+In-Reply-To: <a3d9388a-e2f5-76aa-d51a-2d74afb92bbd@suse.com>
 
-On 15/10/2021 04:09, Penny Zheng wrote:
-> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> 
-> We always use a fix address to map the vPL011 to domains. The address
-> could be a problem for direct-map domains.
-> 
-> So, for domains that are directly mapped, reuse the address of the
-> physical UART on the platform to avoid potential clashes.
-> 
-> Do the same for the virtual IRQ number: instead of always using
-> GUEST_VPL011_SPI, try to reuse the physical SPI number if possible.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> ---
->   xen/arch/arm/domain_build.c  | 41 ++++++++++++++++++++++-----
->   xen/arch/arm/vpl011.c        | 54 +++++++++++++++++++++++++++++++-----
->   xen/include/asm-arm/vpl011.h |  2 ++
->   3 files changed, 83 insertions(+), 14 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 7e0ee07e06..f3e87709f6 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -30,6 +30,7 @@
->   
->   #include <xen/irq.h>
->   #include <xen/grant_table.h>
-> +#include <xen/serial.h>
->   
->   static unsigned int __initdata opt_dom0_max_vcpus;
->   integer_param("dom0_max_vcpus", opt_dom0_max_vcpus);
-> @@ -2350,8 +2351,11 @@ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
->       gic_interrupt_t intr;
->       __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
->       __be32 *cells;
-> +    struct domain *d = kinfo->d;
-> +    char buf[27];
+--YevP9PZvckMQptO720Ak6QVp5z6Y1P2Ix
+Content-Type: multipart/mixed;
+ boundary="------------5EF8B48D71E8C3FA94A7414B"
+Content-Language: en-US
 
-Please explain how the '27' was found.
+This is a multi-part message in MIME format.
+--------------5EF8B48D71E8C3FA94A7414B
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
->   
-> -    res = fdt_begin_node(fdt, "sbsa-uart@"__stringify(GUEST_PL011_BASE));
-> +    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIx64, d->arch.vpl011.base_addr);
-> +    res = fdt_begin_node(fdt, buf);
->       if ( res )
->           return res;
->   
-> @@ -2361,14 +2365,14 @@ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
->   
->       cells = &reg[0];
->       dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS,
-> -                       GUEST_ROOT_SIZE_CELLS, GUEST_PL011_BASE,
-> +                       GUEST_ROOT_SIZE_CELLS, d->arch.vpl011.base_addr,
->                          GUEST_PL011_SIZE);
->   
->       res = fdt_property(fdt, "reg", reg, sizeof(reg));
->       if ( res )
->           return res;
->   
-> -    set_interrupt(intr, GUEST_VPL011_SPI, 0xf, DT_IRQ_TYPE_LEVEL_HIGH);
-> +    set_interrupt(intr, d->arch.vpl011.virq, 0xf, DT_IRQ_TYPE_LEVEL_HIGH);
->   
->       res = fdt_property(fdt, "interrupts", intr, sizeof (intr));
->       if ( res )
-> @@ -3083,6 +3087,14 @@ static int __init construct_domU(struct domain *d,
->               allocate_static_memory(d, &kinfo, node);
->       }
->   
-> +    /*
-> +     * Base address and irq number are needed when creating vpl011 device
-> +     * tree node in prepare_dtb_domU, so initialization on related variables
-> +     * shall be dealt firstly.
-> +     */
-> +    if ( kinfo.vpl011 )
-> +        rc = domain_vpl011_init(d, NULL);
-> +
->       rc = prepare_dtb_domU(d, &kinfo);
->       if ( rc < 0 )
->           return rc;
-> @@ -3091,9 +3103,6 @@ static int __init construct_domU(struct domain *d,
->       if ( rc < 0 )
->           return rc;
->   
-> -    if ( kinfo.vpl011 )
-> -        rc = domain_vpl011_init(d, NULL);
-> -
->       return rc;
->   }
->   
-> @@ -3132,15 +3141,33 @@ void __init create_domUs(void)
->   
->           if ( !dt_property_read_u32(node, "nr_spis", &d_cfg.arch.nr_spis) )
->           {
-> +            unsigned int vpl011_virq = GUEST_VPL011_SPI;
-> +
->               d_cfg.arch.nr_spis = gic_number_lines() - 32;
->   
-> +            /*
-> +             * The VPL011 virq is GUEST_VPL011_SPI, unless direct-map in
-> +             * set, in which case we'll try to match the hardware.
+On 20.10.21 12:57, Jan Beulich wrote:
+> On 20.10.2021 10:04, Roger Pau Monn=C3=A9 wrote:
+>> On Fri, Oct 15, 2021 at 11:48:33AM +0200, Jan Beulich wrote:
+>>> On 15.10.2021 11:39, Jan Beulich wrote:
+>>>> On 22.09.2021 10:21, Roger Pau Monne wrote:
+>>>>> --- a/xen/include/public/domctl.h
+>>>>> +++ b/xen/include/public/domctl.h
+>>>>> @@ -87,14 +87,22 @@ struct xen_domctl_createdomain {
+>>>>>       /*
+>>>>>        * Various domain limits, which impact the quantity of resour=
+ces
+>>>>>        * (global mapping space, xenheap, etc) a guest may consume. =
+ For
+>>>>> -     * max_grant_frames and max_maptrack_frames, < 0 means "use th=
+e
+>>>>> -     * default maximum value in the hypervisor".
+>>>>> +     * max_grant_frames, max_maptrack_frames and max_gnttab_versio=
+n < 0
+>>>>> +     * means "use the default maximum value in the hypervisor".
+>>>>>        */
+>>>>>       uint32_t max_vcpus;
+>>>>>       uint32_t max_evtchn_port;
+>>>>>       int32_t max_grant_frames;
+>>>>>       int32_t max_maptrack_frames;
+>>>>>  =20
+>>>>> +/* Grant version, use low 4 bits. */
+>>>>> +#define XEN_DOMCTL_GRANT_version_mask    0xf
+>>>>> +#define XEN_DOMCTL_GRANT_version_default 0xf
+>>>>> +
+>>>>> +#define XEN_DOMCTLGRANT_MAX XEN_DOMCTL_GRANT_version_mask
+>>>>> +
+>>>>> +    uint32_t grant_opts;
+>>>>
+>>>> As it now seems unlikely that this will make 4.16, please don't forg=
+et
+>>>> to bump the interface version for 4.17. With that and preferably wit=
+h
+>>>> the nit above addressed, hypervisor parts:
+>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>
+>>> Actually no, I'm afraid there is an issue with migration: If the tool=
 
-I think you want to drop "try" to avoid implying there is a fallback if 
-we can't match it.
+>>> stack remembers the "use default" setting and hands this to the new
+>>> host, that host's default may be different from the source host's. It=
 
-> +             *
-> +             * Typically, d->arch.vpl011.virq has the vpl011 irq number
-> +             * but at this point of the boot sequence it is not
-> +             * initialized yet.
-The last paragraph is difficult to read. We are building the domain (not 
-booting!) and at this point we are still trying to figure out its 
-initial configuration. IOW, the domain is not even created.
+>>> is the effective max-version that needs passing on in this case, whic=
+h
+>>> in turn requires a means to obtain the value.
+>>
+>> Hm, my thinking was that the admin (or a higer level orchestration
+>> tool) would already have performed the necessary adjustments to assert=
 
-I think it would be better to say the domain is not built. So we need to 
-open-code the logic to find the vIRQ. We should also probably mention 
-that the logic should match the one in domain_vpl011_init().
+>> the environments are compatible.
+>=20
+> I don't think we can rely on this in the hypervisor. We may take this
+> as a prereq for proper working, but I think we ought to detect
+> violations and report errors in such a case.
+>=20
+>> This problem already exist today where you can migrate a VM from a
+>> host having the max default grant version to one having
+>> gnttab=3Dmax-ver:1 without complains.
+>=20
+> Are you sure about "without complaints"? What would a guest do if it
+> expects to be able to use v2, since it was able to on the prior host?
 
-> +             */
-> +            if ( d_cfg.flags & XEN_DOMCTL_CDF_directmap )
-> +            {
-> +                vpl011_virq = serial_irq(SERHND_DTUART);
-> +                if ( vpl011_virq < 0 )
-> +                    panic("Error getting IRQ number for this serial port %d\n",
-> +                          SERHND_DTUART);
-> +            }
-> +
->               /*
->                * vpl011 uses one emulated SPI. If vpl011 is requested, make
->                * sure that we allocate enough SPIs for it.
->                */
->               if ( dt_property_read_bool(node, "vpl011") )
->                   d_cfg.arch.nr_spis = MAX(d_cfg.arch.nr_spis,
-> -                                         GUEST_VPL011_SPI - 32 + 1);
-> +                                         vpl011_virq - 32 + 1);
->           }
->   
->           /*
-> diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
-> index 895f436cc4..2de59e584d 100644
-> --- a/xen/arch/arm/vpl011.c
-> +++ b/xen/arch/arm/vpl011.c
-> @@ -29,6 +29,7 @@
->   #include <xen/mm.h>
->   #include <xen/sched.h>
->   #include <xen/console.h>
-> +#include <xen/serial.h>
->   #include <public/domctl.h>
->   #include <public/io/console.h>
->   #include <asm/pl011-uart.h>
-> @@ -71,11 +72,11 @@ static void vpl011_update_interrupt_status(struct domain *d)
->        * status bit has been set since the last time.
->        */
->       if ( uartmis & ~vpl011->shadow_uartmis )
-> -        vgic_inject_irq(d, NULL, GUEST_VPL011_SPI, true);
-> +        vgic_inject_irq(d, NULL, vpl011->virq, true);
->   
->       vpl011->shadow_uartmis = uartmis;
->   #else
-> -    vgic_inject_irq(d, NULL, GUEST_VPL011_SPI, uartmis);
-> +    vgic_inject_irq(d, NULL, vpl011->virq, uartmis);
->   #endif
->   }
->   
-> @@ -347,7 +348,8 @@ static int vpl011_mmio_read(struct vcpu *v,
->                               void *priv)
->   {
->       struct hsr_dabt dabt = info->dabt;
-> -    uint32_t vpl011_reg = (uint32_t)(info->gpa - GUEST_PL011_BASE);
-> +    uint32_t vpl011_reg = (uint32_t)(info->gpa -
-> +                                     v->domain->arch.vpl011.base_addr);
->       struct vpl011 *vpl011 = &v->domain->arch.vpl011;
->       struct domain *d = v->domain;
->       unsigned long flags;
-> @@ -430,7 +432,8 @@ static int vpl011_mmio_write(struct vcpu *v,
->                                void *priv)
->   {
->       struct hsr_dabt dabt = info->dabt;
-> -    uint32_t vpl011_reg = (uint32_t)(info->gpa - GUEST_PL011_BASE);
-> +    uint32_t vpl011_reg = (uint32_t)(info->gpa -
-> +                                     v->domain->arch.vpl011.base_addr);
->       struct vpl011 *vpl011 = &v->domain->arch.vpl011;
->       struct domain *d = v->domain;
->       unsigned long flags;
-> @@ -626,6 +629,43 @@ int domain_vpl011_init(struct domain *d, struct vpl011_init_info *info)
->       if ( vpl011->backend.dom.ring_buf )
->           return -EINVAL;
->   
+A Linux guest should "just work". On resume it is setting up the grant
+interface again like on boot (in fact there is one difference: the
+number of grant frames is kept from before suspending).
 
-I would suggest to add a comment similar to the first paragraph you 
-added in create_domUs(). In addition to that, it would be good to 
-mention the code should stay in sync with the one in create_domUs().
+Guest transparent migration wouldn't work in such a case, and I have no
+idea how other OS's will react.
 
-> +    if ( is_domain_direct_mapped(d) )
-> +    {
-> +        const struct vuart_info *uart = serial_vuart_info(SERHND_DTUART);
-> +        int vpl011_irq = serial_irq(SERHND_DTUART);
-> +
-> +        /*
-> +         * Since the PL011 we emulate for the guest requires a 4KB region,
-> +         * and on some Hardware (IIRC pine64), the UART MMIO region is
-In fact, this is an issue that seems to be common on (old?) sunxi SoC. I 
-would suggest to replace the (...) with (e.g. on some sunxi SoC).
 
-> +         * less than 4KB, in which case, there may exist multiple devices
-> +         * within the same 4KB region, here adds the following check to
-> +         * prevent potential known pitfalls
-> +         */
-> +        if ( uart->size < GUEST_PL011_SIZE )
-> +        {
-> +            printk(XENLOG_ERR
-> +                   "The hardware UART region is smaller than GUEST_PL011_SIZE, impossible to emulate on direct-map guests.\n");
+Juergen
 
-s/on/it for/ I believe.
+--------------5EF8B48D71E8C3FA94A7414B
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-But i am not sure it is worth mentionning that we can't emulate it. This 
-is sort of implied by the fact this returns an error. So how about:
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-vpl011: Can't re-use the Xen UART MMIO region as it is too small.
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-Note that I mention "Xen" rather than "HW" because there might be 
-multiple uart on platforms. So I feel "Xen" might make it clearer which 
-one we are referring to.
+--------------5EF8B48D71E8C3FA94A7414B--
 
-> +            return -EINVAL;
-> +        }
-> +
-> +        if ( uart != NULL && vpl011_irq > 0 )
+--YevP9PZvckMQptO720Ak6QVp5z6Y1P2Ix--
 
-You are checking uart is not-NULL here but just before you dereference 
-it. So shouldn't you move the check earlier?
+--1fkSp4VMzBO8cyJHSkWawTmj7a6yPzO6V
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-> +        {
-> +            vpl011->base_addr = uart->base_addr;
-> +            vpl011->virq = vpl011_irq;
-> +        }
-> +        else
-> +        {
-> +            printk(XENLOG_ERR
-> +                   "Unable to reuse physical UART address and irq for vPL011 on direct-mapped domain.\n");
+-----BEGIN PGP SIGNATURE-----
 
-In this case how about:
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmFwAVYFAwAAAAAACgkQsN6d1ii/Ey8J
+yAf/RtkZFRGaZ/EK/IpeWaI3zct6cbONzlP4gmVKSPqG6tBTT7SoR0IyELeDOYsRnOggSBXxVizB
+m2je4zOMN29inwU5aTguKGCom194fzjyZDK+u9dabO0TG1B5gOGNkFfqPDCIU0S+48Ntw9eu56kT
+Wm4KB6Xc5SP6q74fZaHc3SzX03y4MFS1mJ0sOg3qQor/VLTNFPLcWOhLv9SplgBRCyU7hyoPCd/o
+/n4RdLyJhV57/B4qXfPq0FuQUJRlYnrkJ136UrfH/eul9fPTaPMsZA0ad2EcY1swGVGkXTublXQe
+BsgPVpxFV6JLy9Azv/SRwKYW0A0cw6ep+Kupgse5LQ==
+=pDl9
+-----END PGP SIGNATURE-----
 
-vpl011: Unable to re-use the Xen UART information
-
-> +            return -EINVAL;
-> +        }
-> +    }
-> +    else
-> +    {
-> +        vpl011->base_addr = GUEST_PL011_BASE;
-> +        vpl011->virq = GUEST_VPL011_SPI;
-> +    }
-> +
->       /*
->        * info is NULL when the backend is in Xen.
->        * info is != NULL when the backend is in a domain.
-> @@ -661,7 +701,7 @@ int domain_vpl011_init(struct domain *d, struct vpl011_init_info *info)
->           }
->       }
->   
-> -    rc = vgic_reserve_virq(d, GUEST_VPL011_SPI);
-> +    rc = vgic_reserve_virq(d, vpl011->virq);
->       if ( !rc )
->       {
->           rc = -EINVAL;
-> @@ -673,12 +713,12 @@ int domain_vpl011_init(struct domain *d, struct vpl011_init_info *info)
->       spin_lock_init(&vpl011->lock);
->   
->       register_mmio_handler(d, &vpl011_mmio_handler,
-> -                          GUEST_PL011_BASE, GUEST_PL011_SIZE, NULL);
-> +                          vpl011->base_addr, GUEST_PL011_SIZE, NULL);
->   
->       return 0;
->   
->   out2:
-> -    vgic_free_virq(d, GUEST_VPL011_SPI);
-> +    vgic_free_virq(d, vpl011->virq);
->   
->   out1:
->       if ( vpl011->backend_in_domain )
-> diff --git a/xen/include/asm-arm/vpl011.h b/xen/include/asm-arm/vpl011.h
-> index e6c7ab7381..c09abcd7a9 100644
-> --- a/xen/include/asm-arm/vpl011.h
-> +++ b/xen/include/asm-arm/vpl011.h
-> @@ -53,6 +53,8 @@ struct vpl011 {
->       uint32_t    uarticr;        /* Interrupt clear register */
->       uint32_t    uartris;        /* Raw interrupt status register */
->       uint32_t    shadow_uartmis; /* shadow masked interrupt register */
-> +    paddr_t     base_addr;
-> +    unsigned int virq;
->       spinlock_t  lock;
->       evtchn_port_t evtchn;
->   };
-> 
-
-Cheers,
-
--- 
-Julien Grall
+--1fkSp4VMzBO8cyJHSkWawTmj7a6yPzO6V--
 
