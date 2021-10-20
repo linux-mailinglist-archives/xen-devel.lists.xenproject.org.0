@@ -2,74 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94F5C4348B2
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 12:11:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.213776.372101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B02164348C5
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 12:15:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.213784.372112 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1md8Ya-0001Hi-OO; Wed, 20 Oct 2021 10:10:48 +0000
+	id 1md8cV-0001vE-9K; Wed, 20 Oct 2021 10:14:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 213776.372101; Wed, 20 Oct 2021 10:10:48 +0000
+Received: by outflank-mailman (output) from mailman id 213784.372112; Wed, 20 Oct 2021 10:14:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1md8Ya-0001Ft-Kp; Wed, 20 Oct 2021 10:10:48 +0000
-Received: by outflank-mailman (input) for mailman id 213776;
- Wed, 20 Oct 2021 10:10:48 +0000
+	id 1md8cV-0001sq-67; Wed, 20 Oct 2021 10:14:51 +0000
+Received: by outflank-mailman (input) for mailman id 213784;
+ Wed, 20 Oct 2021 10:14:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=MOn5=PI=arm.com=Hongda.Deng@srs-us1.protection.inumbo.net>)
- id 1md8YZ-0001Fn-S3
- for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 10:10:48 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com (unknown
- [40.107.21.63]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4a3c7332-bf90-4079-bea1-394b53564784;
- Wed, 20 Oct 2021 10:10:44 +0000 (UTC)
-Received: from AS9PR04CA0058.eurprd04.prod.outlook.com (2603:10a6:20b:46a::23)
- by DBBPR08MB6105.eurprd08.prod.outlook.com (2603:10a6:10:20d::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.16; Wed, 20 Oct
- 2021 10:10:42 +0000
-Received: from VE1EUR03FT031.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:46a:cafe::e5) by AS9PR04CA0058.outlook.office365.com
- (2603:10a6:20b:46a::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.16 via Frontend
- Transport; Wed, 20 Oct 2021 10:10:42 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT031.mail.protection.outlook.com (10.152.18.69) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4608.15 via Frontend Transport; Wed, 20 Oct 2021 10:10:41 +0000
-Received: ("Tessian outbound 8e26f7114b75:v103");
- Wed, 20 Oct 2021 10:10:41 +0000
-Received: from 0a7e79187a79.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- CEC86D9F-CB6D-4F6C-89CE-056E4C97ADFA.1; 
- Wed, 20 Oct 2021 10:10:35 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0a7e79187a79.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 20 Oct 2021 10:10:35 +0000
-Received: from AM6PR08CA0004.eurprd08.prod.outlook.com (2603:10a6:20b:b2::16)
- by HE1PR0801MB2091.eurprd08.prod.outlook.com (2603:10a6:3:51::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.17; Wed, 20 Oct
- 2021 10:10:33 +0000
-Received: from AM5EUR03FT039.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:b2:cafe::c4) by AM6PR08CA0004.outlook.office365.com
- (2603:10a6:20b:b2::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.16 via Frontend
- Transport; Wed, 20 Oct 2021 10:10:33 +0000
-Received: from nebula.arm.com (40.67.248.234) by
- AM5EUR03FT039.mail.protection.outlook.com (10.152.17.185) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4608.15 via Frontend Transport; Wed, 20 Oct 2021 10:10:32 +0000
-Received: from AZ-NEU-EX03.Arm.com (10.251.24.31) by AZ-NEU-EX03.Arm.com
- (10.251.24.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.14; Wed, 20 Oct
- 2021 10:10:31 +0000
-Received: from hongda-OptiPlex-7070.shanghai.arm.com (10.169.190.17) by
- mail.arm.com (10.251.24.31) with Microsoft SMTP Server id 15.1.2308.14 via
- Frontend Transport; Wed, 20 Oct 2021 10:10:29 +0000
+ <SRS0=ou1c=PI=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1md8cT-0001sk-LB
+ for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 10:14:49 +0000
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ca5a1e4a-4005-4b92-a739-72f646a788e1;
+ Wed, 20 Oct 2021 10:14:47 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -81,239 +35,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a3c7332-bf90-4079-bea1-394b53564784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WDANhBkc8QVomqkcXiK4L7RcGe5Epnl8Ui8zqFtlpS0=;
- b=5cktR1FRD/cYJ8lkrgYX8RwaEoelCobwvl35mjArdxJnJU1k5jv1dwQNRlOb3753M8xibPtkUYshPmDkBXqOGDXixijVEEijAcEs6DqSDqHHLZ7/651eajfk2cmEDZw8xUu+6rl11+LmhbMjM4g2lwZKn7l7EUKQv73z4+M7abk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org; dmarc=pass
- action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 10458c9cf0127461
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: ca5a1e4a-4005-4b92-a739-72f646a788e1
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1634724887;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=aK8R+y53m2raK/zKeMODq5yj0t4BvxlFMUCuTs4PzmM=;
+  b=Vd/Sc7riVMFhhYo6rj+tjMk/hdts69vxwhksNplESD63QMRcVyxDSvJU
+   S8pkcB0o8QDLZ0DMVNILXcKYU4I6N1GUsVEJwwfXtXCOb5OWOnSiykmXf
+   BpAgEfQzaMTmXhedYCiT1q/MGtjN98QFArXIMDB/vYGYliF2wIKcVfj+K
+   k=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: cO6eCfkbpq8R9Rk95m+GqW/yOj2jASZLQnniskr9ymV+fjILNhsTFx6p53g81/Wi2wJ19P+657
+ Mtroh7aeQrNRWRYfCmKxhjfd+JwsOXMonoiB/oMAD53TOMZNiSZ90EsXaxFmHHdr5dS5Hr+bPe
+ j3enasJde0GzSZlCLbp1X++HF6QZw9+VaXD0ugfABgjRUpf54/HKZ9F8x51LlqSUpvLoTnZdMR
+ 8cR4ghIxqahXFgUTSP1AkD4vQ1HlKinkBVSJliRYUtF8sLAxHYKk3VaNAyY/5RWEZI9mweFG+l
+ q9nT75h7Ui4SSPghJPRMVtpi
+X-SBRS: 5.1
+X-MesageID: 55179392
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:pthPnaAjchA29RVW/3Tlw5YqxClBgxIJ4kV8jS/XYbTApDgk1TAOn
+ zBLDGuAPfeNZmChft4kb4m/pB5Q7cTVyodmQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WLGs1hxZH1c+EX5500o7wobVv6Yz6TSHK1LV0
+ T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
+ Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/si2jhep92
+ ZJ277uPciYzZ4Odp91HTEwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
+ KFGbmBWBvyAr7veLLaTUO5ji95lNMD2FIgepmth3XfSCvNOrZXrHviTuo4DjW1YasZmPaiPP
+ uY0dzZUZyv6Ph0fEUgXOaxhtbL97pX4W2IB8w/EzUYt2EDfxRJ8+KLgO93UfpqNX8o9tkSXv
+ GXd5EziHwoXcteYzFKt4n+qw+PCgy7/cIYTD6GjsO5nhkWJwW4eAwFQUkG0ydGHjUq5V8NaO
+ lYj0CMkpqgv92SmVtD4GRa/pRaspQUAUtBdF+k77gClyafO5QudQG8eQVZpacMknN87QyQw0
+ V2ElM+vAiZg2JWXQ3+A8rafrRupJDMYa2QFYEcsTxYB4tTliJE+iFTIVNkLOLGxps34H3f32
+ T/ikcQlr+xN14hRjfz9pA2ZxWL3znTUcuIrzjzPdHif4hI+X9SCWLeJ8wH1vMl5dpnMGzFto
+ 0M4s8SZ6ekPC7SEmyqMXPgBEdmV2hqVDNHPqQUwR8d5plxB71bmJNoKuGgvey+FJ+5dIWexC
+ HI/rz+983O60JGCVqRwf56qQ/ojyaztBLwJvdiFM4IQPPCdmOKBlRyChHJ8PUixzyDAcollY
+ P93lPpA615AVcyLKxLtH48gPUcDnHxW+I8qbcmTI+6b+bSffmWJbrwOLUGDaOs0hIvd/l6Jr
+ YgOb5HWk0wGOAEbXsUx2dRPRbztBSNjba0aVuQNLrLTSuaYMDBJ5wDtLUMJJNU+wvU9ehbg9
+ XChQE5IoGcTdlWcQThmnktLMeu1Nb4m9CpTFXV1YT6AhihyCa7yvfx3X8ZmItEaGBlLkKcco
+ w8tIJ7bXJyii13vplwgUHUKhNY8JE/121/WY3DNjfpWV8cIejElM+TMJ2PH3CIPEjC2pY05p
+ bih3RncWp0NW0JpC8O+VR5l5wnZUaE1lL0gUk3WDMNUfUmwooFmJzao1q08It0WKAWFzTyfj
+ l7EDRAdrOjLgok07NiW2vzU89b3S7NzThhAAm3WzbeqLi2GrGCt9pBNDbSTdjfHWWKqpKj7P
+ bdJz+vxOeEslUpRt9YuCK5iyK8zvoO9p7JTwgl+Mm/MalCnVuFpLnWchJEdvaxR3L5J/wCxX
+ xvXqNVdPLyIPuLjEUIQe1V5PrjSi6lMl2CLv/ovIUj86Ctmx5a9UB1fb0uWlShQDLppK4d5k
+ +0vj9Ebtl6kgR0wP9fY0i0NrzaQLmYNWrkMv40BBNO5kRIiz1xPbMCOCiLy553TOdxAPlNzf
+ 22RjavGwb9d2lDDYzw4En2UhbhRgpEHuRZryl4eJgvWxoqZ16FvhBABoy4qSgl1zwlc17MhM
+ 2dmAER5OKGS8mo6n8NERW2tR1lMCRDxFpYdELfVeLk1l3WVa1E=
+IronPort-HdrOrdr: A9a23:6Qezd69qgOMWT1uT80puk+DWI+orL9Y04lQ7vn2ZKCY4TiX8ra
+ uTdZsguiMc5Ax+ZJhDo7C90di7IE80nKQdieN9AV7IZniEhILHFvAG0aLShxHmBi3i5qp8+M
+ 5bAsxD4QTLfDpHsfo=
+X-IronPort-AV: E=Sophos;i="5.87,166,1631592000"; 
+   d="scan'208";a="55179392"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Xq6jn29Qe3uNyaOJlVfdZ2SArrEmqocEZIEom+oUO0rgFwmaKotEk21yHzylTEFcMoDZUIDrTjQkQaaIHF1EapUSH4jbTD9XCrSPVxpkSHNXzM4H2kazRwni/Qg/dlEk/sDN1GY9xldpigF6Wi+wQAAT0Li7YMz6dzfEpxplrnEc4+Gph04hDY66zfKDy2tI/6Jeiwyk1P3trwEqBHDjzNpt6NotZTIFiEE/W0d/ZnE4XP6zWBUSCg1gH9NzJyOXuoRkO7j1QMBjmmfxlDoeSZY1wPuSp1o6/hUVylleDZs8hrX79falVyre3w4LdnCAqPkq3k4V04+JTVIyBc42dQ==
+ b=YltS09cgh37Ptyvwkz/0ZfCRBFnRx0J5m32lM52CIxGpfDWE3YPoliI2fn7ED0yREAhzI+U0WrPYASXW2DdQ0RetqTogJc4moj5d1NrhCkD9EuRzGQav82b/MkOb3cSyUgIb0ygBjMx0+b0WJwwFuAkQVE254LG/vAJ16TGMDHqfWDfLOLI/qkYPsHTGIVa7/rSc+/uTGul3urkY4NwdE4Q9lKDXKqMleltO0lgr+bg7Er/JEATGTGs4oMhNBA+fBThj4XW1tqvH7H3d8FHHXREnMNRZaC1hsmImjStlHBEchHJVjt3fN8tvLU6jJ3l4bse2WKpQks3GVjiCNhyr5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WDANhBkc8QVomqkcXiK4L7RcGe5Epnl8Ui8zqFtlpS0=;
- b=bNUoF2Wum/p/0KBqexyk1y7SgrSyovMExdI9KBW4XQCEzV31K3qmh+sFu5GdZZiv1d7se8q40uzcYNAr2EJtiJtHvrnFnmwlKZ6nFuDMugVi5qdxVKYSaZpVu+joZ7ASQhbsJlcFLxpvmasxV74rkuQZ1NGaLqRTCqjiL8/Exo1selmbtJDXqwJ/pvuSSPgcH6E090EQvCKz+q03Z0rg43ylA9NoA+TNLNfhPA1EW09HvS3IOZv1bMgTPN1Yh7XYwblQLnvcuDYWn6cT/ZT8XLb+TeVb1hRTRk9g07JTgKLpBo/AWVoD7IYQ3/iUxG3USkfiKT5mclIyF8nobQjeGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 40.67.248.234) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ bh=T5gS/QDqJNAXCgRJPXuOmpL95A5VZHQhorm/L8X0PAM=;
+ b=l/f9ChvtjFJlQRYDZhcRtcI4ttJNQH84ZiLUScudCfRb3y54Uwb4k6e6rYyxlMbVlNJ3T2TzbtilPAIOwmOADIKbpYlkfOcnz/X068UoMSrRjPVojMhKQAGZ+2SiXvhwZ07D/AbfeUtH4EEFnyQZGn61jqnfTeF1I2ENJXrz+vq+5HBnKjM+amjJRAKV4PWKH8HOWscD0/6gUDzzubsbFAYEEMYNSU9fXAP6sqD7aKj9MKMurhSOUuYjlXNyHbQkj+4sna6K560SPTeRznEN6AvDT0n2xt/1LBx26rqOg+oWgJvmIsKSkxwqLO371kp4CzqfBtWcpbCLLQlUi6C3wA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WDANhBkc8QVomqkcXiK4L7RcGe5Epnl8Ui8zqFtlpS0=;
- b=5cktR1FRD/cYJ8lkrgYX8RwaEoelCobwvl35mjArdxJnJU1k5jv1dwQNRlOb3753M8xibPtkUYshPmDkBXqOGDXixijVEEijAcEs6DqSDqHHLZ7/651eajfk2cmEDZw8xUu+6rl11+LmhbMjM4g2lwZKn7l7EUKQv73z4+M7abk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=none (message not signed)
- header.d=none;lists.xenproject.org; dmarc=pass action=none
- header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 40.67.248.234 as permitted sender) receiver=protection.outlook.com;
- client-ip=40.67.248.234; helo=nebula.arm.com;
-From: Hongda Deng <Hongda.Deng@arm.com>
-To: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
-	<julien@xen.org>
-CC: <Bertrand.Marquis@arm.com>, <Wei.Chen@arm.com>, <Hongda.Deng@arm.com>
-Subject: [PATCH v3] xen/arm: vgic to ignore GICD ICPENDRn registers access
-Date: Wed, 20 Oct 2021 18:10:21 +0800
-Message-ID: <20211020101021.9793-1-Hongda.Deng@arm.com>
-X-Mailer: git-send-email 2.17.1
+ bh=T5gS/QDqJNAXCgRJPXuOmpL95A5VZHQhorm/L8X0PAM=;
+ b=caJnpXnv4+Q/2GyqZHppbEL29YAEmcioFwPsH7WTmD+auw8yC2OdxPzEZX/dkq1ZopX1iVv4rI2Unul+oBCMayTDzY3X60xln3V1RjaLNPWFarOON42h6R9RJtIy0EPPOfFHC61/dYXeRcKJR/f20vMUJv2ltO1YhCyTKoBnRLY=
+Date: Wed, 20 Oct 2021 12:14:00 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	"Julien Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	"Anthony PERARD" <anthony.perard@citrix.com>, Juergen Gross
+	<jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>, David
+ Scott <dave@recoil.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2 3/6] gnttab: allow per-domain control over transitive
+ grants
+Message-ID: <YW/r6Dk5a79myhzy@MacBook-Air-de-Roger.local>
+References: <20210922082123.54374-1-roger.pau@citrix.com>
+ <20210922082123.54374-4-roger.pau@citrix.com>
+ <1d741841-6aaf-1d33-e1c6-b98f77ce41fb@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <1d741841-6aaf-1d33-e1c6-b98f77ce41fb@suse.com>
+X-ClientProxiedBy: LO2P265CA0184.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a::28) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 1
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b3526b82-e820-41ad-0b7c-08d993b1df78
-X-MS-TrafficTypeDiagnostic: HE1PR0801MB2091:|DBBPR08MB6105:
-X-Microsoft-Antispam-PRVS:
-	<DBBPR08MB61058BEF30EB3624FAE35CA1E6BE9@DBBPR08MB6105.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;OLM:4941;
+X-MS-Office365-Filtering-Correlation-Id: b1512670-c306-4226-dc83-08d993b25932
+X-MS-TrafficTypeDiagnostic: DM6PR03MB3836:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR03MB38365E5E7A2ADB084A2662CB8FBE9@DM6PR03MB3836.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- 5H0WkS0ajXlOvtauoU/cCbpztD3V/99oL3j+RqxFQ49H9hbd/2vsM9JRK/tQTdysaOtqkLJfXTAa9ZAgXTilo/qkQkzVFQPk/1fHkrmHd+2wPgOSyeQ7eSgUIRR8KDOIFYsWZS2tJXjPSII/70srQ+2BYWEGDi+xSB6y0fskJRQeI2bTh50MPFEW5T6XDziQOfI+dnrbPNzQ981JKoURnRnXklhD4JxsPhJ1A3bh1YYSowhA/Q+QbFwmjaUR8z+UYhqHgU+PVvvHUV84zKI5EX7zdRV+0wwJ81n9gA8ol0r44v5PW5wsHvtkV9LBNimi9zTogYFE23s3el1MPGg8t95kZR4N2JjUbaB50iOqNBPrIhLh1NwII8kmqvN4bkGbCQWJ72XbQ6rLiFRrY+FDJNYnoyHTY4VCrHvNNjdkoXxHdrpkmzPA3nFwDG3zXpT9qHBP1dZK69Flnx5dZ42dRKGWOS9ArEeWrEDxLuD+FC+ZA3lpsO1LM2X4A+HJ+eJJt5i4oXvf4xVfOGxwfDvBbBhRqDUvEn4/cBya28hSJcJjSclJnBC4QuqluaPkwSSL+OkYkUZNtwS6G07bQi54k0v9JYBvpao3S+2qlwyEjE85jxL2H3H2eEdYDcMB2knhsFzyCILPn2E+gRypYyxm01rjVMeuk1oa7E5zG1WZFNULc6Sw2Zk/UrxkU9yL3fczwXd8M+XwncfpWAWJ4WIkmhG/uYr8fWcYl2N1+xmPhta2e7R16BpwnBYS3L52ER+JY676px/2h0Mcd69c/hH5quYEOAopm93W67NLAvICYfg7KEtyZb+T2YlZKbFvkj0P
-X-Forefront-Antispam-Report-Untrusted:
- CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(5660300002)(70586007)(70206006)(186003)(26005)(7696005)(110136005)(6666004)(966005)(54906003)(508600001)(86362001)(36756003)(8936002)(316002)(1076003)(2616005)(426003)(8676002)(81166007)(4326008)(356005)(83380400001)(82310400003)(36860700001)(2906002)(47076005)(336012)(36900700001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0801MB2091
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT031.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	b1d089a1-72d6-4c44-5e0a-08d993b1da07
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	ozfNYeKkboAcp1XSHua6lV7jQDlrc3ohJou0/GhSMK2SbZsyiTJS9ZuFsb7DVtQSBw0t3j1ALA7o732HYnwosOur5SHKPhXLADWL4bENO3DjnuGBfD3K6aVJvTXqvYK31tXZAxYJgsHTjnNR9Hm9iD0x+VjVcyQGdnfHFu0waynD0PSoHRdS+6eE8M9sc0PSl+WyBD6XRr1c4JpGPPI+zFPEB7UTvDBRt0zJdjhcjGAW1XaCts5+jXHc99Gk70VaIJMY5jVIlZLVSOLHUzPfY7Je9f6I5JiXiqQADITYH4qbxH47gWOR+6sA7mgbeYdm21ziziI5OSEGByg4y4T78NIClUanOoUN7e9Ba48kHCqjdyiQOuvNrRSrozkFE/J0yp2GbNcla7DmHFiUPStWbt7Hy2RM5NY7e/Dnjrd5U05E1fONSZzik0S2SNJ/n+VPzLUpAM8E9nUzosIM2oNH/VOM3IepT2Ztvx0D+BhxhX8ju3TEREeOOe2ni5RIDbLplCy5RAWyL4yUDNC3yS+qBQchSoaTXvzYuYTM/TRdNgBCLFQret08q8+csPXNp8JpLsWqXPTHksBCt9zqic79PPPw4G7KKpFlFvnSzArIlKCLPROZ7a0KbossfrmMnVm429SUEIRKREbtCvAVl+6liLdV7kvCyPK93pPUkGlVUUluj1Zm7AQ1zJvms3/eq58yhUcTSTSb6QGldZ5/VUQgjhPdnQLrMM4o8KPxY9qeJ4Q1f2uR+e1ADfsISCcl/hEPxV9oKiaiUvtomFbcDNJ3MM6r882WM8BaBn6EJ3Zynmw=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(83380400001)(8676002)(26005)(81166007)(70586007)(36860700001)(110136005)(336012)(316002)(54906003)(1076003)(186003)(4326008)(86362001)(8936002)(2616005)(426003)(966005)(7696005)(508600001)(6666004)(70206006)(47076005)(2906002)(82310400003)(5660300002)(36756003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2021 10:10:41.6247
+X-Microsoft-Antispam-Message-Info: XH58WLC8OOgMNStpNeg4ohxGlZ0qYD/WN9iRXFEwOaeyQFM1pkKeEb/aVPhU+RAxuGIvWkjd4cpcO/C7a5/OLooKjO5oAKZ1yACnQejx+vGGF57a0kBGeGql10sf56YFZlv9Za2eXc4cZtCx/4Uh2i8DtOiFtQArl5l050iapO6GUFMZxFvbb5/8kIYhMzs9gv6osCFGBzwBF8UzTciAaIcDyCayyowxBJDi0XnKzZdnl1nWXWcL+0FmkSjOcZRBx1GaPiwanbFRyeVqBCee2ROXkKNap5nRwfTbsLCFURIWUW0zXGOIzMx8qNQqUhehSvbJaPEo61W24ZqXdawil28hrFKTbXKNax70L5tvtJFWfZ5cS4DSacdPPqQdrMphy/12QN8ZN+lKiEZExRlmTClq4NAmiUK2YFLLsmxRiTYYBk8PgA5Q3mL+5QRa+K6P6V02I1J7d9obibNzvP720RpH5jAVc1FHwVjNTNaU9StPdM0nDJV22YOXV1ziJrw4RroXHYkmTBE0d3gYND/IuzeeMyGZzna3TRpDBJzwVGb5xK18QpEqywdMn+hKOQBEGFz0Y44p5NQtbIwl1lFKgLoxjPochCkVZKEWo33vWr4FvVp+53yrSh6YKcc91vuS4stsqSuGdrBfHwMhur5AiQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(186003)(66476007)(85182001)(4326008)(66556008)(66946007)(9686003)(6496006)(53546011)(508600001)(26005)(83380400001)(956004)(86362001)(316002)(54906003)(38100700002)(82960400001)(6916009)(8936002)(5660300002)(6486002)(8676002)(6666004)(2906002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a3RXakpNcFd6akFTcDRySEtaaHNwTEREbmo3UkNMYmdnM0hENmNCYVJQY01N?=
+ =?utf-8?B?TWExS2s1aTZvemNaWUUvWSt0eUFmL0N4WUF5MEg2R21RQkJ2TWRjRHBRSmdw?=
+ =?utf-8?B?OVhUUFpZY1pIcXJOOXFHZklINm9RanpMSHk1NTdPV2RZM2tWbG5RcFM4UzlT?=
+ =?utf-8?B?SlU1NmtaRGFTSjJxZFZOYmVBU09qYTJZMHNZT3RCaW9ZTmwvazk0cEZDMlFr?=
+ =?utf-8?B?QTRuYW16eHpUUTFxY2tNcG5FRnhjMTRuMHdiWVZBZms0dnF1K3k0Vlg4OXJE?=
+ =?utf-8?B?UkdXbWJkUzNwTlNKWEg0WVduSGN3eXowT2FrWTE5d0xPemhDYXhSUTJkUWNK?=
+ =?utf-8?B?eWtHUThzc0pRS0d4OG9Ud2ZZRmNWcXVWNlRENXg3ZjZvV2YvbGoyZFR3MGZG?=
+ =?utf-8?B?dUt5b1J6ZlV3dklEdmtlVXBLd05SbW54VDBlSHJ0S25CcGtKRkdlTUdjQmRh?=
+ =?utf-8?B?eU9mSjBmZk8veFNTdWMyN05oU2dkKzlHcElQRW5Fa2U5Nnd6S3diRlVqZG0y?=
+ =?utf-8?B?SXJKWVZ2ZzFNUGRhSkRWTVI3UVlJdXUva1AybnBYVGtNbklmK1JXTkJwVWRw?=
+ =?utf-8?B?b0VoaUpJRnhqczdma3VJYzZrczRhVUd2bFZQMlRPNmVkcXpURWltbnFKbVRK?=
+ =?utf-8?B?ZDR0SjlkSFBKdVFoY3RGSEhlWml1MGtmSSszTGIybXB3K21PQ1pOZ0poQWl6?=
+ =?utf-8?B?eEV3Qnp4cDlNSEJhOXZqTnBIaVZCTlhvUnhyVmx4WW8weGdGKzVJS3pqc2py?=
+ =?utf-8?B?S2psMTBkSjV4T2pmTXdpaTdIck5TR2Zua0ZYK3ZzanlnWUJSSkRjdVZxQ0VT?=
+ =?utf-8?B?TDVqQ1lqM2RKZVZiYjVIZnFQSGVNNDQ5T0gyR2ZQY2xMV0NFVm44VDdUV0dM?=
+ =?utf-8?B?dnhscWhaSFlNTmVDZDFPOEtHVk9IVWlzTDl1Z2JlNzB0djNrQ1ZVYkxxZHJw?=
+ =?utf-8?B?cXNkdld5a09ZQWc2WDNzTFkxUlhXZHloTktGUG5waEtWV2s5MjIrTG9jMXh0?=
+ =?utf-8?B?VFpORHZZdTNvWm5wZzJNVS9lUURpd3loYktqL0xTei9JL1BlVTg2UnJTTEZm?=
+ =?utf-8?B?b0QrcUpiZzh3VHcvSE1PcUo2NGs0YXBuOU9oczNwWDloK2Y4cXFqdTV1TVhp?=
+ =?utf-8?B?Y25EeEdMTS9XUHlxNXdkOENjbHdnMEpqLzNxbGViWlE2WW9iRkxJT0lwbWFG?=
+ =?utf-8?B?M3V1QXFndzBRNUtWVnpoOHVEdWJzK1Z5SURkVURNeG9PV1BaTCt6S1FlNzJ0?=
+ =?utf-8?B?aU1iYnZncXkxdEhpRFdmVFdLT0RRNjVyekszU2k4NkdLb0Z0VjdNOWVVVTRp?=
+ =?utf-8?B?SHIvMklveU9UcHYyYjFHbjk5U0htcXo3Z2oxa3R4VHVzcGZhejJXYTdFQ2Ez?=
+ =?utf-8?B?a3NiRGZGVVpuUDZ5bnNBSXovUUNwSEZOVDVwQTdxSHpiQ1QvWEZ0cWtqdHZ3?=
+ =?utf-8?B?a3RkbUJnMlFyS0ZENjVaUVR6TVdiT2RJM1E4ckRtbnl4cFNEbGg5SGllakJo?=
+ =?utf-8?B?RmoxS3dscGRaZXozQmhkVFJpUHBmWlZoT1c0ZkJ0R05KZlVMdXo0K1dQY3Fi?=
+ =?utf-8?B?ZzBHQk1rbDVtUTdiZzlkN0N1Mm16UEtwYU1tSWlXcVlXYzNwd0dmNUl5QXRT?=
+ =?utf-8?B?MWlKMHRGeVF3UVZDZURlU1BaRkV3NEMwRlViWHBjemoyb1pXeTBQWVZrUTZ3?=
+ =?utf-8?B?aThNQlhIeG5QQ2U0S1V2UW12V0luQVYxWmhWcFRYZFFweDRUNnUxTy90TFZE?=
+ =?utf-8?Q?33CNXzZCGOhfvMHdfsyW96oImAlGg7nVTtrhdxH?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1512670-c306-4226-dc83-08d993b25932
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Oct 2021 10:14:06.1225
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3526b82-e820-41ad-0b7c-08d993b1df78
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT031.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR08MB6105
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: roger.pau@citrix.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3836
+X-OriginatorOrg: citrix.com
 
-Currently, Xen will return IO unhandled when guests access GICD ICPENRn
-registers. This will raise a data abort inside guest. For Linux Guest,
-these virtual registers will not be accessed. But for Zephyr, in its
-GIC initialization code, these virtual registers will be accessed. And
-zephyr guest will get an IO data abort in initilization stage and enter
-fatal error. Emulating ICPENDR is not easy with the existing vGIC, so
-we currently ignore these virtual registers access and print a message
-about whether they are already pending instead of returning unhandled.
-More details can be found at [1].
+On Fri, Oct 15, 2021 at 12:05:06PM +0200, Jan Beulich wrote:
+> On 22.09.2021 10:21, Roger Pau Monne wrote:
+> > --- a/xen/arch/arm/domain_build.c
+> > +++ b/xen/arch/arm/domain_build.c
+> > @@ -2649,7 +2649,8 @@ void __init create_domUs(void)
+> >              .max_evtchn_port = -1,
+> >              .max_grant_frames = -1,
+> >              .max_maptrack_frames = -1,
+> > -            .grant_opts = XEN_DOMCTL_GRANT_version_default,
+> > +            .grant_opts = XEN_DOMCTL_GRANT_version_default |
+> > +                          XEN_DOMCTL_GRANT_transitive,
+> >          };
+> >  
+> >          if ( !dt_device_is_compatible(node, "xen,domain") )
+> > @@ -2757,7 +2758,8 @@ void __init create_dom0(void)
+> >          .max_evtchn_port = -1,
+> >          .max_grant_frames = gnttab_dom0_frames(),
+> >          .max_maptrack_frames = -1,
+> > -        .grant_opts = XEN_DOMCTL_GRANT_version_default,
+> > +        .grant_opts = XEN_DOMCTL_GRANT_version_default |
+> > +                      XEN_DOMCTL_GRANT_transitive,
+> >      };
+> >  
+> >      /* The vGIC for DOM0 is exactly emulating the hardware GIC */
+> > --- a/xen/arch/x86/setup.c
+> > +++ b/xen/arch/x86/setup.c
+> > @@ -750,7 +750,8 @@ static struct domain *__init create_dom0(const module_t *image,
+> >          .max_evtchn_port = -1,
+> >          .max_grant_frames = -1,
+> >          .max_maptrack_frames = -1,
+> > -        .grant_opts = XEN_DOMCTL_GRANT_version_default,
+> > +        .grant_opts = XEN_DOMCTL_GRANT_version_default |
+> > +                      XEN_DOMCTL_GRANT_transitive,
+> >          .max_vcpus = dom0_max_vcpus(),
+> >          .arch = {
+> >              .misc_flags = opt_dom0_msr_relaxed ? XEN_X86_MSR_RELAXED : 0,
+> 
+> While I can see that you make these adjustments for retaining backwards
+> compatibility, I wonder if we need to, at least for Dom0. Dom0 doesn't
+> normally grant anything anyway and hence would even less so use
+> transitive grants. Of course then there's need to be a command line
+> control to re-enable that, just in case.
 
-[1] https://github.com/zephyrproject-rtos/zephyr/blob/eaf6cf745df3807e6e
-cc941c3a30de6c179ae359/drivers/interrupt_controller/intc_gicv3.c#L274
+dom0=gnttab-transitive, or should it be placed somewhere else?
 
-Signed-off-by: Hongda Deng <hongda.deng@arm.com>
----
-Changes since v2:
- *  Avoid to print messages when there is no pending interrupt
- *  Add helper vgic_check_inflight_irqs_pending to check pending status
- *  Print a message for each interrupt separately
-Changes since v1:
- *  Check pending states by going through vcpu->arch.vgic.inflight_irqs
-    instead of checking hardware registers
----
- xen/arch/arm/vgic-v2.c     | 10 ++++++----
- xen/arch/arm/vgic-v3.c     | 16 ++++++++--------
- xen/arch/arm/vgic.c        | 36 ++++++++++++++++++++++++++++++++++++
- xen/include/asm-arm/vgic.h |  3 ++-
- 4 files changed, 52 insertions(+), 13 deletions(-)
+> > @@ -1965,6 +1969,8 @@ int grant_table_init(struct domain *d, int max_grant_frames,
+> >      gt->max_grant_frames = max_grant_frames;
+> >      gt->max_maptrack_frames = max_maptrack_frames;
+> >      gt->max_grant_version = max_grant_version;
+> > +    gt->allow_transitive = !!(options & XEN_DOMCTL_GRANT_transitive) &&
+> > +                           opt_transitive_grants;
+> 
+> No need for !! here afaics. Not even if there weren't the &&.
+> 
+> As to combining with the global option: I think if an admin requested
+> them for a domain, this should overrule the command line option. Which
+> in turn suggests that the command line option could go away at this
+> point. Otherwise, if you AND both together and the guest is known to
+> not work without this functionality, domain creation would instead
+> better fail (or at the very least it should be logged by the tool
+> stack that the request wasn't satisfied, which would require a means
+> to retrieve the effective setting). IOW I would see the command line
+> turning this off to trump the per-guest enabling request.
 
-diff --git a/xen/arch/arm/vgic-v2.c b/xen/arch/arm/vgic-v2.c
-index b2da886adc..7c30da327c 100644
---- a/xen/arch/arm/vgic-v2.c
-+++ b/xen/arch/arm/vgic-v2.c
-@@ -481,10 +481,12 @@ static int vgic_v2_distr_mmio_write(struct vcpu *v, mmio_info_t *info,
- 
-     case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
-         if ( dabt.size != DABT_WORD ) goto bad_width;
--        printk(XENLOG_G_ERR
--               "%pv: vGICD: unhandled word write %#"PRIregister" to ICPENDR%d\n",
--               v, r, gicd_reg - GICD_ICPENDR);
--        return 0;
-+        rank = vgic_rank_offset(v, 1, gicd_reg - GICD_ICPENDR, DABT_WORD);
-+        if ( rank == NULL ) goto write_ignore;
-+
-+        vgic_check_inflight_irqs_pending(v->domain, v, rank->index, r);
-+
-+        goto write_ignore_32;
- 
-     case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
-         if ( dabt.size != DABT_WORD ) goto bad_width;
-diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
-index cb5a70c42e..4913301d22 100644
---- a/xen/arch/arm/vgic-v3.c
-+++ b/xen/arch/arm/vgic-v3.c
-@@ -817,10 +817,12 @@ static int __vgic_v3_distr_common_mmio_write(const char *name, struct vcpu *v,
- 
-     case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
-         if ( dabt.size != DABT_WORD ) goto bad_width;
--        printk(XENLOG_G_ERR
--               "%pv: %s: unhandled word write %#"PRIregister" to ICPENDR%d\n",
--               v, name, r, reg - GICD_ICPENDR);
--        return 0;
-+        rank = vgic_rank_offset(v, 1, reg - GICD_ICPENDR, DABT_WORD);
-+        if ( rank == NULL ) goto write_ignore;
-+
-+        vgic_check_inflight_irqs_pending(v->domain, v, rank->index, r);
-+
-+        goto write_ignore_32;
- 
-     case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
-         if ( dabt.size != DABT_WORD ) goto bad_width;
-@@ -987,10 +989,8 @@ static int vgic_v3_rdistr_sgi_mmio_write(struct vcpu *v, mmio_info_t *info,
- 
-     case VREG32(GICR_ICPENDR0):
-         if ( dabt.size != DABT_WORD ) goto bad_width;
--        printk(XENLOG_G_ERR
--               "%pv: vGICR: SGI: unhandled word write %#"PRIregister" to ICPENDR0\n",
--               v, r);
--        return 0;
-+        return __vgic_v3_distr_common_mmio_write("vGICR: SGI", v,
-+                                                 info, gicr_reg, r);
- 
-     case VREG32(GICR_IGRPMODR0):
-         /* We do not implement security extensions for guests, write ignore */
-diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-index 8f9400a519..0565557814 100644
---- a/xen/arch/arm/vgic.c
-+++ b/xen/arch/arm/vgic.c
-@@ -726,6 +726,42 @@ unsigned int vgic_max_vcpus(unsigned int domctl_vgic_version)
-     }
- }
- 
-+void vgic_check_inflight_irqs_pending(struct domain *d, struct vcpu *v,
-+                                      unsigned int rank, uint32_t r)
-+{
-+    const unsigned long mask = r;
-+    unsigned int i;
-+    unsigned long flags;
-+    struct pending_irq *p;
-+    bool private = rank == 0;
-+    struct vcpu *v_target;
-+
-+    for_each_set_bit( i, &mask, 32 )
-+    {
-+        unsigned int irq = i + 32 * rank;
-+
-+        if ( private )
-+            v_target = vgic_get_target_vcpu(v, irq);
-+        else
-+            v_target = vgic_get_target_vcpu(d->vcpu[0], irq);
-+
-+        spin_lock_irqsave(&v_target->arch.vgic.lock, flags);
-+
-+        p = irq_to_pending(v_target, irq);
-+
-+        if ( unlikely(!p) )
-+        {
-+            spin_unlock_irqrestore(&v_target->arch.vgic.lock, flags);
-+            continue;
-+        }
-+
-+        if ( !list_empty(&p->inflight) )
-+            printk("%pv trying to clear pending interrupt %u.\n", v, irq);
-+
-+        spin_unlock_irqrestore(&v_target->arch.vgic.lock, flags);
-+    }
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/include/asm-arm/vgic.h b/xen/include/asm-arm/vgic.h
-index 62c2ae538d..abcaae2969 100644
---- a/xen/include/asm-arm/vgic.h
-+++ b/xen/include/asm-arm/vgic.h
-@@ -298,7 +298,8 @@ extern bool vgic_to_sgi(struct vcpu *v, register_t sgir,
-                         enum gic_sgi_mode irqmode, int virq,
-                         const struct sgi_target *target);
- extern bool vgic_migrate_irq(struct vcpu *old, struct vcpu *new, unsigned int irq);
--
-+extern void vgic_check_inflight_irqs_pending(struct domain *d, struct vcpu *v,
-+                                             unsigned int rank, uint32_t r);
- #endif /* !CONFIG_NEW_VGIC */
- 
- /*** Common VGIC functions used by Xen arch code ****/
--- 
-2.17.1
+How should we go about deprecating it? It would be a bit antisocial
+IMO to just drop the option, since people using it would then be
+exposed to guests using transient grants if they didn't realize it
+should be set in xl.conf or xl.cfg now.
 
+> > --- a/xen/include/public/domctl.h
+> > +++ b/xen/include/public/domctl.h
+> > @@ -98,8 +98,11 @@ struct xen_domctl_createdomain {
+> >  /* Grant version, use low 4 bits. */
+> >  #define XEN_DOMCTL_GRANT_version_mask    0xf
+> >  #define XEN_DOMCTL_GRANT_version_default 0xf
+> > +/* Allow transitive grants. */
+> > +#define _XEN_DOMCTL_GRANT_transitive     4
+> > +#define XEN_DOMCTL_GRANT_transitive      (1U << _XEN_DOMCTL_GRANT_transitive)
+> 
+> Omit the former and have the latter be 0x10 or (1U << 4)?
+> 
+> > -#define XEN_DOMCTLGRANT_MAX XEN_DOMCTL_GRANT_version_mask
+> > +#define XEN_DOMCTLGRANT_MAX XEN_DOMCTL_GRANT_transitive
+> 
+> I didn't even spot this in patch 2 - what is this intended to be used
+> for? Neither there nor here I can spot any use.
+
+Yeah, AFAICT those _MAX definitions are used by the ocaml stubs to
+assert the max option available. Given how these new options are handled
+in ocaml the _MAX check is not implemented, so I could like drop those
+(unless there's some other tool that also depends on them).
+
+Thanks, Roger.
 
