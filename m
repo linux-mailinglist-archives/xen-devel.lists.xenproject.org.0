@@ -2,32 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A5C6434CF7
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 16:02:23 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.213945.372323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6346B434D03
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 16:03:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.213953.372334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdC9b-0007hb-Ie; Wed, 20 Oct 2021 14:01:15 +0000
+	id 1mdCC0-0008I7-WE; Wed, 20 Oct 2021 14:03:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 213945.372323; Wed, 20 Oct 2021 14:01:15 +0000
+Received: by outflank-mailman (output) from mailman id 213953.372334; Wed, 20 Oct 2021 14:03:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdC9b-0007fZ-Fe; Wed, 20 Oct 2021 14:01:15 +0000
-Received: by outflank-mailman (input) for mailman id 213945;
- Wed, 20 Oct 2021 14:01:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mdC9Z-0007fT-Dx
- for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 14:01:13 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mdC9Z-0006WR-7F; Wed, 20 Oct 2021 14:01:13 +0000
-Received: from [54.239.6.185] (helo=[192.168.28.129])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mdC9Z-0001uD-1B; Wed, 20 Oct 2021 14:01:13 +0000
+	id 1mdCC0-0008GF-Sr; Wed, 20 Oct 2021 14:03:44 +0000
+Received: by outflank-mailman (input) for mailman id 213953;
+ Wed, 20 Oct 2021 14:03:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vRSV=PI=gmail.com=jandryuk@srs-us1.protection.inumbo.net>)
+ id 1mdCBz-0008G6-V2
+ for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 14:03:44 +0000
+Received: from mail-lj1-x22b.google.com (unknown [2a00:1450:4864:20::22b])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2bd54665-9053-487b-8e79-0cd243680b66;
+ Wed, 20 Oct 2021 14:03:43 +0000 (UTC)
+Received: by mail-lj1-x22b.google.com with SMTP id o26so12819600ljj.2
+ for <xen-devel@lists.xenproject.org>; Wed, 20 Oct 2021 07:03:42 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,111 +37,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=UDLN0WY+QBoB01llYS7r/7aUZ6DRkuotoiuM3cnHUHw=; b=sPFSAcHAHLUkW4CovO3pOZGEEk
-	TKHoZMVVyVWuHYoz7nyfnSAywUmtfraksGulYeP2mGcKjxs9W57GhBXjB9lp2ecCPV79yx9xHwYrO
-	QVOnsIhe6GGk+74A9bdRO40Zm3VtYbcXGuy1YF1tozQliucTDK4/y7ofNIBHPwWMMe2c=;
-Message-ID: <d8b62ee4-f782-439e-1f37-01d8616a8566@xen.org>
-Date: Wed, 20 Oct 2021 15:01:11 +0100
+X-Inumbo-ID: 2bd54665-9053-487b-8e79-0cd243680b66
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=IzvAZhEEZNk2D8i0OBzMI0Erc+lPwUrgG7lPeht66ww=;
+        b=nvLuWP9blWTMC8O2co8iofObAEe/Uw3KBpWpSwPeW7PbYKykN6NS6DuGNfsQc1hdJF
+         qQMNkNsAuUNo91gabiB4ZhC26GWHeZ0wCE+7VFIW8OCR0m15WgHXlOHxOJqrfJiXqJKa
+         T9FZantVOYEZtefD1zrOsGBJVKtmHct3Q4N+CdjKySCxeNpd3Ls3n+q5652UUhcmy0bD
+         wo0wLMWT1CQFypDwftXOnGDVOdLlR1JC2cVXpRK4vJeQVjptqWo3sTP8bCAywNbIW3IT
+         Htryo8+ctSwrg+H+cieRm76WeL19lDyBahaooYSZAoh/4tYABflbw/CrQf/HKH0INQ2F
+         NjbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=IzvAZhEEZNk2D8i0OBzMI0Erc+lPwUrgG7lPeht66ww=;
+        b=3U1RXwu1r826EZviqCI0Kk+9Czr0jZymg4rysR7fm32ezPCc5azMOyyBczGiVhW9X9
+         UY26RLZOfz2/6mHGdXuSkbjXiZTWqeV3a+eQD8tN6Y8Q2kreZr116woT0ItOdb4daI1+
+         z/5yKdO/r+ypCOyubn5PSjE2Uk+SSohNeKFIIE58ytaRbyylCPjT7L8XmSRfRsZRDETL
+         YK2p9Io2nvocuhWnDxvxQaGjx6PcR09SgvhFABFNfv0ax/FOXnDu81+HpcuNXfw2P8BK
+         MAb1Olyv1QMA7GjCTjik+IpeijUHYiKpcYY5a5ISFA2AZuW0LqxQYOyeS3vwlxAbJEUN
+         dmPA==
+X-Gm-Message-State: AOAM533agaI0bcE+5hWps5rJnBcDvx9PE+pqrS4W4RAgjWpf8g/iKKe5
+	wwBNhQtqMuvle7CajoWfl0rFPkcpYY0HYiOYI3s=
+X-Google-Smtp-Source: ABdhPJyITdeKpXSmOLSbF+vxTekkL41/oKy0b7me+iwSGmPYFq4hvtYX532gltEEcHiHcxou9amIxVDBcPrxPcnCO7Y=
+X-Received: by 2002:a05:651c:283:: with SMTP id b3mr13982322ljo.459.1634738620768;
+ Wed, 20 Oct 2021 07:03:40 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.0
-Subject: Re: [PATCH v3] xen/arm: vgic to ignore GICD ICPENDRn registers access
-To: Ian Jackson <iwj@xenproject.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-Cc: Hongda Deng <Hongda.Deng@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Chen <Wei.Chen@arm.com>
-References: <20211020101021.9793-1-Hongda.Deng@arm.com>
- <87512F00-48DA-4E66-B3A8-47F48B9C6A87@arm.com>
- <24944.6620.647052.30281@mariner.uk.xensource.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <24944.6620.647052.30281@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20211019202906.GA2397931@bhelgaas> <5f050b30-fa1c-8387-0d6b-a667851b34b0@oderland.se>
+ <877de7dfl2.wl-maz@kernel.org>
+In-Reply-To: <877de7dfl2.wl-maz@kernel.org>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 20 Oct 2021 10:03:29 -0400
+Message-ID: <CAKf6xpt=ZYGyJXMwM7ccOWkx71R0O-QeLjkBF-LtdDcbSnzHsA@mail.gmail.com>
+Subject: Re: [PATCH v2] PCI/MSI: Re-add checks for skip masking MSI-X on Xen PV
+To: Marc Zyngier <maz@kernel.org>
+Cc: Josef Johansson <josef@oderland.se>, Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org, 
+	xen-devel <xen-devel@lists.xenproject.org>, Thomas Gleixner <tglx@linutronix.de>, 
+	Juergen Gross <jgross@suse.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Ian,
+Hi, Marc,
 
-On 20/10/2021 14:30, Ian Jackson wrote:
-> ~Bertrand Marquis writes ("Re: [PATCH v3] xen/arm: vgic to ignore GICD ICPENDRn registers access"):
->> [+Ian]
->>> On 20 Oct 2021, at 11:10, Hongda Deng <Hongda.Deng@arm.com> wrote:
->>>
->>> Currently, Xen will return IO unhandled when guests access GICD ICPENRn
->>> registers. This will raise a data abort inside guest. For Linux Guest,
->>> these virtual registers will not be accessed. But for Zephyr, in its
->>> GIC initialization code, these virtual registers will be accessed. And
->>> zephyr guest will get an IO data abort in initilization stage and enter
->>> fatal error. Emulating ICPENDR is not easy with the existing vGIC, so
->>> we currently ignore these virtual registers access and print a message
->>> about whether they are already pending instead of returning unhandled.
->>> More details can be found at [1].
->>>
->>> [1] https://github.com/zephyrproject-rtos/zephyr/blob/eaf6cf745df3807e6e
->>> cc941c3a30de6c179ae359/drivers/interrupt_controller/intc_gicv3.c#L274
->>>
->>> Signed-off-by: Hongda Deng <hongda.deng@arm.com>
->> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
->>
->> Ian this is fixing a bug in the vgic implementation which is preventing to run
->> Zephyr as a guest on top of Xen. Xen support has now been merged in Zephyr
->> so this is required to use it.
->>
->> Could we consider adding this patch into the 4.16 release ?
-> 
-> Hi.  I'm definitely open to the idea, especially if it goes in soon.
-> 
-> I think this needs an ARM maintainer review, still ?
+Adding Juergen and Boris since this involves Xen.
 
-Yes. I am planning to review it later today.
+On Wed, Oct 20, 2021 at 8:51 AM Marc Zyngier <maz@kernel.org> wrote:
+>
+> On Tue, 19 Oct 2021 22:48:19 +0100,
+> Josef Johansson <josef@oderland.se> wrote:
+> >
+> > From: Josef Johansson <josef@oderland.se>
+> >
+> >
+> > PCI/MSI: Re-add checks for skip masking MSI-X on Xen PV
+> >
+> > commit fcacdfbef5a1 ("PCI/MSI: Provide a new set of mask and unmask
+> > functions") introduce functions pci_msi_update_mask() and
+> > pci_msix_write_vector_ctrl() that is missing checks for
+> > pci_msi_ignore_mask that exists in commit 446a98b19fd6 ("PCI/MSI: Use
+> > new mask/unmask functions"). Add them back since it is
+> > causing severe lockups in amdgpu drivers under Xen during boot.
+> >
+> > As explained in commit 1a519dc7a73c ("PCI/MSI: Skip masking MSI-X
+> > on Xen PV"), when running as Xen PV guest, masking MSI-X is a
+> > responsibility of the hypervisor.
+> >
+> > Fixes: fcacdfbef5a1 ("PCI/MSI: Provide a new set of mask and unmask
+> > functions")
+> > Suggested-by: Jason Andryuk <jandryuk@gmail.com>
+> > Signed-off-by: Josef Johansson <josef@oderland.se>
+> >
+>
+> [...]
+>
+> >
+> > diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c
+> > index 0099a00af361..355b791e382f 100644
+> > --- a/drivers/pci/msi.c
+> > +++ b/drivers/pci/msi.c
+> > @@ -148,6 +148,9 @@ static noinline void pci_msi_update_mask(struct msi_desc *desc, u32 clear, u32 s
+> >       raw_spinlock_t *lock = &desc->dev->msi_lock;
+> >       unsigned long flags;
+> >
+> > +     if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
+> > +             return;
+> > +
+>
+> I'd rather be consistent, and keep the check outside of
+> pci_msi_update_mask(), just like we do in __pci_msi_mask_desc().
+> Something like this instead:
+>
+> diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c
+> index 0099a00af361..6c69eab304ce 100644
+> --- a/drivers/pci/msi.c
+> +++ b/drivers/pci/msi.c
+> @@ -420,7 +420,8 @@ static void __pci_restore_msi_state(struct pci_dev *dev)
+>         arch_restore_msi_irqs(dev);
+>
+>         pci_read_config_word(dev, dev->msi_cap + PCI_MSI_FLAGS, &control);
+> -       pci_msi_update_mask(entry, 0, 0);
+> +       if (!(pci_msi_ignore_mask || desc->msi_attrib.is_virtual))
+> +               pci_msi_update_mask(entry, 0, 0);
+>         control &= ~PCI_MSI_FLAGS_QSIZE;
+>         control |= (entry->msi_attrib.multiple << 4) | PCI_MSI_FLAGS_ENABLE;
+>         pci_write_config_word(dev, dev->msi_cap + PCI_MSI_FLAGS, control);
+>
+> But the commit message talks about MSI-X, and the above is MSI
+> only. Is Xen messing with the former, the latter, or both?
 
-> 
-> It doesn't seem entirely straightforward.  I'd like to hear from the
-> maintainer, to confirm that they agree it's a bugfix, and to get an
-> idea of the risks vs benefits of this patch.
+My understanding is pci_msi_ignore_mask covers both MSI and MSI-X for Xen.
 
-TL;DR: This is a bug fix and I agree that this should be included in 4.16.
+> >       raw_spin_lock_irqsave(lock, flags);
+> >       desc->msi_mask &= ~clear;
+> >       desc->msi_mask |= set;
+> > @@ -181,6 +184,9 @@ static void pci_msix_write_vector_ctrl(struct msi_desc *desc, u32 ctrl)
+> >  {
+> >       void __iomem *desc_addr = pci_msix_desc_addr(desc);
+> >
+> > +     if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
+> > +             return;
+> > +
+> >       writel(ctrl, desc_addr + PCI_MSIX_ENTRY_VECTOR_CTRL);
+> >  }
+>
+> I have similar reservations for this one.
 
-ICPENDRn are a mandatory registers of the GIC implementation. But it is 
-not trivial to emulate properly with our existing vGIC. So for the past 
-years, we chose the lazy approach and inject a data abort when the vCPU 
-access it.
+The problem here is some of the changes in commit 446a98b19fd6
+("PCI/MSI: Use new mask/unmask functions") bypass the checks in
+__pci_msi_mask_desc/__pci_msi_unmask_desc.  I've wondered if it would
+be cleaner to push all the `if (pci_msi_ignore_mask)` checks down to
+the place of the writes.  That keeps dropping the write local to the
+write and leaves the higher level code consistent between the regular
+and Xen PV cases.  I don't know where checking
+desc->msi_attrib.is_virtual is appropriate.
 
-IOW, this is not a new bug fix. We haven't seen any problem before 
-because most of our users were using Linux based guests. Now this is 
-starting to change and therefore we are exercising paths that Linux 
-never used it. In this case, we would not be able to boot Zephyr on Xen.
-
-During boot, Zephyr will write to ICPENDR to clear all the pending 
-interrupts. I am not entirely convinced that from Zephyr PoV this is a 
-useful things to do because, unless you quiesced the devices, interrupts 
-can become pending again right away after clearing.
-
-I would suggest to chat with the Zephyr folks to understand why they 
-need to write to ICPENDR during boot.
-
-In any case, I am assuming there are already Zephyr OS out there. So we 
-need to solve the issue in Xen.
-
-This patch doesn't fully emulate ICPENDR. The new appropach will ignore 
-access and print a message when the OS is trying to clear a pending 
-interrupt.
-
-The code itself is only walking the internal structure. So as long as 
-the correct locks are held, there is no change in the emulated state.
-
-The only difference will happen at the domain level. Now, the domain 
-will be able to continue booting. We will not clear pending interrupts 
-but I think this is an acceptable approach as the worst that can happen 
-is the guest may receive a "spurious" interrupt.
-
-In both cases, I think the risks are limited and I would support the 
-inclusion of this patch (pending appropriate acks) in 4.16.
-
-Cheers,
-
--- 
-Julien Grall
+Regards,
+Jason
 
