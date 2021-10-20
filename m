@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7068F434EEB
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 17:20:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.213987.372378 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3D44434F3D
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Oct 2021 17:45:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.213997.372396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdDNF-0008QP-EE; Wed, 20 Oct 2021 15:19:25 +0000
+	id 1mdDmO-00039Z-JS; Wed, 20 Oct 2021 15:45:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 213987.372378; Wed, 20 Oct 2021 15:19:25 +0000
+Received: by outflank-mailman (output) from mailman id 213997.372396; Wed, 20 Oct 2021 15:45:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdDNF-0008Nu-B2; Wed, 20 Oct 2021 15:19:25 +0000
-Received: by outflank-mailman (input) for mailman id 213987;
- Wed, 20 Oct 2021 15:19:24 +0000
+	id 1mdDmO-00037l-GH; Wed, 20 Oct 2021 15:45:24 +0000
+Received: by outflank-mailman (input) for mailman id 213997;
+ Wed, 20 Oct 2021 15:45:23 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mdDND-0008Nk-Vr; Wed, 20 Oct 2021 15:19:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <iwj@xenproject.org>) id 1mdDmN-00037f-Ki
+ for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 15:45:23 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mdDND-000826-PQ; Wed, 20 Oct 2021 15:19:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mdDND-0002E0-GL; Wed, 20 Oct 2021 15:19:23 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mdDND-0002HU-Ft; Wed, 20 Oct 2021 15:19:23 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mdDmN-0008SW-Fy
+ for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 15:45:23 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mdDmN-0001Df-Et
+ for xen-devel@lists.xenproject.org; Wed, 20 Oct 2021 15:45:23 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1mdDmJ-0004If-UX; Wed, 20 Oct 2021 16:45:20 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,86 +42,49 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=e9RUXNT35J5U20cFyxGv3xyTV951rMJVY93Ol/iRBmM=; b=MREJbhfy3Ffjw5/n+sU97RDUCO
-	uulveS1zVR77q1N7ilGkz6X580iLgECDey97fRUWRyR0RiTrSmSeyL2Btn+Wo63YwyN8aKDHkfaPA
-	xEIBSG5eKqWclzoF1HQzDtNPfkNSfGWpEmJZmlT6bVD2z8o9yMpzTYN4YOHjLvH1g47U=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165689-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=jcjgEwRsGmmjSzP3LNYUdjU7tG4+MlDKfHG44Xp3RFw=; b=cZ99fqUh4tWDwI+VkzhCkz0W4Q
+	NyDzBATF4o54dVn8z4iJaD2Ys+ZtZX8Pp8TqF/wyqYFb9bRp+RKfn5cqG5VA6a+QXZne+PJFkciG5
+	K7G/9uNkvp6cu3Sm+sV80AxCkBHQKOXDAYu3lpf5oT+GB098V1vltwqi2pd3wrUHWWf0=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 165689: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=c12731493ae39640c4e44d9fe2029c3165f9f429
-X-Osstest-Versions-That:
-    xen=6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 20 Oct 2021 15:19:23 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24944.14735.525284.612126@mariner.uk.xensource.com>
+Date: Wed, 20 Oct 2021 16:45:19 +0100
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org,
+    Julien Grall <jgrall@amazon.com>,
+    Ian Jackson <iwj@xenproject.org>,
+    Wei Liu <wl@xen.org>,
+    Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH for-4.16] tools/xenstored: Ignore domain we were unable to restore
+In-Reply-To: <20211020144519.10362-1-julien@xen.org>
+References: <20211020144519.10362-1-julien@xen.org>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-flight 165689 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165689/
+Julien Grall writes ("[PATCH for-4.16] tools/xenstored: Ignore domain we were unable to restore"):
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> Commit 939775cfd3 "handle dying domains in live update" was meant to
+> handle gracefully dying domain. However, the @releaseDomain watch
+> will end up to be sent as soon as we finished to restore Xenstored
+> state.
+> 
+> This may be before Xen reports the domain to be dying (such as if
+> the guest decided to revoke access to the xenstore page). Consequently
+> daemon like xenconsoled will not clean-up the domain and it will be
+> left as a zombie.
+> 
+> To avoid the problem, mark the connection as ignored. This also
+> requires to tweak conn_can_write() and conn_can_read() to prevent
+> dereferencing a NULL pointer (the interface will not mapped).
+> 
+> The check conn->is_ignored was originally added after the callbacks
+> because the helpers for a socket connection may close the fd. However,
+> ignore_connection() will close a socket connection directly. So it is
+> fine to do the re-order.
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  c12731493ae39640c4e44d9fe2029c3165f9f429
-baseline version:
- xen                  6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
-
-Last test of basis   165676  2021-10-19 14:00:27 Z    1 days
-Testing same since   165689  2021-10-20 11:02:49 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Thomas Gleixner <tglx@linutronix.de>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   6809998c5f..c12731493a  c12731493ae39640c4e44d9fe2029c3165f9f429 -> smoke
+Release-Acked-by: Ian Jackson <iwj@xenproject.org>
 
