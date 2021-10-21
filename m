@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C8D2436631
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Oct 2021 17:25:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.214524.373097 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1F244368E1
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Oct 2021 19:17:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.214539.373122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdZwI-0003ue-7D; Thu, 21 Oct 2021 15:25:06 +0000
+	id 1mdbfo-00063W-9g; Thu, 21 Oct 2021 17:16:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 214524.373097; Thu, 21 Oct 2021 15:25:06 +0000
+Received: by outflank-mailman (output) from mailman id 214539.373122; Thu, 21 Oct 2021 17:16:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdZwI-0003rD-2X; Thu, 21 Oct 2021 15:25:06 +0000
-Received: by outflank-mailman (input) for mailman id 214524;
- Thu, 21 Oct 2021 15:25:04 +0000
+	id 1mdbfo-00060h-5o; Thu, 21 Oct 2021 17:16:12 +0000
+Received: by outflank-mailman (input) for mailman id 214539;
+ Thu, 21 Oct 2021 17:16:10 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mdZwG-0003r3-Gl; Thu, 21 Oct 2021 15:25:04 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1mdbfm-00060b-FL
+ for xen-devel@lists.xenproject.org; Thu, 21 Oct 2021 17:16:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mdZwG-0003Oi-CS; Thu, 21 Oct 2021 15:25:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mdZwG-0000cp-4N; Thu, 21 Oct 2021 15:25:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mdZwG-0002Cx-3t; Thu, 21 Oct 2021 15:25:04 +0000
+ (envelope-from <julien@xen.org>)
+ id 1mdbfl-0005kR-V4; Thu, 21 Oct 2021 17:16:09 +0000
+Received: from [54.239.6.190] (helo=[192.168.27.91])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mdbfl-0008I4-P2; Thu, 21 Oct 2021 17:16:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +39,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=EWVvrz+Cop1Y1MUEiVNlOOXDEWF2gI5psnZa6CXWNM4=; b=bs+/l/KvtDY0f9HtoqpsH60p/l
-	PJTdQrOp8mZp/HEyf8A+GM02lKHyzfkY5rz5ks86uIy96LhIaL67T+1v1FknayoizROSmbErEwupP
-	qgUM7IQoNFYM7X/IYJpyqZ9Hx+SepnLNk0O2Cq4kmN4DuwvVC7zDzs/1L1tdvM+zJyvU=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165701-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=MSaQ8HxK/6BgSHTIie+s5NToYoto/9DyxxeSqeay/1o=; b=JZdA/AYnIRrV34NnCamLcOtNIx
+	7IOksC0nVa3pffn4L1nMT9wyokCF3pb+0jnooHoUAybWYyQzCPbkI7qY3pkSD4SSl38mczHxmJFTX
+	Hjmn55vwfLjAkDhD5g2Ny6/Czyvc3vLqD1i+qPgdMSzOaGwD5T5JUt+D9dNP08sEHoJk=;
+Message-ID: <5bb464f6-0b71-d419-b05c-82abdebf85e3@xen.org>
+Date: Thu, 21 Oct 2021 18:16:07 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 165701: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=305fd6bee0bfe1602163d1f8841954f84aa31b68
-X-Osstest-Versions-That:
-    ovmf=6893865b3010bb6192f732643c4b8ba026726d07
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 21 Oct 2021 15:25:04 +0000
-
-flight 165701 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165701/
-
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 305fd6bee0bfe1602163d1f8841954f84aa31b68
-baseline version:
- ovmf                 6893865b3010bb6192f732643c4b8ba026726d07
-
-Last test of basis   165690  2021-10-20 13:40:00 Z    1 days
-Testing same since   165701  2021-10-21 03:40:20 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  IanX Kuo <ianx.kuo@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.2.0
+Subject: Re: [for-4.16] Re: [PATCH v4] xen/arm: vgic: Ignore write access to
+ ICPENDR*
+From: Julien Grall <julien@xen.org>
+To: Hongda Deng <Hongda.Deng@arm.com>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org
+Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com,
+ Ian Jackson <iwj@xenproject.org>
+References: <20211021120319.2394-1-Hongda.Deng@arm.com>
+ <e7804793-82a4-b2ac-0146-fe5bbed2bfbf@xen.org>
+In-Reply-To: <e7804793-82a4-b2ac-0146-fe5bbed2bfbf@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 21/10/2021 16:14, Julien Grall wrote:
+> On the previous version, we discussed to include the patch for 4.16. So 
+> please tag it with for-4.16 and CC the Release Manager (Ian). This will 
+> help him to track what's outstanding for the release.
+> 
+> On 21/10/2021 13:03, Hongda Deng wrote:
+>> Currently, Xen will return IO unhandled when guests write ICPENDR*
+>> virtual registers, which will raise a data abort inside the guest.
+>> For Linux guest, these virtual registers will not be accessed. But
+>> for Zephyr, these virtual registers will be accessed during the
+>> initialization. Zephyr guest will get an IO data abort and crash.
+>> Emulating ICPENDR is not easy with the existing vGIC, this patch
+>> reworks the emulation to ignore write access to ICPENDR* virtual
+>> registers and print a message about whether they are already pending
+>> instead of returning unhandled.
+>> More details can be found at [1].
+>>
+>> [1] https://github.com/zephyrproject-rtos/zephyr/blob/eaf6cf745df3807e6e
+>> cc941c3a30de6c179ae359/drivers/interrupt_controller/intc_gicv3.c#L274
+>>
+>> Signed-off-by: Hongda Deng <hongda.deng@arm.com>
+> 
+> While I agree the Reviewed-by from Bertrand should be dropped, the 
+> Release-acked-by from Ian is simply a way to say he is happy to include 
+> the patch for 4.16. So this should have been retain.
+> 
+> The patch looks good to me, so I can add Ian's tag on commit:
+> 
+> Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Committed.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Cheers,
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   6893865b30..305fd6bee0  305fd6bee0bfe1602163d1f8841954f84aa31b68 -> xen-tested-master
+-- 
+Julien Grall
 
