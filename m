@@ -2,35 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE6A2436D4F
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 00:15:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.214607.373220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D77F436DF6
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 01:09:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.214616.373233 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdgKM-0001Gv-GO; Thu, 21 Oct 2021 22:14:22 +0000
+	id 1mdhAp-0006Ez-Gs; Thu, 21 Oct 2021 23:08:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 214607.373220; Thu, 21 Oct 2021 22:14:22 +0000
+Received: by outflank-mailman (output) from mailman id 214616.373233; Thu, 21 Oct 2021 23:08:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdgKM-0001Em-C9; Thu, 21 Oct 2021 22:14:22 +0000
-Received: by outflank-mailman (input) for mailman id 214607;
- Thu, 21 Oct 2021 22:14:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mdgKK-0001Ec-Ui; Thu, 21 Oct 2021 22:14:20 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mdgKK-0002Pg-QA; Thu, 21 Oct 2021 22:14:20 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mdgKK-0003bi-J7; Thu, 21 Oct 2021 22:14:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mdgKK-0001LJ-Ic; Thu, 21 Oct 2021 22:14:20 +0000
+	id 1mdhAp-0006CW-Dz; Thu, 21 Oct 2021 23:08:35 +0000
+Received: by outflank-mailman (input) for mailman id 214616;
+ Thu, 21 Oct 2021 23:08:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FXrv=PJ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mdhAo-0006CQ-EX
+ for xen-devel@lists.xenproject.org; Thu, 21 Oct 2021 23:08:34 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 897cc301-9859-46c3-9059-fec2dc71b232;
+ Thu, 21 Oct 2021 23:08:33 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id A7688610EA;
+ Thu, 21 Oct 2021 23:08:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +37,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=xKhO3EBQjZdgjn6FdoL56svqJ6rtpCQVQvLs9Vmm/t8=; b=a1JCgxq4t1MrUJ/p92sC3u+hEf
-	n6Eh5j4mBdim7zc74dD0eiCoe9OwowLQahXxD3qLTvNL0AsdbjEDi2/w3lEAAAstXuMHt5FqKtIYK
-	MEXl2wsK9uYEOaWfmEnE7x3h4Ngoln1BcuyUcga3Xr08ZlVqAEPDvi83CWuBojMMD8cA=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165719-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 897cc301-9859-46c3-9059-fec2dc71b232
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1634857713;
+	bh=fu5FSK0nfBCvtW4RDWEEmy3EjlarFXwEa5zENq/8TwM=;
+	h=Date:From:To:cc:Subject:From;
+	b=BLDqVOmHOLJ+yovmewxxQFBRxWgZwsHG7vUbyGfDZ3ZTrwWq6y5LfOXdyXIWo5j8Q
+	 ranG+zS8/QWcX8l66+JCNfaQafsEbjNTFQtkRbEeiCh+Skk8BWVbH7hgK2mtIrdfbv
+	 laUew1F7bHw1ulki4/E9P7Z1/mU1k4fVRmNgKVIttZMBZLf4rsFXEBRm3+zIW9/4V/
+	 un+Xu3wh5rZJMrRdqarLH9j63kl9JwJ3eAR+fY7L+Pi4+otsBtFQ3sBFYjxUlYqJjn
+	 vwHmHVRXRaCohGr6a0dehI4zSEhTGj+rFCgevhcv+pHM01P9vrptxTfSLIX6u7Abe7
+	 cnbBQ75654wAg==
+Date: Thu, 21 Oct 2021 16:08:31 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: xen-devel@lists.xenproject.org
+cc: sstabellini@kernel.org, iwj@xenproject.org, cardoe@cardoe.com, wl@xen.org, 
+    andrew.cooper3@citrix.com, anthony.perard@citrix.com
+Subject: [PATCH 0/3] automation: introduce an x86_64 Dom0/DomU test
+Message-ID: <alpine.DEB.2.21.2110210831470.2311@sstabellini-ThinkPad-T480s>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 165719: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9
-X-Osstest-Versions-That:
-    xen=98f60e5de00baf650c574c9352bb19aedb082dea
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 21 Oct 2021 22:14:20 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 165719 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165719/
+Hi all,
 
-Failures :-/ but no regressions.
+This small patch series introduces a new QEMU-based test to Gitlab-CI.
+It uses QEMU to emulate an x86_64 machine and run Xen, Dom0 and start a
+DomU. It is very similar to the existing qemu-alpine-arm64-gcc test but
+based on x86_64 rather than ARM64. I think it is important because all
+the other x86_64 gitlab-ci tests we currently have are more narrow and
+based on XTF. This would be the first end-to-end x86_64 test in
+gitlab-ci.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+To make it happen, we need an Alpine Linux rootfs and a Linux kernel.
+The first two patches introduce them to gitlab-ci. Note that actually
+nothing will get build during gitlab-ci runs, it has already been done
+beforehand and uploaded as containers. They only import *existing*
+containers and binaries into a gitlab-ci run, thus, they cannot fail.
+The risk to the release of the first two patches is as close to zero as
+possible.
 
-version targeted for testing:
- xen                  23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9
-baseline version:
- xen                  98f60e5de00baf650c574c9352bb19aedb082dea
+The last patch is the one introducing a new test. This one can fail.
+However, it is a new test at the end of the pipeline: it doesn't impact
+the existing tests. In the worst case, the test will fail and the whole
+pipeline will be marked as "failed" but looking at the jobs all the
+other will continue to be marked as successful. In short, if it fails,
+we can simply ignore it. Also, at the moment it is actually succeeding.
 
-Last test of basis   165708  2021-10-21 11:01:40 Z    0 days
-Testing same since   165719  2021-10-21 18:00:27 Z    0 days    1 attempts
+Cheers,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Hongda Deng <hongda.deng@arm.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Stefano
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Stefano Stabellini (3):
+      automation: add x86_64 alpine 3.12 test-artifact
+      automation: Linux 5.10.74 test-artifact
+      automation: add a QEMU based x86_64 Dom0/DomU test
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   98f60e5de0..23ec1ebc8a  23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9 -> smoke
+ automation/gitlab-ci/build.yaml                    | 24 ++++++
+ automation/gitlab-ci/test.yaml                     | 24 ++++++
+ automation/scripts/qemu-alpine-x86_64.sh           | 92 ++++++++++++++++++++++
+ automation/tests-artifacts/alpine/3.12.dockerfile  | 68 ++++++++++++++++
+ .../tests-artifacts/kernel/5.10.74.dockerfile      | 38 +++++++++
+ 5 files changed, 246 insertions(+)
+ create mode 100644 automation/scripts/qemu-alpine-x86_64.sh
+ create mode 100644 automation/tests-artifacts/alpine/3.12.dockerfile
+ create mode 100644 automation/tests-artifacts/kernel/5.10.74.dockerfile
 
