@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 140BF436E02
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 01:11:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.214623.373244 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BB03436E01
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 01:11:03 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.214624.373256 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdhD2-0007Zy-Uc; Thu, 21 Oct 2021 23:10:52 +0000
+	id 1mdhD4-0007qW-7u; Thu, 21 Oct 2021 23:10:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 214623.373244; Thu, 21 Oct 2021 23:10:52 +0000
+Received: by outflank-mailman (output) from mailman id 214624.373256; Thu, 21 Oct 2021 23:10:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdhD2-0007Xt-R4; Thu, 21 Oct 2021 23:10:52 +0000
-Received: by outflank-mailman (input) for mailman id 214623;
- Thu, 21 Oct 2021 23:10:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mdhD4-0007o7-41; Thu, 21 Oct 2021 23:10:54 +0000
+Received: by outflank-mailman (input) for mailman id 214624;
+ Thu, 21 Oct 2021 23:10:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FXrv=PJ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mdhD1-0007Xm-P4
- for xen-devel@lists.xenproject.org; Thu, 21 Oct 2021 23:10:51 +0000
+ id 1mdhD2-0007Xs-PJ
+ for xen-devel@lists.xenproject.org; Thu, 21 Oct 2021 23:10:52 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c14df914-64e6-4d8a-8d74-40ae67ce2d83;
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 22683254-32c4-11ec-839a-12813bfff9fa;
+ Thu, 21 Oct 2021 23:10:51 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id E27646135F;
  Thu, 21 Oct 2021 23:10:50 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 03B7A610EA;
- Thu, 21 Oct 2021 23:10:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,17 +38,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c14df914-64e6-4d8a-8d74-40ae67ce2d83
+X-Inumbo-ID: 22683254-32c4-11ec-839a-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1634857850;
-	bh=+84313eWlrORG+Up0MBqnoQCkpcNEW5LOpum5NNFz1Y=;
+	s=k20201202; t=1634857851;
+	bh=anK1IWiowWa3QzIYeypqJDTgghewGZPtlPhXiip9xco=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=CcOiyJckIwNtGdIPBIGB7Ht3P9HLMdYMeshqCtht7U3X6nhqBMkMO1wtkkDZnjnHk
-	 Q18oeZuhsVJJRNzn8UFAKtyUKOAG0F/o3BpqP6n7CsfPxkpCyhlYrd2IfYE1IT1lJV
-	 rHK5pN2wUM/2qfelhjCvIBCvcj26T6+QLbBJIu5GIGRo5lgcjkNW6GMV0Y65TiLwJB
-	 gprCAltQFCoKq7sgb0VaKELDIxDeNzGpc8uDJNi5ofAZBX6+qSgYXE73kh31xVtNyo
-	 7ByNiod6ZcpHl9AJo6kDrUCHjDWMiC1TXdGbtUNO0/5FnkTkaM/UJ1nh56S4GoFtZd
-	 UHPPpSiDR5lzw==
+	b=ezVGuG4czhHVfzMxnuxYuS7wD9FUREil9i8auRTkT+zoQoBCO0VmLjTUEUUHKYpRu
+	 QwGYf/OT+wQHcHOaSGSehlaR5V+mMqR2AsracPkE51kIRagBcuRypbRXpTc9JQFrNZ
+	 shC3AxgbeigS79UThEIytULUs/GtUoddIO53OzbZ42moU7EAIgEOJc+SgrwAMQtbk2
+	 hhzGIaC3jtDINfiIZwdcQ1wH4HWifx1aSjCqBV3w9PpgyDQRgeMLnEQTntOiqVotlu
+	 uhder5mNnsvtVZw9nw9PVu3S3eIIKsJHuL6o5INJqoAWf2PzyWv3RS5ckhZXEKfGXo
+	 a1cNoZNgUFMUg==
 From: Stefano Stabellini <sstabellini@kernel.org>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -57,123 +58,94 @@ Cc: sstabellini@kernel.org,
 	andrew.cooper3@citrix.com,
 	anthony.perard@citrix.com,
 	Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: [PATCH 1/3] automation: add x86_64 alpine 3.12 test-artifact
-Date: Thu, 21 Oct 2021 16:08:37 -0700
-Message-Id: <20211021230839.10794-1-sstabellini@kernel.org>
+Subject: [PATCH 2/3] automation: Linux 5.10.74 test-artifact
+Date: Thu, 21 Oct 2021 16:08:38 -0700
+Message-Id: <20211021230839.10794-2-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <alpine.DEB.2.21.2110210831470.2311@sstabellini-ThinkPad-T480s>
 References: <alpine.DEB.2.21.2110210831470.2311@sstabellini-ThinkPad-T480s>
 
 From: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-It is the same as the existing ARM64 alpine 3.12 test-artifact. It is
-used to export an Alpine rootfs for Dom0 used for testing.
+Build a 5.10 kernel to be used as Dom0 and DomU kernel for testing. This
+is almost the same as the existing ARM64 recipe for Linux 5.9, the
+only differences are:
+- upgrade to latest 5.10.x stable
+- force Xen modules to built-in (on ARM it was already done by defconfig)
 
-Also add the exporting job to build.yaml so that the binaries can be
-used during gitlab-ci runs.
+Also add the exporting job to build.yaml so that the binary can be used
+during gitlab-ci runs.
 
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 ---
- automation/gitlab-ci/build.yaml               | 13 ++++
- .../tests-artifacts/alpine/3.12.dockerfile    | 68 +++++++++++++++++++
- 2 files changed, 81 insertions(+)
- create mode 100644 automation/tests-artifacts/alpine/3.12.dockerfile
+ automation/gitlab-ci/build.yaml               | 11 ++++++
+ .../tests-artifacts/kernel/5.10.74.dockerfile | 38 +++++++++++++++++++
+ 2 files changed, 49 insertions(+)
+ create mode 100644 automation/tests-artifacts/kernel/5.10.74.dockerfile
 
 diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index d177da1710..76b73beead 100644
+index 76b73beead..0034c50950 100644
 --- a/automation/gitlab-ci/build.yaml
 +++ b/automation/gitlab-ci/build.yaml
-@@ -596,3 +596,16 @@ qemu-system-aarch64-5.2.0-arm64-export:
+@@ -609,3 +609,14 @@ alpine-3.12-rootfs-export:
+       - binaries/initrd.tar.gz
    tags:
-     - arm64
- 
+     - x86_64
 +
-+# x86_64 test artifacts
-+
-+alpine-3.12-rootfs-export:
++kernel-5.10.74-export:
 +  stage: build
-+  image: registry.gitlab.com/xen-project/xen/tests-artifacts/alpine:3.12
++  image: registry.gitlab.com/xen-project/xen/tests-artifacts/kernel:5.10.74
 +  script:
-+    - mkdir binaries && cp /initrd.tar.gz binaries/initrd.tar.gz
++    - mkdir binaries && cp /bzImage binaries/bzImage
 +  artifacts:
 +    paths:
-+      - binaries/initrd.tar.gz
++      - binaries/bzImage
 +  tags:
 +    - x86_64
-diff --git a/automation/tests-artifacts/alpine/3.12.dockerfile b/automation/tests-artifacts/alpine/3.12.dockerfile
+diff --git a/automation/tests-artifacts/kernel/5.10.74.dockerfile b/automation/tests-artifacts/kernel/5.10.74.dockerfile
 new file mode 100644
-index 0000000000..fbc26b9e36
+index 0000000000..f2dbbecf74
 --- /dev/null
-+++ b/automation/tests-artifacts/alpine/3.12.dockerfile
-@@ -0,0 +1,68 @@
-+FROM alpine:3.12
++++ b/automation/tests-artifacts/kernel/5.10.74.dockerfile
+@@ -0,0 +1,38 @@
++FROM debian:unstable
 +LABEL maintainer.name="The Xen Project" \
 +      maintainer.email="xen-devel@lists.xenproject.org"
 +
++ENV DEBIAN_FRONTEND=noninteractive
++ENV LINUX_VERSION=5.10.74
 +ENV USER root
 +
 +RUN mkdir /build
 +WORKDIR /build
 +
-+RUN \
-+  # apk
-+  apk update && \
-+  \
-+  # xen runtime deps
-+  apk add musl && \
-+  apk add openrc && \
-+  apk add busybox && \
-+  apk add sudo && \
-+  apk add dbus && \
-+  apk add bash && \
-+  apk add python2 && \
-+  # gettext for Xen < 4.13
-+  apk add gettext && \
-+  apk add zlib && \
-+  apk add ncurses && \
-+  apk add texinfo && \
-+  apk add yajl && \
-+  apk add libaio && \
-+  apk add xz-dev && \
-+  apk add util-linux && \
-+  apk add argp-standalone && \
-+  apk add libfdt && \
-+  apk add glib && \
-+  apk add pixman && \
-+  apk add curl && \
-+  apk add udev && \
-+  \
-+  # Xen
-+  cd / && \
-+  # Minimal ramdisk environment in case of cpio output
-+  rc-update add udev && \
-+  rc-update add udev-trigger && \
-+  rc-update add udev-settle && \
-+  rc-update add networking sysinit && \
-+  rc-update add loopback sysinit && \
-+  rc-update add bootmisc boot && \
-+  rc-update add devfs sysinit && \
-+  rc-update add dmesg sysinit && \
-+  rc-update add hostname boot && \
-+  rc-update add hwclock boot && \
-+  rc-update add hwdrivers sysinit && \
-+  rc-update add killprocs shutdown && \
-+  rc-update add modloop sysinit && \
-+  rc-update add modules boot && \
-+  rc-update add mount-ro shutdown && \
-+  rc-update add savecache shutdown && \
-+  rc-update add sysctl boot && \
-+  rc-update add local default && \
-+  cp -a /sbin/init /init && \
-+  echo "ttyS0" >> /etc/securetty && \
-+  echo "hvc0" >> /etc/securetty && \
-+  echo "ttyS0::respawn:/sbin/getty -L ttyS0 115200 vt100" >> /etc/inittab && \
-+  echo "hvc0::respawn:/sbin/getty -L hvc0 115200 vt100" >> /etc/inittab && \
-+  passwd -d "root" root && \
-+  \
-+  # Create rootfs
-+  cd / && \
-+  tar cvzf /initrd.tar.gz bin dev etc home init lib mnt opt root sbin usr var
++# build depends
++RUN apt-get update && \
++    apt-get --quiet --yes install \
++        build-essential \
++        libssl-dev \
++        bc \
++        curl \
++        flex \
++        bison \
++        libelf-dev \
++        && \
++    \
++    # Build the kernel
++    curl -fsSLO https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-"$LINUX_VERSION".tar.xz && \
++    tar xvJf linux-"$LINUX_VERSION".tar.xz && \
++    cd linux-"$LINUX_VERSION" && \
++    make defconfig && \
++    make xen.config && \
++    cp .config .config.orig && \
++    cat .config.orig | grep XEN | grep =m |sed 's/=m/=y/g' >> .config && \
++    make -j$(nproc) bzImage && \
++    cp arch/x86/boot/bzImage / && \
++    cd /build && \
++    rm -rf linux-"$LINUX_VERSION"* && \
++    apt-get autoremove -y && \
++    apt-get clean && \
++    rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
 -- 
 2.17.1
 
