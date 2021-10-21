@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BB03436E01
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 01:11:03 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.214624.373256 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECF01436E03
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 01:11:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.214625.373268 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdhD4-0007qW-7u; Thu, 21 Oct 2021 23:10:54 +0000
+	id 1mdhD8-0008Bp-Ib; Thu, 21 Oct 2021 23:10:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 214624.373256; Thu, 21 Oct 2021 23:10:54 +0000
+Received: by outflank-mailman (output) from mailman id 214625.373268; Thu, 21 Oct 2021 23:10:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdhD4-0007o7-41; Thu, 21 Oct 2021 23:10:54 +0000
-Received: by outflank-mailman (input) for mailman id 214624;
- Thu, 21 Oct 2021 23:10:52 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mdhD8-00088E-EB; Thu, 21 Oct 2021 23:10:58 +0000
+Received: by outflank-mailman (input) for mailman id 214625;
+ Thu, 21 Oct 2021 23:10:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FXrv=PJ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mdhD2-0007Xs-PJ
- for xen-devel@lists.xenproject.org; Thu, 21 Oct 2021 23:10:52 +0000
+ id 1mdhD6-0007Xm-O5
+ for xen-devel@lists.xenproject.org; Thu, 21 Oct 2021 23:10:56 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 22683254-32c4-11ec-839a-12813bfff9fa;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c94a67ca-c12f-450b-964a-6adb2a594ca5;
+ Thu, 21 Oct 2021 23:10:52 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 54A6561373;
  Thu, 21 Oct 2021 23:10:51 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E27646135F;
- Thu, 21 Oct 2021 23:10:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,17 +37,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22683254-32c4-11ec-839a-12813bfff9fa
+X-Inumbo-ID: c94a67ca-c12f-450b-964a-6adb2a594ca5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1634857851;
-	bh=anK1IWiowWa3QzIYeypqJDTgghewGZPtlPhXiip9xco=;
+	bh=YswbYpMZWjEYIwFrC7BrzOxPcxKPcBIQvyXpCeVmPQA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ezVGuG4czhHVfzMxnuxYuS7wD9FUREil9i8auRTkT+zoQoBCO0VmLjTUEUUHKYpRu
-	 QwGYf/OT+wQHcHOaSGSehlaR5V+mMqR2AsracPkE51kIRagBcuRypbRXpTc9JQFrNZ
-	 shC3AxgbeigS79UThEIytULUs/GtUoddIO53OzbZ42moU7EAIgEOJc+SgrwAMQtbk2
-	 hhzGIaC3jtDINfiIZwdcQ1wH4HWifx1aSjCqBV3w9PpgyDQRgeMLnEQTntOiqVotlu
-	 uhder5mNnsvtVZw9nw9PVu3S3eIIKsJHuL6o5INJqoAWf2PzyWv3RS5ckhZXEKfGXo
-	 a1cNoZNgUFMUg==
+	b=q9hclV/CKlksJd4GBd67fnd34oGL+eafXlZ6ngGV3UNBZXAe6kI5Ngm0IbtL42d7o
+	 ej2k/qoOnFC3tlWiweDe138r+PXxiiaFvC8hNN+GtvNFoIkjBBJ2Ypqyhhr5mpT4c7
+	 FnKFMVav+hH72/iLbN2IlkSidEZNgQyPZEzxi1tPfAgshwHbhs8iRS9ZyRBK8oN5L4
+	 TKyKn4s0gSK1gl3nyQr0v6PRpOOAgV0dDUB2pS2ZwEOMFi+FRUyZgbpIEbtyvpAxkX
+	 GI/Nw8eMwgq0znpv2WPm/ZXlCud9OiuJs6u73g+ZW/kGrrYZjSzHz7DKroWZvKSmx5
+	 xIQsUCKFIt0Dg==
 From: Stefano Stabellini <sstabellini@kernel.org>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -58,94 +57,161 @@ Cc: sstabellini@kernel.org,
 	andrew.cooper3@citrix.com,
 	anthony.perard@citrix.com,
 	Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: [PATCH 2/3] automation: Linux 5.10.74 test-artifact
-Date: Thu, 21 Oct 2021 16:08:38 -0700
-Message-Id: <20211021230839.10794-2-sstabellini@kernel.org>
+Subject: [PATCH 3/3] automation: add a QEMU based x86_64 Dom0/DomU test
+Date: Thu, 21 Oct 2021 16:08:39 -0700
+Message-Id: <20211021230839.10794-3-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <alpine.DEB.2.21.2110210831470.2311@sstabellini-ThinkPad-T480s>
 References: <alpine.DEB.2.21.2110210831470.2311@sstabellini-ThinkPad-T480s>
 
 From: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-Build a 5.10 kernel to be used as Dom0 and DomU kernel for testing. This
-is almost the same as the existing ARM64 recipe for Linux 5.9, the
-only differences are:
-- upgrade to latest 5.10.x stable
-- force Xen modules to built-in (on ARM it was already done by defconfig)
-
-Also add the exporting job to build.yaml so that the binary can be used
-during gitlab-ci runs.
+Introduce a test based on QEMU to run Xen, Dom0 and start a DomU.
+This is similar to the existing qemu-alpine-arm64.sh script and test.
+The only differences are:
+- use Debian's qemu-system-x86_64 (on ARM we build our own)
+- use ipxe instead of u-boot and ImageBuilder
 
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 ---
- automation/gitlab-ci/build.yaml               | 11 ++++++
- .../tests-artifacts/kernel/5.10.74.dockerfile | 38 +++++++++++++++++++
- 2 files changed, 49 insertions(+)
- create mode 100644 automation/tests-artifacts/kernel/5.10.74.dockerfile
+ automation/gitlab-ci/test.yaml           | 24 +++++++
+ automation/scripts/qemu-alpine-x86_64.sh | 92 ++++++++++++++++++++++++
+ 2 files changed, 116 insertions(+)
+ create mode 100644 automation/scripts/qemu-alpine-x86_64.sh
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 76b73beead..0034c50950 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -609,3 +609,14 @@ alpine-3.12-rootfs-export:
-       - binaries/initrd.tar.gz
-   tags:
-     - x86_64
-+
-+kernel-5.10.74-export:
-+  stage: build
-+  image: registry.gitlab.com/xen-project/xen/tests-artifacts/kernel:5.10.74
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 91a10febbf..c1d67ec4b5 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -47,6 +47,30 @@ qemu-alpine-arm64-gcc:
+     - /^coverity-tested\/.*/
+     - /^stable-.*/
+ 
++qemu-alpine-x86_64-gcc:
++  stage: test
++  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
++  variables:
++    CONTAINER: debian:unstable
 +  script:
-+    - mkdir binaries && cp /bzImage binaries/bzImage
++    - ./automation/scripts/qemu-alpine-x86_64.sh 2>&1 | tee qemu-smoke-arm64.log
++  dependencies:
++    - alpine-3.12-gcc
++    - alpine-3.12-rootfs-export
++    - kernel-5.10.74-export
 +  artifacts:
 +    paths:
-+      - binaries/bzImage
++      - smoke.serial
++      - '*.log'
++    when: always
 +  tags:
 +    - x86_64
-diff --git a/automation/tests-artifacts/kernel/5.10.74.dockerfile b/automation/tests-artifacts/kernel/5.10.74.dockerfile
++  except:
++    - master
++    - smoke
++    - /^coverity-tested\/.*/
++    - /^stable-.*/
++
+ qemu-smoke-arm64-gcc:
+   stage: test
+   image: registry.gitlab.com/xen-project/xen/${CONTAINER}
+diff --git a/automation/scripts/qemu-alpine-x86_64.sh b/automation/scripts/qemu-alpine-x86_64.sh
 new file mode 100644
-index 0000000000..f2dbbecf74
+index 0000000000..41b05210d6
 --- /dev/null
-+++ b/automation/tests-artifacts/kernel/5.10.74.dockerfile
-@@ -0,0 +1,38 @@
-+FROM debian:unstable
-+LABEL maintainer.name="The Xen Project" \
-+      maintainer.email="xen-devel@lists.xenproject.org"
++++ b/automation/scripts/qemu-alpine-x86_64.sh
+@@ -0,0 +1,92 @@
++#!/bin/bash
 +
-+ENV DEBIAN_FRONTEND=noninteractive
-+ENV LINUX_VERSION=5.10.74
-+ENV USER root
++set -ex
 +
-+RUN mkdir /build
-+WORKDIR /build
++apt-get -qy update
++apt-get -qy install --no-install-recommends qemu-system-x86 \
++                                            cpio \
++                                            curl \
++                                            busybox-static
 +
-+# build depends
-+RUN apt-get update && \
-+    apt-get --quiet --yes install \
-+        build-essential \
-+        libssl-dev \
-+        bc \
-+        curl \
-+        flex \
-+        bison \
-+        libelf-dev \
-+        && \
-+    \
-+    # Build the kernel
-+    curl -fsSLO https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-"$LINUX_VERSION".tar.xz && \
-+    tar xvJf linux-"$LINUX_VERSION".tar.xz && \
-+    cd linux-"$LINUX_VERSION" && \
-+    make defconfig && \
-+    make xen.config && \
-+    cp .config .config.orig && \
-+    cat .config.orig | grep XEN | grep =m |sed 's/=m/=y/g' >> .config && \
-+    make -j$(nproc) bzImage && \
-+    cp arch/x86/boot/bzImage / && \
-+    cd /build && \
-+    rm -rf linux-"$LINUX_VERSION"* && \
-+    apt-get autoremove -y && \
-+    apt-get clean && \
-+    rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
++# DomU Busybox
++cd binaries
++mkdir -p initrd
++mkdir -p initrd/bin
++mkdir -p initrd/sbin
++mkdir -p initrd/etc
++mkdir -p initrd/dev
++mkdir -p initrd/proc
++mkdir -p initrd/sys
++mkdir -p initrd/lib
++mkdir -p initrd/var
++mkdir -p initrd/mnt
++cp /bin/busybox initrd/bin/busybox
++initrd/bin/busybox --install initrd/bin
++echo "#!/bin/sh
++
++mount -t proc proc /proc
++mount -t sysfs sysfs /sys
++mount -t devtmpfs devtmpfs /dev
++/bin/sh" > initrd/init
++chmod +x initrd/init
++cd initrd
++find . | cpio --create --format='newc' | gzip > ../initrd.cpio.gz
++cd ..
++
++mkdir -p rootfs
++cd rootfs
++tar xvzf ../initrd.tar.gz
++mkdir proc
++mkdir run
++mkdir srv
++mkdir sys
++rm var/run
++cp -ar ../dist/install/* .
++mv ../initrd.cpio.gz ./root
++cp ../bzImage ./root
++echo "name=\"test\"
++memory=512
++vcpus=1
++kernel=\"/root/bzImage\"
++ramdisk=\"/root/initrd.cpio.gz\"
++extra=\"console=hvc0 root=/dev/ram0 rdinit=/bin/sh\"
++" > root/test.cfg
++echo "#!/bin/bash
++
++export LD_LIBRARY_PATH=/usr/local/lib
++bash /etc/init.d/xencommons start
++
++xl list
++
++xl create -c /root/test.cfg
++
++" > etc/local.d/xen.start
++chmod +x etc/local.d/xen.start
++echo "rc_verbose=yes" >> etc/rc.conf
++find . |cpio -H newc -o|gzip > ../xen-rootfs.cpio.gz
++cd ../..
++
++cat >> binaries/pxelinux.0 <<- EOF
++#!ipxe
++
++kernel xen console=com1
++module bzImage console=hvc0
++module xen-rootfs.cpio.gz
++boot
++EOF
++
++# Run the test
++rm -f smoke.serial
++set +e
++timeout -k 1 720 \
++qemu-system-x86_64 \
++    -cpu qemu64,+svm \
++    -m 2G -smp 2 \
++    -monitor none -serial stdio \
++    -nographic \
++    -device virtio-net-pci,netdev=n0 \
++    -netdev user,id=n0,tftp=binaries,bootfile=/pxelinux.0 |& tee smoke.serial
++
++set -e
++(grep -q "Domain-0" smoke.serial && grep -q "BusyBox" smoke.serial) || exit 1
++exit 0
 -- 
 2.17.1
 
