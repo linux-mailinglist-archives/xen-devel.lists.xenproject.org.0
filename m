@@ -2,36 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB07543638A
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Oct 2021 15:55:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.214426.372965 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6AB7436390
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Oct 2021 15:55:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.214429.372976 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdYX2-00067S-Eu; Thu, 21 Oct 2021 13:54:56 +0000
+	id 1mdYXP-0006cW-Ox; Thu, 21 Oct 2021 13:55:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 214426.372965; Thu, 21 Oct 2021 13:54:56 +0000
+Received: by outflank-mailman (output) from mailman id 214429.372976; Thu, 21 Oct 2021 13:55:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdYX2-00064b-Bj; Thu, 21 Oct 2021 13:54:56 +0000
-Received: by outflank-mailman (input) for mailman id 214426;
- Thu, 21 Oct 2021 13:54:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mdYXP-0006ZZ-LC; Thu, 21 Oct 2021 13:55:19 +0000
+Received: by outflank-mailman (input) for mailman id 214429;
+ Thu, 21 Oct 2021 13:55:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IwRr=PJ=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1mdYX0-00064T-AJ
- for xen-devel@lists.xenproject.org; Thu, 21 Oct 2021 13:54:54 +0000
-Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7730691c-3276-11ec-8378-12813bfff9fa;
- Thu, 21 Oct 2021 13:54:52 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id BD10D5C01E1;
- Thu, 21 Oct 2021 09:54:52 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Thu, 21 Oct 2021 09:54:52 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 21 Oct 2021 09:54:51 -0400 (EDT)
+ <SRS0=JnKy=PJ=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1mdYXO-0006Xy-04
+ for xen-devel@lists.xenproject.org; Thu, 21 Oct 2021 13:55:18 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id dd9d9a9f-41d7-438f-a1d2-5977ae7dd61e;
+ Thu, 21 Oct 2021 13:55:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,366 +35,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7730691c-3276-11ec-8378-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=8DfilE
-	VkpFNcYiOfzwpg4aeBMtYvljaMPUNJ2ADgFkA=; b=a+ECN/TvPbf3yKz1/pizVF
-	PXWCsF303artum+kRyNkZKLBST5f8vat710AnWHskPpjRFbFtn7IIHP5SmV7jhNN
-	Qt7ssfcdzaj0c+0PmD+5pCUx4iTgeizaMeoj4wbQKoEWLszE3cHXWTSekBc0pueh
-	VV0fiNCJS0sRBDjyu08DYuKEi4SQ+kE92RQEwK91LOl/c16dhFfdE7Yl6dFAh6fI
-	LuEgo+C7JkabCzYiAOr+oBlosndkR0Fb3I4jDvLs/wn/5CTxDmIMNDa5cuzkLukx
-	9UWUhLUBw2j5ZKvbu9rH/SrK0+zgRLWkT4KElasqo45ml820yxTJcxBEwXKRIJ+g
-	==
-X-ME-Sender: <xms:LHFxYRHId5V6447Wz3oxMi5ZrXDUWn1oNgwClwe--O9HvpQuOMfslA>
-    <xme:LHFxYWWRYbdVfSr_ZY1zUuiHJDTgN8Zn7HU4teIg2OYeVJoivCDWDBI6GmwLsLHFU
-    yetWdjzNN6S3A>
-X-ME-Received: <xmr:LHFxYTL-p1Pr8k3M32caRg4jKlo32zEPhsvC1ljbUTLJDdoZtC5WJr15uEoFixUja0mKTtToNAONPlFHtuh3p3QnSxrDf7fp>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvddviedgieelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
-    iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:LHFxYXGT44NRiCcA0v3v1pgBaCUWWvMq8wCJ0719vC3AvwjXIVd2rA>
-    <xmx:LHFxYXURzcRwQ8pwHiy5QR5_0DxrUym_2Muj0afhdQTYS436dYzq7w>
-    <xmx:LHFxYSMpwhdzy6SH_dMS6pdD_gc4FSi8JoDiKNDYy8uXHht0LFGoaw>
-    <xmx:LHFxYeCrPmsh2F-ecnd274HcMu3F78pTY2CvWpY-zGCxcWDuua5Fug>
-Date: Thu, 21 Oct 2021 15:54:48 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: Tentative fix for "out of PoD memory" issue
-Message-ID: <YXFxKC4shCATB913@mail-itl>
-References: <912c7377-26f0-c14a-e3aa-f00a81ed5766@suse.com>
+X-Inumbo-ID: dd9d9a9f-41d7-438f-a1d2-5977ae7dd61e
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1634824516;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zKHXm1l5/XwOUwChoc6WGnoXB4Za8iwdKfQiFfUL2PE=;
+  b=CIZQiteuhoFFHaZ/nFQZ8Dtd3aH1XEY253B9djKJgVuC8IlgpqSa8KVM
+   fVXWvh+h1AuPJtLCDoCSVFHoNHpUZaKqqVTIIO/MXvV8yYYCf9yObF+AF
+   1LAGdJ0uakZMVq0K4VmI1n9s2yXkdcQhNvJEPrXjabzSNmPEKx+jbKdS5
+   8=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: wSm5rzul3gcQiQU6He+bUZQsx9NbquwdC62KML4PUjZgav/Z003d8zp+sob2HWRiOxmSHojPNz
+ IvkDHay8ZgJCW5FH/+9tRGmhMOQ42LEM+ryrO4ccS1kFMYy+9AqgtabAKkmARXznAHsTJyvxoU
+ GNFkBBa72pf3bhOb5BwNWsFkdlu4Cha7kLU/rV1coO9ATomFmgp6YZg554wHQ0gqvV3+u5+iYg
+ JUvg8/gO284UzyqRBCI9mC3WdxwrCOjr6npO4wcGF8+Kj8JRqVVkogc08Eaqma22DtyyFmS2PI
+ 8n4CFJwkC/QQSmzp/lid4Tea
+X-SBRS: 5.1
+X-MesageID: 55727308
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:qIo8w6IsYEBwJsTwFE+RcJIlxSXFcZb7ZxGr2PjKsXjdYENSgjNVy
+ WsXCz2GOvqJNjH8e9BxYYi3oE0OuMfUn4BnTgJlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZUideSc+EH140Eo5wrZj6mJVqYPR7z2l6
+ IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
+ QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2ExPlb1
+ I9HmqfzdlZzPv3Mt95FSjdhRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
+ LpBdW5LPkvra+GemdpXTsFlgNgjK8/6epsSoHh6wRnSDOo8QICFSKLPjTNd9Gpt2ZoRRq6OD
+ yYfQSNpbxDGPSxxBnQoNcIzhcyEoSj2cyIN/Tp5ooJoujOOnWSdyoPFL979atGMA8JPkS6wm
+ GXC+GjoBwAAA/aWwzGF73GEi/fGmGXwX4d6PK218LtmjUOewkQXCQYKTh2rrP+hkEm8VtlDb
+ UsO9UIGtrMu/UamSt38WRyQo3OeuBMYHd1KHIUS6guA167V6AaxHXUfQ3hKb9lOnM4pRxQ62
+ 1mRhdTrCDdz9rqPRhq19KqQrD60ETgYKykFfyBscOcey4C9+sdp1EuJF4s9Vv7u5jHoJd3u6
+ z3RhQIi3b88to00hv+7rVDouWq1iKGcG2bZ+T7rdm6i6wp4YqusaIqp9UXX4J58EWqJcrWSl
+ CNbw5bGvYjiGbnIzXbXGLxcQ9lF8t7caGWE6WODCaXN4NhEF5SLRotX/C1lbHlgNsIJaFcFi
+ 2eC5FsPuve/0JasBJKbgr5d6ex2ksAM9vy/D5g4i+aihLArKWdrGwk1PSatM5jFyhRErE3GE
+ c7znTyQJXgbE7976zG9Wv0Q17QmrghnmziPGs2mk0z4juXFDJJwdVvjGAHTBgzexPjcyDg5D
+ v4Fb5fao/mheLyWjtbrHX47cglRcClT6WHeoM1LbO+TSjeK60l6Y8I9NYgJItQ/94wMz7+g1
+ ijkBidwlQqu7VWaeF7iQi0yN9vSsWNX8CtT0doEZg3zhRDOoO+Hsc8iSnfAVeN6r7Y8kaclF
+ KdtlgfpKq0ndwkrMg81NfHVxLGOvjz07e5XFyb6MjU5YbB6QAnFpo3tcgf1rXFcBSurr8ou5
+ ban01qDE5YEQg1jCufQae6ukAzt7SRMxroqUhuaOMRXdWXt7JNud377gMgoLpxeMh7E3Dabi
+ VqbWE9KuenXroYp29DVnqTY/ZyxGu5zExMCTWnW5Lq7LwfA+W+nzdMSWeqEZ2mFBmj15L+jd
+ aNeyPSlaK8Lm1NDsoxdFbd3zP1hu4uz9uEClgk9RSfFdVWmDL9kM0Kq58gXu/0f3KJdtCu3R
+ lmLpotQN4KWNZ63C1UWPgckMLiOjKlGhjnI4P0pC0zm/ysrrqGfWEBfMhTQ2ixQKLx5bNEsz
+ es74ZNE7gW+jlwhM8qcjzAS/GOJdyRSX6Iiv5AcIYnqlgt0lQ0SPc2CUnf7sMOVdtFBEkg2O
+ TvF1qPNioNVylfGb3duR2PG2vBQhMhWtR1HpLPYy49lRjYRaicL4SBs
+IronPort-HdrOrdr: A9a23:ZrDgRa4COcMbFFQ6UwPXwDLXdLJyesId70hD6qkQc3FomwKj9/
+ xG/c5rsSMc7Qx6ZJhOo7+90cW7L080lqQFhLX5X43SPzUO0VHARO1fBOPZqAEIcBeOlNK1u5
+ 0AT0B/YueAcGSTj6zBkXWF+wBL+qj5zEiq792usUuEVWtRGsZdB58SMHfhLqVxLjM2Y6YRJd
+ 6nyedsgSGvQngTZtTTPAh+YwCSz+e77a4PeHQ9dmYa1DU=
+X-IronPort-AV: E=Sophos;i="5.87,170,1631592000"; 
+   d="scan'208";a="55727308"
+Date: Thu, 21 Oct 2021 14:54:52 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Roger Pau
+ =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v7 42/51] build: grab common EFI source files in arch
+ specific dir
+Message-ID: <YXFxLJ/F9uXtTuaH@perard>
+References: <20210824105038.1257926-1-anthony.perard@citrix.com>
+ <20210824105038.1257926-43-anthony.perard@citrix.com>
+ <43684fcc-f6ca-86f2-9fb1-d3d5d9dbc20d@suse.com>
+ <YWmse5Sv2SFyRMdj@perard>
+ <fd11108b-db66-3c0e-9a7e-a5e30b0b5b1f@suse.com>
+ <YXFJD3LlFfbivA6Z@perard>
+ <938f059d-9d08-75bd-01ee-5d442a5e9961@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="N3tx0KCYiCI/3eVV"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <912c7377-26f0-c14a-e3aa-f00a81ed5766@suse.com>
+In-Reply-To: <938f059d-9d08-75bd-01ee-5d442a5e9961@suse.com>
 
+On Thu, Oct 21, 2021 at 01:24:27PM +0200, Jan Beulich wrote:
+> On 21.10.2021 13:03, Anthony PERARD wrote:
+> > On Mon, Oct 18, 2021 at 10:48:26AM +0200, Jan Beulich wrote:
+> >> On 15.10.2021 18:29, Anthony PERARD wrote:
+> >>> On Thu, Oct 14, 2021 at 10:51:44AM +0200, Jan Beulich wrote:
+> >>>> On 24.08.2021 12:50, Anthony PERARD wrote:
+> >>>>>  obj-y += boot.init.o pe.init.o ebmalloc.o runtime.o
+> >>>>>  obj-$(CONFIG_ACPI) +=  efi-dom0.init.o
+> >>>>> +
+> >>>>> +$(obj)/%.c: common/efi/%.c
+> >>>>> +	$(Q)cp -f $< $@
+> >>>>
+> >>>> In case both trees are on the same file system, trying to hardlink first
+> >>>> would seem desirable. When copying, I think you should also pass -p.
+> >>>
+> >>> I don't know if doing an hardlink is a good thing to do, I'm not sure of
+> >>> the kind of issue this could bring. As for -p, I don't think it's a good
+> >>> idea to copy the mode, ownership, and timestamps of the source file, I'd
+> >>> rather have the timestamps that Make expect, e.i. "now".
+> >>
+> >> Why would "now" be correct (or expected) in any way? The cloned file is no
+> >> different from the original. Nevertheless I agree that -p is not ideal;
+> >> it's just that the more fine grained option to preserve just the timestamp
+> >> is non-standard afaik. You could try that first and fall back to -p ...
+> >> Otherwise, failing hard linking and using "cp -p", I'm afraid I'd prefer
+> >> symlinking despite the arguments against it that you name in the
+> >> description.
+> > 
+> > I guess I'm missing something, is there a reason to keep/copy the
+> > timestamps of the original files?
+> 
+> Avoidance of confusion is my main aim here. I certainly would be puzzled
+> to see what looks like a source file to have a time stamp much newer than
+> expected.
 
---N3tx0KCYiCI/3eVV
-Content-Type: multipart/mixed; protected-headers=v1;
-	boundary="QsU+wNDWzJA/oy32"
-Content-Disposition: inline
-Date: Thu, 21 Oct 2021 15:54:48 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: Tentative fix for "out of PoD memory" issue
+So, there isn't really anything to do with the timestamps :-). I guess
+we could keep using symbolic links, but force update the link at every
+build.
 
+I've tried that:
+    $(obj)/%.c: $(abs_srctree)/common/efi/%.c FORCE
+        $(Q)ln -nsf $< $@
 
---QsU+wNDWzJA/oy32
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+and make seems happy. The link command run every time (due to adding
+FORCE), but the `CC` command isn't, so that seems good. The recipe that
+would run the `CC` command check if the prerequisite are newer than the
+target using $? so it doesn't matter if the rule that update the source
+file as run or not.
 
-On Thu, Oct 21, 2021 at 01:53:06PM +0200, Juergen Gross wrote:
-> Marek,
->=20
-> could you please test whether the attached patch is fixing your
-> problem?
+Thanks,
 
-Sure. In fact, I made a similar patch in the meantime (attached) to
-experiment with this a bit.
-
-> BTW, I don't think this couldn't happen before kernel 5.15. I guess
-> my modification to use a kernel thread instead of a workqueue just
-> made the issue more probable.
-
-I think you are right here. But this all looks still a bit weird.
-
-1. baseline: 5.10.61 (before using kernel thread - which was backported to
-stable branches).
-
-Here the startup completes successfully (no "out of PoD memory"
-issue) with memory=3D270MB.=20
-
-2. 5.10.61 with added boot delay patch:
-The delay is about 18s and the guest boot successfully.
-
-3. 5.10.71 with "xen/balloon: fix cancelled balloon action" but without
-delay patch:
-The domain is killed during startup (in the middle of fsck, I think)
-
-4. 5.10.74 with delay patch:
-The delay is about 19s and the guest boot successfully.
-
-Now the weird part: with memory=3D270MB with the delay patch, the balloon
-delay _fails_ - state=3DBP_ECANCELED, and credit is -19712 at that time.
-In both thread and workqueue balloon variants. Yet, it isn't killed (*).
-But with 5.10.61, even without the delay patch, the guest starts
-successfully in the end.
-
-Also, I think there was some implicit wait for initial balloon down
-before. That was the main motivation for 197ecb3802c0 "xen/balloon: add
-runtime control for scrubbing ballooned out pages" - because that
-initial balloon down held the system startup for some long time. Sadly,
-I can't find my notes from debugging that (especially if I had written
-down a stacktrace _where_ exactly it was waiting)...
-
-> I couldn't reproduce the crash you are seeing, but the introduced
-> wait was 4.2 seconds on my test system (a PVH guest with 2 GB of
-> memory, maxmem 6 GB).
-
-I'm testing it on a much more aggressive setting:
- - memory: 270 MB (the minimal that is sufficient to boot the system)
- - maxmem: 4 GB
-
-The default settings in Qubes are:
- - memory: 400 MB
- - maxmem: 4 GB
-
-That should explains why it happens on Qubes way more often than
-elsewhere.
-
-
-(*) At some point during system boot, qubes memory manager kicks in and
-the VM gets more memory. But it's rather late, and definitely after it is
-killed with "out of PoD memory" in other cases.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---QsU+wNDWzJA/oy32
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: attachment; filename="balloon-wait-5.10.61.patch"
-Content-Transfer-Encoding: quoted-printable
-
-=46rom 947818c731094a952d4955e99a23ef336daf7ab9 Mon Sep 17 00:00:00 2001
-=46rom: =3D?UTF-8?q?Marek=3D20Marczykowski-G=3DC3=3DB3recki?=3D
- <marmarek@invisiblethingslab.com>
-Date: Thu, 21 Oct 2021 01:10:21 +0200
-Subject: [PATCH] WIP: xen/balloon: wait for initial balloon down before
- starting userspace
-MIME-Version: 1.0
-Content-Type: text/plain; charset=3DUTF-8
-Content-Transfer-Encoding: 8bit
-Organization: Invisible Things Lab
-Cc: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-
-When HVM/PVH guest with maxmem > memory, a populate on demand feature is
-used. This allows the guest to see up to 'maxmem' memory, but when it
-tries to use more than 'memory', it is crashed. Balloon driver should
-prevent that by ballooning down the guest before it tries to use too
-much memory. Unfortunately, this was done asynchronously and it wasn't
-really guaranteed to be quick enough. And indeed, with recent kernel
-versions, the initial balloon down process is slower and guests with
-small initial 'memory' are crashed frequently by Xen.
-
-Fix this by adding late init call that waits for the initial balloon
-down to complete, before allowing any userspace to run. If that initial
-balloon down fails, it is very likely that guest will be killed (as soon
-as it will really use all the memory that something has allocated) -
-print a message about that to aid diagnosing issues.
-
-Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
-=2Ecom>
-(cherry picked from commit 9a226e669c918c98ee603ee30a1798da6434a423)
----
- drivers/xen/balloon.c | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-index b57b2067ecbf..c2a4e25a14dc 100644
---- a/drivers/xen/balloon.c
-+++ b/drivers/xen/balloon.c
-@@ -56,6 +56,7 @@
- #include <linux/percpu-defs.h>
- #include <linux/slab.h>
- #include <linux/sysctl.h>
-+#include <linux/completion.h>
-=20
- #include <asm/page.h>
- #include <asm/tlb.h>
-@@ -136,6 +137,8 @@ static DEFINE_MUTEX(balloon_mutex);
- struct balloon_stats balloon_stats;
- EXPORT_SYMBOL_GPL(balloon_stats);
-=20
-+static DECLARE_COMPLETION(initial_balloon);
-+
- /* We increase/decrease in batches which fit in a page */
- static xen_pfn_t frame_list[PAGE_SIZE / sizeof(xen_pfn_t)];
-=20
-@@ -501,7 +504,6 @@ static void balloon_process(struct work_struct *work)
- 	enum bp_state state =3D BP_DONE;
- 	long credit;
-=20
--
- 	do {
- 		mutex_lock(&balloon_mutex);
-=20
-@@ -526,6 +528,15 @@ static void balloon_process(struct work_struct *work)
-=20
- 		state =3D update_schedule(state);
-=20
-+		if (credit >=3D 0)
-+			complete(&initial_balloon);
-+		else if (state =3D=3D BP_ECANCELED) {
-+			if (!completion_done(&initial_balloon) && !xen_pv_domain())
-+				pr_err("Initial balloon down failed, expect the domain to be killed wi=
-th \"out of PoD memory\" error by Xen.\n");
-+			complete(&initial_balloon);
-+		}
-+
-+
- 		mutex_unlock(&balloon_mutex);
-=20
- 		cond_resched();
-@@ -677,6 +688,20 @@ static void __init balloon_add_region(unsigned long st=
-art_pfn,
- }
- #endif
-=20
-+static int __init wait_for_initial_balloon_down(void)
-+{
-+	mutex_lock(&balloon_mutex);
-+	/* optionally re-init completion after retrieving balloon target */
-+	if (current_credit() < 0)
-+		reinit_completion(&initial_balloon);
-+	mutex_unlock(&balloon_mutex);
-+	printk(KERN_INFO "waiting for initial balloon down %ld\n", current_credit=
-());
-+	wait_for_completion(&initial_balloon);
-+	printk(KERN_INFO "done waiting for initial balloon down %ld\n", current_c=
-redit());
-+	return 0;
-+}
-+late_initcall(wait_for_initial_balloon_down);
-+
- static int __init balloon_init(void)
- {
- 	if (!xen_domain())
---=20
-2.31.1
-
-
---QsU+wNDWzJA/oy32
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: attachment; filename="balloon-wait-5.10.74.patch"
-Content-Transfer-Encoding: quoted-printable
-
-=46rom 9a226e669c918c98ee603ee30a1798da6434a423 Mon Sep 17 00:00:00 2001
-=46rom: =3D?UTF-8?q?Marek=3D20Marczykowski-G=3DC3=3DB3recki?=3D
- <marmarek@invisiblethingslab.com>
-Date: Thu, 21 Oct 2021 01:10:21 +0200
-Subject: [PATCH] WIP: xen/balloon: wait for initial balloon down before
- starting userspace
-MIME-Version: 1.0
-Content-Type: text/plain; charset=3DUTF-8
-Content-Transfer-Encoding: 8bit
-Organization: Invisible Things Lab
-Cc: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-
-When HVM/PVH guest with maxmem > memory, a populate on demand feature is
-used. This allows the guest to see up to 'maxmem' memory, but when it
-tries to use more than 'memory', it is crashed. Balloon driver should
-prevent that by ballooning down the guest before it tries to use too
-much memory. Unfortunately, this was done asynchronously and it wasn't
-really guaranteed to be quick enough. And indeed, with recent kernel
-versions, the initial balloon down process is slower and guests with
-small initial 'memory' are crashed frequently by Xen.
-
-Fix this by adding late init call that waits for the initial balloon
-down to complete, before allowing any userspace to run. If that initial
-balloon down fails, it is very likely that guest will be killed (as soon
-as it will really use all the memory that something has allocated) -
-print a message about that to aid diagnosing issues.
-
-Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
-=2Ecom>
----
- drivers/xen/balloon.c | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
-
-diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-index 1911a62a6d9c..a91d90f91c81 100644
---- a/drivers/xen/balloon.c
-+++ b/drivers/xen/balloon.c
-@@ -58,6 +58,7 @@
- #include <linux/percpu-defs.h>
- #include <linux/slab.h>
- #include <linux/sysctl.h>
-+#include <linux/completion.h>
-=20
- #include <asm/page.h>
- #include <asm/tlb.h>
-@@ -140,6 +141,8 @@ static DEFINE_MUTEX(balloon_mutex);
- struct balloon_stats balloon_stats;
- EXPORT_SYMBOL_GPL(balloon_stats);
-=20
-+static DECLARE_COMPLETION(initial_balloon);
-+
- /* We increase/decrease in batches which fit in a page */
- static xen_pfn_t frame_list[PAGE_SIZE / sizeof(xen_pfn_t)];
-=20
-@@ -531,6 +534,14 @@ static int balloon_thread(void *unused)
-=20
- 		credit =3D current_credit();
-=20
-+		if (credit >=3D 0)
-+			complete(&initial_balloon);
-+		else if (state =3D=3D BP_ECANCELED) {
-+			if (!completion_done(&initial_balloon) && !xen_pv_domain())
-+				pr_err("Initial balloon down failed, expect the domain to be killed wi=
-th \"out of PoD memory\" error by Xen.\n");
-+			complete(&initial_balloon);
-+		}
-+
- 		wait_event_freezable_timeout(balloon_thread_wq,
- 			balloon_thread_cond(state, credit), timeout);
-=20
-@@ -706,6 +717,20 @@ static void __init balloon_add_region(unsigned long st=
-art_pfn,
- }
- #endif
-=20
-+static int __init wait_for_initial_balloon_down(void)
-+{
-+	mutex_lock(&balloon_mutex);
-+	/* optionally re-init completion after retrieving balloon target */
-+	if (current_credit() < 0)
-+		reinit_completion(&initial_balloon);
-+	mutex_unlock(&balloon_mutex);
-+	printk(KERN_INFO "waiting for initial balloon down %ld\n", current_credit=
-());
-+	wait_for_completion(&initial_balloon);
-+	printk(KERN_INFO "done waiting for initial balloon down %ld\n", current_c=
-redit());
-+	return 0;
-+}
-+late_initcall(wait_for_initial_balloon_down);
-+
- static int __init balloon_init(void)
- {
- 	struct task_struct *task;
---=20
-2.31.1
-
-
---QsU+wNDWzJA/oy32--
-
---N3tx0KCYiCI/3eVV
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmFxcSkACgkQ24/THMrX
-1yyjlgf8CDdkixL9JjLiXZvZzf+wK2mr+z3rJyl2EivviEYqXUiEcWUzXW7zRu5Q
-fTUOzvj2yYGASrg3cC+to6+GTW9odK0Jc1tIuJWVxn2okgA+Yq3JlP7IORKeEO0T
-E+/ZEwpEAA8ztCo8ZMDwlDAFNXM6q43TQh3u+ASHTXzQFFttK0MGwQaOHvQ2fzf7
-GIul0UUBuekPFhlAyzeKfQm6pxq1MpQuGB/yBqWDThCnQ8yWQAx+ZQFMGQUY1wwO
-BYp+fDIS9Tudrrm+t20Bb42J0DwwSSdQaRuOAwPsEahlzje7/PNtobvjvlPV0l1a
-WAdVCvUTgIhXWFUGR0qpO80eiEiDOQ==
-=yMm+
------END PGP SIGNATURE-----
-
---N3tx0KCYiCI/3eVV--
+-- 
+Anthony PERARD
 
