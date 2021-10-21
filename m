@@ -2,62 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21DE6436293
-	for <lists+xen-devel@lfdr.de>; Thu, 21 Oct 2021 15:16:00 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.214389.372914 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2689C43634B
+	for <lists+xen-devel@lfdr.de>; Thu, 21 Oct 2021 15:45:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.214399.372925 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdXv8-0000Bj-BP; Thu, 21 Oct 2021 13:15:46 +0000
+	id 1mdYNZ-0003OS-QL; Thu, 21 Oct 2021 13:45:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 214389.372914; Thu, 21 Oct 2021 13:15:46 +0000
+Received: by outflank-mailman (output) from mailman id 214399.372925; Thu, 21 Oct 2021 13:45:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdXv8-00008e-8R; Thu, 21 Oct 2021 13:15:46 +0000
-Received: by outflank-mailman (input) for mailman id 214389;
- Thu, 21 Oct 2021 13:15:45 +0000
+	id 1mdYNZ-0003Ml-Mf; Thu, 21 Oct 2021 13:45:09 +0000
+Received: by outflank-mailman (input) for mailman id 214399;
+ Thu, 21 Oct 2021 13:45:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Wrrh=PJ=arm.com=Bertrand.Marquis@srs-us1.protection.inumbo.net>)
- id 1mdXv7-00008Y-1a
- for xen-devel@lists.xenproject.org; Thu, 21 Oct 2021 13:15:45 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown
- [40.107.6.83]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 32d5f673-5a69-472f-93df-f8c78dac1184;
- Thu, 21 Oct 2021 13:15:43 +0000 (UTC)
-Received: from AS8PR04CA0093.eurprd04.prod.outlook.com (2603:10a6:20b:31e::8)
- by PA4PR08MB6125.eurprd08.prod.outlook.com (2603:10a6:102:e1::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.16; Thu, 21 Oct
- 2021 13:15:40 +0000
-Received: from VE1EUR03FT037.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:31e:cafe::1a) by AS8PR04CA0093.outlook.office365.com
- (2603:10a6:20b:31e::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18 via Frontend
- Transport; Thu, 21 Oct 2021 13:15:40 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT037.mail.protection.outlook.com (10.152.19.70) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4628.18 via Frontend Transport; Thu, 21 Oct 2021 13:15:40 +0000
-Received: ("Tessian outbound e27daf245730:v103");
- Thu, 21 Oct 2021 13:15:40 +0000
-Received: from ac887a8fc512.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- E261F624-C81A-426D-812F-A0F21421F60D.1; 
- Thu, 21 Oct 2021 13:15:26 +0000
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id ac887a8fc512.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 21 Oct 2021 13:15:26 +0000
-Received: from DB6PR0801MB2024.eurprd08.prod.outlook.com (2603:10a6:4:74::9)
- by DB9PR08MB6825.eurprd08.prod.outlook.com (2603:10a6:10:2af::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Thu, 21 Oct
- 2021 13:15:24 +0000
-Received: from DB6PR0801MB2024.eurprd08.prod.outlook.com
- ([fe80::45c9:9096:a15b:6955]) by DB6PR0801MB2024.eurprd08.prod.outlook.com
- ([fe80::45c9:9096:a15b:6955%4]) with mapi id 15.20.4608.018; Thu, 21 Oct 2021
- 13:15:23 +0000
+ <SRS0=qr3f=PJ=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1mdYNX-0003Lu-F8
+ for xen-devel@lists.xenproject.org; Thu, 21 Oct 2021 13:45:07 +0000
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f325ece4-9260-4074-bc43-23d58a20a330;
+ Thu, 21 Oct 2021 13:45:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -69,408 +35,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32d5f673-5a69-472f-93df-f8c78dac1184
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HbAihz/x6+FQaM93I6Lv4PIswepqt8mIpMxvUa2xX7o=;
- b=mKoV5ir1T3mQ6+hKm2pYUJWb/rKNUWDaXhCm32l5XjMVkwCPKVQtdqETzc2fqXf/c6e6qUv1dMofTUrjV4SSmeK3i7J53IdzpmubIUk6pTq1b4UXqGfz0VEiaD9+9u7W11+jdHiqLnI+R258QJsXjeqLBl+OfsWwSc2zHSgb3EM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: a93e5592abe25937
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: f325ece4-9260-4074-bc43-23d58a20a330
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1634823905;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=72kUg2ZZHwRaqGqivp7QR/Jib4R4k2Ey793AOqDKVSA=;
+  b=IiAYgMNHritLNtLD6FxatpBJpZdyAUVwO14dKxPh4JQ2qzI6YeYMdZ6e
+   OlufrTmq+na/kaMWzwSB41MrBgTHm+uVnNoaFMjRxSMx1qJNNgAh/Nh/b
+   yqOQjKpELmqktckl13PWeD73saabzooDY0z+R6612njT0qIVIs2vBOf0n
+   g=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: xGuOyD9paJCAlaZEVzqBD955AJo93agTlmHSefSNYwt6UIqLbxV9ZSKv2MIRC4aqc5EaRTC3qQ
+ Gn+5nBMDxGEZUDqQTzIAXE8r6v/2Ff0jOuvQRePPB105rW+P+DHlO4cPEdw8XFSRDQZPPZrh4j
+ sfsrPScGkIUl+LgTk6AwS9R9SGhgihEJt2yIZb6kW3oGp+ebXxb9S3RxKnD5YLE+BhsRXJasJn
+ jQ9zaRrjfx62Mj0qbv81fiLMf7Oi5FielnaqLhx42B7izLs2tyMREMOFvOdRUwRLXXWfBvkFcf
+ Ygu7YsQ8JVHXlvmZAYxbvZUZ
+X-SBRS: 5.1
+X-MesageID: 55742970
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:lgwmnK/6lBJ1K0kk0NoXDrUDFnmTJUtcMsCJ2f8bNWPcYEJGY0x3y
+ WIbUDrQbqyMY2f0LdgjOtzgp0NS65aEmt9hG1E/rSw8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhGmeIdA970Ug6wrZj29Yx6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhX0
+ O9kuqWgdz0ZJ4KUpsMtfCJ8HSBxaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguw5K8bmJsUHs2xIxjDFF/c2B5vERs0m4PcFgWhs3JERRZ4yY
+ eI8ODxuTBHybCZsGXk2NMwCoM2Wp3ngJmgwRFW9+vNsvjm7IBZK+KjgNp/Zd8KHQe1Rn12Ev
+ STW8mLhGBYYOdeDjz2f/RqEh/DNtTP2XpoIE7+1/eIsh0ecrkQWAQcTXEG2otG4jFC/QNNVL
+ 0EI+isoorM2/UbtRd74NzW6qnOZuh8XW/JLDvY3rgqKz8L8/AKxFmUCCDlbZ7QbWNQeHGJwk
+ AXTxpWwWGIp4Ob9pW+hGqm8iyuIECcsPVE4VTYrFTUi0/bYhI8ygUeaJjp8K5KdgtrwEDD25
+ jmFqikimrke5fI2O7WHEUPv2G30+MCYJuIhzkCOBDj9t1ImDGKwT9XwsQCz0BpWEGqOorBtV
+ lA/kM+C8PtGM5iJkCGcKAnmNOD0v6jbWNEwbFgGInXAy9hP0yL8FWyzyGsnTKuMDiriUWW0C
+ KM0kVgJjKK/xFPwMcdKj3uZUqzGN5TIG9X/TezzZdFTeJV3fwLv1HgwPhLPgj2xyBdzzvpX1
+ XKnnSCEVyty5UNPl2Leegvg+eVzmnBWKZ37FPgXMChLIZLBPSXIGN/pwXOFb/wj7bPsnekm2
+ 403Cid+8D0GCLeWSnCOqeY7dAlWRVBmVcGeg5EGLYarf1s5cFzN/teMmNvNjaQ+xP8L/goJl
+ 1ngMnJlJK3X3yCcc1rWMyE4NtsCn/9X9BoGAMDlBn7xs1ALaoez9qYPMZwxeLgs7ut4yvBoC
+ fICfq297j5nE1wrIhwRMsvwqpJMbhOuiV7cNiapemFnLZVhWxbI6pnveQ62rHsCCS++tM0fp
+ by811yEHcpfFlo6VMuGOuiyy16RvGQGnL4gVUX/PdQOKl7n95JnKnKtg6Zvcd0MMxjK2hCTy
+ x2SXUUDveDIroJsqIvJiKmIop2HCex7GkYGTWDX4azvbXvR/3a5wJ8GW+GNJGiPWGTx8aSkR
+ ONU0/Cjb6FXwAcU69JxSu85w7g/6t3jo65h4j5lRHibPU62Dr5AI2Wd2ZUdvKN62bIE6xC9X
+ ViC+4cGNOzRat/lClMYOCEscv+HiaMPgjDX4Pk4fBf66Stw8ObVWEleJUDR2ilULb8zO4I52
+ +Yx/sUR7lXn2BYtN9+HiAFS9niNcSNcA/l26MlCDd+5kBcvx3FDfYfYW33/75y4YtlRNlUnf
+ 22Pj63YirUAnkfPfhLfz5QWMTaxUXjWhC138Q==
+IronPort-HdrOrdr: A9a23:Ky3g9qqdgT5f5NunnoxyjyMaV5pOeYIsimQD101hICG9E/bo9P
+ xG88536faZslossRMb8+xoSZPhfZq0z/ccirX5W43MYOCMggqVxe9Zg7ff/w==
+X-IronPort-AV: E=Sophos;i="5.87,169,1631592000"; 
+   d="scan'208";a="55742970"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l3pUvR67IBvRTo9fRDwgnRj2VcmCu5LSGp+PwqiWOmRJOxDN9IJNaFCrFn7aOfokXYZ2ZPpbS5OQeAePHVMWAN5OspFeHXkJTZti2qjsnIihT65zcZ8SztcL5908V3Ne32dprFBQ/o/0S+7oe5bjArBrBP4dl+zbPqbD1wDNcAt+Fr2pLDDMUzE7yIno48hIn/ozudDJrZMUAU1TPnGNFvTHpvoRRUtlYP87hS5gh1BPN+ztT1OID4zrmRyiSl8D2gwJUWzyI2opdGrR8zV84MJ5gkKFFYEI5i8Ha+R+SSIPfdnfpEOZ92QLOfgJLaYrE5BFfEQxr5X3RL+nbswYSg==
+ b=Aa4t0YHCb+CCEVOnlbE0OMFhtT8yU2Ciszexxkm2vshwM4/nk0WdB0kxRFuHMMnE5WG73FmIcJFcZivit3MQuASeg4s9kyiYc1gsnjt57NwduAF8OjYVTgsMrxYtOQSo7yRewYLpyLIDHebZsrIlE2EYJX9J1SLD/hUzQ5QEr5tHrTpWBprOSKPIHsbK0yeqvs1meTklCArE7xWNspxv64w8GJ6Q/S2jqLaQKLZNv/iwr/5iU2GN4S6XeQhOtQUkpq77Ur6A0/pWb60catSIz/hmg6gDuIumeNCZuXanqDTDFiRhGZEOKb3cOImkbvtgqwnfznVnxavudMsOZ4jGsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HbAihz/x6+FQaM93I6Lv4PIswepqt8mIpMxvUa2xX7o=;
- b=ggqBCoUIgAyZRVue6p19AWgks4lJQnc1304JP4AbUYGZSA+XDU+mIOItuAod6jJzJ/oYbmC/AQ3OzIemxhgL4S1m4OBRVczuQGZnD82qdxfn4LyFcpNSxqRN0tCGZ8zrF+c3KF8Po4oVD/6wsGiLO1YB4sVs+F/BrInjLKuZ/Sl8tG/HD1bl23nzeRprDzQPEbmozOwUtEyT9Ecwj9z/batsEe8rCGi0St+kcxfR8Pj4R1/GvktlJVzd3jUGAUvh2v6v37mz+2i8EVw3SOFDqMTaFOHhwzVuWvxfAjVZk/hMr2cL5pTBwBCYDSxTXO+ZnZpTeqSKG33zivO6CFWlGA==
+ bh=1V3W6thCWTMKPgbT153Lf3fvyqIStFPaYavshmnXRc0=;
+ b=V2rd1hGKqr8XrCpXKtl0AMKRlULdZoIXPuONiw5Bq4rccGjprHEiZXr3tiYouQMPq3OhrslKnRxfD30xLH+cNh9QpAu/ow00h2CmuG4Su8tPheV2KQziXMaI5whOurNcEr5WlYacVW6MLv9Loi2OSNOg/xKOVkKqVvwH2lhMdpV+Q/+ecZUVj3oqMN27YGTG/JeZvlbHah+n7s7j+DMJIEEKNM9Cef1zMgDX8CiXoL3LniPZ1fK4N3Qx16PCTfbN+YAvDsX9hXqtCTaUWC7qMrhhQmLFabq1FbtCGtKKGg7YbUfIQ8NNwiSfOCWHcanFNUMrfvBSHkBl5WRerHdrsg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HbAihz/x6+FQaM93I6Lv4PIswepqt8mIpMxvUa2xX7o=;
- b=mKoV5ir1T3mQ6+hKm2pYUJWb/rKNUWDaXhCm32l5XjMVkwCPKVQtdqETzc2fqXf/c6e6qUv1dMofTUrjV4SSmeK3i7J53IdzpmubIUk6pTq1b4UXqGfz0VEiaD9+9u7W11+jdHiqLnI+R258QJsXjeqLBl+OfsWwSc2zHSgb3EM=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Rahul Singh <Rahul.Singh@arm.com>, Xen-devel
-	<xen-devel@lists.xenproject.org>, Andre Przywara <Andre.Przywara@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
-	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: xen/arm: Missing appropriate locking for the IOMMU (WAS Re:
- [PATCH v5 02/11] xen/arm: Add PHYSDEVOP_pci_device_(*add/remove) support for
- ARM)
-Thread-Topic: xen/arm: Missing appropriate locking for the IOMMU (WAS Re:
- [PATCH v5 02/11] xen/arm: Add PHYSDEVOP_pci_device_(*add/remove) support for
- ARM)
-Thread-Index: AQHXxl4YkvgVlFH7LEi1mWK2psfiI6vdbqqA
-Date: Thu, 21 Oct 2021 13:15:21 +0000
-Message-ID: <75784F90-198E-400D-877B-CF62ED69F409@arm.com>
-References: <cover.1633540842.git.rahul.singh@arm.com>
- <0dc4423b2e20c1eb40c961b211b18ed041f707b7.1633540842.git.rahul.singh@arm.com>
- <99f6d6c4-bcc6-03a9-ef9b-0d01be0fd7f1@xen.org>
-In-Reply-To: <99f6d6c4-bcc6-03a9-ef9b-0d01be0fd7f1@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3654.120.0.1.13)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: fb3e3727-ec4c-4dd7-8c9f-08d99494e15b
-x-ms-traffictypediagnostic: DB9PR08MB6825:|PA4PR08MB6125:
-X-Microsoft-Antispam-PRVS:
-	<PA4PR08MB612507F95EA756B697EA066C9DBF9@PA4PR08MB6125.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:8882;OLM:8882;
+ bh=1V3W6thCWTMKPgbT153Lf3fvyqIStFPaYavshmnXRc0=;
+ b=GnSMVBgwEcncgzRzcB55Gw5BFrBBomi1f0AIKy+0yL7rG2/n6+XIEx5GDhIkfUO9ZDBR5FCUqLJ7A6n+Z/WQoNNH4CtYjltyxlck4Lq7YWLfMpBzFXPUjxCIR8BpJOycxVo5F/TNRfg9mCm1Gd6XC5Alsesbjm2oaiku/fKu4So=
+Date: Thu, 21 Oct 2021 15:44:27 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Marek
+ =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	<xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>
+Subject: Re: Ping: [PATCH] x86/xstate: reset cached register values on resume
+Message-ID: <YXFuuwvFKbgkavSB@MacBook-Air-de-Roger.local>
+References: <20210818113017.454251-1-marmarek@invisiblethingslab.com>
+ <45de5185-b514-8c52-6922-4c587818c698@citrix.com>
+ <3125583f-b965-7746-d833-c197857cd7d7@citrix.com>
+ <6adf41a6-8f05-8ead-2b12-e922939955da@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <6adf41a6-8f05-8ead-2b12-e922939955da@suse.com>
+X-ClientProxiedBy: LO4P123CA0122.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:192::19) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ee7be495-eb65-4520-fe93-08d99498ea2c
+X-MS-TrafficTypeDiagnostic: DM5PR03MB3147:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR03MB31472FA8E5779CAA974996918FBF9@DM5PR03MB3147.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- Ok0ehB27jp+A/25hOLXlfBjJhxSNdTrLn6MBkqi/3LeIcOhWrHqDluyOuAC888zhqEzr1eNF/9g1QMwo6nJijBnz7Dtk1M3FTADrTEFaE2Jsd93eaiwtFtSbWqklyKb2BCipRVKqHncdBMdBnb/c/y4xQqPjmZMRJppngeM7okgPTCAbi21hep94ZhReTTyxMvImeDFYwzJYz1eS2FyBzMN4W+PrSuua10wn9DXVOQ5uRz+YooQpr52EdXzf5EppY2K8pZs3Bv7oJgiwSgxj+sOc7eEdOLDK6+lw7isgCGo1ftZ7d2WRKfyKcCHdzZrYj/FuP0wjKrLaNVDRuqCIHG6GsdCyJXMN8I56Xh9Pav34/DZK7vJtRUp+wW3D8rFGGnGLERk17YHXF5vFmbxvkFet4AgycGAfH60m4td3bTkEkvtOTQO85qZxpMXMsZB9WOQQkWsPlJhdRH2VW6Gj7zVFBYzykSmypWXVWHcxLQVn5ytHIGQ8fc0r7vxXLZY1vle1Q87no3M4nJ3mErA0zFDJqaUMpxWRszJeZXECpDWJTM8fOiS7/jxa1cvxVgJW9txVoFnWhRXqRPwUeSdooeW++gaDujTCATWTi0A8qSgSE9+g4g+DO4jsSZ0q4K+60ZJmVvkrYmgaZoqic8gXp2u2JYcYqfiqlf6HzlJziVCgC01VYPUkZQ7CDha5raGl5XhHX0gXoqJq5modrRoWQ1c35ftR8oXWQf24ctPTl3WxTRs1r22uBdHT+RfgZ4sb
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB6PR0801MB2024.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(38100700002)(66476007)(64756008)(6506007)(66446008)(122000001)(66556008)(66946007)(508600001)(36756003)(6512007)(6916009)(91956017)(2616005)(33656002)(186003)(26005)(53546011)(76116006)(8936002)(8676002)(316002)(71200400001)(86362001)(7416002)(2906002)(6486002)(4326008)(38070700005)(83380400001)(5660300002)(54906003)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <005F5841DC1A4C4DB5D17B2C4191E22D@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6825
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT037.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	0fb7b4d6-ffb9-4b9a-771a-08d99494d724
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	WRg8pPjamfO/YlfPo4FlYMOwfJVcHG0NlIyudg2lzck1jU9GSNqAGRaD5FXejL8ys9DryMGhokkyACQRAQ3Gbyk8UMVQY6Ku92rNqNsTEtGbfKNWcUczFGTYf/qr3yogIUlZrxsjWTUA/7x0shYs3BXN7zapMIR+aPisveEq0li7uR5KJGw014I1SIFOc2KDhaTk86S4oP4uUbp4gW8nL9+V/QODyvppzeT58Sb2TJjeDrgvxcMub5qaMOSMGQDtTmbE2fd+KyWSN2QDA1Z0Dz3N8520vdzKun+3/bHDBsagJew62S8S2Lk4W/q5EWMJBQNE6Mf5RBV6MMqwl4q8qjduTaBU4ObwE7JOx1cAC0sY3ERP8+xTbF5qBWIm9+/ET5YYovSwo5Fx1vEncXU0zcXNx3LNhVfXFr+J/diVD/2ULbrEl8X3mMhfEzXUvK2wfHqdrlZ3Wv+6fwUkAhqaPiczW1HrnYdfWnKcQG4htpdyiF4B1aAUoXqXDfVnyIcVKsSNNd8vxjzjAV4ZoiqxaMr2IUMuuXiY0vihBtemEG+ogErd2jHEnKh9Yod3u9kEaybp/6a4EFSLRs92Ig8DKG1xw2YoQ03fm9E2qTcNpcm2y2+bMR4e/qJDQ/uWA8l2u1Gdw5pJU6SmcYi0auMtpFd5mTofc+x9b/U28khs95BVZwG0UeVqhKXpbha+9vqz83TjpOCeDYvl8lJNhEd6Dg==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(83380400001)(356005)(6862004)(4326008)(53546011)(6506007)(36756003)(6486002)(47076005)(2906002)(2616005)(33656002)(82310400003)(70586007)(316002)(70206006)(107886003)(54906003)(5660300002)(86362001)(81166007)(36860700001)(336012)(508600001)(26005)(8936002)(8676002)(6512007)(186003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2021 13:15:40.5530
+X-Microsoft-Antispam-Message-Info: AYg6CAnMgfX2cRrp2IqOF4LF6hwwqzcFS3VCofVqlZevPKw2sgsV9R5uxf7b/vdYll7NQbCXFgvKT/r6pV06cGKUa8l5MBDjOADqxnvF4m+KjTJI8sJMK5DIWU3ezSuXDhwjGnqS18vdMGJiF8qnTTCGYrOpFFSvQdY/IIhtzJwb6mnG9Kd2TgB69vQSc88Y8aECQLxpMjZJap5IQMw6atZ+mCJW9gSOCZgjadGouwuZUG7vSZUfgjJxa5FSNICYyl8sQGTHSQLGfdQi+BN4xhyL9MXKffu/jRM3dzJl2zstHxmPDDJdXm+2Klz2YbdrXtRXik5SdlDlSLAUnE0wj2+mGGUtWUqJuq3OctUt0qImXhNTycKTBng6kLxc6ZVElXdef2WvA/l0m8oHDE4bsNwDGYa4OUJJrHH5uD4Sc4K6rxG5bq9ITq6YG3WACTDCOaYXIJyv4iA7eOeAJHERbzhr/rSJrHrJUXaOJCUMY8ZENBxEwcFwV1s6sNm+ChCbq+iVmvA+ceAbZrAM42Gi8iBfEm7tO+HJXqiF70FNCZi8LMtFPmyQ4rW79BHP49MR+wqqL47xYULFkYgS30ZMWpBlhq2SAP6iITqbBgjoh5RBLmB5XbDO5DDVPBi+aVD3hLwqukeK1llsCucyvR/2Kw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(6486002)(8676002)(316002)(83380400001)(66946007)(53546011)(4326008)(956004)(66556008)(38100700002)(26005)(85182001)(186003)(6916009)(8936002)(66574015)(2906002)(6496006)(54906003)(508600001)(9686003)(5660300002)(6666004)(86362001)(82960400001)(66476007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dllpOVZhS2s2b3RpdXVrbm9kQ0JNNFRkUlk1R3VLUWN0a0lNMktQdXpUUmh6?=
+ =?utf-8?B?emVRTHdsK0hyYllmaHpaN3Rac3hCU3IzdkhpK0dKTVhrSmNRcU94SnpSY01o?=
+ =?utf-8?B?U0RIOGpMYlhJMWJuY3JUVHIxMFE4R1dqME9pUXA2cHA3SFBpVE9tQnZIZnZl?=
+ =?utf-8?B?eVMwMW5yMTVnZk4yRjdQR3pxQmM5WlhxTndjeGlYdjVRUW1peGtPSUJYMWFv?=
+ =?utf-8?B?L1lGT0VLVEt4QjMxODRtVnVwVm5FYlpGeWhhNExvWVgxZU1kSXlrTThiVHJY?=
+ =?utf-8?B?NzdvOWVLMEJ4SlhyVi9JbXlaWjQ1dXU1ZXUwY0ZETzVhQjkzaThCdSszWjN6?=
+ =?utf-8?B?NkIxZnROU010dVFteDM4V3IyU3lTN1F4M0hIcXNBZEhUb010VDgxQWdCTEMx?=
+ =?utf-8?B?RGdLVVBPamRPK2xDWVZkL0taRklMeWhEMHdWamtJSXZDVHJyR1hLT2RFVTdN?=
+ =?utf-8?B?cUFZdWZjeUZBNVkxYkNnaGU0dVlYd0tPYld3SWNneUFEaklmZFlhT080bjli?=
+ =?utf-8?B?SFRFdHBuMnNRTFpjWUd4ZnBsaUduYXdLTWFpWmlHSFR2WWRPSWJxTFkxaXpH?=
+ =?utf-8?B?Ym41cHBHeG5VYmZSVi9rZERtUU8wL3oyQ3NPTEZoSCtkNTJDK1hSUElOSVJC?=
+ =?utf-8?B?cnpHdWordG5GandxK1BQZ08yc0xGcEg4dGpXOUZyQmV0NWZub0trTEFsQUh1?=
+ =?utf-8?B?U1VwM1o1bjk2c3JCdlJGTXlGYXVRZkR0VWVIOWJJcm9tV3Rlb0doYk1QUlpQ?=
+ =?utf-8?B?TFlKbzg3UjM0eFUxbDlGdlpBM0ZZcDZFemY2YTVYU1lvVkhaVytJbTUwNHRo?=
+ =?utf-8?B?YjI4WlBmKy9YbUVCN2xsTktXbG16ZStDR2cybUt6TWN1bnRFQWJnUUYrOThv?=
+ =?utf-8?B?VERaa1Rtck9JYTVrT2pPQ2NVN0RzSkR4VndZTFZKL00rcjlETWczRmpEbjFN?=
+ =?utf-8?B?dTVWOVpQYWFIQmtRMGpSN21vZ3B2SzQ4UjFzZytlYmdhUGVaeGQ3NTZ2OStY?=
+ =?utf-8?B?c3dHc1Naam1KVlcxVEJha09lTEJTeSthajRJRWRpV2l2MCt4ZjcrOWxJbVVo?=
+ =?utf-8?B?Vm52RmtFSGxuazRIMGw5V0ZsTVRieDhiNWdEa2pIMldsTUZjYU96K1VoU1p6?=
+ =?utf-8?B?Sy9BM0tFUTZpL0plR1hualF0STE1QXQ0TWREY2dCb051REgrZG5JaUYyY2NI?=
+ =?utf-8?B?UC9laDlaam90VXpLQXNRbU9FL1l5clZqdEVnTTd6ZGwzVlhZd1V6eE9Vcktr?=
+ =?utf-8?B?bnZCVnpySkp4aEE2K3dUcndvSE1IeW5rMjhPS201NW96WGFnQy9zYjg0cnIy?=
+ =?utf-8?B?OFg2R2dxV0VPdk85NnNGZzIrKzAxY0hTY08rckxjbUV6MmVBQkM5eEpSZEdm?=
+ =?utf-8?B?SkdaMlRtdDJwL2VtNzVmVGFCejZnckllSi9yUXNqdVFFdDFvRlVacFEydXpv?=
+ =?utf-8?B?anlDREZHK2Z4T3VlVTVMaTZQUjdBbVlaMEw2djBRQ2hweHBiNUtRNW95REpD?=
+ =?utf-8?B?bHpka1BYbUUzQ3dXNXJyWkFWNGE1aURVdkFjZm9Cek00TVhoZTBrM3o3R1lU?=
+ =?utf-8?B?V0dlOWkyZXd1b3JrSTlVNEUycDBlRHN1YkYwblFQSlkyM3JpNTZDYnh4T1U2?=
+ =?utf-8?B?Ri83bm4vOEVSZ3YxaFpqaDdwbi9FZWZFMnVaMTFXYXhxbWxkZ29zYmJMOEx2?=
+ =?utf-8?B?UnVsTFQ5MHhkbERVNlY2bzdaSTBYdjZBSWhoZXVSWTd4OGRzdkZRdi9XRnZ2?=
+ =?utf-8?Q?DtRGtjT+mdVnfdl1tZmRbKoL1nuMoH3JmvSZNv/?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee7be495-eb65-4520-fe93-08d99498ea2c
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2021 13:44:33.5906
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb3e3727-ec4c-4dd7-8c9f-08d99494e15b
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT037.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6125
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: roger.pau@citrix.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB3147
+X-OriginatorOrg: citrix.com
 
-Hi Julien,
+On Mon, Oct 18, 2021 at 10:21:28AM +0200, Jan Beulich wrote:
+> On 24.08.2021 23:11, Andrew Cooper wrote:
+> > On 18/08/2021 13:44, Andrew Cooper wrote:
+> >> On 18/08/2021 12:30, Marek Marczykowski-Górecki wrote:
+> >>> set_xcr0() and set_msr_xss() use cached value to avoid setting the
+> >>> register to the same value over and over. But suspend/resume implicitly
+> >>> reset the registers and since percpu areas are not deallocated on
+> >>> suspend anymore, the cache gets stale.
+> >>> Reset the cache on resume, to ensure the next write will really hit the
+> >>> hardware. Choose value 0, as it will never be a legitimate write to
+> >>> those registers - and so, will force write (and cache update).
+> >>>
+> >>> Note the cache is used io get_xcr0() and get_msr_xss() too, but:
+> >>> - set_xcr0() is called few lines below in xstate_init(), so it will
+> >>>   update the cache with appropriate value
+> >>> - get_msr_xss() is not used anywhere - and thus not before any
+> >>>   set_msr_xss() that will fill the cache
+> >>>
+> >>> Fixes: aca2a985a55a "xen: don't free percpu areas during suspend"
+> >>> Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+> >> I'd prefer to do this differently.  As I said in the thread, there are
+> >> other registers such as MSR_TSC_AUX which fall into the same category,
+> >> and I'd like to make something which works systematically.
+> > 
+> > Ok - after some searching, I think we have problems with:
+> > 
+> > cpu/common.c:47:DEFINE_PER_CPU(struct cpuidmasks, cpuidmasks);
+> > cpu/common.c:120:static DEFINE_PER_CPU(uint64_t, msr_misc_features);
+> > msr.c:35:DEFINE_PER_CPU(uint32_t, tsc_aux);
+> > xstate.c:36:static DEFINE_PER_CPU(uint64_t, xcr0);
+> > xstate.c:79:static DEFINE_PER_CPU(uint64_t, xss);
+> > 
+> > There is also:
+> > 
+> > traps.c:100:DEFINE_PER_CPU(uint64_t, efer);
+> > 
+> > which we *almost* handle correctly, but fail to update the cache on the
+> > BSP out of S3.
+> > 
+> > 
+> > For the APIC, I think we have issues with:
+> > 
+> > irq.c:1083:static DEFINE_PER_CPU(struct pending_eoi,
+> > pending_eoi[NR_DYNAMIC_VECTORS]);
+> > 
+> > because we don't defer S3 until all pending EOIs are complete.
+> 
+> As your planned more extensive rework appears to not have made much
+> progress yet, may I suggest that we go with Marek's fix for 4.16,
+> with the one adjustment I suggested alongside giving my R-b?
 
-> On 21 Oct 2021, at 10:28, Julien Grall <julien@xen.org> wrote:
->=20
-> Hi all,
->=20
-> While going through the passthrough code. I noticed that we don't have a =
-common lock for the IOMMU between the PCI and DT code.
->=20
-> This is going to be an issue given it would technically be possible to ad=
-d a PCI device while assigning a DT.
->=20
-> Rahul, Bertrand, Oleksandr, can you have a look at the issue?
+I think that's the only viable solution in order to avoid shipping a
+broken 4.16 so we should go ahead with it.
 
-Yes we can have a look at this.
-
-Right now pci device add is done by dom0 so I do not think we have an issue=
- in practice unless I wrongly understood something.
-But for sure in theory yes we need to look at this.
-
-Cheers
-Bertrand=20
-
->=20
-> Cheers,
->=20
-> On 06/10/2021 18:40, Rahul Singh wrote:
->> Hardware domain is in charge of doing the PCI enumeration and will
->> discover the PCI devices and then will communicate to XEN via hyper
->> call PHYSDEVOP_pci_device_add(..) to add the PCI devices in XEN.
->> Also implement PHYSDEVOP_pci_device_remove(..) to remove the PCI device.
->> As most of the code for PHYSDEVOP_pci_device_* is the same between x86
->> and ARM, move the code to a common file to avoid duplication.
->> There are other PHYSDEVOP_pci_device_* operations to add PCI devices.
->> Currently implemented PHYSDEVOP_pci_device_remove(..) and
->> PHYSDEVOP_pci_device_add(..) only as those are minimum required to
->> support PCI passthrough on ARM.
->> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
->> ---
->> Change in v5:
->> - Move the pci_physdev_op() stub to xen/arch/arm/physdev.c.
->> Change in v4:
->> - Move file commom/physdev.c to drivers/pci/physdev.c
->> - minor comments.
->> Change in v3: Fixed minor comment.
->> Change in v2:
->> - Add support for PHYSDEVOP_pci_device_remove()
->> - Move code to common code
->> ---
->> ---
->>  xen/arch/arm/physdev.c        |  6 ++-
->>  xen/arch/x86/physdev.c        | 52 +----------------------
->>  xen/arch/x86/x86_64/physdev.c |  2 +-
->>  xen/drivers/pci/Makefile      |  1 +
->>  xen/drivers/pci/physdev.c     | 80 +++++++++++++++++++++++++++++++++++
->>  xen/include/public/arch-arm.h |  4 +-
->>  xen/include/xen/hypercall.h   |  4 ++
->>  7 files changed, 96 insertions(+), 53 deletions(-)
->>  create mode 100644 xen/drivers/pci/physdev.c
->> diff --git a/xen/arch/arm/physdev.c b/xen/arch/arm/physdev.c
->> index e91355fe22..f9aa274dda 100644
->> --- a/xen/arch/arm/physdev.c
->> +++ b/xen/arch/arm/physdev.c
->> @@ -8,13 +8,17 @@
->>  #include <xen/lib.h>
->>  #include <xen/errno.h>
->>  #include <xen/sched.h>
->> -#include <asm/hypercall.h>
->> +#include <xen/hypercall.h>
->>      int do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->>  {
->> +#ifdef CONFIG_HAS_PCI
->> +    return pci_physdev_op(cmd, arg);
->> +#else
->>      gdprintk(XENLOG_DEBUG, "PHYSDEVOP cmd=3D%d: not implemented\n", cmd=
-);
->>      return -ENOSYS;
->> +#endif
->>  }
->>    /*
->> diff --git a/xen/arch/x86/physdev.c b/xen/arch/x86/physdev.c
->> index 23465bcd00..ea38be8b79 100644
->> --- a/xen/arch/x86/physdev.c
->> +++ b/xen/arch/x86/physdev.c
->> @@ -12,7 +12,7 @@
->>  #include <asm/io_apic.h>
->>  #include <asm/msi.h>
->>  #include <asm/hvm/irq.h>
->> -#include <asm/hypercall.h>
->> +#include <xen/hypercall.h>
->>  #include <public/xen.h>
->>  #include <public/physdev.h>
->>  #include <xsm/xsm.h>
->> @@ -480,54 +480,6 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM=
-(void) arg)
->>          break;
->>      }
->>  -    case PHYSDEVOP_pci_device_add: {
->> -        struct physdev_pci_device_add add;
->> -        struct pci_dev_info pdev_info;
->> -        nodeid_t node;
->> -
->> -        ret =3D -EFAULT;
->> -        if ( copy_from_guest(&add, arg, 1) !=3D 0 )
->> -            break;
->> -
->> -        pdev_info.is_extfn =3D !!(add.flags & XEN_PCI_DEV_EXTFN);
->> -        if ( add.flags & XEN_PCI_DEV_VIRTFN )
->> -        {
->> -            pdev_info.is_virtfn =3D 1;
->> -            pdev_info.physfn.bus =3D add.physfn.bus;
->> -            pdev_info.physfn.devfn =3D add.physfn.devfn;
->> -        }
->> -        else
->> -            pdev_info.is_virtfn =3D 0;
->> -
->> -        if ( add.flags & XEN_PCI_DEV_PXM )
->> -        {
->> -            uint32_t pxm;
->> -            size_t optarr_off =3D offsetof(struct physdev_pci_device_ad=
-d, optarr) /
->> -                                sizeof(add.optarr[0]);
->> -
->> -            if ( copy_from_guest_offset(&pxm, arg, optarr_off, 1) )
->> -                break;
->> -
->> -            node =3D pxm_to_node(pxm);
->> -        }
->> -        else
->> -            node =3D NUMA_NO_NODE;
->> -
->> -        ret =3D pci_add_device(add.seg, add.bus, add.devfn, &pdev_info,=
- node);
->> -        break;
->> -    }
->> -
->> -    case PHYSDEVOP_pci_device_remove: {
->> -        struct physdev_pci_device dev;
->> -
->> -        ret =3D -EFAULT;
->> -        if ( copy_from_guest(&dev, arg, 1) !=3D 0 )
->> -            break;
->> -
->> -        ret =3D pci_remove_device(dev.seg, dev.bus, dev.devfn);
->> -        break;
->> -    }
->> -
->>      case PHYSDEVOP_prepare_msix:
->>      case PHYSDEVOP_release_msix: {
->>          struct physdev_pci_device dev;
->> @@ -663,7 +615,7 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(=
-void) arg)
->>      }
->>        default:
->> -        ret =3D -ENOSYS;
->> +        ret =3D pci_physdev_op(cmd, arg);
->>          break;
->>      }
->>  diff --git a/xen/arch/x86/x86_64/physdev.c b/xen/arch/x86/x86_64/physde=
-v.c
->> index 0a50cbd4d8..e3cbd5ebcb 100644
->> --- a/xen/arch/x86/x86_64/physdev.c
->> +++ b/xen/arch/x86/x86_64/physdev.c
->> @@ -9,7 +9,7 @@ EMIT_FILE;
->>  #include <compat/xen.h>
->>  #include <compat/event_channel.h>
->>  #include <compat/physdev.h>
->> -#include <asm/hypercall.h>
->> +#include <xen/hypercall.h>
->>    #define do_physdev_op compat_physdev_op
->>  diff --git a/xen/drivers/pci/Makefile b/xen/drivers/pci/Makefile
->> index a98035df4c..972c923db0 100644
->> --- a/xen/drivers/pci/Makefile
->> +++ b/xen/drivers/pci/Makefile
->> @@ -1 +1,2 @@
->>  obj-y +=3D pci.o
->> +obj-y +=3D physdev.o
->> diff --git a/xen/drivers/pci/physdev.c b/xen/drivers/pci/physdev.c
->> new file mode 100644
->> index 0000000000..4f3e1a96c0
->> --- /dev/null
->> +++ b/xen/drivers/pci/physdev.c
->> @@ -0,0 +1,80 @@
->> +
->> +#include <xen/guest_access.h>
->> +#include <xen/hypercall.h>
->> +#include <xen/init.h>
->> +
->> +#ifndef COMPAT
->> +typedef long ret_t;
->> +#endif
->> +
->> +ret_t pci_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
->> +{
->> +    ret_t ret;
->> +
->> +    switch ( cmd )
->> +    {
->> +    case PHYSDEVOP_pci_device_add: {
->> +        struct physdev_pci_device_add add;
->> +        struct pci_dev_info pdev_info;
->> +        nodeid_t node =3D NUMA_NO_NODE;
->> +
->> +        ret =3D -EFAULT;
->> +        if ( copy_from_guest(&add, arg, 1) !=3D 0 )
->> +            break;
->> +
->> +        pdev_info.is_extfn =3D (add.flags & XEN_PCI_DEV_EXTFN);
->> +        if ( add.flags & XEN_PCI_DEV_VIRTFN )
->> +        {
->> +            pdev_info.is_virtfn =3D true;
->> +            pdev_info.physfn.bus =3D add.physfn.bus;
->> +            pdev_info.physfn.devfn =3D add.physfn.devfn;
->> +        }
->> +        else
->> +            pdev_info.is_virtfn =3D false;
->> +
->> +#ifdef CONFIG_NUMA
->> +        if ( add.flags & XEN_PCI_DEV_PXM )
->> +        {
->> +            uint32_t pxm;
->> +            size_t optarr_off =3D offsetof(struct physdev_pci_device_ad=
-d, optarr) /
->> +                                sizeof(add.optarr[0]);
->> +
->> +            if ( copy_from_guest_offset(&pxm, arg, optarr_off, 1) )
->> +                break;
->> +
->> +            node =3D pxm_to_node(pxm);
->> +        }
->> +#endif
->> +
->> +        ret =3D pci_add_device(add.seg, add.bus, add.devfn, &pdev_info,=
- node);
->> +        break;
->> +    }
->> +
->> +    case PHYSDEVOP_pci_device_remove: {
->> +        struct physdev_pci_device dev;
->> +
->> +        ret =3D -EFAULT;
->> +        if ( copy_from_guest(&dev, arg, 1) !=3D 0 )
->> +            break;
->> +
->> +        ret =3D pci_remove_device(dev.seg, dev.bus, dev.devfn);
->> +        break;
->> +    }
->> +
->> +    default:
->> +        ret =3D -ENOSYS;
->> +        break;
->> +    }
->> +
->> +    return ret;
->> +}
->> +
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * tab-width: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
->> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm=
-.h
->> index 6b5a5f818a..d46c61fca9 100644
->> --- a/xen/include/public/arch-arm.h
->> +++ b/xen/include/public/arch-arm.h
->> @@ -107,7 +107,9 @@
->>   *   All generic sub-operations
->>   *
->>   *  HYPERVISOR_physdev_op
->> - *   No sub-operations are currenty supported
->> + *   Exactly these sub-operations are supported:
->> + *   PHYSDEVOP_pci_device_add
->> + *   PHYSDEVOP_pci_device_remove
->>   *
->>   *  HYPERVISOR_sysctl
->>   *   All generic sub-operations, with the exception of:
->> diff --git a/xen/include/xen/hypercall.h b/xen/include/xen/hypercall.h
->> index 3771487a30..07b10ec230 100644
->> --- a/xen/include/xen/hypercall.h
->> +++ b/xen/include/xen/hypercall.h
->> @@ -45,6 +45,10 @@ extern long
->>  do_platform_op(
->>      XEN_GUEST_HANDLE_PARAM(xen_platform_op_t) u_xenpf_op);
->>  +extern long
->> +pci_physdev_op(
->> +    int cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
->> +
->>  /*
->>   * To allow safe resume of do_memory_op() after preemption, we need to =
-know
->>   * at what point in the page list to resume. For this purpose I steal t=
-he
->=20
-> --=20
-> Julien Grall
-
+Thanks, Roger.
 
