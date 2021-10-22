@@ -2,35 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C79C43792E
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 16:46:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.215127.374119 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA1C8437A4B
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 17:48:20 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.215143.374150 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdvnS-0005he-EW; Fri, 22 Oct 2021 14:45:26 +0000
+	id 1mdwl7-00033M-4e; Fri, 22 Oct 2021 15:47:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 215127.374119; Fri, 22 Oct 2021 14:45:26 +0000
+Received: by outflank-mailman (output) from mailman id 215143.374150; Fri, 22 Oct 2021 15:47:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdvnS-0005fk-AZ; Fri, 22 Oct 2021 14:45:26 +0000
-Received: by outflank-mailman (input) for mailman id 215127;
- Fri, 22 Oct 2021 14:45:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mdvnR-0005fa-8B; Fri, 22 Oct 2021 14:45:25 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mdvnR-0006Ef-2x; Fri, 22 Oct 2021 14:45:25 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mdvnQ-0004ua-RW; Fri, 22 Oct 2021 14:45:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mdvnQ-0007s2-R2; Fri, 22 Oct 2021 14:45:24 +0000
+	id 1mdwl7-00031Z-1b; Fri, 22 Oct 2021 15:47:05 +0000
+Received: by outflank-mailman (input) for mailman id 215143;
+ Fri, 22 Oct 2021 15:47:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xZlF=PK=apertussolutions.com=dpsmith@srs-us1.protection.inumbo.net>)
+ id 1mdwl5-00031T-Ua
+ for xen-devel@lists.xenproject.org; Fri, 22 Oct 2021 15:47:04 +0000
+Received: from sender4-of-o51.zoho.com (unknown [136.143.188.51])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4c0425cf-334f-11ec-83c8-12813bfff9fa;
+ Fri, 22 Oct 2021 15:47:02 +0000 (UTC)
+Received: from [10.10.1.24] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1634917617999463.14123576632755;
+ Fri, 22 Oct 2021 08:46:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +40,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=b2V10T0oAIXt8i455P8D76VZXZ5AvkEbO1a6/K1cDH0=; b=roIrLsOOLni/kFq38NLEUyy+Uk
-	w7S1+j4WozrvbwdNa6S1rqlLLhIPTitLKqaNocPE1D8nzCDbvlXS6odf5uB2i+17h1l4PtAO/pii8
-	pmzTrUR70Op1s5FeKLQUXoB3elPqHHAHCUExAMGjfbu1n4zm+uOARuawEZcafOiSldBg=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165767-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4c0425cf-334f-11ec-83c8-12813bfff9fa
+ARC-Seal: i=1; a=rsa-sha256; t=1634917621; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=L6i8OcuXs3Gk5mZxNMMklATyInx8pZj8xfmLD/9edXNbLNBmXwuqWLphuLGJTbcTWjsHQNdwuwEL7WyBLTgaIsFEpGDOb1Ndf11kZkOk9qmTQku6G6r+zFphUopH96hq2QgftuxHTkzJfqYxTmaLBqLtR186itE89066+EhX420=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1634917621; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=wVSldqCk0cvU2+ib2AagL3niuW4Ej9KCLbBqbxcPsBM=; 
+	b=OGLQrYkz3GTVQs+yIr5PPYLIZxvNNneD2nRpP7hbVPrEpKbtt9+bgUfWHIGh72AFpIlodNsxe02rWzFPFWd27plEuuoNLzVT0LhLFzdyUlMZrbRC6lp3kCsARQxDUyxzt97MACMxwZwC72dRKgyXe+MsKu9LUGFGVmz8deTqzrc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1634917621;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=wVSldqCk0cvU2+ib2AagL3niuW4Ej9KCLbBqbxcPsBM=;
+	b=hydbCi2zLgx21dJT+d2ek1UvStvPMGgvs/i62gSG3WUVtDLX31Z7XC5tsZyYRBzO
+	svEfu423tgCTRzwSb//hdCbO6kQ98yKHi1T85A55s9HOuYCAaWXMkfqzz96UjNgYEMu
+	SZxj6LSWyRnoMVRde+KAUGHnY0PTyIjztIzcYMik=
+Subject: Re: [PATCH v2 5/7] xen/xsm: Switch to byteswap.h
+To: Lin Liu <lin.liu@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+References: <cover.1634897942.git.lin.liu@citrix.com>
+ <400efbc5c394140bb01664e5847046e8c4a38ea2.1634897942.git.lin.liu@citrix.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+Message-ID: <037139aa-e274-a0fe-4d2f-10c457650d3e@apertussolutions.com>
+Date: Fri, 22 Oct 2021 11:46:57 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Subject: [ovmf test] 165767: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=bd5ec03d87cacc5be2de4284b092aafd4ac4eb31
-X-Osstest-Versions-That:
-    ovmf=2f286930a8280f4d817460020110009938f695b6
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 22 Oct 2021 14:45:24 +0000
+In-Reply-To: <400efbc5c394140bb01664e5847046e8c4a38ea2.1634897942.git.lin.liu@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-flight 165767 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165767/
+On 10/22/21 6:47 AM, Lin Liu wrote:
+> Update to use byteswap.h to swap bytes
+> 
+> No functional change
+> 
+> Signed-off-by: Lin Liu <lin.liu@citrix.com>
+> ---
+> Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+> Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+> ---
+>  xen/xsm/flask/ss/avtab.c       | 2 +-
+>  xen/xsm/flask/ss/conditional.c | 2 +-
+>  xen/xsm/flask/ss/ebitmap.c     | 2 +-
+>  xen/xsm/flask/ss/policydb.c    | 2 +-
+>  4 files changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/xsm/flask/ss/avtab.c b/xen/xsm/flask/ss/avtab.c
+> index bfc91c8b0c..1fa796f625 100644
+> --- a/xen/xsm/flask/ss/avtab.c
+> +++ b/xen/xsm/flask/ss/avtab.c
+> @@ -19,8 +19,8 @@
+>  
+>  /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+>  
+> +#include <xen/byteswap.h>
+>  #include <xen/lib.h>
+> -#include <asm/byteorder.h>
+>  #include <xen/types.h>
+>  #include <xen/xmalloc.h>
+>  #include <xen/errno.h>
+> diff --git a/xen/xsm/flask/ss/conditional.c b/xen/xsm/flask/ss/conditional.c
+> index 3e58aea551..059f6e07e5 100644
+> --- a/xen/xsm/flask/ss/conditional.c
+> +++ b/xen/xsm/flask/ss/conditional.c
+> @@ -9,7 +9,7 @@
+>  
+>  /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+>  
+> -#include <asm/byteorder.h>
+> +#include <xen/byteswap.h>
+>  #include <xen/lib.h>
+>  #include <xen/types.h>
+>  #include <xen/errno.h>
+> diff --git a/xen/xsm/flask/ss/ebitmap.c b/xen/xsm/flask/ss/ebitmap.c
+> index e1d0a586a7..1550437c6f 100644
+> --- a/xen/xsm/flask/ss/ebitmap.c
+> +++ b/xen/xsm/flask/ss/ebitmap.c
+> @@ -10,7 +10,7 @@
+>  
+>  /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+>  
+> -#include <asm/byteorder.h>
+> +#include <xen/byteswap.h>
+>  #include <xen/lib.h>
+>  #include <xen/xmalloc.h>
+>  #include <xen/errno.h>
+> diff --git a/xen/xsm/flask/ss/policydb.c b/xen/xsm/flask/ss/policydb.c
+> index 9426164353..595005c3b7 100644
+> --- a/xen/xsm/flask/ss/policydb.c
+> +++ b/xen/xsm/flask/ss/policydb.c
+> @@ -22,7 +22,7 @@
+>  
+>  /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+>  
+> -#include <asm/byteorder.h>
+> +#include <xen/byteswap.h>
+>  #include <xen/lib.h>
+>  #include <xen/types.h>
+>  #include <xen/xmalloc.h>
+> 
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 bd5ec03d87cacc5be2de4284b092aafd4ac4eb31
-baseline version:
- ovmf                 2f286930a8280f4d817460020110009938f695b6
-
-Last test of basis   165714  2021-10-21 15:40:13 Z    0 days
-Testing same since   165767  2021-10-22 10:10:33 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Gary Lin <gary.lin@hpe.com>
-  Lin, Gary (HPS OE-Linux) <gary.lin@hpe.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   2f286930a8..bd5ec03d87  bd5ec03d87cacc5be2de4284b092aafd4ac4eb31 -> xen-tested-master
+Reviewed by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
