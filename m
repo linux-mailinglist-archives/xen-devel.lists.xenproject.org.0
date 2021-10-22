@@ -2,30 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D67E4438071
-	for <lists+xen-devel@lfdr.de>; Sat, 23 Oct 2021 01:01:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.215294.374395 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46C124380AC
+	for <lists+xen-devel@lfdr.de>; Sat, 23 Oct 2021 01:34:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.215301.374406 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1me3Vz-00011b-LF; Fri, 22 Oct 2021 22:59:55 +0000
+	id 1me42Z-0004wa-AB; Fri, 22 Oct 2021 23:33:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 215294.374395; Fri, 22 Oct 2021 22:59:55 +0000
+Received: by outflank-mailman (output) from mailman id 215301.374406; Fri, 22 Oct 2021 23:33:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1me3Vz-0000zA-I3; Fri, 22 Oct 2021 22:59:55 +0000
-Received: by outflank-mailman (input) for mailman id 215294;
- Fri, 22 Oct 2021 22:59:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1me42Z-0004ug-6m; Fri, 22 Oct 2021 23:33:35 +0000
+Received: by outflank-mailman (input) for mailman id 215301;
+ Fri, 22 Oct 2021 23:33:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TWKL=PK=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1me3Vy-0000z4-CD
- for xen-devel@lists.xenproject.org; Fri, 22 Oct 2021 22:59:54 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fcb1be96-5700-48b0-8fc3-537a7f2ab193;
- Fri, 22 Oct 2021 22:59:53 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3E51E61037;
- Fri, 22 Oct 2021 22:59:52 +0000 (UTC)
+ <SRS0=ef1d=PK=oracle.com=dongli.zhang@srs-us1.protection.inumbo.net>)
+ id 1me42X-0004ua-Cn
+ for xen-devel@lists.xenproject.org; Fri, 22 Oct 2021 23:33:33 +0000
+Received: from mx0b-00069f02.pphosted.com (unknown [205.220.177.32])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 77cc0758-3390-11ec-83da-12813bfff9fa;
+ Fri, 22 Oct 2021 23:33:32 +0000 (UTC)
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19MNSYs3021619; 
+ Fri, 22 Oct 2021 23:33:29 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3buta8bw02-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 22 Oct 2021 23:33:29 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 19MNFhJX151851;
+ Fri, 22 Oct 2021 23:33:28 GMT
+Received: from nam12-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12lp2177.outbound.protection.outlook.com [104.47.59.177])
+ by userp3020.oracle.com with ESMTP id 3br8gyp8bq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 22 Oct 2021 23:33:27 +0000
+Received: from BYAPR10MB2663.namprd10.prod.outlook.com (2603:10b6:a02:a9::20)
+ by BYAPR10MB3158.namprd10.prod.outlook.com (2603:10b6:a03:15d::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4608.18; Fri, 22 Oct
+ 2021 23:33:25 +0000
+Received: from BYAPR10MB2663.namprd10.prod.outlook.com
+ ([fe80::2848:63dc:b87:8021]) by BYAPR10MB2663.namprd10.prod.outlook.com
+ ([fe80::2848:63dc:b87:8021%7]) with mapi id 15.20.4628.018; Fri, 22 Oct 2021
+ 23:33:25 +0000
+Received: from localhost.localdomain (138.3.200.16) by
+ SN7PR04CA0018.namprd04.prod.outlook.com (2603:10b6:806:f2::23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4628.16 via Frontend Transport; Fri, 22 Oct 2021 23:33:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,72 +64,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fcb1be96-5700-48b0-8fc3-537a7f2ab193
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1634943592;
-	bh=TNjbdCc180Gtrpx+1RGx2wC6AGhZ1voPpE1f+PBPZls=;
-	h=Date:From:To:cc:Subject:From;
-	b=iJaS5MmvLqJuIZFDDfFF65yfxA9s138fpyIunjK9uJ2FMWwBHAd1TQi70IEi6s2so
-	 cqU/Y9XZTPiBFYZ/Bm+KkjFvMDYDrefhgq1ncGKR1FahILgARTSwCmbcTPS6cX1xhO
-	 VAiPexqGyTP8e4DXtFM1ssBB0zvRJXE8AzADYCMmowauwz2zCGA7bDFRivBoCMxRlk
-	 UODdwnauuieonE6XKHDBwGg2G3LbH6pxGBXI4emo3z4+0i/OcqTke15LL6JMhXKJT/
-	 XytmFMVLSvYAh0wL4GtOKZK4CJze7j4+Kg6OxjY0gdU1iMCxkjQEKQXgjfKly0gshE
-	 1g5rT+MM7nXIg==
-Date: Fri, 22 Oct 2021 15:59:51 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: George.Dunlap@citrix.com
-cc: sstabellini@kernel.org, dunlapg@umich.edu, roger.pau@citrix.com, 
-    jbeulich@suse.com, committers@xenproject.org, 
-    xen-devel@lists.xenproject.org
-Subject: [PATCH] governance: communication channels
-Message-ID: <alpine.DEB.2.21.2110221535000.2311@sstabellini-ThinkPad-T480s>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 77cc0758-3390-11ec-83da-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=from : to : cc :
+ subject : date : message-id : content-type : mime-version;
+ s=corp-2021-07-09; bh=j35yrGam9kFx0sdQF8/EFufTO4tusW7M53d8jmIisWA=;
+ b=IvZQZdtndduAd0PzmigXCxRMbizg0GV5oP01cE/LzjAHm8DWY4j7+/KT3RSooPSOAorv
+ vEpX+G1W7ATJLf02yU003TZTHVpLfs6/6/h5YFYNxUrIjgvbTyuk7+cZZ6VW0t2TVo19
+ TXCxepc8rhX13pLp3aKaHYPWS7aUWZ2+DAuuMHXLz+sJNiqwnA4FCf0NpIdAWO006o7w
+ POkz/EPimshJteH3+TMoerGwjTwDFwVI5dTpH/rscLL1KPYBg5FIHKyHGXHQDiCAfbIT
+ bMNHfvB5TNbacRzy3/me1xmh+4hTxvlug+QE0VgwHBlSkyMKbwoHA8mf4wtSUo5ly2YV YQ== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J2NWfRL0USTVixHYA/fEQOZY78iCFuiQixcOOmyVJh0ww4RnLv9xRnxDPNfqE7OsqyecHm+fWIYLCaNmFFdBazaCVjVm3BffNK8ErXBLPH6jNziHY2RzRJ7jzHkLBIu8OXi2xaJKuWPS6NoEFQvqwqmf6JhVKocAjlGQOv8m5s9b0WEU0rbkOq2m2CNr7fNCVQGi6j3LuLKzHFtGW6IaTWLS+cIydJRjuJhC+4oG2beMy0zgQjjX/gVGBwmN3hwwKmDL0TgrI7vTXjeM8Tf/rVlqnkOA1LT3kDL5G48As+6rhNkVrrSoNh0WYSOtvDC/HGVjTlb5yx1gUj+/9m8SbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j35yrGam9kFx0sdQF8/EFufTO4tusW7M53d8jmIisWA=;
+ b=SWX9Haufz8o42/kM9W4PGjnYNufnak0BD56hRM1D0WxnhzxuvHtF5DjZyaatNxHFotiwjtLlfIJy4n0N/DbZoGDeKZXdV14WMse0YvJKy61dK+ZAtcW6+KlbS+DDzaIBiD0XxRZWEdpTaeQxVGqdkUNifvwzCMymQPu3pwZ9ruJl981Wi38pB66GVKVqnxeKbt0g66/bUjx732tSLlXpOjZq4bK9XisAVJnwTHzL48qIWPNwJPBWnTJnkG/zrTM+zfpVtSIwgvN9iFFsYK8gjrzXSlRChZhaU9UPR9b2hpHNBRrc9yj9xvZTpZAprFadooFKUuAKNcb1yu2FEpyqnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j35yrGam9kFx0sdQF8/EFufTO4tusW7M53d8jmIisWA=;
+ b=cxISBlFtk1zkov5Kpc394gp6/UMtdFX5ThxbohpZs90TyyBdDAs7KVjkfo+zM6CgtEO75YaCVi8ZdluJyDNYATjt9IITJI48tAutnZClSfsoAHpa5zOtNzY+PSHQKuObVBF+TJzav9GC8Q9xC26+g38g+DWC/+dGBUXWGywZMnM=
+Authentication-Results: lists.xenproject.org; dkim=none (message not signed)
+ header.d=none;lists.xenproject.org; dmarc=none action=none
+ header.from=oracle.com;
+From: Dongli Zhang <dongli.zhang@oracle.com>
+To: xen-devel@lists.xenproject.org, netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, boris.ostrovsky@oracle.com, jgross@suse.com,
+        sstabellini@kernel.org, davem@davemloft.net, kuba@kernel.org,
+        joe.jin@oracle.com
+Subject: [PATCH 1/1] xen/netfront: stop tx queues during live migration
+Date: Fri, 22 Oct 2021 16:31:39 -0700
+Message-Id: <20211022233139.31775-1-dongli.zhang@oracle.com>
+X-Mailer: git-send-email 2.17.1
+Content-Type: text/plain
+X-ClientProxiedBy: SN7PR04CA0018.namprd04.prod.outlook.com
+ (2603:10b6:806:f2::23) To BYAPR10MB2663.namprd10.prod.outlook.com
+ (2603:10b6:a02:a9::20)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1151137835-1634943592=:2311"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 26c685e7-ce8c-48bd-553b-08d995b457ac
+X-MS-TrafficTypeDiagnostic: BYAPR10MB3158:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: 
+	<BYAPR10MB3158FEB990C5AA31E1B89540F0809@BYAPR10MB3158.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	4SisDvnLwwL6WhZhfOzYy6kd2uL6PaEyKZpAmHDad1oe27IyTbSr3N4trrhYSBDFrE5b7J8cpkdxTwEbdGmg9Jb/RbZ6TtCHo6PiSbu0rkYJGX8mpW3q+Azf1JOlXC15T3PRpEP67+XY7vpmYWSp2IuHzjeLhgjRV6oEjF6k/C1TtiB1hyB5fe7j7aI8AoMs1D2BkDxYGUBH6PEDrGhYSl4vbSsWt/Tkr8er7E1GREhWalVjyRit3/6ulu6xp/u1Xku0EhiUm4HybUcbZUGeFudKbIkfGxDkPnraCcXCKbLQKeEYvfcG5UXET8/0NFhMkICKMMyfRSEINdSpQAYa8xy9ZRhFddunP0Al3+jLCZtZMk5o5VTaRfDVeuwQnJpuls/i8DbUqagsxRfOMiTV0BQvH46tNHrCta84PtuRPKSY+LYyZGWf/gNx2Bs2jjflbg2+hL73aF0DGCqV2TuGmUiE0Zm+l8cWm8R2zxb2VaY+s++OM7f8DnQNiOWDoy+zeyfH7EDPtKG+blWsmHAtYI3cvTQ8CuUzCoMoMUHd/Xl+Ww/bDFpVXVUihBtK2o0GQJ0HzzAoL1PzDon0NTfVR2RSOOtfxDr47foPycD4GVBkZNN2R6zevBKeTKlTkGEnb4fR/yFJphqB92/PI1dyMtKHKovRFxBaMXU9IzW0RxAbmOCMm6rMKHr4YfrtizN7dPK/CnHhVgg1tnsPASA410Qg0ByFGv6UdS95bj40tFrKJX2SMpbdGLlU8saioTaRHLF5mpAdq7a0ocF2B+DMTQ==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB2663.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(4326008)(107886003)(26005)(966005)(66556008)(6506007)(44832011)(36756003)(8936002)(38100700002)(2616005)(66476007)(83380400001)(38350700002)(6512007)(186003)(508600001)(52116002)(6666004)(86362001)(956004)(66946007)(2906002)(316002)(1076003)(5660300002)(6486002)(8676002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?us-ascii?Q?RNzASlzS9QYPAEjSzfC8dNBEI+ugMly4DYOrrlhsh5yDDoFMpamlVZc1MrPR?=
+ =?us-ascii?Q?tUSVWOWD8JsyRg/Tb/cjNd+nviFFqcJk/d4qOfTbWgFDyH0WrhHJtCWmalt+?=
+ =?us-ascii?Q?Uts0afnIy+F1jKNkOYWCgVaSduZhCq0zDIGGsaR/wB2IXmFmSWIs/rFttUo6?=
+ =?us-ascii?Q?LuJXOylpSjO4051m2wTiWl6R3ylO8u4AZFMsDdnqZYQGmmuuwgQ0yeNKgQD5?=
+ =?us-ascii?Q?JeiXpZGO0CHYWEqziPiF+XB912lf6vjB/zx2MLMGhJ4T66IVY3evgSTRZI9A?=
+ =?us-ascii?Q?FGSnADFn7tS/ydC6cyi4VRubyFnfteOSspZdxsPpNQGVJu2tid7dNPen2+ln?=
+ =?us-ascii?Q?36MHdfhR52S+MVHuspw1qeZRMfLdLbr/tM6CW1qJ/Xn2kZ/ns/uGOxM7U+jA?=
+ =?us-ascii?Q?7dwJe2Z1IvzqLfo+q+sWCD0YfLjJqoKL3KhmHM035/VIRws7mc6Y3RFfbMf/?=
+ =?us-ascii?Q?dULBm3OA/EpzdU0xw7eyB7VlB/owJ+aczqWyViVwnAN21p2RFNcoQwW0GxhQ?=
+ =?us-ascii?Q?T061o5Ws4JmDI3CjVERwIe6gobsL9uHEs0H2/TSsXGbxT3XDc0UCj+CDnEdX?=
+ =?us-ascii?Q?jhoHcTdo01b7kAt9n2wWM1KgKnqtuOPW237V4fibIv24vZNKRzcWXsb5WOS6?=
+ =?us-ascii?Q?/AZnojeovAIBG+ueZb+x6TPVap4ADoCwEbsAcedymIbolSyZoWShHtXcPi0Y?=
+ =?us-ascii?Q?GhSqaM7biitwGqfEz68f98nIgEEIMkOmNZ2ckciRrbvhqo05wezpjMy3ncIT?=
+ =?us-ascii?Q?RtzC9WzVatm0YzOl6LxM+N32e0bjZUUrBlgxkJNoNjXpbW56IeYv0jrHi4G8?=
+ =?us-ascii?Q?2P7H2aCDAjhfjiSlFd2YtMhGt5euiI6AlOAJu38Bc4HcwVfj7QWNVuHp9ds0?=
+ =?us-ascii?Q?tvvDEtHTEC2CXaiv37ibRYtbhMfLodh7ekfGrI9uOFSsvfH6+7nBK0k3uziS?=
+ =?us-ascii?Q?5s1R6yfIX+hTm72xsWobcgfHYIzkC9xfXaTgpTOxGap2HQdSP9JykvoTBYqS?=
+ =?us-ascii?Q?lQeQgyirsSP+HOz/7E7OvzS7waxquxs+yPt1wJ1fxnB5OjZraaQgFLHzzro/?=
+ =?us-ascii?Q?VvgeE/dAyCJMWn0d0Y/ieXhRqJCqkvD1VMU3X1k7NbIYVYWeQdaKUIBOAUib?=
+ =?us-ascii?Q?7GHwydIYYBbT3TlYrprg9XS7q4BLrLkMU/NFMaW0qPJ+8zJxJZ218WQzw33L?=
+ =?us-ascii?Q?BSPiIYbp13sUTUB0OMkTA5GLA08YM+Ytsr/LgvHMA0ZXk1oo/WSlARs9KPIH?=
+ =?us-ascii?Q?CVeOnPG6lves749b0xdp8wUhWOfkcd9YdCjmNvGhCdBKnZ6VBtvy1m2u7Emg?=
+ =?us-ascii?Q?hi0M1MamwMePKArMtDXA4XPt?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26c685e7-ce8c-48bd-553b-08d995b457ac
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB2663.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2021 23:33:25.1067
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: dongli.zhang@oracle.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB3158
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10145 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 mlxscore=0 adultscore=0
+ spamscore=0 phishscore=0 bulkscore=0 suspectscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109230001
+ definitions=main-2110220132
+X-Proofpoint-GUID: mMPJ3xou-9Kck0JlV0Jax1ILnkTbs8nf
+X-Proofpoint-ORIG-GUID: mMPJ3xou-9Kck0JlV0Jax1ILnkTbs8nf
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+The tx queues are not stopped during the live migration. As a result, the
+ndo_start_xmit() may access netfront_info->queues which is freed by
+talk_to_netback()->xennet_destroy_queues().
 
---8323329-1151137835-1634943592=:2311
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+This patch is to netif_device_detach() at the beginning of xen-netfront
+resuming, and netif_device_attach() at the end of resuming.
 
-Clarify that xen-devel is the only official communication channel.
+     CPU A                                CPU B
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+ talk_to_netback()
+ -> if (info->queues)
+        xennet_destroy_queues(info);
+    to free netfront_info->queues
 
-diff --git a/source/communication-practice.rst b/source/communication-practice.rst
-index 70f5b8c..356df7a 100644
---- a/source/communication-practice.rst
-+++ b/source/communication-practice.rst
-@@ -9,6 +9,22 @@ This guide provides communication Best Practice that helps you in
- * Being aware of your own and counterpart’s communication style and culture
- * Show empathy towards other community members
+                                        xennet_start_xmit()
+                                        to access netfront_info->queues
+
+  -> err = xennet_create_queues(info, &num_queues);
+
+The idea is borrowed from virtio-net.
+
+Cc: Joe Jin <joe.jin@oracle.com>
+Signed-off-by: Dongli Zhang <dongli.zhang@oracle.com>
+---
+Since I am not able to reproduce the corner case on purpose, I create a
+patch to reproduce.
+https://raw.githubusercontent.com/finallyjustice/patchset/master/xen-netfront-send-GARP-during-live-migration.patch
+
+ drivers/net/xen-netfront.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/net/xen-netfront.c b/drivers/net/xen-netfront.c
+index e31b98403f31..fc41ba95f81d 100644
+--- a/drivers/net/xen-netfront.c
++++ b/drivers/net/xen-netfront.c
+@@ -1730,6 +1730,10 @@ static int netfront_resume(struct xenbus_device *dev)
  
-+Communication Channels
-+======================
-+
-+All important communications and messages should be sent to the
-+`xen-devel <10_>`_ mailing list, which is the only official channel for
-+code submissions, acks, code reviews, and decision-making.
-+
-+In the modern connected world there are several other communication
-+channels available at any given time, including online meetings and IRC.
-+Xen Project has an IRC channel named #xendevel on the OFTC network where
-+some of the regular contributors and maintainers can be found. However,
-+discussions on media other than the xen-devel mailing list should be
-+summarized and sent to xen-devel to reach a wider audience, for
-+record-keeping, and to make code submissions, acks, and code reviews
-+official.
-+
- Code reviews for **reviewers** and **patch authors**
- ====================================================
+ 	dev_dbg(&dev->dev, "%s\n", dev->nodename);
  
-@@ -576,3 +592,4 @@ how to avoid and resolve issues.
- .. _6: https://xenproject.org/help/irc/
- .. _8: https://en.wikipedia.org/wiki/Erin_Meyer
- .. _9: https://www.nsf.gov/attachments/134059/public/15LFW_WorkingWithMulticulturalTeams_LarsonC.pdf
-+.. _10: https://lists.xenproject.org/mailman/listinfo/xen-devel
---8323329-1151137835-1634943592=:2311--
++	netif_tx_lock_bh(info->netdev);
++	netif_device_detach(info->netdev);
++	netif_tx_unlock_bh(info->netdev);
++
+ 	xennet_disconnect_backend(info);
+ 	return 0;
+ }
+@@ -2349,6 +2353,10 @@ static int xennet_connect(struct net_device *dev)
+ 	 * domain a kick because we've probably just requeued some
+ 	 * packets.
+ 	 */
++	netif_tx_lock_bh(np->netdev);
++	netif_device_attach(np->netdev);
++	netif_tx_unlock_bh(np->netdev);
++
+ 	netif_carrier_on(np->netdev);
+ 	for (j = 0; j < num_queues; ++j) {
+ 		queue = &np->queues[j];
+-- 
+2.17.1
+
 
