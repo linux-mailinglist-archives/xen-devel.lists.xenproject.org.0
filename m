@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3A42437AB4
+	by mail.lfdr.de (Postfix) with ESMTPS id A7DA5437AB2
 	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 18:14:26 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.215161.374177 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.215162.374184 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdxBG-0007O4-Mt; Fri, 22 Oct 2021 16:14:06 +0000
+	id 1mdxBH-0007Tr-3A; Fri, 22 Oct 2021 16:14:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 215161.374177; Fri, 22 Oct 2021 16:14:06 +0000
+Received: by outflank-mailman (output) from mailman id 215162.374184; Fri, 22 Oct 2021 16:14:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mdxBG-0007MG-J5; Fri, 22 Oct 2021 16:14:06 +0000
-Received: by outflank-mailman (input) for mailman id 215161;
+	id 1mdxBG-0007O0-S6; Fri, 22 Oct 2021 16:14:06 +0000
+Received: by outflank-mailman (input) for mailman id 215162;
  Fri, 22 Oct 2021 16:14:04 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mdxBE-0007Lg-Fl
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mdxBE-0007Ll-J7
  for xen-devel@lists.xenproject.org; Fri, 22 Oct 2021 16:14:04 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mdxBE-0008IX-DA
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mdxBE-0008Ib-IR
  for xen-devel@lists.xenproject.org; Fri, 22 Oct 2021 16:14:04 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mdxBE-0005pI-By
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mdxBE-0005pZ-HJ
  for xen-devel@lists.xenproject.org; Fri, 22 Oct 2021 16:14:04 +0000
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by mariner.uk.xensource.com with esmtp (Exim 4.89)
  (envelope-from <ijackson@chiark.greenend.org.uk>)
- id 1mdxBB-00021I-JM; Fri, 22 Oct 2021 17:14:01 +0100
+ id 1mdxBB-00021I-TW; Fri, 22 Oct 2021 17:14:02 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,99 +44,69 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From;
-	bh=MpBM4NNo27O2JFBnUtVOspBYEzKTZIT0qgH+kItMoMo=; b=eT3AP6DivVo5De7p3T7Lkq/2+X
-	qd/FfqnGtckDzYL9qUZ2BkB3GJURJcwudRZCS236XaLjz0f30iKysR2vfaU7DdXI0oV0irJOE9yYF
-	O4NIiJuyQ50maGZ1PbvA3Rj+BcqXhOeucKYAs8MjcfCEhszLCkmVyqP9lXaPMZGbUH74=;
+	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
+	bh=7IUjLruFSXIBQC2SZQbBsA+xVWNefGvveU/I4eJ4VMw=; b=n3T7JFz5UR+KrQAIkiy8yxlqdX
+	CdoatbDWJY6mp0Fj8Bd6cLd1nWGBB0nFHWqaaqvHeXapL8e6FxotpHX+C7qAnuYdUCbpQRjkhOLb6
+	UtASnRkwfdhtgIkfHJJx2V4S4kMA6LLk+Pu/W+Nmur8YGZEKU2wdVz0WXfyHtbMLcuR8=;
 From: Ian Jackson <iwj@xenproject.org>
 To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>
-Subject: [OSSTEST PATCH 0/5] Only run ts-memdisk-try-append on BIOS hosts
-Date: Fri, 22 Oct 2021 17:13:46 +0100
-Message-Id: <20211022161351.23091-1-iwj@xenproject.org>
+Cc: Ian Jackson <iwj@xenproject.org>
+Subject: [OSSTEST PATCH 1/5] make-flight: do_examine_one: add firmware argument
+Date: Fri, 22 Oct 2021 17:13:47 +0100
+Message-Id: <20211022161351.23091-2-iwj@xenproject.org>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20211022161351.23091-1-iwj@xenproject.org>
+References: <20211022161351.23091-1-iwj@xenproject.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There is an infelicity in handling of FreeBSD's "memdisk" test.
+Nothing sets this yet.
 
-The use of this step is as part of host examination.  There, it may
-fail on hosts which cannot cope with the FreeBSD version in use.  That
-is OK (from a general osstest/CI POV) because each host has its own
-job name and therefore its own regression tracking.  So this test
-failing on those hosts is not troublesome.
+No functional change (checked with standalone-generate-dump-flight-runvars)
 
-But as part of the tests for osstest itself, and Xen and Linux, we
-also check that host examination still works.  This is appropriate
-because host examination also checks that we can retrieve accurate
-serial logs, etc.
+Signed-off-by: Ian Jackson <iwj@xenproject.org>
+---
+ make-flight | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-To this end many general flights have test-*-examine jobs.
-
-Like any job, these are peripatetic.  The x86 ones might run on BIOS
-hosts, or UEFI hosts.  But our support for FreeBSD does not cope with
-UEFI yet.  The result is that whether this test passes or fails
-depends on the host, but this is not a heisenbug which should be fixed
-right away.
-
-Sort this out as follows:
-
-* Have the examine test only run the FreeBSD step when the host
-  firmware is BIOS.  On non-FreeBSD hosts the test step will go from
-  "fail" to "skip", which is appropriate.
-
-* To make sure we catch actual regressions in this step, make a copy
-  of the examine job which is always run on a BIOS host.
-
-* While we are here, explicitly check that the examine job works on
-  x86 UEFI too.
-
-
-4.16 release implications:
-
-There are two sets of changes here:
-
-I. flight composition:
-
-The runvar dump shows that this only adds new jobs.  I think these new
-tests are good, but of course they might be broken somehow.  If they
-are broken, they are new jobs which won't count as regressions, and if
-they flap we can force push while we disable them again.
-
-II. behavioural change to ts-memdisk-try-append
-
-This change is *intended* to make the test "skip" in cases where it is
-currently "fail".  I have done an ad-hoc check that this seems to DTRT
-but it might be bad somehow.
-
-However, this test is currently actually-failing on the xen-unstable
-branch.  And it could be force pushed if necessary.
-
-III. Benefits
-
-The benefit of all this is to improve the testing for 4.16.  In
-particular, the examine test ought now to run properly, and no longer
-cause blockages.
-
-I think at this stage of the release this change to osstest ought to
-have a release-ack but I think I have convinced myself it's OK, so:
-Release-Acked-By: Ian Jackson <iwj@xenproject.org>
-
-
-Ian Jackson (5):
-  make-flight: do_examine_one: add firmware argument
-  ts-memdisk-try-append: Reindent (nfc)
-  ts-memdisk-try-append: Enable perl warnings
-  ts-memdisk-try-append: More defensive case test
-  examination: skip memdisk on non-BIOS hosts, run on some BIOS hosts
-
- make-flight           | 23 ++++++++++++++++++++--
- mfi-common            |  1 +
- ts-memdisk-try-append | 45 +++++++++++++++++++++++++++++--------------
- 3 files changed, 53 insertions(+), 16 deletions(-)
-
+diff --git a/make-flight b/make-flight
+index ecbb195bc..acb19b113 100755
+--- a/make-flight
++++ b/make-flight
+@@ -687,20 +687,31 @@ do_pv_debian_tests () {
+ }
+ 
+ do_examine_one () {
++  local firmware="$1"
++
+   case "$branch" in
+     xen-unstable)		;; # only likely to regress on -unstable
+     osstest)			;; # very likely to regress
+     linux-*)			;; # often seems to regress
+     *)			return	;; # stuff used for guests is irrelevant
+   esac
++
++  local firmware_suffix
++  local firmware_hostflag
++  if [ "$firmware" ]; then
++    firmware_suffix=-$firmware
++    firmware_hostflag=,PropEq:Firmware:bios:$firmware
++  fi
++
+   local freebsd_runvars
+   # set_freebsd_runvars expects $arch to be set to the desired FreeBSD arch.
+   local arch=$dom0arch
+   # Pass true to not append any hostflags when creating the FreeBSD runvars.
+   set_freebsd_runvars true
+-  job_create_test test-$xenarch$kern-$dom0arch-examine \
++  job_create_test test-$xenarch$kern-$dom0arch-examine${firmware_suffix} \
+                   host-examine-xen xl $xenarch $dom0arch \
+-                  all_hostflags=$most_hostflags $freebsd_runvars
++                  all_hostflags=$most_hostflags$firmware_hostflag \
++                  $freebsd_runvars
+ }
+ 
+ test_matrix_do_one () {
 -- 
 2.20.1
 
