@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24AD14375AF
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 12:48:31 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.214953.373879 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A48934375F8
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 13:27:14 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.215012.373928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mds5z-0007as-Ht; Fri, 22 Oct 2021 10:48:19 +0000
+	id 1mdsge-00065h-Pl; Fri, 22 Oct 2021 11:26:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 214953.373879; Fri, 22 Oct 2021 10:48:19 +0000
+Received: by outflank-mailman (output) from mailman id 215012.373928; Fri, 22 Oct 2021 11:26:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mds5z-0007WM-C8; Fri, 22 Oct 2021 10:48:19 +0000
-Received: by outflank-mailman (input) for mailman id 214953;
- Fri, 22 Oct 2021 10:48:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mdsge-00063s-M8; Fri, 22 Oct 2021 11:26:12 +0000
+Received: by outflank-mailman (input) for mailman id 215012;
+ Fri, 22 Oct 2021 11:26:11 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=h+2b=PK=citrix.com=lin.liu@srs-us1.protection.inumbo.net>)
- id 1mds5x-00063s-JL
- for xen-devel@lists.xenproject.org; Fri, 22 Oct 2021 10:48:17 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 893393e9-3325-11ec-83b2-12813bfff9fa;
- Fri, 22 Oct 2021 10:48:07 +0000 (UTC)
+ <SRS0=OBiv=PK=citrix.com=Andrew.Cooper3@srs-us1.protection.inumbo.net>)
+ id 1mdsgd-00063m-Sg
+ for xen-devel@lists.xenproject.org; Fri, 22 Oct 2021 11:26:11 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b4ebca68-5d81-4002-8bbf-538943c4274f;
+ Fri, 22 Oct 2021 11:26:09 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,649 +35,406 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 893393e9-3325-11ec-83b2-12813bfff9fa
+X-Inumbo-ID: b4ebca68-5d81-4002-8bbf-538943c4274f
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1634899687;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=1OHvsWzP7gE68vduDcWmR3YdlGbvcStDaG0K0LsI1tc=;
-  b=GYz/yfZWbhjSvCAnUx9E97WF0o+SmPpCEHxK8NkA1mAEag1aNGSwEQT+
-   ri9lkLmfYEmqLVCZjh/i0046DGexy34UQJBcZdLyE7RHMa8txMb9OMqtW
-   rddAzo3u+oDwAKxCIKmsMNnY34xoaRaTLzrVsu5AcGwBpcM+UTLJNV1Bi
-   g=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: R21dHoDic8am31wi4NNutW4/f5v3voGJG2274lGVy8ycKKjz2xsmBV2dRbZ31drFKBDzkZOBef
- wCXCjGnVOVR3t9FQVsel/0Ef5cGwaBu/jNpJfs5czAYtzBJjEbBFKkC52xqQLXkYjzlM0IlR42
- OA+zU9T3O97ZY1Gn1K/R04MikW+aEyH1W2N51b0R8PgNpH8aH+YLVVXCzyovSo5yJ+ENvcaxL0
- Jm0S3l4LUT3KoghrX/nLs9E7r262w12h+1L7lBT+cKbLwcJMb/60L2EnUYLm0sOA/I3mT06F+d
- LNwyKb9pJIETzQMyRzLwGsfS
+  d=citrix.com; s=securemail; t=1634901969;
+  h=subject:to:cc:references:from:message-id:date:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=AAfPA40WOWEyya45gGTieJLd1u4lWcvP3ksEUlvRzfs=;
+  b=a2QzHudWGKGjq+ha1Kz8Mx9B4eZWcv8uYodAaOgggrxv5loxX1vwMafz
+   gV7EyDgDfjvYsTF/QoC71c/HLmRtSUMdTK0F3IHabp9bvv2vLYA1FE8Ks
+   Hq7OuXbQCcti3zbbDuTkbjhIRaFHJWfv9xCSHoFJLe75Qrkp1gDM+MaU/
+   4=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: DW9A3j3vcSOHlS8ptH3kp97QhuS52lX3yuuxgzsXRm4/HtnBEv7g3AtG/oLmENFIBhw9QM04pQ
+ ymT9PRXb/SVrMiGRoDUJhHjiuwcb4RKNLDEPl1hz0Os+E8YhW3gxhPG30WoWJxDp3pF7wxJcQp
+ Gr8FKW51SC8mcNRvYejvQ+1Z/u1faKT9q6O1cUAPEFVKCdi9Z1GdjLI4CVhcle0xC3ZlKP5/84
+ qM1vfjGFW44gc9WD1/3W8UdWdCgrZ1voPIxcwyLtztrOJvF1F9KZ9glZcaqouQvZr5dB2SBzry
+ yZzDGhyAvJQHW0mcCJNT+oFo
 X-SBRS: 5.1
-X-MesageID: 55376145
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 57735148
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:m+n9pamtyPKDorFQ/6E8V3Po5gwZIURdPkR7XQ2eYbSJt1+Wr1Gzt
- xIZDGmAaKvbamGkKtAjb9/iox9Qv8ODzYAxSgU9rC09FCMWpZLJC+rCIxarNUt+DCFioGGLT
+IronPort-Data: A9a23:0l0I7Klc4lvZhidZVkN/C1/o5gwbIURdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIaWGqEbvqKMWL1L9gkbty38RkHscfWn9BnSwBqpH9hRCMWpZLJC+rCIxarNUt+DCFioGGLT
  Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA187IMsdoUg7wbdg2tQy2YLR7z6l4
  rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
  s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
- JZvrLq/WxszB4vvg/kdCRkHIQAhOoQTrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
- 6ZecmpUKEne2aTmm9pXScE17ignBM3qOsUbu2xIxjDFF/c2B5vERs0m4PcFgWxv2JkSQJ4yY
- eIXcSBKRw3lPSRfFWhOJqsZsOG2q0jgJmgwRFW9+vNsvjm7IBZK+LrnPcfRe9eKbd5IhUver
- WXDl0z7HxUbOdq32TeDtHW2iYfngifTSI8UUrqi+ZZCgUKR7nweDgUMUlm2quX/jVSxM/pPJ
- kpR9icwoKwa8E2wUsK7TxC+uGSDvBMXR5xXCeJSwBqW1qPe7gKdB24FZj1MctorsIkxXzNC/
- mGOm9TlFDl+qoq/QHiW9qqXhT6qMC1TJmgHDRLoViNcvYOl+ttqyEuSEJAzS8ZZk+EZBxmz4
- SmsozoinYw1rtUW1/+7omLm3DWF882hohEO2i3bWWes7wVcbYGjZpC15VWz0cusPLp1XXHa4
- yBaw5n2APQmSMjXznTUEbpl8KSBvq7daFXhbUhT847NHthH00WoepxM+3lALUNtP9dsldTBM
- RKL5105CHO+OhKXgU5Lj2CZV5tCIUvIT42NuhXogjxmOMQZmOivp3kGWKJo9zqx+HXAaIlmU
- XthTe6iDGwBFYNsxyesSuEW3NcDn35lmTOPHM+rl0/6gNJygUJ5r59fbDNiichitMu5TPj9q
- Y4DZ6NmNT0POAEBXsUn2dFKdg1bRZTKLZv3t9ZWZoa+zvlOQwkc5wvq6ep5IeRNxv0N/s+Rp
- y3VchIImTLX2CycQS3XOy8LVV8adcsmxZ7NFXd3ZgjANrlKSdvH0ZrzgLNuLOB5rrQ6kKYoJ
- xTHEu3Zaslypv3802x1RfHAQEZKLnxHXCqCYHioZiYRZZllS1Cb89PoZFK3piIPEjC2pY01p
- Lj5jlHXRp8KRgJDCsfKaa3wkwPt7CZFwO8iDVHVJtRzeVn39NQ4ISLGkfJqcdoHLg/Ox2XG2
- l/OUwsYv+TEv6Q87MLN2fKft46sHuYnRhhaEmDX4KyYLy7f+mb/k4ZMXPzRJWLWVX/u+bXkb
- uJQlqmuPPoClVdMkox9D7c0kv5uu4qx/+dXl102Em/KYlKnDqJbDkOHhcQf5LdQwrJ5uBetX
- h7d8NdtJrjUatjuF0QcJVR5Y73bh+0UgDTb8d88PF7+uH1s5LOCXEhfY0uMhShaIOcnOY8p2
- 7586ssf6gj5gRs2KNeWyCtT8j3UfHAHVqwmsLAcAZPq1VV3mg0TP8SEB3+k+oyLZvVNLlIuc
- 22di6f1jrhBwlbPLigoHn/X0OsB3ZkDtXimFrPZy4hlTjYdusIK4Q==
-IronPort-HdrOrdr: A9a23:gQTE5qxa3hXD79FMeZPpKrPwFL1zdoMgy1knxilNoRw8SKKlfq
- eV7Y0mPH7P+VAssR4b+exoVJPtfZqYz+8R3WBzB8bEYOCFghrKEGgK1+KLqFeMJ8S9zJ846U
- 4JSdkHNDSaNzlHZKjBjzVQa+xQouW6zA==
+ ItdsZbsezwkAoP3t8gTYiZ5CAp5NrITrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
+ 6ZecmpUKEne2aTmm9pXScE17ignBODtMJkSpTdLyjbBAOx9aZvCX7/L9ZlT2zJYasVmQKmBP
+ JdANWoHgBLoRRFOO0k0B4MFvOaYuUnkS2129WLPqv9ii4TU5FMoi+W8WDbPQfSIT8hImkeTp
+ krd4n/0RBodMbS3yCWH2mKhgPfVmiH2U55UE6e3ntZ6jVvWymENBRk+UVqgveL/mkO4Q8hYK
+ UEf5mwpt6da3FOvZsnwWVu/unHslgUHR9NaHuk+6QeM4qnZ+QCUAi4DVDEpQN47sM47QxQ62
+ 1nPmMnmbQGDq5XMFyjbrO3N62rvZ25FdgfueBPoUyNb893p/LMIgy7hdflPHp+Kr8beHjrvl
+ mXiQDcFu50fissC1qOe9F/Bgi6xqpWhcjPZ9jk7TUr+sVsnPN/Ni5iArAGBt64Zfdnxokyp5
+ SBcw6CjAPYy4YZhfcBnaN4GG621/L67OTnYjE8H83IJpmn1pSDLkWy95lhDyKZV3iQsJWCBj
+ Kz741o5CHpv0J2CN/Mfj2WZUJxC8EQYPY65Ps04l/IXCnSLSCeJ/Tt1eWmb1H33nU4nnMkXY
+ MnALZbwVClKUf86nVJaotvxN5dxmkjSIkuIHfjGI+mPi+LCNBZ5t59VWLdxUgzJxPzd+1iEm
+ zquH8CL1w9eQIXDjtr/quYuwaQxBSFjX/je8pUPHsbae1YOMDxxWpf5nOJ6E6Q4zvs9qws91
+ izkMqOu4AGk3iOvxMTjQi0LVY4Dqr4m/CtlZ3R1YA70s5XhCK72hJoim1IMVeBP3MRozOJuT
+ ulDfMOFA/9VTS/A9ShbZp74xLGOvjzy7e5XFyb6MjU5YbB6QAnFpo3tcgf1rXFcBSurr8ou5
+ ban01qDE5YEQg1jCufQae6ukAzt7SRMxroqUhuaOMRXdWXt7JNud377gMgoLpxeMh7E3Dabi
+ VqbWE9KuenXroYp29DVnqTY/ZyxGu5zExMCTWnW5Lq7LwfA+W+nzdMSWeqEZ2mFBmj15L+jd
+ aNeyPSlaK8Lm1NDsoxdFbd3zP1hu4uz9uEClgk9RSfFdVWmDL9kM0Kq58gXu/0f3KJdtCu3R
+ lmLpotQN4KWNZ63C1UWPgckMLiOjKlGhjnI4P0pC0zm/ysrrqGfWEBfMhTQ2ixQKLx5bNEsz
+ es74ZNE7gW+jlwhM8qcjzAS/GOJdyRSX6Iiv5AcIYnqlgt0lQ0SPc2CUnf7sMOVdtFBEkg2O
+ TvF1qPNioNVylfGb3duR2PG2vBQhMhWtR1HpLPYy49lRjYRaicL4SBs
+IronPort-HdrOrdr: A9a23:B+dYxaMTcWctBcBcT1H155DYdb4zR+YMi2TDiHofdfUFSKClfp
+ 6V8cjztSWUtN4QMEtQ/exoS5PwPk80kqQFnbX5XI3SITUO3VHHEGgM1/qb/9SNIVyZygcZ79
+ YbT0EcMqyBMbEZt7eC3ODQKb9Jq7PmgcPY9ts2jU0dKj2CA5sQnjuRYTzrcHGeKjM2YKbRWK
+ Dsnfau8FGbCAoqh4mAdzQ4dtmGg+eOuIPtYBYACRJiwA6SjQmw4Lq/NxSDxB8RXx5G3L9nqA
+ H+4kPEz5Tml8v+5g7X1mfV4ZgTsNz9yuFbDMjJrsQOMD3jhiuheYwkcbyfuzIepv2p9T8R4Z
+ XxiiZlG/42x2Laf2mzrxeo8w780Aw243un8lOciWuLm72weBsKT+56wa5JeBrQ7EQt+Ptm1r
+ hQ4m6fv51LSTvdgSXU/bHzJlFXv3vxhUBnvf8YjnRZX4dbQqRWt5Yj8ERcF4pFND7m6bogDP
+ JlAKjnlbdrmGuhHjLkV1RUsZmRtixZJGbDfqFCgL3a79FupgE786NCr/Zv2Uvp9/oGOtB5Dq
+ r/Q+JVfYp1P7orhJRGdZE8qPuMex7wqC33QRavyHTcZeo60iH22tTKCItc3pDcRHVP9upqpK
+ j8
 X-IronPort-AV: E=Sophos;i="5.87,172,1631592000"; 
-   d="scan'208";a="55376145"
-From: Lin Liu <lin.liu@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Lin Liu <lin.liu@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 7/7] byteorder: Remove byteorder
-Date: Fri, 22 Oct 2021 10:47:28 +0000
-Message-ID: <e0ffd4c6db4dc1f1e0a7ef7dd6d02c49f944353c.1634897942.git.lin.liu@citrix.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <cover.1634897942.git.lin.liu@citrix.com>
+   d="scan'208";a="57735148"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SFFGfUzVVNhSplFmtHsomSoR6yiOSCDinn5mZ6n2uBQWFIADi3WsioMp7ZD3Dnc7PxuUogrZfC8JZ2X7tmr9MGNaH7wVUENZNlbxPg/4BEHANB+zSJj55gMoZzg/JRkwpRVrSZ9E/5FqmcW0F3Jc4e5ltyQA+PXBNwJen3byEprpt9a2ZKj5sL60BLSRJLbJ0gQVGz8UXauosGhKXteAnauWZQcaJo97ZGwr/XGq5bYsb8R+kziPfJHLZFXPKQvXLBBmSJ6t+tDbt/s30G7GHWZ2AMGTliMQZhj4CVeZbGdOWy9/1ipLid/Li9xEhYOwduHRb+nG5mhcmmXL3L6n9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jtw8hog5odKGwwLZXc8eLTsw5rnuoGxyp3I0UIwMhwI=;
+ b=fGzSham7QhFjuFmijHKzC8slVckMTIGMRqLskjQgTL2FUm0mkTiasrtohPsUIikIE1yEKEl1o84EnxaUO+jK7kijgtXSAbD/b17CAoirTN23ft9Nq+5qs1fcLnLzLNlKkGS/9PGXZiPAxgBZj2PK9Qh8lXQysgYQk8GnvqJnfjO+XH6cOFjaYjXR5iBaNkAlFTyYmOYKeEIK6Xm/fMLikYTYoY6/rkywtJgd5s6KjmwCEkbbxaINZ72hpa2HrU217EHNz7QAN1GynheHbdPUoqE1ISbb4kBNcZ/k1d5P/pDDO+D/RL0Kdyiopf71ztq85LnrdnW9MP7DuJUutu8Wuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jtw8hog5odKGwwLZXc8eLTsw5rnuoGxyp3I0UIwMhwI=;
+ b=Z9wz6lLgLlAhQ1xBNf5zm7Nnxe7xUmI3TPIDlFjO/kItfAsDy4eLlp1fDsSl5saZCaspF3tOhTGJ+zJdg6eUjACDOzqq85yQ1TiVU5MOtGT7PdM5ZTJYqWfv3ZD9XNOrSo31Qy9mgzUWYjMaeh3O9xHMRV8CJTP9DT/lzu6w/tI=
+Subject: Re: [PATCH v2 6/7] xen: Switch to byteswap.h
+To: Lin Liu <lin.liu@citrix.com>, <xen-devel@lists.xenproject.org>
+CC: George Dunlap <george.dunlap@citrix.com>, Ian Jackson
+	<iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <cover.1634897942.git.lin.liu@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ <f5a79881bfdcef06aa950632250f551e0ec26458.1634897942.git.lin.liu@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <12550694-d66d-0555-d6c9-840d68219350@citrix.com>
+Date: Fri, 22 Oct 2021 12:25:52 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+In-Reply-To: <f5a79881bfdcef06aa950632250f551e0ec26458.1634897942.git.lin.liu@citrix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: LO2P265CA0363.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a3::15) To BYAPR03MB3623.namprd03.prod.outlook.com
+ (2603:10b6:a02:aa::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 379dc05e-5981-4272-5ea9-08d9954eb87a
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB5934:
+X-Microsoft-Antispam-PRVS: <SJ0PR03MB5934049574927B27486810FABA809@SJ0PR03MB5934.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: HaZrzofHXnNwkM0ga9fmixc/8WfKxi7PsGqofKIkn7tmbzZZ6gWPDQTdwX4fvw6pf3Es1ylg2J8ClEPeRHF/+iA1CbRd6KtuikBlbQZLqmyrJel8iCQHHNDlTJLPuwbpj2ggT7TtULPVXhrT8tkW5Z6QL37FmYpt+6OJLm7uLd3b9UE8pkAVfEIdnUKmaIL7o15XilohrGHjcOxCIqW+OWBaIg1tVYFCKghOzLdz97ZB/kCVZPqa9fPVFe98nPXAclDSkcym9EQVVptKTnA1BzHdyRAwhTvVgPNlo9cFxL9oFmLXpWDh7VwSJ3BEYx85zGuBJz+VOU/Izl3XzpD8P8rCk6QIelXUMmtBpxMiHQyuRQvXBGUojSSWpSllOExC1O5PVy5EmQrHvXmYDJYiQOpLkFlFsbbhnXBa17GAk0aXATPnct/sPFW9uTHt7+UMXrB1WjkN7+EilmGLWib2E5PMtqiYTEdqoUmyPMWqYuri17VIEqoiSbTK00iWUPfoeamZz2PAQ8Ra5jA6gjCLKM9cGtoXkvTaORxuITNDgVgG0CFhLuxR1jN9guMb5dwz6TjfJ4zfp1Hl5YUY9cIFf41WY2zZCJPu/l38d6AIJG6dbmfiRyvAy5cVuP5Syu+FkjvZ5jpmTt1QnCTl/aq5ZrXR3GvxIXEp0mC0DgpAj6yVDXw0FUgztiVQdIFd2BVDXhL+roB7LCYbSqtJbapiBQCVRFcvjY2JagOyaPFoEQ2HUmniiz8k2HCkh5G438sa
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(38100700002)(8936002)(8676002)(66476007)(6666004)(5660300002)(508600001)(4326008)(54906003)(66556008)(316002)(16576012)(31686004)(66946007)(107886003)(36756003)(86362001)(83380400001)(2616005)(6486002)(26005)(956004)(186003)(31696002)(2906002)(53546011)(82960400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RWtaWU5NQnV4cGlUeEgzMTVEcDJ6SW55Szl3QThnTnUwQzNLeTFWNnd6QkJK?=
+ =?utf-8?B?bUh5YlkxSWJ3NzdKQ2NyY0R4dkN3bEF1SHM4WFRlcVo0VDJTWnhMbi9sSUd3?=
+ =?utf-8?B?bUI4Q3lRM0xac3VJcmpLemxDT3FhWG9IcWgxS3ZycW82Y3JsdmEvbHR2M2xU?=
+ =?utf-8?B?SXFZdTNRRHk2aXI5OTBHZ0RzSk1TSThOT3ZVRzBJOFpRWFUwT1hYSncrL0gz?=
+ =?utf-8?B?eXVkVWNJSUZxeVRnakFseEY0R2dNQmJIMG5iZXR2b1JYRG5IRTFpbUh0dkE4?=
+ =?utf-8?B?WUlpb3dXZGxoWDJPZ2w1TllrZm1BN0JBczl3MFJ0YjBWUVNmYmVxTnRZc1VV?=
+ =?utf-8?B?QXdwdDJxNW9YTlFaRy90eW9tL0JaVkxuUlFiaWtxMzh2QVg1V3FsWmoxT3dS?=
+ =?utf-8?B?Q05MQmhTejNKRExSVFo4c2NMUHZaT3dzOGp6TzFzQ2I1eUZJOE1SajNrdmZI?=
+ =?utf-8?B?dEIyZkdUL3NETm8wWWRsQzd1OXVXS3ZPdWxSc3pRdnBUVVFjT2t5WldFcTZN?=
+ =?utf-8?B?SlhXbXdXdVgvMU1taHhwRkcxYXFOcmtLenVLYkJ3ZjVJM0JFOVQrNlBYS2tr?=
+ =?utf-8?B?NGNPSEtZb2JTZUZDSUR6UlJNaG8xdDNqclNWZ0Urd0djSWFCdHpnRVB5bDBP?=
+ =?utf-8?B?U3lKa0JDcE11WDNoZ2Roa3lLWXZWMUV5dmRYUEZaZS9tSDY4MDFvdlFVamNl?=
+ =?utf-8?B?Si9QZXlhbWJUc2tDS0Y5YlRFM05TcHZ3akg3a2VOM0VXRCtVbExuRFFsL2Nx?=
+ =?utf-8?B?cUQ2YTk2TU1QOVpWQkNrNjV2b2xCc3NleDdCb2o5MmxOaC9MSTRFaENOSGIy?=
+ =?utf-8?B?bURBbzU5b3JkVkVJQkhmNEc4b1NSemdtcWRXRFU5SU40SnZuenkvL2h1dEdh?=
+ =?utf-8?B?S3hvdUNtZENSNmNlTXZSRUFvd3QxMSs4dklTY0tWR0FLYjk0dy9yUWJrSU1N?=
+ =?utf-8?B?Zk5ubG5WbjdDMXZ2KzUzMUNyUExhYnowdnJUUGlRNC9zT3NoNHBoWkljSWtx?=
+ =?utf-8?B?MUsrWlBRV2ZwbGN4Ym9lbzVGUkROcFZraTU4dFAyMDZJZk5yV05UVGFTQ3lK?=
+ =?utf-8?B?dkwwQUhuWjJMQXpoZGFIOXJPQWVNOVh3TWllUG5zZnBEb3V1c2RwblRQUEZq?=
+ =?utf-8?B?NldzM0ZCSW9zUmxucTk2aDMxRnVUNWNMSDUra0NKcW43amJrcitOK09QNGdX?=
+ =?utf-8?B?cFNoTzZNVFh4Qzcya25Tb3NZSDVpNGVrNlRuK085bDBOU2Fqb0RJbG5YbE5j?=
+ =?utf-8?B?R0lQaGVQcVB4UXlwaUxFS0ZjNWt5ZlMreVlPYXFYNGNzWGszZ3d1cWd2Z3pu?=
+ =?utf-8?B?bk44S0JqYit3N1Y0UTk1am56YklpU210Q0dYOW9lSm8wK3gyT0VLanNmYmdF?=
+ =?utf-8?B?RlRBSkYwcUZNY0lYOFVmaVVwK2IzaFFEaUhhSTR6UDgrQms5SEwxR25kK0tz?=
+ =?utf-8?B?NDE1WXpaMTgxNlVmR2hoL0ZHSVhtQkUzdlBFYUVnR0wwSlF0K1V4anpVNDVO?=
+ =?utf-8?B?Zi9pOWQvc3lCWEVIRXFMSU16NENKbGFjR0VYNFVIcXlDU1p3SGJaSjJJcERX?=
+ =?utf-8?B?TWw3RHZtTHZOdXNnazd1NjdRUEtZQUQ2bSs0eFJxcXBHVFVXZi8rR0NyT0NN?=
+ =?utf-8?B?c2ZYTTJpYWgrS0t4aFJ4L3h5RHBuU3BhQ21DMlJQSXV4dXJUTGtlY1Ywdnoz?=
+ =?utf-8?B?UzJzTzVQclhpSXVlUUlqeTNINHZGWVZhZjIwY09EcU5Qdm9WN2p3eUQwelpm?=
+ =?utf-8?B?aFBWVTNDKy96d0dwLzVZNFdKWVZ5VGZBdnhSSndGMENORjNGTHdrZ29qTGxr?=
+ =?utf-8?B?QzlCRHgwRTc5WjVhWXpRemtnbG5RTGxGdEk5YVdmK3NYSHpIVWZvSUp5SGhs?=
+ =?utf-8?B?U0J2YUo1MDBPSklnZ1VSa21jWTFRUHVGQWlob0h1TmtucnVLTnppWWRHWHdG?=
+ =?utf-8?Q?0MOqk9QK6NC6RJ5c2brciyjsgAn3CHlJ?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 379dc05e-5981-4272-5ea9-08d9954eb87a
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2021 11:25:58.6170
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: andrew.cooper3@citrix.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB5934
+X-OriginatorOrg: citrix.com
 
-include/xen/byteswap.h has simplify the interface, just clean
-the old interface
+On 22/10/2021 11:47, Lin Liu wrote:
+> Update to use byteswap.h to swap bytes.
+>
+> No functional chagne.
+>
+> Signed-off-by: Lin Liu <lin.liu@citrix.com>
+> ---
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: George Dunlap <george.dunlap@citrix.com>
+> Cc: Ian Jackson <iwj@xenproject.org>
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Julien Grall <julien@xen.org>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Wei Liu <wl@xen.org>
+> Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+> ---
+>  xen/common/bitmap.c                |  2 +-
+>  xen/common/gdbstub.c               |  2 +-
+>  xen/common/libelf/libelf-private.h |  8 ++++----
+>  xen/common/lz4/defs.h              |  2 +-
+>  xen/common/lzo.c                   |  2 +-
+>  xen/common/unlzo.c                 |  2 +-
+>  xen/common/xz/private.h            |  4 ++--
+>  xen/drivers/char/ehci-dbgp.c       |  2 +-
+>  xen/include/asm-x86/msi.h          |  2 +-
+>  xen/include/xen/bitmap.h           |  2 +-
+>  xen/include/xen/device_tree.h      |  2 +-
+>  xen/include/xen/unaligned.h        | 14 +++++++-------
+>  xen/lib/divmod.c                   |  2 +-
+>  13 files changed, 23 insertions(+), 23 deletions(-)
+>
+> diff --git a/xen/common/bitmap.c b/xen/common/bitmap.c
+> index 7d4551f782..be274ca04a 100644
+> --- a/xen/common/bitmap.c
+> +++ b/xen/common/bitmap.c
+> @@ -9,10 +9,10 @@
+>  #include <xen/errno.h>
+>  #include <xen/bitmap.h>
+>  #include <xen/bitops.h>
+> +#include <xen/byteswap.h>
+>  #include <xen/cpumask.h>
+>  #include <xen/guest_access.h>
+>  #include <xen/lib.h>
+> -#include <asm/byteorder.h>
+>  
+>  /*
+>   * bitmaps provide an array of bits, implemented using an an
+> diff --git a/xen/common/gdbstub.c b/xen/common/gdbstub.c
+> index 848c1f4327..3c8ed52d6b 100644
+> --- a/xen/common/gdbstub.c
+> +++ b/xen/common/gdbstub.c
+> @@ -33,6 +33,7 @@
+>  /* Resuming after we've stopped used to work, but more through luck
+>     than any actual intention.  It doesn't at the moment. */
+>  
+> +#include <xen/byteswap.h>
+>  #include <xen/lib.h>
+>  #include <xen/spinlock.h>
+>  #include <xen/serial.h>
+> @@ -45,7 +46,6 @@
+>  #include <xen/console.h>
+>  #include <xen/errno.h>
+>  #include <xen/delay.h>
+> -#include <asm/byteorder.h>
+>  
+>  /* Printk isn't particularly safe just after we've trapped to the
+>     debugger. so avoid it. */
+> diff --git a/xen/common/libelf/libelf-private.h b/xen/common/libelf/libelf-private.h
+> index 47db679966..b7089cb31b 100644
+> --- a/xen/common/libelf/libelf-private.h
+> +++ b/xen/common/libelf/libelf-private.h
+> @@ -17,10 +17,10 @@
+>  
+>  #ifdef __XEN__
+>  
+> +#include <xen/byteswap.h>
+>  #include <xen/lib.h>
+>  #include <xen/libelf.h>
+>  #include <xen/softirq.h>
+> -#include <asm/byteorder.h>
+>  #include <public/elfnote.h>
+>  
+>  /* we would like to use elf->log_callback but we can't because
+> @@ -31,9 +31,9 @@
+>     printk(fmt, ## args )
+>  
+>  #define strtoull(str, end, base) simple_strtoull(str, end, base)
+> -#define bswap_16(x) swab16(x)
+> -#define bswap_32(x) swab32(x)
+> -#define bswap_64(x) swab64(x)
+> +#define bswap_16(x) bswap16(x)
+> +#define bswap_32(x) bswap32(x)
+> +#define bswap_64(x) bswap64(x)
+>  
+>  #else /* !__XEN__ */
+>  
+> diff --git a/xen/common/lz4/defs.h b/xen/common/lz4/defs.h
+> index 10609f5a53..1ce4476478 100644
+> --- a/xen/common/lz4/defs.h
+> +++ b/xen/common/lz4/defs.h
+> @@ -9,7 +9,7 @@
+>   */
+>  
+>  #ifdef __XEN__
+> -#include <asm/byteorder.h>
+> +#include <xen/byteswap.h>
+>  #include <asm/unaligned.h>
+>  #else
+>  
+> diff --git a/xen/common/lzo.c b/xen/common/lzo.c
+> index a87c76dded..17be9675f4 100644
+> --- a/xen/common/lzo.c
+> +++ b/xen/common/lzo.c
+> @@ -96,7 +96,7 @@
+>  
+>  #ifdef __XEN__
+>  #include <xen/lib.h>
+> -#include <asm/byteorder.h>
+> +#include <xen/byteswap.h>
+>  #include <asm/unaligned.h>
+>  #else
+>  #define get_unaligned_le16(_p) (*(u16 *)(_p))
+> diff --git a/xen/common/unlzo.c b/xen/common/unlzo.c
+> index 74056778eb..f908d2a61f 100644
+> --- a/xen/common/unlzo.c
+> +++ b/xen/common/unlzo.c
+> @@ -33,7 +33,7 @@
+>  #include <xen/lzo.h>
+>  
+>  #ifdef __XEN__
+> -#include <asm/byteorder.h>
+> +#include <xen/byteswap.h>
+>  #include <asm/unaligned.h>
+>  #else
+>  
+> diff --git a/xen/common/xz/private.h b/xen/common/xz/private.h
+> index 511343fcc2..647f9699a7 100644
+> --- a/xen/common/xz/private.h
+> +++ b/xen/common/xz/private.h
+> @@ -12,7 +12,7 @@
+>  
+>  #ifdef __XEN__
+>  #include <xen/kernel.h>
+> -#include <asm/byteorder.h>
+> +#include <xen/byteswap.h>
+>  #include <asm/unaligned.h>
+>  #else
+>  
+> @@ -28,7 +28,7 @@ static inline void put_unaligned_le32(u32 val, void *p)
+>  
+>  #endif
+>  
+> -#define get_le32(p) le32_to_cpup((const uint32_t *)(p))
+> +#define get_le32(p) le32_to_cpu(*(const uint32_t *)(p))
+>  
+>  #define false 0
+>  #define true 1
+> diff --git a/xen/drivers/char/ehci-dbgp.c b/xen/drivers/char/ehci-dbgp.c
+> index c893d246de..8412da1b11 100644
+> --- a/xen/drivers/char/ehci-dbgp.c
+> +++ b/xen/drivers/char/ehci-dbgp.c
+> @@ -5,13 +5,13 @@
+>   * Linux; see the Linux source for authorship and copyrights.
+>   */
+>  
+> +#include <xen/byteswap.h>
+>  #include <xen/console.h>
+>  #include <xen/delay.h>
+>  #include <xen/errno.h>
+>  #include <xen/param.h>
+>  #include <xen/pci.h>
+>  #include <xen/serial.h>
+> -#include <asm/byteorder.h>
+>  #include <asm/io.h>
+>  #include <asm/fixmap.h>
+>  #include <public/physdev.h>
+> diff --git a/xen/include/asm-x86/msi.h b/xen/include/asm-x86/msi.h
+> index e228b0f3f3..277375183c 100644
+> --- a/xen/include/asm-x86/msi.h
+> +++ b/xen/include/asm-x86/msi.h
+> @@ -1,9 +1,9 @@
+>  #ifndef __ASM_MSI_H
+>  #define __ASM_MSI_H
+>  
+> +#include <xen/byteswap.h>
+>  #include <xen/cpumask.h>
+>  #include <xen/pci.h>
+> -#include <asm/byteorder.h>
+>  #include <asm/hvm/vmx/vmcs.h>
+>  
+>  /*
+> diff --git a/xen/include/xen/bitmap.h b/xen/include/xen/bitmap.h
+> index e9175ab54a..c44a1cb63c 100644
+> --- a/xen/include/xen/bitmap.h
+> +++ b/xen/include/xen/bitmap.h
+> @@ -229,7 +229,7 @@ static inline int bitmap_weight(const unsigned long *src, int nbits)
+>  	return __bitmap_weight(src, nbits);
+>  }
+>  
+> -#include <asm/byteorder.h>
+> +#include <xen/byteswap.h>
+>  
+>  #ifdef __LITTLE_ENDIAN
+>  #define BITMAP_MEM_ALIGNMENT 8
+> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
+> index fd6cd00b43..4921e6b142 100644
+> --- a/xen/include/xen/device_tree.h
+> +++ b/xen/include/xen/device_tree.h
+> @@ -10,10 +10,10 @@
+>  #ifndef __XEN_DEVICE_TREE_H__
+>  #define __XEN_DEVICE_TREE_H__
+>  
+> -#include <asm/byteorder.h>
+>  #include <asm/device.h>
+>  #include <public/xen.h>
+>  #include <public/device_tree_defs.h>
+> +#include <xen/byteswap.h>
+>  #include <xen/kernel.h>
+>  #include <xen/string.h>
+>  #include <xen/types.h>
+> diff --git a/xen/include/xen/unaligned.h b/xen/include/xen/unaligned.h
+> index 0a2b16d05d..8a9ec8a0ac 100644
+> --- a/xen/include/xen/unaligned.h
+> +++ b/xen/include/xen/unaligned.h
+> @@ -11,8 +11,8 @@
+>  #define __XEN_UNALIGNED_H__
+>  
+>  #ifdef __XEN__
+> +#include <xen/byteswap.h>
+>  #include <xen/types.h>
+> -#include <asm/byteorder.h>
+>  #endif
+>  
+>  #define get_unaligned(p) (*(p))
+> @@ -20,7 +20,7 @@
+>  
+>  static inline uint16_t get_unaligned_be16(const void *p)
+>  {
+> -	return be16_to_cpup(p);
+> +	return be16_to_cpu(*(uint16_t*)p);
 
-No functional change
+Hmm - this missed one of my pieces of internal feedback.
 
-Signed-off-by: Lin Liu <lin.liu@citrix.com>
----
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien@xen.org>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>
-Cc: Ian Jackson <iwj@xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>
-Cc: "Roger Pau Monné" <roger.pau@citrix.com>
----
- xen/include/asm-arm/byteorder.h           |  16 --
- xen/include/asm-x86/byteorder.h           |  36 -----
- xen/include/xen/byteorder/big_endian.h    | 102 ------------
- xen/include/xen/byteorder/generic.h       |  68 --------
- xen/include/xen/byteorder/little_endian.h | 102 ------------
- xen/include/xen/byteorder/swab.h          | 183 ----------------------
- 6 files changed, 507 deletions(-)
- delete mode 100644 xen/include/asm-arm/byteorder.h
- delete mode 100644 xen/include/asm-x86/byteorder.h
- delete mode 100644 xen/include/xen/byteorder/big_endian.h
- delete mode 100644 xen/include/xen/byteorder/generic.h
- delete mode 100644 xen/include/xen/byteorder/little_endian.h
- delete mode 100644 xen/include/xen/byteorder/swab.h
+*(const uint16_t *)p
 
-diff --git a/xen/include/asm-arm/byteorder.h b/xen/include/asm-arm/byteorder.h
-deleted file mode 100644
-index 9c712c4788..0000000000
---- a/xen/include/asm-arm/byteorder.h
-+++ /dev/null
-@@ -1,16 +0,0 @@
--#ifndef __ASM_ARM_BYTEORDER_H__
--#define __ASM_ARM_BYTEORDER_H__
--
--#define __BYTEORDER_HAS_U64__
--
--#include <xen/byteorder/little_endian.h>
--
--#endif /* __ASM_ARM_BYTEORDER_H__ */
--/*
-- * Local variables:
-- * mode: C
-- * c-file-style: "BSD"
-- * c-basic-offset: 4
-- * indent-tabs-mode: nil
-- * End:
-- */
-diff --git a/xen/include/asm-x86/byteorder.h b/xen/include/asm-x86/byteorder.h
-deleted file mode 100644
-index 1f77e502a5..0000000000
---- a/xen/include/asm-x86/byteorder.h
-+++ /dev/null
-@@ -1,36 +0,0 @@
--#ifndef __ASM_X86_BYTEORDER_H__
--#define __ASM_X86_BYTEORDER_H__
--
--#include <asm/types.h>
--#include <xen/compiler.h>
--
--static inline __attribute_const__ __u32 ___arch__swab32(__u32 x)
--{
--    asm("bswap %0" : "=r" (x) : "0" (x));
--    return x;
--}
--
--static inline __attribute_const__ __u64 ___arch__swab64(__u64 val)
--{ 
--    union { 
--        struct { __u32 a,b; } s;
--        __u64 u;
--    } v;
--    v.u = val;
--    asm("bswapl %0 ; bswapl %1 ; xchgl %0,%1" 
--        : "=r" (v.s.a), "=r" (v.s.b) 
--        : "0" (v.s.a), "1" (v.s.b)); 
--    return v.u;
--} 
--
--/* Do not define swab16.  Gcc is smart enough to recognize "C" version and
--   convert it into rotation or exhange.  */
--
--#define __arch__swab64(x) ___arch__swab64(x)
--#define __arch__swab32(x) ___arch__swab32(x)
--
--#define __BYTEORDER_HAS_U64__
--
--#include <xen/byteorder/little_endian.h>
--
--#endif /* __ASM_X86_BYTEORDER_H__ */
-diff --git a/xen/include/xen/byteorder/big_endian.h b/xen/include/xen/byteorder/big_endian.h
-deleted file mode 100644
-index 40eb80a390..0000000000
---- a/xen/include/xen/byteorder/big_endian.h
-+++ /dev/null
-@@ -1,102 +0,0 @@
--#ifndef __XEN_BYTEORDER_BIG_ENDIAN_H__
--#define __XEN_BYTEORDER_BIG_ENDIAN_H__
--
--#ifndef __BIG_ENDIAN
--#define __BIG_ENDIAN 4321
--#endif
--#ifndef __BIG_ENDIAN_BITFIELD
--#define __BIG_ENDIAN_BITFIELD
--#endif
--
--#include <xen/types.h>
--#include <xen/byteorder/swab.h>
--
--#define __constant_cpu_to_le64(x) ((__force __le64)___constant_swab64((x)))
--#define __constant_le64_to_cpu(x) ___constant_swab64((__force __u64)(__le64)(x))
--#define __constant_cpu_to_le32(x) ((__force __le32)___constant_swab32((x)))
--#define __constant_le32_to_cpu(x) ___constant_swab32((__force __u32)(__le32)(x))
--#define __constant_cpu_to_le16(x) ((__force __le16)___constant_swab16((x)))
--#define __constant_le16_to_cpu(x) ___constant_swab16((__force __u16)(__le16)(x))
--#define __constant_cpu_to_be64(x) ((__force __be64)(__u64)(x))
--#define __constant_be64_to_cpu(x) ((__force __u64)(__be64)(x))
--#define __constant_cpu_to_be32(x) ((__force __be32)(__u32)(x))
--#define __constant_be32_to_cpu(x) ((__force __u32)(__be32)(x))
--#define __constant_cpu_to_be16(x) ((__force __be16)(__u16)(x))
--#define __constant_be16_to_cpu(x) ((__force __u16)(__be16)(x))
--#define __cpu_to_le64(x) ((__force __le64)__swab64((x)))
--#define __le64_to_cpu(x) __swab64((__force __u64)(__le64)(x))
--#define __cpu_to_le32(x) ((__force __le32)__swab32((x)))
--#define __le32_to_cpu(x) __swab32((__force __u32)(__le32)(x))
--#define __cpu_to_le16(x) ((__force __le16)__swab16((x)))
--#define __le16_to_cpu(x) __swab16((__force __u16)(__le16)(x))
--#define __cpu_to_be64(x) ((__force __be64)(__u64)(x))
--#define __be64_to_cpu(x) ((__force __u64)(__be64)(x))
--#define __cpu_to_be32(x) ((__force __be32)(__u32)(x))
--#define __be32_to_cpu(x) ((__force __u32)(__be32)(x))
--#define __cpu_to_be16(x) ((__force __be16)(__u16)(x))
--#define __be16_to_cpu(x) ((__force __u16)(__be16)(x))
--
--static inline __le64 __cpu_to_le64p(const __u64 *p)
--{
--    return (__force __le64)__swab64p(p);
--}
--static inline __u64 __le64_to_cpup(const __le64 *p)
--{
--    return __swab64p((__u64 *)p);
--}
--static inline __le32 __cpu_to_le32p(const __u32 *p)
--{
--    return (__force __le32)__swab32p(p);
--}
--static inline __u32 __le32_to_cpup(const __le32 *p)
--{
--    return __swab32p((__u32 *)p);
--}
--static inline __le16 __cpu_to_le16p(const __u16 *p)
--{
--    return (__force __le16)__swab16p(p);
--}
--static inline __u16 __le16_to_cpup(const __le16 *p)
--{
--    return __swab16p((__u16 *)p);
--}
--static inline __be64 __cpu_to_be64p(const __u64 *p)
--{
--    return (__force __be64)*p;
--}
--static inline __u64 __be64_to_cpup(const __be64 *p)
--{
--    return (__force __u64)*p;
--}
--static inline __be32 __cpu_to_be32p(const __u32 *p)
--{
--    return (__force __be32)*p;
--}
--static inline __u32 __be32_to_cpup(const __be32 *p)
--{
--    return (__force __u32)*p;
--}
--static inline __be16 __cpu_to_be16p(const __u16 *p)
--{
--    return (__force __be16)*p;
--}
--static inline __u16 __be16_to_cpup(const __be16 *p)
--{
--    return (__force __u16)*p;
--}
--#define __cpu_to_le64s(x) __swab64s((x))
--#define __le64_to_cpus(x) __swab64s((x))
--#define __cpu_to_le32s(x) __swab32s((x))
--#define __le32_to_cpus(x) __swab32s((x))
--#define __cpu_to_le16s(x) __swab16s((x))
--#define __le16_to_cpus(x) __swab16s((x))
--#define __cpu_to_be64s(x) do {} while (0)
--#define __be64_to_cpus(x) do {} while (0)
--#define __cpu_to_be32s(x) do {} while (0)
--#define __be32_to_cpus(x) do {} while (0)
--#define __cpu_to_be16s(x) do {} while (0)
--#define __be16_to_cpus(x) do {} while (0)
--
--#include <xen/byteorder/generic.h>
--
--#endif /* __XEN_BYTEORDER_BIG_ENDIAN_H__ */
-diff --git a/xen/include/xen/byteorder/generic.h b/xen/include/xen/byteorder/generic.h
-deleted file mode 100644
-index 8a0006b755..0000000000
---- a/xen/include/xen/byteorder/generic.h
-+++ /dev/null
-@@ -1,68 +0,0 @@
--#ifndef __XEN_BYTEORDER_GENERIC_H__
--#define __XEN_BYTEORDER_GENERIC_H__
--
--/*
-- * Generic Byte-reordering support
-- *
-- * The "... p" macros, like le64_to_cpup, can be used with pointers
-- * to unaligned data, but there will be a performance penalty on 
-- * some architectures.  Use get_unaligned for unaligned data.
-- *
-- * The following macros are to be defined by <asm/byteorder.h>:
-- *
-- * Conversion of XX-bit integers (16- 32- or 64-)
-- * between native CPU format and little/big endian format
-- * 64-bit stuff only defined for proper architectures
-- *     cpu_to_[bl]eXX(__uXX x)
-- *     [bl]eXX_to_cpu(__uXX x)
-- *
-- * The same, but takes a pointer to the value to convert
-- *     cpu_to_[bl]eXXp(__uXX x)
-- *     [bl]eXX_to_cpup(__uXX x)
-- *
-- * The same, but change in situ
-- *     cpu_to_[bl]eXXs(__uXX x)
-- *     [bl]eXX_to_cpus(__uXX x)
-- *
-- * See asm-foo/byteorder.h for examples of how to provide
-- * architecture-optimized versions
-- */
--
--#define cpu_to_le64 __cpu_to_le64
--#define le64_to_cpu __le64_to_cpu
--#define cpu_to_le32 __cpu_to_le32
--#define le32_to_cpu __le32_to_cpu
--#define cpu_to_le16 __cpu_to_le16
--#define le16_to_cpu __le16_to_cpu
--#define cpu_to_be64 __cpu_to_be64
--#define be64_to_cpu __be64_to_cpu
--#define cpu_to_be32 __cpu_to_be32
--#define be32_to_cpu __be32_to_cpu
--#define cpu_to_be16 __cpu_to_be16
--#define be16_to_cpu __be16_to_cpu
--#define cpu_to_le64p __cpu_to_le64p
--#define le64_to_cpup __le64_to_cpup
--#define cpu_to_le32p __cpu_to_le32p
--#define le32_to_cpup __le32_to_cpup
--#define cpu_to_le16p __cpu_to_le16p
--#define le16_to_cpup __le16_to_cpup
--#define cpu_to_be64p __cpu_to_be64p
--#define be64_to_cpup __be64_to_cpup
--#define cpu_to_be32p __cpu_to_be32p
--#define be32_to_cpup __be32_to_cpup
--#define cpu_to_be16p __cpu_to_be16p
--#define be16_to_cpup __be16_to_cpup
--#define cpu_to_le64s __cpu_to_le64s
--#define le64_to_cpus __le64_to_cpus
--#define cpu_to_le32s __cpu_to_le32s
--#define le32_to_cpus __le32_to_cpus
--#define cpu_to_le16s __cpu_to_le16s
--#define le16_to_cpus __le16_to_cpus
--#define cpu_to_be64s __cpu_to_be64s
--#define be64_to_cpus __be64_to_cpus
--#define cpu_to_be32s __cpu_to_be32s
--#define be32_to_cpus __be32_to_cpus
--#define cpu_to_be16s __cpu_to_be16s
--#define be16_to_cpus __be16_to_cpus
--
--#endif /* __XEN_BYTEORDER_GENERIC_H__ */
-diff --git a/xen/include/xen/byteorder/little_endian.h b/xen/include/xen/byteorder/little_endian.h
-deleted file mode 100644
-index 4955632793..0000000000
---- a/xen/include/xen/byteorder/little_endian.h
-+++ /dev/null
-@@ -1,102 +0,0 @@
--#ifndef __XEN_BYTEORDER_LITTLE_ENDIAN_H__
--#define __XEN_BYTEORDER_LITTLE_ENDIAN_H__
--
--#ifndef __LITTLE_ENDIAN
--#define __LITTLE_ENDIAN 1234
--#endif
--#ifndef __LITTLE_ENDIAN_BITFIELD
--#define __LITTLE_ENDIAN_BITFIELD
--#endif
--
--#include <xen/types.h>
--#include <xen/byteorder/swab.h>
--
--#define __constant_cpu_to_le64(x) ((__force __le64)(__u64)(x))
--#define __constant_le64_to_cpu(x) ((__force __u64)(__le64)(x))
--#define __constant_cpu_to_le32(x) ((__force __le32)(__u32)(x))
--#define __constant_le32_to_cpu(x) ((__force __u32)(__le32)(x))
--#define __constant_cpu_to_le16(x) ((__force __le16)(__u16)(x))
--#define __constant_le16_to_cpu(x) ((__force __u16)(__le16)(x))
--#define __constant_cpu_to_be64(x) ((__force __be64)___constant_swab64((x)))
--#define __constant_be64_to_cpu(x) ___constant_swab64((__force __u64)(__be64)(x))
--#define __constant_cpu_to_be32(x) ((__force __be32)___constant_swab32((x)))
--#define __constant_be32_to_cpu(x) ___constant_swab32((__force __u32)(__be32)(x))
--#define __constant_cpu_to_be16(x) ((__force __be16)___constant_swab16((x)))
--#define __constant_be16_to_cpu(x) ___constant_swab16((__force __u16)(__be16)(x))
--#define __cpu_to_le64(x) ((__force __le64)(__u64)(x))
--#define __le64_to_cpu(x) ((__force __u64)(__le64)(x))
--#define __cpu_to_le32(x) ((__force __le32)(__u32)(x))
--#define __le32_to_cpu(x) ((__force __u32)(__le32)(x))
--#define __cpu_to_le16(x) ((__force __le16)(__u16)(x))
--#define __le16_to_cpu(x) ((__force __u16)(__le16)(x))
--#define __cpu_to_be64(x) ((__force __be64)__swab64((x)))
--#define __be64_to_cpu(x) __swab64((__force __u64)(__be64)(x))
--#define __cpu_to_be32(x) ((__force __be32)__swab32((x)))
--#define __be32_to_cpu(x) __swab32((__force __u32)(__be32)(x))
--#define __cpu_to_be16(x) ((__force __be16)__swab16((x)))
--#define __be16_to_cpu(x) __swab16((__force __u16)(__be16)(x))
--
--static inline __le64 __cpu_to_le64p(const __u64 *p)
--{
--    return (__force __le64)*p;
--}
--static inline __u64 __le64_to_cpup(const __le64 *p)
--{
--    return (__force __u64)*p;
--}
--static inline __le32 __cpu_to_le32p(const __u32 *p)
--{
--    return (__force __le32)*p;
--}
--static inline __u32 __le32_to_cpup(const __le32 *p)
--{
--    return (__force __u32)*p;
--}
--static inline __le16 __cpu_to_le16p(const __u16 *p)
--{
--    return (__force __le16)*p;
--}
--static inline __u16 __le16_to_cpup(const __le16 *p)
--{
--    return (__force __u16)*p;
--}
--static inline __be64 __cpu_to_be64p(const __u64 *p)
--{
--    return (__force __be64)__swab64p(p);
--}
--static inline __u64 __be64_to_cpup(const __be64 *p)
--{
--    return __swab64p((__u64 *)p);
--}
--static inline __be32 __cpu_to_be32p(const __u32 *p)
--{
--    return (__force __be32)__swab32p(p);
--}
--static inline __u32 __be32_to_cpup(const __be32 *p)
--{
--    return __swab32p((__u32 *)p);
--}
--static inline __be16 __cpu_to_be16p(const __u16 *p)
--{
--    return (__force __be16)__swab16p(p);
--}
--static inline __u16 __be16_to_cpup(const __be16 *p)
--{
--    return __swab16p((__u16 *)p);
--}
--#define __cpu_to_le64s(x) do {} while (0)
--#define __le64_to_cpus(x) do {} while (0)
--#define __cpu_to_le32s(x) do {} while (0)
--#define __le32_to_cpus(x) do {} while (0)
--#define __cpu_to_le16s(x) do {} while (0)
--#define __le16_to_cpus(x) do {} while (0)
--#define __cpu_to_be64s(x) __swab64s((x))
--#define __be64_to_cpus(x) __swab64s((x))
--#define __cpu_to_be32s(x) __swab32s((x))
--#define __be32_to_cpus(x) __swab32s((x))
--#define __cpu_to_be16s(x) __swab16s((x))
--#define __be16_to_cpus(x) __swab16s((x))
--
--#include <xen/byteorder/generic.h>
--
--#endif /* __XEN_BYTEORDER_LITTLE_ENDIAN_H__ */
-diff --git a/xen/include/xen/byteorder/swab.h b/xen/include/xen/byteorder/swab.h
-deleted file mode 100644
-index b7e30f0503..0000000000
---- a/xen/include/xen/byteorder/swab.h
-+++ /dev/null
-@@ -1,183 +0,0 @@
--#ifndef __XEN_BYTEORDER_SWAB_H__
--#define __XEN_BYTEORDER_SWAB_H__
--
--/*
-- * Byte-swapping, independently from CPU endianness
-- *     swabXX[ps]?(foo)
-- *
-- * Francois-Rene Rideau <fare@tunes.org> 19971205
-- *    separated swab functions from cpu_to_XX,
-- *    to clean up support for bizarre-endian architectures.
-- */
--
--/* casts are necessary for constants, because we never know how for sure
-- * how U/UL/ULL map to __u16, __u32, __u64. At least not in a portable way.
-- */
--#define ___swab16(x)                                    \
--({                                                      \
--    __u16 __x = (x);                                    \
--    ((__u16)(                                           \
--        (((__u16)(__x) & (__u16)0x00ffU) << 8) |        \
--        (((__u16)(__x) & (__u16)0xff00U) >> 8) ));      \
--})
--
--#define ___swab32(x)                                            \
--({                                                              \
--    __u32 __x = (x);                                            \
--    ((__u32)(                                                   \
--        (((__u32)(__x) & (__u32)0x000000ffUL) << 24) |          \
--        (((__u32)(__x) & (__u32)0x0000ff00UL) <<  8) |          \
--        (((__u32)(__x) & (__u32)0x00ff0000UL) >>  8) |          \
--        (((__u32)(__x) & (__u32)0xff000000UL) >> 24) ));        \
--})
--
--#define ___swab64(x)                                                       \
--({                                                                         \
--    __u64 __x = (x);                                                       \
--    ((__u64)(                                                              \
--        (__u64)(((__u64)(__x) & (__u64)0x00000000000000ffULL) << 56) |     \
--        (__u64)(((__u64)(__x) & (__u64)0x000000000000ff00ULL) << 40) |     \
--        (__u64)(((__u64)(__x) & (__u64)0x0000000000ff0000ULL) << 24) |     \
--        (__u64)(((__u64)(__x) & (__u64)0x00000000ff000000ULL) <<  8) |     \
--            (__u64)(((__u64)(__x) & (__u64)0x000000ff00000000ULL) >>  8) | \
--        (__u64)(((__u64)(__x) & (__u64)0x0000ff0000000000ULL) >> 24) |     \
--        (__u64)(((__u64)(__x) & (__u64)0x00ff000000000000ULL) >> 40) |     \
--        (__u64)(((__u64)(__x) & (__u64)0xff00000000000000ULL) >> 56) ));   \
--})
--
--#define ___constant_swab16(x)                   \
--    ((__u16)(                                   \
--        (((__u16)(x) & (__u16)0x00ffU) << 8) |  \
--        (((__u16)(x) & (__u16)0xff00U) >> 8) ))
--#define ___constant_swab32(x)                           \
--    ((__u32)(                                           \
--        (((__u32)(x) & (__u32)0x000000ffUL) << 24) |    \
--        (((__u32)(x) & (__u32)0x0000ff00UL) <<  8) |    \
--        (((__u32)(x) & (__u32)0x00ff0000UL) >>  8) |    \
--        (((__u32)(x) & (__u32)0xff000000UL) >> 24) ))
--#define ___constant_swab64(x)                                            \
--    ((__u64)(                                                            \
--        (__u64)(((__u64)(x) & (__u64)0x00000000000000ffULL) << 56) |     \
--        (__u64)(((__u64)(x) & (__u64)0x000000000000ff00ULL) << 40) |     \
--        (__u64)(((__u64)(x) & (__u64)0x0000000000ff0000ULL) << 24) |     \
--        (__u64)(((__u64)(x) & (__u64)0x00000000ff000000ULL) <<  8) |     \
--            (__u64)(((__u64)(x) & (__u64)0x000000ff00000000ULL) >>  8) | \
--        (__u64)(((__u64)(x) & (__u64)0x0000ff0000000000ULL) >> 24) |     \
--        (__u64)(((__u64)(x) & (__u64)0x00ff000000000000ULL) >> 40) |     \
--        (__u64)(((__u64)(x) & (__u64)0xff00000000000000ULL) >> 56) ))
--
--/*
-- * provide defaults when no architecture-specific optimization is detected
-- */
--#ifndef __arch__swab16
--#  define __arch__swab16(x) ({ __u16 __tmp = (x) ; ___swab16(__tmp); })
--#endif
--#ifndef __arch__swab32
--#  define __arch__swab32(x) ({ __u32 __tmp = (x) ; ___swab32(__tmp); })
--#endif
--#ifndef __arch__swab64
--#  define __arch__swab64(x) ({ __u64 __tmp = (x) ; ___swab64(__tmp); })
--#endif
--
--#ifndef __arch__swab16p
--#  define __arch__swab16p(x) __arch__swab16(*(x))
--#endif
--#ifndef __arch__swab32p
--#  define __arch__swab32p(x) __arch__swab32(*(x))
--#endif
--#ifndef __arch__swab64p
--#  define __arch__swab64p(x) __arch__swab64(*(x))
--#endif
--
--#ifndef __arch__swab16s
--#  define __arch__swab16s(x) do { *(x) = __arch__swab16p((x)); } while (0)
--#endif
--#ifndef __arch__swab32s
--#  define __arch__swab32s(x) do { *(x) = __arch__swab32p((x)); } while (0)
--#endif
--#ifndef __arch__swab64s
--#  define __arch__swab64s(x) do { *(x) = __arch__swab64p((x)); } while (0)
--#endif
--
--
--/*
-- * Allow constant folding
-- */
--#if defined(__GNUC__) && defined(__OPTIMIZE__)
--#  define __swab16(x) \
--(__builtin_constant_p((__u16)(x)) ? \
-- ___swab16((x)) : \
-- __fswab16((x)))
--#  define __swab32(x) \
--(__builtin_constant_p((__u32)(x)) ? \
-- ___swab32((x)) : \
-- __fswab32((x)))
--#  define __swab64(x) \
--(__builtin_constant_p((__u64)(x)) ? \
-- ___swab64((x)) : \
-- __fswab64((x)))
--#else
--#  define __swab16(x) __fswab16(x)
--#  define __swab32(x) __fswab32(x)
--#  define __swab64(x) __fswab64(x)
--#endif /* OPTIMIZE */
--
--
--static inline __attribute_const__ __u16 __fswab16(__u16 x)
--{
--    return __arch__swab16(x);
--}
--static inline __u16 __swab16p(const __u16 *x)
--{
--    return __arch__swab16p(x);
--}
--static inline void __swab16s(__u16 *addr)
--{
--    __arch__swab16s(addr);
--}
--
--static inline __attribute_const__ __u32 __fswab32(__u32 x)
--{
--    return __arch__swab32(x);
--}
--static inline __u32 __swab32p(const __u32 *x)
--{
--    return __arch__swab32p(x);
--}
--static inline void __swab32s(__u32 *addr)
--{
--    __arch__swab32s(addr);
--}
--
--#ifdef __BYTEORDER_HAS_U64__
--static inline __attribute_const__ __u64 __fswab64(__u64 x)
--{
--#  ifdef __SWAB_64_THRU_32__
--    __u32 h = x >> 32;
--        __u32 l = x & ((1ULL<<32)-1);
--        return (((__u64)__swab32(l)) << 32) | ((__u64)(__swab32(h)));
--#  else
--    return __arch__swab64(x);
--#  endif
--}
--static inline __u64 __swab64p(const __u64 *x)
--{
--    return __arch__swab64p(x);
--}
--static inline void __swab64s(__u64 *addr)
--{
--    __arch__swab64s(addr);
--}
--#endif /* __BYTEORDER_HAS_U64__ */
--
--#define swab16 __swab16
--#define swab32 __swab32
--#define swab64 __swab64
--#define swab16p __swab16p
--#define swab32p __swab32p
--#define swab64p __swab64p
--#define swab16s __swab16s
--#define swab32s __swab32s
--#define swab64s __swab64s
--
--#endif /* __XEN_BYTEORDER_SWAB_H__ */
--- 
-2.27.0
+to get correct style and avoid casting away const.
 
+Also, the put functions what to drop the __force and use typecasting
+like this.
+
+I can fix up on commit if there are no other concerns with the series.
+
+~Andrew
 
