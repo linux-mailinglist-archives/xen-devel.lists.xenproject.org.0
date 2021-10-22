@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F9B34375B1
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 12:48:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.214950.373846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E81D4375AE
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Oct 2021 12:48:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.214951.373852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mds5u-0006fG-Ca; Fri, 22 Oct 2021 10:48:14 +0000
+	id 1mds5u-0006l2-QE; Fri, 22 Oct 2021 10:48:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 214950.373846; Fri, 22 Oct 2021 10:48:14 +0000
+Received: by outflank-mailman (output) from mailman id 214951.373852; Fri, 22 Oct 2021 10:48:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mds5u-0006cp-8j; Fri, 22 Oct 2021 10:48:14 +0000
-Received: by outflank-mailman (input) for mailman id 214950;
- Fri, 22 Oct 2021 10:48:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mds5u-0006f7-IG; Fri, 22 Oct 2021 10:48:14 +0000
+Received: by outflank-mailman (input) for mailman id 214951;
+ Fri, 22 Oct 2021 10:48:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=h+2b=PK=citrix.com=lin.liu@srs-us1.protection.inumbo.net>)
- id 1mds5r-00063m-SC
- for xen-devel@lists.xenproject.org; Fri, 22 Oct 2021 10:48:11 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3dd4d950-1f2d-4743-9f3c-a27dcd40da0c;
- Fri, 22 Oct 2021 10:48:05 +0000 (UTC)
+ id 1mds5s-00063s-J0
+ for xen-devel@lists.xenproject.org; Fri, 22 Oct 2021 10:48:12 +0000
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8aaffa20-3325-11ec-83b2-12813bfff9fa;
+ Fri, 22 Oct 2021 10:48:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,65 +36,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3dd4d950-1f2d-4743-9f3c-a27dcd40da0c
+X-Inumbo-ID: 8aaffa20-3325-11ec-83b2-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1634899685;
+  d=citrix.com; s=securemail; t=1634899687;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=vWYcScFFcIQEVZP3kMCIm4XAsFx3uk4EAC/JiEqA390=;
-  b=QGkYz30joJGyvg1l0BRFy0aI79YAFLix6L+giFTfhjG3RHjt2er4r8lc
-   kMkgOQ/mjO5PxQFvzvXzT9djVIHme611uBuF1XlmWosPJHkXVE/AWaC0E
-   +Ml8ku+hGiI4RdNP4b+XkwhXmKXnAzbK8a6WLBXX7blO6AuLvAGu7Sxe5
-   Q=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: MPfO+Wji9x93Dsji5f9qlta4Pv88cGaAAS+EM5FZXGK2iKhRqVvC1tjrQlIDzCZdwt7rEWuha8
- VLZjVNlhz8R9lxhIlP6hHMcQJWAfBqjVG2H9qc2JXm6WuYzCPXoZ0jBkItPp6PdnRysJNaRXIO
- uY8+KsuQEhQXBzQZESCDFsSqNqoIy/1pRSXZL/wYAba0H/zII1tu7UlSxr8p4sG6I0MOg1dGEK
- DLweIuVPdpwxyXssPDPNpBtpQ/44BpyDpVSMysQjUwytKkZ79TYHXEatLB+dulc5XFifIfMm4M
- 6dfINCFFVd7YQzDPDREwpuse
+  bh=KXdMTUepQc/hWgrrZYpWXrp3b/8Yk5JMcrV/PHsyXk8=;
+  b=CBOnxnnSZHoq9WMG/jcYbwpGgX6tWk25cLlIj3/ck1cM0TGe8RalBcQD
+   39GMHUm9YSp38uOllQXfB5yaFXHtpym8OCCy/KyPzTjuZhFdEpQRh8cGO
+   DUuJDB7y33obkqD5N2xOF20ga0L5js2wSSxFBAomYBDX2qoXkAwFOcc9K
+   A=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 5mV+QcJuMbU1xqtO+XxIArH03DeejP7wBDUKBvGVXkm3MZrcF9qzgOVv4yecmboHYycM1Vflk0
+ 5i3hChc0YQ9YowmZezRDpSA32TSB8OCaxG+EHSxk9xZjxz5VlTa3M0Hw0XutKF0G1+hsnZVc+C
+ 68ze2YdqIDFWFIItGHmjSV/FaZ7K30Mr751aZwc/YPLr3OF8bpzZtLbLa8mo5yx7jJ7DTlyE/V
+ uZlNdYx3Q0Zu0Ul0quvuehcm2UHx55DlBQcIgiV4YiW4ZHr6/S15RDhUN7Wv8btxjVghqrHz1L
+ X62c5dseILazvfIQRis2jK9r
 X-SBRS: 5.1
-X-MesageID: 57733154
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 55807253
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:kdxOaavWtra2khdHMvlh0CH/wufnVNFZMUV32f8akzHdYApBsoF/q
- tZmKTqDO63fMGb2co91aoS//UNXvJDVmNBnSQs4pCBmEn8S+JbJXdiXEBz9bniYRiHhoOOLz
+IronPort-Data: A9a23:m7bC0qubxBSeGMlPh5sjBrMyKufnVIhZMUV32f8akzHdYApBsoF/q
+ tZmKW3VOf/bYGvyeosnOY/j/EMG7cOGnN9qSFZo/yFkES8T+JbJXdiXEBz9bniYRiHhoOOLz
  Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHhJZS5LwbZj29cw24LhWWthh
  PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
  gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- NplqayOEAhyMob2ydssdABXUGZXZaJ09+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DOIIZ/HVh0BnSDOo8QICFSKLPjTNd9Gpv2ZsVRKuCD
- yYfQStpchjbYDJGAH1NIqMEpfjyiEi4bwQN/Tp5ooJoujOOnWSdyoPFDt3RfdCbQNRPqWyRr
- GnG4mfRDwkTMZqUzj/t2nGrgPXGkWXkWYYRPLqi//VujRuYwWl7IB8LUVq2p9Gph0j4XMhQQ
- 2QE9yxroaUs+UiDStjmQwb+sHOCpgQbWddbD6s98g7l4rHP/w+TC2wATzhAQN8rrsk7QXotz
- FDhoj/yLWUx6vvPEyvbr+rK62PpUcQIEYMcTTM0c1IKuNXImtAMvzXWQZUkOfa6vNKgTFkc3
- Au2hCQ5grwSi+sC2KO64U3LjlqQm3TZcuImzl6IBjz9v2uVcKbgPtbysQGKsp6sOa7AFgHZ1
- EXojfRy+wzn4XulryeKXPkWVI+g4/KIIVUwanY+QsF/qVxBF5OlFL28AQ2Sxm81ba7omhezO
- Sc/XD+9ArcJYBNGiocsO+qM5zwCl/SIKDgcfqm8giBySpZwbhSb2ypleFSd2Wvg+GB1z/pja
- cvCLpb0VitLYUiC8NZQb71BuVPM7ntmrV4/uLihl0j3uVZgTC79pUg53KumMblisfLsTPT9+
- NdDLcqaoyizo8WlChQ7BbU7dAhQRVBiXMieg5UOKoarf1o3cEl8WqS56e5wJORYc1F9y76gE
- oeVARQDljISRBTvdG23V5yUQOq+BMgl9StmZXBE0JTB8yFLXLtDJZw3L/MfFYTLPsQ6pRKtZ
- /VaKciGHNpVTTHLp2YUYZXn9dQwfxW3nwOeeSGiZWFnLZJnQgXI/P7ifxfuq3ZSXnbm65Nmr
- u3yzB7fTLoCWx9mUJTcZsWwwg7jpnMagu9zARfFe4EBZEX2/YF2ACXtlftrcdoUIBDOy2LCh
- QabCBsVv8fXpIox/IWbjKyItd7xQeB/AlBbDy/Q6rPvbXvW+W+qwIlhVueUfG+CCDOoqfv6P
- egMlqPyKvwKmlpOorFQKbczwPJs/cbrqp9b0h9gQCfBYWO0B+4yOXKBx8RO6PFAn+cLpQusV
- 0uT0dBGIrHVatj9GVscKQd5POSO0fYYxmvb4fgveRio4SZ2+PyMUFlIPgnKgytYdeMnPIQgy
- OYnmcgX9w3g1UZ6bofY1nhZpzaWM3gNc6Q7rZVLUobkhz0ixkxGfZGBWDT954uCaokUP0QnS
- tNOaHEuW1iIKpL+TkcO
-IronPort-HdrOrdr: A9a23:bcAep6sMtuPLYcOQ20HBTbLS7skDTtV00zEX/kB9WHVpmszxra
- 6TdZMgpHnJYVcqKQkdcL+7WJVoLUmxyXcx2/h1AV7AZniAhILLFvAA0WKK+VSJcEeSygce79
- YFT0EXMqyIMbEQt6fHCWeDfOrIuOP3kpyVuQ==
+ Nplu8fzUAMUJvT2vstEdUB8Gid/IqJI0eqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DOIIZ/HVh0BnSDOo8QICFSKLPjTNd9Gpt1pgRR6uFD
+ yYfQTBjQw/pQAJlAWUoGZ4FnMGIqSPkcDIN/Tp5ooJoujOOnWSdyoPFPMLOf92WRe1chkuCu
+ n/d5GP9Hw0bM9qEjzGC9xqEiuDDkCzhUaoOBba48bhsm1TVyWsNYDUGWF3+rfSnh0qWX9NEN
+ 1dS6icotbI19kGgUp/6RRLQnZKflkdCAZwKSbR8sVzTjPqPi+qEOoQaZjAaK8UiiddvfxoFj
+ 3nQu9rvBCNgvpTAHBpx6YyohT+1PCEUK0oLaikFURYJ7rHfnW0jsv7cZo08SPDt37UZDRm1m
+ mrQ9HFv2N3/mOZSj/3jlW0rlQ5AsXQgouQd3Q7QQn6+pj1wYIqoduREAnCKsK4ecu51orSH1
+ UXoevRyDshSUvlhdwTXGY3h+Y1FAd7fbFUwZnY0R/EcG8yFoSLLQGypyGgWyL1VGsgFYyT1R
+ 0TYpBlc4pReVFPzM/QrM97oVJRylvWxfTgAahwyRoASCnSWXFTflByCmGbKhzy9+KTSufFX1
+ WinnTaEUi9BVPUPIMueTOYBy747rh3SNkuILa0XOy+PiOLEDFbMEO9tGALXMogRsfPVyC2Io
+ o03H5bblH1ivBjWP3C/HXg7dgtRcxDWxPne9qRqSwJ0ClM3QT97U6aMme9Jlk4Mt/09q9okN
+ 0qVAidwoGcTT1WeQelTQnw8Or7pQ7hlqnc3YX4lMVqygiBxaoez9qYPMZAweOB/puBkyPd1S
+ dgDetmBXasTGmiWpWxFYMmvtpFmeTSqmRmKY3ivbg8gcsMyXAfO4NLlIFfirXFcEiqtuMIii
+ LS8zQeHE4EbTgFvAZ+OOvKixl+8p1YHn+d2UxeaK9VfYhy0ooNrNzbwnrk8JMRVcUfPwT6T1
+ gC3BxYEpLaS/99poYeR3a3d9tWnCepzGEZeDlL317fuOHmI5HenzK9BTP2MIWLXWlTr9fjwf
+ u5S1fz9bqEKxQ4Yr4pmHr935qsi/N+z9aRCxwFpEXiXPVSmDrRsfiuP0cVV7/Afw7ZYvU29W
+ 16V+8kcMrKMYZu3HFkULQsjT+KCyfBLxWWCsaVreB33tH1t4b6KcUROJB3d2iVSIYx8PJ4h3
+ ep86tUd7Bayi0ZyP9uL5syOG79g8pDUv30bi6wn
+IronPort-HdrOrdr: A9a23:Rx5Bgq8GbjfmWaIMfPxuk+DiI+orL9Y04lQ7vn2YSXRuE/Bw8P
+ re5cjztCWE8wr5N0tQ+uxoVJPufZqYz+8Q3WBzB8bFYOCFghrLEGgK1+KLqFeMdxEWtNQtsp
+ uIG5IOcOEYZmIbsS+V2meF+q4bsby6zJw=
 X-IronPort-AV: E=Sophos;i="5.87,172,1631592000"; 
-   d="scan'208";a="57733154"
+   d="scan'208";a="55807253"
 From: Lin Liu <lin.liu@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Lin Liu <lin.liu@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>
-Subject: [PATCH v2 4/7] arm: Switch to byteswap.h
-Date: Fri, 22 Oct 2021 10:47:25 +0000
-Message-ID: <306bc005bc3786fcbccc0a0aca3c7b22e50d8c67.1634897942.git.lin.liu@citrix.com>
+CC: Lin Liu <lin.liu@citrix.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [PATCH v2 5/7] xen/xsm: Switch to byteswap.h
+Date: Fri, 22 Oct 2021 10:47:26 +0000
+Message-ID: <400efbc5c394140bb01664e5847046e8c4a38ea2.1634897942.git.lin.liu@citrix.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <cover.1634897942.git.lin.liu@citrix.com>
 References: <cover.1634897942.git.lin.liu@citrix.com>
@@ -101,146 +99,74 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Update to use byteswap.h to swap bytes.
+Update to use byteswap.h to swap bytes
 
-No functional change.
+No functional change
 
 Signed-off-by: Lin Liu <lin.liu@citrix.com>
 ---
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien@xen.org>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Cc: Ross Lagerwall <ross.lagerwall@citrix.com>
+Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 ---
- xen/arch/arm/alternative.c          | 2 +-
- xen/arch/arm/arm64/livepatch.c      | 2 +-
- xen/arch/arm/kernel.c               | 2 +-
- xen/arch/arm/vgic/vgic-mmio.c       | 2 +-
- xen/include/asm-arm/arm32/io.h      | 2 +-
- xen/include/asm-arm/arm64/io.h      | 2 +-
- xen/include/xen/libfdt/libfdt_env.h | 2 +-
- 7 files changed, 7 insertions(+), 7 deletions(-)
+ xen/xsm/flask/ss/avtab.c       | 2 +-
+ xen/xsm/flask/ss/conditional.c | 2 +-
+ xen/xsm/flask/ss/ebitmap.c     | 2 +-
+ xen/xsm/flask/ss/policydb.c    | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/arm/alternative.c b/xen/arch/arm/alternative.c
-index 237c4e5642..0f84260ac9 100644
---- a/xen/arch/arm/alternative.c
-+++ b/xen/arch/arm/alternative.c
-@@ -17,6 +17,7 @@
-  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  */
+diff --git a/xen/xsm/flask/ss/avtab.c b/xen/xsm/flask/ss/avtab.c
+index bfc91c8b0c..1fa796f625 100644
+--- a/xen/xsm/flask/ss/avtab.c
++++ b/xen/xsm/flask/ss/avtab.c
+@@ -19,8 +19,8 @@
  
-+#include <xen/byteswap.h>
- #include <xen/init.h>
- #include <xen/types.h>
- #include <xen/kernel.h>
-@@ -27,7 +28,6 @@
- #include <xen/virtual_region.h>
- #include <asm/alternative.h>
- #include <asm/atomic.h>
--#include <asm/byteorder.h>
- #include <asm/cpufeature.h>
- #include <asm/insn.h>
- #include <asm/page.h>
-diff --git a/xen/arch/arm/arm64/livepatch.c b/xen/arch/arm/arm64/livepatch.c
-index 6ec8dc60f0..26b5729edf 100644
---- a/xen/arch/arm/arm64/livepatch.c
-+++ b/xen/arch/arm/arm64/livepatch.c
-@@ -3,6 +3,7 @@
-  */
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
  
- #include <xen/bitops.h>
-+#include <xen/byteswap.h>
- #include <xen/errno.h>
- #include <xen/lib.h>
- #include <xen/livepatch_elf.h>
-@@ -11,7 +12,6 @@
- #include <xen/vmap.h>
- 
- #include <asm/bitops.h>
--#include <asm/byteorder.h>
- #include <asm/insn.h>
- #include <asm/livepatch.h>
- 
-diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-index 8f43caa186..e89bb9cef8 100644
---- a/xen/arch/arm/kernel.c
-+++ b/xen/arch/arm/kernel.c
-@@ -3,6 +3,7 @@
-  *
-  * Copyright (C) 2011 Citrix Systems, Inc.
-  */
-+#include <xen/byteswap.h>
- #include <xen/domain_page.h>
- #include <xen/errno.h>
- #include <xen/guest_access.h>
-@@ -14,7 +15,6 @@
- #include <xen/sched.h>
- #include <xen/vmap.h>
- 
--#include <asm/byteorder.h>
- #include <asm/kernel.h>
- #include <asm/setup.h>
- 
-diff --git a/xen/arch/arm/vgic/vgic-mmio.c b/xen/arch/arm/vgic/vgic-mmio.c
-index 5d935a7301..d9c5066246 100644
---- a/xen/arch/arm/vgic/vgic-mmio.c
-+++ b/xen/arch/arm/vgic/vgic-mmio.c
-@@ -13,10 +13,10 @@
-  */
- 
- #include <xen/bitops.h>
 +#include <xen/byteswap.h>
  #include <xen/lib.h>
- #include <xen/sched.h>
- #include <asm/new_vgic.h>
 -#include <asm/byteorder.h>
- 
- #include "vgic.h"
- #include "vgic-mmio.h"
-diff --git a/xen/include/asm-arm/arm32/io.h b/xen/include/asm-arm/arm32/io.h
-index 73a879e9fb..df8547403c 100644
---- a/xen/include/asm-arm/arm32/io.h
-+++ b/xen/include/asm-arm/arm32/io.h
-@@ -21,8 +21,8 @@
- #ifndef _ARM_ARM32_IO_H
- #define _ARM_ARM32_IO_H
- 
-+#include <xen/byteswap.h>
- #include <asm/system.h>
--#include <asm/byteorder.h>
- 
- static inline void __raw_writeb(u8 val, volatile void __iomem *addr)
- {
-diff --git a/xen/include/asm-arm/arm64/io.h b/xen/include/asm-arm/arm64/io.h
-index 30bfc78d9e..db328d9e3c 100644
---- a/xen/include/asm-arm/arm64/io.h
-+++ b/xen/include/asm-arm/arm64/io.h
-@@ -20,8 +20,8 @@
- #ifndef _ARM_ARM64_IO_H
- #define _ARM_ARM64_IO_H
- 
-+#include <xen/byteswap.h>
- #include <asm/system.h>
--#include <asm/byteorder.h>
- #include <asm/alternative.h>
- 
- /*
-diff --git a/xen/include/xen/libfdt/libfdt_env.h b/xen/include/xen/libfdt/libfdt_env.h
-index 035bf754d2..f8ea1ea07a 100644
---- a/xen/include/xen/libfdt/libfdt_env.h
-+++ b/xen/include/xen/libfdt/libfdt_env.h
-@@ -1,9 +1,9 @@
- #ifndef _LIBFDT_ENV_H
- #define _LIBFDT_ENV_H
- 
-+#include <xen/byteswap.h>
  #include <xen/types.h>
- #include <xen/string.h>
--#include <asm/byteorder.h>
+ #include <xen/xmalloc.h>
+ #include <xen/errno.h>
+diff --git a/xen/xsm/flask/ss/conditional.c b/xen/xsm/flask/ss/conditional.c
+index 3e58aea551..059f6e07e5 100644
+--- a/xen/xsm/flask/ss/conditional.c
++++ b/xen/xsm/flask/ss/conditional.c
+@@ -9,7 +9,7 @@
  
- typedef uint16_t fdt16_t;
- typedef uint32_t fdt32_t;
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+ 
+-#include <asm/byteorder.h>
++#include <xen/byteswap.h>
+ #include <xen/lib.h>
+ #include <xen/types.h>
+ #include <xen/errno.h>
+diff --git a/xen/xsm/flask/ss/ebitmap.c b/xen/xsm/flask/ss/ebitmap.c
+index e1d0a586a7..1550437c6f 100644
+--- a/xen/xsm/flask/ss/ebitmap.c
++++ b/xen/xsm/flask/ss/ebitmap.c
+@@ -10,7 +10,7 @@
+ 
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+ 
+-#include <asm/byteorder.h>
++#include <xen/byteswap.h>
+ #include <xen/lib.h>
+ #include <xen/xmalloc.h>
+ #include <xen/errno.h>
+diff --git a/xen/xsm/flask/ss/policydb.c b/xen/xsm/flask/ss/policydb.c
+index 9426164353..595005c3b7 100644
+--- a/xen/xsm/flask/ss/policydb.c
++++ b/xen/xsm/flask/ss/policydb.c
+@@ -22,7 +22,7 @@
+ 
+ /* Ported to Xen 3.0, George Coker, <gscoker@alpha.ncsc.mil> */
+ 
+-#include <asm/byteorder.h>
++#include <xen/byteswap.h>
+ #include <xen/lib.h>
+ #include <xen/types.h>
+ #include <xen/xmalloc.h>
 -- 
 2.27.0
 
