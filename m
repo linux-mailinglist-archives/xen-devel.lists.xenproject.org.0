@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74C8C438A85
-	for <lists+xen-devel@lfdr.de>; Sun, 24 Oct 2021 17:59:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.215542.374813 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60EF8438B92
+	for <lists+xen-devel@lfdr.de>; Sun, 24 Oct 2021 20:56:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.215556.374837 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1meftJ-0005f4-Sh; Sun, 24 Oct 2021 15:58:33 +0000
+	id 1meieI-0005HQ-FQ; Sun, 24 Oct 2021 18:55:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 215542.374813; Sun, 24 Oct 2021 15:58:33 +0000
+Received: by outflank-mailman (output) from mailman id 215556.374837; Sun, 24 Oct 2021 18:55:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1meftJ-0005cB-N1; Sun, 24 Oct 2021 15:58:33 +0000
-Received: by outflank-mailman (input) for mailman id 215542;
- Sun, 24 Oct 2021 15:58:31 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1meieI-0005FC-Bv; Sun, 24 Oct 2021 18:55:14 +0000
+Received: by outflank-mailman (input) for mailman id 215556;
+ Sun, 24 Oct 2021 18:55:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1meftH-0005c1-TV; Sun, 24 Oct 2021 15:58:31 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1meftH-0004gQ-ON; Sun, 24 Oct 2021 15:58:31 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1meftH-00083T-EC; Sun, 24 Oct 2021 15:58:31 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1meftH-0007YN-Dh; Sun, 24 Oct 2021 15:58:31 +0000
+ (envelope-from <SRS0=lf0h=PM=oderland.se=josef@srs-us1.protection.inumbo.net>)
+ id 1meieH-0005F6-Nf
+ for xen-devel@lists.xenproject.org; Sun, 24 Oct 2021 18:55:13 +0000
+Received: from office.oderland.com (unknown [91.201.60.5])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ea177dc6-34fb-11ec-8406-12813bfff9fa;
+ Sun, 24 Oct 2021 18:55:11 +0000 (UTC)
+Received: from [193.180.18.161] (port=37118 helo=[10.137.0.14])
+ by office.oderland.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
+ (envelope-from <josef@oderland.se>)
+ id 1meieD-009vkr-TP; Sun, 24 Oct 2021 20:55:09 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,216 +41,273 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=o/nWDUZGoH5wmcDp84FhVHH5PKQF+w7CvKNsLqQXCuw=; b=feL7fi42dpjkQy3yhtGfKlqL1t
-	+56UlAMDA8HA8UDDqkGVVdPyFhDhTXDPGkZxLF4yl0CYzkF4Vc2GcMgSnbWeZEGPdkBh3y7+Smll1
-	zgmkQ3qSiSpprWv+15g/G7XZ0xtKBbzuPXIb7B8xDzf4xdTF8AO36yUIt6Wf1l2ecpNU=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [qemu-mainline bisection] complete build-i386-xsm
-Message-Id: <E1meftH-0007YN-Dh@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 24 Oct 2021 15:58:31 +0000
+X-Inumbo-ID: ea177dc6-34fb-11ec-8406-12813bfff9fa
+Message-ID: <90277228-cf14-0cfa-c95e-d42e7d533353@oderland.se>
+Date: Sun, 24 Oct 2021 20:55:07 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:93.0) Gecko/20100101
+ Thunderbird/93.0
+From: Josef Johansson <josef@oderland.se>
+To: Marc Zyngier <maz@kernel.org>, Jason Andryuk <jandryuk@gmail.com>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <20211019202906.GA2397931@bhelgaas>
+ <5f050b30-fa1c-8387-0d6b-a667851b34b0@oderland.se>
+ <877de7dfl2.wl-maz@kernel.org>
+ <CAKf6xpt=ZYGyJXMwM7ccOWkx71R0O-QeLjkBF-LtdDcbSnzHsA@mail.gmail.com>
+ <3434cb2d-4060-7969-d4c4-089c68190527@oderland.se>
+Content-Language: en-US
+Subject: Re: [PATCH v2] PCI/MSI: Re-add checks for skip masking MSI-X on Xen
+ PV
+In-Reply-To: <3434cb2d-4060-7969-d4c4-089c68190527@oderland.se>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - office.oderland.com
+X-AntiAbuse: Original Domain - lists.xenproject.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oderland.se
+X-Get-Message-Sender-Via: office.oderland.com: authenticated_id: josjoh@oderland.se
+X-Authenticated-Sender: office.oderland.com: josjoh@oderland.se
 
-branch xen-unstable
-xenbranch xen-unstable
-job build-i386-xsm
-testid xen-build
+On 10/21/21 10:25, Josef Johansson wrote:
+> On 10/20/21 16:03, Jason Andryuk wrote:
+>> Hi, Marc,
+>>
+>> Adding Juergen and Boris since this involves Xen.
+>>
+>> On Wed, Oct 20, 2021 at 8:51 AM Marc Zyngier <maz@kernel.org> wrote:
+>>> On Tue, 19 Oct 2021 22:48:19 +0100,
+>>> Josef Johansson <josef@oderland.se> wrote:
+>>>> From: Josef Johansson <josef@oderland.se>
+>>>>
+>>>>
+>>>> PCI/MSI: Re-add checks for skip masking MSI-X on Xen PV
+>>>>
+>>>> commit fcacdfbef5a1 ("PCI/MSI: Provide a new set of mask and unmask
+>>>> functions") introduce functions pci_msi_update_mask() and
+>>>> pci_msix_write_vector_ctrl() that is missing checks for
+>>>> pci_msi_ignore_mask that exists in commit 446a98b19fd6 ("PCI/MSI: Use
+>>>> new mask/unmask functions"). Add them back since it is
+>>>> causing severe lockups in amdgpu drivers under Xen during boot.
+>>>>
+>>>> As explained in commit 1a519dc7a73c ("PCI/MSI: Skip masking MSI-X
+>>>> on Xen PV"), when running as Xen PV guest, masking MSI-X is a
+>>>> responsibility of the hypervisor.
+>>>>
+>>>> Fixes: fcacdfbef5a1 ("PCI/MSI: Provide a new set of mask and unmask
+>>>> functions")
+>>>> Suggested-by: Jason Andryuk <jandryuk@gmail.com>
+>>>> Signed-off-by: Josef Johansson <josef@oderland.se>
+>>>>
+>>> [...]
+>>>
+>>>> diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c
+>>>> index 0099a00af361..355b791e382f 100644
+>>>> --- a/drivers/pci/msi.c
+>>>> +++ b/drivers/pci/msi.c
+>>>> @@ -148,6 +148,9 @@ static noinline void pci_msi_update_mask(struct msi_desc *desc, u32 clear, u32 s
+>>>>       raw_spinlock_t *lock = &desc->dev->msi_lock;
+>>>>       unsigned long flags;
+>>>>
+>>>> +     if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
+>>>> +             return;
+>>>> +
+>>> I'd rather be consistent, and keep the check outside of
+>>> pci_msi_update_mask(), just like we do in __pci_msi_mask_desc().
+>>> Something like this instead:
+>>>
+>>> diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c
+>>> index 0099a00af361..6c69eab304ce 100644
+>>> --- a/drivers/pci/msi.c
+>>> +++ b/drivers/pci/msi.c
+>>> @@ -420,7 +420,8 @@ static void __pci_restore_msi_state(struct pci_dev *dev)
+>>>         arch_restore_msi_irqs(dev);
+>>>
+>>>         pci_read_config_word(dev, dev->msi_cap + PCI_MSI_FLAGS, &control);
+>>> -       pci_msi_update_mask(entry, 0, 0);
+>>> +       if (!(pci_msi_ignore_mask || desc->msi_attrib.is_virtual))
+>>> +               pci_msi_update_mask(entry, 0, 0);
+>>>         control &= ~PCI_MSI_FLAGS_QSIZE;
+>>>         control |= (entry->msi_attrib.multiple << 4) | PCI_MSI_FLAGS_ENABLE;
+>>>         pci_write_config_word(dev, dev->msi_cap + PCI_MSI_FLAGS, control);
+>>>
+>>> But the commit message talks about MSI-X, and the above is MSI
+>>> only. Is Xen messing with the former, the latter, or both?
+>> My understanding is pci_msi_ignore_mask covers both MSI and MSI-X for Xen.
+> Please let me know if I should go ahead and try it out and send in a v3
+> of the patch.
+>
+> I'm watching for further discussion right now, just to be clear.
 
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+Hi,
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  e741aff0f43343d6d91242fee1072fee376d5cce
-  Bug not present: 685db13a38f7599fabd353382ff65d3c244ea641
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/165839/
-
-
-  commit e741aff0f43343d6d91242fee1072fee376d5cce
-  Author: Igor Mammedov <imammedo@redhat.com>
-  Date:   Thu Sep 2 07:35:38 2021 -0400
-  
-      tests: qtest: add qtest_has_accel() to check if tested binary supports accelerator
-      
-      Currently it is not possible to create tests that have KVM as a hard
-      requirement on a host that doesn't support KVM for tested target
-      binary (modulo going through the trouble of compiling out
-      the offending test case).
-      
-      Following scenario makes test fail when it's run on non x86 host:
-        qemu-system-x86_64 -enable-kvm -M q35,kernel-irqchip=on -smp 1,maxcpus=288
-      
-      This patch introduces qtest_has_accel() to let users check if accel is
-      available in advance and avoid executing non run-able test-cases.
-      
-      It implements detection of TCG and KVM only, the rest could be
-      added later on, when we actually start testing them in qtest.
-      
-      Signed-off-by: Igor Mammedov <imammedo@redhat.com>
-      Message-Id: <20210902113551.461632-3-imammedo@redhat.com>
-      Reviewed-by: Michael S. Tsirkin <mst@redhat.com>
-      Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/build-i386-xsm.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/build-i386-xsm.xen-build --summary-out=tmp/165839.bisection-summary --basis-template=165682 --blessings=real,real-bisect,real-retry qemu-mainline build-i386-xsm xen-build
-Searching for failure / basis pass:
- 165823 fail [host=fiano0] / 165682 [host=huxelrebe0] 165670 [host=albana0] 165640 [host=huxelrebe0] 165576 [host=albana1] 165536 [host=huxelrebe0] 165529 [host=albana1] 165514 [host=fiano1] 165506 [host=fiano1] 165498 [host=huxelrebe0] 165488 [host=albana1] 165477 [host=albana1] 165468 [host=fiano1] 165442 [host=albana1] 165429 ok.
-Failure / basis pass flights: 165823 / 165429
-(tree with no url: minios)
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 62540372230ecb5318a9c8a40580a14beeb9ded0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c5b2f559814104f4145f8bc310f4d33c7ead8f49 64f37cc530f144e53c190c9e8209a51b58fd5c43 23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9
-Basis pass b4da6c29f1d36031e04212f53277ce0dcba309f1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 14f12119aa675e9e28207a48b0728a2daa5b88d6 64f37cc530f144e53c190c9e8209a51b58fd5c43 192aaf7e146c0b41dbdd35ccdb13eb33ced13633
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/osstest/ovmf.git#b4da6c29f1d36031e04212f53277ce0dcba309f1-62540372230ecb5318a9c8a40580a14beeb9ded0 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://git.qemu.org/qemu.git#14f12119aa675e9e28207a48b0728a2daa5b88d6-c5b2f559814104f4145f8bc310f4d33c7ead8f49 git://xenbits.xen.org/osstest/seabios.git#64f37cc530f144e53c190c9e8209a51b58fd5c43-64f\
- 37cc530f144e53c190c9e8209a51b58fd5c43 git://xenbits.xen.org/xen.git#192aaf7e146c0b41dbdd35ccdb13eb33ced13633-23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9
-Loaded 34889 nodes in revision graph
-Searching for test results:
- 165429 pass b4da6c29f1d36031e04212f53277ce0dcba309f1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 14f12119aa675e9e28207a48b0728a2daa5b88d6 64f37cc530f144e53c190c9e8209a51b58fd5c43 192aaf7e146c0b41dbdd35ccdb13eb33ced13633
- 165442 [host=albana1]
- 165468 [host=fiano1]
- 165477 [host=albana1]
- 165488 [host=albana1]
- 165498 [host=huxelrebe0]
- 165506 [host=fiano1]
- 165514 [host=fiano1]
- 165529 [host=albana1]
- 165536 [host=huxelrebe0]
- 165576 [host=albana1]
- 165640 [host=huxelrebe0]
- 165670 [host=albana0]
- 165682 [host=huxelrebe0]
- 165694 fail irrelevant
- 165703 fail 6893865b3010bb6192f732643c4b8ba026726d07 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 afc9fcde55296b83f659de9da3cdf044812a6eeb 64f37cc530f144e53c190c9e8209a51b58fd5c43 c12731493ae39640c4e44d9fe2029c3165f9f429
- 165721 [host=fiano1]
- 165726 fail irrelevant
- 165753 fail irrelevant
- 165789 pass b4da6c29f1d36031e04212f53277ce0dcba309f1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 14f12119aa675e9e28207a48b0728a2daa5b88d6 64f37cc530f144e53c190c9e8209a51b58fd5c43 192aaf7e146c0b41dbdd35ccdb13eb33ced13633
- 165792 fail irrelevant
- 165794 pass 90246a6d9f6fda3536d042d02867123caabe3aaa 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 911965ace9386e35ca022a65bb45a32fd421af3e 64f37cc530f144e53c190c9e8209a51b58fd5c43 6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
- 165795 pass 210869834639c1150b1f016e2022472a55cdd884 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2792cf20ca7eed0e354a0ed731422411faca4908 64f37cc530f144e53c190c9e8209a51b58fd5c43 3ae80dea4601764818d1e5b84bd1e4479c0d4790
- 165796 pass 210869834639c1150b1f016e2022472a55cdd884 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 5abfac277d25feb5f12332422c03ea1cb21c6aa1 64f37cc530f144e53c190c9e8209a51b58fd5c43 3ae80dea4601764818d1e5b84bd1e4479c0d4790
- 165790 fail bd5ec03d87cacc5be2de4284b092aafd4ac4eb31 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2c64ff92ecef4db0169f7238a26f1124268345c8 64f37cc530f144e53c190c9e8209a51b58fd5c43 23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9
- 165797 pass f10a112f08f3fb4a92c3d22f069f6066a12db3be 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 995b87dedc78b0467f5f18bbc3546072ba97516a 64f37cc530f144e53c190c9e8209a51b58fd5c43 52d0847d7c6972baa74156f14ee8544f5aba1d2d
- 165800 pass b4da6c29f1d36031e04212f53277ce0dcba309f1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 14f12119aa675e9e28207a48b0728a2daa5b88d6 64f37cc530f144e53c190c9e8209a51b58fd5c43 192aaf7e146c0b41dbdd35ccdb13eb33ced13633
- 165804 fail bd5ec03d87cacc5be2de4284b092aafd4ac4eb31 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 2c64ff92ecef4db0169f7238a26f1124268345c8 64f37cc530f144e53c190c9e8209a51b58fd5c43 23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9
- 165805 pass f10a112f08f3fb4a92c3d22f069f6066a12db3be 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 bec4042baefc1bfeae05b161aa17d2f57d526b60 64f37cc530f144e53c190c9e8209a51b58fd5c43 52d0847d7c6972baa74156f14ee8544f5aba1d2d
- 165806 pass f10a112f08f3fb4a92c3d22f069f6066a12db3be 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 4d1a525dfafe995a98bb486e702da09e31b68b9c 64f37cc530f144e53c190c9e8209a51b58fd5c43 f791392f82ffe39cc1ea4c4db1d877223754a04a
- 165807 pass 785cfd33053f506d4a1c17100356a63f24e98f45 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 3b4da13293482134b81d71be656ec76beff73a76 64f37cc530f144e53c190c9e8209a51b58fd5c43 b75838ad6c4f42c93efee83fc2508c78641e1b57
- 165810 pass 6ed6abd6c116e8599876a2876b77e172e800b13e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 946de558354c99e1989621abe053f2ab87dc8de9 64f37cc530f144e53c190c9e8209a51b58fd5c43 9e319e5258d0274c15da2ea9355dc1569a0fa832
- 165811 pass 6ed6abd6c116e8599876a2876b77e172e800b13e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 76e366e728549b3324cc2dee6745d6a4f1af18e6 64f37cc530f144e53c190c9e8209a51b58fd5c43 a0ffee6b145933f411b1c33daa2cdd54e77b2b15
- 165812 pass ba4ae92234b1985a89b3abed221d825b8d9ef9e2 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 8be1d4ed9838f807c63695753b30865f6edc4a5c 64f37cc530f144e53c190c9e8209a51b58fd5c43 f9294486926c865a3ef11cacd7cb6b26cce6f4a4
- 165813 pass f10a112f08f3fb4a92c3d22f069f6066a12db3be 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 5dacda5167560b3af8eadbce5814f60ba44b467e 64f37cc530f144e53c190c9e8209a51b58fd5c43 be4eefbce6cada21b8a17354c1f11d7865d9a603
- 165815 pass ba4ae92234b1985a89b3abed221d825b8d9ef9e2 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 81d8537cb297d57b0897797f1329e4d755a0eaf4 64f37cc530f144e53c190c9e8209a51b58fd5c43 d3b05f9b16d6ba9c550c3a35ac11ed292bf87f68
- 165799 fail bd5ec03d87cacc5be2de4284b092aafd4ac4eb31 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 660efed8b37aedec9b5fcc555da1f88f7d12c98a 64f37cc530f144e53c190c9e8209a51b58fd5c43 23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9
- 165816 pass 6ed6abd6c116e8599876a2876b77e172e800b13e 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 afe5c8c5c14aff25fab6ae83957e87c717415be3 64f37cc530f144e53c190c9e8209a51b58fd5c43 4cfab4425d39f76660b4e76ba6ee4cbf0f92e7e5
- 165818 fail bd5ec03d87cacc5be2de4284b092aafd4ac4eb31 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 660efed8b37aedec9b5fcc555da1f88f7d12c98a 64f37cc530f144e53c190c9e8209a51b58fd5c43 23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9
- 165819 pass 90246a6d9f6fda3536d042d02867123caabe3aaa 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 362534a643b4a34bcb223996538ce9de5cdab946 64f37cc530f144e53c190c9e8209a51b58fd5c43 3ae80dea4601764818d1e5b84bd1e4479c0d4790
- 165817 fail 62540372230ecb5318a9c8a40580a14beeb9ded0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 660efed8b37aedec9b5fcc555da1f88f7d12c98a 64f37cc530f144e53c190c9e8209a51b58fd5c43 23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9
- 165820 fail 37a33f02aa1ab89f392da7d06ec3578fda1b6182 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 19d20e910a586f503994acf590d5f41c314fa4c3 64f37cc530f144e53c190c9e8209a51b58fd5c43 6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
- 165822 fail 37a33f02aa1ab89f392da7d06ec3578fda1b6182 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 b59a898458aea328618521be7dc180d2396c0bf4 64f37cc530f144e53c190c9e8209a51b58fd5c43 6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
- 165824 pass 90246a6d9f6fda3536d042d02867123caabe3aaa 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 362534a643b4a34bcb223996538ce9de5cdab946 64f37cc530f144e53c190c9e8209a51b58fd5c43 6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
- 165826 pass 37a33f02aa1ab89f392da7d06ec3578fda1b6182 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 685db13a38f7599fabd353382ff65d3c244ea641 64f37cc530f144e53c190c9e8209a51b58fd5c43 6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
- 165828 fail 37a33f02aa1ab89f392da7d06ec3578fda1b6182 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c306cdb0cc5327f336fbf9a7411f319f0717ee75 64f37cc530f144e53c190c9e8209a51b58fd5c43 6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
- 165830 fail 37a33f02aa1ab89f392da7d06ec3578fda1b6182 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e741aff0f43343d6d91242fee1072fee376d5cce 64f37cc530f144e53c190c9e8209a51b58fd5c43 6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
- 165832 pass 37a33f02aa1ab89f392da7d06ec3578fda1b6182 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 685db13a38f7599fabd353382ff65d3c244ea641 64f37cc530f144e53c190c9e8209a51b58fd5c43 6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
- 165823 fail 62540372230ecb5318a9c8a40580a14beeb9ded0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c5b2f559814104f4145f8bc310f4d33c7ead8f49 64f37cc530f144e53c190c9e8209a51b58fd5c43 23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9
- 165833 fail 37a33f02aa1ab89f392da7d06ec3578fda1b6182 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e741aff0f43343d6d91242fee1072fee376d5cce 64f37cc530f144e53c190c9e8209a51b58fd5c43 6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
- 165835 pass b4da6c29f1d36031e04212f53277ce0dcba309f1 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 14f12119aa675e9e28207a48b0728a2daa5b88d6 64f37cc530f144e53c190c9e8209a51b58fd5c43 192aaf7e146c0b41dbdd35ccdb13eb33ced13633
- 165837 fail 62540372230ecb5318a9c8a40580a14beeb9ded0 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 c5b2f559814104f4145f8bc310f4d33c7ead8f49 64f37cc530f144e53c190c9e8209a51b58fd5c43 23ec1ebc8acbfd2bf06f6085a776f0db923f9fa9
- 165838 pass 37a33f02aa1ab89f392da7d06ec3578fda1b6182 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 685db13a38f7599fabd353382ff65d3c244ea641 64f37cc530f144e53c190c9e8209a51b58fd5c43 6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
- 165839 fail 37a33f02aa1ab89f392da7d06ec3578fda1b6182 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 e741aff0f43343d6d91242fee1072fee376d5cce 64f37cc530f144e53c190c9e8209a51b58fd5c43 6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
-Searching for interesting versions
- Result found: flight 165429 (pass), for basis pass
- Result found: flight 165823 (fail), for basis failure
- Repro found: flight 165835 (pass), for basis pass
- Repro found: flight 165837 (fail), for basis failure
- 0 revisions at 37a33f02aa1ab89f392da7d06ec3578fda1b6182 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 685db13a38f7599fabd353382ff65d3c244ea641 64f37cc530f144e53c190c9e8209a51b58fd5c43 6809998c5f8f1d2e26ac9e867af8ac71e7a66cf2
-No revisions left to test, checking graph state.
- Result found: flight 165826 (pass), for last pass
- Result found: flight 165830 (fail), for first failure
- Repro found: flight 165832 (pass), for last pass
- Repro found: flight 165833 (fail), for first failure
- Repro found: flight 165838 (pass), for last pass
- Repro found: flight 165839 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  e741aff0f43343d6d91242fee1072fee376d5cce
-  Bug not present: 685db13a38f7599fabd353382ff65d3c244ea641
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/165839/
+I ended up with this patch, I also masked pci_set_mask and
+pci_set_unmask, even though patching __pci_restore_msi_state and
+__pci_restore_msi_state solved this problem, I found that it did not
+properly make the system be able to survive flip_done timeout related
+problems during suspend/resume. Would this be something you had in mind
+Marc? I will make one more try with just patching
+__pci_restore_msi_state and __pci_restore_msix_state just to make sure.
+diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c index
+4b4792940e86..0b2225066778 100644 --- a/drivers/pci/msi.c +++
+b/drivers/pci/msi.c @@ -420,7 +420,8 @@ static void
+__pci_restore_msi_state(struct pci_dev *dev) arch_restore_msi_irqs(dev);
+pci_read_config_word(dev, dev->msi_cap + PCI_MSI_FLAGS, &control); -
+pci_msi_update_mask(entry, 0, 0); + if (!(pci_msi_ignore_mask ||
+entry->msi_attrib.is_virtual)) + pci_msi_update_mask(entry, 0, 0);
+control &= ~PCI_MSI_FLAGS_QSIZE; control |= (entry->msi_attrib.multiple
+<< 4) | PCI_MSI_FLAGS_ENABLE; pci_write_config_word(dev, dev->msi_cap +
+PCI_MSI_FLAGS, control); @@ -450,8 +451,9 @@ static void
+__pci_restore_msix_state(struct pci_dev *dev) PCI_MSIX_FLAGS_ENABLE |
+PCI_MSIX_FLAGS_MASKALL); arch_restore_msi_irqs(dev); -
+for_each_pci_msi_entry(entry, dev) - pci_msix_write_vector_ctrl(entry,
+entry->msix_ctrl); + if (!(pci_msi_ignore_mask ||
+entry->msi_attrib.is_virtual)) + for_each_pci_msi_entry(entry, dev) +
+pci_msix_write_vector_ctrl(entry, entry->msix_ctrl);
+pci_msix_clear_and_set_ctrl(dev, PCI_MSIX_FLAGS_MASKALL, 0); } @@ -546,7
++548,8 @@ static int msi_capability_init(struct pci_dev *dev, int nvec,
+return -ENOMEM; /* All MSIs are unmasked by default; mask them all */ -
+pci_msi_mask(entry, msi_multi_mask(entry)); + if (!pci_msi_ignore_mask)
++ pci_msi_mask(entry, msi_multi_mask(entry));
+list_add_tail(&entry->list, dev_to_msi_list(&dev->dev)); @@ -577,7
++580,8 @@ static int msi_capability_init(struct pci_dev *dev, int nvec,
+return 0; err: - pci_msi_unmask(entry, msi_multi_mask(entry)); + if
+(!pci_msi_ignore_mask) + pci_msi_unmask(entry, msi_multi_mask(entry));
+free_msi_irqs(dev); return ret; } @@ -865,7 +868,8 @@ static void
+pci_msi_shutdown(struct pci_dev *dev) dev->msi_enabled = 0; /* Return
+the device with MSI unmasked as initial states */ - pci_msi_unmask(desc,
+msi_multi_mask(desc)); + if (!pci_msi_ignore_mask) +
+pci_msi_unmask(desc, msi_multi_mask(desc)); /* Restore dev->irq to its
+default pin-assertion IRQ */ dev->irq = desc->msi_attrib.default_irq; @@
+-950,8 +954,9 @@ static void pci_msix_shutdown(struct pci_dev *dev) } /*
+Return the device with MSI-X masked as initial states */ -
+for_each_pci_msi_entry(entry, dev) - pci_msix_mask(entry); + if
+(!pci_msi_ignore_mask) + for_each_pci_msi_entry(entry, dev) +
+pci_msix_mask(entry); pci_msix_clear_and_set_ctrl(dev,
+PCI_MSIX_FLAGS_ENABLE, 0); pci_intx_for_msi(dev, 1);
 
 
-  commit e741aff0f43343d6d91242fee1072fee376d5cce
-  Author: Igor Mammedov <imammedo@redhat.com>
-  Date:   Thu Sep 2 07:35:38 2021 -0400
-  
-      tests: qtest: add qtest_has_accel() to check if tested binary supports accelerator
-      
-      Currently it is not possible to create tests that have KVM as a hard
-      requirement on a host that doesn't support KVM for tested target
-      binary (modulo going through the trouble of compiling out
-      the offending test case).
-      
-      Following scenario makes test fail when it's run on non x86 host:
-        qemu-system-x86_64 -enable-kvm -M q35,kernel-irqchip=on -smp 1,maxcpus=288
-      
-      This patch introduces qtest_has_accel() to let users check if accel is
-      available in advance and avoid executing non run-able test-cases.
-      
-      It implements detection of TCG and KVM only, the rest could be
-      added later on, when we actually start testing them in qtest.
-      
-      Signed-off-by: Igor Mammedov <imammedo@redhat.com>
-      Message-Id: <20210902113551.461632-3-imammedo@redhat.com>
-      Reviewed-by: Michael S. Tsirkin <mst@redhat.com>
-      Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+>>>>       raw_spin_lock_irqsave(lock, flags);
+>>>>       desc->msi_mask &= ~clear;
+>>>>       desc->msi_mask |= set;
+>>>> @@ -181,6 +184,9 @@ static void pci_msix_write_vector_ctrl(struct msi_desc *desc, u32 ctrl)
+>>>>  {
+>>>>       void __iomem *desc_addr = pci_msix_desc_addr(desc);
+>>>>
+>>>> +     if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
+>>>> +             return;
+>>>> +
+>>>>       writel(ctrl, desc_addr + PCI_MSIX_ENTRY_VECTOR_CTRL);
+>>>>  }
+>>> I have similar reservations for this one.
+>> The problem here is some of the changes in commit 446a98b19fd6
+>> ("PCI/MSI: Use new mask/unmask functions") bypass the checks in
+>> __pci_msi_mask_desc/__pci_msi_unmask_desc.  I've wondered if it would
+>> be cleaner to push all the `if (pci_msi_ignore_mask)` checks down to
+>> the place of the writes.  That keeps dropping the write local to the
+>> write and leaves the higher level code consistent between the regular
+>> and Xen PV cases.  I don't know where checking
+>> desc->msi_attrib.is_virtual is appropriate.
 
-Revision graph left in /home/logs/results/bisect/qemu-mainline/build-i386-xsm.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-165839: tolerable ALL FAIL
+This makes sense the patch would be like so, I'm testing this out now
+hoping it will
 
-flight 165839 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165839/
+perform as good. Now the check is performed in four places
 
-Failures :-/ but no regressions.
+* pci_msi_update_mask
 
-Tests which did not succeed,
-including tests which could not be run:
- build-i386-xsm                6 xen-build               fail baseline untested
+* pci_msix_mask
+
+* pci_msix_unmask
+
+* msix_mask_all
+
+diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c
+index 4b4792940e86..6fa60ad9cba2 100644
+--- a/drivers/pci/msi.c
++++ b/drivers/pci/msi.c
+@@ -148,6 +148,9 @@ static noinline void pci_msi_update_mask(struct msi_desc *desc, u32 clear, u32 s
+ 	raw_spinlock_t *lock = &desc->dev->msi_lock;
+ 	unsigned long flags;
+ 
++	if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
++		return;
++
+ 	raw_spin_lock_irqsave(lock, flags);
+ 	desc->msi_mask &= ~clear;
+ 	desc->msi_mask |= set;
+@@ -186,6 +189,9 @@ static void pci_msix_write_vector_ctrl(struct msi_desc *desc, u32 ctrl)
+ 
+ static inline void pci_msix_mask(struct msi_desc *desc)
+ {
++	if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
++		return;
++
+ 	desc->msix_ctrl |= PCI_MSIX_ENTRY_CTRL_MASKBIT;
+ 	pci_msix_write_vector_ctrl(desc, desc->msix_ctrl);
+ 	/* Flush write to device */
+@@ -194,15 +200,15 @@ static inline void pci_msix_mask(struct msi_desc *desc)
+ 
+ static inline void pci_msix_unmask(struct msi_desc *desc)
+ {
++	if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
++		return;
++
+ 	desc->msix_ctrl &= ~PCI_MSIX_ENTRY_CTRL_MASKBIT;
+ 	pci_msix_write_vector_ctrl(desc, desc->msix_ctrl);
+ }
+ 
+ static void __pci_msi_mask_desc(struct msi_desc *desc, u32 mask)
+ {
+-	if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
+-		return;
+-
+ 	if (desc->msi_attrib.is_msix)
+ 		pci_msix_mask(desc);
+ 	else if (desc->msi_attrib.maskbit)
+@@ -211,9 +217,6 @@ static void __pci_msi_mask_desc(struct msi_desc *desc, u32 mask)
+ 
+ static void __pci_msi_unmask_desc(struct msi_desc *desc, u32 mask)
+ {
+-	if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
+-		return;
+-
+ 	if (desc->msi_attrib.is_msix)
+ 		pci_msix_unmask(desc);
+ 	else if (desc->msi_attrib.maskbit)
 
 
-jobs:
- build-i386-xsm                                               fail    
 
+That leaves me with a though, will this set masked, and should be checked as well?
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+void __pci_write_msi_msg(struct msi_desc *entry, struct msi_msg *msg)
+{
+        struct pci_dev *dev = msi_desc_to_pci_dev(entry);
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+        if (dev->current_state != PCI_D0 || pci_dev_is_disconnected(dev)) {
+                /* Don't touch the hardware now */
+        } else if (entry->msi_attrib.is_msix) {
+                void __iomem *base = pci_msix_desc_addr(entry);
+                u32 ctrl = entry->msix_ctrl;
+                bool unmasked = !(ctrl & PCI_MSIX_ENTRY_CTRL_MASKBIT);
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+                if (entry->msi_attrib.is_virtual)
+                        goto skip;
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+                /*
+                 * The specification mandates that the entry is masked
+                 * when the message is modified:
+                 *
+                 * "If software changes the Address or Data value of an
+                 * entry while the entry is unmasked, the result is
+                 * undefined."
+                 */
+                if (unmasked)
+>>>                     pci_msix_write_vector_ctrl(entry, ctrl | PCI_MSIX_ENTRY_CTRL_MASKBIT);
 
+>> Regards,
+>> Jason
 
