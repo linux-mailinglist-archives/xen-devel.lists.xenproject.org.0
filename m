@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60EF8438B92
-	for <lists+xen-devel@lfdr.de>; Sun, 24 Oct 2021 20:56:28 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.215556.374837 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08B68438BC7
+	for <lists+xen-devel@lfdr.de>; Sun, 24 Oct 2021 22:21:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.215589.374872 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1meieI-0005HQ-FQ; Sun, 24 Oct 2021 18:55:14 +0000
+	id 1mejy8-0005SR-FK; Sun, 24 Oct 2021 20:19:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 215556.374837; Sun, 24 Oct 2021 18:55:14 +0000
+Received: by outflank-mailman (output) from mailman id 215589.374872; Sun, 24 Oct 2021 20:19:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1meieI-0005FC-Bv; Sun, 24 Oct 2021 18:55:14 +0000
-Received: by outflank-mailman (input) for mailman id 215556;
- Sun, 24 Oct 2021 18:55:13 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mejy8-0005QA-BA; Sun, 24 Oct 2021 20:19:48 +0000
+Received: by outflank-mailman (input) for mailman id 215589;
+ Sun, 24 Oct 2021 20:19:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lf0h=PM=oderland.se=josef@srs-us1.protection.inumbo.net>)
- id 1meieH-0005F6-Nf
- for xen-devel@lists.xenproject.org; Sun, 24 Oct 2021 18:55:13 +0000
-Received: from office.oderland.com (unknown [91.201.60.5])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ea177dc6-34fb-11ec-8406-12813bfff9fa;
- Sun, 24 Oct 2021 18:55:11 +0000 (UTC)
-Received: from [193.180.18.161] (port=37118 helo=[10.137.0.14])
- by office.oderland.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <josef@oderland.se>)
- id 1meieD-009vkr-TP; Sun, 24 Oct 2021 20:55:09 +0200
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mejy6-0005Q0-Px; Sun, 24 Oct 2021 20:19:46 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mejy6-0001EV-Ic; Sun, 24 Oct 2021 20:19:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mejy6-0002TX-8F; Sun, 24 Oct 2021 20:19:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mejy6-0006WB-7h; Sun, 24 Oct 2021 20:19:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,273 +42,329 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea177dc6-34fb-11ec-8406-12813bfff9fa
-Message-ID: <90277228-cf14-0cfa-c95e-d42e7d533353@oderland.se>
-Date: Sun, 24 Oct 2021 20:55:07 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=miobQf9c5iSic0f9u/BWJbYktT8Wm+giTLxY4ZsPQAk=; b=IzPqZWpx9CPMEGolcef9Ds1L6b
+	zikuDktll/+sq0M9ESgKNWY1XmumjYhK0N3Y7Pwx5ashxleNQJqO24NB9wM3LIs5Os6er7dCoM9c2
+	mpY7xECrcVZyxHM3wdD30VlFF33qwveqFNVjcqrbkw16losZjCWpLYztGXxg9E7oBeDc=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165834-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:93.0) Gecko/20100101
- Thunderbird/93.0
-From: Josef Johansson <josef@oderland.se>
-To: Marc Zyngier <maz@kernel.org>, Jason Andryuk <jandryuk@gmail.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org,
- xen-devel <xen-devel@lists.xenproject.org>,
- Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-References: <20211019202906.GA2397931@bhelgaas>
- <5f050b30-fa1c-8387-0d6b-a667851b34b0@oderland.se>
- <877de7dfl2.wl-maz@kernel.org>
- <CAKf6xpt=ZYGyJXMwM7ccOWkx71R0O-QeLjkBF-LtdDcbSnzHsA@mail.gmail.com>
- <3434cb2d-4060-7969-d4c4-089c68190527@oderland.se>
-Content-Language: en-US
-Subject: Re: [PATCH v2] PCI/MSI: Re-add checks for skip masking MSI-X on Xen
- PV
-In-Reply-To: <3434cb2d-4060-7969-d4c4-089c68190527@oderland.se>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - office.oderland.com
-X-AntiAbuse: Original Domain - lists.xenproject.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oderland.se
-X-Get-Message-Sender-Via: office.oderland.com: authenticated_id: josjoh@oderland.se
-X-Authenticated-Sender: office.oderland.com: josjoh@oderland.se
+Subject: [qemu-mainline test] 165834: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:build-i386:xen-build:fail:regression
+    qemu-mainline:build-i386-xsm:xen-build:fail:regression
+    qemu-mainline:build-armhf:xen-build:fail:regression
+    qemu-mainline:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-coresched-i386-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:build-i386-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=c5b2f559814104f4145f8bc310f4d33c7ead8f49
+X-Osstest-Versions-That:
+    qemuu=50352cce138ef3b30c1cda28a4df68fff5da3202
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 24 Oct 2021 20:19:46 +0000
 
-On 10/21/21 10:25, Josef Johansson wrote:
-> On 10/20/21 16:03, Jason Andryuk wrote:
->> Hi, Marc,
->>
->> Adding Juergen and Boris since this involves Xen.
->>
->> On Wed, Oct 20, 2021 at 8:51 AM Marc Zyngier <maz@kernel.org> wrote:
->>> On Tue, 19 Oct 2021 22:48:19 +0100,
->>> Josef Johansson <josef@oderland.se> wrote:
->>>> From: Josef Johansson <josef@oderland.se>
->>>>
->>>>
->>>> PCI/MSI: Re-add checks for skip masking MSI-X on Xen PV
->>>>
->>>> commit fcacdfbef5a1 ("PCI/MSI: Provide a new set of mask and unmask
->>>> functions") introduce functions pci_msi_update_mask() and
->>>> pci_msix_write_vector_ctrl() that is missing checks for
->>>> pci_msi_ignore_mask that exists in commit 446a98b19fd6 ("PCI/MSI: Use
->>>> new mask/unmask functions"). Add them back since it is
->>>> causing severe lockups in amdgpu drivers under Xen during boot.
->>>>
->>>> As explained in commit 1a519dc7a73c ("PCI/MSI: Skip masking MSI-X
->>>> on Xen PV"), when running as Xen PV guest, masking MSI-X is a
->>>> responsibility of the hypervisor.
->>>>
->>>> Fixes: fcacdfbef5a1 ("PCI/MSI: Provide a new set of mask and unmask
->>>> functions")
->>>> Suggested-by: Jason Andryuk <jandryuk@gmail.com>
->>>> Signed-off-by: Josef Johansson <josef@oderland.se>
->>>>
->>> [...]
->>>
->>>> diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c
->>>> index 0099a00af361..355b791e382f 100644
->>>> --- a/drivers/pci/msi.c
->>>> +++ b/drivers/pci/msi.c
->>>> @@ -148,6 +148,9 @@ static noinline void pci_msi_update_mask(struct msi_desc *desc, u32 clear, u32 s
->>>>       raw_spinlock_t *lock = &desc->dev->msi_lock;
->>>>       unsigned long flags;
->>>>
->>>> +     if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
->>>> +             return;
->>>> +
->>> I'd rather be consistent, and keep the check outside of
->>> pci_msi_update_mask(), just like we do in __pci_msi_mask_desc().
->>> Something like this instead:
->>>
->>> diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c
->>> index 0099a00af361..6c69eab304ce 100644
->>> --- a/drivers/pci/msi.c
->>> +++ b/drivers/pci/msi.c
->>> @@ -420,7 +420,8 @@ static void __pci_restore_msi_state(struct pci_dev *dev)
->>>         arch_restore_msi_irqs(dev);
->>>
->>>         pci_read_config_word(dev, dev->msi_cap + PCI_MSI_FLAGS, &control);
->>> -       pci_msi_update_mask(entry, 0, 0);
->>> +       if (!(pci_msi_ignore_mask || desc->msi_attrib.is_virtual))
->>> +               pci_msi_update_mask(entry, 0, 0);
->>>         control &= ~PCI_MSI_FLAGS_QSIZE;
->>>         control |= (entry->msi_attrib.multiple << 4) | PCI_MSI_FLAGS_ENABLE;
->>>         pci_write_config_word(dev, dev->msi_cap + PCI_MSI_FLAGS, control);
->>>
->>> But the commit message talks about MSI-X, and the above is MSI
->>> only. Is Xen messing with the former, the latter, or both?
->> My understanding is pci_msi_ignore_mask covers both MSI and MSI-X for Xen.
-> Please let me know if I should go ahead and try it out and send in a v3
-> of the patch.
->
-> I'm watching for further discussion right now, just to be clear.
+flight 165834 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165834/
 
-Hi,
+Regressions :-(
 
-I ended up with this patch, I also masked pci_set_mask and
-pci_set_unmask, even though patching __pci_restore_msi_state and
-__pci_restore_msi_state solved this problem, I found that it did not
-properly make the system be able to survive flip_done timeout related
-problems during suspend/resume. Would this be something you had in mind
-Marc? I will make one more try with just patching
-__pci_restore_msi_state and __pci_restore_msix_state just to make sure.
-diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c index
-4b4792940e86..0b2225066778 100644 --- a/drivers/pci/msi.c +++
-b/drivers/pci/msi.c @@ -420,7 +420,8 @@ static void
-__pci_restore_msi_state(struct pci_dev *dev) arch_restore_msi_irqs(dev);
-pci_read_config_word(dev, dev->msi_cap + PCI_MSI_FLAGS, &control); -
-pci_msi_update_mask(entry, 0, 0); + if (!(pci_msi_ignore_mask ||
-entry->msi_attrib.is_virtual)) + pci_msi_update_mask(entry, 0, 0);
-control &= ~PCI_MSI_FLAGS_QSIZE; control |= (entry->msi_attrib.multiple
-<< 4) | PCI_MSI_FLAGS_ENABLE; pci_write_config_word(dev, dev->msi_cap +
-PCI_MSI_FLAGS, control); @@ -450,8 +451,9 @@ static void
-__pci_restore_msix_state(struct pci_dev *dev) PCI_MSIX_FLAGS_ENABLE |
-PCI_MSIX_FLAGS_MASKALL); arch_restore_msi_irqs(dev); -
-for_each_pci_msi_entry(entry, dev) - pci_msix_write_vector_ctrl(entry,
-entry->msix_ctrl); + if (!(pci_msi_ignore_mask ||
-entry->msi_attrib.is_virtual)) + for_each_pci_msi_entry(entry, dev) +
-pci_msix_write_vector_ctrl(entry, entry->msix_ctrl);
-pci_msix_clear_and_set_ctrl(dev, PCI_MSIX_FLAGS_MASKALL, 0); } @@ -546,7
-+548,8 @@ static int msi_capability_init(struct pci_dev *dev, int nvec,
-return -ENOMEM; /* All MSIs are unmasked by default; mask them all */ -
-pci_msi_mask(entry, msi_multi_mask(entry)); + if (!pci_msi_ignore_mask)
-+ pci_msi_mask(entry, msi_multi_mask(entry));
-list_add_tail(&entry->list, dev_to_msi_list(&dev->dev)); @@ -577,7
-+580,8 @@ static int msi_capability_init(struct pci_dev *dev, int nvec,
-return 0; err: - pci_msi_unmask(entry, msi_multi_mask(entry)); + if
-(!pci_msi_ignore_mask) + pci_msi_unmask(entry, msi_multi_mask(entry));
-free_msi_irqs(dev); return ret; } @@ -865,7 +868,8 @@ static void
-pci_msi_shutdown(struct pci_dev *dev) dev->msi_enabled = 0; /* Return
-the device with MSI unmasked as initial states */ - pci_msi_unmask(desc,
-msi_multi_mask(desc)); + if (!pci_msi_ignore_mask) +
-pci_msi_unmask(desc, msi_multi_mask(desc)); /* Restore dev->irq to its
-default pin-assertion IRQ */ dev->irq = desc->msi_attrib.default_irq; @@
--950,8 +954,9 @@ static void pci_msix_shutdown(struct pci_dev *dev) } /*
-Return the device with MSI-X masked as initial states */ -
-for_each_pci_msi_entry(entry, dev) - pci_msix_mask(entry); + if
-(!pci_msi_ignore_mask) + for_each_pci_msi_entry(entry, dev) +
-pci_msix_mask(entry); pci_msix_clear_and_set_ctrl(dev,
-PCI_MSIX_FLAGS_ENABLE, 0); pci_intx_for_msi(dev, 1);
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386                    6 xen-build                fail REGR. vs. 165682
+ build-i386-xsm                6 xen-build                fail REGR. vs. 165682
+ build-armhf                   6 xen-build                fail REGR. vs. 165682
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
+ test-amd64-i386-pair          1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-i386  1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-amd64  1 build-check(1)               blocked  n/a
+ test-amd64-coresched-i386-xl  1 build-check(1)               blocked  n/a
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl            1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-shadow     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-vhd        1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-xsm        1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 165682
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 165682
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 165682
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ qemuu                c5b2f559814104f4145f8bc310f4d33c7ead8f49
+baseline version:
+ qemuu                50352cce138ef3b30c1cda28a4df68fff5da3202
+
+Last test of basis   165682  2021-10-19 21:09:14 Z    4 days
+Failing since        165694  2021-10-20 18:09:12 Z    4 days   10 attempts
+Testing same since   165823  2021-10-24 00:36:48 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Alistair Francis <alistair.francis@wdc.com>
+  Andrew Jones <drjones@redhat.com>
+  Ani Sinha <ani@anisinha.ca>
+  BALATON Zoltan <balaton@eik.bme.hu>
+  Bin Meng <bmeng.cn@gmail.com>
+  Cédric Le Goater <clg@kaod.org>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  David Gibson <david@gibson.dropbear.id.au>
+  David Hildenbrand <david@redhat.com>
+  Eric Auger <eric.auger@redhat.com>
+  Eugenio Pérez <eperezma@redhat.com>
+  Frank Chang <frank.chang@sifive.com>
+  Gavin Shan <gshan@redhat.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Greg Kurz <groug@kaod.org>
+  Gustavo Romero <gromero@linux.ibm.com>
+  Igor Mammedov <imammedo@redhat.com>
+  Jason Wang <jasowang@redhat.com>
+  John Wang <wangzhiqiang02@inspur.com>
+  John Wang <wangzq.jn@gmail.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Laurent Vivier <lvivier@redhat.com>
+  Luc Michel <lmichel@kalray.eu>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Matheus Ferst <matheus.ferst@eldorado.org.br>
+  Mathieu Poirier <mathieu.poirier@linaro.org>
+  Michael S. Tsirkin <mst@redhat.com>
+  Mingwang Li <limingwang@huawei.com>
+  Oğuz Ersen <oguzersen@protonmail.com>
+  Philipp Tomsich <philipp.tomsich@vrull.eu>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Philippe Mathieu-Daudé <philmd@redhat.com>
+  Richard Henderson <richard.henderson@linaro.org>
+  Shuuichirou Ishii <ishii.shuuichir@fujitsu.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Thomas Huth <thuth@redhat.com>
+  Tong Ho <tong.ho@xilinx.com>
+  Travis Geiselbrecht <travisg@gmail.com>
+  Vincent Palatin <vpalatin@rivosinc.com>
+  Xueming Li <xuemingl@nvidia.com>
+  Yanan Wang <wangyanan55@huawei.com>
+  Yifei Jiang <jiangyifei@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-amd64-i386-xl                                           blocked 
+ test-amd64-coresched-i386-xl                                 blocked 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  blocked 
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       blocked 
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
+ test-amd64-i386-freebsd10-amd64                              blocked 
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
+ test-armhf-armhf-xl-arndale                                  blocked 
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  blocked 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-cubietruck                               blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
+ test-amd64-i386-freebsd10-i386                               blocked 
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                blocked 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         blocked 
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    blocked 
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     blocked 
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    blocked 
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      blocked 
+ test-amd64-i386-xl-vhd                                       blocked 
 
 
->>>>       raw_spin_lock_irqsave(lock, flags);
->>>>       desc->msi_mask &= ~clear;
->>>>       desc->msi_mask |= set;
->>>> @@ -181,6 +184,9 @@ static void pci_msix_write_vector_ctrl(struct msi_desc *desc, u32 ctrl)
->>>>  {
->>>>       void __iomem *desc_addr = pci_msix_desc_addr(desc);
->>>>
->>>> +     if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
->>>> +             return;
->>>> +
->>>>       writel(ctrl, desc_addr + PCI_MSIX_ENTRY_VECTOR_CTRL);
->>>>  }
->>> I have similar reservations for this one.
->> The problem here is some of the changes in commit 446a98b19fd6
->> ("PCI/MSI: Use new mask/unmask functions") bypass the checks in
->> __pci_msi_mask_desc/__pci_msi_unmask_desc.  I've wondered if it would
->> be cleaner to push all the `if (pci_msi_ignore_mask)` checks down to
->> the place of the writes.  That keeps dropping the write local to the
->> write and leaves the higher level code consistent between the regular
->> and Xen PV cases.  I don't know where checking
->> desc->msi_attrib.is_virtual is appropriate.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-This makes sense the patch would be like so, I'm testing this out now
-hoping it will
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-perform as good. Now the check is performed in four places
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-* pci_msi_update_mask
-
-* pci_msix_mask
-
-* pci_msix_unmask
-
-* msix_mask_all
-
-diff --git a/drivers/pci/msi.c b/drivers/pci/msi.c
-index 4b4792940e86..6fa60ad9cba2 100644
---- a/drivers/pci/msi.c
-+++ b/drivers/pci/msi.c
-@@ -148,6 +148,9 @@ static noinline void pci_msi_update_mask(struct msi_desc *desc, u32 clear, u32 s
- 	raw_spinlock_t *lock = &desc->dev->msi_lock;
- 	unsigned long flags;
- 
-+	if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
-+		return;
-+
- 	raw_spin_lock_irqsave(lock, flags);
- 	desc->msi_mask &= ~clear;
- 	desc->msi_mask |= set;
-@@ -186,6 +189,9 @@ static void pci_msix_write_vector_ctrl(struct msi_desc *desc, u32 ctrl)
- 
- static inline void pci_msix_mask(struct msi_desc *desc)
- {
-+	if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
-+		return;
-+
- 	desc->msix_ctrl |= PCI_MSIX_ENTRY_CTRL_MASKBIT;
- 	pci_msix_write_vector_ctrl(desc, desc->msix_ctrl);
- 	/* Flush write to device */
-@@ -194,15 +200,15 @@ static inline void pci_msix_mask(struct msi_desc *desc)
- 
- static inline void pci_msix_unmask(struct msi_desc *desc)
- {
-+	if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
-+		return;
-+
- 	desc->msix_ctrl &= ~PCI_MSIX_ENTRY_CTRL_MASKBIT;
- 	pci_msix_write_vector_ctrl(desc, desc->msix_ctrl);
- }
- 
- static void __pci_msi_mask_desc(struct msi_desc *desc, u32 mask)
- {
--	if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
--		return;
--
- 	if (desc->msi_attrib.is_msix)
- 		pci_msix_mask(desc);
- 	else if (desc->msi_attrib.maskbit)
-@@ -211,9 +217,6 @@ static void __pci_msi_mask_desc(struct msi_desc *desc, u32 mask)
- 
- static void __pci_msi_unmask_desc(struct msi_desc *desc, u32 mask)
- {
--	if (pci_msi_ignore_mask || desc->msi_attrib.is_virtual)
--		return;
--
- 	if (desc->msi_attrib.is_msix)
- 		pci_msix_unmask(desc);
- 	else if (desc->msi_attrib.maskbit)
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Not pushing.
 
-That leaves me with a though, will this set masked, and should be checked as well?
-
-void __pci_write_msi_msg(struct msi_desc *entry, struct msi_msg *msg)
-{
-        struct pci_dev *dev = msi_desc_to_pci_dev(entry);
-
-        if (dev->current_state != PCI_D0 || pci_dev_is_disconnected(dev)) {
-                /* Don't touch the hardware now */
-        } else if (entry->msi_attrib.is_msix) {
-                void __iomem *base = pci_msix_desc_addr(entry);
-                u32 ctrl = entry->msix_ctrl;
-                bool unmasked = !(ctrl & PCI_MSIX_ENTRY_CTRL_MASKBIT);
-
-                if (entry->msi_attrib.is_virtual)
-                        goto skip;
-
-                /*
-                 * The specification mandates that the entry is masked
-                 * when the message is modified:
-                 *
-                 * "If software changes the Address or Data value of an
-                 * entry while the entry is unmasked, the result is
-                 * undefined."
-                 */
-                if (unmasked)
->>>                     pci_msix_write_vector_ctrl(entry, ctrl | PCI_MSIX_ENTRY_CTRL_MASKBIT);
-
->> Regards,
->> Jason
+(No revision log; it would be 3631 lines long.)
 
