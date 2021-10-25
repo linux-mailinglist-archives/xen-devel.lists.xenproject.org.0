@@ -2,29 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF1B94397B5
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Oct 2021 15:41:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.215869.375273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7193B4397CD
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Oct 2021 15:46:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.215876.375285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mf0Db-00017p-Q9; Mon, 25 Oct 2021 13:40:51 +0000
+	id 1mf0J8-0001ng-G0; Mon, 25 Oct 2021 13:46:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 215869.375273; Mon, 25 Oct 2021 13:40:51 +0000
+Received: by outflank-mailman (output) from mailman id 215876.375285; Mon, 25 Oct 2021 13:46:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mf0Db-00014t-MF; Mon, 25 Oct 2021 13:40:51 +0000
-Received: by outflank-mailman (input) for mailman id 215869;
- Mon, 25 Oct 2021 13:40:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mf0J8-0001kD-CJ; Mon, 25 Oct 2021 13:46:34 +0000
+Received: by outflank-mailman (input) for mailman id 215876;
+ Mon, 25 Oct 2021 13:46:33 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=G2Ub=PN=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1mf0Da-00014n-R3
- for xen-devel@lists.xenproject.org; Mon, 25 Oct 2021 13:40:50 +0000
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 29dfd69a-3599-11ec-840f-12813bfff9fa;
- Mon, 25 Oct 2021 13:40:49 +0000 (UTC)
+ id 1mf0J7-0001k7-FO
+ for xen-devel@lists.xenproject.org; Mon, 25 Oct 2021 13:46:33 +0000
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6afeee6e-385f-442c-8fad-4ac414c064f6;
+ Mon, 25 Oct 2021 13:46:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,75 +35,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 29dfd69a-3599-11ec-840f-12813bfff9fa
+X-Inumbo-ID: 6afeee6e-385f-442c-8fad-4ac414c064f6
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1635169249;
+  d=citrix.com; s=securemail; t=1635169591;
   h=date:from:to:cc:subject:message-id:references:
    content-transfer-encoding:in-reply-to:mime-version;
-  bh=YsI8oJjNzAWb5KKJeVdtnuUKPH6GksyczH9JASNUHIs=;
-  b=ISyjeEwY0RfcXrzyzffSGD0hQniaa3WSP1VbBc/dPfTzzN2b++mF6L7v
-   pI11kVD7kR5ADfiBngkPOe89+kxFHMavqpMtASZ9auu9wPObDjqRf6q6C
-   fWeNPawZyoYZNkO/xoOoz1hCW2Cf2yh2E6Mq7inZBfYzDingNsdnVXJgh
-   A=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: YvovpOaf3zz1cZhm4TXZIb5FYcA1mmiqNsNxa10/QuVX6wrIG1zWwojKYEHpbp6z7UGWXfOUj4
- Xp3isYRXrmj9wgFM1hmO7wARjP1MNZt1fQpa1jcaaFhkYrmPTtdnG8PPwU86D1Ckm+bWhkAgvr
- 99JwdQwrGRoHxe9RcvbfCPMa1aGn2VwhrbIfOccb6eQp2rpPqo5ULIJ4dAXK11H7fTqVFI+3c9
- v47vTyQIpm2YC1K7Ls/BMzbTlIRjRfJ9yThAgMI/2mcZUoOd7Raf42beAFBal0JiQFut7DDDlx
- n1CmgSpacL+yZ7mUzGaCiF+n
+  bh=/DBKMZs0aA4zw6WSJTSZjla/q+pUYVqmhr5UKfSG3k0=;
+  b=S6S0aBQn9wTGE7jiZlJrDn51KGnjXgibMGfrDorbpnLUp5eMN+9xicJz
+   DryTB3utCE00y27DwRy5jJDvWdCEIyNdOojNDtZzp9AGTGR+DHotqrc+A
+   zVK4vIZqpPRLMo+cNxSZEzrJ8o/7ONAnTVfvHRCeSisgKQoIKIfNRad5/
+   M=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: PwBPMnbxubQsYOcLaIagNtn4GwZBb+NjNy7d6+s2v59Hy1u8M6GEilUJ2RRCYioXFYNjY27LxZ
+ JmqmD4oVDPXlyB15GJ4eSodEmQkLVxmbrLuoXqMrx1IERM4sIb1RxUMRx1jT2OTBARZkTA26gR
+ 3aq01jSHjs5dOvOCW0EGEpAPmCh6pzr5rV3N883iXWxZlW015Orivqf1dAfxn7wOL/7QUaubcL
+ CCUstlcgVX4gjzoRZZo2xgh161h/rxws/pVfqPW24C8UtmUf42RdeWXbh2VCmXipqnvQ2zDy9s
+ QF2YFW5kWU2y8P0NlnIUWGyJ
 X-SBRS: 5.1
-X-MesageID: 55541012
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 57903427
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:WcB8ma9pJXccK9c145EhDrUDoniTJUtcMsCJ2f8bNWPcYEJGY0x3z
- mQWWz+BbP2Ca2D8fdEkadnnoRhV7JbXy9JmGgFpqCo8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
- +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhGmeIdA970Ug6wrZj39Yx6TSEK1jlV
- e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
- I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhg9
- PtivpOXSzwDGerVnr0wWjlHFCdHaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
- 6ZCcXZUM07F17neLLGTE4GAguw5K8bmJsUHs2xIxjDFF/c2B5vERs0m4PcFgWps35gXR54yY
- eIzdBZxNT7STSRREQgWA40UktqQvHrgJmgwRFW9+vNsvjm7IBZK+LrnPcfRe9eKbd5IhUver
- WXDl0zQGA0XMeu62DWM83+yruLXlCa9U4UXfJWg/+NuqE2ewCoUEhJ+fUGyoeS9zFW/Xd1fA
- 0UO/2wlqq1a3EamVMXnVhu05nuNpAcBWsF4Gvc/rgqKz8L83QGdAWQVSy9bX/YvvsQ2WD8C2
- 0eAmpXiAjkHmK2YTzeR+6mZqRu2ODMJNikSaCkcVwwH7tL/5oYpgXrnadJuE7W8iNHvLhj2z
- yqXtyg1h7gVjskj2r2y+BbMhDfEjprUSg844C3HU2Tj6Rl2DKaCY4Gr8lHd4ex3EJeCTlKBs
- X4HnOCT9OkLS5qKkUSlW/4RFbuk4/KENjz0glN1GZQlsTO39BaekZt4uW8kYh0za4BdJGGvM
- BS7VR5tCIF7LUeEQqR4RICKIeNt1K65ON3FSffSV48bCnRuTzOv8CZrbE+W+mnilkkwjK0yU
- aumndaQ4WUyUvs/kmLnLwsJ+fpynHpmnDKMLXzu503/ieL2WZKDdVsS3LJihMgC56SYvB6dz
- d9bM8abo/m0eLyjOneJmWL/wFZjEJTaOXwUg5EPHgJgClA/cI3ENxM26eh5E7GJZ4wPyo/1E
- oiVAye0MmbXi3zdMhmtYXt+cr7pVpsXhStlZnF1ZQ7yiiB7O9bHAEIjm30fJ+lPGAtLlqYcc
- hX4U5/YXqQnpsrvomx1gWbBQHxKK03w2FPm09uNazkjZZ9wLzElCfe/FjYDABImV3Lt3eNn+
- uXI/lqCHfIrGlQzZO6LOanH5w7g4hAgdBdaAhKgzi97Ix63ruCH6kXZ05cKHi37AUySlmXBj
- 13NX0ZwSCuki9ZdzeQlTJus9u+BO+B/AlBbDy/c67O3PjPd5W2t3clLV+PgQNwXfDqcFHyKa
- boHwvfiHucAmVoW4YNwH6wylfA15sf1pq8cxQNhRS2ZY1OuA7JmA3+HwcgQ6fEdmu4H4VO7C
- hCV591XGbSVI8e5QlQfExUoM7aY3vYOlziMsflseBfm5DV69aasWFlJO0XekzRUKbZ4adt3w
- eootMMMxRa4jx4mboSPgixOrjzeJX0cSaQ38JodBdaz2AYsz1hDZ73aCzP3v87TO4kdbBFyL
- 2bN1qTYhrlayk7TSFYJFCDAjbhHmJADmBFW11tedV6HrcXI260s1xpL/DVpEgkMlkdb0/h+M
- 3RAPlFuIfnc5C9hgcVOUjz+GwxFAxHFqEX9x0FQyT/cRkisEGfMMHc8KaCG+0VAqzBQeT1S/
- be5zmf5UGm1IJGtj3VqAUM1+eb+SdFR9xHZnJH1FsuIKJA2fD75j/L8fmEPsRbmXZs8iUCvS
- TOGJwqshXkX7RItnpA=
-IronPort-HdrOrdr: A9a23:afKOCqN2jRVUGcBcTsWjsMiBIKoaSvp037BN7TEXdfU1SL39qy
- nKpp8mPHDP5Ar5NEtOpTniAsm9qBHnm6KdiLN5Vd3OYOCMggqVBbAnwYz+wyDxXw3Sn9QtsJ
- uIqpIOa+EY22IK7/rH3A==
+IronPort-Data: A9a23:xw6T4qzFSYhp53ih4HR6t+f+wCrEfRIJ4+MujC+fZmUNrF6WrkUDy
+ TZLUGGHPf6OazHwKdoiYdnj8kgBsJ6Hx4cwTwVtrSAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAuLeNYYH1500s6w7Rk2tcAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt4t4l
+ fAV7p6PcEA4brHvmMpaDVpiOBgraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVort4kI8TxepsWp1lrzC3DDOZgSpfGK0nPzYIHjW9r2poRdRrYT
+ +AXNSdoQhXOXxNWZA5UVcscueavr3aqJlW0r3rK/PFqsgA/1jdZyrHtLd6TYd2MSsV9l1yd4
+ GnB+gzRCBwAKMaWzzbD93u2n/LOhgvyQodUH7q9ntZyiUCX7nweDlsRT1TTifuzh1O6WtlfA
+ 1cJ4Sdopq83nGSpQcP6RAaQu2Ofs1gXXN84O+wl6imdx6zM+QGbC2MYCDlbZ7QOndUqSDkd8
+ 06GltLkGxRiqLSQD3ma89+8ry62OCUTBX8PY2kDVwRty8nupsQ/gwzCSv5nEbWplZvlFDfo2
+ TeIoSMiwbIJgqYj8KG2/kvOhT62kbHPQhQo/QXcXm+j7QRRaZasYsqj7l2zxchHKIGVX1yQp
+ k8uksKV7P0NJZyVnSnLS+IIdJmO4/uGKzTajURYI4g69z+t9nigeqhd+Dh7YkxuN64sYiT1a
+ UXevQdQ4p57P3awa6JzJYWrBKwXIbPITIq/EKqON5wXP8Y3JFTvEDxSiVC4hGmwtRB3k54Gf
+ obLbeWsIzFESp5M9W/jLwsC6oMDyic7zGLVYJn0yRW7zLaTDEKopac53EimNb9hsvvVyOnB2
+ 5MGbZHSkkQAOAHrSnCPqdZ7ELwcEZQs6XkaQeRsfemfPhEuJmglD/LAqV/KU904x/oL/gskE
+ 3fUZ6O59LYdrSCfQelpQio6AF8KYXqYhSljVRHAxX7yhxAejX+Htc/zjacfc7g97/BExvVpV
+ fQDcMjoKq0REWmeo2xHPMGl9twKmPGXaeSmZXrNjN8XJMYIeuA00oW8IluHGNcmV3LfWTQCT
+ 02IiVqAHMtrq/VKB8fKcvO/p25dTlBG8N+eq3Dge4EJEG21qdACA3Wo0pcffpFdQT2el2Dy/
+ 1vHXn8lSRzl/tZdHC/h3vvf8e9E0oJWQyJnIoUsxe/nZXeBpjH4n94ovSThVWm1aV4YMZ6KP
+ I195/r9LOcGjBBNtY99GKxs1qUw+53koLoy8+iuNC6jg42DBuwyL3+Y89NIs6ERlLZVtRHvA
+ hCE+8VAOKXPM8TgSQZDKA0gZ+WF9PcVhjiNsqhlfBSkvHd6rOidTEFfHxiQkygBfrF7B5won
+ LU6s8kM5g3h1hdzaoSajjpZ/ninJ2AbV/l1rYkTBYLm01J5ylxLbZHGJDXx5ZWDN4dFPkUwe
+ 2fGj6venbVMgEHFdiNrR3TK2ONcg7UIuQxLkwBedwjYxIKdi6ZujhNL8DkxQgBE9Tl90rp+a
+ jpxKkl4BaSS5DM01sJNaH+hRlNaDxqD902vl1ZQzD/FT1OlX3DmJXEmPbrf51gQ9m9Rc2QJ/
+ Lycz2q5Az/mcNuog3k3UE9h7ffiUcZw5kvJn8X+R5aJGJwzYDzEhK6yZDVX90u7UJ1p3ECX9
+ /N3+OtQaLHgMX9CqqI2PICWyLAMRU3WP2dFW/xgoPsEEGy0lOteAtRSx5Rdov9wGsE=
+IronPort-HdrOrdr: A9a23:RuXvT6tgBq2FfMi1D9o9s4I47skC+YMji2hC6mlwRA09TyXGra
+ 6TdaUguiMc1gx8ZJh5o6H6BEDyewKnyXcV2/haAV7GZmjbUQSTXfhfBOfZsl/d8k7Fh6NgPM
+ VbAtBD4bTLZDAQ56ubkWqF+r4bsZ66GcuT9IPjJgJWPGdXgtZbnmBE42igYyhLbTgDIaB8OI
+ uX58JBqTblU28QdN6HCn4MWPWGj8HXlbr9CCR2SyIP2U2rt3eF+bT6Gx+X0lM1SDVU24ov9m
+ DDjkjQ+rijifem0RXRvlWjoKi+2eGRhOerNvb8yvT9GQ+cyTpAo74RGYFqiQpF4d1HLmxa1e
+ Uk7S1Qe/iboEmhA11d6SGdpzUIlgxerUMKgGXo/kfLsIj3Qik3BNFGgp8cehzF61A4tNU5y6
+ 5T2XmF3qAnRC8osR6NkOQgbSsa4HZcYEBS4tI7njhaS88TebVRpYsQ8AdcF4oBBjvz7MQiHP
+ N1BM/R6f5KeRfCBkqp9VVH0ZipRDA+Dx2GSk8Ntoic1CVXhmlwyw8dyNYElnkN+ZohQ91P5v
+ jCMK5viLZSJ/VmJZ5VFaMEW4+6G2bNSRXDPCabJknmDrgOPzbXp5v+8NwOlZWXkVwzve4Pcb
+ j6ISJlXF8JCjDT4Je1reN2Gzj2MRWAYQg=
 X-IronPort-AV: E=Sophos;i="5.87,180,1631592000"; 
-   d="scan'208";a="55541012"
+   d="scan'208";a="57903427"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HwOzM2AVH6BQVkRLbDkSAyPtmYE6ElYTYn80mVnO0F4cilxicuKUqPnTnyXf+lQ7tZkRCHjSxWwwjG3DA3JcrOJ28WpVbNbwUhTm6v4QVOtB2fr5ebkZK/dlXpZc2YsoqfdjMOyqpv3sytjAzzB8+ZkKOQBlpHmQMvMpolfVGCO8i2aoOS16XxMuJb47GFjna7cmHTbHr1VBcaN7yCGPpxbWAKtlzgW0Mmh/Le7W53Y0nbqLeqaVqiQsgklYpTHpJ5B64sjP8K2QTMDsRKck+6b2oWIgtxcUw0x+IFV2HiOaiAtcm2SyIXJK5dO9GNyxY4dV22lzla1RSTJDm4Dkag==
+ b=ZUF+3i38K3dyWSUKOJcuF31XvJxydR8trmzR3afw0ZFzn0rMJebcHD6x2gCF1HDPInLalj0fJSUGjbIeTdSi9puvRi9/mOSMR98WEYRUDzFpmQWgcozJp9NDgFd7VfBL+dn/OKSJoyqzn7+c4Sxuhkyd1SZpWN7Ybfohq9QIAlEYY6fs35kMBOjU1C80cIr8SnofFwx76++bSFTWIi0Gp08wP88wYDmj8R/id80+meJk4vzi6Dgz3fRh54JMBt2uj/QIsbU3SNbLE0uAonACQgdVY1HXFvAnHNPo+8gah9089nnFYE3A27YbOwXnlCAcGaDTbl7ZE0SU5++k7ygVfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PiIxI6WkK73yAaGqnLv3DJVEO2USAk8Ei936fAO1J94=;
- b=gLkcNHXrth72R5NZY9YuuJBVGbOmWPAp2QIHGKlIzgJse+Y/nJ3t90ex+PduiMSiJArZifu+8iVzBwCfULUcck5E2TN4XcuAMcTZojHF0U4ieBqj5weghSpwoEOH1j2iiqZNYHKBJfmooJXV56msagftOo7wxEP87q5yTadeqXqbfvOc8ELcDfFnxl9gJ292E2wlztXvWaCBKeSbvvPh5Xq+vRI8H69AgkGz5QOJq1orJYvV1qS5Y59eZPi+1s4LQ/BXmIQU43Z/EWq9B42ss/zElZsavLrPHFqpexoItcXIX4rdmdLivlqKT7vSozMc7mOiCqdBSfPUtqMISUA9MQ==
+ bh=5Ty06Uj7JfE65tSUpt28Gf14m7X0EBKkraud9zrsoVs=;
+ b=ZNQSIcaOu1eKwJF7cynoFkEjr45FlM2zwOngqOaRST2Adt8xHLttcc8MwGr53/hNlBQRsAWbgNqNUWOkkmdiVmG1eVwQQKdPZ3XbWj0UQjGCN+Lr5vv6x0d4iIfwDvye7JhWoo9FreVQFVJb25+e7lu3mddMdW04UtTCzjcxpjuztW/rUKtIIPMR9sTaKxoUwkdClbtxpTHjZQMxx6AA7/llxDxb1Uh3UPnWwzEfsVRqN0QeI5ojhnmqcaDsUJ+ZlCw4mqr6MvfDdZ4MelwpbCGvHTcc0v+1LMQLmD5GglPKoBMJeJ9xIDIKYlNV0VHyqjrqFw1RzzgEMouOWJN4hQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PiIxI6WkK73yAaGqnLv3DJVEO2USAk8Ei936fAO1J94=;
- b=J1wwiKYM8pOR2RyCaBTwRydosANOk0+HDLAXoo9WrgfdphQRxYWgUn+ArtO6MbX21YPjhbrQDvglJEb8lMv1BqtHEDjiZvyoTuQ113Zs0Tvd237H0HScFkF9V9w+aAblBdU6Uc63uMcRJ19vpBEmvRXvyQFtcbdQbY/VBlmaa2M=
-Date: Mon, 25 Oct 2021 15:40:36 +0200
+ bh=5Ty06Uj7JfE65tSUpt28Gf14m7X0EBKkraud9zrsoVs=;
+ b=LXgbC+x5KgYx0bEg+gQ6nzsr38DnWA64fpPkQa7hpuLiffMRU+zc0ANXYDI2+mM6bpIrZKNNE55CFOsfgJn/e5w8QNG2naR0isIsCV0n/ZL3xNTS2lX6EzpN63p5HoeGWNcx37TBHEVsQjz83hdZXCSkDJrUvKkY3K4AAosERJM=
+Date: Mon, 25 Oct 2021 15:46:04 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
 CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
@@ -112,215 +118,170 @@ CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 	<sstabellini@kernel.org>, Oleksandr Tyshchenko
 	<Oleksandr_Tyshchenko@epam.com>, Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>, Artem Mygaiev <Artem_Mygaiev@epam.com>,
-	"jbeulich@suse.com" <jbeulich@suse.com>, "andrew.cooper3@citrix.com"
-	<andrew.cooper3@citrix.com>, "george.dunlap@citrix.com"
-	<george.dunlap@citrix.com>, "paul@xen.org" <paul@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Rahul Singh <rahul.singh@arm.com>
-Subject: Re: [PATCH v5 08/10] xen/arm: Setup MMIO range trap handlers for
- hardware domain
-Message-ID: <YXaz1G1mvHzZHdxM@MacBook-Air-de-Roger.local>
+	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+	"george.dunlap@citrix.com" <george.dunlap@citrix.com>, "paul@xen.org"
+	<paul@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Rahul Singh
+	<rahul.singh@arm.com>, Ian Jackson <iwj@xenproject.org>, Juergen Gross
+	<jgross@suse.com>, "jbeulich@suse.com" <jbeulich@suse.com>
+Subject: Re: [PATCH v5 07/10] libxl: Only map legacy PCI IRQs if they are
+ supported
+Message-ID: <YXa1HBMCMQUDr++2@MacBook-Air-de-Roger.local>
 References: <20211008055535.337436-1-andr2000@gmail.com>
- <20211008055535.337436-9-andr2000@gmail.com>
- <YWawvYGqIe3DwZfI@MacBook-Air-de-Roger.local>
- <7f2a5875-69c9-b40b-287b-1355698598e5@epam.com>
+ <20211008055535.337436-8-andr2000@gmail.com>
+ <YXavl0e0zainVKT9@MacBook-Air-de-Roger.local>
+ <3de59765-6bcb-d6a1-7e23-2b85123df71d@epam.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <7f2a5875-69c9-b40b-287b-1355698598e5@epam.com>
-X-ClientProxiedBy: PR0P264CA0284.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:1::32) To DS7PR03MB5608.namprd03.prod.outlook.com
+In-Reply-To: <3de59765-6bcb-d6a1-7e23-2b85123df71d@epam.com>
+X-ClientProxiedBy: MR2P264CA0148.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:1::11) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2f0e123c-4858-47d6-a270-08d997bd0976
-X-MS-TrafficTypeDiagnostic: DM6PR03MB3915:
-X-Microsoft-Antispam-PRVS: <DM6PR03MB3915E9438745382E71C47C4E8F839@DM6PR03MB3915.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1051;
+X-MS-Office365-Filtering-Correlation-Id: ac82045a-35de-4f85-2c27-08d997bdcd93
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4681:
+X-Microsoft-Antispam-PRVS: <DM6PR03MB468136CCE4083E640E48E5428F839@DM6PR03MB4681.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Zk3DNwD2OiHHiicGrvkS2CHML+dI+I+nbgvclc8Pc5JkEj4E0RD9GcJ+4HjkFx5Y7PmNNHoRmSoA9Hb8hsCZ1Vuqx46bG64dbwVOqk2LZZbMyoqEgrYSZoYn0T1GAURPZhbsgXffltUZMV++8X1hjm+LNeLNxZ24a926jEkk60fWyyGSmx19gKSECiQanwHIGblegHiwQw4B5ECFak/EWmT7SuZ9mQkGzhDicSME5pGrEyvpf6SXxFDJRJt05e8DvfgM7JFqHH6r1x2QmCDdUdH7MQRLZfqyg01NufXBmiv/Kc72WqhgjnabOBN2CPcqVVrhspbs8IwkO7Z8uTGCQBIYM/YMXXIF+wjRI2IJYX/WElNBJxcVqLcJ8bTtn1EJFvoclWc/zkCSOKt84f0Bu8Ty7NS9fx4LNWyQnoSUGfbh4+rzPp8JQ35jrE8/T+HI6m7Tx+tFIfECXnhY+HVOmSjOk/GS8ecJ0r3uwiq25LHSfQHEB2iOzhcthLhPQiqfdc5XWSDYO2pKvOvFrlj+ohw3XWFtW2NEeWWZndbvOb7N32HLiLMxrULpJuN4s/ECHgoUsh4jMfQsw41xg/UX+rmXtqE6Xifm+dePRJDivK7OvDWC0+zuuiXbW1X3aRtY5ZfGR0XLHEns8QHg/Md7hA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(82960400001)(2906002)(956004)(85182001)(9686003)(54906003)(86362001)(26005)(6486002)(6666004)(66556008)(66476007)(6496006)(508600001)(186003)(83380400001)(53546011)(316002)(66946007)(6916009)(38100700002)(5660300002)(8676002)(8936002)(4326008)(7416002);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: SKv0xCkCv/kBHALFlMY0e5nWRkCW0DUMcQtGOaxzcxrrIE7y7bmgS222aSJlvSZTC2SoWFoYTXq457JEdque8uJzoHWJeMek0iKt2SvSBu+JkluPossGcWoCTz418KPa9Sv55Ej58HmIjIRV4MyFuYpEkBL5ghp3vEv/jQ78irB4CoSmh1viZCPahEjrevCUeFsnyOKff1YaSzprJqjt+Nn6Sna8s/4/vmX07vlB3JUX4QNEeBs7YZGQ1ZGr1y0qK2sXi+q5GRW7MpbID3GcoX9hda5rlEwWpWdD26ejkwsu9bTibdS7meUjj0Lk8G99974ZxbtqupJ1Ec8oehruk8iwMZPYSaEkpfSdXPK9sDeB29tNtxgXrkGDqIv739vhFlscPjEjL9rseWx4Elms8t9M1U/VhFRFBcYV7TD5MOrwQq09o+Hqa2Uv+E0RoJhB4shJSEoVUPH8rDHiaXjQ+RLjjC+wweQyUvbns+lmkyBm6Sm+YSKGnJRE+21ZsFu457mGmrQ6r/fwZ/IXm8AIBXcjQGXezTweFek9385kKTAwrN6FSr3q+//bdcC4K/JxbfMzg3TQbAueiD6yIM2zQZNe6k3YjxkA5bsuNi+IBkMdTDzGZDJJy5tlg1D/eNQrNQTUtwCaXpImtWa0tqro5A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(6916009)(4326008)(508600001)(53546011)(956004)(8676002)(186003)(6486002)(66556008)(2906002)(66946007)(26005)(66476007)(85182001)(54906003)(316002)(82960400001)(86362001)(7416002)(5660300002)(6666004)(6496006)(8936002)(38100700002)(9686003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TFBiSytUTmxhS0hickczOGFuTDJMU0U4RkV1SlQzSHJLRmVCMjBnQmZ3MWZh?=
- =?utf-8?B?SlpDUjM0YjlLSTRxeXVjZUtscjZYU1ZVVk43SHRwU3ZQQnZzQVdkOWwzRis0?=
- =?utf-8?B?dW9JTUt3dUhUektMREdzNGJMdUFVaStlUExuZkdXZmZaNUZJT1RIZUdyVVBO?=
- =?utf-8?B?cEtxd3JpdzQxbC90SERhSjcwKzV2SWFiWXluSStpS3drRU5VT3JYMW8vYmlI?=
- =?utf-8?B?V29Nc1JNb2FxNGxNZDJQQTZvYmxqcEo0TVY2a2V6bzVaaUxPVzJuZHNEM2Jh?=
- =?utf-8?B?Zy82Y2ZiWndKVWdhQndKNHdvQklxTkYzRVp2RWJoa0x4U0prQ0Y4ZDAwZkFy?=
- =?utf-8?B?ZjZFU3I3R3doQmZZYS9Mdmd4RHh0WTdEdFIwWEVXRG83cjBNbTdoVHBXNWk1?=
- =?utf-8?B?dG1HOUhnTFlTZnRlQlFlbnZwWStkK29hNGlaL0NzYmNrRUN6SEY0c2gwTkxn?=
- =?utf-8?B?R1hQMFh4MVpQUFlnb0k4R0pmMGtEazVOd284MlBDVENRQ0lOUEM3blorNnlF?=
- =?utf-8?B?Z0xWd1N4VXlUeEFUZ0dQRUxRM1NDQzZSWWJ4cEZPSklVKzdlMWxJOHYxdUFK?=
- =?utf-8?B?WFF1azVuZGRmV1hPTnlnV0QxUGMyelNYcG51a1B4bzBXdGsrSHpWUHBVcDV3?=
- =?utf-8?B?QXAyTmIxRE5vMDhvRGlpc2V1VFJlckVxd242V3QvclFzTnR2Yi9mZE05c0p0?=
- =?utf-8?B?c25Oc2tiNlExdURXZDkveVZQRGxrK1RoWmdqYS9qeHBPQWw0T3dQR1ZRa08y?=
- =?utf-8?B?UmZWYmNZdzZMcCtDLy9KSHZ6S3NobCtSb1FnT2FIV3FZOUM1RDVVeFhnc29K?=
- =?utf-8?B?azMxdHdOdExmRE00ODFHUzJYTnJSTlZ2cW9rK08rNm01YTVpOXF6NHUxd0Na?=
- =?utf-8?B?RURiWERqQ0hhVmlJY2VYSHh0NlV3MlVDMEI4ZXJYd0F6V2Mra0FyM0FCVnN3?=
- =?utf-8?B?Q0dRNVJtbkxpL1kwS0ZmanFBUXphQ1BnNmp1ZHVEdmdkcnUwQ0hpLzJrV2Va?=
- =?utf-8?B?anVueEZTMjJlV1g2WUVnN0dMRjdzUGVuRTh2Tmw4R1JJUXY5aVludlFFeUVh?=
- =?utf-8?B?aDJOV1V3bnJaWHVwamFBd3dqZnlJZEk3Vm5waUYxNmlIbENmTHFIUE13alh1?=
- =?utf-8?B?eTl4YjUxRk13N3VJeDRaMGdCdjNNV3FLQW83WCsvWHRKcnhFeUh5NjlFMkNJ?=
- =?utf-8?B?TmlsVEdHY0VQUXlmM0h3RzZjVkc1TUxERFFzRkhHYTIrYTQxcWtDWjZBaUQ2?=
- =?utf-8?B?OHdzanl4VFpxVG4zS2YyYm1lclR3b05hMWR4blBOWm1EOVRsOVFUeElTTlJZ?=
- =?utf-8?B?eDU3UVlKVitrMXdlNUllVHB2L2JOUkNXcFNORk1hMlY3QlVjSkVFeEovK0Zm?=
- =?utf-8?B?WGYrMy9hZGFFQndla1VJWWZSb2NYN0dZd3VSS3RHWTVmZ3dveStjakVzV0Uy?=
- =?utf-8?B?RHZaMUlJV1dSTlg2aTkyY2dhakZBV0dEQVBwYTBaaU42SzQ4dlY3MnR2K1Rm?=
- =?utf-8?B?N1piM2J2Umc2aGVXL211bjRnMW9GSURTL0UxZ3Irb0d2ZWU5NVJBU0JldnNm?=
- =?utf-8?B?bForNXM1MlE3WmVud3ZiaDZnTFFkcTROVDI3VUhjMG9BZGErMXhJWE5xbk1L?=
- =?utf-8?B?RmtMTzFQVlgrR2VRcFdxOFlRZEo5bkIvaEMrRDBwbDVTdmlPZm1md2x1dGls?=
- =?utf-8?B?TVhlb0xBWWdtZTdrOFl0RG5QNnUzMXd1Q0poVEw3QmlQaXlacHBiZmdqb29P?=
- =?utf-8?B?U2RSa1pNd1pOT2pIUHBPQ1NnNXpVTlBpQS84bGxHKzVDaWYwZDhLNnJHN2Zu?=
- =?utf-8?B?eGpVT2MwcWJzT0tDQ2dwZTJpMm5EalNjWXN0emIxVDNTZW1OY0V4OVNhN1pz?=
- =?utf-8?B?bTk2MEJ2NGRPRlRpSXk5RCsrZnlsUC8zRlVUMFpxMmE1S2ZRMGhsUy9KWkFT?=
- =?utf-8?B?V0FmRG1kcnpnVFBXYTZvS3pOT2VPUGM2TVkzUlJmT0dLZWZub3VtMWNCL3dv?=
- =?utf-8?B?UEpFQTh4RllvamE1YzQ0SUdoSTZES2VmR1Z1MUJsbTlmNnR5a0hVMERGbnZm?=
- =?utf-8?B?alEzR0lZWFRSYW5YcjJFa1RvTjF1TGRNY1AxQlgyV05zOEpMa1VEZmkzQTA2?=
- =?utf-8?B?d1Ziek14UTcvVVI0ZlZiR2M1R1djMkQ2YXFPM3U5dnY4ZThPVVltbzNmV25P?=
- =?utf-8?Q?rdxScJtdEuIyKcrmo6xAnQo=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f0e123c-4858-47d6-a270-08d997bd0976
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K0pGaWJ4aGowRWpsUXJDUm1Lb0IxbmJwYzMxWjRSR29Ocy9OV0dLQTRJMnZ4?=
+ =?utf-8?B?YkNpdnhjMkI3SW4vQy9FMFNsVjdic1ZPeUdNbU9WRlN3ZmhPWHdYVU5RcmpM?=
+ =?utf-8?B?YVhYU1dvOUxLeSt5YkVzVXVUM2lIMHdENmxpMzU0Z081clFLbjRyajAzOWpx?=
+ =?utf-8?B?Mkl5Z05YNHQzZ0pwWE1rRk5MZmJ1c1RSMWd0R3dKNlRhdEVWVU1rRnc1Mll4?=
+ =?utf-8?B?UFUrMmRvRTlZbEcwcFIzQTB0V1dyMEtnRHdDSGpzYnlybkJ0eVlHdTFDd0JM?=
+ =?utf-8?B?WVR4UVR6bnE0T0YwT1QzTHlEUmJYc0NzOFErUG9FYW9IOWZGQ0VDODN6WE5Z?=
+ =?utf-8?B?Z1lkMFVxS1R1d1dJSkhEbzJVd1dHWm1vc2tiZG9oRWxXTXpPRjlQS3dQcHhh?=
+ =?utf-8?B?Tkc5aXE2THdXZUZIQWJ5SEoxdjBPb1V6TUk3ako2UU1UR205OU5tcWRQekZP?=
+ =?utf-8?B?WWJJZ2FudVh6VlhPZ0YrSzBVU3RJdUpHU0l0THZtUnFETDRSWit1MjZONVpG?=
+ =?utf-8?B?cHc5SkFTZDBOYlNteWVNMEEvSTZyMlhQNk5IVEVxKzF5dW5HeFQzdkpldzlz?=
+ =?utf-8?B?NVJ4QW9hRDk2bU5oVVJuNVFHaWNtb04xUGhFSU1PSEhjd2JyZW1PREtFZWxj?=
+ =?utf-8?B?TVdGWTRleG1hR1gvUHpLZG5ucDhwazZMeTFIQ1d3aHJVTkE0d0hFd3JMb0I1?=
+ =?utf-8?B?bGw4MzIyMDR1YjBlZTRyZlRWR1MwM0NUU2tlMnU2b1QwVjZRanRiUjNqZ2FS?=
+ =?utf-8?B?T3NmN1BrRGU0amcwby9WUjJLMHlPU3FqVlo4bkZDQjFkK25kWi9NQkkyUUZL?=
+ =?utf-8?B?ZlYxVVkvdDFwNjNPUVdqSUZvZkM2N3pDRXMzZk5icWJzbS9zNURCaXRoWU1R?=
+ =?utf-8?B?WU9vRnZjWUVTK3M1MVdIcFYwaStOd2F1VU1wSVdYc0tVbjFkb1dVSjVJVGEx?=
+ =?utf-8?B?Z3JVejVnQTdSMzlrblAybjBxMWNlUDF4SXFCSXJwaFFRZXZETWUrbHczMzhP?=
+ =?utf-8?B?VzUyYzNNbUVMaVptRzVILzNyc21ZOTkwUHFXaTAyMVovNU53eDVyK0t1WWZM?=
+ =?utf-8?B?dmdjVEtTMkEyM3F3d2gvYnN4UXhwODNxZjZ5K242c0M4T1dPcGRpYzBJdDhP?=
+ =?utf-8?B?VTBnc0k2cVZuUjl0YWJoNmg0Zm9QWlYzaXZvSFpvRTJuNHFoYm40VkZyRldT?=
+ =?utf-8?B?SjBoOVUyWmlVd3FoZDFWbW11V2NOeHkxbms4clRkVGxqUUdFdG1VY1dkZ1Ba?=
+ =?utf-8?B?UHhHcFdWMm0ya0NFMmVQbUhrMThoNHU1RjBhWXhMWDBoOFovNUg4S01aSlJG?=
+ =?utf-8?B?ZDZ0K1BHcjZiUW5rdDhNSE5FcnVhUlF5T25zMUhUUy9FMUNCQ21WdTd2RGFB?=
+ =?utf-8?B?QU9xamM1aGVEcXIzSHZUN0xyZnk1MGU1Qm1VUnhsWXNCWFlVY3Z2UEx0NU1N?=
+ =?utf-8?B?cUZBZlBZbzRPd2lMdVkzVmxsaEwwWEVwSWR0b00yV3JjdGdYanI1SG80MDRk?=
+ =?utf-8?B?VHVPK1F6clNtcVpsYWZWWkdSUjJ5S0ZEZitmb0JjeTRJWUEvQjh0ZUk0NUl2?=
+ =?utf-8?B?Y3RNdmxaMkw1bGlsUzdsWkIrZE02eklrWTdYTmpsbHNQOWY3VlZnaVFMa3Vu?=
+ =?utf-8?B?eFVRYlZ4NnRGSUZGdVZMM2dEWVBCMjdWWUlqQlBxTGQzaUhOcitqbkhlcWRY?=
+ =?utf-8?B?a0tNeTF0bGJ4RWJpVDIraHdMMGIxZks1SU14SEVWTkVJR3l3Z0FlcDVYOGJ4?=
+ =?utf-8?B?c2d0UGN4V3R0OUdueEhRZVJGanBpLzFKZ09sUXRpUWFsSTcyQzlvaXA3eVNp?=
+ =?utf-8?B?UDVzV05UUitIcnFlZ0hEMEh4bzVEbFFqM1AvSVNRVUh2RUp0Ujd5NStSSHJl?=
+ =?utf-8?B?akhEYU10MmtqMUV1NXYxV2tNWDdwdk0wOEhNRVF0bENwVE85UzZtdUVuc3JV?=
+ =?utf-8?B?TU9QTVpmTEhPSXhTeEVjRHY4Z0p6VFlWUk1JSmVtYngyK3BLU0pXU3ZFajVU?=
+ =?utf-8?B?T1hZV001aDBHeWFaM3FTN3NSbzV3SWN0MytBMnNTZysrTEd3eDE5ZWZRSi9m?=
+ =?utf-8?B?bDRNeHArL2VVYmQ3ajJTZEtJbjMxV3ZlbkRtOGZIeFhvL0FJK3FwU01MUzJ2?=
+ =?utf-8?B?U3ZlZk0zYXFLNGsydG04Z0d5bnJEMXprUjBjVGJrOUQ2c3BnZ3cvdU13d2dG?=
+ =?utf-8?Q?sqqqos4+KSrZ35ojvZqRIT0=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac82045a-35de-4f85-2c27-08d997bdcd93
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2021 13:40:41.7070
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2021 13:46:10.4607
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XylVrMqYygXzd7HhbDw9Ps602A0sGZP6baxJgGGvsv+xRiza9VDUlugauah0tWoH74G5wiDdoGws8t+5cdwXUw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3915
+X-MS-Exchange-CrossTenant-UserPrincipalName: wBbC4sb4bPRDm72EbJ7cs7vAMM2NDpOBEKnu1RXr+be61gNLTcBrlPdVw++XEMDtcW9SQrTJ2tjy3wDJoCvBxQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4681
 X-OriginatorOrg: citrix.com
 
-On Mon, Oct 25, 2021 at 09:38:00AM +0000, Oleksandr Andrushchenko wrote:
+On Mon, Oct 25, 2021 at 01:38:19PM +0000, Oleksandr Andrushchenko wrote:
 > Hi, Roger!
 > 
-> On 13.10.21 13:11, Roger Pau Monné wrote:
-> > On Fri, Oct 08, 2021 at 08:55:33AM +0300, Oleksandr Andrushchenko wrote:
+> On 25.10.21 16:22, Roger Pau Monné wrote:
+> > On Fri, Oct 08, 2021 at 08:55:32AM +0300, Oleksandr Andrushchenko wrote:
 > >> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > >>
-> >> In order for vPCI to work it needs to maintain guest and hardware
-> >> domain's views of the configuration space. For example, BARs and
-> >> COMMAND registers require emulation for guests and the guest view
-> >> of the registers needs to be in sync with the real contents of the
-> >> relevant registers. For that ECAM address space needs to also be
-> >> trapped for the hardware domain, so we need to implement PCI host
-> >> bridge specific callbacks to properly setup MMIO handlers for those
-> >> ranges depending on particular host bridge implementation.
+> >> Arm's PCI passthrough implementation doesn't support legacy interrupts,
+> >> but MSI/MSI-X. This can be the case for other platforms too.
+> >> For that reason introduce a new CONFIG_PCI_SUPP_LEGACY_IRQ and add
+> >> it to the CFLAGS and compile the relevant code in the toolstack only if
+> >> applicable.
 > >>
 > >> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > >> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 > >> Reviewed-by: Rahul Singh <rahul.singh@arm.com>
 > >> Tested-by: Rahul Singh <rahul.singh@arm.com>
 > >> ---
-> >> Since v3:
-> >> - fixed comment formatting
-> >> Since v2:
-> >> - removed unneeded assignment (count = 0)
-> >> - removed unneeded header inclusion
-> >> - update commit message
-> >> Since v1:
-> >>   - Dynamically calculate the number of MMIO handlers required for vPCI
-> >>     and update the total number accordingly
-> >>   - s/clb/cb
-> >>   - Do not introduce a new callback for MMIO handler setup
-> >> ---
-> >>   xen/arch/arm/domain.c              |  2 ++
-> >>   xen/arch/arm/pci/pci-host-common.c | 28 ++++++++++++++++++++++++
-> >>   xen/arch/arm/vpci.c                | 34 ++++++++++++++++++++++++++++++
-> >>   xen/arch/arm/vpci.h                |  6 ++++++
-> >>   xen/include/asm-arm/pci.h          |  5 +++++
-> >>   5 files changed, 75 insertions(+)
+> >> Cc: Ian Jackson <iwj@xenproject.org>
+> >> Cc: Juergen Gross <jgross@suse.com>
 > >>
-> >> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> >> index 79012bf77757..fa6fcc5e467c 100644
-> >> --- a/xen/arch/arm/domain.c
-> >> +++ b/xen/arch/arm/domain.c
-> >> @@ -733,6 +733,8 @@ int arch_domain_create(struct domain *d,
-> >>       if ( (rc = domain_vgic_register(d, &count)) != 0 )
-> >>           goto fail;
+> >> Since v1:
+> >>   - Minimized #idefery by introducing pci_supp_legacy_irq function
+> >>     for relevant checks
+> >> ---
+> >>   tools/libs/light/Makefile    |  4 ++++
+> >>   tools/libs/light/libxl_pci.c | 13 +++++++++++++
+> >>   2 files changed, 17 insertions(+)
+> >>
+> >> diff --git a/tools/libs/light/Makefile b/tools/libs/light/Makefile
+> >> index 7d8c51d49242..bd3f6be2a183 100644
+> >> --- a/tools/libs/light/Makefile
+> >> +++ b/tools/libs/light/Makefile
+> >> @@ -46,6 +46,10 @@ CFLAGS += -Wno-format-zero-length -Wmissing-declarations \
+> >>   	-Wno-declaration-after-statement -Wformat-nonliteral
+> >>   CFLAGS += -I.
 > >>   
-> >> +    count += domain_vpci_get_num_mmio_handlers(d);
+> >> +ifeq ($(CONFIG_X86),y)
+> >> +CFLAGS += -DCONFIG_PCI_SUPP_LEGACY_IRQ
+> >> +endif
+> > TBH, since CONFIG_PCI_SUPP_LEGACY_IRQ is used in a single place in the
+> > source I would consider just using CONFIG_X86, as I think it would be
+> > clear enough that some arches support legacy interrupt while others
+> > don't. Not sure it's worth going through the obfuscation of defining a
+> > separate one.
+> The idea behind not using CONFIG_X86 is to be arch agnostic,
+> so CONFIG_PCI_SUPP_LEGACY_IRQ makes more sense with this
+> respect
+
+I'm not going to insist, but you could have avoided modifying the
+Makefile at all by just using:
+
+static bool pci_supp_legacy_irq(void)
+{
+#ifdef CONFIG_X86
+    return true;
+#else
+    return false;
+#endif
+}
+
+Which IMO is clearer than the current approach since it's a single
+place where CONFIG_PCI_SUPP_LEGACY_IRQ gets used.
+
 > >> +
-> >>       if ( (rc = domain_io_init(d, count + MAX_IO_HANDLER)) != 0 )
-> > IMO it might be better to convert the fixed array into a linked list,
-> > I guess this made sense when Arm had a very limited number of mmio
-> > trap handlers, but having to do all this accounting seems quite
-> > tedious every time you want to add new handlers.
-> Yes, I think we need to do so, but this improvement was not meant
-> to be in this patch.
-
-Ack, just wanted to raise that this model seems to be getting more
-complex than just setting up a list.
-
-> >> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
-> >> index 76c12b92814f..6e179cd3010b 100644
-> >> --- a/xen/arch/arm/vpci.c
-> >> +++ b/xen/arch/arm/vpci.c
-> >> @@ -80,17 +80,51 @@ static const struct mmio_handler_ops vpci_mmio_handler = {
-> >>       .write = vpci_mmio_write,
-> >>   };
+> >>   SRCS-$(CONFIG_X86) += libxl_cpuid.c
+> >>   SRCS-$(CONFIG_X86) += libxl_x86.c
+> >>   SRCS-$(CONFIG_X86) += libxl_psr.c
+> >> diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
+> >> index 59f3686fc85e..4c2d7aeefbb2 100644
+> >> --- a/tools/libs/light/libxl_pci.c
+> >> +++ b/tools/libs/light/libxl_pci.c
+> >> @@ -1364,6 +1364,15 @@ static void pci_add_timeout(libxl__egc *egc, libxl__ev_time *ev,
+> >>       pci_add_dm_done(egc, pas, rc);
+> >>   }
 > >>   
-> >> +static int vpci_setup_mmio_handler(struct domain *d,
-> >> +                                   struct pci_host_bridge *bridge)
-> >> +{
-> >> +    struct pci_config_window *cfg = bridge->cfg;
-> >> +
-> >> +    register_mmio_handler(d, &vpci_mmio_handler,
-> >> +                          cfg->phys_addr, cfg->size, NULL);
-> > I'm confused here, don't you need to use a slightly different handler
-> > for dom0 so that you can differentiate between the segments of the
-> > host bridges?
-> >
-> > AFAICT the translation done by vpci_mmio_handler using MMCFG_BDF
-> > always assume segment 0.
-> You are absolutely right here: I can set up hwdom specific
-> handlers, so I can properly translate the segment.
-> On the other hand, when virtual bus topology added, the SBDF
-> translation from virtual to physical SBDF resides in the Arm's
-> vpci_mmio_{read|write}, like the below:
->      if ( priv->is_virt_ecam &&
->           !vpci_translate_virtual_device(v->domain, &sbdf) )
->              return 1;
-> (BTW Jan asked in some other comment why it is Arm specific:
-> I tend to keep it Arm specific until the point when x86 wants that
-> as well. Until that point the code, if moved to common, will be
-> unneeded and as Jan calls that "dead")
-> So, I think that I can extend vpci_mmio_{read|write} to account
-> on the hwdom like (virtual bus code is the future code):
-> 
-> static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
->                            register_t *r, void *p)
-> {
-> ...
->      struct vpci_mmio_priv *priv = (struct vpci_mmio_priv *)p;
-> 
->      if ( priv->is_virt_ecam )
->          sbdf.sbdf = MMCFG_BDF(info->gpa); /* For virtual bus topology the segment is always 0. */
->      else
->      {
->          sbdf.sbdf = MMCFG_BDF(info->gpa);
->          sbdf.seg = priv->segment;
->      }
->      reg = REGISTER_OFFSET(info->gpa);
-> 
-> ...
->      /*
->       * For the passed through devices we need to map their virtual SBDF
->       * to the physical PCI device being passed through.
->       */
->      if ( priv->is_virt_ecam &&
->           !vpci_translate_virtual_device(v->domain, &sbdf) )
->              return 1;
-> 
-> Will it work for you?
+> >> +static bool pci_supp_legacy_irq(void)
+> > A naming more inline with the PCI specification (since we insisted on
+> > using ECAM instead of MCFG) would be intx, ie: pci_supports_intx.
+> This will require a follow up patch if we all agree this change is needed.
+> @Jan, are you ok with the rename?
 
-Right, I guess it could work as long as the differences between the
-hardware domain and the unprivileged ones are not too big.
-
-The nice part about having different handlers is that you avoid a
-bunch of conditionals (ie: no need to check for is_virt_ecam) which
-makes the code easier to follow. OTOH it could introduce more code
-duplication.
+Didn't realize it was already committed, in which case I guess we could
+leave it as-is.
 
 Thanks, Roger.
 
