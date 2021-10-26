@@ -2,30 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EEC143A97A
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Oct 2021 02:55:21 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.216123.375605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AF6443A98A
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Oct 2021 03:02:52 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.216130.375615 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfAj9-00018O-65; Tue, 26 Oct 2021 00:54:07 +0000
+	id 1mfArM-0004gM-Uz; Tue, 26 Oct 2021 01:02:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 216123.375605; Tue, 26 Oct 2021 00:54:07 +0000
+Received: by outflank-mailman (output) from mailman id 216130.375615; Tue, 26 Oct 2021 01:02:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfAj9-000151-1S; Tue, 26 Oct 2021 00:54:07 +0000
-Received: by outflank-mailman (input) for mailman id 216123;
- Tue, 26 Oct 2021 00:54:05 +0000
+	id 1mfArM-0004eG-Rn; Tue, 26 Oct 2021 01:02:36 +0000
+Received: by outflank-mailman (input) for mailman id 216130;
+ Tue, 26 Oct 2021 01:02:35 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7zbS=PO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mfAj7-00014v-CG
- for xen-devel@lists.xenproject.org; Tue, 26 Oct 2021 00:54:05 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=bjQH=PO=gmail.com=groeck7@srs-us1.protection.inumbo.net>)
+ id 1mfArL-0004eA-NE
+ for xen-devel@lists.xenproject.org; Tue, 26 Oct 2021 01:02:35 +0000
+Received: from mail-ot1-x32b.google.com (unknown [2607:f8b0:4864:20::32b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0a829180-a056-46c0-a7bc-88cfcd6c9938;
- Tue, 26 Oct 2021 00:54:04 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 57A0860E05;
- Tue, 26 Oct 2021 00:54:03 +0000 (UTC)
+ id 5698fdc7-0f89-45ca-b550-58ca090f44bd;
+ Tue, 26 Oct 2021 01:02:34 +0000 (UTC)
+Received: by mail-ot1-x32b.google.com with SMTP id
+ z5-20020a9d4685000000b005537cbe6e5aso10709192ote.1
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Oct 2021 18:02:34 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id
+ o12sm3987438oti.21.2021.10.25.18.02.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 25 Oct 2021 18:02:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,104 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a829180-a056-46c0-a7bc-88cfcd6c9938
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1635209643;
-	bh=HEeMVtfCyJAt2fsNPWRd9oaQjciBifhzo0h6szOps34=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=fdSvT32a/MoeOzs96dMdVUvnCOfUM5LtfIPu/Mpbpr1Bp2odig7FIXkCaYNybWN6v
-	 Z9LlcWBulifYNEt0e2eiScg1gvmwpnw6NmYCmBQKSpA669Wy7lkyIxCkoCY+s2dZ3w
-	 aijaN2e3FKopo07CJke6JFJ2kaQh3CMWM7Iz+HKbb5z6TioSsDqWjTcscPPN/CZoQP
-	 W3LRQIfDIBC/nK9tU164ICJGakqoly169y+8G6fcaOz/cd1+nMoCuRuPwdolA7pvLB
-	 Jc52nwUHJniHUF2sHg8eaNQIZcPuEHZIB3aXyrj1Zrj09L3I4Arhd3vsGpR+Ka//Fh
-	 b0gXo7sMqJOkg==
-Date: Mon, 25 Oct 2021 17:54:02 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Juergen Gross <jgross@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org, 
-    iwj@xenproject.org, cardoe@cardoe.com, wl@xen.org, 
-    anthony.perard@citrix.com, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [PATCH 2/3] automation: Linux 5.10.74 test-artifact
-In-Reply-To: <d559b765-9e38-00bd-039b-9c33845b8e54@suse.com>
-Message-ID: <alpine.DEB.2.21.2110251753200.4586@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.2110210831470.2311@sstabellini-ThinkPad-T480s> <20211021230839.10794-2-sstabellini@kernel.org> <19aa9196-eb5f-22a1-206c-c9c87ee79fa9@citrix.com> <alpine.DEB.2.21.2110221219300.2311@sstabellini-ThinkPad-T480s>
- <d559b765-9e38-00bd-039b-9c33845b8e54@suse.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+X-Inumbo-ID: 5698fdc7-0f89-45ca-b550-58ca090f44bd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=sender:subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=QoNo/gJ6xc/Lk71yUFY24yh/oDqwuM2rlI5YSI1Io30=;
+        b=GPfYmTWaHMBbwyAoKorrgVTbZsmFqlu3TOEUwGHy2OWxrtvOOFmL05VvF2U0sO6yq0
+         cVG2pGChgd50T10TZSsWNX05FELD1uvjy4vLApxnevG1JaFlX/01wc7bxYRIYPX9ot1j
+         mhYj1Tn0i4N36hjzzsBFrFWjLhvHNK5OzDFjtK4IGQ/3RZsFvUyASOSC146FiTC7yTWx
+         HZ/+VrrW4xUyv5bJobb84DMvFKh18sl1EjBuYTM6yOx7G8gWIfIcOy/Lv+2OP97aLqdm
+         kVSOnhDE6i8MzbciAdTRwtEDm22pLsFy89+ZvJOg2agEUTAHLC62rfazSXLNYffW8WL8
+         azdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
+         :date:user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=QoNo/gJ6xc/Lk71yUFY24yh/oDqwuM2rlI5YSI1Io30=;
+        b=4sX1n/9Up/4a1n+CDRgwPlENCpXOzLR1AmqrZfpiL1iYN3sfAhmJ1dgwUD+3ZEo+cP
+         x7Sg1Sv20YAr66Ync/UTPMLt0mHUvkVJsFhnsQ0ASPz14uIwW3BsGGbDIktet8d4pMGP
+         StiVaUoSE66V2X+4zw9Rvr4AI/snr5WOQ4qNqtX2vKgzi8NjJiPV3hGX2TBLOoc4EQ5l
+         +2Fv62ox5oBRgrmTJZ3CEjYfaqEm1g6NA4829/NkH6ERvXc+/bRweXHDGDXMNO1+TVQF
+         BUSGc8ddw7gc1q09EiJzTJZ1PN9KXsMil2jdsBjJJDpQZs/e8LOGX0Zlb2YKj8B866Z1
+         8vXw==
+X-Gm-Message-State: AOAM533SRlqrOKBSVh2zqSPk9Czr5FSBSHe/47yhoLiu7UmN2/1Dchtg
+	v45W8qW2mPVjYBoUetljomU=
+X-Google-Smtp-Source: ABdhPJxMlKWW+1zbC7QoBnBIjxiIfh66+rRIl5XDXf7TN2O3gbhH6mxZxLAaz09z6baWVCUcqaQD8g==
+X-Received: by 2002:a9d:4616:: with SMTP id y22mr16425867ote.165.1635210154279;
+        Mon, 25 Oct 2021 18:02:34 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Subject: Re: [RESEND 0/5] ARM/arm64: arm_pm_restart removal
+To: Dmitry Osipenko <digetx@gmail.com>,
+ Florian Fainelli <f.fainelli@gmail.com>, Lee Jones <lee.jones@linaro.org>,
+ linux@armlinux.org.uk, catalin.marinas@arm.com, will@kernel.org,
+ mark.rutland@arm.com, lorenzo.pieralisi@arm.com, sstabellini@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ wsa+renesas@sang-engineering.com, treding@nvidia.com, arnd@arndb.de,
+ xen-devel@lists.xenproject.org, patches@armlinux.org.uk
+References: <20210604140357.2602028-1-lee.jones@linaro.org>
+ <526fe66f-df08-c873-2a20-f1295e30a855@gmail.com>
+ <a4fe088f-0f13-f80f-5011-4eee2d44ef63@gmail.com>
+From: Guenter Roeck <linux@roeck-us.net>
+Message-ID: <321b167f-8744-9ca8-58b0-e09ff39dfa02@roeck-us.net>
+Date: Mon, 25 Oct 2021 18:02:31 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1591971946-1635209643=:4586"
+In-Reply-To: <a4fe088f-0f13-f80f-5011-4eee2d44ef63@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1591971946-1635209643=:4586
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Mon, 25 Oct 2021, Juergen Gross wrote:
-> On 22.10.21 21:41, Stefano Stabellini wrote:
-> > +Juergen
-> > 
-> > On Fri, 22 Oct 2021, Andrew Cooper wrote:
-> > > On 22/10/2021 00:08, Stefano Stabellini wrote:
-> > > > +# build depends
-> > > > +RUN apt-get update && \
-> > > > +    apt-get --quiet --yes install \
-> > > > +        build-essential \
-> > > > +        libssl-dev \
-> > > > +        bc \
-> > > > +        curl \
-> > > > +        flex \
-> > > > +        bison \
-> > > > +        libelf-dev \
-> > > > +        && \
-> > > > +    \
-> > > > +    # Build the kernel
-> > > > +    curl -fsSLO
-> > > > https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-"$LINUX_VERSION".tar.xz
-> > > > && \
-> > > > +    tar xvJf linux-"$LINUX_VERSION".tar.xz && \
-> > > > +    cd linux-"$LINUX_VERSION" && \
-> > > > +    make defconfig && \
-> > > > +    make xen.config && \
-> > > > +    cp .config .config.orig && \
-> > > > +    cat .config.orig | grep XEN | grep =m |sed 's/=m/=y/g' >> .config
-> > > > && \
-> > > > +    make -j$(nproc) bzImage && \
-> > > 
-> > > defconfig is huuuuge.  Can we use tinyconfig instead?
-> > > 
-> > > Also, you want to turn off CONFIG_MODULES seeing as you only copy
-> > > bzImage to the test.
-> > > 
-> > > This also fixes the fact that `grep XEN` also matches CONFIG_NETXEN_NIC
-> > > which has nothing to do with Xen.
-> > 
-> > Tinyconfig would be a good idea but it crashes on QEMU with the appended
-> > boot log. I did:
-> > 
-> > # make tinyconfig
-> > # make xen.config
-> > # make bzImage
-> > 
-> > Of course we could have our own tailored special kernel config for this
-> > kernel but I like the simplicify of "make tinyconfig" or "make
-> > defconfig" followed by "make xen.config".
-> > 
-> > Unless you know one kconfig option or two that we need to add to
-> > tinyconfig to make it work my preference is to go with defconfig for
-> > now.
+On 10/25/21 4:55 PM, Dmitry Osipenko wrote:
+> 26.10.2021 02:29, Florian Fainelli пишет:
+>> On 6/4/21 7:03 AM, Lee Jones wrote:
+>>> This is a rebase/refresh of a set sent out, reviewed,
+>>> then forgotten about.  It's still considered useful.
+>>>
+>>> Here is an excerpt from the previous attempt:
+>>>
+>>>   "Hi Russell, ARM SoC maintainers,
+>>>
+>>>   here's the full set of patches that remove arm_pm_restart as discussed
+>>>   earlier. There's some background on the series in this thread:
+>>>
+>>> 	https://lore.kernel.org/linux-arm-kernel/20170130110512.6943-1-thierry.reding@gmail.com/
+>>>
+>>>   I also have a set of patches that build on top of this and try to add
+>>>   something slightly more formal by adding a power/reset framework that
+>>>   driver can register with. If we can get this series merged, I'll find
+>>>   some time to refresh those patches and send out for review again.
+>>
+>> What happened to this patch series? Is there any chance we will get it
+>> included at some point? It is included in the Android13-5.10 tree AFAICT
+>>
 > 
-> You will need to add the dom0 and SMP related config options at least.
+> It's in mainline since v5.14, AFAICS.
 > 
-> I'll have a look at config.xen, which is a little bit weird: it
-> configures the backends, but not dom0.
 
-Thanks, it would be good if make tinyconfig && make xen.config would
-just work on QEMU. In the meantime I'll keep defconfig for this test, we
-can always improve later.
---8323329-1591971946-1635209643=:4586--
+Yes, indeed.
+
+Guenter
 
