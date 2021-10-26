@@ -2,28 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73F9543B329
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Oct 2021 15:30:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.216435.376042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6079143B34B
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Oct 2021 15:41:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.216444.376053 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfMX6-00085H-Jh; Tue, 26 Oct 2021 13:30:28 +0000
+	id 1mfMgv-0001Ad-La; Tue, 26 Oct 2021 13:40:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 216435.376042; Tue, 26 Oct 2021 13:30:28 +0000
+Received: by outflank-mailman (output) from mailman id 216444.376053; Tue, 26 Oct 2021 13:40:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfMX6-00082V-FK; Tue, 26 Oct 2021 13:30:28 +0000
-Received: by outflank-mailman (input) for mailman id 216435;
- Tue, 26 Oct 2021 13:30:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mfMgv-000180-Ht; Tue, 26 Oct 2021 13:40:37 +0000
+Received: by outflank-mailman (input) for mailman id 216444;
+ Tue, 26 Oct 2021 13:40:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=d0pl=PO=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1mfMX4-00082P-Rq
- for xen-devel@lists.xenproject.org; Tue, 26 Oct 2021 13:30:27 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ae53d591-5a95-4813-89a9-3bd486385101;
- Tue, 26 Oct 2021 13:30:24 +0000 (UTC)
+ id 1mfMgu-00017t-7x
+ for xen-devel@lists.xenproject.org; Tue, 26 Oct 2021 13:40:36 +0000
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4badec3e-3662-11ec-842f-12813bfff9fa;
+ Tue, 26 Oct 2021 13:40:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,420 +36,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae53d591-5a95-4813-89a9-3bd486385101
+X-Inumbo-ID: 4badec3e-3662-11ec-842f-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1635255024;
+  d=citrix.com; s=securemail; t=1635255635;
   h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=6p036b/5ecfVrdcgdMILWvunAmwmxkKBC1CR3vFOj58=;
-  b=E4nk/i+l01ppNZIa8UmC0oiFz3BUysPSqUGoInTGoMiybwZx12J8I+bS
-   TurqCfvw1jBq8jx76EdsEjrzkTiZ/ChSdzeTYpi4QTMQhs18IL0xSbpEQ
-   bBeoVtIlhk0DkzizLd/asrqsdag2ubaQsykfWV6yBNhPWTwwZDCthujET
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=nMxPkiJhXX3eZBZt7xRyIOtdYz/D8U+ti/RFH9K9Ey8=;
+  b=CyopV/XuWlTLl4/qtocfBDDat67kh1iWgx1vYqToDGqMgKfh7u1mxoIQ
+   TQaaT48EFUundvjyZnroTFy+xl10nN9cXd69/ddOVNE9Yqbjp32yQqj85
+   BZDYE2iCHjS1lv33uI4odufCx3B827FmFN5IVBmbg+4Xjo2HENWT1FtvS
    E=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: RhLxx8hBuafBKc7eFqDPHncNl4IReHDvRQNYWfdwFQz8+Dg7BOKx/hBrtB4/5WL57pDCm+EpQY
- rw0cwOma8HhPFoNH5dshdRGxtWeHQy9hRrPrSD7u5nNtJgvRMPhiS1Qvfe6K4MkqMDkLz6OhIr
- 0jCQXUn6WJ7aTw5zQr+Z+fHDesscHYbzmzwF+E4V+AJMUrKmGTLA0kncJ8dEtxGq5N0HjLNado
- kCyvl6u7Runxkm35n9PddiiPPPif0TjeAMG7O9VPXjDCV+TmTWo0hnFyTB6m1YSvaCl5HboXrW
- jZv1z1Ig48zCeHUTHGn75Pag
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: fex1S8MH68AzbxaCBQ2sJ9283UvenL0NBKVfw8XBYPZPaHGEe7K9W7qpJOaavCuYu/WU69TfSP
+ BbtEFiCJyH8TAHqeN0Jlu4TaEIjlLpVrBZIW4kKoNmBTzoh1VndEeD9YAGojXW28/yGj+plKel
+ cSwTInFM80sLxFzKq/hsQQx7o4weGMlnYn/y81zuendIRYOjc262yPZRCmR9jSreJ2urG1qM5S
+ iyOU9ZyUNJFyNavNnOG8/urouvXCVAdryXZ1gHCuNXf5MtvOCQygo/7pS/dv0dOcjhVQG6fmEQ
+ yLdcOtx0Fmsg4rD3i4/0isC+
 X-SBRS: 5.1
-X-MesageID: 58003630
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 56477036
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:rDJ0nKvOGbgPgFSXTk7W7pJwAOfnVHRYMUV32f8akzHdYApBsoF/q
- tZmKWCFOKuPYGejL9ElYNjiphlV7cOHmtBqGwtqriFjFygT+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHhJZS5LwbZj29cw24bhWGthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- NplrbKqEQkVAe7wt6dNAkl7EBpXP7BU9+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DJoQQt2sm1TjEJf0nXYrCU+PB4towMDIY25AWRa2AP
- JJxhTxHQQ3vTyBVEXsuVpMvpdeI13zwb2J8pwfAzUYwyzeKl1EguFT3C/LXcNGXQcRenm6Du
- 3nLuW/+B3kyHcaDxD+y12Ojj+7Cgwv2QIsXUra/85ZCilCJ2nYaDhFQUFKhuOS4kWa3QdcZI
- EsRkgIpqaUx70WtQsPKVhu0umOfvhUcVtxTFMU38AiIjKHT5m6xHGEEUzoHc90gu88eTCYvk
- FSOmrvBGztrt7GETGOHwb2dpziyJCs9IHcLYGkPSg5ty8nupsQ/gwzCSv5nEbWplZvlFDfo2
- TeIoSMiwbIJgqYj3qO35wqf22qEqZ3ATwpz7QLSNkqn8wd4aYiNd4Gur1/B4p5oK4KUTUKIu
- nQerNSP9+AFDZyLlyulTf0EGfei4PPtGCbHnVdlEp0l9jKs032uZ4Zd5Hd5PkgBDyofUWa3O
- gmJ41oXvcINeivxBUNqX26vI9wE1/DuKeumat+XPoseQZtKXQ2a7i47MCZ8wFvRuEQrlKg+P
- 7KSfsCtEWsWBMxb8damewsO+eR0nn5mlAs/Ubi+lk79iePPOxZ5XJ9caAPWBt3V+p9ot+k8H
- zx3DMCN1wlEGNP3Zi3a4Ob/xnhbcCBlW/gaRyFRH9NvwzaK+kl9VJc9Ipt7IuSJepi5cc+Tp
- hmAtrdwkgaXuJE+AVzihopfQL3uR41jinkwIDYhO12ls1B6P93ytfdPLspmLeh2nACG8RKTZ
- 6JdE/hs/9wVEmiXk9jjRcClxGCdSPhbrV3XZHf0CNTOV5VhWxbI6rfZkvjHr0Ez4t6MnZJm+
- dWIj1qDKbJaHlgKJJuGOZqHkgLq1VBAyb0aYqc9CoQKEKka2NMxcHKZYz5eC5xkFCgvMRPAh
- 1rKWExD9beWy2L3mfGQ7Z25Q06SO7IWNmJRHnXB7KbwMi/f/2G5xpRHXvrOdjfYPF4YMo34D
- QmM5/2jYvABgnhQtI9wT+Riwa4kvoO9rL5G1AV0Wn7Mag3zWL9nJ3CH2+hJt7FMmeAF6VfnB
- BrX94kII6iNNePkDEUVeFgvYNOc2KxGgTLV9/k0fhn3vXcl4LqdXExOFBCQkygBfqBtOYYoz
- L556s4b4gCykDQwNdOCgnwG/miANCVYAa4mqosbEMngjQ9ykgNOZpnVCynX5pCTaooTbhl2c
- 2HM3Keb3uZS3EvPdXY3BEPh5+sFiMRcog1OwX8DO0+NxojPiMgo0UAD6j8wVAlUkElKirohJ
- mhxOkRpDqyS5DM01tNbVmWhFgwdVh2U/kv9lwkAmGHDFhT6U2XMKCs2OPqX/VBf+GVZJ2AJ8
- LadwWfjcDDrYMCugXdiBR8786TuHY5r6wnPuMG7BMDUTZA1bA3sjrKqeWdV+QDsBtk8hRGfq
- ORnlAqqhXYX6cLET3UHNrSn
-IronPort-HdrOrdr: A9a23:o8WnBK5lAw7bFDJzaAPXwSyBI+orL9Y04lQ7vn2ZFiY7TiXIra
- yTdaoguCMc6AxxZJkh8erwX5VoZUmsj6KdgLNhRotKOTOJhILGFvAB0WKP+UyEJ8S6zJ8h6U
- 4CSdkBNDSTNykCsS+S2mDReLxBsbr3gZxAx92ut0uFJTsaFJ2IhD0JbDpzfHcGIDWvUvECZe
- ahD4d81nGdUEVSSv7+KmgOXuDFqdGOvJX6YSQeDxpizAWVlzun5JPzDhDdh34lIn5y6IZn1V
- KAvx3y562lvf3+4hjA11XL55ATvNf60NNMCOGFl8BQADTxjQSDYphnRtS5zXoIidDqzGxvvM
- jHoh8mMcg2w3TNflutqR+o4AXk2CZG0Q6V9XaoxV/Y5eDpTjMzDMRMwahDdAHC1kYmtNZglI
- pWwmOwrfNsfF39tRW4w+KNewBhl0Kyr3Znu/UUlWZjXYwXb6IUhZAD/XlSDIwLEEvBmc8a+d
- FVfYHhDcttABCnhyizhBgs/DXsZAV+Iv6+eDlChiTPuAIm2UyQzCMjtbsidzk7hdYAoqJ/lp
- f525JT5cVzp/8tHNJA7dg6MLmK40z2MFvx2TGpUBza/J9uAQO5l3ew2sRz2N2X
+IronPort-Data: A9a23:z2NtAK7J9Ff8O3SAMIS5LgxRtLDAchMFZxGqfqrLsTDasY5as4F+v
+ mQdWG3UOPfba2P0edx0O4y38R9Xvp6DnIVhGlRkpHo0Hi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FVAMpBsJ00o5wrdh2NAw2rBVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zz
+ 81piKL3ZBcVMrzKxdk7EBADEwR1MvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALNs7kMZlZonh95TrYEewnUdbIRKCiCdpwgWls2Z8WRqi2i
+ 8wxQgthUj+fWj10Y2gnVLUdkr6sun7xfGgNwL6SjfVuuDWCpOBr65DmN9/Qe8CWSN9OtlaVo
+ Hrc+Gb0CQ1cM8aQoRKV/3TpiuLRkCfTXIMJCKb+5vNsmEeUxGEYFFsRT1TTifuzh1O6WtlfA
+ 1cJ4Sdopq83nGSwVcX0VRC8pH+CvzYfVsBWHul87xuCooLY/gCdD3ALZiNEadcm8sI6WFQXO
+ kShxo2zQ2Y16fvMFCzbpuz8QS6O1TY9KncmWBFDYBs578jl/bwVzRuUTvNoH/vg5jHqIg3Yz
+ zePpSk4orwci88Xyqm2lWz6byKQSovhFVFtuF2GNo6xxkYgPtT9Pt33gbTOxa8YdN7xc7WXg
+ JQTdyFyBsg1BpaRiDfFfuwJGLy4jxpuGGyB2QAxd3XNGjLExpJCQWyyyG0hTKuKGpxdEdMMX
+ KM0kVgJjKK/xFPwMcdKj3uZUqzGN5TIG9X/TezzZdFTeJV3fwLv1HgwPhPJjzC0wRl8wPBX1
+ XKnnSGEVi5yNEia5GDuG7d1PUEDn3hWKZzvqWDTkE38jOv2iI+9QrYZKlqeBt3VH4vfyDg5B
+ +13bpPQoz0GCbWWSnCOreY7cABbRVBmVMueg5EGKYa+zv9ORThJ5wn5muh6JeSIXs19y4/1w
+ 51KchUIlAam3iaXd17ih7IKQOqHYKuTZEkTZEQEFV2px2IiccCo6qIefIEwZr4p6Kpoyvscc
+ hXPU5zo7i1nRmuV9jIDQ4P6qYA+Jh2niRjXZ3iuYSQlfo4mTAvMo4e2cgzq/SgILyy2qcph/
+ OHwilKFGcIOF1Z4EcLbSPOz1Fft73ITr/1/AhnTKd5JdUSyrIUzc37tjuU6Kt0nIAnYwmfIz
+ B6fBBoV/LGfo4I8/NTTq7qDqoOlT7l3EkZARjGJ5reqLyjKuGGkxNYYAuqPeDncUkLy+bmjO
+ roJn62tbqVfkQ8T4YRmErttwaYv3PfVpudXnlZ+AXHGT1W3Ebc8cHOI6tZC6/9WzbhDtAroB
+ k/WootGOa+EMd/OGUIKIFZ3dfyK0PwZl2WA7fkxJ0mmtiZ78KDeDBdXNhiIzidcMKF0IMUux
+ uJ44Jwa7Am2ixwLNNeaj38LqzTQfyJYC6h35IsHBILLixYwzgAQaJPRPSb6/ZWTZogeKUItO
+ DKV2PLPirk0KpAuqJbv+awhBdZguKk=
+IronPort-HdrOrdr: A9a23:YLPcSaGZTbxGO745pLqFcpHXdLJyesId70hD6qkvc3Nom52j+/
+ xGws536faVslcssHFJo6HmBEClewKnyXcT2/htAV7CZnichILMFu9fBOTZsl/d8kHFh4tgPO
+ JbAtRD4b7LfClHZKTBkXCF+r8bqbHtmsDY5pav854ud3ATV0gJ1XYGNu/xKDwReOApP+tcKH
+ LKjfA32AZINE5nJPiTNz0gZazuttfLnJXpbVovAAMm0hCHiXeN5KThGxaV8x8CW3cXqI1SvV
+ Ttokjc3OGOovu7whjT2yv66IlXosLozp9mCNaXgsYYBz3wgkKDZZhnWZeFoDcpydvfpWoCoZ
+ 3pmVMNLs5z43TeciWcpgbs4RDp1HIU53rr2Taj8DLeiP28YAh/J9tKhIpffBecwVEnpstA3K
+ VC2H/cn4ZLDDvb9R6NpuTgZlVPrA6ZsHAimekcgzh0So0FcoJcqoQZ4Qd8DIoAJiTn84oqed
+ MeQv003MwmMm9yUkqp/FWGmLeXLzEO91a9Mwc/U/WuonhrdCsT9Tpd+CQd9k1wgq7VBaM0oN
+ gsCZ4Y5o2mePVmGp6VNN1xMvdfNVa9NC4kEFjiaWgPR5t3cE4klfbMkcEIDaeRCdo18Kc=
 X-IronPort-AV: E=Sophos;i="5.87,184,1631592000"; 
-   d="scan'208";a="58003630"
+   d="scan'208";a="56477036"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I07bkqjXEm9UWCAdGxzYGsLWs/8Pxd4/8S7hvFyv1O90loaCpLnJjPUKViTu4r3S115YWMSFyQrOoDm7ep6YeH4lwxct97ktGWQzsmVYKYIMTVU1SD6sjsE33DeuxfZCkd8wD1mzl9UFiZdABG4AS83YbZFlc9wGLGk/2H7HP5mc8RFqrFehWbEeakqyA1ajNU3oOn+kXNm6lUUCFu9nk2Ke1/Uuxmf1XC+sncIRqNhhqSCDz/1PPoXB7+10VzPadOzxjfc8B9FFpTpQtC4jnjUPs4xe0MW4EPFI7DvgPnuZb0DcW1ZzmB64Mk48pt/87y1FluivLMkH78O5e7TPcA==
+ b=Ob3DrVv+b9Oe76vmESdgIARPUPoxhmWPaLN/5K3sjBjMnJv/yPrViwneB97JD7nYQbzYLIhVn6nbs8rYMXDyrHDkz+XrofYHxy+KtuBKBkOhiBwYHfaa0dmzLv5v6RyoRDDDgXF0DbVYXxoDaTjrbkpDw3xK4qzXJW7asUBmNBYB1C3HVdvOzSUYROnLuq7fahBh18eF5ARTljNh80Nfl+a0rCBXYT7B7dAJBy3wgUG0OSc8WPFEBPb/YCyJV2KAC9OGw4F7RKku5JnIJH+FthQ+KJZemo5M1LCvc4twThd29UPTR9POT/JEuPxACeDrUWydFwwPMS0xvCYLVtAZRw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9EQ6jAIADUx+fOskjNBtbeFd2h9AWqCawEeH5Zn4EMc=;
- b=ZKru4ZVg0fnq1tmqy8L088nQaPIEyJMZlFLxPO/LAxSepDcJPFclCzFx1lZbAsRfm0cN7G/Kvjy9n3zLsKmX2QYHmlInd5jWGIZogJHFWUroX1PxKQeY2L2s763nHwXJ9thp3DxzcTEyIC/bSQJVFy7rbjjdR74Gs5PLAT6GFcmSVu/i1dQy8KpfXSx9z3qCgHjoLHe6OCv7gQ38N92hI4E79L3Dl7PlVBEVruOYjkwqQmGjmn3mLyg+45yucMHJROhdnekw01rG/OEg8iHTR7mkmjlAqmt74+RqvTuOnGRgct+9OmYVh52xCUDaX9ExliGERyII597Z6OxTEJW+vw==
+ bh=tjYSvRpet7gm6YxK64R7Al/jcQCA4Ww53OXbvsIJD98=;
+ b=DbEA9BSY7gZoikFDEYZbQrH+Aa3qpWeND0oOHF75Z4zz/HciZ83qRimK1LU2RQAuDILrtYOGo+1XTA4qpESp0vGxm9bGa0TmiGLAYsuLOEtqabYkISyhQwDUws1s9CDOaze7ne8mXhN8kV2fmslQlmcTSJkln5CiQBk42uCd1Sd7wfmUnn40Y/L/jOeOkPaK2XnST2wqlStI7OWgaBlj6a+zN9FDGV0yZMsNo/VZaxMIJgafLQOdlE/hOp2GJwRFhktvpcw1ODZfo/cuEO2V+JJJY4u/xTvyqeRgDtk5QK3Xwi6BPgFoJHizBtXf/TKPacLKJZ9BdRvhF+T9JlyzIQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9EQ6jAIADUx+fOskjNBtbeFd2h9AWqCawEeH5Zn4EMc=;
- b=ZJxNjVbYy4wE4Bn8m7MgSQLzCUxTJkYOOHSiMTSFiGe3W2HCrEyzFdDqLVR6wEH5B2T+LF7hWx5YfPM0qnaL2RlL4s/SJAzUbR9kutntXQwLGCtVVQ7fkXvXZy70rCiOo+zcSKBaEvb3uEbMCW4jCzBRAivEG2AjnMCFh8TH3iE=
-Date: Tue, 26 Oct 2021 15:30:13 +0200
+ bh=tjYSvRpet7gm6YxK64R7Al/jcQCA4Ww53OXbvsIJD98=;
+ b=JwBFhIuUWsyjzwI4ZmvStNhwxgedap9K9jx1et47EdjgMpCMCLZZnMFjN+TdSNBNCr4UCHE8X5SlbS+oNVVyuVR8lRUFBY4QZBh7/BP/wVawISuRBetRdaOALMsCI0+K5Wz0uJ+U62R2shrN4vRFut24CooNG3TgwMmRaBEgHGM=
+Date: Tue, 26 Oct 2021 15:40:26 +0200
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Oleksandr Andrushchenko <andr2000@gmail.com>
-CC: <xen-devel@lists.xenproject.org>, <julien@xen.org>,
-	<sstabellini@kernel.org>, <oleksandr_tyshchenko@epam.com>,
-	<volodymyr_babchuk@epam.com>, <Artem_Mygaiev@epam.com>, <jbeulich@suse.com>,
-	<bertrand.marquis@arm.com>, <rahul.singh@arm.com>, Oleksandr Andrushchenko
-	<oleksandr_andrushchenko@epam.com>
-Subject: Re: [PATCH v3 11/11] xen/arm: Translate virtual PCI bus topology for
- guests
-Message-ID: <YXgC5QB2MDZlZeEZ@MacBook-Air-de-Roger.local>
-References: <20210930075223.860329-1-andr2000@gmail.com>
- <20210930075223.860329-12-andr2000@gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: <George.Dunlap@citrix.com>, <dunlapg@umich.edu>, <jbeulich@suse.com>,
+	<committers@xenproject.org>, <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2] governance: communication channels
+Message-ID: <YXgFSgHhhEpXsvpQ@MacBook-Air-de-Roger.local>
+References: <alpine.DEB.2.21.2110251845500.4586@sstabellini-ThinkPad-T480s>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20210930075223.860329-12-andr2000@gmail.com>
-X-ClientProxiedBy: MR2P264CA0086.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:32::26) To DS7PR03MB5608.namprd03.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <alpine.DEB.2.21.2110251845500.4586@sstabellini-ThinkPad-T480s>
+X-ClientProxiedBy: MRXP264CA0028.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:14::16) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 06343ca5-e1ad-4086-5044-08d99884c0dc
-X-MS-TrafficTypeDiagnostic: DM5PR03MB2777:
-X-Microsoft-Antispam-PRVS: <DM5PR03MB27770C0986C848F9C137AEBF8F849@DM5PR03MB2777.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: f78e8702-9b0b-4b8b-6165-08d998862e4f
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5065:
+X-Microsoft-Antispam-PRVS: <DM6PR03MB5065A5F8FE809FE2FBBF6F4B8F849@DM6PR03MB5065.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: sMqO1b3sP6d1sxpkynBwPS0+nUeB58w8iptdbj8Ti2DeoEKpDpTOsBdCz5jCvc+IoXElMngI4ovIkSIfAVxF7tVu0FJpWo5a2nt/TCUXPeFbUU2AqFpVDt4skbfTDyiWO6lAvrb4Myejeg/oJ4Cok2HKeP+iZ1I09FTWShdPO8QP5kxWzDHiRBa6db4m4jL986+0/2attLX1DHRULZsec/px8o32CpmWcI2ZwRuWA5awrk5+AAEEfSMe6cLBJFsVWYQZewPjeqQ+UUwS+1JDX30QnzOtv+/Of5dmI/6Tq43LA/Dyofg6l5hqKuYJNu6Fo2fJ7aHJGm8k8mtg8uzT5HF2G07CIYZ/alPODOHeQVc860urTcMTq7++T7+ynAzsLEADjHNW+Q3L6F4ImzVJF4W1kj1SprTIP3mzgte69iByrd28CcEdF1hvKngnrew02UBFmb1WqjnDcIIAzGmFZmg8sQaJgPXifNF/gLv7p4UxFNCkcswf0F3zgtDgQDkC/X5GPO0zemBc4lh9QWclsr9gHrKsQwshePu1WKLMQSDJGbREb2y3wS6LId02yZrNK3qo4YV5fBJDaeCMNQfkbZYFdVpD51ZX2Bx+RPopVpXoC0AJ4KP6SdXrZkmSWER63C9awAbtu8I+6UfvV084VQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(8676002)(6486002)(9686003)(82960400001)(956004)(66556008)(66946007)(66476007)(5660300002)(4326008)(26005)(38100700002)(6666004)(8936002)(508600001)(316002)(2906002)(6916009)(7416002)(6496006)(85182001)(83380400001)(186003)(86362001);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: yWXOAcJbi0ioA7KAjqhe9+oFBXqX84mPc8KjcOzngaTJk/MfyLabJBHwWipd/dinrF6f1Dg6MAvcw6wg/U6XK7twiByfhKgffwZ7WgqvyLljRPR/HDXEuyUac1dOEjlSeYqkRq9iHwbJE/7pPhQ5rvCiUfK5DGgruuZKDQ8bbCIc8iOFTvgqaM7/y6UgUhUsCpt/l3bNVhY4MpZSVIrx9LljH2dpyCkeUQ71TFaRbVWX32KfBSMhzm7VmjrTqDSVC83yJ9az+CoLG9gUaVx3x3NNu9jgZ8EposMl6ZIwZSrjQHSHZN23pdTChk9Yrm8KJnibeWDHHIF98sYzqQrj6xwz4ObtWIrRSxJRjuj28j43wBQn2K13HYz363u92UveCl22D/+B19Gn1w0oVoQfsTK3+vwkV4iURe21iQwBliidtYS/5D7q/OGlr0XHZnkmrw29UNP5Ldowy6QCBBWLxg4DbEWK3bG/PgEIrCDryMdfFjAc0ZCMcroMjxooUiLHXluXYIa/Roz/71+qRIZhgJjW6new7g38Z+C1xHsJk3n4eS3W04E2IkN+dkZ9janzyNoOpZT+dG9xF43V7acgA8vV+Iz76GvrrdNUMQti502lL7WOKaLtxnmks5KAIdWjUIGcrNKqrIfR+SgN9eOiYA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(26005)(85182001)(6916009)(38100700002)(6666004)(8676002)(6496006)(6486002)(558084003)(508600001)(66476007)(956004)(8936002)(66946007)(5660300002)(316002)(66556008)(9686003)(4326008)(186003)(82960400001)(86362001)(2906002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bmJMbkdZZ1ZBamlBVUNTQ0I1UUNDejl1RUlOUWNnRU5EKzVUMVIzbDkzOVBx?=
- =?utf-8?B?d3FzQVczWnNOZndBR1VBWmNtbzd5V3dIdTJ3V3dzRjY1d3ZlYWFLWWRWblFp?=
- =?utf-8?B?V1JZZVNmUEV1NE5TcTl1aVdxUDY5eW9OWm5WaURjSUg0ckdMeUZlYkZNS0J1?=
- =?utf-8?B?ZGVXNHQ3T2p5U09kYWV1aUxlcTVjSFc5VENDaisvL3R0Qjg5ZkpKbnRaTzdO?=
- =?utf-8?B?UlNHNXk1UVdXUmFWRk1zUks1eDZXa2JDVitkUzNta2taN3NpRlRlNHdKbVIw?=
- =?utf-8?B?aDFqdlZmcjdNY0V1SXVmTDhZb1RyQmNIc2h0cE9QU3ZTQ0NXRTMweXY0ek1P?=
- =?utf-8?B?TlhQbkNQTmpGUXBCcFMzSHJYbDBIOU1BYm00TjFVYy9XMHR6dTZQNnFzVHFh?=
- =?utf-8?B?SnlpREc0TDMyQTFrOVkzVE9lZm1EdXhTRkNrSUNrbERTV1k0bzNCMkR6bjQ1?=
- =?utf-8?B?cU4xNDg3RXdtOGR4VGN6ZXZINEVaR1U4NlRuc3NtNFBFcURCcVBWL3d1S2ZL?=
- =?utf-8?B?eVovTy9qZ210VUF6U2JKSDZrUEpDbUFQQUR3NzAyc081NG1DVVJ5anI0UDZo?=
- =?utf-8?B?YkN2MlVITUxsNWgySlB2dGdCd210TGsreXpJK1AyOXFGcWRsNHJUemhjVzl6?=
- =?utf-8?B?VTJxc05YSnVsbHExZlFobTZUd2dJb2hwNW9Td1RQaVpMWTZNbGcwWkIyL0Iv?=
- =?utf-8?B?emh2WmpVWUlxQTR2MFNDZUd5Q2NCRG9KQ2dtNjdwVnE2Z0hWZWpCMDlZVUhi?=
- =?utf-8?B?T2ZpRHIxUmRSbHY0bFpVUzFvRDRHNUY2NXkvK21nMm0vZkZmM3V4VWFkekxu?=
- =?utf-8?B?dldqZlV6OC9oTlBESk9HYzFoSVRJZkhXVUxseUlJM1RldEsrWUppUUhYNGdr?=
- =?utf-8?B?eHBwSVVCUlRLbU5GcHV0WU45OEtYdnYxMmk5djFWYWE3VG11VkZMUkxqejRr?=
- =?utf-8?B?RHYySjhNeUNmTlZKK0FqNjRxQlZrR1ppcjF5N3JicXpuMzdjMlA2Wk93OS95?=
- =?utf-8?B?OGNLN1hSOFc0c1lRYktwVmZOTDAxeEx0N1RpbE9MdXh1YW85RjA4YlI3ZEZK?=
- =?utf-8?B?VGtTa1dPUmJrc2U2cisxOWVPT0o4VGcxTGdncU15RWY0MFVROUJla0c3WlJm?=
- =?utf-8?B?eFZlV1drcUtkbWZtK2hVS3h1VDY0TjdDSnlVV1lvQ2tlYUtCN25abkpZeTRs?=
- =?utf-8?B?L0hGN1QzbFh2aE5Hb3YvcTJPWXB5b0JCemF5VEplT05MSWRzNXYzL0FvbjQz?=
- =?utf-8?B?V3RvYUEvTHY4Ykt6OW80ZC9BYjVsOTV2b2g4VDk1N1UxWHNQMHZJdm9IdXZw?=
- =?utf-8?B?encxTHhERWlBWmtnczRPUDdLSkZWU2JCdmNrN2RsRUZXMzdKTUhCMi9sb20y?=
- =?utf-8?B?cEhpb21yRGhxSGlTSHhMUWtoNjc3VFA5ZnptbVBmdCtxeUFhR0xjcXhiWlpN?=
- =?utf-8?B?bmdYNzVwQ0VjQkx1ZG56aHVmVHlJM0hNNkFpc2F4bkp2VUpPb2xxaEtYbldS?=
- =?utf-8?B?YUpPcUJmeE1IQjVjMkFlQmswMlg3S0lLNzlhMlpMRjR6SFJmUUdzbVFGSm9z?=
- =?utf-8?B?SStYUU45S3JoQWNtT0RKeklIeE9hQ0RWT1JNREh4ZWlUVGo4SnZtTG5SN0ll?=
- =?utf-8?B?UmwyT2xCZHI4TStaYzI0VkZQOFhVMHdTT2VpVkRLVUFaS0c3OHpLRjlKQjVQ?=
- =?utf-8?B?RDlGVTloRWdHUTY0QlFpd0JDNS9MdXcrMGJXV2dpYkpVVDhLK0NzdnNGaU43?=
- =?utf-8?B?S2JENmxsV3RscGhab3pmR1N2VjdRWlFxdDE5ZjNYMnZ4U1dhRDZBMXZ5SDRU?=
- =?utf-8?B?NjNMMjNZZERTam8wZE9YamFzL0UxTHFvYnp5MkFkY1RmTU1Vcm5xTDRwVmdy?=
- =?utf-8?B?R0VYdmxUK0VjOGFNMzdWOWpmRXpOWFFjYkZHN2N0RHZ6SFM3blZvT2NaVWpn?=
- =?utf-8?B?M05oM1d3Zk1HVGdQcUNMWUM2WFZQUkh0aTNIOXJqT2daNnVWYUxEdHhXVW1u?=
- =?utf-8?B?Ri9CeTgxZ2hCNW5TV0dnSUNKamY3ck9xUlc5R1F3elc4SzdGekwxbXFzUDNG?=
- =?utf-8?B?aFdXemFxb1ZkWnZDMGFiREJoQ2ZZMitnWDlmMmhwNFg2SmVSRG53Uk5YaURR?=
- =?utf-8?B?UTBDQTZXVlBycFVQZGZnUGw3eHArS3VGV3JhS3MwVFZJemZMaGEybmE5ajE1?=
- =?utf-8?Q?QTkV9k3YKiYRkI86UMw/EHw=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 06343ca5-e1ad-4086-5044-08d99884c0dc
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?LzIyQnJySlRwdXk4aTVEVForVm9XZjlxTW5lZzJzU1RadTFFd2dWTGxXL2RX?=
+ =?utf-8?B?WEpLTmJiRXNOclA5ZURKTlFWd0JGTlFsR1pVb0JoSzI0c0VIQlB6dksvY3M5?=
+ =?utf-8?B?SC80cGVNMFpjL1FqdEdiWTdKanhEbUE5aGFoOHB6eE1qNFI4T04zWWVhSFhO?=
+ =?utf-8?B?bDVoKzh0Y3pOQUVjT0JwZkU1czJxMTRTeElqVEtpbWlVNlhtbDNiV09ycHlI?=
+ =?utf-8?B?Mk4vamhtbjdobGZuaEZ0NDh5STlvUkU2dHpqZEJRaU81VFdTVjNmU1RFNklL?=
+ =?utf-8?B?MnFZZkZUNC9UN0pSU01iZnE3VnNRSnZzWUhyWWxlRkowQVMyTENXeWJ4Vi85?=
+ =?utf-8?B?bkR6MnF0VVBVcTY0YlZ0MlZxK1RiVm1jeDVxNXJnNnBxY2RHNjF0Y3QvWXh3?=
+ =?utf-8?B?S1N2LzJ3QWkxM0lCUUJHQUVzV0diS2kzTldaajg3U3hmbjdyWDMySURycEYw?=
+ =?utf-8?B?YytnZGczaTMzTS9wWUJhd0ZibkNWTGxiYXVndzBKdko5UGIydlo2aGM2dytQ?=
+ =?utf-8?B?NktuRmlLeGVtemVFSHpteTJPaGNZdmRielNaand0VzVWYkYzSjdNNGNYL0Jt?=
+ =?utf-8?B?S2p0ZHBQZkxLbGI4dkRsRWc2MExVVzByZ05tNU8zZFhCWUIzOEZ5d3orTFYv?=
+ =?utf-8?B?WlI2RlBBR2RCWG1UUTk5YkNPMGtyZlNNZ0I4cC9SLzRxOVU2bitNYXZPNVg0?=
+ =?utf-8?B?eEpEeGhaaDBkMlkyRFRCeU1jdnJ2ekFBN1Y2VHRTOUlPZGJsaWZhbmlYeWRL?=
+ =?utf-8?B?SC9xQWpMbVFGVDJJOVh6aVUxSGZaZDJMUU9naHJUNnFoMmJaNUQwNzAxU0U0?=
+ =?utf-8?B?TW9SRVkvQkl4Q0VvRkVQd0taZitGVjA1Ykc3UW9yMHFyWWxGdlMzZ205MVpw?=
+ =?utf-8?B?RTRnNDFLbms3bkN3SUlUSmVzbCtpWWlhQlRXRisyR1FTcUNxWmIrRG9XSVlI?=
+ =?utf-8?B?TnU5QkxtWWNuMVVnWG8rQ0FobUpUdWRGYXl6dkpsTUNFOG5pdUxQcnBpcDYr?=
+ =?utf-8?B?ZjdXSXQ0UDB3M2Zock9lSHpEelU5MTIxaHFLSkFiZ0NJM3d5RFlXNFB3NlMr?=
+ =?utf-8?B?S1dIWDZvbDAvVnNxcUhMQ09UM25YSzMzUGRBTkU0ZVZ2dUpXMzZYWW4wV1pU?=
+ =?utf-8?B?MmEyYlpPR2xiKzBxRHVhM2lKdnZaalQvRVY4ZjMxR1hTTGNvd1FlYmRJczFu?=
+ =?utf-8?B?ekpNdnRLQnFmUjNURUdmeFZpdTNSV3VJRVlFWDZmVitRbk5rSWJuMGNJdGtV?=
+ =?utf-8?B?ZzQ1ckpoeFltK3FydE1HWGFDL1BKWVRoY1BKMUMrdlk0ejFxcnRhUzd0dERp?=
+ =?utf-8?B?UnZxeE1jUndraEF4YkhBcjRUcFpBU1orSFZwTGRZaDk4c0xsRDdvcVVvMzFq?=
+ =?utf-8?B?YVhtWVdHbDRrQkR6aDVUaW1JY0F3OUpVQkhYY3psTFM0Y1hqNXpiYmR1TjlF?=
+ =?utf-8?B?dEJDa1E0bW4vd3R6N3V3QWZWcjV6bVNyRGVjbWlaYk1QNm0wL1lpT1RibkdU?=
+ =?utf-8?B?MFoveFNTZlhRRHdqTzBsSWxBY0J1bHNSY2lFS2VhOCtaL3B5S0RnK0dyRTNz?=
+ =?utf-8?B?bkFJSG5CTkdYMlBLMHFwa3lFRWwzSmsvSXBGdDFlYW5VZXpVQXdoQ0hydDNI?=
+ =?utf-8?B?NDUrL0xSVDZBaGNGcUllTDd2V01VY0ExNGE1SGErbUNqT2RYQmprSE5nb3ow?=
+ =?utf-8?B?UEE1d3dVMzJYNC9ReElEOS9RNVNiNnNFNEFLbzBJTmZzcVp2dkhWeGs1UGZh?=
+ =?utf-8?B?bXl6K0I0U3UyYUROTHZVaWtzYXZPZUZ4c01wY0pBTmFNSHRETGkwZmtMek5H?=
+ =?utf-8?B?N1NqUnpmWjNpblJWZXpPcllVaWs5YnpTRGFpTmVxNWw5OU9lT2Y0MHJYVTNH?=
+ =?utf-8?B?aTUzVGx4V0tXSDRrZU0vRmIwOEpXbWYzbXlZRGZLUEpZZ0Z6TkMwZGRHVmZ1?=
+ =?utf-8?B?MHY2enNSVW9qcXhNUnMxQWxIeHVCallBSWRTZmhnTTRjUitIVGJ6Nm1IZXVk?=
+ =?utf-8?B?SGJvYWpUd0RRWXN4a09hamIwQmRtSTg1bWg2WTRFRHBzd1RlOTlwK2xrQWlX?=
+ =?utf-8?B?M3FMREw4d3RvOFM2Uk5Sbmo0TS8zNlN0V2wrRysrbGg5d3FDN0N6eFBMbktQ?=
+ =?utf-8?B?bXZWYjd4WEVNNkQ3R1krYkZoVEN2am1oSGtlTFN2TVhQTjFjZnV2anF5bENn?=
+ =?utf-8?Q?PqXsgKuhrNixDbQxXJTK9SM=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: f78e8702-9b0b-4b8b-6165-08d998862e4f
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2021 13:30:19.0186
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2021 13:40:32.1879
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v8nSSveaZmWMc06zpB4oSCafWlWl9ODOMebiC4Tffe4zdbZPfSVemN5xEv4Zp6CxhW2PRqrek78q1Udt9ZcwKw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2777
+X-MS-Exchange-CrossTenant-UserPrincipalName: pDmf15L8lwauD1a71B2+RN3kySNdAtymCL3pHTpr3JTea8vc5Khjzk+dFExQgHbspj7kQqwizGjx2d7WW6al9g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5065
 X-OriginatorOrg: citrix.com
 
-On Thu, Sep 30, 2021 at 10:52:23AM +0300, Oleksandr Andrushchenko wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+On Mon, Oct 25, 2021 at 06:46:45PM -0700, Stefano Stabellini wrote:
+> Clarify that xen-devel is the only official communication channel.
 > 
-> There are three  originators for the PCI configuration space access:
-> 1. The domain that owns physical host bridge: MMIO handlers are
-> there so we can update vPCI register handlers with the values
-> written by the hardware domain, e.g. physical view of the registers
-> vs guest's view on the configuration space.
-> 2. Guest access to the passed through PCI devices: we need to properly
-> map virtual bus topology to the physical one, e.g. pass the configuration
-> space access to the corresponding physical devices.
-> 3. Emulated host PCI bridge access. It doesn't exist in the physical
-> topology, e.g. it can't be mapped to some physical host bridge.
-> So, all access to the host bridge itself needs to be trapped and
-> emulated.
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-I'm slightly confused by the fact that you seem to allow unprivileged
-guests to use vPCI in this commit, yet there's still a concerning bit
-that AFAICT has not been changed by the series.
-
-vpci_{read,write} will passthough any access not explicitly handled by
-vPCI (see the usage of vpci_{read,write}_hw). This is fine for the
-hardware domain, but needs inverting for unprivileged guests: any
-access not explicitly handled by vPCI needs to be dropped.
-
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> ---
-> Since v2:
->  - pass struct domain instead of struct vcpu
->  - constify arguments where possible
->  - gate relevant code with CONFIG_HAS_VPCI_GUEST_SUPPORT
-> New in v2
-> ---
->  xen/arch/arm/domain.c         |  1 +
->  xen/arch/arm/vpci.c           | 86 +++++++++++++++++++++++++++++++----
->  xen/arch/arm/vpci.h           |  3 ++
->  xen/drivers/passthrough/pci.c | 25 ++++++++++
->  xen/include/asm-arm/pci.h     |  1 +
->  xen/include/xen/pci.h         |  1 +
->  xen/include/xen/sched.h       |  2 +
->  7 files changed, 111 insertions(+), 8 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-> index fa6fcc5e467c..095671742ad8 100644
-> --- a/xen/arch/arm/domain.c
-> +++ b/xen/arch/arm/domain.c
-> @@ -797,6 +797,7 @@ void arch_domain_destroy(struct domain *d)
->                         get_order_from_bytes(d->arch.efi_acpi_len));
->  #endif
->      domain_io_free(d);
-> +    domain_vpci_free(d);
-
-It's a nit, but I think from a logical PoV this should be inverted?
-You first free the handlers and then the IO infrastructure.
-
->  }
->  
->  void arch_domain_shutdown(struct domain *d)
-> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
-> index 5d6c29c8dcd9..26ec2fa7cf2d 100644
-> --- a/xen/arch/arm/vpci.c
-> +++ b/xen/arch/arm/vpci.c
-> @@ -17,6 +17,14 @@
->  
->  #define REGISTER_OFFSET(addr)  ( (addr) & 0x00000fff)
->  
-> +struct vpci_mmio_priv {
-> +    /*
-> +     * Set to true if the MMIO handlers were set up for the emulated
-> +     * ECAM host PCI bridge.
-> +     */
-> +    bool is_virt_ecam;
-> +};
-
-Is this strictly required? It feels a bit odd to have a structure to
-store and single boolean.
-
-I think you could replace it's usage with is_hardware_domain.
-
-> +
->  /* Do some sanity checks. */
->  static bool vpci_mmio_access_allowed(unsigned int reg, unsigned int len)
->  {
-> @@ -38,6 +46,7 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
->      pci_sbdf_t sbdf;
->      unsigned long data = ~0UL;
->      unsigned int size = 1U << info->dabt.size;
-> +    struct vpci_mmio_priv *priv = (struct vpci_mmio_priv *)p;
->  
->      sbdf.sbdf = MMCFG_BDF(info->gpa);
->      reg = REGISTER_OFFSET(info->gpa);
-> @@ -45,6 +54,13 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
->      if ( !vpci_mmio_access_allowed(reg, size) )
->          return 0;
->  
-> +    /*
-> +     * For the passed through devices we need to map their virtual SBDF
-> +     * to the physical PCI device being passed through.
-> +     */
-> +    if ( priv->is_virt_ecam && !pci_translate_virtual_device(v->domain, &sbdf) )
-> +            return 1;
-> +
->      data = vpci_read(sbdf, reg, min(4u, size));
-
-Given my earlier recommendation to place the virtual sbdf inside
-struct vpci, it might make sense to let vpci_read do the translation
-itself.
-
->      if ( size == 8 )
->          data |= (uint64_t)vpci_read(sbdf, reg + 4, 4) << 32;
-> @@ -61,6 +77,7 @@ static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
->      pci_sbdf_t sbdf;
->      unsigned long data = r;
->      unsigned int size = 1U << info->dabt.size;
-> +    struct vpci_mmio_priv *priv = (struct vpci_mmio_priv *)p;
->  
->      sbdf.sbdf = MMCFG_BDF(info->gpa);
->      reg = REGISTER_OFFSET(info->gpa);
-> @@ -68,6 +85,13 @@ static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
->      if ( !vpci_mmio_access_allowed(reg, size) )
->          return 0;
->  
-> +    /*
-> +     * For the passed through devices we need to map their virtual SBDF
-> +     * to the physical PCI device being passed through.
-> +     */
-> +    if ( priv->is_virt_ecam && !pci_translate_virtual_device(v->domain, &sbdf) )
-> +            return 1;
-> +
->      vpci_write(sbdf, reg, min(4u, size), data);
->      if ( size == 8 )
->          vpci_write(sbdf, reg + 4, 4, data >> 32);
-> @@ -80,13 +104,48 @@ static const struct mmio_handler_ops vpci_mmio_handler = {
->      .write = vpci_mmio_write,
->  };
->  
-> +/*
-> + * There are three  originators for the PCI configuration space access:
-> + * 1. The domain that owns physical host bridge: MMIO handlers are
-> + *    there so we can update vPCI register handlers with the values
-> + *    written by the hardware domain, e.g. physical view of the registers/
-> + *    configuration space.
-> + * 2. Guest access to the passed through PCI devices: we need to properly
-> + *    map virtual bus topology to the physical one, e.g. pass the configuration
-> + *    space access to the corresponding physical devices.
-> + * 3. Emulated host PCI bridge access. It doesn't exist in the physical
-> + *    topology, e.g. it can't be mapped to some physical host bridge.
-> + *    So, all access to the host bridge itself needs to be trapped and
-> + *    emulated.
-
-I'm not sure 3. is equivalent to the other points. 1. and 2. seem to
-be referring to where accesses to the config space are coming from,
-while point 3. is referring to a fully emulated device in Xen (one
-that doesn't have a backing pci_dev).
-
-I'm also failing to see any fully virtual PCI device being added to
-the bus for guest domains so far.
-
-> + */
->  static int vpci_setup_mmio_handler(struct domain *d,
->                                     struct pci_host_bridge *bridge)
->  {
-> -    struct pci_config_window *cfg = bridge->cfg;
-> +    struct vpci_mmio_priv *priv;
-> +
-> +    priv = xzalloc(struct vpci_mmio_priv);
-> +    if ( !priv )
-> +        return -ENOMEM;
-> +
-> +    priv->is_virt_ecam = !is_hardware_domain(d);
->  
-> -    register_mmio_handler(d, &vpci_mmio_handler,
-> -                          cfg->phys_addr, cfg->size, NULL);
-> +    if ( is_hardware_domain(d) )
-> +    {
-> +        struct pci_config_window *cfg = bridge->cfg;
-> +
-> +        bridge->mmio_priv = priv;
-> +        register_mmio_handler(d, &vpci_mmio_handler,
-> +                              cfg->phys_addr, cfg->size,
-> +                              priv);
-> +    }
-> +    else
-> +    {
-> +        d->vpci_mmio_priv = priv;
-> +        /* Guest domains use what is programmed in their device tree. */
-> +        register_mmio_handler(d, &vpci_mmio_handler,
-> +                              GUEST_VPCI_ECAM_BASE, GUEST_VPCI_ECAM_SIZE,
-> +                              priv);
-> +    }
->      return 0;
->  }
->  
-> @@ -95,14 +154,25 @@ int domain_vpci_init(struct domain *d)
->      if ( !has_vpci(d) )
->          return 0;
->  
-> +    return pci_host_iterate_bridges(d, vpci_setup_mmio_handler);
-
-I think this is wrong for unprivileged domains: you iterate against
-host bridges but just setup a single ECAM region from
-GUEST_VPCI_ECAM_BASE to GUEST_VPCI_ECAM_SIZE, so you are leaking
-multiple allocations of vpci_mmio_priv, and also adding a bunch of
-duplicated IO handlers for the same ECAM region.
-
-IMO you should iterate against host bridges only for the hardware
-domain case. For the unpriviledged domain case there's no need to
-iterate against the list of physical host bridges as you end up
-exposing a fully emulated bus which bears no resemblance to the
-physical setup.
-
-> +}
-> +
-> +static int domain_vpci_free_cb(struct domain *d,
-> +                               struct pci_host_bridge *bridge)
-> +{
->      if ( is_hardware_domain(d) )
-> -        return pci_host_iterate_bridges(d, vpci_setup_mmio_handler);
-> +        XFREE(bridge->mmio_priv);
-> +    else
-> +        XFREE(d->vpci_mmio_priv);
-> +    return 0;
-> +}
->  
-> -    /* Guest domains use what is programmed in their device tree. */
-> -    register_mmio_handler(d, &vpci_mmio_handler,
-> -                          GUEST_VPCI_ECAM_BASE, GUEST_VPCI_ECAM_SIZE, NULL);
-> +void domain_vpci_free(struct domain *d)
-> +{
-> +    if ( !has_vpci(d) )
-> +        return;
->  
-> -    return 0;
-> +    pci_host_iterate_bridges(d, domain_vpci_free_cb);
-
-Why do we need to iterate the host bridges for unprivileged domains?
-AFAICT it just causes duplicated calls to XFREE(d->vpci_mmio_priv). I
-would expect something like:
-
-static int bridge_free_cb(struct domain *d,
-                          struct pci_host_bridge *bridge)
-{
-    ASSERT(is_hardware_domain(d));
-    XFREE(bridge->mmio_priv);
-    return 0;
-}
-
-void domain_vpci_free(struct domain *d)
-{
-    if ( !has_vpci(d) )
-        return;
-
-    if ( is_hardware_domain(d) )
-        pci_host_iterate_bridges(d, bridge_free_cb);
-    else
-        XFREE(d->vpci_mmio_priv);
-}
-
-Albeit I think there's no need for vpci_mmio_priv in the first place.
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Thanks, Roger.
 
