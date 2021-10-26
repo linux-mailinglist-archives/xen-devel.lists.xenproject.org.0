@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73F8F43A9C7
-	for <lists+xen-devel@lfdr.de>; Tue, 26 Oct 2021 03:37:38 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.216146.375637 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E337943A9CA
+	for <lists+xen-devel@lfdr.de>; Tue, 26 Oct 2021 03:42:21 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.216153.375648 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfBP3-0000Bk-3t; Tue, 26 Oct 2021 01:37:25 +0000
+	id 1mfBTa-0001cX-MF; Tue, 26 Oct 2021 01:42:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 216146.375637; Tue, 26 Oct 2021 01:37:25 +0000
+Received: by outflank-mailman (output) from mailman id 216153.375648; Tue, 26 Oct 2021 01:42:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfBP3-00009s-0K; Tue, 26 Oct 2021 01:37:25 +0000
-Received: by outflank-mailman (input) for mailman id 216146;
- Tue, 26 Oct 2021 01:37:22 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mfBTa-0001a5-J9; Tue, 26 Oct 2021 01:42:06 +0000
+Received: by outflank-mailman (input) for mailman id 216153;
+ Tue, 26 Oct 2021 01:42:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7zbS=PO=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mfBP0-00009k-Pi
- for xen-devel@lists.xenproject.org; Tue, 26 Oct 2021 01:37:22 +0000
+ id 1mfBTZ-0001Zx-Pf
+ for xen-devel@lists.xenproject.org; Tue, 26 Oct 2021 01:42:05 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4360f0c3-35fd-11ec-8420-12813bfff9fa;
- Tue, 26 Oct 2021 01:37:21 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 093FA60EBC;
- Tue, 26 Oct 2021 01:37:20 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id cad276e7-ccbb-4459-9680-8141b1dc6f86;
+ Tue, 26 Oct 2021 01:42:04 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CBA6961057;
+ Tue, 26 Oct 2021 01:42:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,71 +37,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4360f0c3-35fd-11ec-8420-12813bfff9fa
+X-Inumbo-ID: cad276e7-ccbb-4459-9680-8141b1dc6f86
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1635212241;
-	bh=wqAGzrvlFE6wtuBFH9ll5fseQhx/ylvsfjmPPJUxAQc=;
-	h=Date:From:To:cc:Subject:From;
-	b=gktLmHmnVfYHSmlPbak7OouVwr9UpcENPgC2OEPH3Mp1b3A0wkJo84/hhlyLdVMh8
-	 AgS/FACJToSsPES3hgcbpzzyqLKgX1DKh/nHA2bMQKxDVN5KEdJ5+/Lzo2ly9FK/9p
-	 c6GkLSyzQU1ADIF+ecwuOxD/Kp/F8mPSl/BBEjgv444Hhs6Dwoh84j8SzeDJcxn8ek
-	 Kl7tE4fnTZRgsQmvIXInuw1ZLN17Z+99jUtDeTLwhUtleKNmU9zPw03mBjO7TzA9Am
-	 XpVjb6s1NnAtlIQIkdLkdNolIFyYKGBG+YljKh3P742izdyHvyh53VFLf6+EMFw3BS
-	 f977Bybf6kftw==
-Date: Mon, 25 Oct 2021 18:37:20 -0700 (PDT)
+	s=k20201202; t=1635212524;
+	bh=RUYwi15asB7wOfxAWOMyV7/IDOyTDsG6KU/TPjlIGvg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=s8XUPMicLG5r3scOqPlya7YGhzh58wM9xME60beOxQuz5u8dzv0C/z2OQjJV/Y/f0
+	 S5StysfqBTPbylRz4V2XWGYIGzWSl20D+4mBDSjupR4Qk/qMKZrpTY3A0v80LgjgDu
+	 6KRSjQnWJEfv8nfDW1JmlCTurEVNuSlxtlL/yTLJMfZGc8cIVeymP+A2l92DFA4dDz
+	 +kx0YrYMldXsQV+M5VXU57rt/Mx7emBxySVPzppaGHLKhQpRLQ+SOtbkkCwl93845M
+	 O1bJFZvuQue6nJq5D7xCP/ELuipXpKJLwfWqM02FUh8UU6irFTIjiz2gA0PF5mmHE5
+	 tdjL6wa8kf/dw==
 From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: xen-devel@lists.xenproject.org
-cc: sstabellini@kernel.org, iwj@xenproject.org, cardoe@cardoe.com, wl@xen.org, 
-    andrew.cooper3@citrix.com, anthony.perard@citrix.com
-Subject: [PATCH v2 0/3] automation: introduce an x86_64 Dom0/DomU test
-Message-ID: <alpine.DEB.2.21.2110251836020.4586@sstabellini-ThinkPad-T480s>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Cc: sstabellini@kernel.org,
+	iwj@xenproject.org,
+	cardoe@cardoe.com,
+	wl@xen.org,
+	andrew.cooper3@citrix.com,
+	anthony.perard@citrix.com,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: [PATCH v2 1/3] automation: add x86_64 alpine 3.12 test-artifact
+Date: Mon, 25 Oct 2021 18:41:58 -0700
+Message-Id: <20211026014200.32102-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <alpine.DEB.2.21.2110251836020.4586@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.2110251836020.4586@sstabellini-ThinkPad-T480s>
 
-Hi all,
+From: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-This small patch series introduces a new QEMU-based test to Gitlab-CI.
-It uses QEMU to emulate an x86_64 machine and run Xen, Dom0 and start a
-DomU. It is very similar to the existing qemu-alpine-arm64-gcc test but
-based on x86_64 rather than ARM64. I think it is important because all
-the other x86_64 gitlab-ci tests we currently have are more narrow and
-based on XTF. This would be the first end-to-end x86_64 test in
-gitlab-ci.
+It is the same as the existing ARM64 alpine 3.12 test-artifact. It is
+used to export an Alpine rootfs for Dom0 used for testing.
 
-To make it happen, we need an Alpine Linux rootfs and a Linux kernel.
-The first two patches introduce them to gitlab-ci. Note that actually
-nothing will get build during gitlab-ci runs, it has already been done
-beforehand and uploaded as containers. They only import *existing*
-containers and binaries into a gitlab-ci run, thus, they cannot fail.
-The risk to the release of the first two patches is as close to zero as
-possible.
+Also add the exporting job to build.yaml so that the binaries can be
+used during gitlab-ci runs.
 
-The last patch is the one introducing a new test. This one can fail.
-However, it is a new test at the end of the pipeline: it doesn't impact
-the existing tests. In the worst case, the test will fail and the whole
-pipeline will be marked as "failed" but looking at the jobs all the
-other will continue to be marked as successful. In short, if it fails,
-we can simply ignore it. Also, at the moment it is actually succeeding.
-
-Cheers,
-
-Stefano
-
-
-Stefano Stabellini (3):
-      automation: add x86_64 alpine 3.12 test-artifact
-      automation: Linux 5.10.74 test-artifact
-      automation: add a QEMU based x86_64 Dom0/DomU test
-
- automation/gitlab-ci/build.yaml                    | 24 ++++++
- automation/gitlab-ci/test.yaml                     | 24 ++++++
- automation/scripts/qemu-alpine-x86_64.sh           | 95 ++++++++++++++++++++++
- automation/tests-artifacts/alpine/3.12.dockerfile  | 66 +++++++++++++++
- .../tests-artifacts/kernel/5.10.74.dockerfile      | 38 +++++++++
- 5 files changed, 247 insertions(+)
- create mode 100755 automation/scripts/qemu-alpine-x86_64.sh
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+Changes in 2:
+- remove gettext
+---
+ automation/gitlab-ci/build.yaml               | 13 ++++
+ .../tests-artifacts/alpine/3.12.dockerfile    | 66 +++++++++++++++++++
+ 2 files changed, 79 insertions(+)
  create mode 100644 automation/tests-artifacts/alpine/3.12.dockerfile
- create mode 100644 automation/tests-artifacts/kernel/5.10.74.dockerfile
+
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index d177da1710..76b73beead 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -596,3 +596,16 @@ qemu-system-aarch64-5.2.0-arm64-export:
+   tags:
+     - arm64
+ 
++
++# x86_64 test artifacts
++
++alpine-3.12-rootfs-export:
++  stage: build
++  image: registry.gitlab.com/xen-project/xen/tests-artifacts/alpine:3.12
++  script:
++    - mkdir binaries && cp /initrd.tar.gz binaries/initrd.tar.gz
++  artifacts:
++    paths:
++      - binaries/initrd.tar.gz
++  tags:
++    - x86_64
+diff --git a/automation/tests-artifacts/alpine/3.12.dockerfile b/automation/tests-artifacts/alpine/3.12.dockerfile
+new file mode 100644
+index 0000000000..b3909996b4
+--- /dev/null
++++ b/automation/tests-artifacts/alpine/3.12.dockerfile
+@@ -0,0 +1,66 @@
++FROM alpine:3.12
++LABEL maintainer.name="The Xen Project" \
++      maintainer.email="xen-devel@lists.xenproject.org"
++
++ENV USER root
++
++RUN mkdir /build
++WORKDIR /build
++
++RUN \
++  # apk
++  apk update && \
++  \
++  # xen runtime deps
++  apk add musl && \
++  apk add openrc && \
++  apk add busybox && \
++  apk add sudo && \
++  apk add dbus && \
++  apk add bash && \
++  apk add python2 && \
++  apk add zlib && \
++  apk add ncurses && \
++  apk add texinfo && \
++  apk add yajl && \
++  apk add libaio && \
++  apk add xz-dev && \
++  apk add util-linux && \
++  apk add argp-standalone && \
++  apk add libfdt && \
++  apk add glib && \
++  apk add pixman && \
++  apk add curl && \
++  apk add udev && \
++  \
++  # Xen
++  cd / && \
++  # Minimal ramdisk environment in case of cpio output
++  rc-update add udev && \
++  rc-update add udev-trigger && \
++  rc-update add udev-settle && \
++  rc-update add networking sysinit && \
++  rc-update add loopback sysinit && \
++  rc-update add bootmisc boot && \
++  rc-update add devfs sysinit && \
++  rc-update add dmesg sysinit && \
++  rc-update add hostname boot && \
++  rc-update add hwclock boot && \
++  rc-update add hwdrivers sysinit && \
++  rc-update add killprocs shutdown && \
++  rc-update add modloop sysinit && \
++  rc-update add modules boot && \
++  rc-update add mount-ro shutdown && \
++  rc-update add savecache shutdown && \
++  rc-update add sysctl boot && \
++  rc-update add local default && \
++  cp -a /sbin/init /init && \
++  echo "ttyS0" >> /etc/securetty && \
++  echo "hvc0" >> /etc/securetty && \
++  echo "ttyS0::respawn:/sbin/getty -L ttyS0 115200 vt100" >> /etc/inittab && \
++  echo "hvc0::respawn:/sbin/getty -L hvc0 115200 vt100" >> /etc/inittab && \
++  passwd -d "root" root && \
++  \
++  # Create rootfs
++  cd / && \
++  tar cvzf /initrd.tar.gz bin dev etc home init lib mnt opt root sbin usr var
+-- 
+2.17.1
+
 
