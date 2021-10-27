@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED4F943CF66
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 19:03:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217120.376988 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 020D443CF77
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 19:08:04 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217142.377010 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfmKd-0004jD-PY; Wed, 27 Oct 2021 17:03:19 +0000
+	id 1mfmP0-0006Vb-6k; Wed, 27 Oct 2021 17:07:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217120.376988; Wed, 27 Oct 2021 17:03:19 +0000
+Received: by outflank-mailman (output) from mailman id 217142.377010; Wed, 27 Oct 2021 17:07:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfmKd-0004cK-KD; Wed, 27 Oct 2021 17:03:19 +0000
-Received: by outflank-mailman (input) for mailman id 217120;
- Wed, 27 Oct 2021 17:03:17 +0000
+	id 1mfmP0-0006TN-3G; Wed, 27 Oct 2021 17:07:50 +0000
+Received: by outflank-mailman (input) for mailman id 217142;
+ Wed, 27 Oct 2021 17:07:48 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mfmKb-0004U9-Pz
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 17:03:17 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mfmOy-0006ST-K2
+ for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 17:07:48 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mfmKb-00007P-P9
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 17:03:17 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mfmOy-0000E5-J5
+ for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 17:07:48 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mfmKb-00008z-OU
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 17:03:17 +0000
-Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
- by mariner.uk.xensource.com with esmtp (Exim 4.89)
- (envelope-from <ijackson@chiark.greenend.org.uk>)
- id 1mfmKQ-0007y4-1y; Wed, 27 Oct 2021 18:03:06 +0100
+ (envelope-from <iwj@xenproject.org>) id 1mfmOy-0000Uc-IG
+ for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 17:07:48 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1mfmOj-0007zu-Rh; Wed, 27 Oct 2021 18:07:33 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,68 +42,50 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=CmW5peRN50Em71b3k175/7jXqoQ/j3qYsI/MZ7encfA=; b=Hw7bbjgBaL5JaLH2jWoVtU43fJ
-	zzkGW9yChBzMMC8S3zNosyOqb47qLK5srXP73qL9bhQ0ExLdhTwdp87iE7/BBn7VB9HACZhEIU0/W
-	UJ+bezMvuxmegwm2IIPkqkNNUsL5f+IHIra8SUE9MinGjeboGeyF7jQWIKaR7yfYxchY=;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=PAlChERQT9Splk172v3rgtHgay6giGcKCHV4DS1ABJ8=; b=36cZ3uepc1sjCeWx+WaTmUsJf3
+	FSdfT3rmnCNJ8Si5K+LaFF03iIznMv3zAmHlYybzxHI0450QAV3xIAx0CaNRH5aDzSOCYTRxMqAZA
+	fcRFaMWa8wZf63fjlCKHBmuKbJiFHbTqXwMHh3MAb2tL2xPTFGbbkeOnUSgwKc/qST0w=;
 From: Ian Jackson <iwj@xenproject.org>
-To: xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>,
-	Juergen Gross <jgross@suse.com>
-Subject: [OSSTEST PATCH 2/2] ts-xen-build: Pass --enable if --disable found in usage, and v.v.
-Date: Wed, 27 Oct 2021 18:02:56 +0100
-Message-Id: <20211027170256.18223-3-iwj@xenproject.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20211027170256.18223-1-iwj@xenproject.org>
-References: <20211027170256.18223-1-iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24953.34635.645112.279110@mariner.uk.xensource.com>
+Date: Wed, 27 Oct 2021 18:07:23 +0100
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+    "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+    "julien\@xen.org" <julien@xen.org>,
+    "sstabellini\@kernel.org" <sstabellini@kernel.org>,
+    Bertrand  Marquis <bertrand.marquis@arm.com>,
+    Rahul Singh <rahul.singh@arm.com>
+Subject: Re: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers
+In-Reply-To: <0bbe4d1d-421d-e816-42aa-f43581902a02@epam.com>
+References: <20211027082533.1406015-1-andr2000@gmail.com>
+	<YXkU+DKYmvwo+kak@Air-de-Roger>
+	<0bbe4d1d-421d-e816-42aa-f43581902a02@epam.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-The existing code works in practice if the usage message always lists
-the non-default, since the unlisted-in-usage options that would be
-supported, but are elided, are in any case the default.
+Oleksandr Andrushchenko writes ("Re: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers"):
+> P.S. Sorry I failed to mark this patch as a fix for 4.16 and explain why it is
+> a good candidate for 4.16 inclusion
 
-But configure might *compute* its defaults.  In which case it will
-list only one of them in the usage message.  If the computed default
-is not the same as the usual default (the one implied by listing the
-opposite in the usage message) we would wrongly not pass the option.
+Hello :-).
 
-So grep for both enable and disable.
+Um, can you explain what the practical impact is of not taking this
+patch for 4.16 ?  As I understand it vpci for ARM is non-functional in
+4.16 and this is not expected to change ?  So there would be no
+benefit to users, and taking the patch would add small but nonzero
+risk ?
 
-Signed-off-by: Ian Jackson <iwj@xenproject.org>
-CC: Juergen Gross <jgross@suse.com>
----
- ts-xen-build | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+I think according to the freeze policy I set this can go in if the
+maintainers feel it is a "straightforward bugfix", but provided it
+goes in by the end of this coming Friday.
 
-diff --git a/ts-xen-build b/ts-xen-build
-index d6f6bfacb..c294a51ea 100755
---- a/ts-xen-build
-+++ b/ts-xen-build
-@@ -142,12 +142,20 @@ END
- }
- 
- sub build () {
-+    # We want to explicitly enable and disable some things.  But not
-+    # all versions of Xen support all configuration options.  We
-+    # detect presence of an option by grepping configure.  That finds
-+    # them in the usage message.  The usage message has only one of
-+    # the two, depending on the usual default.  (Presence of --enable
-+    # in the usage output means --disable is supported, and vice
-+    # versa.)  So we search for both enable and disable, and if either
-+    # is found, we use the one we want.
-     my $enable_opts = ''; # shell script to set "enable_opts" shell var
-     my $enable_disable = sub {
- 	my ($subdir, $feat, $enable) = @_;
- 	my $opt = "--".($enable ? 'enable' : 'disable')."-$feat";
- 	$enable_opts .= <<END;
--                if grep -q -- $opt \\
-+                if egrep -q -- '--disable-$feat|--enable-$feat' \\
-                                ${subdir}configure ; then
- 		    enable_opts="\$enable_opts $opt"
-                 fi
--- 
-2.20.1
+After that it will need a release-ack and right now, unless I am
+mistaken (which may well be the case) it can just as well wait ?
 
+Thanks,
+Ian.
 
