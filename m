@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F27D643D5C3
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 23:29:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217381.377556 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DBD843D5B0
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 23:28:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217301.377387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfqTi-0006Qb-D5; Wed, 27 Oct 2021 21:28:58 +0000
+	id 1mfqSz-0005WT-Vg; Wed, 27 Oct 2021 21:28:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217381.377556; Wed, 27 Oct 2021 21:28:58 +0000
+Received: by outflank-mailman (output) from mailman id 217301.377387; Wed, 27 Oct 2021 21:28:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfqTi-0006H9-3r; Wed, 27 Oct 2021 21:28:58 +0000
-Received: by outflank-mailman (input) for mailman id 217381;
- Wed, 27 Oct 2021 21:28:54 +0000
+	id 1mfqSz-0005If-4c; Wed, 27 Oct 2021 21:28:13 +0000
+Received: by outflank-mailman (input) for mailman id 217301;
+ Wed, 27 Oct 2021 21:28:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nMly=PP=gmail.com=digetx@srs-us1.protection.inumbo.net>)
- id 1mfqMK-0000sJ-DQ
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 21:21:20 +0000
-Received: from mail-lj1-x232.google.com (unknown [2a00:1450:4864:20::232])
+ id 1mfqMP-0000sJ-Dd
+ for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 21:21:25 +0000
+Received: from mail-lf1-x135.google.com (unknown [2a00:1450:4864:20::135])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7da57f3f-7eb8-46f0-ab3f-75a2e3b9b760;
- Wed, 27 Oct 2021 21:18:57 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id u5so6967447ljo.8
- for <xen-devel@lists.xenproject.org>; Wed, 27 Oct 2021 14:18:57 -0700 (PDT)
+ id ed9f40e7-2116-4b6d-ad37-3eab09f39abc;
+ Wed, 27 Oct 2021 21:18:58 +0000 (UTC)
+Received: by mail-lf1-x135.google.com with SMTP id bp15so9015747lfb.4
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Oct 2021 14:18:58 -0700 (PDT)
 Received: from localhost.localdomain (46-138-41-28.dynamic.spd-mgts.ru.
  [46.138.41.28])
- by smtp.gmail.com with ESMTPSA id d7sm104336ljl.18.2021.10.27.14.18.54
+ by smtp.gmail.com with ESMTPSA id d7sm104336ljl.18.2021.10.27.14.18.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Oct 2021 14:18:55 -0700 (PDT)
+ Wed, 27 Oct 2021 14:18:57 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7da57f3f-7eb8-46f0-ab3f-75a2e3b9b760
+X-Inumbo-ID: ed9f40e7-2116-4b6d-ad37-3eab09f39abc
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=J0jiL1GV/+pRa/Pi8omBJ059E/kI2yC/kBEGzY3TRbg=;
-        b=FJbtoAu7rbq7E5RaKvepyk9plUf7jLnT+ML08UZjLgFiOZ5VaykzHp5Ff2lObAbFB8
-         5GZGzZ57ZApIGsXSOF6gLQA97YsI0ZAQ/ZGu34m5aZxcCPPjtIEcQp67CojYOup39/Xv
-         xsYx/9Bl6pD+/d5Egre5OsJvj19u3KKVwrkexlOW8n23RNvDolWdvTv8CSXdsnambAlA
-         jmNsfq7r35M1wkX74Jgv3A3xCPTBUP4sDGuQeSw9FU1X/TxBftWhWMRe81zJ6SuXHAM8
-         TvqOPVU0PykNu+1EXPWfVa52MP/IYJ4S57Q0SiUIct4v8BdbY1Ush4O+dDWBQRJUzf+C
-         FQ7A==
+        bh=/Hqy/1scbv2xgSJ+Pfjnwd9vR5EU0n/d3WfB2tugTgE=;
+        b=fdXEajT5ReWU0k76RL+UMQexWX6+dI9dqZX5MdJXsVZcuokskYVO71+oKjzDY4A2wc
+         hJ1YtaH4eNeZaWabxSPD6IdHvppV9tDUjSfbiCZ9pzJbnyd1ILGvgPlaBo02Y2jjZnzD
+         JbO/7oiPSFxLAQwFLHGGO2Gfwy8dZZlQdidry7vBInQu2wS67Np/bBN1rUC/SIaULQAp
+         mZSgP8kJbrDoclvDh2sRCaJ+wiPArCAPZMKwm6/7+fwfn1T4SmuQIaJDkhw4NUU2izwl
+         4ikxIWp8MhgEKidppyJcozjOV5jYdL31Pn9EYMxWJrcs7VGZ0QCvDnuFIw51Kr2focF2
+         kW1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=J0jiL1GV/+pRa/Pi8omBJ059E/kI2yC/kBEGzY3TRbg=;
-        b=dHcADv7uU+wNiNSiWnlJL7NX6jn65nJijzmlWEvvgGnBUh+NUbR4Vdy26OE6JOw+64
-         J7Z3xIydOzcWbjHCn6ZJa4NOqOIyiobMyPlvAfT4997NFcrma2Peo+dG9uKnhGVvNdEP
-         Akmx4Qay1ptUH4FakaQM3X0n0xxscirrXeMs+kTOrzc6diA5Bz+bA43bTP8+Gxr8619f
-         Eulg9j6dn4YOg3qgtAabiMvTN6sJbya2Cas02nf/3nnQfYdWM2Ks0HPC8xsrZkUJrH2L
-         WjqBZm5ZY0m6HlMBw6yvS4StIgVe9HybzSeAlb1tvCFMfDnuFgqNSauYsCAUia/GqVi5
-         9Rhg==
-X-Gm-Message-State: AOAM533gbJOWrxW48lXYAoodtvfh9O8C/IZ+t1V8hzh8f8UAEJyORn14
-	q8la2lWLKEnCZjW4fd4lltI=
-X-Google-Smtp-Source: ABdhPJwO9DbKrxmMzwfiSQzUITuZHuDXfhRgNgPDDhUghYThRMLe5cQOKy/B7VPBX8OP8l5Jmu7iAw==
-X-Received: by 2002:a2e:8097:: with SMTP id i23mr314285ljg.287.1635369536096;
-        Wed, 27 Oct 2021 14:18:56 -0700 (PDT)
+        bh=/Hqy/1scbv2xgSJ+Pfjnwd9vR5EU0n/d3WfB2tugTgE=;
+        b=I5kACTmRG3JXiYMQEH1UugQcBwvTXlF1XclwGQBRTjvuJaE0IxJJwOWY/DxLZCTp9L
+         +JFN6Y64/SnZohMczrBKTUbhipu/mO8zH13VmfBpVU9M9yEvMYEnKHKE5BMSeLC+Bc9P
+         d5aQPCM93zwqCgRAR9rfKSRn/YWKAolcBCOtz4XZ6P0HQinSGybdt3mW1qIoaTjabBv8
+         oHREsBzclOFRJGvczhT1yK6Fd/8YpHK+BEuH1dNIRAvKVOLkK/uQXEGoU5eyyZCiQRGe
+         J72MoujsJVmYKq45CRzfJo2LukPQYj3Ki8AN72lDhFRTVlSIJ6SquICz9I/K+tZzqERA
+         gnFw==
+X-Gm-Message-State: AOAM5330ZC1+DL/qhfcxPA91rYSj0jeo7o3+ZhzlY0Cjlf2JudUXDye2
+	laUjQDMBgyLf4MFUgGJrcMQ=
+X-Google-Smtp-Source: ABdhPJxErOfbgWaHoJDyROU+wtxCyzAJwEEk/21TSkl3Wl7+6OTCwc5MbFi2KTtZM0ExVMRMX2XJDw==
+X-Received: by 2002:a05:6512:344a:: with SMTP id j10mr78084lfr.653.1635369538003;
+        Wed, 27 Oct 2021 14:18:58 -0700 (PDT)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -144,9 +144,9 @@ Cc: Catalin Marinas <catalin.marinas@arm.com>,
 	openbmc@lists.ozlabs.org,
 	linux-tegra@vger.kernel.org,
 	linux-pm@vger.kernel.org
-Subject: [PATCH v2 34/45] mfd: palmas: Use devm_register_simple_power_off_handler()
-Date: Thu, 28 Oct 2021 00:17:04 +0300
-Message-Id: <20211027211715.12671-35-digetx@gmail.com>
+Subject: [PATCH v2 35/45] mfd: max8907: Use devm_register_simple_power_off_handler()
+Date: Thu, 28 Oct 2021 00:17:05 +0300
+Message-Id: <20211027211715.12671-36-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211027211715.12671-1-digetx@gmail.com>
 References: <20211027211715.12671-1-digetx@gmail.com>
@@ -158,70 +158,64 @@ pm_power_off variable and allows to register multiple power-off handlers.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- drivers/mfd/palmas.c | 24 ++++++++++++------------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/mfd/max8907.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/mfd/palmas.c b/drivers/mfd/palmas.c
-index f5b3fa973b13..c7d4d48d2fda 100644
---- a/drivers/mfd/palmas.c
-+++ b/drivers/mfd/palmas.c
-@@ -14,6 +14,7 @@
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
- #include <linux/irq.h>
+diff --git a/drivers/mfd/max8907.c b/drivers/mfd/max8907.c
+index 41f566e6a096..58699510311b 100644
+--- a/drivers/mfd/max8907.c
++++ b/drivers/mfd/max8907.c
+@@ -16,6 +16,7 @@
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_device.h>
 +#include <linux/reboot.h>
  #include <linux/regmap.h>
- #include <linux/err.h>
- #include <linux/mfd/core.h>
-@@ -420,12 +421,12 @@ static void palmas_dt_to_pdata(struct i2c_client *i2c,
- 			"ti,system-power-controller");
- }
+ #include <linux/slab.h>
  
--static struct palmas *palmas_dev;
--static void palmas_power_off(void)
-+static void palmas_power_off(void *data)
+@@ -174,9 +175,10 @@ static const struct regmap_irq_chip max8907_rtc_irq_chip = {
+ 	.num_irqs = ARRAY_SIZE(max8907_rtc_irqs),
+ };
+ 
+-static struct max8907 *max8907_pm_off;
+-static void max8907_power_off(void)
++static void max8907_power_off(void *data)
  {
- 	unsigned int addr;
- 	int ret, slave;
- 	u8 powerhold_mask;
-+	struct palmas *palmas_dev = data;
- 	struct device_node *np = palmas_dev->dev->of_node;
++	struct max8907 *max8907_pm_off = data;
++
+ 	regmap_update_bits(max8907_pm_off->regmap_gen, MAX8907_REG_RESET_CNFG,
+ 			MAX8907_MASK_POWER_OFF, MAX8907_MASK_POWER_OFF);
+ }
+@@ -214,6 +216,17 @@ static int max8907_i2c_probe(struct i2c_client *i2c,
+ 		goto err_regmap_gen;
+ 	}
  
- 	if (of_property_read_bool(np, "ti,palmas-override-powerhold")) {
-@@ -680,12 +681,16 @@ static int palmas_i2c_probe(struct i2c_client *i2c,
- 	 */
- 	if (node) {
- 		ret = devm_of_platform_populate(&i2c->dev);
--		if (ret < 0) {
-+		if (ret < 0)
-+			goto err_irq;
++	if (pm_off) {
++		ret = devm_register_simple_power_off_handler(&i2c->dev,
++							     max8907_power_off,
++							     max8907);
++		if (ret) {
++			dev_err(&i2c->dev,
++				"failed to register power-off handler: %d\n", ret);
++			return ret;
++		}
 +	}
 +
-+	if (pdata->pm_off) {
-+		ret = devm_register_simple_power_off_handler(&i2c->dev,
-+							     palmas_power_off,
-+							     palmas);
-+		if (ret)
- 			goto err_irq;
--		} else if (pdata->pm_off && !pm_power_off) {
--			palmas_dev = palmas;
--			pm_power_off = palmas_power_off;
--		}
+ 	max8907->i2c_rtc = i2c_new_dummy_device(i2c->adapter, MAX8907_RTC_I2C_ADDR);
+ 	if (IS_ERR(max8907->i2c_rtc)) {
+ 		ret = PTR_ERR(max8907->i2c_rtc);
+@@ -260,11 +273,6 @@ static int max8907_i2c_probe(struct i2c_client *i2c,
+ 		goto err_add_devices;
  	}
  
- 	return ret;
-@@ -712,11 +717,6 @@ static int palmas_i2c_remove(struct i2c_client *i2c)
- 			i2c_unregister_device(palmas->i2c_clients[i]);
- 	}
- 
--	if (palmas == palmas_dev) {
--		pm_power_off = NULL;
--		palmas_dev = NULL;
+-	if (pm_off && !pm_power_off) {
+-		max8907_pm_off = max8907;
+-		pm_power_off = max8907_power_off;
 -	}
 -
  	return 0;
- }
  
+ err_add_devices:
 -- 
 2.33.1
 
