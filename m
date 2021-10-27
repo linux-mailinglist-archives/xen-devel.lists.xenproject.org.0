@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA8A543D5BA
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 23:28:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217352.377471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79D6043D5A8
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 23:28:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217281.377285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfqTN-0001iD-HK; Wed, 27 Oct 2021 21:28:37 +0000
+	id 1mfqSf-00011a-3r; Wed, 27 Oct 2021 21:27:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217352.377471; Wed, 27 Oct 2021 21:28:37 +0000
+Received: by outflank-mailman (output) from mailman id 217281.377285; Wed, 27 Oct 2021 21:27:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfqTN-0001VV-2u; Wed, 27 Oct 2021 21:28:37 +0000
-Received: by outflank-mailman (input) for mailman id 217352;
- Wed, 27 Oct 2021 21:28:33 +0000
+	id 1mfqSe-0000qC-LE; Wed, 27 Oct 2021 21:27:52 +0000
+Received: by outflank-mailman (input) for mailman id 217281;
+ Wed, 27 Oct 2021 21:27:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nMly=PP=gmail.com=digetx@srs-us1.protection.inumbo.net>)
- id 1mfqN3-0000sJ-Eh
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 21:22:05 +0000
-Received: from mail-lf1-x12e.google.com (unknown [2a00:1450:4864:20::12e])
+ id 1mfqND-0000sJ-Ey
+ for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 21:22:15 +0000
+Received: from mail-lj1-x231.google.com (unknown [2a00:1450:4864:20::231])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 65faa95e-9d9e-4589-b672-ba4175121473;
- Wed, 27 Oct 2021 21:19:02 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id x27so9006560lfu.5
- for <xen-devel@lists.xenproject.org>; Wed, 27 Oct 2021 14:19:02 -0700 (PDT)
+ id ff658b29-29e8-4a31-ab27-c640fd96d1ac;
+ Wed, 27 Oct 2021 21:19:04 +0000 (UTC)
+Received: by mail-lj1-x231.google.com with SMTP id 17so3841722ljq.0
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Oct 2021 14:19:04 -0700 (PDT)
 Received: from localhost.localdomain (46-138-41-28.dynamic.spd-mgts.ru.
  [46.138.41.28])
- by smtp.gmail.com with ESMTPSA id d7sm104336ljl.18.2021.10.27.14.18.59
+ by smtp.gmail.com with ESMTPSA id d7sm104336ljl.18.2021.10.27.14.19.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Oct 2021 14:19:01 -0700 (PDT)
+ Wed, 27 Oct 2021 14:19:03 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65faa95e-9d9e-4589-b672-ba4175121473
+X-Inumbo-ID: ff658b29-29e8-4a31-ab27-c640fd96d1ac
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=IkN5RxNvfWU6udxIv0HqPwHPsreqVVHZYAiW4uOSdQE=;
-        b=EBSN3i6pBzJ/QX6b7hWJ61FbfkEkrcOrflTwto+4KX4or46ACVz9Tr/1pugxTtiHmi
-         G7CMVOoidyYK0g+Vg4pJnm/bKfolm8lIe6sk0vITgUl/0On7GAe1avC+nPdsUhal8n/2
-         2LfBGzyZF4kisF1H8Fy3oqJJlA7mP+5FCx9jGZBePen+YJxCg52jU7glSS7bDwelermJ
-         QOk39GQqnkcumTBHd2mHERoDOJXwlx4KsuyCu/MObr6DT96WNWvs0v/iyAkBnjjhRCxD
-         gw7GTseQp5qiH+atTqu6Rg9n+NmY0IzLKdyAE4sSGNY6W234A5z05GeGyvCsr57AR1H6
-         zVgw==
+        bh=Mu7tO95vXROZ9xbCJkoDzGl64HT6xR31EdIoyaMnKtk=;
+        b=kPE91xXN+stBc0ha+PSjaOkkNGKlDTid0pZMJS4/z0xuWbbpv+/mX7oe8gzrFGsnxt
+         knUKantyHU6PWIePiCnlFQ4UN8ZQdQP1oXKoJzSLIKv1lTDAhiLZjpDPc+aijhkrEZAj
+         Xd8HN8BgZu0o5hpIxMQVtpuABAaRE4DHHXJZzo4Dy3xXk62gjG4MyDoYUHzKrSYuupRB
+         lCz2OE27nWCjWUb+PHoI0yIS0mi3esed5R8cO+FhwY/2Rv4/jyVsNkj3xtgaoN5/YStc
+         dCcP9WUacf6ElBGM42XMwNMMkAZqDoGVD/aHJJj9Cz/Tk9wj2JFlAJdIXkKMwT6cvxA3
+         e31g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=IkN5RxNvfWU6udxIv0HqPwHPsreqVVHZYAiW4uOSdQE=;
-        b=QQRK7uNfkfXqzh/2+qQB2MBTUpYfY33zA5szHcVFIkXZkR0RvDa8Tuz3JK8x6ySli9
-         eVRGuLNRWtkyZYfGkhVaPgixrOkMdiN9DO4/Vg0p7aO/4jRO7dBUmg7vTAhGleHCS0W/
-         DtfzuiJxJnpm/NliR9eU3OuIvXPBNwbxbm+NnOEZFdYo8epCKQKr31KWpU76Jl9i/vq1
-         6llItVoOnjKUOESZEEve4RRWAYdTNEghGVqW9AdNAbXSCpZcOi3e5fWDvDJPrDuEEXPO
-         Jy1sxBH6dZ0fM6/TZyr/A84UyjIht9NoK9JuzPZwJ+RfFdartxC6cXMxTrzyivSSgXeK
-         6vqw==
-X-Gm-Message-State: AOAM533yRwLzsgkPHU9agHgQM72/9qu/2LVgrf9CagaeHQ/CWo4fsrwD
-	ytPEBubdFEq5l68D2yfMXJM=
-X-Google-Smtp-Source: ABdhPJxsr/pRUcPc/yvXJw9vQsQsBRCfPMRUucvUkltufw5utcaA8e0PD5R7U1W5XHhl0HmaGsY5xg==
-X-Received: by 2002:a05:6512:aca:: with SMTP id n10mr150724lfu.66.1635369541621;
-        Wed, 27 Oct 2021 14:19:01 -0700 (PDT)
+        bh=Mu7tO95vXROZ9xbCJkoDzGl64HT6xR31EdIoyaMnKtk=;
+        b=OWKFoUhWj90xmynbKzk3p4ZGwVeB7PunJvv2FX2kQToVbg/8bfGMZK9JnheeQBZg85
+         c7vsd2obubGPEN2cyAvIF9hDywbjd6cT8yjA2v2wawF3fxX0pJuVeaF4dIyc+OrgO1aC
+         6CPUP33yFZTtE3kJm54CeGcxBab0GvDONSDgVvUlf2w8RUrc7ZrTa7P1M+qPqZ0qzNXN
+         krh4M/eTfT47nwFKNLcmVmJsxeqXZnfGB0ppLhqQPqy4hNyL7TyNir/zcBd6zgdQpoOh
+         G8xXbaZBCruzK3g0MZ/oPopKwqn07rV6O41zwULXSDV7DZU0Z/7gWnVMxXBUxbHSk76k
+         mS/w==
+X-Gm-Message-State: AOAM530vDxhtg/vif7zKvrUjSQiDMITFpfdcYCQAmHVOh9UuTNVUqgb0
+	O4vFUDMXMX4EVQMhNIrECQ8=
+X-Google-Smtp-Source: ABdhPJx+pRFjcRYPR1om8nKBpIgAHoRaPbEg7vS4nL7YKN3yH6zq2Ajomu3cvpnY+yAbJLhjtqI1TQ==
+X-Received: by 2002:a2e:bb98:: with SMTP id y24mr344716lje.168.1635369543476;
+        Wed, 27 Oct 2021 14:19:03 -0700 (PDT)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -144,9 +144,9 @@ Cc: Catalin Marinas <catalin.marinas@arm.com>,
 	openbmc@lists.ozlabs.org,
 	linux-tegra@vger.kernel.org,
 	linux-pm@vger.kernel.org
-Subject: [PATCH v2 37/45] mfd: tps65910: Use devm_register_simple_power_off_handler()
-Date: Thu, 28 Oct 2021 00:17:07 +0300
-Message-Id: <20211027211715.12671-38-digetx@gmail.com>
+Subject: [PATCH v2 38/45] mfd: max77620: Use devm_register_simple_power_off_handler()
+Date: Thu, 28 Oct 2021 00:17:08 +0300
+Message-Id: <20211027211715.12671-39-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211027211715.12671-1-digetx@gmail.com>
 References: <20211027211715.12671-1-digetx@gmail.com>
@@ -156,54 +156,68 @@ Content-Transfer-Encoding: 8bit
 Use devm_register_simple_power_off_handler() that replaces global
 pm_power_off variable and allows to register multiple power-off handlers.
 
+Nexus 7 Android tablet can be powered off using MAX77663 PMIC and using
+a special bootloader command. At first the bootloader option should be
+tried, it will have a higher priority than of PMIC that uses default
+priority.
+
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- drivers/mfd/tps65910.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ drivers/mfd/max77620.c | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/mfd/tps65910.c b/drivers/mfd/tps65910.c
-index 6e105cca27d4..8fab30dc84e5 100644
---- a/drivers/mfd/tps65910.c
-+++ b/drivers/mfd/tps65910.c
-@@ -16,6 +16,7 @@
- #include <linux/irq.h>
- #include <linux/irqdomain.h>
- #include <linux/mfd/core.h>
+diff --git a/drivers/mfd/max77620.c b/drivers/mfd/max77620.c
+index fec2096474ad..29487ccc191a 100644
+--- a/drivers/mfd/max77620.c
++++ b/drivers/mfd/max77620.c
+@@ -31,11 +31,10 @@
+ #include <linux/init.h>
+ #include <linux/of.h>
+ #include <linux/of_device.h>
 +#include <linux/reboot.h>
  #include <linux/regmap.h>
- #include <linux/mfd/tps65910.h>
- #include <linux/of.h>
-@@ -429,9 +430,9 @@ struct tps65910_board *tps65910_parse_dt(struct i2c_client *client,
+ #include <linux/slab.h>
+ 
+-static struct max77620_chip *max77620_scratch;
+-
+ static const struct resource gpio_resources[] = {
+ 	DEFINE_RES_IRQ(MAX77620_IRQ_TOP_GPIO),
+ };
+@@ -483,13 +482,13 @@ static int max77620_read_es_version(struct max77620_chip *chip)
+ 	return ret;
  }
- #endif
  
--static struct i2c_client *tps65910_i2c_client;
--static void tps65910_power_off(void)
-+static void tps65910_power_off(void *data)
+-static void max77620_pm_power_off(void)
++static void max77620_pm_power_off(void *data)
  {
-+	struct i2c_client *tps65910_i2c_client = data;
- 	struct tps65910 *tps65910;
+-	struct max77620_chip *chip = max77620_scratch;
++	struct max77620_chip *chip = data;
  
- 	tps65910 = dev_get_drvdata(&tps65910_i2c_client->dev);
-@@ -503,9 +504,15 @@ static int tps65910_i2c_probe(struct i2c_client *i2c,
- 	tps65910_ck32k_init(tps65910, pmic_plat_data);
- 	tps65910_sleepinit(tps65910, pmic_plat_data);
+ 	regmap_update_bits(chip->rmap, MAX77620_REG_ONOFFCNFG1,
+-			   MAX77620_ONOFFCNFG1_SFT_RST,
+-			   MAX77620_ONOFFCNFG1_SFT_RST);
++				   MAX77620_ONOFFCNFG1_SFT_RST,
++				   MAX77620_ONOFFCNFG1_SFT_RST);
+ }
  
--	if (pmic_plat_data->pm_off && !pm_power_off) {
--		tps65910_i2c_client = i2c;
--		pm_power_off = tps65910_power_off;
-+	if (pmic_plat_data->pm_off) {
-+		ret = devm_register_simple_power_off_handler(&i2c->dev,
-+							     tps65910_power_off,
-+							     i2c);
-+		if (ret) {
-+			dev_err(&i2c->dev,
-+				"failed to register power-off handler: %d\n", ret);
-+			return ret;
-+		}
+ static int max77620_probe(struct i2c_client *client,
+@@ -566,9 +565,13 @@ static int max77620_probe(struct i2c_client *client,
  	}
  
- 	ret = devm_mfd_add_devices(tps65910->dev, -1,
+ 	pm_off = of_device_is_system_power_controller(client->dev.of_node);
+-	if (pm_off && !pm_power_off) {
+-		max77620_scratch = chip;
+-		pm_power_off = max77620_pm_power_off;
++	if (pm_off) {
++		ret = devm_register_simple_power_off_handler(chip->dev,
++							     max77620_pm_power_off,
++							     chip);
++		if (ret < 0)
++			dev_err(chip->dev,
++				"Failed to register power-off handler: %d\n", ret);
+ 	}
+ 
+ 	return 0;
 -- 
 2.33.1
 
