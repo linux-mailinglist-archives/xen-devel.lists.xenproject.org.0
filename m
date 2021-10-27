@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDDBE43D5BF
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 23:29:01 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217366.377525 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA8A543D5BA
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 23:28:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217352.377471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfqTa-0004QD-Aa; Wed, 27 Oct 2021 21:28:50 +0000
+	id 1mfqTN-0001iD-HK; Wed, 27 Oct 2021 21:28:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217366.377525; Wed, 27 Oct 2021 21:28:50 +0000
+Received: by outflank-mailman (output) from mailman id 217352.377471; Wed, 27 Oct 2021 21:28:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfqTZ-00044A-8u; Wed, 27 Oct 2021 21:28:49 +0000
-Received: by outflank-mailman (input) for mailman id 217366;
- Wed, 27 Oct 2021 21:28:43 +0000
+	id 1mfqTN-0001VV-2u; Wed, 27 Oct 2021 21:28:37 +0000
+Received: by outflank-mailman (input) for mailman id 217352;
+ Wed, 27 Oct 2021 21:28:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nMly=PP=gmail.com=digetx@srs-us1.protection.inumbo.net>)
- id 1mfqMU-0000sJ-Dm
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 21:21:30 +0000
-Received: from mail-lf1-x12f.google.com (unknown [2a00:1450:4864:20::12f])
+ id 1mfqN3-0000sJ-Eh
+ for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 21:22:05 +0000
+Received: from mail-lf1-x12e.google.com (unknown [2a00:1450:4864:20::12e])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f281c280-7e2c-4b52-8649-7ff7b12073ce;
- Wed, 27 Oct 2021 21:19:00 +0000 (UTC)
-Received: by mail-lf1-x12f.google.com with SMTP id bi35so8960334lfb.9
- for <xen-devel@lists.xenproject.org>; Wed, 27 Oct 2021 14:19:00 -0700 (PDT)
+ id 65faa95e-9d9e-4589-b672-ba4175121473;
+ Wed, 27 Oct 2021 21:19:02 +0000 (UTC)
+Received: by mail-lf1-x12e.google.com with SMTP id x27so9006560lfu.5
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Oct 2021 14:19:02 -0700 (PDT)
 Received: from localhost.localdomain (46-138-41-28.dynamic.spd-mgts.ru.
  [46.138.41.28])
- by smtp.gmail.com with ESMTPSA id d7sm104336ljl.18.2021.10.27.14.18.58
+ by smtp.gmail.com with ESMTPSA id d7sm104336ljl.18.2021.10.27.14.18.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Oct 2021 14:18:59 -0700 (PDT)
+ Wed, 27 Oct 2021 14:19:01 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f281c280-7e2c-4b52-8649-7ff7b12073ce
+X-Inumbo-ID: 65faa95e-9d9e-4589-b672-ba4175121473
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=/EvvYGeTVCQImKsIJ5eG/5fF3PWyG/w2giRYqfawyD8=;
-        b=WISWhItqSg2B7RF+VMq4lOAEaPJboj2meAQ+IB5/V1NHbNJFBmj5XS0xlb4zCXSKCT
-         6NsXWHZYq9LRGS+jBn6SfWgsJR2EyLsQBWeeDJtEZfPXB1ZJ5N3cxcINwqw5WxZcKDSN
-         DIvIUkbk9mQPYxMXhFN2I7TObVzLJ8eVxU8hzEXgYSzj8Cm7i8BXlPfHwlq3yNPgneQb
-         CHkJFZxdfY5RLlI3BGfXo88fraOgWdNEzamQkJbIJD18e+/pItOdQTQl7YVu3LpCjfDV
-         vOVdkFjMAfH4ytXgGRWsun/uVtAnjn/uKIwgKMmU3X2UQuuCd1+gugzIIN8JE0FZ4XsA
-         8FgQ==
+        bh=IkN5RxNvfWU6udxIv0HqPwHPsreqVVHZYAiW4uOSdQE=;
+        b=EBSN3i6pBzJ/QX6b7hWJ61FbfkEkrcOrflTwto+4KX4or46ACVz9Tr/1pugxTtiHmi
+         G7CMVOoidyYK0g+Vg4pJnm/bKfolm8lIe6sk0vITgUl/0On7GAe1avC+nPdsUhal8n/2
+         2LfBGzyZF4kisF1H8Fy3oqJJlA7mP+5FCx9jGZBePen+YJxCg52jU7glSS7bDwelermJ
+         QOk39GQqnkcumTBHd2mHERoDOJXwlx4KsuyCu/MObr6DT96WNWvs0v/iyAkBnjjhRCxD
+         gw7GTseQp5qiH+atTqu6Rg9n+NmY0IzLKdyAE4sSGNY6W234A5z05GeGyvCsr57AR1H6
+         zVgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=/EvvYGeTVCQImKsIJ5eG/5fF3PWyG/w2giRYqfawyD8=;
-        b=U+exVGjIuZrTZvaorfdlm/oyMq/hAou4g7Vw/VviOIsVhOIHQaH7ZsgzcBUs7BDYjA
-         xraSSIeYu8vLir9B69E23edFmqksnkzkDjlj0XX9iP/YQjAQsOqBvPE2H0o4GgtlRZWU
-         hNb8Vt0pzE/X4FnG6j1bTSaVkkiaPKZy4XStEshgOR5EVDgbiCYau9+cgT96W8kxvvjh
-         Jes/wNAAN6xcwNzNW7NF/R1UoYY+g3+1Tetx6QyDld+fZiZBt8XbGVa6aKBwJ2veesUB
-         ejKBdjDxK1tTRYWB6HttVhUmGEiggrsbBMFOpESh0/WytCeQjzfCZBdMqOkMt4a2eBrR
-         KceQ==
-X-Gm-Message-State: AOAM533mQDpK4i0E42aqLHLCnefrjicLGCp8rNX3Nr7Sip/m3X9UaPTm
-	hees8pr1YHC7aEumg+rfsP4=
-X-Google-Smtp-Source: ABdhPJxRCjxAoGlWdRIW6Oj8xz2ri71YJVQnEgFasE3kMNBOfZWQ65DiEYFCvQ3qjpKPcAaJZhmXrA==
-X-Received: by 2002:ac2:4c08:: with SMTP id t8mr95028lfq.281.1635369539813;
-        Wed, 27 Oct 2021 14:18:59 -0700 (PDT)
+        bh=IkN5RxNvfWU6udxIv0HqPwHPsreqVVHZYAiW4uOSdQE=;
+        b=QQRK7uNfkfXqzh/2+qQB2MBTUpYfY33zA5szHcVFIkXZkR0RvDa8Tuz3JK8x6ySli9
+         eVRGuLNRWtkyZYfGkhVaPgixrOkMdiN9DO4/Vg0p7aO/4jRO7dBUmg7vTAhGleHCS0W/
+         DtfzuiJxJnpm/NliR9eU3OuIvXPBNwbxbm+NnOEZFdYo8epCKQKr31KWpU76Jl9i/vq1
+         6llItVoOnjKUOESZEEve4RRWAYdTNEghGVqW9AdNAbXSCpZcOi3e5fWDvDJPrDuEEXPO
+         Jy1sxBH6dZ0fM6/TZyr/A84UyjIht9NoK9JuzPZwJ+RfFdartxC6cXMxTrzyivSSgXeK
+         6vqw==
+X-Gm-Message-State: AOAM533yRwLzsgkPHU9agHgQM72/9qu/2LVgrf9CagaeHQ/CWo4fsrwD
+	ytPEBubdFEq5l68D2yfMXJM=
+X-Google-Smtp-Source: ABdhPJxsr/pRUcPc/yvXJw9vQsQsBRCfPMRUucvUkltufw5utcaA8e0PD5R7U1W5XHhl0HmaGsY5xg==
+X-Received: by 2002:a05:6512:aca:: with SMTP id n10mr150724lfu.66.1635369541621;
+        Wed, 27 Oct 2021 14:19:01 -0700 (PDT)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -144,9 +144,9 @@ Cc: Catalin Marinas <catalin.marinas@arm.com>,
 	openbmc@lists.ozlabs.org,
 	linux-tegra@vger.kernel.org,
 	linux-pm@vger.kernel.org
-Subject: [PATCH v2 36/45] mfd: tps6586x: Use devm_register_simple_power_off_handler()
-Date: Thu, 28 Oct 2021 00:17:06 +0300
-Message-Id: <20211027211715.12671-37-digetx@gmail.com>
+Subject: [PATCH v2 37/45] mfd: tps65910: Use devm_register_simple_power_off_handler()
+Date: Thu, 28 Oct 2021 00:17:07 +0300
+Message-Id: <20211027211715.12671-38-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211027211715.12671-1-digetx@gmail.com>
 References: <20211027211715.12671-1-digetx@gmail.com>
@@ -158,63 +158,52 @@ pm_power_off variable and allows to register multiple power-off handlers.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- drivers/mfd/tps6586x.c | 21 ++++++++++++++-------
- 1 file changed, 14 insertions(+), 7 deletions(-)
+ drivers/mfd/tps65910.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/mfd/tps6586x.c b/drivers/mfd/tps6586x.c
-index c9303d3d6602..9033ed936d1e 100644
---- a/drivers/mfd/tps6586x.c
-+++ b/drivers/mfd/tps6586x.c
-@@ -22,6 +22,7 @@
- #include <linux/err.h>
- #include <linux/i2c.h>
- #include <linux/platform_device.h>
+diff --git a/drivers/mfd/tps65910.c b/drivers/mfd/tps65910.c
+index 6e105cca27d4..8fab30dc84e5 100644
+--- a/drivers/mfd/tps65910.c
++++ b/drivers/mfd/tps65910.c
+@@ -16,6 +16,7 @@
+ #include <linux/irq.h>
+ #include <linux/irqdomain.h>
+ #include <linux/mfd/core.h>
 +#include <linux/reboot.h>
  #include <linux/regmap.h>
+ #include <linux/mfd/tps65910.h>
  #include <linux/of.h>
+@@ -429,9 +430,9 @@ struct tps65910_board *tps65910_parse_dt(struct i2c_client *client,
+ }
+ #endif
  
-@@ -461,9 +462,10 @@ static const struct regmap_config tps6586x_regmap_config = {
- 	.cache_type = REGCACHE_RBTREE,
- };
- 
--static struct device *tps6586x_dev;
--static void tps6586x_power_off(void)
-+static void tps6586x_power_off(void *data)
+-static struct i2c_client *tps65910_i2c_client;
+-static void tps65910_power_off(void)
++static void tps65910_power_off(void *data)
  {
-+	struct device *tps6586x_dev = data;
-+
- 	if (tps6586x_clr_bits(tps6586x_dev, TPS6586X_SUPPLYENE, EXITSLREQ_BIT))
- 		return;
++	struct i2c_client *tps65910_i2c_client = data;
+ 	struct tps65910 *tps65910;
  
-@@ -540,6 +542,16 @@ static int tps6586x_i2c_probe(struct i2c_client *client,
- 		return ret;
- 	}
+ 	tps65910 = dev_get_drvdata(&tps65910_i2c_client->dev);
+@@ -503,9 +504,15 @@ static int tps65910_i2c_probe(struct i2c_client *i2c,
+ 	tps65910_ck32k_init(tps65910, pmic_plat_data);
+ 	tps65910_sleepinit(tps65910, pmic_plat_data);
  
-+	if (pdata->pm_off) {
-+		ret = devm_register_simple_power_off_handler(&client->dev,
-+							     tps6586x_power_off,
-+							     &client->dev);
+-	if (pmic_plat_data->pm_off && !pm_power_off) {
+-		tps65910_i2c_client = i2c;
+-		pm_power_off = tps65910_power_off;
++	if (pmic_plat_data->pm_off) {
++		ret = devm_register_simple_power_off_handler(&i2c->dev,
++							     tps65910_power_off,
++							     i2c);
 +		if (ret) {
-+			dev_err(&client->dev,
++			dev_err(&i2c->dev,
 +				"failed to register power-off handler: %d\n", ret);
 +			return ret;
 +		}
-+	}
- 
- 	if (client->irq) {
- 		ret = tps6586x_irq_init(tps6586x, client->irq,
-@@ -564,11 +576,6 @@ static int tps6586x_i2c_probe(struct i2c_client *client,
- 		goto err_add_devs;
  	}
  
--	if (pdata->pm_off && !pm_power_off) {
--		tps6586x_dev = &client->dev;
--		pm_power_off = tps6586x_power_off;
--	}
--
- 	return 0;
- 
- err_add_devs:
+ 	ret = devm_mfd_add_devices(tps65910->dev, -1,
 -- 
 2.33.1
 
