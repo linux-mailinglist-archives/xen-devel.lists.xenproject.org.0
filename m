@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5639543D5B3
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 23:28:39 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217337.377418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A06443D5A0
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 23:28:05 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217278.377278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfqTD-00085K-V7; Wed, 27 Oct 2021 21:28:27 +0000
+	id 1mfqSe-0000rQ-JQ; Wed, 27 Oct 2021 21:27:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217337.377418; Wed, 27 Oct 2021 21:28:27 +0000
+Received: by outflank-mailman (output) from mailman id 217278.377278; Wed, 27 Oct 2021 21:27:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfqTD-0007zK-Oi; Wed, 27 Oct 2021 21:28:27 +0000
-Received: by outflank-mailman (input) for mailman id 217337;
- Wed, 27 Oct 2021 21:28:26 +0000
+	id 1mfqSe-0000jW-5U; Wed, 27 Oct 2021 21:27:52 +0000
+Received: by outflank-mailman (input) for mailman id 217278;
+ Wed, 27 Oct 2021 21:27:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nMly=PP=gmail.com=digetx@srs-us1.protection.inumbo.net>)
- id 1mfqNI-0000sJ-F3
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 21:22:20 +0000
-Received: from mail-lj1-x232.google.com (unknown [2a00:1450:4864:20::232])
+ id 1mfqNS-0000sJ-FF
+ for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 21:22:30 +0000
+Received: from mail-lj1-x22c.google.com (unknown [2a00:1450:4864:20::22c])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3fd14165-1c51-4e97-b6e8-86c09a0d6493;
- Wed, 27 Oct 2021 21:19:06 +0000 (UTC)
-Received: by mail-lj1-x232.google.com with SMTP id q16so7020585ljg.3
- for <xen-devel@lists.xenproject.org>; Wed, 27 Oct 2021 14:19:06 -0700 (PDT)
+ id 75304b2b-e4b2-4f61-96e2-041fe02a1904;
+ Wed, 27 Oct 2021 21:19:08 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id i26so5091804ljg.7
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Oct 2021 14:19:08 -0700 (PDT)
 Received: from localhost.localdomain (46-138-41-28.dynamic.spd-mgts.ru.
  [46.138.41.28])
- by smtp.gmail.com with ESMTPSA id d7sm104336ljl.18.2021.10.27.14.19.03
+ by smtp.gmail.com with ESMTPSA id d7sm104336ljl.18.2021.10.27.14.19.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Oct 2021 14:19:05 -0700 (PDT)
+ Wed, 27 Oct 2021 14:19:06 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fd14165-1c51-4e97-b6e8-86c09a0d6493
+X-Inumbo-ID: 75304b2b-e4b2-4f61-96e2-041fe02a1904
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=3OlHSqJ+90NzTUoF0ScIJd6Gu2h2samNuNJcsiL1Jk8=;
-        b=TlGsLZtcrVzUb7sAOhif3p7pVw8LafC2xLy1EDPy1NIwJl5MQQvmHy2JQZYszcOE8Z
-         bpdCDmyEM5D03Couzbs3VVZUIdamWSCPF0yzl5vvizBqtDssLI1790jRM+TPIcawNrlD
-         8STEeq0OEOHvy2rX7OXiOWUq9V+Wbq3xZg3vhjF/dealnvdRkEuGDx5b0mmtoBXsa4Tg
-         7gFUHQvvLRw3QjAUV5dCuqij4emeiEy4r7tFICkEZrQaaXXABdfN2M8h/mxrxQbImqYG
-         GaGzMOCXHjG+QuAc4Dq0gK0PotuHucIYhVqvi35iVuJc+hGZhg1h00rdw0kra8k/EpLO
-         luJw==
+        bh=IyeKRcg+jY+d7mV074g++I9amtFxwmtCwLh3hlXwjuE=;
+        b=QnkHqeqzRHJ5AsPp67EWmABUOzsGTZSEBDGiay4nrsnQYbRzqAwsk2Smx/z5LQ/pzF
+         rdPrmuGWIQsGZY0bghrDq1od6/1Zl94Y7Qb1GFsmOOrt3AmEW7aEpgHOlwWIuWg9pF6h
+         Oq2ibAnCelRGtOXc03WYR55PI40ZligMz8SFKQbuKJzels1J9jjvQqZYNvv/xzelX9Df
+         3ooSIaYPCZ69IQLFRxzA4xs/vR6PqnP/beBugw1fOkkPovapvfxOsncNdJLVW4zeoK8b
+         skyzHaRP9ZlGt9pP4tePYITTWnPX31LYoVXuqb9igbxjWGO6dkZHNW0xRIrqWzuV8p7l
+         c4kw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=3OlHSqJ+90NzTUoF0ScIJd6Gu2h2samNuNJcsiL1Jk8=;
-        b=BN39/gDvZoVTgRGs+6aS1GMtwC3mp+mHjKiuRx0k01hIFramQi8QPCaokCyA+gk8D3
-         8p0O873nUDe6e60YTN4GO08B3izGzxbSbivg5p7TqUU5MCG1E0FNVJxY2E0PZd0O2CND
-         bCILcLm4o72t8GnE+BsAjr1Oewzm/msueKLh2A4oQX4KnCSslYwyduGHJsqvBx6WZdAi
-         dD/u7EWuSJDZNlnpwkns+YGcuNT3CasS2um8Z42A45RjQXXryR1NnPKaw5zWCUdI5AMW
-         Wwv0BVwh4o7s0HLnDI+ZjGZDobN0SikzfOUaVIlX/GMGILB2koBfnkcT605E5bmHu4bK
-         w88g==
-X-Gm-Message-State: AOAM531NpLun6zaWfxagMpY5KG9iXCQr7gfeenakzmKV6mK20aFmRJat
-	yP4mNPwMpMCZlPb4bdRnM2M=
-X-Google-Smtp-Source: ABdhPJzDbMhKltt/cJ4cLHVC7lvSJKFFWBp4i2pL/KBXA4D8sI4Ihh3wNKVdm9xKvnEcHeY8d+ELCw==
-X-Received: by 2002:a2e:b0e2:: with SMTP id h2mr336408ljl.522.1635369545290;
-        Wed, 27 Oct 2021 14:19:05 -0700 (PDT)
+        bh=IyeKRcg+jY+d7mV074g++I9amtFxwmtCwLh3hlXwjuE=;
+        b=yskBtUYTkO7vMc3nH96aWtDfWa/j2vhawnvPdCDsnad9aYEb2lFjMe4J3ITK2IC90U
+         1Ygw3EfOcJFkfPOCXgbV5JHjXhEzY3rPQV6tRDaoGiqqZrTfTS3TKlHVttkgfwWUeA8H
+         nFO9t21dbUy/S5ih6+SPhyk0FCv9JhNA24fnivHd+cmjDQ2IdYlOYQKs/o+ASPWVSNvA
+         fjgXZZT8PRCoVnrZn7H9+VmyVBt7v14+t38l+KK4rUjtDuSCdAj5oyD5aP7AzHDBlq8e
+         44DBwxJqFqxquWt06I0QT9vdtL3ajfBPO2bz1FdwjDLZDJ5hVceeUWhi95z8sbBWCRyv
+         Hm2A==
+X-Gm-Message-State: AOAM533CLgVHPhUSs2arwTkSYcJ5jFPVw/1L6BhxPYZZlcXbMERj6nOb
+	ExUo7bkPlSpOtCdvtHbR3so=
+X-Google-Smtp-Source: ABdhPJy4ahVYxTGf2Y3bPKsNGZG7BdaFjyQVV1JaKCPUvFr94r9L7duD8TnIWNPTqCXGHbJewLuL1g==
+X-Received: by 2002:a05:651c:1256:: with SMTP id h22mr358353ljh.348.1635369547137;
+        Wed, 27 Oct 2021 14:19:07 -0700 (PDT)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -144,9 +144,9 @@ Cc: Catalin Marinas <catalin.marinas@arm.com>,
 	openbmc@lists.ozlabs.org,
 	linux-tegra@vger.kernel.org,
 	linux-pm@vger.kernel.org
-Subject: [PATCH v2 39/45] mfd: dm355evm_msp: Use devm_register_trivial_power_off_handler()
-Date: Thu, 28 Oct 2021 00:17:09 +0300
-Message-Id: <20211027211715.12671-40-digetx@gmail.com>
+Subject: [PATCH v2 40/45] mfd: twl4030: Use devm_register_trivial_power_off_handler()
+Date: Thu, 28 Oct 2021 00:17:10 +0300
+Message-Id: <20211027211715.12671-41-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211027211715.12671-1-digetx@gmail.com>
 References: <20211027211715.12671-1-digetx@gmail.com>
@@ -158,74 +158,44 @@ pm_power_off variable and allows to register multiple power-off handlers.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- drivers/mfd/dm355evm_msp.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+ drivers/mfd/twl4030-power.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mfd/dm355evm_msp.c b/drivers/mfd/dm355evm_msp.c
-index 54fb6cbd2aa0..5ee830f65589 100644
---- a/drivers/mfd/dm355evm_msp.c
-+++ b/drivers/mfd/dm355evm_msp.c
-@@ -8,6 +8,7 @@
- #include <linux/init.h>
- #include <linux/mutex.h>
+diff --git a/drivers/mfd/twl4030-power.c b/drivers/mfd/twl4030-power.c
+index 6b36932263ba..72df4735d628 100644
+--- a/drivers/mfd/twl4030-power.c
++++ b/drivers/mfd/twl4030-power.c
+@@ -29,6 +29,7 @@
  #include <linux/platform_device.h>
+ #include <linux/of.h>
+ #include <linux/of_device.h>
 +#include <linux/reboot.h>
- #include <linux/clk.h>
- #include <linux/module.h>
- #include <linux/err.h>
-@@ -375,11 +376,10 @@ static void dm355evm_power_off(void)
- 	dm355evm_command(MSP_COMMAND_POWEROFF);
- }
  
--static int dm355evm_msp_remove(struct i2c_client *client)
-+static void dm355evm_msp_remove(void *data)
- {
--	pm_power_off = NULL;
-+	/* FIXME remove children ... */
- 	msp430 = NULL;
--	return 0;
- }
+ #include <asm/mach-types.h>
  
- static int
-@@ -392,6 +392,11 @@ dm355evm_msp_probe(struct i2c_client *client, const struct i2c_device_id *id)
- 		return -EBUSY;
- 	msp430 = client;
+@@ -923,7 +924,7 @@ static int twl4030_power_probe(struct platform_device *pdev)
+ 	}
  
-+	status = devm_add_action_or_reset(&client->dev, dm355evm_msp_remove,
-+					  NULL);
-+	if (status < 0)
-+		goto fail;
-+
- 	/* display revision status; doubles as sanity check */
- 	status = dm355evm_msp_read(DM355EVM_MSP_FIRMREV);
- 	if (status < 0)
-@@ -416,13 +421,15 @@ dm355evm_msp_probe(struct i2c_client *client, const struct i2c_device_id *id)
- 		goto fail;
+ 	/* Board has to be wired properly to use this feature */
+-	if (twl4030_power_use_poweroff(pdata, node) && !pm_power_off) {
++	if (twl4030_power_use_poweroff(pdata, node)) {
+ 		/* Default for SEQ_OFFSYNC is set, lets ensure this */
+ 		err = twl_i2c_read_u8(TWL_MODULE_PM_MASTER, &val,
+ 				      TWL4030_PM_MASTER_CFG_P123_TRANSITION);
+@@ -939,7 +940,12 @@ static int twl4030_power_probe(struct platform_device *pdev)
+ 			}
+ 		}
  
- 	/* PM hookup */
--	pm_power_off = dm355evm_power_off;
-+	status = devm_register_trivial_power_off_handler(&client->dev,
-+							 dm355evm_power_off);
-+	if (status)
-+		dev_err(&client->dev, "failed to register power-off handler: %d",
-+			status);
+-		pm_power_off = twl4030_power_off;
++		err = devm_register_trivial_power_off_handler(&pdev->dev,
++							      twl4030_power_off);
++		if (err) {
++			dev_err(&pdev->dev, "Failed to register power-off handler\n");
++			goto relock;
++		}
+ 	}
  
- 	return 0;
- 
- fail:
--	/* FIXME remove children ... */
--	dm355evm_msp_remove(client);
- 	return status;
- }
- 
-@@ -436,7 +443,6 @@ static struct i2c_driver dm355evm_msp_driver = {
- 	.driver.name	= "dm355evm_msp",
- 	.id_table	= dm355evm_msp_ids,
- 	.probe		= dm355evm_msp_probe,
--	.remove		= dm355evm_msp_remove,
- };
- 
- static int __init dm355evm_msp_init(void)
+ relock:
 -- 
 2.33.1
 
