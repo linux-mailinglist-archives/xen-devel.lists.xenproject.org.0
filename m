@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 614DD43C4DD
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 10:14:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.216693.376394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4629843C507
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 10:26:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.216699.376406 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfe48-00016I-0u; Wed, 27 Oct 2021 08:13:44 +0000
+	id 1mfeFf-0002d8-5H; Wed, 27 Oct 2021 08:25:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 216693.376394; Wed, 27 Oct 2021 08:13:43 +0000
+Received: by outflank-mailman (output) from mailman id 216699.376406; Wed, 27 Oct 2021 08:25:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfe47-00013z-Tw; Wed, 27 Oct 2021 08:13:43 +0000
-Received: by outflank-mailman (input) for mailman id 216693;
- Wed, 27 Oct 2021 08:13:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EkRf=PP=oderland.se=josef@srs-us1.protection.inumbo.net>)
- id 1mfe47-00013t-32
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 08:13:43 +0000
-Received: from office.oderland.com (unknown [91.201.60.5])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cb6cf974-36fd-11ec-8454-12813bfff9fa;
- Wed, 27 Oct 2021 08:13:41 +0000 (UTC)
-Received: from [193.180.18.161] (port=56998 helo=[10.137.0.14])
- by office.oderland.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <josef@oderland.se>)
- id 1mfe44-0082c3-35; Wed, 27 Oct 2021 10:13:40 +0200
+	id 1mfeFf-0002ac-2D; Wed, 27 Oct 2021 08:25:39 +0000
+Received: by outflank-mailman (input) for mailman id 216699;
+ Wed, 27 Oct 2021 08:25:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=D8pr=PP=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
+ id 1mfeFd-0002aW-O6
+ for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 08:25:37 +0000
+Received: from mail-ed1-x532.google.com (unknown [2a00:1450:4864:20::532])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d97cefca-ba38-454d-a69e-01ec514d62c0;
+ Wed, 27 Oct 2021 08:25:36 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id s1so7379110edd.3
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Oct 2021 01:25:36 -0700 (PDT)
+Received: from localhost.localdomain ([185.199.97.5])
+ by smtp.gmail.com with ESMTPSA id bq4sm10445845ejb.43.2021.10.27.01.25.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Oct 2021 01:25:34 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,75 +41,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb6cf974-36fd-11ec-8454-12813bfff9fa
-Message-ID: <4af6ccf5-1e52-be65-0acc-cbc53b724dfe@oderland.se>
-Date: Wed, 27 Oct 2021 10:13:36 +0200
+X-Inumbo-ID: d97cefca-ba38-454d-a69e-01ec514d62c0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=40XBeXCNftA1Htax/SKjqvW6FDZwTVJ23WgtrKywO2A=;
+        b=e5M3iJtfvFrqEoi4LavM3LCq1dJKMwQYRSuUlpJLnN+0hbirsQVM1+cPjfSDql6VwV
+         PMXT72d66F11qk3PI2GtqLyyURucj8LzTjFfX1JJxzL+RTQ8c2owbL+U8wj/Hcpyped7
+         QkN0ydd6+5Ugqea/DkldHjnk0yxQAb2HbikhnYSBrNHJUlZXvxJi49AnJMZWW77rQQvH
+         /sFJ+talYB2JoxYfqTXya6dYMqZu2XCAn1omhiLWw5GpqL+yjLbCDv72qK/O6A5X15ER
+         r1z5adi9NiMLRyKU9EG54JFNIClmNKxJRDO5JI0TrQ9r7T5GcyxiM0w+BRFFBWLfbEBe
+         cbnQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=40XBeXCNftA1Htax/SKjqvW6FDZwTVJ23WgtrKywO2A=;
+        b=uHA35SXVEqhSg6uxDj0cQW5az1jQFTLy1Lx/9MZuZoINDdkpdI/Ot6gsFrC4IioBSK
+         6aPq+53anV+SGMvLGOGfQRSE09b3gAv7lCw25Q4uNDSvO0DIlIG3MpeKK62RT2Y3khHU
+         XA2aO2nGoJeJr/NQFUnM2DqVKeimHza7msdy1oee7oPrhvkvjp+1GbVmfaZ/HBw3O74c
+         srBV3RGQYoqc80m6J9M0SwgYmUnh1g1olav9VCXK5LEYpCdt1BKX2lPKgLlXH6qy7a26
+         nEEnJCsh9/O1NoK1sz9BuDeTOKh6go9sYRJICwTQ16vimZeun3+5LE7xVDgwQv7yQw/O
+         Ru+Q==
+X-Gm-Message-State: AOAM5301fu6cwQimrATFTREMXCYDCmMqXGoYvAfN+1nxMUro7+2BW4Ia
+	xAEl+6lFF7z0mEsNBm5VzwMgJQYnXkv56A==
+X-Google-Smtp-Source: ABdhPJxa6yp1okF3IJP5ZcBVoHpwuKUv+gzFnb6zGnfpEO7ZQ40dTGZBLdy3XxqVFIj30clJyL6WBg==
+X-Received: by 2002:a05:6402:1256:: with SMTP id l22mr11845063edw.240.1635323135397;
+        Wed, 27 Oct 2021 01:25:35 -0700 (PDT)
+From: Oleksandr Andrushchenko <andr2000@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	sstabellini@kernel.org,
+	iwj@xenproject.org,
+	bertrand.marquis@arm.com,
+	rahul.singh@arm.com,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Subject: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers
+Date: Wed, 27 Oct 2021 11:25:33 +0300
+Message-Id: <20211027082533.1406015-1-andr2000@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:93.0) Gecko/20100101
- Thunderbird/93.0
-Subject: Re: [PATCH v2] PCI/MSI: Re-add checks for skip masking MSI-X on Xen
- PV
-Content-Language: en-US
-To: David Woodhouse <dwmw2@infradead.org>, Jason Andryuk
- <jandryuk@gmail.com>, Marc Zyngier <maz@kernel.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, linux-pci@vger.kernel.org,
- xen-devel <xen-devel@lists.xenproject.org>,
- Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-References: <20211019202906.GA2397931@bhelgaas>
- <5f050b30-fa1c-8387-0d6b-a667851b34b0@oderland.se>
- <877de7dfl2.wl-maz@kernel.org>
- <CAKf6xpt=ZYGyJXMwM7ccOWkx71R0O-QeLjkBF-LtdDcbSnzHsA@mail.gmail.com>
- <3434cb2d-4060-7969-d4c4-089c68190527@oderland.se>
- <90277228-cf14-0cfa-c95e-d42e7d533353@oderland.se>
- <CAKf6xpvZ8fxuBY4BZ51UZzF92zDUcvfav9_pOT7F3w-Bc8YkwA@mail.gmail.com>
- <c4d27d67-1027-e72b-c5bf-5546c5b0e2e9@oderland.se>
- <ee23eafce1993ba7da8fdf4c03cedbcb3362ef1d.camel@infradead.org>
-From: Josef Johansson <josef@oderland.se>
-In-Reply-To: <ee23eafce1993ba7da8fdf4c03cedbcb3362ef1d.camel@infradead.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - office.oderland.com
-X-AntiAbuse: Original Domain - lists.xenproject.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oderland.se
-X-Get-Message-Sender-Via: office.oderland.com: authenticated_id: josjoh@oderland.se
-X-Authenticated-Sender: office.oderland.com: josjoh@oderland.se
 
-On 10/27/21 08:24, David Woodhouse wrote:
-> On Mon, 2021-10-25 at 21:21 +0200, Josef Johansson wrote:
->> +       if (!(pci_msi_ignore_mask || entry->msi_attrib.is_virtual))
-> Is it just me, or is that a lot easier to read if you write it as the
-> tautologically-identical (!pci_msi_ignore_mask && !entry->…is_virtual)?
-Sure, the less parentheses the better.
->
->> @@ -546,7 +548,8 @@ static int msi_capability_init(struct pci_dev *dev, int nvec,
->>                 return -ENOMEM;
->>         /* All MSIs are unmasked by default; mask them all *
->> -       pci_msi_mask(entry, msi_multi_mask(entry))
->> +       if (!pci_msi_ignore_mask)
->> +               pci_msi_mask(entry, msi_multi_mask(entry));
->>
->>         list_add_tail(&entry->list, dev_to_msi_list(&dev->dev));
->
-> Hm, I thought that older kernels *did* do this part (or at least the
-> later ones in pci_msi*_hutdown). I was watching it when I did the Xen
-> hosting implementation I mentioned before; even a hack to unmask them
-> all when the VM was started, wasn't working because the guest would
-> *mask* all MSI-X, just never unmask them again.
-When you're saying *did* here, do you mean that they mask even though
-pci_msi_ignore_mask = 0?
+From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-As I was looking through pre Thomas' changes and post, it seems that we
-did indeed
-check for pci_msi_ignore_mask in msi_capability_init.
->
-> I wonder if we should rename 'pci_msi_ignore_mask' to something with
-> Xen in its name because Xen is the only user of this abomination (which
-> fundamentally seems to require that the virtual hardware use MSI
-> entries even while they're masked, so hopefully nobody else would
-> *ever* do such a thing), and the required behaviour is very Xen-
-> specific.
-Second that, i.e. pci_msi_masked_by_xen.
+While in vPCI MMIO trap handlers for the guest PCI host bridge it is not
+enough for SBDF translation to simply call VPCI_ECAM_BDF(info->gpa) as
+the base address may not be aligned in the way that the translation
+always work. If not adjusted with respect to the base address it may not be
+able to properly convert SBDF and crashes:
+
+(XEN) vpci_mmio_read 0000:65:1a.0 reg 8bc gpa e65d08bc
+(XEN) Data Abort Trap. Syndrome=0x6
+(XEN) Walking Hypervisor VA 0x467a28bc on CPU0 via TTBR 0x00000000481d5000
+
+Fix this by adjusting the gpa with respect to the host bridge base address
+in a way as it is done for x86.
+
+Fixes: d59168dc05a5 ("xen/arm: Enable the existing x86 virtual PCI support for ARM")
+
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+---
+ xen/arch/arm/vpci.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
+index 8f40a0dec6d2..23f45386f4b3 100644
+--- a/xen/arch/arm/vpci.c
++++ b/xen/arch/arm/vpci.c
+@@ -24,7 +24,7 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
+     unsigned long data;
+ 
+     /* We ignore segment part and always handle segment 0 */
+-    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa);
++    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa - GUEST_VPCI_ECAM_BASE);
+ 
+     if ( vpci_ecam_read(sbdf, ECAM_REG_OFFSET(info->gpa),
+                         1U << info->dabt.size, &data) )
+@@ -44,7 +44,7 @@ static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
+     pci_sbdf_t sbdf;
+ 
+     /* We ignore segment part and always handle segment 0 */
+-    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa);
++    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa - GUEST_VPCI_ECAM_BASE);
+ 
+     return vpci_ecam_write(sbdf, ECAM_REG_OFFSET(info->gpa),
+                            1U << info->dabt.size, r);
+-- 
+2.25.1
+
 
