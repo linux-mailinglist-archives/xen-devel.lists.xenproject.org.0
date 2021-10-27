@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8C3A43CFD7
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 19:36:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217149.377020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F06A943D02B
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 19:57:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217158.377036 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfmqB-0001Ri-H1; Wed, 27 Oct 2021 17:35:55 +0000
+	id 1mfnAW-0003xT-Ab; Wed, 27 Oct 2021 17:56:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217149.377020; Wed, 27 Oct 2021 17:35:55 +0000
+Received: by outflank-mailman (output) from mailman id 217158.377036; Wed, 27 Oct 2021 17:56:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfmqB-0001PJ-De; Wed, 27 Oct 2021 17:35:55 +0000
-Received: by outflank-mailman (input) for mailman id 217149;
- Wed, 27 Oct 2021 17:35:54 +0000
+	id 1mfnAW-0003uM-57; Wed, 27 Oct 2021 17:56:56 +0000
+Received: by outflank-mailman (input) for mailman id 217158;
+ Wed, 27 Oct 2021 17:56:54 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mfmq9-0001PD-VR
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 17:35:53 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mfnAU-0003uC-Ku; Wed, 27 Oct 2021 17:56:54 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mfmq8-0000gG-MY; Wed, 27 Oct 2021 17:35:52 +0000
-Received: from [54.239.6.185] (helo=[192.168.29.96])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mfmq8-0002HX-Ei; Wed, 27 Oct 2021 17:35:52 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mfnAU-00012R-Gw; Wed, 27 Oct 2021 17:56:54 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mfnAU-0004cK-9n; Wed, 27 Oct 2021 17:56:54 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mfnAU-0006bn-71; Wed, 27 Oct 2021 17:56:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,109 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Vd+DQmk1rQNBtODXMucWIaaELYAfQaTQwGvyh1TUmws=; b=HJlaAOw0sp6GHztbbVWwtI/wQw
-	WW52867gTr2t0SCv2aTJY7m0otaxPoIbGThBUtl0UDTB94CZTNpR1Ow4xn7B6+V8RWUWQCBnc1acf
-	IvTS9kOd7YafXkJxMY/CXqUSGFKg9HJ/QdG2+1c0R+XfI08AgJjQNXyFeSs/eWF8zioY=;
-Message-ID: <cb7e9ef7-476e-93c3-d3c9-9a9ebc61003d@xen.org>
-Date: Wed, 27 Oct 2021 18:35:50 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=w274TJilkZqbkjOMyvrxwVUGXyxsmeDbhenjI0SbGsM=; b=S+G8e8argXgwpZGQK/jRKdwPqJ
+	MKf0g20LWZhVK4iP2Yh7iV1yZ/2EYTo6s9A6z0cuahK7OBx1X08jB2Y12YZIKkMjVuIn9pnsIbY6u
+	O8QiZaTcM/Y52hqKhTN1NIUWqY2fE8lNX4SSw2KKCssMG5E4g6fS/0+eV6h9NCUkL9ss=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165899-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.1
-Subject: Re: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers
-To: Oleksandr Andrushchenko <andr2000@gmail.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, iwj@xenproject.org, bertrand.marquis@arm.com,
- rahul.singh@arm.com,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-References: <20211027082533.1406015-1-andr2000@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20211027082533.1406015-1-andr2000@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 165899: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=9a95d11023ac2f2ee49a2958cf80658270442c42
+X-Osstest-Versions-That:
+    ovmf=2f6f3329add328103cb0654b71d7b814dc0c9759
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 27 Oct 2021 17:56:54 +0000
 
-Hi Oleksandr,
+flight 165899 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165899/
 
-On 27/10/2021 09:25, Oleksandr Andrushchenko wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> While in vPCI MMIO trap handlers for the guest PCI host bridge it is not
-> enough for SBDF translation to simply call VPCI_ECAM_BDF(info->gpa) as
-> the base address may not be aligned in the way that the translation
-> always work. If not adjusted with respect to the base address it may not be
-> able to properly convert SBDF and crashes:
-> 
-> (XEN) vpci_mmio_read 0000:65:1a.0 reg 8bc gpa e65d08bc
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 9a95d11023ac2f2ee49a2958cf80658270442c42
+baseline version:
+ ovmf                 2f6f3329add328103cb0654b71d7b814dc0c9759
 
-I can't find a printk() that may output this message. Where does this 
-comes from?
+Last test of basis   165873  2021-10-26 05:40:10 Z    1 days
+Testing same since   165899  2021-10-27 12:10:06 Z    0 days    1 attempts
 
-Anyway, IIUC the guest physical address is 0xe65d08bc which, if I am not 
-mistaken, doesn't belong to the range advertised for GUEST_VPCI_ECAM.
+------------------------------------------------------------
+People who touched revisions under test:
+  Chasel Chiu <chasel.chiu@intel.com>
 
-IMHO, the stack trace should come from usptream Xen or need some 
-information to explain how this was reproduced.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-> (XEN) Data Abort Trap. Syndrome=0x6
-> (XEN) Walking Hypervisor VA 0x467a28bc on CPU0 via TTBR 0x00000000481d5000
-I can understnad that if we don't substract GUEST_VPCI_ECAM, we would 
-(in theory) not get the correct BDF. But... I don't understand how this 
-would result to a data abort in the hypervisor.
 
-In fact, I think the vPCI code should be resilient enough to not crash 
-if we pass the wrong BDF.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-When there is a data abort in Xen, you should get a stack trace from 
-where this comes from. Can you paste it here?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> 
-> Fix this by adjusting the gpa with respect to the host bridge base address
-> in a way as it is done for x86.
-> 
-> Fixes: d59168dc05a5 ("xen/arm: Enable the existing x86 virtual PCI support for ARM")
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> ---
->   xen/arch/arm/vpci.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
-> index 8f40a0dec6d2..23f45386f4b3 100644
-> --- a/xen/arch/arm/vpci.c
-> +++ b/xen/arch/arm/vpci.c
-> @@ -24,7 +24,7 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
->       unsigned long data;
->   
->       /* We ignore segment part and always handle segment 0 */
-> -    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa);
-> +    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa - GUEST_VPCI_ECAM_BASE);
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Looking at the rest of the rest, it seems that
-  1) the issue is latent as the bits 0-27 are clear
-  2) this will need to be modified to take into account dom0.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-So I would prefer if the base address is passed differently (maybe in 
-priv?) from the start. This will avoid extra modification that you 
-already plan to have in a follow-up series.
 
->   
->       if ( vpci_ecam_read(sbdf, ECAM_REG_OFFSET(info->gpa),
->                           1U << info->dabt.size, &data) )
-> @@ -44,7 +44,7 @@ static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
->       pci_sbdf_t sbdf;
->   
->       /* We ignore segment part and always handle segment 0 */
-> -    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa);
-> +    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa - GUEST_VPCI_ECAM_BASE);
->   
->       return vpci_ecam_write(sbdf, ECAM_REG_OFFSET(info->gpa),
->                              1U << info->dabt.size, r);
-> 
+Pushing revision :
 
-Cheers,
-
--- 
-Julien Grall
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   2f6f3329ad..9a95d11023  9a95d11023ac2f2ee49a2958cf80658270442c42 -> xen-tested-master
 
