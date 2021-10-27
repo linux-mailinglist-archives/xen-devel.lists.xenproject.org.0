@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E44FB43D5B6
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 23:28:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217340.377428 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4481643D5A4
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 23:28:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217271.377246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfqTH-0000F9-BR; Wed, 27 Oct 2021 21:28:31 +0000
+	id 1mfqSb-000086-Sg; Wed, 27 Oct 2021 21:27:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217340.377428; Wed, 27 Oct 2021 21:28:31 +0000
+Received: by outflank-mailman (output) from mailman id 217271.377246; Wed, 27 Oct 2021 21:27:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfqTH-00008j-5Z; Wed, 27 Oct 2021 21:28:31 +0000
-Received: by outflank-mailman (input) for mailman id 217340;
- Wed, 27 Oct 2021 21:28:29 +0000
+	id 1mfqSb-0008Uy-O3; Wed, 27 Oct 2021 21:27:49 +0000
+Received: by outflank-mailman (input) for mailman id 217271;
+ Wed, 27 Oct 2021 21:27:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nMly=PP=gmail.com=digetx@srs-us1.protection.inumbo.net>)
- id 1mfqLl-0000sJ-Ct
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 21:20:45 +0000
-Received: from mail-lf1-x12e.google.com (unknown [2a00:1450:4864:20::12e])
+ id 1mfqLq-0000sJ-D1
+ for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 21:20:50 +0000
+Received: from mail-lf1-x12b.google.com (unknown [2a00:1450:4864:20::12b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 649940cd-d36d-4ca6-8e33-520c1685eb77;
- Wed, 27 Oct 2021 21:18:47 +0000 (UTC)
-Received: by mail-lf1-x12e.google.com with SMTP id j9so8979909lfu.7
- for <xen-devel@lists.xenproject.org>; Wed, 27 Oct 2021 14:18:47 -0700 (PDT)
+ id 6b24b17d-f326-4da9-87af-f64c80f064d3;
+ Wed, 27 Oct 2021 21:18:49 +0000 (UTC)
+Received: by mail-lf1-x12b.google.com with SMTP id f3so806989lfu.12
+ for <xen-devel@lists.xenproject.org>; Wed, 27 Oct 2021 14:18:49 -0700 (PDT)
 Received: from localhost.localdomain (46-138-41-28.dynamic.spd-mgts.ru.
  [46.138.41.28])
- by smtp.gmail.com with ESMTPSA id d7sm104336ljl.18.2021.10.27.14.18.45
+ by smtp.gmail.com with ESMTPSA id d7sm104336ljl.18.2021.10.27.14.18.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Oct 2021 14:18:46 -0700 (PDT)
+ Wed, 27 Oct 2021 14:18:48 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,34 +42,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 649940cd-d36d-4ca6-8e33-520c1685eb77
+X-Inumbo-ID: 6b24b17d-f326-4da9-87af-f64c80f064d3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=VpMTaQaJ0cjNLgvNqh3di7liIGTew7KcJqDZRitT+Gs=;
-        b=IWwdEP2zbLaLlU4mCU5s8PpqrkaIWlck+oA3xnCuAzsOirLY91m5COquObIzRO/SOa
-         ZZIFcDLGTP22p0/7Hcw3xr55ftJZWhQ4nU6sBNGCfWjV2gTeJrHUPc9jLo/fr5xO0l0l
-         0SNS1n6R63fMlbNJFT3gbKkQCc0Ia7/EAvKfYLtASP95KzfXrWNNTSb1yRqxn8x5d6xD
-         hciHreIyBYgx6dcdUlzTSBb07ys9RFpq3Y5/l5Vd2vvkqxnAXOO/WD9ek4xsO4aDTsfM
-         H41ne9Olkj2NqvJkNPysdfnoteByPeCFY3T52VBJFYJ9FKDG6+cEspYVw2UY7y4ppIDD
-         pOHg==
+        bh=umNH2+YT7M6ZKcjQGvjjohnKVEe/3rK29YQH+BDj6i4=;
+        b=nj5zb43OqtwdizDOJ4YZ+fYZadM1gdDKmRqYZUCoy6YYJ9FK+h8NFV8Fm4J2Ku+dUO
+         VD1iu0fINLYL61cuY7tNDYLtDDcpQWTMBS3LiXmrEVigOlROqEfbjJpsrnK8lw9w6k0A
+         Q5RVvk+HURAmLxg4yngnt6lHHBxEc4oSlIcG3ZpIBx+R3YAOuuSSdjMf/vRVMuvqCw1Z
+         E8uGSsJkZ6VWq/NOLfLD+OAnXKEDLZsNGIWjcaZrIrkicK6f30puV4871fbRXrX4aoDM
+         yS04DJACEKWBr3KF/AjOj2De3JGJ2p+GHt74NSrUBKQDPvr858UletsNh5sICSkmVEWD
+         3KsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=VpMTaQaJ0cjNLgvNqh3di7liIGTew7KcJqDZRitT+Gs=;
-        b=RqdCZsuPuXVDshcCV9ZuWRS9ycon7W4A1fnVSfv83Ql2mcWskO7RRnPBBEJ/1ty5l7
-         bbFZKSxerXH6O0qcjyAcsFHQbHMdQ2XlhnyrEz0LYrpmYjg1q487EQsdId+xzbwC6adM
-         jmhZz2SU9sNREpawQUSvRq8qt02oO3WjFnXMkRWoyOj1MAUOk8hmJ6EkoeFswypVotXk
-         EUuVX9fcrYy8W/I24BXkCRIxztlHizUnrr1kgD6Jq5B3aa1RjYr6lhhjl4b81ox5erUF
-         JZHI9fp6OxrGjOI/fztNxoWq9mSHQJUIXblQGMaYtvdS1QhKGECXNlXCwPPhvGmJgBpj
-         4X/Q==
-X-Gm-Message-State: AOAM532JcXTqEu0wFc0NjYli1BbzC1Tj47kksX2nTQg5T/uvklp8ra86
-	oP3te+1I09knbtGaJPEFOPY=
-X-Google-Smtp-Source: ABdhPJys0u/+wFsWDr/9j4b/C5x8WEos0EuABuOI0MYqETh3mbRQO/mjL91g1gnGx/4TO6/Fje2n8g==
-X-Received: by 2002:ac2:4c9a:: with SMTP id d26mr128014lfl.344.1635369526848;
-        Wed, 27 Oct 2021 14:18:46 -0700 (PDT)
+        bh=umNH2+YT7M6ZKcjQGvjjohnKVEe/3rK29YQH+BDj6i4=;
+        b=wRRl6TaF/lWmwyCCvr9GZAD93OnfkRb//X5tW9b5zEnU0uM2wAWxS4zjUIpclUVpBD
+         VM40jfJIKs9MgJ+0HlH7YUr54szABsr+RAjAGiLcTQu5qxOYA/Hgpq5WkAXgdBv5JjhD
+         OVjB8H/yAA3W6SVDmOHXEIigvB4m3W0pL6Gkcd6qssCrxoTGHD54VDWiy6rTTflhxlij
+         1zu/k6X1FJFyzpT7JSsB2BXJIW7lQxQrTIQA4evCaMeFTxxLPbU/RZk5w/r1heTDQaT5
+         MVNIrDb8Yfpq6i9L6yMIMnYwsubjUZNXuq+LDx4ex6rQNglXGBpNu7Il9e+uUMTqTLaN
+         B+eQ==
+X-Gm-Message-State: AOAM531Xz80I7RwlXZ6T1lICkZCULmqZ2QUBAViKksvq4b1zn7TJjX7M
+	ZeCBqlwuN83zg5DfVy1BRqg=
+X-Google-Smtp-Source: ABdhPJyzuSZuOYHEQbprBgwtJMyx5L9tc7ERtjIIXrEKG72XHaUi8WMWlLHXLzXgCVfDIwEbrdMbVw==
+X-Received: by 2002:a05:6512:38d0:: with SMTP id p16mr83922lft.483.1635369528748;
+        Wed, 27 Oct 2021 14:18:48 -0700 (PDT)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -144,9 +144,9 @@ Cc: Catalin Marinas <catalin.marinas@arm.com>,
 	openbmc@lists.ozlabs.org,
 	linux-tegra@vger.kernel.org,
 	linux-pm@vger.kernel.org
-Subject: [PATCH v2 29/45] mfd: acer-a500: Use devm_register_power_handler()
-Date: Thu, 28 Oct 2021 00:16:59 +0300
-Message-Id: <20211027211715.12671-30-digetx@gmail.com>
+Subject: [PATCH v2 30/45] mfd: ene-kb3930: Use devm_register_power_handler()
+Date: Thu, 28 Oct 2021 00:17:00 +0300
+Message-Id: <20211027211715.12671-31-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211027211715.12671-1-digetx@gmail.com>
 References: <20211027211715.12671-1-digetx@gmail.com>
@@ -159,109 +159,102 @@ provides restart-handler support, i.e. all in one API.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- drivers/mfd/acer-ec-a500.c | 52 ++++++++++++++------------------------
- 1 file changed, 19 insertions(+), 33 deletions(-)
+ drivers/mfd/ene-kb3930.c | 45 ++++++++++++++--------------------------
+ 1 file changed, 15 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/mfd/acer-ec-a500.c b/drivers/mfd/acer-ec-a500.c
-index 80c2fdd14fc4..fc864abc0049 100644
---- a/drivers/mfd/acer-ec-a500.c
-+++ b/drivers/mfd/acer-ec-a500.c
-@@ -31,8 +31,6 @@ enum {
- 	REG_COLD_REBOOT = 0x55,
+diff --git a/drivers/mfd/ene-kb3930.c b/drivers/mfd/ene-kb3930.c
+index 1b73318d1f1f..6a3c5f48e5e1 100644
+--- a/drivers/mfd/ene-kb3930.c
++++ b/drivers/mfd/ene-kb3930.c
+@@ -31,10 +31,9 @@ struct kb3930 {
+ 	struct i2c_client *client;
+ 	struct regmap *ram_regmap;
+ 	struct gpio_descs *off_gpios;
++	struct power_handler power_handler;
  };
  
--static struct i2c_client *a500_ec_client_pm_off;
+-static struct kb3930 *kb3930_power_off;
 -
- static int a500_ec_read(void *context, const void *reg_buf, size_t reg_size,
- 			void *val_buf, size_t val_sizel)
- {
-@@ -104,32 +102,35 @@ static const struct regmap_bus a500_ec_regmap_bus = {
- 	.max_raw_read = 2,
- };
+ #define EC_GPIO_WAVE		0
+ #define EC_GPIO_OFF_MODE	1
  
--static void a500_ec_poweroff(void)
-+static void a500_ec_power_off_handler(struct power_off_data *data)
- {
--	i2c_smbus_write_word_data(a500_ec_client_pm_off,
--				  REG_SHUTDOWN, CMD_SHUTDOWN);
-+	struct i2c_client *client = data->cb_data;
-+
-+	i2c_smbus_write_word_data(client, REG_SHUTDOWN, CMD_SHUTDOWN);
- 
- 	mdelay(A500_EC_POWER_CMD_TIMEOUT);
+@@ -60,21 +59,19 @@ static void kb3930_off(struct kb3930 *ddata, int off_mode)
+ 	}
  }
  
--static int a500_ec_restart_notify(struct notifier_block *this,
--				  unsigned long reboot_mode, void *data)
-+static void a500_ec_restart_handler(struct restart_data *data)
+-static int kb3930_restart(struct notifier_block *this,
+-			  unsigned long mode, void *cmd)
++static void kb3930_restart(struct restart_data *data)
  {
--	if (reboot_mode == REBOOT_WARM)
--		i2c_smbus_write_word_data(a500_ec_client_pm_off,
-+	struct i2c_client *client = data->cb_data;
-+
-+	if (data->mode == REBOOT_WARM)
-+		i2c_smbus_write_word_data(client,
- 					  REG_WARM_REBOOT, CMD_WARM_REBOOT);
- 	else
--		i2c_smbus_write_word_data(a500_ec_client_pm_off,
-+		i2c_smbus_write_word_data(client,
- 					  REG_COLD_REBOOT, CMD_COLD_REBOOT);
- 
- 	mdelay(A500_EC_POWER_CMD_TIMEOUT);
--
+-	kb3930_off(kb3930_power_off, EC_OFF_MODE_REBOOT);
 -	return NOTIFY_DONE;
++	struct kb3930 *ddata = data->cb_data;
++
++	kb3930_off(ddata, EC_OFF_MODE_REBOOT);
  }
  
--static struct notifier_block a500_ec_restart_handler = {
--	.notifier_call = a500_ec_restart_notify,
--	.priority = 200,
-+static struct power_handler a500_ec_power_handler = {
-+	.restart_cb = a500_ec_restart_handler,
-+	.restart_priority = RESTART_PRIO_HIGH,
-+
-+	.power_off_cb = a500_ec_power_off_handler,
-+	.power_off_priority = POWEROFF_PRIO_HIGH,
- };
+-static void kb3930_pm_power_off(void)
++static void kb3930_power_off(struct power_off_data *data)
+ {
+-	kb3930_off(kb3930_power_off, EC_OFF_MODE_POWER);
+-}
++	struct kb3930 *ddata = data->cb_data;
  
- static const struct mfd_cell a500_ec_cells[] = {
-@@ -156,26 +157,12 @@ static int a500_ec_probe(struct i2c_client *client)
+-static struct notifier_block kb3930_restart_nb = {
+-	.notifier_call = kb3930_restart,
+-};
++	kb3930_off(ddata, EC_OFF_MODE_POWER);
++}
+ 
+ static const struct mfd_cell ariel_ec_cells[] = {
+ 	{ .name = "dell-wyse-ariel-led", },
+@@ -131,7 +128,6 @@ static int kb3930_probe(struct i2c_client *client)
+ 	if (!ddata)
+ 		return -ENOMEM;
+ 
+-	kb3930_power_off = ddata;
+ 	ddata->client = client;
+ 	i2c_set_clientdata(client, ddata);
+ 
+@@ -169,24 +165,14 @@ static int kb3930_probe(struct i2c_client *client)
  	}
  
- 	if (of_device_is_system_power_controller(client->dev.of_node)) {
--		a500_ec_client_pm_off = client;
-+		a500_ec_power_handler.cb_data = client;
- 
--		err = register_restart_handler(&a500_ec_restart_handler);
-+		err = devm_register_power_handler(&client->dev,
-+						  &a500_ec_power_handler);
- 		if (err)
- 			return err;
--
+ 	if (ddata->off_gpios) {
+-		register_restart_handler(&kb3930_restart_nb);
 -		if (!pm_power_off)
--			pm_power_off = a500_ec_poweroff;
+-			pm_power_off = kb3930_pm_power_off;
 -	}
--
++		ddata->power_handler.cb_data = ddata;
++		ddata->power_handler.restart_cb = kb3930_restart;
++		ddata->power_handler.power_off_cb = kb3930_power_off;
+ 
 -	return 0;
 -}
 -
--static int a500_ec_remove(struct i2c_client *client)
+-static int kb3930_remove(struct i2c_client *client)
 -{
--	if (of_device_is_system_power_controller(client->dev.of_node)) {
--		if (pm_power_off == a500_ec_poweroff)
--			pm_power_off = NULL;
+-	struct kb3930 *ddata = i2c_get_clientdata(client);
 -
--		unregister_restart_handler(&a500_ec_restart_handler);
+-	if (ddata->off_gpios) {
+-		if (pm_power_off == kb3930_pm_power_off)
+-			pm_power_off = NULL;
+-		unregister_restart_handler(&kb3930_restart_nb);
++		ret = devm_register_power_handler(dev, &ddata->power_handler);
++		if (ret)
++			return ret;
  	}
+-	kb3930_power_off = NULL;
  
  	return 0;
-@@ -193,7 +180,6 @@ static struct i2c_driver a500_ec_driver = {
- 		.of_match_table = a500_ec_match,
- 	},
- 	.probe_new = a500_ec_probe,
--	.remove = a500_ec_remove,
- };
- module_i2c_driver(a500_ec_driver);
+ }
+@@ -199,7 +185,6 @@ MODULE_DEVICE_TABLE(of, kb3930_dt_ids);
  
+ static struct i2c_driver kb3930_driver = {
+ 	.probe_new = kb3930_probe,
+-	.remove = kb3930_remove,
+ 	.driver = {
+ 		.name = "ene-kb3930",
+ 		.of_match_table = kb3930_dt_ids,
 -- 
 2.33.1
 
