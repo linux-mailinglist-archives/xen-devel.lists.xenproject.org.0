@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 020D443CF77
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 19:08:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217142.377010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8C3A43CFD7
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Oct 2021 19:36:44 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217149.377020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfmP0-0006Vb-6k; Wed, 27 Oct 2021 17:07:50 +0000
+	id 1mfmqB-0001Ri-H1; Wed, 27 Oct 2021 17:35:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217142.377010; Wed, 27 Oct 2021 17:07:50 +0000
+Received: by outflank-mailman (output) from mailman id 217149.377020; Wed, 27 Oct 2021 17:35:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfmP0-0006TN-3G; Wed, 27 Oct 2021 17:07:50 +0000
-Received: by outflank-mailman (input) for mailman id 217142;
- Wed, 27 Oct 2021 17:07:48 +0000
+	id 1mfmqB-0001PJ-De; Wed, 27 Oct 2021 17:35:55 +0000
+Received: by outflank-mailman (input) for mailman id 217149;
+ Wed, 27 Oct 2021 17:35:54 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mfmOy-0006ST-K2
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 17:07:48 +0000
+ (envelope-from <julien@xen.org>) id 1mfmq9-0001PD-VR
+ for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 17:35:53 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mfmOy-0000E5-J5
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 17:07:48 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mfmOy-0000Uc-IG
- for xen-devel@lists.xenproject.org; Wed, 27 Oct 2021 17:07:48 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1mfmOj-0007zu-Rh; Wed, 27 Oct 2021 18:07:33 +0100
+ (envelope-from <julien@xen.org>)
+ id 1mfmq8-0000gG-MY; Wed, 27 Oct 2021 17:35:52 +0000
+Received: from [54.239.6.185] (helo=[192.168.29.96])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mfmq8-0002HX-Ei; Wed, 27 Oct 2021 17:35:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,51 +39,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=PAlChERQT9Splk172v3rgtHgay6giGcKCHV4DS1ABJ8=; b=36cZ3uepc1sjCeWx+WaTmUsJf3
-	FSdfT3rmnCNJ8Si5K+LaFF03iIznMv3zAmHlYybzxHI0450QAV3xIAx0CaNRH5aDzSOCYTRxMqAZA
-	fcRFaMWa8wZf63fjlCKHBmuKbJiFHbTqXwMHh3MAb2tL2xPTFGbbkeOnUSgwKc/qST0w=;
-From: Ian Jackson <iwj@xenproject.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Vd+DQmk1rQNBtODXMucWIaaELYAfQaTQwGvyh1TUmws=; b=HJlaAOw0sp6GHztbbVWwtI/wQw
+	WW52867gTr2t0SCv2aTJY7m0otaxPoIbGThBUtl0UDTB94CZTNpR1Ow4xn7B6+V8RWUWQCBnc1acf
+	IvTS9kOd7YafXkJxMY/CXqUSGFKg9HJ/QdG2+1c0R+XfI08AgJjQNXyFeSs/eWF8zioY=;
+Message-ID: <cb7e9ef7-476e-93c3-d3c9-9a9ebc61003d@xen.org>
+Date: Wed, 27 Oct 2021 18:35:50 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24953.34635.645112.279110@mariner.uk.xensource.com>
-Date: Wed, 27 Oct 2021 18:07:23 +0100
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-Cc: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-    "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-    "julien\@xen.org" <julien@xen.org>,
-    "sstabellini\@kernel.org" <sstabellini@kernel.org>,
-    Bertrand  Marquis <bertrand.marquis@arm.com>,
-    Rahul Singh <rahul.singh@arm.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.2.1
 Subject: Re: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers
-In-Reply-To: <0bbe4d1d-421d-e816-42aa-f43581902a02@epam.com>
+To: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, iwj@xenproject.org, bertrand.marquis@arm.com,
+ rahul.singh@arm.com,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 References: <20211027082533.1406015-1-andr2000@gmail.com>
-	<YXkU+DKYmvwo+kak@Air-de-Roger>
-	<0bbe4d1d-421d-e816-42aa-f43581902a02@epam.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20211027082533.1406015-1-andr2000@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Oleksandr Andrushchenko writes ("Re: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers"):
-> P.S. Sorry I failed to mark this patch as a fix for 4.16 and explain why it is
-> a good candidate for 4.16 inclusion
+Hi Oleksandr,
 
-Hello :-).
+On 27/10/2021 09:25, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> While in vPCI MMIO trap handlers for the guest PCI host bridge it is not
+> enough for SBDF translation to simply call VPCI_ECAM_BDF(info->gpa) as
+> the base address may not be aligned in the way that the translation
+> always work. If not adjusted with respect to the base address it may not be
+> able to properly convert SBDF and crashes:
+> 
+> (XEN) vpci_mmio_read 0000:65:1a.0 reg 8bc gpa e65d08bc
 
-Um, can you explain what the practical impact is of not taking this
-patch for 4.16 ?  As I understand it vpci for ARM is non-functional in
-4.16 and this is not expected to change ?  So there would be no
-benefit to users, and taking the patch would add small but nonzero
-risk ?
+I can't find a printk() that may output this message. Where does this 
+comes from?
 
-I think according to the freeze policy I set this can go in if the
-maintainers feel it is a "straightforward bugfix", but provided it
-goes in by the end of this coming Friday.
+Anyway, IIUC the guest physical address is 0xe65d08bc which, if I am not 
+mistaken, doesn't belong to the range advertised for GUEST_VPCI_ECAM.
 
-After that it will need a release-ack and right now, unless I am
-mistaken (which may well be the case) it can just as well wait ?
+IMHO, the stack trace should come from usptream Xen or need some 
+information to explain how this was reproduced.
 
-Thanks,
-Ian.
+> (XEN) Data Abort Trap. Syndrome=0x6
+> (XEN) Walking Hypervisor VA 0x467a28bc on CPU0 via TTBR 0x00000000481d5000
+I can understnad that if we don't substract GUEST_VPCI_ECAM, we would 
+(in theory) not get the correct BDF. But... I don't understand how this 
+would result to a data abort in the hypervisor.
+
+In fact, I think the vPCI code should be resilient enough to not crash 
+if we pass the wrong BDF.
+
+When there is a data abort in Xen, you should get a stack trace from 
+where this comes from. Can you paste it here?
+
+> 
+> Fix this by adjusting the gpa with respect to the host bridge base address
+> in a way as it is done for x86.
+> 
+> Fixes: d59168dc05a5 ("xen/arm: Enable the existing x86 virtual PCI support for ARM")
+> 
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> ---
+>   xen/arch/arm/vpci.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
+> index 8f40a0dec6d2..23f45386f4b3 100644
+> --- a/xen/arch/arm/vpci.c
+> +++ b/xen/arch/arm/vpci.c
+> @@ -24,7 +24,7 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
+>       unsigned long data;
+>   
+>       /* We ignore segment part and always handle segment 0 */
+> -    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa);
+> +    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa - GUEST_VPCI_ECAM_BASE);
+
+Looking at the rest of the rest, it seems that
+  1) the issue is latent as the bits 0-27 are clear
+  2) this will need to be modified to take into account dom0.
+
+So I would prefer if the base address is passed differently (maybe in 
+priv?) from the start. This will avoid extra modification that you 
+already plan to have in a follow-up series.
+
+>   
+>       if ( vpci_ecam_read(sbdf, ECAM_REG_OFFSET(info->gpa),
+>                           1U << info->dabt.size, &data) )
+> @@ -44,7 +44,7 @@ static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
+>       pci_sbdf_t sbdf;
+>   
+>       /* We ignore segment part and always handle segment 0 */
+> -    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa);
+> +    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa - GUEST_VPCI_ECAM_BASE);
+>   
+>       return vpci_ecam_write(sbdf, ECAM_REG_OFFSET(info->gpa),
+>                              1U << info->dabt.size, r);
+> 
+
+Cheers,
+
+-- 
+Julien Grall
 
