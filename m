@@ -2,34 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A04443DB2E
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 08:33:58 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217659.377775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22DFE43DB4D
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 08:40:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217666.377786 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfyyd-0006Vj-CL; Thu, 28 Oct 2021 06:33:27 +0000
+	id 1mfz4m-0007EG-1m; Thu, 28 Oct 2021 06:39:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217659.377775; Thu, 28 Oct 2021 06:33:27 +0000
+Received: by outflank-mailman (output) from mailman id 217666.377786; Thu, 28 Oct 2021 06:39:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mfyyd-0006Th-98; Thu, 28 Oct 2021 06:33:27 +0000
-Received: by outflank-mailman (input) for mailman id 217659;
- Thu, 28 Oct 2021 06:33:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N7Vm=PQ=canb.auug.org.au=sfr@srs-us1.protection.inumbo.net>)
- id 1mfyyZ-0006Tb-HL
- for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 06:33:25 +0000
-Received: from gandalf.ozlabs.org (unknown [2404:9400:2:0:216:3eff:fee2:21ea])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8f0293af-01bf-4ea0-8ac7-358bbb1fc79d;
- Thu, 28 Oct 2021 06:33:20 +0000 (UTC)
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4Hfwjn0W6hz4xcC;
- Thu, 28 Oct 2021 17:33:16 +1100 (AEDT)
+	id 1mfz4l-0007CT-V1; Thu, 28 Oct 2021 06:39:47 +0000
+Received: by outflank-mailman (input) for mailman id 217666;
+ Thu, 28 Oct 2021 06:39:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fllP=PQ=gmx.de=deller@srs-us1.protection.inumbo.net>)
+ id 1mfz4k-0007Ba-RG
+ for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 06:39:46 +0000
+Received: from mout.gmx.net (unknown [212.227.15.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d6807702-37b9-11ec-8497-12813bfff9fa;
+ Thu, 28 Oct 2021 06:39:45 +0000 (UTC)
+Received: from [192.168.20.60] ([92.116.152.46]) by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1M3UZ6-1mfR6019Wc-000dpr; Thu, 28
+ Oct 2021 08:38:50 +0200
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,67 +39,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f0293af-01bf-4ea0-8ac7-358bbb1fc79d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canb.auug.org.au;
-	s=201702; t=1635402797;
-	bh=/R7loCnMrMbPjsUshOHJxqGM+7aLjRr8ecYMPWeUsTU=;
-	h=Date:From:To:Cc:Subject:From;
-	b=g64YH78CMh3JlAlFRYGBkNNGd4y5pNAcgx5ZxVoMv9669gK8hhRZMeZ0HaS+keMbD
-	 I7eue/L5R22Q5T/JgBZ9sPSEv7GQyYu1PoIm0XF3UFC/uppsItGb6+XKMOnl0y+TEp
-	 lJk0yAUVtpLTv1wHn8KrXXU3a8cDmWIvac5TwoEIYYy+ArxmcOACaewgiKs7JFEzWm
-	 P2UOmmmmq1f8ohxWoDrCKaRICLqCjqSHuhc104TqrB1Pow2a/oCC22QjLkLkXs/6gy
-	 P0RtS8q+siRTjlxaIBjNuSqKwP3F/kb6j0h+VRUe+QMFsVEqNXZYTteqt7AFDRKf7F
-	 xKet4Q0PvuHmg==
-Date: Thu, 28 Oct 2021 17:33:15 +1100
-From: Stephen Rothwell <sfr@canb.auug.org.au>
-To: Juergen Gross <jgross@suse.com>, Konrad Rzeszutek Wilk
- <konrad.wilk@oracle.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Xen Devel
- <xen-devel@lists.xenproject.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Linux Next
- Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: build warnings after merge of the xen-tip tree
-Message-ID: <20211028173315.55b1a121@canb.auug.org.au>
+X-Inumbo-ID: d6807702-37b9-11ec-8497-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=badeba3b8450; t=1635403130;
+	bh=9epiwmWdzTgZY2j4GBWRs9N0QEWknADgKRkQPvp+Ggo=;
+	h=X-UI-Sender-Class:Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FXhe5yXxylYP540/EC+4AzkmLOP3fNSEmO39fyo/3NOlbWcEm0ryYTd7J3Iv20szB
+	 cWKWEC4dZ521NZJ4gyIpkKod8spMS5RmsFlBvqxTT96Vwc/S6HyYHyyyo0FoSjpetw
+	 nwPjJnU+hcraQ+NzVcLrxZf8To+aYZc5aH/99quU=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Message-ID: <6470d500-a832-9e1f-e3b9-4d3972b3996e@gmx.de>
+Date: Thu, 28 Oct 2021 08:38:35 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/r0i/0s/oy4PgZOhjNEZmIby";
- protocol="application/pgp-signature"; micalg=pgp-sha256
-
---Sig_/r0i/0s/oy4PgZOhjNEZmIby
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+Subject: Re: [PATCH v2 16/45] parisc: Use do_kernel_power_off()
+Content-Language: en-US
+To: Dmitry Osipenko <digetx@gmail.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Lee Jones <lee.jones@linaro.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Guenter Roeck
+ <linux@roeck-us.net>, Russell King <linux@armlinux.org.uk>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Guo Ren <guoren@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Greg Ungerer <gerg@linux-m68k.org>, Joshua Thompson <funaho@jurai.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Nick Hu <nickhu@andestech.com>, Greentime Hu <green.hu@gmail.com>,
+ Vincent Chen <deanbo422@gmail.com>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Michael Ellerman <mpe@ellerman.id.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
+ <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Len Brown <lenb@kernel.org>, Santosh Shilimkar <ssantosh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Linus Walleij <linus.walleij@linaro.org>, Chen-Yu Tsai <wens@csie.org>,
+ =?UTF-8?Q?Jonathan_Neusch=c3=a4fer?= <j.neuschaefer@gmx.net>,
+ Tony Lindgren <tony@atomide.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>,
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ Pavel Machek <pavel@ucw.cz>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org,
+ linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+ linux-sh@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-acpi@vger.kernel.org, linux-omap@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-tegra@vger.kernel.org,
+ linux-pm@vger.kernel.org
+References: <20211027211715.12671-1-digetx@gmail.com>
+ <20211027211715.12671-17-digetx@gmail.com>
+From: Helge Deller <deller@gmx.de>
+In-Reply-To: <20211027211715.12671-17-digetx@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:FyRzIrUgBb05q0bHWFRS/zQ/jjhGXy+pktz0g9vMu8rSAyG2PhH
+ igLh0yuSJkfQClwGAYYVp96vDjlam7EqP3CW0lWkZ155s/JTRG7aXysFtzh8fsHm3d7JOnd
+ U2wPiCoWHArr/c1zeopIGDkaYwvec8wHmOgMEvIr7aPgxK9GcFiXcIhkSKruN1bnrxyn2QX
+ umWMtuIv0Xa3Bg/ofbf6Q==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Nt03nam4XH8=:N7PuLhTcs13ezPdb4QL3P5
+ EAsOC32SEC/CwoA2+8DjNnTsILfn+sFrb9LZytvE/YP2J2Aj7Qx7fkEO40fY8T8rIBLGw9GX+
+ NIsaN0+sjNJKdkOQlJE/AFyfJG+vQ7ahzCRk2HMLrf3z5M6K/b0L71tddrkVIJCMb7IuCUzph
+ ykgDP6aZxfqVXIMaikKg097ePHHG0x47b/94G1+2NvXBe71nBfFTfm04TrvRNne2czLnMB+Lg
+ v+wFHtJZ2jQ9cLfCu2fzZQuGkclVf14XlYnoDKMRVnVFWWYf0adoOjwfKSRtptB20/q31drw2
+ HePgYF8sylMcfQbim3Wp4ygBdzf5/6i3x4H4dnB1q/EhvkJY/KiaZgrjHxrJkHNauXcVxsg6y
+ 3vvk7psmlYjcJLo6ddOdIBc9OIQs133Ce1iU2wSod2qhYwBPSJppgIk8kJCYKzZxAzsnModUK
+ BgEImgsOUGiDlYZe9Muppxy4TrQaqVmfjaM9kmqq8Gvz9GaOjVqBYmFsm570hW8BuF9BI+r+S
+ 0GJuN3cdiVBY0G0MhcxnoHe4O22baIwcBDk2FnckJriXO5mZE3hJQVTcEKeAb2ybK5KNuVVY6
+ nww/BdElXnSWt1HhtpoHRHlgigO4KvVdiDhtBi8tFoyeYg8pvvK9qgrlLqCEJsbs8TBaWRdRr
+ 7fvMB1yoKM8dWEL+Z/gHindYZd433ys7huBzX1XyE7cCnO+L/FE5ZfETDY8DSBwlBCCD940Ri
+ wkqaYntrDtmIkWD9BWTD4j7K3fgZUU7IPEaJZjdl5xWo8e268I+GMSTVMrUSVDmQzI7cEG+Lb
+ i0qZzTuZiztLiwLZgXQVnYgopvNIgyfo6LMbZ9e4NuBR0ff+vu+fsAwWJH4T3BJlzoZYXX193
+ PLDnh+2eGZNNZJ83DOYN1ApcqeJpwMwKyPuCFuf/SxuBIQ7A6oWrcCikiPFJaPxKlXhX5RTg8
+ v7QQ4c9ImeWqMCb0i29R5vmks8Ui9IG2X5j/SIZwSpXutCAWE2F/LMHO+pOK/jVtTRVpgu0WW
+ MapTUMEB41Z0LdVwL6aYL1P3sWB52Pfffr4C3r7aA/3cWiJWf1QCoiwOmHCTExfYhCTFuQCe5
+ +ZRYgxUKbSq514=
 
-Hi all,
+On 10/27/21 23:16, Dmitry Osipenko wrote:
+> Kernel now supports chained power-off handlers. Use do_kernel_power_off(=
+)
+> that invokes chained power-off handlers. It also invokes legacy
+> pm_power_off() for now, which will be removed once all drivers will
+> be converted to the new power-off API.
+>
+> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 
-After merging the xen-tip tree, today's linux-next build (x86_64
-allmodconfig) produced these warnings:
+Acked-by: Helge Deller <deller@gmx.de> # parisc
 
-vmlinux.o: warning: objtool: pv_ops[32]: paravirt_BUG
-vmlinux.o: warning: objtool: lock_is_held_type()+0x145: call to pv_ops[32](=
-) leaves .noinstr.text section
 
-Presuambly introduced by commit
 
-  97c79d816979 ("x86/xen: switch initial pvops IRQ functions to dummy ones")
+> ---
+>  arch/parisc/kernel/process.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/parisc/kernel/process.c b/arch/parisc/kernel/process.c
+> index ea3d83b6fb62..928201b1f58f 100644
+> --- a/arch/parisc/kernel/process.c
+> +++ b/arch/parisc/kernel/process.c
+> @@ -26,6 +26,7 @@
+>  #include <linux/module.h>
+>  #include <linux/personality.h>
+>  #include <linux/ptrace.h>
+> +#include <linux/reboot.h>
+>  #include <linux/sched.h>
+>  #include <linux/sched/debug.h>
+>  #include <linux/sched/task.h>
+> @@ -114,8 +115,7 @@ void machine_power_off(void)
+>  	pdc_chassis_send_status(PDC_CHASSIS_DIRECT_SHUTDOWN);
+>
+>  	/* ipmi_poweroff may have been installed. */
+> -	if (pm_power_off)
+> -		pm_power_off();
+> +	do_kernel_power_off();
+>
+>  	/* It seems we have no way to power the system off via
+>  	 * software. The user has to press the button himself. */
+>
 
---=20
-Cheers,
-Stephen Rothwell
-
---Sig_/r0i/0s/oy4PgZOhjNEZmIby
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEENIC96giZ81tWdLgKAVBC80lX0GwFAmF6RCsACgkQAVBC80lX
-0Gysogf8DPnYiV4jaScnM+66C/vwmmlpos27JM+22fOKgj/3J1syzTHopLIS2jZ8
-v358bhJ1jj8EnGJI/m2ebkZwATeNbGhsTj/Grs2AWaz4XzjVNX7fX6PX6fg4p4wM
-aLCRmuedIMDcNkzSNtsO9AZQsQLtpdsmxRthvfwdLkA/L6895mszPTP+hA4AZNzD
-SuoLYGP622hkjcASTSGxhaohbo1hJtsfwAkQQzviQ/QhfWdVKmx7gOuLA7AG9mJU
-UPVVXAFwoYX58z2q3AqoN2xsAFknKRAafS2L8zKk99JKhrK7azlwoqXZj9unkErI
-rivpI4IsQO6yjZs3k9OZ0aIZSI/PkQ==
-=yI5b
------END PGP SIGNATURE-----
-
---Sig_/r0i/0s/oy4PgZOhjNEZmIby--
 
