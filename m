@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D125C43E066
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 13:59:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217925.378156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A92A43E088
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 14:07:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217938.378167 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg449-0006m4-BT; Thu, 28 Oct 2021 11:59:29 +0000
+	id 1mg4BC-0008VM-EK; Thu, 28 Oct 2021 12:06:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217925.378156; Thu, 28 Oct 2021 11:59:29 +0000
+Received: by outflank-mailman (output) from mailman id 217938.378167; Thu, 28 Oct 2021 12:06:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg449-0006jJ-7w; Thu, 28 Oct 2021 11:59:29 +0000
-Received: by outflank-mailman (input) for mailman id 217925;
- Thu, 28 Oct 2021 11:59:27 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mg4BC-0008Sk-AU; Thu, 28 Oct 2021 12:06:46 +0000
+Received: by outflank-mailman (input) for mailman id 217938;
+ Thu, 28 Oct 2021 12:06:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kHpK=PQ=kernel.org=broonie@srs-us1.protection.inumbo.net>)
- id 1mg446-0006jD-Tv
- for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 11:59:26 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7f0149a2-37e6-11ec-849d-12813bfff9fa;
- Thu, 28 Oct 2021 11:59:25 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 17810610FC;
- Thu, 28 Oct 2021 11:59:11 +0000 (UTC)
+ <SRS0=PZP8=PQ=armlinux.org.uk=linux+xen-devel=lists.xenproject.org@srs-us1.protection.inumbo.net>)
+ id 1mg4BA-0008Sa-9y
+ for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 12:06:44 +0000
+Received: from pandora.armlinux.org.uk (unknown
+ [2001:4d48:ad52:32c8:5054:ff:fe00:142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 92ec2a09-0148-4841-bb16-56e0f6e08e17;
+ Thu, 28 Oct 2021 12:06:42 +0000 (UTC)
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:55352)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
+ (envelope-from <linux@armlinux.org.uk>)
+ id 1mg49X-0007U2-7Y; Thu, 28 Oct 2021 13:05:03 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.94.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1mg49J-0000E4-10; Thu, 28 Oct 2021 13:04:49 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,28 +44,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7f0149a2-37e6-11ec-849d-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1635422364;
-	bh=6SRnBqGEu6kfrjY8F8AIxFOXpP3mk9uNLODc5pl6vYo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PF+p5k3fPcX4g7U/HaBJuzIJ4k5E0pNaC5AYSReMWdptL5C6nDTIJaIE7qlYNYlG6
-	 n1n/PwUdpeEdECCRPixbjSlqTeevDW0OntTvozcAaeZnGpyg9v14UXE0Uy+uDhiwA4
-	 opUKp2Rh8z49oq5/De4kzH0wt2Tq2fvNA7/+mgp+6zfuqvEwWijrNqLYLBlBZuMPRL
-	 88N447RwKebi4Ez1WZLL28f9yHI1UOy8Ip53Ye3TTKmeO3nK2Kc7hLybqU9+9eT+Gw
-	 dD6HWh7fPMZRMI/QpI/9KZ3rirsCMx4Hs00YhSbDpBEZNMfr2ZfvOMHA6ZLmKCwWDw
-	 xkF14RX5nWTCw==
-Date: Thu, 28 Oct 2021 12:59:08 +0100
-From: Mark Brown <broonie@kernel.org>
+X-Inumbo-ID: 92ec2a09-0148-4841-bb16-56e0f6e08e17
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=GpuSFsY8v1fsacTBMl7cW/OISWXGLDeNRbuCtC30aBk=; b=W1PY6v3a0gl28+75siyBir0JE7
+	Fp7YVXk4eumpI7oh5l3VshDq6gvXTJzeDqwLIA7HtdW9RkL6pMp4IcYWBdC8YBeLJ884GA1gyp1tO
+	Y7fSb5TmfSsPkAYf5+Uv0jB+TwExUCboy8NE3ZdeLiqweYYbYNBNKy/YN8LtjXB1cJCNfECPWpzHJ
+	IjYFN8VRej9HsaWGHqoXgj+EX24TVLvhRR55/YJ4ERKX12tGykSGVvtNxtRka41e0YKfTDTz73ApZ
+	VsLBAxiQuI6I69R2lbhaxUKuFHbz65ETTSdY10Txs8zIAFlVFf6QU2JAAeKgvzmhciKkq1xCECSXs
+	jbUZCbwg==;
+Date: Thu, 28 Oct 2021 13:04:49 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Dmitry Osipenko <digetx@gmail.com>
 Cc: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
 	Lee Jones <lee.jones@linaro.org>,
 	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Guenter Roeck <linux@roeck-us.net>,
-	Russell King <linux@armlinux.org.uk>,
 	Daniel Lezcano <daniel.lezcano@linaro.org>,
 	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
 	Ulf Hansson <ulf.hansson@linaro.org>,
@@ -109,44 +117,29 @@ Cc: Thierry Reding <thierry.reding@gmail.com>,
 	linux-acpi@vger.kernel.org, linux-omap@vger.kernel.org,
 	openbmc@lists.ozlabs.org, linux-tegra@vger.kernel.org,
 	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v2 24/45] regulator: pfuze100: Use
- devm_register_power_handler()
-Message-ID: <YXqQjG+5Eshm9fl5@sirena.org.uk>
+Subject: Re: [PATCH v2 10/45] ARM: Use do_kernel_power_off()
+Message-ID: <YXqR4T31FOguMnm9@shell.armlinux.org.uk>
 References: <20211027211715.12671-1-digetx@gmail.com>
- <20211027211715.12671-25-digetx@gmail.com>
+ <20211027211715.12671-11-digetx@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Wle3PKA2/qG6+6Vj"
-Content-Disposition: inline
-In-Reply-To: <20211027211715.12671-25-digetx@gmail.com>
-X-Cookie: try again
-
-
---Wle3PKA2/qG6+6Vj
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20211027211715.12671-11-digetx@gmail.com>
+Sender: Russell King (Oracle) <linux@armlinux.org.uk>
 
-On Thu, Oct 28, 2021 at 12:16:54AM +0300, Dmitry Osipenko wrote:
+On Thu, Oct 28, 2021 at 12:16:40AM +0300, Dmitry Osipenko wrote:
+> Kernel now supports chained power-off handlers. Use do_kernel_power_off()
+> that invokes chained power-off handlers. It also invokes legacy
+> pm_power_off() for now, which will be removed once all drivers will
+> be converted to the new power-off API.
+> 
+> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 
-> Use devm_register_power_handler() that replaces global pm_power_off_prepare
-> variable and allows to register multiple power-off handlers.
+Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-Acked-by: Mark Brown <broonie@kernel.org>
+Thanks!
 
---Wle3PKA2/qG6+6Vj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmF6kIwACgkQJNaLcl1U
-h9AyhAf+Nziuu181EjKis21sdValh/0I2qd5n6cZmpuLUeA7g6K6TyFH79y+tEkd
-Itu0nx35rsztyjl7+A8ECF9S9uJGD1N0o3cruhqU01R5Kloz9mrUDRii5R3Uh+fm
-wjXlm+iYDXdXIzRmM07WyWi8rUTpLrhHx7ogAb291MVxgxc1LqxOBAwk6hcvnDCB
-aLDZSKk0LT7/yHSU+s5sBmll+K1S09x+XUfo/7VEuf9WqctxN8t6DgnigNeg1sU1
-S3cmBREB1bkkqHuPWJhOyUeW6YyuYI8inCcpXRNtdydg4jwo5l2h16fE8e0db953
-VsD3Y2dmLQu1qKxLNZUqHCelyjTPow==
-=sNsl
------END PGP SIGNATURE-----
-
---Wle3PKA2/qG6+6Vj--
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 40Mbps down 10Mbps up. Decent connectivity at last!
 
