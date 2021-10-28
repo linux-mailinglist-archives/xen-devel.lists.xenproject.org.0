@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B033243DE37
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 11:53:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217765.377929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 768A043DE51
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 11:59:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217774.377940 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg26K-0008HL-MY; Thu, 28 Oct 2021 09:53:36 +0000
+	id 1mg2C5-0000cB-F0; Thu, 28 Oct 2021 09:59:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217765.377929; Thu, 28 Oct 2021 09:53:36 +0000
+Received: by outflank-mailman (output) from mailman id 217774.377940; Thu, 28 Oct 2021 09:59:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg26K-0008EN-J2; Thu, 28 Oct 2021 09:53:36 +0000
-Received: by outflank-mailman (input) for mailman id 217765;
- Thu, 28 Oct 2021 09:53:34 +0000
+	id 1mg2C5-0000aP-Bj; Thu, 28 Oct 2021 09:59:33 +0000
+Received: by outflank-mailman (input) for mailman id 217774;
+ Thu, 28 Oct 2021 09:59:32 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3vD9=PQ=gmail.com=rjwysocki@srs-us1.protection.inumbo.net>)
- id 1mg26I-0008EG-8r
- for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 09:53:34 +0000
-Received: from mail-ot1-f52.google.com (unknown [209.85.210.52])
+ id 1mg2C4-0000aJ-Ey
+ for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 09:59:32 +0000
+Received: from mail-ot1-f47.google.com (unknown [209.85.210.47])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e9552aec-37d4-11ec-849b-12813bfff9fa;
- Thu, 28 Oct 2021 09:53:33 +0000 (UTC)
-Received: by mail-ot1-f52.google.com with SMTP id
- l16-20020a9d6a90000000b0054e7ab56f27so7746554otq.12
- for <xen-devel@lists.xenproject.org>; Thu, 28 Oct 2021 02:53:33 -0700 (PDT)
+ id bee3b0c0-37d5-11ec-849b-12813bfff9fa;
+ Thu, 28 Oct 2021 09:59:31 +0000 (UTC)
+Received: by mail-ot1-f47.google.com with SMTP id
+ v2-20020a05683018c200b0054e3acddd91so7801421ote.8
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Oct 2021 02:59:31 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,29 +39,29 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9552aec-37d4-11ec-849b-12813bfff9fa
+X-Inumbo-ID: bee3b0c0-37d5-11ec-849b-12813bfff9fa
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=uz31be5RzrXoa4uAxe1xyKZoIQd0wtsVVy1gZjyOGeo=;
-        b=X+5dvuAmn9czEBhw6oatav5UeJL0vhrLj4q9FFVTO6GKkY+w6ZdTGQelk9hohVgmIY
-         Yd/PMAb9qN2fX6rpO+Fpzm+gR/kyQtBYy1xKP0BVFyiF6JMgcVJ/jonAcOKEc5RMYN84
-         bVyCtxx6L18Oix7FtsZay+26Tgxusro5DRWzimEhh0BkHauB34MF0IJQ0cJdxI8ndFpk
-         tT4Q+r4ixZ5Ah5FISSTxYHxCacenL8jcQmXEuNicUbvPowtwmco9S3DHl+sUlxlFu2M/
-         C/l6w+xpTjC03APqBD9r6g78sDJCOGZzbBq8lQX028BB5WtVKYbius/6Y/dmsd7As+UZ
-         GHEw==
-X-Gm-Message-State: AOAM533cQ7hhthlSJGrjUOE6zfetNM13gK+S35NHNSw5caDZ5bIiPyb6
-	6VPoubcouKlXxtTAD28NN1Ei8sZ+IjxqaC1JJZo=
-X-Google-Smtp-Source: ABdhPJzOhFRTFEQQ+n5tEP/bBwTFb0889hJMVw20FWNyFAcerxAE3whFQ+5AhX1ip3T9ogNIhdu7wA8+/uN9VNCEoX8=
-X-Received: by 2002:a9d:65c1:: with SMTP id z1mr2411564oth.198.1635414812552;
- Thu, 28 Oct 2021 02:53:32 -0700 (PDT)
+        bh=YApfc+rtORQHprN7aKpnZNhl8TPl/VtOJQI8beQJmCY=;
+        b=LAm2gKCwm1SkWg5dM9bC0xZ2RyIBWOvX2+7d2iOMfn0lEopdx5kywBvUFB4l74IJli
+         RtCo+7BEltzjHoQkbrzpcBh7RbgN68HWD9nz/lH3lKRJzCzoPwzy2TBhFYd/LIYwsu/X
+         ywP7HPrMmixKhiKj9q8EONTc+Fwn0EuMevfrM0p0E7QdUzl6sIYJlJjBPZb4IL5SLOqp
+         +n9m/AQChd6KO2Hca1nIo1XegNjIn15KwwhweDUd0QmqQIvMVEy0GYRrufpwW+m8KYN4
+         JqshFGuHcR2EwgvA/H/IC4IYW7L0wx97RGoY3WWfXduevCIDLmH/PqLgP3zOUQJPBvBO
+         M/nA==
+X-Gm-Message-State: AOAM533c8ZqXnNGn6Nwgb9IcF6Deh4dGkjN98kmkgZpCMaUpJy4TmBLV
+	nQ4I4jUEbAvKD6zv8tIn9IB41EVMlV75SAjVPJU=
+X-Google-Smtp-Source: ABdhPJzD4cm7tn60vkyopY5CUMxUc9huwAUhS0IgxTyGcJq7Km0Bm+8fuUNsdZomFIBYzzQsRecVralPmU+TS+34zNY=
+X-Received: by 2002:a9d:65c1:: with SMTP id z1mr2427957oth.198.1635415170827;
+ Thu, 28 Oct 2021 02:59:30 -0700 (PDT)
 MIME-Version: 1.0
 References: <20211027211715.12671-1-digetx@gmail.com> <20211027211715.12671-9-digetx@gmail.com>
 In-Reply-To: <20211027211715.12671-9-digetx@gmail.com>
 From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Thu, 28 Oct 2021 11:53:20 +0200
-Message-ID: <CAJZ5v0jMdSjmkswzu18LSxcNk+k92Oz5XFFXmu-h=W8aPP4Oig@mail.gmail.com>
+Date: Thu, 28 Oct 2021 11:59:18 +0200
+Message-ID: <CAJZ5v0gpu2ezMhWr=grg6M8aWAx58DQozbXHoZaiPqUaZxJi4Q@mail.gmail.com>
 Subject: Re: [PATCH v2 08/45] kernel: Add combined power-off+restart handler
  call chain API
 To: Dmitry Osipenko <digetx@gmail.com>
@@ -74,8 +74,7 @@ Cc: Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia
 	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>, 
 	Geert Uytterhoeven <geert@linux-m68k.org>, Greg Ungerer <gerg@linux-m68k.org>, 
 	Joshua Thompson <funaho@jurai.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	Nick Hu <nickhu@andestech.com>, Greentime Hu <green.hu@gmail.com>, 
-	Vincent Chen <deanbo422@gmail.com>, 
+	Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>, 
 	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
 	Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
 	Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>, 
@@ -173,6 +172,9 @@ On Wed, Oct 27, 2021 at 11:18 PM Dmitry Osipenko <digetx@gmail.com> wrote:
 > +#define POWEROFF_PRIO_DEFAULT          128
 > +#define POWEROFF_PRIO_HIGH             192
 > +#define POWEROFF_PRIO_FIRMWARE         224
+
+Also I'm wondering why these particular numbers were chosen, here and above?
+
 > +
 > +enum poweroff_mode {
 > +       POWEROFF_NORMAL = 0,
@@ -224,10 +226,79 @@ On Wed, Oct 27, 2021 at 11:18 PM Dmitry Osipenko <digetx@gmail.com> wrote:
 > + * Fill the structure members and pass it to register_power_handler().
 > + */
 > +struct power_handler {
+> +       /**
+> +        * @cb_data:
+> +        *
+> +        * User data included in callback's argument.
+> +        */
 
-The name of this structure is too generic IMV.  There are many things
-that it might apply to in principle.
+And here I would document the structure fields in the main kerneldoc
+comment above.
 
-What about calling power_off_handler or sys_off_handler as it need not
-be about power at all?
+As is, it is a bit hard to grasp the whole definition.
+
+> +       void *cb_data;
+> +
+> +       /**
+> +        * @power_off_cb:
+> +        *
+> +        * Callback that should turn off machine.  Inactive if NULL.
+> +        */
+> +       void (*power_off_cb)(struct power_off_data *data);
+> +
+> +       /**
+> +        * @power_off_prepare_cb:
+> +        *
+> +        * Power-off preparation callback.  All power-off preparation callbacks
+> +        * are invoked before @restart_cb.  Inactive if NULL.
+> +        */
+> +       void (*power_off_prepare_cb)(struct power_off_prep_data *data);
+> +
+> +       /**
+> +        * @power_off_priority:
+> +        *
+> +        * Power-off callback priority, must be unique.  Zero value is
+> +        * reassigned to default priority.  Inactive if @power_off_cb is NULL.
+> +        */
+> +       int power_off_priority;
+> +
+> +       /**
+> +        * @power_off_chaining_allowed:
+> +        *
+> +        * False if callbacks execution should stop when @power_off_cb fails
+> +        * to power off machine.  True if further lower priority power-off
+> +        * callback should be executed.
+> +        */
+> +       bool power_off_chaining_allowed;
+> +
+> +       /**
+> +        * @restart_cb:
+> +        *
+> +        * Callback that should reboot machine.  Inactive if NULL.
+> +        */
+> +       void (*restart_cb)(struct restart_data *data);
+> +
+> +       /**
+> +        * @restart_priority:
+> +        *
+> +        * Restart callback priority, must be unique.  Zero value is reassigned
+> +        * to default priority.  Inactive if @restart_cb is NULL.
+> +        */
+> +       int restart_priority;
+> +
+> +       /**
+> +        * @reboot_prepare_cb:
+> +        *
+> +        * Reboot preparation callback.  All reboot preparation callbacks are
+> +        * invoked before @restart_cb.  Inactive if NULL.
+> +        */
+> +       void (*reboot_prepare_cb)(struct reboot_prep_data *data);
+> +
+> +       /**
+> +        * @priv:
+> +        *
+> +        * Internal data.  Shouldn't be touched.
+> +        */
+> +       const struct power_handler_private_data priv;
+> +};
 
