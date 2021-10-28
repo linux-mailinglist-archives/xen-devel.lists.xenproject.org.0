@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EDE243DF30
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 12:48:56 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217844.378043 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 974EF43DFA0
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 13:00:57 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217852.378054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg2xM-0002JW-Hm; Thu, 28 Oct 2021 10:48:24 +0000
+	id 1mg38a-0003vK-MO; Thu, 28 Oct 2021 11:00:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217844.378043; Thu, 28 Oct 2021 10:48:24 +0000
+Received: by outflank-mailman (output) from mailman id 217852.378054; Thu, 28 Oct 2021 11:00:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg2xM-0002H2-E0; Thu, 28 Oct 2021 10:48:24 +0000
-Received: by outflank-mailman (input) for mailman id 217844;
- Thu, 28 Oct 2021 10:48:22 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mg38a-0003tY-JD; Thu, 28 Oct 2021 11:00:00 +0000
+Received: by outflank-mailman (input) for mailman id 217852;
+ Thu, 28 Oct 2021 10:59:58 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mg2xK-0002Gw-Rb
- for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 10:48:22 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mg2xJ-0005Pp-E0; Thu, 28 Oct 2021 10:48:21 +0000
-Received: from 54-240-197-225.amazon.com ([54.240.197.225] helo=[10.7.236.13])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mg2xJ-0000FV-7M; Thu, 28 Oct 2021 10:48:21 +0000
+ (envelope-from <SRS0=vfrR=PQ=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mg38Y-0003tS-Kn
+ for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 10:59:58 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2fd3e766-37de-11ec-849d-12813bfff9fa;
+ Thu, 28 Oct 2021 10:59:57 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 454D91FD4B;
+ Thu, 28 Oct 2021 10:59:56 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 07D4713C5C;
+ Thu, 28 Oct 2021 10:59:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id opa6AKyCemGQNgAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 28 Oct 2021 10:59:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,123 +51,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=eYZYMJPfUDtKec0PE+3l3jBDCoirZbSHATOkABGhIBE=; b=TuwOsuB19lNkWCSAGWuiPfTdnL
-	6y4yeCWVXb/gCvXegjXiaYw7nxrzsXq+VME+yPonJKbGVrCYHYa6ptZFzJEcn1vYr41fWy0IXY7pz
-	P3+aj2yDP2SsZR7UCPgnPuDJxyibWt2KiXqb8jA+LEUvHEiqlTU6UfZXsokG9jj9lExY=;
-Message-ID: <c3602294-0ab4-10df-77cc-2a9e13ddc73f@xen.org>
-Date: Thu, 28 Oct 2021 11:48:19 +0100
+X-Inumbo-ID: 2fd3e766-37de-11ec-849d-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1635418796; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=zbNYXie6Hzu/qw+CQlU1pNMVLlxvFSRFIIQVne0mm/A=;
+	b=bNz1I6ZABAMt8Dl4G3Tn26G74FtY89yFKIs9oSYIAdBladlFdguRX8/jVEu3rN725BrO4C
+	aqnV6fskaxOVK3L71kMUr+uMwiA7gKJQBRpXB4MDDNsPpBtRipv/LEPd1uw9yowq6PUP08
+	2lKgmbDSHONB5ZySGN9l0z4USVQIkKg=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	stable@vger.kernel.org,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH] xen/balloon: add late_initcall_sync() for initial ballooning done
+Date: Thu, 28 Oct 2021 12:59:52 +0200
+Message-Id: <20211028105952.10011-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.1
-Subject: Re: [PATCH] xen/arm: do not try to add pci-domain for disabled
- devices
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Oleksandr Andrushchenko <andr2000@gmail.com>,
- xen-devel@lists.xenproject.org, iwj@xenproject.org,
- bertrand.marquis@arm.com, rahul.singh@arm.com,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-References: <20211027083730.1406947-1-andr2000@gmail.com>
- <7a97bbef-68a9-8f52-0c93-88d4e84a07fc@xen.org>
- <alpine.DEB.2.21.2110271649240.20134@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.21.2110271649240.20134@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Stefano,
+When running as PVH or HVM guest with actual memory < max memory the
+hypervisor is using "populate on demand" in order to allow the guest
+to balloon down from its maximum memory size. For this to work
+correctly the guest must not touch more memory pages than its target
+memory size as otherwise the PoD cache will be exhausted and the guest
+is crashed as a result of that.
 
-On 28/10/2021 00:57, Stefano Stabellini wrote:
-> On Wed, 27 Oct 2021, Julien Grall wrote:
->> Hi Oleksandr,
->>
->> On 27/10/2021 09:37, Oleksandr Andrushchenko wrote:
->>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>>
->>> If a PCI host bridge device is present in the device tree, but is
->>> disabled, then its PCI host bridge driver was not instantiated.
->>> This results in the following panic during Xen start:
->>>
->>> (XEN) Device tree generation failed (-22).
->>
->> It would good to clarify in the commit message where the error is coming from.
->> I think this is from pci_get_host_bridge_segment().
->>
->>> (XEN)
->>> (XEN) ****************************************
->>> (XEN) Panic on CPU 0:
->>> (XEN) Could not set up DOM0 guest OS
->>> (XEN) ****************************************
->>>
->>> Fix this by not adding linux,pci-domain property for hwdom if it is
->>> neither available nor device enabled.
->>  From my reading of the binding [1], the property should be present in all the
->> hostbridges if one specify it. IOW, I think the property should also be added
->> for hostbridges that are not available.
-> 
-> Just wanted to say that I think you are right:
-> 
-> """
-> It is required to either not set this property at all or set it for all
-> host bridges in the system, otherwise potentially conflicting domain numbers
-> may be assigned to root buses behind different host bridges.  The domain
-> number for each host bridge in the system must be unique.
-> """
-> 
-> and I am ready to believe device trees with disabled bridges might have
-> (incorrectly) ignored the rule.
+In extreme cases ballooning down might not be finished today before
+the init process is started, which can consume lots of memory.
 
-Looking at linux/arch/arm64/boot/dts/, there are a few Device-Tree that 
-contain the property "linux,pci-domain". All of them seems to also add 
-it for disabled hostbridges.
+In order to avoid random boot crashes in such cases, add a late init
+call to wait for ballooning down having finished for PVH/HVM guests.
 
-However, I am under the impression that it is more common to have a 
-Devide-Tree without any property "linux,pci-domain". When PCI support is 
-enabled, Xen will generate the domain ID for the hostbridge and write it 
-to the DT.
+Cc: <stable@vger.kernel.org>
+Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ drivers/xen/balloon.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-This doesn't work for disabled hostbridge and I think this is 
-Oleksandr's problem. @Oleksandr can you confirm it?
-
-> 
-> 
->> AFAICT, Linux will ignore hostbridge that are not available. But it feels to
->> me we are twisting the rule. So, could we consider to allocate an unused
->> number?
-> 
-> I think that would be fine but it doesn't look easy from the current Xen
-> code point of view because the allocation depends on the Xen driver,
-> which we don't have. But I'll let others comment on it.
-So what matters is Xen doesn't make things worse. We have two cases to care:
-   1) Xen only has drivers for a part of the hostbriges
-   2) Some hostbriges are disabled
-
-Case 1) will definitely generate a DT that will make Linux unhappy if we 
-have don't add the property consistently.
-
-I believe that in case 2), current Linux will not check for the 
-consistency. But that something, we probably should avoid to rely on.
-
-I think in the two cases we can generate the domain ID by calling 
-pci_get_new_domain_nr().
-
-Now if we have to support inconsistent device-tree. Then we could 
-collect the "linux,pci-domain" and find the maximum one. We would 
-allocate a number above for any hostbridges with no property.
-
-> Otherwise
-> skipping the disabled host bridge node for Dom0 sounds OK.
-
-At the moment, I haven't found any example of Device-Tree where 
-"linux,pci-domain" will be only on part of the hostbridges (see above).
-
-So I think we should avoid breaking the rule here at least until we have 
-a "real" DT that break it.
-
-Cheers,
-
+diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
+index 3a50f097ed3e..d19b851c3d3b 100644
+--- a/drivers/xen/balloon.c
++++ b/drivers/xen/balloon.c
+@@ -765,3 +765,23 @@ static int __init balloon_init(void)
+ 	return 0;
+ }
+ subsys_initcall(balloon_init);
++
++static int __init balloon_wait_finish(void)
++{
++	if (!xen_domain())
++		return -ENODEV;
++
++	/* PV guests don't need to wait. */
++	if (xen_pv_domain() || !current_credit())
++		return 0;
++
++	pr_info("Waiting for initial ballooning down having finished.\n");
++
++	while (current_credit())
++		schedule_timeout_interruptible(HZ / 10);
++
++	pr_info("Initial ballooning down finished.\n");
++
++	return 0;
++}
++late_initcall_sync(balloon_wait_finish);
 -- 
-Julien Grall
+2.26.2
+
 
