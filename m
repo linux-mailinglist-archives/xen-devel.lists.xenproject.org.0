@@ -2,34 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D74843E0AD
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 14:16:12 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217986.378251 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A475143E0DE
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 14:24:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217995.378261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg4K9-0005Go-71; Thu, 28 Oct 2021 12:16:01 +0000
+	id 1mg4Rd-0006tu-29; Thu, 28 Oct 2021 12:23:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217986.378251; Thu, 28 Oct 2021 12:16:01 +0000
+Received: by outflank-mailman (output) from mailman id 217995.378261; Thu, 28 Oct 2021 12:23:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg4K9-0005F1-3N; Thu, 28 Oct 2021 12:16:01 +0000
-Received: by outflank-mailman (input) for mailman id 217986;
- Thu, 28 Oct 2021 12:15:59 +0000
+	id 1mg4Rc-0006rj-Uw; Thu, 28 Oct 2021 12:23:44 +0000
+Received: by outflank-mailman (input) for mailman id 217995;
+ Thu, 28 Oct 2021 12:22:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Oo2o=PQ=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1mg4K7-0005Ei-RE
- for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 12:15:59 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id cd8e71a4-d6b5-48b6-8293-1be42eaab109;
- Thu, 28 Oct 2021 12:15:58 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C7D981063;
- Thu, 28 Oct 2021 05:15:57 -0700 (PDT)
-Received: from [10.57.24.217] (unknown [10.57.24.217])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8D0363F5A1;
- Thu, 28 Oct 2021 05:15:56 -0700 (PDT)
+ <SRS0=QhoO=PQ=gmail.com=green.hu@srs-us1.protection.inumbo.net>)
+ id 1mg4Pw-0006oU-Vf
+ for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 12:22:01 +0000
+Received: from mail-pj1-x1034.google.com (unknown [2607:f8b0:4864:20::1034])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 620ad1b5-302e-48e5-bad1-24cde6d35744;
+ Thu, 28 Oct 2021 12:22:00 +0000 (UTC)
+Received: by mail-pj1-x1034.google.com with SMTP id
+ k2-20020a17090ac50200b001a218b956aaso4545502pjt.2
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Oct 2021 05:22:00 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,187 +38,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cd8e71a4-d6b5-48b6-8293-1be42eaab109
-Subject: Re: [patch-4.16] arm/smmuv1,v2: Protect smmu master list with a lock
-To: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Julien Grall <julien.grall.oss@gmail.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Ian Jackson <iwj@xenproject.org>
-References: <20211026122903.15042-1-michal.orzel@arm.com>
- <e5632a4e-db98-41b4-1045-2b3532c098fa@xen.org>
- <70c30a6c-b779-805e-079a-41bb484894b9@xen.org>
- <cb452c0c-ccde-7798-c403-f972b48a2c46@arm.com>
- <01545115-e82e-2a9d-a8e4-da9676080c0f@xen.org>
- <alpine.DEB.2.21.2110271557570.20134@sstabellini-ThinkPad-T480s>
- <CAJ=z9a2SSgG7a87_xTGT5LeNLgubOLQf1+dbnrsTsP8_p5ErJg@mail.gmail.com>
- <alpine.DEB.2.21.2110271658330.20134@sstabellini-ThinkPad-T480s>
- <4554621d-63da-ea3e-e56a-4e01d0cef347@xen.org>
-From: Michal Orzel <michal.orzel@arm.com>
-Message-ID: <560e75eb-fa0d-a13a-219c-3c1db0b28fa1@arm.com>
-Date: Thu, 28 Oct 2021 14:15:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 620ad1b5-302e-48e5-bad1-24cde6d35744
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=sEQTGe1SdVzMEvdAS+JHzGs+s//rKDLb3zrHBeoZhQ4=;
+        b=iTF+KxXEUPxEL0X/A/h2gzR6rfhKbueZtpV43T9ecbwhzi0t+l3q/o5Ua3AWvU+Enc
+         ByGkTqENMRntgh3iznFMDxu2CMYcinTkd+zVseDqmIBVqNiOOl7jtDTN28tXnXeh/eHS
+         f+SIvvi2YC7tI22dM3EDibcHeQLa3iIqsv5H8CiejoyVxtmYKOA3VOetskmtU4Lx+Pqb
+         LjWvbMeTK5pVAec3h6exgixTZBuA0b6b4pLrHZnH5EOvWXMCcJgTfSDot7PpiFpwOrmA
+         UDe0Zf8yyrgR8VQIYltC0W9ualVYljq6alX4ZkNWzu2NeGmBPW3wY5ZPA2p2XVSWoIe3
+         jylQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=sEQTGe1SdVzMEvdAS+JHzGs+s//rKDLb3zrHBeoZhQ4=;
+        b=EKIuycGZTZAGfIXLPPhyxNzb4IpONDf+HWiQU1zbMP8HlvVDFjK+weUbYkR3XTO4wD
+         YjeHs5UyroUXGVC4VR28ipJ5/0pw9PFgSnrYSnw1Cw6r5BYIa8O5LEPKJXy+Fa7c0BuM
+         rKKn1NFSE+snfT1XhRMqKLG4RL7IUqSkt3Y/BeZRW60tKod9cmuT/PfhM5C19GR90GZN
+         wYbRXWcp9i1XWTh2BtThyZbxDlcRU2J5pMslrDUqlvABZ72JlvsVF8ySboQ4k3OZ3efm
+         fGoOgp1OmwIvk5QBU/0XhVSl6qvXv4UQOSHZxB81fwnkvKLHMRrldaGcpULF99iAGct9
+         BP9w==
+X-Gm-Message-State: AOAM530xsLbs/W84qjz8B7boiouC4Tong3vlDu59FCZkELvKozywnLFO
+	PsdSjoozIFtvsKul9TLXtlQwGIoJfQTNvWVlAkw=
+X-Google-Smtp-Source: ABdhPJwgRG6Z5IlQAMmxkEb7xwk/3DRskWOoc9lq5s+Jze0PB67uqVa13ZU9GrnI44E+cb/61DiEpYjC8sFDBN8RSYA=
+X-Received: by 2002:a17:902:b716:b0:13f:b2d1:f316 with SMTP id
+ d22-20020a170902b71600b0013fb2d1f316mr3644234pls.24.1635423719258; Thu, 28
+ Oct 2021 05:21:59 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <4554621d-63da-ea3e-e56a-4e01d0cef347@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <20211027211715.12671-1-digetx@gmail.com> <20211027211715.12671-16-digetx@gmail.com>
+In-Reply-To: <20211027211715.12671-16-digetx@gmail.com>
+From: Greentime Hu <green.hu@gmail.com>
+Date: Thu, 28 Oct 2021 20:20:00 +0800
+Message-ID: <CAEbi=3eTruN6rYvEHCtyhTEZ=Ep8n6g75UMpHffc=0UrVTGbdQ@mail.gmail.com>
+Subject: Re: [PATCH v2 15/45] nds32: Use do_kernel_power_off()
+To: Dmitry Osipenko <digetx@gmail.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Lee Jones <lee.jones@linaro.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Mark Brown <broonie@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Russell King <linux@armlinux.org.uk>, 
+	Daniel Lezcano <daniel.lezcano@linaro.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Greg Ungerer <gerg@linux-m68k.org>, 
+	Joshua Thompson <funaho@jurai.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	Nick Hu <nickhu@andestech.com>, Vincent Chen <deanbo422@gmail.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+	Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Santosh Shilimkar <ssantosh@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>, 
+	Linus Walleij <linus.walleij@linaro.org>, Chen-Yu Tsai <wens@csie.org>, 
+	=?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, 
+	Tony Lindgren <tony@atomide.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>, 
+	Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+	Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+	Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, Pavel Machek <pavel@ucw.cz>, 
+	linux-arm-kernel@lists.infradead.org, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-csky@vger.kernel.org, 
+	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, linux-riscv@lists.infradead.org, 
+	linux-sh@vger.kernel.org, xen-devel@lists.xenproject.org, 
+	linux-acpi@vger.kernel.org, linux-omap@vger.kernel.org, 
+	openbmc@lists.ozlabs.org, linux-tegra@vger.kernel.org, 
+	linux-pm@vger.kernel.org, Alan Kao <alankao@andestech.com>, 
+	=?UTF-8?B?Sy5DLiBLdWVuLUNoZXJuIExpbijmnpflnaTmiJAp?= <kclin@andestech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Julien,
+Dmitry Osipenko <digetx@gmail.com> =E6=96=BC 2021=E5=B9=B410=E6=9C=8828=E6=
+=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=885:18=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> Kernel now supports chained power-off handlers. Use do_kernel_power_off()
+> that invokes chained power-off handlers. It also invokes legacy
+> pm_power_off() for now, which will be removed once all drivers will
+> be converted to the new power-off API.
+>
+> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+> ---
+>  arch/nds32/kernel/process.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/arch/nds32/kernel/process.c b/arch/nds32/kernel/process.c
+> index 49fab9e39cbf..0936dcd7db1b 100644
+> --- a/arch/nds32/kernel/process.c
+> +++ b/arch/nds32/kernel/process.c
+> @@ -54,8 +54,7 @@ EXPORT_SYMBOL(machine_halt);
+>
+>  void machine_power_off(void)
+>  {
+> -       if (pm_power_off)
+> -               pm_power_off();
+> +       do_kernel_power_off();
+>  }
+>
+>  EXPORT_SYMBOL(machine_power_off);
+> --
+> 2.33.1
+>
 
-On 28.10.2021 12:05, Julien Grall wrote:
-> Hi Stefano,
-> 
-> First apologies for sending the previous e-mails in HTML (thanks for pointing that out!).
-> 
-> On 28/10/2021 01:20, Stefano Stabellini wrote:
->> On Thu, 28 Oct 2021, Julien Grall wrote:
->>> On Thu, 28 Oct 2021, 00:14 Stefano Stabellini, <sstabellini@kernel.org> wrote:
->>>        On Wed, 27 Oct 2021, Julien Grall wrote:
->>>        > > > > > +    return ret;
->>>        > > > > >    }
->>>        > > > > >    static int register_smmu_master(struct arm_smmu_device *smmu,
->>>        > > > > > @@ -2056,7 +2066,10 @@ static int arm_smmu_add_device(struct device
->>>        > > > > > *dev)
->>>        > > > > >        } else {
->>>        > > > > >            struct arm_smmu_master *master;
->>>        > > > > > +        spin_lock(&arm_smmu_devices_lock);
->>>        > > > > >            master = find_smmu_master(smmu, dev->of_node);
->>>        > > > > > +        spin_unlock(&arm_smmu_devices_lock);
->>>        > > > >
->>>        > > > > At the moment, unlocking here is fine because we don't remove the
->>>        > > > > device. However, there are a series to supporting removing a device (see
->>>        > > > > [1]). So I think it would be preferable to unlock after the last use of
->>>        > > > > 'cfg'.
->>>        > > > >
->>>        > > Ok. I will move unlocking to the end of this else {} block. I was not aware
->>>        > > of the patch you are referring to.
->>>        >
->>>        > I think the end of the else is still too early. This needs to at least be past
->>>        > iommu_group_set_iommudata() because we store cfg.
->>>        >
->>>        > Potentially, the lock wants to also englobe arm_smmu_master_alloc_smes(). So I
->>>        > am wondering whether it would be simpler to hold the lock for the whole
->>>        > duration of arm_smmu_add_device() (I can see value when we will want to
->>>        > interlock with the remove code).
->>>
->>>        The patch was to protect the smmu master list. From that point of view
->>>        the unlock right after find_smmu_master would be sufficient, right?
->>>
->>>
->>> Yes. However this is not fixing all the problems (see below).
->>>
->>>
->>>        We only need to protect cfg if we are worried that the same device is
->>>        added in two different ways at the same time. Did I get it right? If so,
->>>        I would say that that case should not be possible? Am I missing another
->>>        potential conflict?
->>>
->>>
->>> It should not be possible to add the same device twice. The problem is more when we are going to remove the device. In this case, "master"
->>> may disappear at any point.
->>>
->>> The support for removing device is not yet implemented in the tree. But there is already a patch on the ML. So I think it would be
->>> shortsighted to only move the lock to just solve concurrent access to the list.
->>   That makes sense now: the other source of conflict is concurrent add and
->> remove of the same device. Sorry it wasn't clear to me before.
-> At the moment, we are relying on the upper layer (e.g. PCI or DT subsystem) to prevent concurrent add/remove/assignment. The trouble is we don't have a common lock between PCI and DT.
-> 
-> One possibility would be to add a common in the uper layer, but it feels to me this is a bit fragile and may also require longer locking section than necessary.
-> 
-> That said, add/remove/assignment operations are meant to be rare. So this is could be an option. This would also have the advantage to cover all the IOMMUs.
-> 
->>    
->>>        I am pointing this out for two reasons:
->>>
->>>        Protecting the list is different from protecting each element from
->>>        concurrent modification of the element itself. If the latter is a
->>>        potential problem, I wonder if arm_smmu_add_device is the only function
->>>        affected?
->>>
->>>
->>> I had a brief looked at the code and couldn't find any other places where this may be an issue.
->>>
->>>
->>>        The second reason is that extending the lock past
->>>        arm_smmu_master_alloc_smes is a bit worrying because it causes
->>>        &arm_smmu_devices_lock and smmu->stream_map_lock to nest, which wasn't
->>>        the case before.
->>>
->>>
->>> Nested locks are common. I don't believe there would be a problem here with this one.
->>>
->>>
->>>        I am not saying that it is a bad idea to extend the lock past
->>>        arm_smmu_master_alloc_smes -- it might be the right thing to do.
->>>
->>>
->>> I don't usually suggest locking changes blindly ;).
->>>
->>>        But I
->>>
->>>        am merely saying that it might be best to think twice about it.
->>>
->>>        and/or do
->>>        that after 4.16.
->>>
->>>
-> 
-> [...]
-> 
->> The other thing that is not clear to me is whether we would need also to
->> protect places where we use (not allocate) masters and/or cfg, e.g.
->> arm_smmu_attach_dev, arm_smmu_domain_add_master.
-> 
-> I think both should be with the lock. Now the question is will other IOMMUs driver requires the same locking?
-> 
-> If yes, then maybe that locking should be in the common code.
-> 
->>> That said we can work towards a new locking approach for 4.17.
->>> However, I would want to have a proposal from your side or at least
->>> some details on why the suggested locking is not suitable.
->>   The suggested locking approach up until the last suggestion looks
->> totally fine to me. The last suggestion is a bit harder to tell because
->> the PCI removal hook is not there yet, so I am having troubles seeing
->> exactly what needs to be protected.
-> 
-> The PCI removal hook is the same as the platform device one. There are already a patch on the ML (see [1]) for that.
-> 
-> We have two interlocking problem to resolve:
->   1) Concurrent request between PCI and platform/DT subsystem
->   2) Removal vs add vs (re)assign
-> 
-> The two approaches I can think of are:
-> 
-> Approach A:
->   - The driver is responsible to protect against 1)
->   - Each subsystem (DT and PCI) are responsible for 2)
-> 
-> Approach B:
->   The driver is responsible to protect for 1) 2).
-> 
-> From my understanding, the proposed patch for Michal is following approach A whilst my proposal is going towards approach B.
-> 
-> I am open to use approach A, however I think this needs to be documented as the lock to use will depend on whether the device is a PCI device or not.
-> 
-
-The purpose of this patch is to fix the issue that is present in 4.16.
-The patch adding support for removal you are reffering to:
--is in RFC state
--is not meant for 4.16
--will need to be modified anyway because of the future PCI passthrough patches that are going to modify lots of stuff
-
-That being said, the bug we want to fix touches only point 1). And in fact my patch is solving this issue.
-So I think we should focus on 4.16 and fixing bugs for it without thinking of future patches/modifications.
-I agree that the locking behaviour will change as soon as the patch you are reffering to will be merged.
-However, the PCI passthrough patches are going to modify this code anyway, so all in all the future modifications will be needed.
-
-> Cheers,
-> 
-> [1] <1630562763-390068-9-git-send-email-fnu.vikram@xilinx.com>
-> 
-
-Cheers,
-Michal
+Loop in Alan and KC
 
