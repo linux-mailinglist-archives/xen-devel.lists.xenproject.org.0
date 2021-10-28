@@ -2,46 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5E8343E089
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 14:09:49 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217945.378177 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6924D43E08F
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 14:10:56 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217951.378190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg4Dr-0000gM-Rj; Thu, 28 Oct 2021 12:09:31 +0000
+	id 1mg4F1-00025q-7u; Thu, 28 Oct 2021 12:10:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217945.378177; Thu, 28 Oct 2021 12:09:31 +0000
+Received: by outflank-mailman (output) from mailman id 217951.378190; Thu, 28 Oct 2021 12:10:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg4Dr-0000eR-OL; Thu, 28 Oct 2021 12:09:31 +0000
-Received: by outflank-mailman (input) for mailman id 217945;
- Thu, 28 Oct 2021 12:09:29 +0000
+	id 1mg4F1-00022X-3h; Thu, 28 Oct 2021 12:10:43 +0000
+Received: by outflank-mailman (input) for mailman id 217951;
+ Thu, 28 Oct 2021 12:10:41 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ikAZ=PQ=epam.com=prvs=19352d112c=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
- id 1mg4Dp-0000eE-Kd
- for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 12:09:29 +0000
-Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e59db32b-37e7-11ec-849e-12813bfff9fa;
- Thu, 28 Oct 2021 12:09:28 +0000 (UTC)
-Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19SBuGZ5029362; 
- Thu, 28 Oct 2021 12:09:27 GMT
-Received: from eur05-am6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2106.outbound.protection.outlook.com [104.47.18.106])
- by mx0a-0039f301.pphosted.com with ESMTP id 3byt7srd2m-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 28 Oct 2021 12:09:26 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM0PR03MB4434.eurprd03.prod.outlook.com (2603:10a6:208:c7::25)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.18; Thu, 28 Oct
- 2021 12:09:23 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::c038:e032:595a:651]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::c038:e032:595a:651%9]) with mapi id 15.20.4649.015; Thu, 28 Oct 2021
- 12:09:23 +0000
+ <SRS0=Oo2o=PQ=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
+ id 1mg4Ez-00022L-MY
+ for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 12:10:41 +0000
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 109b19dc-37e8-11ec-849e-12813bfff9fa;
+ Thu, 28 Oct 2021 12:10:39 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 01BB61063;
+ Thu, 28 Oct 2021 05:10:39 -0700 (PDT)
+Received: from [10.57.24.217] (unknown [10.57.24.217])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B26863F5A1;
+ Thu, 28 Oct 2021 05:10:37 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,251 +42,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e59db32b-37e7-11ec-849e-12813bfff9fa
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P4xbdy/AvyNNODjFNREfmc+L8B7K7s5VEsC149QztK4OwJhCy+7W0iQo7sA0l+FhLgIfiifnEckZ0gZFQ5tMz9DyhprEoB1+Sg/F6f9kjg/BtXUJvLmjrYQQJSEPjkAfUtemtWtFCd0BRbXRUlqa+NevtRxItM66ColSrsDvxbA+c0r9zVaJvbdgyXrugIYJfhjPhD7FmXlu1wHrzEnF5AmbUuUWDImMFL73mpsHHZ7TNpic3FxOMTBBT89u5QIKthINC+UPR1hWRej7eS0tKI7fVMJ6NwAQV428LQz6NEPJrfak9lo4+Iy4u5JoaTMVscbhq+FIsqYQCYgb6xBIOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KXjVVaYRIzu3YZAJHyXoYeMii60wVndp7uSUSjaKSlM=;
- b=EPKkpda56LsQbEvawaoBQiow34vLl3+JVqKVzj/q856zNV6iUuZgVoOHG1uJuKV0Vt9biiSQZ0fnQqYYJEzcENC/0pDpsmg3xZve1RhfmhnXawDOubEHyp1yehME0JxL3b5lMJk5dGP+n6qBhgLdaakGs27H7TbHa/nEKHU4e6CdgOYhzXz1gKW19v6aUT9mQlaG6Bq11xIIorO4gYOx0RPdZveh5Bi2tUv9UBEpzgU4H7C9PqOdRb722BQPvIHh5U9mQZA7k78MVA5LupddfaYexsj/kSJuiyfmBIoRyI/7TOGhtZg+HwiORG7Ea2Wk19kzVSUP4DllJpwJcLDrzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KXjVVaYRIzu3YZAJHyXoYeMii60wVndp7uSUSjaKSlM=;
- b=boW8FciuFcNCdlB0uK7vXtX6z/jkps4kjer+cT9zx4SlaRsQHsu1LpASLZSh4ibm36P3DmiqSYf4o7d7NkqT/ePV7pz0XAUh4P/2FvoL1/qyF88H5GTY9Hh8CCzRoyZ8yro92d0L7S5NqwukfRa7GE+pyH2KtdSD9g651Fvg7qfrhXAOIobVBuCXuPPhit0mnlFREetDRq3hqJvK7T/0ru0Emftban5wpAV4injwczkmhSwiFcvsED9mC+qZq0+w8adfQ9XCdGcyZ4ggMVbtBMIZsRX8V1+ub6T6BCE7/cf6Npd6g6YhEyaLl3O8B2blCTYXCPjtU/l98CqLNJDtNw==
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Julien Grall <julien@xen.org>,
-        "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: "sstabellini@kernel.org" <sstabellini@kernel.org>,
-        "iwj@xenproject.org"
-	<iwj@xenproject.org>,
-        Bertrand Marquis <bertrand.marquis@arm.com>,
-        Rahul
- Singh <rahul.singh@arm.com>,
-        Oleksandr Andrushchenko
-	<Oleksandr_Andrushchenko@epam.com>
-Subject: Re: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers
-Thread-Topic: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers
-Thread-Index: AQHXyww6rKHs3LJru0q52eLUia+oNavnHBIAgAE3H4A=
-Date: Thu, 28 Oct 2021 12:09:23 +0000
-Message-ID: <d63c6e0b-8aa3-9ba3-893c-5e464638a8db@epam.com>
-References: <20211027082533.1406015-1-andr2000@gmail.com>
- <cb7e9ef7-476e-93c3-d3c9-9a9ebc61003d@xen.org>
-In-Reply-To: <cb7e9ef7-476e-93c3-d3c9-9a9ebc61003d@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e4e01999-7b10-42dc-a910-08d99a0bc7c5
-x-ms-traffictypediagnostic: AM0PR03MB4434:
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-microsoft-antispam-prvs: 
- <AM0PR03MB44340AC15CB72811E66275B9E7869@AM0PR03MB4434.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- nJoZ+iUXipOTgqbbhV0PTGYoD1OEnsv1VwbqqWtH8jFjV4WvUHlJBH1w+bZdhsTXHH1jDWr8EF8pnIkV1wfUbDtj/+Ut9Et9D92JUWIx8Dj9H3IvIewuI/++2BmoHQElb/JQYlRM2SzOogFWunfKH1RY5RJ/jEMHbRAx+iv2U1dRvpzDVVfjnQPu65cjTy6dCcHpcrsXKnDfeIh0rwrK/E4TWL46Z7cDSepltHKM70K8Kc5g7CtYERtM/U2IA3IupSn5t34ni3zsbWW574AeIoF+ey5+epA2M5RiPPSF3Rk+Gr++0QmpL8vuKSghabpo9iZ1x00AdP94mLU92eMBI9rE7WSnpYPxaqkENNhKjLrCKfqLsX++pr4gvgyoZAzgHqwax7zMKLP+XJmx3lo70dWzfHfHiBHYF5gKiU957rPv7gjyAWlwfSfDFsICqD1z8FN0ZZj+nIUKd7JRj+CeKqP+EaCn4/EZ7IdAwBsiopxiprWKWE7KKU1R6N1r4h1krkz0Z1KIQ8NQTHH9CKIRzJK6YbKzkThWnizO0xDswxG8ZQE63NtLguOAv8IWV28aiBAOdKQgJX7nJXptVtjpAX5bTsj6v9w0VP2tr6sjJfxc6hL1sfduxD8WAQ0M3sx/PrNLTdk29JTRpu1msHqVha7EzflHGPCOkzUqOAlBdoWnY1/gqIh6rnDVRf0isYgEJdsuIttmCqmQEfaY3SyBOorxtnjc8rg4M4AsFtGZ0LWJW/trK4RIJ5SoeAASVbrF
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(76116006)(66556008)(66476007)(66446008)(83380400001)(8676002)(26005)(64756008)(91956017)(53546011)(4326008)(36756003)(186003)(107886003)(31686004)(66946007)(508600001)(6486002)(2616005)(54906003)(110136005)(6506007)(6512007)(2906002)(316002)(38100700002)(5660300002)(8936002)(71200400001)(31696002)(38070700005)(86362001)(122000001)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?UXFteGtxQ0swTk9TUmU0UlowYWZCQ2RGWmNKSDAvclhoemI4ME1MdXlkVk4y?=
- =?utf-8?B?NVZzbExqWEhBcWVEYlRoeXgyOFVuRHNRbHViNHpaZVI0c0lkRHRCRG1zdkxq?=
- =?utf-8?B?SnMvaUdsaHdKWXYrMCtzTXZ2VGJLVWF5N0NGN1plUlI0WEpvZHN2aUorRTZJ?=
- =?utf-8?B?Mm5xOTFXVEszTTE1cVFia2hkT1FSeVFZNXFGcUpIY1Q5VVQ1QUhwdG5GdVBG?=
- =?utf-8?B?aUNJYU43SmxEOW1VK1d5NXRKQ3psbmh2ZFRDTnBRY2hoN1R1WlBiRGcxYlBi?=
- =?utf-8?B?dDc2SStBaldnTlhMUlpwcjNSdlFZUlpkdVFUS1FCVXNaM1FuTVlWVXdTdDdj?=
- =?utf-8?B?NUxNYVlmbDlhamhLMnJMNWE3RWhWNU15dGM3UnFhYXN1WkJMMWVVRGtteFVS?=
- =?utf-8?B?VWkwOWV3WFpGMjRkUXdCOG5sOEtRU2JWNlYxa1Btczg1eXlPeWZVT2cwaUZV?=
- =?utf-8?B?amhVWmx5Uk9QMVlkTVU1MTBnaHF4aEJISWk1OW1OTXhNNThkbjBEY2g1Ukh1?=
- =?utf-8?B?QU93NnJjb1ROeDFXMkdzNnRnd245RTgzODdubWF0MGwzdkt3c2Q1aEQvRjdk?=
- =?utf-8?B?MFpjOXNTY0VMeURZelBDMGM2Zlo0VEtGUlBVRUgrOHNwTmsrcmlnTGRKMVQ2?=
- =?utf-8?B?M084MTdmSndSUzFwTGEyMk9haE9JaG5kN3hPLzBCTk5HUkVzeFRBWnQwTlBv?=
- =?utf-8?B?aDdFYlhESTNQMldkUGtSWFR5dDN4WGxiaVUrRmkzdWlQOHluQ0w5aEkxc21l?=
- =?utf-8?B?dXZBWTAvSHlwMnVGbEFibEFQRDFuUkVlZ3VFQW1JL2U5SkozaGo5ai8vZkU0?=
- =?utf-8?B?NXhoNGxqR0RhOE1WN0xtL0R3Z3VDZmROektINk9nL2dKT3hLSjMrellVS0kz?=
- =?utf-8?B?OWhJT0laNTB2MDMxcnpDRW9MMFIwUkV5bnZrby9QM1JZb0pnQ3dWaTZydzlW?=
- =?utf-8?B?amxXTzJFY1RTN0hGcFNUVFJ6bVhmSngxMEY5a0hrM29ncERxelpweWptUkpj?=
- =?utf-8?B?MmVLUGszSExqM21mdElLM21hczhYelVWYlgzNTZvVWFXQkpMNVJkcjl5aW1X?=
- =?utf-8?B?OFNFdUdVd2I4QTJ3eUsxVHdPYmdUc2ZEQitrdWFiZkZ5TmlFZGtNUkJQM013?=
- =?utf-8?B?YVA5cVZSakYvVVZGNHNuc0N6Uk5ZWVRJMzJ1cmhhMGwxVDdkallON2trNmUx?=
- =?utf-8?B?Y2ZVTFpvR1IrcHd3Wk9sSVJCVTZpcXZkNm9yaGg5QWZsMmEzemF4aGMwTmN3?=
- =?utf-8?B?V3ptUTRxTVd0dnc3Ry9jRDNLeTFFMWVtRC9xd2hQZjMwVzVmMCs2ZmNPcGl3?=
- =?utf-8?B?RDNUTEpNSFhhOW5CODREWm1MSU5sYm1xUlR3TTZ2MFE3SzMxZHMrSS9aeHZz?=
- =?utf-8?B?ZlRhZTVHK3NPb29NWjZmRlBtbWlxUmRvaW40NXJZdVZHclg3WU5pdTZhVlZ2?=
- =?utf-8?B?UThQOVRDZnpTNEo1ZWQrMzdvQjZ6aW1jVlJOTFNuVGpxb2xsc2ovWDVQVDc0?=
- =?utf-8?B?YjVpTGJaL3lZN1NTMk8yRWhCOGZraHlYeFQwUEVkT2srVXZPcjZOdEZibFQz?=
- =?utf-8?B?YlN0VnFUcWhhOStIenpJSjhqUnFPdVdPckpvWEtNOFNmeENNdlJRK0JNTWJR?=
- =?utf-8?B?eHMvcmxETDBscnRWN1A1RWt4aUJ6c1pmcGQwTXRzbW15SHIwYW82VFAxb3lU?=
- =?utf-8?B?Rnk3bVg3OWVTTWVIZ29pT0hwMkNSWnVXaytzb1RsYlhNQ3oxaHF0WmpidmVn?=
- =?utf-8?B?WkdDa0FlMEN3VVBlcXhJaTQySnUrSkVqdDJmb2pveFdTdWpEdkcxbXN3TTZH?=
- =?utf-8?B?aVBLV3pYbnZvQ04wdnRJdEdDYTVZc3dzRkYwNzBJMlJqV0ZBeUZJaHl5cDBh?=
- =?utf-8?B?RW5OdmJ2MGVPSTdEditTbWZVbTVZekpFcGI3ZmxhTjJOakRiclRhQS9zbmpV?=
- =?utf-8?B?clF6NVhZdnV1Ui9HM0FwaUFsUzBaU1luekdFTXpXSW9FNXBZKzl3dG5pUEhC?=
- =?utf-8?B?NEs2c2xPZmZBdHJFUW9laEcyYjhJWTNuR3NEWklzQzZaeUtjemxpVzk4bFFo?=
- =?utf-8?B?eVQxQ3RjRmsxeWxaamF5RnN2UFBRZHV4dDdXeEd5NGs2dm5kZ1cyby8yZmJt?=
- =?utf-8?B?ekZ1RzRVQXQvdW44dDRSK3dMYWU3OGdGQmRORWZDVDBCcktjek1pbTlsRGJO?=
- =?utf-8?B?a0o1Z0h2MWFuYnQ4dnhwazg5dlo2S3V1ZERRTmtFazBOWFNqd1NNcDRSRjVI?=
- =?utf-8?B?NkxiU1B1K2lsRFZqanUvMUg1RUw1TUM1cElJSFIyZjNwZVZ5Y3Y4VFlBbnUv?=
- =?utf-8?B?TzVnTG1nWmxQbk8wWUlvdFJQT0lpZG9HOGZlM0Z3U211c0x4bjc1QT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <E4A4052A0D6E604FBDCA5F2581DD2407@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 109b19dc-37e8-11ec-849e-12813bfff9fa
+Subject: Re: [patch-4.16] arm/smmuv1,v2: Protect smmu master list with a lock
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, bertrand.marquis@arm.com,
+ Ian Jackson <iwj@xenproject.org>
+References: <20211026122903.15042-1-michal.orzel@arm.com>
+ <e5632a4e-db98-41b4-1045-2b3532c098fa@xen.org>
+ <70c30a6c-b779-805e-079a-41bb484894b9@xen.org>
+ <cb452c0c-ccde-7798-c403-f972b48a2c46@arm.com>
+ <01545115-e82e-2a9d-a8e4-da9676080c0f@xen.org>
+From: Michal Orzel <michal.orzel@arm.com>
+Message-ID: <cd1d7a11-6d08-ff3b-d1ca-b495a1d013f4@arm.com>
+Date: Thu, 28 Oct 2021 14:10:15 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e4e01999-7b10-42dc-a910-08d99a0bc7c5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Oct 2021 12:09:23.5438
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: yY1GJSG0Ew8w8qP7JArV2NVXh4Yan3VEXdswp+gKx0AvZxIObLufBIqf8kUhjqT9v5Lfq3NPGQ4GZmYXcaF7gs8pfu5c38LoCV4hPU1QAlr9sP3HvR5aCtbxrZVGwbZb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB4434
-X-Proofpoint-GUID: v0x8s0WpRO10k3QVVp93vu4-rABen6tS
-X-Proofpoint-ORIG-GUID: v0x8s0WpRO10k3QVVp93vu4-rABen6tS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-10-28_01,2021-10-26_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 phishscore=0 spamscore=0
- clxscore=1015 impostorscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 mlxscore=0 malwarescore=0 adultscore=0
- mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2110150000 definitions=main-2110280066
+In-Reply-To: <01545115-e82e-2a9d-a8e4-da9676080c0f@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 
-SGksIEp1bGllbiENCg0KT24gMjcuMTAuMjEgMjA6MzUsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4g
-SGkgT2xla3NhbmRyLA0KPg0KPiBPbiAyNy8xMC8yMDIxIDA5OjI1LCBPbGVrc2FuZHIgQW5kcnVz
-aGNoZW5rbyB3cm90ZToNCj4+IEZyb206IE9sZWtzYW5kciBBbmRydXNoY2hlbmtvIDxvbGVrc2Fu
-ZHJfYW5kcnVzaGNoZW5rb0BlcGFtLmNvbT4NCj4+DQo+PiBXaGlsZSBpbiB2UENJIE1NSU8gdHJh
-cCBoYW5kbGVycyBmb3IgdGhlIGd1ZXN0IFBDSSBob3N0IGJyaWRnZSBpdCBpcyBub3QNCj4+IGVu
-b3VnaCBmb3IgU0JERiB0cmFuc2xhdGlvbiB0byBzaW1wbHkgY2FsbCBWUENJX0VDQU1fQkRGKGlu
-Zm8tPmdwYSkgYXMNCj4+IHRoZSBiYXNlIGFkZHJlc3MgbWF5IG5vdCBiZSBhbGlnbmVkIGluIHRo
-ZSB3YXkgdGhhdCB0aGUgdHJhbnNsYXRpb24NCj4+IGFsd2F5cyB3b3JrLiBJZiBub3QgYWRqdXN0
-ZWQgd2l0aCByZXNwZWN0IHRvIHRoZSBiYXNlIGFkZHJlc3MgaXQgbWF5IG5vdCBiZQ0KPj4gYWJs
-ZSB0byBwcm9wZXJseSBjb252ZXJ0IFNCREYgYW5kIGNyYXNoZXM6DQo+Pg0KPj4gKFhFTikgdnBj
-aV9tbWlvX3JlYWQgMDAwMDo2NToxYS4wIHJlZyA4YmMgZ3BhIGU2NWQwOGJjDQo+DQo+IEkgY2Fu
-J3QgZmluZCBhIHByaW50aygpIHRoYXQgbWF5IG91dHB1dCB0aGlzIG1lc3NhZ2UuIFdoZXJlIGRv
-ZXMgdGhpcyBjb21lcyBmcm9tPw0KVGhhdCB3YXMgYSBkZWJ1ZyBwcmludC4gSSBzaG91bGRuJ3Qg
-aGF2ZSB1c2VkIHRoYXQgaW4gdGhlIHBhdGNoIGRlc2NyaXB0aW9uLCBidXQNCnByb2JhYmx5IGFm
-dGVyICItLS0iIHRvIGJldHRlciBleHBsYWluIHdoYXQncyBoYXBwZW5pbmcNCj4NCj4gQW55d2F5
-LCBJSVVDIHRoZSBndWVzdCBwaHlzaWNhbCBhZGRyZXNzIGlzIDB4ZTY1ZDA4YmMgd2hpY2gsIGlm
-IEkgYW0gbm90IG1pc3Rha2VuLCBkb2Vzbid0IGJlbG9uZyB0byB0aGUgcmFuZ2UgYWR2ZXJ0aXNl
-ZCBmb3IgR1VFU1RfVlBDSV9FQ0FNLg0KVGhpcyBpcyBmcm9tIGRvbTAgSSBhbSB3b3JraW5nIG9u
-IG5vdy4NCj4NCj4gSU1ITywgdGhlIHN0YWNrIHRyYWNlIHNob3VsZCBjb21lIGZyb20gdXNwdHJl
-YW0gWGVuIG9yIG5lZWQgc29tZSBpbmZvcm1hdGlvbiB0byBleHBsYWluIGhvdyB0aGlzIHdhcyBy
-ZXByb2R1Y2VkLg0KPg0KPj4gKFhFTikgRGF0YSBBYm9ydCBUcmFwLiBTeW5kcm9tZT0weDYNCj4+
-IChYRU4pIFdhbGtpbmcgSHlwZXJ2aXNvciBWQSAweDQ2N2EyOGJjIG9uIENQVTAgdmlhIFRUQlIg
-MHgwMDAwMDAwMDQ4MWQ1MDAwDQo+IEkgY2FuIHVuZGVyc3RuYWQgdGhhdCBpZiB3ZSBkb24ndCBz
-dWJzdHJhY3QgR1VFU1RfVlBDSV9FQ0FNLCB3ZSB3b3VsZCAoaW4gdGhlb3J5KSBub3QgZ2V0IHRo
-ZSBjb3JyZWN0IEJERi4gQnV0Li4uIEkgZG9uJ3QgdW5kZXJzdGFuZCBob3cgdGhpcyB3b3VsZCBy
-ZXN1bHQgdG8gYSBkYXRhIGFib3J0IGluIHRoZSBoeXBlcnZpc29yLg0KPg0KPiBJbiBmYWN0LCBJ
-IHRoaW5rIHRoZSB2UENJIGNvZGUgc2hvdWxkIGJlIHJlc2lsaWVudCBlbm91Z2ggdG8gbm90IGNy
-YXNoIGlmIHdlIHBhc3MgdGhlIHdyb25nIEJERi4NCldlbGwsIHRoZXJlIGlzIG5vICg/KSBlYXN5
-IHdheSB0byB2YWxpZGF0ZSBTQkRGLiBBbmQgdGhpcyBjb3VsZCBiZSBhIHByb2JsZW0gaWYgd2Ug
-aGF2ZSBhIG1pc2JlaGF2aW5nDQpndWVzdCB3aGljaCBtYXkgZm9yY2UgWGVuIHRvIGFjY2VzcyB0
-aGUgbWVtb3J5IGJleW9uZCB0aGF0IG9mIFBDSSBob3N0IGJyaWRnZQ0KPg0KPiBXaGVuIHRoZXJl
-IGlzIGEgZGF0YSBhYm9ydCBpbiBYZW4sIHlvdSBzaG91bGQgZ2V0IGEgc3RhY2sgdHJhY2UgZnJv
-bSB3aGVyZSB0aGlzIGNvbWVzIGZyb20uIENhbiB5b3UgcGFzdGUgaXQgaGVyZT8NCihYRU4pIERh
-dGEgQWJvcnQgVHJhcC4gU3luZHJvbWU9MHg2DQooWEVOKSBXYWxraW5nIEh5cGVydmlzb3IgVkEg
-MHg0NjdhMjhiYyBvbiBDUFUwIHZpYSBUVEJSIDB4MDAwMDAwMDA0ODFkNTAwMA0KKFhFTikgMFRI
-WzB4MF0gPSAweDAwMDAwMDAwNDgxZDRmN2YNCihYRU4pIDFTVFsweDFdID0gMHgwMDAwMDAwMDQ4
-MWQyZjdmDQooWEVOKSAyTkRbMHgzM10gPSAweDAwMDAwMDAwMDAwMDAwMDANCihYRU4pIENQVTA6
-IFVuZXhwZWN0ZWQgVHJhcDogRGF0YSBBYm9ydA0KKFhFTikgLS0tLVsgWGVuLTQuMTYtdW5zdGFi
-bGXCoCBhcm02NMKgIGRlYnVnPXnCoCBOb3QgdGFpbnRlZCBdLS0tLQ0KKFhFTikgQ1BVOsKgwqDC
-oCAwDQooWEVOKSBQQzrCoMKgwqDCoCAwMDAwMDAwMDAwMjZkM2Q0IHBjaV9nZW5lcmljX2NvbmZp
-Z19yZWFkKzB4ODgvMHg5Yw0KKFhFTikgTFI6wqDCoMKgwqAgMDAwMDAwMDAwMDI2ZDM2Yw0KKFhF
-TikgU1A6wqDCoMKgwqAgMDAwMDgwMDA3ZmY5N2MwMA0KKFhFTikgQ1BTUjrCoMKgIDAwMDAwMDAw
-NjA0MDAyNDkgTU9ERTo2NC1iaXQgRUwyaCAoSHlwZXJ2aXNvciwgaGFuZGxlcikNCihYRU4pwqDC
-oMKgwqDCoCBYMDogMDAwMDAwMDA0NjdhMjhiY8KgIFgxOiAwMDAwMDAwMDA2NWQwOGJjwqAgWDI6
-IDAwMDAwMDAwMDAwMDA4YmMNCihYRU4pwqDCoMKgwqDCoCBYMzogMDAwMDAwMDAwMDAwMDAwY8Kg
-IFg0OiAwMDAwODAwMDdmZmM2ZmQwwqAgWDU6IDAwMDAwMDAwMDAwMDAwMDANCihYRU4pwqDCoMKg
-wqDCoCBYNjogMDAwMDAwMDAwMDAwMDAxNMKgIFg3OiBmZmZmODAwMDExYTU4MDAwwqAgWDg6IGZm
-ZmYwMDAwMjI1YTAzODANCihYRU4pwqDCoMKgwqDCoCBYOTogMDAwMDAwMDAwMDAwMDAwMCBYMTA6
-IDAxMDEwMTAxMDEwMTAxMDEgWDExOiAwMDAwMDAwMDAwMDAwMDI4DQooWEVOKcKgwqDCoMKgIFgx
-MjogMDEwMTAxMDEwMTAxMDEwMSBYMTM6IDAwMDAwMDAwMDAwMDAwMjAgWDE0OiBmZmZmZmZmZmZm
-ZmZmZmZmDQooWEVOKcKgwqDCoMKgIFgxNTogMDAwMDAwMDAwMDAwMDAwMSBYMTY6IGZmZmY4MDAw
-MTBkYTY3MDggWDE3OiAwMDAwMDAwMDAwMDAwMDIwDQooWEVOKcKgwqDCoMKgIFgxODogMDAwMDAw
-MDAwMDAwMDAwMiBYMTk6IDAwMDAwMDAwMDAwMDAwMDQgWDIwOiAwMDAwODAwMDdmZjk3YzVjDQoo
-WEVOKcKgwqDCoMKgIFgyMTogMDAwMDAwMDAwMDAwMDhiYyBYMjI6IDAwMDAwMDAwMDAwMDA4YmMg
-WDIzOiAwMDAwMDAwMDAwMDAwMDA0DQooWEVOKcKgwqDCoMKgIFgyNDogMDAwMDAwMDAwMDAwMDAw
-MCBYMjU6IDAwMDAwMDAwMDAwMDA4YmMgWDI2OiAwMDAwMDAwMDAwMDA2NWQwDQooWEVOKcKgwqDC
-oMKgIFgyNzogMDAwMDgwMDA3ZmZiOTAxMCBYMjg6IDAwMDAwMDAwMDAwMDAwMDDCoCBGUDogMDAw
-MDgwMDA3ZmY5N2MwMA0KKFhFTikNCihYRU4pwqDCoCBWVENSX0VMMjogMDAwMDAwMDA4MDBhMzU1
-OA0KKFhFTinCoCBWVFRCUl9FTDI6IDAwMDEwMDAwYmZmYmEwMDANCihYRU4pDQooWEVOKcKgIFND
-VExSX0VMMjogMDAwMDAwMDAzMGNkMTgzZA0KKFhFTinCoMKgwqAgSENSX0VMMjogMDAwMDAwMDA4
-MDdjNjYzZg0KKFhFTinCoCBUVEJSMF9FTDI6IDAwMDAwMDAwNDgxZDUwMDANCihYRU4pDQooWEVO
-KcKgwqDCoCBFU1JfRUwyOiAwMDAwMDAwMDk2MDAwMDA2DQooWEVOKcKgIEhQRkFSX0VMMjogMDAw
-MDAwMDAwMGU2NWQwMA0KKFhFTinCoMKgwqAgRkFSX0VMMjogMDAwMDAwMDA0NjdhMjhiYw0KKFhF
-TikNCltzbmlwXQ0KKFhFTikgWGVuIGNhbGwgdHJhY2U6DQooWEVOKcKgwqDCoCBbPDAwMDAwMDAw
-MDAyNmQzZDQ+XSBwY2lfZ2VuZXJpY19jb25maWdfcmVhZCsweDg4LzB4OWMgKFBDKQ0KKFhFTinC
-oMKgwqAgWzwwMDAwMDAwMDAwMjZkMzZjPl0gcGNpX2dlbmVyaWNfY29uZmlnX3JlYWQrMHgyMC8w
-eDljIChMUikNCihYRU4pwqDCoMKgIFs8MDAwMDAwMDAwMDI2ZDJjOD5dIHBjaS1hY2Nlc3MuYyNw
-Y2lfY29uZmlnX3JlYWQrMHg2MC8weDg0DQooWEVOKcKgwqDCoCBbPDAwMDAwMDAwMDAyNmQ0YTg+
-XSBwY2lfY29uZl9yZWFkMzIrMHgxMC8weDE4DQooWEVOKcKgwqDCoCBbPDAwMDAwMDAwMDAyNGRj
-Zjg+XSB2cGNpLmMjdnBjaV9yZWFkX2h3KzB4NDgvMHhiOA0KKFhFTinCoMKgwqAgWzwwMDAwMDAw
-MDAwMjRlM2U0Pl0gdnBjaV9yZWFkKzB4YWMvMHgyNGMNCihYRU4pwqDCoMKgIFs8MDAwMDAwMDAw
-MDI0ZTkzND5dIHZwY2lfZWNhbV9yZWFkKzB4NzgvMHhhOA0KKFhFTinCoMKgwqAgWzwwMDAwMDAw
-MDAwMjZlMzY4Pl0gdnBjaS5jI3ZwY2lfbW1pb19yZWFkKzB4NDQvMHg3Yw0KKFhFTinCoMKgwqAg
-WzwwMDAwMDAwMDAwMjc1MDU0Pl0gdHJ5X2hhbmRsZV9tbWlvKzB4MWVjLzB4MjY0DQooWEVOKcKg
-wqDCoCBbPDAwMDAwMDAwMDAyN2VhNTA+XSB0cmFwcy5jI2RvX3RyYXBfc3RhZ2UyX2Fib3J0X2d1
-ZXN0KzB4MThjLzB4MmQ4DQooWEVOKcKgwqDCoCBbPDAwMDAwMDAwMDAyN2YwODg+XSBkb190cmFw
-X2d1ZXN0X3N5bmMrMHhmMC8weDYxOA0KKFhFTinCoMKgwqAgWzwwMDAwMDAwMDAwMjY5YzU4Pl0g
-ZW50cnkubyNndWVzdF9zeW5jX3Nsb3dwYXRoKzB4YTQvMHhkNA0KKFhFTikNCihYRU4pDQooWEVO
-KSAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqDQooWEVOKSBQYW5pYyBv
-biBDUFUgMDoNCihYRU4pIENQVTA6IFVuZXhwZWN0ZWQgVHJhcDogRGF0YSBBYm9ydA0KKFhFTikg
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKg0KDQo+DQo+Pg0KPj4gRml4
-IHRoaXMgYnkgYWRqdXN0aW5nIHRoZSBncGEgd2l0aCByZXNwZWN0IHRvIHRoZSBob3N0IGJyaWRn
-ZSBiYXNlIGFkZHJlc3MNCj4+IGluIGEgd2F5IGFzIGl0IGlzIGRvbmUgZm9yIHg4Ni4NCj4+DQo+
-PiBGaXhlczogZDU5MTY4ZGMwNWE1ICgieGVuL2FybTogRW5hYmxlIHRoZSBleGlzdGluZyB4ODYg
-dmlydHVhbCBQQ0kgc3VwcG9ydCBmb3IgQVJNIikNCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBPbGVr
-c2FuZHIgQW5kcnVzaGNoZW5rbyA8b2xla3NhbmRyX2FuZHJ1c2hjaGVua29AZXBhbS5jb20+DQo+
-PiAtLS0NCj4+IMKgIHhlbi9hcmNoL2FybS92cGNpLmMgfCA0ICsrLS0NCj4+IMKgIDEgZmlsZSBj
-aGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdp
-dCBhL3hlbi9hcmNoL2FybS92cGNpLmMgYi94ZW4vYXJjaC9hcm0vdnBjaS5jDQo+PiBpbmRleCA4
-ZjQwYTBkZWM2ZDIuLjIzZjQ1Mzg2ZjRiMyAxMDA2NDQNCj4+IC0tLSBhL3hlbi9hcmNoL2FybS92
-cGNpLmMNCj4+ICsrKyBiL3hlbi9hcmNoL2FybS92cGNpLmMNCj4+IEBAIC0yNCw3ICsyNCw3IEBA
-IHN0YXRpYyBpbnQgdnBjaV9tbWlvX3JlYWQoc3RydWN0IHZjcHUgKnYsIG1taW9faW5mb190ICpp
-bmZvLA0KPj4gwqDCoMKgwqDCoCB1bnNpZ25lZCBsb25nIGRhdGE7DQo+PiDCoCDCoMKgwqDCoMKg
-IC8qIFdlIGlnbm9yZSBzZWdtZW50IHBhcnQgYW5kIGFsd2F5cyBoYW5kbGUgc2VnbWVudCAwICov
-DQo+PiAtwqDCoMKgIHNiZGYuc2JkZiA9IFZQQ0lfRUNBTV9CREYoaW5mby0+Z3BhKTsNCj4+ICvC
-oMKgwqAgc2JkZi5zYmRmID0gVlBDSV9FQ0FNX0JERihpbmZvLT5ncGEgLSBHVUVTVF9WUENJX0VD
-QU1fQkFTRSk7DQo+DQo+IExvb2tpbmcgYXQgdGhlIHJlc3Qgb2YgdGhlIHJlc3QsIGl0IHNlZW1z
-IHRoYXQNCj4gwqAxKSB0aGUgaXNzdWUgaXMgbGF0ZW50IGFzIHRoZSBiaXRzIDAtMjcgYXJlIGNs
-ZWFyDQo+IMKgMikgdGhpcyB3aWxsIG5lZWQgdG8gYmUgbW9kaWZpZWQgdG8gdGFrZSBpbnRvIGFj
-Y291bnQgZG9tMC4NCj4NCj4gU28gSSB3b3VsZCBwcmVmZXIgaWYgdGhlIGJhc2UgYWRkcmVzcyBp
-cyBwYXNzZWQgZGlmZmVyZW50bHkgKG1heWJlIGluIHByaXY/KSBmcm9tIHRoZSBzdGFydC4gVGhp
-cyB3aWxsIGF2b2lkIGV4dHJhIG1vZGlmaWNhdGlvbiB0aGF0IHlvdSBhbHJlYWR5IHBsYW4gdG8g
-aGF2ZSBpbiBhIGZvbGxvdy11cCBzZXJpZXMuDQpJIHdhcyB0aGlua2luZyBhYm91dCB0aGUgc2Ft
-ZSwgYnV0IHRoZSBmdXR1cmUgY29kZSB3aWxsIHVzZSBwcml2IGZvciBvdGhlciBwdXJwb3NlOg0K
-DQpzdGF0aWMgaW50IHZwY2lfbW1pb19yZWFkKHN0cnVjdCB2Y3B1ICp2LCBtbWlvX2luZm9fdCAq
-aW5mbywNCiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCByZWdpc3Rlcl90ICpyLCB2b2lkICpwKQ0Kew0KIMKgwqDCoCBzdHJ1Y3QgcGNpX2hvc3RfYnJp
-ZGdlICpicmlkZ2UgPSBwOw0KIMKgwqDCoCBwY2lfc2JkZl90IHNiZGY7DQogwqDCoMKgIC8qIGRh
-dGEgaXMgbmVlZGVkIHRvIHByZXZlbnQgYSBwb2ludGVyIGNhc3Qgb24gMzJiaXQgKi8NCiDCoMKg
-wqAgdW5zaWduZWQgbG9uZyBkYXRhOw0KDQogwqDCoMKgIGlmICggYnJpZGdlICkNCiDCoMKgwqAg
-ew0KIMKgwqDCoMKgwqDCoMKgIHNiZGYuc2JkZiA9IFZQQ0lfRUNBTV9CREYoaW5mby0+Z3BhIC0g
-YnJpZGdlLT5jZmctPnBoeXNfYWRkcik7DQogwqDCoMKgwqDCoMKgwqAgc2JkZi5zZWcgPSBicmlk
-Z2UtPnNlZ21lbnQ7DQogwqDCoMKgIH0NCiDCoMKgwqAgZWxzZQ0KIMKgwqDCoMKgwqDCoMKgIHNi
-ZGYuc2JkZiA9IFZQQ0lfRUNBTV9CREYoaW5mby0+Z3BhIC0gR1VFU1RfVlBDSV9FQ0FNX0JBU0Up
-Ow0KDQo+DQo+PiDCoCDCoMKgwqDCoMKgIGlmICggdnBjaV9lY2FtX3JlYWQoc2JkZiwgRUNBTV9S
-RUdfT0ZGU0VUKGluZm8tPmdwYSksDQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoCAxVSA8PCBpbmZvLT5kYWJ0LnNpemUsICZkYXRhKSApDQo+PiBA
-QCAtNDQsNyArNDQsNyBAQCBzdGF0aWMgaW50IHZwY2lfbW1pb193cml0ZShzdHJ1Y3QgdmNwdSAq
-diwgbW1pb19pbmZvX3QgKmluZm8sDQo+PiDCoMKgwqDCoMKgIHBjaV9zYmRmX3Qgc2JkZjsNCj4+
-IMKgIMKgwqDCoMKgwqAgLyogV2UgaWdub3JlIHNlZ21lbnQgcGFydCBhbmQgYWx3YXlzIGhhbmRs
-ZSBzZWdtZW50IDAgKi8NCj4+IC3CoMKgwqAgc2JkZi5zYmRmID0gVlBDSV9FQ0FNX0JERihpbmZv
-LT5ncGEpOw0KPj4gK8KgwqDCoCBzYmRmLnNiZGYgPSBWUENJX0VDQU1fQkRGKGluZm8tPmdwYSAt
-IEdVRVNUX1ZQQ0lfRUNBTV9CQVNFKTsNCj4+IMKgIMKgwqDCoMKgwqAgcmV0dXJuIHZwY2lfZWNh
-bV93cml0ZShzYmRmLCBFQ0FNX1JFR19PRkZTRVQoaW5mby0+Z3BhKSwNCj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDFVIDw8IGluZm8t
-PmRhYnQuc2l6ZSwgcik7DQo+Pg0KPg0KPiBDaGVlcnMsDQo+DQpUaGFuayB5b3UsDQpPbGVrc2Fu
-ZHI=
+Hi Julien,
+
+On 27.10.2021 19:02, Julien Grall wrote:
+> 
+> 
+> On 27/10/2021 11:41, Michal Orzel wrote:
+>> Hi Julien,
+> 
+> Hi Michal,
+> 
+>> On 26.10.2021 18:56, Julien Grall wrote:
+>>> Hi,
+>>>
+>>> On 26/10/2021 17:28, Julien Grall wrote:
+>>>> On 26/10/2021 13:29, Michal Orzel wrote:
+>>>>> If a device is added to SMMUv1/v2 from DT and PCI
+>>>>> at the same time, there is a concurrent access
+>>>>> to a smmu master list. This could lead to a
+>>>>> scenario where one is looking into a list that
+>>>>> is being modified at the same time. Add a lock
+>>>>> to prevent this issue.
+>>>>
+>>>> Did you intend to say "Hold" rather than "Add"?
+>>>>
+>> Yes, this is what I meant. I will change it.
+>>
+>>>>>
+>>>>> Reuse the existing spinlock arm_smmu_devices_lock
+>>>>> as it is already protecting find_smmu_master.
+>>>>>
+>>>>> ipmmu-smmu and smmuv3 are not impacted by this
+>>>>> issue as there is no access or modification of
+>>>>> a global resource during add_device.
+>>>>>
+>>>>> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+>>>>> ---
+>>>>> This patch aims for 4.16 release.
+>>>>> Benefits:
+>>>>> Remove a bug that could lead to a corruption of the
+>>>>> smmu master list, which would be very hard to debug.
+>>>>
+>>>>   From my understanding, this corruption would only happen with CONFIG_HAS_PCI. At the moment, this is a experimental feature as it is not fully complete.
+>>>
+>>> Actually, digging through the code, I noticed that iommu_add_device() assume that it can only be called with platform/DT. Thankfully, AFAICT, the function would return -ENXIO because the fwspec would not be allocated for PCI device.
+>>>
+>>> So was this patch tested with additional patch on top?
+>>>
+>> The purpose of this patch is to fix the issue that is present and which you thankfully noticed.
+>> There is still a lot of patches to be added that aim to support PCI passthrough.
+>> The complete PCI series is tested with SMMU and it works.
+>> But there is no chance to test this patch standalone as iommu_add_device is not in the correct form for PCI as of now.
+> 
+> Ok. I would suggest to say this is a latent bug so it make clear that the patch is more for hardening at the moment.
+> 
+Ok I will mention it in the commit msg.
+
+>>>>>    xen/drivers/passthrough/arm/smmu.c | 25 +++++++++++++++++++------
+>>>>>    1 file changed, 19 insertions(+), 6 deletions(-)
+>>>>>
+>>>>> diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
+>>>>> index c9dfc4caa0..be62a66a28 100644
+>>>>> --- a/xen/drivers/passthrough/arm/smmu.c
+>>>>> +++ b/xen/drivers/passthrough/arm/smmu.c
+>>>>> @@ -820,21 +820,25 @@ static int arm_smmu_dt_add_device_legacy(struct arm_smmu_device *smmu,
+>>>>>                         struct device *dev,
+>>>>>                         struct iommu_fwspec *fwspec)
+>>>>>    {
+>>>>> -    int i;
+>>>>> +    int i, ret;
+>>>>>        struct arm_smmu_master *master;
+>>>>>        struct device_node *dev_node = dev_get_dev_node(dev);
+>>>>> +    spin_lock(&arm_smmu_devices_lock);
+>>>>>        master = find_smmu_master(smmu, dev_node);
+>>>>>        if (master) {
+>>>>>            dev_err(dev,
+>>>>>                "rejecting multiple registrations for master device %s\n",
+>>>>>                dev_node->name);
+>>>>> -        return -EBUSY;
+>>>>> +        ret = -EBUSY;
+>>>>> +        goto out_unlock;
+>>>>>        }
+>>>>>        master = devm_kzalloc(dev, sizeof(*master), GFP_KERNEL);
+>>>>> -    if (!master)
+>>>>> -        return -ENOMEM;
+>>>>> +    if (!master) {
+>>>>> +        ret = -ENOMEM;
+>>>>> +        goto out_unlock;
+>>>>> +    }
+>>>>>        master->of_node = dev_node;
+>>>>>        /* Xen: Let Xen know that the device is protected by an SMMU */
+>>>>> @@ -846,11 +850,17 @@ static int arm_smmu_dt_add_device_legacy(struct arm_smmu_device *smmu,
+>>>>>                dev_err(dev,
+>>>>>                    "stream ID for master device %s greater than maximum allowed (%d)\n",
+>>>>>                    dev_node->name, smmu->num_mapping_groups);
+>>>>> -            return -ERANGE;
+>>>>> +            ret = -ERANGE;
+>>>>> +            goto out_unlock;
+>>>>>            }
+>>>>>            master->cfg.smendx[i] = INVALID_SMENDX;
+>>>>>        }
+>>>>> -    return insert_smmu_master(smmu, master);
+>>>>> +
+>>>>> +    ret = insert_smmu_master(smmu, master);
+>>>>> +
+>>>>> +out_unlock:
+>>>>> +    spin_unlock(&arm_smmu_devices_lock);
+>>>>
+>>>> Please add a newline here.
+>>>>
+>> Ok.
+>>
+>>>>> +    return ret;
+>>>>>    }
+>>>>>    static int register_smmu_master(struct arm_smmu_device *smmu,
+>>>>> @@ -2056,7 +2066,10 @@ static int arm_smmu_add_device(struct device *dev)
+>>>>>        } else {
+>>>>>            struct arm_smmu_master *master;
+>>>>> +        spin_lock(&arm_smmu_devices_lock);
+>>>>>            master = find_smmu_master(smmu, dev->of_node);
+>>>>> +        spin_unlock(&arm_smmu_devices_lock);
+>>>>
+>>>> At the moment, unlocking here is fine because we don't remove the device. However, there are a series to supporting removing a device (see [1]). So I think it would be preferable to unlock after the last use of 'cfg'.
+>>>>
+>> Ok. I will move unlocking to the end of this else {} block. I was not aware of the patch you are referring to.
+> 
+> I think the end of the else is still too early. This needs to at least be past iommu_group_set_iommudata() because we store cfg.
+> 
+> Potentially, the lock wants to also englobe arm_smmu_master_alloc_smes(). So I am wondering whether it would be simpler to hold the lock for the whole duration of arm_smmu_add_device() (I can see value when we will want to interlock with the remove code).
+> 
+>>
+>>>> Looking at the code, I also noticed that the error path is not correct for at least the PCI device and we would leak memory. We also assume that Stream ID == Requester ID. Are both of them in your radar for PCI passthrough?
+>>>>
+>> I agree with you. I also noticed it. However this is going to be fixed with the next patch series when Rahul gets back.
+> 
+> Good. Do you have a todo list for PCI passthrough that can be shared?
+> 
+As I am not working on the PCI stuff, I do not have such a list but I can point you to the branch on which both ARM and EPAM are working:
+https://gitlab.com/xen-project/fusa/xen-integration/-/tree/integration/pci-passthrough
+
+> Cheers,
+> 
+
+Cheers,
+Michal
 
