@@ -2,43 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E677D43E041
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 13:52:47 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217917.378145 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D125C43E066
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 13:59:47 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217925.378156 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg3x8-0005w6-Hu; Thu, 28 Oct 2021 11:52:14 +0000
+	id 1mg449-0006m4-BT; Thu, 28 Oct 2021 11:59:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217917.378145; Thu, 28 Oct 2021 11:52:14 +0000
+Received: by outflank-mailman (output) from mailman id 217925.378156; Thu, 28 Oct 2021 11:59:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg3x8-0005u8-EH; Thu, 28 Oct 2021 11:52:14 +0000
-Received: by outflank-mailman (input) for mailman id 217917;
- Thu, 28 Oct 2021 11:52:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vfrR=PQ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mg3x6-0005u0-Df
- for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 11:52:12 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1fb6d30d-d3a0-4259-b83d-d27d1718b171;
- Thu, 28 Oct 2021 11:52:11 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AA8771FD4E;
- Thu, 28 Oct 2021 11:52:10 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 949EA13B88;
- Thu, 28 Oct 2021 11:52:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3H7cIuqOemHRUQAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 28 Oct 2021 11:52:10 +0000
+	id 1mg449-0006jJ-7w; Thu, 28 Oct 2021 11:59:29 +0000
+Received: by outflank-mailman (input) for mailman id 217925;
+ Thu, 28 Oct 2021 11:59:27 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=kHpK=PQ=kernel.org=broonie@srs-us1.protection.inumbo.net>)
+ id 1mg446-0006jD-Tv
+ for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 11:59:26 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7f0149a2-37e6-11ec-849d-12813bfff9fa;
+ Thu, 28 Oct 2021 11:59:25 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 17810610FC;
+ Thu, 28 Oct 2021 11:59:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,217 +38,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1fb6d30d-d3a0-4259-b83d-d27d1718b171
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1635421930; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G9ibeAb1zURj9w7ETNGyyWy46klDJinkBbIz3MSBDOo=;
-	b=kvEAhuwwKnV9WnxAT0st1S3bNv2DYi5gPalKIc1wiXbB7MQ3V/rQNPaMqnHEpcSIeB3Q2p
-	Rf4jGheNHWFGwFgpfgVjPmltBImZKpXuTL5MLmUTlEpCm0kcMOWi6eTo/1InMv4RZ3xkQO
-	dwU8u9SqFWshFEFqEPliMiyp72MLD7M=
-To: Ian Jackson <iwj@xenproject.org>, xen-devel@lists.xenproject.org
-References: <20211027170256.18223-1-iwj@xenproject.org>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [OSSTEST PATCH 0/2] ts-xen-build: explicitly enable/disable
- configure features
-Message-ID: <822a9317-2ed0-8510-dc31-90ccff5c6c38@suse.com>
-Date: Thu, 28 Oct 2021 13:52:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+X-Inumbo-ID: 7f0149a2-37e6-11ec-849d-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1635422364;
+	bh=6SRnBqGEu6kfrjY8F8AIxFOXpP3mk9uNLODc5pl6vYo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=PF+p5k3fPcX4g7U/HaBJuzIJ4k5E0pNaC5AYSReMWdptL5C6nDTIJaIE7qlYNYlG6
+	 n1n/PwUdpeEdECCRPixbjSlqTeevDW0OntTvozcAaeZnGpyg9v14UXE0Uy+uDhiwA4
+	 opUKp2Rh8z49oq5/De4kzH0wt2Tq2fvNA7/+mgp+6zfuqvEwWijrNqLYLBlBZuMPRL
+	 88N447RwKebi4Ez1WZLL28f9yHI1UOy8Ip53Ye3TTKmeO3nK2Kc7hLybqU9+9eT+Gw
+	 dD6HWh7fPMZRMI/QpI/9KZ3rirsCMx4Hs00YhSbDpBEZNMfr2ZfvOMHA6ZLmKCwWDw
+	 xkF14RX5nWTCw==
+Date: Thu, 28 Oct 2021 12:59:08 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dmitry Osipenko <digetx@gmail.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Lee Jones <lee.jones@linaro.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Russell King <linux@armlinux.org.uk>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Greg Ungerer <gerg@linux-m68k.org>,
+	Joshua Thompson <funaho@jurai.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Nick Hu <nickhu@andestech.com>, Greentime Hu <green.hu@gmail.com>,
+	Vincent Chen <deanbo422@gmail.com>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	Helge Deller <deller@gmx.de>, Michael Ellerman <mpe@ellerman.id.au>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Paul Mackerras <paulus@samba.org>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>, Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Santosh Shilimkar <ssantosh@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Chen-Yu Tsai <wens@csie.org>,
+	Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
+	Tony Lindgren <tony@atomide.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Vladimir Zapolskiy <vz@mleia.com>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Pavel Machek <pavel@ucw.cz>, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org,
+	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+	linux-sh@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-acpi@vger.kernel.org, linux-omap@vger.kernel.org,
+	openbmc@lists.ozlabs.org, linux-tegra@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v2 24/45] regulator: pfuze100: Use
+ devm_register_power_handler()
+Message-ID: <YXqQjG+5Eshm9fl5@sirena.org.uk>
+References: <20211027211715.12671-1-digetx@gmail.com>
+ <20211027211715.12671-25-digetx@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20211027170256.18223-1-iwj@xenproject.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="T5XHMySs1FYVmOpkmtcVV48WV70KGve7l"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---T5XHMySs1FYVmOpkmtcVV48WV70KGve7l
-Content-Type: multipart/mixed; boundary="Tulo1RHSq5IuDsE1akCxIHA93zCl7U47T";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Ian Jackson <iwj@xenproject.org>, xen-devel@lists.xenproject.org
-Message-ID: <822a9317-2ed0-8510-dc31-90ccff5c6c38@suse.com>
-Subject: Re: [OSSTEST PATCH 0/2] ts-xen-build: explicitly enable/disable
- configure features
-References: <20211027170256.18223-1-iwj@xenproject.org>
-In-Reply-To: <20211027170256.18223-1-iwj@xenproject.org>
-
---Tulo1RHSq5IuDsE1akCxIHA93zCl7U47T
-Content-Type: multipart/mixed;
- boundary="------------A589B12D2B8A6F7362708CCD"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------A589B12D2B8A6F7362708CCD
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 27.10.21 19:02, Ian Jackson wrote:
-> The existing code depends on precisely whether the non-default option
-> appearing in the configure script is indeed the opposite of the option
-> we want to pass.
->=20
-> Right now it seems to be working but this seems fragile.  Do it
-> differently.
->=20
-> I have verified that with current Xen, on arm64:
->=20
->     + egrep -q -- '--disable-xend|--enable-xend' tools/configure
->     + egrep -q -- '--disable-ovmf|--enable-ovmf' tools/configure
->     + enable_opts=3D' --enable-ovmf'
->     + egrep -q -- '--disable-qemu-traditional|--enable-qemu-traditional=
-' tools/configure
->     + enable_opts=3D' --enable-ovmf --disable-qemu-traditional'
->     + ./configure --sysconfdir=3D/etc --enable-ovmf --disable-qemu-trad=
-itional
->=20
-> and on amd64:
->=20
->     + egrep -q -- '--disable-xend|--enable-xend' tools/configure
->     + egrep -q -- '--disable-ovmf|--enable-ovmf' tools/configure
->     + enable_opts=3D' --enable-ovmf'
->     + egrep -q -- '--disable-qemu-traditional|--enable-qemu-traditional=
-' tools/configure
->     + enable_opts=3D' --enable-ovmf --enable-qemu-traditional'
->     + ./configure --sysconfdir=3D/etc --enable-ovmf --enable-qemu-tradi=
-tional
->=20
-> Juergen, I would appreciate a review from you.  I think I would like
-> this in osstest production before changing the qemu trad build default
-> in Xen.
-
-Far from being a Perl expert I agree this is a sensible approach and it
-should do the right thing.
-
-It will still depend on no unsupported option being mentioned in any
-comment, e.g. "# option --enable-foo is no longer supported" will result
-in a wrong positive when testing for feature "foo". In the end this will
-break the build, so it should be easy to detect in case this happens
-some time in the future.
-
-As there is no way to print out all supported options, this could only
-be solved by adding "--disable-option-checking", which has other
-disadvantages.
-
-You can add my:
-
-Reviewed-by: Juergen Gross <jgross@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Wle3PKA2/qG6+6Vj"
+Content-Disposition: inline
+In-Reply-To: <20211027211715.12671-25-digetx@gmail.com>
+X-Cookie: try again
 
 
-Juergen
+--Wle3PKA2/qG6+6Vj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
---------------A589B12D2B8A6F7362708CCD
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+On Thu, Oct 28, 2021 at 12:16:54AM +0300, Dmitry Osipenko wrote:
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> Use devm_register_power_handler() that replaces global pm_power_off_prepare
+> variable and allows to register multiple power-off handlers.
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Acked-by: Mark Brown <broonie@kernel.org>
 
---------------A589B12D2B8A6F7362708CCD--
-
---Tulo1RHSq5IuDsE1akCxIHA93zCl7U47T--
-
---T5XHMySs1FYVmOpkmtcVV48WV70KGve7l
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+--Wle3PKA2/qG6+6Vj
+Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmF6juoFAwAAAAAACgkQsN6d1ii/Ey8l
-Zgf+JNSpTlo/+rnUTmiD+LtZkCuQ8WUitxjCGT59VehNH8E6dT6kAC0uT1FPca6uAq3RDcngsHf9
-8eXZoB204eFp/5ex8SEkPvb5s6JQZ96FH2Xg1oVaRLktg5/vRJDprMJsr9X8xtUFtP9E6FceI/Do
-9mcQwg6wVLncpaqS6Arna9pX1SNnNjx0b/B3f8BuHE63/aKdZSkVk2OEJDSQxEYz3Zc2Azm1uBh9
-f7psr72HED6wGJ57U1aA7E/l4PvTKyaVQ8kkAE110qiWiBNlN7XU5O2pjrrhWd3E0znPJnqrxn/4
-TVBW87M4KeE3Awivx8r1KZW3ZOWr/g+h2M3WPP1UjA==
-=UDZU
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmF6kIwACgkQJNaLcl1U
+h9AyhAf+Nziuu181EjKis21sdValh/0I2qd5n6cZmpuLUeA7g6K6TyFH79y+tEkd
+Itu0nx35rsztyjl7+A8ECF9S9uJGD1N0o3cruhqU01R5Kloz9mrUDRii5R3Uh+fm
+wjXlm+iYDXdXIzRmM07WyWi8rUTpLrhHx7ogAb291MVxgxc1LqxOBAwk6hcvnDCB
+aLDZSKk0LT7/yHSU+s5sBmll+K1S09x+XUfo/7VEuf9WqctxN8t6DgnigNeg1sU1
+S3cmBREB1bkkqHuPWJhOyUeW6YyuYI8inCcpXRNtdydg4jwo5l2h16fE8e0db953
+VsD3Y2dmLQu1qKxLNZUqHCelyjTPow==
+=sNsl
 -----END PGP SIGNATURE-----
 
---T5XHMySs1FYVmOpkmtcVV48WV70KGve7l--
+--Wle3PKA2/qG6+6Vj--
 
