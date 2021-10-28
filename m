@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C69F43E3BA
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 16:29:15 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.218103.378408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F66A43E3CC
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 16:33:16 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.218110.378419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg6Oj-0001DJ-JS; Thu, 28 Oct 2021 14:28:53 +0000
+	id 1mg6Sa-0002iF-6F; Thu, 28 Oct 2021 14:32:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 218103.378408; Thu, 28 Oct 2021 14:28:53 +0000
+Received: by outflank-mailman (output) from mailman id 218110.378419; Thu, 28 Oct 2021 14:32:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg6Oj-0001B6-Eg; Thu, 28 Oct 2021 14:28:53 +0000
-Received: by outflank-mailman (input) for mailman id 218103;
- Thu, 28 Oct 2021 14:28:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mg6Sa-0002gS-2z; Thu, 28 Oct 2021 14:32:52 +0000
+Received: by outflank-mailman (input) for mailman id 218110;
+ Thu, 28 Oct 2021 14:32:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mg6Oi-0001B0-7J
- for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 14:28:52 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mg6Og-0000tG-OA; Thu, 28 Oct 2021 14:28:50 +0000
-Received: from 54-240-197-225.amazon.com ([54.240.197.225] helo=[10.7.236.13])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mg6Og-0006Jq-IK; Thu, 28 Oct 2021 14:28:50 +0000
+ (envelope-from <SRS0=vfrR=PQ=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mg6SY-0002gM-OP
+ for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 14:32:50 +0000
+Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8fe34b82-edda-4c31-82b5-e264a555ac21;
+ Thu, 28 Oct 2021 14:32:49 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 80F70218A9;
+ Thu, 28 Oct 2021 14:32:48 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5859713E9D;
+ Thu, 28 Oct 2021 14:32:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id OCddFJC0emFAHwAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 28 Oct 2021 14:32:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,213 +50,432 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Tk7jIP+7OQbDQ53Ur4kinmK9QtkuxGl9hAnU+Z+HoUY=; b=WhsxOXdfS1YXn2FSAzJzQ9M1qr
-	KcBQP/fnO3Mv7rHnCYdGZ8wS92PoFIKSj148HAlC3Y6M+xuOPWGsUjmwBqOGcgIHOm2ncIfdF+f1r
-	McB4AkHzYdutCDwJoJt/azmH/jHzN7rq6YijOg5hcE8VmSY4D48YSFDYokEU/3K180iI=;
-Message-ID: <6d8f1061-7aec-2c1a-aaf4-c30440c2797a@xen.org>
-Date: Thu, 28 Oct 2021 15:28:48 +0100
+X-Inumbo-ID: 8fe34b82-edda-4c31-82b5-e264a555ac21
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1635431568; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hV0aji8Xm0Y3NQ8V/Q2GT040OXgKsgKtfYIluob1gto=;
+	b=C9TBG1FR5q5LUh/IhECIcWh0Yon6Hhp1B6JkQKRG4bSj27Yz1UI9JmPhjlqmqbGLgT6rCf
+	d7DineDy9aVIT7+3eiykMFvw7meVR8nPE/yOguQbSxYJBv/4EfPKbLWfnkjrJQEHuCGB+1
+	bNiCFGdRKgtf3+hXO3RYKltRDSMbBZY=
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20211015125152.25198-1-jgross@suse.com>
+ <20211015125152.25198-11-jgross@suse.com>
+ <88c3d815-912c-a92c-2e96-7eff6a454a75@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH 10/12] xen/x86: call hypercall handlers via switch
+ statement
+Message-ID: <1ab4b64f-720c-4f9a-043b-eefc5f6c387e@suse.com>
+Date: Thu, 28 Oct 2021 16:32:47 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.1
-Subject: Re: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "iwj@xenproject.org" <iwj@xenproject.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Rahul Singh <rahul.singh@arm.com>
-References: <20211027082533.1406015-1-andr2000@gmail.com>
- <cb7e9ef7-476e-93c3-d3c9-9a9ebc61003d@xen.org>
- <d63c6e0b-8aa3-9ba3-893c-5e464638a8db@epam.com>
- <65886734-7333-4469-fcc1-6916db708f13@xen.org>
- <b6bb02b6-6358-b5e0-1b80-7819aadabe10@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <b6bb02b6-6358-b5e0-1b80-7819aadabe10@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <88c3d815-912c-a92c-2e96-7eff6a454a75@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="7cG2FgSE4RgsDyogCrwlNbbcVVSFi5EqW"
 
-Hi,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--7cG2FgSE4RgsDyogCrwlNbbcVVSFi5EqW
+Content-Type: multipart/mixed; boundary="MqJMvy4m2NmcYWeGVGFjuyoD71HE6JLXC";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+Message-ID: <1ab4b64f-720c-4f9a-043b-eefc5f6c387e@suse.com>
+Subject: Re: [PATCH 10/12] xen/x86: call hypercall handlers via switch
+ statement
+References: <20211015125152.25198-1-jgross@suse.com>
+ <20211015125152.25198-11-jgross@suse.com>
+ <88c3d815-912c-a92c-2e96-7eff6a454a75@suse.com>
+In-Reply-To: <88c3d815-912c-a92c-2e96-7eff6a454a75@suse.com>
 
-On 28/10/2021 15:16, Oleksandr Andrushchenko wrote:
-> On 28.10.21 16:22, Julien Grall wrote:
->> On 28/10/2021 13:09, Oleksandr Andrushchenko wrote:
->>> Hi, Julien!
->>
->> Hello,
->>
->>> On 27.10.21 20:35, Julien Grall wrote:
->>>> Hi Oleksandr,
->>>>
->>>> On 27/10/2021 09:25, Oleksandr Andrushchenko wrote:
->>>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>>>>
->>>>> While in vPCI MMIO trap handlers for the guest PCI host bridge it is not
->>>>> enough for SBDF translation to simply call VPCI_ECAM_BDF(info->gpa) as
->>>>> the base address may not be aligned in the way that the translation
->>>>> always work. If not adjusted with respect to the base address it may not be
->>>>> able to properly convert SBDF and crashes:
->>>>>
->>>>> (XEN) vpci_mmio_read 0000:65:1a.0 reg 8bc gpa e65d08bc
->>>>
->>>> I can't find a printk() that may output this message. Where does this comes from?
->>> That was a debug print. I shouldn't have used that in the patch description, but
->>> probably after "---" to better explain what's happening
->>>>
->>>> Anyway, IIUC the guest physical address is 0xe65d08bc which, if I am not mistaken, doesn't belong to the range advertised for GUEST_VPCI_ECAM.
->>> This is from dom0 I am working on now.
->>>>
->>>> IMHO, the stack trace should come from usptream Xen or need some information to explain how this was reproduced.
->>>>
->>>>> (XEN) Data Abort Trap. Syndrome=0x6
->>>>> (XEN) Walking Hypervisor VA 0x467a28bc on CPU0 via TTBR 0x00000000481d5000
->>>> I can understnad that if we don't substract GUEST_VPCI_ECAM, we would (in theory) not get the correct BDF. But... I don't understand how this would result to a data abort in the hypervisor.
->>>>
->>>> In fact, I think the vPCI code should be resilient enough to not crash if we pass the wrong BDF.
->>> Well, there is no (?) easy way to validate SBDF.
->>
->> AFAICT pci_ecam_map_bus() is already doing some validation for the bus number. So...
-> what it does is not enough as...
->       if ( busn < cfg->busn_start || busn > cfg->busn_end )
->           return NULL;
-> 
->       busn -= cfg->busn_start;
->       base = cfg->win + (busn << ops->bus_shift);
-> 
->       return base + (PCI_DEVFN2(sbdf.bdf) << devfn_shift) + where;
-> this can still overrun
+--MqJMvy4m2NmcYWeGVGFjuyoD71HE6JLXC
+Content-Type: multipart/mixed;
+ boundary="------------DC02056F439CAFA9B34248DA"
+Content-Language: en-US
 
-Thanks, I guessed this was not enough... What I am trying to understand 
-is *why* this is not enough *and* whether we need to add more validation.
+This is a multi-part message in MIME format.
+--------------DC02056F439CAFA9B34248DA
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
+On 21.10.21 16:41, Jan Beulich wrote:
+> On 15.10.2021 14:51, Juergen Gross wrote:
+>> Instead of using a function table use the generated switch statement
+>> macros for calling the appropriate hypercall handlers.
 >>
->>   And this could be a problem if we have a misbehaving
->>> guest which may force Xen to access the memory beyond that of PCI host bridge
->>>>
->>>> When there is a data abort in Xen, you should get a stack trace from where this comes from. Can you paste it here?
->>> (XEN) Data Abort Trap. Syndrome=0x6
->>> (XEN) Walking Hypervisor VA 0x467a28bc on CPU0 via TTBR 0x00000000481d5000
->>> (XEN) 0TH[0x0] = 0x00000000481d4f7f
->>> (XEN) 1ST[0x1] = 0x00000000481d2f7f
->>> (XEN) 2ND[0x33] = 0x0000000000000000
->>> (XEN) CPU0: Unexpected Trap: Data Abort
+>> This is beneficial to performance and avoids speculation issues.
 >>
->> ... I am getting quite confused why this is crashing. Are we validation correctly the access?
-> See above. If provided with big enough SBDF we can end up getting out of the window.
+>> With calling the handlers using the correct number of parameters now
+>> it is possible to do the parameter register clobbering in the NDEBUG
+>> case after returning from the handler. This in turn removes the only
+>> users of hypercall_args_table[] which can be removed now.
+>=20
+> "removed" reads misleading to me: You really replace it by new tables,
+> using script-generated initializers. Also it looks like you're doubling=
 
-Shouldn't we validate that we are still in the window?
+> the data, as the same sets were previously used by pv64/hvm64 and
+> pv32/hvm32 respectively.
 
->>
->>
->>> (XEN) ----[ Xen-4.16-unstable  arm64 debug=y  Not tainted ]----
->>> (XEN) CPU:    0
->>> (XEN) PC:     000000000026d3d4 pci_generic_config_read+0x88/0x9c
->>> (XEN) LR:     000000000026d36c
->>> (XEN) SP:     000080007ff97c00
->>> (XEN) CPSR:   0000000060400249 MODE:64-bit EL2h (Hypervisor, handler)
->>> (XEN)      X0: 00000000467a28bc  X1: 00000000065d08bc  X2: 00000000000008bc
->>> (XEN)      X3: 000000000000000c  X4: 000080007ffc6fd0  X5: 0000000000000000
->>> (XEN)      X6: 0000000000000014  X7: ffff800011a58000  X8: ffff0000225a0380
->>> (XEN)      X9: 0000000000000000 X10: 0101010101010101 X11: 0000000000000028
->>> (XEN)     X12: 0101010101010101 X13: 0000000000000020 X14: ffffffffffffffff
->>> (XEN)     X15: 0000000000000001 X16: ffff800010da6708 X17: 0000000000000020
->>> (XEN)     X18: 0000000000000002 X19: 0000000000000004 X20: 000080007ff97c5c
->>> (XEN)     X21: 00000000000008bc X22: 00000000000008bc X23: 0000000000000004
->>> (XEN)     X24: 0000000000000000 X25: 00000000000008bc X26: 00000000000065d0
->>> (XEN)     X27: 000080007ffb9010 X28: 0000000000000000  FP: 000080007ff97c00
->>> (XEN)
->>> (XEN)   VTCR_EL2: 00000000800a3558
->>> (XEN)  VTTBR_EL2: 00010000bffba000
->>> (XEN)
->>> (XEN)  SCTLR_EL2: 0000000030cd183d
->>> (XEN)    HCR_EL2: 00000000807c663f
->>> (XEN)  TTBR0_EL2: 00000000481d5000
->>> (XEN)
->>> (XEN)    ESR_EL2: 0000000096000006
->>> (XEN)  HPFAR_EL2: 0000000000e65d00
->>> (XEN)    FAR_EL2: 00000000467a28bc
->>> (XEN)
->>> [snip]
->>> (XEN) Xen call trace:
->>> (XEN)    [<000000000026d3d4>] pci_generic_config_read+0x88/0x9c (PC)
->>> (XEN)    [<000000000026d36c>] pci_generic_config_read+0x20/0x9c (LR)
->>> (XEN)    [<000000000026d2c8>] pci-access.c#pci_config_read+0x60/0x84
->>> (XEN)    [<000000000026d4a8>] pci_conf_read32+0x10/0x18
->>> (XEN)    [<000000000024dcf8>] vpci.c#vpci_read_hw+0x48/0xb8
->>> (XEN)    [<000000000024e3e4>] vpci_read+0xac/0x24c
->>> (XEN)    [<000000000024e934>] vpci_ecam_read+0x78/0xa8
->>> (XEN)    [<000000000026e368>] vpci.c#vpci_mmio_read+0x44/0x7c
->>> (XEN)    [<0000000000275054>] try_handle_mmio+0x1ec/0x264
->>> (XEN)    [<000000000027ea50>] traps.c#do_trap_stage2_abort_guest+0x18c/0x2d8
->>> (XEN)    [<000000000027f088>] do_trap_guest_sync+0xf0/0x618
->>> (XEN)    [<0000000000269c58>] entry.o#guest_sync_slowpath+0xa4/0xd4
->>> (XEN)
->>> (XEN)
->>> (XEN) ****************************************
->>> (XEN) Panic on CPU 0:
->>> (XEN) CPU0: Unexpected Trap: Data Abort
->>> (XEN) ****************************************
->>>
->>>>
->>>>>
->>>>> Fix this by adjusting the gpa with respect to the host bridge base address
->>>>> in a way as it is done for x86.
->>>>>
->>>>> Fixes: d59168dc05a5 ("xen/arm: Enable the existing x86 virtual PCI support for ARM")
->>>>>
->>>>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>>>> ---
->>>>>     xen/arch/arm/vpci.c | 4 ++--
->>>>>     1 file changed, 2 insertions(+), 2 deletions(-)
->>>>>
->>>>> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
->>>>> index 8f40a0dec6d2..23f45386f4b3 100644
->>>>> --- a/xen/arch/arm/vpci.c
->>>>> +++ b/xen/arch/arm/vpci.c
->>>>> @@ -24,7 +24,7 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
->>>>>         unsigned long data;
->>>>>           /* We ignore segment part and always handle segment 0 */
->>>>> -    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa);
->>>>> +    sbdf.sbdf = VPCI_ECAM_BDF(info->gpa - GUEST_VPCI_ECAM_BASE);
->>>>
->>>> Looking at the rest of the rest, it seems that
->>>>    1) the issue is latent as the bits 0-27 are clear
->>>>    2) this will need to be modified to take into account dom0.
->>>>
->>>> So I would prefer if the base address is passed differently (maybe in priv?) from the start. This will avoid extra modification that you already plan to have in a follow-up series.
->>> I was thinking about the same, but the future code will use priv for other purpose:
->>>
->>> static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
->>>                              register_t *r, void *p)
->>> {
->>>        struct pci_host_bridge *bridge = p;
->>>        pci_sbdf_t sbdf;
->>>        /* data is needed to prevent a pointer cast on 32bit */
->>>        unsigned long data;
->>>
->>>        if ( bridge )
->>>        {
->>>            sbdf.sbdf = VPCI_ECAM_BDF(info->gpa - bridge->cfg->phys_addr);
->>>            sbdf.seg = bridge->segment;
->>>        }
->>>        else
->>>            sbdf.sbdf = VPCI_ECAM_BDF(info->gpa - GUEST_VPCI_ECAM_BASE);
->>
->> Is it the only place you are doing to use bridge? If so, then I think we can simply have a structure that would contain phys_addr and segment.
->>
->> This would be include in the bridge for dom0 and for guest this could be a static global variable for now.
-> Hm. I don't think a global is any better than using info->gpa - GUEST_VPCI_ECAM_BASE.
-> But I am fine with the structure: please let me know your preference,
-> so I can have an acceptable fix
+Yes, I'll change that paragraph.
 
-The difference is you don't duplicate the same check in two places
-Alternatively, I would be happy consider an helper that is used in both 
-places.
+Regarding having 4 tables on x86 now: merging the pv/hvm tables would be
+possible, but this would add some complexity to the script generating
+the tables (it should test whether the number of parameters of pv and
+hvm match). As the tables are present in debug build only I don't think
+this is a real issue.
 
-Cheers,
+>=20
+>> --- a/xen/arch/x86/hvm/hypercall.c
+>> +++ b/xen/arch/x86/hvm/hypercall.c
+>> @@ -108,56 +108,10 @@ long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PA=
+RAM(void) arg)
+>>           return compat_physdev_op(cmd, arg);
+>>   }
+>>  =20
+>> -#define HYPERCALL(x)                                         \
+>> -    [ __HYPERVISOR_ ## x ] =3D { (hypercall_fn_t *) do_ ## x,  \
+>> -                               (hypercall_fn_t *) do_ ## x }
+>> -
+>> -#define HVM_CALL(x)                                          \
+>> -    [ __HYPERVISOR_ ## x ] =3D { (hypercall_fn_t *) hvm_ ## x, \
+>> -                               (hypercall_fn_t *) hvm_ ## x }
+>> -
+>> -#define COMPAT_CALL(x)                                       \
+>> -    [ __HYPERVISOR_ ## x ] =3D { (hypercall_fn_t *) do_ ## x,  \
+>> -                               (hypercall_fn_t *) compat_ ## x }
+>> -
+>> -static const struct {
+>> -    hypercall_fn_t *native, *compat;
+>> -} hvm_hypercall_table[] =3D {
+>> -    HVM_CALL(memory_op),
+>> -    COMPAT_CALL(multicall),
+>> -#ifdef CONFIG_GRANT_TABLE
+>> -    HVM_CALL(grant_table_op),
+>> -#endif
+>> -    HYPERCALL(vm_assist),
+>> -    COMPAT_CALL(vcpu_op),
+>> -    HVM_CALL(physdev_op),
+>> -    COMPAT_CALL(xen_version),
+>> -    HYPERCALL(console_io),
+>> -    HYPERCALL(event_channel_op),
+>> -    COMPAT_CALL(sched_op),
+>> -    COMPAT_CALL(set_timer_op),
+>> -    COMPAT_CALL(xsm_op),
+>> -    HYPERCALL(hvm_op),
+>> -    HYPERCALL(sysctl),
+>> -    HYPERCALL(domctl),
+>> -#ifdef CONFIG_ARGO
+>> -    COMPAT_CALL(argo_op),
+>> -#endif
+>> -    COMPAT_CALL(platform_op),
+>> -#ifdef CONFIG_PV
+>> -    COMPAT_CALL(mmuext_op),
+>> -#endif
+>> -    HYPERCALL(xenpmu_op),
+>> -    COMPAT_CALL(dm_op),
+>> -#ifdef CONFIG_HYPFS
+>> -    HYPERCALL(hypfs_op),
+>> +#ifndef NDEBUG
+>> +static unsigned char hypercall_args_64[] =3D hypercall_args_hvm64;
+>> +static unsigned char hypercall_args_32[] =3D hypercall_args_hvm32;
+>=20
+> Irrespective of this being debugging-only: Const?
 
--- 
-Julien Grall
+Yes.
+
+>=20
+>> @@ -239,33 +176,11 @@ int hvm_hypercall(struct cpu_user_regs *regs)
+>>           HVM_DBG_LOG(DBG_LEVEL_HCALL, "hcall%lu(%lx, %lx, %lx, %lx, %=
+lx)",
+>>                       eax, rdi, rsi, rdx, r10, r8);
+>>  =20
+>> -#ifndef NDEBUG
+>> -        /* Deliberately corrupt parameter regs not used by this hyper=
+call. */
+>> -        switch ( hypercall_args_table[eax].native )
+>> -        {
+>> -        case 0: rdi =3D 0xdeadbeefdeadf00dUL; fallthrough;
+>> -        case 1: rsi =3D 0xdeadbeefdeadf00dUL; fallthrough;
+>> -        case 2: rdx =3D 0xdeadbeefdeadf00dUL; fallthrough;
+>> -        case 3: r10 =3D 0xdeadbeefdeadf00dUL; fallthrough;
+>> -        case 4: r8 =3D 0xdeadbeefdeadf00dUL;
+>> -        }
+>> -#endif
+>> -
+>> -        regs->rax =3D hvm_hypercall_table[eax].native(rdi, rsi, rdx, =
+r10, r8);
+>> +        call_handlers_hvm64(eax, regs->rax, rdi, rsi, rdx, r10, r8);
+>>  =20
+>>   #ifndef NDEBUG
+>> -        if ( !curr->hcall_preempted )
+>> -        {
+>> -            /* Deliberately corrupt parameter regs used by this hyper=
+call. */
+>> -            switch ( hypercall_args_table[eax].native )
+>> -            {
+>> -            case 5: regs->r8  =3D 0xdeadbeefdeadf00dUL; fallthrough;
+>> -            case 4: regs->r10 =3D 0xdeadbeefdeadf00dUL; fallthrough;
+>> -            case 3: regs->rdx =3D 0xdeadbeefdeadf00dUL; fallthrough;
+>> -            case 2: regs->rsi =3D 0xdeadbeefdeadf00dUL; fallthrough;
+>> -            case 1: regs->rdi =3D 0xdeadbeefdeadf00dUL;
+>> -            }
+>> -        }
+>> +        if ( !curr->hcall_preempted && regs->rax !=3D -ENOSYS )
+>> +            clobber_regs(regs, hypercall_args_64[eax]);
+>=20
+> I'm not fundamentally opposed, but sadly -ENOSYS comes back also in und=
+ue
+> situations, e.g. various hypercalls still produce this for "unknown
+> sub-function". Hence the weakened clobbering wants at least mentioning,=
+
+> perhaps also justifying, in the description.
+
+Okay.
+
+>=20
+>> @@ -55,4 +42,34 @@ compat_common_vcpu_op(
+>>  =20
+>>   #endif /* CONFIG_COMPAT */
+>>  =20
+>> +#ifndef NDEBUG
+>=20
+> Hmm, I was actuall hoping for the conditional to actually live ...
+>=20
+>> +static inline void clobber_regs(struct cpu_user_regs *regs,
+>> +                                unsigned int nargs)
+>> +{
+>=20
+> ... here and ...
+>=20
+>> +    /* Deliberately corrupt used parameter regs. */
+>> +    switch ( nargs )
+>> +    {
+>> +    case 5: regs->r8  =3D 0xdeadbeefdeadf00dUL; fallthrough;
+>> +    case 4: regs->r10 =3D 0xdeadbeefdeadf00dUL; fallthrough;
+>> +    case 3: regs->rdx =3D 0xdeadbeefdeadf00dUL; fallthrough;
+>> +    case 2: regs->rsi =3D 0xdeadbeefdeadf00dUL; fallthrough;
+>> +    case 1: regs->rdi =3D 0xdeadbeefdeadf00dUL;
+>> +    }
+>> +}
+>> +
+>> +static inline void clobber_regs32(struct cpu_user_regs *regs,
+>> +                                  unsigned int nargs)
+>> +{
+>=20
+> ... here, such that the conditionals in the .c files could go away
+> altogether.
+
+I didn't do that in order to be able to have the tables with the
+number of parameters inside #ifndef NDEBUG sections.
+
+I think I can change that by using a macro for reading the table
+values.
+
+>=20
+>> +    /* Deliberately corrupt used parameter regs. */
+>> +    switch ( nargs )
+>> +    {
+>> +    case 5: regs->edi =3D 0xdeadf00dUL; fallthrough;
+>> +    case 4: regs->esi =3D 0xdeadf00dUL; fallthrough;
+>> +    case 3: regs->edx =3D 0xdeadf00dUL; fallthrough;
+>> +    case 2: regs->ecx =3D 0xdeadf00dUL; fallthrough;
+>> +    case 1: regs->ebx =3D 0xdeadf00dUL;
+>=20
+> No need for the UL suffixes here afaics; U ones may want to be there.
+
+Okay.
+
+> Overall, besides these mainly cosmetic aspects the main thing missing
+> is an approach to prioritize the handful most frequently used functions=
+,
+> for them to be pulled out of the switch() so we don't depend on the
+> compiler's choice for the order of comparisons done.
+
+I have already prepared that step by generating the complete call
+sequence, so any change for prioritizing some hypercalls can be local to
+the generator script and the used input data.
+
+The main question is how to do that. I've collected some hypercall
+statistics data for PV and PVH guests running some simple tests (once a
+build of the Xen hypervisor, and once a scp of a large file). The data
+is split between guest and dom0 (PV) counts. There is no clear "winner"
+which hypercall should be fastest, but several hypercalls are clearly
+not important.
+
+Here is the data:
+
+PV-hypercall    PV-guest build   PV-guest scp    dom0 build     dom0 scp
+mmu_update           186175729           2865         20936        33725
+stack_switch           1273311          62381        108589       270764
+multicall              2182803             50           302          524
+update_va_mapping       571868             10            60           80
+xen_version              73061            850           859         5432
+grant_table_op               0              0         35557       139110
+iret                  75673006         484132        268157       757958
+vcpu_op                 453037          71199        138224       334988
+set_segment_base       1650249          62387        108645       270823
+mmuext_op             11225681            188          7239         3426
+sched_op                280153         134645         70729       137943
+event_channel_op        192327          66204         71409       214191
+physdev_op                   0              0          7721         4315
+(the dom0 values are for the guest running the build or scp test, so
+dom0 acting as backend)
+
+HVM-hypercall   PVH-guest build    PVH-guest scp
+vcpu_op                  277684             2324
+event_channel_op         350233            57383
+(the related dom0 counter values are in the same range as with the test
+running in the PV guest)
+
+It should be noted that during boot of the guests the numbers for the PV
+guest are more like the ones for the build test with the exception of
+iret and sched_op being higher, while for PVH sched_op is by far the
+most often used hypercall.
+
+I'm not sure how to translate those numbers into a good algorithm for
+generating the call sequence.
+
+I could add priorities to each hypercall in hypercall-defs.c and have a
+cascade of if (likely(foo)) call_foo; else if (likely(bla)) ... else
+switch(rest).
+
+Or I could have groups of hypercalls with a priority for each group and:
+
+mask =3D 1ULL << num;
+if (likely(mask & prio_1_mask)) switch(num) ...
+else if (likely(mask & prio_2_mask)) switch (num) ...
+=2E..
+else switch (num) ...
+
+Or I could combine those approaches using the mask variant for cases of
+multiple entries having the same priority and the direct call variant
+for the cases of only a single entry having a specific priority.
+
+And then there is the problem to set the priorities (fairly simple for
+HVM, PV is more diffcult).
+
+
+Juergen
+
+--------------DC02056F439CAFA9B34248DA
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------DC02056F439CAFA9B34248DA--
+
+--MqJMvy4m2NmcYWeGVGFjuyoD71HE6JLXC--
+
+--7cG2FgSE4RgsDyogCrwlNbbcVVSFi5EqW
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmF6tI8FAwAAAAAACgkQsN6d1ii/Ey/B
+0Qf+Me8eWhB5u72RWK3P0oSkzd2Zdt6ZCrKCWBagKvPXOsmAgTTeiW1q1UnxDxZEOm6ZmxhhVY5U
+CXe+kleiHbwQd5aEL1Nz+ef7SCEgOShI+H6SznTkh+exe8hvg7299HhAlkKlyrZDuXv2eFvW5iZm
+fatlCCr5WRrSDS/hPZD5zdoXnQM4LtEmxAHTr1gzM5GIeCVvpXElBbENEL/kUAp3rVygmMb0erfy
+TDHv2SilQ1xnljDpfhOghiHPjqZ73uXl6WzhiBf83aDy1pbmce7BKv2ctoWoa8uverZh/+OJ9y7M
+wkA/Qn6VDL/kG+YEYOi18d7xWw99UmUt4UUQN9ZrGg==
+=b9KM
+-----END PGP SIGNATURE-----
+
+--7cG2FgSE4RgsDyogCrwlNbbcVVSFi5EqW--
 
