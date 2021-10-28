@@ -2,28 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4249643DE15
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 11:49:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.217758.377918 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B033243DE37
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 11:53:49 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.217765.377929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg21N-0006r7-1s; Thu, 28 Oct 2021 09:48:29 +0000
+	id 1mg26K-0008HL-MY; Thu, 28 Oct 2021 09:53:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 217758.377918; Thu, 28 Oct 2021 09:48:29 +0000
+Received: by outflank-mailman (output) from mailman id 217765.377929; Thu, 28 Oct 2021 09:53:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mg21M-0006oD-VD; Thu, 28 Oct 2021 09:48:28 +0000
-Received: by outflank-mailman (input) for mailman id 217758;
- Thu, 28 Oct 2021 09:48:26 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mg26K-0008EN-J2; Thu, 28 Oct 2021 09:53:36 +0000
+Received: by outflank-mailman (input) for mailman id 217765;
+ Thu, 28 Oct 2021 09:53:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WzT0=PQ=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1mg21K-0006o3-Q6
- for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 09:48:26 +0000
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6be20bab-61d9-48c7-9ebc-9b29a977d1ae;
- Thu, 28 Oct 2021 09:48:24 +0000 (UTC)
+ <SRS0=3vD9=PQ=gmail.com=rjwysocki@srs-us1.protection.inumbo.net>)
+ id 1mg26I-0008EG-8r
+ for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 09:53:34 +0000
+Received: from mail-ot1-f52.google.com (unknown [209.85.210.52])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e9552aec-37d4-11ec-849b-12813bfff9fa;
+ Thu, 28 Oct 2021 09:53:33 +0000 (UTC)
+Received: by mail-ot1-f52.google.com with SMTP id
+ l16-20020a9d6a90000000b0054e7ab56f27so7746554otq.12
+ for <xen-devel@lists.xenproject.org>; Thu, 28 Oct 2021 02:53:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -35,115 +39,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6be20bab-61d9-48c7-9ebc-9b29a977d1ae
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1635414504;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CnFZ75dQ6xsXYjMS/S7fCNUFlHqMD2os8BP2OWgW/8E=;
-  b=Q846xqrWk8XD9DQs1Wxa27ahnUIxkc0I7xqlMGbqVb7ZTZWksnYgf3NE
-   mguLupj9S58C3HDhTySKvyrlnhrGny3GknNvpQUflANUBjQ0IEUI129Ha
-   34XW2c3WvazbwMwxkRpZQsBR9IHF5tGk1sBQd95KxIUQ46Zj9uJVKwraa
-   8=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 8tFzC1kL3YfRIxKhIZoaS0VkzHMCMocbjjwMPSJSSBBv06NwH/OOQN+qPu03dTqlAiulAvvr/w
- z60GILbu56ZpNqLaM46b3+2Xw3LcNB8BjIfsNQEJ9kTImvki9RhQo0YYauqYbf7QdCHqNEr4yR
- yJ/Qu7UpzLTCCq4oa05Fh8+s5Fp5t3OJSjkLsPfPyc/Cbmxwq3SlaQuKk721fevrH4+iN8uOwC
- TN+aG5U4gNh7hE7QmmD247kCscoThL7LWhGB7R0O/YVLlCgvDQM0OebwFkS7m3UjGzVZrqAPYV
- WunIZRSaJ2eDjG79PEdaPtk4
-X-SBRS: 5.1
-X-MesageID: 58467448
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:fT3Ffqybw3MvIIp6Y0h6t+eqwSrEfRIJ4+MujC+fZmUNrF6WrkUPn
- WUeUDrTMvqIajfzKtwibd609h8FvZLWy9NhQAVvqyAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAuLeNYYH1500s6w7Rp2tcAbeWRWGthh
- /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
- wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt8JBm
- OUKpYXhcEQSJ6nTlb4NcxJkDBgraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
- 6ZBbmlQMFbT3Ipaw5riIgVors0lMMnsOpJZonx6xCvVJf0nXYrCU+PB4towMDIY25ASQ6mCO
- 5pxhTxHcgbpQi9qPgouUMgXo8ChqCDtfj1apwfAzUYwyzeKl1EguFT3C/LUZd6iVchThlyfp
- G/N4yL+GB5yHMOb4SqI9DSrnOCntTjnVYwbErr+7eJjilCXwm0VCTUGVF+6p+n/gUm7M/pEM
- FAd8Ccqqak09WSoQ8P7Uhn+p2SL1jYXUsBcFOAS4wiXxq3ZpQ2eAwAsXjNHLdArqsIybTgrz
- UOS2cPkAyR1t7+YQm7b8a2bxQ5eIgBMczVEP3VdC1JYvZ+z++nfky4jUP5xIP6Fyc3sSAiz+
- CmOsyVkl5UYsdEygvDTEU/8vxqgoZ3ATwgQ7wrRX3644g4RWLNJd7BE+nCAsq4edNfxok2p+
- SFewZDHvb9m4YSlzXTVGI0w8KeVC+Fp2dE2qWVkGIU97HyT8nqncJE4DNpWdRoxbJhsldMEZ
- ibuVeJtCH17YCTCgUxfOdvZ5yEWIU7ITo2Nuhf8NYMmX3SJXFXblByCnGbJt4wXrGAikLskJ
- bCQetu2AHARBMxPlWTtGrxDieVwmHFumQs/oKwXKTz8iNJyg1bOEN843KamNLhlvMtoXi2Mq
- 76zyPdmOz0ACbajM0E7AKYYLEwQLGhTOHwFg5c/SwJ3GSI/QDtJI6aImdsJItU594wIxrag1
- izsASdwlQug7UAr3C3XMxiPnpu0Bs0hxZ/6VARxVWuVN48LOtfysv1HLcJrLdHKNoVLlJZJc
- hXMQO3Yatwnd9gN0211gUDVoNMweRK1qxiJOib5MjEzc4Q5H17C+8P+fxup/y4LV3Llucw7q
- rym9wXaXZtcGFgyUJeIMKqinwGroHwQuONuRE+UcNNdT1rhrdpxICvrg/5pf8xVcUffxiGX3
- hq9CAsDobWfuJc89dTE3PjWr4qgH+ZkMFBdGm3XseS/OSXApzLxyo5cSueYOzvaUTqsqqmlY
- OxUydD6MeEGwwkW49YtTe4zwPtntdX1prJcwgB1J1nxbgymWuF6P32L/chTrakRlLVXjhS7B
- xCU8d5ANLTXZM68SAwNJBAoZ/io3O0PnmWA9uw8JUj36XMl/LeDVkkObRCAhDYEcelwOYIhh
- +wgpNQX+0q0jR9zaoSKiSVd9mKtKH0cUvp46sFGUdGz0gd7mEtfZZH8CzPt5MDdYtpBBUAmP
- zuIifeQnL9b3EfDLyI+GHWlMTCxXnjSVMSmFGM/Gmk=
-IronPort-HdrOrdr: A9a23:+Yl2zKGA62x5gytGpLqE6MeALOsnbusQ8zAXP0AYc3Jom+ij5q
- STdZUgpHrJYVkqNU3I9ertBEDEewK6yXcX2/hyAV7BZmnbUQKTRekIh7cKgQeQeBEWntQts5
- uIGJIeNDSfNzdHsfo=
-X-IronPort-AV: E=Sophos;i="5.87,189,1631592000"; 
-   d="scan'208";a="58467448"
-Date: Thu, 28 Oct 2021 10:48:20 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: <cardoe@cardoe.com>, <xen-devel@lists.xenproject.org>,
-	<iwj@xenproject.org>, <wl@xen.org>, <andrew.cooper3@citrix.com>, "Stefano
- Stabellini" <stefano.stabellini@xilinx.com>
-Subject: Re: Solving the gitlab-ci git fetch issue, was: [PATCH 3/3]
- automation: add a QEMU based x86_64 Dom0/DomU test
-Message-ID: <YXpx5PJwZoJQ6YIy@perard>
-References: <alpine.DEB.2.21.2110210831470.2311@sstabellini-ThinkPad-T480s>
- <20211021230839.10794-3-sstabellini@kernel.org>
- <YXK2lTWZHiTXIBtJ@perard>
- <alpine.DEB.2.21.2110221219520.2311@sstabellini-ThinkPad-T480s>
- <YXbXwjxHPNjSAKrG@perard>
- <alpine.DEB.2.21.2110251754210.4586@sstabellini-ThinkPad-T480s>
- <YXlbOjiphjN/XqMz@perard>
- <alpine.DEB.2.21.2110271437120.20134@sstabellini-ThinkPad-T480s>
+X-Inumbo-ID: e9552aec-37d4-11ec-849b-12813bfff9fa
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=uz31be5RzrXoa4uAxe1xyKZoIQd0wtsVVy1gZjyOGeo=;
+        b=X+5dvuAmn9czEBhw6oatav5UeJL0vhrLj4q9FFVTO6GKkY+w6ZdTGQelk9hohVgmIY
+         Yd/PMAb9qN2fX6rpO+Fpzm+gR/kyQtBYy1xKP0BVFyiF6JMgcVJ/jonAcOKEc5RMYN84
+         bVyCtxx6L18Oix7FtsZay+26Tgxusro5DRWzimEhh0BkHauB34MF0IJQ0cJdxI8ndFpk
+         tT4Q+r4ixZ5Ah5FISSTxYHxCacenL8jcQmXEuNicUbvPowtwmco9S3DHl+sUlxlFu2M/
+         C/l6w+xpTjC03APqBD9r6g78sDJCOGZzbBq8lQX028BB5WtVKYbius/6Y/dmsd7As+UZ
+         GHEw==
+X-Gm-Message-State: AOAM533cQ7hhthlSJGrjUOE6zfetNM13gK+S35NHNSw5caDZ5bIiPyb6
+	6VPoubcouKlXxtTAD28NN1Ei8sZ+IjxqaC1JJZo=
+X-Google-Smtp-Source: ABdhPJzOhFRTFEQQ+n5tEP/bBwTFb0889hJMVw20FWNyFAcerxAE3whFQ+5AhX1ip3T9ogNIhdu7wA8+/uN9VNCEoX8=
+X-Received: by 2002:a9d:65c1:: with SMTP id z1mr2411564oth.198.1635414812552;
+ Thu, 28 Oct 2021 02:53:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2110271437120.20134@sstabellini-ThinkPad-T480s>
+References: <20211027211715.12671-1-digetx@gmail.com> <20211027211715.12671-9-digetx@gmail.com>
+In-Reply-To: <20211027211715.12671-9-digetx@gmail.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Thu, 28 Oct 2021 11:53:20 +0200
+Message-ID: <CAJZ5v0jMdSjmkswzu18LSxcNk+k92Oz5XFFXmu-h=W8aPP4Oig@mail.gmail.com>
+Subject: Re: [PATCH v2 08/45] kernel: Add combined power-off+restart handler
+ call chain API
+To: Dmitry Osipenko <digetx@gmail.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Lee Jones <lee.jones@linaro.org>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	Mark Brown <broonie@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Russell King <linux@armlinux.org.uk>, 
+	Daniel Lezcano <daniel.lezcano@linaro.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Greg Ungerer <gerg@linux-m68k.org>, 
+	Joshua Thompson <funaho@jurai.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	Nick Hu <nickhu@andestech.com>, Greentime Hu <green.hu@gmail.com>, 
+	Vincent Chen <deanbo422@gmail.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+	Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "the arch/x86 maintainers" <x86@kernel.org>, 
+	"H. Peter Anvin" <hpa@zytor.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Santosh Shilimkar <ssantosh@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>, 
+	Linus Walleij <linus.walleij@linaro.org>, Chen-Yu Tsai <wens@csie.org>, 
+	=?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>, 
+	Tony Lindgren <tony@atomide.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Vladimir Zapolskiy <vz@mleia.com>, 
+	Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+	Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+	Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, Pavel Machek <pavel@ucw.cz>, 
+	Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-csky@vger.kernel.org, 
+	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, linux-riscv@lists.infradead.org, 
+	Linux-sh list <linux-sh@vger.kernel.org>, xen-devel@lists.xenproject.org, 
+	ACPI Devel Maling List <linux-acpi@vger.kernel.org>, 
+	Linux OMAP Mailing List <linux-omap@vger.kernel.org>, openbmc@lists.ozlabs.org, 
+	linux-tegra <linux-tegra@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 27, 2021 at 02:43:46PM -0700, Stefano Stabellini wrote:
-> On Wed, 27 Oct 2021, Anthony PERARD wrote:
-> > > But we do have a severe problem at the moment with external sources: our
-> > > "git clones" keep failing during the build on x86. That is definitely
-> > > something worth improving (see my other email thread on the subject) and
-> > > it is the main problem affecting gitlab-ci at the moment, I keep having
-> > > to restart jobs almost daily to get the overall pipeline to "pass".
-> > > 
-> > > If you have any ideas on how to stop fetching things using "git" from
-> > > external repositories in gitlab-ci that would be fantastic :-)
-> > > The only thing I could think of to "fix it" is moving all external repos
-> > > to gitlab repositories mirrors.
-> > 
-> > I don't think that would work, I've seen the initial clone/fetch of a
-> > job fail as well, so from gitlab. If we could have a cache of those
-> > external resources closer to the runners, that would be better.
-> 
-> You mean like a git repository mirror inside the Rackspace network (the
-> provider of the x86 runner), right? Then we would force the git client
-> to go to the Rackspace mirror instead of directly to the target using
-> "insteadOf".
+On Wed, Oct 27, 2021 at 11:18 PM Dmitry Osipenko <digetx@gmail.com> wrote:
+>
+> SoC platforms often have multiple options of how to perform system's
+> power-off and restart operations. Meanwhile today's kernel is limited to
+> a single option. Add combined power-off+restart handler call chain API,
+> which is inspired by the restart API. The new API provides both power-off
+> and restart functionality.
+>
+> The old pm_power_off method will be kept around till all users are
+> converted to the new API.
+>
+> Current restart API will be replaced by the new unified API since
+> new API is its superset. The restart functionality of the power-handler
+> API is built upon the existing restart-notifier APIs.
+>
+> In order to ease conversion to the new API, convenient helpers are added
+> for the common use-cases. They will reduce amount of boilerplate code and
+> remove global variables. These helpers preserve old behaviour for cases
+> where only one power-off handler is executed, this is what existing
+> drivers want, and thus, they could be easily converted to the new API.
+> Users of the new API should explicitly enable power-off chaining by
+> setting corresponding flag of the power_handler structure.
+>
+> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+> ---
+>  include/linux/reboot.h   | 176 +++++++++++-
+>  kernel/power/hibernate.c |   2 +-
+>  kernel/reboot.c          | 601 ++++++++++++++++++++++++++++++++++++++-
+>  3 files changed, 768 insertions(+), 11 deletions(-)
+>
+> diff --git a/include/linux/reboot.h b/include/linux/reboot.h
+> index b7fa25726323..0ec835338c27 100644
+> --- a/include/linux/reboot.h
+> +++ b/include/linux/reboot.h
+> @@ -8,10 +8,16 @@
+>
+>  struct device;
+>
+> -#define SYS_DOWN       0x0001  /* Notify of system down */
+> -#define SYS_RESTART    SYS_DOWN
+> -#define SYS_HALT       0x0002  /* Notify of system halt */
+> -#define SYS_POWER_OFF  0x0003  /* Notify of system power off */
+> +enum reboot_prepare_mode {
+> +       SYS_DOWN = 1,           /* Notify of system down */
+> +       SYS_RESTART = SYS_DOWN,
+> +       SYS_HALT,               /* Notify of system halt */
+> +       SYS_POWER_OFF,          /* Notify of system power off */
+> +};
+> +
+> +#define RESTART_PRIO_RESERVED          0
+> +#define RESTART_PRIO_DEFAULT           128
+> +#define RESTART_PRIO_HIGH              192
+>
+>  enum reboot_mode {
+>         REBOOT_UNDEFINED = -1,
+> @@ -49,6 +55,167 @@ int register_restart_handler(struct notifier_block *);
+>  int unregister_restart_handler(struct notifier_block *);
+>  void do_kernel_restart(char *cmd);
+>
+> +/*
+> + * Unified poweroff + restart API.
+> + */
+> +
+> +#define POWEROFF_PRIO_RESERVED         0
+> +#define POWEROFF_PRIO_PLATFORM         1
+> +#define POWEROFF_PRIO_DEFAULT          128
+> +#define POWEROFF_PRIO_HIGH             192
+> +#define POWEROFF_PRIO_FIRMWARE         224
+> +
+> +enum poweroff_mode {
+> +       POWEROFF_NORMAL = 0,
+> +       POWEROFF_PREPARE,
+> +};
+> +
+> +struct power_off_data {
+> +       void *cb_data;
+> +};
+> +
+> +struct power_off_prep_data {
+> +       void *cb_data;
+> +};
+> +
+> +struct restart_data {
+> +       void *cb_data;
+> +       const char *cmd;
+> +       enum reboot_mode mode;
+> +};
+> +
+> +struct reboot_prep_data {
+> +       void *cb_data;
+> +       const char *cmd;
+> +       enum reboot_prepare_mode mode;
+> +};
+> +
+> +struct power_handler_private_data {
+> +       struct notifier_block reboot_prep_nb;
+> +       struct notifier_block power_off_nb;
+> +       struct notifier_block restart_nb;
+> +       void (*trivial_power_off_cb)(void);
+> +       void (*simple_power_off_cb)(void *data);
+> +       void *simple_power_off_cb_data;
+> +       bool registered;
+> +};
+> +
+> +/**
+> + * struct power_handler - Machine power-off + restart handler
+> + *
+> + * Describes power-off and restart handlers which are invoked by kernel
+> + * to power off or restart this machine.  Supports prioritized chaining for
+> + * both restart and power-off handlers.  Callback's priority must be unique.
+> + * Intended to be used by device drivers that are responsible for restarting
+> + * and powering off hardware which kernel is running on.
+> + *
+> + * Struct power_handler can be static.  Members of this structure must not be
+> + * altered while handler is registered.
+> + *
+> + * Fill the structure members and pass it to register_power_handler().
+> + */
+> +struct power_handler {
 
-That would seems the best to me. If we could install Ian's
-git-cache-proxy that is used in osstest, that would be good I think.
-Having a mirror instead might work too but that would mean figure out
-which repo we would need a mirror of.
+The name of this structure is too generic IMV.  There are many things
+that it might apply to in principle.
 
-I did try a different alternative a while back, I tried to use gitlab's
-caching capability:
-    automation: Cache sub-project git tree in build jobs
-    https://lore.kernel.org/xen-devel/20191219144217.305851-3-anthony.perard@citrix.com/
-It mostly works but I'm not sure how useful it is as it seems there is
-10 computers that would maintain 10 different caches, and most of them
-for a short while.
-
-> Is that what you meant? Doug, do you think it would work?
-
--- 
-Anthony PERARD
+What about calling power_off_handler or sys_off_handler as it need not
+be about power at all?
 
