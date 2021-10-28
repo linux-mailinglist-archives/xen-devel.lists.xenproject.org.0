@@ -2,36 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6372543E970
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 22:17:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.218277.378631 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AD7043E98C
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Oct 2021 22:31:53 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.218284.378642 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mgBpk-0005lH-Oh; Thu, 28 Oct 2021 20:17:08 +0000
+	id 1mgC3X-0008Ao-Tc; Thu, 28 Oct 2021 20:31:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 218277.378631; Thu, 28 Oct 2021 20:17:08 +0000
+Received: by outflank-mailman (output) from mailman id 218284.378642; Thu, 28 Oct 2021 20:31:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mgBpk-0005iq-LF; Thu, 28 Oct 2021 20:17:08 +0000
-Received: by outflank-mailman (input) for mailman id 218277;
- Thu, 28 Oct 2021 20:17:07 +0000
+	id 1mgC3X-00087e-Q9; Thu, 28 Oct 2021 20:31:23 +0000
+Received: by outflank-mailman (input) for mailman id 218284;
+ Thu, 28 Oct 2021 20:31:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9gJ2=PQ=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1mgBpj-0005ik-3E
- for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 20:17:07 +0000
-Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
+ <SRS0=TkaK=PQ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1mgC3W-00087Y-A8
+ for xen-devel@lists.xenproject.org; Thu, 28 Oct 2021 20:31:22 +0000
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 051323d6-382c-11ec-84b7-12813bfff9fa;
- Thu, 28 Oct 2021 20:17:05 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 707855C00D4;
- Thu, 28 Oct 2021 16:17:05 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Thu, 28 Oct 2021 16:17:05 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 28 Oct 2021 16:17:03 -0400 (EDT)
+ id 0291f0a4-382e-11ec-84b7-12813bfff9fa;
+ Thu, 28 Oct 2021 20:31:20 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id CEFE261056;
+ Thu, 28 Oct 2021 20:31:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,146 +38,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 051323d6-382c-11ec-84b7-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=5lHMBp
-	j8jcGhebPQpTOYiDXSyqlgx4IThAJ8eNFDX74=; b=EdZx+kAdnMwb+jYdhFSU3e
-	bjAyzKrEqfJWbH8NMq+8P3rgLpwXXxothhyPrsrrB7FijmdAiE3kTdiSaL6ELrkT
-	6usso22/FeGG99cGO+Ph93+EJpvTpQEcnJWoyivkRRkiZJjj6bA2Urq20u3f9cQw
-	+IvnaGABJKbPCBezGm7NpTY8bqaMWPNpXN/HHIFM98l8qNxwoZQ6l3u7F9rwv6Py
-	GPv0hTLLcRhCHj9+tPx3DpKtsBAqWRuVhYW1Wq7M11DTUCSjWnFDxMGzlF66hdW4
-	w9438SdXzq3mTqfgWTnu9KpP07Ew1QKyAlYDPTmcGg1cVmBANbfP2ugyf6TB7VxQ
-	==
-X-ME-Sender: <xms:QAV7YaVQwb3n3EJGIi7y8xDS1Rk2gH8TrVPUPUbbaye6nO6xKmU2Eg>
-    <xme:QAV7YWmw1S9CbPYM1-onq01RVYnW7vZSfKrLuRH60K-8MrKJLtvK2PkfFH2aVtqTp
-    17Q_xzmNLOWSw>
-X-ME-Received: <xmr:QAV7YebKpgB9bhmmBy4NhwiDaQWekCU4YL0Ph_3uPTZGxAtrB0bP6JkMkdldR8PPR712_MZzK0Uy411HqXthWPqY8QAiQSu9>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvdegvddgheelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
-    iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:QAV7YRV0Oua-q3Zjs057wE7yKHqDWdUI3tbpTUwc6BMpV1i2JE1-UQ>
-    <xmx:QAV7YUkPzgCHsZyTaE0evbjrq6ZnLHs93XsSdDZTAeT37FFyJlByow>
-    <xmx:QAV7YWe0ql_7UYnHIDd4q7YBe4rnnYKXqVi5d6ik6-AR2LhprXlU1w>
-    <xmx:QQV7YeifmEzqBzluQBehlZzliUIALZsSO2Ifp7GSY2Wd20N9sbQ5DQ>
-Date: Thu, 28 Oct 2021 22:16:59 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] xen/balloon: add late_initcall_sync() for initial
- ballooning done
-Message-ID: <YXsFO2TMRiJTQM2q@mail-itl>
-References: <20211028105952.10011-1-jgross@suse.com>
+X-Inumbo-ID: 0291f0a4-382e-11ec-84b7-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1635453080;
+	bh=XamYXyG57QYjFkoR5cUPTY/8giiUqlew45mR4jt4c3w=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=UrnIspJWeeB+yd1bf/ws0+/rvyrlTk7JX4cN0wEx8TWGz1jaIImJEapKJYhBX7si5
+	 c6wZzznEkgOSCDqU/PHyCw9lI12VFlZi0vpIqFIqzQJeMRQb+wXmOLgGWnbwWNj4du
+	 REC507rzAiN3Dih1Iw9wr/rbvmyoJfRYBbp6y5PAYMvYgxpx0GMMAaRdoc1ZI763cq
+	 gvAgCQwjoDlFSWyKb8HQOCgkDdsBO5MbFOVNXIvewcDEMMGaemdU1Iq6BEuQ4Atp9C
+	 zqzIbnB8PS1O4N6PaSZqdMH4xZYdOCoSf2r21xvQb2H3JBRVT3pDNKzHiZ5CduTYiL
+	 YxUGpv0vHgNcw==
+Date: Thu, 28 Oct 2021 13:31:18 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Julien Grall <julien.grall.oss@gmail.com>, 
+    Michal Orzel <michal.orzel@arm.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Ian Jackson <iwj@xenproject.org>
+Subject: Re: [patch-4.16] arm/smmuv1,v2: Protect smmu master list with a
+ lock
+In-Reply-To: <4554621d-63da-ea3e-e56a-4e01d0cef347@xen.org>
+Message-ID: <alpine.DEB.2.21.2110281311030.20134@sstabellini-ThinkPad-T480s>
+References: <20211026122903.15042-1-michal.orzel@arm.com> <e5632a4e-db98-41b4-1045-2b3532c098fa@xen.org> <70c30a6c-b779-805e-079a-41bb484894b9@xen.org> <cb452c0c-ccde-7798-c403-f972b48a2c46@arm.com> <01545115-e82e-2a9d-a8e4-da9676080c0f@xen.org>
+ <alpine.DEB.2.21.2110271557570.20134@sstabellini-ThinkPad-T480s> <CAJ=z9a2SSgG7a87_xTGT5LeNLgubOLQf1+dbnrsTsP8_p5ErJg@mail.gmail.com> <alpine.DEB.2.21.2110271658330.20134@sstabellini-ThinkPad-T480s> <4554621d-63da-ea3e-e56a-4e01d0cef347@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="E2YpY0crIIXSHyLi"
-Content-Disposition: inline
-In-Reply-To: <20211028105952.10011-1-jgross@suse.com>
+Content-Type: multipart/mixed; BOUNDARY="8323329-345338608-1635451899=:20134"
+Content-ID: <alpine.DEB.2.21.2110281311590.20134@sstabellini-ThinkPad-T480s>
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
---E2YpY0crIIXSHyLi
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 Oct 2021 22:16:59 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] xen/balloon: add late_initcall_sync() for initial
- ballooning done
+--8323329-345338608-1635451899=:20134
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2110281311591.20134@sstabellini-ThinkPad-T480s>
 
-On Thu, Oct 28, 2021 at 12:59:52PM +0200, Juergen Gross wrote:
-> When running as PVH or HVM guest with actual memory < max memory the
-> hypervisor is using "populate on demand" in order to allow the guest
-> to balloon down from its maximum memory size. For this to work
-> correctly the guest must not touch more memory pages than its target
-> memory size as otherwise the PoD cache will be exhausted and the guest
-> is crashed as a result of that.
->=20
-> In extreme cases ballooning down might not be finished today before
-> the init process is started, which can consume lots of memory.
->=20
-> In order to avoid random boot crashes in such cases, add a late init
-> call to wait for ballooning down having finished for PVH/HVM guests.
->=20
-> Cc: <stable@vger.kernel.org>
-> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
-=2Ecom>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+On Thu, 28 Oct 2021, Julien Grall wrote:
+> Hi Stefano,
+> 
+> First apologies for sending the previous e-mails in HTML (thanks for pointing
+> that out!).
+> 
+> On 28/10/2021 01:20, Stefano Stabellini wrote:
+> > On Thu, 28 Oct 2021, Julien Grall wrote:
+> > > On Thu, 28 Oct 2021, 00:14 Stefano Stabellini, <sstabellini@kernel.org>
+> > > wrote:
+> > >        On Wed, 27 Oct 2021, Julien Grall wrote:
+> > >        > > > > > +    return ret;
+> > >        > > > > >    }
+> > >        > > > > >    static int register_smmu_master(struct arm_smmu_device
+> > > *smmu,
+> > >        > > > > > @@ -2056,7 +2066,10 @@ static int
+> > > arm_smmu_add_device(struct device
+> > >        > > > > > *dev)
+> > >        > > > > >        } else {
+> > >        > > > > >            struct arm_smmu_master *master;
+> > >        > > > > > +        spin_lock(&arm_smmu_devices_lock);
+> > >        > > > > >            master = find_smmu_master(smmu, dev->of_node);
+> > >        > > > > > +        spin_unlock(&arm_smmu_devices_lock);
+> > >        > > > >
+> > >        > > > > At the moment, unlocking here is fine because we don't
+> > > remove the
+> > >        > > > > device. However, there are a series to supporting removing
+> > > a device (see
+> > >        > > > > [1]). So I think it would be preferable to unlock after the
+> > > last use of
+> > >        > > > > 'cfg'.
+> > >        > > > >
+> > >        > > Ok. I will move unlocking to the end of this else {} block. I
+> > > was not aware
+> > >        > > of the patch you are referring to.
+> > >        >
+> > >        > I think the end of the else is still too early. This needs to at
+> > > least be past
+> > >        > iommu_group_set_iommudata() because we store cfg.
+> > >        >
+> > >        > Potentially, the lock wants to also englobe
+> > > arm_smmu_master_alloc_smes(). So I
+> > >        > am wondering whether it would be simpler to hold the lock for the
+> > > whole
+> > >        > duration of arm_smmu_add_device() (I can see value when we will
+> > > want to
+> > >        > interlock with the remove code).
+> > > 
+> > >        The patch was to protect the smmu master list. From that point of
+> > > view
+> > >        the unlock right after find_smmu_master would be sufficient, right?
+> > > 
+> > > 
+> > > Yes. However this is not fixing all the problems (see below).
+> > > 
+> > > 
+> > >        We only need to protect cfg if we are worried that the same device
+> > > is
+> > >        added in two different ways at the same time. Did I get it right?
+> > > If so,
+> > >        I would say that that case should not be possible? Am I missing
+> > > another
+> > >        potential conflict?
+> > > 
+> > > 
+> > > It should not be possible to add the same device twice. The problem is
+> > > more when we are going to remove the device. In this case, "master"
+> > > may disappear at any point.
+> > > 
+> > > The support for removing device is not yet implemented in the tree. But
+> > > there is already a patch on the ML. So I think it would be
+> > > shortsighted to only move the lock to just solve concurrent access to the
+> > > list.
+> >   That makes sense now: the other source of conflict is concurrent add and
+> > remove of the same device. Sorry it wasn't clear to me before.
+> At the moment, we are relying on the upper layer (e.g. PCI or DT subsystem) to
+> prevent concurrent add/remove/assignment. The trouble is we don't have a
+> common lock between PCI and DT.
+> 
+> One possibility would be to add a common in the uper layer, but it feels to me
+> this is a bit fragile and may also require longer locking section than
+> necessary.
+> 
+> That said, add/remove/assignment operations are meant to be rare. So this is
+> could be an option. This would also have the advantage to cover all the
+> IOMMUs.
+> 
+> >     
+> > >        I am pointing this out for two reasons:
+> > > 
+> > >        Protecting the list is different from protecting each element from
+> > >        concurrent modification of the element itself. If the latter is a
+> > >        potential problem, I wonder if arm_smmu_add_device is the only
+> > > function
+> > >        affected?
+> > > 
+> > > 
+> > > I had a brief looked at the code and couldn't find any other places where
+> > > this may be an issue.
+> > > 
+> > > 
+> > >        The second reason is that extending the lock past
+> > >        arm_smmu_master_alloc_smes is a bit worrying because it causes
+> > >        &arm_smmu_devices_lock and smmu->stream_map_lock to nest, which
+> > > wasn't
+> > >        the case before.
+> > > 
+> > > 
+> > > Nested locks are common. I don't believe there would be a problem here
+> > > with this one.
+> > > 
+> > > 
+> > >        I am not saying that it is a bad idea to extend the lock past
+> > >        arm_smmu_master_alloc_smes -- it might be the right thing to do.
+> > > 
+> > > 
+> > > I don't usually suggest locking changes blindly ;).
+> > > 
+> > >        But I
+> > > 
+> > >        am merely saying that it might be best to think twice about it.
+> > > 
+> > >        and/or do
+> > >        that after 4.16.
+> > > 
+> > > 
+> 
+> [...]
+> 
+> > The other thing that is not clear to me is whether we would need also to
+> > protect places where we use (not allocate) masters and/or cfg, e.g.
+> > arm_smmu_attach_dev, arm_smmu_domain_add_master.
+> 
+> I think both should be with the lock. Now the question is will other IOMMUs
+> driver requires the same locking?
+> 
+> If yes, then maybe that locking should be in the common code.
+> 
+> > > That said we can work towards a new locking approach for 4.17.
+> > > However, I would want to have a proposal from your side or at least
+> > > some details on why the suggested locking is not suitable.
+> >   The suggested locking approach up until the last suggestion looks
+> > totally fine to me. The last suggestion is a bit harder to tell because
+> > the PCI removal hook is not there yet, so I am having troubles seeing
+> > exactly what needs to be protected.
+> 
+> The PCI removal hook is the same as the platform device one. There are already
+> a patch on the ML (see [1]) for that.
+> 
+> We have two interlocking problem to resolve:
+>   1) Concurrent request between PCI and platform/DT subsystem
+>   2) Removal vs add vs (re)assign
+> 
+> The two approaches I can think of are:
+> 
+> Approach A:
+>   - The driver is responsible to protect against 1)
+>   - Each subsystem (DT and PCI) are responsible for 2)
+> 
+> Approach B:
+>   The driver is responsible to protect for 1) 2).
+> 
+> From my understanding, the proposed patch for Michal is following approach A
+> whilst my proposal is going towards approach B.
+> 
+> I am open to use approach A, however I think this needs to be documented as
+> the lock to use will depend on whether the device is a PCI device or not.
 
-It may happen that initial balloon down fails (state=3D=3DBP_ECANCELED). In
-that case, it waits indefinitely. I think it should rather report a
-failure (and panic? it's similar to OOM before PID 1 starts, so rather
-hard to recover), instead of hanging.
+Thanks for the explanation, now everything is a lot clearer. I don't
+have feedback on approach A vs. B -- it looks like both could work well.
 
-Anyway, it does fix the boot crashes.
+In regards to this specific patch and also the conversation about 4.16
+or 4.17: I think it would be fine to take this patch in 4.16 in its
+current form. Although it is not required because PCI passthrough is
+not going to be complete in 4.16 anyway, I like that this patch makes
+the code consistent in terms of protection of rbtree accesses.  With
+this patch the arm_smmu_master rbtree is consistently protected from
+concurrent accesses. Without this patch, it is sometimes protected and
+sometimes not, which is not great.
 
-> ---
->  drivers/xen/balloon.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
->=20
-> diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-> index 3a50f097ed3e..d19b851c3d3b 100644
-> --- a/drivers/xen/balloon.c
-> +++ b/drivers/xen/balloon.c
-> @@ -765,3 +765,23 @@ static int __init balloon_init(void)
->  	return 0;
->  }
->  subsys_initcall(balloon_init);
-> +
-> +static int __init balloon_wait_finish(void)
-> +{
-> +	if (!xen_domain())
-> +		return -ENODEV;
-> +
-> +	/* PV guests don't need to wait. */
-> +	if (xen_pv_domain() || !current_credit())
-> +		return 0;
-> +
-> +	pr_info("Waiting for initial ballooning down having finished.\n");
-> +
-> +	while (current_credit())
-> +		schedule_timeout_interruptible(HZ / 10);
-> +
-> +	pr_info("Initial ballooning down finished.\n");
-> +
-> +	return 0;
-> +}
-> +late_initcall_sync(balloon_wait_finish);
-> --=20
-> 2.26.2
->=20
+So I think that is something that could be good to have in 4.16. But
+like you said, the patch is not strictly required so it is fine either
+way.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---E2YpY0crIIXSHyLi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmF7BTsACgkQ24/THMrX
-1yyExQf8C+Zlijc1idL0I+sDb62ywXLbZxjsytrZOhBRNZO84RpHwSdxw1Q3Nbpq
-KWfXMw4PJX6IWvACg4Oy7VVfpXR/6/pZLJStFl4j8iPha+gF5kph2uFwQhHbNjSO
-kk3E9UIQpwLHNixP4CPG5Aa74Ta8Seth7Fl63JpYc4H0eR4rwwEL2ifOz73ElBEK
-VpMxsPf/20XEHITTeluwxv/otMuZtBok9ZEC5irOmOfkghwVJ855dcBYk+FSFlX3
-+1ZKbB+CU0SOkqnEjSBjlctJl9awkdpKD8voE1IjMDSDdGcDHE50MSjQdfZqtWF6
-Ehku7nMKd8rRz8Xz1pwE3+3Ny2SlDw==
-=4WvB
------END PGP SIGNATURE-----
-
---E2YpY0crIIXSHyLi--
+Other changes on top of it, e.g. a complete implementation of Approach A
+or Approach B, I think it would be best to target 4.17 so that we can
+evaluate them together with the other outstanding PCI patches. I think
+it would make the review a lot easier (at least for me.)
+--8323329-345338608-1635451899=:20134--
 
