@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EDF243FA67
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Oct 2021 12:02:18 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.218487.378943 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A12C243FAAD
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Oct 2021 12:22:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.218494.378954 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mgOhb-0004yT-W9; Fri, 29 Oct 2021 10:01:35 +0000
+	id 1mgP1j-0007T6-Mj; Fri, 29 Oct 2021 10:22:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 218487.378943; Fri, 29 Oct 2021 10:01:35 +0000
+Received: by outflank-mailman (output) from mailman id 218494.378954; Fri, 29 Oct 2021 10:22:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mgOhb-0004vt-S0; Fri, 29 Oct 2021 10:01:35 +0000
-Received: by outflank-mailman (input) for mailman id 218487;
- Fri, 29 Oct 2021 10:01:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mgP1j-0007RK-JP; Fri, 29 Oct 2021 10:22:23 +0000
+Received: by outflank-mailman (input) for mailman id 218494;
+ Fri, 29 Oct 2021 10:22:22 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mgOhZ-0004vX-Su
- for xen-devel@lists.xenproject.org; Fri, 29 Oct 2021 10:01:33 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mgOhY-0008U6-JD; Fri, 29 Oct 2021 10:01:32 +0000
-Received: from [54.239.6.188] (helo=[192.168.17.171])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mgOhY-0005os-CO; Fri, 29 Oct 2021 10:01:32 +0000
+ (envelope-from <SRS0=3izX=PR=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1mgP1i-0007RE-8Q
+ for xen-devel@lists.xenproject.org; Fri, 29 Oct 2021 10:22:22 +0000
+Received: from smtp-out2.suse.de (unknown [195.135.220.29])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bb13493d-6955-4321-a528-39b40296a7f8;
+ Fri, 29 Oct 2021 10:22:21 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 32F851FD53;
+ Fri, 29 Oct 2021 10:22:20 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8750F13BBE;
+ Fri, 29 Oct 2021 10:22:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id mfQIH1vLe2FKRwAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 29 Oct 2021 10:22:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,129 +50,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=TjDhzCb7m7bs4AOHf2O6U9BtgJKYEz5RF/iAPK57lB0=; b=b3GmI4GhrDOKzs3rcmpt3yABsr
-	p/xXGhtqsK8E90kGyMTQGoSv1KtBcog+C1mOxWr2cKKmFTrQWbue880fJRhCMYwyJUNpj5X8BSHvH
-	r6lGURzvH5zzTABLT/BBiiWuqF1EQW4kxrMTDi17wTX+/VpgTqOAqDeVmqe4v0HUaE/U=;
-Message-ID: <09995bd2-0924-74bf-508f-5692b3250532@xen.org>
-Date: Fri, 29 Oct 2021 11:01:29 +0100
+X-Inumbo-ID: bb13493d-6955-4321-a528-39b40296a7f8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1635502940; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NpBs+BlaJGVaaBIJS28nFtrD0GaRfryOLIVX4pU4cWE=;
+	b=nP4l/aojAMAp+vKxcHtgt1X3MJL+nm8KRXhHTN0SYGe2t2Qm7RcEk2PVs5RVcesGeHAtV9
+	NlLOwJ+plnTLeNYHn/yme6yyGAAQ5DsnhsZLcF1Hf7MrNMkywJxyYCv29GUGJWY3ur8i8/
+	GMO2kcXmL/R7GqLGo5+UurDJZrYcNpg=
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
+References: <20211028105952.10011-1-jgross@suse.com>
+ <YXsFO2TMRiJTQM2q@mail-itl> <27e7619a-a797-5c46-9f9f-015ab488e31c@suse.com>
+ <YXvFfRKuD574hulr@mail-itl>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] xen/balloon: add late_initcall_sync() for initial
+ ballooning done
+Message-ID: <63a474ea-9e5d-4515-ca99-1d56f52b7673@suse.com>
+Date: Fri, 29 Oct 2021 12:22:18 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.1
-Subject: Re: [PATCH for-4.16 v4] gnttab: allow setting max version per-domain
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Ian Jackson <iwj@xenproject.org>
-References: <20211029075956.1260-1-roger.pau@citrix.com>
- <2e198e53-e3fb-4ea6-0c44-f326b5e5f5fc@xen.org>
- <YXvBz4OdpcmVRAGM@Air-de-Roger>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <YXvBz4OdpcmVRAGM@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <YXvFfRKuD574hulr@mail-itl>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="Fdc7FltF5YGeKV3gR9EUKXH5xt7a8jSp8"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--Fdc7FltF5YGeKV3gR9EUKXH5xt7a8jSp8
+Content-Type: multipart/mixed; boundary="joHFG26fOySkAysnHotfMlksprVfq3bLQ";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
+Message-ID: <63a474ea-9e5d-4515-ca99-1d56f52b7673@suse.com>
+Subject: Re: [PATCH] xen/balloon: add late_initcall_sync() for initial
+ ballooning done
+References: <20211028105952.10011-1-jgross@suse.com>
+ <YXsFO2TMRiJTQM2q@mail-itl> <27e7619a-a797-5c46-9f9f-015ab488e31c@suse.com>
+ <YXvFfRKuD574hulr@mail-itl>
+In-Reply-To: <YXvFfRKuD574hulr@mail-itl>
 
+--joHFG26fOySkAysnHotfMlksprVfq3bLQ
+Content-Type: multipart/mixed;
+ boundary="------------67EF389DDB8B8DBA8228B295"
+Content-Language: en-US
 
-On 29/10/2021 10:41, Roger Pau Monné wrote:
-> On Fri, Oct 29, 2021 at 09:58:55AM +0100, Julien Grall wrote:
->> Hi Roger,
-Hi Roger,
+This is a multi-part message in MIME format.
+--------------67EF389DDB8B8DBA8228B295
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
->> On 29/10/2021 08:59, Roger Pau Monne wrote:
->>> diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
->>> index e510395d08..f94f0f272c 100644
->>> --- a/xen/common/grant_table.c
->>> +++ b/xen/common/grant_table.c
->>> @@ -53,6 +53,7 @@ struct grant_table {
->>>        percpu_rwlock_t       lock;
->>>        /* Lock protecting the maptrack limit */
->>>        spinlock_t            maptrack_lock;
->>> +    unsigned int          max_version;
->>>        /*
->>>         * Defaults to v1.  May be changed with GNTTABOP_set_version.  All other
->>>         * values are invalid.
->>> @@ -1917,11 +1918,33 @@ active_alloc_failed:
->>>    }
->>>    int grant_table_init(struct domain *d, int max_grant_frames,
->>> -                     int max_maptrack_frames)
->>> +                     int max_maptrack_frames, unsigned int options)
->>>    {
->>>        struct grant_table *gt;
->>> +    unsigned int max_grant_version = options & XEN_DOMCTL_GRANT_version_mask;
->>>        int ret = -ENOMEM;
->>> +    if ( max_grant_version == XEN_DOMCTL_GRANT_version_default )
->>> +        max_grant_version = opt_gnttab_max_version;
->>> +    if ( !max_grant_version )
->>> +    {
->>> +        dprintk(XENLOG_INFO, "%pd: invalid grant table version 0 requested\n",
->>> +                d);
->>> +        return -EINVAL;
->>> +    }
->>> +    if ( max_grant_version > opt_gnttab_max_version )
->>> +    {
->>> +        dprintk(XENLOG_INFO,
->>> +                "%pd: requested grant version (%u) greater than supported (%u)\n",
->>> +                d, max_grant_version, opt_gnttab_max_version);
->>> +        return -EINVAL;
->>> +    }
->>> +    if ( unlikely(max_page >= PFN_DOWN(TB(16))) && is_pv_domain(d) &&
+On 29.10.21 11:57, Marek Marczykowski-G=C3=B3recki wrote:
+> On Fri, Oct 29, 2021 at 06:48:44AM +0200, Juergen Gross wrote:
+>> On 28.10.21 22:16, Marek Marczykowski-G=C3=B3recki wrote:
+>>> On Thu, Oct 28, 2021 at 12:59:52PM +0200, Juergen Gross wrote:
+>>>> When running as PVH or HVM guest with actual memory < max memory the=
+
+>>>> hypervisor is using "populate on demand" in order to allow the guest=
+
+>>>> to balloon down from its maximum memory size. For this to work
+>>>> correctly the guest must not touch more memory pages than its target=
+
+>>>> memory size as otherwise the PoD cache will be exhausted and the gue=
+st
+>>>> is crashed as a result of that.
+>>>>
+>>>> In extreme cases ballooning down might not be finished today before
+>>>> the init process is started, which can consume lots of memory.
+>>>>
+>>>> In order to avoid random boot crashes in such cases, add a late init=
+
+>>>> call to wait for ballooning down having finished for PVH/HVM guests.=
+
+>>>>
+>>>> Cc: <stable@vger.kernel.org>
+>>>> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethin=
+gslab.com>
+>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>
+>>> It may happen that initial balloon down fails (state=3D=3DBP_ECANCELE=
+D). In
+>>> that case, it waits indefinitely. I think it should rather report a
+>>> failure (and panic? it's similar to OOM before PID 1 starts, so rathe=
+r
+>>> hard to recover), instead of hanging.
 >>
->>  From my understanding, the limit for the grant table v1 is based on the page
->> granularity used and the size of the fields.
->>
->> So the limit you add is valid for 4KB but not 16KB/64KB. Therefore, I think
->> it would be better to use:
->>
->> 'max_page >= (1U << 32)'
-> 
-> I'm slightly confused. Isn't Xen always using a 4KB page granularity,
+>> Okay, I can add something like that. I'm thinking of issuing a failure=
 
-Yes. We only support 4KB today. But most of Xen is agnostic to the page 
-granularity. I have actually started to look to allow 64KB/16KB page 
-granularity for Xen on Arm in my spare time.
+>> message in case of credit not having changed for 1 minute and panic()
+>> after two more minutes. Is this fine?
+>=20
+> Isn't it better to get a state from balloon_thread()? If the balloon
+> fails it won't really try anymore (until 3600s timeout), so waiting in
+> that state doesn't help. And reporting the failure earlier may be more
+> user friendly. Or maybe there is something that could wakeup the thread=
 
-> and that also applies to the grant table entries?
-The page granularity for the hypercall interface is whatever the page 
-granularity Xen is using. So...
+> earlier, that I don't see? Hot plugging more RAM is rather unlikely at
+> this stage...
 
-> 
-> I don't think it's possible to use correctly use a 16KB or 64KB page
-> as an entry for the grant table, as Xen assumes those to always be 4KB
-> based.
+Waking up the thread would be easy, but probably that wouldn't really
+help.
 
-... if you build Xen with 16KB, then the grant table entries will be 
-using 16KB.
+The idea was that maybe a Xen admin would see the guest not booting up
+further and then adding some more memory to the guest (this should wake
+up the balloon thread again).
 
-So I would like to avoid making the assumption that we are always using 
-4KB. That said, the worse that can happen is a spurious message. So this 
-is more to get an accurate check.
+I agree that stopping to wait for ballooning to finish in case of it
+having failed is probably a sensible thing to do. Additionally I could
+add a boot parameter to control the timeout after the fail message and
+the panic().
 
-> 
->> Furthermore, it would add a comment explaining where this limit comes from.
->>
->> Lastly, did you check the compiler wouldn't throw an error on arm32?
-> 
-> I've tested a previous version (v2), but not this one. I assume it
-> doesn't build?
+What do you think?
 
-I haven't tried. But I remember in the past seen report for always 
-true/false check. Maybe that was just on coverity?
 
-> 
-> I've pushed it to gitlab and will adjust as needed.
+Juergen
 
-Thanks!
 
-Cheers,
+Juergen
 
--- 
-Julien Grall
+--------------67EF389DDB8B8DBA8228B295
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------67EF389DDB8B8DBA8228B295--
+
+--joHFG26fOySkAysnHotfMlksprVfq3bLQ--
+
+--Fdc7FltF5YGeKV3gR9EUKXH5xt7a8jSp8
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmF7y1sFAwAAAAAACgkQsN6d1ii/Ey+l
+ugf/a3IW0loPuVfAGCVx81M8C6h2H4x7prD9NQDY+krOnWqeCgP9nV7xQApbU37EpG8y2ZVoNMLa
+PMCd2Sv338o7J5q1Z3NIvJ5F7vB1dHVs1vGOMeuwwFyAP21gNrldaq7y5oVHwzk20sWAfdIZ36qE
+BFzFi1fccui0FsJIP2m40XH+SqI6Zl89BZQgzzavYH0FQ9NleLE3vdRoWQmp9GJZsEw4kaBdprZh
+IIydb0peoTHZ/1B026/jgNqUOrv7Y7czlFAvN6AAZBJo23Xe1X0bwiXCo/QUJKTprGBC+aFWAzTA
+eCWri4KQYwntt25K6Nwd0oFnpT5ygnOg6hWUTjbtqA==
+=MezS
+-----END PGP SIGNATURE-----
+
+--Fdc7FltF5YGeKV3gR9EUKXH5xt7a8jSp8--
 
