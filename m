@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE79743FA56
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Oct 2021 11:58:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.218479.378932 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EDF243FA67
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Oct 2021 12:02:18 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.218487.378943 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mgOdZ-0003MI-B9; Fri, 29 Oct 2021 09:57:25 +0000
+	id 1mgOhb-0004yT-W9; Fri, 29 Oct 2021 10:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 218479.378932; Fri, 29 Oct 2021 09:57:25 +0000
+Received: by outflank-mailman (output) from mailman id 218487.378943; Fri, 29 Oct 2021 10:01:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mgOdZ-0003Jf-7q; Fri, 29 Oct 2021 09:57:25 +0000
-Received: by outflank-mailman (input) for mailman id 218479;
- Fri, 29 Oct 2021 09:57:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qfCy=PR=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1mgOdX-0003JZ-Vw
- for xen-devel@lists.xenproject.org; Fri, 29 Oct 2021 09:57:24 +0000
-Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9c8271aa-389e-11ec-8510-12813bfff9fa;
- Fri, 29 Oct 2021 09:57:22 +0000 (UTC)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3B5E95C0220;
- Fri, 29 Oct 2021 05:57:22 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Fri, 29 Oct 2021 05:57:22 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 29 Oct 2021 05:57:20 -0400 (EDT)
+	id 1mgOhb-0004vt-S0; Fri, 29 Oct 2021 10:01:35 +0000
+Received: by outflank-mailman (input) for mailman id 218487;
+ Fri, 29 Oct 2021 10:01:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mgOhZ-0004vX-Su
+ for xen-devel@lists.xenproject.org; Fri, 29 Oct 2021 10:01:33 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mgOhY-0008U6-JD; Fri, 29 Oct 2021 10:01:32 +0000
+Received: from [54.239.6.188] (helo=[192.168.17.171])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mgOhY-0005os-CO; Fri, 29 Oct 2021 10:01:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,128 +39,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c8271aa-389e-11ec-8510-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=3/Egfh
-	4X+ZdPXzTj4EaqMgbhEWAl0zPu3cQnawCwVO4=; b=kCKWYV9uq+QIfP4Qg3wcFm
-	fELenkkPgPvNOALaIoR2v1v9PE2h0vWPGYl/PKkJu8sdlHc9LXSFTc3ZR2gV/KIk
-	BruKbAMKQ5qO+TXVGFLdA+PnyXT87Xk3/GGeHjbwzJ09Aqc1yThs4ZuQaEwDeBai
-	Iod1ItadzdcoI+cpV5gxJCVOJjIM9mog4bzakYfkY8UjQ3FZ67hBKL7hqJhS5meS
-	qqmUx1SyowR5LF1LOXwwxPFsr+lP2/KCO8q0A16PIRtWHjhtT1yjE1eBPyaRtT8P
-	u12vnRprhMeV8RiMpylj5uF7FrVMFApaYUDtNcGbPmK+N2O+0Gm30J2N73YNaExg
-	==
-X-ME-Sender: <xms:gsV7YarWpM9MY6o510lBTf4K0-d5szn528oVZFE1MFdPagX9xpjUgA>
-    <xme:gsV7YYo-uhoBOjjBdNY6S-WzLoZRjUtxmI4DQ0dLgCekOQAqDYU7EgPxJ7Hmginhh
-    016Kv2pA5kMsw>
-X-ME-Received: <xmr:gsV7YfP0FACiTRy27rcEo7gqjY0Zu4SRBq-cMnsa6wEAmlJTwUwe9AymhpO6HSxtHatB2SC3DuCLFVH2Ho1STBMWekRQlqho>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvdeghedgudelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeehvedv
-    ueevheekhefhvefggffgvedugeetuefgleeivdehgfeuieeugfetteeiffenucffohhmrg
-    hinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
-    pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomh
-X-ME-Proxy: <xmx:gsV7YZ4J5qvDuhzPuhwl4RnOcRfeeSyS43IBvoGw7Jk4pfB3ZjKLbQ>
-    <xmx:gsV7YZ7QgfuWVZN4d_b2jxUZQBEiMvHvf3SaWX9ahoyB17vZ1h-2Aw>
-    <xmx:gsV7YZhjQo79qUec-ty7DQuRGDTPoG069hAEfwx80kQWrHEgWTUx7A>
-    <xmx:gsV7YTmkCkUjV_Pr-NigJ3MjXbO85CG6RQAHYymRQnJCMp1z_KjnCw>
-Date: Fri, 29 Oct 2021 11:57:17 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] xen/balloon: add late_initcall_sync() for initial
- ballooning done
-Message-ID: <YXvFfRKuD574hulr@mail-itl>
-References: <20211028105952.10011-1-jgross@suse.com>
- <YXsFO2TMRiJTQM2q@mail-itl>
- <27e7619a-a797-5c46-9f9f-015ab488e31c@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=TjDhzCb7m7bs4AOHf2O6U9BtgJKYEz5RF/iAPK57lB0=; b=b3GmI4GhrDOKzs3rcmpt3yABsr
+	p/xXGhtqsK8E90kGyMTQGoSv1KtBcog+C1mOxWr2cKKmFTrQWbue880fJRhCMYwyJUNpj5X8BSHvH
+	r6lGURzvH5zzTABLT/BBiiWuqF1EQW4kxrMTDi17wTX+/VpgTqOAqDeVmqe4v0HUaE/U=;
+Message-ID: <09995bd2-0924-74bf-508f-5692b3250532@xen.org>
+Date: Fri, 29 Oct 2021 11:01:29 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="qlvPDcy0Ybnk1Q+S"
-Content-Disposition: inline
-In-Reply-To: <27e7619a-a797-5c46-9f9f-015ab488e31c@suse.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.2.1
+Subject: Re: [PATCH for-4.16 v4] gnttab: allow setting max version per-domain
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
+ Christian Lindig <christian.lindig@citrix.com>, David Scott
+ <dave@recoil.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Ian Jackson <iwj@xenproject.org>
+References: <20211029075956.1260-1-roger.pau@citrix.com>
+ <2e198e53-e3fb-4ea6-0c44-f326b5e5f5fc@xen.org>
+ <YXvBz4OdpcmVRAGM@Air-de-Roger>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <YXvBz4OdpcmVRAGM@Air-de-Roger>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
---qlvPDcy0Ybnk1Q+S
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 Oct 2021 11:57:17 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] xen/balloon: add late_initcall_sync() for initial
- ballooning done
 
-On Fri, Oct 29, 2021 at 06:48:44AM +0200, Juergen Gross wrote:
-> On 28.10.21 22:16, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Thu, Oct 28, 2021 at 12:59:52PM +0200, Juergen Gross wrote:
-> > > When running as PVH or HVM guest with actual memory < max memory the
-> > > hypervisor is using "populate on demand" in order to allow the guest
-> > > to balloon down from its maximum memory size. For this to work
-> > > correctly the guest must not touch more memory pages than its target
-> > > memory size as otherwise the PoD cache will be exhausted and the guest
-> > > is crashed as a result of that.
-> > >=20
-> > > In extreme cases ballooning down might not be finished today before
-> > > the init process is started, which can consume lots of memory.
-> > >=20
-> > > In order to avoid random boot crashes in such cases, add a late init
-> > > call to wait for ballooning down having finished for PVH/HVM guests.
-> > >=20
-> > > Cc: <stable@vger.kernel.org>
-> > > Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > > Signed-off-by: Juergen Gross <jgross@suse.com>
-> >=20
-> > It may happen that initial balloon down fails (state=3D=3DBP_ECANCELED)=
-=2E In
-> > that case, it waits indefinitely. I think it should rather report a
-> > failure (and panic? it's similar to OOM before PID 1 starts, so rather
-> > hard to recover), instead of hanging.
->=20
-> Okay, I can add something like that. I'm thinking of issuing a failure
-> message in case of credit not having changed for 1 minute and panic()
-> after two more minutes. Is this fine?
+On 29/10/2021 10:41, Roger Pau Monné wrote:
+> On Fri, Oct 29, 2021 at 09:58:55AM +0100, Julien Grall wrote:
+>> Hi Roger,
+Hi Roger,
 
-Isn't it better to get a state from balloon_thread()? If the balloon
-fails it won't really try anymore (until 3600s timeout), so waiting in
-that state doesn't help. And reporting the failure earlier may be more
-user friendly. Or maybe there is something that could wakeup the thread
-earlier, that I don't see? Hot plugging more RAM is rather unlikely at
-this stage...
-See my patch at [1], although rather hacky (and likely - racy).
+>> On 29/10/2021 08:59, Roger Pau Monne wrote:
+>>> diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+>>> index e510395d08..f94f0f272c 100644
+>>> --- a/xen/common/grant_table.c
+>>> +++ b/xen/common/grant_table.c
+>>> @@ -53,6 +53,7 @@ struct grant_table {
+>>>        percpu_rwlock_t       lock;
+>>>        /* Lock protecting the maptrack limit */
+>>>        spinlock_t            maptrack_lock;
+>>> +    unsigned int          max_version;
+>>>        /*
+>>>         * Defaults to v1.  May be changed with GNTTABOP_set_version.  All other
+>>>         * values are invalid.
+>>> @@ -1917,11 +1918,33 @@ active_alloc_failed:
+>>>    }
+>>>    int grant_table_init(struct domain *d, int max_grant_frames,
+>>> -                     int max_maptrack_frames)
+>>> +                     int max_maptrack_frames, unsigned int options)
+>>>    {
+>>>        struct grant_table *gt;
+>>> +    unsigned int max_grant_version = options & XEN_DOMCTL_GRANT_version_mask;
+>>>        int ret = -ENOMEM;
+>>> +    if ( max_grant_version == XEN_DOMCTL_GRANT_version_default )
+>>> +        max_grant_version = opt_gnttab_max_version;
+>>> +    if ( !max_grant_version )
+>>> +    {
+>>> +        dprintk(XENLOG_INFO, "%pd: invalid grant table version 0 requested\n",
+>>> +                d);
+>>> +        return -EINVAL;
+>>> +    }
+>>> +    if ( max_grant_version > opt_gnttab_max_version )
+>>> +    {
+>>> +        dprintk(XENLOG_INFO,
+>>> +                "%pd: requested grant version (%u) greater than supported (%u)\n",
+>>> +                d, max_grant_version, opt_gnttab_max_version);
+>>> +        return -EINVAL;
+>>> +    }
+>>> +    if ( unlikely(max_page >= PFN_DOWN(TB(16))) && is_pv_domain(d) &&
+>>
+>>  From my understanding, the limit for the grant table v1 is based on the page
+>> granularity used and the size of the fields.
+>>
+>> So the limit you add is valid for 4KB but not 16KB/64KB. Therefore, I think
+>> it would be better to use:
+>>
+>> 'max_page >= (1U << 32)'
+> 
+> I'm slightly confused. Isn't Xen always using a 4KB page granularity,
 
-[1] https://lore.kernel.org/xen-devel/YXFxKC4shCATB913@mail-itl/
+Yes. We only support 4KB today. But most of Xen is agnostic to the page 
+granularity. I have actually started to look to allow 64KB/16KB page 
+granularity for Xen on Arm in my spare time.
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+> and that also applies to the grant table entries?
+The page granularity for the hypercall interface is whatever the page 
+granularity Xen is using. So...
 
---qlvPDcy0Ybnk1Q+S
-Content-Type: application/pgp-signature; name="signature.asc"
+> 
+> I don't think it's possible to use correctly use a 16KB or 64KB page
+> as an entry for the grant table, as Xen assumes those to always be 4KB
+> based.
 
------BEGIN PGP SIGNATURE-----
+... if you build Xen with 16KB, then the grant table entries will be 
+using 16KB.
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmF7xX0ACgkQ24/THMrX
-1yxoEgf+LmB4JafdHInJTr2vAFi4q6NgWgkLEQ5VU9RFsyxR6E1Y2gFfyQClL8T5
-pbWpH16scP/dnR74YMV9WfZKL5Zvza9vFTM2okm/rKjazkuPacho2xrxIJ9EPQNz
-xL2XQFqi2Ma6j8RN0CePJtunyCIThttE2FFKl6BGAKCPCJKqAmMPxXnSjajQNc+6
-ZKdubeSuvvlm4PKl89eyVyUrNC5QobxUlXCc7IaVRV1PEHFYrxH4pEOtsEAVfjA5
-VIFzSmygyP65qWhRvLvCWHFZ8F740EypyzdNoBuhdpEfc3/O/siyFVsd1dlIdmcV
-Dy823HP72V5ImM2iXpgSYCOgUjiVrQ==
-=tifY
------END PGP SIGNATURE-----
+So I would like to avoid making the assumption that we are always using 
+4KB. That said, the worse that can happen is a spurious message. So this 
+is more to get an accurate check.
 
---qlvPDcy0Ybnk1Q+S--
+> 
+>> Furthermore, it would add a comment explaining where this limit comes from.
+>>
+>> Lastly, did you check the compiler wouldn't throw an error on arm32?
+> 
+> I've tested a previous version (v2), but not this one. I assume it
+> doesn't build?
+
+I haven't tried. But I remember in the past seen report for always 
+true/false check. Maybe that was just on coverity?
+
+> 
+> I've pushed it to gitlab and will adjust as needed.
+
+Thanks!
+
+Cheers,
+
+-- 
+Julien Grall
 
