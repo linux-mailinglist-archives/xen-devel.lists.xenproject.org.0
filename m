@@ -2,44 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1319D43FE59
-	for <lists+xen-devel@lfdr.de>; Fri, 29 Oct 2021 16:21:09 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.218563.379058 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D12943FE62
+	for <lists+xen-devel@lfdr.de>; Fri, 29 Oct 2021 16:22:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.218570.379070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mgSka-0002e9-9p; Fri, 29 Oct 2021 14:20:56 +0000
+	id 1mgSm2-0003Dv-LD; Fri, 29 Oct 2021 14:22:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 218563.379058; Fri, 29 Oct 2021 14:20:56 +0000
+Received: by outflank-mailman (output) from mailman id 218570.379070; Fri, 29 Oct 2021 14:22:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mgSka-0002bM-6Y; Fri, 29 Oct 2021 14:20:56 +0000
-Received: by outflank-mailman (input) for mailman id 218563;
- Fri, 29 Oct 2021 14:20:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mgSm2-0003C2-I0; Fri, 29 Oct 2021 14:22:26 +0000
+Received: by outflank-mailman (input) for mailman id 218570;
+ Fri, 29 Oct 2021 14:22:25 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=3izX=PR=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mgSkY-0002bC-7x
- for xen-devel@lists.xenproject.org; Fri, 29 Oct 2021 14:20:54 +0000
+ id 1mgSm1-0003Bw-HO
+ for xen-devel@lists.xenproject.org; Fri, 29 Oct 2021 14:22:25 +0000
 Received: from smtp-out1.suse.de (unknown [195.135.220.28])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6bdb8c42-38c3-11ec-8513-12813bfff9fa;
- Fri, 29 Oct 2021 14:20:52 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 667d7d82-8cd8-41f8-9aaa-3d3b14c5670c;
+ Fri, 29 Oct 2021 14:22:24 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id AD8A421637;
- Fri, 29 Oct 2021 14:20:51 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 669F221968;
+ Fri, 29 Oct 2021 14:22:23 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 777CD13F6F;
- Fri, 29 Oct 2021 14:20:51 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3C28F13F6F;
+ Fri, 29 Oct 2021 14:22:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QGDIG0MDfGFxMwAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 29 Oct 2021 14:20:51 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id S0YmDZ8DfGECNAAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 29 Oct 2021 14:22:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,248 +50,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bdb8c42-38c3-11ec-8513-12813bfff9fa
+X-Inumbo-ID: 667d7d82-8cd8-41f8-9aaa-3d3b14c5670c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1635517251; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=7R9uA+LpPYmFjie5UDdlkOgIald16ENiSYZa7Y+izN4=;
-	b=ajMXA7qP6da3jX2Lm8M8CmYif0cqYQtFZQBtUQ002zP1AGAbtipFTgPOVK1RnrkII7LzBb
-	tM7maZ3GATqAG8qvot2qHhjqjoN9COaeWLvLkXnOh5kRnuZSUM3HwtrsKR5eTu1LvDm/cz
-	byovVaNLPy0slzzddwVYvSWiszt8ozM=
+	t=1635517343; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=b3hbVsW/qd4JlhNtySvVHNwOWfFRRa/WfskrRS8x0kU=;
+	b=Q/TsdwhKvafsw3XIx0DN0WD1Emzd6dtaD7TcSz5Q+GEs1/TZufUMxi4MHAYThNeTCVkEPX
+	LHjHIkWcaSgKoh2hs4j5xohjeUX8Ee1utuCPb6sblhMkolS3iYlk99xfIOR0e6d897yE0x
+	yjsq0I3BMcfLcFPgcASRNhzBGS7HjKI=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org,
 	linux-kernel@vger.kernel.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	stable@vger.kernel.org,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: [PATCH v3] xen/balloon: add late_initcall_sync() for initial ballooning done
-Date: Fri, 29 Oct 2021 16:20:49 +0200
-Message-Id: <20211029142049.25198-1-jgross@suse.com>
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH] xen/balloon: rename alloc/free_xenballooned_pages
+Date: Fri, 29 Oct 2021 16:22:19 +0200
+Message-Id: <20211029142219.25357-1-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When running as PVH or HVM guest with actual memory < max memory the
-hypervisor is using "populate on demand" in order to allow the guest
-to balloon down from its maximum memory size. For this to work
-correctly the guest must not touch more memory pages than its target
-memory size as otherwise the PoD cache will be exhausted and the guest
-is crashed as a result of that.
+alloc_xenballooned_pages() and free_xenballooned_pages() are used as
+direct replacements of xen_alloc_unpopulated_pages() and
+xen_free_unpopulated_pages() in case CONFIG_XEN_UNPOPULATED_ALLOC isn't
+defined.
 
-In extreme cases ballooning down might not be finished today before
-the init process is started, which can consume lots of memory.
+Guard both functions with !CONFIG_XEN_UNPOPULATED_ALLOC and rename them
+to the xen_*() variants they are replacing. This allows to remove some
+ifdeffery from the xen.h header file.
 
-In order to avoid random boot crashes in such cases, add a late init
-call to wait for ballooning down having finished for PVH/HVM guests.
-
-Warn on console if initial ballooning fails, panic() after stalling
-for more than 3 minutes per default. Add a module parameter for
-changing this timeout.
-
-Cc: <stable@vger.kernel.org>
-Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-V2:
-- add warning and panic() when stalling (Marek Marczykowski-Górecki)
-- don't wait if credit > 0
-V3:
-- issue warning only after ballooning failed (Marek Marczykowski-Górecki)
-- make panic() timeout configurable via parameter
----
- .../stable/sysfs-devices-system-xen_memory    | 10 +++
- drivers/xen/balloon.c                         | 63 +++++++++++++++----
- drivers/xen/xen-balloon.c                     |  2 +
- include/xen/balloon.h                         |  1 +
- 4 files changed, 63 insertions(+), 13 deletions(-)
+ drivers/xen/balloon.c | 18 ++++++++++--------
+ include/xen/balloon.h |  3 ---
+ include/xen/xen.h     |  6 ------
+ 3 files changed, 10 insertions(+), 17 deletions(-)
 
-diff --git a/Documentation/ABI/stable/sysfs-devices-system-xen_memory b/Documentation/ABI/stable/sysfs-devices-system-xen_memory
-index 6d83f95a8a8e..2da062e2c94a 100644
---- a/Documentation/ABI/stable/sysfs-devices-system-xen_memory
-+++ b/Documentation/ABI/stable/sysfs-devices-system-xen_memory
-@@ -84,3 +84,13 @@ Description:
- 		Control scrubbing pages before returning them to Xen for others domains
- 		use. Can be set with xen_scrub_pages cmdline
- 		parameter. Default value controlled with CONFIG_XEN_SCRUB_PAGES_DEFAULT.
-+
-+What:		/sys/devices/system/xen_memory/xen_memory0/boot_timeout
-+Date:		November 2021
-+KernelVersion:	5.16
-+Contact:	xen-devel@lists.xenproject.org
-+Description:
-+		The time (in seconds) to wait before giving up to boot in case
-+		initial ballooning fails to free enough memory. Applies only
-+		when running as HVM or PVH guest and started with less memory
-+		configured than allowed at max.
 diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-index 3a50f097ed3e..98fae43d4cec 100644
+index 98fae43d4cec..35fac7fb513a 100644
 --- a/drivers/xen/balloon.c
 +++ b/drivers/xen/balloon.c
-@@ -125,12 +125,12 @@ static struct ctl_table xen_root[] = {
-  * BP_ECANCELED: error, balloon operation canceled.
-  */
- 
--enum bp_state {
-+static enum bp_state {
- 	BP_DONE,
- 	BP_WAIT,
- 	BP_EAGAIN,
- 	BP_ECANCELED
--};
-+} balloon_state = BP_DONE;
- 
- /* Main waiting point for xen-balloon thread. */
- static DECLARE_WAIT_QUEUE_HEAD(balloon_thread_wq);
-@@ -494,9 +494,9 @@ static enum bp_state decrease_reservation(unsigned long nr_pages, gfp_t gfp)
-  * Stop waiting if either state is BP_DONE and ballooning action is
-  * needed, or if the credit has changed while state is not BP_DONE.
-  */
--static bool balloon_thread_cond(enum bp_state state, long credit)
-+static bool balloon_thread_cond(long credit)
- {
--	if (state == BP_DONE)
-+	if (balloon_state == BP_DONE)
- 		credit = 0;
- 
- 	return current_credit() != credit || kthread_should_stop();
-@@ -510,13 +510,12 @@ static bool balloon_thread_cond(enum bp_state state, long credit)
-  */
- static int balloon_thread(void *unused)
- {
--	enum bp_state state = BP_DONE;
- 	long credit;
- 	unsigned long timeout;
- 
- 	set_freezable();
- 	for (;;) {
--		switch (state) {
-+		switch (balloon_state) {
- 		case BP_DONE:
- 		case BP_ECANCELED:
- 			timeout = 3600 * HZ;
-@@ -532,7 +531,7 @@ static int balloon_thread(void *unused)
- 		credit = current_credit();
- 
- 		wait_event_freezable_timeout(balloon_thread_wq,
--			balloon_thread_cond(state, credit), timeout);
-+			balloon_thread_cond(credit), timeout);
- 
- 		if (kthread_should_stop())
- 			return 0;
-@@ -543,22 +542,23 @@ static int balloon_thread(void *unused)
- 
- 		if (credit > 0) {
- 			if (balloon_is_inflated())
--				state = increase_reservation(credit);
-+				balloon_state = increase_reservation(credit);
- 			else
--				state = reserve_additional_memory();
-+				balloon_state = reserve_additional_memory();
- 		}
- 
- 		if (credit < 0) {
- 			long n_pages;
- 
- 			n_pages = min(-credit, si_mem_available());
--			state = decrease_reservation(n_pages, GFP_BALLOON);
--			if (state == BP_DONE && n_pages != -credit &&
-+			balloon_state = decrease_reservation(n_pages,
-+							     GFP_BALLOON);
-+			if (balloon_state == BP_DONE && n_pages != -credit &&
- 			    n_pages < totalreserve_pages)
--				state = BP_EAGAIN;
-+				balloon_state = BP_EAGAIN;
- 		}
- 
--		state = update_schedule(state);
-+		balloon_state = update_schedule(balloon_state);
- 
- 		mutex_unlock(&balloon_mutex);
- 
-@@ -731,6 +731,7 @@ static int __init balloon_init(void)
- 	balloon_stats.max_schedule_delay = 32;
- 	balloon_stats.retry_count = 1;
- 	balloon_stats.max_retry_count = 4;
-+	balloon_stats.boot_timeout = 180;
- 
- #ifdef CONFIG_XEN_BALLOON_MEMORY_HOTPLUG
- 	set_online_page_callback(&xen_online_page);
-@@ -765,3 +766,39 @@ static int __init balloon_init(void)
- 	return 0;
+@@ -575,6 +575,7 @@ void balloon_set_new_target(unsigned long target)
  }
- subsys_initcall(balloon_init);
-+
-+static int __init balloon_wait_finish(void)
-+{
-+	long credit, last_credit = 0;
-+	unsigned long last_changed;
-+
-+	if (!xen_domain())
-+		return -ENODEV;
-+
-+	/* PV guests don't need to wait. */
-+	if (xen_pv_domain() || !current_credit())
-+		return 0;
-+
-+	pr_info("Waiting for initial ballooning down having finished.\n");
-+
-+	while ((credit = current_credit()) < 0) {
-+		if (credit != last_credit) {
-+			last_changed = jiffies;
-+			last_credit = credit;
-+		}
-+		if (balloon_state == BP_ECANCELED) {
-+			pr_warn_once("Initial ballooning failed, %ld pages need to be freed.\n",
-+				     -credit);
-+			if (jiffies - last_changed >=
-+			    HZ * balloon_stats.boot_timeout)
-+				panic("Initial ballooning failed!\n");
-+		}
-+
-+		schedule_timeout_interruptible(HZ / 10);
-+	}
-+
-+	pr_info("Initial ballooning down finished.\n");
-+
-+	return 0;
-+}
-+late_initcall_sync(balloon_wait_finish);
-diff --git a/drivers/xen/xen-balloon.c b/drivers/xen/xen-balloon.c
-index 8cd583db20b1..6e5db50ede0f 100644
---- a/drivers/xen/xen-balloon.c
-+++ b/drivers/xen/xen-balloon.c
-@@ -150,6 +150,7 @@ static DEVICE_ULONG_ATTR(schedule_delay, 0444, balloon_stats.schedule_delay);
- static DEVICE_ULONG_ATTR(max_schedule_delay, 0644, balloon_stats.max_schedule_delay);
- static DEVICE_ULONG_ATTR(retry_count, 0444, balloon_stats.retry_count);
- static DEVICE_ULONG_ATTR(max_retry_count, 0644, balloon_stats.max_retry_count);
-+static DEVICE_ULONG_ATTR(boot_timeout, 0644, balloon_stats.boot_timeout);
- static DEVICE_BOOL_ATTR(scrub_pages, 0644, xen_scrub_pages);
+ EXPORT_SYMBOL_GPL(balloon_set_new_target);
  
- static ssize_t target_kb_show(struct device *dev, struct device_attribute *attr,
-@@ -211,6 +212,7 @@ static struct attribute *balloon_attrs[] = {
- 	&dev_attr_max_schedule_delay.attr.attr,
- 	&dev_attr_retry_count.attr.attr,
- 	&dev_attr_max_retry_count.attr.attr,
-+	&dev_attr_boot_timeout.attr.attr,
- 	&dev_attr_scrub_pages.attr.attr,
- 	NULL
- };
++#ifndef CONFIG_XEN_UNPOPULATED_ALLOC
+ static int add_ballooned_pages(int nr_pages)
+ {
+ 	enum bp_state st;
+@@ -603,12 +604,12 @@ static int add_ballooned_pages(int nr_pages)
+ }
+ 
+ /**
+- * alloc_xenballooned_pages - get pages that have been ballooned out
++ * xen_alloc_unpopulated_pages - get pages that have been ballooned out
+  * @nr_pages: Number of pages to get
+  * @pages: pages returned
+  * @return 0 on success, error otherwise
+  */
+-int alloc_xenballooned_pages(int nr_pages, struct page **pages)
++int xen_alloc_unpopulated_pages(int nr_pages, struct page **pages)
+ {
+ 	int pgno = 0;
+ 	struct page *page;
+@@ -645,7 +646,7 @@ int alloc_xenballooned_pages(int nr_pages, struct page **pages)
+ 	return 0;
+  out_undo:
+ 	mutex_unlock(&balloon_mutex);
+-	free_xenballooned_pages(pgno, pages);
++	xen_free_unpopulated_pages(pgno, pages);
+ 	/*
+ 	 * NB: free_xenballooned_pages will only subtract pgno pages, but since
+ 	 * target_unpopulated is incremented with nr_pages at the start we need
+@@ -654,14 +655,14 @@ int alloc_xenballooned_pages(int nr_pages, struct page **pages)
+ 	balloon_stats.target_unpopulated -= nr_pages - pgno;
+ 	return ret;
+ }
+-EXPORT_SYMBOL(alloc_xenballooned_pages);
++EXPORT_SYMBOL(xen_alloc_unpopulated_pages);
+ 
+ /**
+- * free_xenballooned_pages - return pages retrieved with get_ballooned_pages
++ * xen_free_unpopulated_pages - return pages retrieved with get_ballooned_pages
+  * @nr_pages: Number of pages
+  * @pages: pages to return
+  */
+-void free_xenballooned_pages(int nr_pages, struct page **pages)
++void xen_free_unpopulated_pages(int nr_pages, struct page **pages)
+ {
+ 	int i;
+ 
+@@ -680,9 +681,9 @@ void free_xenballooned_pages(int nr_pages, struct page **pages)
+ 
+ 	mutex_unlock(&balloon_mutex);
+ }
+-EXPORT_SYMBOL(free_xenballooned_pages);
++EXPORT_SYMBOL(xen_free_unpopulated_pages);
+ 
+-#if defined(CONFIG_XEN_PV) && !defined(CONFIG_XEN_UNPOPULATED_ALLOC)
++#if defined(CONFIG_XEN_PV)
+ static void __init balloon_add_region(unsigned long start_pfn,
+ 				      unsigned long pages)
+ {
+@@ -705,6 +706,7 @@ static void __init balloon_add_region(unsigned long start_pfn,
+ 	balloon_stats.total_pages += extra_pfn_end - start_pfn;
+ }
+ #endif
++#endif
+ 
+ static int __init balloon_init(void)
+ {
 diff --git a/include/xen/balloon.h b/include/xen/balloon.h
-index 6dbdb0b3fd03..95a4187f263b 100644
+index 95a4187f263b..d6ee920fafa4 100644
 --- a/include/xen/balloon.h
 +++ b/include/xen/balloon.h
-@@ -20,6 +20,7 @@ struct balloon_stats {
- 	unsigned long max_schedule_delay;
- 	unsigned long retry_count;
- 	unsigned long max_retry_count;
-+	unsigned long boot_timeout;
- };
+@@ -27,9 +27,6 @@ extern struct balloon_stats balloon_stats;
  
- extern struct balloon_stats balloon_stats;
+ void balloon_set_new_target(unsigned long target);
+ 
+-int alloc_xenballooned_pages(int nr_pages, struct page **pages);
+-void free_xenballooned_pages(int nr_pages, struct page **pages);
+-
+ #ifdef CONFIG_XEN_BALLOON
+ void xen_balloon_init(void);
+ #else
+diff --git a/include/xen/xen.h b/include/xen/xen.h
+index 43efba045acc..9f031b5faa54 100644
+--- a/include/xen/xen.h
++++ b/include/xen/xen.h
+@@ -52,13 +52,7 @@ bool xen_biovec_phys_mergeable(const struct bio_vec *vec1,
+ extern u64 xen_saved_max_mem_size;
+ #endif
+ 
+-#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
+ int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages);
+ void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages);
+-#else
+-#define xen_alloc_unpopulated_pages alloc_xenballooned_pages
+-#define xen_free_unpopulated_pages free_xenballooned_pages
+-#include <xen/balloon.h>
+-#endif
+ 
+ #endif	/* _XEN_XEN_H */
 -- 
 2.26.2
 
