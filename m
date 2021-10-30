@@ -2,57 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE9104405DD
-	for <lists+xen-devel@lfdr.de>; Sat, 30 Oct 2021 01:46:07 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.218666.379193 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4349440673
+	for <lists+xen-devel@lfdr.de>; Sat, 30 Oct 2021 02:39:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.218673.379203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mgbYH-0001qA-IS; Fri, 29 Oct 2021 23:44:49 +0000
+	id 1mgcOT-0007PH-Hu; Sat, 30 Oct 2021 00:38:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 218666.379193; Fri, 29 Oct 2021 23:44:49 +0000
+Received: by outflank-mailman (output) from mailman id 218673.379203; Sat, 30 Oct 2021 00:38:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mgbYH-0001o1-F1; Fri, 29 Oct 2021 23:44:49 +0000
-Received: by outflank-mailman (input) for mailman id 218666;
- Fri, 29 Oct 2021 23:44:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SwSe=PR=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1mgbYG-0001nt-By
- for xen-devel@lists.xenproject.org; Fri, 29 Oct 2021 23:44:48 +0000
-Received: from mx0a-00069f02.pphosted.com (unknown [205.220.165.32])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 95298a6c-87c6-49cc-91f8-426465df0fff;
- Fri, 29 Oct 2021 23:44:45 +0000 (UTC)
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 19TKrRNH014448; 
- Fri, 29 Oct 2021 23:44:42 GMT
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by mx0b-00069f02.pphosted.com with ESMTP id 3byedauej8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 29 Oct 2021 23:44:41 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 19TNfgPU182964;
- Fri, 29 Oct 2021 23:44:40 GMT
-Received: from nam12-bn8-obe.outbound.protection.outlook.com
- (mail-bn8nam12lp2174.outbound.protection.outlook.com [104.47.55.174])
- by aserp3020.oracle.com with ESMTP id 3bx4ggmfu1-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 29 Oct 2021 23:44:40 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by BL0PR10MB2977.namprd10.prod.outlook.com (2603:10b6:208:31::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4628.20; Fri, 29 Oct
- 2021 23:44:38 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::3c49:46aa:83e1:a329]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::3c49:46aa:83e1:a329%6]) with mapi id 15.20.4649.015; Fri, 29 Oct 2021
- 23:44:38 +0000
-Received: from [10.74.104.68] (138.3.200.4) by
- SN7PR04CA0194.namprd04.prod.outlook.com (2603:10b6:806:126::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15 via Frontend
- Transport; Fri, 29 Oct 2021 23:44:36 +0000
+	id 1mgcOT-0007NA-Ee; Sat, 30 Oct 2021 00:38:45 +0000
+Received: by outflank-mailman (input) for mailman id 218673;
+ Sat, 30 Oct 2021 00:38:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mgcOS-0007Me-Ei; Sat, 30 Oct 2021 00:38:44 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mgcOS-0007Pp-1J; Sat, 30 Oct 2021 00:38:44 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mgcOR-0005Jt-PH; Sat, 30 Oct 2021 00:38:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mgcOR-0006H8-Om; Sat, 30 Oct 2021 00:38:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,183 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95298a6c-87c6-49cc-91f8-426465df0fff
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=gfoXfXhQS40ektirZEXsfnYNyX2cBA+sq9UE/J+mvvU=;
- b=fxDrdSSml5meIqUyqsYBc0BbAQeBQcWnH7HVHD3c1/MnKOIQ45Ot45c5nu55gO8EZOKd
- 1WKqgZIgCpbkuu/eP/n/tUtWs6fm5PMUsibCMhy2Rdk8i+xnAZ4DxU/BMUylqCKAAp4X
- +W5V9R4eIHJHgPn1IHed14B9Z4DOtLaAwYEl/asPdHYizA36PjeA5IqaRxCYVneQS21t
- GBibAOgvWbPlm/zQQosTqE/+IzCMq9G1qCqPiyXvSj6o75jdyLshdgiUN8WPHkUlU3BV
- E8G5niVaFP1HGkxdIMBX/qviBwSAITSWQXU+NyMhETpW8Zi+2agx0rQVnN9nRO6mvkQs xw== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vo77w0zdKOd+qf/9/b2ecr7mlgNy03KUlUwZmHY/JvoPtPOgBh4B2ZcaBmB8GKmZ/IFGfhpQnTPOcQgIvx4yjde13mGDU4sEzDEJ2Wg8AQLUaNmSOEionDx4AgHcLsS2qpPu7Onl+DGOnFFQkkE63PV2Rrj7/8KIzZoz54FNU00qVij7TvqIWmWmaVmw5o5RXJ5sg1H29zcbuPrTUteQcZUdo6rjqT1VD7Fm0vDnloAwYwvamuncOROkZ3CYX6fPB0SWAnsjAOgjQ4w/Q35QDXqiF1f1jylKzv4MeTEbxdJTexxbRFxDqh3AsdkkhfBDib1lUqxxkILduvgvClJBZA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gfoXfXhQS40ektirZEXsfnYNyX2cBA+sq9UE/J+mvvU=;
- b=eSgQB0hJtZKCEOGGcskFRhOtmtQwJ54feV1JktURfBsqndsyOetDlrjtTpC8+Nu/yq5ebz4eleS226khvxGBcDoi/gPXHKs5pOd0oIkSEPDz/Sjlf6DV9P3D2k2/lemChYSk2djhV5/Ur3R3ZCjKEbrKtdxhMcTnijqXnjJnWSG/TRnFlSNrH1JW4M36pa7j7Sj3a5UubRE3NQ1zVGIbJeZMVvQAKKoK+6Oox/+71XH0gKSk4ptCrnhJkT2Mv650WEGRTd/lWnoXnhyiHxkiPhWw/Te1QXj12SFSOsxPbcr/huyXNEicpXdMTBeM3tqzQDAJG51UHZjYSWps4LM5TA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gfoXfXhQS40ektirZEXsfnYNyX2cBA+sq9UE/J+mvvU=;
- b=LUIy6ndIXIxtU5TSlwRycpVjCKa1yMbL44Y45MnrBretuu/UyuLHn0wTFwjGj0wLNnwnXgd8SVTrQ/yTDuKRVde4rL82sw2uw5knoqCG+SXRFvT0X99WxUwmNAlRJRqzew9p8prp6A5MZslOcbZkMmgLwW1Ry+iH82t9mDMUU/w=
-Authentication-Results: invisiblethingslab.com; dkim=none (message not signed)
- header.d=none;invisiblethingslab.com; dmarc=none action=none
- header.from=oracle.com;
-Message-ID: <2365e65f-7431-4bf5-4ced-5e146776b9ac@oracle.com>
-Date: Fri, 29 Oct 2021 19:44:31 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.1
-Subject: Re: [PATCH v3] xen/balloon: add late_initcall_sync() for initial
- ballooning done
-Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-        linux-kernel@vger.kernel.org,
-        Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
-References: <20211029142049.25198-1-jgross@suse.com>
- <11956c14-f1f7-70f0-40a6-aad31a264af6@oracle.com> <YXxzQhPvgAOkhGg/@mail-itl>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <YXxzQhPvgAOkhGg/@mail-itl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=q4f5JGQIX7S1jsGYV2hRShMF5yZuMt2KGokZPImfvFk=; b=MUBdbZFMFaLnx9vNTleyBVKZK+
+	brcN5Hr75NmiP0WhFntmvV+OB0o5jsm2wiWjGJM625xaXFEOIKFnzYkeLf6528STiELUgUL8uE40U
+	gQ966l3zQfVPQKaBErL0NUbFET87zrcePdrCj0wUe0AbRjTLttJAZRhJqkadioOeV2Ks=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165939-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN7PR04CA0194.namprd04.prod.outlook.com
- (2603:10b6:806:126::19) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b67a4139-008e-493c-c3a7-08d99b36122c
-X-MS-TrafficTypeDiagnostic: BL0PR10MB2977:
-X-Microsoft-Antispam-PRVS: 
-	<BL0PR10MB29773A9EC8AD089AEFB0E6A38A879@BL0PR10MB2977.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	CJqU/o8w7ldM1DNzXEXoWODFiPGdJNGkNZIfKdAjEo22/sNjhyMMMJPbA0GHSqlEIrJiXok9ZkAZOSGQ3sRA9FX4n3xSB+WTvr9j2Z2V+yXTawHoSac8lvNFXLaqjPcsMr1k/iJvO1h8UrHFD8ysHQKCw8t8aCy4rPhru5QspF37pT6fuZF9EfyADwK1YnUbDoPQlp9jikdz3pNRyJHxnip4RM81UzMa7APUqek67XXiJcxQffOXofQUwmbo4wi+EjqwVf4+C1lOITm4V5bAfbYSAmOdTW0xueTcTvoOLILZIUJH39lvGhnx6E/pITjNb4r8/0J3yPG1cqERb1+LQpjzBm4lcHOsJi/NOB1QuiVKH4H+MjkYqLWEJRZd//Qcs7Szrz/WBAomvWNRj0U1TGYlaYiQ8woA2bMVRJltmUgmXxUY86fYUzqJTulbkdZK27bugrBD3gTjmzMHviMfLEmXCJfMZsAnzqIbr4HCj/BFPzlUku4yx4eKARO7HG/tM+sY7NDyOquNbkczn+CgfMCVPOf2iJmplUrkg9X9JjVDYKEf4y4EXGOreGtH9Za+1R6NG/6RqY33w8UL+XSpsujVqZ3VaUia7ki7iKLo5gmDMn4b9PWktgvh0AC4MdAjOl7an9i/7m4niDQhUbeBxzqK5Fa/nPg0zdoD089UYl3UUcHm77LHYDPM3tmx8oJdT3SiVagGd9PBV7vUttQZrKwx84QNaWOcOh0mbM9jyrjFcfGovG0knH3+zrTpba2i
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(66476007)(54906003)(8936002)(31696002)(8676002)(83380400001)(508600001)(186003)(6666004)(6916009)(4326008)(26005)(66574015)(16576012)(44832011)(2616005)(6486002)(86362001)(31686004)(38100700002)(36756003)(2906002)(5660300002)(956004)(316002)(66556008)(53546011)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?M29NN3JITjBDZmx5Nmd5MVFCeno5TjBFUytxZE14bGxid1ovT3BHSWhYQmgx?=
- =?utf-8?B?ZFBVZVRFcWFDOCtlV2I2d3E3em1lZXA3N29pVHp6dHhnNGhTUlFIdS80M01H?=
- =?utf-8?B?YkhhTWNTaHRqc3pudGpYZUQyZ0pwVUljWkcwQVR6SlNjMzV6QkdTVnBTamx4?=
- =?utf-8?B?aE1jSzdwMU1HZTBwYjJCWkxMUmFRaTcxQkxmQVEvZHlkUEpORW1oV3lQSWt6?=
- =?utf-8?B?NlhuT2g0VElvL21xUzFEVFF5cHdLSnRMQ3FESFZNc0p4ajQ4T3ZRU3FoZXRZ?=
- =?utf-8?B?c1FPTkQ1RURpUTJjdWxHMmphbEY0RzhSVEVqOW45YnpocHV1M1dJanpoYmNG?=
- =?utf-8?B?Nzkza1daNjRDalpMUlpsdlp4aDY3UklpNUdxbzlaSkN2T0g2enliUFBKZTdm?=
- =?utf-8?B?QjZVZW5rcFBnTkhzSExFeUEwcWhIc1Fac1JROXI1aXBXalJ2clFSc28xOTV4?=
- =?utf-8?B?SUdxbmRCZG1DbkgyMTEyZHF4NHJoVGgwSkJWL0EwQlc0SmxkcWZ4eEdVUlFU?=
- =?utf-8?B?ZEZxdDVhM1ZPNlJPOWxTajd2enpCR1FoeThMRUpYOGExeXphd0pBQTRkbE42?=
- =?utf-8?B?QzFwMEphTEIzdVN4SEt5dTdSMFYzSC8zdytQLzRyVlAvdG4rVFhZdkZ4ckVD?=
- =?utf-8?B?NE4rdjAzMGpDVjZzZ2ZGSmpGU0k5L1FFYnR5dWxpUlp3dXlEVWxORC9Xdm5W?=
- =?utf-8?B?eWxUMUMvNE9xRExnMnFMRTNiUkhKallVTDV0TkY1cThiQTFndW1pTGprditI?=
- =?utf-8?B?dHZCOElyMVdBQm42UzUwMUNWaDVPZVB2UjRHb2RXbUY5RjM4SEtvb2NOVSt3?=
- =?utf-8?B?bG52enRXSVY3ZU1peVRZU1BEREVlOUU1UTQ2clJjTkdJeEhCNW9KdkExTW51?=
- =?utf-8?B?bGRrN05ib0lESzVmNWhGYURadW96eUhKQzlCOSs0YXpOL2pHNzliNEVkVGlR?=
- =?utf-8?B?MDZhaGJPN1ZUbC9aWGljZlhtWkZURzhGUHFzMERUQTlxY3BuaU1jajNHODZp?=
- =?utf-8?B?aG93VVg1SWlqWUxMdnlvTmFRNjhYMWx1MjlUb1JMUkcySEJKZVVBQmYva2Y0?=
- =?utf-8?B?ZDlLdGF1YlhIV213blZlbG5PWVh4enNoNk55ZEJkTW9meHFVR1NiNWdDRnRn?=
- =?utf-8?B?ekdadVUvaGdWdm8xUEE0SlJtZ0FlWTlyR1BwV256ajdyY0lnWk8rSGtwRVZq?=
- =?utf-8?B?WmxZNmlOcysveGxPVHpRaFVjV3R1c2FEKzA3Z1duK25UYnJRWVJBQTd2M1hm?=
- =?utf-8?B?UUZEM1Zjb0lFdHlUVG5Id1o4MGxROFRKekwrT3MxM0lKcFAzVWpVQ05aSUEv?=
- =?utf-8?B?V0E2K0FOUVRkdllDa0Vqd1FlR1V5UDRRbHNkenEwSlhscG43ell2VlNya1F1?=
- =?utf-8?B?TWtEQ0VhSDBXczFnRTF4Rk83ZVF2cGtiSE44bjcxL0I5bDJwc0hHQkIzREVT?=
- =?utf-8?B?cUxLZHJHQlhlWm5ub0hoRmhTejlWcXRocU1pZDJKc0pWWjFwSzlTejZuNWMz?=
- =?utf-8?B?d093L3pZcThraCtrZFZPZndSYnZPQWRmNEFFU3V0cWFsaFBKYzlhckhWZHJL?=
- =?utf-8?B?dCtNc1B1Zm9GN0szQ2dQZVoxcWc5cEFTQ0F6WmJuMlJPdDRRN09td29FdFFW?=
- =?utf-8?B?aGNqNVBkVkVNR0psU0ZubllvRVlnbEJhRHdTUXhjTllJdlRFTkJSUzA5bFB5?=
- =?utf-8?B?cURTRHFiUzhvNW96YlFzWVBRd2hKT3lVQ0FnblgyRUJ1KzdOYXRoWHBEbkJE?=
- =?utf-8?B?MmhsQUdPVnpmMkp6WFNuZzFsZno4OFVxSnVTMkZmUFpjSzBnYlJOSFNPYUp1?=
- =?utf-8?B?LzduV0FXQXNuY3JVcGNtY3JhdFVWeW12TTFxT1ZNdGZyTjVuNHZVcEZrLy9D?=
- =?utf-8?B?MUp0TXZUMlI4ZWFJSWxKbzd1T0kxT3dIYTNLWjFrNlMxeTdqUk80OWk1Um5a?=
- =?utf-8?B?MXBLN01GVHB2SUpNaDlsbjl6anFORS83QUh4VXl1ckZjZVVPZEovU3FQb3lS?=
- =?utf-8?B?N3VVdjhBbjNLN2RQWWUybEd1aTlJRDNjTEw3MndVdk0yMHN3T2NFWnczaURr?=
- =?utf-8?B?WHhFTXhUaGJ2dy94T1hMTnpvWWhIZDJ3VUJRSXFaOWhuS2d1aDliZEVnNkJa?=
- =?utf-8?B?dktZREVQOWpXMjBydHczcUt2OHJVbjEwWGJERnVMNC8zSEF0bWNYNVhUT2tE?=
- =?utf-8?B?MVdQdytHM2ZUUXVveVJ0YnExMnVxbEdDZW9EOVIxT0xSZGM3RlAvQXZ1SGVw?=
- =?utf-8?B?T2dFM3B3QnVJUWFnZzVaaU9KcytnPT0=?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b67a4139-008e-493c-c3a7-08d99b36122c
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Oct 2021 23:44:38.6641
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LRe775WjO5CbYv++uDmqhkY5Vzl+rJSrhepyzVDEkIZfqyEMJkonOnDIQFJwR63ckcNJl0CUXkL4zt5cQlrZU8t70xHxwsew6z2HTHIc0/Y=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR10MB2977
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10152 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 mlxlogscore=999
- bulkscore=0 phishscore=0 mlxscore=0 spamscore=0 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2110150000 definitions=main-2110290132
-X-Proofpoint-ORIG-GUID: ZdwsPRhlKtE41Lc6f9wfC1qV2NmtRETM
-X-Proofpoint-GUID: ZdwsPRhlKtE41Lc6f9wfC1qV2NmtRETM
+Subject: [xen-unstable-smoke test] 165939: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=6f1d6682de832d12b728f856331e700a89737a1e
+X-Osstest-Versions-That:
+    xen=c91c967f329f866b1826b04e73e32aea936930cd
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 30 Oct 2021 00:38:43 +0000
+
+flight 165939 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165939/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  6f1d6682de832d12b728f856331e700a89737a1e
+baseline version:
+ xen                  c91c967f329f866b1826b04e73e32aea936930cd
+
+Last test of basis   165915  2021-10-27 17:01:29 Z    2 days
+Testing same since   165939  2021-10-29 21:00:26 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-On 10/29/21 6:18 PM, Marek Marczykowski-Górecki wrote:
-> On Fri, Oct 29, 2021 at 05:46:18PM -0400, Boris Ostrovsky wrote:
->> On 10/29/21 10:20 AM, Juergen Gross wrote:
->>> --- a/Documentation/ABI/stable/sysfs-devices-system-xen_memory
->>> +++ b/Documentation/ABI/stable/sysfs-devices-system-xen_memory
->>> @@ -84,3 +84,13 @@ Description:
->>>    		Control scrubbing pages before returning them to Xen for others domains
->>>    		use. Can be set with xen_scrub_pages cmdline
->>>    		parameter. Default value controlled with CONFIG_XEN_SCRUB_PAGES_DEFAULT.
->>> +
->>> +What:		/sys/devices/system/xen_memory/xen_memory0/boot_timeout
->>> +Date:		November 2021
->>> +KernelVersion:	5.16
->>> +Contact:	xen-devel@lists.xenproject.org
->>> +Description:
->>> +		The time (in seconds) to wait before giving up to boot in case
->>> +		initial ballooning fails to free enough memory. Applies only
->>> +		when running as HVM or PVH guest and started with less memory
->>> +		configured than allowed at max.
->>
->> How is this going to be used? We only need this during boot.
->>
->>
->>> -		state = update_schedule(state);
->>> +		balloon_state = update_schedule(balloon_state);
->>
->> Now that balloon_state has whole file scope it can probably be updated inside update_schedule().
->>
->>
->>> +	while ((credit = current_credit()) < 0) {
->>> +		if (credit != last_credit) {
->>> +			last_changed = jiffies;
->>> +			last_credit = credit;
->>> +		}
->>> +		if (balloon_state == BP_ECANCELED) {
->>
->> What about other states? We are really waiting for BP_DONE, aren't we?
-> BP_DONE is set also as an intermediate step:
->
->                         balloon_state = decrease_reservation(n_pages,
->                                                              GFP_BALLOON);
->                         if (balloon_state == BP_DONE && n_pages != -credit &&
->                              n_pages < totalreserve_pages)
->                                 balloon_state = BP_EAGAIN;
->
-> It would be bad to finish waiting in this case.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-RIght, but if we were to say 'if (balloon_state != BP_DONE)' the worst that can happen is that we will continue on to the next iteration without warning and/or panicing. Of course, there is a chance thaton the next iteration the same thing will happen but I think chances of hitting this race every time are infinitely low. We can also check for current_credit() again.
+Pushing revision :
 
-
-The question is whether we do want to continue waiting if we are in BP_AGAIN. I don't think BP_WAIT is possible in this case although this may change in the future and we will forget to update this code.
-
-
--boris
-
+To xenbits.xen.org:/home/xen/git/xen.git
+   c91c967f32..6f1d6682de  6f1d6682de832d12b728f856331e700a89737a1e -> smoke
 
