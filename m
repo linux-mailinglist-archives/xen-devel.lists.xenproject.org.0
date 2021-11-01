@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40529441A01
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 11:36:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.219102.379757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 452EB441A11
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 11:42:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.219109.379768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhUf3-0007YK-Nh; Mon, 01 Nov 2021 10:35:29 +0000
+	id 1mhUlF-0000Xc-E2; Mon, 01 Nov 2021 10:41:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 219102.379757; Mon, 01 Nov 2021 10:35:29 +0000
+Received: by outflank-mailman (output) from mailman id 219109.379768; Mon, 01 Nov 2021 10:41:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhUf3-0007WT-KA; Mon, 01 Nov 2021 10:35:29 +0000
-Received: by outflank-mailman (input) for mailman id 219102;
- Mon, 01 Nov 2021 10:35:28 +0000
+	id 1mhUlF-0000UN-9j; Mon, 01 Nov 2021 10:41:53 +0000
+Received: by outflank-mailman (input) for mailman id 219109;
+ Mon, 01 Nov 2021 10:41:51 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mhUf2-0007WN-2K
- for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 10:35:28 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mhUlD-0000UH-Ec
+ for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 10:41:51 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mhUf1-0005Wn-T1
- for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 10:35:27 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mhUlD-0005er-Ct
+ for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 10:41:51 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mhUf1-0006ED-S5
- for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 10:35:27 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mhUlD-0006dU-Bo
+ for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 10:41:51 +0000
 Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
  (envelope-from <iwj@xenproject.org>)
- id 1mhUet-0004g6-GO; Mon, 01 Nov 2021 10:35:19 +0000
+ id 1mhUlB-0004hS-AF; Mon, 01 Nov 2021 10:41:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,65 +42,114 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=IgsO6RvZpagWAUjAXUbFGYZO/EFRboyzBB0dtXio9vU=; b=DFJ5R6Nr+63bSRrUEkmvU/M5MX
-	homWctrwF+bgnGJqeBZ8aR+4iUeDxMrzudaUKh3JTZ6G/Ml0DtrdMGfNoHrZlhS91tuHkaESFOBtt
-	8ZypAEpBlJBkjagrtbXYzjvAgfflr3/DV++8Fm/TJcPWHKQWTl82zeY7RqZeAD0FwBFw=;
+	d=xenproject.org; s=20200302mail; h=Subject:Cc:To:Date:Message-ID:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=LGAY6JByyaTzbZvnRQo5adss/es5KDPguVPyVv1DFTU=; b=o99Uf5n9p+JuHDvb4UvviktUw/
+	ojJbcIwpXCD8KjV9wUxOi+fC4fQ6tsHtGKntwC7FAlUJLG3059IQIAC8GI1iiumyz4Avzcv7NP5oN
+	4MLE2DeZS6TbXAz6sPB6p0I0CPnb1Y7rZpmRbq1mUiIngZX7z+PGOV5GMCnKfrcVP0yA=;
 From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-Message-ID: <24959.49895.14808.77881@mariner.uk.xensource.com>
-Date: Mon, 1 Nov 2021 10:35:19 +0000
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien@xen.org>,
-    Julien Grall <julien.grall.oss@gmail.com>,
-    Michal Orzel <michal.orzel@arm.com>,
-    xen-devel <xen-devel@lists.xenproject.org>,
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-    Bertrand Marquis <bertrand.marquis@arm.com>,
-    Ian Jackson <iwj@xenproject.org>
-Subject: Re: [patch-4.16] arm/smmuv1,v2: Protect smmu master list with a
- lock
-In-Reply-To: <alpine.DEB.2.21.2110281311030.20134@sstabellini-ThinkPad-T480s>
-References: <20211026122903.15042-1-michal.orzel@arm.com>
-	<e5632a4e-db98-41b4-1045-2b3532c098fa@xen.org>
-	<70c30a6c-b779-805e-079a-41bb484894b9@xen.org>
-	<cb452c0c-ccde-7798-c403-f972b48a2c46@arm.com>
-	<01545115-e82e-2a9d-a8e4-da9676080c0f@xen.org>
-	<alpine.DEB.2.21.2110271557570.20134@sstabellini-ThinkPad-T480s>
-	<CAJ=z9a2SSgG7a87_xTGT5LeNLgubOLQf1+dbnrsTsP8_p5ErJg@mail.gmail.com>
-	<alpine.DEB.2.21.2110271658330.20134@sstabellini-ThinkPad-T480s>
-	<4554621d-63da-ea3e-e56a-4e01d0cef347@xen.org>
-	<alpine.DEB.2.21.2110281311030.20134@sstabellini-ThinkPad-T480s>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Message-ID: <24959.50284.690360.964111@mariner.uk.xensource.com>
+Date: Mon, 1 Nov 2021 10:41:48 +0000
+To: xen-devel@lists.xenproject.org
+Cc: committers@xenproject.org
+Subject: Xen 4.16 development update - commit moratorium
 
-Stefano Stabellini writes ("Re: [patch-4.16] arm/smmuv1,v2: Protect smmu master list with a lock"):
-> In regards to this specific patch and also the conversation about 4.16
-> or 4.17: I think it would be fine to take this patch in 4.16 in its
-> current form. Although it is not required because PCI passthrough is
-> not going to be complete in 4.16 anyway, I like that this patch makes
-> the code consistent in terms of protection of rbtree accesses.  With
-> this patch the arm_smmu_master rbtree is consistently protected from
-> concurrent accesses. Without this patch, it is sometimes protected and
-> sometimes not, which is not great.
+Tree status
+===========
 
-It sounds like this is a possible latent bug, or at least a bad state
-of the code that might lead to the introduction of bad bugs later.
+We are now in code freeze.
 
-So I think I understand the upside.
+All patches which have not yet been committed, but which still need to
+go into 4.16, need a release ack.
 
-> So I think that is something that could be good to have in 4.16. But
-> like you said, the patch is not strictly required so it is fine either
-> way.
+I will be cutting RC1 shortly.  Please do not commit anything, even
+release-acked patches, until I let you know.
 
-Can you set out the downside for me too ?  What are the risks ?  How
-are the affected code paths used in 4.16 ?
 
-A good way to think about this is: if taking this patch for 4.16
-causes problems, what would that look like ?
+The current planned release schedule
+====================================
 
-Thanks,
+    Friday 29th October *PASSED*          Code freeze
+
+      Bugfixes only, all changes to be approved by the Release Manager,
+      on the basis of a (progressively stricter[*]) risk assessment.
+      (2 weeks)
+
+    Friday 12th November                  Hard code freeze [*]
+
+      Bugfixes for serious bugs (including regressions), and low-risk
+      fixes only.
+      (0.5 weeks)
+
+    Tuesday 16th November **tentative**   Branch off staging-4.16
+
+      xen-unstable open again - with caveats to avoid release disruption.
+      (1.5 weeks)
+
+    Friday 26th November **tentative**    Final commits (docs/prep only)
+    Week of 29th November **tentative**   Release
+      (probably Tuesday or Wednesday)
+
+
+Open issues and blockers
+========================
+
+Here is the list of issues I am aware of that might be blockers and/or
+might need a release ack for fixes:
+
+In general, please would people explicitly note release-blocker issues
+to me, so that I can see that they are sorted out.
+
+
+* "gnttab: allow setting max version per-domain".  This would be
+  nice to have, as it is a security mitigation for possible future
+  bugs.  However it is not quite ready afaict.  Hopefully it will
+  be ready very soon.
+
+ARM/VPCI:
+
+* "xen/arm: fix SBDF calculation for vPCI MMIO handlers"
+  I have just sent a mail about this one.  I'm unsure of
+  the merits of this for 4.16.
+
+* "arm/smmuv1,v2: Protect smmu master list with a lock"
+  Discussion is ongoing.
+
+* "xen/domctl: Introduce XEN_DOMCTL_CDF_vpci flag"
+  which Andy had some observations about in an email on the 8th.
+  This was reverted in 2075b410ee80.  I think this issue now dealt
+  with as far as 4.16 goes ?
+
+* I'm not sure if there are others.  My question about that hasn't had
+  a clear answer as far as I can tell.  I would like to repeat my
+  earlier comment: I am finding it hard to see the wood for the trees.
+
+x86:
+
+* I have a note "HPET regression".  I saw a number of patches in
+  this area.  Most recently,
+  "x86/hpet: setup HPET even when disabled due to stopping in deep C states"
+  Does that mean this is dealt with now ?
+
+* "x86/xstate: reset cached register values on resume"
+  AFAICT an approach was agreed between Jan and Roger but I don't
+  seem to see the final version posted or in tree.  Am I missing
+  something ?
+
+* "x86/viridian: EOI MSR should always happen in affected vCPU context"
+  Jan mentioned this on IRC but I don't see any discussion of it in
+  my mailbox.
+
+* Disable building qemu-trad by default.
+  This is on my own todo list, with my maintainer/committer hat on.
+
+
 Ian.
+
+[*] The distinction between Code Freeze and Hard Code Freeze is a
+matter of degree, not kind; the Hard Code Freeze data and associated
+tighter policy text is indicative rather than normative.
 
