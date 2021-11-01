@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D873C442386
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 23:43:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.219589.380452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8B3E442449
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Nov 2021 00:46:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.219607.380465 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhg12-0007Nf-Ld; Mon, 01 Nov 2021 22:42:56 +0000
+	id 1mhgz3-0004qp-CM; Mon, 01 Nov 2021 23:44:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 219589.380452; Mon, 01 Nov 2021 22:42:56 +0000
+Received: by outflank-mailman (output) from mailman id 219607.380465; Mon, 01 Nov 2021 23:44:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhg12-0007L6-GJ; Mon, 01 Nov 2021 22:42:56 +0000
-Received: by outflank-mailman (input) for mailman id 219589;
- Mon, 01 Nov 2021 22:42:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mhgz3-0004nu-9C; Mon, 01 Nov 2021 23:44:57 +0000
+Received: by outflank-mailman (input) for mailman id 219607;
+ Mon, 01 Nov 2021 23:44:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mhg11-0007Kw-1y; Mon, 01 Nov 2021 22:42:55 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mhg10-0001i7-QU; Mon, 01 Nov 2021 22:42:54 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mhg10-0008RC-EC; Mon, 01 Nov 2021 22:42:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mhg10-0000NO-Dh; Mon, 01 Nov 2021 22:42:54 +0000
+ (envelope-from <SRS0=Y+Wa=PU=redhat.com=mst@srs-us1.protection.inumbo.net>)
+ id 1mhgz1-0004nk-AV
+ for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 23:44:55 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id c4a7ba2a-9e80-492e-8fb3-c93c84997b9e;
+ Mon, 01 Nov 2021 23:44:53 +0000 (UTC)
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com
+ [209.85.208.71]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-564-OOTu8dxFPXOK1VhXYfJ1ag-1; Mon, 01 Nov 2021 19:44:52 -0400
+Received: by mail-ed1-f71.google.com with SMTP id
+ t18-20020a056402021200b003db9e6b0e57so17058636edv.10
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Nov 2021 16:44:52 -0700 (PDT)
+Received: from redhat.com ([2.55.156.42])
+ by smtp.gmail.com with ESMTPSA id s4sm1603180edd.32.2021.11.01.16.44.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Nov 2021 16:44:50 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,374 +45,294 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=RmKQ8KE8fyUYaO7s8TlDH6IkIMGkeg+aQsCsqiTlAeg=; b=QJQOJUs1at8V1fkZ6lKZfcthQD
-	tuhgCoiRakAnsOO7LL/7ckJSLLpjsvZH+wqswF7EOqB3Zhij9WgrxngdWEi+fIASk2FxihysbkuRM
-	QvcVYfX/tDjiDYNb3Puid0LEnSsBJ3SPLsqW67ZqdzA+GLPdbn6NHVNaXfaUoO0aOSko=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-165974-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c4a7ba2a-9e80-492e-8fb3-c93c84997b9e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1635810293;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hQpOeuAFUR/YU+yLEEiQzjlSsfEbb0a1M35err53O2c=;
+	b=OGYpZqdBuNXsmxiGgdvXdch14ocsrFIcHHVcklpqDlzrI5elMmodkVSXsNcftYNCxX7hu4
+	8UDRUUZIt2Rqdsp6V13ivOFTyMjwlNVptI6JoHjjHFO6v84BS/unbJJb79w0pG//nKS/kM
+	X0an77UMXMXx/Tbi79GdpAroSQmQg0s=
+X-MC-Unique: OOTu8dxFPXOK1VhXYfJ1ag-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=hQpOeuAFUR/YU+yLEEiQzjlSsfEbb0a1M35err53O2c=;
+        b=dE8PctFdwfQQCGN7/UoIhY1fVWmU1nClz5cRrxC4K+S7CJTNx1bWR8iRlWpkJXnFo8
+         f1OCewb4Y5ZaTLfmr7MoH3PHb8SX7KEAI4+AYVFZI3cOcjEuzbV6tNhfmO4V5+pTYP3m
+         otP729wYbbyd+CQFgbq1cJtT731pvNRvq8ExRcFjEKppWPu5esmPQPYeb1dqG/QQP3i1
+         GvY33nMy9HbNcnKhdLYvDcgu6gGligREO7VkRGnRbGEuCuQ6G2grnc/WqQV/MwFVpTlM
+         nt0KXTeqZYjtz+cI3elYVcjVw2tkM4pu7mwLr3z/g4C36KwwK1B2GdG1eRkT0p9hwTGk
+         b2vQ==
+X-Gm-Message-State: AOAM5301SghOYOuK0gd5VMsZ8Ds3R+/zbPaaSyr58XjxvYx6F5ANcmx4
+	Oqh/CudUyBVTMsNAJ/VwYlfkjy4ICTBvDY40c/VMle9Vgev8HXEn3di9Lwg9Wve6zwKMqTJcnMG
+	L+jB1ztIKmbGpdhxdW9IqF+TiSYU=
+X-Received: by 2002:a17:907:ea5:: with SMTP id ho37mr14408251ejc.133.1635810291054;
+        Mon, 01 Nov 2021 16:44:51 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwukbwhcUWvJJuqHH8/khRQQjZoqF2HrG8wBex3bhnCrcMlXkuR308ikOKPoGaR9Bmsmei6wA==
+X-Received: by 2002:a17:907:ea5:: with SMTP id ho37mr14408220ejc.133.1635810290860;
+        Mon, 01 Nov 2021 16:44:50 -0700 (PDT)
+Date: Mon, 1 Nov 2021 19:44:46 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: qemu-devel@nongnu.org
+Cc: Peter Maydell <peter.maydell@linaro.org>, Peter Xu <peterx@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	Eric Auger <eric.auger@redhat.com>,
+	David Gibson <david@gibson.dropbear.id.au>,
+	Igor Mammedov <imammedo@redhat.com>, Ani Sinha <ani@anisinha.ca>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Eduardo Habkost <ehabkost@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Greg Kurz <groug@kaod.org>, Matthew Rosato <mjrosato@linux.ibm.com>,
+	Eric Farman <farman@linux.ibm.com>,
+	Cornelia Huck <cohuck@redhat.com>, Thomas Huth <thuth@redhat.com>,
+	Halil Pasic <pasic@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@de.ibm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>, qemu-ppc@nongnu.org,
+	qemu-s390x@nongnu.org, xen-devel@lists.xenproject.org
+Subject: [PULL 8/9] pci: Export pci_for_each_device_under_bus*()
+Message-ID: <20211101234358.582487-9-mst@redhat.com>
+References: <20211101234358.582487-1-mst@redhat.com>
 MIME-Version: 1.0
-Subject: [linux-linus test] 165974: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:build-amd64-pvops:kernel-build:fail:regression
-    linux-linus:build-i386-pvops:kernel-build:fail:regression
-    linux-linus:build-armhf-pvops:kernel-build:fail:regression
-    linux-linus:test-armhf-armhf-xl-cubietruck:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-coresched-amd64-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-examine:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-freebsd11-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-freebsd12-amd64:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=19901165d90fdca1e57c9baa0d5b4c63d15c476a
-X-Osstest-Versions-That:
-    linux=8bb7eca972ad531c9b149c0a51ab43a417385813
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 01 Nov 2021 22:42:54 +0000
+In-Reply-To: <20211101234358.582487-1-mst@redhat.com>
+X-Mailer: git-send-email 2.27.0.106.g8ac3dc51b1
+X-Mutt-Fcc: =sent
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=mst@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-flight 165974 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/165974/
+From: Peter Xu <peterx@redhat.com>
 
-Regressions :-(
+They're actually more commonly used than the helper without _under_bus, because
+most callers do have the pci bus on hand.  After exporting we can switch a lot
+of the call sites to use these two helpers.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-pvops             6 kernel-build             fail REGR. vs. 165965
- build-i386-pvops              6 kernel-build             fail REGR. vs. 165965
- build-armhf-pvops             6 kernel-build             fail REGR. vs. 165965
+Reviewed-by: David Hildenbrand <david@redhat.com>
+Reviewed-by: Eric Auger <eric.auger@redhat.com>
+Signed-off-by: Peter Xu <peterx@redhat.com>
+Message-Id: <20211028043129.38871-3-peterx@redhat.com>
+Reviewed-by: Michael S. Tsirkin <mst@redhat.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Acked-by: David Gibson <david@gibson.dropbear.id.au>
+---
+ include/hw/pci/pci.h       |  5 +++++
+ hw/i386/acpi-build.c       |  5 ++---
+ hw/pci/pci.c               | 10 +++++-----
+ hw/pci/pcie.c              |  4 +---
+ hw/ppc/spapr_pci.c         | 12 +++++-------
+ hw/ppc/spapr_pci_nvlink2.c |  7 +++----
+ hw/ppc/spapr_pci_vfio.c    |  4 ++--
+ hw/s390x/s390-pci-bus.c    |  5 ++---
+ hw/xen/xen_pt.c            |  4 ++--
+ 9 files changed, 27 insertions(+), 29 deletions(-)
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl-cubietruck  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
- test-amd64-coresched-amd64-xl  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-xsm       1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-vhd       1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-shadow    1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-rtds      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-amd64-amd64-xl-qemut-ws16-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemut-win7-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
- test-amd64-amd64-dom0pvh-xl-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemut-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-amd64-amd64-dom0pvh-xl-intel  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvshim    1 build-check(1)               blocked  n/a
- test-amd64-amd64-examine      1 build-check(1)               blocked  n/a
- test-amd64-amd64-freebsd11-amd64  1 build-check(1)               blocked  n/a
- test-amd64-amd64-freebsd12-amd64  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvhv2-intel  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvhv2-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-xl-multivcpu  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-credit2   1 build-check(1)               blocked  n/a
- test-amd64-amd64-pair         1 build-check(1)               blocked  n/a
- test-amd64-amd64-pygrub       1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-credit1   1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
- test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
- test-armhf-armhf-examine      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+diff --git a/include/hw/pci/pci.h b/include/hw/pci/pci.h
+index 4a8740b76b..5c4016b995 100644
+--- a/include/hw/pci/pci.h
++++ b/include/hw/pci/pci.h
+@@ -467,6 +467,11 @@ void pci_for_each_device(PCIBus *bus, int bus_num,
+ void pci_for_each_device_reverse(PCIBus *bus, int bus_num,
+                                  pci_bus_dev_fn fn,
+                                  void *opaque);
++void pci_for_each_device_under_bus(PCIBus *bus,
++                                   pci_bus_dev_fn fn, void *opaque);
++void pci_for_each_device_under_bus_reverse(PCIBus *bus,
++                                           pci_bus_dev_fn fn,
++                                           void *opaque);
+ void pci_for_each_bus_depth_first(PCIBus *bus, pci_bus_ret_fn begin,
+                                   pci_bus_fn end, void *parent_state);
+ PCIDevice *pci_get_function_0(PCIDevice *pci_dev);
+diff --git a/hw/i386/acpi-build.c b/hw/i386/acpi-build.c
+index 3ca6cc8118..a3ad6abd33 100644
+--- a/hw/i386/acpi-build.c
++++ b/hw/i386/acpi-build.c
+@@ -2134,8 +2134,7 @@ dmar_host_bridges(Object *obj, void *opaque)
+         PCIBus *bus = PCI_HOST_BRIDGE(obj)->bus;
+ 
+         if (bus && !pci_bus_bypass_iommu(bus)) {
+-            pci_for_each_device(bus, pci_bus_num(bus), insert_scope,
+-                                scope_blob);
++            pci_for_each_device_under_bus(bus, insert_scope, scope_blob);
+         }
+     }
+ 
+@@ -2341,7 +2340,7 @@ ivrs_host_bridges(Object *obj, void *opaque)
+         PCIBus *bus = PCI_HOST_BRIDGE(obj)->bus;
+ 
+         if (bus && !pci_bus_bypass_iommu(bus)) {
+-            pci_for_each_device(bus, pci_bus_num(bus), insert_ivhd, ivhd_blob);
++            pci_for_each_device_under_bus(bus, insert_ivhd, ivhd_blob);
+         }
+     }
+ 
+diff --git a/hw/pci/pci.c b/hw/pci/pci.c
+index 17e59cb3a3..4a84e478ce 100644
+--- a/hw/pci/pci.c
++++ b/hw/pci/pci.c
+@@ -1654,9 +1654,9 @@ static const pci_class_desc pci_class_descriptions[] =
+     { 0, NULL}
+ };
+ 
+-static void pci_for_each_device_under_bus_reverse(PCIBus *bus,
+-                                                  pci_bus_dev_fn fn,
+-                                                  void *opaque)
++void pci_for_each_device_under_bus_reverse(PCIBus *bus,
++                                           pci_bus_dev_fn fn,
++                                           void *opaque)
+ {
+     PCIDevice *d;
+     int devfn;
+@@ -1679,8 +1679,8 @@ void pci_for_each_device_reverse(PCIBus *bus, int bus_num,
+     }
+ }
+ 
+-static void pci_for_each_device_under_bus(PCIBus *bus,
+-                                          pci_bus_dev_fn fn, void *opaque)
++void pci_for_each_device_under_bus(PCIBus *bus,
++                                   pci_bus_dev_fn fn, void *opaque)
+ {
+     PCIDevice *d;
+     int devfn;
+diff --git a/hw/pci/pcie.c b/hw/pci/pcie.c
+index 6e95d82903..914a9bf3d1 100644
+--- a/hw/pci/pcie.c
++++ b/hw/pci/pcie.c
+@@ -694,9 +694,7 @@ void pcie_cap_slot_write_config(PCIDevice *dev,
+         (!(old_slt_ctl & PCI_EXP_SLTCTL_PCC) ||
+         (old_slt_ctl & PCI_EXP_SLTCTL_PIC_OFF) != PCI_EXP_SLTCTL_PIC_OFF)) {
+         PCIBus *sec_bus = pci_bridge_get_sec_bus(PCI_BRIDGE(dev));
+-        pci_for_each_device(sec_bus, pci_bus_num(sec_bus),
+-                            pcie_unplug_device, NULL);
+-
++        pci_for_each_device_under_bus(sec_bus, pcie_unplug_device, NULL);
+         pci_word_test_and_clear_mask(exp_cap + PCI_EXP_SLTSTA,
+                                      PCI_EXP_SLTSTA_PDS);
+         if (dev->cap_present & QEMU_PCIE_LNKSTA_DLLLA ||
+diff --git a/hw/ppc/spapr_pci.c b/hw/ppc/spapr_pci.c
+index 7430bd6314..5bfd4aa9e5 100644
+--- a/hw/ppc/spapr_pci.c
++++ b/hw/ppc/spapr_pci.c
+@@ -1317,8 +1317,7 @@ static int spapr_dt_pci_bus(SpaprPhbState *sphb, PCIBus *bus,
+                           RESOURCE_CELLS_SIZE));
+ 
+     assert(bus);
+-    pci_for_each_device_reverse(bus, pci_bus_num(bus),
+-                                spapr_dt_pci_device_cb, &cbinfo);
++    pci_for_each_device_under_bus_reverse(bus, spapr_dt_pci_device_cb, &cbinfo);
+     if (cbinfo.err) {
+         return cbinfo.err;
+     }
+@@ -2306,8 +2305,8 @@ static void spapr_phb_pci_enumerate_bridge(PCIBus *bus, PCIDevice *pdev,
+         return;
+     }
+ 
+-    pci_for_each_device(sec_bus, pci_bus_num(sec_bus),
+-                        spapr_phb_pci_enumerate_bridge, bus_no);
++    pci_for_each_device_under_bus(sec_bus, spapr_phb_pci_enumerate_bridge,
++                                  bus_no);
+     pci_default_write_config(pdev, PCI_SUBORDINATE_BUS, *bus_no, 1);
+ }
+ 
+@@ -2316,9 +2315,8 @@ static void spapr_phb_pci_enumerate(SpaprPhbState *phb)
+     PCIBus *bus = PCI_HOST_BRIDGE(phb)->bus;
+     unsigned int bus_no = 0;
+ 
+-    pci_for_each_device(bus, pci_bus_num(bus),
+-                        spapr_phb_pci_enumerate_bridge,
+-                        &bus_no);
++    pci_for_each_device_under_bus(bus, spapr_phb_pci_enumerate_bridge,
++                                  &bus_no);
+ 
+ }
+ 
+diff --git a/hw/ppc/spapr_pci_nvlink2.c b/hw/ppc/spapr_pci_nvlink2.c
+index 8ef9b40a18..7fb0cf4d04 100644
+--- a/hw/ppc/spapr_pci_nvlink2.c
++++ b/hw/ppc/spapr_pci_nvlink2.c
+@@ -164,8 +164,7 @@ static void spapr_phb_pci_collect_nvgpu(PCIBus *bus, PCIDevice *pdev,
+         return;
+     }
+ 
+-    pci_for_each_device(sec_bus, pci_bus_num(sec_bus),
+-                        spapr_phb_pci_collect_nvgpu, opaque);
++    pci_for_each_device_under_bus(sec_bus, spapr_phb_pci_collect_nvgpu, opaque);
+ }
+ 
+ void spapr_phb_nvgpu_setup(SpaprPhbState *sphb, Error **errp)
+@@ -183,8 +182,8 @@ void spapr_phb_nvgpu_setup(SpaprPhbState *sphb, Error **errp)
+     sphb->nvgpus->nv2_atsd_current = sphb->nv2_atsd_win_addr;
+ 
+     bus = PCI_HOST_BRIDGE(sphb)->bus;
+-    pci_for_each_device(bus, pci_bus_num(bus),
+-                        spapr_phb_pci_collect_nvgpu, sphb->nvgpus);
++    pci_for_each_device_under_bus(bus, spapr_phb_pci_collect_nvgpu,
++                                  sphb->nvgpus);
+ 
+     if (sphb->nvgpus->err) {
+         error_propagate(errp, sphb->nvgpus->err);
+diff --git a/hw/ppc/spapr_pci_vfio.c b/hw/ppc/spapr_pci_vfio.c
+index f3b37df8ea..2a76b4e0b5 100644
+--- a/hw/ppc/spapr_pci_vfio.c
++++ b/hw/ppc/spapr_pci_vfio.c
+@@ -164,8 +164,8 @@ static void spapr_phb_vfio_eeh_clear_dev_msix(PCIBus *bus,
+ 
+ static void spapr_phb_vfio_eeh_clear_bus_msix(PCIBus *bus, void *opaque)
+ {
+-       pci_for_each_device(bus, pci_bus_num(bus),
+-                           spapr_phb_vfio_eeh_clear_dev_msix, NULL);
++       pci_for_each_device_under_bus(bus, spapr_phb_vfio_eeh_clear_dev_msix,
++                                     NULL);
+ }
+ 
+ static void spapr_phb_vfio_eeh_pre_reset(SpaprPhbState *sphb)
+diff --git a/hw/s390x/s390-pci-bus.c b/hw/s390x/s390-pci-bus.c
+index 6fafffb029..1b51a72838 100644
+--- a/hw/s390x/s390-pci-bus.c
++++ b/hw/s390x/s390-pci-bus.c
+@@ -1163,8 +1163,7 @@ static void s390_pci_enumerate_bridge(PCIBus *bus, PCIDevice *pdev,
+     }
+ 
+     /* Assign numbers to all child bridges. The last is the highest number. */
+-    pci_for_each_device(sec_bus, pci_bus_num(sec_bus),
+-                        s390_pci_enumerate_bridge, s);
++    pci_for_each_device_under_bus(sec_bus, s390_pci_enumerate_bridge, s);
+     pci_default_write_config(pdev, PCI_SUBORDINATE_BUS, s->bus_no, 1);
+ }
+ 
+@@ -1193,7 +1192,7 @@ static void s390_pcihost_reset(DeviceState *dev)
+      * on every system reset, we also have to reassign numbers.
+      */
+     s->bus_no = 0;
+-    pci_for_each_device(bus, pci_bus_num(bus), s390_pci_enumerate_bridge, s);
++    pci_for_each_device_under_bus(bus, s390_pci_enumerate_bridge, s);
+ }
+ 
+ static void s390_pcihost_class_init(ObjectClass *klass, void *data)
+diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
+index ca0a98187e..027190fa44 100644
+--- a/hw/xen/xen_pt.c
++++ b/hw/xen/xen_pt.c
+@@ -615,8 +615,8 @@ static void xen_pt_region_update(XenPCIPassthroughState *s,
+     }
+ 
+     args.type = d->io_regions[bar].type;
+-    pci_for_each_device(pci_get_bus(d), pci_dev_bus_num(d),
+-                        xen_pt_check_bar_overlap, &args);
++    pci_for_each_device_under_bus(pci_get_bus(d),
++                                  xen_pt_check_bar_overlap, &args);
+     if (args.rc) {
+         XEN_PT_WARN(d, "Region: %d (addr: 0x%"FMT_PCIBUS
+                     ", len: 0x%"FMT_PCIBUS") is overlapped.\n",
+-- 
+MST
 
-version targeted for testing:
- linux                19901165d90fdca1e57c9baa0d5b4c63d15c476a
-baseline version:
- linux                8bb7eca972ad531c9b149c0a51ab43a417385813
-
-Last test of basis   165965  2021-11-01 01:11:29 Z    0 days
-Testing same since   165974  2021-11-01 17:40:47 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Anders Roxell <anders.roxell@linaro.org>
-  Andrea Righi <andrea.righi@canonical.com>
-  Anton Altaparmakov <anton@tuxera.com>
-  Arnd Bergmann <arnd@arndb.de>
-  Bart Van Assche <bvanassche@acm.org>
-  Bixuan Cui <cuibixuan@huawei.com>
-  Cai Huoqing <caihuoqing@baidu.com>
-  Changcheng Deng <deng.changcheng@zte.com.cn>
-  Chao Yu <yuchao0@huawei.com>
-  Christoph Hellwig <hch@lst.de>
-  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-  Coly Li <colyli@suse.de>
-  Damien Le Moal <damien.lemoal@wdc.com>
-  Dan Carpenter <dan.carpenter@oracle.com>
-  Dave Kleikamp <dave.kleikamp@oracle.com>
-  David Sterba <dsterba@suse.com>
-  Dennis Zhou <dennis@kernel.org>
-  Ding Senjie <dingsenjie@yulong.com>
-  Eric Biggers <ebiggers@google.com>
-  Geert Uytterhoeven <geert@linux-m68k.org>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guoqing Jiang <guoqing.jiang@linux.dev>
-  Hannes Reinecke <hare@suse.de>
-  Hao Wu <hao.wu@rubrik.com>
-  Hao Xu <haoxu@linux.alibaba.com>
-  Heiko Carstens <hca@linux.ibm.com>
-  Israel Rukshin <israelr@nvidia.com>
-  J. Bruce Fields <bfields@redhat.com>
-  Jack Wang <jinpu.wang@ionos.com>
-  Jackie Liu <liuyun01@kylinos.cn>
-  Jan Höppner <hoeppner@linux.ibm.com>
-  Jarkko Sakkinen <jarkko@kernel.org>
-  Jeff Layton <jlayton@kernel.org>
-  Jens Axboe <axboe@kernel.dk>
-  Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
-  Johannes Weiner <hannes@cmpxchg.org>
-  John Garry <john.garry@huawei.com>
-  John Levon <john.levon@nutanix.com>
-  Kashyap Desai <kashyap.desai@broadcom.com>
-  Kees Cook <keescook@chromium.org>
-  Keith Busch <kbusch@kernel.org>
-  Kirill A. Shutemov <kirill.shutemov@linux.intel.com>
-  Len Baker <len.baker@gmx.com>
-  Lin Feng <linf@wangsu.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Luis Chamberlain <mcgrof@kernel.org>
-  Lukas Prediger <lumip@lumip.de>
-  luo penghao <luo.penghao@zte.com.cn>
-  Marco Elver <elver@google.com>
-  Mark Brown <broonie@kernel.org>
-  Mark Wunderlich <mark.wunderlich@intel.com>
-  Masahiro Yamada <masahiroy@kernel.org>
-  Matthew Wilcox (Oracle) <willy@infradead.org>
-  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-  Max Filippov <jcmvbkbc@gmail.com>
-  Max Gurtovoy <mgurtovoy@nvidia.com>
-  Michael S. Tsirkin <mst@redhat.com>
-  Michael Schmitz <schmitzmic@gmail.com>
-  Michal Hocko <mhocko@suse.com>
-  Mike Rapoport <rppt@linux.ibm.com>
-  Mike Snitzer <snitzer@redhat.com>
-  Ming Lei <ming.lei@redhat.com>
-  Miquel Raynal <miquel.raynal@bootlin.com>
-  Nilesh Javali <njavali@marvell.com>
-  Noah Goldstein <goldstein.w.n@gmail.com>
-  Pavel Begunkov <asml.silence@gmail.com>
-  Phillip Lougher <phillip@squashfs.org.uk>
-  Phillip Potter <phil@philpotter.co.uk>
-  Qing Wang <wangqing@vivo.com>
-  Randy Dunlap <rdunlap@infradead.org> # build-tested
-  Ryusuke Konishi <konishi.ryusuke@gmail.com>
-  Saurav Kashyap <skashyap@marvell.com>
-  Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-  Song Liu <song@kernel.org>
-  Song Liu <songliubraving@fb.com>
-  Stefan Haberland <sth@linux.ibm.com>
-  Tejun Heo <tj@kernel.org>
-  Theodore Ts'o <tytso@mit.edu>
-  Ulf Hansson <ulf.hansson@linaro.org> # For MMC
-  Vlastimil Babka <vbabka@suse.cz>
-  Xiao Ni <xni@redhat.com>
-  Xie Yongji <xieyongji@bytedance.com>
-  Ye Bin <yebin10@huawei.com>
-  Ye Guojin <ye.guojin@zte.com.cn>
-  Yu Kuai <yukuai3@huawei.com>
-  Zheng Liang <zhengliang6@huawei.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            fail    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            fail    
- build-i386-pvops                                             fail    
- test-amd64-amd64-xl                                          blocked 
- test-amd64-coresched-amd64-xl                                blocked 
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        blocked 
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            blocked 
- test-amd64-amd64-xl-pvhv2-amd                                blocked 
- test-amd64-amd64-dom0pvh-xl-amd                              blocked 
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-freebsd11-amd64                             blocked 
- test-amd64-amd64-freebsd12-amd64                             blocked 
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-amd64-xl-qemut-win7-amd64                         blocked 
- test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
- test-amd64-amd64-xl-qemut-ws16-amd64                         blocked 
- test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
- test-armhf-armhf-xl-arndale                                  blocked 
- test-amd64-amd64-xl-credit1                                  blocked 
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  blocked 
- test-amd64-amd64-xl-credit2                                  blocked 
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  blocked 
- test-armhf-armhf-xl-cubietruck                               blocked 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
- test-amd64-amd64-examine                                     blocked 
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     blocked 
- test-amd64-amd64-qemuu-nested-intel                          blocked 
- test-amd64-amd64-xl-pvhv2-intel                              blocked 
- test-amd64-amd64-dom0pvh-xl-intel                            blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-amd64-xl-multivcpu                                blocked 
- test-armhf-armhf-xl-multivcpu                                blocked 
- test-amd64-amd64-pair                                        blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-amd64-xl-pvshim                                   blocked 
- test-amd64-amd64-pygrub                                      blocked 
- test-amd64-amd64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-amd64-amd64-libvirt-raw                                 blocked 
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-xl-rtds                                     blocked 
- test-armhf-armhf-xl-rtds                                     blocked 
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
- test-amd64-amd64-xl-shadow                                   blocked 
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-xl-vhd                                      blocked 
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 10070 lines long.)
 
