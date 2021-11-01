@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7472C44232A
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 23:10:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.219453.380368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79918442325
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 23:10:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.219430.380275 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhfVD-0005oM-1i; Mon, 01 Nov 2021 22:10:03 +0000
+	id 1mhfUk-0000yq-Gd; Mon, 01 Nov 2021 22:09:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 219453.380368; Mon, 01 Nov 2021 22:10:02 +0000
+Received: by outflank-mailman (output) from mailman id 219430.380275; Mon, 01 Nov 2021 22:09:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhfVC-0005kM-MO; Mon, 01 Nov 2021 22:10:02 +0000
-Received: by outflank-mailman (input) for mailman id 219453;
- Mon, 01 Nov 2021 22:10:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mhfUk-0000v4-AL; Mon, 01 Nov 2021 22:09:34 +0000
+Received: by outflank-mailman (input) for mailman id 219430;
+ Mon, 01 Nov 2021 22:09:32 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=z02t=PU=redhat.com=quintela@srs-us1.protection.inumbo.net>)
- id 1mhfVA-0007pr-OS
- for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 22:10:00 +0000
+ id 1mhfUi-0000By-9t
+ for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 22:09:32 +0000
 Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 62e4f7fa-3b60-11ec-854e-12813bfff9fa;
- Mon, 01 Nov 2021 22:09:30 +0000 (UTC)
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-32-4X10BvvaO2m5-Rv-dpJHvA-1; Mon, 01 Nov 2021 18:09:29 -0400
-Received: by mail-wr1-f71.google.com with SMTP id
- p17-20020adff211000000b0017b902a7701so3974740wro.19
- for <xen-devel@lists.xenproject.org>; Mon, 01 Nov 2021 15:09:29 -0700 (PDT)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id b65a47f6-8a9d-4e66-a3c3-9c5627dd4137;
+ Mon, 01 Nov 2021 22:09:31 +0000 (UTC)
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-470-oaQcOdmsOy23wGt1XVINGQ-1; Mon, 01 Nov 2021 18:09:30 -0400
+Received: by mail-wm1-f69.google.com with SMTP id
+ n189-20020a1c27c6000000b00322f2e380f2so171636wmn.6
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Nov 2021 15:09:30 -0700 (PDT)
 Received: from localhost (static-233-86-86-188.ipcom.comunitel.net.
  [188.86.86.233])
- by smtp.gmail.com with ESMTPSA id o17sm685550wmq.11.2021.11.01.15.09.26
+ by smtp.gmail.com with ESMTPSA id q18sm658847wmc.7.2021.11.01.15.09.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Nov 2021 15:09:27 -0700 (PDT)
+ Mon, 01 Nov 2021 15:09:28 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,37 +46,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62e4f7fa-3b60-11ec-854e-12813bfff9fa
+X-Inumbo-ID: b65a47f6-8a9d-4e66-a3c3-9c5627dd4137
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1635804570;
+	s=mimecast20190719; t=1635804571;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Eb45pt+rx+z3d/QNqQ0ka/rPHoe06plBoXsL9wFgC3A=;
-	b=XtbMSMGTQZvMco2cqRvB6sMNp2kXWpDgubhBSI/o3ct+u0hRuPelBE3jucBTFg1jjr/Why
-	kLLoLyLGU6A1J7RIr1r7Aw5eUqFBllDRjog5qJtscdAYk0Pcq6YnQA8umpeYe5Vf8y85l5
-	1KXLUFCxkvc4P7/ZD47YRfIPjKRP2l4=
-X-MC-Unique: 4X10BvvaO2m5-Rv-dpJHvA-1
+	bh=YGFGnLXWsheb/qmVvEQnfSbPAvk7Yei/m0I6VzGvNKw=;
+	b=Dti34Bt/3o7YSr0yhjpfNanaxCofwtozWCTM4T7La4Hjfr0q02nOLKBBZdQ/259bpsDnf1
+	kgXG+6pXs+BO95W++iTylv03wtdX+AbQO9MqteqCsMY9qQQtdIet9lUl/a27JhC8Uo06GZ
+	OKBLF/BHr/C8ZZcBeAUxuOlBQq5UUJQ=
+X-MC-Unique: oaQcOdmsOy23wGt1XVINGQ-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Eb45pt+rx+z3d/QNqQ0ka/rPHoe06plBoXsL9wFgC3A=;
-        b=aYJn7Rxn/khwZxZTbJUD7I1kCMlJq+CtZe9BOtRhaP8thZJ0p2EjCV3/jTbEmBJA3e
-         tb8IoaKUSx51lTjNX3B0IPxsU1MO8jIazFgdZIRF2PHP2hIuAR2Tem2xGHYuBIDT6pbQ
-         TROZoOhnws655eeOIMm/PCcxbPzo39l1jFec1GVkvaykac8HjWluGWFTFMharn1tsBZv
-         O0s9BMJxg0C5efXs+Lv9w41zWRXEaIwFEAR3camGtHcmND+36ChB8hpxDeV6awP9z713
-         4n93ZblyM8L4QN7zyZ6nTA+57tM12TGyLch/EdpA/GINOHFrugzwi4hvf/SFEK0kL+Ve
-         8JVQ==
-X-Gm-Message-State: AOAM530xlU421PpnKjlZxWHr8bcUhNHN6eh22vOhMS9IcXiqm7VZx5gd
-	GSCGrBl0eZD5RqH+spYncmNLWXG7gQqlKvhntPpgljVAxiDsiEqFBvKNG553eCc2X8x+F1E4fvQ
-	Y9kVIp4fpp79p/8VT4svmj3KyAGg=
-X-Received: by 2002:adf:e387:: with SMTP id e7mr30508149wrm.412.1635804567993;
-        Mon, 01 Nov 2021 15:09:27 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwTDcj674kEGI9dl471cqGKZI5Q3j6okD5bAskecUMcRegbtpEz5VGFYHzxKsv8krfzx5uJsg==
-X-Received: by 2002:adf:e387:: with SMTP id e7mr30508114wrm.412.1635804567768;
-        Mon, 01 Nov 2021 15:09:27 -0700 (PDT)
+        bh=YGFGnLXWsheb/qmVvEQnfSbPAvk7Yei/m0I6VzGvNKw=;
+        b=uaE21kGiSJ78Ttprwl//kRtpQoykKiuLyVLzEdo7gyNBB8MNyrSi+vxs4qwkp45us6
+         P3IRk1Jkhsil0BjxCNEkmMl1Yl+FZBIowxHFq7Nf/Y/5gpQ+Jpt2aOKHx8oTrltxCTC3
+         cueRf9nYQdEneh7kF3sPbbWZIKesqVSW4XJhN0clG49EJY2Vk5kxx6toPPcugoLshOWb
+         FBFham2GHTGRcJiIZbFIjF2kV5CdRNNdaUBbw7VzO339+ZW9LgMPuZo1FMS/2HKMSeDk
+         LGh8RvXzg3+NsVm35ywaxiw74hH2LkzAIotAcCRfUfj8P0kJkHBvkxv8Focczr4AHM1J
+         GzBw==
+X-Gm-Message-State: AOAM530QYkHRJEpOp2JGI9sgkfDADx7B6r907MbcA0uMQ+Qj24YcrTdB
+	gwJGooqgqF8Du3yxgGnPvAlE45QgJZuWkhIxyiW7WITKPIMA3QZnsZ3Sr6pGeAPgBU5Wg3A9nuq
+	X5PLNEDd8PA9pEbqTDXzK2QS3/D4=
+X-Received: by 2002:a7b:cb52:: with SMTP id v18mr2063968wmj.10.1635804569185;
+        Mon, 01 Nov 2021 15:09:29 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJycZK3+VR9iW1fa+cGg38G9Qb59TRFSiW9klW7eikgdbxXetfRBE2KmtCFvsskBng80n8r0wQ==
+X-Received: by 2002:a7b:cb52:: with SMTP id v18mr2063943wmj.10.1635804569026;
+        Mon, 01 Nov 2021 15:09:29 -0700 (PDT)
 From: Juan Quintela <quintela@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Markus Armbruster <armbru@redhat.com>,
@@ -98,9 +97,9 @@ Cc: Markus Armbruster <armbru@redhat.com>,
 	Juan Quintela <quintela@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
 	Anthony Perard <anthony.perard@citrix.com>
-Subject: [PULL 10/20] dump-guest-memory: Block live migration
-Date: Mon,  1 Nov 2021 23:09:02 +0100
-Message-Id: <20211101220912.10039-11-quintela@redhat.com>
+Subject: [PULL 11/20] memory: Introduce replay_discarded callback for RamDiscardManager
+Date: Mon,  1 Nov 2021 23:09:03 +0100
+Message-Id: <20211101220912.10039-12-quintela@redhat.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211101220912.10039-1-quintela@redhat.com>
 References: <20211101220912.10039-1-quintela@redhat.com>
@@ -109,83 +108,92 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=quintela@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="US-ASCII"
 
-From: Peter Xu <peterx@redhat.com>
+From: David Hildenbrand <david@redhat.com>
 
-Both dump-guest-memory and live migration caches vm state at the beginning.
-Either of them entering the other one will cause race on the vm state, and even
-more severe on that (please refer to the crash report in the bug link).
+Introduce replay_discarded callback similar to our existing
+replay_populated callback, to be used my migration code to never migrate
+discarded memory.
 
-Let's block live migration in dump-guest-memory, and that'll also block
-dump-guest-memory if it detected that we're during a live migration.
-
-Side note: migrate_del_blocker() can be called even if the blocker is not
-inserted yet, so it's safe to unconditionally delete that blocker in
-dump_cleanup (g_slist_remove allows no-entry-found case).
-
-Suggested-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
-Bugzilla: https://bugzilla.redhat.com/show_bug.cgi?id=1996609
-Signed-off-by: Peter Xu <peterx@redhat.com>
-Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
+Acked-by: Peter Xu <peterx@redhat.com>
+Signed-off-by: David Hildenbrand <david@redhat.com>
 Reviewed-by: Juan Quintela <quintela@redhat.com>
 Signed-off-by: Juan Quintela <quintela@redhat.com>
 ---
- dump/dump.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ include/exec/memory.h | 21 +++++++++++++++++++++
+ softmmu/memory.c      | 11 +++++++++++
+ 2 files changed, 32 insertions(+)
 
-diff --git a/dump/dump.c b/dump/dump.c
-index ab625909f3..662d0a62cd 100644
---- a/dump/dump.c
-+++ b/dump/dump.c
-@@ -29,6 +29,7 @@
- #include "qemu/error-report.h"
- #include "qemu/main-loop.h"
- #include "hw/misc/vmcoreinfo.h"
-+#include "migration/blocker.h"
- 
- #ifdef TARGET_X86_64
- #include "win_dump.h"
-@@ -47,6 +48,8 @@
- 
- #define MAX_GUEST_NOTE_SIZE (1 << 20) /* 1MB should be enough */
- 
-+static Error *dump_migration_blocker;
-+
- #define ELF_NOTE_SIZE(hdr_size, name_size, desc_size)   \
-     ((DIV_ROUND_UP((hdr_size), 4) +                     \
-       DIV_ROUND_UP((name_size), 4) +                    \
-@@ -101,6 +104,7 @@ static int dump_cleanup(DumpState *s)
-             qemu_mutex_unlock_iothread();
-         }
-     }
-+    migrate_del_blocker(dump_migration_blocker);
- 
-     return 0;
+diff --git a/include/exec/memory.h b/include/exec/memory.h
+index 04280450c9..20f1b27377 100644
+--- a/include/exec/memory.h
++++ b/include/exec/memory.h
+@@ -550,6 +550,7 @@ static inline void ram_discard_listener_init(RamDiscardListener *rdl,
  }
-@@ -2005,6 +2009,21 @@ void qmp_dump_guest_memory(bool paging, const char *file,
-         return;
-     }
  
-+    if (!dump_migration_blocker) {
-+        error_setg(&dump_migration_blocker,
-+                   "Live migration disabled: dump-guest-memory in progress");
-+    }
-+
-+    /*
-+     * Allows even for -only-migratable, but forbid migration during the
-+     * process of dump guest memory.
+ typedef int (*ReplayRamPopulate)(MemoryRegionSection *section, void *opaque);
++typedef void (*ReplayRamDiscard)(MemoryRegionSection *section, void *opaque);
+ 
+ /*
+  * RamDiscardManagerClass:
+@@ -638,6 +639,21 @@ struct RamDiscardManagerClass {
+                             MemoryRegionSection *section,
+                             ReplayRamPopulate replay_fn, void *opaque);
+ 
++    /**
++     * @replay_discarded:
++     *
++     * Call the #ReplayRamDiscard callback for all discarded parts within the
++     * #MemoryRegionSection via the #RamDiscardManager.
++     *
++     * @rdm: the #RamDiscardManager
++     * @section: the #MemoryRegionSection
++     * @replay_fn: the #ReplayRamDiscard callback
++     * @opaque: pointer to forward to the callback
 +     */
-+    if (migrate_add_blocker_internal(dump_migration_blocker, errp)) {
-+        /* Remember to release the fd before passing it over to dump state */
-+        close(fd);
-+        return;
-+    }
++    void (*replay_discarded)(const RamDiscardManager *rdm,
++                             MemoryRegionSection *section,
++                             ReplayRamDiscard replay_fn, void *opaque);
 +
-     s = &dump_state_global;
-     dump_state_prepare(s);
+     /**
+      * @register_listener:
+      *
+@@ -682,6 +698,11 @@ int ram_discard_manager_replay_populated(const RamDiscardManager *rdm,
+                                          ReplayRamPopulate replay_fn,
+                                          void *opaque);
  
++void ram_discard_manager_replay_discarded(const RamDiscardManager *rdm,
++                                          MemoryRegionSection *section,
++                                          ReplayRamDiscard replay_fn,
++                                          void *opaque);
++
+ void ram_discard_manager_register_listener(RamDiscardManager *rdm,
+                                            RamDiscardListener *rdl,
+                                            MemoryRegionSection *section);
+diff --git a/softmmu/memory.c b/softmmu/memory.c
+index f2ac0d2e89..7340e19ff5 100644
+--- a/softmmu/memory.c
++++ b/softmmu/memory.c
+@@ -2081,6 +2081,17 @@ int ram_discard_manager_replay_populated(const RamDiscardManager *rdm,
+     return rdmc->replay_populated(rdm, section, replay_fn, opaque);
+ }
+ 
++void ram_discard_manager_replay_discarded(const RamDiscardManager *rdm,
++                                          MemoryRegionSection *section,
++                                          ReplayRamDiscard replay_fn,
++                                          void *opaque)
++{
++    RamDiscardManagerClass *rdmc = RAM_DISCARD_MANAGER_GET_CLASS(rdm);
++
++    g_assert(rdmc->replay_discarded);
++    rdmc->replay_discarded(rdm, section, replay_fn, opaque);
++}
++
+ void ram_discard_manager_register_listener(RamDiscardManager *rdm,
+                                            RamDiscardListener *rdl,
+                                            MemoryRegionSection *section)
 -- 
 2.33.1
 
