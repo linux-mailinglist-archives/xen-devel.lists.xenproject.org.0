@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCFA04421FD
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 21:52:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.219409.380198 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47896442258
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 22:07:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.219416.380208 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mheHG-0000Wz-Qx; Mon, 01 Nov 2021 20:51:34 +0000
+	id 1mheVt-00025f-2c; Mon, 01 Nov 2021 21:06:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 219409.380198; Mon, 01 Nov 2021 20:51:34 +0000
+Received: by outflank-mailman (output) from mailman id 219416.380208; Mon, 01 Nov 2021 21:06:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mheHG-0000VD-NC; Mon, 01 Nov 2021 20:51:34 +0000
-Received: by outflank-mailman (input) for mailman id 219409;
- Mon, 01 Nov 2021 20:51:33 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mheVs-00022b-Vg; Mon, 01 Nov 2021 21:06:40 +0000
+Received: by outflank-mailman (input) for mailman id 219416;
+ Mon, 01 Nov 2021 21:06:39 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0c/y=PU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mheHF-0000V7-9t
- for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 20:51:33 +0000
+ id 1mheVr-00022V-IV
+ for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 21:06:39 +0000
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b1df101f-df81-47d3-a19d-8105009942e1;
- Mon, 01 Nov 2021 20:51:32 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 918856052B;
- Mon,  1 Nov 2021 20:51:31 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9a70d652-3b57-11ec-854e-12813bfff9fa;
+ Mon, 01 Nov 2021 21:06:38 +0000 (UTC)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 867AA61183;
+ Mon,  1 Nov 2021 21:06:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,71 +38,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1df101f-df81-47d3-a19d-8105009942e1
+X-Inumbo-ID: 9a70d652-3b57-11ec-854e-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1635799891;
-	bh=xRA/du3TrrG1eT2sD/Os5sp5VKq1LP6A0qmI7SEyeN0=;
+	s=k20201202; t=1635800797;
+	bh=yDLXOkSZv7jzgUVYq0a5FeXntcFCZAE0gtv8V2te/P8=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=fBf6nwK1W0+aRYWf0817LYiglpKoRLPN49f4elHf2XdVJTSCRg4A7nUGvYsuG6vEN
-	 q6PpmcnONYT2c3LpMH1R/Cltt6RimoQMRNGs6p56kA0YYEf4rOUgl7IvhhbZZQAdpS
-	 fCnVRvjBNxKUOq6PyiPg8OGYjZHPpzNBxO7drTSG4kgMzD+BtDBS0c61PnttesR26K
-	 EU8SrSwCoX1HmH2uCb1UZ8Qy1ce6LwHMbuaNgOu3tSPypkt0kY242fV7nYVN0dBw8Q
-	 5OBqLe8ith1ZpGyfIVYg0qqVLQAbGl43ccoXFjktW1rEqfZxo2I7U52+DMSdLUFtfG
-	 AJnBvWRg1yr3g==
-Date: Mon, 1 Nov 2021 13:51:30 -0700 (PDT)
+	b=O/EcfVWM2DlLzgTtVl501t3dGXrhxz+0pUONdRc84lHIOXOFgHaoDar+48DOKeHL4
+	 VJ25XHqGUr3BpIA1R0LsShGjZnu9IowjZvo2IwNUYWVInPvDypGVEW78y13Orml9uK
+	 9I3+/NDaFVFPzhzfzXjdbIEfeJ0pA9rvEwd5FF3GuE+ZSeucgjKBb2ex2W1zvP+5P/
+	 chlY7b4of7qwMQyw9r+9dDMB2iAZRxjmPLWSh56iyVmgdRc4Ku9qYA/Uf1rD77MNA6
+	 dqp3DSlFr3jeXmUTtGPuVlmbOsqN4o+DJoP99Eq+AgdJ3kgsqDW6212+F6fXKtTt7H
+	 nKvPWrnDnBiCQ==
+Date: Mon, 1 Nov 2021 14:06:36 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Ian Jackson <iwj@xenproject.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Julien Grall <julien.grall.oss@gmail.com>, 
-    Michal Orzel <michal.orzel@arm.com>, 
-    xen-devel <xen-devel@lists.xenproject.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [patch-4.16] arm/smmuv1,v2: Protect smmu master list with a
- lock
-In-Reply-To: <24959.49895.14808.77881@mariner.uk.xensource.com>
-Message-ID: <alpine.DEB.2.21.2111011341480.20134@sstabellini-ThinkPad-T480s>
-References: <20211026122903.15042-1-michal.orzel@arm.com> <e5632a4e-db98-41b4-1045-2b3532c098fa@xen.org> <70c30a6c-b779-805e-079a-41bb484894b9@xen.org> <cb452c0c-ccde-7798-c403-f972b48a2c46@arm.com> <01545115-e82e-2a9d-a8e4-da9676080c0f@xen.org>
- <alpine.DEB.2.21.2110271557570.20134@sstabellini-ThinkPad-T480s> <CAJ=z9a2SSgG7a87_xTGT5LeNLgubOLQf1+dbnrsTsP8_p5ErJg@mail.gmail.com> <alpine.DEB.2.21.2110271658330.20134@sstabellini-ThinkPad-T480s> <4554621d-63da-ea3e-e56a-4e01d0cef347@xen.org>
- <alpine.DEB.2.21.2110281311030.20134@sstabellini-ThinkPad-T480s> <24959.49895.14808.77881@mariner.uk.xensource.com>
+cc: Julien Grall <julien@xen.org>, 
+    Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    "sstabellini@kernel.org" <sstabellini@kernel.org>, 
+    Bertrand  Marquis <bertrand.marquis@arm.com>, 
+    Rahul Singh <rahul.singh@arm.com>
+Subject: Re: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers
+ [and 2 more messages]
+In-Reply-To: <24959.49313.936961.936820@mariner.uk.xensource.com>
+Message-ID: <alpine.DEB.2.21.2111011402320.20134@sstabellini-ThinkPad-T480s>
+References: <20211027082533.1406015-1-andr2000@gmail.com> <cb7e9ef7-476e-93c3-d3c9-9a9ebc61003d@xen.org> <d63c6e0b-8aa3-9ba3-893c-5e464638a8db@epam.com> <65886734-7333-4469-fcc1-6916db708f13@xen.org> <b6bb02b6-6358-b5e0-1b80-7819aadabe10@epam.com>
+ <6d8f1061-7aec-2c1a-aaf4-c30440c2797a@xen.org> <38da2edd-06a2-63d0-51ad-1284272c8da5@epam.com> <a74b52fb-6514-4187-17fe-b63236efa0ce@xen.org> <24954.51153.588540.850154@mariner.uk.xensource.com> <d7e4ae66-f648-e18e-79c8-fae6eb896f00@xen.org>
+ <YXkU+DKYmvwo+kak@Air-de-Roger> <0bbe4d1d-421d-e816-42aa-f43581902a02@epam.com> <24953.34635.645112.279110@mariner.uk.xensource.com> <24959.49313.936961.936820@mariner.uk.xensource.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Mon, 1 Nov 2021, Ian Jackson wrote:
-> Stefano Stabellini writes ("Re: [patch-4.16] arm/smmuv1,v2: Protect smmu master list with a lock"):
-> > In regards to this specific patch and also the conversation about 4.16
-> > or 4.17: I think it would be fine to take this patch in 4.16 in its
-> > current form. Although it is not required because PCI passthrough is
-> > not going to be complete in 4.16 anyway, I like that this patch makes
-> > the code consistent in terms of protection of rbtree accesses.  With
-> > this patch the arm_smmu_master rbtree is consistently protected from
-> > concurrent accesses. Without this patch, it is sometimes protected and
-> > sometimes not, which is not great.
+> Julien Grall writes ("Re: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers"):
+> > On 28/10/2021 16:54, Ian Jackson wrote:
+> > > There are a number of patches that I'm getting CC'd on related to ARM
+> > > and vpci (according to the Subject).  Are these targeted for 4.16 ?
+> > > Most of them don't have 4.16 Subject tags.
+> > 
+> > Oleksandr wants this patch to be included for 4.16 but forgot to tag it 
+> > properly.
 > 
-> It sounds like this is a possible latent bug, or at least a bad state
-> of the code that might lead to the introduction of bad bugs later.
+> Oh yes.  However,
 > 
-> So I think I understand the upside.
+> 1. I also wrote this:
 > 
-> > So I think that is something that could be good to have in 4.16. But
-> > like you said, the patch is not strictly required so it is fine either
-> > way.
+> > > I am finding it difficult to see the wood for the trees.
+> > > It would be really helpful if these vpci fixes were collected
+> > > together into a series.
 > 
-> Can you set out the downside for me too ?  What are the risks ?  How
-> are the affected code paths used in 4.16 ?
+> Can someone please confirm whether this is the only vpci-related patch
+> that ought to be on my radar for 4.16 ?
 > 
-> A good way to think about this is: if taking this patch for 4.16
-> causes problems, what would that look like ?
+> 2. I have not had a reply to my question on Wednesday in
+> <24953.34635.645112.279110@mariner.uk.xensource.com>:
+> 
+>   Um, can you explain what the practical impact is of not taking this
+>   patch for 4.16 ?  As I understand it vpci for ARM is non-functional in
+>   4.16 and this is not expected to change ?  So there would be no
+>   benefit to users, and taking the patch would add small but nonzero
+>   risk ?
+> 
+> I need this information to decide whether a release-ack is
+> appropriate.
+> 
+> Note that we are in code freeze so all patches, including bugfixes,
+> need my ack.
 
-The patch affects the SMMU code paths that are currently in-use for
-non-PCI devices which are currently supported. A bug in this patch could
-cause a failure to setup the SMMU for one or more devices. I would
-imagine that it would manifest probably as either an error or an hang
-(given that it is adding spin locks) early at boot when the SMMU is
-configured.
+Hi Ian,
 
-The validation of this patch would mostly happen by review: it is the
-kind of patch that changes some "return -1" into "goto err".
+This patch [1] is a straightforward 2 lines fix for vpci on ARM.  There
+is no risk for the release as the source file affected only builds when
+CONFIG_HAS_VPCI is enabled, and it is currently disabled on ARM.
+
+At the same time, as we know vpci is not complete in 4.16 anyway, so the
+counter argument is that we don't need to fix it.
+
+Given how trivial the fix is, and that it cannot break the build or
+runtime, I would take it.
+
+Cheers,
+
+Stefano
+
+
+[1] https://marc.info/?l=xen-devel&m=163532307715435
 
