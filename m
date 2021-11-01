@@ -2,42 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 911FB441D4C
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 16:20:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.219239.379944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28410441D4E
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 16:20:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.219244.379989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhZ6m-0008Kl-6E; Mon, 01 Nov 2021 15:20:24 +0000
+	id 1mhZ6v-000184-SH; Mon, 01 Nov 2021 15:20:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 219239.379944; Mon, 01 Nov 2021 15:20:24 +0000
+Received: by outflank-mailman (output) from mailman id 219244.379989; Mon, 01 Nov 2021 15:20:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhZ6m-0008Gk-2S; Mon, 01 Nov 2021 15:20:24 +0000
-Received: by outflank-mailman (input) for mailman id 219239;
- Mon, 01 Nov 2021 15:20:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mhZ6v-00012A-MS; Mon, 01 Nov 2021 15:20:33 +0000
+Received: by outflank-mailman (input) for mailman id 219244;
+ Mon, 01 Nov 2021 15:20:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rWtG=PU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mhZ6j-0008DA-RL
- for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 15:20:21 +0000
+ id 1mhZ6t-0008DB-Ne
+ for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 15:20:31 +0000
 Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 13092484-eb58-4f28-b7ee-8f277d1aa63f;
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 38ddb02c-3b27-11ec-8548-12813bfff9fa;
  Mon, 01 Nov 2021 15:20:20 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 6E2B61FD29;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C13451FD6F;
  Mon,  1 Nov 2021 15:20:19 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 38DB713A4A;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7674813A4A;
  Mon,  1 Nov 2021 15:20:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id iD6WDLMFgGFzNwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id yC+XG7MFgGFzNwAAMHmgww
  (envelope-from <jgross@suse.com>); Mon, 01 Nov 2021 15:20:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -50,272 +51,305 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 13092484-eb58-4f28-b7ee-8f277d1aa63f
+X-Inumbo-ID: 38ddb02c-3b27-11ec-8548-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1635780019; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=DEHpkmfZZt1as/ZYBqmT3ZnKiWxNryhzyhq2qPkcsrg=;
-	b=VQOhdc8JMSXr770NdXGYoKbD68X0XCUrRBpwUYjT6YKvj3FRT2H63AIdrXGTVZ76HJaInT
-	lk94ERWftow7eurqX5vS6a/kYSFR25rL8GnUcy0BXSlHLiLVmdtgGy9yED6ohmgSu6TQLh
-	Tv2vGPYBi6mg0DyjUlHhxi2y2/gXpNw=
+	bh=XG67DS83CIrGacinsOg2WG7ocvVLz9fjlKD5/7+q6zE=;
+	b=MEYMGdotgZGdwNeV33M7fDE8Z2Ac60uaX702ELKddiZUiSSQ4WKo5WOnA2XVkDDAjm1WpI
+	RwpmVr5CZeuPenjV6ltmKotw1+C5qSS37k8pBOTo2ivTdblxL07zS/QBjQ5PDjdOn4Drzo
+	S55G5hUoyCguRv8C4l0e8UNsTF2mu0s=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
 	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>
-Subject: [PATCH v2 01/15] xen: limit number of hypercall parameters to 5
-Date: Mon,  1 Nov 2021 16:20:01 +0100
-Message-Id: <20211101152015.28488-2-jgross@suse.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 02/15] xen: move do_vcpu_op() to arch specific code
+Date: Mon,  1 Nov 2021 16:20:02 +0100
+Message-Id: <20211101152015.28488-3-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20211101152015.28488-1-jgross@suse.com>
 References: <20211101152015.28488-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Today there is no hypercall with more than 5 parameters, while the ABI
-allows up to 6 parameters. Especially for the X86 32-bit case using
-6 parameters would require to run without frame pointer, which isn't
-very fortunate. Note that for Arm the limit is 5 parameters already.
+Today Arm is using another entry point for the vcpu_op hypercall as
+x86, as some of the common sub-ops are not supported on Arm. The Arm
+specific handler filetrs out the not supported sub-ops and then calls
+the common handler. This leads to the weird call hierarchy:
 
-So limit the maximum number of parameters to 5 for x86, too.
+  do_arm_vcpu_op()
+    do_vcpu_op()
+      arch_do_vcpu_op()
+
+Clean this up by renaming do_vcpu_op() to common_vcpu_op() and
+arch_do_vcpu_op() in each architecture to do_vcpu_op(). This way one
+of above calls can be avoided without restricting any potential
+future use of common sub-ops for Arm.
+
+Additionally the single user of HYPERCALL_ARM() can be modified and
+HYPERCALL_ARM() can be removed.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/arch/x86/hvm/hypercall.c    | 28 ++++++++++------------------
- xen/arch/x86/pv/hypercall.c     | 22 ++++++++--------------
- xen/common/trace.c              |  2 +-
+ xen/arch/arm/domain.c           | 15 ++++++++-------
+ xen/arch/arm/traps.c            |  7 +------
+ xen/arch/x86/domain.c           | 11 +++++++----
+ xen/arch/x86/x86_64/domain.c    | 16 ++++++++++++----
+ xen/common/compat/domain.c      | 14 ++++++--------
+ xen/common/domain.c             | 11 ++++-------
+ xen/include/asm-arm/hypercall.h |  2 --
  xen/include/asm-x86/hypercall.h |  2 +-
- 4 files changed, 20 insertions(+), 34 deletions(-)
+ xen/include/xen/hypercall.h     |  2 +-
+ 9 files changed, 40 insertions(+), 40 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/hypercall.c b/xen/arch/x86/hvm/hypercall.c
-index 122abf80de..f0321c6cb4 100644
---- a/xen/arch/x86/hvm/hypercall.c
-+++ b/xen/arch/x86/hvm/hypercall.c
-@@ -239,10 +239,9 @@ int hvm_hypercall(struct cpu_user_regs *regs)
-         unsigned long rdx = regs->rdx;
-         unsigned long r10 = regs->r10;
-         unsigned long r8 = regs->r8;
--        unsigned long r9 = regs->r9;
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index 96e1b23550..691a14277e 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -1074,23 +1074,24 @@ void arch_dump_domain_info(struct domain *d)
+ }
  
--        HVM_DBG_LOG(DBG_LEVEL_HCALL, "hcall%lu(%lx, %lx, %lx, %lx, %lx, %lx)",
--                    eax, rdi, rsi, rdx, r10, r8, r9);
-+        HVM_DBG_LOG(DBG_LEVEL_HCALL, "hcall%lu(%lx, %lx, %lx, %lx, %lx)",
-+                    eax, rdi, rsi, rdx, r10, r8);
  
- #ifndef NDEBUG
-         /* Deliberately corrupt parameter regs not used by this hypercall. */
-@@ -252,13 +251,11 @@ int hvm_hypercall(struct cpu_user_regs *regs)
-         case 1: rsi = 0xdeadbeefdeadf00dUL; fallthrough;
-         case 2: rdx = 0xdeadbeefdeadf00dUL; fallthrough;
-         case 3: r10 = 0xdeadbeefdeadf00dUL; fallthrough;
--        case 4: r8 = 0xdeadbeefdeadf00dUL; fallthrough;
--        case 5: r9 = 0xdeadbeefdeadf00dUL;
-+        case 4: r8 = 0xdeadbeefdeadf00dUL;
-         }
- #endif
- 
--        regs->rax = hvm_hypercall_table[eax].native(rdi, rsi, rdx, r10, r8,
--                                                    r9);
-+        regs->rax = hvm_hypercall_table[eax].native(rdi, rsi, rdx, r10, r8);
- 
- #ifndef NDEBUG
-         if ( !curr->hcall_preempted )
-@@ -266,7 +263,6 @@ int hvm_hypercall(struct cpu_user_regs *regs)
-             /* Deliberately corrupt parameter regs used by this hypercall. */
-             switch ( hypercall_args_table[eax].native )
-             {
--            case 6: regs->r9  = 0xdeadbeefdeadf00dUL; fallthrough;
-             case 5: regs->r8  = 0xdeadbeefdeadf00dUL; fallthrough;
-             case 4: regs->r10 = 0xdeadbeefdeadf00dUL; fallthrough;
-             case 3: regs->rdx = 0xdeadbeefdeadf00dUL; fallthrough;
-@@ -283,10 +279,9 @@ int hvm_hypercall(struct cpu_user_regs *regs)
-         unsigned int edx = regs->edx;
-         unsigned int esi = regs->esi;
-         unsigned int edi = regs->edi;
--        unsigned int ebp = regs->ebp;
- 
--        HVM_DBG_LOG(DBG_LEVEL_HCALL, "hcall%lu(%x, %x, %x, %x, %x, %x)", eax,
--                    ebx, ecx, edx, esi, edi, ebp);
-+        HVM_DBG_LOG(DBG_LEVEL_HCALL, "hcall%lu(%x, %x, %x, %x, %x)", eax,
-+                    ebx, ecx, edx, esi, edi);
- 
- #ifndef NDEBUG
-         /* Deliberately corrupt parameter regs not used by this hypercall. */
-@@ -296,14 +291,12 @@ int hvm_hypercall(struct cpu_user_regs *regs)
-         case 1: ecx = 0xdeadf00d; fallthrough;
-         case 2: edx = 0xdeadf00d; fallthrough;
-         case 3: esi = 0xdeadf00d; fallthrough;
--        case 4: edi = 0xdeadf00d; fallthrough;
--        case 5: ebp = 0xdeadf00d;
-+        case 4: edi = 0xdeadf00d;
-         }
- #endif
- 
-         curr->hcall_compat = true;
--        regs->rax = hvm_hypercall_table[eax].compat(ebx, ecx, edx, esi, edi,
--                                                    ebp);
-+        regs->rax = hvm_hypercall_table[eax].compat(ebx, ecx, edx, esi, edi);
-         curr->hcall_compat = false;
- 
- #ifndef NDEBUG
-@@ -312,7 +305,6 @@ int hvm_hypercall(struct cpu_user_regs *regs)
-             /* Deliberately corrupt parameter regs used by this hypercall. */
-             switch ( hypercall_args_table[eax].compat )
-             {
--            case 6: regs->rbp = 0xdeadf00d; fallthrough;
-             case 5: regs->rdi = 0xdeadf00d; fallthrough;
-             case 4: regs->rsi = 0xdeadf00d; fallthrough;
-             case 3: regs->rdx = 0xdeadf00d; fallthrough;
-@@ -349,7 +341,7 @@ enum mc_disposition hvm_do_multicall_call(struct mc_state *state)
-             func = array_access_nospec(hvm_hypercall_table, call->op).native;
-         if ( func )
-             call->result = func(call->args[0], call->args[1], call->args[2],
--                                call->args[3], call->args[4], call->args[5]);
-+                                call->args[3], call->args[4]);
-         else
-             call->result = -ENOSYS;
-     }
-@@ -361,7 +353,7 @@ enum mc_disposition hvm_do_multicall_call(struct mc_state *state)
-             func = array_access_nospec(hvm_hypercall_table, call->op).compat;
-         if ( func )
-             call->result = func(call->args[0], call->args[1], call->args[2],
--                                call->args[3], call->args[4], call->args[5]);
-+                                call->args[3], call->args[4]);
-         else
-             call->result = -ENOSYS;
-     }
-diff --git a/xen/arch/x86/pv/hypercall.c b/xen/arch/x86/pv/hypercall.c
-index 3579ba905c..16a77e3a35 100644
---- a/xen/arch/x86/pv/hypercall.c
-+++ b/xen/arch/x86/pv/hypercall.c
-@@ -145,7 +145,6 @@ _pv_hypercall(struct cpu_user_regs *regs, bool compat)
-         unsigned long rdx = regs->rdx;
-         unsigned long r10 = regs->r10;
-         unsigned long r8 = regs->r8;
--        unsigned long r9 = regs->r9;
- 
- #ifndef NDEBUG
-         /* Deliberately corrupt parameter regs not used by this hypercall. */
-@@ -155,18 +154,17 @@ _pv_hypercall(struct cpu_user_regs *regs, bool compat)
-         case 1: rsi = 0xdeadbeefdeadf00dUL; fallthrough;
-         case 2: rdx = 0xdeadbeefdeadf00dUL; fallthrough;
-         case 3: r10 = 0xdeadbeefdeadf00dUL; fallthrough;
--        case 4: r8 = 0xdeadbeefdeadf00dUL; fallthrough;
--        case 5: r9 = 0xdeadbeefdeadf00dUL;
-+        case 4: r8 = 0xdeadbeefdeadf00dUL;
-         }
- #endif
-         if ( unlikely(tb_init_done) )
-         {
--            unsigned long args[6] = { rdi, rsi, rdx, r10, r8, r9 };
-+            unsigned long args[5] = { rdi, rsi, rdx, r10, r8 };
- 
-             __trace_hypercall(TRC_PV_HYPERCALL_V2, eax, args);
-         }
- 
--        regs->rax = pv_hypercall_table[eax].native(rdi, rsi, rdx, r10, r8, r9);
-+        regs->rax = pv_hypercall_table[eax].native(rdi, rsi, rdx, r10, r8);
- 
- #ifndef NDEBUG
-         if ( !curr->hcall_preempted )
-@@ -174,7 +172,6 @@ _pv_hypercall(struct cpu_user_regs *regs, bool compat)
-             /* Deliberately corrupt parameter regs used by this hypercall. */
-             switch ( hypercall_args_table[eax].native )
-             {
--            case 6: regs->r9  = 0xdeadbeefdeadf00dUL; fallthrough;
-             case 5: regs->r8  = 0xdeadbeefdeadf00dUL; fallthrough;
-             case 4: regs->r10 = 0xdeadbeefdeadf00dUL; fallthrough;
-             case 3: regs->rdx = 0xdeadbeefdeadf00dUL; fallthrough;
-@@ -192,7 +189,6 @@ _pv_hypercall(struct cpu_user_regs *regs, bool compat)
-         unsigned int edx = regs->edx;
-         unsigned int esi = regs->esi;
-         unsigned int edi = regs->edi;
--        unsigned int ebp = regs->ebp;
- 
- #ifndef NDEBUG
-         /* Deliberately corrupt parameter regs not used by this hypercall. */
-@@ -202,20 +198,19 @@ _pv_hypercall(struct cpu_user_regs *regs, bool compat)
-         case 1: ecx = 0xdeadf00d; fallthrough;
-         case 2: edx = 0xdeadf00d; fallthrough;
-         case 3: esi = 0xdeadf00d; fallthrough;
--        case 4: edi = 0xdeadf00d; fallthrough;
--        case 5: ebp = 0xdeadf00d;
-+        case 4: edi = 0xdeadf00d;
-         }
- #endif
- 
-         if ( unlikely(tb_init_done) )
-         {
--            unsigned long args[6] = { ebx, ecx, edx, esi, edi, ebp };
-+            unsigned long args[5] = { ebx, ecx, edx, esi, edi };
- 
-             __trace_hypercall(TRC_PV_HYPERCALL_V2, eax, args);
-         }
- 
-         curr->hcall_compat = true;
--        regs->eax = pv_hypercall_table[eax].compat(ebx, ecx, edx, esi, edi, ebp);
-+        regs->eax = pv_hypercall_table[eax].compat(ebx, ecx, edx, esi, edi);
-         curr->hcall_compat = false;
- 
- #ifndef NDEBUG
-@@ -224,7 +219,6 @@ _pv_hypercall(struct cpu_user_regs *regs, bool compat)
-             /* Deliberately corrupt parameter regs used by this hypercall. */
-             switch ( hypercall_args_table[eax].compat )
-             {
--            case 6: regs->ebp = 0xdeadf00d; fallthrough;
-             case 5: regs->edi = 0xdeadf00d; fallthrough;
-             case 4: regs->esi = 0xdeadf00d; fallthrough;
-             case 3: regs->edx = 0xdeadf00d; fallthrough;
-@@ -262,7 +256,7 @@ enum mc_disposition pv_do_multicall_call(struct mc_state *state)
-              pv_hypercall_table[op].compat )
-             call->result = pv_hypercall_table[op].compat(
-                 call->args[0], call->args[1], call->args[2],
--                call->args[3], call->args[4], call->args[5]);
-+                call->args[3], call->args[4]);
-         else
-             call->result = -ENOSYS;
-     }
-@@ -276,7 +270,7 @@ enum mc_disposition pv_do_multicall_call(struct mc_state *state)
-              pv_hypercall_table[op].native )
-             call->result = pv_hypercall_table[op].native(
-                 call->args[0], call->args[1], call->args[2],
--                call->args[3], call->args[4], call->args[5]);
-+                call->args[3], call->args[4]);
-         else
-             call->result = -ENOSYS;
-     }
-diff --git a/xen/common/trace.c b/xen/common/trace.c
-index a2a389a1c7..61fecc2b2b 100644
---- a/xen/common/trace.c
-+++ b/xen/common/trace.c
-@@ -822,7 +822,7 @@ void __trace_hypercall(uint32_t event, unsigned long op,
+-long do_arm_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
++long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
  {
-     struct {
-         uint32_t op;
--        uint32_t args[6];
-+        uint32_t args[5];
-     } d;
-     uint32_t *a = d.args;
++    struct domain *d = current->domain;
++    struct vcpu *v;
++
++    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
++        return -ENOENT;
++
+     switch ( cmd )
+     {
+         case VCPUOP_register_vcpu_info:
+         case VCPUOP_register_runstate_memory_area:
+-            return do_vcpu_op(cmd, vcpuid, arg);
++            return common_vcpu_op(cmd, v, arg);
+         default:
+             return -EINVAL;
+     }
+ }
+ 
+-long arch_do_vcpu_op(int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
+-{
+-    return -ENOSYS;
+-}
+-
+ void arch_dump_vcpu_info(struct vcpu *v)
+ {
+     gic_dump_info(v);
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 219ab3c3fb..7abc28848e 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -1351,11 +1351,6 @@ typedef struct {
+         .nr_args = _nr_args,                                         \
+     }
+ 
+-#define HYPERCALL_ARM(_name, _nr_args)                        \
+-    [ __HYPERVISOR_ ## _name ] =  {                                  \
+-        .fn = (arm_hypercall_fn_t) &do_arm_ ## _name,                \
+-        .nr_args = _nr_args,                                         \
+-    }
+ /*
+  * Only use this for hypercalls which were deprecated (i.e. replaced
+  * by something else) before Xen on ARM was created, i.e. *not* for
+@@ -1386,7 +1381,7 @@ static arm_hypercall_t arm_hypercall_table[] = {
+ #endif
+     HYPERCALL(multicall, 2),
+     HYPERCALL(platform_op, 1),
+-    HYPERCALL_ARM(vcpu_op, 3),
++    HYPERCALL(vcpu_op, 3),
+     HYPERCALL(vm_assist, 2),
+ #ifdef CONFIG_ARGO
+     HYPERCALL(argo_op, 5),
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index ef1812dc14..e1440ec2f5 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -1488,11 +1488,14 @@ int arch_vcpu_reset(struct vcpu *v)
+     return 0;
+ }
+ 
+-long
+-arch_do_vcpu_op(
+-    int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
++long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+     long rc = 0;
++    struct domain *d = current->domain;
++    struct vcpu *v;
++
++    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
++        return -ENOENT;
+ 
+     switch ( cmd )
+     {
+@@ -1544,7 +1547,7 @@ arch_do_vcpu_op(
+     }
+ 
+     default:
+-        rc = -ENOSYS;
++        rc = common_vcpu_op(cmd, v, arg);
+         break;
+     }
+ 
+diff --git a/xen/arch/x86/x86_64/domain.c b/xen/arch/x86/x86_64/domain.c
+index c46dccc25a..62fe51ee74 100644
+--- a/xen/arch/x86/x86_64/domain.c
++++ b/xen/arch/x86/x86_64/domain.c
+@@ -13,10 +13,14 @@ CHECK_vcpu_get_physid;
+ #undef xen_vcpu_get_physid
+ 
+ int
+-arch_compat_vcpu_op(
+-    int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
++compat_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+-    int rc = -ENOSYS;
++    int rc;
++    struct domain *d = current->domain;
++    struct vcpu *v;
++
++    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
++        return -ENOENT;
+ 
+     switch ( cmd )
+     {
+@@ -55,7 +59,11 @@ arch_compat_vcpu_op(
+     }
+ 
+     case VCPUOP_get_physid:
+-        rc = arch_do_vcpu_op(cmd, v, arg);
++        rc = do_vcpu_op(cmd, vcpuid, arg);
++        break;
++
++    default:
++        rc = compat_common_vcpu_op(cmd, v, arg);
+         break;
+     }
+ 
+diff --git a/xen/common/compat/domain.c b/xen/common/compat/domain.c
+index 98b8c15cea..1119534679 100644
+--- a/xen/common/compat/domain.c
++++ b/xen/common/compat/domain.c
+@@ -38,14 +38,12 @@ CHECK_vcpu_hvm_context;
+ 
+ #endif
+ 
+-int compat_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
++int compat_common_vcpu_op(int cmd, struct vcpu *v,
++                          XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+-    struct domain *d = current->domain;
+-    struct vcpu *v;
+     int rc = 0;
+-
+-    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
+-        return -ENOENT;
++    struct domain *d = current->domain;
++    unsigned int vcpuid = v->vcpu_id;
+ 
+     switch ( cmd )
+     {
+@@ -102,7 +100,7 @@ int compat_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) ar
+     case VCPUOP_stop_singleshot_timer:
+     case VCPUOP_register_vcpu_info:
+     case VCPUOP_send_nmi:
+-        rc = do_vcpu_op(cmd, vcpuid, arg);
++        rc = common_vcpu_op(cmd, v, arg);
+         break;
+ 
+     case VCPUOP_get_runstate_info:
+@@ -133,7 +131,7 @@ int compat_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) ar
+     }
+ 
+     default:
+-        rc = arch_compat_vcpu_op(cmd, v, arg);
++        rc = -ENOSYS;
+         break;
+     }
+ 
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 8b53c49d1e..8eb36fe714 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -1559,14 +1559,11 @@ int default_initialise_vcpu(struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
+     return rc;
+ }
+ 
+-long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
++long common_vcpu_op(int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+-    struct domain *d = current->domain;
+-    struct vcpu *v;
+     long rc = 0;
+-
+-    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
+-        return -ENOENT;
++    struct domain *d = current->domain;
++    unsigned int vcpuid = v->vcpu_id;
+ 
+     switch ( cmd )
+     {
+@@ -1736,7 +1733,7 @@ long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
+     }
+ 
+     default:
+-        rc = arch_do_vcpu_op(cmd, v, arg);
++        rc = -ENOSYS;
+         break;
+     }
+ 
+diff --git a/xen/include/asm-arm/hypercall.h b/xen/include/asm-arm/hypercall.h
+index a0c5a31a2f..9fd13c6b2c 100644
+--- a/xen/include/asm-arm/hypercall.h
++++ b/xen/include/asm-arm/hypercall.h
+@@ -4,8 +4,6 @@
+ #include <public/domctl.h> /* for arch_do_domctl */
+ int do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+-long do_arm_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg);
+-
+ long subarch_do_domctl(struct xen_domctl *domctl, struct domain *d,
+                        XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
  
 diff --git a/xen/include/asm-x86/hypercall.h b/xen/include/asm-x86/hypercall.h
-index 0ae3b8b043..5d394d4923 100644
+index 5d394d4923..e614f7c78c 100644
 --- a/xen/include/asm-x86/hypercall.h
 +++ b/xen/include/asm-x86/hypercall.h
-@@ -13,7 +13,7 @@
+@@ -152,7 +152,7 @@ compat_physdev_op(
+     XEN_GUEST_HANDLE_PARAM(void) arg);
  
- typedef unsigned long hypercall_fn_t(
-     unsigned long, unsigned long, unsigned long,
--    unsigned long, unsigned long, unsigned long);
-+    unsigned long, unsigned long);
+ extern int
+-arch_compat_vcpu_op(
++compat_common_vcpu_op(
+     int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg);
  
- typedef struct {
-     hypercall_fn_t *native;
+ extern int compat_mmuext_op(
+diff --git a/xen/include/xen/hypercall.h b/xen/include/xen/hypercall.h
+index 07b10ec230..30558d3c61 100644
+--- a/xen/include/xen/hypercall.h
++++ b/xen/include/xen/hypercall.h
+@@ -110,7 +110,7 @@ do_vcpu_op(
+ 
+ struct vcpu;
+ extern long
+-arch_do_vcpu_op(int cmd,
++common_vcpu_op(int cmd,
+     struct vcpu *v,
+     XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
 -- 
 2.26.2
 
