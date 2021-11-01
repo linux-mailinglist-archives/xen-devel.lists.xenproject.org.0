@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C09C1442328
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 23:10:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.219449.380352 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7472C44232A
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 23:10:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.219453.380368 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhfV7-0004y6-11; Mon, 01 Nov 2021 22:09:57 +0000
+	id 1mhfVD-0005oM-1i; Mon, 01 Nov 2021 22:10:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 219449.380352; Mon, 01 Nov 2021 22:09:56 +0000
+Received: by outflank-mailman (output) from mailman id 219453.380368; Mon, 01 Nov 2021 22:10:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhfV6-0004uf-Rv; Mon, 01 Nov 2021 22:09:56 +0000
-Received: by outflank-mailman (input) for mailman id 219449;
- Mon, 01 Nov 2021 22:09:55 +0000
+	id 1mhfVC-0005kM-MO; Mon, 01 Nov 2021 22:10:02 +0000
+Received: by outflank-mailman (input) for mailman id 219453;
+ Mon, 01 Nov 2021 22:10:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=z02t=PU=redhat.com=quintela@srs-us1.protection.inumbo.net>)
- id 1mhfV5-0007pr-OE
- for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 22:09:55 +0000
-Received: from us-smtp-delivery-124.mimecast.com (unknown [216.205.24.124])
+ id 1mhfVA-0007pr-OS
+ for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 22:10:00 +0000
+Received: from us-smtp-delivery-124.mimecast.com (unknown [170.10.133.124])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 61ecb4d2-3b60-11ec-854e-12813bfff9fa;
- Mon, 01 Nov 2021 22:09:28 +0000 (UTC)
+ id 62e4f7fa-3b60-11ec-854e-12813bfff9fa;
+ Mon, 01 Nov 2021 22:09:30 +0000 (UTC)
 Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
  [209.85.221.71]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-561-1I9Q6WROPouj75ijb7n91g-1; Mon, 01 Nov 2021 18:09:27 -0400
+ us-mta-32-4X10BvvaO2m5-Rv-dpJHvA-1; Mon, 01 Nov 2021 18:09:29 -0400
 Received: by mail-wr1-f71.google.com with SMTP id
- j12-20020adf910c000000b0015e4260febdso6748669wrj.20
- for <xen-devel@lists.xenproject.org>; Mon, 01 Nov 2021 15:09:27 -0700 (PDT)
+ p17-20020adff211000000b0017b902a7701so3974740wro.19
+ for <xen-devel@lists.xenproject.org>; Mon, 01 Nov 2021 15:09:29 -0700 (PDT)
 Received: from localhost (static-233-86-86-188.ipcom.comunitel.net.
  [188.86.86.233])
- by smtp.gmail.com with ESMTPSA id u16sm620998wmc.21.2021.11.01.15.09.25
+ by smtp.gmail.com with ESMTPSA id o17sm685550wmq.11.2021.11.01.15.09.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Nov 2021 15:09:25 -0700 (PDT)
+ Mon, 01 Nov 2021 15:09:27 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,37 +47,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61ecb4d2-3b60-11ec-854e-12813bfff9fa
+X-Inumbo-ID: 62e4f7fa-3b60-11ec-854e-12813bfff9fa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1635804568;
+	s=mimecast20190719; t=1635804570;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xgA8Pg4pioYTYcQYYaUz2yN31K5Rcv8HQjmwYm8rweY=;
-	b=P3PUolCz4j4ymEn/0u53vtsuTYUJ2crPH6lHWspESqFkkPYiBJ2ZFimpYFTl3CEJfed1b3
-	eBQubuPdQ83yo3v71Fs0IpFQi52Qjmd4csSJO0cCyI+Cz6QL9ngRmga2MadZqlwu73xsUP
-	DVjT94/OzHHw/2r3QDvTeIbtgrP7Aus=
-X-MC-Unique: 1I9Q6WROPouj75ijb7n91g-1
+	bh=Eb45pt+rx+z3d/QNqQ0ka/rPHoe06plBoXsL9wFgC3A=;
+	b=XtbMSMGTQZvMco2cqRvB6sMNp2kXWpDgubhBSI/o3ct+u0hRuPelBE3jucBTFg1jjr/Why
+	kLLoLyLGU6A1J7RIr1r7Aw5eUqFBllDRjog5qJtscdAYk0Pcq6YnQA8umpeYe5Vf8y85l5
+	1KXLUFCxkvc4P7/ZD47YRfIPjKRP2l4=
+X-MC-Unique: 4X10BvvaO2m5-Rv-dpJHvA-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=xgA8Pg4pioYTYcQYYaUz2yN31K5Rcv8HQjmwYm8rweY=;
-        b=ojdnY+mxsT4AP/6/20bLnTMobtYctrO/o2KlhCgGYHw3n4WAfS6v1AsCX6yHe4Stn5
-         mAv/M2znq/JEzHqZ0gyT11aPFMppJDWHHaDXGaEz9FC/qe+BxcLKZr/U9hd9hy9OefRW
-         9DVvi7fAprkXwQsWwH/7gDtgz/CxGEb64daX9Fb3f8uPJJ0zkU34LwUasClm8/EPN4W7
-         NOscsXCEq6rul1bJcM63zQH2NkGIK8Bs7LQmid4ZtwAvyGf+z42ik8OVgOym9DiT/r4h
-         tCvg79beY5m3/1yl2xU0v0YT2fL1UR0sP/VxlceTH2VMRZcGRcIbkztdL59k7OJe6QiL
-         tZyw==
-X-Gm-Message-State: AOAM530ZR2IS499UrAZDWvvD4gn94SOPuxLxLEJb9+nd5xtooeLll2xJ
-	aVudnqflFA5NSCGDNGwZlqUPw1uZElpcbrf/Q5BPOhSdAhfTB40byWCHTTiOAp6XI0ApCdgfA2b
-	vGN0pf/FjFwXkLwlPUVHDRE4hhqQ=
-X-Received: by 2002:adf:c70b:: with SMTP id k11mr40015414wrg.154.1635804566477;
-        Mon, 01 Nov 2021 15:09:26 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzUrxZpRrNYU7lx4z1CYr7OY2cCtGorBz1ob+LkkuKyWgUku8HgKdZfOfBOrsPY7hoBqfW6RQ==
-X-Received: by 2002:adf:c70b:: with SMTP id k11mr40015380wrg.154.1635804566314;
-        Mon, 01 Nov 2021 15:09:26 -0700 (PDT)
+        bh=Eb45pt+rx+z3d/QNqQ0ka/rPHoe06plBoXsL9wFgC3A=;
+        b=aYJn7Rxn/khwZxZTbJUD7I1kCMlJq+CtZe9BOtRhaP8thZJ0p2EjCV3/jTbEmBJA3e
+         tb8IoaKUSx51lTjNX3B0IPxsU1MO8jIazFgdZIRF2PHP2hIuAR2Tem2xGHYuBIDT6pbQ
+         TROZoOhnws655eeOIMm/PCcxbPzo39l1jFec1GVkvaykac8HjWluGWFTFMharn1tsBZv
+         O0s9BMJxg0C5efXs+Lv9w41zWRXEaIwFEAR3camGtHcmND+36ChB8hpxDeV6awP9z713
+         4n93ZblyM8L4QN7zyZ6nTA+57tM12TGyLch/EdpA/GINOHFrugzwi4hvf/SFEK0kL+Ve
+         8JVQ==
+X-Gm-Message-State: AOAM530xlU421PpnKjlZxWHr8bcUhNHN6eh22vOhMS9IcXiqm7VZx5gd
+	GSCGrBl0eZD5RqH+spYncmNLWXG7gQqlKvhntPpgljVAxiDsiEqFBvKNG553eCc2X8x+F1E4fvQ
+	Y9kVIp4fpp79p/8VT4svmj3KyAGg=
+X-Received: by 2002:adf:e387:: with SMTP id e7mr30508149wrm.412.1635804567993;
+        Mon, 01 Nov 2021 15:09:27 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwTDcj674kEGI9dl471cqGKZI5Q3j6okD5bAskecUMcRegbtpEz5VGFYHzxKsv8krfzx5uJsg==
+X-Received: by 2002:adf:e387:: with SMTP id e7mr30508114wrm.412.1635804567768;
+        Mon, 01 Nov 2021 15:09:27 -0700 (PDT)
 From: Juan Quintela <quintela@redhat.com>
 To: qemu-devel@nongnu.org
 Cc: Markus Armbruster <armbru@redhat.com>,
@@ -98,9 +98,9 @@ Cc: Markus Armbruster <armbru@redhat.com>,
 	Juan Quintela <quintela@redhat.com>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
 	Anthony Perard <anthony.perard@citrix.com>
-Subject: [PULL 09/20] migration: Add migrate_add_blocker_internal()
-Date: Mon,  1 Nov 2021 23:09:01 +0100
-Message-Id: <20211101220912.10039-10-quintela@redhat.com>
+Subject: [PULL 10/20] dump-guest-memory: Block live migration
+Date: Mon,  1 Nov 2021 23:09:02 +0100
+Message-Id: <20211101220912.10039-11-quintela@redhat.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211101220912.10039-1-quintela@redhat.com>
 References: <20211101220912.10039-1-quintela@redhat.com>
@@ -114,85 +114,78 @@ Content-Transfer-Encoding: 8bit
 
 From: Peter Xu <peterx@redhat.com>
 
-An internal version that removes -only-migratable implications.  It can be used
-for temporary migration blockers like dump-guest-memory.
+Both dump-guest-memory and live migration caches vm state at the beginning.
+Either of them entering the other one will cause race on the vm state, and even
+more severe on that (please refer to the crash report in the bug link).
 
+Let's block live migration in dump-guest-memory, and that'll also block
+dump-guest-memory if it detected that we're during a live migration.
+
+Side note: migrate_del_blocker() can be called even if the blocker is not
+inserted yet, so it's safe to unconditionally delete that blocker in
+dump_cleanup (g_slist_remove allows no-entry-found case).
+
+Suggested-by: Dr. David Alan Gilbert <dgilbert@redhat.com>
+Bugzilla: https://bugzilla.redhat.com/show_bug.cgi?id=1996609
+Signed-off-by: Peter Xu <peterx@redhat.com>
 Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
 Reviewed-by: Juan Quintela <quintela@redhat.com>
-Signed-off-by: Peter Xu <peterx@redhat.com>
 Signed-off-by: Juan Quintela <quintela@redhat.com>
 ---
- include/migration/blocker.h | 16 ++++++++++++++++
- migration/migration.c       | 21 +++++++++++++--------
- 2 files changed, 29 insertions(+), 8 deletions(-)
+ dump/dump.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-diff --git a/include/migration/blocker.h b/include/migration/blocker.h
-index acd27018e9..9cebe2ba06 100644
---- a/include/migration/blocker.h
-+++ b/include/migration/blocker.h
-@@ -25,6 +25,22 @@
-  */
- int migrate_add_blocker(Error *reason, Error **errp);
+diff --git a/dump/dump.c b/dump/dump.c
+index ab625909f3..662d0a62cd 100644
+--- a/dump/dump.c
++++ b/dump/dump.c
+@@ -29,6 +29,7 @@
+ #include "qemu/error-report.h"
+ #include "qemu/main-loop.h"
+ #include "hw/misc/vmcoreinfo.h"
++#include "migration/blocker.h"
  
-+/**
-+ * @migrate_add_blocker_internal - prevent migration from proceeding without
-+ *                                 only-migrate implications
-+ *
-+ * @reason - an error to be returned whenever migration is attempted
-+ *
-+ * @errp - [out] The reason (if any) we cannot block migration right now.
-+ *
-+ * @returns - 0 on success, -EBUSY on failure, with errp set.
-+ *
-+ * Some of the migration blockers can be temporary (e.g., for a few seconds),
-+ * so it shouldn't need to conflict with "-only-migratable".  For those cases,
-+ * we can call this function rather than @migrate_add_blocker().
-+ */
-+int migrate_add_blocker_internal(Error *reason, Error **errp);
+ #ifdef TARGET_X86_64
+ #include "win_dump.h"
+@@ -47,6 +48,8 @@
+ 
+ #define MAX_GUEST_NOTE_SIZE (1 << 20) /* 1MB should be enough */
+ 
++static Error *dump_migration_blocker;
 +
- /**
-  * @migrate_del_blocker - remove a blocking error from migration
-  *
-diff --git a/migration/migration.c b/migration/migration.c
-index e81e473f5a..e1c0082530 100644
---- a/migration/migration.c
-+++ b/migration/migration.c
-@@ -2049,15 +2049,8 @@ void migrate_init(MigrationState *s)
-     s->threshold_size = 0;
- }
+ #define ELF_NOTE_SIZE(hdr_size, name_size, desc_size)   \
+     ((DIV_ROUND_UP((hdr_size), 4) +                     \
+       DIV_ROUND_UP((name_size), 4) +                    \
+@@ -101,6 +104,7 @@ static int dump_cleanup(DumpState *s)
+             qemu_mutex_unlock_iothread();
+         }
+     }
++    migrate_del_blocker(dump_migration_blocker);
  
--int migrate_add_blocker(Error *reason, Error **errp)
-+int migrate_add_blocker_internal(Error *reason, Error **errp)
- {
--    if (only_migratable) {
--        error_propagate_prepend(errp, error_copy(reason),
--                                "disallowing migration blocker "
--                                "(--only-migratable) for: ");
--        return -EACCES;
--    }
--
-     /* Snapshots are similar to migrations, so check RUN_STATE_SAVE_VM too. */
-     if (runstate_check(RUN_STATE_SAVE_VM) || !migration_is_idle()) {
-         error_propagate_prepend(errp, error_copy(reason),
-@@ -2070,6 +2063,18 @@ int migrate_add_blocker(Error *reason, Error **errp)
      return 0;
  }
+@@ -2005,6 +2009,21 @@ void qmp_dump_guest_memory(bool paging, const char *file,
+         return;
+     }
  
-+int migrate_add_blocker(Error *reason, Error **errp)
-+{
-+    if (only_migratable) {
-+        error_propagate_prepend(errp, error_copy(reason),
-+                                "disallowing migration blocker "
-+                                "(--only-migratable) for: ");
-+        return -EACCES;
++    if (!dump_migration_blocker) {
++        error_setg(&dump_migration_blocker,
++                   "Live migration disabled: dump-guest-memory in progress");
 +    }
 +
-+    return migrate_add_blocker_internal(reason, errp);
-+}
++    /*
++     * Allows even for -only-migratable, but forbid migration during the
++     * process of dump guest memory.
++     */
++    if (migrate_add_blocker_internal(dump_migration_blocker, errp)) {
++        /* Remember to release the fd before passing it over to dump state */
++        close(fd);
++        return;
++    }
 +
- void migrate_del_blocker(Error *reason)
- {
-     migration_blockers = g_slist_remove(migration_blockers, reason);
+     s = &dump_state_global;
+     dump_state_prepare(s);
+ 
 -- 
 2.33.1
 
