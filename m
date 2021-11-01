@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B56E4419CC
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 11:25:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.219087.379731 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFF464419E5
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 11:29:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.219094.379743 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhUVe-0005WX-LM; Mon, 01 Nov 2021 10:25:46 +0000
+	id 1mhUZ7-00068E-4G; Mon, 01 Nov 2021 10:29:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 219087.379731; Mon, 01 Nov 2021 10:25:46 +0000
+Received: by outflank-mailman (output) from mailman id 219094.379743; Mon, 01 Nov 2021 10:29:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhUVe-0005U1-I5; Mon, 01 Nov 2021 10:25:46 +0000
-Received: by outflank-mailman (input) for mailman id 219087;
- Mon, 01 Nov 2021 10:25:45 +0000
+	id 1mhUZ7-00066M-0a; Mon, 01 Nov 2021 10:29:21 +0000
+Received: by outflank-mailman (input) for mailman id 219094;
+ Mon, 01 Nov 2021 10:29:19 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mhUVd-0005Tv-Iw
- for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 10:25:45 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mhUZ5-00066C-8x; Mon, 01 Nov 2021 10:29:19 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mhUVd-0005M4-IG
- for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 10:25:45 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mhUVd-0005dG-HK
- for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 10:25:45 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1mhUVW-0004eC-QJ; Mon, 01 Nov 2021 10:25:38 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mhUZ5-0005QS-39; Mon, 01 Nov 2021 10:29:19 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mhUZ4-0001Xq-QP; Mon, 01 Nov 2021 10:29:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mhUZ4-0007Lm-Pq; Mon, 01 Nov 2021 10:29:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,78 +43,74 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:CC:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=klPRxQC5wAKP9DcnwRGu1wZSa/yz5tGiI9VDXmMFkF4=; b=TTh9r5hUJskAU41XnnB35vtcDd
-	NCp3n6waIoG7U+yiDoJQszPyRw7V0WA1wVxYYMBN0+Ub7tNgvRBhEbJltCpSyNroi0oKCgp7j8W5i
-	LznlXsmrGINGNd8seg50AN/fAM/HXyU76k08C0tO282VeijnlKyKQjPAc7K87KfJexfo=;
-From: Ian Jackson <iwj@xenproject.org>
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=A8aRuGUdwW76fh9NyJslLMtvZhN5PcfyD/9e88evkH0=; b=JgIaUYOI9wE3PDPQ26+SK7Alx2
+	BQz0x0w064sUtNOBS3dG+u33dwmBvQWOsu38WgOf4ox7cMMMEDa46COoq3P3ZDhmcJzWngpKusoxw
+	hc9ciuZaBC5BnrJPi4wpax55ah8MxdAD/Nf9cQSYLri8GHEwaHrrNuNNWjE6jQNF7zYY=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-165969-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24959.49313.936961.936820@mariner.uk.xensource.com>
-Date: Mon, 1 Nov 2021 10:25:37 +0000
-To: Julien Grall <julien@xen.org>,
-    Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-CC: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-    "sstabellini@kernel.org" <sstabellini@kernel.org>,
-    Bertrand  Marquis <bertrand.marquis@arm.com>,
-    Rahul Singh <rahul.singh@arm.com>
-Subject: Re: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers [and 2 more messages]
-In-Reply-To: <24953.34635.645112.279110@mariner.uk.xensource.com>,
-	<24954.51153.588540.850154@mariner.uk.xensource.com>,
-	<d7e4ae66-f648-e18e-79c8-fae6eb896f00@xen.org>
-References: <20211027082533.1406015-1-andr2000@gmail.com>
-	<cb7e9ef7-476e-93c3-d3c9-9a9ebc61003d@xen.org>
-	<d63c6e0b-8aa3-9ba3-893c-5e464638a8db@epam.com>
-	<65886734-7333-4469-fcc1-6916db708f13@xen.org>
-	<b6bb02b6-6358-b5e0-1b80-7819aadabe10@epam.com>
-	<6d8f1061-7aec-2c1a-aaf4-c30440c2797a@xen.org>
-	<38da2edd-06a2-63d0-51ad-1284272c8da5@epam.com>
-	<a74b52fb-6514-4187-17fe-b63236efa0ce@xen.org>
-	<24954.51153.588540.850154@mariner.uk.xensource.com>
-	<d7e4ae66-f648-e18e-79c8-fae6eb896f00@xen.org>
-	<YXkU+DKYmvwo+kak@Air-de-Roger>
-	<0bbe4d1d-421d-e816-42aa-f43581902a02@epam.com>
-	<24953.34635.645112.279110@mariner.uk.xensource.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Subject: [ovmf test] 165969: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=939c2355daaf94cd7eb2018d15928b9bc471d680
+X-Osstest-Versions-That:
+    ovmf=c8594a53119c72022f8ff5977b01e4e632ca7a04
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 01 Nov 2021 10:29:18 +0000
 
-Julien Grall writes ("Re: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers"):
-> On 28/10/2021 16:54, Ian Jackson wrote:
-> > There are a number of patches that I'm getting CC'd on related to ARM
-> > and vpci (according to the Subject).  Are these targeted for 4.16 ?
-> > Most of them don't have 4.16 Subject tags.
-> 
-> Oleksandr wants this patch to be included for 4.16 but forgot to tag it 
-> properly.
+flight 165969 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/165969/
 
-Oh yes.  However,
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 939c2355daaf94cd7eb2018d15928b9bc471d680
+baseline version:
+ ovmf                 c8594a53119c72022f8ff5977b01e4e632ca7a04
 
-1. I also wrote this:
+Last test of basis   165962  2021-10-31 17:10:05 Z    0 days
+Testing same since   165969  2021-11-01 04:41:22 Z    0 days    1 attempts
 
-> > I am finding it difficult to see the wood for the trees.
-> > It would be really helpful if these vpci fixes were collected
-> > together into a series.
+------------------------------------------------------------
+People who touched revisions under test:
+  Star Zeng <star.zeng@intel.com>
+  Zeng, Star <star.zeng@intel.com>
 
-Can someone please confirm whether this is the only vpci-related patch
-that ought to be on my radar for 4.16 ?
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-2. I have not had a reply to my question on Wednesday in
-<24953.34635.645112.279110@mariner.uk.xensource.com>:
 
-  Um, can you explain what the practical impact is of not taking this
-  patch for 4.16 ?  As I understand it vpci for ARM is non-functional in
-  4.16 and this is not expected to change ?  So there would be no
-  benefit to users, and taking the patch would add small but nonzero
-  risk ?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I need this information to decide whether a release-ack is
-appropriate.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Note that we are in code freeze so all patches, including bugfixes,
-need my ack.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Thanks,
-Ian.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   c8594a5311..939c2355da  939c2355daaf94cd7eb2018d15928b9bc471d680 -> xen-tested-master
 
