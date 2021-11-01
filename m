@@ -2,57 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2246F441F63
-	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 18:34:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.219376.380151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 038834420A6
+	for <lists+xen-devel@lfdr.de>; Mon,  1 Nov 2021 20:17:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.219386.380162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhbCf-00067O-6x; Mon, 01 Nov 2021 17:34:37 +0000
+	id 1mhcnC-00070S-0w; Mon, 01 Nov 2021 19:16:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 219376.380151; Mon, 01 Nov 2021 17:34:37 +0000
+Received: by outflank-mailman (output) from mailman id 219386.380162; Mon, 01 Nov 2021 19:16:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhbCf-00064s-3D; Mon, 01 Nov 2021 17:34:37 +0000
-Received: by outflank-mailman (input) for mailman id 219376;
- Mon, 01 Nov 2021 17:34:35 +0000
+	id 1mhcnB-0006yg-TL; Mon, 01 Nov 2021 19:16:25 +0000
+Received: by outflank-mailman (input) for mailman id 219386;
+ Mon, 01 Nov 2021 19:16:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eYDq=PU=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1mhbCd-00064h-FX
- for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 17:34:35 +0000
+ id 1mhcnA-0006ya-8V
+ for xen-devel@lists.xenproject.org; Mon, 01 Nov 2021 19:16:24 +0000
 Received: from mx0b-00069f02.pphosted.com (unknown [205.220.177.32])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bc10ddab-78be-4e71-9619-87b2d3ddc4c5;
- Mon, 01 Nov 2021 17:34:32 +0000 (UTC)
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1A1GItpd026193; 
- Mon, 1 Nov 2021 17:34:16 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by mx0b-00069f02.pphosted.com with ESMTP id 3c26e8bb6e-1
+ id 8e45e8a9-06ae-4545-8be1-d1b7d8db4fbd;
+ Mon, 01 Nov 2021 19:16:22 +0000 (UTC)
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1A1Irc84004932; 
+ Mon, 1 Nov 2021 19:16:00 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3c28gn3qqt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 01 Nov 2021 17:34:15 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1A1HVYjj040422;
- Mon, 1 Nov 2021 17:34:15 GMT
+ Mon, 01 Nov 2021 19:15:59 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1A1J6DaT020852;
+ Mon, 1 Nov 2021 19:15:58 GMT
 Received: from nam11-dm6-obe.outbound.protection.outlook.com
  (mail-dm6nam11lp2174.outbound.protection.outlook.com [104.47.57.174])
- by aserp3030.oracle.com with ESMTP id 3c0v3cgjwa-1
+ by userp3020.oracle.com with ESMTP id 3c1khscrf4-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 01 Nov 2021 17:34:14 +0000
+ Mon, 01 Nov 2021 19:15:58 +0000
 Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by BL0PR10MB2819.namprd10.prod.outlook.com (2603:10b6:208:74::33)
+ by MN2PR10MB4174.namprd10.prod.outlook.com (2603:10b6:208:1dd::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.14; Mon, 1 Nov
- 2021 17:34:12 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Mon, 1 Nov
+ 2021 19:15:55 +0000
 Received: from BLAPR10MB5009.namprd10.prod.outlook.com
  ([fe80::3c49:46aa:83e1:a329]) by BLAPR10MB5009.namprd10.prod.outlook.com
  ([fe80::3c49:46aa:83e1:a329%6]) with mapi id 15.20.4649.019; Mon, 1 Nov 2021
- 17:34:12 +0000
+ 19:15:55 +0000
 Received: from [10.74.105.65] (138.3.200.1) by
- SA0PR13CA0019.namprd13.prod.outlook.com (2603:10b6:806:130::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.5 via Frontend
- Transport; Mon, 1 Nov 2021 17:34:09 +0000
+ SA0PR11CA0099.namprd11.prod.outlook.com (2603:10b6:806:d1::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4649.14 via Frontend Transport; Mon, 1 Nov 2021 19:15:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -64,251 +63,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc10ddab-78be-4e71-9619-87b2d3ddc4c5
+X-Inumbo-ID: 8e45e8a9-06ae-4545-8be1-d1b7d8db4fbd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
  subject : to : cc : references : from : in-reply-to : content-type :
  content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=0OR+bU3BY5aWZwZxbbc9vQd3Y31c9pbGp03dLAaITo8=;
- b=tYIngpu5fiqKXI9JOknibncWr3RlG5x8jO8NYTkN2OHvXt9uLmZjkh5lnz39xGzvvRXE
- gnt86tchJLHS0fKYt62U0M/LpY+ymKS6sZlLm4BbzqyEMOXh2T5dc0Ny/V+z7+28JnTV
- FWUVEsYVJ9XNm2o9+/bHOs/WygN8A1OIRFPW4pECbeaC5A5YHJr6dR2PSLgtQHYPyWQI
- 7QnYKYoQrDSjebpVp+FS2BTL9p+noGPeNty0RCQbQC2Qgu0QdHgIfHgMC7ChjTbj3Qcd
- +e75i5bp+uQx4UITI7EMLDGCg0a/L9o2QQwU9Tf+9MXNAUJ+IzxppQORO49aiXjx5Z0D YQ== 
+ bh=b+p51p18uC8N75Q4P4UR48tjCRk+yQ6uaH1p3jPenJs=;
+ b=VV5AVsVbemDri6afqfB0N5NQLIb0S4PsRpTe5ib7mA918TbSc45oMnisXiP21jgqhsxE
+ KusUfLVVPeNK0+Z1vbpNOt2HQ/zhEEnnTcMhGaZ74Npf/fL+ukUsGkkA6Lwn/es5sEzM
+ Zt57UqDn2tFDzkm7bS7wqAa8/Wdw9EqGnnSNX0WLEI0uXlGib1/L3HdbKb2DNaGnyy29
+ krczDusi1u9GwYpzd/QP66N3Plvuc5xiJPzfyVOm4iYjPX/LkZ3Jey6SIqXyFBTx2fle
+ TyqGXYkyh6xCo5kLPgGNCn7Q5M9R6XwmjyqUvLKwNDzDAqyfSWW/2ik8mGCMkexVpwCv Zg== 
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Nh2si2MOSizqwEuIk6yH0fL37ZO/Es6/eBDlG8d4qN1AjAIuSliXstiNQF1v3y9sfrZht8U0VpdW/6RL9G0niim/PzR6eXBFZSkKm3Xv2lN+74c6CFIXLVXQNZTN/lO6e71Pyv4Glet/cWFaWSwHiphCKerLMqkMWtltRXiPuE1tAwjeL8r/Eo62pI7DSIfkLhSSUiQfKPee3W0LGXAT50PWNHTu1y1hKaO5kQ7XTBjv7/PL4MfSfr/dWfCUvDNonycVYpv9ZFM07H4V4QcDKo1r0ZLRF1DCOjIfAh/g3UouKjxhv5yeKVBk+jgsDoomwNVt0rUYPONdRl9Y4bTKjw==
+ b=Z7/jQZQzTwqm28cTmDxhOL6H1fFYG76xHHGYH8kvbDYjqmK61oUdYuqZzbK/KkoDe0dQqb0LJPIHxjLwPk1MrmJ+1NN0R6eIoHhzSblCvQD6LmtqyYjbbG2aiqpv3/uu9quzieefes6ulViKBAbsMyXFLhi2L1kXZXc3fg67NqPjR4u1pwAsN4t/L2kAEZ8uosPPiLxVrYOG5KLVUY8FESL8+sS6vJSijVcCC1PKVyFE4uj8orHx0thmSPt+Ri6ZqOLb/LSf/mV6mYsEvhPqdDmpc93bgrne9rYZUASwN0d4+y4YwTQC8yu/7yGcJMdOdlZ/4dHn2qvwUEmBtEuEBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0OR+bU3BY5aWZwZxbbc9vQd3Y31c9pbGp03dLAaITo8=;
- b=TzAFovZ7x7JLvpYhM+YdP7eS0JYrptPCkDYyiFiMVCg572oA3oWlFxQbdkbN/F1Dd3AecwXTtKpJkqXfkA3c+LkxAPVMf3lE5oczylI8J8/IrzqGbGkbN9PmDcP+eVRHvuIYjIRZGgcSvROeUa09cNiu6oIp2e6RtmQ68GfqejdgYfXV9MpxFGQA/Rro6oXgw7RlPE0lIhqgTKmS+VW1aixweJXFg6dIeyJ15w4FMMgoEi8hOgKn4gioDelEti9TOaLVkLndFU8w1AALlKWAhoYuHCstb9ihTJ/DDViqs+cU4TZyKKGscbuOL1oghh5j4n8h9tbdHBD5YPytB94kJA==
+ bh=b+p51p18uC8N75Q4P4UR48tjCRk+yQ6uaH1p3jPenJs=;
+ b=jtzS15uwca2jDDHeKcHKv1wztChbnY2LB3zcDvpt3q1HUkjq6mDT4LLL2iebERKCe4RJ1EGmuNW0Tc2bm4SQ/TUDJ2FPPfoe52RDy+a/X5aG1DYYHTF4rUd+y5LMwbzjuYmjlqIOZiS/lkUWP3VgBRjr3rfOziQ7tassnZleHBHfvZdsuAuN/1sXdKTjSs53oC4uDlBDYWKzfk+HyHXRqqfs7oo61fWwU6tCr5KdUiQfusBe+8OIVdLYufcf1S7isJvR34jUYWrRJhf9IGk44YWePTJTdOxVhyp4vv6whNYTu9MJ3Ls3+PJTVMgR+XCAiFUXKIftpSwUUDbQUaMJIw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
  dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0OR+bU3BY5aWZwZxbbc9vQd3Y31c9pbGp03dLAaITo8=;
- b=XXreq6HQKqeaEkJLbfeq79Ef84Pl4tAYYgzaEOZLz7oD+MU46+hPfF40jJx7wop+P1VbkHRBrwsqB75dN8fd+Gzwqm+zYuYnqIR49LjjjhCtWn3beQHZXMi5Py/kPuv9wx/CI2rujWfwvCOYuhCt4isn+UvVlHdqfxz4grpzSuY=
-Authentication-Results: oracle.com; dkim=none (message not signed)
- header.d=none;oracle.com; dmarc=none action=none header.from=oracle.com;
-Message-ID: <1f19674f-e608-1faa-5656-fec853297198@oracle.com>
-Date: Mon, 1 Nov 2021 13:34:03 -0400
+ bh=b+p51p18uC8N75Q4P4UR48tjCRk+yQ6uaH1p3jPenJs=;
+ b=YB5TX6MT80raWLRMMVraaQdFyWj02nP6AQcKrDQQkFU1a6cyDs1eXEdmuB+7ZhybEuvI+XKQS7U2TQ7JCRw/fAhCmpc7Y/g4HD+OaPQSRRjJc2+GxXESzC9RR8HLpY6m+M5y4RjzDopJo4WSqm7Pvj/DoHfXrWzbQNhgJAJmziE=
+Authentication-Results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=oracle.com;
+Message-ID: <d672d22e-770d-d37e-b094-29563106511e@oracle.com>
+Date: Mon, 1 Nov 2021 15:15:42 -0400
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.2.1
-Subject: Re: [PATCH v2 1/1] xen: delay xen_hvm_init_time_ops() if kdump is
- boot on vcpu>=32
+Subject: Re: [PATCH 0/4] xen: do some cleanup
 Content-Language: en-US
-To: Dongli Zhang <dongli.zhang@oracle.com>, xen-devel@lists.xenproject.org,
-        x86@kernel.org
-Cc: jgross@suse.com, sstabellini@kernel.org, tglx@linutronix.de,
-        mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-        hpa@zytor.com, joe.jin@oracle.com, linux-kernel@vger.kernel.org
-References: <20211028012543.8776-1-dongli.zhang@oracle.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+        x86@kernel.org, linux-kernel@vger.kernel.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "H. Peter Anvin" <hpa@zytor.com>, Russell King <linux@armlinux.org.uk>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org
+References: <20211028081221.2475-1-jgross@suse.com>
 From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <20211028012543.8776-1-dongli.zhang@oracle.com>
+In-Reply-To: <20211028081221.2475-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA0PR13CA0019.namprd13.prod.outlook.com
- (2603:10b6:806:130::24) To BLAPR10MB5009.namprd10.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SA0PR11CA0099.namprd11.prod.outlook.com
+ (2603:10b6:806:d1::14) To BLAPR10MB5009.namprd10.prod.outlook.com
  (2603:10b6:208:321::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 097a457c-ab52-48c2-70df-08d99d5dd1b0
-X-MS-TrafficTypeDiagnostic: BL0PR10MB2819:
+X-MS-Office365-Filtering-Correlation-Id: 9cefe525-2d6c-4f77-ace9-08d99d6c071b
+X-MS-TrafficTypeDiagnostic: MN2PR10MB4174:
 X-Microsoft-Antispam-PRVS: 
-	<BL0PR10MB2819A600C18EDEAC1C741DF78A8A9@BL0PR10MB2819.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+	<MN2PR10MB4174ED6EE7D4D6DCD3386DA48A8A9@MN2PR10MB4174.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:403;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info: 
-	BXQhkbQLFs+268q97KZWne92T3TnTZZpq9YxK5ZI5Xbwu0TGjor6OxM+pHbK1f07xUMwMYJC+8bqhAqdFbEIWwL5YX4vVQhs8kb0FAVujA0iktkvfbT3QyZFmGOjRmerU1AwtirXN84+e0GhmVbqXrRER21n4yD5ZKwt+QcUl08oXQ4M6xXyxJYkU0dHTQZs8z1m+Dm4wTOIejp/sB7jCbTr6Zzzk8uqEAP1C43X2SBGL62sqyAK0PAT8r1dypxX4qW7ckhk/aIlVNdEZLl6JxTK82MOg2ge6aCr1s0YNJI/RB/cRTIoIhdYTLWmHu3LGrTxngv92+X+kNx6C+h5pShNn61/cw1MPZ6AXXB/zUw+ggugIe4ddMr54t0ihHBpHDxqCxxIBKTtPVrAndFw4377zf8oscVZPVeilmBXGRmI5IuzsS2PwA0w/o25Uw2ONhCqHngdu0OO1W7Tt67CA604JLcS28QLt8KRMfYlP3VUuYIpVsW+daos0Gq+a8BYGgsa0aUjhPTN8Bzm3lJ9X3wpAsUC05I3oWSLF1PgAod+GA9zRNcftOLxC0V4WzrRMAnQlexJH4qpKGioJZ3UTc+VY9wIKjKrNpKU+ATVNYWOCdHc7H67gCkCy3nK9ynJVxS6cHMP+6fr81kgQiS7HVdfIN8U26A9VwIQN4LgyWqUI0wLp3qEg9iv/MHjWY30/H+06yGqKdcwPyhv15cEnuqTVGKg5czhcqNQHlPL+uZ9A4UtP05KqMalPsoPNXNL6wUJPl+M5zON7svXxPx+u8AyD7zBCmDlWwf7zep2vjrdITOaSwdew97qf+8i2Qji7jtoDkY2Ddut7kaOddxT4b3p3BMJgnrowumGQxGD4ZAQFz+DvZklT8Wz5NRRxLKy
+	o2KK9R5+g8fO34KNpP2lJYK+kEg0ev5PxD7fRTqQsCPM9sjYg6S2Lw1+5v7utljJmrSGiBzaeaTgAWsGPgx4xby7o3JrVxA/ckkBqx4xiLieoNejt9IRntZTp/cIVmMUVp5QqdRRY3/A0iUdeS2kxV4RfVaSEA1TC9+SD2Cp/XE+iqcVNZfpfKN7rfuBhG9KvuoQsPLRBkh0jrEz26vQG1CDzLNmdlt/nN/3yrmEbLsQMqLfEzD1TdZzmabH4hVZaIDY8HStROUM3Q0jyJiRiGR8CLoL3PcUfsnZLei11f2Ci+uTe/Jd6Bwol0acgDvapxsiCtjfbwL9hWX67+6kk24kghMQA7fhiVIMEzZSZqvHyJfEKoSHPrILr3ykZuVFG0cpENglwratQ4/3+lGyD0OXbkY0rP0JbDovBwtSAMa5LLWy304CsVxxHmM/3YZ9lEbc9v5US+o1+hIJsvUaYU6qP75xWYIcPcMTK3MYFShNYXnQjYGP8On7p2pEB6JIIW1FQiRqRrnNhm7eu3QW/pnUnuTIMZ25yPCs+3BIr4A7apnuwqN8ZnYfmoG3oy6ddO3gT8h6XaXmtsmUU5RjNqs0gp8s9YBysNEbymxIJ40H1ASp2K6hxgP+/MmFza9P+GSY7t3vc/bnvWZrAFHIXqKDRpRhy34Y8U2ZqiJd/kJBS8U2z/eNQlCsCOSqLj2ISl48kToVco/OAOB81SKcQ5wyRnesQYnT6kwE99ya6819RLa84+3hQssXv+aVFiVL
 X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(4326008)(83380400001)(31686004)(86362001)(6666004)(186003)(5660300002)(38100700002)(316002)(53546011)(508600001)(2906002)(16576012)(26005)(966005)(7416002)(31696002)(36756003)(2616005)(6486002)(66946007)(8936002)(66476007)(8676002)(956004)(66556008)(44832011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(4744005)(31686004)(7416002)(186003)(26005)(6486002)(54906003)(316002)(38100700002)(16576012)(2616005)(44832011)(53546011)(956004)(5660300002)(6666004)(2906002)(86362001)(508600001)(8936002)(31696002)(8676002)(4326008)(66946007)(83380400001)(36756003)(66476007)(66556008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?Y2lpREVqWUZPTHpwYXFtN01wY3VqOTN4ZGU5eGNtTUNXVGxwSncwNm5LYnln?=
- =?utf-8?B?T1RtYU5vRk9YUk5LTnZvMWVaYjVyWGtXNHMyOHd1LytQWmlTMmFQaTRHWkZi?=
- =?utf-8?B?OHhRZkdTMmFCZGdxOGljazRFUFBlNnd1K1crenhoZ1FsbGlIVGR6S0V4U3hh?=
- =?utf-8?B?WGF5Y3U5cHJOOHQ3Vld1eVVMMVNXMFRUM0I4TGFCaCtRa21BV3JyeUsyTkpp?=
- =?utf-8?B?NDhQMDBrUGN4NUlTZmpZdGpES1pHejkwSDZ3Um1Nakc2MFBIZlhiRmdnQ2Rn?=
- =?utf-8?B?T0xHd2VQSlBUYXcyaHNpR3gwRjlab3NGdTU5aGx2OCtPMHd4ZTZnb3pDOURn?=
- =?utf-8?B?NHNFWEYvR3ovMFppRDhVekoyODVFVVlLMWFwYjNZWTllTGJRdUM2M0J1UUJw?=
- =?utf-8?B?U2J5SjcyNWxKQUlsMURYYTBwQTYxMi9SLzZaOGFlQ0ZKZjlUNFlnN1UxWE16?=
- =?utf-8?B?ZFNsZGlKeXBlUVdKSVFISGdzbStYRUZiRWpZTCsxMlN4dXg2R0RRbjRHY1NO?=
- =?utf-8?B?WThmN1JSaUVubFkrdGVjTm1xQyt6clI3OTYrV0tRd2JWZDVseDFlektTZDBz?=
- =?utf-8?B?WUxXVjF1QXpWb21VQ01VNzlhekIyTExRZ0hOYW85dmQ1Z1ArN3BCak0zRldh?=
- =?utf-8?B?Wk01S3Q2dHE2NU9SazB5ejNUaVFzcjUyUGE4UWNmRFlXN1ZnQmIzRW5ocVV4?=
- =?utf-8?B?QTNCTDZ1c2lLRHZtTS9ZaDlpbHF5ekY0MFV5WUtJdUFJQUFmdVhJdjh5NitX?=
- =?utf-8?B?R1NmMVVScVJlZlJ1RHJPYVB1OHF4QTVpcm16b293R21RNkw1eENPL0dRcW5C?=
- =?utf-8?B?UzVndkU2KzlaeEJLbTl1b0NOUDFvS2dNRE1jNUN5Z0QyaHRYT2tJUFVLaHBl?=
- =?utf-8?B?VXlMTUdWZzhvdE9UaUdDeXlrZ052V3lsQkplUGVaNUg0dUxwSm0vOTVMNTFm?=
- =?utf-8?B?Tk9Nc1BuczY2cG9pUmZZSUg0aVJITXRKR0pOV1pzS2hNQk5hcDN5MUdRT0Jt?=
- =?utf-8?B?emozeCtYVmNhd3VSVjJONUJES2lLRkRDZ1BWK2dWcmFVQi9DUG8vL0tBMEI3?=
- =?utf-8?B?UWpLTXNMRnFQeU9LWnYxR3JjckJnRDFkc1BQVFBKVmIxV0dMeFZuNEMvQStH?=
- =?utf-8?B?OXc1S0w4Q2tMRDkyTk9SelZtd1JSRGZtMmh1TDIybWFTR1Y2UVFDdVhFdW56?=
- =?utf-8?B?VldCNjRGOWVrdERueWp2ODMrbVBQbmZoSGVMOHlhWXFxTTd2SExucVFQMDll?=
- =?utf-8?B?N01LR3FIcks0a2pFcmxhTUFvN0lYTUVxZUF5ZFh6OUdKMVY2UjFndzNHTFli?=
- =?utf-8?B?eUFkTHpkWVdXQjNWa1VDWVplY2YzR2lwemlOLzhIekpWMXg2bTRFVVF2VDRo?=
- =?utf-8?B?eUVzUWM4bnpEK1RXZlNEbUovZDczMVBOK1Q1bkMxYWNHWXMrUG1IM3B6YWNt?=
- =?utf-8?B?VVp0VWV5eXE4ZDhSdmRscDNhTncvVmJZdElzeGJoeFZoeGlqWThLb3pWTHNZ?=
- =?utf-8?B?NkJRc2dYaHIwU2tHc1JxVUg4NEVUTTY5OHQrODRWb1pHVlNBUGJ1WDRPNjla?=
- =?utf-8?B?dVEyYm84dVZkd1ZmZHo3RWZQZDk3cnlIUFhGY3FqdksyQy96alpGZUNoREdt?=
- =?utf-8?B?YXB3SmNOby92enRFMlQvcWJXNUMzZU5sQ3F0RUp6M0F6YVNuOUxwWE41eFZH?=
- =?utf-8?B?cFJ6ME53cDk2bENGVlN4ZDVTKzJDVEU2U1locjdNU0J1bW9jK0lZSUFJMXJ0?=
- =?utf-8?B?dThEend3QWxjS2l2TEgxZmFIOGYvUjB1ek9MMC9URXpjV3hoaU1ja29qdE90?=
- =?utf-8?B?TnhtMUJKRFJMRW5CcDkrM09VejBlNGgvVmR6OWFHemZaUjZJdUc0TDdudHl6?=
- =?utf-8?B?dWdraXkyTURINm9RL21mWVVtY1VOTFdHYkFaSjNtSHNSc3hxRlBDcHl2TE9z?=
- =?utf-8?B?ZXhNOHFIdUoyMGQzYTlscXNMU1JaWHFsR3N0bU9lV0JXWGJLUGh4RHc3ZHQ1?=
- =?utf-8?B?cjIwMFM0VjkycFQ1QnRwNUlsVFJ4RjFKNTVmZ3BHUmtFUndsN1FPek1YV0hi?=
- =?utf-8?B?U2RCTlBtbnM0OTRsa2d4a3lienFOWGFzSzNqM005a1lIclhkL2ZtYVZNbXho?=
- =?utf-8?B?ZUxmb1VGcXJCYXcxbVE0cnRyUTdyTHpabGhSRnV4bFRLeUYwZnM4UXpMZ3Fz?=
- =?utf-8?B?aEhFU0p4RnRhcjJ6T1VDVWFIWUVzSlR6UWFZMDJVcGdvMFB0V1luUk5ML1U5?=
- =?utf-8?B?U0RUcXAxbUxPOHdqMWM5czhFY3RRPT0=?=
+	=?utf-8?B?MHh2SS9raytxdW5XL3RhOGtldWRubW9PMTZJYUdJTUZwOUpyOU40d25oa0h1?=
+ =?utf-8?B?V2d6QndyZUZqczNXWk5GVFkzUERBQUE5R0Qzc21VK1QwUzNnUWtHL252YnpN?=
+ =?utf-8?B?Ky9Lby9iRm1SVUF5a2VtOXdrOXlQSjV5THppSEEwbG9jS1RmTkRPYklQbzRR?=
+ =?utf-8?B?dWlod21lUnNUQzZIZWpwaWowcE85SmRCQ01YTGNTaWhDazNPdTQreGd1TjZn?=
+ =?utf-8?B?QTh1VkVBOHVDWkJ0bGVYRWg0ZFV5dzMrZnBPKzFrRStTdVAxZHVMc3RINWJQ?=
+ =?utf-8?B?bzFBb2NCR2NRRFNWM3BCYWJEUFZoRVVHZ0xnREcwWUFQOVpUTzE3a2k0Kzhz?=
+ =?utf-8?B?YVQzY3hjOThZQmpiNGE1dXplV3ZRSXJYcHF6dGFoRnZyK1ZES0pjNTFCaUVO?=
+ =?utf-8?B?UWhEZU1TNHBsenBPVzRPdWx6VmV5ekRhOCs2dXE3d2JvSEF1ejVWdkxrTHNq?=
+ =?utf-8?B?NUlRSWU3OVh2TDl4VUMzTytabmFQTThmek5ENlYvamZreHB6K2lidjJYcHlC?=
+ =?utf-8?B?TExkUTluRmhidnFZeFcrSzRMQmhUNTZTeVpoVmxtVTgwK0xWbkg0cmhCbkNx?=
+ =?utf-8?B?MGQ2ODlEZ2xzWm1rMkh1ZFd6WS9CMzF6NGlGSDFSZnJlSE1xb3pBbEpteHl2?=
+ =?utf-8?B?QkxVdnVDblUwK3NlWHVDUmc4NTNsS2l4Q0FWdENEZEFxQ1FBbEVuMjNoSFo1?=
+ =?utf-8?B?dVBpb3d1bXVmbUdzblh0WHpJZDRQc1Q3dHNHb1MwS1VXUnpzaEt5ZWgvUWxh?=
+ =?utf-8?B?UzQ5YkZKZ05ScU1TaGtNRFhxQXRnd1VaNktuYW5EOVBTOHgvRzVPU0VFN0pP?=
+ =?utf-8?B?S0JGMnh1dnZua2tCQmh0ZFJBS25hT05pcnFpRmRyNXAwYnpQOS93SjB6aklw?=
+ =?utf-8?B?a2w1MWZ6aEUyckhSYndGQmVnNEp0WDBWTGM0NmRzRnJFRFdHSEs4TWw0MjdS?=
+ =?utf-8?B?eXNMRWwzZWdDbUlsVHB6UCtwbTN2SjVXSzNlemxqbVN3d3BvT01paE5nNmsr?=
+ =?utf-8?B?TnlRZUZ6MmdoUzhzUXovQ1Q5MTlOUWR3clZnTENnSW5nQ0ZiTFQxVnRFbFM2?=
+ =?utf-8?B?cVk2LzdteFg3RUxqRVBsR3J3MmdJUUo5ZHZ1K0Nzd0JZL244cTUySW8vZlBQ?=
+ =?utf-8?B?VHlNRUtKVHhJbVdVeEVzU3pBVW4zNC9uVCtiREhoemVJaVJEdEFLaTlUQ0ZL?=
+ =?utf-8?B?Si82VEYyc2FQajlMd2h3WmdOS3ROcUNKZm5zU3dJYVY0c3Y4UHhFSjFiNGlQ?=
+ =?utf-8?B?bnljM3BpNk01SWlSNTBZdjA3WmRNaUlnRi9EV0EzSWtvOWFzYTlpTTFHeGtn?=
+ =?utf-8?B?ZnhsbDhYZ3hLMDdPa3ZSbC9yZ2tTK1hZQWFGOEY4cnlSd0lKbHRaVWp0NGRZ?=
+ =?utf-8?B?ekJXREtxQ29WSWUwTkdFYlVNTTk4elZxSU9maE1nOXRRZXE2U2ZRRmZ2eUZo?=
+ =?utf-8?B?WWVPVDBFU285OGxscXdFN1BsTkw4NW1SWHlid05JMzJLb1JBakwyTkdFaWdN?=
+ =?utf-8?B?NEUrOXJaL0xyalJVZ3Q2Zk1SZktGTTZZZmF6RWNqcHN4citWNFBkejhhVFhO?=
+ =?utf-8?B?T09GalhUNWMxQUQ5ZzVYdytrbzdUc3JnZm1yc05UcTZjZTZpT0VPS2VJL3NS?=
+ =?utf-8?B?cHpYSjdEUThjY0Q0cGFtczZ4aUZ2Nk9YZ2lCSXNKZGtGR2RnQkNMN2F1bmx5?=
+ =?utf-8?B?cWxieHhvaWNzS1VTUW5FQlZpakt5Q2ZFbC85aHg2SFluWHhlbUdzeW1GSWpF?=
+ =?utf-8?B?MlozL2hEdE9wV0pORnpSSkV4U0pFUkJYNDdzMTZmSEpLTXdQeVREUGt5R0pL?=
+ =?utf-8?B?REtxM1FwV0JDNXBzV3dPMWZxcHpPbjlrcTJ1SHgzTUxHK1psNHptRVFnQ2JB?=
+ =?utf-8?B?TUU3bGxVZmlJRWJjMFVicWxldUtxU2YrbXVoZXFOc1N4eTZNVUdRYmVrQlZE?=
+ =?utf-8?B?S0NHVkc2ZG5FcGxXd1BxWkUrYUpHRDFhVGVkcmxqUUdaTmQ1WmY4QlcwUXM1?=
+ =?utf-8?B?aW12cVQySUliOFZ6T2RvZncrc0FYRnNCdjZYVE1mQ0k0T3RqQjZFbXlLKzdH?=
+ =?utf-8?B?MHE3ZVNmWFIwakhLbXNHTVdRZm9IZlZ4UmhadmJBZU9ScGROOVM0ZHF6aDR4?=
+ =?utf-8?B?Vk8xMzJwSjd2TkRPbnRFOWR5ZW1nUnpmbEd0WHl3bFN5NXU1aHhCQ0ZnaGRs?=
+ =?utf-8?B?alg5VmVlMzBOU203cjdkZm8rZmo5SWdUbmEvRnZjMHA5RmZNclN4VkNIRjVW?=
+ =?utf-8?B?M2RlNnJ3VkpQclBiRXJwQllWeWh3PT0=?=
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 097a457c-ab52-48c2-70df-08d99d5dd1b0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9cefe525-2d6c-4f77-ace9-08d99d6c071b
 X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2021 17:34:12.6908
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2021 19:15:55.2910
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4q65rk/smEUZm9HcTWVLTm+hx8dkN084AdIEFFfJe1cJyHU1UhO6WabnWvO0Ahv+cdZ8PUJI1/wJWtP75c2/v8UrO9lDUqsJ7zddL9T+jdU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR10MB2819
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10154 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999 mlxscore=0 adultscore=0
- spamscore=0 bulkscore=0 phishscore=0 suspectscore=0 malwarescore=0
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1hTqS8bpimP5XaR2AFNfkyhtKcHlpu+8NRFC7xwOe4bMMy7XIsXsmHsn65CqP3QHyLWoF8gmUZZffC5I4c/mNGCcEudylyRkQbmm01nALcc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB4174
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10155 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 phishscore=0 bulkscore=0
+ spamscore=0 adultscore=0 suspectscore=0 mlxlogscore=999 mlxscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
- definitions=main-2111010095
-X-Proofpoint-GUID: miRE5hBJKyEdv-mxga4-RgFSlmz1WQnb
-X-Proofpoint-ORIG-GUID: miRE5hBJKyEdv-mxga4-RgFSlmz1WQnb
+ definitions=main-2111010103
+X-Proofpoint-ORIG-GUID: Kus93CEMdtRgZUrII15VcrwPtMx12G33
+X-Proofpoint-GUID: Kus93CEMdtRgZUrII15VcrwPtMx12G33
 
 
-On 10/27/21 9:25 PM, Dongli Zhang wrote:
-> The sched_clock() can be used very early since
-> commit 857baa87b642 ("sched/clock: Enable sched clock early"). In addition,
-> with commit 38669ba205d1 ("x86/xen/time: Output xen sched_clock time from
-> 0"), kdump kernel in Xen HVM guest may panic at very early stage when
-> accessing &__this_cpu_read(xen_vcpu)->time as in below:
+On 10/28/21 4:12 AM, Juergen Gross wrote:
+> Some cleanups, mostly related to no longer supporting 32-bit PV mode.
 >
-> setup_arch()
->   -> init_hypervisor_platform()
->       -> x86_init.hyper.init_platform = xen_hvm_guest_init()
->           -> xen_hvm_init_time_ops()
->               -> xen_clocksource_read()
->                   -> src = &__this_cpu_read(xen_vcpu)->time;
+> Juergen Gross (4):
+>    x86/xen: remove 32-bit pv leftovers
+>    xen: allow pv-only hypercalls only with CONFIG_XEN_PV
+>    xen: remove highmem remnants
+>    x86/xen: remove 32-bit awareness from startup_xen
 >
-> This is because Xen HVM supports at most MAX_VIRT_CPUS=32 'vcpu_info'
-> embedded inside 'shared_info' during early stage until xen_vcpu_setup() is
-> used to allocate/relocate 'vcpu_info' for boot cpu at arbitrary address.
->
-> However, when Xen HVM guest panic on vcpu >= 32, since
-> xen_vcpu_info_reset(0) would set per_cpu(xen_vcpu, cpu) = NULL when
-> vcpu >= 32, xen_clocksource_read() on vcpu >= 32 would panic.
->
-> This patch delays xen_hvm_init_time_ops() to later in
-> xen_hvm_smp_prepare_boot_cpu() after the 'vcpu_info' for boot vcpu is
-> registered when the boot vcpu is >= 32.
->
-> Another option is to always delay xen_hvm_init_time_ops() for any vcpus
-> (including vcpu=0). Since to delay xen_hvm_init_time_ops() may lead to
-> clock backward issue,
-
-
-This is referring to https://lists.xenproject.org/archives/html/xen-devel/2021-10/msg01516.html I assume?
-
-
->   it is preferred to avoid that for regular boot (The
-> pv_sched_clock=native_sched_clock() is used at the very beginning until
-> xen_sched_clock() is registered). That requires to adjust
-> xen_sched_clock_offset. That's why we only delay xen_hvm_init_time_ops()
-> for vcpu>=32.
-
-
-We delay only on VCPU>=32 because we want to avoid the clock going backwards due to hypervisor problem pointed to be the link above, not because we need to adjust xen_sched_clock_offset (which we could if we wanted).
-
-
->
-> This issue can be reproduced on purpose via below command at the guest
-> side when kdump/kexec is enabled:
->
-> "taskset -c 33 echo c > /proc/sysrq-trigger"
->
-> Reference:
-> https://lists.xenproject.org/archives/html/xen-devel/2021-10/msg00571.html
-> Cc: Joe Jin <joe.jin@oracle.com>
-> Signed-off-by: Dongli Zhang <dongli.zhang@oracle.com>
-> ---
-> Changed since v1:
->    - Add commit message to explain why xen_hvm_init_time_ops() is delayed
->      for any vcpus. (Suggested by Boris Ostrovsky)
->    - Add a comment in xen_hvm_smp_prepare_boot_cpu() referencing the related
->      code in xen_hvm_guest_init(). (suggested by Juergen Gross)
->
->   arch/x86/xen/enlighten_hvm.c | 20 +++++++++++++++++++-
->   arch/x86/xen/smp_hvm.c       |  8 ++++++++
->   2 files changed, 27 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
-> index e68ea5f4ad1c..7734dec52794 100644
-> --- a/arch/x86/xen/enlighten_hvm.c
-> +++ b/arch/x86/xen/enlighten_hvm.c
-> @@ -216,7 +216,25 @@ static void __init xen_hvm_guest_init(void)
->   	WARN_ON(xen_cpuhp_setup(xen_cpu_up_prepare_hvm, xen_cpu_dead_hvm));
->   	xen_unplug_emulated_devices();
->   	x86_init.irqs.intr_init = xen_init_IRQ;
-> -	xen_hvm_init_time_ops();
-> +
-> +	/*
-> +	 * Only MAX_VIRT_CPUS 'vcpu_info' are embedded inside 'shared_info'
-> +	 * and the VM would use them until xen_vcpu_setup() is used to
-> +	 * allocate/relocate them at arbitrary address.
-> +	 *
-> +	 * However, when Xen HVM guest panic on vcpu >= MAX_VIRT_CPUS,
-> +	 * per_cpu(xen_vcpu, cpu) is still NULL at this stage. To access
-> +	 * per_cpu(xen_vcpu, cpu) via xen_clocksource_read() would panic.
-> +	 *
-> +	 * Therefore we delay xen_hvm_init_time_ops() to
-> +	 * xen_hvm_smp_prepare_boot_cpu() when boot vcpu is >= MAX_VIRT_CPUS.
-> +	 */
-> +	if (xen_vcpu_nr(0) >= MAX_VIRT_CPUS)
-> +		pr_info("Delay xen_hvm_init_time_ops() as kernel is running on vcpu=%d\n",
-> +			xen_vcpu_nr(0));
-> +	else
-> +		xen_hvm_init_time_ops();
-> +
->   	xen_hvm_init_mmu_ops();
->   
->   #ifdef CONFIG_KEXEC_CORE
-> diff --git a/arch/x86/xen/smp_hvm.c b/arch/x86/xen/smp_hvm.c
-> index 6ff3c887e0b9..f99043df8bb5 100644
-> --- a/arch/x86/xen/smp_hvm.c
-> +++ b/arch/x86/xen/smp_hvm.c
-> @@ -19,6 +19,14 @@ static void __init xen_hvm_smp_prepare_boot_cpu(void)
->   	 */
->   	xen_vcpu_setup(0);
->   
-> +	/*
-> +	 * The xen_hvm_init_time_ops() is delayed from
-> +	 * xen_hvm_guest_init() to here to avoid panic when the kernel
-> +	 * boots from vcpu>=MAX_VIRT_CPUS (32).
-> +	 */
-
-
-How about
-
-   /* Deferred call to xen_hvm_init_time_ops(). See comment in xen_hvm_guest_init() */
-
-
--boris
+>   arch/arm/xen/enlighten.c             |   1 -
+>   arch/arm/xen/hypercall.S             |   1 -
+>   arch/arm64/xen/hypercall.S           |   1 -
+>   arch/x86/include/asm/xen/hypercall.h | 233 ++++++++++++---------------
+>   arch/x86/xen/enlighten_pv.c          |   7 -
+>   arch/x86/xen/mmu_pv.c                |   1 -
+>   arch/x86/xen/xen-head.S              |  12 +-
+>   drivers/xen/mem-reservation.c        |  27 ++--
+>   include/xen/arm/hypercall.h          |  15 --
+>   9 files changed, 118 insertions(+), 180 deletions(-)
 
 
 
-> +	if (xen_vcpu_nr(0) >= MAX_VIRT_CPUS)
-> +		xen_hvm_init_time_ops();
-> +
->   	/*
->   	 * The alternative logic (which patches the unlock/lock) runs before
->   	 * the smp bootup up code is activated. Hence we need to set this up
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+
 
