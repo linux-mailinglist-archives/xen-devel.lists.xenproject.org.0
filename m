@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F110C442F82
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Nov 2021 14:55:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.220242.381432 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B42F7442FA7
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Nov 2021 15:00:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.220254.381442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhuFn-0007Vv-HI; Tue, 02 Nov 2021 13:55:07 +0000
+	id 1mhuL2-0000t5-4w; Tue, 02 Nov 2021 14:00:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 220242.381432; Tue, 02 Nov 2021 13:55:07 +0000
+Received: by outflank-mailman (output) from mailman id 220254.381442; Tue, 02 Nov 2021 14:00:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhuFn-0007TG-Dm; Tue, 02 Nov 2021 13:55:07 +0000
-Received: by outflank-mailman (input) for mailman id 220242;
- Tue, 02 Nov 2021 13:55:05 +0000
+	id 1mhuL2-0000r7-1X; Tue, 02 Nov 2021 14:00:32 +0000
+Received: by outflank-mailman (input) for mailman id 220254;
+ Tue, 02 Nov 2021 14:00:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uxJb=PV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1mhuFl-0007SV-Cn
- for xen-devel@lists.xenproject.org; Tue, 02 Nov 2021 13:55:05 +0000
-Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
+ id 1mhuKz-0000qz-Sj
+ for xen-devel@lists.xenproject.org; Tue, 02 Nov 2021 14:00:29 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.109.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1ae82eb3-10ca-4537-b6bd-a8dbdde05f52;
- Tue, 02 Nov 2021 13:55:03 +0000 (UTC)
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur03lp2050.outbound.protection.outlook.com [104.47.9.50]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-38-V1-twasoPpWE4qWKV4omEg-1; Tue, 02 Nov 2021 14:55:01 +0100
+ id 67cf0b3d-39b3-4797-bd7b-9b41aca23283;
+ Tue, 02 Nov 2021 14:00:28 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2105.outbound.protection.outlook.com [104.47.18.105])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-11-BAu1HQW1PQejTcJuCpUBqg-1; Tue, 02 Nov 2021 15:00:26 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB5743.eurprd04.prod.outlook.com (2603:10a6:803:e0::26)
+ by VI1PR04MB3293.eurprd04.prod.outlook.com (2603:10a6:802:11::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.17; Tue, 2 Nov
- 2021 13:55:00 +0000
+ 2021 14:00:25 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4649.020; Tue, 2 Nov 2021
- 13:55:00 +0000
+ 14:00:25 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM6PR0202CA0055.eurprd02.prod.outlook.com (2603:10a6:20b:3a::32) with
+ AM5PR1001CA0068.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:206:15::45) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15 via Frontend
- Transport; Tue, 2 Nov 2021 13:54:59 +0000
+ Transport; Tue, 2 Nov 2021 14:00:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,164 +53,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ae82eb3-10ca-4537-b6bd-a8dbdde05f52
+X-Inumbo-ID: 67cf0b3d-39b3-4797-bd7b-9b41aca23283
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1635861302;
+	t=1635861627;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fNAC5yeHnemRJ3XXQqQRErsukVrcq39kxrhWY27ZKXM=;
-	b=REMTLqaMrrVCeyeA56FEpDnhZziVzstk4MpBBftrJaiDTgZiKzAG5ebyMyFGF+/HREGBe5
-	sc9EgHAIRfugOHTS/ymyfDm9oOlmwj/3TieQVppRDgVTj2kwN4nq+SJL7wEdDG4G8rucUw
-	+bgLKq5TUEwMamINOOTlcZvQAe2jfcw=
-X-MC-Unique: V1-twasoPpWE4qWKV4omEg-1
+	bh=6dWByail1OgjUCki+jjH6BIgPNl0pAfri+fzQ46mPO8=;
+	b=k3fqsqEMHIXWQAa/eNbkLeg75Ic+UT9hi39hgZF0V+Un12YxjTOERr4UgKXnb357sgjOJx
+	cvnIu6KlUSPSHBYoB830ROKDvQqaKrBwQWtV9+TVe3Mpg/9pxp/gopHXMfZjvQ+7IVllUS
+	uy8gbQzqlQhQK47OSt1AAnFlE8tv5Ps=
+X-MC-Unique: BAu1HQW1PQejTcJuCpUBqg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SUQWbsLbDZoqWAmVwIY003yXBGQhjzidMp1JIaN3VVgT7mtwHvVtE+p1YEKyRjjxz0lNRIkufasWIUwz9QjnQMcGEZSI/kWbYX23/HfHI0u+MMxH0ZxL2JT67xwIDYBbTjg9Js2xbsxkV6CHKxZdBBZuMjkADX+Ru6terU3zfUwsJ5M1Cvpgt87xRCWkisZIsP22Tm20XrbGvuonOSzmFiX0Cf7Z6Mvx99IfnViIX7tzVo01nyo2b5tsuuv8xCqQqN+woAO4GWO3Qs2JyBz6+VorKESEVzdBKsjthtvh01CS5sMIYxoMG1DzUxX4R9yeSdFR1Ir8MWhxszP9M0dwhg==
+ b=og7FGUWuQ/2C2IEzU1HsoZ6T4/36AjI+Dn33OVGUjqM/CDDcwc7B+5xsYVsCSQHQnkpl+rhtwFnaAbbsKH4D7zEnrb0qNpO/+n99KRSb/XwX8bT1TuswdCtlmLDozLw/Ucq8/ztxbBpRPaUcfZ6LaSf0QXNfHjdevkMftXPJJcuVCdRxzMhNdFKRziKhdhuA3719xBIyaMeqpOBOOgBtcXBvlfBnACt5MujJsg3sDX6ROYV5Trjdm2R8qZZT8ngKfUPuM/R2GgaLS88B5/DMhNygH1KJmKZQ1Mhm7NDqFd19vs/ITuDJnR7LkbOARxdCLhQQzXcOZOgfdlzu3ty3iw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sDJJXcbOjoNhtlX3l+dZOaDpJsCSpTQRdsvnz7Znqks=;
- b=O1TBVpYfzDU4fq9IJ3yN+G0LBpAVgQTMfZRnV97w++JFX5/XW8Rfs3vbwPWF5v1XVRuh4XnOoeSyjEFEpRPUQThuOuOusFgVTSiU2R1TOxa67I4b9V2a0PQb3TOacXih7GkH2WxUlF5tPqBDUuxHYqsHE3GkeINODgJ3M+tODQdMq1jt9y6RhIcN67I6Ud6KQfFXS15miXpqHHPCILLFu8gjx7t8wZLvO7GkUsXgswJ8AqXlMPpsjmwQLJrJxgy99rDi4t+cNcxT2Qp5oCVF4zS/HIvwHn86cAIJJylncfQ+PPuxxKwiSqwaq1atoq0rxHr12Y+L0kcyiBlwl7KTGA==
+ bh=DIylSAzZ9+lrIdokk6R80tpBA7paMaJ0WJdZy5302iI=;
+ b=JQXOfC8XBV8RGr03kirSB3BTVVCTfYZdecpIrh0xJ6RERi+yr216mC8ERC4S645QI45gT1B8TP/QbBf6rX8Z3yZlkeSEptX4GFKbWPsax6xlY9ZFs2zNk+MxP/ahWF0eXe4XnTPyWRY9TA1+mUddckq4JuxXhdhhvcKSwFfF6OPzGo4BE+rmt8K4oLiL3L6shTl6jjPPWG1SazXY+rLpA1TWTN+JI8mEcSQkcnhBIoVy4WGX9fMS9C12DC6j6TnV2phYxUjwjH9iL7LlgDWpt0sMgIQH1iED1gNFkwNliQr6fLk20eWab1e1/OifZ26hbWIvCgnMKLFkI/AU4vt1cg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <1a19dd35-a649-b155-bdd6-099e08fa3de1@suse.com>
-Date: Tue, 2 Nov 2021 14:54:57 +0100
+Message-ID: <1c604641-0dd9-6912-7bd5-02ee1cb868b6@suse.com>
+Date: Tue, 2 Nov 2021 15:00:24 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.2.1
-Subject: Re: [PATCH v3 08/11] vpci/header: Emulate PCI_COMMAND register for
- guests
+Subject: Re: [PATCH v2 3/3] AMD/IOMMU: iommu_enable vs iommu_intremap
 Content-Language: en-US
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: xen-devel@lists.xenproject.org, julien@xen.org, sstabellini@kernel.org,
- oleksandr_tyshchenko@epam.com, volodymyr_babchuk@epam.com,
- Artem_Mygaiev@epam.com, bertrand.marquis@arm.com, rahul.singh@arm.com,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Michal Orzel <michal.orzel@arm.com>,
- Oleksandr Andrushchenko <andr2000@gmail.com>
-References: <20210930075223.860329-1-andr2000@gmail.com>
- <20210930075223.860329-9-andr2000@gmail.com>
- <YXfeB1LWy6Hm81LA@MacBook-Air-de-Roger.local>
- <f1b49f6d-1c2a-97ff-59b3-f0b606857ed3@suse.com>
- <YYEl8h+WtSZwNPn7@Air-de-Roger>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>
+References: <09137aa2-649f-08fb-ba68-75f8eb16fc63@suse.com>
+ <ff7b68b2-5bba-2927-e3f0-f3062862c466@suse.com>
+ <YXaGxX3J1aB39mSG@MacBook-Air-de-Roger.local>
+ <dd2929fc-dc1a-1c16-5954-6894766d9dda@suse.com>
+ <YYEa6HQGR1cHJBw/@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YYEl8h+WtSZwNPn7@Air-de-Roger>
+In-Reply-To: <YYEa6HQGR1cHJBw/@Air-de-Roger>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6PR0202CA0055.eurprd02.prod.outlook.com
- (2603:10a6:20b:3a::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM5PR1001CA0068.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:206:15::45) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f946cf26-66ca-46b6-90ca-08d99e085c90
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5743:
+X-MS-Office365-Filtering-Correlation-Id: d58f89b5-237d-4225-80d0-08d99e091eb1
+X-MS-TrafficTypeDiagnostic: VI1PR04MB3293:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB57433C88588A68E445558C3AB38B9@VI1PR04MB5743.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+	<VI1PR04MB329378BC0D6A3F9D3794D195B38B9@VI1PR04MB3293.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	rHu2xhYVUP2NSGIlytbCTmRIGsWFYIcqFIrUrqwLwqYWcKgBb9/m64xgS/F20H2KumWxcwwItoEqTzfoQoLtyLOhEmsBSGPF5GNylmMl5ZAHT4x1CtBCl2/Ub4bfsjh++mmVcaPNkTGjmP9je7YOOTVcdMcnMjI9e65JF32/wFl0Bn7et74sG8LbB53Nw0FV9z3wyMhvz6mycC7lgrs6wxpf+z8o2gL18xhDlYUzaZ8HrpTroWX1/5SGh0wnTU6RtnbISizlWpM0oW+YW7m+5nf0UB6wFvhW0TCzZk3u8FQymuN1HUmQ+NJ8grCt4iHRbR0f+b/VNEZqfcKcK1/6gJf5xwstRuUW4HBpiRFLLug7o5IdaYBIbtC+X+BmaHqFdAFFxkK0WPcQOVSe29YLPK3HWrjmbWKTa8n0PN5ePycVgVxIrv4dk1NoHVs+z5VxKH4/L5cUAPnPWFCfFB/1x9d1VCql6TXCY9mpZC9a3/qeAHDtuV5uTtRmHkJ46zq5gLoo5p4q0F0x3A0180mkmmv3BLBp/Du/xMRxlJCGiJfdAL2r8i4Xmo7ulXI+MVmSiW4xvpIcop8qA648c+EWRSFKk6OwgA1KEIMEkCE+EhJPH6+dARgDnNP9BxGhWw7lf96jHX9W2AwEhnUKtVqip2ICAT+RYsojWm4HF8emxj5DdYAcyTgZhJM7EGpZeR/sn4mr8R7lRrMU/JUke/XGrMqKSSMH7CgfUY8YCcqopbY=
+	viPfqOBW3fFyb034uGXwd7dkJIavW4KolPiTvR+3wxaTeUerob9+a89WTmD7RoE1AS9CJ8ee341yDjRfwks+FwzIQqW19eEXQt4xEfwhyjpqGAIJYsXPBGsYLqLdlOGA61RG4zvfKrWW1EZKodAPhMLkPJO3zLazhl+2N9eL2NUu2hEiD0FrbibVAsWtMBlA/wI4miOSbRMamgQCK5lmht0vxjrFyMfv50R/drIdfOpZ8brbnI2TdSQC3yjpsYkTekjYKl8IrH3QtxebwbJnOzemaFUiWZWMoqV1we2659Y2ybqsDKF8FLYiTpMEX4Djdorn2kPUUrOKB11L9G0P+qX3zI3mHOAV5515XJN9/A6VAO82WdavBu06AYrLU010StP/1FrCmvD32e32rOcf/ahVn9MNygDHJRlFsaTp6bXMC8NoDQvxBR8/Wg9sgsx4D4QM4a7SQyKudfOMnemkcSjP6PaVlIaaDZjcTq0kGYaCdjlMMtIuFa55pe+MWAbpT5cktGkQhupswgph2pga64JmzmRTns17nzsAtvrWhQnxXaDAp8HaA2/29/OO50nwuHw8rDI7PWCMawfzBkjWnFzsYiOVCJNbgsmUn9jk0zBJdt2HU6Ba/IfP/RyL5CmaqOA7f85WkCbMG90DNiA/2L/GJuKDUT4xU6a3DAjPoRgSl6bWPk9oh7TIZ4yKRux/quBrE0WgTK4p9tNoIYBCQE1AXDC+mFMOAvLbmEpE6wgpSNccsj+VBD5NxQU8r4vX
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(508600001)(316002)(2906002)(8676002)(186003)(16576012)(6486002)(36756003)(38100700002)(31696002)(31686004)(53546011)(4326008)(7416002)(6916009)(8936002)(83380400001)(66946007)(2616005)(66476007)(66556008)(26005)(54906003)(86362001)(5660300002)(956004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(508600001)(8936002)(186003)(6916009)(6486002)(36756003)(38100700002)(83380400001)(316002)(8676002)(16576012)(54906003)(31686004)(4326008)(26005)(2906002)(31696002)(5660300002)(66476007)(53546011)(66556008)(2616005)(86362001)(956004)(66946007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rFWZqAokG34b9wBRNULvdf4WFj6/QWQ0yBsawTkqSjk01oajvhkfntfOV7JX?=
- =?us-ascii?Q?fo/GhbCb2dMyYxGXRhYkIYNABQnCIEiqrX97wYgB0NflpS8Kj0ofplwqPZ56?=
- =?us-ascii?Q?OKSY928PoWN+avzlI8rfppWKfxe9A3KmS/5h02o2A5PCbNFi1P/LVWPjBKvx?=
- =?us-ascii?Q?Fgg9jh3rCb0wlK/e1AUul9uQ8UA+uMIkvJa+2E7TK4dh/9KqLAyPL134VxSb?=
- =?us-ascii?Q?/IpRuPqY0QKvcE7jej5OWx+sYJEA3elaSUrrpKLzH/S9rTMfQ673DlXxcsr8?=
- =?us-ascii?Q?Y6GKHTnVrZy7cTEINHa2FiOTtHFhlhl3nAoTLJMw9GHUScBS1uj2YWsLnDbF?=
- =?us-ascii?Q?kqm0/4hHwKnF/ZYIDZPxAWt/xLX43m7DHxnVLBRTpadqej0U6T7kUuT1hmft?=
- =?us-ascii?Q?DXZUbqOd8GUCT7tIK+kUsnpO5FTL4dPI4vKhMs1llIyQdFl/lty+faw3X6K0?=
- =?us-ascii?Q?4xZ5YOnYQzInlbcglOTLq5xvRhV2N/j6JCblb/OfCAAVTAeD6wqxoNCy6eav?=
- =?us-ascii?Q?b5iMEH2TIIZ9eKNQadtLT4D5ONjcUbsZ4SBpoe4892PN9tw3g6+pzyVrIkwt?=
- =?us-ascii?Q?r8Ob3jICf+g0RZ6Z+ZPE5z8SX9WpfjtEvAUjX5bCuof0o/0sZdUILjcR4/Vc?=
- =?us-ascii?Q?CtsHNKpesAiMpoIbt+ZG6+Cx/gZ6KG6Tc0B2yYc2rEwIGNH05d+gEui4zKHH?=
- =?us-ascii?Q?kpdkPTNQdC8tGeUHTDK3yCb41f1SPkdRcXoJuOozpQR5dSib/VXxcCOb9l4I?=
- =?us-ascii?Q?/N6wDOo3EWrJh8JVYmzvD/rPEtkEx9m6FZlgrnpRai/SjUTKwE9XPlT8I5BG?=
- =?us-ascii?Q?clHz9WDkuuG+saOGfcIjUBoa+X2OiWhJOzuNaNbKLQSPJHKvMF1V6N4CsJId?=
- =?us-ascii?Q?MAjrG2uFvjGUoiB31C55FKy/Uy202VdKDrvjHjTEPHp0/BtvfOwDxEfDzq64?=
- =?us-ascii?Q?XqHSxTBI6/NMzmW6qNkBMAUk3cVWDYe4lYy1H0d/1Et6mPS9I1V5N8k8xaUJ?=
- =?us-ascii?Q?hen2FXrX0kjp+9DcmEjiGYlOMGN0MPTfy0rAxfxiE7Gnx0pti2bue4gKWP4B?=
- =?us-ascii?Q?WIRnNiFlqH/b13N2IN2N1p02N7DGYJNydEAmKyUHIomJJ+OU4n5KQUele7a8?=
- =?us-ascii?Q?JJVtlDXMumpyJmw5PG7/Zmhm1jfWzBZbOB8CRPQAoEHpMbmW8IhOMHkFvBEs?=
- =?us-ascii?Q?g2GBV6o2los+iV6sI/Yg0fm/P8NxvLkbLaHgZatmnwfjgeFTsz6RQ0sae41j?=
- =?us-ascii?Q?hBtoUOoFqfm+6N+a//D25n++QKijN2d+21goIOBffwKiTiTTlRr6D/dFEmXk?=
- =?us-ascii?Q?+GvEz9D/P8lWcDRmK8lJrmGlxBY6xAPeOX3ZD3nZjP3vQ5cn7lhqcqZ3hsZV?=
- =?us-ascii?Q?MNDBUnNJwPUd+wum+UlG+VuQ4yIXwvYoxkzH0B2tL/8WPLHr75C4cJashwtG?=
- =?us-ascii?Q?pSFD5gzYThrKpr9TxP4nlqAhKQgu4VQsuHCwyAalxfn6jzbj5cET660YQBlQ?=
- =?us-ascii?Q?gwB7H5A7vrtKbCQcJvMY2cNX32BREpEXgaXX1d8XH46w6yVsAnvwPJOYXBFv?=
- =?us-ascii?Q?kKCOEs/NpYYJMc8Um8mZQUce4AkFvzoo9/E97yKjCJLi2+/cWNs+7SsTECwj?=
- =?us-ascii?Q?aPWCX3gfJR+UHJxB9ikQbiE=3D?=
+	=?us-ascii?Q?xiIzXTT2Gt7pss3+iNpQkVLZBu5vjwKFKVXh5mNjQtwbL2vfgzuBfFfn80yt?=
+ =?us-ascii?Q?FkM4PLwC6xYwmWjlcsTd7kLxRVNNAU5dSmc/O8pOBWKJu/F9oM3rgAhDheXQ?=
+ =?us-ascii?Q?WtTlAlQ46U1cAHDaongUAx7BJX78bjZZDu0xDrXRb9BPwO5iVVY956PFZ+LD?=
+ =?us-ascii?Q?8KrH8Ol6JIQBEVU2LCcwK/iYTk7uwjUtCSWQ/7kForhsDovqmthBQWfCU/Pb?=
+ =?us-ascii?Q?opypKLl4vu6hi9YwHfya29ZY8Bv9biWP3qSZB60XeyPE1DERyp3SHsOZtdQg?=
+ =?us-ascii?Q?Oo3QDLTLzMfdOkQrTd/ykq/Zq5jKspec30d95iXbaUlFEJeulKUSsjXM1lSb?=
+ =?us-ascii?Q?DuAt+soCc/4aattFXzcLmlliWv22l1RjA6HC7iyCiUukk9Xje06Ys2zd8Vjz?=
+ =?us-ascii?Q?+Q6tWNs1gmTCBKsPAhhe8ZCAMYDNvUq1v/UjY7Z6eeOhoP6iQySEyOjEbv80?=
+ =?us-ascii?Q?E8vTU0uNO/YS5n7yjTqopuqUWcKmhxGnqFnDGxrsQ2nHKn92HY9C50nAtTUa?=
+ =?us-ascii?Q?vLCaNKE1ru0LqjbT9VANLTGJKo3ShbxsEIVIUmrl1AGMy9SypqKbWBO9OaMy?=
+ =?us-ascii?Q?bmh59B2XCZGWFy7pjRw7fks5szNGNLxIFxOnxMBIQl5qir9djzB7beoHFagp?=
+ =?us-ascii?Q?GoNQb9Jgn0SogYbvAJaY4S0P1qyircY5741RJ6rKYpyk7YB/RgM9sYZSVjgr?=
+ =?us-ascii?Q?3kG6uG4TBOON6n92ubqZtWGjsXZ99U3LE1NzSBKsJtp0dtkaQv0wSwQAjklV?=
+ =?us-ascii?Q?Vn1DT/T+5UXtG+Nx2RzxzSQ9azFT37hjS6DEWy+lgRhK6KgUIPdl3xoR+0ZQ?=
+ =?us-ascii?Q?uIm3fzzyMUM8DoJtsnwjHt/QAdVN9W1pEHCDdKgxg74Rbv5oqvzeJk46bpBE?=
+ =?us-ascii?Q?HbEAOmAAzZEUfuQD2aCKVoMurY3wD8J8vam675/FLbTsunec/oED1k8dk5Er?=
+ =?us-ascii?Q?U5vilO69pj/Rfj1c1530HdNKoOYlmZ73sYZGUnoGZXNZhLvmIrR6vIe2jxpS?=
+ =?us-ascii?Q?NCHty6uYNsGvljl0N6ktOGffEeprnLKYeudN4UdS9Fpr0MAivT6o49GWEUPk?=
+ =?us-ascii?Q?bI/JDmIQ/OEQnTTv98pe6ado7pXq+hZzS8HiDX0FuVy2WR20to9lLyZ4rDAq?=
+ =?us-ascii?Q?SwoHPeQ2yp/KnNuERQaLBJDh4BhJaJLB7hwco+XgksJeXNctoTmL4G188Rnw?=
+ =?us-ascii?Q?FUh6GHOcmm/Ab75coNq/8AQmjWytuk4gFD4eiUECN8gCSgGG07ei8Fx6ULen?=
+ =?us-ascii?Q?zrOWrPGLM9QIpU6NaPkSbUeXwCv8aC2l70y7Z+Ygs0yE9S3ZMOVxdVdngUPo?=
+ =?us-ascii?Q?LhCrz6cvi2bq1cprmf8Mk/Or9oA5+N8nIsaoH3IIhCcIAql4KMDIKqSFV59F?=
+ =?us-ascii?Q?lRPlC1A55um+DYads2/rOA7Sb81n3QCFpEd8MyXJSHVGMGDpB+HSgGQWEat8?=
+ =?us-ascii?Q?WZaSseSH4fDgvZy8y7XPTam+g7cyNXyvPOCPEBV+PZ2e4keW9KcnpDjC+W36?=
+ =?us-ascii?Q?M0bGloq5tuFgnBUqMNM1GKnF70aGlfJAVtUA8Pq+UELHhcZhuDp2uJBEa2tn?=
+ =?us-ascii?Q?8U3XjDxWTI3Z1InGu9rduo8FVNxrKx8JCewD6e+zM61/zJQbCnEk2CGBWbau?=
+ =?us-ascii?Q?5274FSAI9F8qhJbYyQv7GBk=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f946cf26-66ca-46b6-90ca-08d99e085c90
+X-MS-Exchange-CrossTenant-Network-Message-Id: d58f89b5-237d-4225-80d0-08d99e091eb1
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2021 13:55:00.1389
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2021 14:00:25.8148
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O1gmZbjcbfNpGBdc3pSts51Jgp/f+N1n0jEOn3JZ76jCii6+OfUvwJGyNaOlWG3fWO3iHLp8KaFPIcy/tp0Bbw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5743
+X-MS-Exchange-CrossTenant-UserPrincipalName: swJ9ll6+hx4DXde20bFhM1KCzxAJgiDZoC8jCoxTvBtJCr6F0GW8elmn+SYCblnUjd0tRDsXeaCxU/fRjer/JA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3293
 
-On 02.11.2021 12:50, Roger Pau Monn=C3=A9 wrote:
-> On Tue, Nov 02, 2021 at 12:19:13PM +0100, Jan Beulich wrote:
->> On 26.10.2021 12:52, Roger Pau Monn=C3=A9 wrote:
->>> On Thu, Sep 30, 2021 at 10:52:20AM +0300, Oleksandr Andrushchenko wrote=
-:
->>>> --- a/xen/drivers/vpci/header.c
->>>> +++ b/xen/drivers/vpci/header.c
->>>> @@ -451,6 +451,32 @@ static void cmd_write(const struct pci_dev *pdev,=
- unsigned int reg,
->>>>          pci_conf_write16(pdev->sbdf, reg, cmd);
->>>>  }
->>>> =20
->>>> +static void guest_cmd_write(const struct pci_dev *pdev, unsigned int =
-reg,
->>>> +                            uint32_t cmd, void *data)
->>>> +{
->>>> +    /* TODO: Add proper emulation for all bits of the command registe=
-r. */
->>>> +
->>>> +    if ( (cmd & PCI_COMMAND_INTX_DISABLE) =3D=3D 0 )
->>>> +    {
->>>> +        /*
->>>> +         * Guest wants to enable INTx. It can't be enabled if:
->>>> +         *  - host has INTx disabled
->>>> +         *  - MSI/MSI-X enabled
->>>> +         */
->>>> +        if ( pdev->vpci->msi->enabled )
->>>> +            cmd |=3D PCI_COMMAND_INTX_DISABLE;
->>>> +        else
->>>> +        {
->>>> +            uint16_t current_cmd =3D pci_conf_read16(pdev->sbdf, reg)=
-;
->>>> +
->>>> +            if ( current_cmd & PCI_COMMAND_INTX_DISABLE )
->>>> +                cmd |=3D PCI_COMMAND_INTX_DISABLE;
->>>> +        }
+On 02.11.2021 12:03, Roger Pau Monn=C3=A9 wrote:
+> On Tue, Nov 02, 2021 at 11:13:08AM +0100, Jan Beulich wrote:
+>> On 25.10.2021 12:28, Roger Pau Monn=C3=A9 wrote:
+>>> On Thu, Oct 21, 2021 at 11:59:02AM +0200, Jan Beulich wrote:
+>>>> The two are really meant to be independent settings; iov_supports_xt()
+>>>> using || instead of && was simply wrong. The corrected check is,
+>>>> however, redundant, just like the (correct) one in iov_detect(): These
+>>>> hook functions are unreachable without acpi_ivrs_init() installing the
+>>>> iommu_init_ops pointer, which it does only upon success. (Unlike for
+>>>> VT-d there is no late clearing of iommu_enable due to quirks, and any
+>>>> possible clearing of iommu_intremap happens only after iov_supports_xt=
+()
+>>>> has run.)
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> In fact in iov_detect() it could be iommu_enable alone which gets
+>>>> checked, but this felt overly aggressive to me. Instead I'm getting th=
+e
+>>>> impression that the function may wrongly not get called when "iommu=3D=
+off"
+>>>> but interrupt remapping is in use: We'd not get the interrupt handler
+>>>> installed, and hence interrupt remapping related events would never ge=
+t
+>>>> reported. (Same on VT-d, FTAOD.)
 >>>
->>> This last part should be Arm specific. On other architectures we
->>> likely want the guest to modify INTx disable in order to select the
->>> interrupt delivery mode for the device.
+>>> I've spend a non-trivial amount of time looking into this before
+>>> reading this note. AFAICT you could set iommu=3Doff and still get x2API=
+C
+>>> enabled and relying on interrupt remapping.
 >>
->> We cannot allow a guest to clear the bit when it has MSI / MSI-X
->> enabled - only one of the three is supposed to be active at a time.
->> (IOW similarly we cannot allow a guest to enable MSI / MSI-X when
->> the bit is clear.)
+>> Right, contrary to ...
+>>
+>>>> For iov_supports_xt() the question is whether, like VT-d's
+>>>> intel_iommu_supports_eim(), it shouldn't rather check iommu_intremap
+>>>> alone (in which case it would need to remain a check rather than getti=
+ng
+>>>> converted to ASSERT()).
+>>>
+>>> Hm, no, I don't think so. I think iommu_enable should take precedence
+>>> over iommu_intremap, and having iommu_enable =3D=3D false should force
+>>> interrupt remapping to be reported as disabled. Note that disabling it
+>>> in iommu_setup is too late, as the APIC initialization will have
+>>> already taken place.
+>>>
+>>> It's my reading of the command line parameter documentation that
+>>> setting iommu=3Doff should disable all usage of the IOMMU, and that
+>>> includes the interrupt remapping support (ie: a user should not need
+>>> to set iommu=3Doff,no-intremap)
+>>
+>> ... that documentation. But I think it's the documentation that
+>> wants fixing, such that iommu=3Doff really only control DMA remap.
 >=20
-> Sure, but this code is making the bit sticky, by not allowing
-> INTX_DISABLE to be cleared once set. We do not want that behavior on
-> x86, as a guest can decide to use MSI or INTx. The else branch needs
-> to be Arm only.
+> IMO I think it's confusing to have sub-options that could be enabled
+> when you set the global one to off. I would expect `iommu=3Doff` to
+> disable all the iommu related options, and I think it's fair for
+> people to expect that behavior.
+>=20
+> I'm unsure whether it's fair to change the documentation now, we
+> should instead fix the code, so that people using `iommu=3Doff` get the
+> expected behavior. Then we would likely need to introduce a way to
+> disable just dma remapping (dmaremap, similar to intremap). That
+> would make a much better and saner interface IMO.
 
-Isn't the "else" part questionable even on Arm?
+But from an x2APIC perspective it is a problem to have "iommu=3Doff"
+also turn off intremap. And indeed the option has never (fully)
+worked that way: It clears iommu_enable, but not iommu_intremap
+(nor any of the other sub-options, but there it's less of a problem
+because they're not used in isolation), and iommu_intremap only
+may have happened to either get turned off later or to not get
+evaluated in at least some of the case.
 
 Jan
 
