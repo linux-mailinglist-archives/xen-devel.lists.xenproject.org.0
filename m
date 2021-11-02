@@ -2,30 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7018244397B
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Nov 2021 00:18:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.220504.381802 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AE554439EA
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Nov 2021 00:42:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.220526.381823 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mi32M-0000X4-0P; Tue, 02 Nov 2021 23:17:50 +0000
+	id 1mi3Pv-0004SE-9Y; Tue, 02 Nov 2021 23:42:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 220504.381802; Tue, 02 Nov 2021 23:17:49 +0000
+Received: by outflank-mailman (output) from mailman id 220526.381823; Tue, 02 Nov 2021 23:42:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mi32L-0000TX-SP; Tue, 02 Nov 2021 23:17:49 +0000
-Received: by outflank-mailman (input) for mailman id 220504;
- Tue, 02 Nov 2021 23:17:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1mi3Pv-0004QR-4K; Tue, 02 Nov 2021 23:42:11 +0000
+Received: by outflank-mailman (input) for mailman id 220526;
+ Tue, 02 Nov 2021 23:42:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=z8t6=PV=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1mi32K-0000Ry-3J
- for xen-devel@lists.xenproject.org; Tue, 02 Nov 2021 23:17:48 +0000
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f2079852-2d17-4da6-89f8-70e2b4538a2f;
- Tue, 02 Nov 2021 23:17:47 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 30A656109D;
- Tue,  2 Nov 2021 23:17:46 +0000 (UTC)
+ <SRS0=qXs8=PV=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1mi3Pt-0004QL-LM
+ for xen-devel@lists.xenproject.org; Tue, 02 Nov 2021 23:42:09 +0000
+Received: from mx0b-00069f02.pphosted.com (unknown [205.220.177.32])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7e231714-3c36-11ec-855e-12813bfff9fa;
+ Tue, 02 Nov 2021 23:42:08 +0000 (UTC)
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1A2Mw62d018099; 
+ Tue, 2 Nov 2021 23:41:50 GMT
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3c26e8jvdv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 02 Nov 2021 23:41:50 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1A2Nfckv139773;
+ Tue, 2 Nov 2021 23:41:49 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by aserp3030.oracle.com with ESMTP id 3c0v3emhae-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 02 Nov 2021 23:41:49 +0000
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 1A2NfmIJ140417;
+ Tue, 2 Nov 2021 23:41:48 GMT
+Received: from bostrovs-us.us.oracle.com (bostrovs-us.us.oracle.com
+ [10.152.12.19]) by aserp3030.oracle.com with ESMTP id 3c0v3emh9e-1;
+ Tue, 02 Nov 2021 23:41:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,113 +56,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2079852-2d17-4da6-89f8-70e2b4538a2f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1635895066;
-	bh=wSc4z3tjtUxUopFnH2Hov7h54Lh+zRs3KC+jBurocGE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=UG2RC4CWPO+fVzY20303YVhVNVUs7HXlcA/o4XZmbnwv0NmZ6C5YLCrMkzsG/la86
-	 KFpYMmrVVVd7gDqm9EDM4TTgqYfQ0SuYPsJfclRxAuqnyFqxvV3hi4/ZlsLpyOAp5V
-	 DhAo/aN5MG9dUCukICqvDXN7v1rfYhwmRmLYGRhB0SdyAOHb4kub3T1OXK75CPKnX4
-	 TieoWcXtUDldfTY/rmEmCLbdvv12JSsWlgFNl9trkeB/NqF3ffVKC0YRvFgbjiI1Rx
-	 sydDbt3lInBKmov+CyxGuFN748+a/y9VmhNGfJKlMesQR9mqboYWkix/NAQe32UeoD
-	 SW9AtPA4SPV7Q==
-Date: Tue, 2 Nov 2021 16:17:45 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Luca Fancellu <luca.fancellu@arm.com>
-cc: Jan Beulich <jbeulich@suse.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Ian Jackson <iwj@xenproject.org>
-Subject: Re: [PATCH] xen/efi: Fix Grub2 boot on arm64
-In-Reply-To: <6F65B5FB-A511-4553-AA17-B144C3DB70CA@arm.com>
-Message-ID: <alpine.DEB.2.21.2111021615220.18170@sstabellini-ThinkPad-T480s>
-References: <20211102140511.5542-1-luca.fancellu@arm.com> <5290fa91-9470-be1b-47e4-a8de911b4fb3@suse.com> <6F65B5FB-A511-4553-AA17-B144C3DB70CA@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-361158706-1635895044=:18170"
-Content-ID: <alpine.DEB.2.21.2111021617390.18170@sstabellini-ThinkPad-T480s>
+X-Inumbo-ID: 7e231714-3c36-11ec-855e-12813bfff9fa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=from : to : cc :
+ subject : date : message-id; s=corp-2021-07-09;
+ bh=36cvZLG7nzHy1WDDbHNdPAkMG0X5CWKjGmksL7YL9Ck=;
+ b=cdHeWhcWQEx3+OqXNNn1Bq0pXuqN0xSNagsgNji4dM5zc+14KoDBjLvoF8Cli3QK7Rnu
+ GLosNY/1p8fmskQVa/r3mxVUU2to5cgrY2xEx70YZ/es+BFJWtfOugEi8bvDEtokJq+1
+ dejn/gd6ODGFPiXl1ZWWVLgye7e8K6tbH/ZxVgrbbKhk9CiXmsnhdDwHjbFJGq9ZF4XQ
+ YTNpTZ3ZlcPa5jkRDK0RbqeV+5LnyKxBHVMf9X178ApW/9y/sz0g7m2UFz/5xLX9le9s
+ 5wEHa+S/BZ/tOlJm7rDYBv0LWbksfHe0BPtUAMXbiSKUoZiQI59pg9jlcShCx1WwyQAp 6w== 
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+To: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
+Cc: tglx@linutronix.de, bp@alien8.de, dave.hansen@linux.intel.com,
+        x86@kernel.org, hpa@zytor.com, jgross@suse.com,
+        boris.ostrovsky@oracle.com
+Subject: [PATCH] x86/smp: Factor out parts of native_smp_prepare_cpus()
+Date: Tue,  2 Nov 2021 19:36:36 -0400
+Message-Id: <1635896196-18961-1-git-send-email-boris.ostrovsky@oracle.com>
+X-Mailer: git-send-email 1.8.3.1
+X-Proofpoint-GUID: IfvjVT_LMOgDHkf0XLPcHexo-rinRMka
+X-Proofpoint-ORIG-GUID: IfvjVT_LMOgDHkf0XLPcHexo-rinRMka
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Commit 66558b730f25 ("sched: Add cluster scheduler level for x86")
+introduced cpu_l2c_shared_map mask which is expected to be initialized
+by smp_op.smp_prepare_cpus(). That commit only updated
+native_smp_prepare_cpus() version but not xen_pv_smp_prepare_cpus().
+As result Xen PV guests crash in set_cpu_sibling_map().
 
---8323329-361158706-1635895044=:18170
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2111021617391.18170@sstabellini-ThinkPad-T480s>
+While the new mask can be allocated in xen_pv_smp_prepare_cpus() one can
+see that both versions of smp_prepare_cpus ops share a number of common
+operations that can be factored out. So do that instead.
 
-On Tue, 2 Nov 2021, Luca Fancellu wrote:
-> + Ian Jackson for 4.16 release
-> 
-> > On 2 Nov 2021, at 14:45, Jan Beulich <jbeulich@suse.com> wrote:
-> > 
-> > On 02.11.2021 15:05, Luca Fancellu wrote:
-> >> The code introduced by commit a1743fc3a9fe9b68c265c45264dddf214fd9b882
-> >> ("arm/efi: Use dom0less configuration when using EFI boot") is
-> >> introducing a problem to boot Xen using Grub2 on ARM machine using EDK2.
-> >> 
-> >> The problem comes from the function get_parent_handle(...) that inside
-> >> uses the HandleProtocol on loaded_image->DeviceHandle, but the last
-> >> is NULL, making Xen stop the UEFI boot.
-> > 
-> > According to my reading the UEFI spec doesn't (explicitly) allow for
-> > this to be NULL. Could you clarify why this is the case? What other
-> > information may end up being invalid / absent? Is e.g. read_section()
-> > safe to use?
-> 
-> My test on an arm machine running Grub2 on top of EDK2 showed that
-> when Xen is started, the get_parent_handle(…) call was failing and stopping
-> the boot because the efi_bs->HandleProtocol(…) was called with the
-> loaded_image->DeviceHandle argument NULL and the call was returning
-> a EFI_INVALID_PARAMETER.
-> So the parent handle can’t be requested and the filesystem can’t be used,
-> but any other code that doesn’t use the handle provided by get_parent_handle(…)
-> can be used without problem like read_section(...).
+Fixes: 66558b730f25 ("sched: Add cluster scheduler level for x86")
+Signed-off-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+---
+ arch/x86/include/asm/smp.h |  1 +
+ arch/x86/kernel/smpboot.c  | 19 +++++++++++++------
+ arch/x86/xen/smp_pv.c      | 11 ++---------
+ 3 files changed, 16 insertions(+), 15 deletions(-)
 
-It could be the case that Grub2 is doing something not entirely
-compliant to the spec.
+diff --git a/arch/x86/include/asm/smp.h b/arch/x86/include/asm/smp.h
+index 08b0e90623ad..81a0211a372d 100644
+--- a/arch/x86/include/asm/smp.h
++++ b/arch/x86/include/asm/smp.h
+@@ -126,6 +126,7 @@ static inline void arch_send_call_function_ipi_mask(const struct cpumask *mask)
+ 
+ void cpu_disable_common(void);
+ void native_smp_prepare_boot_cpu(void);
++void smp_prepare_cpus_common(void);
+ void native_smp_prepare_cpus(unsigned int max_cpus);
+ void calculate_max_logical_packages(void);
+ void native_smp_cpus_done(unsigned int max_cpus);
+diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
+index 8241927addff..d7429198c22f 100644
+--- a/arch/x86/kernel/smpboot.c
++++ b/arch/x86/kernel/smpboot.c
+@@ -1350,12 +1350,7 @@ static void __init smp_get_logical_apicid(void)
+ 		cpu0_logical_apicid = GET_APIC_LOGICAL_ID(apic_read(APIC_LDR));
+ }
+ 
+-/*
+- * Prepare for SMP bootup.
+- * @max_cpus: configured maximum number of CPUs, It is a legacy parameter
+- *            for common interface support.
+- */
+-void __init native_smp_prepare_cpus(unsigned int max_cpus)
++void __init smp_prepare_cpus_common(void)
+ {
+ 	unsigned int i;
+ 
+@@ -1386,6 +1381,18 @@ void __init native_smp_prepare_cpus(unsigned int max_cpus)
+ 	set_sched_topology(x86_topology);
+ 
+ 	set_cpu_sibling_map(0);
++}
++
++/*
++ * Prepare for SMP bootup.
++ * @max_cpus: configured maximum number of CPUs, It is a legacy parameter
++ *            for common interface support.
++ */
++void __init native_smp_prepare_cpus(unsigned int max_cpus)
++{
++
++	smp_prepare_cpus_common();
++
+ 	init_freq_invariance(false, false);
+ 	smp_sanity_check();
+ 
+diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
+index 9e55bcbfcd33..69e91d0d3ca4 100644
+--- a/arch/x86/xen/smp_pv.c
++++ b/arch/x86/xen/smp_pv.c
+@@ -238,16 +238,9 @@ static void __init xen_pv_smp_prepare_cpus(unsigned int max_cpus)
+ 	}
+ 	xen_init_lock_cpu(0);
+ 
+-	smp_store_boot_cpu_info();
+-	cpu_data(0).x86_max_cores = 1;
++	smp_prepare_cpus_common();
+ 
+-	for_each_possible_cpu(i) {
+-		zalloc_cpumask_var(&per_cpu(cpu_sibling_map, i), GFP_KERNEL);
+-		zalloc_cpumask_var(&per_cpu(cpu_core_map, i), GFP_KERNEL);
+-		zalloc_cpumask_var(&per_cpu(cpu_die_map, i), GFP_KERNEL);
+-		zalloc_cpumask_var(&per_cpu(cpu_llc_shared_map, i), GFP_KERNEL);
+-	}
+-	set_cpu_sibling_map(0);
++	cpu_data(0).x86_max_cores = 1;
+ 
+ 	speculative_store_bypass_ht_init();
+ 
+-- 
+1.8.3.1
 
-
-> > 
-> >> --- a/xen/common/efi/boot.c
-> >> +++ b/xen/common/efi/boot.c
-> >> @@ -449,6 +449,13 @@ static EFI_FILE_HANDLE __init get_parent_handle(EFI_LOADED_IMAGE *loaded_image,
-> >>     CHAR16 *pathend, *ptr;
-> >>     EFI_STATUS ret;
-> >> 
-> >> +    /*
-> >> +     * If DeviceHandle is NULL, we can't use the SIMPLE_FILE_SYSTEM_PROTOCOL
-> >> +     * to have access to the filesystem.
-> >> +     */
-> >> +    if ( !loaded_image->DeviceHandle )
-> >> +        return NULL;
-> > 
-> > I couldn't find anything in the spec saying that NULL (a pointer with
-> > the numeric value zero) could actually not be a valid handle. Could
-> > you point me to text saying so?
-> 
-> I am reading UEFI spec 2.8 A, section 7.3 Protocol Handler Services, when it talks about
-> EFI_BOOT_SERVICES.HandleProtocol() there is a table of “Status Code Returned” listing
-> the EFI_INVALID_PARAMETER when the Handle is NULL.
-> 
-> > 
-> >> @@ -581,6 +588,8 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
-> >>     EFI_STATUS ret;
-> >>     const CHAR16 *what = NULL;
-> >> 
-> >> +    if ( !dir_handle )
-> >> +        blexit(L"Error: No access to the filesystem");
-> > 
-> > dir_handle also gets passed to efi_arch_cfg_file_{early,late}() -
-> > those don't need any adjustment only because they merely pass the
-> > parameter on to read_file()?
-> 
-> Yes, the handling is done in read_file(...)
-
-But it is not super obvious, that's one I suggested an additional
-explicit check in my other email
---8323329-361158706-1635895044=:18170--
 
