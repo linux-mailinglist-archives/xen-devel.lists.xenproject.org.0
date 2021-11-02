@@ -2,35 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E647D442BC7
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Nov 2021 11:44:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.220029.381110 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81CED442BD4
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Nov 2021 11:48:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.220038.381124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhrGo-0008PS-35; Tue, 02 Nov 2021 10:43:58 +0000
+	id 1mhrLB-0000m0-Px; Tue, 02 Nov 2021 10:48:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 220029.381110; Tue, 02 Nov 2021 10:43:58 +0000
+Received: by outflank-mailman (output) from mailman id 220038.381124; Tue, 02 Nov 2021 10:48:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhrGn-0008Nb-V4; Tue, 02 Nov 2021 10:43:57 +0000
-Received: by outflank-mailman (input) for mailman id 220029;
- Tue, 02 Nov 2021 10:43:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mhrLB-0000kH-Mb; Tue, 02 Nov 2021 10:48:29 +0000
+Received: by outflank-mailman (input) for mailman id 220038;
+ Tue, 02 Nov 2021 10:48:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SQY4=PV=arm.com=michal.orzel@srs-us1.protection.inumbo.net>)
- id 1mhrGm-0008NI-8W
- for xen-devel@lists.xenproject.org; Tue, 02 Nov 2021 10:43:56 +0000
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id c5e6092a-3bc9-11ec-8555-12813bfff9fa;
- Tue, 02 Nov 2021 10:43:53 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 575C3D6E;
- Tue,  2 Nov 2021 03:43:53 -0700 (PDT)
-Received: from [10.57.21.244] (unknown [10.57.21.244])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2CCDF3F719;
- Tue,  2 Nov 2021 03:43:50 -0700 (PDT)
+ <SRS0=8XNU=PV=epam.com=prvs=19406420d3=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
+ id 1mhrLA-0000kB-IP
+ for xen-devel@lists.xenproject.org; Tue, 02 Nov 2021 10:48:28 +0000
+Received: from mx0b-0039f301.pphosted.com (unknown [148.163.137.242])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b36d2201-f242-4175-9be8-58682af54b78;
+ Tue, 02 Nov 2021 10:48:27 +0000 (UTC)
+Received: from pps.filterd (m0174683.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A2AJiAT013389;
+ Tue, 2 Nov 2021 10:48:22 GMT
+Received: from eur01-he1-obe.outbound.protection.outlook.com
+ (mail-he1eur01lp2054.outbound.protection.outlook.com [104.47.0.54])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3c33fxg4fj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 02 Nov 2021 10:48:21 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
+ by AM0PR03MB4020.eurprd03.prod.outlook.com (2603:10a6:208:76::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Tue, 2 Nov
+ 2021 10:48:18 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::c038:e032:595a:651]) by AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::c038:e032:595a:651%9]) with mapi id 15.20.4649.020; Tue, 2 Nov 2021
+ 10:48:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,718 +52,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c5e6092a-3bc9-11ec-8555-12813bfff9fa
-Subject: Re: [PATCH v2 07/15] xen: generate hypercall interface related code
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20211101152015.28488-1-jgross@suse.com>
- <20211101152015.28488-8-jgross@suse.com>
-From: Michal Orzel <michal.orzel@arm.com>
-Message-ID: <26bf3337-df7a-be55-db3d-bceaf1fb2acd@arm.com>
-Date: Tue, 2 Nov 2021 11:43:29 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <20211101152015.28488-8-jgross@suse.com>
-Content-Type: text/plain; charset=utf-8
+X-Inumbo-ID: b36d2201-f242-4175-9be8-58682af54b78
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bWTMhWAisbug5goOpWwhnk4Ff2KnRq9V/ScyxfrnP+8DoOLL5137caRo3xUEzeVgkYvJiDvAjiTEhoZKj6gLHAslSyVJ4aEhBXxBKaZ6dt2ii9k35yzq1QNYoJ97xU/NfwKV/8zWZcMLrvet7VJFOEyWkUuclfglkz5NW93Fo5/W+norx6JfALSsuE0QA5J25ZvkFmLg396jQvx1XHnrHegu6loJHExNAireSsiFmXCsU4mt/f02G4kihxyKCFvezzl4mXm6l57kWwtQs48mz/qCWBF+JNePAz/ycjXzbr9lWNZwFN5B8E4SuxyBJ9PQgCSHdjMRYtsYU3lfi0tHNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=brPnHj7mXniA8xFQaXIirWOF0xVoPP44xmFnPmgiA44=;
+ b=XAT6SSguMmTIUnRhwTdDA4UiBFmXCctBloMwLGyyl1Ucx+rYpoYcdefFEEvyMvSmiFv2yqy9uInkwDebkd0R6zACQIbkdpiY/hUlTQuT7JUYjTwN/wo3IPg6lc55DIBuxQAF8I/8O6szL9+CEtWGAeW9fVT4FPXXMMLqNZbc9/huM6wuo4q7XtZk9Q6bX8QHxV4W6yklj4C1CF4RVUSseUEboSyFpgmzqAgAJuG7exdKwpgXmdk64YZQZvl/wCw4CEWKc9whevWKJYFlVu9pMGq41aBIpb8yEY64n95bjd5vTBonvMet3iEeEVhbzVeVAkrnlTpvTRn6TSsJreCctQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=brPnHj7mXniA8xFQaXIirWOF0xVoPP44xmFnPmgiA44=;
+ b=c2PLLOx5RGbZvQrpjrqqg4gntZtIv5UL5b7KFyobgGLPF+c6GPqV7btpV9sh0Mu2KvwJysjXTx1WvScMy0SLS5fkKtGDOaoH8wk69hb5jPIZsm7fHsPrzeOO9cU/C3CqFC3qyycnKRsA3CQPWE+7JIspGNyt5wdAW0aon7iXSRKJ0CKmMhnnTeTndgwTBiipUl4Mtw5SDY2SiRHsl0TovgvHPNhEv0T33tZ2dZzDkbI3NNCGW/TAFZ0/o09CKFR9zKYmKwIh/ylfzNST4DPQddURwD9Bg8/3x/lV4WQXaMyClgYrwi4b48mjCDy5LFFYiATk5GKMy3PAtl9rHUrVsQ==
+From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+To: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        "julien@xen.org" <julien@xen.org>,
+        "sstabellini@kernel.org"
+	<sstabellini@kernel.org>,
+        Oleksandr Tyshchenko
+	<Oleksandr_Tyshchenko@epam.com>,
+        Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>,
+        Artem Mygaiev <Artem_Mygaiev@epam.com>,
+        "jbeulich@suse.com" <jbeulich@suse.com>,
+        Bertrand Marquis
+	<bertrand.marquis@arm.com>,
+        Rahul Singh <rahul.singh@arm.com>,
+        Michal Orzel
+	<michal.orzel@arm.com>,
+        Oleksandr Andrushchenko
+	<Oleksandr_Andrushchenko@epam.com>
+Subject: Re: [PATCH v3 08/11] vpci/header: Emulate PCI_COMMAND register for
+ guests
+Thread-Topic: [PATCH v3 08/11] vpci/header: Emulate PCI_COMMAND register for
+ guests
+Thread-Index: AQHXtdAkq8Qmwxr3HUWTio8KWsEpvKvlQ6KAgAr/CAA=
+Date: Tue, 2 Nov 2021 10:48:18 +0000
+Message-ID: <7f4fb8f4-499f-5b98-dd6f-9f730bf9dee3@epam.com>
+References: <20210930075223.860329-1-andr2000@gmail.com>
+ <20210930075223.860329-9-andr2000@gmail.com>
+ <YXfeB1LWy6Hm81LA@MacBook-Air-de-Roger.local>
+In-Reply-To: <YXfeB1LWy6Hm81LA@MacBook-Air-de-Roger.local>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: e64e6181-4323-47d5-1569-08d99dee482f
+x-ms-traffictypediagnostic: AM0PR03MB4020:
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-microsoft-antispam-prvs: 
+ <AM0PR03MB4020C010F5E6052161006771E78B9@AM0PR03MB4020.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ 9BO40hrVGEQx6/6OK/E6LEM+wBAC459Kvu86QF3fakwLNtU78EakyiND+0a94Ed4HNbflwmd0AYnQhfgQkOEBE51L1EbLcRBkjtl8LFQq+fUFQKE5oL/B30uIsvYCtUmtqfEmDeqZKKadudRQybeaMLR8THAycoxuG+7HYzlHRX43ZCO3R5H0vLJK6AyM1DyALfhvXVB305mfTWfHCm4huuU7wGyDUMa3P11HeIA1NY3t8arxg09RZ51IHOPt5b1wrFTpetRbmGT1OYRcjCfPm1wEQrDoNbGFxsAF8WtqgA2U5Task5u+zpsPqeuUiit/605t0glXuHu6FSOVZwdHrKlkuHBUmEU2dBSFX8ArjnSfkPLGLqZP5WaGwDFHfeqk3uXRRVxP81AOGyPsqv8tqaOGUITeIFOvHHuaVq+BZ0iu7kN1kjhpSdzes1cldZ8kC1NBYK6KqGqWHv2EgrXkKcmAVsDemlAwvRCkhvdoW6E13M8kwqX+pP7Qrzi9WAPeoFxCDrsI5xchZ+2mDy0Y3oP3Iecopcyp5od8fXuX9TMmD6zRIFszuPwpdhKr7hGqsjyJNP3ppDi97OxV63Cp8rAv2zU2mil9GqU1GB/AqIJBqmrEAsCvJNcjBWdmrxlWsWBIP48MQK0J9WBh5y8Zo76KEoyfbLX815SHgwt4X8SMbXKVHvEORb7mmZvECTD+8onjD2ykr23xhuR5rWqfQdJ+j5tJ5vFucsa75C6wY8fXM4DZ2TARofGx7tFAdbL
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(31696002)(186003)(6916009)(6506007)(122000001)(31686004)(107886003)(38070700005)(6486002)(5660300002)(4326008)(38100700002)(8936002)(54906003)(86362001)(83380400001)(91956017)(66476007)(2906002)(71200400001)(2616005)(6512007)(76116006)(66946007)(508600001)(53546011)(8676002)(26005)(36756003)(66446008)(316002)(64756008)(66556008)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?L1JMUnMxcllJa1pJQWtKWm9hTmJrWWIvUlFsN2tUNlZWcjhoY2dEaFRUcUVB?=
+ =?utf-8?B?aXFCdk5KbXNuT2JaMDBGdW9XbFlTTlN3b2ZHZTVrSmZmbCt1Uk9HdjJWM3N4?=
+ =?utf-8?B?K3BKNTBnMVFkc1NGeDVlOW5HcXBOM1hJYVF5aTZseUdjOGlzNGd2bXdOZks0?=
+ =?utf-8?B?dzJSVWVOZjVCQ2dpVURHSFE0eGdOb1QzSnU1MWNZb21PaTR6dnZTNGs4UmQr?=
+ =?utf-8?B?eVFIcEpSUUJySGtEOUJvOHFQbzZLMStqaVpLdEYxYndSWVQ1QVdzOERQYVJ2?=
+ =?utf-8?B?VUt2ZWpuOEtDQ1BUNUVkbmYxQXRzVzZrc1lmeGF0bElWU1dvMVFOcUlKMCtO?=
+ =?utf-8?B?aUVBM3VwS0NQTzBDYWp6U0IzZkpic1kwdGhEYmxadzFUOEc0eVNRQTlzUDg0?=
+ =?utf-8?B?SGx2QVNPSk1jUkpneGk0Y3BxRzdXSTJna0cxL2FuTDl0WjR2TFhJWS9VNlpT?=
+ =?utf-8?B?WU54TDBXLzZRZ0VNYzV5R21GU1Jlb0lad1hrSElZalJ3alg1dzRqaGhkWmd2?=
+ =?utf-8?B?QmRIZUhTVEthMHcrcmVBaENEZDRJRSswMUk3QTg0dTFldlhDWG9rR1k5VDAv?=
+ =?utf-8?B?eWhKSUswSVNLckJDSzdyM2Iya1BVR2JZUzRITlZ5Z3pvdlFKU2hHemh2Q3Nz?=
+ =?utf-8?B?OHU5WStRMCtKSjhjSzZudjVoTCtVd1hwQ2RlWTBrc09ScFBoMTRZSnF4K2hZ?=
+ =?utf-8?B?OTYxZnVBenh6aWJFRjAyZWtSNW1DU3haNmd6QXhqa2syZStwcHoxOVg0ak1R?=
+ =?utf-8?B?WjdTOTFBSW84OEFZeDA4ZlFnTTlWNy9NQWpCVXNITXY3anArN2hxblZ6T2U1?=
+ =?utf-8?B?VkI3RlM1OWJnM0d6TjhWTU0ydFpPdko2dVRvL0VXZGY0cGNyTmhRMjNaTDRX?=
+ =?utf-8?B?cS9BeGdOVmM2Y0RScm1PNEthTThEcVdZUWZydnZRZDJ1TWQzZXhWS2lmcGxE?=
+ =?utf-8?B?VXJCVkxRQjRBUTNhdG5KNVpFMjNUSWFGYlJoOGhDMkhwOTdHd0wyQWhTV25O?=
+ =?utf-8?B?clJ0bFpwY2Z0OU1JYk82VkdEN3E0TkdEZER3QTlSQnFLOWRxNGFhdkxlZEk5?=
+ =?utf-8?B?cGU3am1xRG9ueHpnZUFZTEFuZFgrbExnSkNpQjFhUk51ZjExdFNiOTB0MEJS?=
+ =?utf-8?B?R2dWS2NpcWYxeXhUNEhZeUdyRVN5MGcrNDVhemZmeGh5Ulo2WWEyU2FINTds?=
+ =?utf-8?B?UFVvM3hta3NuTldEams5dEdxRGhoQm1MWkZRU3QyeERkd2tqWW1XdDhvU1Fx?=
+ =?utf-8?B?anJIOHdnS0dVL0M3TjhhWXFtM2M0UjFVbXdsTDB1VXJ1SG0rK2szTm1nUDFB?=
+ =?utf-8?B?NC9mSnpwL1FEMm1zODY3blpEVGhvc3BOV2M4a0trY1ZiRTdUNk50UkhseENs?=
+ =?utf-8?B?cmwzQldrMFpJNVVoRjMyV0F2TjB6LytOQjhuNjVJdmhzQjNnbndXT3hYVFpF?=
+ =?utf-8?B?aU15MjlRYm93RjZCT1JDQkF3YjhWVjVDMm5RVW1Ta1NBa1R4U3pEU2xpNEtS?=
+ =?utf-8?B?WE9iSEJqSDN2MW0zUFFFdFRKSmRONkE3STlTZFVBVi9Edk1JYTNVZlNhUmpl?=
+ =?utf-8?B?ZUVCdVMybFlOSmVzNXpDc0J1V1pQN0c1WXJlcWQ0b0lRS3lpTGx3WFh1Vkkv?=
+ =?utf-8?B?WHdBaVpGdWo5NE1OakNHQmxqdFpaNmlzaXhGQkRpVUVZT1UzTHRLaC8wSTNZ?=
+ =?utf-8?B?VUl1RTlzZXUvUDJMRkpxRlpoazV0SWFjaXhWWUV5VnJ6TXZmUHZ5QUtFbzBL?=
+ =?utf-8?B?cXFYMUFWR1NpWEpPRUl3cERVeWNTSVMzbXZyclNLdk9mQXlWeE9xNk1veTZ0?=
+ =?utf-8?B?TmlvWlhscU1Udm16eGJjbUpyQlphYzVnL2laTWdyYlhTbGlZRU1aMlF1bnhz?=
+ =?utf-8?B?SkVMTnRIVnpwK3UvWWYvTnEwQ1p3UFNwWVNqZDFuOCtCd3U5UHVRdzJ0UzVM?=
+ =?utf-8?B?NGlpNUQ4bTdnekVSbTc0am12RlVpSkIwQXVLMjMvZlliUVYvUFExRTlpZ29m?=
+ =?utf-8?B?U3AzOFNUdnZRN3VRUDFId1dTcEM1Q2c2eWZUSk9ORVN5MWpLYUx6aHhZV1ln?=
+ =?utf-8?B?VkZFWjEwUDhuSHgycmg0Z3BFN1prK3MwTmNPUmpoMXNQaHROdFpZUHcyemxi?=
+ =?utf-8?B?KzZDMHBPdXRRWVhYT2kzL1EvZDVmYjd4alR5d2k5d0lqL0xENWlXS0hzTDdN?=
+ =?utf-8?B?bE9NSmdiWWxtMjlVT3Z0M0hxSmZIRGJXVUVOVW1Ud2Nic1dIb2tHVmU0bWM4?=
+ =?utf-8?B?WDJnSHpsMWQycXI1RjdzMWsxWE5pVzJTS2hZQjZLVDJjamFRWlU4QmNEZVRI?=
+ =?utf-8?B?SHlkY0Z4TGJMMGllaFRleXhuMTdKT2xHcWxjV2NZbGYvY2VlNWpoZz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <757AA190E0421B4792CC6BCC62BE443F@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e64e6181-4323-47d5-1569-08d99dee482f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2021 10:48:18.6915
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: zG6w5kK/YSC1jIrawMkclRQ4c3UhEGDWVR0qtWwiMMh97RjITwc8h0hZVLpTJ+TC8gKll38LGEVJ7mwEgUBrrUPWTlC4XffZulJJcyJFUTNoU8Y5QP8u+Sg3phdt3+di
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB4020
+X-Proofpoint-GUID: iMbdwFffYZcEfd22a8TU6uMd_UBrEb2B
+X-Proofpoint-ORIG-GUID: iMbdwFffYZcEfd22a8TU6uMd_UBrEb2B
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
+ definitions=2021-11-02_06,2021-11-02_01,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0 phishscore=0
+ mlxlogscore=655 clxscore=1015 spamscore=0 bulkscore=0 adultscore=0
+ impostorscore=0 priorityscore=1501 mlxscore=0 suspectscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2110150000 definitions=main-2111020064
 
-Hi Juergen,
-
-On 01.11.2021 16:20, Juergen Gross wrote:
-> Instead of repeating similar data multiple times use a single source
-> file and a generator script for producing prototypes and call sequences
-> of the hypercalls.
-> 
-> As the script already knows the number of parameters used add generating
-> a macro for populating an array with the number of parameters per
-> hypercall.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> V2:
-> - split platform_op for doe and compat prefixes (Jan Beulich)
-> - add "addline:" directive
-> - add priorities to handlers (Jan Beulich)
-> ---
->  .gitignore                    |   1 +
->  xen/Makefile                  |  10 ++
->  xen/include/hypercall-defs.c  | 285 +++++++++++++++++++++++++++++++
->  xen/scripts/gen_hypercall.awk | 306 ++++++++++++++++++++++++++++++++++
->  4 files changed, 602 insertions(+)
->  create mode 100644 xen/include/hypercall-defs.c
->  create mode 100644 xen/scripts/gen_hypercall.awk
-> 
-> diff --git a/.gitignore b/.gitignore
-> index 9513506dd9..753a602e29 100644
-> --- a/.gitignore
-> +++ b/.gitignore
-> @@ -336,6 +336,7 @@ xen/include/public/public
->  xen/include/xen/*.new
->  xen/include/xen/acm_policy.h
->  xen/include/xen/compile.h
-> +xen/include/xen/hypercall-defs.h
->  xen/include/xen/lib/x86/cpuid-autogen.h
->  xen/test/livepatch/config.h
->  xen/test/livepatch/expect_config.h
-> diff --git a/xen/Makefile b/xen/Makefile
-> index a3189eb47c..dfdae47e74 100644
-> --- a/xen/Makefile
-> +++ b/xen/Makefile
-> @@ -383,6 +383,7 @@ _clean: delete-unfresh-files
->  		-o -name "*.gcno" -o -name ".*.cmd" -o -name "lib.a" \) -exec rm -f {} \;
->  	rm -f include/asm $(TARGET) $(TARGET).gz $(TARGET).efi $(TARGET).efi.map $(TARGET)-syms $(TARGET)-syms.map *~ core
->  	rm -f asm-offsets.s include/asm-*/asm-offsets.h
-> +	rm -f include/xen/hypercall-defs.h include/hypercall-defs.i
->  	rm -f .banner .allconfig.tmp
->  
->  .PHONY: _distclean
-> @@ -405,6 +406,7 @@ $(TARGET): delete-unfresh-files
->  	$(MAKE) -f $(BASEDIR)/Rules.mk -C include
->  	$(MAKE) -f $(BASEDIR)/Rules.mk -C arch/$(TARGET_ARCH) include
->  	$(MAKE) -f $(BASEDIR)/Rules.mk include/asm-$(TARGET_ARCH)/asm-offsets.h
-> +	$(MAKE) -f $(BASEDIR)/Rules.mk include/xen/hypercall-defs.h
->  	$(MAKE) -f $(BASEDIR)/Rules.mk -C arch/$(TARGET_ARCH) $@
->  
->  # drivers/char/console.o contains static banner/compile info. Blow it away.
-> @@ -466,6 +468,14 @@ include/asm-$(TARGET_ARCH)/asm-offsets.h: asm-offsets.s
->  	  echo ""; \
->  	  echo "#endif") <$< >$@
->  
-> +quiet_cmd_genhyp = GEN     $@
-> +define cmd_genhyp
-> +    awk -f scripts/gen_hypercall.awk <$< >$@
-> +endef
-> +
-> +include/xen/hypercall-defs.h: include/hypercall-defs.i scripts/gen_hypercall.awk FORCE
-> +	$(call if_changed,genhyp)
-> +
->  SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test
->  define all_sources
->      ( find include/asm-$(TARGET_ARCH) -name '*.h' -print; \
-> diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
-> new file mode 100644
-> index 0000000000..67f6081558
-> --- /dev/null
-> +++ b/xen/include/hypercall-defs.c
-> @@ -0,0 +1,285 @@
-> +/*
-> + * Hypercall interface description:
-> + * Used by scripts/gen_hypercall.awk to generate hypercall prototypes and call
-> + * sequences.
-> + *
-> + * Syntax is like a prototype, but without return type and without the ";" at
-> + * the end. Pointer types will be automatically converted to use the
-> + * XEN_GUEST_HANDLE_PARAM() macro. Handlers with no parameters just use a
-> + * definition like "fn()".
-> + * Hypercall/function names are without the leading "__HYPERVISOR_"/"do_"
-> + * strings.
-> + *
-> + * The return type of a class of prototypes using the same prefix is set via:
-> + * rettype: <prefix> <type>
-> + * Default return type is "long". A return type for a prefix can be set only
-> + * once and it needs to be set before that prefix is being used via the
-> + * "prefix:" directive.
-> + *
-> + * The prefix of the prototypes is set via a line:
-> + * prefix: <prefix> ...
-> + * Multiple prefixes are possible (restriction see below). Prefixes are without
-> + * a trailing "_". The current prefix settings are active until a new "prefix:"
-> + * line.
-> + *
-> + * Caller macros are suffixed with a selectable name via lines like:
-> + * caller: <suffix>
-> + * When a caller suffix is active, there is only one active prefix allowed.
-> + *
-> + * With a "defhandle:" line it is possible to add a DEFINE_XEN_GUEST_HANDLE()
-> + * to the generated header:
-> + * defhandle: <handle-type> [<type>]
-> + * Without specifying <type> only a DEFINE_XEN_GUEST_HANDLE(<handle-type>)
-> + * will be generated, otherwise it will be a
-> + * __DEFINE_XEN_GUEST_HANDLE(<handle-type>, <type>) being generated. Note that
-> + * the latter will include the related "const" handle "const_<handle-type>".
-> + *
-> + * In order to support using coding style compliant pointers in the
-> + * prototypes it is possible to add translation entries to generate the correct
-> + * handle types:
-> + * handle: <handle-type> <type>
-> + * This will result in the prototype translation from "<type> *" to
-> + * "XEN_GUEST_HANDLE_PARAM(<handle-type>)".
-> + *
-> + * A verbatim line can be added via:
-> + * addline: <line-contents>
-> + * Its position is kept in regard of other "handle:" and "defhandle:" lines.
-> + *
-> + * The hypercall handler calling code will be generated from a final table in
-> + * the source file, which is started via the line:
-> + * table: <caller> <caller> ...
-> + * with the <caller>s specifying the designated caller macro of each column of
-> + * the table. Any column of a <caller> not having been set via a "caller:"
-> + * line will be ignored.
-> + * The first column of the table contains the hypercall/prototype, each
-> + * <caller> column contains the prefix for the function to use for that caller.
-> + * A function prefix can be annotated with a priority by adding ":<prio>" to it
-> + * ("1" being the highest priority, higher numbers mean lower priority, no
-> + * priority specified is the lowest priority). The generated code will try to
-> + * achieve better performance for calling high priority handlers.
-> + * A column not being supported by a <caller> is marked with "-". Lines with all
-> + * entries being "-" after removal of inactive <caller> columns are ignored.
-> + *
-> + * This file is being preprocessed using $(CPP), so #ifdef CONFIG_* conditionals
-> + * are possible.
-> + */
-> +
-> +#ifdef CONFIG_HVM
-> +#define PREFIX_hvm hvm
-> +#else
-> +#define PREFIX_hvm
-> +#endif
-> +
-> +#ifdef CONFIG_COMPAT
-> +#define PREFIX_compat compat
-> +rettype: compat int
-> +#else
-> +#define PREFIX_compat
-> +#endif
-> +
-> +#ifdef CONFIG_ARM
-> +#define PREFIX_dep dep
-> +#else
-> +#define PREFIX_dep
-> +#endif
-> +
-> +handle: uint unsigned int
-> +handle: const_void const void
-> +handle: const_char const char
-> +
-> +#ifdef CONFIG_COMPAT
-> +defhandle: multicall_entry_compat_t
-> +#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-> +addline: typedef struct compat_platform_op compat_platform_op_t;
-> +defhandle: compat_platform_op_t
-> +#endif
-> +#endif
-> +#ifdef CONFIG_PV32
-> +defhandle: trap_info_compat_t
-> +defhandle: physdev_op_compat_t
-> +#endif
-> +
-> +prefix: do PREFIX_hvm PREFIX_compat
-> +physdev_op(int cmd, void *arg)
-> +#if defined(CONFIG_GRANT_TABLE) || defined(CONFIG_PV_SHIM)
-> +grant_table_op(unsigned int cmd, void *uop, unsigned int count)
-> +#endif
-> +
-> +prefix: do PREFIX_hvm
-> +memory_op(unsigned long cmd, void *arg)
-> +
-> +prefix: do PREFIX_compat
-> +xen_version(int cmd, void *arg)
-> +vcpu_op(int cmd, unsigned int vcpuid, void *arg)
-> +sched_op(int cmd, void *arg)
-> +xsm_op(void *op)
-> +callback_op(int cmd, const void *arg)
-> +#ifdef CONFIG_ARGO
-> +argo_op(unsigned int cmd, void *arg1, void *arg2, unsigned long arg3, unsigned long arg4)
-> +#endif
-> +#ifdef CONFIG_KEXEC
-> +kexec_op(unsigned int op, void *uarg)
-> +#endif
-> +#ifdef CONFIG_PV
-> +iret()
-> +nmi_op(unsigned int cmd, void *arg)
-> +#ifdef CONFIG_XENOPROF
-> +xenoprof_op(int op, void *arg)
-> +#endif
-> +#endif /* CONFIG_PV */
-> +
-> +#ifdef CONFIG_COMPAT
-> +prefix: compat
-> +set_timer_op(uint32_t lo, int32_t hi)
-> +multicall(multicall_entry_compat_t *call_list, uint32_t nr_calls)
-> +memory_op(unsigned int cmd, void *arg)
-> +#ifdef CONFIG_IOREQ_SERVER
-> +dm_op(domid_t domid, unsigned int nr_bufs, void *bufs)
-> +#endif
-> +mmuext_op(void *arg, unsigned int count, uint *pdone, unsigned int foreigndom)
-> +#ifdef CONFIG_PV32
-> +set_trap_table(trap_info_compat_t *traps)
-> +set_gdt(unsigned int *frame_list, unsigned int entries)
-> +set_callbacks(unsigned long event_selector, unsigned long event_address, unsigned long failsafe_selector, unsigned long failsafe_address)
-> +update_descriptor(uint32_t pa_lo, uint32_t pa_hi, uint32_t desc_lo, uint32_t desc_hi)
-> +update_va_mapping(unsigned int va, uint32_t lo, uint32_t hi, unsigned int flags)
-> +physdev_op_compat(physdev_op_compat_t *uop)
-> +update_va_mapping_otherdomain(unsigned int va, uint32_t lo, uint32_t hi, unsigned int flags, domid_t domid)
-> +#endif
-> +#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-> +platform_op(compat_platform_op_t *u_xenpf_op)
-> +#endif
-> +#endif /* CONFIG_COMPAT */
-> +
-> +#if defined(CONFIG_PV) || defined(CONFIG_ARM)
-> +prefix: do PREFIX_dep
-> +event_channel_op_compat(evtchn_op_t *uop)
-> +physdev_op_compat(physdev_op_t *uop)
-> +/* Legacy hypercall (as of 0x00030101). */
-> +sched_op_compat(int cmd, unsigned long arg)
-> +#endif
-> +
-> +prefix: do
-> +set_timer_op(s_time_t timeout)
-> +console_io(unsigned int cmd, unsigned int count, char *buffer)
-> +vm_assist(unsigned int cmd, unsigned int type)
-> +event_channel_op(int cmd, void *arg)
-> +mmuext_op(mmuext_op_t *uops, unsigned int count, unsigned int *pdone, unsigned int foreigndom)
-> +multicall(multicall_entry_t *call_list, unsigned int nr_calls)
-> +#ifdef CONFIG_PV
-> +mmu_update(mmu_update_t *ureqs, unsigned int count, unsigned int *pdone, unsigned int foreigndom)
-> +stack_switch(unsigned long ss, unsigned long esp)
-> +fpu_taskswitch(int set)
-> +set_debugreg(int reg, unsigned long value)
-> +get_debugreg(int reg)
-> +set_segment_base(unsigned int which, unsigned long base)
-> +mca(xen_mc_t *u_xen_mc)
-> +set_trap_table(const_trap_info_t *traps)
-> +set_gdt(xen_ulong_t *frame_list, unsigned int entries)
-> +set_callbacks(unsigned long event_address, unsigned long failsafe_address, unsigned long syscall_address)
-> +update_descriptor(uint64_t gaddr, seg_desc_t desc)
-> +update_va_mapping(unsigned long va, uint64_t val64, unsigned long flags)
-> +update_va_mapping_otherdomain(unsigned long va, uint64_t val64, unsigned long flags, domid_t domid)
-> +#endif
-> +#ifdef CONFIG_IOREQ_SERVER
-> +dm_op(domid_t domid, unsigned int nr_bufs, xen_dm_op_buf_t *bufs)
-> +#endif
-> +#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-> +sysctl(xen_sysctl_t *u_sysctl)
-> +domctl(xen_domctl_t *u_domctl)
-> +paging_domctl_cont(xen_domctl_t *u_domctl)
-> +platform_op(xen_platform_op_t *u_xenpf_op)
-> +#endif
-> +#ifdef CONFIG_HVM
-> +hvm_op(unsigned long op, void *arg)
-> +#endif
-> +#ifdef CONFIG_HYPFS
-> +hypfs_op(unsigned int cmd, const char *arg1, unsigned long arg2, void *arg3, unsigned long arg4)
-> +#endif
-> +#ifdef CONFIG_X86
-> +xenpmu_op(unsigned int op, xen_pmu_params_t *arg)
-> +#endif
-> +
-> +#ifdef CONFIG_PV
-> +caller: pv64
-> +#ifdef CONFIG_PV32
-> +caller: pv32
-> +#endif
-> +#endif
-> +#if defined(CONFIG_HVM) && defined(CONFIG_X86)
-> +caller: hvm64
-> +#ifdef CONFIG_COMPAT
-> +caller: hvm32
-> +#endif
-> +#endif
-> +#ifdef CONFIG_ARM
-> +caller: arm
-> +#endif
-> +
-> +table:                             pv32     pv64     hvm32    hvm64    arm
-> +set_trap_table                     compat   do       -        -        -
-> +mmu_update                         do:1     do:1     -        -        -
-> +set_gdt                            compat   do       -        -        -
-> +stack_switch                       do:2     do:2     -        -        -
-> +set_callbacks                      compat   do       -        -        -
-> +fpu_taskswitch                     do       do       -        -        -
-> +sched_op_compat                    do       do       -        -        dep
-> +#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-> +platform_op                        compat   do       compat   do       do
-> +#endif
-> +set_debugreg                       do       do       -        -        -
-> +get_debugreg                       do       do       -        -        -
-> +update_descriptor                  compat   do       -        -        -
-> +memory_op                          compat   do       hvm      hvm      do
-> +multicall                          compat:2 do:2     compat   do       do
-> +update_va_mapping                  compat   do       -        -        -
-> +set_timer_op                       compat   do       compat   do       -
-> +event_channel_op_compat            do       do       -        -        dep
-> +xen_version                        compat   do       compat   do       do
-> +console_io                         do       do       do       do       do
-> +physdev_op_compat                  compat   do       -        -        dep
-> +#if defined(CONFIG_GRANT_TABLE) || defined(CONFIG_PV_SHIM)
-> +grant_table_op                     compat   do       hvm      hvm      do
-> +#endif
-> +vm_assist                          do       do       do       do       do
-> +update_va_mapping_otherdomain      compat   do       -        -        -
-> +iret                               compat:1 do:1     -        -        -
-> +vcpu_op                            compat   do       compat:1 do:1     do
-> +set_segment_base                   do:2     do:2     -        -        -
-> +#ifdef CONFIG_PV
-> +mmuext_op                          compat:2 do:2     compat   do       -
-> +#endif
-> +xsm_op                             compat   do       compat   do       do
-> +nmi_op                             compat   do       -        -        -
-> +sched_op                           compat   do       compat   do       do
-> +callback_op                        compat   do       -        -        -
-> +#ifdef CONFIG_XENOPROF
-> +xenoprof_op                        compat   do       -        -        -
-> +#endif
-> +event_channel_op                   do       do       do:1     do:1     do
-> +physdev_op                         compat   do       hvm      hvm      do
-> +#ifdef CONFIG_HVM
-> +hvm_op                             do       do       do       do       do
-> +#endif
-> +#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-> +sysctl                             do       do       do       do       do
-> +domctl                             do       do       do       do       do
-> +#endif
-> +#ifdef CONFIG_KEXEC
-> +kexec_op                           compat   do       -        -        -
-> +#endif
-> +tmem_op                            -        -        -        -        -
-> +#ifdef CONFIG_ARGO
-> +argo_op                            compat   do       compat   do       do
-> +#endif
-> +xenpmu_op                          do       do       do       do       -
-> +#ifdef CONFIG_IOREQ_SERVER
-> +dm_op                              compat   do       compat   do       do
-> +#endif
-> +#ifdef CONFIG_HYPFS
-> +hypfs_op                           do       do       do       do       do
-> +#endif
-> +mca                                do       do       -        -        -
-> +#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-> +paging_domctl_cont                 do       do       do       do       -
-> +#endif
-> diff --git a/xen/scripts/gen_hypercall.awk b/xen/scripts/gen_hypercall.awk
-> new file mode 100644
-> index 0000000000..26017c0900
-> --- /dev/null
-> +++ b/xen/scripts/gen_hypercall.awk
-> @@ -0,0 +1,306 @@
-> +# awk script to generate hypercall handler prototypes and a macro for doing
-> +# the calls of the handlers inside a switch() statement.
-> +
-> +BEGIN {
-> +    printf("/* Generated file, do not edit! */\n\n");
-> +    e = 0;
-> +    n = 0;
-> +    p = 0;
-> +    nc = 0;
-> +}
-> +
-> +# Issue error to stderr
-> +function do_err(msg) {
-> +    print "Error: "msg": "$0 >"/dev/stderr";
-> +    exit 1;
-> +}
-> +
-> +# Generate handler call
-> +function do_call(f, p,    i) {
-> +    printf("            ret = %s_%s(", pre[f, p], fn[f]);
-> +    for (i = 1; i <= n_args[f]; i++) {
-> +        if (i > 1)
-> +            printf(", ");
-> +        if (ptr[f, i])
-> +            printf("(XEN_GUEST_HANDLE_PARAM(%s)){ _p(a%d) }", typ[f, i], i);
-> +        else
-> +            printf("(%s)(a%d)", typ[f, i], i);
-> +    }
-> +    printf("); \\\n");
-> +}
-> +
-> +# Generate case statement for call
-> +function do_case(f, p) {
-> +    printf("        case __HYPERVISOR_%s: \\\n", fn[f]);
-> +    do_call(f, p);
-> +    printf("            break; \\\n");
-> +}
-> +
-> +# Generate switch statement for calling handlers
-> +function do_switch(ca, p,    i) {
-> +    printf("        switch ( num ) \\\n");
-> +    printf("        { \\\n");
-> +    for (i = 1; i <= nc; i++)
-> +        if (call[i] == ca && call_prio[i] == p)
-> +            do_case(call_fn[i], call_p[i]);
-> +    printf("        default: \\\n");
-> +    printf("            ret = -ENOSYS; \\\n");
-> +    printf("            break; \\\n");
-> +    printf("        } \\\n");
-> +}
-> +
-> +function rest_of_line(par,    i, val) {
-> +    val = $(par);
-> +    for (i = par + 1; i <= NF; i++)
-> +        val = val " " $(i);
-> +    return val;
-> +}
-> +
-> +# Handle comments (multi- and single line)
-> +$1 == "/*" {
-> +    comment = 1;
-> +}
-> +comment == 1 {
-> +    if ($(NF) == "*/") comment = 0;
-> +    next;
-> +}
-> +
-> +# Skip preprocessing artefacts
-> +$1 == "extern" {
-> +    next;
-> +}
-> +/^#/ {
-> +    next;
-> +}
-> +
-> +# Drop empty lines
-> +NF == 0 {
-> +    next;
-> +}
-> +
-> +# Handle "handle:" line
-> +$1 == "handle:" {
-> +    if (NF < 3)
-> +        do_err("\"handle:\" requires at least two parameters");
-> +    val = rest_of_line(3);
-> +    xlate[val] = $2;
-> +    next;
-> +}
-> +
-> +# Handle "defhandle:" line
-> +$1 == "defhandle:" {
-> +    if (NF < 2)
-> +        do_err("\"defhandle:\" requires at least one parameter");
-> +    e++;
-> +    if (NF == 2) {
-> +        emit[e] = sprintf("DEFINE_XEN_GUEST_HANDLE(%s);", $2);
-> +    } else {
-> +        val = rest_of_line(3);
-> +        emit[e] = sprintf("__DEFINE_XEN_GUEST_HANDLE(%s, %s);", $2, val);
-> +        xlate[val] = $2;
-> +    }
-> +    next;
-> +}
-> +
-> +# Handle "addline:" line
-> +$1 == "addline:" {
-> +    if (NF < 2)
-> +        do_err("\"addline:\" requires at least one parameter");
-> +    e++;
-> +    emit[e] = rest_of_line(2);
-> +    next;
-> +}
-> +
-> +# Handle "rettype:" line
-> +$1 == "rettype:" {
-> +    if (NF < 3)
-> +        do_err("\"rettype:\" requires at least two parameters");
-> +    if ($2 in rettype)
-> +        do_err("rettype can be set only once for each prefix");
-> +    rettype[$2] = rest_of_line(3);
-> +    next;
-> +}
-> +
-> +# Handle "caller:" line
-> +$1 == "caller:" {
-> +    caller[$2] = 1;
-> +    next;
-> +}
-> +
-> +# Handle "prefix:" line
-> +$1 == "prefix:" {
-> +    p = NF - 1;
-> +    for (i = 2; i <= NF; i++) {
-> +        prefix[i - 1] = $(i);
-> +        if (!(prefix[i - 1] in rettype))
-> +            rettype[prefix[i - 1]] = "long";
-> +    }
-> +    next;
-> +}
-> +
-> +# Handle "table:" line
-> +$1 == "table:" {
-> +    table = 1;
-> +    for (i = 2; i <= NF; i++)
-> +        col[i - 1] = $(i);
-> +    n_cols = NF - 1;
-> +    next;
-> +}
-> +
-> +# Handle table definition line
-> +table == 1 {
-> +    if (NF != n_cols + 1)
-> +        do_err("Table definition line has wrong number of fields");
-> +    for (c = 1; c <= n_cols; c++) {
-> +        if (caller[col[c]] != 1)
-> +            continue;
-> +        if ($(c + 1) == "-")
-> +            continue;
-> +        pref = $(c + 1);
-> +        idx = index(pref, ":");
-> +        if (idx == 0)
-> +            prio = 100;
-> +        else {
-> +            prio = substr(pref, idx + 1) + 0;
-> +            pref = substr(pref, 1, idx - 1);
-> +            if (prio >= 100 || prio < 1)
-> +                do_err("Priority must be in the range 1..99");
-> +        }
-> +        fnd = 0;
-> +        for (i = 1; i <= n; i++) {
-> +            if (fn[i] != $1)
-> +                continue;
-> +            for (j = 1; j <= n_pre[i]; j++) {
-> +                if (pre[i, j] == pref) {
-> +                    prios[col[c], prio]++;
-> +                    if (prios[col[c], prio] == 1) {
-> +                        n_prios[col[c]]++;
-> +                        prio_list[col[c], n_prios[col[c]]] = prio;
-> +                        prio_mask[col[c], prio] = "(1ULL << __HYPERVISOR_"$1")";
-> +                    } else
-> +                        prio_mask[col[c], prio] = prio_mask[col[c], prio] " | (1ULL << __HYPERVISOR_"$1")";
-> +                    nc++;
-> +                    call[nc] = col[c];
-> +                    call_fn[nc] = i;
-> +                    call_p[nc] = j;
-> +                    call_prio[nc] = prio;
-> +                    fnd = 1;
-> +                }
-> +            }
-> +        }
-> +        if (fnd == 0)
-> +            do_err("No prototype for prefix/hypercall combination");
-> +    }
-> +    next;
-> +}
-> +
-> +# Prototype line
-> +{
-> +    bro = index($0, "(");
-> +    brc = index($0, ")");
-> +    if (bro < 2 || brc < bro)
-> +        do_err("No valid prototype line");
-> +    n++;
-> +    fn[n] = substr($0, 1, bro - 1);
-> +    n_pre[n] = p;
-> +    for (i = 1; i <= p; i++)
-> +        pre[n, i] = prefix[i];
-> +    args = substr($0, bro + 1, brc - bro - 1);
-> +    n_args[n] = split(args, a, ",");
-> +    if (n_args[n] > 5)
-> +        do_err("Too many parameters");
-> +    for (i = 1; i <= n_args[n]; i++) {
-> +        sub("^ *", "", a[i]);         # Remove leading white space
-> +        sub(" +", " ", a[i]);         # Replace multiple spaces with single ones
-> +        sub(" *$", "", a[i]);         # Remove trailing white space
-> +        ptr[n, i] = index(a[i], "*"); # Is it a pointer type?
-> +        sub("[*]", "", a[i]);         # Remove "*"
-> +        if (index(a[i], " ") == 0)
-> +            do_err("Parameter with no type or no name");
-> +        typ[n, i] = a[i];
-> +        sub(" [^ ]+$", "", typ[n, i]);    # Remove parameter name
-> +        if (ptr[n, i] && (typ[n, i] in xlate))
-> +            typ[n, i] = xlate[typ[n, i]];
-> +        arg[n, i] = a[i];
-> +        sub("^([^ ]+ )+", "", arg[n, i]); # Remove parameter type
-> +    }
-> +}
-> +
-> +# Generate the output
-> +END {
-> +    # Verbatim generated lines
-> +    for (i = 1; i <= e; i++)
-> +        printf("%s\n", emit[i]);
-> +    printf("\n");
-> +    # Generate prototypes
-> +    for (i = 1; i <= n; i++) {
-> +        for (p = 1; p <= n_pre[i]; p++) {
-> +            printf("%s %s_%s(", rettype[pre[i, p]], pre[i, p], fn[i]);
-> +            if (n_args[i] == 0)
-> +                printf("void");
-> +            else
-> +                for (j = 1; j <= n_args[i]; j++) {
-> +                    if (j > 1)
-> +                        printf(", ");
-> +                    if (ptr[i, j])
-> +                        printf("XEN_GUEST_HANDLE_PARAM(%s)", typ[i, j]);
-> +                    else
-> +                        printf("%s", typ[i, j]);
-> +                    printf(" %s", arg[i, j]);
-> +                }
-> +            printf(");\n");
-> +        }
-> +    }
-> +    # Generate call sequences and args array contents
-> +    for (ca in caller) {
-> +        if (caller[ca] != 1)
-> +            continue;
-> +        for (pl = 1; pl <= n_prios[ca]; pl++)
-> +            p_list[pl] = prio_list[ca, pl];
-> +        asort(p_list, p_list, "@val_num_asc");
-
-Just to let you know:
-asort is a gawk built-in. I was trying to build your changes on my aarch64 chroot environment.
-I did not have gawk installed and I got an error when building xen:
-
-make[4]: Leaving directory '/home/micorz01/xen_main/xen/include'
-  GEN     include/xen/hypercall-defs.h
-awk: scripts/gen_hypercall.awk: line 308: function asort never defined
-Makefile:477: recipe for target 'include/xen/hypercall-defs.h' failed
-
-During configure step I did not get any failure that gawk is not installed.
-If you are making use of gawk built-ins, shouldn't configure test for it?
- 
-
-> +        need_mask = 0;
-> +        # If any prio but the default one has more than 1 entry we need "mask"
-> +        for (pl = 1; pl < n_prios[ca]; pl++) {
-> +            if (prios[ca, p_list[pl]] > 1)
-> +                need_mask = 1;
-> +        }
-> +        printf("\n");
-> +        printf("#define call_handlers_%s(num, ret, a1, a2, a3, a4, a5) \\\n", ca);
-> +        printf("{ \\\n");
-> +        if (need_mask)
-> +            printf("    uint64_t mask = 1ULL << num; \\\n");
-> +        for (pl = 1; pl <= n_prios[ca]; pl++) {
-> +            if (prios[ca, p_list[pl]] > 1) {
-> +                if (pl < n_prios[ca]) {
-> +                    printf("if ( likely(mask & (%s)) ) \\\n", prio_mask[ca, p_list[pl]]);
-> +                    printf("    { \\\n");
-> +                }
-> +                do_switch(ca, p_list[pl]);
-> +                if (pl < n_prios[ca])
-> +                    printf("    } \\\n");
-> +            } else {
-> +                for (i = 1; i <= nc; i++)
-> +                    if (call[i] == ca && call_prio[i] == p_list[pl]) {
-> +                        printf("if ( likely(num == __HYPERVISOR_%s) ) \\\n", fn[call_fn[i]]);
-> +                        printf("    { \\\n");
-> +                        do_call(call_fn[i], call_p[i]);
-> +                        printf("    } \\\n");
-> +                    }
-> +            }
-> +            if (pl < n_prios[ca] || prios[ca, pl] == 1)
-> +                printf("    else ");
-> +        }
-> +        if (prios[ca, p_list[n_prios[ca]]] == 1) {
-> +            printf("\\\n");
-> +            printf("        ret = -ENOSYS; \\\n");
-> +        }
-> +        printf("}\n");
-> +        printf("\n");
-> +        printf("#define hypercall_args_%s \\\n", ca);
-> +        printf("{ \\\n");
-> +        for (i = 1; i <= nc; i++)
-> +            if (call[i] == ca)
-> +                printf("[__HYPERVISOR_%s] = %d, \\\n", fn[call_fn[i]], n_args[call_fn[i]]);
-> +        printf("}\n");
-> +    }
-> +}
-> 
-
-Cheers,
-Michal
+SGksIFJvZ2VyIQ0KDQpPbiAyNi4xMC4yMSAxMzo1MiwgUm9nZXIgUGF1IE1vbm7DqSB3cm90ZToN
+Cj4gT24gVGh1LCBTZXAgMzAsIDIwMjEgYXQgMTA6NTI6MjBBTSArMDMwMCwgT2xla3NhbmRyIEFu
+ZHJ1c2hjaGVua28gd3JvdGU6DQo+PiBGcm9tOiBPbGVrc2FuZHIgQW5kcnVzaGNoZW5rbyA8b2xl
+a3NhbmRyX2FuZHJ1c2hjaGVua29AZXBhbS5jb20+DQo+Pg0KPj4gQWRkIGJhc2ljIGVtdWxhdGlv
+biBzdXBwb3J0IGZvciBndWVzdHMuIEF0IHRoZSBtb21lbnQgb25seSBlbXVsYXRlDQo+PiBQQ0lf
+Q09NTUFORF9JTlRYX0RJU0FCTEUgYml0LCB0aGUgcmVzdCBpcyBub3QgZW11bGF0ZWQgeWV0IGFu
+ZCBsZWZ0DQo+PiBhcyBUT0RPLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IE9sZWtzYW5kciBBbmRy
+dXNoY2hlbmtvIDxvbGVrc2FuZHJfYW5kcnVzaGNoZW5rb0BlcGFtLmNvbT4NCj4+IFJldmlld2Vk
+LWJ5OiBNaWNoYWwgT3J6ZWwgPG1pY2hhbC5vcnplbEBhcm0uY29tPg0KPj4gLS0tDQo+PiBOZXcg
+aW4gdjINCj4+IC0tLQ0KPj4gICB4ZW4vZHJpdmVycy92cGNpL2hlYWRlci5jIHwgMzUgKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKystLS0NCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDMyIGlu
+c2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL3hlbi9kcml2
+ZXJzL3ZwY2kvaGVhZGVyLmMgYi94ZW4vZHJpdmVycy92cGNpL2hlYWRlci5jDQo+PiBpbmRleCBm
+MjNjOTU2Y2RlNmMuLjc1NGFlYjVhNTg0ZiAxMDA2NDQNCj4+IC0tLSBhL3hlbi9kcml2ZXJzL3Zw
+Y2kvaGVhZGVyLmMNCj4+ICsrKyBiL3hlbi9kcml2ZXJzL3ZwY2kvaGVhZGVyLmMNCj4+IEBAIC00
+NTEsNiArNDUxLDMyIEBAIHN0YXRpYyB2b2lkIGNtZF93cml0ZShjb25zdCBzdHJ1Y3QgcGNpX2Rl
+diAqcGRldiwgdW5zaWduZWQgaW50IHJlZywNCj4+ICAgICAgICAgICBwY2lfY29uZl93cml0ZTE2
+KHBkZXYtPnNiZGYsIHJlZywgY21kKTsNCj4+ICAgfQ0KPj4gICANCj4+ICtzdGF0aWMgdm9pZCBn
+dWVzdF9jbWRfd3JpdGUoY29uc3Qgc3RydWN0IHBjaV9kZXYgKnBkZXYsIHVuc2lnbmVkIGludCBy
+ZWcsDQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgIHVpbnQzMl90IGNtZCwgdm9pZCAq
+ZGF0YSkNCj4+ICt7DQo+PiArICAgIC8qIFRPRE86IEFkZCBwcm9wZXIgZW11bGF0aW9uIGZvciBh
+bGwgYml0cyBvZiB0aGUgY29tbWFuZCByZWdpc3Rlci4gKi8NCj4+ICsNCj4+ICsgICAgaWYgKCAo
+Y21kICYgUENJX0NPTU1BTkRfSU5UWF9ESVNBQkxFKSA9PSAwICkNCj4+ICsgICAgew0KPj4gKyAg
+ICAgICAgLyoNCj4+ICsgICAgICAgICAqIEd1ZXN0IHdhbnRzIHRvIGVuYWJsZSBJTlR4LiBJdCBj
+YW4ndCBiZSBlbmFibGVkIGlmOg0KPj4gKyAgICAgICAgICogIC0gaG9zdCBoYXMgSU5UeCBkaXNh
+YmxlZA0KPj4gKyAgICAgICAgICogIC0gTVNJL01TSS1YIGVuYWJsZWQNCj4+ICsgICAgICAgICAq
+Lw0KPj4gKyAgICAgICAgaWYgKCBwZGV2LT52cGNpLT5tc2ktPmVuYWJsZWQgKQ0KPj4gKyAgICAg
+ICAgICAgIGNtZCB8PSBQQ0lfQ09NTUFORF9JTlRYX0RJU0FCTEU7DQo+PiArICAgICAgICBlbHNl
+DQo+PiArICAgICAgICB7DQo+PiArICAgICAgICAgICAgdWludDE2X3QgY3VycmVudF9jbWQgPSBw
+Y2lfY29uZl9yZWFkMTYocGRldi0+c2JkZiwgcmVnKTsNCj4+ICsNCj4+ICsgICAgICAgICAgICBp
+ZiAoIGN1cnJlbnRfY21kICYgUENJX0NPTU1BTkRfSU5UWF9ESVNBQkxFICkNCj4+ICsgICAgICAg
+ICAgICAgICAgY21kIHw9IFBDSV9DT01NQU5EX0lOVFhfRElTQUJMRTsNCj4+ICsgICAgICAgIH0N
+Cj4gVGhpcyBsYXN0IHBhcnQgc2hvdWxkIGJlIEFybSBzcGVjaWZpYy4gT24gb3RoZXIgYXJjaGl0
+ZWN0dXJlcyB3ZQ0KPiBsaWtlbHkgd2FudCB0aGUgZ3Vlc3QgdG8gbW9kaWZ5IElOVHggZGlzYWJs
+ZSBpbiBvcmRlciB0byBzZWxlY3QgdGhlDQo+IGludGVycnVwdCBkZWxpdmVyeSBtb2RlIGZvciB0
+aGUgZGV2aWNlLg0KVGhpcyBpcyBub3QgYXJjaCBzcGVjaWZpYyBhcyB3ZSBqdXN0IGRvIG5vdCBh
+bGxvdyBJTlR4IHRvIGJlIGVuYWJsZWQNCmlmIE1TSS9NU0ktWCBoYXMgYmVlbiBlbmFibGVkIGJl
+Zm9yZS4gVGhpcyB3YXMgZGlzY3Vzc2VkIHByZXZpb3VzbHkNCihKYW4pIGFuZCB0aGlzIHdhcyBw
+b2ludGVkIGFzIGFuIGFjY2VwdGFibGUgYXBwcm9hY2ggdG8gbGltaXQgdGhlDQpndWVzdCBmcm9t
+IGhhdmluZyBpbmNvbnNpc3RlbnQgY29uZmlndXJhdGlvbg0KPg0KPiBJIHJlYWxseSB3b25kZXIg
+aWYgd2Ugc2hvdWxkIGFsbG93IHRoZSBndWVzdCB0byBwbGF5IHdpdGggYW55IG90aGVyDQo+IGJp
+dCBhcGFydCBmcm9tIElOVHggZGlzYWJsZSBhbmQgbWVtb3J5IGFuZCBJTyBkZWNvZGluZyBvbiB0
+aGUgY29tbWFuZA0KPiByZWdpc3Rlci4NClRoaXMgbmVlZHMgdG8gYmUgaW1wbGVtZW50ZWQgb25l
+IGRheSB3aGVuIHdlIHVuZGVyc3RhbmQgd2hhdA0KdGhpcyBlbXVsYXRpb24gc2hvdWxkIGxvb2sg
+bGlrZS4gVGhpcyBpcyB3aHkgSSBoYXZlIGEgIlRPRE8iIGFib3ZlLg0KPg0KPiBUaGFua3MsIFJv
+Z2VyLg0KVGhhbmsgeW91LA0KT2xla3NhbmRy
 
