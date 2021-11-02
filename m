@@ -2,44 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0C7B442861
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Nov 2021 08:29:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.219736.380698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44C134428B5
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Nov 2021 08:39:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.219744.380709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhoEU-0006AQ-RP; Tue, 02 Nov 2021 07:29:22 +0000
+	id 1mhoN7-0007hj-T4; Tue, 02 Nov 2021 07:38:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 219736.380698; Tue, 02 Nov 2021 07:29:22 +0000
+Received: by outflank-mailman (output) from mailman id 219744.380709; Tue, 02 Nov 2021 07:38:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhoEU-000671-OI; Tue, 02 Nov 2021 07:29:22 +0000
-Received: by outflank-mailman (input) for mailman id 219736;
- Tue, 02 Nov 2021 07:29:21 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1mhoN7-0007ef-PD; Tue, 02 Nov 2021 07:38:17 +0000
+Received: by outflank-mailman (input) for mailman id 219744;
+ Tue, 02 Nov 2021 07:38:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hRh8=PV=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mhoET-00066v-H9
- for xen-devel@lists.xenproject.org; Tue, 02 Nov 2021 07:29:21 +0000
-Received: from smtp-out2.suse.de (unknown [195.135.220.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 97237354-3bae-11ec-8552-12813bfff9fa;
- Tue, 02 Nov 2021 07:29:19 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7DE081FD75;
- Tue,  2 Nov 2021 07:29:18 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3755C13B73;
- Tue,  2 Nov 2021 07:29:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id O1c2DM7ogGGsTQAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 02 Nov 2021 07:29:18 +0000
+ (envelope-from <SRS0=uKY1=PV=arm.com=Wei.Chen@srs-us1.protection.inumbo.net>)
+ id 1mhoN6-0007eZ-Eo
+ for xen-devel@lists.xenproject.org; Tue, 02 Nov 2021 07:38:16 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
+ [2a01:111:f400:7e1a::61c])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bec40b01-e334-41e9-b14f-493a22cd2d56;
+ Tue, 02 Nov 2021 07:38:13 +0000 (UTC)
+Received: from AM5PR0402CA0014.eurprd04.prod.outlook.com
+ (2603:10a6:203:90::24) by DB8PR08MB5273.eurprd08.prod.outlook.com
+ (2603:10a6:10:e8::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.17; Tue, 2 Nov
+ 2021 07:38:10 +0000
+Received: from VE1EUR03FT049.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:203:90:cafe::85) by AM5PR0402CA0014.outlook.office365.com
+ (2603:10a6:203:90::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.14 via Frontend
+ Transport; Tue, 2 Nov 2021 07:38:10 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT049.mail.protection.outlook.com (10.152.19.216) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4649.14 via Frontend Transport; Tue, 2 Nov 2021 07:38:10 +0000
+Received: ("Tessian outbound 4ce13939bd4a:v108");
+ Tue, 02 Nov 2021 07:38:09 +0000
+Received: from 36b90b1a0f5a.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 7BA2CF52-8316-4815-B0F8-672B88A6CC51.1; 
+ Tue, 02 Nov 2021 07:37:59 +0000
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 36b90b1a0f5a.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 02 Nov 2021 07:37:59 +0000
+Received: from DB9PR08MB6857.eurprd08.prod.outlook.com (2603:10a6:10:2a2::7)
+ by DB6PR0801MB1879.eurprd08.prod.outlook.com (2603:10a6:4:73::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.18; Tue, 2 Nov
+ 2021 07:37:55 +0000
+Received: from DB9PR08MB6857.eurprd08.prod.outlook.com
+ ([fe80::b974:8325:d5ae:e8a5]) by DB9PR08MB6857.eurprd08.prod.outlook.com
+ ([fe80::b974:8325:d5ae:e8a5%3]) with mapi id 15.20.4649.019; Tue, 2 Nov 2021
+ 07:37:55 +0000
+Received: from [10.169.188.84] (203.126.0.112) by
+ SG2PR06CA0139.apcprd06.prod.outlook.com (2603:1096:1:1f::17) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4649.15 via Frontend Transport; Tue, 2 Nov 2021 07:37:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,721 +74,230 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97237354-3bae-11ec-8552-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1635838158; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=NZOKAi+4w30Ha7yal6QzroDXpsbrhT8rQhOgaSficdI=;
-	b=D5tqGnzgFPxv6MxI3NHOZdRrv7HTtSFBEBE5f0pTdSoP2NkwkshItB0ezx0YqlFvk00FFQ
-	ax5ILWEWXYjOYr9DqOXy3fu1a7I+I9htgBLTi1u0q09vs2z9jibjmcCAw4wyVpQDr9wz8k
-	qkVSsghpYT+3qi++p0f9Hot90zLrG0I=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [[PATCH v2.1 07/15] xen: generate hypercall interface related code
-Date: Tue,  2 Nov 2021 08:29:15 +0100
-Message-Id: <20211102072915.12361-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-MIME-Version: 1.0
+X-Inumbo-ID: bec40b01-e334-41e9-b14f-493a22cd2d56
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JxghCdd8Lo8ENFDjUBpbNTbKyeQ+3JEpBY0azmnY/UI=;
+ b=Asu0+t2FQjoSTXeTcG5ZTLUwVoFNwRvHpZeic/vv7brCO76hu4VyRIAgH6CZ4GvCneLJuwUCyzD7AF3mtjE4t/czC5M0HgtEkePChOGEr+Qgx7jl3v2OZyjTKdciUnVfDkf9TzrwgU69xMwvsNVThtyZ9APdGcSPHqxS20gY8uk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 07257a2aa4e43840
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lH70X3k7YSagjSZ2wIwLdzx7GWJMA8XH4fDvCn5PWujJJciLVebQcyR10llWgoFYD4qvnGzglwl29VTmX8t0Z0Smm1i63qV50oC+bJcF1Mk12ClZGwgzXyEpy++5rwp5puXXhOoJGLs3Xu8VP8vWLEZYfQ9gkibJuVg2dtc/UvokLYXWYWKf93D0KsdE8jn/QVEUpy7zPL0FNT637IUp/a65yG/LHJu6ZizikfZKY0IuAgvcXCd5zXY/uNiysbY5EfRqafyCFZiSM137ODk5knSVHUlvSfGqqJIlgpDH43U0rfz8E6IS3KKXZh5ZUu/YhQoZWN4bHS/f6UgpxxKFvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JxghCdd8Lo8ENFDjUBpbNTbKyeQ+3JEpBY0azmnY/UI=;
+ b=MWRtIhcdeqME0a9drV3T29L2Oy4gr+ObFnm9S4XJgXnvY5YZxKSrzI6qc9vlg89yxdPRR9JwlqrCyG+06qK0E9oWiCViJfnRob9FRUO+QjqEhGJ7+RunUBImnFM4NHL47Bouh8qnIRTXTAq7vu72RuOG98vRkH/MmNH0euf4JOk4T5jx+MYxdJEvhdGJ+fC83rF6Yy8DnS7OhNJ7+OBA3B6XjFDG7mWjv6GrZ8u+V0g0jCQBfdSYYoUjrmER67KIMK5Ki+nTuPw31aXR9+yuUsmbXJeg4aLijrlHEuba6fvxyabc5j1S6U5ms89rLznq+2ARa7LLidu5qoo7ohhoug==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JxghCdd8Lo8ENFDjUBpbNTbKyeQ+3JEpBY0azmnY/UI=;
+ b=Asu0+t2FQjoSTXeTcG5ZTLUwVoFNwRvHpZeic/vv7brCO76hu4VyRIAgH6CZ4GvCneLJuwUCyzD7AF3mtjE4t/czC5M0HgtEkePChOGEr+Qgx7jl3v2OZyjTKdciUnVfDkf9TzrwgU69xMwvsNVThtyZ9APdGcSPHqxS20gY8uk=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Message-ID: <74ea74b7-d9e9-a030-753d-a1108cc244d0@arm.com>
+Date: Tue, 2 Nov 2021 15:37:52 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.0
+From: Wei Chen <Wei.Chen@arm.com>
+Subject: Re: [PATCH] xen/arm: fix SBDF calculation for vPCI MMIO handlers
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Bertrand Marquis
+ <bertrand.marquis@arm.com>, "sstabellini@kernel.org"
+ <sstabellini@kernel.org>, Rahul Singh <rahul.singh@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20211027082533.1406015-1-andr2000@gmail.com>
+ <cb7e9ef7-476e-93c3-d3c9-9a9ebc61003d@xen.org>
+ <d63c6e0b-8aa3-9ba3-893c-5e464638a8db@epam.com>
+ <YXqnS7iZUvokJby6@Air-de-Roger>
+ <3206478e-f230-cd91-5de9-85ef6c251405@epam.com>
+ <YXrJyLMiMxaNmFAs@Air-de-Roger>
+ <5de6c2f1-ef5c-9d8c-4287-9b0e3ff08b34@epam.com>
+ <YXuj4frtHIRuSgOO@Air-de-Roger>
+ <0ba7aa82-40bc-c0d3-38a2-8c4d141d0afd@epam.com>
+Content-Language: en-US
+In-Reply-To: <0ba7aa82-40bc-c0d3-38a2-8c4d141d0afd@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SG2PR06CA0139.apcprd06.prod.outlook.com
+ (2603:1096:1:1f::17) To DB9PR08MB6857.eurprd08.prod.outlook.com
+ (2603:10a6:10:2a2::7)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4011dc7f-7312-492b-1bb3-08d99dd3b838
+X-MS-TrafficTypeDiagnostic: DB6PR0801MB1879:|DB8PR08MB5273:
+X-Microsoft-Antispam-PRVS:
+	<DB8PR08MB52730E5D6A0F14BA012AFE889E8B9@DB8PR08MB5273.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ W7BmzTotlSkYvyCHvcAOP8TdesP7WZ2OUa8B1PjC/p3pXt8fcD3p/RtMN+rq1lzKoNwjWK8pytyAsXlTydQcxa1F8byd7kcOfJ1vo7sYgNEDXf/Fq/jRTaOJESRZ+x+QmL76mfymAGbgIngi0ympJspdzMJ5/wvdLkPePQQ5+BBev/hcAdF7cREZM8QWdTB54nFhlpUEEQhXkKCXQZdk2rmfAwVftoCu9hWTP/IBGhott2x+ga3oJwJYPRAu75+2BuQrYcjKLR2bGmgwXDXXif+2oE41YsX6W60RpA1SXimM0tz9+03dWKoxVo6FFiDKseH/kE9jn+QaC6FrdZi8W/NNqEyaZ8cJZpFQjIC5E0sE7QXI1Yhg6BCowQXtY7B1hCl8K/iyfcYelOWbwnTlL3Z9VQ0KecyL5b0prrFK6372d1/p5FBl+0rWUUNH5yIBUO31bM2f5efFgSN4V7v8TYoY79mzgmGB6yCGG2S1D5Hcj1ERTqg6bJjnw8VwfT+KV3ah357Rt+JjpsbtvBt1q6VN67084En0BUmD6BAjquvKt04CRI5HfD4czNxxemzyfN97foXLTOnmRZafiJWit3XeHGRBfnDWoa8nBYBHiKpzgEm0ep+am4FehA91wSOjY8V3BI/DJYm6mOF7+0/ZP9Q4jOcoy2i/QP7ZCepppwJzFwi1ebbWevduz8OsrCCFdqRn/KkljmOuwmQ8Gj0VfH/TZqtffwU+jg+0CY55gA4=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB9PR08MB6857.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(2616005)(66946007)(6486002)(83380400001)(66556008)(4326008)(31686004)(956004)(8936002)(8676002)(186003)(38100700002)(66476007)(110136005)(5660300002)(316002)(86362001)(53546011)(31696002)(508600001)(26005)(16576012)(2906002)(36756003)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0801MB1879
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT049.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	6dea55ac-eb21-47b6-a257-08d99dd3af18
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	p7TP/js0uR3wcU/QKCNQPM9IStUL60DBs/6BBEpQojJGsqEyEFMdxFxR3miPhjhBukwjsJl4xV6MbVUFwb2gwLx5DmcuzatodVsq1fHKGXsF5S8ZyzUWTkk9io+Zh/L5hRnymBX+rUkbXo/7cEmHYcE8OLQ+Fjrf80EQsQqv8zxNGIYHlEaTN/aeQjuYY1mNnOYPQbKh6iVfE8iTatBPXRUhVKtpXj7pKFM4TakuxiFhOEpumJKE/FwOyQC/6kVKYW5hyimrNOtLc3YFCg1FmwXHwD5sQROxaTq1aW6Hl7Zf4ZwaEaw/0ZuwbSGP3iPuIIWlB1jDQM8gazXH0s5haVyw1EF/G6beeKco+lqvCJfC9POJciFTbv3038oZ9WahoCr4/qrMdHYVBbkAaHwHOVXDXtzJ1owyXHZETM7W24foNisVCFLIMm7da1Wqif26SMdS1aSow7j0oan2eJzRCADb0Pc9YY5BEhiIhEI4QlGXpCghkRitqINEzZNo9XN8jqnklYVkg+CVsgv/SJyNes6JzVWkyuhYglclUlwpE7ANDoJKmdtZ6arTddtJGoovZbNyT/zsQpJCM/wjrniYmX8nOpCzsBXDHpcC1xWGoMlLo6dzQuze3wWDbrssMMS4uNHm7cQapOmZj4glOWBEftKq8e6fSwmlXSmIiO7FaP5kdMGvVV9NRh3Ckf02wWoSiaNIPthgeTiiQL/lMjzSpLhy6DN6wzw/04T+DjzMaq8=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(31686004)(336012)(5660300002)(26005)(508600001)(36860700001)(86362001)(82310400003)(36756003)(2616005)(956004)(2906002)(31696002)(47076005)(70206006)(316002)(8936002)(356005)(6486002)(16576012)(54906003)(70586007)(53546011)(4326008)(81166007)(186003)(110136005)(8676002)(83380400001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2021 07:38:10.2551
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4011dc7f-7312-492b-1bb3-08d99dd3b838
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT049.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5273
 
-Instead of repeating similar data multiple times use a single source
-file and a generator script for producing prototypes and call sequences
-of the hypercalls.
+Hi Oleksandr,
 
-As the script already knows the number of parameters used add generating
-a macro for populating an array with the number of parameters per
-hypercall.
+On 2021/11/1 14:14, Oleksandr Andrushchenko wrote:
+> 
+> 
+> On 29.10.21 10:33, Roger Pau Monné wrote:
+>> On Thu, Oct 28, 2021 at 05:55:25PM +0000, Oleksandr Andrushchenko wrote:
+>>>
+>>> On 28.10.21 19:03, Roger Pau Monné wrote:
+>>>> On Thu, Oct 28, 2021 at 02:23:34PM +0000, Oleksandr Andrushchenko wrote:
+>>>>> On 28.10.21 16:36, Roger Pau Monné wrote:
+>>>>>> On Thu, Oct 28, 2021 at 12:09:23PM +0000, Oleksandr Andrushchenko wrote:
+>>>>>>> Hi, Julien!
+>>>>>>>
+>>>>>>> On 27.10.21 20:35, Julien Grall wrote:
+>>>>>>>> Hi Oleksandr,
+>>>>>>>>
+>>>>>>>> On 27/10/2021 09:25, Oleksandr Andrushchenko wrote:
+>>>>>>>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>>>>>>>>>
+>>>>>>>>> While in vPCI MMIO trap handlers for the guest PCI host bridge it is not
+>>>>>>>>> enough for SBDF translation to simply call VPCI_ECAM_BDF(info->gpa) as
+>>>>>>>>> the base address may not be aligned in the way that the translation
+>>>>>>>>> always work. If not adjusted with respect to the base address it may not be
+>>>>>>>>> able to properly convert SBDF and crashes:
+>>>>>>>>>
+>>>>>>>>> (XEN) vpci_mmio_read 0000:65:1a.0 reg 8bc gpa e65d08bc
+>>>>>>>> I can't find a printk() that may output this message. Where does this comes from?
+>>>>>>> That was a debug print. I shouldn't have used that in the patch description, but
+>>>>>>> probably after "---" to better explain what's happening
+>>>>>>>> Anyway, IIUC the guest physical address is 0xe65d08bc which, if I am not mistaken, doesn't belong to the range advertised for GUEST_VPCI_ECAM.
+>>>>>>> This is from dom0 I am working on now.
+>>>>>>>> IMHO, the stack trace should come from usptream Xen or need some information to explain how this was reproduced.
+>>>>>>>>
+>>>>>>>>> (XEN) Data Abort Trap. Syndrome=0x6
+>>>>>>>>> (XEN) Walking Hypervisor VA 0x467a28bc on CPU0 via TTBR 0x00000000481d5000
+>>>>>>>> I can understnad that if we don't substract GUEST_VPCI_ECAM, we would (in theory) not get the correct BDF. But... I don't understand how this would result to a data abort in the hypervisor.
+>>>>>>>>
+>>>>>>>> In fact, I think the vPCI code should be resilient enough to not crash if we pass the wrong BDF.
+>>>>>>> Well, there is no (?) easy way to validate SBDF. And this could be a problem if we have a misbehaving
+>>>>>>> guest which may force Xen to access the memory beyond that of PCI host bridge
+>>>>>> How could that be? The ECAM region exposed to the guest you should be
+>>>>>> the same as the physical one for dom0?
+>>>>> Ok, I have a Designware PCI hist which has 2 ECAM regions (I am starting to
+>>>>> implement the driver for it, so I can be wrong here):
+>>>>> - Root Complex ECAM area ("dbi"), it is something like 0x3000 bytes long
+>>>>> - "Client" ECAM area ("config")
+>>>>> So from Dom0 POV we have 2 ECAM regions and for the guest
+>>>>> we always emulate a single big region:
+>>>> You need support for multiple ECAM regions. That's how we do it on x86
+>>>> PVH dom0. See register_vpci_mmcfg_handler and related machinery.
+>>> Is it common for a PCI host bridge to have multiple ECAM regions?
+>>> Currently on Arm we were about to support "pci-host-ecam-generic" [1],
+>>> e.g. generic ECAM host bridge which normally (?) has a single ECAM
+>>> region [2]. But the host bridge I want to support has multiple, so
+>>> strictly speaking it is not the one that we implement.
+>> It's possible on x86 to have multiple ECAM regions, whether that means
+>> multiple host bridges, or host bridges having multiple ECAM regions is
+>> unknown to me. It's all reported in the MCFG ACPI table (see PCI
+>> Firmware document for the detailed description of MCFG) using the
+>> "Configuration Space Base Address Allocation Structure", and there can
+>> be multiple of those structures.
+> As we are currently supporting generic ECAM host bridge which
+> has a single ECAM region I think the existing code we have and
+> about to upstream is ok as is for now.
+> I own a bridge which has 2 ECAM regions, so I will work towards
+> adding its support soon.
+>>
+>>> Arm folks, do we want this generalization at this moment to align with x86
+>>> with this respect?
+>>>
+>>> We can live with the current approach and when I have my driver implemented
+>>> I can send patches to make that generalization.
+>>>>> /*
+>>>>>      * 256 MB is reserved for VPCI configuration space based on calculation
+>>>>>      * 256 buses x 32 devices x 8 functions x 4 KB = 256 MB
+>>>>>      */
+>>>>> #define GUEST_VPCI_ECAM_BASE    xen_mk_ullong(0x10000000)
+>>>>> #define GUEST_VPCI_ECAM_SIZE    xen_mk_ullong(0x10000000)
+>>>>>
+>>>>> So, we have the base address and size of the emulated ECAM space
+>>>>> not connected to the real host bridge
+>>>>>> And for domUs you really need to fix vpci_{read,write} to not
+>>>>>> passthrough accesses not explicitly handled.
+>>>>> Do you mean that we need to validate SBDFs there?
+>>>>> This can be tricky if we have a use-case when a PCI device being
+>>>>> passed through if not put at 0000:00:0.0, but requested to be, for
+>>>>> example, 0000:0d:0.0. So, we need to go over the list of virtual
+>>>>> devices and see if SBDF the guest is trying to access is a valid SBDF.
+>>>>> Is this what you mean?
+>>>> No, you need to prevent accesses to registers not explicitly handled
+>>>> by vpci. Ie: do not forward unhandled accesses to
+>>>> vpci_{read,wrie}_hw).
+>>> I see, so those which have no handlers are not passed to the hardware.
+>>> I need to see how to do that
+>> Indeed. Without fixing that passthrough to domUs is completely unsafe,
+>> as you allow domUs full access to registers not explicitly handled by
+>> current vPCI code.
+> Well, my understanding is: we can let the guest access whatever
+> registers it wants with the following exceptions:
+> - "special" registers we already trap in vPCI, e.g. command, BARs
+> - we must not let the guest go out of the configuration space of a
+> specific PCI device, e.g. prevent it from accessing configuration
+> spaces of other devices.
+> The rest accesses seem to be ok to me as we do not really want:
+> - have handlers and emulate all possible registers
+> - we do not want the guest to fail if it accesses a valid register which
+> we do not emulate.
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- split platform_op for doe and compat prefixes (Jan Beulich)
-- add "addline:" directive
-- add priorities to handlers (Jan Beulich)
-V2.1:
-- add missing "delete" statement in awk script
-- optimize case of 2 hypercalls with same priority
----
- .gitignore                    |   1 +
- xen/Makefile                  |  10 ++
- xen/include/hypercall-defs.c  | 285 ++++++++++++++++++++++++++++++
- xen/scripts/gen_hypercall.awk | 319 ++++++++++++++++++++++++++++++++++
- 4 files changed, 615 insertions(+)
- create mode 100644 xen/include/hypercall-defs.c
- create mode 100644 xen/scripts/gen_hypercall.awk
+I am tring to review your patch, please point out if there is anything
+wrong. IIUC, vPCI only emulates some registers, and forward unhandled
+accesses to physical device configuration space (if the accesses passed 
+the validate.)?
+Does that make the context inconsistent in physical device's 
+configuration space? For example, one register in physical device
+config space is related to another register. But we just emulate
+only one in vPCI?
 
-diff --git a/.gitignore b/.gitignore
-index 9513506dd9..753a602e29 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -336,6 +336,7 @@ xen/include/public/public
- xen/include/xen/*.new
- xen/include/xen/acm_policy.h
- xen/include/xen/compile.h
-+xen/include/xen/hypercall-defs.h
- xen/include/xen/lib/x86/cpuid-autogen.h
- xen/test/livepatch/config.h
- xen/test/livepatch/expect_config.h
-diff --git a/xen/Makefile b/xen/Makefile
-index a3189eb47c..dfdae47e74 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -383,6 +383,7 @@ _clean: delete-unfresh-files
- 		-o -name "*.gcno" -o -name ".*.cmd" -o -name "lib.a" \) -exec rm -f {} \;
- 	rm -f include/asm $(TARGET) $(TARGET).gz $(TARGET).efi $(TARGET).efi.map $(TARGET)-syms $(TARGET)-syms.map *~ core
- 	rm -f asm-offsets.s include/asm-*/asm-offsets.h
-+	rm -f include/xen/hypercall-defs.h include/hypercall-defs.i
- 	rm -f .banner .allconfig.tmp
- 
- .PHONY: _distclean
-@@ -405,6 +406,7 @@ $(TARGET): delete-unfresh-files
- 	$(MAKE) -f $(BASEDIR)/Rules.mk -C include
- 	$(MAKE) -f $(BASEDIR)/Rules.mk -C arch/$(TARGET_ARCH) include
- 	$(MAKE) -f $(BASEDIR)/Rules.mk include/asm-$(TARGET_ARCH)/asm-offsets.h
-+	$(MAKE) -f $(BASEDIR)/Rules.mk include/xen/hypercall-defs.h
- 	$(MAKE) -f $(BASEDIR)/Rules.mk -C arch/$(TARGET_ARCH) $@
- 
- # drivers/char/console.o contains static banner/compile info. Blow it away.
-@@ -466,6 +468,14 @@ include/asm-$(TARGET_ARCH)/asm-offsets.h: asm-offsets.s
- 	  echo ""; \
- 	  echo "#endif") <$< >$@
- 
-+quiet_cmd_genhyp = GEN     $@
-+define cmd_genhyp
-+    awk -f scripts/gen_hypercall.awk <$< >$@
-+endef
-+
-+include/xen/hypercall-defs.h: include/hypercall-defs.i scripts/gen_hypercall.awk FORCE
-+	$(call if_changed,genhyp)
-+
- SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test
- define all_sources
-     ( find include/asm-$(TARGET_ARCH) -name '*.h' -print; \
-diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
-new file mode 100644
-index 0000000000..c31a4a302c
---- /dev/null
-+++ b/xen/include/hypercall-defs.c
-@@ -0,0 +1,285 @@
-+/*
-+ * Hypercall interface description:
-+ * Used by scripts/gen_hypercall.awk to generate hypercall prototypes and call
-+ * sequences.
-+ *
-+ * Syntax is like a prototype, but without return type and without the ";" at
-+ * the end. Pointer types will be automatically converted to use the
-+ * XEN_GUEST_HANDLE_PARAM() macro. Handlers with no parameters just use a
-+ * definition like "fn()".
-+ * Hypercall/function names are without the leading "__HYPERVISOR_"/"do_"
-+ * strings.
-+ *
-+ * The return type of a class of prototypes using the same prefix is set via:
-+ * rettype: <prefix> <type>
-+ * Default return type is "long". A return type for a prefix can be set only
-+ * once and it needs to be set before that prefix is being used via the
-+ * "prefix:" directive.
-+ *
-+ * The prefix of the prototypes is set via a line:
-+ * prefix: <prefix> ...
-+ * Multiple prefixes are possible (restriction see below). Prefixes are without
-+ * a trailing "_". The current prefix settings are active until a new "prefix:"
-+ * line.
-+ *
-+ * Caller macros are suffixed with a selectable name via lines like:
-+ * caller: <suffix>
-+ * When a caller suffix is active, there is only one active prefix allowed.
-+ *
-+ * With a "defhandle:" line it is possible to add a DEFINE_XEN_GUEST_HANDLE()
-+ * to the generated header:
-+ * defhandle: <handle-type> [<type>]
-+ * Without specifying <type> only a DEFINE_XEN_GUEST_HANDLE(<handle-type>)
-+ * will be generated, otherwise it will be a
-+ * __DEFINE_XEN_GUEST_HANDLE(<handle-type>, <type>) being generated. Note that
-+ * the latter will include the related "const" handle "const_<handle-type>".
-+ *
-+ * In order to support using coding style compliant pointers in the
-+ * prototypes it is possible to add translation entries to generate the correct
-+ * handle types:
-+ * handle: <handle-type> <type>
-+ * This will result in the prototype translation from "<type> *" to
-+ * "XEN_GUEST_HANDLE_PARAM(<handle-type>)".
-+ *
-+ * A verbatim line can be added via:
-+ * addline: <line-contents>
-+ * Its position is kept in regard of other "handle:" and "defhandle:" lines.
-+ *
-+ * The hypercall handler calling code will be generated from a final table in
-+ * the source file, which is started via the line:
-+ * table: <caller> <caller> ...
-+ * with the <caller>s specifying the designated caller macro of each column of
-+ * the table. Any column of a <caller> not having been set via a "caller:"
-+ * line will be ignored.
-+ * The first column of the table contains the hypercall/prototype, each
-+ * <caller> column contains the prefix for the function to use for that caller.
-+ * A function prefix can be annotated with a priority by adding ":<prio>" to it
-+ * ("1" being the highest priority, higher numbers mean lower priority, no
-+ * priority specified is the lowest priority). The generated code will try to
-+ * achieve better performance for calling high priority handlers.
-+ * A column not being supported by a <caller> is marked with "-". Lines with all
-+ * entries being "-" after removal of inactive <caller> columns are ignored.
-+ *
-+ * This file is being preprocessed using $(CPP), so #ifdef CONFIG_* conditionals
-+ * are possible.
-+ */
-+
-+#ifdef CONFIG_HVM
-+#define PREFIX_hvm hvm
-+#else
-+#define PREFIX_hvm
-+#endif
-+
-+#ifdef CONFIG_COMPAT
-+#define PREFIX_compat compat
-+rettype: compat int
-+#else
-+#define PREFIX_compat
-+#endif
-+
-+#ifdef CONFIG_ARM
-+#define PREFIX_dep dep
-+#else
-+#define PREFIX_dep
-+#endif
-+
-+handle: uint unsigned int
-+handle: const_void const void
-+handle: const_char const char
-+
-+#ifdef CONFIG_COMPAT
-+defhandle: multicall_entry_compat_t
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+addline: typedef struct compat_platform_op compat_platform_op_t;
-+defhandle: compat_platform_op_t
-+#endif
-+#endif
-+#ifdef CONFIG_PV32
-+defhandle: trap_info_compat_t
-+defhandle: physdev_op_compat_t
-+#endif
-+
-+prefix: do PREFIX_hvm PREFIX_compat
-+physdev_op(int cmd, void *arg)
-+#if defined(CONFIG_GRANT_TABLE) || defined(CONFIG_PV_SHIM)
-+grant_table_op(unsigned int cmd, void *uop, unsigned int count)
-+#endif
-+
-+prefix: do PREFIX_hvm
-+memory_op(unsigned long cmd, void *arg)
-+
-+prefix: do PREFIX_compat
-+xen_version(int cmd, void *arg)
-+vcpu_op(int cmd, unsigned int vcpuid, void *arg)
-+sched_op(int cmd, void *arg)
-+xsm_op(void *op)
-+callback_op(int cmd, const void *arg)
-+#ifdef CONFIG_ARGO
-+argo_op(unsigned int cmd, void *arg1, void *arg2, unsigned long arg3, unsigned long arg4)
-+#endif
-+#ifdef CONFIG_KEXEC
-+kexec_op(unsigned int op, void *uarg)
-+#endif
-+#ifdef CONFIG_PV
-+iret()
-+nmi_op(unsigned int cmd, void *arg)
-+#ifdef CONFIG_XENOPROF
-+xenoprof_op(int op, void *arg)
-+#endif
-+#endif /* CONFIG_PV */
-+
-+#ifdef CONFIG_COMPAT
-+prefix: compat
-+set_timer_op(uint32_t lo, int32_t hi)
-+multicall(multicall_entry_compat_t *call_list, uint32_t nr_calls)
-+memory_op(unsigned int cmd, void *arg)
-+#ifdef CONFIG_IOREQ_SERVER
-+dm_op(domid_t domid, unsigned int nr_bufs, void *bufs)
-+#endif
-+mmuext_op(void *arg, unsigned int count, uint *pdone, unsigned int foreigndom)
-+#ifdef CONFIG_PV32
-+set_trap_table(trap_info_compat_t *traps)
-+set_gdt(unsigned int *frame_list, unsigned int entries)
-+set_callbacks(unsigned long event_selector, unsigned long event_address, unsigned long failsafe_selector, unsigned long failsafe_address)
-+update_descriptor(uint32_t pa_lo, uint32_t pa_hi, uint32_t desc_lo, uint32_t desc_hi)
-+update_va_mapping(unsigned int va, uint32_t lo, uint32_t hi, unsigned int flags)
-+physdev_op_compat(physdev_op_compat_t *uop)
-+update_va_mapping_otherdomain(unsigned int va, uint32_t lo, uint32_t hi, unsigned int flags, domid_t domid)
-+#endif
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+platform_op(compat_platform_op_t *u_xenpf_op)
-+#endif
-+#endif /* CONFIG_COMPAT */
-+
-+#if defined(CONFIG_PV) || defined(CONFIG_ARM)
-+prefix: do PREFIX_dep
-+event_channel_op_compat(evtchn_op_t *uop)
-+physdev_op_compat(physdev_op_t *uop)
-+/* Legacy hypercall (as of 0x00030101). */
-+sched_op_compat(int cmd, unsigned long arg)
-+#endif
-+
-+prefix: do
-+set_timer_op(s_time_t timeout)
-+console_io(unsigned int cmd, unsigned int count, char *buffer)
-+vm_assist(unsigned int cmd, unsigned int type)
-+event_channel_op(int cmd, void *arg)
-+mmuext_op(mmuext_op_t *uops, unsigned int count, unsigned int *pdone, unsigned int foreigndom)
-+multicall(multicall_entry_t *call_list, unsigned int nr_calls)
-+#ifdef CONFIG_PV
-+mmu_update(mmu_update_t *ureqs, unsigned int count, unsigned int *pdone, unsigned int foreigndom)
-+stack_switch(unsigned long ss, unsigned long esp)
-+fpu_taskswitch(int set)
-+set_debugreg(int reg, unsigned long value)
-+get_debugreg(int reg)
-+set_segment_base(unsigned int which, unsigned long base)
-+mca(xen_mc_t *u_xen_mc)
-+set_trap_table(const_trap_info_t *traps)
-+set_gdt(xen_ulong_t *frame_list, unsigned int entries)
-+set_callbacks(unsigned long event_address, unsigned long failsafe_address, unsigned long syscall_address)
-+update_descriptor(uint64_t gaddr, seg_desc_t desc)
-+update_va_mapping(unsigned long va, uint64_t val64, unsigned long flags)
-+update_va_mapping_otherdomain(unsigned long va, uint64_t val64, unsigned long flags, domid_t domid)
-+#endif
-+#ifdef CONFIG_IOREQ_SERVER
-+dm_op(domid_t domid, unsigned int nr_bufs, xen_dm_op_buf_t *bufs)
-+#endif
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+sysctl(xen_sysctl_t *u_sysctl)
-+domctl(xen_domctl_t *u_domctl)
-+paging_domctl_cont(xen_domctl_t *u_domctl)
-+platform_op(xen_platform_op_t *u_xenpf_op)
-+#endif
-+#ifdef CONFIG_HVM
-+hvm_op(unsigned long op, void *arg)
-+#endif
-+#ifdef CONFIG_HYPFS
-+hypfs_op(unsigned int cmd, const char *arg1, unsigned long arg2, void *arg3, unsigned long arg4)
-+#endif
-+#ifdef CONFIG_X86
-+xenpmu_op(unsigned int op, xen_pmu_params_t *arg)
-+#endif
-+
-+#ifdef CONFIG_PV
-+caller: pv64
-+#ifdef CONFIG_PV32
-+caller: pv32
-+#endif
-+#endif
-+#if defined(CONFIG_HVM) && defined(CONFIG_X86)
-+caller: hvm64
-+#ifdef CONFIG_COMPAT
-+caller: hvm32
-+#endif
-+#endif
-+#ifdef CONFIG_ARM
-+caller: arm
-+#endif
-+
-+table:                             pv32     pv64     hvm32    hvm64    arm
-+set_trap_table                     compat   do       -        -        -
-+mmu_update                         do:1     do:1     -        -        -
-+set_gdt                            compat   do       -        -        -
-+stack_switch                       do:2     do:2     -        -        -
-+set_callbacks                      compat   do       -        -        -
-+fpu_taskswitch                     do       do       -        -        -
-+sched_op_compat                    do       do       -        -        dep
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+platform_op                        compat   do       compat   do       do
-+#endif
-+set_debugreg                       do       do       -        -        -
-+get_debugreg                       do       do       -        -        -
-+update_descriptor                  compat   do       -        -        -
-+memory_op                          compat   do       hvm      hvm      do
-+multicall                          compat:2 do:2     compat   do       do
-+update_va_mapping                  compat   do       -        -        -
-+set_timer_op                       compat   do       compat   do       -
-+event_channel_op_compat            do       do       -        -        dep
-+xen_version                        compat   do       compat   do       do
-+console_io                         do       do       do       do       do
-+physdev_op_compat                  compat   do       -        -        dep
-+#if defined(CONFIG_GRANT_TABLE) || defined(CONFIG_PV_SHIM)
-+grant_table_op                     compat   do       hvm      hvm      do
-+#endif
-+vm_assist                          do       do       do       do       do
-+update_va_mapping_otherdomain      compat   do       -        -        -
-+iret                               compat:1 do:1     -        -        -
-+vcpu_op                            compat   do       compat:1 do:1     do
-+set_segment_base                   do:2     do:2     -        -        -
-+#ifdef CONFIG_PV
-+mmuext_op                          compat:2 do:2     compat   do       -
-+#endif
-+xsm_op                             compat   do       compat   do       do
-+nmi_op                             compat   do       -        -        -
-+sched_op                           compat   do       compat   do       do
-+callback_op                        compat   do       -        -        -
-+#ifdef CONFIG_XENOPROF
-+xenoprof_op                        compat   do       -        -        -
-+#endif
-+event_channel_op                   do       do       do:1     do:1     do
-+physdev_op                         compat   do       hvm      hvm      do
-+#ifdef CONFIG_HVM
-+hvm_op                             do       do       do       do       do
-+#endif
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+sysctl                             do       do       do       do       do
-+domctl                             do       do       do       do       do
-+#endif
-+#ifdef CONFIG_KEXEC
-+kexec_op                           compat   do       -        -        -
-+#endif
-+tmem_op                            -        -        -        -        -
-+#ifdef CONFIG_ARGO
-+argo_op                            compat   do       compat   do       do
-+#endif
-+xenpmu_op                          do       do       do       do       -
-+#ifdef CONFIG_IOREQ_SERVER
-+dm_op                              compat   do       compat   do       do
-+#endif
-+#ifdef CONFIG_HYPFS
-+hypfs_op                           do       do       do       do       do
-+#endif
-+mca                                do       do       -        -        -
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+paging_domctl_cont                 do       do       do       do       -
-+#endif
-diff --git a/xen/scripts/gen_hypercall.awk b/xen/scripts/gen_hypercall.awk
-new file mode 100644
-index 0000000000..c03e4273da
---- /dev/null
-+++ b/xen/scripts/gen_hypercall.awk
-@@ -0,0 +1,319 @@
-+# awk script to generate hypercall handler prototypes and a macro for doing
-+# the calls of the handlers inside a switch() statement.
-+
-+BEGIN {
-+    printf("/* Generated file, do not edit! */\n\n");
-+    e = 0;
-+    n = 0;
-+    p = 0;
-+    nc = 0;
-+}
-+
-+# Issue error to stderr
-+function do_err(msg) {
-+    print "Error: "msg": "$0 >"/dev/stderr";
-+    exit 1;
-+}
-+
-+# Generate handler call
-+function do_call(f, p,    i) {
-+    printf("            ret = %s_%s(", pre[f, p], fn[f]);
-+    for (i = 1; i <= n_args[f]; i++) {
-+        if (i > 1)
-+            printf(", ");
-+        if (ptr[f, i])
-+            printf("(XEN_GUEST_HANDLE_PARAM(%s)){ _p(a%d) }", typ[f, i], i);
-+        else
-+            printf("(%s)(a%d)", typ[f, i], i);
-+    }
-+    printf("); \\\n");
-+}
-+
-+# Generate case statement for call
-+function do_case(f, p) {
-+    printf("        case __HYPERVISOR_%s: \\\n", fn[f]);
-+    do_call(f, p);
-+    printf("            break; \\\n");
-+}
-+
-+# Generate switch statement for calling handlers
-+function do_switch(ca, p,    i) {
-+    printf("        switch ( num ) \\\n");
-+    printf("        { \\\n");
-+    for (i = 1; i <= nc; i++)
-+        if (call[i] == ca && call_prio[i] == p)
-+            do_case(call_fn[i], call_p[i]);
-+    printf("        default: \\\n");
-+    printf("            ret = -ENOSYS; \\\n");
-+    printf("            break; \\\n");
-+    printf("        } \\\n");
-+}
-+
-+function rest_of_line(par,    i, val) {
-+    val = $(par);
-+    for (i = par + 1; i <= NF; i++)
-+        val = val " " $(i);
-+    return val;
-+}
-+
-+# Handle comments (multi- and single line)
-+$1 == "/*" {
-+    comment = 1;
-+}
-+comment == 1 {
-+    if ($(NF) == "*/") comment = 0;
-+    next;
-+}
-+
-+# Skip preprocessing artefacts
-+$1 == "extern" {
-+    next;
-+}
-+/^#/ {
-+    next;
-+}
-+
-+# Drop empty lines
-+NF == 0 {
-+    next;
-+}
-+
-+# Handle "handle:" line
-+$1 == "handle:" {
-+    if (NF < 3)
-+        do_err("\"handle:\" requires at least two parameters");
-+    val = rest_of_line(3);
-+    xlate[val] = $2;
-+    next;
-+}
-+
-+# Handle "defhandle:" line
-+$1 == "defhandle:" {
-+    if (NF < 2)
-+        do_err("\"defhandle:\" requires at least one parameter");
-+    e++;
-+    if (NF == 2) {
-+        emit[e] = sprintf("DEFINE_XEN_GUEST_HANDLE(%s);", $2);
-+    } else {
-+        val = rest_of_line(3);
-+        emit[e] = sprintf("__DEFINE_XEN_GUEST_HANDLE(%s, %s);", $2, val);
-+        xlate[val] = $2;
-+    }
-+    next;
-+}
-+
-+# Handle "addline:" line
-+$1 == "addline:" {
-+    if (NF < 2)
-+        do_err("\"addline:\" requires at least one parameter");
-+    e++;
-+    emit[e] = rest_of_line(2);
-+    next;
-+}
-+
-+# Handle "rettype:" line
-+$1 == "rettype:" {
-+    if (NF < 3)
-+        do_err("\"rettype:\" requires at least two parameters");
-+    if ($2 in rettype)
-+        do_err("rettype can be set only once for each prefix");
-+    rettype[$2] = rest_of_line(3);
-+    next;
-+}
-+
-+# Handle "caller:" line
-+$1 == "caller:" {
-+    caller[$2] = 1;
-+    next;
-+}
-+
-+# Handle "prefix:" line
-+$1 == "prefix:" {
-+    p = NF - 1;
-+    for (i = 2; i <= NF; i++) {
-+        prefix[i - 1] = $(i);
-+        if (!(prefix[i - 1] in rettype))
-+            rettype[prefix[i - 1]] = "long";
-+    }
-+    next;
-+}
-+
-+# Handle "table:" line
-+$1 == "table:" {
-+    table = 1;
-+    for (i = 2; i <= NF; i++)
-+        col[i - 1] = $(i);
-+    n_cols = NF - 1;
-+    next;
-+}
-+
-+# Handle table definition line
-+table == 1 {
-+    if (NF != n_cols + 1)
-+        do_err("Table definition line has wrong number of fields");
-+    for (c = 1; c <= n_cols; c++) {
-+        if (caller[col[c]] != 1)
-+            continue;
-+        if ($(c + 1) == "-")
-+            continue;
-+        pref = $(c + 1);
-+        idx = index(pref, ":");
-+        if (idx == 0)
-+            prio = 100;
-+        else {
-+            prio = substr(pref, idx + 1) + 0;
-+            pref = substr(pref, 1, idx - 1);
-+            if (prio >= 100 || prio < 1)
-+                do_err("Priority must be in the range 1..99");
-+        }
-+        fnd = 0;
-+        for (i = 1; i <= n; i++) {
-+            if (fn[i] != $1)
-+                continue;
-+            for (j = 1; j <= n_pre[i]; j++) {
-+                if (pre[i, j] == pref) {
-+                    prios[col[c], prio]++;
-+                    if (prios[col[c], prio] == 1) {
-+                        n_prios[col[c]]++;
-+                        prio_list[col[c], n_prios[col[c]]] = prio;
-+                        prio_mask[col[c], prio] = "(1ULL << __HYPERVISOR_"$1")";
-+                    } else
-+                        prio_mask[col[c], prio] = prio_mask[col[c], prio] " | (1ULL << __HYPERVISOR_"$1")";
-+                    nc++;
-+                    call[nc] = col[c];
-+                    call_fn[nc] = i;
-+                    call_p[nc] = j;
-+                    call_prio[nc] = prio;
-+                    fnd = 1;
-+                }
-+            }
-+        }
-+        if (fnd == 0)
-+            do_err("No prototype for prefix/hypercall combination");
-+    }
-+    next;
-+}
-+
-+# Prototype line
-+{
-+    bro = index($0, "(");
-+    brc = index($0, ")");
-+    if (bro < 2 || brc < bro)
-+        do_err("No valid prototype line");
-+    n++;
-+    fn[n] = substr($0, 1, bro - 1);
-+    n_pre[n] = p;
-+    for (i = 1; i <= p; i++)
-+        pre[n, i] = prefix[i];
-+    args = substr($0, bro + 1, brc - bro - 1);
-+    n_args[n] = split(args, a, ",");
-+    if (n_args[n] > 5)
-+        do_err("Too many parameters");
-+    for (i = 1; i <= n_args[n]; i++) {
-+        sub("^ *", "", a[i]);         # Remove leading white space
-+        sub(" +", " ", a[i]);         # Replace multiple spaces with single ones
-+        sub(" *$", "", a[i]);         # Remove trailing white space
-+        ptr[n, i] = index(a[i], "*"); # Is it a pointer type?
-+        sub("[*]", "", a[i]);         # Remove "*"
-+        if (index(a[i], " ") == 0)
-+            do_err("Parameter with no type or no name");
-+        typ[n, i] = a[i];
-+        sub(" [^ ]+$", "", typ[n, i]);    # Remove parameter name
-+        if (ptr[n, i] && (typ[n, i] in xlate))
-+            typ[n, i] = xlate[typ[n, i]];
-+        arg[n, i] = a[i];
-+        sub("^([^ ]+ )+", "", arg[n, i]); # Remove parameter type
-+    }
-+}
-+
-+# Generate the output
-+END {
-+    # Verbatim generated lines
-+    for (i = 1; i <= e; i++)
-+        printf("%s\n", emit[i]);
-+    printf("\n");
-+    # Generate prototypes
-+    for (i = 1; i <= n; i++) {
-+        for (p = 1; p <= n_pre[i]; p++) {
-+            printf("%s %s_%s(", rettype[pre[i, p]], pre[i, p], fn[i]);
-+            if (n_args[i] == 0)
-+                printf("void");
-+            else
-+                for (j = 1; j <= n_args[i]; j++) {
-+                    if (j > 1)
-+                        printf(", ");
-+                    if (ptr[i, j])
-+                        printf("XEN_GUEST_HANDLE_PARAM(%s)", typ[i, j]);
-+                    else
-+                        printf("%s", typ[i, j]);
-+                    printf(" %s", arg[i, j]);
-+                }
-+            printf(");\n");
-+        }
-+    }
-+    # Generate call sequences and args array contents
-+    for (ca in caller) {
-+        if (caller[ca] != 1)
-+            continue;
-+        for (pl = 1; pl <= n_prios[ca]; pl++)
-+            p_list[pl] = prio_list[ca, pl];
-+        asort(p_list, p_list, "@val_num_asc");
-+        need_mask = 0;
-+        # If any prio but the default one has more than 1 entry we need "mask"
-+        for (pl = 1; pl < n_prios[ca]; pl++) {
-+            if (prios[ca, p_list[pl]] > 1)
-+                need_mask = 1;
-+        }
-+        printf("\n");
-+        printf("#define call_handlers_%s(num, ret, a1, a2, a3, a4, a5) \\\n", ca);
-+        printf("{ \\\n");
-+        if (need_mask)
-+            printf("    uint64_t mask = 1ULL << num; \\\n");
-+        printf("    ");
-+        for (pl = 1; pl <= n_prios[ca]; pl++) {
-+            if (prios[ca, p_list[pl]] > 1) {
-+                if (pl < n_prios[ca]) {
-+                    printf("if ( likely(mask & (%s)) ) \\\n", prio_mask[ca, p_list[pl]]);
-+                    printf("    { \\\n");
-+                }
-+                if (prios[ca, p_list[pl]] == 2) {
-+                    fnd = 0;
-+                    for (i = 1; i <= nc; i++)
-+                        if (call[i] == ca && call_prio[i] == p_list[pl]) {
-+                            fnd++;
-+                            if (fnd == 1)
-+                                printf("        if ( num == __HYPERVISOR_%s ) \\\n", fn[call_fn[i]]);
-+                            else
-+                                printf("        else \\\n");
-+                            do_call(call_fn[i], call_p[i]);
-+                        }
-+                } else {
-+                    do_switch(ca, p_list[pl]);
-+                }
-+                if (pl < n_prios[ca])
-+                    printf("    } \\\n");
-+            } else {
-+                for (i = 1; i <= nc; i++)
-+                    if (call[i] == ca && call_prio[i] == p_list[pl]) {
-+                        printf("if ( likely(num == __HYPERVISOR_%s) ) \\\n", fn[call_fn[i]]);
-+                        do_call(call_fn[i], call_p[i]);
-+                    }
-+            }
-+            if (pl < n_prios[ca] || prios[ca, p_list[pl]] <= 2)
-+                printf("    else ");
-+        }
-+        if (prios[ca, p_list[n_prios[ca]]] <= 2) {
-+            printf("\\\n");
-+            printf("        ret = -ENOSYS; \\\n");
-+        }
-+        printf("}\n");
-+        delete p_list;
-+        printf("\n");
-+        printf("#define hypercall_args_%s \\\n", ca);
-+        printf("{ \\\n");
-+        for (i = 1; i <= nc; i++)
-+            if (call[i] == ca)
-+                printf("[__HYPERVISOR_%s] = %d, \\\n", fn[call_fn[i]], n_args[call_fn[i]]);
-+        printf("}\n");
-+    }
-+}
--- 
-2.26.2
 
+>>
+>> Regards, Roger.
+>>
+> Thanks,
+> Oleksandr
+> 
 
