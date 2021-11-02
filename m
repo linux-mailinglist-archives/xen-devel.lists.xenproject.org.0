@@ -2,43 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7504A442B4E
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Nov 2021 11:04:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.219899.380959 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCBDF442B5D
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Nov 2021 11:07:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.219912.380973 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhqeK-0006fo-N8; Tue, 02 Nov 2021 10:04:12 +0000
+	id 1mhqha-0007QY-78; Tue, 02 Nov 2021 10:07:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 219899.380959; Tue, 02 Nov 2021 10:04:12 +0000
+Received: by outflank-mailman (output) from mailman id 219912.380973; Tue, 02 Nov 2021 10:07:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mhqeK-0006dN-JO; Tue, 02 Nov 2021 10:04:12 +0000
-Received: by outflank-mailman (input) for mailman id 219899;
- Tue, 02 Nov 2021 10:04:11 +0000
+	id 1mhqha-0007Ol-3o; Tue, 02 Nov 2021 10:07:34 +0000
+Received: by outflank-mailman (input) for mailman id 219912;
+ Tue, 02 Nov 2021 10:07:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hRh8=PV=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1mhqeJ-0006dH-2n
- for xen-devel@lists.xenproject.org; Tue, 02 Nov 2021 10:04:11 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ (envelope-from <SRS0=uxJb=PV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1mhqhY-0007OZ-Iq
+ for xen-devel@lists.xenproject.org; Tue, 02 Nov 2021 10:07:32 +0000
+Received: from de-smtp-delivery-102.mimecast.com (unknown [194.104.111.102])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c389749e-668f-481e-8b40-e45fb335c902;
- Tue, 02 Nov 2021 10:04:10 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2897E218F0;
- Tue,  2 Nov 2021 10:04:09 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 020AC13BF7;
- Tue,  2 Nov 2021 10:04:08 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id VBvWOhgNgWF/GAAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 02 Nov 2021 10:04:08 +0000
+ id 5a586ee4-b4c0-413e-b1a9-ded3784bfffd;
+ Tue, 02 Nov 2021 10:07:31 +0000 (UTC)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2055.outbound.protection.outlook.com [104.47.14.55]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-16-6OSzjXiMMkaJ3b7KySqK1w-1; Tue, 02 Nov 2021 11:07:29 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0401MB2606.eurprd04.prod.outlook.com (2603:10a6:800:51::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.18; Tue, 2 Nov
+ 2021 10:07:27 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4649.020; Tue, 2 Nov 2021
+ 10:07:27 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AS8PR05CA0003.eurprd05.prod.outlook.com (2603:10a6:20b:311::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4649.17 via Frontend Transport; Tue, 2 Nov 2021 10:07:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,333 +52,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c389749e-668f-481e-8b40-e45fb335c902
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1635847449; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 5a586ee4-b4c0-413e-b1a9-ded3784bfffd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1635847650;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=7U+/gX8cisnVTCRoPIKt5BMrxD6WwUxRMAZtEf1xHgU=;
-	b=ALmMmueaoPpY/834a9Uo4dzCanR9zrLOl4eC3SYPCaCyFTTIIS0RtPjanJl37nKvXzCW+n
-	Abprf0Kh3tY4Lta+Nd71hwIKLCZuXhSH0zfYRk312hD4zIbr+OxeCOZHWKtGN0Sx1A3oOo
-	yeaoOA0/99fh/MheIcOXPKVNWdSpiMY=
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20211015125152.25198-1-jgross@suse.com>
- <20211015125152.25198-11-jgross@suse.com>
- <88c3d815-912c-a92c-2e96-7eff6a454a75@suse.com>
- <1ab4b64f-720c-4f9a-043b-eefc5f6c387e@suse.com>
- <a436f15f-6ba4-e9f0-f65e-30f4b574bea5@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH 10/12] xen/x86: call hypercall handlers via switch
- statement
-Message-ID: <04613f92-0b28-d703-81c2-e0dd8cbc17fe@suse.com>
-Date: Tue, 2 Nov 2021 11:04:08 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <a436f15f-6ba4-e9f0-f65e-30f4b574bea5@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="qWMG1BDsL57PVNCnF7C9LUImGuwWqZdXC"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---qWMG1BDsL57PVNCnF7C9LUImGuwWqZdXC
-Content-Type: multipart/mixed; boundary="i04Ga5rNUaNCrjpITRiYr4q99eSemNoke";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <04613f92-0b28-d703-81c2-e0dd8cbc17fe@suse.com>
-Subject: Re: [PATCH 10/12] xen/x86: call hypercall handlers via switch
- statement
-References: <20211015125152.25198-1-jgross@suse.com>
- <20211015125152.25198-11-jgross@suse.com>
- <88c3d815-912c-a92c-2e96-7eff6a454a75@suse.com>
- <1ab4b64f-720c-4f9a-043b-eefc5f6c387e@suse.com>
- <a436f15f-6ba4-e9f0-f65e-30f4b574bea5@suse.com>
-In-Reply-To: <a436f15f-6ba4-e9f0-f65e-30f4b574bea5@suse.com>
-
---i04Ga5rNUaNCrjpITRiYr4q99eSemNoke
-Content-Type: multipart/mixed;
- boundary="------------4FA6F6BF4A77DC2BB82D2753"
+	bh=66QQFqZKeVpbZVfcEGP4/DZ21ZdlZJXnqBpiaD8q7EU=;
+	b=izpGEt/gDTnlai1eXihi3mvzciZR3iIiwKIIWrFyHPnldc/9AFKCG8mpeVBOl/dk1n7s6Z
+	G8VlX5mYqsfpYpCsHhu9Cz6b4WBdWdkHtLGVmctXzLsgDOigok5Et+g+XY5zdc6hBepmiF
+	We+AhEU51JiUPCzuq1vZ6ie1I4HJyDk=
+X-MC-Unique: 6OSzjXiMMkaJ3b7KySqK1w-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I9plEw5nqx0gYVsnDavqJwkHHeez79bepxji9X4OCU2o7QA1DrVIm0UnRpg/ASG1LfWUnYczzSt12LEXgDFNY5HZxtSW2TsC/gudnatdoy19DUoLaMgkKm8xAyhkb03jbGkwNJEXBp+25+HNADv24sIoWcLweBdC5le9huIN+2tyQusOKbfoFVrhkpoNQagXBu0JVrYMc30AAdz6iNH32GzWBQrICGWioIEVkoOmSDT7ZFNfAmotAuVCacgxK9dBDwe33jZh0IMkdOw+oHAMci2lv5gh5XcH+37YI3QoSw19LS3AeNaZ7qcArQuRCMgkuRPCBFtsCkCobUXSQ7AtUw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RIEivFqKRDzEOoFRkV4DZSKIayDa2JUjgLSJ+/6RFwU=;
+ b=ibN6C52UbrGZgQxBR+WBHeQ/GDmxgZ9cFj6FIbhVHic/7f+T3Cb7GFjKPSF7GwYs63pfob2qkZxPYrRM4MX/lVer7xt1iNvnYp2xxhEjrTBLh23tQNVHAvWK8aPH2tI8yGeyDnPGY6KKb0D+Cdd5BVzWqazinqIjQbvRdY8CeAPoI1qHAl+0+KtX+T7iNNZgnGA7dU+vHbQ/lgGWs2dcvR5k/cI2n9/eNMtT/a7KMH7GywJ5s5I+/CwXod2ZfImM2pc4pqTbdJZMfgcWVoMhGZIv2BWrNFvA4k1WtaA5X2jbQu3zTWqut9BIfq3YF9tVh3bJO16u9xw1Mud2a/CK5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <8beac790-874f-3953-6cca-677c9bddfcac@suse.com>
+Date: Tue, 2 Nov 2021 11:07:25 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.2.1
+Subject: Re: [PATCH v2 1/3] x86/IOMMU: mark IOMMU / intremap not in use when
+ ACPI tables are missing
 Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------4FA6F6BF4A77DC2BB82D2753
-Content-Type: text/plain; charset=utf-8; format=flowed
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>
+References: <09137aa2-649f-08fb-ba68-75f8eb16fc63@suse.com>
+ <efe34081-c813-0e37-175c-8553b395e6d9@suse.com>
+ <YXLeMsuykEhSdfUg@MacBook-Air-de-Roger.local>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <YXLeMsuykEhSdfUg@MacBook-Air-de-Roger.local>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AS8PR05CA0003.eurprd05.prod.outlook.com
+ (2603:10a6:20b:311::8) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6ede8b1c-bacb-47f1-a183-08d99de89311
+X-MS-TrafficTypeDiagnostic: VI1PR0401MB2606:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0401MB2606E80A79E65BB48412F5E7B38B9@VI1PR0401MB2606.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	JWDbs2F8gSqp3GYXscT6AzDHZeY61vkejOiwH57pmVJ7jSylZEHknBWymXtGsTnPgL7tcvQi+PCuFU+6020DILJCqrTcAG1NlvZab7oDWR0q+O/dSR5w12zL2XeI2n5cRDX53TuvG6h8O7opBEHFmpzYrD9mmuQCV4yLgOvSmpzLJRLx/HGPI2uI8+6P2VrMB1cjewbj8U/ycxB3bqdT7+f9p8SdBS9KkI/zQ7PV6Fe1VT9whyAb4x0eHgZRc0JTWXTs+cnHC/Q/zs2w+mclIwIX37Wur/x5lqvSPf6nHw1nENTAW1rpUu8di2U27DCaQT3WYt20RQFhW05+VEvJdUOUHJ5RK6r/ubKm25xnvQpoluoXvUhGi+PsN7syr7ZKGGTuswlc6EUdIUEVIWL/fowm1oC7Tak4HeV3nlITw9uLABdNQqVgQc0fGKArpgU60ZY1/Io56Ysg4N3HdqnpRNWB40TAvQTSoJ7Jz8X037kfw1nNkVB//Ku/DisfzUynTIgPQlPm9BnnaMe+vl1TPcP9lO529fsttmCBQBIJylXsaINQ+9eKVa/+OnvAFbIGat48Dn41UBvP4rwk3FBifUZI2dfkgTQG9Ys/L3RL0jebTbhBezfwkYU3fMTEetiLwP3b5U4tnU1+g7H4tw8FglV18gYb6TgVH57qGFJC67uH6K6VhgRMU5sgWt1Ob/JLvKC+e5MzAM/HgxNvLRggrCE0Qn0DYnOJe/SA+PYaKyV2ghr9eYWaBr2+U+00pq00
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2616005)(956004)(36756003)(66946007)(53546011)(6916009)(86362001)(5660300002)(8936002)(6486002)(66556008)(66476007)(38100700002)(26005)(8676002)(508600001)(186003)(31696002)(83380400001)(54906003)(16576012)(316002)(31686004)(2906002)(4326008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?S/cckqG4TEd1XhPkx0RAQD9DkMVuSDlRXLYQinajd7ODSbJMA+BHRyjlFMe1?=
+ =?us-ascii?Q?S62HSiBu+h4YS9LC2HAwZKJnF/Suk6H130GvH7zPi7LeE6m5T9ELsV28k2Om?=
+ =?us-ascii?Q?u27tnOucGTlFFcWt/JgO5uNWmlHQVTkwJyrmjnfkmCOHyqnI97CZDKXOOFPw?=
+ =?us-ascii?Q?F5ZJ5XUF/FkIec6SiNZDCaZM3YfgpSQYKOkO/4TPRJbphOmvZlPuh7Lk0U1u?=
+ =?us-ascii?Q?LXnx+raSiOixANecljCcuf13WaLV1hJyZOuCqxlh5DtNLERrtwPP/y68LUyy?=
+ =?us-ascii?Q?MCO/80sI/wlMPVUlXZEz6UoRtJ3d7nBP23JAfdIDdIP7LB6vNHXWWAgNsnH4?=
+ =?us-ascii?Q?pC/wmq5qZS6iCQs3+d4C6i9zSzCodCdvXD3sXRadn3fRJba3AQ02VmtoQZoO?=
+ =?us-ascii?Q?xgpjTLQD8PkKe5HGZz95ZfNSSxgo/sMZ5fyPHy45kUMaI/AI6GckAgqQY+on?=
+ =?us-ascii?Q?wC/+HRjCQQppqvsfFJBD/Cqe19LJMtFNLNJaMubO8pN/TXvuTtPiJ59Dg2rK?=
+ =?us-ascii?Q?b0E02C1OhPSG09gZHXVgEuOMoQdtX1sLXZAuBLqQd6Vo5u+wCbuBRYXCYFFL?=
+ =?us-ascii?Q?I5UmY9TThwe1blmHnyw/1aBJ7AN2h3vHC7qszI7+1zH9dNy1PtGg4MqqzR4s?=
+ =?us-ascii?Q?O/hL3zOSV5je621orBE6lzkely6v5BQ2qeQbqWIPlMxel6a0xXPIp4IKhbF5?=
+ =?us-ascii?Q?/R9oYHGQ3JzCtGTrIxsn0sbDLpXEx00PAp0ZqygYG5FydJQ1K3AZHhccfiAf?=
+ =?us-ascii?Q?OomvSndiiPAb/1g6wq51yEG26T9QleRjhjJ+fx704f70lidqHVYkZEcWrIQq?=
+ =?us-ascii?Q?9wO293Lp4tZkGEiLLbSsyuUkecZreO50NbTz50lKPcDERziKvGGWQ++xf+rA?=
+ =?us-ascii?Q?KHzcoiZVEd+cs+9xCmc6FJpZb/SNMxY2YGOqgUD7SHA7QzpFqToSPM8RmJs9?=
+ =?us-ascii?Q?/yydlGS5LdF+nl0QwU9LZKtt9eMKbL9anczB31ySdUBFgJutvRdVWfCKhj2k?=
+ =?us-ascii?Q?xRk5ThW86+4u2/a0EAJnq8USctg5eKrSPJX5/rJONR26GmbyBad0Pc5ag+2G?=
+ =?us-ascii?Q?JYmsTjF+vNmLoxpAW50LAKhSM/kocIfbmn22dU6T19q1FdWAlg5MXibu3imy?=
+ =?us-ascii?Q?DqLL2fS+jlCcShVrXxsGX839VtA+MTrCy6W/3mPY9gVr05y/Pa5L/VAbXdwx?=
+ =?us-ascii?Q?92x95vJDHQGeqj52ST8pgdK4URujy/b3ynSJGa4Eb9pElFNN9GS+T1X/Poue?=
+ =?us-ascii?Q?mITEDr+hjSg/jt5uWbxyoyNcHOrAscr1AaPOxscwqNh0v8oizvqayScuj0K7?=
+ =?us-ascii?Q?PNnfAEbSS3dW2edlWJTuF41j6o84dF/BmE8qzfyhOhkUyvu3dHb7SVAiF059?=
+ =?us-ascii?Q?9414cbTW5CTdxc90tMvJjdDvX6YpWKMd5mGNwaXlaxYZBJGaUSfRNfizkuNB?=
+ =?us-ascii?Q?acd8aTTZ7sqeaybxqiTrY091N5sV/XSrCAeTHTgpLiWwn0mh3iPnG4yjRY+o?=
+ =?us-ascii?Q?AL+eG6e/PVjHHyhsZaKUZlxcI3WtMGKv1rQWazV8H3ecn0VduoS6V6qeCRUi?=
+ =?us-ascii?Q?Wj+felSL4P0DtQMLEyAGqiysGT4PHzKy7BzF8mBDyDlQsm7IUPKiRE9we/9j?=
+ =?us-ascii?Q?B3/koGzDAYsHrf02I48N2tE=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ede8b1c-bacb-47f1-a183-08d99de89311
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2021 10:07:27.6154
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h76vcG1KP7GOAwZtLTIg4s0qd/E89hretQi55SSir2kdyzl6eTbecB8SqxrOsvFkjC7bcOlGfAK2m/NhGHBkKA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2606
 
-On 02.11.21 10:54, Jan Beulich wrote:
-> On 28.10.2021 16:32, Juergen Gross wrote:
->> On 21.10.21 16:41, Jan Beulich wrote:
->>> On 15.10.2021 14:51, Juergen Gross wrote:
->>>> Instead of using a function table use the generated switch statement=
-
->>>> macros for calling the appropriate hypercall handlers.
->>>>
->>>> This is beneficial to performance and avoids speculation issues.
->>>>
->>>> With calling the handlers using the correct number of parameters now=
-
->>>> it is possible to do the parameter register clobbering in the NDEBUG=
-
->>>> case after returning from the handler. This in turn removes the only=
-
->>>> users of hypercall_args_table[] which can be removed now.
->>>
->>> "removed" reads misleading to me: You really replace it by new tables=
-,
->>> using script-generated initializers. Also it looks like you're doubli=
-ng
->>> the data, as the same sets were previously used by pv64/hvm64 and
->>> pv32/hvm32 respectively.
+On 22.10.2021 17:52, Roger Pau Monn=C3=A9 wrote:
+> On Thu, Oct 21, 2021 at 11:58:18AM +0200, Jan Beulich wrote:
+>> x2apic_bsp_setup() gets called ahead of iommu_setup(), and since x2APIC
+>> mode (physical vs clustered) depends on iommu_intremap, that variable
+>> needs to be set to off as soon as we know we can't / won't enable
+>> interrupt remapping, i.e. in particular when parsing of the respective
+>> ACPI tables failed. Move the turning off of iommu_intremap from AMD
+>> specific code into acpi_iommu_init(), accompanying it by clearing of
+>> iommu_enable.
 >>
->> Yes, I'll change that paragraph.
+>> Take the opportunity and also fully skip ACPI table parsing logic on
+>> VT-d when both "iommu=3Doff" and "iommu=3Dno-intremap" are in effect any=
+way,
+>> like was already the case for AMD.
 >>
->> Regarding having 4 tables on x86 now: merging the pv/hvm tables would =
-be
->> possible, but this would add some complexity to the script generating
->> the tables (it should test whether the number of parameters of pv and
->> hvm match). As the tables are present in debug build only I don't thin=
-k
->> this is a real issue.
->=20
-> Sure, but that imo wants saying in the description.
->=20
->>> Overall, besides these mainly cosmetic aspects the main thing missing=
-
->>> is an approach to prioritize the handful most frequently used functio=
-ns,
->>> for them to be pulled out of the switch() so we don't depend on the
->>> compiler's choice for the order of comparisons done.
+>> The tag below only references the commit uncovering a pre-existing
+>> anomaly.
 >>
->> I have already prepared that step by generating the complete call
->> sequence, so any change for prioritizing some hypercalls can be local =
-to
->> the generator script and the used input data.
->>
->> The main question is how to do that. I've collected some hypercall
->> statistics data for PV and PVH guests running some simple tests (once =
-a
->> build of the Xen hypervisor, and once a scp of a large file). The data=
-
->> is split between guest and dom0 (PV) counts. There is no clear "winner=
-"
->> which hypercall should be fastest, but several hypercalls are clearly
->> not important.
->>
->> Here is the data:
->>
->> PV-hypercall    PV-guest build   PV-guest scp    dom0 build     dom0 s=
-cp
->> mmu_update           186175729           2865         20936        337=
-25
+>> Fixes: d8bd82327b0f ("AMD/IOMMU: obtain IVHD type to use earlier")
+>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >=20
-> Builds should be local to the guest and I/O should involve gnttab ops
-> but no mmu-update. Hence I have a hard time seeing where the huge
-> difference here would be coming from. Did you have any thoughts here?
+> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-I think you misunderstood the columns.
+Thanks.
 
-The first column of data is the build job running in domU and the number
-of hypercalls done by that domU. The 3rd data column is the same test
-(build running in domU), but the number of hypercalls done by dom0 (so
-pure backend hypercall activity).
-
-The missing gnttab ops on domU side are fine, as granting a page doesn't
-require a hypercall.
-
+>> ---
+>> While the change here deals with apic_x2apic_probe() as called from
+>> x2apic_bsp_setup(), the check_x2apic_preenabled() path looks to be
+>> similarly affected. That call occurs before acpi_boot_init(), which is
+>> what calls acpi_iommu_init(). The ordering in setup.c is in part
+>> relatively fragile, which is why for the moment I'm still hesitant to
+>> move the generic_apic_probe() call down. Plus I don't have easy access
+>> to a suitable system to test this case. Thoughts?
 >=20
->> stack_switch           1273311          62381        108589       2707=
-64
->> multicall              2182803             50           302          5=
-24
+> Indeed, that seems it could go quite wrong, as apic_x2apic_probe will
+> see iommu_intremap =3D=3D iommu_intremap_full (the default value) and thu=
+s
+> could choose cluster mode without real interrupt remapping support.
 >=20
-> A fair amount of the mmu-updates is going to be coming through
-> muticalls, I would guess. Priorities therefore may even differ for
-> the two separate dispatch points.
-
-I can look into collecting some data here.
-
+> At first sight it would seem possible to move lower down, but as you
+> say, this is all quite fragile. It's even made worse because we lack a
+> strict ordering discipline or any kind of dependency checking, so even
+> if we mess up the order it's likely to go unnoticed unless someone
+> tests on an affected system.
 >=20
->> update_va_mapping       571868             10            60           =
-80
->> xen_version              73061            850           859         54=
-32
->> grant_table_op               0              0         35557       1391=
-10
->> iret                  75673006         484132        268157       7579=
-58
->=20
-> The huge differences for builds is puzzling mere here ...
->=20
->> vcpu_op                 453037          71199        138224       3349=
-88
->> set_segment_base       1650249          62387        108645       2708=
-23
->> mmuext_op             11225681            188          7239         34=
-26
->=20
-> ... and here as well. Did Dom0 and DomU use identical numbers of
-> vCPU-s and identical -j make option values?
->=20
->> sched_op                280153         134645         70729       1379=
-43
->> event_channel_op        192327          66204         71409       2141=
-91
->> physdev_op                   0              0          7721         43=
-15
->> (the dom0 values are for the guest running the build or scp test, so
->> dom0 acting as backend)
->>
->> HVM-hypercall   PVH-guest build    PVH-guest scp
->> vcpu_op                  277684             2324
->> event_channel_op         350233            57383
->> (the related dom0 counter values are in the same range as with the tes=
-t
->> running in the PV guest)
->>
->> It should be noted that during boot of the guests the numbers for the =
-PV
->> guest are more like the ones for the build test with the exception of
->> iret and sched_op being higher, while for PVH sched_op is by far the
->> most often used hypercall.
->>
->> I'm not sure how to translate those numbers into a good algorithm for
->> generating the call sequence.
->=20
-> Well, there's never going to be a clear cut fitting everything, I
-> suppose.
->=20
->> I could add priorities to each hypercall in hypercall-defs.c and have =
-a
->> cascade of if (likely(foo)) call_foo; else if (likely(bla)) ... else
->> switch(rest).
->=20
-> Personally I'd lean to an approach like this one; perhaps there's not
-> even a need to specify priorities for every hypercall, but just the
-> ones we deem most frequently used?
+> While we can try to solve this for the upcoming release, long term we
+> need a stricter ordering, either as a comment, or even better enforced
+> somehow in code. The x2APIC vs IOMMU ordering has bitten us multiple
+> times and we should see about implementing a more robust solution.
 
-See my new series.
+So what's your thought then: Make the change (in another patch), or rather
+leave the code as is? I'm slightly in favor of making the change seeing
+that you agree that the rearrangement looks to be correct.
 
+Jan
 
-Juergen
-
---------------4FA6F6BF4A77DC2BB82D2753
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------4FA6F6BF4A77DC2BB82D2753--
-
---i04Ga5rNUaNCrjpITRiYr4q99eSemNoke--
-
---qWMG1BDsL57PVNCnF7C9LUImGuwWqZdXC
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGBDRgFAwAAAAAACgkQsN6d1ii/Ey+6
-gwgAjeMkHeOxotKTAEs92/pgh8zAKz4ZHWstge8FwwcSHhiy6x3nsicW0Nl/qIRzmtLEfIv5cbfX
-HA1yN7/mZCY00KwGzFyM++9g5NEjkRsgOawRkKH82tY3SPyOq5RraPbTTnI55GqR6Q1DNuOsnsEa
-9acZH0wHnLtKNm+0lPtoW2vjvqkBELo7Z1jikC3FFPQXdWzerxitlWMOMFEjLYDLttR6zDVAnuou
-HpJ3HNE5V5ywo8XaBeCKKEkl8leKWj4kouEkHI/UPY2fwlFay17HLQ7wM/u8KWXNRrlbLpCc/046
-F0LBeR4qoBCg1geIE0/nhcqetfAosmbTqRuUfIV7SQ==
-=BrIK
------END PGP SIGNATURE-----
-
---qWMG1BDsL57PVNCnF7C9LUImGuwWqZdXC--
 
