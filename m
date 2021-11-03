@@ -2,44 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62AEA443FE8
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Nov 2021 11:21:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.220726.382111 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2B7E443FF1
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Nov 2021 11:24:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.220737.382121 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miDON-00025D-4d; Wed, 03 Nov 2021 10:21:15 +0000
+	id 1miDRa-0002lL-JD; Wed, 03 Nov 2021 10:24:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 220726.382111; Wed, 03 Nov 2021 10:21:15 +0000
+Received: by outflank-mailman (output) from mailman id 220737.382121; Wed, 03 Nov 2021 10:24:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miDON-00021k-0B; Wed, 03 Nov 2021 10:21:15 +0000
-Received: by outflank-mailman (input) for mailman id 220726;
- Wed, 03 Nov 2021 10:21:13 +0000
+	id 1miDRa-0002il-FM; Wed, 03 Nov 2021 10:24:34 +0000
+Received: by outflank-mailman (input) for mailman id 220737;
+ Wed, 03 Nov 2021 10:24:33 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=neJr=PW=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1miDOK-0001rd-TE
- for xen-devel@lists.xenproject.org; Wed, 03 Nov 2021 10:21:12 +0000
-Received: from smtp-out1.suse.de (unknown [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UC4I=PW=epam.com=prvs=194164c520=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
+ id 1miDRZ-0002if-3a
+ for xen-devel@lists.xenproject.org; Wed, 03 Nov 2021 10:24:33 +0000
+Received: from mx0a-0039f301.pphosted.com (unknown [148.163.133.242])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id be91f4ba-3c8f-11ec-8564-12813bfff9fa;
- Wed, 03 Nov 2021 10:21:02 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4B2F321709;
- Wed,  3 Nov 2021 10:21:01 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F180B13CE7;
- Wed,  3 Nov 2021 10:21:00 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id bf8wOYxigmF4DwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 03 Nov 2021 10:21:00 +0000
+ id 3b8e5e86-3c90-11ec-8564-12813bfff9fa;
+ Wed, 03 Nov 2021 10:24:31 +0000 (UTC)
+Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A39GmRG011983;
+ Wed, 3 Nov 2021 10:24:26 GMT
+Received: from eur04-he1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2051.outbound.protection.outlook.com [104.47.13.51])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3c3qnf89ee-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 03 Nov 2021 10:24:25 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
+ by AM0PR03MB4018.eurprd03.prod.outlook.com (2603:10a6:208:73::28)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10; Wed, 3 Nov
+ 2021 10:24:22 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::c038:e032:595a:651]) by AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::c038:e032:595a:651%9]) with mapi id 15.20.4669.011; Wed, 3 Nov 2021
+ 10:24:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,729 +53,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be91f4ba-3c8f-11ec-8564-12813bfff9fa
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1635934861; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=gr0jXYCMCnZ5A6hp0P1Tf6RLE7sYs7cl6f53SmZUA+o=;
-	b=mX9yuaBWqr9CpeqS7V8bD6U1d9GnHp62xCeicrH+FaXMDmHEsaEEV7M7IvGomO07khoVgC
-	71mo05eIzOwzNodbaFJwr473IWMPkNtZCTBUc4zD5qCPq+tx48+niRUJ2Fk19iU2c2kPrG
-	PL9n3iltf5mclgP/GD4O7QlzMCMGnuw=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2.2 07/15] xen: generate hypercall interface related code
-Date: Wed,  3 Nov 2021 11:20:59 +0100
-Message-Id: <20211103102059.19621-1-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
+X-Inumbo-ID: 3b8e5e86-3c90-11ec-8564-12813bfff9fa
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TtJ4EfRX1wqxcZJyH0PsjjjAAkTAnJ+4t91qqJ5wqGapOP5sbAM35WFnqMXMA73k8ZaPFJSNQcymC2yI7QAYFmTcydkP59eG7MlFbtX3muxMYdPZEwu2Z2bjc3KZQxqzuClowzuzeYEZy8p1JJb49MNWzLZOVIVf+I9GWGk+d5Uq3siDXNnP+IgKVhrhNzHwo2bmDrutBrDHhIwSlVSS/cpJYB4f4S1M1zCDQXifDrbPlDTYDjbl0rt14KXE+efSSbZbgayPwZfIguNnvU1DRPkpNwI88Gev89yiAIrR+gKLjWuYEKSFNnFypxRwG38p6Y3pVn/qBPkCxxZgdoLAxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=opBIV7xkbWO1guH4lOqoP/7+101OMdd4sMhZ3fe+6X4=;
+ b=TVAxzJFzUC4eYgxxHrnn5NF/g1TBRWDNFlNCfzQVTPPUR7Pp7eIGmAUNp2NAXEQVhJUE1Vxj4BDA/fVh+of4SYzB9YgSr/F1/DF3riZQjXg8LfEqW+H6rkbqrbcSSU71OBcqC/YrOj/Tl1BGqe/msz2xohVWnJFP11JClNjck/d+q/mBfVpR7JQfVTC3zC5FAJZM2j1xAaP31sqOeS7ybfY3pILuaEUPJvARdte6tsiUbVNPFFnBHQT7ZT0CETUZVbU542dovfoPpJczL9DL0DpWuCpjDVb08naody5BXDUsbph4CX1Rtze1zDe3gZOMy92XP+lssxWmpMIntfMr3A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=opBIV7xkbWO1guH4lOqoP/7+101OMdd4sMhZ3fe+6X4=;
+ b=TOTwtjCQSeg0I0uLdJjuHEpyaqiwvI+VlY+vF17kq6U3D7AFS/quXVDVYTuX5c0p/+5I2qpEgPFSMc3dBsuTCHwHWqHMcRx6y9FsXjbrajNKgM2p9doFWM7Vf4KwvjW8j4064aajsGXdXK6lJ++UcxD9v0bdVRjX6OU8xuNWdj98x5sKIVampB1ckvSEKR+Xt3lF55dTwW8L45wfvpTNwcytmeuarEv4zNfghjJrkMMoXvwSih2oejb14OH6y2Uue+CTohCt82q8uqHiT7RRBmsLUqJh28KJZt7o2jVT6xu+97ouH+S6SLFiKSnY+1eF1l3HVmS7F4UAMB+EM1GQhQ==
+From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+To: Jan Beulich <jbeulich@suse.com>,
+        =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
+	<roger.pau@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        "julien@xen.org" <julien@xen.org>,
+        "sstabellini@kernel.org"
+	<sstabellini@kernel.org>,
+        Oleksandr Tyshchenko
+	<Oleksandr_Tyshchenko@epam.com>,
+        Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>,
+        Artem Mygaiev <Artem_Mygaiev@epam.com>,
+        Bertrand Marquis <bertrand.marquis@arm.com>,
+        Rahul Singh
+	<rahul.singh@arm.com>,
+        Michal Orzel <michal.orzel@arm.com>,
+        Oleksandr
+ Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+Subject: Re: [PATCH v3 08/11] vpci/header: Emulate PCI_COMMAND register for
+ guests
+Thread-Topic: [PATCH v3 08/11] vpci/header: Emulate PCI_COMMAND register for
+ guests
+Thread-Index: 
+ AQHXtdAkq8Qmwxr3HUWTio8KWsEpvKvlQ6KAgAsHq4CAAAimAIAAIt2AgAAEUICAATmxAIAABTcAgAABvgCAAAHkAIAAAZSAgAAFc4CAAAmcgA==
+Date: Wed, 3 Nov 2021 10:24:22 +0000
+Message-ID: <48506e1b-2dc9-4652-f169-3d44135a4e74@epam.com>
+References: <20210930075223.860329-1-andr2000@gmail.com>
+ <20210930075223.860329-9-andr2000@gmail.com>
+ <YXfeB1LWy6Hm81LA@MacBook-Air-de-Roger.local>
+ <f1b49f6d-1c2a-97ff-59b3-f0b606857ed3@suse.com>
+ <YYEl8h+WtSZwNPn7@Air-de-Roger>
+ <1a19dd35-a649-b155-bdd6-099e08fa3de1@suse.com>
+ <65e218f1-471e-fd02-441a-f8c5f29d776e@epam.com>
+ <b7626958-4df3-9f07-0ab9-604e55b3274e@epam.com>
+ <de320822-a94f-18ad-ccd4-574037903b1c@suse.com>
+ <46826bb3-472e-e88b-5421-20fdaf5b49cf@epam.com>
+ <a5ff1c9b-3200-18f0-a373-7535980269cb@suse.com>
+ <4d4a061f-6437-5d51-84e0-d2139f47eb76@epam.com>
+ <4f77a4f2-a66b-465d-5859-7fe71ece8168@suse.com>
+In-Reply-To: <4f77a4f2-a66b-465d-5859-7fe71ece8168@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: b6e1ef9d-4ad5-454b-3e7d-08d99eb41a7f
+x-ms-traffictypediagnostic: AM0PR03MB4018:
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-microsoft-antispam-prvs: 
+ <AM0PR03MB401883535123DB3CEAB153B3E78C9@AM0PR03MB4018.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ A6OCOq+ijjijEQIMZBukZ2OjcQ2ggxkB+o43eTV4iE8LJ6uJ0I9FQq3cTcgjRIV8fnAZlGjeCGvWDrADtgW59ziFgxhL38w9UthdtfhQxhDe073rnpYk1u33H/maF4dyyO8/eFoFGP5oQu1XHpRDMITBd5doD0gQqaU3EfSooig1mpdVVUbNVdpjtJzBgo3nVRl6Ni3f5C5xsciadG6V3ApM4KVKR9DjdbfZ/cLwEPIb2UqqXO3x0ZJXmvQ7tWmy2RhoM3b+D6glgq7zuZciAgaLKKgwO8M2pdUxy92LMJXZwUzSvquYEHtRGFZDMLHY/ev8kGOweM6NJ1kzeU8FwBI2mBgKjoJkreXr97JT9GJ9GXk4uH4hraNpGmjUb7k0SWfR926u1CgszznbeXnjrLgcFeaB3bWI80dYNeZCRLe1HDgCbVAl2AN1Fjg0HScvx2+zExB0Ng1d3z6PNkDtPmhg8zeAtWFdytRUCoPlpW1rsQng0Asuqh3Q2vYhw1oRY/xCuvqJrHpzRlBn4yGkFGOWHCIZFjvIznIjsZyVGHY0Q4UMs/jQIQLRlymveiHf2Xn6Wrx6RLxPmPdPCAn0d0G0O96zQrfsz/7e7HIbHf8S/6LkO/rpy9yOofijFlUxJafq6bnC6hFyTo/EL9oAVDB4/PLCO2Ny9lyfYzzLZKYZMfX3jVnjf+Oh+qJ/7aPs2+IthivszKO3teWOMYVvaBm2K4Y35/PbrF3/Ch/rf9b8QgsSDOkICbHsvk5AKbcz
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(2616005)(66946007)(316002)(38070700005)(110136005)(26005)(107886003)(8936002)(508600001)(66556008)(54906003)(91956017)(66446008)(64756008)(66476007)(4326008)(83380400001)(186003)(5660300002)(2906002)(6506007)(53546011)(71200400001)(76116006)(6512007)(8676002)(36756003)(122000001)(38100700002)(86362001)(31686004)(6486002)(31696002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?eElFMWR5Nnl6dTVlbHFiVEtMeEdYaE85Z1RBYlFSQlNFeEQ2bnJRWEVUZFc2?=
+ =?utf-8?B?UVJNeTNLR1RrTkFjbHBxYW9mU2lmR290a0xqem5BZ28waGJiTzF1KzEvYm5S?=
+ =?utf-8?B?bFpUU1l4U201RVcwQzRXK3BWNjF1bnp3VmoyYlZLcUxBem9kTitCeUI4Ynhm?=
+ =?utf-8?B?UE5HZ0tCZ3prZk93ZWIrSEdOekdRanJFMitMOEhFaDEybFgreDQyT3BMWU1n?=
+ =?utf-8?B?RTIrNjl1eHNKNzJwNzVCTU5PTlJNRjJiekdkREszcHRFTldndFFURVBKdysz?=
+ =?utf-8?B?UDc1M3RTRzRMZ1dQVno3RCtMTGUwZytxZ1ZJMFR3U3N6OXRkWFc1QzFNWkpW?=
+ =?utf-8?B?am1zR25DYm1aTEpoQ3BvU04veDEra0hDWmFpeFJwZ1NBaU5GUTZrSXViVWp3?=
+ =?utf-8?B?V1FEZmxFSnUwOHJXZFBpUmFqMmFPQjBxQUpTNlJCOWR0Y0lOSkp3RERNQUNB?=
+ =?utf-8?B?NFROQmxpaDN1a2NMdUNkTE81U1laUlM2ZTdXc3ZubjVDY3FUSSswQWxGTFdU?=
+ =?utf-8?B?MUZaTFU1Z0sraUU1bmo3Z3lrZ3dtZWtKcmpoNVJrOTRhM3MySWp0Sko5SUlh?=
+ =?utf-8?B?V2NCNW8wZXNGRUNWVHNvYzRDMjJqL21pL3ZYNGc3bUxITXI4MHNHNUk0cTNL?=
+ =?utf-8?B?bFJHVCtweUtneDZPQ0tkazBwMEkvTTJqcHhadEdnUVJvejdHK3hSaTJydkZM?=
+ =?utf-8?B?VW4velZYR2ZZNXBJOTZIMXB6dm91Wmc2YUNVTmtqSVZUcnpFeEN2RFNOT3Ew?=
+ =?utf-8?B?bHJuaWNSOWtlN1Bic0JDNmZlTzBIVG5pNDVYeHUvTmhpUHFYSHhYbEZlbmIy?=
+ =?utf-8?B?UmRuRHl0QkIvcUZWd0YweURnanpVazhTRWs3VjV4aW9GYUk0SzVKRXp6VjFD?=
+ =?utf-8?B?cHRKWjRObW1lbzVJbi9JcDduaEFhTUtPekxhUE1YMnRIYWN0MFZuc1RYNUlE?=
+ =?utf-8?B?Y2lGOUt1Zm1MVkVPNWtVdFZ0ZU9lVEF3NS92RE43QkRjQ0pSQTZGQ2x0a0hx?=
+ =?utf-8?B?MzROY1p1V2tXdEduUU1XcXhpQi9iNkw1OUZleDJnWEM4d0JEL2NGREt1YmJM?=
+ =?utf-8?B?bWFQejhtZkRHREJZazZWYjhJK2lpK25jbnFmOExvcUpoNEZyTFJOdWV6M2V1?=
+ =?utf-8?B?ZUdMMzJtV0s0dUFkNXJKNTk3YWIycjZuWjJiYlRTWkxhNUM3Rm5UR3U4Ry9R?=
+ =?utf-8?B?enBuZ24wdGZ4dmNoczB1M01hRmM1YzlyWExJeFdDc1M1R3pKRHRPTlAvbkw1?=
+ =?utf-8?B?akNPWFYvRXVmTkV4N1NkdHZndkpGK08wQkJ6Wk5qQW4yM3ZpdDk4ZW1ITlR6?=
+ =?utf-8?B?QmdnUDFMeGU3bXlYV28vR3BRRnh0WDhSdi9FQlN4ekI4QlJBSVlqYnhxN2NT?=
+ =?utf-8?B?Q1h2VGhJMmRzR2tON0NKeDROaitpTEhaU1ZvYlFkV2lmNDRxVmQ0Qzl5VGhO?=
+ =?utf-8?B?Y3R6NUh6bG1zcWxOVHF5YVIwckZITkIxT3I5MTA4anNrcTdRSXdyZ3EzUm1C?=
+ =?utf-8?B?RCswTDd6NDFmYjJjQVF1KzRJbWUwYWlRSkY1bzRZbEhwdkRGOXFiVmtGQkFL?=
+ =?utf-8?B?S3lHSXJwT0hlSTlkN3dvNFJUNU9oaHhZZ3hML3BJR04rT2FWR2Y3aHBQTS9y?=
+ =?utf-8?B?MXo1a2daNW9SQVZrRDBIOWdXU0IzZVQ0aXB3eDdoT3NPRlBYZXdOVUlpbzRv?=
+ =?utf-8?B?RFdmemRVelhaQUl0M1FEcW80NWhrMC9aYm1ZQ0FRTjA1dVFacUIzS2w1M2ZP?=
+ =?utf-8?B?TENtMU1zV0JuaVJiMHdOTjJHWVM1UFNFZzVkMThUaE5OOUcxbkZhdzBKWkJm?=
+ =?utf-8?B?bSszdU1LSkdZd0lIKzBzdG56Sm9TMU1IOWxPWm1XTWtnRXo2RmZzTlZkaHhO?=
+ =?utf-8?B?cGlsZmhNTFM5UjZOWjhaV2ZaL3RGWmN3U2hqVEhlaDZsTzA2YkNzT1FlaENP?=
+ =?utf-8?B?c2l4QUpjelBWZk9WT2dRQ0lzNnJVV1EyQVc4NmxjUEViVXpTeWtxKzhxZk9S?=
+ =?utf-8?B?WDFFMlllRzl5TXBOaTVGUnFNVmxBeVBydFRSa0JJYVVCbEhPa01hWEtxM2Rk?=
+ =?utf-8?B?eFMrRkc1VHV5YjRMbHdYd1QxcnJYOUs2bjB5NU5Dd013OVp5eHhjbnNKOUx0?=
+ =?utf-8?B?aFZhR2lQWWNNZ0FvNThFVzBwVGE2Y096VXdqcEpUZlNEa2tUU0gvMkU1ZXZs?=
+ =?utf-8?B?ek15V3FGR0pSdUIzd3NEeExqOWlrenFvZDZZQVl1cC9mYzU3V3BlYjFUSDJP?=
+ =?utf-8?B?eTZSRWFOK2t6ay9CUVVnWHJzMkdlMG02MytZL2JCUklEQnBDQ3NsWWxkVkZL?=
+ =?utf-8?B?OENhQko1MnZjcFpYNkJHVlNQdC9aRnRQazFKbHdhY2Zrc1Q0R3ZFUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <9F47737C50AD664882B113252D02658E@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6e1ef9d-4ad5-454b-3e7d-08d99eb41a7f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Nov 2021 10:24:22.3433
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7RxWvT7xFBWMmMkLyiZNYHtWO7ZkYWlRmUHBSAeVNhK7IFgBTCZWqaSkpI4rwaGddqnxKT0DojTYNkmm/Kqkl3qWfx31cW6W/L3i7haIsKBI90DIBfBYSCLSfUa2BwHg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB4018
+X-Proofpoint-ORIG-GUID: JOqCHvpwbAwhoXvZtxODVep-YL_-XXLL
+X-Proofpoint-GUID: JOqCHvpwbAwhoXvZtxODVep-YL_-XXLL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
+ definitions=2021-11-03_03,2021-11-03_01,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0
+ mlxlogscore=933 adultscore=0 mlxscore=0 lowpriorityscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 suspectscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2110150000 definitions=main-2111030058
 
-Instead of repeating similar data multiple times use a single source
-file and a generator script for producing prototypes and call sequences
-of the hypercalls.
-
-As the script already knows the number of parameters used add generating
-a macro for populating an array with the number of parameters per
-hypercall.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V2:
-- split platform_op for doe and compat prefixes (Jan Beulich)
-- add "addline:" directive
-- add priorities to handlers (Jan Beulich)
-V2.1:
-- add missing "delete" statement in awk script
-- optimize case of 2 hypercalls with same priority
-V2.2:
-- avoid asort() function (Michal Orzel)
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- .gitignore                    |   1 +
- xen/Makefile                  |  10 ++
- xen/include/hypercall-defs.c  | 285 ++++++++++++++++++++++++++++++
- xen/scripts/gen_hypercall.awk | 323 ++++++++++++++++++++++++++++++++++
- 4 files changed, 619 insertions(+)
- create mode 100644 xen/include/hypercall-defs.c
- create mode 100644 xen/scripts/gen_hypercall.awk
-
-diff --git a/.gitignore b/.gitignore
-index 9513506dd9..753a602e29 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -336,6 +336,7 @@ xen/include/public/public
- xen/include/xen/*.new
- xen/include/xen/acm_policy.h
- xen/include/xen/compile.h
-+xen/include/xen/hypercall-defs.h
- xen/include/xen/lib/x86/cpuid-autogen.h
- xen/test/livepatch/config.h
- xen/test/livepatch/expect_config.h
-diff --git a/xen/Makefile b/xen/Makefile
-index a3189eb47c..dfdae47e74 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -383,6 +383,7 @@ _clean: delete-unfresh-files
- 		-o -name "*.gcno" -o -name ".*.cmd" -o -name "lib.a" \) -exec rm -f {} \;
- 	rm -f include/asm $(TARGET) $(TARGET).gz $(TARGET).efi $(TARGET).efi.map $(TARGET)-syms $(TARGET)-syms.map *~ core
- 	rm -f asm-offsets.s include/asm-*/asm-offsets.h
-+	rm -f include/xen/hypercall-defs.h include/hypercall-defs.i
- 	rm -f .banner .allconfig.tmp
- 
- .PHONY: _distclean
-@@ -405,6 +406,7 @@ $(TARGET): delete-unfresh-files
- 	$(MAKE) -f $(BASEDIR)/Rules.mk -C include
- 	$(MAKE) -f $(BASEDIR)/Rules.mk -C arch/$(TARGET_ARCH) include
- 	$(MAKE) -f $(BASEDIR)/Rules.mk include/asm-$(TARGET_ARCH)/asm-offsets.h
-+	$(MAKE) -f $(BASEDIR)/Rules.mk include/xen/hypercall-defs.h
- 	$(MAKE) -f $(BASEDIR)/Rules.mk -C arch/$(TARGET_ARCH) $@
- 
- # drivers/char/console.o contains static banner/compile info. Blow it away.
-@@ -466,6 +468,14 @@ include/asm-$(TARGET_ARCH)/asm-offsets.h: asm-offsets.s
- 	  echo ""; \
- 	  echo "#endif") <$< >$@
- 
-+quiet_cmd_genhyp = GEN     $@
-+define cmd_genhyp
-+    awk -f scripts/gen_hypercall.awk <$< >$@
-+endef
-+
-+include/xen/hypercall-defs.h: include/hypercall-defs.i scripts/gen_hypercall.awk FORCE
-+	$(call if_changed,genhyp)
-+
- SUBDIRS = xsm arch/$(TARGET_ARCH) common drivers lib test
- define all_sources
-     ( find include/asm-$(TARGET_ARCH) -name '*.h' -print; \
-diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
-new file mode 100644
-index 0000000000..c31a4a302c
---- /dev/null
-+++ b/xen/include/hypercall-defs.c
-@@ -0,0 +1,285 @@
-+/*
-+ * Hypercall interface description:
-+ * Used by scripts/gen_hypercall.awk to generate hypercall prototypes and call
-+ * sequences.
-+ *
-+ * Syntax is like a prototype, but without return type and without the ";" at
-+ * the end. Pointer types will be automatically converted to use the
-+ * XEN_GUEST_HANDLE_PARAM() macro. Handlers with no parameters just use a
-+ * definition like "fn()".
-+ * Hypercall/function names are without the leading "__HYPERVISOR_"/"do_"
-+ * strings.
-+ *
-+ * The return type of a class of prototypes using the same prefix is set via:
-+ * rettype: <prefix> <type>
-+ * Default return type is "long". A return type for a prefix can be set only
-+ * once and it needs to be set before that prefix is being used via the
-+ * "prefix:" directive.
-+ *
-+ * The prefix of the prototypes is set via a line:
-+ * prefix: <prefix> ...
-+ * Multiple prefixes are possible (restriction see below). Prefixes are without
-+ * a trailing "_". The current prefix settings are active until a new "prefix:"
-+ * line.
-+ *
-+ * Caller macros are suffixed with a selectable name via lines like:
-+ * caller: <suffix>
-+ * When a caller suffix is active, there is only one active prefix allowed.
-+ *
-+ * With a "defhandle:" line it is possible to add a DEFINE_XEN_GUEST_HANDLE()
-+ * to the generated header:
-+ * defhandle: <handle-type> [<type>]
-+ * Without specifying <type> only a DEFINE_XEN_GUEST_HANDLE(<handle-type>)
-+ * will be generated, otherwise it will be a
-+ * __DEFINE_XEN_GUEST_HANDLE(<handle-type>, <type>) being generated. Note that
-+ * the latter will include the related "const" handle "const_<handle-type>".
-+ *
-+ * In order to support using coding style compliant pointers in the
-+ * prototypes it is possible to add translation entries to generate the correct
-+ * handle types:
-+ * handle: <handle-type> <type>
-+ * This will result in the prototype translation from "<type> *" to
-+ * "XEN_GUEST_HANDLE_PARAM(<handle-type>)".
-+ *
-+ * A verbatim line can be added via:
-+ * addline: <line-contents>
-+ * Its position is kept in regard of other "handle:" and "defhandle:" lines.
-+ *
-+ * The hypercall handler calling code will be generated from a final table in
-+ * the source file, which is started via the line:
-+ * table: <caller> <caller> ...
-+ * with the <caller>s specifying the designated caller macro of each column of
-+ * the table. Any column of a <caller> not having been set via a "caller:"
-+ * line will be ignored.
-+ * The first column of the table contains the hypercall/prototype, each
-+ * <caller> column contains the prefix for the function to use for that caller.
-+ * A function prefix can be annotated with a priority by adding ":<prio>" to it
-+ * ("1" being the highest priority, higher numbers mean lower priority, no
-+ * priority specified is the lowest priority). The generated code will try to
-+ * achieve better performance for calling high priority handlers.
-+ * A column not being supported by a <caller> is marked with "-". Lines with all
-+ * entries being "-" after removal of inactive <caller> columns are ignored.
-+ *
-+ * This file is being preprocessed using $(CPP), so #ifdef CONFIG_* conditionals
-+ * are possible.
-+ */
-+
-+#ifdef CONFIG_HVM
-+#define PREFIX_hvm hvm
-+#else
-+#define PREFIX_hvm
-+#endif
-+
-+#ifdef CONFIG_COMPAT
-+#define PREFIX_compat compat
-+rettype: compat int
-+#else
-+#define PREFIX_compat
-+#endif
-+
-+#ifdef CONFIG_ARM
-+#define PREFIX_dep dep
-+#else
-+#define PREFIX_dep
-+#endif
-+
-+handle: uint unsigned int
-+handle: const_void const void
-+handle: const_char const char
-+
-+#ifdef CONFIG_COMPAT
-+defhandle: multicall_entry_compat_t
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+addline: typedef struct compat_platform_op compat_platform_op_t;
-+defhandle: compat_platform_op_t
-+#endif
-+#endif
-+#ifdef CONFIG_PV32
-+defhandle: trap_info_compat_t
-+defhandle: physdev_op_compat_t
-+#endif
-+
-+prefix: do PREFIX_hvm PREFIX_compat
-+physdev_op(int cmd, void *arg)
-+#if defined(CONFIG_GRANT_TABLE) || defined(CONFIG_PV_SHIM)
-+grant_table_op(unsigned int cmd, void *uop, unsigned int count)
-+#endif
-+
-+prefix: do PREFIX_hvm
-+memory_op(unsigned long cmd, void *arg)
-+
-+prefix: do PREFIX_compat
-+xen_version(int cmd, void *arg)
-+vcpu_op(int cmd, unsigned int vcpuid, void *arg)
-+sched_op(int cmd, void *arg)
-+xsm_op(void *op)
-+callback_op(int cmd, const void *arg)
-+#ifdef CONFIG_ARGO
-+argo_op(unsigned int cmd, void *arg1, void *arg2, unsigned long arg3, unsigned long arg4)
-+#endif
-+#ifdef CONFIG_KEXEC
-+kexec_op(unsigned int op, void *uarg)
-+#endif
-+#ifdef CONFIG_PV
-+iret()
-+nmi_op(unsigned int cmd, void *arg)
-+#ifdef CONFIG_XENOPROF
-+xenoprof_op(int op, void *arg)
-+#endif
-+#endif /* CONFIG_PV */
-+
-+#ifdef CONFIG_COMPAT
-+prefix: compat
-+set_timer_op(uint32_t lo, int32_t hi)
-+multicall(multicall_entry_compat_t *call_list, uint32_t nr_calls)
-+memory_op(unsigned int cmd, void *arg)
-+#ifdef CONFIG_IOREQ_SERVER
-+dm_op(domid_t domid, unsigned int nr_bufs, void *bufs)
-+#endif
-+mmuext_op(void *arg, unsigned int count, uint *pdone, unsigned int foreigndom)
-+#ifdef CONFIG_PV32
-+set_trap_table(trap_info_compat_t *traps)
-+set_gdt(unsigned int *frame_list, unsigned int entries)
-+set_callbacks(unsigned long event_selector, unsigned long event_address, unsigned long failsafe_selector, unsigned long failsafe_address)
-+update_descriptor(uint32_t pa_lo, uint32_t pa_hi, uint32_t desc_lo, uint32_t desc_hi)
-+update_va_mapping(unsigned int va, uint32_t lo, uint32_t hi, unsigned int flags)
-+physdev_op_compat(physdev_op_compat_t *uop)
-+update_va_mapping_otherdomain(unsigned int va, uint32_t lo, uint32_t hi, unsigned int flags, domid_t domid)
-+#endif
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+platform_op(compat_platform_op_t *u_xenpf_op)
-+#endif
-+#endif /* CONFIG_COMPAT */
-+
-+#if defined(CONFIG_PV) || defined(CONFIG_ARM)
-+prefix: do PREFIX_dep
-+event_channel_op_compat(evtchn_op_t *uop)
-+physdev_op_compat(physdev_op_t *uop)
-+/* Legacy hypercall (as of 0x00030101). */
-+sched_op_compat(int cmd, unsigned long arg)
-+#endif
-+
-+prefix: do
-+set_timer_op(s_time_t timeout)
-+console_io(unsigned int cmd, unsigned int count, char *buffer)
-+vm_assist(unsigned int cmd, unsigned int type)
-+event_channel_op(int cmd, void *arg)
-+mmuext_op(mmuext_op_t *uops, unsigned int count, unsigned int *pdone, unsigned int foreigndom)
-+multicall(multicall_entry_t *call_list, unsigned int nr_calls)
-+#ifdef CONFIG_PV
-+mmu_update(mmu_update_t *ureqs, unsigned int count, unsigned int *pdone, unsigned int foreigndom)
-+stack_switch(unsigned long ss, unsigned long esp)
-+fpu_taskswitch(int set)
-+set_debugreg(int reg, unsigned long value)
-+get_debugreg(int reg)
-+set_segment_base(unsigned int which, unsigned long base)
-+mca(xen_mc_t *u_xen_mc)
-+set_trap_table(const_trap_info_t *traps)
-+set_gdt(xen_ulong_t *frame_list, unsigned int entries)
-+set_callbacks(unsigned long event_address, unsigned long failsafe_address, unsigned long syscall_address)
-+update_descriptor(uint64_t gaddr, seg_desc_t desc)
-+update_va_mapping(unsigned long va, uint64_t val64, unsigned long flags)
-+update_va_mapping_otherdomain(unsigned long va, uint64_t val64, unsigned long flags, domid_t domid)
-+#endif
-+#ifdef CONFIG_IOREQ_SERVER
-+dm_op(domid_t domid, unsigned int nr_bufs, xen_dm_op_buf_t *bufs)
-+#endif
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+sysctl(xen_sysctl_t *u_sysctl)
-+domctl(xen_domctl_t *u_domctl)
-+paging_domctl_cont(xen_domctl_t *u_domctl)
-+platform_op(xen_platform_op_t *u_xenpf_op)
-+#endif
-+#ifdef CONFIG_HVM
-+hvm_op(unsigned long op, void *arg)
-+#endif
-+#ifdef CONFIG_HYPFS
-+hypfs_op(unsigned int cmd, const char *arg1, unsigned long arg2, void *arg3, unsigned long arg4)
-+#endif
-+#ifdef CONFIG_X86
-+xenpmu_op(unsigned int op, xen_pmu_params_t *arg)
-+#endif
-+
-+#ifdef CONFIG_PV
-+caller: pv64
-+#ifdef CONFIG_PV32
-+caller: pv32
-+#endif
-+#endif
-+#if defined(CONFIG_HVM) && defined(CONFIG_X86)
-+caller: hvm64
-+#ifdef CONFIG_COMPAT
-+caller: hvm32
-+#endif
-+#endif
-+#ifdef CONFIG_ARM
-+caller: arm
-+#endif
-+
-+table:                             pv32     pv64     hvm32    hvm64    arm
-+set_trap_table                     compat   do       -        -        -
-+mmu_update                         do:1     do:1     -        -        -
-+set_gdt                            compat   do       -        -        -
-+stack_switch                       do:2     do:2     -        -        -
-+set_callbacks                      compat   do       -        -        -
-+fpu_taskswitch                     do       do       -        -        -
-+sched_op_compat                    do       do       -        -        dep
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+platform_op                        compat   do       compat   do       do
-+#endif
-+set_debugreg                       do       do       -        -        -
-+get_debugreg                       do       do       -        -        -
-+update_descriptor                  compat   do       -        -        -
-+memory_op                          compat   do       hvm      hvm      do
-+multicall                          compat:2 do:2     compat   do       do
-+update_va_mapping                  compat   do       -        -        -
-+set_timer_op                       compat   do       compat   do       -
-+event_channel_op_compat            do       do       -        -        dep
-+xen_version                        compat   do       compat   do       do
-+console_io                         do       do       do       do       do
-+physdev_op_compat                  compat   do       -        -        dep
-+#if defined(CONFIG_GRANT_TABLE) || defined(CONFIG_PV_SHIM)
-+grant_table_op                     compat   do       hvm      hvm      do
-+#endif
-+vm_assist                          do       do       do       do       do
-+update_va_mapping_otherdomain      compat   do       -        -        -
-+iret                               compat:1 do:1     -        -        -
-+vcpu_op                            compat   do       compat:1 do:1     do
-+set_segment_base                   do:2     do:2     -        -        -
-+#ifdef CONFIG_PV
-+mmuext_op                          compat:2 do:2     compat   do       -
-+#endif
-+xsm_op                             compat   do       compat   do       do
-+nmi_op                             compat   do       -        -        -
-+sched_op                           compat   do       compat   do       do
-+callback_op                        compat   do       -        -        -
-+#ifdef CONFIG_XENOPROF
-+xenoprof_op                        compat   do       -        -        -
-+#endif
-+event_channel_op                   do       do       do:1     do:1     do
-+physdev_op                         compat   do       hvm      hvm      do
-+#ifdef CONFIG_HVM
-+hvm_op                             do       do       do       do       do
-+#endif
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+sysctl                             do       do       do       do       do
-+domctl                             do       do       do       do       do
-+#endif
-+#ifdef CONFIG_KEXEC
-+kexec_op                           compat   do       -        -        -
-+#endif
-+tmem_op                            -        -        -        -        -
-+#ifdef CONFIG_ARGO
-+argo_op                            compat   do       compat   do       do
-+#endif
-+xenpmu_op                          do       do       do       do       -
-+#ifdef CONFIG_IOREQ_SERVER
-+dm_op                              compat   do       compat   do       do
-+#endif
-+#ifdef CONFIG_HYPFS
-+hypfs_op                           do       do       do       do       do
-+#endif
-+mca                                do       do       -        -        -
-+#ifndef CONFIG_PV_SHIM_EXCLUSIVE
-+paging_domctl_cont                 do       do       do       do       -
-+#endif
-diff --git a/xen/scripts/gen_hypercall.awk b/xen/scripts/gen_hypercall.awk
-new file mode 100644
-index 0000000000..1484217201
---- /dev/null
-+++ b/xen/scripts/gen_hypercall.awk
-@@ -0,0 +1,323 @@
-+# awk script to generate hypercall handler prototypes and a macro for doing
-+# the calls of the handlers inside a switch() statement.
-+
-+BEGIN {
-+    printf("/* Generated file, do not edit! */\n\n");
-+    e = 0;
-+    n = 0;
-+    p = 0;
-+    nc = 0;
-+}
-+
-+# Issue error to stderr
-+function do_err(msg) {
-+    print "Error: "msg": "$0 >"/dev/stderr";
-+    exit 1;
-+}
-+
-+# Generate handler call
-+function do_call(f, p,    i) {
-+    printf("            ret = %s_%s(", pre[f, p], fn[f]);
-+    for (i = 1; i <= n_args[f]; i++) {
-+        if (i > 1)
-+            printf(", ");
-+        if (ptr[f, i])
-+            printf("(XEN_GUEST_HANDLE_PARAM(%s)){ _p(a%d) }", typ[f, i], i);
-+        else
-+            printf("(%s)(a%d)", typ[f, i], i);
-+    }
-+    printf("); \\\n");
-+}
-+
-+# Generate case statement for call
-+function do_case(f, p) {
-+    printf("        case __HYPERVISOR_%s: \\\n", fn[f]);
-+    do_call(f, p);
-+    printf("            break; \\\n");
-+}
-+
-+# Generate switch statement for calling handlers
-+function do_switch(ca, p,    i) {
-+    printf("        switch ( num ) \\\n");
-+    printf("        { \\\n");
-+    for (i = 1; i <= nc; i++)
-+        if (call[i] == ca && call_prio[i] == p)
-+            do_case(call_fn[i], call_p[i]);
-+    printf("        default: \\\n");
-+    printf("            ret = -ENOSYS; \\\n");
-+    printf("            break; \\\n");
-+    printf("        } \\\n");
-+}
-+
-+function rest_of_line(par,    i, val) {
-+    val = $(par);
-+    for (i = par + 1; i <= NF; i++)
-+        val = val " " $(i);
-+    return val;
-+}
-+
-+# Handle comments (multi- and single line)
-+$1 == "/*" {
-+    comment = 1;
-+}
-+comment == 1 {
-+    if ($(NF) == "*/") comment = 0;
-+    next;
-+}
-+
-+# Skip preprocessing artefacts
-+$1 == "extern" {
-+    next;
-+}
-+/^#/ {
-+    next;
-+}
-+
-+# Drop empty lines
-+NF == 0 {
-+    next;
-+}
-+
-+# Handle "handle:" line
-+$1 == "handle:" {
-+    if (NF < 3)
-+        do_err("\"handle:\" requires at least two parameters");
-+    val = rest_of_line(3);
-+    xlate[val] = $2;
-+    next;
-+}
-+
-+# Handle "defhandle:" line
-+$1 == "defhandle:" {
-+    if (NF < 2)
-+        do_err("\"defhandle:\" requires at least one parameter");
-+    e++;
-+    if (NF == 2) {
-+        emit[e] = sprintf("DEFINE_XEN_GUEST_HANDLE(%s);", $2);
-+    } else {
-+        val = rest_of_line(3);
-+        emit[e] = sprintf("__DEFINE_XEN_GUEST_HANDLE(%s, %s);", $2, val);
-+        xlate[val] = $2;
-+    }
-+    next;
-+}
-+
-+# Handle "addline:" line
-+$1 == "addline:" {
-+    if (NF < 2)
-+        do_err("\"addline:\" requires at least one parameter");
-+    e++;
-+    emit[e] = rest_of_line(2);
-+    next;
-+}
-+
-+# Handle "rettype:" line
-+$1 == "rettype:" {
-+    if (NF < 3)
-+        do_err("\"rettype:\" requires at least two parameters");
-+    if ($2 in rettype)
-+        do_err("rettype can be set only once for each prefix");
-+    rettype[$2] = rest_of_line(3);
-+    next;
-+}
-+
-+# Handle "caller:" line
-+$1 == "caller:" {
-+    caller[$2] = 1;
-+    next;
-+}
-+
-+# Handle "prefix:" line
-+$1 == "prefix:" {
-+    p = NF - 1;
-+    for (i = 2; i <= NF; i++) {
-+        prefix[i - 1] = $(i);
-+        if (!(prefix[i - 1] in rettype))
-+            rettype[prefix[i - 1]] = "long";
-+    }
-+    next;
-+}
-+
-+# Handle "table:" line
-+$1 == "table:" {
-+    table = 1;
-+    for (i = 2; i <= NF; i++)
-+        col[i - 1] = $(i);
-+    n_cols = NF - 1;
-+    next;
-+}
-+
-+# Handle table definition line
-+table == 1 {
-+    if (NF != n_cols + 1)
-+        do_err("Table definition line has wrong number of fields");
-+    for (c = 1; c <= n_cols; c++) {
-+        if (caller[col[c]] != 1)
-+            continue;
-+        if ($(c + 1) == "-")
-+            continue;
-+        pref = $(c + 1);
-+        idx = index(pref, ":");
-+        if (idx == 0)
-+            prio = 100;
-+        else {
-+            prio = substr(pref, idx + 1) + 0;
-+            pref = substr(pref, 1, idx - 1);
-+            if (prio >= 100 || prio < 1)
-+                do_err("Priority must be in the range 1..99");
-+        }
-+        fnd = 0;
-+        for (i = 1; i <= n; i++) {
-+            if (fn[i] != $1)
-+                continue;
-+            for (j = 1; j <= n_pre[i]; j++) {
-+                if (pre[i, j] == pref) {
-+                    prios[col[c], prio]++;
-+                    if (prios[col[c], prio] == 1) {
-+                        n_prios[col[c]]++;
-+                        prio_list[col[c], n_prios[col[c]]] = prio;
-+                        prio_mask[col[c], prio] = "(1ULL << __HYPERVISOR_"$1")";
-+                    } else
-+                        prio_mask[col[c], prio] = prio_mask[col[c], prio] " | (1ULL << __HYPERVISOR_"$1")";
-+                    nc++;
-+                    call[nc] = col[c];
-+                    call_fn[nc] = i;
-+                    call_p[nc] = j;
-+                    call_prio[nc] = prio;
-+                    fnd = 1;
-+                }
-+            }
-+        }
-+        if (fnd == 0)
-+            do_err("No prototype for prefix/hypercall combination");
-+    }
-+    next;
-+}
-+
-+# Prototype line
-+{
-+    bro = index($0, "(");
-+    brc = index($0, ")");
-+    if (bro < 2 || brc < bro)
-+        do_err("No valid prototype line");
-+    n++;
-+    fn[n] = substr($0, 1, bro - 1);
-+    n_pre[n] = p;
-+    for (i = 1; i <= p; i++)
-+        pre[n, i] = prefix[i];
-+    args = substr($0, bro + 1, brc - bro - 1);
-+    n_args[n] = split(args, a, ",");
-+    if (n_args[n] > 5)
-+        do_err("Too many parameters");
-+    for (i = 1; i <= n_args[n]; i++) {
-+        sub("^ *", "", a[i]);         # Remove leading white space
-+        sub(" +", " ", a[i]);         # Replace multiple spaces with single ones
-+        sub(" *$", "", a[i]);         # Remove trailing white space
-+        ptr[n, i] = index(a[i], "*"); # Is it a pointer type?
-+        sub("[*]", "", a[i]);         # Remove "*"
-+        if (index(a[i], " ") == 0)
-+            do_err("Parameter with no type or no name");
-+        typ[n, i] = a[i];
-+        sub(" [^ ]+$", "", typ[n, i]);    # Remove parameter name
-+        if (ptr[n, i] && (typ[n, i] in xlate))
-+            typ[n, i] = xlate[typ[n, i]];
-+        arg[n, i] = a[i];
-+        sub("^([^ ]+ )+", "", arg[n, i]); # Remove parameter type
-+    }
-+}
-+
-+# Generate the output
-+END {
-+    # Verbatim generated lines
-+    for (i = 1; i <= e; i++)
-+        printf("%s\n", emit[i]);
-+    printf("\n");
-+    # Generate prototypes
-+    for (i = 1; i <= n; i++) {
-+        for (p = 1; p <= n_pre[i]; p++) {
-+            printf("%s %s_%s(", rettype[pre[i, p]], pre[i, p], fn[i]);
-+            if (n_args[i] == 0)
-+                printf("void");
-+            else
-+                for (j = 1; j <= n_args[i]; j++) {
-+                    if (j > 1)
-+                        printf(", ");
-+                    if (ptr[i, j])
-+                        printf("XEN_GUEST_HANDLE_PARAM(%s)", typ[i, j]);
-+                    else
-+                        printf("%s", typ[i, j]);
-+                    printf(" %s", arg[i, j]);
-+                }
-+            printf(");\n");
-+        }
-+    }
-+    # Generate call sequences and args array contents
-+    for (ca in caller) {
-+        if (caller[ca] != 1)
-+            continue;
-+        need_mask = 0;
-+        for (pl = 1; pl <= n_prios[ca]; pl++) {
-+            for (pll = pl; pll > 1; pll--) {
-+                if (prio_list[ca, pl] > p_list[pll - 1])
-+                    break;
-+                else
-+                    p_list[pll] = p_list[pll - 1];
-+            }
-+            p_list[pll] = prio_list[ca, pl];
-+            # If any prio but the default one has more than 1 entry we need "mask"
-+            if (p_list[pll] != 100 && prios[ca, p_list[pll]] > 1)
-+                need_mask = 1;
-+        }
-+        printf("\n");
-+        printf("#define call_handlers_%s(num, ret, a1, a2, a3, a4, a5) \\\n", ca);
-+        printf("{ \\\n");
-+        if (need_mask)
-+            printf("    uint64_t mask = 1ULL << num; \\\n");
-+        printf("    ");
-+        for (pl = 1; pl <= n_prios[ca]; pl++) {
-+            if (prios[ca, p_list[pl]] > 1) {
-+                if (pl < n_prios[ca]) {
-+                    printf("if ( likely(mask & (%s)) ) \\\n", prio_mask[ca, p_list[pl]]);
-+                    printf("    { \\\n");
-+                }
-+                if (prios[ca, p_list[pl]] == 2) {
-+                    fnd = 0;
-+                    for (i = 1; i <= nc; i++)
-+                        if (call[i] == ca && call_prio[i] == p_list[pl]) {
-+                            fnd++;
-+                            if (fnd == 1)
-+                                printf("        if ( num == __HYPERVISOR_%s ) \\\n", fn[call_fn[i]]);
-+                            else
-+                                printf("        else \\\n");
-+                            do_call(call_fn[i], call_p[i]);
-+                        }
-+                } else {
-+                    do_switch(ca, p_list[pl]);
-+                }
-+                if (pl < n_prios[ca])
-+                    printf("    } \\\n");
-+            } else {
-+                for (i = 1; i <= nc; i++)
-+                    if (call[i] == ca && call_prio[i] == p_list[pl]) {
-+                        printf("if ( likely(num == __HYPERVISOR_%s) ) \\\n", fn[call_fn[i]]);
-+                        do_call(call_fn[i], call_p[i]);
-+                    }
-+            }
-+            if (pl < n_prios[ca] || prios[ca, p_list[pl]] <= 2)
-+                printf("    else ");
-+        }
-+        if (prios[ca, p_list[n_prios[ca]]] <= 2) {
-+            printf("\\\n");
-+            printf("        ret = -ENOSYS; \\\n");
-+        }
-+        printf("}\n");
-+        delete p_list;
-+        printf("\n");
-+        printf("#define hypercall_args_%s \\\n", ca);
-+        printf("{ \\\n");
-+        for (i = 1; i <= nc; i++)
-+            if (call[i] == ca)
-+                printf("[__HYPERVISOR_%s] = %d, \\\n", fn[call_fn[i]], n_args[call_fn[i]]);
-+        printf("}\n");
-+    }
-+}
--- 
-2.26.2
-
+DQoNCk9uIDAzLjExLjIxIDExOjQ5LCBKYW4gQmV1bGljaCB3cm90ZToNCj4gT24gMDMuMTEuMjAy
+MSAxMDozMCwgT2xla3NhbmRyIEFuZHJ1c2hjaGVua28gd3JvdGU6DQo+Pg0KPj4gT24gMDMuMTEu
+MjEgMTE6MjQsIEphbiBCZXVsaWNoIHdyb3RlOg0KPj4+IE9uIDAzLjExLjIwMjEgMTA6MTgsIE9s
+ZWtzYW5kciBBbmRydXNoY2hlbmtvIHdyb3RlOg0KPj4+PiBPbiAwMy4xMS4yMSAxMToxMSwgSmFu
+IEJldWxpY2ggd3JvdGU6DQo+Pj4+PiBPbiAwMy4xMS4yMDIxIDA5OjUzLCBPbGVrc2FuZHIgQW5k
+cnVzaGNoZW5rbyB3cm90ZToNCj4+Pj4+PiBPbiAwMi4xMS4yMSAxNjoxMCwgT2xla3NhbmRyIEFu
+ZHJ1c2hjaGVua28gd3JvdGU6DQo+Pj4+Pj4+IE9uIDAyLjExLjIxIDE1OjU0LCBKYW4gQmV1bGlj
+aCB3cm90ZToNCj4+Pj4+Pj4+IE9uIDAyLjExLjIwMjEgMTI6NTAsIFJvZ2VyIFBhdSBNb25uw6kg
+d3JvdGU6DQo+Pj4+Pj4+Pj4gT24gVHVlLCBOb3YgMDIsIDIwMjEgYXQgMTI6MTk6MTNQTSArMDEw
+MCwgSmFuIEJldWxpY2ggd3JvdGU6DQo+Pj4+Pj4+Pj4+IE9uIDI2LjEwLjIwMjEgMTI6NTIsIFJv
+Z2VyIFBhdSBNb25uw6kgd3JvdGU6DQo+Pj4+Pj4+Pj4+PiBPbiBUaHUsIFNlcCAzMCwgMjAyMSBh
+dCAxMDo1MjoyMEFNICswMzAwLCBPbGVrc2FuZHIgQW5kcnVzaGNoZW5rbyB3cm90ZToNCj4+Pj4+
+Pj4+Pj4+PiAtLS0gYS94ZW4vZHJpdmVycy92cGNpL2hlYWRlci5jDQo+Pj4+Pj4+Pj4+Pj4gKysr
+IGIveGVuL2RyaXZlcnMvdnBjaS9oZWFkZXIuYw0KPj4+Pj4+Pj4+Pj4+IEBAIC00NTEsNiArNDUx
+LDMyIEBAIHN0YXRpYyB2b2lkIGNtZF93cml0ZShjb25zdCBzdHJ1Y3QgcGNpX2RldiAqcGRldiwg
+dW5zaWduZWQgaW50IHJlZywNCj4+Pj4+Pj4+Pj4+PiAgICAgICAgICAgICAgIHBjaV9jb25mX3dy
+aXRlMTYocGRldi0+c2JkZiwgcmVnLCBjbWQpOw0KPj4+Pj4+Pj4+Pj4+ICAgICAgIH0NCj4+Pj4+
+Pj4+Pj4+PiAgICAgICANCj4+Pj4+Pj4+Pj4+PiArc3RhdGljIHZvaWQgZ3Vlc3RfY21kX3dyaXRl
+KGNvbnN0IHN0cnVjdCBwY2lfZGV2ICpwZGV2LCB1bnNpZ25lZCBpbnQgcmVnLA0KPj4+Pj4+Pj4+
+Pj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgdWludDMyX3QgY21kLCB2b2lkICpkYXRh
+KQ0KPj4+Pj4+Pj4+Pj4+ICt7DQo+Pj4+Pj4+Pj4+Pj4gKyAgICAvKiBUT0RPOiBBZGQgcHJvcGVy
+IGVtdWxhdGlvbiBmb3IgYWxsIGJpdHMgb2YgdGhlIGNvbW1hbmQgcmVnaXN0ZXIuICovDQo+Pj4+
+Pj4+Pj4+Pj4gKw0KPj4+Pj4+Pj4+Pj4+ICsgICAgaWYgKCAoY21kICYgUENJX0NPTU1BTkRfSU5U
+WF9ESVNBQkxFKSA9PSAwICkNCj4+Pj4+Pj4+Pj4+PiArICAgIHsNCj4+Pj4+Pj4+Pj4+PiArICAg
+ICAgICAvKg0KPj4+Pj4+Pj4+Pj4+ICsgICAgICAgICAqIEd1ZXN0IHdhbnRzIHRvIGVuYWJsZSBJ
+TlR4LiBJdCBjYW4ndCBiZSBlbmFibGVkIGlmOg0KPj4+Pj4+Pj4+Pj4+ICsgICAgICAgICAqICAt
+IGhvc3QgaGFzIElOVHggZGlzYWJsZWQNCj4+Pj4+Pj4+Pj4+PiArICAgICAgICAgKiAgLSBNU0kv
+TVNJLVggZW5hYmxlZA0KPj4+Pj4+Pj4+Pj4+ICsgICAgICAgICAqLw0KPj4+Pj4+Pj4+Pj4+ICsg
+ICAgICAgIGlmICggcGRldi0+dnBjaS0+bXNpLT5lbmFibGVkICkNCj4+Pj4+Pj4+Pj4+PiArICAg
+ICAgICAgICAgY21kIHw9IFBDSV9DT01NQU5EX0lOVFhfRElTQUJMRTsNCj4+Pj4+Pj4+Pj4+PiAr
+ICAgICAgICBlbHNlDQo+Pj4+Pj4+Pj4+Pj4gKyAgICAgICAgew0KPj4+Pj4+Pj4+Pj4+ICsgICAg
+ICAgICAgICB1aW50MTZfdCBjdXJyZW50X2NtZCA9IHBjaV9jb25mX3JlYWQxNihwZGV2LT5zYmRm
+LCByZWcpOw0KPj4+Pj4+Pj4+Pj4+ICsNCj4+Pj4+Pj4+Pj4+PiArICAgICAgICAgICAgaWYgKCBj
+dXJyZW50X2NtZCAmIFBDSV9DT01NQU5EX0lOVFhfRElTQUJMRSApDQo+Pj4+Pj4+Pj4+Pj4gKyAg
+ICAgICAgICAgICAgICBjbWQgfD0gUENJX0NPTU1BTkRfSU5UWF9ESVNBQkxFOw0KPj4+Pj4+Pj4+
+Pj4+ICsgICAgICAgIH0NCj4+Pj4+Pj4+Pj4+IFRoaXMgbGFzdCBwYXJ0IHNob3VsZCBiZSBBcm0g
+c3BlY2lmaWMuIE9uIG90aGVyIGFyY2hpdGVjdHVyZXMgd2UNCj4+Pj4+Pj4+Pj4+IGxpa2VseSB3
+YW50IHRoZSBndWVzdCB0byBtb2RpZnkgSU5UeCBkaXNhYmxlIGluIG9yZGVyIHRvIHNlbGVjdCB0
+aGUNCj4+Pj4+Pj4+Pj4+IGludGVycnVwdCBkZWxpdmVyeSBtb2RlIGZvciB0aGUgZGV2aWNlLg0K
+Pj4+Pj4+Pj4+PiBXZSBjYW5ub3QgYWxsb3cgYSBndWVzdCB0byBjbGVhciB0aGUgYml0IHdoZW4g
+aXQgaGFzIE1TSSAvIE1TSS1YDQo+Pj4+Pj4+Pj4+IGVuYWJsZWQgLSBvbmx5IG9uZSBvZiB0aGUg
+dGhyZWUgaXMgc3VwcG9zZWQgdG8gYmUgYWN0aXZlIGF0IGEgdGltZS4NCj4+Pj4+Pj4+Pj4gKElP
+VyBzaW1pbGFybHkgd2UgY2Fubm90IGFsbG93IGEgZ3Vlc3QgdG8gZW5hYmxlIE1TSSAvIE1TSS1Y
+IHdoZW4NCj4+Pj4+Pj4+Pj4gdGhlIGJpdCBpcyBjbGVhci4pDQo+Pj4+Pj4+Pj4gU3VyZSwgYnV0
+IHRoaXMgY29kZSBpcyBtYWtpbmcgdGhlIGJpdCBzdGlja3ksIGJ5IG5vdCBhbGxvd2luZw0KPj4+
+Pj4+Pj4+IElOVFhfRElTQUJMRSB0byBiZSBjbGVhcmVkIG9uY2Ugc2V0LiBXZSBkbyBub3Qgd2Fu
+dCB0aGF0IGJlaGF2aW9yIG9uDQo+Pj4+Pj4+Pj4geDg2LCBhcyBhIGd1ZXN0IGNhbiBkZWNpZGUg
+dG8gdXNlIE1TSSBvciBJTlR4LiBUaGUgZWxzZSBicmFuY2ggbmVlZHMNCj4+Pj4+Pj4+PiB0byBi
+ZSBBcm0gb25seS4NCj4+Pj4+Pj4+IElzbid0IHRoZSAiZWxzZSIgcGFydCBxdWVzdGlvbmFibGUg
+ZXZlbiBvbiBBcm0/DQo+Pj4+Pj4+IEl0IGlzLiBPbmNlIGZpeGVkIEkgY2FuJ3Qgc2VlIGFueXRo
+aW5nIEFybSBzcGVjaWZpYyBoZXJlDQo+Pj4+Pj4gV2VsbCwgSSBoYXZlIGxvb2tlZCBhdCB0aGUg
+Y29kZSBvbmUgbW9yZSB0aW1lIGFuZCBldmVyeXRoaW5nIHNlZW1zIHRvDQo+Pj4+Pj4gYmUgb2sg
+d3J0IHRoYXQgc3RpY2t5IGJpdDogd2UgaGF2ZSAyIGhhbmRsZXJzIHdoaWNoIGFyZSBjbWRfd3Jp
+dGUgYW5kDQo+Pj4+Pj4gZ3Vlc3RfY21kX3dyaXRlLiBUaGUgZm9ybWVyIGlzIHVzZWQgZm9yIHRo
+ZSBoYXJkd2FyZSBkb21haW4gYW5kIGhhcw0KPj4+Pj4+ICpubyByZXN0cmljdGlvbnMqIG9uIHdy
+aXRpbmcgUENJX0NPTU1BTkQgcmVnaXN0ZXIgY29udGVudHMgYW5kIHRoZSBsYXRlcg0KPj4+Pj4+
+IGlzIG9ubHkgdXNlZCBmb3IgZ3Vlc3RzIGFuZCB3aGljaCBkb2VzIGhhdmUgcmVzdHJpY3Rpb25z
+IGFwcGxpZWQgaW4NCj4+Pj4+PiBlbXVsYXRlX2NtZF9yZWcgZnVuY3Rpb24uDQo+Pj4+Pj4NCj4+
+Pj4+PiBTbywgZm9yIHRoZSBoYXJkd2FyZSBkb21haW4sIHRoZXJlIGlzIG5vICJzdGlja3kiIGJp
+dCBwb3NzaWJsZSBhbmQgZm9yIHRoZQ0KPj4+Pj4+IGd1ZXN0IGRvbWFpbnMgaWYgdGhlIHBoeXNp
+Y2FsIGNvbnRlbnRzIG9mIHRoZSBQQ0lfQ09NTUFORCByZWdpc3Rlcg0KPj4+Pj4+IGhhcyBQQ0lf
+Q09NTUFORF9JTlRYX0RJU0FCTEUgYml0IHNldCB0aGVuIHRoZSBndWVzdCBpcyBlbmZvcmNlZCB0
+bw0KPj4+Pj4+IHVzZSBQQ0lfQ09NTUFORF9JTlRYX0RJU0FCTEUgYml0IHNldC4NCj4+Pj4+Pg0K
+Pj4+Pj4+IFNvLCBmcm9tIGhhcmR3YXJlIGRvbWFpbiBQT1YsIHRoaXMgc2hvdWxkIG5vdCBiZSBh
+IHByb2JsZW0sIGJ1dCBmcm9tDQo+Pj4+Pj4gZ3Vlc3RzIHZpZXcgaXQgY2FuLiBMZXQncyBpbWFn
+aW5lIHRoYXQgdGhlIGhhcmR3YXJlIGRvbWFpbiBjYW4gaGFuZGxlDQo+Pj4+Pj4gYWxsIHR5cGVz
+IG9mIGludGVycnVwdHMsIGUuZy4gSU5UeCwgTVNJLCBNU0ktWC4gSW4gdGhpcyBjYXNlIHRoZSBo
+YXJkd2FyZQ0KPj4+Pj4+IGRvbWFpbiBjYW4gZGVjaWRlIHdoYXQgY2FuIGJlIHVzZWQgZm9yIHRo
+ZSBpbnRlcnJ1cHQgc291cmNlIChhZ2Fpbiwgbm8NCj4+Pj4+PiByZXN0cmljdGlvbiBoZXJlKSBh
+bmQgcHJvZ3JhbSBQQ0lfQ09NTUFORCBhY2NvcmRpbmdseS4NCj4+Pj4+PiBHdWVzdCBkb21haW5z
+IG5lZWQgdG8gYWxpZ24gd2l0aCB0aGlzIGNvbmZpZ3VyYXRpb24sIGUuZy4gaWYgSU5UeCB3YXMg
+ZGlzYWJsZWQNCj4+Pj4+PiBieSB0aGUgaGFyZHdhcmUgZG9tYWluIHRoZW4gSU5UeCBjYW5ub3Qg
+YmUgZW5hYmxlZCBmb3IgZ3Vlc3RzDQo+Pj4+PiBXaHk/IEl0J3MgdGhlIERvbVUgdGhhdCdzIGlu
+IGNvbnRyb2wgb2YgdGhlIGRldmljZSwgc28gaXQgb3VnaHQgdG8NCj4+Pj4+IGJlIGFibGUgdG8g
+cGljayBhbnkgb2YgdGhlIHRocmVlLiBJIGRvbid0IHRoaW5rIERvbTAgaXMgaW52b2x2ZWQgaW4N
+Cj4+Pj4+IGhhbmRsaW5nIG9mIGludGVycnVwdHMgZnJvbSB0aGUgZGV2aWNlLCBhbmQgaGVuY2Ug
+aXRzIG93biAiZGlzbGlrZSINCj4+Pj4+IG9mIElOVHggb3VnaHQgdG8gb25seSBleHRlbmQgdG8g
+dGhlIHBlcmlvZCBvZiB0aW1lIHdoZXJlIERvbTAgaXMNCj4+Pj4+IGNvbnRyb2xsaW5nIHRoZSBk
+ZXZpY2UuIFRoaXMgd291bGQgYmUgZGlmZmVyZW50IGlmIFhlbidzIHZpZXcgd2FzDQo+Pj4+PiBk
+aWZmZXJlbnQsIGJ1dCBhcyB3ZSBzZWVtIHRvIGFncmVlIFhlbidzIHJvbGUgaGVyZSBpcyBzb2xl
+bHkgdG8NCj4+Pj4+IHByZXZlbnQgaW52YWxpZCBjb21iaW5hdGlvbnMgZ2V0dGluZyBlc3RhYmxp
+c2hlZCBpbiBoYXJkd2FyZS4NCj4+Pj4gT24gdG9wIG9mIGEgUENJIGRldmljZSB0aGVyZSBpcyBh
+IHBoeXNpY2FsIGhvc3QgYnJpZGdlIGFuZA0KPj4+PiBwaHlzaWNhbCBidXMgdG9wb2xvZ3kgd2hp
+Y2ggbWF5IGltcG9zZSByZXN0cmljdGlvbnMgZnJvbQ0KPj4+PiBEb20wIFBPViBvbiB0aGF0IHBh
+cnRpY3VsYXIgZGV2aWNlLg0KPj4+IFdlbGwsIHN1Y2ggcGh5c2ljYWwgcmVzdHJpY3Rpb25zIG1h
+eSBtZWFuIElOVHggZG9lc24ndCBhY3R1YWxseSB3b3JrLA0KPj4+IGJ1dCB0aGlzIHdvbid0IG1l
+YW4gdGhlIERvbVUgaXNuJ3QgZnJlZSBpbiBjaG9vc2luZyB0aGUgYml0J3Mgc2V0dGluZy4NCj4+
+PiBUaGUgYml0IG1lcmVseSBjb250cm9scyB3aGV0aGVyIHRoZSBkZXZpY2UgaXMgYWxsb3dlZCB0
+byBhc3NlcnQgaXRzDQo+Pj4gaW50ZXJydXB0IHBpbi4gSGVuY2UgLi4uDQo+Pj4NCj4+Pj4gU28s
+IGV2ZXJ5IFBDSSBkZXZpY2UNCj4+Pj4gYmVpbmcgcGFzc2VkIHRocm91Z2ggdG8gYSBEb21VIG1h
+eSBoYXZlIGRpZmZlcmVudCBJTlR4DQo+Pj4+IHNldHRpbmdzIHdoaWNoIGRvIGRlcGVuZCBvbiBE
+b20wIGluIG91ciBjYXNlLg0KPj4+IC4uLiBJJ20gc3RpbGwgdW5jb252aW5jZWQgb2YgdGhpcy4N
+Cj4+IE9rLCBzbyBJIGNhbiBhY2NlcHQgYW55IHN1Z2dlc3Rpb24gaG93IHRvIHNvbHZlIHRoaXMu
+IEl0IHNlZW1zIHRoYXQNCj4+IHdlIGFscmVhZHkgaGF2ZSBudW1iZXIgb2Ygbm8gZ28gc2NlbmFy
+aW9zIGhlcmUsIGJ1dCBzdGlsbCBpdCBpcyBub3QNCj4+IGNsZWFyIHRvIG1lIHdoYXQgY291bGQg
+YmUgYW4gYWNjZXB0YWJsZSBhcHByb2FjaCBoZXJlLiBOYW1lbHk6DQo+PiB3aGF0IGRvIHdlIGRv
+IHdpdGggSU5UeCBiaXQgZm9yIGd1ZXN0cz8NCj4+IDEuIEkgY2FuIGxlYXZlIGl0IGFzIGlzIGlu
+IHRoZSBwYXRjaA0KPj4gMi4gSSBjYW4gcmVtb3ZlIElOVHggZW11bGF0aW9uIGFuZCBsZXQgdGhl
+IGd1ZXN0IGRlY2lkZSBhbmQgcHJvZ3JhbSBJTlR4DQo+PiAzLiBXaGF0IGVsc2UgY2FuIEkgZG8/
+DQo+IEFpdWkgeW91IHdhbnQgdG8gcHJldmVudCB0aGUgZ3Vlc3QgZnJvbSBjbGVhcmluZyB0aGUg
+Yml0IGlmIGVpdGhlcg0KPiBNU0kgb3IgTVNJLVggYXJlIGluIHVzZS4gU3ltbWV0cmljYWxseSwg
+d2hlbiB0aGUgZ3Vlc3QgZW5hYmxlcyBNU0kNCj4gb3IgTVNJLVgsIHlvdSB3aWxsIHdhbnQgdG8g
+Zm9yY2UgdGhlIGJpdCBzZXQgKHdoaWNoIG1heSB3ZWxsIGJlIGluDQo+IGEgc2VwYXJhdGUsIGZ1
+dHVyZSBwYXRjaCkuDQpzdGF0aWMgdWludDMyX3QgZW11bGF0ZV9jbWRfcmVnKGNvbnN0IHN0cnVj
+dCBwY2lfZGV2ICpwZGV2LCB1aW50MzJfdCBjbWQpDQp7DQogwqDCoMKgIC8qIFRPRE86IEFkZCBw
+cm9wZXIgZW11bGF0aW9uIGZvciBhbGwgYml0cyBvZiB0aGUgY29tbWFuZCByZWdpc3Rlci4gKi8N
+Cg0KIMKgwqDCoCBpZiAoIChjbWQgJiBQQ0lfQ09NTUFORF9JTlRYX0RJU0FCTEUpID09IDAgKQ0K
+IMKgwqDCoCB7DQogwqDCoMKgwqDCoMKgwqAgLyogR3Vlc3Qgd2FudHMgdG8gZW5hYmxlIElOVHgu
+IEl0IGNhbid0IGJlIGVuYWJsZWQgaWYgTVNJL01TSS1YIGVuYWJsZWQuICovDQojaWZkZWYgQ09O
+RklHX0hBU19QQ0lfTVNJDQogwqDCoMKgwqDCoMKgwqAgaWYgKCBwZGV2LT52cGNpLT5tc2ktPmVu
+YWJsZWQgKQ0KIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY21kIHw9IFBDSV9DT01NQU5EX0lOVFhf
+RElTQUJMRTsNCiNlbmRpZg0KIMKgwqDCoCB9DQoNCiDCoMKgwqAgcmV0dXJuIGNtZDsNCn0NCg0K
+SXMgdGhpcyB3aGF0IHlvdSBtZWFuPw0KPiBKYW4NCj4NClRoYW5rIHlvdSwNCk9sZWtzYW5kcg==
 
