@@ -2,47 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C51C6444478
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Nov 2021 16:16:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.220989.382476 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A93C444481
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Nov 2021 16:17:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.220992.382487 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miHzd-0004hw-BO; Wed, 03 Nov 2021 15:16:01 +0000
+	id 1miI0R-0005Ft-N2; Wed, 03 Nov 2021 15:16:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 220989.382476; Wed, 03 Nov 2021 15:16:01 +0000
+Received: by outflank-mailman (output) from mailman id 220992.382487; Wed, 03 Nov 2021 15:16:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miHzd-0004fQ-7m; Wed, 03 Nov 2021 15:16:01 +0000
-Received: by outflank-mailman (input) for mailman id 220989;
- Wed, 03 Nov 2021 15:16:00 +0000
+	id 1miI0R-0005DI-J2; Wed, 03 Nov 2021 15:16:51 +0000
+Received: by outflank-mailman (input) for mailman id 220992;
+ Wed, 03 Nov 2021 15:16:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+Ly7=PW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1miHzb-0004f1-W0
- for xen-devel@lists.xenproject.org; Wed, 03 Nov 2021 15:16:00 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9PtR=PW=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1miI0P-0005D6-TF
+ for xen-devel@lists.xenproject.org; Wed, 03 Nov 2021 15:16:50 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04on0615.outbound.protection.outlook.com
+ [2a01:111:f400:fe0d::615])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f2380f3e-3cb8-11ec-a9d2-d9f7a1cc8784;
- Wed, 03 Nov 2021 16:15:57 +0100 (CET)
-Received: from EUR03-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur03lp2059.outbound.protection.outlook.com [104.47.10.59]) (Using
- TLS) by relay.mimecast.com with ESMTP id de-mta-6-GsRArUnqPcKlPANKfkPolw-1;
- Wed, 03 Nov 2021 16:15:56 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4605.eurprd04.prod.outlook.com (2603:10a6:803:65::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.14; Wed, 3 Nov
- 2021 15:15:54 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4649.020; Wed, 3 Nov 2021
- 15:15:54 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM5PR0601CA0083.eurprd06.prod.outlook.com (2603:10a6:206::48) with Microsoft
+ id 0fe96920-3cb9-11ec-a9d2-d9f7a1cc8784;
+ Wed, 03 Nov 2021 16:16:47 +0100 (CET)
+Received: from AS9PR06CA0117.eurprd06.prod.outlook.com (2603:10a6:20b:465::32)
+ by DB9PR08MB7471.eurprd08.prod.outlook.com (2603:10a6:10:36d::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Wed, 3 Nov
+ 2021 15:16:46 +0000
+Received: from VE1EUR03FT063.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:465:cafe::79) by AS9PR06CA0117.outlook.office365.com
+ (2603:10a6:20b:465::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10 via Frontend
+ Transport; Wed, 3 Nov 2021 15:16:46 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT063.mail.protection.outlook.com (10.152.18.236) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4649.14 via Frontend Transport; Wed, 3 Nov 2021 15:16:45 +0000
+Received: ("Tessian outbound 6ebd41198c5d:v108");
+ Wed, 03 Nov 2021 15:16:45 +0000
+Received: from e0a9c11d5a42.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 630179E6-568A-4729-8DC5-05B0971B12E2.1; 
+ Wed, 03 Nov 2021 15:16:35 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id e0a9c11d5a42.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 03 Nov 2021 15:16:35 +0000
+Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
+ by PA4PR08MB6206.eurprd08.prod.outlook.com (2603:10a6:102:ea::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.18; Wed, 3 Nov
+ 2021 15:16:32 +0000
+Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
+ ([fe80::c1b4:db1c:376f:b697]) by PAXPR08MB6816.eurprd08.prod.outlook.com
+ ([fe80::c1b4:db1c:376f:b697%8]) with mapi id 15.20.4649.019; Wed, 3 Nov 2021
+ 15:16:32 +0000
+Received: from smtpclient.apple (82.8.129.65) by
+ LO4P123CA0165.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:18a::8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4669.10 via Frontend Transport; Wed, 3 Nov 2021 15:15:53 +0000
+ 15.20.4669.10 via Frontend Transport; Wed, 3 Nov 2021 15:16:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,215 +76,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f2380f3e-3cb8-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1635952557;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tbFV5VcEZ7yiZgrCxBjjgmu6atK9oeWV5KuA7tgKiIQ=;
-	b=l4tvYiS6tU5SWPCSc+R/MAnMrYKYu7hYdmspOvM0osZt3b1RkbUun90E/E2m1wUJQBTmC4
-	xXGov5fgYqPb2bEK3GUfM33LUI9pP/6AJq3ZD9N+rOCRUnlHKUxhFWjQwGbyLNe4KuMpSX
-	Ja/FtXYVKX19ZSuy751PxktW/3FiC/A=
-X-MC-Unique: GsRArUnqPcKlPANKfkPolw-1
+X-Inumbo-ID: 0fe96920-3cb9-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hkaGPG38pcNYLgdAHpkY2CIwtUuOV0u+KZq/w0kKhI0=;
+ b=tJJrA2BaauooHCNRuXylfajuf/qRI+7rHIm4JOElDQlO9gpn0EG0QgaR2WQN3xOf8y6KVVqoPh0h7cXxx2CNzcJMwM4kWGTEB8Gm1bH1KjohWJ+26SsurrmK34sbb4jLE1wN7IhPylq9tCckebu9cKcEgW0l8GdcCUaewbRebis=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 5ab5fa06ebb18518
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=H/BfXyMEnc42pn74n6WpW6kfQsh5sc3hYV88Ri65ZqsQfUYBn0wUR0DvN8ZZdGGHbN0KMSyuLn3ZPyZyrQRRspC/XyS9finAvjY8vGvD8zQMzYTVnEEh9YdTXee788GFquMawnDbW9CyKV0MnJ1CKbdblDsO6wTmjBdYgxLTkLV9Rc1rgEzc2hG3085YooBGo0yhv4ZcfLr9Cz9Akp66AMZRx8TnMzaz3tb/gf5/FMCIBq47bxkYZhGBhGnh6Ub9UjV42D+fY/u41XwiaF9ownsmXI7f59TBfkCNU9Z3km5QwjDYgkkE96o9h82DuJA+c/pqGYapKGQTLofVmqTMvQ==
+ b=K7CR2z7lW6tpqvlxYI4SdLRVQE2EQXeLb2HJfuGnJPxYp6d6qSvsMjPZ/2lbjGh0AvcTSdpZXMqrzQV/prWK2Z3mR0POLM4byS3IyLMO/ieHA6wapPT8ShjwLmu6LwG8KIpgWDh3t1hrraZI4hVo3swaNpF68ZCDh68ncpmatzmcMAVQThvNiR7tnOlS1oLi0VoxIuGJqL2T/Pi8JDHNixrmooXhXWZWIGlo+KEhj+TcXQDH+NnilDQ0BM+f/auSkm0Lka7QMCA0G+tBPhM8j4wNCCwUvfIc3bME7QZf8S13tzMebOhu7RcIImKjkQV33BjxQjWGoidcAJD1LUqWKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mm8onhya5KdltAdEOLZM1NDX0Yr+uFyMZqsCG2PXgps=;
- b=Aln02pGr2dZ7Lv+Y4RlljZgZ6yFdVCTzu4mS0sZTTfODFFxSk7F3T9dwSu46tD8QbLZXdnXD2Na2fN4PXAnI4NvJkbHI5JcB57mt8ehanwbxd7t+e86IMmjL2tUTL060o1cWWNBqqa3JEW8hZMFneCK8suPAF2PbscHTVQBC+XeImhSLm9ScY076SH5tPtjPlcTTRGJR/zALchkQyO5gEEHQpbb9e4HA8rllY7aX9xMjM49LtKa1nhM8+2mrQRMOp8oIbRH3s3Rp601MIyTRDk9pYX8tEOJ8WEgSXabOoGLk6iyj96NrUAJi+3gjNbHQ1vJTwsMwFEpEtEcj3DxXOA==
+ bh=hkaGPG38pcNYLgdAHpkY2CIwtUuOV0u+KZq/w0kKhI0=;
+ b=c9qE9s7YpeqxbJFxl7RbJGK7QLG77ImfFRBsV4DRicYcVxaWbJ38FX7QZo/au8vl9WEDObzSyqTprdvJNO6RUYSG2xGPav7hKlLrjXPmYHC0rLP9SQ4+cFhsZ/QMKi7ZdxTt/MQSucT3730eo5dGeP45b3Uj2c3C0qvURvFJaoHcXxrvIdqYSKy2n0hqWdwOn2N4j96KX1FUv7EE75pm5Aeur4ZyxynByZ9Uskb7l1sNAEm/45cHyZTWkW3L48lWmn3TQp5i4Mm+QQ0xlpFngXqFJArotDo3s5aV6FIfXqBgCKj+UAMeR6aAWjszXOgGSZDqVspCPkngFpQgh76F/A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ebe6b551-2302-830d-72ea-8d4fae1c411d@suse.com>
-Date: Wed, 3 Nov 2021 16:15:52 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.1
-Subject: Re: [PATCH v2 3/3] AMD/IOMMU: iommu_enable vs iommu_intremap
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-References: <09137aa2-649f-08fb-ba68-75f8eb16fc63@suse.com>
- <ff7b68b2-5bba-2927-e3f0-f3062862c466@suse.com>
- <YXaGxX3J1aB39mSG@MacBook-Air-de-Roger.local>
- <dd2929fc-dc1a-1c16-5954-6894766d9dda@suse.com>
- <YYEa6HQGR1cHJBw/@Air-de-Roger>
- <bcaf1547-98ae-923f-5be8-50156e318bf4@suse.com>
- <YYKldeiym0fLWTsa@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YYKldeiym0fLWTsa@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hkaGPG38pcNYLgdAHpkY2CIwtUuOV0u+KZq/w0kKhI0=;
+ b=tJJrA2BaauooHCNRuXylfajuf/qRI+7rHIm4JOElDQlO9gpn0EG0QgaR2WQN3xOf8y6KVVqoPh0h7cXxx2CNzcJMwM4kWGTEB8Gm1bH1KjohWJ+26SsurrmK34sbb4jLE1wN7IhPylq9tCckebu9cKcEgW0l8GdcCUaewbRebis=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Content-Type: text/plain;
+	charset=utf-8
+Subject: Re: [PATCH] xen/efi: Fix Grub2 boot on arm64
+From: Luca Fancellu <luca.fancellu@arm.com>
+In-Reply-To: <ad621757-afac-f36f-0b3c-7fe1ddb83a66@suse.com>
+Date: Wed, 3 Nov 2021 15:16:25 +0000
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+ wei.chen@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <iwj@xenproject.org>
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM5PR0601CA0083.eurprd06.prod.outlook.com
- (2603:10a6:206::48) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+Message-Id: <AB5E1F4C-36BC-413B-88DA-487BA573BFCC@arm.com>
+References: <20211102140511.5542-1-luca.fancellu@arm.com>
+ <5290fa91-9470-be1b-47e4-a8de911b4fb3@suse.com>
+ <6F65B5FB-A511-4553-AA17-B144C3DB70CA@arm.com>
+ <6a8ecb5b-7ea4-7dd8-4acf-587b51862aed@suse.com>
+ <845D8368-B9DA-4A5C-8F8D-6AAE55E326A0@arm.com>
+ <16c6757d-1bb3-361f-a41f-26b9bc89a2b4@suse.com>
+ <83E4F969-892C-4AA2-829D-67C02B4B5885@arm.com>
+ <ad621757-afac-f36f-0b3c-7fe1ddb83a66@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+X-Mailer: Apple Mail (2.3693.20.0.1.32)
+X-ClientProxiedBy: LO4P123CA0165.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18a::8) To PAXPR08MB6816.eurprd08.prod.outlook.com
+ (2603:10a6:102:130::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ceb90409-3896-4e75-6e22-08d99edcd44f
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4605:
+X-MS-Office365-Filtering-Correlation-Id: ebe2edb0-17af-420d-5c65-08d99edcf305
+X-MS-TrafficTypeDiagnostic: PA4PR08MB6206:|DB9PR08MB7471:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB4605AB90A339931129E2B7E3B38C9@VI1PR04MB4605.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+	<DB9PR08MB7471B2F874B356A7E153BBC5E48C9@DB9PR08MB7471.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ K6pWWo2Lmi9e0UAEKHNNFq4V4eJPah5K/AY92igl563t22lDPgSitMX9M5gpUCPkEr8uiy89grv+Z8Q8NOvPUxOSoyrXP3l1TGroS479at/oWb3vhzot5DklPKnhfpzHF4YvAg+IhnC3dtr7u6aXbtGFXe43KiVUSlXowSIzrOrd3eM+8PODs/6QZKlFbitRlBZGw6CjA4MzDRZI0odZHhKGnpq/CBg8TLKxx4bn8aJvJSojaxm8ve9B/OnNRf/4iyheifjg6BtI2ogjTfvrFVL/tMBgP3Jhuui3tTBlGOR+FwYjZ61Uq3Ss0hEjApT18Eno0GgYxhPflMJvc1hd5kA8zLZXV/uiZXSUnEw50EvultC3FC/IqK4kuQ7fFxP42egE+A+4m88OBI5kDgldl2HcZJxbzxHJVLln0FsCRte+Gi/gKe/8DUm6y1Nc4wPNc5XAD1gncmdTKVcqdFUuoKkzczidOviWmE8E6oGHnHu+DHlYs9fHSa65NLG1GRRM9G6Z+J2+2P4FEQsENQKgQdjDfEp5oBI9hLahFsbAyyx5wQwU5+JXnz/dh2UQq4sFK55ONp4NQhV8f+9ISxkqGOBT68Lw80jgTI9a5ZLFl2EEimPC0UwmcRZRiwPZBGua7hMLrgITgxwxr2Nlq04+AN8Y7byOncUQTKOfvSeTgLNR70RASJ2m49viMbp7MQA0GY7q10ybZEqrAlDgHeJQC6GwTkDXVQZv5vsgjha57IQRrcyQH831BpzleWIlcUf1
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(44832011)(6916009)(2616005)(6486002)(5660300002)(8676002)(33656002)(8936002)(6666004)(956004)(38350700002)(38100700002)(86362001)(508600001)(6512007)(66946007)(66556008)(66476007)(53546011)(6506007)(26005)(52116002)(83380400001)(2906002)(36756003)(316002)(54906003)(186003)(4326008)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6206
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT063.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	5f248f5f-78ce-4582-dc3d-08d99edceb21
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Zdh20qz9r2cc6N3htpE6hAxZwjaQ9aHpDZhkOni0kULjzNkBmu6Tas/hsUFoLYgpBa8JPJWxQz2snIL1w7kZwn/oiK8ekXdrMoSqoJS6rtuLm3lXZX6ROOf3oJhgPxwkwZR8tHGsUhX5+rQiIZJLeJhzd7VQOoZFXJ0msvtHLmSetNkIJK6zk+wRWSBP7F6JRKcVvf2mi83doRIzMar6HV/Keyx1WZtxXjnUL6Wr5BGN5KtsvMpFLSksuLWI48D6Ypm6xLJbCe36NyPi+uFVrj6gd1h7mrmQs5mj7MScXYMxeueSEqL++3b4rowLdX7Z2gK0+ptDIqvERSEm2YdfWN8otUUV4UnpU0qbrwnYDyy4NRLahglAsOFUQvv+k3XJy+oO9pd8M9jQ5UX0XnXsErUopjD5Y053ravIm9M7VkcYeupq1FTQg+3Qybo7Z73NZqbeeF/SdjAQqHueoZCiCP2i4H/+Perww1DvbQMQ7KtY1XtZ3MVnHl/YRyUcDv91jcEHJC+Og8zt+6Chb/ATXe0bPG21uDfXO8fw2GXKLG6W8wJssFQMwi7tXi4JlFsDOAeGT4qlGwy2JwEN1bZvxQpDKzAJwpyLvb2KNmAucg8kPL8mnqFvzhb7LeU6pO5oAjt7kPRkLYyW8D2gbRzQos3Bvk9CT3we16V7nZQg7PSFybaPHZQcoOK9NmKgPEppgrAe6W+PcwkaB95X6fAPs/YBwfsRtCkSCheMp8gh4rRpoVdLF6kTPAibQZTSp7Rz
+	LUnEwlJjEQxbON9kyYNc+5NeXnmKXFEKuIhOwhwLXyuGKBOzBKG8s9zlgsclPdx38EgZcAYxxWnV6d6FgQVmjnuy4O4TwC293+hx7LmWzgTeMxZwMbVIdaHCajdMWj4nLvBVdhy/Xp84uT1l2lzspN2cbkRIWg/EMk2Vaif4dk4MWA0SCsNDTu3JtSbDOmoUGPNex/D6ds0duHWmBaHtaQiRntFkpouFLZqiExt2vjbrnq683Xa5bQHh6drDlEq+XGXL5vkiW2djexzWPo3RhXR0yxunx3iugO1J0uzIvW3pkf0vjd1MsA0fGswVz9+Dsvw9BnBKYVhOQEwreKN60Qnfm0YTg+BT5nU3mX2q973JOyVnJEihDLjHvIOnreEJBc6PyHGzxBVQULe5YPH39mmI5pXMfsdFMBHPbku1IE5c3eRqtV9+ZX0M45UN3w7AyOr9VfmRi3Yo69yM6hRhgBF6alc1XSBPLdTVOUaM0Bej3y22ETG5Naev8LlIj/83ZJbRYBd9OApvpoa+JIizdgR4HGsSswVen5q3mqjRWQZpVsNy5Yim9Gxd90XkYRRb+ga+uTVbGEbifkY7jY5pZdS51k4pWno4YSfLCHK57uwqkTAipzclJFYeQMG/X/g8Vhd0RXe/vjslnitsu/kuV/JMJ/1VU4jicMIr3K3a2J/O393enl3c095zq7Coc+eQ1om6g0kpF7y5Pai2L+uAyA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(66946007)(110136005)(8936002)(956004)(2616005)(5660300002)(186003)(53546011)(4326008)(38100700002)(508600001)(83380400001)(66476007)(31686004)(31696002)(2906002)(16576012)(86362001)(316002)(26005)(54906003)(6486002)(66556008)(36756003)(8676002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?PDjxr5GDggwxaIsAaszILs6dVC0seIMpd+H1rh6Pkg0DQ+c9Vu/kCpvITYVs?=
- =?us-ascii?Q?jIPvO83IMv0BxEONzgAppQ91D5880RM7ZZEJPdOJMAX//t8zV9CebDBZCdtY?=
- =?us-ascii?Q?x9pUJ9xm3PPBkauCyr4wcuYoGXr8lXbuSTEBlC33/CQdZSC58R5u1YtgVXF3?=
- =?us-ascii?Q?GI3Ws3v7htI6CuCGQUxYrANHdcEQ/po9qVnjs6at5rirAN5DvceC1KGPHlp2?=
- =?us-ascii?Q?bRnZyfdzR06MzW8c5fB+enmkUNxEQCYUSUOfIx01X8bglLajmi2tC67b422n?=
- =?us-ascii?Q?wH8CvTHv0itOeD/9sxRzavDZoeFajkWBHvpEsbcnkTPXcVfH90kT3ZSNxzmy?=
- =?us-ascii?Q?fm9a2XJrCKNcmNHnzXT/TYUOVBUbu2+ZW0EekArwNxle2Uk5ZB1TgT3XZfuA?=
- =?us-ascii?Q?rwVQYIluHh7EmUgFwSIArTiOr8zs+f87KcItoW6ViBKVWKxRI4u2ZrMGawN8?=
- =?us-ascii?Q?AVp49kqd372+vuUq/nHdVa2L8ALJlUKmtwXdkw1uCMwH+PzTQaoagIXk58PE?=
- =?us-ascii?Q?6VAiFYN4HhlJEHShh64+tvrZ5nOl60aFpPUCFmuVJUiKEFaXs0ZzcnMONWOW?=
- =?us-ascii?Q?4ZboZgemWn2LIVOS09EkuPSRVMe3qM/siRGaR8K3WzH6ASLdOVZA3zbBuZHC?=
- =?us-ascii?Q?4HvQM9WqFp4dGJ1UbQ5yfPwC5nyBy3f9h2olmnqUlAB1guGliZ5Ehj0mwnmX?=
- =?us-ascii?Q?yccaZtiI4MS6tCIMt45nCls2aH6Fsqc7pCnY4xkSadQfDkJ7J6qU62IVYAV+?=
- =?us-ascii?Q?B4suvZNRdg5VaFQnaLJwYq/QOJkOEGgWV28tgNo4AI4jchvPtttjSDztogWa?=
- =?us-ascii?Q?zy2Xi5AUZzVUfD4TA4zYzYVCSowzi6cIHDEJ8THSPyAeHNT8ctVE1/nuLPDX?=
- =?us-ascii?Q?LnPQ5QF7Cp4U9KXcaUYOCgxX4M1haSXMmpu2UiaU8OBTUqZt1cg/mRGbV8lX?=
- =?us-ascii?Q?0+rxc19cqylh7flhEfsFchD9GFY1FJ9p3WUstZBCsA2P96GIBnTLyLIbTWbx?=
- =?us-ascii?Q?rvd60PdZ9V/UzgnRjeLYwDVJzwFVAd4HqvPkqeuv8hp9YtrEgQ2VlFMBRDr3?=
- =?us-ascii?Q?FWzUngwNQoAHw9nTefNh1f9w60RY9thH9lPfE1F2nEkNihGT1+R7wvvrzKcf?=
- =?us-ascii?Q?CZXf7qNMThxDxeZgJky4RK6Ca5v2UKVgE032LYweBHrdv+tcTqrqI6DC23Wx?=
- =?us-ascii?Q?FFPJcTtI0a3+xKaqfYPQ3ZNDfCyhshf+QPfawUzoHsyLTXwPJzjiuGZBAFCl?=
- =?us-ascii?Q?Esn6zXV4E9EWdCmyTZehWl+uGE5CvFkOxvHLxE/gbN3CC7GnD0x/eNEU5vh7?=
- =?us-ascii?Q?EHA7ROQC/aqTTuqrKPwoFCzkrkRkQ8mML1DM0YJck7h9xliiSzc0IxJY8nar?=
- =?us-ascii?Q?5Xvo739ryR8Xbmi4Ca5yrySoz+wgdMA2SJ2xUp7Bo+lt/Cbgzpct/bWr4Krd?=
- =?us-ascii?Q?qSnDQ+DBG+vuQNlVk2+5prGWyQWWuSAAWlpUvsiIoLvtMy6xm3VexHU3Jr0v?=
- =?us-ascii?Q?rbPhldjTH5HtiD1O3yc+MpQbJsFzQlWB+10wPQXFWGSeXEwWyuANQjZrRCiI?=
- =?us-ascii?Q?w0UuaGQC2iCusGhyIdaT+Io1brt4Zsu4AQUgokclLw/s55vdXViP2GqHGz1X?=
- =?us-ascii?Q?qfBkOa2WXZLFldDXtyKH4Ek=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ceb90409-3896-4e75-6e22-08d99edcd44f
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2021 15:15:54.3014
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(336012)(8936002)(8676002)(2906002)(33656002)(54906003)(86362001)(81166007)(316002)(4326008)(356005)(70586007)(36860700001)(508600001)(5660300002)(186003)(6486002)(36756003)(6666004)(26005)(6862004)(47076005)(2616005)(956004)(82310400003)(44832011)(53546011)(6506007)(6512007)(83380400001)(70206006);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2021 15:16:45.5505
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rDv5bFrlfih6elkzdulXAoKiE3AJnGZV+ld8Oiqq53ZpuqY7agWfGmjY3pRN3HjBryElXw/Ly13adYrLgqb9CA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4605
+X-MS-Exchange-CrossTenant-Network-Message-Id: ebe2edb0-17af-420d-5c65-08d99edcf305
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT063.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7471
 
-On 03.11.2021 16:06, Roger Pau Monn=C3=A9 wrote:
-> On Wed, Nov 03, 2021 at 10:46:40AM +0100, Jan Beulich wrote:
->> On 02.11.2021 12:03, Roger Pau Monn=C3=A9 wrote:
->>> On Tue, Nov 02, 2021 at 11:13:08AM +0100, Jan Beulich wrote:
->>>> On 25.10.2021 12:28, Roger Pau Monn=C3=A9 wrote:
->>>>> On Thu, Oct 21, 2021 at 11:59:02AM +0200, Jan Beulich wrote:
->>>>>> The two are really meant to be independent settings; iov_supports_xt=
-()
->>>>>> using || instead of && was simply wrong. The corrected check is,
->>>>>> however, redundant, just like the (correct) one in iov_detect(): The=
-se
->>>>>> hook functions are unreachable without acpi_ivrs_init() installing t=
-he
->>>>>> iommu_init_ops pointer, which it does only upon success. (Unlike for
->>>>>> VT-d there is no late clearing of iommu_enable due to quirks, and an=
-y
->>>>>> possible clearing of iommu_intremap happens only after iov_supports_=
-xt()
->>>>>> has run.)
->>>>>>
->>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>>>> ---
->>>>>> In fact in iov_detect() it could be iommu_enable alone which gets
->>>>>> checked, but this felt overly aggressive to me. Instead I'm getting =
-the
->>>>>> impression that the function may wrongly not get called when "iommu=
-=3Doff"
->>>>>> but interrupt remapping is in use: We'd not get the interrupt handle=
-r
->>>>>> installed, and hence interrupt remapping related events would never =
-get
->>>>>> reported. (Same on VT-d, FTAOD.)
->>>>>
->>>>> I've spend a non-trivial amount of time looking into this before
->>>>> reading this note. AFAICT you could set iommu=3Doff and still get x2A=
-PIC
->>>>> enabled and relying on interrupt remapping.
->>>>
->>>> Right, contrary to ...
->>>>
->>>>>> For iov_supports_xt() the question is whether, like VT-d's
->>>>>> intel_iommu_supports_eim(), it shouldn't rather check iommu_intremap
->>>>>> alone (in which case it would need to remain a check rather than get=
-ting
->>>>>> converted to ASSERT()).
->>>>>
->>>>> Hm, no, I don't think so. I think iommu_enable should take precedence
->>>>> over iommu_intremap, and having iommu_enable =3D=3D false should forc=
-e
->>>>> interrupt remapping to be reported as disabled. Note that disabling i=
+
+
+> On 3 Nov 2021, at 14:30, Jan Beulich <jbeulich@suse.com> wrote:
+>=20
+> On 03.11.2021 15:09, Luca Fancellu wrote:
+>>> On 3 Nov 2021, at 11:28, Jan Beulich <jbeulich@suse.com> wrote:
+>>> On 03.11.2021 11:20, Luca Fancellu wrote:
+>>>>> On 3 Nov 2021, at 08:20, Jan Beulich <jbeulich@suse.com> wrote:
+>>>>> On 02.11.2021 18:12, Luca Fancellu wrote:
+>>>>>>> On 2 Nov 2021, at 14:45, Jan Beulich <jbeulich@suse.com> wrote:
+>>>>>>> On 02.11.2021 15:05, Luca Fancellu wrote:
+>>>>>>>> The code introduced by commit a1743fc3a9fe9b68c265c45264dddf214fd9=
+b882
+>>>>>>>> ("arm/efi: Use dom0less configuration when using EFI boot") is
+>>>>>>>> introducing a problem to boot Xen using Grub2 on ARM machine using=
+ EDK2.
+>>>>>>>>=20
+>>>>>>>> The problem comes from the function get_parent_handle(...) that in=
+side
+>>>>>>>> uses the HandleProtocol on loaded_image->DeviceHandle, but the las=
 t
->>>>> in iommu_setup is too late, as the APIC initialization will have
->>>>> already taken place.
->>>>>
->>>>> It's my reading of the command line parameter documentation that
->>>>> setting iommu=3Doff should disable all usage of the IOMMU, and that
->>>>> includes the interrupt remapping support (ie: a user should not need
->>>>> to set iommu=3Doff,no-intremap)
->>>>
->>>> ... that documentation. But I think it's the documentation that
->>>> wants fixing, such that iommu=3Doff really only control DMA remap.
->>>
->>> IMO I think it's confusing to have sub-options that could be enabled
->>> when you set the global one to off. I would expect `iommu=3Doff` to
->>> disable all the iommu related options, and I think it's fair for
->>> people to expect that behavior.
->>
->> It occurs to me that this reply of yours here contradicts your R-b
->> on patch 1, in particular with its revision log saying:
->>
->> v2: Treat iommu_enable and iommu_intremap as separate options.
+>>>>>>>> is NULL, making Xen stop the UEFI boot.
+>>>>>>>=20
+>>>>>>> According to my reading the UEFI spec doesn't (explicitly) allow fo=
+r
+>>>>>>> this to be NULL. Could you clarify why this is the case? What other
+>>>>>>> information may end up being invalid / absent? Is e.g. read_section=
+()
+>>>>>>> safe to use?
+>>>>>>=20
+>>>>>> My test on an arm machine running Grub2 on top of EDK2 showed that
+>>>>>> when Xen is started, the get_parent_handle(=E2=80=A6) call was faili=
+ng and stopping
+>>>>>> the boot because the efi_bs->HandleProtocol(=E2=80=A6) was called wi=
+th the
+>>>>>> loaded_image->DeviceHandle argument NULL and the call was returning
+>>>>>> a EFI_INVALID_PARAMETER.
+>>>>>> So the parent handle can=E2=80=99t be requested and the filesystem c=
+an=E2=80=99t be used,
+>>>>>> but any other code that doesn=E2=80=99t use the handle provided by g=
+et_parent_handle(=E2=80=A6)
+>>>>>> can be used without problem like read_section(...).
+>>>>>=20
+>>>>> I understand this. My question was for the reason of ->DeviceHandle
+>>>>> being NULL. IOW I'm wondering whether we're actually talking about a
+>>>>> firmware or GrUB bug, in which case your change is a workaround for
+>>>>> that rather than (primarily) a fix for the earlier Xen change.
+>>>>=20
+>>>> The issue was found only when using EDK2+Grub2, no issue when booting
+>>>> directly from EDK2.
+>>>> This is a fix for the regression, because without the EFI changes, Gru=
+b2 was
+>>>> booting successfully Xen. Using grub2 to boot Xen on arm is a very com=
+mon
+>>>> solution so not supporting this anymore could lead to lots of people h=
+aving
+>>>> issues if they update to Xen 4.16.
+>>>=20
+>>> I'm not objecting to addressing the issue. But the description needs
+>>> to make clear where the origin of the problem lies, and afaict that's
+>>> not the earlier Xen change. That one merely uncovered what, according
+>>> to your reply, might then be a GrUB bug. Unless, as said earlier, I
+>>> merely haven't been able to spot provisions in the spec for the field
+>>> in question to be NULL.
+>>=20
+>> Maybe I can rephrase to be more specific from:
+>>=20
+>> The problem comes from the function get_parent_handle(...) that inside
+>> uses the HandleProtocol on loaded_image->DeviceHandle, but the last
+>> is NULL, making Xen stop the UEFI boot.
+>>=20
+>> To:
+>>=20
+>> Despite UEFI specification, EDK2+Grub2 is returning a NULL DeviceHandle,
+>> that is used by efi_bs->HandleProtocol(=E2=80=A6) inside get_parent_hand=
+le(=E2=80=A6),
+>> causing Xen to stop the boot getting an EFI_INVALID_PARAMETER error.
+>>=20
+>> Do you think it can be ok like this?
 >=20
-> Right, I see. patch 1 uses
+> Much better, yes, but I wonder what "returning" refers to. You want to
+> describe the origin of the NULL handle as precisely as possible. And
+> considering this turns out as a workaround, in a suitable place you
+> will also want to add a code comment, such that a later reader won't
+> decide this is all dead code and can be done in a simpler way.
+
+Ok I can write the issue from the beginning to be sure:
+
+Despite UEFI specification, EDK2+Grub2 is returning a NULL DeviceHandle
+inside the interface given by the LOADED_IMAGE_PROTOCOL service, this
+handle is used later by efi_bs->HandleProtocol(=E2=80=A6) inside get_parent=
+_handle(=E2=80=A6)
+when requesting the SIMPLE_FILE_SYSTEM_PROTOCOL interface,
+causing Xen to stop the boot because of an EFI_INVALID_PARAMETER error.
+
+Regarding the comment, I can rephrase this comment:
+/*
+ * If DeviceHandle is NULL, we can't use the SIMPLE_FILE_SYSTEM_PROTOCOL
+ * to have access to the filesystem.
+ */
+
+To be:
+
+/*
+ * If DeviceHandle is NULL, the firmware offering the UEFI services might n=
+ot be
+ * compliant to the standard and we can't use the SIMPLE_FILE_SYSTEM_PROTOC=
+OL
+ * to have access to the filesystem. However the system can boot if and onl=
+y if it doesn=E2=80=99t
+ * require access to the filesystem. (e.g. Xen image has everything built i=
+n or the
+ * bootloader did previously load every needed binary in memory)
+ */
+
+What do you think?
+
+Cheers,
+Luca
+
 >=20
-> if ( !iommu_enable && !iommu_intremap )
->     return;
->=20
-> Which I think should be:
->=20
-> if ( !iommu_enable )
->     return;
->=20
-> Sorry I didn't realize in that context. I think we need to decide
-> whether we want to fix the documentation to match the code, or whether
-> we should fix the code to match the documentation.
-
-Except that adjusting the conditional(s) in patch 1 would then
-be a functional change that's not really the purpose of that
-patch - it really only folds acpi_ivrs_init()'s and
-acpi_parse_dmar()'s into a vendor-independent instance in
-acpi_iommu_init(). Alternatively we could adjust the conditional
-here (in patch 3), but that would feel unrelated once again, as
-this change is supposed to be AMD-specific.
-
-> My preference would be for the latter, because I think the resulting
-> interface would be clearer. That will require introducing a new
-> dmaremap iommu suboption, but again I think this will result in a
-> better interface overall.
-
-I guess we could do with a 3rd opinion: Paul, any chance?
-
-In any event I hope that we can agree that patches 1 and 2 are
-okay for 4.16 in their present shape, and patch 3 (plus whichever
-further ones) would better wait for post-4.16?
-
-Jan
+> Jan
 
 
