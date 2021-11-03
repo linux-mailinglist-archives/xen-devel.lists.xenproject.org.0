@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78CD1444818
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Nov 2021 19:17:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221110.382647 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 855D8444872
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Nov 2021 19:41:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221118.382663 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miKpM-0004fP-Ky; Wed, 03 Nov 2021 18:17:36 +0000
+	id 1miLBi-0007nL-Gw; Wed, 03 Nov 2021 18:40:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221110.382647; Wed, 03 Nov 2021 18:17:36 +0000
+Received: by outflank-mailman (output) from mailman id 221118.382663; Wed, 03 Nov 2021 18:40:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miKpM-0004dE-Hu; Wed, 03 Nov 2021 18:17:36 +0000
-Received: by outflank-mailman (input) for mailman id 221110;
- Wed, 03 Nov 2021 18:17:35 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1miKpL-0004d8-BA
- for xen-devel@lists.xenproject.org; Wed, 03 Nov 2021 18:17:35 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1miKpJ-0006o1-LR; Wed, 03 Nov 2021 18:17:33 +0000
-Received: from [54.239.6.186] (helo=[192.168.4.55])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1miKpJ-0006rc-FH; Wed, 03 Nov 2021 18:17:33 +0000
+	id 1miLBi-0007lR-CZ; Wed, 03 Nov 2021 18:40:42 +0000
+Received: by outflank-mailman (input) for mailman id 221118;
+ Wed, 03 Nov 2021 18:40:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vzBQ=PW=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1miLBh-0007lL-72
+ for xen-devel@lists.xenproject.org; Wed, 03 Nov 2021 18:40:41 +0000
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 89dbeffd-3cd5-11ec-a9d2-d9f7a1cc8784;
+ Wed, 03 Nov 2021 19:40:39 +0100 (CET)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id B55FC5C0191;
+ Wed,  3 Nov 2021 14:40:37 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Wed, 03 Nov 2021 14:40:37 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 3 Nov 2021 14:40:36 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,72 +43,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=7Fe2Vk7Bbp+o4e+kEkMw0HfqrGYbgOAcS/y4c7VJSU0=; b=xxviETfNVqZrgqEOgNbYj1ywd+
-	rriKUIP71Qck2JIApY6AuI1p+NOgHHZX2cdk9OGJvg3qnn4XBlQ1Q8OgHPNAeAJ3W7sIwVeHoqH/U
-	RCH0nLDdtgnO6UFrMJk0K2/QkK5bynB+R8YjJ8sS2M0U52uxFcq/zpFNkwIb1UH1SZPk=;
-Message-ID: <568d087e-d740-47e2-173e-34915f645a76@xen.org>
-Date: Wed, 3 Nov 2021 18:17:31 +0000
+X-Inumbo-ID: 89dbeffd-3cd5-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-transfer-encoding:content-type
+	:date:from:message-id:mime-version:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=gVU9tB
+	42BsY+gMOp4NsCDMzjhsyHYtjFguFfI9f80Wg=; b=ml5mUmEAHe7+lWKSmf89GZ
+	2Ys0ZfPZHkmKjQ1LLMmBPKu7C2Eyz+p6M6XwjNez2/NClaZgdmYavPLRNQyJCNP1
+	3zjStRnHK7Sd1vRf9RwnTonlT7DK36z8O2zFFRwtK0fL5aT0XuFPANiwybQa44A/
+	CEq0R7CoX8y2ZJY992EtaSipVE6aVnA3XpUWCLyL+FIL2iKuT7NH4Fk/sruSWU4a
+	/EqHpNTCJg5Sweh36UAG7sOUXszbp/VrsBDSU20hRy353QXgyEFf7UMoY36v4Te9
+	0jXTWBsYPuuMmYdWD67Rb7MRH9se+pZZWPL/DcFSljdXQbw2srwsIcC1dGlq/pog
+	==
+X-ME-Sender: <xms:pdeCYchd0SuPwcyMrkGZP5GlSs8C3UyBDh5ClqeeIxak1ILd73828A>
+    <xme:pdeCYVC6vO5AqzNqJeWEMoVZ8Ij-rriozjyD_xr_pQg68FY7brl7KLlLyzcvQ35FF
+    JMM0XvMOZ251A>
+X-ME-Received: <xmr:pdeCYUGM3054m9NDNES5IA9bXmF0A5nmMllU2d4ArI1BCQkxdliz_eiH0Td8GDQAB7gxD8HArHmACn8HlZOpDDx2dRO3eqNkj5_RTERoogktuYSdIw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrtddvgdduuddvucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhephffvufffkffogggtohfgsehtkeertdertdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetgeet
+    keeukeffhfejueeludehtedtkeeuiedtgffgtdfhveefueeiiefhudehgeenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:pdeCYdSJAFwrH13tn3_xLf6CXsOtiMci8TfXIHScrQlPlPATzfnM3A>
+    <xmx:pdeCYZzrwsus5y_vPDayyw546y5Fbt7oDnUyd5Bo78hSioZWv6z7og>
+    <xmx:pdeCYb4VY97MfESZdN6ywUfLsVPgoAQrA5-jBScwcZUHWDniemteZw>
+    <xmx:pdeCYbsX-XicQAaFcDLosChEP_iDw_cunfUGT8J_zrKfreW1gRLgcw>
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH-4.16 v2] x86/xstate: reset cached register values on resume
+Date: Wed,  3 Nov 2021 19:40:20 +0100
+Message-Id: <20211103184020.1276465-1-marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.2.1
-Subject: Re: [PATCH-4.16 v2] xen/arm: fix SBDF calculation for vPCI MMIO
- handlers
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "iwj@xenproject.org" <iwj@xenproject.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Rahul Singh <rahul.singh@arm.com>
-References: <20211102112041.551369-1-andr2000@gmail.com>
- <alpine.DEB.2.21.2111021545130.18170@sstabellini-ThinkPad-T480s>
- <4559d7c6-7a03-54c0-ca93-9319cc7989d5@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <4559d7c6-7a03-54c0-ca93-9319cc7989d5@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Organization: Invisible Things Lab
+Content-Transfer-Encoding: 8bit
 
-Hi Oleksandr,
+set_xcr0() and set_msr_xss() use cached value to avoid setting the
+register to the same value over and over. But suspend/resume implicitly
+reset the registers and since percpu areas are not deallocated on
+suspend anymore, the cache gets stale.
+Reset the cache on resume, to ensure the next write will really hit the
+hardware. Choose value 0, as it will never be a legitimate write to
+those registers - and so, will force write (and cache update).
 
-On 03/11/2021 12:08, Oleksandr Andrushchenko wrote:
-> 
-> 
-> On 03.11.21 00:47, Stefano Stabellini wrote:
->> On Tue, 2 Nov 2021, Oleksandr Andrushchenko wrote:
->>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>>
->>> While in vPCI MMIO trap handlers for the guest PCI host bridge it is not
->>> enough for SBDF translation to simply call VPCI_ECAM_BDF(info->gpa) as
->>> the base address may not be aligned in the way that the translation
->>> always work. If not adjusted with respect to the base address it may not be
->>> able to properly convert SBDF.
->>> Fix this by adjusting the gpa with respect to the host bridge base address
->>> in a way as it is done for x86.
->>>
->>> Please note, that this change is not strictly required given the current
->>> value of GUEST_VPCI_ECAM_BASE which has bits 0 to 27 clear, but could cause
->>> issues if such value is changed, or when handlers for dom0 ECAM
->>> regions are added as those will be mapped over existing hardware
->>> regions that could use non-aligned base addresses.
->>>
->>> Fixes: d59168dc05a5 ("xen/arm: Enable the existing x86 virtual PCI support for ARM")
->>>
->>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
->>
->> Also, Ian already gave his release-ack.
-> Thank you,
-> Do I need to resend the patch with Acks? Or hopefully those can be applied
-> on commit?
+Note the cache is used io get_xcr0() and get_msr_xss() too, but:
+- set_xcr0() is called few lines below in xstate_init(), so it will
+  update the cache with appropriate value
+- get_msr_xss() is not used anywhere - and thus not before any
+  set_msr_xss() that will fill the cache
 
-I have committed with the two tags applied.
+Fixes: aca2a985a55a "xen: don't free percpu areas during suspend"
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+Changes in v2:
+ - adjust xss init value per Jan request
 
-Next time, please remember to carry Release-acked-by tag.
+For 4.16: this unbreaks S3 resume, it was posted initially back in
+August and is shipped in Qubes since September (although backported to
+4.14, not unstable) with no reported regressions.
 
-Cheers,
+Cc: Ian Jackson <iwj@xenproject.org>
+---
+ xen/arch/x86/xstate.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
+diff --git a/xen/arch/x86/xstate.c b/xen/arch/x86/xstate.c
+index 6aaf9a2f1546..a16dfbb3877b 100644
+--- a/xen/arch/x86/xstate.c
++++ b/xen/arch/x86/xstate.c
+@@ -642,6 +642,13 @@ void xstate_init(struct cpuinfo_x86 *c)
+         return;
+     }
+ 
++    /*
++     * Clear the cached value to make set_xcr0() and set_msr_xss() really
++     * write it.
++     */
++    this_cpu(xcr0) = 0;
++    this_cpu(xss) = ~0;
++
+     cpuid_count(XSTATE_CPUID, 0, &eax, &ebx, &ecx, &edx);
+     feature_mask = (((u64)edx << 32) | eax) & XCNTXT_MASK;
+     BUG_ON(!valid_xcr0(feature_mask));
 -- 
-Julien Grall
+2.31.1
+
 
