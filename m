@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED7054458D3
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 18:43:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221821.383710 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D113E445904
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 18:53:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221830.383724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1migkz-00013k-UQ; Thu, 04 Nov 2021 17:42:33 +0000
+	id 1migv1-0002VG-UR; Thu, 04 Nov 2021 17:52:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221821.383710; Thu, 04 Nov 2021 17:42:33 +0000
+Received: by outflank-mailman (output) from mailman id 221830.383724; Thu, 04 Nov 2021 17:52:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1migkz-000111-QW; Thu, 04 Nov 2021 17:42:33 +0000
-Received: by outflank-mailman (input) for mailman id 221821;
- Thu, 04 Nov 2021 17:42:31 +0000
+	id 1migv1-0002SP-Qv; Thu, 04 Nov 2021 17:52:55 +0000
+Received: by outflank-mailman (input) for mailman id 221830;
+ Thu, 04 Nov 2021 17:52:55 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1migkx-00010r-OH; Thu, 04 Nov 2021 17:42:31 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <iwj@xenproject.org>) id 1migv0-0002SJ-V7
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 17:52:54 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1migkx-00018k-Fl; Thu, 04 Nov 2021 17:42:31 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1migkx-0008L1-82; Thu, 04 Nov 2021 17:42:31 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1migkx-0002ba-7X; Thu, 04 Nov 2021 17:42:31 +0000
+ (envelope-from <iwj@xenproject.org>) id 1migv0-0001Iu-RW
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 17:52:54 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1migv0-0007lD-Q6
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 17:52:54 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1migug-0003Tg-Ee; Thu, 04 Nov 2021 17:52:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,85 +42,94 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=xH6tOsgeDMh2mZu6NN/uUBRSRF7bpYJgUnGkgJ3LuSo=; b=Yzkzc4vwx5cGgV1Uo2H+lPb04Y
-	Jq8Pk9bdwErlp2IALQhtjbmFNoroQ/T2/4/wxRp3+3P03UsmE0MnGj/Cy1CZq32q4ZoE75ZTEjpwj
-	tiK9zB1lGVuHVE5gr0KYcXY9uUkdDwzTS70HQ04HCEEUrrPXHmNbu27TQgdJ8RuDBoQA=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-166045-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=sYZte+nVO5b9Nzc5VUhZ1ihjQjw/VMqCPKDV2mSvyUU=; b=1IX4PIOB3GXoo5iv74C8gFPKgK
+	Mvtgp15J5TfrWyB+5/NuPLpe4OgfpwFpfNQaMGQOLb0LOB2+6xUuZkAqI6TFMw+GGllCkVFbwkiC5
+	LQQVcnty4d0EOOB+AAEid+4Xa5RF1PfeXNxBdy3HdWhh9xWz6/ypHP2fB7TXcAYGM3Aw=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 166045: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=0f50d1696b3c13cbf0b18fec817fc291d5a30a31
-X-Osstest-Versions-That:
-    xen=512863ed238d7390f74d43f0ba298b1dfa8f4803
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 04 Nov 2021 17:42:31 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24964.7640.116612.519384@mariner.uk.xensource.com>
+Date: Thu, 4 Nov 2021 17:52:24 +0000
+To: Julien Grall <julien@xen.org>
+Cc: Michal Orzel <michal.orzel@arm.com>,
+    Stefano Stabellini <sstabellini@kernel.org>,
+    Ian Jackson <iwj@xenproject.org>,
+    Julien Grall <julien.grall.oss@gmail.com>,
+    xen-devel <xen-devel@lists.xenproject.org>,
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+    Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [patch-4.16] arm/smmuv1,v2: Protect smmu master list with a lock
+In-Reply-To: <8ff2dc1a-b640-ec2a-810a-c135f0399130@xen.org>
+References: <20211026122903.15042-1-michal.orzel@arm.com>
+	<e5632a4e-db98-41b4-1045-2b3532c098fa@xen.org>
+	<70c30a6c-b779-805e-079a-41bb484894b9@xen.org>
+	<cb452c0c-ccde-7798-c403-f972b48a2c46@arm.com>
+	<01545115-e82e-2a9d-a8e4-da9676080c0f@xen.org>
+	<alpine.DEB.2.21.2110271557570.20134@sstabellini-ThinkPad-T480s>
+	<CAJ=z9a2SSgG7a87_xTGT5LeNLgubOLQf1+dbnrsTsP8_p5ErJg@mail.gmail.com>
+	<alpine.DEB.2.21.2110271658330.20134@sstabellini-ThinkPad-T480s>
+	<4554621d-63da-ea3e-e56a-4e01d0cef347@xen.org>
+	<alpine.DEB.2.21.2110281311030.20134@sstabellini-ThinkPad-T480s>
+	<24959.49895.14808.77881@mariner.uk.xensource.com>
+	<alpine.DEB.2.21.2111011341480.20134@sstabellini-ThinkPad-T480s>
+	<9955c390-e5a4-0e58-f0db-b070249d3b16@arm.com>
+	<8ff2dc1a-b640-ec2a-810a-c135f0399130@xen.org>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-flight 166045 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/166045/
+Julien Grall writes ("Re: [patch-4.16] arm/smmuv1,v2: Protect smmu master list with a lock"):
+> On 04/11/2021 09:18, Michal Orzel wrote:
+> > On 01.11.2021 21:51, Stefano Stabellini wrote:
+> >> On Mon, 1 Nov 2021, Ian Jackson wrote:
+> >>> It sounds like this is a possible latent bug, or at least a bad state
+> >>> of the code that might lead to the introduction of bad bugs later.
 
-Failures :-/ but no regressions.
+^ this is the upside.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+> >>> Can you set out the downside for me too ?  What are the risks ?  How
+> >>> are the affected code paths used in 4.16 ?
+> >>>
+> >>> A good way to think about this is: if taking this patch for 4.16
+> >>> causes problems, what would that look like ?
+> >>
+> >> The patch affects the SMMU code paths that are currently in-use for
+> >> non-PCI devices which are currently supported. A bug in this patch could
+> >> cause a failure to setup the SMMU for one or more devices. I would
+> >> imagine that it would manifest probably as either an error or an hang
+> >> (given that it is adding spin locks) early at boot when the SMMU is
+> >> configured.
+> >>
+> >> The validation of this patch would mostly happen by review: it is the
+> >> kind of patch that changes some "return -1" into "goto err".
 
-version targeted for testing:
- xen                  0f50d1696b3c13cbf0b18fec817fc291d5a30a31
-baseline version:
- xen                  512863ed238d7390f74d43f0ba298b1dfa8f4803
+^ this is the downside.
 
-Last test of basis   166037  2021-11-03 23:00:25 Z    0 days
-Testing same since   166045  2021-11-04 14:02:55 Z    0 days    1 attempts
+> > In order not to leave this patch high and dry:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Michal, you are right that we should not just stall this.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+> My main objection is on the process. We should not merge patch that 
+> doesn't fix a real issue at this stage of this release.
 
+I agree with Julien.  I wouldn't characterise this as a process
+objection.  I think it is a practical objection.  As I understand it
+the patch can only harm the experience of users of 4.16.  The release
+process is primarily aimed at making sure 4.16 meets the needs of
+users.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+So:
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Release-Nacked-by: Ian Jackson <iwj@xenproject.org>
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+I would be very sympathetic to code comment patches which document the
+limitations/restrictions so as to make the future bugs less likely.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> ... Ian can we get your release-acked-by?
 
+You can have my decision.  I hope this is helpful.
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   512863ed23..0f50d1696b  0f50d1696b3c13cbf0b18fec817fc291d5a30a31 -> smoke
+Thanks,
+Ian.
 
