@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96EC6445774
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 17:45:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221770.383644 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C04AD445778
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 17:46:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221775.383654 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mifrJ-0000f2-2L; Thu, 04 Nov 2021 16:45:01 +0000
+	id 1mifsA-0001Ed-C9; Thu, 04 Nov 2021 16:45:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221770.383644; Thu, 04 Nov 2021 16:45:01 +0000
+Received: by outflank-mailman (output) from mailman id 221775.383654; Thu, 04 Nov 2021 16:45:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mifrI-0000d0-V4; Thu, 04 Nov 2021 16:45:00 +0000
-Received: by outflank-mailman (input) for mailman id 221770;
- Thu, 04 Nov 2021 16:44:59 +0000
+	id 1mifsA-0001CY-8g; Thu, 04 Nov 2021 16:45:54 +0000
+Received: by outflank-mailman (input) for mailman id 221775;
+ Thu, 04 Nov 2021 16:45:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=93tI=PX=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mifrH-0000cu-Q0
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 16:44:59 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1mifs8-0001CM-J1
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 16:45:52 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8bf11adf-3d8e-11ec-a9d2-d9f7a1cc8784;
- Thu, 04 Nov 2021 17:44:58 +0100 (CET)
+ id ab8a7ec3-3d8e-11ec-a9d2-d9f7a1cc8784;
+ Thu, 04 Nov 2021 17:45:51 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0D969212BD;
- Thu,  4 Nov 2021 16:44:58 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4CBC81FD3F;
+ Thu,  4 Nov 2021 16:45:51 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B694913E70;
- Thu,  4 Nov 2021 16:44:57 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 23C1113E70;
+ Thu,  4 Nov 2021 16:45:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id eHvVKgkOhGFeFwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 04 Nov 2021 16:44:57 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id Au5iBz8OhGHZFwAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 04 Nov 2021 16:45:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,181 +51,110 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8bf11adf-3d8e-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: ab8a7ec3-3d8e-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1636044298; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1636044351; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+iHyYJVejxE3c+M9dmelJzpLB+/Wh6THMcNjAw741DM=;
-	b=ZG+o2TcgbZrkgBuC6dv9I8/AQoEDlU7rGmksNtmvXMrdavMzT9X0x/tiCrqhfE/uyD6UmT
-	Zpw1mvkaLp6SZwQ+QJqjicM7b3Ess/0cvGAmyRmlUJkHcAZPaf1eV8pJcW1zNc7z8/pz+2
-	YrrYu3b8BezNiBddbntqNlhqadObGRc=
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Jonathan Corbet <corbet@lwn.net>,
- Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-References: <20211102091944.17487-1-jgross@suse.com>
- <f986a7c4-3032-fecd-2e19-4d63a2ee10c7@oracle.com>
- <f8e52acc-2566-1ed0-d2a3-21e2d468fab7@oracle.com>
- <3b1f1771-0a96-1f71-9c9d-9fb1a53a266e@suse.com>
- <18c12ead-ddf1-9231-7f3b-aafddd349dcf@oracle.com>
+	bh=N4RA94Pu9lXJHCoAnW2hrDsvs6zvPxl9XCI4Xkvzqz8=;
+	b=KM3+gA0VtzXKmxPcuOkV9WIa+vX4IcGxZ5tt36xPvyHxseTMDB+mCSakflu3GAv+VtZGGm
+	gokSvkgKxn73GZSBXITt0dvAN4CEWPlnv0nFqRvnO6fyyi/+q+ltyv63ncrq3uQvS4vG88
+	QB8uqNgpeB9Z4qk5CgJJWV8p/1sc/eg=
+Subject: Re: [PATCH-for-4.16] tools/helpers: fix broken xenstore stubdom init
+To: Jason Andryuk <jandryuk@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20211104144242.14351-1-jgross@suse.com>
+ <54900dfb-c6fa-a2ad-471c-227a4888c687@citrix.com>
+ <CAKf6xptNXd=eB0KNb=40CjqvzOT9xR8vMM-tV6e7DWez6AWKMg@mail.gmail.com>
 From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v4] xen/balloon: add late_initcall_sync() for initial
- ballooning done
-Message-ID: <2f3addff-fbe0-8ef0-6407-e879c0e9827f@suse.com>
-Date: Thu, 4 Nov 2021 17:44:56 +0100
+Message-ID: <b20ebd19-0886-c92d-6819-394124c20c95@suse.com>
+Date: Thu, 4 Nov 2021 17:45:50 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <18c12ead-ddf1-9231-7f3b-aafddd349dcf@oracle.com>
+In-Reply-To: <CAKf6xptNXd=eB0KNb=40CjqvzOT9xR8vMM-tV6e7DWez6AWKMg@mail.gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="g757mACy6ndOeHy2l0XCaKTMldya4VhZX"
+ boundary="ZrBxIdh40nYEDKlT1qnDW2W0A0NuptDxG"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---g757mACy6ndOeHy2l0XCaKTMldya4VhZX
-Content-Type: multipart/mixed; boundary="7NqwldsUw7TpcaPNG4ex5XcZovKmVXFSQ";
+--ZrBxIdh40nYEDKlT1qnDW2W0A0NuptDxG
+Content-Type: multipart/mixed; boundary="KauNgDpX7q0H4sQ8uSdkvtO1enPf02OSR";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- xen-devel@lists.xenproject.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Jonathan Corbet <corbet@lwn.net>,
- Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-Message-ID: <2f3addff-fbe0-8ef0-6407-e879c0e9827f@suse.com>
-Subject: Re: [PATCH v4] xen/balloon: add late_initcall_sync() for initial
- ballooning done
-References: <20211102091944.17487-1-jgross@suse.com>
- <f986a7c4-3032-fecd-2e19-4d63a2ee10c7@oracle.com>
- <f8e52acc-2566-1ed0-d2a3-21e2d468fab7@oracle.com>
- <3b1f1771-0a96-1f71-9c9d-9fb1a53a266e@suse.com>
- <18c12ead-ddf1-9231-7f3b-aafddd349dcf@oracle.com>
-In-Reply-To: <18c12ead-ddf1-9231-7f3b-aafddd349dcf@oracle.com>
+To: Jason Andryuk <jandryuk@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Message-ID: <b20ebd19-0886-c92d-6819-394124c20c95@suse.com>
+Subject: Re: [PATCH-for-4.16] tools/helpers: fix broken xenstore stubdom init
+References: <20211104144242.14351-1-jgross@suse.com>
+ <54900dfb-c6fa-a2ad-471c-227a4888c687@citrix.com>
+ <CAKf6xptNXd=eB0KNb=40CjqvzOT9xR8vMM-tV6e7DWez6AWKMg@mail.gmail.com>
+In-Reply-To: <CAKf6xptNXd=eB0KNb=40CjqvzOT9xR8vMM-tV6e7DWez6AWKMg@mail.gmail.com>
 
---7NqwldsUw7TpcaPNG4ex5XcZovKmVXFSQ
+--KauNgDpX7q0H4sQ8uSdkvtO1enPf02OSR
 Content-Type: multipart/mixed;
- boundary="------------4A2F17B6B681BBA4AE9C74EE"
+ boundary="------------41A4CEA736293263C46A0AB0"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------4A2F17B6B681BBA4AE9C74EE
+--------------41A4CEA736293263C46A0AB0
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 04.11.21 17:34, Boris Ostrovsky wrote:
->=20
-> On 11/4/21 12:21 PM, Juergen Gross wrote:
->> On 04.11.21 16:55, Boris Ostrovsky wrote:
->>>
->>> On 11/3/21 9:55 PM, Boris Ostrovsky wrote:
->>>>
->>>> On 11/2/21 5:19 AM, Juergen Gross wrote:
->>>>> When running as PVH or HVM guest with actual memory < max memory th=
-e
->>>>> hypervisor is using "populate on demand" in order to allow the gues=
+On 04.11.21 17:33, Jason Andryuk wrote:
+> On Thu, Nov 4, 2021 at 11:00 AM Andrew Cooper <andrew.cooper3@citrix.co=
+m> wrote:
+>>
+>> On 04/11/2021 14:42, Juergen Gross wrote:
+>>> Commit 1787cc167906f3f ("libs/guest: Move the guest ABI check earlier=
+
+>>> into xc_dom_parse_image()") broke starting the xenstore stubdom. This=
+
+>>> is due to a rather special way the xenstore stubdom domain config is
+>>> being initialized: in order to support both, PV and PVH stubdom,
+>>> init-xenstore-domain is using xc_dom_parse_image() to find the correc=
 t
->>>>> to balloon down from its maximum memory size. For this to work
->>>>> correctly the guest must not touch more memory pages than its targe=
-t
->>>>> memory size as otherwise the PoD cache will be exhausted and the gu=
-est
->>>>> is crashed as a result of that.
->>>>>
->>>>> In extreme cases ballooning down might not be finished today before=
-
->>>>> the init process is started, which can consume lots of memory.
->>>>>
->>>>> In order to avoid random boot crashes in such cases, add a late ini=
-t
->>>>> call to wait for ballooning down having finished for PVH/HVM guests=
-=2E
->>>>>
->>>>> Warn on console if initial ballooning fails, panic() after stalling=
-
->>>>> for more than 3 minutes per default. Add a module parameter for
->>>>> changing this timeout.
->>>>>
->>>>> Cc: <stable@vger.kernel.org>
->>>>> Reported-by: Marek Marczykowski-G=C3=B3recki=20
->>>>> <marmarek@invisiblethingslab.com>
->>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>>>
->>>>
->>>>
->>>> Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+>>> domain type. Unfortunately above commit requires xc_dom_boot_xen_init=
+()
+>>> to have been called before using xc_dom_parse_image(). This requires
+>>> the domid, which is known only after xc_domain_create(), which requir=
+es
+>>> the domain type.
 >>>
+>>> In order to break this circular dependency, call xc_dom_boot_xen_init=
+()
+>>> with an arbitrary domid first, and then set dom->guest_domid later.
 >>>
->>> This appears to have noticeable effect on boot time (and boot=20
->>> experience in general).
->>>
->>>
->>> I have
->>>
->>>
->>> =C2=A0=C2=A0 memory=3D1024
->>> =C2=A0=C2=A0 maxmem=3D8192
->>>
->>>
->>> And my boot time (on an admittedly slow box) went from 33 to 45=20
->>> seconds. And boot pauses in the middle while it is waiting for=20
->>> ballooning to complete.
->>>
->>>
->>> [=C2=A0=C2=A0=C2=A0 5.062714] xen:balloon: Waiting for initial balloo=
-ning down=20
->>> having finished.
->>> [=C2=A0=C2=A0=C2=A0 5.449696] random: crng init done
->>> [=C2=A0=C2=A0 34.613050] xen:balloon: Initial ballooning down finishe=
-d.
+>>> Fixes: 1787cc167906f3f ("libs/guest: Move the guest ABI check earlier=
+ into xc_dom_parse_image()")
+>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>> Release-acked-by: Ian Jackson <iwj@xenproject.org>
 >>
->> This shows that before it was just by chance that the PoD cache wasn't=
+>> This is all rather nasty, and really highlights problems with the
+>> libxenguest abi, because you really ought to be able to ask "what ELF
+>> properties do I have on my hand" without an implicit "and try to start=
 
->> exhausted.
->=20
->=20
-> True.
->=20
->=20
+>> building a VM using it" on the side.
 >>
->>> So at least I think we should consider bumping log level down from in=
-fo.
->>
->> Which level would you prefer? warn?
->>
+>> I agree this is probably the best thing to do right now.
 >=20
-> Notice? Although that won't make much difference as WARN is the default=
-=20
-> level.
-
-Right. That was my thinking.
-
-> I suppose we can't turn scrubbing off at this point?
-
-I don't think we can be sure a ballooned page wasn't in use before. And
-it could contain some data e.g. from the loaded initrd, maybe even put
-there by the boot loader. So no, I wouldn't want to do that by default.
-
-We could add another value to the xen_scrub_pages boot parameter, like
-xen_scrub_pages=3Dnot-at-boot or some such. But this should be another
-patch. And it should be documented that initrd or kernel data might
-leak.
-
->> And if so, would you mind doing this while committing (I have one day
->> off tomorrow)?
+> Yes, this is probably the best change before release.
 >=20
->=20
-> Yes, of course.
+> If xc_dom_allocate() filled in dom->xen_version & dom->xen_caps - i.e.
+> move that from xc_dom_boot_xen_init() - then I think this patch
+> wouldn't be necessary.  But there could be side effects of such a
+> change.
 
-Thanks.
+This is a nice idea for a cleanup patch after 4.16 has been branched.
 
 
 Juergen
 
-
---------------4A2F17B6B681BBA4AE9C74EE
+--------------41A4CEA736293263C46A0AB0
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -317,25 +246,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------4A2F17B6B681BBA4AE9C74EE--
+--------------41A4CEA736293263C46A0AB0--
 
---7NqwldsUw7TpcaPNG4ex5XcZovKmVXFSQ--
+--KauNgDpX7q0H4sQ8uSdkvtO1enPf02OSR--
 
---g757mACy6ndOeHy2l0XCaKTMldya4VhZX
+--ZrBxIdh40nYEDKlT1qnDW2W0A0NuptDxG
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGEDggFAwAAAAAACgkQsN6d1ii/Ey9m
-cQf/Y8gjihmtFO7hC5ULMnfDS95jAGACBv8aeEPDpOoA4xQj/n6WO/Ecb3sHUKOTm/+rMxlTUIrz
-i/LHUEG+dp+LMFSf9E2ex/p7CodZEy3z2w14ov9KjtzRp+4qPfTSSwnjYRGhrK4pwaY2lw5G7LLD
-JLRan5rgj5HRQv3f+oh6qtoIeQPf4DmmYIOE9tQs1lPELvKJPuhybycfou1GOfhdolqVqMEmQJHm
-HtejYDi6MOjQ/rH33WPGtEF7MiUy2YxPs86Cer/nRoDc8W4gBOJsTjgM/9DHeVAi8I59pRo2yy81
-NrbDRY2uXA5m2usYdtzAWh+TXb4lcNOHsVI1I/aNUg==
-=b84U
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGEDj4FAwAAAAAACgkQsN6d1ii/Ey/T
+2wf9FdNJyXfEQ6IN2KDIsoVD+cpMIbNVG7I2VlevTsIsREyvvjIMQvQU5jfHzNufZT4+7O1WygUo
+PYCCsp6zR5sP4sPQLbgcllNTLLsW54Vp5ns2QX73+wH0jwK3EDwHwKPrIUXOeqm+XvpmtJCp5JQR
+QPFi9AwYXJVIGdG/40UPyIUffYAITWHtiCNBk3sLdYAALv9p6vFgRFCYnTtYVTeyOy4BLpJHR/qd
+uZkoBApU1bIQ6FdlZ4o+pO38cEI3v78oElxIYCAMzfiH7zTvavASJIoG4D1pH1EbeQ5oJWYd6Kdh
++fzJziIhIFtjifmxxLYPVYyvHC87zfFQLOHEmQkRhg==
+=7/X+
 -----END PGP SIGNATURE-----
 
---g757mACy6ndOeHy2l0XCaKTMldya4VhZX--
+--ZrBxIdh40nYEDKlT1qnDW2W0A0NuptDxG--
 
