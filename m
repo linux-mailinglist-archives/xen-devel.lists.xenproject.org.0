@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C04AD445778
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 17:46:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221775.383654 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 214F34457EC
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 18:06:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221787.383665 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mifsA-0001Ed-C9; Thu, 04 Nov 2021 16:45:54 +0000
+	id 1migB4-0003gA-5W; Thu, 04 Nov 2021 17:05:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221775.383654; Thu, 04 Nov 2021 16:45:54 +0000
+Received: by outflank-mailman (output) from mailman id 221787.383665; Thu, 04 Nov 2021 17:05:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mifsA-0001CY-8g; Thu, 04 Nov 2021 16:45:54 +0000
-Received: by outflank-mailman (input) for mailman id 221775;
- Thu, 04 Nov 2021 16:45:52 +0000
+	id 1migB4-0003ci-2O; Thu, 04 Nov 2021 17:05:26 +0000
+Received: by outflank-mailman (input) for mailman id 221787;
+ Thu, 04 Nov 2021 17:05:24 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=93tI=PX=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mifs8-0001CM-J1
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 16:45:52 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=YH1c=PX=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
+ id 1migB2-0003cc-0z
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 17:05:24 +0000
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [2a00:1450:4864:20::434])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ab8a7ec3-3d8e-11ec-a9d2-d9f7a1cc8784;
- Thu, 04 Nov 2021 17:45:51 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 4CBC81FD3F;
- Thu,  4 Nov 2021 16:45:51 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 23C1113E70;
- Thu,  4 Nov 2021 16:45:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Au5iBz8OhGHZFwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 04 Nov 2021 16:45:51 +0000
+ id 657fc3fd-3d91-11ec-a9d2-d9f7a1cc8784;
+ Thu, 04 Nov 2021 18:05:22 +0100 (CET)
+Received: by mail-wr1-x434.google.com with SMTP id d3so9669577wrh.8
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Nov 2021 10:05:22 -0700 (PDT)
+Received: from zen.linaroharston ([51.148.130.216])
+ by smtp.gmail.com with ESMTPSA id m2sm8889088wml.15.2021.11.04.10.05.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Nov 2021 10:05:20 -0700 (PDT)
+Received: from zen (localhost [127.0.0.1])
+ by zen.linaroharston (Postfix) with ESMTP id 291B41FF96;
+ Thu,  4 Nov 2021 17:05:20 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,220 +46,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ab8a7ec3-3d8e-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1636044351; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=N4RA94Pu9lXJHCoAnW2hrDsvs6zvPxl9XCI4Xkvzqz8=;
-	b=KM3+gA0VtzXKmxPcuOkV9WIa+vX4IcGxZ5tt36xPvyHxseTMDB+mCSakflu3GAv+VtZGGm
-	gokSvkgKxn73GZSBXITt0dvAN4CEWPlnv0nFqRvnO6fyyi/+q+ltyv63ncrq3uQvS4vG88
-	QB8uqNgpeB9Z4qk5CgJJWV8p/1sc/eg=
-Subject: Re: [PATCH-for-4.16] tools/helpers: fix broken xenstore stubdom init
-To: Jason Andryuk <jandryuk@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20211104144242.14351-1-jgross@suse.com>
- <54900dfb-c6fa-a2ad-471c-227a4888c687@citrix.com>
- <CAKf6xptNXd=eB0KNb=40CjqvzOT9xR8vMM-tV6e7DWez6AWKMg@mail.gmail.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <b20ebd19-0886-c92d-6819-394124c20c95@suse.com>
-Date: Thu, 4 Nov 2021 17:45:50 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+X-Inumbo-ID: 657fc3fd-3d91-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=references:user-agent:from:to:cc:subject:date:in-reply-to
+         :message-id:mime-version:content-transfer-encoding;
+        bh=uf/69JMRSf6nvg4vi7HqiYdJdQ1piecLXhyNR54I664=;
+        b=ZHg6a2NvEWc+jgEYLtdVPsBca/hJ4fFNLotBYVfhS/4SCEJ6HZwHebVxGnJ1ChdybS
+         60TL3/B/4fXQ7VMyq0ydqN7e26Iux5ahjghgF7EUEDNtBnjaYq+0F4M9Zdkc6yu+YUlm
+         hlJnvYaYxJenw+Bow4Ro81qP5QLXDHTNdnyZB+yiXx2oGyr2rdq71JQ0spN3fT/WaGUp
+         YwN2aw37DqGQ+ROFpiO/EI+MAA2hwRdTo1aIrroZ4zDZgq62Vnsa/Ee8gPFqEQCUAzqV
+         VzXtdSivJxN6gxo+wSzFEjNJ/kySGJcEPJ3ChPbTJR/NQ5qKTAyW2nt+kZBLtApbhqYB
+         Z2qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
+         :in-reply-to:message-id:mime-version:content-transfer-encoding;
+        bh=uf/69JMRSf6nvg4vi7HqiYdJdQ1piecLXhyNR54I664=;
+        b=vBuzYQp6jry1+8WVeyLM2K/vc3S+8u1qtZECKIVTRdBCqZ2mBLRnIsoPYD6Nyzvwcz
+         1L7GtwwX8gKQEWXltY9C7CEWd+TJ6EW9XSjpfWTQbZIuphE5OZRapHY0QK8tZpaxuo/9
+         st6WlSWn6xuSsMoZAhteX7fauqrloqwKvkXvERI6/iHP7eLnP9cZ20BqJ+cRBRjRJ3vF
+         hAcZCTV9xIRm9Z/pl0SfvS1jpJLO3P73hiwysAUApvyCDLQGamsp3ckCNm4sdciffJ9j
+         s+l+D0XrqcqQH6c7J6KiOHaQvC+Dk2bePq1TZXoTD0c/mIC+FuAV749vUBmRRJOvRuRJ
+         t6Ug==
+X-Gm-Message-State: AOAM5311zwDz8jiJzSW16p4XNfgGVilAlPAF7YJkR/Aantj8cNyWBWvL
+	IPGNplIiLeYBJyjF2h12P5YgIQ==
+X-Google-Smtp-Source: ABdhPJw6UUxjbOP6KaaRre3cxTc/H9m+fkuNt/okM7p6s4Wjf1ncL4dX7zALbraAx4E/Z8k9/+/RMg==
+X-Received: by 2002:adf:e109:: with SMTP id t9mr33372725wrz.387.1636045522048;
+        Thu, 04 Nov 2021 10:05:22 -0700 (PDT)
+References: <20210824105038.1257926-1-anthony.perard@citrix.com>
+ <871r3vkiok.fsf@linaro.org> <YYQLoR2ussToQjFV@perard>
+User-agent: mu4e 1.7.4; emacs 28.0.60
+From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>, Kevin Tian
+ <kevin.tian@intel.com>, George Dunlap <george.dunlap@citrix.com>, Ian
+ Jackson <iwj@xenproject.org>, Connor Davis <connojdavis@gmail.com>, Bob
+ Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
+ <alistair.francis@wdc.com>, Tim Deegan <tim@xen.org>, Jun Nakajima
+ <jun.nakajima@intel.com>, Tamas K Lengyel <tamas@tklengyel.com>, Doug
+ Goldstein <cardoe@cardoe.com>, Jan Beulich <jbeulich@suse.com>, Konrad
+ Rzeszutek Wilk <konrad.wilk@oracle.com>, Julien Grall <julien@xen.org>,
+ Alexandru Isaila <aisaila@bitdefender.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>, Paul Durrant <paul@xen.org>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>, "Daniel P. Smith"
+ <dpsmith@apertussolutions.com>, Volodymyr Babchuk
+ <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Lukasz Hawrylko
+ <lukasz.hawrylko@linux.intel.com>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH v7 00/51] xen: Build system improvements, now with
+ out-of-tree build!
+Date: Thu, 04 Nov 2021 16:59:39 +0000
+In-reply-to: <YYQLoR2ussToQjFV@perard>
+Message-ID: <87k0hnj1gv.fsf@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <CAKf6xptNXd=eB0KNb=40CjqvzOT9xR8vMM-tV6e7DWez6AWKMg@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="ZrBxIdh40nYEDKlT1qnDW2W0A0NuptDxG"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ZrBxIdh40nYEDKlT1qnDW2W0A0NuptDxG
-Content-Type: multipart/mixed; boundary="KauNgDpX7q0H4sQ8uSdkvtO1enPf02OSR";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jason Andryuk <jandryuk@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <b20ebd19-0886-c92d-6819-394124c20c95@suse.com>
-Subject: Re: [PATCH-for-4.16] tools/helpers: fix broken xenstore stubdom init
-References: <20211104144242.14351-1-jgross@suse.com>
- <54900dfb-c6fa-a2ad-471c-227a4888c687@citrix.com>
- <CAKf6xptNXd=eB0KNb=40CjqvzOT9xR8vMM-tV6e7DWez6AWKMg@mail.gmail.com>
-In-Reply-To: <CAKf6xptNXd=eB0KNb=40CjqvzOT9xR8vMM-tV6e7DWez6AWKMg@mail.gmail.com>
-
---KauNgDpX7q0H4sQ8uSdkvtO1enPf02OSR
-Content-Type: multipart/mixed;
- boundary="------------41A4CEA736293263C46A0AB0"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------41A4CEA736293263C46A0AB0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On 04.11.21 17:33, Jason Andryuk wrote:
-> On Thu, Nov 4, 2021 at 11:00 AM Andrew Cooper <andrew.cooper3@citrix.co=
-m> wrote:
->>
->> On 04/11/2021 14:42, Juergen Gross wrote:
->>> Commit 1787cc167906f3f ("libs/guest: Move the guest ABI check earlier=
 
->>> into xc_dom_parse_image()") broke starting the xenstore stubdom. This=
+Anthony PERARD <anthony.perard@citrix.com> writes:
 
->>> is due to a rather special way the xenstore stubdom domain config is
->>> being initialized: in order to support both, PV and PVH stubdom,
->>> init-xenstore-domain is using xc_dom_parse_image() to find the correc=
-t
->>> domain type. Unfortunately above commit requires xc_dom_boot_xen_init=
-()
->>> to have been called before using xc_dom_parse_image(). This requires
->>> the domid, which is known only after xc_domain_create(), which requir=
-es
->>> the domain type.
->>>
->>> In order to break this circular dependency, call xc_dom_boot_xen_init=
-()
->>> with an arbitrary domid first, and then set dom->guest_domid later.
->>>
->>> Fixes: 1787cc167906f3f ("libs/guest: Move the guest ABI check earlier=
- into xc_dom_parse_image()")
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>> Release-acked-by: Ian Jackson <iwj@xenproject.org>
->>
->> This is all rather nasty, and really highlights problems with the
->> libxenguest abi, because you really ought to be able to ask "what ELF
->> properties do I have on my hand" without an implicit "and try to start=
+> On Thu, Nov 04, 2021 at 03:49:36PM +0000, Alex Benn=C3=A9e wrote:
+>>=20
+>> Anthony PERARD <anthony.perard@citrix.com> writes:
+>>=20
+>> > Patch series available in this git branch:
+>> > https://nam04.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fxe=
+nbits.xen.org%2Fgit-http%2Fpeople%2Faperard%2Fxen-unstable.git&amp;data=3D0=
+4%7C01%7Canthony.perard%40citrix.com%7C85bb0d32a72542aa9f6108d99fad9607%7C3=
+35836de42ef43a2b145348c2ee9ca5b%7C0%7C0%7C637716390172120458%7CUnknown%7CTW=
+FpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3=
+D%7C1000&amp;sdata=3DWWS4yPu9%2BJxBkBiM5SBrH7kDtHkUzMGuKSSdPcgEYII%3D&amp;r=
+eserved=3D0
+>> > br.build-system-xen-v7
+>> >
+>> > v7:
+>> >     Out-of-tree build!
+>> >
+>> >     This mean many more patches. Everything after patch 27 is new.
+>> >
+>> >     There's a few new patch before that, but otherwise are rework of
+>> >     v6.
+>>=20
+>> This is something I've been looking forward to but obviously my QEMU
+>> focused mind meant I did it wrong. Generally I create a builds subdir in
+>> my tree with subdirs for each build flavour. So with:
+>>=20
+>>   /home/alex/lsrc/xen/xen.git/builds/native
+>>=20
+>> And executing:
+>>=20
+>>   =E2=9E=9C  ../../configure
+>
+> Thanks for testing, but the patch series only focus on a subset of the
+> repository, that is the hypervisor "xen.git/xen/". The rest of xen.git
+> isn't ready for out-of-tree build unfortunately. A lot more work is
+> needed.
+>
+>> In "build: adding out-of-tree support to the xen build" you describe the
+>> Linux kernel style which works well where the config can be done after
+>> the fact but I wonder if the configure approach is better suited to
+>> something that needs a bunch of checks running. Is the configure script
+>> pure autoconf? This should work out of the box IIRC.
+>
+> "xen.git/xen/" does use a build system similar to Linux's, we use
+> Linux's Kconfig for example.
 
->> building a VM using it" on the side.
->>
->> I agree this is probably the best thing to do right now.
->=20
-> Yes, this is probably the best change before release.
->=20
-> If xc_dom_allocate() filled in dom->xen_version & dom->xen_caps - i.e.
-> move that from xc_dom_boot_xen_init() - then I think this patch
-> wouldn't be necessary.  But there could be side effects of such a
-> change.
+Ahh makes more sense in that context ;-)
 
-This is a nice idea for a cleanup patch after 4.16 has been branched.
+> For the rest of the repository, it is indeed autoconf for the
+> configuration phase. So yes running ./configure would be mostly ok, but
+> it doesn't take care of Makefiles at the moment and I found one bug in
+> our autoconf macros. Beyond that, our Makefiles aren't ready.
+>
+> xen.git isn't a single build system, they are several (at least one
+> foreach of xen/ stubdom/ tools/)
+
+I wonder if there is any millage in thinking about splitting
+repositories and having them as subrepos of the main xen.git?
+
+I can imagine building the core hypervisor as a standalone project is
+something that is done a lot at least by developers. In a hypothetical
+rust-vmm enabled world for example would you only need the hypervisor
+itself if you had an alternate userspace to launch things?
+
+>
+> Cheers,
 
 
-Juergen
-
---------------41A4CEA736293263C46A0AB0
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------41A4CEA736293263C46A0AB0--
-
---KauNgDpX7q0H4sQ8uSdkvtO1enPf02OSR--
-
---ZrBxIdh40nYEDKlT1qnDW2W0A0NuptDxG
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGEDj4FAwAAAAAACgkQsN6d1ii/Ey/T
-2wf9FdNJyXfEQ6IN2KDIsoVD+cpMIbNVG7I2VlevTsIsREyvvjIMQvQU5jfHzNufZT4+7O1WygUo
-PYCCsp6zR5sP4sPQLbgcllNTLLsW54Vp5ns2QX73+wH0jwK3EDwHwKPrIUXOeqm+XvpmtJCp5JQR
-QPFi9AwYXJVIGdG/40UPyIUffYAITWHtiCNBk3sLdYAALv9p6vFgRFCYnTtYVTeyOy4BLpJHR/qd
-uZkoBApU1bIQ6FdlZ4o+pO38cEI3v78oElxIYCAMzfiH7zTvavASJIoG4D1pH1EbeQ5oJWYd6Kdh
-+fzJziIhIFtjifmxxLYPVYyvHC87zfFQLOHEmQkRhg==
-=7/X+
------END PGP SIGNATURE-----
-
---ZrBxIdh40nYEDKlT1qnDW2W0A0NuptDxG--
+--=20
+Alex Benn=C3=A9e
 
