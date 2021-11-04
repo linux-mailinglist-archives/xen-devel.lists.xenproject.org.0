@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30DA5445C63
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 23:49:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221930.383869 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B307445C7F
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 00:00:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221938.383878 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1milXG-00019p-9b; Thu, 04 Nov 2021 22:48:42 +0000
+	id 1milhx-0002b4-9Z; Thu, 04 Nov 2021 22:59:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221930.383869; Thu, 04 Nov 2021 22:48:42 +0000
+Received: by outflank-mailman (output) from mailman id 221938.383878; Thu, 04 Nov 2021 22:59:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1milXG-00016a-5N; Thu, 04 Nov 2021 22:48:42 +0000
-Received: by outflank-mailman (input) for mailman id 221930;
- Thu, 04 Nov 2021 22:48:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mqP1=PX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1milXF-00016U-FM
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 22:48:41 +0000
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5978d6cf-3dc1-11ec-9787-a32c541c8605;
- Thu, 04 Nov 2021 23:48:39 +0100 (CET)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 6CB0D60F36;
- Thu,  4 Nov 2021 22:48:37 +0000 (UTC)
+	id 1milhx-0002YO-6Z; Thu, 04 Nov 2021 22:59:45 +0000
+Received: by outflank-mailman (input) for mailman id 221938;
+ Thu, 04 Nov 2021 22:59:44 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1milhw-0002YI-8D
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 22:59:44 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1milhv-0006T9-Ta; Thu, 04 Nov 2021 22:59:43 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=[192.168.26.82]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1milhv-0001W5-N3; Thu, 04 Nov 2021 22:59:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,53 +39,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5978d6cf-3dc1-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1636066117;
-	bh=P/qJiLsk3+QIAFTv3HSmlpPSXkju1Ch8wH/OgNp5Y00=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=IUY5eA9spIIm21FwVJ/H+OGyRZufRuRy72RXrDvzkNIEqPNnm7ILeEdGs+Ve1Sp6u
-	 L8i4hUZp6glw/zVDZUyhCWQhh/E7z+YncLHkkfXh5apowsVhl5/cKi1f4fAj5X85ye
-	 t5flE7YhVdGaC03/OJBH/Vin/DoaUJSGPlx+m5zWk7UX+wkoCEavxq8RIdRmQo5itx
-	 1juLHaFPlr9xiFz/mO7yhyAkJc1dDV1ndtDhb0ntWLZ9WCzMzSppiJTnd5mvp0wP6g
-	 3QgA2YzCN05TBoyCVCdPDlNB5aoJUMCvNvs2M0o4T2hek1sWnbgn36WxEwwIwKCkaG
-	 gAFMPuEUL/wzA==
-Date: Thu, 4 Nov 2021 15:48:36 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Vikram Garhwal <fnu.vikram@xilinx.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org
-Subject: Re: [XEN][PATCH v2 1/1] Update libfdt to v1.6.1
-In-Reply-To: <1636006796-360115-2-git-send-email-fnu.vikram@xilinx.com>
-Message-ID: <alpine.DEB.2.22.394.2111041546030.284830@ubuntu-linux-20-04-desktop>
-References: <1636006796-360115-1-git-send-email-fnu.vikram@xilinx.com> <1636006796-360115-2-git-send-email-fnu.vikram@xilinx.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=6So2Z5VjW3eOo7zzm6bBVxoAYgZpQUTSWCaMT616TpE=; b=b6pqk/mjpKUieNZTZs6j3I04qs
+	Fw8wvAi1qxU+7Iwjx6qsFY45tqQQpdYu7pgMZ8GVvuRQzQUcuI1SpR5W0UCkv8V2TkBrwvMHzj/JB
+	9WLXzqJ7kudXu2MOI9lbl8xSLT/w9n/aZSX8KPB/hmA7VQg+a20mjmkWM5LGdE+NGG/c=;
+Message-ID: <9f3208df-f3a8-e5ed-ee30-aed152d32ad5@xen.org>
+Date: Thu, 4 Nov 2021 22:59:41 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.0
+Subject: Re: [PATCH] MAINTAINERS: add Bertrand to the ARM reviewers
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com, Volodymyr_Babchuk@epam.com
+References: <alpine.DEB.2.22.394.2111041357580.284830@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2111041357580.284830@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 3 Nov 2021, Vikram Garhwal wrote:
-> Update libfdt to v1.6.1 of libfdt taken from git://github.com/dgibson/dtc.
-> This update is done to support device tree overlays.
+Hi Stefano,
+
+On 04/11/2021 21:00, Stefano Stabellini wrote:
 > 
-> A few minor changes are done to make it compatible with Xen:
-> fdt_overlay.c: overlay_fixup_phandle()
->     Replace  strtoul() simple_strtoul() as strtoul() is not available in Xen lib
->     and included lib.h.
->     Change char *endptr to const char *endptr.
-> 
-> libfdt_env.h:
->     Changed path for config.h and stdbool.h. Remaining Xen changes to
->     libfdt_env.h carried over from existing libfdt (v1.4.0)
+> Acked-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-Hi Vikram, thanks for the patch!
+I am not sure where the Acked-by is coming from. Can Bertrand confirm on 
+the ML that the is happy to be a reviewer?
 
-Would you be able to split this patch into two patches:
+> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
-- the first patch pulls in the new libfdt
-- the second patch makes the necessary changes to make it compatible
-  with Xen
+There is a missing signed-off-by on the patch.
 
-I understand that the first patch alone would break the build, but they
-can be easily squashed together on commit. And reading the two patches
-separately it would make them a lot easier to review.
+I am happy with the proposal, although I will wait for the two remarks 
+to be resolved before giving my acked-by.
+
+Cheers,
+
+-- 
+Julien Grall
 
