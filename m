@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38DD54452B6
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 13:08:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221488.383223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A2A24452BA
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 13:09:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221496.383233 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mibXB-00047v-Ti; Thu, 04 Nov 2021 12:07:57 +0000
+	id 1mibYt-0004ni-EH; Thu, 04 Nov 2021 12:09:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221488.383223; Thu, 04 Nov 2021 12:07:57 +0000
+Received: by outflank-mailman (output) from mailman id 221496.383233; Thu, 04 Nov 2021 12:09:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mibXB-00044p-Oa; Thu, 04 Nov 2021 12:07:57 +0000
-Received: by outflank-mailman (input) for mailman id 221488;
- Thu, 04 Nov 2021 12:07:55 +0000
+	id 1mibYt-0004l3-Aa; Thu, 04 Nov 2021 12:09:43 +0000
+Received: by outflank-mailman (input) for mailman id 221496;
+ Thu, 04 Nov 2021 12:09:42 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mibX9-00044Z-Ll
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 12:07:55 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mibYs-0004kv-Gj
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 12:09:42 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mibX9-0003Fi-L1
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 12:07:55 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mibYs-0003IB-Fu
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 12:09:42 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mibX9-0005s0-KG
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 12:07:55 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mibYs-0005yZ-FM
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 12:09:42 +0000
 Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
  (envelope-from <iwj@xenproject.org>)
- id 1mibX5-0002eh-SU; Thu, 04 Nov 2021 12:07:52 +0000
+ id 1mibYo-0002fh-Rs; Thu, 04 Nov 2021 12:09:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,42 +44,65 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
 	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=6LmqJogxqnAiMsJ+A1ho8TJKw9Y5jS9iL3OhpMIYY9k=; b=4xdiZD8fL2sSzWfSp4KcaDFvQw
-	FRbEOM4nGlv+Mg+yNYAsUKhddv8n5+XGPNo3/Aj8pPPr/pDcV6IsSCVJp71NbdgrV03iBdmaLfPI8
-	Mg/m8tV5yqJWoPPTXJQFE/oRyijEyjbZUSV6glCo6VRoiYeYFnw1y+st60bpm9RZw8y4=;
+	bh=ZSAjBo/vl1Dz1jl2ULZNxJUBYRI5js9z35iKbsNE+yE=; b=4qFps4Da3igzhWhyAATd/RjGt/
+	xWTa/axwLqPCcBr4k+ldSv8YtF/OvNJAqxuoWPCf1eh3HROZsIuHVdMF8KtOsHxZukFzTZgp922Wh
+	cphtRjuPBNOrkGpiYcZFLQ/+70L2oKmei1BVOlF/nnnlqeh+QpzALOso8X63DlU2VL8c=;
 From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-Message-ID: <24963.52503.323399.54108@mariner.uk.xensource.com>
-Date: Thu, 4 Nov 2021 12:07:51 +0000
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
-    George Dunlap <George.Dunlap@eu.citrix.com>,
-    Jan Beulich <JBeulich@suse.com>,
-    Stefano Stabellini <sstabellini@kernel.org>,
+Message-ID: <24963.52610.316896.770905@mariner.uk.xensource.com>
+Date: Thu, 4 Nov 2021 12:09:38 +0000
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: <xen-devel@lists.xenproject.org>,
     Wei Liu <wl@xen.org>,
-    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+    Andrew  Cooper <andrew.cooper3@citrix.com>,
+    George Dunlap <george.dunlap@citrix.com>,
+    Jan Beulich <jbeulich@suse.com>,
     Julien Grall <julien@xen.org>,
-    Christian Lindig <christian.lindig@citrix.com>,
-    Edwin =?iso-8859-1?Q?T=F6r=F6k?= <edvin.torok@citrix.com>
-Subject: Re: [PATCH for-4.16 2/2] xen: Report grant table v1/v2 capabilities to the toolstack
-In-Reply-To: <20211029173813.23002-1-andrew.cooper3@citrix.com>
-References: <ffd27f87-9e47-12cf-2cfd-1688a19c445f@citrix.com>
-	<20211029173813.23002-1-andrew.cooper3@citrix.com>
+    Stefano  Stabellini <sstabellini@kernel.org>,
+    Anthony PERARD <anthony.perard@citrix.com>,
+    Juergen Gross <jgross@suse.com>,
+    Christian  Lindig <christian.lindig@citrix.com>,
+    David Scott <dave@recoil.org>,
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH for-4.16 v6] gnttab: allow setting max version per-domain
+In-Reply-To: <20211104104834.10977-1-roger.pau@citrix.com>
+References: <20211104104834.10977-1-roger.pau@citrix.com>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Andrew Cooper writes ("[PATCH for-4.16 2/2] xen: Report grant table v1/v2 capabilities to the toolstack"):
-> In order to let the toolstack be able to set the gnttab version on a
-> per-domain basis, it needs to know which ABIs Xen supports.  Introduce
-> XEN_SYSCTL_PHYSCAP_gnttab_v{1,2} for the purpose, and plumb in down into
-> userspace.
+Roger Pau Monne writes ("[PATCH for-4.16 v6] gnttab: allow setting max version per-domain"):
+> Introduce a new domain create field so that toolstack can specify the
+> maximum grant table version usable by the domain. This is plumbed into
+> xl and settable by the user as max_grant_version.
+> 
+> Previously this was only settable on a per host basis using the
+> gnttab command line option.
+> 
+> Note the version is specified using 4 bits, which leaves room to
+> specify up to grant table version 15. Given that we only have 2 grant
+> table versions right now, and a new version is unlikely in the near
+> future using 4 bits seems more than enough.
+> 
+> xenstored stubdomains are limited to grant table v1 because the
+> current MiniOS code used to build them only has support for grants v1.
+> There are existing limits set for xenstored stubdomains at creation
+> time that already match the defaults in MiniOS.
+...
+> This needs to be applied on top of Andrew's:
+> 
+> xen: Report grant table v1/v2 capabilities to the toolstack
+> https://lore.kernel.org/xen-devel/20211029173813.23002-1-andrew.cooper3@citrix.com/
 
-It's not clear to me whether there is consensus around this patch ?
+Thanks.
 
-Anyway, tools parts:
+We have discussed this wrt 4.16.  I am minded to grant a release ack
+for this.  If anyone has a contrary opinion please speak now.
 
-Reviewed-by: Ian Jackson <iwj@xenproject.org>
+(I think committing both of these would be subject to maintainer acks
+for "Report grant table v1/v2 capabilities", which I didn't see but
+perhaps I am missing.)
 
+Thanks,
 Ian.
 
