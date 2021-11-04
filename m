@@ -2,40 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B91B4456F7
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 17:14:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221704.383544 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 649C6445731
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 17:22:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221713.383556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mifN6-00013n-Bo; Thu, 04 Nov 2021 16:13:48 +0000
+	id 1mifUz-0002WD-7M; Thu, 04 Nov 2021 16:21:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221704.383544; Thu, 04 Nov 2021 16:13:48 +0000
+Received: by outflank-mailman (output) from mailman id 221713.383556; Thu, 04 Nov 2021 16:21:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mifN6-00011V-8Z; Thu, 04 Nov 2021 16:13:48 +0000
-Received: by outflank-mailman (input) for mailman id 221704;
- Thu, 04 Nov 2021 16:13:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YH1c=PX=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1mifN5-00011P-3i
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 16:13:47 +0000
-Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
- [2a00:1450:4864:20::32c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2fde72fe-3d8a-11ec-9787-a32c541c8605;
- Thu, 04 Nov 2021 17:13:46 +0100 (CET)
-Received: by mail-wm1-x32c.google.com with SMTP id
- b184-20020a1c1bc1000000b0033140bf8dd5so4636764wmb.5
- for <xen-devel@lists.xenproject.org>; Thu, 04 Nov 2021 09:13:46 -0700 (PDT)
-Received: from zen.linaroharston ([51.148.130.216])
- by smtp.gmail.com with ESMTPSA id q84sm11381522wme.3.2021.11.04.09.13.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Nov 2021 09:13:44 -0700 (PDT)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id E88A41FF96;
- Thu,  4 Nov 2021 16:13:43 +0000 (GMT)
+	id 1mifUz-0002Sz-3I; Thu, 04 Nov 2021 16:21:57 +0000
+Received: by outflank-mailman (input) for mailman id 221713;
+ Thu, 04 Nov 2021 16:21:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=93tI=PX=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1mifUx-0002St-Qe
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 16:21:55 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 52e6a025-3d8b-11ec-a9d2-d9f7a1cc8784;
+ Thu, 04 Nov 2021 17:21:54 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 084071FD3F;
+ Thu,  4 Nov 2021 16:21:54 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C88EF13DA2;
+ Thu,  4 Nov 2021 16:21:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 5+7UL6EIhGEJDAAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 04 Nov 2021 16:21:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,131 +51,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2fde72fe-3d8a-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=references:user-agent:from:to:cc:subject:date:in-reply-to
-         :message-id:mime-version:content-transfer-encoding;
-        bh=QweRTtvGwADMsXTr1xaN3Kxa62JgHzc3jVnoh96Liqg=;
-        b=CqCkuoc+TbTnyzP5LV9xx4zuvUP5vKRvx4+lI0AsrJUADBoiiHImcWZTrhZCJCBLwi
-         7pDQ70OkhLRrVATjrrF+Q88zaANuotd1Q4AwM99pqW68kRQzAkTfuGPr/9lCaPlO2T+U
-         n9K+W6yD0FMmS9VrPwGhpeViqiCYS3sH69dwc7+hwrwOcmKbGGUkeTC/VrMCbNX8dNsa
-         nPhQHrMwXw2nvu2vwPzDjujjOVxc8LWSWKa8z8DMRJYra/QTYZHfwVWYBUbPbCPdMCsd
-         yQfAuNd22JCnqp4vxY/QXR7g0Xj8ns447Hcd0xaWJO6YP/dWYOp4XN2rGKr6EQ68D26j
-         XXGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:references:user-agent:from:to:cc:subject:date
-         :in-reply-to:message-id:mime-version:content-transfer-encoding;
-        bh=QweRTtvGwADMsXTr1xaN3Kxa62JgHzc3jVnoh96Liqg=;
-        b=fjbYABDZMOtWT92m13RHgJp41MgM3Ae699WkEsNIgMX4SKB1g8c3UWNWXkxVphEsJl
-         SJ81/OhJJbiqysJSHZkij458qo9g2Gh2Jd2ZriKMtfIoZ6kzxZqC9Ec2IMbTEi6EYH58
-         OA5Yrn6EoYumK0tna+28YaMdQE/YaEeLTnvwNsAuzHIdLQ6phTWCeTzXE3iWs5+LnU4w
-         R2KQ+Er/FnFDspCp/X30uJNtJd/qZBZwCBk5MWQo6Lal92RuIiMWhKjJrrWYjaCi7iu5
-         eubaXxd+lp7VoIOSBxt89qtXX4SiwriK8StXSLTxu8u0OAlkpBcUfMo8VFJJcgt03nX8
-         OPew==
-X-Gm-Message-State: AOAM530h/aod3U9/36xS1WoL8SnUYW82LkQNT8eabWAkm6xWU1ThUTgA
-	MKhgOrJaq7ymwlkZm2jo2+ZU/A==
-X-Google-Smtp-Source: ABdhPJwe00CHw7UMoKWE6I9J9OGWAhW6QOqL4ETWy6bJnlNiej+OHH1jTwx5z/Ofqk+s49nl7oMbWw==
-X-Received: by 2002:a1c:f31a:: with SMTP id q26mr24179035wmq.148.1636042425632;
-        Thu, 04 Nov 2021 09:13:45 -0700 (PDT)
-References: <20210824105038.1257926-1-anthony.perard@citrix.com>
- <871r3vkiok.fsf@linaro.org>
-User-agent: mu4e 1.7.4; emacs 28.0.60
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Roger Pau =?utf-8?Q?Monn=C3=A9?= <roger.pau@citrix.com>, Kevin Tian
- <kevin.tian@intel.com>, George Dunlap <george.dunlap@citrix.com>, Ian
- Jackson <iwj@xenproject.org>, Connor Davis <connojdavis@gmail.com>, Bob
- Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
- <alistair.francis@wdc.com>, Tim Deegan <tim@xen.org>, Jun Nakajima
- <jun.nakajima@intel.com>, Tamas K Lengyel <tamas@tklengyel.com>, Doug
- Goldstein <cardoe@cardoe.com>, Jan Beulich <jbeulich@suse.com>, Konrad
- Rzeszutek Wilk <konrad.wilk@oracle.com>, Julien Grall <julien@xen.org>,
- Alexandru Isaila <aisaila@bitdefender.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Ross Lagerwall <ross.lagerwall@citrix.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>, Paul Durrant <paul@xen.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, "Daniel P. Smith"
- <dpsmith@apertussolutions.com>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Lukasz Hawrylko
- <lukasz.hawrylko@linux.intel.com>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH v7 00/51] xen: Build system improvements, now with
- out-of-tree build!
-Date: Thu, 04 Nov 2021 16:12:24 +0000
-In-reply-to: <871r3vkiok.fsf@linaro.org>
-Message-ID: <87wnlnj3uw.fsf@linaro.org>
+X-Inumbo-ID: 52e6a025-3d8b-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1636042914; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RyW5Wt/bfDet9n989u3PUHzkl4L+NrHrgmkaQ6ot2hU=;
+	b=L92SKm06c/K/noNaQ0Z0+pat7K6xDrEy2Wn9WB8070x+MZT2MLOxJpTacYZxt8NfGexzWd
+	mr+KdTjauTiBwOu6ApzjX9WyAtBPGFzBQBz+5/M3GAmli8x9F98uY/+4AEdeNQMQuvETvz
+	YdWmVfKh3SSIYoL1FmIeHNaJ0fnoQ84=
+Subject: Re: [PATCH v4] xen/balloon: add late_initcall_sync() for initial
+ ballooning done
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Jonathan Corbet <corbet@lwn.net>,
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
+References: <20211102091944.17487-1-jgross@suse.com>
+ <f986a7c4-3032-fecd-2e19-4d63a2ee10c7@oracle.com>
+ <f8e52acc-2566-1ed0-d2a3-21e2d468fab7@oracle.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <3b1f1771-0a96-1f71-9c9d-9fb1a53a266e@suse.com>
+Date: Thu, 4 Nov 2021 17:21:53 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <f8e52acc-2566-1ed0-d2a3-21e2d468fab7@oracle.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="JzKPLG1VYmIxPCVCcWc1VenFHq5kAdOeC"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--JzKPLG1VYmIxPCVCcWc1VenFHq5kAdOeC
+Content-Type: multipart/mixed; boundary="2vIdrc1xpWVHwJMCuVJCcJZ1hc8yPTd8m";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Jonathan Corbet <corbet@lwn.net>,
+ Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
+Message-ID: <3b1f1771-0a96-1f71-9c9d-9fb1a53a266e@suse.com>
+Subject: Re: [PATCH v4] xen/balloon: add late_initcall_sync() for initial
+ ballooning done
+References: <20211102091944.17487-1-jgross@suse.com>
+ <f986a7c4-3032-fecd-2e19-4d63a2ee10c7@oracle.com>
+ <f8e52acc-2566-1ed0-d2a3-21e2d468fab7@oracle.com>
+In-Reply-To: <f8e52acc-2566-1ed0-d2a3-21e2d468fab7@oracle.com>
+
+--2vIdrc1xpWVHwJMCuVJCcJZ1hc8yPTd8m
+Content-Type: multipart/mixed;
+ boundary="------------EA8676FA21E0F3DD37BD799B"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------EA8676FA21E0F3DD37BD799B
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-
-Alex Benn=C3=A9e <alex.bennee@linaro.org> writes:
-
-> Anthony PERARD <anthony.perard@citrix.com> writes:
->
->> Patch series available in this git branch:
->> https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.buil=
-d-system-xen-v7
+On 04.11.21 16:55, Boris Ostrovsky wrote:
+>=20
+> On 11/3/21 9:55 PM, Boris Ostrovsky wrote:
 >>
->> v7:
->>     Out-of-tree build!
+>> On 11/2/21 5:19 AM, Juergen Gross wrote:
+>>> When running as PVH or HVM guest with actual memory < max memory the
+>>> hypervisor is using "populate on demand" in order to allow the guest
+>>> to balloon down from its maximum memory size. For this to work
+>>> correctly the guest must not touch more memory pages than its target
+>>> memory size as otherwise the PoD cache will be exhausted and the gues=
+t
+>>> is crashed as a result of that.
+>>>
+>>> In extreme cases ballooning down might not be finished today before
+>>> the init process is started, which can consume lots of memory.
+>>>
+>>> In order to avoid random boot crashes in such cases, add a late init
+>>> call to wait for ballooning down having finished for PVH/HVM guests.
+>>>
+>>> Warn on console if initial ballooning fails, panic() after stalling
+>>> for more than 3 minutes per default. Add a module parameter for
+>>> changing this timeout.
+>>>
+>>> Cc: <stable@vger.kernel.org>
+>>> Reported-by: Marek Marczykowski-G=C3=B3recki=20
+>>> <marmarek@invisiblethingslab.com>
+>>> Signed-off-by: Juergen Gross <jgross@suse.com>
 >>
->>     This mean many more patches. Everything after patch 27 is new.
 >>
->>     There's a few new patch before that, but otherwise are rework of
->>     v6.
->
-> This is something I've been looking forward to but obviously my QEMU
-> focused mind meant I did it wrong. Generally I create a builds subdir in
-> my tree with subdirs for each build flavour. So with:
->
-<snip>
->
-> In "build: adding out-of-tree support to the xen build" you describe the
-> Linux kernel style which works well where the config can be done after
-> the fact but I wonder if the configure approach is better suited to
-> something that needs a bunch of checks running. Is the configure script
-> pure autoconf? This should work out of the box IIRC.
+>>
+>> Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+>=20
+>=20
+> This appears to have noticeable effect on boot time (and boot experienc=
+e=20
+> in general).
+>=20
+>=20
+> I have
+>=20
+>=20
+>  =C2=A0 memory=3D1024
+>  =C2=A0 maxmem=3D8192
+>=20
+>=20
+> And my boot time (on an admittedly slow box) went from 33 to 45 seconds=
+=2E=20
+> And boot pauses in the middle while it is waiting for ballooning to=20
+> complete.
+>=20
+>=20
+> [=C2=A0=C2=A0=C2=A0 5.062714] xen:balloon: Waiting for initial ballooni=
+ng down having=20
+> finished.
+> [=C2=A0=C2=A0=C2=A0 5.449696] random: crng init done
+> [=C2=A0=C2=A0 34.613050] xen:balloon: Initial ballooning down finished.=
 
-FWIW doing it the make O way:
 
-  =E2=9E=9C  pwd
-  /home/alex/lsrc/xen/xen.git
-  =F0=9F=95=9916:12:54 alex@zen:xen.git  on =EE=82=A0 review/build-system-v=
-7 (AM) [$?]=20
-  =E2=9E=9C  make O=3Dbuilds/native/
-  make -C xen install
-  make[1]: Entering directory '/home/alex/lsrc/xen/xen.git/xen'
-  make[2]: Entering directory '/home/alex/lsrc/xen/xen.git/xen/builds/nativ=
-e'
-  make -f /home/alex/lsrc/xen/xen.git/xen/Rules.mk obj=3Dtools tools/fixdep
-  make[3]: Entering directory '/home/alex/lsrc/xen/xen.git/xen/builds/nativ=
-e'
-  make[3]: Leaving directory '/home/alex/lsrc/xen/xen.git/xen/builds/native'
-    GEN     Makefile
-  make -f /home/alex/lsrc/xen/xen.git/xen/Rules.mk obj=3Dtools
-  make[3]: Entering directory '/home/alex/lsrc/xen/xen.git/xen/builds/nativ=
-e'
-  make[3]: Leaving directory '/home/alex/lsrc/xen/xen.git/xen/builds/native'
-  make -f /home/alex/lsrc/xen/xen.git/xen/Rules.mk obj=3D. include/xen/comp=
-ile.h
-  make[3]: Entering directory '/home/alex/lsrc/xen/xen.git/xen/builds/nativ=
-e'
-    BANNER  .banner
-  error: could not load font /home/alex/lsrc/xen/xen.git/xen/tools/xen.flf
-  make[3]: *** [/home/alex/lsrc/xen/xen.git/xen/./build.mk:12: .banner] Err=
-or 255
-  make[3]: Leaving directory '/home/alex/lsrc/xen/xen.git/xen/builds/native'
-  make[2]: *** [/home/alex/lsrc/xen/xen.git/xen/Makefile:539: xen] Error 2
-  make[2]: Leaving directory '/home/alex/lsrc/xen/xen.git/xen/builds/native'
-  make[1]: *** [Makefile:176: __sub-make] Error 2
-  make[1]: Leaving directory '/home/alex/lsrc/xen/xen.git/xen'
-  make: *** [Makefile:136: install-xen] Error 2
+This shows that before it was just by chance that the PoD cache wasn't
+exhausted.
 
-which is odd because I have a "apt build-dep xen" and figlet installed
-on this system.
+> So at least I think we should consider bumping log level down from info=
+=2E
 
---=20
-Alex Benn=C3=A9e
+Which level would you prefer? warn?
+
+And if so, would you mind doing this while committing (I have one day
+off tomorrow)?
+
+
+Juergen
+
+--------------EA8676FA21E0F3DD37BD799B
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------EA8676FA21E0F3DD37BD799B--
+
+--2vIdrc1xpWVHwJMCuVJCcJZ1hc8yPTd8m--
+
+--JzKPLG1VYmIxPCVCcWc1VenFHq5kAdOeC
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGECKEFAwAAAAAACgkQsN6d1ii/Ey+P
+BggAh6jDDygwPd1B1MxUqCUOGK7SQYdbqJnusvOH0yW8JyzIZXMriK8FS9A2KIaUTGoVZal7LsqD
+L241gvpZq4mIP+QJR088u2IOzfYNJ3VoWRqAn4SZFw4EFMu/DIVi5CZem0Lu0fCwn0SqBjdYwhCX
+4aHeSlOQi9nigZbA+VJRGPZfg+u4tq60OwyJT62ZyWzn7QveDHCpia0Bg8scrF/ClMF1QRtWG8en
+QHvYw9aIfmuCDHP1rojzjiMMvqanZyUOFLNXwmnfxmORJXFB9pfytBWkxhGA6DU0pRtPTsdb1gwQ
+a1x3VdrfLEtLQ7MJZOqcYKENNMxby6ovMdA9uWpCEg==
+=saKu
+-----END PGP SIGNATURE-----
+
+--JzKPLG1VYmIxPCVCcWc1VenFHq5kAdOeC--
 
