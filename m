@@ -2,29 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 544FF44596F
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 19:14:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221844.383746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2AD1445B50
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 21:53:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221863.383769 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mihEU-0005Tt-V3; Thu, 04 Nov 2021 18:13:02 +0000
+	id 1mijiA-00031H-Ji; Thu, 04 Nov 2021 20:51:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221844.383746; Thu, 04 Nov 2021 18:13:02 +0000
+Received: by outflank-mailman (output) from mailman id 221863.383769; Thu, 04 Nov 2021 20:51:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mihEU-0005RY-QK; Thu, 04 Nov 2021 18:13:02 +0000
-Received: by outflank-mailman (input) for mailman id 221844;
- Thu, 04 Nov 2021 18:13:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mijiA-0002zj-F7; Thu, 04 Nov 2021 20:51:50 +0000
+Received: by outflank-mailman (input) for mailman id 221863;
+ Thu, 04 Nov 2021 20:51:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WbKJ=PX=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mihET-0005RS-3g
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 18:13:01 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d64687b4-3d9a-11ec-a9d2-d9f7a1cc8784;
- Thu, 04 Nov 2021 19:12:59 +0100 (CET)
+ <SRS0=mqP1=PX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1miji9-0002zd-7c
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 20:51:49 +0000
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 059d5e75-3db1-11ec-9787-a32c541c8605;
+ Thu, 04 Nov 2021 21:51:46 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B8DB96120E;
+ Thu,  4 Nov 2021 20:51:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,174 +38,290 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d64687b4-3d9a-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1636049578;
-  h=subject:to:cc:references:from:message-id:date:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=UNMBh6J8ducn9YkE2jwVJGDIyB8ONaSfyVKdjtTks0c=;
-  b=KUdLm5Iq2hEOuE1mENurB8n+QKeUTNyL8tb0XsIlZcrsZwgDBzGmGkkK
-   9GSHniUFh+VpxUVSMTyl/Jjh6uJc7iUm9aFL8GspRBSVbvJpa0MTmQ5Rt
-   sOL3mwedqdQd66PN+NJOUGtih7baU0YUWEzeUWdb5goNqCEgUWUOKksiV
-   8=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 0U2ffWiGqDbbVoJptVtjykFHFWLAlCCPfxpDtWLX1OeNT784EY4noKNrhee8weXpPa89CyEXaN
- sjEujFp6c7WhgIq/DB6RpFjh+P4rBvi/FyRO+kGoyYwcFXGse5VszQA9Jv6/EyB/ptybLrCKIh
- KkEHGWNO+mS71P7aFK+bPiLIUhDqrdsOJcOZfRsuIi+ykYwrWWO9vAsWZroA/7aWVR6EnEdbJ+
- bJtdcGjwc43/SXFOwDApgWTAA87b8VhEY5/EF7+ZIXG65+prR1mpTy2S3mPwYmXvr3msSGuGqh
- zmWooNCWThjFThJ+ZRxbS6J1
-X-SBRS: 5.1
-X-MesageID: 59049044
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:/wVaR6u3U42zGiwxOx3wSREFuOfnVKFZMUV32f8akzHdYApBsoF/q
- tZmKW6EbvvbamKjKd5zOd+19EtUvpLUzNFhTFE9/iBjHypH+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHhJZS5LwbZj29cx2YThWWthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- NplnqW2cQN0H7T1qukeWCFaDAhlOKh45+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6DN
- pJFOGIzMHwsZTV1CnA5Fb0mod65nzqmIg9Rk0iP4oYotj27IAtZj+G2bYu9lsaxbcdahEGDv
- Urd4n/0RBodMbS3yCWH2mKhgPfVmiH2U55UE6e3ntZ1hHWDy2pVDwcZPXOrrP/8hkOgVtZ3L
- 00P5jFovaU07FasTNT2Q1u/unHsg/IHc4MOSatgsljLk/eKpVbCboQZctJfQPcfsvcyGB0z7
- 22EnNjRByNGq7iQd23Io994sgiOESQSKGYDYwoNQg0E/8TvrekPs/7fcjpwOPXr14OoQFkc1
- xjP9XFj3OtL0abnwo3ipQif6w9AsKQlWeLcCu//emu+pj10a4e+D2BDwQiKtK0QRGp1o7Tog
- ZTlpyR8xLxRZX1uvHbUKAnoIF1Pz6zVWNE7qQQ+d6TNDxz3pxaekXl4uVmS3ntBPMceYiPOa
- 0TOow5X75I7FCL0NvImPd/pUpRwlfmI+THZuhb8NIomjn9ZLl7vwc2TTRTIgzCFfLYEyPlX1
- WinnTaEUi9BVPUPIMueTOYBy747rh3SNkuILa0XOy+PiOLEDFbMEO9tGALXMogRsfPVyC2Io
- o03H5bblH1ivBjWP3C/HXg7dgtRcxDWxPne9qRqSwJ0ClA5RDF/UKKInu5Jlk4Mt/09q9okN
- 0qVAydw4FH+mWfGOUONbHViY6noRpFxsTQwOilEALpi8yFLjV+H4PhNep0pU6Mg8eA/n/d4Q
- +NcI5eLA+hVSySB8DMYNMGvoItnfRWtpASPIyv6P2RvI88+H1TEqo3+Yw/i1CgSFS7r58Ewl
- KKti1HASp0ZSgU8UMuPMKCzz0m8tGQ2kf5pWxeaOcFafUjhqdA4KyH4gvItDdsLLBHPmmmT2
- wqMWE9KrujRuY4lttLOgPnc/YuuFuJ/GGtcHnXasunqZXWLoDL7zNYZAuiSfD3bWGflw4mYZ
- L1Yn6PmLfkKvFdWqI4gQbxl+r0zuon0rLhAwwU6QHiSNwa3CqltK2Wt1NVUsvEf3adQvAa7V
- x7d+tRePrnVasrpHERIeVggZ+WHk/oVhiPT/bI+J0CjvH17+7+OUENzORiQiXMCcOspYd19m
- epx6tQL7wGfiwYxNofUhy9ZwG2AM3gcXvh1rZodGoLq1lImx1wqjUYw0cMqDEVjs+lxD3Q=
-IronPort-HdrOrdr: A9a23:M07Oe61yBy7yxkXQhm+gCAqjBSJyeYIsimQD101hICG9Lfb2qy
- n+ppgmPEHP5Qr5OEtApTiBUJPwJU80hqQFnrX5Wo3SIDUO2VHYUb2KiLGN/9SOIVyHygcw79
- YHT0E6MqyLMbEYt7eL3ODbKadY/DDvysnB7o2/vhQdPj2CKZsQiDuRYjzrY3GeLzM2Z6bReq
- Dsg/av6wDQAkj+Oa+Adwc4tqX41pD2vaOjRSRDKw8s6QGIgz/twLnmEyKA1hNbdz9U278t/U
- XMjgS8v8yYwr6G4y6Z81WWw4VdmdPnxNcGLMuQivINIjGprgqzfoxuV5CLoThwiuCy71QBls
- XKvn4bTohOwkKUWlvwjQrm2gHm3jprw3j+yWWAiX+mmsD9TCJSMbsIuatpNj/ir2YwttB116
- xGm0iDsYBMMB/GlCPho/DVShBDjCOP0DofuN9Wq0YafZoVabdXo4Ba1lhSCo08ECXz751iOP
- VyDfvb+O1dfTqhHjHkV1FUsZ6Rt0kIb1K7qhBogL3Q79EWpgE286Ig/r1dop9an6hNDKWt5I
- z/Q+1Vff91P4krhJlGdZI8qP2MexrwqCL3QRCvyGvcZdU60lL22tXKCeYOlauXkKJh9upEpH
- 2GaiIAiVIP
-X-IronPort-AV: E=Sophos;i="5.87,209,1631592000"; 
-   d="scan'208";a="59049044"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jVpfzJiUlcsx8Cv+AkbyoGt7yFpk0bgBN5z05a/CcrvmxKy+e2Vk6B12irsAZlyIe3qqd0lQ/j9CNXuAlazI5vkZj0BMakuWyzDhQdsIOZ1ymgQG1/KMv9Xx2o1aANtPkwYlGp26TCxeO1yBz6aFHFyfiribD/oVxYK71sT0f1ZyV+6KF3m5U/QsBk88Th+wEOpo8Fwpn9llVUBXXU8XLUSjw2rlE/3I4HxHhTUbPvv0y2bMl5BGkOi+HNdfpbaqZVC7F1t2hIZSJnHMEEcpUrKyWXRlCdZQ4OWmnruWwakIFlSxhvRk4rzJXy/VfxQ+KzahUTdIxG0bvgIm3ho58Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lEodEYO9+mLTTYwln4jMIKZDYM2iI2UzxSLjaZNcxeg=;
- b=RFqfdTOZ4HQiN1yl5YHzMMpOdVIVkWAJRU7X/yY1XcyBdBCYKW08ZDLHZpjSaDYdUoJ6ebfBZD/8BPU60FLPzqF8QTG1Lpovufsb0PVkuA0TVY6ki6wGy+cTeecvfLQPQ8iFbS9p2GDvFA786o/0CWgLx5mde360va5XKWAyi8Hg1rXIomh4qSP4ziwAKe7ARsjzkkzfWXGLgNKzdw1LEO3qAljrnu1tQPkgwluLm0H3otCGeQWuzuuAnpwZGszLLgFGAEHMypP2cd5doEm3mZMit2BCautsXnZuyQPri+eEWp6t1Xdae939XMpouzhlMNvAJm2IC6KhLsq7Ji7erA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lEodEYO9+mLTTYwln4jMIKZDYM2iI2UzxSLjaZNcxeg=;
- b=kblV0tOmY5VRZmE2RfS7QrsAwUx0lmLUycCkjce9PK7gCVkGYYali+F1JkF/HicehdtOVgfFi/5HAX/PfJOhgn5F513+RsJs5K7s5XOilMgv7ZXdCF/G4wtN2zYrfn/pcCmPymHc68ch71uoPaSkUBAnf9NY9OESVtu+hyKbljg=
-Subject: Re: [PATCH-for-4.16 v2 1/2] configure: modify default of building
- rombios
-To: Ian Jackson <iwj@xenproject.org>, Juergen Gross <jgross@suse.com>
-CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
-References: <20211104161121.18995-1-jgross@suse.com>
- <20211104161121.18995-2-jgross@suse.com>
- <24964.2546.976689.929650@mariner.uk.xensource.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <758e53b5-c967-fa3d-50dc-b547e2736f27@citrix.com>
-Date: Thu, 4 Nov 2021 18:12:48 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-In-Reply-To: <24964.2546.976689.929650@mariner.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: LO2P123CA0107.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:139::22) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+X-Inumbo-ID: 059d5e75-3db1-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1636059105;
+	bh=NZt8sIiHyzU+dqFNBgvTX8SvkhLgbMvUZEtvyh7m6Rg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=W9p6K951rOr7rBl3bR9GcGs0FdShoSt7BWt2a6U0gwtbtIJQU0GWvcUM/N6nTxR46
+	 6U/9fA5rKS+ng/0AxeUoWwQLTcVbiQZN4tEx09H7YUMcw96G6aSRVG8DfVi3byAuDp
+	 n0UEVWrXzYitHGIwhxiBMQ4STXgPGZBReoMv5syqmDz8W4O7wdn3LOLD/r1DUoDS2U
+	 V4dvyLIuI9nk6p2PNP9AAqc0yiDK/MHaYJsOM2il5hUiL2bgeGISMTiCMRpGWzpgWY
+	 VPud1vEe6nNw3BO9f3KGGwDSXBtNjWRgw2hupNJlI6oSrnWAyPXwC9EHfDlovYPDxC
+	 gj/I9485hxYRw==
+Date: Thu, 4 Nov 2021 13:51:43 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Luca Fancellu <luca.fancellu@arm.com>
+cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, wei.chen@arm.com, 
+    iwj@xenproject.org, Stefano Stabellini <sstabellini@kernel.org>, 
+    Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH-4.16 v2] xen/efi: Fix Grub2 boot on arm64
+In-Reply-To: <20211104141206.25153-1-luca.fancellu@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2111041350200.284830@ubuntu-linux-20-04-desktop>
+References: <20211104141206.25153-1-luca.fancellu@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bcd69a70-4cf8-4763-3074-08d99fbeb82c
-X-MS-TrafficTypeDiagnostic: BYAPR03MB4293:
-X-Microsoft-Antispam-PRVS: <BYAPR03MB4293318027914794FD917775BA8D9@BYAPR03MB4293.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: g0XIElnkHIhRhBdFWqyMihml0q68vYEgNh07B99yTbr0uSKlgxfg6JBTeHpKk3Dc64vxncT3gLT/7F8mV3G6LMjw5lBFxybS680jvynIt+brUEwaiBu16B6F3nhxcQiXYSsXnHEMJepiEiCMmKxWQrYjpmPAdfI34vd1PxTIGw9IR5kMwIUIScGbTg/r75QAet4MWgPBEzo4Uh5cRNuKBylRa5sChwYtP4IJsYoVp8s6PiUd3KLx8rRCfXeGDnHk2GT9+56n5vPxtZW+cT8Jr/h1i6C9giOfkBPwga84148qiTFLumRENjUtpG9xzJbSNB4xNtuOA7NjpNQdd8LG/PnM/2hsocXo4MLre1grezuiX6/PmG4w4010jvvYXPybiCzOh0qiojtGemCTf9Sl1Ec8GdbTlss8/12IakxMm0LkMKENOkvcVoT3G3z8rpoQnvLJ3sbhm5ovBlP1+D7npJ87ibUtw3YRVKk4Xnyp5RlPvNo5Beq/1QeiCkb8WCG4mixorwRaPqI55pzEX+3JODinF+ntYhWO6JLvrTyBDw84ehf4QZlNVD6DPzSxczUfa18ywCrdh+WnDGZzDu+v/p1D8C1ROY8iM/Y77jVqUPFGxNtIwbEwfafFG7HOUuvdht6Hl3sNcgbxbSMHUwO6CHOwAbhQXCFT9G6fYSAAukPdP5I/YWERVgT5SqLkupYSDoU7Tli1INskcjtXzt1IuGYX6lx3AH8uZeblh+OS/M4Rl5U3V12s30itmn0yPSXZ
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(4326008)(6486002)(31686004)(508600001)(4744005)(8936002)(8676002)(16576012)(110136005)(316002)(2906002)(186003)(26005)(6666004)(86362001)(38100700002)(2616005)(956004)(53546011)(31696002)(66946007)(66556008)(83380400001)(66476007)(82960400001)(36756003)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aXpFZFNyRzh3RjdXWTliUmVjMnpzMm5kaGxzbVRNRDNZN0o5YklOQ29zRXlt?=
- =?utf-8?B?TElZZUhjVXZKZlp5TlVRbjJKRkpOYUg0aE91ejlnM1hPWGJacWd2L3plQkQy?=
- =?utf-8?B?emRCQ2ZWd3RNelRDeUJTMlUwS0tic1YxSHhPdmVQQ1B5Slp4Ry9FblhMcWFO?=
- =?utf-8?B?Q3lkV2VBRFZVNkhTWGhHSThIcC9JbEkxd0RjbnBPYzc5RHhNZFZ3WlJvQzdt?=
- =?utf-8?B?d0cwY1A1bWMvVVlmbzYrN1h5U3dqYng4ZTcrSk56U1oyZWdMdHJzUis1dGZU?=
- =?utf-8?B?bW1kTndaSFpXa1lpU0MzVUlaMTVnbkc1eFVwRjVSb3B1VVQ0Q2FVSEg2b0Nm?=
- =?utf-8?B?b2tPeXZiNDNqWk5VQWtyS043K1JwWVd3Vmx4bXlKQ3N4RkJhRU5vMjRENXZB?=
- =?utf-8?B?dFNtYVFUcW5sQ2RPRnJZbEpNVUk0dXIvTFlRNEZwdnF3amEvSTl4bTZYVGlG?=
- =?utf-8?B?MzB5dm5lSzlDakxJQ2tmYTByb2N4WFptcmVQOW5qOVNhQmVLY09xK1piOVp3?=
- =?utf-8?B?VTUxQys2aU1CM0JmSEJwb2ljU1BPb2xMVm1lTlpETVorQzAyeC9sZzBmN1BS?=
- =?utf-8?B?QVovc2I2R0dnV1MzRklJZkNFSjJYcVhSeUY1TW0rd3FZV2JVaG1NWGJpN0xR?=
- =?utf-8?B?amtURFRvdDhhUmpJTFlQQWZBTEpsbGo2cVhTT1Rkb1Y5blBLazBQcFFoS0R2?=
- =?utf-8?B?VlRtNHFFL0pVMldvUmY4V1E5NTgyYjIzTS9lbjM2bE9wRVd3UXJ0a2xWamFi?=
- =?utf-8?B?VmU1a21IVTkvdm5sZkYxNG82cFZ4NUpoYWhpRnlwdnVOb1NYbUtLKzNVMkpY?=
- =?utf-8?B?WmoySUh0V0lXemcvdU9WeXo5dlBLaFVKdXNaVDRZVGxCSUNDVW50RER5SlpS?=
- =?utf-8?B?Q2N6OHZVbFFZeE5qV2hna0t6WU50R1NOdFJtNjd4WXNiMlJEQ09qR1U5bnk0?=
- =?utf-8?B?U0hhMlZmaVVPQ2RTbDExd1hhTnlBWWRFN1B6Q0xIME9zT3dQZ3ZZVXRXQ2Rt?=
- =?utf-8?B?VUNOQjNTY3ZCZGJyZnJLR0g1Y3hlMTA0VVd0empidG4vbXhDWkk2aU5qVnhK?=
- =?utf-8?B?bXJBb3RmK3dHVkVQb2Y3Tkx4dkluQ2owSzRVc09vOXdMeXVkbmdZeXRNeUR5?=
- =?utf-8?B?TmU4OTFXcTZhcWJwSFFRRlV6d3VFRUtGK0g5VzdCaFNxdG82S1BLSHoreU81?=
- =?utf-8?B?OHo5dy91eDUvaGVEbDRPU3l4UW5xOTZqQTk5NzdteDZvejB4VG1wKzdaNVJS?=
- =?utf-8?B?T01xTlhsQVVVcnU5NFFQdkNuMzE1NlNTdTljZVRSR3B6MWNjLzRZOGtOdEVp?=
- =?utf-8?B?RU5PbVF0WDYvTkVYTjh2cGJBZXVYU21nSjhzNm9rK3FPWEdmNlMrZ0VvQ3Fz?=
- =?utf-8?B?eE4wUXFCdTRWTFEyc2dLM3F5QUhiTDJzb0p3RDNkSFp0eFZvdG8weFVyemxV?=
- =?utf-8?B?Z2ZmM2JqYThuWm84V2xuU1FGOHdYRjFZZURLdzNxWlNVclI4Z05xT3QzTnVF?=
- =?utf-8?B?VTBtU2FDZk1KT1gyRlQ2TTNTMUpDbUdmaXFpemFnQWlhczNZa2REZkR1dHJn?=
- =?utf-8?B?ZkNqaHVORng0ekpNQWNQSFJHYkJsQWc4bXR1N2JBNEJycU1oQ0ZKaWF3UGN0?=
- =?utf-8?B?VFYrOUt5NHdKbFdxbjVyblJTejdXRWg0UDlnZWE2VUxON1V4eWhQeVRGejFR?=
- =?utf-8?B?TUJ2b3NuaFpqTHJQVjd3aDRVM3NyT3pPNk1wVU9tMVpTUzhOMnhmQlU0TFgy?=
- =?utf-8?B?aERTUlFpZFl3eVF6bUxhSjlLZlEwTGxmeTI3UzZOd0xTMHptRVl2MDJrejd0?=
- =?utf-8?B?MFZsaTRWcTZnSFRibjVnUnNMUWRRbWk5QVBKVXEyNVpEd0ZzMGEzazNMV0t5?=
- =?utf-8?B?dUM1UHhKNXlJa2lJa3pQVDF4bk1OUE9KUkRaNjJ4Zm9rZEV4SjVwVE9EdWtT?=
- =?utf-8?B?RHRlS2VMRWJVUkNycFpZckhoVElkRlhSK0tkeXdrZGFIZ0syUWRrNlFFdUpI?=
- =?utf-8?B?WndNbnN6cmp2OWE4UU1HUS9uQ3NoWDhHOHRyaHFlazMrc2ljaGU5S0Q4RDhl?=
- =?utf-8?B?NnA3OEFJNjBaQUJrSXBKbUxWdDVZaEg3clVYTzVnT2ZyTXdpWUxTZ1lIVDZU?=
- =?utf-8?B?TnBsenVuNU81TW9JSXlza2Z2R3E3b0VKa0lyS1RTd1NWSW45MmlHUHpDSURW?=
- =?utf-8?B?SVRWK2l4clc2QmFhZkJxMXBMOWFBb21oUmtpdjZPQStBRWsxZW96OEd2V2pu?=
- =?utf-8?B?cEtFUW03TmFNSXBHZ0FoWlU1L21RPT0=?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcd69a70-4cf8-4763-3074-08d99fbeb82c
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2021 18:12:53.4101
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iPVukNfwiuHRzr4RpdrOrc0SZNT41IHu7bVRMR7AWl1lJp/9Cso5MyzVkifVsvLSiMGhrLlTQeezcdRHGfQK1rl8gC0nBaOD//peLAmXEVw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4293
-X-OriginatorOrg: citrix.com
+Content-Type: multipart/mixed; boundary="8323329-33341033-1636059105=:284830"
 
-On 04/11/2021 16:27, Ian Jackson wrote:
-> Juergen Gross writes ("[PATCH-for-4.16 v2 1/2] configure: modify default of building rombios"):
->> The tools/configure script will default to build rombios if qemu
->> traditional is enabled. If rombios is being built, ipxe will be built
->> per default, too.
->>
->> This results in rombios and ipxe no longer being built by default when
->> disabling qemu traditional.
->>
->> Fix that be rearranging the dependencies:
-> Andy, you asked for changes to the usage messages.  Are you happy ?
->
-> Thanks,
-> Ian.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-LGTM.
+--8323329-33341033-1636059105=:284830
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-~Andrew
+On Thu, 4 Nov 2021, Luca Fancellu wrote:
+> The code introduced by commit a1743fc3a9fe9b68c265c45264dddf214fd9b882
+> ("arm/efi: Use dom0less configuration when using EFI boot") is
+> introducing a problem to boot Xen using Grub2 on ARM machine using EDK2.
+> 
+> Despite UEFI specification, EDK2+Grub2 is returning a NULL DeviceHandle
+> inside the interface given by the LOADED_IMAGE_PROTOCOL service, this
+> handle is used later by efi_bs->HandleProtocol(...) inside
+> get_parent_handle(...) when requesting the SIMPLE_FILE_SYSTEM_PROTOCOL
+> interface, causing Xen to stop the boot because of an EFI_INVALID_PARAMETER
+> error.
+> 
+> Before the commit above, the function was never called because the
+> logic was skipping the call when there were multiboot modules in the
+> DT because the filesystem was never used and the bootloader had
+> put in place all the right modules in memory and the addresses
+> in the DT.
+> 
+> To fix the problem we allow the get_parent_handle(...) function to
+> return a NULL handle on error and we check the usage of the function
+> to handle the new use case. The function in fact should not prevent
+> the boot even if the filesystem can't be used, because the DT and
+> the modules could be put in place by the bootloader before running
+> Xen and if xen,uefi-binary property is not used, there is no need
+> for the filesystem.
+> 
+> Another problem is found when the UEFI stub tries to check if Dom0
+> image or DomUs are present.
+> The logic doesn't work when the UEFI stub is not responsible to load
+> any modules, so the efi_check_dt_boot(...) return value is modified
+> to return the number of multiboot module found and not only the number
+> of module loaded by the stub.
+> Taking the occasion to update the comment in handle_module_node(...)
+> to explain why we return success even if xen,uefi-binary is not found.
+> 
+> Fixes: a1743fc3a9 ("arm/efi: Use dom0less configuration when using EFI boot")
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+
+For the ARM part (xen/arch/arm/efi/efi-boot.h):
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+To be honest the changes to xen/common/efi/boot.c look OK too, but I'll
+reply to Jan's email about his suggestion
+
+
+> ---
+> Justification for integration in 4.16:
+> Upside: allow booting xen from grub on arm64 when the stub doesn't load
+>         any module.
+> Downside: It's affecting the EFI boot path.
+> Risk: It's not affecting x86 arch that works the same way as before.
+>       If something is wrong it creates a problem on early boot and not at
+>       runtime, so risk is low.
+> 
+> Tested in this configurations:
+>  - Bootloader loads modules and specify them as multiboot modules in DT:
+>    * combination of Dom0, DomUs, Dom0 and DomUs
+>  - DT specifies multiboot modules in DT using xen,uefi-binary property:
+>    * combination of Dom0, DomUs, Dom0 and DomUs
+>  - Bootloader loads a Dom0 module and appends it as multiboot module in DT,
+>    other multiboot modules are listed for DomUs using xen,uefi-binary
+>  - No multiboot modules in DT and no kernel entry in cfg file:
+>    * proper error thrown
+> 
+> Changes in v2:
+>  - Changed comment on DeviceHandle NULL (Jan)
+>  - Removed fatal condition on handle NULL (Jan)
+>  - Add more info about the EDK2+Grub2 issue to the commit msg (Jan)
+>  - Removed modules_found from function signature and pass everything
+>    on return (Stefano)
+>  - Improved comment in handle_module_node
+> 
+> ---
+>  xen/arch/arm/efi/efi-boot.h | 34 +++++++++++++++++++++++-----------
+>  xen/common/efi/boot.c       | 28 +++++++++++++++++++++++++---
+>  2 files changed, 48 insertions(+), 14 deletions(-)
+> 
+> diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+> index 8b88dd26a5..c3ae9751ab 100644
+> --- a/xen/arch/arm/efi/efi-boot.h
+> +++ b/xen/arch/arm/efi/efi-boot.h
+> @@ -702,6 +702,7 @@ static int __init allocate_module_file(EFI_FILE_HANDLE dir_handle,
+>   * This function checks for the presence of the xen,uefi-binary property in the
+>   * module, if found it loads the binary as module and sets the right address
+>   * for the reg property into the module DT node.
+> + * Returns 1 if module is multiboot,module, 0 if not, < 0 on error
+>   */
+>  static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
+>                                       int module_node_offset,
+> @@ -730,8 +731,8 @@ static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
+>                                   &uefi_name_len);
+>  
+>      if ( !uefi_name_prop )
+> -        /* Property not found */
+> -        return 0;
+> +        /* Property not found, but signal this is a multiboot,module */
+> +        return 1;
+>  
+>      file_idx = get_module_file_index(uefi_name_prop, uefi_name_len);
+>      if ( file_idx < 0 )
+> @@ -795,19 +796,20 @@ static int __init handle_module_node(EFI_FILE_HANDLE dir_handle,
+>          }
+>      }
+>  
+> -    return 0;
+> +    return 1;
+>  }
+>  
+>  /*
+>   * This function checks for boot modules under the domU guest domain node
+>   * in the DT.
+> - * Returns 0 on success, negative number on error.
+> + * Returns number of multiboot,module found or negative number on error.
+>   */
+>  static int __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
+>                                                int domain_node)
+>  {
+>      int module_node, addr_cells, size_cells, len;
+>      const struct fdt_property *prop;
+> +    unsigned int mb_modules_found = 0;
+>  
+>      /* Get #address-cells and #size-cells from domain node */
+>      prop = fdt_get_property(fdt, domain_node, "#address-cells", &len);
+> @@ -837,20 +839,22 @@ static int __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
+>                                       size_cells, true);
+>          if ( ret < 0 )
+>              return ret;
+> +
+> +        mb_modules_found += ret;
+>      }
+>  
+> -    return 0;
+> +    return mb_modules_found;
+>  }
+>  
+>  /*
+>   * This function checks for xen domain nodes under the /chosen node for possible
+>   * dom0 and domU guests to be loaded.
+> - * Returns the number of modules loaded or a negative number for error.
+> + * Returns the number of multiboot modules found or a negative number for error.
+>   */
+>  static int __init efi_check_dt_boot(EFI_FILE_HANDLE dir_handle)
+>  {
+>      int chosen, node, addr_len, size_len;
+> -    unsigned int i = 0;
+> +    unsigned int i = 0, modules_found = 0;
+>  
+>      /* Check for the chosen node in the current DTB */
+>      chosen = setup_chosen_node(fdt, &addr_len, &size_len);
+> @@ -865,15 +869,23 @@ static int __init efi_check_dt_boot(EFI_FILE_HANDLE dir_handle)
+>            node > 0;
+>            node = fdt_next_subnode(fdt, node) )
+>      {
+> +        int ret;
+> +
+>          if ( !fdt_node_check_compatible(fdt, node, "xen,domain") )
+>          {
+>              /* Found a node with compatible xen,domain; handle this node. */
+> -            if ( handle_dom0less_domain_node(dir_handle, node) < 0 )
+> +            ret = handle_dom0less_domain_node(dir_handle, node);
+> +            if ( ret < 0 )
+>                  return ERROR_DT_MODULE_DOMU;
+>          }
+> -        else if ( handle_module_node(dir_handle, node, addr_len, size_len,
+> -                                     false) < 0 )
+> +        else
+> +        {
+> +            ret = handle_module_node(dir_handle, node, addr_len, size_len,
+> +                                     false);
+> +            if ( ret < 0 )
+>                   return ERROR_DT_MODULE_DOM0;
+> +        }
+> +        modules_found += ret;
+>      }
+>  
+>      /* Free boot modules file names if any */
+> @@ -883,7 +895,7 @@ static int __init efi_check_dt_boot(EFI_FILE_HANDLE dir_handle)
+>          efi_bs->FreePool(modules[i].name);
+>      }
+>  
+> -    return modules_idx;
+> +    return modules_found;
+>  }
+>  
+>  static void __init efi_arch_cpu(void)
+> diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> index 392ff3ac9b..112b7e7571 100644
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -449,6 +449,15 @@ static EFI_FILE_HANDLE __init get_parent_handle(EFI_LOADED_IMAGE *loaded_image,
+>      CHAR16 *pathend, *ptr;
+>      EFI_STATUS ret;
+>  
+> +    /*
+> +     * Grub2 running on top of EDK2 has been observed to supply a NULL
+> +     * DeviceHandle. We can't use that to gain access to the filesystem.
+> +     * However the system can still boot if it doesn’t require access to the
+> +     * filesystem.
+> +     */
+> +    if ( !loaded_image->DeviceHandle )
+> +        return NULL;
+> +
+>      do {
+>          EFI_FILE_IO_INTERFACE *fio;
+>  
+> @@ -581,6 +590,8 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+>      EFI_STATUS ret;
+>      const CHAR16 *what = NULL;
+>  
+> +    if ( !dir_handle )
+> +        blexit(L"Error: No access to the filesystem");
+>      if ( !name )
+>          PrintErrMesg(L"No filename", EFI_OUT_OF_RESOURCES);
+>      ret = dir_handle->Open(dir_handle, &FileHandle, name,
+> @@ -1333,8 +1344,18 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+>              EFI_FILE_HANDLE handle = get_parent_handle(loaded_image,
+>                                                         &file_name);
+>  
+> -            handle->Close(handle);
+> -            *argv = file_name;
+> +            if ( !handle )
+> +            {
+> +                PrintErr(L"Error retrieving image name: no filesystem access."
+> +                         L" Setting default to xen.efi");
+> +                PrintErr(newline);
+> +                *argv = L"xen.efi";
+> +            }
+> +            else
+> +            {
+> +                handle->Close(handle);
+> +                *argv = file_name;
+> +            }
+>          }
+>  
+>          name.s = get_value(&cfg, section.s, "options");
+> @@ -1369,7 +1390,8 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+>      /* Get the number of boot modules specified on the DT or an error (<0) */
+>      dt_modules_found = efi_check_dt_boot(dir_handle);
+>  
+> -    dir_handle->Close(dir_handle);
+> +    if ( dir_handle )
+> +        dir_handle->Close(dir_handle);
+>  
+>      if ( dt_modules_found < 0 )
+>          /* efi_check_dt_boot throws some error */
+> -- 
+> 2.17.1
+> 
+--8323329-33341033-1636059105=:284830--
 
