@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68B924451BC
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 11:49:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221425.383130 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 986234451E5
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 12:00:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221435.383141 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miaIg-0000jo-ST; Thu, 04 Nov 2021 10:48:54 +0000
+	id 1miaTe-000386-1q; Thu, 04 Nov 2021 11:00:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221425.383130; Thu, 04 Nov 2021 10:48:54 +0000
+Received: by outflank-mailman (output) from mailman id 221435.383141; Thu, 04 Nov 2021 11:00:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miaIg-0000hS-Ob; Thu, 04 Nov 2021 10:48:54 +0000
-Received: by outflank-mailman (input) for mailman id 221425;
- Thu, 04 Nov 2021 10:48:53 +0000
+	id 1miaTd-000358-UQ; Thu, 04 Nov 2021 11:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 221435;
+ Thu, 04 Nov 2021 11:00:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F6ik=PX=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1miaIf-0000Bl-50
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 10:48:53 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id caee5a35-3d5c-11ec-9787-a32c541c8605;
- Thu, 04 Nov 2021 11:48:51 +0100 (CET)
+ <SRS0=PDfK=PX=citrix.com=christian.lindig@srs-se1.protection.inumbo.net>)
+ id 1miaTb-00034j-DS
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 11:00:11 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5f6a09b7-3d5e-11ec-9787-a32c541c8605;
+ Thu, 04 Nov 2021 12:00:09 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,665 +36,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: caee5a35-3d5c-11ec-9787-a32c541c8605
+X-Inumbo-ID: 5f6a09b7-3d5e-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1636022931;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=ANgRQ6QT708gWZ7JGo8eaTBwKdtqOwXOgQh965egHYQ=;
-  b=hOJf+a3duyAkvfl2NcP9WiA78/pUP81RXkeYv+AZmO7AaFtaDpZxmHPX
-   1aoyeBv4Zw76mXO3utkkVVWMQ0ivnv5t7DjGbouFE8SVhctxGcq/mHt02
-   tWGPuXIHNeJvtcZcmdn1VzO1R0lr4skYsLO71W7/wkMoEmbOyWL3fTX7R
-   g=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: sDe2+mcW4zyrGJOn5xTrFmxyOEt0gxwlU7dE47d8AVqyI8rUKWGegaDRe6z4jtJFjPLGcYj3v0
- 0LYozQjdy2z7nhFSL3AJfhK9T0wFBC4Mthp28fnAlcdTvwOFpVMwYAyy/EeaCnW5+aLtx2bbqt
- ZYK30RgbxOGhw8qXEw6rKtTm8dR7hQ/VKf/v78ewIQo7lV8QwZZ5WM3YuOPUQ40B/3uMvuxzC4
- zZGhFhKPXHJwVXz0qigE5vIPvf/k6q9Ni82UMmRPyrq9f9HCpuN0ZjA9w4pD3f4sfMjL9bS0GL
- hdrF347jJMHlIsaYZir1Imlf
+  d=citrix.com; s=securemail; t=1636023609;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:mime-version;
+  bh=KthbVi3WH/DgRzFkRx9xFpp1B13xzcx04bcqM/SQSwk=;
+  b=GJOry1W/VnFc9bAJu+vKWQcgAPYvA5cW8OjJj8xzoat0GG56AJwfwrtm
+   TrxGft3K6dDRQfTS4iRG4HzDHjjLLwQcitF7yeXlE/Fs2a1wvwfm5FsX6
+   QtLSWI87LBSGCKsLM9AuV+liqjHqxDOzQCoYQavUwPBDH+ToCcXm7UJRQ
+   M=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: VDdXn8stlkBYSLPNvyrQceDJ2tIIWEw5afYGtH7ZpI8eNaQMQzLxY3G9sIF5cE+lL5qMDI+GJd
+ UFbXOXbbD5X8CETKYmvFmrOgYfzwyHbx8ihy4HZfZQq1TnlBu3gdn4Gl1ksALq8gDxtyJyMdct
+ zo7Efcb4zelxP/akt9KQKE6VUBOt5Xe+L9JHtqGfdwUZZqZ+svDmJ6DHlbDBLK1kPgN8CV0uXh
+ 4C/f3T6CjP0juohLhZYjbdS8PGZVr5orgjKAm56OcVuEftDyQr3oj1CvNp03Ow2H7A59cJaJoN
+ 3jBaSEM/qrUTBzKM9bXl52OF
 X-SBRS: 5.1
-X-MesageID: 57446271
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 57031824
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:a0QrD6vs1QOgdlANvQ6YRkFCeefnVAZYMUV32f8akzHdYApBsoF/q
- tZmKTyPOvzYMzP2f9tyPI3j8x4Gv5eByt5nHFA9rXgzEigX+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHhJZS5LwbZj29cx2YThWmthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- Nplt4WweFYTIKb3hN9FbyR0MXpzDK8B0eqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DJoQQt2sm1TjEJf0nXYrCU+PB4towMDIY258SQaiEO
- JNxhTxHZU7lbj4SAEosCdE1tv75nUnabjxZpwfAzUYwyzeKl1EguFT3C/LZc8KHbd9YlUGZo
- iTB5WuRKhMVLtuE0hKe72mhwOTImEvTWZ0QPK218OZwh1+ezXBVDwcZPXOFpv2+hl+7SshoA
- UUe8SozroA/7EWuCNL6WnWQu2WYtxQRX95RFewS6wyXzKfQpQGDCQAsUTppeNEg8sgsSlQCx
- lKP2t/kGzFrmLmUUm6GsKeZqyuoPioYJnNEYjULJSMH/t3irYcbnh/JCNF5H8adjNf4BDXxy
- DCitzUlivMYistj6kmg1QmZ2XT2/MGPF1NroFWMNo640u9nTIy8Z73500bQ1up7dLqkYnvas
- UkG3OHLuYjiEqqxvCCKRewMGpSg6PCELCDQjDZTInUxy9i+0yX9JN4NuVmSMG8sa59ZImGxP
- Cc/rCsIvMcLVEZGe5ObdG5Y5y4C6aH7XeroWfnPBjalSsggLVTXlM2CiKP54owMrKTOuf1gU
- Xt4WZz1ZZr/NUiB5GDmLwv6+eV6rh3SPUuJGfjGI+2PiNJynkK9R7YfK0epZesk9q6Cqwi92
- 48BbJbblUgHCb2kOni/HWsvwbYidyhT6Xfe8Z0/SwJ+ClA+RDFJ5wH5mOtJl3NZc1R9yb6To
- yDVtr5ww1vjn3zXQThmmVg4AI4Dqa1X9CphVQR1ZA7A8yF6Pe6HsfdOH7NqLOJP3LEykpZJo
- wwtJpzo7gJnEW+cpVzwrPDV8eRfSfhcrVjRY3r7O2VmIMMIqs6g0oaMQzYDPRImV0KfncA/v
- 6ehxkXcR58CTB5lF8HYdLSkyFbZgJTXsLsas5LgLoYBdUPy3pJtLiCt3PY7L9tVcUfIxyeA1
- hbQChAd/LGfr4gw+djPpKaFs4b2TLcuQhsERzHWveSsKC3X3mu/2oscAuyGSi/QCTHv86K4a
- OQLk/ylaK8bnExHupZXGqpwyf5s/MPmorJXl1w2HHjCY1mxJKlnJ32KgZtGuqFXn+cLsgqqQ
- EOfvNJdPOzRas/iFVcQIisjb/iCiq5IymWDs6xtLRyjtiFt/beBXUFDBDW2iXRQfOlvLYco4
- eY9o8pKuQaxvQUnb4SdhSdO+mXScnFZC/c7tosXCZPAgxYwzg0QeoTVDyL77c3da9hINUV2c
- DaYiLCb2uZZz0vGNXEyCWLMzaxWgpFX4EJGy1oLJlKonNvZh6BogE0NoGpvFgkFnA9a1+9TO
- 3RwMxwnLKqDyD5kmcxfUj3+AApGHhCYphT8xlZheLc1lKV0urgh9FEABNs=
-IronPort-HdrOrdr: A9a23:jGKI9KglIA9M//UlvZWrFwAgMXBQXzR13DAbv31ZSRFFG/FwyP
- rAoB1L73PJYWgqNU3I+ergBEGBKUmskaKdhrNhR4tKPTOWw1dASbsN0WKM+UyHJ8STzJ8+6U
- 4CSdkANDSTNykCsS+S2mDReLxBsbr3jpxA7d2us0uFJjsaDJ2IgT0JbzpyRSZNNXR77NcCZd
- Khz/sCgwDlVWUcb8y9CHVAd+/fp+fTnJajRRIdHRYo5CSHkDvtsdfBYlKl9yZbdwkK7aYp8G
- DDnQC8zqK/s8ujwhuZ82PI9ZxZlPbo19MGLs2Rjco+LCnql2+TFc9ccozHmApwjPCk6V4snt
- WJixA8P/5r43eURW2xqQuF4XiW7B8er1vZjXOIi3rqpsL0ABggDdBauI5fehzFr2I9odBVys
- twri2knqsSKSmFsDX25tDOWR0vvFGzu2AenekaiGEaeZcCaYVWsZcU8CpuYds99RrBmcEa+d
- RVfYHhDK48SyLYU5mZhBgj/DWUZAV8Iv/cKXJy+PB80FBt7QREJgUjtYkid0w7heIAoq9/lp
- H525RT5cBzp/AtHNFA7Z86MLOK40z2MGTx2TGpUB3a/J9uAQO+l3ew2sRw2N2X
+IronPort-Data: A9a23:lZorHaxDn7D6CH4l3jp6t+duwCrEfRIJ4+MujC+fZmUNrF6WrkUPm
+ DAbXD/XbPvbNmLwfIxyPou3/RwG6p6GnN41SFZrqyAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAuLeNYYH1500s6wrZl2tcAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt/JIk
+ sxGjYSScF5zY5Xxp/wXeURDSggraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVors8jNsjwIIIWvDdkzDfVDPkOSpHfWaTao9Rf2V/cg+gTQq6FP
+ ppDNVKDajzjbkd0EXUqUqgxs+mLlFz9YidxqFia8P9fD2/7k1UqjemF3MDuUtCDW8h9hEuTo
+ WPCuWPjDXkyNtOFziGe2mmxneKJliT+MKoTC7+Q5vNsmEeUxGEYFFsRT1TTice+jkmyStdOM
+ Xs+8yAlrbUx3EGzR9y7VBq9yFafpQIVUddUF+w86SmOx7DS7gLfAXILJhZebPQ2uclwQiYlv
+ neZktWsCTFxvbm9TXOG6qzSvT60ITISL2IJeWkDVwRty9v+pIA+iDrfQ9AlF7S65vX3Ezztx
+ zGBrAAlmq4ey8UM0s2GEUvv2mz24MKTF0hsu1uRDjnNAh5FiJCNRbXy8FPj9dR5ddzEdmS+p
+ HIuxtPHxbVbZX2SrxClTOIIFbCvwv+KNjzAnFJid6UcGySRF22LJt4JvmwnTKt9GoNdIGKyP
+ heP0e9EzMYLZCPCUENhX26m5y3GJ4DEHM+taP3bZ8EmjnNZJF7ep3EGiaJ9MgnQfKkQfUMXZ
+ cjznSWEVy9y5UFbINyeHbd1PVgDnHFW+I8rbcqnpylLKJLHDJJvdZ8LMUGVcscy576erQPe/
+ r53bpXRlkQBDbWnMnOPoOb/yGzmy1BhVfgaTOQNJ4a+zvdOQjl9W5c9P5t4I+SJYJi5Zs+Xp
+ yrgCye0OXL0hGHdKBXiV5yQQOiHYHqLllpiZXZEFQ/xgxALON/zhI9CJ8pfVeR2r4RLkK8rJ
+ 8Tpju3dW5yjvBycoG9DBXQ8xaQ/HCmWafWmZXX5MGZkIsc/GmQkOLbMJ2PSycXHNQLu3eMWq
+ Ly8zALLB50FQgVpFsHNb/yziVi2uBAgdChaBSMk+/FfJxfh9pZEMSv0gqNlKs0AM0yblDCby
+ xyXEVETouyU+90599zAhKalqYa1ErQhQhoGTjeDtbvmZzPH+meDwJNbVLradz7qS26pqr6pY
+ v9Yzq+gPaRfzkpKqYd1D51i0bk6u4n0v7Zfwwk9RCfLYl2nB6lOOH6D2cUT5KRByqUA4Vm9W
+ 16V+8kcMrKMYZu3HFkULQsjT+KCyfBLxWWCsaVreB33vXYl8qCGXENeOwi3pBZcdLYlYpk4x
+ eoBudIN71DtgBQdLdvb3Dtf8H6BLyJcXvx/5I0aGoLiliEi1kpGPc7HEibz7ZyCN4dMP00tL
+ mPGjabOne0BlE/Lcn51HnnRx+tNw58JvUkSnlMFIl2InPvDh+M2g0INoWhmEFwNw0UVyf93N
+ 0hqK1ZxdPeH8DpfjcReW3yhRlNaDxqD902tk1YEmQU1laVzurAh+IHlBduwwQ==
+IronPort-HdrOrdr: A9a23:HISeAquh2+F323Wz4p5g8goZ7skCwYMji2hC6mlwRA09TyXGra
+ +TdaUguSMc1gx9ZJh5o6H8BEGBKUmskKKdkrNhQYtKPTOW91dASbsN0WKM+UyYJ8STzJ8/6U
+ 4kSdkFNDSSNyk1sS+Z2njBLz9I+rDum8rI5ds2jU0dNj2CA5sQtzuRYTzrdnGeMTM2Y6bRY6
+ DsgfavyQDQG0g/X4CePD0oTuLDr9rEmNbNehgdHSMq7wGIkHeB9KP6OwLw5GZebxp/hZMZtU
+ TVmQ3w4auu99uhzAXH6mPV55NK3PP819p4AtCWgMR9EESttu/oXvUjZ1SxhkFxnAid0idvrD
+ AKmWZmAy1H0QKSQohym2qq5+Cv6kd215ao8y7mvZKqm72GeNt9MbsbuWsRSGqo12Mw+N57y6
+ 5FxGSfqt5eCg7Bhj3045zSWwhtjVfcmwtprQaC50YvILf2RYUh5bD3xnklW6vo3RiKnLwPAa
+ 1rFoXR9fxWeVSVYzTQuXRu2sWlWjA2Eg2dSkYPt8SJ23wO9UoJg3cw1YgahDMN5Zg9Q55L66
+ DNNblpjqhHSosTYbhmDOkMTMOrAijGQA7KMmiVPVP7fZt3dk7lutry+vE49euqcJsHwN87n4
+ nASkpRsSood0fnGaS1rdR2G9D2MROAtBjWu7NjDqlCy8rBreDQQF6+oXgV4r6dn8k=
 X-IronPort-AV: E=Sophos;i="5.87,208,1631592000"; 
-   d="scan'208";a="57446271"
+   d="scan'208,217";a="57031824"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DPZ6POezdpEqejUzxpLVfi9RiVegx453dOK6z2Q1BU+bYWEZCHnxeB07juNX1dtQMQg+NF/Qm+yTtc0oh8wxTd6Khq4pz6HpEdw0qIOniPtC7RftXj86EBrmF/E3FLXkOfCO2UwyYVKEhXhip8hn8cwUxnhJYs/AeF6PWuKGk5NIl/bW7IYSZEtNR/w05Gk460O+LqLuO46n8e+KGk945T5PIOMjMVb3R/Jf3xqkS4j7WZTjSooL3zA42fh/06T1DzU3+4wi8wnBqvTzZebDufYvyb8PFvU3AB3SvKjXCySRJR9eh5LiK5Ee9BciKxgDCwSu2XB1PMuvMr9C5BfcBw==
+ b=FHNd7upw2fz090eS0F4gX9+qu38dRiapZINigYvgc1Dmggh3qWM2bfRqa6Nko0zijZYGhskoYagOCSiqf/iGlKwX3DvOc3KlsiLiSsT9mx0NFr/vLMQfakBdlt4tveTs4k7RUGPQFAvd0B7I9neKzOGUsXmdUbRWMjOGfNrYr7clO0aih4jDbrt5Qw3a8IjOMVr6y1FiovyMMy8wORQ7hkZhT3Cf1Exk5ixdNsoaZ2VoLqnzPhO//Yb8LoVLEtEiebf7Wz9JbyNnQqc3//kCzY0iJZ9CUk/6erhhIPpTxbvCgf/zGw9WA6mqOgr7TziHyxFzaIphoS5IuLNb/gmDTQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IlgGmC0r/Nbro1OyRdI/heY2zL/igj9t8z6NISauGXE=;
- b=f7gpxHpA09i2X2SFjAyU5titYUz0A8QxYMpM5yHsDUl8uS/7iEoBnP9sM0ALFxuSs9r6tvt/7XuCJlSExQ1INdgu8BGP2l2f1p+lSIW0uX+LhEFLeG0OeRWQKK2vrLYaBHs2dpOu0GK9haJ/D+6NMWi00jIYKzuwz4B+8eMgcqiOywME5/nsuqATNIFi/rWTUhe8aCAjF7zkopkYHRB4KYto8/9A6Ut7mins1OrGliujza0qO7IQ6P0qeSLd4Dph6vftAk2NCBfJ8le5PX6GOJrjz1OvoplzUN5EsInAUbetbDZ8W3NohMkZzn9itxScoSJ13l+dhj/hJuqMs0qJlw==
+ bh=KthbVi3WH/DgRzFkRx9xFpp1B13xzcx04bcqM/SQSwk=;
+ b=cFErQA5wurGidz8yY76xcL+UlvK72gTwt3NZr0BQdVIqfAvqGeXmConEYD1onbvy5OR84P7H9WUxMR+YR57GGcZ6P7axUuxRd9b/ogVNV3jRhFXvxts7TaOzlKUM5+j3DKXN9oEznBNxtpDWoK4wDNXsNYxD73lsxkIvo7Ujtmc/2tzS+Gr3O+fqFdTxHMuBTEWk8F0cyI9SSmZ50lesvI+prRX4Rhp5yfgBicuwaBKEHBqeFD/kn0ImbLYNChALcNFOiijJ1Gh/3/NJKM2iAdypAY3MthBWVuKa4oJQqhg7/L/a+6zuuzAdZ3L00cozlWtMUb76vt3D4Vd0BVovjg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IlgGmC0r/Nbro1OyRdI/heY2zL/igj9t8z6NISauGXE=;
- b=KdWbykkZY6GfI/tI2Zdl8dDtWAA37+qL10B7M2f27dRVqXiqlUt/F3VIWGhzHJ73fxHfGSE3ctSQGcKnQ6cTvdBWouerGSPNv73/TZ36U/X49LJag3Ym2XD7qvKfkqiZOz8P/77quKDZp5oJpiaA66sgFAeh+xPjm9VI4AL59bM=
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Anthony PERARD
-	<anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, Christian
- Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Ian Jackson
-	<iwj@xenproject.org>
-Subject: [PATCH for-4.16 v6] gnttab: allow setting max version per-domain
-Date: Thu,  4 Nov 2021 11:48:34 +0100
-Message-ID: <20211104104834.10977-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.33.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0038.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::21) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+ bh=KthbVi3WH/DgRzFkRx9xFpp1B13xzcx04bcqM/SQSwk=;
+ b=gzJd9g7E1DcZ80+MHygZjiOcFM4HyerE6nNtiMxkJbzpmc5uw+St4VBqZxyHWHjdl2mesifgn5MG6OuR2aGKWfMqDcHMW2DTqH7aAAOeVqPATDE2TSoSD8dxs2zn6SOrAYn+C8F7C+A/pw1ghRHh+ge5kIr0Uvb4weh2f0pNML0=
+From: Christian Lindig <christian.lindig@citrix.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, "Andrew
+ Cooper" <Andrew.Cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, "Stefano Stabellini" <sstabellini@kernel.org>, Anthony
+ Perard <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, David
+ Scott <dave@recoil.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "Ian
+ Jackson" <iwj@xenproject.org>
+Subject: Re: [PATCH for-4.16 v6] gnttab: allow setting max version per-domain
+Thread-Topic: [PATCH for-4.16 v6] gnttab: allow setting max version per-domain
+Thread-Index: AQHX0WmL9nixhMEvEEqGVp3NZX0Jw6vzM2UA
+Date: Thu, 4 Nov 2021 11:00:01 +0000
+Message-ID: <40742A94-35DF-4561-B68A-500FF0A861F5@citrix.com>
+References: <20211104104834.10977-1-roger.pau@citrix.com>
+In-Reply-To: <20211104104834.10977-1-roger.pau@citrix.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3608.120.23.2.4)
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 12361bc3-7994-45b3-530e-08d99f823fc3
+x-ms-traffictypediagnostic: MWHPR03MB2717:
+x-microsoft-antispam-prvs: <MWHPR03MB27177B1E2CBCE9070F3BAB6BF68D9@MWHPR03MB2717.namprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: eeXf3y3WtbmEBjsXn7wxS2FALfX2w6RpTFHo0DvJC+E0v1s4Yd8L8d26ArpZi1QuDtqreZZ6sdCXbW0v3goFjCcQvSMPKHIFCgRVbpx2hR3famcaIqvXtfCQEWKCMQPoXYPAquwgPz7hPK3MZrZitWaTkcnY+S0DdY5uqS4SZJMXgDRthjTm2ErQfvSON0FujC5Ho4/g9asNd1zfrXFq/Y91IZKNRAaxoTGsNXwnTtiFuGRi9jsRH7wfwivcYerpuHlkqtaFlFcXbgUJKLd/vQ7icdY9EK/XByQX0ZdCNXSEl9NKcRA+nwiJ0oA4cY9hnOQZRaWkDrW5Ckjigf9IndtE3bacJQkwcuqSBe58Wofw12UQQciFsUo2JZFXDLhbdTJOjn36jBEzPaY6XpjMo1dFfglQuTtxBRvf9teu4YtsSa8pUcRB245DLdH7DcwBGmPWr9dFzcuylnXH17+wMvmz867V7tKC0jOcfcp9VOXAvUQ+rkHZzaIWufx+u0HI7a2IP1bDGCi3q7NAQQs/EUNe8V9B6XWqZH5VOvojiWgxDGL/9COWiDEYVRCwCRaYqi8kp0jNy1OO9Vnbo0T9O/m4EhDbqzMmPjqkt6TiVv17yIHYTyv5EjYPKIYynANovFt87PlKg2Shqc8vQ1mG/fJbCUZlCMoevTU/ZF7bDtGi3o3hpr2Yq3CwrKEqv5/nnnL0YyUe/6Twp0ea31k84C0tYTITxElYLnQrLMCqYIgmUjZMtoDPmkKqYIHCcOWl
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR03MB6380.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(54906003)(4326008)(6636002)(5660300002)(66556008)(6862004)(82960400001)(38070700005)(37006003)(26005)(44832011)(2616005)(508600001)(122000001)(66946007)(66476007)(91956017)(38100700002)(71200400001)(186003)(6506007)(36756003)(4744005)(2906002)(53546011)(86362001)(8676002)(6486002)(76116006)(316002)(66446008)(33656002)(8936002)(6512007)(64756008)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?6qwcYPAOws11IbA7uw94ivnOn+y3ihQsIJPC03Qc11ETuwSrYMyIHRPUbLQA?=
+ =?us-ascii?Q?hHDVQMYVRtd9xqFGbQlV+C0qF63SUQ8El4E21pbmWmOrD0I+/0sETCkFmSZc?=
+ =?us-ascii?Q?gSZTeFWJluV/MK6FunmMHiAxrnmTcFCjkoUKup/hBNznzMMKie9ATgplSwe6?=
+ =?us-ascii?Q?fdnU0fw83hGuAnsakrpwjtpanbNT7Kzprh7+hdG1X7Ejboo8VqaXye4CFH6Y?=
+ =?us-ascii?Q?20J/avpyrVh2pAb4pUSliyyQ+2PwLs07+XUB7NYlFaGOIQADIVLjP1tkfxD0?=
+ =?us-ascii?Q?HnVH+KgsNiQg5WeIVtgTFwBeU5RH0QBUlXja+e6G3jF5zrsjJdHOWvSmtvgu?=
+ =?us-ascii?Q?9vtFeeqLMRHObe6bdgDacQ8hfPywuHBOgsJDcn32WOWwqb3HmLoshlFvj+LW?=
+ =?us-ascii?Q?/bnmuwDHj3bKK80dhjihNSLfnBF2HQoQ2qriVNCld3YPl0QVsn+1BPaauCJ2?=
+ =?us-ascii?Q?pbGNwBa36R87jdc+kwo62oa1bYZmiSIAVloYNj3X9ofoQcL7RRP9pagXEIsZ?=
+ =?us-ascii?Q?CTh4pqzFdoYscx3zkB/n3JgBl334mhCY9z9WBUHWJiTv4ihT+9/UAKuV8qHJ?=
+ =?us-ascii?Q?D5uEpsWK9dnAw+fwhGWiGUi9sUFMLCnUYIlvT3j4GCtXgzhU0xbRVMoy4naF?=
+ =?us-ascii?Q?K0GARR51BEMWWNh+CyKqwXFneina9B4mBELWz22jB/+VlZa4zH67m1Yi1hAq?=
+ =?us-ascii?Q?1YqaHcEECbNYXNfWZ9ocJEHTHU9ZkwSVPKZkeznDiJtue4/+xZK9RZsbj+wh?=
+ =?us-ascii?Q?R86hIavrKOZnCRaKQslvZ5EvrvIxdysk1gxx06AeLMZL5/u0aNeJOmes6SZO?=
+ =?us-ascii?Q?vHUYqZsas+olGHSy1DJhkTJVwT17yDAqipMh1HwbMd5r7ps0N+f72+BSayvm?=
+ =?us-ascii?Q?B3A/Uwl1dioxBUREbOVMBJCRWN5eNYlDbrXkMCeQOKm1dH2hUBXpqxhXTwr5?=
+ =?us-ascii?Q?LxmBaojDvLDfBv55/IKdjHL+VmhmOMwe3r4CbmKu66tzj1+HNYjHhqXoO6P9?=
+ =?us-ascii?Q?YIAS+1oXKN5/f5pfFkGa9GKakYo90TiYyS/X9TFNchGspgIiVprUxeV8PtMX?=
+ =?us-ascii?Q?MIiTst6qcdr+T/KTGSiEIWb3XvRxbWrytTOfGASpShYkQ5cLIjPIMTXXFnOE?=
+ =?us-ascii?Q?agyC6J7IjvvSwQWTmLXMiB28raXyQ0Enb9VIfB7Evl1O4deK2NF0aRdvVjy1?=
+ =?us-ascii?Q?oSof62FZdmktmzR3J4qNDNVbqIlqiszNtS/9arDjXV83Crd2zEC/89uBczc+?=
+ =?us-ascii?Q?HHy6/BMs9svCIHyHp51Wrb/cocdNs26dGdTPg85CjIf6nNnrHgdcIwbTunuK?=
+ =?us-ascii?Q?ULANJXOBcpUsaKAg7QtEzmCVUF8jBmABX537bstSMd9rZGZze2tZ84W5QBuz?=
+ =?us-ascii?Q?sIIk3i/d5Ym50UkqrI7SzwhHPwLZUWuA8iVynb8G5gifJB8j0cqLnfWVsRgm?=
+ =?us-ascii?Q?YW6FDWnbJa/q29slpWrFnyXz9qCyh9bHbm3CzGddaPR8cBZqF/sC2mZF0mGL?=
+ =?us-ascii?Q?38q3oXwC9/VANFwH2bH56wg8y8qt7Tb3IzztrN9mOA2xaXlp7CdlTVZmSZkE?=
+ =?us-ascii?Q?UINuyeyue2ufunhLrQRM2R3Lb6UsJacZjAaD5KP2IikrsZJ/Rg1MXKriDM7y?=
+ =?us-ascii?Q?w0hT3JxwU+Qk21/fKgP08W6BirptC74dheRnmzxvrLki8BypuUgiZnuR0e+N?=
+ =?us-ascii?Q?w/Bw4iVSx/xn0Htlfe3n09ju+OA=3D?=
+Content-Type: multipart/alternative;
+	boundary="_000_40742A9435DF4561B68A500FF0A861F5citrixcom_"
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f8ed30aa-a8ad-4ce4-2524-08d99f80ac20
-X-MS-TrafficTypeDiagnostic: DM6PR03MB5339:
-X-Microsoft-Antispam-PRVS: <DM6PR03MB53391B6D55679F39DC0C885B8F8D9@DM6PR03MB5339.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tFo/wHRyVKpJMD7OHMa/wM7wAXdh2qSWD8HoixlHhP3LT6rO3t4uaTVRVrnacjeysCSiQ7T85CKPBdj5H+r3YdqAl2/fHjAVHgmezx8tSL2s6t8sl71qxTmA4T+x1YsidXqOgcpqCpnRiYnhj8nrjM1OVWB6uPeBv4TuqLGAEde2SPWsfXrIDEUMTffrOI4Il4VjxMXk8WUyzOct0iVdyJy7fUa77N52sPK+v/lJz49r8MpRdwKkL11wI1DkYSgpnOv/TktFSjwTpYEvXwaawPXZ7dmlxbO2fqJKgblXLMblaeBeGXkHkKAX39e5qHZYXYp2OdMvURHILxpi6nNIueFG0WAJi94LP0HeZ0kd1/ZxNZ0JxGZfLzkRZLyf6cxa0UrjzZSaZ7Qh5vNGoH73aM59fEBbbvBh6GXfdhORpF7bbUstL9EnHG/cHmFF73htFAioQFw+p1HTkASlHQVn1A6cqbISvrLi/Ai/CYpRyGsuDzZXRqEE3WfAq8h8MRMXA1ESM4STi2C9gOm7OX6Pd9ErVEp2oNNDvOQfHuE43qqh2rTH4ZknKhtXMtptY2BWC8hLSunMOeO2b2OLUkirpqVzFikQmyWlaXt7zZcupFfvwF7Uk6CQfVki0CTLxuWThEyhUzS2KCoy6QgQPC8OPnHe8MUmkuaFTtYLZNDXr9g/AL6enLg4O5BB21J4xOZ+HhmyPi3X3GURCYYZcCVlJy4dZcyQcKYZa4PGTC/xMnk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(2906002)(36756003)(2616005)(6486002)(6916009)(8936002)(54906003)(5660300002)(316002)(186003)(66476007)(1076003)(30864003)(956004)(6666004)(38100700002)(66946007)(6496006)(82960400001)(508600001)(86362001)(8676002)(966005)(26005)(83380400001)(4326008)(66556008);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eHBqbjAzbEJOb3FqL1Z2YSt5RkVjZTZtYlE1RXlFWVBPT0gvbThhc3dlaDhk?=
- =?utf-8?B?N2s2a3ZzbDBjYkt5NXZ4OTlNUjNTUXZpZ1daWS9jSzBVVzhvOU9UWWgyOEVP?=
- =?utf-8?B?SDhDcm1Tei95dmhvTGtBOUR5cDdOd21MeHlkYW9NQS9ZZkUvRlJVU3o0c0k1?=
- =?utf-8?B?NDhUN1ZXOVhmdFY0ZUdKTjNhV3QzOUdvVWt5YVBCTTJaTXFObld3QVlzRU5h?=
- =?utf-8?B?VWY1YlFXZmE0WXJPK1FDajVDcDhKM0V3NlhJc3FQQ3gyd0ZqMXJYb0ROcnFG?=
- =?utf-8?B?VmNoRWJaL29mUmppN1Y3U0lCcXpxaTkwYXZTU3NXR0ZWSnlvT0piVXFncmwx?=
- =?utf-8?B?YndSSHNFTVFiM0M2c2pRWEtFTnpSY0dGS09tbE4xNDI3bUZEZWErRjJvbkU0?=
- =?utf-8?B?RFoxWkxFcnJUU3NDWUJLRDRNN3p5eW8zWjJOWi80bGJIL29VWkhGb0h5cFJ5?=
- =?utf-8?B?eVBLRk5rMEY0K2ZPMUtIRHFOMldFRlk3SDVVM0N5MFVHemlURkxKVlN5NnRH?=
- =?utf-8?B?bURUbzRva2xYU0p1UGxkNmNJK3pNYlFvaC9kS1R2a3RwTjBlNGptQ2NTSnJI?=
- =?utf-8?B?QmZSYXh6dG4zc0RHQXQ0eUlhalZ5M3FTQ0wzUXFUdUU3SnA1MWh4T3pWNFJQ?=
- =?utf-8?B?UkZLMW5RVlZabUs2Q3JITjdwaEIwbHkzQW1kaVhNS3gySXMweURsQUdKVVky?=
- =?utf-8?B?Ump3RVBlQTlyckdEcFFrNGZSYzVXNEk3cytvcnVlcFBHQXlmOHlDaUJBSlky?=
- =?utf-8?B?RDREaERZZDFtRTg0RUNNMDVMdjByMmpsVUpFYi9BTTVWTTZ4elkvNGlYc1Fw?=
- =?utf-8?B?MFdGc3BFb3VYRWtIZnlWZ00zUjVyV2Rrb0tIcjVFNWJHYTc1aE5QQmxCcmNm?=
- =?utf-8?B?UUxQSE5VekpkYXQ2RTR3WkQraGZKYTFkcGl2VDRJdkF5eW1BMVl1V2lqd2VP?=
- =?utf-8?B?QkdjV1JEdDRTSm5QZmE0WkRCMHlTWUkyN1BrQVVaM2dVY0gxTUY1TTFxZ29i?=
- =?utf-8?B?K3k3Qit1UmljWTA4TTV1U0F3c0NTM1VNQ2NRaCtFSVB1dEpHcWYwZEowV0Ja?=
- =?utf-8?B?VjdzSW1uL2tSN3FmZ3BuSVVsM1dZT1Uyam01Y0ZhdlFNZHhRTk5lY1BOaE5i?=
- =?utf-8?B?S0FkbzlyRCtFTjY3aW53d3hrL0VnNkxjMEZxandDVWt1Yk5CNGl2TmZBMjNH?=
- =?utf-8?B?WW9KWXdYQVV2RFBrZjlYcGlLcGZ1bVVSeUhIR2R5ZVFnc1A1bDJYczdvMTZV?=
- =?utf-8?B?cGNJSDl1cmdyZXRJdHVGSktLZjUxY29NSlRyM1FERHVsZkJCeGhYbE9YOGpz?=
- =?utf-8?B?dlFyM3U4R1RPNjJzQTFlZ0syRExTZGo4NHFNelNzV1V4WnZhUU5MNjFrck9w?=
- =?utf-8?B?OHo1eFBCRHphcHptdWdVMTk4cFlrRURZVG8yQTY3TWc5NGlOVkFSWkNuc21w?=
- =?utf-8?B?cXdsQm05WUlhQWswZ0ltYUZ2eEVlek0zSkF3K1lYU2dJNFAvbTY1YkhLZExV?=
- =?utf-8?B?Mkc4NzFTcDR4OW04N0xpNlBjYWlpeFJDanlaRkxLWDc3ZFVFNHQyNTBFUXJt?=
- =?utf-8?B?NG9wNVBsS0M1YlcxSnJSMWNndCsxWHM0QThZN21WNU9wZDJwSFZuclRBWVZX?=
- =?utf-8?B?ZWUwY0FFajdMR3psRUdXL1cyY0ZpRmJnbzFYa0VaMVRVZ3hjdXhmV1ZLNUY1?=
- =?utf-8?B?N005SE1VK1NaVkpaTGpqSFNHT3VzNlIrcUVEeVZGck04amY5TmRLbUZCOStZ?=
- =?utf-8?B?MGo5eVpLNnVNaWdVYlZJeStENG5IUXJHNkM3Wmo3MEVrdG8xUC9pQmVxTmN4?=
- =?utf-8?B?Kzk1ZnVlcFgwMGFvTXNXVmwrT3pOV05IaHpsTkRiOG1QWTdzV3RpNFBpMUR2?=
- =?utf-8?B?dys4bWlEanAvU3JzYlFTNzR2UFJMT3R5N21qR0FRK0dCQXVzUWVoakZyaE5Z?=
- =?utf-8?B?QWkvdzhRd0orRzNIYngrMzhncitVT01XREYwTEZoWDN3STNuaHMzVHNybUZG?=
- =?utf-8?B?NU1odGhPRTlLVkRlcDNLTmIrMGhzM2ZjT0NST1YxSTg0Zk5PWXRROFFUTmIz?=
- =?utf-8?B?eGpacEVTbTh1OUs1R0xXTVJ1cUlvTVBPQU9lMVJiWWM1ODZnV1VxaVJ5Y3NJ?=
- =?utf-8?B?K1p0TFI2NzhXTzIxbjZuc2ZYc29IaDQ4MVM5VjloRFpOUFA3TzkwOGkwSUZI?=
- =?utf-8?Q?/yCuKovyLdP6UirDPGoc6Ak=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8ed30aa-a8ad-4ce4-2524-08d99f80ac20
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2021 10:48:44.4035
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR03MB6380.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 12361bc3-7994-45b3-530e-08d99f823fc3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Nov 2021 11:00:01.1178
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0mAsJd/LjuTDKsOZtWwgGgg2PkX1nTaEMbeyfrlf6YvHZgmdbAkRBMAZ7R5cG+UCImZ8cFwOSr7tZSzGfku+aQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5339
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: mMUPdzudJLZ27/oe1ZNnNh1/mbYnxKoQXRDXvB1caN5HB1ilAKcVKVr+/CJsBFLMQJ27hhyw+ZryfwhiASZCdypP3SfgBLsTSjRruQCqiKM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR03MB2717
 X-OriginatorOrg: citrix.com
+
+--_000_40742A9435DF4561B68A500FF0A861F5citrixcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+
+
+On 4 Nov 2021, at 10:48, Roger Pau Monne <roger.pau@citrix.com<mailto:roger=
+.pau@citrix.com>> wrote:
 
 Introduce a new domain create field so that toolstack can specify the
 maximum grant table version usable by the domain. This is plumbed into
 xl and settable by the user as max_grant_version.
 
-Previously this was only settable on a per host basis using the
-gnttab command line option.
+Acked-by: Christian Lindig <christian.lindig@citrix.com<mailto:christian.li=
+ndig@citrix.com>>
 
-Note the version is specified using 4 bits, which leaves room to
-specify up to grant table version 15. Given that we only have 2 grant
-table versions right now, and a new version is unlikely in the near
-future using 4 bits seems more than enough.
+--_000_40742A9435DF4561B68A500FF0A861F5citrixcom_
+Content-Type: text/html; charset="us-ascii"
+Content-ID: <CA4087CF6D77B441AA5BDFF13159FDC1@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 
-xenstored stubdomains are limited to grant table v1 because the
-current MiniOS code used to build them only has support for grants v1.
-There are existing limits set for xenstored stubdomains at creation
-time that already match the defaults in MiniOS.
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+</head>
+<body style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; line-break:=
+ after-white-space;" class=3D"">
+<br class=3D"">
+<div><br class=3D"">
+<blockquote type=3D"cite" class=3D"">
+<div class=3D"">On 4 Nov 2021, at 10:48, Roger Pau Monne &lt;<a href=3D"mai=
+lto:roger.pau@citrix.com" class=3D"">roger.pau@citrix.com</a>&gt; wrote:</d=
+iv>
+<br class=3D"Apple-interchange-newline">
+<div class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: Helv=
+etica; font-size: 12px; font-style: normal; font-variant-caps: normal; font=
+-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0p=
+x; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-te=
+xt-stroke-width: 0px; text-decoration: none; float: none; display: inline !=
+important;" class=3D"">Introduce
+ a new domain create field so that toolstack can specify the</span><br styl=
+e=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; fo=
+nt-style: normal; font-variant-caps: normal; font-weight: normal; letter-sp=
+acing: normal; text-align: start; text-indent: 0px; text-transform: none; w=
+hite-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text=
+-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size=
+: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal;=
+ letter-spacing: normal; text-align: start; text-indent: 0px; text-transfor=
+m: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width:=
+ 0px; text-decoration: none; float: none; display: inline !important;" clas=
+s=3D"">maximum
+ grant table version usable by the domain. This is plumbed into</span><br s=
+tyle=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px;=
+ font-style: normal; font-variant-caps: normal; font-weight: normal; letter=
+-spacing: normal; text-align: start; text-indent: 0px; text-transform: none=
+; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; t=
+ext-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size=
+: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal;=
+ letter-spacing: normal; text-align: start; text-indent: 0px; text-transfor=
+m: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width:=
+ 0px; text-decoration: none; float: none; display: inline !important;" clas=
+s=3D"">xl
+ and settable by the user as max_grant_version.</span><br style=3D"caret-co=
+lor: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: nor=
+mal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal=
+; text-align: start; text-indent: 0px; text-transform: none; white-space: n=
+ormal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D"">
+</div>
+</blockquote>
+</div>
+<br class=3D"">
+<div class=3D"">Acked-by: Christian Lindig &lt;<a href=3D"mailto:christian.=
+lindig@citrix.com" class=3D"">christian.lindig@citrix.com</a>&gt;<br class=
+=3D"">
+</div>
+</body>
+</html>
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-This needs to be applied on top of Andrew's:
-
-xen: Report grant table v1/v2 capabilities to the toolstack
-https://lore.kernel.org/xen-devel/20211029173813.23002-1-andrew.cooper3@citrix.com/
-
-NB: the stubdom max grant version is cloned from the domain one. Not
-sure whether long term we might want to use different options for the
-stubdom and the domain. In any case the attack surface will always be
-max(stubdom, domain), so maybe it's just pointless to allow more fine
-grained settings.
----
-Changes since v5:
- - Check reserved bits in grant_opts are 0.
- - Return failure if a grant table version is specified but grant
-   table support has been compiled out.
-
-Changes since v4:
- - Remove the check for 16TB: there's no check currently, and there's
-   some discussion about how to implement it properly for all guest
-   types.
- - Place the logic to pick the default version in the toolstack, so
-   the create domain domctl will always specify a grant table version.
-   Such version will also be part of the migration stream.
-
-Changes since v3:
- - Expand commit message re xenstored stubdomains.
-
-Changes since v2:
- - Drop XEN_DOMCTLGRANT_MAX - it's unused.
- - Rename max_grant_version field to max_version in the grant table
-   struct.
- - Print domain on log messages.
- - Print a message if host has more than 16Tb of RAM and grant v2 is
-   disabled.
- - Add a TB macro.
-
-Changes since v1:
- - Introduce a grant_opts field and use the low 4 bits to specify the
-   version. Remaining bits will be used for other purposes.
----
-Cc: Ian Jackson <iwj@xenproject.org>
----
-Posting this patch alone as I think allowing to control transient
-grants on a per-domain basis will require a bit more of work.
-
-Release rationale:
-
-We have had a bunch of security issues involving grant table v2 (382,
-379, 268, 255) which could have been avoided by limiting the grant
-table version available to guests. This can be currently done using a
-global host parameter, but it's certainly more helpful to be able to
-do it on a per domain basis from the toolstack.
-
-Changes to the hypervisor by this patch are fairly minimal, as there
-are already checks for the max grant table version allowed, so the
-main change there is moving the max grant table version limit inside
-the domain struct and plumbing it through the toolstrack.
-
-I think the risk here is quite low for libxl/xl, because it's
-extensively tested by osstest, so the main risk would be breaking the
-Ocaml stubs, which could go unnoticed as those are not actually tested
-by osstest.
----
- docs/man/xl.cfg.5.pod.in             |  5 +++++
- docs/man/xl.conf.5.pod.in            |  6 ++++++
- tools/helpers/init-xenstore-domain.c |  2 ++
- tools/include/libxl.h                |  7 +++++++
- tools/libs/light/libxl_create.c      | 23 +++++++++++++++++++++++
- tools/libs/light/libxl_dm.c          |  1 +
- tools/libs/light/libxl_types.idl     |  1 +
- tools/ocaml/libs/xc/xenctrl.ml       |  1 +
- tools/ocaml/libs/xc/xenctrl.mli      |  1 +
- tools/ocaml/libs/xc/xenctrl_stubs.c  |  5 ++++-
- tools/xl/xl.c                        |  8 ++++++++
- tools/xl/xl.h                        |  1 +
- tools/xl/xl_parse.c                  |  9 +++++++++
- xen/arch/arm/domain_build.c          |  2 ++
- xen/arch/x86/setup.c                 |  1 +
- xen/common/domain.c                  |  9 ++++++++-
- xen/common/grant_table.c             | 21 +++++++++++++++++++--
- xen/include/public/domctl.h          |  5 +++++
- xen/include/xen/grant_table.h        |  8 ++++++--
- 19 files changed, 110 insertions(+), 6 deletions(-)
-
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 55c4881205..b98d161398 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -580,6 +580,11 @@ to have. This value controls how many pages of foreign domains can be accessed
- via the grant mechanism by this domain. The default value is settable via
- L<xl.conf(5)>.
- 
-+=item B<max_grant_version=NUMBER>
-+
-+Specify the maximum grant table version the domain is allowed to use. The
-+default value is settable via L<xl.conf(5)>.
-+
- =item B<nomigrate=BOOLEAN>
- 
- Disable migration of this domain.  This enables certain other features
-diff --git a/docs/man/xl.conf.5.pod.in b/docs/man/xl.conf.5.pod.in
-index b48e99131a..df20c08137 100644
---- a/docs/man/xl.conf.5.pod.in
-+++ b/docs/man/xl.conf.5.pod.in
-@@ -101,6 +101,12 @@ Sets the default value for the C<max_maptrack_frames> domain config value.
- Default: value of Xen command line B<gnttab_max_maptrack_frames>
- parameter (or its default value if unspecified).
- 
-+=item B<max_grant_version=NUMBER>
-+
-+Sets the default value for the C<max_grant_version> domain config value.
-+
-+Default: maximum grant version supported by the hypervisor.
-+
- =item B<vif.default.script="PATH">
- 
- Configures the default hotplug script used by virtual network devices.
-diff --git a/tools/helpers/init-xenstore-domain.c b/tools/helpers/init-xenstore-domain.c
-index 6836002f0b..41a7c38ada 100644
---- a/tools/helpers/init-xenstore-domain.c
-+++ b/tools/helpers/init-xenstore-domain.c
-@@ -85,9 +85,11 @@ static int build(xc_interface *xch)
-          * 1 grant frame is enough: we don't need many grants.
-          * Mini-OS doesn't like less than 4, though, so use 4.
-          * 128 maptrack frames: 256 entries per frame, enough for 32768 domains.
-+         * Currently Mini-OS only supports grant v1.
-          */
-         .max_grant_frames = 4,
-         .max_maptrack_frames = 128,
-+        .grant_opts = 1,
-     };
- 
-     xs_fd = open("/dev/xen/xenbus_backend", O_RDWR);
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index 54c10f6efe..2bbbd21f0b 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -520,6 +520,13 @@
-  */
- #define LIBXL_HAVE_PHYSINFO_CAP_GNTTAB 1
- 
-+/*
-+ * LIBXL_HAVE_MAX_GRANT_VERSION indicates libxl_domain_build_info has a
-+ * max_grant_version field for setting the max grant table version per
-+ * domain.
-+ */
-+#define LIBXL_HAVE_MAX_GRANT_VERSION 1
-+
- /*
-  * libxl ABI compatibility
-  *
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-index 5a61d01722..b6855c7b46 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -454,6 +454,28 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
-         libxl_defbool_setdefault(&b_info->nested_hvm,               false);
-     }
- 
-+    if (b_info->max_grant_version == LIBXL_MAX_GRANT_DEFAULT) {
-+        libxl_physinfo info;
-+
-+        rc = libxl_get_physinfo(CTX, &info);
-+        if (rc) {
-+            LOG(ERROR, "failed to get hypervisor info");
-+            return rc;
-+        }
-+
-+        if (info.cap_gnttab_v2)
-+            b_info->max_grant_version = 2;
-+        else if (info.cap_gnttab_v1)
-+            b_info->max_grant_version = 1;
-+        else
-+            /* No grant table support reported */
-+            b_info->max_grant_version = 0;
-+    } else if (b_info->max_grant_version & ~XEN_DOMCTL_GRANT_version_mask) {
-+        LOG(ERROR, "max grant version %d out of range",
-+            b_info->max_grant_version);
-+        return -ERROR_INVAL;
-+    }
-+
-     return 0;
- }
- 
-@@ -607,6 +629,7 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
-             .max_evtchn_port = b_info->event_channels,
-             .max_grant_frames = b_info->max_grant_frames,
-             .max_maptrack_frames = b_info->max_maptrack_frames,
-+            .grant_opts = b_info->max_grant_version,
-             .vmtrace_size = ROUNDUP(b_info->vmtrace_buf_kb << 10, XC_PAGE_SHIFT),
-         };
- 
-diff --git a/tools/libs/light/libxl_dm.c b/tools/libs/light/libxl_dm.c
-index 9d93056b5c..9a8ddbe188 100644
---- a/tools/libs/light/libxl_dm.c
-+++ b/tools/libs/light/libxl_dm.c
-@@ -2320,6 +2320,7 @@ void libxl__spawn_stub_dm(libxl__egc *egc, libxl__stub_dm_spawn_state *sdss)
- 
-     dm_config->b_info.max_grant_frames = guest_config->b_info.max_grant_frames;
-     dm_config->b_info.max_maptrack_frames = guest_config->b_info.max_maptrack_frames;
-+    dm_config->b_info.max_grant_version = guest_config->b_info.max_grant_version;
- 
-     dm_config->b_info.u.pv.features = "";
- 
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 573bba68ee..2a42da2f7d 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -519,6 +519,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
- 
-     ("max_grant_frames",    uint32, {'init_val': 'LIBXL_MAX_GRANT_DEFAULT'}),
-     ("max_maptrack_frames", uint32, {'init_val': 'LIBXL_MAX_GRANT_DEFAULT'}),
-+    ("max_grant_version",   integer, {'init_val': 'LIBXL_MAX_GRANT_DEFAULT'}),
-     
-     ("device_model_version", libxl_device_model_version),
-     ("device_model_stubdomain", libxl_defbool),
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index ed2924a2b3..7503031d8f 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -84,6 +84,7 @@ type domctl_create_config =
- 	max_evtchn_port: int;
- 	max_grant_frames: int;
- 	max_maptrack_frames: int;
-+	max_grant_version: int;
- 	arch: arch_domainconfig;
- }
- 
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index d20dc0108d..d1d9c9247a 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -76,6 +76,7 @@ type domctl_create_config = {
-   max_evtchn_port: int;
-   max_grant_frames: int;
-   max_maptrack_frames: int;
-+  max_grant_version: int;
-   arch: arch_domainconfig;
- }
- 
-diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
-index ad953d36bd..eca0b8b334 100644
---- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-+++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -188,7 +188,8 @@ CAMLprim value stub_xc_domain_create(value xch, value wanted_domid, value config
- #define VAL_MAX_EVTCHN_PORT     Field(config, 5)
- #define VAL_MAX_GRANT_FRAMES    Field(config, 6)
- #define VAL_MAX_MAPTRACK_FRAMES Field(config, 7)
--#define VAL_ARCH                Field(config, 8)
-+#define VAL_MAX_GRANT_VERSION   Field(config, 8)
-+#define VAL_ARCH                Field(config, 9)
- 
- 	uint32_t domid = Int_val(wanted_domid);
- 	int result;
-@@ -198,6 +199,7 @@ CAMLprim value stub_xc_domain_create(value xch, value wanted_domid, value config
- 		.max_evtchn_port = Int_val(VAL_MAX_EVTCHN_PORT),
- 		.max_grant_frames = Int_val(VAL_MAX_GRANT_FRAMES),
- 		.max_maptrack_frames = Int_val(VAL_MAX_MAPTRACK_FRAMES),
-+		.grant_opts = Int_val(VAL_MAX_GRANT_VERSION),
- 	};
- 
- 	domain_handle_of_uuid_string(cfg.handle, String_val(VAL_HANDLE));
-@@ -251,6 +253,7 @@ CAMLprim value stub_xc_domain_create(value xch, value wanted_domid, value config
- 	}
- 
- #undef VAL_ARCH
-+#undef VAL_MAX_GRANT_VERSION
- #undef VAL_MAX_MAPTRACK_FRAMES
- #undef VAL_MAX_GRANT_FRAMES
- #undef VAL_MAX_EVTCHN_PORT
-diff --git a/tools/xl/xl.c b/tools/xl/xl.c
-index f422f9fed5..2d1ec18ea3 100644
---- a/tools/xl/xl.c
-+++ b/tools/xl/xl.c
-@@ -55,6 +55,7 @@ bool progress_use_cr = 0;
- bool timestamps = 0;
- int max_grant_frames = -1;
- int max_maptrack_frames = -1;
-+int max_grant_version = LIBXL_MAX_GRANT_DEFAULT;
- libxl_domid domid_policy = INVALID_DOMID;
- 
- xentoollog_level minmsglevel = minmsglevel_default;
-@@ -219,6 +220,13 @@ static void parse_global_config(const char *configfile,
-     else if (e != ESRCH)
-         exit(1);
- 
-+    e = xlu_cfg_get_bounded_long (config, "max_grant_version", 0,
-+                                  INT_MAX, &l, 1);
-+    if (!e)
-+        max_grant_version = l;
-+    else if (e != ESRCH)
-+        exit(1);
-+
-     libxl_cpu_bitmap_alloc(ctx, &global_vm_affinity_mask, 0);
-     libxl_cpu_bitmap_alloc(ctx, &global_hvm_affinity_mask, 0);
-     libxl_cpu_bitmap_alloc(ctx, &global_pv_affinity_mask, 0);
-diff --git a/tools/xl/xl.h b/tools/xl/xl.h
-index 7e23f30192..cf12c79a9b 100644
---- a/tools/xl/xl.h
-+++ b/tools/xl/xl.h
-@@ -282,6 +282,7 @@ extern char *default_colo_proxy_script;
- extern char *blkdev_start;
- extern int max_grant_frames;
- extern int max_maptrack_frames;
-+extern int max_grant_version;
- extern libxl_bitmap global_vm_affinity_mask;
- extern libxl_bitmap global_hvm_affinity_mask;
- extern libxl_bitmap global_pv_affinity_mask;
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index c503b9be00..117fcdcb2b 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -1431,6 +1431,15 @@ void parse_config_data(const char *config_source,
-     else
-         exit(1);
- 
-+    e = xlu_cfg_get_bounded_long (config, "max_grant_version", 0,
-+                                  INT_MAX, &l, 1);
-+    if (e == ESRCH) /* not specified */
-+        b_info->max_grant_version = max_grant_version;
-+    else if (!e)
-+        b_info->max_grant_version = l;
-+    else
-+        exit(1);
-+
-     libxl_defbool_set(&b_info->claim_mode, claim_mode);
- 
-     if (xlu_cfg_get_string (config, "on_poweroff", &buf, 0))
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 0167731ab0..9e92b640cd 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -2967,6 +2967,7 @@ void __init create_domUs(void)
-             .max_evtchn_port = -1,
-             .max_grant_frames = -1,
-             .max_maptrack_frames = -1,
-+            .grant_opts = opt_gnttab_max_version,
-         };
- 
-         if ( !dt_device_is_compatible(node, "xen,domain") )
-@@ -3074,6 +3075,7 @@ void __init create_dom0(void)
-         .max_evtchn_port = -1,
-         .max_grant_frames = gnttab_dom0_frames(),
-         .max_maptrack_frames = -1,
-+        .grant_opts = opt_gnttab_max_version,
-     };
- 
-     /* The vGIC for DOM0 is exactly emulating the hardware GIC */
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index b101565f14..26fee5d9fb 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -750,6 +750,7 @@ static struct domain *__init create_dom0(const module_t *image,
-         .max_evtchn_port = -1,
-         .max_grant_frames = -1,
-         .max_maptrack_frames = -1,
-+        .grant_opts = opt_gnttab_max_version,
-         .max_vcpus = dom0_max_vcpus(),
-         .arch = {
-             .misc_flags = opt_dom0_msr_relaxed ? XEN_X86_MSR_RELAXED : 0,
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 8b53c49d1e..d80ccfe626 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -492,6 +492,12 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
-         return -EINVAL;
-     }
- 
-+    if ( config->grant_opts & ~XEN_DOMCTL_GRANT_version_mask )
-+    {
-+        dprintk(XENLOG_INFO, "Unknown grant options %#x\n", config->grant_opts);
-+        return -EINVAL;
-+    }
-+
-     if ( config->max_vcpus < 1 )
-     {
-         dprintk(XENLOG_INFO, "No vCPUS\n");
-@@ -678,7 +684,8 @@ struct domain *domain_create(domid_t domid,
-         init_status |= INIT_evtchn;
- 
-         if ( (err = grant_table_init(d, config->max_grant_frames,
--                                     config->max_maptrack_frames)) != 0 )
-+                                     config->max_maptrack_frames,
-+                                     config->grant_opts)) != 0 )
-             goto fail;
-         init_status |= INIT_gnttab;
- 
-diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-index a20319b22a..8b322b51c0 100644
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -53,6 +53,7 @@ struct grant_table {
-     percpu_rwlock_t       lock;
-     /* Lock protecting the maptrack limit */
-     spinlock_t            maptrack_lock;
-+    unsigned int          max_version;
-     /*
-      * Defaults to v1.  May be changed with GNTTABOP_set_version.  All other
-      * values are invalid.
-@@ -1917,11 +1918,26 @@ active_alloc_failed:
- }
- 
- int grant_table_init(struct domain *d, int max_grant_frames,
--                     int max_maptrack_frames)
-+                     int max_maptrack_frames, unsigned int options)
- {
-     struct grant_table *gt;
-+    unsigned int max_grant_version = options & XEN_DOMCTL_GRANT_version_mask;
-     int ret = -ENOMEM;
- 
-+    if ( !max_grant_version )
-+    {
-+        dprintk(XENLOG_INFO, "%pd: invalid grant table version 0 requested\n",
-+                d);
-+        return -EINVAL;
-+    }
-+    if ( max_grant_version > opt_gnttab_max_version )
-+    {
-+        dprintk(XENLOG_INFO,
-+                "%pd: requested grant version (%u) greater than supported (%u)\n",
-+                d, max_grant_version, opt_gnttab_max_version);
-+        return -EINVAL;
-+    }
-+
-     /* Default to maximum value if no value was specified */
-     if ( max_grant_frames < 0 )
-         max_grant_frames = opt_max_grant_frames;
-@@ -1947,6 +1963,7 @@ int grant_table_init(struct domain *d, int max_grant_frames,
-     gt->gt_version = 1;
-     gt->max_grant_frames = max_grant_frames;
-     gt->max_maptrack_frames = max_maptrack_frames;
-+    gt->max_version = max_grant_version;
- 
-     /* Install the structure early to simplify the error path. */
-     gt->domain = d;
-@@ -3076,7 +3093,7 @@ gnttab_set_version(XEN_GUEST_HANDLE_PARAM(gnttab_set_version_t) uop)
-         goto out;
- 
-     res = -ENOSYS;
--    if ( op.version == 2 && opt_gnttab_max_version == 1 )
-+    if ( op.version == 2 && gt->max_version == 1 )
-         goto out; /* Behave as before set_version was introduced. */
- 
-     res = 0;
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 51017b47bc..1c21d4dc75 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -97,6 +97,11 @@ struct xen_domctl_createdomain {
-     int32_t max_grant_frames;
-     int32_t max_maptrack_frames;
- 
-+/* Grant version, use low 4 bits. */
-+#define XEN_DOMCTL_GRANT_version_mask    0xf
-+
-+    uint32_t grant_opts;
-+
-     /* Per-vCPU buffer size in bytes.  0 to disable. */
-     uint32_t vmtrace_size;
- 
-diff --git a/xen/include/xen/grant_table.h b/xen/include/xen/grant_table.h
-index 9ee830cfd0..85fe6b7b5e 100644
---- a/xen/include/xen/grant_table.h
-+++ b/xen/include/xen/grant_table.h
-@@ -37,7 +37,7 @@ extern unsigned int opt_max_grant_frames;
- 
- /* Create/destroy per-domain grant table context. */
- int grant_table_init(struct domain *d, int max_grant_frames,
--                     int max_maptrack_frames);
-+                     int max_maptrack_frames, unsigned int options);
- void grant_table_destroy(
-     struct domain *d);
- void grant_table_init_vcpu(struct vcpu *v);
-@@ -69,8 +69,12 @@ int gnttab_acquire_resource(
- 
- static inline int grant_table_init(struct domain *d,
-                                    int max_grant_frames,
--                                   int max_maptrack_frames)
-+                                   int max_maptrack_frames,
-+                                   unsigned int options)
- {
-+    if ( options )
-+        return -EINVAL;
-+
-     return 0;
- }
- 
--- 
-2.33.0
-
+--_000_40742A9435DF4561B68A500FF0A861F5citrixcom_--
 
