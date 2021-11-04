@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D18C2445820
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 18:15:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221809.383698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED7054458D3
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 18:43:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221821.383710 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1migKa-0006Hr-KJ; Thu, 04 Nov 2021 17:15:16 +0000
+	id 1migkz-00013k-UQ; Thu, 04 Nov 2021 17:42:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221809.383698; Thu, 04 Nov 2021 17:15:16 +0000
+Received: by outflank-mailman (output) from mailman id 221821.383710; Thu, 04 Nov 2021 17:42:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1migKa-0006FK-Gf; Thu, 04 Nov 2021 17:15:16 +0000
-Received: by outflank-mailman (input) for mailman id 221809;
- Thu, 04 Nov 2021 17:15:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i+tn=PX=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1migKX-0006FE-Cd
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 17:15:14 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c35fd36f-3d92-11ec-a9d2-d9f7a1cc8784;
- Thu, 04 Nov 2021 18:15:11 +0100 (CET)
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=worktop.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1migHi-0060wt-Q1; Thu, 04 Nov 2021 17:12:46 +0000
-Received: by worktop.programming.kicks-ass.net (Postfix, from userid 1000)
- id 545E19869DF; Thu,  4 Nov 2021 18:12:18 +0100 (CET)
+	id 1migkz-000111-QW; Thu, 04 Nov 2021 17:42:33 +0000
+Received: by outflank-mailman (input) for mailman id 221821;
+ Thu, 04 Nov 2021 17:42:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1migkx-00010r-OH; Thu, 04 Nov 2021 17:42:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1migkx-00018k-Fl; Thu, 04 Nov 2021 17:42:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1migkx-0008L1-82; Thu, 04 Nov 2021 17:42:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1migkx-0002ba-7X; Thu, 04 Nov 2021 17:42:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,90 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c35fd36f-3d92-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=ltenyXnrsDdntMO+B9vjFdERdO2QMdRjBCFjFF1YnzM=; b=s1zqU90WpXefrE9/qFNAhs06pj
-	PNIRGvj9Mo14MJwqJ2YvpwjEmCdCt7LspW4QsKgGD1laP1jOSckBmVZSTp6r2ds88QER8mzA787QJ
-	NBYJ2SxLq732Xen5/Ct/GCwMFrQcd6k0OSXwOzfsBonUWTwjoiwTC1ycb9OjWXTbNUehGGvEysWIx
-	yqOfBqztiPIAdXY5XsB9tw6wppnhlUKhrdqUK6gsgwrIT4aSfbN8f3C3TuP1fmlnVxeFS0i8slsmU
-	4f9MGKQwAc0LVY54eZ/6ogbuspBewtHOid/fEM7hUJsoeLtoGrC6UAFlvAS0g8O+i6H2ULnvlFJu7
-	f6a7rA/w==;
-Date: Thu, 4 Nov 2021 18:12:18 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: Josef Johansson <josef@oderland.se>, boris.ostrovsky@oracle.com,
-	helgaas@kernel.org, jgross@suse.com, linux-pci@vger.kernel.org,
-	maz@kernel.org, xen-devel@lists.xenproject.org,
-	Jason Andryuk <jandryuk@gmail.com>,
-	David Woodhouse <dwmw2@infradead.org>,
-	Peter Jones <pjones@redhat.com>, linux-fbdev@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>, x86@kernel.org,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: Re: [PATCH] PCI/MSI: Move non-mask check back into low level
- accessors
-Message-ID: <20211104171218.GD174703@worktop.programming.kicks-ass.net>
-References: <90277228-cf14-0cfa-c95e-d42e7d533353@oderland.se>
- <20211025012503.33172-1-jandryuk@gmail.com>
- <87fssmg8k4.ffs@tglx>
- <87cznqg5k8.ffs@tglx>
- <d1cc20aa-5c5c-6c7b-2e5d-bc31362ad891@oderland.se>
- <89d6c2f4-4d00-972f-e434-cb1839e78598@oderland.se>
- <5b3d4653-0cdf-e098-0a4a-3c5c3ae3977b@oderland.se>
- <87ee7w6bxi.ffs@tglx>
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=xH6tOsgeDMh2mZu6NN/uUBRSRF7bpYJgUnGkgJ3LuSo=; b=Yzkzc4vwx5cGgV1Uo2H+lPb04Y
+	Jq8Pk9bdwErlp2IALQhtjbmFNoroQ/T2/4/wxRp3+3P03UsmE0MnGj/Cy1CZq32q4ZoE75ZTEjpwj
+	tiK9zB1lGVuHVE5gr0KYcXY9uUkdDwzTS70HQ04HCEEUrrPXHmNbu27TQgdJ8RuDBoQA=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166045-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87ee7w6bxi.ffs@tglx>
+Subject: [xen-unstable-smoke test] 166045: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=0f50d1696b3c13cbf0b18fec817fc291d5a30a31
+X-Osstest-Versions-That:
+    xen=512863ed238d7390f74d43f0ba298b1dfa8f4803
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 04 Nov 2021 17:42:31 +0000
 
-On Thu, Nov 04, 2021 at 12:45:29AM +0100, Thomas Gleixner wrote:
-> On Wed, Oct 27 2021 at 17:29, Josef Johansson wrote:
-> > ------------[ cut here ]------------
-> > cfs_rq->avg.load_avg || cfs_rq->avg.util_avg || cfs_rq->avg.runnable_avg
-> > installing Xen timer for CPU 4
-> > WARNING: CPU: 3 PID: 455 at kernel/sched/fair.c:3339  __update_blocked_fair+0x49b/0x4b0
-> 
-> 	/*
-> 	 * _avg must be null when _sum are null because _avg = _sum / divider
-> 	 * Make sure that rounding and/or propagation of PELT values never
-> 	 * break this.
-> 	 */
-> 	SCHED_WARN_ON(cfs_rq->avg.load_avg ||
-> 		      cfs_rq->avg.util_avg ||
-> 		      cfs_rq->avg.runnable_avg);
-> 
-> PeterZ, does that ring any bell?
+flight 166045 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166045/
 
-Hurrr.. I thought we fixed all those. Vincent?
+Failures :-/ but no regressions.
 
-> > Modules linked in: snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd_timer nf_tables nfnetlink vfat fat intel_rapl_msr think_lmi firmware_attributes_class wmi_bmof intel_rapl_common pcspkr uvcvideo videobuf2_vmalloc videobuf2_memops joydev videobuf2_v4l2 sp5100_tco k10temp videobuf2_common i2c_piix4 iwlwifi videodev mc cfg80211 thinkpad_acpi ipmi_devintf ucsi_acpi platform_profile typec_ucsi ledtrig_audio ipmi_msghandler r8169 rfkill typec snd wmi soundcore video i2c_scmi fuse xenfs ip_tables dm_thin_pool dm_persistent_data dm_bio_prison dm_crypt trusted asn1_encoder hid_multitouch amdgpu crct10dif_pclmul crc32_pclmul crc32c_intel gpu_sched i2c_algo_bit drm_ttm_helper ghash_clmulni_intel ttm serio_raw drm_kms_helper cec sdhci_pci cqhci sdhci xhci_pci drm xhci_pci_renesas nvme xhci_hcd ehci_pci mmc_core ehci_hcd nvme_core xen_acpi_processor xen_privcmd xen_pciback xen_blkback xen_gntalloc xen_gntdev xen_evtchn uinput
-> > CPU: 3 PID: 455 Comm: kworker/3:2 Tainted: G        W        --------- ---  5.15.0-0.rc7.0.fc32.qubes.x86_64 #1
-> > Hardware name: LENOVO 20Y1S02400/20Y1S02400, BIOS R1BET65W(1.34 ) 06/17/2021
-> > Workqueue:  0x0 (events)
-> > RIP: e030:__update_blocked_fair+0x49b/0x4b0
-> > Code: 6b fd ff ff 49 8b 96 48 01 00 00 48 89 90 50 09 00 00 e9 ff fc ff ff 48 c7 c7 10 7a 5e 82 c6 05 f3 35 9e 01 01 e8 1f f3 b2 00 <0f> 0b 41 8b 86 38 01 00 00 e9 c6 fc ff ff 0f 1f 80 00 00 00 00 0f
-> > RSP: e02b:ffffc900410d7ce0 EFLAGS: 00010082
-> > RAX: 0000000000000000 RBX: 0000000000000018 RCX: ffff8881406d8a08
-> > RDX: 00000000ffffffd8 RSI: 0000000000000027 RDI: ffff8881406d8a00
-> > RBP: ffff8881406e9800 R08: 0000000000000048 R09: ffffc900410d7c78
-> > R10: 0000000000000049 R11: 000000002d2d2d2d R12: ffff8881406e9f80
-> > R13: ffff8881406e9e40 R14: ffff8881406e96c0 R15: 0000000000000000
-> > FS:  0000000000000000(0000) GS:ffff8881406c0000(0000) knlGS:0000000000000000
-> > CS:  10000e030 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > CR2: 0000782e51820000 CR3: 0000000002810000 CR4: 0000000000050660
-> > Call Trace:
-> >  update_blocked_averages+0xa8/0x180
-> >  newidle_balance+0x175/0x380
-> >  pick_next_task_fair+0x39/0x3e0
-> >  pick_next_task+0x4c/0xbd0
-> >  ? dequeue_task_fair+0xba/0x390
-> >  __schedule+0x13a/0x570
-> >  schedule+0x44/0xa0
-> >  worker_thread+0xc0/0x320
-> >  ? process_one_work+0x390/0x390
-> >  kthread+0x10f/0x130
-> >  ? set_kthread_struct+0x40/0x40
-> >  ret_from_fork+0x22/0x30
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  0f50d1696b3c13cbf0b18fec817fc291d5a30a31
+baseline version:
+ xen                  512863ed238d7390f74d43f0ba298b1dfa8f4803
+
+Last test of basis   166037  2021-11-03 23:00:25 Z    0 days
+Testing same since   166045  2021-11-04 14:02:55 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   512863ed23..0f50d1696b  0f50d1696b3c13cbf0b18fec817fc291d5a30a31 -> smoke
 
