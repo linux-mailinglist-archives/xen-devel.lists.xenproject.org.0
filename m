@@ -2,47 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89B5E4450AB
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 09:56:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221302.382949 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12BEC4450D0
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 10:00:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221309.382959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miYWs-0006hq-OP; Thu, 04 Nov 2021 08:55:26 +0000
+	id 1miYbi-000885-BF; Thu, 04 Nov 2021 09:00:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221302.382949; Thu, 04 Nov 2021 08:55:26 +0000
+Received: by outflank-mailman (output) from mailman id 221309.382959; Thu, 04 Nov 2021 09:00:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miYWs-0006g4-Ks; Thu, 04 Nov 2021 08:55:26 +0000
-Received: by outflank-mailman (input) for mailman id 221302;
- Thu, 04 Nov 2021 08:55:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1miYbi-00086J-86; Thu, 04 Nov 2021 09:00:26 +0000
+Received: by outflank-mailman (input) for mailman id 221309;
+ Thu, 04 Nov 2021 09:00:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=s15q=PX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1miYWq-0006fy-Jy
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 08:55:24 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id efe5d2b3-3d4c-11ec-a9d2-d9f7a1cc8784;
- Thu, 04 Nov 2021 09:55:19 +0100 (CET)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2110.outbound.protection.outlook.com [104.47.17.110])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-33-N9zeJZk6MuiQNh5n33aF3A-2; Thu, 04 Nov 2021 09:55:18 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4848.eurprd04.prod.outlook.com (2603:10a6:803:55::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Thu, 4 Nov
- 2021 08:55:14 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4649.022; Thu, 4 Nov 2021
- 08:55:14 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- FR2P281CA0020.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:14::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4690.5 via Frontend Transport; Thu, 4 Nov 2021 08:55:13 +0000
+ (envelope-from <SRS0=4d49=PX=oderland.se=josef@srs-se1.protection.inumbo.net>)
+ id 1miYbh-00086C-Cy
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 09:00:25 +0000
+Received: from office.oderland.com (office.oderland.com [91.201.60.5])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a5636efd-3d4d-11ec-9787-a32c541c8605;
+ Thu, 04 Nov 2021 10:00:24 +0100 (CET)
+Received: from [193.180.18.161] (port=59860 helo=[10.137.0.14])
+ by office.oderland.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
+ (envelope-from <josef@oderland.se>)
+ id 1miYbf-00DxwI-0N; Thu, 04 Nov 2021 10:00:23 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,217 +41,248 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: efe5d2b3-3d4c-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1636016119;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ShUlOTLU116Krk8rATLYXHFG9Lxg2GMVu6mfRYYR3XU=;
-	b=b7lmQt3PqRgh4UllOBr2rJceQdFXw6SIGVIVk7jligY28oT46CHRxVcJVfi7NXO6na2qJv
-	BgpNhEqYNszE7GUP8MIIPuPXGcrTNxXKuUYkZ1Gn3DarAPxO+QsjO5OnqSi06rCDA6TvBk
-	VXx08jOr67CygfkqK2lOPI7ta0j7JR8=
-X-MC-Unique: N9zeJZk6MuiQNh5n33aF3A-2
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OTquDklSdtNjM2D9MelTC3a7qHrY+hHA2VurmF/g4iLosc4DkSLDnc/DrM9xVWHTpKQr3n98SA1GWCNj8m1YSzT/ETkqIoj5P0E7ucHhBiJpqsNunJpA4tkudKsgfkU7DDrAqCTF/Cs7MWMpSCM3oGLjzisUsngUB4waMhVE1mi6ZbD9JCiyO76ZQHZ/yGQWZKunlNpXnv269HlNXWjbCOF/6dChABfCsNMFY2/kliNUnORRU9s5kVs2HD9mtLJeuFOY+CvimHctbDQusVb6rqy+aASjezaunASv9IRW7M7JDBz3s96PHke3CX5m/tAPI7swQrNyMxlaoEt0njKBGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ShUlOTLU116Krk8rATLYXHFG9Lxg2GMVu6mfRYYR3XU=;
- b=HS7yGQmiURDvKIdtv91PIQNa4Eu7/2ZolTXWB/H/Z3VOfLPWtW4q8VtxEmDldg+vw3rAMMPWJKCdSBsQpP4NUpWM5KKmKoA50k9pXZEQbMyO9E9DCh7wL/PwJz0yZ/KMg46U7e/6b5GF4q9zwAk2iEakRJXD44w2X4bEYjlctK+X9zMA8f3hA6FLv3f70cWxTtkGDBmsjIzpft1eDDvC5QkmckLcpcEtaEw8h+gnYKnNCXVy1vPdcuTKMqQ90iju5Fzw3dYAMLyyajueyC9db13JUhcWykQs+cSTaqf6YvALQx5dguXtJNBqgkQFlVHf7+OrgJI3H6aaW0nUZKeJUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <e50141eb-f776-4b8d-024d-709614143ce7@suse.com>
-Date: Thu, 4 Nov 2021 09:55:03 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [PATCH for-4.16 v5] gnttab: allow setting max version per-domain
+X-Inumbo-ID: a5636efd-3d4d-11ec-9787-a32c541c8605
+Message-ID: <4ae69258-524c-8349-1dbd-147e96f90138@oderland.se>
+Date: Thu, 4 Nov 2021 10:00:18 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:93.0) Gecko/20100101
+ Thunderbird/93.0
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Ian Jackson <iwj@xenproject.org>, xen-devel@lists.xenproject.org
-References: <20211103145719.96162-1-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20211103145719.96162-1-roger.pau@citrix.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: boris.ostrovsky@oracle.com, helgaas@kernel.org, jgross@suse.com,
+ linux-pci@vger.kernel.org, maz@kernel.org, xen-devel@lists.xenproject.org,
+ Jason Andryuk <jandryuk@gmail.com>, David Woodhouse <dwmw2@infradead.org>,
+ Peter Jones <pjones@redhat.com>, linux-fbdev@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, LKML <linux-kernel@vger.kernel.org>,
+ x86@kernel.org
+References: <90277228-cf14-0cfa-c95e-d42e7d533353@oderland.se>
+ <20211025012503.33172-1-jandryuk@gmail.com> <87fssmg8k4.ffs@tglx>
+ <87cznqg5k8.ffs@tglx> <d1cc20aa-5c5c-6c7b-2e5d-bc31362ad891@oderland.se>
+ <89d6c2f4-4d00-972f-e434-cb1839e78598@oderland.se>
+ <5b3d4653-0cdf-e098-0a4a-3c5c3ae3977b@oderland.se> <87ee7w6bxi.ffs@tglx>
+From: Josef Johansson <josef@oderland.se>
+Subject: Re: [PATCH] PCI/MSI: Move non-mask check back into low level
+ accessors
+In-Reply-To: <87ee7w6bxi.ffs@tglx>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0020.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:14::7) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 54bf8578-b531-464a-8d5c-08d99f70d0e8
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4848:
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB4848A0C9BF382BBC5B88624FB38D9@VI1PR04MB4848.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	lg+DsdsPRDKVcGUDsoTn60PyaAiAC6TYUGZRrcn3Yj5a9OOX0m7PGUkFa8tOjmNK9roCHJRXvlAvUUCHM6r1M92QSviaW8+ySaVpcckQYhy2lxQ2HZdKK8lSmwJyjBhQYdI5UCr+yQ5PtjxyIfC/4MR4Q7oWP+PRwkS2HvKti9ZJRLEmvCHavHYr09assT/f0S2KHHayOyAOkE42imMlo72eikXFwTw0MUEtYoYFzY6wwNcMzort8jEwrzeqVvaguu9w+eCAyayS/gGzX14vkV1deta4hvT+wJU5Rewx2C9niMvNKncygLU5E7Mw63j5kKmlQ3b3rKIe1uTd0aMvvKTJwjuWyRYKK9WfR3dKdsBEH/cY+/AfNdx9ZKa0xiu6QBkVK4b/h6dR57C08M70y6k7lQmJ7WjATc0t+pj+DcLLKoh87Vd4t94XH9lgZvqpRmO3i/IRFr+U1EMOK4LQAv95dlpSOGQTu4b2/4jBAC3cRhtOoTS31c3e6Hcux+hwsbx17/gcGGZz89sbWkESuBmv8WG3LLxVIziVXPOEElijgSpOTP0/KzCW0LhtM+nC94UohP3pJ3tRlOVLRm3OtXf82NNmt9P0WjB8ftlvBpcHyyViDZCGwX5Hl/m/sBA6WRCY0ndSWnpkekmvYX/QWne5DYl3iazpFfWh33+A3X2TyR1FZCEIf0GTwbKF0diX0O2oR6mJnsxrUh41sWLQHc6HraWq1JbRtZbogK4MHIo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6486002)(66556008)(186003)(66476007)(8936002)(5660300002)(4326008)(36756003)(53546011)(66946007)(26005)(86362001)(6666004)(16576012)(316002)(7416002)(31686004)(54906003)(2616005)(2906002)(83380400001)(8676002)(956004)(6916009)(38100700002)(31696002)(508600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eTdLS21oSGgxaHIzS3BCK3NsQVBjNVIramRJMGFhbS9UNGxRbDRhTGlTd05s?=
- =?utf-8?B?MzMzTFA2ZzNEb01QcFVVV1EzUGxXU0RsL1BjOXlqNEFYV3piekMycEk4eHox?=
- =?utf-8?B?MnRyT0JEbjVqSzZ6NW02c3BuNlZOU0ZFcVpsSHJEcnBQcEZaQWxLQmlPL3NG?=
- =?utf-8?B?U2k4dXJsMy96VDVaamNXVEtzam9WT3dOazVMelZOdEVUVFkzZW1mUVZsbWpk?=
- =?utf-8?B?czdCcHF4VG9CbWlkSnd2K3AvRWtZekJNZnRxWWd4WklEMlBKZTlSTjFVNEFt?=
- =?utf-8?B?bk50UnducnVnT3RUK3JURGF2QUJ0TzhKRmQ3V3pjRjdYSDlpSmtiSisxSTVs?=
- =?utf-8?B?cmpZVERBY0I3LzcwTlpkUEJaZE5RY0J0Z1ZnTTVOaW5IOFUyRFMrZEwzKzlx?=
- =?utf-8?B?TTZXMGJ0SDdUelZjY05hOU1VRmNXUFdFd2VoTFhkbERvMEU2ZzVlWlNib0Jt?=
- =?utf-8?B?ZDl1bGhsWjk0VDFXelpFVVlLQmtWV2JUM1FQbjE2L1ludVB2RTlEaFF5M0Zs?=
- =?utf-8?B?V0lYZkxQL1g4YjB4a2JmbnZDZlZCa0tFcXFTOGlTVEwyVy9rQm9FOGdzMmlD?=
- =?utf-8?B?WEpKTXFhV1NwQ2NiRTRZVzUrVnl4Mnh0b1diLy9LMjRKOHJ6WjNmbk4xdXE3?=
- =?utf-8?B?V29XeEdRZG1xOHAyc2FtcGVvTXhMR2ZhRXZaa0VzVkxzTzEvWFg2Ty9PL3dt?=
- =?utf-8?B?M1pscjFQREprVHRMRTNBRnAyY29JNjd4ZEgvYlpkdGtOUmttZmtwdHNzM3Yx?=
- =?utf-8?B?YUdOV01URk5nclFEVUdlL2NlMisrZzY4b2VtTEZ2KzU5YkxlOVdreHNUTDJT?=
- =?utf-8?B?cVFXcmhWdTN2cStGeWJDV0pLVmJnbjY1b3dOTHpTSldHRzE2YzVXbXhKOTdy?=
- =?utf-8?B?bkhBdHNpS0x0NzRWdTZCdCszaUFOMEx0bHpNVDV0MlJSM1RBNkhnK3A3dllv?=
- =?utf-8?B?VlIzZHF6dUxyUE5KNVF3RGtyc29GTS85ditBNTB3elRNSlV5dkRCMjFiUFc5?=
- =?utf-8?B?K3k4bFRaRlNZbk83UWFQV3pRdzNpN3hmNDREVlNMNWtWT2ZRaTJZc0UyZER5?=
- =?utf-8?B?ODNWdWNQUVNoNWNNZDBZOGZYRGtPY3oxUjFDVEJxYVNBN0w0NDRsYmNiWVBP?=
- =?utf-8?B?REpHQVhDTjJZa0FMRmZneGh0WXk1citqZzFiY296SU1WYW1hQlhPTzk1Nk05?=
- =?utf-8?B?eEZJNXc2c05nZjA0aU4zQXdFbVg4cnREdC8wZ0RiSGRzQ2NNWTRRZEx4c2Vy?=
- =?utf-8?B?b25FQlk1YVRtZGhJSGpYRjhRTzczZE5PR0huRDlTbXVtN244aXJDNC9oQnRX?=
- =?utf-8?B?UHdkVWhsNU1Zd2FQVzZvZnhGOEtEM2lBUnYyNEJ1V0pXOE91bmxzaDhiUCs4?=
- =?utf-8?B?M2pxb0d0SjN3cUFEU2JlWDJmNnB1a2F2R0JYR2RDOTl1QW5BV1ZqWU5QWUFJ?=
- =?utf-8?B?anNwcWVaUFZyQWVnUEtpendESHZQd0FwNEYvc29WcUJhYXFkLzBLUlh5ajJK?=
- =?utf-8?B?ZzhkRXF2OHFERnNQNUVSek93ZzVLa1dSRjhRTlVsa1pWa2E3bVVZbzduekd4?=
- =?utf-8?B?OGtpMVc4THRqcndCTDNuVVVocVlOeUVkYnYzK2VIQm0wM2tFdjJkK2VYdE5t?=
- =?utf-8?B?WjExb1c4TjY1OTBRTGZCdVBFVjQzWGdCMVZEMTVoekdzZ3lybjhxcUMyallj?=
- =?utf-8?B?SFNPUVc0RlRPblp6bTZTYXBFMi9JLzV5M1l3akh3cnJnMytIWS9jL0hQMmlx?=
- =?utf-8?B?SG9LZEszWUNKSUpKd0pzV0lIdlNaWENpQkdWbzBKVzREZWMxNzA3aWhEaWhL?=
- =?utf-8?B?dXcrU2Fkb3k4OThSaFBZLzAwOGQyNXZaM1d6c0FqVzZGY1VweUhzYUJUL1BS?=
- =?utf-8?B?dWpvV2swVnVWd3ZPemhkd29EN1ROdi85Q3Z5dXRZTlJQVjJqOTBqWCtxclVa?=
- =?utf-8?B?azNPcUpydUR6ZFlKK3VINjZlSjNMN0JuYTEvWUpjVkxTeGNIbUU4eHBPZ3Vi?=
- =?utf-8?B?bGdiS1N3b1IzZDUzMnVBelZBVXJRSDhzaWRHSlduQ2V3VUxpM0tRcHNZdnhR?=
- =?utf-8?B?aWJtQzlKUkpKSEsyRlJzSEUwcytINnhSVXFPMC9ydlNrOHhtRTRQYm1KYXo5?=
- =?utf-8?B?ekNtdTBXZndrc1JsNVZVVUFqQ0cwQStFSithcTNWbjUwVWVtTUxtdmQxQ0ZV?=
- =?utf-8?Q?VCL9oCw7zZ31PCO7MA9Vcmo=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54bf8578-b531-464a-8d5c-08d99f70d0e8
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2021 08:55:14.1060
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uvUjkdhHrhDEoWtkhKkPD/XbuCNtPcQoQs3wnHkXSs/jBxA5VJQSS2JiyNzSAH4vT5mbMBaOizpdi/BRlRdYIQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4848
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - office.oderland.com
+X-AntiAbuse: Original Domain - lists.xenproject.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oderland.se
+X-Get-Message-Sender-Via: office.oderland.com: authenticated_id: josjoh@oderland.se
+X-Authenticated-Sender: office.oderland.com: josjoh@oderland.se
 
-On 03.11.2021 15:57, Roger Pau Monne wrote:
-> --- a/tools/libs/light/libxl_create.c
-> +++ b/tools/libs/light/libxl_create.c
-> @@ -454,6 +454,28 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
->          libxl_defbool_setdefault(&b_info->nested_hvm,               false);
->      }
->  
-> +    if (b_info->max_grant_version == LIBXL_MAX_GRANT_DEFAULT) {
-> +        libxl_physinfo info;
-> +
-> +        rc = libxl_get_physinfo(CTX, &info);
-> +        if (rc) {
-> +            LOG(ERROR, "failed to get hypervisor info");
-> +            return rc;
-> +        }
-> +
-> +        if (info.cap_gnttab_v2)
-> +            b_info->max_grant_version = 2;
-> +        else if (info.cap_gnttab_v1)
-> +            b_info->max_grant_version = 1;
-> +        else
-> +            /* No grant table support reported */
-> +            b_info->max_grant_version = 0;
-> +    } else if (b_info->max_grant_version & ~XEN_DOMCTL_GRANT_version_mask) {
-
-Aren't you introducing a dependency of a stable library on an unstable
-interface here? I'm surprised this even builds, as I didn't expect
-libxl sources to include domctl.h in the first place.
-
-> @@ -219,6 +220,13 @@ static void parse_global_config(const char *configfile,
->      else if (e != ESRCH)
->          exit(1);
->  
-> +    e = xlu_cfg_get_bounded_long (config, "max_grant_version", 0,
-> +                                  INT_MAX, &l, 1);
-> +    if (!e)
-> +        max_grant_version = l;
-> +    else if (e != ESRCH)
-> +        exit(1);
-
-Would be kind of nice if out-of-range values were detected and
-reported right here, rather than causing puzzling errors at domain
-creation. But I have no idea whether doing so would be inconsistent
-with the processing of other global settings.
-
-> @@ -1917,11 +1918,26 @@ active_alloc_failed:
->  }
->  
->  int grant_table_init(struct domain *d, int max_grant_frames,
-> -                     int max_maptrack_frames)
-> +                     int max_maptrack_frames, unsigned int options)
->  {
->      struct grant_table *gt;
-> +    unsigned int max_grant_version = options & XEN_DOMCTL_GRANT_version_mask;
->      int ret = -ENOMEM;
->  
-> +    if ( !max_grant_version )
-> +    {
-> +        dprintk(XENLOG_INFO, "%pd: invalid grant table version 0 requested\n",
-> +                d);
-> +        return -EINVAL;
-> +    }
-
-Wouldn't 0 rather be the most natural way to request no gnttab at all
-for a domain? (Arguably making things work that way could be left to
-a future change.)
-
-> +    if ( max_grant_version > opt_gnttab_max_version )
-> +    {
-> +        dprintk(XENLOG_INFO,
-> +                "%pd: requested grant version (%u) greater than supported (%u)\n",
-> +                d, max_grant_version, opt_gnttab_max_version);
-> +        return -EINVAL;
-> +    }
-> +
->      /* Default to maximum value if no value was specified */
->      if ( max_grant_frames < 0 )
->          max_grant_frames = opt_max_grant_frames;
-
-Neither here nor in domain_create() you check that the other bits of
-"options" are zero.
-
-> @@ -69,7 +69,8 @@ int gnttab_acquire_resource(
->  
->  static inline int grant_table_init(struct domain *d,
->                                     int max_grant_frames,
-> -                                   int max_maptrack_frames)
-> +                                   int max_maptrack_frames,
-> +                                   unsigned int options)
->  {
->      return 0;
->  }
-
-While arbitrary table size requests may be okay to ignore here, I'm
-unsure about the max-version: Requesting v3 is surely an error in any
-event; I'd even be inclined to suggest requesting v1 or v2 is as
-well. Adding such a check here looks like it would be compatible with
-all the other adjustments you're making.
-
-Jan
+On 11/4/21 00:45, Thomas Gleixner wrote:
+> On Wed, Oct 27 2021 at 17:29, Josef Johansson wrote:
+>
+> CC+: EFIFB and scheduler folks
+>
+>> On 10/27/21 14:01, Josef Johansson wrote:
+>> When I suspend I get errors from Xen, including stacktraces below
+>> if anyone has any clue, if this might be related. I get one each time I
+>> suspend
+>> and the third time amdgpu gives up.
+>>
+>> rtc_cmos 00:01: registered as rtc0
+>> rtc_cmos 00:01: setting system clock to 2021-10-27T15:04:35 UTC (1635347075)
+>> rtc_cmos 00:01: no alarms, y3k, 114 bytes nvram
+>> device-mapper: core: CONFIG_IMA_DISABLE_HTABLE is disabled. Duplicate IMA measurements will not be recorded in the IMA log.
+>> device-mapper: uevent: version 1.0.3
+>> device-mapper: ioctl: 4.45.0-ioctl (2021-03-22) initialised: dm-devel@redhat.com
+>> efifb: probing for efifb
+>> efifb: cannot reserve video memory at 0x60000000
+>> ------------[ cut here ]------------
+>> ioremap on RAM at 0x0000000060000000 - 0x00000000607e8fff
+>> WARNING: CPU: 7 PID: 1 at arch/x86/mm/ioremap.c:210 __ioremap_caller+0x332/0x350
+> That's this warning:
+>
+> 	/*
+> 	 * Don't allow anybody to remap normal RAM that we're using..
+> 	 */
+> 	if (io_desc.flags & IORES_MAP_SYSTEM_RAM) {
+> 		WARN_ONCE(1, "ioremap on RAM at %pa - %pa\n",
+> 			  &phys_addr, &last_addr);
+> 		return NULL;
+> 	}
+>
+>
+>> Modules linked in:
+>> CPU: 7 PID: 1 Comm: swapper/0 Not tainted 5.15.0-0.rc7.0.fc32.qubes.x86_64 #1
+>> Hardware name: LENOVO 20Y1S02400/20Y1S02400, BIOS R1BET65W(1.34 ) 06/17/2021
+>> RIP: e030:__ioremap_caller+0x332/0x350
+>> Code: e8 c3 ca ff ff 49 09 c6 e9 32 fe ff ff 48 8d 54 24 28 48 8d 74 24 18 48 c7 c7 35 f2 5d 82 c6 05 e8 7b a9 01 01 e8 48 39 be 00 <0f> 0b 45 31 e4 e9 ac fe ff ff e8 ff f5 c3 00 66 66 2e 0f 1f 84 00
+>> RSP: e02b:ffffc9004007bb00 EFLAGS: 00010286
+>> RAX: 0000000000000000 RBX: 00000000007e9000 RCX: ffffffff82915ca8
+>> RDX: c0000000ffffdfff RSI: 0000000000000000 RDI: ffffffff82865ca0
+>> RBP: 0000000060000000 R08: 0000000000000000 R09: ffffc9004007b948
+>> R10: ffffc9004007b940 R11: ffffffff82945ce8 R12: 0000000000000001
+>> R13: 00000000007e9000 R14: 00000000007e9000 R15: ffffffff81c8f772
+>> FS:  0000000000000000(0000) GS:ffff8881407c0000(0000) knlGS:0000000000000000
+>> CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+>> CR2: 0000000000000000 CR3: 0000000002810000 CR4: 0000000000050660
+>> Call Trace:
+>>  efifb_probe.cold+0x2e6/0x688
+> Why is this probing EFIFB at resume? Josef is that hibernate or suspend
+> to RAM?
+This is actually on boot, might be a totally ignore able warning though.
+Would be nice to actually get rid of!
+>
+>>  platform_probe+0x3f/0x90
+>>  call_driver_probe+0x24/0xc0
+>>  really_probe+0x1e7/0x310
+>>  __driver_probe_device+0xfe/0x180
+>>  driver_probe_device+0x1e/0x90
+>>  __device_attach_driver+0x72/0xe0
+>>  ? driver_allows_async_probing+0x50/0x50
+>>  ? driver_allows_async_probing+0x50/0x50
+>>  bus_for_each_drv+0x8f/0xd0
+>>  __device_attach+0xe9/0x1f0
+>>  bus_probe_device+0x8e/0xa0
+>>  device_add+0x3fb/0x630
+>>  platform_device_add+0x102/0x230
+>>  sysfb_init+0xea/0x141
+>>  ? firmware_map_add_early+0xb8/0xb8
+>>  do_one_initcall+0x57/0x200
+>>  do_initcalls+0x109/0x166
+>>  kernel_init_freeable+0x23c/0x2bd
+>>  ? rest_init+0xc0/0xc0
+>>  kernel_init+0x16/0x120
+>>  ret_from_fork+0x22/0x30
+>> ---[ end trace b068d3cd1b7f5f49 ]---
+>> efifb: abort, cannot remap video memory 0x7e9000 @ 0x60000000
+>> efi-framebuffer: probe of efi-framebuffer.0 failed with error -5
+>> --
+>> printk: Suspending console(s) (use no_console_suspend to debug)
+>> [drm] free PSP TMR buffer
+>> PM: suspend devices took 0.428 seconds
+>> ACPI: EC: interrupt blocked
+>> ACPI: PM: Preparing to enter system sleep state S3
+>> ACPI: EC: event blocked
+>> ACPI: EC: EC stopped
+>> ACPI: PM: Saving platform NVS memory
+>> Disabling non-boot CPUs ...
+>> ------------[ cut here ]------------
+>> WARNING: CPU: 1 PID: 0 at arch/x86/mm/tlb.c:522  switch_mm_irqs_off+0x3c5/0x400
+> 	if (WARN_ON_ONCE(__read_cr3() != build_cr3(real_prev->pgd, prev_asid))) {
+>
+>> Modules linked in: snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd_timer nf_tables nfnetlink vfat fat intel_rapl_msr think_lmi firmware_attributes_class wmi_bmof intel_rapl_common pcspkr uvcvideo videobuf2_vmalloc videobuf2_memops joydev videobuf2_v4l2 sp5100_tco k10temp videobuf2_common i2c_piix4 iwlwifi videodev mc cfg80211 thinkpad_acpi ipmi_devintf ucsi_acpi platform_profile typec_ucsi ledtrig_audio ipmi_msghandler r8169 rfkill typec snd wmi soundcore video i2c_scmi fuse xenfs ip_tables dm_thin_pool dm_persistent_data dm_bio_prison dm_crypt trusted asn1_encoder hid_multitouch amdgpu crct10dif_pclmul crc32_pclmul crc32c_intel gpu_sched i2c_algo_bit drm_ttm_helper ghash_clmulni_intel ttm serio_raw drm_kms_helper cec sdhci_pci cqhci sdhci xhci_pci drm xhci_pci_renesas nvme xhci_hcd ehci_pci mmc_core ehci_hcd nvme_core xen_acpi_processor xen_privcmd xen_pciback xen_blkback xen_gntalloc xen_gntdev xen_evtchn uinput
+>> CPU: 1 PID: 0 Comm: swapper/1 Tainted: G        W        --------- ---  5.15.0-0.rc7.0.fc32.qubes.x86_64 #1
+>> Hardware name: LENOVO 20Y1S02400/20Y1S02400, BIOS R1BET65W(1.34 ) 06/17/2021
+>> RIP: e030:switch_mm_irqs_off+0x3c5/0x400
+>> Code: f0 41 80 65 01 fb ba 01 00 00 00 49 8d b5 60 23 00 00 4c 89 ef 49 c7 85 68 23 00 00 60 1d 08 81 e8 a0 f3 08 00 e9 15 fd ff ff <0f> 0b e8 34 fa ff ff e9 ad fc ff ff 0f 0b e9 31 fe ff ff 0f 0b e9
+>> RSP: e02b:ffffc900400f3eb0 EFLAGS: 00010006
+>> RAX: 00000001336c6000 RBX: ffff888140660000 RCX: 0000000000000040
+>> RDX: ffff8881003027c0 RSI: 0000000000000000 RDI: ffff8881b36c6000
+>> RBP: ffffffff829d91c0 R08: 0000000000000000 R09: 0000000000000000
+>> R10: 0000000000000008 R11: 0000000000000000 R12: ffff888104e88440
+>> R13: ffff8881003027c0 R14: 0000000000000000 R15: 0000000000000001
+>> FS:  0000000000000000(0000) GS:ffff888140640000(0000) knlGS:0000000000000000
+>> CS:  10000e030 DS: 002b ES: 002b CR0: 0000000080050033
+>> CR2: 000060b7d78bf198 CR3: 0000000002810000 CR4: 0000000000050660
+>> Call Trace:
+>>  switch_mm+0x1c/0x30
+>>  idle_task_exit+0x55/0x60
+>>  play_dead_common+0xa/0x20
+>>  xen_pv_play_dead+0xa/0x60
+> So this is when bringing the non boot CPUs down and the switch_mm() code
+> discovers inconsistency between CR3 and the expected value.
+>
+> Would probably be interesting to print the actual values, but XEN folks
+> might have an idea.
+My guess here after digging through the code is that XEN is just (as the
+comment above this warn
+says), just doing a load_cr3(swapper_pg_dir) without going through
+switch_mm first.
+I could add a BUG_ON somewhere, or maybe printk, but I'm very unsure to
+where I should put them.
+Assistance here would be great.
+>
+>>  do_idle+0xd1/0xe0
+>>  cpu_startup_entry+0x19/0x20
+>>  asm_cpu_bringup_and_idle+0x5/0x1000
+>> ---[ end trace b068d3cd1b7f5f4b ]---
+>> smpboot: CPU 1 is now offline
+>> smpboot: CPU 2 is now offline
+>> smpboot: CPU 3 is now offline
+>> smpboot: CPU 4 is now offline
+>> smpboot: CPU 5 is now offline
+>> smpboot: CPU 6 is now offline
+>> smpboot: CPU 7 is now offline
+>> ACPI: PM: Low-level resume complete
+>> ACPI: EC: EC started
+>> ACPI: PM: Restoring platform NVS memory
+>> xen_acpi_processor: Uploading Xen processor PM info
+>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU1
+>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU3
+>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU5
+>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU7
+>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU9
+>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU11
+>> --
+>> CPU2 is up
+>> installing Xen timer for CPU 3
+>> cpu 3 spinlock event irq 79
+>> [Firmware Bug]: ACPI MWAIT C-state 0x0 not supported by HW (0x0)
+>> ACPI: \_SB_.PLTF.C003: Found 3 idle states
+>> ACPI: FW issue: working around C-state latencies out of order
+>> CPU3 is up
+>> ------------[ cut here ]------------
+>> cfs_rq->avg.load_avg || cfs_rq->avg.util_avg || cfs_rq->avg.runnable_avg
+>> installing Xen timer for CPU 4
+>> WARNING: CPU: 3 PID: 455 at kernel/sched/fair.c:3339  __update_blocked_fair+0x49b/0x4b0
+> 	/*
+> 	 * _avg must be null when _sum are null because _avg = _sum / divider
+> 	 * Make sure that rounding and/or propagation of PELT values never
+> 	 * break this.
+> 	 */
+> 	SCHED_WARN_ON(cfs_rq->avg.load_avg ||
+> 		      cfs_rq->avg.util_avg ||
+> 		      cfs_rq->avg.runnable_avg);
+>
+> PeterZ, does that ring any bell?
+I also assume that the first BUG triggers this one.
+>
+>> Modules linked in: snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd_timer nf_tables nfnetlink vfat fat intel_rapl_msr think_lmi firmware_attributes_class wmi_bmof intel_rapl_common pcspkr uvcvideo videobuf2_vmalloc videobuf2_memops joydev videobuf2_v4l2 sp5100_tco k10temp videobuf2_common i2c_piix4 iwlwifi videodev mc cfg80211 thinkpad_acpi ipmi_devintf ucsi_acpi platform_profile typec_ucsi ledtrig_audio ipmi_msghandler r8169 rfkill typec snd wmi soundcore video i2c_scmi fuse xenfs ip_tables dm_thin_pool dm_persistent_data dm_bio_prison dm_crypt trusted asn1_encoder hid_multitouch amdgpu crct10dif_pclmul crc32_pclmul crc32c_intel gpu_sched i2c_algo_bit drm_ttm_helper ghash_clmulni_intel ttm serio_raw drm_kms_helper cec sdhci_pci cqhci sdhci xhci_pci drm xhci_pci_renesas nvme xhci_hcd ehci_pci mmc_core ehci_hcd nvme_core xen_acpi_processor xen_privcmd xen_pciback xen_blkback xen_gntalloc xen_gntdev xen_evtchn uinput
+>> CPU: 3 PID: 455 Comm: kworker/3:2 Tainted: G        W        --------- ---  5.15.0-0.rc7.0.fc32.qubes.x86_64 #1
+>> Hardware name: LENOVO 20Y1S02400/20Y1S02400, BIOS R1BET65W(1.34 ) 06/17/2021
+>> Workqueue:  0x0 (events)
+>> RIP: e030:__update_blocked_fair+0x49b/0x4b0
+>> Code: 6b fd ff ff 49 8b 96 48 01 00 00 48 89 90 50 09 00 00 e9 ff fc ff ff 48 c7 c7 10 7a 5e 82 c6 05 f3 35 9e 01 01 e8 1f f3 b2 00 <0f> 0b 41 8b 86 38 01 00 00 e9 c6 fc ff ff 0f 1f 80 00 00 00 00 0f
+>> RSP: e02b:ffffc900410d7ce0 EFLAGS: 00010082
+>> RAX: 0000000000000000 RBX: 0000000000000018 RCX: ffff8881406d8a08
+>> RDX: 00000000ffffffd8 RSI: 0000000000000027 RDI: ffff8881406d8a00
+>> RBP: ffff8881406e9800 R08: 0000000000000048 R09: ffffc900410d7c78
+>> R10: 0000000000000049 R11: 000000002d2d2d2d R12: ffff8881406e9f80
+>> R13: ffff8881406e9e40 R14: ffff8881406e96c0 R15: 0000000000000000
+>> FS:  0000000000000000(0000) GS:ffff8881406c0000(0000) knlGS:0000000000000000
+>> CS:  10000e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+>> CR2: 0000782e51820000 CR3: 0000000002810000 CR4: 0000000000050660
+>> Call Trace:
+>>  update_blocked_averages+0xa8/0x180
+>>  newidle_balance+0x175/0x380
+>>  pick_next_task_fair+0x39/0x3e0
+>>  pick_next_task+0x4c/0xbd0
+>>  ? dequeue_task_fair+0xba/0x390
+>>  __schedule+0x13a/0x570
+>>  schedule+0x44/0xa0
+>>  worker_thread+0xc0/0x320
+>>  ? process_one_work+0x390/0x390
+>>  kthread+0x10f/0x130
+>>  ? set_kthread_struct+0x40/0x40
+>>  ret_from_fork+0x22/0x30
+>> ---[ end trace b068d3cd1b7f5f4c ]---
+>> cpu 4 spinlock event irq 85
+>> [Firmware Bug]: ACPI MWAIT C-state 0x0 not supported by HW (0x0)
+>> ACPI: \_SB_.PLTF.C004: Found 3 idle states
+>> ACPI: FW issue: working around C-state latencies out of order
+>> CPU4 is up
+>> installing Xen timer for CPU 5
+>> cpu 5 spinlock event irq 91
+>> [Firmware Bug]: ACPI MWAIT C-state 0x0 not supported by HW (0x0)
+>> ACPI: \_SB_.PLTF.C005: Found 3 idle states
+>> ACPI: FW issue: working around C-state latencies out of order
+>> CPU5 is up
 
 
