@@ -2,42 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9E98445B5A
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 21:56:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221871.383780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3294E445B5B
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 21:56:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221872.383790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mijmS-0003gS-4V; Thu, 04 Nov 2021 20:56:16 +0000
+	id 1mijmY-0003zN-Ee; Thu, 04 Nov 2021 20:56:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221871.383780; Thu, 04 Nov 2021 20:56:16 +0000
+Received: by outflank-mailman (output) from mailman id 221872.383790; Thu, 04 Nov 2021 20:56:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mijmS-0003du-16; Thu, 04 Nov 2021 20:56:16 +0000
-Received: by outflank-mailman (input) for mailman id 221871;
- Thu, 04 Nov 2021 20:56:14 +0000
+	id 1mijmY-0003wN-AJ; Thu, 04 Nov 2021 20:56:22 +0000
+Received: by outflank-mailman (input) for mailman id 221872;
+ Thu, 04 Nov 2021 20:56:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dXG6=PX=redhat.com=eblake@srs-se1.protection.inumbo.net>)
- id 1mijmQ-0003do-Ft
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 20:56:14 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mqP1=PX=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1mijmX-0003do-7l
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 20:56:21 +0000
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a1ee97f3-3db1-11ec-a9d2-d9f7a1cc8784;
- Thu, 04 Nov 2021 21:56:09 +0100 (CET)
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-593-E_i9VflPPPOlxP1i9h_oYw-1; Thu, 04 Nov 2021 16:56:06 -0400
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5A3121006AA3;
- Thu,  4 Nov 2021 20:56:03 +0000 (UTC)
-Received: from redhat.com (ovpn-112-104.phx2.redhat.com [10.3.112.104])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6D6EB1017CF5;
- Thu,  4 Nov 2021 20:54:30 +0000 (UTC)
+ id a8cb80b9-3db1-11ec-a9d2-d9f7a1cc8784;
+ Thu, 04 Nov 2021 21:56:20 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 1208160E98;
+ Thu,  4 Nov 2021 20:56:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,105 +38,259 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1ee97f3-3db1-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1636059367;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IfcsgPcnlI/5XKJkTvjUo3gZAIv46LvfuSL2K44V28E=;
-	b=E+GlgoTrurMjNLoiwiLBJwIJuYPeIDB2ruTvzl0HVcx6KajwxG/564tnS4AjeH6IvvJdpz
-	wJBb8E24V0+yMu1jhxOZ0q9LH+b0zJID47Z/U6s07ikeJvCdNLKCGx7PMTeOUYDBp3J64O
-	JClb2WVMj7vs4oObf3xdqzSemONGMXY=
-X-MC-Unique: E_i9VflPPPOlxP1i9h_oYw-1
-Date: Thu, 4 Nov 2021 15:54:28 -0500
-From: Eric Blake <eblake@redhat.com>
-To: Juan Quintela <quintela@redhat.com>
-Cc: qemu-devel@nongnu.org, Markus Armbruster <armbru@redhat.com>,
-	David Hildenbrand <david@redhat.com>,
-	Eduardo Habkost <ehabkost@redhat.com>,
-	xen-devel@lists.xenproject.org,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
-	kvm@vger.kernel.org, Peter Xu <peterx@redhat.com>,
-	=?utf-8?Q?Marc-Andr=C3=A9?= Lureau <marcandre.lureau@redhat.com>,
-	Paul Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>,
-	"Dr. David Alan Gilbert" <dgilbert@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Hyman =?utf-8?B?SHVhbmcow6nCu+KAnsOl4oC54oChKQ==?= <huangy81@chinatelecom.cn>
-Subject: Re: [PULL 04/20] migration/dirtyrate: introduce struct and adjust
- DirtyRateStat
-Message-ID: <20211104205428.stcjcd54moksfep2@redhat.com>
-References: <20211101220912.10039-1-quintela@redhat.com>
- <20211101220912.10039-5-quintela@redhat.com>
+X-Inumbo-ID: a8cb80b9-3db1-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1636059378;
+	bh=36u8fpAzAfcjW9ta+qI0K6hG3z1d9HGHzCpBs72u2Q8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=e9g4wzh4QwYcxjgBHjRkThwYZAOX4gMBgxCqUwz21UbzWXtzgUwlipOfNfgz5l6Eb
+	 iEa54L3vcnUZNiUEN2ywSZkH6Go8zFPh6+1HpnhBtkbkbUnrILzmadhJlKWRpHLjaV
+	 51vGZlSfI0hav6q3bLHfdpAjiejrieV9tcgeEeV6uSBfzaXp4nmMmg0tVDx4owxltG
+	 bkEk+lhuF8zDtNup3mDD94P/Hko+tiTLIjsCJ+3C4hScPiQ6uv0e5IswlNA3fIhzYX
+	 dJedVhwVjYjWSvRXUfh2A8523J2IZS+u1Ig9wnU7Ms07TCBc6hPoAjesbSlAFnDROb
+	 6owqK+9gux5WA==
+Date: Thu, 4 Nov 2021 13:56:16 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Luca Fancellu <luca.fancellu@arm.com>, bertrand.marquis@arm.com, 
+    wei.chen@arm.com, iwj@xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH-4.16 v2] xen/efi: Fix Grub2 boot on arm64
+In-Reply-To: <81685961-501e-7a41-6f6f-bc4491645264@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2111041351490.284830@ubuntu-linux-20-04-desktop>
+References: <20211104141206.25153-1-luca.fancellu@arm.com> <81685961-501e-7a41-6f6f-bc4491645264@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211101220912.10039-5-quintela@redhat.com>
-User-Agent: NeoMutt/20211029-10-fe244a
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+Content-Type: multipart/mixed; boundary="8323329-122792740-1636059378=:284830"
 
-On Mon, Nov 01, 2021 at 11:08:56PM +0100, Juan Quintela wrote:
-> From: Hyman Huang(é»„å‹‡) <huangy81@chinatelecom.cn>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-122792740-1636059378=:284830
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Thu, 4 Nov 2021, Jan Beulich wrote:
+> On 04.11.2021 15:12, Luca Fancellu wrote:
+> > --- a/xen/common/efi/boot.c
+> > +++ b/xen/common/efi/boot.c
+> > @@ -449,6 +449,15 @@ static EFI_FILE_HANDLE __init get_parent_handle(EFI_LOADED_IMAGE *loaded_image,
+> >      CHAR16 *pathend, *ptr;
+> >      EFI_STATUS ret;
+> >  
+> > +    /*
+> > +     * Grub2 running on top of EDK2 has been observed to supply a NULL
+> > +     * DeviceHandle. We can't use that to gain access to the filesystem.
+> > +     * However the system can still boot if it doesn’t require access to the
+> > +     * filesystem.
+> > +     */
+> > +    if ( !loaded_image->DeviceHandle )
+> > +        return NULL;
+> > +
+> >      do {
+> >          EFI_FILE_IO_INTERFACE *fio;
+> >  
+> > @@ -581,6 +590,8 @@ static bool __init read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+> >      EFI_STATUS ret;
+> >      const CHAR16 *what = NULL;
+> >  
+> > +    if ( !dir_handle )
+> > +        blexit(L"Error: No access to the filesystem");
+> >      if ( !name )
+> >          PrintErrMesg(L"No filename", EFI_OUT_OF_RESOURCES);
+> >      ret = dir_handle->Open(dir_handle, &FileHandle, name,
+> > @@ -1333,8 +1344,18 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+> >              EFI_FILE_HANDLE handle = get_parent_handle(loaded_image,
+> >                                                         &file_name);
+> >  
+> > -            handle->Close(handle);
+> > -            *argv = file_name;
+> > +            if ( !handle )
+> > +            {
+> > +                PrintErr(L"Error retrieving image name: no filesystem access."
+> > +                         L" Setting default to xen.efi");
+> > +                PrintErr(newline);
+> > +                *argv = L"xen.efi";
+> > +            }
+> > +            else
+> > +            {
+> > +                handle->Close(handle);
+> > +                *argv = file_name;
+> > +            }
+> >          }
+> >  
+> >          name.s = get_value(&cfg, section.s, "options");
+> > @@ -1369,7 +1390,8 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+> >      /* Get the number of boot modules specified on the DT or an error (<0) */
+> >      dt_modules_found = efi_check_dt_boot(dir_handle);
+> >  
+> > -    dir_handle->Close(dir_handle);
+> > +    if ( dir_handle )
+> > +        dir_handle->Close(dir_handle);
+> >  
+> >      if ( dt_modules_found < 0 )
+> >          /* efi_check_dt_boot throws some error */
+> > 
 > 
-> introduce "DirtyRateMeasureMode" to specify what method should be
-> used to calculate dirty rate, introduce "DirtyRateVcpu" to store
-> dirty rate for each vcpu.
+> I'm sorry, but I think we need to take a step back here and revisit
+> the earlier change. If that hadn't moved obtaining dir_handle out by
+> one level of scope, nothing bad would have happened to the case that
+> you're now trying to fix, I understand? So perhaps that part wants
+> undoing, with efi_check_dt_boot() instead getting passed loaded_image.
+> That way, down the call tree the needed handle can be obtained via
+> another call to get_parent_handle(), and quite likely in the scenario
+> you're trying to fix here execution wouldn't even make it there. This
+> then wouldn't be much different to the image name retrieval calling
+> get_parent_handle() a 2nd time, rather than trying to re-use
+> dir_handle.
 > 
-> use union to store stat data of specific mode
-> 
-> Signed-off-by: Hyman Huang(é»„å‹‡) <huangy81@chinatelecom.cn>
-> Message-Id: <661c98c40f40e163aa58334337af8f3ddf41316a.1624040308.git.huangy81@chinatelecom.cn>
-> Reviewed-by: Peter Xu <peterx@redhat.com>
-> Reviewed-by: Juan Quintela <quintela@redhat.com>
-> Signed-off-by: Juan Quintela <quintela@redhat.com>
-> ---
->  qapi/migration.json   | 30 +++++++++++++++++++++++++++
->  migration/dirtyrate.h | 21 +++++++++++++++----
->  migration/dirtyrate.c | 48 +++++++++++++++++++++++++------------------
->  3 files changed, 75 insertions(+), 24 deletions(-)
-> 
-> diff --git a/qapi/migration.json b/qapi/migration.json
-> index 9aa8bc5759..94eece16e1 100644
-> --- a/qapi/migration.json
-> +++ b/qapi/migration.json
-> @@ -1731,6 +1731,21 @@
->  { 'event': 'UNPLUG_PRIMARY',
->    'data': { 'device-id': 'str' } }
->  
-> +##
-> +# @DirtyRateVcpu:
-> +#
-> +# Dirty rate of vcpu.
-> +#
-> +# @id: vcpu index.
-> +#
-> +# @dirty-rate: dirty rate.
-> +#
-> +# Since: 6.1
+> Net effect being that I think get_parent_handle() would then again
+> only be called when the returned handle is actually needed, and hence
+> when failure of HandleProtocol() (for DeviceHandle being NULL just
+> like for any other reason) is indeed an error that needs reporting.
 
-I'm a bit late on the review, since this pull request is already in.
-We'll want a followup patch that changes this to mention 6.2, to
-correctly match the release that will first have it.  Such a followup
-is safe during freeze, since it is doc-only.
+In my opinion the current version is good enough. Regardless, I looked
+at your suggestion into details. As it took me some time to understand
+it, I thought I would share the code changes that I think correspond to
+what you wrote. Does everything check out?
 
-> +#
-> +##
-> +{ 'struct': 'DirtyRateVcpu',
-> +  'data': { 'id': 'int', 'dirty-rate': 'int64' } }
-> +
->  ##
->  # @DirtyRateStatus:
->  #
+If so, I think it looks fine, maybe a bit better than the current
+version. I'll leave that to you and Luca.
 
--- 
-Eric Blake, Principal Software Engineer
-Red Hat, Inc.           +1-919-301-3266
-Virtualization:  qemu.org | libvirt.org
 
+diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
+index c3ae9751ab..9dcd8547cd 100644
+--- a/xen/arch/arm/efi/efi-boot.h
++++ b/xen/arch/arm/efi/efi-boot.h
+@@ -8,6 +8,8 @@
+ #include <asm/setup.h>
+ #include <asm/smp.h>
+ 
++extern EFI_FILE_HANDLE __init get_parent_handle(EFI_LOADED_IMAGE *loaded_image,
++                                                CHAR16 **leaf);
+ typedef struct {
+     char *name;
+     unsigned int name_len;
+@@ -54,7 +56,7 @@ static int handle_module_node(EFI_FILE_HANDLE dir_handle,
+                               bool is_domu_module);
+ static int handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
+                                        int domain_node);
+-static int efi_check_dt_boot(EFI_FILE_HANDLE dir_handle);
++static int efi_check_dt_boot(EFI_LOADED_IMAGE *loaded_image);
+ 
+ #define DEVICE_TREE_GUID \
+ {0xb1b621d5, 0xf19c, 0x41a5, {0x83, 0x0b, 0xd9, 0x15, 0x2c, 0x69, 0xaa, 0xe0}}
+@@ -851,10 +853,14 @@ static int __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
+  * dom0 and domU guests to be loaded.
+  * Returns the number of multiboot modules found or a negative number for error.
+  */
+-static int __init efi_check_dt_boot(EFI_FILE_HANDLE dir_handle)
++static int __init efi_check_dt_boot(EFI_LOADED_IMAGE *loaded_image)
+ {
+     int chosen, node, addr_len, size_len;
+     unsigned int i = 0, modules_found = 0;
++    EFI_FILE_HANDLE dir_handle;
++    CHAR16 *file_name;
++
++    dir_handle = get_parent_handle(loaded_image, &file_name);
+ 
+     /* Check for the chosen node in the current DTB */
+     chosen = setup_chosen_node(fdt, &addr_len, &size_len);
+@@ -895,6 +901,8 @@ static int __init efi_check_dt_boot(EFI_FILE_HANDLE dir_handle)
+         efi_bs->FreePool(modules[i].name);
+     }
+ 
++    dir_handle->Close(dir_handle);
++
+     return modules_found;
+ }
+ 
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 112b7e7571..2407671a7d 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -167,7 +167,7 @@ static void __init PrintErr(const CHAR16 *s)
+ }
+ 
+ #ifndef CONFIG_HAS_DEVICE_TREE
+-static int __init efi_check_dt_boot(EFI_FILE_HANDLE dir_handle)
++static int __init efi_check_dt_boot(EFI_LOADED_IMAGE *loaded_image)
+ {
+     return 0;
+ }
+@@ -439,8 +439,8 @@ static unsigned int __init get_argv(unsigned int argc, CHAR16 **argv,
+     return argc;
+ }
+ 
+-static EFI_FILE_HANDLE __init get_parent_handle(EFI_LOADED_IMAGE *loaded_image,
+-                                                CHAR16 **leaf)
++EFI_FILE_HANDLE __init get_parent_handle(EFI_LOADED_IMAGE *loaded_image,
++                                         CHAR16 **leaf)
+ {
+     static EFI_GUID __initdata fs_protocol = SIMPLE_FILE_SYSTEM_PROTOCOL;
+     static CHAR16 __initdata buffer[512];
+@@ -1236,9 +1236,6 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+ 
+     efi_arch_relocate_image(0);
+ 
+-    /* Get the file system interface. */
+-    dir_handle = get_parent_handle(loaded_image, &file_name);
+-
+     if ( use_cfg_file )
+     {
+         UINTN depth, cols, rows, size;
+@@ -1251,6 +1248,9 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+ 
+         gop = efi_get_gop();
+ 
++        /* Get the file system interface. */
++        dir_handle = get_parent_handle(loaded_image, &file_name);
++
+         /* Read and parse the config file. */
+         if ( read_section(loaded_image, L"config", &cfg, NULL) )
+             PrintStr(L"Using builtin config file\r\n");
+@@ -1344,18 +1344,8 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+             EFI_FILE_HANDLE handle = get_parent_handle(loaded_image,
+                                                        &file_name);
+ 
+-            if ( !handle )
+-            {
+-                PrintErr(L"Error retrieving image name: no filesystem access."
+-                         L" Setting default to xen.efi");
+-                PrintErr(newline);
+-                *argv = L"xen.efi";
+-            }
+-            else
+-            {
+-                handle->Close(handle);
+-                *argv = file_name;
+-            }
++            handle->Close(handle);
++            *argv = file_name;
+         }
+ 
+         name.s = get_value(&cfg, section.s, "options");
+@@ -1383,15 +1373,14 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+         efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+         cfg.addr = 0;
+ 
++        dir_handle->Close(dir_handle);
++
+         if ( gop && !base_video )
+             gop_mode = efi_find_gop_mode(gop, cols, rows, depth);
+     }
+ 
+     /* Get the number of boot modules specified on the DT or an error (<0) */
+-    dt_modules_found = efi_check_dt_boot(dir_handle);
+-
+-    if ( dir_handle )
+-        dir_handle->Close(dir_handle);
++    dt_modules_found = efi_check_dt_boot(loaded_image);
+ 
+     if ( dt_modules_found < 0 )
+         /* efi_check_dt_boot throws some error */
+--8323329-122792740-1636059378=:284830--
 
