@@ -2,65 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23FB5445E92
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 04:24:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221985.383960 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C91E7445F9C
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 07:13:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221818.383998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mippJ-0006pQ-L4; Fri, 05 Nov 2021 03:23:37 +0000
+	id 1misSH-00075y-Ms; Fri, 05 Nov 2021 06:12:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221985.383960; Fri, 05 Nov 2021 03:23:37 +0000
+Received: by outflank-mailman (output) from mailman id 221818.383998; Fri, 05 Nov 2021 06:12:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mippJ-0006m3-Gr; Fri, 05 Nov 2021 03:23:37 +0000
-Received: by outflank-mailman (input) for mailman id 221985;
- Fri, 05 Nov 2021 03:23:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1misSH-00073I-Jm; Fri, 05 Nov 2021 06:12:01 +0000
+Received: by outflank-mailman (input) for mailman id 221818;
+ Thu, 04 Nov 2021 17:31:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=znic=PY=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1mippH-0006lu-Ap
- for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 03:23:35 +0000
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur02on0613.outbound.protection.outlook.com
- [2a01:111:f400:fe06::613])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c028e0a3-3de7-11ec-9787-a32c541c8605;
- Fri, 05 Nov 2021 04:23:32 +0100 (CET)
-Received: from AM5PR0601CA0048.eurprd06.prod.outlook.com
- (2603:10a6:203:68::34) by VI1PR0802MB2494.eurprd08.prod.outlook.com
- (2603:10a6:800:b6::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Fri, 5 Nov
- 2021 03:23:28 +0000
-Received: from AM5EUR03FT025.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:203:68:cafe::2b) by AM5PR0601CA0048.outlook.office365.com
- (2603:10a6:203:68::34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10 via Frontend
- Transport; Fri, 5 Nov 2021 03:23:27 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT025.mail.protection.outlook.com (10.152.16.157) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4649.14 via Frontend Transport; Fri, 5 Nov 2021 03:23:27 +0000
-Received: ("Tessian outbound d49ee2bec50d:v108");
- Fri, 05 Nov 2021 03:23:26 +0000
-Received: from 0e111bae777b.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 80424ABC-9627-47B7-AC39-78D5BCD21FBB.1; 
- Fri, 05 Nov 2021 03:23:21 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0e111bae777b.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 05 Nov 2021 03:23:21 +0000
-Received: from DU2PR08MB7325.eurprd08.prod.outlook.com (2603:10a6:10:2e4::7)
- by DB9PR08MB7050.eurprd08.prod.outlook.com (2603:10a6:10:2bd::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.17; Fri, 5 Nov
- 2021 03:23:17 +0000
-Received: from DU2PR08MB7325.eurprd08.prod.outlook.com
- ([fe80::f4fd:a3a4:6768:1165]) by DU2PR08MB7325.eurprd08.prod.outlook.com
- ([fe80::f4fd:a3a4:6768:1165%3]) with mapi id 15.20.4669.011; Fri, 5 Nov 2021
- 03:23:17 +0000
+ <SRS0=t0Te=PX=linaro.org=vincent.guittot@srs-se1.protection.inumbo.net>)
+ id 1migai-00008w-6q
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 17:31:56 +0000
+Received: from mail-yb1-xb34.google.com (mail-yb1-xb34.google.com
+ [2607:f8b0:4864:20::b34])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1a1ca371-3d95-11ec-a9d2-d9f7a1cc8784;
+ Thu, 04 Nov 2021 18:31:54 +0100 (CET)
+Received: by mail-yb1-xb34.google.com with SMTP id v7so16341738ybq.0
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Nov 2021 10:31:54 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,378 +39,314 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c028e0a3-3de7-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+pzeIrlEfGm/kn9oItGNutQTWoFYDoC1gT21Ki9oJd0=;
- b=XJ6J3UURvv4eU4QUAdZRWouZ59BpK+XSmD/ufCav613H7OJgpzyFPIBOCnY/4pA6gFnawp7k+GVVb6HQeM3049u7CkznwyGWQhhQLHIc5DH/ujxD9cyIdmkzHqbC7JoofAR7EMTLNrexerzJc51xPVQ8EJtrvAb8gVUlUYvDXLo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LCbpePdUiN3gTeoShFPKIfMnWzQJq5qxKKq5ysAAoQbx6h/cDsvEFPjW0xUzF2kXW7sKsfz1DrOgYHjBEHEcsl7UTdLpEAF/71VILqmBwNQOSI3CkoTs0TFzbiTz9KDzcHao2rzIhEnVSAhgS67esYbp64rf7uudjZdm4xktAVTgzTx+/80kQr412DAWHnA4rKl0oOJHCyPRjZLOip5wJW8ZksdR6HFz3WUhQPX2N50r2O0c8j03RAieZWeWDxujLfTWXlvPKzKfjdHDbwbRLyFzpMR+NXO4nGtNnJp1ASQL8WvPpfv1cS/MLDG1ExXiS67j3ZxqrgMdaKXv72B03w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+pzeIrlEfGm/kn9oItGNutQTWoFYDoC1gT21Ki9oJd0=;
- b=D5+QI/fMJktWhob4tDizm/jM1L0IvJQpLs4pj0jldcJWwMWvqF4YHdezvesTb9EMAkg+Q0BFwlBVPaxcRR9F2BagSoPtA3gSRdAicV6Oss9pKkhfaBj2GQ8EkoTMxq69ZpAoMcc7aO6lKUmWgsAdCnEGF4yzlXdccdHyezaWjsxGEiFYt3FE4E7mWTIgNebzFYLAuuO0on3uG9n/pTrszKO/x/VUBszS5wxTK5udCc8LWjGldQGaniP5VLY1/h4HnJsfYEFIiSgvwh5UKeu31C7eSRlQdA10uKdmdYZzqKm56zJ7V3/CKf9Yx9Zeo6HPN7G+R3F4OuRVZC3dKWIhtQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+pzeIrlEfGm/kn9oItGNutQTWoFYDoC1gT21Ki9oJd0=;
- b=XJ6J3UURvv4eU4QUAdZRWouZ59BpK+XSmD/ufCav613H7OJgpzyFPIBOCnY/4pA6gFnawp7k+GVVb6HQeM3049u7CkznwyGWQhhQLHIc5DH/ujxD9cyIdmkzHqbC7JoofAR7EMTLNrexerzJc51xPVQ8EJtrvAb8gVUlUYvDXLo=
-From: Penny Zheng <Penny.Zheng@arm.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Wei
- Chen <Wei.Chen@arm.com>
-Subject: RE: static-mem preventing dom0 from booting
-Thread-Topic: static-mem preventing dom0 from booting
-Thread-Index: AQHX0eWC7qpRq+VAt0Cu1/k92WugAqv0ODjw
-Date: Fri, 5 Nov 2021 03:23:17 +0000
-Message-ID:
- <DU2PR08MB73256624607E7624CAAD38E5F78E9@DU2PR08MB7325.eurprd08.prod.outlook.com>
-References:
- <alpine.DEB.2.22.394.2111041829300.284830@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2111041829300.284830@ubuntu-linux-20-04-desktop>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: E7D2571691319C469BF12B212A6D158C.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: ef27ea12-021c-49a1-b6d4-08d9a00ba201
-x-ms-traffictypediagnostic: DB9PR08MB7050:|VI1PR0802MB2494:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0802MB24941919970C1FC17F385148F78E9@VI1PR0802MB2494.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:293;OLM:293;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- 43oB7iEGgBkWBOlgJNGVh1zORcJwoO2P58uPAkRdTr4et9Fxx3aqxZiNe7pte+Tk+KYAQIGbbGot7XLvqTEiPvDtycICIwy24tVVUcPqYtNU6SSmKxrdOXzVo6HVUSMVOBeW1Xo5gEstvW7vno0qAhs+5fuwfrG3juBv/ogTl3RX5T+p9MFtLp9M+GLSdk16n2Wvwvl5VcbK+3hplJ8d9Zy+NxeU7rGMpFp5hjDXzqkXOLYtMqNbBsjJ/1wztd7uI4+t21fXZi66XJfTeywW+TmO8n9zFaF6wBT66L/Vo1VO7eXZlhjbIGdS/KscDRqJV2j7IV3IvslImKzJuMERUsi1WE7UaLTJGYLAlg49sxGq+ga0+K7u5tyCZULlTbEEYwOQPgn6jDT125hpjhPHaCsB43UywSo4ewqQrlNY4unSEryDQlWynZcgsBU6rWsUM7wVS+sTCPcQnWnSbqkV7fBQ6fky5WGGdbVtlEQVWCzwLf5ZHguiZGyDYOAK3SnWt7iLstJgWOwytz2yyNinw/RvMimfGZ/zZ2yKqc0WenRSq35ZP0RPz+qWKdIB+Za4TS3U/Q06gGz7ZkUzY8uvG//ptaQfjmCPQmtk5cdxI/LkwVkhIpEwr5Aqdh86ws1/KDT2XBLkd6DWhQch78rXQQtS15lu5efHwgBreW7A/aHHuBQMusMrqksyYeGEnbYBVZ1LKY2FI9MfdP+Ae3y9kZlBEahoSy/4RR05aRRxUVA=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7325.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(71200400001)(64756008)(316002)(66446008)(52536014)(508600001)(6916009)(2906002)(76116006)(30864003)(7696005)(8676002)(66946007)(186003)(8936002)(66476007)(9686003)(6506007)(53546011)(55016002)(54906003)(66556008)(26005)(122000001)(38100700002)(86362001)(83380400001)(38070700005)(33656002)(4326008)(5660300002)(139555002);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 1a1ca371-3d95-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc:content-transfer-encoding;
+        bh=D8JwUP60PhxOJOW8b3P62tf/j1hQpPS/M0FGiVyS3f4=;
+        b=dz6QfeO9JCGesAJoX/sXQPTImgb7wBVidf//skkofG3Q/Av5ZokWE7XxcS9WLFEPyp
+         HtXPrzDhyrymY4K7o2oz83qBdIkZCDnkte/2sCwZchDKmP0fuYF7rx/OiuL6/1EUIYKw
+         NoESTJ/y1Hy+kvwj43qSo9+FRvUg7+hUP/P/dDWSsnutI+KKqhvTfo6RtTpPVhmPWnsa
+         Zha/5iFF7VSqBDoOC2oVtY1TcCooGZE8b3jBEQf7WBOaf6XNrY9+QG9gx3JuBKBmWcMm
+         EcYqNT1MkhHOgUR8YUEusse8yfOWp0bXIC3usghBUgkJRCnw4roZ/W/shmHsu78J3JZ7
+         ESiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=D8JwUP60PhxOJOW8b3P62tf/j1hQpPS/M0FGiVyS3f4=;
+        b=btCGp8MW5WaGENbOBXJIw0XmyjXu6GfSf2GMaOGsMti3oYEV1vP/bf36yK+qvTipSq
+         NtCSvU9GcBx/HKNtbSjXsmSmIbLqNxaihV7ghnZoVviTj4rJV0Fl6rGMb2AtwzfsAo1J
+         pqXNtOL541JRSzkxIt0ryjQXNaFg3Qq9DFQh2pCq0Qp3yWW3FESzeucXuTbx8o+Z0c7T
+         E51fBwYIRlNVv2MgBG+rgIPKnYsZcR3bmN8BEmLRqCjJ5CFRGyWZa5MLnoPd10gK1UDS
+         uwxtQ8bFm3lIZR/25hUaCuoJ5lFI2TrIprKTubbLu7AkUwrBMSJJIaEQoZhC7h9I9tvg
+         /mrQ==
+X-Gm-Message-State: AOAM532TNgpWSf9nCmNnrUxPeYN3AXXxkD/qLJzqJjEF5YvRmltOTRd6
+	MIk1kAofu56NpUPeLfNhtb994eDEvKV4thtZjV1KJg==
+X-Google-Smtp-Source: ABdhPJyMOvctA0BUuqv8TxOg/p2NJviaoeq6gEfXhqaW74BRf/VuH4O28FbIXMSejBt/UQoxD0o+4Rd/iL+0d0+5HYc=
+X-Received: by 2002:a5b:445:: with SMTP id s5mr41900051ybp.425.1636047113210;
+ Thu, 04 Nov 2021 10:31:53 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7050
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT025.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	9bf363f2-d400-4f3c-ab74-08d9a00b9c41
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	T+7ipK/KR/UAzZnlwmD7nD+WFiXOvkLl9BbddsgLieNqQTvCrCof3iRJ7Zix4Pm4N29xAizQIVKCuMau0SgPYbhWcaO84B1tV6tWmZFrXyrHNwcKRryi8Epl4CAOQk0k0aNG54mTSM8/kkiENFR/WUqWAxjYcUkGxeezOcwoYSW5+hcAjqARlycjFwzWoatr3hl6ov0kxqT1ZinlAQWiK7T1E4mj3gHzLTDeHSJBZu1qjPvyp1wr2P3h9vPGOfYIkeNG4S4dIgPr5ui9wIFCNS8BPZljF19pAKtGzZ/MbxhHwZtR11cxZSZ5/K3iCnmKqbyHruKqybA/ZOh5YgaSx9SB9X3Tqo+0CHNrbMs5hwGyZK56skklDTphcGC4xrdH0+JtY2lODaeGJgy7YS/uFafmz7zlVHa7foxI0JKCVjQ6HrZFlJY8fTSx3IvBloPlfZIODOEnQAF9NO27xi3vzDrvPf6xSLOeopGk0PFRntsaQ9aJwyj5fRN5LNcYSVtPpSaLbUWp/5ZcGm8nCQxn5tf3VRBSrTZy9oVSucSG9j0ZWELGpTCnB6xsDlwe7/ysO8NKXLlAPoety1zXpamVwzYu2oXAJ0VIlPkEdLN9elwBvFPgoT9kuYTuACjob1Wg47++MEWpOPQCq4VORIVlRlstdkITEv9XRCOdggUyfimfjrGMsa3Me5apzkkqal4EV8YnrH1ni/0gBvq1WS03zFij6bDcJb9xbbygdP789Zc=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(186003)(336012)(6862004)(82310400003)(7696005)(30864003)(54906003)(5660300002)(508600001)(47076005)(55016002)(316002)(4326008)(26005)(8936002)(52536014)(36860700001)(6506007)(8676002)(33656002)(81166007)(2906002)(9686003)(53546011)(70586007)(70206006)(86362001)(356005)(83380400001)(139555002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 03:23:27.2031
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef27ea12-021c-49a1-b6d4-08d9a00ba201
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT025.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0802MB2494
+References: <90277228-cf14-0cfa-c95e-d42e7d533353@oderland.se>
+ <20211025012503.33172-1-jandryuk@gmail.com> <87fssmg8k4.ffs@tglx>
+ <87cznqg5k8.ffs@tglx> <d1cc20aa-5c5c-6c7b-2e5d-bc31362ad891@oderland.se>
+ <89d6c2f4-4d00-972f-e434-cb1839e78598@oderland.se> <5b3d4653-0cdf-e098-0a4a-3c5c3ae3977b@oderland.se>
+ <87ee7w6bxi.ffs@tglx>
+In-Reply-To: <87ee7w6bxi.ffs@tglx>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Thu, 4 Nov 2021 18:31:41 +0100
+Message-ID: <CAKfTPtAyuvp8CbDjEVHeck-bKeEaz4ot_vHhGCsTf0722Xxt6g@mail.gmail.com>
+Subject: Re: [PATCH] PCI/MSI: Move non-mask check back into low level accessors
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: Josef Johansson <josef@oderland.se>, boris.ostrovsky@oracle.com, helgaas@kernel.org, 
+	jgross@suse.com, linux-pci@vger.kernel.org, maz@kernel.org, 
+	xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>, 
+	David Woodhouse <dwmw2@infradead.org>, Peter Jones <pjones@redhat.com>, linux-fbdev@vger.kernel.org, 
+	Peter Zijlstra <peterz@infradead.org>, LKML <linux-kernel@vger.kernel.org>, x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Stefano
+On Thu, 4 Nov 2021 at 00:45, Thomas Gleixner <tglx@linutronix.de> wrote:
+>
+> On Wed, Oct 27 2021 at 17:29, Josef Johansson wrote:
+>
+> CC+: EFIFB and scheduler folks
+>
+> > On 10/27/21 14:01, Josef Johansson wrote:
+> > When I suspend I get errors from Xen, including stacktraces below
+> > if anyone has any clue, if this might be related. I get one each time I
+> > suspend
+> > and the third time amdgpu gives up.
+> >
+> > rtc_cmos 00:01: registered as rtc0
+> > rtc_cmos 00:01: setting system clock to 2021-10-27T15:04:35 UTC (163534=
+7075)
+> > rtc_cmos 00:01: no alarms, y3k, 114 bytes nvram
+> > device-mapper: core: CONFIG_IMA_DISABLE_HTABLE is disabled. Duplicate I=
+MA measurements will not be recorded in the IMA log.
+> > device-mapper: uevent: version 1.0.3
+> > device-mapper: ioctl: 4.45.0-ioctl (2021-03-22) initialised: dm-devel@r=
+edhat.com
+> > efifb: probing for efifb
+> > efifb: cannot reserve video memory at 0x60000000
+> > ------------[ cut here ]------------
+> > ioremap on RAM at 0x0000000060000000 - 0x00000000607e8fff
+> > WARNING: CPU: 7 PID: 1 at arch/x86/mm/ioremap.c:210 __ioremap_caller+0x=
+332/0x350
+>
+> That's this warning:
+>
+>         /*
+>          * Don't allow anybody to remap normal RAM that we're using..
+>          */
+>         if (io_desc.flags & IORES_MAP_SYSTEM_RAM) {
+>                 WARN_ONCE(1, "ioremap on RAM at %pa - %pa\n",
+>                           &phys_addr, &last_addr);
+>                 return NULL;
+>         }
+>
+>
+> > Modules linked in:
+> > CPU: 7 PID: 1 Comm: swapper/0 Not tainted 5.15.0-0.rc7.0.fc32.qubes.x86=
+_64 #1
+> > Hardware name: LENOVO 20Y1S02400/20Y1S02400, BIOS R1BET65W(1.34 ) 06/17=
+/2021
+> > RIP: e030:__ioremap_caller+0x332/0x350
+> > Code: e8 c3 ca ff ff 49 09 c6 e9 32 fe ff ff 48 8d 54 24 28 48 8d 74 24=
+ 18 48 c7 c7 35 f2 5d 82 c6 05 e8 7b a9 01 01 e8 48 39 be 00 <0f> 0b 45 31 =
+e4 e9 ac fe ff ff e8 ff f5 c3 00 66 66 2e 0f 1f 84 00
+> > RSP: e02b:ffffc9004007bb00 EFLAGS: 00010286
+> > RAX: 0000000000000000 RBX: 00000000007e9000 RCX: ffffffff82915ca8
+> > RDX: c0000000ffffdfff RSI: 0000000000000000 RDI: ffffffff82865ca0
+> > RBP: 0000000060000000 R08: 0000000000000000 R09: ffffc9004007b948
+> > R10: ffffc9004007b940 R11: ffffffff82945ce8 R12: 0000000000000001
+> > R13: 00000000007e9000 R14: 00000000007e9000 R15: ffffffff81c8f772
+> > FS:  0000000000000000(0000) GS:ffff8881407c0000(0000) knlGS:00000000000=
+00000
+> > CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > CR2: 0000000000000000 CR3: 0000000002810000 CR4: 0000000000050660
+> > Call Trace:
+> >  efifb_probe.cold+0x2e6/0x688
+>
+> Why is this probing EFIFB at resume? Josef is that hibernate or suspend
+> to RAM?
+>
+> >  platform_probe+0x3f/0x90
+> >  call_driver_probe+0x24/0xc0
+> >  really_probe+0x1e7/0x310
+> >  __driver_probe_device+0xfe/0x180
+> >  driver_probe_device+0x1e/0x90
+> >  __device_attach_driver+0x72/0xe0
+> >  ? driver_allows_async_probing+0x50/0x50
+> >  ? driver_allows_async_probing+0x50/0x50
+> >  bus_for_each_drv+0x8f/0xd0
+> >  __device_attach+0xe9/0x1f0
+> >  bus_probe_device+0x8e/0xa0
+> >  device_add+0x3fb/0x630
+> >  platform_device_add+0x102/0x230
+> >  sysfb_init+0xea/0x141
+> >  ? firmware_map_add_early+0xb8/0xb8
+> >  do_one_initcall+0x57/0x200
+> >  do_initcalls+0x109/0x166
+> >  kernel_init_freeable+0x23c/0x2bd
+> >  ? rest_init+0xc0/0xc0
+> >  kernel_init+0x16/0x120
+> >  ret_from_fork+0x22/0x30
+> > ---[ end trace b068d3cd1b7f5f49 ]---
+> > efifb: abort, cannot remap video memory 0x7e9000 @ 0x60000000
+> > efi-framebuffer: probe of efi-framebuffer.0 failed with error -5
+> > --
+> > printk: Suspending console(s) (use no_console_suspend to debug)
+> > [drm] free PSP TMR buffer
+> > PM: suspend devices took 0.428 seconds
+> > ACPI: EC: interrupt blocked
+> > ACPI: PM: Preparing to enter system sleep state S3
+> > ACPI: EC: event blocked
+> > ACPI: EC: EC stopped
+> > ACPI: PM: Saving platform NVS memory
+> > Disabling non-boot CPUs ...
+> > ------------[ cut here ]------------
+> > WARNING: CPU: 1 PID: 0 at arch/x86/mm/tlb.c:522  switch_mm_irqs_off+0x3=
+c5/0x400
+>
+>         if (WARN_ON_ONCE(__read_cr3() !=3D build_cr3(real_prev->pgd, prev=
+_asid))) {
+>
+> > Modules linked in: snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd=
+_timer nf_tables nfnetlink vfat fat intel_rapl_msr think_lmi firmware_attri=
+butes_class wmi_bmof intel_rapl_common pcspkr uvcvideo videobuf2_vmalloc vi=
+deobuf2_memops joydev videobuf2_v4l2 sp5100_tco k10temp videobuf2_common i2=
+c_piix4 iwlwifi videodev mc cfg80211 thinkpad_acpi ipmi_devintf ucsi_acpi p=
+latform_profile typec_ucsi ledtrig_audio ipmi_msghandler r8169 rfkill typec=
+ snd wmi soundcore video i2c_scmi fuse xenfs ip_tables dm_thin_pool dm_pers=
+istent_data dm_bio_prison dm_crypt trusted asn1_encoder hid_multitouch amdg=
+pu crct10dif_pclmul crc32_pclmul crc32c_intel gpu_sched i2c_algo_bit drm_tt=
+m_helper ghash_clmulni_intel ttm serio_raw drm_kms_helper cec sdhci_pci cqh=
+ci sdhci xhci_pci drm xhci_pci_renesas nvme xhci_hcd ehci_pci mmc_core ehci=
+_hcd nvme_core xen_acpi_processor xen_privcmd xen_pciback xen_blkback xen_g=
+ntalloc xen_gntdev xen_evtchn uinput
+> > CPU: 1 PID: 0 Comm: swapper/1 Tainted: G        W        --------- --- =
+ 5.15.0-0.rc7.0.fc32.qubes.x86_64 #1
+> > Hardware name: LENOVO 20Y1S02400/20Y1S02400, BIOS R1BET65W(1.34 ) 06/17=
+/2021
+> > RIP: e030:switch_mm_irqs_off+0x3c5/0x400
+> > Code: f0 41 80 65 01 fb ba 01 00 00 00 49 8d b5 60 23 00 00 4c 89 ef 49=
+ c7 85 68 23 00 00 60 1d 08 81 e8 a0 f3 08 00 e9 15 fd ff ff <0f> 0b e8 34 =
+fa ff ff e9 ad fc ff ff 0f 0b e9 31 fe ff ff 0f 0b e9
+> > RSP: e02b:ffffc900400f3eb0 EFLAGS: 00010006
+> > RAX: 00000001336c6000 RBX: ffff888140660000 RCX: 0000000000000040
+> > RDX: ffff8881003027c0 RSI: 0000000000000000 RDI: ffff8881b36c6000
+> > RBP: ffffffff829d91c0 R08: 0000000000000000 R09: 0000000000000000
+> > R10: 0000000000000008 R11: 0000000000000000 R12: ffff888104e88440
+> > R13: ffff8881003027c0 R14: 0000000000000000 R15: 0000000000000001
+> > FS:  0000000000000000(0000) GS:ffff888140640000(0000) knlGS:00000000000=
+00000
+> > CS:  10000e030 DS: 002b ES: 002b CR0: 0000000080050033
+> > CR2: 000060b7d78bf198 CR3: 0000000002810000 CR4: 0000000000050660
+> > Call Trace:
+> >  switch_mm+0x1c/0x30
+> >  idle_task_exit+0x55/0x60
+> >  play_dead_common+0xa/0x20
+> >  xen_pv_play_dead+0xa/0x60
+>
+> So this is when bringing the non boot CPUs down and the switch_mm() code
+> discovers inconsistency between CR3 and the expected value.
+>
+> Would probably be interesting to print the actual values, but XEN folks
+> might have an idea.
+>
+> >  do_idle+0xd1/0xe0
+> >  cpu_startup_entry+0x19/0x20
+> >  asm_cpu_bringup_and_idle+0x5/0x1000
+> > ---[ end trace b068d3cd1b7f5f4b ]---
+> > smpboot: CPU 1 is now offline
+> > smpboot: CPU 2 is now offline
+> > smpboot: CPU 3 is now offline
+> > smpboot: CPU 4 is now offline
+> > smpboot: CPU 5 is now offline
+> > smpboot: CPU 6 is now offline
+> > smpboot: CPU 7 is now offline
+> > ACPI: PM: Low-level resume complete
+> > ACPI: EC: EC started
+> > ACPI: PM: Restoring platform NVS memory
+> > xen_acpi_processor: Uploading Xen processor PM info
+> > xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU1
+> > xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU3
+> > xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU5
+> > xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU7
+> > xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU9
+> > xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU11
+> > --
+> > CPU2 is up
+> > installing Xen timer for CPU 3
+> > cpu 3 spinlock event irq 79
+> > [Firmware Bug]: ACPI MWAIT C-state 0x0 not supported by HW (0x0)
+> > ACPI: \_SB_.PLTF.C003: Found 3 idle states
+> > ACPI: FW issue: working around C-state latencies out of order
+> > CPU3 is up
+> > ------------[ cut here ]------------
+> > cfs_rq->avg.load_avg || cfs_rq->avg.util_avg || cfs_rq->avg.runnable_av=
+g
+> > installing Xen timer for CPU 4
+> > WARNING: CPU: 3 PID: 455 at kernel/sched/fair.c:3339  __update_blocked_=
+fair+0x49b/0x4b0
+>
+>         /*
+>          * _avg must be null when _sum are null because _avg =3D _sum / d=
+ivider
+>          * Make sure that rounding and/or propagation of PELT values neve=
+r
+>          * break this.
+>          */
+>         SCHED_WARN_ON(cfs_rq->avg.load_avg ||
+>                       cfs_rq->avg.util_avg ||
+>                       cfs_rq->avg.runnable_avg);
+>
+> PeterZ, does that ring any bell?
 
-> -----Original Message-----
-> From: Stefano Stabellini <sstabellini@kernel.org>
-> Sent: Friday, November 5, 2021 9:36 AM
-> To: Penny Zheng <Penny.Zheng@arm.com>
-> Cc: sstabellini@kernel.org; xen-devel@lists.xenproject.org
-> Subject: static-mem preventing dom0 from booting
->=20
-> Hi Penny,
->=20
-> I am trying to test the static-mem feature in Xen 4.16 but I am having so=
-me
-> issues. I can boot a dom0less domU with static-mem configured correctly, =
-but
-> when I do so, dom0 doesn't boot any longer.
->=20
+This warning raises when the PELT signal is not propagated correctly
+in the cfs hierarchy which can impact the fairness. This is a bit
+strange to get this warning during a resume. CPU 3 has just been put
+online so no propagation already  happened and everything should be
+synced
 
-Hmm, In our first intention, dom0less is a mandatory option for static allo=
-cation.
-domU on static allocation shall boot when dom0 doesn't boot there.
-
-We think that, nevertheless, dom0 memory range is allocated by Xen automati=
-cally,
-and it leads to the unpredictability. Static allocation through device tree=
- configuration
-prefers the total static environment to avoid unpredictability.
-
-> In the same configuration, if I remove the static-mem related lines from =
-the
-> domU node on device tree, both dom0 and domU boot successfully.
->=20
-> I am sure the dom0 memory range, allocated by Xen automatically, and the
-> domU memory range, hand-picked by me, do not clash as you can see from th=
-e
-> boot logs (appended).
->=20
-> Am I missing anything in the configuration? I am using a ZCU102 board, th=
-e
-> memory node on the host device tree is:
->=20
-
-Are you suggesting one scenario where dom0 with static-mem domU?
-
-Hmmm, one quick thought, it may not be working with vpl011 emulation.
-When dom0 exists, vpl011 will take dom0 as backend, which requests event
-channel, xen store, etc, involved to communicate. but static-mem domU
-without CONFIG_XEN shall not handle it.
-
-> 	memory {
-> 		device_type =3D "memory";
-> 		reg =3D <0x00 0x00 0x00 0x7ff00000 0x08 0x00 0x00 0x80000000>;
-> 	};
->=20
-> I am attaching my u-boot boot.scr script with the device tree modificatio=
-n to
-> add static memory.
->=20
-> Many thanks for your help!
->=20
-> Cheers,
->=20
-> Stefano
->=20
->=20
-> (XEN) Xen version 4.16-rc (sstabellini@) (gcc (Ubuntu 9.3.0-17ubuntu1~20.=
-04)
-> 9.3.0) debug=3Dy Thu Nov  4 18:28:30 PDT 2021
-> (XEN) Latest ChangeSet: Mon Nov 1 12:36:26 2021 +0000 git:9f8434d778-dirt=
-y
-> (XEN) Processor: 00000000410fd034: "ARM Limited", variant: 0x0, part
-> 0xd03,rev 0x4
-> (XEN) 64-bit Execution:
-> (XEN)   Processor Features: 1100000000002222 0000000000000000
-> (XEN)     Exception Levels: EL3:64+32 EL2:64+32 EL1:64+32 EL0:64+32
-> (XEN)     Extensions: FloatingPoint AdvancedSIMD
-> (XEN)   Debug Features: 0000000010305106 0000000000000000
-> (XEN)   Auxiliary Features: 0000000000000000 0000000000000000
-> (XEN)   Memory Model Features: 0000000000001122 0000000000000000
-> (XEN)   ISA Features:  0000000000011120 0000000000000000
-> (XEN) 32-bit Execution:
-> (XEN)   Processor Features: 0000000000001231:0000000000011011
-> (XEN)     Instruction Sets: AArch32 A32 Thumb Thumb-2 ThumbEE Jazelle
-> (XEN)     Extensions: GenericTimer Security
-> (XEN)   Debug Features: 0000000003010066
-> (XEN)   Auxiliary Features: 0000000000000000
-> (XEN)   Memory Model Features: 0000000010101105 0000000040000000
-> (XEN)                          0000000001260000 0000000002102211
-> (XEN)   ISA Features: 0000000002101110 0000000013112111
-> 0000000021232042
-> (XEN)                 0000000001112131 0000000000011142 0000000000011121
-> (XEN) Generic Timer IRQ: phys=3D30 hyp=3D26 virt=3D27 Freq: 65000 KHz
-> (XEN) GICv2 initialization:
-> (XEN)         gic_dist_addr=3D00000000f9010000
-> (XEN)         gic_cpu_addr=3D00000000f9020000
-> (XEN)         gic_hyp_addr=3D00000000f9040000
-> (XEN)         gic_vcpu_addr=3D00000000f9060000
-> (XEN)         gic_maintenance_irq=3D25
-> (XEN) GICv2: Adjusting CPU interface base to 0xf902f000
-> (XEN) GICv2: 192 lines, 4 cpus, secure (IID 00000000).
-> (XEN) XSM Framework v1.0.1 initialized
-> (XEN) Initialising XSM SILO mode
-> (XEN) Using scheduler: null Scheduler (null)
-> (XEN) Initializing null scheduler
-> (XEN) WARNING: This is experimental software in development.
-> (XEN) Use at your own risk.
-> (XEN) Allocated console ring of 16 KiB.
-> (XEN) Bringing up CPU1
-> (XEN) Bringing up CPU2
-> (XEN) Bringing up CPU3
-> (XEN) Brought up 4 CPUs
-> (XEN) I/O virtualisation enabled
-> (XEN)  - Dom0 mode: Relaxed
-> (XEN) P2M: 40-bit IPA with 40-bit PA and 8-bit VMID
-> (XEN) P2M: 3 levels with order-1 root, VTCR 0x0000000080023558
-> (XEN) Scheduling granularity: cpu, 1 CPU per sched-resource
-> (XEN) *** LOADING DOMAIN 0 ***
-> (XEN) Loading d0 kernel from boot module @ 0000000000e00000
-> (XEN) Loading ramdisk from boot module @ 0000000002200000
-> (XEN) Allocating 1:1 mappings totalling 1024MB for dom0:
-> (XEN) BANK[0] 0x00000020000000-0x00000060000000 (1024MB)
-> (XEN) Grant table range: 0x00000005600000-0x00000005640000
-> (XEN) Allocating PPI 16 for event channel interrupt
-> (XEN) Extended region 0: 0x80000000->0xc0000000
-> (XEN) Extended region 1: 0xc8000000->0xe0000000
-> (XEN) Extended region 2: 0xf0000000->0xf9000000
-> (XEN) Extended region 3: 0xffc00000->0x600000000
-> (XEN) Extended region 4: 0x880000000->0x8000000000
-> (XEN) Extended region 5: 0x8001000000->0x10000000000
-> (XEN) Loading zImage from 0000000000e00000 to 0000000020000000-
-> 0000000021367a00
-> (XEN) Loading d0 initrd from 0000000002200000 to 0x0000000028200000-
-> 0x0000000029d60ac0
-> (XEN) Loading d0 DTB to 0x0000000028000000-0x00000000280096d4
-> (XEN) *** LOADING DOMU cpus=3D1 memory=3D80000KB ***
-> (XEN) Loading d1 kernel from boot module @ 0000000003e00000
-> (XEN) Loading ramdisk from boot module @ 0000000005200000
-> (XEN) Loading zImage from 0000000003e00000 to 0000000040000000-
-> 0000000041367a00
-> (XEN) Loading d1 initrd from 0000000005200000 to 0x0000000048200000-
-> 0x0000000048383400
-> (XEN) Loading d1 DTB to 0x0000000048000000-0x00000000480007f3
-> (XEN) Initial low memory virq threshold set at 0x4000 pages.
-> (XEN) Std. Loglevel: Errors and warnings
-> (XEN) Guest Loglevel: All
-> (XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input=
-)
-> (XEN) DEBUG start_xen 1054 id=3D0
-> (XEN) null.c:353: 0 <-- d0v0
-> (XEN) DEBUG start_xen 1054 id=3D1
-> (XEN) null.c:353: 1 <-- d1v0
-> (XEN) Freed 348kB init memory.
-> (XEN) traps.c:2013:d0v0 HSR=3D0x00000092000045 pc=3D0xffffffc0105300ec
-> gva=3D0xfffffffdfda3b000 gpa=3D0x0000081ffff000
-> (XEN) d1v0 Unhandled SMC/HVC: 0x84000050
-> (XEN) d1v0 Unhandled SMC/HVC: 0x8600ff01
-> (XEN) d1v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER4
-> (XEN) d1v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER8
-> (XEN) d1v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER12
-> (XEN) d1v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER16
-> (XEN) d1v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER20
-> (XEN) d1v0: vGICD: unhandled word write 0x000000ffffffff to ICACTIVER0
-> (XEN) DOM1: [    0.000000] Booting Linux on physical CPU 0x0000000000
-> [0x410fd034]
-> (XEN) DOM1: [    0.000000] Linux version 5.14.0-00002-g9c4bc20097e8
-> (sstabellini@ubuntu-linux-20-04-desktop) (gcc (Ubuntu 9.3.0-17ubuntu1~
-> (XEN) DOM1: 20.04) 9.3.0, GNU ld (GNU Binutils for Ubuntu) 2.34) #9 SMP W=
-ed
-> Nov 3 16:50:00 PDT 2021
-> (XEN) DOM1: [    0.000000] efi: UEFI not found.
-> (XEN) DOM1: [    0.000000] Zone ranges:
-> (XEN) DOM1: [    0.000000]   DMA32    [mem 0x0000000040000000-
-> 0x000000005fffffff]
-> (XEN) DOM1: [    0.000000]   Normal   empty
-> (XEN) DOM1: [    0.000000] Movable zone start for each node
-> (XEN) DOM1: [    0.000000] Early memory node ranges
-> (XEN) DOM1: [    0.000000]   node   0: [mem 0x0000000040000000-
-> 0x000000005fffffff]
-> (XEN) DOM1: [    0.000000] Initmem setup node 0 [mem 0x0000000040000000-
-> 0x000000005fffffff]
-> (XEN) DOM1: [    0.000000] cma: Reserved 256 MiB at 0x000000004f400000
-> (XEN) DOM1: [    0.000000] psci: probing for conduit method from DT.
-> (XEN) DOM1: [    0.000000] psci: PSCIv1.1 detected in firmware.
-> (XEN) DOM1: [    0.000000] psci: Using standard PSCI v0.2 function IDs
-> (XEN) DOM1: [    0.000000] psci: Trusted OS migration not required
-> (XEN) DOM1: [    0.000000] psci: SMC Calling Convention v1.1
-> (XEN) DOM1: [    0.000000] percpu: Embedded 22 pages/cpu s51672 r8192
-> d30248 u90112
-> (XEN) DOM1: [    0.000000] Detected VIPT I-cache on CPU0
-> (XEN) DOM1: [    0.000000] CPU features: detected: ARM erratum 843419
-> (XEN) DOM1: [    0.000000] CPU features: detected: ARM erratum 845719
-> (XEN) DOM1: [    0.000000] Built 1 zonelists, mobility grouping on.  Tota=
-l pages:
-> 129280
-> (XEN) DOM1: [    0.000000] Kernel command line: console=3DttyAMA0
-> (XEN) DOM1: [    0.000000] Dentry cache hash table entries: 65536 (order:=
- 7,
-> 524288 bytes, linear)
-> (XEN) DOM1: [    0.000000] Inode-cache hash table entries: 32768 (order: =
-6,
-> 262144 bytes, linear)
-> (XEN) DOM1: [    0.000000] mem auto-init: stack:off, heap alloc:off, heap
-> free:off
-> (XEN) DOM1: [    0.000000] Memory: 230280K/524288K available (13184K
-> kernel code, 862K rwdata, 3636K rodata, 2048K init, 315K bss, 31864K
-> (XEN) DOM1: reserved, 262144K cma-reserved)
-> (XEN) DOM1: [    0.000000] rcu: Hierarchical RCU implementation.
-> (XEN) DOM1: [    0.000000] rcu:         RCU event tracing is enabled.
-> (XEN) DOM1: [    0.000000] rcu:         RCU restricting CPUs from NR_CPUS=
-=3D4 to
-> nr_cpu_ids=3D1.
-> (XEN) DOM1: [    0.000000] rcu: RCU calculated value of scheduler-enlistm=
-ent
-> delay is 25 jiffies.
-> (XEN) DOM1: [    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=3D=
-16,
-> nr_cpu_ids=3D1
-> (XEN) DOM1: [    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
-> (XEN) DOM1: [    0.000000] Root IRQ handler: gic_handle_irq
-> (XEN) DOM1: [    0.000000] random: get_random_bytes called from
-> start_kernel+0x4a8/0x728 with crng_init=3D0
-> (XEN) DOM1: [    0.000000] arch_timer: cp15 timer(s) running at 65.00MHz =
-(virt).
-> (XEN) DOM1: [    0.000000] clocksource: arch_sys_counter: mask: 0xfffffff=
-fffffff
-> max_cycles: 0xefdb196da, max_idle_ns: 440795204367 ns
-> (XEN) DOM1: [    0.000055] sched_clock: 56 bits at 65MHz, resolution 15ns=
-,
-> wraps every 2199023255550ns
-> (XEN) DOM1: [    0.015323] Console: colour dummy device 80x25
-> (XEN) DOM1: [    0.017224] Calibrating delay loop (skipped), value calcul=
-ated
-> using timer frequency.. 130.00 BogoMIPS (lpj=3D260000)
-> (XEN) DOM1: [    0.017335] pid_max: default: 32768 minimum: 301
-> (XEN) DOM1: [    0.019932] Mount-cache hash table entries: 1024 (order: 1=
-,
-> 8192 bytes, linear)
-> (XEN) DOM1: [    0.020022] Mountpoint-cache hash table entries: 1024 (ord=
-er:
-> 1, 8192 bytes, linear)
-> (XEN) DOM1: [    0.070463] rcu: Hierarchical SRCU implementation.
-> (XEN) DOM1: [    0.073611] EFI services will not be available.
-> (XEN) DOM1: [    0.074889] smp: Bringing up secondary CPUs ...
-> (XEN) DOM1: [    0.075178] smp: Brought up 1 node, 1 CPU
-> (XEN) DOM1: [    0.075205] SMP: Total of 1 processors activated.
-> (XEN) DOM1: [    0.075253] CPU features: detected: 32-bit EL0 Support
-> (XEN) DOM1: [    0.075304] CPU features: detected: CRC32 instructions
-> (XEN) DOM1: [    0.076596] CPU: All CPU(s) started at EL1
-> (XEN) DOM1: [    0.076717] alternatives: patching kernel code
-> (XEN) DOM1: [    0.092884] devtmpfs: initialized
-> (XEN) DOM1: [    0.109553] clocksource: jiffies: mask: 0xffffffff max_cyc=
-les:
-> 0xffffffff, max_idle_ns: 7645041785100000 ns
-> (XEN) DOM1: [    0.109716] futex hash table entries: 256 (order: 2, 16384=
- bytes,
-> linear)
-> (XEN) DOM1: [    0.124058] pinctrl core: initialized pinctrl subsystem
-> (XEN) DOM1: [    0.143628] NET: Registered PF_NETLINK/PF_ROUTE protocol
-> family
-> (XEN) DOM1: [    0.157764] DMA: preallocated 128 KiB GFP_KERNEL pool for
-> atomic allocations
-> (XEN) DOM1: [    0.158089] DMA: preallocated 128 KiB
-> GFP_KERNEL|GFP_DMA32 pool for atomic allocations
-> (XEN) DOM1: [    0.158426] audit: initializing netlink subsys (disabled)
-> (XEN) DOM1: [    0.166578] cpuidle: using governor menu
-> (XEN) DOM1: [    0.167213] hw-breakpoint: found 6 breakpoint and 4
-> watchpoint registers.
-> (XEN) DOM1: [    0.168930] audit: type=3D2000 audit(0.140:1): state=3Dini=
-tialized
-> audit_enabled=3D0 res=3D1
-> (XEN) DOM1: [    0.169475] ASID allocator initialised with 65536 entries
-> (XEN) DOM1: [    0.171250] Serial: AMBA PL011 UART driver
-> (XEN) DOM1: [    0.181920] 22000000.sbsa-uart: ttyAMA0 at MMIO 0x22000000
-> (irq =3D 13, base_baud =3D 0) is a SBSA
-> (XEN) DOM1: [    0.533061] printk: console [ttyAMA0] enabled
->=20
-
-Cheers=1B$B!$=1B(B
-
-Penny  Zheng
-> [... cutting here, DOM1 boots until the end, no signs of dom0]
+>
+> > Modules linked in: snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd=
+_timer nf_tables nfnetlink vfat fat intel_rapl_msr think_lmi firmware_attri=
+butes_class wmi_bmof intel_rapl_common pcspkr uvcvideo videobuf2_vmalloc vi=
+deobuf2_memops joydev videobuf2_v4l2 sp5100_tco k10temp videobuf2_common i2=
+c_piix4 iwlwifi videodev mc cfg80211 thinkpad_acpi ipmi_devintf ucsi_acpi p=
+latform_profile typec_ucsi ledtrig_audio ipmi_msghandler r8169 rfkill typec=
+ snd wmi soundcore video i2c_scmi fuse xenfs ip_tables dm_thin_pool dm_pers=
+istent_data dm_bio_prison dm_crypt trusted asn1_encoder hid_multitouch amdg=
+pu crct10dif_pclmul crc32_pclmul crc32c_intel gpu_sched i2c_algo_bit drm_tt=
+m_helper ghash_clmulni_intel ttm serio_raw drm_kms_helper cec sdhci_pci cqh=
+ci sdhci xhci_pci drm xhci_pci_renesas nvme xhci_hcd ehci_pci mmc_core ehci=
+_hcd nvme_core xen_acpi_processor xen_privcmd xen_pciback xen_blkback xen_g=
+ntalloc xen_gntdev xen_evtchn uinput
+> > CPU: 3 PID: 455 Comm: kworker/3:2 Tainted: G        W        --------- =
+---  5.15.0-0.rc7.0.fc32.qubes.x86_64 #1
+> > Hardware name: LENOVO 20Y1S02400/20Y1S02400, BIOS R1BET65W(1.34 ) 06/17=
+/2021
+> > Workqueue:  0x0 (events)
+> > RIP: e030:__update_blocked_fair+0x49b/0x4b0
+> > Code: 6b fd ff ff 49 8b 96 48 01 00 00 48 89 90 50 09 00 00 e9 ff fc ff=
+ ff 48 c7 c7 10 7a 5e 82 c6 05 f3 35 9e 01 01 e8 1f f3 b2 00 <0f> 0b 41 8b =
+86 38 01 00 00 e9 c6 fc ff ff 0f 1f 80 00 00 00 00 0f
+> > RSP: e02b:ffffc900410d7ce0 EFLAGS: 00010082
+> > RAX: 0000000000000000 RBX: 0000000000000018 RCX: ffff8881406d8a08
+> > RDX: 00000000ffffffd8 RSI: 0000000000000027 RDI: ffff8881406d8a00
+> > RBP: ffff8881406e9800 R08: 0000000000000048 R09: ffffc900410d7c78
+> > R10: 0000000000000049 R11: 000000002d2d2d2d R12: ffff8881406e9f80
+> > R13: ffff8881406e9e40 R14: ffff8881406e96c0 R15: 0000000000000000
+> > FS:  0000000000000000(0000) GS:ffff8881406c0000(0000) knlGS:00000000000=
+00000
+> > CS:  10000e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+> > CR2: 0000782e51820000 CR3: 0000000002810000 CR4: 0000000000050660
+> > Call Trace:
+> >  update_blocked_averages+0xa8/0x180
+> >  newidle_balance+0x175/0x380
+> >  pick_next_task_fair+0x39/0x3e0
+> >  pick_next_task+0x4c/0xbd0
+> >  ? dequeue_task_fair+0xba/0x390
+> >  __schedule+0x13a/0x570
+> >  schedule+0x44/0xa0
+> >  worker_thread+0xc0/0x320
+> >  ? process_one_work+0x390/0x390
+> >  kthread+0x10f/0x130
+> >  ? set_kthread_struct+0x40/0x40
+> >  ret_from_fork+0x22/0x30
+> > ---[ end trace b068d3cd1b7f5f4c ]---
+> > cpu 4 spinlock event irq 85
+> > [Firmware Bug]: ACPI MWAIT C-state 0x0 not supported by HW (0x0)
+> > ACPI: \_SB_.PLTF.C004: Found 3 idle states
+> > ACPI: FW issue: working around C-state latencies out of order
+> > CPU4 is up
+> > installing Xen timer for CPU 5
+> > cpu 5 spinlock event irq 91
+> > [Firmware Bug]: ACPI MWAIT C-state 0x0 not supported by HW (0x0)
+> > ACPI: \_SB_.PLTF.C005: Found 3 idle states
+> > ACPI: FW issue: working around C-state latencies out of order
+> > CPU5 is up
 
