@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A400445737
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 17:23:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221718.383567 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC69D445744
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 17:28:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221727.383578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mifWG-000347-H7; Thu, 04 Nov 2021 16:23:16 +0000
+	id 1mifaX-0003l4-4g; Thu, 04 Nov 2021 16:27:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221718.383567; Thu, 04 Nov 2021 16:23:16 +0000
+Received: by outflank-mailman (output) from mailman id 221727.383578; Thu, 04 Nov 2021 16:27:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mifWG-00032L-Dn; Thu, 04 Nov 2021 16:23:16 +0000
-Received: by outflank-mailman (input) for mailman id 221718;
- Thu, 04 Nov 2021 16:23:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JfF2=PX=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1mifWE-00031z-Cs
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 16:23:14 +0000
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 810c161a-3d8b-11ec-a9d2-d9f7a1cc8784;
- Thu, 04 Nov 2021 17:23:12 +0100 (CET)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 4A01A5C00EB;
- Thu,  4 Nov 2021 12:23:11 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute6.internal (MEProxy); Thu, 04 Nov 2021 12:23:11 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 4 Nov 2021 12:23:08 -0400 (EDT)
+	id 1mifaW-0003iI-W5; Thu, 04 Nov 2021 16:27:40 +0000
+Received: by outflank-mailman (input) for mailman id 221727;
+ Thu, 04 Nov 2021 16:27:38 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mifaU-0003iC-R4
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 16:27:38 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mifaU-0008Hg-KA
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 16:27:38 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mifaU-0007Ng-Iq
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 16:27:38 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1mifaO-0003I3-SE; Thu, 04 Nov 2021 16:27:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,101 +41,336 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 810c161a-3d8b-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=F7ThL3
-	bEF0AwmWK+5lDaywNOm4dgdIO3a3tYFPwmG3o=; b=NpcSFCK0fMEOT44lm2kABk
-	7iIBZ1uXApevFBQirHZtrK+BmmBviHHZrxe73HV5x6R29UM6SCFu1nh6mUNYWGEj
-	v8D1Ei95G900i3Ga00+cC1zz7Oy+WdOsor199CfoiDmSN21Ou1cMIkz/l5Rb3Ixd
-	+C4ESfHMyYfZBEE3dhkCW2GzEe0XlrR1xkWU3T9LRSMzgjhgpRuVjciVlT8V0pkn
-	UoUe1qP38PxukvedPDS1Ja3CO66Vb73QjaG22rfkkmW6t6Zd/rrharXZFMi47tSe
-	/LHLZZPKkeXI5divGR5geziI4u0edTHd/N6ZqGVF40NC4a/egzjUWP2LuDZ3IoHw
-	==
-X-ME-Sender: <xms:7giEYXtTGKBg46bj0NiKjQLb_pTUQD06onODoDchEvEPrh8hAIiLKA>
-    <xme:7giEYYcptuxe-WkF6F8FYbqOmdbEtQNLWbvdgAiuYWDqVQYoEvHll7sKxGGNkv8Ui
-    s_nncOgmKamrQ>
-X-ME-Received: <xmr:7giEYaxQs8ShRJ3wFK71sc000w3z1UkD4cNkI3Qa3WthAN5c6DSHuOFRwSfjj4EDCilcTr3sMFJg4dFkJooujj5BkLgw9tPFOxioLXeOgyI>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrtdeggdekfecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepheevvdeu
-    veehkeehhfevgffggfevudegteeugfeliedvhefgueeiuefgteetieffnecuffhomhgrih
-    hnpehkvghrnhgvlhdrohhrghenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
-    mhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrg
-    gsrdgtohhm
-X-ME-Proxy: <xmx:7giEYWNNR6bp5iMup-zWeU3tfEHv0px9rWnJLruuJGRPrfubcInArQ>
-    <xmx:7giEYX-pakkpVKZ0ZNINGW-J0vemCjtPNOaC1po2nK9XJYuE5pafWg>
-    <xmx:7giEYWXhrPqnb9AZo255Mb7y_EIyEpD5oDCo-9y5_Eocxq9yZz2e_g>
-    <xmx:7wiEYSmxxVEEIgGKUDeGGiM2mmHnV1p7zMzYVFKhPSxtQRjK-enDDw>
-Date: Thu, 4 Nov 2021 17:23:04 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v4] xen/balloon: add late_initcall_sync() for initial
- ballooning done
-Message-ID: <YYQI6NQ8eY9XtSI4@mail-itl>
-References: <20211102091944.17487-1-jgross@suse.com>
- <f986a7c4-3032-fecd-2e19-4d63a2ee10c7@oracle.com>
- <f8e52acc-2566-1ed0-d2a3-21e2d468fab7@oracle.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=VliKy/4FlrseDkM/hQwWa+nVNt6Owu0XIuivW0ffgos=; b=k2BJDbYxzw3rc2aFyr9ExVp+O6
+	hedlpJsHt0xRmJ4YMeXVtDkRu+H0gBMqqASfCppd6iybJ0/4SEAifEse7YFIZ7AEQj3Ob4Tj+yhV4
+	iZrORWv3aIfE3aDNQrG79MX1AP8IlkE2ntIi+wp/XklcTGQ5mT9ZcOXA2NgIsSWMd/tY=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="dtfzIy7fiid+QMXP"
-Content-Disposition: inline
-In-Reply-To: <f8e52acc-2566-1ed0-d2a3-21e2d468fab7@oracle.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24964.2546.976689.929650@mariner.uk.xensource.com>
+Date: Thu, 4 Nov 2021 16:27:30 +0000
+To: Juergen Gross <jgross@suse.com>,
+    Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+    Wei Liu <wl@xen.org>
+Subject: [PATCH-for-4.16 v2 1/2] configure: modify default of building rombios
+In-Reply-To: <20211104161121.18995-2-jgross@suse.com>
+References: <20211104161121.18995-1-jgross@suse.com>
+	<20211104161121.18995-2-jgross@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
+Juergen Gross writes ("[PATCH-for-4.16 v2 1/2] configure: modify default of building rombios"):
+> The tools/configure script will default to build rombios if qemu
+> traditional is enabled. If rombios is being built, ipxe will be built
+> per default, too.
+> 
+> This results in rombios and ipxe no longer being built by default when
+> disabling qemu traditional.
+> 
+> Fix that be rearranging the dependencies:
 
---dtfzIy7fiid+QMXP
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 4 Nov 2021 17:23:04 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v4] xen/balloon: add late_initcall_sync() for initial
- ballooning done
+Andy, you asked for changes to the usage messages.  Are you happy ?
 
-On Thu, Nov 04, 2021 at 11:55:34AM -0400, Boris Ostrovsky wrote:
-> This appears to have noticeable effect on boot time (and boot experience =
-in general).
+Thanks,
+Ian.
 
-Yes, this is kind of intentional. It avoids killing the domain ("out of
-PoD memory") for the price of increased boot time. I still wonder why it
-wasn't an issue before, although it could just be a race that was less
-likely to loose before.
-
-You can find some analysis of mine here:
-https://lore.kernel.org/xen-devel/YXFxKC4shCATB913@mail-itl/
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---dtfzIy7fiid+QMXP
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmGECOgACgkQ24/THMrX
-1yyYIQf+PK+WvewHZdnNVSkmaod5zSxBqVeO47i4A1ZdTACkgC6EgUbGDQtW3KtD
-DARSfTbbDwto5VbzM13WfSiY9/0dNCSS79La3iYcIpML6q4jTGDC1/bu0mWlPFSN
-GAn+RdG5XUN3c/YYlcqt/T+I/KGlEqazXo9P0q/704xDs6NQ3KFQB8bPq5cs9lp4
-kpavY28wk2cSHT7c1LTiMkNQQRDM5VHdrH+NAf6sqZIj8GxJDk7v/FKki4sUxa7R
-FdjiI0dgFGISxy48+6HXnw0mZHKNZXdA8pa0P7Lyw71AGq4PRmMzPjc36Zp0x8Om
-RAeCy9mXJL2bbd17vEoH11N+53Eh3A==
-=Vps0
------END PGP SIGNATURE-----
-
---dtfzIy7fiid+QMXP--
+> - build ipxe by default
+> - build rombios by default if either ipxe or qemu traditional are
+>   being built
+> 
+> This modification prepares not building qemu traditional by default
+> without affecting build of rombios and ipxe.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> Reviewed-by: Ian Jackson <iwj@xenproject.org>
+> ---
+> V2:
+> - correct help text (Andrew Cooper)
+> - correct commit message (Andrew Cooper)
+> ---
+>  tools/configure    | 115 +++++++++++++++++++++------------------------
+>  tools/configure.ac |  67 +++++++++++++-------------
+>  2 files changed, 85 insertions(+), 97 deletions(-)
+> 
+> diff --git a/tools/configure b/tools/configure
+> index 33814b24b3..d980b3ffc9 100755
+> --- a/tools/configure
+> +++ b/tools/configure
+> @@ -698,7 +698,6 @@ APPEND_INCLUDES
+>  PREPEND_LIB
+>  PREPEND_INCLUDES
+>  EXTRA_QEMUU_CONFIGURE_ARGS
+> -ipxe
+>  qemu_xen_systemd
+>  qemu_xen_path
+>  qemu_xen
+> @@ -706,6 +705,7 @@ rombios
+>  BCC
+>  LD86
+>  AS86
+> +ipxe
+>  qemu_traditional
+>  LINUX_BACKEND_MODULES
+>  golang
+> @@ -815,13 +815,13 @@ enable_seabios
+>  enable_golang
+>  with_linux_backend_modules
+>  enable_qemu_traditional
+> +enable_ipxe
+> +with_system_ipxe
+>  enable_rombios
+>  with_system_qemu
+>  with_stubdom_qmp_proxy
+>  with_system_seabios
+>  with_system_ovmf
+> -enable_ipxe
+> -with_system_ipxe
+>  with_extra_qemuu_configure_args
+>  with_xenstored
+>  enable_systemd
+> @@ -1504,10 +1504,10 @@ Optional Features:
+>    --enable-qemu-traditional
+>                            Enable qemu traditional device model, (DEFAULT is on
+>                            for Linux or NetBSD x86, otherwise off)
+> +  --enable-ipxe           Enable in-tree IPXE, (DEFAULT is on for x86,
+> +                          otherwise off, see also --with-system-ipxe)
+>    --enable-rombios        Enable ROMBIOS, (DEFAULT is on if qemu-traditional
+> -                          is enabled, otherwise off)
+> -  --disable-ipxe          Enable in-tree IPXE, (DEFAULT is on if rombios is
+> -                          enabled, otherwise off, see also --with-system-ipxe)
+> +                          or ipxe is enabled, otherwise off)
+>    --enable-systemd        Enable systemd support (default is DISABLED)
+>    --enable-9pfs           Explicitly enable 9pfs support in QEMU build
+>                            (default is to defer to QEMU configure default)
+> @@ -1538,6 +1538,11 @@ Optional Packages:
+>    --with-linux-backend-modules="mod1 mod2"
+>                            List of Linux backend module or modalias names to be
+>                            autoloaded on startup.
+> +  --with-system-ipxe[=PATH]
+> +                          Use system supplied IPXE PATH instead of building
+> +                          and installing our own version, it takes precedence
+> +                          over --{en,dis}able-ipxe, --without-system-ipxe is
+> +                          an error
+>    --with-system-qemu[=PATH]
+>                            Use system supplied qemu PATH or qemu (taken from
+>                            $PATH) as qemu-xen device model instead of building
+> @@ -1551,12 +1556,6 @@ Optional Packages:
+>    --with-system-ovmf[=PATH]
+>                            Use system supplied OVMF PATH instead of building
+>                            and installing our own version
+> -  --with-system-ipxe[=PATH]
+> -                          Use system supplied IPXE PATH instead of building
+> -                          and installing our own version, it takes precedence
+> -                          over --{en,dis}able-ipxe and is bound by the
+> -                          presence of rombios, --without-system-ipxe is an
+> -                          error
+>    --with-extra-qemuu-configure-args[="--ARG1 ..."]
+>                            List of additional configure options for upstream
+>                            qemu
+> @@ -4314,13 +4313,54 @@ else
+>  
+>  fi
+>  
+> +if test "x$enable_ipxe" = "xno"; then :
+> +  ipxe=n
+> +else
+> +  ipxe=y
+> +fi
+> +
+> +# Check whether --enable-ipxe was given.
+> +if test "${enable_ipxe+set}" = set; then :
+> +  enableval=$enable_ipxe;
+> +else
+> +
+> +    case "$host_cpu" in
+> +        i[3456]86|x86_64)
+> +           enable_ipxe="yes";;
+> +        *) enable_ipxe="no";;
+> +    esac
+> +
+> +fi
+> +
+> +
+> +# Check whether --with-system-ipxe was given.
+> +if test "${with_system_ipxe+set}" = set; then :
+> +  withval=$with_system_ipxe;
+> +    case $withval in
+> +        no) as_fn_error $? "--without-system-ipxe has no effect" "$LINENO" 5 ;;
+> +        /*)  ipxe_path=$withval; ipxe=n ;;
+> +        *) as_fn_error $? "IPXE specified, but is not an absolute path" "$LINENO" 5 ;;
+> +    esac
+> +
+> +fi
+> +
+> +if test "x$ipxe" = "xy" -o -n "$ipxe_path" ; then :
+> +
+> +
+> +cat >>confdefs.h <<_ACEOF
+> +#define IPXE_PATH "${ipxe_path:-$XENFIRMWAREDIR/ipxe.bin}"
+> +_ACEOF
+> +
+> +
+> +fi
+> +
+>  
+>  # Check whether --enable-rombios was given.
+>  if test "${enable_rombios+set}" = set; then :
+>    enableval=$enable_rombios;
+>  else
+>  
+> -    if test "x$enable_qemu_traditional" = "xyes"; then :
+> +    if test "x$enable_qemu_traditional" = "xyes" -o "x$enable_ipxe" = "xyes"; then :
+>  
+>          enable_rombios="yes"
+>  
+> @@ -4635,55 +4675,6 @@ _ACEOF
+>  
+>  fi
+>  
+> -# Check whether --enable-ipxe was given.
+> -if test "${enable_ipxe+set}" = set; then :
+> -  enableval=$enable_ipxe;
+> -     if test "x$enable_ipxe" = "xno"; then :
+> -  ipxe=n
+> -else
+> -  ipxe=y
+> -fi
+> -
+> -else
+> -
+> -    if test "x$enable_rombios" = "xno"; then :
+> -  ipxe=n
+> -else
+> -  ipxe=y
+> -fi
+> -
+> -fi
+> -
+> -
+> -# Check whether --with-system-ipxe was given.
+> -if test "${with_system_ipxe+set}" = set; then :
+> -  withval=$with_system_ipxe;
+> -    case $withval in
+> -        no) as_fn_error $? "--without-system-ipxe has no effect" "$LINENO" 5 ;;
+> -        /*)  ipxe_path=$withval; ipxe=n ;;
+> -        *) as_fn_error $? "IPXE specified, but is not an absolute path" "$LINENO" 5 ;;
+> -    esac
+> -
+> -fi
+> -
+> -if test "x$ipxe" = "xy" -o -n "$ipxe_path" ; then :
+> -
+> -
+> -    if test "x$enable_rombios" = "xno"; then :
+> -
+> -        as_fn_error $? "Rombios is required to use IPXE" "$LINENO" 5
+> -
+> -fi
+> -
+> -
+> -cat >>confdefs.h <<_ACEOF
+> -#define IPXE_PATH "${ipxe_path:-$XENFIRMWAREDIR/ipxe.bin}"
+> -_ACEOF
+> -
+> -
+> -fi
+> -
+> -
+>  
+>  # Check whether --with-extra-qemuu-configure-args was given.
+>  if test "${with_extra_qemuu_configure_args+set}" = set; then :
+> diff --git a/tools/configure.ac b/tools/configure.ac
+> index 6414fcbb44..97582951c8 100644
+> --- a/tools/configure.ac
+> +++ b/tools/configure.ac
+> @@ -139,10 +139,40 @@ AC_DEFINE([HAVE_QEMU_TRADITIONAL], [1], [Qemu traditional enabled])
+>  ])
+>  AC_SUBST(qemu_traditional)
+>  
+> +AC_ARG_ENABLE([ipxe],
+> +    AS_HELP_STRING([--enable-ipxe],
+> +                   [Enable in-tree IPXE, (DEFAULT is on for x86,
+> +                    otherwise off, see also --with-system-ipxe)]),,[
+> +    case "$host_cpu" in
+> +        i[[3456]]86|x86_64)
+> +           enable_ipxe="yes";;
+> +        *) enable_ipxe="no";;
+> +    esac
+> +])
+> +AS_IF([test "x$enable_ipxe" = "xno"], [ipxe=n], [ipxe=y])
+> +AC_ARG_WITH([system-ipxe],
+> +    AS_HELP_STRING([--with-system-ipxe@<:@=PATH@:>@],
+> +       [Use system supplied IPXE PATH instead of building and installing
+> +        our own version, it takes precedence over --{en,dis}able-ipxe,
+> +        --without-system-ipxe is an error]),[
+> +    case $withval in
+> +        no) AC_MSG_ERROR([--without-system-ipxe has no effect]) ;;
+> +        /*)  ipxe_path=$withval; ipxe=n ;;
+> +        *) AC_MSG_ERROR([IPXE specified, but is not an absolute path]) ;;
+> +    esac
+> +],[])
+> +AS_IF([test "x$ipxe" = "xy" -o -n "$ipxe_path" ], [
+> +    AC_DEFINE_UNQUOTED([IPXE_PATH],
+> +                       ["${ipxe_path:-$XENFIRMWAREDIR/ipxe.bin}"],
+> +                       [IPXE path])
+> +])
+> +AC_SUBST(ipxe)
+> +
+>  AC_ARG_ENABLE([rombios],
+>      AS_HELP_STRING([--enable-rombios],
+> -                   [Enable ROMBIOS, (DEFAULT is on if qemu-traditional is enabled, otherwise off)]),,[
+> -    AS_IF([test "x$enable_qemu_traditional" = "xyes"], [
+> +                   [Enable ROMBIOS, (DEFAULT is on if qemu-traditional or ipxe is enabled,
+> +                    otherwise off)]),,[
+> +    AS_IF([test "x$enable_qemu_traditional" = "xyes" -o "x$enable_ipxe" = "xyes"], [
+>          enable_rombios="yes"
+>      ], [
+>          enable_rombios="no"
+> @@ -240,39 +270,6 @@ AS_IF([test "x$ovmf" = "xy" -o -n "$ovmf_path" ], [
+>                         [OVMF path])
+>  ])
+>  
+> -AC_ARG_ENABLE([ipxe],
+> -    AS_HELP_STRING([--disable-ipxe],
+> -                   [Enable in-tree IPXE, (DEFAULT is on if rombios is enabled,
+> -                    otherwise off, see also --with-system-ipxe)]),
+> -    [
+> -     AS_IF([test "x$enable_ipxe" = "xno"], [ipxe=n], [ipxe=y])
+> -    ],
+> -    [
+> -    AS_IF([test "x$enable_rombios" = "xno"], [ipxe=n], [ipxe=y])
+> -])
+> -AC_ARG_WITH([system-ipxe],
+> -    AS_HELP_STRING([--with-system-ipxe@<:@=PATH@:>@],
+> -       [Use system supplied IPXE PATH instead of building and installing
+> -        our own version, it takes precedence over --{en,dis}able-ipxe and is
+> -        bound by the presence of rombios, --without-system-ipxe is an error]),[
+> -    case $withval in
+> -        no) AC_MSG_ERROR([--without-system-ipxe has no effect]) ;;
+> -        /*)  ipxe_path=$withval; ipxe=n ;;
+> -        *) AC_MSG_ERROR([IPXE specified, but is not an absolute path]) ;;
+> -    esac
+> -],[])
+> -AS_IF([test "x$ipxe" = "xy" -o -n "$ipxe_path" ], [
+> -
+> -    AS_IF([test "x$enable_rombios" = "xno"], [
+> -        AC_MSG_ERROR([Rombios is required to use IPXE])
+> -    ], [])
+> -
+> -    AC_DEFINE_UNQUOTED([IPXE_PATH],
+> -                       ["${ipxe_path:-$XENFIRMWAREDIR/ipxe.bin}"],
+> -                       [IPXE path])
+> -])
+> -AC_SUBST(ipxe)
+> -
+>  AC_ARG_WITH([extra-qemuu-configure-args],
+>      AS_HELP_STRING([--with-extra-qemuu-configure-args@<:@="--ARG1 ..."@:>@],
+>         [List of additional configure options for upstream qemu]),[
+> -- 
+> 2.26.2
+> 
 
