@@ -2,29 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4894B44574C
-	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 17:35:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.221747.383610 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21D5B445751
+	for <lists+xen-devel@lfdr.de>; Thu,  4 Nov 2021 17:35:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.221751.383622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mifhW-0006NF-F8; Thu, 04 Nov 2021 16:34:54 +0000
+	id 1mifhr-0006sM-Ph; Thu, 04 Nov 2021 16:35:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 221747.383610; Thu, 04 Nov 2021 16:34:54 +0000
+Received: by outflank-mailman (output) from mailman id 221751.383622; Thu, 04 Nov 2021 16:35:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mifhW-0006Kp-C7; Thu, 04 Nov 2021 16:34:54 +0000
-Received: by outflank-mailman (input) for mailman id 221747;
- Thu, 04 Nov 2021 16:34:53 +0000
+	id 1mifhr-0006qJ-KR; Thu, 04 Nov 2021 16:35:15 +0000
+Received: by outflank-mailman (input) for mailman id 221751;
+ Thu, 04 Nov 2021 16:35:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vs6a=PX=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1mifhU-0006Kh-St
- for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 16:34:52 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 212f1e32-3d8d-11ec-9787-a32c541c8605;
- Thu, 04 Nov 2021 17:34:51 +0100 (CET)
+ <SRS0=xlTz=PX=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
+ id 1mifhp-0006Kh-Bv
+ for xen-devel@lists.xenproject.org; Thu, 04 Nov 2021 16:35:13 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2d8e094f-3d8d-11ec-9787-a32c541c8605;
+ Thu, 04 Nov 2021 17:35:11 +0100 (CET)
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1A4G6XTW027061; 
+ Thu, 4 Nov 2021 16:35:05 GMT
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3c3mxh9n6p-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 04 Nov 2021 16:35:05 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1A4GT7Lh145882;
+ Thu, 4 Nov 2021 16:35:04 GMT
+Received: from nam10-bn7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10lp2103.outbound.protection.outlook.com [104.47.70.103])
+ by userp3030.oracle.com with ESMTP id 3c27k8wycg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 04 Nov 2021 16:35:03 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by MN2PR10MB4398.namprd10.prod.outlook.com (2603:10b6:208:1dc::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.17; Thu, 4 Nov
+ 2021 16:35:02 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::3c49:46aa:83e1:a329]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::3c49:46aa:83e1:a329%5]) with mapi id 15.20.4669.011; Thu, 4 Nov 2021
+ 16:35:02 +0000
+Received: from [10.74.104.20] (138.3.200.20) by
+ SJ0PR03CA0083.namprd03.prod.outlook.com (2603:10b6:a03:331::28) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.13 via Frontend
+ Transport; Thu, 4 Nov 2021 16:34:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,141 +65,205 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 212f1e32-3d8d-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1636043691;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=sIiHA2DT0X+lF9plIQCW1ff7vReUXq9RTxSmnPMpEYk=;
-  b=ZZVfSdrqtlXwRqaGn63KTpAJFvNcB1CS3y4xUVbo45K0KI67n08RJtz7
-   ALKPR5NJfPhi66mYxqZQKbyH/Qv8QmvDlxOml+11Haf3jmlyGSiQW1nz1
-   YuO2Fq51UNy+uW4ANSlYYsEWkY7xA8Su6diFo2xHQ/KtxGLmooldHc/nT
-   M=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: Q+XJI9wdNLIj148Q7AjLHyTgOVp1XL789t9Y5BN1Bk6u6cgeHcikVqdHT4fOfTWCTy70ZsnMBO
- ALPuVPqQLrjgqYoWcR3JQqUeKcQT94FOlMw7Jb/duX0ujqdGn+8E1vEq8rGKdvC9XnpMkbGf11
- RNfU33UwLFPkPLC/GTefjkj9I+N2CmFNIsXopK1KT84pllCKB2IobDRyxGBWIeozvtn0iwxWFU
- wLJfzLOspDyb0GywIkIpIOB+0N02m1ao/IX5O9soM7+EqFdTcKp+hydC0PYk2o7r8evra1WcsR
- rqth1ApE5lfLYlB5oA61tG5b
-X-SBRS: 5.1
-X-MesageID: 56630957
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23: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
-IronPort-HdrOrdr: A9a23:1u8FxayjkUUJsUURfG/GKrPwFL1zdoMgy1knxilNoRw8SK2lfu
- SV7ZMmPHjP+VAssRAb6LS90ca7LU80maQb3WBVB8baYOCEghrMEGgB1/qA/9SIIUSXnYQx6U
- 4jSdkdNDSZNykDsS+Q2mmF+rgbruW6zA==
-X-IronPort-AV: E=Sophos;i="5.87,209,1631592000"; 
-   d="scan'208";a="56630957"
-Date: Thu, 4 Nov 2021 16:34:41 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Alex =?iso-8859-1?Q?Benn=E9e?= <alex.bennee@linaro.org>
-CC: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Kevin Tian
-	<kevin.tian@intel.com>, George Dunlap <george.dunlap@citrix.com>, Ian Jackson
-	<iwj@xenproject.org>, Connor Davis <connojdavis@gmail.com>, Bob Eshleman
-	<bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, "Tim
- Deegan" <tim@xen.org>, Jun Nakajima <jun.nakajima@intel.com>, Tamas K Lengyel
-	<tamas@tklengyel.com>, Doug Goldstein <cardoe@cardoe.com>, Jan Beulich
-	<jbeulich@suse.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, "Julien
- Grall" <julien@xen.org>, Alexandru Isaila <aisaila@bitdefender.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Ross Lagerwall
-	<ross.lagerwall@citrix.com>, Petre Pircalabu <ppircalabu@bitdefender.com>,
-	Paul Durrant <paul@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, "Daniel
- P. Smith" <dpsmith@apertussolutions.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Lukasz Hawrylko
-	<lukasz.hawrylko@linux.intel.com>, <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v7 00/51] xen: Build system improvements, now with
- out-of-tree build!
-Message-ID: <YYQLoR2ussToQjFV@perard>
-References: <20210824105038.1257926-1-anthony.perard@citrix.com>
- <871r3vkiok.fsf@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+X-Inumbo-ID: 2d8e094f-3d8d-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
+ subject : to : cc : references : from : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2021-07-09;
+ bh=hhmNDCgXjQvoAX3ba1WOjDI+F6xGAojVC3VY2mG5XrM=;
+ b=RVlzunmpCGb/yWgDPv78BgANxsEK3OwZAzW1ux67eQH9ZOazr2zga1W/2P4SrOqH1jx/
+ m1Lpn5hoJtxL7orxJvTrrIi6wAbxsQ2b9RY4/WmblO1uyfO/2EOiVk3FFb6+Jn8vlC57
+ ZWLw1yNjArHh04OefBmvBEezzU0cDVElTDLvVboB3NA2Vq/SBFwBlcwXEeI8uWfjw5Em
+ qSU8pQkHar/SgwD7Rx0BTAmU707LV0ZdHxjyFwc3kzRQz7I1a0o1yemNrMXIp+qyuYhh
+ /zRUz+xciQyf8dLsRMz18eGbA1mNMfmg+2/AVqflj/xTm4ei3ZXPirOLOX44pL4oKP45 rA== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ClQsqnBFpAHVOXKsfsmyaXhoe1CEevEzZPMDB7F1hGaZWf0++kf4VS169WLpK50B2zjOcbrfuO/rlmoFC69+vLc2FbHG1S9rkxkSV/Slbrk1AO482wMQUiY5iaptYVou8wRKu7F1JbI7RB1nigx1DVJXNeRrtI//kRCn8lNDPJMzRyxCzAC+gDi/Cjhf5qoW1tI8HYrdDjT41HfX9VZ6lPba7Fay32GXm+GhaUOj6+fOhibO7fV4v3VT8roRzXpGss61UI6iMWN9RffQtz8tK+8c2PrAvWAgoGzvNR8iI5sEhv+UXoSLxU0u2lcTAp6FTwIRj03GX0+XOobh6w2VwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hhmNDCgXjQvoAX3ba1WOjDI+F6xGAojVC3VY2mG5XrM=;
+ b=ZP+K4eLIvDz8+P1gINGcaG+u76lV3VenqMUBhFPy7tzsu7ITOKTIY+q7DC9cqLx9AyBDM7MHvHc8U2VF8AC4Ld8ZSX+Jx2vqTY8QiUenyjpKrv+q4dFIvdzGUoEi3tQm83np2E/rPFFYF+XPJjEOJ7U3UXxVNxpI0gVio4r3hFFPfIlwOHDbHNvBzUVnnEp3MJAwc2wzMI4ZFJGfw0nZfiEp5d1OH9xtDjGxW3uWnBn+XmTkTkktzAl37Pgt2O5GhvRVpNIItv7UBui/d2oHv50THSWcyznj+cRuXf5G6+EQdEHdRkUEgLfGJBETnN+meHY9tty25Oc9+LtTaucmXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hhmNDCgXjQvoAX3ba1WOjDI+F6xGAojVC3VY2mG5XrM=;
+ b=kjKlPv6Ndo/a9jd9MPhpYzunIZAvATfNWs29kom1hhUnYDWLtnybWDtFt071gAqyA9iyO4gJAPsixVxkRxWHAP9iiNHCPFBbsV2IeY19RQWKL1+ucPwmO6l2DGT/gucdnvjkpLdWDfBPHfLVOTZ91icNN6EKweT0ThN1DUEOscU=
+Authentication-Results: suse.com; dkim=none (message not signed)
+ header.d=none;suse.com; dmarc=none action=none header.from=oracle.com;
+Message-ID: <18c12ead-ddf1-9231-7f3b-aafddd349dcf@oracle.com>
+Date: Thu, 4 Nov 2021 12:34:56 -0400
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.2.1
+Subject: Re: [PATCH v4] xen/balloon: add late_initcall_sync() for initial
+ ballooning done
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+        linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Jonathan Corbet <corbet@lwn.net>,
+        Stefano Stabellini <sstabellini@kernel.org>, stable@vger.kernel.org,
+        =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
+References: <20211102091944.17487-1-jgross@suse.com>
+ <f986a7c4-3032-fecd-2e19-4d63a2ee10c7@oracle.com>
+ <f8e52acc-2566-1ed0-d2a3-21e2d468fab7@oracle.com>
+ <3b1f1771-0a96-1f71-9c9d-9fb1a53a266e@suse.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+In-Reply-To: <3b1f1771-0a96-1f71-9c9d-9fb1a53a266e@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <871r3vkiok.fsf@linaro.org>
+X-ClientProxiedBy: SJ0PR03CA0083.namprd03.prod.outlook.com
+ (2603:10b6:a03:331::28) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 10359bba-0687-49c4-cebd-08d99fb10c95
+X-MS-TrafficTypeDiagnostic: MN2PR10MB4398:
+X-Microsoft-Antispam-PRVS: 
+	<MN2PR10MB43987948BAFFEC62453296D38A8D9@MN2PR10MB4398.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	FJmzZnHJjFiQO2QIpiCxvne/qcZZgqhbNhNM8S7nt4k0mlHEWNXpppg5W4ZtxVqgN2T3PqhCIPXdniqaa1FqKVoGHqK6718B5uN0SkFBObrUlMRBay6N66sq5vLhQWgSduaWasGrjYEHn0bnm1LhqCyib2/2z/S+YlYydcJPfpW1aJlteYRHTc2VOkxXgGACL2d9Zv+9JJbw9QD7f2+v6gme0+y+zVLXcTWU65bXyC88iURVEHF/heFYyaUsEvrrmHrkmwUy0BlRbwPjWwyz9V+Wf8XRU2DthgSjGNNcU4DqmuTWYE7ZTWWVyJZkF4nl3q9hb1seBJq8VCRbWmCJ5POUhkcfDhmM/JkKEIThnpbiiwZe/W3lyiD4FveTIUuT9T8lbyL1GR2MQhAb/BoM9EnW+TIIdH3mJs9xq1D2lHFjGNPpCvZQXqvHnX+zl/GnPqAhhR4xNN/pWqaHhDwm08iZDhml6IMqsnt3VeJpeW9yq9yr0IkJEelgnx5ucOsL9PjUb5F3Nv/GHnK/UDc8paeS6xO1gMgOfcD+TBArz4wnSqBkhjeF+ld4Oi33mlg8C9bhxMuKcqz3Whb2zz7t1QltzIQwzC+hGsL5H3mBs4QOh6MluyWPpRRKklra7U6O7ClqDXBYeXujgmZYstuwC+BSInG1tiWs9niG97gC0IhrqaQPq0VaAY909+guuhrAkcSAtmv3ni2c5nyIbfp6nlELYJn4ltg8cOqcMKQLZwZ/g0lS0JiWlcf0OwhCsD8V
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(83380400001)(4326008)(16576012)(8676002)(316002)(54906003)(6486002)(2906002)(44832011)(8936002)(38100700002)(31686004)(53546011)(5660300002)(956004)(6666004)(66574015)(36756003)(2616005)(186003)(26005)(508600001)(66556008)(66476007)(86362001)(31696002)(66946007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?ZDNvQVkvRWlSL3NyR1VuajRTdCthMFQ0SENucFQrRzRORTg0L2ZrQ0NGdGhP?=
+ =?utf-8?B?bU1odDFaTlhhSFA0L3U5NHBMVUNwUS9DTE0wMVZmTmlWd1hOV0hkN0RYVnVV?=
+ =?utf-8?B?cUVkTGF4K1ZoUkhsWWROcG9qK3VGa0l3SDZkdXNLZlNFSG9rdXZlekg1SDVO?=
+ =?utf-8?B?ZGNiNHJNZ1Exb1pyeFdPVWJOT0VSTzBsRDJOZGpHT1AxWERHYjBFUGg1QnBo?=
+ =?utf-8?B?cytWTStCMC9NcmFFaWw0eHlJU0pWVys3ZVE5RnNkU294Ykd0OGphUEl2ZkRy?=
+ =?utf-8?B?N0JSS1Qwc0RGclBJYzNzL3cvendnY1B1THI5U0pkdHExUEFMOHpCcEprY21V?=
+ =?utf-8?B?bjNSMFFHcCsrZTNLalhEOGFMMTJxUm04TFRZWXBsVUV2MmZ3SHNqeXRwK2JJ?=
+ =?utf-8?B?Q1ZxVjRiNlh4TTBNUjl1ekw3dmJmWjJsSXM4SGVSMy8yQ3YxU0t2NzZ3Tkw0?=
+ =?utf-8?B?UkdNSE0wZnRDazl4Y1FYNEExbnhJaHlIR0EvSW4rdjZFbm5FLzFuYi9SeDVq?=
+ =?utf-8?B?MU9hYTkwbkhmdzAzQi9JMkV6eG9vb2ZUWEYvaUF3Um92cUtQN25oOXNNQlFp?=
+ =?utf-8?B?YngxMElvdTVJNndyMlQrVmJmZ0lWbllYOE5vekFrMkVVZ3lJY09FZGlpSUpl?=
+ =?utf-8?B?T3ZzUW03dm9ISDZ2Zit4VXpKR3ZqRzZtRFJpbkNrL3RIbi9XOVZaS3ppSlNk?=
+ =?utf-8?B?Q3hhYmdiTVVWNDdMOGdjY3VVQnJyMTVsYmpxRFBlQWtweEtrVDZ6N04wN2FV?=
+ =?utf-8?B?aDM3SWExNit5cWNGa1QvZEYzOEd4UHlBWXhMU0NMeWtrcllLVFhyK1NUSUpJ?=
+ =?utf-8?B?Mkl3a1dVRHpWZ2pZTWZORnp4d3I1bFZyNGFPa3g2UWx1dGEwTkEvUG0wOVRZ?=
+ =?utf-8?B?L2F1M00wUlB5Tyt3aEFVR1ArYm9CNVFaaVB4NTZDa2JDdzV5dnpkaW1DS3gz?=
+ =?utf-8?B?ZHN5TGx1aXB1U0pXWldkSUNQRU41NWlyYktwaGZWUVdLSFcwRWE4ZjVqWWQy?=
+ =?utf-8?B?bGtMRHl3dUZoejRVYldQR3JuQTdWZUFpYzlIa1ZSR0xrQm5RZEhaKzZNVmVw?=
+ =?utf-8?B?NkN0dGhla0RISkdYMjNqVjY0cnFKVCsyVkwyRHZvdnpQVDNscjFkdEg2OFZO?=
+ =?utf-8?B?SjNTaEZnQ1ptRTNKc0ZVTFVvczkxeVNrdVZJZzc4Ylo4eERtMVRtRU1xVFBG?=
+ =?utf-8?B?ZHd0ZDBOYTRPNXpMdDQ4dGVDV1VCanlVTWYxcC9iU0Njem51RzhxT2Y3SVox?=
+ =?utf-8?B?Qi9QZE10YTc2aGdYOUN5Tys2aGR6a0M5YUZyOU04SmJJU011bTRtM2phdUMx?=
+ =?utf-8?B?aDlkVEl5Vmt6RTVHczU4ZndQaHVPT1lUcmNTcVhCMVJrRGxNK2pWRmpncXRH?=
+ =?utf-8?B?TVZqZEtBM09Ib3hIUmNZN1orZlFjKzNualNjSXZYWERCY3QrSG5qb01zbStz?=
+ =?utf-8?B?VC9LUGhmelplaXQ4R0l2c0pNVFRhTzBDZXlJNDE0UzkwUTA1TER6QlErdzBa?=
+ =?utf-8?B?YnlBWWtlRExTcXpCczh0c3RiZHB6RjVXWCs1c0pPQkx5OXpiYUhVWU5nSWNv?=
+ =?utf-8?B?M0t6eGpZYnplcndPWDlGb1l6MndKZXpuSit6UElTK2d0Y2pNNmNJMjRFR09h?=
+ =?utf-8?B?VnZIWmdHVkRlQzRXNlF1RktQUDlxSDI0SWVZSHV5ek1mWkd0SDF4YnUxcWR2?=
+ =?utf-8?B?cnNITjNnRE5VOVlkRTJibElzQjRqZ3BLOWc5TVFUM1puOEFMRi9jOUVtQW8w?=
+ =?utf-8?B?NmFvY3VYbmtUNnZMMnJ2b3NEMUJWR2ZiN0dNK1loTnpYU0N4L3ZKeXBWNzdB?=
+ =?utf-8?B?K1NycVcrdHFaNUVsMEE1bVl3UndiU1FoWDVXU3dhYXN1MnZtMCtNY1NlWmNx?=
+ =?utf-8?B?c25OOE9lb2xvd3lvbklZbDZTQ3Q1K0FEMVJzREJSUVplbFBRTXpUMzJQYU56?=
+ =?utf-8?B?WjNCcFYzek9zVnVxZGRzVm9pQkxIVVp2VXAxOW16VEtzMWdYWHlsTUtkbllR?=
+ =?utf-8?B?S2piSy8ySlBnK1c1SHhVVDRidmhrWnhveDhDd1B1a3kzQUQvSFpDOTB4MzFL?=
+ =?utf-8?B?V08rNjRVNlAwSVpRdVhOUFhNaHMzaEJaYXFXTUxzUENqOGlIYitETzVpS3FS?=
+ =?utf-8?B?UFlMZ09OZEpwWWVHcGwzWWVYbU80NDJ0WlkwaDRaVWFCT1orS3NWUGhOM3dC?=
+ =?utf-8?B?NnBpWjZnZnlWM3hiRUtwTVN1elhiaFRJTEYxbCtMTmEreEZJa1lNK2NSekdP?=
+ =?utf-8?Q?82aBFmtk+umb5j9sQjTL9Y4rfkDUCDD6KfmoFrzoMU=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 10359bba-0687-49c4-cebd-08d99fb10c95
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Nov 2021 16:35:02.0182
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SoN3R3B67Z5ljWjas3GRHnRDZNcPCSBC75cA2h3CI/UFFAv9ixtznOcYThQsnjRdvLr+KI9LVtAUR//vUKAGpvMcYivywtsBILwzAWgjrk0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB4398
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10158 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 mlxscore=0 spamscore=0
+ malwarescore=0 mlxlogscore=999 adultscore=0 phishscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
+ definitions=main-2111040062
+X-Proofpoint-ORIG-GUID: WM7SLmzvSZ4tgtwDyxagxjxmPCIFQFUZ
+X-Proofpoint-GUID: WM7SLmzvSZ4tgtwDyxagxjxmPCIFQFUZ
 
-On Thu, Nov 04, 2021 at 03:49:36PM +0000, Alex Bennée wrote:
-> 
-> Anthony PERARD <anthony.perard@citrix.com> writes:
-> 
-> > Patch series available in this git branch:
-> > https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fxenbits.xen.org%2Fgit-http%2Fpeople%2Faperard%2Fxen-unstable.git&amp;data=04%7C01%7Canthony.perard%40citrix.com%7C85bb0d32a72542aa9f6108d99fad9607%7C335836de42ef43a2b145348c2ee9ca5b%7C0%7C0%7C637716390172120458%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=WWS4yPu9%2BJxBkBiM5SBrH7kDtHkUzMGuKSSdPcgEYII%3D&amp;reserved=0 br.build-system-xen-v7
-> >
-> > v7:
-> >     Out-of-tree build!
-> >
-> >     This mean many more patches. Everything after patch 27 is new.
-> >
-> >     There's a few new patch before that, but otherwise are rework of
-> >     v6.
-> 
-> This is something I've been looking forward to but obviously my QEMU
-> focused mind meant I did it wrong. Generally I create a builds subdir in
-> my tree with subdirs for each build flavour. So with:
-> 
->   /home/alex/lsrc/xen/xen.git/builds/native
-> 
-> And executing:
-> 
->   ➜  ../../configure
 
-Thanks for testing, but the patch series only focus on a subset of the
-repository, that is the hypervisor "xen.git/xen/". The rest of xen.git
-isn't ready for out-of-tree build unfortunately. A lot more work is
-needed.
+On 11/4/21 12:21 PM, Juergen Gross wrote:
+> On 04.11.21 16:55, Boris Ostrovsky wrote:
+>>
+>> On 11/3/21 9:55 PM, Boris Ostrovsky wrote:
+>>>
+>>> On 11/2/21 5:19 AM, Juergen Gross wrote:
+>>>> When running as PVH or HVM guest with actual memory < max memory the
+>>>> hypervisor is using "populate on demand" in order to allow the guest
+>>>> to balloon down from its maximum memory size. For this to work
+>>>> correctly the guest must not touch more memory pages than its target
+>>>> memory size as otherwise the PoD cache will be exhausted and the guest
+>>>> is crashed as a result of that.
+>>>>
+>>>> In extreme cases ballooning down might not be finished today before
+>>>> the init process is started, which can consume lots of memory.
+>>>>
+>>>> In order to avoid random boot crashes in such cases, add a late init
+>>>> call to wait for ballooning down having finished for PVH/HVM guests.
+>>>>
+>>>> Warn on console if initial ballooning fails, panic() after stalling
+>>>> for more than 3 minutes per default. Add a module parameter for
+>>>> changing this timeout.
+>>>>
+>>>> Cc: <stable@vger.kernel.org>
+>>>> Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>
+>>>
+>>>
+>>> Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+>>
+>>
+>> This appears to have noticeable effect on boot time (and boot experience in general).
+>>
+>>
+>> I have
+>>
+>>
+>>    memory=1024
+>>    maxmem=8192
+>>
+>>
+>> And my boot time (on an admittedly slow box) went from 33 to 45 seconds. And boot pauses in the middle while it is waiting for ballooning to complete.
+>>
+>>
+>> [    5.062714] xen:balloon: Waiting for initial ballooning down having finished.
+>> [    5.449696] random: crng init done
+>> [   34.613050] xen:balloon: Initial ballooning down finished.
+>
+> This shows that before it was just by chance that the PoD cache wasn't
+> exhausted.
 
-> In "build: adding out-of-tree support to the xen build" you describe the
-> Linux kernel style which works well where the config can be done after
-> the fact but I wonder if the configure approach is better suited to
-> something that needs a bunch of checks running. Is the configure script
-> pure autoconf? This should work out of the box IIRC.
 
-"xen.git/xen/" does use a build system similar to Linux's, we use
-Linux's Kconfig for example.
+True.
 
-For the rest of the repository, it is indeed autoconf for the
-configuration phase. So yes running ./configure would be mostly ok, but
-it doesn't take care of Makefiles at the moment and I found one bug in
-our autoconf macros. Beyond that, our Makefiles aren't ready.
 
-xen.git isn't a single build system, they are several (at least one
-foreach of xen/ stubdom/ tools/)
+>
+>> So at least I think we should consider bumping log level down from info.
+>
+> Which level would you prefer? warn?
+>
 
-Cheers,
+Notice? Although that won't make much difference as WARN is the default level.
 
--- 
-Anthony PERARD
+
+I suppose we can't turn scrubbing off at this point?
+
+
+> And if so, would you mind doing this while committing (I have one day
+> off tomorrow)?
+
+
+Yes, of course.
+
+
+-boris
+
 
