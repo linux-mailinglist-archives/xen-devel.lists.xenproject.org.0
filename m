@@ -2,51 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D43D4465E4
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 16:39:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222492.384717 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 865334465ED
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 16:41:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222499.384727 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mj1Iq-0001Jc-DR; Fri, 05 Nov 2021 15:38:52 +0000
+	id 1mj1LF-0002gx-Q7; Fri, 05 Nov 2021 15:41:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222492.384717; Fri, 05 Nov 2021 15:38:52 +0000
+Received: by outflank-mailman (output) from mailman id 222499.384727; Fri, 05 Nov 2021 15:41:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mj1Iq-0001Hp-9l; Fri, 05 Nov 2021 15:38:52 +0000
-Received: by outflank-mailman (input) for mailman id 222492;
- Fri, 05 Nov 2021 15:38:51 +0000
+	id 1mj1LF-0002eq-Mh; Fri, 05 Nov 2021 15:41:21 +0000
+Received: by outflank-mailman (input) for mailman id 222499;
+ Fri, 05 Nov 2021 15:41:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OnCM=PY=freebsd.org=royger@srs-se1.protection.inumbo.net>)
- id 1mj1Ip-0001Hj-4h
- for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 15:38:51 +0000
-Received: from mx2.freebsd.org (mx2.freebsd.org [96.47.72.81])
+ <SRS0=SvBC=PY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1mj1LE-0002ei-Md
+ for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 15:41:20 +0000
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 780c6c80-3e4e-11ec-9787-a32c541c8605;
- Fri, 05 Nov 2021 16:38:49 +0100 (CET)
-Received: from mx1.freebsd.org (mx1.freebsd.org [96.47.72.80])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits)
- client-signature RSA-PSS (4096 bits))
- (Client CN "mx1.freebsd.org", Issuer "R3" (verified OK))
- by mx2.freebsd.org (Postfix) with ESMTPS id DD6D4851DA;
- Fri,  5 Nov 2021 15:38:47 +0000 (UTC)
- (envelope-from royger@FreeBSD.org)
-Received: from smtp.freebsd.org (smtp.freebsd.org [96.47.72.83])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256
- client-signature RSA-PSS (4096 bits) client-digest SHA256)
- (Client CN "smtp.freebsd.org", Issuer "R3" (verified OK))
- by mx1.freebsd.org (Postfix) with ESMTPS id 4Hm4RW5g4Fz4rcM;
- Fri,  5 Nov 2021 15:38:47 +0000 (UTC)
- (envelope-from royger@FreeBSD.org)
-Received: from localhost (unknown [93.176.190.2])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate) (Authenticated sender: royger)
- by smtp.freebsd.org (Postfix) with ESMTPSA id 48F037B57;
- Fri,  5 Nov 2021 15:38:47 +0000 (UTC)
- (envelope-from royger@FreeBSD.org)
+ id d1698c69-3e4e-11ec-9787-a32c541c8605;
+ Fri, 05 Nov 2021 16:41:19 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B1FE56125F;
+ Fri,  5 Nov 2021 15:41:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,92 +38,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 780c6c80-3e4e-11ec-9787-a32c541c8605
-Date: Fri, 5 Nov 2021 16:38:40 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <royger@FreeBSD.org>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
-	Ian Jackson <iwj@xenproject.org>
-Subject: Re: [PATCH v2 1/6][4.16?] x86/x2APIC: defer probe until after IOMMU
- ACPI table parsing
-Message-ID: <YYVQAH7OYmFSVOei@Air-de-Roger>
-References: <d88cfda3-54e4-2323-f536-547879380815@suse.com>
- <43d8cc88-aae0-5a82-7b4b-756dd54dd223@suse.com>
+X-Inumbo-ID: d1698c69-3e4e-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1636126877;
+	bh=HnhtG5FvSyIA75ZwEw1CvVr/rFaWgLWI6dajxsws5m4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=iDjSQZSIAbrpVa/Hrym65um/PCCdVIGOuHr7yTP9Z6QR8cYfbr7jRCfbnvGHcesRp
+	 C5YuDx/hQP5mpm/bwAh1w+YYW5bhxwjF1i3oshmHeEXqvU8qqnW6yKxbGmKd8vvMki
+	 4QcEMMoLluqoTsgjlUenphKYrsRnAyIAobVL3/+iOAzJUYurZtF9Qj+8Mov5EVSmF5
+	 QMIgajrw3dRZfNDoVNOh1ROCiAVfQM+7d7J9jVqE4jfae38leR6K9s0Q93VTi/QmTN
+	 zBMTLj7/fnWkLCYM8Y3MsX41W+uSzY/+zyi3QN5hgQgBKC7z2avUfxFqzFExen3eTE
+	 nQnxCN8o3iv7Q==
+Date: Fri, 5 Nov 2021 08:41:17 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Penny Zheng <Penny.Zheng@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Wei Chen <Wei.Chen@arm.com>
+Subject: RE: static-mem preventing dom0 from booting
+In-Reply-To: <DU2PR08MB7325A7A5658B1EB7C6EB4DECF78E9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2111050836580.284830@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2111041829300.284830@ubuntu-linux-20-04-desktop> <DU2PR08MB73256624607E7624CAAD38E5F78E9@DU2PR08MB7325.eurprd08.prod.outlook.com> <DU2PR08MB7325A7A5658B1EB7C6EB4DECF78E9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <43d8cc88-aae0-5a82-7b4b-756dd54dd223@suse.com>
+Content-Type: text/plain; charset=US-ASCII
 
-On Fri, Nov 05, 2021 at 01:32:18PM +0100, Jan Beulich wrote:
-> While commit 46c4061cd2bf ("x86/IOMMU: mark IOMMU / intremap not in use
-> when ACPI tables are missing") deals with apic_x2apic_probe() as called
-> from x2apic_bsp_setup(), the check_x2apic_preenabled() path is similarly
-> affected: The call needs to occur after acpi_iommu_init(), such that
-> iommu_intremap getting disabled there can be properly taken into account
-> by apic_x2apic_probe().
+On Fri, 5 Nov 2021, Penny Zheng wrote:
+> > -----Original Message-----
+> > From: Penny Zheng
+> > Sent: Friday, November 5, 2021 11:23 AM
+> > To: Stefano Stabellini <sstabellini@kernel.org>
+> > Cc: xen-devel@lists.xenproject.org; Wei Chen <Wei.Chen@arm.com>
+> > Subject: RE: static-mem preventing dom0 from booting
+> > 
+> > Hi Stefano
+> > 
+> > > -----Original Message-----
+> > > From: Stefano Stabellini <sstabellini@kernel.org>
+> > > Sent: Friday, November 5, 2021 9:36 AM
+> > > To: Penny Zheng <Penny.Zheng@arm.com>
+> > > Cc: sstabellini@kernel.org; xen-devel@lists.xenproject.org
+> > > Subject: static-mem preventing dom0 from booting
+> > >
+> > > Hi Penny,
+> > >
+> > > I am trying to test the static-mem feature in Xen 4.16 but I am having
+> > > some issues. I can boot a dom0less domU with static-mem configured
+> > > correctly, but when I do so, dom0 doesn't boot any longer.
+> > >
+> > 
+> > Hmm, In our first intention, dom0less is a mandatory option for static
+> > allocation.
+> > domU on static allocation shall boot when dom0 doesn't boot there.
+> > 
+> > We think that, nevertheless, dom0 memory range is allocated by Xen
+> > automatically, and it leads to the unpredictability. Static allocation through
+> > device tree configuration prefers the total static environment to avoid
+> > unpredictability.
+> > 
+> > > In the same configuration, if I remove the static-mem related lines
+> > > from the domU node on device tree, both dom0 and domU boot successfully.
+> > >
+> > > I am sure the dom0 memory range, allocated by Xen automatically, and
+> > > the domU memory range, hand-picked by me, do not clash as you can see
+> > > from the boot logs (appended).
+> > >
+> > > Am I missing anything in the configuration? I am using a ZCU102 board,
+> > > the memory node on the host device tree is:
+> > >
+> > 
+> > Are you suggesting one scenario where dom0 with static-mem domU?
+> > 
+> > Hmmm, one quick thought, it may not be working with vpl011 emulation.
+> > When dom0 exists, vpl011 will take dom0 as backend, which requests event
+> > channel, xen store, etc, involved to communicate. but static-mem domU
+> > without CONFIG_XEN shall not handle it.
+> > 
 > 
-> Note that, for the time being (further cleanup patches following),
-> reversing the order of the calls to generic_apic_probe() and
-> acpi_boot_init() is not an option:
-> - acpi_process_madt() calls clustered_apic_check() and hence relies on
->   genapic to have got filled before,
-> - generic_bigsmp_probe() (called from acpi_process_madt()) needs to
->   occur after generic_apic_probe(),
-> - acpi_parse_madt() (called from acpi_process_madt()) calls
->   acpi_madt_oem_check(), which wants to be after generic_apic_probe().
+> Digging on this, and my misunderstanding. Domain created through device tree
+> shall use xen as backend, not dom0. I guess that only the one created by xl is using
+> dom0 as backend.
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Based on code inspection only - I have no affected system and hence no
-> way to actually test the case.
-> ---
-> v2: Don't move generic_apic_probe() invocation, instead pull out
->     acpi_iommu_init() from acpi_boot_init().
-> ---
-> 4.16: While investigating the issue addressed by the referenced commit,
->       a variant of that problem was identified when firmware pre-enables
->       x2APIC mode. Whether that's something sane firmware would do when
->       at the same time IOMMU(s) is/are disabled is unclear, so this may
->       be a purely academical consideration. Working around the problem
->       also ought to be as simple as passing "iommu=no-intremap" on the
->       command line. Considering the fragility of the code (as further
->       demonstrated by v1 having been completely wrong), it may therefore
->       be advisable to defer this change until after branching.
->       Nevertheless it will then be a backporting candidate, so
->       considering to take it right away can't simply be put off.
+> Nevertheless, if this is your scenario, where dom0 and static-mem domU(NO CONFIG_XEN) co-exists,
+> I'll test for you.
 
-The main issue here would be missing a dependency between
-acpi_iommu_init and the rest of acpi_boot_init, apart from the
-existing dependencies between acpi_iommu_init and generic_apic_probe.
+The scenario is extremely simple; you can see the full device tree
+configuration in the attachment to my previous email.
 
-> 
-> --- a/xen/arch/x86/acpi/boot.c
-> +++ b/xen/arch/x86/acpi/boot.c
-> @@ -757,8 +757,6 @@ int __init acpi_boot_init(void)
->  
->  	acpi_mmcfg_init();
->  
-> -	acpi_iommu_init();
-> -
->  	erst_init();
->  
->  	acpi_hest_init();
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1699,6 +1699,13 @@ void __init noreturn __start_xen(unsigne
->  
->      dmi_scan_machine();
->  
-> +    /*
-> +     * IOMMU-related ACPI table parsing has to happen before APIC probing, for
-> +     * check_x2apic_preenabled() to be able to observe respective findings, in
-> +     * particular iommu_intremap having got turned off.
-> +     */
-> +    acpi_iommu_init();
+- dom0
+- dom0less domU with static-mem
 
-If we pull this out I think we should add a check for acpi_disabled
-and if set turn off iommu_intremap and iommu_enable?
-
-Thanks, Roger.
+That's it! So basically it is just a normal dom0 + dom0less domU
+configuration, which already works fine, where I added static-mem to the
+domU and suddenly dom0 (not the domU!) stopped working.
 
