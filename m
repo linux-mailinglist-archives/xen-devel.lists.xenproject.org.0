@@ -2,48 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CE684463A4
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 13:50:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222305.384434 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C20494463D3
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 14:08:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222315.384445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miyfc-0006pT-7M; Fri, 05 Nov 2021 12:50:12 +0000
+	id 1miywO-0008QN-Ml; Fri, 05 Nov 2021 13:07:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222305.384434; Fri, 05 Nov 2021 12:50:12 +0000
+Received: by outflank-mailman (output) from mailman id 222315.384445; Fri, 05 Nov 2021 13:07:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miyfc-0006mk-2S; Fri, 05 Nov 2021 12:50:12 +0000
-Received: by outflank-mailman (input) for mailman id 222305;
- Fri, 05 Nov 2021 12:50:10 +0000
+	id 1miywO-0008Oa-Jd; Fri, 05 Nov 2021 13:07:32 +0000
+Received: by outflank-mailman (input) for mailman id 222315;
+ Fri, 05 Nov 2021 13:07:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=mr/O=PY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1miyfa-0006mV-TM
- for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 12:50:10 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ym5/=PY=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1miywM-0008OU-Ps
+ for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 13:07:30 +0000
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur02on0604.outbound.protection.outlook.com
+ [2a01:111:f400:fe07::604])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e8ce4933-3e36-11ec-9787-a32c541c8605;
- Fri, 05 Nov 2021 13:50:09 +0100 (CET)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2057.outbound.protection.outlook.com [104.47.12.57]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-17-Tv8zj7NjM6qpVY85X1Tnyw-1; Fri, 05 Nov 2021 13:50:08 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VE1PR04MB6671.eurprd04.prod.outlook.com (2603:10a6:803:11f::12)
+ id 53bf9326-3e39-11ec-9787-a32c541c8605;
+ Fri, 05 Nov 2021 14:07:29 +0100 (CET)
+Received: from AM7PR03CA0008.eurprd03.prod.outlook.com (2603:10a6:20b:130::18)
+ by AM8PR08MB5716.eurprd08.prod.outlook.com (2603:10a6:20b:1d5::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.17; Fri, 5 Nov
- 2021 12:50:06 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4649.022; Fri, 5 Nov 2021
- 12:50:06 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AS9PR06CA0024.eurprd06.prod.outlook.com (2603:10a6:20b:462::32) with
- Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10; Fri, 5 Nov
+ 2021 13:07:26 +0000
+Received: from VE1EUR03FT048.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:130:cafe::f4) by AM7PR03CA0008.outlook.office365.com
+ (2603:10a6:20b:130::18) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11 via Frontend
- Transport; Fri, 5 Nov 2021 12:50:05 +0000
+ Transport; Fri, 5 Nov 2021 13:07:26 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT048.mail.protection.outlook.com (10.152.19.8) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4649.14 via Frontend Transport; Fri, 5 Nov 2021 13:07:25 +0000
+Received: ("Tessian outbound 4ce13939bd4a:v108");
+ Fri, 05 Nov 2021 13:07:25 +0000
+Received: from 039a31f5c704.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ C3718586-D033-45C6-B6BA-5C10F0F1DE14.1; 
+ Fri, 05 Nov 2021 13:07:13 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 039a31f5c704.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 05 Nov 2021 13:07:13 +0000
+Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
+ by PA4PR08MB6045.eurprd08.prod.outlook.com (2603:10a6:102:ef::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10; Fri, 5 Nov
+ 2021 13:07:11 +0000
+Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
+ ([fe80::c1b4:db1c:376f:b697]) by PAXPR08MB6816.eurprd08.prod.outlook.com
+ ([fe80::c1b4:db1c:376f:b697%8]) with mapi id 15.20.4649.019; Fri, 5 Nov 2021
+ 13:07:11 +0000
+Received: from smtpclient.apple (82.8.129.65) by
+ LO4P123CA0080.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:190::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4669.11 via Frontend Transport; Fri, 5 Nov 2021 13:07:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,189 +76,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e8ce4933-3e36-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1636116609;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OsmaAP8oZ7Snerm7QV7ZROMuDBqUeEqa1aL3UwUf88w=;
-	b=aU8YoDZF8ZijLHOswq1jDXEwvbifGmiRVtTeRDEPWmpHENLFr3YfpQGsTFp3tbfTAMFhnk
-	FTxNqOwWrcotgAGlmyQ5GhkHwEOrEZMMZ8ecn6OK+QNVIFKeL1DLWqUbuG9zeUmgthD2KL
-	VAv/JdnPaRswzV1/no+PcKA/DXBDTrY=
-X-MC-Unique: Tv8zj7NjM6qpVY85X1Tnyw-1
+X-Inumbo-ID: 53bf9326-3e39-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZhDtJbfn4DvtUyAyZ93g4S+X0I+6c+d11iSdcoIXeSQ=;
+ b=8sTw7kSAQyVe3DqroZco99jTAG4lusB69KjGma68tuXYXvh7e2tDc9sS9pybvvLp6LWV7y0I1j/vVxipYOoXP2UHJhMheWsaKOejF5uFYhlAstFcbmIVBXh1WCh+UF3ohhJ5l1KXAxZaERm/jn3omcaY2jN4vklYwa3u8p9rikc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 1ccf9cf93073682a
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=URAaA5MW1kY7RqthIXAi1zg4+4seI1ewllGqxdnubMDMv6NWuTOoZJwcYpAZKYEE6pH+PYDBANEMlck3V7TM8KtieYqD81mL2Fdc9yG99ccYGcu27L0UPv+GhFDCM5G/nzZhh5MMMRpNSGKJoxzMP3S8AHAEsNPKLFlR7JPC46vRa2xyWc9/ErZTqTcDPHyqyAFJ3lNhz8yed8J90KtaXirsJ+TzKSpWh+HUh+fR8qGnGVr/uCvMDHlQ7EYiar238jiYfN57Sd+rt7kePIje54v4+unm3YDYRPSVov9VlmZW+bM9H1apo35I8U8xbjbweSH3XYLkBvx3EnWgILGDoQ==
+ b=iaODJGSMSGnu/pga5TcXR8CQ37eH+PP+4E7mhappLvUzrRiSefl9+PNRE3Q1oKvBi5VX1eu7Or/P0WJbvSA99dNxEx3YSHB181HkcABsrj5RTJ3+c3dSosW7/amVFkRVIKdY+em3kdHHHBm1AlVVZhdsa25Ht0Pwisr9SVHHu39ZXWua7hjOx+ALhYqpzhvinF9g4tIElLFDbtnVX+r9y2H+XU2Bk8HdEs4KdhfaU1uSNTLGnPh24mY2tUoro2HnZbQRaOkqnelEB1yrNt2paQk00RcmHjzptiq93f0R+6a+4hplsi7p9KS0vG6QwAGeDweLTbt3B+qm7MWTW/WmkQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OsmaAP8oZ7Snerm7QV7ZROMuDBqUeEqa1aL3UwUf88w=;
- b=jaQ/UfoOO6mOVydyGXIv3Iln5z/uQZTGIzjbCk+jVYQ2tb3mg27xOuD2h2cbjRKwm4Hi5+PUHHu0/Wj3Tfj8sQGziF2BSQeqOXVKxA47h1tzM0H4THr4q22sPQ8HQAVJ4Aj8/ASu1cNo1+8JMpkZ435GdoBxh8W0fhDIuZDd/lp650lQH0WwEK5JOM9QNYPyAS2VvbcGx3n5kuKZd5nb/g8Zzm6ijucgCh9fXQ+YSQK61VIWQy7Lxx1PwMVMJDY7j5vusbgSoQDyBSeBUcI+/KKa99V5229+ppxis3Mv+/8FGGhK6/Wx3rkG+yLHFVKFqQ8/ZHrev7GCCW3vNducDQ==
+ bh=ZhDtJbfn4DvtUyAyZ93g4S+X0I+6c+d11iSdcoIXeSQ=;
+ b=SAM04hFCKUgDv6PHZtA+Gk5WFryfY5s27S4AMZohHU/lOW8BsAo+M6fYr6WupTjDQ9jLB1+cLt8BxtoU8LZY0n3x0mamybF2diWcHymYAE/X5FmvZRI2cgdcddqzbRVYQV9w9PvfaqAOtPbqVriDRI6BiCh9I+n9nzW4MdWW8dJ/AI4y13JbpUTTKjcjA6xhQe9QHbZMJWjuN6CfEjezhMg5z1DyedXRlhq6THsohPIjEwgyUtf3VWF21/PGGLONZSZsIY6QRnO4Z1D8dEtHf3th4oDAeuMMGSrhu5qxMxqWWvzdOD1DV3ARdMQzZ7+WW+COVlb8kdoci/hk4ASfDQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <06be7360-0235-3773-b833-3e0d65512092@suse.com>
-Date: Fri, 5 Nov 2021 13:50:04 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: xen 4.11.4 incorrect (~3x) cpu frequency reported
-Content-Language: en-US
-To: James Dingwall <james@dingwall.me.uk>
-References: <20210721092958.GA2502468@dingwall.me.uk>
- <c9c6778d-9823-4b07-fb48-604acef1f3de@suse.com>
- <20210726123332.GA3844057@dingwall.me.uk>
-Cc: xen-devel@lists.xenproject.org
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20210726123332.GA3844057@dingwall.me.uk>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR06CA0024.eurprd06.prod.outlook.com
- (2603:10a6:20b:462::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZhDtJbfn4DvtUyAyZ93g4S+X0I+6c+d11iSdcoIXeSQ=;
+ b=8sTw7kSAQyVe3DqroZco99jTAG4lusB69KjGma68tuXYXvh7e2tDc9sS9pybvvLp6LWV7y0I1j/vVxipYOoXP2UHJhMheWsaKOejF5uFYhlAstFcbmIVBXh1WCh+UF3ohhJ5l1KXAxZaERm/jn3omcaY2jN4vklYwa3u8p9rikc=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Content-Type: text/plain;
+	charset=us-ascii
+Subject: Re: [PATCH-4.16 v3] xen/efi: Fix Grub2 boot on arm64
+From: Luca Fancellu <luca.fancellu@arm.com>
+In-Reply-To: <e10f21db-3533-3c72-b3d7-7857f2f28160@suse.com>
+Date: Fri, 5 Nov 2021 13:07:04 +0000
+Cc: Bertrand Marquis <bertrand.marquis@arm.com>,
+ wei.chen@arm.com,
+ Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <9750169B-A2CA-40A8-81AD-55365C15FA0E@arm.com>
+References: <20211105112148.48719-1-luca.fancellu@arm.com>
+ <e10f21db-3533-3c72-b3d7-7857f2f28160@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+X-Mailer: Apple Mail (2.3693.20.0.1.32)
+X-ClientProxiedBy: LO4P123CA0080.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:190::13) To PAXPR08MB6816.eurprd08.prod.outlook.com
+ (2603:10a6:102:130::10)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9e1812c4-399b-4907-371b-08d9a05acb04
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6671:
+X-MS-Office365-Filtering-Correlation-Id: 6b659dd9-12f1-475f-7c3f-08d9a05d368c
+X-MS-TrafficTypeDiagnostic: PA4PR08MB6045:|AM8PR08MB5716:
 X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB667126F133CEC99145EDBF57B38E9@VE1PR04MB6671.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+	<AM8PR08MB5716A181AC8A95BA3F43C120E48E9@AM8PR08MB5716.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:451;OLM:451;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ onW1v8Kq7l4/O9i0EcfyIhZDyU4BxxavqWS7DIyvqlgWsHRSMbaVO6OVcKKxnj34X0mP+QN4Te9vY1bSDhMCERee6ueYbkb7Ll3hhJcRjs14yC58JQ4pkKvhfM5/iu8IBM/MN5yMFH99MQUSqNkPjPlnMMk07Hz88FzAjGvZCGVntSmD8eccp+5F8Bj3CO88cSoof2SQsHCVRYiX6Vi11Yzb02OPFz0MuLsmq5lu9D/zSZELj0NSzvDJjh2y8cPeBFKARx5Y57AwL/ikFfzCGVoVUCce0FZuzaUQ7AauH2rVTOwap92qZrSeuFIwL0l1S4SCRtpK+oobcYvW1uCw2GR2GcFxd0c5KLuE35kI+B3utdO4ziv8udYqeKxTifmJ3Fso8Pfjk/UhHKG1Own/L3BStdcg2NImO0SthY5rwn1g1itm0/72rWfauHIFL4begKSQH7Hde7gIjI6lfe34TL3rdaTxwrXxhvEvagUOYfJ5FIlj6GXKLLJDCxmRJu0FmRnUq97n3Vsf++/Cj/240sAkD5K9qEgHFO7b2Qu5ywZED9n68/TC2PCUPDRw0wDZWKnH+smeeg3ILjF3TO+rLVbPSXH3KRtzfL3fWA0u4hYTBcDLFLT27UipCEGCEySBm+MHDzLyXCJ7Ys+60E5+SKHcX2Ps+A7rZR3YmrdM0WqDGHiaj7O7uuLSlFgAhjf1zTNXHoNL0nljtfjhjcHj1sH9AGEUt2FHTzA3wT/Teiw=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(38350700002)(186003)(6486002)(6512007)(86362001)(6916009)(2906002)(83380400001)(26005)(53546011)(66556008)(6506007)(36756003)(66476007)(66946007)(8936002)(38100700002)(316002)(4326008)(2616005)(6666004)(956004)(33656002)(44832011)(8676002)(5660300002)(508600001)(52116002)(54906003)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6045
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT048.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	7d7f9002-720b-4ea8-b7aa-08d9a05d2de5
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	6u47DoH9iMnw7JHORyD86vg7pRTMVMgul5cG+VM/xhbuGpcHDa2T/bSeKAHKdZMh2kWS3CFzb0hcyq1EnSxeo3fuRZvM/AbgjWwAYIzb/7Z1WFkVrCWPQQ4DHpEawJTivs2+BCkTDNG5Ga8tfei0Str49yHXNxq8LS/IVyCSoDG/tp3iwM5Nf2vNXc8uV2simB7l2akDEeF8Nx5bxSldsB1dSPc0VapPHScwaN/1eC0PrNcYfS+YxwSB5x2Vq46jkZ9W+c3VBRNPF/4z7AyXMJKbEB1BuSp3iESRlo65n3DwmIWqzqExakRXp4b3xAGz+N8Fqv64fITKADXFfGZTwfRTBEmhhmTvEFve5yJVLAU/hbBvelupNXbGTu4sJIAKQvXsuJKwvvSx9CFT2/BRLruYZ1V0N8y9FO/6n1ZaJXOPqqiPd1zjdwEqodA/yZV/bIAUfwRLBpGzb2TibCgjjDYWNj1AM909cWTbhpLNYbNRwPGuAJYzbH2SCnoNhyf26ws8SAGBSRBIqmdinBpyM9IBzexm/bmtMCe8/lSF0jfNLTIGaqfrUDHWrTzy/1UgN6ElCyY5HJyCYH6dW20lZ0gV7ghUHCFRNNL/nC56arz3u4aCOdbVONpYRQ9E9Rd8DkxZ/NXv4qpI0et2DowzDqt5b6daKT5QE5CtJ5T4Etgiflof97V0+Mvs1fPsEj6soT8KhhwtckqQOPsLKN4jb65pVPCaPAF7p/7F1APWnoI=
+	q1qKwoBe2wWFWni+XCU6N2MeT7246uep4HzTKL70/w0ToHlRCTxlawTR/08q0FI+tPDnk/wNP8pM/0Bt69UAtqRaSntL2AxkXzfK8Md2aWcAbqamn+qHi113aqKNegC4k8VyxI6yDjJKRZKbatBn2zYrkCkzTQpcHGMYxLQlw1hnztHup6G501N/oFIbQNJSpYSk4K8uzom3CvkFePML42/dNzTgizi1F8YmIKDseKZlZXHw9xDJXQpBOjw971LVsBvlAIhTR89cXSuEPJqutBlLUreL7mJjm474lmRT13+6o6WOR3SNlqVKWisyoLS8rDpvb8mSXIb4/4ehUZUeZR3900fJDEWhK25I/coj1altdFluzASNuvD09Kl1abtfh96FSzyKwBLomJWc8CnAgcx0BgeQNHmyb7g328roi7JP5r9UYMZCfc/Zxlvou4t7cUwtWiyb9gcOY5WxkdosB+RSa36oYAbMGje9FbvCJOF4KB2lWP5qpLZuTytU2ndNFq8in046hj4JTxcveH6kXWjyEgzdNUJ9gq2+8GVU3RaCXUR0TtzdgzTJVTBXJ7TiFWNYQJ2/ipbKAO3mY/TNirNqHDxAp2ID8H2OZpSqZNILO8+t/5QDAU//XSsicx98NSbchMvYpfLhmxb7pe9byKEkZvO7F4v+DFAvHeqGQilxu8+DNinEfK1+dj/mWOBHAKssxvau/6q+Jq9vXcAqNQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(186003)(83380400001)(66556008)(2906002)(6916009)(8676002)(5660300002)(31686004)(53546011)(31696002)(8936002)(6486002)(2616005)(316002)(26005)(86362001)(66476007)(66946007)(16576012)(38100700002)(4326008)(956004)(508600001)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QWlhL0d3ZDB5VCtacEtkd0tPNUh4N2t6K3d1dkxidVh0RVVhQXZkUzQvNTJW?=
- =?utf-8?B?TkorR0pCOVJvNWlMWTlMOGo5U2VtclJrb3Y2cXBMYlZzblVBeUltODRlVFZF?=
- =?utf-8?B?YTlzTDd4ditPdW9qbjJ4UDdPTVY3TkEyRzA0MzltVlVoc3lzRE82amdoWDRR?=
- =?utf-8?B?bDZGTDFlZ0pIMU83OGF5OXRuZEJ0cmZVYXJSSWpqcUhyM1hLNXlRNVFpV3I1?=
- =?utf-8?B?dkVISllNdmY1VjY0Zmc4SkhIYWNzVTNqT2lHQjRrQWFld0VLVnZsMGwvM0tp?=
- =?utf-8?B?Q00wWXlXdnZoTXhnM1M5T0lGbUpVNzB0d2FwOEF2SlluLzBSc3Z4MlAwWllV?=
- =?utf-8?B?YW9ZYnI0MUNGcHVrQjUwOVJ5WDB0TzRMSW5rVFRubFFIN0c2T2pTeDRyanlG?=
- =?utf-8?B?MThTWFNSMlZLakhEbmo4VTZsL2RzTmt4WVZkUU5aaFgraFZFQ0wzOXJ3Vno1?=
- =?utf-8?B?QU1Za09oZEJ2YjEvUll5MjhQMDN2NHpXQTBFbFZxanp6NW1iZVRURmNUS0RX?=
- =?utf-8?B?ZnlmL0pRdDV6bFVOSE85dU1QUkpmS0ZJM1V4RHBpMVo5Y0hWaHMrd1Vtc25L?=
- =?utf-8?B?V1dRMm5vL3B4UEpqNm9sZWV3Znd3NlhGellpMWx2SGZXY2Y3QU1QdHlTc3NP?=
- =?utf-8?B?R0paenFOcjRLSXJMSG0zM3F5TXNkY2Z0TzRSZEFpb29lb245VzZvcFI5RTQx?=
- =?utf-8?B?dGI1YzNVVUhTdHB2ZnE0dTgyRE9TSkp6bGxuT1B4QXdRcmJyekVIbERvam1X?=
- =?utf-8?B?UWttQ0ZOT0lpZm0vVURQNkRYSHU5Y1ZJYy8zY1UxaTJORnFNbHE1MWRnTGRC?=
- =?utf-8?B?Q2s2UGwrVFM0R1FTbFBnNUQvUlNQNG9QTXkwL2VweDlIeFNQQndVODh4MzBj?=
- =?utf-8?B?YU56QmRtbXovSVN6T2tSaW12NU1zWGE5NzU3SWRGTkFDNTVOOVlDVlo5eHI0?=
- =?utf-8?B?VVFaVHhNcFZHK0d3NHVzbmd5Ynd6N1FOUlUrWGZIdlAyY3JlVnNkWUg1S0I3?=
- =?utf-8?B?ZUt6NmJNTDh2dlNUOWExUm1KaGxVYVdEcjhUT3h4bFZmR0xYOFZZVVQyQ0lE?=
- =?utf-8?B?VDkwQ1Q4WWErU1Z5UkcxZ3FsSHFTVlBtRXE5MzViZFkxVWJWTHFncWlYOWFZ?=
- =?utf-8?B?NDRvVnMzdXV2YXB5VmZUODFyTjY5U0xmWVU3cXFOdEc3eGhhRGNmKzNLQkho?=
- =?utf-8?B?WVRLZFFmb1VLbTNFdkx3bGt1clV4c1drOExZbnFpUC9SaGQ0d1AyVkxjeWVj?=
- =?utf-8?B?UXRKa3VWTEZidXJaUHoyaGcycHNXdnhLMTZjZk5VeGZwV0pMMVNJbjVzaEcv?=
- =?utf-8?B?RzJXMUNFNW16V0lxMUVhbWlwSGZDWlZVdjdxaEVaZ1AwdWovcWRFRDliRWtu?=
- =?utf-8?B?UzI0MENCbEVncUJHd3N5RnduYktZZWxmYllIUlhGb1dHRG1zSHpQRmFXWEFx?=
- =?utf-8?B?TDBtemZldkYyalMyNTVpcjBYOFNBQ1JRRU1vL0VkUlZDYzM0UDQ0clpjUi8x?=
- =?utf-8?B?dXhleVArV1NuVTg3dEF4NWdlbHVrTS9FZXFIR3h1QlI2S1lRcGZ6N1FxTEM2?=
- =?utf-8?B?MWkySHRweUdXOUViN1F0VVRRMW5aVjM1SEhRbEF5VkhmTmJNTXFFRVVGaDBv?=
- =?utf-8?B?MWVRQWdxOW00RHg0UlZwOWtzUDN2R0xLOXNMNjVyazJCSHNFMVFuc3RTd1ZB?=
- =?utf-8?B?czJBQ0E3cUs1SG5vN1ljdkdSRm9Jb0RHd3IrcURFaGlGUUVPaE1sU1p4NGxX?=
- =?utf-8?B?c1RHQ3BTdDNVU0lVL2c5cFVSMUhIRGNWRjEyMENvTHRjQk0vTTZzcjFiSDRz?=
- =?utf-8?B?MmgzNURpK1pScEx1RFY0cVJkZnN0b2FwSnM1bHRSRFRWNnZLeFFxbkY2RG5U?=
- =?utf-8?B?SXdxMU5qVS9TWTZ1K044QWtodGVXUHRsYVFoV1UxTVQ4U3A0WjdDMS9yb1dY?=
- =?utf-8?B?QTBheUxJMWZDeGpZaHdnQ2FsTnkrbVBFTTBzQkdsRFVwL2wvbEJ3ZUZucWFz?=
- =?utf-8?B?VFEzR25MNmh4R1pUUUdGVFpDNHY5RUR1dmhEMStsVWdKdy9vTVpnd1EwWEpt?=
- =?utf-8?B?ZlVFNGZJWGlwbmlJL1FYV0JLRkxIYTd4TUxZbHJVZWZUREVERnBHNWZFa1Y3?=
- =?utf-8?B?YWJJOURsUE5hbGFDVnBPN3hLZWpJOUhQUlpnTUgxb1hXTmhSL2lNSTRXbTB5?=
- =?utf-8?Q?jWIbrl3cBF/m6AoWOzN5RY8=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e1812c4-399b-4907-371b-08d9a05acb04
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 12:50:06.4796
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(26005)(6666004)(83380400001)(81166007)(36756003)(8936002)(33656002)(356005)(4326008)(6862004)(54906003)(6506007)(82310400003)(316002)(6486002)(70206006)(70586007)(53546011)(47076005)(6512007)(86362001)(44832011)(186003)(36860700001)(956004)(508600001)(8676002)(2616005)(336012)(5660300002)(2906002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 13:07:25.6185
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dpb7m1VTFubqColbJKOVf5ylN4B5RAm6xYS0UrnbXgrwi1MxlVvQ/1n1yaQ/FQsmOG1fUB2atvSZuGeFxdKL3w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6671
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b659dd9-12f1-475f-7c3f-08d9a05d368c
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT048.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5716
 
-On 26.07.2021 14:33, James Dingwall wrote:
-> Hi Jan,
-> 
-> Thank you for taking the time to reply.
-> 
-> On Wed, Jul 21, 2021 at 12:59:11PM +0200, Jan Beulich wrote:
->> On 21.07.2021 11:29, James Dingwall wrote:
->>> We have a system which intermittently starts up and reports an incorrect cpu frequency:
->>>
->>> # grep -i mhz /var/log/kern.log 
->>> Jul 14 17:47:47 dom0 kernel: [    0.000475] tsc: Detected 2194.846 MHz processor
->>> Jul 14 22:03:37 dom0 kernel: [    0.000476] tsc: Detected 2194.878 MHz processor
->>> Jul 14 23:05:13 dom0 kernel: [    0.000478] tsc: Detected 2194.848 MHz processor
->>> Jul 14 23:20:47 dom0 kernel: [    0.000474] tsc: Detected 2194.856 MHz processor
->>> Jul 14 23:57:39 dom0 kernel: [    0.000476] tsc: Detected 2194.906 MHz processor
->>> Jul 15 01:04:09 dom0 kernel: [    0.000476] tsc: Detected 2194.858 MHz processor
->>> Jul 15 01:27:15 dom0 kernel: [    0.000482] tsc: Detected 2194.870 MHz processor
->>> Jul 15 02:00:13 dom0 kernel: [    0.000481] tsc: Detected 2194.924 MHz processor
->>> Jul 15 03:09:23 dom0 kernel: [    0.000475] tsc: Detected 2194.892 MHz processor
->>> Jul 15 03:32:50 dom0 kernel: [    0.000482] tsc: Detected 2194.856 MHz processor
->>> Jul 15 04:05:27 dom0 kernel: [    0.000480] tsc: Detected 2194.886 MHz processor
->>> Jul 15 05:00:38 dom0 kernel: [    0.000473] tsc: Detected 2194.914 MHz processor
->>> Jul 15 05:59:33 dom0 kernel: [    0.000480] tsc: Detected 2194.924 MHz processor
->>> Jul 15 06:22:31 dom0 kernel: [    0.000474] tsc: Detected 2194.910 MHz processor
->>> Jul 15 17:52:57 dom0 kernel: [    0.000474] tsc: Detected 2194.854 MHz processor
->>> Jul 15 18:51:36 dom0 kernel: [    0.000474] tsc: Detected 2194.900 MHz processor
->>> Jul 15 19:07:26 dom0 kernel: [    0.000478] tsc: Detected 2194.902 MHz processor
->>> Jul 15 19:43:56 dom0 kernel: [    0.000154] tsc: Detected 6895.384 MHz processor
->>
->> Well, this is output from Dom0. What we'd need to see (in addition)
->> is the corresponding hypervisor log at maximum verbosity (loglvl=all).
-> 
-> This was just to illustrate that the dom0 usually reports the correct speed.  I'll update the xen boot options with loglvl=all and try to collect the boot messages for each case.
-> 
->>
->>> The xen 's' debug output:
->>>
->>> (XEN) TSC marked as reliable, warp = 0 (count=4)
->>> (XEN) dom1: mode=0,ofs=0x1d1ac8bf8e,khz=6895385,inc=1
->>> (XEN) dom2: mode=0,ofs=0x28bc24c746,khz=6895385,inc=1
->>> (XEN) dom3: mode=0,ofs=0x345696b138,khz=6895385,inc=1
->>> (XEN) dom4: mode=0,ofs=0x34f2635f31,khz=6895385,inc=1
->>> (XEN) dom5: mode=0,ofs=0x3581618a7d,khz=6895385,inc=1
->>> (XEN) dom6: mode=0,ofs=0x3627ca68b2,khz=6895385,inc=1
->>> (XEN) dom7: mode=0,ofs=0x36dd491860,khz=6895385,inc=1
->>> (XEN) dom8: mode=0,ofs=0x377a57ea1a,khz=6895385,inc=1
->>> (XEN) dom9: mode=0,ofs=0x381eb175ce,khz=6895385,inc=1
->>> (XEN) dom10: mode=0,ofs=0x38cab2e260,khz=6895385,inc=1
->>> (XEN) dom11: mode=0,ofs=0x397fc47387,khz=6895385,inc=1
->>> (XEN) dom12: mode=0,ofs=0x3a552762a0,khz=6895385,inc=1
->>>
->>> A processor from /proc/cpuinfo in dom0:
->>>
->>> processor       : 3
->>> vendor_id       : GenuineIntel
->>> cpu family      : 6
->>> model           : 85
->>> model name      : Intel(R) Xeon(R) D-2123IT CPU @ 2.20GHz
->>> stepping        : 4
->>> microcode       : 0x2000065
->>> cpu MHz         : 6895.384
->>> [...]
->>>
->>> Xen has been built at 310ab79875cb705cc2c7daddff412b5a4899f8c9 from the stable-4.12 branch.
->>
->> While this contradicts the title, both 4.11 and 4.12 are out of general
->> support. Hence it would be more helpful if you could obtain respective
->> logs with a more modern version of Xen - ideally from the master branch,
->> or else the most recent stable one (4.15). Provided of course the issue
->> continues to exist there in the first place.
-> 
-> That was my error, I meant the stable-4.11 branch.  We have a development environment based around 4.14.2 which I can test.
 
-I'm sorry to ask, but have you got around to actually doing that? Or
-else is resolving this no longer of interest?
 
-Jan
+> On 5 Nov 2021, at 12:20, Jan Beulich <jbeulich@suse.com> wrote:
+>=20
+> On 05.11.2021 12:21, Luca Fancellu wrote:
+>> --- a/xen/common/efi/boot.c
+>> +++ b/xen/common/efi/boot.c
+>> @@ -121,6 +121,8 @@ static char *get_value(const struct file *cfg, const=
+ char *section,
+>> static char *split_string(char *s);
+>> static CHAR16 *s2w(union string *str);
+>> static char *w2s(const union string *str);
+>> +static EFI_FILE_HANDLE get_parent_handle(EFI_LOADED_IMAGE *loaded_image=
+,
+>> +                                         CHAR16 **leaf);
+>> static bool read_file(EFI_FILE_HANDLE dir_handle, CHAR16 *name,
+>>                       struct file *file, const char *options);
+>> static bool read_section(const EFI_LOADED_IMAGE *image, const CHAR16 *na=
+me,
+>> @@ -167,7 +169,7 @@ static void __init PrintErr(const CHAR16 *s)
+>> }
+>>=20
+>> #ifndef CONFIG_HAS_DEVICE_TREE
+>> -static int __init efi_check_dt_boot(EFI_FILE_HANDLE dir_handle)
+>> +static int __init efi_check_dt_boot(EFI_LOADED_IMAGE *loaded_image)
+>> {
+>>     return 0;
+>> }
+>> @@ -1225,9 +1227,6 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE=
+ *SystemTable)
+>>=20
+>>     efi_arch_relocate_image(0);
+>>=20
+>> -    /* Get the file system interface. */
+>> -    dir_handle =3D get_parent_handle(loaded_image, &file_name);
+>> -
+>>     if ( use_cfg_file )
+>>     {
+>>         UINTN depth, cols, rows, size;
+>=20
+> With the dir_handle declaration also moved back here (as I did
+> indicated in reply to Stefano's proposal), ...
+
+Ops.. sorry forgot that, will fix it
+
+>=20
+>> @@ -1240,6 +1239,9 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE=
+ *SystemTable)
+>>=20
+>>         gop =3D efi_get_gop();
+>>=20
+>> +        /* Get the file system interface. */
+>> +        dir_handle =3D get_parent_handle(loaded_image, &file_name);
+>> +
+>>         /* Read and parse the config file. */
+>>         if ( read_section(loaded_image, L"config", &cfg, NULL) )
+>>             PrintStr(L"Using builtin config file\r\n");
+>> @@ -1362,14 +1364,14 @@ efi_start(EFI_HANDLE ImageHandle, EFI_SYSTEM_TAB=
+LE *SystemTable)
+>>         efi_bs->FreePages(cfg.addr, PFN_UP(cfg.size));
+>>         cfg.addr =3D 0;
+>>=20
+>> +        dir_handle->Close(dir_handle);
+>> +
+>>         if ( gop && !base_video )
+>>             gop_mode =3D efi_find_gop_mode(gop, cols, rows, depth);
+>>     }
+>>=20
+>>     /* Get the number of boot modules specified on the DT or an error (<=
+0) */
+>> -    dt_modules_found =3D efi_check_dt_boot(dir_handle);
+>> -
+>> -    dir_handle->Close(dir_handle);
+>> +    dt_modules_found =3D efi_check_dt_boot(loaded_image);
+>>=20
+>>     if ( dt_modules_found < 0 )
+>>         /* efi_check_dt_boot throws some error */
+>>=20
+>=20
+> ... all of the quoted part
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Thank you for your time, will push very soon v4=20
+
+>=20
+> Down the road we will want to constify efi_check_dt_boot()'s parameter,
+> but that will require changes elsewhere as well.
+>=20
+> Jan
+>=20
 
 
