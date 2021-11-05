@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DD4F446365
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 13:34:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222270.384368 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E411446366
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 13:34:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222273.384380 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miyQG-0001RM-8I; Fri, 05 Nov 2021 12:34:20 +0000
+	id 1miyQe-0001yX-NE; Fri, 05 Nov 2021 12:34:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222270.384368; Fri, 05 Nov 2021 12:34:20 +0000
+Received: by outflank-mailman (output) from mailman id 222273.384380; Fri, 05 Nov 2021 12:34:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miyQG-0001P2-59; Fri, 05 Nov 2021 12:34:20 +0000
-Received: by outflank-mailman (input) for mailman id 222270;
- Fri, 05 Nov 2021 12:34:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1miyQe-0001ut-JB; Fri, 05 Nov 2021 12:34:44 +0000
+Received: by outflank-mailman (input) for mailman id 222273;
+ Fri, 05 Nov 2021 12:34:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mr/O=PY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1miyQE-0001Ou-NV
- for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 12:34:18 +0000
+ id 1miyQc-0001oS-FF
+ for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 12:34:42 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b13866cb-3e34-11ec-a9d2-d9f7a1cc8784;
- Fri, 05 Nov 2021 13:34:17 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bf862ca3-3e34-11ec-9787-a32c541c8605;
+ Fri, 05 Nov 2021 13:34:41 +0100 (CET)
 Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur02lp2052.outbound.protection.outlook.com [104.47.4.52]) (Using
- TLS) by relay.mimecast.com with ESMTP id de-mta-3-frPjDaL1OYuAG_gX1lUW4Q-1;
- Fri, 05 Nov 2021 13:34:16 +0100
+ (mail-am5eur02lp2059.outbound.protection.outlook.com [104.47.4.59]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-25-BJeZGZFQPaWWITxkYE6xIA-1; Fri, 05 Nov 2021 13:34:40 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
  by VI1PR04MB7037.eurprd04.prod.outlook.com (2603:10a6:800:125::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Fri, 5 Nov
- 2021 12:34:14 +0000
+ 2021 12:34:39 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4649.022; Fri, 5 Nov 2021
- 12:34:14 +0000
+ 12:34:39 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM6PR10CA0072.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:209:80::49) with Microsoft
+ AM6PR10CA0062.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:209:80::39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4669.10 via Frontend Transport; Fri, 5 Nov 2021 12:34:13 +0000
+ 15.20.4669.11 via Frontend Transport; Fri, 5 Nov 2021 12:34:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,35 +54,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b13866cb-3e34-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: bf862ca3-3e34-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1636115657;
+	t=1636115681;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=IY3+tB01KnV66hCC8nS+KXB316mGWF0nPKRUL2Nl/rc=;
-	b=JHZV9vd4QanvznIidaewjTOCLPmkAy0CFKMMKcc8WdrO8ojU0s605YfWu29OK2znO1xubU
-	JuztvimRVQ44zRFFI6K8vWuDmj6axQvjTIQyBAsnkU2tE4XqQlZUumKl2APq4jtxx3MXcX
-	Ayeoboug37PvS/yv0UawYhmacTAdbPg=
-X-MC-Unique: frPjDaL1OYuAG_gX1lUW4Q-1
+	bh=vpyFyOIyYBFgdujGQvciBKudkZZ0UUaeJu4HvGRPCY4=;
+	b=GlIgAY4FXa5x/j3KGJ1OmcI7+CNSWJyiQX9d1U5HGY99GxeO4N1EfQP/abojeCR3cd9432
+	IU00hpJqhqpatGfTfVLdN/pTbNxHbOggCcNsS3AdZpOTM+wqEl6dNdeYkRXKxAcIpomic6
+	QawNgm1MZsa3yaQ+FyCFg/dE31MnW9M=
+X-MC-Unique: BJeZGZFQPaWWITxkYE6xIA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V7R0Xv5Ld6OuRQ8hsDlU6coEom2JxV+rXvxmRQyOrn+6sSbPn75u6j+skmdQWmpA+gXr7m9YkaLzIlEAekFgMrgjnHrhNPbgNZy1bWPvK/Qjo4AtbwRd7KAwOoWZq9fiBLeZdw2LoBTHYRuiDqQtNc/LrczF1dNP4piPpc2+YfcChOG1wUtgeTLd9KZA+OZsDUVGCmPRwznOe0x191UZVdEzzPIyl+rF68wqbWjvvTgvtAu0c13E+k6ruvOEgPipFErHMNwpxonsa8XhxKWcEc5H4MljYiF/pDj+6Y5tmzql3goe9XvtRv14K7vOjONIFzLZB+FSSfe4icj+8kBizg==
+ b=ANtaR4RXqBt0ME6t3m/xTHzDNRdEn7OxEow/A4vfMN813rS1j4l85Xij0vUAlRiYYh5mFdKsiAYRiNrowET8WobzKz1Pq5v8Ej1q9u+sizaFRFq20bJ0HJlIvPfLNfdq4mVUaJjQltwPM6ZJQtCjMp2/j+iAqkS49+rri8a5wHk9acSo9eLv0vQI1CDQw5vLpfWZUt/YH+wM+JBIizs+vjFUvDLMDpCw8Zfy7RtGaU8D0zIh3x6QCvUK3OkfM/fRznxwctLJjg1XpbeVXyaENol49j0QI4bo/hg1obFc7O9OLfC48iu21C1sxNtwCxx3i2fp5qIT0Nez1D0bz8/dOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IY3+tB01KnV66hCC8nS+KXB316mGWF0nPKRUL2Nl/rc=;
- b=DNn8Xj0XWZDD5nZlAkWwnPQKMx9AdVqYACinAi+XmQ2zQ7dVzHvRx3ogUThBHRo9OVkLDjpeMU4GiB+0NB/QyGTLaViQ6rqTCuXPLBZCRa3xVpZEnqO/bdRvbBSwQRNN3Zde4fFf7esaOpgwry6W7WbOi7d/DDf7h6wycQUlc5Q65En2F6XYcJlkeXns8/5/vneDmEWnLsU/lTmC9G1i+r511V6GSVxqUYzOyNG9SWH3XjA5iqsBBdUBbGYG9tPZJ8OHsDMBzVC6fuV/AVYLZdpReYUqw/8gVdHd3TMd8LU0HNy1IXT0qu20+4TgwJ1RzVRDPMrxRfSDy9mHyk4kxQ==
+ bh=vpyFyOIyYBFgdujGQvciBKudkZZ0UUaeJu4HvGRPCY4=;
+ b=fJNLe0gp5zWk4gO+5wwiOhC3Q319uAbHYuDwDAsoMwztQ6jPnQeOy9F5XqqEHvUlVNtYD0ofD5sCM7fbNY9Hl/YwHdPrduN5MCY4U+SVjdq8s/lHCt3x6KkpKQOaBPsXB/JCyQQeBAu1ErdS8i0QUoIogkaXYqnFdO/LuR/cj7CMsa6Hn4nCbrXJM7nV/6atckyLWPYyrBIQl1hl/7bNUNje5BPDn/DfCzo0dd8kcdvv5gvM9Yt+3cQer9KpyyvkFFT8pwU5H5rbFMSPvsQ7BeiiRl2w2mUa39vLj5TjeLLKWU9lHJm+xYDxy2MjI4KbNZeOhtMfCvYANl9pCxrcAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <7e2c8dd5-e20d-5678-1fad-1b79fd8e06e4@suse.com>
-Date: Fri, 5 Nov 2021 13:34:12 +0100
+Message-ID: <777dd74c-37a0-20b8-72b4-fe52890aa9e0@suse.com>
+Date: Fri, 5 Nov 2021 13:34:37 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: [PATCH v2 2/6] x86/APIC: drop clustered_apic_check() hook
+Subject: [PATCH v2 3/6] x86/APIC: drop {acpi_madt,mps}_oem_check() hooks
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -92,79 +92,77 @@ References: <d88cfda3-54e4-2323-f536-547879380815@suse.com>
 In-Reply-To: <d88cfda3-54e4-2323-f536-547879380815@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR10CA0072.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:209:80::49) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM6PR10CA0062.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:209:80::39) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f39bf716-1ebc-4d9e-055a-08d9a0589385
+X-MS-Office365-Filtering-Correlation-Id: 0ca4ca57-430a-4d23-4661-08d9a058a267
 X-MS-TrafficTypeDiagnostic: VI1PR04MB7037:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB703758B7F135D3049C9BDE1CB38E9@VI1PR04MB7037.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+	<VI1PR04MB703768ABE9FA63E7CDDA0704B38E9@VI1PR04MB7037.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	BppUMrcG47H8MYWFscXO+Tdf4+NdVnj6bOSBHoZh7tOZMSb8fVXcyA7yqm/4O3U5IwCFnovlFtp886kYt92IixW4fQ1acW8R+6fYiycOUp70+xpScQ1uxZU2u+9oFjbbJ2u0qrnA7wyvQf/dy0g3WTptMl30oM+HFLrHdJxe7jMr7hTgFREkFyGthzlvIHC5Gb10exrwSA+fjhH+VRY6WIWOwVLPll/9yt9mfS6UCjI11Pbh2ybTsnczcbMCGlbORzRUnPKiBjN8EqOYK9oQZDsHLJoFflyQTh1MLn2NYGmZE5q6ClkIIJ3YD5Yi+PLbpTrBXvtaOBy3EetbYKmEvOUuCCeXt2fk5wYdE1f6D2ZFhSz95o6Q5RxKqjWkkNkz7640ZlO6fuwhKc1xJMe+3AGBblhwGQgR1n70awPTeRBdqdB6Weh+Fr7/gkPcMgOgKINBXQBKgqzL4lzDG0sE2LmI94XrGCe/diIbiHM2Sl/G4EZVf92wNnB8HefGim2NHoQxAWeQPm+lCS8w5mmEi8ZNaMjcIT4/rdtfT5AHwArv/Wgwbkwbb71/eGj4+NJUK7UCwhoqGcL64QQwT0sz9AhiOnsZFvRaleFTXcVmJi7MCTcyGCRPSSUN9a6VTb781cG4atRVtF9jmMPt2UfMX2pcrnwgt5kJARg3CIRTHgxJ2MrlyVosis4OrQauhTp9EtEVTWYoWNfSIl4ZG0Iy9GG80aBbBBb1Cl1xWKuNiS9M625cRRu6zPMhRm3hgKN6
+	OiwxTodr6iCtBxTOwgEIV3/Yx65J3jKARHm12A+PU0OX66vLwv/jPrDGUIDcX4axnc5Tfn1QN3EDjjODUtdDCsdyO5qBLmlfqXZAcl/Gec3gkdotdprHb6u9Dg7xc6mmzs6g2/RvVUCvFYCtDXFaEshQcabQlSk7fq/wIgw1FocPhZUyMwkQKEbCd2GIqPt5MpGIgLyVZ5VQ9sJbkb6Rnq04OfrAkqx9Q/7Y5V704gAK5ZTz8mB9BbMuAAHbJmv/nASXjx7ROFRtB/LjzpBD/E6JdWPHPma14UEZDgKyw4+C4JCgTSrRet+b4Tg1Y++Z1hg5ksoVTbmooJf6GzDBsiw0QcXkW8kZISsOKvUCiRIsJTMSt5Mn9W+ooj87+qXjfCYzdNW+QJuQf+czsNZLC4uuftKynL7F356DUdWA2nsUyMTdVFDqrDfHr/5Mb881kBiAOwvTxxPXbxPgcU190x373Ez5xw/hUoPGmgbnzSZpJUktm2bXgyCdRQJ9aUZHOWod2NmWlbNoZTnmncGY/Y0QR7NF2w143Iann8G+/apEAfIxzf+vto8GbuGAt2qtlM6N4mY24o3ga21seSLGtrVXwRxWGQ/NvTt6fMmiKcmE4V3msUTRqTUG3XdE51owdE10MtnfyJidqBPGjnfV4SWd8DKozxtyPjHE2VVWkM3Ite/R+sgcFO5FHG7AqI0ndaXgi+Mgb7q954Ji92W3OoMPWUuuf3ERQdfGKRxEoGY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8936002)(26005)(8676002)(956004)(66476007)(186003)(38100700002)(6916009)(36756003)(86362001)(31696002)(31686004)(83380400001)(4326008)(316002)(2616005)(6486002)(5660300002)(508600001)(54906003)(16576012)(66556008)(66946007)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8936002)(26005)(8676002)(956004)(66476007)(186003)(38100700002)(6916009)(36756003)(86362001)(31696002)(31686004)(4326008)(316002)(2616005)(6486002)(5660300002)(508600001)(54906003)(16576012)(66556008)(66946007)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aVg5TE56NW1yQ20veHdWbmhYQ2dnL2xiS1RQSFU5M2VKYVdnMjBqMEFHNWI4?=
- =?utf-8?B?V1lUQ0dMaGg1dlZ2YUY5Q1h2TUlTTXNmUFhQSk54cXlSa2ZyaUltKzI5N0Y4?=
- =?utf-8?B?dU83Mys1QVM2RzR6aEkrS002aGlxZjNaQmFuRk9xaUNQY3MzSnFHY3RnWEdi?=
- =?utf-8?B?S2VISVJhemFWS0U1SFJBK2REcEhjQmIwS2tNSSszSFRmalZTdDRXbVBZdklO?=
- =?utf-8?B?T2I5akF1Q3Q3eDVRWGM1YldNUHRUcU5KSTY2N25Fby95THNmK3NzWEZuVWtw?=
- =?utf-8?B?NG1QMDcwMU1ONThYcGhTMVpxMEduYmhIb0RBUVRSTjVJRFBHN3FXRE5xRWV6?=
- =?utf-8?B?TFc2ZFNFS3oxRUZVZzVaeE1QMnpDczBmaUdwYS9YcWVoMDhONDlmMk96RDBT?=
- =?utf-8?B?MUdyVm9mSHhFbUpQN3ZkY3JiSFZIdFdCdzN1MG84SkVpcS9DK3RWSXZMWmJw?=
- =?utf-8?B?cThqdFlJOHM5eHZ6YThLQ3hhanV2RFp3WjN1V1lkVTJRc3FLWXArSkpiVzU4?=
- =?utf-8?B?ZWIrVzlYZ2tEdCtVU2l6SDNxcXZqTm4vRFUveGZ5ekhlR0loZFlIWDEyU1FS?=
- =?utf-8?B?OHRiRXdyUWoxS3ZEUFpiOVh0TW93dC96Z3IrbGhYUTBycy95aUpuZ2tUUFZa?=
- =?utf-8?B?L1RGMEU3TWczRHZzakRjMWRUZVJHbmJWOFlNWEJCZzBNMzVMQUFNUmtJZEcw?=
- =?utf-8?B?czYwUldqMHRZOEIxTzkzeVRUc0JkS2RPcDZCVmRmaDRPdzRWemJ1c3QxekVy?=
- =?utf-8?B?dG1QaE5FSXluUWY5UlZjV1h2N2NTT3FlUVgweUdvQUdzVmZOUnVpTGpkOUtC?=
- =?utf-8?B?cEFBVmI4WTl5RHhQMjlIRDZrVmwzYzJSS1NaM2FOZ2JZMllHL3YzbDkrUU45?=
- =?utf-8?B?eVNLc01BNUFBcFA3TkhQNTZjWmdmMFhnRkZRZWVJMU10a0tQUGhmbm4zSHNP?=
- =?utf-8?B?ajROYmdsUGZoNkZrYkxPdGtlT0VLZjFBTG9UdGNqQVVjY1dRUGYra0VTdXdD?=
- =?utf-8?B?ZGJSM0txUzEvK21vMllOcUhkNmxXL3dNTnVxWkFPUHpCSDF4S3pKbzVRV3J2?=
- =?utf-8?B?a0s4dHZBWnIxbmtwTXVBdWtOblRzRzdyWUJEQ2ZQV3V4VHVuamMrcDdoTWNN?=
- =?utf-8?B?TTZzK082dEgyOHNRZ2ZNUXJJOFExZTJqM05rMUVtV3I3YTNyVG04dUxLM21G?=
- =?utf-8?B?aG5HRmI0SGRnUzhXekhjZUlLcHo4VWN5cHZBbUxTVWtQUGhQbWxJRVF1MWhl?=
- =?utf-8?B?amdNWUozczFhZ29FRzVYMzJsRVdmcUZEMEtvak9UbENPMFlZR3MxZklMbUtG?=
- =?utf-8?B?eTJWcVlGY1hLWXVPOHJzTXpUY1l5bktKd0YzY1F1d3dTYlBHanFLbmp2TDdD?=
- =?utf-8?B?bkp5Ny9WV1R5QnFiMklPQjZydm11RFJOeHh5WjlJdElRc1pFM1RUYlVhL3FK?=
- =?utf-8?B?cXFHR0h5bVQ5b3pmd1p2eW40YVJZTnlVT1VBeFZXMkNMbzhqYU9YRGk0MnRD?=
- =?utf-8?B?UDN1YytHQTA3SVpRVFpDWFlHbDNsS2k0Um5yR0xCSUkrby9TZjJTVnJqVmcr?=
- =?utf-8?B?TFpLS2ZkTklVZUwzQjZBRVZMNCt2dmVRZVY4UG1icDF5ZXdiTmtPNWlmQmZI?=
- =?utf-8?B?M2hka1dtTFhRZjJCVWkreFRiOHlRaEhqQnc2eUZkaC9FRnhOc0ttMllBYzV5?=
- =?utf-8?B?UHVBb2ZPbHI3SjZhRUxFcjU5Nm52S2d5SFRYc2owOG0rQi8xQzNzbjdNVkkw?=
- =?utf-8?B?aEIrRWFFSVFFc2EwQUZDaGZPRzBlWGs5eG92ZktKU3dCNGJtaGFWc0UyVG1q?=
- =?utf-8?B?U0ZtQm9mSVQwUm9wM2tQQlMvbmxjOElraUovUHhTZkRMUVBsZjhTWHVuTFpJ?=
- =?utf-8?B?VkQwSmJuNzJvejcxZzJZN3dnSDh3T0dyRUdxZXh5clgvUWswOG9UdTU4bmdH?=
- =?utf-8?B?M21nQXltbmV6TXRvczJZNVQ5M2VzVEJXRHprY1FWOEhJaW9XQktweGN4aG5K?=
- =?utf-8?B?Z3c1Um5TZHRycGNobVNJZ2w3UFlpNE5GOStaVjN0U2tBUnJMS1NlM3c3VHlD?=
- =?utf-8?B?Vm9mZEJaZi9SbFB3QU5aS0FnWWpicEpDL05wRndqUG9tVDZsZWlud1ZKMmx2?=
- =?utf-8?B?ejBmcXI4ZDVwREl2a1dxdEwwaDBhcm5MOWp0S2kvV0dpWXdCZW9zZDJzVTRL?=
- =?utf-8?Q?yjFErOq//qdgkeHIsfZt9cU=3D?=
+	=?utf-8?B?VnpPRUI1OHg4SkJqVW14bXplc0QzWHFwUXpZTjJmUHFBeWZlTlgrQmxocmR4?=
+ =?utf-8?B?NktSOG9FblpYTVg3VkxwQXhVbkt1UTNLTjN1VUJhVm0vVXVzK2pDNGVRNlpv?=
+ =?utf-8?B?QUlEeXYrVWhIRFYydzJaMjZxZFRBMFFPdElUUHorODZrTTkrVzVKa1pkZWpG?=
+ =?utf-8?B?NUhheGd5ak51M3V0R01pS0xGOGZia0RlaWpKOXN5bytqaFJjK1VNOTRIYnps?=
+ =?utf-8?B?bHorR3BsU0hZRkRGbnlHTjFKSm52bVNJOEdIandNMklwQ0dPK25acytjRjlL?=
+ =?utf-8?B?ZXYzSFlvQW5ocVBESjhUZHdRMS8rU0tpQVZuRHk4WTJwK2pWdlJ4M0JOSmJO?=
+ =?utf-8?B?STRkQm5qS0VpRGs2MUtaTWdnUzhrQXpGSnVaOWdLY0UxM3hUNEtXb3lqZXg5?=
+ =?utf-8?B?TllEdEg0V1lwMWFyQVhJRjltaE9tRzVXeEp1bFVKb3BRMmYxZTF1QU5wdjBo?=
+ =?utf-8?B?UDlXWmkzUFBQbDhPOEQ1Yy92cXI0VHNxNE1zT3NwUVhQVnE1akVaV1psVnFV?=
+ =?utf-8?B?ZTFhbWZaVFNhSEJVQi9VU0R1bGhnbnp1TU1pajRWZ3A4RE02cDR2cGxQeE9X?=
+ =?utf-8?B?WFVrMVJ2V3ZoM1cydUJ1SGVibjE1c3VtTlpTUm5NS0V6Z3BOK1FHN2FuMHVV?=
+ =?utf-8?B?MnNGSkFWQncrajdGTEVVK2tINUwyT1NEZUJSZnNPU1JsTVRCM0xnaDNIL3pn?=
+ =?utf-8?B?eHphVmVnY3pRNnM0bTlrTFFIUHF3V1V5OU9uQlRaMGxtQUhoSjRMU0JIZGZZ?=
+ =?utf-8?B?emxtTXdSdWtiaGpERXVxMGNHMDBOM1I3eDNaWTRuVFhUOFFoS0xXNk9waU1x?=
+ =?utf-8?B?TXF5YXhSUXV2VTNUc0lMWEF3UmVTclQxL2dQRUo1dXJnaXI4SkNnSUtEMkl3?=
+ =?utf-8?B?L2t1bkJKQ2xzOUFkdU9zZG5NRnh2STNWWHJRTXY1U2FaNk5uVXN0Unlzb0pW?=
+ =?utf-8?B?Sk9MZHFqaTRCQjhaekVjaHQwNHFEdWNEZnhZOG4wc1ZKd1ZzZThJYlZUMWU1?=
+ =?utf-8?B?di9XRkx6N3VEZWhMclZ5Q2g0T0ZxM0trcVlwYnBnZkFhMXZ1VjJXclgxOXpz?=
+ =?utf-8?B?THBBS0RFRHYzSzFtS1J2MFd3Tm1NRHloSUV0eUdOTldYZG0ydzhEK2VDNGd1?=
+ =?utf-8?B?UXdGZUY3dmNDWTJBR0ExNEkxUVZUMDdMS1dJamdlekpBM1J5N3VQdDBmdmpZ?=
+ =?utf-8?B?TVV2MDl0VkpuOFdsRzhhenFvTDJ5ajVGektlc21BcXIvbm1QQ1RvRUwxNU11?=
+ =?utf-8?B?dXN5TUJ5d1dsaWFTWWFEb09oQWNuTG9hRG9oWTczOXcxRHpPVFVBZ25jaVVl?=
+ =?utf-8?B?enNMTlZQemNEWllkaXY3NGpNM3dpNjJIUnllL0tLeWZHUDFzM1IwWG1Rek1S?=
+ =?utf-8?B?LzBodnRIeXVtYlhrTlk1S3Vuem1HQVgwamF3amZjK2FaM1l5MmlSSHplbUVz?=
+ =?utf-8?B?UU5pTmZQQUJ0RnBqWnU5amdNdXRZditZNVZPNmdHWlA3cFNqQmhhSTM2RjNY?=
+ =?utf-8?B?Zk5VeFRIalFZV1FuZ0tYbklNOENHb0x2RXowbngvZlFyWEhVcU9tNTVVMEh3?=
+ =?utf-8?B?dE5WdFB6ZVdpbmYrMm9qN1NpblVab05RL0psK2NTQTgrYyt6N2RHai9oVjRu?=
+ =?utf-8?B?dnQ1ekJOTFNsb1UwOHJJQ0s0ZWI2WDVJOWxEQ1I4TWxvdWV2WlAwYWVmOW1E?=
+ =?utf-8?B?MTM4UldINThqdEJHYkZ6RTlSOGJHR0krak9lZFZsMVg3a0FOdDZFZVdGTVpU?=
+ =?utf-8?B?enVzdjE5SzU3K2U1aFpVZWN2ZHhCM2FOa2N3Tjd4Ymc5a2wzOVNJVmtBQUlw?=
+ =?utf-8?B?OFA5Ky9TV1ZBMzBoNFIyWFdSUFdpaFZ0bXlzR3hjamFxMUdURE5JdUZvWGhL?=
+ =?utf-8?B?L3ZoQmVDeXgxd0d1NktTc2JOUXFUVmRBbmw2ZVZWR1ludnkvYmtHYXRQU3Vh?=
+ =?utf-8?B?UXNRam9tWmU4aUtjV0tXeGVnT0F6Y0NlcVl3RGQ1QlhJVWpFOEw4aFA3THZ2?=
+ =?utf-8?B?d3pPUFZUay9VczYxdFJKaGprTlp3dGw0NXdLUXhVSldicXh5NXhwaEx1a2sw?=
+ =?utf-8?B?dk5OS0FlV0x5WVJPanhxWFU2UVNTRDRzcy9QOWFvV3k5OHBTZEdCUGNtaEEr?=
+ =?utf-8?B?S0pBampweWVRUHpXcWFWbGU0V3dOWndTRk5tL0pjVmdJOHlxejFTakZtK01J?=
+ =?utf-8?Q?LIHjeWqyBRrNtUfd7KDmGjw=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f39bf716-1ebc-4d9e-055a-08d9a0589385
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ca4ca57-430a-4d23-4661-08d9a058a267
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 12:34:14.3539
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 12:34:39.3038
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Oo6VaNffHIC7lPi6AuBdRTjs9KbdJjoIDwPujLA9mGeAKOeNDG/ABRbhC5swhSRXjnuxroQxuFtaqqGc94l/Qw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: m6CwI0N3/xQtc3a2lPLc8N1fYueJp3tEDjuUdOz/s7iGaOtdquSw2oxfukZg/eyDpeSGm6wefCYBQB62P+Ntdw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7037
 
-The hook functions have been empty forever (x2APIC) or issuing merely a
-printk() for a long time (xAPIC). Since that printk() is (a) generally
-useful (i.e. also in the x2APIC case) and (b) would better only be
-issued once the final APIC driver to use was determined, move (and
-generalize) it into connect_bsp_APIC().
+The hook functions have been empty for a very long time, if not
+(according to git history) forever. Ditch them alongside the then empty
+mach_mpparse.h instances and the then unused APICFUNC() macro.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
@@ -172,146 +170,184 @@ v2: New.
 
 --- a/xen/arch/x86/acpi/boot.c
 +++ b/xen/arch/x86/acpi/boot.c
-@@ -674,9 +674,7 @@ static void __init acpi_process_madt(voi
- 			error = acpi_parse_madt_ioapic_entries();
- 			if (!error) {
- 				acpi_ioapic = true;
+@@ -39,7 +39,6 @@
+ #include <asm/processor.h>
+ #include <asm/hpet.h> /* for hpet_address */
+ #include <mach_apic.h>
+-#include <mach_mpparse.h>
+ 
+ #define PREFIX			"ACPI: "
+ 
+@@ -75,8 +74,6 @@ static int __init acpi_parse_madt(struct
+ 		       madt->address);
+ 	}
+ 
+-	acpi_madt_oem_check(madt->header.oem_id, madt->header.oem_table_id);
 -
- 				smp_found_config = true;
--				clustered_apic_check();
- 			}
- 		}
- 		if (error == -EINVAL) {
---- a/xen/arch/x86/apic.c
-+++ b/xen/arch/x86/apic.c
-@@ -243,6 +243,12 @@ void __init connect_bsp_APIC(void)
-         outb(0x70, 0x22);
-         outb(0x01, 0x23);
-     }
-+
-+    printk("Enabling APIC mode:  %s.  Using %d I/O APICs\n",
-+           !INT_DEST_MODE ? "Physical"
-+                          : init_apic_ldr == init_apic_ldr_flat ? "Flat"
-+                                                                : "Clustered",
-+           nr_ioapics);
-     enable_apic_mode();
+ 	return 0;
  }
  
---- a/xen/arch/x86/genapic/delivery.c
-+++ b/xen/arch/x86/genapic/delivery.c
-@@ -19,11 +19,6 @@ void init_apic_ldr_flat(void)
- 	apic_write(APIC_LDR, val);
- }
+--- a/xen/arch/x86/genapic/bigsmp.c
++++ b/xen/arch/x86/genapic/bigsmp.c
+@@ -8,7 +8,6 @@
+ #include <xen/smp.h>
+ #include <xen/init.h>
+ #include <xen/dmi.h>
+-#include <asm/mach-default/mach_mpparse.h>
+ #include <asm/io_apic.h>
  
--void __init clustered_apic_check_flat(void)
+ static __init int force_bigsmp(const struct dmi_system_id *d)
+--- a/xen/arch/x86/genapic/default.c
++++ b/xen/arch/x86/genapic/default.c
+@@ -12,7 +12,6 @@
+ #include <xen/smp.h>
+ #include <xen/init.h>
+ #include <asm/io_apic.h>
+-#include <asm/mach-default/mach_mpparse.h>
+ 
+ /* should be called last. */
+ static __init int probe_default(void)
+--- a/xen/arch/x86/genapic/probe.c
++++ b/xen/arch/x86/genapic/probe.c
+@@ -78,39 +78,3 @@ void __init generic_apic_probe(void)
+ 
+ 	printk(KERN_INFO "Using APIC driver %s\n", genapic.name);
+ } 
+-
+-/* These functions can switch the APIC even after the initial ->probe() */
+-
+-int __init mps_oem_check(struct mp_config_table *mpc, char *oem, char *productid)
+-{ 
+-	int i;
+-	for (i = 0; apic_probe[i]; ++i) { 
+-		if (apic_probe[i]->mps_oem_check(mpc,oem,productid)) { 
+-			if (!cmdline_apic &&
+-			     genapic.name != apic_probe[i]->name) {
+-				genapic = *apic_probe[i];
+-				printk(KERN_INFO "Switched to APIC driver `%s'.\n", 
+-				       genapic.name);
+-			}
+-			return 1;
+-		} 
+-	} 
+-	return 0;
+-} 
+-
+-int __init acpi_madt_oem_check(char *oem_id, char *oem_table_id)
 -{
--	printk("Enabling APIC mode:  Flat.  Using %d I/O APICs\n", nr_ioapics);
+-	int i;
+-	for (i = 0; apic_probe[i]; ++i) { 
+-		if (apic_probe[i]->acpi_madt_oem_check(oem_id, oem_table_id)) { 
+-			if (!cmdline_apic &&
+-			     genapic.name != apic_probe[i]->name) {
+-				genapic = *apic_probe[i];
+-				printk(KERN_INFO "Switched to APIC driver `%s'.\n", 
+-				       genapic.name);
+-			}
+-			return 1;
+-		} 
+-	} 
+-	return 0;	
 -}
--
- const cpumask_t *vector_allocation_cpumask_flat(int cpu)
- {
- 	return &cpu_online_map;
-@@ -43,11 +38,6 @@ void init_apic_ldr_phys(void)
- 	/* We only deliver in phys mode - no setup needed. */
- }
- 
--void __init clustered_apic_check_phys(void)
--{
--	printk("Enabling APIC mode:  Phys.  Using %d I/O APICs\n", nr_ioapics);
--}
--
- const cpumask_t *vector_allocation_cpumask_phys(int cpu)
- {
- 	return cpumask_of(cpu);
 --- a/xen/arch/x86/genapic/x2apic.c
 +++ b/xen/arch/x86/genapic/x2apic.c
-@@ -75,10 +75,6 @@ static void init_apic_ldr_x2apic_cluster
-     cpumask_set_cpu(this_cpu, per_cpu(cluster_cpus, this_cpu));
- }
+@@ -27,7 +27,6 @@
+ #include <asm/msr.h>
+ #include <asm/processor.h>
+ #include <xen/smp.h>
+-#include <asm/mach-default/mach_mpparse.h>
  
--static void __init clustered_apic_check_x2apic(void)
--{
--}
--
- static const cpumask_t *vector_allocation_cpumask_x2apic_cluster(int cpu)
- {
-     return per_cpu(cluster_cpus, cpu);
-@@ -175,7 +171,6 @@ static const struct genapic __initconstr
-     .int_delivery_mode = dest_Fixed,
-     .int_dest_mode = 0 /* physical delivery */,
-     .init_apic_ldr = init_apic_ldr_phys,
--    .clustered_apic_check = clustered_apic_check_x2apic,
-     .vector_allocation_cpumask = vector_allocation_cpumask_phys,
-     .cpu_mask_to_apicid = cpu_mask_to_apicid_phys,
-     .send_IPI_mask = send_IPI_mask_x2apic_phys,
-@@ -187,7 +182,6 @@ static const struct genapic __initconstr
-     .int_delivery_mode = dest_LowestPrio,
-     .int_dest_mode = 1 /* logical delivery */,
-     .init_apic_ldr = init_apic_ldr_x2apic_cluster,
--    .clustered_apic_check = clustered_apic_check_x2apic,
-     .vector_allocation_cpumask = vector_allocation_cpumask_x2apic_cluster,
-     .cpu_mask_to_apicid = cpu_mask_to_apicid_x2apic_cluster,
-     .send_IPI_mask = send_IPI_mask_x2apic_cluster,
+ static DEFINE_PER_CPU_READ_MOSTLY(u32, cpu_2_logical_apicid);
+ static DEFINE_PER_CPU_READ_MOSTLY(cpumask_t *, cluster_cpus);
 --- a/xen/arch/x86/mpparse.c
 +++ b/xen/arch/x86/mpparse.c
-@@ -410,7 +410,6 @@ static int __init smp_read_mpc(struct mp
- 			}
- 		}
- 	}
--	clustered_apic_check();
- 	if (!num_processors)
- 		printk(KERN_ERR "SMP mptable: no processors registered!\n");
- 	return num_processors;
+@@ -30,7 +30,6 @@
+ #include <asm/setup.h>
+ 
+ #include <mach_apic.h>
+-#include <mach_mpparse.h>
+ #include <bios_ebda.h>
+ 
+ /* Have we found an MP table */
+@@ -326,8 +325,6 @@ static int __init smp_read_mpc(struct mp
+ 	str[12]=0;
+ 	printk("Product ID: %s ",str);
+ 
+-	mps_oem_check(mpc, oem, str);
+-
+ 	printk("APIC at: %#x\n", mpc->mpc_lapic);
+ 
+ 	/* 
+--- a/xen/arch/x86/x86_64/acpi_mmcfg.c
++++ b/xen/arch/x86/x86_64/acpi_mmcfg.c
+@@ -38,7 +38,6 @@
+ #include <asm/mpspec.h>
+ #include <asm/processor.h>
+ #include <mach_apic.h>
+-#include <mach_mpparse.h>
+ 
+ #include "mmconfig.h"
+ 
 --- a/xen/include/asm-x86/genapic.h
 +++ b/xen/include/asm-x86/genapic.h
-@@ -32,7 +32,6 @@ struct genapic {
+@@ -21,13 +21,6 @@ struct genapic {
+ 	const char *name;
+ 	int (*probe)(void);
+ 
+-	/* When one of the next two hooks returns 1 the genapic
+-	   is switched to this. Essentially they are additional probe 
+-	   functions. */
+-	int (*mps_oem_check)(struct mp_config_table *mpc, char *oem, 
+-			      char *productid);
+-	int (*acpi_madt_oem_check)(char *oem_id, char *oem_table_id);
+-
+ 	/* Interrupt delivery parameters ('physical' vs. 'logical flat'). */
  	int int_delivery_mode;
  	int int_dest_mode;
- 	void (*init_apic_ldr)(void);
--	void (*clustered_apic_check)(void);
- 	const cpumask_t *(*vector_allocation_cpumask)(int cpu);
- 	unsigned int (*cpu_mask_to_apicid)(const cpumask_t *cpumask);
- 	void (*send_IPI_mask)(const cpumask_t *mask, int vector);
-@@ -54,7 +53,6 @@ extern const struct genapic apic_bigsmp;
- void send_IPI_self_legacy(uint8_t vector);
+@@ -38,13 +31,9 @@ struct genapic {
+     void (*send_IPI_self)(uint8_t vector);
+ };
  
- void init_apic_ldr_flat(void);
--void clustered_apic_check_flat(void);
- unsigned int cpu_mask_to_apicid_flat(const cpumask_t *cpumask);
- void send_IPI_mask_flat(const cpumask_t *mask, int vector);
- const cpumask_t *vector_allocation_cpumask_flat(int cpu);
-@@ -62,14 +60,12 @@ const cpumask_t *vector_allocation_cpuma
- 	.int_delivery_mode = dest_LowestPrio, \
- 	.int_dest_mode = 1 /* logical delivery */, \
- 	.init_apic_ldr = init_apic_ldr_flat, \
--	.clustered_apic_check = clustered_apic_check_flat, \
- 	.vector_allocation_cpumask = vector_allocation_cpumask_flat, \
- 	.cpu_mask_to_apicid = cpu_mask_to_apicid_flat, \
- 	.send_IPI_mask = send_IPI_mask_flat, \
- 	.send_IPI_self = send_IPI_self_legacy
+-#define APICFUNC(x) .x = x
+-
+ #define APIC_INIT(aname, aprobe) \
+ 	.name = aname, \
+-	.probe = aprobe, \
+-	APICFUNC(mps_oem_check), \
+-	APICFUNC(acpi_madt_oem_check)
++	.probe = aprobe
  
- void init_apic_ldr_phys(void);
--void clustered_apic_check_phys(void);
- unsigned int cpu_mask_to_apicid_phys(const cpumask_t *cpumask);
- void send_IPI_mask_phys(const cpumask_t *mask, int vector);
- const cpumask_t *vector_allocation_cpumask_phys(int cpu);
-@@ -77,7 +73,6 @@ const cpumask_t *vector_allocation_cpuma
- 	.int_delivery_mode = dest_Fixed, \
- 	.int_dest_mode = 0 /* physical delivery */, \
- 	.init_apic_ldr = init_apic_ldr_phys, \
--	.clustered_apic_check = clustered_apic_check_phys, \
- 	.vector_allocation_cpumask = vector_allocation_cpumask_phys, \
- 	.cpu_mask_to_apicid = cpu_mask_to_apicid_phys, \
- 	.send_IPI_mask = send_IPI_mask_phys, \
---- a/xen/include/asm-x86/mach-generic/mach_apic.h
-+++ b/xen/include/asm-x86/mach-generic/mach_apic.h
-@@ -14,7 +14,6 @@
- #define INT_DEST_MODE (genapic.int_dest_mode)
- #define TARGET_CPUS ((const typeof(cpu_online_map) *)&cpu_online_map)
- #define init_apic_ldr (genapic.init_apic_ldr)
--#define clustered_apic_check (genapic.clustered_apic_check)
- #define cpu_mask_to_apicid(mask) ({ \
- 	/* \
- 	 * There are a number of places where the address of a local variable \
+ extern struct genapic genapic;
+ extern const struct genapic apic_default;
+--- a/xen/include/asm-x86/mach-default/mach_mpparse.h
++++ /dev/null
+@@ -1,17 +0,0 @@
+-#ifndef __ASM_MACH_MPPARSE_H
+-#define __ASM_MACH_MPPARSE_H
+-
+-static inline int __init mps_oem_check(struct mp_config_table *mpc, char *oem,
+-				       char *productid)
+-{
+-	return 0;
+-}
+-
+-/* Hook from generic ACPI tables.c */
+-static inline int __init acpi_madt_oem_check(char *oem_id, char *oem_table_id)
+-{
+-	return 0;
+-}
+-
+-
+-#endif /* __ASM_MACH_MPPARSE_H */
+--- a/xen/include/asm-x86/mach-generic/mach_mpparse.h
++++ /dev/null
+@@ -1,7 +0,0 @@
+-#ifndef _MACH_MPPARSE_H
+-#define _MACH_MPPARSE_H 1
+-
+-int mps_oem_check(struct mp_config_table *mpc, char *oem, char *productid);
+-int acpi_madt_oem_check(char *oem_id, char *oem_table_id);
+-
+-#endif
 
 
