@@ -2,47 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D8E144639E
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 13:47:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222298.384423 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CE684463A4
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 13:50:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222305.384434 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miycx-0005Sx-Ne; Fri, 05 Nov 2021 12:47:27 +0000
+	id 1miyfc-0006pT-7M; Fri, 05 Nov 2021 12:50:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222298.384423; Fri, 05 Nov 2021 12:47:27 +0000
+Received: by outflank-mailman (output) from mailman id 222305.384434; Fri, 05 Nov 2021 12:50:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miycx-0005Ph-K6; Fri, 05 Nov 2021 12:47:27 +0000
-Received: by outflank-mailman (input) for mailman id 222298;
- Fri, 05 Nov 2021 12:47:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1miyfc-0006mk-2S; Fri, 05 Nov 2021 12:50:12 +0000
+Received: by outflank-mailman (input) for mailman id 222305;
+ Fri, 05 Nov 2021 12:50:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mr/O=PY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1miycv-0005Pb-QP
- for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 12:47:25 +0000
+ id 1miyfa-0006mV-TM
+ for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 12:50:10 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 863c75b9-3e36-11ec-a9d2-d9f7a1cc8784;
- Fri, 05 Nov 2021 13:47:24 +0100 (CET)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2108.outbound.protection.outlook.com [104.47.17.108])
- (Using TLS) by relay.mimecast.com with ESMTP id
- de-mta-29-POx9wcENOKisZdnQ6GmGTw-1; Fri, 05 Nov 2021 13:47:23 +0100
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e8ce4933-3e36-11ec-9787-a32c541c8605;
+ Fri, 05 Nov 2021 13:50:09 +0100 (CET)
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2057.outbound.protection.outlook.com [104.47.12.57]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-17-Tv8zj7NjM6qpVY85X1Tnyw-1; Fri, 05 Nov 2021 13:50:08 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4381.eurprd04.prod.outlook.com (2603:10a6:803:6d::30)
+ by VE1PR04MB6671.eurprd04.prod.outlook.com (2603:10a6:803:11f::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.15; Fri, 5 Nov
- 2021 12:47:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.17; Fri, 5 Nov
+ 2021 12:50:06 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4649.022; Fri, 5 Nov 2021
- 12:47:21 +0000
+ 12:50:06 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AS9PR06CA0221.eurprd06.prod.outlook.com (2603:10a6:20b:45e::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4669.10 via Frontend Transport; Fri, 5 Nov 2021 12:47:20 +0000
+ AS9PR06CA0024.eurprd06.prod.outlook.com (2603:10a6:20b:462::32) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11 via Frontend
+ Transport; Fri, 5 Nov 2021 12:50:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,199 +55,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 863c75b9-3e36-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: e8ce4933-3e36-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1636116444;
+	t=1636116609;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=WmmuYe13+6QfsQMsh3TbBdhckZveyiGTojp8Dc28lrI=;
-	b=XA9pW6WXKpXaxYu9BJm2BLkPiiW8vbC4BZxIIeP2wLMB2l+fDSvOcAM1QVbHQ8NxrXxv8V
-	qfWSIqD+of2lypvvwf7tvyzQLRbdjYGQVT+TPvG2pAjBDnJkDHN7gJItvHToSm2aLwFbn6
-	jFGv2Ig6jSjIchYoI8UWgSO3NtYL3B4=
-X-MC-Unique: POx9wcENOKisZdnQ6GmGTw-1
+	bh=OsmaAP8oZ7Snerm7QV7ZROMuDBqUeEqa1aL3UwUf88w=;
+	b=aU8YoDZF8ZijLHOswq1jDXEwvbifGmiRVtTeRDEPWmpHENLFr3YfpQGsTFp3tbfTAMFhnk
+	FTxNqOwWrcotgAGlmyQ5GhkHwEOrEZMMZ8ecn6OK+QNVIFKeL1DLWqUbuG9zeUmgthD2KL
+	VAv/JdnPaRswzV1/no+PcKA/DXBDTrY=
+X-MC-Unique: Tv8zj7NjM6qpVY85X1Tnyw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XY5nyhpToAk5loznZrzdETJYbm8JYFc+uG9Z42IqxaOqWOlxdqwLqwN/+1m6PhemBCBf6Q3iM7nhLjxKZwTKTP/Qnt6NfeEDz4eiYkd2glns2K5TkEvQ+fOYo+sHdF0uZAj4+CCTboIgXcs9PKuietXJKfpEJzraqIm/sYkuzqE7JXnLIjOnplvFMpn5t/7uJfWwxFgsNsSEZsXfuu93P/W5kclCrn/YcXvuWFRZLGj12DuQE3brGJm7amKOzGsU4HbgKM1LywpXSrHV1hErBE2kNPx1GeGs/yiFiobwLIZUUsK81AFHj1M0k1H/msyLcpMTe65ekjW78PUR8jBpCw==
+ b=URAaA5MW1kY7RqthIXAi1zg4+4seI1ewllGqxdnubMDMv6NWuTOoZJwcYpAZKYEE6pH+PYDBANEMlck3V7TM8KtieYqD81mL2Fdc9yG99ccYGcu27L0UPv+GhFDCM5G/nzZhh5MMMRpNSGKJoxzMP3S8AHAEsNPKLFlR7JPC46vRa2xyWc9/ErZTqTcDPHyqyAFJ3lNhz8yed8J90KtaXirsJ+TzKSpWh+HUh+fR8qGnGVr/uCvMDHlQ7EYiar238jiYfN57Sd+rt7kePIje54v4+unm3YDYRPSVov9VlmZW+bM9H1apo35I8U8xbjbweSH3XYLkBvx3EnWgILGDoQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WmmuYe13+6QfsQMsh3TbBdhckZveyiGTojp8Dc28lrI=;
- b=U+Rf85aO6N11zw8vAn2KD+tYlfpcpeFet7ILuJnDsovSB9SNZEiwDEnlLC/7JyjEaCDxxKiYPVmWw6WtFIKhCsB0PtfOHeSvSvPd9oWy0w153KlkeDvwwrC4bEpsDIs7QICh7ZiRNiAVURTwe3QV4L1dmj4lE7KR7xpprqvSIsR24PtA2q5VvspbPnU+3OsmB/LVZqr4LAiGtCUeQ8u87YAn8RPEKCYjhNcrxAgN0VMAjYBxMPaeql/o4thdFqjxCULvZivSAMc1YrEmO9tn/xcfAM6Ku4SS5p7MfJR3UpbgQSQv1cDzTQAADjOAkPp/kRm/11mFD+zjZcXVyjUmNg==
+ bh=OsmaAP8oZ7Snerm7QV7ZROMuDBqUeEqa1aL3UwUf88w=;
+ b=jaQ/UfoOO6mOVydyGXIv3Iln5z/uQZTGIzjbCk+jVYQ2tb3mg27xOuD2h2cbjRKwm4Hi5+PUHHu0/Wj3Tfj8sQGziF2BSQeqOXVKxA47h1tzM0H4THr4q22sPQ8HQAVJ4Aj8/ASu1cNo1+8JMpkZ435GdoBxh8W0fhDIuZDd/lp650lQH0WwEK5JOM9QNYPyAS2VvbcGx3n5kuKZd5nb/g8Zzm6ijucgCh9fXQ+YSQK61VIWQy7Lxx1PwMVMJDY7j5vusbgSoQDyBSeBUcI+/KKa99V5229+ppxis3Mv+/8FGGhK6/Wx3rkG+yLHFVKFqQ8/ZHrev7GCCW3vNducDQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <9802643a-243d-76c3-a976-f630b8d6ea7d@suse.com>
-Date: Fri, 5 Nov 2021 13:47:19 +0100
+Message-ID: <06be7360-0235-3773-b833-3e0d65512092@suse.com>
+Date: Fri, 5 Nov 2021 13:50:04 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: Re: Error around cc-option on AArch64
+Subject: Re: xen 4.11.4 incorrect (~3x) cpu frequency reported
 Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- "julien@xen.org" <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <VE1PR08MB5215CBA5B28A1FB90D7B161FF7D39@VE1PR08MB5215.eurprd08.prod.outlook.com>
+To: James Dingwall <james@dingwall.me.uk>
+References: <20210721092958.GA2502468@dingwall.me.uk>
+ <c9c6778d-9823-4b07-fb48-604acef1f3de@suse.com>
+ <20210726123332.GA3844057@dingwall.me.uk>
+Cc: xen-devel@lists.xenproject.org
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <VE1PR08MB5215CBA5B28A1FB90D7B161FF7D39@VE1PR08MB5215.eurprd08.prod.outlook.com>
+In-Reply-To: <20210726123332.GA3844057@dingwall.me.uk>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR06CA0221.eurprd06.prod.outlook.com
- (2603:10a6:20b:45e::6) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9PR06CA0024.eurprd06.prod.outlook.com
+ (2603:10a6:20b:462::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1c42a84c-d282-447e-028e-08d9a05a688a
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4381:
+X-MS-Office365-Filtering-Correlation-Id: 9e1812c4-399b-4907-371b-08d9a05acb04
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6671:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB4381FF4FF974986EBC3D0E17B38E9@VI1PR04MB4381.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+	<VE1PR04MB667126F133CEC99145EDBF57B38E9@VE1PR04MB6671.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	P7tT9WgBBGYsqbX71HVoEEVYsEA6dlkkSzf3xrcChfS0j85nR8BWZ4RSco+sL2sMKXdtURQpoPP6wHQfMEOtT0jnFtp/rRnLOmntNcU1z9nSUwCLFDPwa1WbR6wGXP562/EAh4BJqLGUUw0K/ruHZXOLgUG9KB3nurgJi4WWc1Hs6xFoWH13lgwpfAe+n9fbduO8Jq3rYtYEi4Z7TNdFnvM6VtIjSiLL8DZPayswNeMq0tZ91mdP673d55fDyFLupw7O1A/sQP+PO2enULIBvmmSMqVIs03+FIB47ULPd9AGaTpDvhxIdcquFTusEud9zeyu/ezioFbbDmaNGtPMEmEwPbFK8XF6frLAMVnRMJHpHU6tlFB1CsPWd6Kvx4nyZC6jxbw9Z2QWNa//sbsnnSpZQkpsxdyqGWzDrZYoSbWc487OE5IbsuZ9a49j7f66HMvy9rwHO8/MklRB5RCUJaQ6R40b/IWQZN5Qk5YvHdDUZs8Q0tUO3y243pkEbdm/6W6ykjqVo9YersbGh0x/ymGIw1l2Rn2y3/ZEugV5nlJEL78xiG2qQilU1zZNfa8AxMzKLJJ7TqpbNLFTqDK5A/5hbH1aKZw8yH1AYaUvW4zHLMNFwokvsGIGuYz6JGTh2tn4U+4LnUKeiWDO5XcLUUbqhZbRicObYK9BWgoq5PKQbjRbEaHlTqITwzMS4nQqRVMSe6tosxRvIldeRbqRXFf/b3NJGRfvapAs0UsxztTgs8+bibjQycIOWf7VNw1dL0sivnIMe4DUl0+Wjt8ym5GP3d83pOwF2N7dHk0qS8db93NE9qsWCc2yBqyanqMvRQZIuEXjWky7kcKjhrrYvA==
+	6u47DoH9iMnw7JHORyD86vg7pRTMVMgul5cG+VM/xhbuGpcHDa2T/bSeKAHKdZMh2kWS3CFzb0hcyq1EnSxeo3fuRZvM/AbgjWwAYIzb/7Z1WFkVrCWPQQ4DHpEawJTivs2+BCkTDNG5Ga8tfei0Str49yHXNxq8LS/IVyCSoDG/tp3iwM5Nf2vNXc8uV2simB7l2akDEeF8Nx5bxSldsB1dSPc0VapPHScwaN/1eC0PrNcYfS+YxwSB5x2Vq46jkZ9W+c3VBRNPF/4z7AyXMJKbEB1BuSp3iESRlo65n3DwmIWqzqExakRXp4b3xAGz+N8Fqv64fITKADXFfGZTwfRTBEmhhmTvEFve5yJVLAU/hbBvelupNXbGTu4sJIAKQvXsuJKwvvSx9CFT2/BRLruYZ1V0N8y9FO/6n1ZaJXOPqqiPd1zjdwEqodA/yZV/bIAUfwRLBpGzb2TibCgjjDYWNj1AM909cWTbhpLNYbNRwPGuAJYzbH2SCnoNhyf26ws8SAGBSRBIqmdinBpyM9IBzexm/bmtMCe8/lSF0jfNLTIGaqfrUDHWrTzy/1UgN6ElCyY5HJyCYH6dW20lZ0gV7ghUHCFRNNL/nC56arz3u4aCOdbVONpYRQ9E9Rd8DkxZ/NXv4qpI0et2DowzDqt5b6daKT5QE5CtJ5T4Etgiflof97V0+Mvs1fPsEj6soT8KhhwtckqQOPsLKN4jb65pVPCaPAF7p/7F1APWnoI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(4326008)(2906002)(8936002)(508600001)(83380400001)(8676002)(26005)(966005)(53546011)(2616005)(66946007)(5660300002)(66476007)(66556008)(36756003)(186003)(16576012)(31696002)(316002)(956004)(6486002)(86362001)(54906003)(6916009)(38100700002)(31686004)(21314003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(186003)(83380400001)(66556008)(2906002)(6916009)(8676002)(5660300002)(31686004)(53546011)(31696002)(8936002)(6486002)(2616005)(316002)(26005)(86362001)(66476007)(66946007)(16576012)(38100700002)(4326008)(956004)(508600001)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MlJ6TUxQRkpTMkJSdS9wMWFGbjNwMlpEWXZIL084SmFJaWpGWUR6MDU3TXdC?=
- =?utf-8?B?TXZaR0hkRlBuQW5NUXREemdwaEk1bEFSMWNzZ0VkMDJHTXBhRlNzWUtEY0p3?=
- =?utf-8?B?eGZNTEtGRTRORkVOMkxoQkZRYXhYNnpLS1huQkxrLzEzaGJ1WU1nV3dUV1dp?=
- =?utf-8?B?MmRYaUNYWC9lbWhVQ0pQLzdieFN2eDgra2hpbktsWVhyQ3VuYWFHWm5Va0wz?=
- =?utf-8?B?UE5vRUFlZDM1YVg0aWNpVGpKV0lOWVkxY0RRbEtOSjBhVk45eXhPUVRtSlFh?=
- =?utf-8?B?YlF4QlUzZCt6QnRybzZBK2NxN1dsdnhYKzlBRzhoS2h5ZEljMklNSzQxb1dh?=
- =?utf-8?B?MnVjSzhGMmlFMFVBczl2TndmcGNIcWF1UXphbTdodFdWQWtIZlFzNUxOdDl0?=
- =?utf-8?B?TFU0eEpFVEhGVTRCeUk2MFNpQ05TbHlXRlhPVU9JQ3o2YWQ1dDZnR21HVmZy?=
- =?utf-8?B?VndnTzJSVmp3bmgrRXQ1M3pUa0t5M2MvSVpLRWY3NktsSjZkbmFHOFl2cVkz?=
- =?utf-8?B?QXE0cFA4M1JFZHoyUVVXdXlFcTRDcUNQVTVZc29sSnNOLzF6MFpDcEs0S09N?=
- =?utf-8?B?TVZVV0pjSkhqdHdTOG9kSlpvemhjODVId2V3bTM3VlZ6YkRnU3hxRlkrUTAv?=
- =?utf-8?B?VGlmQ0k4a3ZneDU2QXhJYmZ6VThhUWhwa0ZOUnZRZXB4VThLNzhkYytSMThx?=
- =?utf-8?B?WExYZ0N1N1RJako0OFRMVUNhMmJ2TE9DcWRKYVhaOVBOS1Z6WFJjUWQ5Q0lF?=
- =?utf-8?B?VTRpM3JONDIwdzdiQ2FBYzZhOXoyUm9ieHpwZUNRZmlieFJQTjAxdkt2Risw?=
- =?utf-8?B?WVQvVFEwaDBHRFNYMklMZ3NUd3BFbG1vMmVDQzcxVlU4N05SY1RsZTBjU0hU?=
- =?utf-8?B?NnRZODRuYmwvU2g0WHVyL2RkVjZZZHUwcXhBWlM1UTRoMFkxb3Q3STMrNlhS?=
- =?utf-8?B?eVBkaXdPK0NDckdBNFhLVy9nTXlZUFlYemhES2lDM2NtRHpDSEh2V0V1RzlW?=
- =?utf-8?B?ejh4UExmdnVEK2R2MXdJanIrV3pYRVptcGVtbHRLZjhlcGFRMGRZRUZ6dXVs?=
- =?utf-8?B?eVJ2cWkxdjJnVkRYZ1pQV3gwY2QvWERkZktYdFVNek5VYTRmYXRmOWhkUUIx?=
- =?utf-8?B?Qi9wbCtOaU02ZDBzbHlKMk5XUDNrQnFoRXFhM1BtZ0hiNkhxWG54bmFwcWIy?=
- =?utf-8?B?OSt4YnRnNGhXajI0clhlaWcraDFFSUUzTVBPNy91OUdWeUhNbG1qdjZleG9R?=
- =?utf-8?B?dnJYdVEwcXltNk4vSTNXSE5LWStaMi95WitLZU5BOURqendjM1k5bEtVOWFi?=
- =?utf-8?B?SE5kREhWR01UcFFSK1FjcFVpRG1BVUpDc3J3eVN3ei8ydlZ1bVNuUUhONkNq?=
- =?utf-8?B?OTNLdUhDZE8wUTJZdVFYZFVjeGgya2MyS0dianJha255S0tyY1g0L01LRGd5?=
- =?utf-8?B?cFg0WmdJT0gwUDhrQ2tsbXhwSUdPRXV3bGUvT3ZmNUY5Q3JQdmt5ZEh5Mm1S?=
- =?utf-8?B?QjB1NHY2S1dIYnlQcGMxVlJlTEwrMWNFd09zaTJETkFkS05jTEY2WkJqaXBu?=
- =?utf-8?B?aGZDb1VpZEN3L05WOWlqc2FjNWZrb3NNcEllVFUzSzlOdFkvQ3Z1ZERQbklv?=
- =?utf-8?B?M2RVSEhBL1JveFhHWFhNblZ5TnZnVmxWZlRZSnB6ZVRUY1pyL2lUVWwzaGNQ?=
- =?utf-8?B?Zlp2TTdCRkwwc2llWGd3TllVYkdDQUZwSCtmeVk5K0Y3YUR3Kyt5SXM1TWNS?=
- =?utf-8?B?T0hiclVKQUFySk9uYUZJaVd3MTlkbm5pVWZaNVIyZndpKzBLRFU3RzJlQUto?=
- =?utf-8?B?MHFuSjRjL1kzNVJwa3FjSkphMUk3NUx6U2lVRFJRckVzNTNESjVlV012ZFZk?=
- =?utf-8?B?azV6Y0cvOTJHcjREM0xoSXFnYXlVczJFTCtXWjFsazc5a3VsUlNYb1RzWnJG?=
- =?utf-8?B?b3RjTTVvaUV0T1NFNGJWNWlDUjVOWkpBQlBFSXNKVmF4NUtKNXJuY3l5OTln?=
- =?utf-8?B?QmFSQklKRDF4cDFkckR6bEZPOGJxS2V1NlIvdWo0V2JyTVE1Rm1JcDUyV292?=
- =?utf-8?B?MkZXb0RwWHRtS2dvTkRydDZvTVdDZitQdG1nUGZ3L0FyOEtBZktQZm00V3Bn?=
- =?utf-8?B?MEgwWjB6dVVxK3Y0UGxsSyt0L3FXcUh1QXUrOTJ2VVFMcWJPcTg4MEdwazNr?=
- =?utf-8?Q?vL4tpDYwRLDgl/8ChDyd/r8=3D?=
+	=?utf-8?B?QWlhL0d3ZDB5VCtacEtkd0tPNUh4N2t6K3d1dkxidVh0RVVhQXZkUzQvNTJW?=
+ =?utf-8?B?TkorR0pCOVJvNWlMWTlMOGo5U2VtclJrb3Y2cXBMYlZzblVBeUltODRlVFZF?=
+ =?utf-8?B?YTlzTDd4ditPdW9qbjJ4UDdPTVY3TkEyRzA0MzltVlVoc3lzRE82amdoWDRR?=
+ =?utf-8?B?bDZGTDFlZ0pIMU83OGF5OXRuZEJ0cmZVYXJSSWpqcUhyM1hLNXlRNVFpV3I1?=
+ =?utf-8?B?dkVISllNdmY1VjY0Zmc4SkhIYWNzVTNqT2lHQjRrQWFld0VLVnZsMGwvM0tp?=
+ =?utf-8?B?Q00wWXlXdnZoTXhnM1M5T0lGbUpVNzB0d2FwOEF2SlluLzBSc3Z4MlAwWllV?=
+ =?utf-8?B?YW9ZYnI0MUNGcHVrQjUwOVJ5WDB0TzRMSW5rVFRubFFIN0c2T2pTeDRyanlG?=
+ =?utf-8?B?MThTWFNSMlZLakhEbmo4VTZsL2RzTmt4WVZkUU5aaFgraFZFQ0wzOXJ3Vno1?=
+ =?utf-8?B?QU1Za09oZEJ2YjEvUll5MjhQMDN2NHpXQTBFbFZxanp6NW1iZVRURmNUS0RX?=
+ =?utf-8?B?ZnlmL0pRdDV6bFVOSE85dU1QUkpmS0ZJM1V4RHBpMVo5Y0hWaHMrd1Vtc25L?=
+ =?utf-8?B?V1dRMm5vL3B4UEpqNm9sZWV3Znd3NlhGellpMWx2SGZXY2Y3QU1QdHlTc3NP?=
+ =?utf-8?B?R0paenFOcjRLSXJMSG0zM3F5TXNkY2Z0TzRSZEFpb29lb245VzZvcFI5RTQx?=
+ =?utf-8?B?dGI1YzNVVUhTdHB2ZnE0dTgyRE9TSkp6bGxuT1B4QXdRcmJyekVIbERvam1X?=
+ =?utf-8?B?UWttQ0ZOT0lpZm0vVURQNkRYSHU5Y1ZJYy8zY1UxaTJORnFNbHE1MWRnTGRC?=
+ =?utf-8?B?Q2s2UGwrVFM0R1FTbFBnNUQvUlNQNG9QTXkwL2VweDlIeFNQQndVODh4MzBj?=
+ =?utf-8?B?YU56QmRtbXovSVN6T2tSaW12NU1zWGE5NzU3SWRGTkFDNTVOOVlDVlo5eHI0?=
+ =?utf-8?B?VVFaVHhNcFZHK0d3NHVzbmd5Ynd6N1FOUlUrWGZIdlAyY3JlVnNkWUg1S0I3?=
+ =?utf-8?B?ZUt6NmJNTDh2dlNUOWExUm1KaGxVYVdEcjhUT3h4bFZmR0xYOFZZVVQyQ0lE?=
+ =?utf-8?B?VDkwQ1Q4WWErU1Z5UkcxZ3FsSHFTVlBtRXE5MzViZFkxVWJWTHFncWlYOWFZ?=
+ =?utf-8?B?NDRvVnMzdXV2YXB5VmZUODFyTjY5U0xmWVU3cXFOdEc3eGhhRGNmKzNLQkho?=
+ =?utf-8?B?WVRLZFFmb1VLbTNFdkx3bGt1clV4c1drOExZbnFpUC9SaGQ0d1AyVkxjeWVj?=
+ =?utf-8?B?UXRKa3VWTEZidXJaUHoyaGcycHNXdnhLMTZjZk5VeGZwV0pMMVNJbjVzaEcv?=
+ =?utf-8?B?RzJXMUNFNW16V0lxMUVhbWlwSGZDWlZVdjdxaEVaZ1AwdWovcWRFRDliRWtu?=
+ =?utf-8?B?UzI0MENCbEVncUJHd3N5RnduYktZZWxmYllIUlhGb1dHRG1zSHpQRmFXWEFx?=
+ =?utf-8?B?TDBtemZldkYyalMyNTVpcjBYOFNBQ1JRRU1vL0VkUlZDYzM0UDQ0clpjUi8x?=
+ =?utf-8?B?dXhleVArV1NuVTg3dEF4NWdlbHVrTS9FZXFIR3h1QlI2S1lRcGZ6N1FxTEM2?=
+ =?utf-8?B?MWkySHRweUdXOUViN1F0VVRRMW5aVjM1SEhRbEF5VkhmTmJNTXFFRVVGaDBv?=
+ =?utf-8?B?MWVRQWdxOW00RHg0UlZwOWtzUDN2R0xLOXNMNjVyazJCSHNFMVFuc3RTd1ZB?=
+ =?utf-8?B?czJBQ0E3cUs1SG5vN1ljdkdSRm9Jb0RHd3IrcURFaGlGUUVPaE1sU1p4NGxX?=
+ =?utf-8?B?c1RHQ3BTdDNVU0lVL2c5cFVSMUhIRGNWRjEyMENvTHRjQk0vTTZzcjFiSDRz?=
+ =?utf-8?B?MmgzNURpK1pScEx1RFY0cVJkZnN0b2FwSnM1bHRSRFRWNnZLeFFxbkY2RG5U?=
+ =?utf-8?B?SXdxMU5qVS9TWTZ1K044QWtodGVXUHRsYVFoV1UxTVQ4U3A0WjdDMS9yb1dY?=
+ =?utf-8?B?QTBheUxJMWZDeGpZaHdnQ2FsTnkrbVBFTTBzQkdsRFVwL2wvbEJ3ZUZucWFz?=
+ =?utf-8?B?VFEzR25MNmh4R1pUUUdGVFpDNHY5RUR1dmhEMStsVWdKdy9vTVpnd1EwWEpt?=
+ =?utf-8?B?ZlVFNGZJWGlwbmlJL1FYV0JLRkxIYTd4TUxZbHJVZWZUREVERnBHNWZFa1Y3?=
+ =?utf-8?B?YWJJOURsUE5hbGFDVnBPN3hLZWpJOUhQUlpnTUgxb1hXTmhSL2lNSTRXbTB5?=
+ =?utf-8?Q?jWIbrl3cBF/m6AoWOzN5RY8=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c42a84c-d282-447e-028e-08d9a05a688a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e1812c4-399b-4907-371b-08d9a05acb04
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 12:47:21.2730
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 12:50:06.4796
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: L3NjrWIIj/sWyC/uLeG/viRyp4yOgAYmUdOcbiE87zhtDVwShqP3z5WAILgafnTDQ2B39xzgaZyC1hBTKyW0zw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4381
+X-MS-Exchange-CrossTenant-UserPrincipalName: dpb7m1VTFubqColbJKOVf5ylN4B5RAm6xYS0UrnbXgrwi1MxlVvQ/1n1yaQ/FQsmOG1fUB2atvSZuGeFxdKL3w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6671
 
-On 07.09.2021 15:03, Penny Zheng wrote:
-> Hi Julien and Stefano
+On 26.07.2021 14:33, James Dingwall wrote:
+> Hi Jan,
 > 
-> I found that the "cc-option/cc-option-add" is not working for "-march=xxx" option on a few very common aarch64 compilers.
-> Here is what I got when trying to compile XEN on r82 platform.
-> ```
-> diff --git a/xen/arch/arm/arch.mk b/xen/arch/arm/arch.mk
-> index 11caec86ba..d2d71baef4 100644
-> --- a/xen/arch/arm/arch.mk
-> +++ b/xen/arch/arm/arch.mk
-> @@ -10,6 +10,10 @@ $(call cc-option-add,CFLAGS,CC,-Wnested-externs)
-> CFLAGS-$(CONFIG_ARM_32) += -msoft-float
-> CFLAGS-$(CONFIG_ARM_32) += -mcpu=cortex-a15
+> Thank you for taking the time to reply.
 > 
-> +#ifeq ($(CONFIG_ARM64_V8R),y)
-> +    CFLAGS-$(CONFIG_ARM_64) += $(call cc-option,$(CC),-march=armv8-r,-march=armv8.4-a)
-> +#endif
-> +
-> CFLAGS-$(CONFIG_ARM_64) += -mcpu=generic
-> CFLAGS-$(CONFIG_ARM_64) += -mgeneral-regs-only # No fp registers etc
-> $(call cc-option-add,CFLAGS-$(CONFIG_ARM_64),CC,-mno-outline-atomics)
-> ```
-> My gcc compiler version is as follows:
-> ```
-> Using built-in specs.
-> COLLECT_GCC=aarch64-linux-gnu-gcc
-> COLLECT_LTO_WRAPPER=/usr/lib/gcc-cross/aarch64-linux-gnu/9/lto-wrapper
-> Target: aarch64-linux-gnu
-> Configured with: ../src/configure -v --with-pkgversion='Ubuntu 9.3.0-17ubuntu1~20.04'
-> --with-bugurl=file:///usr/share/doc/gcc-9/README.Bugs --enable-languages=c,ada,c++,
-> go,d,fortran,objc,obj-c++,gm2 --prefix=/usr --with-gcc-major-version-only --program-suffix=-9
-> --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext
-> --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu
-> --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new
-> --enable-gnu-unique-object --disable-libquadmath --disable-libquadmath-support --enable-plugin
-> --enable-default-pie --with-system-zlib --without-target-system-zlib --enable-libpth-m2 --enable-multiarch
-> --enable-fix-cortex-a53-843419 --disable-werror --enable-checking=release --build=x86_64-linux-gnu
-> --host=x86_64-linux-gnu --target=aarch64-linux-gnu --program-prefix=aarch64-linux-gnu- --includedir=/usr/aarch64-linux-gnu/include
-> Thread model: posix
-> gcc version 9.3.0 (Ubuntu 9.3.0-17ubuntu1~20.04)
-> ```
-> However. even if my gcc compiler is indeed not supporting "-march=armv8-r", above check will not identify it
-> "unrecognized option" and seek to the "-march=armv8.4-a" as expected.
-> See the resulting errors, it still uses "-march=armv8-r":
-> ```
-> make[3]: Entering directory '/home/penny/FVP/r82/fvp_aemv8r_cortexr82_0.0_6347_gcc6.4/xen/xen'
-> aarch64-linux-gnu-gcc -MMD -MP -MF ./.asm-offsets.s.d -DBUILD_ID -fno-strict-aliasing -std=gnu99 -Wall
-> -Wstrict-prototypes -Wdeclaration-after-statement -Wno-unused-but-set-variable -Wno-unused-local-typedefs
-> -O1 -fno-omit-frame-pointer -nostdinc -fno-builtin -fno-common -Werror -Wredundant-decls -Wno-pointer-arith -Wvla
-> -pipe -D__XEN__ -include /home/penny/FVP/r82/fvp_aemv8r_cortexr82_0.0_6347_gcc6.4/xen/xen/include/xen/config.h
-> -g -march=armv8-r -mgeneral-regs-only -mno-outline-atomics -I/home/penny/FVP/r82/fvp_aemv8r_cortexr82_0.0_6347_gcc6.4
-> /xen/xen/include -fno-stack-protector -fno-exceptions -fno-asynchronous-unwind-tables -fcf-protection=none
-> -Wnested-externs '-D__OBJECT_FILE__="asm-offsets.s"' -S -g0 -o asm-offsets.s.new -MQ asm-offsets.s arch/arm/arm64/asm-offsets.c
-> cc1: error: unknown value 'armv8-r' for '-march'
-> cc1: note: valid arguments are: armv8-a armv8.1-a armv8.2-a armv8.3-a armv8.4-a armv8.5-a; did you mean 'armv8-a'?
-> make[3]: *** [Makefile:413: asm-offsets.s] Error 1
-> ```
-> And the reason is that in the implementation of "cc-option": To handle this we do a test compile, passing the option-under-test,
-> on a code fragment that will always produce a warning (integer assigned to pointer). We then grep for the option-under-test in
-> the compiler's output, the presence of which would indicate an "unrecognized command-line option" warning/error.
-> ```
-> cc-option = $(shell if test -z "`echo 'void*p=1;' | \
->                      $(1) $(2) -S -o /dev/null -x c - 2>&1 | grep -- $(2) -`"; \
->                      then echo "$(2)"; else echo "$(3)"; fi ;)
-> ```
-> Here, that is, we are trying to grep "-march=armv8-r" in output message of the test compile, and since the output
-> message(unknown value 'armv8-r' for '-march') doesn't contain the COMPLETE string, it thought the compiler supported this
-> option, but it actually not...
+> On Wed, Jul 21, 2021 at 12:59:11PM +0200, Jan Beulich wrote:
+>> On 21.07.2021 11:29, James Dingwall wrote:
+>>> We have a system which intermittently starts up and reports an incorrect cpu frequency:
+>>>
+>>> # grep -i mhz /var/log/kern.log 
+>>> Jul 14 17:47:47 dom0 kernel: [    0.000475] tsc: Detected 2194.846 MHz processor
+>>> Jul 14 22:03:37 dom0 kernel: [    0.000476] tsc: Detected 2194.878 MHz processor
+>>> Jul 14 23:05:13 dom0 kernel: [    0.000478] tsc: Detected 2194.848 MHz processor
+>>> Jul 14 23:20:47 dom0 kernel: [    0.000474] tsc: Detected 2194.856 MHz processor
+>>> Jul 14 23:57:39 dom0 kernel: [    0.000476] tsc: Detected 2194.906 MHz processor
+>>> Jul 15 01:04:09 dom0 kernel: [    0.000476] tsc: Detected 2194.858 MHz processor
+>>> Jul 15 01:27:15 dom0 kernel: [    0.000482] tsc: Detected 2194.870 MHz processor
+>>> Jul 15 02:00:13 dom0 kernel: [    0.000481] tsc: Detected 2194.924 MHz processor
+>>> Jul 15 03:09:23 dom0 kernel: [    0.000475] tsc: Detected 2194.892 MHz processor
+>>> Jul 15 03:32:50 dom0 kernel: [    0.000482] tsc: Detected 2194.856 MHz processor
+>>> Jul 15 04:05:27 dom0 kernel: [    0.000480] tsc: Detected 2194.886 MHz processor
+>>> Jul 15 05:00:38 dom0 kernel: [    0.000473] tsc: Detected 2194.914 MHz processor
+>>> Jul 15 05:59:33 dom0 kernel: [    0.000480] tsc: Detected 2194.924 MHz processor
+>>> Jul 15 06:22:31 dom0 kernel: [    0.000474] tsc: Detected 2194.910 MHz processor
+>>> Jul 15 17:52:57 dom0 kernel: [    0.000474] tsc: Detected 2194.854 MHz processor
+>>> Jul 15 18:51:36 dom0 kernel: [    0.000474] tsc: Detected 2194.900 MHz processor
+>>> Jul 15 19:07:26 dom0 kernel: [    0.000478] tsc: Detected 2194.902 MHz processor
+>>> Jul 15 19:43:56 dom0 kernel: [    0.000154] tsc: Detected 6895.384 MHz processor
+>>
+>> Well, this is output from Dom0. What we'd need to see (in addition)
+>> is the corresponding hypervisor log at maximum verbosity (loglvl=all).
 > 
-> Tracing back to the commit about the implementation of "cc-option", it discards the linux method(using exit code to tell) for dealing with
-> disable-warning options.
-> See https://github.com/xen-project/xen/commit/28f8fb7d2b3fde2f5cbe5526ac4f1c932e3f5d26 for more details.
+> This was just to illustrate that the dom0 usually reports the correct speed.  I'll update the xen boot options with loglvl=all and try to collect the boot messages for each case.
 > 
-> To fix this issue, I could loose the "grep check", instead trying to grep the COMPLETE option string("-march=armv8-r"), only partial(armv8-r) is
-> enough. But, hmmm, the way of greping output message to check is kinds of reliable, IMO, since there is no standard for that.
+>>
+>>> The xen 's' debug output:
+>>>
+>>> (XEN) TSC marked as reliable, warp = 0 (count=4)
+>>> (XEN) dom1: mode=0,ofs=0x1d1ac8bf8e,khz=6895385,inc=1
+>>> (XEN) dom2: mode=0,ofs=0x28bc24c746,khz=6895385,inc=1
+>>> (XEN) dom3: mode=0,ofs=0x345696b138,khz=6895385,inc=1
+>>> (XEN) dom4: mode=0,ofs=0x34f2635f31,khz=6895385,inc=1
+>>> (XEN) dom5: mode=0,ofs=0x3581618a7d,khz=6895385,inc=1
+>>> (XEN) dom6: mode=0,ofs=0x3627ca68b2,khz=6895385,inc=1
+>>> (XEN) dom7: mode=0,ofs=0x36dd491860,khz=6895385,inc=1
+>>> (XEN) dom8: mode=0,ofs=0x377a57ea1a,khz=6895385,inc=1
+>>> (XEN) dom9: mode=0,ofs=0x381eb175ce,khz=6895385,inc=1
+>>> (XEN) dom10: mode=0,ofs=0x38cab2e260,khz=6895385,inc=1
+>>> (XEN) dom11: mode=0,ofs=0x397fc47387,khz=6895385,inc=1
+>>> (XEN) dom12: mode=0,ofs=0x3a552762a0,khz=6895385,inc=1
+>>>
+>>> A processor from /proc/cpuinfo in dom0:
+>>>
+>>> processor       : 3
+>>> vendor_id       : GenuineIntel
+>>> cpu family      : 6
+>>> model           : 85
+>>> model name      : Intel(R) Xeon(R) D-2123IT CPU @ 2.20GHz
+>>> stepping        : 4
+>>> microcode       : 0x2000065
+>>> cpu MHz         : 6895.384
+>>> [...]
+>>>
+>>> Xen has been built at 310ab79875cb705cc2c7daddff412b5a4899f8c9 from the stable-4.12 branch.
+>>
+>> While this contradicts the title, both 4.11 and 4.12 are out of general
+>> support. Hence it would be more helpful if you could obtain respective
+>> logs with a more modern version of Xen - ideally from the master branch,
+>> or else the most recent stable one (4.15). Provided of course the issue
+>> continues to exist there in the first place.
+> 
+> That was my error, I meant the stable-4.11 branch.  We have a development environment based around 4.14.2 which I can test.
 
-Since we need to be careful about not relaxing this too much, my
-immediate suggestion here would be to split option strings at =
-signs, and then use grep to check that every resulting piece is
-present in the error message coming from the compiler. Afaict
-this should cover your case and might also make a few others
-less fragile. Unfortunately I expect this will make for quite a
-bit more complicated a make macro. I wonder whether Linux hasn't
-run into the same problem at some point, and has found some more
-elegant and/or robust solution.
+I'm sorry to ask, but have you got around to actually doing that? Or
+else is resolving this no longer of interest?
 
 Jan
 
