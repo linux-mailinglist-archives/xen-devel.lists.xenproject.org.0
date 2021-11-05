@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81679446745
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 17:47:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222550.384809 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 374A5446749
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 17:49:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222557.384820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mj2MQ-0004Do-H0; Fri, 05 Nov 2021 16:46:38 +0000
+	id 1mj2Oo-0004sR-3E; Fri, 05 Nov 2021 16:49:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222550.384809; Fri, 05 Nov 2021 16:46:38 +0000
+Received: by outflank-mailman (output) from mailman id 222557.384820; Fri, 05 Nov 2021 16:49:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mj2MQ-0004Al-Dr; Fri, 05 Nov 2021 16:46:38 +0000
-Received: by outflank-mailman (input) for mailman id 222550;
- Fri, 05 Nov 2021 16:46:37 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mj2MP-0004Af-0N
- for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 16:46:37 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mj2MN-0003P9-OO; Fri, 05 Nov 2021 16:46:35 +0000
-Received: from 54-240-197-224.amazon.com ([54.240.197.224]
- helo=[192.168.21.75]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mj2MN-00016g-Hj; Fri, 05 Nov 2021 16:46:35 +0000
+	id 1mj2On-0004py-W0; Fri, 05 Nov 2021 16:49:05 +0000
+Received: by outflank-mailman (input) for mailman id 222557;
+ Fri, 05 Nov 2021 16:49:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SvBC=PY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1mj2Om-0004pq-KF
+ for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 16:49:04 +0000
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 47b702f8-3e58-11ec-9787-a32c541c8605;
+ Fri, 05 Nov 2021 17:49:03 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 81A3761037;
+ Fri,  5 Nov 2021 16:49:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,53 +38,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=pOmkKuBgOvy/pXXr8VH1SFyPw02pwmcPyAMYHdnzDrs=; b=yrj3v9KDrteVS1v+Lg6tzpfcz0
-	c9x+6onNY8q0fZTc+WGmHG3LzNm1rxT3ymF7RBZUIv1r0w0iOWpNiShALESl0X771K+h5O6kAeQ7R
-	uip5Bk+H95xN3RgGoz0z+AxtbKGGc39nvncGaQwXNaJfT6HKebxmb5v9paLko+VNxtVk=;
-Message-ID: <a19a844b-672e-8630-fc60-f41d20760b49@xen.org>
-Date: Fri, 5 Nov 2021 16:46:32 +0000
+X-Inumbo-ID: 47b702f8-3e58-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1636130941;
+	bh=Ob6jmUVFHpoqp+Bd6PCq3dkOFXqAwnB25Cvt93I8oD8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=kKzFo2OpPKHkjszXUh+r7Efm/L0h64e5hq5SXWvCLHVwO2KMk8KYlXFisK8DxyKr/
+	 k89/UqqY1WTcH2WikNoqyIJw6e6y4NJ2FpT4JFQXIT6BLdnwamxH8z6D67PbALAsjK
+	 oWTdTkVhfj3xi20/CcmpH+Hx7eZ55EPBuiAF3dO/fE9lNtmv0H5LvuBg2+jydyirgp
+	 9odQa/RAB0oJBgNrzLELr9G7s9GH/1LeEpUppJekJyykjYCvDFKXB7RLXo+bnDdffW
+	 uSBGa6JrUAhrtZqG0UUsKBPbvUrwG52WI+iI1eaQskkhYcx/Gd0xZ8MOe8jAxla4bX
+	 kp1Gf8M7VFUTg==
+Date: Fri, 5 Nov 2021 09:49:00 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Ian Jackson <iwj@xenproject.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Luca Fancellu <Luca.Fancellu@arm.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Wei  Chen <Wei.Chen@arm.com>, Julien Grall <julien@xen.org>, 
+    Volodymyr  Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH-4.16 v4] xen/efi: Fix Grub2 boot on arm64
+In-Reply-To: <24965.23144.983207.25672@mariner.uk.xensource.com>
+Message-ID: <alpine.DEB.2.22.394.2111050947360.284830@ubuntu-linux-20-04-desktop>
+References: <20211105130728.30648-1-luca.fancellu@arm.com> <445836DF-C831-4478-B4C7-2D98E2258FD2@arm.com> <24965.21767.924957.937812@mariner.uk.xensource.com> <alpine.DEB.2.22.394.2111050914390.284830@ubuntu-linux-20-04-desktop>
+ <24965.23144.983207.25672@mariner.uk.xensource.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.3.0
-Subject: Re: [PATCH v2] MAINTAINERS: add Bertrand to the ARM reviewers
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, Ian Jackson <iwj@xenproject.org>
-Cc: bertrand.marquis@arm.com, Volodymyr_Babchuk@epam.com
-References: <alpine.DEB.2.22.394.2111050843450.284830@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2111050843450.284830@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-(+ Ian)
-
-On 05/11/2021 15:44, Stefano Stabellini wrote:
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-
-Acked-by: Julien Grall <jgrall@amazon.com>
-
-@Ian, do we need a release-acked-by for this?
-
-Cheers,
-
+On Fri, 5 Nov 2021, Ian Jackson wrote:
+> Stefano Stabellini writes ("Re: [PATCH-4.16 v4] xen/efi: Fix Grub2 boot on arm64"):
+> > I had a question for Jan, but in reply to the previous version of the
+> > patch so you might have missed it:
+> > 
+> > https://lore.kernel.org/all/alpine.DEB.2.22.394.2111050825240.284830@ubuntu-linux-20-04-desktop/
 > 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 9be4ad653a..4956db1011 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -232,6 +232,7 @@ ARM (W/ VIRTUALISATION EXTENSIONS) ARCHITECTURE
->   M:	Stefano Stabellini <sstabellini@kernel.org>
->   M:	Julien Grall <julien@xen.org>
->   R:	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> +R:	Bertrand Marquis <bertrand.marquis@arm.com>
->   S:	Supported
->   L:	xen-devel@lists.xenproject.org
->   F:	docs/misc/arm/
+> Ah.  Yes.  I saw that but hadn't realised it might be a blocker.
 > 
+> > However, the concern is about resource utilization and slowness, rather
+> > than correctness, so I think the version of the patch you committed
+> > should work OK (unless it turns out that with broken EFI firmware
+> > opening HandleProtocol/OpenVolume and closing it many times causes
+> > some sort of error.) So maybe for 4.16 we are OK as is and we can make
+> > any changes (if necessary) for 4.17.
+> 
+> I hope you are OK with this being in-tree now.  If not please let me
+> know ASAP and I could revert it.  I'd be happy to consider a followup
+> patch on its merits, of course.
 
--- 
-Julien Grall
+As mentioned on IRC, I would keep it. I think it should be OK, the only
+potential issues are:
+- slowness (not a blocker)
+- broken firmware (this is me being a bit paranoid, with firmware one
+  never knows)
+
+We can address both later separately if we need to.
 
