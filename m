@@ -2,29 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1315E446480
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 14:56:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222348.384520 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 723BE44648E
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 15:00:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222384.384546 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mizhf-0006yf-FY; Fri, 05 Nov 2021 13:56:23 +0000
+	id 1mizlk-0002A0-BE; Fri, 05 Nov 2021 14:00:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222348.384520; Fri, 05 Nov 2021 13:56:23 +0000
+Received: by outflank-mailman (output) from mailman id 222384.384546; Fri, 05 Nov 2021 14:00:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mizhf-0006ue-7q; Fri, 05 Nov 2021 13:56:23 +0000
-Received: by outflank-mailman (input) for mailman id 222348;
- Fri, 05 Nov 2021 13:56:22 +0000
+	id 1mizlk-00027Y-7e; Fri, 05 Nov 2021 14:00:36 +0000
+Received: by outflank-mailman (input) for mailman id 222384;
+ Fri, 05 Nov 2021 14:00:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VR3F=PY=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mizhd-00063k-OQ
- for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 13:56:21 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 25c0639a-3e40-11ec-a9d2-d9f7a1cc8784;
- Fri, 05 Nov 2021 14:56:19 +0100 (CET)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mr/O=PY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1mizli-00027S-9F
+ for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 14:00:34 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id be2316c0-3e40-11ec-a9d2-d9f7a1cc8784;
+ Fri, 05 Nov 2021 15:00:33 +0100 (CET)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2054.outbound.protection.outlook.com [104.47.13.54]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-25--4loScLiM5ufDGzMKc1bsw-1; Fri, 05 Nov 2021 15:00:30 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB5904.eurprd04.prod.outlook.com (2603:10a6:803:e6::29)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Fri, 5 Nov
+ 2021 14:00:27 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4649.022; Fri, 5 Nov 2021
+ 14:00:27 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AS9PR06CA0320.eurprd06.prod.outlook.com (2603:10a6:20b:45b::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10 via Frontend
+ Transport; Fri, 5 Nov 2021 14:00:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,512 +55,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 25c0639a-3e40-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1636120579;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version;
-  bh=jE3t3ojHgtOHN6Ilg6l9UgKhubTh2BJEn5CMoqQCWrM=;
-  b=Ytn6jnIHF6+8WIMVvWiIJ1WgHuSXMV0NMtnkxQwHLY5KcONcA5rzjaYO
-   68EFHoH7lG6XOV8b5vXBpvuHzc2REykS4Hrxr4STftdZzfj1/hIjwGvjM
-   rK5kL3TWlbNBVYKTjmAPTzVx0yEmpmvAi1Jb/g2XsLWsLbZIz+FT94kr6
-   I=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: jPPOO8eak+TuVctPl7Fi/nDgDR1SgKPTta6cvNGMdPBNSP1+8z7oWfuk7xDRFYTT8XRg8DY/hF
- ewAnFUBwirH3pOC0WgfZzAv+lauvq7wlFmZrJxdI6k/mMwtwQkPzrY8kJfTbRsnf183nOUFmom
- f3ueUrP29KLyV2eiLH87N2TFP4MYrH6eVoZLeAkItrq3TTthc3zOGSnjsXhsMS/vt0m2hlXX4e
- k2RuppHNB+XbWgkpgqQCdZh9Q1PyZ+w6u/UwY1gpNPVybwkf+tNocYxrKMslbMs1MXH8V2twKV
- hRd8EqITFmBdmCIzzmP4kHca
-X-SBRS: 5.1
-X-MesageID: 57163417
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:Gh0Ye6l0ak6bc4LdoalbVijo5gxZIURdPkR7XQ2eYbSJt1+Wr1Gzt
- xIaXzuPO6rcZmumKdt1btyw8k0HuMXVzIdlQFRt+ylgFyMWpZLJC+rCIxarNUt+DCFioGGLT
- Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA187IMsdoUg7wbdg29Y12YLR7z6l4
- rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
- s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
- PtGlreUbyVwB6iStO8iTQUICw9dApQTrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
- 6ZecmpUKEne2aTmm9pXScE17ignBODtMJkSpTdLyjbBAOx9aZvCX7/L9ZlT2zJYasVmQKmHO
- ZFFMGUHgBLoOCNweQdQObIExbmspl39Iwxkq1+qnP9ii4TU5FMoi+W8WDbPQfSGXd5Qn1qYj
- mve8n7lHwoBM9iC1TuC9GnqjejK9Qv3V44fG6ex3uJ7i12UgGoIAVsZUkXTiem0jAuyVsxSL
- 2QQ+zEytu4i+UqzVN7/Uhak5nmesXYht8F4SrNgrlvXk+yNvljfVjNsoiN9hMIOmsQVbhgM9
- Aawmo3FDgNxrO2NZ1Giz+LBxd+tAhQ9IWgHbC4CaAIK5dj/vY0+5i7yosZf/L2d1YOsR2ypq
- 9yehG1n3uhI05ZXv0mu1Qmf22rEm3TfcuIiCuw7tEqB5xgxWoOqbpfABbPzvacZd9bxorVsU
- RE5dymiAAImUc7leM+lGrxl8FSVCxCtamC0bblHRchJythV0yT/Fb28GRknTKuTDu4KeCXyf
- GjYsh5L6ZlYMROCNPEsPdrsUp93k/e4RLwJs8w4iPIUP/CdkyfdrUlTibO4hTixwCDAb4lmY
- f93jvpA/V5FUP86nVJats8W0KMxxzBW+I8gbcuT8vhT6pLHPCT9Ye5caDOmN7llhIvZ8FS92
- 4sObKOilkQAONASlwGKqOb/23hRdiNlbX03wuQKHtO+zv1OQzp9VKOImOtJlk4Mt/09q9okN
- 0qVAidwoGcTT1WeQelTQnw8Or7pQ7hlqnc3YX4lMVqygiBxaoez9qYPMZAweOB/puBkyPd1S
- dgDetmBXasTGmiWpWxFYMmvtpFmeTSqmRmKY3ivbg8gcsMyXAfO4NLlIFfirXFcEiqtuMIii
- LS8zQeHE4EbTgFvAZ+OOvKixl+8p1YHn+d2UxeaK9VfYhy0ooNrNzbwnrk8JMRVcUfPwT6T1
- gC3BxYEpLaS/99poYeR3a3d9tWnCepzGEZeDlL317fuOHmI5HenzK9BTP2MIWLXWlTr9fjwf
- u5S1fz9bqEKxQ4Yr4pmHr935qsi/N+z9aRCxwFpEXiXPVSmDrRsfiuP0cVV7/Afw7ZYvU29W
- 16V+8kcMrKMYZu3HFkULQsjT+KCyfBLxWWCsaVreB33tH1t4b6KcUROJB3d2iVSIYx8PJ4h3
- ep86tUd7Bayi0ZyP9uL5syOG79g8pDUv30bi6wn
-IronPort-HdrOrdr: A9a23:2rJlBq7J+Juc7Vs5RQPXwMrXdLJyesId70hD6qhwISY6TiX4rb
- HWoB1173/JYVoqNE3I3OrwXZVoIkmsk6Kdg7NhXotKNTOO0ADDQb2Kr7GSpwEIcxeOkdK1vp
- 0AT0ERMrLN5CBB/KTH3DU=
-X-IronPort-AV: E=Sophos;i="5.87,211,1631592000"; 
-   d="scan'208";a="57163417"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Daniel De Graaf
-	<dgdegra@tycho.nsa.gov>, Daniel Smith <dpsmith@apertussolutions.com>
-Subject: [PATCH 5/5] xen/xsm: Address hypercall ABI problems
-Date: Fri, 5 Nov 2021 13:55:55 +0000
-Message-ID: <20211105135555.24261-6-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20211105135555.24261-1-andrew.cooper3@citrix.com>
+X-Inumbo-ID: be2316c0-3e40-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1636120832;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2kyrwkKQo8PqQ6qsiek9v6gJpL5wetJ+6I5TmhJWjrg=;
+	b=V1X/noUZewkEyruCeWx9PPtukb+O/nKfPs0mxrh5H+sHXkg1ccT7XHpqn7uE8ydledNMRa
+	ugnpXSQc8hHHNZvwLGOwtirbBwm004YmQulaSbJpILl5Pk/hKtW6Wxp8In/FumwpCuJOCr
+	SeX+4kBDaTqmdXgvCdvZpj/uyxX5v3Q=
+X-MC-Unique: -4loScLiM5ufDGzMKc1bsw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=R/YAD0wUQh0549UjDoeJQLX8qY9OhArl74gzYI9fDx6edZQhcCYtUs0EqFZuhDugTuY6aigBr16wveEhJEg0Zb+mac5ehBlRlbHXdLwY0TG2g4SVUdca15z1a0HHQ6kJOxRy4hxCQWZjHcAcgGWCXJ96TQE6jyVZnv6irmTpIMSnrW2Wxn/2H0Bd2KRy1b+PDWnBI1sD7jk310MsIIYLy94yNOWPNAC9Jgn+W/duu1z94wFXELBBzEUsqiYF1hxszNYFcJ7pRX2ByvyOyql3ATIc6VLqEf7/PNRK9WbR8aP3prE8t9AinH/R8+uJrK7KHsJG4yfypD4FFpmFM++eZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2kyrwkKQo8PqQ6qsiek9v6gJpL5wetJ+6I5TmhJWjrg=;
+ b=el3dk9EsB32vfCb/woTU3WJbHNUjhGHmjaDiqGgnyrq/KB2pxEt8Zbp0YBtI1GOzy8fTHLAD2PdX42Yep+moR5aNVfRT7PZfdpHxsJgWB5qhsqRTi5J7LAnM/EWOL9r/9qQ0iypw+WFCTI46u1uvUvy20gl0/AGmrGzmuyCAnSwXEekVFOXJQHFnuAAbpfd9RxWwxFKbHufYXDUc0Nrdsv7xICJjrdI6oFlFw9gsIVJaOkDQHSCkU8M8whO1vw0AGKTOg1IlF0GlSsnpdHfDgboVPGrIjJIwyES5Jwj1HyHx9V2wwAs8QPDUs5swf7qkyiDjCnffKYRiE4iUll3l+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <ddb80a49-3704-8b30-2bd9-180bc58f6f9e@suse.com>
+Date: Fri, 5 Nov 2021 15:00:24 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: [PATCH 2/5] xen/xsm: Complete altcall conversion of xsm interface
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Daniel Smith <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <20211105135555.24261-1-andrew.cooper3@citrix.com>
+ <20211105135555.24261-3-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20211105135555.24261-3-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0320.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45b::33) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 63bfc805-7340-4f3f-a767-08d9a0649ed5
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5904:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB590424F0D3176B5A6BB611BAB38E9@VI1PR04MB5904.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1186;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	euSOQwXgxCrzsqsYC7njl8L9AgcW2TxmQUzLeLq4xuk58HukcBr7QjLEPRmwkXczoiv8W8oiW0DMgwmBs3HDaEUdfCKQ/H7gQ682tS+0coKO6wMUKhr9z0gi1ZXmL00EBm7MnzDHqLskHgG4j6DJSRL5e5latiubpNCpMQp2hrjFFQehyxDqALno6Q9tbyFEL+NP1jmv/Nvm+8ZM14UEX7b8bw+nMmiPiVbx7XZ+DlBuYSeqDoEuPmI9YJtropMMPztS9bKrx9sWDr5YCNR+qUhLSlFtHEUxGkRedzvu0SpyFXrAN8mtBOgH58lbRh996/yVZdVDcCqbW+ZDxJfu9YnwJxGgXYDYiSTpUoVC4ztiJ6ln4TMmJoH7MiGcoO+R97TuZdiBc6vUEy7kZFy4Bn41OVYW3DWYuOYsFO5/GNfl1blQt/ANuRemr0GRLVHigPgo43vVSWJySZWj5yNFQo8Lhudigp9fnommYXWfQUfIPR/iyt6eQrgJohKNH6sWgCPi4pmec+sbRu5xxz8cYE3eWUARJi5NakuWA6VARc/mXrZMMbHQhVy4ZaR4M4Y+SwQuxnKOMaT7dBJ+S/fYgqvTkJkRihGlr54kfvCuKLFb9BdOlYeC/j/FblP23dUyVIDvycmlxbCErwLOLuymlEDCOriUZ3NmkNW3W8oVlV27rauM2lWF6Y/RtwKCvbGc8KBoGo/UD6lhBeRKUTc2sIGzRtr0OuYBxMsOAjGhCVs=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6486002)(6916009)(36756003)(2616005)(558084003)(2906002)(316002)(16576012)(8936002)(5660300002)(53546011)(54906003)(956004)(38100700002)(66476007)(186003)(8676002)(66946007)(31696002)(26005)(31686004)(66556008)(4326008)(86362001)(508600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NVZhNHVWanJoTmRoaUljZXVSMjdFcnh6K0tqMzVsZ1RubVJYaXl0dmpHcmlM?=
+ =?utf-8?B?TEV4SGtYTGZNYzZMVHhTRXhLUkdmRWJSdlJNbEF2SVVnWFpqMWpBWG5HWnp2?=
+ =?utf-8?B?U2c2NmgzZWt6bjZBS25INVZVQ0dyOWVtZGl6QU9tbU5zVEZMK0hoTnFPQUhD?=
+ =?utf-8?B?Nm9BOHhHZDNSaDRrTmcvLzFObjlwazNVZnAyR25XYzhGYlhWcldLMUNBU04y?=
+ =?utf-8?B?enEraXlScGRjTXRpcWtFcVlpdlBLcHNwTGF3bUxNUFRFaFMvUUZ4VHhWOVdB?=
+ =?utf-8?B?RjRGcXJWUWJNQVlpRjRYYVNWYWlUcEZManpwZkI3dUFvQ0ZqY2VweDFzUFBI?=
+ =?utf-8?B?WkhPYklLNTM2eUMxUU8wTFV2bUZYem83WmRFa3RtQjVtVzNEaVRQNEVQSHg5?=
+ =?utf-8?B?c001YmsxOHFHS0Z6d1JleDl5TnlqMXNyeEJlMG1EbDRSMlBJb0JqWkkxRnlF?=
+ =?utf-8?B?ZDFYU3cwOW5qUkFydDU4V2xld0U5VmMwRGRoeE1LNyttaGE5cTlLK1VlMXFN?=
+ =?utf-8?B?NlBVUWF3bGJweCtSNFBzUkJ4R2YvOHV4SEZtZkJwNWVGMHk0YzhxUVBDYVhO?=
+ =?utf-8?B?WXRqa2p1R1pFeUJZMi9GYk9TRE9vRmEvSjNoTjhkNzJrMUNVS3I1YlFxT1Zo?=
+ =?utf-8?B?b0hqQ080VHZBa1V3azA4WEMwa1lldE1pZUoyMmVscmlZZTZEdjdSeHZnTDcv?=
+ =?utf-8?B?bS92UGZsTkxlYWlVSGJma3pEbjRQU3hya0xOdWMxcnNOVXc4bU15Y1pyWlh5?=
+ =?utf-8?B?ZnBRN09BNVEyWVhlS1ROL0pwdWZTeU1jb1lxdGM1MTlvby9SQkxqSVZhWHUr?=
+ =?utf-8?B?aEZPbk1KT0ViZGFKT1FSNFNjcnh1UXBVN0tWaURNelhZc1R4STVSc3VqRjll?=
+ =?utf-8?B?M1VmQXQrR2Q1azZ4azVXYzFnOElEeFlyZzNuYVp1SnhGazZGb1ovV0dsYzFw?=
+ =?utf-8?B?bTUvOU5JL2xDSzZPVk84K0lDU1ZKRmZCSE1ieThRc2hrYVQrMjFJZTliMmtx?=
+ =?utf-8?B?Y3hSMG5DcGYwcEJ5RDNldTZ3Sk12bDh4TXRlbW5tZjJLU29wK0s2eFFNRk5X?=
+ =?utf-8?B?RDR1ODNiUzJsTlNsbHUwRU9ucWNEN0grcjVuZDJKTkNVenU3U24xQ05GWWtZ?=
+ =?utf-8?B?dDQrZnROdmpneTFvMXlMazN4Z0YwSUlTOFprV1BYTnRkK04zQW9ic2M0NzFQ?=
+ =?utf-8?B?ODI1MThaRnZzWkNaVUtibFdEN0pCUFpMUWVyT25yVnJVSzRMMmZFbyt3a1VR?=
+ =?utf-8?B?bWxDS25EMStrajJvQ1NnNGw0N0dDVG1WdWNmRTBNY0NQVE1pTHdMU1hxdjk3?=
+ =?utf-8?B?dmpGbkVWdnJRcWU1ajhRc2luQVRocGhZamk1cjhHakxWeFltWjRyUEJhZTBy?=
+ =?utf-8?B?M1RlODI5ZVdEa1Zqb2JQQVNma2tzZTJkOHJ2ZHRhTnBhemJ2STF5azJBYnR1?=
+ =?utf-8?B?dUFnVzJMNDB3MXZrZHRBSW1qWGhacnh6UDd3OTRMSENuUXp3K3RCcWlBK1U3?=
+ =?utf-8?B?WnF0QXd3ZC9TUzFmMGYzaGhEUFpUSk9pWmxBYTNtdzdGNGJTWjJlT1ovdFA3?=
+ =?utf-8?B?OSt2eGswODBhanNRaXRDUEd3TlJkQVYySmszWUkzS0Jvam5Rc1hYUUliUDVs?=
+ =?utf-8?B?Ri9LemRVWTRBVXRVZ05iL2wvRHlYU09BakpBdTIvQmFoaWh3UmdUTUM5NmFI?=
+ =?utf-8?B?b2hsaXYwWlNEbjdsUWpLL0dqTmtmKzNRSHJUamdnTG9ZM1ArdlR4ZTJHZE5j?=
+ =?utf-8?B?SW9BV051YlBnck9OYSttTFFPb0U4YnlXdEVoY3Zja1ZlT2lZMXorUjFWVWVm?=
+ =?utf-8?B?TnR5M3hpVDdIcDFZdFhzMnE3OXNqSHJhZXU3ekEwV21ZNVo4c0thc3hId1JL?=
+ =?utf-8?B?M0xPY2pubUpwWkR3bTdaRVNtempXNG95QVd1ZTh2Vk1UbDVmdzRvZTc3SW1E?=
+ =?utf-8?B?SFlzWWJLNGRDcEluenRiRnlSd0QrWVl2bGdLY3ZxYWZCZ2J5Sk5pUGVmbEVU?=
+ =?utf-8?B?UkVoRHdoMVdVMmQ0N3ZJZWh1UkM0MllBRk5xWmQ0WU5Ed2tqME1NcS9SMk1T?=
+ =?utf-8?B?blFwVGZ1Mys3L1lCK0t3SmFybmVLQmhFc1lwazZBNEZZMG5LUnFYZkc0VDRR?=
+ =?utf-8?B?dW1jMittVTdNQkh4TDM1M3pKZjQzZ2kxR1JyazF0emNOZ09DZ3hSSVhaSjJE?=
+ =?utf-8?Q?JZZOF2JqQ412uChTgIudaKQ=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63bfc805-7340-4f3f-a767-08d9a0649ed5
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 14:00:27.3110
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0XjyHa2YK7L+4UfZQp2RsC5SvMQJq0WkmlQrxQEN+O+fU3aCAu5fG3V93j+PWZVCPZ0kidp1KxnPI4yX1rSvWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5904
 
-Currently, __HYPERVISOR_xsm_op enters xsm_ops.do_{xsm,compat}_op() which means
-that if any other XSM module registers a handler, we'll break the hypercall
-ABI totally by having the behaviour depend on the selected XSM module.
+On 05.11.2021 14:55, Andrew Cooper wrote:
+> With alternative_call() capable of handling compound types, the three
+> remaining hooks can be optimised at boot time too.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-There are 2 options:
- 1) Rename __HYPERVISOR_xsm_op to __HYPERVISOR_flask_op.  If another XSM
-    module wants hypercalls, they'll have to introduce a new top-level
-    hypercall.
- 2) Make the current flask_op() be common, and require new hypercalls to fit
-    compatibly with xen_flask_op_t.  This can be done fairly easily by
-    subdividing the .cmd space.
-
-In this patch, we implement option 2.
-
-Move the stub {do,compat}_xsm_op() implementation into a new xsm_op.c so we
-can more easily do multi-inclusion compat magic.  Also add a new private.h,
-because flask/hook.c's local declaration of {do,compat}_flask_op() wasn't
-remotely safe.
-
-The top level now dispatches into {do,compat}_flask_op() based on op.cmd, and
-handles the primary copy in/out.
-
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Daniel De Graaf <dgdegra@tycho.nsa.gov>
-CC: Daniel Smith <dpsmith@apertussolutions.com>
-
-Only lightly tested.  Slightly RFC.  There are several things which aren't
-great, but probably want addressing in due course.
-
- 1) The public headers probably want to lose the flask name (in a compatible
-    way), now that the hypercall is common.  This probably wants to be
-    combined with no longer taking a void handle.
- 2) {do,compat}_xsm_op() are currently identical other than the dispatched-to
-    functions because the size of xsm_flask_op_t is invariant with
-    COMPAT-ness.  We could simplfy things by only having one, and dispatching
-    to {do,compat}_*_op() directly, but I'm not sure whether the complexity is
-    worth it.
- 3) Bloat-o-meter says these changes add 16 extra bytes to dm_op() and I can't
-    figure out what could possibly be causing this.
----
- xen/include/Makefile     |  2 +-
- xen/include/xsm/dummy.h  | 12 ----------
- xen/include/xsm/xsm.h    | 17 --------------
- xen/xsm/Makefile         |  1 +
- xen/xsm/dummy.c          |  5 ----
- xen/xsm/flask/flask_op.c | 60 ++++++++++++++++++++++--------------------------
- xen/xsm/flask/hooks.c    |  8 -------
- xen/xsm/private.h        | 16 +++++++++++++
- xen/xsm/xsm_core.c       | 12 ----------
- xen/xsm/xsm_op.c         | 51 ++++++++++++++++++++++++++++++++++++++++
- 10 files changed, 96 insertions(+), 88 deletions(-)
- create mode 100644 xen/xsm/private.h
- create mode 100644 xen/xsm/xsm_op.c
-
-diff --git a/xen/include/Makefile b/xen/include/Makefile
-index 95daa8a28975..9547f848635c 100644
---- a/xen/include/Makefile
-+++ b/xen/include/Makefile
-@@ -32,7 +32,7 @@ headers-$(CONFIG_HYPFS)   += compat/hypfs.h
- headers-$(CONFIG_KEXEC)   += compat/kexec.h
- headers-$(CONFIG_TRACEBUFFER) += compat/trace.h
- headers-$(CONFIG_XENOPROF) += compat/xenoprof.h
--headers-$(CONFIG_XSM_FLASK) += compat/xsm/flask_op.h
-+headers-$(CONFIG_XSM)      += compat/xsm/flask_op.h
- 
- cppflags-y                := -include public/xen-compat.h -DXEN_GENERATING_COMPAT_HEADERS
- cppflags-$(CONFIG_X86)    += -m32
-diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
-index b024119896e6..5448e9970bc1 100644
---- a/xen/include/xsm/dummy.h
-+++ b/xen/include/xsm/dummy.h
-@@ -466,18 +466,6 @@ static XSM_INLINE int xsm_hypfs_op(XSM_DEFAULT_VOID)
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE long xsm_do_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
--{
--    return -ENOSYS;
--}
--
--#ifdef CONFIG_COMPAT
--static XSM_INLINE int xsm_do_compat_op(XEN_GUEST_HANDLE_PARAM(void) op)
--{
--    return -ENOSYS;
--}
--#endif
--
- static XSM_INLINE char *xsm_show_irq_sid(int irq)
- {
-     return NULL;
-diff --git a/xen/include/xsm/xsm.h b/xen/include/xsm/xsm.h
-index 5aa4dd588d17..4856b589dd86 100644
---- a/xen/include/xsm/xsm.h
-+++ b/xen/include/xsm/xsm.h
-@@ -141,11 +141,6 @@ struct xsm_ops {
-     int (*page_offline)(uint32_t cmd);
-     int (*hypfs_op)(void);
- 
--    long (*do_xsm_op)(XEN_GUEST_HANDLE_PARAM(void) op);
--#ifdef CONFIG_COMPAT
--    int (*do_compat_op)(XEN_GUEST_HANDLE_PARAM(void) op);
--#endif
--
-     int (*hvm_param)(struct domain *d, unsigned long op);
-     int (*hvm_param_altp2mhvm)(struct domain *d);
-     int (*hvm_altp2mhvm_op)(struct domain *d, uint64_t mode, uint32_t op);
-@@ -585,18 +580,6 @@ static inline int xsm_hypfs_op(xsm_default_t def)
-     return alternative_call(xsm_ops.hypfs_op);
- }
- 
--static inline long xsm_do_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
--{
--    return alternative_call(xsm_ops.do_xsm_op, op);
--}
--
--#ifdef CONFIG_COMPAT
--static inline int xsm_do_compat_op(XEN_GUEST_HANDLE_PARAM(void) op)
--{
--    return alternative_call(xsm_ops.do_compat_op, op);
--}
--#endif
--
- static inline int xsm_hvm_param(
-     xsm_default_t def, struct domain *d, unsigned long op)
- {
-diff --git a/xen/xsm/Makefile b/xen/xsm/Makefile
-index cf0a728f1c96..93ba20256f6e 100644
---- a/xen/xsm/Makefile
-+++ b/xen/xsm/Makefile
-@@ -1,4 +1,5 @@
- obj-y += xsm_core.o
-+obj-y += xsm_op.o
- obj-$(CONFIG_XSM) += xsm_policy.o
- obj-$(CONFIG_XSM) += dummy.o
- obj-$(CONFIG_XSM_SILO) += silo.o
-diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
-index c111fa05968d..4fb7b0d04f7b 100644
---- a/xen/xsm/dummy.c
-+++ b/xen/xsm/dummy.c
-@@ -99,11 +99,6 @@ static const struct xsm_ops __initconstrel dummy_ops = {
-     .hvm_param_altp2mhvm           = xsm_hvm_param_altp2mhvm,
-     .hvm_altp2mhvm_op              = xsm_hvm_altp2mhvm_op,
- 
--    .do_xsm_op                     = xsm_do_xsm_op,
--#ifdef CONFIG_COMPAT
--    .do_compat_op                  = xsm_do_compat_op,
--#endif
--
-     .add_to_physmap                = xsm_add_to_physmap,
-     .remove_from_physmap           = xsm_remove_from_physmap,
-     .map_gmfn_foreign              = xsm_map_gmfn_foreign,
-diff --git a/xen/xsm/flask/flask_op.c b/xen/xsm/flask/flask_op.c
-index 221ff00fd3cc..e25664711019 100644
---- a/xen/xsm/flask/flask_op.c
-+++ b/xen/xsm/flask/flask_op.c
-@@ -22,6 +22,8 @@
- #include <objsec.h>
- #include <conditional.h>
- 
-+#include "../private.h"
-+
- #define ret_t long
- #define _copy_to_guest copy_to_guest
- #define _copy_from_guest copy_from_guest
-@@ -607,21 +609,17 @@ static int flask_relabel_domain(struct xen_flask_relabel *arg)
- 
- #endif /* !COMPAT */
- 
--ret_t do_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op)
-+ret_t do_flask_op(xen_flask_op_t *op, bool *copyback)
- {
--    xen_flask_op_t op;
-     int rv;
- 
--    if ( copy_from_guest(&op, u_flask_op, 1) )
--        return -EFAULT;
--
--    if ( op.interface_version != XEN_FLASK_INTERFACE_VERSION )
-+    if ( op->interface_version != XEN_FLASK_INTERFACE_VERSION )
-         return -ENOSYS;
- 
--    switch ( op.cmd )
-+    switch ( op->cmd )
-     {
-     case FLASK_LOAD:
--        rv = flask_security_load(&op.u.load);
-+        rv = flask_security_load(&op->u.load);
-         break;
- 
-     case FLASK_GETENFORCE:
-@@ -629,27 +627,27 @@ ret_t do_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op)
-         break;
- 
-     case FLASK_SETENFORCE:
--        rv = flask_security_setenforce(&op.u.enforce);
-+        rv = flask_security_setenforce(&op->u.enforce);
-         break;
- 
-     case FLASK_CONTEXT_TO_SID:
--        rv = flask_security_context(&op.u.sid_context);
-+        rv = flask_security_context(&op->u.sid_context);
-         break;
- 
-     case FLASK_SID_TO_CONTEXT:
--        rv = flask_security_sid(&op.u.sid_context);
-+        rv = flask_security_sid(&op->u.sid_context);
-         break;
- 
-     case FLASK_ACCESS:
--        rv = flask_security_access(&op.u.access);
-+        rv = flask_security_access(&op->u.access);
-         break;
- 
-     case FLASK_CREATE:
--        rv = flask_security_create(&op.u.transition);
-+        rv = flask_security_create(&op->u.transition);
-         break;
- 
-     case FLASK_RELABEL:
--        rv = flask_security_relabel(&op.u.transition);
-+        rv = flask_security_relabel(&op->u.transition);
-         break;
- 
-     case FLASK_POLICYVERS:
-@@ -657,11 +655,11 @@ ret_t do_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op)
-         break;
- 
-     case FLASK_GETBOOL:
--        rv = flask_security_get_bool(&op.u.boolean);
-+        rv = flask_security_get_bool(&op->u.boolean);
-         break;
- 
-     case FLASK_SETBOOL:
--        rv = flask_security_set_bool(&op.u.boolean);
-+        rv = flask_security_set_bool(&op->u.boolean);
-         break;
- 
-     case FLASK_COMMITBOOLS:
-@@ -677,41 +675,41 @@ ret_t do_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op)
-         break;
- 
-     case FLASK_SETAVC_THRESHOLD:
--        rv = flask_security_setavc_threshold(&op.u.setavc_threshold);
-+        rv = flask_security_setavc_threshold(&op->u.setavc_threshold);
-         break;
- 
-     case FLASK_AVC_HASHSTATS:
--        rv = avc_get_hash_stats(&op.u.hash_stats);
-+        rv = avc_get_hash_stats(&op->u.hash_stats);
-         break;
- 
- #ifdef CONFIG_XSM_FLASK_AVC_STATS
-     case FLASK_AVC_CACHESTATS:
--        rv = flask_security_avc_cachestats(&op.u.cache_stats);
-+        rv = flask_security_avc_cachestats(&op->u.cache_stats);
-         break;
- #endif
- 
-     case FLASK_MEMBER:
--        rv = flask_security_member(&op.u.transition);
-+        rv = flask_security_member(&op->u.transition);
-         break;
- 
-     case FLASK_ADD_OCONTEXT:
--        rv = flask_ocontext_add(&op.u.ocontext);
-+        rv = flask_ocontext_add(&op->u.ocontext);
-         break;
- 
-     case FLASK_DEL_OCONTEXT:
--        rv = flask_ocontext_del(&op.u.ocontext);
-+        rv = flask_ocontext_del(&op->u.ocontext);
-         break;
- 
-     case FLASK_GET_PEER_SID:
--        rv = flask_get_peer_sid(&op.u.peersid);
-+        rv = flask_get_peer_sid(&op->u.peersid);
-         break;
- 
-     case FLASK_RELABEL_DOMAIN:
--        rv = flask_relabel_domain(&op.u.relabel);
-+        rv = flask_relabel_domain(&op->u.relabel);
-         break;
- 
-     case FLASK_DEVICETREE_LABEL:
--        rv = flask_devicetree_label(&op.u.devicetree_label);
-+        rv = flask_devicetree_label(&op->u.devicetree_label);
-         break;
- 
-     default:
-@@ -719,16 +717,12 @@ ret_t do_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op)
-     }
- 
-     if ( rv < 0 )
--        goto out;
-+        return rv;
- 
--    if ( (FLASK_COPY_OUT&(1UL<<op.cmd)) )
--    {
--        if ( copy_to_guest(u_flask_op, &op, 1) )
--            rv = -EFAULT;
--    }
-+    if ( (1ul << op->cmd) & FLASK_COPY_OUT )
-+        *copyback = true;
- 
-- out:
--    return rv;
-+    return 0;
- }
- 
- #if defined(CONFIG_COMPAT) && !defined(COMPAT)
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index 3b29f7fde372..8f4fc7458b8f 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -1742,9 +1742,6 @@ static int flask_argo_send(const struct domain *d, const struct domain *t)
- 
- #endif
- 
--long do_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op);
--int compat_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op);
--
- static const struct xsm_ops __initconstrel flask_ops = {
-     .security_domaininfo = flask_security_domaininfo,
-     .domain_create = flask_domain_create,
-@@ -1819,7 +1816,6 @@ static const struct xsm_ops __initconstrel flask_ops = {
-     .hvm_param_altp2mhvm = flask_hvm_param_altp2mhvm,
-     .hvm_altp2mhvm_op = flask_hvm_altp2mhvm_op,
- 
--    .do_xsm_op = do_flask_op,
-     .get_vnumainfo = flask_get_vnumainfo,
- 
-     .vm_event_control = flask_vm_event_control,
-@@ -1836,10 +1832,6 @@ static const struct xsm_ops __initconstrel flask_ops = {
-     .mem_sharing = flask_mem_sharing,
- #endif
- 
--#ifdef CONFIG_COMPAT
--    .do_compat_op = compat_flask_op,
--#endif
--
-     .add_to_physmap = flask_add_to_physmap,
-     .remove_from_physmap = flask_remove_from_physmap,
-     .map_gmfn_foreign = flask_map_gmfn_foreign,
-diff --git a/xen/xsm/private.h b/xen/xsm/private.h
-new file mode 100644
-index 000000000000..19ade2eed6b7
---- /dev/null
-+++ b/xen/xsm/private.h
-@@ -0,0 +1,16 @@
-+#ifndef XSM_PRIVATE_H
-+#define XSM_PRIVATE_H
-+
-+#include <public/xsm/flask_op.h>
-+
-+long do_flask_op(xen_flask_op_t *op, bool *copyback);
-+
-+#ifdef CONFIG_COMPAT
-+
-+#include <compat/xsm/flask_op.h>
-+
-+int compat_flask_op(compat_flask_op_t *op, bool *copyback);
-+
-+#endif /* CONFIG_COMPAT */
-+
-+#endif /* XSM_PRIVATE_H */
-diff --git a/xen/xsm/xsm_core.c b/xen/xsm/xsm_core.c
-index 21fffbcb41d3..819a6ccd54cc 100644
---- a/xen/xsm/xsm_core.c
-+++ b/xen/xsm/xsm_core.c
-@@ -218,15 +218,3 @@ bool __init has_xsm_magic(paddr_t start)
- #endif
- 
- #endif
--
--long do_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
--{
--    return xsm_do_xsm_op(op);
--}
--
--#ifdef CONFIG_COMPAT
--int compat_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
--{
--    return xsm_do_compat_op(op);
--}
--#endif
-diff --git a/xen/xsm/xsm_op.c b/xen/xsm/xsm_op.c
-new file mode 100644
-index 000000000000..5922299fc4dc
---- /dev/null
-+++ b/xen/xsm/xsm_op.c
-@@ -0,0 +1,51 @@
-+#ifndef COMPAT
-+
-+#include <xen/guest_access.h>
-+
-+#include "private.h"
-+
-+#define ret_t long
-+#define _copy_to_guest copy_to_guest
-+#define _copy_from_guest copy_from_guest
-+
-+#endif /* COMPAT */
-+
-+ret_t do_xsm_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op)
-+{
-+    xen_flask_op_t op;
-+    bool copyback = false;
-+    ret_t rc = -ENOSYS;
-+
-+    if ( copy_from_guest(&op, u_flask_op, 1) )
-+        return -EFAULT;
-+
-+    switch ( op.cmd )
-+    {
-+    case FLASK_LOAD ... FLASK_DEVICETREE_LABEL:
-+        if ( IS_ENABLED(CONFIG_XSM_FLASK) )
-+            rc = do_flask_op(&op, &copyback);
-+        break;
-+    }
-+
-+    if ( copyback && copy_to_guest(u_flask_op, &op, 1) )
-+        rc = -EFAULT;
-+
-+    return rc;
-+}
-+
-+#if defined(CONFIG_COMPAT) && !defined(COMPAT)
-+#define COMPAT
-+
-+#undef _copy_to_guest
-+#define _copy_to_guest copy_to_compat
-+#undef _copy_from_guest
-+#define _copy_from_guest copy_from_compat
-+
-+#define xen_flask_op_t compat_flask_op_t
-+#undef ret_t
-+#define ret_t int
-+#define do_flask_op compat_flask_op
-+#define do_xsm_op compat_xsm_op
-+
-+#include "xsm_op.c"
-+#endif
--- 
-2.11.0
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 
