@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 374A5446749
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 17:49:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222557.384820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6BCB446755
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 17:52:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222565.384831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mj2Oo-0004sR-3E; Fri, 05 Nov 2021 16:49:06 +0000
+	id 1mj2SA-0006GL-Ih; Fri, 05 Nov 2021 16:52:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222557.384820; Fri, 05 Nov 2021 16:49:06 +0000
+Received: by outflank-mailman (output) from mailman id 222565.384831; Fri, 05 Nov 2021 16:52:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mj2On-0004py-W0; Fri, 05 Nov 2021 16:49:05 +0000
-Received: by outflank-mailman (input) for mailman id 222557;
- Fri, 05 Nov 2021 16:49:04 +0000
+	id 1mj2SA-0006DN-Eh; Fri, 05 Nov 2021 16:52:34 +0000
+Received: by outflank-mailman (input) for mailman id 222565;
+ Fri, 05 Nov 2021 16:52:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=SvBC=PY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1mj2Om-0004pq-KF
- for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 16:49:04 +0000
+ id 1mj2S8-0006Cx-Bd
+ for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 16:52:32 +0000
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47b702f8-3e58-11ec-9787-a32c541c8605;
- Fri, 05 Nov 2021 17:49:03 +0100 (CET)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 81A3761037;
- Fri,  5 Nov 2021 16:49:01 +0000 (UTC)
+ id c34f9d3d-3e58-11ec-9787-a32c541c8605;
+ Fri, 05 Nov 2021 17:52:31 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 06F7660F9D;
+ Fri,  5 Nov 2021 16:52:28 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,62 +38,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47b702f8-3e58-11ec-9787-a32c541c8605
+X-Inumbo-ID: c34f9d3d-3e58-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1636130941;
-	bh=Ob6jmUVFHpoqp+Bd6PCq3dkOFXqAwnB25Cvt93I8oD8=;
+	s=k20201202; t=1636131149;
+	bh=r9psmQc7i8wzf1f7DN7XAzz0xeNQ90NORKTPdTp5Kz4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=kKzFo2OpPKHkjszXUh+r7Efm/L0h64e5hq5SXWvCLHVwO2KMk8KYlXFisK8DxyKr/
-	 k89/UqqY1WTcH2WikNoqyIJw6e6y4NJ2FpT4JFQXIT6BLdnwamxH8z6D67PbALAsjK
-	 oWTdTkVhfj3xi20/CcmpH+Hx7eZ55EPBuiAF3dO/fE9lNtmv0H5LvuBg2+jydyirgp
-	 9odQa/RAB0oJBgNrzLELr9G7s9GH/1LeEpUppJekJyykjYCvDFKXB7RLXo+bnDdffW
-	 uSBGa6JrUAhrtZqG0UUsKBPbvUrwG52WI+iI1eaQskkhYcx/Gd0xZ8MOe8jAxla4bX
-	 kp1Gf8M7VFUTg==
-Date: Fri, 5 Nov 2021 09:49:00 -0700 (PDT)
+	b=SExp45XdeUG5Q4wZjHsFnEqQ2M15naZih/pFiiuKklvtO+RUkAKLMISBH7fz4lmrX
+	 fBH+RYjTBgQ6HqYZFFw8c4Zpd7TpZc1l2Mq4NjvtO08Gbn2VIl1fgPzJRAdb/71ifs
+	 biAs3KzrIlae+uk4fUMboqVrYR2NWZeFYQQLA3uMwlYkNCBoECTSJVv74TGy1shhhp
+	 wQ9iZpIg2qdQX4eDuNdRy4gbKm6T8pWjkdUdnbXgODF5ykMQ2sJfqTI/aaCLfVzpqs
+	 p3GxTuwgFqNzrGBa2YXMCcN07InymWXOhKChR4y3B1HJ0YA+6n/khKE0pT92noKRzG
+	 WoL5LQ4cZFAcw==
+Date: Fri, 5 Nov 2021 09:52:28 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Ian Jackson <iwj@xenproject.org>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Luca Fancellu <Luca.Fancellu@arm.com>, 
+    Vikram Garhwal <fnu.vikram@xilinx.com>, 
     "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Wei  Chen <Wei.Chen@arm.com>, Julien Grall <julien@xen.org>, 
-    Volodymyr  Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH-4.16 v4] xen/efi: Fix Grub2 boot on arm64
-In-Reply-To: <24965.23144.983207.25672@mariner.uk.xensource.com>
-Message-ID: <alpine.DEB.2.22.394.2111050947360.284830@ubuntu-linux-20-04-desktop>
-References: <20211105130728.30648-1-luca.fancellu@arm.com> <445836DF-C831-4478-B4C7-2D98E2258FD2@arm.com> <24965.21767.924957.937812@mariner.uk.xensource.com> <alpine.DEB.2.22.394.2111050914390.284830@ubuntu-linux-20-04-desktop>
- <24965.23144.983207.25672@mariner.uk.xensource.com>
+    "julien@xen.org" <julien@xen.org>
+Subject: Re: [XEN][PATCH v2 1/1] Update libfdt to v1.6.1
+In-Reply-To: <38804A99-54B8-4694-AFB0-9AA9212562A7@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2111050952070.284830@ubuntu-linux-20-04-desktop>
+References: <1636006796-360115-1-git-send-email-fnu.vikram@xilinx.com> <1636006796-360115-2-git-send-email-fnu.vikram@xilinx.com> <alpine.DEB.2.22.394.2111041546030.284830@ubuntu-linux-20-04-desktop> <38804A99-54B8-4694-AFB0-9AA9212562A7@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 5 Nov 2021, Ian Jackson wrote:
-> Stefano Stabellini writes ("Re: [PATCH-4.16 v4] xen/efi: Fix Grub2 boot on arm64"):
-> > I had a question for Jan, but in reply to the previous version of the
-> > patch so you might have missed it:
+On Fri, 5 Nov 2021, Bertrand Marquis wrote:
+> Hi Stefano,
+> 
+> > On 4 Nov 2021, at 22:48, Stefano Stabellini <sstabellini@kernel.org> wrote:
 > > 
-> > https://lore.kernel.org/all/alpine.DEB.2.22.394.2111050825240.284830@ubuntu-linux-20-04-desktop/
+> > On Wed, 3 Nov 2021, Vikram Garhwal wrote:
+> >> Update libfdt to v1.6.1 of libfdt taken from git://github.com/dgibson/dtc.
+> >> This update is done to support device tree overlays.
+> >> 
+> >> A few minor changes are done to make it compatible with Xen:
+> >> fdt_overlay.c: overlay_fixup_phandle()
+> >>    Replace  strtoul() simple_strtoul() as strtoul() is not available in Xen lib
+> >>    and included lib.h.
+> >>    Change char *endptr to const char *endptr.
+> >> 
+> >> libfdt_env.h:
+> >>    Changed path for config.h and stdbool.h. Remaining Xen changes to
+> >>    libfdt_env.h carried over from existing libfdt (v1.4.0)
+> > 
+> > Hi Vikram, thanks for the patch!
+> > 
+> > Would you be able to split this patch into two patches:
+> > 
+> > - the first patch pulls in the new libfdt
+> > - the second patch makes the necessary changes to make it compatible
+> >  with Xen
+> > 
+> > I understand that the first patch alone would break the build, but they
+> > can be easily squashed together on commit. And reading the two patches
+> > separately it would make them a lot easier to review.
 > 
-> Ah.  Yes.  I saw that but hadn't realised it might be a blocker.
+> Actually the diff will be quite small and limited to what was said by Vikram
+> here but will break the build.
 > 
-> > However, the concern is about resource utilization and slowness, rather
-> > than correctness, so I think the version of the patch you committed
-> > should work OK (unless it turns out that with broken EFI firmware
-> > opening HandleProtocol/OpenVolume and closing it many times causes
-> > some sort of error.) So maybe for 4.16 we are OK as is and we can make
-> > any changes (if necessary) for 4.17.
+> I manually checked by comparing libfdt directory in xen with the one in dtc
+> and could not find other differences than the one mentioned by Vikram or
+> stuff done before in Xen in the env header which was carried over.
 > 
-> I hope you are OK with this being in-tree now.  If not please let me
-> know ASAP and I could revert it.  I'd be happy to consider a followup
-> patch on its merits, of course.
+> So I would not say splitting is needed here.
 
-As mentioned on IRC, I would keep it. I think it should be OK, the only
-potential issues are:
-- slowness (not a blocker)
-- broken firmware (this is me being a bit paranoid, with firmware one
-  never knows)
-
-We can address both later separately if we need to.
+OK, thank you so much for looking into it!
 
