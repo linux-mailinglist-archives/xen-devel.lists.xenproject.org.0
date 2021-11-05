@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F02724468EE
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 20:24:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222612.384899 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DC734469C7
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 21:35:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222620.384912 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mj4nf-0005vk-F2; Fri, 05 Nov 2021 19:22:55 +0000
+	id 1mj5uX-00045a-Ix; Fri, 05 Nov 2021 20:34:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222612.384899; Fri, 05 Nov 2021 19:22:55 +0000
+Received: by outflank-mailman (output) from mailman id 222620.384912; Fri, 05 Nov 2021 20:34:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mj4nf-0005t5-AM; Fri, 05 Nov 2021 19:22:55 +0000
-Received: by outflank-mailman (input) for mailman id 222612;
- Fri, 05 Nov 2021 19:22:53 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mj4nd-0005sv-4F; Fri, 05 Nov 2021 19:22:53 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mj4nd-00066E-0C; Fri, 05 Nov 2021 19:22:53 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mj4nc-0004dD-Lo; Fri, 05 Nov 2021 19:22:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mj4nc-0005XI-LL; Fri, 05 Nov 2021 19:22:52 +0000
+	id 1mj5uX-00042j-EG; Fri, 05 Nov 2021 20:34:05 +0000
+Received: by outflank-mailman (input) for mailman id 222620;
+ Fri, 05 Nov 2021 20:34:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=SvBC=PY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1mj5uV-00042d-Td
+ for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 20:34:04 +0000
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b4c562c9-3e77-11ec-a9d2-d9f7a1cc8784;
+ Fri, 05 Nov 2021 21:34:01 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D18F8611C0;
+ Fri,  5 Nov 2021 20:33:58 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +38,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=kg/iSF7yg+sOVrzfyEMeZ0/ux0oTygd0B6bDFC6SqP4=; b=yxWBvioHvdtk8hdiQ1pumbD4oJ
-	lTtm25f0P9NPM1eJR+FDGUnYxRnRJsWypFxuaTReSIcz9c6/fkXkq/vNuT/fjg3vCcceja1Fxsb3i
-	YQafTedSruh72RhluI/nb2ToZByxTcYHI2o78CfObKbvelXx15qBIMsKGOMh+vcMJRaU=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-166055-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b4c562c9-3e77-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1636144439;
+	bh=Rj60RohdBZKaYozXIpiWS4oKBoiKvp+5KpQeieB1hFQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Mfi9GpkvQNpfUO0Ppj1WBGhGrggPl1Mh1+4p0w3nWJ+Fl5ropYimA+mb2qQAcCYuc
+	 7300FnfUob6F1uGdMdhBMtYP0hHz69BEz4T2nADaLlqfxXVPYu16XC1qOJgNbnfHjB
+	 7CLn5rcuqovrOseMJc48tEmJygjDsK2a/CDWzXneSX02zTfv/p8xljQLMPwTQrRecQ
+	 zOhCkN3esRAmfnKsQ4DWD42cJ10pARA4HJL4u/Mr44yWhtMsymjxv5F05er+CZWlPM
+	 hT2oxoGq8Gs7vfw0zr6NVFxtR9Ff/PYmrTteGzJn9IciC518Pd725xPY1IBbuCjbst
+	 7V/Ehz1YSrTcA==
+Date: Fri, 5 Nov 2021 13:33:57 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Vikram Garhwal <fnu.vikram@xilinx.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
+    bertrand.marquis@arm.com, volodymyr_babchuk@epam.com
+Subject: Re: [XEN][PATCH 2/2] xen: libfdt: Changes to make libfdt v1.6.1
+ compatible with Xen
+In-Reply-To: <1636136354-68413-3-git-send-email-fnu.vikram@xilinx.com>
+Message-ID: <alpine.DEB.2.22.394.2111051333312.284830@ubuntu-linux-20-04-desktop>
+References: <1636136354-68413-1-git-send-email-fnu.vikram@xilinx.com> <1636136354-68413-3-git-send-email-fnu.vikram@xilinx.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 166055: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=9bc9fff04ba077c4a9782f12578362d8947c534b
-X-Osstest-Versions-That:
-    xen=faddd16e367530fe4de5480610f69d8ceb6011d8
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 05 Nov 2021 19:22:52 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 166055 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/166055/
+On Fri, 5 Nov 2021, Vikram Garhwal wrote:
+> A few minor changes are done to make it compatible with Xen:
+>     fdt_overlay.c: overlay_fixup_phandle()
+> 
+>         Replace strtoul() with simple_strtoul() as strtoul() is not available in
+>         Xen lib and included lib.h.
+> 
+>         Change char *endptr to const char *endptr.
+> 
+>     libfdt_env.h:
+>         Changed path for config.h and stdbool.h. Remaining Xen changes to
+>         libfdt_env.h carried over from existing libfdt (v1.4.0)
+> 
+> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  9bc9fff04ba077c4a9782f12578362d8947c534b
-baseline version:
- xen                  faddd16e367530fe4de5480610f69d8ceb6011d8
-
-Last test of basis   166047  2021-11-04 20:01:40 Z    0 days
-Testing same since   166055  2021-11-05 16:02:53 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Luca Fancellu <luca.fancellu@arm.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Thanks! All makes sense to me.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   faddd16e36..9bc9fff04b  9bc9fff04ba077c4a9782f12578362d8947c534b -> smoke
+> ---
+>  xen/common/libfdt/fdt_overlay.c     |  6 ++++--
+>  xen/include/xen/libfdt/libfdt.h     |  4 ++--
+>  xen/include/xen/libfdt/libfdt_env.h | 14 ++++++++------
+>  3 files changed, 14 insertions(+), 10 deletions(-)
+> 
+> diff --git a/xen/common/libfdt/fdt_overlay.c b/xen/common/libfdt/fdt_overlay.c
+> index d217e79..7b95e2b 100644
+> --- a/xen/common/libfdt/fdt_overlay.c
+> +++ b/xen/common/libfdt/fdt_overlay.c
+> @@ -8,6 +8,7 @@
+>  
+>  #include <fdt.h>
+>  #include <libfdt.h>
+> +#include <xen/lib.h>
+>  
+>  #include "libfdt_internal.h"
+>  
+> @@ -446,7 +447,8 @@ static int overlay_fixup_phandle(void *fdt, void *fdto, int symbols_off,
+>  		const char *fixup_str = value;
+>  		uint32_t path_len, name_len;
+>  		uint32_t fixup_len;
+> -		char *sep, *endptr;
+> +		char *sep;
+> +		const char *endptr;
+>  		int poffset, ret;
+>  
+>  		fixup_end = memchr(value, '\0', len);
+> @@ -476,7 +478,7 @@ static int overlay_fixup_phandle(void *fdt, void *fdto, int symbols_off,
+>  		if (!name_len)
+>  			return -FDT_ERR_BADOVERLAY;
+>  
+> -		poffset = strtoul(sep + 1, &endptr, 10);
+> +		poffset = simple_strtoul(sep + 1, &endptr, 10);
+>  		if ((*endptr != '\0') || (endptr <= (sep + 1)))
+>  			return -FDT_ERR_BADOVERLAY;
+>  
+> diff --git a/xen/include/xen/libfdt/libfdt.h b/xen/include/xen/libfdt/libfdt.h
+> index 73467f7..c71689e 100644
+> --- a/xen/include/xen/libfdt/libfdt.h
+> +++ b/xen/include/xen/libfdt/libfdt.h
+> @@ -6,8 +6,8 @@
+>   * Copyright (C) 2006 David Gibson, IBM Corporation.
+>   */
+>  
+> -#include <libfdt_env.h>
+> -#include <fdt.h>
+> +#include <xen/libfdt/libfdt_env.h>
+> +#include <xen/libfdt/fdt.h>
+>  
+>  #ifdef __cplusplus
+>  extern "C" {
+> diff --git a/xen/include/xen/libfdt/libfdt_env.h b/xen/include/xen/libfdt/libfdt_env.h
+> index 73b6d40..03380d5 100644
+> --- a/xen/include/xen/libfdt/libfdt_env.h
+> +++ b/xen/include/xen/libfdt/libfdt_env.h
+> @@ -7,12 +7,11 @@
+>   * Copyright 2012 Kim Phillips, Freescale Semiconductor.
+>   */
+>  
+> -#include <stdbool.h>
+> -#include <stddef.h>
+> -#include <stdint.h>
+> -#include <stdlib.h>
+> -#include <string.h>
+> -#include <limits.h>
+> +#include <xen/config.h>
+> +#include <xen/types.h>
+> +#include <xen/string.h>
+> +#include <asm/byteorder.h>
+> +#include <xen/stdbool.h>
+>  
+>  #ifdef __CHECKER__
+>  #define FDT_FORCE __attribute__((force))
+> @@ -35,6 +34,9 @@ typedef uint64_t FDT_BITWISE fdt64_t;
+>  			 (EXTRACT_BYTE(x, 4) << 24) | (EXTRACT_BYTE(x, 5) << 16) | \
+>  			 (EXTRACT_BYTE(x, 6) << 8) | EXTRACT_BYTE(x, 7))
+>  
+> +/* Xen-specific libfdt error code. */
+> +#define FDT_ERR_XEN(err) (FDT_ERR_MAX + (err))
+> +
+>  static inline uint16_t fdt16_to_cpu(fdt16_t x)
+>  {
+>  	return (FDT_FORCE uint16_t)CPU_TO_FDT16(x);
+> -- 
+> 2.7.4
+> 
 
