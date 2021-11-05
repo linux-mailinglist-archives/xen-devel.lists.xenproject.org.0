@@ -2,47 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E411446366
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 13:34:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222273.384380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DD45446367
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 13:35:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222277.384390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miyQe-0001yX-NE; Fri, 05 Nov 2021 12:34:44 +0000
+	id 1miyQy-0002W1-V3; Fri, 05 Nov 2021 12:35:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222273.384380; Fri, 05 Nov 2021 12:34:44 +0000
+Received: by outflank-mailman (output) from mailman id 222277.384390; Fri, 05 Nov 2021 12:35:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1miyQe-0001ut-JB; Fri, 05 Nov 2021 12:34:44 +0000
-Received: by outflank-mailman (input) for mailman id 222273;
- Fri, 05 Nov 2021 12:34:42 +0000
+	id 1miyQy-0002U4-Rc; Fri, 05 Nov 2021 12:35:04 +0000
+Received: by outflank-mailman (input) for mailman id 222277;
+ Fri, 05 Nov 2021 12:35:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mr/O=PY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1miyQc-0001oS-FF
- for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 12:34:42 +0000
+ id 1miyQx-0001oS-PY
+ for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 12:35:03 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf862ca3-3e34-11ec-9787-a32c541c8605;
- Fri, 05 Nov 2021 13:34:41 +0100 (CET)
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur02lp2059.outbound.protection.outlook.com [104.47.4.59]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-25-BJeZGZFQPaWWITxkYE6xIA-1; Fri, 05 Nov 2021 13:34:40 +0100
+ id cb4327ec-3e34-11ec-9787-a32c541c8605;
+ Fri, 05 Nov 2021 13:35:01 +0100 (CET)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2169.outbound.protection.outlook.com [104.47.17.169])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ de-mta-38-XtlarPb2OJSLhouHKRnBTA-1; Fri, 05 Nov 2021 13:34:59 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
  by VI1PR04MB7037.eurprd04.prod.outlook.com (2603:10a6:800:125::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Fri, 5 Nov
- 2021 12:34:39 +0000
+ 2021 12:34:59 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4649.022; Fri, 5 Nov 2021
- 12:34:39 +0000
+ 12:34:59 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM6PR10CA0062.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:209:80::39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4669.11 via Frontend Transport; Fri, 5 Nov 2021 12:34:38 +0000
+ AM5PR0301CA0004.eurprd03.prod.outlook.com (2603:10a6:206:14::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4649.19 via Frontend
+ Transport; Fri, 5 Nov 2021 12:34:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,35 +55,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf862ca3-3e34-11ec-9787-a32c541c8605
+X-Inumbo-ID: cb4327ec-3e34-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1636115681;
+	t=1636115701;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=vpyFyOIyYBFgdujGQvciBKudkZZ0UUaeJu4HvGRPCY4=;
-	b=GlIgAY4FXa5x/j3KGJ1OmcI7+CNSWJyiQX9d1U5HGY99GxeO4N1EfQP/abojeCR3cd9432
-	IU00hpJqhqpatGfTfVLdN/pTbNxHbOggCcNsS3AdZpOTM+wqEl6dNdeYkRXKxAcIpomic6
-	QawNgm1MZsa3yaQ+FyCFg/dE31MnW9M=
-X-MC-Unique: BJeZGZFQPaWWITxkYE6xIA-1
+	bh=eRkmeCDY9qmOnl/LgdTXyOV/AKSNeWTq/aTjmmt073o=;
+	b=kg9DXIdJQQoYnk66qxpCWctoxYbcjGpCwuXUHu2RTgxBHJ1i8Epjpz5vW17w8At79Ott0x
+	T4uc3TbBOdzC2XzKqDy8NawWbRPPbnGC4ySYyRd7SvY2q7mO8R+id9DLo/QW2gRoautObP
+	VtHR/4RIiBsXLIWYwezRC+XtRq5rJB0=
+X-MC-Unique: XtlarPb2OJSLhouHKRnBTA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ANtaR4RXqBt0ME6t3m/xTHzDNRdEn7OxEow/A4vfMN813rS1j4l85Xij0vUAlRiYYh5mFdKsiAYRiNrowET8WobzKz1Pq5v8Ej1q9u+sizaFRFq20bJ0HJlIvPfLNfdq4mVUaJjQltwPM6ZJQtCjMp2/j+iAqkS49+rri8a5wHk9acSo9eLv0vQI1CDQw5vLpfWZUt/YH+wM+JBIizs+vjFUvDLMDpCw8Zfy7RtGaU8D0zIh3x6QCvUK3OkfM/fRznxwctLJjg1XpbeVXyaENol49j0QI4bo/hg1obFc7O9OLfC48iu21C1sxNtwCxx3i2fp5qIT0Nez1D0bz8/dOA==
+ b=hLYriAh8JmamKWYSHB8x6DaO9zEd2sXtCa1j/cErARPRS9i1MIL1KOyWzIHWLgwhGLll4mwUPSBdHfer0vWL87mYifkd6ypdMmObMtyQIXAAtZKFhopGBG5iNI9+aDOD4m9rU6UqF6JcXzCgQZDfuUhNdpb0NqLTBLdK/3BX3zL5lKUbXv5T1du1k8A2J1bikJ6iWccekJpwYgrQ4bLvX3uxNDZDwa98DXn7Ej332JXeZDoi0YsxBbIFg7CYNwYjiDXHwxs7rPd1pE2ceT/4wrNonjXT5tNTzQZCplU7VrCO1narfUudz09WeAYHNcU59C2VtmnTACNP7EiZ9xjZ2w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vpyFyOIyYBFgdujGQvciBKudkZZ0UUaeJu4HvGRPCY4=;
- b=fJNLe0gp5zWk4gO+5wwiOhC3Q319uAbHYuDwDAsoMwztQ6jPnQeOy9F5XqqEHvUlVNtYD0ofD5sCM7fbNY9Hl/YwHdPrduN5MCY4U+SVjdq8s/lHCt3x6KkpKQOaBPsXB/JCyQQeBAu1ErdS8i0QUoIogkaXYqnFdO/LuR/cj7CMsa6Hn4nCbrXJM7nV/6atckyLWPYyrBIQl1hl/7bNUNje5BPDn/DfCzo0dd8kcdvv5gvM9Yt+3cQer9KpyyvkFFT8pwU5H5rbFMSPvsQ7BeiiRl2w2mUa39vLj5TjeLLKWU9lHJm+xYDxy2MjI4KbNZeOhtMfCvYANl9pCxrcAQ==
+ bh=eRkmeCDY9qmOnl/LgdTXyOV/AKSNeWTq/aTjmmt073o=;
+ b=KfU1I9KEEihNtulQuXPDwfjE2CYQf3caDD7gtsAVMnXQZ729Pr5WuydNGaXnBYrRnnEekXfELpCY01uoC4Ac/MMqNe4UDHVZ6iAgIpBVdD1CAjAnHCjRY2JScFRT3eTGxXHZmJnwvrVFr1mttTSRCozCHLj2rw8vgGWj4piO4ic6HOXR/FL3tdHUbGPs0kpjAFPxBwiAlGmzKdr4IRD+3QCP4tpiZ7V5YQqEBk9KJdH54OPwZKkBvG1kWEnUj391cwynqPMyT7JAH/eZ41+i4ZQrJJ3kHob+tC6JO8XmNJk0E2n2CTLvNd1PKL+ESwBU8bybA/+BxHMB5XEr069A/g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <777dd74c-37a0-20b8-72b4-fe52890aa9e0@suse.com>
-Date: Fri, 5 Nov 2021 13:34:37 +0100
+Message-ID: <38e0ef5b-0cef-9fd3-ea5d-8cf76005c689@suse.com>
+Date: Fri, 5 Nov 2021 13:34:57 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: [PATCH v2 3/6] x86/APIC: drop {acpi_madt,mps}_oem_check() hooks
+Subject: [PATCH v2 4/6] x86/APIC: drop probe_default()
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -92,262 +93,147 @@ References: <d88cfda3-54e4-2323-f536-547879380815@suse.com>
 In-Reply-To: <d88cfda3-54e4-2323-f536-547879380815@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR10CA0062.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:209:80::39) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM5PR0301CA0004.eurprd03.prod.outlook.com
+ (2603:10a6:206:14::17) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0ca4ca57-430a-4d23-4661-08d9a058a267
+X-MS-Office365-Filtering-Correlation-Id: 09bd1a6f-b8b6-4ee2-b3ea-08d9a058ae3e
 X-MS-TrafficTypeDiagnostic: VI1PR04MB7037:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB703768ABE9FA63E7CDDA0704B38E9@VI1PR04MB7037.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+	<VI1PR04MB70377A269FCAB8A32ABFC3FCB38E9@VI1PR04MB7037.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	OiwxTodr6iCtBxTOwgEIV3/Yx65J3jKARHm12A+PU0OX66vLwv/jPrDGUIDcX4axnc5Tfn1QN3EDjjODUtdDCsdyO5qBLmlfqXZAcl/Gec3gkdotdprHb6u9Dg7xc6mmzs6g2/RvVUCvFYCtDXFaEshQcabQlSk7fq/wIgw1FocPhZUyMwkQKEbCd2GIqPt5MpGIgLyVZ5VQ9sJbkb6Rnq04OfrAkqx9Q/7Y5V704gAK5ZTz8mB9BbMuAAHbJmv/nASXjx7ROFRtB/LjzpBD/E6JdWPHPma14UEZDgKyw4+C4JCgTSrRet+b4Tg1Y++Z1hg5ksoVTbmooJf6GzDBsiw0QcXkW8kZISsOKvUCiRIsJTMSt5Mn9W+ooj87+qXjfCYzdNW+QJuQf+czsNZLC4uuftKynL7F356DUdWA2nsUyMTdVFDqrDfHr/5Mb881kBiAOwvTxxPXbxPgcU190x373Ez5xw/hUoPGmgbnzSZpJUktm2bXgyCdRQJ9aUZHOWod2NmWlbNoZTnmncGY/Y0QR7NF2w143Iann8G+/apEAfIxzf+vto8GbuGAt2qtlM6N4mY24o3ga21seSLGtrVXwRxWGQ/NvTt6fMmiKcmE4V3msUTRqTUG3XdE51owdE10MtnfyJidqBPGjnfV4SWd8DKozxtyPjHE2VVWkM3Ite/R+sgcFO5FHG7AqI0ndaXgi+Mgb7q954Ji92W3OoMPWUuuf3ERQdfGKRxEoGY=
+	TAeIZ0doTKpMEknzpKYkr6OaIIeXsI6sCNwY/iLeF5qnYgbkvRYCcF+K4ySlRQEQaytUv2Tw95okM3sPjqbRDDruuL32Wrcvc4yuT02ZwRS1S6QHtZ7jwGX4ON+e/aEvD4epWqYasQJrkY7yj59TbU4HzjGmlKWblkVGXFtLrX91O6i2LZ/la9ymjKwc7JxGZEnnm1oAMIhchCmL2rHeIvJ77e6tiMBAYcOVPxJQRXGQEp1A01KrKah5e3UCCE09mtjjWFCzHIVqH5yaWvWAjItm2yK2Zyu7+1iHzStyG0WrjFIP35v42mYNmdgstuJEqLkyfcSnZVdwhJjcURDrcltiCy0+cdi6t2duxl2iSarminO3RdQreXS5s42UedPPsb1UjczAQeyAxsya15IuBF/Vh2bF4/leYzte7sPZtC4rAykUflqEj03CLb7ZluUqvA2B8gVSgvoJl/DElw2suur6CT03XZH+28zh7xAUqFckYvtS2LCPeqUwD5txf7QqP3TFrwKuFsZPIJkROGN2ft2Bma8nzC+DlHa3M4Y9w582dH5k3CYhfFZaFdk2V3kca1pqERepr/CcXUA4kjDq+Umw7C4IyGWYeau01Jwl/XD06pcsALSYcfdCGsHy8ktTf5gGF6GRlV98y6J5oG6sIF+IS9uU4JERFNbbKBUPhS2i3IeimTwRsAezQNnFnVLao33x1l/R8uya1Ud8ryVflgRF+ke/9Ga3kAqpoUu30eR0rTxgYQD7hS/fiillhd/yGvvtqlF8MbIbwBxDjfBp6A==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8936002)(26005)(8676002)(956004)(66476007)(186003)(38100700002)(6916009)(36756003)(86362001)(31696002)(31686004)(4326008)(316002)(2616005)(6486002)(5660300002)(508600001)(54906003)(16576012)(66556008)(66946007)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8936002)(26005)(8676002)(956004)(66476007)(186003)(38100700002)(6916009)(36756003)(86362001)(31696002)(31686004)(83380400001)(4326008)(316002)(2616005)(6486002)(5660300002)(508600001)(54906003)(16576012)(66556008)(66946007)(2906002)(43740500002)(45980500001)(309714004);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VnpPRUI1OHg4SkJqVW14bXplc0QzWHFwUXpZTjJmUHFBeWZlTlgrQmxocmR4?=
- =?utf-8?B?NktSOG9FblpYTVg3VkxwQXhVbkt1UTNLTjN1VUJhVm0vVXVzK2pDNGVRNlpv?=
- =?utf-8?B?QUlEeXYrVWhIRFYydzJaMjZxZFRBMFFPdElUUHorODZrTTkrVzVKa1pkZWpG?=
- =?utf-8?B?NUhheGd5ak51M3V0R01pS0xGOGZia0RlaWpKOXN5bytqaFJjK1VNOTRIYnps?=
- =?utf-8?B?bHorR3BsU0hZRkRGbnlHTjFKSm52bVNJOEdIandNMklwQ0dPK25acytjRjlL?=
- =?utf-8?B?ZXYzSFlvQW5ocVBESjhUZHdRMS8rU0tpQVZuRHk4WTJwK2pWdlJ4M0JOSmJO?=
- =?utf-8?B?STRkQm5qS0VpRGs2MUtaTWdnUzhrQXpGSnVaOWdLY0UxM3hUNEtXb3lqZXg5?=
- =?utf-8?B?TllEdEg0V1lwMWFyQVhJRjltaE9tRzVXeEp1bFVKb3BRMmYxZTF1QU5wdjBo?=
- =?utf-8?B?UDlXWmkzUFBQbDhPOEQ1Yy92cXI0VHNxNE1zT3NwUVhQVnE1akVaV1psVnFV?=
- =?utf-8?B?ZTFhbWZaVFNhSEJVQi9VU0R1bGhnbnp1TU1pajRWZ3A4RE02cDR2cGxQeE9X?=
- =?utf-8?B?WFVrMVJ2V3ZoM1cydUJ1SGVibjE1c3VtTlpTUm5NS0V6Z3BOK1FHN2FuMHVV?=
- =?utf-8?B?MnNGSkFWQncrajdGTEVVK2tINUwyT1NEZUJSZnNPU1JsTVRCM0xnaDNIL3pn?=
- =?utf-8?B?eHphVmVnY3pRNnM0bTlrTFFIUHF3V1V5OU9uQlRaMGxtQUhoSjRMU0JIZGZZ?=
- =?utf-8?B?emxtTXdSdWtiaGpERXVxMGNHMDBOM1I3eDNaWTRuVFhUOFFoS0xXNk9waU1x?=
- =?utf-8?B?TXF5YXhSUXV2VTNUc0lMWEF3UmVTclQxL2dQRUo1dXJnaXI4SkNnSUtEMkl3?=
- =?utf-8?B?L2t1bkJKQ2xzOUFkdU9zZG5NRnh2STNWWHJRTXY1U2FaNk5uVXN0Unlzb0pW?=
- =?utf-8?B?Sk9MZHFqaTRCQjhaekVjaHQwNHFEdWNEZnhZOG4wc1ZKd1ZzZThJYlZUMWU1?=
- =?utf-8?B?di9XRkx6N3VEZWhMclZ5Q2g0T0ZxM0trcVlwYnBnZkFhMXZ1VjJXclgxOXpz?=
- =?utf-8?B?THBBS0RFRHYzSzFtS1J2MFd3Tm1NRHloSUV0eUdOTldYZG0ydzhEK2VDNGd1?=
- =?utf-8?B?UXdGZUY3dmNDWTJBR0ExNEkxUVZUMDdMS1dJamdlekpBM1J5N3VQdDBmdmpZ?=
- =?utf-8?B?TVV2MDl0VkpuOFdsRzhhenFvTDJ5ajVGektlc21BcXIvbm1QQ1RvRUwxNU11?=
- =?utf-8?B?dXN5TUJ5d1dsaWFTWWFEb09oQWNuTG9hRG9oWTczOXcxRHpPVFVBZ25jaVVl?=
- =?utf-8?B?enNMTlZQemNEWllkaXY3NGpNM3dpNjJIUnllL0tLeWZHUDFzM1IwWG1Rek1S?=
- =?utf-8?B?LzBodnRIeXVtYlhrTlk1S3Vuem1HQVgwamF3amZjK2FaM1l5MmlSSHplbUVz?=
- =?utf-8?B?UU5pTmZQQUJ0RnBqWnU5amdNdXRZditZNVZPNmdHWlA3cFNqQmhhSTM2RjNY?=
- =?utf-8?B?Zk5VeFRIalFZV1FuZ0tYbklNOENHb0x2RXowbngvZlFyWEhVcU9tNTVVMEh3?=
- =?utf-8?B?dE5WdFB6ZVdpbmYrMm9qN1NpblVab05RL0psK2NTQTgrYyt6N2RHai9oVjRu?=
- =?utf-8?B?dnQ1ekJOTFNsb1UwOHJJQ0s0ZWI2WDVJOWxEQ1I4TWxvdWV2WlAwYWVmOW1E?=
- =?utf-8?B?MTM4UldINThqdEJHYkZ6RTlSOGJHR0krak9lZFZsMVg3a0FOdDZFZVdGTVpU?=
- =?utf-8?B?enVzdjE5SzU3K2U1aFpVZWN2ZHhCM2FOa2N3Tjd4Ymc5a2wzOVNJVmtBQUlw?=
- =?utf-8?B?OFA5Ky9TV1ZBMzBoNFIyWFdSUFdpaFZ0bXlzR3hjamFxMUdURE5JdUZvWGhL?=
- =?utf-8?B?L3ZoQmVDeXgxd0d1NktTc2JOUXFUVmRBbmw2ZVZWR1ludnkvYmtHYXRQU3Vh?=
- =?utf-8?B?UXNRam9tWmU4aUtjV0tXeGVnT0F6Y0NlcVl3RGQ1QlhJVWpFOEw4aFA3THZ2?=
- =?utf-8?B?d3pPUFZUay9VczYxdFJKaGprTlp3dGw0NXdLUXhVSldicXh5NXhwaEx1a2sw?=
- =?utf-8?B?dk5OS0FlV0x5WVJPanhxWFU2UVNTRDRzcy9QOWFvV3k5OHBTZEdCUGNtaEEr?=
- =?utf-8?B?S0pBampweWVRUHpXcWFWbGU0V3dOWndTRk5tL0pjVmdJOHlxejFTakZtK01J?=
- =?utf-8?Q?LIHjeWqyBRrNtUfd7KDmGjw=3D?=
+	=?utf-8?B?VVg4aGNxbTZkSDZCRDhudlg5M3NVWlNnOXNBaFlRNHdQcGNERUZtRTJLd2pr?=
+ =?utf-8?B?Um5USnQ0c01BcGJrVWlTWHRXaVVJa2xsV2MvZzN0Y3UrMGdIQXZIN0wxL2ZQ?=
+ =?utf-8?B?ayttdkRBZG5Xd3VLTFdHejM1bjQ4aldhRjdUOVVRaU5Ec1JtSFdtYWFJM00r?=
+ =?utf-8?B?Vm1oYzFyMWR0enRjekVzZldYWkZEeFlNblVCMTdwTDFOTEE5STQrVjJDcE8x?=
+ =?utf-8?B?b3pVYXAyMHlRQjRLQk1ibHZtTGdCSkRWTEpwQ293RS90ZlVlYkwwUGNnZk8x?=
+ =?utf-8?B?QjFoQ0pPb2tBSDNENWV6Z1h1dmdLYklmczhEZExFK0ZMMzd6blVmdTdoaUtU?=
+ =?utf-8?B?QXpxVTNPM21oR24vVWJYYlJuQ1hxd25sek5vR20vd254TjhlSW1zK0lySTlr?=
+ =?utf-8?B?YWZRVFA5b2dWWDFlU1IyU0hBVmdZKzFEcEc2MldhamR3TUVsdnU0RXF1VjlK?=
+ =?utf-8?B?d1Y3S1hKRjZqS1NTdHZzYTAzdFBhR0w1Vk1oVzVwNnZsVWRUY1NzN1BCMklp?=
+ =?utf-8?B?aEFlUGRGM2NGcFdMd1hyUXlybzlOU0ZDMzEzWjE1UWkwWCtHUkhRbEtLcHFJ?=
+ =?utf-8?B?N1hqSEFMRUY5cTdQZXd0SHBKWXprWjBNNXgvMmJ0UUJLTVYwZkFiWjAxWk1P?=
+ =?utf-8?B?MGxPdS9KVVVKeGdYbXZEanpmd2JCK1YxUUxQRUxuNG5NSnNrVml0Y2tYKzlz?=
+ =?utf-8?B?cmFKeU1XanBoQjk1aUUwM2RoZjJhdnY0eU9jUGVTYkR5aTlRelZKMU1FcVdt?=
+ =?utf-8?B?TEZSVUxyaWZubUc5LzNhakU3RGpON1FjN2dIdkwwTHVaQ2JjWVE1M2RSRVZz?=
+ =?utf-8?B?WEdMVDQ3RTcvNHdyQytXblFmUWEyWi9vU01kdy9TR2x4clY1RG9qbTRSbDN6?=
+ =?utf-8?B?MFJ3YjJLd05IajRxOVB4MlBiNWM3WFlvNVZ2UkNOWis3UVdXY3BIMlF3ejVU?=
+ =?utf-8?B?bjhtWVEyNndXWUpsTXREcVZhOGlsZVFjTXdOL3FSQ0FsWWRhMGRZeThCK0Va?=
+ =?utf-8?B?RnV3Rzc3Y0VJREM1aEVwemVqa3BUUXFlU2lpeEhjdHJSRmlmVDd0UHAzTE9B?=
+ =?utf-8?B?dmoyRTNVNmZranh0RXRPSmViYnJZbkJ2dUE5UE9sOXpDcEFKNzgxMTRBMVNu?=
+ =?utf-8?B?MTlMaW1tMGNtYXUxTEcveUlDL2VtZ2NiVmIyL05ENEpwdGlwVWhxUmRhNUJi?=
+ =?utf-8?B?Y0pBa0pMNFh1Q3BKaisyU0p0ZmR5RWZLL3k2UlQ1RFFRRlZBNVo2elZkdkZI?=
+ =?utf-8?B?VHNmcDVwbmVFSW1BUE4xdmVVZ3VidVJCUTJka2tDeXZBRjR5ZVZMRzN2akNt?=
+ =?utf-8?B?cVhBTGwvcks4MFUwamhWay9Gb2JXMVpCb3k5NlYyMHBWUHFuRVdnaVB5Y3RX?=
+ =?utf-8?B?Tk1CZGZEaUMyNzRVckRSZ0JCSzY4bkdHUVAzb28vd0ZlQm8yVDdLeVJKR0dx?=
+ =?utf-8?B?RU8yU05NS3NJOFNUN0xWenVLWUFHM25rbzM5SzFaQXRqRlVML1RlWUpIMTI2?=
+ =?utf-8?B?ZGxuclRCUWE3Y0R1OWJwZ1BuRy9ZNGpDc1NmUzgweWpOa2dzb3NCMG8wcUxl?=
+ =?utf-8?B?ZUlEWEJiVk50SmZNbFVHNWxySnZXV3k5azM0LzAycWFYRjBZMWQxeTZkdzBj?=
+ =?utf-8?B?Ylo5RlVMeEFaSzNncENiUlJraktPMHpZWHEwcHA4ak1iK3g0a0c2cE1saitl?=
+ =?utf-8?B?V2RhM2tWcEx5cmVSR1ViYXZMTkR6UDhJMk1Icm1EYzdsa3JQb3d1TDYwLzJi?=
+ =?utf-8?B?c2E5Zm9iODFrOUxIZkszT2JBclBOcFRhYU8wS3FVUUZkN3FpVVhGZzkrQzhz?=
+ =?utf-8?B?VFN4RTUwcFJnTk1MeEFNZDF5ZkhBUnk0ekdobitkT3QrK2pEK1hiU0Rlc3hU?=
+ =?utf-8?B?STBvVlVFUlpXVnFIdU5aRjVpN3Z6b1dnUkllY3hqZkF4cVc3UnV1M1l4WXVZ?=
+ =?utf-8?B?VDFQVDR6R2dQZytUVHZBY0ozMXFOUlNKWmV1dktnQWppOS9aS0puOWtDbFNT?=
+ =?utf-8?B?T2FRdVVJZDJIeVIvcUo3dHUzVHgycGdHL0VZRmY3RVczVVloYURFdmI4ZUtU?=
+ =?utf-8?B?NGtyK3hSN24yeTk3NWExRC8xYm5Fa1RmeGVrNFFZLy9RL29keFA2VnNYSnA3?=
+ =?utf-8?B?SFAyOFhUQW1BM3dpM0g1Zml0ZHNEVkhFc1NjUkhFVENCNnFzVUx0bnRFR0k4?=
+ =?utf-8?Q?3Zc817f5O+vQ2A+MduKPvYY=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0ca4ca57-430a-4d23-4661-08d9a058a267
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09bd1a6f-b8b6-4ee2-b3ea-08d9a058ae3e
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 12:34:39.3038
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 12:34:59.1706
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: m6CwI0N3/xQtc3a2lPLc8N1fYueJp3tEDjuUdOz/s7iGaOtdquSw2oxfukZg/eyDpeSGm6wefCYBQB62P+Ntdw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: wPdCG/r2kVeBvLubSL2s27IN2tE4329x3G56+0z6pg9PjMpii2l6NRhYQO89oFMUY9x2J9Kzj+bzoL2B+xaK9g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7037
 
-The hook functions have been empty for a very long time, if not
-(according to git history) forever. Ditch them alongside the then empty
-mach_mpparse.h instances and the then unused APICFUNC() macro.
+The function does nothing but return success. Simply treat absence of a
+probe hook to mean just this. This then eliminates the (purely
+theoretical at this point) risk of trying to call through
+apic_x2apic_{cluster,phys}'s respective NULL pointers.
+
+While doing this also eliminate generic_apic_probe()'s "changed"
+variable: apic_probe[]'s default entry will now be used unconditionally
+in yet more obvious a way, such that separately setting genapic from
+apic_default is (hopefully) no longer justified. Yet that was the main
+purpose of the variable.
+
+To help prove that apic_default's probe() hook doesn't get used
+elsewhere, further make apic_probe[] static at this occasion.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
 v2: New.
 
---- a/xen/arch/x86/acpi/boot.c
-+++ b/xen/arch/x86/acpi/boot.c
-@@ -39,7 +39,6 @@
- #include <asm/processor.h>
- #include <asm/hpet.h> /* for hpet_address */
- #include <mach_apic.h>
--#include <mach_mpparse.h>
- 
- #define PREFIX			"ACPI: "
- 
-@@ -75,8 +74,6 @@ static int __init acpi_parse_madt(struct
- 		       madt->address);
- 	}
- 
--	acpi_madt_oem_check(madt->header.oem_id, madt->header.oem_table_id);
--
- 	return 0;
- }
- 
---- a/xen/arch/x86/genapic/bigsmp.c
-+++ b/xen/arch/x86/genapic/bigsmp.c
-@@ -8,7 +8,6 @@
- #include <xen/smp.h>
- #include <xen/init.h>
- #include <xen/dmi.h>
--#include <asm/mach-default/mach_mpparse.h>
- #include <asm/io_apic.h>
- 
- static __init int force_bigsmp(const struct dmi_system_id *d)
 --- a/xen/arch/x86/genapic/default.c
 +++ b/xen/arch/x86/genapic/default.c
-@@ -12,7 +12,6 @@
- #include <xen/smp.h>
- #include <xen/init.h>
+@@ -14,12 +14,7 @@
  #include <asm/io_apic.h>
--#include <asm/mach-default/mach_mpparse.h>
  
  /* should be called last. */
- static __init int probe_default(void)
+-static __init int probe_default(void)
+-{ 
+-	return 1;
+-} 
+-
+ const struct genapic __initconstrel apic_default = {
+-	APIC_INIT("default", probe_default),
++	APIC_INIT("default", NULL),
+ 	GENAPIC_FLAT
+ };
 --- a/xen/arch/x86/genapic/probe.c
 +++ b/xen/arch/x86/genapic/probe.c
-@@ -78,39 +78,3 @@ void __init generic_apic_probe(void)
+@@ -18,7 +18,7 @@
+ 
+ struct genapic __read_mostly genapic;
+ 
+-const struct genapic *const __initconstrel apic_probe[] = {
++static const struct genapic *const __initconstrel apic_probe[] = {
+ 	&apic_bigsmp, 
+ 	&apic_default,	/* must be last */
+ 	NULL,
+@@ -59,22 +59,20 @@ custom_param("apic", genapic_apic_force)
+ 
+ void __init generic_apic_probe(void) 
+ { 
+-	bool changed;
+ 	int i;
+ 
+ 	record_boot_APIC_mode();
+ 
+ 	check_x2apic_preenabled();
+-	cmdline_apic = changed = !!genapic.name;
+ 
+-	for (i = 0; !changed && apic_probe[i]; i++) { 
+-		if (apic_probe[i]->probe()) {
+-			changed = 1;
++	cmdline_apic = genapic.name;
++
++	for (i = 0; !genapic.name && apic_probe[i]; i++) {
++		if (!apic_probe[i]->probe || apic_probe[i]->probe())
+ 			genapic = *apic_probe[i];
+-		} 
+ 	}
+-	if (!changed) 
+-		genapic = apic_default;
++
++	BUG_ON(!genapic.name);
  
  	printk(KERN_INFO "Using APIC driver %s\n", genapic.name);
  } 
--
--/* These functions can switch the APIC even after the initial ->probe() */
--
--int __init mps_oem_check(struct mp_config_table *mpc, char *oem, char *productid)
--{ 
--	int i;
--	for (i = 0; apic_probe[i]; ++i) { 
--		if (apic_probe[i]->mps_oem_check(mpc,oem,productid)) { 
--			if (!cmdline_apic &&
--			     genapic.name != apic_probe[i]->name) {
--				genapic = *apic_probe[i];
--				printk(KERN_INFO "Switched to APIC driver `%s'.\n", 
--				       genapic.name);
--			}
--			return 1;
--		} 
--	} 
--	return 0;
--} 
--
--int __init acpi_madt_oem_check(char *oem_id, char *oem_table_id)
--{
--	int i;
--	for (i = 0; apic_probe[i]; ++i) { 
--		if (apic_probe[i]->acpi_madt_oem_check(oem_id, oem_table_id)) { 
--			if (!cmdline_apic &&
--			     genapic.name != apic_probe[i]->name) {
--				genapic = *apic_probe[i];
--				printk(KERN_INFO "Switched to APIC driver `%s'.\n", 
--				       genapic.name);
--			}
--			return 1;
--		} 
--	} 
--	return 0;	
--}
---- a/xen/arch/x86/genapic/x2apic.c
-+++ b/xen/arch/x86/genapic/x2apic.c
-@@ -27,7 +27,6 @@
- #include <asm/msr.h>
- #include <asm/processor.h>
- #include <xen/smp.h>
--#include <asm/mach-default/mach_mpparse.h>
- 
- static DEFINE_PER_CPU_READ_MOSTLY(u32, cpu_2_logical_apicid);
- static DEFINE_PER_CPU_READ_MOSTLY(cpumask_t *, cluster_cpus);
---- a/xen/arch/x86/mpparse.c
-+++ b/xen/arch/x86/mpparse.c
-@@ -30,7 +30,6 @@
- #include <asm/setup.h>
- 
- #include <mach_apic.h>
--#include <mach_mpparse.h>
- #include <bios_ebda.h>
- 
- /* Have we found an MP table */
-@@ -326,8 +325,6 @@ static int __init smp_read_mpc(struct mp
- 	str[12]=0;
- 	printk("Product ID: %s ",str);
- 
--	mps_oem_check(mpc, oem, str);
--
- 	printk("APIC at: %#x\n", mpc->mpc_lapic);
- 
- 	/* 
---- a/xen/arch/x86/x86_64/acpi_mmcfg.c
-+++ b/xen/arch/x86/x86_64/acpi_mmcfg.c
-@@ -38,7 +38,6 @@
- #include <asm/mpspec.h>
- #include <asm/processor.h>
- #include <mach_apic.h>
--#include <mach_mpparse.h>
- 
- #include "mmconfig.h"
- 
---- a/xen/include/asm-x86/genapic.h
-+++ b/xen/include/asm-x86/genapic.h
-@@ -21,13 +21,6 @@ struct genapic {
- 	const char *name;
- 	int (*probe)(void);
- 
--	/* When one of the next two hooks returns 1 the genapic
--	   is switched to this. Essentially they are additional probe 
--	   functions. */
--	int (*mps_oem_check)(struct mp_config_table *mpc, char *oem, 
--			      char *productid);
--	int (*acpi_madt_oem_check)(char *oem_id, char *oem_table_id);
--
- 	/* Interrupt delivery parameters ('physical' vs. 'logical flat'). */
- 	int int_delivery_mode;
- 	int int_dest_mode;
-@@ -38,13 +31,9 @@ struct genapic {
-     void (*send_IPI_self)(uint8_t vector);
- };
- 
--#define APICFUNC(x) .x = x
--
- #define APIC_INIT(aname, aprobe) \
- 	.name = aname, \
--	.probe = aprobe, \
--	APICFUNC(mps_oem_check), \
--	APICFUNC(acpi_madt_oem_check)
-+	.probe = aprobe
- 
- extern struct genapic genapic;
- extern const struct genapic apic_default;
---- a/xen/include/asm-x86/mach-default/mach_mpparse.h
-+++ /dev/null
-@@ -1,17 +0,0 @@
--#ifndef __ASM_MACH_MPPARSE_H
--#define __ASM_MACH_MPPARSE_H
--
--static inline int __init mps_oem_check(struct mp_config_table *mpc, char *oem,
--				       char *productid)
--{
--	return 0;
--}
--
--/* Hook from generic ACPI tables.c */
--static inline int __init acpi_madt_oem_check(char *oem_id, char *oem_table_id)
--{
--	return 0;
--}
--
--
--#endif /* __ASM_MACH_MPPARSE_H */
---- a/xen/include/asm-x86/mach-generic/mach_mpparse.h
-+++ /dev/null
-@@ -1,7 +0,0 @@
--#ifndef _MACH_MPPARSE_H
--#define _MACH_MPPARSE_H 1
--
--int mps_oem_check(struct mp_config_table *mpc, char *oem, char *productid);
--int acpi_madt_oem_check(char *oem_id, char *oem_table_id);
--
--#endif
 
 
