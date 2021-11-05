@@ -2,31 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10EEA446A60
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 22:09:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222635.384933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03C73446A97
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 22:29:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222643.384944 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mj6SB-0007sH-HE; Fri, 05 Nov 2021 21:08:51 +0000
+	id 1mj6ln-0001nK-Ay; Fri, 05 Nov 2021 21:29:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222635.384933; Fri, 05 Nov 2021 21:08:51 +0000
+Received: by outflank-mailman (output) from mailman id 222643.384944; Fri, 05 Nov 2021 21:29:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mj6SB-0007qM-Cm; Fri, 05 Nov 2021 21:08:51 +0000
-Received: by outflank-mailman (input) for mailman id 222635;
- Fri, 05 Nov 2021 21:08:50 +0000
+	id 1mj6ln-0001kP-7Y; Fri, 05 Nov 2021 21:29:07 +0000
+Received: by outflank-mailman (input) for mailman id 222643;
+ Fri, 05 Nov 2021 21:29:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SvBC=PY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1mj6SA-0007qG-1W
- for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 21:08:50 +0000
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0iX8=PY=xilinx.com=fnuv@srs-se1.protection.inumbo.net>)
+ id 1mj6ll-0001kJ-Jw
+ for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 21:29:05 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2060f.outbound.protection.outlook.com
+ [2a01:111:f400:fe59::60f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90b911ab-3e7c-11ec-9787-a32c541c8605;
- Fri, 05 Nov 2021 22:08:48 +0100 (CET)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id E902B60ED4;
- Fri,  5 Nov 2021 21:08:45 +0000 (UTC)
+ id 64f75253-3e7f-11ec-9787-a32c541c8605;
+ Fri, 05 Nov 2021 22:29:03 +0100 (CET)
+Received: from DM5PR17CA0072.namprd17.prod.outlook.com (2603:10b6:3:13f::34)
+ by DM6PR02MB4986.namprd02.prod.outlook.com (2603:10b6:5:4b::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.13; Fri, 5 Nov
+ 2021 21:29:00 +0000
+Received: from DM3NAM02FT047.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:3:13f:cafe::ca) by DM5PR17CA0072.outlook.office365.com
+ (2603:10b6:3:13f::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11 via Frontend
+ Transport; Fri, 5 Nov 2021 21:29:00 +0000
+Received: from xsj-pvapexch02.xlnx.xilinx.com (149.199.62.198) by
+ DM3NAM02FT047.mail.protection.outlook.com (10.13.4.114) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4669.10 via Frontend Transport; Fri, 5 Nov 2021 21:28:59 +0000
+Received: from xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) by
+ xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.14; Fri, 5 Nov 2021 14:28:58 -0700
+Received: from smtp.xilinx.com (172.19.127.95) by
+ xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server id
+ 15.1.2176.14 via Frontend Transport; Fri, 5 Nov 2021 14:28:58 -0700
+Received: from [172.19.2.115] (port=34664 helo=xsjfnuv50.xilinx.com)
+ by smtp.xilinx.com with esmtp (Exim 4.90)
+ (envelope-from <fnu.vikram@xilinx.com>)
+ id 1mj6le-0002Oi-PS; Fri, 05 Nov 2021 14:28:58 -0700
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,255 +63,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90b911ab-3e7c-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1636146526;
-	bh=UUDcJYMAbHCsWhpJYmjHhiSG+kCF+tLvonpszVnWL5g=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=up7LHqqOaeq5WmIFt1e0s3hIbnaKW7lBwUBHp4eku5ETknWCpUYy2Cx22jwvR6DeK
-	 F/LL5zlO/+L5/ckBtAa86bXAcje/QwDdzrSwq9WWThCEmeIJK9B0GUGTB4aX4cf0QZ
-	 4KU2u1DLAea70Sys19GHBdjkBDRCRL4/E/wunEX8zbv6Ufx/fgjmyRA3xh77EI89VI
-	 HxA08FzdWsUne4zpWwM3V30/Gtbgak3R8O0E+FRRKYEonrC0QSGvPetPLH7FNhqZ0Y
-	 8uLKSrZfiU4mtWanAVaRvEJTEGbD1+nkxERwrFMFX9UyDpqmhOHEuuIO7/VYUDPbUV
-	 OQYEm+VvswL9g==
-Date: Fri, 5 Nov 2021 14:08:45 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Luca Fancellu <luca.fancellu@arm.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: Arm EFI boot issue for Dom0 module listed inside subnode of
- chosen
-In-Reply-To: <15331d70-9610-be3a-640f-621774d6f093@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2111051348150.284830@ubuntu-linux-20-04-desktop>
-References: <8A60FA62-2BAA-400B-BB53-AB3E8CCA67F1@arm.com> <alpine.DEB.2.21.2111021625160.18170@sstabellini-ThinkPad-T480s> <f4daf916-06bd-e002-8b74-be6fb45ef257@xen.org> <alpine.DEB.2.22.394.2111031457540.267621@ubuntu-linux-20-04-desktop>
- <15331d70-9610-be3a-640f-621774d6f093@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 64f75253-3e7f-11ec-9787-a32c541c8605
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CffpEYB2HwcKwPU5gxjC0ovRmniESjZAlCAZjOVga5PJG1IJHpLVsgqNVwBPeUfxzTjcxOTTm6ew/cTPYvHPq6amgn/KIsfYaeoY62P15Q+n4uiHvfmwOs/LIEJyCzjNmeEDpPOfz81ajXjEA7MQxIH0IRqigy55RiYiNGqzLI6Xk7jGz1ltzmhG4tDEdOcc9Y5/PEE4RwpcoxxTUA0meRA27RY/IU+K2VJUjfe5Yz4ob9fGUlkfvjFAfn9oNgIowTMgjVp6YFKCpfZRYYCe2RXtHrEl3zgu44FsqJcwkFnqq9lLOjGkKHmkXz6xFKhRbIfWdEO4w2c5q8STxDPudA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wmv+ZUqIQF1tS8mQC6KO4qH5l36Q+7PnjhOjjJJ/AJs=;
+ b=YXcVSC1pT9YnQJx+lh72xEwNJf2jxSZFcz2nJFgWmAGgTSe0JS2NH/ai5vE25sEsDPl8a/fiopIsFYHRBVOPE3lokyL8SOgwwQ1EHbWPB+dtl9xDkgLPJr9PEVotpZVMSHnencjTwV9o2qOf1Mb4NcwlC2C1Nf1lOb+4lnkSzHdpCl5GejgQz/Eu4vXRVYLSbV467wMGLXCR/vqXEZTbkPIiUdWd431SATUWHJXV7PcnCOClRXmwtJ8d6nIRF6RaH+GSpFCDnkWp9Bs4R7EXwKksAMcwjwIP5z76S8JIHpzZUIaWZfKhW7AqVvnoxK6UP6g35B1Do+9DBbj+dKRBdw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 149.199.62.198) smtp.rcpttodomain=lists.xenproject.org
+ smtp.mailfrom=xilinx.com; dmarc=pass (p=none sp=none pct=100) action=none
+ header.from=xilinx.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wmv+ZUqIQF1tS8mQC6KO4qH5l36Q+7PnjhOjjJJ/AJs=;
+ b=K/gN0aqAC4ZdYnLavi09P62I0O8TL7tQlnIeyj2iA741NTvduDG0ooYCY+klpXyUeqqD8WrObaUMwLhr20u1KlDHAWbsXpmMuZfcb2Uh6G+UNqw8XzEr8BIGdXsJl6leJhhvmaGkvGHRcZWQusg/vC7tRVvbwwT4indpGkntDlk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.62.198)
+ smtp.mailfrom=xilinx.com; lists.xenproject.org; dkim=none (message not
+ signed) header.d=none;lists.xenproject.org; dmarc=pass action=none
+ header.from=xilinx.com;
+Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
+ 149.199.62.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=149.199.62.198; helo=xsj-pvapexch02.xlnx.xilinx.com;
+From: Vikram Garhwal <fnu.vikram@xilinx.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <julien@xen.org>, <bertrand.marquis@arm.com>,
+	<volodymyr_babchuk@epam.com>, Vikram Garhwal <fnu.vikram@xilinx.com>
+Subject: [XEN][PATCH v3 0/1] Update libfdt to v1.6.1
+Date: Fri, 5 Nov 2021 14:28:38 -0700
+Message-ID: <1636147719-80482-1-git-send-email-fnu.vikram@xilinx.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1571836450-1636146526=:284830"
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a5477e51-9042-4f5f-d159-08d9a0a347e7
+X-MS-TrafficTypeDiagnostic: DM6PR02MB4986:
+X-Microsoft-Antispam-PRVS:
+	<DM6PR02MB498643512C13E490F0E7A3B2BC8E9@DM6PR02MB4986.namprd02.prod.outlook.com>
+X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
+X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	CHLOOliTOyktOwdmMU7/i17bXequvM/hEH/rWuIVM4Tk8gUbFioibiTQZPIHAQpDp2b1UMsXWq6XAN+jEBV65YiBtYUOGIxbLgeIFg9Oixpz2TNtQGRQRT6aF0zbuS08UTY4HvKOCAQ2EcNDA0mWX8OgCi89eooii5qvI5sNZcA/3dCihc+xWEhybtmqb+crzI6Y+EKburqOzrbEMnadbRMisgUZCPwj/81A7DCDMF1/1H8iGOBJxos+Zrk3oZGkt2hOwPafS+eA9zA2WyKxag/i+qCMFcpBeX7yg9fGA1UncHTPIuIMn1w/IJ7pLYJ0g0aW/HWiBbGzsOFXaHSuGdgNkeWxtjyuFqHLXYApiK+9TU/W7zu7i+XNVQPWUTM4oAiyxHRg7y/hovt2SSodwAC8sfy1qqe9SIXDnOBkRJFUZKY97Kemrm6DPEXZI68uR/EEFll8bLUkh8Vl11J6puwntK21fRait5M6/0mXdGwImubYqkfV+x98D4QTw6cGy9H3Fo0VRhEcTfeI1vLMV8XVB7Ve9K8mCyKJW97Czxzq/BSpz30jIXzX8aY/jqXu2Sc6dKiz0MMQfl6nzAxKZoWGl2L2FKUJvuKfVVksD0+M/NTAIdfqTx3sKUven+FjSeLskqw/yOSMXsMYvrU34gQzWBoRbKzkFHai3zooUVx+Iib0TIBtDPNh3bE9aKJf8y79qG32NsXM4E74XTSlusBCcCWxN+lblYFQndj9O88uZ/lDJnEbQMzs3LLm/zOUCRZZrvw5RyjWSZMstAQiQUEaJnD0Mlb5/R6Z+QWqCpHDqlkdo6WZXVevkdYyQt/B
+X-Forefront-Antispam-Report:
+	CIP:149.199.62.198;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapexch02.xlnx.xilinx.com;PTR:unknown-62-198.xilinx.com;CAT:NONE;SFS:(46966006)(36840700001)(508600001)(2906002)(316002)(9786002)(36906005)(54906003)(336012)(15650500001)(6666004)(186003)(36756003)(426003)(2616005)(5660300002)(70206006)(70586007)(107886003)(26005)(36860700001)(6916009)(4326008)(82310400003)(7696005)(8936002)(356005)(8676002)(47076005)(83380400001)(7636003)(102446001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: xilinx.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Nov 2021 21:28:59.4874
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5477e51-9042-4f5f-d159-08d9a0a347e7
+X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.62.198];Helo=[xsj-pvapexch02.xlnx.xilinx.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM3NAM02FT047.eop-nam02.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR02MB4986
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+This update is done to support device tree overlays functionality. This is taken
+from David Gibson's DTC git: github.com/dgibson/dtc.
 
---8323329-1571836450-1636146526=:284830
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Change log:
+v2 -> v3:
+    Include version.lds changes.
 
-On Fri, 5 Nov 2021, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 03/11/2021 21:57, Stefano Stabellini wrote:
-> > On Wed, 3 Nov 2021, Julien Grall wrote:
-> > > On 02/11/2021 23:36, Stefano Stabellini wrote:
-> > > > On Tue, 2 Nov 2021, Luca Fancellu wrote:
-> > > > > Hi all,
-> > > > > 
-> > > > > We recently discovered that there is a way to list Dom0 modules that
-> > > > > is
-> > > > > not supported by the EFI boot,
-> > > > > It’s happened browsing some Wiki pages like this one:
-> > > > > https://wiki.xenproject.org/wiki/Xen_ARM_with_Virtualization_Extensions/Lager
-> > > > > 
-> > > > > In that page the Dom0 modules are listed inside a subnode of the
-> > > > > /chosen
-> > > > > node:
-> > > > > 
-> > > > > chosen {
-> > > > > 
-> > > > >       modules {
-> > > > >           #address-cells = <1>;
-> > > > >           #size-cells = <1>;
-> > > > > 
-> > > > >           module@0x72000000 {
-> > > > >               compatible = "multiboot,kernel", "multiboot,module";
-> > > > >               reg = <0x72000000 0x2fd158>;
-> > > > >           };
-> > > > > 
-> > > > >           module@0x74000000 {
-> > > > >               compatible = "xen,xsm-policy", "multiboot,module";
-> > > > >               reg = <0x74000000 0x2559>;
-> > > > >           };
-> > > > >       };
-> > > > > };
-> > > > > 
-> > > > > Instead for how it is implemented now in the EFI code and described
-> > > > > in:
-> > > > > 1)
-> > > > > https://xenbits.xen.org/docs/unstable/misc/arm/device-tree/booting.txt
-> > > > > 2) https://xenbits.xen.org/docs/unstable/misc/efi.html
-> > > > > 
-> > > > > Only the following approach is supported, so Dom0 modules must be a
-> > > > > direct
-> > > > > child of /chosen:
-> > > 
-> > > Do you mean this is not supported after your changes or this was never
-> > > supported? (see more below).
-> > > 
-> > > > > 
-> > > > > chosen {
-> > > > >       #address-cells = <1>;
-> > > > >       #size-cells = <1>;
-> > > > > 
-> > > > >       module@0x72000000 {
-> > > > >           compatible = "multiboot,kernel", "multiboot,module";
-> > > > >           reg = <0x72000000 0x2fd158>;
-> > > > >       };
-> > > > > 
-> > > > >       module@0x74000000 {
-> > > > >           compatible = "xen,xsm-policy", "multiboot,module";
-> > > > >           reg = <0x74000000 0x2559>;
-> > > > >       };
-> > > > > };
-> > > > > 
-> > > > > Is this a problem that needs a fix?
-> > > > 
-> > > > 
-> > > > Let me start by saying that I don't feel strongly either way, so I am
-> > > > happy to go with other people's opinion on this one.
-> > > > 
-> > > > In this kind of situations I usually look at two things:
-> > > > - what the specification says
-> > > > - what the existing code actually does
-> > > > 
-> > > > In general, I try to follow the specification unless obviously
-> > > > production code relies on something that contradicts the spec, in which
-> > > > case I'd say to update the spec.
-> > > > 
-> > > > In this case, although it is true that "modules" could be nice to have,
-> > > > it is missing a compatible string,
-> > > 
-> > > There are a few nodes in the DT without compatible (e.g. cpus, memory,
-> > > chosen,
-> > > soc). So I am a bit confused why this is a problem.
-> > 
-> > They tend to be "exceptions". Node names are usually not meaningful
-> > except for few top-level nodes without a compatible string. 
-> 
-> I think you misundertood my point here. I wasn't necessarily saying that the
-> name "modules" was meaningful. Instead, I was pointing out there was various
-> nodes without compatible property. I can see how this is useful to group
-> nodes.
-> 
-> In fact, I couldn't find a section in the Device-Tree suggesting that the
-> compatible property was mandatory. Do you have one pointer in hand?
+v1 -> v2:
+    Correct the compilation issue due to incorrect lib.h path.
 
-I'll answer below to make the conversation easier to follow
+Regards,
+Vikram
 
+Vikram Garhwal (1):
+  Update libfdt to v1.6.1
 
-> > Cpus, memory
-> > and chosen are all top level nodes. I don't know about "soc", that one
-> > should probably be compatible = "simple-bus". If you have a pointer to
-> > an "soc" node without a compatible I'd be interested in taking a look.
-> 
-> See above, I wasn't suggesting that the name "soc" is meaningful.
-> 
-> > No worries if you don't have it handy, I was just curious.
-> Nothing in hand sorry. I vaguely recall we had that discussion when
-> introducing the partial device-tree a few years ago.
-> 
-> > > > and it is only rarely used.
-> > > 
-> > > Hmmm... We have quite a few examples on the wiki that create 'module'
-> > > under
-> > > 'modules'. In fact, we have provided U-boot script [2] that can be easily
-> > > re-used. So I would not call it rare.
-> > > 
-> > > > 
-> > > > For these reasons, I don't think it is a problem that we need to fix.
-> > > > Especially considering that the EFI case is the only case not working
-> > > > and it was never supported until now.
-> > > 
-> > > Hmmm... Looking at the implementation of efi_arch_use_config_file() in
-> > > 4.12,
-> > > we are looking for the compatible "mutiboot,module". So I would say this
-> > > is
-> > > supported.
-> > > 
-> > > > If we want to add support for "modules", that could be fine, but I think
-> > > > we should describe it in arm/device-tree/booting.txt and also add a
-> > > > compatible string for it. For 4.16
-> > > 
-> > > I think the first question we need to resolved is whether this has ever
-> > > been
-> > > supported in EFI. I think it was and therefore this is technically a
-> > > regression.
-> > > 
-> > > That said, outside of the dom0less case, I don't expect any UEFI users
-> > > will
-> > > bother to create the nodes manually and instead rely on GRUB to create
-> > > them.
-> > > So I think breaking it would be OK.
-> > > 
-> > > I am less convinced about breaking it for non-UEFI case.
-> > > 
-> > > That said, I think the documentation should be updated either way for
-> > > 4.16 (the more if this has been broken as part of recent changes).
-> > 
-> > It would be good to clarify. If we decide to go with making it clear
-> > that "modules" is not supported then from a device tree point of view I
-> > think we should say that "multiboot,module" nodes for Dom0 and Xen (xsm)
-> > are children of /chosen. I prefer this option because I think that if
-> > we wanted to group the dom0 and/or Xen modules together (which could be
-> > good) we could come up with something better than "modules", more
-> > aligned with dom0less.
-> 
-> To expand what I wrote above, I viewed "modules" as just a way to group nodes
-> rather than a meaningful name.
-> 
-> In the current implementation in Xen doesn't care of the name. It just looks
-> for any node in chosen up to depth 3. So anyone could create a node "bar" to
-> group everything together.
- 
-First let me clarify that the specification is not mandating that the
-module nodes are at a specific depth, from that point of view it is OK
-to have "intermediate" nodes. The issue is that "modules" is not
-described and doesn't have a compatible string, so we don't know how we
-should deal with it.
+ xen/common/libfdt/Makefile.libfdt   |  10 +-
+ xen/common/libfdt/fdt.c             | 226 ++++++---
+ xen/common/libfdt/fdt_addresses.c   | 101 ++++
+ xen/common/libfdt/fdt_check.c       |  93 ++++
+ xen/common/libfdt/fdt_empty_tree.c  |  46 +-
+ xen/common/libfdt/fdt_overlay.c     | 884 ++++++++++++++++++++++++++++++++++++
+ xen/common/libfdt/fdt_ro.c          | 514 ++++++++++++++++-----
+ xen/common/libfdt/fdt_rw.c          | 249 +++++-----
+ xen/common/libfdt/fdt_strerror.c    |  55 +--
+ xen/common/libfdt/fdt_sw.c          | 312 +++++++++----
+ xen/common/libfdt/fdt_wip.c         |  88 ++--
+ xen/common/libfdt/libfdt_internal.h | 223 ++++++---
+ xen/common/libfdt/version.lds       |  24 +-
+ xen/include/xen/libfdt/fdt.h        |  51 +--
+ xen/include/xen/libfdt/libfdt.h     | 858 +++++++++++++++++++++++++++++-----
+ xen/include/xen/libfdt/libfdt_env.h | 100 +++-
+ 16 files changed, 3048 insertions(+), 786 deletions(-)
+ create mode 100644 xen/common/libfdt/fdt_addresses.c
+ create mode 100644 xen/common/libfdt/fdt_check.c
+ create mode 100644 xen/common/libfdt/fdt_overlay.c
 
-Although in the device tree specification [1] is not written in clear
-letters that a compatible string is mandatory, it written that the
-compatible string is necessary for two things:
+-- 
+2.7.4
 
-- identify the driver to use for a device
-- specify the "Device Bindings" [2]
-
-The device bindings are the "requirements for how specific types and
-classes of devices are represented in the devicetree". Basically, it is
-what tells us how to represent and what to do with a given node.
-
-Let's say that we want to group together a bunch of device nodes. We use
-a bus node like "amba" to do it. If we don't specify compatible =
-"simple-bus" we don't know how to map the addresses of the children
-nodes into the parent address space, so the device nodes under "amba"
-become actually unusable.
-
-Chosen is for configurations, not for the description of devices.
-However, similar rules apply: if we encounter a "modules" node, what are
-we going to do with it? Is it OK to proceed and parse the children nodes
-as normal? We don't know for sure. Imagine that instead of "modules" one
-calls it "disabled" instead. What do we do in that case?
-
-In short, we need a description of "modules" to know what to do with it.
-To describe "modules", we need a binding. To have a binding, we need a
-compatible string.
-
-[1] https://github.com/devicetree-org/devicetree-specification
-[2] https://github.com/devicetree-org/devicetree-specification/blob/main/source/chapter4-device-bindings.rst
- 
-
-> > Otherwise we could try to add a "modules" node to the description with a
-> > compatible string and a comment saying certain legacy versions might not
-> > have a compatible string.
-> 
-> I am not really in favor of introducing a new compatible because it will never
-> be used by Xen (or anyone else).
-> 
-> So if the compatible is mandatory, then I would prefer to deprecate the use in
-> the next release (we could add a warning).
-
-That's fine by me
---8323329-1571836450-1636146526=:284830--
 
