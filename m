@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7F7B445FE8
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 07:56:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222088.384142 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CB56445FEE
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Nov 2021 07:57:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222089.384149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mit9T-0000dL-E5; Fri, 05 Nov 2021 06:56:39 +0000
+	id 1mit9T-0000jr-S1; Fri, 05 Nov 2021 06:56:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222088.384142; Fri, 05 Nov 2021 06:56:39 +0000
+Received: by outflank-mailman (output) from mailman id 222089.384149; Fri, 05 Nov 2021 06:56:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mit9T-0000bS-9m; Fri, 05 Nov 2021 06:56:39 +0000
-Received: by outflank-mailman (input) for mailman id 222088;
- Fri, 05 Nov 2021 06:56:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mit9T-0000da-Lg; Fri, 05 Nov 2021 06:56:39 +0000
+Received: by outflank-mailman (input) for mailman id 222089;
+ Fri, 05 Nov 2021 06:56:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Gmz5=PY=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1mit9R-0008NQ-3q
- for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 06:56:37 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 849e8569-3e05-11ec-a9d2-d9f7a1cc8784;
- Fri, 05 Nov 2021 07:56:36 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id g14so29235879edz.2
- for <xen-devel@lists.xenproject.org>; Thu, 04 Nov 2021 23:56:36 -0700 (PDT)
+ id 1mit9S-0008Eb-Ei
+ for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 06:56:38 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 855f26ec-3e05-11ec-9787-a32c541c8605;
+ Fri, 05 Nov 2021 07:56:37 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id b15so10471843edd.7
+ for <xen-devel@lists.xenproject.org>; Thu, 04 Nov 2021 23:56:37 -0700 (PDT)
 Received: from localhost.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id dt4sm3735150ejb.27.2021.11.04.23.56.34
+ by smtp.gmail.com with ESMTPSA id dt4sm3735150ejb.27.2021.11.04.23.56.35
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Nov 2021 23:56:35 -0700 (PDT)
+ Thu, 04 Nov 2021 23:56:36 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,34 +43,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 849e8569-3e05-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 855f26ec-3e05-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=ndViLhJiu5nJA5llxtFbdf7nx2zoDFBKma1YLn+Pglc=;
-        b=O8CfU7uVVxraZ90rmP/W7ldSpEaLtcuqJl04xFonUzrW4ZHU+AieeyGl4xo8ymCEE2
-         F1yrTAkkKUGDv0srM0HLcueKvmd8iQMSZDxUnoY4SloB+2xXg4y06Okekq07O2rrWgSM
-         w3BM1tXvBhJ7mmCBABL7jmR5FSxICrh5YweHft2v8ekLuB5aXstiGGYlN5/hpxePp72j
-         gePT1kfSPwV9VluNAs2+iIYlVcC3b8gIV1f5ANzq9Ok7TfBNZwfpiihepf0KOzRnZgC8
-         iBAk9mgwqltzMIuz0nOyCdU+xsh30OYi9a/Jw+/d2WkSSthQfRd7YsZLv4mIhkrnDxKx
-         U0Wg==
+        bh=/BhVSzCyfrKMDozwQH/ExTubI3Dx6s3goXHMqPKDfjg=;
+        b=K7U9vUsEU4wDAlfzmWQaQ3shYxNk5c+bFa7pzSjVc9szODwmj997M5/1FpSgD0eaVK
+         7WplqIySozk5AxYy4oMhaEPLGSxfkN7celQjwmaMeHS+9al9oeFLxn+hEpRWIJa0eRol
+         dlHYax4HBRFmhwYC3bpinjWlU6KifLIXjkHPNDZCfYl72u7mFp94E98wGor0WhXKYgxH
+         qQEwipLYMJzmuI3UVKAce6WXBmnz/4GF2u00pzkS12WokvNCrlTiduespTGbsV7HPQ7H
+         nOb5v5gbIG0bG+S8nGlsSF0o31vuHYLCu5UMBL/Az9um0vy3VGFtqOD3W4GYs+hpk3ur
+         x7Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=ndViLhJiu5nJA5llxtFbdf7nx2zoDFBKma1YLn+Pglc=;
-        b=cokzhkZ2VR2XLCc351NSnC+0fIOVhcYSmL/6qbMXHk/43eet7fjN6FJRmRTpgyJ5L9
-         fmTz+rYuelhu1KCW/GPrA6hyuu1Qcstih0Y6+NB189S//FiB7v1bT4VN9/RCOymMfNjN
-         10Rh2QDr5UQ6NOMv1q8GWMtg/BL8jjUaF2mpXxbQTBStP2GMs3QHylsvVAePNcSe8h1M
-         dNGAiKarXCD+5muTj3snnqBTpjlmvxmYCXNS+/Xe82kEwABzBqvTKUqKPVdwAOChRjRI
-         N0WgH7mCHSnpr6bxHpCePFgusgm5CnUn12v3+W+5a6rx4U8pf2oxrVwgdA2mJ9EhAfXj
-         2Ecw==
-X-Gm-Message-State: AOAM533zPdk2zXzsfIsQUJcB+f+a7CBdPsng3rnenZt0LhTgtCl6am6v
-	CnzxmiDeR2cnq/9ZBKFaP+4yYue2Udi9Gw==
-X-Google-Smtp-Source: ABdhPJwvgUws2STx5uDR0C5x7eXgFsEjsvQ41PddklT8xFMzxt05VZNafwWyw+SPkIGRrx9enPTVmg==
-X-Received: by 2002:a17:906:270e:: with SMTP id z14mr69685944ejc.414.1636095395773;
-        Thu, 04 Nov 2021 23:56:35 -0700 (PDT)
+        bh=/BhVSzCyfrKMDozwQH/ExTubI3Dx6s3goXHMqPKDfjg=;
+        b=SQq3uEdo7fmz7TJxivUoW8bVukEoAv/vH6ieZUZdIei13N6BKsniNPyQqpHaKUsyP4
+         FmRz2rIWhX35FFw7Ls4I6HH0rrXGTTNg2h/gZmkHJw+zt0TIeoQnh+RtwPZV44Ziiy9P
+         6P3HCJZMgaFm1ncT/4p+5KGQwcyvm5OwBZA2Ck00WhmpEgLNct78YxnUU1p6t/hMezf7
+         j7MPwReGMLFEALfrm267j/Zs/DKargxbOWTl5Niz5ligCl9J873xbj4nLOMSJueTnXHP
+         6ePn3jvdR5Hfatc4KWQhIBMRSHAHJWy0k4CJ/WAtOCDr0UKgGypIErhVrYWLmuNZhlg7
+         poFA==
+X-Gm-Message-State: AOAM532sxEcSLL6kVmZhBTXlGBFYtaxadXAx7lOfnr1UFSiknYSKZyYa
+	54rCsZIYsfk0ZWj6a5B71cXEAVuWhbaraQ==
+X-Google-Smtp-Source: ABdhPJwH3nj2qgzWQi6uwb8KYRy2nn02Sm8YsU5o9cvWZgY9/c+lRZTPHGNkKX53KMbOHn9w8eTdEg==
+X-Received: by 2002:a17:906:3408:: with SMTP id c8mr14550874ejb.41.1636095397004;
+        Thu, 04 Nov 2021 23:56:37 -0700 (PDT)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -86,9 +86,9 @@ Cc: julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH v4 03/11] vpci: make vpci registers removal a dedicated function
-Date: Fri,  5 Nov 2021 08:56:21 +0200
-Message-Id: <20211105065629.940943-4-andr2000@gmail.com>
+Subject: [PATCH v4 04/11] vpci: add hooks for PCI device assign/de-assign
+Date: Fri,  5 Nov 2021 08:56:22 +0200
+Message-Id: <20211105065629.940943-5-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20211105065629.940943-1-andr2000@gmail.com>
 References: <20211105065629.940943-1-andr2000@gmail.com>
@@ -97,61 +97,182 @@ Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-This is in preparation for dynamic assignment of the vpci register
-handlers depending on the domain: hwdom or guest.
+When a PCI device gets assigned/de-assigned some work on vPCI side needs
+to be done for that device. Introduce a pair of hooks so vPCI can handle
+that.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 ---
 Since v3:
-- remove all R-b's due to changes
-- s/vpci_remove_device_registers/vpci_remove_device_handlers
-- minor comment cleanup
+ - remove toolstack roll-back description from the commit message
+   as error are to be handled with proper cleanup in Xen itself
+ - remove __must_check
+ - remove redundant rc check while assigning devices
+ - fix redundant CONFIG_HAS_VPCI check for CONFIG_HAS_VPCI_GUEST_SUPPORT
+ - use REGISTER_VPCI_INIT machinery to run required steps on device
+   init/assign: add run_vpci_init helper
+Since v2:
+- define CONFIG_HAS_VPCI_GUEST_SUPPORT so dead code is not compiled
+  for x86
 Since v1:
  - constify struct pci_dev where possible
+ - do not open code is_system_domain()
+ - extended the commit message
 ---
- xen/drivers/vpci/vpci.c | 6 +++++-
- xen/include/xen/vpci.h  | 2 ++
- 2 files changed, 7 insertions(+), 1 deletion(-)
+ xen/drivers/Kconfig           |  4 +++
+ xen/drivers/passthrough/pci.c |  6 ++++
+ xen/drivers/vpci/vpci.c       | 57 ++++++++++++++++++++++++++++++-----
+ xen/include/xen/vpci.h        | 16 ++++++++++
+ 4 files changed, 75 insertions(+), 8 deletions(-)
 
+diff --git a/xen/drivers/Kconfig b/xen/drivers/Kconfig
+index db94393f47a6..780490cf8e39 100644
+--- a/xen/drivers/Kconfig
++++ b/xen/drivers/Kconfig
+@@ -15,4 +15,8 @@ source "drivers/video/Kconfig"
+ config HAS_VPCI
+ 	bool
+ 
++config HAS_VPCI_GUEST_SUPPORT
++	bool
++	depends on HAS_VPCI
++
+ endmenu
+diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+index a9d31293ac09..529a4f50aa80 100644
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -873,6 +873,10 @@ static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
+     if ( ret )
+         goto out;
+ 
++    ret = vpci_deassign_device(d, pdev);
++    if ( ret )
++        goto out;
++
+     if ( pdev->domain == hardware_domain  )
+         pdev->quarantine = false;
+ 
+@@ -1445,6 +1449,8 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
+         rc = hd->platform_ops->assign_device(d, devfn, pci_to_dev(pdev), flag);
+     }
+ 
++    rc = vpci_assign_device(d, pdev);
++
+  done:
+     if ( rc )
+         printk(XENLOG_G_WARNING "%pd: assign (%pp) failed (%d)\n",
 diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index 4e24956419aa..d7f033a0811f 100644
+index d7f033a0811f..5f086398a98c 100644
 --- a/xen/drivers/vpci/vpci.c
 +++ b/xen/drivers/vpci/vpci.c
-@@ -35,7 +35,7 @@ extern vpci_register_init_t *const __start_vpci_array[];
- extern vpci_register_init_t *const __end_vpci_array[];
- #define NUM_VPCI_INIT (__end_vpci_array - __start_vpci_array)
+@@ -63,11 +63,25 @@ void vpci_remove_device(struct pci_dev *pdev)
+     pdev->vpci = NULL;
+ }
  
--void vpci_remove_device(struct pci_dev *pdev)
-+void vpci_remove_device_handlers(const struct pci_dev *pdev)
+-int vpci_add_handlers(struct pci_dev *pdev)
++static int run_vpci_init(struct pci_dev *pdev)
  {
-     if ( !has_vpci(pdev->domain) )
-         return;
-@@ -51,8 +51,12 @@ void vpci_remove_device(struct pci_dev *pdev)
-         xfree(r);
-     }
-     spin_unlock(&pdev->vpci->lock);
-+}
+     unsigned int i;
+     int rc = 0;
  
-+void vpci_remove_device(struct pci_dev *pdev)
++    for ( i = 0; i < NUM_VPCI_INIT; i++ )
++    {
++        rc = __start_vpci_array[i](pdev);
++        if ( rc )
++            break;
++    }
++
++    return rc;
++}
++
++int vpci_add_handlers(struct pci_dev *pdev)
 +{
-     vpci_cancel_pending(pdev);
++    int rc;
++
+     if ( !has_vpci(pdev->domain) )
+         return 0;
+ 
+@@ -81,18 +95,45 @@ int vpci_add_handlers(struct pci_dev *pdev)
+     INIT_LIST_HEAD(&pdev->vpci->handlers);
+     spin_lock_init(&pdev->vpci->lock);
+ 
+-    for ( i = 0; i < NUM_VPCI_INIT; i++ )
+-    {
+-        rc = __start_vpci_array[i](pdev);
+-        if ( rc )
+-            break;
+-    }
+-
++    rc = run_vpci_init(pdev);
+     if ( rc )
+         vpci_remove_device(pdev);
+ 
+     return rc;
+ }
++
++#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
++/* Notify vPCI that device is assigned to guest. */
++int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
++{
++    int rc;
++
++    /* It only makes sense to assign for hwdom or guest domain. */
++    if ( is_system_domain(d) || !has_vpci(d) )
++        return 0;
++
 +    vpci_remove_device_handlers(pdev);
-     xfree(pdev->vpci->msix);
-     xfree(pdev->vpci->msi);
-     xfree(pdev->vpci);
++
++    rc = run_vpci_init(pdev);
++    if ( rc )
++        vpci_deassign_device(d, pdev);
++
++    return rc;
++}
++
++/* Notify vPCI that device is de-assigned from guest. */
++int vpci_deassign_device(struct domain *d, struct pci_dev *pdev)
++{
++    /* It only makes sense to de-assign from hwdom or guest domain. */
++    if ( is_system_domain(d) || !has_vpci(d) )
++        return 0;
++
++    vpci_remove_device_handlers(pdev);
++
++    return 0;
++}
++#endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
++
+ #endif /* __XEN__ */
+ 
+ static int vpci_register_cmp(const struct vpci_register *r1,
 diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 609d6383b252..1883b9d08a70 100644
+index 1883b9d08a70..a016b4197801 100644
 --- a/xen/include/xen/vpci.h
 +++ b/xen/include/xen/vpci.h
-@@ -30,6 +30,8 @@ int __must_check vpci_add_handlers(struct pci_dev *dev);
+@@ -262,6 +262,22 @@ static inline void vpci_cancel_pending(const struct pci_dev *pdev)
+ }
+ #endif
  
- /* Remove all handlers and free vpci related structures. */
- void vpci_remove_device(struct pci_dev *pdev);
-+/* Remove all handlers for the device. */
-+void vpci_remove_device_handlers(const struct pci_dev *pdev);
++#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
++/* Notify vPCI that device is assigned/de-assigned to/from guest. */
++int vpci_assign_device(struct domain *d, struct pci_dev *pdev);
++int vpci_deassign_device(struct domain *d, struct pci_dev *pdev);
++#else
++static inline int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
++{
++    return 0;
++};
++
++static inline int vpci_deassign_device(struct domain *d, struct pci_dev *pdev)
++{
++    return 0;
++};
++#endif
++
+ #endif
  
- /* Add/remove a register handler. */
- int __must_check vpci_add_register(struct vpci *vpci,
+ /*
 -- 
 2.25.1
 
