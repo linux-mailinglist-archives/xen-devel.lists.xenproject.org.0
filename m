@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C041A44783C
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Nov 2021 02:14:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.223028.385568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 525A34479E1
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Nov 2021 06:20:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222755.385578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mjtF5-00081Y-2u; Mon, 08 Nov 2021 01:14:35 +0000
+	id 1mjx3Z-00060J-AN; Mon, 08 Nov 2021 05:18:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 223028.385568; Mon, 08 Nov 2021 01:14:35 +0000
+Received: by outflank-mailman (output) from mailman id 222755.385578; Mon, 08 Nov 2021 05:18:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mjtF4-0007yE-VQ; Mon, 08 Nov 2021 01:14:34 +0000
-Received: by outflank-mailman (input) for mailman id 223028;
- Mon, 08 Nov 2021 01:14:34 +0000
+	id 1mjx3Z-0005yZ-4P; Mon, 08 Nov 2021 05:18:57 +0000
+Received: by outflank-mailman (input) for mailman id 222755;
+ Sat, 06 Nov 2021 20:55:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZOPF=P3=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1mjtF4-0007y8-4j
- for xen-devel@lists.xenproject.org; Mon, 08 Nov 2021 01:14:34 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mw4S=PZ=gmx.net=j.neuschaefer@srs-se1.protection.inumbo.net>)
+ id 1mjSiL-0008J2-Ap
+ for xen-devel@lists.xenproject.org; Sat, 06 Nov 2021 20:55:01 +0000
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3b03dcf9-4031-11ec-9787-a32c541c8605;
- Mon, 08 Nov 2021 02:14:33 +0100 (CET)
-Received: by mail-lf1-x12d.google.com with SMTP id l22so5758561lfg.7
- for <xen-devel@lists.xenproject.org>; Sun, 07 Nov 2021 17:14:32 -0800 (PST)
-Received: from [192.168.2.145] (79-139-188-96.dynamic.spd-mgts.ru.
- [79.139.188.96])
- by smtp.googlemail.com with ESMTPSA id b6sm50427ljr.103.2021.11.07.17.14.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 07 Nov 2021 17:14:32 -0800 (PST)
+ id cdde146c-3f43-11ec-9787-a32c541c8605;
+ Sat, 06 Nov 2021 21:54:59 +0100 (CET)
+Received: from longitude ([87.79.195.52]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MOA3F-1n7sEw3p2f-00OWCa; Sat, 06
+ Nov 2021 21:54:16 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,264 +39,241 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b03dcf9-4031-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=N1+snwcBj4tP86kuMCj3Y4Q1vBUEL/Sem2JBurze6Ko=;
-        b=apuxSRuYyxkG2byFKoxt6B4SK3xt1zayG+GZKAbfvgzKkxFXAeWb1AzxtxUprSjERR
-         whaPt6KEn6/vTE9oOPwvBS4c5ID/DXiDnXsanKsV2qmMrBWiYaIO7BigzI+qvvrAxwrZ
-         BmkpTmeKr37leQpkRplTucmSrwDlfNefD7m3qL+hvwRStGquM9P0I0wrBTfpw9rn76sI
-         lN0LLW+RgmTAyUEm+V4IH6cGKjORdlWIvcP/u6EPAVmjyc5BQEYpbw/tX7i3HHJcJjAB
-         7CLlDSjKnU1JYhgjRjgZm0uF5v+cV0cGD400r4GBT6NRs15v93q/OMHQaBAFH5aMWKYN
-         dIDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=N1+snwcBj4tP86kuMCj3Y4Q1vBUEL/Sem2JBurze6Ko=;
-        b=uBXChfmA1scbsZeJVNvh0vOoXNvxKQaW39fkgcJ5j4cRiLM3wjZQ3mYx5HiWbKXC5b
-         t16wRlvz6bOZ1ZUCCBWA0AQ484szHd/rLGfWi5pl4OH5o44YF7b3NWKyT2GH+9xIyVXf
-         Gf8s8cDbacBTu4UjpfPcqAdM4nmHgFMReVo9Tln6D7Jnt/lYXZamQe8RnL77k7kL57rp
-         u/H02cBe2GU8L4Dlg0H2RQXM9tp3OWSVhYjMQnH1Fc2sHentoDsLcNL1qN5pcNbjGzO2
-         HVJ5Kntg/ZF742wX9QSHBhz//g2UCH2AaGZKgaMKc2RL5yZZl2WWVw8wP7vAltECuY6g
-         7tug==
-X-Gm-Message-State: AOAM531YM88tH0JH/POg9KKdF9SXgi8ZuNoe5vPS1zVj/qY8mzLeurMm
-	Mnn7zhRl9rq+0e99WnWOJDU=
-X-Google-Smtp-Source: ABdhPJwwKCpUyEi2gUYCZoydWPAlQSBS5OGz69Lgly2auw/yDbGC37SlN+Qc84kMLx0VxH8b+KOpeA==
-X-Received: by 2002:a05:6512:31d4:: with SMTP id j20mr3632382lfe.395.1636334072590;
-        Sun, 07 Nov 2021 17:14:32 -0800 (PST)
-Subject: Re: [PATCH v3 00/25] Introduce power-off+restart call chain API
-From: Dmitry Osipenko <digetx@gmail.com>
-To: Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Russell King
- <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Greg Ungerer
- <gerg@linux-m68k.org>, Joshua Thompson <funaho@jurai.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Nick Hu <nickhu@andestech.com>, Greentime Hu <green.hu@gmail.com>,
- Vincent Chen <deanbo422@gmail.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Michael Ellerman <mpe@ellerman.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Santosh Shilimkar <ssantosh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Pavel Machek <pavel@ucw.cz>, Lee Jones <lee.jones@linaro.org>,
- Andrew Morton <akpm@linux-foundation.org>, Guenter Roeck
- <linux@roeck-us.net>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, Sebastian Reichel <sre@kernel.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-csky@vger.kernel.org, linux-ia64@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org,
- linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-riscv@lists.infradead.org, linux-sh@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org
-References: <20211108004524.29465-1-digetx@gmail.com>
-Message-ID: <a4cf1410-564b-ced5-1209-fa55ba672431@gmail.com>
-Date: Mon, 8 Nov 2021 04:14:30 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+X-Inumbo-ID: cdde146c-3f43-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+	s=badeba3b8450; t=1636232056;
+	bh=Mwd00qb2ZiJx72AR8VOZy+k9pKeasCOoFRxt9I1uV2U=;
+	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C0sCrT8yqXlZxZN/D8t3r5AoxwhULAsJ8jy0NerNyYtNdbWgnqBYX9Y6CiU9MHxYu
+	 zquWuU6nUJY+jyfB4yNiyLcx1VtjpHa5bjIspLTdTbHxN0xolbUGlTJ6HhUeKdKZyT
+	 nslIEB0sT9+3bcpa5ZRh7JRv4jOvvxznOxhoRVuE=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Date: Sat, 6 Nov 2021 21:54:06 +0100
+From: Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+To: Dmitry Osipenko <digetx@gmail.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Lee Jones <lee.jones@linaro.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Russell King <linux@armlinux.org.uk>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Greg Ungerer <gerg@linux-m68k.org>,
+	Joshua Thompson <funaho@jurai.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Nick Hu <nickhu@andestech.com>, Greentime Hu <green.hu@gmail.com>,
+	Vincent Chen <deanbo422@gmail.com>, Helge Deller <deller@gmx.de>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Paul Mackerras <paulus@samba.org>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>, Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Santosh Shilimkar <ssantosh@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Chen-Yu Tsai <wens@csie.org>,
+	Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+	Tony Lindgren <tony@atomide.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Vladimir Zapolskiy <vz@mleia.com>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Pavel Machek <pavel@ucw.cz>, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org,
+	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+	linux-sh@vger.kernel.org, xen-devel@lists.xenproject.org,
+	linux-acpi@vger.kernel.org, linux-omap@vger.kernel.org,
+	openbmc@lists.ozlabs.org, linux-tegra@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH v2 27/45] mfd: ntxec: Use devm_register_power_handler()
+Message-ID: <YYbqlmOM95q7Hbjo@latitude>
+References: <20211027211715.12671-1-digetx@gmail.com>
+ <20211027211715.12671-28-digetx@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20211108004524.29465-1-digetx@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EIEte5+tjVxDHmE6"
+Content-Disposition: inline
+In-Reply-To: <20211027211715.12671-28-digetx@gmail.com>
+X-Provags-ID: V03:K1:SVFlmtuvvynO7MrtDzObaEyN/WaPcv8tOsGAlIRvdbuKBKDAEQ/
+ nVePqR5eYOMd9xdpGO5unEqHbls4MbMcwDHHiD/2xW054xRTDPzVuInIGVNwfhVnOpuaRe4
+ ac8qzmvsisWAHTSwATyyh2lQM4j3GTT+YgfTlnX+xnTkWWDcDQ1QJM/FLNOUp2gu+vKNebi
+ 4PIdlh56euOWziRZzNIlQ==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:u5Fne7zv3PE=:dNBEMEjx9T9adiFRODtMYS
+ bP1c0hzh59ZKklI1R2cCTJxmTQB45y+QzZX2y0PFbg7yQDeDmSxw52obaEhQa1OdTD86QHXVu
+ bbxucMZOIMSbjbLPCif24qpNcHVpf4XClB+BVAEEUwNoQd2u+UA3qLozpzzQZNC8E146erRcl
+ EAKHMtg1jl5nUIbs95J8LLOgltdAEihA4JrPrtzt7z304ULnl8JDCKZ1GtxLnSmRKL2GPNjji
+ BW4Wh4ednr1BPkh3V5pGtcs7sYJeT+fCg9+1Ao3TSUyI/IMvOamAK8fVGMSOSa8NHso9PeZQG
+ p+/g7H+fY7krRTHyMZXbNHeGC6zFFjT+rzUWo+KzQQxtKMn72KqFsaG2rKGpecWbyuM0yrSA3
+ xhBNrwHcineUl3uAIRxEl8UFkkXss6eAsh3Q7PLKHNXtaR46/z4OumfDtDC9mwHJVuXp9n3KM
+ M7BF+sRUvasT/1Hjw3WGpiUE/z6upYRlSC4e82UllEXyFN6W5gyX4r9kjFZV6JMJQR4UbuEW1
+ 4g31iHAtTXNZxCvREA7FhQCKM9rtiy8KysUGnceOt3v+aXNzH7SzuQRyJ9+2MgAUQhI7LT2+v
+ VClVfxb0rprv/xqBe8DR8WZ7vcK3mCHHlNMCIkYs+6FCITYMw1DHU+CCMKRJej3SCQwR1LGqj
+ hUPkhNKbB6PRt/vk+6c77kVWLHqNnHOCN73BdRo6Txp4mZxNOEbbazHi+tZW5jEpWLgiTWfNM
+ nvxwa10sJSG8hWu5gGN/aF40RAay1aoGu/k5TA+el84toB3VY6ini0lBJUlrb8M4zbzR9pa9/
+ Pm44sh1ruNP7AzMnsBiAzzZX6lqJDAsa+TO5YVhuM9bbKS9hD1KoschPm0B4aJf++t2+ahC/M
+ b/QH4Oe5cluIsKILSHGZSoRrX9sqCtW26taTpZQSEsbNePGKbzsw8Oa3lejuRZ+LJbcUK2xLt
+ ttQpHqsFbUZlBFAYwpFpRbcNm/+LQLWVCLIU9Rk9O9c0hSOeoGw2PLPC+aL/hsmQVrqlLI/F5
+ NAfMG2YBy//Wmh7LL2E3535/ea8r6g8I6Rr7Y4YuBRiuLWpoBhkDI8ZJxuoe0BuQmictlfruZ
+ QdH3qyP8a6Ex3I=
+
+
+--EIEte5+tjVxDHmE6
 Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-08.11.2021 03:44, Dmitry Osipenko пишет:
-> Problem
-> -------
-> 
-> SoC devices require power-off call chaining functionality from kernel.
-> We have a widely used restart chaining provided by restart notifier API,
-> but nothing for power-off.
-> 
-> Solution
-> --------
-> 
-> Introduce new API that provides both restart and power-off call chains.
-> 
-> Why combine restart with power-off? Because drivers often do both.
-> More practical to have API that provides both under the same roof.
-> 
-> The new API is designed with simplicity and extensibility in mind.
-> It's built upon the existing restart and reboot APIs. The simplicity
-> is in new helper functions that are convenient for drivers. The
-> extensibility is in the design that doesn't hardcode callback
-> arguments, making easy to add new parameters and remove old.
-> 
-> This is a third attempt to introduce the new API. First was made by
-> Guenter Roeck back in 2014, second was made by Thierry Reding in 2017.
-> In fact the work didn't stop and recently arm_pm_restart() was removed
-> from v5.14 kernel, which was a part of preparatory work started by
-> Guenter Roeck. I took into account experience and ideas from the
-> previous attempts, extended and polished them.
-> 
-> Adoption plan
-> -------------
-> 
-> This patchset introduces the new API. It also converts multiple drivers
-> and arch code to the new API to demonstrate how it all looks in practice.
-> 
-> The plan is:
-> 
-> 1. Merge new API (patches 1-8). This API will co-exist with the old APIs.
-> 
-> 2. Convert arch code to do_kernel_power_off() (patches 9-21).
-> 
-> 3. Convert drivers and platform code to the new API.
-> 
-> 4. Remove obsolete pm_power_off and pm_power_off_prepare variables.
-> 
-> 5. Make restart-notifier API private to kernel/reboot.c once no users left.
-> 
-> It's fully implemented here:
-> 
-> [1] https://github.com/grate-driver/linux/commits/sys-off-handler
-> 
-> For now I'm sending only the first 25 base patches out of ~180. It's
-> preferable to squash 1-2, partially 3 and 4 points of the plan into a
-> single patchset to ease and speed up applying of the rest of the patches.
-> Majority of drivers and platform patches depend on the base, hence they
-> will come later (and per subsystem), once base will land.
-> 
-> All [1] patches are compile-tested. Tegra and x86 ACPI patches are tested
-> on hardware. The remaining should be covered by unit tests (unpublished).
-> 
-> Results
-> -------
-> 
-> 1. Devices can be powered off properly.
-> 
-> 2. Global variables are removed from drivers.
-> 
-> 3. Global pm_power_off and pm_power_off_prepare callback variables are
-> removed once all users are converted to the new API. The latter callback
-> is removed by patch #25 of this series.
-> 
-> 4. Ambiguous call chain ordering is prohibited. See patch #5 which adds
-> verification of restart handlers priorities, ensuring that they are unique.
-> 
-> Changelog:
-> 
-> v3: - Renamed power_handler to sys_off_handler as was suggested by
->       Rafael Wysocki.
-> 
->     - Improved doc-comments as was suggested by Rafael Wysocki. Added more
->       doc-comments.
-> 
->     - Implemented full set of 180 patches which convert whole kernel in
->       accordance to the plan, see link [1] above. Slightly adjusted API to
->       better suit for the remaining converted drivers.
-> 
->       * Added unregister_sys_off_handler() that is handy for a couple old
->         platform drivers.
-> 
->       * Dropped devm_register_trivial_restart_handler(), 'simple' variant
->         is enough to have.
-> 
->     - Improved "Add atomic/blocking_notifier_has_unique_priority()" patch,
->       as was suggested by Andy Shevchenko. Also replaced down_write() with
->       down_read() and factored out common notifier_has_unique_priority().
-> 
->     - Added stop_chain field to struct restart_data and reboot_prep_data
->       after discovering couple drivers wanting that feature.
-> 
->     - Added acks that were given to v2.
-> 
-> v2: - Replaced standalone power-off call chain demo-API with the combined
->       power-off+restart API because this is what drivers want. It's a more
->       comprehensive solution.
-> 
->     - Converted multiple drivers and arch code to the new API. Suggested by
->       Andy Shevchenko. I skimmed through the rest of drivers, verifying that
->       new API suits them. The rest of the drivers will be converted once we
->       will settle on the new API, otherwise will be too many patches here.
-> 
->     - v2 API doesn't expose notifier to users and require handlers to
->       have unique priority. Suggested by Guenter Roeck.
-> 
->     - v2 API has power-off chaining disabled by default and require
->       drivers to explicitly opt-in to the chaining. This preserves old
->       behaviour for existing drivers once they are converted to the new
->       API.
-> 
-> Dmitry Osipenko (25):
->   notifier: Remove extern annotation from function prototypes
->   notifier: Add blocking_notifier_call_chain_is_empty()
->   notifier: Add atomic/blocking_notifier_has_unique_priority()
->   reboot: Correct typo in a comment
->   reboot: Warn if restart handler has duplicated priority
->   reboot: Warn if unregister_restart_handler() fails
->   reboot: Remove extern annotation from function prototypes
->   kernel: Add combined power-off+restart handler call chain API
->   ARM: Use do_kernel_power_off()
->   csky: Use do_kernel_power_off()
->   riscv: Use do_kernel_power_off()
->   arm64: Use do_kernel_power_off()
->   parisc: Use do_kernel_power_off()
->   xen/x86: Use do_kernel_power_off()
->   sh: Use do_kernel_power_off()
->   x86: Use do_kernel_power_off()
->   ia64: Use do_kernel_power_off()
->   mips: Use do_kernel_power_off()
->   nds32: Use do_kernel_power_off()
->   powerpc: Use do_kernel_power_off()
->   m68k: Switch to new sys-off handler API
->   memory: emif: Use kernel_can_power_off()
->   ACPI: power: Switch to sys-off handler API
->   regulator: pfuze100: Use devm_register_sys_off_handler()
->   reboot: Remove pm_power_off_prepare()
-> 
->  arch/arm/kernel/reboot.c               |   4 +-
->  arch/arm64/kernel/process.c            |   3 +-
->  arch/csky/kernel/power.c               |   6 +-
->  arch/ia64/kernel/process.c             |   4 +-
->  arch/m68k/emu/natfeat.c                |   3 +-
->  arch/m68k/include/asm/machdep.h        |   1 -
->  arch/m68k/kernel/process.c             |   5 +-
->  arch/m68k/kernel/setup_mm.c            |   1 -
->  arch/m68k/kernel/setup_no.c            |   1 -
->  arch/m68k/mac/config.c                 |   4 +-
->  arch/mips/kernel/reset.c               |   3 +-
->  arch/nds32/kernel/process.c            |   3 +-
->  arch/parisc/kernel/process.c           |   4 +-
->  arch/powerpc/kernel/setup-common.c     |   4 +-
->  arch/powerpc/xmon/xmon.c               |   3 +-
->  arch/riscv/kernel/reset.c              |  12 +-
->  arch/sh/kernel/reboot.c                |   3 +-
->  arch/x86/kernel/reboot.c               |   4 +-
->  arch/x86/xen/enlighten_pv.c            |   4 +-
->  drivers/acpi/sleep.c                   |  25 +-
->  drivers/memory/emif.c                  |   2 +-
->  drivers/regulator/pfuze100-regulator.c |  38 +-
->  include/linux/notifier.h               |  37 +-
->  include/linux/pm.h                     |   1 -
->  include/linux/reboot.h                 | 305 ++++++++++++--
->  kernel/notifier.c                      |  83 ++++
->  kernel/power/hibernate.c               |   2 +-
->  kernel/reboot.c                        | 556 ++++++++++++++++++++++++-
->  28 files changed, 985 insertions(+), 136 deletions(-)
-> 
+Hi,
 
-+CC Linus Walleij, Sebastian Reichel and Philipp Zabel; whom I missed to
-include by accident.
+On Thu, Oct 28, 2021 at 12:16:57AM +0300, Dmitry Osipenko wrote:
+> Use devm_register_power_handler() that replaces global pm_power_off
+> variable and allows to register multiple power-off handlers. It also
+> provides restart-handler support, i.e. all in one API.
+>=20
+> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+> ---
 
-https://lore.kernel.org/all/20211108004524.29465-1-digetx@gmail.com/T/#t
+When I boot with (most of) this patchset applied, I get the warning at
+kernel/reboot.c:187:
+
+	/*
+	 * Handler must have unique priority. Otherwise call order is
+	 * determined by registration order, which is unreliable.
+	 */
+	WARN_ON(!atomic_notifier_has_unique_priority(&restart_handler_list, nb));
+
+As the NTXEC driver doesn't specify a priority, I think this is an issue
+to be fixed elsewhere.
+
+Other than that, it works and looks good, as far as I can tell.
+
+
+For this patch:
+
+Reviewed-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+Tested-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+
+
+Best regards,
+Jonathan
+---
+
+Full Oops log:
+
+[    3.523294] ------------[ cut here ]------------
+[    3.528193] WARNING: CPU: 0 PID: 1 at kernel/reboot.c:187 register_resta=
+rt_handler+0x4c/0x58
+[    3.536975] Modules linked in:
+[    3.540312] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.15.0-00021-gcb24=
+c628b307 #622
+[    3.548214] Hardware name: Freescale i.MX50 (Device Tree Support)
+[    3.554357] [<c0111540>] (unwind_backtrace) from [<c010cdd0>] (show_stac=
+k+0x10/0x14)
+[    3.562183] [<c010cdd0>] (show_stack) from [<c0bf240c>] (dump_stack_lvl+=
+0x58/0x70)
+[    3.569824] [<c0bf240c>] (dump_stack_lvl) from [<c0127604>] (__warn+0xd4=
+/0x154)
+[    3.577191] [<c0127604>] (__warn) from [<c0bec844>] (warn_slowpath_fmt+0=
+x74/0xa8)
+[    3.584727] [<c0bec844>] (warn_slowpath_fmt) from [<c01593c8>] (register=
+_restart_handler+0x4c/0x58)
+[    3.593823] [<c01593c8>] (register_restart_handler) from [<c08676c8>] (_=
+_watchdog_register_device+0x13c/0x27c)
+[    3.603889] [<c08676c8>] (__watchdog_register_device) from [<c0867868>] =
+(watchdog_register_device+0x60/0xb4)
+[    3.613764] [<c0867868>] (watchdog_register_device) from [<c08678f8>] (d=
+evm_watchdog_register_device+0x3c/0x84)
+[    3.623898] [<c08678f8>] (devm_watchdog_register_device) from [<c1146454=
+>] (imx2_wdt_probe+0x254/0x2ac)
+[    3.633346] [<c1146454>] (imx2_wdt_probe) from [<c06feb74>] (platform_pr=
+obe+0x58/0xb8)
+[    3.641314] [<c06feb74>] (platform_probe) from [<c06fb2f8>] (call_driver=
+_probe+0x24/0x108)
+[    3.649636] [<c06fb2f8>] (call_driver_probe) from [<c06fbe08>] (really_p=
+robe.part.0+0xa8/0x358)
+[    3.658384] [<c06fbe08>] (really_probe.part.0) from [<c06fc1c4>] (__driv=
+er_probe_device+0x94/0x208)
+[    3.667470] [<c06fc1c4>] (__driver_probe_device) from [<c06fc368>] (driv=
+er_probe_device+0x30/0xc8)
+[    3.676468] [<c06fc368>] (driver_probe_device) from [<c06fcb0c>] (__driv=
+er_attach+0xe0/0x1c4)
+[    3.685032] [<c06fcb0c>] (__driver_attach) from [<c06f9a20>] (bus_for_ea=
+ch_dev+0x74/0xc0)
+[    3.693253] [<c06f9a20>] (bus_for_each_dev) from [<c06faeb8>] (bus_add_d=
+river+0x100/0x208)
+[    3.701563] [<c06faeb8>] (bus_add_driver) from [<c06fd8a0>] (driver_regi=
+ster+0x88/0x118)
+[    3.709696] [<c06fd8a0>] (driver_register) from [<c06fe920>] (__platform=
+_driver_probe+0x44/0xdc)
+[    3.718522] [<c06fe920>] (__platform_driver_probe) from [<c01022ac>] (do=
+_one_initcall+0x78/0x388)
+[    3.727444] [<c01022ac>] (do_one_initcall) from [<c1101708>] (do_initcal=
+ls+0xcc/0x110)
+[    3.735413] [<c1101708>] (do_initcalls) from [<c110198c>] (kernel_init_f=
+reeable+0x1ec/0x250)
+[    3.743896] [<c110198c>] (kernel_init_freeable) from [<c0bfe724>] (kerne=
+l_init+0x10/0x128)
+[    3.752224] [<c0bfe724>] (kernel_init) from [<c010011c>] (ret_from_fork+=
+0x14/0x38)
+[    3.759844] Exception stack(0xc40adfb0 to 0xc40adff8)
+[    3.764933] dfa0:                                     00000000 00000000 =
+00000000 00000000
+[    3.773143] dfc0: 00000000 00000000 00000000 00000000 00000000 00000000 =
+00000000 00000000
+[    3.781351] dfe0: 00000000 00000000 00000000 00000000 00000013 00000000
+[    3.788347] irq event stamp: 143613
+[    3.792102] hardirqs last  enabled at (143623): [<c01a3ebc>] __up_consol=
+e_sem+0x50/0x60
+[    3.800397] hardirqs last disabled at (143632): [<c01a3ea8>] __up_consol=
+e_sem+0x3c/0x60
+[    3.808491] softirqs last  enabled at (143612): [<c0101518>] __do_softir=
+q+0x2f8/0x5b0
+[    3.816591] softirqs last disabled at (143603): [<c01307dc>] __irq_exit_=
+rcu+0x160/0x1d8
+[    3.825014] ---[ end trace 7f6709d2c89774b4 ]---
+
+--EIEte5+tjVxDHmE6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEvHAHGBBjQPVy+qvDCDBEmo7zX9sFAmGG624ACgkQCDBEmo7z
+X9s6ChAAk6BAeo5fWoSSZHjjpn6ATqjK8ym6Qwe2EuauLkxbrtHK3OsbljBzCdtj
+p4LUnHOvUjWpnlBRfbbZSXKo5B0LxFtUhe/Cz9IDICft4K2DmOExc+xY9zQNcjMO
+rNIxDh4Q8qUdWv4c4B3p812s36yVKoaAGT6XHR9ISWOWmTWq/SNXiFetn9KdMaRs
+INw4aNL0grB717V8ucg5RtEOcrLEHRPf6Rv0b6yhfRdBQGx5XCatsdkofBcM9Rlr
+ECVr+SDk6hoMvPgqbnK3hh1fU0MGiDoyHN/+PhdW5k71EoqynneLlz1xhU4P1TAQ
+4leH70X0lvTJSlpZ+dWkgVGkGzE8LtrjCwhCzZvf+UKqhKf4VWp9LInkiRU2mEaN
+ZGeaNLEL/oEE2nHZuWuW8imYr/WoYQKyZX+rG/g+aViMxom4/RC/IF5GFWxInCgi
+IBVFSiKxJOwKvKHZrsiJsk+zqcmb1TRObyYd0ecsOPD413IWwnFIl6502QRQolJH
+UvdIANNtt2/XORmBBNNGCQtZJ82srfxBpn9jzBtCZu03m4RymWvURbqbIx7mAiz0
+6nj5cArubiCB8WOnOcCmsgHzLZDzN2SAy5UFxsELy67LUXWjsGMG++sHbkDuaiji
+/h71rvx5wmakG7quyBIQDCUtxgSMJL73yZA4N8UsQABCsmnNXgE=
+=jBJI
+-----END PGP SIGNATURE-----
+
+--EIEte5+tjVxDHmE6--
 
