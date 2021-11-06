@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 398B6446B1A
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Nov 2021 00:06:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222682.385005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF3AE446BCE
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Nov 2021 02:33:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222690.385015 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mj8Ha-00051x-Nw; Fri, 05 Nov 2021 23:06:02 +0000
+	id 1mjAYf-00040R-En; Sat, 06 Nov 2021 01:31:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222682.385005; Fri, 05 Nov 2021 23:06:02 +0000
+Received: by outflank-mailman (output) from mailman id 222690.385015; Sat, 06 Nov 2021 01:31:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mj8Ha-00050A-Kl; Fri, 05 Nov 2021 23:06:02 +0000
-Received: by outflank-mailman (input) for mailman id 222682;
- Fri, 05 Nov 2021 23:06:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SvBC=PY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1mj8HY-000504-Tz
- for xen-devel@lists.xenproject.org; Fri, 05 Nov 2021 23:06:00 +0000
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ef0dc454-3e8c-11ec-9787-a32c541c8605;
- Sat, 06 Nov 2021 00:05:59 +0100 (CET)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id D626161165;
- Fri,  5 Nov 2021 23:05:55 +0000 (UTC)
+	id 1mjAYf-0003yY-Ah; Sat, 06 Nov 2021 01:31:49 +0000
+Received: by outflank-mailman (input) for mailman id 222690;
+ Sat, 06 Nov 2021 01:31:48 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mjAYe-0003yO-CO; Sat, 06 Nov 2021 01:31:48 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mjAYe-00063b-3I; Sat, 06 Nov 2021 01:31:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mjAYd-0007dr-JE; Sat, 06 Nov 2021 01:31:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mjAYd-000096-Io; Sat, 06 Nov 2021 01:31:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,80 +42,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef0dc454-3e8c-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1636153556;
-	bh=f7lKiReoiLEL+uPnRE3zXuvLHugz5v6Kn93YBx69LK0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=sWmxIGkkB3MUxV+K6XPDiGu/sD74hkPfK8lHWMEReVbmbqPh1gwR+/LFzB1/iydSD
-	 J+oDnRtxoWOOyyaAR2U170vsEWl8INT1Oq4eyG0RN+blb5WYK5LBYYjGvvRNBec+2f
-	 Sdj51GMq7heKdWRlnYPKwKRdaJdO1vxEDWCEkfpnBLBmwxnkw4qS+X+bNF8mGwV8g0
-	 RmhS3x2EJGDM1tKgDN1zvJ/4061j5mVt9dhryHI2EABMNDtg7x8zJWbIDUybNXqhDK
-	 YrUuZoZc0CFiXXkyekreBLk/vOjFYL8bMm7c8FeZDWQKIE53JetzEpYpueAqzuy6rd
-	 wPrAWtFKLRjhg==
-Date: Fri, 5 Nov 2021 16:05:54 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Stefano Stabellini <sstabellini@kernel.org>
-cc: Penny Zheng <Penny.Zheng@arm.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Wei Chen <Wei.Chen@arm.com>, julien@xen.org, Bertrand.Marquis@arm.com, 
-    Volodymyr_Babchuk@epam.com, iwj@xenproject.org
-Subject: RE: static-mem preventing dom0 from booting
-In-Reply-To: <alpine.DEB.2.22.394.2111051554000.284830@ubuntu-linux-20-04-desktop>
-Message-ID: <alpine.DEB.2.22.394.2111051604530.284830@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2111041829300.284830@ubuntu-linux-20-04-desktop> <DU2PR08MB73256624607E7624CAAD38E5F78E9@DU2PR08MB7325.eurprd08.prod.outlook.com> <DU2PR08MB7325A7A5658B1EB7C6EB4DECF78E9@DU2PR08MB7325.eurprd08.prod.outlook.com>
- <alpine.DEB.2.22.394.2111050836580.284830@ubuntu-linux-20-04-desktop> <alpine.DEB.2.22.394.2111051554000.284830@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=3FJBNckL1/JQVlgIT2TW5N2X+kc1Dnlk9jZtRufNr+A=; b=kh87lY9dr2TwvUJhb7E9VPYMIj
+	f4RqYkhimFV6VHARGxOXoN0rxIrR3RW/do7mTxFCtwADFDZibIaFZ+pE/C2nJJA9fe9TLN6pT1YFD
+	vPLEaCRH2cifMcz7Qb1IaAnHez5BEe2MdU3BBIqGMqy0r+UqscV05fQuURZ0ezDsWjQQ=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166063-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 166063: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=4050c873b51f59cb6fcd7665029f931e727e0e4f
+X-Osstest-Versions-That:
+    ovmf=b258f12889c09555e99c9cebf56dba45190c5dc2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 06 Nov 2021 01:31:47 +0000
 
-+ Julien, Ian and others
+flight 166063 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166063/
 
-On Fri, 5 Nov 2021, Stefano Stabellini wrote:
-> On Fri, 5 Nov 2021, Stefano Stabellini wrote:
-> > The scenario is extremely simple; you can see the full device tree
-> > configuration in the attachment to my previous email.
-> > 
-> > - dom0
-> > - dom0less domU with static-mem
-> > 
-> > That's it! So basically it is just a normal dom0 + dom0less domU
-> > configuration, which already works fine, where I added static-mem to the
-> > domU and suddenly dom0 (not the domU!) stopped working.
-> 
-> I did some more debugging today and I found the problem. The issue is
-> that static-mem regions are added to the list of reserved_mem. However,
-> reserved_mem is automatically assigned to Dom0 by default at the bottom
-> of xen/arch/arm/domain_build.c:handle_node, see the second call to
-> make_memory_node. Really, we shouldn't give to dom0 static-mem ranges
-> meant for other domUs. E.g. the following change is sufficient to solve
-> the problem:
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 88a79247cb..dc609c4f0e 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -891,6 +891,9 @@ static int __init make_memory_node(const struct domain *d,
->          u64 start = mem->bank[i].start;
->          u64 size = mem->bank[i].size;
->  
-> +        if ( mem->bank[i].xen_domain )
-> +            continue;
-> +
->          dt_dprintk("  Bank %d: %#"PRIx64"->%#"PRIx64"\n",
->                     i, start, start + size);
->  
-> However, maybe a better fix would be to purge reserved_mem of any
-> xen_domain items before calling make_memory_node.
-> 
-> 
-> I found one additional issue regarding is_domain_direct_mapped which
-> doesn't return true for static-mem domains. I think we need to add a
-> direct_map bool to arch_domain and set it for both dom0 and static-mem
-> dom0less domUs, so that we can change the implementation of
-> is_domain_direct_mapped to:
-> 
-> #define is_domain_direct_mapped(d) (d->arch.direct_map)
-> 
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 4050c873b51f59cb6fcd7665029f931e727e0e4f
+baseline version:
+ ovmf                 b258f12889c09555e99c9cebf56dba45190c5dc2
+
+Last test of basis   166042  2021-11-04 06:02:12 Z    1 days
+Testing same since   166063  2021-11-05 20:10:06 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@hpe.com>
+  Jiewen Yao <Jiewen.yao@intel.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   b258f12889..4050c873b5  4050c873b51f59cb6fcd7665029f931e727e0e4f -> xen-tested-master
 
