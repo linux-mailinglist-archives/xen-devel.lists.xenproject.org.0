@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A31144749A
-	for <lists+xen-devel@lfdr.de>; Sun,  7 Nov 2021 18:33:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222857.385257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E28B24474B0
+	for <lists+xen-devel@lfdr.de>; Sun,  7 Nov 2021 18:42:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222866.385267 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mjm2W-0007dX-OL; Sun, 07 Nov 2021 17:33:08 +0000
+	id 1mjmBj-0000hR-Pm; Sun, 07 Nov 2021 17:42:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222857.385257; Sun, 07 Nov 2021 17:33:08 +0000
+Received: by outflank-mailman (output) from mailman id 222866.385267; Sun, 07 Nov 2021 17:42:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mjm2W-0007ac-Ke; Sun, 07 Nov 2021 17:33:08 +0000
-Received: by outflank-mailman (input) for mailman id 222857;
- Sun, 07 Nov 2021 17:33:07 +0000
+	id 1mjmBj-0000fS-MY; Sun, 07 Nov 2021 17:42:39 +0000
+Received: by outflank-mailman (input) for mailman id 222866;
+ Sun, 07 Nov 2021 17:42:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WXOO=P2=gmail.com=groeck7@srs-se1.protection.inumbo.net>)
- id 1mjm2V-0007aW-2U
- for xen-devel@lists.xenproject.org; Sun, 07 Nov 2021 17:33:07 +0000
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [2607:f8b0:4864:20::230])
+ (envelope-from <SRS0=peUb=P2=gmail.com=digetx@srs-se1.protection.inumbo.net>)
+ id 1mjmBi-0000fM-11
+ for xen-devel@lists.xenproject.org; Sun, 07 Nov 2021 17:42:38 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c32ab10d-3ff0-11ec-9787-a32c541c8605;
- Sun, 07 Nov 2021 18:33:05 +0100 (CET)
-Received: by mail-oi1-x230.google.com with SMTP id bk14so1028934oib.7
- for <xen-devel@lists.xenproject.org>; Sun, 07 Nov 2021 09:33:04 -0800 (PST)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- c18sm4840649otr.32.2021.11.07.09.32.57
+ id 18707458-3ff2-11ec-9787-a32c541c8605;
+ Sun, 07 Nov 2021 18:42:36 +0100 (CET)
+Received: by mail-lf1-x136.google.com with SMTP id bu18so31110845lfb.0
+ for <xen-devel@lists.xenproject.org>; Sun, 07 Nov 2021 09:42:36 -0800 (PST)
+Received: from [192.168.2.145] (79-139-182-132.dynamic.spd-mgts.ru.
+ [79.139.182.132])
+ by smtp.googlemail.com with ESMTPSA id o1sm1351686ljg.130.2021.11.07.09.42.33
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 07 Nov 2021 09:33:03 -0800 (PST)
+ Sun, 07 Nov 2021 09:42:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,37 +43,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: c32ab10d-3ff0-11ec-9787-a32c541c8605
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: 18707458-3ff2-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=sender:to:cc:references:from:subject:message-id:date:user-agent
+        h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=tMVMvSELY54S0UdLfdOcY9hXGDCgRpBmnCTKjFa8UlE=;
-        b=QIfw+m72ItgaApqkAoLUYKEHkpy+eMpUCLymo2SVE2e06bxlhsvsGBIpx80FAFL6zX
-         lQmhx5vWsnqdO5AzfRwzYmC9JyeI+x703tpvfwQKurLg2VtZOzsNtJVqgO0A8u3N2B9I
-         BYJElUmFFKGlmNuNH1pVTHbG46IPWj2FGkpJks4IWHqhA3hkwgU7q4GC5oDjmilXskFD
-         oTKdooszpWu854bZrRMH7UW0QrvSFFnK9cGOfGPg2b3g5hqd+nvAec6GccpfULS1MyoN
-         kwidN5WRwT1FH2PsDPsfoM+Wt2eEwiLbpjLKm84c+sezJpyJvFv7kmoqDjei75CdMOoF
-         bVbQ==
+        bh=yp6jZ6b/7UxZJRYtTwXk1ZheTwTRVWw2YizZoWEGBFY=;
+        b=Kz4LsYWHF1VLAkkHNhWuY0M4e42sK4F6sbepl/m1LlUZc7d3ve0+PCaFGV/EW5J0Qp
+         q3gOw3u9HDrcvbcy0ihsCdfp4jZucUbKQSHRkLa1MP7e5ywuxBNTRkBRVQjdXS9WYB4a
+         75JZ2tni2XNEB9cE2UtRo1WCAu8alZQtGLiKAGmbi/fYYSN/XzQ2AMB855RVvlrPgYwR
+         rhnxfzYw0xMwDEQtzpN4vSGSTSGsur7/4vd8RZnKhOdoVQg9OK2TefhJzCLnTq9oEqOU
+         +An3rMVrqt5asX/Z17ZvVIT93/IFfnrUb7jTwuCOBo+NhYvWwEU+N1HBtnKoiVp4DFnC
+         c3Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:sender:to:cc:references:from:subject:message-id
-         :date:user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=tMVMvSELY54S0UdLfdOcY9hXGDCgRpBmnCTKjFa8UlE=;
-        b=76p0t7He7dT9JLX3C9xs+YdA9Lo6Z7zmxZ6AR0GhxaT+SuoJXfVtz5a5ZJwRIcxNcC
-         LkYsuabNZ3jQd1YchAfdD484MGiomR12l6c9RQ40Uqm4/8/Q2LVE8DnDZFQfiW4DKN4B
-         fG/rIUen9XOwyVmF6zDnUzCRUbhCGszI1JwywLeDjZhlAAcaZmdar3xOCvH6jKC2QWsO
-         CvUuZU6G60stjg3XRdnE7VIW7gYidMQt4fl9v/4Z5lXCwyNYJ6JQf716LfB1+pjo8Xcg
-         a2n2vtPuByS8UPTot8eH4rqbzda08vVCLFBwEtT7XYET4KVY1h7Nmffqvg38l1Xbdq1B
-         bk7A==
-X-Gm-Message-State: AOAM5310RNJC3o8Dti527E9mmhmifftNs7+HeBxawBC48bYaCm8MVIqv
-	FLbBehAoH4aIbY9OHjOTgWI=
-X-Google-Smtp-Source: ABdhPJygB0wkAZr+IyDwhIXD/1Ky9Z1d16PhZAI/x4npp+2qcv9Jc+QXaxpUDgRoNUJ2QI01eNmjeA==
-X-Received: by 2002:aca:650d:: with SMTP id m13mr16262607oim.42.1636306383620;
-        Sun, 07 Nov 2021 09:33:03 -0800 (PST)
-Sender: Guenter Roeck <groeck7@gmail.com>
-To: Dmitry Osipenko <digetx@gmail.com>,
+        bh=yp6jZ6b/7UxZJRYtTwXk1ZheTwTRVWw2YizZoWEGBFY=;
+        b=VxS/eESiWVeFK+AYKtCQVY5Fs4Ai+NQYYfl0GFEft+7X5c8zHYkdPTbfA5UtydQ1lA
+         aUxB+/oNE+FAfvodhF01bQjLpyEKjGCXbZiBm/R9ralpWAupe+f9nleCm0rF6eW7xaB5
+         KIGJFEMR7HGYL4xG43i6gjuQYqfaYTb7wWFcxuk+MWdA7q1U3J+udojkOyplE4tUwCem
+         u85VWa6kmdH0rctTlspo++vjWBD+CqVPqpsr5NbXt33cy+K6+DQ2X8Pcu2c2vedTdAtH
+         6OJNBheQxO3VzHX3Pyowbkrif6PNtPMN1tYeagz7HHebfDLHf+on9WfTFQlPIv+an7bL
+         6lAw==
+X-Gm-Message-State: AOAM532kUNrzXvBkAACzgDE6Xsb2be3MKpZ8T4hd1C5Xa1tQ7nY7kTQ6
+	yTr4E4cww1vqDgB8RojVvtU=
+X-Google-Smtp-Source: ABdhPJxbnSyAP7uVMoABCneWUE/0znULgGMoNtn8dVGgMW1HOHcNNIL0n14F/iW1e4ue0spHO1DEGA==
+X-Received: by 2002:ac2:4c55:: with SMTP id o21mr18358331lfk.527.1636306956359;
+        Sun, 07 Nov 2021 09:42:36 -0800 (PST)
+Subject: Re: [PATCH v2 27/45] mfd: ntxec: Use devm_register_power_handler()
+To: Guenter Roeck <linux@roeck-us.net>,
  =?UTF-8?Q?Jonathan_Neusch=c3=a4fer?= <j.neuschaefer@gmx.net>
 Cc: Thierry Reding <thierry.reding@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Lee Jones <lee.jones@linaro.org>,
@@ -121,79 +122,89 @@ References: <20211027211715.12671-1-digetx@gmail.com>
  <be0c74c6-05a9-cad5-c285-6626d05f8860@gmail.com>
  <9a22c22d-94b1-f519-27a2-ae0b8bbf6e99@roeck-us.net>
  <658cf796-e3b1-f816-1e15-9e9e08b8ade0@gmail.com>
-From: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH v2 27/45] mfd: ntxec: Use devm_register_power_handler()
-Message-ID: <5a17fee3-4214-c2b9-abc1-ab9d6071591b@roeck-us.net>
-Date: Sun, 7 Nov 2021 09:32:56 -0800
+ <5a17fee3-4214-c2b9-abc1-ab9d6071591b@roeck-us.net>
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <c0b52994-51f5-806b-b07e-3e70d8217ffc@gmail.com>
+Date: Sun, 7 Nov 2021 20:42:33 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.13.0
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <658cf796-e3b1-f816-1e15-9e9e08b8ade0@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <5a17fee3-4214-c2b9-abc1-ab9d6071591b@roeck-us.net>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-On 11/7/21 9:16 AM, Dmitry Osipenko wrote:
-> 07.11.2021 20:08, Guenter Roeck пишет:
->> On 11/7/21 8:53 AM, Dmitry Osipenko wrote:
->>> 06.11.2021 23:54, Jonathan Neuschäfer пишет:
->>>> Hi,
->>>>
->>>> On Thu, Oct 28, 2021 at 12:16:57AM +0300, Dmitry Osipenko wrote:
->>>>> Use devm_register_power_handler() that replaces global pm_power_off
->>>>> variable and allows to register multiple power-off handlers. It also
->>>>> provides restart-handler support, i.e. all in one API.
+07.11.2021 20:32, Guenter Roeck пишет:
+> On 11/7/21 9:16 AM, Dmitry Osipenko wrote:
+>> 07.11.2021 20:08, Guenter Roeck пишет:
+>>> On 11/7/21 8:53 AM, Dmitry Osipenko wrote:
+>>>> 06.11.2021 23:54, Jonathan Neuschäfer пишет:
+>>>>> Hi,
 >>>>>
->>>>> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
->>>>> ---
+>>>>> On Thu, Oct 28, 2021 at 12:16:57AM +0300, Dmitry Osipenko wrote:
+>>>>>> Use devm_register_power_handler() that replaces global pm_power_off
+>>>>>> variable and allows to register multiple power-off handlers. It also
+>>>>>> provides restart-handler support, i.e. all in one API.
+>>>>>>
+>>>>>> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+>>>>>> ---
+>>>>>
+>>>>> When I boot with (most of) this patchset applied, I get the warning at
+>>>>> kernel/reboot.c:187:
+>>>>>
+>>>>>      /*
+>>>>>       * Handler must have unique priority. Otherwise call order is
+>>>>>       * determined by registration order, which is unreliable.
+>>>>>       */
+>>>>>      WARN_ON(!atomic_notifier_has_unique_priority(&restart_handler_list,
+>>>>>
+>>>>> nb));
+>>>>>
+>>>>> As the NTXEC driver doesn't specify a priority, I think this is an
+>>>>> issue
+>>>>> to be fixed elsewhere.
+>>>>>
+>>>>> Other than that, it works and looks good, as far as I can tell.
+>>>>>
+>>>>>
+>>>>> For this patch:
+>>>>>
+>>>>> Reviewed-by: Jonathan Neuschäfer <j.neuschaefer@gmx.net>
+>>>>> Tested-by: Jonathan Neuschäfer <j.neuschaefer@gmx.net>
 >>>>
->>>> When I boot with (most of) this patchset applied, I get the warning at
->>>> kernel/reboot.c:187:
+>>>> Thank you. You have conflicting restart handlers, apparently NTXEC
+>>>> driver should have higher priority than the watchdog driver. It should
+>>>> be a common problem for the watchdog drivers, I will lower watchdog's
+>>>> default priority to fix it.
 >>>>
->>>>      /*
->>>>       * Handler must have unique priority. Otherwise call order is
->>>>       * determined by registration order, which is unreliable.
->>>>       */
->>>>      WARN_ON(!atomic_notifier_has_unique_priority(&restart_handler_list,
->>>> nb));
->>>>
->>>> As the NTXEC driver doesn't specify a priority, I think this is an issue
->>>> to be fixed elsewhere.
->>>>
->>>> Other than that, it works and looks good, as far as I can tell.
->>>>
->>>>
->>>> For this patch:
->>>>
->>>> Reviewed-by: Jonathan Neuschäfer <j.neuschaefer@gmx.net>
->>>> Tested-by: Jonathan Neuschäfer <j.neuschaefer@gmx.net>
 >>>
->>> Thank you. You have conflicting restart handlers, apparently NTXEC
->>> driver should have higher priority than the watchdog driver. It should
->>> be a common problem for the watchdog drivers, I will lower watchdog's
->>> default priority to fix it.
->>>
+>>> The watchdog subsystem already uses "0" as default priority, which was
+>>> intended as priority of last resort for restart handlers. I do not see
+>>> a reason to change that.
 >>
->> The watchdog subsystem already uses "0" as default priority, which was
->> intended as priority of last resort for restart handlers. I do not see
->> a reason to change that.
+>> Right, I meant that watchdog drivers which use restart handler set the
+>> level to the default 128 [1]. Although, maybe it's a problem only for
+>> i.MX drivers in practice, I'll take a closer look at the other drivers.
+>>
 > 
-> Right, I meant that watchdog drivers which use restart handler set the
-> level to the default 128 [1]. Although, maybe it's a problem only for
-> i.MX drivers in practice, I'll take a closer look at the other drivers.
+> They don't have to do that. The default is priority 0. It is the decision
+> of the driver author to set the watchdog's restart priority. So it is wrong
+> to claim that this would be "a common problem for the watchdog drivers",
+> because it isn't. Presumably there was a reason for the driver author
+> to select the default priority of 128. If there is a platform which has
+> a better means to restart the system, it should select a priority of
+> 129 or higher instead of affecting _all_ platforms using the imx watchdog
+> to reset the system.
 > 
+> Sure, you can negotiate that with the driver author, but the default should
+> really be to change the priority for less affected platforms.
 
-They don't have to do that. The default is priority 0. It is the decision
-of the driver author to set the watchdog's restart priority. So it is wrong
-to claim that this would be "a common problem for the watchdog drivers",
-because it isn't. Presumably there was a reason for the driver author
-to select the default priority of 128. If there is a platform which has
-a better means to restart the system, it should select a priority of
-129 or higher instead of affecting _all_ platforms using the imx watchdog
-to reset the system.
+Yes, looks like there is no common problem for watchdog drivers.
+Initially I was recalling that watchdog core uses 128 by default and
+typed the message without verifying it. I see now that it's incorrect,
+my bad.
 
-Sure, you can negotiate that with the driver author, but the default should
-really be to change the priority for less affected platforms.
-
-Guenter
+EC drivers tend to use higher priority in general. Jonathan, could you
+please confirm that NTXEC driver is a more preferable restart method
+than the watchdog?
 
