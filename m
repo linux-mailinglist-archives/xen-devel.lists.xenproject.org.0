@@ -2,46 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74B0A449830
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Nov 2021 16:28:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.223478.386214 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05ABB449834
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Nov 2021 16:29:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.223483.386226 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mk6ZV-00043F-Ie; Mon, 08 Nov 2021 15:28:33 +0000
+	id 1mk6aM-0004go-0E; Mon, 08 Nov 2021 15:29:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 223478.386214; Mon, 08 Nov 2021 15:28:33 +0000
+Received: by outflank-mailman (output) from mailman id 223483.386226; Mon, 08 Nov 2021 15:29:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mk6ZV-00040z-FB; Mon, 08 Nov 2021 15:28:33 +0000
-Received: by outflank-mailman (input) for mailman id 223478;
- Mon, 08 Nov 2021 15:28:31 +0000
+	id 1mk6aL-0004di-Se; Mon, 08 Nov 2021 15:29:25 +0000
+Received: by outflank-mailman (input) for mailman id 223483;
+ Mon, 08 Nov 2021 15:29:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ncso=P3=epam.com=prvs=1946062fbd=oleksandr_andrushchenko@srs-se1.protection.inumbo.net>)
- id 1mk6ZT-00040r-ET
- for xen-devel@lists.xenproject.org; Mon, 08 Nov 2021 15:28:31 +0000
-Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 85df6156-40a8-11ec-9787-a32c541c8605;
- Mon, 08 Nov 2021 16:28:29 +0100 (CET)
-Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1A8F5sTB017325;
- Mon, 8 Nov 2021 15:28:26 GMT
-Received: from eur05-vi1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2176.outbound.protection.outlook.com [104.47.17.176])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3c76810413-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Nov 2021 15:28:26 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM0PR03MB4883.eurprd03.prod.outlook.com (2603:10a6:208:103::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Mon, 8 Nov
- 2021 15:28:21 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::c038:e032:595a:651]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::c038:e032:595a:651%9]) with mapi id 15.20.4669.016; Mon, 8 Nov 2021
- 15:28:21 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gF4r=P3=ffwll.ch=daniel@srs-se1.protection.inumbo.net>)
+ id 1mk6aK-00040r-Rm
+ for xen-devel@lists.xenproject.org; Mon, 08 Nov 2021 15:29:25 +0000
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [2a00:1450:4864:20::435])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a62c7255-40a8-11ec-9787-a32c541c8605;
+ Mon, 08 Nov 2021 16:29:23 +0100 (CET)
+Received: by mail-wr1-x435.google.com with SMTP id s13so27599747wrb.3
+ for <xen-devel@lists.xenproject.org>; Mon, 08 Nov 2021 07:29:23 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id z135sm24083422wmc.45.2021.11.08.07.29.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 08 Nov 2021 07:29:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,204 +43,257 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85df6156-40a8-11ec-9787-a32c541c8605
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U7UEYOJ7rDHTSWoySfv96mbi8LomzXmdnJdU8CnmRXG4XDpuZBG41pJZCBmPHcQCRoS2offEPdbqLd+lIlxYRNMN31WgAhHNvCTe/BrHgTzvGE1WOKq1y2RYoSkj5izqH/UuYiET96wlxKvhRXKTM+w1pD+d+IVmQ/cgcJPi6tI62GiuX9TBscH/58/I1vs/7zB/+44TsXXZd4LjcN7voIGvG00ZiQaTgAD1LrB9oFK1k0JhcJIR9TcLGpCwOjuEy+C6LGLXYuuy/pUfbX8DGdH1aJsgC3rzWNkruleqG8zCytTn8vsmavBkkAfmRUs3haZJ5V5uk4Ap1HAEBQwm4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k4aawzwFePHD/BNdkoOISqVNM5WWztJ6D0nwTwZHhh8=;
- b=kSshgqsNqBH5Ua8KUkgCXa76n0iVJ62RoLe+v1ASFAoobBqDDSvu43MXGO6VBmIh0OWsdQopfILclM18XAjjr/+SG9uIMNFlO6Maq9ycGUjeutEE6cwI2wgNSh2xZMq28tzdYTZTgGO2BF2yGaC3ihmvuQw9M0LaAxSdg3sQdAHqEgqTpkWA2u1ggwbm4eYMqe3YMe+HYalJURPm2s8j2AAHnkxkn9bwYzYpKeFUJ/7sJxYsvz/P84FvEl9ZhAVFrE1p61N5n/5ZcEtK4YG6ZSpFaqoJLWBcPINwxC5mvZfO8BPfKfJpTmEqDqIdimnjX1cQl09PSU16nYjtXedjUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k4aawzwFePHD/BNdkoOISqVNM5WWztJ6D0nwTwZHhh8=;
- b=BGq4mZ6+LJ/a72TqTnKb8B3BqtOHi4kn44GOO7GtLA1X9h7Rax6C6nsFPIfXVxEyVMcOlqi/Y4b16EdIU7Wwpk8ZQrAkkmwvwJRNs9mSy0T/c65jBlWRs9pxbNWKn7dTTrXEM1I3wlX1sxZLxr79L/QaVYkUHbT88Xt2TTZZpLamgamUEi6NNqmGHxHaT8bs+ugofg6+Twyhhs/KyiWv/IXf18mBn64DwujTFN84SZR0/M9qYDuhp7vJV3cQfs10V05P2c0mZvYz5kKJA3Ahr3rDVz7uaJ5HuG0UMiAXfaVS0WH5uJm1v6ABL/oivdUzIkuqhph6oqCyHO4w/71amg==
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-CC: Jan Beulich <jbeulich@suse.com>, "julien@xen.org" <julien@xen.org>,
-        "sstabellini@kernel.org" <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko
-	<Oleksandr_Tyshchenko@epam.com>,
-        Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>,
-        Artem Mygaiev <Artem_Mygaiev@epam.com>,
-        "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
-        "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
-        "paul@xen.org"
-	<paul@xen.org>,
-        Bertrand Marquis <bertrand.marquis@arm.com>,
-        Rahul Singh
-	<rahul.singh@arm.com>,
-        "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>,
-        Oleksandr Andrushchenko
-	<Oleksandr_Andrushchenko@epam.com>
-Subject: Re: [PATCH v4 11/11] xen/arm: translate virtual PCI bus topology for
- guests
-Thread-Topic: [PATCH v4 11/11] xen/arm: translate virtual PCI bus topology for
- guests
-Thread-Index: AQHX0hJP4tGfmNyDbEa0m8z5ITSeMav5fmGAgAABr4CAADRIAIAAEgeA
-Date: Mon, 8 Nov 2021 15:28:21 +0000
-Message-ID: <4260ad1e-0225-20c0-8208-f8e239f551a0@epam.com>
-References: <20211105065629.940943-1-andr2000@gmail.com>
- <20211105065629.940943-12-andr2000@gmail.com>
- <da36ee68-3162-0a32-f033-98af34f9c94e@suse.com>
- <c05b3e98-772c-a8c7-d8f8-841289683a02@epam.com>
- <YYky9JSe9oMh5azh@Air-de-Roger>
-In-Reply-To: <YYky9JSe9oMh5azh@Air-de-Roger>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 76bdeb01-7dc4-426b-47ff-08d9a2cc65e3
-x-ms-traffictypediagnostic: AM0PR03MB4883:
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-microsoft-antispam-prvs: 
- <AM0PR03MB4883AA9757A1A411A9D9649CE7919@AM0PR03MB4883.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- arta/9hsJA0kTnRItDKPMYNtSKPREsd6AFgxyBdVxZuv4trdqi7RCqZ1pm3/x1IAJDm8V93sRDstqsaKy2UvVrugPxEJErNJJAjRjKkIQNKcqIuT2UdV2Df6n6/Elmx5R4RyPbiEb9S0JD7fhfP2zRd5Zw8LOBRgLstzp43KWURzZaL9oQsj7ko73atMF2vFZy/qdaZYpuYYk9V3JRLl3ClEdQS2iHO361e5C5LA4Fm7xBQ/00ILWUJqRZn89o7FT6wic5ddPHym57AluX2rf8ne4atwh/hAaoC6ITYwu9I3QZbnsAgNO+4Q2N/Fj9g7bu4vMLnVJgGw5Xt4VLsMkZ0TVRiKbNcvaM20JDozstfVpcwIrGIKn12qxpnxZXUxbLhrH+O0lVUff9FBcUd4Yedr9N1ARFrVvpHW/wKz4Dni55D0RCAckW2aZKkQnGxRoxB77OC60N919j7Y580E8lRYfZ7xxa0IkmATEc05b7Jy/sumVr8mnz3B81uUU9TjSF35Y45YVpO+hlHQDaUm9fi2SHzuQqJqkJ1pgLMX9skBSma+yBA23KeASgpOPn1iWI1tmvDmM3ytfwAzuE+XjdILxgabmGGlA5jS9AesnHPycWKH6iND8k5HP411Ohjwjy653GyAGlrnWwGK+jMZ7LJNWn6kFnYpnc/6wM4faIFJqSLZJheUGdeNvkGMTS/FXoz5OUcTtgqvKDb8yAsbdSMYlVaT2snwUMEAYXYDmMSmdtiiqPbA4x6vhy/gbicV
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(508600001)(71200400001)(6486002)(76116006)(91956017)(186003)(2616005)(26005)(107886003)(66946007)(31686004)(38070700005)(8676002)(66556008)(122000001)(64756008)(66476007)(66446008)(36756003)(2906002)(4326008)(316002)(5660300002)(86362001)(8936002)(53546011)(6916009)(6506007)(38100700002)(31696002)(83380400001)(54906003)(6512007)(7416002)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?ZmJYK2FoczhYbVBFYUwwRUVLWUdSTTlyYzFwYnFyN3dJWWlsVmJVVFl2WFZK?=
- =?utf-8?B?VVZ5Q0l3R2JQaFlzRDRvYmlYY0Q1MVlpT0RUN0dSbnliRWVZWFBHVldHMlZP?=
- =?utf-8?B?YW9JWTNiSzZtMWtYM3ZVSURiWnNwNSs0RDZIZHI2cGI5WjRkaWlxa20xcjVV?=
- =?utf-8?B?ZktpTDgxam1DUEhTcFp3cHNTTktQbCtmS0VYcUdONG1oSFVzRTBYRzZVcTFE?=
- =?utf-8?B?ZDJuN1crWmVCMjBQcU1JcEdSTGlzYm1xcW9PbG1OSmZOU3BMS0paWVhpaGdl?=
- =?utf-8?B?eUZBd3l4VERqVUlxbUJlU3Nsd2czQ3dLU3A3NkRLUWlKc1ZvY2REbllxRzFV?=
- =?utf-8?B?UnlFKzFNWVlZb0hFOFIvMjdtN0NhV0lWZVFBL0hxWEpTZ2dvSW1ERmpPNG1r?=
- =?utf-8?B?emp1UjJWckpZMzA2aEZoQVVRTzhQMGJnN09tdWhBeUxwVG5zd0hVbitWeDN1?=
- =?utf-8?B?REFTajh0ZGhWelFXZ3l3WEdFNG1oRTVDQk9uMWFDcjl5K04vYlhWOGxLMkFu?=
- =?utf-8?B?dEFGaGVZbjArTlhNVVkxNjRwOVpVOUFyVG5LYzFEY216UDd6c0tpYmtEQ1da?=
- =?utf-8?B?emwvZGI1RnRYRStXMXdvUlRmdFZEUUVUMjdTODhHNG9mdW4xT2pxSVkrWWM0?=
- =?utf-8?B?RCs2aVJ2QTFicGxWbWVCTTU0RGkyRlZJUjFoOWppQTQ0MldVT09iTlFNTkJ5?=
- =?utf-8?B?Mzc4RlBDVmY2bE8yVytBUVFpL2RQSFVnTTFocDFPZENFY0k0TDlvTGE4aVpT?=
- =?utf-8?B?NzBLaE4rNGs3dGdVQUlPRWFpSVRmSHVXYlBkSGI0cWxoaEJnSVM1N1dSckZP?=
- =?utf-8?B?Zi81L1l2akNnLzJsaXlvQkRvOVFwOGdEVmpyOHJMVkpDQi9FVGxoYmFpc1Jj?=
- =?utf-8?B?eEt3SDd6bmFyV2EzYjU2bmRhVCt0NVVuKzRSTU5MOU9BOStDSm0zRGZwM1JN?=
- =?utf-8?B?T0NYb2hRVkRoSXMwNWltT0ZSWW9HSGtQZW9OZVJMM1FxTXpuWHNCKzlZTkZI?=
- =?utf-8?B?QXVyMkRFWXlOeVNyU0pCVStzVzNkUGMrUTNhbDBnVnk0U0RDbkJQMnRlcVdW?=
- =?utf-8?B?VW5YdmtPZklkM2E5MGJpcXZ6dXQ5TWlTNkR4dW10ZWFPSGVNVkVFak9QL3ZB?=
- =?utf-8?B?WUxhV1pqTHJvSzJLd09wblFNNnpvQVNqV0p3YmJYbnh6S0xla1l0amlMUU9o?=
- =?utf-8?B?Vng0bEFBOWRKdEtwLzBxV0ROOFBScTF1ZEJaQ3A4T3VqUmV5elNmUk9GNWFK?=
- =?utf-8?B?K3Y4RGY0Rk1NMTVSV0RpbFFyd29Iek01MUpXSk5VM1d6TzJwaFVaUzdXaHpU?=
- =?utf-8?B?UzBFNTNkdnJIV0t5eXo3eGl5dXpWQmJmcGcrODZPM1F2bWhYNHdOckV0UVJP?=
- =?utf-8?B?YnBIeW9HZHV6RnlsN2JqVlZJSHQ1em1EdThOZ0p3ZWd4b2pLNk9FUm83ZVp3?=
- =?utf-8?B?OXVIaTU4L0JLalh2S2NhOSsvRThNd1o0NkVRV1B4QzkxSTIrY0RZQlhNYXFI?=
- =?utf-8?B?cGpBSDFTZWg3bGZNbElYN2ZYcWxEVk5wRmVSYURhNW9PcWNCNzEzVFk3d0NV?=
- =?utf-8?B?WWZWVGlvQmUwb05JS1AzVUx2TDFwMloxT0MrcFNDb3pRR09SbEV4Z0lJSk11?=
- =?utf-8?B?bE5rWDVJTkxwOG9weUlmdE55TzArWTdvUlNLaFBnalhtMFZkT2J3alVxNkVP?=
- =?utf-8?B?ZjE4UlZJK2JUOGljQ05mc2g2a09CV1g1bXRDQUhnTGIzc3c1R05SRVJiaVJ3?=
- =?utf-8?B?WW9hT3ZPWjAvZGt0K2xqQmFSd0NmWFd0VkI2akJXRThRNk5GaDU2V0dOaUJ6?=
- =?utf-8?B?K2hMSk16OEEyQlg2QXhTT2Y0OG1jVkdRM3dmdU4zZlBmL0p6Q3FtbHJJM3Yy?=
- =?utf-8?B?UG8zMDhhdUVyRVltYWdnWlFSZGVIaFdNd2x6bDJxakJ3Ly90YXBrR0VPU0Y3?=
- =?utf-8?B?bWZDQk55eTM1WFJOQlc0NktqUXZZalg1RndHdm1RVGw5bGI3SjZ0RmY5TTNO?=
- =?utf-8?B?SXRaSlZPUW5senZoRE1GMDVUZEN3TFdlNlltVFQ4anFwYTh2T00vcHFVUDhZ?=
- =?utf-8?B?MGhNUjZ1QTF5UTlUOXpJbm9LRDRuamMyMDBRcUQ0bk9qMFRIREY2bVdiRm5T?=
- =?utf-8?B?TG9RbG83b1o0dVZPUVhGVXArb05jSFVIeTBwb1A3SW15NUxNOHl4dHNhVEI5?=
- =?utf-8?B?NGYyUDdUSHRhb2RZc0IrQ1FiYy9ub2JCTmhkLzFTSkEzVUdodWZwOFBWaU5h?=
- =?utf-8?B?NTQ0cXd5Q09tZDhLYUxGaTZVdmVKOEQ1TnNmOWNsRVlpeDlTZ0d3V0UxK2U1?=
- =?utf-8?B?TGUweWpOQXM1cDBkdTAxSktZV2UyVWZLQWh1YmpITEV0aEdOSHQyQT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <0B3B19D65CBADA4DBE5DB14944E6D0DD@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: a62c7255-40a8-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ffwll.ch; s=google;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=c1Vs+8e8CI/eQJgbpfI/Ztxvzb9lQKxlTgF3ypUWX2Q=;
+        b=EvlGKfzWf4YR8a+ai4RU3CDMnu3ajWJwo8Sp6Li16gYPErtkuf7ySvMFaMs3zqU6i/
+         ekw32AsoVDd52jHf+vVFPbMOH91z7Cj9FjCy9/QctcBukSoXe60I7bH9hY3/3TUo9+d6
+         J0ZpzzHXIqYXbJmYZukljOghYAs4PpBo3VFnU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=c1Vs+8e8CI/eQJgbpfI/Ztxvzb9lQKxlTgF3ypUWX2Q=;
+        b=xPQTcRBBIyjOfOzQ0EY4ISKu8NbKiBgfHKa8wLLYi2hCXhzDzLIWbx3rObQAMz3UCP
+         Oye/N8vADuu/Q9yVxFXrWd12wBLth1KvUj6ZwF0j6+rXnuFDJqpdgcp39vDIjbedWL8s
+         7z4g5xIQUyCBxpRgTGNdLyqGSKbp5BPrZ3EFYVPprExaJKyMTDGSBjGLhCVNsDJfCl1M
+         5On96Tf7FRk77/nf5D9GRrg0AqZ4R625zG9W3Hegs2PNvA7tkMIbxQd8qKtTB8Z2Orwp
+         /gWV+3eZEn43/8W0IJQOcB29fdXMj0VnDv0cFtZmmpiSE7we/WCqXPRbJHuFmTDO9Sit
+         QH8Q==
+X-Gm-Message-State: AOAM5332dvnlPm9uDuGJq5bxc1zz19XMcpxK0KoVNuNnZ/pBCaQm0BEM
+	9IJUtz7e2VZkaB4DCxa76k48xg==
+X-Google-Smtp-Source: ABdhPJwb/aFbIu8dIyZ/rHwVyiCtAdp7dmdzWNFLSsD1GwQ69nph/cPeSUCecltAOeJjHsbs2fHFGQ==
+X-Received: by 2002:adf:e6c5:: with SMTP id y5mr664478wrm.79.1636385362480;
+        Mon, 08 Nov 2021 07:29:22 -0800 (PST)
+Date: Mon, 8 Nov 2021 16:29:20 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: daniel@ffwll.ch, airlied@linux.ie, maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org, inki.dae@samsung.com, jy0922.shim@samsung.com,
+	sw0312.kim@samsung.com, kyungmin.park@samsung.com,
+	krzysztof.kozlowski@canonical.com, oleksandr_andrushchenko@epam.com,
+	dri-devel@lists.freedesktop.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 1/3] drm/exynox: Implement mmap as GEM object function
+Message-ID: <YYlCUOgd1/GBluE7@phenom.ffwll.local>
+References: <20211108102846.309-1-tzimmermann@suse.de>
+ <20211108102846.309-2-tzimmermann@suse.de>
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76bdeb01-7dc4-426b-47ff-08d9a2cc65e3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Nov 2021 15:28:21.4644
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6ueiTofAiQYKQj0QO6dHH/QDLOcwT+XBEkF6cclY2gFWKOQhafPh90A+o2E9yJOt+BcfoXL+ErjozCOaNvQoHj26OTSiIGov3ilLqrnuKUZeVSfVd0CLT0Gl4Ts6SMEH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB4883
-X-Proofpoint-GUID: gvtmS-1UkEW25NSQDKRQKxVNIs3d769u
-X-Proofpoint-ORIG-GUID: gvtmS-1UkEW25NSQDKRQKxVNIs3d769u
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-08_05,2021-11-08_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 malwarescore=0
- lowpriorityscore=0 phishscore=0 adultscore=0 impostorscore=0
- suspectscore=0 bulkscore=0 spamscore=0 priorityscore=1501 clxscore=1015
- mlxlogscore=999 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2110150000 definitions=main-2111080095
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211108102846.309-2-tzimmermann@suse.de>
+X-Operating-System: Linux phenom 5.10.0-8-amd64 
 
-DQoNCk9uIDA4LjExLjIxIDE2OjIzLCBSb2dlciBQYXUgTW9ubsOpIHdyb3RlOg0KPiBPbiBNb24s
-IE5vdiAwOCwgMjAyMSBhdCAxMToxNjo0MkFNICswMDAwLCBPbGVrc2FuZHIgQW5kcnVzaGNoZW5r
-byB3cm90ZToNCj4+DQo+PiBPbiAwOC4xMS4yMSAxMzoxMCwgSmFuIEJldWxpY2ggd3JvdGU6DQo+
-Pj4gT24gMDUuMTEuMjAyMSAwNzo1NiwgT2xla3NhbmRyIEFuZHJ1c2hjaGVua28gd3JvdGU6DQo+
-Pj4+IC0tLSBhL3hlbi9hcmNoL2FybS92cGNpLmMNCj4+Pj4gKysrIGIveGVuL2FyY2gvYXJtL3Zw
-Y2kuYw0KPj4+PiBAQCAtNDEsNiArNDEsMTUgQEAgc3RhdGljIGludCB2cGNpX21taW9fcmVhZChz
-dHJ1Y3QgdmNwdSAqdiwgbW1pb19pbmZvX3QgKmluZm8sDQo+Pj4+ICAgICAgICAvKiBkYXRhIGlz
-IG5lZWRlZCB0byBwcmV2ZW50IGEgcG9pbnRlciBjYXN0IG9uIDMyYml0ICovDQo+Pj4+ICAgICAg
-ICB1bnNpZ25lZCBsb25nIGRhdGE7DQo+Pj4+ICAgIA0KPj4+PiArI2lmZGVmIENPTkZJR19IQVNf
-VlBDSV9HVUVTVF9TVVBQT1JUDQo+Pj4+ICsgICAgLyoNCj4+Pj4gKyAgICAgKiBGb3IgdGhlIHBh
-c3NlZCB0aHJvdWdoIGRldmljZXMgd2UgbmVlZCB0byBtYXAgdGhlaXIgdmlydHVhbCBTQkRGDQo+
-Pj4+ICsgICAgICogdG8gdGhlIHBoeXNpY2FsIFBDSSBkZXZpY2UgYmVpbmcgcGFzc2VkIHRocm91
-Z2guDQo+Pj4+ICsgICAgICovDQo+Pj4+ICsgICAgaWYgKCAhYnJpZGdlICYmICF2cGNpX3RyYW5z
-bGF0ZV92aXJ0dWFsX2RldmljZSh2LT5kb21haW4sICZzYmRmKSApDQo+Pj4+ICsgICAgICAgICAg
-ICByZXR1cm4gMTsNCj4+PiBOaXQ6IEluZGVudGF0aW9uLg0KPj4gT3VjaCwgc3VyZQ0KPj4+PiBA
-QCAtNTksNiArNjgsMTUgQEAgc3RhdGljIGludCB2cGNpX21taW9fd3JpdGUoc3RydWN0IHZjcHUg
-KnYsIG1taW9faW5mb190ICppbmZvLA0KPj4+PiAgICAgICAgc3RydWN0IHBjaV9ob3N0X2JyaWRn
-ZSAqYnJpZGdlID0gcDsNCj4+Pj4gICAgICAgIHBjaV9zYmRmX3Qgc2JkZiA9IHZwY2lfc2JkZl9m
-cm9tX2dwYShicmlkZ2UsIGluZm8tPmdwYSk7DQo+Pj4+ICAgIA0KPj4+PiArI2lmZGVmIENPTkZJ
-R19IQVNfVlBDSV9HVUVTVF9TVVBQT1JUDQo+Pj4+ICsgICAgLyoNCj4+Pj4gKyAgICAgKiBGb3Ig
-dGhlIHBhc3NlZCB0aHJvdWdoIGRldmljZXMgd2UgbmVlZCB0byBtYXAgdGhlaXIgdmlydHVhbCBT
-QkRGDQo+Pj4+ICsgICAgICogdG8gdGhlIHBoeXNpY2FsIFBDSSBkZXZpY2UgYmVpbmcgcGFzc2Vk
-IHRocm91Z2guDQo+Pj4+ICsgICAgICovDQo+Pj4+ICsgICAgaWYgKCAhYnJpZGdlICYmICF2cGNp
-X3RyYW5zbGF0ZV92aXJ0dWFsX2RldmljZSh2LT5kb21haW4sICZzYmRmKSApDQo+Pj4+ICsgICAg
-ICAgICAgICByZXR1cm4gMTsNCj4+PiBBZ2Fpbi4NCj4+IFdpbGwgZml4DQo+Pj4+IEBAIC0xNzIs
-MTAgKzE3NSwzNyBAQCBSRUdJU1RFUl9WUENJX0lOSVQodnBjaV9hZGRfdmlydHVhbF9kZXZpY2Us
-IFZQQ0lfUFJJT1JJVFlfTUlERExFKTsNCj4+Pj4gICAgc3RhdGljIHZvaWQgdnBjaV9yZW1vdmVf
-dmlydHVhbF9kZXZpY2Uoc3RydWN0IGRvbWFpbiAqZCwNCj4+Pj4gICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgY29uc3Qgc3RydWN0IHBjaV9kZXYgKnBkZXYpDQo+Pj4+
-ICAgIHsNCj4+Pj4gKyAgICBBU1NFUlQocGNpZGV2c19sb2NrZWQoKSk7DQo+Pj4+ICsNCj4+Pj4g
-ICAgICAgIGNsZWFyX2JpdChwZGV2LT52cGNpLT5ndWVzdF9zYmRmLmRldiwgJmQtPnZwY2lfZGV2
-X2Fzc2lnbmVkX21hcCk7DQo+Pj4+ICAgICAgICBwZGV2LT52cGNpLT5ndWVzdF9zYmRmLnNiZGYg
-PSB+MDsNCj4+Pj4gICAgfQ0KPj4+PiAgICANCj4+Pj4gKy8qDQo+Pj4+ICsgKiBGaW5kIHRoZSBw
-aHlzaWNhbCBkZXZpY2Ugd2hpY2ggaXMgbWFwcGVkIHRvIHRoZSB2aXJ0dWFsIGRldmljZQ0KPj4+
-PiArICogYW5kIHRyYW5zbGF0ZSB2aXJ0dWFsIFNCREYgdG8gdGhlIHBoeXNpY2FsIG9uZS4NCj4+
-Pj4gKyAqLw0KPj4+PiArYm9vbCB2cGNpX3RyYW5zbGF0ZV92aXJ0dWFsX2RldmljZShzdHJ1Y3Qg
-ZG9tYWluICpkLCBwY2lfc2JkZl90ICpzYmRmKQ0KPj4+IGNvbnN0IHN0cnVjdCBkb21haW4gKmQg
-Pw0KPj4gV2lsbCBjaGFuZ2UNCj4+Pj4gK3sNCj4+Pj4gKyAgICBjb25zdCBzdHJ1Y3QgcGNpX2Rl
-diAqcGRldjsNCj4+Pj4gKyAgICBib29sIGZvdW5kID0gZmFsc2U7DQo+Pj4+ICsNCj4+Pj4gKyAg
-ICBwY2lkZXZzX2xvY2soKTsNCj4+Pj4gKyAgICBmb3JfZWFjaF9wZGV2KCBkLCBwZGV2ICkNCj4+
-Pj4gKyAgICB7DQo+Pj4+ICsgICAgICAgIGlmICggcGRldi0+dnBjaS0+Z3Vlc3Rfc2JkZi5zYmRm
-ID09IHNiZGYtPnNiZGYgKQ0KPj4+PiArICAgICAgICB7DQo+Pj4+ICsgICAgICAgICAgICAvKiBS
-ZXBsYWNlIHZpcnR1YWwgU0JERiB3aXRoIHRoZSBwaHlzaWNhbCBvbmUuICovDQo+Pj4+ICsgICAg
-ICAgICAgICAqc2JkZiA9IHBkZXYtPnNiZGY7DQo+Pj4+ICsgICAgICAgICAgICBmb3VuZCA9IHRy
-dWU7DQo+Pj4+ICsgICAgICAgICAgICBicmVhazsNCj4+Pj4gKyAgICAgICAgfQ0KPj4+PiArICAg
-IH0NCj4+Pj4gKyAgICBwY2lkZXZzX3VubG9jaygpOw0KPj4+IEkgdGhpbmsgdGhlIGRlc2NyaXB0
-aW9uIHdhbnRzIHRvIGF0IGxlYXN0IG1lbnRpb24gdGhhdCBpbiBwcmluY2lwbGUNCj4+PiB0aGlz
-IGlzIHRvbyBjb2Fyc2UgZ3JhaW5lZCBhIGxvY2ssIHByb3ZpZGluZyBqdXN0aWZpY2F0aW9uIGZv
-ciB3aHkNCj4+PiBpdCBpcyBkZWVtZWQgZ29vZCBlbm91Z2ggbmV2ZXJ0aGVsZXNzLiAoUGVyc29u
-YWxseSwgYXMgZXhwcmVzc2VkDQo+Pj4gYmVmb3JlLCBJIGRvbid0IHRoaW5rIHRoZSBsb2NrIHNo
-b3VsZCBiZSB1c2VkIGhlcmUsIGJ1dCBhcyBsb25nIGFzDQo+Pj4gUm9nZXIgYWdyZWVzIHdpdGgg
-eW91LCB5b3UncmUgZmluZS4pDQo+PiBZZXMsIG1ha2VzIHNlbnNlDQo+IFNlZWluZyBhcyB3ZSBk
-b24ndCB0YWtlIHRoZSBsb2NrIGluIHZwY2lfe3JlYWQsd3JpdGV9IEknbSBub3Qgc3VyZSB3ZQ0K
-PiBuZWVkIGl0IGhlcmUgZWl0aGVyIHRoZW4uDQpZZXMsIEkgd2FzIG5vdCBmZWVsaW5nIGNvbmZp
-ZGVudCB3aGlsZSBhZGRpbmcgbG9ja2luZw0KPiBTaW5jZSBvbiBBcm0geW91IHdpbGwgYWRkIGRl
-dmljZXMgdG8gdGhlIGd1ZXN0IGF0IHJ1bnRpbWUgKGllOiB3aGlsZQ0KPiB0aGVyZSBjb3VsZCBh
-bHJlYWR5IGJlIFBDSSBhY2Nlc3NlcyksIGhhdmUgeW91IHNlZW4gaXNzdWVzIHdpdGggbm90DQo+
-IHRha2luZyB0aGUgbG9jayBoZXJlPw0KTm8sIEkgZGlkbid0LiBOZWl0aGVyIEkgYW0gYXdhcmUg
-b2YgQXJtIGhhZCBwcm9ibGVtcw0KQnV0IHRoaXMgY291bGQganVzdCBtZWFuIHRoYXQgd2Ugd2Vy
-ZSBsdWNreSBub3QgdG8gc3RlcCBvbiBpdA0KPg0KPiBJIHRoaW5rIHRoZSB3aG9sZSBwY2lkZXZz
-IGxvY2tpbmcgbmVlZHMgdG8gYmUgY2xhcmlmaWVkLCBhcyBpdCdzDQo+IGN1cnJlbnRseSBhIG1l
-c3MuDQpBZ3JlZQ0KPiAgIElmIHlvdSB3YW50IHRvIHRha2UgaXQgaGVyZSB0aGF0J3MgZmluZSwg
-YnV0IG92ZXJhbGwNCj4gdGhlcmUgYXJlIGlzc3VlcyBpbiBvdGhlciBwbGFjZXMgdGhhdCB3b3Vs
-ZCBtYWtlIHJlbW92aW5nIGEgZGV2aWNlIGF0DQo+IHJ1bnRpbWUgbm90IHJlbGlhYmxlLg0KU28s
-IHdoYXQncyB0aGUgZGVjaXNpb24/IEkgd291bGQgbGVhdmUgdGhlIGxvY2tzIHdoZXJlIEkgcHV0
-IHRoZW0sDQpzbyBhdCBsZWFzdCB0aGlzIHBhcnQgd29uJ3QgbmVlZCBmaXhlcy4NCj4NCj4gVGhh
-bmtzLCBSb2dlci4NCj4NClRoYW5rIHlvdSwNCk9sZWtzYW5kcg==
+On Mon, Nov 08, 2021 at 11:28:44AM +0100, Thomas Zimmermann wrote:
+> Moving the driver-specific mmap code into a GEM object function allows
+> for using DRM helpers for various mmap callbacks.
+> 
+> The respective exynos functions are being removed. The file_operations
+> structure exynos_drm_driver_fops is now being created by the helper macro
+> DEFINE_DRM_GEM_FOPS().
+> 
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+s/exynox/exynos in the subject.
+
+Patch lgtm, but would still be good if exynos maintainers would
+ack/review/test it. But if you don't get anything within 2 weeks here's
+my:
+
+Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+
+> ---
+>  drivers/gpu/drm/exynos/exynos_drm_drv.c   | 13 ++-----
+>  drivers/gpu/drm/exynos/exynos_drm_fbdev.c | 20 ++---------
+>  drivers/gpu/drm/exynos/exynos_drm_gem.c   | 43 +++++------------------
+>  drivers/gpu/drm/exynos/exynos_drm_gem.h   |  5 ---
+>  4 files changed, 13 insertions(+), 68 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+> index d8f1cf4d6b69..9743b6b17447 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+> @@ -102,16 +102,7 @@ static const struct drm_ioctl_desc exynos_ioctls[] = {
+>  			DRM_RENDER_ALLOW),
+>  };
+>  
+> -static const struct file_operations exynos_drm_driver_fops = {
+> -	.owner		= THIS_MODULE,
+> -	.open		= drm_open,
+> -	.mmap		= exynos_drm_gem_mmap,
+> -	.poll		= drm_poll,
+> -	.read		= drm_read,
+> -	.unlocked_ioctl	= drm_ioctl,
+> -	.compat_ioctl = drm_compat_ioctl,
+> -	.release	= drm_release,
+> -};
+> +DEFINE_DRM_GEM_FOPS(exynos_drm_driver_fops);
+>  
+>  static const struct drm_driver exynos_drm_driver = {
+>  	.driver_features	= DRIVER_MODESET | DRIVER_GEM
+> @@ -124,7 +115,7 @@ static const struct drm_driver exynos_drm_driver = {
+>  	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
+>  	.gem_prime_import	= exynos_drm_gem_prime_import,
+>  	.gem_prime_import_sg_table	= exynos_drm_gem_prime_import_sg_table,
+> -	.gem_prime_mmap		= exynos_drm_gem_prime_mmap,
+> +	.gem_prime_mmap		= drm_gem_prime_mmap,
+>  	.ioctls			= exynos_ioctls,
+>  	.num_ioctls		= ARRAY_SIZE(exynos_ioctls),
+>  	.fops			= &exynos_drm_driver_fops,
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+> index 5147f5929be7..02c97b9ca926 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+> @@ -15,6 +15,7 @@
+>  #include <drm/drm_crtc.h>
+>  #include <drm/drm_fb_helper.h>
+>  #include <drm/drm_fourcc.h>
+> +#include <drm/drm_prime.h>
+>  #include <drm/drm_probe_helper.h>
+>  #include <drm/exynos_drm.h>
+>  
+> @@ -39,25 +40,8 @@ static int exynos_drm_fb_mmap(struct fb_info *info,
+>  	struct drm_fb_helper *helper = info->par;
+>  	struct exynos_drm_fbdev *exynos_fbd = to_exynos_fbdev(helper);
+>  	struct exynos_drm_gem *exynos_gem = exynos_fbd->exynos_gem;
+> -	unsigned long vm_size;
+> -	int ret;
+> -
+> -	vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
+> -
+> -	vm_size = vma->vm_end - vma->vm_start;
+> -
+> -	if (vm_size > exynos_gem->size)
+> -		return -EINVAL;
+>  
+> -	ret = dma_mmap_attrs(to_dma_dev(helper->dev), vma, exynos_gem->cookie,
+> -			     exynos_gem->dma_addr, exynos_gem->size,
+> -			     exynos_gem->dma_attrs);
+> -	if (ret < 0) {
+> -		DRM_DEV_ERROR(to_dma_dev(helper->dev), "failed to mmap.\n");
+> -		return ret;
+> -	}
+> -
+> -	return 0;
+> +	return drm_gem_prime_mmap(&exynos_gem->base, vma);
+>  }
+>  
+>  static const struct fb_ops exynos_drm_fb_ops = {
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+> index 4396224227d1..c4b63902ee7a 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+> @@ -17,6 +17,8 @@
+>  #include "exynos_drm_drv.h"
+>  #include "exynos_drm_gem.h"
+>  
+> +static int exynos_drm_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
+> +
+>  static int exynos_drm_alloc_buf(struct exynos_drm_gem *exynos_gem, bool kvmap)
+>  {
+>  	struct drm_device *dev = exynos_gem->base.dev;
+> @@ -135,6 +137,7 @@ static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
+>  static const struct drm_gem_object_funcs exynos_drm_gem_object_funcs = {
+>  	.free = exynos_drm_gem_free_object,
+>  	.get_sg_table = exynos_drm_gem_prime_get_sg_table,
+> +	.mmap = exynos_drm_gem_mmap,
+>  	.vm_ops = &exynos_drm_gem_vm_ops,
+>  };
+>  
+> @@ -354,12 +357,16 @@ int exynos_drm_gem_dumb_create(struct drm_file *file_priv,
+>  	return 0;
+>  }
+>  
+> -static int exynos_drm_gem_mmap_obj(struct drm_gem_object *obj,
+> -				   struct vm_area_struct *vma)
+> +static int exynos_drm_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
+>  {
+>  	struct exynos_drm_gem *exynos_gem = to_exynos_gem(obj);
+>  	int ret;
+>  
+> +	if (obj->import_attach)
+> +		return dma_buf_mmap(obj->dma_buf, vma, 0);
+> +
+> +	vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
+> +
+>  	DRM_DEV_DEBUG_KMS(to_dma_dev(obj->dev), "flags = 0x%x\n",
+>  			  exynos_gem->flags);
+>  
+> @@ -385,26 +392,6 @@ static int exynos_drm_gem_mmap_obj(struct drm_gem_object *obj,
+>  	return ret;
+>  }
+>  
+> -int exynos_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
+> -{
+> -	struct drm_gem_object *obj;
+> -	int ret;
+> -
+> -	/* set vm_area_struct. */
+> -	ret = drm_gem_mmap(filp, vma);
+> -	if (ret < 0) {
+> -		DRM_ERROR("failed to mmap.\n");
+> -		return ret;
+> -	}
+> -
+> -	obj = vma->vm_private_data;
+> -
+> -	if (obj->import_attach)
+> -		return dma_buf_mmap(obj->dma_buf, vma, 0);
+> -
+> -	return exynos_drm_gem_mmap_obj(obj, vma);
+> -}
+> -
+>  /* low-level interface prime helpers */
+>  struct drm_gem_object *exynos_drm_gem_prime_import(struct drm_device *dev,
+>  					    struct dma_buf *dma_buf)
+> @@ -466,15 +453,3 @@ exynos_drm_gem_prime_import_sg_table(struct drm_device *dev,
+>  	exynos_gem->sgt = sgt;
+>  	return &exynos_gem->base;
+>  }
+> -
+> -int exynos_drm_gem_prime_mmap(struct drm_gem_object *obj,
+> -			      struct vm_area_struct *vma)
+> -{
+> -	int ret;
+> -
+> -	ret = drm_gem_mmap_obj(obj, obj->size, vma);
+> -	if (ret < 0)
+> -		return ret;
+> -
+> -	return exynos_drm_gem_mmap_obj(obj, vma);
+> -}
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.h b/drivers/gpu/drm/exynos/exynos_drm_gem.h
+> index a23272fb96fb..79d7e1a87419 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.h
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.h
+> @@ -96,9 +96,6 @@ int exynos_drm_gem_dumb_create(struct drm_file *file_priv,
+>  			       struct drm_device *dev,
+>  			       struct drm_mode_create_dumb *args);
+>  
+> -/* set vm_flags and we can change the vm attribute to other one at here. */
+> -int exynos_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma);
+> -
+>  /* low-level interface prime helpers */
+>  struct drm_gem_object *exynos_drm_gem_prime_import(struct drm_device *dev,
+>  					    struct dma_buf *dma_buf);
+> @@ -107,7 +104,5 @@ struct drm_gem_object *
+>  exynos_drm_gem_prime_import_sg_table(struct drm_device *dev,
+>  				     struct dma_buf_attachment *attach,
+>  				     struct sg_table *sgt);
+> -int exynos_drm_gem_prime_mmap(struct drm_gem_object *obj,
+> -			      struct vm_area_struct *vma);
+>  
+>  #endif
+> -- 
+> 2.33.1
+> 
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 
