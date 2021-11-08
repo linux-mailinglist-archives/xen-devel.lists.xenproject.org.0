@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE0844477DC
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Nov 2021 01:58:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222946.385487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BB4D4477D9
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Nov 2021 01:58:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222938.385455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mjsz6-0007LI-Ke; Mon, 08 Nov 2021 00:58:04 +0000
+	id 1mjsyv-0006CL-K1; Mon, 08 Nov 2021 00:57:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222946.385487; Mon, 08 Nov 2021 00:58:04 +0000
+Received: by outflank-mailman (output) from mailman id 222938.385455; Mon, 08 Nov 2021 00:57:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mjsz6-0007Iz-GT; Mon, 08 Nov 2021 00:58:04 +0000
-Received: by outflank-mailman (input) for mailman id 222946;
- Mon, 08 Nov 2021 00:58:03 +0000
+	id 1mjsyv-0006A5-FJ; Mon, 08 Nov 2021 00:57:53 +0000
+Received: by outflank-mailman (input) for mailman id 222938;
+ Mon, 08 Nov 2021 00:57:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZOPF=P3=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1mjspp-0004R0-JV
- for xen-devel@lists.xenproject.org; Mon, 08 Nov 2021 00:48:29 +0000
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [2a00:1450:4864:20::231])
+ id 1mjspr-0004R0-6q
+ for xen-devel@lists.xenproject.org; Mon, 08 Nov 2021 00:48:31 +0000
+Received: from mail-lj1-x22a.google.com (mail-lj1-x22a.google.com
+ [2a00:1450:4864:20::22a])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 969a005f-402d-11ec-9787-a32c541c8605;
- Mon, 08 Nov 2021 01:48:28 +0100 (CET)
-Received: by mail-lj1-x231.google.com with SMTP id z8so3357782ljz.9
- for <xen-devel@lists.xenproject.org>; Sun, 07 Nov 2021 16:48:28 -0800 (PST)
+ id 97ba32ee-402d-11ec-9787-a32c541c8605;
+ Mon, 08 Nov 2021 01:48:30 +0100 (CET)
+Received: by mail-lj1-x22a.google.com with SMTP id 13so8242294ljj.11
+ for <xen-devel@lists.xenproject.org>; Sun, 07 Nov 2021 16:48:30 -0800 (PST)
 Received: from localhost.localdomain (79-139-188-96.dynamic.spd-mgts.ru.
  [79.139.188.96])
- by smtp.gmail.com with ESMTPSA id p17sm1625266lfu.209.2021.11.07.16.48.26
+ by smtp.gmail.com with ESMTPSA id p17sm1625266lfu.209.2021.11.07.16.48.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Nov 2021 16:48:28 -0800 (PST)
+ Sun, 07 Nov 2021 16:48:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 969a005f-402d-11ec-9787-a32c541c8605
+X-Inumbo-ID: 97ba32ee-402d-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=mfpn4GjmPLTNTnhqDUdqufcuPWBAqiXi1zu9JyEbhbk=;
-        b=W+BA6i1yQfPHIvKbww0H/Kx11NRHF71Rxe4SzvnJDlq9uOKEN4w96ovj4OquXqfPQJ
-         JCbSMj3tYPJKeCx5ruhMxqh9HJs5RtCzyXJO/lX0VrHMlYovhvUDgzUTuXzAvRaAEx6k
-         BQjK3uMGMr9zDhSEkM6cFPwapFEkDP2nhbeboGEs7tpPwcQ0ORLVbdqRCj1JsmfdENWp
-         Wouvje//jgWEX2Go+W+RKzH6ZjhuUXnF7t/nwShOxV4e7SlATuz/nLumpcFWdS/dBBBB
-         eU28/GWtwfAP3B25fdf33iLfMN4macxZ7oQWLC6+1CIjVCLAfP+kj1aowIKfSp3wSgHJ
-         6KxQ==
+        bh=rkacp5n+z0D4++qm+Vz/WWDd0s3O3Dw6o+6i9hrIfWs=;
+        b=RqR+4fCVEnzIej5WEta4m7eVP9J0cifvkt1Mu0YPaTP2A9CMdL6tu/SjMp4lB0+FJm
+         ZQshmgPm64wSSZwKBHmOtA8t/EVqSNmkzF0MqQPAR/mp7ZLpjGx/vSJ1KlsFqNnZ9veH
+         Dcm8gmKpUcqPf8R7fL5FlDm6P589xDSkGrLH67wFz4P5/cBO1nSmh1ck88Vc3JUYjWJZ
+         ai5x9zvn9mG9RuY2DGypZ1nMlX0U5N+2NIBjhooAS4M0ocg5F25DHZ4qNHyux3JP8ufI
+         p4KngmDN11Xh1YN0KCXFJvsyGD+xkZe8nNCdya2HLnrDDghh7kB3TpDSsqXcchV7r1qK
+         LCKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=mfpn4GjmPLTNTnhqDUdqufcuPWBAqiXi1zu9JyEbhbk=;
-        b=jHYHh5xk9O6vcPpHwMTSczdFBLPaSiX7vv969Bahb6I/a3lbG42kqWsbwq46F4slWl
-         Qgqc+u4FJkxe2em9vd4N3XGEPYkR18xXyzGroq+9pXgj121tvmHMhbYq6IccHWBpvx1f
-         fjiwLFt4X9aH8QCZg3onI9tsVFkX4nD5G0lX5/A1981gR+RR4Hrikvmfv+mhcIjrAfZu
-         fx9L6Sl0DDlmB+Ssu6viTHuG7OqzCX8X7UY6Cqd5Au1KyiAzQ017xfEy+E+PJTL2Z/yM
-         lsI+H3IlZbwr0meSxgft3mK/3wm5+03LVnBkzidPM7sSzMPDYQjoBSvDyo0lo0pN0fGV
-         91Zg==
-X-Gm-Message-State: AOAM532ZjCk34LHvN6WEi5L3rJKmZv1fO5lPhkg5NyTIzEM5wK9/ArCB
-	qaP7ogyfh57/82P3bE0RhM8=
-X-Google-Smtp-Source: ABdhPJxvKGMB3QY7Ut5kEA8s6doinUC1/Ww9qKJdN+MXM8K/PkyljZbitnj0m2icyEnTqlRtLd3GMw==
-X-Received: by 2002:a2e:a482:: with SMTP id h2mr8611915lji.87.1636332508421;
-        Sun, 07 Nov 2021 16:48:28 -0800 (PST)
+        bh=rkacp5n+z0D4++qm+Vz/WWDd0s3O3Dw6o+6i9hrIfWs=;
+        b=pJcUDMISRMLETFCKdLuaxgclzb8kp/zegby+AEsMcdvGRRGIiy04a4Gs3qBNhV0Dpg
+         Amh83RV5LkpkjraB2JeqpIRq8xS9aX6JIqCpA45XhSd9LoP4AYTXfRTRJtkXxXMsiCem
+         QjSa4RR8VxFfV8bBsipVJkLkgL8nwqqx/Z0+xd0yyHLnaW2uwOHe4nlUQ4s+cC28aXmF
+         I17TLVc/IfwEsy3IJ3CvWTAUXglmCO2r50dKZq/yuotpglBG3y+UWMgg7Tz1YcmywSCE
+         MeuMeO19e1uYCt4fjgW2m5Ytbl0nK3K6soNwok40p8harXH0V2iSVlk8moRN3z5aAzgo
+         j8AA==
+X-Gm-Message-State: AOAM533UMYAriuwySuazJ2+CnTtqmQMt62t/f0K2RifTwwo+8hKmM/uI
+	fM4ul+Ovp9ukloRq2CqgO/8=
+X-Google-Smtp-Source: ABdhPJxfKztOfDSBd7HSMtU+Am4Er8ebg/172DyOtTe15mPTYxlsPPldUWp9y70Z3OwiXlFCDFSHow==
+X-Received: by 2002:a2e:7616:: with SMTP id r22mr1836123ljc.391.1636332510201;
+        Sun, 07 Nov 2021 16:48:30 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -132,96 +132,117 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v3 23/25] ACPI: power: Switch to sys-off handler API
-Date: Mon,  8 Nov 2021 03:45:22 +0300
-Message-Id: <20211108004524.29465-24-digetx@gmail.com>
+Subject: [PATCH v3 24/25] regulator: pfuze100: Use devm_register_sys_off_handler()
+Date: Mon,  8 Nov 2021 03:45:23 +0300
+Message-Id: <20211108004524.29465-25-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211108004524.29465-1-digetx@gmail.com>
 References: <20211108004524.29465-1-digetx@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Switch to sys-off API that replaces legacy pm_power_off callbacks.
+Use devm_register_sys_off_handler() that replaces global
+pm_power_off_prepare variable and allows to register multiple
+power-off handlers.
 
+Acked-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- drivers/acpi/sleep.c | 25 +++++++++++--------------
- 1 file changed, 11 insertions(+), 14 deletions(-)
+ drivers/regulator/pfuze100-regulator.c | 38 ++++++++++----------------
+ 1 file changed, 14 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
-index eaa47753b758..2e613fddd614 100644
---- a/drivers/acpi/sleep.c
-+++ b/drivers/acpi/sleep.c
-@@ -47,19 +47,11 @@ static void acpi_sleep_tts_switch(u32 acpi_state)
- 	}
+diff --git a/drivers/regulator/pfuze100-regulator.c b/drivers/regulator/pfuze100-regulator.c
+index d60d7d1b7fa2..2eca8d43a097 100644
+--- a/drivers/regulator/pfuze100-regulator.c
++++ b/drivers/regulator/pfuze100-regulator.c
+@@ -10,6 +10,7 @@
+ #include <linux/of_device.h>
+ #include <linux/regulator/of_regulator.h>
+ #include <linux/platform_device.h>
++#include <linux/reboot.h>
+ #include <linux/regulator/driver.h>
+ #include <linux/regulator/machine.h>
+ #include <linux/regulator/pfuze100.h>
+@@ -76,6 +77,7 @@ struct pfuze_chip {
+ 	struct pfuze_regulator regulator_descs[PFUZE100_MAX_REGULATOR];
+ 	struct regulator_dev *regulators[PFUZE100_MAX_REGULATOR];
+ 	struct pfuze_regulator *pfuze_regulators;
++	struct sys_off_handler sys_off;
+ };
+ 
+ static const int pfuze100_swbst[] = {
+@@ -569,10 +571,10 @@ static inline struct device_node *match_of_node(int index)
+ 	return pfuze_matches[index].of_node;
  }
  
--static int tts_notify_reboot(struct notifier_block *this,
--			unsigned long code, void *x)
-+static void tts_reboot_prepare(struct reboot_prep_data *data)
- {
- 	acpi_sleep_tts_switch(ACPI_STATE_S5);
--	return NOTIFY_DONE;
- }
- 
--static struct notifier_block tts_notifier = {
--	.notifier_call	= tts_notify_reboot,
--	.next		= NULL,
--	.priority	= 0,
--};
+-static struct pfuze_chip *syspm_pfuze_chip;
 -
- static int acpi_sleep_prepare(u32 acpi_state)
+-static void pfuze_power_off_prepare(void)
++static void pfuze_power_off_prepare(struct power_off_prep_data *data)
  {
- #ifdef CONFIG_ACPI_SLEEP
-@@ -1020,7 +1012,7 @@ static void acpi_sleep_hibernate_setup(void)
- static inline void acpi_sleep_hibernate_setup(void) {}
- #endif /* !CONFIG_HIBERNATION */
- 
--static void acpi_power_off_prepare(void)
-+static void acpi_power_off_prepare(struct power_off_prep_data *data)
- {
- 	/* Prepare to power off the system */
- 	acpi_sleep_prepare(ACPI_STATE_S5);
-@@ -1028,7 +1020,7 @@ static void acpi_power_off_prepare(void)
- 	acpi_os_wait_events_complete();
- }
- 
--static void acpi_power_off(void)
-+static void acpi_power_off(struct power_off_data *data)
- {
- 	/* acpi_sleep_prepare(ACPI_STATE_S5) should have already been called */
- 	pr_debug("%s called\n", __func__);
-@@ -1036,6 +1028,11 @@ static void acpi_power_off(void)
- 	acpi_enter_sleep_state(ACPI_STATE_S5);
- }
- 
-+static struct sys_off_handler acpi_sys_off_handler = {
-+	.power_off_priority = POWEROFF_PRIO_FIRMWARE,
-+	.reboot_prepare_cb = tts_reboot_prepare,
-+};
++	struct pfuze_chip *syspm_pfuze_chip = data->cb_data;
 +
- int __init acpi_sleep_init(void)
- {
- 	char supported[ACPI_S_STATE_COUNT * 3 + 1];
-@@ -1052,8 +1049,8 @@ int __init acpi_sleep_init(void)
+ 	dev_info(syspm_pfuze_chip->dev, "Configure standby mode for power off");
  
- 	if (acpi_sleep_state_supported(ACPI_STATE_S5)) {
- 		sleep_states[ACPI_STATE_S5] = 1;
--		pm_power_off_prepare = acpi_power_off_prepare;
--		pm_power_off = acpi_power_off;
-+		acpi_sys_off_handler.power_off_cb = acpi_power_off;
-+		acpi_sys_off_handler.power_off_prepare_cb = acpi_power_off_prepare;
- 	} else {
- 		acpi_no_s5 = true;
+ 	/* Switch from default mode: APS/APS to APS/Off */
+@@ -611,24 +613,23 @@ static void pfuze_power_off_prepare(void)
+ 
+ static int pfuze_power_off_prepare_init(struct pfuze_chip *pfuze_chip)
+ {
++	int err;
++
+ 	if (pfuze_chip->chip_id != PFUZE100) {
+ 		dev_warn(pfuze_chip->dev, "Requested pm_power_off_prepare handler for not supported chip\n");
+ 		return -ENODEV;
  	}
-@@ -1069,6 +1066,6 @@ int __init acpi_sleep_init(void)
- 	 * Register the tts_notifier to reboot notifier list so that the _TTS
- 	 * object can also be evaluated when the system enters S5.
- 	 */
--	register_reboot_notifier(&tts_notifier);
-+	register_sys_off_handler(&acpi_sys_off_handler);
+ 
+-	if (pm_power_off_prepare) {
+-		dev_warn(pfuze_chip->dev, "pm_power_off_prepare is already registered.\n");
+-		return -EBUSY;
+-	}
++	pfuze_chip->sys_off.power_off_prepare_cb = pfuze_power_off_prepare;
++	pfuze_chip->sys_off.cb_data = pfuze_chip;
+ 
+-	if (syspm_pfuze_chip) {
+-		dev_warn(pfuze_chip->dev, "syspm_pfuze_chip is already set.\n");
+-		return -EBUSY;
++	err = devm_register_sys_off_handler(pfuze_chip->dev, &pfuze_chip->sys_off);
++	if (err) {
++		dev_err(pfuze_chip->dev,
++			"failed to register sys-off handler: %d\n", err);
++		return err;
+ 	}
+ 
+-	syspm_pfuze_chip = pfuze_chip;
+-	pm_power_off_prepare = pfuze_power_off_prepare;
+-
  	return 0;
  }
+ 
+@@ -837,23 +838,12 @@ static int pfuze100_regulator_probe(struct i2c_client *client,
+ 	return 0;
+ }
+ 
+-static int pfuze100_regulator_remove(struct i2c_client *client)
+-{
+-	if (syspm_pfuze_chip) {
+-		syspm_pfuze_chip = NULL;
+-		pm_power_off_prepare = NULL;
+-	}
+-
+-	return 0;
+-}
+-
+ static struct i2c_driver pfuze_driver = {
+ 	.driver = {
+ 		.name = "pfuze100-regulator",
+ 		.of_match_table = pfuze_dt_ids,
+ 	},
+ 	.probe = pfuze100_regulator_probe,
+-	.remove = pfuze100_regulator_remove,
+ };
+ module_i2c_driver(pfuze_driver);
+ 
 -- 
 2.33.1
 
