@@ -2,32 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 525A34479E1
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Nov 2021 06:20:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222755.385578 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51E5C447A79
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Nov 2021 07:33:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.223062.385589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mjx3Z-00060J-AN; Mon, 08 Nov 2021 05:18:57 +0000
+	id 1mjyCq-0005CW-PA; Mon, 08 Nov 2021 06:32:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222755.385578; Mon, 08 Nov 2021 05:18:57 +0000
+Received: by outflank-mailman (output) from mailman id 223062.385589; Mon, 08 Nov 2021 06:32:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mjx3Z-0005yZ-4P; Mon, 08 Nov 2021 05:18:57 +0000
-Received: by outflank-mailman (input) for mailman id 222755;
- Sat, 06 Nov 2021 20:55:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mjyCq-00059Z-Ls; Mon, 08 Nov 2021 06:32:36 +0000
+Received: by outflank-mailman (input) for mailman id 223062;
+ Mon, 08 Nov 2021 06:32:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mw4S=PZ=gmx.net=j.neuschaefer@srs-se1.protection.inumbo.net>)
- id 1mjSiL-0008J2-Ap
- for xen-devel@lists.xenproject.org; Sat, 06 Nov 2021 20:55:01 +0000
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cdde146c-3f43-11ec-9787-a32c541c8605;
- Sat, 06 Nov 2021 21:54:59 +0100 (CET)
-Received: from longitude ([87.79.195.52]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MOA3F-1n7sEw3p2f-00OWCa; Sat, 06
- Nov 2021 21:54:16 +0100
+ <SRS0=6K4m=P3=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
+ id 1mjyCo-00059T-Qe
+ for xen-devel@lists.xenproject.org; Mon, 08 Nov 2021 06:32:35 +0000
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur02on0606.outbound.protection.outlook.com
+ [2a01:111:f400:fe06::606])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a54b7f27-405d-11ec-a9d2-d9f7a1cc8784;
+ Mon, 08 Nov 2021 07:32:30 +0100 (CET)
+Received: from AS9PR06CA0265.eurprd06.prod.outlook.com (2603:10a6:20b:45f::34)
+ by AM9PR08MB5876.eurprd08.prod.outlook.com (2603:10a6:20b:2d5::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Mon, 8 Nov
+ 2021 06:32:29 +0000
+Received: from VE1EUR03FT031.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:45f:cafe::c5) by AS9PR06CA0265.outlook.office365.com
+ (2603:10a6:20b:45f::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11 via Frontend
+ Transport; Mon, 8 Nov 2021 06:32:28 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT031.mail.protection.outlook.com (10.152.18.69) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4649.14 via Frontend Transport; Mon, 8 Nov 2021 06:32:28 +0000
+Received: ("Tessian outbound d49ee2bec50d:v108");
+ Mon, 08 Nov 2021 06:32:27 +0000
+Received: from 10504046ded9.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 55EA275A-11E7-4DF0-B7A1-964562735880.1; 
+ Mon, 08 Nov 2021 06:32:17 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 10504046ded9.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 08 Nov 2021 06:32:17 +0000
+Received: from DU2PR08MB7325.eurprd08.prod.outlook.com (2603:10a6:10:2e4::7)
+ by DU2PR08MB7312.eurprd08.prod.outlook.com (2603:10a6:10:2e7::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.16; Mon, 8 Nov
+ 2021 06:32:16 +0000
+Received: from DU2PR08MB7325.eurprd08.prod.outlook.com
+ ([fe80::f4fd:a3a4:6768:1165]) by DU2PR08MB7325.eurprd08.prod.outlook.com
+ ([fe80::f4fd:a3a4:6768:1165%3]) with mapi id 15.20.4669.011; Mon, 8 Nov 2021
+ 06:32:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,241 +72,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cdde146c-3f43-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
-	s=badeba3b8450; t=1636232056;
-	bh=Mwd00qb2ZiJx72AR8VOZy+k9pKeasCOoFRxt9I1uV2U=;
-	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C0sCrT8yqXlZxZN/D8t3r5AoxwhULAsJ8jy0NerNyYtNdbWgnqBYX9Y6CiU9MHxYu
-	 zquWuU6nUJY+jyfB4yNiyLcx1VtjpHa5bjIspLTdTbHxN0xolbUGlTJ6HhUeKdKZyT
-	 nslIEB0sT9+3bcpa5ZRh7JRv4jOvvxznOxhoRVuE=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Date: Sat, 6 Nov 2021 21:54:06 +0100
-From: Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-To: Dmitry Osipenko <digetx@gmail.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Lee Jones <lee.jones@linaro.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Russell King <linux@armlinux.org.uk>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Greg Ungerer <gerg@linux-m68k.org>,
-	Joshua Thompson <funaho@jurai.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Nick Hu <nickhu@andestech.com>, Greentime Hu <green.hu@gmail.com>,
-	Vincent Chen <deanbo422@gmail.com>, Helge Deller <deller@gmx.de>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Paul Mackerras <paulus@samba.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>, Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Santosh Shilimkar <ssantosh@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Chen-Yu Tsai <wens@csie.org>,
-	Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
-	Tony Lindgren <tony@atomide.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Vladimir Zapolskiy <vz@mleia.com>,
-	Avi Fishman <avifishman70@gmail.com>,
-	Tomer Maimon <tmaimon77@gmail.com>,
-	Tali Perry <tali.perry1@gmail.com>,
-	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
-	Benjamin Fair <benjaminfair@google.com>,
-	Pavel Machek <pavel@ucw.cz>, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org,
-	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-	linux-sh@vger.kernel.org, xen-devel@lists.xenproject.org,
-	linux-acpi@vger.kernel.org, linux-omap@vger.kernel.org,
-	openbmc@lists.ozlabs.org, linux-tegra@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v2 27/45] mfd: ntxec: Use devm_register_power_handler()
-Message-ID: <YYbqlmOM95q7Hbjo@latitude>
-References: <20211027211715.12671-1-digetx@gmail.com>
- <20211027211715.12671-28-digetx@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EIEte5+tjVxDHmE6"
-Content-Disposition: inline
-In-Reply-To: <20211027211715.12671-28-digetx@gmail.com>
-X-Provags-ID: V03:K1:SVFlmtuvvynO7MrtDzObaEyN/WaPcv8tOsGAlIRvdbuKBKDAEQ/
- nVePqR5eYOMd9xdpGO5unEqHbls4MbMcwDHHiD/2xW054xRTDPzVuInIGVNwfhVnOpuaRe4
- ac8qzmvsisWAHTSwATyyh2lQM4j3GTT+YgfTlnX+xnTkWWDcDQ1QJM/FLNOUp2gu+vKNebi
- 4PIdlh56euOWziRZzNIlQ==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:u5Fne7zv3PE=:dNBEMEjx9T9adiFRODtMYS
- bP1c0hzh59ZKklI1R2cCTJxmTQB45y+QzZX2y0PFbg7yQDeDmSxw52obaEhQa1OdTD86QHXVu
- bbxucMZOIMSbjbLPCif24qpNcHVpf4XClB+BVAEEUwNoQd2u+UA3qLozpzzQZNC8E146erRcl
- EAKHMtg1jl5nUIbs95J8LLOgltdAEihA4JrPrtzt7z304ULnl8JDCKZ1GtxLnSmRKL2GPNjji
- BW4Wh4ednr1BPkh3V5pGtcs7sYJeT+fCg9+1Ao3TSUyI/IMvOamAK8fVGMSOSa8NHso9PeZQG
- p+/g7H+fY7krRTHyMZXbNHeGC6zFFjT+rzUWo+KzQQxtKMn72KqFsaG2rKGpecWbyuM0yrSA3
- xhBNrwHcineUl3uAIRxEl8UFkkXss6eAsh3Q7PLKHNXtaR46/z4OumfDtDC9mwHJVuXp9n3KM
- M7BF+sRUvasT/1Hjw3WGpiUE/z6upYRlSC4e82UllEXyFN6W5gyX4r9kjFZV6JMJQR4UbuEW1
- 4g31iHAtTXNZxCvREA7FhQCKM9rtiy8KysUGnceOt3v+aXNzH7SzuQRyJ9+2MgAUQhI7LT2+v
- VClVfxb0rprv/xqBe8DR8WZ7vcK3mCHHlNMCIkYs+6FCITYMw1DHU+CCMKRJej3SCQwR1LGqj
- hUPkhNKbB6PRt/vk+6c77kVWLHqNnHOCN73BdRo6Txp4mZxNOEbbazHi+tZW5jEpWLgiTWfNM
- nvxwa10sJSG8hWu5gGN/aF40RAay1aoGu/k5TA+el84toB3VY6ini0lBJUlrb8M4zbzR9pa9/
- Pm44sh1ruNP7AzMnsBiAzzZX6lqJDAsa+TO5YVhuM9bbKS9hD1KoschPm0B4aJf++t2+ahC/M
- b/QH4Oe5cluIsKILSHGZSoRrX9sqCtW26taTpZQSEsbNePGKbzsw8Oa3lejuRZ+LJbcUK2xLt
- ttQpHqsFbUZlBFAYwpFpRbcNm/+LQLWVCLIU9Rk9O9c0hSOeoGw2PLPC+aL/hsmQVrqlLI/F5
- NAfMG2YBy//Wmh7LL2E3535/ea8r6g8I6Rr7Y4YuBRiuLWpoBhkDI8ZJxuoe0BuQmictlfruZ
- QdH3qyP8a6Ex3I=
-
-
---EIEte5+tjVxDHmE6
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: a54b7f27-405d-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+TvlC+Qf5fMHZA2wsrLTQs85mXKNK4nPuyn+1eu5GaE=;
+ b=dVmDnNY7/z0EfrakOXCFkFZNYaJnm8j3JvqtKpkCYvxeop63Yzn/jbRePH+moktsLtMAMuliN3LZGr7eXrpW/5F1D+/DzVGsGHqknFU9PekrqVSdTLJRGc+aeFdtivigLOMRN8VIuOVlQ29I33qJuZoCwgGGi948vbB6kiRJ470=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BNKlZYsSJ+TZD2bAWaq/J+anSUcbZcmUcqdarmNeXeQDA51wvkTtublcM60wMRQ6WX3qQEHsKOboKLOzwopsF7WJd4BLPbxXL37qWYxnnl36NG6xHSBvUfvkjaMELafCw3vKveiSz/k6pUkiN9EHyEhv/UsODOwtzuFb5VoKoOYdxY7C4HG2y/GN1DmLBrYaPUjbnKJHkfcnQBoQl5YtIUHbbdU8z9aErEcU6holkmXFl1uBfync2OeQSoQNlW9NtlDx3GSVGG2OyO2cVAMkcFbAAvgqZS6EQHkTlrPG8l5J6Ug8PcfF6vVzya+uaXrW8k9Xa6ndxAJdVxqUOuk2SA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+TvlC+Qf5fMHZA2wsrLTQs85mXKNK4nPuyn+1eu5GaE=;
+ b=QI/nPpMrWj9QbWgoidtkJtoHVUPw1tlTRr58jl+eYrIT4vNjrVzwj8fqiKrtOMEoZ23hoyTXTkp2A+FbIuabOgTO88VWpwQZS6pQXicDkL9WMRIgGVCAAglmzUDLGl9xTi26nwjoS2STjj2mWYcvP50zLuQ2SHSyPIiMu8uQPcauf8OLH2r9rbwALt/PEg2ty5AyOW7/ia8imHKi1zuKP3v1Nz7i7BdFHIioSfkssnqIM6cEqJtn+31x8WbBh+2JlYZprjJ7YyObGXXt1LTUM5/BJDiLWLNLs3mYKxklK8OsGZP6qVqI5fkNVCZT5LtRsqiSJnTvzGF3mTRcYO5hMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+TvlC+Qf5fMHZA2wsrLTQs85mXKNK4nPuyn+1eu5GaE=;
+ b=dVmDnNY7/z0EfrakOXCFkFZNYaJnm8j3JvqtKpkCYvxeop63Yzn/jbRePH+moktsLtMAMuliN3LZGr7eXrpW/5F1D+/DzVGsGHqknFU9PekrqVSdTLJRGc+aeFdtivigLOMRN8VIuOVlQ29I33qJuZoCwgGGi948vbB6kiRJ470=
+From: Penny Zheng <Penny.Zheng@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Wei
+ Chen <Wei.Chen@arm.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>, Julien
+ Grall <julien@xen.org>
+Subject: RE: static-mem preventing dom0 from booting
+Thread-Topic: static-mem preventing dom0 from booting
+Thread-Index: AQHX0eWC7qpRq+VAt0Cu1/k92WugAqv0ODjwgABBVXCAAJnMgIAAe3eAgAOZYsA=
+Date: Mon, 8 Nov 2021 06:32:16 +0000
+Message-ID:
+ <DU2PR08MB732591B79A7ED13090840C46F7919@DU2PR08MB7325.eurprd08.prod.outlook.com>
+References:
+ <alpine.DEB.2.22.394.2111041829300.284830@ubuntu-linux-20-04-desktop>
+ <DU2PR08MB73256624607E7624CAAD38E5F78E9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+ <DU2PR08MB7325A7A5658B1EB7C6EB4DECF78E9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+ <alpine.DEB.2.22.394.2111050836580.284830@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2111051554000.284830@ubuntu-linux-20-04-desktop>
+In-Reply-To:
+ <alpine.DEB.2.22.394.2111051554000.284830@ubuntu-linux-20-04-desktop>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: 07EF7716B777804999C1E46D81FE44C0.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-Correlation-Id: b4a8e45d-0223-4e2d-097d-08d9a281891d
+x-ms-traffictypediagnostic: DU2PR08MB7312:|AM9PR08MB5876:
+X-Microsoft-Antispam-PRVS:
+	<AM9PR08MB5876A3B437EE4E16CB687B23F7919@AM9PR08MB5876.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:3631;OLM:3631;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ f8x6neSoYj46PSgjrx5ZQPcUpm7M1px8xHzv0g8DmRfRy8aie00Uggvu/SHzRJKz6vp0tPWAIaqZIWRByqIkwj/B+psYDnL702EaFYMSIV31E3PujWA4xeKarO/g3jc6J7FwnfnBuIaD+rBe4grCtNpR9dBV11dB6MV4Tbi47gp3RiEV/g0LWn+uzl58hdgBsktj1GlC8hN7wOplkXnhflHRFMnHk2eunyDE/61J9Oyd8tXUCG7esjkUPpFPb5vXoBP7eQVssJKCyYrS7QWT7f6jaSl14QDfuzTBuGu00XBzZxNVDBfLUdst+bYDYfB9rKhRGjggC4NbJrNhLQwuufmG35n8lAOxmXy/U3Kc/wA7DY4PE2iWsSuoSfZfmQRhSyx4G3rU2erGAZzPHwrS2gb3k4douFtBNDPdUCE0FvEmajW69YJxn7uezRoZbq9x2tHgsTXzRcAtAF8mXffCyMHHALayC156dKybjhf4ZX9c2rOzqrS+YIiSJnGXs9+dwbYYo5Mow41U9Qiu8ln3l4rRmvvhYg7TUm70YoXYbcb594ZCl6dor4B1NPd3WeA0M7g4X0mzpoUPAd4p+FjNZN9DcXprrLsXqrsOMgH0HPKa8M2EAmf00MFUjp4faqMA8gYZbl3K37wTpGyZri4tIOZ0kRhoHcfBFuM+EnP3L2TE9O0L1WLfA9orz+2VDJuLptqvD1LFC3OpjHAgVj4jIQ==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU2PR08MB7325.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(55016002)(54906003)(66476007)(66556008)(26005)(83380400001)(86362001)(122000001)(64756008)(66446008)(5660300002)(6506007)(53546011)(316002)(9686003)(52536014)(38070700005)(8676002)(8936002)(6916009)(186003)(508600001)(76116006)(33656002)(4326008)(71200400001)(66946007)(2906002)(38100700002)(7696005);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR08MB7312
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT031.eop-EUR03.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	26286311-1fe4-4ecd-f94b-08d9a2818215
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	6jAP1Q8mW2UzLhOZwRt1VTdrnD3fyd5L6hT6aPRZyJLl2X36nOJ+wOOlGsvYTqhwaM7mg4HAqU/uJIXHyy0eutA0ytVjaqYVpIHLCFqN6ADWzQtCq07SNFEJv+5vmpghUvdLp8aZVs5zxqTAw5ut7nl1N6F4UABUMJrzFIEYQjemq0zgm4wdZEDY9KnXow4KAlCz+T+t1IEkPy3H2qhrGe4u4PzYrKROJFIJCoCqSUBkBY6SlK9647BzXChIpVR1aAO4HXnKOnhEoyduY/JVlN6EhUPpC6225CLTZAEpzjnNx+w6FIDlNiqxNi0CvE5yigTvpkBMqXPD/3KEnolt56VHQE9ELk7bkhO9vbDrx3cewv1yKNsCtqjpMSVlvsODNSCLTKSKKaoLEl6qHQNpW+IfZW9r0ani/+cRPNrSMrX3HjGVcJvBB7/rLoChz/TOFaOcH6kvf4UdgG1snv+SIh8tsyUrNsX46WILCbXt4zZoVITbIiauwRDB2mTgz/Ns3PgMTRfoy+utiHLq3MoAxgze/8TBxDjAE7mDCOh42Mheu7Z9qWTd2c5v1SVvoUhb/q3LLrGAdCFpmj/kAZ8we9MjnITUkl4tqOZzoVU3hMa6bV4aG9kI5SKiwNoyxA3cD+9qEc8O8wUcapEKzHAQWP+mo7KN2k7Txpje3i0q1JQ10UDQwdiG0e40jJNZoftwkpzLJ/t4i3JKYrFWlN4UGg==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(83380400001)(26005)(53546011)(336012)(4326008)(81166007)(356005)(36860700001)(82310400003)(186003)(8676002)(7696005)(70586007)(5660300002)(6862004)(54906003)(70206006)(508600001)(9686003)(8936002)(52536014)(316002)(55016002)(2906002)(47076005)(33656002)(6506007)(86362001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2021 06:32:28.3358
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4a8e45d-0223-4e2d-097d-08d9a281891d
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT031.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB5876
 
-Hi,
+Hi Stefano
 
-On Thu, Oct 28, 2021 at 12:16:57AM +0300, Dmitry Osipenko wrote:
-> Use devm_register_power_handler() that replaces global pm_power_off
-> variable and allows to register multiple power-off handlers. It also
-> provides restart-handler support, i.e. all in one API.
+> -----Original Message-----
+> From: Stefano Stabellini <sstabellini@kernel.org>
+> Sent: Saturday, November 6, 2021 7:03 AM
+> To: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org;
+> Wei Chen <Wei.Chen@arm.com>; Bertrand Marquis
+> <Bertrand.Marquis@arm.com>
+> Subject: RE: static-mem preventing dom0 from booting
 >=20
-> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
-> ---
+> On Fri, 5 Nov 2021, Stefano Stabellini wrote:
+> > The scenario is extremely simple; you can see the full device tree
+> > configuration in the attachment to my previous email.
+> >
+> > - dom0
+> > - dom0less domU with static-mem
+> >
+> > That's it! So basically it is just a normal dom0 + dom0less domU
+> > configuration, which already works fine, where I added static-mem to
+> > the domU and suddenly dom0 (not the domU!) stopped working.
+>=20
 
-When I boot with (most of) this patchset applied, I get the warning at
-kernel/reboot.c:187:
+Got it. Sorry, I missed the scenario you are talking about... I simply thin=
+k what dom0less
+means that dom0 is absent... ;/
+ =20
+> I did some more debugging today and I found the problem. The issue is tha=
+t
+> static-mem regions are added to the list of reserved_mem. However,
+> reserved_mem is automatically assigned to Dom0 by default at the bottom o=
+f
+> xen/arch/arm/domain_build.c:handle_node, see the second call to
+> make_memory_node. Really, we shouldn't give to dom0 static-mem ranges
+> meant for other domUs. E.g. the following change is sufficient to solve t=
+he
+> problem:
+>=20
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 88a79247cb..dc609c4f0e 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -891,6 +891,9 @@ static int __init make_memory_node(const struct
+> domain *d,
+>          u64 start =3D mem->bank[i].start;
+>          u64 size =3D mem->bank[i].size;
+>=20
+> +        if ( mem->bank[i].xen_domain )
+> +            continue;
+> +
+>          dt_dprintk("  Bank %d: %#"PRIx64"->%#"PRIx64"\n",
+>                     i, start, start + size);
+>=20
+> However, maybe a better fix would be to purge reserved_mem of any
+> xen_domain items before calling make_memory_node.
+>=20
+>=20
+> I found one additional issue regarding is_domain_direct_mapped which
+> doesn't return true for static-mem domains. I think we need to add a
+> direct_map bool to arch_domain and set it for both dom0 and static-mem
+> dom0less domUs, so that we can change the implementation of
+> is_domain_direct_mapped to:
+>=20
+> #define is_domain_direct_mapped(d) (d->arch.direct_map)
 
-	/*
-	 * Handler must have unique priority. Otherwise call order is
-	 * determined by registration order, which is unreliable.
-	 */
-	WARN_ON(!atomic_notifier_has_unique_priority(&restart_handler_list, nb));
+Yeah, I already pushed a patch serie regarding direct-map to community for =
+review,=20
+and it is also based on your old direct-map serie.=20
 
-As the NTXEC driver doesn't specify a priority, I think this is an issue
-to be fixed elsewhere.
+Today, I may push direct-map version 3 to community for review~~~ If you're=
+ free, plz take a look.
 
-Other than that, it works and looks good, as far as I can tell.
-
-
-For this patch:
-
-Reviewed-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-Tested-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-
-
-Best regards,
-Jonathan
----
-
-Full Oops log:
-
-[    3.523294] ------------[ cut here ]------------
-[    3.528193] WARNING: CPU: 0 PID: 1 at kernel/reboot.c:187 register_resta=
-rt_handler+0x4c/0x58
-[    3.536975] Modules linked in:
-[    3.540312] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 5.15.0-00021-gcb24=
-c628b307 #622
-[    3.548214] Hardware name: Freescale i.MX50 (Device Tree Support)
-[    3.554357] [<c0111540>] (unwind_backtrace) from [<c010cdd0>] (show_stac=
-k+0x10/0x14)
-[    3.562183] [<c010cdd0>] (show_stack) from [<c0bf240c>] (dump_stack_lvl+=
-0x58/0x70)
-[    3.569824] [<c0bf240c>] (dump_stack_lvl) from [<c0127604>] (__warn+0xd4=
-/0x154)
-[    3.577191] [<c0127604>] (__warn) from [<c0bec844>] (warn_slowpath_fmt+0=
-x74/0xa8)
-[    3.584727] [<c0bec844>] (warn_slowpath_fmt) from [<c01593c8>] (register=
-_restart_handler+0x4c/0x58)
-[    3.593823] [<c01593c8>] (register_restart_handler) from [<c08676c8>] (_=
-_watchdog_register_device+0x13c/0x27c)
-[    3.603889] [<c08676c8>] (__watchdog_register_device) from [<c0867868>] =
-(watchdog_register_device+0x60/0xb4)
-[    3.613764] [<c0867868>] (watchdog_register_device) from [<c08678f8>] (d=
-evm_watchdog_register_device+0x3c/0x84)
-[    3.623898] [<c08678f8>] (devm_watchdog_register_device) from [<c1146454=
->] (imx2_wdt_probe+0x254/0x2ac)
-[    3.633346] [<c1146454>] (imx2_wdt_probe) from [<c06feb74>] (platform_pr=
-obe+0x58/0xb8)
-[    3.641314] [<c06feb74>] (platform_probe) from [<c06fb2f8>] (call_driver=
-_probe+0x24/0x108)
-[    3.649636] [<c06fb2f8>] (call_driver_probe) from [<c06fbe08>] (really_p=
-robe.part.0+0xa8/0x358)
-[    3.658384] [<c06fbe08>] (really_probe.part.0) from [<c06fc1c4>] (__driv=
-er_probe_device+0x94/0x208)
-[    3.667470] [<c06fc1c4>] (__driver_probe_device) from [<c06fc368>] (driv=
-er_probe_device+0x30/0xc8)
-[    3.676468] [<c06fc368>] (driver_probe_device) from [<c06fcb0c>] (__driv=
-er_attach+0xe0/0x1c4)
-[    3.685032] [<c06fcb0c>] (__driver_attach) from [<c06f9a20>] (bus_for_ea=
-ch_dev+0x74/0xc0)
-[    3.693253] [<c06f9a20>] (bus_for_each_dev) from [<c06faeb8>] (bus_add_d=
-river+0x100/0x208)
-[    3.701563] [<c06faeb8>] (bus_add_driver) from [<c06fd8a0>] (driver_regi=
-ster+0x88/0x118)
-[    3.709696] [<c06fd8a0>] (driver_register) from [<c06fe920>] (__platform=
-_driver_probe+0x44/0xdc)
-[    3.718522] [<c06fe920>] (__platform_driver_probe) from [<c01022ac>] (do=
-_one_initcall+0x78/0x388)
-[    3.727444] [<c01022ac>] (do_one_initcall) from [<c1101708>] (do_initcal=
-ls+0xcc/0x110)
-[    3.735413] [<c1101708>] (do_initcalls) from [<c110198c>] (kernel_init_f=
-reeable+0x1ec/0x250)
-[    3.743896] [<c110198c>] (kernel_init_freeable) from [<c0bfe724>] (kerne=
-l_init+0x10/0x128)
-[    3.752224] [<c0bfe724>] (kernel_init) from [<c010011c>] (ret_from_fork+=
-0x14/0x38)
-[    3.759844] Exception stack(0xc40adfb0 to 0xc40adff8)
-[    3.764933] dfa0:                                     00000000 00000000 =
-00000000 00000000
-[    3.773143] dfc0: 00000000 00000000 00000000 00000000 00000000 00000000 =
-00000000 00000000
-[    3.781351] dfe0: 00000000 00000000 00000000 00000000 00000013 00000000
-[    3.788347] irq event stamp: 143613
-[    3.792102] hardirqs last  enabled at (143623): [<c01a3ebc>] __up_consol=
-e_sem+0x50/0x60
-[    3.800397] hardirqs last disabled at (143632): [<c01a3ea8>] __up_consol=
-e_sem+0x3c/0x60
-[    3.808491] softirqs last  enabled at (143612): [<c0101518>] __do_softir=
-q+0x2f8/0x5b0
-[    3.816591] softirqs last disabled at (143603): [<c01307dc>] __irq_exit_=
-rcu+0x160/0x1d8
-[    3.825014] ---[ end trace 7f6709d2c89774b4 ]---
-
---EIEte5+tjVxDHmE6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEvHAHGBBjQPVy+qvDCDBEmo7zX9sFAmGG624ACgkQCDBEmo7z
-X9s6ChAAk6BAeo5fWoSSZHjjpn6ATqjK8ym6Qwe2EuauLkxbrtHK3OsbljBzCdtj
-p4LUnHOvUjWpnlBRfbbZSXKo5B0LxFtUhe/Cz9IDICft4K2DmOExc+xY9zQNcjMO
-rNIxDh4Q8qUdWv4c4B3p812s36yVKoaAGT6XHR9ISWOWmTWq/SNXiFetn9KdMaRs
-INw4aNL0grB717V8ucg5RtEOcrLEHRPf6Rv0b6yhfRdBQGx5XCatsdkofBcM9Rlr
-ECVr+SDk6hoMvPgqbnK3hh1fU0MGiDoyHN/+PhdW5k71EoqynneLlz1xhU4P1TAQ
-4leH70X0lvTJSlpZ+dWkgVGkGzE8LtrjCwhCzZvf+UKqhKf4VWp9LInkiRU2mEaN
-ZGeaNLEL/oEE2nHZuWuW8imYr/WoYQKyZX+rG/g+aViMxom4/RC/IF5GFWxInCgi
-IBVFSiKxJOwKvKHZrsiJsk+zqcmb1TRObyYd0ecsOPD413IWwnFIl6502QRQolJH
-UvdIANNtt2/XORmBBNNGCQtZJ82srfxBpn9jzBtCZu03m4RymWvURbqbIx7mAiz0
-6nj5cArubiCB8WOnOcCmsgHzLZDzN2SAy5UFxsELy67LUXWjsGMG++sHbkDuaiji
-/h71rvx5wmakG7quyBIQDCUtxgSMJL73yZA4N8UsQABCsmnNXgE=
-=jBJI
------END PGP SIGNATURE-----
-
---EIEte5+tjVxDHmE6--
+Cheers,
+Penny Zheng
 
