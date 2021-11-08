@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 069A14477E2
-	for <lists+xen-devel@lfdr.de>; Mon,  8 Nov 2021 01:58:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.222994.385542 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A3D34477DB
+	for <lists+xen-devel@lfdr.de>; Mon,  8 Nov 2021 01:58:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.222943.385477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mjszl-0002c6-EH; Mon, 08 Nov 2021 00:58:45 +0000
+	id 1mjsz1-0006pc-87; Mon, 08 Nov 2021 00:57:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 222994.385542; Mon, 08 Nov 2021 00:58:45 +0000
+Received: by outflank-mailman (output) from mailman id 222943.385477; Mon, 08 Nov 2021 00:57:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mjszl-0002YD-Aj; Mon, 08 Nov 2021 00:58:45 +0000
-Received: by outflank-mailman (input) for mailman id 222994;
- Mon, 08 Nov 2021 00:58:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mjsz1-0006mu-2Z; Mon, 08 Nov 2021 00:57:59 +0000
+Received: by outflank-mailman (input) for mailman id 222943;
+ Mon, 08 Nov 2021 00:57:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZOPF=P3=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1mjspe-0004MH-Gf
- for xen-devel@lists.xenproject.org; Mon, 08 Nov 2021 00:48:18 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 902ea2b5-402d-11ec-a9d2-d9f7a1cc8784;
- Mon, 08 Nov 2021 01:48:17 +0100 (CET)
-Received: by mail-lf1-x12d.google.com with SMTP id b40so3077220lfv.10
- for <xen-devel@lists.xenproject.org>; Sun, 07 Nov 2021 16:48:17 -0800 (PST)
+ id 1mjsph-0004R0-As
+ for xen-devel@lists.xenproject.org; Mon, 08 Nov 2021 00:48:21 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9132de26-402d-11ec-9787-a32c541c8605;
+ Mon, 08 Nov 2021 01:48:19 +0100 (CET)
+Received: by mail-lj1-x22c.google.com with SMTP id d11so4998594ljg.8
+ for <xen-devel@lists.xenproject.org>; Sun, 07 Nov 2021 16:48:19 -0800 (PST)
 Received: from localhost.localdomain (79-139-188-96.dynamic.spd-mgts.ru.
  [79.139.188.96])
- by smtp.gmail.com with ESMTPSA id p17sm1625266lfu.209.2021.11.07.16.48.15
+ by smtp.gmail.com with ESMTPSA id p17sm1625266lfu.209.2021.11.07.16.48.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 07 Nov 2021 16:48:17 -0800 (PST)
+ Sun, 07 Nov 2021 16:48:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 902ea2b5-402d-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 9132de26-402d-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=jIixMSKlDuHM/ROsyXYWDI0GhGtBfDPAGuo/NFEP3H8=;
-        b=hSCECj6oief95mUKAFt1aYs1z2BhI3PyCJpHbMUlNZ/M49sY1G7gzTeEyttE60gMak
-         BF+5uDSKoSn4CaOELlWWJK6Z03Rk6y4HTwrmSVMcH4REAv0cUqJCMn3qEJCUcKMx0Yg2
-         hZUAWfnWhmv0u8d55RvvttbeCJzqzTllkqZ8sZrYO0dyywzXm1H9T9B85gH//tK7VGaP
-         LSTKHt3pU1K6UjbgljgztfzIXizYQhXuqyNy4a5wOAJ6zgoCDgTzWA5VXtRTbqr75uP5
-         JNN1xexiLEoZfDmssN9kF5V9y9vHzkvg7OruyPjb23gGAachOOiZE7sCXiHSj3rLrdzh
-         uUnA==
+        bh=Cc0IUGWHitJ0Cooyguk/vAdy9iAEtCRPuqNtfJHYmrA=;
+        b=IzSZ2r99jHnEXOJGmbU0tHUFmE/bhuXI5h+blmEHakGg7rzpiFL+0mOCLjt28XqajZ
+         0QhIqwZpxuBAuKtcdn99cngTgGQcwKDfsczTUO7mYBiBbkSJABmgfIe+anJe+S8zTkAo
+         +MSGfP9t/6NMZAi/y+PEcZy6dKDaI5eRw8SF2IiidxM3DFV/pghTK0TWXsrC8rAar1Ec
+         2oJQaU2TPiJrnwcFVxDME2/aiZTk+celdQeclkyhA6B1KDbPFsfORVhRFDWkqiIGGoGQ
+         y74VPF0X/9jdFZHHvYnomCuifzskMFVG48hCZtdZ+dBA6HCo9R7RBcCSlKCE+l0Gg0E2
+         Qbpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=jIixMSKlDuHM/ROsyXYWDI0GhGtBfDPAGuo/NFEP3H8=;
-        b=5pBAbBaBDu3OcL/PxG0gSgHVEeb+1LWXqKZVergoSqjHqTAfJeacj0n0vW45/OrFYG
-         e0FNNXbqk5wZ5kOSzOYzh41z7FXS1mjTWeTIgExm0wwnalkQdLN/Gme2dSF35he3dwfi
-         v7SvA9VZNazdBlEo/X1LCkaIOJx8scoE+gXMIlBsaIV3M7LgHhjkVOpuxqG5RcD8Esy5
-         0ThmfHI5Y9ONtndiA/Xkh7h20IccgicIc5EkQkINiZm4kcVLvCDoER2GadxAr4gmActE
-         KlwFwHhUpiGQNCFqGp7AqxfG8JJeNLWdtVvHrwitX9cpJghsAHdqpSVuu43TqnZYLwQA
-         OBaA==
-X-Gm-Message-State: AOAM5311B1FZ2UW/rcBIIjXTqfr+zHuqGlaeuHWeyPKIfVDoj0PRj5Ca
-	obKgnvjoOepEv6Bv+neTl/Y=
-X-Google-Smtp-Source: ABdhPJzYDrvoemDzHy5lRXulk7VBYq7aeBqM7UdlzGSCmj4dbWeKpvaVLmRfE93Wr+MuGPe+b8E4Uw==
-X-Received: by 2002:ac2:4e13:: with SMTP id e19mr3337438lfr.561.1636332497640;
-        Sun, 07 Nov 2021 16:48:17 -0800 (PST)
+        bh=Cc0IUGWHitJ0Cooyguk/vAdy9iAEtCRPuqNtfJHYmrA=;
+        b=IjCjipZMV9mSHpzRWh0FlHNOqBMSBWPvJ7gOYcxja6J3kzUJFqc75O16F9XiTEZ8K6
+         NFQG0ZeFYSJDjVJ2ELxoCPL22TX09X65bDBv5c882rr8jE3lyxDk9IS3VY6qEeYRT9UP
+         TXP7QBsZb5adw+/3tyKCBtwlmkpwhVz+0+uhKz20AIi26JbBrCyUSOioase5huvFJbBC
+         8OHyKDHbeSqfi1d2Z4QqE9udq9GaTqvdv1I2eD1sOYpoZofRhgRTPobrL6jYhDm/am4u
+         TPmsCrA6/voZ4wyKf6Agb++/hLg63UUSPFQTdP4SaEQn2eLXwM9hKXXcqp/mhFw61W7R
+         cw3A==
+X-Gm-Message-State: AOAM533n8IBbVAdificyQdHut3TlRebunO3P12LXEiRZI3Q51brl+LE5
+	v/qOaSG1lvwKeIuFRog2zSI=
+X-Google-Smtp-Source: ABdhPJy4RtOehJnpJYrVc1NQyuBuwoIsoJy3foDMnf8FY5V4GrNNRvHzsXmwf+DV8gEqIGOLzN+pyQ==
+X-Received: by 2002:a2e:a444:: with SMTP id v4mr75863886ljn.33.1636332499373;
+        Sun, 07 Nov 2021 16:48:19 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -132,9 +132,9 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v3 17/25] ia64: Use do_kernel_power_off()
-Date: Mon,  8 Nov 2021 03:45:16 +0300
-Message-Id: <20211108004524.29465-18-digetx@gmail.com>
+Subject: [PATCH v3 18/25] mips: Use do_kernel_power_off()
+Date: Mon,  8 Nov 2021 03:45:17 +0300
+Message-Id: <20211108004524.29465-19-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211108004524.29465-1-digetx@gmail.com>
 References: <20211108004524.29465-1-digetx@gmail.com>
@@ -148,31 +148,23 @@ be converted to the new power-off API.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- arch/ia64/kernel/process.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/mips/kernel/reset.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/arch/ia64/kernel/process.c b/arch/ia64/kernel/process.c
-index 834df24a88f1..cee4d7db2143 100644
---- a/arch/ia64/kernel/process.c
-+++ b/arch/ia64/kernel/process.c
-@@ -19,6 +19,7 @@
- #include <linux/module.h>
- #include <linux/notifier.h>
- #include <linux/personality.h>
-+#include <linux/reboot.h>
- #include <linux/sched.h>
- #include <linux/sched/debug.h>
- #include <linux/sched/hotplug.h>
-@@ -599,8 +600,7 @@ machine_halt (void)
- void
- machine_power_off (void)
+diff --git a/arch/mips/kernel/reset.c b/arch/mips/kernel/reset.c
+index 6288780b779e..e7ce07b3e79b 100644
+--- a/arch/mips/kernel/reset.c
++++ b/arch/mips/kernel/reset.c
+@@ -114,8 +114,7 @@ void machine_halt(void)
+ 
+ void machine_power_off(void)
  {
 -	if (pm_power_off)
 -		pm_power_off();
 +	do_kernel_power_off();
- 	machine_halt();
- }
  
+ #ifdef CONFIG_SMP
+ 	preempt_disable();
 -- 
 2.33.1
 
