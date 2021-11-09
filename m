@@ -2,31 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEA1644A478
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Nov 2021 03:13:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.223669.386461 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9A2144A60C
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Nov 2021 06:20:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.223675.386473 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkGcK-0005Us-Cw; Tue, 09 Nov 2021 02:12:08 +0000
+	id 1mkJXa-0005nJ-6v; Tue, 09 Nov 2021 05:19:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 223669.386461; Tue, 09 Nov 2021 02:12:08 +0000
+Received: by outflank-mailman (output) from mailman id 223675.386473; Tue, 09 Nov 2021 05:19:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkGcK-0005RT-4i; Tue, 09 Nov 2021 02:12:08 +0000
-Received: by outflank-mailman (input) for mailman id 223669;
- Tue, 09 Nov 2021 02:12:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mkJXa-0005k3-2i; Tue, 09 Nov 2021 05:19:26 +0000
+Received: by outflank-mailman (input) for mailman id 223675;
+ Tue, 09 Nov 2021 04:57:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i2Q5=P4=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1mkGcI-0005RN-7a
- for xen-devel@lists.xenproject.org; Tue, 09 Nov 2021 02:12:06 +0000
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 661e3a88-4102-11ec-9787-a32c541c8605;
- Tue, 09 Nov 2021 03:11:59 +0100 (CET)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4005161152;
- Tue,  9 Nov 2021 02:11:49 +0000 (UTC)
+ <SRS0=FnEj=P4=samsung.com=inki.dae@srs-se1.protection.inumbo.net>)
+ id 1mkJCk-0003i1-HR
+ for xen-devel@lists.xenproject.org; Tue, 09 Nov 2021 04:57:55 +0000
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 949575d7-4119-11ec-a9d2-d9f7a1cc8784;
+ Tue, 09 Nov 2021 05:57:50 +0100 (CET)
+Received: from epcas1p2.samsung.com (unknown [182.195.41.46])
+ by mailout4.samsung.com (KnoxPortal) with ESMTP id
+ 20211109045745epoutp0432d46666e8d0e3e6dd2169c1db6247be~1x_5Bbyhj3080830808epoutp04-
+ for <xen-devel@lists.xenproject.org>; Tue,  9 Nov 2021 04:57:45 +0000 (GMT)
+Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
+ epcas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20211109045745epcas1p241828c9a74fb4b6120bfff7ca0719c92~1x_4el3W60690306903epcas1p2G;
+ Tue,  9 Nov 2021 04:57:45 +0000 (GMT)
+Received: from epsmges1p1.samsung.com (unknown [182.195.38.235]) by
+ epsnrtp3.localdomain (Postfix) with ESMTP id 4HpG1r6GVvz4x9R0; Tue,  9 Nov
+ 2021 04:57:36 +0000 (GMT)
+Received: from epcas1p3.samsung.com ( [182.195.41.47]) by
+ epsmges1p1.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 23.2B.64085.ABFF9816; Tue,  9 Nov 2021 13:57:30 +0900 (KST)
+Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+ epcas1p4.samsung.com (KnoxPortal) with ESMTPA id
+ 20211109045730epcas1p4a5295673a5aad41d1b0c8b5ea68636dd~1x_rFtcz30646206462epcas1p4R;
+ Tue,  9 Nov 2021 04:57:30 +0000 (GMT)
+Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
+ epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20211109045730epsmtrp1213b89479be836f60004e73dd7eb7b8a~1x_rE1PHb1318413184epsmtrp1u;
+ Tue,  9 Nov 2021 04:57:30 +0000 (GMT)
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 5C.BF.08738.ABFF9816; Tue,  9 Nov 2021 13:57:30 +0900 (KST)
+Received: from [10.113.221.211] (unknown [10.113.221.211]) by
+ epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20211109045730epsmtip2305d4d7a3be6744286980fba874b0a67~1x_qwWiAs1204612046epsmtip2U;
+ Tue,  9 Nov 2021 04:57:30 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,123 +65,277 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 661e3a88-4102-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1636423909;
-	bh=vAd6l7i5cYc1ffNYOwSpfTYDRHavyWQVcGZ5RFkL77w=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=C1eKalWaCX4fHcanRHJIsjQSuF72y3dokvbtUiulR2xrlw5EutAdLCYGxmH/Ma5iv
-	 TXfsAcdQmWVBv13PWidxUwB7A+Hnf1WFmwYkLHxt8oavMRHXHj24RWDdlroFHYPjwj
-	 K66omTKlP/YpE43fowZ9w9yCm9AKWF+Q2wFKfF6Pl/3XuslIeh0qI5rSDsM7+FKNQP
-	 lwq1d4wXOwA20vEYZYtjbqrYJvMXIY3h24s4kb9DSJrQIH2BWz8UV6AduVo0PoesGq
-	 JXUDSlBeJ3oRrT5Jfh8SwcDMVWZnLC0L/q01m/7aKUiqXu/nBJkCgUpym6D0teelN/
-	 an+ffpX9RuN7Q==
-Date: Mon, 8 Nov 2021 18:11:47 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com, 
-    Ian Jackson <iwj@xenproject.org>, Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    xen-devel@lists.xenproject.org, Luca Fancellu <luca.fancellu@arm.com>
-Subject: Re: [PATCH-4.16 v2] xen/efi: Fix Grub2 boot on arm64
-In-Reply-To: <9bd58aa4-602b-4c64-e759-581513909457@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2111081805530.3317@ubuntu-linux-20-04-desktop>
-References: <20211104141206.25153-1-luca.fancellu@arm.com> <81685961-501e-7a41-6f6f-bc4491645264@suse.com> <alpine.DEB.2.22.394.2111041351490.284830@ubuntu-linux-20-04-desktop> <97C884F7-0577-4996-AB79-0A07A8D48FD8@arm.com>
- <alpine.DEB.2.22.394.2111041431070.284830@ubuntu-linux-20-04-desktop> <9E52FA33-422B-4B1C-A6AF-601CDF565700@arm.com> <alpine.DEB.2.22.394.2111041449180.284830@ubuntu-linux-20-04-desktop> <e4b2e1be-0e41-0e6e-5ea8-3c12b4593724@suse.com>
- <alpine.DEB.2.22.394.2111050825240.284830@ubuntu-linux-20-04-desktop> <9bd58aa4-602b-4c64-e759-581513909457@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 949575d7-4119-11ec-a9d2-d9f7a1cc8784
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20211109045745epoutp0432d46666e8d0e3e6dd2169c1db6247be~1x_5Bbyhj3080830808epoutp04-
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1636433865;
+	bh=ANh3cRKm36WmEPwoAPLZp935d6WceP07H6l2ech2/Hc=;
+	h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
+	b=IecfXSdX64/SEd8VWbb/8WXCnIaYGeI/HbYBp4f6aTXstSu97tSkWZkGBUEMaFgFC
+	 yAFxhFtazNBA7PL92QiQyP1TB0LuLosgyMpYC40WsxwraCl6NlPUgM4L+vvmj3MMR9
+	 IH6UwhNITaTb2UmLkETWto7Nuw3csdrCLSruWv4E=
+X-AuditID: b6c32a35-9adff7000000fa55-c9-6189ffbaeeb6
+Subject: Re: [PATCH 1/3] drm/exynox: Implement mmap as GEM object function
+To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
+	airlied@linux.ie, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	jy0922.shim@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
+	krzysztof.kozlowski@canonical.com, oleksandr_andrushchenko@epam.com
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, xen-devel@lists.xenproject.org
+From: Inki Dae <inki.dae@samsung.com>
+Message-ID: <f88911b4-b5a7-abf1-4294-8e593b049448@samsung.com>
+Date: Tue, 9 Nov 2021 14:08:25 +0900
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+	Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1476451275-1636423908=:3317"
+In-Reply-To: <20211108102846.309-2-tzimmermann@suse.de>
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Brightmail-Tracker: H4sIAAAAAAAAA01Tf1AUdRyd7+7eskei2ynyDQru1mwGjB8nHOwhh4yZs2DjgExZOIUbrNzF
+	/er2aFSkMIoBFOKEAi9EmI6ow/EEDwTMmmAAGQihYcQcERJqgkQOEG3GceyOxeK/9z7z3vd9
+	3/cHgUrGcX9CozdzJj2rpXBvrK07ODz0ytNiNmIhgS4d6kfop20WlB5dnsfpv+6MYHTz3D8I
+	/cun97zolqkbIrr6+o8IXb/QitGFxd+KaFfTvHtWMYPTznsWEf3IWYEkrGes+aU4c7uhAzBX
+	H9ZhTIu9GGcuP5wUMbX9KczEyT6EuWT7hOl2jWJMmdMOmEsDucxSS2DyurTsODXHZnImKafP
+	MGRq9Fkqam9q+mvpiugIeahcScdQUj2r41TU7jeSQ/dotO4ilPQjVpvjHiWzPE+Fx8eZDDlm
+	Tqo28GYVxRkztUaFMYxndXyOPitMz5lj5RER2xVu4aFs9VzfNG4cVh4puDaB5IOq8BIgJiAZ
+	BSseLIhKgDchIdsBHG2+ighkEcCljkFcIEsAtleWoc8sjXeLV1WdADYNtaySeQAbT9e4VQSx
+	kUyCdYvPeeabyBoETtmeAA9ByTIAf+5exjxL4eRWaPluAvdgHzIeOi9WrmCMfBleKRlCPNiX
+	fAc+6e8UCZrnYf+Z6RWvmIyB9jnbih4l/eCt6XOIgINgQevXqCcMki4C3u2qRYR974bLpd8A
+	AW+Es31OLwH7w5kvCr0EQwGAluoBRCBFAI5PjWGCKhL+1FCBeLqhZDB0dK6enwx2PD4LhOT1
+	8P7yKZFHAkkfWFQoESQU7B25uZoL4bDNgguYgc03z6PlQGZd0826po91TR/r/8F1ALODzZyR
+	12VxvNwo/+/CMwy6FrDyzkMU7cAy5wrrAggBugAkUGqTz52eIlbik8kePcaZDOmmHC3HdwGF
+	+7QtqL9vhsH9UfTmdHmUMiIqentkFC2PllN+PkuBH7ISMos1c9kcZ+RMz3wIIfbPR/K9q05V
+	9spEDZN9O4sOSvZc/O1WuE23v/f3A6mJYztiljc4J9+jt73oCC6MZpPGbUpkMQ858bH2cn39
+	Z7INSpmGUxCNuQF/Hzx+9M05ac9g/dIP5bHDryRc+FW1GQbMgrRcu/hLv/DW761f7X2rad5x
+	Yv+f7xaXtw0ZxCFiWcpZ1+dBSTvyetTKsl1bHah+y8AHfacr+AMXQtGTqfuuM2l5kZr5xNqa
+	bVsKz7lUs2kvjUTFByeeCXk7rCrF1XHYrts5wxy69rrsyDrNLvHgH/dL21BD+lhAucM4zDqw
+	B8czlIE3jBmvliy84Jsp5eCx2MfnqzlV0O1R8b448pHzffKwmcJ4NSsPQU08+y8YGzrVcAQA
+	AA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrJIsWRmVeSWpSXmKPExsWy7bCSvO6u/52JBkePKFr0njvJZPF/20Rm
+	iytf37NZvLh3kcVi49sfTBZnm96wW2x6fI3VYsb5fUwWCz9uZbFo61zGavFh9Xug2OSXbBZb
+	3kxktfi+ZTKTA5/HrIZeNo87S3cyeuz9toDFY9OqTjaP7d8esHrMOxnocb/7OJPH5iX1Hoc/
+	XGHx6NuyitFj8+lqj8+b5AJ4orhsUlJzMstSi/TtErgy3h5/wlZwwbKi+cR9pgbG6fpdjJwc
+	EgImEssfdTKB2EICOxglvr5V62LkAIpLSGzZygFhCkscPlzcxcgFVPGWUeJ2z0UmkLiwgJfE
+	gk/cIHERgTlMEj8nH2ADcZgF+hgl7nQeZoLo2M4osefUFVaQBWwCqhITV9xnA7F5BewktmyY
+	AmazCKhI7O46B3aEqECkRNOJrVA1ghInZz5hAbE5BcwlVr1dAhZnFlCX+DPvEjOELS5x68l8
+	JghbXqJ562zmCYxCs5C0z0LSMgtJyywkLQsYWVYxSqYWFOem5xYbFhjlpZbrFSfmFpfmpesl
+	5+duYgTHrpbWDsY9qz7oHWJk4mA8xCjBwawkwnvvaEeiEG9KYmVValF+fFFpTmrxIUZpDhYl
+	cd4LXSfjhQTSE0tSs1NTC1KLYLJMHJxSDUwp0tJ1z7V4blzgKf9+a/ePxxt/1WbeedhyluFC
+	WFkJs3v6xpNSL638pzEr/JqTlXpLOYblb+SvA7mztHW/5h0/d3tO7p8OnrtZ6w5Js+ywrpx8
+	brtzZVScssWl3Xwi1avfLi9nzLow/93x8w+PxM8S6f1T9drZZKXQBpGrtrHXeH1L/v9ckLGp
+	Yb/mpenaMgW1/gXeEpM+vqnZFqI2s6bXKsUr+RRHWpqt3+ypSz7/3Nz+0O/SRIebRo7nT1y/
+	nPdY7ZFZNVd39sRF9aJz8+f3TGprW2lZ+Px0tPmpKrMZtjUdSufnCHJW6m6W3mnIqcXod3lV
+	5tUZfxzTzP2cnfNtRfRt9mRFF+46XOP7Q1aJpTgj0VCLuag4EQCAp9CVTAMAAA==
+X-CMS-MailID: 20211109045730epcas1p4a5295673a5aad41d1b0c8b5ea68636dd
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-Sendblock-Type: SVC_REQ_APPROVE
+CMS-TYPE: 101P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20211108102856epcas1p3c75e195fee7701b637f1c872ca0c7f93
+References: <20211108102846.309-1-tzimmermann@suse.de>
+	<CGME20211108102856epcas1p3c75e195fee7701b637f1c872ca0c7f93@epcas1p3.samsung.com>
+	<20211108102846.309-2-tzimmermann@suse.de>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi,
 
---8323329-1476451275-1636423908=:3317
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+Really sorry for late. I saw this patch in my mailbox just before. Seems I missed it due to a typo, exynox.
+I will review and apply this patch ASAP.
 
-On Mon, 8 Nov 2021, Jan Beulich wrote:
-> On 05.11.2021 16:33, Stefano Stabellini wrote:
-> > On Fri, 5 Nov 2021, Jan Beulich wrote:
-> >> On 04.11.2021 22:50, Stefano Stabellini wrote:
-> >>> On Thu, 4 Nov 2021, Luca Fancellu wrote:
-> >>>>> On 4 Nov 2021, at 21:35, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> >>>>> On Thu, 4 Nov 2021, Luca Fancellu wrote:
-> >>>>>>> On 4 Nov 2021, at 20:56, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> >>>>>>> @@ -851,10 +853,14 @@ static int __init handle_dom0less_domain_node(EFI_FILE_HANDLE dir_handle,
-> >>>>>>> * dom0 and domU guests to be loaded.
-> >>>>>>> * Returns the number of multiboot modules found or a negative number for error.
-> >>>>>>> */
-> >>>>>>> -static int __init efi_check_dt_boot(EFI_FILE_HANDLE dir_handle)
-> >>>>>>> +static int __init efi_check_dt_boot(EFI_LOADED_IMAGE *loaded_image)
-> >>>>>>> {
-> >>>>>>>    int chosen, node, addr_len, size_len;
-> >>>>>>>    unsigned int i = 0, modules_found = 0;
-> >>>>>>> +    EFI_FILE_HANDLE dir_handle;
-> >>>>>>> +    CHAR16 *file_name;
-> >>>>>>> +
-> >>>>>>> +    dir_handle = get_parent_handle(loaded_image, &file_name);
-> >>>>>>
-> >>>>>> We can’t use get_parent_handle here because we will end up with the same problem,
-> >>>>>> we would need to use the filesystem if and only if we need to use it, 
-> >>>>>
-> >>>>> Understood, but it would work the same way as this version of the patch:
-> >>>>> if we end up calling read_file with dir_handle == NULL, then read_file
-> >>>>> would do:
-> >>>>>
-> >>>>>  blexit(L"Error: No access to the filesystem");
-> >>>>>
-> >>>>> If we don't end up calling read_file, then everything works even if
-> >>>>> dir_handle == NULL. Right?
-> >>>>
-> >>>> Oh yes sorry my bad Stefano! Having this version of the patch, it will work.
-> >>>>
-> >>>> My understanding was instead that the Jan suggestion is to revert the place
-> >>>> of call of get_parent_handle (like in your code diff), but also to remove the
-> >>>> changes to get_parent_handle and read_file.
-> >>>> I guess Jan will specify his preference, but if he meant the last one, then
-> >>>> the only way I see...
-> >>>
-> >>> I think we should keep the changes to get_parent_handle and read_file,
-> >>> otherwise it will make it awkward, and those changes are good in their
-> >>> own right anyway.
-> >>
-> >> As a maintainer of this code I'm afraid I have to say that I disagree.
-> >> These changes were actually part of the reason why I went and looked
-> >> how things could (and imo ought to be) done differently.
-> > 
-> > You know this code and EFI booting better than me -- aren't you
-> > concerned about Xen calling get_parent_handle / dir_handle->Close so
-> > many times (by allocate_module_file)?
+Thanks,
+Inki Dae
+
+21. 11. 8. 오후 7:28에 Thomas Zimmermann 이(가) 쓴 글:
+> Moving the driver-specific mmap code into a GEM object function allows
+> for using DRM helpers for various mmap callbacks.
 > 
-> I'm not overly concerned there; my primary concern is for it to get called
-> without need in the first place.
-
-Exactly my thinking! Except that now it gets called 10x times with
-dom0less boot :-(
-
-
-> > My main concern is performance and resource utilization. With v3 of the
-> > patch get_parent_handle will get called for every module to be loaded.
-> > With dom0less, it could easily get called 10 times or more. Taking a
-> > look at get_parent_handle, the Xen side doesn't seem small and I have
-> > no idea how the EDK2 side looks. I am just worried that it would
-> > actually have an impact on boot times (also depending on the bootloader
-> > implementation).
+> The respective exynos functions are being removed. The file_operations
+> structure exynos_drm_driver_fops is now being created by the helper macro
+> DEFINE_DRM_GEM_FOPS().
 > 
-> The biggest part of the function deals with determining the "residual" of
-> the file name. That part looks to be of no interest at all to
-> allocate_module_file() (whether that's actually correct I can't tell). I
-> don't see why this couldn't be made conditional (e.g. by passing in NULL
-> for "leaf").
-
-I understand the idea of passing NULL instead of "leaf", but I tried
-having a look and I can't tell what we would be able to skip in
-get_parent_handle.
-
-Should we have a global variable to keep the dir_handle open during
-dom0less module loading?
---8323329-1476451275-1636423908=:3317--
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/exynos/exynos_drm_drv.c   | 13 ++-----
+>  drivers/gpu/drm/exynos/exynos_drm_fbdev.c | 20 ++---------
+>  drivers/gpu/drm/exynos/exynos_drm_gem.c   | 43 +++++------------------
+>  drivers/gpu/drm/exynos/exynos_drm_gem.h   |  5 ---
+>  4 files changed, 13 insertions(+), 68 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+> index d8f1cf4d6b69..9743b6b17447 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
+> @@ -102,16 +102,7 @@ static const struct drm_ioctl_desc exynos_ioctls[] = {
+>  			DRM_RENDER_ALLOW),
+>  };
+>  
+> -static const struct file_operations exynos_drm_driver_fops = {
+> -	.owner		= THIS_MODULE,
+> -	.open		= drm_open,
+> -	.mmap		= exynos_drm_gem_mmap,
+> -	.poll		= drm_poll,
+> -	.read		= drm_read,
+> -	.unlocked_ioctl	= drm_ioctl,
+> -	.compat_ioctl = drm_compat_ioctl,
+> -	.release	= drm_release,
+> -};
+> +DEFINE_DRM_GEM_FOPS(exynos_drm_driver_fops);
+>  
+>  static const struct drm_driver exynos_drm_driver = {
+>  	.driver_features	= DRIVER_MODESET | DRIVER_GEM
+> @@ -124,7 +115,7 @@ static const struct drm_driver exynos_drm_driver = {
+>  	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
+>  	.gem_prime_import	= exynos_drm_gem_prime_import,
+>  	.gem_prime_import_sg_table	= exynos_drm_gem_prime_import_sg_table,
+> -	.gem_prime_mmap		= exynos_drm_gem_prime_mmap,
+> +	.gem_prime_mmap		= drm_gem_prime_mmap,
+>  	.ioctls			= exynos_ioctls,
+>  	.num_ioctls		= ARRAY_SIZE(exynos_ioctls),
+>  	.fops			= &exynos_drm_driver_fops,
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+> index 5147f5929be7..02c97b9ca926 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+> @@ -15,6 +15,7 @@
+>  #include <drm/drm_crtc.h>
+>  #include <drm/drm_fb_helper.h>
+>  #include <drm/drm_fourcc.h>
+> +#include <drm/drm_prime.h>
+>  #include <drm/drm_probe_helper.h>
+>  #include <drm/exynos_drm.h>
+>  
+> @@ -39,25 +40,8 @@ static int exynos_drm_fb_mmap(struct fb_info *info,
+>  	struct drm_fb_helper *helper = info->par;
+>  	struct exynos_drm_fbdev *exynos_fbd = to_exynos_fbdev(helper);
+>  	struct exynos_drm_gem *exynos_gem = exynos_fbd->exynos_gem;
+> -	unsigned long vm_size;
+> -	int ret;
+> -
+> -	vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
+> -
+> -	vm_size = vma->vm_end - vma->vm_start;
+> -
+> -	if (vm_size > exynos_gem->size)
+> -		return -EINVAL;
+>  
+> -	ret = dma_mmap_attrs(to_dma_dev(helper->dev), vma, exynos_gem->cookie,
+> -			     exynos_gem->dma_addr, exynos_gem->size,
+> -			     exynos_gem->dma_attrs);
+> -	if (ret < 0) {
+> -		DRM_DEV_ERROR(to_dma_dev(helper->dev), "failed to mmap.\n");
+> -		return ret;
+> -	}
+> -
+> -	return 0;
+> +	return drm_gem_prime_mmap(&exynos_gem->base, vma);
+>  }
+>  
+>  static const struct fb_ops exynos_drm_fb_ops = {
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+> index 4396224227d1..c4b63902ee7a 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+> @@ -17,6 +17,8 @@
+>  #include "exynos_drm_drv.h"
+>  #include "exynos_drm_gem.h"
+>  
+> +static int exynos_drm_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
+> +
+>  static int exynos_drm_alloc_buf(struct exynos_drm_gem *exynos_gem, bool kvmap)
+>  {
+>  	struct drm_device *dev = exynos_gem->base.dev;
+> @@ -135,6 +137,7 @@ static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
+>  static const struct drm_gem_object_funcs exynos_drm_gem_object_funcs = {
+>  	.free = exynos_drm_gem_free_object,
+>  	.get_sg_table = exynos_drm_gem_prime_get_sg_table,
+> +	.mmap = exynos_drm_gem_mmap,
+>  	.vm_ops = &exynos_drm_gem_vm_ops,
+>  };
+>  
+> @@ -354,12 +357,16 @@ int exynos_drm_gem_dumb_create(struct drm_file *file_priv,
+>  	return 0;
+>  }
+>  
+> -static int exynos_drm_gem_mmap_obj(struct drm_gem_object *obj,
+> -				   struct vm_area_struct *vma)
+> +static int exynos_drm_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
+>  {
+>  	struct exynos_drm_gem *exynos_gem = to_exynos_gem(obj);
+>  	int ret;
+>  
+> +	if (obj->import_attach)
+> +		return dma_buf_mmap(obj->dma_buf, vma, 0);
+> +
+> +	vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
+> +
+>  	DRM_DEV_DEBUG_KMS(to_dma_dev(obj->dev), "flags = 0x%x\n",
+>  			  exynos_gem->flags);
+>  
+> @@ -385,26 +392,6 @@ static int exynos_drm_gem_mmap_obj(struct drm_gem_object *obj,
+>  	return ret;
+>  }
+>  
+> -int exynos_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
+> -{
+> -	struct drm_gem_object *obj;
+> -	int ret;
+> -
+> -	/* set vm_area_struct. */
+> -	ret = drm_gem_mmap(filp, vma);
+> -	if (ret < 0) {
+> -		DRM_ERROR("failed to mmap.\n");
+> -		return ret;
+> -	}
+> -
+> -	obj = vma->vm_private_data;
+> -
+> -	if (obj->import_attach)
+> -		return dma_buf_mmap(obj->dma_buf, vma, 0);
+> -
+> -	return exynos_drm_gem_mmap_obj(obj, vma);
+> -}
+> -
+>  /* low-level interface prime helpers */
+>  struct drm_gem_object *exynos_drm_gem_prime_import(struct drm_device *dev,
+>  					    struct dma_buf *dma_buf)
+> @@ -466,15 +453,3 @@ exynos_drm_gem_prime_import_sg_table(struct drm_device *dev,
+>  	exynos_gem->sgt = sgt;
+>  	return &exynos_gem->base;
+>  }
+> -
+> -int exynos_drm_gem_prime_mmap(struct drm_gem_object *obj,
+> -			      struct vm_area_struct *vma)
+> -{
+> -	int ret;
+> -
+> -	ret = drm_gem_mmap_obj(obj, obj->size, vma);
+> -	if (ret < 0)
+> -		return ret;
+> -
+> -	return exynos_drm_gem_mmap_obj(obj, vma);
+> -}
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.h b/drivers/gpu/drm/exynos/exynos_drm_gem.h
+> index a23272fb96fb..79d7e1a87419 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.h
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.h
+> @@ -96,9 +96,6 @@ int exynos_drm_gem_dumb_create(struct drm_file *file_priv,
+>  			       struct drm_device *dev,
+>  			       struct drm_mode_create_dumb *args);
+>  
+> -/* set vm_flags and we can change the vm attribute to other one at here. */
+> -int exynos_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma);
+> -
+>  /* low-level interface prime helpers */
+>  struct drm_gem_object *exynos_drm_gem_prime_import(struct drm_device *dev,
+>  					    struct dma_buf *dma_buf);
+> @@ -107,7 +104,5 @@ struct drm_gem_object *
+>  exynos_drm_gem_prime_import_sg_table(struct drm_device *dev,
+>  				     struct dma_buf_attachment *attach,
+>  				     struct sg_table *sgt);
+> -int exynos_drm_gem_prime_mmap(struct drm_gem_object *obj,
+> -			      struct vm_area_struct *vma);
+>  
+>  #endif
+> 
 
