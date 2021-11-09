@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F74644A74C
+	by mail.lfdr.de (Postfix) with ESMTPS id 9511344A74D
 	for <lists+xen-devel@lfdr.de>; Tue,  9 Nov 2021 08:03:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.223712.386626 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.223699.386533 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkLA5-0003i1-1g; Tue, 09 Nov 2021 07:03:17 +0000
+	id 1mkL9m-0000eo-W0; Tue, 09 Nov 2021 07:02:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 223712.386626; Tue, 09 Nov 2021 07:03:16 +0000
+Received: by outflank-mailman (output) from mailman id 223699.386533; Tue, 09 Nov 2021 07:02:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkLA4-0003Ug-5v; Tue, 09 Nov 2021 07:03:16 +0000
-Received: by outflank-mailman (input) for mailman id 223712;
- Tue, 09 Nov 2021 07:03:13 +0000
+	id 1mkL9m-0000ci-QK; Tue, 09 Nov 2021 07:02:58 +0000
+Received: by outflank-mailman (input) for mailman id 223699;
+ Tue, 09 Nov 2021 07:02:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=+rF7=P4=xilinx.com=fnuv@srs-se1.protection.inumbo.net>)
- id 1mkLA1-0008WR-9S
- for xen-devel@lists.xenproject.org; Tue, 09 Nov 2021 07:03:13 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20620.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::620])
+ id 1mkL9l-0008WR-9g
+ for xen-devel@lists.xenproject.org; Tue, 09 Nov 2021 07:02:57 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2060d.outbound.protection.outlook.com
+ [2a01:111:f400:7eab::60d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1925f301-412b-11ec-a9d2-d9f7a1cc8784;
- Tue, 09 Nov 2021 08:03:10 +0100 (CET)
-Received: from SN7PR04CA0015.namprd04.prod.outlook.com (2603:10b6:806:f2::20)
- by DM6PR02MB4745.namprd02.prod.outlook.com (2603:10b6:5:fd::27) with
+ id 0f77f2f4-412b-11ec-a9d2-d9f7a1cc8784;
+ Tue, 09 Nov 2021 08:02:55 +0100 (CET)
+Received: from DS7PR03CA0311.namprd03.prod.outlook.com (2603:10b6:8:2b::23) by
+ CH0PR02MB8010.namprd02.prod.outlook.com (2603:10b6:610:107::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.13; Tue, 9 Nov
- 2021 07:03:05 +0000
-Received: from SN1NAM02FT0031.eop-nam02.prod.protection.outlook.com
- (2603:10b6:806:f2:cafe::3e) by SN7PR04CA0015.outlook.office365.com
- (2603:10b6:806:f2::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.10 via Frontend
- Transport; Tue, 9 Nov 2021 07:03:05 +0000
-Received: from xsj-pvapexch01.xlnx.xilinx.com (149.199.62.198) by
- SN1NAM02FT0031.mail.protection.outlook.com (10.97.4.64) with Microsoft SMTP
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11; Tue, 9 Nov
+ 2021 07:02:52 +0000
+Received: from DM3NAM02FT010.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:8:2b:cafe::bd) by DS7PR03CA0311.outlook.office365.com
+ (2603:10b6:8:2b::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11 via Frontend
+ Transport; Tue, 9 Nov 2021 07:02:52 +0000
+Received: from xsj-pvapexch02.xlnx.xilinx.com (149.199.62.198) by
+ DM3NAM02FT010.mail.protection.outlook.com (10.13.5.124) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4669.10 via Frontend Transport; Tue, 9 Nov 2021 07:03:05 +0000
+ 15.20.4669.10 via Frontend Transport; Tue, 9 Nov 2021 07:02:52 +0000
 Received: from xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) by
- xsj-pvapexch01.xlnx.xilinx.com (172.19.86.40) with Microsoft SMTP Server
+ xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.1.2176.14; Mon, 8 Nov 2021 23:02:50 -0800
 Received: from smtp.xilinx.com (172.19.127.95) by
@@ -51,7 +51,7 @@ Received: from smtp.xilinx.com (172.19.127.95) by
 Received: from [172.19.2.115] (port=44056 helo=xsjfnuv50.xilinx.com)
  by smtp.xilinx.com with esmtp (Exim 4.90)
  (envelope-from <fnu.vikram@xilinx.com>)
- id 1mkL9e-000Ga6-0h; Mon, 08 Nov 2021 23:02:50 -0800
+ id 1mkL9e-000Ga6-IY; Mon, 08 Nov 2021 23:02:50 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,14 +63,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1925f301-412b-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 0f77f2f4-412b-11ec-a9d2-d9f7a1cc8784
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VzW/NvmKvxmoNPyLTIGLQP//Vgg0VZ9k9PQx2XDXegxBcyUrSX/ppez/Jzcaxaj/1FGjmz/shZv9o46DNs0r2ppsPyT28M/Ip3AdGU18DHoais+/fS7eq/mQ/Uj7pMal4QbymqKH6fZXuwpYDnMmhqditHGPHDewMv/0OSXD9KX16bWM1TVFvBd7R6Qs1eLPlHF/LwBIbu9Xqw2OYn4y7CKdEQI6V5WCdEGM1hmVzdd/BAVaiWYyN/i5YUwFm3jIL5bXM4mpqxPSVj7/kkZkieLT3ldtFkGX/zVvzpFI0KmX3er6MOz0Q5yDtxEGfJ595luABKQpJyls0VRZxMfSyg==
+ b=I/5951yxrc2G9GErmcRSoyIb3W2UIxzv/4klY4KIlIBXWLMh+aMhJ7elFB1m4eeR9ZbwfOiGEh1/hlgD5/m82d57ZP53Ni/JXOUSxEhHf/WKs2zYV4mEeuQTomEIajQd7g/8i79EU8WgjiuS2IDBHH64FqEgj1zNOWJU9GJCRmWfkEUFSikVmeqbzoR7+QfgGMChRQ6O1S5scW4EaxBivwy7n/KDEhaKgXwseVO2qmN365dMYBnMZy6f1JUilQMgDq5SOPqr4glpkuxeUqraMWBnzVih/EFADQgX1Tj1Bpd0u55JN6eeXLEbZu+geicveEGMSRo+8kGa8nUESdN5+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ujbtJPA/WbrVfjNedBqDlhpazGXXQ7bSk/0Y/imNNWc=;
- b=dSb3QIHFXr4lVL7bZrkCzIJ8X8vQuKyKwbbNf222PAnK6zAljM4Ypg62axnnYdkxFCtDC6JvpZgNTCzLfpADKHpPgLvAo/510dJ5e9Q6vLV6HBdKkfqhsbLSpPE5od0dFL9Oj3rukP/LtvQVG/ZEgxUYgHp+C2tOW/Crig4FDmH5GKBUgdHg6Q6yog5jv745CPoyy77Y9ySQ0WSHFqDIM3K+NN53WUJMYFxcNetI0VcdWe0hFrAoImnDfHcjl4qRm4T04EiZrXrubBxMSuxN+n2Sr1SoHXjDzp3Wv2JWmKuik9seT9eR47l9teRR1Z0EPH9rp5RCC9Tc9IDRtGz5Jg==
+ bh=f5zhM1yaBAdXw5ec2yVU1t3POrwQaiIRB5jEhPe+n2w=;
+ b=NMehr3lFLvJr1Uocc5AeVibjwCOXVpKx2VTFdmjbxy3h1nPpfSnseMuGvVnD4WLs4kYtix7rCGaNV4R5kIsMGon2Vj20ibE7FSdQDRmf4zzk6m7zCLzTvkO6btK7NdxT/lJ6AoQFkwh2Y6etiU/jwjjXpC1mj0xPn3IB4EabCIzEFVO9zQaYTaV9K/7JnpUX10sRwWCtzS/FGKSA23exGcWWRqFAs+1WW5p6ztO5XKN3hrvRQqgs/hcxU9x03SiRoUdvNzbanoJi937ETgIdm+qzSipPP2/8WHfLJky8jC5l37lD1Kg6bkeaxU+YkM1It3acw3LYCwDyU4LmvR+wag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  149.199.62.198) smtp.rcpttodomain=lists.xenproject.org
  smtp.mailfrom=xilinx.com; dmarc=pass (p=none sp=none pct=100) action=none
@@ -78,24 +78,24 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ujbtJPA/WbrVfjNedBqDlhpazGXXQ7bSk/0Y/imNNWc=;
- b=EaXIpKaw8LiRQAXNY/d3rksmbHF/nVKJ1/5IJ2keLcDa8934QTeqCUoNaD/5SIMPBSM/7E+3o4zj0A0Njr/RihgEeVyXrt9mfSMjuA4u3V6U7+G5PLoN1jGsCqdE5IWpiAchc60rOA2w1fYrarETHgroTJdkeUI0a6APCrhavqM=
+ bh=f5zhM1yaBAdXw5ec2yVU1t3POrwQaiIRB5jEhPe+n2w=;
+ b=Cyvb4k4giMGG9wy3hW21e5Q7Tl4i70A4dlqGW617FSi7loKSqywcANKrkEj7suYPRvFh0WPHvvMlmVgddKzpup7mD7P67TwqW0g538gcaln7xg0J8TVqaNm2XrPu10jleH565I61p1VpJICSLKKhXLDZzx0MGihkyDlV8ehcdRA=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.62.198)
  smtp.mailfrom=xilinx.com; lists.xenproject.org; dkim=none (message not
  signed) header.d=none;lists.xenproject.org; dmarc=pass action=none
  header.from=xilinx.com;
 Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
  149.199.62.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=149.199.62.198; helo=xsj-pvapexch01.xlnx.xilinx.com;
+ client-ip=149.199.62.198; helo=xsj-pvapexch02.xlnx.xilinx.com;
 From: Vikram Garhwal <fnu.vikram@xilinx.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <julien@xen.org>, <bertrand.marquis@arm.com>,
 	<volodymyr_babchuk@epam.com>, Vikram Garhwal <fnu.vikram@xilinx.com>, Ian
- Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross
-	<jgross@suse.com>
-Subject: [XEN][RFC PATCH v2 10/12] tools/libs/ctrl: Implement new xc interfaces for dt overlay
-Date: Mon, 8 Nov 2021 23:02:25 -0800
-Message-ID: <1636441347-133850-11-git-send-email-fnu.vikram@xilinx.com>
+ Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Anthony PERARD
+	<anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
+Subject: [XEN][RFC PATCH v2 11/12] tools/libs/light: Implement new libxl functions for device tree overlay ops
+Date: Mon, 8 Nov 2021 23:02:26 -0800
+Message-ID: <1636441347-133850-12-git-send-email-fnu.vikram@xilinx.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1636441347-133850-1-git-send-email-fnu.vikram@xilinx.com>
 References: <1636441347-133850-1-git-send-email-fnu.vikram@xilinx.com>
@@ -103,127 +103,140 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c29dba09-5c53-4513-132c-08d9a34efa8d
-X-MS-TrafficTypeDiagnostic: DM6PR02MB4745:
+X-MS-Office365-Filtering-Correlation-Id: 64343fd2-fc7a-44ec-a629-08d9a34ef2eb
+X-MS-TrafficTypeDiagnostic: CH0PR02MB8010:
 X-Microsoft-Antispam-PRVS:
-	<DM6PR02MB4745944FC2596011667634F4BC929@DM6PR02MB4745.namprd02.prod.outlook.com>
+	<CH0PR02MB8010C004428E2BF83FA9E108BC929@CH0PR02MB8010.namprd02.prod.outlook.com>
 X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	pqNyJ9iOnux0HjCv7wMjg0hBvit40EHolFNkI6T037OwjxVYFDy9mVLFEKCYINMph+BFT9zAIrJfWdbpj4ALP1aEKs1yiPA3y8pVsLGDfmXHr1UIKuFa97910Q9fhcAHA5NssSFC6RJd0G2MtloN7kr7gN+X6lKdWRtsQnpHUnR97hY2+b6YdLPM3ZZ1GMaHelxC3HJ607P1Lr/bthrAXP1U1G5rYhBIY0FNVuIYk6Hyv4jFVjAP2VFATipC0b4sGxdtnyT1s9pZEvcTn9R0w5DrT7EcZ79bUorBipr+wQe8ny9qRCDZjdrq+a91fw407prO/qTUaPBNBupQ7KrP3Gsg3aSltC2CFlhyJj8v6z/BtVh4F7cxPMPgq5DmR0SG6t/P0C2g+/PuD6LypGPfCvmvzQfrvUMvCOzB9CXTeKE/sPGj+u4rb2zoer0WFbLOnelnRkl53SamCVEMLHrBGUROQAca99EhuYrgV796FLu8616zBcuGUgnzIPBLmhXGJHkm9CtDN2B6MXYADr923iiCFKwJi5v0YAoCYj62Az1pk7F8izu0YE23XLJWhMm0eqVkPVb/Dk+6IW70eh8JE2XOfeephoJQlkA/CskZvZ/Kh6uHY4l7cmwiGywpCBcaLx0eddVa6EXCGpK2Xsmck5l+UFMe4c1urTEytDJkEvp+qeWcPI/6p/6zymlDQ43bSYYbf1koZOZ6IwaMQ6GLBYM7+5RKtGKtzqkerhkRoB+rVcePOfFpkHoHdxHlRkyoVm74Xa5wt/wT6Gg/wf7EOF/9sx4b+qv4m1FDVFcBP9LLpMQ8JQqcnNqN9NIGoOxmzIcSRPGmdo24+kQ57PAAMg==
+	gYfXO1AdMcMIcgMFoXbr0iAxdityKK5JvQJ6xFA9s28qBXZKeIvaDfd3AhkGRa0mo+N0AvYXsYx+Aq4rLU1R9OdRG/lGI/1Btp9NMEJzYxrH9eqR+JT2j1CwksihAhb/I/lE7d27FmA606EbhhdTahWjnSL7mq99wMyRNr3DCCb5VoDwCf9Dm6hdVBf9xb11V0VDWVO0B8CGYyWV6d0pHsuiFCqm8nqG2DEfAE7k+wFAqyvDiJ++5jEAHFYCD51IrUbuGypITLvss265cpUiGIVUJmpZypsFZSoH9Xi4jEgeuoiORWMU+WciLlJ4KKJPjtoj9HUCi6WxDzmnBuNpAlvG1Z5Ay1LWAdTtfkavjgsYfLvgRezzsYLHF2g4YTY7ft9OYJKS4Zve2R5c7JTJ6i0N/CWxP6SHLBViw04tO9hbTIvbJ8mbAAZfMsER5gBI05Zxj38FwOlslRmk1dpQAL8J9EwOSvP7EO9Jh2r60LYI30vB0L+1vcTOEAN+RFJ4qwHmakRzWSl6Y/IIxWQsEsZXOdFd0UsPBAmUmcqudHtDhkassbABiwueKrCK4ACDIKohz7EgNfvvHQ7f1GidDxxKmlG8C1A1KjND4Cpp7T88rT0oSxn3Fle9egsaB+zctPxEubVMPErKnXl1I6kEX5X5qgA4aQuThLnkRn5Wd0bDbpPE85uDtg/pzzSc0Evdu/kPqYSfkyP+yUY+bL3AYWIQFqD8P5bRTJJTlAVbfbqhm+BS5Cv5K18GPKLMrYRi
 X-Forefront-Antispam-Report:
-	CIP:149.199.62.198;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapexch01.xlnx.xilinx.com;PTR:unknown-62-198.xilinx.com;CAT:NONE;SFS:(46966006)(36840700001)(426003)(2616005)(36906005)(26005)(8676002)(70206006)(186003)(356005)(4326008)(5660300002)(336012)(7696005)(6916009)(6666004)(8936002)(70586007)(82310400003)(36860700001)(9786002)(2906002)(508600001)(54906003)(316002)(36756003)(47076005)(7636003)(102446001)(2004002);DIR:OUT;SFP:1101;
+	CIP:149.199.62.198;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapexch02.xlnx.xilinx.com;PTR:unknown-62-198.xilinx.com;CAT:NONE;SFS:(36840700001)(46966006)(54906003)(7696005)(36860700001)(336012)(8936002)(6916009)(2616005)(426003)(82310400003)(26005)(186003)(508600001)(70586007)(70206006)(47076005)(316002)(8676002)(6666004)(36906005)(7636003)(2906002)(356005)(9786002)(5660300002)(36756003)(4326008)(102446001)(2004002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: xilinx.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2021 07:03:05.5102
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2021 07:02:52.6982
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c29dba09-5c53-4513-132c-08d9a34efa8d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64343fd2-fc7a-44ec-a629-08d9a34ef2eb
 X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.62.198];Helo=[xsj-pvapexch01.xlnx.xilinx.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.62.198];Helo=[xsj-pvapexch02.xlnx.xilinx.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SN1NAM02FT0031.eop-nam02.prod.protection.outlook.com
+	DM3NAM02FT010.eop-nam02.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR02MB4745
-
-xc_dt_overlay() sends the device tree binary overlay, size of .dtbo and overlay
-operation type i.e. add or remove to xen.
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR02MB8010
 
 Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
 ---
- tools/include/xenctrl.h      |  5 +++++
- tools/libs/ctrl/Makefile     |  1 +
- tools/libs/ctrl/xc_overlay.c | 51 ++++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 57 insertions(+)
- create mode 100644 tools/libs/ctrl/xc_overlay.c
+ tools/include/libxl.h            |  5 ++++
+ tools/libs/light/Makefile        |  3 ++
+ tools/libs/light/libxl_overlay.c | 65 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 73 insertions(+)
+ create mode 100644 tools/libs/light/libxl_overlay.c
 
-diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-index 07b96e6..cfd7c5c 100644
---- a/tools/include/xenctrl.h
-+++ b/tools/include/xenctrl.h
-@@ -2684,6 +2684,11 @@ int xc_livepatch_replace(xc_interface *xch, char *name, uint32_t timeout, uint32
- int xc_domain_cacheflush(xc_interface *xch, uint32_t domid,
-                          xen_pfn_t start_pfn, xen_pfn_t nr_pfns);
+diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+index 2e8679d..3dcb3e7 100644
+--- a/tools/include/libxl.h
++++ b/tools/include/libxl.h
+@@ -2406,6 +2406,11 @@ libxl_device_pci *libxl_device_pci_list(libxl_ctx *ctx, uint32_t domid,
+                                         int *num);
+ void libxl_device_pci_list_free(libxl_device_pci* list, int num);
  
 +#if defined (CONFIG_OVERLAY_DTB)
-+int xc_dt_overlay(xc_interface *xch, void *overlay_fdt, int overlay_fdt_size,
-+                  uint8_t overlayop);
++int libxl_dt_overlay(libxl_ctx *ctx, void *overlay,
++                     int overlay_size, uint8_t op);
 +#endif
 +
- /* Compat shims */
- #include "xenctrl_compat.h"
+ /*
+  * Turns the current process into a backend device service daemon
+  * for a driver domain.
+diff --git a/tools/libs/light/Makefile b/tools/libs/light/Makefile
+index 194bc5f..0fffa93 100644
+--- a/tools/libs/light/Makefile
++++ b/tools/libs/light/Makefile
+@@ -117,6 +117,9 @@ SRCS-y += libxl_genid.c
+ SRCS-y += _libxl_types.c
+ SRCS-y += libxl_flask.c
+ SRCS-y += _libxl_types_internal.c
++ifeq ($(CONFIG_OVERLAY_DTB),y)
++SRCS-y += libxl_overlay.o
++endif
  
-diff --git a/tools/libs/ctrl/Makefile b/tools/libs/ctrl/Makefile
-index 519246b..a21a949 100644
---- a/tools/libs/ctrl/Makefile
-+++ b/tools/libs/ctrl/Makefile
-@@ -3,6 +3,7 @@ include $(XEN_ROOT)/tools/Rules.mk
- 
- SRCS-y       += xc_altp2m.c
- SRCS-y       += xc_cpupool.c
-+SRCS-$(CONFIG_OVERLAY_DTB) += xc_overlay.c
- SRCS-y       += xc_domain.c
- SRCS-y       += xc_evtchn.c
- SRCS-y       += xc_gnttab.c
-diff --git a/tools/libs/ctrl/xc_overlay.c b/tools/libs/ctrl/xc_overlay.c
+ ifeq ($(CONFIG_LIBNL),y)
+ CFLAGS_LIBXL += $(LIBNL3_CFLAGS)
+diff --git a/tools/libs/light/libxl_overlay.c b/tools/libs/light/libxl_overlay.c
 new file mode 100644
-index 0000000..77f9edc
+index 0000000..d965aee
 --- /dev/null
-+++ b/tools/libs/ctrl/xc_overlay.c
-@@ -0,0 +1,51 @@
++++ b/tools/libs/light/libxl_overlay.c
+@@ -0,0 +1,65 @@
 +/*
-+ *
-+ * Overlay control functions.
 + * Copyright (C) 2021 Xilinx Inc.
 + * Author Vikram Garhwal <fnu.vikram@xilinx.com>
 + *
-+ * This library is free software; you can redistribute it and/or
-+ * modify it under the terms of the GNU Lesser General Public
-+ * License as published by the Free Software Foundation;
-+ * version 2.1 of the License.
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU Lesser General Public License as published
++ * by the Free Software Foundation; version 2.1 only. with the special
++ * exception on linking described in file LICENSE.
 + *
-+ * This library is distributed in the hope that it will be useful,
++ * This program is distributed in the hope that it will be useful,
 + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+ * Lesser General Public License for more details.
-+ *
-+ * You should have received a copy of the GNU Lesser General Public
-+ * License along with this library; If not, see <http://www.gnu.org/licenses/>.
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU Lesser General Public License for more details.
 + */
 +
-+#include "xc_bitops.h"
-+#include "xc_private.h"
-+#include <xen/hvm/hvm_op.h>
++#include "libxl_osdeps.h" /* must come before any other headers */
++#include "libxl_internal.h"
 +#include <libfdt.h>
++#include <xenguest.h>
++#include <xenctrl.h>
 +
-+int xc_dt_overlay(xc_interface *xch, void *overlay_fdt, int overlay_fdt_size,
-+                  uint8_t op)
++static int check_overlay_fdt(libxl__gc *gc, void *fdt, size_t size)
 +{
-+    int err;
-+    DECLARE_SYSCTL;
++    int r;
 +
-+    DECLARE_HYPERCALL_BOUNCE(overlay_fdt, overlay_fdt_size,
-+                        XC_HYPERCALL_BUFFER_BOUNCE_IN);
++    if (fdt_magic(fdt) != FDT_MAGIC) {
++        LOG(ERROR, "Overlay FDT is not a valid Flat Device Tree");
++        return ERROR_FAIL;
++    }
 +
-+    if ( (err = xc_hypercall_bounce_pre(xch, overlay_fdt)) )
-+        goto err;
++    r = fdt_check_header(fdt);
++    if (r) {
++        LOG(ERROR, "Failed to check the overlay FDT (%d)", r);
++        return ERROR_FAIL;
++    }
 +
-+    sysctl.cmd = XEN_SYSCTL_overlay;
-+    sysctl.u.overlay_dt.overlay_op= op;
-+    sysctl.u.overlay_dt.overlay_fdt_size = overlay_fdt_size;
++    if (fdt_totalsize(fdt) > size) {
++        LOG(ERROR, "Overlay FDT totalsize is too big");
++        return ERROR_FAIL;
++    }
 +
-+    set_xen_guest_handle(sysctl.u.overlay_dt.overlay_fdt, overlay_fdt);
-+
-+    if ( (err = do_sysctl(xch, &sysctl)) != 0 )
-+        PERROR("%s failed\n", __func__);
-+
-+err:
-+    xc_hypercall_bounce_post(xch, overlay_fdt);
-+
-+    return err;
++    return 0;
 +}
++
++int libxl_dt_overlay(libxl_ctx *ctx, void *overlay_dt, int overlay_dt_size,
++                     uint8_t op)
++{
++    int rc = 0;
++    GC_INIT(ctx);
++
++    if (check_overlay_fdt(gc, overlay_dt, overlay_dt_size)) {
++        LOG(ERROR, "Overlay DTB check failed\n");
++        return ERROR_FAIL;
++    } else
++        LOG(DEBUG, "Overlay DTB check passed\n");
++
++    /* We don't need to do  xc_interface_open here. */
++    rc = xc_dt_overlay(ctx->xch, overlay_dt, overlay_dt_size, op);
++
++    if (rc)
++        LOG(ERROR, "%s: Adding/Removing overlay dtb failed.\n", __func__);
++
++    return rc;
++}
++
 -- 
 2.7.4
 
