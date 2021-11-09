@@ -2,58 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9A2144A60C
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Nov 2021 06:20:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.223675.386473 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D0C944A6B2
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Nov 2021 07:15:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.223681.386485 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkJXa-0005nJ-6v; Tue, 09 Nov 2021 05:19:26 +0000
+	id 1mkKP2-00030g-Cz; Tue, 09 Nov 2021 06:14:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 223675.386473; Tue, 09 Nov 2021 05:19:26 +0000
+Received: by outflank-mailman (output) from mailman id 223681.386485; Tue, 09 Nov 2021 06:14:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkJXa-0005k3-2i; Tue, 09 Nov 2021 05:19:26 +0000
-Received: by outflank-mailman (input) for mailman id 223675;
- Tue, 09 Nov 2021 04:57:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FnEj=P4=samsung.com=inki.dae@srs-se1.protection.inumbo.net>)
- id 1mkJCk-0003i1-HR
- for xen-devel@lists.xenproject.org; Tue, 09 Nov 2021 04:57:55 +0000
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 949575d7-4119-11ec-a9d2-d9f7a1cc8784;
- Tue, 09 Nov 2021 05:57:50 +0100 (CET)
-Received: from epcas1p2.samsung.com (unknown [182.195.41.46])
- by mailout4.samsung.com (KnoxPortal) with ESMTP id
- 20211109045745epoutp0432d46666e8d0e3e6dd2169c1db6247be~1x_5Bbyhj3080830808epoutp04-
- for <xen-devel@lists.xenproject.org>; Tue,  9 Nov 2021 04:57:45 +0000 (GMT)
-Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
- epcas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20211109045745epcas1p241828c9a74fb4b6120bfff7ca0719c92~1x_4el3W60690306903epcas1p2G;
- Tue,  9 Nov 2021 04:57:45 +0000 (GMT)
-Received: from epsmges1p1.samsung.com (unknown [182.195.38.235]) by
- epsnrtp3.localdomain (Postfix) with ESMTP id 4HpG1r6GVvz4x9R0; Tue,  9 Nov
- 2021 04:57:36 +0000 (GMT)
-Received: from epcas1p3.samsung.com ( [182.195.41.47]) by
- epsmges1p1.samsung.com (Symantec Messaging Gateway) with SMTP id
- 23.2B.64085.ABFF9816; Tue,  9 Nov 2021 13:57:30 +0900 (KST)
-Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
- epcas1p4.samsung.com (KnoxPortal) with ESMTPA id
- 20211109045730epcas1p4a5295673a5aad41d1b0c8b5ea68636dd~1x_rFtcz30646206462epcas1p4R;
- Tue,  9 Nov 2021 04:57:30 +0000 (GMT)
-Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
- epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20211109045730epsmtrp1213b89479be836f60004e73dd7eb7b8a~1x_rE1PHb1318413184epsmtrp1u;
- Tue,  9 Nov 2021 04:57:30 +0000 (GMT)
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
- 5C.BF.08738.ABFF9816; Tue,  9 Nov 2021 13:57:30 +0900 (KST)
-Received: from [10.113.221.211] (unknown [10.113.221.211]) by
- epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20211109045730epsmtip2305d4d7a3be6744286980fba874b0a67~1x_qwWiAs1204612046epsmtip2U;
- Tue,  9 Nov 2021 04:57:30 +0000 (GMT)
+	id 1mkKP2-0002yV-6r; Tue, 09 Nov 2021 06:14:40 +0000
+Received: by outflank-mailman (input) for mailman id 223681;
+ Tue, 09 Nov 2021 06:14:38 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mkKP0-0002yK-7u; Tue, 09 Nov 2021 06:14:38 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mkKP0-0008Pk-03; Tue, 09 Nov 2021 06:14:38 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mkKOz-0007Qn-LX; Tue, 09 Nov 2021 06:14:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mkKOz-0005KJ-Ks; Tue, 09 Nov 2021 06:14:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,277 +42,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 949575d7-4119-11ec-a9d2-d9f7a1cc8784
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20211109045745epoutp0432d46666e8d0e3e6dd2169c1db6247be~1x_5Bbyhj3080830808epoutp04-
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1636433865;
-	bh=ANh3cRKm36WmEPwoAPLZp935d6WceP07H6l2ech2/Hc=;
-	h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
-	b=IecfXSdX64/SEd8VWbb/8WXCnIaYGeI/HbYBp4f6aTXstSu97tSkWZkGBUEMaFgFC
-	 yAFxhFtazNBA7PL92QiQyP1TB0LuLosgyMpYC40WsxwraCl6NlPUgM4L+vvmj3MMR9
-	 IH6UwhNITaTb2UmLkETWto7Nuw3csdrCLSruWv4E=
-X-AuditID: b6c32a35-9adff7000000fa55-c9-6189ffbaeeb6
-Subject: Re: [PATCH 1/3] drm/exynox: Implement mmap as GEM object function
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
-	airlied@linux.ie, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	jy0922.shim@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
-	krzysztof.kozlowski@canonical.com, oleksandr_andrushchenko@epam.com
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, xen-devel@lists.xenproject.org
-From: Inki Dae <inki.dae@samsung.com>
-Message-ID: <f88911b4-b5a7-abf1-4294-8e593b049448@samsung.com>
-Date: Tue, 9 Nov 2021 14:08:25 +0900
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.13.0
-MIME-Version: 1.0
-In-Reply-To: <20211108102846.309-2-tzimmermann@suse.de>
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=hlZRwiHFlf6h8DjE1+uZ2ChRI2TdL+uobEGtwhBE8rI=; b=1L4XMgw1ERbjJ8zFiaYmlRdnZ+
+	/y7O7dpFX+Rgx4X0N8MU8/mCiV5RdinGj0xhND/6h0t6I3QQWIUw8cM3WxGk4sHwHVzCqfRluqKoC
+	MrNuCycT15ZoTYINexyrFJ3WzhU8l5DcbvTPODdNa00WYiqr9CFdN50RuF/NErCCbqFc=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166086-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Brightmail-Tracker: H4sIAAAAAAAAA01Tf1AUdRyd7+7eskei2ynyDQru1mwGjB8nHOwhh4yZs2DjgExZOIUbrNzF
-	/er2aFSkMIoBFOKEAi9EmI6ow/EEDwTMmmAAGQihYcQcERJqgkQOEG3GceyOxeK/9z7z3vd9
-	3/cHgUrGcX9CozdzJj2rpXBvrK07ODz0ytNiNmIhgS4d6kfop20WlB5dnsfpv+6MYHTz3D8I
-	/cun97zolqkbIrr6+o8IXb/QitGFxd+KaFfTvHtWMYPTznsWEf3IWYEkrGes+aU4c7uhAzBX
-	H9ZhTIu9GGcuP5wUMbX9KczEyT6EuWT7hOl2jWJMmdMOmEsDucxSS2DyurTsODXHZnImKafP
-	MGRq9Fkqam9q+mvpiugIeahcScdQUj2r41TU7jeSQ/dotO4ilPQjVpvjHiWzPE+Fx8eZDDlm
-	Tqo28GYVxRkztUaFMYxndXyOPitMz5lj5RER2xVu4aFs9VzfNG4cVh4puDaB5IOq8BIgJiAZ
-	BSseLIhKgDchIdsBHG2+ighkEcCljkFcIEsAtleWoc8sjXeLV1WdADYNtaySeQAbT9e4VQSx
-	kUyCdYvPeeabyBoETtmeAA9ByTIAf+5exjxL4eRWaPluAvdgHzIeOi9WrmCMfBleKRlCPNiX
-	fAc+6e8UCZrnYf+Z6RWvmIyB9jnbih4l/eCt6XOIgINgQevXqCcMki4C3u2qRYR974bLpd8A
-	AW+Es31OLwH7w5kvCr0EQwGAluoBRCBFAI5PjWGCKhL+1FCBeLqhZDB0dK6enwx2PD4LhOT1
-	8P7yKZFHAkkfWFQoESQU7B25uZoL4bDNgguYgc03z6PlQGZd0826po91TR/r/8F1ALODzZyR
-	12VxvNwo/+/CMwy6FrDyzkMU7cAy5wrrAggBugAkUGqTz52eIlbik8kePcaZDOmmHC3HdwGF
-	+7QtqL9vhsH9UfTmdHmUMiIqentkFC2PllN+PkuBH7ISMos1c9kcZ+RMz3wIIfbPR/K9q05V
-	9spEDZN9O4sOSvZc/O1WuE23v/f3A6mJYztiljc4J9+jt73oCC6MZpPGbUpkMQ858bH2cn39
-	Z7INSpmGUxCNuQF/Hzx+9M05ac9g/dIP5bHDryRc+FW1GQbMgrRcu/hLv/DW761f7X2rad5x
-	Yv+f7xaXtw0ZxCFiWcpZ1+dBSTvyetTKsl1bHah+y8AHfacr+AMXQtGTqfuuM2l5kZr5xNqa
-	bVsKz7lUs2kvjUTFByeeCXk7rCrF1XHYrts5wxy69rrsyDrNLvHgH/dL21BD+lhAucM4zDqw
-	B8czlIE3jBmvliy84Jsp5eCx2MfnqzlV0O1R8b448pHzffKwmcJ4NSsPQU08+y8YGzrVcAQA
-	AA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrJIsWRmVeSWpSXmKPExsWy7bCSvO6u/52JBkePKFr0njvJZPF/20Rm
-	iytf37NZvLh3kcVi49sfTBZnm96wW2x6fI3VYsb5fUwWCz9uZbFo61zGavFh9Xug2OSXbBZb
-	3kxktfi+ZTKTA5/HrIZeNo87S3cyeuz9toDFY9OqTjaP7d8esHrMOxnocb/7OJPH5iX1Hoc/
-	XGHx6NuyitFj8+lqj8+b5AJ4orhsUlJzMstSi/TtErgy3h5/wlZwwbKi+cR9pgbG6fpdjJwc
-	EgImEssfdTKB2EICOxglvr5V62LkAIpLSGzZygFhCkscPlzcxcgFVPGWUeJ2z0UmkLiwgJfE
-	gk/cIHERgTlMEj8nH2ADcZgF+hgl7nQeZoLo2M4osefUFVaQBWwCqhITV9xnA7F5BewktmyY
-	AmazCKhI7O46B3aEqECkRNOJrVA1ghInZz5hAbE5BcwlVr1dAhZnFlCX+DPvEjOELS5x68l8
-	JghbXqJ562zmCYxCs5C0z0LSMgtJyywkLQsYWVYxSqYWFOem5xYbFhjlpZbrFSfmFpfmpesl
-	5+duYgTHrpbWDsY9qz7oHWJk4mA8xCjBwawkwnvvaEeiEG9KYmVValF+fFFpTmrxIUZpDhYl
-	cd4LXSfjhQTSE0tSs1NTC1KLYLJMHJxSDUwp0tJ1z7V4blzgKf9+a/ePxxt/1WbeedhyluFC
-	WFkJs3v6xpNSL638pzEr/JqTlXpLOYblb+SvA7mztHW/5h0/d3tO7p8OnrtZ6w5Js+ywrpx8
-	brtzZVScssWl3Xwi1avfLi9nzLow/93x8w+PxM8S6f1T9drZZKXQBpGrtrHXeH1L/v9ckLGp
-	Yb/mpenaMgW1/gXeEpM+vqnZFqI2s6bXKsUr+RRHWpqt3+ypSz7/3Nz+0O/SRIebRo7nT1y/
-	nPdY7ZFZNVd39sRF9aJz8+f3TGprW2lZ+Px0tPmpKrMZtjUdSufnCHJW6m6W3mnIqcXod3lV
-	5tUZfxzTzP2cnfNtRfRt9mRFF+46XOP7Q1aJpTgj0VCLuag4EQCAp9CVTAMAAA==
-X-CMS-MailID: 20211109045730epcas1p4a5295673a5aad41d1b0c8b5ea68636dd
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: SVC_REQ_APPROVE
-CMS-TYPE: 101P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20211108102856epcas1p3c75e195fee7701b637f1c872ca0c7f93
-References: <20211108102846.309-1-tzimmermann@suse.de>
-	<CGME20211108102856epcas1p3c75e195fee7701b637f1c872ca0c7f93@epcas1p3.samsung.com>
-	<20211108102846.309-2-tzimmermann@suse.de>
+MIME-Version: 1.0
+Subject: [linux-linus test] 166086: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-xl-cubietruck:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-examine:reboot:fail:heisenbug
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=6b75d88fa81b122cce37ebf17428a849ccd3d0f1
+X-Osstest-Versions-That:
+    linux=e66435936756d9bce96433be183358a8994a0f0d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 09 Nov 2021 06:14:37 +0000
 
-Hi,
+flight 166086 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166086/
 
-Really sorry for late. I saw this patch in my mailbox just before. Seems I missed it due to a typo, exynox.
-I will review and apply this patch ASAP.
+Regressions :-(
 
-Thanks,
-Inki Dae
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl-cubietruck  8 xen-boot               fail REGR. vs. 165976
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 165976
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 165976
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 165976
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 165976
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 165976
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 165976
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 165976
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 165976
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 165976
 
-21. 11. 8. 오후 7:28에 Thomas Zimmermann 이(가) 쓴 글:
-> Moving the driver-specific mmap code into a GEM object function allows
-> for using DRM helpers for various mmap callbacks.
-> 
-> The respective exynos functions are being removed. The file_operations
-> structure exynos_drm_driver_fops is now being created by the helper macro
-> DEFINE_DRM_GEM_FOPS().
-> 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
->  drivers/gpu/drm/exynos/exynos_drm_drv.c   | 13 ++-----
->  drivers/gpu/drm/exynos/exynos_drm_fbdev.c | 20 ++---------
->  drivers/gpu/drm/exynos/exynos_drm_gem.c   | 43 +++++------------------
->  drivers/gpu/drm/exynos/exynos_drm_gem.h   |  5 ---
->  4 files changed, 13 insertions(+), 68 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
-> index d8f1cf4d6b69..9743b6b17447 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
-> @@ -102,16 +102,7 @@ static const struct drm_ioctl_desc exynos_ioctls[] = {
->  			DRM_RENDER_ALLOW),
->  };
->  
-> -static const struct file_operations exynos_drm_driver_fops = {
-> -	.owner		= THIS_MODULE,
-> -	.open		= drm_open,
-> -	.mmap		= exynos_drm_gem_mmap,
-> -	.poll		= drm_poll,
-> -	.read		= drm_read,
-> -	.unlocked_ioctl	= drm_ioctl,
-> -	.compat_ioctl = drm_compat_ioctl,
-> -	.release	= drm_release,
-> -};
-> +DEFINE_DRM_GEM_FOPS(exynos_drm_driver_fops);
->  
->  static const struct drm_driver exynos_drm_driver = {
->  	.driver_features	= DRIVER_MODESET | DRIVER_GEM
-> @@ -124,7 +115,7 @@ static const struct drm_driver exynos_drm_driver = {
->  	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
->  	.gem_prime_import	= exynos_drm_gem_prime_import,
->  	.gem_prime_import_sg_table	= exynos_drm_gem_prime_import_sg_table,
-> -	.gem_prime_mmap		= exynos_drm_gem_prime_mmap,
-> +	.gem_prime_mmap		= drm_gem_prime_mmap,
->  	.ioctls			= exynos_ioctls,
->  	.num_ioctls		= ARRAY_SIZE(exynos_ioctls),
->  	.fops			= &exynos_drm_driver_fops,
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> index 5147f5929be7..02c97b9ca926 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
-> @@ -15,6 +15,7 @@
->  #include <drm/drm_crtc.h>
->  #include <drm/drm_fb_helper.h>
->  #include <drm/drm_fourcc.h>
-> +#include <drm/drm_prime.h>
->  #include <drm/drm_probe_helper.h>
->  #include <drm/exynos_drm.h>
->  
-> @@ -39,25 +40,8 @@ static int exynos_drm_fb_mmap(struct fb_info *info,
->  	struct drm_fb_helper *helper = info->par;
->  	struct exynos_drm_fbdev *exynos_fbd = to_exynos_fbdev(helper);
->  	struct exynos_drm_gem *exynos_gem = exynos_fbd->exynos_gem;
-> -	unsigned long vm_size;
-> -	int ret;
-> -
-> -	vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
-> -
-> -	vm_size = vma->vm_end - vma->vm_start;
-> -
-> -	if (vm_size > exynos_gem->size)
-> -		return -EINVAL;
->  
-> -	ret = dma_mmap_attrs(to_dma_dev(helper->dev), vma, exynos_gem->cookie,
-> -			     exynos_gem->dma_addr, exynos_gem->size,
-> -			     exynos_gem->dma_attrs);
-> -	if (ret < 0) {
-> -		DRM_DEV_ERROR(to_dma_dev(helper->dev), "failed to mmap.\n");
-> -		return ret;
-> -	}
-> -
-> -	return 0;
-> +	return drm_gem_prime_mmap(&exynos_gem->base, vma);
->  }
->  
->  static const struct fb_ops exynos_drm_fb_ops = {
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> index 4396224227d1..c4b63902ee7a 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
-> @@ -17,6 +17,8 @@
->  #include "exynos_drm_drv.h"
->  #include "exynos_drm_gem.h"
->  
-> +static int exynos_drm_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
-> +
->  static int exynos_drm_alloc_buf(struct exynos_drm_gem *exynos_gem, bool kvmap)
->  {
->  	struct drm_device *dev = exynos_gem->base.dev;
-> @@ -135,6 +137,7 @@ static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
->  static const struct drm_gem_object_funcs exynos_drm_gem_object_funcs = {
->  	.free = exynos_drm_gem_free_object,
->  	.get_sg_table = exynos_drm_gem_prime_get_sg_table,
-> +	.mmap = exynos_drm_gem_mmap,
->  	.vm_ops = &exynos_drm_gem_vm_ops,
->  };
->  
-> @@ -354,12 +357,16 @@ int exynos_drm_gem_dumb_create(struct drm_file *file_priv,
->  	return 0;
->  }
->  
-> -static int exynos_drm_gem_mmap_obj(struct drm_gem_object *obj,
-> -				   struct vm_area_struct *vma)
-> +static int exynos_drm_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
->  {
->  	struct exynos_drm_gem *exynos_gem = to_exynos_gem(obj);
->  	int ret;
->  
-> +	if (obj->import_attach)
-> +		return dma_buf_mmap(obj->dma_buf, vma, 0);
-> +
-> +	vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
-> +
->  	DRM_DEV_DEBUG_KMS(to_dma_dev(obj->dev), "flags = 0x%x\n",
->  			  exynos_gem->flags);
->  
-> @@ -385,26 +392,6 @@ static int exynos_drm_gem_mmap_obj(struct drm_gem_object *obj,
->  	return ret;
->  }
->  
-> -int exynos_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
-> -{
-> -	struct drm_gem_object *obj;
-> -	int ret;
-> -
-> -	/* set vm_area_struct. */
-> -	ret = drm_gem_mmap(filp, vma);
-> -	if (ret < 0) {
-> -		DRM_ERROR("failed to mmap.\n");
-> -		return ret;
-> -	}
-> -
-> -	obj = vma->vm_private_data;
-> -
-> -	if (obj->import_attach)
-> -		return dma_buf_mmap(obj->dma_buf, vma, 0);
-> -
-> -	return exynos_drm_gem_mmap_obj(obj, vma);
-> -}
-> -
->  /* low-level interface prime helpers */
->  struct drm_gem_object *exynos_drm_gem_prime_import(struct drm_device *dev,
->  					    struct dma_buf *dma_buf)
-> @@ -466,15 +453,3 @@ exynos_drm_gem_prime_import_sg_table(struct drm_device *dev,
->  	exynos_gem->sgt = sgt;
->  	return &exynos_gem->base;
->  }
-> -
-> -int exynos_drm_gem_prime_mmap(struct drm_gem_object *obj,
-> -			      struct vm_area_struct *vma)
-> -{
-> -	int ret;
-> -
-> -	ret = drm_gem_mmap_obj(obj, obj->size, vma);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	return exynos_drm_gem_mmap_obj(obj, vma);
-> -}
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.h b/drivers/gpu/drm/exynos/exynos_drm_gem.h
-> index a23272fb96fb..79d7e1a87419 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.h
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.h
-> @@ -96,9 +96,6 @@ int exynos_drm_gem_dumb_create(struct drm_file *file_priv,
->  			       struct drm_device *dev,
->  			       struct drm_mode_create_dumb *args);
->  
-> -/* set vm_flags and we can change the vm attribute to other one at here. */
-> -int exynos_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma);
-> -
->  /* low-level interface prime helpers */
->  struct drm_gem_object *exynos_drm_gem_prime_import(struct drm_device *dev,
->  					    struct dma_buf *dma_buf);
-> @@ -107,7 +104,5 @@ struct drm_gem_object *
->  exynos_drm_gem_prime_import_sg_table(struct drm_device *dev,
->  				     struct dma_buf_attachment *attach,
->  				     struct sg_table *sgt);
-> -int exynos_drm_gem_prime_mmap(struct drm_gem_object *obj,
-> -			      struct vm_area_struct *vma);
->  
->  #endif
-> 
+Tests which are failing intermittently (not blocking):
+ test-arm64-arm64-examine      8 reboot                     fail pass in 166079
+
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 165976
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 165976
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 165976
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 165976
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 165976
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 165976
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ linux                6b75d88fa81b122cce37ebf17428a849ccd3d0f1
+baseline version:
+ linux                e66435936756d9bce96433be183358a8994a0f0d
+
+Last test of basis   165976  2021-11-01 23:11:48 Z    7 days
+Failing since        165992  2021-11-02 05:40:21 Z    7 days   10 attempts
+Testing same since   166079  2021-11-08 01:42:24 Z    1 days    2 attempts
+
+------------------------------------------------------------
+1883 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 205270 lines long.)
 
