@@ -2,58 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B302B44AA86
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Nov 2021 10:24:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.223814.386720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42B5244AAB5
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Nov 2021 10:42:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.223825.386731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkNMJ-0006oe-RR; Tue, 09 Nov 2021 09:24:03 +0000
+	id 1mkNdB-0000re-EJ; Tue, 09 Nov 2021 09:41:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 223814.386720; Tue, 09 Nov 2021 09:24:03 +0000
+Received: by outflank-mailman (output) from mailman id 223825.386731; Tue, 09 Nov 2021 09:41:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkNMJ-0006mf-Np; Tue, 09 Nov 2021 09:24:03 +0000
-Received: by outflank-mailman (input) for mailman id 223814;
- Tue, 09 Nov 2021 09:24:02 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FnEj=P4=samsung.com=inki.dae@srs-se1.protection.inumbo.net>)
- id 1mkNMH-0006jX-E2
- for xen-devel@lists.xenproject.org; Tue, 09 Nov 2021 09:24:02 +0000
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c265c793-413e-11ec-a9d2-d9f7a1cc8784;
- Tue, 09 Nov 2021 10:23:58 +0100 (CET)
-Received: from epcas1p4.samsung.com (unknown [182.195.41.48])
- by mailout3.samsung.com (KnoxPortal) with ESMTP id
- 20211109092353epoutp0359c68f3f0306e2361ee73312b83bc0e6~11nQdrSX_0984909849epoutp03k
- for <xen-devel@lists.xenproject.org>; Tue,  9 Nov 2021 09:23:53 +0000 (GMT)
-Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
- epcas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20211109092353epcas1p19ed9d2f87f770292ff82f841458c4bd9~11nPx38ud1097210972epcas1p18;
- Tue,  9 Nov 2021 09:23:53 +0000 (GMT)
-Received: from epsmges1p1.samsung.com (unknown [182.195.38.237]) by
- epsnrtp4.localdomain (Postfix) with ESMTP id 4HpMwn2cVPz4x9Pw; Tue,  9 Nov
- 2021 09:23:37 +0000 (GMT)
-Received: from epcas1p4.samsung.com ( [182.195.41.48]) by
- epsmges1p1.samsung.com (Symantec Messaging Gateway) with SMTP id
- 56.7E.64085.91E3A816; Tue,  9 Nov 2021 18:23:37 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas1p3.samsung.com (KnoxPortal) with ESMTPA id
- 20211109092336epcas1p3be56f6ff9049a1a6b80a92a47eedddd0~11nAdiFDw0648806488epcas1p3Y;
- Tue,  9 Nov 2021 09:23:36 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20211109092336epsmtrp27ce965acdbbf0384ca0cf1149b0bd07d~11nAcscpF2653426534epsmtrp2G;
- Tue,  9 Nov 2021 09:23:36 +0000 (GMT)
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- D0.09.29871.81E3A816; Tue,  9 Nov 2021 18:23:36 +0900 (KST)
-Received: from [10.113.221.211] (unknown [10.113.221.211]) by
- epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20211109092336epsmtip284e72dab5b5eb4adf5781b6d47de46c6~11nAJMu9p2082120821epsmtip2C;
- Tue,  9 Nov 2021 09:23:36 +0000 (GMT)
+	id 1mkNdB-0000pO-BK; Tue, 09 Nov 2021 09:41:29 +0000
+Received: by outflank-mailman (input) for mailman id 223825;
+ Tue, 09 Nov 2021 09:41:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mkNd9-0000pI-OX
+ for xen-devel@lists.xenproject.org; Tue, 09 Nov 2021 09:41:27 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mkNd7-00041s-3L; Tue, 09 Nov 2021 09:41:25 +0000
+Received: from 54-240-197-238.amazon.com ([54.240.197.238]
+ helo=[192.168.22.169]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mkNd6-0002od-TC; Tue, 09 Nov 2021 09:41:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,292 +39,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c265c793-413e-11ec-a9d2-d9f7a1cc8784
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20211109092353epoutp0359c68f3f0306e2361ee73312b83bc0e6~11nQdrSX_0984909849epoutp03k
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1636449833;
-	bh=593Amkrgb9Jqhcs++h0w+CuiiQCyeji1tJb9jeqi/SA=;
-	h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
-	b=el/DAqFro5XNVbc04l4VBczrTikPYchrJFtOK67SxtmHnIEzEuoXNx60cfCFpWDVR
-	 W0ktfQXouQW3GmctN1Qqrk2bA2hreCIzxriTOlsqHIFJxcBcKSBAEqbQHcNIxl5nPQ
-	 RqhKvx1gX0R1GK+VpsnFn2Uz47/toyUYF6NDT7Rs=
-X-AuditID: b6c32a35-9c3ff7000000fa55-13-618a3e19ccb5
-Subject: Re: [PATCH 1/3] drm/exynox: Implement mmap as GEM object function
-To: Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: airlied@linux.ie, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	jy0922.shim@samsung.com, sw0312.kim@samsung.com, kyungmin.park@samsung.com,
-	krzysztof.kozlowski@canonical.com, oleksandr_andrushchenko@epam.com,
-	dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, xen-devel@lists.xenproject.org
-From: Inki Dae <inki.dae@samsung.com>
-Message-ID: <10fcb430-b051-20f0-b0c0-3f54285e01ce@samsung.com>
-Date: Tue, 9 Nov 2021 18:34:31 +0900
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.13.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=QdedMTNFdtooBL3zeJOcEfbVB9S/FcsMgj5LfNJ7Qj0=; b=iH5dOH8puUDFAKt7jTa8+P+0Of
+	kOeAJqMGYBFzmBUbeGmTauFjX8kYvQLaMG425Gg0doYlShr2Dg5+vLa7Li7LKaqZLEjQT5x6HwOeI
+	PqkVpGzzSpNQWwWM3O0ztLIeyvhlmbFbzGurdogu/SIffyaRdIPl2Yg7gz3FRqf/y+tc=;
+Message-ID: <9ba4f9ea-d393-bcb6-22ac-0cdb930ad15a@xen.org>
+Date: Tue, 9 Nov 2021 09:41:22 +0000
 MIME-Version: 1.0
-In-Reply-To: <YYlCUOgd1/GBluE7@phenom.ffwll.local>
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Brightmail-Tracker: H4sIAAAAAAAAA01Tf0wTZxjOd3c9CqzkKAKfQBAvM6IRaIHWk0mDweFNiWHolriN4AWOH6O0
-	9do6NllERQNMGCdGaRVFFCK4RakgyFJZ6BSBMGBhggyBDcwGIiBExsYMa3u68d/zvN/zfO/7
-	fD/EqHQY9xNnagwsp2HUJO6G3bFtkoWsVRUxsp9OelLFP3Yg1ModHqX6X87i1B8jfRhV/3wJ
-	obqPT7tQlvFHIqq85x5CXXnRiFGnCmtE1NyNWXutbBKnGqZ5EfVnQxkS40Gb84pxerj6LqCt
-	i5UYbakrxOmmxTERfanjfXr0q3aEvn3tKG2b68fokoY6QN/uOkIvWAIT3vooa3sGy6SyXBCr
-	SdGmZmrSo8k9+5JjkxVKmTxEvo3aSgZpmGw2mtwZnxASl6m2JyGDDjNqo72UwOj1ZJhqO6c1
-	GtigDK3eEE2yulS1TqEL1TPZeqMmPVTDGqLkMlm4wi48mJVR0WMFOl6VU/1oGcsDpogi4CqG
-	RCRsvVKLFgE3sZRoBrD7epNIIPMAHqvhMYEsAvjUdBZ7Y+nqmgXCghXAyW4LIpBZAH/5a8m+
-	mVjsReyGlfPuDsMaIh4W3jzj4tCgxAwC+0dnUMcCTmyA/PVR3IElhAp+0/LQWceIt2HxfL4T
-	exMH4KuOFpGg8YQdpgnnFK5EOJwYKHVilPCFQxOXEQGvgycaLzgDQWJaDHsu2hBh7J3wWXcn
-	ELAXnGpvcBGwH1yYseKC4QSAfHkXIpACAJ+MD7wOHQFbq8sQRzSU2ARvtoQJ5fXw7nIFEDp7
-	wJmXp0UOCSQksOCUVJCQ8EHf4Ou+EPZe43FBQsP755JKwXrzqmjmVXHMq+KY/+9bCbA64MPq
-	9NnprF6uk/933SnabAtwPvPNimbAP58LbQOIGLQBKEbJNZKR+wWMVJLKfP4Fy2mTOaOa1bcB
-	hf2wedTPO0Vr/ycaQ7I8cpssUhkeEUnJlXLSV7IQeIiREumMgc1iWR3LvfEhYle/PESy3zt4
-	R+tYQL5RyiRdCsxLa5V3kqWz8Xt//9jGxVgvf4vwmMi6tjbt+y2DK8bwck/jZJTqYH+c6jdz
-	zljVGBecu/set/FrJsqNu3g1cGjhUHPj4Pi0OoJPHAJVIvTWjbSSaVtsCphaXFZke/QVXV3p
-	3Xg6cVx5Mo57F1acp4e3JpSYhsKMURX4p483ELndlic+x2PPj0gatnj9fawzIPNVVk/Mhf6W
-	3IfBLwa09Ylztg8CPvPpdHf/50H72V3fFX8pPfD4nZ/9m/yL/G+V7bD0ThWe45Yal/Olqvyn
-	tT8ovSe0Ce8h3sqIXc/OlByR7k3yzflwT32h9tfDRz9ZZ5LVVJGYPoORb0Y5PfMvGJxAl28E
-	AAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrBIsWRmVeSWpSXmKPExsWy7bCSvK6EXVeiwaFeJYvecyeZLP5vm8hs
-	ceXrezaLF/cuslhsfPuDyeJs0xt2i02Pr7FazDi/j8li4cetLBZtnctYLT6sfg8Um/ySzWLL
-	m4msFt+3TGZy4POY1dDL5nFn6U5Gj73fFrB4bFrVyeax/dsDVo95JwM97ncfZ/LYvKTe4/CH
-	KywefVtWMXpsPl3t8XmTXABPFJdNSmpOZllqkb5dAlfG3PN7GQsm2lUsvfabpYFxpnEXIyeH
-	hICJxOnT7xm7GLk4hAR2M0qs/97J1sXIAZSQkNiylQPCFJY4fLgYouQto8ThPUuYQOLCAl4S
-	Cz5xg4wREfCR6Fw/iR3EZhZ4xySx6ZU0RP19Romd916CJdgEVCUmrrjPBmLzCthJrNl1ghnE
-	ZhFQkej91AJmiwpESjSd2ApVIyhxcuYTFhCbU8BI4sn1CSwQC9Ql/sy7xAxhi0vcejKfCcKW
-	l2jeOpt5AqPQLCTts5C0zELSMgtJywJGllWMkqkFxbnpucWGBYZ5qeV6xYm5xaV56XrJ+bmb
-	GMGRq6W5g3H7qg96hxiZOBgPMUpwMCuJ8N472pEoxJuSWFmVWpQfX1Sak1p8iFGag0VJnPdC
-	18l4IYH0xJLU7NTUgtQimCwTB6dUA5PjqpJDj37zfPY82dzoHrgre/mEElvhJY+vVp2cp/Lu
-	kOmRjul/f74OKnD/e99ox+nrOtFOjTWzzhgVCM1kmG66XmlHrc06VdvgalvBt94czMyp20vv
-	qxxf93KRxgLzqbsU9pplNO2oMBRYr/281Ntsi+Qq980na+tO38zzmS90R3zfgwbuQ+2FiWl6
-	4quCXqxxYz29b4vYpJ3CnOn5qZd+y5xtk8lcOP/Hq1dbgqZt2ZVxvX7TXZlFTgUHP6tv/XbG
-	QlGqw+DYB+d/Dytv/rjV05/J7Nd3aO/zR7VR31anMDceE364Sr6k4P7NXV/u19skHJF3KJ60
-	vJBXS+qCwBNJCdMlJnsmhb+fzCu7c/FsJZbijERDLeai4kQAs2Tm+UsDAAA=
-X-CMS-MailID: 20211109092336epcas1p3be56f6ff9049a1a6b80a92a47eedddd0
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-Sendblock-Type: SVC_REQ_APPROVE
-CMS-TYPE: 101P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20211108152930epcas1p4e61b02b1151ba4779949d81312597a08
-References: <20211108102846.309-1-tzimmermann@suse.de>
-	<20211108102846.309-2-tzimmermann@suse.de>
-	<CGME20211108152930epcas1p4e61b02b1151ba4779949d81312597a08@epcas1p4.samsung.com>
-	<YYlCUOgd1/GBluE7@phenom.ffwll.local>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.0
+Subject: Re: [PATCH for-4.16] xen/arm: don't assign domU static-mem to dom0 as
+ reserved-memory
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Penny.Zheng@arm.com, Bertrand.Marquis@arm.com, Wei.Chen@arm.com,
+ iwj@xenproject.org, Volodymyr_Babchuk@epam.com,
+ xen-devel@lists.xenproject.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <20211109004808.115906-1-sstabellini@kernel.org>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20211109004808.115906-1-sstabellini@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Thomas and Daniel,
+Hi Stefano,
 
-21. 11. 9. 오전 12:29에 Daniel Vetter 이(가) 쓴 글:
-> On Mon, Nov 08, 2021 at 11:28:44AM +0100, Thomas Zimmermann wrote:
->> Moving the driver-specific mmap code into a GEM object function allows
->> for using DRM helpers for various mmap callbacks.
->>
->> The respective exynos functions are being removed. The file_operations
->> structure exynos_drm_driver_fops is now being created by the helper macro
->> DEFINE_DRM_GEM_FOPS().
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+On 09/11/2021 00:48, Stefano Stabellini wrote:
+> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
 > 
-> s/exynox/exynos in the subject.
+> DomUs static-mem ranges are added to the reserved_mem array for
+> accounting, but they shouldn't be assigned to dom0 as the other regular
+> reserved-memory ranges in device tree.
 > 
-> Patch lgtm, but would still be good if exynos maintainers would
-> ack/review/test it. But if you don't get anything within 2 weeks here's
+> In make_memory_nodes, fix the error by skipping banks with xen_domain
+> set to true in the reserved-memory array. Also make sure to use the
+> first valid (!xen_domain) start address for the memory node name.
+> 
 
-Sorry for late. Confirmed working well on Odroid board, and had a review. Applied.
-https://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos.git/log/?h=exynos-drm-next
+This is a bug fix. So please add a Fixes tag. In this case, I think it 
+should be:
 
-Thanks,
-Inki Dae
+Fixes: 41c031ff437b ("xen/arm: introduce domain on Static Allocation")
 
-> my:
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> ---
 > 
-> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> This patch should be considered for 4.16 as it fixes an incorrect
+> behavior.
 > 
->> ---
->>  drivers/gpu/drm/exynos/exynos_drm_drv.c   | 13 ++-----
->>  drivers/gpu/drm/exynos/exynos_drm_fbdev.c | 20 ++---------
->>  drivers/gpu/drm/exynos/exynos_drm_gem.c   | 43 +++++------------------
->>  drivers/gpu/drm/exynos/exynos_drm_gem.h   |  5 ---
->>  4 files changed, 13 insertions(+), 68 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.c b/drivers/gpu/drm/exynos/exynos_drm_drv.c
->> index d8f1cf4d6b69..9743b6b17447 100644
->> --- a/drivers/gpu/drm/exynos/exynos_drm_drv.c
->> +++ b/drivers/gpu/drm/exynos/exynos_drm_drv.c
->> @@ -102,16 +102,7 @@ static const struct drm_ioctl_desc exynos_ioctls[] = {
->>  			DRM_RENDER_ALLOW),
->>  };
->>  
->> -static const struct file_operations exynos_drm_driver_fops = {
->> -	.owner		= THIS_MODULE,
->> -	.open		= drm_open,
->> -	.mmap		= exynos_drm_gem_mmap,
->> -	.poll		= drm_poll,
->> -	.read		= drm_read,
->> -	.unlocked_ioctl	= drm_ioctl,
->> -	.compat_ioctl = drm_compat_ioctl,
->> -	.release	= drm_release,
->> -};
->> +DEFINE_DRM_GEM_FOPS(exynos_drm_driver_fops);
->>  
->>  static const struct drm_driver exynos_drm_driver = {
->>  	.driver_features	= DRIVER_MODESET | DRIVER_GEM
->> @@ -124,7 +115,7 @@ static const struct drm_driver exynos_drm_driver = {
->>  	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
->>  	.gem_prime_import	= exynos_drm_gem_prime_import,
->>  	.gem_prime_import_sg_table	= exynos_drm_gem_prime_import_sg_table,
->> -	.gem_prime_mmap		= exynos_drm_gem_prime_mmap,
->> +	.gem_prime_mmap		= drm_gem_prime_mmap,
->>  	.ioctls			= exynos_ioctls,
->>  	.num_ioctls		= ARRAY_SIZE(exynos_ioctls),
->>  	.fops			= &exynos_drm_driver_fops,
->> diff --git a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
->> index 5147f5929be7..02c97b9ca926 100644
->> --- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
->> +++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
->> @@ -15,6 +15,7 @@
->>  #include <drm/drm_crtc.h>
->>  #include <drm/drm_fb_helper.h>
->>  #include <drm/drm_fourcc.h>
->> +#include <drm/drm_prime.h>
->>  #include <drm/drm_probe_helper.h>
->>  #include <drm/exynos_drm.h>
->>  
->> @@ -39,25 +40,8 @@ static int exynos_drm_fb_mmap(struct fb_info *info,
->>  	struct drm_fb_helper *helper = info->par;
->>  	struct exynos_drm_fbdev *exynos_fbd = to_exynos_fbdev(helper);
->>  	struct exynos_drm_gem *exynos_gem = exynos_fbd->exynos_gem;
->> -	unsigned long vm_size;
->> -	int ret;
->> -
->> -	vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
->> -
->> -	vm_size = vma->vm_end - vma->vm_start;
->> -
->> -	if (vm_size > exynos_gem->size)
->> -		return -EINVAL;
->>  
->> -	ret = dma_mmap_attrs(to_dma_dev(helper->dev), vma, exynos_gem->cookie,
->> -			     exynos_gem->dma_addr, exynos_gem->size,
->> -			     exynos_gem->dma_attrs);
->> -	if (ret < 0) {
->> -		DRM_DEV_ERROR(to_dma_dev(helper->dev), "failed to mmap.\n");
->> -		return ret;
->> -	}
->> -
->> -	return 0;
->> +	return drm_gem_prime_mmap(&exynos_gem->base, vma);
->>  }
->>  
->>  static const struct fb_ops exynos_drm_fb_ops = {
->> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
->> index 4396224227d1..c4b63902ee7a 100644
->> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
->> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
->> @@ -17,6 +17,8 @@
->>  #include "exynos_drm_drv.h"
->>  #include "exynos_drm_gem.h"
->>  
->> +static int exynos_drm_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
->> +
->>  static int exynos_drm_alloc_buf(struct exynos_drm_gem *exynos_gem, bool kvmap)
->>  {
->>  	struct drm_device *dev = exynos_gem->base.dev;
->> @@ -135,6 +137,7 @@ static const struct vm_operations_struct exynos_drm_gem_vm_ops = {
->>  static const struct drm_gem_object_funcs exynos_drm_gem_object_funcs = {
->>  	.free = exynos_drm_gem_free_object,
->>  	.get_sg_table = exynos_drm_gem_prime_get_sg_table,
->> +	.mmap = exynos_drm_gem_mmap,
->>  	.vm_ops = &exynos_drm_gem_vm_ops,
->>  };
->>  
->> @@ -354,12 +357,16 @@ int exynos_drm_gem_dumb_create(struct drm_file *file_priv,
->>  	return 0;
->>  }
->>  
->> -static int exynos_drm_gem_mmap_obj(struct drm_gem_object *obj,
->> -				   struct vm_area_struct *vma)
->> +static int exynos_drm_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma)
->>  {
->>  	struct exynos_drm_gem *exynos_gem = to_exynos_gem(obj);
->>  	int ret;
->>  
->> +	if (obj->import_attach)
->> +		return dma_buf_mmap(obj->dma_buf, vma, 0);
->> +
->> +	vma->vm_flags |= VM_IO | VM_DONTEXPAND | VM_DONTDUMP;
->> +
->>  	DRM_DEV_DEBUG_KMS(to_dma_dev(obj->dev), "flags = 0x%x\n",
->>  			  exynos_gem->flags);
->>  
->> @@ -385,26 +392,6 @@ static int exynos_drm_gem_mmap_obj(struct drm_gem_object *obj,
->>  	return ret;
->>  }
->>  
->> -int exynos_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma)
->> -{
->> -	struct drm_gem_object *obj;
->> -	int ret;
->> -
->> -	/* set vm_area_struct. */
->> -	ret = drm_gem_mmap(filp, vma);
->> -	if (ret < 0) {
->> -		DRM_ERROR("failed to mmap.\n");
->> -		return ret;
->> -	}
->> -
->> -	obj = vma->vm_private_data;
->> -
->> -	if (obj->import_attach)
->> -		return dma_buf_mmap(obj->dma_buf, vma, 0);
->> -
->> -	return exynos_drm_gem_mmap_obj(obj, vma);
->> -}
->> -
->>  /* low-level interface prime helpers */
->>  struct drm_gem_object *exynos_drm_gem_prime_import(struct drm_device *dev,
->>  					    struct dma_buf *dma_buf)
->> @@ -466,15 +453,3 @@ exynos_drm_gem_prime_import_sg_table(struct drm_device *dev,
->>  	exynos_gem->sgt = sgt;
->>  	return &exynos_gem->base;
->>  }
->> -
->> -int exynos_drm_gem_prime_mmap(struct drm_gem_object *obj,
->> -			      struct vm_area_struct *vma)
->> -{
->> -	int ret;
->> -
->> -	ret = drm_gem_mmap_obj(obj, obj->size, vma);
->> -	if (ret < 0)
->> -		return ret;
->> -
->> -	return exynos_drm_gem_mmap_obj(obj, vma);
->> -}
->> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.h b/drivers/gpu/drm/exynos/exynos_drm_gem.h
->> index a23272fb96fb..79d7e1a87419 100644
->> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.h
->> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.h
->> @@ -96,9 +96,6 @@ int exynos_drm_gem_dumb_create(struct drm_file *file_priv,
->>  			       struct drm_device *dev,
->>  			       struct drm_mode_create_dumb *args);
->>  
->> -/* set vm_flags and we can change the vm attribute to other one at here. */
->> -int exynos_drm_gem_mmap(struct file *filp, struct vm_area_struct *vma);
->> -
->>  /* low-level interface prime helpers */
->>  struct drm_gem_object *exynos_drm_gem_prime_import(struct drm_device *dev,
->>  					    struct dma_buf *dma_buf);
->> @@ -107,7 +104,5 @@ struct drm_gem_object *
->>  exynos_drm_gem_prime_import_sg_table(struct drm_device *dev,
->>  				     struct dma_buf_attachment *attach,
->>  				     struct sg_table *sgt);
->> -int exynos_drm_gem_prime_mmap(struct drm_gem_object *obj,
->> -			      struct vm_area_struct *vma);
->>  
->>  #endif
->> -- 
->> 2.33.1
->>
+> The risk is low for two reasons:
+> - the change is simple
+> - make_memory_node is easily tested because it gets called at every
+>    boot, e.g. gitlab-ci and OSSTest exercise this path
 > 
+> I tested this patch successfully with and without xen,static-mem.
+> 
+> ---
+>   xen/arch/arm/domain_build.c | 13 +++++++++++--
+>   1 file changed, 11 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 1fbafeaea8..56d3ff9d08 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -874,11 +874,17 @@ static int __init make_memory_node(const struct domain *d,
+>       if ( mem->nr_banks == 0 )
+>           return -ENOENT;
+>   
+> +    for ( i = 0; i < mem->nr_banks && mem->bank[i].xen_domain; i++ )
+> +        ;
+> +    /* No reserved-memory ranges to expose to Dom0 */
+I find this comment a bit misleading because make_memory_node() will 
+also be called to create normal memory region. I would drop 
+"reserved-memory" and add a comment on top of the loop explaining what 
+the loop does.
+
+> +    if ( i == mem->nr_banks )
+> +        return 0;
+> +
+>       dt_dprintk("Create memory node (reg size %d, nr cells %d)\n",
+>                  reg_size, nr_cells);
+
+I think you need to adjust nr_cells otherwise we would write garbagge in 
+the DT if we need to exclude some regions.
+
+>   
+>       /* ePAPR 3.4 */
+> -    snprintf(buf, sizeof(buf), "memory@%"PRIx64, mem->bank[0].start);
+> +    snprintf(buf, sizeof(buf), "memory@%"PRIx64, mem->bank[i].start);
+>       res = fdt_begin_node(fdt, buf);
+>       if ( res )
+>           return res;
+> @@ -888,11 +894,14 @@ static int __init make_memory_node(const struct domain *d,
+>           return res;
+>   
+>       cells = &reg[0];
+> -    for ( i = 0 ; i < mem->nr_banks; i++ )
+> +    for ( ; i < mem->nr_banks; i++ )
+>       {
+>           u64 start = mem->bank[i].start;
+>           u64 size = mem->bank[i].size;
+>   
+> +        if ( mem->bank[i].xen_domain )
+> +            continue;
+> +
+>           dt_dprintk("  Bank %d: %#"PRIx64"->%#"PRIx64"\n",
+>                      i, start, start + size);
+>   
+> 
+
+Cheers,
+
+-- 
+Julien Grall
 
