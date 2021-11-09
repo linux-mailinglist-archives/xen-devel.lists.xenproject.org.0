@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1FE144AC64
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Nov 2021 12:17:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.223886.386833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8971344AC78
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Nov 2021 12:19:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.223893.386844 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkP7e-0005mA-Mv; Tue, 09 Nov 2021 11:17:02 +0000
+	id 1mkPAG-0006Rb-87; Tue, 09 Nov 2021 11:19:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 223886.386833; Tue, 09 Nov 2021 11:17:02 +0000
+Received: by outflank-mailman (output) from mailman id 223893.386844; Tue, 09 Nov 2021 11:19:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkP7e-0005jk-Jl; Tue, 09 Nov 2021 11:17:02 +0000
-Received: by outflank-mailman (input) for mailman id 223886;
- Tue, 09 Nov 2021 11:17:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mkPAG-0006Ov-4v; Tue, 09 Nov 2021 11:19:44 +0000
+Received: by outflank-mailman (input) for mailman id 223893;
+ Tue, 09 Nov 2021 11:19:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ImPG=P4=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mkP7c-0005jY-Jb
- for xen-devel@lists.xenproject.org; Tue, 09 Nov 2021 11:17:00 +0000
+ id 1mkPAF-0006Op-Cf
+ for xen-devel@lists.xenproject.org; Tue, 09 Nov 2021 11:19:43 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8e1b4ac7-414e-11ec-a9d2-d9f7a1cc8784;
- Tue, 09 Nov 2021 12:16:59 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ef69d75e-414e-11ec-9787-a32c541c8605;
+ Tue, 09 Nov 2021 12:19:42 +0100 (CET)
 Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur02lp2054.outbound.protection.outlook.com [104.47.4.54]) (Using
+ (mail-am5eur02lp2051.outbound.protection.outlook.com [104.47.4.51]) (Using
  TLS) by relay.mimecast.com with ESMTP id
- de-mta-19-5zD3yDNyNuqaBKjGu2aiIQ-1; Tue, 09 Nov 2021 12:16:57 +0100
+ de-mta-31-tH2t5thlNweaIbpa9Nwiig-1; Tue, 09 Nov 2021 12:19:41 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4190.eurprd04.prod.outlook.com (2603:10a6:803:4b::23)
+ by VI1PR04MB4605.eurprd04.prod.outlook.com (2603:10a6:803:65::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.13; Tue, 9 Nov
- 2021 11:16:55 +0000
+ 2021 11:19:40 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4669.016; Tue, 9 Nov 2021
- 11:16:55 +0000
+ 11:19:39 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM6P192CA0095.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:8d::36) with Microsoft
+ AM6P192CA0089.EURP192.PROD.OUTLOOK.COM (2603:10a6:209:8d::30) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4669.16 via Frontend Transport; Tue, 9 Nov 2021 11:16:54 +0000
+ 15.20.4669.16 via Frontend Transport; Tue, 9 Nov 2021 11:19:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,36 +54,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8e1b4ac7-414e-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: ef69d75e-414e-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1636456618;
+	t=1636456782;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5Q+8ODTp7u5v/Fccrsb7w//uPVkWKoGAWsfBRDCLCCQ=;
-	b=NX/peM2GMCK/taUrgfdC57zdDIb60yKwkpKTrjHDzQ5KZrk7AQ69HYgyKVzilwcgY4N57M
-	lZNyTlQz6kGwY5KQslsoEF0qAGNYtKDf/hgReTQglaRYjKssdyeSXPhJW6AZiYxu3DkVBU
-	8bhO5IFijAZUkTtyqePQlxC3DbonywM=
-X-MC-Unique: 5zD3yDNyNuqaBKjGu2aiIQ-1
+	bh=cfPhLruYjOCa3U8YgYc0tA4C4vvSxTnDRem1yOKuIjk=;
+	b=m+F1A+mvExoI1/oGUNgetBSUclN0zQhj/oycc79mk37TNfFdvSwoi7fbJLPhuMbv/Y3EAc
+	AxHzGPK0kl9nm5hxDWV5XTkc1jmohNAbOoJ9YjK0Xg5C8SaFDatKJl5SYncNc/8GkbyDLd
+	P5N+Zt7+pw0zaI8zSH7rHnI53UrMuB8=
+X-MC-Unique: tH2t5thlNweaIbpa9Nwiig-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vx05oZLh2du77kwlp+XJs+jPs6PpXtPYB2Y+Kb5ZiIHBthV+uXogz3huoMTbboEx3EuM4tjOyUVWfFwSncOZYKWfbuQq4iF1TirGNwcQCmCuAqx7NB3XGcoqBTr9+yUovP/PtKrxwVlR3tsyTy9bexhC+O1/1BtM94KZc0ynf0y8Ny6ZKsFBq9QJyt6r6nmwT6Iwaoqs+piRQgjcbWZsQ2dBB41vikLVsBqTLDcGORa4RzsrWpZXUPQ7G9uOwFWJO1u4R7xEkMPvIyfcNJbHXm7VsCm+cXxeB56n3/ybowgH9exChuLrWjSlSB6Pb9I/YgrGHAK637jMlCrw1ogSfQ==
+ b=jpQCMQRs0q3JeXPtLeYrdNdeC6W0fd9JxrfqUhaMYS5aindeRh47t5ICFspZM57z6t51Za+XGmRWfc/wIhazDG4eHfXt4rRqC4phIDp9RjviJD6kiTEn6azNjOaKPA3u++ZJIP3YVlukULI+svbQP+akIGvY5BrFyhvGdom96asLmocLEdyo9ZPc+cEMBEmDgc6FEjuXdRedfMd0KVNqyhVHd1YuU0iJDYS8NzWByE1fbw5wKwh0X4Kxy89NFfhNR+VFJl0sYFsqRnagXrJChlBwnJQMFQ8zT2VA+9NA46fl/eThql6pvXY/gLfhkJ7Fc3OYXLklOx3L8Nom+DxxsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5Q+8ODTp7u5v/Fccrsb7w//uPVkWKoGAWsfBRDCLCCQ=;
- b=AXNmbEYU32PHUyk2yf0ud3jC4laFpbbKvaOjWty3ujIRX3sKhKDlGH8SZOOuqEF+ylcUgymIVjfdPLkLnm5+OgC6EJm60y3QJNX28LV/gCyPAJnNlWGz983MN9D2M2z3bxTqPOZ8Ynn66UAGFsCCxk2tNu3cW8xwe9jrVw9ATiQsdy1ZrXZvBkQ38ha0HeYNU7UsTk8LLqUyc4gA6zXMwaEoEU+2TxOQxbCFHhRBxfF8bV8Fe7MnMBEZ4DZH2D1iarmNWW98arT8AqaHzsUHGrF5yTZlaeQgEXYP6byqHr4YAvczgjVvODCdA+rloR4M9Z9aNVIT6iYNlbEIOyOjDw==
+ bh=cfPhLruYjOCa3U8YgYc0tA4C4vvSxTnDRem1yOKuIjk=;
+ b=O23I+Ufus2xAveOr8+hERcwRr4RygIsDMoSxM4+FQGj+Xd6e7a0/Cy8VlXYetp+oS8QvfRsAp5nc672imxkHl2gVdvOa04NibNXlH0Vwfrae+DbszPXmHb/h0NN0dJi46ebJb09nUc9ob7N2JG+q9Ud13Q4Pvg0jTEiqUKtV6wlwM1ugmc8xg13NGGQ4vqO7rZXQkNvTGsid8j+Jvbkz5bxo4XTpAM8qkw5WuWLbjFy09Rkc4dVBALXkVtON2aQzzClUzNRhW5JzVqO0kkAYG3nbvefxOTxqenKCdqpWA3r7tYp/U2gFmCCtQr57or80vXyOYfvuUoaYZ/ibXKZw1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <3df9dab5-4152-77b7-55a1-8bfd4d91f9a5@suse.com>
-Date: Tue, 9 Nov 2021 12:16:53 +0100
+Message-ID: <a984eede-878f-d9b5-da63-990e2e2e57b5@suse.com>
+Date: Tue, 9 Nov 2021 12:19:37 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: Re: [XEN][RFC PATCH v2 08/12] xen/arm: Implement device tree node
- removal functionalities
+Subject: Re: [XEN][RFC PATCH v2 09/12] xen/arm: Implement device tree node
+ addition functionalities
 Content-Language: en-US
 To: Vikram Garhwal <fnu.vikram@xilinx.com>
 Cc: sstabellini@kernel.org, julien@xen.org, bertrand.marquis@arm.com,
@@ -91,201 +91,100 @@ Cc: sstabellini@kernel.org, julien@xen.org, bertrand.marquis@arm.com,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
  Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 References: <1636441347-133850-1-git-send-email-fnu.vikram@xilinx.com>
- <1636441347-133850-9-git-send-email-fnu.vikram@xilinx.com>
+ <1636441347-133850-10-git-send-email-fnu.vikram@xilinx.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <1636441347-133850-9-git-send-email-fnu.vikram@xilinx.com>
+In-Reply-To: <1636441347-133850-10-git-send-email-fnu.vikram@xilinx.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P192CA0095.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:209:8d::36) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM6P192CA0089.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:209:8d::30) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ff83e031-21a8-484b-5a42-08d9a372704c
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4190:
+X-MS-Office365-Filtering-Correlation-Id: 13623e68-be61-42fc-1627-08d9a372d22a
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4605:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB4190AFD534C4853E353F582DB3929@VI1PR04MB4190.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+	<VI1PR04MB4605D0D1F44315990147622EB3929@VI1PR04MB4605.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	MIeOX+B1lTabsue4wKItREqqUExgZ1ChSOmjdhkuJ9CdFCByx+Ych+oIuoN5aAppsGnnAafqpPmocKkzmFV9mt/8crndnezdnJKM++OPrJzNjNBj7mpePupkfkaasYqpx4hGl8r5yf06m4HSg6RJ8ZEky/wLKs0jLOB3uam7jiqDScQeQFdFOZN2sk2Uk8XuBM0g40BMTo3FtRbMEWZvS51oT8yzkpjfcK9thtw+Wxv2aFF4UKn17biG74regqiYeIImktFb2exUR2paUYz6xOfHljYtEZOjHscT+UDFWVM0fY48pKVtIq0Iw0OJOpW8ni4FvJRoehZLuXTfcfIA2CUVm1PmgbHOslauqwuR+mzRqkm28Nw/MVjfvtgRJFCaKxnbLR7ZdRAPqyp6Myx2u9INdAYViST7cfN56szCkyeMHEU49h9lPLOVx6JvDP3pz2uXivwcCOlDYR3uxiXAxqeTTX3q7qdgvQBy0xVxn8V5U53I8/9LnH0Bjh5w4YtfaRedGvhIpkfHHdIX7AKtUskLJrKMbzDj8MIHZTnxlVtn91/Zj2TM3AF+8U2M+r8bIJrzZE068DHcbFUhATFbceX9CL54xLanBQ4SevCX3RMa5l5rAaZork56Et6yJQ7yYpoCVDUWLJra9uLrAb+12pAngXfm/wHkNmzWMUzr6iVamPRzqlhGD4fU+QT4wP0K51AsDDEU2CivXVhuBcRMz6zVuThWJ6Y2yh7LtEmh4AqUEoiIKPa9tqw19i4hdxHY
+	a1QzYa4hbWdCsTpd911Au5Vh3kjGUTJmyIiAN7NlyQDpgfSyOxvasOAQzXb5F/tV36V76rHTgbQkq6nFlbb782u+/lY/2vz64SNturNmq/9cebDQh8Mh73d2LfDr9KWFnSI2PMkPe5bujW+o0GewCrd9Q2dvLzKfaTCjcW2VCyWDp15eFcSErtdxp+WJtj6TQ8Vg7jZjxEmxbdvxKt0RFsKrdPqmj2u4jeYvoCH/0TBaTmADzkjAA92fenQVAWNQ5AYK8RSULKmuFQ13eFf0m1C3R2eMjMgE+C7k4N9Os145Ho373nRLd3mwVeg5XXOHlP9mt9RxCwasAg3nRG7GvdaN6EsEOFC/ngHRtqYV8mU1FS+s3HMDGRRctV2llz6SDVLvtI9Xa/Fv35DNBVqCKsh92oN9dxOa3lqCanhJ/8PP9kK+pmsAU1QoxcEtgV8UinrbyGF42zCIlwP7uUyD1/1TojgtMG1/X7uGeckuQGXt2RGkI1IITAKhTrNdGgITMLBLE5eSXkVpd0Nlze2/X8OAHYMFMgD5bzWTvMYKtVuq8rpbzfMBQZn52BF8ZyPeAiISN7Vu7X73vvPulJNLEZiRkTTne4c/I+XjRToZ6SW/FwMS8LXz9l1rlcXFSEHKGKtmr7smSuEmCqPO+SnqoBWxkDvEucsSjKlzTBRm/efZgiKCvC1XZnRNr51v8OcFmL4ite0VzGxD+tFFOarQovaVgCQLQASxqu5sMwQAVzkcLuwfU5U9cDCMZDlePs2p
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(316002)(66476007)(2906002)(7416002)(31696002)(36756003)(66556008)(86362001)(31686004)(186003)(8676002)(8936002)(38100700002)(5660300002)(54906003)(4326008)(66946007)(26005)(508600001)(2616005)(6486002)(956004)(83380400001)(53546011)(6916009)(16576012)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8676002)(6916009)(26005)(4326008)(8936002)(31686004)(186003)(956004)(38100700002)(2616005)(7416002)(86362001)(6486002)(5660300002)(2906002)(66946007)(54906003)(31696002)(316002)(16576012)(508600001)(36756003)(66476007)(4744005)(83380400001)(66556008)(53546011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cFF2Z2FFMk1NdjVWa3ZnNkErU1pXRkFrWDg1VmUzejh5bmpyV0l0MExvTTly?=
- =?utf-8?B?dVl2ODFJV2ZaZm4zUHpabWtjWVQvMWE5V0k5VkFKNXRTS0xBVm1SYlNRanZz?=
- =?utf-8?B?TXVZUkhla3JTNDJYdjFRbjBLbmVaeTd3QTBrQVd5c2Rvbk5QV1NnY1hYVDBF?=
- =?utf-8?B?Mi9KRzhXV3c0c0hrVzNrWnU5eHhwMkFZdklQcUI3d3dGTDJxQjJxbHFTNFV4?=
- =?utf-8?B?MGI4ZU9nNHhiVTRuZkJyUU5LcW90aXArWTVqSFB0aDM4OXZxelBneCs3alRJ?=
- =?utf-8?B?OXc3WHN2UWhFc0NQQjBmK2pYakd3MnU2Z3pCNnJRRGZhV1ZQUGVOeEdkZHBH?=
- =?utf-8?B?SThpWlN4SkNEaFd0dGkxWUxTTnkxNHQ4NnN2L2tIMmh1Q0ZLb05ua0xhVWhK?=
- =?utf-8?B?UVB3R2xySGVLMzhwVFMrc3Fyb3ZORFI0RGdDRktVYTZWekxVdHZ6VmJZbEZK?=
- =?utf-8?B?L3hmRGdNSnJycE5Ha1g5RVRRdFRhUUhUN1JvbWIzMHJjZnY0UGVrNXIvTFow?=
- =?utf-8?B?NVJla0JhRGFFSGl4amZPSytYK3pERmhoRDg5enhPVGtJblRqa3loME1VSUJV?=
- =?utf-8?B?ME42RXZFU2RHVWpjc21BNFM0dnpSeldmbGRRdzRpRk5kdUorVXpEeThmSnhV?=
- =?utf-8?B?dTFmYlA4QU1uQjdKU0NZQ0FXd3pvUnJ2dFRUZmJnN2tDaXdwVGt1d0RIT2Uv?=
- =?utf-8?B?RW1MdFQvdkFXNVhLYmlMOWJPcE5VSzRKZWJPNDgra080aWJ4TU1HNjd6VjNT?=
- =?utf-8?B?dG1TQTV2blZpemVVYWRzWnFjWHJPTnhwcDZBTC9MRnRPanduT2kveVptNEVT?=
- =?utf-8?B?K0ROd29BVXhsS3F5SCtQa2NxMU5iWmg5NFQ2YWw2ZTVPYW9rdjlHVEhrbWtv?=
- =?utf-8?B?cG8rREZEL21MRFFPQncyRlFLeWJoekMva2Z4UElQOGZLNUUybkc4VVpmT2tT?=
- =?utf-8?B?MEdDQi9lODQ5cnU1MlBFWTZ5cklaZTZwRjB2Y0RaRVE2NisrS3Bka1FOS1Zz?=
- =?utf-8?B?SW41ZEVzSVJDWTZ4dHZVN241RFZSbkFhbzlwdWhQb2ErVTh0NmpTeXhlZVc0?=
- =?utf-8?B?VjM1VnRoR0RIdzRaTTJsN3Npd08yVDV2VWhWWkc5OVhuTTNRazVtQTNUZTNr?=
- =?utf-8?B?bnpNTjlGbjJMTXFnV3lvN2w1aTQ3TGl3b25wZkZvYUROK0dIaHI0MitlOFBY?=
- =?utf-8?B?alIwN1hqOURLYzdhaGJsUW5sMVloNy8wV3pjRkV5NXRBbTFSQTg1TUg4Sktj?=
- =?utf-8?B?ZDRzY1JWNGFEZjZaVC9oU2hCYlFxT3dIYmZ1L2wwM1BCSFRCN05aTkwxL2sw?=
- =?utf-8?B?QmJsdVc5TWZyRE9OL1FyRG9QcEtQS1Z6Q1BjUUtWc3dLOGs5c0V5UHdqcUJ4?=
- =?utf-8?B?Y0xtQjh4VENRQ24yTWdpWVEvU2tQZnZadWxVaTQ3ZnpwMmx1aVpTdmoxNDZJ?=
- =?utf-8?B?amdoeExTQ2xZa0Rqc21nc0RNbDZNWmxTSER5bUROMlkrZ0Y5WXNkWmZ1bHZZ?=
- =?utf-8?B?b081TXViWno4akJXQjd0bHFjWUhwejFLZlMxWVd1bnRHcWJnSk9KS0hYclJn?=
- =?utf-8?B?ZWpzVUU0dVZuNWZ5K2VvbzN3cC9ZeU1ZMkVXUGE4T2s3b0ZoL0Q4d1RnenRI?=
- =?utf-8?B?MlVlNjJ5QzJBbnlDZXpGbVFpMzhVdFJUNUtSKzVNbjZ1Q3FlL1ZVRkN2YkZK?=
- =?utf-8?B?QzVmWmFNdWtNT0s2MWtzTjZwNExEOWxjdjhnQzYxaUZ6dW1GSExkajZNSHlJ?=
- =?utf-8?B?TTdzUlFSK3RmOVQyRmFMNU1oVnA4a2VuVktOWFBBSkVacjE0YXJIVlh1WXRM?=
- =?utf-8?B?OXBOdndjc2tHSlNkOTR3YjFFUHBvdHgxUGhoZEtURkpEVFIySUp3ZE5MUmx0?=
- =?utf-8?B?NDM3Mlpoc3lkNE5WVDRVSy9TOWpVREp1Nmp6ZkNJSDgyWkd5RnlFMU1yS3FE?=
- =?utf-8?B?UUpDU0wyeTRvenk4MkozZkV6MWtyNXU4VWh3NjBBUVQxM0lORFNWdnlnNzdF?=
- =?utf-8?B?TWp1WmQ1WDMxZ2NVM2d4ZzR3djZLaUNIMDEwZHN3eTF0LzE4Q1Z6Tk5GV1pG?=
- =?utf-8?B?TDl1KzY0S1ZZeE0xZVZ2Yng5b3ZrZTBCeUVJTW96K1ZWN0dRS1lzRHVOcmo5?=
- =?utf-8?B?d3hYemgzb3F3Zzd5M2pDcnNyalIwb0xrM2JIMmo4VEpBZEhGNThZNWhTNnF4?=
- =?utf-8?Q?ghUkfM8o4U8FPx+cODBgL8A=3D?=
+	=?utf-8?B?MHFyQUE5QTNtOVI4UVBCb2VZQmxTd280RlpwYmM3d3RGVWdqOEF1NFB5TDRU?=
+ =?utf-8?B?YmN3Ui9ESnUvMGY0ODh2UEwxR0pFUFhxUitXUkhHTXUrY25jbkk4OWM3Q01i?=
+ =?utf-8?B?ZVdXVVY3dzJ5SVppUkEyYUVKS3Y2bHU4L3IzQ1A4RnlWUmE1ZDVuNUNVUDMr?=
+ =?utf-8?B?QXMrSzdRQ1p1YWNmMXg0bEYxeFBuVjZoYnl2QXVzRGt5R1kxOFBkSU5icVdX?=
+ =?utf-8?B?UEpkRkYvcE1iZHNYOWFmZkFLckJCWlRieEQ2Tk5XVERXK01RWmtrMmxjckZP?=
+ =?utf-8?B?Vlpodm5mb3Y4Q0wwbm5PNGR6enpmbW42Z2JnY0hZdUlkVnhWRUV5ZjF5U0I4?=
+ =?utf-8?B?bEpYMEllU2VuMkMyU00vbE1kczFqVmwxMFU5RHA5VmtRRFUweDQyRCtZWFdY?=
+ =?utf-8?B?eXJKbGtOeXZzcndMT0d3L0o3cE1DbHpmd2dCaE9zV2VXdUViNnZuSVBCa0hs?=
+ =?utf-8?B?blZLUWowTzZudzkvbWVxMWI5MnhCalp6TFVVMm00ckVLWFhuWGptMFBEYnEz?=
+ =?utf-8?B?U0t0QUo4VGlycUxRN2ZWR09CN01zUlpVYXd0ZDhMcEZocUVqZUNrVUlBZFJL?=
+ =?utf-8?B?NmU0WXlGSjl1UVJvWG14VnNLS29LaVNGRElrRHJocHNOVExJazJRZlJKV3Ja?=
+ =?utf-8?B?OU1uOWllZjdVVE5menNYUzhhb2VTTXBFU24ydjViaEZrK2JDYURUbTY5YU5S?=
+ =?utf-8?B?bG5iUjQzWnplMGtJNGdYU2FWVjFtVVI5MGRxWkxrd2FPa2Y4L1EvRzlMTFRF?=
+ =?utf-8?B?RjlyRGhhWFFMdWhIZDBscGs3c0JZM0UySWpEYkxJWjB6aW15dG54OVhSWEZ3?=
+ =?utf-8?B?SzRqdzQ4d1ZId2tFYjZJOXQ4THE2TFpiN3NlblJaNGUxUk9keFVDQ0J3Ni9m?=
+ =?utf-8?B?OEZSQTNlV3BoOUIzT1dTaEZMQmtmMTN1b3V6QWZQRzc1Q2ZSMEZhbmUwNU5F?=
+ =?utf-8?B?b24vK2dCQjdtMWR5ZCsvTy9rdHhRQ1Z0ZEpsV0dUL29WMzZRUVhIdktpa3VN?=
+ =?utf-8?B?Nkl1SW1PUlI1ZEhDRy9jTW9kNTRCLzl0R0VGRzBjclNSSGhHRGZBTzA0R1RN?=
+ =?utf-8?B?bEZmTm9tR0dYYlNWZ0hUNmIrQ2lCc0pML0Vhb1liOFBpazJ4MFFoK0tRbFh2?=
+ =?utf-8?B?OW1tNTE2Yy9maHF0TlY4Q2dLc1RaZ1FqZFR4b0RmakRXd0cyWnU4MG1HanZO?=
+ =?utf-8?B?QmJRamZOaDNraUd4aXlJK2JST0N0a0tJUU5TeUJRZTl1T0RwODdPK3YrRERH?=
+ =?utf-8?B?Ukl5Tnl4dk5vWG9MZXFsbnNtYjNWaEQ3bW5IbHEzZXpyZDRvaGtlZDVZeVlV?=
+ =?utf-8?B?ZWJ0eExvelE4ZzFzTER2L2ljSlQwb0RnV29zOGRvdmhhN2d5cFpxTnIwNGZJ?=
+ =?utf-8?B?RFNNaWhUSVZ4TStUWW5kbHhjUDRGZldtRzIrTXlFcUgvSHZxY3p3dzhhYXNP?=
+ =?utf-8?B?cERmckpNelBxcmpiakp3UTQ5QUQydU1EWFUvN2hPQnNMSjEzYW42V2V1MEFh?=
+ =?utf-8?B?bWdCYjNOVEYzaDNHTVZIZ0lmWUNSL2dIMEZMNlU5OFYzYjhzK0ZFNEhtdTM3?=
+ =?utf-8?B?TStUdm81NXk3UlhkM3hNNWJXdXY3Mk1WcXdxYjFpTm1SSE05QXNodEJ1Sldy?=
+ =?utf-8?B?Zi9DZkpENXhESWVta0d0ZDN5ZG5ZVUdwc1p0Y2JubG5UMmhZbC8rQ2k2RlZI?=
+ =?utf-8?B?cG1OZ2kza2NlT0tvd3grSC80cnk5bXh1S0ZoNFBvUUNDWEpOdDg1MXU2cGsw?=
+ =?utf-8?B?V1NLUmlmWTN0a1JrMWpMUWlJZWd2NmlXcS9ldUJBZklBUlF2NW9RRU04QkJM?=
+ =?utf-8?B?STNGaVVSWkZTR0NSUmg3ZG0vbitWR3JyeTBzVUJzdER2UjRIbGlFdnFvc212?=
+ =?utf-8?B?MEdXZ0gxNGZSc3A3OHdmcU52N1B3c096TlF2ZFNDd0JEb3hqdTNjbXdhNE4w?=
+ =?utf-8?B?VmJlVXFmYkhwTTFta2dDS2ZpQnRmUlV2b0VCVU82U2xZTFpPTUFURXlWemlI?=
+ =?utf-8?B?eWtKSmI0czA4eEttWWdYOWE2SzZ0THMveDRlaEJ0WHZvamNrWmw3SzB6Y0px?=
+ =?utf-8?B?VHQyekM3eUpQa2xKYUNhQXYyU0NiWXp2RGhzQTIzMFV6SldJTUR6QjRWKzJP?=
+ =?utf-8?B?TERpRUNiOWpqVmFuL2Ryb0hybytIb3BUYVV4Tks2bEJ5a2E0RDJGZWhnSmZp?=
+ =?utf-8?Q?J97fu8hh2LlUgbaMn4SmhBw=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff83e031-21a8-484b-5a42-08d9a372704c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13623e68-be61-42fc-1627-08d9a372d22a
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2021 11:16:55.6636
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2021 11:19:39.8387
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OYInl03ZjM6TrTGvKmu7V877I6w7P7MSTlBtcIeCqGsXMCt77QATdn/yQdFOok8CahM+xqVQOYAv1LmglbFEmg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4190
+X-MS-Exchange-CrossTenant-UserPrincipalName: j/6SLwOQfk06Q2TW+gjD1QlAnRdtaObOkTuoqzCamWL4Dq4lY4Arxs34n7cxMGnJBew8pqX0SXl2yO4VSns3SA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4605
 
 On 09.11.2021 08:02, Vikram Garhwal wrote:
-> Introduce sysctl XEN_SYSCTL_overlay to remove device-tree nodes added using
-> device tree overlay.
-
-XEN_SYSCTL_overlay is too generic a name imo.
-
-> @@ -476,6 +781,73 @@ long do_sysctl(XEN_GUEST_HANDLE_PARAM(xen_sysctl_t) u_sysctl)
->              copyback = 1;
->          break;
->  
-> +#if defined (CONFIG_OVERLAY_DTB)
-> +    case XEN_SYSCTL_overlay:
-> +    {
-> +        void *overlay_fdt;
-> +        char **node_full_path = NULL;
-> +        int num_overlay_nodes;
-> +
-> +        if ( op->u.overlay_dt.overlay_fdt_size > 0 )
-> +            overlay_fdt = xmalloc_bytes(op->u.overlay_dt.overlay_fdt_size);
-> +        else
-> +        {
-> +            ret = -EINVAL;
-> +            break;
-> +        }
-> +
-> +        if ( overlay_fdt == NULL )
-> +        {
-> +            ret = -ENOMEM;
-> +            break;
-> +        }
-> +
-> +        ret = copy_from_guest(overlay_fdt, op->u.overlay_dt.overlay_fdt,
-> +                             op->u.overlay_dt.overlay_fdt_size);
-> +        if ( ret )
-> +        {
-> +            gprintk(XENLOG_ERR, "copy from guest failed\n");
-> +            xfree(overlay_fdt);
-> +
-> +            ret = -EFAULT;
-> +            break;
-> +        }
-> +
-> +        if ( op->u.overlay_dt.overlay_op == XEN_SYSCTL_DT_OVERLAY_ADD )
-> +        {
-> +            ret = handle_add_overlay_nodes(overlay_fdt,
-> +                                           op->u.overlay_dt.overlay_fdt_size);
-> +        } else if ( op->u.overlay_dt.overlay_op ==
-> +                                        XEN_SYSCTL_DT_OVERLAY_REMOVE )
-> +        {
-> +            ret = check_overlay_fdt(overlay_fdt,
-> +                                    op->u.overlay_dt.overlay_fdt_size);
-> +            if ( ret )
-> +            {
-> +                ret = -EFAULT;
-> +                break;
-> +            }
-> +
-> +            num_overlay_nodes = overlay_node_count(overlay_fdt);
-> +            if ( num_overlay_nodes == 0 )
-> +            {
-> +                ret = -ENOMEM;
-> +                break;
-> +            }
-> +
-> +            overlay_get_node_info(overlay_fdt, &node_full_path,
-> +                                  num_overlay_nodes);
-> +
-> +            ret = handle_remove_overlay_nodes(node_full_path,
-> +                                              num_overlay_nodes);
-> +        }
-> +
-> +        xfree(node_full_path);
-> +
-> +        break;
-> +    }
-> +#endif
-> +
->      default:
->          ret = arch_do_sysctl(op, u_sysctl);
-
-Seeing this call is even in (patch) context - would you mind clarifying
-why you don't add the new code to arch_do_sysctl() (perhaps by way of
-further forwarding to a new dt_sysctl(), which could then live in a DT-
-specific source file)?
-
-> --- a/xen/include/public/sysctl.h
-> +++ b/xen/include/public/sysctl.h
-> @@ -1065,6 +1065,25 @@ typedef struct xen_sysctl_cpu_policy xen_sysctl_cpu_policy_t;
->  DEFINE_XEN_GUEST_HANDLE(xen_sysctl_cpu_policy_t);
->  #endif
->  
-> +#if defined (CONFIG_OVERLAY_DTB)
-> +#define XEN_SYSCTL_DT_OVERLAY_ADD                   1
-> +#define XEN_SYSCTL_DT_OVERLAY_REMOVE                2
+> --- a/xen/common/sysctl.c
+> +++ b/xen/common/sysctl.c
+> @@ -331,6 +331,205 @@ out:
+>      spin_unlock(&overlay_lock);
+>      return rc;
+>  }
 > +
 > +/*
-> + * XEN_SYSCTL_overlay
-> + * Performs addition/removal of device tree nodes under parent node using dtbo.
-> + * This does in three steps:
-> + *  - Adds/Removes the nodes from dt_host.
-> + *  - Adds/Removes IRQ permission for the nodes.
-> + *  - Adds/Removes MMIO accesses.
+> + * Adds device tree nodes under target node.
+> + * We use dt_host_new to unflatten the updated device_tree_flattened. This is
+> + * done to avoid the removal of device_tree generation, iomem regions mapping to
+> + * hardware domain done by handle_node().
 > + */
-> +struct xen_sysctl_overlay_dt {
-> +    XEN_GUEST_HANDLE_64(void) overlay_fdt;
-> +    uint32_t overlay_fdt_size;  /* Overlay dtb size. */
-> +    uint8_t overlay_op; /* Add or remove. */
-> +};
+> +static long handle_add_overlay_nodes(void *overlay_fdt,
+> +                                     uint32_t overlay_fdt_size)
 
-Please make padding explicit and check that it's zero on input (so
-it can later be assigned a purpose without needing to bump the
-sysctl interface version).
-
-> @@ -1125,6 +1145,9 @@ struct xen_sysctl {
->  #if defined(__i386__) || defined(__x86_64__)
->          struct xen_sysctl_cpu_policy        cpu_policy;
->  #endif
-> +#if defined (CONFIG_OVERLAY_DTB)
-> +        struct xen_sysctl_overlay_dt       overlay_dt;
-> +#endif
-
-No CONFIG_* dependencies in public headers, please.
+You adding a static function here without any caller got me puzzled.
+First I thought you'd be introducing a build failure this was, but
+it's really patch 8 which does by introducing a call to this function
+without the function actually being there.
 
 Jan
 
