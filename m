@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03F5244CC50
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Nov 2021 23:15:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224488.387787 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 225EA44CDB1
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 00:14:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.224493.387797 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkvrL-0005FH-Of; Wed, 10 Nov 2021 22:14:23 +0000
+	id 1mkwms-0002Ur-9E; Wed, 10 Nov 2021 23:13:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224488.387787; Wed, 10 Nov 2021 22:14:23 +0000
+Received: by outflank-mailman (output) from mailman id 224493.387797; Wed, 10 Nov 2021 23:13:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkvrL-0005DV-LR; Wed, 10 Nov 2021 22:14:23 +0000
-Received: by outflank-mailman (input) for mailman id 224488;
- Wed, 10 Nov 2021 22:14:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Z8kS=P5=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1mkvrK-0005DP-UN
- for xen-devel@lists.xenproject.org; Wed, 10 Nov 2021 22:14:23 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8dc7e621-4273-11ec-9787-a32c541c8605;
- Wed, 10 Nov 2021 23:14:21 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id v11so16352745edc.9
- for <xen-devel@lists.xenproject.org>; Wed, 10 Nov 2021 14:14:21 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id k23sm551375edv.22.2021.11.10.14.14.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 10 Nov 2021 14:14:20 -0800 (PST)
+	id 1mkwms-0002S3-5E; Wed, 10 Nov 2021 23:13:50 +0000
+Received: by outflank-mailman (input) for mailman id 224493;
+ Wed, 10 Nov 2021 23:13:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ssld=P5=oderland.se=josef@srs-se1.protection.inumbo.net>)
+ id 1mkwmq-0002Rx-Oh
+ for xen-devel@lists.xenproject.org; Wed, 10 Nov 2021 23:13:48 +0000
+Received: from office.oderland.com (office.oderland.com [91.201.60.5])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dadfd068-427b-11ec-a9d2-d9f7a1cc8784;
+ Thu, 11 Nov 2021 00:13:47 +0100 (CET)
+Received: from [155.4.220.82] (port=41166 helo=[10.137.0.14])
+ by office.oderland.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
+ (envelope-from <josef@oderland.se>)
+ id 1mkwmn-005xmh-Hr; Thu, 11 Nov 2021 00:13:45 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,213 +41,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8dc7e621-4273-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=UAiXr5A00XmjUQrBx+VVC7ASne0hspgVd9kPtPcpw5Q=;
-        b=LjnOArbjpoQ6zS9yaoJ2hdaftwPip6qOBjbbhBws9AxukEdhMmgXaZDvyu/esokvWq
-         zSJWS4JS38i2l92pto4dpesoalYPPu4oiUg1kuRK51XDdaP6iN9KMDZNRl1iwq/alvvS
-         1PaJzS5uyTiN6KzsfNElg7m2M1uNPX7XFh/VuOUnw8jHAxxezbE2c1VcEqmxt0pERnRX
-         ALDmpljTuuFR/0URg0ncgIKthhWe0CnrMtyJdvwpO1lf0pRDWsr3oox88HWkQGSKFPhX
-         m9YBxQNcvux3UNBj3QcKJWBJlRXLaCMx4aSHqKJhxx+S+eY46tM6KyYSM7nY1GtKmZU8
-         kizQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=UAiXr5A00XmjUQrBx+VVC7ASne0hspgVd9kPtPcpw5Q=;
-        b=19X+TXdf2KhiYkMXrX0q0G9ghtR74Mfx9ny/nfMCg4kcUgftOfyc6Qq7S7RJjRWjIr
-         DVk1EfJumJlFGx8c2WGrC+hujUSO0yiZ2bgeAwcCmqmA13Sgdzg7fIR8vv8AAIpIZ9aQ
-         Qtvh0GHE6Nr657xP83sG+avdb+9g5Ow7w56L2d+8l6NIMRsfyg9vznuXU4z2nBr+71rj
-         PfPTP/htwBrg3mujdm+wOtc+uKGYq7Xo0DSzwbzct1zZbuXqqX2RxamwbWvf2NdNHOmv
-         RV+O9qTzYRzPK2htLov7Sdwg87FTqg9qITV7E+0I+0bXURdehFc/vWEpLpaLU8gwz4hY
-         6Icg==
-X-Gm-Message-State: AOAM532+5CnM7Yh2wNW/xpxRi+VPcZKlSVhgX80NiLL6ahCDi2MhmV/m
-	GlZI3/f8QOGl2c91L7OINck=
-X-Google-Smtp-Source: ABdhPJwOx7mV7m0UnYBvVcEebFM8Iy5CbeArcA13YswBqi3czGpYyjAVSPWgDUVZrOFBSKbLrJqJjg==
-X-Received: by 2002:a17:906:58c6:: with SMTP id e6mr3154447ejs.524.1636582460610;
-        Wed, 10 Nov 2021 14:14:20 -0800 (PST)
-Subject: Re: [PATCH V2 2/4] arm/xen: Switch to use
- gnttab_setup_auto_xlat_frames() for DT
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Russell King <linux@armlinux.org.uk>, Julien Grall <julien@xen.org>
-References: <1635264312-3796-1-git-send-email-olekstysh@gmail.com>
- <1635264312-3796-3-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2110271754400.20134@sstabellini-ThinkPad-T480s>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <60cc5b07-5935-aa26-8690-353c779bbab5@gmail.com>
-Date: Thu, 11 Nov 2021 00:14:19 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: dadfd068-427b-11ec-a9d2-d9f7a1cc8784
+Message-ID: <607f86a1-9295-aa97-1765-43050be29d8b@oderland.se>
+Date: Thu, 11 Nov 2021 00:13:42 +0100
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2110271754400.20134@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:93.0) Gecko/20100101
+ Thunderbird/93.0
 Content-Language: en-US
+From: Josef Johansson <josef@oderland.se>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: boris.ostrovsky@oracle.com, helgaas@kernel.org, jgross@suse.com,
+ linux-pci@vger.kernel.org, maz@kernel.org, xen-devel@lists.xenproject.org,
+ Jason Andryuk <jandryuk@gmail.com>, David Woodhouse <dwmw2@infradead.org>,
+ Peter Jones <pjones@redhat.com>, linux-fbdev@vger.kernel.org,
+ Peter Zijlstra <peterz@infradead.org>, LKML <linux-kernel@vger.kernel.org>,
+ x86@kernel.org
+References: <90277228-cf14-0cfa-c95e-d42e7d533353@oderland.se>
+ <20211025012503.33172-1-jandryuk@gmail.com> <87fssmg8k4.ffs@tglx>
+ <87cznqg5k8.ffs@tglx> <d1cc20aa-5c5c-6c7b-2e5d-bc31362ad891@oderland.se>
+ <89d6c2f4-4d00-972f-e434-cb1839e78598@oderland.se>
+ <5b3d4653-0cdf-e098-0a4a-3c5c3ae3977b@oderland.se> <87ee7w6bxi.ffs@tglx>
+ <19176a3c-e554-0ff4-2e0b-5813d353d15e@oderland.se>
+Subject: Re: [PATCH] PCI/MSI: Move non-mask check back into low level
+ accessors
+In-Reply-To: <19176a3c-e554-0ff4-2e0b-5813d353d15e@oderland.se>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - office.oderland.com
+X-AntiAbuse: Original Domain - lists.xenproject.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oderland.se
+X-Get-Message-Sender-Via: office.oderland.com: authenticated_id: josjoh@oderland.se
+X-Authenticated-Sender: office.oderland.com: josjoh@oderland.se
 
-
-On 28.10.21 04:28, Stefano Stabellini wrote:
-
-Hi Stefano
-
-I am sorry for the late response.
-
-> On Tue, 26 Oct 2021, Oleksandr Tyshchenko wrote:
->> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On 11/10/21 21:30, Josef Johansson wrote:
+> On 11/4/21 00:45, Thomas Gleixner wrote:
+>> On Wed, Oct 27 2021 at 17:29, Josef Johansson wrote:
 >>
->> Read the start address of the grant table space from DT
->> (region 0).
+>> CC+: EFIFB and scheduler folks
 >>
->> This patch mostly restores behaviour before commit 3cf4095d7446
->> ("arm/xen: Use xen_xlate_map_ballooned_pages to setup grant table")
->> but trying not to break the ACPI support added after that commit.
->> So the patch touches DT part only and leaves the ACPI part with
->> xen_xlate_map_ballooned_pages().
+>>> On 10/27/21 14:01, Josef Johansson wrote:
+>>>
+>>> printk: Suspending console(s) (use no_console_suspend to debug)
+>>> [drm] free PSP TMR buffer
+>>> PM: suspend devices took 0.428 seconds
+>>> ACPI: EC: interrupt blocked
+>>> ACPI: PM: Preparing to enter system sleep state S3
+>>> ACPI: EC: event blocked
+>>> ACPI: EC: EC stopped
+>>> ACPI: PM: Saving platform NVS memory
+>>> Disabling non-boot CPUs ...
+>>> ------------[ cut here ]------------
+>>> WARNING: CPU: 1 PID: 0 at arch/x86/mm/tlb.c:522  switch_mm_irqs_off+0x3c5/0x400
+>> 	if (WARN_ON_ONCE(__read_cr3() != build_cr3(real_prev->pgd, prev_asid))) {
 >>
->> This is a preparation for using Xen extended region feature
->> where unused regions of guest physical address space (provided
->> by the hypervisor) will be used to create grant/foreign/whatever
->> mappings instead of wasting real RAM pages from the domain memory
->> for establishing these mappings.
+>>> Modules linked in: snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd_timer nf_tables nfnetlink vfat fat intel_rapl_msr think_lmi firmware_attributes_class wmi_bmof intel_rapl_common pcspkr uvcvideo videobuf2_vmalloc videobuf2_memops joydev videobuf2_v4l2 sp5100_tco k10temp videobuf2_common i2c_piix4 iwlwifi videodev mc cfg80211 thinkpad_acpi ipmi_devintf ucsi_acpi platform_profile typec_ucsi ledtrig_audio ipmi_msghandler r8169 rfkill typec snd wmi soundcore video i2c_scmi fuse xenfs ip_tables dm_thin_pool dm_persistent_data dm_bio_prison dm_crypt trusted asn1_encoder hid_multitouch amdgpu crct10dif_pclmul crc32_pclmul crc32c_intel gpu_sched i2c_algo_bit drm_ttm_helper ghash_clmulni_intel ttm serio_raw drm_kms_helper cec sdhci_pci cqhci sdhci xhci_pci drm xhci_pci_renesas nvme xhci_hcd ehci_pci mmc_core ehci_hcd nvme_core xen_acpi_processor xen_privcmd xen_pciback xen_blkback xen_gntalloc xen_gntdev xen_evtchn uinput
+>>> CPU: 1 PID: 0 Comm: swapper/1 Tainted: G        W        --------- ---  5.15.0-0.rc7.0.fc32.qubes.x86_64 #1
+>>> Hardware name: LENOVO 20Y1S02400/20Y1S02400, BIOS R1BET65W(1.34 ) 06/17/2021
+>>> RIP: e030:switch_mm_irqs_off+0x3c5/0x400
+>>> Code: f0 41 80 65 01 fb ba 01 00 00 00 49 8d b5 60 23 00 00 4c 89 ef 49 c7 85 68 23 00 00 60 1d 08 81 e8 a0 f3 08 00 e9 15 fd ff ff <0f> 0b e8 34 fa ff ff e9 ad fc ff ff 0f 0b e9 31 fe ff ff 0f 0b e9
+>>> RSP: e02b:ffffc900400f3eb0 EFLAGS: 00010006
+>>> RAX: 00000001336c6000 RBX: ffff888140660000 RCX: 0000000000000040
+>>> RDX: ffff8881003027c0 RSI: 0000000000000000 RDI: ffff8881b36c6000
+>>> RBP: ffffffff829d91c0 R08: 0000000000000000 R09: 0000000000000000
+>>> R10: 0000000000000008 R11: 0000000000000000 R12: ffff888104e88440
+>>> R13: ffff8881003027c0 R14: 0000000000000000 R15: 0000000000000001
+>>> FS:  0000000000000000(0000) GS:ffff888140640000(0000) knlGS:0000000000000000
+>>> CS:  10000e030 DS: 002b ES: 002b CR0: 0000000080050033
+>>> CR2: 000060b7d78bf198 CR3: 0000000002810000 CR4: 0000000000050660
+>>> Call Trace:
+>>>  switch_mm+0x1c/0x30
+>>>  idle_task_exit+0x55/0x60
+>>>  play_dead_common+0xa/0x20
+>>>  xen_pv_play_dead+0xa/0x60
+>> So this is when bringing the non boot CPUs down and the switch_mm() code
+>> discovers inconsistency between CR3 and the expected value.
 >>
->> The immediate benefit of this change:
->> - Avoid superpage shattering in Xen P2M when establishing
->>    stage-2 mapping (GFN <-> MFN) for the grant table space
->> - Avoid wasting real RAM pages (reducing the amount of memory
->>    usuable) for mapping grant table space
->> - The grant table space is always mapped at the exact
->>    same place (region 0 is reserved for the grant table)
->>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> ---
->> Changes RFC -> V2:
->>     - new patch
->> ---
->>   arch/arm/xen/enlighten.c | 32 +++++++++++++++++++++++++-------
->>   1 file changed, 25 insertions(+), 7 deletions(-)
->>
->> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
->> index 7f1c106b..dea46ec 100644
->> --- a/arch/arm/xen/enlighten.c
->> +++ b/arch/arm/xen/enlighten.c
->> @@ -59,6 +59,9 @@ unsigned long xen_released_pages;
->>   struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
->>   
->>   static __read_mostly unsigned int xen_events_irq;
->> +static phys_addr_t xen_grant_frames;
-> __read_mostly
-
-ok
-
-
+>> Would probably be interesting to print the actual values, but XEN folks
+>> might have an idea.
+> I can install some print-statements showing some more info here.
+> I guess I will be getting memory addresses, we already know that CR3 is
+> 0000000002810000
 >
->
->> +#define GRANT_TABLE_INDEX   0
->>   
->>   uint32_t xen_start_flags;
->>   EXPORT_SYMBOL(xen_start_flags);
->> @@ -303,6 +306,7 @@ static void __init xen_acpi_guest_init(void)
->>   static void __init xen_dt_guest_init(void)
->>   {
->>   	struct device_node *xen_node;
->> +	struct resource res;
->>   
->>   	xen_node = of_find_compatible_node(NULL, NULL, "xen,xen");
->>   	if (!xen_node) {
->> @@ -310,6 +314,12 @@ static void __init xen_dt_guest_init(void)
->>   		return;
->>   	}
->>   
->> +	if (of_address_to_resource(xen_node, GRANT_TABLE_INDEX, &res)) {
->> +		pr_err("Xen grant table region is not found\n");
->> +		return;
->> +	}
->> +	xen_grant_frames = res.start;
->> +
->>   	xen_events_irq = irq_of_parse_and_map(xen_node, 0);
->>   }
->>   
->> @@ -317,16 +327,20 @@ static int __init xen_guest_init(void)
->>   {
->>   	struct xen_add_to_physmap xatp;
->>   	struct shared_info *shared_info_page = NULL;
->> -	int cpu;
->> +	int rc, cpu;
->>   
->>   	if (!xen_domain())
->>   		return 0;
->>   
->>   	if (!acpi_disabled)
->>   		xen_acpi_guest_init();
->> -	else
->> +	else {
->>   		xen_dt_guest_init();
->>   
->> +		if (!xen_grant_frames)
->> +			return -ENODEV;
-> maybe we can avoid this, see below
->
->
->> +	}
->> +
->>   	if (!xen_events_irq) {
->>   		pr_err("Xen event channel interrupt not found\n");
->>   		return -ENODEV;
->> @@ -370,12 +384,16 @@ static int __init xen_guest_init(void)
->>   	for_each_possible_cpu(cpu)
->>   		per_cpu(xen_vcpu_id, cpu) = cpu;
->>   
->> -	xen_auto_xlat_grant_frames.count = gnttab_max_grant_frames();
->> -	if (xen_xlate_map_ballooned_pages(&xen_auto_xlat_grant_frames.pfn,
->> -					  &xen_auto_xlat_grant_frames.vaddr,
->> -					  xen_auto_xlat_grant_frames.count)) {
->> +	if (!acpi_disabled) {
-> To make the code more resilient couldn't we do:
->
-> if (!acpi_disabled || !xen_grant_frames) {
-I think, we can.
+> If you have any hints on how to do an effective print statement for this
+> please do say so :)
+> I'll try though and see what I find out.
 
-On the one hand, indeed the code more resilient and less change.
- From the other hand if grant table region is not found then something 
-weird happened as region 0 is always present in reg property if 
-hypervisor node is exposed to the guest.
-The behavior before commit 3cf4095d7446 ("arm/xen: Use 
-xen_xlate_map_ballooned_pages to setup grant table") was exactly the 
-same in the context of the failure if region wasn't found.
+diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
+index 59ba2968af1b..511792852e9e 100644
+--- a/arch/x86/mm/tlb.c
++++ b/arch/x86/mm/tlb.c
+@@ -520,6 +520,10 @@ void switch_mm_irqs_off(struct mm_struct *prev, struct mm_struct *next,
+ 	 */
+ #ifdef CONFIG_DEBUG_VM
+ 	if (WARN_ON_ONCE(__read_cr3() != build_cr3(real_prev->pgd, prev_asid))) {
++		printk("josef-debug: cr3: %lx, build_cr3: %lx, (%px, %x)",
++			__read_cr3(),
++			build_cr3(real_prev->pgd, prev_asid),
++			real_prev->pgd, prev_asid);
+ 		/*
+ 		 * If we were to BUG here, we'd be very likely to kill
+ 		 * the system so hard that we don't see the call trace.
 
-...
+this patch gave me the three values which where already known,
+__read_cr3 = CR3 = 0000000002810000
+build_cr3 = RAX = 00000001336c6000
+real_prev->pgd = RDI = ffff8881b36c6000
+prev_asid = RSI = 0
 
-Well, if we want to make code more resilient, I will update. But, looks 
-like we also need to switch actions in xen_dt_guest_init() in order to 
-process xen_events_irq before xen_grant_frames, otherwise we may return 
-after failing with region and end up not initializing xen_events_irq so 
-xen_guest_init() will fail earlier than reaches that check.
-What do you think?
+Not sure what conclusions I should draw though.
 
-
->
->> +		xen_auto_xlat_grant_frames.count = gnttab_max_grant_frames();
->> +		rc = xen_xlate_map_ballooned_pages(&xen_auto_xlat_grant_frames.pfn,
->> +										   &xen_auto_xlat_grant_frames.vaddr,
->> +										   xen_auto_xlat_grant_frames.count);
->> +	} else
->> +		rc = gnttab_setup_auto_xlat_frames(xen_grant_frames);
->> +	if (rc) {
->>   		free_percpu(xen_vcpu_info);
->> -		return -ENOMEM;
->> +		return rc;
->>   	}
->>   	gnttab_init();
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
+>>>  do_idle+0xd1/0xe0
+>>>  cpu_startup_entry+0x19/0x20
+>>>  asm_cpu_bringup_and_idle+0x5/0x1000
+>>> ---[ end trace b068d3cd1b7f5f4b ]---
+>>> smpboot: CPU 1 is now offline
+>>> smpboot: CPU 2 is now offline
+>>> smpboot: CPU 3 is now offline
+>>> smpboot: CPU 4 is now offline
+>>> smpboot: CPU 5 is now offline
+>>> smpboot: CPU 6 is now offline
+>>> smpboot: CPU 7 is now offline
+>>> ACPI: PM: Low-level resume complete
+>>> ACPI: EC: EC started
+>>> ACPI: PM: Restoring platform NVS memory
+>>> xen_acpi_processor: Uploading Xen processor PM info
+>>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU1
+>>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU3
+>>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU5
+>>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU7
+>>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU9
+>>>
 
 
