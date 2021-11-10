@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEF0744C6BF
-	for <lists+xen-devel@lfdr.de>; Wed, 10 Nov 2021 19:24:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224377.387674 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1959444CA3F
+	for <lists+xen-devel@lfdr.de>; Wed, 10 Nov 2021 21:11:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.224428.387685 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mksGr-0003NS-NL; Wed, 10 Nov 2021 18:24:29 +0000
+	id 1mktv6-0006QA-G8; Wed, 10 Nov 2021 20:10:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224377.387674; Wed, 10 Nov 2021 18:24:29 +0000
+Received: by outflank-mailman (output) from mailman id 224428.387685; Wed, 10 Nov 2021 20:10:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mksGr-0003KV-JS; Wed, 10 Nov 2021 18:24:29 +0000
-Received: by outflank-mailman (input) for mailman id 224377;
- Wed, 10 Nov 2021 18:24:28 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mksGq-0003KP-8m
- for xen-devel@lists.xenproject.org; Wed, 10 Nov 2021 18:24:28 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mksGq-0008B2-5G
- for xen-devel@lists.xenproject.org; Wed, 10 Nov 2021 18:24:28 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mksGq-0008Ti-4I
- for xen-devel@lists.xenproject.org; Wed, 10 Nov 2021 18:24:28 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1mksGm-0002DL-IA; Wed, 10 Nov 2021 18:24:24 +0000
+	id 1mktv6-0006Ng-Cb; Wed, 10 Nov 2021 20:10:08 +0000
+Received: by outflank-mailman (input) for mailman id 224428;
+ Wed, 10 Nov 2021 20:10:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=inKd=P5=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
+ id 1mktv5-0006JW-0m
+ for xen-devel@lists.xenproject.org; Wed, 10 Nov 2021 20:10:07 +0000
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2fe04ed1-4262-11ec-9787-a32c541c8605;
+ Wed, 10 Nov 2021 21:10:03 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPS id 6A51D61241;
+ Wed, 10 Nov 2021 20:10:01 +0000 (UTC)
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+ [127.0.0.1])
+ by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id 6299A60A6B;
+ Wed, 10 Nov 2021 20:10:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,49 +42,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=HinUL7XsycS2d2kjqbipDXEETOyw7kln67zJvl/DxDE=; b=Bv8e7A1gxtSEYs71oXY/Lyr64K
-	HG/k7MSRfCvkwZcAQqdRVergx3JqK/yQ+xIk2JZXJXLZGfgPIzZ2hq9daOBXVtXFsPw8tkLefE1pr
-	+CxYKLa3gTEf4yNWrJ5TF22s/KYjUgDokYQvkvRxHnA60gnGfoGVEadsJIiiIhep6Q98=;
-From: Ian Jackson <iwj@xenproject.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24972.3670.562878.659880@mariner.uk.xensource.com>
-Date: Wed, 10 Nov 2021 18:24:22 +0000
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: <xen-devel@lists.xenproject.org>,
-    Wei Liu <wl@xen.org>,
-    Juergen  Gross <jgross@suse.com>,
-    Jan Beulich <jbeulich@suse.com>,
-    Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: [PATCH for-4.16] x86/cpuid: prevent shrinking migrated policies max leaves
-In-Reply-To: <20211110174059.64633-1-roger.pau@citrix.com>
-References: <20211110174059.64633-1-roger.pau@citrix.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+X-Inumbo-ID: 2fe04ed1-4262-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1636575001;
+	bh=FQGe83vCeAnmCLrYhrsTfIZvLN21VUkB405hfWjK6II=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
+	b=LRHsLM/jwVxLgxllCmGK/1KyzR7RplZhzmXWJpntfQWZPBQrMol/+hQ4lcdNVvt9m
+	 fNO5131US6zpnHaXlAKLZ8L27kXbmaWTsCb7nohEPFqMyibh4LMaDZkGlT8BrvhOr5
+	 SMC+ZPfvpT3seDMDDmDV/5a9w6yIA6NiXeYkNPK/cwcE7D2tiuBcb0bFeAs4XBUNjz
+	 x/VcCeWZzPZEIsk6W71/vyy2t3RFHibNOh1diMxIQBUx0d+VX63V8aNqrZ8LDL/Z82
+	 PWzwfwF6e2s1Q29ves04zQR/0Ba+S4d4K2UHueeXj9WWFMl/k5YEL8Jy0uZw9oLBIq
+	 vfqqtbt6keGIA==
+Subject: Re: [GIT PULL] xen: branch for v5.16-rc1
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20211109142819.24428-1-jgross@suse.com>
+References: <20211109142819.24428-1-jgross@suse.com>
+X-PR-Tracked-List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
+X-PR-Tracked-Message-Id: <20211109142819.24428-1-jgross@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.16b-rc1-tag
+X-PR-Tracked-Commit-Id: 501586ea5974a9dafee41f54a66326addb01a5ac
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: bf98ecbbae3edf3bb3ec254c3e318aa3f75fd15e
+Message-Id: <163657500139.19350.1542926242630037690.pr-tracker-bot@kernel.org>
+Date: Wed, 10 Nov 2021 20:10:01 +0000
+To: Juergen Gross <jgross@suse.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com
 
-Roger Pau Monne writes ("[PATCH for-4.16] x86/cpuid: prevent shrinking migrated policies max leaves"):
-> CPUID policies from guest being migrated shouldn't have the maximum
-> leaves shrink, as that would be a guest visible change. The hypervisor
-> has no knowledge on whether a guest has been migrated or is build from
-> scratch, and hence it must not blindly shrink the CPUID policy in
-> recalculate_cpuid_policy. Remove the
-> x86_cpuid_policy_shrink_max_leaves call from recalculate_cpuid_policy.
-> Removing such call could be seen as a partial revert of 540d911c28.
-...
-> This is a regression introduced in this release cycle, so we should
-> consider whether we want to take this patch. It's mostly moving a
-> shrink call from the hypervisor into the toolstack and making it more
-> selective.
-> 
-> Main risks would be this shrinking somehow altering the recalculations
-> of the CPUID policy done by the hypervisor. Removing the shirk itself
-> in the hypervisor shouldn't cause issues as that wasn't done before,
-> and reporting empty max leaf should be fine.
+The pull request you sent on Tue,  9 Nov 2021 15:28:19 +0100:
 
-Thank you.
+> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.16b-rc1-tag
 
-Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/bf98ecbbae3edf3bb3ec254c3e318aa3f75fd15e
+
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
