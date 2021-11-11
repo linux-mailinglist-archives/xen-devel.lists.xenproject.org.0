@@ -2,41 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFF8F44DD51
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 22:50:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224901.388473 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0CB344DDCF
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 23:19:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.224913.388483 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlHx0-0006Ta-Nh; Thu, 11 Nov 2021 21:49:42 +0000
+	id 1mlIOy-0001Qg-Rk; Thu, 11 Nov 2021 22:18:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224901.388473; Thu, 11 Nov 2021 21:49:42 +0000
+Received: by outflank-mailman (output) from mailman id 224913.388483; Thu, 11 Nov 2021 22:18:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlHx0-0006Ri-JQ; Thu, 11 Nov 2021 21:49:42 +0000
-Received: by outflank-mailman (input) for mailman id 224901;
- Thu, 11 Nov 2021 21:49:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mlIOy-0001Oq-OF; Thu, 11 Nov 2021 22:18:36 +0000
+Received: by outflank-mailman (input) for mailman id 224913;
+ Thu, 11 Nov 2021 22:18:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=YMH0=P6=kernel.org=maz@srs-se1.protection.inumbo.net>)
- id 1mlHwy-00064f-T7
- for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 21:49:41 +0000
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 44faac37-4339-11ec-a9d2-d9f7a1cc8784;
- Thu, 11 Nov 2021 22:49:40 +0100 (CET)
-Received: from disco-boy.misterjones.org (disco-boy.misterjones.org
- [51.254.78.96])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AE6CE6124C;
- Thu, 11 Nov 2021 21:49:38 +0000 (UTC)
-Received: from sofa.misterjones.org ([185.219.108.64]
- helo=wait-a-minute.misterjones.org)
- by disco-boy.misterjones.org with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <maz@kernel.org>)
- id 1mlHwp-004u6W-9n; Thu, 11 Nov 2021 21:49:31 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mlIOx-0001Og-Rj; Thu, 11 Nov 2021 22:18:35 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mlIOx-0007A9-LA; Thu, 11 Nov 2021 22:18:35 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mlIOx-0003Vv-CQ; Thu, 11 Nov 2021 22:18:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mlIOx-0001hJ-Bu; Thu, 11 Nov 2021 22:18:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,85 +42,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44faac37-4339-11ec-a9d2-d9f7a1cc8784
-Date: Thu, 11 Nov 2021 21:49:30 +0000
-Message-ID: <87ilwye51x.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Guo Ren <guoren@kernel.org>,
-	Nick Hu <nickhu@andestech.com>,
-	Greentime Hu <green.hu@gmail.com>,
-	Vincent Chen <deanbo422@gmail.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Wanpeng Li <wanpengli@tencent.com>,
-	Jim Mattson <jmattson@google.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.cs.columbia.edu,
-	linux-csky@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	Artem Kashkanov <artem.kashkanov@intel.com>,
-	Like Xu <like.xu.linux@gmail.com>,
-	Like Xu <like.xu@linux.intel.com>,
-	Zhu Lingshan <lingshan.zhu@intel.com>
-Subject: Re: [PATCH v4 16/17] KVM: arm64: Drop perf.c and fold its tiny bits of code into arm.c
-In-Reply-To: <20211111020738.2512932-17-seanjc@google.com>
-References: <20211111020738.2512932-1-seanjc@google.com>
-	<20211111020738.2512932-17-seanjc@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/27.1
- (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: seanjc@google.com, peterz@infradead.org, mingo@redhat.com, acme@kernel.org, will@kernel.org, mark.rutland@arm.com, linux@armlinux.org.uk, catalin.marinas@arm.com, guoren@kernel.org, nickhu@andestech.com, green.hu@gmail.com, deanbo422@gmail.com, paul.walmsley@sifive.com, palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@linutronix.de, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, pbonzini@redhat.com, boris.ostrovsky@oracle.com, jgross@suse.com, alexander.shishkin@linux.intel.com, jolsa@redhat.com, namhyung@kernel.org, james.morse@arm.com, alexandru.elisei@arm.com, suzuki.poulose@arm.com, hpa@zytor.com, vkuznets@redhat.com, wanpengli@tencent.com, jmattson@google.com, joro@8bytes.org, sstabellini@kernel.org, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.cs.columbia.edu, linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org, kvm@vger.kernel.org, xen-devel@lists.xenproject.org, artem.k
- ashkanov@intel.com, like.xu.linux@gmail.com, like.xu@linux.intel.com, lingshan.zhu@intel.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Va9jPnx0VEBDatXhWjo08NWwuiY7WABNCbJbpVGtGu4=; b=GAGXqeOvnXIBMam8KtHFyYKCmq
+	yoZZXuidP0FwrLcGs4SKYeh73LoCVireNB43Daa5fx5fIY493IYWhqpxgmxm6p0PLLS8g9yxnlWhm
+	taEMNj8fW1ePO7htDfugTk+1G3C+NCqIznxRQUkGSHe9jcqgN3z67xgOXlX5QGXqUzfQ=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166116-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 166116: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=e2d0a42381b686451bed3e0e3ab8551f6c2d4090
+X-Osstest-Versions-That:
+    xen=9d9cd0c6f5b16652f61e7f21233ec8dfd6cf7df2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 11 Nov 2021 22:18:35 +0000
 
-On Thu, 11 Nov 2021 02:07:37 +0000,
-Sean Christopherson <seanjc@google.com> wrote:
-> 
-> Call KVM's (un)register perf callbacks helpers directly from arm.c and
-> delete perf.c
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
+flight 166116 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166116/
 
-Reviewed-by: Marc Zyngier <maz@kernel.org>
+Failures :-/ but no regressions.
 
-	M.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
--- 
-Without deviation from the norm, progress is not possible.
+version targeted for testing:
+ xen                  e2d0a42381b686451bed3e0e3ab8551f6c2d4090
+baseline version:
+ xen                  9d9cd0c6f5b16652f61e7f21233ec8dfd6cf7df2
+
+Last test of basis   166095  2021-11-09 11:01:37 Z    2 days
+Testing same since   166116  2021-11-11 19:01:38 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Bertrand Marquis <bertrand.marquis@arm.com>
+  Julien Grall <jgrall@amazon.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Stefano Stabellini <stefano.stabellini@xilinx.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   9d9cd0c6f5..e2d0a42381  e2d0a42381b686451bed3e0e3ab8551f6c2d4090 -> smoke
 
