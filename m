@@ -2,35 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7F3244D610
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 12:48:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224736.388209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2C0644D6B9
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 13:40:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.224745.388223 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ml8Yn-0000TY-5Y; Thu, 11 Nov 2021 11:48:05 +0000
+	id 1ml9MX-0005PJ-4u; Thu, 11 Nov 2021 12:39:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224736.388209; Thu, 11 Nov 2021 11:48:05 +0000
+Received: by outflank-mailman (output) from mailman id 224745.388223; Thu, 11 Nov 2021 12:39:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ml8Yn-0000RY-1c; Thu, 11 Nov 2021 11:48:05 +0000
-Received: by outflank-mailman (input) for mailman id 224736;
- Thu, 11 Nov 2021 11:48:03 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1ml9MX-0005Lv-1l; Thu, 11 Nov 2021 12:39:29 +0000
+Received: by outflank-mailman (input) for mailman id 224745;
+ Thu, 11 Nov 2021 12:39:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ml8Yl-0000RO-Jk; Thu, 11 Nov 2021 11:48:03 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ml8Yl-0004LW-Eq; Thu, 11 Nov 2021 11:48:03 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ml8Yl-0006ep-4G; Thu, 11 Nov 2021 11:48:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ml8Yl-0007kP-3l; Thu, 11 Nov 2021 11:48:03 +0000
+ (envelope-from <SRS0=GNk8=P6=oderland.se=josef@srs-se1.protection.inumbo.net>)
+ id 1ml9MV-0005Lp-3R
+ for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 12:39:27 +0000
+Received: from office.oderland.com (office.oderland.com [91.201.60.5])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 67882624-42ec-11ec-a9d2-d9f7a1cc8784;
+ Thu, 11 Nov 2021 13:39:25 +0100 (CET)
+Received: from [193.180.18.161] (port=36378 helo=[10.137.0.14])
+ by office.oderland.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
+ (envelope-from <josef@oderland.se>)
+ id 1ml9MS-00754Y-HK; Thu, 11 Nov 2021 13:39:24 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +41,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=AmlTq2B7zJwRAMVAeK8nsL4m3T2UDQ94gf+sYKulZNA=; b=qsEZ5UEpHz2C8vwsGyd7ZHW4fr
-	GJbyhEqg6hnCXHlzvfeT0T2j8sVQIamzQEsGYrWU31Kp71d2qj+/SLnyJvxpu7FSI1vHXus7ux3YE
-	iB6Hy7gxdTQEEht6j9MIZ3qSvHOEWpmC39mVkNQtq+nCqR+tfR7L+AilAEUTZLoO9ZFU=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-166114-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 67882624-42ec-11ec-a9d2-d9f7a1cc8784
+Message-ID: <132343df-df01-6ab6-bdaf-cd1605028bfc@oderland.se>
+Date: Thu, 11 Nov 2021 13:39:20 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 166114: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=22c3b5a865ec800b7eecf43de336ad5e2d917a08
-X-Osstest-Versions-That:
-    ovmf=8c8867c5da8e059ab98a6108f8182700f298c6f5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 11 Nov 2021 11:48:03 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:93.0) Gecko/20100101
+ Thunderbird/93.0
+Subject: Re: [PATCH] x86/smp: Factor out parts of native_smp_prepare_cpus()
+Content-Language: en-US
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ tglx@linutronix.de, bp@alien8.de, dave.hansen@linux.intel.com,
+ x86@kernel.org, hpa@zytor.com, jgross@suse.com
+References: <1635896196-18961-1-git-send-email-boris.ostrovsky@oracle.com>
+ <6a7edbff-e255-661d-c68f-c07b7519e421@oderland.se>
+ <YYztW7bytZdvZFbN@hirez.programming.kicks-ass.net>
+From: Josef Johansson <josef@oderland.se>
+In-Reply-To: <YYztW7bytZdvZFbN@hirez.programming.kicks-ass.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - office.oderland.com
+X-AntiAbuse: Original Domain - lists.xenproject.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oderland.se
+X-Get-Message-Sender-Via: office.oderland.com: authenticated_id: josjoh@oderland.se
+X-Authenticated-Sender: office.oderland.com: josjoh@oderland.se
 
-flight 166114 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/166114/
+On 11/11/21 11:15, Peter Zijlstra wrote:
+> On Wed, Nov 10, 2021 at 10:52:09PM +0100, Josef Johansson wrote:
+>> On 11/3/21 00:36, Boris Ostrovsky wrote:
+>>> Commit 66558b730f25 ("sched: Add cluster scheduler level for x86")
+>>> introduced cpu_l2c_shared_map mask which is expected to be initialized
+>>> by smp_op.smp_prepare_cpus(). That commit only updated
+>>> native_smp_prepare_cpus() version but not xen_pv_smp_prepare_cpus().
+>>> As result Xen PV guests crash in set_cpu_sibling_map().
+>>>
+>>> While the new mask can be allocated in xen_pv_smp_prepare_cpus() one can
+>>> see that both versions of smp_prepare_cpus ops share a number of common
+>>> operations that can be factored out. So do that instead.
+>>>
+>>> Fixes: 66558b730f25 ("sched: Add cluster scheduler level for x86")
+>>> Signed-off-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+>>> ---
+>>>  arch/x86/include/asm/smp.h |  1 +
+>>>  arch/x86/kernel/smpboot.c  | 19 +++++++++++++------
+>>>  arch/x86/xen/smp_pv.c      | 11 ++---------
+>>>  3 files changed, 16 insertions(+), 15 deletions(-)
+>>>
+>>> diff --git a/arch/x86/include/asm/smp.h b/arch/x86/include/asm/smp.h
+>>> index 08b0e90623ad..81a0211a372d 100644
+>>> --- a/arch/x86/include/asm/smp.h
+>>> +++ b/arch/x86/include/asm/smp.h
+>>> @@ -126,6 +126,7 @@ static inline void arch_send_call_function_ipi_mask(const struct cpumask *mask)
+>>>  
+>>>  void cpu_disable_common(void);
+>>>  void native_smp_prepare_boot_cpu(void);
+>>> +void smp_prepare_cpus_common(void);
+>>>  void native_smp_prepare_cpus(unsigned int max_cpus);
+>>>  void calculate_max_logical_packages(void);
+>>>  void native_smp_cpus_done(unsigned int max_cpus);
+>>> diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
+>>> index 8241927addff..d7429198c22f 100644
+>>> --- a/arch/x86/kernel/smpboot.c
+>>> +++ b/arch/x86/kernel/smpboot.c
+>>> @@ -1350,12 +1350,7 @@ static void __init smp_get_logical_apicid(void)
+>>>  		cpu0_logical_apicid = GET_APIC_LOGICAL_ID(apic_read(APIC_LDR));
+>>>  }
+>>>  
+>>> -/*
+>>> - * Prepare for SMP bootup.
+>>> - * @max_cpus: configured maximum number of CPUs, It is a legacy parameter
+>>> - *            for common interface support.
+>>> - */
+>>> -void __init native_smp_prepare_cpus(unsigned int max_cpus)
+>>> +void __init smp_prepare_cpus_common(void)
+>>>  {
+>>>  	unsigned int i;
+>> Testing out this patch I got a warning that i is unused. Which it is,
+>> since for_each_possible_cpu(i) is removed.
+> Fixed. Can I add your Tested-by ?
+Yes, I tested with tip.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 22c3b5a865ec800b7eecf43de336ad5e2d917a08
-baseline version:
- ovmf                 8c8867c5da8e059ab98a6108f8182700f298c6f5
-
-Last test of basis   166108  2021-11-10 09:41:26 Z    1 days
-Testing same since   166114  2021-11-11 08:41:16 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Chen Lin Z <lin.z.chen@intel.com>
-  Chen, Lin Z <lin.z.chen@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   8c8867c5da..22c3b5a865  22c3b5a865ec800b7eecf43de336ad5e2d917a08 -> xen-tested-master
+Regards
+Josef
 
