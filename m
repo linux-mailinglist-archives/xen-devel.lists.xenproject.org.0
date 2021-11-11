@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B77BE44DAD3
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 17:54:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224817.388332 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B82E44DB61
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 18:58:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.224833.388379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlDLQ-0008UF-OS; Thu, 11 Nov 2021 16:54:36 +0000
+	id 1mlEKz-0006bu-3F; Thu, 11 Nov 2021 17:58:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224817.388332; Thu, 11 Nov 2021 16:54:36 +0000
+Received: by outflank-mailman (output) from mailman id 224833.388379; Thu, 11 Nov 2021 17:58:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlDLQ-0008RN-KD; Thu, 11 Nov 2021 16:54:36 +0000
-Received: by outflank-mailman (input) for mailman id 224817;
- Thu, 11 Nov 2021 16:54:34 +0000
+	id 1mlEKy-0006Qp-Rm; Thu, 11 Nov 2021 17:58:12 +0000
+Received: by outflank-mailman (input) for mailman id 224833;
+ Thu, 11 Nov 2021 17:58:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6S8D=P6=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1mlDLO-0008RH-Ei
- for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 16:54:34 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 098b19a5-4310-11ec-a9d2-d9f7a1cc8784;
- Thu, 11 Nov 2021 17:54:33 +0100 (CET)
+ <SRS0=GOKj=P6=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1mlEKw-00061G-Ud
+ for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 17:58:11 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ec3cd976-4318-11ec-a9d2-d9f7a1cc8784;
+ Thu, 11 Nov 2021 18:58:07 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,117 +36,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 098b19a5-4310-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: ec3cd976-4318-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1636649672;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=29ZxmUp5vPwRUOe7SNxx0R4TrgGF7SF8VXfP8zsjLOQ=;
-  b=f4r+sQLrNQpnbWdaFZcyqfvHbWYflXwgV1lbmiYnkB5D8BsompQ4PEBR
-   PTWa4aAMhj9ZTGR+20BbaKlzjydSy3dLcoI/HkVH6YH8Ktc4bZ9oUnPr+
-   HHaYTDtTVtH3+jfQMJ8GDLBry6qUr/plvvuV9kQ6B2MEDxb1sZ7RpQodj
-   4=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: GHQV3e41xsNjR6AKV56bDqDRByZBtCN2CZVMG3ZNBtL2P5hrVVe0yBte2XfRThidxOtKwDfOsQ
- EngpTwtij+j/ms4IiBq9npmMDmBihWWAJpX1/zvdIUJeCdUd+Jd7xiXGmCTjAar17smv6EwzbT
- Do/soYqVjLtV3ZSToxJrgsv66bZrdRgsYWXkoiiDOZthwa/zjCvWf3NVxRqVVWNAwDq95/ogOC
- qpawllKbGYAJN47P4IO7s13JYDfb5AkTIxsfS44QrO+Lx4TF3xVBNBwdUOobx7YnR2CFIyaRs1
- M5C/aDNa2WulR+2912TxG+p/
+  d=citrix.com; s=securemail; t=1636653488;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=BOyeLIFh4rsbQLKjP5QzMq6nEVwvgaszHY0AXnaE+IU=;
+  b=N2g/3SaZvv5DjmeVy8NxFzkPednHXpIHNlUHSvc3ttFqwcEr9gdI/arj
+   cXEWWl0dV+VuY/rJKaxu9mmtvD1pMQnpiZ6Hbm3ETdkjkyavpr0qapvmX
+   vg7zvQkw+SsEbPRPW3OI8R2h541bHIpQzrImwcXvG7yAzt3UV/eARkZGv
+   0=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: w13Pw8TY4dJoxaddBmkr3J6m6XtotdrUvv/s2bNwiIEv/5ZM6JVmDVeAINbdwtkAn6OysjK3Mi
+ 4R366D0XszuQjldBMD8IyPgHjcbwd/Lgtr68JkQTOxKSF9BPJnLl9uxgm49YrFeIma9PqIhCys
+ cKWJp9gvkgjgaE6mrUQaKpk1BAfmIK85T3Uo3eTSVYfSUEATe5I6Veu7qsagbbcCcg7WvjN7cw
+ AVEqucuIrdb+Qz34wqFKP7Vblm+lHCydQUs6ffXj/DueFa62Wb1EkvGZ0rnC/TSiqX6/eVTzhm
+ wLZ2Vqg5VRXMg/2n9EUKO8aa
 X-SBRS: 5.1
-X-MesageID: 58011978
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 57155535
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:RT8seqBIkLLhYRVW/2Plw5YqxClBgxIJ4kV8jS/XYbTApD4i1jACn
- GBOCGiOPa7cYzb2Lo1xPYmz/RsDusfUm4U1QQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WLGs1hxZH1c+EX540Es7wobVv6Yz6TSHK1LV0
- T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
- Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/1Wi4ov1S0
- 9Jx6LeSbS0gZIncwMQdTEwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
- KFGbmBWBvyAr7veLLaTQ+9whsMlPY/zMZkWoH1IxjDFF/c2B5vERs0m4PcFjG9p35ERTZ4yY
- eIWRBY2PDDiaSRzPwZOB9UTndzvpVzgJmgwRFW9+vNsvjm7IBZK+LnyMvLFd9qSX8JXk02E4
- GXc8AzRHBYeM9COzCufxXiljOTPgCDTVZobEfuz8fsCqF+c3GsIEzUNSEC25/K+jyaWRNZ3O
- 0ESvC00osAa/kGxUsP0WRH+pXeepwMdQPJZCeh84waIooLE7gDcCmUaQzppbN09qNRwVTEsz
- kWOnd7iGXpoqrL9YXyb6/GKrDCoMC09PW4GZCkUCwAC5rHLopw3jx/JZsZuFuiylNKdMSrr3
- zmAoSw6hrMSpc0GzaO2+RbAmT3Em3TSZldrvEONBDvjt14nIt7+D2C11bTFxagdHbu0bUKGg
- CUvuey05boqHcmtlDPYFY3hA4qVz/qCNTTdh3tmEJ8g6ymh9hafQGxA3N1tDBw3a5hZIFcFd
- GeW4FoMv8ELYBNGeIcuO9rpY/nG25QMAjgMuhr8StNVKqZ8ewaclM2FTR7Bhju9+KTAfExWB
- Ht6TSpOJSpFYUiE5GDvLwv47VPN7nlvrY80bcqrpylLKZLEOBaopU4taTNilNwR4qKeuxny+
- N1CLcaMwBg3eLSgOXeKr99MfQ1VcidT6XXKRyp/L7/rzu1OQjFJNhMs6el5J9wNc1p9yo8kA
- U1RqmcHkQGi1BUr2C2Ba2x5aaOHYHqMhSlTAMDYBn7xgyJLSd/2tM83LsJrFZF6pL0L5aMlF
- JEtJpTfasmjvxyaolzxm7Gm99c8HPlq7CrTVxeYjM8XI8Q9GleXo4C8JWMCNkAmV0KKiCf3m
- JX4viuzfHbJb18K4B/+ZK39wlWvk2Iane4uDULELsMKIBfn8ZRwKjy3hfgyepleJRLGzzqc9
- gCXHRZH+rWd/95rqIHE1fKesoOkM+piBU4GTWPV2qm7aHvB9W25zI4eDOvRJWLBVHn58bmJb
- PlOy62uK+UOmVtH6tIuE7tiwa8kycHoortWklZtEHnRNgz5AbJ8OHiWm8JIs/QVlLNevAK3X
- GOJ+8VbZurVaJ+0TgZJKVN8POqZ1PwSlj3D1tgPIR33tH1t4b6KcUROJB3Q2iZTG6R4bdE+y
- uA7tc9ItwHm0kg2MsyLhzx//niXKiBSSL0us5wXDdO5igcvzV0eM5XQBjWvvcOKYtRIdEIrP
- iWVlOzJgLEFnhjOdH86FH7s2+tBhMtR5EAWnQFaf1nZyMDYgvIX3QFK9WVlRwtY+RxLzuZvN
- zU5LEZyP6iPo29licUrs7pAwO2d6Ml1InDM9mY=
-IronPort-HdrOrdr: A9a23:W1uYs6mK6IUdHuXYCWyKHsaeB17pDfIs3DAbv31ZSRFFG/Fxl6
- iV8sjz8SWE7Ar5OUtQ/OxoV5PsfZqxz/JICMwqTNCftWrdyQmVxeNZjbcKqgeIc0aVygce79
- YCT0EXMqyXMbEQt6fHCWeDfOod/A==
+IronPort-Data: A9a23:Q81pzq0ErvkVCPfP4/bD5XB2kn2cJEfYwER7XKvMYLTBsI5bpzIHz
+ jYbXT3QO6zfamGhLd12PYu28ksPv5PQnIQxTwBlpC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
+ Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCan8ZqTNMEn970Es6wrdh2+aEvPDia++zk
+ YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
+ 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhm/N9+
+ epdt6aKSho2MLb8o71eShJbOnQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
+ 6VecW1TKEDY7w616OvTpu1Er8IvNsT0eqgYvWlt12rxBvc6W5HTBa7N4Le02R9t2ZkTQKuFO
+ qL1bxJ0UCjZbEFDG247VogOxfikql2ucGBx/Qf9Sa0fvDGIkV0ZPKLWGNjIft2HQ+1Fk0Deo
+ XjJl0zHBRUdOM2a2CCy2Humje/Sngv2QIsXUra/85ZCilCJ2nYaDhFQUFKhuOS4kWa3QdcZI
+ EsRkgIxqYAi+UrtScPyNzWorXjBshMCVt54F+wh9BrL2qfS+xyeBGUPUnhGctNOnO0cSCEu1
+ 1SJt8j0HjEpu7qQIVqG7audpz62PSkTLEcBaDUCQA9D5MPsyLzflTqWEIwlSvTsyISoR3egm
+ FhmsRTSmZ0XrsI66LW5x2rEni2ivajyF00s7Qb+CzfNAhxCWKapYImh6F7+5PlGLZqEQlTpg
+ EXoi/Ry/8hVU8jTyXXlrPElWejwuq3baGG0bUtHRsF5r1yQF2ifkZe8Cd2UDGNgKY46dDDge
+ yc/UisBtcYIbBNGgUKaCr9d6vjGL4C8SrwJtdiON7Kih6SdkiferUmCgmbKjwjQfLAEy/1XB
+ HtiWZ/E4YwmIapm1iGqYOwWzKUmwCszrUuKG8ulkkr2jurDOyHKIVvgDLdoRrlohE9jiF+Fm
+ +uzyuPQk0kPOAEASnW/HXEvwaAiciFgWMGeRz1/fe+fOAt2cFzN+NeKqY7Nj7dNxvwP/s+Rp
+ ynVchYBlDLX2C2WQS3XOysLQO6+Av5CQYcTYHVE0aCAgCN4P+5CLc43KvMKQFXQ3LA5kKMvE
+ aBaI57o7zYmYm2vxgnxpKLV9ORKHClHTyrXV8Z8SDRgLZNmWSLT/droIlnm+CUUV3Llvsoiu
+ bywkAjcRMNbFQhlCc/XbtOpzk+w4idByL4jAROQL4kBYljo/ahrNzf10q09LfYTJEiR3TCdz
+ QuXX0sV/LGfv48v/dDVrqmYtIP1QfBmF09XEjCDv7a7PCXX5ES5xopEXLradDzRTjqsqq6je
+ f9U37f3N/hexARGtI91ErBKy6Mi5oSw++8Gn1o8RHiSNgalELJtJHWCzPJjjKwVy+8LoxayV
+ 2KO5sJeZeeDNvT6HQNDPwEidOmCi60Zw2GA8fQvLUzmzyZr577bA15KNhyBhSEBfrt4NIQpn
+ bUotMIMslHtjxMrNpCNjzxO9nTKJXsFCv11upYfCY7tqwwq1lAdPsCMVn6ouMmCO4dWL00nA
+ j6In66T1b1Ty33Lf2c3CXWQj/FWgo4DuUwSwVIPT7hTdgEpWhPjMMVtzAkK
+IronPort-HdrOrdr: A9a23:85efoqpPWoWe3BKEdNhY+XcaV5oneYIsimQD101hICG8cqSj+f
+ xG+85rsiMc6QxhPE3I9urhBEDtex/hHP1OkOws1NWZLWrbUQKTRekIh+bfKlXbakvDH4VmtJ
+ uIHZIQNDSJNykZsfrH
 X-IronPort-AV: E=Sophos;i="5.87,226,1631592000"; 
-   d="scan'208";a="58011978"
-Date: Thu, 11 Nov 2021 16:54:25 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Vikram Garhwal <fnu.vikram@xilinx.com>
-CC: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
-	<julien@xen.org>, <bertrand.marquis@arm.com>, <volodymyr_babchuk@epam.com>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross
-	<jgross@suse.com>
-Subject: Re: [XEN][RFC PATCH v2 10/12] tools/libs/ctrl: Implement new xc
- interfaces for dt overlay
-Message-ID: <YY1KwUC7EaJC4vJa@perard>
-References: <1636441347-133850-1-git-send-email-fnu.vikram@xilinx.com>
- <1636441347-133850-11-git-send-email-fnu.vikram@xilinx.com>
+   d="scan'208";a="57155535"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: [PATCH 0/5] xen: various function pointer cleanups
+Date: Thu, 11 Nov 2021 17:57:35 +0000
+Message-ID: <20211111175740.23480-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <1636441347-133850-11-git-send-email-fnu.vikram@xilinx.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 08, 2021 at 11:02:25PM -0800, Vikram Garhwal wrote:
-> xc_dt_overlay() sends the device tree binary overlay, size of .dtbo and overlay
-> operation type i.e. add or remove to xen.
-> 
-> Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
-> ---
->  tools/include/xenctrl.h      |  5 +++++
->  tools/libs/ctrl/Makefile     |  1 +
->  tools/libs/ctrl/xc_overlay.c | 51 ++++++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 57 insertions(+)
->  create mode 100644 tools/libs/ctrl/xc_overlay.c
-> 
-> diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
-> index 07b96e6..cfd7c5c 100644
-> --- a/tools/include/xenctrl.h
-> +++ b/tools/include/xenctrl.h
-> @@ -2684,6 +2684,11 @@ int xc_livepatch_replace(xc_interface *xch, char *name, uint32_t timeout, uint32
->  int xc_domain_cacheflush(xc_interface *xch, uint32_t domid,
->                           xen_pfn_t start_pfn, xen_pfn_t nr_pfns);
->  
-> +#if defined (CONFIG_OVERLAY_DTB)
-> +int xc_dt_overlay(xc_interface *xch, void *overlay_fdt, int overlay_fdt_size,
-> +                  uint8_t overlayop);
-> +#endif
-> +
->  /* Compat shims */
->  #include "xenctrl_compat.h"
->  
-> diff --git a/tools/libs/ctrl/Makefile b/tools/libs/ctrl/Makefile
-> index 519246b..a21a949 100644
-> --- a/tools/libs/ctrl/Makefile
-> +++ b/tools/libs/ctrl/Makefile
-> @@ -3,6 +3,7 @@ include $(XEN_ROOT)/tools/Rules.mk
->  
->  SRCS-y       += xc_altp2m.c
->  SRCS-y       += xc_cpupool.c
-> +SRCS-$(CONFIG_OVERLAY_DTB) += xc_overlay.c
+Passing CI runs:
+  https://cirrus-ci.com/build/6095362789212160
+  https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/407123417
 
-So, this patch seems to introduce the use of CONFIG_OVERLAY_DTB, is
-there a reason why the new functionality can't be always builtin?
+Andrew Cooper (5):
+  xen/domain: Remove function pointers from domain pause helpers
+  xen/domain: Improve pirq handling
+  xen/sort: Switch to an extern inline implementation
+  xen/wait: Remove indirect jump
+  x86/ioapic: Drop function pointers from __ioapic_{read,write}_entry()
 
-Thanks,
+ xen/arch/arm/bootfdt.c   |  9 ++++-
+ xen/arch/arm/io.c        |  9 ++++-
+ xen/arch/x86/io_apic.c   | 30 +++++++++++-----
+ xen/common/domain.c      | 93 ++++++++++++++++++++++++++++--------------------
+ xen/common/wait.c        | 19 +++++-----
+ xen/include/xen/domain.h |  1 -
+ xen/include/xen/sched.h  | 15 +++-----
+ xen/include/xen/sort.h   | 55 +++++++++++++++++++++++++++-
+ xen/lib/sort.c           | 80 ++---------------------------------------
+ 9 files changed, 162 insertions(+), 149 deletions(-)
 
 -- 
-Anthony PERARD
+2.11.0
+
 
