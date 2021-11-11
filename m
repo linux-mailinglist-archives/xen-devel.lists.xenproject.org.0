@@ -2,43 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 854E544D5BA
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 12:20:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224720.388186 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9BE944D604
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 12:43:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.224729.388197 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ml87i-0005gZ-Kw; Thu, 11 Nov 2021 11:20:06 +0000
+	id 1ml8U8-0008Fk-Ld; Thu, 11 Nov 2021 11:43:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224720.388186; Thu, 11 Nov 2021 11:20:06 +0000
+Received: by outflank-mailman (output) from mailman id 224729.388197; Thu, 11 Nov 2021 11:43:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ml87i-0005dO-Gp; Thu, 11 Nov 2021 11:20:06 +0000
-Received: by outflank-mailman (input) for mailman id 224720;
- Thu, 11 Nov 2021 11:20:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cjuL=P6=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1ml87g-0005K6-ED
- for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 11:20:04 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 500ceebe-42e1-11ec-a9d2-d9f7a1cc8784;
- Thu, 11 Nov 2021 12:20:02 +0100 (CET)
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1ml873-002g98-8m; Thu, 11 Nov 2021 11:19:26 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 627DF3000D5;
- Thu, 11 Nov 2021 12:19:22 +0100 (CET)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 304F0201EC1CF; Thu, 11 Nov 2021 12:19:21 +0100 (CET)
+	id 1ml8U8-0008Da-IB; Thu, 11 Nov 2021 11:43:16 +0000
+Received: by outflank-mailman (input) for mailman id 224729;
+ Thu, 11 Nov 2021 11:43:15 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1ml8U7-0008DU-E6
+ for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 11:43:15 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ml8U6-0004GA-1x; Thu, 11 Nov 2021 11:43:14 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.21.213]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ml8U5-0001aV-SB; Thu, 11 Nov 2021 11:43:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,90 +39,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 500ceebe-42e1-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Rwfbmkoas7VebHdsAPeFky9gQjs68+546BvuzLh8KOw=; b=nYW2D8WwDzTJBO/3hqaCnKl+rG
-	Juv9WqI4u6yj05w2X63ioSsTn5cEdV6jDA351V4/q9yydOsa7FW1hSEMYTFCpYM+34h+eLD05vIuf
-	aJw4KwauVgbsmZhkliH2C6iKJqojPUXuWEPcd38B1dtT88o84f5Sp/oMWfV8h9DaHJOesh+0xGqtP
-	n4R4aYuGwPrCobAnDwuTl24Bkv/pjQsvWW5g0gG3sYG1rBE7VdaHTNsjeZ1KJKR5jtxxyS54nzBQU
-	j+XeoDvq2JxdCtTPVCSG+YQMQo1n/omY8trwJKb2fdS0v2mWaEEA6whxFBt8nI2ZCCfGYmM487YiO
-	s2UIUTPg==;
-Date: Thu, 11 Nov 2021 12:19:21 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Russell King <linux@armlinux.org.uk>, Marc Zyngier <maz@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Guo Ren <guoren@kernel.org>, Nick Hu <nickhu@andestech.com>,
-	Greentime Hu <green.hu@gmail.com>,
-	Vincent Chen <deanbo422@gmail.com>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Vitaly Kuznetsov <vkuznets@redhat.com>,
-	Wanpeng Li <wanpengli@tencent.com>,
-	Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, kvmarm@lists.cs.columbia.edu,
-	linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org,
-	kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
-	Artem Kashkanov <artem.kashkanov@intel.com>,
-	Like Xu <like.xu.linux@gmail.com>,
-	Like Xu <like.xu@linux.intel.com>,
-	Zhu Lingshan <lingshan.zhu@intel.com>
-Subject: Re: [PATCH v4 00/17] perf: KVM: Fix, optimize, and clean up callbacks
-Message-ID: <YYz8OTWtkcFUkvbZ@hirez.programming.kicks-ass.net>
-References: <20211111020738.2512932-1-seanjc@google.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ZuWVDoOdOiJFiaRhufmMNcjGTdGC24An1UDrj3+lMFU=; b=tSj5mKdX2V2nhgaglqSR4GN1F3
+	Zt4epjyIMPJcYb0jNnqmKIS+AL8tAJF7E35NCRIqsY9GrN4QWV0YpCsuhlatike5zJjzIhXonhrxt
+	hh1NWppA4Ib341T40vaXXpLj9iZRj/W///pG4Y1MprIvGnPDG38/u/clS3Wpl/az9lVI=;
+Message-ID: <095e16e5-312d-61e5-e61f-4e026affad8d@xen.org>
+Date: Thu, 11 Nov 2021 11:43:11 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211111020738.2512932-1-seanjc@google.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.0
+Subject: Re: [PATCH v2 for-4.16] xen/arm: allocate_bank_memory: don't create
+ memory banks of size zero
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, oleksandr_tyshchenko@epam.com,
+ iwj@xenproject.org, Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <20211110205555.945026-1-sstabellini@kernel.org>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20211110205555.945026-1-sstabellini@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 11, 2021 at 02:07:21AM +0000, Sean Christopherson wrote:
+Hi Stefano,
 
-> Like Xu (1):
->   perf/core: Rework guest callbacks to prepare for static_call support
+On 10/11/2021 20:55, Stefano Stabellini wrote:
+> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
 > 
-> Sean Christopherson (16):
->   perf: Protect perf_guest_cbs with RCU
->   KVM: x86: Register perf callbacks after calling vendor's
->     hardware_setup()
->   KVM: x86: Register Processor Trace interrupt hook iff PT enabled in
->     guest
->   perf: Stop pretending that perf can handle multiple guest callbacks
->   perf: Drop dead and useless guest "support" from arm, csky, nds32 and
->     riscv
->   perf: Add wrappers for invoking guest callbacks
->   perf: Force architectures to opt-in to guest callbacks
->   perf/core: Use static_call to optimize perf_guest_info_callbacks
->   KVM: x86: Drop current_vcpu for kvm_running_vcpu + kvm_arch_vcpu
->     variable
->   KVM: x86: More precisely identify NMI from guest when handling PMI
->   KVM: Move x86's perf guest info callbacks to generic KVM
->   KVM: x86: Move Intel Processor Trace interrupt handler to vmx.c
->   KVM: arm64: Convert to the generic perf callbacks
->   KVM: arm64: Hide kvm_arm_pmu_available behind CONFIG_HW_PERF_EVENTS=y
->   KVM: arm64: Drop perf.c and fold its tiny bits of code into arm.c
->   perf: Drop guest callback (un)register stubs
+> allocate_bank_memory can be called with a tot_size of zero, as an
+> example see the implementation of allocate_memory which can call
+> allocate_bank_memory with a tot_size of zero for the second memory bank.
+> 
+> If tot_size == 0, don't create an empty memory bank, just return
+> immediately without error. Otherwise a zero-size memory bank will be
+> added to the domain device tree.
+> 
+> Note that Linux is known to be able to cope with zero-size memory banks,
+> and Xen more recently gained the ability to do so as well (5a37207df520
+> "xen/arm: bootfdt: Ignore empty memory bank"). However, there might be
+> other non-Linux OSes that are not able to cope with empty memory banks
+> as well as Linux (and now Xen). It would be more robust to avoid
+> zero-size memory banks unless required.
+> 
+> Moreover, the code to find empty address regions in make_hypervisor_node
+> in Xen is not able to cope with empty memory banks today and would
+> result in a Xen crash. This is only a latent bug because
+> make_hypervisor_node is only called for Dom0 at present and
+> allocate_memory is only called for DomU at the moment. (But if
+> make_hypervisor_node was to be called for a DomU, then the Xen crash
+> would become manifest.)
 
-Thanks!, I'll queue them up and push them into tip/perf/core once -rc1
-happens.
+As also mentionned by Oleksandr, I don't think make_hypervisor_node() 
+could work as-is for DomU because we are not re-using the host memory 
+layout (yet). Instead, we would need a logic similar to the one we use 
+in libxl.
+
+That said, it makes easier to reason if all the memory banks are non-zero.
+
+> 
+> Fixes: f2931b4233ec ("xen/arm: introduce allocate_memory")
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+> ---
+> Changes in v2:
+> - improve commit message
+> - add in-code comment
+> 
+> In regards to inclusion in 4.16.
+> 
+> If we don't fix this issue in 4.16, default usage of Xen+Linux won't be
+> affected.
+> 
+> However:
+> - Non-Linux OSes that cannot cope with zero-size memory banks could
+>    error out. I am not aware of any but there are so many out there in
+>    embedded it is impossible to tell.
+
+I agree this is the main concern. Although, this not a new bug has been 
+present for 3 years now.
+
+> - downstream Xen calling make_hypervisor_node for DomUs will crash
+
+For this and ...
+
+> - future Xen calling make_hypervisor_node for DomUs will have to make
+>    sure to fix this anyway
+
+... this see above.
+
+> 
+> If we commit the patch in 4.16, we fix these issue. This patch is only 2
+> lines of code and very easy to review. The risk is extremely low. >
+> Difficult to say what mistakes could have been made in analysis and
+> preparation because it is a trivial if-zero-return patch, which is
+> likely to fix latent bugs rather than introducing instability.
+> 
+> ---
+>   xen/arch/arm/domain_build.c | 8 ++++++++
+>   1 file changed, 8 insertions(+)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 9e92b640cd..fe38a7c73c 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -395,6 +395,14 @@ static bool __init allocate_bank_memory(struct domain *d,
+>       struct membank *bank;
+>       unsigned int max_order = ~0;
+>   
+> +    /*
+> +     * allocate_bank_memory can be called with a tot_size of zero for
+> +     * the second memory bank. It is not an error and we can safely
+> +     * avoid creating a zero-size memory bank.
+> +     */
+> +    if ( tot_size == 0 )
+> +        return true;
+> +
+>       bank = &kinfo->mem.bank[kinfo->mem.nr_banks];
+>       bank->start = gfn_to_gaddr(sgfn);
+>       bank->size = tot_size;
+> 
+
+-- 
+Julien Grall
 
