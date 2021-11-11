@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B221D44DB60
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 18:58:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224834.388398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 006FE44DB64
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 18:58:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.224831.388364 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlEL0-00076z-Lw; Thu, 11 Nov 2021 17:58:14 +0000
+	id 1mlEKy-0006Ls-4F; Thu, 11 Nov 2021 17:58:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224834.388398; Thu, 11 Nov 2021 17:58:14 +0000
+Received: by outflank-mailman (output) from mailman id 224831.388364; Thu, 11 Nov 2021 17:58:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlEL0-00072m-FV; Thu, 11 Nov 2021 17:58:14 +0000
-Received: by outflank-mailman (input) for mailman id 224834;
- Thu, 11 Nov 2021 17:58:12 +0000
+	id 1mlEKy-0006IK-0y; Thu, 11 Nov 2021 17:58:12 +0000
+Received: by outflank-mailman (input) for mailman id 224831;
+ Thu, 11 Nov 2021 17:58:10 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GOKj=P6=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mlEKx-00061G-Ut
- for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 17:58:12 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec20702c-4318-11ec-a9d2-d9f7a1cc8784;
- Thu, 11 Nov 2021 18:58:08 +0100 (CET)
+ id 1mlEKw-00061G-5V
+ for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 17:58:10 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ec2a8953-4318-11ec-a9d2-d9f7a1cc8784;
+ Thu, 11 Nov 2021 18:58:07 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,56 +36,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec20702c-4318-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: ec2a8953-4318-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=citrix.com; s=securemail; t=1636653488;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=UseM21AlpwIdIYpcz0wWiPK9lJhAurz+UGmlCCgsSLI=;
-  b=CiAIqznbOa0vgEDcQkNmkoDvyWKtpt7VCklZbsRTfzpan02CwbqrHgJP
-   iQL+1b7hf4wSOh/HV5nqxM+vK3oJmoAeCPUQDzwoMTQfcygTS2/bLkuA1
-   TiPS262EuSu0ppAP1dvJHSFGBfkTWAgxpaI1i6+MfXL4g1Saf969KbdOc
-   w=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: O5cljdHxD0EbVogHANza/oxZjDbxM4fy7LfQCYIAaijg10mYW5GmwoYevNWdMP4Lb5NlAmTh5v
- +BoL8Vl0CGrmcXuEx2/KbJXMYStmkkklS8FsWP/ytfi04rOl/o1wSpV+Ome5ihoG78RsMTtwsK
- nn8EOceEvF0+v7aS+noc+r/WQkh32KcMqgDMV6oaAPhTiW7KKCqB78kMDfkxMeea9JOMIDInh9
- zSGgczuzv+N1x1MdaAGSEprP6Kq/AEKcnGKBEDvQorhbn7fcqcmI3Yszq/Lb00nON0VfPm9KeW
- N5bkThVJcw8uNxMzNC84hyPT
+  bh=Q5M5rcMoU8akU3ihfSLxmIL46Dy+ECH9/kCBIHplY3E=;
+  b=OytE1qHlpiMydDCtFeFan2b8VzRr61p/mBCjNT0biynru1hjh1zvxM9R
+   K8XCLa5rugzds5qxpWkje4D40jwUzQENPBaCx7ANYy8p2PE2lZJ0DsA3t
+   +UebRuun1rUBRrxR8Ug9bcivW2mfj2r04wZLz6Kt3MzYx254ORxLuP2nd
+   c=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: /5QAJWGpTY9N2d1Jfoqx3UvI3Cet8f1whoEibQWWfYDm67MA1UMg64e+4MkGlCqrn6vWd/9pam
+ ldTQ20c2VokFHPSaQl3Bmz77sHhsCuT9WeaxDQM3xEjppJ3ypymo5I7SQA6H9oU94SA0p0saDF
+ zYoIcU8Fbq0/XLsmzupyIsJLbhQqOkDitY9UOdq5DHRQbmPyB5GJRfOZ5U8EbJktjrDGLNmJ8a
+ +7WtKaAvVmIY0bc6H2/tAzQ/niJ+aFsh1hZ6SHf0aw19KE8YFVnXBdgxfZlgACKoyI1NOtg/gi
+ SCyrsaeT3AUiP78TGfeJ/gW6
 X-SBRS: 5.1
-X-MesageID: 57591434
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 59593529
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:jD3AhaNdOhXLNBfvrR0GkMFynXyQoLVcMsEvi/4bfWQNrUoghTdRx
- mUeWWGOMvuJMGKhfY8lb462oR4PvsWBzNI2HAto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6bUsxNbVU8En540Es6w7dRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYozuSpI5Jz
- t5IjsO9FwJ3LpLFsbtDWQYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YsBqit4uM4/AO4QHt2s75TrYEewnUdbIRKCiCdpwgWht15kSRqq2i
- 8wxOB1vTCieekF1HFIyOdEuv/+KoXTwfGgNwL6SjfVuuDWCpOBr65DvLd7Ud9qiVchT2EGCq
- QruwWP9BR0LMc2F/hCM+Hmsm+znkDvyXcQZE7jQ3vRnmkGJz2ofThgfT0KmoOKRg1S7HdlYL
- iQ85S4GvaU0skuxQbHVTxC+5XKJoBMYc95RCPEhrhGAzLLO5ASUDXRCSSROAPQEnsIrQT0h1
- neSgsjkQzdotdW9UmmB/72ZqTezPyk9LmIYYyIACwwf7LHeTJob10yVCIw5Sejs04OzSWqYL
- y22QDYWia4o0/YN3KCAol2Zhmy8mZHgEVA/+VCCNo661T9RaImgbo2uzFHU6/dcMYqUJmW8U
- Gg4d9u2t75XU8zU/MCZaKBURezyua7ZWNHJqQc3R8FJyti7x5K0kWm8ChlaLVwhDMsLcCSBj
- KT76VIIv8870JdHgMZKj2ON5yYCkfeI+TfNDKm8gj9yjn5ZLV7vEMZGPx744owVuBJw+ZzTw
- L/CGSpWMV4UCL580B29TPoH3Lkgy0gWnD2IG82lnkv3jOXBOxZ5rIvp1nPXP4jVC4ve8G3oH
- yt3bZPWm32zrsWiCsUozWLjBQ9TdiVqbXwHg8dWavSCMmJb9JIJUJfsLUcaU9U9xcx9z76Ql
- lnkAxMw4Aev1BXvdFTRAlg+OeyHYHqKhS9iVcDaFQ3zgCZLjEfGxPp3SqbbipF7rrE+lqAtE
- KFeEyhCa9wWIgn6F/0mRcGVhORfmN6D3Gpi5gKpP2oyeYBOXQvM9oO2dwfj7nBWXCG2qdE/s
- /ur0QaCGcgPQAFrDcD3bvOzzgzu4ShBybwqB0aYcMNOfEjM8ZRxL3CjhPEAPMxRew7IwSGX1
- ljKDE5A9/XNuYI87PLAmbuA89WyC+J7E0cDRzvb4L+6ODP05G2mxYMcAu+EcSqEDDH/+bm4Z
- PUTxPb5aaVVkFFPuot6MrBq0aNhuIe/++4EllxpRSyZYU6qB7VsJmi98fNO7qAdlKVEvQaWW
- 16U/oUIM7u+J864QkUaIxAob7rf2KhMyCXS9/k8PG7z+DRzoOicSUxXMhSB1H5dIb9yPN93y
- OstopdLuQm2ix5sOdealCFEsW+LKyVYAakgs5gbBq7tixYqlQ4eMcCNVHeu7cHdcchIP2krP
- iSQ1fjLiLlrz0bfd2Y+SCrW1u1HiJVS4B1HwTfu/bhSdgYpUhPv4CBszA==
-IronPort-HdrOrdr: A9a23:aaT6HqA0WIiTD+blHemU55DYdb4zR+YMi2TC1yhKJyC9Ffbo7v
- xG/c5rsyMc5wxwZJhNo7y90ey7MBbhHP1OkO4s1NWZLWrbUQKTRekIh+bfKn/baknDH4ZmpN
- 9dmsNFaeEYY2IUsS+D2njbL+od
+IronPort-Data: A9a23:RqOhU6ymMp+2Qn49mhB6t+eUwSrEfRIJ4+MujC+fZmUNrF6WrkVVz
+ 2IaW2HSM/yOamSnfNt1Yduz9EwFv5PXx4NjTgdt+yAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAuLeNYYH1500s6wrdg2tcAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt8Iqm
+ N5Lk5aRdSYsLpPtoLw9VhB4HQgraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVoru0lINPmI8U0vXZ4wCuCJf0nXYrCU+PB4towMDIY25ETTK2DP
+ ZtxhTxHSRDyZRZdMF0tNNEUsuS5r2PgegNHpwfAzUYwyzeKl1EguFT3C/LXZ9iLSMN9jkue4
+ GXc8AzRPBYeM9COzCufxViljOTPgCDTVZobEfuz8fsCqFee3HAJARsaE16yu+Cki1WWUshab
+ UcT/0IGsqwa5EGtCN7nUHWQsHOC+xIRRddUO+k78x2WjLrZ5R6DAWoJRSIHb8Yp3OcUbzE30
+ l6Cn/vyGCdi9raSTBq17ayIpDm/PSwUK24qZiIeSwYBpd75r+kOYgnnF4g5VvTv15usRG+2k
+ 2viQDUCa6s7n5Vb3KOd93H7oje8mLnxFi4w7yXZdzfwhu9mX7KNa4ut4FndyP9PKoeFU1WM1
+ EQ5d9iiAPMmVs/UynHUKAkZNPTwvqvebmWA6bJ6N8B5r2zFxpK1QWxHDNiSzm9NO91MRzLma
+ VS7Veh5tM4KZyvCgUOajuuM5yUWIUrISYuNuhP8NIMmjn1NmOmvpXAGiam4hTCFraTUuftjU
+ ap3iO71ZZrgNYxpzSCtW8AW2qIxyyY1yAv7HM6gkUn5gOXOOSHKFt/p1WdiiMhgvctoRy2Po
+ 75i2zaikU0DAIUSnAGLmWLsEbz6BSdiXs2nwyCmXuWCPhBnCAkc5wz5mtscl3het/0NzI/gp
+ yjlMmcBkQaXrSCXeG2iNyE4AJuyDMkXkJ7OFXF1Vbpe8yN4OtjHAWZ2X8ZfQITLA8Q/l6MpF
+ KdcJJ3bahmNIxyekwkggVDGhNQKXHyWacimZEJJuRAzIMxtQRLn4Njhcle9/SUCFHPv58A/v
+ 6ehxkXQRp9aH1ZuC8PfafSOyVKtvCdCxLIuDhWQetQDKl/x9IVKKjDqiqNlKc87NhielCCR0
+ BybAElEqLCV8ZM16tTAmYuNs5ytT7llBkNfEmSCteS2OCDW83CN24hFVOrULznRWHmtoPepZ
+ PlPzuG6O/oCxQ4Yv415Grdt7KQ/+9qw+OMKklU6RC3GNg35BKlhL3+K2dh0mpdMnrIJ6xGrX
+ k+v+8VBPenbMs3SD1NMdhEuaf6O1K9Il2CKv+g1Okjz+AR+4KGDDRdJJxCJhSFQcOl1PYciz
+ btzscIa8VXi2B8jM9LAhSFI7WWcaHcHVvx/5J0dBYbqjCsty01DPsOAWnOnvsnXZoUeKFQuL
+ x+VmLHG1uZVyUf1enYuEWTAgLhGjpMUtREWlFIPKjxlQDYeaiPbCPGJzQkKcw==
+IronPort-HdrOrdr: A9a23:UZfBy6tgzqn1yTZt2rYmbeu67skDTtV00zEX/kB9WHVpmszxra
+ 6TdZMgpGbJYVcqKRcdcL+7WJVoLUmxyXcx2/h1AV7AZniAhILLFvAA0WKK+VSJcEeSygce79
+ YFT0EXMqyJMbEQt6fHCWeDfOrIuOP3kpyVuQ==
 X-IronPort-AV: E=Sophos;i="5.87,226,1631592000"; 
-   d="scan'208";a="57591434"
+   d="scan'208";a="59593529"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
@@ -93,9 +93,9 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [PATCH 1/5] xen/domain: Remove function pointers from domain pause helpers
-Date: Thu, 11 Nov 2021 17:57:36 +0000
-Message-ID: <20211111175740.23480-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/5] xen/domain: Improve pirq handling
+Date: Thu, 11 Nov 2021 17:57:37 +0000
+Message-ID: <20211111175740.23480-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211111175740.23480-1-andrew.cooper3@citrix.com>
 References: <20211111175740.23480-1-andrew.cooper3@citrix.com>
@@ -103,31 +103,13 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Retpolines are expensive, and all these do are select between the sync and
-nosync helpers.  Pass a boolean instead, and use direct calls everywhere.
+free_pirq_struct() has no external users, so shouldn't be exposed.  Making it
+static necessitates moving the function as domain_destroy() uses it.
 
-Pause/unpause operations on behalf of dom0 are not fastpaths, so avoid
-exposing the __domain_pause_by_systemcontroller() internal.
-
-This actually compiles smaller than before:
-
-  $ ../scripts/bloat-o-meter xen-syms-before xen-syms-after
-  add/remove: 3/1 grow/shrink: 0/5 up/down: 250/-273 (-23)
-  Function                                     old     new   delta
-  _domain_pause                                  -     115    +115
-  domain_pause_by_systemcontroller               -      69     +69
-  domain_pause_by_systemcontroller_nosync        -      66     +66
-  domain_kill                                  426     398     -28
-  domain_resume                                246     214     -32
-  domain_pause_except_self                     189     141     -48
-  domain_pause                                  59      10     -49
-  domain_pause_nosync                           59       7     -52
-  __domain_pause_by_systemcontroller            64       -     -64
-
-despite GCC's best efforts.  The new _domain_pause_by_systemcontroller()
-really should not be inlined, considering that the difference is only the
-setup of the sync boolean to pass to _domain_pause(), and there are plenty of
-registers to spare.
+Rework pirq_get_info() to have easier-to-follow logic.  The one functional
+change is to the insertion failure path; we should not be using a full
+call_rcu() chain to free an otherwise local structure we failed to insert into
+the radix tree to begin with.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -139,122 +121,102 @@ CC: Julien Grall <julien@xen.org>
 CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 CC: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
- xen/common/domain.c     | 31 ++++++++++++++++++++++---------
- xen/include/xen/sched.h | 15 +++++----------
- 2 files changed, 27 insertions(+), 19 deletions(-)
+ xen/common/domain.c      | 62 ++++++++++++++++++++++++++----------------------
+ xen/include/xen/domain.h |  1 -
+ 2 files changed, 33 insertions(+), 30 deletions(-)
 
 diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 56d47dd66478..562872cdf87a 100644
+index 562872cdf87a..a53dd114d5ba 100644
 --- a/xen/common/domain.c
 +++ b/xen/common/domain.c
-@@ -1234,15 +1234,18 @@ int vcpu_unpause_by_systemcontroller(struct vcpu *v)
-     return 0;
+@@ -365,6 +365,39 @@ static int __init parse_extra_guest_irqs(const char *s)
  }
+ custom_param("extra_guest_irqs", parse_extra_guest_irqs);
  
--static void do_domain_pause(struct domain *d,
--                            void (*sleep_fn)(struct vcpu *v))
-+static void _domain_pause(struct domain *d, bool sync /* or nosync */)
- {
-     struct vcpu *v;
- 
-     atomic_inc(&d->pause_count);
- 
--    for_each_vcpu( d, v )
--        sleep_fn(v);
-+    if ( sync )
-+        for_each_vcpu ( d, v )
-+            vcpu_sleep_sync(v);
-+    else
-+        for_each_vcpu ( d, v )
-+            vcpu_sleep_nosync(v);
- 
-     arch_domain_pause(d);
- }
-@@ -1250,12 +1253,12 @@ static void do_domain_pause(struct domain *d,
- void domain_pause(struct domain *d)
- {
-     ASSERT(d != current->domain);
--    do_domain_pause(d, vcpu_sleep_sync);
-+    _domain_pause(d, true /* sync */);
- }
- 
- void domain_pause_nosync(struct domain *d)
- {
--    do_domain_pause(d, vcpu_sleep_nosync);
-+    _domain_pause(d, false /* nosync */);
- }
- 
- void domain_unpause(struct domain *d)
-@@ -1269,8 +1272,8 @@ void domain_unpause(struct domain *d)
-             vcpu_wake(v);
- }
- 
--int __domain_pause_by_systemcontroller(struct domain *d,
--                                       void (*pause_fn)(struct domain *d))
-+static int _domain_pause_by_systemcontroller(
-+    struct domain *d, bool sync /* or nosync */)
- {
-     int old, new, prev = d->controller_pause_count;
- 
-@@ -1289,11 +1292,21 @@ int __domain_pause_by_systemcontroller(struct domain *d,
-         prev = cmpxchg(&d->controller_pause_count, old, new);
-     } while ( prev != old );
- 
--    pause_fn(d);
-+    _domain_pause(d, sync);
- 
-     return 0;
- }
- 
-+int domain_pause_by_systemcontroller(struct domain *d)
++static void _free_pirq_struct(struct rcu_head *head)
 +{
-+    return _domain_pause_by_systemcontroller(d, true /* sync */);
++    xfree(container_of(head, struct pirq, rcu_head));
 +}
 +
-+int domain_pause_by_systemcontroller_nosync(struct domain *d)
++static void free_pirq_struct(void *ptr)
 +{
-+    return _domain_pause_by_systemcontroller(d, false /* nosync */);
++    struct pirq *pirq = ptr;
++
++    call_rcu(&pirq->rcu_head, _free_pirq_struct);
 +}
 +
- int domain_unpause_by_systemcontroller(struct domain *d)
- {
-     int old, new, prev = d->controller_pause_count;
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 28146ee404e6..37f78cc4c4c9 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -920,26 +920,21 @@ static inline bool vcpu_cpu_dirty(const struct vcpu *v)
++struct pirq *pirq_get_info(struct domain *d, int pirq)
++{
++    struct pirq *info = pirq_info(d, pirq);
++
++    if ( likely(info) )
++        return info;
++
++    info = alloc_pirq_struct(d);
++    if ( unlikely(!info) )
++        return NULL;
++
++    info->pirq = pirq;
++    if ( likely(radix_tree_insert(&d->pirq_tree, pirq, info) == 0) )
++        return info; /* Success. */
++
++    /* Don't use call_rcu() to free a struct we failed to insert. */
++    _free_pirq_struct(&info->rcu_head);
++
++    return NULL;
++}
++
+ /*
+  * Release resources held by a domain.  There may or may not be live
+  * references to the domain, and it may or may not be fully constructed.
+@@ -1789,35 +1822,6 @@ long do_vm_assist(unsigned int cmd, unsigned int type)
+ }
+ #endif
  
- void vcpu_block(void);
- void vcpu_unblock(struct vcpu *v);
-+
- void vcpu_pause(struct vcpu *v);
- void vcpu_pause_nosync(struct vcpu *v);
- void vcpu_unpause(struct vcpu *v);
-+
- int vcpu_pause_by_systemcontroller(struct vcpu *v);
- int vcpu_unpause_by_systemcontroller(struct vcpu *v);
- 
- void domain_pause(struct domain *d);
- void domain_pause_nosync(struct domain *d);
- void domain_unpause(struct domain *d);
-+
-+int domain_pause_by_systemcontroller(struct domain *d);
-+int domain_pause_by_systemcontroller_nosync(struct domain *d);
- int domain_unpause_by_systemcontroller(struct domain *d);
--int __domain_pause_by_systemcontroller(struct domain *d,
--                                       void (*pause_fn)(struct domain *d));
--static inline int domain_pause_by_systemcontroller(struct domain *d)
+-struct pirq *pirq_get_info(struct domain *d, int pirq)
 -{
--    return __domain_pause_by_systemcontroller(d, domain_pause);
+-    struct pirq *info = pirq_info(d, pirq);
+-
+-    if ( !info && (info = alloc_pirq_struct(d)) != NULL )
+-    {
+-        info->pirq = pirq;
+-        if ( radix_tree_insert(&d->pirq_tree, pirq, info) )
+-        {
+-            free_pirq_struct(info);
+-            info = NULL;
+-        }
+-    }
+-
+-    return info;
 -}
--static inline int domain_pause_by_systemcontroller_nosync(struct domain *d)
+-
+-static void _free_pirq_struct(struct rcu_head *head)
 -{
--    return __domain_pause_by_systemcontroller(d, domain_pause_nosync);
+-    xfree(container_of(head, struct pirq, rcu_head));
 -}
+-
+-void free_pirq_struct(void *ptr)
+-{
+-    struct pirq *pirq = ptr;
+-
+-    call_rcu(&pirq->rcu_head, _free_pirq_struct);
+-}
+-
+ struct migrate_info {
+     long (*func)(void *data);
+     void *data;
+diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
+index 160c8dbdab33..b4d202fda9fd 100644
+--- a/xen/include/xen/domain.h
++++ b/xen/include/xen/domain.h
+@@ -44,7 +44,6 @@ void free_vcpu_struct(struct vcpu *v);
+ #ifndef alloc_pirq_struct
+ struct pirq *alloc_pirq_struct(struct domain *);
+ #endif
+-void free_pirq_struct(void *);
  
- /* domain_pause() but safe against trying to pause current. */
- int __must_check domain_pause_except_self(struct domain *d);
+ /*
+  * Initialise/destroy arch-specific details of a VCPU.
 -- 
 2.11.0
 
