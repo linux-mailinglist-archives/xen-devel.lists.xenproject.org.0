@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F227344CFAC
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 03:08:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224522.387962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4541144CFF4
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 03:17:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.224586.388003 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkzVa-0000Iq-2b; Thu, 11 Nov 2021 02:08:10 +0000
+	id 1mkzeK-0005zD-T6; Thu, 11 Nov 2021 02:17:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224522.387962; Thu, 11 Nov 2021 02:08:10 +0000
+Received: by outflank-mailman (output) from mailman id 224586.388003; Thu, 11 Nov 2021 02:17:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkzVZ-0000BY-Jb; Thu, 11 Nov 2021 02:08:09 +0000
-Received: by outflank-mailman (input) for mailman id 224522;
- Thu, 11 Nov 2021 02:08:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mkzeK-0005rX-Ny; Thu, 11 Nov 2021 02:17:12 +0000
+Received: by outflank-mailman (input) for mailman id 224586;
+ Thu, 11 Nov 2021 02:17:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6nTK=P6=flex--seanjc.bounces.google.com=3A3uMYQYKCT4xjfsohlttlqj.htr2js-ij0jqqnxyx.2jsuwtojhy.twl@srs-se1.protection.inumbo.net>)
- id 1mkzVW-0006EI-5p
- for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 02:08:06 +0000
-Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
- [2607:f8b0:4864:20::104a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 346bb3f2-4294-11ec-a9d2-d9f7a1cc8784;
- Thu, 11 Nov 2021 03:08:05 +0100 (CET)
-Received: by mail-pj1-x104a.google.com with SMTP id
- bf17-20020a17090b0b1100b001a634dbd737so2245278pjb.9
- for <xen-devel@lists.xenproject.org>; Wed, 10 Nov 2021 18:08:05 -0800 (PST)
+ <SRS0=WKvj=P6=flex--seanjc.bounces.google.com=3BXuMYQYKCUAugcpleiqqing.eqozgp-fgxgnnkuvu.zgprtqlgev.qti@srs-se1.protection.inumbo.net>)
+ id 1mkzVY-0004E5-29
+ for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 02:08:08 +0000
+Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com
+ [2607:f8b0:4864:20::54a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 355f8803-4294-11ec-9787-a32c541c8605;
+ Thu, 11 Nov 2021 03:08:07 +0100 (CET)
+Received: by mail-pg1-x54a.google.com with SMTP id
+ j18-20020a63fc12000000b002dd2237eb1cso2508252pgi.5
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Nov 2021 18:08:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,44 +40,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 346bb3f2-4294-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 355f8803-4294-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=reply-to:date:in-reply-to:message-id:mime-version:references
          :subject:from:to:cc;
-        bh=mw+8kRBMaigpdPoQg441qk6T9IEU8krLENLSjCCr4zw=;
-        b=SrMofVJY/GjIpbuhbq5Q0NchE90Iee1Zg/DXzrBAL+84O+9mkb6Cvy4kbuTgC9NQoK
-         tBqW8VuJ90++OLutVCiS1ya3l32W+JKb2BOUzxT4CfsJTbL/puTXQsav1euvT3+gukG2
-         yS7t4ZuH8QzI7fhcSd7lINxxYvVsKg3i3FXbG+Q8gteNmUbpj11OvRbe8kbh++awXIwA
-         lQ4l1HocfEVizMh2041kgc72dvgbUqXNAgsThfb0ZWYRAHAJLmF2dzBFcQYmNC3B4SgG
-         os87bSDOwQmR/d7G3NMYHAuPjpmsSI+LJUHPF3mp7ZDo3cMuuRvUGMBLZ8TO5A0n/acG
-         yo8w==
+        bh=/YIqAIDcHFuwAQfZoGFGpCQkR+bed1xlNZgqyVQf28E=;
+        b=e7isaWxZT/WwPXJW8Qx7YWkAPbx8+WwYXnyULWOmnQdcxssVcaIQUjV7l9ocfrzj/1
+         z1dBSLWak0xiQCBEw4pQBZlvDqmdEqTRJUP+Z40PCX/NEachrYFN0ukP1ZGzNNDz6hC8
+         ypXPhlkEqsMB53P1s/G0Q8Dg2n01FI0WXWYQbrYIvGu6VNt899fuhgkx/Wx+L0fumdK0
+         DgUKSgQ9NGEeMAWRcQat/qxuE6PEmuWNOgqyoFgMMRQ8e+j8axNSLg3wwL/mVfqWCfju
+         QtZrvT4+EtSeFefALo6da9zs6M611OWSowxrRuYjpqYPmBtDlX0Y/PjaKJe2gSlYH6Gm
+         X8tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:reply-to:date:in-reply-to:message-id
          :mime-version:references:subject:from:to:cc;
-        bh=mw+8kRBMaigpdPoQg441qk6T9IEU8krLENLSjCCr4zw=;
-        b=aBWSAR1+eMODIW56WUCqc5qFCzMS9Sd0eo56/w05nkK3YMt99Tor5CzTpIrhrvPXt5
-         TmW2DoEkM6GuZsl95RltrEQGw7vJShE4HHoXXBjC05wGGRhq6tRYxIvJzIFw8kA3Q9dL
-         3tkY9unPYjV3bbmq5YB3xnMtr3ulyRaSGnZYB+MnulAsoMUwbmiQ11xoowGX0FNeddSf
-         hOrUXLCDcyVQDn6P1xt85j5C5vbQhSdIULU5fKQwAf3o0xTTMYtyA7y8BOfmWA+YgT+R
-         L8E6xzIq2lBtc8or98Pd7yTxkqmwuPMNzvOwEh+gpsJtlsnwBG76M+Z8O+7wuHPsbLM8
-         6dEw==
-X-Gm-Message-State: AOAM532Zpb84jzarzV7wQjAwjmLj/zbU2VgZIFD3iSl0MV+7ritSmoDJ
-	UCVB2yJ1d+jh71P+UBej38/ZYSQk6Og=
-X-Google-Smtp-Source: ABdhPJz67wmixiDyySBDTYDOJ0Ka4b7LxO+H1fUSrGnT0BW1K6fuhepd8JhPlaHMI6pEBAJMacMWw56NTRg=
+        bh=/YIqAIDcHFuwAQfZoGFGpCQkR+bed1xlNZgqyVQf28E=;
+        b=diyZP+EqWc/AHfEph704YUtq3F6Vn9j46zuZFtgStta1/c0gAphCQYp05dsottdD6w
+         2++Ppy8ySCXyLPIn5TZj06Xf0s2GJ6PUQwjjWPcDd7iNEtCGxh908eTCij3uzXizTkxV
+         RgrMeKyti3f3Js4H1n8MnlgV8nTS5BaZJxILIw8302oQjBs6RVl/xFMlVsCTk1XNYG5v
+         CoSnwDd9DRLmOJgXDIdF/K2egw0nepOiUX1fEojaoHQtja1UuOHocJHc2iargouUW3V2
+         Qjjqtn8obFxBFCm8bApcXXmGE288uH4LHOuZ5DCUtYh70S8HBXRqNyYkBbAxtRNAtEug
+         KHZw==
+X-Gm-Message-State: AOAM532h9WzU1qZVvbIZhu4+tNHs9+IfAP0LHDI0ziljPhdpfi108M+z
+	IzorTxPCdXI4P6lThsHs3s4a7HVbh/k=
+X-Google-Smtp-Source: ABdhPJzNTXRg0manAu6ukUacQ/aIuXahOUAgZ+nsuAEIEEiY7jrc1n1CQ1z/uBehVd+2Ly8STcnpos0K1ss=
 X-Received: from seanjc.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:3e5])
- (user=seanjc job=sendgmr) by 2002:a17:902:e789:b0:140:801:1262 with SMTP id
- cp9-20020a170902e78900b0014008011262mr4254554plb.42.1636596483663; Wed, 10
- Nov 2021 18:08:03 -0800 (PST)
+ (user=seanjc job=sendgmr) by 2002:a17:902:e88a:b0:141:dfde:eed7 with SMTP id
+ w10-20020a170902e88a00b00141dfdeeed7mr4246270plg.17.1636596485366; Wed, 10
+ Nov 2021 18:08:05 -0800 (PST)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu, 11 Nov 2021 02:07:35 +0000
+Date: Thu, 11 Nov 2021 02:07:36 +0000
 In-Reply-To: <20211111020738.2512932-1-seanjc@google.com>
-Message-Id: <20211111020738.2512932-15-seanjc@google.com>
+Message-Id: <20211111020738.2512932-16-seanjc@google.com>
 Mime-Version: 1.0
 References: <20211111020738.2512932-1-seanjc@google.com>
 X-Mailer: git-send-email 2.34.0.rc0.344.g81b53c2807-goog
-Subject: [PATCH v4 14/17] KVM: arm64: Convert to the generic perf callbacks
+Subject: [PATCH v4 15/17] KVM: arm64: Hide kvm_arm_pmu_available behind CONFIG_HW_PERF_EVENTS=y
 From: Sean Christopherson <seanjc@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
@@ -105,64 +105,103 @@ Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@re
 	Zhu Lingshan <lingshan.zhu@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Drop arm64's version of the callbacks in favor of the callbacks provided
-by generic KVM, which are semantically identical.
+Move the definition of kvm_arm_pmu_available to pmu-emul.c and, out of
+"necessity", hide it behind CONFIG_HW_PERF_EVENTS.  Provide a stub for
+the key's wrapper, kvm_arm_support_pmu_v3().  Moving the key's definition
+out of perf.c will allow a future commit to delete perf.c entirely.
 
-Reviewed-by: Marc Zyngier <maz@kernel.org>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/arm64/kvm/perf.c | 34 ++--------------------------------
- 1 file changed, 2 insertions(+), 32 deletions(-)
+ arch/arm64/kernel/image-vars.h |  2 ++
+ arch/arm64/kvm/perf.c          |  2 --
+ arch/arm64/kvm/pmu-emul.c      |  2 ++
+ include/kvm/arm_pmu.h          | 19 ++++++++++++-------
+ 4 files changed, 16 insertions(+), 9 deletions(-)
 
+diff --git a/arch/arm64/kernel/image-vars.h b/arch/arm64/kernel/image-vars.h
+index c96a9a0043bf..7eaf1f7c4168 100644
+--- a/arch/arm64/kernel/image-vars.h
++++ b/arch/arm64/kernel/image-vars.h
+@@ -102,7 +102,9 @@ KVM_NVHE_ALIAS(__stop___kvm_ex_table);
+ KVM_NVHE_ALIAS(kvm_arm_hyp_percpu_base);
+ 
+ /* PMU available static key */
++#ifdef CONFIG_HW_PERF_EVENTS
+ KVM_NVHE_ALIAS(kvm_arm_pmu_available);
++#endif
+ 
+ /* Position-independent library routines */
+ KVM_NVHE_ALIAS_HYP(clear_page, __pi_clear_page);
 diff --git a/arch/arm64/kvm/perf.c b/arch/arm64/kvm/perf.c
-index dfa9bce8559e..374c496a3f1d 100644
+index 374c496a3f1d..52cfab253c65 100644
 --- a/arch/arm64/kvm/perf.c
 +++ b/arch/arm64/kvm/perf.c
-@@ -13,42 +13,12 @@
+@@ -11,8 +11,6 @@
  
- DEFINE_STATIC_KEY_FALSE(kvm_arm_pmu_available);
+ #include <asm/kvm_emulate.h>
  
--static unsigned int kvm_guest_state(void)
--{
--	struct kvm_vcpu *vcpu = kvm_get_running_vcpu();
--	unsigned int state;
--
--	if (!vcpu)
--		return 0;
--
--	state = PERF_GUEST_ACTIVE;
--	if (!vcpu_mode_priv(vcpu))
--		state |= PERF_GUEST_USER;
--
--	return state;
--}
--
--static unsigned long kvm_get_guest_ip(void)
--{
--	struct kvm_vcpu *vcpu = kvm_get_running_vcpu();
--
--	if (WARN_ON_ONCE(!vcpu))
--		return 0;
--
--	return *vcpu_pc(vcpu);
--}
--
--static struct perf_guest_info_callbacks kvm_guest_cbs = {
--	.state		= kvm_guest_state,
--	.get_ip		= kvm_get_guest_ip,
--};
+-DEFINE_STATIC_KEY_FALSE(kvm_arm_pmu_available);
 -
  void kvm_perf_init(void)
  {
--	perf_register_guest_info_callbacks(&kvm_guest_cbs);
-+	kvm_register_perf_callbacks(NULL);
- }
+ 	kvm_register_perf_callbacks(NULL);
+diff --git a/arch/arm64/kvm/pmu-emul.c b/arch/arm64/kvm/pmu-emul.c
+index a5e4bbf5e68f..3308ceefa129 100644
+--- a/arch/arm64/kvm/pmu-emul.c
++++ b/arch/arm64/kvm/pmu-emul.c
+@@ -14,6 +14,8 @@
+ #include <kvm/arm_pmu.h>
+ #include <kvm/arm_vgic.h>
  
- void kvm_perf_teardown(void)
- {
--	perf_unregister_guest_info_callbacks(&kvm_guest_cbs);
-+	kvm_unregister_perf_callbacks();
- }
++DEFINE_STATIC_KEY_FALSE(kvm_arm_pmu_available);
++
+ static void kvm_pmu_create_perf_event(struct kvm_vcpu *vcpu, u64 select_idx);
+ static void kvm_pmu_update_pmc_chained(struct kvm_vcpu *vcpu, u64 select_idx);
+ static void kvm_pmu_stop_counter(struct kvm_vcpu *vcpu, struct kvm_pmc *pmc);
+diff --git a/include/kvm/arm_pmu.h b/include/kvm/arm_pmu.h
+index 90f21898aad8..f9ed4c171d7b 100644
+--- a/include/kvm/arm_pmu.h
++++ b/include/kvm/arm_pmu.h
+@@ -13,13 +13,6 @@
+ #define ARMV8_PMU_CYCLE_IDX		(ARMV8_PMU_MAX_COUNTERS - 1)
+ #define ARMV8_PMU_MAX_COUNTER_PAIRS	((ARMV8_PMU_MAX_COUNTERS + 1) >> 1)
+ 
+-DECLARE_STATIC_KEY_FALSE(kvm_arm_pmu_available);
+-
+-static __always_inline bool kvm_arm_support_pmu_v3(void)
+-{
+-	return static_branch_likely(&kvm_arm_pmu_available);
+-}
+-
+ #ifdef CONFIG_HW_PERF_EVENTS
+ 
+ struct kvm_pmc {
+@@ -36,6 +29,13 @@ struct kvm_pmu {
+ 	struct irq_work overflow_work;
+ };
+ 
++DECLARE_STATIC_KEY_FALSE(kvm_arm_pmu_available);
++
++static __always_inline bool kvm_arm_support_pmu_v3(void)
++{
++	return static_branch_likely(&kvm_arm_pmu_available);
++}
++
+ #define kvm_arm_pmu_irq_initialized(v)	((v)->arch.pmu.irq_num >= VGIC_NR_SGIS)
+ u64 kvm_pmu_get_counter_value(struct kvm_vcpu *vcpu, u64 select_idx);
+ void kvm_pmu_set_counter_value(struct kvm_vcpu *vcpu, u64 select_idx, u64 val);
+@@ -65,6 +65,11 @@ int kvm_arm_pmu_v3_enable(struct kvm_vcpu *vcpu);
+ struct kvm_pmu {
+ };
+ 
++static inline bool kvm_arm_support_pmu_v3(void)
++{
++	return false;
++}
++
+ #define kvm_arm_pmu_irq_initialized(v)	(false)
+ static inline u64 kvm_pmu_get_counter_value(struct kvm_vcpu *vcpu,
+ 					    u64 select_idx)
 -- 
 2.34.0.rc0.344.g81b53c2807-goog
 
