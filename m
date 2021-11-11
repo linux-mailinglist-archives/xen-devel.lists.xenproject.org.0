@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 006FE44DB64
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 18:58:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224831.388364 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA72444DB5F
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 18:58:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.224830.388354 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlEKy-0006Ls-4F; Thu, 11 Nov 2021 17:58:12 +0000
+	id 1mlEKw-000648-Qk; Thu, 11 Nov 2021 17:58:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224831.388364; Thu, 11 Nov 2021 17:58:12 +0000
+Received: by outflank-mailman (output) from mailman id 224830.388354; Thu, 11 Nov 2021 17:58:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlEKy-0006IK-0y; Thu, 11 Nov 2021 17:58:12 +0000
-Received: by outflank-mailman (input) for mailman id 224831;
- Thu, 11 Nov 2021 17:58:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mlEKw-00061S-MX; Thu, 11 Nov 2021 17:58:10 +0000
+Received: by outflank-mailman (input) for mailman id 224830;
+ Thu, 11 Nov 2021 17:58:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GOKj=P6=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mlEKw-00061G-5V
- for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 17:58:10 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec2a8953-4318-11ec-a9d2-d9f7a1cc8784;
+ id 1mlEKv-0005kR-6q
+ for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 17:58:09 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ecce4348-4318-11ec-9787-a32c541c8605;
  Thu, 11 Nov 2021 18:58:07 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -36,56 +36,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec2a8953-4318-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: ecce4348-4318-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1636653488;
+  d=citrix.com; s=securemail; t=1636653487;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Q5M5rcMoU8akU3ihfSLxmIL46Dy+ECH9/kCBIHplY3E=;
-  b=OytE1qHlpiMydDCtFeFan2b8VzRr61p/mBCjNT0biynru1hjh1zvxM9R
-   K8XCLa5rugzds5qxpWkje4D40jwUzQENPBaCx7ANYy8p2PE2lZJ0DsA3t
-   +UebRuun1rUBRrxR8Ug9bcivW2mfj2r04wZLz6Kt3MzYx254ORxLuP2nd
-   c=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: /5QAJWGpTY9N2d1Jfoqx3UvI3Cet8f1whoEibQWWfYDm67MA1UMg64e+4MkGlCqrn6vWd/9pam
- ldTQ20c2VokFHPSaQl3Bmz77sHhsCuT9WeaxDQM3xEjppJ3ypymo5I7SQA6H9oU94SA0p0saDF
- zYoIcU8Fbq0/XLsmzupyIsJLbhQqOkDitY9UOdq5DHRQbmPyB5GJRfOZ5U8EbJktjrDGLNmJ8a
- +7WtKaAvVmIY0bc6H2/tAzQ/niJ+aFsh1hZ6SHf0aw19KE8YFVnXBdgxfZlgACKoyI1NOtg/gi
- SCyrsaeT3AUiP78TGfeJ/gW6
+  bh=wZjOooR7h3617EbhfqFJc1ylcvpSG2QwEC0bQQSIklo=;
+  b=H184UounUCpDqJbBWjVnZhwg7Cvd38MeHcehF4gQ+47ZLLD6VjGUK3Sj
+   D0AHlE3HdzGRMQkPClVTugIMJpx+MEmx6JNC2sezIwwQD0Ylu4WRQLQe4
+   gAXAowJg32tscjROYZCPwlm0spjevpmdpl1Qrz/Hrx77E1KNedrF0DL3S
+   I=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: DJMeo/F80T5kkf/alFsTsShab5w4ojag5j96fmWJRUuoVF0nOYRG6bTFv4REPTw7nzPOjDXJiG
+ yo7lOH9d8DMQKSC1S2swjdAqYyGN+1cquh91CSrXsHqqPeJD/IBAy2VFMxznZXwsKeSfBee/Gx
+ 97L+CpZS3oPCDaoBiYteVp1W5hJ8/162HQyOW/qWGv9yBicwosirfnX+tyRtUC3z+P/rZFgpFL
+ nr+BTBW6OgTjFxpaKndUUAvArOIO3uugmo9D2z/yLV0XRpwpIbKV4QvLqcQmscoExA7kzottqF
+ DzZ8F8VwbrxKU67Iyw6JpB5r
 X-SBRS: 5.1
-X-MesageID: 59593529
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 57653926
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:RqOhU6ymMp+2Qn49mhB6t+eUwSrEfRIJ4+MujC+fZmUNrF6WrkVVz
- 2IaW2HSM/yOamSnfNt1Yduz9EwFv5PXx4NjTgdt+yAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAuLeNYYH1500s6wrdg2tcAbeWRWGthh
- /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
- wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt8Iqm
- N5Lk5aRdSYsLpPtoLw9VhB4HQgraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
- 6ZBbmlQMFbT3Ipaw5riIgVoru0lINPmI8U0vXZ4wCuCJf0nXYrCU+PB4towMDIY25ETTK2DP
- ZtxhTxHSRDyZRZdMF0tNNEUsuS5r2PgegNHpwfAzUYwyzeKl1EguFT3C/LXZ9iLSMN9jkue4
- GXc8AzRPBYeM9COzCufxViljOTPgCDTVZobEfuz8fsCqFee3HAJARsaE16yu+Cki1WWUshab
- UcT/0IGsqwa5EGtCN7nUHWQsHOC+xIRRddUO+k78x2WjLrZ5R6DAWoJRSIHb8Yp3OcUbzE30
- l6Cn/vyGCdi9raSTBq17ayIpDm/PSwUK24qZiIeSwYBpd75r+kOYgnnF4g5VvTv15usRG+2k
- 2viQDUCa6s7n5Vb3KOd93H7oje8mLnxFi4w7yXZdzfwhu9mX7KNa4ut4FndyP9PKoeFU1WM1
- EQ5d9iiAPMmVs/UynHUKAkZNPTwvqvebmWA6bJ6N8B5r2zFxpK1QWxHDNiSzm9NO91MRzLma
- VS7Veh5tM4KZyvCgUOajuuM5yUWIUrISYuNuhP8NIMmjn1NmOmvpXAGiam4hTCFraTUuftjU
- ap3iO71ZZrgNYxpzSCtW8AW2qIxyyY1yAv7HM6gkUn5gOXOOSHKFt/p1WdiiMhgvctoRy2Po
- 75i2zaikU0DAIUSnAGLmWLsEbz6BSdiXs2nwyCmXuWCPhBnCAkc5wz5mtscl3het/0NzI/gp
- yjlMmcBkQaXrSCXeG2iNyE4AJuyDMkXkJ7OFXF1Vbpe8yN4OtjHAWZ2X8ZfQITLA8Q/l6MpF
- KdcJJ3bahmNIxyekwkggVDGhNQKXHyWacimZEJJuRAzIMxtQRLn4Njhcle9/SUCFHPv58A/v
- 6ehxkXQRp9aH1ZuC8PfafSOyVKtvCdCxLIuDhWQetQDKl/x9IVKKjDqiqNlKc87NhielCCR0
- BybAElEqLCV8ZM16tTAmYuNs5ytT7llBkNfEmSCteS2OCDW83CN24hFVOrULznRWHmtoPepZ
- PlPzuG6O/oCxQ4Yv415Grdt7KQ/+9qw+OMKklU6RC3GNg35BKlhL3+K2dh0mpdMnrIJ6xGrX
- k+v+8VBPenbMs3SD1NMdhEuaf6O1K9Il2CKv+g1Okjz+AR+4KGDDRdJJxCJhSFQcOl1PYciz
- btzscIa8VXi2B8jM9LAhSFI7WWcaHcHVvx/5J0dBYbqjCsty01DPsOAWnOnvsnXZoUeKFQuL
- x+VmLHG1uZVyUf1enYuEWTAgLhGjpMUtREWlFIPKjxlQDYeaiPbCPGJzQkKcw==
-IronPort-HdrOrdr: A9a23:UZfBy6tgzqn1yTZt2rYmbeu67skDTtV00zEX/kB9WHVpmszxra
+IronPort-Data: A9a23:C4ryNqKjPLpZJsZwFE+RcpIlxSXFcZb7ZxGr2PjKsXjdYENS12MEy
+ jcdXz2GPKuCamqhKI92PNvk90wCvZfTnNVnGwBlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZUideSc+EH140Es6wrZg6mJVqYPR7z2l6
+ IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
+ QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2Cz/Iq4
+ /pQv6erTAd1b4ucmboUVydHRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
+ LpBdW5LPkvra+GemdpXTsFFgMg5IdatF4QYonx6lhnSDOo8QICFSKLPjTNd9Gpv2J0VTKyAD
+ yYfQWs1cxLGXRIfAHIeVLt92/qzj0LvKiIN/Tp5ooJoujOOnWSdyoPFMsfRe9GMbdVYmACfv
+ G2u11r+BhYWJdmO0w2v+3inhvLMtS7jUYdUH7q9ntZgjUeP3GUVBFsTXEGivPiiokekXpRUL
+ El80jUqhbg/8gqsVNaVdw21pjuIswARX/JUEvYm80edx6zM+QGbC2MYCDlbZ7QOluU7WDgr3
+ V+hhM7yCHpkt7j9YWmG6r6eoDe2OC4UBWwPfykJSU0C+daLnW0opkuRFJA5Svfz14CrX2Grq
+ 9yXkMQgr75Dr5Ug+LixxkvCg279gMjIEAcx2BqCCwpJ8ThFTIKiYoWp733S4vBBMJuVQzG9g
+ ZQUpySNxLtQVM/QzURhVM1IRej0vKjdbFUwlHY2R8F5nwlB7UJPamy5DNtWAE5yevgJdjbyC
+ KM4kVMAvcQDVJdGgEIeXm5QNyjI5fS/fTgGfqqNBjarXnSXXFbWlM2JTRTAt10BaGB2zckC1
+ W6zKK5A90oyB6V91yaRTOwAy7ItzS1W7TqNHs6mkUX4gefBOyH9pVI53L2mN7FRAESs+lW9z
+ jqiH5HSl0U3vBPWPkE7DrL/3XhVdCNmVPgaWuRcd/KZIxoOJY3SI6S5/F/VQKQ8x/49vr6Rp
+ hmVAxYEoHKi1SyvAVjbMRhLNeKwNauTWFpmZETAy37zgCN9CWtuhY9CH6YKkU4PqLY+kKUqF
+ qZdIK1twJ1nE1z6xtjUVrGlxKQKSfhhrVjm0/ONbGdtcph+aRbO/9O4LALj+DNXVni8tNcko
+ q3m3QTeGMJRSwNnBcfQSfSu01Lu4iRNxLMsBxPFcotJZUHh0Il2MCit3PU5FN4BdEfYzTyA2
+ gfIXRpB/bvRo5U4+cXijLyfq9v7CPN3G0dXRjGJ7bu/OSTA0HCkxItMDLSBcTzHDTum86S+f
+ +RFifr7NaRfzlpNtoN9FZdtzL4/uISz9+MLkFw8ESySPVqxC75mLn2X5uV1t/VAlu1DpA+7e
+ kOT4d0Ga7+HD9zoTQwKLw0/Y+XdifxNwmvO7e44KVnR7TNs+ObVSl1bOhSBhXAPLLZxN495k
+ +4ttNRPtl66gxsudN2HkjpV5yKHKXlZC/crsZQTAYnKjAs3yw4dPcyAW3GuuJzfOc9RNkQKI
+ yOPgPuQjrtR8UPObn4vGCWfxuFan5kP5EhHwVJqy45lQTYZaivbBCFszAk=
+IronPort-HdrOrdr: A9a23:m1QOnau0xHHIRx4Mt+A+cgtu7skDTtV00zEX/kB9WHVpmszxra
  6TdZMgpGbJYVcqKRcdcL+7WJVoLUmxyXcx2/h1AV7AZniAhILLFvAA0WKK+VSJcEeSygce79
  YFT0EXMqyJMbEQt6fHCWeDfOrIuOP3kpyVuQ==
 X-IronPort-AV: E=Sophos;i="5.87,226,1631592000"; 
-   d="scan'208";a="59593529"
+   d="scan'208";a="57653926"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
@@ -93,9 +93,9 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [PATCH 2/5] xen/domain: Improve pirq handling
-Date: Thu, 11 Nov 2021 17:57:37 +0000
-Message-ID: <20211111175740.23480-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/5] xen/sort: Switch to an extern inline implementation
+Date: Thu, 11 Nov 2021 17:57:38 +0000
+Message-ID: <20211111175740.23480-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211111175740.23480-1-andrew.cooper3@citrix.com>
 References: <20211111175740.23480-1-andrew.cooper3@citrix.com>
@@ -103,13 +103,30 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-free_pirq_struct() has no external users, so shouldn't be exposed.  Making it
-static necessitates moving the function as domain_destroy() uses it.
+There are exactly 3 callers of sort() in the hypervisor.
 
-Rework pirq_get_info() to have easier-to-follow logic.  The one functional
-change is to the insertion failure path; we should not be using a full
-call_rcu() chain to free an otherwise local structure we failed to insert into
-the radix tree to begin with.
+Both arm callers pass in NULL for the swap function.  While this might seem
+like an attractive option at first, it causes generic_swap() to be used which
+forced a byte-wise copy.  Provide real swap functions which the compiler can
+optimise sensibly.
+
+Furthermore, use of function pointers in tight loops like that can be very bad
+for performance.  Implement sort() as extern inline, so the optimiser can
+judge whether to inline things or not.
+
+On x86, the diffstat shows how much of a better job the compiler can do when
+it is able to see the cmp/swap implementations.
+
+  $ ../scripts/bloat-o-meter xen-syms-before xen-syms-after
+  add/remove: 0/5 grow/shrink: 1/1 up/down: 505/-735 (-230)
+  Function                                     old     new   delta
+  sort_exception_table                          31     536    +505
+  u32_swap                                       9       -      -9
+  generic_swap                                  34       -     -34
+  cmp_ex                                        36       -     -36
+  swap_ex                                       41       -     -41
+  sort_exception_tables                         90      38     -52
+  sort                                         563       -    -563
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -121,102 +138,221 @@ CC: Julien Grall <julien@xen.org>
 CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 CC: Bertrand Marquis <bertrand.marquis@arm.com>
 ---
- xen/common/domain.c      | 62 ++++++++++++++++++++++++++----------------------
- xen/include/xen/domain.h |  1 -
- 2 files changed, 33 insertions(+), 30 deletions(-)
+ xen/arch/arm/bootfdt.c |  9 +++++-
+ xen/arch/arm/io.c      |  9 +++++-
+ xen/include/xen/sort.h | 55 +++++++++++++++++++++++++++++++++-
+ xen/lib/sort.c         | 80 ++------------------------------------------------
+ 4 files changed, 72 insertions(+), 81 deletions(-)
 
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 562872cdf87a..a53dd114d5ba 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -365,6 +365,39 @@ static int __init parse_extra_guest_irqs(const char *s)
+diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+index afaa0e249b71..e318ef960386 100644
+--- a/xen/arch/arm/bootfdt.c
++++ b/xen/arch/arm/bootfdt.c
+@@ -448,6 +448,13 @@ static int __init cmp_memory_node(const void *key, const void *elem)
+     return 0;
  }
- custom_param("extra_guest_irqs", parse_extra_guest_irqs);
  
-+static void _free_pirq_struct(struct rcu_head *head)
++static void __init swap_memory_node(void *_a, void *_b, size_t size)
 +{
-+    xfree(container_of(head, struct pirq, rcu_head));
++    struct membank *a = _a, *b = _b;
++
++    SWAP(*a, *b);
 +}
 +
-+static void free_pirq_struct(void *ptr)
-+{
-+    struct pirq *pirq = ptr;
-+
-+    call_rcu(&pirq->rcu_head, _free_pirq_struct);
-+}
-+
-+struct pirq *pirq_get_info(struct domain *d, int pirq)
-+{
-+    struct pirq *info = pirq_info(d, pirq);
-+
-+    if ( likely(info) )
-+        return info;
-+
-+    info = alloc_pirq_struct(d);
-+    if ( unlikely(!info) )
-+        return NULL;
-+
-+    info->pirq = pirq;
-+    if ( likely(radix_tree_insert(&d->pirq_tree, pirq, info) == 0) )
-+        return info; /* Success. */
-+
-+    /* Don't use call_rcu() to free a struct we failed to insert. */
-+    _free_pirq_struct(&info->rcu_head);
-+
-+    return NULL;
-+}
-+
- /*
-  * Release resources held by a domain.  There may or may not be live
-  * references to the domain, and it may or may not be fully constructed.
-@@ -1789,35 +1822,6 @@ long do_vm_assist(unsigned int cmd, unsigned int type)
+ /**
+  * boot_fdt_info - initialize bootinfo from a DTB
+  * @fdt: flattened device tree binary
+@@ -472,7 +479,7 @@ size_t __init boot_fdt_info(const void *fdt, paddr_t paddr)
+      * the banks sorted in ascending order. So sort them through.
+      */
+     sort(bootinfo.mem.bank, bootinfo.mem.nr_banks, sizeof(struct membank),
+-         cmp_memory_node, NULL);
++         cmp_memory_node, swap_memory_node);
+ 
+     early_print_info();
+ 
+diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
+index 729287e37c59..1a066f9ae502 100644
+--- a/xen/arch/arm/io.c
++++ b/xen/arch/arm/io.c
+@@ -80,6 +80,13 @@ static int cmp_mmio_handler(const void *key, const void *elem)
+     return 0;
  }
- #endif
  
--struct pirq *pirq_get_info(struct domain *d, int pirq)
--{
--    struct pirq *info = pirq_info(d, pirq);
++static void swap_mmio_handler(void *_a, void *_b, size_t size)
++{
++    struct mmio_handler *a = _a, *b = _b;
++
++    SWAP(*a, *b);
++}
++
+ static const struct mmio_handler *find_mmio_handler(struct domain *d,
+                                                     paddr_t gpa)
+ {
+@@ -170,7 +177,7 @@ void register_mmio_handler(struct domain *d,
+ 
+     /* Sort mmio handlers in ascending order based on base address */
+     sort(vmmio->handlers, vmmio->num_entries, sizeof(struct mmio_handler),
+-         cmp_mmio_handler, NULL);
++         cmp_mmio_handler, swap_mmio_handler);
+ 
+     write_unlock(&vmmio->lock);
+ }
+diff --git a/xen/include/xen/sort.h b/xen/include/xen/sort.h
+index a403652948e7..01479ea44606 100644
+--- a/xen/include/xen/sort.h
++++ b/xen/include/xen/sort.h
+@@ -3,8 +3,61 @@
+ 
+ #include <xen/types.h>
+ 
++/*
++ * sort - sort an array of elements
++ * @base: pointer to data to sort
++ * @num: number of elements
++ * @size: size of each element
++ * @cmp: pointer to comparison function
++ * @swap: pointer to swap function or NULL
++ *
++ * This function does a heapsort on the given array. You may provide a
++ * swap function optimized to your element type.
++ *
++ * Sorting time is O(n log n) both on average and worst-case. While
++ * qsort is about 20% faster on average, it suffers from exploitable
++ * O(n*n) worst-case behavior and extra memory requirements that make
++ * it less suitable for kernel use.
++ */
++#ifndef SORT_IMPLEMENTATION
++extern gnu_inline
++#endif
+ void sort(void *base, size_t num, size_t size,
+           int (*cmp)(const void *, const void *),
+-          void (*swap)(void *, void *, size_t));
++          void (*swap)(void *, void *, size_t))
++{
++    /* pre-scale counters for performance */
++    size_t i = (num / 2) * size, n = num * size, c, r;
++
++    /* heapify */
++    while ( i > 0 )
++    {
++        for ( r = i -= size; r * 2 + size < n; r = c )
++        {
++            c = r * 2 + size;
++            if ( (c < n - size) && (cmp(base + c, base + c + size) < 0) )
++                c += size;
++            if ( cmp(base + r, base + c) >= 0 )
++                break;
++            swap(base + r, base + c, size);
++        }
++    }
++
++    /* sort */
++    for ( i = n; i > 0; )
++    {
++        i -= size;
++        swap(base, base + i, size);
++        for ( r = 0; r * 2 + size < i; r = c )
++        {
++            c = r * 2 + size;
++            if ( (c < i - size) && (cmp(base + c, base + c + size) < 0) )
++                c += size;
++            if ( cmp(base + r, base + c) >= 0 )
++                break;
++            swap(base + r, base + c, size);
++        }
++    }
++}
+ 
+ #endif /* __XEN_SORT_H__ */
+diff --git a/xen/lib/sort.c b/xen/lib/sort.c
+index 35ce0d7abdec..b7e78cc0e8d2 100644
+--- a/xen/lib/sort.c
++++ b/xen/lib/sort.c
+@@ -4,81 +4,5 @@
+  * Jan 23 2005  Matt Mackall <mpm@selenic.com>
+  */
+ 
+-#include <xen/types.h>
 -
--    if ( !info && (info = alloc_pirq_struct(d)) != NULL )
+-static void u32_swap(void *a, void *b, size_t size)
+-{
+-    uint32_t t = *(uint32_t *)a;
+-
+-    *(uint32_t *)a = *(uint32_t *)b;
+-    *(uint32_t *)b = t;
+-}
+-
+-static void generic_swap(void *a, void *b, size_t size)
+-{
+-    char t;
+-
+-    do {
+-        t = *(char *)a;
+-        *(char *)a++ = *(char *)b;
+-        *(char *)b++ = t;
+-    } while ( --size > 0 );
+-}
+-
+-/*
+- * sort - sort an array of elements
+- * @base: pointer to data to sort
+- * @num: number of elements
+- * @size: size of each element
+- * @cmp: pointer to comparison function
+- * @swap: pointer to swap function or NULL
+- *
+- * This function does a heapsort on the given array. You may provide a
+- * swap function optimized to your element type.
+- *
+- * Sorting time is O(n log n) both on average and worst-case. While
+- * qsort is about 20% faster on average, it suffers from exploitable
+- * O(n*n) worst-case behavior and extra memory requirements that make
+- * it less suitable for kernel use.
+- */
+-
+-void sort(void *base, size_t num, size_t size,
+-          int (*cmp)(const void *, const void *),
+-          void (*swap)(void *, void *, size_t size))
+-{
+-    /* pre-scale counters for performance */
+-    size_t i = (num / 2) * size, n = num * size, c, r;
+-
+-    if ( !swap )
+-        swap = (size == 4 ? u32_swap : generic_swap);
+-
+-    /* heapify */
+-    while ( i > 0 )
 -    {
--        info->pirq = pirq;
--        if ( radix_tree_insert(&d->pirq_tree, pirq, info) )
+-        for ( r = i -= size; r * 2 + size < n; r = c )
 -        {
--            free_pirq_struct(info);
--            info = NULL;
+-            c = r * 2 + size;
+-            if ( (c < n - size) && (cmp(base + c, base + c + size) < 0) )
+-                c += size;
+-            if ( cmp(base + r, base + c) >= 0 )
+-                break;
+-            swap(base + r, base + c, size);
 -        }
 -    }
 -
--    return info;
+-    /* sort */
+-    for ( i = n; i > 0; )
+-    {
+-        i -= size;
+-        swap(base, base + i, size);
+-        for ( r = 0; r * 2 + size < i; r = c )
+-        {
+-            c = r * 2 + size;
+-            if ( (c < i - size) && (cmp(base + c, base + c + size) < 0) )
+-                c += size;
+-            if ( cmp(base + r, base + c) >= 0 )
+-                break;
+-            swap(base + r, base + c, size);
+-        }
+-    }
 -}
--
--static void _free_pirq_struct(struct rcu_head *head)
--{
--    xfree(container_of(head, struct pirq, rcu_head));
--}
--
--void free_pirq_struct(void *ptr)
--{
--    struct pirq *pirq = ptr;
--
--    call_rcu(&pirq->rcu_head, _free_pirq_struct);
--}
--
- struct migrate_info {
-     long (*func)(void *data);
-     void *data;
-diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index 160c8dbdab33..b4d202fda9fd 100644
---- a/xen/include/xen/domain.h
-+++ b/xen/include/xen/domain.h
-@@ -44,7 +44,6 @@ void free_vcpu_struct(struct vcpu *v);
- #ifndef alloc_pirq_struct
- struct pirq *alloc_pirq_struct(struct domain *);
- #endif
--void free_pirq_struct(void *);
- 
- /*
-  * Initialise/destroy arch-specific details of a VCPU.
++#define SORT_IMPLEMENTATION
++#include <xen/sort.h>
 -- 
 2.11.0
 
