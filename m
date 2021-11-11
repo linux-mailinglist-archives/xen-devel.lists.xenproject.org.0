@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B82E44DB61
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 18:58:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224833.388379 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B221D44DB60
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 18:58:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.224834.388398 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlEKz-0006bu-3F; Thu, 11 Nov 2021 17:58:13 +0000
+	id 1mlEL0-00076z-Lw; Thu, 11 Nov 2021 17:58:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224833.388379; Thu, 11 Nov 2021 17:58:13 +0000
+Received: by outflank-mailman (output) from mailman id 224834.388398; Thu, 11 Nov 2021 17:58:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlEKy-0006Qp-Rm; Thu, 11 Nov 2021 17:58:12 +0000
-Received: by outflank-mailman (input) for mailman id 224833;
- Thu, 11 Nov 2021 17:58:11 +0000
+	id 1mlEL0-00072m-FV; Thu, 11 Nov 2021 17:58:14 +0000
+Received: by outflank-mailman (input) for mailman id 224834;
+ Thu, 11 Nov 2021 17:58:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GOKj=P6=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mlEKw-00061G-Ud
- for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 17:58:11 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec3cd976-4318-11ec-a9d2-d9f7a1cc8784;
- Thu, 11 Nov 2021 18:58:07 +0100 (CET)
+ id 1mlEKx-00061G-Ut
+ for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 17:58:12 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ec20702c-4318-11ec-a9d2-d9f7a1cc8784;
+ Thu, 11 Nov 2021 18:58:08 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,56 +36,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec3cd976-4318-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: ec20702c-4318-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=citrix.com; s=securemail; t=1636653488;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=BOyeLIFh4rsbQLKjP5QzMq6nEVwvgaszHY0AXnaE+IU=;
-  b=N2g/3SaZvv5DjmeVy8NxFzkPednHXpIHNlUHSvc3ttFqwcEr9gdI/arj
-   cXEWWl0dV+VuY/rJKaxu9mmtvD1pMQnpiZ6Hbm3ETdkjkyavpr0qapvmX
-   vg7zvQkw+SsEbPRPW3OI8R2h541bHIpQzrImwcXvG7yAzt3UV/eARkZGv
-   0=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: w13Pw8TY4dJoxaddBmkr3J6m6XtotdrUvv/s2bNwiIEv/5ZM6JVmDVeAINbdwtkAn6OysjK3Mi
- 4R366D0XszuQjldBMD8IyPgHjcbwd/Lgtr68JkQTOxKSF9BPJnLl9uxgm49YrFeIma9PqIhCys
- cKWJp9gvkgjgaE6mrUQaKpk1BAfmIK85T3Uo3eTSVYfSUEATe5I6Veu7qsagbbcCcg7WvjN7cw
- AVEqucuIrdb+Qz34wqFKP7Vblm+lHCydQUs6ffXj/DueFa62Wb1EkvGZ0rnC/TSiqX6/eVTzhm
- wLZ2Vqg5VRXMg/2n9EUKO8aa
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=UseM21AlpwIdIYpcz0wWiPK9lJhAurz+UGmlCCgsSLI=;
+  b=CiAIqznbOa0vgEDcQkNmkoDvyWKtpt7VCklZbsRTfzpan02CwbqrHgJP
+   iQL+1b7hf4wSOh/HV5nqxM+vK3oJmoAeCPUQDzwoMTQfcygTS2/bLkuA1
+   TiPS262EuSu0ppAP1dvJHSFGBfkTWAgxpaI1i6+MfXL4g1Saf969KbdOc
+   w=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: O5cljdHxD0EbVogHANza/oxZjDbxM4fy7LfQCYIAaijg10mYW5GmwoYevNWdMP4Lb5NlAmTh5v
+ +BoL8Vl0CGrmcXuEx2/KbJXMYStmkkklS8FsWP/ytfi04rOl/o1wSpV+Ome5ihoG78RsMTtwsK
+ nn8EOceEvF0+v7aS+noc+r/WQkh32KcMqgDMV6oaAPhTiW7KKCqB78kMDfkxMeea9JOMIDInh9
+ zSGgczuzv+N1x1MdaAGSEprP6Kq/AEKcnGKBEDvQorhbn7fcqcmI3Yszq/Lb00nON0VfPm9KeW
+ N5bkThVJcw8uNxMzNC84hyPT
 X-SBRS: 5.1
-X-MesageID: 57155535
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 57591434
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:Q81pzq0ErvkVCPfP4/bD5XB2kn2cJEfYwER7XKvMYLTBsI5bpzIHz
- jYbXT3QO6zfamGhLd12PYu28ksPv5PQnIQxTwBlpC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCan8ZqTNMEn970Es6wrdh2+aEvPDia++zk
- YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
- 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhm/N9+
- epdt6aKSho2MLb8o71eShJbOnQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
- 6VecW1TKEDY7w616OvTpu1Er8IvNsT0eqgYvWlt12rxBvc6W5HTBa7N4Le02R9t2ZkTQKuFO
- qL1bxJ0UCjZbEFDG247VogOxfikql2ucGBx/Qf9Sa0fvDGIkV0ZPKLWGNjIft2HQ+1Fk0Deo
- XjJl0zHBRUdOM2a2CCy2Humje/Sngv2QIsXUra/85ZCilCJ2nYaDhFQUFKhuOS4kWa3QdcZI
- EsRkgIxqYAi+UrtScPyNzWorXjBshMCVt54F+wh9BrL2qfS+xyeBGUPUnhGctNOnO0cSCEu1
- 1SJt8j0HjEpu7qQIVqG7audpz62PSkTLEcBaDUCQA9D5MPsyLzflTqWEIwlSvTsyISoR3egm
- FhmsRTSmZ0XrsI66LW5x2rEni2ivajyF00s7Qb+CzfNAhxCWKapYImh6F7+5PlGLZqEQlTpg
- EXoi/Ry/8hVU8jTyXXlrPElWejwuq3baGG0bUtHRsF5r1yQF2ifkZe8Cd2UDGNgKY46dDDge
- yc/UisBtcYIbBNGgUKaCr9d6vjGL4C8SrwJtdiON7Kih6SdkiferUmCgmbKjwjQfLAEy/1XB
- HtiWZ/E4YwmIapm1iGqYOwWzKUmwCszrUuKG8ulkkr2jurDOyHKIVvgDLdoRrlohE9jiF+Fm
- +uzyuPQk0kPOAEASnW/HXEvwaAiciFgWMGeRz1/fe+fOAt2cFzN+NeKqY7Nj7dNxvwP/s+Rp
- ynVchYBlDLX2C2WQS3XOysLQO6+Av5CQYcTYHVE0aCAgCN4P+5CLc43KvMKQFXQ3LA5kKMvE
- aBaI57o7zYmYm2vxgnxpKLV9ORKHClHTyrXV8Z8SDRgLZNmWSLT/droIlnm+CUUV3Llvsoiu
- bywkAjcRMNbFQhlCc/XbtOpzk+w4idByL4jAROQL4kBYljo/ahrNzf10q09LfYTJEiR3TCdz
- QuXX0sV/LGfv48v/dDVrqmYtIP1QfBmF09XEjCDv7a7PCXX5ES5xopEXLradDzRTjqsqq6je
- f9U37f3N/hexARGtI91ErBKy6Mi5oSw++8Gn1o8RHiSNgalELJtJHWCzPJjjKwVy+8LoxayV
- 2KO5sJeZeeDNvT6HQNDPwEidOmCi60Zw2GA8fQvLUzmzyZr577bA15KNhyBhSEBfrt4NIQpn
- bUotMIMslHtjxMrNpCNjzxO9nTKJXsFCv11upYfCY7tqwwq1lAdPsCMVn6ouMmCO4dWL00nA
- j6In66T1b1Ty33Lf2c3CXWQj/FWgo4DuUwSwVIPT7hTdgEpWhPjMMVtzAkK
-IronPort-HdrOrdr: A9a23:85efoqpPWoWe3BKEdNhY+XcaV5oneYIsimQD101hICG8cqSj+f
- xG+85rsiMc6QxhPE3I9urhBEDtex/hHP1OkOws1NWZLWrbUQKTRekIh+bfKlXbakvDH4VmtJ
- uIHZIQNDSJNykZsfrH
+IronPort-Data: A9a23:jD3AhaNdOhXLNBfvrR0GkMFynXyQoLVcMsEvi/4bfWQNrUoghTdRx
+ mUeWWGOMvuJMGKhfY8lb462oR4PvsWBzNI2HAto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6bUsxNbVU8En540Es6w7dRbrNA2rBVPSvc4
+ bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
+ 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYozuSpI5Jz
+ t5IjsO9FwJ3LpLFsbtDWQYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
+ 6VFdnZdNXhvhMrvqF6/YsBqit4uM4/AO4QHt2s75TrYEewnUdbIRKCiCdpwgWht15kSRqq2i
+ 8wxOB1vTCieekF1HFIyOdEuv/+KoXTwfGgNwL6SjfVuuDWCpOBr65DvLd7Ud9qiVchT2EGCq
+ QruwWP9BR0LMc2F/hCM+Hmsm+znkDvyXcQZE7jQ3vRnmkGJz2ofThgfT0KmoOKRg1S7HdlYL
+ iQ85S4GvaU0skuxQbHVTxC+5XKJoBMYc95RCPEhrhGAzLLO5ASUDXRCSSROAPQEnsIrQT0h1
+ neSgsjkQzdotdW9UmmB/72ZqTezPyk9LmIYYyIACwwf7LHeTJob10yVCIw5Sejs04OzSWqYL
+ y22QDYWia4o0/YN3KCAol2Zhmy8mZHgEVA/+VCCNo661T9RaImgbo2uzFHU6/dcMYqUJmW8U
+ Gg4d9u2t75XU8zU/MCZaKBURezyua7ZWNHJqQc3R8FJyti7x5K0kWm8ChlaLVwhDMsLcCSBj
+ KT76VIIv8870JdHgMZKj2ON5yYCkfeI+TfNDKm8gj9yjn5ZLV7vEMZGPx744owVuBJw+ZzTw
+ L/CGSpWMV4UCL580B29TPoH3Lkgy0gWnD2IG82lnkv3jOXBOxZ5rIvp1nPXP4jVC4ve8G3oH
+ yt3bZPWm32zrsWiCsUozWLjBQ9TdiVqbXwHg8dWavSCMmJb9JIJUJfsLUcaU9U9xcx9z76Ql
+ lnkAxMw4Aev1BXvdFTRAlg+OeyHYHqKhS9iVcDaFQ3zgCZLjEfGxPp3SqbbipF7rrE+lqAtE
+ KFeEyhCa9wWIgn6F/0mRcGVhORfmN6D3Gpi5gKpP2oyeYBOXQvM9oO2dwfj7nBWXCG2qdE/s
+ /ur0QaCGcgPQAFrDcD3bvOzzgzu4ShBybwqB0aYcMNOfEjM8ZRxL3CjhPEAPMxRew7IwSGX1
+ ljKDE5A9/XNuYI87PLAmbuA89WyC+J7E0cDRzvb4L+6ODP05G2mxYMcAu+EcSqEDDH/+bm4Z
+ PUTxPb5aaVVkFFPuot6MrBq0aNhuIe/++4EllxpRSyZYU6qB7VsJmi98fNO7qAdlKVEvQaWW
+ 16U/oUIM7u+J864QkUaIxAob7rf2KhMyCXS9/k8PG7z+DRzoOicSUxXMhSB1H5dIb9yPN93y
+ OstopdLuQm2ix5sOdealCFEsW+LKyVYAakgs5gbBq7tixYqlQ4eMcCNVHeu7cHdcchIP2krP
+ iSQ1fjLiLlrz0bfd2Y+SCrW1u1HiJVS4B1HwTfu/bhSdgYpUhPv4CBszA==
+IronPort-HdrOrdr: A9a23:aaT6HqA0WIiTD+blHemU55DYdb4zR+YMi2TC1yhKJyC9Ffbo7v
+ xG/c5rsyMc5wxwZJhNo7y90ey7MBbhHP1OkO4s1NWZLWrbUQKTRekIh+bfKn/baknDH4ZmpN
+ 9dmsNFaeEYY2IUsS+D2njbL+od
 X-IronPort-AV: E=Sophos;i="5.87,226,1631592000"; 
-   d="scan'208";a="57155535"
+   d="scan'208";a="57591434"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
@@ -93,36 +93,168 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [PATCH 0/5] xen: various function pointer cleanups
-Date: Thu, 11 Nov 2021 17:57:35 +0000
-Message-ID: <20211111175740.23480-1-andrew.cooper3@citrix.com>
+Subject: [PATCH 1/5] xen/domain: Remove function pointers from domain pause helpers
+Date: Thu, 11 Nov 2021 17:57:36 +0000
+Message-ID: <20211111175740.23480-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20211111175740.23480-1-andrew.cooper3@citrix.com>
+References: <20211111175740.23480-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Passing CI runs:
-  https://cirrus-ci.com/build/6095362789212160
-  https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/407123417
+Retpolines are expensive, and all these do are select between the sync and
+nosync helpers.  Pass a boolean instead, and use direct calls everywhere.
 
-Andrew Cooper (5):
-  xen/domain: Remove function pointers from domain pause helpers
-  xen/domain: Improve pirq handling
-  xen/sort: Switch to an extern inline implementation
-  xen/wait: Remove indirect jump
-  x86/ioapic: Drop function pointers from __ioapic_{read,write}_entry()
+Pause/unpause operations on behalf of dom0 are not fastpaths, so avoid
+exposing the __domain_pause_by_systemcontroller() internal.
 
- xen/arch/arm/bootfdt.c   |  9 ++++-
- xen/arch/arm/io.c        |  9 ++++-
- xen/arch/x86/io_apic.c   | 30 +++++++++++-----
- xen/common/domain.c      | 93 ++++++++++++++++++++++++++++--------------------
- xen/common/wait.c        | 19 +++++-----
- xen/include/xen/domain.h |  1 -
- xen/include/xen/sched.h  | 15 +++-----
- xen/include/xen/sort.h   | 55 +++++++++++++++++++++++++++-
- xen/lib/sort.c           | 80 ++---------------------------------------
- 9 files changed, 162 insertions(+), 149 deletions(-)
+This actually compiles smaller than before:
 
+  $ ../scripts/bloat-o-meter xen-syms-before xen-syms-after
+  add/remove: 3/1 grow/shrink: 0/5 up/down: 250/-273 (-23)
+  Function                                     old     new   delta
+  _domain_pause                                  -     115    +115
+  domain_pause_by_systemcontroller               -      69     +69
+  domain_pause_by_systemcontroller_nosync        -      66     +66
+  domain_kill                                  426     398     -28
+  domain_resume                                246     214     -32
+  domain_pause_except_self                     189     141     -48
+  domain_pause                                  59      10     -49
+  domain_pause_nosync                           59       7     -52
+  __domain_pause_by_systemcontroller            64       -     -64
+
+despite GCC's best efforts.  The new _domain_pause_by_systemcontroller()
+really should not be inlined, considering that the difference is only the
+setup of the sync boolean to pass to _domain_pause(), and there are plenty of
+registers to spare.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
+---
+ xen/common/domain.c     | 31 ++++++++++++++++++++++---------
+ xen/include/xen/sched.h | 15 +++++----------
+ 2 files changed, 27 insertions(+), 19 deletions(-)
+
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 56d47dd66478..562872cdf87a 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -1234,15 +1234,18 @@ int vcpu_unpause_by_systemcontroller(struct vcpu *v)
+     return 0;
+ }
+ 
+-static void do_domain_pause(struct domain *d,
+-                            void (*sleep_fn)(struct vcpu *v))
++static void _domain_pause(struct domain *d, bool sync /* or nosync */)
+ {
+     struct vcpu *v;
+ 
+     atomic_inc(&d->pause_count);
+ 
+-    for_each_vcpu( d, v )
+-        sleep_fn(v);
++    if ( sync )
++        for_each_vcpu ( d, v )
++            vcpu_sleep_sync(v);
++    else
++        for_each_vcpu ( d, v )
++            vcpu_sleep_nosync(v);
+ 
+     arch_domain_pause(d);
+ }
+@@ -1250,12 +1253,12 @@ static void do_domain_pause(struct domain *d,
+ void domain_pause(struct domain *d)
+ {
+     ASSERT(d != current->domain);
+-    do_domain_pause(d, vcpu_sleep_sync);
++    _domain_pause(d, true /* sync */);
+ }
+ 
+ void domain_pause_nosync(struct domain *d)
+ {
+-    do_domain_pause(d, vcpu_sleep_nosync);
++    _domain_pause(d, false /* nosync */);
+ }
+ 
+ void domain_unpause(struct domain *d)
+@@ -1269,8 +1272,8 @@ void domain_unpause(struct domain *d)
+             vcpu_wake(v);
+ }
+ 
+-int __domain_pause_by_systemcontroller(struct domain *d,
+-                                       void (*pause_fn)(struct domain *d))
++static int _domain_pause_by_systemcontroller(
++    struct domain *d, bool sync /* or nosync */)
+ {
+     int old, new, prev = d->controller_pause_count;
+ 
+@@ -1289,11 +1292,21 @@ int __domain_pause_by_systemcontroller(struct domain *d,
+         prev = cmpxchg(&d->controller_pause_count, old, new);
+     } while ( prev != old );
+ 
+-    pause_fn(d);
++    _domain_pause(d, sync);
+ 
+     return 0;
+ }
+ 
++int domain_pause_by_systemcontroller(struct domain *d)
++{
++    return _domain_pause_by_systemcontroller(d, true /* sync */);
++}
++
++int domain_pause_by_systemcontroller_nosync(struct domain *d)
++{
++    return _domain_pause_by_systemcontroller(d, false /* nosync */);
++}
++
+ int domain_unpause_by_systemcontroller(struct domain *d)
+ {
+     int old, new, prev = d->controller_pause_count;
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 28146ee404e6..37f78cc4c4c9 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -920,26 +920,21 @@ static inline bool vcpu_cpu_dirty(const struct vcpu *v)
+ 
+ void vcpu_block(void);
+ void vcpu_unblock(struct vcpu *v);
++
+ void vcpu_pause(struct vcpu *v);
+ void vcpu_pause_nosync(struct vcpu *v);
+ void vcpu_unpause(struct vcpu *v);
++
+ int vcpu_pause_by_systemcontroller(struct vcpu *v);
+ int vcpu_unpause_by_systemcontroller(struct vcpu *v);
+ 
+ void domain_pause(struct domain *d);
+ void domain_pause_nosync(struct domain *d);
+ void domain_unpause(struct domain *d);
++
++int domain_pause_by_systemcontroller(struct domain *d);
++int domain_pause_by_systemcontroller_nosync(struct domain *d);
+ int domain_unpause_by_systemcontroller(struct domain *d);
+-int __domain_pause_by_systemcontroller(struct domain *d,
+-                                       void (*pause_fn)(struct domain *d));
+-static inline int domain_pause_by_systemcontroller(struct domain *d)
+-{
+-    return __domain_pause_by_systemcontroller(d, domain_pause);
+-}
+-static inline int domain_pause_by_systemcontroller_nosync(struct domain *d)
+-{
+-    return __domain_pause_by_systemcontroller(d, domain_pause_nosync);
+-}
+ 
+ /* domain_pause() but safe against trying to pause current. */
+ int __must_check domain_pause_except_self(struct domain *d);
 -- 
 2.11.0
 
