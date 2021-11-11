@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3B0F44CFAA
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 03:08:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224514.387903 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9431E44CFA4
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 03:08:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.224515.387915 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkzVQ-0006XA-8L; Thu, 11 Nov 2021 02:08:00 +0000
+	id 1mkzVR-0006zb-UG; Thu, 11 Nov 2021 02:08:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224514.387903; Thu, 11 Nov 2021 02:08:00 +0000
+Received: by outflank-mailman (output) from mailman id 224515.387915; Thu, 11 Nov 2021 02:08:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkzVP-0006S7-U1; Thu, 11 Nov 2021 02:07:59 +0000
-Received: by outflank-mailman (input) for mailman id 224514;
- Thu, 11 Nov 2021 02:07:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mkzVR-0006uc-PH; Thu, 11 Nov 2021 02:08:01 +0000
+Received: by outflank-mailman (input) for mailman id 224515;
+ Thu, 11 Nov 2021 02:07:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=R23/=P6=flex--seanjc.bounces.google.com=3-nqMYQYKCTUjVReaTXffXcV.TfdoVe-UVmVccZjkj.oVegifaVTk.fiX@srs-se1.protection.inumbo.net>)
- id 1mkzVN-0006EI-Rz
- for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 02:07:57 +0000
+ <SRS0=4H9A=P6=flex--seanjc.bounces.google.com=3-3qMYQYKCTYkWSfbUYggYdW.UgepWf-VWnWddaklk.pWfhjgbWUl.gjY@srs-se1.protection.inumbo.net>)
+ id 1mkzVP-0004E5-Aq
+ for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 02:07:59 +0000
 Received: from mail-pg1-x549.google.com (mail-pg1-x549.google.com
  [2607:f8b0:4864:20::549])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ec2d255-4294-11ec-a9d2-d9f7a1cc8784;
- Thu, 11 Nov 2021 03:07:56 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2f906369-4294-11ec-9787-a32c541c8605;
+ Thu, 11 Nov 2021 03:07:58 +0100 (CET)
 Received: by mail-pg1-x549.google.com with SMTP id
- x14-20020a63cc0e000000b002a5bc462947so2465237pgf.20
- for <xen-devel@lists.xenproject.org>; Wed, 10 Nov 2021 18:07:56 -0800 (PST)
+ w5-20020a654105000000b002692534afceso2500457pgp.8
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Nov 2021 18:07:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,44 +40,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ec2d255-4294-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 2f906369-4294-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=reply-to:date:in-reply-to:message-id:mime-version:references
          :subject:from:to:cc;
-        bh=Qts44yZaW6qsc605OlT7Zz8eai+zBrqGoLbFoG4wiuw=;
-        b=Zfi8DY3ovwoiH8lfWrxLb/W+rRSaGWbn2rFa446dfUQXHgUbfdUKYMOyW1lpuH1MR+
-         xW8LXXYpKTlc7ug96G/Ee8ToPnPuFjZ6+ZvcCvMBWtEmqhdQ3/vNbJyBdjGJwYQJnBZp
-         eg5ocwliNalXx19wDw7gg6hx7kfIvpSxscV8PzvnOb5EfIXw0M0nS4wd8cy4vSyQ7D8r
-         47B+6iKMQq7yLKce9j9o6wFmrE8KChMVlSCYvT0NoUscJKcLP0B0byJ9BhCQP5AmwJDt
-         Xn99jo+MhAsbr7g8NKvRMpjQUhyAw5fqNt4uJCKa9oaEyT74/pPuTXuqJFQjVL14748I
-         xNkw==
+        bh=JkXBJDHAhyFHU3BMn5TxNvn1UhPk279A0oNuAvxWjCs=;
+        b=V/Erh1076Wrysqbzd52oPttVcTj86MAahPnKpcTJq7syNcKb6Hfbc1a/qLHtW2aZzM
+         ntU7/qAt53ZYhWpyQtDgus9kIEsKyCBHC9Oor9JVcDSlMaafDjmyIjCdZpzvQ66yq2bF
+         4Ln7yitJs7J3vTj08rGLJxl/XgscQixibexw/j2isHouYrE3KN5luTSwIyyiHohqB2oM
+         DOWc3gmIU3WsnyehgpVge5vIjiQslJURYz13x/vyJ7eIHnvpBJAi8Es5msfqjvngRBal
+         GfU5K5lWZJ/c/IOjpQl51jUxu8wnvx5XYX1lWsqsltJUovOqyoHi492zQ3HRq67UjhCi
+         YKpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:reply-to:date:in-reply-to:message-id
          :mime-version:references:subject:from:to:cc;
-        bh=Qts44yZaW6qsc605OlT7Zz8eai+zBrqGoLbFoG4wiuw=;
-        b=FF5zp1BpTqnwSixfozoUjYMEZ3SSFWDG0ec3VYgARi/PcCh8n0Lxgs88b2nRCB5/JK
-         eRh9kOq6CX2/SXMAKFNMBXmczjHKa9Hh9HhCJtHylCNdVI5Zu2xJEMtSjavuBgyoUAVI
-         Rwu/rNgS0NyB5shNiP/+AxXXv3Xqug12bd9Zd3o/ZFLCq3CkJx9QoMXM8/QXA74yYJ6K
-         4PN+RhuvhLcHchBQJBerh+2dZKkYYDqgOdKTIqyjrJf1artiRj8iPTB+jejgLi3KHkur
-         0H/wJC5JaitNr313h4cI2ni/a30n4PbysziB+vxyYvuIx4Evull6YmuEwXwc+1mMqc49
-         skqQ==
-X-Gm-Message-State: AOAM532yw0H39SYREHTM7qDXCV7N4H5Sq0W1+u6s4x6bXsT+4iD7H1dA
-	CmQGw8IZlAbwXVwVyKlbpVj0qgWszfs=
-X-Google-Smtp-Source: ABdhPJzzaoFWeNToP2f/V/MLS8kOItNfusQJva0ujL0AlnvrfyJ7uCasThKDANgj3halkP9yaN2IQPCiXvk=
+        bh=JkXBJDHAhyFHU3BMn5TxNvn1UhPk279A0oNuAvxWjCs=;
+        b=YhyB5MES68FvaIhNxiygoJ8s/Uu7OTLw2or1QaC96D529GbMhZo6FaBxcSaDKtoT22
+         NQRaL4AVwMOBS0FwORv/snqO8d/cgZr8wnYf4iHgA0MR/TxZT6n2SVVj45VNzS6sCGD7
+         yiwBYKD7batZFY5lK7HxmSJTv70DmUXe96PiFGEiwvh9hRDFQVywxwhuzSYCwlDGKW45
+         FthophLjRfjzTTsJtYEQvVY1nAPLIYJANAWx/hORnbh+KDKiuI80JwiHOcNO943HrBb9
+         e7Z69CTLXlNUJTvdXjcuEZ2KBauyt8zvAobm0LyVovu6jv6/tXam6YumHAT5G6+zYZOC
+         0Fbg==
+X-Gm-Message-State: AOAM531//oRoYh82TTF+uMYaA63yXUaPPvPKlwM+nrhjGXarNvaxGfej
+	wk8dnqniUwddRT4kQu5M7ZXxylT5lx0=
+X-Google-Smtp-Source: ABdhPJzZG6X7/rhXMvPOUNuiqnAPcfgQCLc1mXz6MzBC0EQ6fiOGWNnuouHOzuVVQb9cOW5lIf9DSbIQyKk=
 X-Received: from seanjc.c.googlers.com ([fda3:e722:ac3:cc00:7f:e700:c0a8:3e5])
- (user=seanjc job=sendgmr) by 2002:a17:902:8544:b0:142:66e7:afbb with SMTP id
- d4-20020a170902854400b0014266e7afbbmr3818315plo.62.1636596474245; Wed, 10 Nov
- 2021 18:07:54 -0800 (PST)
+ (user=seanjc job=sendgmr) by 2002:a05:6a00:a8b:b0:44d:ef7c:94b9 with SMTP id
+ b11-20020a056a000a8b00b0044def7c94b9mr3606208pfl.36.1636596475642; Wed, 10
+ Nov 2021 18:07:55 -0800 (PST)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu, 11 Nov 2021 02:07:29 +0000
+Date: Thu, 11 Nov 2021 02:07:30 +0000
 In-Reply-To: <20211111020738.2512932-1-seanjc@google.com>
-Message-Id: <20211111020738.2512932-9-seanjc@google.com>
+Message-Id: <20211111020738.2512932-10-seanjc@google.com>
 Mime-Version: 1.0
 References: <20211111020738.2512932-1-seanjc@google.com>
 X-Mailer: git-send-email 2.34.0.rc0.344.g81b53c2807-goog
-Subject: [PATCH v4 08/17] perf: Force architectures to opt-in to guest callbacks
+Subject: [PATCH v4 09/17] perf/core: Use static_call to optimize perf_guest_info_callbacks
 From: Sean Christopherson <seanjc@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
@@ -105,120 +105,118 @@ Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@re
 	Zhu Lingshan <lingshan.zhu@intel.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Introduce GUEST_PERF_EVENTS and require architectures to select it to
-allow registering and using guest callbacks in perf.  This will hopefully
-make it more difficult for new architectures to add useless "support" for
-guest callbacks, e.g. via copy+paste.
+Use static_call to optimize perf's guest callbacks on arm64 and x86,
+which are now the only architectures that define the callbacks.  Use
+DEFINE_STATIC_CALL_RET0 as the default/NULL for all guest callbacks, as
+the callback semantics are that a return value '0' means "not in guest".
 
-Stubbing out the helpers has the happy bonus of avoiding a load of
-perf_guest_cbs when GUEST_PERF_EVENTS=n on arm64/x86.
+static_call obviously avoids the overhead of CONFIG_RETPOLINE=y, but is
+also advantageous versus other solutions, e.g. per-cpu callbacks, in that
+a per-cpu memory load is not needed to detect the !guest case.
 
+Based on code from Peter and Like.
+
+Suggested-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Cc: Like Xu <like.xu.linux@gmail.com>
 Reviewed-by: Paolo Bonzini <pbonzini@redhat.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- arch/arm64/kvm/Kconfig     | 1 +
- arch/x86/kvm/Kconfig       | 1 +
- arch/x86/xen/Kconfig       | 1 +
- include/linux/perf_event.h | 6 ++++++
- init/Kconfig               | 4 ++++
- kernel/events/core.c       | 2 ++
- 6 files changed, 15 insertions(+)
+ include/linux/perf_event.h | 34 ++++++++--------------------------
+ kernel/events/core.c       | 15 +++++++++++++++
+ 2 files changed, 23 insertions(+), 26 deletions(-)
 
-diff --git a/arch/arm64/kvm/Kconfig b/arch/arm64/kvm/Kconfig
-index 8ffcbe29395e..e9761d84f982 100644
---- a/arch/arm64/kvm/Kconfig
-+++ b/arch/arm64/kvm/Kconfig
-@@ -39,6 +39,7 @@ menuconfig KVM
- 	select HAVE_KVM_IRQ_BYPASS
- 	select HAVE_KVM_VCPU_RUN_PID_CHANGE
- 	select SCHED_INFO
-+	select GUEST_PERF_EVENTS if PERF_EVENTS
- 	help
- 	  Support hosting virtualized guest machines.
- 
-diff --git a/arch/x86/kvm/Kconfig b/arch/x86/kvm/Kconfig
-index 619186138176..47bdbe705a76 100644
---- a/arch/x86/kvm/Kconfig
-+++ b/arch/x86/kvm/Kconfig
-@@ -36,6 +36,7 @@ config KVM
- 	select KVM_MMIO
- 	select SCHED_INFO
- 	select PERF_EVENTS
-+	select GUEST_PERF_EVENTS
- 	select HAVE_KVM_MSI
- 	select HAVE_KVM_CPU_RELAX_INTERCEPT
- 	select HAVE_KVM_NO_POLL
-diff --git a/arch/x86/xen/Kconfig b/arch/x86/xen/Kconfig
-index 6bcd3d8ca6ac..85246dd9faa1 100644
---- a/arch/x86/xen/Kconfig
-+++ b/arch/x86/xen/Kconfig
-@@ -23,6 +23,7 @@ config XEN_PV
- 	select PARAVIRT_XXL
- 	select XEN_HAVE_PVMMU
- 	select XEN_HAVE_VPMU
-+	select GUEST_PERF_EVENTS
- 	help
- 	  Support running as a Xen PV guest.
- 
 diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index 346d5aff5804..ea47ef616ee0 100644
+index ea47ef616ee0..0ac7d867ca0c 100644
 --- a/include/linux/perf_event.h
 +++ b/include/linux/perf_event.h
-@@ -1242,6 +1242,7 @@ extern void perf_event_bpf_event(struct bpf_prog *prog,
- 				 enum perf_bpf_event_type type,
- 				 u16 flags);
+@@ -1244,40 +1244,22 @@ extern void perf_event_bpf_event(struct bpf_prog *prog,
  
-+#ifdef CONFIG_GUEST_PERF_EVENTS
+ #ifdef CONFIG_GUEST_PERF_EVENTS
  extern struct perf_guest_info_callbacks __rcu *perf_guest_cbs;
- static inline struct perf_guest_info_callbacks *perf_get_guest_cbs(void)
+-static inline struct perf_guest_info_callbacks *perf_get_guest_cbs(void)
+-{
+-	/*
+-	 * Callbacks are RCU-protected and must be READ_ONCE to avoid reloading
+-	 * the callbacks between a !NULL check and dereferences, to ensure
+-	 * pending stores/changes to the callback pointers are visible before a
+-	 * non-NULL perf_guest_cbs is visible to readers, and to prevent a
+-	 * module from unloading callbacks while readers are active.
+-	 */
+-	return rcu_dereference(perf_guest_cbs);
+-}
++
++DECLARE_STATIC_CALL(__perf_guest_state, *perf_guest_cbs->state);
++DECLARE_STATIC_CALL(__perf_guest_get_ip, *perf_guest_cbs->get_ip);
++DECLARE_STATIC_CALL(__perf_guest_handle_intel_pt_intr, *perf_guest_cbs->handle_intel_pt_intr);
++
+ static inline unsigned int perf_guest_state(void)
  {
-@@ -1280,6 +1281,11 @@ static inline unsigned int perf_guest_handle_intel_pt_intr(void)
+-	struct perf_guest_info_callbacks *guest_cbs = perf_get_guest_cbs();
+-
+-	return guest_cbs ? guest_cbs->state() : 0;
++	return static_call(__perf_guest_state)();
+ }
+ static inline unsigned long perf_guest_get_ip(void)
+ {
+-	struct perf_guest_info_callbacks *guest_cbs = perf_get_guest_cbs();
+-
+-	/*
+-	 * Arbitrarily return '0' in the unlikely scenario that the callbacks
+-	 * are unregistered between checking guest state and getting the IP.
+-	 */
+-	return guest_cbs ? guest_cbs->get_ip() : 0;
++	return static_call(__perf_guest_get_ip)();
+ }
+ static inline unsigned int perf_guest_handle_intel_pt_intr(void)
+ {
+-	struct perf_guest_info_callbacks *guest_cbs = perf_get_guest_cbs();
+-
+-	if (guest_cbs && guest_cbs->handle_intel_pt_intr)
+-		return guest_cbs->handle_intel_pt_intr();
+-	return 0;
++	return static_call(__perf_guest_handle_intel_pt_intr)();
  }
  extern void perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs);
  extern void perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *cbs);
-+#else
-+static inline unsigned int perf_guest_state(void)		 { return 0; }
-+static inline unsigned long perf_guest_get_ip(void)		 { return 0; }
-+static inline unsigned int perf_guest_handle_intel_pt_intr(void) { return 0; }
-+#endif /* CONFIG_GUEST_PERF_EVENTS */
- 
- extern void perf_event_exec(void);
- extern void perf_event_comm(struct task_struct *tsk, bool exec);
-diff --git a/init/Kconfig b/init/Kconfig
-index 21b1f4870c80..6bc5c56d669b 100644
---- a/init/Kconfig
-+++ b/init/Kconfig
-@@ -1799,6 +1799,10 @@ config HAVE_PERF_EVENTS
- 	help
- 	  See tools/perf/design.txt for details.
- 
-+config GUEST_PERF_EVENTS
-+	bool
-+	depends on HAVE_PERF_EVENTS
-+
- config PERF_USE_VMALLOC
- 	bool
- 	help
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index eb6b9cfd0054..1c8d341ecc77 100644
+index 1c8d341ecc77..b4fd928e4ff8 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
-@@ -6521,6 +6521,7 @@ static void perf_pending_event(struct irq_work *entry)
- 		perf_swevent_put_recursion_context(rctx);
- }
- 
-+#ifdef CONFIG_GUEST_PERF_EVENTS
+@@ -6524,12 +6524,23 @@ static void perf_pending_event(struct irq_work *entry)
+ #ifdef CONFIG_GUEST_PERF_EVENTS
  struct perf_guest_info_callbacks __rcu *perf_guest_cbs;
  
++DEFINE_STATIC_CALL_RET0(__perf_guest_state, *perf_guest_cbs->state);
++DEFINE_STATIC_CALL_RET0(__perf_guest_get_ip, *perf_guest_cbs->get_ip);
++DEFINE_STATIC_CALL_RET0(__perf_guest_handle_intel_pt_intr, *perf_guest_cbs->handle_intel_pt_intr);
++
  void perf_register_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
-@@ -6541,6 +6542,7 @@ void perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
+ {
+ 	if (WARN_ON_ONCE(rcu_access_pointer(perf_guest_cbs)))
+ 		return;
+ 
+ 	rcu_assign_pointer(perf_guest_cbs, cbs);
++	static_call_update(__perf_guest_state, cbs->state);
++	static_call_update(__perf_guest_get_ip, cbs->get_ip);
++
++	/* Implementing ->handle_intel_pt_intr is optional. */
++	if (cbs->handle_intel_pt_intr)
++		static_call_update(__perf_guest_handle_intel_pt_intr,
++				   cbs->handle_intel_pt_intr);
+ }
+ EXPORT_SYMBOL_GPL(perf_register_guest_info_callbacks);
+ 
+@@ -6539,6 +6550,10 @@ void perf_unregister_guest_info_callbacks(struct perf_guest_info_callbacks *cbs)
+ 		return;
+ 
+ 	rcu_assign_pointer(perf_guest_cbs, NULL);
++	static_call_update(__perf_guest_state, (void *)&__static_call_return0);
++	static_call_update(__perf_guest_get_ip, (void *)&__static_call_return0);
++	static_call_update(__perf_guest_handle_intel_pt_intr,
++			   (void *)&__static_call_return0);
  	synchronize_rcu();
  }
  EXPORT_SYMBOL_GPL(perf_unregister_guest_info_callbacks);
-+#endif
- 
- static void
- perf_output_sample_regs(struct perf_output_handle *handle,
 -- 
 2.34.0.rc0.344.g81b53c2807-goog
 
