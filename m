@@ -2,34 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 225EA44CDB1
-	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 00:14:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224493.387797 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F8D644CE6E
+	for <lists+xen-devel@lfdr.de>; Thu, 11 Nov 2021 01:41:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.224499.387809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkwms-0002Ur-9E; Wed, 10 Nov 2021 23:13:50 +0000
+	id 1mky8H-00029Y-8M; Thu, 11 Nov 2021 00:40:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224493.387797; Wed, 10 Nov 2021 23:13:50 +0000
+Received: by outflank-mailman (output) from mailman id 224499.387809; Thu, 11 Nov 2021 00:40:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mkwms-0002S3-5E; Wed, 10 Nov 2021 23:13:50 +0000
-Received: by outflank-mailman (input) for mailman id 224493;
- Wed, 10 Nov 2021 23:13:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mky8H-00027f-58; Thu, 11 Nov 2021 00:40:01 +0000
+Received: by outflank-mailman (input) for mailman id 224499;
+ Thu, 11 Nov 2021 00:40:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ssld=P5=oderland.se=josef@srs-se1.protection.inumbo.net>)
- id 1mkwmq-0002Rx-Oh
- for xen-devel@lists.xenproject.org; Wed, 10 Nov 2021 23:13:48 +0000
-Received: from office.oderland.com (office.oderland.com [91.201.60.5])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dadfd068-427b-11ec-a9d2-d9f7a1cc8784;
- Thu, 11 Nov 2021 00:13:47 +0100 (CET)
-Received: from [155.4.220.82] (port=41166 helo=[10.137.0.14])
- by office.oderland.com with esmtpsa (TLS1.2) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <josef@oderland.se>)
- id 1mkwmn-005xmh-Hr; Thu, 11 Nov 2021 00:13:45 +0100
+ (envelope-from <SRS0=4OkG=P6=google.com=seanjc@srs-se1.protection.inumbo.net>)
+ id 1mky8G-00027Z-Fe
+ for xen-devel@lists.xenproject.org; Thu, 11 Nov 2021 00:40:00 +0000
+Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
+ [2607:f8b0:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e55b5cf8-4287-11ec-9787-a32c541c8605;
+ Thu, 11 Nov 2021 01:39:58 +0100 (CET)
+Received: by mail-pf1-x431.google.com with SMTP id g19so4095139pfb.8
+ for <xen-devel@lists.xenproject.org>; Wed, 10 Nov 2021 16:39:58 -0800 (PST)
+Received: from google.com (157.214.185.35.bc.googleusercontent.com.
+ [35.185.214.157])
+ by smtp.gmail.com with ESMTPSA id h194sm750078pfe.156.2021.11.10.16.39.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 10 Nov 2021 16:39:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,137 +44,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dadfd068-427b-11ec-a9d2-d9f7a1cc8784
-Message-ID: <607f86a1-9295-aa97-1765-43050be29d8b@oderland.se>
-Date: Thu, 11 Nov 2021 00:13:42 +0100
+X-Inumbo-ID: e55b5cf8-4287-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=GCvgNnriUarmCbicpFHHYqZw6hipmqUHqLUNYcuQ5mQ=;
+        b=C/MSXc16d+vnyvPXnpHvWobOFVkGiZtvk8Fqn9KlAR5wdGaXHNSYYEqouCychGdG8p
+         5qAR+o3QR3qaB0TDQ3yAC+dSCwOdKvfiEZ3Kln4q4atLvJqPKPRHW1o5zq6Ns5xwkOtC
+         ik1lkhQwf39tyN70E9VZseTQvLWw0Txmbjd6Pu8ATSLAClCUTw6YIKKav5QdSu46fQ/5
+         +e5c/wEbKgc1jOnG5VvHUJ9ey6iGYkWAk7F4ceZqKKEK8rilWv0ZFkZJXl5cjnWfQIx8
+         55tsEZ8ESYtzoMLt6c2A3hOaXpTct4C6eIipQoqRcDMTUY4c5FxHvAnMIbgpRMgbfXry
+         LjOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=GCvgNnriUarmCbicpFHHYqZw6hipmqUHqLUNYcuQ5mQ=;
+        b=zwJSzdO/y62WKWFrAE5KWAn+f8bmshIBQgVL4YNb9Gn/0Uq6eAD/3kaYd1PDmEY8/U
+         TfyHdA7afkN3OZGLz3qQfriu1YirSUN7ekzMg2PkzxLozd8AlgJQaOVECzjmHnq16irh
+         pLuvSSY0izkNEI0f4eaNEaKNB4yqJaY3H8OepBRMHeQfyodkkkavU409ZuucSP/7rStJ
+         JWn75P1xDSMXCpMRUfNJBUZxpZWyNmLu1hLrOWIezB/XK1m+mGL8Q/viSaW7BeT5jhr+
+         S29ypkt9q+/p8DrSG4NvVsgYGesC9ZfnOxVlcqIT1mM1OyyShiHFR8SIcg7vIhNyqdX1
+         30Rw==
+X-Gm-Message-State: AOAM530ERWjmW14XsAlP9YkH2JS4PruUciyhN9LJnHg7Q92LkB4aMqT/
+	jvceqWJT3wSGlfQypc0FoKiGdQ==
+X-Google-Smtp-Source: ABdhPJyzWkgci9VXixrCRz+lgwFJsP+1qd2jH9xIE5pUKSl6Qej6NdegD7xki773sUR8p4Puao3+lQ==
+X-Received: by 2002:a63:6302:: with SMTP id x2mr1983608pgb.5.1636591196936;
+        Wed, 10 Nov 2021 16:39:56 -0800 (PST)
+Date: Thu, 11 Nov 2021 00:39:52 +0000
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: Like Xu <like.xu.linux@gmail.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Will Deacon <will@kernel.org>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Vitaly Kuznetsov <vkuznets@redhat.com>,
+	Wanpeng Li <wanpengli@tencent.com>,
+	Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kvmarm@lists.cs.columbia.edu, linux-csky@vger.kernel.org,
+	linux-riscv@lists.infradead.org, kvm@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	Artem Kashkanov <artem.kashkanov@intel.com>,
+	Zhu Lingshan <lingshan.zhu@intel.com>,
+	Juergen Gross <jgross@suse.com>, Ingo Molnar <mingo@redhat.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Vincent Chen <deanbo422@gmail.com>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Greentime Hu <green.hu@gmail.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Marc Zyngier <maz@kernel.org>, Nick Hu <nickhu@andestech.com>,
+	Guo Ren <guoren@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>
+Subject: Re: [PATCH v3 01/16] perf: Ensure perf_guest_cbs aren't reloaded
+ between !NULL check and deref
+Message-ID: <YYxmWGB6IUwEu4VZ@google.com>
+References: <20210922000533.713300-1-seanjc@google.com>
+ <20210922000533.713300-2-seanjc@google.com>
+ <77e3a76a-016b-8945-a1d5-aae4075e2147@gmail.com>
+ <YYPrst2CUBXLYc9h@google.com>
+ <f86fe9cb-bf4b-1c10-e0da-276fbb3f62ee@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:93.0) Gecko/20100101
- Thunderbird/93.0
-Content-Language: en-US
-From: Josef Johansson <josef@oderland.se>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: boris.ostrovsky@oracle.com, helgaas@kernel.org, jgross@suse.com,
- linux-pci@vger.kernel.org, maz@kernel.org, xen-devel@lists.xenproject.org,
- Jason Andryuk <jandryuk@gmail.com>, David Woodhouse <dwmw2@infradead.org>,
- Peter Jones <pjones@redhat.com>, linux-fbdev@vger.kernel.org,
- Peter Zijlstra <peterz@infradead.org>, LKML <linux-kernel@vger.kernel.org>,
- x86@kernel.org
-References: <90277228-cf14-0cfa-c95e-d42e7d533353@oderland.se>
- <20211025012503.33172-1-jandryuk@gmail.com> <87fssmg8k4.ffs@tglx>
- <87cznqg5k8.ffs@tglx> <d1cc20aa-5c5c-6c7b-2e5d-bc31362ad891@oderland.se>
- <89d6c2f4-4d00-972f-e434-cb1839e78598@oderland.se>
- <5b3d4653-0cdf-e098-0a4a-3c5c3ae3977b@oderland.se> <87ee7w6bxi.ffs@tglx>
- <19176a3c-e554-0ff4-2e0b-5813d353d15e@oderland.se>
-Subject: Re: [PATCH] PCI/MSI: Move non-mask check back into low level
- accessors
-In-Reply-To: <19176a3c-e554-0ff4-2e0b-5813d353d15e@oderland.se>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - office.oderland.com
-X-AntiAbuse: Original Domain - lists.xenproject.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oderland.se
-X-Get-Message-Sender-Via: office.oderland.com: authenticated_id: josjoh@oderland.se
-X-Authenticated-Sender: office.oderland.com: josjoh@oderland.se
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f86fe9cb-bf4b-1c10-e0da-276fbb3f62ee@redhat.com>
 
-On 11/10/21 21:30, Josef Johansson wrote:
-> On 11/4/21 00:45, Thomas Gleixner wrote:
->> On Wed, Oct 27 2021 at 17:29, Josef Johansson wrote:
->>
->> CC+: EFIFB and scheduler folks
->>
->>> On 10/27/21 14:01, Josef Johansson wrote:
->>>
->>> printk: Suspending console(s) (use no_console_suspend to debug)
->>> [drm] free PSP TMR buffer
->>> PM: suspend devices took 0.428 seconds
->>> ACPI: EC: interrupt blocked
->>> ACPI: PM: Preparing to enter system sleep state S3
->>> ACPI: EC: event blocked
->>> ACPI: EC: EC stopped
->>> ACPI: PM: Saving platform NVS memory
->>> Disabling non-boot CPUs ...
->>> ------------[ cut here ]------------
->>> WARNING: CPU: 1 PID: 0 at arch/x86/mm/tlb.c:522  switch_mm_irqs_off+0x3c5/0x400
->> 	if (WARN_ON_ONCE(__read_cr3() != build_cr3(real_prev->pgd, prev_asid))) {
->>
->>> Modules linked in: snd_seq_dummy snd_hrtimer snd_seq snd_seq_device snd_timer nf_tables nfnetlink vfat fat intel_rapl_msr think_lmi firmware_attributes_class wmi_bmof intel_rapl_common pcspkr uvcvideo videobuf2_vmalloc videobuf2_memops joydev videobuf2_v4l2 sp5100_tco k10temp videobuf2_common i2c_piix4 iwlwifi videodev mc cfg80211 thinkpad_acpi ipmi_devintf ucsi_acpi platform_profile typec_ucsi ledtrig_audio ipmi_msghandler r8169 rfkill typec snd wmi soundcore video i2c_scmi fuse xenfs ip_tables dm_thin_pool dm_persistent_data dm_bio_prison dm_crypt trusted asn1_encoder hid_multitouch amdgpu crct10dif_pclmul crc32_pclmul crc32c_intel gpu_sched i2c_algo_bit drm_ttm_helper ghash_clmulni_intel ttm serio_raw drm_kms_helper cec sdhci_pci cqhci sdhci xhci_pci drm xhci_pci_renesas nvme xhci_hcd ehci_pci mmc_core ehci_hcd nvme_core xen_acpi_processor xen_privcmd xen_pciback xen_blkback xen_gntalloc xen_gntdev xen_evtchn uinput
->>> CPU: 1 PID: 0 Comm: swapper/1 Tainted: G        W        --------- ---  5.15.0-0.rc7.0.fc32.qubes.x86_64 #1
->>> Hardware name: LENOVO 20Y1S02400/20Y1S02400, BIOS R1BET65W(1.34 ) 06/17/2021
->>> RIP: e030:switch_mm_irqs_off+0x3c5/0x400
->>> Code: f0 41 80 65 01 fb ba 01 00 00 00 49 8d b5 60 23 00 00 4c 89 ef 49 c7 85 68 23 00 00 60 1d 08 81 e8 a0 f3 08 00 e9 15 fd ff ff <0f> 0b e8 34 fa ff ff e9 ad fc ff ff 0f 0b e9 31 fe ff ff 0f 0b e9
->>> RSP: e02b:ffffc900400f3eb0 EFLAGS: 00010006
->>> RAX: 00000001336c6000 RBX: ffff888140660000 RCX: 0000000000000040
->>> RDX: ffff8881003027c0 RSI: 0000000000000000 RDI: ffff8881b36c6000
->>> RBP: ffffffff829d91c0 R08: 0000000000000000 R09: 0000000000000000
->>> R10: 0000000000000008 R11: 0000000000000000 R12: ffff888104e88440
->>> R13: ffff8881003027c0 R14: 0000000000000000 R15: 0000000000000001
->>> FS:  0000000000000000(0000) GS:ffff888140640000(0000) knlGS:0000000000000000
->>> CS:  10000e030 DS: 002b ES: 002b CR0: 0000000080050033
->>> CR2: 000060b7d78bf198 CR3: 0000000002810000 CR4: 0000000000050660
->>> Call Trace:
->>>  switch_mm+0x1c/0x30
->>>  idle_task_exit+0x55/0x60
->>>  play_dead_common+0xa/0x20
->>>  xen_pv_play_dead+0xa/0x60
->> So this is when bringing the non boot CPUs down and the switch_mm() code
->> discovers inconsistency between CR3 and the expected value.
->>
->> Would probably be interesting to print the actual values, but XEN folks
->> might have an idea.
-> I can install some print-statements showing some more info here.
-> I guess I will be getting memory addresses, we already know that CR3 is
-> 0000000002810000
->
-> If you have any hints on how to do an effective print statement for this
-> please do say so :)
-> I'll try though and see what I find out.
+On Wed, Nov 10, 2021, Paolo Bonzini wrote:
+> On 11/4/21 15:18, Sean Christopherson wrote:
+> > If I'm interpeting Paolo's suggestion
+> > correctly, he's pointing out that oustanding stores to the function pointers in
+> > @cbs need to complete before assigning a non-NULL pointer to perf_guest_cbs,
+> > otherwise a perf event handler may see a valid pointer with half-baked callbacks.
+> > 
+> > I think smp_store_release() with a comment would be appropriate, assuming my
+> > above interpretation is correct.
+> > 
+> 
+> Yes, exactly.  It should even be rcu_assign_pointer(), matching the
+> synchronize_rcu()
 
-diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
-index 59ba2968af1b..511792852e9e 100644
---- a/arch/x86/mm/tlb.c
-+++ b/arch/x86/mm/tlb.c
-@@ -520,6 +520,10 @@ void switch_mm_irqs_off(struct mm_struct *prev, struct mm_struct *next,
- 	 */
- #ifdef CONFIG_DEBUG_VM
- 	if (WARN_ON_ONCE(__read_cr3() != build_cr3(real_prev->pgd, prev_asid))) {
-+		printk("josef-debug: cr3: %lx, build_cr3: %lx, (%px, %x)",
-+			__read_cr3(),
-+			build_cr3(real_prev->pgd, prev_asid),
-+			real_prev->pgd, prev_asid);
- 		/*
- 		 * If we were to BUG here, we'd be very likely to kill
- 		 * the system so hard that we don't see the call trace.
+And perf_guest_cbs should be tagged __rcu and accessed accordingly.  Which is
+effectively what this version (poorly) implemented with a homebrewed mix of
+{READ,WRITE}_ONCE, lockdep(), and synchronize_rcu().
 
-this patch gave me the three values which where already known,
-__read_cr3 = CR3 = 0000000002810000
-build_cr3 = RAX = 00000001336c6000
-real_prev->pgd = RDI = ffff8881b36c6000
-prev_asid = RSI = 0
+> in patch 1 (and the change can be done in patch 1, too).
 
-Not sure what conclusions I should draw though.
-
->>>  do_idle+0xd1/0xe0
->>>  cpu_startup_entry+0x19/0x20
->>>  asm_cpu_bringup_and_idle+0x5/0x1000
->>> ---[ end trace b068d3cd1b7f5f4b ]---
->>> smpboot: CPU 1 is now offline
->>> smpboot: CPU 2 is now offline
->>> smpboot: CPU 3 is now offline
->>> smpboot: CPU 4 is now offline
->>> smpboot: CPU 5 is now offline
->>> smpboot: CPU 6 is now offline
->>> smpboot: CPU 7 is now offline
->>> ACPI: PM: Low-level resume complete
->>> ACPI: EC: EC started
->>> ACPI: PM: Restoring platform NVS memory
->>> xen_acpi_processor: Uploading Xen processor PM info
->>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU1
->>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU3
->>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU5
->>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU7
->>> xen_acpi_processor: (_PXX): Hypervisor error (-19) for ACPI CPU9
->>>
-
+Ya, the change needs to go into patch 1.
 
