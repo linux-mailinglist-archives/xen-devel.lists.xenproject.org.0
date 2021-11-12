@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B6AF44EAFF
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Nov 2021 17:03:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.225324.389115 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3671F44EB89
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Nov 2021 17:41:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.225333.389124 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlZ0m-0003dT-7n; Fri, 12 Nov 2021 16:02:44 +0000
+	id 1mlZbi-0007bH-8w; Fri, 12 Nov 2021 16:40:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 225324.389115; Fri, 12 Nov 2021 16:02:44 +0000
+Received: by outflank-mailman (output) from mailman id 225333.389124; Fri, 12 Nov 2021 16:40:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlZ0m-0003aT-2y; Fri, 12 Nov 2021 16:02:44 +0000
-Received: by outflank-mailman (input) for mailman id 225324;
- Fri, 12 Nov 2021 16:02:42 +0000
+	id 1mlZbi-0007ZI-53; Fri, 12 Nov 2021 16:40:54 +0000
+Received: by outflank-mailman (input) for mailman id 225333;
+ Fri, 12 Nov 2021 16:40:53 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mlZ0k-0003aN-FH
- for xen-devel@lists.xenproject.org; Fri, 12 Nov 2021 16:02:42 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mlZbh-0007Z8-9r; Fri, 12 Nov 2021 16:40:53 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mlZ0g-0003wD-T7; Fri, 12 Nov 2021 16:02:38 +0000
-Received: from [54.239.6.189] (helo=[192.168.1.222])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mlZ0g-0005II-Ly; Fri, 12 Nov 2021 16:02:38 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mlZbg-0004Wi-T1; Fri, 12 Nov 2021 16:40:52 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mlZbg-0005M1-JX; Fri, 12 Nov 2021 16:40:52 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mlZbg-0007nz-Iz; Fri, 12 Nov 2021 16:40:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,100 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=/7c6gj+f1F5eDScWFpVe8bzGIAxNKvsdNPWd/Jtx8XE=; b=LKNSJ9O0AQWbY35Ax2jc+ylY7K
-	HrMF5MiAEdFeBgdMXhJkjVfiSrqMHs1RseZ72mZo3uQV+vHXdw/yhito8kwhX44P3T5mspV5jG0F2
-	wkGeVxLGyRtTgmgQIgSJyk0He63In4OV1oUrrTQqLFUE/GXBP42trf6w9d1YI/aw1bKk=;
-Message-ID: <1d3561ef-548a-ea13-d362-0f95d7dba33b@xen.org>
-Date: Fri, 12 Nov 2021 16:02:36 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=+7FkQduWbXjlVGm5+58b5QDBFoduYYjIBxRxVctaQmw=; b=Egoy59HGak+fcrRiJoCj5PMO8Z
+	r7JOC5Ny/+C8P/jY2bax7hOBsOTEzSZjscYCTH7YWAStL0OcQvJmF3jsz0tRKXkBfv7o3+I6Tdq1v
+	5/oDxaVJkD6/zwVP4hlTKzhSlyZv8mIKBuBbtoOtIIoEwCFgA8bKqYOg5Y3sRpoIM/dU=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166127-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.3.0
-Subject: Re: ACPI/UEFI support for Xen/ARM status?
-To: Elliott Mitchell <ehem+xen@m5p.com>, Henry Wang <Henry.Wang@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <YY3tSAFTCR4r2FaI@mattapan.m5p.com>
- <AM9PR08MB62428F41C4F998AD676C027C92959@AM9PR08MB6242.eurprd08.prod.outlook.com>
- <YY6L5JQPn0s3c6Jp@mattapan.m5p.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <YY6L5JQPn0s3c6Jp@mattapan.m5p.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 166127: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=c06e3d81031424a8a0f725198c16ad81007be89c
+X-Osstest-Versions-That:
+    xen=e2d0a42381b686451bed3e0e3ab8551f6c2d4090
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 12 Nov 2021 16:40:52 +0000
 
-Hi Elliott,
+flight 166127 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166127/
 
-On 12/11/2021 15:44, Elliott Mitchell wrote:
-> On Fri, Nov 12, 2021 at 05:54:08AM +0000, Henry Wang wrote:
->>
->>> -----Original Message-----
->>> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
->>> Elliott Mitchell
->>>
->>> I've been busy with another part of this project, so I've lost track of
->>> progress on ACPI/UEFI support on ARM.
->>>
->>> Last I'd read full support for ACPI/UEFI seemed a ways off.  Using a stub
->>> domain to constrain ACPI table parsing seemed the favored approach.  I
->>> was under the impression that would take some time.
->>>
->>> What is the status?  Do the Xen/ARM leads have any guesses for when full
->>> ACPI/UEFI support might reach completion?
->>
->> I am doing some development based on the Xen UEFI/ACPI on AArch64 using
->> the Arm FVP_Base platform. Using edk2 and master branch of Xen with
->> `CONFIG_ACPI=y`, it seems everything can work properly.
->>
->> Here are some of my logs:
->> Shell> FS2:EFI\XEN\xen.efi
->> Xen 4.16-rc (c/s Fri Nov 12 02:34:01 2021 +0000 git:323b47ffd9-dirty) EFI loader
->> ...
->> (XEN) PFN compression on bits 20...22
->> (XEN) ACPI: RSDP F5E30018, 0024 (r2 LINARO)
->> (XEN) ACPI: XSDT F5E3FE98, 005C (r1 LINARO RTSMVEV8        2       1000013)
->> (XEN) ACPI: FACP F5E3FA98, 0114 (r6 LINARO RTSMVEV8        2 LNRO        2)
->> (XEN) ACPI: DSDT F5E3ED98, 02AB (r2 LINARO RTSMVEV8        4 INTL 20200925)
->> (XEN) ACPI: GTDT F5E3FC18, 00E0 (r2 LINARO RTSMVEV8        2 LNRO        2)
->> (XEN) ACPI: APIC F5E3E998, 02D4 (r4 LINARO RTSMVEV8        2 LNRO        2)
->> (XEN) ACPI: SPCR F5E3FF98, 0050 (r2 LINARO RTSMVEV8        2 LNRO        2)
->> (XEN) Domain heap initialised
-> 
->> ...
->> [    0.000000] ACPI: SPCR 0x00000000F5E3FF98 000050 (v02 LINARO RTSMVEV8 00000002 LNRO 00000002)
->> [    0.000000] ACPI: SPCR: console: pl011,mmio32,0x1c090000,115200
->> ...
->>
->> Hopefully this answers your question. :)
-> 
-> Thanks for the attempt at answering, but the SPCR entry tells me there is
-> a substantial portion of ACPI/UEFI functionality you're not testing.  I'm
-> specifically looking for framebuffer console support and SPCR says you're
-> using serial console.  While serial console is appropriate for true
-> servers, for some use cases it is inadequate.
+Failures :-/ but no regressions.
 
-We don't have any support for framebuffer in Xen on Arm (even for 
-Device-Tree). I would be happy to consider any patches if you are plan 
-to post some.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-> 
-> Julien Grall and Stefano Stabellini had been proposing doing ACPI table
-> parsing in a stub domain, but I'm unaware of the status.  Not finding
-> much suggests it hasn't gone very far yet.
+version targeted for testing:
+ xen                  c06e3d81031424a8a0f725198c16ad81007be89c
+baseline version:
+ xen                  e2d0a42381b686451bed3e0e3ab8551f6c2d4090
 
-This was a very early proposal in case we needed to parse the DSDT in 
-Xen. This hasn't been needed so far, hence why this is not implemented 
-and no-one worked on it.
+Last test of basis   166116  2021-11-11 19:01:38 Z    0 days
+Testing same since   166127  2021-11-12 13:01:45 Z    0 days    1 attempts
 
-I am not very familiar how the framebuffer is detected in ACPI. Can you 
-provide more details on what exactly you want to parse?
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
 
-Alternatively, UEFI is meant to provide an API to access the 
-framebuffer. Would that be suitable for you?
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-Cheers,
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   e2d0a42381..c06e3d8103  c06e3d81031424a8a0f725198c16ad81007be89c -> smoke
 
