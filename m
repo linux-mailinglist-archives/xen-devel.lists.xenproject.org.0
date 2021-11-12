@@ -2,41 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C39444E2B6
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Nov 2021 08:56:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.224997.388584 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CDF844E3EF
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Nov 2021 10:38:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.225010.388595 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlRPW-0008W1-BB; Fri, 12 Nov 2021 07:55:46 +0000
+	id 1mlSzG-0001JN-0u; Fri, 12 Nov 2021 09:36:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 224997.388584; Fri, 12 Nov 2021 07:55:46 +0000
+Received: by outflank-mailman (output) from mailman id 225010.388595; Fri, 12 Nov 2021 09:36:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlRPW-0008TN-7s; Fri, 12 Nov 2021 07:55:46 +0000
-Received: by outflank-mailman (input) for mailman id 224997;
- Fri, 12 Nov 2021 07:55:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fM4F=P7=redhat.com=pbonzini@srs-se1.protection.inumbo.net>)
- id 1mlRPU-0008TH-Qt
- for xen-devel@lists.xenproject.org; Fri, 12 Nov 2021 07:55:45 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ef0280b5-438d-11ec-a9d2-d9f7a1cc8784;
- Fri, 12 Nov 2021 08:55:43 +0100 (CET)
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-5-zYEzS5yrN6amKcPDN88mYQ-1; Fri, 12 Nov 2021 02:55:38 -0500
-Received: by mail-ed1-f72.google.com with SMTP id
- d11-20020a50cd4b000000b003da63711a8aso7523489edj.20
- for <xen-devel@lists.xenproject.org>; Thu, 11 Nov 2021 23:55:38 -0800 (PST)
-Received: from ?IPV6:2001:b07:6468:f312:5e2c:eb9a:a8b6:fd3e?
- ([2001:b07:6468:f312:5e2c:eb9a:a8b6:fd3e])
- by smtp.gmail.com with ESMTPSA id n1sm2700678edf.45.2021.11.11.23.55.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 11 Nov 2021 23:55:36 -0800 (PST)
+	id 1mlSzF-0001H3-Sa; Fri, 12 Nov 2021 09:36:45 +0000
+Received: by outflank-mailman (input) for mailman id 225010;
+ Fri, 12 Nov 2021 09:36:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mlSzF-0001Gx-05
+ for xen-devel@lists.xenproject.org; Fri, 12 Nov 2021 09:36:45 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mlSzE-0004w6-DD; Fri, 12 Nov 2021 09:36:44 +0000
+Received: from [54.239.6.189] (helo=[192.168.1.222])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mlSzE-0003Lm-6Z; Fri, 12 Nov 2021 09:36:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,99 +39,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ef0280b5-438d-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1636703741;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lF7lzRoeZrlEIt3gHEFyVsRoWpbej1ntDFwYNAiQdJI=;
-	b=S6A/GlnSpDzjNW679UfW03taT2ANpf1+QVkTv90xFzlXyD9qhmp3Bfq1yt6m12HW5vT5so
-	XEJZTEkL889uu4T4jUYgKh/o5vHn1J4MhFfJvlgy3haalKiVWWCD20dn4Azf1myGmzHoAw
-	4lshvNz3yoegOCHCCtEsHvsVg+IrS3w=
-X-MC-Unique: zYEzS5yrN6amKcPDN88mYQ-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=lF7lzRoeZrlEIt3gHEFyVsRoWpbej1ntDFwYNAiQdJI=;
-        b=t82TG7O7Uilx77u1M1Hyz7ICk503ZaQ6x7QtNERqQ/r2XC5gfPUGg/28VEmlOxFsoI
-         DxpkZhclLUlkbMpuGGrDnurX22OWJ7KarNeY031+kh5FowZ0dM0NRthPARv2C44imzz+
-         LM2ONtlpcEBRhyjFw8IbniuwOj1Ts1EHoxcqKOHLeDD141paPT7kH6UCYe6PVRdLlr+l
-         DX7BP/Am7tU5ryBXN3JwMti/wHxw4Q5AkLd+Ml4LwwA+M+hogqcEat0jFh0Xssbq+OHN
-         6LWbUD30r3nuhTvTZzZHlq6+AlsW47hpapUl1iMjz7opJ5057zF3m34bmVyil4BPZUGt
-         q7dg==
-X-Gm-Message-State: AOAM533xkK26d05cM5q0sh+9pgk65o1sdMxgBvaDQbBdRJP/zbCi8jzo
-	u6jcWqyLxAN3NVc2YOXhV/vnTgefNZ1uHxcASniPDF86qxekcg802vce1hPe1phX+w4mL+8XZEx
-	3TCig2mtlgXlF+xOUSGn8fpqViNI=
-X-Received: by 2002:a17:907:6e10:: with SMTP id sd16mr17768007ejc.158.1636703737494;
-        Thu, 11 Nov 2021 23:55:37 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzVTSyaI9bwf+cK3HRTYkkEGrfXsl4Cvt+Fkmz/7JDyaorMKEA4Mec75P9Nt6V8a8edl3Ld8g==
-X-Received: by 2002:a17:907:6e10:: with SMTP id sd16mr17767982ejc.158.1636703737318;
-        Thu, 11 Nov 2021 23:55:37 -0800 (PST)
-Message-ID: <016d5b91-6910-2aca-0db1-a65079449454@redhat.com>
-Date: Fri, 12 Nov 2021 08:55:31 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=TQFaUKswhNJagBIiN1qoja/mkeeJ5OuTAIzdUcMPuY4=; b=cZQ6yHBNYbn7wLW6MvVkqaDF4v
+	MJKYHeDRBcuibR9By4/T1wqF2wkRot2koIQ4RlG/eEqDn/TlC8IlZZfV3F7llqoZIleuCkKbKRmDk
+	yzzsonZK04W0YP90Y9E/EsbbwtTThtMp+BDJzq3ECT0TUyQ+oVbzMTsB743WpJHMT3M8=;
+Message-ID: <dc639bdb-a025-4ddf-f328-8aca91bf9ea9@xen.org>
+Date: Fri, 12 Nov 2021 09:36:41 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.0
-Subject: Re: [PATCH v4 01/17] perf: Protect perf_guest_cbs with RCU
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Sean Christopherson <seanjc@google.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Russell King <linux@armlinux.org.uk>,
- Marc Zyngier <maz@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
- Guo Ren <guoren@kernel.org>, Nick Hu <nickhu@andestech.com>,
- Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>,
- Paul Walmsley <paul.walmsley@sifive.com>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
- James Morse <james.morse@arm.com>,
- Alexandru Elisei <alexandru.elisei@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Wanpeng Li <wanpengli@tencent.com>,
- Jim Mattson <jmattson@google.com>, Joerg Roedel <joro@8bytes.org>,
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.0
+Subject: Re: [PATCH 1/5] xen/domain: Remove function pointers from domain
+ pause helpers
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.cs.columbia.edu,
- linux-csky@vger.kernel.org, linux-riscv@lists.infradead.org,
- kvm@vger.kernel.org, xen-devel@lists.xenproject.org,
- Artem Kashkanov <artem.kashkanov@intel.com>,
- Like Xu <like.xu.linux@gmail.com>, Like Xu <like.xu@linux.intel.com>,
- Zhu Lingshan <lingshan.zhu@intel.com>
-References: <20211111020738.2512932-1-seanjc@google.com>
- <20211111020738.2512932-2-seanjc@google.com>
- <d784dc27-72d0-d64f-e1f4-a2b9a5f86dd4@redhat.com>
- <YYz03fcDRV9NZnyA@hirez.programming.kicks-ass.net>
-From: Paolo Bonzini <pbonzini@redhat.com>
-In-Reply-To: <YYz03fcDRV9NZnyA@hirez.programming.kicks-ass.net>
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=pbonzini@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20211111175740.23480-1-andrew.cooper3@citrix.com>
+ <20211111175740.23480-2-andrew.cooper3@citrix.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20211111175740.23480-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/11/21 11:47, Peter Zijlstra wrote:
->> This technically could be RCU_INIT_POINTER but it's not worth a respin.
->> There are dozens of other occurrences, and if somebody wanted they
->> could use Coccinelle to fix all of them.
-> I've been pushing the other way, trying to get rid of RCU_INIT_POINTER()
-> since rcu_assign_pointer(, NULL) actualy DTRT per __builtin_constant_p()
-> etc.
+  ~/works/oss/linux/scripts/bloat-o-meter xen-syms-old xen-syms
 
-Oh, that's pretty cool to know, thanks!
+On 11/11/2021 17:57, Andrew Cooper wrote:
+> Retpolines are expensive, and all these do are select between the sync and
+> nosync helpers.  Pass a boolean instead, and use direct calls everywhere.
 
-Paolo
+To be honest, I much prefer to read the old code. I am totally not 
+against the change but I can see how I would be ready to introduce new 
+function pointers use in the future.
 
-> There's a very few sites where we use RCU_INIT_POINTER() with a !NULL
-> argument, and those are 'special'.
+So I think we need some guidelines on when to use function pointers in 
+Xen. The more...
+
 > 
+> Pause/unpause operations on behalf of dom0 are not fastpaths, so avoid
+> exposing the __domain_pause_by_systemcontroller() internal.
+> 
+> This actually compiles smaller than before:
 
+... the code doesn't really compile smaller on Arm:
+
+42sh>  ../scripts/bloat-o-meter xen-syms-old xen-syms
+
+add/remove: 4/2 grow/shrink: 0/6 up/down: 272/-252 (20)
+Function                                     old     new   delta
+_domain_pause                                  -     136    +136
+_domain_pause_by_systemcontroller              -     120    +120
+domain_pause_by_systemcontroller_nosync        -       8      +8
+domain_pause_by_systemcontroller               -       8      +8
+domain_resume                                136     132      -4
+domain_pause_nosync                           12       8      -4
+domain_pause                                  12       8      -4
+domain_pause_except_self                     188     180      -8
+do_domctl                                   5480    5472      -8
+domain_kill                                  372     356     -16
+do_domain_pause                               88       -     -88
+__domain_pause_by_systemcontroller           120       -    -120
+Total: Before=966919, After=966939, chg +0.00%
+
+> 
+>    $ ../scripts/bloat-o-meter xen-syms-before xen-syms-after
+>    add/remove: 3/1 grow/shrink: 0/5 up/down: 250/-273 (-23)
+>    Function                                     old     new   delta
+>    _domain_pause                                  -     115    +115
+>    domain_pause_by_systemcontroller               -      69     +69
+>    domain_pause_by_systemcontroller_nosync        -      66     +66
+>    domain_kill                                  426     398     -28
+>    domain_resume                                246     214     -32
+>    domain_pause_except_self                     189     141     -48
+>    domain_pause                                  59      10     -49
+>    domain_pause_nosync                           59       7     -52
+>    __domain_pause_by_systemcontroller            64       -     -64
+> 
+> despite GCC's best efforts.  The new _domain_pause_by_systemcontroller()
+> really should not be inlined, considering that the difference is only the
+> setup of the sync boolean to pass to _domain_pause(), and there are plenty of
+> registers to spare.
+
+Cheers,
+
+-- 
+Julien Grall
 
