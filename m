@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66F1744E475
-	for <lists+xen-devel@lfdr.de>; Fri, 12 Nov 2021 11:16:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.225091.388742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0A5444E48A
+	for <lists+xen-devel@lfdr.de>; Fri, 12 Nov 2021 11:26:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.225098.388753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlTbO-0003m9-Aj; Fri, 12 Nov 2021 10:16:10 +0000
+	id 1mlTl0-0005Gj-CC; Fri, 12 Nov 2021 10:26:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 225091.388742; Fri, 12 Nov 2021 10:16:10 +0000
+Received: by outflank-mailman (output) from mailman id 225098.388753; Fri, 12 Nov 2021 10:26:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mlTbO-0003je-6x; Fri, 12 Nov 2021 10:16:10 +0000
-Received: by outflank-mailman (input) for mailman id 225091;
- Fri, 12 Nov 2021 10:16:08 +0000
+	id 1mlTl0-0005Ee-8o; Fri, 12 Nov 2021 10:26:06 +0000
+Received: by outflank-mailman (input) for mailman id 225098;
+ Fri, 12 Nov 2021 10:26:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gYwu=P7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mlTbM-0003jY-TO
- for xen-devel@lists.xenproject.org; Fri, 12 Nov 2021 10:16:08 +0000
+ id 1mlTkz-0005EY-Ah
+ for xen-devel@lists.xenproject.org; Fri, 12 Nov 2021 10:26:05 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8baf59e8-43a1-11ec-9787-a32c541c8605;
- Fri, 12 Nov 2021 11:16:05 +0100 (CET)
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur02lp2050.outbound.protection.outlook.com [104.47.5.50]) (Using
- TLS) by relay.mimecast.com with ESMTP id de-mta-1-xx2hs-tSOp-mU88Udojgmw-1;
- Fri, 12 Nov 2021 11:16:04 +0100
+ id efa02a66-43a2-11ec-9787-a32c541c8605;
+ Fri, 12 Nov 2021 11:26:02 +0100 (CET)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2052.outbound.protection.outlook.com [104.47.13.52]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ de-mta-35-O21z0DkQMkWgcjIBft0cvQ-1; Fri, 12 Nov 2021 11:26:01 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4189.eurprd04.prod.outlook.com (2603:10a6:803:3d::26)
+ by VI1PR04MB5904.eurprd04.prod.outlook.com (2603:10a6:803:e6::29)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.18; Fri, 12 Nov
- 2021 10:16:02 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16; Fri, 12 Nov
+ 2021 10:25:55 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4669.016; Fri, 12 Nov 2021
- 10:16:02 +0000
+ 10:25:55 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM7PR03CA0006.eurprd03.prod.outlook.com (2603:10a6:20b:130::16) with
+ AS9PR0301CA0041.eurprd03.prod.outlook.com (2603:10a6:20b:469::32) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.15 via Frontend
- Transport; Fri, 12 Nov 2021 10:16:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.26 via Frontend
+ Transport; Fri, 12 Nov 2021 10:25:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,35 +55,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8baf59e8-43a1-11ec-9787-a32c541c8605
+X-Inumbo-ID: efa02a66-43a2-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1636712165;
+	t=1636712762;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=g/2sT517IDXOgkMxbG4lLCzdUFRUadWYmLFOEsp8ah4=;
-	b=UdRJn1hmyuzniXmbqro8C4JWSrJzNoGyx6aPNi1wIf7YINY658NDR0aDNAVk8ZER/xfThH
-	W+GISR/f7Qg25dZB0Dis8btymtYG9E18C+fSTxxLiC4jYBSDsrI+PWX9lUWAkgl7MM116X
-	RxOGHvkxfYM7yLL8Xk0F9jA9U9xgD+c=
-X-MC-Unique: xx2hs-tSOp-mU88Udojgmw-1
+	bh=Sx2rnzqFtY76dmq3vc2M8RdO8C0wFtqKgqF6RI6V0ls=;
+	b=FyX3ZKVNoZqC0RVANAHMstFpEMoyXO6Trsw3VZAb60das2vA/xJSgEmhluLtGftuzTtnIG
+	WNOdOp6opp85zN29No9pLSdtKRX/N0cSjTRWspu4Wfvii7JTpVsJKIk/3h+uuJnsDqmIh5
+	OshIyz/sm0NEp+JD3lFW0yt68CXzs/s=
+X-MC-Unique: O21z0DkQMkWgcjIBft0cvQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CMCvD375kURgTqIbYbdLG+lQ9kXD7KvbP87x7s7IOV1mz7WnKm5MRvMl7Vy62gc+A6XQJoPZB9HW//P1bNXwSHAZh7awTuu5ltKoP7C0PQddtMf/VXIbDnxzwF1ocnMREjtNsjmuOrYcPqbUuWXcglaWGQ24tI+esfg3y46WL+69gQ1kTV6Nod4eLpxYnNjxY5F7k3UMeHq4FtJQC44YxZ48u1FE6jdQ8iif4dnJX1rPdL0duUVK2z87KBBh93/UEKQq2V8DtTP8HiT2I43p4fs5wXY7KGzEM0rRGMyWzlFqpLaNmr9uhqXNm6/tKpA7P8JBzmTASB/0rv1GXtDSyw==
+ b=CkyRXUlQWyAsfHqt0BKml46yBRA3dA0MfenISgHsOj0nvnB0EuHR6wGSkX+qZHHKCn3IMpJoPx6fv5z022lkL6rUZoEiS59fIQQT/0E0GMxYPgPWOCYwyRFIBu2FkZFtYANbDrvcgQcHb//eIQxsmdaP3G2ctZmYIoDAVAFVJ8Ka7YzrgxNT8K/ZknwspW2O6TpJQnYwLiGUGDVLJD97B9h5yeqa/NRhQN5eq2z+b3tFL8yjnAwBiMGLN0mXu+q8pD0P63crpubxyLqkTqc7PL5xM3SH0TwADi+0IszWjreVvgnlR2FFF9jov9CNXu2b733aS9+I53T7pwxIZNIMCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g/2sT517IDXOgkMxbG4lLCzdUFRUadWYmLFOEsp8ah4=;
- b=dVuTkNZcRFI3HfpbNQh5C291nApIVTutpemEBFngra/0IW3a5puZRkUWFJQmCeNQiCO5l4ZT1r+6j83GelXMldESi3CFIERmfi0daWeE6IfjlVGUPactHWK3cbo1YZ8zgHrVwdxba51/QhqODDk3BIMFABCSFqDz/1UXHjngqBZJSTsQ0U4vq22Xp/Xn8rXCKfXHCLJm3+9tRuAmgBXSVt5fC/Q2PS9R/XbHvyEtXXreGk2wwS2K96mWiopo0wRSTKTxmQulkVJyLwwUALmVoJEJbIMc6VVrnMS2AveQLu+G33Rl+ylHE1ULpfzJPYyUOvJOC6++X7QWOTI+HuDrYw==
+ bh=Sx2rnzqFtY76dmq3vc2M8RdO8C0wFtqKgqF6RI6V0ls=;
+ b=FP6EzRDKou73+TPuLGM2iCL+wPltieDOGOYt0a+Lu+laV/ekQyUQDh57SluNCaV1Sppwr0LrTiXe/PGSsSZkOATPrwmoX63RwXYhxco/WanC0GFMBGysfxbsSEFnVSq8arcxsx+afwIkMdwuzUJCxSCYKLB6wu1rEQhDxXchZU4+kj8OH1vNZpvRyKZYoecxfBuklv7Th1KZfrb4jZslHPwam/Y6hCrfOcwTNmI+c1JOZadgjf8kSavwC6Ft6SiMhPY+eO8EEPwI/GDPwSViqKXRbSvTqjNMQB6C5pWItG1sYfNhePFVtdAc9nDLCCgBW8ssLuGOb245nKsqOjCbvA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <c8875622-399f-2db0-58c5-691f25e290b3@suse.com>
-Date: Fri, 12 Nov 2021 11:16:00 +0100
+Message-ID: <6672a9ef-5e60-d91d-4f11-78f0d7ca8e5c@suse.com>
+Date: Fri, 12 Nov 2021 11:25:52 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: Re: [PATCH 2/5] xen/domain: Improve pirq handling
+Subject: Re: [PATCH 3/5] xen/sort: Switch to an extern inline implementation
 Content-Language: en-US
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
@@ -92,147 +92,168 @@ Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
  Xen-devel <xen-devel@lists.xenproject.org>
 References: <20211111175740.23480-1-andrew.cooper3@citrix.com>
- <20211111175740.23480-3-andrew.cooper3@citrix.com>
+ <20211111175740.23480-4-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20211111175740.23480-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20211111175740.23480-4-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM7PR03CA0006.eurprd03.prod.outlook.com
- (2603:10a6:20b:130::16) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9PR0301CA0041.eurprd03.prod.outlook.com
+ (2603:10a6:20b:469::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 73bcdabe-bf43-4dde-b947-08d9a5c56e28
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4189:
+X-MS-Office365-Filtering-Correlation-Id: 8c400b74-5f5e-49a4-ed00-08d9a5c6cf5d
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5904:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB418968EAB40B8E6AAB859CADB3959@VI1PR04MB4189.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+	<VI1PR04MB5904608FFFC83ED538E7DE28B3959@VI1PR04MB5904.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	N1jd9HGTtTmNSpI221iJR+i77N8ERQh+w9tUgTm3xZoKXZVS77U7XnQTUnRYaM5KKsB/rSeo/GpKppRANalnWzXffFEo2uoouMH0ax0fttCXTkwrJoGEPLeBbfPZ6/fqHU6402Z1lPRRF2R1S97r+Zwp19VQG1NE6kOLW79rJxEStGg4h2n47AjUuQ+EkxuyBkFz+xt+PFgTkt83F+8/+RSYDNgvvzZKwxTL2rodtaD8KBWc/I8WDg02Ox4jPC35znSEwzn+u5VsyF034qv6U71D9wJ7W8dO/SjxtVkM37a9aCdfa2EJk7bjbZ4VYWSMN5fqkjHxl8Ft2IeFd2cXjOz7yHrx7GxQahZZUtfwMxynW5vV4V47uoEQ7JeMPDlRzQEVOWzL9jzVSUb8aq1GLBvEX931ypWxRwbN4JO+pLLS7zJn0ftPZ4rmgBlXQ0aVJ5jSAN8tsyJ0cOjoHkLp1jAYxYwsBsAY7H9Isbusu69uW/8ANc0wSogECh/xXNLjA+TtUJrZ5IZbiDrX/xn/ep5gjxNeKmZtkhrFBFciLuAJI8nl7PRUngy/okAW0HQ+pHUYbqWM+ByohH1K4JY7kq6nAheXQ3auczwdFfoUqnzwtfM2D1jDQldWNtvX3Q1eWLiZzCtvdLwthgedzczKELp6NOSK0Y1yKbgSibppgjfIHlCNpgt4MZuvUmu4Z1jXtke88+nywJMECIfxebtkUgh6Wa/JxUmrZQr9G67BNPQ=
+	jbPPwQEhEqVDpyW2Z7leCyE/CmYBZgKDbGJMZIebu6knM17ehwE+h07dRSbCZuApUmJQ3Yd5ldzJIIj9bGkoM8sNj+jCN5/jYqSZ6j7KBCVDAfO19n/eq5lMsy7vRDqGbGBQr5EFoVopPMAJO/LzT85ev5KsDOCW0N9LhQUQFvDFGCCSUHvxICvWdkRNrSUxn80JZ5ZIp1fJy8e0aAEYetxy+mbDg8+pSLUIAmR53ysA/jwQLS8fINHHkx0WKcWrQM1NwV1b9eRn8M1n7RanST8frCpAQvPfH3jnMpS5sSW8cSTFUHPa0ikQL2oBKgh5jLIXhoCsCsOEnTYyelrAQFJBvg/PULmIWU2tYnZIZmSMfGHdlJ0O7RjW+p1NqCZOQEGUHkbxfBooJz2oLV23hbuqiyCKRq7gDKRv5lCjIXktN9akWUAieQgxN2sAoTtXj0Bbw15/EyDH5Rg/+HLJS1ykO3OCERcGjn+w2KblJapY49aww9qF8fYsDGQJQfAOj08zq1MSWiq7sEQMHKB+pEBC8uyNDZgJDZZtUIoJRKbaivFwZINkE63UjUF4Q4RQzOQlj2Ej7Gg1O56aRsyZbMGa+Dy1X+FOgbQOX6sdZeOFh7nYkcvGXczw4lbzqqNs0SYarZ6kXt2ksUNMsQoWpLOgIKFPU6//iELdAx4/b8OtkG0UsKcQopALleJ3F99AS5lzosQIB8Gfch1tc0glGE0VK+7JOvSCH0ctzTHoybazhTO/z01BtCn0qzzfOmqT
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6486002)(508600001)(86362001)(38100700002)(53546011)(6916009)(8676002)(4326008)(54906003)(316002)(31696002)(16576012)(83380400001)(36756003)(26005)(2906002)(5660300002)(66556008)(66946007)(186003)(2616005)(66476007)(31686004)(956004)(8936002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(26005)(31686004)(186003)(5660300002)(31696002)(53546011)(2906002)(36756003)(38100700002)(16576012)(54906003)(316002)(6916009)(8936002)(66476007)(8676002)(66556008)(6486002)(66946007)(86362001)(956004)(4326008)(508600001)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SzdOYURUMElSbzFSeFV1Z2hqdVJBOXF1eXJUalMwVTRST0VISFhpMmxrYjgv?=
- =?utf-8?B?bDJYRGNCbExVOTlvbnNJUzhkVkVWUGFHbUk2amxJYmhEYkRkWmt4U1h6dFI0?=
- =?utf-8?B?SGh2V1l0d0RlNGhOcFhaRm56d2VkbWwrcGlKa05hRUg0LzNyMTJoWnYxanBw?=
- =?utf-8?B?S3Njb3hKS2dwT2ljMnFBQnZ2Qm1nTkpjcnZzdWZPN2tac3pvMmJnU3N6SmdG?=
- =?utf-8?B?d05tLzhkampHT1ZrUmJsOEJHcnNFUnlrZVJsOXFuMm9aRzFKd3hGbUUxMlFU?=
- =?utf-8?B?bXZaTlBzMlorTk81djZKanh4N3F5S0pSZzhNWnZpc3dJSVphOGJBMFU0STdn?=
- =?utf-8?B?c1RUZlBoTG9wOWZMQ3FjS2pUVGtlOHRTOFhOU0J3OE91WmFhTlhUWUpRNEVM?=
- =?utf-8?B?SysyN1k1WHZuVUkrSWZCRnZGTkRTUnpIekN2cmFzOGo3Wi8yUmppRGhGTEp2?=
- =?utf-8?B?V2ZldWlXUjlXMzlZbHZZUndpcTI5b0g0WnNibVVEK0s3dmNRNCs1bHcvSnh2?=
- =?utf-8?B?ZXVHM21CRWZlMlNTNFdJdEg2UmpCVVRWZWwvRW8yOExsYVVBb1BYMVZYWjZy?=
- =?utf-8?B?V2pWQnVHTXFHTmFqUWRDdkhNbGFKVEt6cHVxTGwwUENZTFhjdlJxc3V6WjRO?=
- =?utf-8?B?Wkwya0lxdUwva1JBSUFIQW1HL0grVEJRcjdRbkc1YlNOcmE3OEhHMExhMTNS?=
- =?utf-8?B?UVZLWHZCNmRudzhiTU1weS9WTGJKTytCL2JpZlM4QVk4MlpVbWFZWjNZNXBx?=
- =?utf-8?B?U3l1VmNEODdrQzBxTU5pZlpNREEydVRBOFdXMEdWY3dQUTZzMGJtZFBCQ1hC?=
- =?utf-8?B?TXlKNXZYUG1lUWw3OTBJSlcvaDRRR0lsa05lSU1PMTBCNmZ0bG5lVUkxYVhl?=
- =?utf-8?B?TDlqbFdqMnRybE9XM2ZOeGtrSTVYUlFqUmVnRDBHbTBkN0E0NWZSOC9rTVV6?=
- =?utf-8?B?YWo5QmRsaXp6V2FzVUhBTG5RYTNKcFJpUzJpYjNXZW1MQnUwNjBjZXpSeCtQ?=
- =?utf-8?B?Z3hPZThsclRwRkV5bnNEZVlrR2ZBUVpHL3BLQ2UzUUZHcUVXYzI0YkFPKzBC?=
- =?utf-8?B?VGx5ZjlQZ1JGekpYMkJlSUlnV3hhSHRrNm55eTl2Uy9jaG81MWdkTFBObkRq?=
- =?utf-8?B?cjBXemIwVm5pZ2F0QXNLWnBqTHhKSDlockxtYmttRGUvZEJ2djZyYWFhdkF3?=
- =?utf-8?B?enFxMlg2Qzl3OUllNXgweC81UEJ2cUhnTHpOTFpYKytJVEJOb0JvSWM2N3JY?=
- =?utf-8?B?UFVSRHlUSmIvN2JmT3hCV3I4cUZ5eXJTaWIvQmhYcGRETGZueTcvMmZIT0pT?=
- =?utf-8?B?eHphOXcxRmxlMUM1WktFZ0dsbWkvWHMwMjNzci9CcmFqVWFKU3pSMHB4OWw0?=
- =?utf-8?B?VUlvQnA0Y2w5aWtDbW9oK0hhYnNVeVdYZUpKR0VySU1KUTloOEhYblVLUzNV?=
- =?utf-8?B?RHpPbUJLeHVWU1lVWjBURWtZTnlhQ0E1bkpNbWpiTG15NnY5amR1OTlCWm9s?=
- =?utf-8?B?Y0txblQ2MzRlMWlKVDJRcUQ1c3FoSm5YOUJGRzRGek1PdjdKbFNzWWpnU1M2?=
- =?utf-8?B?UUJzWDk5TnE1a0pDSzNWb2Z1RVgwQjRiaUdNNXpYZlZ0SGRyT3FRQjkzcFBh?=
- =?utf-8?B?S0tBKzQ1aERxTisyWUp0c3d3aGE3MlZISmg2YStaTURhbCs3TU5qU2hpMUVV?=
- =?utf-8?B?SjUrd2dZOHFJd0VnRkhhWkd1TnFWRWZSU0ZtMTNpVjJEYUx2RlNSV3g4Sk5w?=
- =?utf-8?B?VWE4T0c4ek9Fbm5lZk1xQlBmd2kzcDB1clAvbGMvS0ZCd3liSkl4ZnBybUx0?=
- =?utf-8?B?OE5taUN4NVkvTG4yMml3VFlNbm9FV3BGSnd4OG9CSzJRaW51VG80T2Q5QWJU?=
- =?utf-8?B?c0M2UkdhY3hhVU9CYWpLdWNaR254Rm9KL3JLM0pqQndadXpRalBsVjFnTHcz?=
- =?utf-8?B?bHgyTUFuaTJOUXJHSHNXbHNQR1JyTElwOTZkaWdMMUxsYWpMWEhZZlM3Z3J3?=
- =?utf-8?B?SGpJU3FPMGxpMXI1TnJFK1lWYTJLWlROSUVYTVJlOVVXOTBlYlgvL0pnaUsw?=
- =?utf-8?B?OXF0YVVsM3JKYkVIL3ZuZ2lYcklqNHVOY3gzcnhVQXVDRVdQbUdhNFJjVGxz?=
- =?utf-8?B?cGlLS25RN0NrVGxOSG9YUTVtQituRjcvNnowVVV4VXNBV3NlbGpMVXNBY3Uy?=
- =?utf-8?Q?5H3tJPLKbAaOHX50d+Q9Isg=3D?=
+	=?utf-8?B?NG5kdGxqbGdUalBqQkozeis3dHZiZE0yK2UwTWthd1pSclpiS3VyakdKeXc2?=
+ =?utf-8?B?dys4Yjh5djRLY25HQlRqY3FGdlQwaXkwa1R3MmNMaGtQM3JmN3J2V3hZUkND?=
+ =?utf-8?B?N0hsZTNOdVBCTTlvZEswTnBrS2dJcTVlTEkwT0RrNDlna1Y2RURmaEQvbTUv?=
+ =?utf-8?B?UXJLK01PampsZ1lkaVJqU2xkUm5DSExRSWdTRW5EODBveTJRRlZRZFFpdko1?=
+ =?utf-8?B?bEM0ZUpuZFN4QkhSYkpYUGVyd0RhYkk4em9qaTRDRnNERWQ3YUovdFJHWGYr?=
+ =?utf-8?B?TjJXV01TZytBTTkzb3dYemhuN1Q2cmtXeUpETXRxN1JaN2JEZjRVTDVqWG9D?=
+ =?utf-8?B?d0IrWllRSXJYdVJCelp5ZjFCMHdGMWRKc2tUYTVucW1mMHNoT2pUcS9odkUw?=
+ =?utf-8?B?RHNBbkdmRVI2Z3lJWWdqK0dBbmhrRE8rSFBSN3F4TUJqV2d4US9xRkhDODYv?=
+ =?utf-8?B?SlZlZE10cEdxQlRLeDdhUkFQMDV6aDV1TWZFZ3psREZmaDVOTXNsbEx1MHJC?=
+ =?utf-8?B?ME14Y3lKRy94bmRLeFovZVBiV0JKNTJpYmJLcnU0T1d5Y0I5VWpiY3loT0R3?=
+ =?utf-8?B?RTBMZDBWVDJSbTBjeENoci9iRDFzcUFFL2JrVEtjWDBwWWcvZTIyK0NnR1g5?=
+ =?utf-8?B?Y3h6OVZFR0RJdHhtYVd5OWpkY1JjcnI5TWtDTEhrZ1dPTkVLSlYxdkxOb1pE?=
+ =?utf-8?B?d0thUDBiZkhwOUY4S2ZjNTM3c1VyVS9YRWhicndUZzNYRi9wWEQvUmxiRVZX?=
+ =?utf-8?B?STQ3elZvVS9sUzRxQmtyMWYvYk9uVDdnRVA0ODZrYzZIR1JpSmtGY1AwQ1JZ?=
+ =?utf-8?B?QUoyMHlySDRtaTJjUU14UThvK2JQRStDaHpXcDV3dklxSWVtVXZDMm1naXo1?=
+ =?utf-8?B?WTQwcXVvNFdBRmdLaVEweFhtN2U0bm9ZcWxPQ05wM3JaWkpkQVFxaE16SDdx?=
+ =?utf-8?B?eUFSaEJFSVFDRGswOExvR1laLzdyYnRJTVZCQllzOFdRNDIwUG1kYmlCS2oy?=
+ =?utf-8?B?S3JiSFJGUTRQR2d2V2xPamgzMjNLYjFBanR2bDNteFcxZU9Ia2JqK3kwSWpa?=
+ =?utf-8?B?bjg2NWEwNktySmd5MUtJZytzY0ZmMktuYlliZUJ4WkwxK2JiczJoRVRXb3BO?=
+ =?utf-8?B?NjFWeE1ITXB4V1c2M3d2a1lrazF2YnIyZlpXWHAzMHVKcUtiSmMyNm40Vy82?=
+ =?utf-8?B?WmJsbTZFbTRXNk5VVmtmQm5XUnJzenZFOXl4cVFONHA0ZkEwdnJkMEwxL2xB?=
+ =?utf-8?B?VGNSZWx0NWs4czJWVlJFV2pTbU5IRzE3V1VzakNybENmdHJHeHhkYXUwbzdu?=
+ =?utf-8?B?UGVHSUdqN0QyTTIyeno2aUllUHg2aDdhcExzZHlvdEdndVc1aC9xUnU5UENM?=
+ =?utf-8?B?cVBnSFZaTDZOVUNBYURwYlVSdHVISlExeW8vdkpqbU00Wm5waGtoY0J6VXYx?=
+ =?utf-8?B?am1VcTE4VXR1YktBM3B1UHg3eFdlMFY3NE1nSWpqS1lZTGJZcW9tNGRmZVdy?=
+ =?utf-8?B?WVF3QmVYR3dLQVp2K2xNSklWUHd2Sk4wcEUyMlVSbjgzYVZrTHlGcnUwdkdq?=
+ =?utf-8?B?YkViVTJZNmgwTVBTL2J3a2gwRDRkOThKRkhZeVc1TmRrY081cmZLNmVqSEI1?=
+ =?utf-8?B?Ny9SaC9hRGdjRHFEK2pvbDdmQldFRmo3UVZDVzJ0TG9adnN0bGdGWjdWYjd5?=
+ =?utf-8?B?VTJDeUNUcTVWZG5HcTcxSmpYUFpydW9UUUNJY0tmbVVPc1N1SkVSTDdoTzF6?=
+ =?utf-8?B?VFB1VktDYnQzMkpwT2QwQWhqcVlnYU1xVWJpWUFZbGk0eUFEc0tGSWVhQ3Ro?=
+ =?utf-8?B?SmxMNmsrWnpRZi96U2liNC9ia2NBUExUd1NqU05JbStjZnV3VW5jdFpTa0lj?=
+ =?utf-8?B?UlZCb2hGSExWNmRuUStYek5naUVMQlRjNjJPSmIvSWE2YTE5dXJ3TkN5Ymcy?=
+ =?utf-8?B?TkdWSjZ1bHhCaUU5RG5qM2l4WmRRcU1kOWlWMHJsNWluYW9ETFB1WE9HcDJa?=
+ =?utf-8?B?R29FOW9mcjNSVkk3NFA2V0lHY2xpbjRJaXVtZ3BqTUhkcER3ZmVWd0U0OTk0?=
+ =?utf-8?B?L1l6bDdURVFocEdlMFZYSjhQZ2IvbVBsa3JBQ3BpZi9jbnlLM25VaVVXMzIr?=
+ =?utf-8?B?TktzS0JJZXhxSGhOUExCWFFCV1MwWVFBUHM2L3pRSkFhMzNLaTFEd1YwSHps?=
+ =?utf-8?Q?vJrjkVBU1S06VY1OLWNWO14=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73bcdabe-bf43-4dde-b947-08d9a5c56e28
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c400b74-5f5e-49a4-ed00-08d9a5c6cf5d
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2021 10:16:02.6118
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Nov 2021 10:25:55.2131
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Sp4EBgg9ILmExYjBYLCYZ6DA3U+5T51+0dtEKZCW1gwmpWYi5ZtcdA1MkyOZnlF6KVgTjVYlXkFhFHIzXKihAA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4189
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2UXgI9rgJ4zACpjuTYXkxDnK3RYN/UeaUIJ8ywzVDtXsFo5sd2+AF7ZqUAtQKwFUK5ipbi7gylhvVHSQLBSXmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5904
 
 On 11.11.2021 18:57, Andrew Cooper wrote:
-> free_pirq_struct() has no external users, so shouldn't be exposed.
-
-This has been the case from its very introduction. Which iirc was done
-that way because its alloc counterpart is non-static. Not an objection,
-just an observation.
-
->  Making it
-> static necessitates moving the function as domain_destroy() uses it.
+> There are exactly 3 callers of sort() in the hypervisor.
 > 
-> Rework pirq_get_info() to have easier-to-follow logic.
+> Both arm callers pass in NULL for the swap function.  While this might seem
+> like an attractive option at first, it causes generic_swap() to be used which
+> forced a byte-wise copy.  Provide real swap functions which the compiler can
+> optimise sensibly.
+> 
+> Furthermore, use of function pointers in tight loops like that can be very bad
+> for performance.  Implement sort() as extern inline, so the optimiser can
+> judge whether to inline things or not.
+> 
+> On x86, the diffstat shows how much of a better job the compiler can do when
+> it is able to see the cmp/swap implementations.
+> 
+>   $ ../scripts/bloat-o-meter xen-syms-before xen-syms-after
+>   add/remove: 0/5 grow/shrink: 1/1 up/down: 505/-735 (-230)
+>   Function                                     old     new   delta
+>   sort_exception_table                          31     536    +505
+>   u32_swap                                       9       -      -9
+>   generic_swap                                  34       -     -34
+>   cmp_ex                                        36       -     -36
+>   swap_ex                                       41       -     -41
+>   sort_exception_tables                         90      38     -52
+>   sort                                         563       -    -563
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-That's a matter of taste; I for one would prefer the original form with
-just a single return statement. I'm (obviously) not going to nack this,
-but I'm not sure yet whether I'm willing to (eventually) ack it.
+Technically
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
->  The one functional
-> change is to the insertion failure path; we should not be using a full
-> call_rcu() chain to free an otherwise local structure we failed to insert into
-> the radix tree to begin with.
+Yet again without the intention of overriding Julien's concerns in any
+way. To address one of them, how about retaining generic_swap() (as an
+inline function), ...
 
-This makes an assumption on the radix tree implementation, in that failure
-there may not occur after publication of the pointer. This perhaps is not
-a requirement that would easily get violated considering the present code
-structure, but I'm still not sure we want to have such hidden dependencies.
-At the very least I seem to vaguely recall that at the time of
-introduction it wasn't just an oversight to use the RCU approach there as
-well.
-
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -365,6 +365,39 @@ static int __init parse_extra_guest_irqs(const char *s)
->  }
->  custom_param("extra_guest_irqs", parse_extra_guest_irqs);
+> --- a/xen/include/xen/sort.h
+> +++ b/xen/include/xen/sort.h
+> @@ -3,8 +3,61 @@
 >  
-> +static void _free_pirq_struct(struct rcu_head *head)
+>  #include <xen/types.h>
+>  
+> +/*
+> + * sort - sort an array of elements
+> + * @base: pointer to data to sort
+> + * @num: number of elements
+> + * @size: size of each element
+> + * @cmp: pointer to comparison function
+> + * @swap: pointer to swap function or NULL
+> + *
+> + * This function does a heapsort on the given array. You may provide a
+> + * swap function optimized to your element type.
+> + *
+> + * Sorting time is O(n log n) both on average and worst-case. While
+> + * qsort is about 20% faster on average, it suffers from exploitable
+> + * O(n*n) worst-case behavior and extra memory requirements that make
+> + * it less suitable for kernel use.
+> + */
+> +#ifndef SORT_IMPLEMENTATION
+> +extern gnu_inline
+> +#endif
+>  void sort(void *base, size_t num, size_t size,
+>            int (*cmp)(const void *, const void *),
+> -          void (*swap)(void *, void *, size_t));
+> +          void (*swap)(void *, void *, size_t))
 > +{
-> +    xfree(container_of(head, struct pirq, rcu_head));
-> +}
+> +    /* pre-scale counters for performance */
+> +    size_t i = (num / 2) * size, n = num * size, c, r;
 > +
-> +static void free_pirq_struct(void *ptr)
-> +{
-> +    struct pirq *pirq = ptr;
-> +
-> +    call_rcu(&pirq->rcu_head, _free_pirq_struct);
-> +}
-> +
-> +struct pirq *pirq_get_info(struct domain *d, int pirq)
-> +{
-> +    struct pirq *info = pirq_info(d, pirq);
-> +
-> +    if ( likely(info) )
-> +        return info;
-> +
-> +    info = alloc_pirq_struct(d);
-> +    if ( unlikely(!info) )
-> +        return NULL;
+> +    /* heapify */
+> +    while ( i > 0 )
+> +    {
+> +        for ( r = i -= size; r * 2 + size < n; r = c )
+> +        {
+> +            c = r * 2 + size;
+> +            if ( (c < n - size) && (cmp(base + c, base + c + size) < 0) )
+> +                c += size;
+> +            if ( cmp(base + r, base + c) >= 0 )
+> +                break;
+> +            swap(base + r, base + c, size);
 
-Are the unlikely() here and ...
+... doing
 
-> +    info->pirq = pirq;
-> +    if ( likely(radix_tree_insert(&d->pirq_tree, pirq, info) == 0) )
-> +        return info; /* Success. */
+            if ( swap )
+                swap(base + r, base + c, size);
+            else
+                generic_swap(base + r, base + c, size);
 
-... the likely() here really warranted? Iirc you're generally advocating
-for avoiding their use unless strongly indicated, and if I'm not mistaken
-the compiler's heuristics result in such NULL / 0 checks to get assumed
-to be unlikely / likely anyway.
+here and below. The compiler would then still be able to eliminate the
+indirect calls (as well as the added conditional), I think.
 
 Jan
 
