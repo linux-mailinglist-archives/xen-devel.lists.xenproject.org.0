@@ -2,47 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22CB545094D
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Nov 2021 17:11:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.225978.390365 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C37845098A
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Nov 2021 17:22:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.225982.390376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmeYg-0006Gd-Tq; Mon, 15 Nov 2021 16:10:14 +0000
+	id 1mmejl-0007iQ-0O; Mon, 15 Nov 2021 16:21:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 225978.390365; Mon, 15 Nov 2021 16:10:14 +0000
+Received: by outflank-mailman (output) from mailman id 225982.390376; Mon, 15 Nov 2021 16:21:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmeYg-0006Dh-Pr; Mon, 15 Nov 2021 16:10:14 +0000
-Received: by outflank-mailman (input) for mailman id 225978;
- Mon, 15 Nov 2021 16:10:13 +0000
+	id 1mmejk-0007gZ-SG; Mon, 15 Nov 2021 16:21:40 +0000
+Received: by outflank-mailman (input) for mailman id 225982;
+ Mon, 15 Nov 2021 16:21:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uxYG=QC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mmeYf-0006Db-Hj
- for xen-devel@lists.xenproject.org; Mon, 15 Nov 2021 16:10:13 +0000
+ id 1mmejj-0007gT-VA
+ for xen-devel@lists.xenproject.org; Mon, 15 Nov 2021 16:21:39 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 82ee72c9-462e-11ec-a9d2-d9f7a1cc8784;
- Mon, 15 Nov 2021 17:10:12 +0100 (CET)
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur02lp2050.outbound.protection.outlook.com [104.47.4.50]) (Using
+ id 1c0ba4cd-4630-11ec-a9d2-d9f7a1cc8784;
+ Mon, 15 Nov 2021 17:21:38 +0100 (CET)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2059.outbound.protection.outlook.com [104.47.14.59]) (Using
  TLS) by relay.mimecast.com with ESMTP id
- de-mta-22-wkGY3610Oq6xc7SbUED1ag-1; Mon, 15 Nov 2021 17:10:09 +0100
+ de-mta-40-byVaktqYM3qjZngpB6Bwdw-1; Mon, 15 Nov 2021 17:21:37 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2607.eurprd04.prod.outlook.com (2603:10a6:800:58::13)
+ by VE1PR04MB6670.eurprd04.prod.outlook.com (2603:10a6:803:120::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.27; Mon, 15 Nov
- 2021 16:10:07 +0000
+ 2021 16:21:36 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4690.027; Mon, 15 Nov 2021
- 16:10:07 +0000
+ 16:21:36 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM5PR0601CA0083.eurprd06.prod.outlook.com (2603:10a6:206::48) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4690.19 via Frontend Transport; Mon, 15 Nov 2021 16:10:06 +0000
+ AS9PR06CA0120.eurprd06.prod.outlook.com (2603:10a6:20b:465::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.15 via Frontend
+ Transport; Mon, 15 Nov 2021 16:21:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,158 +55,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82ee72c9-462e-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 1c0ba4cd-4630-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1636992612;
+	t=1636993298;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=P2ePv1dQPrUKoLEBGyiBuw2ymgv8S8QG/NdKTdBe19U=;
-	b=mF8uhlW8E+yvezoEkxzLWBsgTzgE/ox5QUDaX+6P/XTDLyX9DI3+bf0z/IkoTgYhs/S9mR
-	1J7G0hYbkPx5pWd5MWyCoVAaNcKQ8QKEGrj24GUD6rZUVZVDCZKgxCRlpCXrNgsciouXGC
-	Dp9pwfq7C8C5gz/u0v67OdvJ0u1bmT4=
-X-MC-Unique: wkGY3610Oq6xc7SbUED1ag-1
+	bh=hFeAu/k6nst9+U4QH7SL0wExW/7C84MqbPEgIgEXKSI=;
+	b=nnoDxFzZGC4NAvE8BTi7xcmMAZ0bnjna/lGrAMFIz0xMuFGctVCJU9fwijVRcOuLqXhfgv
+	L6jM0MKYByJXXnUUniIIJVIxn/ALnTFo/MHnb3QLWCOwqxSh0M6e/5jUBLhMin9v5FjaIc
+	Ygfu2mSGrHK5wDEcuBdwaXO7pg+0E6A=
+X-MC-Unique: byVaktqYM3qjZngpB6Bwdw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eOnevryD0BMGdz3rfxylIbRtX7TkTtkQWwaFYxq5+JcIEobaXA/emR6a8p6xeoMm/TXBP67lr73jrXMozwOJketpSlesjfSLk7X00aQRHwzbKVIMB14yYQl8fFG8LQ1O0Y4LYwCU8z4seLdWfuG47Wsj2huNZpQRy0DM3N0dFh2t1GSygCPuRw2jxtZ4lhSynNBUuRUVrpsIUgCtOAaYa+vgQpTRIPN1Wd7cL/XqQzGERQn8cqNEiWnmn7J1kM2duBnOskWqSt2sgvSlPiZNRtSm8FqFm3cChv6eId4+czjx7z3QKjubve4gByeYf3hUqPWABAcpgvD2duYauEhpiQ==
+ b=hsNf5qBfRiIj4LlaFcTgGaBtkWGw/jjiX2OtZYysoZxF0vY6Y90amp1kSsZFVn5wTDQhYixMVFPT1HgNzg4GHwPhr+cmBuca0kR0OYftfcu0GWr3AEt9uYHAiNSPN/Z3/CK/W2agPia7wD08BZU0syRyRb9wUTtEu22xIhA96yPgHLyZsUrmMJygRphNpqt9VZFwf7UCKJBxVFKZdxxn+uriZvRvaLdjr7w4FSBufd8NsxModKi3PJjVBaSURjVsHR1WlK0HJ6t72nfe2Yz517/x1BjixnMP1GuRPscnrtUNtu2kyc2gSh5kS974LnNasjmilEC5uINOldO9CYlLIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YZ2LRa313G6SYGy7AlhOjdMZRKIzHVzHTVxnnFJlevg=;
- b=QpFh2Qt4f7lYE8mq/xgNF3pPouk9z/edqwFHrZIEZG6dyC70B90X98koYLF6JFO82YNtmawwRI+fSKrx5l3lnOC8xI6GyYV5C50oQ0/EULDqa83NrmuPyKwAr34plEd6bmBpY9H8dnnUQNnuomKQh0ZQ7AqRWibVTY3k7deIGNtSWIhvYH5JHu2ErK45Ck7ga2z0JcXCBLBZLC3pbSrcyNpbKnO68Po6odjdlyWXfilMTK7ic2tqgGqkCzB9VG0E467SAnKYNvVwVf1eWmpgFpPSRoiw5JSnTokW5J6vOZ7GMphqeRfBhV8I8Ei0aSsePwbEppJ+YCZsa1x7XJz3zw==
+ bh=zQaKEobEC1SD5fnmPFlVOyw6Li6YOZJ6uXH4bR60K1w=;
+ b=Tp7dUR8Rgpu399Pmv5hE4Iq76k4OPhgSDLLMyhljhbX93dicb7Ww8km2qQUd+JSwA6dJy1FLXL3b1xhAegCbH9GmS6EyY7TYUzLV8xHLanJaMpMtlHR/Xemi/OeH+dOhjhfCjsad6zXNTGzr1BuN6eZcBiQof6hEWOJIa27RsQFU05dqO/q1Xtc5dOWJfy/2nNFRE+3r8hLG9E4MXqjgdweWBI9D0BIJE75nNItaGIukG+aQaaU+agLWOYK/G6n76lY2QCZ082Y1YxsBHULoDoOnGbPWL/tiydnmNku7t5sDRh4P6cpF2ssAb8CbrhbgKJSLf7+9VAwWT4B+Aq/rHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <7c15a5af-9ada-1f99-e728-8e6af22a9b92@suse.com>
-Date: Mon, 15 Nov 2021 17:10:04 +0100
+Message-ID: <628731e2-fa81-4f75-3806-900e70988f53@suse.com>
+Date: Mon, 15 Nov 2021 17:21:34 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: Re: [PATCH v2.2 1/6][4.16?] x86/x2APIC: defer probe until after IOMMU
- ACPI table parsing
+Subject: Re: [PATCH] xen/cpufreq: Reset policy after enabling/disabling turbo
+ status
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Ian Jackson <iwj@xenproject.org>, Paul Durrant <paul@xen.org>
-References: <d88cfda3-54e4-2323-f536-547879380815@suse.com>
- <b752a000-f69c-ad21-d059-90e12fc83553@suse.com>
- <YZJ3y56FFerUa0gu@Air-de-Roger>
+To: Andrew Cooper <amc96@srcf.net>
+CC: Ian Jackson <iwj@xenproject.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>,
+ Jane Malalane <jane.malalane@citrix.com>
+References: <20211110091935.16906-1-jane.malalane@citrix.com>
+ <d1978235-f025-19ac-707c-c2e411a5a005@srcf.net>
+ <008467ea-75af-acb5-62af-bd1db03ccc68@suse.com>
+ <790bf907-8c6e-b8cc-6832-b8fe21af536b@srcf.net>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YZJ3y56FFerUa0gu@Air-de-Roger>
+In-Reply-To: <790bf907-8c6e-b8cc-6832-b8fe21af536b@srcf.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM5PR0601CA0083.eurprd06.prod.outlook.com
- (2603:10a6:206::48) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9PR06CA0120.eurprd06.prod.outlook.com
+ (2603:10a6:20b:465::18) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2be837f5-81d5-4194-7ed4-08d9a8526403
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2607:
+X-MS-Office365-Filtering-Correlation-Id: 6c11e011-dcc1-4fb7-2eb7-08d9a853fef8
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6670:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB260722574A60CCFB2E02E561B3989@VI1PR0401MB2607.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+	<VE1PR04MB6670EA21BB52B0FABBD6163FB3989@VE1PR04MB6670.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	IIElWc2g5Gu9jBl7CVCyRVUul90KsKSgIsCmqvNi5cqzQlrgKVlfUP+HhQDyE19lYZizU4OziOxRGytpFnevcLJAd6cd6xhK5TumHkFvYChw5d7HzZ++P2rH+SQRMelU7w5uWwxxmWU/ZdFU0VIO/LXweHhiyga+RlWSV90qmG2sjTHzsLJo4SGeYrO3um32LU5gUKTtPxrvhZsTPGD71w8joLuosy7FYA09c+IhnAeCtvd5JQ+lRCt3+dVHIAwVeMCP5tej5O5HZasASUgI2HYauoNr2vE0uNqOUVBDO8FaKhhs2tzSWCbeaZnBeqYCnCRGxpg76MQQH2TiMWepcv2wXLgtanSLRCzFaNZzXl4IpmWh3VG3SfEFuQeY1QdV35Os4EJoQlOmaj9LfwKKCeVM5+yuuZTmzkR80qqIuveXOLZEMr5tRCWMZpj5ojGfWQRGg9GyVb9nVKI1NfIW5qnHYO8s9snHRN5EXxQQAN04MwNIpBhYFUKkr6gtccf4timPlSd7uhvznAECrIk8DQj3yyb642R/Uk5uZI0r3Yp8CKC55aJvWs8PvJF+QUfWdNkN+Lj74Tq57Q5bXrkKmBoqE14yxNS/mCPpKoWtAL3Vu2O2i7NMZOEKIbfnoT5e/F0Aur7A5mmXqW2M8gecI981NbgW81yw23wh7L7Ihr9uZd9eHtudcScNqRN3BrzZGUfWTCq4yE1HXx9UsyXJs2uwTgaLGC1WiUrG9p8Mdno=
+	m6WSJ6crQrtczmL1UI4DiUtUIXhE4Y9jeYyxEmiE5rXcssIJPUSDOFIDaupDCSMNmeAc6doypLyRCYWFhm/xJjMmJ5rbhjHjyE0HlaQ8PWQInmo/7D/0+HCkiQHd/AfHnpldmr+MXw7tVVt5gxm7BzjGgt/dL1U71zJqLvAWlRnFhkrzpfDnXSW3PGDY3u1jAnrGBt86mr4r9D1IBHdmt6RHzsgGxWf4a/PoZuFdgBQDUGa0y9ftY3Ra7hz6+Mqh3+V3SZxDhs8V5vrbm6/I+BOzE9v1C0R+daw1TG9Fu+9GwPxEly1XwMC4Hv0VsFB7PfkBIcEI7KiTSyGOEzvkcPrIbFr/CljvbkKfHO+rDifuVjhCdgit1se7isNiQmQHizfpuBhaeNGjF2nWCHatiLzyv/PH4qTyMaUL8GDCEN4L97uojx0ACAQlT3/HCtMLcFGkVqYXJpZ4jXpeOEUumTI2QXJ2y0UV/ngqxdR2CP8XWObIOF7o3kDL5ZWh1Bij0jx6HcEFWJFso2pibSx/za69avYw4p/Qajx0wem9O2iEcvvMAryvj/Vcc4pPQX2i+D62B+ly2xXYu0It8V8GHeZVS0B3Bvlq+EVPhAiy1BEuFA2W/1KflWE3OT26Tl7nmOsFj5r0MM7q/EiGP5LS3po93qKYUmBig8iSxVZeAFtFVoY744SeYj+oO81fkARcLvbzY7Hu1BlmTCvAObw0Bcu1hFAo0QPLg7K4A/tsUrA=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6486002)(8936002)(186003)(4326008)(53546011)(316002)(16576012)(83380400001)(6916009)(2616005)(54906003)(36756003)(956004)(38100700002)(66556008)(86362001)(5660300002)(26005)(8676002)(66476007)(31696002)(508600001)(31686004)(2906002)(66946007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(36756003)(66476007)(66946007)(66556008)(2616005)(86362001)(956004)(5660300002)(186003)(26005)(31686004)(53546011)(508600001)(38100700002)(6486002)(4326008)(31696002)(8676002)(316002)(54906003)(83380400001)(2906002)(8936002)(6916009)(16576012)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?MiO9ZuuYNSiUp2pZBWAPtcWS8I4EahURlXbZ+QTpL0riJBH+4oLOoIudEdM3?=
- =?us-ascii?Q?BqYwrXyRmcNDQq1OSj7Nm8g1ybNTZI73txc+u0QzLQDlLMB7N5pFJ7aZykDs?=
- =?us-ascii?Q?AsCX2zytmjHil26z6jPdnK03M+55DMpiPR0JIQza6ZZng1bKYll+jMEPZEGS?=
- =?us-ascii?Q?exuNHMelLwuBM2V037ZQQ2PW18lkNA9uC29dKdpNHfLOcLDz6HTdG5C9oOow?=
- =?us-ascii?Q?joLG8qhVru/OPhS1EABdShBxC55+yRMv7BIo+6wmTZbKtQvSEV3gB43f3OkH?=
- =?us-ascii?Q?4out1BezvtupVL9HC+0TtaQL+/rEcy9R7Z1Sl23V0zaKZbzmYXzfo2bgL1jp?=
- =?us-ascii?Q?y8G9f8BQZ74JRY2Z8IsVl7OOQpqmbuBHW7RHkZ1hIqJZtDAthc7tiIG7hiRr?=
- =?us-ascii?Q?75jiYatleCgeGsf002ic3Am+RSN9uPk9mvZUc15Ya1Bq+e5Zl+/0G9tx7Wgd?=
- =?us-ascii?Q?zlFUs5IBwg85FqJmYgyCxONqVrXx/e2WCWWvmVndD1MkvY029szBYjppVMPY?=
- =?us-ascii?Q?a3OUiURH4xCnccjS8fw+zTfe2AOuqxFLb19DtKMUQpoM7DXIr7QZIWzXy2cw?=
- =?us-ascii?Q?FIykTD063Xy+9sY0OiCYovFNmjYjwH5EBKd7K/ey+YJEhKbmVgVtSALw7TtT?=
- =?us-ascii?Q?guX3wRVczyRho/NN1yViMQEKGfffhvWR8xcDTbwp85AF9dyLSa2ncRP/XxD7?=
- =?us-ascii?Q?rUqR6wDmttWt/qA6EI4rwLjGaekeW9nsnwf2i5n9rNIHynezWtre2SKfxROM?=
- =?us-ascii?Q?p8t6AfjD+TERZOHknA2cmXK3jccxMM/lODt/uOpiSYILGM25dO2bH76p5D1X?=
- =?us-ascii?Q?qCLbXQeu+01ZtFDs9HP+J1dGCbVADi05/gTT4TUJlz1IV6F1fXNavrmplAtO?=
- =?us-ascii?Q?2EQJ4Lw+xfWwHRBa70U7/MrYvJ8TIHQNawTVuUSdoCQGKl7bP/MhpjiG4VEz?=
- =?us-ascii?Q?CGjTTnIPYwNrtzQJi/RzCmlXZ6snMwkmpoouTanRzBImG4kSnBDqqIex4s1N?=
- =?us-ascii?Q?M/tedpY/RErMZYWSYxO2UJCj63MaIxxNQCr+UfLmFwPSHlCrcB4hOdD43KRu?=
- =?us-ascii?Q?0c6DFho+qX+vSfC+MmxG238L0cfFZ94D3v/bLzgBzgan9r0D86QX6Fd2GpoM?=
- =?us-ascii?Q?qNqvZevgnbAy9ZkUTk05kKoAzMQlGt1cdtWSvAC98t/TMJ7YWa1J/tt0QAuU?=
- =?us-ascii?Q?nR9nvoYpFpdLay6dqkZb7CTw1JbYlaIG38+QykzwbRO5f9+hFBsou1QCEc9l?=
- =?us-ascii?Q?0yjsuvFzN1cmkOC6wrOwfd6UyC73/s+NsESxh0xxg5x51JYLLft0xsj6tiC9?=
- =?us-ascii?Q?XljOAXfDuJf6ZZ9ZOsfyn+QIvdvFTq3jpU60r8Ab2Sj+sUGuX9GvYbtHJXXu?=
- =?us-ascii?Q?lvzNnI071tuZKQvw33uI4fE7mlwAJqitVy5RTxqqXhGroGWf92vpcKwj9tg/?=
- =?us-ascii?Q?G1+DfVIW4Nlzprtl+A9CJjLVx+XYHIa2/5gZKXc0zQ0XRFWVY7Doh+XPQOrD?=
- =?us-ascii?Q?YFcj4H3GZx4reMc9/wGtuvGJbHuRuHCtTlSuQCWa0KPUBnfqmmRZT+t3mkB0?=
- =?us-ascii?Q?C96FmTdqdjaKKQmVcdsHgV4npk+2UgsKHdisy8wzB20jptk0tMcaydMZVWHk?=
- =?us-ascii?Q?Mdvi0iCCT3/OzGwIGItrueg=3D?=
+	=?us-ascii?Q?QU0pjwUpBvW7enuANHP+V+khePQlmAjuiKYIW+BUVdOTQAXArvj7LKoaqxFd?=
+ =?us-ascii?Q?MAHB5bOjZQI92vv478hXGDjet4dVgkDb7KjL0lXdOPuiYj/XPhuGWZYmYvP8?=
+ =?us-ascii?Q?/EXk1DuUiNBB7IDSODGQk4o3oK/uBkcAGY1MfGsymwQBgGe7ZdNXB4HoR0c4?=
+ =?us-ascii?Q?A0wuqV27DAJ9Ye5XXOrh7hdQSUKQssEd5ojYx92mUOcWtr2nD3vOuzvsKsTs?=
+ =?us-ascii?Q?SSpF4GpkXxVDLu2bB67cwgghCAC200HRwv2O7jjGCEriLT8nkmiNtZ03u4IN?=
+ =?us-ascii?Q?x3wahy+wAKepvNdYMExDJC3yXIn8m5skmdOnLNaAoPxgDdCvbFXRwTAIGe42?=
+ =?us-ascii?Q?JhSfJyZKrMdHeE1qTi/2XldFQ37GcsoJfwXv5EL+ozk4wZHztFStWMWwxC1T?=
+ =?us-ascii?Q?Ed+4RF6D4aK+4o5qvhgBAvid+qdMe0YBfIPAnB0nDv3hHcvANyFBT/c+hbII?=
+ =?us-ascii?Q?tIUZLcHS9Is1AA0MAB3kfSZSPeB6JHEyX8afGzYy67YvQ5vyOnxvenSfJq6C?=
+ =?us-ascii?Q?9m3m/LU1YXcub0P24Jrr9PpSShZvl66htAi16PO0xUCOELFYJ1z9oWcxqdS4?=
+ =?us-ascii?Q?hnutha1/dY3yMOyAOkYLvc73YNJbqmOT8/HLXMoumQDBjMz/X+sACYIsEruX?=
+ =?us-ascii?Q?Oy/kkK+cSRzwUKtLOa6qPovEZ9xyRfCTm5+QM5v4Vu4PkFm6w2bBzdbSqsGr?=
+ =?us-ascii?Q?7KaVrpzGVq3wRmwuEOsfaAgmIGMcc1/7FsYmoXR7n7Ngvxw/Inqv+yVgwwCG?=
+ =?us-ascii?Q?StcaCR6pAvJF70I9oa21cZCb1awwjuXaVZialqGcajnnCzdVWyuri18sfKY8?=
+ =?us-ascii?Q?GWgCw8/uPJPp/aQd7f6ieQPa61vkV/+qhvM74ScWQI8NuM3Nf9sdPCiAJs9f?=
+ =?us-ascii?Q?k0DSCkufax7qMp6snHTNV3CI4FnoMK7E2mHeyyAjnsToP4O5LpfJ+75TNSTJ?=
+ =?us-ascii?Q?EgQo7NmEqQOrEnowAXZ8EQxUjc6SDzRPMRQX+fvtg52g7QpvRgGdv4Lm0fvy?=
+ =?us-ascii?Q?bdTsCpMm0sMdHGLtBtxhIO6lt4a+u8b5VKMrBLKv2CQuUnyT82F8JnEWbWGs?=
+ =?us-ascii?Q?lRtYlafyk4c07gQ9RyuWBoZlGJ4zqUBd+/nOCdK5pP8X5MQILYvVjCYGegX4?=
+ =?us-ascii?Q?3hTtuj8cFf+op+2NpbD4aweuELYGod6n/yz+9hD/gNcYdZVaSjyDzCadT4uD?=
+ =?us-ascii?Q?mjyHBmWojNCj6q447Z/0VWKBdXXmGvfSMWUm23ZckVKk4jloMql44Tmto1Oh?=
+ =?us-ascii?Q?0zRf7SeBKIPJAyBq0ghps0vF+Z+KkDR6jCrRrEIfrsvxyeq0VVUGVTMZvUUq?=
+ =?us-ascii?Q?FrZs4EQvDSGK6my7bOix9+uyX6qJaP7Sj8PUYUMraFZM6gomAuZpsf0+9kPn?=
+ =?us-ascii?Q?d0Kbgn/edCvub3wt4/K1o7CXCe7FuHgh0+jO6jhaxS+6jcXWjxGwHUaojHwb?=
+ =?us-ascii?Q?4i/PMHPuNwKPJdMBqlvHNELFLMoPJT6XgzTfHXcCN+zlPnTIqb8jQD32gEHB?=
+ =?us-ascii?Q?sg6A9pQNuE5ZQLXPWVgpmqSeRXtmPYglvZt2Nft2U/6pOo3wzZxPYRfqCAuZ?=
+ =?us-ascii?Q?dkKJQmrN3n1JXnYrEZVxF9SI+TseCEgcbfmYfcfYrxX5jIT92XLtIsuiPCpD?=
+ =?us-ascii?Q?aVJePGESqFdQir7oMh65zA4=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2be837f5-81d5-4194-7ed4-08d9a8526403
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6c11e011-dcc1-4fb7-2eb7-08d9a853fef8
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2021 16:10:06.9660
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2021 16:21:36.4015
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XzgsUpD/+tHm72KV/crA4iwiBDbYRMb6hXvfoF5FM0KSVoiKchflhOLRFoqfl2I/SE8xiA16wBCIhzAqlae2qQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2607
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZqFK1jq3pUABk8qqIEzncHy5GqSQQYwD1Wdn0Rx9+D5Uu/r0yBc+hf0K4tAkFG9o1k3h29ikJ6K19+ftQF21eg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6670
 
-On 15.11.2021 16:07, Roger Pau Monn=C3=A9 wrote:
-> On Mon, Nov 15, 2021 at 03:31:39PM +0100, Jan Beulich wrote:
->> While commit 46c4061cd2bf ("x86/IOMMU: mark IOMMU / intremap not in use
->> when ACPI tables are missing") deals with apic_x2apic_probe() as called
->> from x2apic_bsp_setup(), the check_x2apic_preenabled() path is similarly
->> affected: The call needs to occur after acpi_iommu_init(), such that
->> iommu_intremap getting disabled there can be properly taken into account
->> by apic_x2apic_probe().
->>
->> Note that, for the time being (further cleanup patches following),
->> reversing the order of the calls to generic_apic_probe() and
->> acpi_boot_init() is not an option:
->> - acpi_process_madt() calls clustered_apic_check() and hence relies on
->>   genapic to have got filled before,
->> - generic_bigsmp_probe() (called from acpi_process_madt()) needs to
->>   occur after generic_apic_probe(),
->> - acpi_parse_madt() (called from acpi_process_madt()) calls
->>   acpi_madt_oem_check(), which wants to be after generic_apic_probe().
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 15.11.2021 15:33, Andrew Cooper wrote:
+> On 15/11/2021 10:53, Jan Beulich wrote:
+>> On 12.11.2021 19:51, Andrew Cooper wrote:
+>>> On 10/11/2021 09:19, Jane Malalane wrote:
+>>>> Before, user would change turbo status but this had no effect: boolean
+>>>> was set but policy wasn't reevaluated.  Policy must be reevaluated so
+>>>> that CPU frequency is chosen according to the turbo status and the
+>>>> current governor.
+>>>>
+>>>> Therefore, add __cpufreq_governor() in cpufreq_update_turbo().
+>>>>
+>>>> Reported-by: <edvin.torok@citrix.com>
+>>>> Signed-off-by: <jane.malalane@citrix.com>
+>>>> ---
+>>>> CC: Jan Beulich <jbeulich@suse.com>
+>>>> CC: Ian Jackson <iwj@xenproject.org>
+>>>> ---
+>>>>
+>>>> Release rationale:
+>>>> Not taking this patch means that turbo status is misleading.
+>>>>
+>>>> Taking this patch is low-risk as it only uses a function that already
+>>>> exists and is already used for setting the chosen scaling governor.
+>>>> Essentially, this change is equivalent to running 'xenpm
+>>>> en/disable-turbo-mode' and, subsequently, running 'xenpm
+>>>> set-scaling-governor <current governor>'.
+>>>> ---
+>>>>  xen/drivers/cpufreq/utility.c | 6 +++++-
+>>>>  1 file changed, 5 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/xen/drivers/cpufreq/utility.c b/xen/drivers/cpufreq/utili=
+ty.c
+>>>> index b93895d4dd..5f200ff3ee 100644
+>>>> --- a/xen/drivers/cpufreq/utility.c
+>>>> +++ b/xen/drivers/cpufreq/utility.c
+>>>> @@ -417,10 +417,14 @@ int cpufreq_update_turbo(int cpuid, int new_stat=
+e)
+>>>>      {
+>>>>          ret =3D cpufreq_driver.update(cpuid, policy);
+>>>>          if (ret)
+>>>> +        {
+>>>>              policy->turbo =3D curr_state;
+>>>> +            return ret;
+>>>> +        }
+>>>>      }
+>>>> =20
+>>>> -    return ret;
+>>>> +    /* Reevaluate current CPU policy. */
+>>>> +    return __cpufreq_governor(policy, CPUFREQ_GOV_LIMITS);
+>>>>  }
+>>> So, having looked through the manual, what the cpufreq_driver does for
+>>> turbo on Intel is bogus according to the SDM.
+>>>
+>>> There is a non-architectrual dance with IA32_MISC_ENABLE bit 38 (per
+>>> package) for firmware to configure turbo, but it manifests as another
+>>> dynamic CPUID bit (which I think we handle correctly).=C2=A0 It has the=
+ same
+>>> semantics as XD_DISABLE and CPUID_LIMIT so we might want to consider
+>>> adding it to the set of bits we clear during boot.
+>> This is quite confusing in the docs - at least one of the tables calls
+>> the bit "IDA Disable", while other entries at least also refer to the
+>> effect of disabling IDA. I'm afraid I have trouble connecting turbo
+>> mode and IDA disabling, unless both are two different names of the
+>> same thing. Maybe they really are, except that SDM vol 2 uses yet
+>> another slightly different term for CPUID[6].EAX[1]: "Intel Turbo Boost
+>> Technology".
 >=20
-> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-
-Thanks.
-
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -1700,15 +1700,30 @@ void __init noreturn __start_xen(unsigne
->> =20
->>      dmi_scan_machine();
->> =20
->> -    generic_apic_probe();
->> -
->>      mmio_ro_ranges =3D rangeset_new(NULL, "r/o mmio ranges",
->>                                    RANGESETF_prettyprint_hex);
->> =20
->>      xsm_multiboot_init(module_map, mbi);
->> =20
->> +    /*
->> +     * IOMMU-related ACPI table parsing may require some of the system =
-domains
->> +     * to be usable.
+> SDM Vol3 14.3 uses IDA and turbo interchangeably in some cases.=C2=A0 It
+> reads as if IDA is the general technology name, and turbo is a sub-mode
+> for "doing it automatically without software involvement".
 >=20
-> I would be a bit more specific and likely add "...to be usable in
-> order to hide IOMMU PCI devices.".
+> On CPUs which support IDA, the CPUID bit is !MISC_ENABLE[38], with
+> further adds to the confusion of which is which.
+>=20
+>>> However, the correct way to turn off turbo is to set
+>>> IA32_PERF_CTL.TURBO_DISENGAGE bit, which is per logical processor.=C2=
+=A0 As
+>>> such, it *should* behave far more like the AMD CPB path.
+>> I'm afraid public documentation has no mention of a bit of this name.
+>> Considering the above I wonder whether you mean "IDA engage" (bit 32),
+>> albeit this doesn't seem very likely when you're taking about a
+>> "disengage" bit.
+>=20
+> It is that bit.=C2=A0 Despite the name given in Vol4 Table 2-12, it is "s=
+et
+> to disable".
+>=20
+> Vol3 Figure 14-2 explicitly calls it the "IDA/Turbo disengage" bit and
+> the surrounding text makes it clear that it is disable bit, not an
+> enable bit.=C2=A0 Also, that's how the Linux intel_pstate driver uses it.
 
-Hmm, not sure. I did specifically leave out the "why" part, as dom_io
-might also become required for something. If you nevertheless think
-I should extend the comment, then I'd insist on using "e.g." just
-like I did in the comment next to the call to generic_apic_probe().
+Okay, then I agree with the proposal you've made.
 
 Jan
+
+>>  If it is, we'd still need to cope with it being
+>> unavailable: While as per the doc it exists from Merom onwards, i.e.
+>> just far enough back for all 64-bit capable processors to be covered,
+>> at least there it is attributed "Mobile only".
+>=20
+> Honestly, the number of errors in those tables are alarming.=C2=A0 The MS=
+R is
+> has been around longer than turbo, and I'm told that the interface has
+> never changed since its introduction.
+>=20
+> Looking across Linux, there's a mess too.
+>=20
+> acpi-cpufreq and energy_perf_policy use the MISC_ENABLE bit (which is
+> package wide)
+> intel_ips driver uses PERF_CTL (which is logical processor)
+> intel_pstate uses MISC_ENABLE || max_pstate =3D=3D turbo_pstate
+>=20
+> I'm certain I've seen "one pstate being special" WRT turbo before, but I
+> can't locate anything about this in the SDM, which possibly means it is
+> model specific.
+>=20
+> ~Andrew
+>=20
 
 
