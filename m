@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C0FE45176E
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Nov 2021 23:25:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.226040.390500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BAA0451779
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Nov 2021 23:27:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.226044.390512 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmkPX-0003CA-HR; Mon, 15 Nov 2021 22:25:11 +0000
+	id 1mmkRh-0003p1-VE; Mon, 15 Nov 2021 22:27:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 226040.390500; Mon, 15 Nov 2021 22:25:11 +0000
+Received: by outflank-mailman (output) from mailman id 226044.390512; Mon, 15 Nov 2021 22:27:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmkPX-000397-E3; Mon, 15 Nov 2021 22:25:11 +0000
-Received: by outflank-mailman (input) for mailman id 226040;
- Mon, 15 Nov 2021 22:25:10 +0000
+	id 1mmkRh-0003lb-Rw; Mon, 15 Nov 2021 22:27:25 +0000
+Received: by outflank-mailman (input) for mailman id 226044;
+ Mon, 15 Nov 2021 22:27:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=J9Y9=QC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1mmkPW-000391-Rn
- for xen-devel@lists.xenproject.org; Mon, 15 Nov 2021 22:25:10 +0000
+ id 1mmkRg-0003lT-J7
+ for xen-devel@lists.xenproject.org; Mon, 15 Nov 2021 22:27:24 +0000
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3dfbe53-4662-11ec-9787-a32c541c8605;
- Mon, 15 Nov 2021 23:25:09 +0100 (CET)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id C7A9661B5E;
- Mon, 15 Nov 2021 22:25:07 +0000 (UTC)
+ id 33a3e441-4663-11ec-9787-a32c541c8605;
+ Mon, 15 Nov 2021 23:27:23 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 9E25361B4C;
+ Mon, 15 Nov 2021 22:27:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,56 +38,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3dfbe53-4662-11ec-9787-a32c541c8605
+X-Inumbo-ID: 33a3e441-4663-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1637015108;
-	bh=vJSsxRlroSa+Wf1PfSlk5Zcswft53H0QxDAKhSabyYs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=BmWjiqc3dkXXeSpniJ6dzODtEuEJtDZJf1qW9i1Q5p2kyyOHXLaJn0rzSjli3lMUB
-	 eXGwsX2Bjd0ZfgH5ZDJhCi9ZLTWo5zlr3AVgbjrJN92qY1dwwF++LJJ//g0ugs0Tri
-	 WILh8gR3RXxVviHiDaTgOmbYjIpCdmtVhW34SPkG9OjdRj5t1u3OqmnV/EczLUcU1T
-	 BktqC0+BvkXPC56RsyKujUDfmYijhLIBaTr2j62PZCWG3aOvNVY9aU+kIn1Oe3xljW
-	 CcT+Pa4JMh59X4eQxVu26jrismAF1mULzxs4gPL3gFFD5LTphRR7LQ2wIHB7c1XqoR
-	 Pz4icykEWV/3w==
-Date: Mon, 15 Nov 2021 14:25:06 -0800 (PST)
+	s=k20201202; t=1637015242;
+	bh=X4nf6zOoRNxUt/0DyKF3TZAqtdB9crSvaHwx2vHHoeg=;
+	h=From:To:Cc:Subject:Date:From;
+	b=pd4lBh9Jlq3BumV0u9ymaqhndjHBORLGS5XL4sE8bdkXdYujxQz0W1Cp7IeDY5kW5
+	 j5bMrtjcNWiv00YhWPq7TQt2KUTcFj0DdoN/1fyqXxYlXXJAVobITAlE4vRaZvI4YY
+	 5YsOA8z1+VgZPrJqFkyS6RIxbtCeV8hrr8mmaz8+xLCudLguch2u23Dyeq5lXDE2rK
+	 JMLFNC9OawT+tuj14ujpzjU0czDvKd18Gt6qZT/+wSjZ/9AGj0zx8c7Rl1mA2Vzjji
+	 6QBl0Tb515an6Ecu2B9EdVaxgZiCzdoDmrO6q5c2CTXNx2WrEYKFE8Q+pSDQIdn8Tq
+	 VzzkvMiNvMAYw==
 From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, boris.ostrovsky@oracle.com, 
-    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-    Stefano Stabellini <stefano.stabellini@xilinx.com>, Stable@vger.kernel.org, 
-    jgross@suse.com
-Subject: Re: [PATCH] xen: don't continue xenstore initialization in case of
- errors
-In-Reply-To: <6be8285f-6cbe-c115-a826-585664c91022@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2111151424510.1412361@ubuntu-linux-20-04-desktop>
-References: <20211112214709.1763928-1-sstabellini@kernel.org> <6be8285f-6cbe-c115-a826-585664c91022@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+To: jgross@suse.com
+Cc: boris.ostrovsky@oracle.com,
+	xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org,
+	sstabellini@kernel.org,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>,
+	Stable@vger.kernel.org,
+	jbeulich@suse.com
+Subject: [PATCH v2] xen: don't continue xenstore initialization in case of errors
+Date: Mon, 15 Nov 2021 14:27:19 -0800
+Message-Id: <20211115222719.2558207-1-sstabellini@kernel.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Mon, 15 Nov 2021, Jan Beulich wrote:
-> On 12.11.2021 22:47, Stefano Stabellini wrote:
-> > --- a/drivers/xen/xenbus/xenbus_probe.c
-> > +++ b/drivers/xen/xenbus/xenbus_probe.c
-> > @@ -983,8 +983,10 @@ static int __init xenbus_init(void)
-> >  	 */
-> >  	proc_create_mount_point("xen");
-> >  #endif
-> > +	return err;
-> 
-> Personally I think such cases would better be "return 0". With
-> that done here, err's initializer could (imo should) then also
-> be dropped.
+From: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-I'll make both changes in the next version
+In case of errors in xenbus_init (e.g. missing xen_store_gfn parameter),
+we goto out_error but we forget to reset xen_store_domain_type to
+XS_UNKNOWN. As a consequence xenbus_probe_initcall and other initcalls
+will still try to initialize xenstore resulting into a crash at boot.
 
+[    2.479830] Call trace:
+[    2.482314]  xb_init_comms+0x18/0x150
+[    2.486354]  xs_init+0x34/0x138
+[    2.489786]  xenbus_probe+0x4c/0x70
+[    2.498432]  xenbus_probe_initcall+0x2c/0x7c
+[    2.503944]  do_one_initcall+0x54/0x1b8
+[    2.507358]  kernel_init_freeable+0x1ac/0x210
+[    2.511617]  kernel_init+0x28/0x130
+[    2.516112]  ret_from_fork+0x10/0x20
 
-> >  out_error:
-> > +	xen_store_domain_type = XS_UNKNOWN;
-> >  	return err;
-> >  }
-> >  
-> > 
-> 
+Cc: <Stable@vger.kernel.org>
+Cc: jbeulich@suse.com
+Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+---
+Changes in v2:
+- use return 0 for the success case
+- remove err initializer as it is not useful any longer
+---
+ drivers/xen/xenbus/xenbus_probe.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
+index bd003ca8acbe..5967aa937255 100644
+--- a/drivers/xen/xenbus/xenbus_probe.c
++++ b/drivers/xen/xenbus/xenbus_probe.c
+@@ -909,7 +909,7 @@ static struct notifier_block xenbus_resume_nb = {
+ 
+ static int __init xenbus_init(void)
+ {
+-	int err = 0;
++	int err;
+ 	uint64_t v = 0;
+ 	xen_store_domain_type = XS_UNKNOWN;
+ 
+@@ -983,8 +983,10 @@ static int __init xenbus_init(void)
+ 	 */
+ 	proc_create_mount_point("xen");
+ #endif
++	return 0;
+ 
+ out_error:
++	xen_store_domain_type = XS_UNKNOWN;
+ 	return err;
+ }
+ 
+-- 
+2.25.1
+
 
