@@ -2,31 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D01A451715
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Nov 2021 23:01:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.226030.390478 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CAC8451723
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Nov 2021 23:05:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.226035.390489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmk1q-0000EH-AD; Mon, 15 Nov 2021 22:00:42 +0000
+	id 1mmk6C-0000sa-Rq; Mon, 15 Nov 2021 22:05:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 226030.390478; Mon, 15 Nov 2021 22:00:42 +0000
+Received: by outflank-mailman (output) from mailman id 226035.390489; Mon, 15 Nov 2021 22:05:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmk1q-0000C6-72; Mon, 15 Nov 2021 22:00:42 +0000
-Received: by outflank-mailman (input) for mailman id 226030;
- Mon, 15 Nov 2021 22:00:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J9Y9=QC=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1mmk1o-0000C0-UQ
- for xen-devel@lists.xenproject.org; Mon, 15 Nov 2021 22:00:40 +0000
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 77462078-465f-11ec-a9d2-d9f7a1cc8784;
- Mon, 15 Nov 2021 23:00:39 +0100 (CET)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 15C1761101;
- Mon, 15 Nov 2021 22:00:37 +0000 (UTC)
+	id 1mmk6C-0000qk-OG; Mon, 15 Nov 2021 22:05:12 +0000
+Received: by outflank-mailman (input) for mailman id 226035;
+ Mon, 15 Nov 2021 22:05:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Jrjg=QC=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1mmk6A-0000qe-VH
+ for xen-devel@lists.xenproject.org; Mon, 15 Nov 2021 22:05:10 +0000
+Received: from ppsw-42.csi.cam.ac.uk (ppsw-42.csi.cam.ac.uk [131.111.8.142])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 182837e0-4660-11ec-9787-a32c541c8605;
+ Mon, 15 Nov 2021 23:05:09 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:59376)
+ by ppsw-42.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.138]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1mmk66-000vBn-8e (Exim 4.95) (return-path <amc96@srcf.net>);
+ Mon, 15 Nov 2021 22:05:06 +0000
+Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 1A2CD1FC18;
+ Mon, 15 Nov 2021 22:05:06 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,84 +45,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77462078-465f-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1637013637;
-	bh=QcEVaIeufcWxIgJ7fhLT6F+X+VspDTBYdfr58Qef0qY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Pu6QjHCOWruMsiF76T+VtLW51Fkc4STTTGpyRwJzfmxO6DoYf68JWgt5/+ysWxIN5
-	 Wo0sLabGzv63v4Sb6dee3E14m6oD33zDdMzRqniZ6YTFu3pgVfaZJn6BDC+U3r6tc/
-	 fT2Pd3epW9B+bBQt1j1IVlACyA4ysFjpzQ1GjNlD2GbtgvHSCZ50HAXnaXdLiCPcVp
-	 ECXhrn9esaz0eUMXaRsqPzOU+JGtwzkhaH4e3vVEjrVmD38hW47ca91q+svrbaIBYD
-	 WKFeY8MjIwytVoX85O/D02xCsTgC3KXtRoKZhaGGNPGevpv0IVeaFDSu+OCxsgDo3O
-	 xWfZRr/Bvs3iA==
-Date: Mon, 15 Nov 2021 14:00:36 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>, iwj@xenproject.org
-cc: Luca Fancellu <luca.fancellu@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH-4.16 v2] xen/efi: Fix Grub2 boot on arm64
-In-Reply-To: <a07ff375-b910-0d73-e957-15ba9d2535fe@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2111151359360.1412361@ubuntu-linux-20-04-desktop>
-References: <20211104141206.25153-1-luca.fancellu@arm.com> <81685961-501e-7a41-6f6f-bc4491645264@suse.com> <alpine.DEB.2.22.394.2111041351490.284830@ubuntu-linux-20-04-desktop> <97C884F7-0577-4996-AB79-0A07A8D48FD8@arm.com>
- <alpine.DEB.2.22.394.2111041431070.284830@ubuntu-linux-20-04-desktop> <9E52FA33-422B-4B1C-A6AF-601CDF565700@arm.com> <alpine.DEB.2.22.394.2111041449180.284830@ubuntu-linux-20-04-desktop> <e4b2e1be-0e41-0e6e-5ea8-3c12b4593724@suse.com>
- <alpine.DEB.2.22.394.2111050825240.284830@ubuntu-linux-20-04-desktop> <9bd58aa4-602b-4c64-e759-581513909457@suse.com> <alpine.DEB.2.22.394.2111081805530.3317@ubuntu-linux-20-04-desktop> <191dd1b2-8e2a-ee91-f401-dda4fabf4c7c@suse.com>
- <alpine.DEB.2.22.394.2111091350510.440530@ubuntu-linux-20-04-desktop> <3B8E0C6E-0522-4F73-B6C2-827FA45C87BA@arm.com> <010fa02f-e561-e7a8-9638-5246db9166b4@xen.org> <725F3F68-A1CE-42FB-9C8A-0700CDD02E8E@arm.com>
- <a07ff375-b910-0d73-e957-15ba9d2535fe@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 182837e0-4660-11ec-9787-a32c541c8605
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Ian Jackson <iwj@xenproject.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>,
+ Jane Malalane <jane.malalane@citrix.com>
+References: <20211110091935.16906-1-jane.malalane@citrix.com>
+ <d1978235-f025-19ac-707c-c2e411a5a005@srcf.net>
+ <008467ea-75af-acb5-62af-bd1db03ccc68@suse.com>
+ <790bf907-8c6e-b8cc-6832-b8fe21af536b@srcf.net>
+ <628731e2-fa81-4f75-3806-900e70988f53@suse.com>
+From: Andrew Cooper <amc96@srcf.net>
+Subject: Re: [PATCH] xen/cpufreq: Reset policy after enabling/disabling turbo
+ status
+Message-ID: <085b8bd9-2714-df0a-862d-00b8b1a230a3@srcf.net>
+Date: Mon, 15 Nov 2021 22:05:05 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1769970815-1637013637=:1412361"
+In-Reply-To: <628731e2-fa81-4f75-3806-900e70988f53@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On 15/11/2021 16:21, Jan Beulich wrote:
+> On 15.11.2021 15:33, Andrew Cooper wrote:
+>> On 15/11/2021 10:53, Jan Beulich wrote:
+>>> On 12.11.2021 19:51, Andrew Cooper wrote:
+>>>> On 10/11/2021 09:19, Jane Malalane wrote:
+>>>>> Before, user would change turbo status but this had no effect: bool=
+ean
+>>>>> was set but policy wasn't reevaluated.  Policy must be reevaluated =
+so
+>>>>> that CPU frequency is chosen according to the turbo status and the
+>>>>> current governor.
+>>>>>
+>>>>> Therefore, add __cpufreq_governor() in cpufreq_update_turbo().
+>>>>>
+>>>>> Reported-by: <edvin.torok@citrix.com>
+>>>>> Signed-off-by: <jane.malalane@citrix.com>
+>>>>> ---
+>>>>> CC: Jan Beulich <jbeulich@suse.com>
+>>>>> CC: Ian Jackson <iwj@xenproject.org>
+>>>>> ---
+>>>>>
+>>>>> Release rationale:
+>>>>> Not taking this patch means that turbo status is misleading.
+>>>>>
+>>>>> Taking this patch is low-risk as it only uses a function that alrea=
+dy
+>>>>> exists and is already used for setting the chosen scaling governor.=
 
---8323329-1769970815-1637013637=:1412361
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+>>>>> Essentially, this change is equivalent to running 'xenpm
+>>>>> en/disable-turbo-mode' and, subsequently, running 'xenpm
+>>>>> set-scaling-governor <current governor>'.
+>>>>> ---
+>>>>>  xen/drivers/cpufreq/utility.c | 6 +++++-
+>>>>>  1 file changed, 5 insertions(+), 1 deletion(-)
+>>>>>
+>>>>> diff --git a/xen/drivers/cpufreq/utility.c b/xen/drivers/cpufreq/ut=
+ility.c
+>>>>> index b93895d4dd..5f200ff3ee 100644
+>>>>> --- a/xen/drivers/cpufreq/utility.c
+>>>>> +++ b/xen/drivers/cpufreq/utility.c
+>>>>> @@ -417,10 +417,14 @@ int cpufreq_update_turbo(int cpuid, int new_s=
+tate)
+>>>>>      {
+>>>>>          ret =3D cpufreq_driver.update(cpuid, policy);
+>>>>>          if (ret)
+>>>>> +        {
+>>>>>              policy->turbo =3D curr_state;
+>>>>> +            return ret;
+>>>>> +        }
+>>>>>      }
+>>>>> =20
+>>>>> -    return ret;
+>>>>> +    /* Reevaluate current CPU policy. */
+>>>>> +    return __cpufreq_governor(policy, CPUFREQ_GOV_LIMITS);
+>>>>>  }
+>>>> So, having looked through the manual, what the cpufreq_driver does f=
+or
+>>>> turbo on Intel is bogus according to the SDM.
+>>>>
+>>>> There is a non-architectrual dance with IA32_MISC_ENABLE bit 38 (per=
 
-+Ian
+>>>> package) for firmware to configure turbo, but it manifests as anothe=
+r
+>>>> dynamic CPUID bit (which I think we handle correctly).=C2=A0 It has =
+the same
+>>>> semantics as XD_DISABLE and CPUID_LIMIT so we might want to consider=
 
-On Mon, 15 Nov 2021, Julien Grall wrote:
-> Hi Luca,
-> 
-> On 10/11/2021 14:02, Luca Fancellu wrote:
-> > 
-> > 
-> > > On 10 Nov 2021, at 13:36, Julien Grall <julien@xen.org> wrote:
-> > > 
-> > > Hi Luca,
-> > > 
-> > > On 10/11/2021 13:05, Luca Fancellu wrote:
-> > > > I thought having the EFI_FILE_HANDLE global in efi-boot.h was a “no go”,
-> > > > but if it’s not then instead of
-> > > > calling get_parent_handle in efi_check_dt_boot (that is the main issue
-> > > > with EDK2+Grub2), we can do
-> > > > something like this:
-> > > 
-> > > fs_dir_handle is only used by callees of efi_check_boot_dt_boot(). So the
-> > > global variable is not an option for me because the risk is not worth it
-> > > (it is easy to misuse a global variable).
-> > > 
-> > > Instead, I think fs_dir_handle should be an argument of
-> > > allocate_module_file() and propagated up to the first call in
-> > > efi_check_dt_boot().
-> > > 
-> > 
-> > Yes you are right, changing the interface of handle_dom0less_domain_node,
-> > handle_module_node, allocate_module_file to host also an argument
-> > EFI_FILE_HANDLE *dir_handle
-> > avoids the use of the global, then the handle is requested in
-> > allocate_module_file only once and closed in efi_check_dt_boot only if it’s
-> > not null.
-> 
-> That would indeed be better. I'd like this patch to be merged in 4.16. Would
-> you be able to send a new version in the next couple of days?
+>>>> adding it to the set of bits we clear during boot.
+>>> This is quite confusing in the docs - at least one of the tables call=
+s
+>>> the bit "IDA Disable", while other entries at least also refer to the=
 
-I'd love that too; adding Ian so that he is aware.
---8323329-1769970815-1637013637=:1412361--
+>>> effect of disabling IDA. I'm afraid I have trouble connecting turbo
+>>> mode and IDA disabling, unless both are two different names of the
+>>> same thing. Maybe they really are, except that SDM vol 2 uses yet
+>>> another slightly different term for CPUID[6].EAX[1]: "Intel Turbo Boo=
+st
+>>> Technology".
+>> SDM Vol3 14.3 uses IDA and turbo interchangeably in some cases.=C2=A0 =
+It
+>> reads as if IDA is the general technology name, and turbo is a sub-mod=
+e
+>> for "doing it automatically without software involvement".
+>>
+>> On CPUs which support IDA, the CPUID bit is !MISC_ENABLE[38], with
+>> further adds to the confusion of which is which.
+>>
+>>>> However, the correct way to turn off turbo is to set
+>>>> IA32_PERF_CTL.TURBO_DISENGAGE bit, which is per logical processor.=C2=
+=A0 As
+>>>> such, it *should* behave far more like the AMD CPB path.
+>>> I'm afraid public documentation has no mention of a bit of this name.=
+
+>>> Considering the above I wonder whether you mean "IDA engage" (bit 32)=
+,
+>>> albeit this doesn't seem very likely when you're taking about a
+>>> "disengage" bit.
+>> It is that bit.=C2=A0 Despite the name given in Vol4 Table 2-12, it is=
+ "set
+>> to disable".
+>>
+>> Vol3 Figure 14-2 explicitly calls it the "IDA/Turbo disengage" bit and=
+
+>> the surrounding text makes it clear that it is disable bit, not an
+>> enable bit.=C2=A0 Also, that's how the Linux intel_pstate driver uses =
+it.
+> Okay, then I agree with the proposal you've made.
+
+I've just done some experimentation on a Intel(R) Xeon(R) E-2288G (CFL-R
+based), and both the MISC_ENABLE and PERF_CTL bits have the same effect,
+and cut nearly 1GHz off the APERF/MPERF reported frequency on a busy
+single core on an otherwise idle system.
+
+I have not checked the effect that PERF_CTL on thread 0 has on other
+threads in the package, but the reality is that ~100% of production use
+of these controls are for all CPUs at once.=C2=A0 (So much so, that I rea=
+lly
+think the interface ought to gain a -1 sentential for "all cpus", rather
+than forcing userspace to loop over each cpu individually, when Xen can
+handle the entire loop in O(1) time.)
+
+~Andrew
+
 
