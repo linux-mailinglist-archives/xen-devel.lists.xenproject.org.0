@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 494F045110D
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Nov 2021 19:57:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.226013.390445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34E6D4511B0
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Nov 2021 20:10:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.226019.390456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmhAZ-0007PU-St; Mon, 15 Nov 2021 18:57:31 +0000
+	id 1mmhMW-0000UU-01; Mon, 15 Nov 2021 19:09:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 226013.390445; Mon, 15 Nov 2021 18:57:31 +0000
+Received: by outflank-mailman (output) from mailman id 226019.390456; Mon, 15 Nov 2021 19:09:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmhAZ-0007Me-PD; Mon, 15 Nov 2021 18:57:31 +0000
-Received: by outflank-mailman (input) for mailman id 226013;
- Mon, 15 Nov 2021 18:57:30 +0000
+	id 1mmhMV-0000Ru-T0; Mon, 15 Nov 2021 19:09:51 +0000
+Received: by outflank-mailman (input) for mailman id 226019;
+ Mon, 15 Nov 2021 19:09:50 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mmhAY-0007MV-FV
- for xen-devel@lists.xenproject.org; Mon, 15 Nov 2021 18:57:30 +0000
+ (envelope-from <julien@xen.org>) id 1mmhMU-0000Ro-LW
+ for xen-devel@lists.xenproject.org; Mon, 15 Nov 2021 19:09:50 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mmhAU-0006uS-Sq; Mon, 15 Nov 2021 18:57:26 +0000
+ id 1mmhMR-00078D-IG; Mon, 15 Nov 2021 19:09:47 +0000
 Received: from [54.239.6.189] (helo=[192.168.10.237])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mmhAU-00010Y-ME; Mon, 15 Nov 2021 18:57:26 +0000
+ id 1mmhMR-0001v0-Bv; Mon, 15 Nov 2021 19:09:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,67 +42,113 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Bt0lYOUpmt6dB9dElgNZha+A/iVkEchc3r+ENc3N38M=; b=Ai8qC0pjBkfDrEyJpVzAjVcy0G
-	UPtuDRgIivtBRwCwDzV07G6EgNJg4X98EieNpmXl64wQrW4TsEmTprCjFkzJy/Li1WiJsm0lV0p+I
-	DtleuISfCZyS/wsgRmbaPd8V3kxnppFxTZdHdjENq1jeTBg3SmleOxy2pXUQDVMMJoUs=;
-Message-ID: <a07ff375-b910-0d73-e957-15ba9d2535fe@xen.org>
-Date: Mon, 15 Nov 2021 18:57:24 +0000
+	bh=xwnd5EvYZMkOSDWxYiMi6REcV/9LZ+42bbHzuj8weqo=; b=Mlyk7i2zkV2/AUiVtTtpLIGq8h
+	LYXpvQdedV/PBpEpnwTKWRXXOXePmErG6KplCBflDJvDOjf+sPNAiNUXuDiL149/NleRLxHvXSWWZ
+	3ozmEkkwIcln/t+v+VKKz2HHwKMJCREXOVFt6pcqPtXFJR/kCh1NJ8VomiNa2bmq7w44=;
+Message-ID: <78aa1ec7-3d47-716d-c9d6-b74d66486e9e@xen.org>
+Date: Mon, 15 Nov 2021 19:09:45 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.3.0
-Subject: Re: [PATCH-4.16 v2] xen/efi: Fix Grub2 boot on arm64
-To: Luca Fancellu <luca.fancellu@arm.com>
+Subject: Re: ACPI/UEFI support for Xen/ARM status?
+To: Jan Beulich <jbeulich@suse.com>, Elliott Mitchell <ehem+xen@m5p.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Jan Beulich <jbeulich@suse.com>, Bertrand Marquis
- <bertrand.marquis@arm.com>, wei.chen@arm.com,
- Ian Jackson <iwj@xenproject.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org
-References: <20211104141206.25153-1-luca.fancellu@arm.com>
- <81685961-501e-7a41-6f6f-bc4491645264@suse.com>
- <alpine.DEB.2.22.394.2111041351490.284830@ubuntu-linux-20-04-desktop>
- <97C884F7-0577-4996-AB79-0A07A8D48FD8@arm.com>
- <alpine.DEB.2.22.394.2111041431070.284830@ubuntu-linux-20-04-desktop>
- <9E52FA33-422B-4B1C-A6AF-601CDF565700@arm.com>
- <alpine.DEB.2.22.394.2111041449180.284830@ubuntu-linux-20-04-desktop>
- <e4b2e1be-0e41-0e6e-5ea8-3c12b4593724@suse.com>
- <alpine.DEB.2.22.394.2111050825240.284830@ubuntu-linux-20-04-desktop>
- <9bd58aa4-602b-4c64-e759-581513909457@suse.com>
- <alpine.DEB.2.22.394.2111081805530.3317@ubuntu-linux-20-04-desktop>
- <191dd1b2-8e2a-ee91-f401-dda4fabf4c7c@suse.com>
- <alpine.DEB.2.22.394.2111091350510.440530@ubuntu-linux-20-04-desktop>
- <3B8E0C6E-0522-4F73-B6C2-827FA45C87BA@arm.com>
- <010fa02f-e561-e7a8-9638-5246db9166b4@xen.org>
- <725F3F68-A1CE-42FB-9C8A-0700CDD02E8E@arm.com>
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Henry Wang <Henry.Wang@arm.com>
+References: <YY3tSAFTCR4r2FaI@mattapan.m5p.com>
+ <AM9PR08MB62428F41C4F998AD676C027C92959@AM9PR08MB6242.eurprd08.prod.outlook.com>
+ <YY6L5JQPn0s3c6Jp@mattapan.m5p.com>
+ <1d3561ef-548a-ea13-d362-0f95d7dba33b@xen.org>
+ <64e9208d-ecda-2e62-e10f-81750c0279fb@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <725F3F68-A1CE-42FB-9C8A-0700CDD02E8E@arm.com>
+In-Reply-To: <64e9208d-ecda-2e62-e10f-81750c0279fb@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi Luca,
+Hi Jan,
 
-On 10/11/2021 14:02, Luca Fancellu wrote:
+On 15/11/2021 10:13, Jan Beulich wrote:
+> On 12.11.2021 17:02, Julien Grall wrote:
+>> Hi Elliott,
+>>
+>> On 12/11/2021 15:44, Elliott Mitchell wrote:
+>>> On Fri, Nov 12, 2021 at 05:54:08AM +0000, Henry Wang wrote:
+>>>>
+>>>>> -----Original Message-----
+>>>>> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
+>>>>> Elliott Mitchell
+>>>>>
+>>>>> I've been busy with another part of this project, so I've lost track of
+>>>>> progress on ACPI/UEFI support on ARM.
+>>>>>
+>>>>> Last I'd read full support for ACPI/UEFI seemed a ways off.  Using a stub
+>>>>> domain to constrain ACPI table parsing seemed the favored approach.  I
+>>>>> was under the impression that would take some time.
+>>>>>
+>>>>> What is the status?  Do the Xen/ARM leads have any guesses for when full
+>>>>> ACPI/UEFI support might reach completion?
+>>>>
+>>>> I am doing some development based on the Xen UEFI/ACPI on AArch64 using
+>>>> the Arm FVP_Base platform. Using edk2 and master branch of Xen with
+>>>> `CONFIG_ACPI=y`, it seems everything can work properly.
+>>>>
+>>>> Here are some of my logs:
+>>>> Shell> FS2:EFI\XEN\xen.efi
+>>>> Xen 4.16-rc (c/s Fri Nov 12 02:34:01 2021 +0000 git:323b47ffd9-dirty) EFI loader
+>>>> ...
+>>>> (XEN) PFN compression on bits 20...22
+>>>> (XEN) ACPI: RSDP F5E30018, 0024 (r2 LINARO)
+>>>> (XEN) ACPI: XSDT F5E3FE98, 005C (r1 LINARO RTSMVEV8        2       1000013)
+>>>> (XEN) ACPI: FACP F5E3FA98, 0114 (r6 LINARO RTSMVEV8        2 LNRO        2)
+>>>> (XEN) ACPI: DSDT F5E3ED98, 02AB (r2 LINARO RTSMVEV8        4 INTL 20200925)
+>>>> (XEN) ACPI: GTDT F5E3FC18, 00E0 (r2 LINARO RTSMVEV8        2 LNRO        2)
+>>>> (XEN) ACPI: APIC F5E3E998, 02D4 (r4 LINARO RTSMVEV8        2 LNRO        2)
+>>>> (XEN) ACPI: SPCR F5E3FF98, 0050 (r2 LINARO RTSMVEV8        2 LNRO        2)
+>>>> (XEN) Domain heap initialised
+>>>
+>>>> ...
+>>>> [    0.000000] ACPI: SPCR 0x00000000F5E3FF98 000050 (v02 LINARO RTSMVEV8 00000002 LNRO 00000002)
+>>>> [    0.000000] ACPI: SPCR: console: pl011,mmio32,0x1c090000,115200
+>>>> ...
+>>>>
+>>>> Hopefully this answers your question. :)
+>>>
+>>> Thanks for the attempt at answering, but the SPCR entry tells me there is
+>>> a substantial portion of ACPI/UEFI functionality you're not testing.  I'm
+>>> specifically looking for framebuffer console support and SPCR says you're
+>>> using serial console.  While serial console is appropriate for true
+>>> servers, for some use cases it is inadequate.
+>>
+>> We don't have any support for framebuffer in Xen on Arm (even for
+>> Device-Tree). I would be happy to consider any patches if you are plan
+>> to post some.
+>>
+>>>
+>>> Julien Grall and Stefano Stabellini had been proposing doing ACPI table
+>>> parsing in a stub domain, but I'm unaware of the status.  Not finding
+>>> much suggests it hasn't gone very far yet.
+>>
+>> This was a very early proposal in case we needed to parse the DSDT in
+>> Xen. This hasn't been needed so far, hence why this is not implemented
+>> and no-one worked on it.
+>>
+>> I am not very familiar how the framebuffer is detected in ACPI. Can you
+>> provide more details on what exactly you want to parse?
 > 
-> 
->> On 10 Nov 2021, at 13:36, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Luca,
->>
->> On 10/11/2021 13:05, Luca Fancellu wrote:
->>> I thought having the EFI_FILE_HANDLE global in efi-boot.h was a “no go”, but if it’s not then instead of
->>> calling get_parent_handle in efi_check_dt_boot (that is the main issue with EDK2+Grub2), we can do
->>> something like this:
->>
->> fs_dir_handle is only used by callees of efi_check_boot_dt_boot(). So the global variable is not an option for me because the risk is not worth it (it is easy to misuse a global variable).
->>
->> Instead, I think fs_dir_handle should be an argument of allocate_module_file() and propagated up to the first call in efi_check_dt_boot().
->>
-> 
-> Yes you are right, changing the interface of handle_dom0less_domain_node, handle_module_node, allocate_module_file to host also an argument EFI_FILE_HANDLE *dir_handle
-> avoids the use of the global, then the handle is requested in allocate_module_file only once and closed in efi_check_dt_boot only if it’s not null.
+> I don't think there's any ACPI support involved there. Instead UEFI data
+> needs propagating to Dom0, as that can't access EFI boot services itself.
+> At least this is all that's needed on the x86 side (and all the needed
+> code is there, just presumably not [fully] wired up on Arm).
 
-That would indeed be better. I'd like this patch to be merged in 4.16. 
-Would you be able to send a new version in the next couple of days?
+Thanks for the feedback. At the moment, we don't enable EFI runtime 
+services nor propagate it to Dom0. So this needs to be wired up.
+
+However, for Elliott's case, I am not sure this is going to sufficient. 
+The Raspberry PI has some devices that can only DMA into the first 1GB 
+of the RAM (the GPU seems to be one). So we need to make sure Xen is 
+allocating enough memory for Dom0 below that limit.
+
+Do you have similar problem on x86? If so, how do you deal with it?
 
 Cheers,
 
