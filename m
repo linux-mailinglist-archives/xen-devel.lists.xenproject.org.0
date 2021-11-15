@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34E6D4511B0
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Nov 2021 20:10:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.226019.390456 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5018E451699
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Nov 2021 22:32:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.226025.390466 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmhMW-0000UU-01; Mon, 15 Nov 2021 19:09:52 +0000
+	id 1mmjYr-0005Vi-UN; Mon, 15 Nov 2021 21:30:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 226019.390456; Mon, 15 Nov 2021 19:09:51 +0000
+Received: by outflank-mailman (output) from mailman id 226025.390466; Mon, 15 Nov 2021 21:30:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmhMV-0000Ru-T0; Mon, 15 Nov 2021 19:09:51 +0000
-Received: by outflank-mailman (input) for mailman id 226019;
- Mon, 15 Nov 2021 19:09:50 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mmjYr-0005TO-RP; Mon, 15 Nov 2021 21:30:45 +0000
+Received: by outflank-mailman (input) for mailman id 226025;
+ Mon, 15 Nov 2021 21:30:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mmhMU-0000Ro-LW
- for xen-devel@lists.xenproject.org; Mon, 15 Nov 2021 19:09:50 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mmhMR-00078D-IG; Mon, 15 Nov 2021 19:09:47 +0000
-Received: from [54.239.6.189] (helo=[192.168.10.237])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mmhMR-0001v0-Bv; Mon, 15 Nov 2021 19:09:47 +0000
+ (envelope-from <SRS0=hqW4=QC=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1mmjYq-0005TI-HX
+ for xen-devel@lists.xenproject.org; Mon, 15 Nov 2021 21:30:44 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 479be685-465b-11ec-a9d2-d9f7a1cc8784;
+ Mon, 15 Nov 2021 22:30:41 +0100 (CET)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 1AFLUPjt005882
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Mon, 15 Nov 2021 16:30:31 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.16.1/8.15.2/Submit) id 1AFLUPGj005881;
+ Mon, 15 Nov 2021 13:30:25 -0800 (PST) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,119 +43,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=xwnd5EvYZMkOSDWxYiMi6REcV/9LZ+42bbHzuj8weqo=; b=Mlyk7i2zkV2/AUiVtTtpLIGq8h
-	LYXpvQdedV/PBpEpnwTKWRXXOXePmErG6KplCBflDJvDOjf+sPNAiNUXuDiL149/NleRLxHvXSWWZ
-	3ozmEkkwIcln/t+v+VKKz2HHwKMJCREXOVFt6pcqPtXFJR/kCh1NJ8VomiNa2bmq7w44=;
-Message-ID: <78aa1ec7-3d47-716d-c9d6-b74d66486e9e@xen.org>
-Date: Mon, 15 Nov 2021 19:09:45 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.3.0
+X-Inumbo-ID: 479be685-465b-11ec-a9d2-d9f7a1cc8784
+Date: Mon, 15 Nov 2021 13:30:25 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Julien Grall <julien.grall.oss@gmail.com>, Henry Wang <Henry.Wang@arm.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Subject: Re: ACPI/UEFI support for Xen/ARM status?
-To: Jan Beulich <jbeulich@suse.com>, Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Henry Wang <Henry.Wang@arm.com>
-References: <YY3tSAFTCR4r2FaI@mattapan.m5p.com>
- <AM9PR08MB62428F41C4F998AD676C027C92959@AM9PR08MB6242.eurprd08.prod.outlook.com>
- <YY6L5JQPn0s3c6Jp@mattapan.m5p.com>
+Message-ID: <YZLRcaynroUgDKgW@mattapan.m5p.com>
+References: <YY6L5JQPn0s3c6Jp@mattapan.m5p.com>
  <1d3561ef-548a-ea13-d362-0f95d7dba33b@xen.org>
- <64e9208d-ecda-2e62-e10f-81750c0279fb@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <64e9208d-ecda-2e62-e10f-81750c0279fb@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <YY6bsu8/y/LeMfg3@mattapan.m5p.com>
+ <40474f12-e269-f251-99b1-cb5b0a317bb2@xen.org>
+ <YY7ZVPQSTapB7Jnj@mattapan.m5p.com>
+ <CAJ=z9a0EooNfXyrNB82_4yT9qnz5fxEJtVN6oUbVyCzjU4hEKA@mail.gmail.com>
+ <YY7rfIWPC1PwidMA@mattapan.m5p.com>
+ <CAJ=z9a1=V+MKD0a9aTCBvy-1nxKj4TC7ZOg82oBYn1vmfsu23g@mail.gmail.com>
+ <YY8O4GOfYg4Bz2CW@mattapan.m5p.com>
+ <E6611A60-F092-4D47-8756-7A6A33840B5F@arm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <E6611A60-F092-4D47-8756-7A6A33840B5F@arm.com>
+X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=3.4.5
+X-Spam-Checker-Version: SpamAssassin 3.4.5 (2021-03-20) on mattapan.m5p.com
 
-Hi Jan,
-
-On 15/11/2021 10:13, Jan Beulich wrote:
-> On 12.11.2021 17:02, Julien Grall wrote:
->> Hi Elliott,
->>
->> On 12/11/2021 15:44, Elliott Mitchell wrote:
->>> On Fri, Nov 12, 2021 at 05:54:08AM +0000, Henry Wang wrote:
->>>>
->>>>> -----Original Message-----
->>>>> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
->>>>> Elliott Mitchell
->>>>>
->>>>> I've been busy with another part of this project, so I've lost track of
->>>>> progress on ACPI/UEFI support on ARM.
->>>>>
->>>>> Last I'd read full support for ACPI/UEFI seemed a ways off.  Using a stub
->>>>> domain to constrain ACPI table parsing seemed the favored approach.  I
->>>>> was under the impression that would take some time.
->>>>>
->>>>> What is the status?  Do the Xen/ARM leads have any guesses for when full
->>>>> ACPI/UEFI support might reach completion?
->>>>
->>>> I am doing some development based on the Xen UEFI/ACPI on AArch64 using
->>>> the Arm FVP_Base platform. Using edk2 and master branch of Xen with
->>>> `CONFIG_ACPI=y`, it seems everything can work properly.
->>>>
->>>> Here are some of my logs:
->>>> Shell> FS2:EFI\XEN\xen.efi
->>>> Xen 4.16-rc (c/s Fri Nov 12 02:34:01 2021 +0000 git:323b47ffd9-dirty) EFI loader
->>>> ...
->>>> (XEN) PFN compression on bits 20...22
->>>> (XEN) ACPI: RSDP F5E30018, 0024 (r2 LINARO)
->>>> (XEN) ACPI: XSDT F5E3FE98, 005C (r1 LINARO RTSMVEV8        2       1000013)
->>>> (XEN) ACPI: FACP F5E3FA98, 0114 (r6 LINARO RTSMVEV8        2 LNRO        2)
->>>> (XEN) ACPI: DSDT F5E3ED98, 02AB (r2 LINARO RTSMVEV8        4 INTL 20200925)
->>>> (XEN) ACPI: GTDT F5E3FC18, 00E0 (r2 LINARO RTSMVEV8        2 LNRO        2)
->>>> (XEN) ACPI: APIC F5E3E998, 02D4 (r4 LINARO RTSMVEV8        2 LNRO        2)
->>>> (XEN) ACPI: SPCR F5E3FF98, 0050 (r2 LINARO RTSMVEV8        2 LNRO        2)
->>>> (XEN) Domain heap initialised
->>>
->>>> ...
->>>> [    0.000000] ACPI: SPCR 0x00000000F5E3FF98 000050 (v02 LINARO RTSMVEV8 00000002 LNRO 00000002)
->>>> [    0.000000] ACPI: SPCR: console: pl011,mmio32,0x1c090000,115200
->>>> ...
->>>>
->>>> Hopefully this answers your question. :)
->>>
->>> Thanks for the attempt at answering, but the SPCR entry tells me there is
->>> a substantial portion of ACPI/UEFI functionality you're not testing.  I'm
->>> specifically looking for framebuffer console support and SPCR says you're
->>> using serial console.  While serial console is appropriate for true
->>> servers, for some use cases it is inadequate.
->>
->> We don't have any support for framebuffer in Xen on Arm (even for
->> Device-Tree). I would be happy to consider any patches if you are plan
->> to post some.
->>
->>>
->>> Julien Grall and Stefano Stabellini had been proposing doing ACPI table
->>> parsing in a stub domain, but I'm unaware of the status.  Not finding
->>> much suggests it hasn't gone very far yet.
->>
->> This was a very early proposal in case we needed to parse the DSDT in
->> Xen. This hasn't been needed so far, hence why this is not implemented
->> and no-one worked on it.
->>
->> I am not very familiar how the framebuffer is detected in ACPI. Can you
->> provide more details on what exactly you want to parse?
+On Mon, Nov 15, 2021 at 10:06:20AM +0000, Bertrand Marquis wrote:
 > 
-> I don't think there's any ACPI support involved there. Instead UEFI data
-> needs propagating to Dom0, as that can't access EFI boot services itself.
-> At least this is all that's needed on the x86 side (and all the needed
-> code is there, just presumably not [fully] wired up on Arm).
+> > On 13 Nov 2021, at 01:03, Elliott Mitchell <ehem+xen@m5p.com> wrote:
+> > 
+> > On Fri, Nov 12, 2021 at 11:00:54PM +0000, Julien Grall wrote:
+> >> On Fri, 12 Nov 2021 at 22:32, Elliott Mitchell <ehem+xen@m5p.com> wrote:
+> >>>> My preference is to introduce a per-platform quirk (I believe Stefano was happy
+> >>>> with this). The advantage is we could get ACPI support for your board hopefully
+> >>>> merged quicker.
+> >>> 
+> >>> This could be workable as a temporary workaround.  Longer term I suspect
+> >>> it might well be rather better to *fully* tackle the issue *now*.
+> >>> Otherwise this seems likely to turn into a database of board-specific
+> >>> hacks for hundreds or thousands of devices.
+> >> 
+> >> As usual, you have to find a balance between cost vs benefits.
+> >> 
+> >> If you look at the Device-Tree side, we don' t have many platforms
+> >> requiring quirks.
+> >> In particular, the DMA is so far strictly limited to a single platform (RPI).
+> >> So I would be surprised if we suddenly require tons of quirks when using
+> >> ACPI.
+> > 
+> > Presently the DMA quirk would be the only consumer, but there will likely
+> > be other consumers later.  Might there be few device-tree quirks due to a
+> > short list of platforms?  Might full ACPI support vastly increase
+> > Xen/ARM's target audience?  (partially ACPI so complex to support so many
+> > varied devices)
+> 
+> We have been looking at the possibility to have ACPI support in Xen.
+> The main problem with that is the cost in lines of code in Xen which would be high
+> and as a consequence the maintenance cost would be high.
+> So if anything is done it must stay properly limited using ifdefs to make sure people
+> needing a ???small??? xen can still have one.
+> 
+> Now I am on the same side as Julien, I would be very happy to help reviewing if you
+> decide to do the work :-)
 
-Thanks for the feedback. At the moment, we don't enable EFI runtime 
-services nor propagate it to Dom0. So this needs to be wired up.
+I'm getting the impression everyone knows Xen/ARM urgently needs full
+ACPI/UEFI support, just everyone has figured out adequate short-term
+workarounds.  As such everyone keeps making small investments into
+keeping their short-term workarounds in place, hoping someone else will
+fall on the ACPI/UEFI grenade and save everyone.
 
-However, for Elliott's case, I am not sure this is going to sufficient. 
-The Raspberry PI has some devices that can only DMA into the first 1GB 
-of the RAM (the GPU seems to be one). So we need to make sure Xen is 
-allocating enough memory for Dom0 below that limit.
+This sounds suspiciously like the classic Tragedy of the Commons
+situation.
 
-Do you have similar problem on x86? If so, how do you deal with it?
-
-Cheers,
 
 -- 
-Julien Grall
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
