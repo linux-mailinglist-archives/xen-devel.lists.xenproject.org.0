@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60CF04503D1
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Nov 2021 12:52:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.225818.390058 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 174734503FB
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Nov 2021 13:03:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.225833.390068 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmaWT-0007vK-Hr; Mon, 15 Nov 2021 11:51:41 +0000
+	id 1mmahu-0001Cq-U8; Mon, 15 Nov 2021 12:03:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 225818.390058; Mon, 15 Nov 2021 11:51:41 +0000
+Received: by outflank-mailman (output) from mailman id 225833.390068; Mon, 15 Nov 2021 12:03:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmaWT-0007ru-Du; Mon, 15 Nov 2021 11:51:41 +0000
-Received: by outflank-mailman (input) for mailman id 225818;
- Mon, 15 Nov 2021 11:51:40 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mmahu-0001Ak-PU; Mon, 15 Nov 2021 12:03:30 +0000
+Received: by outflank-mailman (input) for mailman id 225833;
+ Mon, 15 Nov 2021 12:03:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mmaWR-0007ro-US
- for xen-devel@lists.xenproject.org; Mon, 15 Nov 2021 11:51:39 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mmaWQ-0007Ke-Jc; Mon, 15 Nov 2021 11:51:38 +0000
-Received: from [54.239.6.189] (helo=[192.168.10.237])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mmaWQ-000402-Cu; Mon, 15 Nov 2021 11:51:38 +0000
+ (envelope-from <SRS0=Jrjg=QC=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1mmaht-0001Ae-8G
+ for xen-devel@lists.xenproject.org; Mon, 15 Nov 2021 12:03:29 +0000
+Received: from ppsw-32.csi.cam.ac.uk (ppsw-32.csi.cam.ac.uk [131.111.8.132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0a41c909-460c-11ec-a9d2-d9f7a1cc8784;
+ Mon, 15 Nov 2021 13:03:27 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:40174)
+ by ppsw-32.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.136]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1mmahq-000hGf-2v (Exim 4.95) (return-path <amc96@srcf.net>);
+ Mon, 15 Nov 2021 12:03:26 +0000
+Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 820381FC18;
+ Mon, 15 Nov 2021 12:03:26 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,66 +45,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=bvagXgt+RcGzZyRBj7VP/vg1oI4kRlKGBqlStlYqtf4=; b=K6R1ZuCaWczmfF3Klt8C1zErJF
-	Zi202Wc4CdblOuk/GfEXaZ0r1/O+JOlaEr5twpBPhMOL/eUK2i7UilZdrqNjpmcPHK1r8OmCE6TT6
-	3nFrzfkqWspMwXRC8vBOAYTUknKOhJgWoa3srctG/iao+onSjxZS3yyDszeNKsOH42i8=;
-Message-ID: <9bd26ab8-cfa6-264a-ee19-0dc3bc2c3e80@xen.org>
-Date: Mon, 15 Nov 2021 11:51:35 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.3.0
-Subject: Re: [PATCH for-4.16 v2] Revert "domctl: improve locking during domain
- destruction"
+X-Inumbo-ID: 0a41c909-460c-11ec-a9d2-d9f7a1cc8784
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Subject: Re: [PATCH for-4.16] freebsd/privcmd: fix MMAP_RESOURCE ioctl
+ definition
 To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Hongyan Xia <hongyxia@amazon.com>, Dmitry Isaikin
- <isaikin-dmitry@yandex.ru>, Ian Jackson <iwj@xenproject.org>
-References: <20211112120208.74387-1-roger.pau@citrix.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20211112120208.74387-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Cc: Wei Liu <wl@xen.org>, Ian Jackson <iwj@xenproject.org>
+References: <20211115110851.1462-1-roger.pau@citrix.com>
+From: Andrew Cooper <amc96@srcf.net>
+Message-ID: <11c7c89d-ba8f-e1da-e2af-4ba186f92fbe@srcf.net>
+Date: Mon, 15 Nov 2021 12:03:26 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
+MIME-Version: 1.0
+In-Reply-To: <20211115110851.1462-1-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
 
-Hi Roger,
-
-On 12/11/2021 12:02, Roger Pau Monne wrote:
-> This reverts commit 228ab9992ffb1d8f9d2475f2581e68b2913acb88.
-> 
-> Performance analysis has shown that dropping the domctl lock during
-> domain destruction greatly increases the contention in the heap_lock,
-> thus making parallel destruction of domains slower.
-> 
-> The following lockperf data shows the difference between the current
-> code and the reverted one:
-> 
-> lock:  3342357(2.268295505s), block:  3263853(18.556650797s)
-> lock:  2788704(0.362311723s), block:   222681( 0.091152276s)
-> 
-> Those figures are from Dmitry Isaikin, and are gathered after
-> destroying 5 2GB HVM guests in parallel:
-> 
-> https://lists.xenproject.org/archives/html/xen-devel/2021-09/msg01515.html
-> 
-> Given the current point in the release, revert the commit and
-> reinstate holding the domctl lock during domain destruction. Further
-> work should be done in order to re-add more fine grained locking to
-> the domain destruction path once a proper solution to avoid the
-> heap_lock contention is found.
-> 
-> Reported-by: Hongyan Xia <hongyxia@amazon.com>
-> Reported-by: Dmitry Isaikin <isaikin-dmitry@yandex.ru>
+On 15/11/2021 11:08, Roger Pau Monne wrote:
+> Current ioctl definition was wrong in both FreeBSD and Xen sources, as
+> the MMAP_RESOURCE ioctl needs to copy back the size of the resource
+> when passed a zero address and size. FreeBSD encodes in the definition
+> of the ioctl number whether parameters should be copied in (W) and/or
+> copied out (R). The current definition for MMAP_RESOURCE is lacking
+> the copy out part (R), and thus the call to query the size of a
+> resource would always return 0.
+>
+> This change will break the current ioctl interface, the tools can
+> however fall back to using the foreign memory interface in order to
+> map resources from guests.
+>
+> This was a shortcoming from when the hypercall and ioctl gained the
+> ability to query the size of the resources, as originally the
+> MMAP_RESOURCE ioctl didn't need to copy out any data.
+>
 > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> Cc: Ian Jackson <iwj@xenproject.org>
+>
+> The change only affects FreeBSD, and it's only a change in a
+> definition of an ioctl, so it's unlikely to break existing code logic.
+> Without this change Xen tools won't be able to use the MMAP_RESOURCE
+> ioctl.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+I guess you found this while trying to fix test-resource, in which case
+a further argument for the change is "the unit tests now pass on FreeBSD" ?
 
-Cheers,
-
--- 
-Julien Grall
+~Andrew
 
