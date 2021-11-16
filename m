@@ -2,48 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 372F94536FC
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Nov 2021 17:10:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.226420.391303 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40D784536FD
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Nov 2021 17:10:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.226423.391314 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mn11n-0007mm-QG; Tue, 16 Nov 2021 16:09:47 +0000
+	id 1mn12B-0000VJ-2U; Tue, 16 Nov 2021 16:10:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 226420.391303; Tue, 16 Nov 2021 16:09:47 +0000
+Received: by outflank-mailman (output) from mailman id 226423.391314; Tue, 16 Nov 2021 16:10:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mn11n-0007jt-My; Tue, 16 Nov 2021 16:09:47 +0000
-Received: by outflank-mailman (input) for mailman id 226420;
- Tue, 16 Nov 2021 16:09:46 +0000
+	id 1mn12A-0000TH-VZ; Tue, 16 Nov 2021 16:10:10 +0000
+Received: by outflank-mailman (input) for mailman id 226423;
+ Tue, 16 Nov 2021 16:10:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5Shi=QD=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mn11m-0007jn-3s
- for xen-devel@lists.xenproject.org; Tue, 16 Nov 2021 16:09:46 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ (envelope-from <SRS0=/Wk1=QD=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1mn129-0007jn-Ij
+ for xen-devel@lists.xenproject.org; Tue, 16 Nov 2021 16:10:09 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9cc1bf93-46f7-11ec-9787-a32c541c8605;
- Tue, 16 Nov 2021 17:09:44 +0100 (CET)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2052.outbound.protection.outlook.com [104.47.14.52]) (Using
- TLS) by relay.mimecast.com with ESMTP id
- de-mta-24-5yoe6qwlP8SQ5YZswv-vnQ-1; Tue, 16 Nov 2021 17:09:43 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB2958.eurprd04.prod.outlook.com (2603:10a6:802:a::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.26; Tue, 16 Nov
- 2021 16:09:40 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4690.027; Tue, 16 Nov 2021
- 16:09:40 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AS8PR07CA0048.eurprd07.prod.outlook.com (2603:10a6:20b:459::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.15 via Frontend
- Transport; Tue, 16 Nov 2021 16:09:39 +0000
+ id ab3a755b-46f7-11ec-9787-a32c541c8605;
+ Tue, 16 Nov 2021 17:10:08 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 52F8D1FD26;
+ Tue, 16 Nov 2021 16:10:08 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3E01713C25;
+ Tue, 16 Nov 2021 16:10:08 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id g6/fDeDXk2FPRwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 16 Nov 2021 16:10:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,191 +51,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9cc1bf93-46f7-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1637078984;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: ab3a755b-46f7-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1637079008; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iYm0VtEp7kV2wnizbYcIm3VxzzYeWnY1FeNOdHKy8nU=;
-	b=Ds8VEZ59ujPhInkErOsLznaB8SD9jmKZowBaArr7dw4MoSJgknsFsISF+5LDs3YifJlI/w
-	yzQBaeU5sZOWOyKNPZXD0bjX8bpFJ5dO+EhYy9QCB83bYsrffPtwDaaQCrjE26axwjciwB
-	ctV/e34Q6Kf8dYYPb6d9F7CAYYMA+rw=
-X-MC-Unique: 5yoe6qwlP8SQ5YZswv-vnQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O9HrRKRk3VLAkt//9jb5ZhgevwK3e+qi/24GsVZU/scXY/rkeRiIaFSgdZMKQ/EHLGb97E8dKXqrMFI2TK03zvo95hTjOH8n4SN9MsHouDtSQtIqZ/u6YMp5x6LyUBTXdFSsWw8SsaNYj8nkw+2dSQs4fwVjYZypOJMwJ7zuwUO9Dl28QasLD1xPowmAh0J+GxVaGwu4GZokazc5dJwlG946C5mcJamxcQE505Jr/HNQ1N/64odPiTdXxq2V3S6lxcP3lQgVl1JsuAC4imW7paHra7rR1FulkFpTRITU1eRf2uO1o2VyHh3+2XbkVztMlnVLRjVyP9fGmLbQ1xMXYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iYm0VtEp7kV2wnizbYcIm3VxzzYeWnY1FeNOdHKy8nU=;
- b=Kv5YcNhEfGIkhvQd3xXQxBcQ7lXZDGf8Ze4f4EPp78yoLVd5e5+jBe6CKhWWgC1OLO7QZahu51dHUeX5DVWX4MCsjY8+vaoJhvDdAWEg9jKddgJAB1HIDZBofpWuuZkwggLIgDnRHaSmKa3N+2pWqcOEm+RloFD6pjwgLTBKXPDFZMBX4GYWm3CXfFCJ2t7DfQ61MEycT+FeMqJ+S9FEWK3P6ywEWCLVTrSl0a20Dk07Uv6QMytGkW/qsnZKSV1L9xTL1kbwZvVrgmk23XLF9NZinTDHhwUX3y84zDVG93Pb+ToiZ6vBp9R5iHOYAz9qVLRaaC9+V2pY69aOYPIHng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <7fc8313a-0806-ee8d-d752-a2a8c4193bcd@suse.com>
-Date: Tue, 16 Nov 2021 17:09:38 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [PATCH v4 02/11] vpci: cancel pending map/unmap on vpci removal
-Content-Language: en-US
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-Cc: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Artem Mygaiev <Artem_Mygaiev@epam.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
- "paul@xen.org" <paul@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Rahul Singh <rahul.singh@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "julien@xen.org" <julien@xen.org>
-References: <20211105065629.940943-1-andr2000@gmail.com>
- <20211105065629.940943-3-andr2000@gmail.com>
- <5bd70935-4968-b8d4-4d6c-7ec0fc54ee6a@suse.com>
- <4e12f7de-19cb-bc79-4df0-6fb52538a944@epam.com>
- <5b47cd28-5264-9f24-38a0-e9dec6c2c1b4@suse.com>
- <b87a51d2-cd96-d0ac-8718-7f2b2feed531@epam.com>
- <ad01ebdc-7fb8-3c76-d953-08b73b4b0c25@epam.com>
- <fc1fdee4-e567-038f-a90b-127548a8da02@suse.com>
- <55a95ff3-6717-780b-25f9-c43728b6270b@epam.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <55a95ff3-6717-780b-25f9-c43728b6270b@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR07CA0048.eurprd07.prod.outlook.com
- (2603:10a6:20b:459::22) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+	bh=Ypb1gZP/qFn/Nc2cwD8eE7gissGSLHhWjECL1VbKa7U=;
+	b=f99V7TL6Gvztv0x03Hl4Jsm7qkYJxJVdGf4EyhKmFW0ifeC4fOY4lUxTToz5nQgSdHbbiF
+	oN3n2lInJW0p8RTJ4M5NcIHf1zjzUDK3QDB62pmIDixuaSjEcp90pgCOmnipBRR/PgBQ+W
+	frovXAlYe0UJ1K00hDgY+T4QawuYTWw=
+From: Juergen Gross <jgross@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "Xen.org security team" <security@xen.org>
+References: <a6cbc3b1-dfdb-ab22-a00e-09db81c25c3f@suse.com>
+Subject: Re: Bug Bounty program
+Message-ID: <a796699d-ff16-d236-d678-ad8bd638f2ba@suse.com>
+Date: Tue, 16 Nov 2021 17:10:07 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8004a1d8-2288-42a0-99d9-08d9a91b7ec8
-X-MS-TrafficTypeDiagnostic: VI1PR04MB2958:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB2958DBBB198CEA4DEBD42A8EB3999@VI1PR04MB2958.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	biqoN3/6mhHUPAXJa2jL2QaujXKKM9ZZiIOUPX8wGRY/UsS+x07UcWEvYzf6B8fLAvyqGdEtfjO0kV8RHu628o8Ju3pZ65Afbfd26jkq95Gkm5od3YA33lBerehOWhcCNQ3Hno6NKXsdBu1nPVTT2cH4FpXXM2ND7jYfArvx7G3TDx23AxKmnFkw+2xZPtYQE01DizoiM6hn7ipJY4ocpBIX1XUDYsoNQy2V96x4gJqtbX4xTBO7f2KUOVsSJ6//DIYj8Z/JtiGkEubi985CRzUCsYhVuqrVOkKtw1fzcpVka6BoLhicPxVBzAcAyDXfy04Cy9DJl4hB6A3K6PdEGqiJ3Bdg1OGlqW49Phu5CtlgXmt7ngDv6gQAfhUiMnRP1B9SVkqlFOOkniWFahgc/BT53pHW6eQU85vDyPdwX6XTBhlRwu/xr5TbJ+Bziws0GXS07lSFnaT3+OWlwLVFDPISNQl1apCuyzV076W4bSHLzrnE0hVJ+l8pogysfasQyuuXlNl1Dyk6kE0nYfS3GiF08E2dQMDUflq5nEKwBtDfjj74gIj0mJWmkyT8TS6ad+RjUREdGEDExiVOAquItTpLmXEImYgeidhSOH0hgZllkH6xWRfKczaUurtBtiF03LhWuJm2cIyQnTgqzr2/LgIglvXb2Wq9QUh1ZWY1f9C0XyCztOlOjvhyMvesMsk64ObiBFmsegQIXsCvl1WmFAXNL3rDoQOx8wtMnkjO4EIoQaI2KO4h8gCBKl2MoLDhGrQIuuyFOQyzqLhOEb92oWCEFjo7TrCCIU2wv0E9JWHoiry/TpILsDUXmsrvIyuKgeHtJJipy0PB7P/etye3gg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(316002)(5660300002)(38100700002)(54906003)(508600001)(4326008)(7416002)(53546011)(16576012)(8936002)(36756003)(31696002)(6486002)(966005)(2906002)(956004)(26005)(6916009)(86362001)(8676002)(31686004)(83380400001)(186003)(66476007)(66556008)(2616005)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Mis0QjFjSnNtazJtUnF0WHRwUEUyUkFPSjF3T2FCWXdmRVIvZWxLcGJkYzVr?=
- =?utf-8?B?RzU1TFptTXdIS0lIajNxbXJuOERwWG1obk9xckJSaHZKVlFVcEJCa20zOFVC?=
- =?utf-8?B?R3RIaEZOL0pwUHQyZFYwKzYreFFhdjNicllHZHBmUGdGVE5UVWZWUTZpY2Qy?=
- =?utf-8?B?T0t1S2ZXdEJ5WDBvQTZLUlhNVkl4YUpjMXVZRlFMOW1WQWhoUlZ1YWoxVHV0?=
- =?utf-8?B?TnBvVGJPM1RyTjdDRVA4QUo2MzZyUkNkSzhHQ1ZxY3FNbjE4RG94QVhqSU1i?=
- =?utf-8?B?bDBSVnRCd1h3eFN6Z3VnbHNLdVdiRXNSRS9SRHZUa0p3cUNZd1UrckJHYTR5?=
- =?utf-8?B?N09mRWdqRHh2UmR1UTZzbXhKYUxqR0JCSGpleDZGcmd6S05XQ2xpMTZKL0N6?=
- =?utf-8?B?N2xkWnorQlZTVVF5YUFDNFFQbXFVb2w0N3BZT0UyL2pWUzRtaG5WYkl3N0k2?=
- =?utf-8?B?Z3hpOFJPU2dLZDNiMXZHQ2VOMFg2NzhneHNWUGVQR2VPQ2ZyR2EzTTNxcmE1?=
- =?utf-8?B?YjU5OTR5SHp4cy9rVUM1STFlMno0TnA5S3hBRHlGcWV4cFRBcXdOOFhDK3RC?=
- =?utf-8?B?d3NVYkhBZStXcExJWVVlcThyVzNQZDVIUHVkUWdmZE80NTlReGFJVmdmdTcv?=
- =?utf-8?B?T01kdEd0QXVHMzM4QnV6d3lyY2UzN2tHeGlvVzNpazJKbk1TTlVxVVlZZEdv?=
- =?utf-8?B?a3JXUURWaGoxU1dnejBoZzdsNmplU0VPSDNYV3pPR3BJRzFaNG82TGFYQ2Vh?=
- =?utf-8?B?U2M3R2QrRjE1VkYrOHB0Q0pDVWRMdFYyd0dqc3Vpb1UvamFmRzE5N3htSkw0?=
- =?utf-8?B?djNrMURjUkN2cDdXSWUvMTZuTWRTNENXYUVqbkpqQnlwd0tsMERaQm1WYTkw?=
- =?utf-8?B?UTM0bkxka0QzeHBJUEhCZ3JpcHRjbGE3cEl3ZUx4WnI3ZUZ4bFdNdUNVdWor?=
- =?utf-8?B?SFRQcjc4MnF1a3FOakxHWGN4YitYWWo0S25KeUtWK09wRDIvcHBSazA0eFJ2?=
- =?utf-8?B?ZFl6M09La2ptTlQyZWs1ZkNpVWgwcy9FQmVobHBpMUx1M1lmZUZEcER0Qmpo?=
- =?utf-8?B?MG9hVDVyb1BaajU1Q29ZZEJML2Y4WEY1Mm1kc3I3VEcxeG1KcENZTUdHYk13?=
- =?utf-8?B?U0s2Rno3QlhKVFNLUzViWmZBRVBwWStOTThHODlJcnNJM0NIUG5ycjBvWml4?=
- =?utf-8?B?eFFhTFVjbWJ2OWY4NzJCenNra1RJcmNHWTM4VW9TTCs2NnBHTnBScTRtcnB3?=
- =?utf-8?B?Skd5WHhXNkRyVTVEc2MxNUo3NHJkemM2MEN4cGIrajd5VFljbS81VWI3VGR0?=
- =?utf-8?B?NVB6WmszV3JGSFIyaWVXTDg4Y2FMazY4VkJtLzIranUxcDAyT1BqMjJQbE0x?=
- =?utf-8?B?dDJsS25ZSXV5QmpkczVSM21CYkFYZGRSVnJQOVJnYVFUT0E2aG1GZEZYV3lt?=
- =?utf-8?B?Wm5IRGZXb0Y1VTJPYW5CY1pKUlBuVFJraCtkakN0SGhOS3VCYWhWTzc4cEdh?=
- =?utf-8?B?UXZxNE1oaHh4bEw4SndQbDJ1cjNaWTJMdVc5VkZad29lZzRsblQwN25seEh4?=
- =?utf-8?B?RUVsZDVrelR6MXNTQzJ1MGJBOGFqNjI5b1dDNis5dXNsVVVCaXN1TTdmRER4?=
- =?utf-8?B?U2xNdE5TTzJoNGZBdEtwd0doRHZ3K2xsejRhNWlUYWRFWXRNZ2RDSGlIRk1T?=
- =?utf-8?B?YTZpWmZHbHN3ZTNBQlBvTGVmcDFoeVQ3RUt0bzBKMTByVWVnclZ5bnkxb0ty?=
- =?utf-8?B?MnZKOFJPS3A0M1IvelNEandzbVlWQjdidHdCeFFSUnJ1V013T3U0ZHRCcS9i?=
- =?utf-8?B?TlI2SThGRHhBZFZrcnJHcWRDdSt3TjhWcjFlYllmZkFkYmVHSkZVUEkxVkYz?=
- =?utf-8?B?SGlhbHBVMTNPNnViMHI2RnlETFNmcXhNZkYwcHlPWk43TE5WZDVKM282TTd1?=
- =?utf-8?B?QUVaRGxMcjFxTnlCQUZIenhrVlNmNStBUEZtd0hzQTNRNm9INGtpanNXSnNQ?=
- =?utf-8?B?WmtvN0ZqUGN2Qkg2OEU5a1owUGJSUW94U0ZqaUVaczdEbExzV2xqdVI3TlEr?=
- =?utf-8?B?bFovdDRqUDJFRUlUS3VDUjlJcUVTUm8xblhvdFJRR0o0a0dldEpSZmphUjhh?=
- =?utf-8?B?enNHekkvYkJ1bWNEb2MrOWdnd2R5QTM0NjluaitubjJUK2N3dUpJZG1NcGRi?=
- =?utf-8?Q?JyG8Ze8Zx+t38raomzi0ULc=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8004a1d8-2288-42a0-99d9-08d9a91b7ec8
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2021 16:09:40.7152
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: E+j7MRXuMjryPxGu3eREMsEBzgp1oERYbNJmt1UqjTeNIaxcrcRVGJPLiTTk28gvP4vlVs9T1aklJjDdogagyQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB2958
+In-Reply-To: <a6cbc3b1-dfdb-ab22-a00e-09db81c25c3f@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="Z0bHqhodIHesa6lxz8SgQbNCMT69XNA7q"
 
-On 16.11.2021 15:24, Oleksandr Andrushchenko wrote:
-> 
-> 
-> On 16.11.21 16:12, Jan Beulich wrote:
->> On 16.11.2021 14:41, Oleksandr Andrushchenko wrote:
->>>
->>> On 16.11.21 10:23, Oleksandr Andrushchenko wrote:
->>>> On 16.11.21 10:01, Jan Beulich wrote:
->>>>> On 16.11.2021 08:32, Oleksandr Andrushchenko wrote:
->>>>>> On 15.11.21 18:56, Jan Beulich wrote:
->>>>>>> On 05.11.2021 07:56, Oleksandr Andrushchenko wrote:
->>>>>>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>>>>>>>
->>>>>>>> When a vPCI is removed for a PCI device it is possible that we have
->>>>>>>> scheduled a delayed work for map/unmap operations for that device.
->>>>>>>> For example, the following scenario can illustrate the problem:
->>>>>>>>
->>>>>>>> pci_physdev_op
->>>>>>>>        pci_add_device
->>>>>>>>            init_bars -> modify_bars -> defer_map -> raise_softirq(SCHEDULE_SOFTIRQ)
->>>>>>>>        iommu_add_device <- FAILS
->>>>>>>>        vpci_remove_device -> xfree(pdev->vpci)
->>>>>>>>
->>>>>>>> leave_hypervisor_to_guest
->>>>>>>>        vpci_process_pending: v->vpci.mem != NULL; v->vpci.pdev->vpci == NULL
->>>>>>>>
->>>>>>>> For the hardware domain we continue execution as the worse that
->>>>>>>> could happen is that MMIO mappings are left in place when the
->>>>>>>> device has been deassigned
->>>>>>> Is continuing safe in this case? I.e. isn't there the risk of a NULL
->>>>>>> deref?
->>>>>> I think it is safe to continue
->>>>> And why do you think so? I.e. why is there no race for Dom0 when there
->>>>> is one for DomU?
->>>> Well, then we need to use a lock to synchronize the two.
->>>> I guess this needs to be pci devs lock unfortunately
->>> The parties involved in deferred work and its cancellation:
->>>
->>> MMIO trap -> vpci_write -> vpci_cmd_write -> modify_bars -> defer_map
->>>
->>> Arm: leave_hypervisor_to_guest -> check_for_vcpu_work -> vpci_process_pending
->>>
->>> x86: two places -> hvm_do_resume -> vpci_process_pending
->>>
->>> So, both defer_map and vpci_process_pending need to be synchronized with
->>> pcidevs_{lock|unlock).
->> If I was an Arm maintainer, I'm afraid I would object to the pcidevs lock
->> getting used in leave_hypervisor_to_guest.
-> I do agree this is really not good, but it seems I am limited in choices.
-> @Stefano, @Julien, do you see any better way of doing that?
-> 
-> We were thinking about introducing a dedicated lock for vpci [1],
-> but finally decided to use pcidevs_lock for now
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--Z0bHqhodIHesa6lxz8SgQbNCMT69XNA7q
+Content-Type: multipart/mixed; boundary="j9S8WZ3q1M02g52hYGitPe1jvpHDbYOtR";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "Xen.org security team" <security@xen.org>
+Message-ID: <a796699d-ff16-d236-d678-ad8bd638f2ba@suse.com>
+Subject: Re: Bug Bounty program
+References: <a6cbc3b1-dfdb-ab22-a00e-09db81c25c3f@suse.com>
+In-Reply-To: <a6cbc3b1-dfdb-ab22-a00e-09db81c25c3f@suse.com>
 
-Even that locking model might be too heavyweight for this purpose,
-unless an r/w lock was intended. The problem would still be that
-all guest exiting would be serialized within a domain. (That's still
-better than serializing all guest exiting on the host, of course.)
+--j9S8WZ3q1M02g52hYGitPe1jvpHDbYOtR
+Content-Type: multipart/mixed;
+ boundary="------------4C8717FF9EC678D9B5A449E9"
+Content-Language: en-US
 
-Jan
+This is a multi-part message in MIME format.
+--------------4C8717FF9EC678D9B5A449E9
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-> [1] https://lore.kernel.org/all/afe47397-a792-6b0c-0a89-b47c523e50d9@epam.com/
-> 
+On 02.11.21 17:10, Juergen Gross wrote:
+> Recently we (the Xen security team) have been invited by HackerOne
+> to join the Internet Bug Bounty https://hackerone.com/ibb (citing the
+> original mail):
+>=20
+>  > The Internet Bug Bounty <https://hackerone.com/ibb> was created with=
 
+>  > the goal of helping to secure critical open source infrastructure.
+>  > After almost $1M paid out for vulnerabilities in open source, we are=
+
+>  > expanding the program's scope with more OSS Projects, and I=E2=80=99=
+m reaching
+>  > out to you today because Xen Hypervisor was specifically requested b=
+y
+>  > multiple partners.
+>  >
+>  > - Partners contribute funds to a shared pool, and nominate projects
+>  >=C2=A0=C2=A0 for inclusion
+>  > - Projects opt-in for inclusion in the program
+>  > - Vulnerabilities are reported directly to project maintainers by yo=
+ur
+>  >=C2=A0=C2=A0 preferred process
+>  > - After a public advisory is released, the Finder submits a bounty
+>  >=C2=A0=C2=A0 claim to the IBB
+>  > - Bounty is split 80% for finder and 20% to the project
+>=20
+> This is something we as the security team don't want to decide without
+> discussing it in the open. We've brought that topic up in today's (Nov
+> 2nd) community call. As maybe not everyone wanting to bring something
+> up was in that call, I volunteered to write this mail to xen-devel.
+>=20
+> There are a few things we already discussed:
+>=20
+> - As a large quantity of security bugs is actually detected by the
+>  =C2=A0 security team while looking at other security bugs, we feel tha=
+t the
+>  =C2=A0 members of the security team should not be claiming bug bountie=
+s for
+>  =C2=A0 issues they find in the code.
+>=20
+> - We are aware of the possibility that someone (being a contributor or
+>  =C2=A0 a maintainer) might try to sneak in a patch introducing a secur=
+ity
+>  =C2=A0 bug, in order to claim a bounty for it later. OTOH setting up r=
+ules
+>  =C2=A0 for a (hopefully) never occurring case feels like overkill, and=
+ we
+>  =C2=A0 don't want to drive away potential new contributors or maintain=
+ers by
+>  =C2=A0 excluding them at least partially from the bounty program. So r=
+ight
+>  =C2=A0 now we are inclined to not setup further exclusion rules for cl=
+aiming
+>  =C2=A0 any bounties.
+>=20
+> - General consensus seems to be to let the bug bounty program only cove=
+r
+>  =C2=A0 our coding. Any vulnerabilities reported against the Xen projec=
+t's
+>  =C2=A0 infrastructure (web sites, ...) should not qualify for claiming=
+ a bug
+>  =C2=A0 bounty.
+>=20
+> Are there any further topics we need to discuss, or is there any concer=
+n
+> with above statements?
+
+Seems as if there is no specific need for further discussion, given that
+2 weeks have passed without any response to this mail.
+
+As the advisory board is fine with us joining the Internet Bug Bounty,
+we'll do that.
+
+The following restrictions apply:
+
+- Members of the security team can't claim bounties.
+
+- Nobody should claim a bounty for a vulnerability introduced by a
+   patch for which he/she has given any of a "Signed-off-by:",
+   "Acked-by:" or "Reviewed-by:" tag. In case someone thinks that
+   a special case needs an exception from that rule, it is always
+   possible to request that from the community manager or the security
+   team (before claiming the bounty).
+
+- Only security issues in our code base are covered by the Bug Bounty
+   program.
+
+
+Juergen
+
+--------------4C8717FF9EC678D9B5A449E9
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------4C8717FF9EC678D9B5A449E9--
+
+--j9S8WZ3q1M02g52hYGitPe1jvpHDbYOtR--
+
+--Z0bHqhodIHesa6lxz8SgQbNCMT69XNA7q
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGT198FAwAAAAAACgkQsN6d1ii/Ey/g
+nQf/dKnM6uWmb0KT1lxvuF7z/qncr8fWqRs90vFDgD6McqCNHomGHuLQRqpGFt7R5MWJ2XNS8xZg
+vn6hIc9d+SEswEmY2OZjV93xYsHyU0XbRmz3ZK4f9LhjELCXGARNHaBo0cdsMQ8ArljaddWHQbuD
+ihXvnIiMiDr7bsLqZH0a1+8fFv1G10y920TmBzFSuSzkNX8ANbsxoGzdQ2oZCEUcwfqYC0SpAm7Z
+hdva5DasyQmgjBcAC32cqOfmajsSljmGduSqp9Vn0VV1ohUXfm4Krnk7qjyGK2SWj5A+IX29731j
+/1lXrsGKkJ1nnM4Z6wHmbX+FGYPZ/lQy+Rx3cTiflQ==
+=iC6B
+-----END PGP SIGNATURE-----
+
+--Z0bHqhodIHesa6lxz8SgQbNCMT69XNA7q--
 
