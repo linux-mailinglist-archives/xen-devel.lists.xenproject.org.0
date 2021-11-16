@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08D4545286A
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Nov 2021 04:16:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.226064.390555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6B1B452931
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Nov 2021 05:43:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.226069.390569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmowZ-00008O-OC; Tue, 16 Nov 2021 03:15:35 +0000
+	id 1mmqIp-0008Pt-BL; Tue, 16 Nov 2021 04:42:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 226064.390555; Tue, 16 Nov 2021 03:15:35 +0000
+Received: by outflank-mailman (output) from mailman id 226069.390569; Tue, 16 Nov 2021 04:42:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmowZ-00005Z-KL; Tue, 16 Nov 2021 03:15:35 +0000
-Received: by outflank-mailman (input) for mailman id 226064;
- Tue, 16 Nov 2021 03:15:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KMVQ=QD=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1mmowY-00005T-AO
- for xen-devel@lists.xenproject.org; Tue, 16 Nov 2021 03:15:34 +0000
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 73eccd89-468b-11ec-a9d2-d9f7a1cc8784;
- Tue, 16 Nov 2021 04:15:31 +0100 (CET)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5A56A61C12;
- Tue, 16 Nov 2021 03:15:29 +0000 (UTC)
+	id 1mmqIp-0008Nb-4x; Tue, 16 Nov 2021 04:42:39 +0000
+Received: by outflank-mailman (input) for mailman id 226069;
+ Tue, 16 Nov 2021 04:42:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mmqIn-0008NR-Ik; Tue, 16 Nov 2021 04:42:37 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mmqIn-0002SN-D9; Tue, 16 Nov 2021 04:42:37 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mmqIn-00057Y-5I; Tue, 16 Nov 2021 04:42:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mmqIn-0007Px-4o; Tue, 16 Nov 2021 04:42:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,108 +42,236 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73eccd89-468b-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1637032529;
-	bh=5uyM56K9C3JTNnFzlCkzis1xhtvK/qU6Vafr+c5TmAc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=KRTYrpXmOePMmv+Ce7MvMiyuZIJ7Dbg6kE4ohqK3HOPH0HuCifLCNiufgGA8HSTkB
-	 ih5LK1Ceb4pB43t+26SFXdje/v8W8irf2mDVE4zVz2uGnNVyHOUJZo2AEGk8T4wH62
-	 AQV5IoUu/nQTKhcxU7D7kfVYsdglRZ9ZB2gGidJN9gYmoUtKE1gTogNiZhX7zm9x04
-	 c+KtzY3BXfnthckPFoxqcglO3Gr/oaRkmK55Mn8jZb6rFGHt2KYdv4asx0GJPcfXH3
-	 fH+5mtmIXUdQF8ue2ocnpH685cYdFNtFqm6AMwPPbM/IlAR5zOhIc5ogAa4dtHqKUW
-	 aNLr38W6dg3Dg==
-Date: Mon, 15 Nov 2021 19:15:28 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Luca Fancellu <luca.fancellu@arm.com>, 
-    Vikram Garhwal <fnu.vikram@xilinx.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, bertrand.marquis@arm.com, 
-    volodymyr_babchuk@epam.com
-Subject: Re: [XEN][RFC PATCH v4 1/1] Update libfdt to v1.6.1
-In-Reply-To: <57d10284-cbd0-2867-2c09-9f1f7824d938@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2111151415020.1412361@ubuntu-linux-20-04-desktop>
-References: <1636702040-116895-1-git-send-email-fnu.vikram@xilinx.com> <1636702040-116895-2-git-send-email-fnu.vikram@xilinx.com> <AE30D3B0-0863-465C-AFBC-8DEB28919A8A@arm.com> <alpine.DEB.2.22.394.2111121400280.1412361@ubuntu-linux-20-04-desktop>
- <57d10284-cbd0-2867-2c09-9f1f7824d938@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=dKqivheNS9klnsKu/SNRJBrhMLEdsun8V7n1BaXJ6nQ=; b=h/ABtRYRly3NGisupTnyHm3WEK
+	DZNUzZYjM/ORS9IkHXooerO90KotktJ+48x1BvaXlFpHkg4lyv8KQ8ePu/UB/fErPF6ZPh1tuXxv3
+	A4+eQYBm8IA47BdVkJHEQnDIEvvR18dSr/k+PajqJxWKx212LkzSIIt0UwuuWjTaThjM=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166151-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-810334440-1637014827=:1412361"
-Content-ID: <alpine.DEB.2.22.394.2111151420430.1412361@ubuntu-linux-20-04-desktop>
+Subject: [linux-linus test] 166151: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:build-i386-pvops:kernel-build:fail:regression
+    linux-linus:test-armhf-armhf-xl-cubietruck:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=8ab774587903771821b59471cc723bba6d893942
+X-Osstest-Versions-That:
+    linux=e66435936756d9bce96433be183358a8994a0f0d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 16 Nov 2021 04:42:37 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 166151 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166151/
 
---8323329-810334440-1637014827=:1412361
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2111151420431.1412361@ubuntu-linux-20-04-desktop>
+Regressions :-(
 
-On Mon, 15 Nov 2021, Julien Grall wrote:
-> On 12/11/2021 22:01, Stefano Stabellini wrote:
-> > On Fri, 12 Nov 2021, Luca Fancellu wrote:
-> > > > On 12 Nov 2021, at 07:27, Vikram Garhwal <fnu.vikram@xilinx.com> wrote:
-> > > > 
-> > > > Update libfdt to v1.6.1 of libfdt taken from
-> > > > git://github.com/dgibson/dtc.
-> > > > This update is done to support device tree overlays.
-> > > > 
-> > > > A few minor changes are done to make it compatible with Xen:
-> > > >     fdt_overlay.c: overlay_fixup_phandle()
-> > > > 
-> > > >         Replace strtoul() with simple_strtoul() as strtoul() is not
-> > > > available in
-> > > >         Xen lib and included lib.h.
-> > > > 
-> > > >         Change char *endptr to const char *endptr. This change is
-> > > > required for
-> > > >         using simple_strtoul().
-> > > > 
-> > > >     libfdt_env.h:
-> > > >         Remaining Xen changes to libfdt_env.h carried over from existing
-> > > >         libfdt (v1.4.0)
-> > > 
-> > > Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-> > > 
-> > > I’ve also tested it on FVP and on a Juno board, starting few guests and it
-> > > worked.
-> > > 
-> > > Tested-by: Luca Fancellu <luca.fancellu@arm.com>
-> > 
-> > Thanks Luca! The patch also passes the gitlab-ci tests and looks OK to
-> > me. I'll let Julien ack it as he was the one with a couple of comments
-> > before.
-> 
-> The next version addressed my comments. So:
-> 
-> Reviewed-by: Julien Grall <jgrall@amazon.com>
-> 
-> I have also queued the patch in a temporary branch for-next/4.17:
-> 
-> https://xenbits.xen.org/gitweb/?p=people/julieng/xen-unstable.git;a=shortlog;h=refs/heads/for-next/4.17
-> 
-> The patch will land in staging when the tree re-opens.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-i386-pvops              6 kernel-build             fail REGR. vs. 165976
+ test-armhf-armhf-xl-cubietruck  8 xen-boot               fail REGR. vs. 165976
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 165976
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 165976
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 165976
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 165976
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 165976
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 165976
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 165976
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 165976
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 165976
 
-Hey Julien,
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 166149
 
-Thanks for that!
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 165976
 
-Do you think it would make sense to keep "for-next/4.17" under
-xen-integration [1] so that we can easily trigger gitlab-ci runs on it?
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 165976
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 165976
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 165976
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 165976
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 165976
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
 
-I cannot setup an automatic mirror of your branch on xen-integration
-because xen-integration is already mirroring upstream xen.git. For now,
-I have just manually pushed:
-https://gitlab.com/xen-project/fusa/xen-integration/-/tree/for-next/4.17
+version targeted for testing:
+ linux                8ab774587903771821b59471cc723bba6d893942
+baseline version:
+ linux                e66435936756d9bce96433be183358a8994a0f0d
 
-Which triggered (all green):
-https://gitlab.com/xen-project/fusa/xen-integration/-/pipelines/409417946
+Last test of basis   165976  2021-11-01 23:11:48 Z   14 days
+Failing since        165992  2021-11-02 05:40:21 Z   13 days   22 attempts
+Testing same since   166149  2021-11-15 06:45:03 Z    0 days    2 attempts
 
-FYI you should have full rights to push and make edits on
-xen-integration.
+------------------------------------------------------------
+2166 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             fail    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
-[1] https://gitlab.com/xen-project/fusa/xen-integration
---8323329-810334440-1637014827=:1412361--
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 250693 lines long.)
 
