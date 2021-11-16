@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAB5A45346C
-	for <lists+xen-devel@lfdr.de>; Tue, 16 Nov 2021 15:40:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.226325.391061 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A9D945346D
+	for <lists+xen-devel@lfdr.de>; Tue, 16 Nov 2021 15:40:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.226329.391072 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmzcl-000327-HD; Tue, 16 Nov 2021 14:39:51 +0000
+	id 1mmzdF-0004IM-Pf; Tue, 16 Nov 2021 14:40:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 226325.391061; Tue, 16 Nov 2021 14:39:51 +0000
+Received: by outflank-mailman (output) from mailman id 226329.391072; Tue, 16 Nov 2021 14:40:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mmzcl-0002zx-E8; Tue, 16 Nov 2021 14:39:51 +0000
-Received: by outflank-mailman (input) for mailman id 226325;
- Tue, 16 Nov 2021 14:39:49 +0000
+	id 1mmzdF-0004G2-Mm; Tue, 16 Nov 2021 14:40:21 +0000
+Received: by outflank-mailman (input) for mailman id 226329;
+ Tue, 16 Nov 2021 14:40:20 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mmzcj-0002zp-Qe
- for xen-devel@lists.xenproject.org; Tue, 16 Nov 2021 14:39:49 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mmzdE-0004Fu-6o
+ for xen-devel@lists.xenproject.org; Tue, 16 Nov 2021 14:40:20 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mmzcj-0005Pc-PB
- for xen-devel@lists.xenproject.org; Tue, 16 Nov 2021 14:39:49 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mmzdE-0005Qk-65
+ for xen-devel@lists.xenproject.org; Tue, 16 Nov 2021 14:40:20 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mmzcj-0001cK-OO
- for xen-devel@lists.xenproject.org; Tue, 16 Nov 2021 14:39:49 +0000
+ (envelope-from <iwj@xenproject.org>) id 1mmzdE-0001gc-5I
+ for xen-devel@lists.xenproject.org; Tue, 16 Nov 2021 14:40:20 +0000
 Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
  (envelope-from <iwj@xenproject.org>)
- id 1mmzcg-0000CS-16; Tue, 16 Nov 2021 14:39:46 +0000
+ id 1mmzd8-0000DG-QR; Tue, 16 Nov 2021 14:40:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,41 +44,32 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
 	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=OdFqEbkANqZJCuJqraWD9pv2GTOVC/uTxej4Y43GWrg=; b=ocMpN5IWxj2Gq6MqqXffHUKQzn
-	QtbbyLYQEOwy6N3uoFCtlRJlN6EWOREM27PsAOMVrcXsX1p2awholyk8kEiyg9W6dWYkkfbT98K+V
-	MbnnqOXqTgB2a4J5WLzHtcJOcSvlR3pz2jamyWHCpwHuE/EG33PtEkIAcTWNOYcjLC34=;
+	bh=rdCit8M2LUqtqbjWk/2zluLEXPHZ+Bv+oOqOxqtnwFI=; b=mNw5FpzZY2NssE/5NGyJHv5Yx7
+	tJtxU41KpbMtsk0js4ejlTYz8ckaGeWILxv6giXcvWQHaxgADHs3EE28JwO+2UiTb+VSOAJ/PuLYk
+	5h1pcEZdGgKrV3sR+MOYl7ueQId6WEhhjJieAGJhEEp7bBcKxj+m/QOCi0SW+DcrOGbU=;
 From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24979.49841.401004.188343@mariner.uk.xensource.com>
-Date: Tue, 16 Nov 2021 14:39:45 +0000
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel\@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-    Andrew Cooper <andrew.cooper3@citrix.com>,
-    George Dunlap <george.dunlap@citrix.com>,
-    Julien Grall <julien@xen.org>,
-    Stefano Stabellini <sstabellini@kernel.org>,
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
+Message-ID: <24979.49870.437400.419375@mariner.uk.xensource.com>
+Date: Tue, 16 Nov 2021 14:40:14 +0000
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: <xen-devel@lists.xenproject.org>,
     Wei Liu <wl@xen.org>,
-    Luca Fancellu <luca.fancellu@arm.com>
-Subject: Re: [PATCH v2] public/gnttab: relax v2 recommendation
-In-Reply-To: <8e6e23c7-4416-405f-8bd1-bc5b23ea587e@suse.com>
-References: <8e6e23c7-4416-405f-8bd1-bc5b23ea587e@suse.com>
+    Andrew  Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH for-4.16] tests/resource: set grant version for created domains
+In-Reply-To: <20211115105106.928-1-roger.pau@citrix.com>
+References: <20211115105106.928-1-roger.pau@citrix.com>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-Jan Beulich writes ("[PATCH v2] public/gnttab: relax v2 recommendation"):
-> With there being a way to disable v2 support, telling new guests to use
-> v2 exclusively is not a good suggestion.
+Roger Pau Monne writes ("[PATCH for-4.16] tests/resource: set grant version for created domains"):
+> Set the grant table version for the created domains to use version 1,
+> as that's the used by the test cases. Without setting the grant
+> version the domains for the tests cannot be created.
 > 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+> Fixes: 7379f9e10a ('gnttab: allow setting max version per-domain')
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
 Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-
-This is a just a comment change and AIUI the recommendation ought to
-be the same for all relevant versions.
-
-We should consider backporting too.
-
-Ian.
 
