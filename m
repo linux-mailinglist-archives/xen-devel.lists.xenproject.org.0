@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61A70454E9C
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Nov 2021 21:34:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.226990.392449 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00CF0454F57
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Nov 2021 22:27:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.226996.392463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnRbt-00009B-DI; Wed, 17 Nov 2021 20:32:49 +0000
+	id 1mnSSI-00058I-67; Wed, 17 Nov 2021 21:26:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 226990.392449; Wed, 17 Nov 2021 20:32:49 +0000
+Received: by outflank-mailman (output) from mailman id 226996.392463; Wed, 17 Nov 2021 21:26:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnRbt-000078-9P; Wed, 17 Nov 2021 20:32:49 +0000
-Received: by outflank-mailman (input) for mailman id 226990;
- Wed, 17 Nov 2021 20:32:47 +0000
+	id 1mnSSI-00056W-39; Wed, 17 Nov 2021 21:26:58 +0000
+Received: by outflank-mailman (input) for mailman id 226996;
+ Wed, 17 Nov 2021 21:26:56 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mnRbr-00006y-Pe; Wed, 17 Nov 2021 20:32:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1mnSSG-00056Q-3e
+ for xen-devel@lists.xenproject.org; Wed, 17 Nov 2021 21:26:56 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mnRbr-0000F2-J9; Wed, 17 Nov 2021 20:32:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mnRbr-0000ud-9G; Wed, 17 Nov 2021 20:32:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mnRbr-0008Bf-8j; Wed, 17 Nov 2021 20:32:47 +0000
+ (envelope-from <julien@xen.org>)
+ id 1mnSSE-00017s-Ow; Wed, 17 Nov 2021 21:26:54 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.193])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mnSSE-0008FS-J0; Wed, 17 Nov 2021 21:26:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,89 +39,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=wUixW35im7mCXc5n4O3cpoBV78OQ/8FEyWVWZtajB+0=; b=6Ccs9xzChQ/1MkYcMPn3DmFIrA
-	8Tv3qp7ojkKlWSq2VALYJyHRKiqOOblCz76ajrGUJvKGuNqLmm+aSH8NVxqzg2+tj51d+Ndky7C+v
-	Xj64qnVKA3WJykffW9MKpq9En2OHOnMnNV8GX2/9giCPTVyhSjKWizCz3tJl/ggqPTGQ=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-166176-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=gSMmsE0cVcj2jqOMEN+Z+yv4TFLSQtEc4bWoWX4Jifw=; b=Tdmi6yF+pObdDrc6SQO1Q/cmH7
+	7ID/FneEMQIeN5quQ1MzUH9OaKZtpuwVTb7J+QYuV4gku9sdKyVsRmFHKRjYPr3KFoWsJIkWydBXe
+	BMho/ku78CSdol/yRIW5f1+g3+7FOOw1cLvBuWcWfjh+VlzZbUvtBNLQuaoOZDiIJ07o=;
+Message-ID: <a0f371ce-df7f-fdfb-f4f2-f963d2468480@xen.org>
+Date: Wed, 17 Nov 2021 21:26:51 +0000
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 166176: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=1cffc48f1e1f972daeec579c62de4bb24f3152fa
-X-Osstest-Versions-That:
-    xen=306e0afbb382ec10081ab277c866e9e7c212dda5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 17 Nov 2021 20:32:47 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.1
+Subject: Re: [PATCH v6 6/7] xen/arm: process pending vPCI map/unmap operations
+To: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ volodymyr_babchuk@epam.com, Artem_Mygaiev@epam.com, roger.pau@citrix.com,
+ jbeulich@suse.com, andrew.cooper3@citrix.com, george.dunlap@citrix.com,
+ paul@xen.org, bertrand.marquis@arm.com, rahul.singh@arm.com,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+References: <20211105063326.939843-1-andr2000@gmail.com>
+ <20211105063326.939843-7-andr2000@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20211105063326.939843-7-andr2000@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 166176 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/166176/
+Hi Oleksandr,
 
-Failures :-/ but no regressions.
+On 05/11/2021 06:33, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> 
+> vPCI may map and unmap PCI device memory (BARs) being passed through which
+> may take a lot of time. For this those operations may be deferred to be
+> performed later, so that they can be safely preempted.
+> 
+> Currently this deferred processing is happening in common IOREQ code
+> which doesn't seem to be the right place for x86 and is even more
+> doubtful because IOREQ may not be enabled for Arm at all.
+> So, for Arm the pending vPCI work may have no chance to be executed
+> if the processing is left as is in the common IOREQ code only.
+> For that reason make vPCI processing happen in arch specific code.
+> 
+> Please be aware that there are a few outstanding TODOs affecting this
+> code path, see xen/drivers/vpci/header.c:map_range and
+> xen/drivers/vpci/header.c:vpci_process_pending.
+> 
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-version targeted for testing:
- xen                  1cffc48f1e1f972daeec579c62de4bb24f3152fa
-baseline version:
- xen                  306e0afbb382ec10081ab277c866e9e7c212dda5
+Cheers,
 
-Last test of basis   166162  2021-11-17 08:01:37 Z    0 days
-Testing same since   166168  2021-11-17 12:02:59 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   306e0afbb3..1cffc48f1e  1cffc48f1e1f972daeec579c62de4bb24f3152fa -> smoke
+-- 
+Julien Grall
 
