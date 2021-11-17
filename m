@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DBAA454474
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Nov 2021 10:58:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.226684.391799 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D103C454480
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Nov 2021 11:00:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.226692.391813 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnHhc-0003yx-Ue; Wed, 17 Nov 2021 09:58:04 +0000
+	id 1mnHjV-0004hU-Ac; Wed, 17 Nov 2021 10:00:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 226684.391799; Wed, 17 Nov 2021 09:58:04 +0000
+Received: by outflank-mailman (output) from mailman id 226692.391813; Wed, 17 Nov 2021 10:00:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnHhc-0003w3-RO; Wed, 17 Nov 2021 09:58:04 +0000
-Received: by outflank-mailman (input) for mailman id 226684;
- Wed, 17 Nov 2021 09:58:03 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mnHjV-0004f9-7I; Wed, 17 Nov 2021 10:00:01 +0000
+Received: by outflank-mailman (input) for mailman id 226692;
+ Wed, 17 Nov 2021 09:59:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mnHhb-0003vL-3Q; Wed, 17 Nov 2021 09:58:03 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mnHhb-00044M-0s; Wed, 17 Nov 2021 09:58:03 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mnHha-0004Bo-MK; Wed, 17 Nov 2021 09:58:02 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mnHha-0006MV-Ls; Wed, 17 Nov 2021 09:58:02 +0000
+ (envelope-from <SRS0=BnEr=QE=lst.de=hch@srs-se1.protection.inumbo.net>)
+ id 1mnHjT-0004f3-GI
+ for xen-devel@lists.xenproject.org; Wed, 17 Nov 2021 09:59:59 +0000
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1ee6d32c-478d-11ec-a9d2-d9f7a1cc8784;
+ Wed, 17 Nov 2021 10:59:58 +0100 (CET)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 863B668AFE; Wed, 17 Nov 2021 10:59:53 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,65 +38,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=5qZbDxHHrOlW0/kF+LuIIdj6Hdd5kt4Mel2aWcylHJo=; b=WcKaqiLfXr418KjDD6eQfIO4AH
-	TFKfNcxLVzO04oi0O4JaPP9PmHj8j4sc63hRghvMi11D1nOyHHzw4upHr/BeqLpSIII/gVuchM52v
-	CN5rI25ISNC4MCJEnWMw4ozNgmrUOMubyGt09N8TiOxDKhIiDjesSZZxQNhbjp66MkDw=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-166165-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1ee6d32c-478d-11ec-a9d2-d9f7a1cc8784
+Date: Wed, 17 Nov 2021 10:59:53 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Tianyu Lan <ltykernel@gmail.com>
+Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
+	tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
+	hpa@zytor.com, jgross@suse.com, sstabellini@kernel.org,
+	boris.ostrovsky@oracle.com, kys@microsoft.com,
+	haiyangz@microsoft.com, sthemmin@microsoft.com, wei.liu@kernel.org,
+	decui@microsoft.com, joro@8bytes.org, will@kernel.org,
+	davem@davemloft.net, kuba@kernel.org, jejb@linux.ibm.com,
+	martin.petersen@oracle.com, hch@lst.de, m.szyprowski@samsung.com,
+	robin.murphy@arm.com, xen-devel@lists.xenproject.org,
+	michael.h.kelley@microsoft.com,
+	Tianyu Lan <Tianyu.Lan@microsoft.com>,
+	iommu@lists.linux-foundation.org, linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
+	netdev@vger.kernel.org, vkuznets@redhat.com, brijesh.singh@amd.com,
+	konrad.wilk@oracle.com, parri.andrea@gmail.com,
+	thomas.lendacky@amd.com, dave.hansen@intel.com
+Subject: Re: [PATCH 1/5] x86/Swiotlb: Add Swiotlb bounce buffer remap
+ function for HV IVM
+Message-ID: <20211117095953.GA10330@lst.de>
+References: <20211116153923.196763-1-ltykernel@gmail.com> <20211116153923.196763-2-ltykernel@gmail.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 166165: all pass - PUSHED
-X-Osstest-Versions-This:
-    xen=2d72d2784eb71d8532bfbd6462d261739c9e82e4
-X-Osstest-Versions-That:
-    xen=c7a7f14b92991e7d79735bff95f04676b9af34c6
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 17 Nov 2021 09:58:02 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211116153923.196763-2-ltykernel@gmail.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-flight 166165 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/166165/
+The subject is wrong, nothing x86-specific here.  Please use
+"swiotlb: " as the prefix
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  2d72d2784eb71d8532bfbd6462d261739c9e82e4
-baseline version:
- xen                  c7a7f14b92991e7d79735bff95f04676b9af34c6
+> + * @vaddr:	The vaddr of the swiotlb memory pool. The swiotlb
+> + *		memory pool may be remapped in the memory encrypted case and store
 
-Last test of basis   166145  2021-11-14 09:18:29 Z    3 days
-Testing same since   166165  2021-11-17 09:18:30 Z    0 days    1 attempts
+Please avoid the overly long line.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
+> +	/*
+> +	 * With swiotlb_unencrypted_base setting, swiotlb bounce buffer will
+> +	 * be remapped in the swiotlb_update_mem_attributes() and return here
+> +	 * directly.
+> +	 */
 
-jobs:
- coverity-amd64                                               pass    
+I'd word this as:
 
+	/*
+	 * If swiotlb_unencrypted_base is set, the bounce buffer memory will
+	 * be remapped and cleared in swiotlb_update_mem_attributes.
+	 */
+> +	ret = swiotlb_init_io_tlb_mem(mem, __pa(tlb), nslabs, false);
+> +	if (ret) {
+> +		memblock_free(mem->slots, alloc_size);
+> +		return ret;
+> +	}
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   c7a7f14b92..2d72d2784e  2d72d2784eb71d8532bfbd6462d261739c9e82e4 -> coverity-tested/smoke
+With the latest update swiotlb_init_io_tlb_mem will always return 0,
+so no need for the return value change or error handling here.
 
