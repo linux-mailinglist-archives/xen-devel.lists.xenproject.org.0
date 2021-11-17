@@ -2,69 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16671454602
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Nov 2021 12:52:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.226802.392082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B5FB454623
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Nov 2021 13:07:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.226817.392092 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnJUJ-0003jR-Ha; Wed, 17 Nov 2021 11:52:27 +0000
+	id 1mnJiA-0005Rj-1v; Wed, 17 Nov 2021 12:06:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 226802.392082; Wed, 17 Nov 2021 11:52:27 +0000
+Received: by outflank-mailman (output) from mailman id 226817.392092; Wed, 17 Nov 2021 12:06:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnJUJ-0003g6-DO; Wed, 17 Nov 2021 11:52:27 +0000
-Received: by outflank-mailman (input) for mailman id 226802;
- Wed, 17 Nov 2021 11:52:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BtAJ=QE=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1mnJUI-0003fy-Lp
- for xen-devel@lists.xenproject.org; Wed, 17 Nov 2021 11:52:26 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20600.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::600])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d46133b8-479c-11ec-9787-a32c541c8605;
- Wed, 17 Nov 2021 12:52:25 +0100 (CET)
-Received: from DU2PR04CA0321.eurprd04.prod.outlook.com (2603:10a6:10:2b5::26)
- by VE1PR08MB4896.eurprd08.prod.outlook.com (2603:10a6:802:b1::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.26; Wed, 17 Nov
- 2021 11:52:21 +0000
-Received: from DB5EUR03FT042.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:2b5:cafe::a2) by DU2PR04CA0321.outlook.office365.com
- (2603:10a6:10:2b5::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16 via Frontend
- Transport; Wed, 17 Nov 2021 11:52:21 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT042.mail.protection.outlook.com (10.152.21.123) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4690.15 via Frontend Transport; Wed, 17 Nov 2021 11:52:21 +0000
-Received: ("Tessian outbound f493ab4f1fb8:v110");
- Wed, 17 Nov 2021 11:52:21 +0000
-Received: from 3ceec2153b09.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 2836A5CC-9157-4917-B99B-26467F35C677.1; 
- Wed, 17 Nov 2021 11:52:09 +0000
-Received: from EUR03-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 3ceec2153b09.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 17 Nov 2021 11:52:09 +0000
-Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
- by PAXPR08MB6846.eurprd08.prod.outlook.com (2603:10a6:102:15d::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.26; Wed, 17 Nov
- 2021 11:52:08 +0000
-Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
- ([fe80::1d24:822b:651c:5eeb]) by PAXPR08MB6816.eurprd08.prod.outlook.com
- ([fe80::1d24:822b:651c:5eeb%6]) with mapi id 15.20.4690.015; Wed, 17 Nov 2021
- 11:52:08 +0000
-Received: from smtpclient.apple (82.8.129.65) by
- LNXP265CA0032.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:5c::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4713.20 via Frontend Transport; Wed, 17 Nov 2021 11:52:08 +0000
+	id 1mnJi9-0005Ot-V0; Wed, 17 Nov 2021 12:06:45 +0000
+Received: by outflank-mailman (input) for mailman id 226817;
+ Wed, 17 Nov 2021 12:06:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Swqu=QE=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1mnJi8-0005On-Fd
+ for xen-devel@lists.xenproject.org; Wed, 17 Nov 2021 12:06:44 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d40d07a3-479e-11ec-a9d2-d9f7a1cc8784;
+ Wed, 17 Nov 2021 13:06:43 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id ACC6C1FD35;
+ Wed, 17 Nov 2021 12:06:42 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7B1AB13C94;
+ Wed, 17 Nov 2021 12:06:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id nn2dHFLwlGH2OwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 17 Nov 2021 12:06:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -76,163 +51,243 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d46133b8-479c-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vo1+fdYgImCVH9Dbo/jFZe8vPebZIbtirwi6vieZFIY=;
- b=z81wEFFSDC6CvhIwF6tBZi/iW66lnI3AZA6FwMjSwEXv7yP+L7Cb5KaR4Z7txJ8OxLjL+BibWvCD1hDbfVBN5mBBmhJFY+lthz0ALfQlHCvWmDF2u5XKAe8gl3MxJlA8vSVePte3zUOLw5j5Dhz2VqNiaf8I0hrvtdm9w/TCVXY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: f894de6f21acbc5d
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aE+iS34bY9TagNQFM3UB+E/f7CTfIpeJwr1vIATP2S22Tao4m4vewGI9N+YRDL8kKTlMyowh5VgzXjFG5KE+1Qy90gGDCxBOAuPpO6rXGo/EJHbzUDaEfamt3ubbdEIWkqA55unSEex3Ba+31UZPFRLh/bgOOQMT0hpMhIjAehORxx1sqwZMsbSQdCH258aRZ9oX9ZQ/yPkgNoByXFHDUTU2r4nJLOvq1RVvVHI+ogjo4/rZteE7C6uk1Bm580w32YhGVDBCO3qJeIvlDOZz8+80TfE8zW+WSwFGX+ck45q2vwm/ioqFX5pVsdW3D2I3Z+N7lf51DloBbeUSqsD1xA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Vo1+fdYgImCVH9Dbo/jFZe8vPebZIbtirwi6vieZFIY=;
- b=dpAILSMVYEtWXw+t8uLNIwe6HNvDiJEAyIwwxg5Yr+T7Zmla5k1pxPSCj/0+ib6t9C2QFpv4XdAlchnLPZ/L/BvmW2abySfivCtl4wm+0992FcnOjgGqhLJMeeWJPscmVAyC94T17PcAQFH4FPQf5xB/Gy57aj8wpHRxlWjYP4xoefBrUWg0zFyv1qs4wo8N5yn/VaIcgRwzbEf9mATuGz8G3dwjTz/BTCMbGvPVRBZ7fyHCinPcptLTi9rgTGSJHd1g9zUcbisIonhAuhpxus5b2HDduhE+RRqP5M0oI0A5nhM1TPlGabu1/p1J/Ztyjf43IWAq23zfq5NGcyLm6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vo1+fdYgImCVH9Dbo/jFZe8vPebZIbtirwi6vieZFIY=;
- b=z81wEFFSDC6CvhIwF6tBZi/iW66lnI3AZA6FwMjSwEXv7yP+L7Cb5KaR4Z7txJ8OxLjL+BibWvCD1hDbfVBN5mBBmhJFY+lthz0ALfQlHCvWmDF2u5XKAe8gl3MxJlA8vSVePte3zUOLw5j5Dhz2VqNiaf8I0hrvtdm9w/TCVXY=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Content-Type: text/plain;
-	charset=utf-8
+X-Inumbo-ID: d40d07a3-479e-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1637150802; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=avaztLJdsrNFSbjMNXBuMdm/PFlhMNAEY4JkM2A0Kgk=;
+	b=euPtZFpbP5TLGcfo9j6H6X3go6odlZxURELt+Bekf8SeepZ//e/H67DJ99MjfowAVQOwsJ
+	CEK2XelzUj9ulpk3s6qyOfTiwyQegyS22lEyTTGeWt4DRLWNOXj7i3XGGH15v6PYus75dD
+	24Y2EByZLbzfAhBqoR0KsYGBr+qUELU=
 Subject: Re: [RFC PATCH 2/2] tools/cpupools: Give a name to unnamed cpupools
-From: Luca Fancellu <luca.fancellu@arm.com>
-In-Reply-To: <2d0140be-8830-3d7a-5ee9-58ef80357888@suse.com>
-Date: Wed, 17 Nov 2021 11:52:01 +0000
+To: Luca Fancellu <luca.fancellu@arm.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- wei.chen@arm.com,
- Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
  Anthony PERARD <anthony.perard@citrix.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <D14A26F2-487D-42B6-BD3B-552CEFA84294@arm.com>
 References: <20211117095711.26596-1-luca.fancellu@arm.com>
  <20211117095711.26596-3-luca.fancellu@arm.com>
  <2d0140be-8830-3d7a-5ee9-58ef80357888@suse.com>
-To: Juergen Gross <jgross@suse.com>
-X-Mailer: Apple Mail (2.3693.20.0.1.32)
-X-ClientProxiedBy: LNXP265CA0032.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:5c::20) To PAXPR08MB6816.eurprd08.prod.outlook.com
- (2603:10a6:102:130::10)
+ <D14A26F2-487D-42B6-BD3B-552CEFA84294@arm.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <3ecbae61-ade8-955f-a1f9-bf7478e2821a@suse.com>
+Date: Wed, 17 Nov 2021 13:06:41 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5a265944-e95d-40e4-5905-08d9a9c0b69b
-X-MS-TrafficTypeDiagnostic: PAXPR08MB6846:|VE1PR08MB4896:
-X-Microsoft-Antispam-PRVS:
-	<VE1PR08MB489651E9359BD32805BC799CE49A9@VE1PR08MB4896.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:3383;OLM:3383;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- wlL1LNj9xawuEzKgiYB2xSrIPaHdqomVKrvJxUFpv/kF3ZInIHtlpBYbnZQ8uQmX5zNA8oAOrPkVjQf+EDmqC/ysBWJgVRGUCuajNoJS7JLzV5uNh9R7Py6dmHzKcG0W55ZqAzgQEOCsbSNbuYgd0BdzR8pNp9Kk3NTcc3k6uyggwFeY7uBbyWiKnlxisobsvEeD6/j4msQBcayzygzA/yqJQTMmZ84RsdY7Kb5SHJ1ilOjbJvbaepY9LJpIGMKzROXUNkcLZq0Rq5N7X3A5QTzm+tHX2w1zhpW9v0mkUu3gkNLGRi36ON5O2Tter3qDm5JnHKhPIuBXgFwfki9a/AQNbiFGd+INp/aI9A8H27G5owaYQ9G84XqWcIE7zWI1djhZXOHnLVM0n4aC56eD3K+XU4UYqZbWvZ6gAdnOHWCHh1X6aGzzFl4Jbct7xwsj+oTAjuDb3ElUKgoOG/M00ShMjdgxK4MFXzp4wDjSdH3j6XhQzFRu2HALSFOX41YHqR74ddXuBCPZRTiJ+zEnxcUA7gR5HvHZVBofTl7Ec8duRtXvNYFyvOqbtO1wQ9diX4L4vXjWG6Ht1XGbRYd7yBbDUaP4X1VTqegTEUvs3sdCqV7VQKPvMCWeLXGI1EjB8++5gneJATLD2RwGbNfKSxT3sO16FIx7wY860D3q7O1SfrapeH1M3l7xz8vH9RriiOhPMZ5Wxf8I6YENrDWgFejbGZYVXT2KzLWg7279Zt4=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(508600001)(26005)(2906002)(36756003)(38100700002)(38350700002)(8936002)(6512007)(83380400001)(52116002)(956004)(53546011)(6486002)(6506007)(2616005)(86362001)(5660300002)(4326008)(6916009)(54906003)(8676002)(33656002)(66946007)(66556008)(66476007)(44832011)(6666004)(186003)(316002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6846
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT042.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	fb929e9b-e9ba-4ce1-d54f-08d9a9c0aef2
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	7oB71BjAAnUmrHLMICdBRZILetg1+L7VSopSwrNM257GWlI0dlMsOjRRGqmShwVuzG8+DEPBv/hWDiBbFgXtK9TXu6r3+kSVDAvmdC7cvv5TTZIWxAszUo9dX3WNHrrIBgCD+bGcU5nvadIkE/tTke2Z0qpgkCv2VGZpHhGM1/gPHTGAgIr/gx9hMf+Mp/GpzHKXggFGdwV0JNKfBEzg4lSYbPadF97tKNGAUgOWJcuWa5Q7vzp1AmRFluRKlglhuenjWNn63S4SbUDTAr+ymqIwZ3qSu91vE2VhUmjA4YDeQkcOZEVsIWB5HTJTdaK4ZhjqQ4sMF3tk+An5BGvh2nCn+ZxSLSdK/p9Wo7//yNDQxriRxIrfFU+BSWvnpRa9LIuco2bNfH+jDIY9AQlijBV61QGPJPdjZ/YzgW7CyLbLo53Eqnan2LPPAI/5/QiKzGudQffqsvRfP3z2qrfIbdRB33RCc0iuJIAkiQhsr6nAYP9gg1R424SKgHVUGd5ixMrle30hHBIL7DqFtvPf+FoRQVx5p22hWRi4m2PKX6tPnEdgqQYPIR9QSJCdM9NbqHidUs6dNYnyaw6kVQNHDV/kUDfI3Tqu3VFg9mezZOmAIEb91rZDQsbv56G0UDAHM2qIj/N+taSGBV6k1R29ygz/GwR2izEBnDW/cU8Fd0Pp3Hpr74IRqHkrftrPnw0qxjl0wZyNZiUxfKSOi9iW0g==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(82310400003)(83380400001)(81166007)(6862004)(107886003)(36756003)(6512007)(33656002)(316002)(6486002)(4326008)(6506007)(53546011)(36860700001)(26005)(47076005)(54906003)(186003)(356005)(86362001)(70586007)(5660300002)(70206006)(8676002)(44832011)(8936002)(956004)(2616005)(508600001)(336012)(6666004)(2906002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2021 11:52:21.2015
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a265944-e95d-40e4-5905-08d9a9c0b69b
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT042.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB4896
+In-Reply-To: <D14A26F2-487D-42B6-BD3B-552CEFA84294@arm.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="A55LLCymQoFWQVvVWsjxkChqiKqCXwHqg"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--A55LLCymQoFWQVvVWsjxkChqiKqCXwHqg
+Content-Type: multipart/mixed; boundary="quh4cbrLX0zNc7ZXut7FuqVJzXNMKI0wh";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Luca Fancellu <luca.fancellu@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, wei.chen@arm.com,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <3ecbae61-ade8-955f-a1f9-bf7478e2821a@suse.com>
+Subject: Re: [RFC PATCH 2/2] tools/cpupools: Give a name to unnamed cpupools
+References: <20211117095711.26596-1-luca.fancellu@arm.com>
+ <20211117095711.26596-3-luca.fancellu@arm.com>
+ <2d0140be-8830-3d7a-5ee9-58ef80357888@suse.com>
+ <D14A26F2-487D-42B6-BD3B-552CEFA84294@arm.com>
+In-Reply-To: <D14A26F2-487D-42B6-BD3B-552CEFA84294@arm.com>
 
+--quh4cbrLX0zNc7ZXut7FuqVJzXNMKI0wh
+Content-Type: multipart/mixed;
+ boundary="------------2F67CE2DF4FC6EC3DE8AF75E"
+Content-Language: en-US
 
-> On 17 Nov 2021, at 11:10, Juergen Gross <jgross@suse.com> wrote:
+This is a multi-part message in MIME format.
+--------------2F67CE2DF4FC6EC3DE8AF75E
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 17.11.21 12:52, Luca Fancellu wrote:
 >=20
-> On 17.11.21 10:57, Luca Fancellu wrote:
->> With the introduction of boot time cpupools, Xen can
->> create at boot time many cpupools different from the
->> cpupool with id 0.
->> Since these newly created cpupools can't have an
->> entry in Xenstore, name them with the same convention
->> used for the cpupool 0: Pool-<cpupool id>.
->> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
->> ---
->>  tools/libs/light/libxl_utils.c | 13 ++++++++-----
->>  1 file changed, 8 insertions(+), 5 deletions(-)
->> diff --git a/tools/libs/light/libxl_utils.c b/tools/libs/light/libxl_uti=
-ls.c
->> index 4699c4a0a3..d97d91ca98 100644
->> --- a/tools/libs/light/libxl_utils.c
->> +++ b/tools/libs/light/libxl_utils.c
->> @@ -147,13 +147,16 @@ int libxl_cpupool_qualifier_to_cpupoolid(libxl_ctx=
- *ctx, const char *p,
->>  char *libxl_cpupoolid_to_name(libxl_ctx *ctx, uint32_t poolid)
->>  {
->>      unsigned int len;
->> -    char path[strlen("/local/pool") + 12];
->> +    char buffer[strlen("/local/pool") + 12];
->>      char *s;
->>  -    snprintf(path, sizeof(path), "/local/pool/%d/name", poolid);
->> -    s =3D xs_read(ctx->xsh, XBT_NULL, path, &len);
->> -    if (!s && (poolid =3D=3D 0))
->> -        return strdup("Pool-0");
->> +    snprintf(buffer, sizeof(buffer), "/local/pool/%d/name", poolid);
->> +    s =3D xs_read(ctx->xsh, XBT_NULL, buffer, &len);
->> +    if (!s)
->> +    {
->> +        snprintf(buffer, sizeof(buffer), "Pool-%d", poolid);
->> +        return strdup(buffer);
->> +    }
->>      return s;
->>  }
->> =20
 >=20
-> This breaks libxl_cpupoolid_is_valid(), as it will now return always
-> true, regardless whether the poolid is existing or not.
+>> On 17 Nov 2021, at 11:10, Juergen Gross <jgross@suse.com> wrote:
+>>
+>> On 17.11.21 10:57, Luca Fancellu wrote:
+>>> With the introduction of boot time cpupools, Xen can
+>>> create at boot time many cpupools different from the
+>>> cpupool with id 0.
+>>> Since these newly created cpupools can't have an
+>>> entry in Xenstore, name them with the same convention
+>>> used for the cpupool 0: Pool-<cpupool id>.
+>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>> ---
+>>>   tools/libs/light/libxl_utils.c | 13 ++++++++-----
+>>>   1 file changed, 8 insertions(+), 5 deletions(-)
+>>> diff --git a/tools/libs/light/libxl_utils.c b/tools/libs/light/libxl_=
+utils.c
+>>> index 4699c4a0a3..d97d91ca98 100644
+>>> --- a/tools/libs/light/libxl_utils.c
+>>> +++ b/tools/libs/light/libxl_utils.c
+>>> @@ -147,13 +147,16 @@ int libxl_cpupool_qualifier_to_cpupoolid(libxl_=
+ctx *ctx, const char *p,
+>>>   char *libxl_cpupoolid_to_name(libxl_ctx *ctx, uint32_t poolid)
+>>>   {
+>>>       unsigned int len;
+>>> -    char path[strlen("/local/pool") + 12];
+>>> +    char buffer[strlen("/local/pool") + 12];
+>>>       char *s;
+>>>   -    snprintf(path, sizeof(path), "/local/pool/%d/name", poolid);
+>>> -    s =3D xs_read(ctx->xsh, XBT_NULL, path, &len);
+>>> -    if (!s && (poolid =3D=3D 0))
+>>> -        return strdup("Pool-0");
+>>> +    snprintf(buffer, sizeof(buffer), "/local/pool/%d/name", poolid);=
 
-Hi Juergen,
-
-Yes right, do you think I can use safely xc_cpupool_getinfo(=E2=80=A6) when=
- there is no entry
-in xenstore?
-I would check that the returned cpupool id is the same and if it isn=E2=80=
-=99t or if I get a null
-result, then I will return NULL to ensure libxl_cpupoolid_is_valid(=E2=80=
+>>> +    s =3D xs_read(ctx->xsh, XBT_NULL, buffer, &len);
+>>> +    if (!s)
+>>> +    {
+>>> +        snprintf(buffer, sizeof(buffer), "Pool-%d", poolid);
+>>> +        return strdup(buffer);
+>>> +    }
+>>>       return s;
+>>>   }
+>>>  =20
+>>
+>> This breaks libxl_cpupoolid_is_valid(), as it will now return always
+>> true, regardless whether the poolid is existing or not.
+>=20
+> Hi Juergen,
+>=20
+> Yes right, do you think I can use safely xc_cpupool_getinfo(=E2=80=A6) =
+when there is no entry
+> in xenstore?
+> I would check that the returned cpupool id is the same and if it isn=E2=
+=80=99t or if I get a null
+> result, then I will return NULL to ensure libxl_cpupoolid_is_valid(=E2=80=
 =A6) works again.
 
-Cheers,
-Luca
+An alternative might be to let tools/helpers/xen-init-dom0.c let write
+the missing cpupool entries (including for Pool-0) and drop the
+poolid =3D=3D 0 special casing from libxl_cpupoolid_to_name().
 
->=20
->=20
-> Juergen
-> <OpenPGP_0xB0DE9DD628BF132F.asc>
+This should be rather easy by using xc_cpupool_getinfo() until it finds
+no further cpupool.
 
+
+Juergen
+
+--------------2F67CE2DF4FC6EC3DE8AF75E
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------2F67CE2DF4FC6EC3DE8AF75E--
+
+--quh4cbrLX0zNc7ZXut7FuqVJzXNMKI0wh--
+
+--A55LLCymQoFWQVvVWsjxkChqiKqCXwHqg
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGU8FEFAwAAAAAACgkQsN6d1ii/Ey+C
+jgf/VJKRjfrG4egWRJunihzw6RgU0Cp4Ft3xhMet+aEv+639LDFSvh/DEQ4uez4tdhJ8RA30Vprd
+jRjO8KU7L2DSpz7xAT0YuXy8oRfq2lx3WDG7G9VOfT4BYP26FoYDpqg6gGDjN5/OmQcp23wp/VSa
+xHEzDyN5LGPM+uTiEbXrR++1R6YoMUaDqSxamgLtUhxTz18F6OCH2q3Kte7hml9lt0zvZ85qf4+I
+oXWI1NY980UlmSE70JgoRMDMOOVN36bIpTZwAEWcCfm/eU5pzLrS9yjmEfUJh1aqGUJ8XvCjLGbP
+Mst4IeBQXcydKXVuTdk9PjkVVX0DPEwDxT1MWxjyNA==
+=G4DF
+-----END PGP SIGNATURE-----
+
+--A55LLCymQoFWQVvVWsjxkChqiKqCXwHqg--
 
