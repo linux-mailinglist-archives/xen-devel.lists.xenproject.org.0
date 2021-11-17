@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BBA54545E1
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Nov 2021 12:44:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.226793.392060 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89EC94545E7
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Nov 2021 12:49:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.226797.392071 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnJMp-0001hK-Ko; Wed, 17 Nov 2021 11:44:43 +0000
+	id 1mnJQi-0002Lb-0F; Wed, 17 Nov 2021 11:48:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 226793.392060; Wed, 17 Nov 2021 11:44:43 +0000
+Received: by outflank-mailman (output) from mailman id 226797.392071; Wed, 17 Nov 2021 11:48:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnJMp-0001fQ-Hn; Wed, 17 Nov 2021 11:44:43 +0000
-Received: by outflank-mailman (input) for mailman id 226793;
- Wed, 17 Nov 2021 11:44:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N6FX=QE=arm.com=michal.orzel@srs-se1.protection.inumbo.net>)
- id 1mnJMn-0001fK-UY
- for xen-devel@lists.xenproject.org; Wed, 17 Nov 2021 11:44:41 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id bf74587d-479b-11ec-a9d2-d9f7a1cc8784;
- Wed, 17 Nov 2021 12:44:40 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7A3601FB;
- Wed, 17 Nov 2021 03:44:39 -0800 (PST)
-Received: from [10.57.29.207] (unknown [10.57.29.207])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5C3963F70D;
- Wed, 17 Nov 2021 03:44:31 -0800 (PST)
+	id 1mnJQh-0002Jg-T3; Wed, 17 Nov 2021 11:48:43 +0000
+Received: by outflank-mailman (input) for mailman id 226797;
+ Wed, 17 Nov 2021 11:48:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mnJQh-0002Ja-57
+ for xen-devel@lists.xenproject.org; Wed, 17 Nov 2021 11:48:43 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mnJQg-0007VL-3P; Wed, 17 Nov 2021 11:48:42 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.21.213]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mnJQf-0003dF-TA; Wed, 17 Nov 2021 11:48:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,97 +39,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf74587d-479b-11ec-a9d2-d9f7a1cc8784
-Subject: Re: [PATCH for-4.16 2/2] CHANGELOG: add missing entries for work
- during the 4.16 release cycle
-To: Julien Grall <julien@xen.org>, Roger Pau Monne <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
-Cc: Alistair Francis <alistair.francis@wdc.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Christian Lindig <christian.lindig@citrix.com>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Dario Faggioli
- <dfaggioli@suse.com>, David Scott <dave@recoil.org>,
- Doug Goldstein <cardoe@cardoe.com>,
- Elena Ufimtseva <elena.ufimtseva@oracle.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>,
- Josh Whitehead <josh.whitehead@dornerworks.com>,
- Juergen Gross <jgross@suse.com>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Meng Xu <mengxu@cis.upenn.edu>,
- Nick Rosbrook <rosbrookn@ainfosec.com>, Paul Durrant <paul@xen.org>,
- Quan Xu <quan.xu0@gmail.com>, Rahul Singh <rahul.singh@arm.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Shriram Rajagopalan <rshriram@cs.ubc.ca>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
- Tamas K Lengyel <tamas@tklengyel.com>, Tim Deegan <tim@xen.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Wei Liu <wl@xen.org>,
- Community Manager <community.manager@xenproject.org>
-References: <20211117095338.14947-1-roger.pau@citrix.com>
- <20211117095338.14947-3-roger.pau@citrix.com>
- <7354e1bf-f34e-c604-b126-fdbfd53afe62@xen.org>
-From: Michal Orzel <michal.orzel@arm.com>
-Message-ID: <0e8ab234-edf4-10d4-74ea-ddb9d1e2953c@arm.com>
-Date: Wed, 17 Nov 2021 12:44:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=mpApsSg1E3OQHUYW1TRPvg2gV1+EAFXMAWBUyIm1WpA=; b=S+dWXGtsFfmy6yoge4TnqdssEZ
+	DQVJ8nYPnoUekh2yYnDPdGnNo3gUi1+8nt+Z+iPB0zt3Yc3U4xjhQKfq2ih8S2arrfqDKtNA/vEwz
+	Uto1zt3oj26pxj4jmHLyf7D1ynbQhc4ybF8aaa3mtnlyrE84PtV63fLVJq5+wuBT8j5A=;
+Message-ID: <d42781c4-b01b-9064-4c90-ff99d960958b@xen.org>
+Date: Wed, 17 Nov 2021 11:48:39 +0000
 MIME-Version: 1.0
-In-Reply-To: <7354e1bf-f34e-c604-b126-fdbfd53afe62@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.1
+Subject: Re: [RFC PATCH 0/2] Boot time cpupools
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Luca Fancellu <Luca.Fancellu@arm.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Juergen Gross <jgross@suse.com>, Dario Faggioli <dfaggioli@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+References: <20211117095711.26596-1-luca.fancellu@arm.com>
+ <26c01edc-46a9-47eb-0c9d-986b92e02158@xen.org>
+ <B20FC780-3E2D-4B4A-BF1D-CF34763D237E@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <B20FC780-3E2D-4B4A-BF1D-CF34763D237E@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 17/11/2021 11:16, Bertrand Marquis wrote:
+> Hi Julien,
 
 Hi,
 
-On 17.11.2021 11:00, Julien Grall wrote:
-> Hi,
-> 
-> On 17/11/2021 09:53, Roger Pau Monne wrote:
->> Document some of the relevant changes during the 4.16 release cycle,
->> likely more entries are missing.
+>> On 17 Nov 2021, at 10:26, Julien Grall <julien@xen.org> wrote:
 >>
->> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->> ---
->>   CHANGELOG.md | 11 +++++++++++
->>   1 file changed, 11 insertions(+)
+>> Hi Luca,
 >>
->> diff --git a/CHANGELOG.md b/CHANGELOG.md
->> index ad1a8c2bc2..8b0bdd9cf0 100644
->> --- a/CHANGELOG.md
->> +++ b/CHANGELOG.md
->> @@ -21,6 +21,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->>    - qemu-traditional based device models (both, qemu-traditional and ioemu-stubdom) will
->>      no longer be built per default. In order to be able to use those, configure needs to
->>      be called with "--enable-qemu-traditional" as parameter.
->> + - Fixes for credit2 scheduler stability in corner case conditions.
->> + - Ongoing improvements in the hypervisor build system.
->> + - vtpmmgr miscellaneous fixes in preparation for TPM 2.0 support.
->> + - 32bit PV guests only supported in shim mode.
->> + - Improved PVH dom0 debug key handling.
->> + - Fix booting on some Intel systems without a PIT (i8254).
->> +
->> +### Added
->> + - 32bit Arm builds to the automated tests.
->> + - New x86 pagetable APIs.
->> + - Arm vPMU support.
+>> On 17/11/2021 09:57, Luca Fancellu wrote:
+>>> Currently Xen creates a default cpupool0 that contains all the cpu brought up
+>>> during boot and it assumes that the platform has only one kind of CPU.
+>>> This assumption does not hold on big.LITTLE platform, but putting different
+>>> type of CPU in the same cpupool can result in instability and security issues
+>>> for the domains running on the pool.
+>>
+>> I agree that you can't move a LITTLE vCPU to a big pCPU. However...
+>>
+>>> For this reason this serie introduces an architecture specific way to create
+>>> different cpupool at boot time, this is particularly useful on ARM big.LITTLE
+>>> platform where there might be the need to have different cpupools for each type
+>>> of core, but also systems using NUMA can have different cpu pool for each node.
+>>
+>> ... from my understanding, all the vCPUs of a domain have to be in the same cpupool. So with this approach it is not possible:
+>>    1) to have a mix of LITTLE and big vCPUs in the domain
+>>    2) to create a domain spanning across two NUMA nodes
+>>
+>> So I think we need to make sure that any solutions we go through will not prevent us to implement those setups.
 > 
-> I would add "Early" or something similar because this can only work in a constrained setup.
-> 
-+1.
-I would say:
-"Arm early vPMU support for guests."
+> The point of this patch is to make all cores available without breaking the current behaviour of existing system.
 
-> Cheers,
-> 
+I might be missing some context here. By breaking current behavior, do 
+you mean user that may want to add "hmp-unsafe" on the command line?
 
 Cheers,
-Michal
+
+-- 
+Julien Grall
 
