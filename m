@@ -2,36 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FFFB45631B
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Nov 2021 20:04:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.227582.393651 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC0004564A3
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Nov 2021 22:01:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.227589.393663 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnmi3-0000Kn-RU; Thu, 18 Nov 2021 19:04:35 +0000
+	id 1mnoWQ-0002me-7m; Thu, 18 Nov 2021 21:00:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 227582.393651; Thu, 18 Nov 2021 19:04:35 +0000
+Received: by outflank-mailman (output) from mailman id 227589.393663; Thu, 18 Nov 2021 21:00:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnmi3-0000Ht-OQ; Thu, 18 Nov 2021 19:04:35 +0000
-Received: by outflank-mailman (input) for mailman id 227582;
- Thu, 18 Nov 2021 19:04:34 +0000
+	id 1mnoWQ-0002kq-3U; Thu, 18 Nov 2021 21:00:42 +0000
+Received: by outflank-mailman (input) for mailman id 227589;
+ Thu, 18 Nov 2021 21:00:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/tNz=QF=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1mnmi2-0000HX-FY
- for xen-devel@lists.xenproject.org; Thu, 18 Nov 2021 19:04:34 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
+ <SRS0=Vl7d=QF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1mnoWO-0002kk-E8
+ for xen-devel@lists.xenproject.org; Thu, 18 Nov 2021 21:00:40 +0000
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d73d883-48a2-11ec-9787-a32c541c8605;
- Thu, 18 Nov 2021 20:04:33 +0100 (CET)
-Received: by mail-lf1-x135.google.com with SMTP id b40so31037901lfv.10
- for <xen-devel@lists.xenproject.org>; Thu, 18 Nov 2021 11:04:33 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id o17sm12344lfn.50.2021.11.18.11.04.31
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 18 Nov 2021 11:04:32 -0800 (PST)
+ id 9435c505-48b2-11ec-9787-a32c541c8605;
+ Thu, 18 Nov 2021 22:00:38 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 3D5056139F;
+ Thu, 18 Nov 2021 21:00:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,158 +38,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d73d883-48a2-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=G1Qx5xvvEgGKi2uAbKYdFA3Jpya7JG3GAmYp9/wd4RA=;
-        b=eHD3uvFpOJ3kY08WIE6U4FALAxk6vRIJtAkEHwKHA5I1PJnOjZkGowgImyT6VSjjEe
-         KySHOfcWlg4+0EBlVjzIFh2znxzzd+TZLE4H+XM0rJq2+46M7cgkAnaA7nvdMpi+X6wV
-         jATUWv+KedTgJevEVm8FBBcUT7pVlULDTj01uHuCw/6UL2YydoE1wSl7D8vs9TEs1IAX
-         0icz90OWfRQ5mOU6hxdB4vRg4Id7O/9pXQPYSrb0THYEdo5yd+/UF1KJUzC+4Tzj7Owd
-         V+qyJcB9OiuqiG/r+0yJkGy0LTtWdsFPnXvYu5H5ndMOdZHlAKCFaHaU8Xd+U5D1NHmd
-         yGJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=G1Qx5xvvEgGKi2uAbKYdFA3Jpya7JG3GAmYp9/wd4RA=;
-        b=kRXivfXSbFR494tHu/3s55DSfr+l3iwdqB1ZnukexlhC07lcRjeTRp2Zq8Kp/dFZTk
-         qOuCLbWgCDuApL7tAorBEO9RSkbZGEC/6Rld0HgXDPPHzUMnBQ6BOXW+qssDoV9Yxj2H
-         b12PD2cn10o91nKm9HWAPtQ/Kj27n+nrrvy77uNn4lRJ1fdDCzMDRLySQIFYMmS64Nzm
-         sYSY0ICSs6JoS2B/uwDpF3Vn92K74z9d+gW37Dc6VGsxgL7aAeI7BAOC9jPHa7uYqSWF
-         O9ADLKMk5l701pyqjOc5Cr1D9BjOFwT+sVdEcaFrEKX0FLp7wmUsQp0y2Kv5QgyFF6ez
-         tvxg==
-X-Gm-Message-State: AOAM532rCa1PdLSZ+PLZv1uWXCCLHvD8Fy/VdteYwUUeOW9p0ZdRcc42
-	V25VBEZNwILNfFTKyYoI5tY=
-X-Google-Smtp-Source: ABdhPJzaFHStI21+VziopIbXQgR6syncIKNuElOP0ssSAnNEQQ1Pqi2P9+WbREYTqOo2n4F5ZsqMqw==
-X-Received: by 2002:ac2:4c50:: with SMTP id o16mr26669215lfk.517.1637262272920;
-        Thu, 18 Nov 2021 11:04:32 -0800 (PST)
-Subject: Re: [PATCH for-4.16 2/2] CHANGELOG: add missing entries for work
- during the 4.16 release cycle
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Alistair Francis <alistair.francis@wdc.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Christian Lindig <christian.lindig@citrix.com>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Dario Faggioli
- <dfaggioli@suse.com>, David Scott <dave@recoil.org>,
- Doug Goldstein <cardoe@cardoe.com>,
- Elena Ufimtseva <elena.ufimtseva@oracle.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>,
- Josh Whitehead <josh.whitehead@dornerworks.com>,
- Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Meng Xu <mengxu@cis.upenn.edu>,
- Nick Rosbrook <rosbrookn@ainfosec.com>, Paul Durrant <paul@xen.org>,
- Quan Xu <quan.xu0@gmail.com>, Rahul Singh <rahul.singh@arm.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Shriram Rajagopalan <rshriram@cs.ubc.ca>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
- Tamas K Lengyel <tamas@tklengyel.com>, Tim Deegan <tim@xen.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Wei Liu <wl@xen.org>,
- Community Manager <community.manager@xenproject.org>
-References: <20211117095338.14947-1-roger.pau@citrix.com>
- <20211117095338.14947-3-roger.pau@citrix.com>
- <CAPD2p-nb7u7om7zv5-KvfZTsmGis9uGfBkvwjEXrym_+4PN-RQ@mail.gmail.com>
- <YZaOgGWfbDkIq4Lq@Air-de-Roger>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <d4f3d50d-9875-f7bf-2c82-83f8fedb8cfc@gmail.com>
-Date: Thu, 18 Nov 2021 21:04:30 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 9435c505-48b2-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1637269236;
+	bh=+eXV2EHyJlDvkKpbBXFTh2C6Rkk/xNYbto1qhtiHSTY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=QUwZaoK0p2C5nSaXw+3wAH/8DsldNvlYbUjJt7AUdDKdJ8jew32tqWtoMUq4aqUwi
+	 OEmwx1A0cQsKjGmPMytP83bbaOJtdXDnlR7UCWk6ewRkwISpifVEUEzFSY3rI/Z7O5
+	 a3jw/zKG/abree6q2cXi2+hzh4YVN3csmUWEWH9DmVdQ6UddhqnZ5jxw4+buyFNFnh
+	 xfC3cxf9XMwEDA9ZI9RBFdmcyUJdhQXBINSrdPYWqx8Yo4NVYt44op6OCDURBTKIQx
+	 ZqXYKp2tpl2HchhUYlwgE3iSOwEvzT7IY9NGk8Mrl4whacgYnWBPiV2LwdoAXghSAD
+	 MyOW5Bd4DhXww==
+Date: Thu, 18 Nov 2021 13:00:35 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Juergen Gross <jgross@suse.com>
+cc: Jan Beulich <jbeulich@suse.com>, boris.ostrovsky@oracle.com, 
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, stable@vger.kernel.org, 
+    Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [PATCH] xen: detect uninitialized xenbus in xenbus_init
+In-Reply-To: <b0cd6af9-66c4-3a73-734a-3a51d052fac2@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2111181226460.1412361@ubuntu-linux-20-04-desktop>
+References: <20211117021145.3105042-1-sstabellini@kernel.org> <2592121c-ed62-c346-5aeb-37adb6bb1982@suse.com> <alpine.DEB.2.22.394.2111171823160.1412361@ubuntu-linux-20-04-desktop> <44403efe-a850-b53b-785f-6f5c73eb2b96@suse.com> <9453672e-56ea-71cd-cdd2-b4aaafb8db56@suse.com>
+ <b0cd6af9-66c4-3a73-734a-3a51d052fac2@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-In-Reply-To: <YZaOgGWfbDkIq4Lq@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain; charset=US-ASCII
+
+On Thu, 18 Nov 2021, Juergen Gross wrote:
+> On 18.11.21 09:47, Jan Beulich wrote:
+> > On 18.11.2021 06:32, Juergen Gross wrote:
+> > > On 18.11.21 03:37, Stefano Stabellini wrote:
+> > > > --- a/drivers/xen/xenbus/xenbus_probe.c
+> > > > +++ b/drivers/xen/xenbus/xenbus_probe.c
+> > > > @@ -951,6 +951,28 @@ static int __init xenbus_init(void)
+> > > >    		err = hvm_get_parameter(HVM_PARAM_STORE_PFN, &v);
+> > > >    		if (err)
+> > > >    			goto out_error;
+> > > > +		/*
+> > > > +		 * Return error on an invalid value.
+> > > > +		 *
+> > > > +		 * Uninitialized hvm_params are zero and return no error.
+> > > > +		 * Although it is theoretically possible to have
+> > > > +		 * HVM_PARAM_STORE_PFN set to zero on purpose, in reality it
+> > > > is
+> > > > +		 * not zero when valid. If zero, it means that Xenstore hasn't
+> > > > +		 * been properly initialized. Instead of attempting to map a
+> > > > +		 * wrong guest physical address return error.
+> > > > +		 */
+> > > > +		if (v == 0) {
+> > > 
+> > > Make this "if (v == ULONG_MAX || v== 0)" instead?
+> > > This would result in the same err on a new and an old hypervisor
+> > > (assuming we switch the hypervisor to init params with ~0UL).
+
+Sure, I can do that
 
 
-On 18.11.21 19:33, Roger Pau Monné wrote:
+> > > > +			err = -ENOENT;
+> > > > +			goto out_error;
+> > > > +		}
+> > > > +		/*
+> > > > +		 * ULONG_MAX is invalid on 64-bit because is INVALID_PFN.
+> > > > +		 * On 32-bit return error to avoid truncation.
+> > > > +		 */
+> > > > +		if (v >= ULONG_MAX) {
+> > > > +			err = -EINVAL;
+> > > > +			goto out_error;
+> > > > +		}
+> > > 
+> > > Does it make sense to continue the system running in case of
+> > > truncation? This would be a 32-bit guest with more than 16TB of RAM
+> > > and the Xen tools decided to place the Xenstore ring page above the
+> > > 16TB boundary. This is a completely insane scenario IMO.
+> > > 
+> > > A proper panic() in this case would make diagnosis of that much
+> > > easier (me having doubts that this will ever be hit, though).
+> > 
+> > While I agree panic() may be an option here (albeit I'm not sure why
+> > that would be better than trying to cope with 0 and hence without
+> 
+> I could imagine someone wanting to run a guest without Xenstore access,
+> which BTW will happen in case of a guest created by the hypervisor at
+> boot time.
+> 
+> > xenbus), I'd like to point out that the amount of RAM assigned to a
+> > guest is unrelated to the choice of GFNs for the various "magic"
+> > items.
+> 
+> Yes, but this would still be a major tools problem which probably
+> would render the whole guest rather unusable.
 
-Hi Roger
+First let's distinguish between an error due to "hvm_param not
+initialized" and an error due to more serious conditions, such as "pfn
+above max".
 
-
-> On Thu, Nov 18, 2021 at 06:11:07PM +0200, Oleksandr Tyshchenko wrote:
->> On Wed, Nov 17, 2021 at 11:54 AM Roger Pau Monne <roger.pau@citrix.com>
->> wrote:
->>
->> Hi Roger, all
->>
->> [Sorry for the possible format issues]
->>
->> Document some of the relevant changes during the 4.16 release cycle,
->>> likely more entries are missing.
->>>
->>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>> ---
->>>   CHANGELOG.md | 11 +++++++++++
->>>   1 file changed, 11 insertions(+)
->>>
->>> diff --git a/CHANGELOG.md b/CHANGELOG.md
->>> index ad1a8c2bc2..8b0bdd9cf0 100644
->>> --- a/CHANGELOG.md
->>> +++ b/CHANGELOG.md
->>> @@ -21,6 +21,17 @@ The format is based on [Keep a Changelog](
->>> https://keepachangelog.com/en/1.0.0/)
->>>    - qemu-traditional based device models (both, qemu-traditional and
->>> ioemu-stubdom) will
->>>      no longer be built per default. In order to be able to use those,
->>> configure needs to
->>>      be called with "--enable-qemu-traditional" as parameter.
->>> + - Fixes for credit2 scheduler stability in corner case conditions.
->>> + - Ongoing improvements in the hypervisor build system.
->>> + - vtpmmgr miscellaneous fixes in preparation for TPM 2.0 support.
->>> + - 32bit PV guests only supported in shim mode.
->>> + - Improved PVH dom0 debug key handling.
->>> + - Fix booting on some Intel systems without a PIT (i8254).
->>>
->> I would add "Various fixes for OP-TEE mediator (Arm)" here and ...
->>
->>
->>
->>> +
->>> +### Added
->>> + - 32bit Arm builds to the automated tests.
->>> + - New x86 pagetable APIs.
->>> + - Arm vPMU support.
->>>
->> "Extended regions support, device tree only (Arm)" here.
->>
->> ...
->> The extended regions are ranges of unused address space exposed to domains
->> as
->> "safe to use" for special memory mappings.
-> I've worded this as:
->
-> "Report unpopulated memory regions safe to use for foreign mappings,
-> Arm and device tree only."
->
-> As "extended regions" was IMO too vague. Let me know if that's OK.
-
-I think, it is OK. Nit: maybe replace "foreign" with "foreign/grant"? I 
-would be OK either way.
-
-Thank you.
+"hvm_param not initialized" could mean v == 0 (as it would be today) or
+v == ~0UL (if we change Xen to initialize all hvm_param to ~0UL). I
+don't think we want to panic in these cases as they are not actually
+true erroneous configurations. We should just stop trying to initialize
+xenstore and continue with the rest.
 
 
->
-> Thanks, Roger.
+The "pfn above max" case could happen if v is greater than the max pfn.
+This is a true error in the configuration because the toolstack should
+know that the guest is 32-bit so it should give it a pfn that the guest
+is able to use. As Jan wrote in another email, for 32-bit the actual
+limit depends on the physical address bits but actually Linux has never
+been able to cope with a pfn > ULONG_MAX on 32-bit because xen_store_gfn
+is defined as unsigned long. So Linux 32-bit has been truncating
+HVM_PARAM_STORE_PFN all along.
 
--- 
-Regards,
+There is also an argument that depending on kconfig Linux 32-bit might
+only be able to handle addresses < 4G, so I don't think the toolstack
+can assume that a 32-bit guest is able to cope with HVM_PARAM_STORE_PFN
+> ULONG_MAX.  If Linux is 32-bit and HVM_PARAM_STORE_PFN > ULONG_MAX,
+even if HVM_PARAM_STORE_PFN < address_bits_max I think it would be fair
+to still consider it an error, but I can see it could be argued either
+way. Certainly if HVM_PARAM_STORE_PFN > address_bits_max is an error.
 
-Oleksandr Tyshchenko
+In any case, I think it is still better for Linux to stop trying to
+initialize Xenstore but continue with the rest because there is a bunch
+of other useful things Linux can do without it. Panic should only be the
+last resort if there is nothing else to do. In this case we haven't even
+initialized the service and the service is not essential, at least it is
+not essential in certain ARM setups.
 
+
+So in conclusion, I think this patch should:
+- if v == 0 return error (uninitialized)
+- if v == ~0ULL (INVALID_PFN) return error (uinitialized)
+- if v >= ~0UL (32-bit) return error (even if this case could be made to
+  work for v < max_address_bits depending on kconfig)
+
+Which leads to something like:
+
+        /* uninitialized */
+		if (v == 0 || v == ~0ULL) {
+			err = -ENOENT;
+			goto out_error;
+		}
+        /* 
+         * Avoid truncation on 32-bit.
+         * TODO: handle addresses >= 4G
+         */
+        if ( v >= ~0UL ) {
+            err = -EINVAL;
+            goto out_error;
+        }
 
