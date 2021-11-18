@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3D1B455419
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Nov 2021 06:20:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.227092.392674 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD072455451
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Nov 2021 06:32:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.227097.392686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnZpt-0001HP-6P; Thu, 18 Nov 2021 05:19:49 +0000
+	id 1mna1n-0003XV-DJ; Thu, 18 Nov 2021 05:32:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 227092.392674; Thu, 18 Nov 2021 05:19:49 +0000
+Received: by outflank-mailman (output) from mailman id 227097.392686; Thu, 18 Nov 2021 05:32:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnZpt-0001EQ-2m; Thu, 18 Nov 2021 05:19:49 +0000
-Received: by outflank-mailman (input) for mailman id 227092;
- Thu, 18 Nov 2021 05:19:46 +0000
+	id 1mna1n-0003Ur-9Q; Thu, 18 Nov 2021 05:32:07 +0000
+Received: by outflank-mailman (input) for mailman id 227097;
+ Thu, 18 Nov 2021 05:32:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=l94Z=QF=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mnZpq-0001EK-IP
- for xen-devel@lists.xenproject.org; Thu, 18 Nov 2021 05:19:46 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1mna1m-0003Ul-33
+ for xen-devel@lists.xenproject.org; Thu, 18 Nov 2021 05:32:06 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 23ed5972-482f-11ec-9787-a32c541c8605;
- Thu, 18 Nov 2021 06:19:44 +0100 (CET)
+ id dce895bb-4830-11ec-9787-a32c541c8605;
+ Thu, 18 Nov 2021 06:32:04 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 171C3212BF;
- Thu, 18 Nov 2021 05:19:44 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 104871FD29;
+ Thu, 18 Nov 2021 05:32:04 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A677A13CBE;
- Thu, 18 Nov 2021 05:19:43 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CBF9813CD1;
+ Thu, 18 Nov 2021 05:32:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lEUQJm/ilWF2FgAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 18 Nov 2021 05:19:43 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id +JAKMFPllWGiGQAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 18 Nov 2021 05:32:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,301 +51,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23ed5972-482f-11ec-9787-a32c541c8605
+X-Inumbo-ID: dce895bb-4830-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1637212784; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1637213524; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=RFizS13dXr1U+nyRCg8f8JObCGX70vXaZf/eYyfxWtY=;
-	b=RrsWBfT7XmArtmKbTblkMRpncAGd9jcdy6muZIz3pqfmBzfxa/NDB4rH7BKOJeXyrHMIC3
-	mBu6s/ptJpdFY6J8qKhG+nuOjo/sD5MCLx4qvvM37ZDr7k/po5hOEsROX8P8WMBE/3TW2P
-	h/QgYjmTGGGWqJyUwevdSsuuIRNjbL8=
-To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Luca Fancellu <Luca.Fancellu@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>
-References: <20211117095711.26596-1-luca.fancellu@arm.com>
- <26c01edc-46a9-47eb-0c9d-986b92e02158@xen.org>
- <B20FC780-3E2D-4B4A-BF1D-CF34763D237E@arm.com>
- <d42781c4-b01b-9064-4c90-ff99d960958b@xen.org>
- <1941B2BF-6451-4665-8591-DB14739121A9@arm.com>
- <f744c406-9801-a001-fb8e-90680cebb0c9@xen.org>
- <alpine.DEB.2.22.394.2111171724330.1412361@ubuntu-linux-20-04-desktop>
+	bh=rRGAu7bZdX3Ix9JjDYs+TM1bDyCbS8VjFB3i9fDpzso=;
+	b=IXTG1B1p8nOT82thsHAyS5xb/uvyMUF+0QWFgzFeMeEOQncgGDlEOmquzge0zR8s2xtz5A
+	ISfc9DongohcrZZLZ7YvoNQes5lhSh7McJRV1bEiY7eAGj4++zhEb2qYGIc7XCbdvAPzhG
+	+VRdQOmPPJQV8FEbq0BxqbCimwL9LTw=
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: boris.ostrovsky@oracle.com, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>, stable@vger.kernel.org
+References: <20211117021145.3105042-1-sstabellini@kernel.org>
+ <2592121c-ed62-c346-5aeb-37adb6bb1982@suse.com>
+ <alpine.DEB.2.22.394.2111171823160.1412361@ubuntu-linux-20-04-desktop>
 From: Juergen Gross <jgross@suse.com>
-Subject: Re: [RFC PATCH 0/2] Boot time cpupools
-Message-ID: <59e14393-a1fc-5b82-2f6e-5567f218cb3a@suse.com>
-Date: Thu, 18 Nov 2021 06:19:43 +0100
+Subject: Re: [PATCH] xen: detect uninitialized xenbus in xenbus_init
+Message-ID: <44403efe-a850-b53b-785f-6f5c73eb2b96@suse.com>
+Date: Thu, 18 Nov 2021 06:32:03 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2111171724330.1412361@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2111171823160.1412361@ubuntu-linux-20-04-desktop>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="IPP9Ec1viq4GUQVvD7kduxVmbutMtMy7L"
+ boundary="29RVxVUJg63awUgJUSxsgmOlVhK4615qM"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---IPP9Ec1viq4GUQVvD7kduxVmbutMtMy7L
-Content-Type: multipart/mixed; boundary="EMZ8BuDzesKpUActVmVQCILibcfgb31dC";
+--29RVxVUJg63awUgJUSxsgmOlVhK4615qM
+Content-Type: multipart/mixed; boundary="nSHzhRpesfpXITYpkJ2xhm90WcK6GlkeW";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Luca Fancellu <Luca.Fancellu@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>
-Message-ID: <59e14393-a1fc-5b82-2f6e-5567f218cb3a@suse.com>
-Subject: Re: [RFC PATCH 0/2] Boot time cpupools
-References: <20211117095711.26596-1-luca.fancellu@arm.com>
- <26c01edc-46a9-47eb-0c9d-986b92e02158@xen.org>
- <B20FC780-3E2D-4B4A-BF1D-CF34763D237E@arm.com>
- <d42781c4-b01b-9064-4c90-ff99d960958b@xen.org>
- <1941B2BF-6451-4665-8591-DB14739121A9@arm.com>
- <f744c406-9801-a001-fb8e-90680cebb0c9@xen.org>
- <alpine.DEB.2.22.394.2111171724330.1412361@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2111171724330.1412361@ubuntu-linux-20-04-desktop>
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Jan Beulich <jbeulich@suse.com>
+Cc: boris.ostrovsky@oracle.com, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>, stable@vger.kernel.org
+Message-ID: <44403efe-a850-b53b-785f-6f5c73eb2b96@suse.com>
+Subject: Re: [PATCH] xen: detect uninitialized xenbus in xenbus_init
+References: <20211117021145.3105042-1-sstabellini@kernel.org>
+ <2592121c-ed62-c346-5aeb-37adb6bb1982@suse.com>
+ <alpine.DEB.2.22.394.2111171823160.1412361@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2111171823160.1412361@ubuntu-linux-20-04-desktop>
 
---EMZ8BuDzesKpUActVmVQCILibcfgb31dC
+--nSHzhRpesfpXITYpkJ2xhm90WcK6GlkeW
 Content-Type: multipart/mixed;
- boundary="------------DB34264B6EE0AADC04E1BED5"
+ boundary="------------AC4F40E86C19AA84FCDD6900"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------DB34264B6EE0AADC04E1BED5
+--------------AC4F40E86C19AA84FCDD6900
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 18.11.21 03:19, Stefano Stabellini wrote:
-> On Wed, 17 Nov 2021, Julien Grall wrote:
->>>>>> On 17 Nov 2021, at 10:26, Julien Grall <julien@xen.org> wrote:
->>>>>>
->>>>>> Hi Luca,
->>>>>>
->>>>>> On 17/11/2021 09:57, Luca Fancellu wrote:
->>>>>>> Currently Xen creates a default cpupool0 that contains all the cp=
-u
->>>>>>> brought up
->>>>>>> during boot and it assumes that the platform has only one kind of=
-
->>>>>>> CPU.
->>>>>>> This assumption does not hold on big.LITTLE platform, but putting=
-
->>>>>>> different
->>>>>>> type of CPU in the same cpupool can result in instability and
->>>>>>> security issues
->>>>>>> for the domains running on the pool.
->>>>>>
->>>>>> I agree that you can't move a LITTLE vCPU to a big pCPU. However..=
-=2E
->>>>>>
->>>>>>> For this reason this serie introduces an architecture specific wa=
-y
->>>>>>> to create
->>>>>>> different cpupool at boot time, this is particularly useful on AR=
-M
->>>>>>> big.LITTLE
->>>>>>> platform where there might be the need to have different cpupools=
-
->>>>>>> for each type
->>>>>>> of core, but also systems using NUMA can have different cpu pool =
-for
->>>>>>> each node.
->>>>>>
->>>>>> ... from my understanding, all the vCPUs of a domain have to be in=
- the
->>>>>> same cpupool. So with this approach it is not possible:
->>>>>>     1) to have a mix of LITTLE and big vCPUs in the domain
->>>>>>     2) to create a domain spanning across two NUMA nodes
->>>>>>
->>>>>> So I think we need to make sure that any solutions we go through w=
-ill
->>>>>> not prevent us to implement those setups.
->>>>> The point of this patch is to make all cores available without brea=
-king
->>>>> the current behaviour of existing system.
->>>>
->>>> I might be missing some context here. By breaking current behavior, =
-do you
->>>> mean user that may want to add "hmp-unsafe" on the command line?
->>>
->>> Right, with hmp-unsafe the behaviour is now the same as without, only=
- extra
->>> cores are parked in other cpupools.
->>>
->>> So you have a point in fact that behaviour is changed for someone who=
- was
->>> using hmp-unsafe before if this is activated.
->>> The command line argument suggested by Jurgen definitely makes sense =
-here.
->>>
->>> We could instead do the following:
->>> - when this is activated in the configuration, boot all cores and par=
-k them
->>> in different pools (depending on command line argument). Current beha=
-viour
->>> not change if other pools are not used (but more cores will be on in =
-xen)
+On 18.11.21 03:37, Stefano Stabellini wrote:
+> On Wed, 17 Nov 2021, Jan Beulich wrote:
+>> On 17.11.2021 03:11, Stefano Stabellini wrote:
+>>> --- a/drivers/xen/xenbus/xenbus_probe.c
+>>> +++ b/drivers/xen/xenbus/xenbus_probe.c
+>>> @@ -951,6 +951,18 @@ static int __init xenbus_init(void)
+>>>   		err =3D hvm_get_parameter(HVM_PARAM_STORE_PFN, &v);
+>>>   		if (err)
+>>>   			goto out_error;
+>>> +		/*
+>>> +		 * Uninitialized hvm_params are zero and return no error.
+>>> +		 * Although it is theoretically possible to have
+>>> +		 * HVM_PARAM_STORE_PFN set to zero on purpose, in reality it is
+>>> +		 * not zero when valid. If zero, it means that Xenstore hasn't
+>>> +		 * been properly initialized. Instead of attempting to map a
+>>> +		 * wrong guest physical address return error.
+>>> +		 */
+>>> +		if (v =3D=3D 0) {
+>>> +			err =3D -ENOENT;
+>>> +			goto out_error;
+>>> +		}
 >>
->>  From my understanding, it is possible to move a pCPU in/out a pool af=
-terwards.
->> So the security concern with big.LITTLE is still present, even though =
-it would
->> be difficult to hit it.
+>> If such a check gets added, then I think known-invalid frame numbers
+>> should be covered at even higher a priority than zero.
 >=20
-> As far as I know moving a pCPU in/out of a pool is something that canno=
-t
-> happen automatically: it requires manual intervention to the user and i=
-t
-> is uncommon. We could print a warning or simply return error to prevent=
-
-> the action from happening. Or something like:
+> Uhm, that's a good point. We could check for 0 and also ULONG_MAX
 >=20
-> "This action might result in memory corruptions and invalid behavior. D=
-o
-> you want to continue? [Y/N]
-
-This should only be rejected if the source and target pool are not
-compatible. So a cpupool could be attributed to allow only specific
-cpus (and maybe domains?) in it.
-
-Otherwise it would be impossible to create new cpupools after boot on
-such a system and populating them with cpus.
-
->> I am also concerned that it would be more difficult to detect any
->> misconfiguration. So I think this option would still need to be turned=
- on only
->> if hmp-unsafe are the new command line one are both on.
+>=20
+>> This would, for example, also mean to ...
 >>
->> If we want to enable it without hmp-unsafe on, we would need to at lea=
-st lock
->> the pools.
->=20
-> Locking the pools is a good idea.
-
-This would be another option, yes.
-
-> My preference is not to tie this feature to the hmp-unsafe command line=
-,
-> more on this below.
-
-I agree.
-
->>> - when hmp-unsafe is on, this feature will be turned of (if activated=
- in
->>> configuration) and all cores would be added in the same pool.
->>>
->>> What do you think ?
+>>>   		xen_store_gfn =3D (unsigned long)v;
 >>
->> I am split. On one hand, this is making easier for someone to try big.=
-LITTLE
->> as you don't have manually pin vCPUs. On the other hand, this is handl=
-ing a
->> single use-case and you would need to use hmp-unsafe and pinning if yo=
-u want
->> to get more exotic setup (e.g. a domain with big.LITTLE).
->>
->> Another possible solution is to pin dom0 vCPUs (AFAIK they are just st=
-icky by
->> default) and then create the pools from dom0 userspace. My assumption =
-is for
->> dom0less we would want to use pinning instead.
->>
->> That said I would like to hear from Xilinx and EPAM as, IIRC, they are=
- already
->> using hmp-unsafe in production.
+>> ... stop silently truncating a value here.
 >=20
-> This discussion has been very interesting, it is cool to hear new ideas=
-
-> like this one. I have a couple of thoughts to share.
->=20
-> First I think that the ability of creating cpupools at boot time is
-> super important. It goes way beyond big.LITTLE. It would be incredibly
-> useful to separate real-time (sched=3Dnull) and non-real-time
-> (sched=3Dcredit2) workloads. I think it will only become more important=
-
-> going forward so I'd love to see an option to configure cpupools that
-> works for dom0less. It could be based on device tree properties rather
-> than kconfig options.
-
-I think device tree AND command line option should be possible (think of
-x86 here).
-
-> It is true that if we had the devicetree-based cpupool configuration I
-> mentioned, then somebody could use it to create cpupools matching
-> big.LITTLE. So "in theory" it solves the problem. However, I think that=
-
-> for big.LITTLE it would be suboptimal. For big.LITTLE it would be best
-> if Xen configured the cpupools automatically rather than based on the
-> device tree configuration. That way, it is going to work automatically
-> without extra steps even in the simplest Xen setups.
->=20
-> So I think that it is a good idea to have a command line option (better=
-
-> than a kconfig option) to trigger the MIDR-based cpupool creation at
-> boot time. The option could be called midr-cpupools=3Don/off or
-> hw-cpupools=3Don/off for example.
-
-I'd rather go for:
-
-cpupools=3D<options>
-
-With e.g. <options>:
-
-- "auto-midr": split system into cpupools based on MIDR
-- "auto-numa": split system into cpupools based on NUMA nodes
-- "cpus=3D<list of cpus>[,sched=3D<scheduler>]
-
-This would be rather flexible without adding more and more options
-doing similar things. Other sub-options could be added rather easily.
-
-> In terms of whether it should be the default or not, I don't feel
-> strongly about it. Unfortunately we (Xilinx) rely on a number of
-> non-default options already so we are already in the situation where we=
-
-> have to be extra-careful at the options passed. I don't think that
-> adding one more would make a significant difference either way.
+> Yeah, it can only happen on 32-bit but you have a point.
 >=20
 >=20
-> But my preference is *not* to tie the new command line option with
-> hmp-unsafe because if you use midr-cpupools and don't mess with the
-> pools then it is actually safe. We could even lock the cpupools like
-> Julien suggested or warn/return error on changing the cpupools. In this=
+>> By covering them we would then have the option to pre-fill PFN params
+>> with, say, ~0 in the hypervisor (to clearly identify them as invalid,
+>> rather than having to guess at the validity of 0). I haven't really
+>> checked yet whether such a change would be compatible with existing
+>> software ...
+>=20
+> I had the same idea. I think the hvm_params should be initialized to an=
 
-> scenario, it would be detrimental to also pass hmp-unsafe: it would
-> allow actually unsafe configurations that the user wanted to avoid by
-> using midr-cpupools. It would end up disabling checks we could put in
-> place to make midr-cpupools safer.
->=20
-> So in short I think it should be:
->=20
-> - midr-cpupools alone
-> cpupools created at boot, warning/errors on changing cpupools
->=20
-> - midr-cpupools + hmp-unsafe
-> cpupools created at boot, changing cpupools is allowed (we could still
-> warn but no errors)
+> invalid value in Xen. But here in Linux we need to be able to cope with=
 
-I'd rather add an explicit ",locked" option to above cpupools parameter.
+> older Xen versions too so it still makes sense to check for zero in
+> places where it is very obviously incorrect (HVM_PARAM_STORE_PFN).
+>=20
+>=20
+> What do you think of the appended?
+>=20
+>=20
+>=20
+> diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xen=
+bus_probe.c
+> index 94405bb3829e..04558d3a5562 100644
+> --- a/drivers/xen/xenbus/xenbus_probe.c
+> +++ b/drivers/xen/xenbus/xenbus_probe.c
+> @@ -951,6 +951,28 @@ static int __init xenbus_init(void)
+>   		err =3D hvm_get_parameter(HVM_PARAM_STORE_PFN, &v);
+>   		if (err)
+>   			goto out_error;
+> +		/*
+> +		 * Return error on an invalid value.
+> +		 *
+> +		 * Uninitialized hvm_params are zero and return no error.
+> +		 * Although it is theoretically possible to have
+> +		 * HVM_PARAM_STORE_PFN set to zero on purpose, in reality it is
+> +		 * not zero when valid. If zero, it means that Xenstore hasn't
+> +		 * been properly initialized. Instead of attempting to map a
+> +		 * wrong guest physical address return error.
+> +		 */
+> +		if (v =3D=3D 0) {
 
->=20
-> - hmp-unsafe alone
-> same as today with hmp-unsafe
->=20
->=20
-> For the default as I said I don't have a strong preference. I think
-> midr-cpupools could be "on" be default.
->=20
+Make this "if (v =3D=3D ULONG_MAX || v=3D=3D 0)" instead?
+This would result in the same err on a new and an old hypervisor
+(assuming we switch the hypervisor to init params with ~0UL).
 
-What about making this a Kconfig option?
+> +			err =3D -ENOENT;
+> +			goto out_error;
+> +		}
+> +		/*
+> +		 * ULONG_MAX is invalid on 64-bit because is INVALID_PFN.
+> +		 * On 32-bit return error to avoid truncation.
+> +		 */
+> +		if (v >=3D ULONG_MAX) {
+> +			err =3D -EINVAL;
+> +			goto out_error;
+> +		}
+
+Does it make sense to continue the system running in case of
+truncation? This would be a 32-bit guest with more than 16TB of RAM
+and the Xen tools decided to place the Xenstore ring page above the
+16TB boundary. This is a completely insane scenario IMO.
+
+A proper panic() in this case would make diagnosis of that much
+easier (me having doubts that this will ever be hit, though).
 
 
 Juergen
 
---------------DB34264B6EE0AADC04E1BED5
+--------------AC4F40E86C19AA84FCDD6900
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -437,25 +302,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------DB34264B6EE0AADC04E1BED5--
+--------------AC4F40E86C19AA84FCDD6900--
 
---EMZ8BuDzesKpUActVmVQCILibcfgb31dC--
+--nSHzhRpesfpXITYpkJ2xhm90WcK6GlkeW--
 
---IPP9Ec1viq4GUQVvD7kduxVmbutMtMy7L
+--29RVxVUJg63awUgJUSxsgmOlVhK4615qM
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGV4m8FAwAAAAAACgkQsN6d1ii/Ey9J
-jQf/ba8MPm0sJMQHN1Kxrod2DdedDP9rTpEBRiV7jcSfILuX/JRsB0GlKg+3N58XAZeFyUG6tMvY
-zNsL1ilJ92bseMead0dJf9C7lV+DsACJb4ewe5ZSOh+ZzZMr6EfnR1+EtfjqlQFu1bu8xzbylRbv
-cUnTGSoFzn8ZvZPhWNAbcvzeVurIsXmL9cDkoF1/5HhOgdfIDS0MR4RSKvj+xZpyeWnoWGv23Rgh
-WhqEPsV1ZnPJoDHWCf1PC6p9rl2Iy37KrqolB89OoNfTHWui3sVEAhSEa/J3QsUFF5hCCLFIx5xb
-3dTVfBnrNLgdKuF3KgYpA2ehkz8UwqbxdiFF+iZsnw==
-=Gdvo
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGV5VMFAwAAAAAACgkQsN6d1ii/Ey+m
+2wf9GyRRXxpr7aSCaqm3ovd4UF8HOBo0CnBk+Ti67Vjan76QfABYXOAHc42WfBqnSyIBqOSu7jfc
+gTasNsMIuW0UIBP+3/PxkxQDsEH/lH5PhP981gubpBybw5kmZUkBjciYyxC0SJltFpr/PxR3naq9
+LYx9p5LvjLKISEE0Ti2IKWKnNFw8Y4Wvuvi7T8+kKkChe2wmF/++ZuxtZ0QLENVcNy0K4wmObbDK
+K8SbtprmzIk7go564BEW8quvdvyryv72kQq2jO8mcRKUmyixvxRkzSK5D1n5vojDjZKysO2ZIHTf
+kc38gS1aN61mdkjZD9DrpeduE/5hHnxe+Rw1paAp7g==
+=HByG
 -----END PGP SIGNATURE-----
 
---IPP9Ec1viq4GUQVvD7kduxVmbutMtMy7L--
+--29RVxVUJg63awUgJUSxsgmOlVhK4615qM--
 
