@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF162455C6D
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Nov 2021 14:14:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.227404.393299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 322F2455C71
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Nov 2021 14:15:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.227409.393311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnhEw-0000Vg-DS; Thu, 18 Nov 2021 13:14:10 +0000
+	id 1mnhFb-0001Ar-OW; Thu, 18 Nov 2021 13:14:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 227404.393299; Thu, 18 Nov 2021 13:14:10 +0000
+Received: by outflank-mailman (output) from mailman id 227409.393311; Thu, 18 Nov 2021 13:14:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnhEw-0000T4-AX; Thu, 18 Nov 2021 13:14:10 +0000
-Received: by outflank-mailman (input) for mailman id 227404;
- Thu, 18 Nov 2021 13:14:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mnhFb-00017r-KS; Thu, 18 Nov 2021 13:14:51 +0000
+Received: by outflank-mailman (input) for mailman id 227409;
+ Thu, 18 Nov 2021 13:14:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=nol9=QF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mnhEu-0000Rz-M1
- for xen-devel@lists.xenproject.org; Thu, 18 Nov 2021 13:14:08 +0000
+ id 1mnhFZ-0008QJ-Ls
+ for xen-devel@lists.xenproject.org; Thu, 18 Nov 2021 13:14:49 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 695883b9-4871-11ec-9787-a32c541c8605;
- Thu, 18 Nov 2021 14:14:08 +0100 (CET)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2058.outbound.protection.outlook.com [104.47.13.58]) (Using
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 81c33106-4871-11ec-a9d2-d9f7a1cc8784;
+ Thu, 18 Nov 2021 14:14:48 +0100 (CET)
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01lp2056.outbound.protection.outlook.com [104.47.1.56]) (Using
  TLS) by relay.mimecast.com with ESMTP id
- de-mta-20-xJvxcdKrMR-nCBxJiEYVOg-1; Thu, 18 Nov 2021 14:14:06 +0100
+ de-mta-12-Vh5s9ku4Me-GXLzm78DRgA-1; Thu, 18 Nov 2021 14:14:47 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VE1PR04MB6383.eurprd04.prod.outlook.com (2603:10a6:803:11b::20)
+ by VI1PR0402MB2704.eurprd04.prod.outlook.com (2603:10a6:800:b5::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.20; Thu, 18 Nov
- 2021 13:14:05 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Thu, 18 Nov
+ 2021 13:14:46 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4713.019; Thu, 18 Nov 2021
- 13:14:05 +0000
+ 13:14:46 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AS9PR05CA0037.eurprd05.prod.outlook.com (2603:10a6:20b:489::28) with
+ AS9PR06CA0126.eurprd06.prod.outlook.com (2603:10a6:20b:467::25) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.25 via Frontend
- Transport; Thu, 18 Nov 2021 13:14:04 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.20 via Frontend
+ Transport; Thu, 18 Nov 2021 13:14:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,35 +55,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 695883b9-4871-11ec-9787-a32c541c8605
+X-Inumbo-ID: 81c33106-4871-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1637241247;
+	t=1637241288;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=a8687ihPanRL+3ac1IjZtotfsNsyk2rdhK4easY+hVg=;
-	b=UwTf/oS1YYVXjEuEhfPfC5bJZJVh6JigJicdpJKLi1TLih5HkzIBC1uda0fQ51mrdolQGv
-	SDfM37yzgWuTaaYRyK8pQjasrY+MGpw0DJNfUkwxjgMyTOb8K6TTi4SoTrmbcUu+Sl9K2T
-	sOf8UFN7SAuxfTvRTnGq3mjy8kexAYg=
-X-MC-Unique: xJvxcdKrMR-nCBxJiEYVOg-1
+	bh=7NvNnOH5HYnSaIdiD82OvXyiaMKZTo5P7hBpSZhL67A=;
+	b=lk20czgJkMtCrcQFcnsCzYcyJrRJs1Qv7xQhNErJh4b4u4SVcQZcev4VnemPSzKQoBPOqZ
+	C5kTucyFIVmiiyULup+xDtoBxAWIqGvV1ki7zvM+4vUpnQ0UsxOUoOvL+L4tRru/eSMPxB
+	VhenVHOVdKxxrGhRMke40uEYI7CH9fY=
+X-MC-Unique: Vh5s9ku4Me-GXLzm78DRgA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Taxmt4IK+K7Z9jpTodVrqmA1byvbF845qHZdtqM/ZE3lTo+JegbsgCtg3esdFdNk1wqrlpZ2M9WYXNBU9rT5h5XrszYPjbPeyX+/K6K20unqepJyIfi9yQohR8QAdLCFaXBK1mlH9z64oTTQjL+zDp7i26uOZSH8FzEuUJqHcrU3LNSfsJYbQh6WJAAm/r6PSQqILL0Szmhvg1hpJ/5lG78GecXmHPuSgIWle6CzCE0OghRmm481ud8JE+ug8cu+mHX51mKIt64q9xDshox519LxEg4B8S6ohd6/Jp7/DHzsyGW1gGKkg7Ei2Z/uqhXGAGVx/jCSlB1rIZ0g0zfAfw==
+ b=Cu88c6RUkYKJAvmwn8AWBi3ZKNft5jWXJKWN6sdWkNYu7y7NvFGJbX0pLM21l1aZWNo7mBwJu7FenXzzTkjJ3F3Stz23+ZjT3Ls44nyKJfz4mAYvyMLsLtPoKNde6qw65GQEEXi3mAEgrjYmQKUh/N8PNpPJLq1LAD5m5UmUmyyf+Ua5L/lDBeqLbh9V8QbogFV3iEKpGMo4u2DVcZ+NSCIYlAXM/umFcAJ8K7eY/a5ayZEs3o0yAVyZ+A2CjLfsVJrQkXzANmn6JrDWcdvnHfw+/y0qrspBPHjbCFbUr50a0t4kblAJ7WwUYDwVcj6RJtPZISjOJMhIIqT6UuIliw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a8687ihPanRL+3ac1IjZtotfsNsyk2rdhK4easY+hVg=;
- b=BlYCAIEf6SP+s1byNcr41bQ9mijij1LvzRzr9xjhokEhsjJ1unyGAbMBIxq89TiBJjlsCI7I7U9qNoBW8LnasBK5H6tKVZ3NmQEVp1iZZz+Aqi/qOtcEgOsJ/1EQjO9kCip/4d6//sKXwfWvUJ5ayN0faXYqD3vfmjP68OYp808wNgVxW8vpAhR/HTCJoT6T5PPzZ3pv7RSQfamAJ/JEdizBAomgylUdf3P8zbjs/wq0aneyQOzRioXiY5kFImZWKCL/UwPyrUbThmfBkPOgUTdttD7MLloGl5DfIDb0TKyqsaB4T2Be31rh64ImMR7f9Mm+okeeTs2n2QYjkT/zNA==
+ bh=7NvNnOH5HYnSaIdiD82OvXyiaMKZTo5P7hBpSZhL67A=;
+ b=imT4AjyuLSkC2LZU7ApAaA3rJYylWfAtaKji1FoQ/9xPaCnz9Q2Kv9kridz7VJ7Gook5iVws2FB1PL4/IyVtAmYahDJkZx8G5BdsZlbEpZADBqIzgLlcGa1Y5LiWpoBe7SOB2Z2ayNxi9UNGReajGavhGGJj3JhtQ1JNcNzKG6xgOho502VS6J2UpDF/BrWlriLK7fKPCCIDljS2TRYUl9ISLtAkZlLOrZzg4LvIyNRqlftwLlPWArwg9QVR5MmJLJytRXUmiAVLnERnxKWEcUHCyuO+3sZjOGwjjOQd9yzSrrBgX2WeLl4ff+z8snDPHgyQJjxRKPwksr14/b1t9w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ae2fa743-da2b-91a8-908f-b0c7bb006fd0@suse.com>
-Date: Thu, 18 Nov 2021 14:14:04 +0100
+Message-ID: <4aa6c9b4-dcaf-38e9-0b22-394f22ae898d@suse.com>
+Date: Thu, 18 Nov 2021 14:14:46 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.0
-Subject: [PATCH 2/3] x86/Viridian: drop dead variable updates
+Subject: [PATCH 3/3] x86/Viridian: fold duplicate vpset retrieval code
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -92,142 +92,195 @@ References: <c8e8767b-111c-5eec-15c4-a7cb60a99283@suse.com>
 In-Reply-To: <c8e8767b-111c-5eec-15c4-a7cb60a99283@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR05CA0037.eurprd05.prod.outlook.com
- (2603:10a6:20b:489::28) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9PR06CA0126.eurprd06.prod.outlook.com
+ (2603:10a6:20b:467::25) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 51b5f890-ad72-4299-67eb-08d9aa954c02
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6383:
+X-MS-Office365-Filtering-Correlation-Id: aeb108c7-a028-4a22-71e4-08d9aa9564bc
+X-MS-TrafficTypeDiagnostic: VI1PR0402MB2704:
 X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB638360659486145D3260F284B39B9@VE1PR04MB6383.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1824;
+	<VI1PR0402MB2704863F007818B11966B860B39B9@VI1PR0402MB2704.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	4IawI3xG5ZN7ziZYYC7th0hQYAsllEQ0uAorJ+mNKNKQy7ntRB8Jxfn+FXJunjzLDJ/cvb37Y0eQ1eVxWuB/J762sH1wKRCKqHwWRYGwZLXjpWtxWASzneJ7GLK6U1upf0ZpRA8UluuhFObPZM225EzfqjVh9H8o+E2LonPr96T0XP6XDa+x3twPao/De9UO3CO9xUfOdIHoXeJfOWLRt5+bifjbKnAHcWx4m3KEx/v9Z22gq7csUVNlBimbSM4WrMN2C1WqAKAK2DqdQ3z/IgXx1Z+Vn3gTxZSbVYff/ClMeTJVflxUt1FeUd1NRZreRnzB2i/bPHCTuXvBz1QkKHSsesIi8Zg7QE3B0N5r4D1aCrpdBIxltpJLTcb/svrGUkDG47fQsiIP9LuRk9U/ctDMA/nf/rR9d0eMma6ICR1EIlIlBFvJvYI741cFmiQIe0whtZpvgRj5CjgD80UNv1fFgsJQKw9EyaR/dtpJ87RLfr23R0n/AnxS48zb6k57rjbR901/3TmyZHpser1Cy9rhukQuDsLYg7foaZMrGCmrR0KgrBf/uedT99FcwG4cTipSVtjk4sWwwIzOToRu6EM4c3PLkFWVm937rC2l5BWD/covhEH894tTK5NtTW6RJheNcgTdTVCIKeUBiewKdYLvicN86NDwdXMBKlWeybxoU2Ni8fA8VpgvDZ7HNbStBbjVXDn5N8uNSFTcVJZGSnOujU27gO5cZT70SVQXL6M=
+	L+d7unjbeRqO39kucSfK2qyysCfBXMMmnV1dTg8bYemNPSYDEHEcZ/qMV57ZMsXG70+XUX/6q6JM6qwOA8ipQuHZZO8VtK7WxE4Y4+3dAAo9sLWUMH90rQc5KaVvNyZJFt15hoyCmrg28pn+coeEWNG//m03aZRSeHRE7OQXPTF+5akvy8Rwdd4t2M8onq9Wb3IgCFmMD/rSlUgRj201yrHMDKTrMGgJMRonl/fQOM29SS/XOKGlJWyu/UOhNTFPfggtuoA16N49sJgiXtkaVklOhpigmSAQRj+SMxELbo5NTgkvOilIhRW1R0PvUsFd+gPlgXQVJ9Yill3tHdo7q+xbJvOq8hJJE67c+LdIwrEyaWj8LpCFzdh3FQu/SNZK1gMALfSnhA6cgJjSHoDEn18iW6bKlMztEdNbKntDFuZv5liWBmlDfoCALZfN+K5ye7l5RCF7z+KC3/5oRPy9eMaSHlzOHVFWBxZhpKtJrsOAH5L8kdcIOYzmTix4B5y3xhYo0a0gCPE/9FcM0o7QV/y5VosLJVdf57ltl2WC9Izv/sFxDodPLf33w+XtefwvTqRHOCKjnYIA7Gffjfn8oeILBIJEZXeh4L8JZ4iWOsxqgtHFHRUBT4XOm1DxQiRxsKRIA/4mDaQEgBSlrr4VeSW1mkIbHFZdYqIcssAkwJtXK/qWm1jIEbRRWVUD5kbjf32S5LWgLQ45snSUOdVIbuw2wvo2qA9gsOLNG88xruw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8676002)(66556008)(2906002)(26005)(5660300002)(31696002)(508600001)(83380400001)(66946007)(38100700002)(186003)(4326008)(66476007)(36756003)(6916009)(86362001)(31686004)(16576012)(54906003)(2616005)(8936002)(15650500001)(956004)(316002)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(31696002)(38100700002)(36756003)(2906002)(66556008)(31686004)(66946007)(86362001)(83380400001)(66476007)(4326008)(5660300002)(956004)(2616005)(26005)(6486002)(8936002)(16576012)(316002)(54906003)(6916009)(508600001)(186003)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eW9DWnRiNG5lQ2xmZFlGb3RIQ000Q3ZLd0E0VXFISkkzUzFVZTRzTUFzaXhk?=
- =?utf-8?B?d1hOTlNXWG9pZC9rQ1Fla25NZitVbmRXQjltclRXTWRZRTFxbjVhdXVlOFNG?=
- =?utf-8?B?dndoMXJtb0xlT09USklvNE0yVno2d0VsMDQ0ZzVEc2NkTzA1ZmEwaTVEa2xM?=
- =?utf-8?B?N2E3dFRpMkxzZG5PcEJkSnpiSnFaUzJpNmdxKzAyMWNJZnBnenV3Ym91THNE?=
- =?utf-8?B?NW9RZjBabndobE1mNEQ5Vks3aHFSRHc1b25zTDJiRlNDaDhBbW8yYWNDTndu?=
- =?utf-8?B?dVpYTWhyTnlQNW5GSDF0b0lsb2wyWW9TY01kajRSR3hma1ZzOW1UU04wNGgw?=
- =?utf-8?B?ejQvUmliTkZEb1doUTlQZGF4a3Y2MmdnVjlsK3Z4K2JtY2NsUmFUUEhDb1VX?=
- =?utf-8?B?R3MzWGZIUC9lcHRFU25QYXU3dG92R2VWcW9ITGo1SWI2azNtMklENnZWMDQ5?=
- =?utf-8?B?LzB0b2ZvRktZQm5MUzZza1J5SUdERlhXamtJVHpNc3BKeGYwRFFyN0lubnJ4?=
- =?utf-8?B?VVk0d3diMk1GSzdjeVN1T1lZTi9pUmN6aG5tREtCSjlYSWNTMTB6MVduK3gz?=
- =?utf-8?B?M2Q3UFRuZTBxRTQ4aFY4cVVsUUpESDIyaHhTbFA5K0ZjMzcyODB5YnYzREgx?=
- =?utf-8?B?SmFDM0gyUUs5WUZEV05WOXBFZDBQY2c0VCtTNVNoV2R0dDloVUNYdUpnY2RJ?=
- =?utf-8?B?YmtLNy9DbUJaeElTa1NtRGNRSDRxamNvWFcvQlN2cTJaRnFnRTZ6c3p2VmFG?=
- =?utf-8?B?WXlMZDRheWpXUU5lUXhPamltSG1aN0lZQU8rVE9mM2U1TENBLzBkcVdoYnA3?=
- =?utf-8?B?M242K213a1R6L0Y0MDQ3NlFwQU5zeHVmajI5VjdRQm00UUJTK1RxTFFEalE5?=
- =?utf-8?B?TEtWbGh5RlByeDFwVTVjNUpUYmFjRDJuRHFiTzM2NlJ1L05FRkJnK1ptb0FL?=
- =?utf-8?B?ZTBLKzZibDh1eE5sam5tWXZWb09zSmpSMDJIa0krZzRhdWhYQUJMajF1OUJY?=
- =?utf-8?B?Q0Q3RGVaSkNrdTF3Y2twRStPOVpDMC84NUU4cHlPa3AybWJnYVBKQlZBcTQ4?=
- =?utf-8?B?VmtVRkZPcTFwc0NBMGUrUkFMZnE4Smt5VXJqM3FPcTNsYlBRZjNDVG5UcHNm?=
- =?utf-8?B?VlBFbzFoMTFQdHNLYkdXNjhRcE1IM2gxb1V5U0tNM3g0OGhrZVBGeTBhUFJR?=
- =?utf-8?B?czliT2V2UXhFTHFDK2dudVIvd0tpbmp2Y0ZJdi9RY0ZVSEtZV3RQamN6azQv?=
- =?utf-8?B?UGRLTW1TYVUvU2VpK3VGQnZvWno1WjFqOTVjS0RYV1RuNjlHMGhlNVdZb3Bo?=
- =?utf-8?B?ZFFrTm9vTTRabnBPVzFuYXZOLzdtMVM5VHZRejNMRzVyS2NycXlqU2Zvd05I?=
- =?utf-8?B?UDFZeXZXaVV0cVBaTzhBVmpFNkM5aFRzalF2cGl4VWVySG5FeWFzOTI3RnJM?=
- =?utf-8?B?TzRQa3RzU2tOaCtpN1QvU3gwOEw2c2VObVpScGR4cU13S21DNUNrOHE4cWtR?=
- =?utf-8?B?ejg1UW5yT3dBM2FwVVA5RDBTTUw0VFF4dU1CRzdmMjhMcTBacW9Ca0djamty?=
- =?utf-8?B?YTNxMHVvMllyQTJoaTlrMFI2enNvSXBzOUU2WDdqL3d4Q05CbC9tOHRGVWVH?=
- =?utf-8?B?WU1IOGk3NXRNaE1OTDlsZ0RDUVU4SHZGSHphUG00QWdFOTY5eVh2V2FVRTQ3?=
- =?utf-8?B?cmhBM1o5dXdMV2VtNnRFZlB3M2s0V2dpNDlPUXo1TTJmNS9SWjEwbTNjVU9C?=
- =?utf-8?B?Y0ZHNUFNUGVzMmw5TktuaDNpeEN5T2FUYTMyQ3NaSkxOMGlTcHAvVkRsL2V3?=
- =?utf-8?B?SVREN1dLbUUyVitsakxHMDZjU2YwMnExQnNUbmhmcU4rRUpkK29EUUhSaGZU?=
- =?utf-8?B?SFo1M1Y2V1JwOEtLRDJsSFZzSzJlY0FTRTRubVRKdW5TUmxMdVJpY3Y2RWJx?=
- =?utf-8?B?SXFBbzk3SVIxcDZZTGVYUmlicnFOcUpLQ1E3bFRSckZKM3EzbmR4aDNhM2dB?=
- =?utf-8?B?N1BmdDdLcE1hRjQ1RUgwSE4xcW94WnBsL2dKcWtNaUZwNlJrYVpxM2JiYjBW?=
- =?utf-8?B?REhxY3d6ZVZMVmo5aXN4OUI1em44OVgraytvZlRuM3htbVgvejlIRTk5QTZK?=
- =?utf-8?B?Sm1NTWVUSDRnUDc1QkFlcDRzZlpwRVdhSTdzeW9XWEthUTAraStBVHoySDdz?=
- =?utf-8?Q?oR7OZuN3lAX+O+/d+6US9Ik=3D?=
+	=?utf-8?B?ckxhTG5HMTQ4T1J1SWhvdzFOcjRZZEJxbFhKd3dZaGJVcVFyS3o4Tnl1NEZF?=
+ =?utf-8?B?b3Bsa0QvN1o5SGpOWXJpNTFjbkxLSUxpTVFFaHE4eVJENWFVemg1MEhKQ2JH?=
+ =?utf-8?B?eVEzM2tsS2FKSTlodXR4blJKaDQ4SzBwSVdHb0w2ZHFwRW9FWXF2TjdGNlRm?=
+ =?utf-8?B?VUtlMmEyeDZCTmtFMmVoYWVuS0RVbHN3Smt3MnRRZjZ6NTA2YzBPckg5Kzl3?=
+ =?utf-8?B?OGZnaFpJNmdsaS9WRjBIOFpCOEE5RzkvOWdtUlRkTTdMOWcrVkFhQkZrbTNS?=
+ =?utf-8?B?WjVXSFR2NnEwdVVRVUlVRkRTR1ZsaG9lMG9HSitYQkhYUWs5WmFFa2Z1RThx?=
+ =?utf-8?B?eVAybTJaU1JRNUlUV1hreUd0Q0FqYjFoYWR5Ym8zd05vODNINEpXSEhBNzhj?=
+ =?utf-8?B?dFpKVlZjNWhwV1VwcDhBZ3JRYkpteTMwdFJGR0lHd0hWQ3lNY2pKMHBlb3Nu?=
+ =?utf-8?B?cVMyd1hxaXlwcHlqVUxSNTVDbm9CTUJJWjhLVU01KzVScnZrWk1weUVsNGxC?=
+ =?utf-8?B?SWREd284c3BLUmUwc2VMcjlLbEg4a2FBSEo1TXBKL01rdlpsUHZrMUhORkpm?=
+ =?utf-8?B?cWdrbVlNWk9jc0FrK2FnOGxkOUE1TE9EZWJ4cFRDOHhMR213TWtNNTZ2eXR5?=
+ =?utf-8?B?NlFSTWdWS1VkZXgyLzFCY2ExWjExdW92TXBqRG0zblVsWS9VY0J1ZmtDVU51?=
+ =?utf-8?B?Z3RhUG9JYUluU0VmNlJEOU4xNE1vVU5kODRkZEV4aUxwelgyUFlCUDdqM3Ex?=
+ =?utf-8?B?VUd0cUt4YmxkUDJhemt1T2Vta1JHbFdmVnNUazc5bDBzczlyL2ErSlVJMjFB?=
+ =?utf-8?B?RWd6Zy9DZjJQQVdlT0ZGVFcyeVZpTlNTK2hOazRzdzJ0ODNtUi9zbVRtb21s?=
+ =?utf-8?B?bDJoYUwxQjRodG94RVNLU2hqYndCcGcwTDJCL1UyWlJ4Sjh5cHFiZktRbGRE?=
+ =?utf-8?B?QXYrVG90bDVsRWhhZmxvdzhTUk1vYndMa1FRWmRBeWNtcEErY1BMTHJscU5t?=
+ =?utf-8?B?QWZqcGZiV0NJdW8zdzNSaEZQdEk0RElySEpqd216SHpSSDIzZ2hxT2F4ZWNB?=
+ =?utf-8?B?elErZ0hlTklpY3JaaUdtZE9adFFQYVBUbHFQaDlUd1BOaENUVFFQaHJqRlZB?=
+ =?utf-8?B?VzVaTFdtSktTeEIzdkRTMnpJcXA0clpkOUdBZUF6ZkhXR09DSmNYSDBJWngr?=
+ =?utf-8?B?cmYxa3UxNTdiYWh4ZXFGZWVKYnlPaWhHYzJ0VCtQUksyMkFVMTRuQWIrQjhB?=
+ =?utf-8?B?dHVpSm9BNU5kUmh1REdReitZaTFNU1F0NHI1b2ZtV1VDYlV1QmcwbmZndkts?=
+ =?utf-8?B?d3NtRkRhZmF3d2V5cjBVMElBM3I4K3d5NzVLVHlvaU5BTEVFYWlRM1hMb2lC?=
+ =?utf-8?B?dDhQdEw1Q2ZOeUJBTUprdDhRRjd5ZUoxMktKYVZqd0tzZlRpT3lWYkZOdjZr?=
+ =?utf-8?B?dU9sVlFhdEp1ZlRRaGpQWDVFRnV6T0dramp0NGIxN0E5RUZMa3NSMVVxM2Fs?=
+ =?utf-8?B?YlBWNm8vLzRESFJ0cWp0dnlLaFNCSnlmN29LQXF2ZDc4YkdEYXk1SDBwZXM0?=
+ =?utf-8?B?VGJ0eW9hSFU2Skl2d2oxdjNRb0ZVVUF1RkQ1R1dldVNydTVVNnBxN2szUUFK?=
+ =?utf-8?B?RDduQmFlWDVkZVlFNjZGMCt4c2dIWEh4bkZrN3A5SzZFVTI5VGhIL3ZVSzRn?=
+ =?utf-8?B?aVNDNkE5L2d1dXB1elhmY1YvR25RMUlKTWJHRXJkSDhjYWR6MmhEc1hhMmZ3?=
+ =?utf-8?B?ZDZCbUtTb0JwdkMrdHRlQXRqMkxGSjVhbXlIenIxSFZxZlJKcWRKTmJVN3Y4?=
+ =?utf-8?B?WTlzWDg1TStqRmZMTzN5U1o2UW1JdmZkVGhmYXhxOXRnRjdhUmdkQ2NjNnVO?=
+ =?utf-8?B?RGhTaHM0cmJLVCtqcmR3Y0NadGt5ODlyOTNWYk5sb0JmMnJwckh6Mmo4UXJ6?=
+ =?utf-8?B?bERRNkdkV0thQ1pva1pydlV0UWo3anRYVGRuRXhxUEFPYVBGdzFxKzhHM2pp?=
+ =?utf-8?B?TmFwb0NTaTVnUW1SamNWeFE0NGQxa3duL1BpTUU1dzRYcTRsbnQ2NURVK2pU?=
+ =?utf-8?B?K21WODl1MWE1UGt5N2lvdHoxd21yaXhaMi8rUVJzRHAyOTRlbDV1dlk1L3o4?=
+ =?utf-8?B?RENtVjhlSnQ5RG9qVUpUWEtWaUJ2OTJVaEU4ZDU5MFRrOGVrbmxjUlcxMGc3?=
+ =?utf-8?Q?t6ALRW04tzu7eaJfMbREjlQ=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51b5f890-ad72-4299-67eb-08d9aa954c02
+X-MS-Exchange-CrossTenant-Network-Message-Id: aeb108c7-a028-4a22-71e4-08d9aa9564bc
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2021 13:14:05.2850
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2021 13:14:46.7865
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 7TbSMx7wJlvvLnGkXUCXP0GWfWUxsvt6cxvHBAx3yhwK9dqd0WBug0pL6DyPyqhDBGEW3Zz5q1ncT6Zbe+AfKw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6383
+X-MS-Exchange-CrossTenant-UserPrincipalName: MyRKHAGN8R/tmaL4/Gr8Z6YTFKChhRqPskc3BE/N9DNYLpRl0TCr6Rgmdp/ZAn67HFXLc+HjyQ3rHQ+iayxOXQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB2704
 
-Both hvcall_flush_ex() and hvcall_ipi_ex() update "size" without
-subsequently using the value; future compilers may warn about such.
-Alongside dropping the updates, shrink the variables' scopes to
-demonstrate that there are no outer scope uses.
+hvcall_{flush,ipi}_ex() use more almost identical code than what was
+isolated into hv_vpset_to_vpmask(). Move that code there as well, to
+have just one instance of it. This way all of HV_GENERIC_SET_SPARSE_4K
+processing now happens in a single place.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/hvm/viridian/viridian.c
 +++ b/xen/arch/x86/hvm/viridian/viridian.c
-@@ -776,7 +776,6 @@ static int hvcall_flush_ex(const union h
+@@ -628,10 +628,14 @@ static unsigned int hv_vpset_nr_banks(st
+     return hweight64(vpset->valid_bank_mask);
+ }
+ 
+-static int hv_vpset_to_vpmask(const struct hv_vpset *set,
++static int hv_vpset_to_vpmask(const struct hv_vpset *in, paddr_t bank_gpa,
+                               struct hypercall_vpmask *vpmask)
+ {
+ #define NR_VPS_PER_BANK (HV_VPSET_BANK_SIZE * 8)
++    union hypercall_vpset *vpset = &this_cpu(hypercall_vpset);
++    struct hv_vpset *set = &vpset->set;
++
++    *set = *in;
+ 
+     switch ( set->format )
      {
-         union hypercall_vpset *vpset = &this_cpu(hypercall_vpset);
-         struct hv_vpset *set = &vpset->set;
--        size_t size;
-         int rc;
+@@ -643,6 +647,18 @@ static int hv_vpset_to_vpmask(const stru
+     {
+         uint64_t bank_mask;
+         unsigned int vp, bank = 0;
++        size_t size = sizeof(*set->bank_contents) * hv_vpset_nr_banks(set);
++
++        if ( offsetof(typeof(*vpset), set.bank_contents[0]) + size >
++             sizeof(*vpset) )
++        {
++            ASSERT_UNREACHABLE();
++            return -EINVAL;
++        }
++
++        if ( hvm_copy_from_guest_phys(&set->bank_contents, bank_gpa,
++                                      size) != HVMTRANS_okay)
++            return -EINVAL;
  
-         *set = input_params.set;
-@@ -784,8 +783,7 @@ static int hvcall_flush_ex(const union h
-         {
-             unsigned long offset = offsetof(typeof(input_params),
+         vpmask_empty(vpmask);
+         for ( vp = 0, bank_mask = set->valid_bank_mask;
+@@ -774,31 +790,13 @@ static int hvcall_flush_ex(const union h
+         vpmask_fill(vpmask);
+     else
+     {
+-        union hypercall_vpset *vpset = &this_cpu(hypercall_vpset);
+-        struct hv_vpset *set = &vpset->set;
+-        int rc;
+-
+-        *set = input_params.set;
+-        if ( set->format == HV_GENERIC_SET_SPARSE_4K )
+-        {
+-            unsigned long offset = offsetof(typeof(input_params),
++        unsigned int bank_offset = offsetof(typeof(input_params),
                                              set.bank_contents);
+-            size_t size = sizeof(*set->bank_contents) * hv_vpset_nr_banks(set);
 -
--            size = sizeof(*set->bank_contents) * hv_vpset_nr_banks(set);
-+            size_t size = sizeof(*set->bank_contents) * hv_vpset_nr_banks(set);
- 
-             if ( offsetof(typeof(*vpset), set.bank_contents[0]) + size >
-                  sizeof(*vpset) )
-@@ -798,11 +796,7 @@ static int hvcall_flush_ex(const union h
-                                           input_params_gpa + offset,
-                                           size) != HVMTRANS_okay)
-                 return -EINVAL;
+-            if ( offsetof(typeof(*vpset), set.bank_contents[0]) + size >
+-                 sizeof(*vpset) )
+-            {
+-                ASSERT_UNREACHABLE();
+-                return -EINVAL;
+-            }
 -
--            size += sizeof(*set);
-         }
--        else
--            size = sizeof(*set);
+-            if ( hvm_copy_from_guest_phys(&set->bank_contents[0],
+-                                          input_params_gpa + offset,
+-                                          size) != HVMTRANS_okay)
+-                return -EINVAL;
+-        }
++        int rc;
  
-         rc = hv_vpset_to_vpmask(set, vpmask);
+-        rc = hv_vpset_to_vpmask(set, vpmask);
++        rc = hv_vpset_to_vpmask(&input_params.set,
++                                input_params_gpa + bank_offset,
++                                vpmask);
          if ( rc )
-@@ -903,7 +897,6 @@ static int hvcall_ipi_ex(const union hyp
+             return rc;
+     }
+@@ -895,8 +893,8 @@ static int hvcall_ipi_ex(const union hyp
+         uint8_t reserved_zero[3];
+         struct hv_vpset set;
      } input_params;
-     union hypercall_vpset *vpset = &this_cpu(hypercall_vpset);
-     struct hv_vpset *set = &vpset->set;
--    size_t size;
+-    union hypercall_vpset *vpset = &this_cpu(hypercall_vpset);
+-    struct hv_vpset *set = &vpset->set;
++    unsigned int bank_offset = offsetof(typeof(input_params),
++                                        set.bank_contents);
      int rc;
  
      /* These hypercalls should never use the fast-call convention. */
-@@ -929,8 +922,7 @@ static int hvcall_ipi_ex(const union hyp
-     {
-         unsigned long offset = offsetof(typeof(input_params),
-                                         set.bank_contents);
--
--        size = sizeof(*set->bank_contents) * hv_vpset_nr_banks(set);
-+        size_t size = sizeof(*set->bank_contents) * hv_vpset_nr_banks(set);
+@@ -917,27 +915,8 @@ static int hvcall_ipi_ex(const union hyp
+     if ( input_params.vector < 0x10 || input_params.vector > 0xff )
+         return -EINVAL;
  
-         if ( offsetof(typeof(*vpset), set.bank_contents[0]) + size >
-              sizeof(*vpset) )
-@@ -943,11 +935,7 @@ static int hvcall_ipi_ex(const union hyp
-                                       input_params_gpa + offset,
-                                       size) != HVMTRANS_okay)
-             return -EINVAL;
+-    *set = input_params.set;
+-    if ( set->format == HV_GENERIC_SET_SPARSE_4K )
+-    {
+-        unsigned long offset = offsetof(typeof(input_params),
+-                                        set.bank_contents);
+-        size_t size = sizeof(*set->bank_contents) * hv_vpset_nr_banks(set);
 -
--        size += sizeof(*set);
-     }
--    else
--        size = sizeof(*set);
- 
-     rc = hv_vpset_to_vpmask(set, vpmask);
+-        if ( offsetof(typeof(*vpset), set.bank_contents[0]) + size >
+-             sizeof(*vpset) )
+-        {
+-            ASSERT_UNREACHABLE();
+-            return -EINVAL;
+-        }
+-
+-        if ( hvm_copy_from_guest_phys(&set->bank_contents,
+-                                      input_params_gpa + offset,
+-                                      size) != HVMTRANS_okay)
+-            return -EINVAL;
+-    }
+-
+-    rc = hv_vpset_to_vpmask(set, vpmask);
++    rc = hv_vpset_to_vpmask(&input_params.set, input_params_gpa + bank_offset,
++                            vpmask);
      if ( rc )
+         return rc;
+ 
 
 
