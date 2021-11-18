@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 206A1455415
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Nov 2021 06:08:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.227088.392664 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3D1B455419
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Nov 2021 06:20:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.227092.392674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnZen-0008G7-56; Thu, 18 Nov 2021 05:08:21 +0000
+	id 1mnZpt-0001HP-6P; Thu, 18 Nov 2021 05:19:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 227088.392664; Thu, 18 Nov 2021 05:08:21 +0000
+Received: by outflank-mailman (output) from mailman id 227092.392674; Thu, 18 Nov 2021 05:19:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnZen-0008DO-0s; Thu, 18 Nov 2021 05:08:21 +0000
-Received: by outflank-mailman (input) for mailman id 227088;
- Thu, 18 Nov 2021 05:08:19 +0000
+	id 1mnZpt-0001EQ-2m; Thu, 18 Nov 2021 05:19:49 +0000
+Received: by outflank-mailman (input) for mailman id 227092;
+ Thu, 18 Nov 2021 05:19:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=l94Z=QF=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mnZel-0008DI-EU
- for xen-devel@lists.xenproject.org; Thu, 18 Nov 2021 05:08:19 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ id 1mnZpq-0001EK-IP
+ for xen-devel@lists.xenproject.org; Thu, 18 Nov 2021 05:19:46 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8a9ddb7d-482d-11ec-9787-a32c541c8605;
- Thu, 18 Nov 2021 06:08:18 +0100 (CET)
+ id 23ed5972-482f-11ec-9787-a32c541c8605;
+ Thu, 18 Nov 2021 06:19:44 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8FE061FD35;
- Thu, 18 Nov 2021 05:08:17 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 171C3212BF;
+ Thu, 18 Nov 2021 05:19:44 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 45EDA13CBE;
- Thu, 18 Nov 2021 05:08:17 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A677A13CBE;
+ Thu, 18 Nov 2021 05:19:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Pm7yD8HflWF1EwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 18 Nov 2021 05:08:17 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id lEUQJm/ilWF2FgAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 18 Nov 2021 05:19:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,223 +51,301 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a9ddb7d-482d-11ec-9787-a32c541c8605
+X-Inumbo-ID: 23ed5972-482f-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1637212097; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1637212784; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Pm1jOtey/sUED+paQ3ntqpCPg4VifYw9HouKFNdPoGA=;
-	b=tPB+Z/htIoPyZLRyJlV1D7mff7J819gy9TnNTSCNxCT8txT8rZsbb7m84arh4HAHNzyIwY
-	vjgT8Pe35PA6Z3LVPeh0/Q6uCGPCd7QTrhxn/D5YhCKntfIUBm3g0zyrMdDiqMBLrEIsrl
-	Zt7OPkOIzBtagKG3Vc0XAUHwk2/a7S0=
-Subject: Re: [RFC PATCH 1/2] xen/cpupool: Create different cpupools at boot
- time
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org,
- bertrand.marquis@arm.com, wei.chen@arm.com, Julien Grall <julien@xen.org>,
+	bh=RFizS13dXr1U+nyRCg8f8JObCGX70vXaZf/eYyfxWtY=;
+	b=RrsWBfT7XmArtmKbTblkMRpncAGd9jcdy6muZIz3pqfmBzfxa/NDB4rH7BKOJeXyrHMIC3
+	mBu6s/ptJpdFY6J8qKhG+nuOjo/sD5MCLx4qvvM37ZDr7k/po5hOEsROX8P8WMBE/3TW2P
+	h/QgYjmTGGGWqJyUwevdSsuuIRNjbL8=
+To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Luca Fancellu <Luca.Fancellu@arm.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Dario Faggioli <dfaggioli@suse.com>
+ George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>
 References: <20211117095711.26596-1-luca.fancellu@arm.com>
- <20211117095711.26596-2-luca.fancellu@arm.com>
- <eef43ca6-dce1-9d24-7ee6-7ced8a709f00@suse.com>
- <alpine.DEB.2.22.394.2111171859580.1412361@ubuntu-linux-20-04-desktop>
+ <26c01edc-46a9-47eb-0c9d-986b92e02158@xen.org>
+ <B20FC780-3E2D-4B4A-BF1D-CF34763D237E@arm.com>
+ <d42781c4-b01b-9064-4c90-ff99d960958b@xen.org>
+ <1941B2BF-6451-4665-8591-DB14739121A9@arm.com>
+ <f744c406-9801-a001-fb8e-90680cebb0c9@xen.org>
+ <alpine.DEB.2.22.394.2111171724330.1412361@ubuntu-linux-20-04-desktop>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <2629c010-4c74-122e-6e79-c4574fbcd187@suse.com>
-Date: Thu, 18 Nov 2021 06:08:16 +0100
+Subject: Re: [RFC PATCH 0/2] Boot time cpupools
+Message-ID: <59e14393-a1fc-5b82-2f6e-5567f218cb3a@suse.com>
+Date: Thu, 18 Nov 2021 06:19:43 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2111171859580.1412361@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2111171724330.1412361@ubuntu-linux-20-04-desktop>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="8X7gqauFn938NHbfqrL5z1Wx2eUsbINkA"
+ boundary="IPP9Ec1viq4GUQVvD7kduxVmbutMtMy7L"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---8X7gqauFn938NHbfqrL5z1Wx2eUsbINkA
-Content-Type: multipart/mixed; boundary="iRjif7zEeeK1M22g97sgPltfnmGjajGH4";
+--IPP9Ec1viq4GUQVvD7kduxVmbutMtMy7L
+Content-Type: multipart/mixed; boundary="EMZ8BuDzesKpUActVmVQCILibcfgb31dC";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org,
- bertrand.marquis@arm.com, wei.chen@arm.com, Julien Grall <julien@xen.org>,
+To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Luca Fancellu <Luca.Fancellu@arm.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Dario Faggioli <dfaggioli@suse.com>
-Message-ID: <2629c010-4c74-122e-6e79-c4574fbcd187@suse.com>
-Subject: Re: [RFC PATCH 1/2] xen/cpupool: Create different cpupools at boot
- time
+ George Dunlap <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>
+Message-ID: <59e14393-a1fc-5b82-2f6e-5567f218cb3a@suse.com>
+Subject: Re: [RFC PATCH 0/2] Boot time cpupools
 References: <20211117095711.26596-1-luca.fancellu@arm.com>
- <20211117095711.26596-2-luca.fancellu@arm.com>
- <eef43ca6-dce1-9d24-7ee6-7ced8a709f00@suse.com>
- <alpine.DEB.2.22.394.2111171859580.1412361@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2111171859580.1412361@ubuntu-linux-20-04-desktop>
+ <26c01edc-46a9-47eb-0c9d-986b92e02158@xen.org>
+ <B20FC780-3E2D-4B4A-BF1D-CF34763D237E@arm.com>
+ <d42781c4-b01b-9064-4c90-ff99d960958b@xen.org>
+ <1941B2BF-6451-4665-8591-DB14739121A9@arm.com>
+ <f744c406-9801-a001-fb8e-90680cebb0c9@xen.org>
+ <alpine.DEB.2.22.394.2111171724330.1412361@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2111171724330.1412361@ubuntu-linux-20-04-desktop>
 
---iRjif7zEeeK1M22g97sgPltfnmGjajGH4
+--EMZ8BuDzesKpUActVmVQCILibcfgb31dC
 Content-Type: multipart/mixed;
- boundary="------------70A5DD663CBC9D8110D8AFA2"
+ boundary="------------DB34264B6EE0AADC04E1BED5"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------70A5DD663CBC9D8110D8AFA2
+--------------DB34264B6EE0AADC04E1BED5
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 18.11.21 04:01, Stefano Stabellini wrote:
-> On Wed, 17 Nov 2021, Juergen Gross wrote:
->> On 17.11.21 10:57, Luca Fancellu wrote:
->>> Introduce an architecture specific way to create different
->>> cpupool at boot time, this is particularly useful on ARM
->>> biglittle system where there might be the need to have
->>> different cpupools for each type of core, but also systems
->>> using NUMA can have different cpu pool for each node.
+On 18.11.21 03:19, Stefano Stabellini wrote:
+> On Wed, 17 Nov 2021, Julien Grall wrote:
+>>>>>> On 17 Nov 2021, at 10:26, Julien Grall <julien@xen.org> wrote:
+>>>>>>
+>>>>>> Hi Luca,
+>>>>>>
+>>>>>> On 17/11/2021 09:57, Luca Fancellu wrote:
+>>>>>>> Currently Xen creates a default cpupool0 that contains all the cp=
+u
+>>>>>>> brought up
+>>>>>>> during boot and it assumes that the platform has only one kind of=
+
+>>>>>>> CPU.
+>>>>>>> This assumption does not hold on big.LITTLE platform, but putting=
+
+>>>>>>> different
+>>>>>>> type of CPU in the same cpupool can result in instability and
+>>>>>>> security issues
+>>>>>>> for the domains running on the pool.
+>>>>>>
+>>>>>> I agree that you can't move a LITTLE vCPU to a big pCPU. However..=
+=2E
+>>>>>>
+>>>>>>> For this reason this serie introduces an architecture specific wa=
+y
+>>>>>>> to create
+>>>>>>> different cpupool at boot time, this is particularly useful on AR=
+M
+>>>>>>> big.LITTLE
+>>>>>>> platform where there might be the need to have different cpupools=
+
+>>>>>>> for each type
+>>>>>>> of core, but also systems using NUMA can have different cpu pool =
+for
+>>>>>>> each node.
+>>>>>>
+>>>>>> ... from my understanding, all the vCPUs of a domain have to be in=
+ the
+>>>>>> same cpupool. So with this approach it is not possible:
+>>>>>>     1) to have a mix of LITTLE and big vCPUs in the domain
+>>>>>>     2) to create a domain spanning across two NUMA nodes
+>>>>>>
+>>>>>> So I think we need to make sure that any solutions we go through w=
+ill
+>>>>>> not prevent us to implement those setups.
+>>>>> The point of this patch is to make all cores available without brea=
+king
+>>>>> the current behaviour of existing system.
+>>>>
+>>>> I might be missing some context here. By breaking current behavior, =
+do you
+>>>> mean user that may want to add "hmp-unsafe" on the command line?
 >>>
->>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
->>> ---
->>>    xen/arch/arm/Kconfig       | 15 +++++++
->>>    xen/arch/arm/Makefile      |  1 +
->>>    xen/arch/arm/cpupool.c     | 84 ++++++++++++++++++++++++++++++++++=
-++++
->>>    xen/common/sched/cpupool.c |  5 ++-
->>>    xen/include/xen/cpupool.h  | 30 ++++++++++++++
->>>    5 files changed, 134 insertions(+), 1 deletion(-)
->>>    create mode 100644 xen/arch/arm/cpupool.c
->>>    create mode 100644 xen/include/xen/cpupool.h
+>>> Right, with hmp-unsafe the behaviour is now the same as without, only=
+ extra
+>>> cores are parked in other cpupools.
 >>>
->>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
->>> index ecfa6822e4..4d7cc9f3bc 100644
->>> --- a/xen/arch/arm/Kconfig
->>> +++ b/xen/arch/arm/Kconfig
->>> @@ -33,6 +33,21 @@ config ACPI
->>>    	  Advanced Configuration and Power Interface (ACPI) support for X=
-en is
->>>    	  an alternative to device tree on ARM64.
->>>    +config BOOT_TIME_CPUPOOLS
->>> +	bool "Create cpupools per cpu type at boot time."
->>> +	depends on ARM
->>> +	default n
->>> +	help
->>> +
->>> +	  Creates, during boot, a cpu pool for each type of CPU found on
->>> +	  the system. This option is useful on system with heterogeneous
->>> +	  types of core.
->>> +
->>> +config MAX_BOOT_TIME_CPUPOOLS
->>> +	depends on BOOT_TIME_CPUPOOLS
->>> +	int "Maximum number of cpupools that can be created at boot time."
->>> +	default 16
->>> +
->>>    config GICV3
->>>    	bool "GICv3 driver"
->>>    	depends on ARM_64 && !NEW_VGIC
->>> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
->>> index 07f634508e..0bb8b84750 100644
->>> --- a/xen/arch/arm/Makefile
->>> +++ b/xen/arch/arm/Makefile
->>> @@ -13,6 +13,7 @@ obj-$(CONFIG_HAS_ALTERNATIVE) +=3D alternative.o
->>>    obj-y +=3D bootfdt.init.o
->>>    obj-y +=3D cpuerrata.o
->>>    obj-y +=3D cpufeature.o
->>> +obj-$(CONFIG_BOOT_TIME_CPUPOOLS) +=3D cpupool.o
->>>    obj-y +=3D decode.o
->>>    obj-y +=3D device.o
->>>    obj-$(CONFIG_IOREQ_SERVER) +=3D dm.o
->>> diff --git a/xen/arch/arm/cpupool.c b/xen/arch/arm/cpupool.c
->>> new file mode 100644
->>> index 0000000000..550521e352
->>> --- /dev/null
->>> +++ b/xen/arch/arm/cpupool.c
->>> @@ -0,0 +1,84 @@
->>> +/*******************************************************************=
-***********
->>> + * cpupool.c
->>> + *
->>> + * (C) 2021, arm
->>> + */
->>> +
->>> +#include <xen/cpumask.h>
->>> +#include <xen/cpupool.h>
->>> +#include <xen/err.h>
->>> +#include <xen/sched.h>
->>> +#include <asm/cpufeature.h>
->>> +#include <asm/processor.h>
->>> +#include "../../common/sched/private.h"
+>>> So you have a point in fact that behaviour is changed for someone who=
+ was
+>>> using hmp-unsafe before if this is activated.
+>>> The command line argument suggested by Jurgen definitely makes sense =
+here.
+>>>
+>>> We could instead do the following:
+>>> - when this is activated in the configuration, boot all cores and par=
+k them
+>>> in different pools (depending on command line argument). Current beha=
+viour
+>>> not change if other pools are not used (but more cores will be on in =
+xen)
 >>
->> No, please don't do that.
->>
->> You should try to add architecture agnostic service functions in
->> common/sched/cpupool.c removing the need to include that file here.
->>
->>> +
->>> +typedef struct {
->>> +    register_t     midr;
->>> +    struct cpupool *pool;
->>> +} pool_t;
->>> +
->>> +static pool_t __initdata pool_cpu_map[CONFIG_MAX_BOOT_TIME_CPUPOOLS]=
-;
->>> +
->>> +void __init arch_allocate_cpupools(const cpumask_t *cpu_online_map,
->>> +                                   cpupool_create_t cpupool_create)
->>
->> Drop the cpupool_create parameter here and ...
->>
->>> +{
->>> +    unsigned int cpu, i;
->>> +
->>> +    /* First pool is the default pool0 associated with midr of the b=
-oot
->>> core */
->>> +    pool_cpu_map[0].midr =3D system_cpuinfo.midr.bits;
->>> +    pool_cpu_map[0].pool =3D cpupool0;
->>> +
->>> +    for_each_cpu ( cpu, cpu_online_map )
->>> +    {
->>> +        for ( i =3D 0; i < CONFIG_MAX_BOOT_TIME_CPUPOOLS; i++ )
->>> +            if ( !pool_cpu_map[i].pool ||
->>> +                 (cpu_data[cpu].midr.bits =3D=3D pool_cpu_map[i].mid=
-r) )
->>> +                break;
->>> +
->>> +        if ( i < CONFIG_MAX_BOOT_TIME_CPUPOOLS )
->>> +        {
->>> +            if ( !pool_cpu_map[i].pool )
->>> +            {
->>> +                /* There is no pool for this cpu midr, create it */
->>> +                pool_cpu_map[i].midr =3D cpu_data[cpu].midr.bits;
->>> +                debugtrace_printk("Create pool %u for cpu MIDR: 0x%"=
-
->>> +                                  PRIregister"\n", i,
->>> pool_cpu_map[i].midr);
->>> +                pool_cpu_map[i].pool =3D
->>> +                    cpupool_create(i, scheduler_get_default()->sched=
-_id);
->>> +                BUG_ON(IS_ERR(pool_cpu_map[i].pool));
->>> +                cpupool_put(pool_cpu_map[i].pool);
->>
->> ... call a new wrapper in common/sched/cpupool.c taking just the id as=
-
->> parameter (e.g. "cpupool *cpupool_create_default(unsigned int id)")
->> which will use the default scheduler and do the cpupool_create() and
->> cpupool_put() calls internally.
+>>  From my understanding, it is possible to move a pCPU in/out a pool af=
+terwards.
+>> So the security concern with big.LITTLE is still present, even though =
+it would
+>> be difficult to hit it.
 >=20
-> What if sched=3Dsomething is also passed on the command line? Shouldn't=
+> As far as I know moving a pCPU in/out of a pool is something that canno=
+t
+> happen automatically: it requires manual intervention to the user and i=
+t
+> is uncommon. We could print a warning or simply return error to prevent=
 
-> that be used for all cpupools? Or maybe sched=3Dsomething works because=
- it
-> changes the "default scheduler"?
+> the action from happening. Or something like:
+>=20
+> "This action might result in memory corruptions and invalid behavior. D=
+o
+> you want to continue? [Y/N]
+
+This should only be rejected if the source and target pool are not
+compatible. So a cpupool could be attributed to allow only specific
+cpus (and maybe domains?) in it.
+
+Otherwise it would be impossible to create new cpupools after boot on
+such a system and populating them with cpus.
+
+>> I am also concerned that it would be more difficult to detect any
+>> misconfiguration. So I think this option would still need to be turned=
+ on only
+>> if hmp-unsafe are the new command line one are both on.
+>>
+>> If we want to enable it without hmp-unsafe on, we would need to at lea=
+st lock
+>> the pools.
+>=20
+> Locking the pools is a good idea.
+
+This would be another option, yes.
+
+> My preference is not to tie this feature to the hmp-unsafe command line=
+,
+> more on this below.
+
+I agree.
+
+>>> - when hmp-unsafe is on, this feature will be turned of (if activated=
+ in
+>>> configuration) and all cores would be added in the same pool.
+>>>
+>>> What do you think ?
+>>
+>> I am split. On one hand, this is making easier for someone to try big.=
+LITTLE
+>> as you don't have manually pin vCPUs. On the other hand, this is handl=
+ing a
+>> single use-case and you would need to use hmp-unsafe and pinning if yo=
+u want
+>> to get more exotic setup (e.g. a domain with big.LITTLE).
+>>
+>> Another possible solution is to pin dom0 vCPUs (AFAIK they are just st=
+icky by
+>> default) and then create the pools from dom0 userspace. My assumption =
+is for
+>> dom0less we would want to use pinning instead.
+>>
+>> That said I would like to hear from Xilinx and EPAM as, IIRC, they are=
+ already
+>> using hmp-unsafe in production.
+>=20
+> This discussion has been very interesting, it is cool to hear new ideas=
+
+> like this one. I have a couple of thoughts to share.
+>=20
+> First I think that the ability of creating cpupools at boot time is
+> super important. It goes way beyond big.LITTLE. It would be incredibly
+> useful to separate real-time (sched=3Dnull) and non-real-time
+> (sched=3Dcredit2) workloads. I think it will only become more important=
+
+> going forward so I'd love to see an option to configure cpupools that
+> works for dom0less. It could be based on device tree properties rather
+> than kconfig options.
+
+I think device tree AND command line option should be possible (think of
+x86 here).
+
+> It is true that if we had the devicetree-based cpupool configuration I
+> mentioned, then somebody could use it to create cpupools matching
+> big.LITTLE. So "in theory" it solves the problem. However, I think that=
+
+> for big.LITTLE it would be suboptimal. For big.LITTLE it would be best
+> if Xen configured the cpupools automatically rather than based on the
+> device tree configuration. That way, it is going to work automatically
+> without extra steps even in the simplest Xen setups.
+>=20
+> So I think that it is a good idea to have a command line option (better=
+
+> than a kconfig option) to trigger the MIDR-based cpupool creation at
+> boot time. The option could be called midr-cpupools=3Don/off or
+> hw-cpupools=3Don/off for example.
+
+I'd rather go for:
+
+cpupools=3D<options>
+
+With e.g. <options>:
+
+- "auto-midr": split system into cpupools based on MIDR
+- "auto-numa": split system into cpupools based on NUMA nodes
+- "cpus=3D<list of cpus>[,sched=3D<scheduler>]
+
+This would be rather flexible without adding more and more options
+doing similar things. Other sub-options could be added rather easily.
+
+> In terms of whether it should be the default or not, I don't feel
+> strongly about it. Unfortunately we (Xilinx) rely on a number of
+> non-default options already so we are already in the situation where we=
+
+> have to be extra-careful at the options passed. I don't think that
+> adding one more would make a significant difference either way.
+>=20
+>=20
+> But my preference is *not* to tie the new command line option with
+> hmp-unsafe because if you use midr-cpupools and don't mess with the
+> pools then it is actually safe. We could even lock the cpupools like
+> Julien suggested or warn/return error on changing the cpupools. In this=
+
+> scenario, it would be detrimental to also pass hmp-unsafe: it would
+> allow actually unsafe configurations that the user wanted to avoid by
+> using midr-cpupools. It would end up disabling checks we could put in
+> place to make midr-cpupools safer.
+>=20
+> So in short I think it should be:
+>=20
+> - midr-cpupools alone
+> cpupools created at boot, warning/errors on changing cpupools
+>=20
+> - midr-cpupools + hmp-unsafe
+> cpupools created at boot, changing cpupools is allowed (we could still
+> warn but no errors)
+
+I'd rather add an explicit ",locked" option to above cpupools parameter.
+
+>=20
+> - hmp-unsafe alone
+> same as today with hmp-unsafe
+>=20
+>=20
+> For the default as I said I don't have a strong preference. I think
+> midr-cpupools could be "on" be default.
 >=20
 
-Yes.
+What about making this a Kconfig option?
 
 
 Juergen
 
---------------70A5DD663CBC9D8110D8AFA2
+--------------DB34264B6EE0AADC04E1BED5
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -359,25 +437,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------70A5DD663CBC9D8110D8AFA2--
+--------------DB34264B6EE0AADC04E1BED5--
 
---iRjif7zEeeK1M22g97sgPltfnmGjajGH4--
+--EMZ8BuDzesKpUActVmVQCILibcfgb31dC--
 
---8X7gqauFn938NHbfqrL5z1Wx2eUsbINkA
+--IPP9Ec1viq4GUQVvD7kduxVmbutMtMy7L
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGV38AFAwAAAAAACgkQsN6d1ii/Ey/R
-wwgAnREEY/G1CkIRTaXeodWettMpnOvhHaJttoi5BLl4UczrdAlHj1IK+0jwdZI4FVbpwtKQJmj0
-Nd7RKJ9VsvvtFHHGdeVjV2B+cG1ZGKGwYbLSRo5zUVLoMvp+/0fiwYoBFf5Rc5bSo6ff2veUNXE6
-86I4/q4fRzHzLlYbicw6u5rvvWsyI6H3keAF87CDxNO3pOp3btahBKSeW+/16hY150cTs7tlng8F
-tr9LNxJf1UMyIkVoAXfPjbzXo9yEiwDvTFpikE2IuIE+9BZdPhwryUEJ/OyScZDHE5Gv+GScdhuw
-qhD9xr7Zwf6+olFhtF6nbKJ8L//1ZFU32x9fmweBIQ==
-=XydQ
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGV4m8FAwAAAAAACgkQsN6d1ii/Ey9J
+jQf/ba8MPm0sJMQHN1Kxrod2DdedDP9rTpEBRiV7jcSfILuX/JRsB0GlKg+3N58XAZeFyUG6tMvY
+zNsL1ilJ92bseMead0dJf9C7lV+DsACJb4ewe5ZSOh+ZzZMr6EfnR1+EtfjqlQFu1bu8xzbylRbv
+cUnTGSoFzn8ZvZPhWNAbcvzeVurIsXmL9cDkoF1/5HhOgdfIDS0MR4RSKvj+xZpyeWnoWGv23Rgh
+WhqEPsV1ZnPJoDHWCf1PC6p9rl2Iy37KrqolB89OoNfTHWui3sVEAhSEa/J3QsUFF5hCCLFIx5xb
+3dTVfBnrNLgdKuF3KgYpA2ehkz8UwqbxdiFF+iZsnw==
+=Gdvo
 -----END PGP SIGNATURE-----
 
---8X7gqauFn938NHbfqrL5z1Wx2eUsbINkA--
+--IPP9Ec1viq4GUQVvD7kduxVmbutMtMy7L--
 
