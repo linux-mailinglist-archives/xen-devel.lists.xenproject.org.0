@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 020E145676C
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 02:20:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.227613.393707 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59E234567C5
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 03:02:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.227619.393718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnsZH-00041m-Uq; Fri, 19 Nov 2021 01:19:55 +0000
+	id 1mntDe-0000lH-88; Fri, 19 Nov 2021 02:01:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 227613.393707; Fri, 19 Nov 2021 01:19:55 +0000
+Received: by outflank-mailman (output) from mailman id 227619.393718; Fri, 19 Nov 2021 02:01:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnsZH-0003zz-Ra; Fri, 19 Nov 2021 01:19:55 +0000
-Received: by outflank-mailman (input) for mailman id 227613;
- Fri, 19 Nov 2021 01:19:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TVl8=QG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1mnsZG-0003zt-If
- for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 01:19:54 +0000
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cb7803cd-48d6-11ec-a9d2-d9f7a1cc8784;
- Fri, 19 Nov 2021 02:19:52 +0100 (CET)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id BA0156138D;
- Fri, 19 Nov 2021 01:19:50 +0000 (UTC)
+	id 1mntDe-0000iY-32; Fri, 19 Nov 2021 02:01:38 +0000
+Received: by outflank-mailman (input) for mailman id 227619;
+ Fri, 19 Nov 2021 02:01:36 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mntDc-0000iO-8Z; Fri, 19 Nov 2021 02:01:36 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mntDc-0003FM-1e; Fri, 19 Nov 2021 02:01:36 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mntDb-0005X3-JH; Fri, 19 Nov 2021 02:01:35 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mntDb-0002Tv-Io; Fri, 19 Nov 2021 02:01:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,390 +42,267 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb7803cd-48d6-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1637284791;
-	bh=Gxy95d9uTSFZ6s+xvZfv+fxwvVi6Av4nD/RW09/P+9k=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=SjmXbKz20/RpYbcSNdiPGdQlbm8kQB5pXm1LmjRbuu2PLajv5FKfT75eHVgveifx7
-	 NN+h4zZDiDUN8rRFKSqj4dbdEGXH56OvLyYpROXnMP4ASnFOQS1bzLrRJ+1/WGxgmR
-	 YagdmEv16M3BeryJEWn2u/YsgJrh7itWyczZlRYM/7Ry5QtfcHg/THbAV31W7F0H3l
-	 RyL/GNg+oYevGsVVlD5vDWVxPmQmCLMcaaRS6seIZ2mPusEYtE/QwT3DHkSnSAhucV
-	 BgHk6vL3rg+5l5gPxUkDaQXQ7JYbIM7irxMm7rNJaeFAnXK/yXCXLqhKUdBUwsCRu1
-	 atXinAriLoZ6Q==
-Date: Thu, 18 Nov 2021 17:19:48 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksandr <olekstysh@gmail.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org, 
-    linux-kernel@vger.kernel.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Russell King <linux@armlinux.org.uk>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
-Subject: Re: [PATCH V2 4/4] arm/xen: Read extended regions from DT and init
- Xen resource
-In-Reply-To: <237f832d-5175-5653-18ee-058a7d7fa7a6@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2111181701110.1412361@ubuntu-linux-20-04-desktop>
-References: <1635264312-3796-1-git-send-email-olekstysh@gmail.com> <1635264312-3796-5-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2110271803060.20134@sstabellini-ThinkPad-T480s> <237f832d-5175-5653-18ee-058a7d7fa7a6@gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=+JP6zhHjsSTRpLOSmpeMJhXJwsve9KfZD1i6Py6gUMM=; b=WBvDlx68x5Du5fSnO8adCwHhJ2
+	YP4asDpWonVCCeTmG3cg9J7XyuM9mbJVfuQeBKtSwS5TUeGk3O5fmWpHCCqhGeZFpus6BBhwgebMF
+	EHLyFBEg/4cq/4HA9lk8tCRJnYmNJPsuuenAP1b4UV09SGKNopjqZgke0BGlFj7aQHkE=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166184-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1809159159-1637284073=:1412361"
-Content-ID: <alpine.DEB.2.22.394.2111181708270.1412361@ubuntu-linux-20-04-desktop>
+Subject: [qemu-mainline test] 166184: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=3bb87484e77d22cf4e580a78856529c982195d32
+X-Osstest-Versions-That:
+    qemuu=52cebbfc133fb784644edeae1e5b53aac3b64e5f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 19 Nov 2021 02:01:35 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 166184 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166184/
 
---8323329-1809159159-1637284073=:1412361
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2111181708271.1412361@ubuntu-linux-20-04-desktop>
+Failures :-/ but no regressions.
 
-On Wed, 10 Nov 2021, Oleksandr wrote:
-> On 28.10.21 04:40, Stefano Stabellini wrote:
-> 
-> Hi Stefano
-> 
-> I am sorry for the late response.
-> 
-> > On Tue, 26 Oct 2021, Oleksandr Tyshchenko wrote:
-> > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > 
-> > > This patch implements arch_xen_unpopulated_init() on Arm where
-> > > the extended regions (if any) are gathered from DT and inserted
-> > > into passed Xen resource to be used as unused address space
-> > > for Xen scratch pages by unpopulated-alloc code.
-> > > 
-> > > The extended region (safe range) is a region of guest physical
-> > > address space which is unused and could be safely used to create
-> > > grant/foreign mappings instead of wasting real RAM pages from
-> > > the domain memory for establishing these mappings.
-> > > 
-> > > The extended regions are chosen by the hypervisor at the domain
-> > > creation time and advertised to it via "reg" property under
-> > > hypervisor node in the guest device-tree. As region 0 is reserved
-> > > for grant table space (always present), the indexes for extended
-> > > regions are 1...N.
-> > > 
-> > > If arch_xen_unpopulated_init() fails for some reason the default
-> > > behaviour will be restored (allocate xenballooned pages).
-> > > 
-> > > This patch also removes XEN_UNPOPULATED_ALLOC dependency on x86.
-> > > 
-> > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> > > ---
-> > > Changes RFC -> V2:
-> > >     - new patch, instead of
-> > >      "[RFC PATCH 2/2] xen/unpopulated-alloc: Query hypervisor to provide
-> > > unallocated space"
-> > > ---
-> > >   arch/arm/xen/enlighten.c | 112
-> > > +++++++++++++++++++++++++++++++++++++++++++++++
-> > >   drivers/xen/Kconfig      |   2 +-
-> > >   2 files changed, 113 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-> > > index dea46ec..1a1e0d3 100644
-> > > --- a/arch/arm/xen/enlighten.c
-> > > +++ b/arch/arm/xen/enlighten.c
-> > > @@ -62,6 +62,7 @@ static __read_mostly unsigned int xen_events_irq;
-> > >   static phys_addr_t xen_grant_frames;
-> > >     #define GRANT_TABLE_INDEX   0
-> > > +#define EXT_REGION_INDEX    1
-> > >     uint32_t xen_start_flags;
-> > >   EXPORT_SYMBOL(xen_start_flags);
-> > > @@ -303,6 +304,117 @@ static void __init xen_acpi_guest_init(void)
-> > >   #endif
-> > >   }
-> > >   +#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
-> > > +int arch_xen_unpopulated_init(struct resource *res)
-> > > +{
-> > > +	struct device_node *np;
-> > > +	struct resource *regs, *tmp_res;
-> > > +	uint64_t min_gpaddr = -1, max_gpaddr = 0;
-> > > +	unsigned int i, nr_reg = 0;
-> > > +	struct range mhp_range;
-> > > +	int rc;
-> > > +
-> > > +	if (!xen_domain())
-> > > +		return -ENODEV;
-> > > +
-> > > +	np = of_find_compatible_node(NULL, NULL, "xen,xen");
-> > > +	if (WARN_ON(!np))
-> > > +		return -ENODEV;
-> > > +
-> > > +	/* Skip region 0 which is reserved for grant table space */
-> > > +	while (of_get_address(np, nr_reg + EXT_REGION_INDEX, NULL, NULL))
-> > > +		nr_reg++;
-> > > +	if (!nr_reg) {
-> > > +		pr_err("No extended regions are found\n");
-> > > +		return -EINVAL;
-> > > +	}
-> > > +
-> > > +	regs = kcalloc(nr_reg, sizeof(*regs), GFP_KERNEL);
-> > > +	if (!regs)
-> > > +		return -ENOMEM;
-> > > +
-> > > +	/*
-> > > +	 * Create resource from extended regions provided by the hypervisor to
-> > > be
-> > > +	 * used as unused address space for Xen scratch pages.
-> > > +	 */
-> > > +	for (i = 0; i < nr_reg; i++) {
-> > > +		rc = of_address_to_resource(np, i + EXT_REGION_INDEX,
-> > > &regs[i]);
-> > > +		if (rc)
-> > > +			goto err;
-> > > +
-> > > +		if (max_gpaddr < regs[i].end)
-> > > +			max_gpaddr = regs[i].end;
-> > > +		if (min_gpaddr > regs[i].start)
-> > > +			min_gpaddr = regs[i].start;
-> > > +	}
-> > > +
-> > > +	/* Check whether the resource range is within the hotpluggable range
-> > > */
-> > > +	mhp_range = mhp_get_pluggable_range(true);
-> > > +	if (min_gpaddr < mhp_range.start)
-> > > +		min_gpaddr = mhp_range.start;
-> > > +	if (max_gpaddr > mhp_range.end)
-> > > +		max_gpaddr = mhp_range.end;
-> > > +
-> > > +	res->start = min_gpaddr;
-> > > +	res->end = max_gpaddr;
-> > > +
-> > > +	/*
-> > > +	 * Mark holes between extended regions as unavailable. The rest of
-> > > that
-> > > +	 * address space will be available for the allocation.
-> > > +	 */
-> > > +	for (i = 1; i < nr_reg; i++) {
-> > > +		resource_size_t start, end;
-> > > +
-> > > +		start = regs[i - 1].end + 1;
-> > > +		end = regs[i].start - 1;
-> > > +
-> > > +		if (start > (end + 1)) {
-> > Should this be:
-> > 
-> > if (start >= end)
-> > 
-> > ?
-> 
-> Yes, we can do this here (since the checks are equivalent) but ...
->
-> > > +			rc = -EINVAL;
-> > > +			goto err;
-> > > +		}
-> > > +
-> > > +		/* There is no hole between regions */
-> > > +		if (start == (end + 1))
-> > Also here, shouldn't it be:
-> > 
-> > if (start == end)
-> > 
-> > ?
-> 
->    ... not here.
-> 
-> As
-> 
-> "(start == (end + 1))" is equal to "(regs[i - 1].end + 1 == regs[i].start)"
-> 
-> but
-> 
-> "(start == end)" is equal to "(regs[i - 1].end + 1 == regs[i].start - 1)"
- 
-OK. But the check:
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 166170
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 166170
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 166170
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 166170
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 166170
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 166170
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 166170
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 166170
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
 
-  if (start >= end)
+version targeted for testing:
+ qemuu                3bb87484e77d22cf4e580a78856529c982195d32
+baseline version:
+ qemuu                52cebbfc133fb784644edeae1e5b53aac3b64e5f
 
-Actually covers both cases so that's the only check we need?
+Last test of basis   166170  2021-11-17 12:28:33 Z    1 days
+Testing same since   166184  2021-11-18 09:26:57 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Richard Henderson <richard.henderson@linaro.org>
+  Thomas Huth <thuth@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
-> > 
-> > I think I am missing again something in termination accounting :-)
-> 
-> If I understand correctly, we need to follow "end = start + size - 1" rule, so
-> the "end" is the last address inside a range, but not the "first" address
-> outside of a range))
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-yeah
- 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> > > +			continue;
-> > > +
-> > > +		/* Check whether the hole range is within the resource range
-> > > */
-> > > +		if (start < res->start || end > res->end) {
-> > By definition I don't think this check is necessary as either condition
-> > is impossible?
-> 
-> 
-> This is a good question, let me please explain.
-> Not all extended regions provided by the hypervisor can be used here. This is
-> because the addressable physical memory range for which the linear mapping
-> could be created has limits on Arm, and maximum addressable range depends on
-> the VA space size (CONFIG_ARM64_VA_BITS_XXX). So we decided to not filter them
-> in hypervisor as this logic could be quite complex as different OS may have
-> different requirement, etc. This means that we need to make sure that regions
-> are within the hotpluggable range to avoid a failure later on when a region is
-> pre-validated by the memory hotplug path.
-> 
-> The following code limits the resource range based on that:
-> 
-> +    /* Check whether the resource range is within the hotpluggable range */
-> +    mhp_range = mhp_get_pluggable_range(true);
-> +    if (min_gpaddr < mhp_range.start)
-> +        min_gpaddr = mhp_range.start;
-> +    if (max_gpaddr > mhp_range.end)
-> +        max_gpaddr = mhp_range.end;
-> +
-> +    res->start = min_gpaddr;
-> +    res->end = max_gpaddr;
-> 
-> In current loop (when calculating and inserting holes) we also need to make
-> sure that resulting hole range is within the resource range (and adjust/skip
-> it if not true) as regs[] used for the calculations contains raw regions as
-> they described in DT so not updated. Otherwise insert_resource() down the
-> function will return an error for the conflicting operations. Yes, I could
-> took a different route and update regs[] in advance to adjust/skip
-> non-suitable regions in front, but I decided to do it on the fly in the loop
-> here, I thought doing it in advance would add some overhead/complexity. What
-> do you think?
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-I understand now.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> So I am afraid this check is necessary here.
-> 
-> For example in my environment the extended regions are:
-> 
-> (XEN) Extended region 0: 0->0x8000000
-> (XEN) Extended region 1: 0xc000000->0x30000000
-> (XEN) Extended region 2: 0x40000000->0x47e00000
-> (XEN) Extended region 3: 0xd0000000->0xe6000000
-> (XEN) Extended region 4: 0xe7800000->0xec000000
-> (XEN) Extended region 5: 0xf1200000->0xfd000000
-> (XEN) Extended region 6: 0x100000000->0x500000000
-> (XEN) Extended region 7: 0x580000000->0x600000000
-> (XEN) Extended region 8: 0x680000000->0x700000000
-> (XEN) Extended region 9: 0x780000000->0x10000000000
-> 
-> *With* the check the holes are:
-> 
-> holes [47e00000 - cfffffff]
-> holes [e6000000 - e77fffff]
-> holes [ec000000 - f11fffff]
-> holes [fd000000 - ffffffff]
-> holes [500000000 - 57fffffff]
-> holes [600000000 - 67fffffff]
-> holes [700000000 - 77fffffff]
-> 
-> And they seem to look correct, you can see that two possible holes between
-> extended regions 0-1 (8000000-bffffff) and 1-2 (30000000-3fffffff) were
-> skipped as they entirely located below res->start
-> which is 0x40000000 in my case (48-bit VA: 0x40000000 - 0x80003fffffff).
-> 
-> *Without* the check these two holes won't be skipped and as the result
-> insert_resource() will fail.
-> 
-> 
-> **********
-> 
-> 
-> I have one idea how we can simplify filter logic, we can drop all checks here
-> (including confusing one) in Arm code and update common code a bit:
-> 
-> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-> index 1a1e0d3..ed5b855 100644
-> --- a/arch/arm/xen/enlighten.c
-> +++ b/arch/arm/xen/enlighten.c
-> @@ -311,7 +311,6 @@ int arch_xen_unpopulated_init(struct resource *res)
->         struct resource *regs, *tmp_res;
->         uint64_t min_gpaddr = -1, max_gpaddr = 0;
->         unsigned int i, nr_reg = 0;
-> -       struct range mhp_range;
->         int rc;
-> 
->         if (!xen_domain())
-> @@ -349,13 +348,6 @@ int arch_xen_unpopulated_init(struct resource *res)
->                         min_gpaddr = regs[i].start;
->         }
-> 
-> -       /* Check whether the resource range is within the hotpluggable range
-> */
-> -       mhp_range = mhp_get_pluggable_range(true);
-> -       if (min_gpaddr < mhp_range.start)
-> -               min_gpaddr = mhp_range.start;
-> -       if (max_gpaddr > mhp_range.end)
-> -               max_gpaddr = mhp_range.end;
-> -
->         res->start = min_gpaddr;
->         res->end = max_gpaddr;
-> 
-> @@ -378,17 +370,6 @@ int arch_xen_unpopulated_init(struct resource *res)
->                 if (start == (end + 1))
->                         continue;
-> 
-> -               /* Check whether the hole range is within the resource range
-> */
-> -               if (start < res->start || end > res->end) {
-> -                       if (start < res->start)
-> -                               start = res->start;
-> -                       if (end > res->end)
-> -                               end = res->end;
-> -
-> -                       if (start >= (end + 1))
-> -                               continue;
-> -               }
-> -
->                 tmp_res = kzalloc(sizeof(*tmp_res), GFP_KERNEL);
->                 if (!tmp_res) {
->                         rc = -ENOMEM;
-> diff --git a/drivers/xen/unpopulated-alloc.c b/drivers/xen/unpopulated-alloc.c
-> index 1f1d8d8..a5d3ebb 100644
-> --- a/drivers/xen/unpopulated-alloc.c
-> +++ b/drivers/xen/unpopulated-alloc.c
-> @@ -39,6 +39,7 @@ static int fill_list(unsigned int nr_pages)
->         void *vaddr;
->         unsigned int i, alloc_pages = round_up(nr_pages, PAGES_PER_SECTION);
->         int ret;
-> +       struct range mhp_range;
-> 
->         res = kzalloc(sizeof(*res), GFP_KERNEL);
->         if (!res)
-> @@ -47,8 +48,10 @@ static int fill_list(unsigned int nr_pages)
->         res->name = "Xen scratch";
->         res->flags = IORESOURCE_MEM | IORESOURCE_BUSY;
-> 
-> +       mhp_range = mhp_get_pluggable_range(true);
-> +
->         ret = allocate_resource(target_resource, res,
-> -                               alloc_pages * PAGE_SIZE, 0, -1,
-> +                               alloc_pages * PAGE_SIZE, mhp_range.start,
-> mhp_range.end,
->                                 PAGES_PER_SECTION * PAGE_SIZE, NULL, NULL);
->         if (ret < 0) {
->                 pr_err("Cannot allocate new IOMEM resource\n");
-> (END)
-> 
-> I believe, this will work on x86 as arch_get_mappable_range() is not
-> implemented there,
-> and the default option contains exactly what being used currently (0, -1).
-> 
-> struct range __weak arch_get_mappable_range(void)
-> {
->     struct range mhp_range = {
->         .start = 0UL,
->         .end = -1ULL,
->     };
->     return mhp_range;
-> }
-> 
-> And this is going to be more generic and clear, what do you think?
+Pushing revision :
 
-Yeah this is much better, good thinking!
---8323329-1809159159-1637284073=:1412361--
+To xenbits.xen.org:/home/xen/git/qemu-xen.git
+   52cebbfc13..3bb87484e7  3bb87484e77d22cf4e580a78856529c982195d32 -> upstream-tested
 
