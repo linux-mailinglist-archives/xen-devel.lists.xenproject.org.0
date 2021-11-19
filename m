@@ -2,44 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC829456975
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 06:17:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.227641.393767 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A206456B2F
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 08:59:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.227646.393778 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnwGB-0002hT-Gn; Fri, 19 Nov 2021 05:16:27 +0000
+	id 1mnymH-00009b-Cs; Fri, 19 Nov 2021 07:57:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 227641.393767; Fri, 19 Nov 2021 05:16:27 +0000
+Received: by outflank-mailman (output) from mailman id 227646.393778; Fri, 19 Nov 2021 07:57:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnwGB-0002er-Dj; Fri, 19 Nov 2021 05:16:27 +0000
-Received: by outflank-mailman (input) for mailman id 227641;
- Fri, 19 Nov 2021 05:16:25 +0000
+	id 1mnymH-00006d-9l; Fri, 19 Nov 2021 07:57:45 +0000
+Received: by outflank-mailman (input) for mailman id 227646;
+ Fri, 19 Nov 2021 07:57:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Spps=QG=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mnwG9-0002el-A4
- for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 05:16:25 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (envelope-from <SRS0=v60N=QG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1mnymF-00006E-OZ
+ for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 07:57:43 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d57dc6ea-48f7-11ec-9787-a32c541c8605;
- Fri, 19 Nov 2021 06:16:22 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5906E212C3;
- Fri, 19 Nov 2021 05:16:21 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0F0A013A42;
- Fri, 19 Nov 2021 05:16:21 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 37LxASUzl2FxIAAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 19 Nov 2021 05:16:21 +0000
+ id 5f4d524a-490e-11ec-9787-a32c541c8605;
+ Fri, 19 Nov 2021 08:57:42 +0100 (CET)
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur02lp2057.outbound.protection.outlook.com [104.47.4.57]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-28-0KEf8So2OoKP9lL3zTm7tQ-1; Fri, 19 Nov 2021 08:57:40 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB3120.eurprd04.prod.outlook.com (2603:10a6:802:e::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4690.16; Fri, 19 Nov
+ 2021 07:57:39 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4713.022; Fri, 19 Nov 2021
+ 07:57:39 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AS9PR06CA0119.eurprd06.prod.outlook.com (2603:10a6:20b:465::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22 via Frontend
+ Transport; Fri, 19 Nov 2021 07:57:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,333 +56,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d57dc6ea-48f7-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1637298981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 5f4d524a-490e-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1637308661;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=CZ8May4VfhuaiCLlX4LdXWGn2SOL5tYQ4J+aUlevn30=;
-	b=C94y6rlvM/z7CPIf9CLqsdyr4RA5/4QTgtiqRdnY6VraBsjk/mqROE/kfEXN5CYA2KULQ5
-	sv44aupivlmA79ogr2MPfzpsrz6c7szHVvKM3gneshZESnRO8OST8RC7K9eTUUbBMOcYQZ
-	cvTXhMK94Wj9RufBqgEZpSN2OE5Wh+8=
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>, boris.ostrovsky@oracle.com,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, stable@vger.kernel.org
-References: <20211117021145.3105042-1-sstabellini@kernel.org>
- <2592121c-ed62-c346-5aeb-37adb6bb1982@suse.com>
- <alpine.DEB.2.22.394.2111171823160.1412361@ubuntu-linux-20-04-desktop>
- <44403efe-a850-b53b-785f-6f5c73eb2b96@suse.com>
- <9453672e-56ea-71cd-cdd2-b4aaafb8db56@suse.com>
- <b0cd6af9-66c4-3a73-734a-3a51d052fac2@suse.com>
- <alpine.DEB.2.22.394.2111181226460.1412361@ubuntu-linux-20-04-desktop>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] xen: detect uninitialized xenbus in xenbus_init
-Message-ID: <2d6a1818-e6d0-eb5d-5319-e0cd2e071b03@suse.com>
-Date: Fri, 19 Nov 2021 06:16:20 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2111181226460.1412361@ubuntu-linux-20-04-desktop>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="k9FHfRXORn3u1wfdVDhanJ9xPhj52Izt9"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---k9FHfRXORn3u1wfdVDhanJ9xPhj52Izt9
-Content-Type: multipart/mixed; boundary="dq7zbyiopWgrKFF7IM4pZ8fIUMjtIo0st";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Jan Beulich <jbeulich@suse.com>, boris.ostrovsky@oracle.com,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, stable@vger.kernel.org
-Message-ID: <2d6a1818-e6d0-eb5d-5319-e0cd2e071b03@suse.com>
-Subject: Re: [PATCH] xen: detect uninitialized xenbus in xenbus_init
-References: <20211117021145.3105042-1-sstabellini@kernel.org>
- <2592121c-ed62-c346-5aeb-37adb6bb1982@suse.com>
- <alpine.DEB.2.22.394.2111171823160.1412361@ubuntu-linux-20-04-desktop>
- <44403efe-a850-b53b-785f-6f5c73eb2b96@suse.com>
- <9453672e-56ea-71cd-cdd2-b4aaafb8db56@suse.com>
- <b0cd6af9-66c4-3a73-734a-3a51d052fac2@suse.com>
- <alpine.DEB.2.22.394.2111181226460.1412361@ubuntu-linux-20-04-desktop>
-In-Reply-To: <alpine.DEB.2.22.394.2111181226460.1412361@ubuntu-linux-20-04-desktop>
-
---dq7zbyiopWgrKFF7IM4pZ8fIUMjtIo0st
-Content-Type: multipart/mixed;
- boundary="------------1D5CADEDF14EBB1AB90E832F"
+	bh=IuciwUj8k0MDAnrhMZDZbD2cFgi46CwvvxiKh7SC2No=;
+	b=V73+eRHN5hcZWZAR8Lzw+6IfM/md6kejluffjl2X4ypWFWAuy4miHK5bZRsXuTPKlW6hvr
+	RjAh3rIwnLwL2WleRR5FM6B7dDjvlB3pogygey9bufeurbqDT/wQ2sXMdBjKwON06b+jfe
+	jr32qcQs9lwny6yb7F6n8gKtJeEtUEY=
+X-MC-Unique: 0KEf8So2OoKP9lL3zTm7tQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bgt80h/Eu0gbTXE5sztabtISH+cFILhqBywcYOJpYSuHCOi9v6/Y+rmRnuxrni+usz5D3B8SIEh/yS28B7RH9RLxC9RQx3X1edkhTdoZts9n4zxndr2//pDyDjjOXfiPE+n8A27G4nIWGpkvlTFfBU9FC8wbnhZjOUqo6niwondInONO0YwVFUoma67pq3MtKQg8zAG22pIQuc5jIvuAddMeI6Uw+Edsq1DH49QpKoGCCWBCcH1nm1Cfpeij4CX+P2HgwJT9xxQHTEetgofjANYwPk2eebAFiDEwQ9LsOBzbWkMSlKvQ1C3H/N1U3jk0py2vkY0qix7euQ5RxKwAfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=AhC+gXUL7sP9vCz+tuCYMC5rpJ53h+BYaZEXZfZCEAs=;
+ b=f4VRPFmTQHWN9vH3AIOm4sh8KqSJs/vIKL3Z880DnmdKDjRtmBxDjinG/i35okPq7xkETyXTFjAuZ84u0sRN6lyGQpfQV9hGDH1i5R+bbCPhN18P1poCXWJWiH6YUKTJUfoM9TXXE7MWedxd7e2hQlAVhT7sJSZFPzuKVHWYpNU8LD9ElgZK9hdMbQ/UIrQ3OMfRRQl8LM0Y5CBmvLrgGghQEAVJR/We5AewyZfty4yUqn0wep4Nuzn160wOi3K6DPJJuFjL8f+/Z7dDhTplLYQla8DrVtK8IrIQ+apwSh7W9JEpMvaUy9srB7NM6n4uwCF90VgRkzHMbgWU7BwP7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <9c2f5986-f217-0e67-66fc-4ed8ff29713b@suse.com>
+Date: Fri, 19 Nov 2021 08:57:37 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.0
+Subject: Re: [PATCH 0/3] x86/Viridian: ExProcessorMasks handling improvements
 Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------1D5CADEDF14EBB1AB90E832F
-Content-Type: text/plain; charset=utf-8; format=flowed
+To: Andrew Cooper <amc96@srcf.net>
+CC: Paul Durrant <paul@xen.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <c8e8767b-111c-5eec-15c4-a7cb60a99283@suse.com>
+ <0b8a1864-5ae9-3b19-4d43-893a5777985e@srcf.net>
+ <44ccd257-6c8b-c35c-a0be-1ebdbd6d8ad6@suse.com>
+ <0352b245-8dee-c960-18e2-ee0ae5846001@srcf.net>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <0352b245-8dee-c960-18e2-ee0ae5846001@srcf.net>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AS9PR06CA0119.eurprd06.prod.outlook.com
+ (2603:10a6:20b:465::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d41a9ea6-f7a2-402a-0bf7-08d9ab3241bd
+X-MS-TrafficTypeDiagnostic: VI1PR04MB3120:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB3120DF489C91A64F3C32F39AB39C9@VI1PR04MB3120.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Xa1zqE59lR6NQhWAd2Zuq09/mp/8LqLZfDqA9GguPz286SB5jU82vawCbh8rU+bNIumfPWOp7FkQKVTFf7uSj9uzMONLaDktiR5V9gtLEuOe/ILBeBkSs5tYM/SA3oOsrbb4k14fnaxKicdp+2tPY+mQ9zG+S6m6cfSwMmsTLD4LKY9ETxOL/EJD1WTnR/ss5vVqStnKUbAfUUNccHPktnpd924SLEFV9SarjNbhW2XuIVuQ/XSNezh9HM4HU5DYKYk4SZBtBq7V0815Ym6UlaE1aSDHjL+P7fNV+9dMRquiORl6hMe4pSYp9/sqelCH46/N7Ax/7OlORxA3xkjT+3fxCFKSue49Kb2/tYE1Kdbh1ea2aEIA4EAeDufJHjS9ZzZtJmv/dhaPNXPa+iObUCYUm47kB9BeBGius697cpqlqfxXiolsyxQ1ymafD0t/DHkJ7J/BssgjCbk9DnYbxwp3oRccW4Hg/S7R46FfmsvdXquhWm8LxnXJ67k/z85jqqINkGizsy8rZXOnfkL45bAqm1/B0k8xFVml0TRFQh4usBPkczX3NJX8Rvr8v3Y+WYBMKTwcP5+MyjI8gXZ/Zd5e0DlMdabLlT2LMFzkJeZbt2n1Cb02wROa9WF9b3ooDEV35FJs0xDtcDyiGe5xl9/qYFrnvmTxdMW7dZDnTceYeIomRaqEoGXGwMaAE73NezkRWcMMrjW5NUJUC5clm/cI8KqOw7SXbkWjrdvYFjc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(6029001)(366004)(316002)(16576012)(86362001)(6916009)(31696002)(31686004)(956004)(36756003)(5660300002)(6486002)(2616005)(8676002)(8936002)(54906003)(83380400001)(53546011)(38100700002)(186003)(26005)(66946007)(66556008)(2906002)(4326008)(66476007)(508600001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Kkdkxb3983f/8i2DFgyyPtu9OzziTxi7c798vUdCwGiYsS1FOlrQCqbHI8bM?=
+ =?us-ascii?Q?cD3oQsdZ020eSdAjzQb540TcQgZv3BsHE402ONZ8a2VfeNLIw8ovs5bp2b6d?=
+ =?us-ascii?Q?T56gsU+V3NV4tXUe1c7ZMHWH/lf79N6b1pGLEtGos/3MCKCPl00c68HMgQoY?=
+ =?us-ascii?Q?SynHq/XrQ4tiEc/nuBpCY/1pYDyv+7mpm9Ka9nbsjmXeWMaw2eBqc+S4jpQS?=
+ =?us-ascii?Q?hmMzd2OqtkmwhaS/rCUBVbLPzZaeqlTtH5HFKcq9QoAOQa6s+crZFqW1OOlA?=
+ =?us-ascii?Q?YC4g6rdS2rXXbgkdY5GAmAQ7zj+7iqgI429og17b24HpcEZkxxlBW0DiBxWo?=
+ =?us-ascii?Q?ChQBbrQ4+hyXlr8ccOBX8kLB3o7zd8pIvlfTY9hNofq8WHRB0GylHPhA6Jt/?=
+ =?us-ascii?Q?JW58L3OLR7MhL3d//yBruhDgay5l5esgYqtbP9tO2Z2ibwOdS+PJNSpChKy2?=
+ =?us-ascii?Q?/o/Wzccepk91SbEdW/SqL8ztsM1VtIDDyiVXhw7XsRHxukgt+W4Ja8xtp3iT?=
+ =?us-ascii?Q?YodemYCcV0gQN8h4BdQHWGxDLWElhc1FT5HTfMA7LVaDvYeVfM4KvTlxs8pL?=
+ =?us-ascii?Q?6LOwCeQjgQ59GvlsF29nxGGfi5vNkMTjoYbZ6LJ5C/T5k17G3U28MxR0xzzg?=
+ =?us-ascii?Q?jT3L60nGUaFBh/NbeR/uajJDM14ofbuWEGloNvE/9j6GuHAHTVVl3aYpN5At?=
+ =?us-ascii?Q?/HkH46dq/0DcOpGh4u/kodKWCkdLSWBfLmx9VkAybDnb0cIORPPS+OfqMnxa?=
+ =?us-ascii?Q?TpQOGw2a9bTbZYEy7lBf1xVNE9xYAlQotDd4uLorlukEM6JkOWEEJM7P18Na?=
+ =?us-ascii?Q?HkP/ucMk2Qp62ZnpJPNPu9QqEoWZLqav62Ne4BraAAGksIoa1gf+55D8Crc3?=
+ =?us-ascii?Q?bhtkDiHnu83OXQqoAgKcGlYMLIDTx9yJK60XYvROVgTHmtf6dv7TfZLqBTHF?=
+ =?us-ascii?Q?XDa/T+qe/zkRKfc/IbpxZvGTR1hsS3mRmMlhXUXqPmS7CIzdI/Nfs3UkvXX1?=
+ =?us-ascii?Q?B6Vwyx7zdTi1crakPx4EPnie0pjinTNJH2X2gVzF3zRR1/k2X56aQpiS+TbY?=
+ =?us-ascii?Q?ofYQ1SwFjJ4ElVyUnfo9APUyhzwZfrMTg0iSSDtDHI4BMBoQgDAO4zbSFoup?=
+ =?us-ascii?Q?VUByVG8kzCRmhAjvybnpwRvDiy3uZZBGHIPLb80wD1mS7pO16F8U3tMhjmi2?=
+ =?us-ascii?Q?7aAvq34RjwJbF89hiW94OPIK2PHPO2FCB5yUGsYlhASufEyX1ZnOMUokPToR?=
+ =?us-ascii?Q?czHbY2IZIzleAfByAIIX0pFy98sH55R+COXdqtc+4CQ7V4j76VSfLDPj2oCM?=
+ =?us-ascii?Q?ofzvPkX0tp6Xvwpj06mReYirJpO/b1Ibr7cHGE73MnDIE2Y8UfWrXxxaXXcr?=
+ =?us-ascii?Q?p5XeCZjkMy6wdbNLCDuS1T8Gy6hvZlO8G/VcG7UKeaTdc3CRA9NaGBCNJCG2?=
+ =?us-ascii?Q?psJ8RA4/inVjOmjBIOajrwIIBJ8BL8uZv1Q/s4QJRAbedQWuctK13WqJVvxL?=
+ =?us-ascii?Q?lonswH0s2wGDAixCiP/DuPlWkRyBvV/G10ev85IAsPoJRqCoEm3KrOiB33dl?=
+ =?us-ascii?Q?HPc47uNmUFgKOsoo2biPGHc/6RrkumvIlT3bOL1sJ1pvrbNP9q/+mCl+tL9r?=
+ =?us-ascii?Q?4B8eRKXCaPd8tEhXbxBtjnc=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d41a9ea6-f7a2-402a-0bf7-08d9ab3241bd
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2021 07:57:39.1057
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pOA5RbTri3UVMa2oWulTK2BQzD3e+WQt1O0QoWR+i/TBJiLYfM7c2U600/wSqMqzcWGoL2/AM6uYkQ+4WA0Wxw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3120
 
-On 18.11.21 22:00, Stefano Stabellini wrote:
-> On Thu, 18 Nov 2021, Juergen Gross wrote:
->> On 18.11.21 09:47, Jan Beulich wrote:
->>> On 18.11.2021 06:32, Juergen Gross wrote:
->>>> On 18.11.21 03:37, Stefano Stabellini wrote:
->>>>> --- a/drivers/xen/xenbus/xenbus_probe.c
->>>>> +++ b/drivers/xen/xenbus/xenbus_probe.c
->>>>> @@ -951,6 +951,28 @@ static int __init xenbus_init(void)
->>>>>     		err =3D hvm_get_parameter(HVM_PARAM_STORE_PFN, &v);
->>>>>     		if (err)
->>>>>     			goto out_error;
->>>>> +		/*
->>>>> +		 * Return error on an invalid value.
->>>>> +		 *
->>>>> +		 * Uninitialized hvm_params are zero and return no error.
->>>>> +		 * Although it is theoretically possible to have
->>>>> +		 * HVM_PARAM_STORE_PFN set to zero on purpose, in reality it
->>>>> is
->>>>> +		 * not zero when valid. If zero, it means that Xenstore hasn't
->>>>> +		 * been properly initialized. Instead of attempting to map a
->>>>> +		 * wrong guest physical address return error.
->>>>> +		 */
->>>>> +		if (v =3D=3D 0) {
+On 18.11.2021 19:05, Andrew Cooper wrote:
+> On 18/11/2021 13:34, Jan Beulich wrote:
+>> On 18.11.2021 14:20, Andrew Cooper wrote:
+>>> On 18/11/2021 13:12, Jan Beulich wrote:
+>>>> I've noticed the bugs fixed in patch 1 only while doing the other clea=
+nup.
 >>>>
->>>> Make this "if (v =3D=3D ULONG_MAX || v=3D=3D 0)" instead?
->>>> This would result in the same err on a new and an old hypervisor
->>>> (assuming we switch the hypervisor to init params with ~0UL).
+>>>> 1: fix error code use
+>>>> 2: drop dead variable updates
+>>>> 3: fold duplicate vpset retrieval code
+>>> Oh, nice.=C2=A0 This makes it rather easier to do the flush short-circu=
+it for
+>>> HV_GENERIC_SET_ALL.
+>> To be honest I first thought it might, but now I'm not sure anymore.
 >=20
-> Sure, I can do that
+> Just this delta:
 >=20
+> diff --git a/xen/arch/x86/hvm/viridian/viridian.c
+> b/xen/arch/x86/hvm/viridian/viridian.c
+> index 658e68f7f2bb..c8c05bfb04a1 100644
+> --- a/xen/arch/x86/hvm/viridian/viridian.c
+> +++ b/xen/arch/x86/hvm/viridian/viridian.c
+> @@ -771,7 +771,8 @@ static int hvcall_flush_ex(const union
+> hypercall_input *input,
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sizeof(input_para=
+ms)) !=3D HVMTRANS_okay )
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -EINVAL;
+> =C2=A0
+> -=C2=A0=C2=A0=C2=A0 if ( input_params.flags & HV_FLUSH_ALL_PROCESSORS )
+> +=C2=A0=C2=A0=C2=A0 if ( input_params.flags & HV_FLUSH_ALL_PROCESSORS ||
+> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 input_params.set.format=
+ =3D=3D HV_GENERIC_SET_ALL )
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 vcpu_bitmap =3D NULL;
+> =C2=A0=C2=A0=C2=A0=C2=A0 else
+> =C2=A0=C2=A0=C2=A0=C2=A0 {
 >=20
->>>>> +			err =3D -ENOENT;
->>>>> +			goto out_error;
->>>>> +		}
->>>>> +		/*
->>>>> +		 * ULONG_MAX is invalid on 64-bit because is INVALID_PFN.
->>>>> +		 * On 32-bit return error to avoid truncation.
->>>>> +		 */
->>>>> +		if (v >=3D ULONG_MAX) {
->>>>> +			err =3D -EINVAL;
->>>>> +			goto out_error;
->>>>> +		}
->>>>
->>>> Does it make sense to continue the system running in case of
->>>> truncation? This would be a 32-bit guest with more than 16TB of RAM
->>>> and the Xen tools decided to place the Xenstore ring page above the
->>>> 16TB boundary. This is a completely insane scenario IMO.
->>>>
->>>> A proper panic() in this case would make diagnosis of that much
->>>> easier (me having doubts that this will ever be hit, though).
->>>
->>> While I agree panic() may be an option here (albeit I'm not sure why
->>> that would be better than trying to cope with 0 and hence without
->>
->> I could imagine someone wanting to run a guest without Xenstore access=
-,
->> which BTW will happen in case of a guest created by the hypervisor at
->> boot time.
->>
->>> xenbus), I'd like to point out that the amount of RAM assigned to a
->>> guest is unrelated to the choice of GFNs for the various "magic"
->>> items.
->>
->> Yes, but this would still be a major tools problem which probably
->> would render the whole guest rather unusable.
->=20
-> First let's distinguish between an error due to "hvm_param not
-> initialized" and an error due to more serious conditions, such as "pfn
-> above max".
->=20
-> "hvm_param not initialized" could mean v =3D=3D 0 (as it would be today=
-) or
-> v =3D=3D ~0UL (if we change Xen to initialize all hvm_param to ~0UL). I=
+> which now I come to think of it independent of your cleanup, and small
+> enough to be folded into my main IPI change.
 
-> don't think we want to panic in these cases as they are not actually
-> true erroneous configurations. We should just stop trying to initialize=
+FTAOD please keep my R-b there with this addition.
 
-> xenstore and continue with the rest.
->=20
->=20
-> The "pfn above max" case could happen if v is greater than the max pfn.=
+Jan
 
-> This is a true error in the configuration because the toolstack should
-> know that the guest is 32-bit so it should give it a pfn that the guest=
-
-
-I don't think so. All x86 PVH/HVM guests start booting in 32-bit mode.
-
-> is able to use. As Jan wrote in another email, for 32-bit the actual
-> limit depends on the physical address bits but actually Linux has never=
-
-> been able to cope with a pfn > ULONG_MAX on 32-bit because xen_store_gf=
-n
-> is defined as unsigned long. So Linux 32-bit has been truncating
-> HVM_PARAM_STORE_PFN all along.
-
-The question is whether the number of physical address bits as presented
-to the guest is always >=3D 44. If not the actual limit is less than
-ULONG_MAX. Other than that you are right: a PFN larger than a 32-bit
-ULONG_MAX will be truncated by a 32-bit guest.
-
-> There is also an argument that depending on kconfig Linux 32-bit might
-> only be able to handle addresses < 4G, so I don't think the toolstack
-> can assume that a 32-bit guest is able to cope with HVM_PARAM_STORE_PFN=
-
->> ULONG_MAX.  If Linux is 32-bit and HVM_PARAM_STORE_PFN > ULONG_MAX,
-> even if HVM_PARAM_STORE_PFN < address_bits_max I think it would be fair=
-
-> to still consider it an error, but I can see it could be argued either
-> way. Certainly if HVM_PARAM_STORE_PFN > address_bits_max is an error.
-
-Right. The tools should NEVER put the frame above 4G for a non-PV guest.
-
-> In any case, I think it is still better for Linux to stop trying to
-> initialize Xenstore but continue with the rest because there is a bunch=
-
-> of other useful things Linux can do without it. Panic should only be th=
-e
-> last resort if there is nothing else to do. In this case we haven't eve=
-n
-> initialized the service and the service is not essential, at least it i=
-s
-> not essential in certain ARM setups.
->=20
->=20
-> So in conclusion, I think this patch should:
-> - if v =3D=3D 0 return error (uninitialized)
-> - if v =3D=3D ~0ULL (INVALID_PFN) return error (uinitialized)
-> - if v >=3D ~0UL (32-bit) return error (even if this case could be made=
- to
->    work for v < max_address_bits depending on kconfig)
->=20
-> Which leads to something like:
->=20
->          /* uninitialized */
-> 		if (v =3D=3D 0 || v =3D=3D ~0ULL) {
-> 			err =3D -ENOENT;
-> 			goto out_error;
-> 		}
->          /*
->           * Avoid truncation on 32-bit.
->           * TODO: handle addresses >=3D 4G
->           */
->          if ( v >=3D ~0UL ) {
->              err =3D -EINVAL;
->              goto out_error;
-
-I think at least in this case a pr_err("...") should be added.
-
-Silent failure is not nice.
-
-
-Juergen
-
---------------1D5CADEDF14EBB1AB90E832F
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------1D5CADEDF14EBB1AB90E832F--
-
---dq7zbyiopWgrKFF7IM4pZ8fIUMjtIo0st--
-
---k9FHfRXORn3u1wfdVDhanJ9xPhj52Izt9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGXMyQFAwAAAAAACgkQsN6d1ii/Ey/B
-mgf8CeBF7aQ7MCZzknGdgTgOEM6ZT59iOsQaIj2gd/8mNjdLxmb57oAPWsXqP34QvpbdhWvQpWaP
-P6HjSFA91VTAY+Tj1cTxcFQt5tb7t2ZCBMeuzfRCVitfEwGbGRWY2/Rn4LuRZayBVEiMxNa8cyDt
-9I4nVLcN+2atND2UsnJ/qXM5CNlRELepxI8fm95/u4pC10Ih9ntaaHl5Ith2zlzmgA4GXi5qxqSp
-Hm/+pohiLIl8T60rWW7W3GBC0K4MDj/26q2Zbd6WokVLOYtLofxjpaPnrS7o/w4VPIVSS5hrNyf6
-SP5WV13CqMeHZqgEfRhq5tIcktJQv6au5XBAmlyvAw==
-=fAIM
------END PGP SIGNATURE-----
-
---k9FHfRXORn3u1wfdVDhanJ9xPhj52Izt9--
 
