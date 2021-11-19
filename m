@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B64E9456727
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 01:59:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.227604.393696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 020E145676C
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 02:20:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.227613.393707 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnsFB-00083y-41; Fri, 19 Nov 2021 00:59:09 +0000
+	id 1mnsZH-00041m-Uq; Fri, 19 Nov 2021 01:19:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 227604.393696; Fri, 19 Nov 2021 00:59:09 +0000
+Received: by outflank-mailman (output) from mailman id 227613.393707; Fri, 19 Nov 2021 01:19:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnsFB-00082C-13; Fri, 19 Nov 2021 00:59:09 +0000
-Received: by outflank-mailman (input) for mailman id 227604;
- Fri, 19 Nov 2021 00:59:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mnsZH-0003zz-Ra; Fri, 19 Nov 2021 01:19:55 +0000
+Received: by outflank-mailman (input) for mailman id 227613;
+ Fri, 19 Nov 2021 01:19:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TVl8=QG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1mnsF9-000826-J0
- for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 00:59:07 +0000
+ id 1mnsZG-0003zt-If
+ for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 01:19:54 +0000
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3c51046-48d3-11ec-9787-a32c541c8605;
- Fri, 19 Nov 2021 01:59:05 +0100 (CET)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 17C5460F14;
- Fri, 19 Nov 2021 00:59:03 +0000 (UTC)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cb7803cd-48d6-11ec-a9d2-d9f7a1cc8784;
+ Fri, 19 Nov 2021 02:19:52 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id BA0156138D;
+ Fri, 19 Nov 2021 01:19:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,37 +38,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3c51046-48d3-11ec-9787-a32c541c8605
+X-Inumbo-ID: cb7803cd-48d6-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1637283543;
-	bh=GctSgusPNnJzGCE58MSOzEI8+sqmTJV7hQouDc+Ntmc=;
+	s=k20201202; t=1637284791;
+	bh=Gxy95d9uTSFZ6s+xvZfv+fxwvVi6Av4nD/RW09/P+9k=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=SZUhPGRT21IfRbX1voo4H4AZ9pzIFRQgrJEpMvgKjy2I1dgUd7sy0SEHjWSksWvwF
-	 uA/70iA/c1c27rkXlmIPMKM32ePXHlyv9HIAFmOqNcpRYxylCn7bj3m8QbsEFb51OG
-	 9oyJoxNa1XnPszreDyST04klLVrBj+F47pdJ7JhE3BmmD8pku5r81nZnDABboKioE+
-	 fU7PmR6LpZ4k7udS1giyaZUFc1ts7mA0vvymqakpN3oamQsNnU3/66eRjOXMSRB2JV
-	 B4rEj0pyDOWpc9hd0h3h4CB+a4TcqlTMAI3iOAKu8F11tKL7OIy9sn1iTZxxMxWFE3
-	 sKOIIc9xd8dwg==
-Date: Thu, 18 Nov 2021 16:59:01 -0800 (PST)
+	b=SjmXbKz20/RpYbcSNdiPGdQlbm8kQB5pXm1LmjRbuu2PLajv5FKfT75eHVgveifx7
+	 NN+h4zZDiDUN8rRFKSqj4dbdEGXH56OvLyYpROXnMP4ASnFOQS1bzLrRJ+1/WGxgmR
+	 YagdmEv16M3BeryJEWn2u/YsgJrh7itWyczZlRYM/7Ry5QtfcHg/THbAV31W7F0H3l
+	 RyL/GNg+oYevGsVVlD5vDWVxPmQmCLMcaaRS6seIZ2mPusEYtE/QwT3DHkSnSAhucV
+	 BgHk6vL3rg+5l5gPxUkDaQXQ7JYbIM7irxMm7rNJaeFAnXK/yXCXLqhKUdBUwsCRu1
+	 atXinAriLoZ6Q==
+Date: Thu, 18 Nov 2021 17:19:48 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Oleksandr <olekstysh@gmail.com>
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org, 
+    linux-kernel@vger.kernel.org, 
     Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Russell King <linux@armlinux.org.uk>, 
     Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
     Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
-Subject: Re: [PATCH V2 3/4] xen/unpopulated-alloc: Add mechanism to use Xen
- resource
-In-Reply-To: <1d122e60-df9c-2ac6-8148-f6a836b9e51d@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2111181642340.1412361@ubuntu-linux-20-04-desktop>
-References: <1635264312-3796-1-git-send-email-olekstysh@gmail.com> <1635264312-3796-4-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2110280920110.20134@sstabellini-ThinkPad-T480s> <1d122e60-df9c-2ac6-8148-f6a836b9e51d@gmail.com>
+Subject: Re: [PATCH V2 4/4] arm/xen: Read extended regions from DT and init
+ Xen resource
+In-Reply-To: <237f832d-5175-5653-18ee-058a7d7fa7a6@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2111181701110.1412361@ubuntu-linux-20-04-desktop>
+References: <1635264312-3796-1-git-send-email-olekstysh@gmail.com> <1635264312-3796-5-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2110271803060.20134@sstabellini-ThinkPad-T480s> <237f832d-5175-5653-18ee-058a7d7fa7a6@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-1809159159-1637284073=:1412361"
+Content-ID: <alpine.DEB.2.22.394.2111181708270.1412361@ubuntu-linux-20-04-desktop>
 
-On Tue, 9 Nov 2021, Oleksandr wrote:
-> On 28.10.21 19:37, Stefano Stabellini wrote:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1809159159-1637284073=:1412361
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2111181708271.1412361@ubuntu-linux-20-04-desktop>
+
+On Wed, 10 Nov 2021, Oleksandr wrote:
+> On 28.10.21 04:40, Stefano Stabellini wrote:
 > 
 > Hi Stefano
 > 
@@ -77,35 +88,26 @@ On Tue, 9 Nov 2021, Oleksandr wrote:
 > > On Tue, 26 Oct 2021, Oleksandr Tyshchenko wrote:
 > > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > > > 
-> > > The main reason of this change is that unpopulated-alloc
-> > > code cannot be used in its current form on Arm, but there
-> > > is a desire to reuse it to avoid wasting real RAM pages
-> > > for the grant/foreign mappings.
+> > > This patch implements arch_xen_unpopulated_init() on Arm where
+> > > the extended regions (if any) are gathered from DT and inserted
+> > > into passed Xen resource to be used as unused address space
+> > > for Xen scratch pages by unpopulated-alloc code.
 > > > 
-> > > The problem is that system "iomem_resource" is used for
-> > > the address space allocation, but the really unallocated
-> > > space can't be figured out precisely by the domain on Arm
-> > > without hypervisor involvement. For example, not all device
-> > > I/O regions are known by the time domain starts creating
-> > > grant/foreign mappings. And following the advise from
-> > > "iomem_resource" we might end up reusing these regions by
-> > > a mistake. So, the hypervisor which maintains the P2M for
-> > > the domain is in the best position to provide unused regions
-> > > of guest physical address space which could be safely used
-> > > to create grant/foreign mappings.
+> > > The extended region (safe range) is a region of guest physical
+> > > address space which is unused and could be safely used to create
+> > > grant/foreign mappings instead of wasting real RAM pages from
+> > > the domain memory for establishing these mappings.
 > > > 
-> > > Introduce new helper arch_xen_unpopulated_init() which purpose
-> > > is to create specific Xen resource based on the memory regions
-> > > provided by the hypervisor to be used as unused space for Xen
-> > > scratch pages.
+> > > The extended regions are chosen by the hypervisor at the domain
+> > > creation time and advertised to it via "reg" property under
+> > > hypervisor node in the guest device-tree. As region 0 is reserved
+> > > for grant table space (always present), the indexes for extended
+> > > regions are 1...N.
 > > > 
-> > > If arch doesn't implement arch_xen_unpopulated_init() to
-> > > initialize Xen resource the default "iomem_resource" will be used.
-> > > So the behavior on x86 won't be changed.
+> > > If arch_xen_unpopulated_init() fails for some reason the default
+> > > behaviour will be restored (allocate xenballooned pages).
 > > > 
-> > > Also fall back to allocate xenballooned pages (steal real RAM
-> > > pages) if we do not have any suitable resource to work with and
-> > > as the result we won't be able to provide unpopulated pages.
+> > > This patch also removes XEN_UNPOPULATED_ALLOC dependency on x86.
 > > > 
 > > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > > > ---
@@ -114,286 +116,312 @@ On Tue, 9 Nov 2021, Oleksandr wrote:
 > > >      "[RFC PATCH 2/2] xen/unpopulated-alloc: Query hypervisor to provide
 > > > unallocated space"
 > > > ---
-> > >   drivers/xen/unpopulated-alloc.c | 89
-> > > +++++++++++++++++++++++++++++++++++++++--
-> > >   include/xen/xen.h               |  2 +
-> > >   2 files changed, 88 insertions(+), 3 deletions(-)
+> > >   arch/arm/xen/enlighten.c | 112
+> > > +++++++++++++++++++++++++++++++++++++++++++++++
+> > >   drivers/xen/Kconfig      |   2 +-
+> > >   2 files changed, 113 insertions(+), 1 deletion(-)
 > > > 
-> > > diff --git a/drivers/xen/unpopulated-alloc.c
-> > > b/drivers/xen/unpopulated-alloc.c
-> > > index a03dc5b..1f1d8d8 100644
-> > > --- a/drivers/xen/unpopulated-alloc.c
-> > > +++ b/drivers/xen/unpopulated-alloc.c
-> > > @@ -8,6 +8,7 @@
-> > >     #include <asm/page.h>
-> > >   +#include <xen/balloon.h>
-> > >   #include <xen/page.h>
-> > >   #include <xen/xen.h>
-> > >   @@ -15,13 +16,29 @@ static DEFINE_MUTEX(list_lock);
-> > >   static struct page *page_list;
-> > >   static unsigned int list_count;
-> > >   +static struct resource *target_resource;
-> > > +static struct resource xen_resource = {
-> > > +	.name = "Xen unused space",
-> > > +};
-> > > +
-> > > +/*
-> > > + * If arch is not happy with system "iomem_resource" being used for
-> > > + * the region allocation it can provide it's own view by initializing
-> > > + * "xen_resource" with unused regions of guest physical address space
-> > > + * provided by the hypervisor.
-> > > + */
-> > > +int __weak arch_xen_unpopulated_init(struct resource *res)
-> > > +{
-> > > +	return -ENOSYS;
-> > > +}
-> > > +
-> > >   static int fill_list(unsigned int nr_pages)
-> > >   {
-> > >   	struct dev_pagemap *pgmap;
-> > > -	struct resource *res;
-> > > +	struct resource *res, *tmp_res = NULL;
-> > >   	void *vaddr;
-> > >   	unsigned int i, alloc_pages = round_up(nr_pages, PAGES_PER_SECTION);
-> > > -	int ret = -ENOMEM;
-> > > +	int ret;
-> > >     	res = kzalloc(sizeof(*res), GFP_KERNEL);
-> > >   	if (!res)
-> > > @@ -30,7 +47,7 @@ static int fill_list(unsigned int nr_pages)
-> > >   	res->name = "Xen scratch";
-> > >   	res->flags = IORESOURCE_MEM | IORESOURCE_BUSY;
-> > >   -	ret = allocate_resource(&iomem_resource, res,
-> > > +	ret = allocate_resource(target_resource, res,
-> > >   				alloc_pages * PAGE_SIZE, 0, -1,
-> > >   				PAGES_PER_SECTION * PAGE_SIZE, NULL, NULL);
-> > >   	if (ret < 0) {
-> > > @@ -38,6 +55,31 @@ static int fill_list(unsigned int nr_pages)
-> > >   		goto err_resource;
-> > >   	}
-> > >   +	/*
-> > > +	 * Reserve the region previously allocated from Xen resource to avoid
-> > > +	 * re-using it by someone else.
-> > > +	 */
-> > > +	if (target_resource != &iomem_resource) {
-> > > +		tmp_res = kzalloc(sizeof(*tmp_res), GFP_KERNEL);
-> > > +		if (!res) {
-> > > +			ret = -ENOMEM;
-> > > +			goto err_insert;
-> > > +		}
-> > > +
-> > > +		tmp_res->name = res->name;
-> > > +		tmp_res->start = res->start;
-> > > +		tmp_res->end = res->end;
-> > > +		tmp_res->flags = res->flags;
-> > > +
-> > > +		ret = insert_resource(&iomem_resource, tmp_res);
-> > > +		if (ret < 0) {
-> > > +			pr_err("Cannot insert IOMEM resource [%llx - %llx]\n",
-> > > +			       tmp_res->start, tmp_res->end);
-> > > +			kfree(tmp_res);
-> > > +			goto err_insert;
-> > > +		}
-> > > +	}
-> > I am a bit confused.. why do we need to do this? Who could be
-> > erroneously re-using the region? Are you saying that the next time
-> > allocate_resource is called it could find the same region again? It
-> > doesn't seem possible?
-> 
-> 
-> No, as I understand the allocate_resource() being called for the same root
-> resource won't provide the same region... We only need to do this (insert the
-> region into "iomem_resource") if we allocated it from our *internal*
-> "xen_resource", as *global* "iomem_resource" (which is used everywhere) is not
-> aware of that region has been already allocated. So inserting a region here we
-> reserving it, otherwise it could be reused elsewhere.
-
-But elsewhere where?
-
-Let's say that allocate_resource allocates a range from xen_resource.
-From reading the code, it doesn't look like iomem_resource would have
-that range because the extended regions described under /hypervisor are
-not added automatically to iomem_resource.
-
-So what if we don't call insert_resource? Nothing could allocate the
-same range because iomem_resource doesn't have it at all and
-xen_resource is not used anywhere if not here.
-
-What am I missing?
-
-
-Or maybe it is the other way around: core Linux code assumes everything
-is described in iomem_resource so something under kernel/ or mm/ would
-crash if we start using a page pointing to an address missing from
-iomem_resource?
- 
- 
-> > >   	pgmap = kzalloc(sizeof(*pgmap), GFP_KERNEL);
-> > >   	if (!pgmap) {
-> > >   		ret = -ENOMEM;
-> > > @@ -95,12 +137,40 @@ static int fill_list(unsigned int nr_pages)
-> > >   err_memremap:
-> > >   	kfree(pgmap);
-> > >   err_pgmap:
-> > > +	if (tmp_res) {
-> > > +		release_resource(tmp_res);
-> > > +		kfree(tmp_res);
-> > > +	}
-> > > +err_insert:
-> > >   	release_resource(res);
-> > >   err_resource:
-> > >   	kfree(res);
-> > >   	return ret;
+> > > diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
+> > > index dea46ec..1a1e0d3 100644
+> > > --- a/arch/arm/xen/enlighten.c
+> > > +++ b/arch/arm/xen/enlighten.c
+> > > @@ -62,6 +62,7 @@ static __read_mostly unsigned int xen_events_irq;
+> > >   static phys_addr_t xen_grant_frames;
+> > >     #define GRANT_TABLE_INDEX   0
+> > > +#define EXT_REGION_INDEX    1
+> > >     uint32_t xen_start_flags;
+> > >   EXPORT_SYMBOL(xen_start_flags);
+> > > @@ -303,6 +304,117 @@ static void __init xen_acpi_guest_init(void)
+> > >   #endif
 > > >   }
-> > >   +static void unpopulated_init(void)
+> > >   +#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
+> > > +int arch_xen_unpopulated_init(struct resource *res)
 > > > +{
-> > > +	static bool inited = false;
-> > initialized = false
-> 
-> ok.
-> 
-> 
-> > 
-> > 
-> > > +	int ret;
+> > > +	struct device_node *np;
+> > > +	struct resource *regs, *tmp_res;
+> > > +	uint64_t min_gpaddr = -1, max_gpaddr = 0;
+> > > +	unsigned int i, nr_reg = 0;
+> > > +	struct range mhp_range;
+> > > +	int rc;
 > > > +
-> > > +	if (inited)
-> > > +		return;
+> > > +	if (!xen_domain())
+> > > +		return -ENODEV;
 > > > +
-> > > +	/*
-> > > +	 * Try to initialize Xen resource the first and fall back to default
-> > > +	 * resource if arch doesn't offer one.
-> > > +	 */
-> > > +	ret = arch_xen_unpopulated_init(&xen_resource);
-> > > +	if (!ret)
-> > > +		target_resource = &xen_resource;
-> > > +	else if (ret == -ENOSYS)
-> > > +		target_resource = &iomem_resource;
-> > > +	else
-> > > +		pr_err("Cannot initialize Xen resource\n");
+> > > +	np = of_find_compatible_node(NULL, NULL, "xen,xen");
+> > > +	if (WARN_ON(!np))
+> > > +		return -ENODEV;
 > > > +
-> > > +	inited = true;
-> > > +}
-> > Would it make sense to call unpopulated_init from an init function,
-> > rather than every time xen_alloc_unpopulated_pages is called?
-> 
-> Good point, thank you. Will do. To be honest, I also don't like the current
-> approach much.
-> 
-> 
-> > 
-> > 
-> > >   /**
-> > >    * xen_alloc_unpopulated_pages - alloc unpopulated pages
-> > >    * @nr_pages: Number of pages
-> > > @@ -112,6 +182,16 @@ int xen_alloc_unpopulated_pages(unsigned int
-> > > nr_pages, struct page **pages)
-> > >   	unsigned int i;
-> > >   	int ret = 0;
-> > >   +	unpopulated_init();
+> > > +	/* Skip region 0 which is reserved for grant table space */
+> > > +	while (of_get_address(np, nr_reg + EXT_REGION_INDEX, NULL, NULL))
+> > > +		nr_reg++;
+> > > +	if (!nr_reg) {
+> > > +		pr_err("No extended regions are found\n");
+> > > +		return -EINVAL;
+> > > +	}
+> > > +
+> > > +	regs = kcalloc(nr_reg, sizeof(*regs), GFP_KERNEL);
+> > > +	if (!regs)
+> > > +		return -ENOMEM;
 > > > +
 > > > +	/*
-> > > +	 * Fall back to default behavior if we do not have any suitable
-> > > resource
-> > > +	 * to allocate required region from and as the result we won't be able
-> > > to
-> > > +	 * construct pages.
+> > > +	 * Create resource from extended regions provided by the hypervisor to
+> > > be
+> > > +	 * used as unused address space for Xen scratch pages.
 > > > +	 */
-> > > +	if (!target_resource)
-> > > +		return alloc_xenballooned_pages(nr_pages, pages);
-> > The commit message says that the behavior on x86 doesn't change but this
-> > seems to be a change that could impact x86?
-> I don't think, however I didn't tested on x86 and might be wrong, but
-> according to the current patch, on x86 the "target_resource" is always valid
-> and points to the "iomem_resource" as arch_xen_unpopulated_init() is not
-> implemented. So there won't be any fallback to use
-> alloc_(free)_xenballooned_pages() here and fill_list() will behave as usual.
- 
-If target_resource is always valid, then we don't need this special
-check. In fact, the condition should never be true.
-
-
-> You raised a really good question, on Arm we need a fallback to balloon out
-> RAM pages again if hypervisor doesn't provide extended regions (we run on old
-> version, no unused regions with reasonable size, etc), so I decided to put a
-> fallback code here, an indicator of the failure is invalid "target_resource".
-
-I think it is unnecessary as we already assume today that
-&iomem_resource is always available.
-
-
-> I noticed the patch which is about to be upstreamed that removes
-> alloc_(free)xenballooned_pages API [1]. Right now I have no idea how/where
-> this fallback could be implemented as this is under build option control
-> (CONFIG_XEN_UNPOPULATED_ALLOC). So the API with the same name is either used
-> for unpopulated pages (if set) or ballooned pages (if not set). I would
-> appreciate suggestions regarding that. I am wondering would it be possible and
-> correctly to have both mechanisms (unpopulated and ballooned) enabled by
-> default and some init code to decide which one to use at runtime or some sort?
-
-I would keep it simple and remove the fallback from this patch. So:
-
-- if not CONFIG_XEN_UNPOPULATED_ALLOC, then balloon
-- if CONFIG_XEN_UNPOPULATED_ALLOC, then
-    - xen_resource if present
-    - otherwise iomem_resource
-
-The xen_resource/iomem_resource config can be done at init time using
-target_resource. At runtime, target_resource is always != NULL so we
-just go ahead and use it.
-
- 
-> > 
-> > >   	mutex_lock(&list_lock);
-> > >   	if (list_count < nr_pages) {
-> > >   		ret = fill_list(nr_pages - list_count);
-> > > @@ -159,6 +239,9 @@ void xen_free_unpopulated_pages(unsigned int nr_pages,
-> > > struct page **pages)
-> > >   {
-> > >   	unsigned int i;
-> > >   +	if (!target_resource)
-> > > +		return free_xenballooned_pages(nr_pages, pages);
+> > > +	for (i = 0; i < nr_reg; i++) {
+> > > +		rc = of_address_to_resource(np, i + EXT_REGION_INDEX,
+> > > &regs[i]);
+> > > +		if (rc)
+> > > +			goto err;
 > > > +
-> > >   	mutex_lock(&list_lock);
-> > >   	for (i = 0; i < nr_pages; i++) {
-> > >   		pages[i]->zone_device_data = page_list;
-> > > diff --git a/include/xen/xen.h b/include/xen/xen.h
-> > > index 43efba0..55d2ef8 100644
-> > > --- a/include/xen/xen.h
-> > > +++ b/include/xen/xen.h
-> > > @@ -55,6 +55,8 @@ extern u64 xen_saved_max_mem_size;
-> > >   #ifdef CONFIG_XEN_UNPOPULATED_ALLOC
-> > >   int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page
-> > > **pages);
-> > >   void xen_free_unpopulated_pages(unsigned int nr_pages, struct page
-> > > **pages);
-> > > +struct resource;
-> > This is to avoid having to #include linux/ioport.h, right? Is it a
-> > problem or is it just to minimize the headers dependencies?
+> > > +		if (max_gpaddr < regs[i].end)
+> > > +			max_gpaddr = regs[i].end;
+> > > +		if (min_gpaddr > regs[i].start)
+> > > +			min_gpaddr = regs[i].start;
+> > > +	}
+> > > +
+> > > +	/* Check whether the resource range is within the hotpluggable range
+> > > */
+> > > +	mhp_range = mhp_get_pluggable_range(true);
+> > > +	if (min_gpaddr < mhp_range.start)
+> > > +		min_gpaddr = mhp_range.start;
+> > > +	if (max_gpaddr > mhp_range.end)
+> > > +		max_gpaddr = mhp_range.end;
+> > > +
+> > > +	res->start = min_gpaddr;
+> > > +	res->end = max_gpaddr;
+> > > +
+> > > +	/*
+> > > +	 * Mark holes between extended regions as unavailable. The rest of
+> > > that
+> > > +	 * address space will be available for the allocation.
+> > > +	 */
+> > > +	for (i = 1; i < nr_reg; i++) {
+> > > +		resource_size_t start, end;
+> > > +
+> > > +		start = regs[i - 1].end + 1;
+> > > +		end = regs[i].start - 1;
+> > > +
+> > > +		if (start > (end + 1)) {
+> > Should this be:
 > > 
-> > It looks like adding #include <linux/ioport.h> below #include
-> > <linux/types.h> in include/xen/xen.h would work too. I am not sure what
-> > is the best way though, I'll let Juergen comment.
-> Yes, the initial reason to use forward declaration here was to minimize the
-> headers dependencies.
-> I have rechecked, your suggestion works as well, thank you. So I would be OK
-> either way, let's wait for other opinions.
-> 
-> 
+> > if (start >= end)
 > > 
+> > ?
+> 
+> Yes, we can do this here (since the checks are equivalent) but ...
+>
+> > > +			rc = -EINVAL;
+> > > +			goto err;
+> > > +		}
+> > > +
+> > > +		/* There is no hole between regions */
+> > > +		if (start == (end + 1))
+> > Also here, shouldn't it be:
 > > 
-> > > +int arch_xen_unpopulated_init(struct resource *res);
-> > >   #else
-> > >   #define xen_alloc_unpopulated_pages alloc_xenballooned_pages
-> > >   #define xen_free_unpopulated_pages free_xenballooned_pages
-> > > -- 
-> > > 2.7.4
-> > > 
+> > if (start == end)
+> > 
+> > ?
 > 
-> [1] https://lore.kernel.org/lkml/20211102092234.17852-1-jgross@suse.com/
+>    ... not here.
 > 
-> -- 
-> Regards,
+> As
 > 
-> Oleksandr Tyshchenko
+> "(start == (end + 1))" is equal to "(regs[i - 1].end + 1 == regs[i].start)"
 > 
+> but
+> 
+> "(start == end)" is equal to "(regs[i - 1].end + 1 == regs[i].start - 1)"
+ 
+OK. But the check:
+
+  if (start >= end)
+
+Actually covers both cases so that's the only check we need?
+
+
+> > 
+> > I think I am missing again something in termination accounting :-)
+> 
+> If I understand correctly, we need to follow "end = start + size - 1" rule, so
+> the "end" is the last address inside a range, but not the "first" address
+> outside of a range))
+
+yeah
+ 
+
+> > > +			continue;
+> > > +
+> > > +		/* Check whether the hole range is within the resource range
+> > > */
+> > > +		if (start < res->start || end > res->end) {
+> > By definition I don't think this check is necessary as either condition
+> > is impossible?
+> 
+> 
+> This is a good question, let me please explain.
+> Not all extended regions provided by the hypervisor can be used here. This is
+> because the addressable physical memory range for which the linear mapping
+> could be created has limits on Arm, and maximum addressable range depends on
+> the VA space size (CONFIG_ARM64_VA_BITS_XXX). So we decided to not filter them
+> in hypervisor as this logic could be quite complex as different OS may have
+> different requirement, etc. This means that we need to make sure that regions
+> are within the hotpluggable range to avoid a failure later on when a region is
+> pre-validated by the memory hotplug path.
+> 
+> The following code limits the resource range based on that:
+> 
+> +    /* Check whether the resource range is within the hotpluggable range */
+> +    mhp_range = mhp_get_pluggable_range(true);
+> +    if (min_gpaddr < mhp_range.start)
+> +        min_gpaddr = mhp_range.start;
+> +    if (max_gpaddr > mhp_range.end)
+> +        max_gpaddr = mhp_range.end;
+> +
+> +    res->start = min_gpaddr;
+> +    res->end = max_gpaddr;
+> 
+> In current loop (when calculating and inserting holes) we also need to make
+> sure that resulting hole range is within the resource range (and adjust/skip
+> it if not true) as regs[] used for the calculations contains raw regions as
+> they described in DT so not updated. Otherwise insert_resource() down the
+> function will return an error for the conflicting operations. Yes, I could
+> took a different route and update regs[] in advance to adjust/skip
+> non-suitable regions in front, but I decided to do it on the fly in the loop
+> here, I thought doing it in advance would add some overhead/complexity. What
+> do you think?
+
+I understand now.
+
+
+> So I am afraid this check is necessary here.
+> 
+> For example in my environment the extended regions are:
+> 
+> (XEN) Extended region 0: 0->0x8000000
+> (XEN) Extended region 1: 0xc000000->0x30000000
+> (XEN) Extended region 2: 0x40000000->0x47e00000
+> (XEN) Extended region 3: 0xd0000000->0xe6000000
+> (XEN) Extended region 4: 0xe7800000->0xec000000
+> (XEN) Extended region 5: 0xf1200000->0xfd000000
+> (XEN) Extended region 6: 0x100000000->0x500000000
+> (XEN) Extended region 7: 0x580000000->0x600000000
+> (XEN) Extended region 8: 0x680000000->0x700000000
+> (XEN) Extended region 9: 0x780000000->0x10000000000
+> 
+> *With* the check the holes are:
+> 
+> holes [47e00000 - cfffffff]
+> holes [e6000000 - e77fffff]
+> holes [ec000000 - f11fffff]
+> holes [fd000000 - ffffffff]
+> holes [500000000 - 57fffffff]
+> holes [600000000 - 67fffffff]
+> holes [700000000 - 77fffffff]
+> 
+> And they seem to look correct, you can see that two possible holes between
+> extended regions 0-1 (8000000-bffffff) and 1-2 (30000000-3fffffff) were
+> skipped as they entirely located below res->start
+> which is 0x40000000 in my case (48-bit VA: 0x40000000 - 0x80003fffffff).
+> 
+> *Without* the check these two holes won't be skipped and as the result
+> insert_resource() will fail.
+> 
+> 
+> **********
+> 
+> 
+> I have one idea how we can simplify filter logic, we can drop all checks here
+> (including confusing one) in Arm code and update common code a bit:
+> 
+> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
+> index 1a1e0d3..ed5b855 100644
+> --- a/arch/arm/xen/enlighten.c
+> +++ b/arch/arm/xen/enlighten.c
+> @@ -311,7 +311,6 @@ int arch_xen_unpopulated_init(struct resource *res)
+>         struct resource *regs, *tmp_res;
+>         uint64_t min_gpaddr = -1, max_gpaddr = 0;
+>         unsigned int i, nr_reg = 0;
+> -       struct range mhp_range;
+>         int rc;
+> 
+>         if (!xen_domain())
+> @@ -349,13 +348,6 @@ int arch_xen_unpopulated_init(struct resource *res)
+>                         min_gpaddr = regs[i].start;
+>         }
+> 
+> -       /* Check whether the resource range is within the hotpluggable range
+> */
+> -       mhp_range = mhp_get_pluggable_range(true);
+> -       if (min_gpaddr < mhp_range.start)
+> -               min_gpaddr = mhp_range.start;
+> -       if (max_gpaddr > mhp_range.end)
+> -               max_gpaddr = mhp_range.end;
+> -
+>         res->start = min_gpaddr;
+>         res->end = max_gpaddr;
+> 
+> @@ -378,17 +370,6 @@ int arch_xen_unpopulated_init(struct resource *res)
+>                 if (start == (end + 1))
+>                         continue;
+> 
+> -               /* Check whether the hole range is within the resource range
+> */
+> -               if (start < res->start || end > res->end) {
+> -                       if (start < res->start)
+> -                               start = res->start;
+> -                       if (end > res->end)
+> -                               end = res->end;
+> -
+> -                       if (start >= (end + 1))
+> -                               continue;
+> -               }
+> -
+>                 tmp_res = kzalloc(sizeof(*tmp_res), GFP_KERNEL);
+>                 if (!tmp_res) {
+>                         rc = -ENOMEM;
+> diff --git a/drivers/xen/unpopulated-alloc.c b/drivers/xen/unpopulated-alloc.c
+> index 1f1d8d8..a5d3ebb 100644
+> --- a/drivers/xen/unpopulated-alloc.c
+> +++ b/drivers/xen/unpopulated-alloc.c
+> @@ -39,6 +39,7 @@ static int fill_list(unsigned int nr_pages)
+>         void *vaddr;
+>         unsigned int i, alloc_pages = round_up(nr_pages, PAGES_PER_SECTION);
+>         int ret;
+> +       struct range mhp_range;
+> 
+>         res = kzalloc(sizeof(*res), GFP_KERNEL);
+>         if (!res)
+> @@ -47,8 +48,10 @@ static int fill_list(unsigned int nr_pages)
+>         res->name = "Xen scratch";
+>         res->flags = IORESOURCE_MEM | IORESOURCE_BUSY;
+> 
+> +       mhp_range = mhp_get_pluggable_range(true);
+> +
+>         ret = allocate_resource(target_resource, res,
+> -                               alloc_pages * PAGE_SIZE, 0, -1,
+> +                               alloc_pages * PAGE_SIZE, mhp_range.start,
+> mhp_range.end,
+>                                 PAGES_PER_SECTION * PAGE_SIZE, NULL, NULL);
+>         if (ret < 0) {
+>                 pr_err("Cannot allocate new IOMEM resource\n");
+> (END)
+> 
+> I believe, this will work on x86 as arch_get_mappable_range() is not
+> implemented there,
+> and the default option contains exactly what being used currently (0, -1).
+> 
+> struct range __weak arch_get_mappable_range(void)
+> {
+>     struct range mhp_range = {
+>         .start = 0UL,
+>         .end = -1ULL,
+>     };
+>     return mhp_range;
+> }
+> 
+> And this is going to be more generic and clear, what do you think?
+
+Yeah this is much better, good thinking!
+--8323329-1809159159-1637284073=:1412361--
 
