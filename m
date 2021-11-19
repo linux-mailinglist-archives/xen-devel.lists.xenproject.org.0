@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6E33456DCC
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 11:51:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.227760.394060 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CD7E456E16
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 12:16:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.227766.394072 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mo1TR-0001Xv-Nt; Fri, 19 Nov 2021 10:50:29 +0000
+	id 1mo1sU-0003xU-RG; Fri, 19 Nov 2021 11:16:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 227760.394060; Fri, 19 Nov 2021 10:50:29 +0000
+Received: by outflank-mailman (output) from mailman id 227766.394072; Fri, 19 Nov 2021 11:16:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mo1TR-0001W9-Kl; Fri, 19 Nov 2021 10:50:29 +0000
-Received: by outflank-mailman (input) for mailman id 227760;
- Fri, 19 Nov 2021 10:50:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LEpL=QG=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1mo1TQ-0001W3-ER
- for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 10:50:28 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 80120285-4926-11ec-a9d2-d9f7a1cc8784;
- Fri, 19 Nov 2021 11:50:26 +0100 (CET)
+	id 1mo1sU-0003uH-Nd; Fri, 19 Nov 2021 11:16:22 +0000
+Received: by outflank-mailman (input) for mailman id 227766;
+ Fri, 19 Nov 2021 11:16:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mo1sT-0003uB-H8
+ for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 11:16:21 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mo1sK-0005tV-1W; Fri, 19 Nov 2021 11:16:12 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.20.70]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mo1sJ-00040B-PZ; Fri, 19 Nov 2021 11:16:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,85 +39,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80120285-4926-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637319026;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CM6FfYNlxwTTU76xGDZ2LXSZ3vKB60rt2UQqmw754/M=;
-  b=R++efPjOpv67KnXWqzNWk+Pv5G6C1DH+w1u0prVtmROVbhO0k1UX+dkm
-   P1yU1kUamjPeT4yZqQxQJkYD9/lmOwgprBtg1XqpDHytH/8caR+HWjCBd
-   nHVbb6NewvWbx1GNCJr4Knvzpvl+1AUHBTAAIEQohpI4Y7myOKfd84j3w
-   k=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: vsg1KsVAVgKBEOra1I6k0+qzjN5YXwiLAYI/sNSZn1XkhzaAoRJZurnDxUl2jvElG9suxjZ9Ki
- F/u63SXXiUYivrQhVFebO0ICR4Y8RTyxpH+awbLAR1ksCZg0j6TubIKFvys1iV07Ic7oRIGJtq
- ai4QdutWSi3GU92u5/yg3Dly02IqftEvNLx5ByYb1njh9/ABo7q+McNA1NcJ2gpQrwgE7ihM4L
- AauupRQEIZ/Ke7MkzK562rKDhpSYf4dl0uGb5uTfVRgqMhOHpJfUeCve0nA5KJxgpYjCcBLKYE
- Ga+xsoJdXvPsWa2LwVlRQjJe
-X-SBRS: 5.1
-X-MesageID: 58595877
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:rDPbq6g/oZ+n4io//gjTz0YoX161lxcKZh0ujC45NGQN5FlHY01je
- htvD2CEaKzcZGajfd1zYYjno0gEvpTczIdqGwA/pHs2ES4b9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0F0/NtTo5w7Rg29cx0IDga++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /1WsIGyTCEwG5bmiec0dzB9SRlsL45ZreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
- KJCbmpXN1ba2rzwkOnTpupE36zPKOHiOp8fvXdxiynUF/88TbjIQrnQ5M8e1zA17ixLNauOO
- ptEOWUwBPjGSzlOGgZNF7UxoPf2tF/bQTt4pFOJn6VitgA/yyQuieOwYbI5YOeiX8JOlFyfo
- WHA1234BB8dL9GUjzGC9xqEmevnjS79HoUIG9WQ9+FoqE2ewHQJDx8bXkf9puO24ma3XtkOd
- WQP4CEg664/6CSDXtT7GhG1vnOAlhodQMZLVf037hmXzajZ6BrfAXILJgOtc/R/6pVwH2Zzk
- AbUwZW5XlSDrYF5V1qG86qWqBWrHBM/PGwrQQYhFzMX8fr89dRbYg30cv5vF6u8j9vQED72w
- iyXoCVWu4j/nfLnxI3gowmZ3mvESozhC1dsu16JBj7NAhZRPdb9P+SVBU7nAeGsxWpzZn2Ip
- zA6lseX94ji5rndxXXWEI3h8FxEjstp0QEwY3YzQPHNFBz3ohZPmLy8BhkkeS+F1e5eJ1fUj
- Lf741852XOqFCLCgVVLS4ywEd826qPrCM7oUPvZBvIXPMMuLlHfrXEzOB7Mt4wIrKTKuftiU
- Xt8WZzyZUv29Iw9lGbmLwvj+eFDKt8CKZP7GsmgkkXPPUu2b3+JU7YVWGZinchihJ5oVD79q
- o4FX+PTkk03eLSnPkH/rN5CRXhXfCNTLc2n9KRqmhurf1MO9JcJUKSKn9vMuuVNwsxoqws/1
- i3nBxIDlgOg3SavxMfjQikLVY4DlK1X9RoTVRHA937xhhDPuK6js/UScYUZZ74i+LAxxPJ4V
- aBdKc6BHu5OWnLM/DFENcvxq4lrdRKKgwOSPnX6PGhjLsA4HwGZqMX5egbP9TUVCnblv8UJv
- LD9hBjQRoAORlo+AZ+OOu6v1V64oVMUhPl2AxnTOtBWdUi1qNpqJiX9g+UZOcYJLRmflDKW2
- xzPWUUTpPXXop9z+97M3PjWo4CsGup4P0xbA2iEsurmaXiEpjKumNYSXvyJcDbRUHLP1J+jP
- egFnevhNPAnnUpRt9YuGbhc0q9jtcDkoKVXz1o4ESyTPUirEL5pPlKPwdJL6v9W3rZctAa7B
- hCP991dNenbMc/pCgdMdg8sb+DF3vAIgDjCq/8yJRyitiNw+bOGV2RUPgWN13MBfOckbtt9z
- LdzotMS5iy+lgEuY4SPgS1j/miRKmANDvc8vZYADY630gcmxzmuu3AH5vMaNH1XV+hxDw==
-IronPort-HdrOrdr: A9a23:vnc2CaALgxfu0gDlHems55DYdb4zR+YMi2TC1yhKJyC9Vvbo8/
- xG/c5rsCMc5wx9ZJhNo7y90ey7MBThHP1OkOss1NWZPDUO0VHAROoJ0WKh+UyCJ8SXzJ866U
- 4KSclD4bPLYmRHsQ==
-X-IronPort-AV: E=Sophos;i="5.87,247,1631592000"; 
-   d="scan'208";a="58595877"
-Date: Fri, 19 Nov 2021 10:50:12 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Andrew Cooper <amc96@srcf.net>
-CC: <xen-devel@lists.xenproject.org>, Ian Jackson <iwj@xenproject.org>,
-	"George Dunlap" <george.dunlap@citrix.com>, Nick Rosbrook
-	<rosbrookn@ainfosec.com>, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH for-4.16] golang/xenlight: regen generated code
-Message-ID: <YZeBZOEjVLhNReBW@perard>
-References: <20211119102948.156887-1-anthony.perard@citrix.com>
- <5c0fcc40-9ab1-daf7-7097-1d4968576497@srcf.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=rIuYMytVBtKcJ2FEaAYjI4zadEJzMO79nM7z4J3NZHM=; b=v21LSpglYrh8ly90alSXGCWu+1
+	MjIE7kMyHF1ygaN/EluuevJOnnSku2y36m0d6GKAqfeT0oXCBGypvHX+/1SHOQs6fSXfspyiS1lM3
+	s+Cmlx3qq/40OkheaRBEoy5mLgVYsxY9l5NRxzpLvPkmqSXTZKmX0PiS9qMp8igY23is=;
+Message-ID: <c0347d42-1b10-5bd0-0dd0-ab7ed70ccd7e@xen.org>
+Date: Fri, 19 Nov 2021 11:16:05 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <5c0fcc40-9ab1-daf7-7097-1d4968576497@srcf.net>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.1
+Subject: Re: [PATCH for-4.16 2/2] CHANGELOG: add missing entries for work
+ during the 4.16 release cycle
+To: Oleksandr <olekstysh@gmail.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Christian Lindig <christian.lindig@citrix.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>, Dario Faggioli
+ <dfaggioli@suse.com>, David Scott <dave@recoil.org>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>,
+ Josh Whitehead <josh.whitehead@dornerworks.com>,
+ Juergen Gross <jgross@suse.com>, Jun Nakajima <jun.nakajima@intel.com>,
+ Kevin Tian <kevin.tian@intel.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Meng Xu <mengxu@cis.upenn.edu>,
+ Nick Rosbrook <rosbrookn@ainfosec.com>, Paul Durrant <paul@xen.org>,
+ Quan Xu <quan.xu0@gmail.com>, Rahul Singh <rahul.singh@arm.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Shriram Rajagopalan <rshriram@cs.ubc.ca>,
+ Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>, Tim Deegan <tim@xen.org>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>, Wei Liu <wl@xen.org>,
+ Community Manager <community.manager@xenproject.org>
+References: <20211117095338.14947-1-roger.pau@citrix.com>
+ <20211117095338.14947-3-roger.pau@citrix.com>
+ <CAPD2p-nb7u7om7zv5-KvfZTsmGis9uGfBkvwjEXrym_+4PN-RQ@mail.gmail.com>
+ <YZaOgGWfbDkIq4Lq@Air-de-Roger>
+ <d4f3d50d-9875-f7bf-2c82-83f8fedb8cfc@gmail.com>
+ <YZdZZsgXjZv/rh66@Air-de-Roger>
+ <41554b67-552b-3e44-9e5e-f7e493ebf615@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <41554b67-552b-3e44-9e5e-f7e493ebf615@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 19, 2021 at 10:38:04AM +0000, Andrew Cooper wrote:
-> On 19/11/2021 10:29, Anthony PERARD wrote:
-> > Fixes: 7379f9e10a3b ("gnttab: allow setting max version per-domain")
-> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+Hi Oleksandr,
+
+On 19/11/2021 09:34, Oleksandr wrote:
 > 
-> Fixes: 1e6706b0d123 ("xen/arm: Introduce gpaddr_bits field to struct
-> xen_domctl_getdomaininfo")
+> On 19.11.21 09:59, Roger Pau Monné wrote:
 > 
-> as well, by the looks of things.
+> Hi Roger, all
+> 
+> 
+>> On Thu, Nov 18, 2021 at 09:04:30PM +0200, Oleksandr wrote:
+>>> On 18.11.21 19:33, Roger Pau Monné wrote:
+>>>
+>>> Hi Roger
+>>>
+>>>
+>>>> On Thu, Nov 18, 2021 at 06:11:07PM +0200, Oleksandr Tyshchenko wrote:
+>>>>> On Wed, Nov 17, 2021 at 11:54 AM Roger Pau Monne 
+>>>>> <roger.pau@citrix.com>
+>>>>> wrote:
+>>>>>
+>>>>> Hi Roger, all
+>>>>>
+>>>>> [Sorry for the possible format issues]
+>>>>>
+>>>>> Document some of the relevant changes during the 4.16 release cycle,
+>>>>>> likely more entries are missing.
+>>>>>>
+>>>>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+>>>>>> ---
+>>>>>>    CHANGELOG.md | 11 +++++++++++
+>>>>>>    1 file changed, 11 insertions(+)
+>>>>>>
+>>>>>> diff --git a/CHANGELOG.md b/CHANGELOG.md
+>>>>>> index ad1a8c2bc2..8b0bdd9cf0 100644
+>>>>>> --- a/CHANGELOG.md
+>>>>>> +++ b/CHANGELOG.md
+>>>>>> @@ -21,6 +21,17 @@ The format is based on [Keep a Changelog](
+>>>>>> https://keepachangelog.com/en/1.0.0/)
+>>>>>>     - qemu-traditional based device models (both, qemu-traditional 
+>>>>>> and
+>>>>>> ioemu-stubdom) will
+>>>>>>       no longer be built per default. In order to be able to use 
+>>>>>> those,
+>>>>>> configure needs to
+>>>>>>       be called with "--enable-qemu-traditional" as parameter.
+>>>>>> + - Fixes for credit2 scheduler stability in corner case conditions.
+>>>>>> + - Ongoing improvements in the hypervisor build system.
+>>>>>> + - vtpmmgr miscellaneous fixes in preparation for TPM 2.0 support.
+>>>>>> + - 32bit PV guests only supported in shim mode.
+>>>>>> + - Improved PVH dom0 debug key handling.
+>>>>>> + - Fix booting on some Intel systems without a PIT (i8254).
+>>>>>>
+>>>>> I would add "Various fixes for OP-TEE mediator (Arm)" here and ...
+>>>>>
+>>>>>
+>>>>>
+>>>>>> +
+>>>>>> +### Added
+>>>>>> + - 32bit Arm builds to the automated tests.
+>>>>>> + - New x86 pagetable APIs.
+>>>>>> + - Arm vPMU support.
+>>>>>>
+>>>>> "Extended regions support, device tree only (Arm)" here.
+>>>>>
+>>>>> ...
+>>>>> The extended regions are ranges of unused address space exposed to 
+>>>>> domains
+>>>>> as
+>>>>> "safe to use" for special memory mappings.
+>>>> I've worded this as:
+>>>>
+>>>> "Report unpopulated memory regions safe to use for foreign mappings,
+>>>> Arm and device tree only."
+>>>>
+>>>> As "extended regions" was IMO too vague. Let me know if that's OK.
+>>> I think, it is OK. Nit: maybe replace "foreign" with "foreign/grant"? I
+>>> would be OK either way.
+>> Maybe, I would consider grants as foreign mappings also, ie: the
+>> memory is foreign to the domain, but I can see this being confusing as
+>> we have a specific kind of mappings that are named foreign.
+>>
+>> Does replacing foreign with external seem better?
+> 
+> Fine with me, thank you.
+> 
+> 
+> BTW, I noticed that "Support of generic DT IOMMU bindings for SMMU V2 
+> (Arm)" is not mentioned. Looks like the support has reached upstream 
+> during the 4.16 release cycle, so worth adding here.
 
-Indeed, I miss that as I didn't look at the diff. But there is one
-commit between those two which does update the *.gen.go files...
+You are right.
 
-Thanks,
+> 
+> @Julien, @Stefano?
+
+I agree we should mention it.
+
+Cheers,
 
 -- 
-Anthony PERARD
+Julien Grall
 
