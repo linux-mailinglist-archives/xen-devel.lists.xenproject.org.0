@@ -2,36 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87EAF45765A
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 19:25:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.228197.394830 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F41AE4576CF
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 19:56:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.228211.394841 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mo8Zc-0006UB-GC; Fri, 19 Nov 2021 18:25:20 +0000
+	id 1mo92u-0001Mt-Vg; Fri, 19 Nov 2021 18:55:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 228197.394830; Fri, 19 Nov 2021 18:25:20 +0000
+Received: by outflank-mailman (output) from mailman id 228211.394841; Fri, 19 Nov 2021 18:55:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mo8Zc-0006SL-D6; Fri, 19 Nov 2021 18:25:20 +0000
-Received: by outflank-mailman (input) for mailman id 228197;
- Fri, 19 Nov 2021 18:25:19 +0000
+	id 1mo92u-0001Js-SO; Fri, 19 Nov 2021 18:55:36 +0000
+Received: by outflank-mailman (input) for mailman id 228211;
+ Fri, 19 Nov 2021 18:55:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GMHT=QG=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1mo8Zb-0006SF-CN
- for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 18:25:19 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
+ <SRS0=TVl8=QG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1mo92s-0001Jh-IX
+ for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 18:55:34 +0000
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0c254bb5-4966-11ec-a9d2-d9f7a1cc8784;
- Fri, 19 Nov 2021 19:25:18 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id bu18so47463241lfb.0
- for <xen-devel@lists.xenproject.org>; Fri, 19 Nov 2021 10:25:18 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id d22sm56050lfe.158.2021.11.19.10.25.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 19 Nov 2021 10:25:17 -0800 (PST)
+ id 4487bdd3-496a-11ec-a9d2-d9f7a1cc8784;
+ Fri, 19 Nov 2021 19:55:32 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id B2BD761AA2;
+ Fri, 19 Nov 2021 18:55:29 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,224 +38,264 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c254bb5-4966-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=dStovpyAqgT5U5ysBg+VG+BHTqF1d8vTbvMZkrKkCSc=;
-        b=C1S78urN/PwZ2238ZZ8v0Yfq4JayJ9cmA9S71w0saJBJtUAqZJFJBwFF4VdQrsSVsV
-         TI8AgZU7zRbtWw6G5Nxnv2W/wnlp6gi0Tc9kfQB+OOUXSmUJ4pum8dy5HgbifJoTdD4B
-         LDoGO7xdDHlLFYOi+yTAjf8aoXEOco1gHgbPd6/wFbQ958xknUoiEccP9mCE2YYV5Vkr
-         mzZrC+u+ZIHBb3CqHs1ZQhbRdW0RuQcPuIPds5MWRCr6anp5+Yx0W/y1hHbIhPSTAtKV
-         Zvztg60giqnmeWQJ3dHgTBaUl+Q8kSZHuP4vckbijYAwpXCGn3Ia4P6B1A5mb0EAnPkZ
-         l8lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=dStovpyAqgT5U5ysBg+VG+BHTqF1d8vTbvMZkrKkCSc=;
-        b=NNd/QYUSQ8kOTQY5MAm/L6M5TS3ihJfm+XjjHXn0HYTnYX7oPn9J2FdXDaPFo/k4P1
-         YFFl3wYwdbwHWYRiJdVni2driu4KpYZl71akUJoF0oG5BBSE/DPWbYHbSfg47jpczk99
-         KvYbN+Xab3rurSTpQARRBkc7t8RVgiwjtUXmR8RJ94UCmH3R4d6bw0CiBMfjB6u1Mr8j
-         m54WeLOp+E9z2hSX/LsDQR7U3ePIOHXzNGgmVSgwgizp+5gKM76f6l56H/vHeLwnnF43
-         CkU3TAHa5d5PBr8V8bIoLpNS3yvY2X7792sQ++OY7nmhkKIKExklLAsjxwVa1jBwbxJ9
-         2yIQ==
-X-Gm-Message-State: AOAM532FD9MtNQNjxN+W9jTzruvxgVlbuPKWgO9ZPAlE2SEm5OfgF86k
-	ht2zLcguOMzcV9q3Z4AgdcU=
-X-Google-Smtp-Source: ABdhPJwKxQTJ0weHanMCnalDEiro//ui7b8M59uWsvOwheX/+TMgUIAFnmvOt+T3fES5Uqade+NFNw==
-X-Received: by 2002:a19:c102:: with SMTP id r2mr32754899lff.672.1637346317680;
-        Fri, 19 Nov 2021 10:25:17 -0800 (PST)
-Subject: Re: [PATCH V2 2/4] arm/xen: Switch to use
- gnttab_setup_auto_xlat_frames() for DT
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Russell King <linux@armlinux.org.uk>, Julien Grall <julien@xen.org>
-References: <1635264312-3796-1-git-send-email-olekstysh@gmail.com>
- <1635264312-3796-3-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2110271754400.20134@sstabellini-ThinkPad-T480s>
- <60cc5b07-5935-aa26-8690-353c779bbab5@gmail.com>
- <alpine.DEB.2.22.394.2111181631020.1412361@ubuntu-linux-20-04-desktop>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <1c32b559-16f0-c993-eca3-86cf70f97132@gmail.com>
-Date: Fri, 19 Nov 2021 20:25:16 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+X-Inumbo-ID: 4487bdd3-496a-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1637348130;
+	bh=7+5c6ESX5WUZoGJmhyQOFIgVFAHdUcMLLqCv4dbEQdE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=A2VON8A4peZP/hIzmPKfdQJmdA7pVrf72yqaA971DkIo05RYNKAfF5BHHTSWOFvRu
+	 w1M084Nn6QghOaszX1Je4zkO36xbzBoWamzmS33eKCEdFlmjSoML+TbM7kfOmDucSX
+	 ng4gEW8zzgm+RFjJ2PyUAPrkr0sINY0yqNmPqT6GnG2PVhYx9i9mPldewPeAOsTzic
+	 N4cBAucYd5CLCWVkUHx/mNtRI2u2LWHRvIp+aDOB2W5hv9Pwr1pxnESHzCTkpu0/tt
+	 o/ELGO8/0v4+Trba2vNcimL6hR2n6OPgLalc2pLc4O7593wdjvwMj1/gZ1hYX05mZt
+	 ibUQR6CvIdnpA==
+Date: Fri, 19 Nov 2021 10:55:27 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Luca Fancellu <Luca.Fancellu@arm.com>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Juergen Gross <jgross@suse.com>, 
+    Dario Faggioli <dfaggioli@suse.com>
+Subject: Re: [RFC PATCH 0/2] Boot time cpupools
+In-Reply-To: <17cd2c69-56cb-15b9-d381-f854aea55d27@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2111191052050.1412361@ubuntu-linux-20-04-desktop>
+References: <20211117095711.26596-1-luca.fancellu@arm.com> <26c01edc-46a9-47eb-0c9d-986b92e02158@xen.org> <B20FC780-3E2D-4B4A-BF1D-CF34763D237E@arm.com> <d42781c4-b01b-9064-4c90-ff99d960958b@xen.org> <1941B2BF-6451-4665-8591-DB14739121A9@arm.com>
+ <f744c406-9801-a001-fb8e-90680cebb0c9@xen.org> <alpine.DEB.2.22.394.2111171724330.1412361@ubuntu-linux-20-04-desktop> <17cd2c69-56cb-15b9-d381-f854aea55d27@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2111181631020.1412361@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Content-Type: text/plain; charset=US-ASCII
+
+On Fri, 19 Nov 2021, Julien Grall wrote:
+> Hi Stefano,
+> 
+> On 18/11/2021 02:19, Stefano Stabellini wrote:
+> > On Wed, 17 Nov 2021, Julien Grall wrote:
+> > > > > > > On 17 Nov 2021, at 10:26, Julien Grall <julien@xen.org> wrote:
+> > > > > > > 
+> > > > > > > Hi Luca,
+> > > > > > > 
+> > > > > > > On 17/11/2021 09:57, Luca Fancellu wrote:
+> > > > > > > > Currently Xen creates a default cpupool0 that contains all the
+> > > > > > > > cpu
+> > > > > > > > brought up
+> > > > > > > > during boot and it assumes that the platform has only one kind
+> > > > > > > > of
+> > > > > > > > CPU.
+> > > > > > > > This assumption does not hold on big.LITTLE platform, but
+> > > > > > > > putting
+> > > > > > > > different
+> > > > > > > > type of CPU in the same cpupool can result in instability and
+> > > > > > > > security issues
+> > > > > > > > for the domains running on the pool.
+> > > > > > > 
+> > > > > > > I agree that you can't move a LITTLE vCPU to a big pCPU.
+> > > > > > > However...
+> > > > > > > 
+> > > > > > > > For this reason this serie introduces an architecture specific
+> > > > > > > > way
+> > > > > > > > to create
+> > > > > > > > different cpupool at boot time, this is particularly useful on
+> > > > > > > > ARM
+> > > > > > > > big.LITTLE
+> > > > > > > > platform where there might be the need to have different
+> > > > > > > > cpupools
+> > > > > > > > for each type
+> > > > > > > > of core, but also systems using NUMA can have different cpu pool
+> > > > > > > > for
+> > > > > > > > each node.
+> > > > > > > 
+> > > > > > > ... from my understanding, all the vCPUs of a domain have to be in
+> > > > > > > the
+> > > > > > > same cpupool. So with this approach it is not possible:
+> > > > > > >     1) to have a mix of LITTLE and big vCPUs in the domain
+> > > > > > >     2) to create a domain spanning across two NUMA nodes
+> > > > > > > 
+> > > > > > > So I think we need to make sure that any solutions we go through
+> > > > > > > will
+> > > > > > > not prevent us to implement those setups.
+> > > > > > The point of this patch is to make all cores available without
+> > > > > > breaking
+> > > > > > the current behaviour of existing system.
+> > > > > 
+> > > > > I might be missing some context here. By breaking current behavior, do
+> > > > > you
+> > > > > mean user that may want to add "hmp-unsafe" on the command line?
+> > > > 
+> > > > Right, with hmp-unsafe the behaviour is now the same as without, only
+> > > > extra
+> > > > cores are parked in other cpupools.
+> > > > 
+> > > > So you have a point in fact that behaviour is changed for someone who
+> > > > was
+> > > > using hmp-unsafe before if this is activated.
+> > > > The command line argument suggested by Jurgen definitely makes sense
+> > > > here.
+> > > > 
+> > > > We could instead do the following:
+> > > > - when this is activated in the configuration, boot all cores and park
+> > > > them
+> > > > in different pools (depending on command line argument). Current
+> > > > behaviour
+> > > > not change if other pools are not used (but more cores will be on in
+> > > > xen)
+> > > 
+> > >  From my understanding, it is possible to move a pCPU in/out a pool
+> > > afterwards.
+> > > So the security concern with big.LITTLE is still present, even though it
+> > > would
+> > > be difficult to hit it.
+> > 
+> > As far as I know moving a pCPU in/out of a pool is something that cannot
+> > happen automatically: it requires manual intervention to the user and it
+> > is uncommon. We could print a warning or simply return error to prevent
+> > the action from happening. Or something like:
+> > 
+> > "This action might result in memory corruptions and invalid behavior. Do
+> > you want to continue? [Y/N]
+> > 
+> > 
+> > > I am also concerned that it would be more difficult to detect any
+> > > misconfiguration. So I think this option would still need to be turned on
+> > > only
+> > > if hmp-unsafe are the new command line one are both on.
+> > > 
+> > > If we want to enable it without hmp-unsafe on, we would need to at least
+> > > lock
+> > > the pools.
+> > 
+> > Locking the pools is a good idea.
+> > 
+> > My preference is not to tie this feature to the hmp-unsafe command line,
+> > more on this below.
+> 
+> The only reason I suggested to tie with hmp-unsafe is if you (or anyone else)
+> really wanted to use a version where the pool are unlocked.
+> 
+> If we are going to implement the lock, then I think the hmp-unsafe would not
+> be necessary for such configuration.
+> 
+> > 
+> > 
+> > > > - when hmp-unsafe is on, this feature will be turned of (if activated in
+> > > > configuration) and all cores would be added in the same pool.
+> > > > 
+> > > > What do you think ?
+> > > 
+> > > I am split. On one hand, this is making easier for someone to try
+> > > big.LITTLE
+> > > as you don't have manually pin vCPUs. On the other hand, this is handling
+> > > a
+> > > single use-case and you would need to use hmp-unsafe and pinning if you
+> > > want
+> > > to get more exotic setup (e.g. a domain with big.LITTLE).
+> > > 
+> > > Another possible solution is to pin dom0 vCPUs (AFAIK they are just sticky
+> > > by
+> > > default) and then create the pools from dom0 userspace. My assumption is
+> > > for
+> > > dom0less we would want to use pinning instead.
+> > > 
+> > > That said I would like to hear from Xilinx and EPAM as, IIRC, they are
+> > > already
+> > > using hmp-unsafe in production.
+> > 
+> > This discussion has been very interesting, it is cool to hear new ideas
+> > like this one. I have a couple of thoughts to share.
+> > 
+> > First I think that the ability of creating cpupools at boot time is
+> > super important. It goes way beyond big.LITTLE. It would be incredibly
+> > useful to separate real-time (sched=null) and non-real-time
+> > (sched=credit2) workloads. I think it will only become more important
+> > going forward so I'd love to see an option to configure cpupools that
+> > works for dom0less. It could be based on device tree properties rather
+> > than kconfig options.
+> > 
+> > It is true that if we had the devicetree-based cpupool configuration I
+> > mentioned, then somebody could use it to create cpupools matching
+> > big.LITTLE. > So "in theory" it solves the problem. However, I think that
+> > for big.LITTLE it would be suboptimal. For big.LITTLE it would be best
+> > if Xen configured the cpupools automatically rather than based on the
+> > device tree configuration. 
+> 
+> This brings one question. How do Linux detect and use big.LITTLE? Is there a
+> Device-Tree binding?
+> 
+> [...]
+> 
+> > So I think that it is a good idea to have a command line option (better
+> > than a kconfig option) to trigger the MIDR-based cpupool creation at
+> > boot time. The option could be called midr-cpupools=on/off or
+> > hw-cpupools=on/off for example.
+> > In terms of whether it should be the default or not, I don't feel
+> > strongly about it.
+> 
+> On by default means this will security supported and we need to be reasonably
+> confident this cannot be broken.
+> 
+> In this case, I am not only referring to moving a pCPU between pool but also
+> Xen doing the right thing (e.g. finding the minimum cache line size).
+> 
+> 
+> [...]
+> 
+> > - midr-cpupools alone
+> > cpupools created at boot, warning/errors on changing cpupools >
+> > - midr-cpupools + hmp-unsafe
+> > cpupools created at boot, changing cpupools is allowed (we could still
+> > warn but no errors)
+> > 
+> > - hmp-unsafe alone
+> > same as today with hmp-unsafe
+> 
+> I like better Juergen's version. But before agreeing on the command line , I
+> would like to understand how Linux is dealing with big.LITTLE today (see my
+> question above).
+
+I also like Juergen's version better :-)
+
+The device tree binding that covers big.LITTLE is the same that covers
+cpus: Documentation/devicetree/bindings/arm/cpus.yaml
+
+So basically, you can tell it is a big.LITTLE system because the
+compatible strings differ between certain cpus, e.g.:
+
+      cpu@0 {
+        device_type = "cpu";
+        compatible = "arm,cortex-a15";
+        reg = <0x0>;
+      };
+
+      cpu@1 {
+        device_type = "cpu";
+        compatible = "arm,cortex-a15";
+        reg = <0x1>;
+      };
+
+      cpu@100 {
+        device_type = "cpu";
+        compatible = "arm,cortex-a7";
+        reg = <0x100>;
+      };
+
+      cpu@101 {
+        device_type = "cpu";
+        compatible = "arm,cortex-a7";
+        reg = <0x101>;
+      };
 
 
-On 19.11.21 02:32, Stefano Stabellini wrote:
+> > For the default as I said I don't have a strong preference. I think
+> > midr-cpupools could be "on" be default.
+> 
+> I think this should be off at the beginning until the feature is matured
+> enough. We are soon opening the tree again for the next development cycle. So
+> I think we have enough time to make sure everything work properly to have
+> turned on by default before next release.
 
-Hi Stefano
-
-> On Thu, 11 Nov 2021, Oleksandr wrote:
->> On 28.10.21 04:28, Stefano Stabellini wrote:
->>
->> Hi Stefano
->>
->> I am sorry for the late response.
->>
->>> On Tue, 26 Oct 2021, Oleksandr Tyshchenko wrote:
->>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>>
->>>> Read the start address of the grant table space from DT
->>>> (region 0).
->>>>
->>>> This patch mostly restores behaviour before commit 3cf4095d7446
->>>> ("arm/xen: Use xen_xlate_map_ballooned_pages to setup grant table")
->>>> but trying not to break the ACPI support added after that commit.
->>>> So the patch touches DT part only and leaves the ACPI part with
->>>> xen_xlate_map_ballooned_pages().
->>>>
->>>> This is a preparation for using Xen extended region feature
->>>> where unused regions of guest physical address space (provided
->>>> by the hypervisor) will be used to create grant/foreign/whatever
->>>> mappings instead of wasting real RAM pages from the domain memory
->>>> for establishing these mappings.
->>>>
->>>> The immediate benefit of this change:
->>>> - Avoid superpage shattering in Xen P2M when establishing
->>>>     stage-2 mapping (GFN <-> MFN) for the grant table space
->>>> - Avoid wasting real RAM pages (reducing the amount of memory
->>>>     usuable) for mapping grant table space
->>>> - The grant table space is always mapped at the exact
->>>>     same place (region 0 is reserved for the grant table)
->>>>
->>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>> ---
->>>> Changes RFC -> V2:
->>>>      - new patch
->>>> ---
->>>>    arch/arm/xen/enlighten.c | 32 +++++++++++++++++++++++++-------
->>>>    1 file changed, 25 insertions(+), 7 deletions(-)
->>>>
->>>> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
->>>> index 7f1c106b..dea46ec 100644
->>>> --- a/arch/arm/xen/enlighten.c
->>>> +++ b/arch/arm/xen/enlighten.c
->>>> @@ -59,6 +59,9 @@ unsigned long xen_released_pages;
->>>>    struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS]
->>>> __initdata;
->>>>      static __read_mostly unsigned int xen_events_irq;
->>>> +static phys_addr_t xen_grant_frames;
->>> __read_mostly
->> ok
->>
->>
->>>
->>>> +#define GRANT_TABLE_INDEX   0
->>>>      uint32_t xen_start_flags;
->>>>    EXPORT_SYMBOL(xen_start_flags);
->>>> @@ -303,6 +306,7 @@ static void __init xen_acpi_guest_init(void)
->>>>    static void __init xen_dt_guest_init(void)
->>>>    {
->>>>    	struct device_node *xen_node;
->>>> +	struct resource res;
->>>>      	xen_node = of_find_compatible_node(NULL, NULL, "xen,xen");
->>>>    	if (!xen_node) {
->>>> @@ -310,6 +314,12 @@ static void __init xen_dt_guest_init(void)
->>>>    		return;
->>>>    	}
->>>>    +	if (of_address_to_resource(xen_node, GRANT_TABLE_INDEX, &res)) {
->>>> +		pr_err("Xen grant table region is not found\n");
->>>> +		return;
->>>> +	}
->>>> +	xen_grant_frames = res.start;
->>>> +
->>>>    	xen_events_irq = irq_of_parse_and_map(xen_node, 0);
->>>>    }
->>>>    @@ -317,16 +327,20 @@ static int __init xen_guest_init(void)
->>>>    {
->>>>    	struct xen_add_to_physmap xatp;
->>>>    	struct shared_info *shared_info_page = NULL;
->>>> -	int cpu;
->>>> +	int rc, cpu;
->>>>      	if (!xen_domain())
->>>>    		return 0;
->>>>      	if (!acpi_disabled)
->>>>    		xen_acpi_guest_init();
->>>> -	else
->>>> +	else {
->>>>    		xen_dt_guest_init();
->>>>    +		if (!xen_grant_frames)
->>>> +			return -ENODEV;
->>> maybe we can avoid this, see below
->>>
->>>
->>>> +	}
->>>> +
->>>>    	if (!xen_events_irq) {
->>>>    		pr_err("Xen event channel interrupt not found\n");
->>>>    		return -ENODEV;
->>>> @@ -370,12 +384,16 @@ static int __init xen_guest_init(void)
->>>>    	for_each_possible_cpu(cpu)
->>>>    		per_cpu(xen_vcpu_id, cpu) = cpu;
->>>>    -	xen_auto_xlat_grant_frames.count = gnttab_max_grant_frames();
->>>> -	if (xen_xlate_map_ballooned_pages(&xen_auto_xlat_grant_frames.pfn,
->>>> -					  &xen_auto_xlat_grant_frames.vaddr,
->>>> -					  xen_auto_xlat_grant_frames.count)) {
->>>> +	if (!acpi_disabled) {
->>> To make the code more resilient couldn't we do:
->>>
->>> if (!acpi_disabled || !xen_grant_frames) {
->> I think, we can.
->>
->> On the one hand, indeed the code more resilient and less change.
->>  From the other hand if grant table region is not found then something weird
->> happened as region 0 is always present in reg property if hypervisor node is
->> exposed to the guest.
->> The behavior before commit 3cf4095d7446 ("arm/xen: Use
->> xen_xlate_map_ballooned_pages to setup grant table") was exactly the same in
->> the context of the failure if region wasn't found.
->>
->> ...
->>
->> Well, if we want to make code more resilient, I will update. But, looks like
->> we also need to switch actions in xen_dt_guest_init() in order to process
->> xen_events_irq before xen_grant_frames, otherwise we may return after failing
->> with region and end up not initializing xen_events_irq so xen_guest_init()
->> will fail earlier than reaches that check.
->> What do you think?
->   
-> Yes, you are right. I was re-reading the patch to refresh my memory and
-> I noticed immediately that xen_dt_guest_init also need to be changed so
-> that xen_events_irq is set before xen_grant_frames.
->   
-> I think it is a minor change that doesn't add complexity but make the
-> code more robust so I think it is a good idea
-
-
-Great, thank you. Will do in next version.
-
-
->
->   
->>>> +		xen_auto_xlat_grant_frames.count = gnttab_max_grant_frames();
->>>> +		rc =
->>>> xen_xlate_map_ballooned_pages(&xen_auto_xlat_grant_frames.pfn,
->>>> +
->>>> &xen_auto_xlat_grant_frames.vaddr,
->>>> +
->>>> xen_auto_xlat_grant_frames.count);
->>>> +	} else
->>>> +		rc = gnttab_setup_auto_xlat_frames(xen_grant_frames);
->>>> +	if (rc) {
->>>>    		free_percpu(xen_vcpu_info);
->>>> -		return -ENOMEM;
->>>> +		return rc;
->>>>    	}
->>>>    	gnttab_init();
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+That's fine
 
