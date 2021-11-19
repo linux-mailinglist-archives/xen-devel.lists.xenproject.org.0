@@ -2,34 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A05F45717D
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 16:16:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.228082.394589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF294457192
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 16:24:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.228087.394600 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mo5bh-0001cM-D3; Fri, 19 Nov 2021 15:15:17 +0000
+	id 1mo5kW-00038L-Bx; Fri, 19 Nov 2021 15:24:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 228082.394589; Fri, 19 Nov 2021 15:15:17 +0000
+Received: by outflank-mailman (output) from mailman id 228087.394600; Fri, 19 Nov 2021 15:24:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mo5bh-0001Zg-8W; Fri, 19 Nov 2021 15:15:17 +0000
-Received: by outflank-mailman (input) for mailman id 228082;
- Fri, 19 Nov 2021 15:15:15 +0000
+	id 1mo5kW-00036K-8I; Fri, 19 Nov 2021 15:24:24 +0000
+Received: by outflank-mailman (input) for mailman id 228087;
+ Fri, 19 Nov 2021 15:24:22 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mo5bf-0001Za-R7
- for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 15:15:15 +0000
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mo5kU-00036E-Cn
+ for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 15:24:22 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mo5bf-0001oC-Oc
- for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 15:15:15 +0000
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mo5kU-0001xe-5j
+ for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 15:24:22 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mo5bf-0003r4-Nb
- for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 15:15:15 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1mo5bd-0005oy-IF; Fri, 19 Nov 2021 15:15:13 +0000
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mo5kU-0004P8-4Z
+ for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 15:24:22 +0000
+Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
+ by mariner.uk.xensource.com with esmtp (Exim 4.89)
+ (envelope-from <ijackson@chiark.greenend.org.uk>)
+ id 1mo5kI-0005r3-Bm; Fri, 19 Nov 2021 15:24:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,172 +43,119 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Subject:Cc:To:Date:Message-ID:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=6ck8Tf7Jp++28hPZcAXcmxKfhcFCVzJaWKJlm2u1XrY=; b=Q5QVO/RTxTYDaqAjFeeMspb54K
-	XatHO2AawXcIUF/KEXl0TiYf5G7+hFqnEu5925aqPdMqN+wb1DwmChOrVRc9xvLCORiW4Ien4ER5X
-	Fyi8JEHcM3vhlNCFpx4EI3HNbQskYZ+S0XN5xXS4mhbJ4cA000Oz0+y5jQ2tB5otYo7o=;
+	d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-Id:Date:Subject:Cc:To:From;
+	bh=MeDObHg4WlpI4WwECEIFz0i5IyCX3lFHt4bSsUKE/WU=; b=584+YM4a0GK4hq4mYODPbk5txb
+	SO0nmVvTLs2jYZRI+eqhFcdVAXwix83Dv1m5wfOj6nmbwPHqr02gRZ40wXMT73/iqtHIzu27xtab4
+	wC3wj7B2PhHN2MX/y3dGRa2d9hQn695NM9oxuuPkadOMlruEB9m6gQcdf2xhkIrWZnqM=;
 From: Ian Jackson <iwj@xenproject.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24983.49015.777430.780265@mariner.uk.xensource.com>
-Date: Fri, 19 Nov 2021 15:15:03 +0000
 To: xen-devel@lists.xenproject.org
-Cc: committers@xenproject.org
-Subject: Xen 4.16 development update - tree status
+Cc: iwj@xenproject.org,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <amc96@srcf.net>
+Subject: [PATCH for-4.16 v3] efi: fix alignment of function parameters in compat mode
+Date: Fri, 19 Nov 2021 15:24:03 +0000
+Message-Id: <20211119152403.12069-1-iwj@xenproject.org>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Tree status
-===========
+From: Roger Pau Monne <roger.pau@citrix.com>
 
-We are now in deep code freeze, during which we will try to discover
-and eliminate serious bugs and regressions.
+Currently the max_store_size, remain_store_size and max_size in
+compat_pf_efi_runtime_call are 4 byte aligned, which makes clang
+13.0.0 complain with:
 
-All patches other than documentation patches need a Release-Ack.
-Fixes for serious bugs, and test improvements, will get such an ack.
+In file included from compat.c:30:
+./runtime.c:646:13: error: passing 4-byte aligned argument to 8-byte aligned parameter 2 of 'QueryVariableInfo' may result in an unaligned pointer access [-Werror,-Walign-mismatch]
+            &op->u.query_variable_info.max_store_size,
+            ^
+./runtime.c:647:13: error: passing 4-byte aligned argument to 8-byte aligned parameter 3 of 'QueryVariableInfo' may result in an unaligned pointer access [-Werror,-Walign-mismatch]
+            &op->u.query_variable_info.remain_store_size,
+            ^
+./runtime.c:648:13: error: passing 4-byte aligned argument to 8-byte aligned parameter 4 of 'QueryVariableInfo' may result in an unaligned pointer access [-Werror,-Walign-mismatch]
+            &op->u.query_variable_info.max_size);
+            ^
+Fix this by bouncing the variables on the stack in order for them to
+be 8 byte aligned.
 
-I have decided to branch on Monday at the same time as cutting RC4.
-I think the release is going reasonably well.
+Note this could be done in a more selective manner to only apply to
+compat code calls, but given the overhead of making an EFI call doing
+an extra copy of 3 variables doesn't seem to warrant the special
+casing.
 
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+Reviewed-by: Ian Jackson <iwj@xenproject.org>
+Signed-off-by: Ian Jackson <iwj@xenproject.org>
 
-The current planned release schedule
-====================================
+---
+Changes since v2:
+ - Adjust the commentary as per discussion.
+Changes since v1:
+ - Copy back the results.
+---
+ xen/common/efi/runtime.c | 31 +++++++++++++++++++++++++++----
+ 1 file changed, 27 insertions(+), 4 deletions(-)
 
-    Friday 12th November                  Hard code freeze [*]
+diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
+index 375b94229e..089bb0eb1b 100644
+--- a/xen/common/efi/runtime.c
++++ b/xen/common/efi/runtime.c
+@@ -607,6 +607,9 @@ int efi_runtime_call(struct xenpf_efi_runtime_call *op)
+     break;
+ 
+     case XEN_EFI_query_variable_info:
++    {
++        uint64_t max_store_size, remain_store_size, max_size;
++
+         if ( op->misc & ~XEN_EFI_VARINFO_BOOT_SNAPSHOT )
+             return -EINVAL;
+ 
+@@ -638,16 +641,36 @@ int efi_runtime_call(struct xenpf_efi_runtime_call *op)
+ 
+         if ( !efi_enabled(EFI_RS) || (efi_rs->Hdr.Revision >> 16) < 2 )
+             return -EOPNOTSUPP;
++
++        /*
++         * Bounce the variables onto the stack to make them 8 byte aligned when
++         * called from the compat handler, as their placement in
++         * compat_pf_efi_runtime_call will make them 4 byte aligned instead and
++         * and compilers may validly complain.
++	 *
++	 * Note that while the function parameters are OUT only, copy the
++	 * values here anyway just in case. This is done regardless of whether
++	 * called from the compat handler or not, as it's not worth the extra
++	 * logic to differentiate.
++         */
++        max_store_size = op->u.query_variable_info.max_store_size;
++        remain_store_size = op->u.query_variable_info.remain_store_size;
++        max_size = op->u.query_variable_info.max_size;
++
+         state = efi_rs_enter();
+         if ( !state.cr3 )
+             return -EOPNOTSUPP;
+         status = efi_rs->QueryVariableInfo(
+-            op->u.query_variable_info.attr,
+-            &op->u.query_variable_info.max_store_size,
+-            &op->u.query_variable_info.remain_store_size,
+-            &op->u.query_variable_info.max_size);
++            op->u.query_variable_info.attr, &max_store_size, &remain_store_size,
++            &max_size);
+         efi_rs_leave(&state);
++
++        op->u.query_variable_info.max_store_size = max_store_size;
++        op->u.query_variable_info.remain_store_size = remain_store_size;
++        op->u.query_variable_info.max_size = max_size;
++
+         break;
++    }
+ 
+     case XEN_EFI_query_capsule_capabilities:
+     case XEN_EFI_update_capsule:
+-- 
+2.20.1
 
-      Bugfixes for serious bugs (including regressions), and low-risk
-      fixes only.
-      (0.5 weeks)
-
-    Monday 22nd November **planned**     Branch off staging-4.16
-
-      xen-unstable open again - with caveats to avoid release disruption.
-      (1.5 weeks)
-
-    Friday 26th November **tentative**    Final commits (docs/prep only)
-    Week of 29th November **tentative**   Release
-      (probably Tuesday or Wednesday)
-
-
-Open issues and potential blockers
-==================================
-
-Here is the list of issues I am aware of that might be blockers and/or
-might need a release ack for fixes.  In general, please would people
-explicitly note release-blocker issues to me, so that I can see that
-they are sorted out.
-
-
-I am aware of one outstanding fix that has not yet been committed:
-
-* [PATCH for-4.16 v2] efi: fix alignment of function parameters in compat
-  which is an UB bug spotted due to a build failure with recent clang
-  http://beefy18.nyi.freebsd.org/data/main-amd64-default/p5718aa5f2a8f_s9b8eb1c5b6/logs/xen-kernel-4.15.0_1.log
-
-
-I am aware of three issues for which I don't know the current
-disposition:
-
-* "x86/IOMMU: enabled / intremap handling"
-  3/3 "AMD/IOMMU: iommu_enable vs iommu_intremap"
-  Last I heard this was being reworked.
-
-* I have a note "HPET regression".  There have been number of patches in
-  this area.  Most recently,
-  "x86/hpet: setup HPET even when disabled due to stopping in deep C states"
-
-* "x86/viridian: EOI MSR should always happen in affected vCPU context"
-  Jan mentioned this on IRC but I don't see any discussion of it in
-  my mailbox.
-
-The last two were mentioned in my last release update, but I don't
-seem to find any definitive conclusion.  x86 maintainers, can you
-please confirm ?
-
-
-
-Issues dealt with
-=================
-
-ARM/VPCI: all relevant fixes seem to have been applied now.
-
-I have carrioed out Pre-public-disclosure testing of embargoed XSAs
-385 387 388 389, together with the today-released XSA-390.
-
-I have run through those of the release checklist items which are to
-be done before branching, notably library sonames.
-
-We have reverted "xen/domctl: Introduce XEN_DOMCTL_CDF_vpci flag" as
-discussed.
-
-
-Patches applied to fix bugs
----------------------------
-
-"x86/xstate: reset cached register values on resume"
-
-"tools: disable building qemu-trad per default"
-
-Fixes for FreeBSD build problems following "tools: disable building
-qemu-trad per default".
-
-"VT-d: misc (regression) fixes":
-1/3 "VT-d: per-domain IOMMU bitmap needs to have dynamic size"
-2/3 "VT-d: fix reduced page table levels support when sharing tables"
-
-"xen/efi: Fix Grub2 boot on arm64"
-
-"gnttab: allow setting max version per-domain" and fixes thereto
-
-"tools/helpers: fix broken xenstore stubdom init"
-
-"xen/arm: fix SBDF calculation for vPCI MMIO handlers"
-
-"x86/IOMMU: enabled / intremap handling"
-1/3 x86/IOMMU: mark IOMMU / intremap not in use when ACPI tables are missing
-2/3 x86/APIC: avoid iommu_supports_x2apic() on error path
-
-"x86/traps: Fix typo in do_entry_CP()"
-
-
-Changes slated to be deferred to post-4.16
-------------------------------------------
-
-Discussion of the following issues and patches, since the last release
-update, has resulted in me declining to give a release-ack:
-
-* Revert "domctl: improve locking during domain destruction"
-
-* "VT-d: misc (regression) fixes":
-  3/3 "VT-d: don't needlessly engage the untrusted-MSI workaround"
-
-* "x86/passthrough: Fix hvm_gsi_eoi() build with GCC 12"
-
-* "arm/efi: Improve performance requesting filesystem handle"
-
-* "qemu build failure on release tarball with python <= 3.5"
-  (mail thread, no patch exists at this time)
-
-* "x86/x2APIC: defer probe until after IOMMU ACPI table parsing"
-
-* "arm/smmuv1,v2: Protect smmu master list with a lock"
-
-
-Note on RM decisionmaking
-=========================
-
-Release management decisions are always subject to revision on the
-basis of new information or new arguments, so the list of changes
-slated to be deferred should not be taken to be necessarily final.
-
-Release management decisions usually involve much uncertainty (even
-guesswork), and sometimes involve a balance of interests.  If you
-think I have made a mistake and have new points, new information, or
-think you can demonstrate that I have made the wrong tradeoff, please
-let me know.
-
-However, this message reflects my current understanding.
-
-
---
 
