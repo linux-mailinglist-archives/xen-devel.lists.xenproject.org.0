@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF294457192
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 16:24:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.228087.394600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 284144571CD
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 16:39:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.228095.394610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mo5kW-00038L-Bx; Fri, 19 Nov 2021 15:24:24 +0000
+	id 1mo5yx-0004g4-Lv; Fri, 19 Nov 2021 15:39:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 228087.394600; Fri, 19 Nov 2021 15:24:24 +0000
+Received: by outflank-mailman (output) from mailman id 228095.394610; Fri, 19 Nov 2021 15:39:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mo5kW-00036K-8I; Fri, 19 Nov 2021 15:24:24 +0000
-Received: by outflank-mailman (input) for mailman id 228087;
- Fri, 19 Nov 2021 15:24:22 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mo5yx-0004eI-Iv; Fri, 19 Nov 2021 15:39:19 +0000
+Received: by outflank-mailman (input) for mailman id 228095;
+ Fri, 19 Nov 2021 15:39:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mo5kU-00036E-Cn
- for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 15:24:22 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mo5kU-0001xe-5j
- for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 15:24:22 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mo5kU-0004P8-4Z
- for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 15:24:22 +0000
-Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
- by mariner.uk.xensource.com with esmtp (Exim 4.89)
- (envelope-from <ijackson@chiark.greenend.org.uk>)
- id 1mo5kI-0005r3-Bm; Fri, 19 Nov 2021 15:24:10 +0000
+ (envelope-from <SRS0=Spps=QG=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1mo5yv-0004e8-M3
+ for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 15:39:17 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id da8fa134-494e-11ec-a9d2-d9f7a1cc8784;
+ Fri, 19 Nov 2021 16:39:16 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 205451FD38;
+ Fri, 19 Nov 2021 15:39:16 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C5A7C13B35;
+ Fri, 19 Nov 2021 15:39:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id HM/1LiPFl2HIIwAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 19 Nov 2021 15:39:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,120 +51,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Message-Id:Date:Subject:Cc:To:From;
-	bh=MeDObHg4WlpI4WwECEIFz0i5IyCX3lFHt4bSsUKE/WU=; b=584+YM4a0GK4hq4mYODPbk5txb
-	SO0nmVvTLs2jYZRI+eqhFcdVAXwix83Dv1m5wfOj6nmbwPHqr02gRZ40wXMT73/iqtHIzu27xtab4
-	wC3wj7B2PhHN2MX/y3dGRa2d9hQn695NM9oxuuPkadOMlruEB9m6gQcdf2xhkIrWZnqM=;
-From: Ian Jackson <iwj@xenproject.org>
-To: xen-devel@lists.xenproject.org
-Cc: iwj@xenproject.org,
-	Roger Pau Monne <roger.pau@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <amc96@srcf.net>
-Subject: [PATCH for-4.16 v3] efi: fix alignment of function parameters in compat mode
-Date: Fri, 19 Nov 2021 15:24:03 +0000
-Message-Id: <20211119152403.12069-1-iwj@xenproject.org>
-X-Mailer: git-send-email 2.20.1
+X-Inumbo-ID: da8fa134-494e-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1637336356; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=1j1MNeLLIwQNenVL0GJ3LtVT6hsmn8LBmDa9I+SCdEA=;
+	b=RRukonH7VR6a1V4h76tfh3yTxEh1jKqtgW3gZCl02/vOmRZrwXpGtTKwN9imaZUi+HXqEh
+	+3AhXsHfIbOUPR7338tVCJ+O6KlQsKvsvZ3//UbZE/rqgP+yDnySYUTcEXjPcVb8wLEnZW
+	1pnMgHlMZF+e7t7xPwxtiE0zE/fh958=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org,
+	x86@kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH] xen/pvh: add missing prototype to header
+Date: Fri, 19 Nov 2021 16:39:13 +0100
+Message-Id: <20211119153913.21678-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Roger Pau Monne <roger.pau@citrix.com>
+The prototype of mem_map_via_hcall() is missing in its header, so add
+it.
 
-Currently the max_store_size, remain_store_size and max_size in
-compat_pf_efi_runtime_call are 4 byte aligned, which makes clang
-13.0.0 complain with:
-
-In file included from compat.c:30:
-./runtime.c:646:13: error: passing 4-byte aligned argument to 8-byte aligned parameter 2 of 'QueryVariableInfo' may result in an unaligned pointer access [-Werror,-Walign-mismatch]
-            &op->u.query_variable_info.max_store_size,
-            ^
-./runtime.c:647:13: error: passing 4-byte aligned argument to 8-byte aligned parameter 3 of 'QueryVariableInfo' may result in an unaligned pointer access [-Werror,-Walign-mismatch]
-            &op->u.query_variable_info.remain_store_size,
-            ^
-./runtime.c:648:13: error: passing 4-byte aligned argument to 8-byte aligned parameter 4 of 'QueryVariableInfo' may result in an unaligned pointer access [-Werror,-Walign-mismatch]
-            &op->u.query_variable_info.max_size);
-            ^
-Fix this by bouncing the variables on the stack in order for them to
-be 8 byte aligned.
-
-Note this could be done in a more selective manner to only apply to
-compat code calls, but given the overhead of making an EFI call doing
-an extra copy of 3 variables doesn't seem to warrant the special
-casing.
-
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-Reviewed-by: Ian Jackson <iwj@xenproject.org>
-Signed-off-by: Ian Jackson <iwj@xenproject.org>
-
+Reported-by: kernel test robot <lkp@intel.com>
+Fixes: a43fb7da53007e67ad ("xen/pvh: Move Xen code for getting mem map via hcall out of common file")
+Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-Changes since v2:
- - Adjust the commentary as per discussion.
-Changes since v1:
- - Copy back the results.
----
- xen/common/efi/runtime.c | 31 +++++++++++++++++++++++++++----
- 1 file changed, 27 insertions(+), 4 deletions(-)
+ arch/x86/include/asm/xen/hypervisor.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
-index 375b94229e..089bb0eb1b 100644
---- a/xen/common/efi/runtime.c
-+++ b/xen/common/efi/runtime.c
-@@ -607,6 +607,9 @@ int efi_runtime_call(struct xenpf_efi_runtime_call *op)
-     break;
+diff --git a/arch/x86/include/asm/xen/hypervisor.h b/arch/x86/include/asm/xen/hypervisor.h
+index 4957f59deb40..5adab895127e 100644
+--- a/arch/x86/include/asm/xen/hypervisor.h
++++ b/arch/x86/include/asm/xen/hypervisor.h
+@@ -64,6 +64,7 @@ void xen_arch_unregister_cpu(int num);
  
-     case XEN_EFI_query_variable_info:
-+    {
-+        uint64_t max_store_size, remain_store_size, max_size;
-+
-         if ( op->misc & ~XEN_EFI_VARINFO_BOOT_SNAPSHOT )
-             return -EINVAL;
+ #ifdef CONFIG_PVH
+ void __init xen_pvh_init(struct boot_params *boot_params);
++void __init mem_map_via_hcall(struct boot_params *boot_params_p);
+ #endif
  
-@@ -638,16 +641,36 @@ int efi_runtime_call(struct xenpf_efi_runtime_call *op)
- 
-         if ( !efi_enabled(EFI_RS) || (efi_rs->Hdr.Revision >> 16) < 2 )
-             return -EOPNOTSUPP;
-+
-+        /*
-+         * Bounce the variables onto the stack to make them 8 byte aligned when
-+         * called from the compat handler, as their placement in
-+         * compat_pf_efi_runtime_call will make them 4 byte aligned instead and
-+         * and compilers may validly complain.
-+	 *
-+	 * Note that while the function parameters are OUT only, copy the
-+	 * values here anyway just in case. This is done regardless of whether
-+	 * called from the compat handler or not, as it's not worth the extra
-+	 * logic to differentiate.
-+         */
-+        max_store_size = op->u.query_variable_info.max_store_size;
-+        remain_store_size = op->u.query_variable_info.remain_store_size;
-+        max_size = op->u.query_variable_info.max_size;
-+
-         state = efi_rs_enter();
-         if ( !state.cr3 )
-             return -EOPNOTSUPP;
-         status = efi_rs->QueryVariableInfo(
--            op->u.query_variable_info.attr,
--            &op->u.query_variable_info.max_store_size,
--            &op->u.query_variable_info.remain_store_size,
--            &op->u.query_variable_info.max_size);
-+            op->u.query_variable_info.attr, &max_store_size, &remain_store_size,
-+            &max_size);
-         efi_rs_leave(&state);
-+
-+        op->u.query_variable_info.max_store_size = max_store_size;
-+        op->u.query_variable_info.remain_store_size = remain_store_size;
-+        op->u.query_variable_info.max_size = max_size;
-+
-         break;
-+    }
- 
-     case XEN_EFI_query_capsule_capabilities:
-     case XEN_EFI_update_capsule:
+ #endif /* _ASM_X86_XEN_HYPERVISOR_H */
 -- 
-2.20.1
+2.26.2
 
 
