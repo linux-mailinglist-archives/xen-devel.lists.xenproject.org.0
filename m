@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22288456895
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 04:21:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.227634.393754 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC829456975
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 06:17:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.227641.393767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnuRk-0000VH-Nm; Fri, 19 Nov 2021 03:20:16 +0000
+	id 1mnwGB-0002hT-Gn; Fri, 19 Nov 2021 05:16:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 227634.393754; Fri, 19 Nov 2021 03:20:16 +0000
+Received: by outflank-mailman (output) from mailman id 227641.393767; Fri, 19 Nov 2021 05:16:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mnuRk-0000SR-JL; Fri, 19 Nov 2021 03:20:16 +0000
-Received: by outflank-mailman (input) for mailman id 227634;
- Fri, 19 Nov 2021 03:20:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mnwGB-0002er-Dj; Fri, 19 Nov 2021 05:16:27 +0000
+Received: by outflank-mailman (input) for mailman id 227641;
+ Fri, 19 Nov 2021 05:16:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mnuRj-0000SH-14; Fri, 19 Nov 2021 03:20:15 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mnuRi-0004Vd-SG; Fri, 19 Nov 2021 03:20:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mnuRi-0007de-GF; Fri, 19 Nov 2021 03:20:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mnuRi-0002tB-Fk; Fri, 19 Nov 2021 03:20:14 +0000
+ (envelope-from <SRS0=Spps=QG=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1mnwG9-0002el-A4
+ for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 05:16:25 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d57dc6ea-48f7-11ec-9787-a32c541c8605;
+ Fri, 19 Nov 2021 06:16:22 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5906E212C3;
+ Fri, 19 Nov 2021 05:16:21 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0F0A013A42;
+ Fri, 19 Nov 2021 05:16:21 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 37LxASUzl2FxIAAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 19 Nov 2021 05:16:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,234 +51,333 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=X61MipeVXMPDxRpB0vuhuRuM1DpxJGQMbDQuZxQeOeY=; b=s30RGgX+TK0ESUE11f4q7798lR
-	ugqaJY8J/MbpezLeB+yz7D/Kt+8+aCa3rFek8O/SBaTe//GmSFxwdrlZWws8J/UPCi4JVT0TXINfq
-	S0RNrifNVe/9ePOZQ8tYiqURdg7UtveTIhdV5oSsezQEMGDrkGQu5SliAQ6KwEF8NI/g=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-166183-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: d57dc6ea-48f7-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1637298981; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CZ8May4VfhuaiCLlX4LdXWGn2SOL5tYQ4J+aUlevn30=;
+	b=C94y6rlvM/z7CPIf9CLqsdyr4RA5/4QTgtiqRdnY6VraBsjk/mqROE/kfEXN5CYA2KULQ5
+	sv44aupivlmA79ogr2MPfzpsrz6c7szHVvKM3gneshZESnRO8OST8RC7K9eTUUbBMOcYQZ
+	cvTXhMK94Wj9RufBqgEZpSN2OE5Wh+8=
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>, boris.ostrovsky@oracle.com,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>, stable@vger.kernel.org
+References: <20211117021145.3105042-1-sstabellini@kernel.org>
+ <2592121c-ed62-c346-5aeb-37adb6bb1982@suse.com>
+ <alpine.DEB.2.22.394.2111171823160.1412361@ubuntu-linux-20-04-desktop>
+ <44403efe-a850-b53b-785f-6f5c73eb2b96@suse.com>
+ <9453672e-56ea-71cd-cdd2-b4aaafb8db56@suse.com>
+ <b0cd6af9-66c4-3a73-734a-3a51d052fac2@suse.com>
+ <alpine.DEB.2.22.394.2111181226460.1412361@ubuntu-linux-20-04-desktop>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] xen: detect uninitialized xenbus in xenbus_init
+Message-ID: <2d6a1818-e6d0-eb5d-5319-e0cd2e071b03@suse.com>
+Date: Fri, 19 Nov 2021 06:16:20 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Subject: [linux-linus test] 166183: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-examine:memdisk-try-append:fail:regression
-    linux-linus:build-i386-pvops:kernel-build:fail:regression
-    linux-linus:test-armhf-armhf-xl-cubietruck:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=42eb8fdac2fc5d62392dcfcf0253753e821a97b0
-X-Osstest-Versions-That:
-    linux=e66435936756d9bce96433be183358a8994a0f0d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 19 Nov 2021 03:20:14 +0000
+In-Reply-To: <alpine.DEB.2.22.394.2111181226460.1412361@ubuntu-linux-20-04-desktop>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="k9FHfRXORn3u1wfdVDhanJ9xPhj52Izt9"
 
-flight 166183 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/166183/
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--k9FHfRXORn3u1wfdVDhanJ9xPhj52Izt9
+Content-Type: multipart/mixed; boundary="dq7zbyiopWgrKFF7IM4pZ8fIUMjtIo0st";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>, boris.ostrovsky@oracle.com,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>, stable@vger.kernel.org
+Message-ID: <2d6a1818-e6d0-eb5d-5319-e0cd2e071b03@suse.com>
+Subject: Re: [PATCH] xen: detect uninitialized xenbus in xenbus_init
+References: <20211117021145.3105042-1-sstabellini@kernel.org>
+ <2592121c-ed62-c346-5aeb-37adb6bb1982@suse.com>
+ <alpine.DEB.2.22.394.2111171823160.1412361@ubuntu-linux-20-04-desktop>
+ <44403efe-a850-b53b-785f-6f5c73eb2b96@suse.com>
+ <9453672e-56ea-71cd-cdd2-b4aaafb8db56@suse.com>
+ <b0cd6af9-66c4-3a73-734a-3a51d052fac2@suse.com>
+ <alpine.DEB.2.22.394.2111181226460.1412361@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2111181226460.1412361@ubuntu-linux-20-04-desktop>
 
-Regressions :-(
+--dq7zbyiopWgrKFF7IM4pZ8fIUMjtIo0st
+Content-Type: multipart/mixed;
+ boundary="------------1D5CADEDF14EBB1AB90E832F"
+Content-Language: en-US
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-examine      4 memdisk-try-append       fail REGR. vs. 165976
- build-i386-pvops              6 kernel-build             fail REGR. vs. 165976
- test-armhf-armhf-xl-cubietruck  8 xen-boot               fail REGR. vs. 165976
- test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 165976
- test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 165976
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 165976
- test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 165976
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 165976
- test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 165976
- test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 165976
- test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 165976
- test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 165976
+This is a multi-part message in MIME format.
+--------------1D5CADEDF14EBB1AB90E832F
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 165976
+On 18.11.21 22:00, Stefano Stabellini wrote:
+> On Thu, 18 Nov 2021, Juergen Gross wrote:
+>> On 18.11.21 09:47, Jan Beulich wrote:
+>>> On 18.11.2021 06:32, Juergen Gross wrote:
+>>>> On 18.11.21 03:37, Stefano Stabellini wrote:
+>>>>> --- a/drivers/xen/xenbus/xenbus_probe.c
+>>>>> +++ b/drivers/xen/xenbus/xenbus_probe.c
+>>>>> @@ -951,6 +951,28 @@ static int __init xenbus_init(void)
+>>>>>     		err =3D hvm_get_parameter(HVM_PARAM_STORE_PFN, &v);
+>>>>>     		if (err)
+>>>>>     			goto out_error;
+>>>>> +		/*
+>>>>> +		 * Return error on an invalid value.
+>>>>> +		 *
+>>>>> +		 * Uninitialized hvm_params are zero and return no error.
+>>>>> +		 * Although it is theoretically possible to have
+>>>>> +		 * HVM_PARAM_STORE_PFN set to zero on purpose, in reality it
+>>>>> is
+>>>>> +		 * not zero when valid. If zero, it means that Xenstore hasn't
+>>>>> +		 * been properly initialized. Instead of attempting to map a
+>>>>> +		 * wrong guest physical address return error.
+>>>>> +		 */
+>>>>> +		if (v =3D=3D 0) {
+>>>>
+>>>> Make this "if (v =3D=3D ULONG_MAX || v=3D=3D 0)" instead?
+>>>> This would result in the same err on a new and an old hypervisor
+>>>> (assuming we switch the hypervisor to init params with ~0UL).
+>=20
+> Sure, I can do that
+>=20
+>=20
+>>>>> +			err =3D -ENOENT;
+>>>>> +			goto out_error;
+>>>>> +		}
+>>>>> +		/*
+>>>>> +		 * ULONG_MAX is invalid on 64-bit because is INVALID_PFN.
+>>>>> +		 * On 32-bit return error to avoid truncation.
+>>>>> +		 */
+>>>>> +		if (v >=3D ULONG_MAX) {
+>>>>> +			err =3D -EINVAL;
+>>>>> +			goto out_error;
+>>>>> +		}
+>>>>
+>>>> Does it make sense to continue the system running in case of
+>>>> truncation? This would be a 32-bit guest with more than 16TB of RAM
+>>>> and the Xen tools decided to place the Xenstore ring page above the
+>>>> 16TB boundary. This is a completely insane scenario IMO.
+>>>>
+>>>> A proper panic() in this case would make diagnosis of that much
+>>>> easier (me having doubts that this will ever be hit, though).
+>>>
+>>> While I agree panic() may be an option here (albeit I'm not sure why
+>>> that would be better than trying to cope with 0 and hence without
+>>
+>> I could imagine someone wanting to run a guest without Xenstore access=
+,
+>> which BTW will happen in case of a guest created by the hypervisor at
+>> boot time.
+>>
+>>> xenbus), I'd like to point out that the amount of RAM assigned to a
+>>> guest is unrelated to the choice of GFNs for the various "magic"
+>>> items.
+>>
+>> Yes, but this would still be a major tools problem which probably
+>> would render the whole guest rather unusable.
+>=20
+> First let's distinguish between an error due to "hvm_param not
+> initialized" and an error due to more serious conditions, such as "pfn
+> above max".
+>=20
+> "hvm_param not initialized" could mean v =3D=3D 0 (as it would be today=
+) or
+> v =3D=3D ~0UL (if we change Xen to initialize all hvm_param to ~0UL). I=
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 165976
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 165976
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 165976
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 165976
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 165976
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+> don't think we want to panic in these cases as they are not actually
+> true erroneous configurations. We should just stop trying to initialize=
 
-version targeted for testing:
- linux                42eb8fdac2fc5d62392dcfcf0253753e821a97b0
-baseline version:
- linux                e66435936756d9bce96433be183358a8994a0f0d
+> xenstore and continue with the rest.
+>=20
+>=20
+> The "pfn above max" case could happen if v is greater than the max pfn.=
 
-Last test of basis   165976  2021-11-01 23:11:48 Z   17 days
-Failing since        165992  2021-11-02 05:40:21 Z   16 days   26 attempts
-Testing same since   166183  2021-11-18 06:11:44 Z    0 days    1 attempts
-
-------------------------------------------------------------
-2167 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             fail    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      fail    
+> This is a true error in the configuration because the toolstack should
+> know that the guest is 32-bit so it should give it a pfn that the guest=
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+I don't think so. All x86 PVH/HVM guests start booting in 32-bit mode.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> is able to use. As Jan wrote in another email, for 32-bit the actual
+> limit depends on the physical address bits but actually Linux has never=
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> been able to cope with a pfn > ULONG_MAX on 32-bit because xen_store_gf=
+n
+> is defined as unsigned long. So Linux 32-bit has been truncating
+> HVM_PARAM_STORE_PFN all along.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+The question is whether the number of physical address bits as presented
+to the guest is always >=3D 44. If not the actual limit is less than
+ULONG_MAX. Other than that you are right: a PFN larger than a 32-bit
+ULONG_MAX will be truncated by a 32-bit guest.
+
+> There is also an argument that depending on kconfig Linux 32-bit might
+> only be able to handle addresses < 4G, so I don't think the toolstack
+> can assume that a 32-bit guest is able to cope with HVM_PARAM_STORE_PFN=
+
+>> ULONG_MAX.  If Linux is 32-bit and HVM_PARAM_STORE_PFN > ULONG_MAX,
+> even if HVM_PARAM_STORE_PFN < address_bits_max I think it would be fair=
+
+> to still consider it an error, but I can see it could be argued either
+> way. Certainly if HVM_PARAM_STORE_PFN > address_bits_max is an error.
+
+Right. The tools should NEVER put the frame above 4G for a non-PV guest.
+
+> In any case, I think it is still better for Linux to stop trying to
+> initialize Xenstore but continue with the rest because there is a bunch=
+
+> of other useful things Linux can do without it. Panic should only be th=
+e
+> last resort if there is nothing else to do. In this case we haven't eve=
+n
+> initialized the service and the service is not essential, at least it i=
+s
+> not essential in certain ARM setups.
+>=20
+>=20
+> So in conclusion, I think this patch should:
+> - if v =3D=3D 0 return error (uninitialized)
+> - if v =3D=3D ~0ULL (INVALID_PFN) return error (uinitialized)
+> - if v >=3D ~0UL (32-bit) return error (even if this case could be made=
+ to
+>    work for v < max_address_bits depending on kconfig)
+>=20
+> Which leads to something like:
+>=20
+>          /* uninitialized */
+> 		if (v =3D=3D 0 || v =3D=3D ~0ULL) {
+> 			err =3D -ENOENT;
+> 			goto out_error;
+> 		}
+>          /*
+>           * Avoid truncation on 32-bit.
+>           * TODO: handle addresses >=3D 4G
+>           */
+>          if ( v >=3D ~0UL ) {
+>              err =3D -EINVAL;
+>              goto out_error;
+
+I think at least in this case a pr_err("...") should be added.
+
+Silent failure is not nice.
 
 
-Not pushing.
+Juergen
 
-(No revision log; it would be 251060 lines long.)
+--------------1D5CADEDF14EBB1AB90E832F
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------1D5CADEDF14EBB1AB90E832F--
+
+--dq7zbyiopWgrKFF7IM4pZ8fIUMjtIo0st--
+
+--k9FHfRXORn3u1wfdVDhanJ9xPhj52Izt9
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGXMyQFAwAAAAAACgkQsN6d1ii/Ey/B
+mgf8CeBF7aQ7MCZzknGdgTgOEM6ZT59iOsQaIj2gd/8mNjdLxmb57oAPWsXqP34QvpbdhWvQpWaP
+P6HjSFA91VTAY+Tj1cTxcFQt5tb7t2ZCBMeuzfRCVitfEwGbGRWY2/Rn4LuRZayBVEiMxNa8cyDt
+9I4nVLcN+2atND2UsnJ/qXM5CNlRELepxI8fm95/u4pC10Ih9ntaaHl5Ith2zlzmgA4GXi5qxqSp
+Hm/+pohiLIl8T60rWW7W3GBC0K4MDj/26q2Zbd6WokVLOYtLofxjpaPnrS7o/w4VPIVSS5hrNyf6
+SP5WV13CqMeHZqgEfRhq5tIcktJQv6au5XBAmlyvAw==
+=fAIM
+-----END PGP SIGNATURE-----
+
+--k9FHfRXORn3u1wfdVDhanJ9xPhj52Izt9--
 
