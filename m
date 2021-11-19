@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A3BE4577BE
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 21:30:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.228260.394928 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17D73457873
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Nov 2021 23:06:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.228265.394939 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1moAWN-0004Jy-Uv; Fri, 19 Nov 2021 20:30:07 +0000
+	id 1moC0N-0004iC-Uq; Fri, 19 Nov 2021 22:05:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 228260.394928; Fri, 19 Nov 2021 20:30:07 +0000
+Received: by outflank-mailman (output) from mailman id 228265.394939; Fri, 19 Nov 2021 22:05:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1moAWN-0004GU-Rn; Fri, 19 Nov 2021 20:30:07 +0000
-Received: by outflank-mailman (input) for mailman id 228260;
- Fri, 19 Nov 2021 20:30:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TVl8=QG=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1moAWL-00044k-LK
- for xen-devel@lists.xenproject.org; Fri, 19 Nov 2021 20:30:05 +0000
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 76098ce3-4977-11ec-a9d2-d9f7a1cc8784;
- Fri, 19 Nov 2021 21:29:59 +0100 (CET)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 5D08761108;
- Fri, 19 Nov 2021 20:29:56 +0000 (UTC)
+	id 1moC0N-0004fv-Re; Fri, 19 Nov 2021 22:05:11 +0000
+Received: by outflank-mailman (input) for mailman id 228265;
+ Fri, 19 Nov 2021 22:05:09 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1moC0L-0004fk-Jz; Fri, 19 Nov 2021 22:05:09 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1moC0L-0000y7-D2; Fri, 19 Nov 2021 22:05:09 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1moC0L-0002sc-2G; Fri, 19 Nov 2021 22:05:09 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1moC0L-0008Fo-1W; Fri, 19 Nov 2021 22:05:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,88 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76098ce3-4977-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1637353796;
-	bh=ToeTFTsoG8RQjmG78bJhuXqP6zSZHWT6qNk31D0MUoU=;
-	h=From:To:Cc:Subject:Date:From;
-	b=HY0Wc0K3QU2jjN81tsHd7ofj+cn8CV/0zrvORkAufQty7mgSC5HNLx5jH2utPuyqK
-	 h1AgZo9MEqDHOPlWQ4Fk0NHudI/ZO67jSVP+0ZeIFY+fvBCdSYLjWyRy/3B4J9/DkO
-	 XEldKjW38qyT8TNQiscbakt71vNHJxNaH4jXrGOtkyPEmStyMR0rWKSAUgLM4QwtyN
-	 LdaKPCNa4n2T77M0QvxBUu9/5/gk0tS2+tvGwNEQKWIQ7Y2XWFX59lkdTzkO2qJ8vL
-	 YbZzsrmxYctOuMNtFhv7qmdcxG/UIR7+AwJQMTL+7ixA1Lb1hDlG+lhL309Lm5rjfA
-	 ak/Iv7GH6QuSw==
-From: Stefano Stabellini <sstabellini@kernel.org>
-To: jgross@suse.com
-Cc: boris.ostrovsky@oracle.com,
-	xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org,
-	sstabellini@kernel.org,
-	jbeulich@suse.com,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] xen: detect uninitialized xenbus in xenbus_init
-Date: Fri, 19 Nov 2021 12:29:51 -0800
-Message-Id: <20211119202951.403525-1-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=/PotiMW8fZ5FgCoTTKUwudyyjxapfy7PAX3O5ICp+TU=; b=m0hbRuYrv+rU4mapptrKgSBnJi
+	7edNsFZk9yGbejQgRsSP9JwCreL2RevMmEO5RBWlqKLgkfJ7O2RLvi/tv/5XbOs7grpVtT9L3Ve/n
+	dQfz9+Lr7o8lmo2vzwVbk9koS4oObBw+pr2G32kCLIvrOjXjpov9SM9fkj3YKqPl7XBM=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166197-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 166197: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=be12fcca8b784e456df3adedbffe657d753c5ff9
+X-Osstest-Versions-That:
+    xen=24d7cc416bba1f88da4c7b2649ac32486229b97b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 19 Nov 2021 22:05:09 +0000
 
-From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+flight 166197 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166197/
 
-If the xenstore page hasn't been allocated properly, reading the value
-of the related hvm_param (HVM_PARAM_STORE_PFN) won't actually return
-error. Instead, it will succeed and return zero. Instead of attempting
-to xen_remap a bad guest physical address, detect this condition and
-return early.
+Failures :-/ but no regressions.
 
-Note that although a guest physical address of zero for
-HVM_PARAM_STORE_PFN is theoretically possible, it is not a good choice
-and zero has never been validly used in that capacity.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Also recognize the invalid value of INVALID_PFN which is ULLONG_MAX.
+version targeted for testing:
+ xen                  be12fcca8b784e456df3adedbffe657d753c5ff9
+baseline version:
+ xen                  24d7cc416bba1f88da4c7b2649ac32486229b97b
 
-For 32-bit Linux, any pfn above ULONG_MAX would get truncated. Pfns
-above ULONG_MAX should never be passed by the Xen tools to HVM guests
-anyway, so check for this condition and return early.
+Last test of basis   166195  2021-11-19 15:02:50 Z    0 days
+Testing same since   166197  2021-11-19 19:00:27 Z    0 days    1 attempts
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
----
-Changes in v2:
-- add check for ULLONG_MAX (unitialized)
-- add check for ULONG_MAX #if BITS_PER_LONG == 32 (actual error)
-- add pr_err error message
+------------------------------------------------------------
+People who touched revisions under test:
+  Ian Jackson <iwj@xenproject.org>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
 
- drivers/xen/xenbus/xenbus_probe.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
-index 94405bb3829e..c7472ff27a93 100644
---- a/drivers/xen/xenbus/xenbus_probe.c
-+++ b/drivers/xen/xenbus/xenbus_probe.c
-@@ -951,6 +951,20 @@ static int __init xenbus_init(void)
- 		err = hvm_get_parameter(HVM_PARAM_STORE_PFN, &v);
- 		if (err)
- 			goto out_error;
-+		/* Uninitialized. */
-+		if (v == 0 || v == ULLONG_MAX) {
-+			err = -ENOENT;
-+			goto out_error;
-+		}
-+		/* Avoid truncation on 32-bit. */
-+#if BITS_PER_LONG == 32
-+		if (v > ULONG_MAX) {
-+			pr_err("%s: cannot handle HVM_PARAM_STORE_PFN=%llx > ULONG_MAX\n",
-+			       __func__, v);
-+			err = -EINVAL;
-+			goto out_error;
-+		}
-+#endif
- 		xen_store_gfn = (unsigned long)v;
- 		xen_store_interface =
- 			xen_remap(xen_store_gfn << XEN_PAGE_SHIFT,
--- 
-2.25.1
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   24d7cc416b..be12fcca8b  be12fcca8b784e456df3adedbffe657d753c5ff9 -> smoke
 
