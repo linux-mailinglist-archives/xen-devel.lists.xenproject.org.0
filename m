@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A51EA458EA3
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Nov 2021 13:47:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.228863.396072 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45B71458EA8
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Nov 2021 13:48:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.228870.396083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mp8i0-0000D3-Py; Mon, 22 Nov 2021 12:46:08 +0000
+	id 1mp8k2-0000pE-6l; Mon, 22 Nov 2021 12:48:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 228863.396072; Mon, 22 Nov 2021 12:46:08 +0000
+Received: by outflank-mailman (output) from mailman id 228870.396083; Mon, 22 Nov 2021 12:48:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mp8i0-0000Ah-Mm; Mon, 22 Nov 2021 12:46:08 +0000
-Received: by outflank-mailman (input) for mailman id 228863;
- Mon, 22 Nov 2021 12:46:08 +0000
+	id 1mp8k2-0000nR-3C; Mon, 22 Nov 2021 12:48:14 +0000
+Received: by outflank-mailman (input) for mailman id 228870;
+ Mon, 22 Nov 2021 12:48:13 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=fXQY=QJ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mp8i0-0000Aa-16
- for xen-devel@lists.xenproject.org; Mon, 22 Nov 2021 12:46:08 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ id 1mp8k0-0000nJ-VA
+ for xen-devel@lists.xenproject.org; Mon, 22 Nov 2021 12:48:12 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 261572d6-4b92-11ec-9787-a32c541c8605;
- Mon, 22 Nov 2021 13:46:02 +0100 (CET)
+ id 739e9db9-4b92-11ec-9787-a32c541c8605;
+ Mon, 22 Nov 2021 13:48:12 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 90FB21FCA3;
- Mon, 22 Nov 2021 12:46:01 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C46E7218D5;
+ Mon, 22 Nov 2021 12:48:11 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5A65413B44;
- Mon, 22 Nov 2021 12:46:01 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7EB9013C97;
+ Mon, 22 Nov 2021 12:48:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id R6TRFAmRm2GSQAAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 22 Nov 2021 12:46:01 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id lxt4HYuRm2G3QQAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 22 Nov 2021 12:48:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,157 +51,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 261572d6-4b92-11ec-9787-a32c541c8605
+X-Inumbo-ID: 739e9db9-4b92-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1637585161; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1637585291; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=iY4pIDoIqsZKILf62Hom/2rBYD4KllARaTuy3u+d2Nw=;
-	b=bblxAREhZc69XZdVMQwpW81A70vf/0pPrVM2OkRMGu7FA8bV0KlD1Gjm92kE7ZUujSLBQm
-	P4Nus6t1PgXTuwghHZTPV+7LIRD9qujqpa/jUFa2Fu4DVtv/Gwe6tvHizLPw71b9H0BHui
-	G8G0fBklz6KI8IJRimt6jrsGQCGMQsM=
-To: Jan Beulich <jbeulich@suse.com>
+	bh=9ZptZlGKV3D/4XErNWYghvHrQ3MiPu2tRLeMhHLnZqw=;
+	b=IBSDVis6EgPVYBxw2aeSFvGDTxJhh+8rP7D+3bSFmYH77SWrR+Mg6ruVZqX2QQ4cGGPJC8
+	JPjUi4U6T+Q9JktiKsK3lDr97DiwCBvph6Kb9WAj/aT2pCgJGI/2UragY8CUyWcPXn+Zjl
+	a5n5/LsyYK75bbsgxrhILVe2CUXZnLE=
+Subject: Re: [PATCH RFC 1/4] xen: add a domain unique id to each domain
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
 References: <20210914123600.1626-1-jgross@suse.com>
- <20210914123600.1626-3-jgross@suse.com>
- <578438ad-dfb2-314c-6514-a2e72aeed091@suse.com>
+ <20210914123600.1626-2-jgross@suse.com>
+ <8fe9a5bd-030c-66b7-ccf3-4545cfb80f66@xen.org>
 From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH RFC 2/4] xen: add bitmap to indicate per-domain state
- changes
-Message-ID: <e31fd752-a170-f169-5557-ec593b7a27e2@suse.com>
-Date: Mon, 22 Nov 2021 13:46:00 +0100
+Message-ID: <fa778d46-0a4b-254c-0cde-d3df4e53ec4a@suse.com>
+Date: Mon, 22 Nov 2021 13:48:10 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <578438ad-dfb2-314c-6514-a2e72aeed091@suse.com>
+In-Reply-To: <8fe9a5bd-030c-66b7-ccf3-4545cfb80f66@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="nxHRDCYKIDrTy2MKl9Zg6E7OTpYY7noEq"
+ boundary="PY07kKgbb0sNpEt4zNXSvyPZgP6nCqHF1"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---nxHRDCYKIDrTy2MKl9Zg6E7OTpYY7noEq
-Content-Type: multipart/mixed; boundary="qw7Vf2twF69kUqhXRmgKToSaUL5IAdQTn";
+--PY07kKgbb0sNpEt4zNXSvyPZgP6nCqHF1
+Content-Type: multipart/mixed; boundary="2s09dzEWNYLugLPymPPV2MIPtZbEGxtrq";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Message-ID: <e31fd752-a170-f169-5557-ec593b7a27e2@suse.com>
-Subject: Re: [PATCH RFC 2/4] xen: add bitmap to indicate per-domain state
- changes
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Message-ID: <fa778d46-0a4b-254c-0cde-d3df4e53ec4a@suse.com>
+Subject: Re: [PATCH RFC 1/4] xen: add a domain unique id to each domain
 References: <20210914123600.1626-1-jgross@suse.com>
- <20210914123600.1626-3-jgross@suse.com>
- <578438ad-dfb2-314c-6514-a2e72aeed091@suse.com>
-In-Reply-To: <578438ad-dfb2-314c-6514-a2e72aeed091@suse.com>
+ <20210914123600.1626-2-jgross@suse.com>
+ <8fe9a5bd-030c-66b7-ccf3-4545cfb80f66@xen.org>
+In-Reply-To: <8fe9a5bd-030c-66b7-ccf3-4545cfb80f66@xen.org>
 
---qw7Vf2twF69kUqhXRmgKToSaUL5IAdQTn
+--2s09dzEWNYLugLPymPPV2MIPtZbEGxtrq
 Content-Type: multipart/mixed;
- boundary="------------25F0B4CF8B552107F73EC8F0"
+ boundary="------------56615774EB79005BAA89FB4C"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------25F0B4CF8B552107F73EC8F0
+--------------56615774EB79005BAA89FB4C
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 22.11.21 11:41, Jan Beulich wrote:
-> On 14.09.2021 14:35, Juergen Gross wrote:
->> Add a bitmap with one bit per possible domid indicating the respective=
-
->> domain has changed its state (created, deleted, dying, crashed,
->> shutdown).
+On 22.11.21 12:42, Julien Grall wrote:
+> Hi Juergen,
+>=20
+> On 14/09/2021 13:35, Juergen Gross wrote:
+>> Xenstore is referencing domains by their domid, but reuse of a domid
+>> can lead to the situation that Xenstore can't tell whether a domain
+>> with that domid has been deleted and created again without Xenstore
+>> noticing the domain is a new one now.
 >>
->> Registering the VIRQ_DOM_EXC event will result in setting the bits for=
+>> Add a global domain creation unique id which is updated when creating
+>> a new domain, and store that value in struct domain of the new domain.=
 
->> all existing domains and resetting all other bits.
->=20
-> Generally I view VIRQ_DOM_EXC as overly restrictive already - what if b=
-oth
-> a xenstore domain and a control domain want respective notification? He=
-nce
-
-The general idea was that in this case the control domain should
-register a related Xenstore watch.
-
-> similarly I'm not convinced a single, global instance will do here. Whi=
-ch
-> in turn raises the question whether the approach chosen may not take us=
-
-> far enough, and we wouldn't instead want a more precise notification mo=
-del
-> (i.e. not just "something has changed").
-
-Yes, that would be the job of Xenstore. It would provide the more
-fine grained watches for that purpose.
-
->=20
+>> The global unique id is initialized with the system time and updates
+>> are done via the xorshift algorithm which is used for pseudo random
+>> number generation, too (see https://en.wikipedia.org/wiki/Xorshift).
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>> =C2=A0 xen/common/domain.c=C2=A0=C2=A0=C2=A0=C2=A0 | 16 ++++++++++++++=
+++
+>> =C2=A0 xen/include/xen/sched.h |=C2=A0 3 +++
+>> =C2=A0 2 files changed, 19 insertions(+)
+>>
+>> diff --git a/xen/common/domain.c b/xen/common/domain.c
+>> index 6ee5d033b0..755349b93f 100644
 >> --- a/xen/common/domain.c
 >> +++ b/xen/common/domain.c
->> @@ -87,6 +87,22 @@ bool __read_mostly vmtrace_available;
->>   /* Unique domain identifier, protected by domctl lock. */
->>   static uint64_t unique_id;
->>  =20
->> +static DECLARE_BITMAP(dom_state_changed, DOMID_MASK + 1);
->=20
-> While not really making a difference to the size of the bitmap, afaict =
-up
-> to DOMID_FIRST_RESERVED would do. Neither system domains nor idle ones
-> will reach, in particular, the set_bit() in domain_create(). And none o=
-f
-> them can be subject to destruction.
-
-I'd be fine either way.
-
-> Also I think this could do with a brief comment as to what causes bits
-> to be set. This would avoid readers having to go hunt down all the
-> set_bit() (or the commit introducing the bitmap).
-
-Okay.
-
->=20
->> +void domain_reset_states(void)
->> +{
->> +    struct domain *d;
+>> @@ -84,6 +84,9 @@ vcpu_info_t dummy_vcpu_info;
+>> =C2=A0 bool __read_mostly vmtrace_available;
+>> +/* Unique domain identifier, protected by domctl lock. */
+>> +static uint64_t unique_id;
 >> +
->> +    bitmap_zero(dom_state_changed, DOMID_MASK + 1);
+>> =C2=A0 static void __domain_finalise_shutdown(struct domain *d)
+>> =C2=A0 {
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct vcpu *v;
+>> @@ -473,6 +476,18 @@ static void _domain_destroy(struct domain *d)
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 free_domain_struct(d);
+>> =C2=A0 }
+>> +static uint64_t get_unique_id(void)
 >=20
-> While this looks to be fine with the present updates of the bitmap, I
-> still wonder about the non-atomicity here vs the atomic updates
-> everywhere else. It feels like there's some locking needed to be future=
-
-> proof. Since you come here from VIRQ_DOM_EXC binding, it could be that
-> domain's per-domain lock.
-
-Fine with me.
-
+> The implementation is assuming that domain cannot be created=20
+> concurrently. The rest of domain_create() seems to be able to cope with=
+=20
+> concurrent call (even if domctl prevents this situation today).
 >=20
->> @@ -1141,6 +1161,8 @@ static void complete_domain_destroy(struct rcu_h=
-ead *head)
->>  =20
->>       xfree(d->vcpu);
->>  =20
->> +    set_bit(d->domain_id, dom_state_changed);
->> +
->>       _domain_destroy(d);
->>  =20
->>       send_global_virq(VIRQ_DOM_EXC);
->=20
-> Wouldn't this better be in domain_destroy() immediately after the domai=
-n
-> has been taken off the list, and hence is no longer "discoverable"?
+> So I think we would want to make this call safe as well. One possibilit=
+y=20
+> would be to (ab)use the domlist_update_lock (I think the uniq ID is onl=
+y=20
+> necessary for real domains).
 
-In this case the call of send_global_virq() should be moved, too,
-I guess?
+In case this is thought to be needed, I'd rather use a cmpxchg operation
+for updating unique_id.
 
 
 Juergen
 
---------------25F0B4CF8B552107F73EC8F0
+--------------56615774EB79005BAA89FB4C
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -293,25 +256,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------25F0B4CF8B552107F73EC8F0--
+--------------56615774EB79005BAA89FB4C--
 
---qw7Vf2twF69kUqhXRmgKToSaUL5IAdQTn--
+--2s09dzEWNYLugLPymPPV2MIPtZbEGxtrq--
 
---nxHRDCYKIDrTy2MKl9Zg6E7OTpYY7noEq
+--PY07kKgbb0sNpEt4zNXSvyPZgP6nCqHF1
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGbkQgFAwAAAAAACgkQsN6d1ii/Ey/C
-qQf+PQuww7DLwmK5LQPIxAixnRuv5Bum50OwTqKQtu+xa1nQens2wCHPJDgH6DMZ53qFLswcWXIl
-R97cIDY+M7cXg5mziPWZFzUHngQlvP9eDHouKV+pAjgEax8pkAFrCqhs9blT3bXhVRMdMY7P/5AO
-EEmhc+O0RrwSXh04OpjPHplnU8SBNfErxUDRQ6th1XfqoCC3uVqA4yRcpLFEn0dAmQgq5+1NDuBC
-uMxBtlJOpTfNTXYXm7e2oIA7rNETj0+0d/63AMN0m/TrhKTpF8K843ipc2V+t5Hd7ZWpuIj496Ka
-dkLD2m9EzfxfiSa6t4vXHpgI0F82WpFaE79wZhl33Q==
-=CxZq
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGbkYoFAwAAAAAACgkQsN6d1ii/Ey+T
+KQf+L87nnM58J3FsNxVVXwfT89PocDv3nvDDi5iNdlKYg/gRhrCEQoPyxFg2etwF1++sASXigGCp
+i/atg4mBHhGydP2CU8df5w3zgAnGQ3D1DYnnTFKPyBtCSCrp0VaXlK0jTanpe9o7k54VCkNo3h9w
+Wh6NbWyodH9WPFYr1Qxe2nao+Bg+Ly1M729xNvD4htWIcVVpgPHDCWY7kSwwIkMkMaeHJvwKxYp0
+XkxM9hJf4zccW4oOXgXvigRG01foD0jXMz146yEJWvgcOAXMQAY7KsH/wk36fuRzpprjXeUus9w+
+akxQqVlVBZts1cfMlw9P57lj0csa6md9gsaAd5Styw==
+=IiLi
 -----END PGP SIGNATURE-----
 
---nxHRDCYKIDrTy2MKl9Zg6E7OTpYY7noEq--
+--PY07kKgbb0sNpEt4zNXSvyPZgP6nCqHF1--
 
