@@ -2,65 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0321345915C
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Nov 2021 16:25:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.228977.396270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5354D459169
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Nov 2021 16:30:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.228982.396282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpBC8-00087M-0g; Mon, 22 Nov 2021 15:25:24 +0000
+	id 1mpBGb-0000T0-Mi; Mon, 22 Nov 2021 15:30:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 228977.396270; Mon, 22 Nov 2021 15:25:23 +0000
+Received: by outflank-mailman (output) from mailman id 228982.396282; Mon, 22 Nov 2021 15:30:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpBC7-000855-TS; Mon, 22 Nov 2021 15:25:23 +0000
-Received: by outflank-mailman (input) for mailman id 228977;
- Mon, 22 Nov 2021 15:25:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/AbN=QJ=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1mpBC6-00084z-01
- for xen-devel@lists.xenproject.org; Mon, 22 Nov 2021 15:25:22 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20619.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::619])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 67835c4a-4ba8-11ec-9787-a32c541c8605;
- Mon, 22 Nov 2021 16:25:21 +0100 (CET)
-Received: from AS9PR06CA0362.eurprd06.prod.outlook.com (2603:10a6:20b:460::9)
- by AS8PR08MB6405.eurprd08.prod.outlook.com (2603:10a6:20b:332::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.24; Mon, 22 Nov
- 2021 15:25:10 +0000
-Received: from VE1EUR03FT021.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:460:cafe::3e) by AS9PR06CA0362.outlook.office365.com
- (2603:10a6:20b:460::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.21 via Frontend
- Transport; Mon, 22 Nov 2021 15:25:10 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VE1EUR03FT021.mail.protection.outlook.com (10.152.18.117) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4713.19 via Frontend Transport; Mon, 22 Nov 2021 15:25:09 +0000
-Received: ("Tessian outbound de6049708a0a:v110");
- Mon, 22 Nov 2021 15:25:08 +0000
-Received: from 0d6075d5e7bb.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 014CA201-BE8C-46B3-AD89-D1478980A1EA.1; 
- Mon, 22 Nov 2021 15:24:57 +0000
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 0d6075d5e7bb.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 22 Nov 2021 15:24:57 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by AM6PR08MB3493.eurprd08.prod.outlook.com (2603:10a6:20b:4a::30)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.19; Mon, 22 Nov
- 2021 15:24:53 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::69d7:e26:6610:ebd8]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::69d7:e26:6610:ebd8%4]) with mapi id 15.20.4713.024; Mon, 22 Nov 2021
- 15:24:53 +0000
+	id 1mpBGb-0000QU-J9; Mon, 22 Nov 2021 15:30:01 +0000
+Received: by outflank-mailman (input) for mailman id 228982;
+ Mon, 22 Nov 2021 15:30:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mpBGZ-0000NE-VT
+ for xen-devel@lists.xenproject.org; Mon, 22 Nov 2021 15:29:59 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mpBGZ-0002Bh-B6; Mon, 22 Nov 2021 15:29:59 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=[192.168.28.80]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mpBGZ-00074F-4e; Mon, 22 Nov 2021 15:29:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,196 +39,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67835c4a-4ba8-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I/jeV2nVYiJlFJ2o4bq2JF21N2qE9VVCkWudOQCYdJQ=;
- b=c3gBcwBFCWxZvSZPzlC4aXOgGwiBeeCVixYSsXTra/ZBv2l3hLFEDAaiB+IoMhRhTB6PfUkXuMXKV9oWKQy4MPidBMKt+PBvyQjeRT9lxV+VYDvprEcf7CHZ+wh/DZSTz+4a9fUqSUuyVsOXoVYM8JHNESWHQdQEc50QmjGMOwk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 159cdd01445732b8
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ca3BYX8MzsTwmpOnWsOinFvKUHdR9fCvu/UkusytfI1DIbzNwvcIxCJoOljEU+Rc0x9EvXtf4+Mu9MFiVNR0qTxr1KUXiuM/4gYLnudO2E+7+GNu5GMJ+4dFqaq1/yGrhOVglfy+/S5afqaQdvKQM6yN5BDUShjqyMhx/YS1LXK0z+LVka1pfriYsztPNCVoXHfkb02P1i+Jinzr6pssB3xM0NKRLTe+dDFqk3bGrRdAkkQAc+GoSiBYgGJ2w8sWgAjOHGovxosRjQbFY5ykV0v2DioN4x+aVdQowc9PKuc7wNmPeaU/gpwzBdekjFozqEEGFtzBTy1vBaJ7vce+rQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I/jeV2nVYiJlFJ2o4bq2JF21N2qE9VVCkWudOQCYdJQ=;
- b=Il4M1tFYZtY+0wxqNLx9WlXlV1kPOhCerZ+RD6zfnNGcpotOCXv3xFFizhU/suTCn77itT6Z+IOwQ78t5J4oks2TzQI+EknQDWhQwlIYRLHfaTGd2fGgvOLjhAlmal8XkB361ywn33gx5SYgUtJp/uotov9DhMNa9r4qw2FCoWcSRyv0WmKdxljf1jft+TUnTsec80N1cXdiTXD8iIiGNQ+6IycM+Eb0V67TSVjbDCXPuaFjqk7YMG/TNl8Et9MqWvYmm0AiixM422/7oZdNhEzb2v2CqR/OGopTexiOvy0XNNaTT+i0wL8XZjzt4wOrsoVgcjtqk5ArcuMUUltpRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I/jeV2nVYiJlFJ2o4bq2JF21N2qE9VVCkWudOQCYdJQ=;
- b=c3gBcwBFCWxZvSZPzlC4aXOgGwiBeeCVixYSsXTra/ZBv2l3hLFEDAaiB+IoMhRhTB6PfUkXuMXKV9oWKQy4MPidBMKt+PBvyQjeRT9lxV+VYDvprEcf7CHZ+wh/DZSTz+4a9fUqSUuyVsOXoVYM8JHNESWHQdQEc50QmjGMOwk=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Penny Zheng <Penny.Zheng@arm.com>
-CC: xen-devel <xen-devel@lists.xenproject.org>, "sstabellini@kernel.org"
-	<sstabellini@kernel.org>, "julien@xen.org" <julien@xen.org>, Wei Chen
-	<Wei.Chen@arm.com>
-Subject: Re: [PATCH v3 10/10] xen/docs: Document how to do passthrough without
- IOMMU
-Thread-Topic: [PATCH v3 10/10] xen/docs: Document how to do passthrough
- without IOMMU
-Thread-Index: AQHX2rPE6jU0b09b40CkiSaHEA3wwKwPtMqA
-Date: Mon, 22 Nov 2021 15:24:53 +0000
-Message-ID: <A89A623B-BC2C-4150-A5E8-A8B72AA566D3@arm.com>
-References: <20211116063155.901183-1-penny.zheng@arm.com>
- <20211116063155.901183-11-penny.zheng@arm.com>
-In-Reply-To: <20211116063155.901183-11-penny.zheng@arm.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3654.120.0.1.13)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 97283072-aab2-454b-0b97-08d9adcc454d
-x-ms-traffictypediagnostic: AM6PR08MB3493:|AS8PR08MB6405:
-X-Microsoft-Antispam-PRVS:
-	<AS8PR08MB640510BA58F34644BCE4D61F9D9F9@AS8PR08MB6405.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:3276;OLM:3276;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- EP8hR+Gi/2WYp0vKDKB9TKam2D7oohcYKkTTIlCi6P01mwSP3VV7reXJ9NG7zls13AVfqBeNReHguUFZJHxMrznDBG7sfVnWU7X5+SpvdP3TOZAtU8JDHrP/I9g5ywKFFHFWLLrV8QzjctpkSzZqaKnUIcFFswfcEHavFjDlf4W7zDQjsgqpB2cCaFRLP6VUsJenLryP+WaBUE9HpzAqJFBH1fglMZjWdNm8Rge+AF12LVCURCZm87VvvOMYNiSVvyPYhp9vCGn+OT3bMRxXy0ybxeDuMcmKcX9ommgz7tQUWKDXB0P5hKOCxtTgJlgpsISGXi0Zy8AkdRyldtOPhNDwROgJEXE/tC85ERU9E0kqIl3J4nfERgFg5lWSL914TlV66yIXUsXEU3iaPa7imWpA1Hntt5SBlJiJUfrmmu66a3GWS/2HiLIq1oQGD7yZbcS6159W53nxmI/gKHyGsta51qp9mpyHmkyBfKObiYoN8k0fMdecY0UHwSGRFp/AgxZafqdGPaCvpchxRYP/eehzsc2MqHZSEA6XrxHKkrnBhVQq33gBtKMYtY+bc/binKvhhy+j0HuLM88oxUEBnSpaYrjYjoYZVVVmyf1+Rg+IJJe8sN3R84Q6hqkBWnRmnKAARCiLPMuBqLD7/dzMQW5AjyLY8Es2s5b5sF2us3Q7ir5pV1UEemuiL0FAGB1De8jEf/dcTd00LR99zAvY4Gam34VHa4Sbq00arxqTtB4uTlvKQDYf9eMs+fGQeUeB
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(8936002)(38070700005)(86362001)(53546011)(66556008)(83380400001)(66476007)(4326008)(64756008)(66446008)(33656002)(38100700002)(36756003)(508600001)(122000001)(5660300002)(6862004)(2616005)(8676002)(2906002)(91956017)(76116006)(6506007)(6636002)(66946007)(37006003)(54906003)(6486002)(26005)(316002)(186003)(6512007)(71200400001)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <3746683BE6DB904BA59977C7721E2A5E@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=IZf0stmIYv1jBexNNIJeDoDLkuE0ac+nl1hytrsodRQ=; b=ar0lif1u+Ih2PU2hOF+cjY+AGS
+	9u7vbbP+gB91xQ21GXnZQR9kbj2e/p+QPqB87cmLVHnulzr5TcqM7oJBAwLVAuP25/cxCJnN1fM/6
+	XzlmK+aYCOtHdHaLQjuaP2id/ZxuheLg37TAuJujcbUZU0BZCr4E8eL/RCRS0fClKhW4=;
+Message-ID: <e66c4189-acdf-c32f-4b50-51c8aaab4efd@xen.org>
+Date: Mon, 22 Nov 2021 15:29:56 +0000
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3493
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VE1EUR03FT021.eop-EUR03.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	4f17afa1-d688-4565-62d2-08d9adcc3bb6
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	iIqeEnmKuXTw/UjNmRkNMIkN7ufLY8j711Ppx4NrA8tHm3ApdIMQxxsJoM70Di4GyUQ/1WiMl/JLZF2HiO5WTB19mHttEGZSBuFvcDFT4LUZ34zRe4qG4p9EF8DP/WE6nHA7JH76hLZVAPVGzFHT62956fjnpKmQ+ABfvlrIHocrtOeiiZ6XbEcoKIG2FcSZAwwbqqSD5d08YRe8SAW8Qw4KRFLwE9zExpTxNs1hk4OLWgA5w45agnebusDN3wKAFYcgEQNeTfX0pGPud+R3pVPicN4tk1kbIT952Rbx0PW07F1q+HGtqkSLVhWo95cnopjL1J53GzY8je28wOG05St23G6s+fG+It1M1Dihn40SvEGnXNn2uw0S8pNjF1kRPB/4GC55/awHLju/qz3HO/tblGQwTMehfNdkbh8MXlwPjluf1A3h7YuJGw+jKd+1ysjnXZn2QU9gg/R30sxXsfHIgRm0NnykRnm6P0J0ubvZ3b024IDxzfyYqiZfiAATSpAJ8KD8t5hjZzQoMevzKOVDeLZRQaUL7MPGB9EMEwnZxYTbh3HnngUWvHqrBfoAja4mwgEzcDkjpL7MAZ6sZJNEWwlm3vcAqYZurU9l9z6J/zmmOFshxPINH2y2amoaAgQ/ns78krXVvNiRlDdbboE5a9u5RCO2bKq8CNSoSTdNszmIQdulkCqncg5rdyyFVKxT9jz0qGESyim4v2EfMQ==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(508600001)(6486002)(336012)(82310400003)(6862004)(37006003)(5660300002)(2616005)(316002)(36756003)(356005)(83380400001)(70206006)(81166007)(6506007)(186003)(26005)(33656002)(8676002)(8936002)(6636002)(4326008)(86362001)(53546011)(54906003)(2906002)(47076005)(36860700001)(6512007)(70586007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Nov 2021 15:25:09.6167
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97283072-aab2-454b-0b97-08d9adcc454d
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VE1EUR03FT021.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6405
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.1
+Subject: Re: [PATCH v6 2/7] xen/arm: add pci-domain for disabled devices
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ "roger.pau@citrix.com" <roger.pau@citrix.com>,
+ "jbeulich@suse.com" <jbeulich@suse.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
+ "paul@xen.org" <paul@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Rahul Singh <rahul.singh@arm.com>
+References: <20211105063326.939843-1-andr2000@gmail.com>
+ <20211105063326.939843-3-andr2000@gmail.com>
+ <86cabc8a-cbf2-84d4-4162-7d5591d127c5@xen.org>
+ <de155886-d039-4c45-0407-47f38f8cd75d@epam.com>
+ <ab95fc39-d1b2-be80-8245-85161a8271e1@xen.org>
+ <072848c8-54da-cb73-3b8a-0c35826cc812@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <072848c8-54da-cb73-3b8a-0c35826cc812@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Penny,
 
-> On 16 Nov 2021, at 06:31, Penny Zheng <penny.zheng@arm.com> wrote:
->=20
-> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
->=20
-> This commit creates a new doc to document how to do passthrough without I=
-OMMU.
->=20
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> ---
-> docs/misc/arm/passthrough-noiommu.txt | 52 +++++++++++++++++++++++++++
-> 1 file changed, 52 insertions(+)
-> create mode 100644 docs/misc/arm/passthrough-noiommu.txt
->=20
-> diff --git a/docs/misc/arm/passthrough-noiommu.txt b/docs/misc/arm/passth=
-rough-noiommu.txt
-> new file mode 100644
-> index 0000000000..3e2ef21ad7
-> --- /dev/null
-> +++ b/docs/misc/arm/passthrough-noiommu.txt
-> @@ -0,0 +1,52 @@
-> +Request Device Assignment without IOMMU support
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +*WARNING:
-> +Users should be aware that it is not always secure to assign a device wi=
-thout
-> +IOMMU protection.
-> +When the device is not protected by the IOMMU, the administrator should =
-make
-> +sure that:
-> + 1. The device is assigned to a trusted guest.
-> + 2. Users have additional security mechanism on the platform.
-> +
-> +This document assumes that the IOMMU is absent from the system or it is
-> +disabled (status =3D "disabled" in device tree).
-> +
-> +Add xen,force-assign-without-iommu; to the device tree snippet:
-> +
-> +ethernet: ethernet@ff0e0000 {
-> +	compatible =3D "cdns,zynqmp-gem";
-> +	xen,path =3D "/amba/ethernet@ff0e0000";
-> +	xen,reg =3D <0x0 0xff0e0000 0x1000 0x0 0xff0e0000>;
-> +	xen,force-assign-without-iommu;
-> +};
-> +
-> +Request 1:1 memory mapping for the domain on static allocation
-> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +Add a direct-map property under the appropriate /chosen/domU node which
-> +is also statically allocated with physical memory ranges through
-> +xen,static-mem property as its guest RAM.
-> +
-> +Below is an example on how to specify the 1:1 memory mapping for the dom=
-ain
-> +on static allocation in the device-tree:
-> +
-> +/ {
-> +	chosen {
-> +		domU1 {
-> +			compatible =3D "xen,domain";
-> +			#address-cells =3D <0x2>;
-> +			#size-cells =3D <0x2>;
-> +			cpus =3D <2>;
-> +			memory =3D <0x0 0x80000>;
-> +			#xen,static-mem-address-cells =3D <0x1>;
-> +			#xen,static-mem-size-cells =3D <0x1>;
-> +			xen,static-mem =3D <0x30000000 0x20000000>;
-> +			direct-map;
-> +			...
-> +		};
-> +	};
-> +};
-> +
-> +Besides reserving a 512MB region starting at the host physical address
-> +0x30000000 to DomU1, it also requests 1:1 memory mapping.
 
-If the guest has some reserved-memory in the device tree, those will not be=
- handle by Xen for DomUs.
-I think it could be a good idea in the documentation to mention that any re=
-served-memory required must be assigned using static-mem to the DomU.
+On 18/11/2021 07:13, Oleksandr Andrushchenko wrote:
+> Hi, Julien!
 
-This could take the form of a comment or a warning in this document.
+Hi Oleksandr,
 
-Regards
-Bertrand
+> On 17.11.21 23:33, Julien Grall wrote:
+>> Hi Oleksandr,
+>>
+>> On 17/11/2021 06:56, Oleksandr Andrushchenko wrote:
+>>> Hi, Julien!
+>>>
+>>> On 16.11.21 20:48, Julien Grall wrote:
+>>>> Hi Oleksander,
+>>>>
+>>>> On 05/11/2021 06:33, Oleksandr Andrushchenko wrote:
+>>>>> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>>>>>
+>>>>> If a PCI host bridge device is present in the device tree, but is
+>>>>> disabled, then its PCI host bridge driver was not instantiated.
+>>>>> This results in the failure of the pci_get_host_bridge_segment()
+>>>>> and the following panic during Xen start:
+>>>>>
+>>>>> (XEN) Device tree generation failed (-22).
+>>>>> (XEN)
+>>>>> (XEN) ****************************************
+>>>>> (XEN) Panic on CPU 0:
+>>>>> (XEN) Could not set up DOM0 guest OS
+>>>>> (XEN) ****************************************
+>>>>>
+>>>>> Fix this by adding "linux,pci-domain" property for all device tree nodes
+>>>>> which have "pci" device type, so we know which segments will be used by
+>>>>> the guest for which bridges.
+>>>>>
+>>>>> Fixes: 4cfab4425d39 ("xen/arm: Add linux,pci-domain property for hwdom if not available.")
+>>>>>
+>>>>> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+>>>>>
+>>>>> ---
+>>>>> New in v6
+>>>>> ---
+>>>>>     xen/arch/arm/domain_build.c        | 15 ++++++++++++++-
+>>>>>     xen/arch/arm/pci/pci-host-common.c |  2 +-
+>>>>>     xen/include/asm-arm/pci.h          |  8 ++++++++
+>>>>>     3 files changed, 23 insertions(+), 2 deletions(-)
+>>>>>
+>>>>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+>>>>> index 491f5e2c316e..f7fcb1400c19 100644
+>>>>> --- a/xen/arch/arm/domain_build.c
+>>>>> +++ b/xen/arch/arm/domain_build.c
+>>>>> @@ -753,9 +753,22 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
+>>>>>             {
+>>>>>                 uint16_t segment;
+>>>>>     +            /*
+>>>>> +             * The node doesn't have "linux,pci-domain" property and it is
+>>>>> +             * possible that:
+>>>>> +             *  - Xen only has drivers for a part of the host bridges
+>>>>> +             *  - some host bridges are disabled
+>>>>> +             * Make sure we insert the correct "linux,pci-domain" property
+>>>>> +             * in any case, so we know which segments will be used
+>>>>> +             * by Linux for which bridges.
+>>>>
+>>>> The check above will check the node type is "pci". AFAICT, this would also cover PCI devices. I am not aware of any issue to add "linux,pci-domain" for them. However, this feels a bit odd.
+>>>>
+>>>>   From my understanding, a PCI device would always be described as a child of the hostbridges. So I would rework the 'if' to also check if the parent type is not "pci".
+>>>>
+>>> We may have "bridge -> bridge -> device" topology as well.
+>>
+>> Do you have an example of Device-Tree?
+> No, I don't have at hand, but I can imagine this can relatively easy be done with QEMU > Even if not, do you assume this topology can never happen?
 
-> --=20
-> 2.25.1
->=20
+I think it is not possible to describe them in the Device-Tree because 
+you wouldn't be able to translate the "regs" of the nested hostbridge to 
+an actual MMIO address.
 
+In fact, looking at dt_device_get_address(), I think Xen would reject 
+such DT.
+
+>>
+>>> So, I prefer to have the check as it is.
+>>
+>> I don't really like the idea to spuriously add "linux,pci-domain" to PCI DT node. But if there are no other solution, then this should at least be mentionned in the commit message and code.
+> I am fine with any solution here, I just want that to be defined and implemented.
+> Please let me know the final decision on this and how we proceed
+
+I would prefer to go with my way. This can be refined in the future if 
+we find Device-Tree that matches what you wrote.
+
+Cheers,
+
+-- 
+Julien Grall
 
