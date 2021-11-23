@@ -2,46 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F3E845A929
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Nov 2021 17:44:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.229772.397274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C53D45A933
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Nov 2021 17:46:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.229780.397285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpYuR-0002Mc-Jc; Tue, 23 Nov 2021 16:44:43 +0000
+	id 1mpYwC-00032b-4G; Tue, 23 Nov 2021 16:46:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 229772.397274; Tue, 23 Nov 2021 16:44:43 +0000
+Received: by outflank-mailman (output) from mailman id 229780.397285; Tue, 23 Nov 2021 16:46:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpYuR-0002KH-Fd; Tue, 23 Nov 2021 16:44:43 +0000
-Received: by outflank-mailman (input) for mailman id 229772;
- Tue, 23 Nov 2021 16:44:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mpYwC-0002zC-0F; Tue, 23 Nov 2021 16:46:32 +0000
+Received: by outflank-mailman (input) for mailman id 229780;
+ Tue, 23 Nov 2021 16:46:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lRmA=QK=epam.com=prvs=19611c0f38=oleksandr_andrushchenko@srs-se1.protection.inumbo.net>)
- id 1mpYuQ-0002KB-1U
- for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:44:42 +0000
-Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
- [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a6e1017f-4c7c-11ec-9787-a32c541c8605;
- Tue, 23 Nov 2021 17:44:40 +0100 (CET)
-Received: from pps.filterd (m0174681.ppops.net [127.0.0.1])
- by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1ANFDF4g020298;
- Tue, 23 Nov 2021 16:44:37 GMT
-Received: from eur05-am6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2113.outbound.protection.outlook.com [104.47.18.113])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3cgy2phcwp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 23 Nov 2021 16:44:37 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM0PR03MB6068.eurprd03.prod.outlook.com (2603:10a6:208:166::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Tue, 23 Nov
- 2021 16:44:33 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::c038:e032:595a:651]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::c038:e032:595a:651%8]) with mapi id 15.20.4713.026; Tue, 23 Nov 2021
- 16:44:33 +0000
+ <SRS0=IZo3=QK=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1mpYwA-0002z4-Hb
+ for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:46:30 +0000
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [2a00:1450:4864:20::529])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e7833a3b-4c7c-11ec-a9d2-d9f7a1cc8784;
+ Tue, 23 Nov 2021 17:46:28 +0100 (CET)
+Received: by mail-ed1-x529.google.com with SMTP id t5so95179796edd.0
+ for <xen-devel@lists.xenproject.org>; Tue, 23 Nov 2021 08:46:28 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id hd15sm5782961ejc.69.2021.11.23.08.46.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Nov 2021 08:46:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,178 +43,605 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a6e1017f-4c7c-11ec-9787-a32c541c8605
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EShTJGM7q7Y8ZWXq3bwiTO8JxQz3l/AYLEF1CiPu5R7B7xeNRv7iOqD1lGVjfAytCDM6rdJ9RrBlcaqAh7j7X7Qy1JoSR2qne4uKpDMIhrec17RzZetr4DJIKMeNx6Q5N3laxzbHKsnHt7zSChdj4OilScPnplHbq0sFcNHokd0r/lKWaZ5IjjrkhqyqgyxLKp9xca5nFuiYlaxZnU5yWkG9MvBA33/rhnR4S5Ix5rLpxYpHWe+rPnDibkJR1nsBwCFibz9vF95B2Be5FiqsYTk+oiAm3ToZYs31sO6o6ZqvVB9lznuT1H+XlFYaF3ux5u8O3EiRAsxMps28TSR50g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q+/gV1yzbKWHlXm9d6UM4DKOw3Z7lrkKkJYWhzrEFmA=;
- b=DhMY9QX7DJNAf+M8hS0H4ZXCTUi7SjLBgxN6/yUZK8C8WMs6nLwDZTkOk2fwlzNMUDZOh27I700aoD+/KOFEb2J09Hh76H+OqZ7fq8Mc/KDcdRkPZsmltru4Ok9jv+FxTq8NGyulnj+ulZKXriimcuYW1/nn8P90eOb4UMq5lOXX7KyGNIAB2MIyhTff4ulBTy6TYLPwswSPOmfrYVrvymo7l/jrhHMboeh5BXRiGHHitqXpugp/h0LPBcNl8voy1Fq9JzG0JiRLJ2gaCoPDiaakjoWisI9JaR82ExPzD5vAqO+CPMEbGBH8dGN1/DGLtCyiyjdULR0CYYmTXMqNaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q+/gV1yzbKWHlXm9d6UM4DKOw3Z7lrkKkJYWhzrEFmA=;
- b=jR7941Fqm3WVynNUZMquuRm3T57FGIoepq9pJVFvTOJqKutHf2i3xmo2sIHPZRPdNxiKrO2VudZ3jSxKauPg3PlrsSH/TC6ac/j8p4HKn6LGej/dL6yEjM46wtXkxIhdLpEQUncPGc0NY9V+w6DP9eJfcpH0HEoh2yIN377pQReXlKuAtPA/gkNiRpM7u9Ker4lYpecFUUvX7mFB8snZp4/eyULQIcszFCuMKEigEWTtbeFjzhOHC1LcqBQFQ5k5GgeRFzxHmtF3T6cP7Rkspdo4q1usmE5sESRH0GjrI9y+PPcD9jev8D3vlDmo+67EYaLKGl58XzJhMMeAZHoidw==
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Julien Grall <julien@xen.org>,
-        "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: "sstabellini@kernel.org" <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko
-	<Oleksandr_Tyshchenko@epam.com>,
-        Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>,
-        Artem Mygaiev <Artem_Mygaiev@epam.com>,
-        "roger.pau@citrix.com" <roger.pau@citrix.com>,
-        "jbeulich@suse.com"
-	<jbeulich@suse.com>,
-        "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
-        "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
-        "paul@xen.org"
-	<paul@xen.org>,
-        Bertrand Marquis <bertrand.marquis@arm.com>,
-        Rahul Singh
-	<rahul.singh@arm.com>,
-        Oleksandr Andrushchenko
-	<Oleksandr_Andrushchenko@epam.com>
-Subject: Re: [PATCH v6 2/7] xen/arm: add pci-domain for disabled devices
-Thread-Topic: [PATCH v6 2/7] xen/arm: add pci-domain for disabled devices
-Thread-Index: 
- AQHX0g8QVTbfP59mVU+LM2unTUGOtawGkRQAgADLYgCAAPUEgIAAofWAgAbUDQCAAA7WAIAADxaAgADd7ICAAKBPgIAACwWA
-Date: Tue, 23 Nov 2021 16:44:32 +0000
-Message-ID: <bfd5d305-b315-2f6d-455d-dd3ba071d0b2@epam.com>
-References: <20211105063326.939843-1-andr2000@gmail.com>
- <20211105063326.939843-3-andr2000@gmail.com>
- <86cabc8a-cbf2-84d4-4162-7d5591d127c5@xen.org>
- <de155886-d039-4c45-0407-47f38f8cd75d@epam.com>
- <ab95fc39-d1b2-be80-8245-85161a8271e1@xen.org>
- <072848c8-54da-cb73-3b8a-0c35826cc812@epam.com>
- <e66c4189-acdf-c32f-4b50-51c8aaab4efd@xen.org>
- <315b1308-5adc-c4f3-6150-1060dbac5f4f@epam.com>
- <9f8e424d-ad1c-2d32-a470-68b275adf22c@xen.org>
- <0aff1bbb-eaf8-4deb-0808-d7db5f1ba8f5@epam.com>
- <ab73f2e5-11d1-7cb4-89ab-74ef5eb1d32d@xen.org>
-In-Reply-To: <ab73f2e5-11d1-7cb4-89ab-74ef5eb1d32d@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6d202f75-0042-4f04-e354-08d9aea086dc
-x-ms-traffictypediagnostic: AM0PR03MB6068:
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-microsoft-antispam-prvs: 
- <AM0PR03MB60684AFC7B60F2D27D3C7E15E7609@AM0PR03MB6068.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- QKn3eGnCl4OOuuCBvrD1I0xm861HnfPNRCiaL2o5iUzH2g/CoUklb0lTnHuLxjyigpRxI+qLgfJ0ACknf32en2F6/syCqhtX2x+xkrS7ET/c06Z/dSDs+2Bjc/ByGArW+WyOnyKJLs/X5ztvVZcyNrwBFiLmDDarMQshrwodX/jfvnDgEaS6fiyZeyfS7GdFlEXOYvbEos4mNO70r/ZIhebFgjeIkP85Ml4xaCxOyTN+9XFqIoeBaDjsSi/5Tr2Q6ASlayS5aqZNzNTaiGXO1WLSixwf/BGmCQqXPNAJbwUTD1T7/JnEiBiZtdjwyp8BUgHFpEqqFuLhvFkk0hYM6/S0Q7vT584pH26+mZOTE56WKH1S7x9OHBpNFCdQDDnuENkOaEoXsPvogeQUW59HlpymsYFHBiIeSsi4HnFx2PV592ZZ8WCOKGxLhiMTu+6EA7kljF3a3pT0oDQ2p8qEo64hTB4OCcx+WwwGnN9O3oRHyVkPgHnrIpFjo3etsg8SDBqazSeUBgMnjWm5weNpY+W4qPmOTZNSsB+FOfQa0gvnFnqXzGZHEehEUythjSxg5cqeQYgiW3xvOF7cv3L1UaEiZ9/5dBWonvVY6achM0/z7OpUPpdeLxvl+Q9XdqEzFgCOavrema/2IvyuZMsAHtJd55CNpUcjwzFRt+bxzUrdH9Avd4fnTPaSBY3zsSbFwPn5liHvz6Ji4xNE25rcDVshFNDUZI7CpuudNS1QjFgUtStE6T/psmxI3+UKcmMe
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(2616005)(71200400001)(66446008)(110136005)(6486002)(5660300002)(91956017)(83380400001)(2906002)(122000001)(64756008)(66556008)(66476007)(66946007)(31686004)(107886003)(6512007)(6506007)(38100700002)(31696002)(86362001)(316002)(186003)(53546011)(8936002)(8676002)(38070700005)(508600001)(36756003)(4326008)(76116006)(54906003)(26005)(7416002)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?QXhZN0FsZ2dHTWZ0anVUalMxZDJHaU9SMkR0QXFzSnI0Q0ZHdThYU2dpNGV3?=
- =?utf-8?B?UnVjV3NzM3JiSWtnQW5HdUZDVUp1YVdTTWY5S2xsb0hkaXZQYW9zZ3NzR2tT?=
- =?utf-8?B?RmVHVW5kNTFHTmJzWTRMaDdTTG04enNLM2tOL2xKRnE1T1NnV3RWQlM5TjRL?=
- =?utf-8?B?OTdBY3h6dmg3cXlCdnVQU0ZQQ0s4VDRCMzd3Q1BVcThlaVB5ZHZTeFRiRC9h?=
- =?utf-8?B?QzQ5SUQyaW9JL3JHYThxZlBRZXJ2YmJSVW5HRDllaTR0MzlYV0lRQ0tJUzkw?=
- =?utf-8?B?RnpRa0tVYWxoeXNSSUFkMkJiNUhDOGhZWExEUG5BV0FsdnB4ZkdwS1IrcjdN?=
- =?utf-8?B?QkF2di94Q3R2ZFIxR1VFMzZkUGpuWEQvRWVLbEM3NHZoM1FRU3hwMm9Cbnlm?=
- =?utf-8?B?dWtndEhaY2ljdEZBbE02NjU4U0hwSjFnNFN0bWtKTVNpV1BadTFCRC92UlQy?=
- =?utf-8?B?b0tCakw2dmF5V0xiNnl5cmx2T3BheFViVUhac0svVjY5Rmp3YzY5LzNoOHhj?=
- =?utf-8?B?QnFKaUdZYk5uNmhTbmJaSXQ4OG91RVNwZFp1R21kV0pkUmlBV3NtU0R6R2tL?=
- =?utf-8?B?V2J5bVdwcmwvcVFjckE3YnIvMWtUTVY2WC9wMW9GcEVyM0hhNzV2d0x0Nml4?=
- =?utf-8?B?bHVkVW5YVmpUNXVnM0dDRVZCV2pnSjJWMjBjRmgzcC9JanQxZU8rdmFPUEdG?=
- =?utf-8?B?d3Z6NkJLWm9qQWd0QXRLWkFCQm9HK0llQksvTVZUcmwyZUorSm0zQTNGQjN1?=
- =?utf-8?B?OXZOQmRjdGpNT0dMeHhNUFpVenRucjl2M3VVRGZrR1c4NHAwSmxKUEJFUkJy?=
- =?utf-8?B?ak8wN2dwV2xKNEYrWU53eGhQSWhqbzFJTkNReHkwbTB2eTA4T21xNUxLRjZ1?=
- =?utf-8?B?Wnc4YjVzTS9wNU00RUNkTnJIVVpsYzlBcW5wRWdkQVRqcTJuUndmRWp2RnVI?=
- =?utf-8?B?cDNtSkRYZ1FyR2lpOG1JaU1TcjN5WUFGZndBVitDZTV0NkZZVUM5aU50Zk9U?=
- =?utf-8?B?Z0JORTVoUEhVaitQbEdGajZ3WVh4N2VkK1VSTlZXd1FqMXI1cWM4NkxZSURP?=
- =?utf-8?B?MFNuWDcvRU12VmhpRHFybzlBVUxEZXF5ODU0bkZpYkFMMW82aGVzV3UrNU5l?=
- =?utf-8?B?WkpOOVNYMCsvSmJGRnhMaFl2L3RHZ25pYVAyd2syT3c2T2hnN1p5SWpacm4v?=
- =?utf-8?B?THNqSWtXcklySGdmNFdZellCV1pnU2wwV1loeVJZU00xTzlpam1IWllBM3Fj?=
- =?utf-8?B?TlAyb0RIQkpuVU82UkNzWHRqOUhaVThHYjVKenNrMGZpQ1pGWEtTNFE3ZE4v?=
- =?utf-8?B?cXMxenJQYTNkZHpRYjZyMitvMUV0WmkwbEVRSDhObFI5aWhPYi9SbzFOb3VB?=
- =?utf-8?B?QmlDNjNhSVdZUklxam11R3pYQzd5RWdtVVVxNG9zVlJHTUppckJaMUlYRTRu?=
- =?utf-8?B?Qk44NkhXUjZ3eEZuQklkWTJXRzlYeWsyYUpaMWFPZmZad05MWjdMSWxxK1NC?=
- =?utf-8?B?eCtnN3hVckJEb0JQOW5SSjBTVXlLWWNFcUIwb29rcUJXRWhodDhhSjVHNVhL?=
- =?utf-8?B?eWxreHVkMDF3elJadkE1dzRLZ2U5SVZjRm9RWE45ZEQvSGtWREdlZDlLY1gr?=
- =?utf-8?B?akhqWWZINS94eUd4dytxeGE4M3ljUk1QcFg5enRRajR0SlBkMGoyamFaZXdt?=
- =?utf-8?B?cWlRaGs2eWNSeVFEQ2pJNnFlL2NKMGJWQy90a2JRTUZ2V0UzdVl1Q0RSM0Fj?=
- =?utf-8?B?M1AwLytma2c5bnlCamMyQzlrSVRjWHBGZGN2ckdhR0h2VWF3N1BPOFlQSU53?=
- =?utf-8?B?NzlsR2lkd1BvNDJCTDhtQTIxQ1R2NC9oNHlHcGpOcGE3U2NleHVMMjladS9r?=
- =?utf-8?B?aHZaVm5qa1RFbjExaGZXRUR6bFV0cU1UNnd3d2dXTTQ5K3J0Zk9mdWZ1TDAz?=
- =?utf-8?B?MXRGc2JvM3AyeHlRS1NyTU9EWkh6SWRQRnJTeWh1bjN1OUF4THR3VU9hN0tu?=
- =?utf-8?B?TzVGcGJBV3BiN0ZYVHdBWERFbllKenJMUGRRVnh2TnAzdzNWcVhqT29jamI3?=
- =?utf-8?B?UXFFcGdzanlqRlUvcStXc05NZzdjLytWRUkyVmRLbk9zVFNPTFJuK1J4a3pJ?=
- =?utf-8?B?SGVPNTJhbUk1SE0rbUV2N2EzMC9SV2QvWEFKZVY0OTdBdWxnVjMvU1VhMmU0?=
- =?utf-8?B?Rk5jckhBYllzS2dOMUJ1QVZqN1cxL3BEOG1tSFI1bktRTUkvanJoejgwdTIy?=
- =?utf-8?B?YlJHaEZTT0VKUmFzd0VxemVlWWZpSWFvTjltN2owbkFZNFBqdzhGemkyeGVD?=
- =?utf-8?B?T0kzbjZWZ1NHM3FUMHRtYXMwSmpCNWlOUWh0TG42STQ2eTA2bHVmdz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <2CDC51D6F28D374587380E699ED8727E@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: e7833a3b-4c7c-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=YYCG1Aq+fhWF5Zatko4LyF8TxGDWbc6pgSnyKGakjLA=;
+        b=Pecn0LQk7pLV7vEF34B7fFT6PLTAZ5wI9cWkyC298OB9kO1VBv86+Vd6/fl2tQA6D4
+         6iPsRg0T8dXadXh4nNwJc1oP8NNqokfjWidAz4bYxXLMbzHR6l1wsKhk5h+lBrbQT88s
+         qdSdyAXQ0f1zY5xf7PiL0Dr8ZkXca0nuhneSpSimB1VwJRRgNy5iQrbVuKU130AAnntp
+         NJb+2wCra7CzrjOnrLNOHXm8ImYHG/pggJinNCHJd05egAIH02RGp6f3Ue1fytGoFXDk
+         lG+7b7jArUf+Xo8NdiXUHNuEO+QAynDywnc6xJ5XkPupWmjdY1Ojqm0m5AtoVYzAtN3I
+         y9Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=YYCG1Aq+fhWF5Zatko4LyF8TxGDWbc6pgSnyKGakjLA=;
+        b=hqCjU5GquID+K1gMeiKKtLEU6neu0t+VvZzUSD4UPudRYYZugfY/YaI6SxNVYP+qu7
+         SrdWtZq/Y31ec38Bg/u6KqXB0ThTvuwUx9Ee3hltrokCfQCILzlkiNssTO/rYbtBI/xs
+         YpWNtfxAOK/dR/mYBi2vqHSI8S3uGUFiGZ8bz8WR/bWWCxQP97bw3JnP4FI7WNGoXS/7
+         6pg6OKzg8xHSGXJiprFm9f43HUYDRZ50prNR29SBWbkM7kO+XiNAuxQ7Woe/08fZ2qeJ
+         0DdmHdsu2+oEm3CK2QbBat6FSfRhOYSygBESaBhLi7xn6Z08iDw9i+K2Ar4CPtmm4ij/
+         ygSA==
+X-Gm-Message-State: AOAM532k08YprdWSiCQoPxAtqkVa1/5BRF91Ko3BMrXqVcz9MKJVcb/Q
+	anIAGSfDDk4GUVc6ej9Z+SI=
+X-Google-Smtp-Source: ABdhPJwhvoz71Em4f53Zj7Q2z4DsefzjOEwnXn0XnWroOh34skVwNpgmuxj1i3vLFZv+zA6S659Tnw==
+X-Received: by 2002:a05:6402:350a:: with SMTP id b10mr11635529edd.184.1637685988089;
+        Tue, 23 Nov 2021 08:46:28 -0800 (PST)
+Subject: Re: [PATCH V2 3/4] xen/unpopulated-alloc: Add mechanism to use Xen
+ resource
+To: Stefano Stabellini <sstabellini@kernel.org>, jgross@suse.com
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Julien Grall <julien@xen.org>
+References: <1635264312-3796-1-git-send-email-olekstysh@gmail.com>
+ <1635264312-3796-4-git-send-email-olekstysh@gmail.com>
+ <alpine.DEB.2.21.2110280920110.20134@sstabellini-ThinkPad-T480s>
+ <1d122e60-df9c-2ac6-8148-f6a836b9e51d@gmail.com>
+ <alpine.DEB.2.22.394.2111181642340.1412361@ubuntu-linux-20-04-desktop>
+ <f1f1025b-911d-3d27-f408-9c042bc4fca4@gmail.com>
+ <alpine.DEB.2.22.394.2111191809100.1412361@ubuntu-linux-20-04-desktop>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <76163855-c5eb-05db-2f39-3c6bfee46345@gmail.com>
+Date: Tue, 23 Nov 2021 18:46:26 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d202f75-0042-4f04-e354-08d9aea086dc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Nov 2021 16:44:32.8307
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: P/qqzNInQUFJwspZsfDM0ApiTIwIrhmH+EZBTzTmhu1YgKll23ot8au+MZlGDBSTj4OHVD3nBelbFsmcjSj2KkpWUT7Cpub/zDVGxg0/sJhqbLiHjZjXVKWMKF46k36r
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB6068
-X-Proofpoint-ORIG-GUID: FGdKwCUtuSgDqhb-N7TMULlAUaBAFOH8
-X-Proofpoint-GUID: FGdKwCUtuSgDqhb-N7TMULlAUaBAFOH8
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-23_06,2021-11-23_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
- phishscore=0 clxscore=1015 bulkscore=0 mlxlogscore=679 lowpriorityscore=0
- malwarescore=0 suspectscore=0 adultscore=0 impostorscore=0 spamscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2110150000 definitions=main-2111230085
+In-Reply-To: <alpine.DEB.2.22.394.2111191809100.1412361@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
-SGksIEp1bGllbiENCg0KT24gMjMuMTEuMjEgMTg6MDUsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4g
-SGkgT2xla3NhbmRyLA0KPg0KPiBPbiAyMy8xMS8yMDIxIDA2OjMxLCBPbGVrc2FuZHIgQW5kcnVz
-aGNoZW5rbyB3cm90ZToNCj4+DQo+Pg0KPj4gT24gMjIuMTEuMjEgMTk6MTcsIEp1bGllbiBHcmFs
-bCB3cm90ZToNCj4+PiBIaSwNCj4+Pg0KPj4+IE9uIDIyLzExLzIwMjEgMTY6MjMsIE9sZWtzYW5k
-ciBBbmRydXNoY2hlbmtvIHdyb3RlOg0KPj4+PiBPbiAyMi4xMS4yMSAxNzoyOSwgSnVsaWVuIEdy
-YWxsIHdyb3RlOg0KPj4+Pj4gSSB3b3VsZCBwcmVmZXIgdG8gZ28gd2l0aCBteSB3YXkuIFRoaXMg
-Y2FuIGJlIHJlZmluZWQgaW4gdGhlIGZ1dHVyZSBpZiB3ZSBmaW5kIERldmljZS1UcmVlIHRoYXQg
-bWF0Y2hlcyB3aGF0IHlvdSB3cm90ZS4NCj4+Pj4gT2ssIHNvIGp1c3QgdG8gbWFrZSBpdCBjbGVh
-cjoNCj4+Pj4gwqDCoCA+YSBQQ0kgZGV2aWNlIHdvdWxkIGFsd2F5cyBiZSBkZXNjcmliZWQgYXMg
-YSBjaGlsZCBvZiB0aGUgaG9zdGJyaWRnZXMuIFNvIEkgd291bGQgcmV3b3JrIHRoZSAnaWYnIHRv
-IGFsc28gY2hlY2sgaWYgdGhlwqBwYXJlbnTCoHR5cGXCoGlzwqBub3TCoCJwY2kiDQo+Pj4NCj4+
-PiBUaGF0J3MgY29ycmVjdC4gVGhhbmsgeW91IQ0KPj4gT2ssIHNvIGhvdyBhYm91dA0KPj4gwqAg
-wqDCoMKgIGlmICggaXNfcGNpX3Bhc3N0aHJvdWdoX2VuYWJsZWQoKSAmJiBkdF9kZXZpY2VfdHlw
-ZV9pc19lcXVhbChub2RlLCAicGNpIikgKQ0KPj4gwqAgwqDCoMKgIHsNCj4+IMKgIMKgwqDCoMKg
-wqDCoMKgIGJvb2wgc2tpcCA9IGZhbHNlOw0KPj4NCj4+IMKgIMKgwqDCoMKgwqDCoMKgIC8qDQo+
-PiDCoCDCoMKgwqDCoMKgwqDCoMKgICogSWYgdGhlIHBhcmVudCBpcyBhbHNvIGEgInBjaSIgZGV2
-aWNlLCB0aGVuICJsaW51eCxwY2ktZG9tYWluIg0KPj4gwqAgwqDCoMKgwqDCoMKgwqDCoCAqIHNo
-b3VsZCBhbHJlYWR5IGJlIHRoZXJlLCBzbyBub3RoaW5nIHRvIGRvIHRoZW4uDQo+PiDCoCDCoMKg
-wqDCoMKgwqDCoMKgICovDQo+DQo+IFRoaXMgY29tbWVudCBpcyBhIGJpdCBjb25mdXNpbmcuDQpE
-byB5b3UgaGF2ZSBzb21ldGhpbmcgb24geW91ciBtaW5kPw0KPiBJIHRoaW5rIHdoYXQgbWF0dGVy
-IGlmIHRoZSBwYXJlbnQgaXMgYSAicGNpIiBkZXZpY2UsIHRoZW4gdGhlIGN1cnJlbnQgbm9kZSBt
-dXN0IG5vdCBiZSBhIGhvc3RicmlkZ2UuIFNvIHdlIGNhbiBza2lwIGl0Lg0KQnkgc2tpcHBpbmcg
-eW91IG9ubHkgbWVhbiB3ZSBkbyBub3QgbmVlZCB0byBhZGQvYXNzaWduICJsaW51eCxwY2ktZG9t
-YWluIiwgcmlnaHQ/DQo+IEhvd2V2ZXIuLi4NCj4NCj4+IMKgIMKgwqDCoMKgwqDCoMKgIGlmICgg
-bm9kZS0+cGFyZW50ICYmIGR0X2RldmljZV90eXBlX2lzX2VxdWFsKG5vZGUtPnBhcmVudCwgInBj
-aSIpICkNCj4+IMKgIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc2tpcCA9IHRydWU7DQo+Pg0KPj4g
-wqAgwqDCoMKgwqDCoMKgwqAgaWYgKCAhc2tpcCAmJiAhZHRfZmluZF9wcm9wZXJ0eShub2RlLCAi
-bGludXgscGNpLWRvbWFpbiIsIE5VTEwpICkNCj4+IMKgIMKgwqDCoMKgwqDCoMKgIHsNCj4+IEkg
-cGxheWVkIHdpdGggYSBzaW5nbGUgaWYgYW5kIGl0IGxvb2tzIHNjYXJ5Li4uDQo+DQo+IC4uLiBo
-b3cgYWJvdXQgaW50cm9kdWNpbmcgYW4gaGVscGVyIHRoYXQgd2lsbCByZXR1cm4gdHJ1ZSBpZiB0
-aGlzIG5vZGUgaXMgbGlrZWx5IGFuIGhvc3RicmlkZ2U/DQpUaGlzIGlzIHlldCBhIHNpbmdsZSB1
-c2Ugb2Ygc3VjaCBhIGNoZWNrOiB3aHkgd291bGQgd2UgbmVlZCBhIGhlbHBlciBhbmQgd2hhdCB3
-b3VsZCB0aGF0DQpoZWxwZXIgZG8/DQo+DQo+IENoZWVycywNCj4NClRoYW5rIHlvdSwNCk9sZWtz
-YW5kcg==
+
+On 20.11.21 04:19, Stefano Stabellini wrote:
+
+Hi Stefano, Juergen, all
+
+
+> Juergen please see the bottom of the email
+>
+> On Fri, 19 Nov 2021, Oleksandr wrote:
+>> On 19.11.21 02:59, Stefano Stabellini wrote:
+>>> On Tue, 9 Nov 2021, Oleksandr wrote:
+>>>> On 28.10.21 19:37, Stefano Stabellini wrote:
+>>>>
+>>>> Hi Stefano
+>>>>
+>>>> I am sorry for the late response.
+>>>>
+>>>>> On Tue, 26 Oct 2021, Oleksandr Tyshchenko wrote:
+>>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>>
+>>>>>> The main reason of this change is that unpopulated-alloc
+>>>>>> code cannot be used in its current form on Arm, but there
+>>>>>> is a desire to reuse it to avoid wasting real RAM pages
+>>>>>> for the grant/foreign mappings.
+>>>>>>
+>>>>>> The problem is that system "iomem_resource" is used for
+>>>>>> the address space allocation, but the really unallocated
+>>>>>> space can't be figured out precisely by the domain on Arm
+>>>>>> without hypervisor involvement. For example, not all device
+>>>>>> I/O regions are known by the time domain starts creating
+>>>>>> grant/foreign mappings. And following the advise from
+>>>>>> "iomem_resource" we might end up reusing these regions by
+>>>>>> a mistake. So, the hypervisor which maintains the P2M for
+>>>>>> the domain is in the best position to provide unused regions
+>>>>>> of guest physical address space which could be safely used
+>>>>>> to create grant/foreign mappings.
+>>>>>>
+>>>>>> Introduce new helper arch_xen_unpopulated_init() which purpose
+>>>>>> is to create specific Xen resource based on the memory regions
+>>>>>> provided by the hypervisor to be used as unused space for Xen
+>>>>>> scratch pages.
+>>>>>>
+>>>>>> If arch doesn't implement arch_xen_unpopulated_init() to
+>>>>>> initialize Xen resource the default "iomem_resource" will be used.
+>>>>>> So the behavior on x86 won't be changed.
+>>>>>>
+>>>>>> Also fall back to allocate xenballooned pages (steal real RAM
+>>>>>> pages) if we do not have any suitable resource to work with and
+>>>>>> as the result we won't be able to provide unpopulated pages.
+>>>>>>
+>>>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>>>>> ---
+>>>>>> Changes RFC -> V2:
+>>>>>>       - new patch, instead of
+>>>>>>        "[RFC PATCH 2/2] xen/unpopulated-alloc: Query hypervisor to
+>>>>>> provide
+>>>>>> unallocated space"
+>>>>>> ---
+>>>>>>     drivers/xen/unpopulated-alloc.c | 89
+>>>>>> +++++++++++++++++++++++++++++++++++++++--
+>>>>>>     include/xen/xen.h               |  2 +
+>>>>>>     2 files changed, 88 insertions(+), 3 deletions(-)
+>>>>>>
+>>>>>> diff --git a/drivers/xen/unpopulated-alloc.c
+>>>>>> b/drivers/xen/unpopulated-alloc.c
+>>>>>> index a03dc5b..1f1d8d8 100644
+>>>>>> --- a/drivers/xen/unpopulated-alloc.c
+>>>>>> +++ b/drivers/xen/unpopulated-alloc.c
+>>>>>> @@ -8,6 +8,7 @@
+>>>>>>       #include <asm/page.h>
+>>>>>>     +#include <xen/balloon.h>
+>>>>>>     #include <xen/page.h>
+>>>>>>     #include <xen/xen.h>
+>>>>>>     @@ -15,13 +16,29 @@ static DEFINE_MUTEX(list_lock);
+>>>>>>     static struct page *page_list;
+>>>>>>     static unsigned int list_count;
+>>>>>>     +static struct resource *target_resource;
+>>>>>> +static struct resource xen_resource = {
+>>>>>> +	.name = "Xen unused space",
+>>>>>> +};
+>>>>>> +
+>>>>>> +/*
+>>>>>> + * If arch is not happy with system "iomem_resource" being used for
+>>>>>> + * the region allocation it can provide it's own view by initializing
+>>>>>> + * "xen_resource" with unused regions of guest physical address space
+>>>>>> + * provided by the hypervisor.
+>>>>>> + */
+>>>>>> +int __weak arch_xen_unpopulated_init(struct resource *res)
+>>>>>> +{
+>>>>>> +	return -ENOSYS;
+>>>>>> +}
+>>>>>> +
+>>>>>>     static int fill_list(unsigned int nr_pages)
+>>>>>>     {
+>>>>>>     	struct dev_pagemap *pgmap;
+>>>>>> -	struct resource *res;
+>>>>>> +	struct resource *res, *tmp_res = NULL;
+>>>>>>     	void *vaddr;
+>>>>>>     	unsigned int i, alloc_pages = round_up(nr_pages,
+>>>>>> PAGES_PER_SECTION);
+>>>>>> -	int ret = -ENOMEM;
+>>>>>> +	int ret;
+>>>>>>       	res = kzalloc(sizeof(*res), GFP_KERNEL);
+>>>>>>     	if (!res)
+>>>>>> @@ -30,7 +47,7 @@ static int fill_list(unsigned int nr_pages)
+>>>>>>     	res->name = "Xen scratch";
+>>>>>>     	res->flags = IORESOURCE_MEM | IORESOURCE_BUSY;
+>>>>>>     -	ret = allocate_resource(&iomem_resource, res,
+>>>>>> +	ret = allocate_resource(target_resource, res,
+>>>>>>     				alloc_pages * PAGE_SIZE, 0, -1,
+>>>>>>     				PAGES_PER_SECTION * PAGE_SIZE, NULL,
+>>>>>> NULL);
+>>>>>>     	if (ret < 0) {
+>>>>>> @@ -38,6 +55,31 @@ static int fill_list(unsigned int nr_pages)
+>>>>>>     		goto err_resource;
+>>>>>>     	}
+>>>>>>     +	/*
+>>>>>> +	 * Reserve the region previously allocated from Xen resource
+>>>>>> to avoid
+>>>>>> +	 * re-using it by someone else.
+>>>>>> +	 */
+>>>>>> +	if (target_resource != &iomem_resource) {
+>>>>>> +		tmp_res = kzalloc(sizeof(*tmp_res), GFP_KERNEL);
+>>>>>> +		if (!res) {
+>>>>>> +			ret = -ENOMEM;
+>>>>>> +			goto err_insert;
+>>>>>> +		}
+>>>>>> +
+>>>>>> +		tmp_res->name = res->name;
+>>>>>> +		tmp_res->start = res->start;
+>>>>>> +		tmp_res->end = res->end;
+>>>>>> +		tmp_res->flags = res->flags;
+>>>>>> +
+>>>>>> +		ret = insert_resource(&iomem_resource, tmp_res);
+>>>>>> +		if (ret < 0) {
+>>>>>> +			pr_err("Cannot insert IOMEM resource [%llx -
+>>>>>> %llx]\n",
+>>>>>> +			       tmp_res->start, tmp_res->end);
+>>>>>> +			kfree(tmp_res);
+>>>>>> +			goto err_insert;
+>>>>>> +		}
+>>>>>> +	}
+>>>>> I am a bit confused.. why do we need to do this? Who could be
+>>>>> erroneously re-using the region? Are you saying that the next time
+>>>>> allocate_resource is called it could find the same region again? It
+>>>>> doesn't seem possible?
+>>>> No, as I understand the allocate_resource() being called for the same root
+>>>> resource won't provide the same region... We only need to do this (insert
+>>>> the
+>>>> region into "iomem_resource") if we allocated it from our *internal*
+>>>> "xen_resource", as *global* "iomem_resource" (which is used everywhere) is
+>>>> not
+>>>> aware of that region has been already allocated. So inserting a region
+>>>> here we
+>>>> reserving it, otherwise it could be reused elsewhere.
+>>> But elsewhere where?
+>> I think, theoretically everywhere where allocate_resource(&iomem_resource,
+>> ...) is called.
+>>
+>>
+>>> Let's say that allocate_resource allocates a range from xen_resource.
+>>>   From reading the code, it doesn't look like iomem_resource would have
+>>> that range because the extended regions described under /hypervisor are
+>>> not added automatically to iomem_resource.
+>>>
+>>> So what if we don't call insert_resource? Nothing could allocate the
+>>> same range because iomem_resource doesn't have it at all and
+>>> xen_resource is not used anywhere if not here.
+>>>
+>>> What am I missing?
+>>
+>> Below my understanding which, of course, might be wrong.
+>>
+>> If we don't claim resource by calling insert_resource (or even
+>> request_resource) here then the same range could be allocated everywhere where
+>> allocate_resource(&iomem_resource, ...) is called.
+>> I don't see what prevents the same range from being allocated. Why actually
+>> allocate_resource(&iomem_resource, ...) can't provide the same range if it is
+>> free (not-reserved-yet) from it's PoV? The comment above allocate_resource()
+>> says "allocate empty slot in the resource tree given range & alignment". So
+>> this "empty slot" could be exactly the same range.
+>>
+>> I experimented with that a bit trying to call
+>> allocate_resource(&iomem_resource, ...) several times in another place to see
+>> what ranges it returns in both cases (w/ and w/o calling insert_resource
+>> here). So an experiment confirmed (of course, if I made it correctly) that the
+>> same range could be allocated if we didn't call insert_resource() here. And as
+>> I understand there is nothing strange here, as iomem_resource covers all
+>> address space initially (0, -1) and everything *not* inserted/requested (in
+>> other words, reserved) yet is considered as free and could be provided if fits
+>> constraints. Or I really missed something?
+> Thanks for the explanation! It was me that didn't know that
+> iomem_resource covers all the address space initially. I thought it was
+> populated only with actual iomem ranges. Now it makes sense, thanks!
+>
+>
+>> It feels to me that it would be better to call request_resource() instead of
+>> insert_resource(). It seems, that if no conflict happens both functions will
+>> behave in same way, but in case of conflict if the conflicting resource
+>> entirely fit the new resource the former will return an error. I think, this
+>> way we will be able to detect that a range we are trying to reserve is already
+>> present and bail out early.
+>>
+>>
+>>> Or maybe it is the other way around: core Linux code assumes everything
+>>> is described in iomem_resource so something under kernel/ or mm/ would
+>>> crash if we start using a page pointing to an address missing from
+>>> iomem_resource?
+>>>      
+>>>>>>     	pgmap = kzalloc(sizeof(*pgmap), GFP_KERNEL);
+>>>>>>     	if (!pgmap) {
+>>>>>>     		ret = -ENOMEM;
+>>>>>> @@ -95,12 +137,40 @@ static int fill_list(unsigned int nr_pages)
+>>>>>>     err_memremap:
+>>>>>>     	kfree(pgmap);
+>>>>>>     err_pgmap:
+>>>>>> +	if (tmp_res) {
+>>>>>> +		release_resource(tmp_res);
+>>>>>> +		kfree(tmp_res);
+>>>>>> +	}
+>>>>>> +err_insert:
+>>>>>>     	release_resource(res);
+>>>>>>     err_resource:
+>>>>>>     	kfree(res);
+>>>>>>     	return ret;
+>>>>>>     }
+>>>>>>     +static void unpopulated_init(void)
+>>>>>> +{
+>>>>>> +	static bool inited = false;
+>>>>> initialized = false
+>>>> ok.
+>>>>
+>>>>
+>>>>>> +	int ret;
+>>>>>> +
+>>>>>> +	if (inited)
+>>>>>> +		return;
+>>>>>> +
+>>>>>> +	/*
+>>>>>> +	 * Try to initialize Xen resource the first and fall back to
+>>>>>> default
+>>>>>> +	 * resource if arch doesn't offer one.
+>>>>>> +	 */
+>>>>>> +	ret = arch_xen_unpopulated_init(&xen_resource);
+>>>>>> +	if (!ret)
+>>>>>> +		target_resource = &xen_resource;
+>>>>>> +	else if (ret == -ENOSYS)
+>>>>>> +		target_resource = &iomem_resource;
+>>>>>> +	else
+>>>>>> +		pr_err("Cannot initialize Xen resource\n");
+>>>>>> +
+>>>>>> +	inited = true;
+>>>>>> +}
+>>>>> Would it make sense to call unpopulated_init from an init function,
+>>>>> rather than every time xen_alloc_unpopulated_pages is called?
+>>>> Good point, thank you. Will do. To be honest, I also don't like the
+>>>> current
+>>>> approach much.
+>>>>
+>>>>
+>>>>>>     /**
+>>>>>>      * xen_alloc_unpopulated_pages - alloc unpopulated pages
+>>>>>>      * @nr_pages: Number of pages
+>>>>>> @@ -112,6 +182,16 @@ int xen_alloc_unpopulated_pages(unsigned int
+>>>>>> nr_pages, struct page **pages)
+>>>>>>     	unsigned int i;
+>>>>>>     	int ret = 0;
+>>>>>>     +	unpopulated_init();
+>>>>>> +
+>>>>>> +	/*
+>>>>>> +	 * Fall back to default behavior if we do not have any
+>>>>>> suitable
+>>>>>> resource
+>>>>>> +	 * to allocate required region from and as the result we won't
+>>>>>> be able
+>>>>>> to
+>>>>>> +	 * construct pages.
+>>>>>> +	 */
+>>>>>> +	if (!target_resource)
+>>>>>> +		return alloc_xenballooned_pages(nr_pages, pages);
+>>>>> The commit message says that the behavior on x86 doesn't change but this
+>>>>> seems to be a change that could impact x86?
+>>>> I don't think, however I didn't tested on x86 and might be wrong, but
+>>>> according to the current patch, on x86 the "target_resource" is always
+>>>> valid
+>>>> and points to the "iomem_resource" as arch_xen_unpopulated_init() is not
+>>>> implemented. So there won't be any fallback to use
+>>>> alloc_(free)_xenballooned_pages() here and fill_list() will behave as
+>>>> usual.
+>>>    If target_resource is always valid, then we don't need this special
+>>> check. In fact, the condition should never be true.
+>>
+>> The target_resource is always valid and points to the "iomem_resource" on x86
+>> (this is equivalent to the behavior before this patch).
+>> On Arm target_resource might be NULL if arch_xen_unpopulated_init() failed,
+>> for example, if no extended regions reported by the hypervisor.
+>> We cannot use "iomem_resource" on Arm, only a resource constructed from
+>> extended regions. This is why I added that check (and fallback to xenballooned
+>> pages).
+>> What I was thinking is that in case of using old Xen (although we would need
+>> to balloon out RAM pages) we still would be able to keep working, so no need
+>> to disable CONFIG_XEN_UNPOPULATED_ALLOC on such setups.
+>>   
+>>     
+>>>> You raised a really good question, on Arm we need a fallback to balloon
+>>>> out
+>>>> RAM pages again if hypervisor doesn't provide extended regions (we run on
+>>>> old
+>>>> version, no unused regions with reasonable size, etc), so I decided to put
+>>>> a
+>>>> fallback code here, an indicator of the failure is invalid
+>>>> "target_resource".
+>>> I think it is unnecessary as we already assume today that
+>>> &iomem_resource is always available.
+>>>> I noticed the patch which is about to be upstreamed that removes
+>>>> alloc_(free)xenballooned_pages API [1]. Right now I have no idea how/where
+>>>> this fallback could be implemented as this is under build option control
+>>>> (CONFIG_XEN_UNPOPULATED_ALLOC). So the API with the same name is either
+>>>> used
+>>>> for unpopulated pages (if set) or ballooned pages (if not set). I would
+>>>> appreciate suggestions regarding that. I am wondering would it be possible
+>>>> and
+>>>> correctly to have both mechanisms (unpopulated and ballooned) enabled by
+>>>> default and some init code to decide which one to use at runtime or some
+>>>> sort?
+>>> I would keep it simple and remove the fallback from this patch. So:
+>>>
+>>> - if not CONFIG_XEN_UNPOPULATED_ALLOC, then balloon
+>>> - if CONFIG_XEN_UNPOPULATED_ALLOC, then
+>>>       - xen_resource if present
+>>>       - otherwise iomem_resource
+>> Unfortunately, we cannot use iomem_resource on Arm safely, either xen_resource
+>> or fail (if no fallback exists).
+>>
+>>
+>>> The xen_resource/iomem_resource config can be done at init time using
+>>> target_resource. At runtime, target_resource is always != NULL so we
+>>> just go ahead and use it.
+>>
+>> Thank you for the suggestion. OK, let's keep it simple and drop fallback
+>> attempts for now. With one remark:
+>> We will make CONFIG_XEN_UNPOPULATED_ALLOC disabled by default on Arm in next
+>> patch. So by default everything will behave as usual on Arm (balloon out RAM
+>> pages),
+>> if user knows for sure that Xen reports extended regions, he/she can enable
+>> the config. This way we won't break anything. What do you think?
+> Actually after reading your replies and explanation I changed opinion: I
+> think we do need the fallback because Linux cannot really assume that
+> it is running on "new Xen" so it definitely needs to keep working if
+> CONFIG_XEN_UNPOPULATED_ALLOC is enabled and the extended regions are not
+> advertised.
+>
+> I think we'll have to roll back some of the changes introduced by
+> 121f2faca2c0a. That's because even if CONFIG_XEN_UNPOPULATED_ALLOC is
+> enabled we cannot know if we can use unpopulated-alloc or whether we
+> have to use alloc_xenballooned_pages until we parse the /hypervisor node
+> in device tree at runtime.
+
+Exactly!
+
+
+>
+> In short, we cannot switch between unpopulated-alloc and
+> alloc_xenballooned_pages at build time, we have to do it at runtime
+> (boot time).
+
++1
+
+
+I created a patch to partially revert 121f2faca2c0a "xen/balloon: rename 
+alloc/free_xenballooned_pages".
+
+If there is no objections I will add it to V3 (which is almost ready, 
+except the fallback bits). Could you please tell me what do you think?
+
+
+ From dc79bcd425358596d95e715a8bd8b81deaaeb703 Mon Sep 17 00:00:00 2001
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Date: Tue, 23 Nov 2021 18:14:41 +0200
+Subject: [PATCH] xen/balloon: Bring alloc(free)_xenballooned_pages helpers
+  back
+
+This patch rolls back some of the changes introduced by commit
+121f2faca2c0a "xen/balloon: rename alloc/free_xenballooned_pages"
+in order to make possible to still allocate xenballooned pages
+if CONFIG_XEN_UNPOPULATED_ALLOC is enabled.
+
+On Arm the unpopulated pages will be allocated on top of extended
+regions provided by Xen via device-tree (the subsequent patches
+will add required bits to support unpopulated-alloc feature on Arm).
+The problem is that extended regions feature has been introduced
+into Xen quite recently (during 4.16 release cycle). So this
+effectively means that Linux must only use unpopulated-alloc on Arm
+if it is running on "new Xen" which advertises these regions.
+But, it will only be known after parsing the "hypervisor" node
+at boot time, so before doing that we cannot assume anything.
+
+In order to keep working if CONFIG_XEN_UNPOPULATED_ALLOC is enabled
+and the extended regions are not advertised (Linux is running on
+"old Xen", etc) we need the fallback to alloc_xenballooned_pages().
+
+This way we wouldn't reduce the amount of memory usable (wasting
+RAM pages) for any of the external mappings anymore (and eliminate
+XSA-300) with "new Xen", but would be still functional ballooning
+out RAM pages with "old Xen".
+
+Also rename alloc(free)_xenballooned_pages to 
+xen_alloc(free)_ballooned_pages.
+
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+  drivers/xen/balloon.c | 20 +++++++++-----------
+  include/xen/balloon.h |  3 +++
+  include/xen/xen.h     |  6 ++++++
+  3 files changed, 18 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
+index ba2ea11..a2c4fc49 100644
+--- a/drivers/xen/balloon.c
++++ b/drivers/xen/balloon.c
+@@ -581,7 +581,6 @@ void balloon_set_new_target(unsigned long target)
+  }
+  EXPORT_SYMBOL_GPL(balloon_set_new_target);
+
+-#ifndef CONFIG_XEN_UNPOPULATED_ALLOC
+  static int add_ballooned_pages(unsigned int nr_pages)
+  {
+      enum bp_state st;
+@@ -610,12 +609,12 @@ static int add_ballooned_pages(unsigned int nr_pages)
+  }
+
+  /**
+- * xen_alloc_unpopulated_pages - get pages that have been ballooned out
++ * xen_alloc_ballooned_pages - get pages that have been ballooned out
+   * @nr_pages: Number of pages to get
+   * @pages: pages returned
+   * @return 0 on success, error otherwise
+   */
+-int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages)
++int xen_alloc_ballooned_pages(unsigned int nr_pages, struct page **pages)
+  {
+      unsigned int pgno = 0;
+      struct page *page;
+@@ -652,23 +651,23 @@ int xen_alloc_unpopulated_pages(unsigned int 
+nr_pages, struct page **pages)
+      return 0;
+   out_undo:
+      mutex_unlock(&balloon_mutex);
+-    xen_free_unpopulated_pages(pgno, pages);
++    xen_free_ballooned_pages(pgno, pages);
+      /*
+-     * NB: free_xenballooned_pages will only subtract pgno pages, but since
++     * NB: xen_free_ballooned_pages will only subtract pgno pages, but 
+since
+       * target_unpopulated is incremented with nr_pages at the start we 
+need
+       * to remove the remaining ones also, or accounting will be screwed.
+       */
+      balloon_stats.target_unpopulated -= nr_pages - pgno;
+      return ret;
+  }
+-EXPORT_SYMBOL(xen_alloc_unpopulated_pages);
++EXPORT_SYMBOL(xen_alloc_ballooned_pages);
+
+  /**
+- * xen_free_unpopulated_pages - return pages retrieved with 
+get_ballooned_pages
++ * xen_free_ballooned_pages - return pages retrieved with 
+get_ballooned_pages
+   * @nr_pages: Number of pages
+   * @pages: pages to return
+   */
+-void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages)
++void xen_free_ballooned_pages(unsigned int nr_pages, struct page **pages)
+  {
+      unsigned int i;
+
+@@ -687,9 +686,9 @@ void xen_free_unpopulated_pages(unsigned int 
+nr_pages, struct page **pages)
+
+      mutex_unlock(&balloon_mutex);
+  }
+-EXPORT_SYMBOL(xen_free_unpopulated_pages);
++EXPORT_SYMBOL(xen_free_ballooned_pages);
+
+-#if defined(CONFIG_XEN_PV)
++#if defined(CONFIG_XEN_PV) && !defined(CONFIG_XEN_UNPOPULATED_ALLOC)
+  static void __init balloon_add_region(unsigned long start_pfn,
+                        unsigned long pages)
+  {
+@@ -712,7 +711,6 @@ static void __init balloon_add_region(unsigned long 
+start_pfn,
+      balloon_stats.total_pages += extra_pfn_end - start_pfn;
+  }
+  #endif
+-#endif
+
+  static int __init balloon_init(void)
+  {
+diff --git a/include/xen/balloon.h b/include/xen/balloon.h
+index e93d4f0..f78a6cc 100644
+--- a/include/xen/balloon.h
++++ b/include/xen/balloon.h
+@@ -26,6 +26,9 @@ extern struct balloon_stats balloon_stats;
+
+  void balloon_set_new_target(unsigned long target);
+
++int xen_alloc_ballooned_pages(unsigned int nr_pages, struct page **pages);
++void xen_free_ballooned_pages(unsigned int nr_pages, struct page **pages);
++
+  #ifdef CONFIG_XEN_BALLOON
+  void xen_balloon_init(void);
+  #else
+diff --git a/include/xen/xen.h b/include/xen/xen.h
+index 9f031b5..410e3e4 100644
+--- a/include/xen/xen.h
++++ b/include/xen/xen.h
+@@ -52,7 +52,13 @@ bool xen_biovec_phys_mergeable(const struct bio_vec 
+*vec1,
+  extern u64 xen_saved_max_mem_size;
+  #endif
+
++#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
+  int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page 
+**pages);
+  void xen_free_unpopulated_pages(unsigned int nr_pages, struct page 
+**pages);
++#else
++#define xen_alloc_unpopulated_pages xen_alloc_ballooned_pages
++#define xen_free_unpopulated_pages xen_free_ballooned_pages
++#include <xen/balloon.h>
++#endif
+
+  #endif    /* _XEN_XEN_H */
+-- 
+2.7.4
+
+
+
+>
+> Juergen, what do you think?
+
+
+-- 
+Regards,
+
+Oleksandr Tyshchenko
+
 
