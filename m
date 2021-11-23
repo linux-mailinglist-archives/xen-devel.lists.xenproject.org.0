@@ -2,58 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46D3445AE6B
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Nov 2021 22:22:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.229949.397558 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AAFA45AE70
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Nov 2021 22:25:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.229954.397568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpdFA-0007Vc-HO; Tue, 23 Nov 2021 21:22:24 +0000
+	id 1mpdHw-0008BH-2W; Tue, 23 Nov 2021 21:25:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 229949.397558; Tue, 23 Nov 2021 21:22:24 +0000
+Received: by outflank-mailman (output) from mailman id 229954.397568; Tue, 23 Nov 2021 21:25:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpdFA-0007TO-E6; Tue, 23 Nov 2021 21:22:24 +0000
-Received: by outflank-mailman (input) for mailman id 229949;
- Tue, 23 Nov 2021 21:22:23 +0000
+	id 1mpdHv-00088s-VX; Tue, 23 Nov 2021 21:25:15 +0000
+Received: by outflank-mailman (input) for mailman id 229954;
+ Tue, 23 Nov 2021 21:25:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=umBG=QK=oracle.com=dongli.zhang@srs-se1.protection.inumbo.net>)
- id 1mpdF8-0007TI-VX
- for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 21:22:23 +0000
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7125fb73-4ca3-11ec-9787-a32c541c8605;
- Tue, 23 Nov 2021 22:22:21 +0100 (CET)
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1ANL0W5g026068; 
- Tue, 23 Nov 2021 21:21:56 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by mx0b-00069f02.pphosted.com with ESMTP id 3cg461m44m-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 23 Nov 2021 21:21:56 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1ANLAnRO133215;
- Tue, 23 Nov 2021 21:21:55 GMT
-Received: from nam11-co1-obe.outbound.protection.outlook.com
- (mail-co1nam11lp2168.outbound.protection.outlook.com [104.47.56.168])
- by aserp3030.oracle.com with ESMTP id 3ceq2ex0a2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 23 Nov 2021 21:21:55 +0000
-Received: from BYAPR10MB2663.namprd10.prod.outlook.com (2603:10b6:a02:a9::20)
- by BY5PR10MB3809.namprd10.prod.outlook.com (2603:10b6:a03:1fe::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Tue, 23 Nov
- 2021 21:21:53 +0000
-Received: from BYAPR10MB2663.namprd10.prod.outlook.com
- ([fe80::2848:63dc:b87:8021]) by BYAPR10MB2663.namprd10.prod.outlook.com
- ([fe80::2848:63dc:b87:8021%7]) with mapi id 15.20.4713.026; Tue, 23 Nov 2021
- 21:21:53 +0000
-Received: from [IPv6:2606:b400:400:7444:8000::2e3] (2606:b400:8301:1010::16aa)
- by SN6PR05CA0017.namprd05.prod.outlook.com (2603:10b6:805:de::30) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.11 via Frontend
- Transport; Tue, 23 Nov 2021 21:21:50 +0000
+ <SRS0=T9bO=QK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1mpdHv-00088m-76
+ for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 21:25:15 +0000
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d749b550-4ca3-11ec-9787-a32c541c8605;
+ Tue, 23 Nov 2021 22:25:13 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DCB2E60E0B;
+ Tue, 23 Nov 2021 21:25:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -65,209 +38,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7125fb73-4ca3-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
- references : from : message-id : date : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=LIceq5WzRvgQqKjbc37h3tDgHMOgW/UzY9hH6JfbNj8=;
- b=G4HW0jxPI4vix5nLyHinDleI2TV6r4ll7S9i+TYGeUHh3Z8AEno2mXn9DBrC08IuaFo+
- yG77N3FJ3smnNyB2Qg7+t4WRy5KkaHdLxxqJwehuCInqKFgi7yhfpf83zH9DMob1nBcP
- Pp5UcD0mKbHPQomoij+rlh2BPakMqJsNyo/I1VxV2APrx2jjhhj5mcOT3FFOo/f6CMyk
- a3biwTAlSiGYuB3oUZhm+iL8R7cSpF5T3xrntS8ODt1rmJKl5ucEY4DIX07E1DrViB4Z
- 5HwHewIjg3a7ekIiiErXCegavNLWFSL2rNmct59CXujXkazeSA7jQzqCEazBSKDbg3so Mw== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dWucHVsh6poSNmHpgUcklKYiMWZvvP13HJatw7Vsip1/iwX29QMXqc+vbBZ4gg4FxRz5B6U+izg2VDXJpKffRDIVQsirfvYJLZnKID4uRzL+HN8ZRaQoO3yKUs/8g7nujjzCCDDxZXaEFJ5aREqzlV+OnX9/WsteBPW5FypgONL1uCPR1zbbM3eTKaVy2ALjVMMp/6ephAQSaWkPo+DQqi4CHGdRxxLMuvef2N4PIPg78gvIr0bLcJNqri6LSOLWZ40oI6L3P+gEySYgPPtDGPfZXDHh0Fvnb+PIRcosV9egZrWgJIGFUuIuttG5kZUKYZmrBRQxCaO8grL9baDKRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LIceq5WzRvgQqKjbc37h3tDgHMOgW/UzY9hH6JfbNj8=;
- b=C0iMsMZUHgu1FWFZ5iGlmud43aRu8NNV4Lw6UGG3MPZnq9jtuaUTRa7Go0Af/FaKMdA8C/u7rQMadzQ+I+OOr0kSsie5vd9pBlwPoKJ2J7bu6p6D6XLhn7SVI6tkU4gHdQqufhYkLnI3JqnKQb8NQ5mccjny3UeYqSMNM2KCr98FyJ/rfahk9vlmkrz0nzYtlchAGssC3sX0pFK9t5zRv9OV2yRQzojM2Cx7wia6btgZYUK7x80n0Hp5pPxW3LiwrHzuJgaJmyYzAjjVUJ1Z0UAZx6eX5T3D5R7oXnv2LjznSNMqYViGoXaW43WIIxyHN6D8TtbdPwJg8Ri8LZ298w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LIceq5WzRvgQqKjbc37h3tDgHMOgW/UzY9hH6JfbNj8=;
- b=wJnxShs1IGEQSugjDgblY8uzvlnORVlzzSGGo37oh03DlAR5M/tI8AfemNOwXYpCi6Q6Pi2UdgfM+3LHCyXDhb9VrKWCpmsdziAbuLq5iPjmtxrdESJQwflhY86fhuKKFzb9VDT6N9PiAe7YhkVhW65HMliF9bEtQckYIgrt+3w=
-Subject: Re: [PATCH] cpu/hotplug: Allow the CPU in CPU_UP_PREPARE state to be
- brought up again.
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        "Longpeng (Mike, Cloud Infrastructure Service Product Dept.)"
- <longpeng2@huawei.com>
-Cc: linux-kernel@vger.kernel.org, "Gonglei (Arei)" <arei.gonglei@huawei.com>,
-        x86@kernel.org, xen-devel@lists.xenproject.org,
-        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
-        Valentin Schneider <valentin.schneider@arm.com>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Juergen Gross
- <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>,
-        "H. Peter Anvin" <hpa@zytor.com>
-References: <20211122154714.xaoxok3fpk5bgznz@linutronix.de>
-From: Dongli Zhang <dongli.zhang@oracle.com>
-Message-ID: <d5f43af4-f91f-ef9f-9c33-8d349f59b23c@oracle.com>
-Date: Tue, 23 Nov 2021 13:21:48 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-In-Reply-To: <20211122154714.xaoxok3fpk5bgznz@linutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN6PR05CA0017.namprd05.prod.outlook.com
- (2603:10b6:805:de::30) To BYAPR10MB2663.namprd10.prod.outlook.com
- (2603:10b6:a02:a9::20)
+X-Inumbo-ID: d749b550-4ca3-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1637702711;
+	bh=qbvAP9FEgnrCIjTIXsp/tmPWIt0MQ0Xlnn794203bys=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=cPd4cv7SryyQd8LTmLauUibsHQ5D8afBo8uXkhfOYPOgrgvySkD774taLKN48DNXe
+	 W6e3jzyS3F9HP3Vwr4fcVrY+vdkotS6q6XGdp4IFbEvFfWMi8+I+E0f5i3iTo6Et9D
+	 RNAyk6dVRDQxVUd/oV0muVrutlyRiPRzbbgRRdD0pnVObQCHOiI9AyfxMTW+QU+dUd
+	 VUBhKB5aEbpY6IZQIb8PhmUQ1tnRFhNCpiXdqc0Wm/rRPc/YMwxcFkCv3xBpOLg7L0
+	 8E17AtMBB1mBB+tETB8KrjOBM+wsXDbC9yE0z7P67gZsGcQXIVyELSakyuVNlln3jw
+	 wLDADqvF058zQ==
+Date: Tue, 23 Nov 2021 13:25:09 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksandr <olekstysh@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, jgross@suse.com, 
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Julien Grall <julien@xen.org>
+Subject: Re: [PATCH V2 3/4] xen/unpopulated-alloc: Add mechanism to use Xen
+ resource
+In-Reply-To: <76163855-c5eb-05db-2f39-3c6bfee46345@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2111231312310.1412361@ubuntu-linux-20-04-desktop>
+References: <1635264312-3796-1-git-send-email-olekstysh@gmail.com> <1635264312-3796-4-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.21.2110280920110.20134@sstabellini-ThinkPad-T480s> <1d122e60-df9c-2ac6-8148-f6a836b9e51d@gmail.com>
+ <alpine.DEB.2.22.394.2111181642340.1412361@ubuntu-linux-20-04-desktop> <f1f1025b-911d-3d27-f408-9c042bc4fca4@gmail.com> <alpine.DEB.2.22.394.2111191809100.1412361@ubuntu-linux-20-04-desktop> <76163855-c5eb-05db-2f39-3c6bfee46345@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c5bc3b28-98b1-49dc-b262-08d9aec744ae
-X-MS-TrafficTypeDiagnostic: BY5PR10MB3809:
-X-Microsoft-Antispam-PRVS: 
-	<BY5PR10MB380905605FB57164501AF3AAF0609@BY5PR10MB3809.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	yRsZy3xww3ZNXANble0tNzG6NMM3BzyYTcJDr/qwFUMIs47MRKf1nwDX+53d31lCEXsJCm69Oh9hSybP/5RBM+Ml0BoB9Pcg5DAPDM6J9KL85SZLtFXiqJGLzsPFz6Vv8J/ATQnTGjSFFilJywl7yJqbgzPmVctKjdRnHUhYJgl9hH3N7BlV5OBxMR7I6de9HSoxLAGZgvW4VMk2orOGpIbzAhB+09hisuROhIPJhqI0O4Vb0rFn6mQOg3gLsOmWU0goYQ5IyfJey8Q5LY8B9g1ut8UHuZNCuMqtXsM9CKrfCvRvML59ySqdHmh/hNS7kW1vQn401/FAFjovOv7vYaHgYUhOS4Fw/HsLQCFPRStiBT47ybatnEoL79SMKemT4b6uEuuK0nY9RbbOskhaQqcfIPaTfF78FDWn4E7Md5n/NiPNtQV2f4Xkh4KvICQngulrzHFQjCnbRFwGteu/H6RMTQGmPMohHEKlskJLHBbp5DOJpuZ3/aHHfoA/E1zlZN5hgBs029Fy+BxekY0YuScczikY2RgjuDCNicKG8StPCnCAH//YMtgzFWASmx1l5cWImvujFgw2p2CGYPLAKtWfqcLsNAqw8O7UhlHB71Knb3zF7refWZUSrOxUfPGfTzR6vQlDrYJIUoZAoihJ0AnS3C0lERhvh4/3HZIJGzlIcPfZgOn8LArKqLSCk6cl7zAh76sMgXelgiKvKIZxtzsN1CLVOFzn7Jo2t7PEx9zw6EUCO0kunEfvxTugyD1mvNynMJqroMyWh4Os7tgkG3hFv3iIj+ZscR2cOS8zXFLP2o/8HxLW7IBgYsoNYWBXMkUyLCJPnV5WyoudPTJJLQ==
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB2663.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2906002)(31696002)(6486002)(4326008)(186003)(66946007)(83380400001)(316002)(66556008)(31686004)(38100700002)(8936002)(966005)(110136005)(36756003)(66476007)(44832011)(8676002)(86362001)(7416002)(53546011)(508600001)(54906003)(2616005)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?Vk1RU3BESklSS3lGZkk0SlRuWUhEc2RxdG1Hb3puanIzSzg2QnBXeUEzcnc5?=
- =?utf-8?B?M0FPYTZqejJyS08raTBhVDA2c240Q0VJSzAxNUtIaWtBdTFBbUJraGx3aFhx?=
- =?utf-8?B?TnlzVDEza2dmQUNab0ZuYWJxRDBDaXZXTFJkT2JJMzhwSDN6MzYwTEthRmZL?=
- =?utf-8?B?dDJUb293L2RzUlhzRFNzRWRGcVpJY0Z6Z3RpTFhOSVYwWUI4ZWF3VzFEZkN4?=
- =?utf-8?B?aThBTjE5cGFrODB1STNjaWVENGwyWktpZG5BbjF3ckJRY1R6ZS90L0ttY01K?=
- =?utf-8?B?VTNPWnVOZktFQzZ2OFVhMkxlK1RrWS9VWElYdmxuZXpNOWI1N08zODExTUxv?=
- =?utf-8?B?RnFtVncwcEtXekhCbXZNYUhkb1FuZVhKZEdRK20wTWZPeDN1OHZKZThJNjAr?=
- =?utf-8?B?TVVSTjNJOU05QXlIZFd4eVJMbkl3ekVVUGhtVDN0SUpvZmJtcEFXcTdRb0hi?=
- =?utf-8?B?YXoyTWlIMWJLRnZuQU9Sd2VhZlBsVmdvcmsrU2J6UjRiRkRyalRnZlFCZTk1?=
- =?utf-8?B?L0hoeUh6bnE0UHNWWUF4LzNiZDNoOUpKRjF5NHgzQlU0R0NYVHRzQ1pTd1lI?=
- =?utf-8?B?T3JhdWZRbmU5MzdETUZDcTBNUWI1eHJoTGdmYWhkZXBBSHVhcE02TFRqNU9N?=
- =?utf-8?B?Z2lSZzVkMDNGME01b0dTSU9WQnNUV05tN1gvWGZxc3dweFB3MTBnZTdWWU5E?=
- =?utf-8?B?bFBNTmJZdk1BcXRmUEtteVBHWUhIR0NqNHBlQ1pUT0RFd0N4K3ByWXlvRzcw?=
- =?utf-8?B?TEc1WFhNYTdRR2RXMGpwcW56RTVKZzMzU3U0cTZPL3VhbkdDbFhMMW5ZR052?=
- =?utf-8?B?MHpEV1BXcy9CNUZrcDFqenQ1TWZ4N2gyR2hRR3JEbnV1NVRsQWtIS3gwT01N?=
- =?utf-8?B?ckRWNnNjY2xPUzJnWXVtdHMrZ3pKcTZGaVJGTldqNUlaYllwYm9xdmFDNGpt?=
- =?utf-8?B?UHpDYWdDM1VvRWJWcGRRS1ZTWW5pclRpWGhiY2hWYjR3WHYwSlRIY3ZUQkZy?=
- =?utf-8?B?aVA2Rk9MM0pVSUpheVNLV3dFQVZORktBMWdWbXppZ01aT1k2WmoyeGl6eHUz?=
- =?utf-8?B?OVQvNW1LYzdHdjVuWGFNRXlFWDFIVXZGbDlLbFlKR3laQ01IYkZ3SFVrVGgz?=
- =?utf-8?B?a3lsS3hBOVk5ZlNGaVlzN296bXY2SndrRmovZkNRN21ZNFNVVHpGbnpJcWE2?=
- =?utf-8?B?RDVDVjN5bTBORGxVQVF5d3c4TGNqQ2wzT2tVb0F2YzdKdlhaMnRmODBQR1Jl?=
- =?utf-8?B?UFVXS2ZBMG83MGtwbE9yUDltTTB2QkNnUHhFWjM4QVZvN3phSGRLaGhpTisx?=
- =?utf-8?B?eDNoMTdHWXY3YWpQbTl0NEdrb1NlYThPajViWkJSR0p2S0c1WitYVFF2ckhp?=
- =?utf-8?B?OUlDNEtoUXRaS3h3QVNuZ3J4VTBYVm5BMGhkbTgwTkVlMm95YVl5MnhvbDJP?=
- =?utf-8?B?M1dYV2JpZStBY2pEM2Z5dHh3Ym5ubGJaSnhVZHJpeVY4aXBVQXVkcVRwYkdv?=
- =?utf-8?B?OHU4dWlua094QXR0RXdmYVJibWVQRG9JMUZydGdrelFlUGFqSjk2anExMXRj?=
- =?utf-8?B?ZW5TOGlGdlNnREVEbUZ3T0dvU2hQOXZmdytucFJxN1NpUnpqYW1MK0RHSHd5?=
- =?utf-8?B?ZnZHYUZUWFFwZFFCR1kyM0xEZGRLa2ZmVytaeUpxenhIMzhMcCtoUFdoZWxM?=
- =?utf-8?B?STZpb1ZhS1hvNlh3RDc5V0lvMXN0V0o1eEtkOUxwSEtDN1lHRjFzNGp4bFM5?=
- =?utf-8?B?RG5GU2JrcjRiTW9JQTFCdGhZR2pKcGM0Qm5oOFRGRlh0dHo3NmJLUXBXMDVw?=
- =?utf-8?B?Qkc5YXJNa05yOXIrbGpUa2kyT1JIQ3llTkw1VHVQTkVpN2krWGdxWUc4cFJ3?=
- =?utf-8?B?cmltT0JtbW9FUkdWYXNEa01FT2s4Y2JKQW0zOFM2YWNHUjkyejJJaUNJZ3oy?=
- =?utf-8?B?bkZFL0pId1BLQ1YzSkM5eHVvZkJIQ1pNcWRYKzZRSytNOXB3ajBxaGZkQVNq?=
- =?utf-8?B?VGd6VXJ1U1RoUlJrTWxDRWp2TEpmY1lOQUlZWk5pUFhKMk5nNVNtQk5udDcv?=
- =?utf-8?B?YnM0TlB6RUVPZ2ZOaE54RXZvL251WkN0dVVYR21acVp6Q3hGNmtqSUx1SytX?=
- =?utf-8?B?eE1jcDNIZ1o5M09CeXV3ZXdoUDJKYU96OGgrdm1FUy9ScE9vR1d2UHpRY3pK?=
- =?utf-8?B?UFNoeGJLc3hoODdFMGZMOFUzMTdndUJkbWZyclFxTlU2dFV4Z2ZneFM5a3Az?=
- =?utf-8?B?d2dHZGd2UklCcGJZU2FnUmx0VUZnPT0=?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5bc3b28-98b1-49dc-b262-08d9aec744ae
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB2663.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2021 21:21:52.9576
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CKw89JwUu6u3pGylkQF1WjRRY5DQErLoI4RhG8zYH+wmUKXpMfr92CxJvufLHm2/yh4WPRDAf5ay0/AdTjNpZQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR10MB3809
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10177 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0 adultscore=0 spamscore=0
- bulkscore=0 suspectscore=0 mlxscore=0 mlxlogscore=999 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
- definitions=main-2111230103
-X-Proofpoint-GUID: sp0GUbpNiPEKC7yCNsMBV4Jbs65_oaRY
-X-Proofpoint-ORIG-GUID: sp0GUbpNiPEKC7yCNsMBV4Jbs65_oaRY
+Content-Type: multipart/mixed; BOUNDARY="8323329-1418725751-1637702267=:1412361"
+Content-ID: <alpine.DEB.2.22.394.2111231325040.1412361@ubuntu-linux-20-04-desktop>
 
-Tested-by: Dongli Zhang <dongli.zhang@oracle.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
+--8323329-1418725751-1637702267=:1412361
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2111231325041.1412361@ubuntu-linux-20-04-desktop>
 
-The bug fixed by commit 53fafdbb8b21 ("KVM: x86: switch KVMCLOCK base to
-monotonic raw clock") may leave the cpu_hotplug_state at CPU_UP_PREPARE. As a
-result, to online this CPU again (even after removal) is always failed.
-
-I have tested that this patch works well to workaround the issue, by introducing
-either a mdeley(11000) or while(1); to start_secondary(). That is, to online the
-same CPU again is successful even after initial do_boot_cpu() failure.
-
-1. add mdelay(11000) or while(1); to the start_secondary().
-
-2. to online CPU is failed at do_boot_cpu().
-
-3. to online CPU again is failed without this patch.
-
-# echo 1 > /sys/devices/system/cpu/cpu4/online
--su: echo: write error: Input/output error
-
-4. to online CPU again is successful with this patch.
-
-Thank you very much!
-
-Dongli Zhang
-
-On 11/22/21 7:47 AM, Sebastian Andrzej Siewior wrote:
-> From: "Longpeng(Mike)" <longpeng2@huawei.com>
+On Tue, 23 Nov 2021, Oleksandr wrote:
+> > Actually after reading your replies and explanation I changed opinion: I
+> > think we do need the fallback because Linux cannot really assume that
+> > it is running on "new Xen" so it definitely needs to keep working if
+> > CONFIG_XEN_UNPOPULATED_ALLOC is enabled and the extended regions are not
+> > advertised.
+> > 
+> > I think we'll have to roll back some of the changes introduced by
+> > 121f2faca2c0a. That's because even if CONFIG_XEN_UNPOPULATED_ALLOC is
+> > enabled we cannot know if we can use unpopulated-alloc or whether we
+> > have to use alloc_xenballooned_pages until we parse the /hypervisor node
+> > in device tree at runtime.
 > 
-> A CPU will not show up in virtualized environment which includes an
-> Enclave. The VM splits its resources into a primary VM and a Enclave
-> VM. While the Enclave is active, the hypervisor will ignore all requests
-> to bring up a CPU and this CPU will remain in CPU_UP_PREPARE state.
-> The kernel will wait up to ten seconds for CPU to show up
-> (do_boot_cpu()) and then rollback the hotplug state back to
-> CPUHP_OFFLINE leaving the CPU state in CPU_UP_PREPARE. The CPU state is
-> set back to CPUHP_TEARDOWN_CPU during the CPU_POST_DEAD stage.
+> Exactly!
 > 
-> After the Enclave VM terminates, the primary VM can bring up the CPU
-> again.
 > 
-> Allow to bring up the CPU if it is in the CPU_UP_PREPARE state.
+> > 
+> > In short, we cannot switch between unpopulated-alloc and
+> > alloc_xenballooned_pages at build time, we have to do it at runtime
+> > (boot time).
 > 
-> [bigeasy: Rewrite commit description.]
+> +1
 > 
-> Signed-off-by: Longpeng(Mike) <longpeng2@huawei.com>
-> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> Link: https://urldefense.com/v3/__https://lore.kernel.org/r/20210901051143.2752-1-longpeng2@huawei.com__;!!ACWV5N9M2RV99hQ!d4sCCXMQV7ekFwpd21vo1_9K-m5h4VZ-gE8Z62PLL58DT4VJ6StH57TR_KpBdbwhBE0$ 
+> 
+> I created a patch to partially revert 121f2faca2c0a "xen/balloon: rename
+> alloc/free_xenballooned_pages".
+> 
+> If there is no objections I will add it to V3 (which is almost ready, except
+> the fallback bits). Could you please tell me what do you think?
+ 
+It makes sense to me. You can add my Reviewed-by.
+
+ 
+> From dc79bcd425358596d95e715a8bd8b81deaaeb703 Mon Sep 17 00:00:00 2001
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Date: Tue, 23 Nov 2021 18:14:41 +0200
+> Subject: [PATCH] xen/balloon: Bring alloc(free)_xenballooned_pages helpers
+>  back
+> 
+> This patch rolls back some of the changes introduced by commit
+> 121f2faca2c0a "xen/balloon: rename alloc/free_xenballooned_pages"
+> in order to make possible to still allocate xenballooned pages
+> if CONFIG_XEN_UNPOPULATED_ALLOC is enabled.
+> 
+> On Arm the unpopulated pages will be allocated on top of extended
+> regions provided by Xen via device-tree (the subsequent patches
+> will add required bits to support unpopulated-alloc feature on Arm).
+> The problem is that extended regions feature has been introduced
+> into Xen quite recently (during 4.16 release cycle). So this
+> effectively means that Linux must only use unpopulated-alloc on Arm
+> if it is running on "new Xen" which advertises these regions.
+> But, it will only be known after parsing the "hypervisor" node
+> at boot time, so before doing that we cannot assume anything.
+> 
+> In order to keep working if CONFIG_XEN_UNPOPULATED_ALLOC is enabled
+> and the extended regions are not advertised (Linux is running on
+> "old Xen", etc) we need the fallback to alloc_xenballooned_pages().
+> 
+> This way we wouldn't reduce the amount of memory usable (wasting
+> RAM pages) for any of the external mappings anymore (and eliminate
+> XSA-300) with "new Xen", but would be still functional ballooning
+> out RAM pages with "old Xen".
+> 
+> Also rename alloc(free)_xenballooned_pages to xen_alloc(free)_ballooned_pages.
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > ---
+>  drivers/xen/balloon.c | 20 +++++++++-----------
+>  include/xen/balloon.h |  3 +++
+>  include/xen/xen.h     |  6 ++++++
+>  3 files changed, 18 insertions(+), 11 deletions(-)
 > 
-> For XEN: this changes the behaviour as it allows to invoke
-> cpu_initialize_context() again should it have have earlier. I *think*
-> this is okay and would to bring up the CPU again should the memory
-> allocation in cpu_initialize_context() fail.
+> diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
+> index ba2ea11..a2c4fc49 100644
+> --- a/drivers/xen/balloon.c
+> +++ b/drivers/xen/balloon.c
+> @@ -581,7 +581,6 @@ void balloon_set_new_target(unsigned long target)
+>  }
+>  EXPORT_SYMBOL_GPL(balloon_set_new_target);
 > 
->  kernel/smpboot.c | 7 +++++++
->  1 file changed, 7 insertions(+)
+> -#ifndef CONFIG_XEN_UNPOPULATED_ALLOC
+>  static int add_ballooned_pages(unsigned int nr_pages)
+>  {
+>      enum bp_state st;
+> @@ -610,12 +609,12 @@ static int add_ballooned_pages(unsigned int nr_pages)
+>  }
 > 
-> diff --git a/kernel/smpboot.c b/kernel/smpboot.c
-> index f6bc0bc8a2aab..34958d7fe2c1c 100644
-> --- a/kernel/smpboot.c
-> +++ b/kernel/smpboot.c
-> @@ -392,6 +392,13 @@ int cpu_check_up_prepare(int cpu)
->  		 */
->  		return -EAGAIN;
->  
-> +	case CPU_UP_PREPARE:
-> +		/*
-> +		 * Timeout while waiting for the CPU to show up. Allow to try
-> +		 * again later.
-> +		 */
-> +		return 0;
+>  /**
+> - * xen_alloc_unpopulated_pages - get pages that have been ballooned out
+> + * xen_alloc_ballooned_pages - get pages that have been ballooned out
+>   * @nr_pages: Number of pages to get
+>   * @pages: pages returned
+>   * @return 0 on success, error otherwise
+>   */
+> -int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages)
+> +int xen_alloc_ballooned_pages(unsigned int nr_pages, struct page **pages)
+>  {
+>      unsigned int pgno = 0;
+>      struct page *page;
+> @@ -652,23 +651,23 @@ int xen_alloc_unpopulated_pages(unsigned int nr_pages,
+> struct page **pages)
+>      return 0;
+>   out_undo:
+>      mutex_unlock(&balloon_mutex);
+> -    xen_free_unpopulated_pages(pgno, pages);
+> +    xen_free_ballooned_pages(pgno, pages);
+>      /*
+> -     * NB: free_xenballooned_pages will only subtract pgno pages, but since
+> +     * NB: xen_free_ballooned_pages will only subtract pgno pages, but since
+>       * target_unpopulated is incremented with nr_pages at the start we need
+>       * to remove the remaining ones also, or accounting will be screwed.
+>       */
+>      balloon_stats.target_unpopulated -= nr_pages - pgno;
+>      return ret;
+>  }
+> -EXPORT_SYMBOL(xen_alloc_unpopulated_pages);
+> +EXPORT_SYMBOL(xen_alloc_ballooned_pages);
+> 
+>  /**
+> - * xen_free_unpopulated_pages - return pages retrieved with
+> get_ballooned_pages
+> + * xen_free_ballooned_pages - return pages retrieved with get_ballooned_pages
+>   * @nr_pages: Number of pages
+>   * @pages: pages to return
+>   */
+> -void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages)
+> +void xen_free_ballooned_pages(unsigned int nr_pages, struct page **pages)
+>  {
+>      unsigned int i;
+> 
+> @@ -687,9 +686,9 @@ void xen_free_unpopulated_pages(unsigned int nr_pages,
+> struct page **pages)
+> 
+>      mutex_unlock(&balloon_mutex);
+>  }
+> -EXPORT_SYMBOL(xen_free_unpopulated_pages);
+> +EXPORT_SYMBOL(xen_free_ballooned_pages);
+> 
+> -#if defined(CONFIG_XEN_PV)
+> +#if defined(CONFIG_XEN_PV) && !defined(CONFIG_XEN_UNPOPULATED_ALLOC)
+>  static void __init balloon_add_region(unsigned long start_pfn,
+>                        unsigned long pages)
+>  {
+> @@ -712,7 +711,6 @@ static void __init balloon_add_region(unsigned long
+> start_pfn,
+>      balloon_stats.total_pages += extra_pfn_end - start_pfn;
+>  }
+>  #endif
+> -#endif
+> 
+>  static int __init balloon_init(void)
+>  {
+> diff --git a/include/xen/balloon.h b/include/xen/balloon.h
+> index e93d4f0..f78a6cc 100644
+> --- a/include/xen/balloon.h
+> +++ b/include/xen/balloon.h
+> @@ -26,6 +26,9 @@ extern struct balloon_stats balloon_stats;
+> 
+>  void balloon_set_new_target(unsigned long target);
+> 
+> +int xen_alloc_ballooned_pages(unsigned int nr_pages, struct page **pages);
+> +void xen_free_ballooned_pages(unsigned int nr_pages, struct page **pages);
 > +
->  	default:
->  
->  		/* Should not happen.  Famous last words. */
+>  #ifdef CONFIG_XEN_BALLOON
+>  void xen_balloon_init(void);
+>  #else
+> diff --git a/include/xen/xen.h b/include/xen/xen.h
+> index 9f031b5..410e3e4 100644
+> --- a/include/xen/xen.h
+> +++ b/include/xen/xen.h
+> @@ -52,7 +52,13 @@ bool xen_biovec_phys_mergeable(const struct bio_vec *vec1,
+>  extern u64 xen_saved_max_mem_size;
+>  #endif
 > 
+> +#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
+>  int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages);
+>  void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages);
+> +#else
+> +#define xen_alloc_unpopulated_pages xen_alloc_ballooned_pages
+> +#define xen_free_unpopulated_pages xen_free_ballooned_pages
+> +#include <xen/balloon.h>
+> +#endif
+> 
+>  #endif    /* _XEN_XEN_H */
+--8323329-1418725751-1637702267=:1412361--
 
