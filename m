@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E900D45A95B
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Nov 2021 17:56:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.229811.397356 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F80045A95C
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Nov 2021 17:56:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.229812.397373 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpZ5w-00076m-OU; Tue, 23 Nov 2021 16:56:36 +0000
+	id 1mpZ5y-0007Ya-2J; Tue, 23 Nov 2021 16:56:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 229811.397356; Tue, 23 Nov 2021 16:56:36 +0000
+Received: by outflank-mailman (output) from mailman id 229812.397373; Tue, 23 Nov 2021 16:56:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpZ5w-00072i-LF; Tue, 23 Nov 2021 16:56:36 +0000
-Received: by outflank-mailman (input) for mailman id 229811;
- Tue, 23 Nov 2021 16:56:35 +0000
+	id 1mpZ5x-0007XI-Tl; Tue, 23 Nov 2021 16:56:37 +0000
+Received: by outflank-mailman (input) for mailman id 229812;
+ Tue, 23 Nov 2021 16:56:36 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mpZ5v-00070m-MU
- for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:56:35 +0000
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mpZ5w-00070t-3J
+ for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:56:36 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mpZ5v-00086x-Lk
- for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:56:35 +0000
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mpZ5w-000871-2U
+ for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:56:36 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mpZ5v-0004Ox-Kw
- for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:56:35 +0000
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mpZ5w-0004PC-1Y
+ for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:56:36 +0000
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by mariner.uk.xensource.com with esmtp (Exim 4.89)
  (envelope-from <ijackson@chiark.greenend.org.uk>)
- id 1mpZ5t-00075W-HH; Tue, 23 Nov 2021 16:56:33 +0000
+ id 1mpZ5t-00075W-PG; Tue, 23 Nov 2021 16:56:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,15 +45,15 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:
 	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=hO0oTc+a7utMhGBX2wvxTXkVwGBGpfZrGujo7r5zEP4=; b=GmECEyMgzpgI8Lgia9eZZdBAyX
-	T+vxJfcu1sqNvutJfbM2XlCLR5OdgswtBmbZk19eOQ/WJ7rXOK5G/3KVrrDv4yA95gJ0ugllVSoDq
-	GNMaeGf71X4L2bcJd6QOOT/xiWgT2/k5UsfngncoHaUqdJHhAk5LB/WEaz1IuI8MxWhQ=;
+	bh=V88mUN3QixRTZN6rj7qJv/LmAVhGuBeU9l0wJu4j/VM=; b=rzHRuIpBGXSvq94BKfB9l9fCvP
+	dEtR8zl1TnpcBGwQUtgR5wEC3CLcJ7iYY8AzohYqeCo2EdeyOK9cvVEiVTpGEIQ+HgnacRiOwcOnv
+	VUhVjgrU8ecCEm7NpnAEx8F/DZmcMsL7xlsRNC2Yu9qXxj79SK8/CtIx9th/UeI6d5dE=;
 From: Ian Jackson <iwj@xenproject.org>
 To: xen-devel@lists.xenproject.org
 Cc: iwj@xenproject.org
-Subject: [PATCH for-4.17 2/3] Set version to 4.17; 4.16 has branched
-Date: Tue, 23 Nov 2021 16:56:24 +0000
-Message-Id: <20211123165625.1023-2-iwj@xenproject.org>
+Subject: [PATCH for-4.17 3/3] Set version to 4.17: rerun autogen.sh
+Date: Tue, 23 Nov 2021 16:56:25 +0000
+Message-Id: <20211123165625.1023-3-iwj@xenproject.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20211123165625.1023-1-iwj@xenproject.org>
 References: <20211123165625.1023-1-iwj@xenproject.org>
@@ -62,43 +62,319 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Ian Jackson <iwj@xenproject.org>
 ---
- README       | 10 +++++-----
- xen/Makefile |  4 ++--
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ configure         | 18 +++++++++---------
+ docs/configure    | 18 +++++++++---------
+ stubdom/configure | 18 +++++++++---------
+ tools/configure   | 18 +++++++++---------
+ 4 files changed, 36 insertions(+), 36 deletions(-)
 
-diff --git a/README b/README
-index a626e56436..562b808080 100644
---- a/README
-+++ b/README
-@@ -1,9 +1,9 @@
- ############################################################
--__  __            _  _    _  __
--\ \/ /___ _ __   | || |  / |/ /_        _ __ ___
-- \  // _ \ '_ \  | || |_ | | '_ \ _____| '__/ __|
-- /  \  __/ | | | |__   _|| | (_) |_____| | | (__
--/_/\_\___|_| |_|    |_|(_)_|\___/      |_|  \___|
-+__  __                                _        _     _
-+\ \/ /___ _ __        _   _ _ __  ___| |_ __ _| |__ | | ___
-+ \  // _ \ '_ \ _____| | | | '_ \/ __| __/ _` | '_ \| |/ _ \
-+ /  \  __/ | | |_____| |_| | | | \__ \ || (_| | |_) | |  __/
-+/_/\_\___|_| |_|      \__,_|_| |_|___/\__\__,_|_.__/|_|\___|
+diff --git a/configure b/configure
+index 62f6c2d47a..502273b263 100755
+--- a/configure
++++ b/configure
+@@ -1,6 +1,6 @@
+ #! /bin/sh
+ # Guess values for system-dependent variables and create Makefiles.
+-# Generated by GNU Autoconf 2.69 for Xen Hypervisor 4.16.
++# Generated by GNU Autoconf 2.69 for Xen Hypervisor 4.17.
+ #
+ # Report bugs to <xen-devel@lists.xen.org>.
+ #
+@@ -579,8 +579,8 @@ MAKEFLAGS=
+ # Identity of this package.
+ PACKAGE_NAME='Xen Hypervisor'
+ PACKAGE_TARNAME='xen'
+-PACKAGE_VERSION='4.16'
+-PACKAGE_STRING='Xen Hypervisor 4.16'
++PACKAGE_VERSION='4.17'
++PACKAGE_STRING='Xen Hypervisor 4.17'
+ PACKAGE_BUGREPORT='xen-devel@lists.xen.org'
+ PACKAGE_URL='https://www.xen.org/'
  
- ############################################################
+@@ -1236,7 +1236,7 @@ if test "$ac_init_help" = "long"; then
+   # Omit some internal or obsolete options to make the list less imposing.
+   # This message is too long to be a string in the A/UX 3.1 sh.
+   cat <<_ACEOF
+-\`configure' configures Xen Hypervisor 4.16 to adapt to many kinds of systems.
++\`configure' configures Xen Hypervisor 4.17 to adapt to many kinds of systems.
  
-diff --git a/xen/Makefile b/xen/Makefile
-index 2fc83f266b..1fd48af7ae 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -1,8 +1,8 @@
- # This is the correct place to edit the build version.
- # All other places this is stored (eg. compile.h) should be autogenerated.
- export XEN_VERSION       = 4
--export XEN_SUBVERSION    = 16
--export XEN_EXTRAVERSION ?= -rc$(XEN_VENDORVERSION)
-+export XEN_SUBVERSION    = 17
-+export XEN_EXTRAVERSION ?= -unstable$(XEN_VENDORVERSION)
- export XEN_FULLVERSION   = $(XEN_VERSION).$(XEN_SUBVERSION)$(XEN_EXTRAVERSION)
- -include xen-version
+ Usage: $0 [OPTION]... [VAR=VALUE]...
+ 
+@@ -1302,7 +1302,7 @@ fi
+ 
+ if test -n "$ac_init_help"; then
+   case $ac_init_help in
+-     short | recursive ) echo "Configuration of Xen Hypervisor 4.16:";;
++     short | recursive ) echo "Configuration of Xen Hypervisor 4.17:";;
+    esac
+   cat <<\_ACEOF
+ 
+@@ -1403,7 +1403,7 @@ fi
+ test -n "$ac_init_help" && exit $ac_status
+ if $ac_init_version; then
+   cat <<\_ACEOF
+-Xen Hypervisor configure 4.16
++Xen Hypervisor configure 4.17
+ generated by GNU Autoconf 2.69
+ 
+ Copyright (C) 2012 Free Software Foundation, Inc.
+@@ -1420,7 +1420,7 @@ cat >config.log <<_ACEOF
+ This file contains any messages produced by compilers while
+ running configure, to aid debugging if configure makes a mistake.
+ 
+-It was created by Xen Hypervisor $as_me 4.16, which was
++It was created by Xen Hypervisor $as_me 4.17, which was
+ generated by GNU Autoconf 2.69.  Invocation command line was
+ 
+   $ $0 $@
+@@ -2868,7 +2868,7 @@ cat >>$CONFIG_STATUS <<\_ACEOF || ac_write_fail=1
+ # report actual input values of CONFIG_FILES etc. instead of their
+ # values after options handling.
+ ac_log="
+-This file was extended by Xen Hypervisor $as_me 4.16, which was
++This file was extended by Xen Hypervisor $as_me 4.17, which was
+ generated by GNU Autoconf 2.69.  Invocation command line was
+ 
+   CONFIG_FILES    = $CONFIG_FILES
+@@ -2922,7 +2922,7 @@ _ACEOF
+ cat >>$CONFIG_STATUS <<_ACEOF || ac_write_fail=1
+ ac_cs_config="`$as_echo "$ac_configure_args" | sed 's/^ //; s/[\\""\`\$]/\\\\&/g'`"
+ ac_cs_version="\\
+-Xen Hypervisor config.status 4.16
++Xen Hypervisor config.status 4.17
+ configured by $0, generated by GNU Autoconf 2.69,
+   with options \\"\$ac_cs_config\\"
+ 
+diff --git a/docs/configure b/docs/configure
+index 569bd4c2ff..f93d086e9a 100755
+--- a/docs/configure
++++ b/docs/configure
+@@ -1,6 +1,6 @@
+ #! /bin/sh
+ # Guess values for system-dependent variables and create Makefiles.
+-# Generated by GNU Autoconf 2.69 for Xen Hypervisor Documentation 4.16.
++# Generated by GNU Autoconf 2.69 for Xen Hypervisor Documentation 4.17.
+ #
+ # Report bugs to <xen-devel@lists.xen.org>.
+ #
+@@ -579,8 +579,8 @@ MAKEFLAGS=
+ # Identity of this package.
+ PACKAGE_NAME='Xen Hypervisor Documentation'
+ PACKAGE_TARNAME='xen'
+-PACKAGE_VERSION='4.16'
+-PACKAGE_STRING='Xen Hypervisor Documentation 4.16'
++PACKAGE_VERSION='4.17'
++PACKAGE_STRING='Xen Hypervisor Documentation 4.17'
+ PACKAGE_BUGREPORT='xen-devel@lists.xen.org'
+ PACKAGE_URL='https://www.xen.org/'
+ 
+@@ -1224,7 +1224,7 @@ if test "$ac_init_help" = "long"; then
+   # Omit some internal or obsolete options to make the list less imposing.
+   # This message is too long to be a string in the A/UX 3.1 sh.
+   cat <<_ACEOF
+-\`configure' configures Xen Hypervisor Documentation 4.16 to adapt to many kinds of systems.
++\`configure' configures Xen Hypervisor Documentation 4.17 to adapt to many kinds of systems.
+ 
+ Usage: $0 [OPTION]... [VAR=VALUE]...
+ 
+@@ -1286,7 +1286,7 @@ fi
+ 
+ if test -n "$ac_init_help"; then
+   case $ac_init_help in
+-     short | recursive ) echo "Configuration of Xen Hypervisor Documentation 4.16:";;
++     short | recursive ) echo "Configuration of Xen Hypervisor Documentation 4.17:";;
+    esac
+   cat <<\_ACEOF
+ 
+@@ -1387,7 +1387,7 @@ fi
+ test -n "$ac_init_help" && exit $ac_status
+ if $ac_init_version; then
+   cat <<\_ACEOF
+-Xen Hypervisor Documentation configure 4.16
++Xen Hypervisor Documentation configure 4.17
+ generated by GNU Autoconf 2.69
+ 
+ Copyright (C) 2012 Free Software Foundation, Inc.
+@@ -1404,7 +1404,7 @@ cat >config.log <<_ACEOF
+ This file contains any messages produced by compilers while
+ running configure, to aid debugging if configure makes a mistake.
+ 
+-It was created by Xen Hypervisor Documentation $as_me 4.16, which was
++It was created by Xen Hypervisor Documentation $as_me 4.17, which was
+ generated by GNU Autoconf 2.69.  Invocation command line was
+ 
+   $ $0 $@
+@@ -2821,7 +2821,7 @@ cat >>$CONFIG_STATUS <<\_ACEOF || ac_write_fail=1
+ # report actual input values of CONFIG_FILES etc. instead of their
+ # values after options handling.
+ ac_log="
+-This file was extended by Xen Hypervisor Documentation $as_me 4.16, which was
++This file was extended by Xen Hypervisor Documentation $as_me 4.17, which was
+ generated by GNU Autoconf 2.69.  Invocation command line was
+ 
+   CONFIG_FILES    = $CONFIG_FILES
+@@ -2875,7 +2875,7 @@ _ACEOF
+ cat >>$CONFIG_STATUS <<_ACEOF || ac_write_fail=1
+ ac_cs_config="`$as_echo "$ac_configure_args" | sed 's/^ //; s/[\\""\`\$]/\\\\&/g'`"
+ ac_cs_version="\\
+-Xen Hypervisor Documentation config.status 4.16
++Xen Hypervisor Documentation config.status 4.17
+ configured by $0, generated by GNU Autoconf 2.69,
+   with options \\"\$ac_cs_config\\"
+ 
+diff --git a/stubdom/configure b/stubdom/configure
+index 07b709f998..5b265b5369 100755
+--- a/stubdom/configure
++++ b/stubdom/configure
+@@ -1,6 +1,6 @@
+ #! /bin/sh
+ # Guess values for system-dependent variables and create Makefiles.
+-# Generated by GNU Autoconf 2.69 for Xen Hypervisor Stub Domains 4.16.
++# Generated by GNU Autoconf 2.69 for Xen Hypervisor Stub Domains 4.17.
+ #
+ # Report bugs to <xen-devel@lists.xen.org>.
+ #
+@@ -579,8 +579,8 @@ MAKEFLAGS=
+ # Identity of this package.
+ PACKAGE_NAME='Xen Hypervisor Stub Domains'
+ PACKAGE_TARNAME='xen'
+-PACKAGE_VERSION='4.16'
+-PACKAGE_STRING='Xen Hypervisor Stub Domains 4.16'
++PACKAGE_VERSION='4.17'
++PACKAGE_STRING='Xen Hypervisor Stub Domains 4.17'
+ PACKAGE_BUGREPORT='xen-devel@lists.xen.org'
+ PACKAGE_URL='https://www.xen.org/'
+ 
+@@ -1265,7 +1265,7 @@ if test "$ac_init_help" = "long"; then
+   # Omit some internal or obsolete options to make the list less imposing.
+   # This message is too long to be a string in the A/UX 3.1 sh.
+   cat <<_ACEOF
+-\`configure' configures Xen Hypervisor Stub Domains 4.16 to adapt to many kinds of systems.
++\`configure' configures Xen Hypervisor Stub Domains 4.17 to adapt to many kinds of systems.
+ 
+ Usage: $0 [OPTION]... [VAR=VALUE]...
+ 
+@@ -1331,7 +1331,7 @@ fi
+ 
+ if test -n "$ac_init_help"; then
+   case $ac_init_help in
+-     short | recursive ) echo "Configuration of Xen Hypervisor Stub Domains 4.16:";;
++     short | recursive ) echo "Configuration of Xen Hypervisor Stub Domains 4.17:";;
+    esac
+   cat <<\_ACEOF
+ 
+@@ -1444,7 +1444,7 @@ fi
+ test -n "$ac_init_help" && exit $ac_status
+ if $ac_init_version; then
+   cat <<\_ACEOF
+-Xen Hypervisor Stub Domains configure 4.16
++Xen Hypervisor Stub Domains configure 4.17
+ generated by GNU Autoconf 2.69
+ 
+ Copyright (C) 2012 Free Software Foundation, Inc.
+@@ -1499,7 +1499,7 @@ cat >config.log <<_ACEOF
+ This file contains any messages produced by compilers while
+ running configure, to aid debugging if configure makes a mistake.
+ 
+-It was created by Xen Hypervisor Stub Domains $as_me 4.16, which was
++It was created by Xen Hypervisor Stub Domains $as_me 4.17, which was
+ generated by GNU Autoconf 2.69.  Invocation command line was
+ 
+   $ $0 $@
+@@ -4283,7 +4283,7 @@ cat >>$CONFIG_STATUS <<\_ACEOF || ac_write_fail=1
+ # report actual input values of CONFIG_FILES etc. instead of their
+ # values after options handling.
+ ac_log="
+-This file was extended by Xen Hypervisor Stub Domains $as_me 4.16, which was
++This file was extended by Xen Hypervisor Stub Domains $as_me 4.17, which was
+ generated by GNU Autoconf 2.69.  Invocation command line was
+ 
+   CONFIG_FILES    = $CONFIG_FILES
+@@ -4337,7 +4337,7 @@ _ACEOF
+ cat >>$CONFIG_STATUS <<_ACEOF || ac_write_fail=1
+ ac_cs_config="`$as_echo "$ac_configure_args" | sed 's/^ //; s/[\\""\`\$]/\\\\&/g'`"
+ ac_cs_version="\\
+-Xen Hypervisor Stub Domains config.status 4.16
++Xen Hypervisor Stub Domains config.status 4.17
+ configured by $0, generated by GNU Autoconf 2.69,
+   with options \\"\$ac_cs_config\\"
+ 
+diff --git a/tools/configure b/tools/configure
+index 40f970b14b..21e3a83795 100755
+--- a/tools/configure
++++ b/tools/configure
+@@ -1,6 +1,6 @@
+ #! /bin/sh
+ # Guess values for system-dependent variables and create Makefiles.
+-# Generated by GNU Autoconf 2.69 for Xen Hypervisor Tools 4.16.
++# Generated by GNU Autoconf 2.69 for Xen Hypervisor Tools 4.17.
+ #
+ # Report bugs to <xen-devel@lists.xen.org>.
+ #
+@@ -580,8 +580,8 @@ MAKEFLAGS=
+ # Identity of this package.
+ PACKAGE_NAME='Xen Hypervisor Tools'
+ PACKAGE_TARNAME='xen'
+-PACKAGE_VERSION='4.16'
+-PACKAGE_STRING='Xen Hypervisor Tools 4.16'
++PACKAGE_VERSION='4.17'
++PACKAGE_STRING='Xen Hypervisor Tools 4.17'
+ PACKAGE_BUGREPORT='xen-devel@lists.xen.org'
+ PACKAGE_URL='https://www.xen.org/'
+ 
+@@ -1415,7 +1415,7 @@ if test "$ac_init_help" = "long"; then
+   # Omit some internal or obsolete options to make the list less imposing.
+   # This message is too long to be a string in the A/UX 3.1 sh.
+   cat <<_ACEOF
+-\`configure' configures Xen Hypervisor Tools 4.16 to adapt to many kinds of systems.
++\`configure' configures Xen Hypervisor Tools 4.17 to adapt to many kinds of systems.
+ 
+ Usage: $0 [OPTION]... [VAR=VALUE]...
+ 
+@@ -1481,7 +1481,7 @@ fi
+ 
+ if test -n "$ac_init_help"; then
+   case $ac_init_help in
+-     short | recursive ) echo "Configuration of Xen Hypervisor Tools 4.16:";;
++     short | recursive ) echo "Configuration of Xen Hypervisor Tools 4.17:";;
+    esac
+   cat <<\_ACEOF
+ 
+@@ -1689,7 +1689,7 @@ fi
+ test -n "$ac_init_help" && exit $ac_status
+ if $ac_init_version; then
+   cat <<\_ACEOF
+-Xen Hypervisor Tools configure 4.16
++Xen Hypervisor Tools configure 4.17
+ generated by GNU Autoconf 2.69
+ 
+ Copyright (C) 2012 Free Software Foundation, Inc.
+@@ -2104,7 +2104,7 @@ cat >config.log <<_ACEOF
+ This file contains any messages produced by compilers while
+ running configure, to aid debugging if configure makes a mistake.
+ 
+-It was created by Xen Hypervisor Tools $as_me 4.16, which was
++It was created by Xen Hypervisor Tools $as_me 4.17, which was
+ generated by GNU Autoconf 2.69.  Invocation command line was
+ 
+   $ $0 $@
+@@ -10685,7 +10685,7 @@ cat >>$CONFIG_STATUS <<\_ACEOF || ac_write_fail=1
+ # report actual input values of CONFIG_FILES etc. instead of their
+ # values after options handling.
+ ac_log="
+-This file was extended by Xen Hypervisor Tools $as_me 4.16, which was
++This file was extended by Xen Hypervisor Tools $as_me 4.17, which was
+ generated by GNU Autoconf 2.69.  Invocation command line was
+ 
+   CONFIG_FILES    = $CONFIG_FILES
+@@ -10748,7 +10748,7 @@ _ACEOF
+ cat >>$CONFIG_STATUS <<_ACEOF || ac_write_fail=1
+ ac_cs_config="`$as_echo "$ac_configure_args" | sed 's/^ //; s/[\\""\`\$]/\\\\&/g'`"
+ ac_cs_version="\\
+-Xen Hypervisor Tools config.status 4.16
++Xen Hypervisor Tools config.status 4.17
+ configured by $0, generated by GNU Autoconf 2.69,
+   with options \\"\$ac_cs_config\\"
  
 -- 
 2.20.1
