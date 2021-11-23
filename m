@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF68245B3BC
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 06:08:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.229845.397695 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9009545B3B9
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 06:08:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.229903.397702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpkVV-0006Zw-7G; Wed, 24 Nov 2021 05:07:45 +0000
+	id 1mpkVV-0006eZ-JT; Wed, 24 Nov 2021 05:07:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 229845.397695; Wed, 24 Nov 2021 05:07:45 +0000
+Received: by outflank-mailman (output) from mailman id 229903.397702; Wed, 24 Nov 2021 05:07:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpkVV-0006WW-3l; Wed, 24 Nov 2021 05:07:45 +0000
-Received: by outflank-mailman (input) for mailman id 229845;
- Tue, 23 Nov 2021 17:15:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mpkVV-0006Zh-BF; Wed, 24 Nov 2021 05:07:45 +0000
+Received: by outflank-mailman (input) for mailman id 229903;
+ Tue, 23 Nov 2021 18:13:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VsJ3=QK=hotmail.com=yanluyi2010@srs-se1.protection.inumbo.net>)
- id 1mpZNp-0003nz-N7
- for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 17:15:06 +0000
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01olkn20804.outbound.protection.outlook.com
- [2a01:111:f403:700c::804])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e4cd7967-4c80-11ec-a9d2-d9f7a1cc8784;
- Tue, 23 Nov 2021 18:15:04 +0100 (CET)
-Received: from OS3P286MB1995.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:1a2::6)
- by OS3P286MB2216.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:19e::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.20; Tue, 23 Nov
- 2021 17:14:59 +0000
-Received: from OS3P286MB1995.JPNP286.PROD.OUTLOOK.COM
- ([fe80::9c31:6396:f5d2:35e6]) by OS3P286MB1995.JPNP286.PROD.OUTLOOK.COM
- ([fe80::9c31:6396:f5d2:35e6%9]) with mapi id 15.20.4713.026; Tue, 23 Nov 2021
- 17:14:59 +0000
+ <SRS0=+X5i=QK=arm.com=valentin.schneider@srs-se1.protection.inumbo.net>)
+ id 1mpaIW-0005KS-Sd
+ for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 18:13:40 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 14a584a7-4c89-11ec-9787-a32c541c8605;
+ Tue, 23 Nov 2021 19:13:39 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BC8E71FB;
+ Tue, 23 Nov 2021 10:13:37 -0800 (PST)
+Received: from e113632-lin (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7F59E3F5A1;
+ Tue, 23 Nov 2021 10:13:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,83 +42,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4cd7967-4c80-11ec-a9d2-d9f7a1cc8784
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lLfHUfHDDYpqtGOQPllFxRtuSpWT6WLRsNIAhCIYm65iX2SUHH3TWmQpbjtQfP0ql+0zQZBOc/doJe23dp3Pn+07uQMTEcm39fVYNpAPptA7rnvcLo6uuKiPKFrkl7DnXp8kSMgtMHhWUEpKvSVV5p1un3ZUIsLLQI22YHUd1Q4Ivs9Qn8WF6DxsAI9lmjzs116qJiNjImAiLYtgLcoLfFy9HK/QDzxJU1AyZbSwF2rq470tVnW1ooop0lPkSpLKM9CTAzMg/SpJaP1XjprquTVrRgdiR5Kr4axbz22KJKGpSjV2IfjaA5s21Bv6dCyX9kaRd73Ie1m7GC09x5vSAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZPu+n1MCAiGH80dsmwp7Eg014lgaHobIuWXt39a25pw=;
- b=BSnFXGFflMNHU+tKMmhGZ9h0gv408cYF0DM9xMKkUmPtulzjobgR4wgUzaNhGmbUYeky3vAtaMO1JP6aAQME2SPTd7wagX038qHn8JPd5qEWoEF+M6/83Mpz8YPYeM1++UVQRrbGRIXEpfahz8zmlKLOGl2A/WgGKuk4VfHp5Cy5KxtoFZ6jfv5Gr15RlfvClS6H4lMG1JaGKfrJJ5PAC5dO2gFZWZzGitNhwdgMwaWB0Ffbgr9+8K1kl+GpZFin5xapG09J6KowDORPOghygiNbUn8sdQQRmbQR6V2MJ8YdhVzmPckHd0owCTuOCyggGoYL8k5fDDxsqE42/mGN5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZPu+n1MCAiGH80dsmwp7Eg014lgaHobIuWXt39a25pw=;
- b=SqAOwP46LsxcrZt/Tn8lLOl3k7a8X7ZMWdBXZ8OyV8mdju439bbzYBl7Szb33dAiW5z+QrHNfk8B0UWkPt+q15yBUt2FR7RgT8pA+0mcUZNNjKtwHnK9XiIuRWLCDWaqfKSO1A3ABsvQaf8m/8XcGsyN6F3bqE/TmcIpUeoZLAWj1CQW9CgUf96WtDc++9A0qgohEdupSyn8mY23nohFKhiWKEdLoLiomSkLoaSsgvtq9X6XbcXUkHgzLrU4mh/vAsGTj/F/qvj1hG79IGnqm8N8XGYVPKZ5GGVmsC5kBsI8gEM5b7C8xz5XZXV/qriiheASaarjV+OWmmWQLQ4rew==
-From: YAN Untitled <yanluyi2010@hotmail.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: "tamas@tklengyel.com" <tamas@tklengyel.com>, "aisaila@bitdefender.com"
-	<aisaila@bitdefender.com>, "ppircalabu@bitdefender.com"
-	<ppircalabu@bitdefender.com>
-Subject: About support for memory event on AMD CPUs
-Thread-Topic: About support for memory event on AMD CPUs
-Thread-Index: AQHX4Ivyto+Oc0SSQ0aRZryw/8JAGw==
-Date: Tue, 23 Nov 2021 17:14:59 +0000
-Message-ID:
- <OS3P286MB1995471B56ADDC423A4EDC9FB3609@OS3P286MB1995.JPNP286.PROD.OUTLOOK.COM>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-suggested_attachment_session_id: 82a30604-7731-0f07-d47c-a7cc38443806
-x-ms-exchange-messagesentrepresentingtype: 1
-x-tmn: [3bhbTluaqpWQN9JFW4AqGh52yTUcYKoJKBMuSJUqdxY=]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9239ae34-f881-449a-df2f-08d9aea4c7a0
-x-ms-traffictypediagnostic: OS3P286MB2216:
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- bP0Ah2FFXQ7r18WMCzTUzIGSoWdloz2cDLgDOfsA1NB631GwFPzurB0KkNFJLIGEf7vqlnQ3r/lTmyXGIUeUHGjbeESnxkp9xs6ZrwA5jAUv11u5XrUid8OoEruwVbMXhwhjQkDLD9QNuBEYCd3maf/eKjsVCdl5nr90RxPBImPZC8roaY2iV02qmgQsy5puBzvIJiv+dG7Smb6UtJ4Vp9D7quVhrfg4ZhG+CoND1RcQ+IEGbmXl5ufCzJ/60BPgF/GAdqkBXAZlifLvsPyzuv8qQQxd2yJD9N6b9So1wZmtQGjc9ujQNmI6EeqvAOSAlDhJuFn2gYQTXA+aYI53+dCMsemlffmY4Sn8/OEh7SlMMG57jDWzwj1fnSPEw9w79wFZvio8A4LO+VewQWCnIx4tyHIywWSwsbr5q+JxgypFe1XTotcpUv4jFNsfRndR4isv4KVwizXjPkf+sVYAuTHdJeJeg+FEOxzbXjcH5WchToA9aW2yZAGHJMO82TSlfhAQRbhNRA+dqPULaBrLML7J6hLZBwJcLw0D7/KiGcgpCtiTUJDm9bcfnJ2k3GzJ7IIYAxrdjCRz9cJ41pU6tYiKGcrGXvxhLqEWKvQ2+d4iQsRGakDBnlHKYVLuLGmy
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- UNUenQ9KUbgPFXhNtn4R+U5dAN7274UXuyD1cqmwYoL8/L6neazYmS6x/TlPAxx9MEud7re6U+w8xPvpDZDnDMsRBhw2aZXtVcOlWsRqkdi4wg60RohDIsfshhVnG+IWmHdMnI8+7uZni39QYFKslhrwLPS5KDqPvznmuHP8Sjz+Dy2FSD97eottXauwokC6hb3bbxzywq1/ACzKjWnGoB/ypJqzT2I5jS7oDOA0ywQWpo1aKEZtCkAaOM1Flokq5We0yhBdD6C6ei7EMV607X4Z7BPxsCLf7EEm73WHpy6IGSnfilTPrj04HK+1q9l5UDGG+SDzdlBfoGUcptg3qXwvxxPEeO6XKQb3hPGct0aRkgRNfjlgraNSlGS4yhUfyXrnU1jY0zHF/xGzJVbmaC+ki/By/E6+u9QYVqWx58+gURJeqLEtSGubCzCS1ehpQqcq5ZHiuaa1jfTuPx3uhlo2WCqf5JWMWba3WfhHPJLVW4YIMnCeaUiJNd6nD0U6tZIL4og3SyQFLmLtv1N530/U7Y6shXoO91Wib0LVvo+zTRFrfxA8tqhrEaupO1FphEro2DCeMDQnJAdMLdDOaXWiC4K5Z8Mk18eTtqAmruqT7EMdvzl0//+a4LzsuQWY3ZZQoFygor36OuOJagPSkg4vk4kJMIqUY0UOPflkoxrHMh70fHRHL4WhEczCFW66R6Cdg2jUhAY5XuWtGrcQvQ==
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 14a584a7-4c89-11ec-9787-a32c541c8605
+From: Valentin Schneider <valentin.schneider@arm.com>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, "Longpeng \(Mike\, Cloud Infrastructure Service Product Dept.\)" <longpeng2@huawei.com>
+Cc: linux-kernel@vger.kernel.org, "Gonglei \(Arei\)" <arei.gonglei@huawei.com>, x86@kernel.org, xen-devel@lists.xenproject.org, Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>
+Subject: Re: [PATCH] cpu/hotplug: Allow the CPU in CPU_UP_PREPARE state to be brought up again.
+In-Reply-To: <20211122154714.xaoxok3fpk5bgznz@linutronix.de>
+References: <20211122154714.xaoxok3fpk5bgznz@linutronix.de>
+Date: Tue, 23 Nov 2021 18:13:30 +0000
+Message-ID: <87r1b6d9kl.mognet@arm.com>
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-3174-20-msonline-outlook-18f16.templateTenant
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: OS3P286MB1995.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9239ae34-f881-449a-df2f-08d9aea4c7a0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Nov 2021 17:14:59.5828
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3P286MB2216
+Content-Type: text/plain
 
-RGVhciBkZXZlbG9wZXJzLAoKU2hvcnQgdmVyc2lvbjogaXMgbWVtb3J5IGV2ZW50IHN1cHBvcnRl
-ZCBvbiBBTUQgQ1BVcyBvciBpcyBpdCBnb2luZyB0byBiZQpzdXBwb3J0ZWQ/CgpMb25nIHZlcnNp
-b246CgpFbnZpcm9ubWVudDogTGliVk1JIDAuMTUuMCArIFhlbiA0LjE0LjMgb24gYW4gKipBTUQg
-Q1BVKiogKDU5NTB4KSwgNjQtYml0CkRlYmlhbiAxMSBEb20wLgoKV2hhdCBJIGFtIHRyeWluZyB0
-byBhY2NvbXBsaXNoOiByZWdpc3RlciBhICoqbWVtb3J5IGV2ZW50KiogaGFuZGxlciwgc28gdGhh
-dApJIGNhbiBjYXB0dXJlIGFsbCBtZW1vcnkgYWNjZXNzZXMgd2l0aGluIGEgc3BlY2lmaWMgcmFu
-Z2UgaXNzdWVkIGJ5IGFueSB0aHJlYWQsCm9yIGFsbCBtZW1vcnkgYWNjZXNzZXMgd2l0aGluIGFu
-eSByYW5nZSBpc3N1ZWQgYnkgYSBzcGVjaWZpYyB0aHJlYWQuCgpXaGF0IEkgZ290IGluc3RlYWQ6
-IGFuIGVycm9yIGZyb20gTGliVk1JIHNheWluZwoieGNfaHZtX3NldF9tZW1fYWNjZXNzIGZhaWxl
-ZCB3aXRoIGNvZGU6IC0xIi4KClNvbWUgaW52ZXN0aWdhdGlvbjogYnkgaW5zcGVjdGluZyB0aGUg
-c291cmNlIGNvZGUgb2YgTGliVk1JLCBJIGZpbmQgdGhlIGRpcmVjdApjYXVzZSBpcyBvbmUgb2Yg
-dGhlIGxpYnhjIGZ1bmN0aW9ucywgMSkgeGNfc2V0X21lbV9hY2Nlc3Mgb3IKMikgeGNfYWx0cDJt
-X3NldF9tZW1fYWNjZXNzLCByZXR1cm5lZCBlcnJvciBjb2RlIC0xLgoKQWZ0ZXIgc29tZSBzZWFy
-Y2hpbmcsIEkgZm91bmQgc29tZW9uZSBlbHNlIGhhdmluZyBhIHNpbWlsYXIgcHJvYmxlbSBbMV0u
-IEkgYWxzbwpub3RlZCBMaWJWTUkgc2F5czoKCj4gQ3VycmVudGx5IG9ubHkgdGhlIFhlbiBIeXBl
-cnZpc29yIHByb3ZpZGVzIHRoZXNlIGZlYXR1cmVzLAo+IGFuZCBzb21lIG9mIHRoZXNlIGFyZSBz
-cGVjaWZpY2FsbHkgb25seSBhdmFpbGFibGUgb24gSW50ZWwgQ1BVcwoKSG93ZXZlciwgSSBjYW4n
-dCBmaW5kIHRoZSBleGFjdCBjb25maXJtYXRpb24gZm9yIHRoZSBhdmFpbGFiaWxpdHkgb2YgbWVt
-b3J5CmV2ZW50IG9uIEFNRCBDUFVzIGZyb20gaHR0cHM6Ly93aWtpLnhlbnByb2plY3Qub3JnLgoK
-QW55IHN1Z2dlc3Rpb24/CgooU29ycnkgSSB3YXMgc2VuZGluZyB0aGlzIGVtYWlsIHRvIHRoZSB3
-cm9uZyBwbGFjZSkKClsxXSBodHRwczovL2dpdGh1Yi5jb20vbGlidm1pL2xpYnZtaS9wdWxsLzcw
-OSNkaXNjdXNzaW9uX3IzNTM3Mjk3NzcKCgpVbnRpdGxlZCBZQU4=
+On 22/11/21 16:47, Sebastian Andrzej Siewior wrote:
+> From: "Longpeng(Mike)" <longpeng2@huawei.com>
+>
+> A CPU will not show up in virtualized environment which includes an
+> Enclave. The VM splits its resources into a primary VM and a Enclave
+> VM. While the Enclave is active, the hypervisor will ignore all requests
+> to bring up a CPU and this CPU will remain in CPU_UP_PREPARE state.
+> The kernel will wait up to ten seconds for CPU to show up
+> (do_boot_cpu()) and then rollback the hotplug state back to
+> CPUHP_OFFLINE leaving the CPU state in CPU_UP_PREPARE. The CPU state is
+> set back to CPUHP_TEARDOWN_CPU during the CPU_POST_DEAD stage.
+>
+
+For my own education, this is talking about *host* CPU hotplug, right?
+
+> After the Enclave VM terminates, the primary VM can bring up the CPU
+> again.
+>
+> Allow to bring up the CPU if it is in the CPU_UP_PREPARE state.
+>
+> [bigeasy: Rewrite commit description.]
+>
+> Signed-off-by: Longpeng(Mike) <longpeng2@huawei.com>
+> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> Link: https://lore.kernel.org/r/20210901051143.2752-1-longpeng2@huawei.com
+> ---
+>
+> For XEN: this changes the behaviour as it allows to invoke
+> cpu_initialize_context() again should it have have earlier. I *think*
+> this is okay and would to bring up the CPU again should the memory
+> allocation in cpu_initialize_context() fail.
+
+Virt stuff notwithstanding, that looks OK to me.
+Reviewed-by: Valentin Schneider <valentin.schneider@arm.com>
+
+That said, AFAICT only powerpc makes actual use of the state being set to
+CPU_UP_PREPARE, it looks to be needless bookkeeping for everyone else (and
+there's archs that seem happy using only CPU_DEAD / CPU_POST_DEAD).
+
+>
+>  kernel/smpboot.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/kernel/smpboot.c b/kernel/smpboot.c
+> index f6bc0bc8a2aab..34958d7fe2c1c 100644
+> --- a/kernel/smpboot.c
+> +++ b/kernel/smpboot.c
+> @@ -392,6 +392,13 @@ int cpu_check_up_prepare(int cpu)
+>                */
+>               return -EAGAIN;
+>
+> +	case CPU_UP_PREPARE:
+> +		/*
+> +		 * Timeout while waiting for the CPU to show up. Allow to try
+> +		 * again later.
+> +		 */
+> +		return 0;
+> +
+>       default:
+>
+>               /* Should not happen.  Famous last words. */
+> --
+> 2.33.1
 
