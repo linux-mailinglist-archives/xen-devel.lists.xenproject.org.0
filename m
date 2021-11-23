@@ -2,32 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D450C45A8EA
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Nov 2021 17:42:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.229759.397262 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F3E845A929
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Nov 2021 17:44:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.229772.397274 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpYs2-0001Zc-4S; Tue, 23 Nov 2021 16:42:14 +0000
+	id 1mpYuR-0002Mc-Jc; Tue, 23 Nov 2021 16:44:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 229759.397262; Tue, 23 Nov 2021 16:42:14 +0000
+Received: by outflank-mailman (output) from mailman id 229772.397274; Tue, 23 Nov 2021 16:44:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpYs2-0001Xk-0p; Tue, 23 Nov 2021 16:42:14 +0000
-Received: by outflank-mailman (input) for mailman id 229759;
- Tue, 23 Nov 2021 16:42:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mpYs0-0001WL-D3
- for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:42:12 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mpYrz-0007q8-Cy; Tue, 23 Nov 2021 16:42:11 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=[192.168.23.209]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mpYrz-0007DH-2O; Tue, 23 Nov 2021 16:42:11 +0000
+	id 1mpYuR-0002KH-Fd; Tue, 23 Nov 2021 16:44:43 +0000
+Received: by outflank-mailman (input) for mailman id 229772;
+ Tue, 23 Nov 2021 16:44:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=lRmA=QK=epam.com=prvs=19611c0f38=oleksandr_andrushchenko@srs-se1.protection.inumbo.net>)
+ id 1mpYuQ-0002KB-1U
+ for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:44:42 +0000
+Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
+ [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a6e1017f-4c7c-11ec-9787-a32c541c8605;
+ Tue, 23 Nov 2021 17:44:40 +0100 (CET)
+Received: from pps.filterd (m0174681.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1ANFDF4g020298;
+ Tue, 23 Nov 2021 16:44:37 GMT
+Received: from eur05-am6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2113.outbound.protection.outlook.com [104.47.18.113])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3cgy2phcwp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 23 Nov 2021 16:44:37 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
+ by AM0PR03MB6068.eurprd03.prod.outlook.com (2603:10a6:208:166::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Tue, 23 Nov
+ 2021 16:44:33 +0000
+Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::c038:e032:595a:651]) by AM0PR03MB6324.eurprd03.prod.outlook.com
+ ([fe80::c038:e032:595a:651%8]) with mapi id 15.20.4713.026; Tue, 23 Nov 2021
+ 16:44:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,516 +53,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=oxE6JfBlfe9dus2Rs6m+mGxwNZm2yVtDyllyYybSj08=; b=FjCpBCzKImyxZp0EryFFaehHwa
-	qHh9xn/6zYOR+moNxBBGp9GQdlUNLXqf9bmMYBi8rRmYumkR56EpTIVrlm2RuLNDSc/ispYQ1TQEA
-	/zgnPM/DbDd3p87r32SWzmKBSE8tTCGECGY5tDsFggTwZNn73h7u0NpvFY7Utneb2v8E=;
-Message-ID: <b85a3e6c-e48e-dd11-5488-f71c9d2422a7@xen.org>
-Date: Tue, 23 Nov 2021 16:42:08 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.3.1
-Subject: Re: [PATCH v6 4/7] xen/arm: do not map PCI ECAM and MMIO space to
- Domain-0's p2m
-To: Oleksandr Andrushchenko <andr2000@gmail.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
- volodymyr_babchuk@epam.com, Artem_Mygaiev@epam.com, roger.pau@citrix.com,
- jbeulich@suse.com, andrew.cooper3@citrix.com, george.dunlap@citrix.com,
- paul@xen.org, bertrand.marquis@arm.com, rahul.singh@arm.com,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+X-Inumbo-ID: a6e1017f-4c7c-11ec-9787-a32c541c8605
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EShTJGM7q7Y8ZWXq3bwiTO8JxQz3l/AYLEF1CiPu5R7B7xeNRv7iOqD1lGVjfAytCDM6rdJ9RrBlcaqAh7j7X7Qy1JoSR2qne4uKpDMIhrec17RzZetr4DJIKMeNx6Q5N3laxzbHKsnHt7zSChdj4OilScPnplHbq0sFcNHokd0r/lKWaZ5IjjrkhqyqgyxLKp9xca5nFuiYlaxZnU5yWkG9MvBA33/rhnR4S5Ix5rLpxYpHWe+rPnDibkJR1nsBwCFibz9vF95B2Be5FiqsYTk+oiAm3ToZYs31sO6o6ZqvVB9lznuT1H+XlFYaF3ux5u8O3EiRAsxMps28TSR50g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Q+/gV1yzbKWHlXm9d6UM4DKOw3Z7lrkKkJYWhzrEFmA=;
+ b=DhMY9QX7DJNAf+M8hS0H4ZXCTUi7SjLBgxN6/yUZK8C8WMs6nLwDZTkOk2fwlzNMUDZOh27I700aoD+/KOFEb2J09Hh76H+OqZ7fq8Mc/KDcdRkPZsmltru4Ok9jv+FxTq8NGyulnj+ulZKXriimcuYW1/nn8P90eOb4UMq5lOXX7KyGNIAB2MIyhTff4ulBTy6TYLPwswSPOmfrYVrvymo7l/jrhHMboeh5BXRiGHHitqXpugp/h0LPBcNl8voy1Fq9JzG0JiRLJ2gaCoPDiaakjoWisI9JaR82ExPzD5vAqO+CPMEbGBH8dGN1/DGLtCyiyjdULR0CYYmTXMqNaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Q+/gV1yzbKWHlXm9d6UM4DKOw3Z7lrkKkJYWhzrEFmA=;
+ b=jR7941Fqm3WVynNUZMquuRm3T57FGIoepq9pJVFvTOJqKutHf2i3xmo2sIHPZRPdNxiKrO2VudZ3jSxKauPg3PlrsSH/TC6ac/j8p4HKn6LGej/dL6yEjM46wtXkxIhdLpEQUncPGc0NY9V+w6DP9eJfcpH0HEoh2yIN377pQReXlKuAtPA/gkNiRpM7u9Ker4lYpecFUUvX7mFB8snZp4/eyULQIcszFCuMKEigEWTtbeFjzhOHC1LcqBQFQ5k5GgeRFzxHmtF3T6cP7Rkspdo4q1usmE5sESRH0GjrI9y+PPcD9jev8D3vlDmo+67EYaLKGl58XzJhMMeAZHoidw==
+From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+To: Julien Grall <julien@xen.org>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: "sstabellini@kernel.org" <sstabellini@kernel.org>,
+        Oleksandr Tyshchenko
+	<Oleksandr_Tyshchenko@epam.com>,
+        Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>,
+        Artem Mygaiev <Artem_Mygaiev@epam.com>,
+        "roger.pau@citrix.com" <roger.pau@citrix.com>,
+        "jbeulich@suse.com"
+	<jbeulich@suse.com>,
+        "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+        "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
+        "paul@xen.org"
+	<paul@xen.org>,
+        Bertrand Marquis <bertrand.marquis@arm.com>,
+        Rahul Singh
+	<rahul.singh@arm.com>,
+        Oleksandr Andrushchenko
+	<Oleksandr_Andrushchenko@epam.com>
+Subject: Re: [PATCH v6 2/7] xen/arm: add pci-domain for disabled devices
+Thread-Topic: [PATCH v6 2/7] xen/arm: add pci-domain for disabled devices
+Thread-Index: 
+ AQHX0g8QVTbfP59mVU+LM2unTUGOtawGkRQAgADLYgCAAPUEgIAAofWAgAbUDQCAAA7WAIAADxaAgADd7ICAAKBPgIAACwWA
+Date: Tue, 23 Nov 2021 16:44:32 +0000
+Message-ID: <bfd5d305-b315-2f6d-455d-dd3ba071d0b2@epam.com>
 References: <20211105063326.939843-1-andr2000@gmail.com>
- <20211105063326.939843-5-andr2000@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20211105063326.939843-5-andr2000@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <20211105063326.939843-3-andr2000@gmail.com>
+ <86cabc8a-cbf2-84d4-4162-7d5591d127c5@xen.org>
+ <de155886-d039-4c45-0407-47f38f8cd75d@epam.com>
+ <ab95fc39-d1b2-be80-8245-85161a8271e1@xen.org>
+ <072848c8-54da-cb73-3b8a-0c35826cc812@epam.com>
+ <e66c4189-acdf-c32f-4b50-51c8aaab4efd@xen.org>
+ <315b1308-5adc-c4f3-6150-1060dbac5f4f@epam.com>
+ <9f8e424d-ad1c-2d32-a470-68b275adf22c@xen.org>
+ <0aff1bbb-eaf8-4deb-0808-d7db5f1ba8f5@epam.com>
+ <ab73f2e5-11d1-7cb4-89ab-74ef5eb1d32d@xen.org>
+In-Reply-To: <ab73f2e5-11d1-7cb4-89ab-74ef5eb1d32d@xen.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 6d202f75-0042-4f04-e354-08d9aea086dc
+x-ms-traffictypediagnostic: AM0PR03MB6068:
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-microsoft-antispam-prvs: 
+ <AM0PR03MB60684AFC7B60F2D27D3C7E15E7609@AM0PR03MB6068.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ QKn3eGnCl4OOuuCBvrD1I0xm861HnfPNRCiaL2o5iUzH2g/CoUklb0lTnHuLxjyigpRxI+qLgfJ0ACknf32en2F6/syCqhtX2x+xkrS7ET/c06Z/dSDs+2Bjc/ByGArW+WyOnyKJLs/X5ztvVZcyNrwBFiLmDDarMQshrwodX/jfvnDgEaS6fiyZeyfS7GdFlEXOYvbEos4mNO70r/ZIhebFgjeIkP85Ml4xaCxOyTN+9XFqIoeBaDjsSi/5Tr2Q6ASlayS5aqZNzNTaiGXO1WLSixwf/BGmCQqXPNAJbwUTD1T7/JnEiBiZtdjwyp8BUgHFpEqqFuLhvFkk0hYM6/S0Q7vT584pH26+mZOTE56WKH1S7x9OHBpNFCdQDDnuENkOaEoXsPvogeQUW59HlpymsYFHBiIeSsi4HnFx2PV592ZZ8WCOKGxLhiMTu+6EA7kljF3a3pT0oDQ2p8qEo64hTB4OCcx+WwwGnN9O3oRHyVkPgHnrIpFjo3etsg8SDBqazSeUBgMnjWm5weNpY+W4qPmOTZNSsB+FOfQa0gvnFnqXzGZHEehEUythjSxg5cqeQYgiW3xvOF7cv3L1UaEiZ9/5dBWonvVY6achM0/z7OpUPpdeLxvl+Q9XdqEzFgCOavrema/2IvyuZMsAHtJd55CNpUcjwzFRt+bxzUrdH9Avd4fnTPaSBY3zsSbFwPn5liHvz6Ji4xNE25rcDVshFNDUZI7CpuudNS1QjFgUtStE6T/psmxI3+UKcmMe
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(2616005)(71200400001)(66446008)(110136005)(6486002)(5660300002)(91956017)(83380400001)(2906002)(122000001)(64756008)(66556008)(66476007)(66946007)(31686004)(107886003)(6512007)(6506007)(38100700002)(31696002)(86362001)(316002)(186003)(53546011)(8936002)(8676002)(38070700005)(508600001)(36756003)(4326008)(76116006)(54906003)(26005)(7416002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?utf-8?B?QXhZN0FsZ2dHTWZ0anVUalMxZDJHaU9SMkR0QXFzSnI0Q0ZHdThYU2dpNGV3?=
+ =?utf-8?B?UnVjV3NzM3JiSWtnQW5HdUZDVUp1YVdTTWY5S2xsb0hkaXZQYW9zZ3NzR2tT?=
+ =?utf-8?B?RmVHVW5kNTFHTmJzWTRMaDdTTG04enNLM2tOL2xKRnE1T1NnV3RWQlM5TjRL?=
+ =?utf-8?B?OTdBY3h6dmg3cXlCdnVQU0ZQQ0s4VDRCMzd3Q1BVcThlaVB5ZHZTeFRiRC9h?=
+ =?utf-8?B?QzQ5SUQyaW9JL3JHYThxZlBRZXJ2YmJSVW5HRDllaTR0MzlYV0lRQ0tJUzkw?=
+ =?utf-8?B?RnpRa0tVYWxoeXNSSUFkMkJiNUhDOGhZWExEUG5BV0FsdnB4ZkdwS1IrcjdN?=
+ =?utf-8?B?QkF2di94Q3R2ZFIxR1VFMzZkUGpuWEQvRWVLbEM3NHZoM1FRU3hwMm9Cbnlm?=
+ =?utf-8?B?dWtndEhaY2ljdEZBbE02NjU4U0hwSjFnNFN0bWtKTVNpV1BadTFCRC92UlQy?=
+ =?utf-8?B?b0tCakw2dmF5V0xiNnl5cmx2T3BheFViVUhac0svVjY5Rmp3YzY5LzNoOHhj?=
+ =?utf-8?B?QnFKaUdZYk5uNmhTbmJaSXQ4OG91RVNwZFp1R21kV0pkUmlBV3NtU0R6R2tL?=
+ =?utf-8?B?V2J5bVdwcmwvcVFjckE3YnIvMWtUTVY2WC9wMW9GcEVyM0hhNzV2d0x0Nml4?=
+ =?utf-8?B?bHVkVW5YVmpUNXVnM0dDRVZCV2pnSjJWMjBjRmgzcC9JanQxZU8rdmFPUEdG?=
+ =?utf-8?B?d3Z6NkJLWm9qQWd0QXRLWkFCQm9HK0llQksvTVZUcmwyZUorSm0zQTNGQjN1?=
+ =?utf-8?B?OXZOQmRjdGpNT0dMeHhNUFpVenRucjl2M3VVRGZrR1c4NHAwSmxKUEJFUkJy?=
+ =?utf-8?B?ak8wN2dwV2xKNEYrWU53eGhQSWhqbzFJTkNReHkwbTB2eTA4T21xNUxLRjZ1?=
+ =?utf-8?B?Wnc4YjVzTS9wNU00RUNkTnJIVVpsYzlBcW5wRWdkQVRqcTJuUndmRWp2RnVI?=
+ =?utf-8?B?cDNtSkRYZ1FyR2lpOG1JaU1TcjN5WUFGZndBVitDZTV0NkZZVUM5aU50Zk9U?=
+ =?utf-8?B?Z0JORTVoUEhVaitQbEdGajZ3WVh4N2VkK1VSTlZXd1FqMXI1cWM4NkxZSURP?=
+ =?utf-8?B?MFNuWDcvRU12VmhpRHFybzlBVUxEZXF5ODU0bkZpYkFMMW82aGVzV3UrNU5l?=
+ =?utf-8?B?WkpOOVNYMCsvSmJGRnhMaFl2L3RHZ25pYVAyd2syT3c2T2hnN1p5SWpacm4v?=
+ =?utf-8?B?THNqSWtXcklySGdmNFdZellCV1pnU2wwV1loeVJZU00xTzlpam1IWllBM3Fj?=
+ =?utf-8?B?TlAyb0RIQkpuVU82UkNzWHRqOUhaVThHYjVKenNrMGZpQ1pGWEtTNFE3ZE4v?=
+ =?utf-8?B?cXMxenJQYTNkZHpRYjZyMitvMUV0WmkwbEVRSDhObFI5aWhPYi9SbzFOb3VB?=
+ =?utf-8?B?QmlDNjNhSVdZUklxam11R3pYQzd5RWdtVVVxNG9zVlJHTUppckJaMUlYRTRu?=
+ =?utf-8?B?Qk44NkhXUjZ3eEZuQklkWTJXRzlYeWsyYUpaMWFPZmZad05MWjdMSWxxK1NC?=
+ =?utf-8?B?eCtnN3hVckJEb0JQOW5SSjBTVXlLWWNFcUIwb29rcUJXRWhodDhhSjVHNVhL?=
+ =?utf-8?B?eWxreHVkMDF3elJadkE1dzRLZ2U5SVZjRm9RWE45ZEQvSGtWREdlZDlLY1gr?=
+ =?utf-8?B?akhqWWZINS94eUd4dytxeGE4M3ljUk1QcFg5enRRajR0SlBkMGoyamFaZXdt?=
+ =?utf-8?B?cWlRaGs2eWNSeVFEQ2pJNnFlL2NKMGJWQy90a2JRTUZ2V0UzdVl1Q0RSM0Fj?=
+ =?utf-8?B?M1AwLytma2c5bnlCamMyQzlrSVRjWHBGZGN2ckdhR0h2VWF3N1BPOFlQSU53?=
+ =?utf-8?B?NzlsR2lkd1BvNDJCTDhtQTIxQ1R2NC9oNHlHcGpOcGE3U2NleHVMMjladS9r?=
+ =?utf-8?B?aHZaVm5qa1RFbjExaGZXRUR6bFV0cU1UNnd3d2dXTTQ5K3J0Zk9mdWZ1TDAz?=
+ =?utf-8?B?MXRGc2JvM3AyeHlRS1NyTU9EWkh6SWRQRnJTeWh1bjN1OUF4THR3VU9hN0tu?=
+ =?utf-8?B?TzVGcGJBV3BiN0ZYVHdBWERFbllKenJMUGRRVnh2TnAzdzNWcVhqT29jamI3?=
+ =?utf-8?B?UXFFcGdzanlqRlUvcStXc05NZzdjLytWRUkyVmRLbk9zVFNPTFJuK1J4a3pJ?=
+ =?utf-8?B?SGVPNTJhbUk1SE0rbUV2N2EzMC9SV2QvWEFKZVY0OTdBdWxnVjMvU1VhMmU0?=
+ =?utf-8?B?Rk5jckhBYllzS2dOMUJ1QVZqN1cxL3BEOG1tSFI1bktRTUkvanJoejgwdTIy?=
+ =?utf-8?B?YlJHaEZTT0VKUmFzd0VxemVlWWZpSWFvTjltN2owbkFZNFBqdzhGemkyeGVD?=
+ =?utf-8?B?T0kzbjZWZ1NHM3FUMHRtYXMwSmpCNWlOUWh0TG42STQ2eTA2bHVmdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2CDC51D6F28D374587380E699ED8727E@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d202f75-0042-4f04-e354-08d9aea086dc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Nov 2021 16:44:32.8307
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: P/qqzNInQUFJwspZsfDM0ApiTIwIrhmH+EZBTzTmhu1YgKll23ot8au+MZlGDBSTj4OHVD3nBelbFsmcjSj2KkpWUT7Cpub/zDVGxg0/sJhqbLiHjZjXVKWMKF46k36r
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB6068
+X-Proofpoint-ORIG-GUID: FGdKwCUtuSgDqhb-N7TMULlAUaBAFOH8
+X-Proofpoint-GUID: FGdKwCUtuSgDqhb-N7TMULlAUaBAFOH8
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
+ definitions=2021-11-23_06,2021-11-23_01,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ phishscore=0 clxscore=1015 bulkscore=0 mlxlogscore=679 lowpriorityscore=0
+ malwarescore=0 suspectscore=0 adultscore=0 impostorscore=0 spamscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2110150000 definitions=main-2111230085
 
-Hi Oleksandr,
-
-On 05/11/2021 06:33, Oleksandr Andrushchenko wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> PCI host bridges are special devices in terms of implementing PCI
-> passthrough. According to [1] the current implementation depends on
-> Domain-0 to perform the initialization of the relevant PCI host
-> bridge hardware and perform PCI device enumeration. In order to
-> achieve that one of the required changes is to not map all the memory
-> ranges in map_range_to_domain as we traverse the device tree on startup
-> and perform some additional checks if the range needs to be mapped to
-> Domain-0.
-> 
-> The generic PCI host controller device tree binding says [2]:
-> - ranges: As described in IEEE Std 1275-1994, but must provide
->            at least a definition of non-prefetchable memory. One
->            or both of prefetchable Memory and IO Space may also
->            be provided.
-> 
-> - reg   : The Configuration Space base address and size, as accessed
->            from the parent bus.  The base address corresponds to
->            the first bus in the "bus-range" property.  If no
->            "bus-range" is specified, this will be bus 0 (the default).
-> 
->  From the above none of the memory ranges from the "ranges" property
-> needs to be mapped to Domain-0 at startup as MMIO mapping is going to
-> be handled dynamically by vPCI as we assign PCI devices, e.g. each
-> device assigned to Domain-0/guest will have its MMIOs mapped/unmapped
-> as needed by Xen.
-> 
-> The "reg" property covers not only ECAM space, but may also have other
-> then the configuration memory ranges described, for example [3]:
-> - reg: Should contain rc_dbi, config registers location and length.
-> - reg-names: Must include the following entries:
->     "rc_dbi": controller configuration registers;
->     "config": PCIe configuration space registers.
-> 
-> This patch makes it possible to not map all the ranges from the
-> "ranges" property and also ECAM from the "reg". All the rest from the
-> "reg" property still needs to be mapped to Domain-0, so the PCI
-> host bridge remains functional in Domain-0.
-
-The commit message is explaining the problematic quite well (thanks for 
-that). I think it also wants to explain the approach taken (the fact 
-that we are deferring the mapping for hostbridges).
-
-> 
-> [1] https://lists.xenproject.org/archives/html/xen-devel/2020-07/msg00777.html
-> [2] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/host-generic-pci.txt
-> [3] https://www.kernel.org/doc/Documentation/devicetree/bindings/pci/hisilicon-pcie.txt
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> ---
-> Since v5:
-> - remove some need_mapping local variables
-> - use own_device in handle_device
-> - add __init for pci_ecam_need_p2m_hwdom_mapping
-> - make pci_host_bridge_mappings use p2m_mmio_direct_dev directly
-> Since v4:
-> - update skip_mapping comment
-> - add comment why we need to map interrupts to Dom0
-> Since v3:
->   - pass struct map_range_data to map_dt_irq_to_domain
->   - remove redundant check from map_range_to_domain
->   - fix handle_device's .skip_mapping
-> Since v2:
->   - removed check in map_range_to_domain for PCI_DEV
->     and moved it to handle_device, so the code is
->     simpler
->   - s/map_pci_bridge/skip_mapping
->   - extended comment in pci_host_bridge_mappings
->   - minor code restructure in construct_dom0
->   - s/.need_p2m_mapping/.need_p2m_hwdom_mapping and related
->     callbacks
->   - unsigned int i; in pci_host_bridge_mappings
-> Since v1:
->   - Added better description of why and what needs to be mapped into
->     Domain-0's p2m and what doesn't
->   - Do not do any mappings for PCI devices while traversing the DT
->   - Walk all the bridges and make required mappings in one go
-> ---
->   xen/arch/arm/domain_build.c        | 67 +++++++++++++++++-------------
->   xen/arch/arm/pci/ecam.c            | 14 +++++++
->   xen/arch/arm/pci/pci-host-common.c | 50 ++++++++++++++++++++++
->   xen/arch/arm/pci/pci-host-zynqmp.c |  1 +
->   xen/include/asm-arm/pci.h          | 10 +++++
->   xen/include/asm-arm/setup.h        | 13 ++++++
->   6 files changed, 126 insertions(+), 29 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index f7fcb1400c19..c7d992456ca7 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -10,7 +10,6 @@
->   #include <asm/regs.h>
->   #include <xen/errno.h>
->   #include <xen/err.h>
-> -#include <xen/device_tree.h>
-
-You are still using helpers defined by this header. So I would keep the 
-include even if it may have been included by another one.
-
->   #include <xen/libfdt/libfdt.h>
->   #include <xen/guest_access.h>
->   #include <xen/iocap.h>
-> @@ -51,12 +50,6 @@ static int __init parse_dom0_mem(const char *s)
->   }
->   custom_param("dom0_mem", parse_dom0_mem);
->   
-> -struct map_range_data
-> -{
-> -    struct domain *d;
-> -    p2m_type_t p2mt;
-> -};
-> -
->   /* Override macros from asm/page.h to make them work with mfn_t */
->   #undef virt_to_mfn
->   #define virt_to_mfn(va) _mfn(__virt_to_mfn(va))
-> @@ -1676,10 +1669,10 @@ static int __init map_dt_irq_to_domain(const struct dt_device_node *dev,
->                                          const struct dt_irq *dt_irq,
->                                          void *data)
->   {
-> -    struct domain *d = data;
-> +    struct map_range_data *mr_data = data;
-> +    struct domain *d = mr_data->d;
->       unsigned int irq = dt_irq->irq;
->       int res;
-> -    bool need_mapping = !dt_device_for_passthrough(dev);
->   
->       if ( irq < NR_LOCAL_IRQS )
->       {
-> @@ -1698,18 +1691,16 @@ static int __init map_dt_irq_to_domain(const struct dt_device_node *dev,
->           return res;
->       }
->   
-> -    res = map_irq_to_domain(d, irq, need_mapping, dt_node_name(dev));
-> +    res = map_irq_to_domain(d, irq, !mr_data->skip_mapping, dt_node_name(dev));
->   
->       return 0;
->   }
->   
-> -static int __init map_range_to_domain(const struct dt_device_node *dev,
-> -                                      u64 addr, u64 len,
-> -                                      void *data)
-> +int __init map_range_to_domain(const struct dt_device_node *dev,
-> +                               u64 addr, u64 len, void *data)
->   {
->       struct map_range_data *mr_data = data;
->       struct domain *d = mr_data->d;
-> -    bool need_mapping = !dt_device_for_passthrough(dev);
->       int res;
->   
->       res = iomem_permit_access(d, paddr_to_pfn(addr),
-> @@ -1723,7 +1714,7 @@ static int __init map_range_to_domain(const struct dt_device_node *dev,
->           return res;
->       }
->   
-> -    if ( need_mapping )
-> +    if ( !mr_data->skip_mapping )
->       {
->           res = map_regions_p2mt(d,
->                                  gaddr_to_gfn(addr),
-> @@ -1752,23 +1743,21 @@ static int __init map_range_to_domain(const struct dt_device_node *dev,
->    * then we may need to perform additional mappings in order to make
->    * the child resources available to domain 0.
->    */
-> -static int __init map_device_children(struct domain *d,
-> -                                      const struct dt_device_node *dev,
-> -                                      p2m_type_t p2mt)
-> +static int __init map_device_children(const struct dt_device_node *dev,
-> +                                      struct map_range_data *mr_data)
->   {
-> -    struct map_range_data mr_data = { .d = d, .p2mt = p2mt };
-> -    int ret;
-> -
->       if ( dt_device_type_is_equal(dev, "pci") )
->       {
-> +        int ret;
-> +
->           dt_dprintk("Mapping children of %s to guest\n",
->                      dt_node_full_name(dev));
->   
-> -        ret = dt_for_each_irq_map(dev, &map_dt_irq_to_domain, d);
-> +        ret = dt_for_each_irq_map(dev, &map_dt_irq_to_domain, mr_data);
->           if ( ret < 0 )
->               return ret;
->   
-> -        ret = dt_for_each_range(dev, &map_range_to_domain, &mr_data);
-> +        ret = dt_for_each_range(dev, &map_range_to_domain, mr_data);
->           if ( ret < 0 )
->               return ret;
->       }
-> @@ -1848,14 +1837,28 @@ static int __init handle_device(struct domain *d, struct dt_device_node *dev,
->       unsigned int i;
->       int res;
->       u64 addr, size;
-> -    bool need_mapping = !dt_device_for_passthrough(dev);
-> +    bool own_device = !dt_device_for_passthrough(dev);
-> +    /*
-> +     * For PCI passthrough we only need to remap to Dom0 the interrupts
-> +     * and memory ranges from "reg" property which cover controller's
-> +     * configuration registers and such. PCIe configuration space registers
-> +     * of the PCIe Root Complex and PCIe aperture should not be mapped
-> +     * automatically to Dom0.
-> +     */
-
-I would clarify in this comment (and the commit message) that this only 
-cover hostbridge that are been shared between dom0 and Xen.
-
-But I find the comment confusing because I would expect to explain this...
-
-> +    struct map_range_data mr_data = {
-> +        .d = d,
-> +        .p2mt = p2mt,
-> +        .skip_mapping = !own_device ||
-> +                        (is_pci_passthrough_enabled() &&
-> +                        (device_get_class(dev) == DEVICE_PCI_HOSTBRIDGE))
-
-... line. Instead, it explains the global behavior. I would rework the 
-comment to something like:
-
-/*
-  * We want to avoid mappings the MMIO in dom0 for the following cases:
-  *   - The device is owned by dom0 (i.e. it has been flagged for
-  *     passthrough).
-  *   - PCI hostbridges with driver in Xen. They will later on by
-  *     pci_host_bridge_mappings().
-  */
-
-> +    };
->   
->       naddr = dt_number_of_address(dev);
->   
->       dt_dprintk("%s passthrough = %d naddr = %u\n",
-> -               dt_node_full_name(dev), need_mapping, naddr);
-> +               dt_node_full_name(dev), own_device, naddr);
->   
-> -    if ( need_mapping )
-> +    if ( own_device )
->       {
->           dt_dprintk("Check if %s is behind the IOMMU and add it\n",
->                      dt_node_full_name(dev));
-> @@ -1881,14 +1884,13 @@ static int __init handle_device(struct domain *d, struct dt_device_node *dev,
->           }
->       }
->   
-> -    res = handle_device_interrupts(d, dev, need_mapping);
-> +    res = handle_device_interrupts(d, dev, own_device);
->       if ( res < 0 )
->           return res;
->   
->       /* Give permission and map MMIOs */
->       for ( i = 0; i < naddr; i++ )
->       {
-> -        struct map_range_data mr_data = { .d = d, .p2mt = p2mt };
->           res = dt_device_get_address(dev, i, &addr, &size);
->           if ( res )
->           {
-> @@ -1902,7 +1904,7 @@ static int __init handle_device(struct domain *d, struct dt_device_node *dev,
->               return res;
->       }
->   
-> -    res = map_device_children(d, dev, p2mt);
-> +    res = map_device_children(dev, &mr_data);
->       if ( res )
->           return res;
->   
-> @@ -3060,7 +3062,14 @@ static int __init construct_dom0(struct domain *d)
->           return rc;
->   
->       if ( acpi_disabled )
-> +    {
->           rc = prepare_dtb_hwdom(d, &kinfo);
-> +        if ( rc < 0 )
-> +            return rc;
-> +#ifdef CONFIG_HAS_PCI
-> +        rc = pci_host_bridge_mappings(d);
-> +#endif
-> +    }
->       else
->           rc = prepare_acpi(d, &kinfo);
->   
-> diff --git a/xen/arch/arm/pci/ecam.c b/xen/arch/arm/pci/ecam.c
-> index 602d00799c8d..4f71b11c3057 100644
-> --- a/xen/arch/arm/pci/ecam.c
-> +++ b/xen/arch/arm/pci/ecam.c
-> @@ -40,6 +40,19 @@ void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
->       return base + (PCI_DEVFN2(sbdf.bdf) << devfn_shift) + where;
->   }
->   
-> +bool __init pci_ecam_need_p2m_hwdom_mapping(struct domain *d,
-> +                                            struct pci_host_bridge *bridge,
-> +                                            uint64_t addr)
-> +{
-> +    struct pci_config_window *cfg = bridge->cfg;
-> +
-> +    /*
-> +     * We do not want ECAM address space to be mapped in Domain-0's p2m,
-> +     * so we can trap access to it.
-> +     */
-> +    return cfg->phys_addr != addr;
-> +}
-> +
->   /* ECAM ops */
->   const struct pci_ecam_ops pci_generic_ecam_ops = {
->       .bus_shift  = 20,
-> @@ -47,6 +60,7 @@ const struct pci_ecam_ops pci_generic_ecam_ops = {
->           .map_bus                = pci_ecam_map_bus,
->           .read                   = pci_generic_config_read,
->           .write                  = pci_generic_config_write,
-> +        .need_p2m_hwdom_mapping = pci_ecam_need_p2m_hwdom_mapping,
->       }
->   };
->   
-> diff --git a/xen/arch/arm/pci/pci-host-common.c b/xen/arch/arm/pci/pci-host-common.c
-> index 0d271a6e8881..6af845ab9d6c 100644
-> --- a/xen/arch/arm/pci/pci-host-common.c
-> +++ b/xen/arch/arm/pci/pci-host-common.c
-> @@ -22,6 +22,8 @@
->   #include <xen/sched.h>
->   #include <xen/vmap.h>
->   
-> +#include <asm/setup.h>
-> +
->   /*
->    * List for all the pci host bridges.
->    */
-> @@ -316,6 +318,54 @@ unsigned int pci_host_get_num_bridges(void)
->       return count;
->   }
->   
-> +int __init pci_host_bridge_mappings(struct domain *d)
-> +{
-> +    struct pci_host_bridge *bridge;
-> +    struct map_range_data mr_data = {
-> +        .d = d,
-> +        .p2mt = p2m_mmio_direct_dev,
-> +        .skip_mapping = false
-> +    };
-> +
-> +    /*
-> +     * For each PCI host bridge we need to only map those ranges
-> +     * which are used by Domain-0 to properly initialize the bridge,
-> +     * e.g. we do not want to map ECAM configuration space which lives in
-> +     * "reg" device tree property, but we want to map other regions of
-> +     * the host bridge. The PCI aperture defined by the "ranges" device
-> +     * tree property should also be skipped.
-> +     */
-
-This seems to explain the purpose of the function. So I would move the 
-commment on top of pci_host_bridge_mappings().
-
-> +    list_for_each_entry( bridge, &pci_host_bridges, node )
-> +    {
-> +        const struct dt_device_node *dev = bridge->dt_node;
-> +        unsigned int i;
-> +
-> +        for ( i = 0; i < dt_number_of_address(dev); i++ )
-> +        {
-> +            uint64_t addr, size;
-> +            int err;
-> +
-> +            err = dt_device_get_address(dev, i, &addr, &size);
-> +            if ( err )
-> +            {
-> +                printk(XENLOG_ERR
-> +                       "Unable to retrieve address range index=%u for %s\n",
-> +                       i, dt_node_full_name(dev));
-> +                return err;
-> +            }
-> +
-> +            if ( bridge->ops->need_p2m_hwdom_mapping(d, bridge, addr) )
-> +            {
-> +                err = map_range_to_domain(dev, addr, size, &mr_data);
-> +                if ( err )
-> +                    return err;
-> +            }
-> +        }
-> +    }
-> +
-> +    return 0;
-> +}
-> +
->   /*
->    * Local variables:
->    * mode: C
-> diff --git a/xen/arch/arm/pci/pci-host-zynqmp.c b/xen/arch/arm/pci/pci-host-zynqmp.c
-> index 516982bca833..101edb8593c1 100644
-> --- a/xen/arch/arm/pci/pci-host-zynqmp.c
-> +++ b/xen/arch/arm/pci/pci-host-zynqmp.c
-> @@ -34,6 +34,7 @@ const struct pci_ecam_ops nwl_pcie_ops = {
->           .map_bus                = pci_ecam_map_bus,
->           .read                   = pci_generic_config_read,
->           .write                  = pci_generic_config_write,
-> +        .need_p2m_hwdom_mapping = pci_ecam_need_p2m_hwdom_mapping,
->       }
->   };
->   
-> diff --git a/xen/include/asm-arm/pci.h b/xen/include/asm-arm/pci.h
-> index 969333043431..3d706fdd1d88 100644
-> --- a/xen/include/asm-arm/pci.h
-> +++ b/xen/include/asm-arm/pci.h
-> @@ -17,6 +17,8 @@
->   
->   #ifdef CONFIG_HAS_PCI
->   
-> +#include <asm/p2m.h>
-> +
->   #define pci_to_dev(pcidev) (&(pcidev)->arch.dev)
->   
->   extern bool pci_passthrough_enabled;
-> @@ -73,6 +75,9 @@ struct pci_ops {
->                   uint32_t reg, uint32_t len, uint32_t *value);
->       int (*write)(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
->                    uint32_t reg, uint32_t len, uint32_t value);
-> +    bool (*need_p2m_hwdom_mapping)(struct domain *d,
-> +                                   struct pci_host_bridge *bridge,
-> +                                   uint64_t addr);
->   };
->   
->   /*
-> @@ -96,6 +101,9 @@ int pci_generic_config_write(struct pci_host_bridge *bridge, pci_sbdf_t sbdf,
->                                uint32_t reg, uint32_t len, uint32_t value);
->   void __iomem *pci_ecam_map_bus(struct pci_host_bridge *bridge,
->                                  pci_sbdf_t sbdf, uint32_t where);
-> +bool pci_ecam_need_p2m_hwdom_mapping(struct domain *d,
-> +                                     struct pci_host_bridge *bridge,
-> +                                     uint64_t addr);
->   struct pci_host_bridge *pci_find_host_bridge(uint16_t segment, uint8_t bus);
->   struct dt_device_node *pci_find_host_bridge_node(struct device *dev);
->   int pci_get_host_bridge_segment(const struct dt_device_node *node,
-> @@ -115,6 +123,8 @@ int pci_host_iterate_bridges(struct domain *d,
->                                           struct pci_host_bridge *bridge));
->   unsigned int pci_host_get_num_bridges(void);
->   
-> +int pci_host_bridge_mappings(struct domain *d);
-> +
->   #else   /*!CONFIG_HAS_PCI*/
->   
->   struct arch_pci_dev { };
-> diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
-> index 95da0b7ab9cd..88d9673db817 100644
-> --- a/xen/include/asm-arm/setup.h
-> +++ b/xen/include/asm-arm/setup.h
-> @@ -2,6 +2,8 @@
->   #define __ARM_SETUP_H_
->   
->   #include <public/version.h>
-> +#include <asm/p2m.h>
-> +#include <xen/device_tree.h>
->   
->   #define MIN_FDT_ALIGN 8
->   #define MAX_FDT_SIZE SZ_2M
-> @@ -77,6 +79,14 @@ struct bootinfo {
->   #endif
->   };
->   
-> +struct map_range_data
-> +{
-> +    struct domain *d;
-> +    p2m_type_t p2mt;
-> +    /* Set if mapping of the memory ranges must be skipped. */
-> +    bool skip_mapping;
-> +};
-> +
->   extern struct bootinfo bootinfo;
->   
->   extern domid_t max_init_domid;
-> @@ -124,6 +134,9 @@ void device_tree_get_reg(const __be32 **cell, u32 address_cells,
->   u32 device_tree_get_u32(const void *fdt, int node,
->                           const char *prop_name, u32 dflt);
->   
-> +int map_range_to_domain(const struct dt_device_node *dev,
-> +                        u64 addr, u64 len, void *data);
-> +
->   #endif
->   /*
->    * Local variables:
-> 
-
-Cheers,
-
--- 
-Julien Grall
+SGksIEp1bGllbiENCg0KT24gMjMuMTEuMjEgMTg6MDUsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4g
+SGkgT2xla3NhbmRyLA0KPg0KPiBPbiAyMy8xMS8yMDIxIDA2OjMxLCBPbGVrc2FuZHIgQW5kcnVz
+aGNoZW5rbyB3cm90ZToNCj4+DQo+Pg0KPj4gT24gMjIuMTEuMjEgMTk6MTcsIEp1bGllbiBHcmFs
+bCB3cm90ZToNCj4+PiBIaSwNCj4+Pg0KPj4+IE9uIDIyLzExLzIwMjEgMTY6MjMsIE9sZWtzYW5k
+ciBBbmRydXNoY2hlbmtvIHdyb3RlOg0KPj4+PiBPbiAyMi4xMS4yMSAxNzoyOSwgSnVsaWVuIEdy
+YWxsIHdyb3RlOg0KPj4+Pj4gSSB3b3VsZCBwcmVmZXIgdG8gZ28gd2l0aCBteSB3YXkuIFRoaXMg
+Y2FuIGJlIHJlZmluZWQgaW4gdGhlIGZ1dHVyZSBpZiB3ZSBmaW5kIERldmljZS1UcmVlIHRoYXQg
+bWF0Y2hlcyB3aGF0IHlvdSB3cm90ZS4NCj4+Pj4gT2ssIHNvIGp1c3QgdG8gbWFrZSBpdCBjbGVh
+cjoNCj4+Pj4gwqDCoCA+YSBQQ0kgZGV2aWNlIHdvdWxkIGFsd2F5cyBiZSBkZXNjcmliZWQgYXMg
+YSBjaGlsZCBvZiB0aGUgaG9zdGJyaWRnZXMuIFNvIEkgd291bGQgcmV3b3JrIHRoZSAnaWYnIHRv
+IGFsc28gY2hlY2sgaWYgdGhlwqBwYXJlbnTCoHR5cGXCoGlzwqBub3TCoCJwY2kiDQo+Pj4NCj4+
+PiBUaGF0J3MgY29ycmVjdC4gVGhhbmsgeW91IQ0KPj4gT2ssIHNvIGhvdyBhYm91dA0KPj4gwqAg
+wqDCoMKgIGlmICggaXNfcGNpX3Bhc3N0aHJvdWdoX2VuYWJsZWQoKSAmJiBkdF9kZXZpY2VfdHlw
+ZV9pc19lcXVhbChub2RlLCAicGNpIikgKQ0KPj4gwqAgwqDCoMKgIHsNCj4+IMKgIMKgwqDCoMKg
+wqDCoMKgIGJvb2wgc2tpcCA9IGZhbHNlOw0KPj4NCj4+IMKgIMKgwqDCoMKgwqDCoMKgIC8qDQo+
+PiDCoCDCoMKgwqDCoMKgwqDCoMKgICogSWYgdGhlIHBhcmVudCBpcyBhbHNvIGEgInBjaSIgZGV2
+aWNlLCB0aGVuICJsaW51eCxwY2ktZG9tYWluIg0KPj4gwqAgwqDCoMKgwqDCoMKgwqDCoCAqIHNo
+b3VsZCBhbHJlYWR5IGJlIHRoZXJlLCBzbyBub3RoaW5nIHRvIGRvIHRoZW4uDQo+PiDCoCDCoMKg
+wqDCoMKgwqDCoMKgICovDQo+DQo+IFRoaXMgY29tbWVudCBpcyBhIGJpdCBjb25mdXNpbmcuDQpE
+byB5b3UgaGF2ZSBzb21ldGhpbmcgb24geW91ciBtaW5kPw0KPiBJIHRoaW5rIHdoYXQgbWF0dGVy
+IGlmIHRoZSBwYXJlbnQgaXMgYSAicGNpIiBkZXZpY2UsIHRoZW4gdGhlIGN1cnJlbnQgbm9kZSBt
+dXN0IG5vdCBiZSBhIGhvc3RicmlkZ2UuIFNvIHdlIGNhbiBza2lwIGl0Lg0KQnkgc2tpcHBpbmcg
+eW91IG9ubHkgbWVhbiB3ZSBkbyBub3QgbmVlZCB0byBhZGQvYXNzaWduICJsaW51eCxwY2ktZG9t
+YWluIiwgcmlnaHQ/DQo+IEhvd2V2ZXIuLi4NCj4NCj4+IMKgIMKgwqDCoMKgwqDCoMKgIGlmICgg
+bm9kZS0+cGFyZW50ICYmIGR0X2RldmljZV90eXBlX2lzX2VxdWFsKG5vZGUtPnBhcmVudCwgInBj
+aSIpICkNCj4+IMKgIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc2tpcCA9IHRydWU7DQo+Pg0KPj4g
+wqAgwqDCoMKgwqDCoMKgwqAgaWYgKCAhc2tpcCAmJiAhZHRfZmluZF9wcm9wZXJ0eShub2RlLCAi
+bGludXgscGNpLWRvbWFpbiIsIE5VTEwpICkNCj4+IMKgIMKgwqDCoMKgwqDCoMKgIHsNCj4+IEkg
+cGxheWVkIHdpdGggYSBzaW5nbGUgaWYgYW5kIGl0IGxvb2tzIHNjYXJ5Li4uDQo+DQo+IC4uLiBo
+b3cgYWJvdXQgaW50cm9kdWNpbmcgYW4gaGVscGVyIHRoYXQgd2lsbCByZXR1cm4gdHJ1ZSBpZiB0
+aGlzIG5vZGUgaXMgbGlrZWx5IGFuIGhvc3RicmlkZ2U/DQpUaGlzIGlzIHlldCBhIHNpbmdsZSB1
+c2Ugb2Ygc3VjaCBhIGNoZWNrOiB3aHkgd291bGQgd2UgbmVlZCBhIGhlbHBlciBhbmQgd2hhdCB3
+b3VsZCB0aGF0DQpoZWxwZXIgZG8/DQo+DQo+IENoZWVycywNCj4NClRoYW5rIHlvdSwNCk9sZWtz
+YW5kcg==
 
