@@ -2,36 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CB24459A11
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Nov 2021 03:24:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.229106.396514 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7444F459AF9
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Nov 2021 05:14:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.229113.396525 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpLSo-0005NE-IX; Tue, 23 Nov 2021 02:23:18 +0000
+	id 1mpNBd-0006yq-KV; Tue, 23 Nov 2021 04:13:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 229106.396514; Tue, 23 Nov 2021 02:23:18 +0000
+Received: by outflank-mailman (output) from mailman id 229113.396525; Tue, 23 Nov 2021 04:13:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpLSo-0005LA-Ek; Tue, 23 Nov 2021 02:23:18 +0000
-Received: by outflank-mailman (input) for mailman id 229106;
- Tue, 23 Nov 2021 02:23:17 +0000
+	id 1mpNBd-0006vv-HD; Tue, 23 Nov 2021 04:13:41 +0000
+Received: by outflank-mailman (input) for mailman id 229113;
+ Tue, 23 Nov 2021 04:13:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iQPh=QK=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1mpLSn-0005L4-Go
- for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 02:23:17 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=T9bO=QK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1mpNBb-0006vp-Rn
+ for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 04:13:39 +0000
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4ecd7d0b-4c04-11ec-9787-a32c541c8605;
- Tue, 23 Nov 2021 03:23:14 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 1AN2MuC9063958
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Mon, 22 Nov 2021 21:23:02 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 1AN2Mum2063957;
- Mon, 22 Nov 2021 18:22:56 -0800 (PST) (envelope-from ehem)
+ id bb64cc9c-4c13-11ec-9787-a32c541c8605;
+ Tue, 23 Nov 2021 05:13:38 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 7E0CD61056;
+ Tue, 23 Nov 2021 04:13:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,74 +38,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ecd7d0b-4c04-11ec-9787-a32c541c8605
-Date: Mon, 22 Nov 2021 18:22:56 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-        Henry Wang <Henry.Wang@arm.com>
-Subject: Re: ACPI/UEFI support for Xen/ARM status?
-Message-ID: <YZxQgIKywpY5aCeY@mattapan.m5p.com>
-References: <YY3tSAFTCR4r2FaI@mattapan.m5p.com>
- <AM9PR08MB62428F41C4F998AD676C027C92959@AM9PR08MB6242.eurprd08.prod.outlook.com>
- <YY6L5JQPn0s3c6Jp@mattapan.m5p.com>
- <1d3561ef-548a-ea13-d362-0f95d7dba33b@xen.org>
- <64e9208d-ecda-2e62-e10f-81750c0279fb@suse.com>
- <78aa1ec7-3d47-716d-c9d6-b74d66486e9e@xen.org>
- <f3c5087b-4eb2-8599-f68c-cc9dbd375767@suse.com>
+X-Inumbo-ID: bb64cc9c-4c13-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1637640816;
+	bh=Ve01jzpnj8vwVW9CQ9UGVcsXQ2S3MX8ZrjLBcqNMJv4=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=EYrwXAO9OnvvOIWKHm5M/hDv5S6Gumus7TY0ldR9X0opxFlCl4GAkumWu+RWBjlFN
+	 5gC03BP4ymU5JMKWVg18BcZeLzIT++WN+BWljZS906XS5GPiK5Vq8g83j5slYJwchq
+	 4k7qDdlUMS77Iv6zQ5n7opVGbglENF0I4XS5MMbogDAL0IWFCzPULHoJcF1dqDv36r
+	 ckYw2o67aAVB38vStyHVQuqbjmEEYyfvgLC8tbd2T3YpYjxNs3Og+1iV/+X9syT8iQ
+	 XixXesycfpOMbKJ02h12jaggRzZyobQ59w38Za9zxpbnHCK2pvrwUuBpTOgFtAcBM+
+	 w/qJLoqpZWkpQ==
+Date: Mon, 22 Nov 2021 20:13:34 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien.grall.oss@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>, 
+    xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <wei.chen@arm.com>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    Jan Beulich <jbeulich@suse.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Rahul Singh <rahul.singh@arm.com>
+Subject: Re: [RFC PATCH] Added the logic to decode 32 bit ldr/str post-indexing
+ instructions
+In-Reply-To: <CAJ=z9a1L5v2+wC7-aaA2PjV2FzrFXjT-5t_0ijznGKvwywvd5A@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2111221241450.1412361@ubuntu-linux-20-04-desktop>
+References: <20211119165202.42442-1-ayankuma@xilinx.com> <647a76f8-fea9-57b3-eb64-82a67adba1fb@xen.org> <5a2f681a-c6ef-bc3a-ed09-e378dc6abc90@xilinx.com> <alpine.DEB.2.22.394.2111221157050.1412361@ubuntu-linux-20-04-desktop>
+ <CAJ=z9a1L5v2+wC7-aaA2PjV2FzrFXjT-5t_0ijznGKvwywvd5A@mail.gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f3c5087b-4eb2-8599-f68c-cc9dbd375767@suse.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.5
-X-Spam-Checker-Version: SpamAssassin 3.4.5 (2021-03-20) on mattapan.m5p.com
+Content-Type: text/plain; charset=US-ASCII
 
-On Tue, Nov 16, 2021 at 08:18:26AM +0100, Jan Beulich wrote:
-> On 15.11.2021 20:09, Julien Grall wrote:
-> > 
-> > However, for Elliott's case, I am not sure this is going to sufficient. 
-> > The Raspberry PI has some devices that can only DMA into the first 1GB 
-> > of the RAM (the GPU seems to be one). So we need to make sure Xen is 
-> > allocating enough memory for Dom0 below that limit.
+On Mon, 22 Nov 2021, Julien Grall wrote:
+> On Mon, 22 Nov 2021 at 19:59, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> >
+> > On Mon, 22 Nov 2021, Ayan Kumar Halder wrote:
+> > > Stefano > It doesn't look like we are setting dabt->write anywhere.
+> > >
+> > > Ayan > Yes, this is a miss. Depending on the opc, this should be upadeted
+> > > accordingly in decode_64bit_loadstore_postindexing().
+> > >
+> > > Stefano > Also, is info.gpa in try_handle_mmio already updated in the
+> > > pre-index
+> > > case? If not, do we need to apply the offset manually here?
+> > >
+> > > Ayan > Sorry, I did not understand you. This patch is only related to the post
+> > > indexing ldr/str issue. Why do we need to check for pre-indexing ?
+> >
+> > I thought you were trying to handle both post-indexing and pre-indexing.
+> > It is OK if you intend to only handle post-indexing but considering that
+> > most of the code is shared between the two, we might as well also make
+> > pre-indexing work (unless it turns out it is more difficult).
 > 
-> Urgh.
+> Wouldn't this effectively be dead code?
 > 
-> > Do you have similar problem on x86? If so, how do you deal with it?
+> >
+> > In the pre-indexing case, I would imagine we need to update the base
+> > address before taking any other actions.
 > 
-> No, we don't have any such restrictions that I would be aware of.
+> >From my understanding, this would have already been performed by the
+> HW when the syndrome is valid. This may also be the case for
+> the non-valid case, but I haven't checked the Arm Arm.
 
-x86 had *many* devices which were limited to the low 4GB, go back futher
-and there might have been other devices with lower limits.  The oddity
-here being devices with a 1GB limit on a board with aarch64 processors.
+It is not clear to me either, that's why I wrote "I would imagine"... I
+was guessing that it is not done by the HW in the non-valid case but I
+don't know.
 
-This simply needs effort to keep Xen out of low addresses (which has the
-additional advantage of protection from DMA) and allocate more low
-addresses to Domain 0.  Could also see value in preferring to load
-Domain 0's kernel at higher addresses.
-
-Last year I had been left with the impression full ACPI table support
-was really a WIP and I should leave things alone.  Letting others push
-the ACPI support forward, while I put effort into the piece which nobody
-was putting significant effort into.
-
-Yet again what has been typed leaves the impression full ACPI table
-support on ARM is highly desired and likely very high value.  Just at the
-incremental effort for per-device device-trees isn't that high, while the
-full table support will initially be expensive.  Yet once that is done I
-suspect there will be far lower per-device effort.
-
-We seem to need a corporate entity to aggregate all the funding to get
-ACPI into proper shape.  Then we could enjoy many more devices with much
-lower per-device effort.
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+Of course, if it is already done by the HW, that's all the better: no
+need for us to do anything.
 
