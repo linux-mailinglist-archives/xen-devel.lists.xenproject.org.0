@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D66645A95A
+	by mail.lfdr.de (Postfix) with ESMTPS id E900D45A95B
 	for <lists+xen-devel@lfdr.de>; Tue, 23 Nov 2021 17:56:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.229810.397351 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.229811.397356 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpZ5w-00072j-I0; Tue, 23 Nov 2021 16:56:36 +0000
+	id 1mpZ5w-00076m-OU; Tue, 23 Nov 2021 16:56:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 229810.397351; Tue, 23 Nov 2021 16:56:36 +0000
+Received: by outflank-mailman (output) from mailman id 229811.397356; Tue, 23 Nov 2021 16:56:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpZ5w-00070y-EB; Tue, 23 Nov 2021 16:56:36 +0000
-Received: by outflank-mailman (input) for mailman id 229810;
+	id 1mpZ5w-00072i-LF; Tue, 23 Nov 2021 16:56:36 +0000
+Received: by outflank-mailman (input) for mailman id 229811;
  Tue, 23 Nov 2021 16:56:35 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mpZ5v-00070h-I5
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mpZ5v-00070m-MU
  for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:56:35 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mpZ5v-000868-Dr
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mpZ5v-00086x-Lk
  for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:56:35 +0000
 Received: from iwj (helo=mariner.uk.xensource.com)
  by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mpZ5v-0004Or-Ct
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mpZ5v-0004Ox-Kw
  for xen-devel@lists.xenproject.org; Tue, 23 Nov 2021 16:56:35 +0000
 Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
  by mariner.uk.xensource.com with esmtp (Exim 4.89)
  (envelope-from <ijackson@chiark.greenend.org.uk>)
- id 1mpZ5t-00075W-7I; Tue, 23 Nov 2021 16:56:33 +0000
+ id 1mpZ5t-00075W-HH; Tue, 23 Nov 2021 16:56:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,40 +44,62 @@ Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:
-	Message-Id:Date:Subject:Cc:To:From;
-	bh=Igfoa3K6shqP/kuB/2xLDcPaW0pX0f1Li+I0arh792M=; b=xT4mXrHe7oENKEvPjFn64QaMkY
-	D24RW0L327dP91lsgj5skeYjOjwX2KnkYJ8Xd0Tw+zi/HJcn8HyWNePYCBbK7lym3oKzX72YMaFE+
-	oRgCGvyaJINWOpndcLThppz3CBGWjcibEZwv+O4OXnhUQBiO1Y7VIpN4AvD6m2Yn1Rdk=;
+	References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
+	bh=hO0oTc+a7utMhGBX2wvxTXkVwGBGpfZrGujo7r5zEP4=; b=GmECEyMgzpgI8Lgia9eZZdBAyX
+	T+vxJfcu1sqNvutJfbM2XlCLR5OdgswtBmbZk19eOQ/WJ7rXOK5G/3KVrrDv4yA95gJ0ugllVSoDq
+	GNMaeGf71X4L2bcJd6QOOT/xiWgT2/k5UsfngncoHaUqdJHhAk5LB/WEaz1IuI8MxWhQ=;
 From: Ian Jackson <iwj@xenproject.org>
 To: xen-devel@lists.xenproject.org
 Cc: iwj@xenproject.org
-Subject: [PATCH for-4.17 1/3] Revert "Config.mk: pin QEMU_UPSTREAM_REVISION (prep for Xen 4.16 RC1)"
-Date: Tue, 23 Nov 2021 16:56:23 +0000
-Message-Id: <20211123165625.1023-1-iwj@xenproject.org>
+Subject: [PATCH for-4.17 2/3] Set version to 4.17; 4.16 has branched
+Date: Tue, 23 Nov 2021 16:56:24 +0000
+Message-Id: <20211123165625.1023-2-iwj@xenproject.org>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20211123165625.1023-1-iwj@xenproject.org>
+References: <20211123165625.1023-1-iwj@xenproject.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This branch is unstable again now.
-
-This reverts commit c9ce6afbf2d7772f47fc572bb7fc9555724927ed.
+Signed-off-by: Ian Jackson <iwj@xenproject.org>
 ---
- Config.mk | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ README       | 10 +++++-----
+ xen/Makefile |  4 ++--
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/Config.mk b/Config.mk
-index 6be010c7ce..6587c7d626 100644
---- a/Config.mk
-+++ b/Config.mk
-@@ -239,7 +239,7 @@ SEABIOS_UPSTREAM_URL ?= git://xenbits.xen.org/seabios.git
- MINIOS_UPSTREAM_URL ?= git://xenbits.xen.org/mini-os.git
- endif
- OVMF_UPSTREAM_REVISION ?= 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5
--QEMU_UPSTREAM_REVISION ?= b6e539830bf45e2d7a6bd86ddfdf003088b173b0
-+QEMU_UPSTREAM_REVISION ?= master
- MINIOS_UPSTREAM_REVISION ?= 9f09744aa3e5982a083ecf8e9cd2123f477081f9
+diff --git a/README b/README
+index a626e56436..562b808080 100644
+--- a/README
++++ b/README
+@@ -1,9 +1,9 @@
+ ############################################################
+-__  __            _  _    _  __
+-\ \/ /___ _ __   | || |  / |/ /_        _ __ ___
+- \  // _ \ '_ \  | || |_ | | '_ \ _____| '__/ __|
+- /  \  __/ | | | |__   _|| | (_) |_____| | | (__
+-/_/\_\___|_| |_|    |_|(_)_|\___/      |_|  \___|
++__  __                                _        _     _
++\ \/ /___ _ __        _   _ _ __  ___| |_ __ _| |__ | | ___
++ \  // _ \ '_ \ _____| | | | '_ \/ __| __/ _` | '_ \| |/ _ \
++ /  \  __/ | | |_____| |_| | | | \__ \ || (_| | |_) | |  __/
++/_/\_\___|_| |_|      \__,_|_| |_|___/\__\__,_|_.__/|_|\___|
  
- SEABIOS_UPSTREAM_REVISION ?= rel-1.14.0
+ ############################################################
+ 
+diff --git a/xen/Makefile b/xen/Makefile
+index 2fc83f266b..1fd48af7ae 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -1,8 +1,8 @@
+ # This is the correct place to edit the build version.
+ # All other places this is stored (eg. compile.h) should be autogenerated.
+ export XEN_VERSION       = 4
+-export XEN_SUBVERSION    = 16
+-export XEN_EXTRAVERSION ?= -rc$(XEN_VENDORVERSION)
++export XEN_SUBVERSION    = 17
++export XEN_EXTRAVERSION ?= -unstable$(XEN_VENDORVERSION)
+ export XEN_FULLVERSION   = $(XEN_VERSION).$(XEN_SUBVERSION)$(XEN_EXTRAVERSION)
+ -include xen-version
+ 
 -- 
 2.20.1
 
