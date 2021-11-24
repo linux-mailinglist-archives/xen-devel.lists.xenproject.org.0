@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B970A45CA97
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 18:04:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.230474.398408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C2A445CB60
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 18:50:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.230480.398419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpvgP-0004NB-HB; Wed, 24 Nov 2021 17:03:45 +0000
+	id 1mpwOt-0008UA-29; Wed, 24 Nov 2021 17:49:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 230474.398408; Wed, 24 Nov 2021 17:03:45 +0000
+Received: by outflank-mailman (output) from mailman id 230480.398419; Wed, 24 Nov 2021 17:49:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpvgP-0004Ky-DO; Wed, 24 Nov 2021 17:03:45 +0000
-Received: by outflank-mailman (input) for mailman id 230474;
- Wed, 24 Nov 2021 17:03:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2JOZ=QL=microsoft.com=mikelley@srs-se1.protection.inumbo.net>)
- id 1mpvgO-0004Kq-CM
- for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 17:03:44 +0000
-Received: from na01-obe.outbound.protection.outlook.com
- (mail-cusazlp170100000.outbound.protection.outlook.com
- [2a01:111:f403:c111::])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 796258f9-4d48-11ec-9787-a32c541c8605;
- Wed, 24 Nov 2021 18:03:42 +0100 (CET)
-Received: from MWHPR21MB1593.namprd21.prod.outlook.com (2603:10b6:301:7c::11)
- by MWHPR21MB0160.namprd21.prod.outlook.com (2603:10b6:300:78::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.6; Wed, 24 Nov
- 2021 17:03:27 +0000
-Received: from MWHPR21MB1593.namprd21.prod.outlook.com
- ([fe80::9401:9c8b:c334:4336]) by MWHPR21MB1593.namprd21.prod.outlook.com
- ([fe80::9401:9c8b:c334:4336%2]) with mapi id 15.20.4755.001; Wed, 24 Nov 2021
- 17:03:27 +0000
+	id 1mpwOs-0008SO-UW; Wed, 24 Nov 2021 17:49:42 +0000
+Received: by outflank-mailman (input) for mailman id 230480;
+ Wed, 24 Nov 2021 17:49:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mpwOr-0008SI-9l
+ for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 17:49:41 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mpwOr-00048b-4n; Wed, 24 Nov 2021 17:49:41 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231]
+ helo=[192.168.24.101]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mpwOq-0005Xm-V9; Wed, 24 Nov 2021 17:49:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,243 +39,279 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 796258f9-4d48-11ec-9787-a32c541c8605
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NJSew702kt1SBq/iP+d0p4PpwIrVLZwzRSwBbg1PWN4NPsgCv/+v9GiYcp9Yvs1HjpMV0WV2TPEb/8hwN7SE0cDQKiaB+jtcUpEtYvIemIDeQtqpd1Yc3/aKvtoOIyoAvtd3PLSGZCKGso02BeV9f5X+UjJSWUAorYuOz2Shz1WOjRHW4qiijWUiknKAmr/kGGS0tNGYZyaWxaDSDSVskAJUrpmmEeTwNrXRuIcxjFMMrhARtuO8hkmNIFHhOwYHHyRP5PuC8P8n7+uqWuCd4UtSUUjrvRoEcDp0sONT9hDTGtO/zzgQIs9tH+EA8Nb3RUxY1l/XA8OQbsaO83cYuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BD9wKKo11ShnaAQ2qihISDt0mNPkCMxLNXXSL2rmFyE=;
- b=A0qXvqeGYO36sQXuR8NTZYeJjezeZniCtq/HxfHg3OevkFYSGCBxOGrybjWAhGUyLpE68/pVUyYH9uvzA6Hy9X+aHNBG73lJ6B9M9PQJ3dCIHFmGThkwzIMQd8lYUoG2B35zZIoBuaoaqKdXI9HyiPJUqi8dK1Rm9byLLr8RUXyminrAKhxCnlJix1p67NFCiIqFhvylPkkyazaFOpvion0DqvTwRu8eZy57bPaw39UA2fobUPdwxmaMMe5wIfMoOEajzuuP063z3jnpJejY+SuP22a8P5OM4X3eSR2pRqVoTK189HVRtvTLereFL7LkKpoenboqpQ7ohNMmwHBcYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=microsoft.com; dmarc=pass action=none
- header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BD9wKKo11ShnaAQ2qihISDt0mNPkCMxLNXXSL2rmFyE=;
- b=UkUcwtpQTsE3e/3mDhS9QbXgBnLY/1K3N7504xrxZvVrf9luaUQ3kEvpqloXPVUSmx2x0qHXhmzBuFoiqbFsUttiyr3QqXvbEOJVNcbn3RfUJzFOZAJK5OPbW+y1YZGROwduvUBcJgOCx13A7WRwA+AH0yUVEDtvfnkGl9/PALQ=
-From: "Michael Kelley (LINUX)" <mikelley@microsoft.com>
-To: Tianyu Lan <ltykernel@gmail.com>, "tglx@linutronix.de"
-	<tglx@linutronix.de>, "mingo@redhat.com" <mingo@redhat.com>, "bp@alien8.de"
-	<bp@alien8.de>, "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"x86@kernel.org" <x86@kernel.org>, "hpa@zytor.com" <hpa@zytor.com>,
-	"luto@kernel.org" <luto@kernel.org>, "peterz@infradead.org"
-	<peterz@infradead.org>, "jgross@suse.com" <jgross@suse.com>,
-	"sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>, KY Srinivasan
-	<kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, Stephen
- Hemminger <sthemmin@microsoft.com>, "wei.liu@kernel.org"
-	<wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, "joro@8bytes.org"
-	<joro@8bytes.org>, "will@kernel.org" <will@kernel.org>, "davem@davemloft.net"
-	<davem@davemloft.net>, "kuba@kernel.org" <kuba@kernel.org>,
-	"jejb@linux.ibm.com" <jejb@linux.ibm.com>, "martin.petersen@oracle.com"
-	<martin.petersen@oracle.com>, "hch@lst.de" <hch@lst.de>,
-	"m.szyprowski@samsung.com" <m.szyprowski@samsung.com>, "robin.murphy@arm.com"
-	<robin.murphy@arm.com>, Tianyu Lan <Tianyu.Lan@microsoft.com>,
-	"thomas.lendacky@amd.com" <thomas.lendacky@amd.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>,
-	"linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, vkuznets
-	<vkuznets@redhat.com>, "brijesh.singh@amd.com" <brijesh.singh@amd.com>,
-	"konrad.wilk@oracle.com" <konrad.wilk@oracle.com>, "parri.andrea@gmail.com"
-	<parri.andrea@gmail.com>, "dave.hansen@intel.com" <dave.hansen@intel.com>
-Subject: RE: [PATCH V2 5/6] net: netvsc: Add Isolation VM support for netvsc
- driver
-Thread-Topic: [PATCH V2 5/6] net: netvsc: Add Isolation VM support for netvsc
- driver
-Thread-Index: AQHX4HeYtAEila+YgkS3X1o35FDXYawS2g7g
-Date: Wed, 24 Nov 2021 17:03:26 +0000
-Message-ID:
- <MWHPR21MB1593093B61DC506B64986B14D7619@MWHPR21MB1593.namprd21.prod.outlook.com>
-References: <20211123143039.331929-1-ltykernel@gmail.com>
- <20211123143039.331929-6-ltykernel@gmail.com>
-In-Reply-To: <20211123143039.331929-6-ltykernel@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=4391e0e8-47f1-4dc5-aa3c-c57814906b25;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2021-11-24T16:08:18Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=microsoft.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 645ba359-8c0b-4f2f-7b48-08d9af6c554b
-x-ms-traffictypediagnostic: MWHPR21MB0160:
-x-ld-processed: 72f988bf-86f1-41af-91ab-2d7cd011db47,ExtAddr
-x-microsoft-antispam-prvs:
- <MWHPR21MB0160D2B6E06F66610394FB38D7619@MWHPR21MB0160.namprd21.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- lgCok9YPWjAorBazHS+K/zK0iUKclUi/gDhMV1adSOrVIzDHGcaJeLc9mWOtg5DFOjPG2BjtBuEz9a4nsye2BSa/saMA1zBZjXmh7WAae4okWK5XD2+lm0SiigzSQzGL+VKFCbGTd7t1tPeWJUmc5E63Cbeg9IdIrdHkzw7SYTkVXOhc0LtNSKLasHs/FD/M+nwB5Z6D6lqvESYdChEADB+5LHr6jPOqHwiVUp6+GZ9VS95bKo0mCZv1UD9zNxd++gxK0Evx8uxgUpCX5+O8m7eQXny27KQ3b1oMCge95Ijx2RM9yI3qFyQzypEQdJqeFyjONfstRR3ztpSKgDLWJ/y6x4TjUJDTpgOtH3HawjLrjoggMoatL55AcgXrr9nersomuAezohLes/8W2KePLvIGKfb6AUUg0o9UmO1LSD/FZLz3d0OBYBVK4C3P8iRnYP1IFWg0HW7fhR3X9itBzooTHhTIysNZfChaY0rCbkvBFmD92Dk1BLorb26CgHdLaWyGfTuaFwc62Ldot+XMic80/UKwIYzvw47SJ5fffxUW4uCNJc2fKOR/u1bcenUVVE9iajcB4aJqX7agdBwMvnmfgK0i+aORU0ZGlXqmRc/jeYD7cqluGJCVqrbDx7cqKm89I/lfGAeh7TMELgvmxks/sU13zSfvNGDfxCuHGo6E0YEL1MvMp7TaDLLM/kk/zunkwiuafrAb+k3+WBfplbbPVyA3rEdCWrNiqwPZinBdoio8yUDlEyASDkr7ZDfNcE+xmvPzCOkaUZbFrezmEw==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MWHPR21MB1593.namprd21.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(7696005)(71200400001)(6506007)(508600001)(82950400001)(8990500004)(55016003)(10290500003)(33656002)(66476007)(66556008)(64756008)(66446008)(8676002)(4326008)(83380400001)(186003)(2906002)(8936002)(54906003)(7406005)(86362001)(5660300002)(7416002)(122000001)(110136005)(26005)(316002)(76116006)(9686003)(52536014)(66946007)(82960400001)(921005)(38100700002)(38070700005)(20210929001);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?AwExHU+M29eSnSe5BLN2W/8ii8uIVdNmFv8oHC+RkSnXcHjP36HUkX+PaTU4?=
- =?us-ascii?Q?H25bZgnMWSEygiei+0jPiJE50Jq32E9pKjqctjxK0pEmXAJL6Rl7jSwwA+5k?=
- =?us-ascii?Q?VDxphfgxPSOwWLZJ73FRZsITZnilA5QRrVDgUsomXr7ApvNg537Sc1W+5oj3?=
- =?us-ascii?Q?fmj+qvljLh+Dte8BngcvUY2l4Wh2NwozL6RhdwyxxZk3TYdwFiMbQJGSDMfJ?=
- =?us-ascii?Q?wviKLA0WrpNudd61XGpwHiClzTM/g6j9FE1iIOgaJFbGfpwtQM/1D5o4FdxK?=
- =?us-ascii?Q?shSL3/EzQFqacqG6hDvJtGUvxldK79sn13sJA1chUjpLfjY9mSXyQr/gUjcc?=
- =?us-ascii?Q?YqPgoIR2mHBbnxF4kYsgkkRHIejQZNXZrf7wgvATddtOXEpJF2F1PZvtDdvb?=
- =?us-ascii?Q?EMwZVTyTlW5hY+UYk9Z9ZENM+NLCt851qy0B0V5NiIpK8X3gIwx0/+6D7FuY?=
- =?us-ascii?Q?sqRO8dDviPsslQJveWn0FUUf/k4rmRFEmq2VoRDleKpYX7mR512esQDxvgsF?=
- =?us-ascii?Q?eYV3J24bFO4zhPkt8L6WfPWYwqzWfxeNf/7bWzdImiQB50VYGHCVeBoLBeP/?=
- =?us-ascii?Q?oyTNpMXwIgngjAbNxHUAowi7NsrZ3HcD/dedi9L1sb7jmta3GgIxaTwPZVNS?=
- =?us-ascii?Q?CjIoX61Hnrr+AyNbXS0ifdbiPcW0Qm54fy6ec+s/WUSHypUutpT2espkFFYq?=
- =?us-ascii?Q?XnTMytXLiMuBbNQBbCW5McHkZZJbs2w+J6Fp5I2TrQRBksI2NJg1ldPOCTax?=
- =?us-ascii?Q?d6hDsdbXpHttpIjHLTl5T1l+7IdhQwCQSkcOWznccUjaj8G7vnPZMlL0kkWB?=
- =?us-ascii?Q?b3t35lSvZ15wZBQWqnMEWbW3zzAHwS9/uJZ+QCzjgenjGWlqgVMSPekKjjP/?=
- =?us-ascii?Q?dI6MSG4Yd7oHPkI0f9F0W6v5ZP6l4CJ1q776PUFSRB3cD0Wv11QYNfiMvKFk?=
- =?us-ascii?Q?vpU/2Ke6280PatYJ8kiB0+yNF9f9qKtBfA3rQucSl9rtD/Y9K0Tive4qf69C?=
- =?us-ascii?Q?Jm3qIRyvFyLOrEA4YmvCuxMs6MpE+nXAFf9OsXda3O4P9z5B1KhiQrvvMrtr?=
- =?us-ascii?Q?+GWAVb+JkkL1a+kuq4Fx1qEezMeD+kyFaLzV84zZfLTikgdJjS6DRhks9k5T?=
- =?us-ascii?Q?wgFapZXNg72Ww3tEX35HmX5BpSjhPSsSj5XqvODVG9LEVLnztLvBFLSj5NI2?=
- =?us-ascii?Q?6HMwsOzsinDjly33+sqaEIUaB4/+X97kg4KOYKR5jooRPDzaLvPDlHbD4YUB?=
- =?us-ascii?Q?G8Jw5wqbh3VbYQWP44TS07YhY7buoS+fiuY02Ic1yenN4psAiSCe0NaF7f3Z?=
- =?us-ascii?Q?Uz4i3N/smEpuAM4yf7SwMug2aiiMKJrFHrzr6KtkpD3EF24hg5RFu1Qsm9L7?=
- =?us-ascii?Q?EwqRMGm9QFWcwpbgrQURnDh6SYlhuM1foch9MzA/l099HA18X1IR1Fv77QO6?=
- =?us-ascii?Q?Edd//vvaOFI+3524x/IVc2M9OhGwxQjYBzeyxyrtVZn886YxUV+KZPQqt98+?=
- =?us-ascii?Q?I2Pi3V6cYfoMbl7LYP6T+U+oQIwJd27KaEX57gnKVTijaJCtnx7AKqqMHJtk?=
- =?us-ascii?Q?tZvES3IOLJ7mNUnpZymggJ/cks9moO8Ntx3g8B1rW3dDIh1osPTUN8MflkbT?=
- =?us-ascii?Q?9FJk/Z4DwoggfhKZI/57+yOwnasNq+pZuO5t602X/oJvRjh1USkAgNmUlJzK?=
- =?us-ascii?Q?ZJ0WYg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=c8fkS/g+uLVbJWz6o/mBLSg/g6acsCQ2jv7JjvTx1f8=; b=grnq2S2iWiJ9VXSWEnEdUh7lro
+	ZUwk8T+5061arj3gvtnqRlQ6Jtw7T0iJKQe5w7gq/A3XTz1Zgd36EPdFbllPz+9ccEUDhcVvMb6w6
+	g62KTewXYBV9om5Ebo6y5fEZXKGevBAezRFHkkLJob9lHf6eJnutqW9NMA+Ow7vw8SkM=;
+Message-ID: <f560b2e3-de0e-ac63-726d-40ee10291e1e@xen.org>
+Date: Wed, 24 Nov 2021 17:49:39 +0000
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MWHPR21MB1593.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 645ba359-8c0b-4f2f-7b48-08d9af6c554b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Nov 2021 17:03:26.9566
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mssEEe4NcS1WKOFFxFXYt+L4MFp7zB/b0GO6xguhSCkVDE+e9DLJeWgVrPf5wyWnWE38To/33ZeymL6sVo2/EASlOOtjmwDP3druvvzuWBY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR21MB0160
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.2
+Subject: Re: [PATCH v3 04/10] xen/arm: introduce direct-map for domUs
+To: Penny Zheng <penny.zheng@arm.com>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org
+Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com
+References: <20211116063155.901183-1-penny.zheng@arm.com>
+ <20211116063155.901183-5-penny.zheng@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20211116063155.901183-5-penny.zheng@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Tianyu Lan <ltykernel@gmail.com> Sent: Tuesday, November 23, 2021 6:3=
-1 AM
->=20
-> In Isolation VM, all shared memory with host needs to mark visible
-> to host via hvcall. vmbus_establish_gpadl() has already done it for
-> netvsc rx/tx ring buffer. The page buffer used by vmbus_sendpacket_
-> pagebuffer() stills need to be handled. Use DMA API to map/umap
-> these memory during sending/receiving packet and Hyper-V swiotlb
-> bounce buffer dma address will be returned. The swiotlb bounce buffer
-> has been masked to be visible to host during boot up.
->=20
-> Allocate rx/tx ring buffer via dma_alloc_noncontiguous() in Isolation
-> VM. After calling vmbus_establish_gpadl() which marks these pages visible
-> to host, map these pages unencrypted addes space via dma_vmap_noncontiguo=
-us().
->=20
+Hi Penny,
 
-The big unresolved topic is how best to do the allocation and mapping of th=
-e big
-netvsc send and receive buffers.  Let me summarize and make a recommendatio=
-n.
+On 16/11/2021 06:31, Penny Zheng wrote:
+> Cases where domU needs direct-map memory map:
+>    * IOMMU not present in the system.
+>    * IOMMU disabled if it doesn't cover a specific device and all the guests
+> are trusted. Thinking a mixed scenario, where a few devices with IOMMU and
+> a few without, then guest DMA security still could not be totally guaranteed.
+> So users may want to disable the IOMMU, to at least gain some performance
+> improvement from IOMMU disabled.
+>    * IOMMU disabled as a workaround when it doesn't have enough bandwidth.
+> To be specific, in a few extreme situation, when multiple devices do DMA
+> concurrently, these requests may exceed IOMMU's transmission capacity.
+>    * IOMMU disabled when it adds too much latency on DMA. For example,
+> TLB may be missing in some IOMMU hardware, which may bring latency in DMA
+> progress, so users may want to disable it in some realtime scenario.
+>    * Guest OS relies on the host memory layout
+> 
+> This commit introduces a new helper allocate_static_memory_11 to allocate
+> static memory as guest RAM for direct-map domain.
+> 
+> For now, direct-map is only available when statically allocated memory is
+> used for the domain, that is, "xen,static-mem" must be also defined in the
+> domain configuration.
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> ---
+> v2 changes:
+> - split the common codes into two helpers: parse_static_mem_prop and
+> acquire_static_memory_bank to deduce complexity.
+> - introduce a new helper allocate_static_memory_11 for allocating static
+> memory for direct-map guests
+> - remove redundant use "bool direct_map", to be replaced by
+> d_cfg.flags & XEN_DOMCTL_CDF_directmap
+> - remove panic action since it is fine to assign a non-DMA capable device when
+> IOMMU and direct-map both off
+> ---
+> v3 changes:
+> - doc refinement
+> - drop the pointless gbank
+> - add check of the size of nr_banks shall not exceed NR_MEM_BANKS
+> - add ASSERT_UNREACHABLE to catch any misuse
+> - add another check of validating flag XEN_DOMCTL_CDF_INTERNAL_directmap only
+> when CONFIG_STATIC_MEMORY is set.
+> ---
+>   docs/misc/arm/device-tree/booting.txt |   6 ++
+>   xen/arch/arm/domain_build.c           | 105 +++++++++++++++++++++++++-
+>   2 files changed, 108 insertions(+), 3 deletions(-)
+> 
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index 71895663a4..a94125394e 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -182,6 +182,12 @@ with the following properties:
+>       Both #address-cells and #size-cells need to be specified because
+>       both sub-nodes (described shortly) have reg properties.
+>   
+> +- direct-map
+> +
+> +    Only available when statically allocated memory is used for the domain.
+> +    An empty property to request the memory of the domain to be
+> +    direct-map (guest physical address == physical address).
+> +
+>   Under the "xen,domain" compatible node, one or more sub-nodes are present
+>   for the DomU kernel and ramdisk.
+>   
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 1dc728e848..97a5b5dedd 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -500,8 +500,13 @@ static bool __init append_static_memory_to_bank(struct domain *d,
+>   {
+>       int res;
+>       unsigned int nr_pages = PFN_DOWN(size);
+> -    /* Infer next GFN. */
+> -    gfn_t sgfn = gaddr_to_gfn(bank->start + bank->size);
+> +    gfn_t sgfn;
+> +
+> +    if ( !is_domain_direct_mapped(d) )
+> +        /* Infer next GFN when GFN != MFN. */
 
-Background
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-1.  Each Hyper-V synthetic network device requires a large pre-allocated re=
-ceive
-     buffer (defaults to 16 Mbytes) and a similar send buffer (defaults to =
-1 Mbyte).
-2.  The buffers are allocated in guest memory and shared with the Hyper-V h=
-ost.
-     As such, in the Hyper-V SNP environment, the memory must be unencrypte=
-d
-     and accessed in the Hyper-V guest with shared_gpa_boundary (i.e., VTOM=
-)
-     added to the physical memory address.
-3.  The buffers need *not* be contiguous in guest physical memory, but must=
- be
-     contiguously mapped in guest kernel virtual space.
-4.  Network devices may come and go during the life of the VM, so allocatio=
-n of
-     these buffers and their mappings may be done after Linux has been runn=
-ing for
-     a long time.
-5.  Performance of the allocation and mapping process is not an issue since=
- it is
-     done only on synthetic network device add/remove.
-6.  So the primary goals are an appropriate logical abstraction, code that =
-is
-     simple and straightforward, and efficient memory usage.
+I would move this comment just before the if and write something like:
 
-Approaches
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-During the development of these patches, four approaches have been
-implemented:
+/*
+  * For direct-mapped domain, the GFN match the MFN.
+  * Otherwise, this is inferred on what has already been allocated in the
+  * bank.
+  */
 
-1.  Two virtual mappings:  One from vmalloc() to allocate the guest memory,=
- and
-     the second from vmap_pfns() after adding the shared_gpa_boundary.   Th=
-is is
-     implemented in Hyper-V or netvsc specific code, with no use of DMA API=
-s.
-     No separate list of physical pages is maintained, so for creating the =
-second
-     mapping, the PFN list is assembled temporarily by doing virt-to-phys()
-     page-by-page on the vmalloc mapping, and then discarded because it is =
-no
-     longer needed.  [v4 of the original patch series.]
+> +        sgfn = gaddr_to_gfn(bank->start + bank->size);
+> +    else
+> +        sgfn = gaddr_to_gfn(mfn_to_maddr(smfn));
+>   
+>       res = guest_physmap_add_pages(d, sgfn, smfn, nr_pages);
+>       if ( res )
+> @@ -674,12 +679,94 @@ static void __init allocate_static_memory(struct domain *d,
+>    fail:
+>       panic("Failed to allocate requested static memory for domain %pd.", d);
+>   }
+> +
+> +/*
+> + * Allocate static memory as RAM for one specific domain d.
+> + * The static memory will be directly mapped in the guest(Guest Physical
+> + * Address == Physical Address).
+> + */
+> +static void __init allocate_static_memory_11(struct domain *d,
 
-2.  Two virtual mappings as in (1) above, but implemented via new DMA calls
-     dma_map_decrypted() and dma_unmap_encrypted().  [v3 of the original
-     patch series.]
+I would rename the function to assign_static_memory_11() to make
+clear there is no allocation done. Instead we are only mapping 
+pre-defined host regions to pre-defined guest regions.
 
-3.  Two virtual mappings as in (1) above, but implemented via DMA noncontig=
-uous
-      allocation and mapping calls, as enhanced to allow for custom map/unm=
-ap
-      implementations.  A list of physical pages is maintained in the dma_s=
-gt_handle
-      as expected by the DMA noncontiguous API.  [New split-off patch serie=
-s v1 & v2]
+> +                                             struct kernel_info *kinfo,
+> +                                             const struct dt_device_node *node)
+> +{
+> +    u32 addr_cells, size_cells, reg_cells;
+> +    unsigned int nr_banks, bank = 0;
+> +    const __be32 *cell;
+> +    u64 tot_size = 0;
+> +    paddr_t pbase, psize;
+> +    mfn_t smfn;
+> +    int length;
+> +
+> +    if ( parse_static_mem_prop(node, &addr_cells, &size_cells, &length, &cell) )
+> +    {
+> +        printk(XENLOG_ERR
+> +               "%pd: failed to parse \"xen,static-mem\" property.\n", d);
+> +        goto fail;
+> +    }
+> +    reg_cells = addr_cells + size_cells;
+> +    nr_banks = length / (reg_cells * sizeof (u32));
+> +
+> +    if ( nr_banks > NR_MEM_BANKS )
+> +    {
+> +        printk(XENLOG_ERR
+> +               "%pd: exceed max number of supported guest memory banks.\n", d);
+> +        goto fail;
+> +    }
+> +
+> +    for ( ; bank < nr_banks; bank++ )
+> +    {
+> +        smfn = acquire_static_memory_bank(d, &cell, addr_cells, size_cells,
+> +                                          &pbase, &psize);
+> +        if ( !mfn_valid(smfn) )
+> +            goto fail;
+> +
+> +        printk(XENLOG_INFO "%pd: STATIC BANK[%u] %#"PRIpaddr"-%#"PRIpaddr"\n",
+> +               d, bank, pbase, pbase + psize);
+> +
+> +        /* One guest memory bank is matched with one physical memory bank. */
+> +        kinfo->mem.bank[bank].start = pbase;
+> +        if ( !append_static_memory_to_bank(d, &kinfo->mem.bank[bank],
+> +                                           smfn, psize) )
+> +            goto fail;
+> +
+> +        tot_size += psize;
 
-4.   Single virtual mapping from vmap_pfns().  The netvsc driver allocates =
-physical
-      memory via alloc_pages() with as much contiguity as possible, and mai=
-ntains a
-      list of physical pages and ranges.   Single virtual map is setup with=
- vmap_pfns()
-      after adding shared_gpa_boundary.  [v5 of the original patch series.]
+Rather than using tot_size, I would directly substract psize from 
+kinfo->unassigned_mem. Regardless that...
 
-Both implementations using DMA APIs use very little of the existing DMA
-machinery.  Both require extensions to the DMA APIs, and custom ops functio=
-ns.
-While in some sense the netvsc send and receive buffers involve DMA, they
-do not require any DMA actions on a per-I/O basis.  It seems better to me t=
-o
-not try to fit these two buffers into the DMA model as a one-off.  Let's ju=
-st
-use Hyper-V specific code to allocate and map them, as is done with the
-Hyper-V VMbus channel ring buffers.
+> +    }
+> +
+> +    kinfo->mem.nr_banks = nr_banks;
+> +
+> +    kinfo->unassigned_mem -= tot_size;
 
-That leaves approaches (1) and (4) above.  Between those two, (1) is
-simpler even though there are two virtual mappings.  Using alloc_pages() as
-in (4) is messy and there's no real benefit to using higher order allocatio=
-ns.
-(4) also requires maintaining a separate list of PFNs and ranges, which off=
-sets
-some of the benefits to having only one virtual mapping active at any point=
- in
-time.
+... we should check that this doesn't underflow.
 
-I don't think there's a clear "right" answer, so it's a judgment call.  We'=
-ve
-explored what other approaches would look like, and I'd say let's go with
-(1) as the simpler approach.  Thoughts?
+> +    /*
+> +     * The property 'memory' should match the amount of memory given to the
+> +     * guest.
+> +     * Currently, it is only possible to either acquire static memory or let
+> +     * Xen allocate. *Mixing* is not supported.
+> +     */
+> +    if ( kinfo->unassigned_mem )
+> +    {
+> +        printk(XENLOG_ERR
+> +               "Size of \"memory\" property doesn't match up with the sum-up of \"xen,static-mem\". Unsupported configuration.\n");
+> +        goto fail;
+> +    }
+> +
+> +    return;
+> +
+> + fail:
+> +    panic("Failed to allocate requested static memory for direct-map domain %pd.",
+> +          d);
+> +}
+>   #else
+>   static void __init allocate_static_memory(struct domain *d,
+>                                             struct kernel_info *kinfo,
+>                                             const struct dt_device_node *node)
+>   {
+>   }
+> +
+> +static void __init allocate_static_memory_11(struct domain *d,
+> +                                             struct kernel_info *kinfo,
+> +                                             const struct dt_device_node *node)
+> +{
+> +    ASSERT_UNREACHABLE();
+> +}
+>   #endif
+>   
+>   static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
+> @@ -2983,7 +3070,12 @@ static int __init construct_domU(struct domain *d,
+>       if ( !dt_find_property(node, "xen,static-mem", NULL) )
+>           allocate_memory(d, &kinfo);
+>       else
+> -        allocate_static_memory(d, &kinfo, node);
+> +    {
+> +        if ( is_domain_direct_mapped(d) )
+> +            allocate_static_memory_11(d, &kinfo, node);
+> +        else
+> +            allocate_static_memory(d, &kinfo, node);
 
-Michael
+The nested if/else can be avoided if you use:
+
+if ( !dt_find_property() )
+    ...
+else if ( !is_domain_direct_mapped() )
+    ...
+else
+    ...
+
+> +    }
+>   
+>       rc = prepare_dtb_domU(d, &kinfo);
+>       if ( rc < 0 )
+> @@ -3024,6 +3116,13 @@ void __init create_domUs(void)
+>               panic("Missing property 'cpus' for domain %s\n",
+>                     dt_node_name(node));
+>   
+> +        if ( dt_property_read_bool(node, "direct-map") )
+> +        {
+> +            if ( !IS_ENABLED(CONFIG_STATIC_MEMORY) )
+> +                panic("direct-map not valid without CONFIG_STATIC_MEMORY\n");
+
+I would print the node name (see an example above) to help the admin to 
+find the "error" in the DT.
+
+Also I would write "direct-map is not valid ...".
+
+> +            d_cfg.flags |= XEN_DOMCTL_CDF_INTERNAL_directmap;
+> +        }
+> +
+>           if ( dt_find_compatible_node(node, NULL, "multiboot,device-tree") &&
+>                iommu_enabled )
+>               d_cfg.flags |= XEN_DOMCTL_CDF_iommu;
+> 
+
+Cheers,
+
+-- 
+Julien Grall
 
