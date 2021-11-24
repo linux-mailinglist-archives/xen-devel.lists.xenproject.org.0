@@ -2,46 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3B8345B4AE
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 07:55:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.230062.397783 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F154945B4D8
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 08:01:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.230079.397798 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpmAX-00048p-2w; Wed, 24 Nov 2021 06:54:13 +0000
+	id 1mpmH8-0005eV-Ur; Wed, 24 Nov 2021 07:01:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 230062.397783; Wed, 24 Nov 2021 06:54:13 +0000
+Received: by outflank-mailman (output) from mailman id 230079.397798; Wed, 24 Nov 2021 07:01:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpmAW-00046W-VL; Wed, 24 Nov 2021 06:54:12 +0000
-Received: by outflank-mailman (input) for mailman id 230062;
- Wed, 24 Nov 2021 06:54:11 +0000
+	id 1mpmH8-0005cB-RZ; Wed, 24 Nov 2021 07:01:02 +0000
+Received: by outflank-mailman (input) for mailman id 230079;
+ Wed, 24 Nov 2021 07:01:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gGpx=QL=epam.com=prvs=1962e93d75=oleksandr_andrushchenko@srs-se1.protection.inumbo.net>)
- id 1mpmAU-00046Q-Pb
- for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 06:54:11 +0000
-Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50be48fa-4cf3-11ec-a9d2-d9f7a1cc8784;
- Wed, 24 Nov 2021 07:54:07 +0100 (CET)
-Received: from pps.filterd (m0174676.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AO6cYad026032;
- Wed, 24 Nov 2021 06:54:03 GMT
-Received: from eur05-db8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2112.outbound.protection.outlook.com [104.47.17.112])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3cheu6gafc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 Nov 2021 06:54:03 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by VI1PR0302MB3472.eurprd03.prod.outlook.com (2603:10a6:803:25::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.24; Wed, 24 Nov
- 2021 06:54:00 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::c038:e032:595a:651]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::c038:e032:595a:651%8]) with mapi id 15.20.4713.026; Wed, 24 Nov 2021
- 06:54:00 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iQO5=QL=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1mpmH6-0005YU-VC
+ for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 07:01:01 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 45f40cf3-4cf4-11ec-a9d2-d9f7a1cc8784;
+ Wed, 24 Nov 2021 08:00:58 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C9F842195D;
+ Wed, 24 Nov 2021 07:00:56 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 953EF13240;
+ Wed, 24 Nov 2021 07:00:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id QinaIijjnWHdCAAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 24 Nov 2021 07:00:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,208 +51,503 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50be48fa-4cf3-11ec-a9d2-d9f7a1cc8784
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ux14PG5hT/RXDbHzyR4Ti+ERj5wiSioFqpLZDqcx3dBP2MEBNk+AKIVXYdAcACDEA+P/pzAjV5R8wWfZy3e5pvSsC/7wv1KyuTjPlz3Rbqxsl3CAGwiLffjXP6qtu+nTV1cP6SPyFJAIJUuFqMPL1qHxiSAf43K3oP/87FEWXwNoHd2SyL0EBD1xMNQcLcQiOtUXcUWKhnF/dhwQ6/fPie6vRRqQXMC48nbwRZ2utQ5psOtm/U6miUXIsATYN5DBO2SLiJmx0SjDkToYAA1vUhtK/ld8jedkTpxiTSvqPmg2mk8qG3QxFiR2G5g7n70kipxxTpbxoLPv/C9XSE6amg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3DLMtKomp2uXVBt+nUZFJgplJl+twfo3xmjpIJtqYso=;
- b=I60AWrV40b09F/uMI4RK8ZmET4UJWpBYw+2OUqkOcVKZBu6BEH4xUYHWgtrEnNMBYduxMbLX6/XcDRw4r6ZQ9ovpi3jkm2JfoI5SXAxW4u+KlhEApAN+/oiLSLniD6QOjEa2rFLu7lLF95mk4tcI1xyy4z+VnZAI4Y1fpzMQALSopAsbcm3D6fjfkvG0NXOWaMFYThHH5cQyeDk+yglX6szPw24GsBlM4uwhpix72RIEshwLWHoPeouYY4xdL5L43JwyJdYG7aI7EMJit0mFihVIj6Ax+dJPrToRBN6/fBSG3rH96ACYb/kaWR04AyB76gEmoj2cbs9scvHMtyL35Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3DLMtKomp2uXVBt+nUZFJgplJl+twfo3xmjpIJtqYso=;
- b=jVjk8cqdb/TZY71XawPJ6h3JFVelAkkx8n9hmDjn5AdDo94Fo+cs1DZOc0Pm+IgAtyJPhnVmfx86X7/K8ILKlrf62cl+CrIdrZ91kdaXyYtzQrWs3ikwAC4M/qGW/tMIX0bWEEBtaB4imPNQLkn9+X7YL0i1yRRpg9gKTOSzmoPmV9OLA3Qjf7eoVqeiqeLh8PIrFxLf62Lh8vBXsTo31nBXHvQOFzupBeIffEk9wvsURE2ZXw52dDaksQ/nkfVB/3KvnhhwdTiZbV5yFvfkSm0UqKHmAwNwvrlPsXYql4htXAaTC2/5W6vfedNJCxpbkedLfMVIBmWk3dWHUOIXzQ==
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Julien Grall <julien@xen.org>,
-        "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: "sstabellini@kernel.org" <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko
-	<Oleksandr_Tyshchenko@epam.com>,
-        Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>,
-        Artem Mygaiev <Artem_Mygaiev@epam.com>,
-        "roger.pau@citrix.com" <roger.pau@citrix.com>,
-        "jbeulich@suse.com"
-	<jbeulich@suse.com>,
-        "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
-        "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
-        "paul@xen.org"
-	<paul@xen.org>,
-        Bertrand Marquis <bertrand.marquis@arm.com>,
-        Rahul Singh
-	<rahul.singh@arm.com>
-Subject: Re: [PATCH v6 2/7] xen/arm: add pci-domain for disabled devices
-Thread-Topic: [PATCH v6 2/7] xen/arm: add pci-domain for disabled devices
-Thread-Index: 
- AQHX0g8QVTbfP59mVU+LM2unTUGOtawGkRQAgADLYgCAAPUEgIAAofWAgAbUDQCAAA7WAIAADxaAgADd7ICAAKBPgIAACwWAgAAIlwCAAOS/gA==
-Date: Wed, 24 Nov 2021 06:54:00 +0000
-Message-ID: <0d79bb2b-ae54-0875-e2f6-c3c4a0b1f1c7@epam.com>
-References: <20211105063326.939843-1-andr2000@gmail.com>
- <20211105063326.939843-3-andr2000@gmail.com>
- <86cabc8a-cbf2-84d4-4162-7d5591d127c5@xen.org>
- <de155886-d039-4c45-0407-47f38f8cd75d@epam.com>
- <ab95fc39-d1b2-be80-8245-85161a8271e1@xen.org>
- <072848c8-54da-cb73-3b8a-0c35826cc812@epam.com>
- <e66c4189-acdf-c32f-4b50-51c8aaab4efd@xen.org>
- <315b1308-5adc-c4f3-6150-1060dbac5f4f@epam.com>
- <9f8e424d-ad1c-2d32-a470-68b275adf22c@xen.org>
- <0aff1bbb-eaf8-4deb-0808-d7db5f1ba8f5@epam.com>
- <ab73f2e5-11d1-7cb4-89ab-74ef5eb1d32d@xen.org>
- <bfd5d305-b315-2f6d-455d-dd3ba071d0b2@epam.com>
- <7192e606-eae2-e11f-9746-ec88afd1dd25@xen.org>
-In-Reply-To: <7192e606-eae2-e11f-9746-ec88afd1dd25@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: db7a7467-df04-4809-1ae6-08d9af1731d4
-x-ms-traffictypediagnostic: VI1PR0302MB3472:
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-microsoft-antispam-prvs: 
- <VI1PR0302MB34720359E010C8F57ED7217CE7619@VI1PR0302MB3472.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- vHwm/8wGknXGP9DpF068rV/OB13dLrhfer7hVUR4gnE2aVERZdxW6dVsJ9Dro0H+UN7+rvYW6z6K5+rZSb+xMhfdpRcvDxnC42xmGQTN47Oxl27hxWqOKa5eldWO0i6QNJUIWnL7WMPAP6QuOOMA3K1OY4f9wyJYjZn/xHOJ/cAY6sNdwB2xich4YPqOcjZ8UI4OrHfLf/tItjjIda3AwtpSVyk2sCo/DJMgRDwxqZjfmVIK8UkT9Qt/6ewnXwmPf2KCH7Ykx02A5OfFAv8VUqjbt2oeNZksLOOGkLtfFSXZp0EYyCFvJbNZpR25RaX/wzRprf0SJUgIpWCEX8csmCaVEOGtak6vPtT6K4UxgTemcB/564SJnt9chxku5i+rxUzrGM6L8e7wJ0/s+RZzLGvUXP5zWy+zjfT/EV7K0ug9x2Xr/nrqVHpEpIhiWlojpDHZJeNliZ48GMiVDKk8+9S8J8dLGxn4v7qdAr4DDHOAGtl8fCRkpJNEaoKx8szWb8P/MtFEXtLkr3hfLONfnzEKdcBgDU/GFraW+e/t2LkGlk52K83N6rqSfyyU72QhUDWvDXHZ4wDGiW5wkznx2Fqb6+e2l9zseH2U+oAGYpLEUeW/G1k14v3v93XEki3Q0fdpe9wss0bC8W0Iu+d3wUoASbd5PHW3l57AoJso6ZV9Z0H63osxBL4SsQvWxYJIP7Kz5gLrMwhkGTJUy5oSYXZf3wvXRAoUinTtEaETPhUI211e0P+W8l6xvgdOJeJW
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(8676002)(5660300002)(38100700002)(7416002)(6506007)(8936002)(91956017)(31686004)(110136005)(31696002)(2906002)(71200400001)(36756003)(83380400001)(122000001)(186003)(66946007)(54906003)(2616005)(76116006)(508600001)(316002)(6486002)(4326008)(86362001)(66556008)(66446008)(53546011)(26005)(6512007)(38070700005)(66476007)(64756008)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?QUhYVWRXS3JMVDkxY05ERjhLMnJta1RqQTFjaDMvRGdzc3M1VDVVRHh5LzNZ?=
- =?utf-8?B?Zkl4Wm1WWmRPYkpiUFY1aUx3b0p3NTZpY1BEYWd5aU41SkVBY2ZWa01aZ1hv?=
- =?utf-8?B?YlQ5Wmx2Y2RFVTRRcWpsUlo4NkQ1NW15Y3VoM2JnNVdRL000cll3ZW1MOUtq?=
- =?utf-8?B?aGwzNVl0bHNjbDFCNzIzOVRFRWJ4ZUhZZk1zcUgxZXdkckZKRkZaZVZHQWpF?=
- =?utf-8?B?djNGbkNKMGVtRzRuY2xRczF6TEdmOUdJUy90Z3VQa1JLODB2Qjg1UGdiZ2o2?=
- =?utf-8?B?ODBndWR5bGw4MmxKVzVlcmRjbXRoVG1ZNVVxYTNXQnFLcTNya2NWZVllblJX?=
- =?utf-8?B?amhVcmlldjZWSTA1ZFZjek03eFhVWG5pR2VnZFRmenR1R3kzcjY4amN3SUhM?=
- =?utf-8?B?MXJ6VVdhSzFPcjVLZzFLOE9mVU55MGdxTFlpSzJPQjJMUldQZG50TkVRL3I0?=
- =?utf-8?B?NjZpSmgxTENVQzVuZmNtZE53NkZ5VnNsM2MzL1NoRGlFSnUxSS92RDN0WWxi?=
- =?utf-8?B?QVJqOGNCcFdSWHV4MWdZdUN5N050clQ3aWtOUnd1cHlsQlJVZHowOTJpbzZJ?=
- =?utf-8?B?UEl4UTJveDdzSm9uem1sZXFCMm5JVUE2bEk5TnBkcGF4d1VsMGlpS3ZvYjUz?=
- =?utf-8?B?S3IrM2tBQzJ5TjJiR0FhWTBoeFZGNERFdDN4aDZHRE5lekxwd3JUVnZtTHZN?=
- =?utf-8?B?b2VabmNadnVWNHQzQ05tQVJaejlFakk0djN1eW0rV2Y2V1lUY2hpWmliL3NM?=
- =?utf-8?B?NERsSWs3NFJ3ZGJ2cEdadTFCTmg3NWtOejR4a1MvczIrOEY0RnpEcTVqdTZ3?=
- =?utf-8?B?bFowSUNZbGxMSHBwV2tiZSsxNG4rYWxvK2dqdSs0LzhnWUVsSmM2QWloSVdH?=
- =?utf-8?B?RlFlUk11bDBIMkxhYkI2N0hKSHRWczJZNXZFS0c3ZC9lWktmUUdHbTVNMXNF?=
- =?utf-8?B?RnR1THRPMHpFb1ErU3lFYm0rNXdJS1hPMkY0QlFOcEgyOWFVRUpPQzBtNks5?=
- =?utf-8?B?WjBCb29WRm9wYy9BWHhqUWY0MjVmZldQZFVQTDB6MXJOK3cxZVowTGk2M1U2?=
- =?utf-8?B?TVhNUHBoYjRHOGhHZmpKUDR1clEzQXJHUk5VSWk3TzZIeCtFaG1hKzNWRUtt?=
- =?utf-8?B?TSt2emluU29Ba2tpUWp6SW5lTFU0YzkvOTlhVC9WQUlxUGxIWmZTQ2czN1BM?=
- =?utf-8?B?aGFwdEFsS0gya0JJOEpFK05RckxQbDVkT05YOVVQYmZWbHI4UnVxQkJnOXl5?=
- =?utf-8?B?WVVRVEU3UDFyN0dqRmNsTnZuTjl4djV2V3Q1NDlRUHVRMHY4WGJxN296bS9v?=
- =?utf-8?B?UTI0Wk9oSmFLYVpjcWdFT0xUa3dHME1HM3Y3dUxnUWRpMDB3MDJtRUd2UWEr?=
- =?utf-8?B?QktTc0FmL1orRkZvVzZoZWNNall0ZlJZeDdhNEhIV2RUN01scjl1ZlhyUEFO?=
- =?utf-8?B?K2YxNG9KMGxiWU50d2d1SE55MnJsMEdCaFRSNzJhN0paZjVkMC9QVWNRb0tY?=
- =?utf-8?B?Z0J6QldsQWR5VlZwaGlDSjh2U0RwQWpKTDloL1FTdmJ5dTZtMEJnd2dQb0t1?=
- =?utf-8?B?dnVDbnk0QTFGaFB4ZzI1RmNVRXhIc0xPaVhQQkZGOFo0WEJ2TW5ZUnZaN250?=
- =?utf-8?B?MHErMmdXRFNxRldBME5GRnFOK29BL2VBV2Zob3RmK0tTVU40MUYvMlRYUGpk?=
- =?utf-8?B?K1N4WWpLZkJKSkgyVUFDUlNQZDM0a1ZqRmtMS2s1dzJHOWtDamlodEpyWkhD?=
- =?utf-8?B?d3ZBRExiYUpRUjN4SGdJUTZFVktNZzdZbGNGUU1FUHRrNlV1WUlyTG9JbFk1?=
- =?utf-8?B?cERHQVdidE4zcmZLcWY1b1phL1VzWXEwZFloSXUxUFhyNUVNVk4yVmhxaDd3?=
- =?utf-8?B?TkZyV0ptRWUreUQvL1NCOWgrQThZSzZBb1A4cDBmcVpGcUFMeC9vSXZTby9U?=
- =?utf-8?B?T1F1d1dIQnI2UzNqYW85QzVxN2NvamZxNE5MZ2NZT09HZzdzcmcybFl1U3JC?=
- =?utf-8?B?akFjVmdySC9laTZhVnRhY2JkbXRDTG9DTHJCRGU2bHFvUEhxbnBxTWNKQS8w?=
- =?utf-8?B?TnpTeEZlT0VwY05oYk9wQnpWZFZhc2EwSkhsRnY1Zm1TUzY0TVJoeHEwTTBW?=
- =?utf-8?B?MUR6QXBZY1FkSlViek1IRTlGY1grM0JwYTBqU0JjV1VrTVc1Y1BPTmJWaXRL?=
- =?utf-8?B?Z1hWSVJwU3BBM2xKNS83OVZhQWkvNFBNUTk4ZlM2Z1A1V0U5V0hjS25GaU52?=
- =?utf-8?B?SWxHdmd0VFBqTUxkSllvYWRranduYkpiU1c3RWVHRjl1OER5eXdCWGpsTitJ?=
- =?utf-8?B?TmRKTlViZGVkRWNsWjNsVkp1S0V1UXpzWElTdHI1TTU3L2NtY1FVZz09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <0B0AA03D88BBBF419158D1531844AC36@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 45f40cf3-4cf4-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1637737256; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CwiRND9sUmIgpLpyZ+X1paDgsGd1UAbnBN7Tro+bIjg=;
+	b=adVOxqqoivBQ6u91xCkV/oqFHK21Lg3Qmyyy7ggvyQOW23BYT7RNib0l4zmVNZnQCt7aiY
+	K6kTKJOuADUvQi0RT/ovQih1O4IcRc1rs83eoOAFST3pjjxjoMAcLUA3vnxagT6YWhXC1X
+	QhD+CbdQ+3IjxzqTU8hMDLTIq1WhkkM=
+Subject: Re: [PATCH v4] xenbus: support large messages
+To: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org, wl@xen.org
+References: <20211004094000.29868-1-jgross@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <244e6bc7-9158-7c52-13ab-d25daafbc2c8@suse.com>
+Date: Wed, 24 Nov 2021 08:00:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: db7a7467-df04-4809-1ae6-08d9af1731d4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Nov 2021 06:54:00.4111
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GCXG+9Xf8FAg/TjWpea+Qu27+yzYgrnp/tElEKdT9Jzsp8lx72FQwjQLz58+N4KMPHQSb5kBMBch77WKNQfdszSG1810nc+JdrvJucoaSfXCkERsulm5tNvFOnpuNsu9
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0302MB3472
-X-Proofpoint-GUID: cOE44abuMQxD_FMYokOADSsk3UvD2eAM
-X-Proofpoint-ORIG-GUID: cOE44abuMQxD_FMYokOADSsk3UvD2eAM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-24_02,2021-11-23_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 impostorscore=0
- suspectscore=0 bulkscore=0 adultscore=0 clxscore=1015 mlxscore=0
- mlxlogscore=687 spamscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 malwarescore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2110150000 definitions=main-2111240039
+In-Reply-To: <20211004094000.29868-1-jgross@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="Y181P6BFv7tgthqU2tAOS3T9XmO1q283n"
 
-SGksIEp1bGllbiENCg0KT24gMjMuMTEuMjEgMTk6MTUsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4g
-SGksDQo+DQo+IE9uIDIzLzExLzIwMjEgMTY6NDQsIE9sZWtzYW5kciBBbmRydXNoY2hlbmtvIHdy
-b3RlOg0KPj4gT24gMjMuMTEuMjEgMTg6MDUsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4+PiBIaSBP
-bGVrc2FuZHIsDQo+Pj4NCj4+PiBPbiAyMy8xMS8yMDIxIDA2OjMxLCBPbGVrc2FuZHIgQW5kcnVz
-aGNoZW5rbyB3cm90ZToNCj4+Pj4NCj4+Pj4NCj4+Pj4gT24gMjIuMTEuMjEgMTk6MTcsIEp1bGll
-biBHcmFsbCB3cm90ZToNCj4+Pj4+IEhpLA0KPj4+Pj4NCj4+Pj4+IE9uIDIyLzExLzIwMjEgMTY6
-MjMsIE9sZWtzYW5kciBBbmRydXNoY2hlbmtvIHdyb3RlOg0KPj4+Pj4+IE9uIDIyLjExLjIxIDE3
-OjI5LCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+Pj4+Pj4+IEkgd291bGQgcHJlZmVyIHRvIGdvIHdp
-dGggbXkgd2F5LiBUaGlzIGNhbiBiZSByZWZpbmVkIGluIHRoZSBmdXR1cmUgaWYgd2UgZmluZCBE
-ZXZpY2UtVHJlZSB0aGF0IG1hdGNoZXMgd2hhdCB5b3Ugd3JvdGUuDQo+Pj4+Pj4gT2ssIHNvIGp1
-c3QgdG8gbWFrZSBpdCBjbGVhcjoNCj4+Pj4+PiDCoMKgwqAgPmEgUENJIGRldmljZSB3b3VsZCBh
-bHdheXMgYmUgZGVzY3JpYmVkIGFzIGEgY2hpbGQgb2YgdGhlIGhvc3RicmlkZ2VzLiBTbyBJIHdv
-dWxkIHJld29yayB0aGUgJ2lmJyB0byBhbHNvIGNoZWNrIGlmIHRoZcKgcGFyZW50wqB0eXBlwqBp
-c8Kgbm90wqAicGNpIg0KPj4+Pj4NCj4+Pj4+IFRoYXQncyBjb3JyZWN0LiBUaGFuayB5b3UhDQo+
-Pj4+IE9rLCBzbyBob3cgYWJvdXQNCj4+Pj4gwqDCoCDCoMKgwqAgaWYgKCBpc19wY2lfcGFzc3Ro
-cm91Z2hfZW5hYmxlZCgpICYmIGR0X2RldmljZV90eXBlX2lzX2VxdWFsKG5vZGUsICJwY2kiKSAp
-DQo+Pj4+IMKgwqAgwqDCoMKgIHsNCj4+Pj4gwqDCoCDCoMKgwqDCoMKgwqDCoCBib29sIHNraXAg
-PSBmYWxzZTsNCj4+Pj4NCj4+Pj4gwqDCoCDCoMKgwqDCoMKgwqDCoCAvKg0KPj4+PiDCoMKgIMKg
-wqDCoMKgwqDCoMKgwqAgKiBJZiB0aGUgcGFyZW50IGlzIGFsc28gYSAicGNpIiBkZXZpY2UsIHRo
-ZW4gImxpbnV4LHBjaS1kb21haW4iDQo+Pj4+IMKgwqAgwqDCoMKgwqDCoMKgwqDCoCAqIHNob3Vs
-ZCBhbHJlYWR5IGJlIHRoZXJlLCBzbyBub3RoaW5nIHRvIGRvIHRoZW4uDQo+Pj4+IMKgwqAgwqDC
-oMKgwqDCoMKgwqDCoCAqLw0KPj4+DQo+Pj4gVGhpcyBjb21tZW50IGlzIGEgYml0IGNvbmZ1c2lu
-Zy4NCj4+IERvIHlvdSBoYXZlIHNvbWV0aGluZyBvbiB5b3VyIG1pbmQ/DQo+DQo+IFllcywgZXhw
-bGFpbiB0aGF0IHdlIG9ubHkgd2FudCB0byBjb3ZlciBob3N0YnJpZGdlIChzZWUgbXkgcmVwbHkg
-b24gdGhlIHByZXZpb3VzIGFuc3dlcikuDQpJIGd1ZXNzIHRoaXMgd2lsbCBiZSBleHBsYWluZWQg
-YnkgdGhlIGNvbW1lbnQgdG8gaGFuZGxlX2xpbnV4X3BjaV9kb21haW4gYmVsb3cNCj4NCj4+PiBJ
-IHRoaW5rIHdoYXQgbWF0dGVyIGlmIHRoZSBwYXJlbnQgaXMgYSAicGNpIiBkZXZpY2UsIHRoZW4g
-dGhlIGN1cnJlbnQgbm9kZSBtdXN0IG5vdCBiZSBhIGhvc3RicmlkZ2UuIFNvIHdlIGNhbiBza2lw
-IGl0Lg0KPj4gQnkgc2tpcHBpbmcgeW91IG9ubHkgbWVhbiB3ZSBkbyBub3QgbmVlZCB0byBhZGQv
-YXNzaWduICJsaW51eCxwY2ktZG9tYWluIiwgcmlnaHQ/DQo+DQo+IFllcy4NCj4NCj4+PiBIb3dl
-dmVyLi4uDQo+Pj4NCj4+Pj4gwqDCoCDCoMKgwqDCoMKgwqDCoCBpZiAoIG5vZGUtPnBhcmVudCAm
-JiBkdF9kZXZpY2VfdHlwZV9pc19lcXVhbChub2RlLT5wYXJlbnQsICJwY2kiKSApDQo+Pj4+IMKg
-wqAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBza2lwID0gdHJ1ZTsNCj4+Pj4NCj4+Pj4gwqDCoCDC
-oMKgwqDCoMKgwqDCoCBpZiAoICFza2lwICYmICFkdF9maW5kX3Byb3BlcnR5KG5vZGUsICJsaW51
-eCxwY2ktZG9tYWluIiwgTlVMTCkgKQ0KPj4+PiDCoMKgIMKgwqDCoMKgwqDCoMKgIHsNCj4+Pj4g
-SSBwbGF5ZWQgd2l0aCBhIHNpbmdsZSBpZiBhbmQgaXQgbG9va3Mgc2NhcnkuLi4NCj4+Pg0KPj4+
-IC4uLiBob3cgYWJvdXQgaW50cm9kdWNpbmcgYW4gaGVscGVyIHRoYXQgd2lsbCByZXR1cm4gdHJ1
-ZSBpZiB0aGlzIG5vZGUgaXMgbGlrZWx5IGFuIGhvc3RicmlkZ2U/DQo+PiBUaGlzIGlzIHlldCBh
-IHNpbmdsZSB1c2Ugb2Ygc3VjaCBhIGNoZWNrOiB3aHkgd291bGQgd2UgbmVlZCBhIGhlbHBlciBh
-bmQgd2hhdCB3b3VsZCB0aGF0DQo+PiBoZWxwZXIgZG8/DQo+DQo+IEkgbGlrZSBzcGxpdHRpbmcg
-Y29kZSBpbiBtdWx0aXBsZSBmdW5jdGlvbnMgZXZlbiBpZiB0aGV5IGFyZSBvbmx5IGNhbGxlZCBv
-bmNlIGJlY2F1c2UgdGhpczoNCj4gwqAgMSkga2VlcHMgdGhlIGZ1bmN0aW9ucyBsaW5lIGNvdW50
-IHNtYWxsDQo+IMKgIDIpIGVhc2llciB0byB1bmRlcnN0YW5kIHdoYXQgaXMgdGhlIHB1cnBvc2Ug
-b2YgdGhlIGNoZWNrDQo+DQo+IEluIGZhY3QsIEkgd291bGQgYWN0dWFsbHkgbW92ZSB0aGUgaGFu
-ZGxpbmcgZm9yICJsaW51eCxwY2ktZG9tYWluIiBpbiBhIHNlcGFyYXRlIGhlbHBlci4gU29tZXRo
-aW5nIGxpa2U6DQo+DQo+IC8qDQo+IMKgKiBXaGVuIFBDSSBwYXNzdGhyb3VnaCBpcyBhdmFpbGFi
-bGUgd2Ugd2FudCB0byBrZWVwIHRoZQ0KPiDCoCogImxpbnV4LHBjaS1kb21haW4iIGluIHN5bmMg
-Zm9yIGV2ZXJ5IGhvc3RicmlkZ2UuDQo+IMKgKg0KPiDCoCogWGVuIG1heSBub3QgaGF2ZSBhIGRy
-aXZlciBmb3IgYWxsIHRoZSBob3N0YnJpZGdlcy4gU28gd2UgaGF2ZQ0KPiDCoCogdG8gd3JpdGUg
-YW4gaGV1cmlzdGljIHRvIGRldGVjdCB3aGV0aGVyIGEgZGV2aWNlIG5vZGUgZGVzY3JpYmVzDQo+
-IMKgKiBhbiBob3N0YnJpZGdlLg0KPiDCoCoNCj4gwqAqIFRoZSBjdXJyZW50IGhldXJpc3RpYyBh
-c3N1bWVzIHRoYXQgYSBkZXZpY2UgaXMgYW4gaG9zdGJyaWRnZQ0KPiDCoCogaWYgdGhlIHR5cGUg
-aXMgInBjaSIgYW5kIHRoZW4gcGFyZW50IHR5cGUgaXMgbm90ICJwY2kiLg0KPiDCoCovDQo+IHN0
-YXRpYyBpbnQgaGFuZGxlX2xpbnV4X3BjaV9kb21haW4oc3RydWN0IGR0X2RldmljZSAqbm9kZSkN
-Cj4gew0KPiDCoMKgwqDCoMKgwqDCoCBpZiAoICFpc19wY2lfcGFzc3Rocm91Z2hfZW5hYmxlZCgp
-ICkNCj4gwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOw0KPg0KPiDCoMKgwqDCoGlmICggIWR0
-X2RldmljZV90eXBlX2lzX2VxdWFsKG5vZGUsICJwY2kiKSApDQo+IMKgwqDCoMKgwqDCoMKgwqDC
-oCByZXR1cm4gMDsNCj4NCj4gwqDCoMKgwqDCoMKgwqAgaWYgKCBub2RlLT5wYXJlbnQgJiYgZHRf
-ZGV2aWNlX3R5cGVfaXNfZXF1YWwobm9kZS0+cGFyZW50KSApDQo+IMKgwqDCoMKgwqDCoMKgwqDC
-oCByZXR1cm4gMDsNCj4NCj4gwqDCoMKgwqDCoMKgwqAgaWYgKCBkdF9maW5kX3Byb3BlcnR5KG5v
-ZGUsICJsaW51eCxwY2ktZG9tYWluIiwgTlVMTCApDQo+IMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1
-cm4gMDsNCj4NCj4gwqDCoMKgwqDCoMKgwqAgLyogQWxsb2NhdGUgYW5kIGNyZWF0ZSB0aGUgbGlu
-dXgscGNpLWRvbWFpbiAqLw0KPiB9DQo+DQpJJ20gZmluZSB3aXRoIHRoaXMsIHdpbGwgbW92ZSwg
-dGhhbmtzDQo+IENoZWVycywNCj4NClRoYW5rIHlvdSwNCk9sZWtzYW5kcg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--Y181P6BFv7tgthqU2tAOS3T9XmO1q283n
+Content-Type: multipart/mixed; boundary="dJ65ISaETfggy1VefxjzJAcoxxz0j18yK";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org, wl@xen.org
+Message-ID: <244e6bc7-9158-7c52-13ab-d25daafbc2c8@suse.com>
+Subject: Re: [PATCH v4] xenbus: support large messages
+References: <20211004094000.29868-1-jgross@suse.com>
+In-Reply-To: <20211004094000.29868-1-jgross@suse.com>
+
+--dJ65ISaETfggy1VefxjzJAcoxxz0j18yK
+Content-Type: multipart/mixed;
+ boundary="------------6E2ADA8ABB96A4523042F315"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------6E2ADA8ABB96A4523042F315
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+Ping?
+
+On 04.10.21 11:40, Juergen Gross wrote:
+> Today the implementation of the xenbus protocol in Mini-OS will only
+> allow to transfer the complete message to or from the ring page buffer.=
+
+> This is limiting the maximum message size to lower values as the xenbus=
+
+> protocol normally would allow.
+>=20
+> Change that by allowing to transfer the xenbus message in chunks as
+> soon as they are available.
+>=20
+> Avoid crashing Mini-OS in case of illegal data read from the ring
+> buffer.
+>=20
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - drop redundant if (Samuel Thibault)
+> - move rmb() (Samuel Thibault)
+> V3:
+> - correct notification test (Samuel Thibault)
+> V4:
+> - more memory barriers (Samuel Thibault)
+> ---
+>   xenbus/xenbus.c | 210 ++++++++++++++++++++++++++++-------------------=
+-
+>   1 file changed, 122 insertions(+), 88 deletions(-)
+>=20
+> diff --git a/xenbus/xenbus.c b/xenbus/xenbus.c
+> index 23de61e..b687678 100644
+> --- a/xenbus/xenbus.c
+> +++ b/xenbus/xenbus.c
+> @@ -29,6 +29,7 @@
+>   #include <xen/hvm/params.h>
+>   #include <mini-os/spinlock.h>
+>   #include <mini-os/xmalloc.h>
+> +#include <mini-os/semaphore.h>
+>  =20
+>   #define min(x,y) ({                       \
+>           typeof(x) tmpx =3D (x);                 \
+> @@ -46,6 +47,7 @@
+>   static struct xenstore_domain_interface *xenstore_buf;
+>   static DECLARE_WAIT_QUEUE_HEAD(xb_waitq);
+>   DECLARE_WAIT_QUEUE_HEAD(xenbus_watch_queue);
+> +static __DECLARE_SEMAPHORE_GENERIC(xb_write_sem, 1);
+>  =20
+>   xenbus_event_queue xenbus_events;
+>   static struct watch {
+> @@ -231,75 +233,103 @@ char *xenbus_wait_for_state_change(const char* p=
+ath, XenbusState *state, xenbus_
+>   }
+>  =20
+>  =20
+> +static void xenbus_read_data(char *buf, unsigned int len)
+> +{
+> +    unsigned int off =3D 0;
+> +    unsigned int prod, cons;
+> +    unsigned int size;
+> +
+> +    while (off !=3D len)
+> +    {
+> +        wait_event(xb_waitq, xenstore_buf->rsp_prod !=3D xenstore_buf-=
+>rsp_cons);
+> +
+> +        prod =3D xenstore_buf->rsp_prod;
+> +        cons =3D xenstore_buf->rsp_cons;
+> +        DEBUG("Rsp_cons %d, rsp_prod %d.\n", cons, prod);
+> +        size =3D min(len - off, prod - cons);
+> +
+> +        rmb();   /* Make sure data read from ring is ordered with rsp_=
+prod. */
+> +        memcpy_from_ring(xenstore_buf->rsp, buf + off,
+> +                         MASK_XENSTORE_IDX(cons), size);
+> +        off +=3D size;
+> +        mb();    /* memcpy() and rsp_cons update must not be reordered=
+=2E */
+> +        xenstore_buf->rsp_cons +=3D size;
+> +        mb();    /* rsp_cons must be visible before we look at rsp_pro=
+d. */
+> +        if (xenstore_buf->rsp_prod - cons >=3D XENSTORE_RING_SIZE)
+> +            notify_remote_via_evtchn(xenbus_evtchn);
+> +    }
+> +}
+> +
+>   static void xenbus_thread_func(void *ign)
+>   {
+>       struct xsd_sockmsg msg;
+> -    unsigned prod =3D xenstore_buf->rsp_prod;
+> +    char *data;
+>  =20
+>       for (;;) {
+> -        wait_event(xb_waitq, prod !=3D xenstore_buf->rsp_prod);
+> -        while (1) {
+> -            prod =3D xenstore_buf->rsp_prod;
+> -            DEBUG("Rsp_cons %d, rsp_prod %d.\n", xenstore_buf->rsp_con=
+s,
+> -                  xenstore_buf->rsp_prod);
+> -            if (xenstore_buf->rsp_prod - xenstore_buf->rsp_cons < size=
+of(msg))
+> -                break;
+> -            rmb();
+> -            memcpy_from_ring(xenstore_buf->rsp, &msg,
+> -                             MASK_XENSTORE_IDX(xenstore_buf->rsp_cons)=
+,
+> -                             sizeof(msg));
+> -            DEBUG("Msg len %d, %d avail, id %d.\n", msg.len + sizeof(m=
+sg),
+> -                  xenstore_buf->rsp_prod - xenstore_buf->rsp_cons, msg=
+=2Ereq_id);
+> -
+> -            if (xenstore_buf->rsp_prod - xenstore_buf->rsp_cons <
+> -                sizeof(msg) + msg.len)
+> -                break;
+> -
+> -            DEBUG("Message is good.\n");
+> -
+> -            if (msg.type =3D=3D XS_WATCH_EVENT) {
+> -                struct xenbus_event *event =3D malloc(sizeof(*event) +=
+ msg.len);
+> -                xenbus_event_queue *events =3D NULL;
+> -                char *data =3D (char*)event + sizeof(*event);
+> -                struct watch *watch;
+> -
+> -                memcpy_from_ring(xenstore_buf->rsp, data,
+> -                    MASK_XENSTORE_IDX(xenstore_buf->rsp_cons + sizeof(=
+msg)),
+> -                    msg.len);
+> -
+> -                event->path =3D data;
+> -                event->token =3D event->path + strlen(event->path) + 1=
+;
+> -
+> -                mb();
+> -                xenstore_buf->rsp_cons +=3D msg.len + sizeof(msg);
+> -
+> -                for (watch =3D watches; watch; watch =3D watch->next)
+> -                    if (!strcmp(watch->token, event->token)) {
+> -                        events =3D watch->events;
+> -                        break;
+> -                    }
+> -
+> -                if (events) {
+> -                    event->next =3D *events;
+> -                    *events =3D event;
+> -                    wake_up(&xenbus_watch_queue);
+> -                } else {
+> -                    printk("unexpected watch token %s\n", event->token=
+);
+> -                    free(event);
+> +        xenbus_read_data((char *)&msg, sizeof(msg));
+> +        DEBUG("Msg len %d, %d avail, id %d.\n", msg.len + sizeof(msg),=
+
+> +              xenstore_buf->rsp_prod - xenstore_buf->rsp_cons, msg.req=
+_id);
+> +
+> +        if (msg.len > XENSTORE_PAYLOAD_MAX) {
+> +            printk("Xenstore violates protocol, message longer than al=
+lowed.\n");
+> +            return;
+> +        }
+> +
+> +        if (msg.type =3D=3D XS_WATCH_EVENT) {
+> +            struct xenbus_event *event =3D malloc(sizeof(*event) + msg=
+=2Elen);
+> +            xenbus_event_queue *events =3D NULL;
+> +            struct watch *watch;
+> +            char *c;
+> +            int zeroes =3D 0;
+> +
+> +            data =3D (char*)event + sizeof(*event);
+> +            xenbus_read_data(data, msg.len);
+> +
+> +            for (c =3D data; c < data + msg.len; c++)
+> +                if (!*c)
+> +                    zeroes++;
+> +            if (zeroes !=3D 2) {
+> +                printk("Xenstore: illegal watch event data\n");
+> +                free(event);
+> +                continue;
+> +            }
+> +
+> +            event->path =3D data;
+> +            event->token =3D event->path + strlen(event->path) + 1;
+> +
+> +            for (watch =3D watches; watch; watch =3D watch->next)
+> +                if (!strcmp(watch->token, event->token)) {
+> +                    events =3D watch->events;
+> +                    break;
+>                   }
+> +
+> +            if (events) {
+> +                event->next =3D *events;
+> +                *events =3D event;
+> +                wake_up(&xenbus_watch_queue);
+>               } else {
+> -                req_info[msg.req_id].reply =3D malloc(sizeof(msg) + ms=
+g.len);
+> -                memcpy_from_ring(xenstore_buf->rsp, req_info[msg.req_i=
+d].reply,
+> -                                 MASK_XENSTORE_IDX(xenstore_buf->rsp_c=
+ons),
+> -                                 msg.len + sizeof(msg));
+> -                mb();
+> -                xenstore_buf->rsp_cons +=3D msg.len + sizeof(msg);
+> -                wake_up(&req_info[msg.req_id].waitq);
+> +                printk("Xenstore: unexpected watch token %s\n", event-=
+>token);
+> +                free(event);
+>               }
+>  =20
+> -            wmb();
+> -            notify_remote_via_evtchn(xenbus_evtchn);
+> +            continue;
+>           }
+> +
+> +        data =3D malloc(sizeof(msg) + msg.len);
+> +        memcpy(data, &msg, sizeof(msg));
+> +        xenbus_read_data(data + sizeof(msg), msg.len);
+> +
+> +        if (msg.req_id >=3D NR_REQS || !req_info[msg.req_id].in_use) {=
+
+> +            printk("Xenstore: illegal request id %d\n", msg.req_id);
+> +            free(data);
+> +            continue;
+> +        }
+> +
+> +        DEBUG("Message is good.\n");
+> +
+> +        req_info[msg.req_id].reply =3D data;
+> +
+> +        wake_up(&req_info[msg.req_id].waitq);
+>       }
+>   }
+>  =20
+> @@ -451,36 +481,40 @@ static void xb_write(int type, int req_id, xenbus=
+_transaction_t trans_id,
+>  =20
+>       cur_req =3D &header_req;
+>  =20
+> -    BUG_ON(len > XENSTORE_RING_SIZE);
+> -    /* Wait for the ring to drain to the point where we can send the
+> -       message. */
+> -    prod =3D xenstore_buf->req_prod;
+> -    if (prod + len - xenstore_buf->req_cons > XENSTORE_RING_SIZE)
+> -    {
+> -        /* Wait for there to be space on the ring */
+> -        DEBUG("prod %d, len %d, cons %d, size %d; waiting.\n",
+> -                prod, len, xenstore_buf->req_cons, XENSTORE_RING_SIZE)=
+;
+> -        wait_event(xb_waitq,
+> -                xenstore_buf->req_prod + len - xenstore_buf->req_cons =
+<=3D
+> -                XENSTORE_RING_SIZE);
+> -        DEBUG("Back from wait.\n");
+> -        prod =3D xenstore_buf->req_prod;
+> -    }
+> +    BUG_ON(len > XENSTORE_PAYLOAD_MAX);
+> +
+> +    /* Make sure we are the only thread trying to write. */
+> +    down(&xb_write_sem);
+>  =20
+> -    /* We're now guaranteed to be able to send the message without
+> -       overflowing the ring.  Do so. */
+> +    /* Send the message in chunks using free ring space when available=
+=2E */
+>       total_off =3D 0;
+>       req_off =3D 0;
+> -    while (total_off < len)
+> +    while (total_off < len)
+>       {
+> +        prod =3D xenstore_buf->req_prod;
+> +        if (prod - xenstore_buf->req_cons >=3D XENSTORE_RING_SIZE)
+> +        {
+> +            /* Send evtchn to notify remote */
+> +            notify_remote_via_evtchn(xenbus_evtchn);
+> +
+> +            /* Wait for there to be space on the ring */
+> +            DEBUG("prod %d, len %d, cons %d, size %d; waiting.\n", pro=
+d,
+> +                  len - total_off, xenstore_buf->req_cons, XENSTORE_RI=
+NG_SIZE);
+> +            wait_event(xb_waitq,
+> +                       prod - xenstore_buf->req_cons < XENSTORE_RING_S=
+IZE);
+> +            DEBUG("Back from wait.\n");
+> +        }
+> +
+>           this_chunk =3D min(cur_req->len - req_off,
+> -                XENSTORE_RING_SIZE - MASK_XENSTORE_IDX(prod));
+> +                         XENSTORE_RING_SIZE - MASK_XENSTORE_IDX(prod))=
+;
+> +        this_chunk =3D min(this_chunk,
+> +                         xenstore_buf->req_cons + XENSTORE_RING_SIZE -=
+ prod);
+>           memcpy((char *)xenstore_buf->req + MASK_XENSTORE_IDX(prod),
+> -                (char *)cur_req->data + req_off, this_chunk);
+> +               (char *)cur_req->data + req_off, this_chunk);
+>           prod +=3D this_chunk;
+>           req_off +=3D this_chunk;
+>           total_off +=3D this_chunk;
+> -        if (req_off =3D=3D cur_req->len)
+> +        if (req_off =3D=3D cur_req->len)
+>           {
+>               req_off =3D 0;
+>               if (cur_req =3D=3D &header_req)
+> @@ -488,20 +522,20 @@ static void xb_write(int type, int req_id, xenbus=
+_transaction_t trans_id,
+>               else
+>                   cur_req++;
+>           }
+> +
+> +        /* Remote must see entire message before updating indexes */
+> +        wmb();
+> +        xenstore_buf->req_prod =3D prod;
+>       }
+>  =20
+> +    /* Send evtchn to notify remote */
+> +    notify_remote_via_evtchn(xenbus_evtchn);
+> +
+>       DEBUG("Complete main loop of xb_write.\n");
+>       BUG_ON(req_off !=3D 0);
+>       BUG_ON(total_off !=3D len);
+> -    BUG_ON(prod > xenstore_buf->req_cons + XENSTORE_RING_SIZE);
+>  =20
+> -    /* Remote must see entire message before updating indexes */
+> -    wmb();
+> -
+> -    xenstore_buf->req_prod +=3D len;
+> -
+> -    /* Send evtchn to notify remote */
+> -    notify_remote_via_evtchn(xenbus_evtchn);
+> +    up(&xb_write_sem);
+>   }
+>  =20
+>   /* Send a mesasge to xenbus, in the same fashion as xb_write, and
+>=20
+
+
+--------------6E2ADA8ABB96A4523042F315
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------6E2ADA8ABB96A4523042F315--
+
+--dJ65ISaETfggy1VefxjzJAcoxxz0j18yK--
+
+--Y181P6BFv7tgthqU2tAOS3T9XmO1q283n
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGd4ycFAwAAAAAACgkQsN6d1ii/Ey8r
+/gf/d+UjYEoQh9p/TToGUFUQ3mxUMT+FCS89F5+2W0aHiHQ1E/8xi6N8caTBtw79TUSJdxcibWYb
+joLIAK9li+92dkgUunJ0cxu/v+x2BNEDAIq/65wPUotunS/8f+ketntkc7W+OS/DMW7p4jB2XHEe
+jwBMVTD69oT33eRpbLa18Vbc2M0s/jxk/iVbzuvp4GvKHqR2O4XeP0S5hSjwUxCn2+1sJAWfqxz5
+j7166+x3oHaSVmP03gsZ8IM1Fw7+gbsw3HSci3b5O7BruJfcTxmT2ybRiVhtkdLuBr7Y1BclJGLw
+BLpugvf7IZ255XdD6pg91vvxcoi5pEEDRtvGL4fbxA==
+=8G1s
+-----END PGP SIGNATURE-----
+
+--Y181P6BFv7tgthqU2tAOS3T9XmO1q283n--
 
