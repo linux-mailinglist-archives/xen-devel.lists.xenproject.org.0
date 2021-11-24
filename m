@@ -2,29 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5056D45D09E
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 23:56:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.230588.398631 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80A7345D14D
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 00:36:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.230593.398641 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mq1AA-0004rx-PG; Wed, 24 Nov 2021 22:54:50 +0000
+	id 1mq1nz-0000Vd-VG; Wed, 24 Nov 2021 23:35:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 230588.398631; Wed, 24 Nov 2021 22:54:50 +0000
+Received: by outflank-mailman (output) from mailman id 230593.398641; Wed, 24 Nov 2021 23:35:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mq1AA-0004p7-MB; Wed, 24 Nov 2021 22:54:50 +0000
-Received: by outflank-mailman (input) for mailman id 230588;
- Wed, 24 Nov 2021 22:54:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mq1nz-0000Td-S2; Wed, 24 Nov 2021 23:35:59 +0000
+Received: by outflank-mailman (input) for mailman id 230593;
+ Wed, 24 Nov 2021 23:35:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JCoO=QL=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1mq1A8-0004p0-V6
- for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 22:54:49 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8582ffe0-4d79-11ec-9787-a32c541c8605;
- Wed, 24 Nov 2021 23:54:47 +0100 (CET)
+ <SRS0=JPi9=QL=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1mq1ny-0000TW-JQ
+ for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 23:35:58 +0000
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4334c3f3-4d7f-11ec-a9d2-d9f7a1cc8784;
+ Thu, 25 Nov 2021 00:35:56 +0100 (CET)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id AE98160F12;
+ Wed, 24 Nov 2021 23:35:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,78 +38,152 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8582ffe0-4d79-11ec-9787-a32c541c8605
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1637794485;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=33e828wB9dEjeifz4XOcX4tXiHJV404Ri36l36adBdc=;
-	b=QL25vkWz5mQq9ypR1mfmeECHaoZFXVS51EIdeocF5QL5UpPcPy/vofDZ9im05kSuQzGiBJ
-	hmVnAE32Zwr1VkRpV1E2d3zSHp/NaafeFx27NyPu3NeXBUKveOHM8EaU3XHWHEOM9acx4v
-	TWEwjphxl+Xa8N5TxXy+pF+QZh0oBWvQ9a133TJwQqhgl5uKgyToljpih/0s43EbY/3lIm
-	cqA8t+/NdjU5XMTORklBghjPF/S6+ETzyUnMQxqFwpOfWrExhkE8lszWssWX+C4T/s5tlu
-	pI/lWC3ZBTxtDAQGnymKdUUdgrmG7v8S4EW/yoFY7yrdWzSp9BUsjrBqKIRw+Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1637794485;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=33e828wB9dEjeifz4XOcX4tXiHJV404Ri36l36adBdc=;
-	b=mA9Ro9+xZCYf8cq+L5iHAjp5rtiwfJn3ClnLyxZNu70rRhIHMx8CyC3LbEXLTKodK5/j7L
-	0IJbIbc/zuN/RbDA==
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, "Longpeng (Mike,
- Cloud Infrastructure Service Product Dept.)" <longpeng2@huawei.com>
-Cc: linux-kernel@vger.kernel.org, "Gonglei (Arei)"
- <arei.gonglei@huawei.com>, x86@kernel.org, xen-devel@lists.xenproject.org,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
- Valentin Schneider <valentin.schneider@arm.com>, Boris Ostrovsky
- <boris.ostrovsky@oracle.com>, Juergen Gross <jgross@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH] cpu/hotplug: Allow the CPU in CPU_UP_PREPARE state to
- be brought up again.
-In-Reply-To: <20211122154714.xaoxok3fpk5bgznz@linutronix.de>
-References: <20211122154714.xaoxok3fpk5bgznz@linutronix.de>
-Date: Wed, 24 Nov 2021 23:54:44 +0100
-Message-ID: <87y25djhaj.ffs@tglx>
+X-Inumbo-ID: 4334c3f3-4d7f-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1637796952;
+	bh=nPrNItrkZzgIB91C/Xwr4wBRunHOMHdNFSsrBmYafok=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=pv91MMp2Xx+Nhh0KE08I0gNIJ8WemEh04U5gPK2vCVKhQAT6zmyAEGfbrMU2mOE+F
+	 xM086wsWEmFcTjPU/iequRzWftoTYVPFPNv6Q9N+5XaKikbjl5TQS+9nD7j+lQhLHr
+	 YQjOihNB4c2Ivrd8kjfoQkj+Wg3nayp397fNw8j0wCci3BR0hcAUjVfOX6fVv2pQ2f
+	 gAmIcaLpK2Vl6G8C78yqp/VdCK/gUWajeT0/TIyoBNwBDBi6hBTEbEor0xkZVjOmjm
+	 rNVNvkOzNwv5Sh6itjd5EL5ugVvl6IC8ZrY371061/YhO5Texk9eo/MetOOqbkDAtb
+	 y93ZQFGdXtIaA==
+Date: Wed, 24 Nov 2021 15:35:50 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+cc: xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org, 
+    linux-kernel@vger.kernel.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Russell King <linux@armlinux.org.uk>, Julien Grall <julien@xen.org>
+Subject: Re: [PATCH V3 2/6] arm/xen: Switch to use gnttab_setup_auto_xlat_frames()
+ for DT
+In-Reply-To: <1637787223-21129-3-git-send-email-olekstysh@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2111241534090.1412361@ubuntu-linux-20-04-desktop>
+References: <1637787223-21129-1-git-send-email-olekstysh@gmail.com> <1637787223-21129-3-git-send-email-olekstysh@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Nov 22 2021 at 16:47, Sebastian Andrzej Siewior wrote:
-> From: "Longpeng(Mike)" <longpeng2@huawei.com>
->
-> A CPU will not show up in virtualized environment which includes an
-> Enclave. The VM splits its resources into a primary VM and a Enclave
-> VM. While the Enclave is active, the hypervisor will ignore all requests
-> to bring up a CPU and this CPU will remain in CPU_UP_PREPARE state.
-> The kernel will wait up to ten seconds for CPU to show up
-> (do_boot_cpu()) and then rollback the hotplug state back to
-> CPUHP_OFFLINE leaving the CPU state in CPU_UP_PREPARE. The CPU state is
-> set back to CPUHP_TEARDOWN_CPU during the CPU_POST_DEAD stage.
->
-> After the Enclave VM terminates, the primary VM can bring up the CPU
-> again.
->
-> Allow to bring up the CPU if it is in the CPU_UP_PREPARE state.
->
-> [bigeasy: Rewrite commit description.]
->
-> Signed-off-by: Longpeng(Mike) <longpeng2@huawei.com>
-> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-> Link: https://lore.kernel.org/r/20210901051143.2752-1-longpeng2@huawei.com
+On Wed, 24 Nov 2021, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> 
+> Read the start address of the grant table space from DT
+> (region 0).
+> 
+> This patch mostly restores behaviour before commit 3cf4095d7446
+> ("arm/xen: Use xen_xlate_map_ballooned_pages to setup grant table")
+> but trying not to break the ACPI support added after that commit.
+> So the patch touches DT part only and leaves the ACPI part with
+> xen_xlate_map_ballooned_pages(). Also in order to make a code more
+> resilient use a fallback to xen_xlate_map_ballooned_pages() if grant
+> table region wasn't found.
+> 
+> This is a preparation for using Xen extended region feature
+> where unused regions of guest physical address space (provided
+> by the hypervisor) will be used to create grant/foreign/whatever
+> mappings instead of wasting real RAM pages from the domain memory
+> for establishing these mappings.
+> 
+> The immediate benefit of this change:
+> - Avoid superpage shattering in Xen P2M when establishing
+>   stage-2 mapping (GFN <-> MFN) for the grant table space
+> - Avoid wasting real RAM pages (reducing the amount of memory
+>   usuable) for mapping grant table space
+> - The grant table space is always mapped at the exact
+>   same place (region 0 is reserved for the grant table)
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > ---
->
-> For XEN: this changes the behaviour as it allows to invoke
-> cpu_initialize_context() again should it have have earlier. I *think*
-> this is okay and would to bring up the CPU again should the memory
-> allocation in cpu_initialize_context() fail.
+> Changes RFC -> V2:
+>    - new patch
+> 
+> Changes V2 -> V3:
+>    - add __read_mostly specifier to xen_grant_frames
+>    - retain a fallback to xen_xlate_map_ballooned_pages() if
+>      xen_grant_frames is invalid
+>    - process xen_events_irq before xen_grant_frames in
+>      xen_dt_guest_init()
+>    - update patch description
+> ---
+>  arch/arm/xen/enlighten.c | 26 ++++++++++++++++++++------
+>  1 file changed, 20 insertions(+), 6 deletions(-)
+> 
+> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
+> index 7619fbf..3fb3384 100644
+> --- a/arch/arm/xen/enlighten.c
+> +++ b/arch/arm/xen/enlighten.c
+> @@ -59,6 +59,9 @@ unsigned long xen_released_pages;
+>  struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
+>  
+>  static __read_mostly unsigned int xen_events_irq;
+> +static __read_mostly phys_addr_t xen_grant_frames;
+> +
+> +#define GRANT_TABLE_INDEX   0
+>  
+>  uint32_t xen_start_flags;
+>  EXPORT_SYMBOL(xen_start_flags);
+> @@ -303,6 +306,7 @@ static void __init xen_acpi_guest_init(void)
+>  static void __init xen_dt_guest_init(void)
+>  {
+>  	struct device_node *xen_node;
+> +	struct resource res;
+>  
+>  	xen_node = of_find_compatible_node(NULL, NULL, "xen,xen");
+>  	if (!xen_node) {
+> @@ -311,13 +315,19 @@ static void __init xen_dt_guest_init(void)
+>  	}
+>  
+>  	xen_events_irq = irq_of_parse_and_map(xen_node, 0);
+> +
+> +	if (of_address_to_resource(xen_node, GRANT_TABLE_INDEX, &res)) {
+> +		pr_err("Xen grant table region is not found\n");
+> +		return;
+> +	}
+> +	xen_grant_frames = res.start;
+>  }
+>  
+>  static int __init xen_guest_init(void)
+>  {
+>  	struct xen_add_to_physmap xatp;
+>  	struct shared_info *shared_info_page = NULL;
+> -	int cpu;
+> +	int rc, cpu;
+>  
+>  	if (!xen_domain())
+>  		return 0;
+> @@ -370,12 +380,16 @@ static int __init xen_guest_init(void)
+>  	for_each_possible_cpu(cpu)
+>  		per_cpu(xen_vcpu_id, cpu) = cpu;
+>  
+> -	xen_auto_xlat_grant_frames.count = gnttab_max_grant_frames();
+> -	if (xen_xlate_map_ballooned_pages(&xen_auto_xlat_grant_frames.pfn,
+> -					  &xen_auto_xlat_grant_frames.vaddr,
+> -					  xen_auto_xlat_grant_frames.count)) {
+> +	if (!acpi_disabled || !xen_grant_frames) {
 
-Any comment from XEN folks?
+I realize now that we only need:
 
-Thanks,
+    if (!xen_grant_frames) {
 
-        tglx
+with that:
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+
+> +		xen_auto_xlat_grant_frames.count = gnttab_max_grant_frames();
+> +		rc = xen_xlate_map_ballooned_pages(&xen_auto_xlat_grant_frames.pfn,
+> +										   &xen_auto_xlat_grant_frames.vaddr,
+> +										   xen_auto_xlat_grant_frames.count);
+> +	} else
+> +		rc = gnttab_setup_auto_xlat_frames(xen_grant_frames);
+> +	if (rc) {
+>  		free_percpu(xen_vcpu_info);
+> -		return -ENOMEM;
+> +		return rc;
+>  	}
+>  	gnttab_init();
 
