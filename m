@@ -2,44 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF02745B3C9
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 06:16:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.230045.397750 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EA3D45B3FD
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 06:25:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.230051.397761 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpkdd-0001wq-FP; Wed, 24 Nov 2021 05:16:09 +0000
+	id 1mpkmP-0003Rh-H3; Wed, 24 Nov 2021 05:25:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 230045.397750; Wed, 24 Nov 2021 05:16:09 +0000
+Received: by outflank-mailman (output) from mailman id 230051.397761; Wed, 24 Nov 2021 05:25:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpkdd-0001tm-Bq; Wed, 24 Nov 2021 05:16:09 +0000
-Received: by outflank-mailman (input) for mailman id 230045;
- Wed, 24 Nov 2021 05:16:08 +0000
+	id 1mpkmP-0003Ph-DG; Wed, 24 Nov 2021 05:25:13 +0000
+Received: by outflank-mailman (input) for mailman id 230051;
+ Wed, 24 Nov 2021 05:25:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iQO5=QL=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mpkdc-0001tg-9j
- for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 05:16:08 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a01e3110-4ce5-11ec-a9d2-d9f7a1cc8784;
- Wed, 24 Nov 2021 06:16:06 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C76431FD37;
- Wed, 24 Nov 2021 05:16:05 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 52F5B13EC2;
- Wed, 24 Nov 2021 05:16:05 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QP/zEZXKnWHjZgAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 24 Nov 2021 05:16:05 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ZRI3=QL=oracle.com=dongli.zhang@srs-se1.protection.inumbo.net>)
+ id 1mpkmN-0003Pb-I9
+ for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 05:25:11 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e3811d86-4ce6-11ec-a9d2-d9f7a1cc8784;
+ Wed, 24 Nov 2021 06:25:09 +0100 (CET)
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1AO4TIU3021511; 
+ Wed, 24 Nov 2021 05:24:39 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3cg69mprj2-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 24 Nov 2021 05:24:39 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1AO5LV6p109571;
+ Wed, 24 Nov 2021 05:24:38 GMT
+Received: from nam04-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam08lp2048.outbound.protection.outlook.com [104.47.73.48])
+ by userp3020.oracle.com with ESMTP id 3ch5tgq59m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 24 Nov 2021 05:24:37 +0000
+Received: from BYAPR10MB2663.namprd10.prod.outlook.com (2603:10b6:a02:a9::20)
+ by BYAPR10MB2453.namprd10.prod.outlook.com (2603:10b6:a02:b0::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.20; Wed, 24 Nov
+ 2021 05:24:35 +0000
+Received: from BYAPR10MB2663.namprd10.prod.outlook.com
+ ([fe80::2848:63dc:b87:8021]) by BYAPR10MB2663.namprd10.prod.outlook.com
+ ([fe80::2848:63dc:b87:8021%7]) with mapi id 15.20.4713.026; Wed, 24 Nov 2021
+ 05:24:35 +0000
+Received: from [IPv6:2606:b400:400:7444:8000::2e3] (2606:b400:8301:1010::16aa)
+ by SJ0PR05CA0155.namprd05.prod.outlook.com (2603:10b6:a03:339::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.13 via Frontend
+ Transport; Wed, 24 Nov 2021 05:24:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,869 +65,273 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a01e3110-4ce5-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1637730965; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KXLbVTFQswpcW1T0zr6kJg00Md2ajNbGOAaNQSLRhvU=;
-	b=nD8rzJ3o9h1MQnzxOkIILIgvd3xpbzs/DGZ/e1XmtI11TA3eDEGv7bqAOeaSSJpihRogAE
-	Sy6/bhbc2ymt6WNfOPOsdouPM5si1ThlhAoFrfTYrt0TeDhHWlE5IW6G3+ORdMBMtdKJed
-	paWt6a/NE8Ap2SNSFSuXTlNct0EbvVM=
-Subject: Re: [PATCH V2 3/4] xen/unpopulated-alloc: Add mechanism to use Xen
- resource
-To: Oleksandr <olekstysh@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Julien Grall <julien@xen.org>
-References: <1635264312-3796-1-git-send-email-olekstysh@gmail.com>
- <1635264312-3796-4-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2110280920110.20134@sstabellini-ThinkPad-T480s>
- <1d122e60-df9c-2ac6-8148-f6a836b9e51d@gmail.com>
- <alpine.DEB.2.22.394.2111181642340.1412361@ubuntu-linux-20-04-desktop>
- <f1f1025b-911d-3d27-f408-9c042bc4fca4@gmail.com>
- <alpine.DEB.2.22.394.2111191809100.1412361@ubuntu-linux-20-04-desktop>
- <76163855-c5eb-05db-2f39-3c6bfee46345@gmail.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <d0b851a5-6546-3958-7d4c-9436f574d62e@suse.com>
-Date: Wed, 24 Nov 2021 06:16:04 +0100
+X-Inumbo-ID: e3811d86-4ce6-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2021-07-09;
+ bh=m0y6mT4qyVR8XNUGc8DkKZTyZcBHqTyMWV7agwWQghk=;
+ b=v50xQpJ8m7PDJ6lWq9awTk5jqEZSIJdUZ/sLK9LPh4P6r8s4Hmv7Rbm15fED6s958GCB
+ 2cvHtBYB4zy6EhPV4YFIhGwc7X6J7GdkR6vmxdzp78awbAPI/X1kzN83P9G08K/ZXkrg
+ uGej99uZ9H6cnUsgoe18f6MFmrCzJHckDxTbXsrQKvFzxH2l8jRAkmw87WNnRcHzAi8G
+ ORBjh8z4QTcQAv/s1+3S4Xbq0m/HT6DOYKQAd2goKPmy2CxEEtS1Yiozu8SAx+vBG6sT
+ LXamz6aMuOlbNd+dlXnqU8MKzP5BOrhGhe2ylGgr+mtDUuzJ5nLghPZvKSBSwnKAh3qJ 8w== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mzAr5G4MmvDo6i0T1MsjnPi0g5bvKSuQ5hKTdoYoxFRpJWQ35vhbtlfqG/LQwRxoZauSmoXsZ8rWHNoddGHBpHeArdoc5nT9QUke1fUSOk8UmdSmBYh8jS6HeXZlLRjyewuTupHKanAzyTAeAVI8inLanmU+pO2Bw0opa0Kl3HqohRhtadSjyCDpnDTaSQGMcXm6C+RD5TQaD9L6v9o61xOg9sPJZpzFTjFeN0g2xcl27/mdCCFwpdn/YcgQXZMUYVT+1nYdvzNrXHXh7fO6DAJtsJJzlYDUEnZpqqIFlgguZTQOD61UaJFRVk7I8oHU35E2KrvaPfNgw4ox2mG6Kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=m0y6mT4qyVR8XNUGc8DkKZTyZcBHqTyMWV7agwWQghk=;
+ b=HMKJYU0wDAnCD5ofJLJBFAInrzGPuBeXdWRxyiLWWWHALfhgTAPP9H9XUrRJOoynokEayZFDe5sT0gbTVgOkJ+MLqRodp4zugq/UBS03BULtWEXTy8cjqBSIOL6rjwffY5ubIVmih3nqm/utEMYbN9GwOcAVIjEuX4IrTIpQYIR+o2aNlZbbep6zPPGHPU5B/uxoHbf42YN4tN3x0Q5B4TjxhZ2OsjAfqlfkpmIQwH9hRZtKpzaslNP9HWk47+Ky/V6iMKuxohYhEzsfvhXKMwHxov1VfrBKxwXRe9ChoU1f/3Y7Vwnu7x0ZamaJhePS3MjGd0v3EoH/5DdnU0hQAA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=m0y6mT4qyVR8XNUGc8DkKZTyZcBHqTyMWV7agwWQghk=;
+ b=BnOZPJFsmJ4bvIc4ozgOTA45HqGGGgR9dFZZOdoywAzbTg2iAC5fX3Yzclugg9jBkRN0vfM4BOhKiH6IhpwDkcKoZggLLLgzTs0UwdTg+13kjkvx7qV4nlng3ubSD2TQPJQiEuFPmcKUL5UWPnQTUFvfNkOGmNZTqsXMw1VJZLQ=
+Subject: Re: [PATCH] cpu/hotplug: Allow the CPU in CPU_UP_PREPARE state to be
+ brought up again.
+To: "Longpeng (Mike, Cloud Infrastructure Service Product Dept.)"
+ <longpeng2@huawei.com>,
+        Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "Gonglei (Arei)" <arei.gonglei@huawei.com>,
+        "x86@kernel.org"
+ <x86@kernel.org>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
+        Valentin Schneider <valentin.schneider@arm.com>,
+        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+        Juergen Gross
+ <jgross@suse.com>,
+        Stefano Stabellini <sstabellini@kernel.org>,
+        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "H. Peter Anvin" <hpa@zytor.com>
+References: <20211122154714.xaoxok3fpk5bgznz@linutronix.de>
+ <d5f43af4-f91f-ef9f-9c33-8d349f59b23c@oracle.com>
+ <46f7dbb8c0cb42228ed028ed89af1282@huawei.com>
+From: Dongli Zhang <dongli.zhang@oracle.com>
+Message-ID: <5c0b2ab4-7e97-b9a9-e1fa-d93323f23c1f@oracle.com>
+Date: Tue, 23 Nov 2021 21:24:32 -0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <76163855-c5eb-05db-2f39-3c6bfee46345@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="0zbYD8Udb611Ee1FeeRnGZCxfY94x1rLa"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---0zbYD8Udb611Ee1FeeRnGZCxfY94x1rLa
-Content-Type: multipart/mixed; boundary="vYRbg6aD15TTF9AEtbMSp4LSwBRmT1vYD";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Oleksandr <olekstysh@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Julien Grall <julien@xen.org>
-Message-ID: <d0b851a5-6546-3958-7d4c-9436f574d62e@suse.com>
-Subject: Re: [PATCH V2 3/4] xen/unpopulated-alloc: Add mechanism to use Xen
- resource
-References: <1635264312-3796-1-git-send-email-olekstysh@gmail.com>
- <1635264312-3796-4-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.21.2110280920110.20134@sstabellini-ThinkPad-T480s>
- <1d122e60-df9c-2ac6-8148-f6a836b9e51d@gmail.com>
- <alpine.DEB.2.22.394.2111181642340.1412361@ubuntu-linux-20-04-desktop>
- <f1f1025b-911d-3d27-f408-9c042bc4fca4@gmail.com>
- <alpine.DEB.2.22.394.2111191809100.1412361@ubuntu-linux-20-04-desktop>
- <76163855-c5eb-05db-2f39-3c6bfee46345@gmail.com>
-In-Reply-To: <76163855-c5eb-05db-2f39-3c6bfee46345@gmail.com>
-
---vYRbg6aD15TTF9AEtbMSp4LSwBRmT1vYD
-Content-Type: multipart/mixed;
- boundary="------------D91E9B4B1E22D8AFFDA252EE"
+ Thunderbird/78.6.1
+In-Reply-To: <46f7dbb8c0cb42228ed028ed89af1282@huawei.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0155.namprd05.prod.outlook.com
+ (2603:10b6:a03:339::10) To BYAPR10MB2663.namprd10.prod.outlook.com
+ (2603:10b6:a02:a9::20)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e662cf9b-db85-4d65-418d-08d9af0ab38f
+X-MS-TrafficTypeDiagnostic: BYAPR10MB2453:
+X-Microsoft-Antispam-PRVS: 
+	<BYAPR10MB2453CCF805548488970C3F5FF0619@BYAPR10MB2453.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	szMdH1rPzsIpGTKSJbktML5fuzfyoVXarW6AqdOi2Sd7iP6kebeUGKoA9WI/PSyfe1ddZxvjBWKEW+Zkpu67gIlrnNjXjQRd/zLTcOsOBSjsUMsk2JsW8T6CErW+ilR3d4Jpy8lCqJlqp2yT0jwjJidF4ypqi0aDbb/wiGreimsj0RNVrn0a+R4abjFpk8Ns29EOxa7/oKoyzvypWbdQC4WWyNUN+Z89UwvdRs+s7N+MgO682LjmcE626VMog9cO8ki0taRP6JC5MNz50eFnrGE/6NDgFa10qVoB1JkWuCMLCX60FUMq1leozoLj1RnqSw8Mw5TKSG/cJ8WRjN99N0GRpJip7WR5hSzuXQCPS3IGV+nExyOq5bpxhuxBHbve2N0VGNYr+yDKSemkusrqkwI9S09vezUVUqY4zxclJOfDAtHMONBajpjt9iv19U3SIW2UNIsI7ev9feWVvH1kWR3o4Eu1jM0RvwazwyNZim5+yrEGqhM00bHzRXnbaFrZpA3fyJX1HWaDGbLpu/ry0swAFRNhOX/TybIvyIjMwp5cyDOFVBxXfqWvrT1BTyUbvxY7ck8cVpU0dz4oKQcy6LIIUIl6TZJL8s57krcNgPaXJBEFlU2nRxvKSiSZNgNIUDumfkHFaKFDUrPxMqxXLRXDpJNcB1q1VssGfw1qIiHMgt2FwKvtk38sVj3zRQWHFudWdcQhYub89x55gBDWCZeJxrtSmv4efGIEslrtsJcelJlvJXLhnFWo+/RgeHouJpY44g3OAAAQlsR98dvfS3YJij/xQAMiVErnfveQF9rBqNC2uSVaV0Twn1oS0zkkpCTMb38/jw+4l848UHHnXA==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR10MB2663.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(110136005)(31686004)(7416002)(8936002)(4326008)(66946007)(54906003)(6486002)(44832011)(36756003)(31696002)(966005)(508600001)(86362001)(53546011)(8676002)(316002)(2906002)(38100700002)(186003)(66476007)(66556008)(2616005)(5660300002)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?T0ZYdU9TVGZkeWZ6UVh4MTZBVzErdnFZYlhxYkdkb0JYNkl5N2J4RlRoTTBM?=
+ =?utf-8?B?N1ZjYWxJcEZ1UERKZVBlUHZwQndMOFpUZy9uRXdLR2Z5ZTk1WlQ1Sk1FejdC?=
+ =?utf-8?B?QmNKeFV6UHd0cW1qZjVMeDliM2VQbnF1UjYvY3V4dlprcitmQzFvL29zdnZ1?=
+ =?utf-8?B?b3drMlFMc25LSW42R1ZDV3pNUSswc3FMUTJpYkxndDRVd2FVM3pFRmpwMWRa?=
+ =?utf-8?B?eXk3bmwvbE8zek5oVVNhOTRYRUlSN2w2blBCcDBXOTdPbDBZWTRnNXFaRlMy?=
+ =?utf-8?B?ZCtlWXJSODBqT1NlMG9GMHp5M3VTSVRoZnlyak9qb2JWWmp6S1g5QmlNZHJF?=
+ =?utf-8?B?TjlJd3h3bWhhWFZDMGNvaXcvZURLK0gveHlaSm5iZ2ZjWjdRU0grNUZqKzls?=
+ =?utf-8?B?N3FEbWVpaU0vRE5aZ1BlVHRzOVhFSzBERlNBRTZUeWlPM3R3ZzVUNTJkUkJ0?=
+ =?utf-8?B?QzZOb2IvZFBwMHlqS1Z5SW9DeHVsQUNsWmo4ak5wSEtiVUR1UFhSa1k0Q0x5?=
+ =?utf-8?B?T0x5cXJBdDc1MmliV3NRVEZhTTNIdC90dFFjUUhudVJ0a3lmc3owWkl4WFhj?=
+ =?utf-8?B?U0xZK2kwZks1UTlsS1FuVDdaR3pkb0JlOEw3WHhUNVdxeS9YT3E5dGMydzBx?=
+ =?utf-8?B?ejdrQXRVcE8weGZta1FHNTJnYS9vK3NwQXkzSmJUMmpVdXFwYjBYUnpPa3Jq?=
+ =?utf-8?B?WE5QN1JKM05nbkwwNGNuMEVsNGEzSnU0cHhXYlRRVTR4SVJxcmxaZmxsajJm?=
+ =?utf-8?B?TzJYNnQyb1l0blhzYlJuQW1FQWNYTG1IR1cwZXJjbEpMSnJENG5QK0lrS0Nn?=
+ =?utf-8?B?UW9ReUovckZscHk0endTb3hWMWN2S3JvSWFFSzFMdm1zemVMMW5sZi9iL01T?=
+ =?utf-8?B?WVRpaldPMzRzRDdUUHdIN00zVmdSTTlIanU0U0FxRE1RMlk3VnFGY095bTBV?=
+ =?utf-8?B?cjBVNTM3YnJxNG5IelZUOVRwUVE1L0NoYWwzOWdoQ0VJalYrWUZXOHBKMi93?=
+ =?utf-8?B?aGZKdDFSdE5FNEpLR3lJdlFhbG84cGcvMldpNEMyMU15YlNrMk83TUVyVTBo?=
+ =?utf-8?B?UmlHRHhwWmJyM2tHTlNBY1crUU85UFgvNFBCL0ptMVlsUTNrZnhWVkJwYXg3?=
+ =?utf-8?B?UndLb1hnYVgweEY0WVpHclJUZW44YTZRZ1RrWDJlY1JXSkdiUDNWOVEwNkNk?=
+ =?utf-8?B?ckVqOGNKcDlzVEtGM1k5eXMwaFpMQlhVT2JNSnB6TEdjREtTY1RkWUU1S3Y4?=
+ =?utf-8?B?RjlSVmVVQlJxUWdzRUZUSWh1YktkcERwOWc5Q1hTSHQxdkpWZVQveTBhV0VW?=
+ =?utf-8?B?WFNGMXhvU0FWWUR4dCtYWjRKNytkNXAxOWF4UzFWRGJ5SWtwcDVDQWxLbXBz?=
+ =?utf-8?B?MTJvTis3bUZ4N05Cd0hJR0taaWU5VDlYdE9OSTlaM2dHYk1HakRod1VCdlFB?=
+ =?utf-8?B?YnNTWVM1MHFzdklyOU9TQXJjdnNGRUE5Vis2Zm1zZVRMMjhpNEdLKzNWY2FK?=
+ =?utf-8?B?ZEQrdWtjODYzNmcvSjZsejBLZVZQK0ZsYjNwckNSdCtFZjVNLzNnVkVkL1ZO?=
+ =?utf-8?B?K1NyMUlmbyt3amJQL3dZUy9iOG53aFo3N0RSN1RJKzh0SzF0MmVnVUpkb3Iy?=
+ =?utf-8?B?QktRcHN0VFJJdWFMVGp4ZHhwY3ZjWkphV1hyTXBPUXJXdVpkUlo1NXQxNDJJ?=
+ =?utf-8?B?Nnc1cXlWazNVOEpRRmxQRjBWaHJ3TXVwWHNYREJ2Q3dFMjlEbmRaTmVKWXB5?=
+ =?utf-8?B?SEgwalNWcjBTamRtcFF3VzR3eng0dGNWSFIvV0V4dlVuRExMNW00NWVlSVFR?=
+ =?utf-8?B?UjhxTGNlYzZaRUhyb0tIVjZIa1BoYncvVkJndWttbExJTnJJUmpKV285dFox?=
+ =?utf-8?B?ZFFQM3FQb0x4SzV1aURmeEpjaFlKVXphUFlFZEJmM3dBTC8wT0MwUkVxQUNF?=
+ =?utf-8?B?ckpqTEhESDJkZm9DUGtNM1VjbDlMa2RkRitCME8yV0xqYUNaTzBDNll3aU1T?=
+ =?utf-8?B?SFIvVksySzhYQWNjUjkxU2IvN2d5SHk0dFBZSi9lZmNGR05URjIrL0UxdnI2?=
+ =?utf-8?B?V0FmMThpc1hVelEvK3lPTGFNQlhsTC9CdThFYm0yVEpsVmxYZCs4V281UDJJ?=
+ =?utf-8?B?Y0s1TG94T3Q3U3djT3l5Zno2U082UnlqWTVMTGVtN1phOGtvWkxqeUlEYnF6?=
+ =?utf-8?B?WURIVXhaVE5ORTlpZkdqNlh3MVBmS2tmWFBQSExSTjVITnRHSkNLdVFza05I?=
+ =?utf-8?B?TTNETTRuWm1FSjlJVW9pdnhGb1VBPT0=?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e662cf9b-db85-4d65-418d-08d9af0ab38f
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR10MB2663.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2021 05:24:35.0957
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: d8Rk8MR8pRYN0Y3ve4zUSA8F6cZWwPgZG19ikA3RXz8OwgGIskDcCdo0GMiBY+OefRi5RQVPNVitxz3DgEgRbA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB2453
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10177 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0 bulkscore=0 spamscore=0
+ phishscore=0 adultscore=0 suspectscore=0 malwarescore=0 mlxlogscore=999
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
+ definitions=main-2111240031
+X-Proofpoint-GUID: fv6VGFIi2_PgJ8_BgZ_h_a-sdFFimo7F
+X-Proofpoint-ORIG-GUID: fv6VGFIi2_PgJ8_BgZ_h_a-sdFFimo7F
 
-This is a multi-part message in MIME format.
---------------D91E9B4B1E22D8AFFDA252EE
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
 
-On 23.11.21 17:46, Oleksandr wrote:
->=20
-> On 20.11.21 04:19, Stefano Stabellini wrote:
->=20
-> Hi Stefano, Juergen, all
->=20
->=20
->> Juergen please see the bottom of the email
+
+On 11/23/21 3:50 PM, Longpeng (Mike, Cloud Infrastructure Service Product Dept.)
+wrote:
+> 
+> 
+>> -----Original Message-----
+>> From: Dongli Zhang [mailto:dongli.zhang@oracle.com]
+>> Sent: Wednesday, November 24, 2021 5:22 AM
+>> To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>; Longpeng (Mike, Cloud
+>> Infrastructure Service Product Dept.) <longpeng2@huawei.com>
+>> Cc: linux-kernel@vger.kernel.org; Gonglei (Arei) <arei.gonglei@huawei.com>;
+>> x86@kernel.org; xen-devel@lists.xenproject.org; Peter Zijlstra
+>> <peterz@infradead.org>; Ingo Molnar <mingo@kernel.org>; Valentin Schneider
+>> <valentin.schneider@arm.com>; Boris Ostrovsky <boris.ostrovsky@oracle.com>;
+>> Juergen Gross <jgross@suse.com>; Stefano Stabellini <sstabellini@kernel.org>;
+>> Thomas Gleixner <tglx@linutronix.de>; Ingo Molnar <mingo@redhat.com>; Borislav
+>> Petkov <bp@alien8.de>; Dave Hansen <dave.hansen@linux.intel.com>; H. Peter
+>> Anvin <hpa@zytor.com>
+>> Subject: Re: [PATCH] cpu/hotplug: Allow the CPU in CPU_UP_PREPARE state to be
+>> brought up again.
 >>
->> On Fri, 19 Nov 2021, Oleksandr wrote:
->>> On 19.11.21 02:59, Stefano Stabellini wrote:
->>>> On Tue, 9 Nov 2021, Oleksandr wrote:
->>>>> On 28.10.21 19:37, Stefano Stabellini wrote:
->>>>>
->>>>> Hi Stefano
->>>>>
->>>>> I am sorry for the late response.
->>>>>
->>>>>> On Tue, 26 Oct 2021, Oleksandr Tyshchenko wrote:
->>>>>>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>>>>>>
->>>>>>> The main reason of this change is that unpopulated-alloc
->>>>>>> code cannot be used in its current form on Arm, but there
->>>>>>> is a desire to reuse it to avoid wasting real RAM pages
->>>>>>> for the grant/foreign mappings.
->>>>>>>
->>>>>>> The problem is that system "iomem_resource" is used for
->>>>>>> the address space allocation, but the really unallocated
->>>>>>> space can't be figured out precisely by the domain on Arm
->>>>>>> without hypervisor involvement. For example, not all device
->>>>>>> I/O regions are known by the time domain starts creating
->>>>>>> grant/foreign mappings. And following the advise from
->>>>>>> "iomem_resource" we might end up reusing these regions by
->>>>>>> a mistake. So, the hypervisor which maintains the P2M for
->>>>>>> the domain is in the best position to provide unused regions
->>>>>>> of guest physical address space which could be safely used
->>>>>>> to create grant/foreign mappings.
->>>>>>>
->>>>>>> Introduce new helper arch_xen_unpopulated_init() which purpose
->>>>>>> is to create specific Xen resource based on the memory regions
->>>>>>> provided by the hypervisor to be used as unused space for Xen
->>>>>>> scratch pages.
->>>>>>>
->>>>>>> If arch doesn't implement arch_xen_unpopulated_init() to
->>>>>>> initialize Xen resource the default "iomem_resource" will be used=
-=2E
->>>>>>> So the behavior on x86 won't be changed.
->>>>>>>
->>>>>>> Also fall back to allocate xenballooned pages (steal real RAM
->>>>>>> pages) if we do not have any suitable resource to work with and
->>>>>>> as the result we won't be able to provide unpopulated pages.
->>>>>>>
->>>>>>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.co=
-m>
->>>>>>> ---
->>>>>>> Changes RFC -> V2:
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - new patch, instead of
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 "[RFC PATCH 2/2] xen/unpopul=
-ated-alloc: Query hypervisor to
->>>>>>> provide
->>>>>>> unallocated space"
->>>>>>> ---
->>>>>>> =C2=A0=C2=A0=C2=A0 drivers/xen/unpopulated-alloc.c | 89
->>>>>>> +++++++++++++++++++++++++++++++++++++++--
->>>>>>> =C2=A0=C2=A0=C2=A0 include/xen/xen.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +
->>>>>>> =C2=A0=C2=A0=C2=A0 2 files changed, 88 insertions(+), 3 deletions=
-(-)
->>>>>>>
->>>>>>> diff --git a/drivers/xen/unpopulated-alloc.c
->>>>>>> b/drivers/xen/unpopulated-alloc.c
->>>>>>> index a03dc5b..1f1d8d8 100644
->>>>>>> --- a/drivers/xen/unpopulated-alloc.c
->>>>>>> +++ b/drivers/xen/unpopulated-alloc.c
->>>>>>> @@ -8,6 +8,7 @@
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 #include <asm/page.h>
->>>>>>> =C2=A0=C2=A0=C2=A0 +#include <xen/balloon.h>
->>>>>>> =C2=A0=C2=A0=C2=A0 #include <xen/page.h>
->>>>>>> =C2=A0=C2=A0=C2=A0 #include <xen/xen.h>
->>>>>>> =C2=A0=C2=A0=C2=A0 @@ -15,13 +16,29 @@ static DEFINE_MUTEX(list_l=
-ock);
->>>>>>> =C2=A0=C2=A0=C2=A0 static struct page *page_list;
->>>>>>> =C2=A0=C2=A0=C2=A0 static unsigned int list_count;
->>>>>>> =C2=A0=C2=A0=C2=A0 +static struct resource *target_resource;
->>>>>>> +static struct resource xen_resource =3D {
->>>>>>> +=C2=A0=C2=A0=C2=A0 .name =3D "Xen unused space",
->>>>>>> +};
->>>>>>> +
->>>>>>> +/*
->>>>>>> + * If arch is not happy with system "iomem_resource" being used =
-for
->>>>>>> + * the region allocation it can provide it's own view by=20
->>>>>>> initializing
->>>>>>> + * "xen_resource" with unused regions of guest physical address =
-
->>>>>>> space
->>>>>>> + * provided by the hypervisor.
->>>>>>> + */
->>>>>>> +int __weak arch_xen_unpopulated_init(struct resource *res)
->>>>>>> +{
->>>>>>> +=C2=A0=C2=A0=C2=A0 return -ENOSYS;
->>>>>>> +}
->>>>>>> +
->>>>>>> =C2=A0=C2=A0=C2=A0 static int fill_list(unsigned int nr_pages)
->>>>>>> =C2=A0=C2=A0=C2=A0 {
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct dev_pagemap *pg=
-map;
->>>>>>> -=C2=A0=C2=A0=C2=A0 struct resource *res;
->>>>>>> +=C2=A0=C2=A0=C2=A0 struct resource *res, *tmp_res =3D NULL;
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void *vaddr;
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int i, alloc_=
-pages =3D round_up(nr_pages,
->>>>>>> PAGES_PER_SECTION);
->>>>>>> -=C2=A0=C2=A0=C2=A0 int ret =3D -ENOMEM;
->>>>>>> +=C2=A0=C2=A0=C2=A0 int ret;
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 res =3D kz=
-alloc(sizeof(*res), GFP_KERNEL);
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!res)
->>>>>>> @@ -30,7 +47,7 @@ static int fill_list(unsigned int nr_pages)
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 res->name =3D "Xen scr=
-atch";
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 res->flags =3D IORESOU=
-RCE_MEM | IORESOURCE_BUSY;
->>>>>>> =C2=A0=C2=A0=C2=A0 -=C2=A0=C2=A0=C2=A0 ret =3D allocate_resource(=
-&iomem_resource, res,
->>>>>>> +=C2=A0=C2=A0=C2=A0 ret =3D allocate_resource(target_resource, re=
-s,
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 alloc_pages * PAGE_SIZE,=
- 0, -1,
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PAGES_PER_SECTION * PAGE=
-_SIZE, NULL,
->>>>>>> NULL);
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ret < 0) {
->>>>>>> @@ -38,6 +55,31 @@ static int fill_list(unsigned int nr_pages)
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- goto err_resource;
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>>>> =C2=A0=C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 /*
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * Reserve the region previously allocat=
-ed from Xen resource
->>>>>>> to avoid
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * re-using it by someone else.
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>>>>> +=C2=A0=C2=A0=C2=A0 if (target_resource !=3D &iomem_resource) {
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp_res =3D kzalloc(s=
-izeof(*tmp_res), GFP_KERNEL);
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!res) {
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- ret =3D -ENOMEM;
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- goto err_insert;
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>>>> +
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp_res->name =3D res=
-->name;
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp_res->start =3D re=
-s->start;
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp_res->end =3D res-=
->end;
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp_res->flags =3D re=
-s->flags;
->>>>>>> +
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ret =3D insert_resour=
-ce(&iomem_resource, tmp_res);
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (ret < 0) {
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- pr_err("Cannot insert IOMEM resource [%llx -
->>>>>>> %llx]\n",
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 tmp_res->start, tmp_res->end);=
-
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- kfree(tmp_res);
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- goto err_insert;
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
->>>>>>> +=C2=A0=C2=A0=C2=A0 }
->>>>>> I am a bit confused.. why do we need to do this? Who could be
->>>>>> erroneously re-using the region? Are you saying that the next time=
-
->>>>>> allocate_resource is called it could find the same region again? I=
-t
->>>>>> doesn't seem possible?
->>>>> No, as I understand the allocate_resource() being called for the=20
->>>>> same root
->>>>> resource won't provide the same region... We only need to do this=20
->>>>> (insert
->>>>> the
->>>>> region into "iomem_resource") if we allocated it from our *internal=
-*
->>>>> "xen_resource", as *global* "iomem_resource" (which is used=20
->>>>> everywhere) is
->>>>> not
->>>>> aware of that region has been already allocated. So inserting a reg=
-ion
->>>>> here we
->>>>> reserving it, otherwise it could be reused elsewhere.
->>>> But elsewhere where?
->>> I think, theoretically everywhere where=20
->>> allocate_resource(&iomem_resource,
->>> ...) is called.
->>>
->>>
->>>> Let's say that allocate_resource allocates a range from xen_resource=
-=2E
->>>> =C2=A0 From reading the code, it doesn't look like iomem_resource wo=
-uld have
->>>> that range because the extended regions described under /hypervisor =
-are
->>>> not added automatically to iomem_resource.
->>>>
->>>> So what if we don't call insert_resource? Nothing could allocate the=
-
->>>> same range because iomem_resource doesn't have it at all and
->>>> xen_resource is not used anywhere if not here.
->>>>
->>>> What am I missing?
->>>
->>> Below my understanding which, of course, might be wrong.
->>>
->>> If we don't claim resource by calling insert_resource (or even
->>> request_resource) here then the same range could be allocated=20
->>> everywhere where
->>> allocate_resource(&iomem_resource, ...) is called.
->>> I don't see what prevents the same range from being allocated. Why=20
->>> actually
->>> allocate_resource(&iomem_resource, ...) can't provide the same range =
-
->>> if it is
->>> free (not-reserved-yet) from it's PoV? The comment above=20
->>> allocate_resource()
->>> says "allocate empty slot in the resource tree given range &=20
->>> alignment". So
->>> this "empty slot" could be exactly the same range.
->>>
->>> I experimented with that a bit trying to call
->>> allocate_resource(&iomem_resource, ...) several times in another=20
->>> place to see
->>> what ranges it returns in both cases (w/ and w/o calling insert_resou=
-rce
->>> here). So an experiment confirmed (of course, if I made it correctly)=
-=20
->>> that the
->>> same range could be allocated if we didn't call insert_resource()=20
->>> here. And as
->>> I understand there is nothing strange here, as iomem_resource covers =
-all
->>> address space initially (0, -1) and everything *not*=20
->>> inserted/requested (in
->>> other words, reserved) yet is considered as free and could be=20
->>> provided if fits
->>> constraints. Or I really missed something?
->> Thanks for the explanation! It was me that didn't know that
->> iomem_resource covers all the address space initially. I thought it wa=
-s
->> populated only with actual iomem ranges. Now it makes sense, thanks!
+>> Tested-by: Dongli Zhang <dongli.zhang@oracle.com>
 >>
 >>
->>> It feels to me that it would be better to call request_resource()=20
->>> instead of
->>> insert_resource(). It seems, that if no conflict happens both=20
->>> functions will
->>> behave in same way, but in case of conflict if the conflicting resour=
-ce
->>> entirely fit the new resource the former will return an error. I=20
->>> think, this
->>> way we will be able to detect that a range we are trying to reserve=20
->>> is already
->>> present and bail out early.
->>>
->>>
->>>> Or maybe it is the other way around: core Linux code assumes everyth=
-ing
->>>> is described in iomem_resource so something under kernel/ or mm/ wou=
-ld
->>>> crash if we start using a page pointing to an address missing from
->>>> iomem_resource?
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pgmap =3D kzalloc(size=
-of(*pgmap), GFP_KERNEL);
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (!pgmap) {
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- ret =3D -ENOMEM;
->>>>>>> @@ -95,12 +137,40 @@ static int fill_list(unsigned int nr_pages)
->>>>>>> =C2=A0=C2=A0=C2=A0 err_memremap:
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kfree(pgmap);
->>>>>>> =C2=A0=C2=A0=C2=A0 err_pgmap:
->>>>>>> +=C2=A0=C2=A0=C2=A0 if (tmp_res) {
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 release_resource(tmp_=
-res);
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kfree(tmp_res);
->>>>>>> +=C2=A0=C2=A0=C2=A0 }
->>>>>>> +err_insert:
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 release_resource(res);=
-
->>>>>>> =C2=A0=C2=A0=C2=A0 err_resource:
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kfree(res);
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return ret;
->>>>>>> =C2=A0=C2=A0=C2=A0 }
->>>>>>> =C2=A0=C2=A0=C2=A0 +static void unpopulated_init(void)
->>>>>>> +{
->>>>>>> +=C2=A0=C2=A0=C2=A0 static bool inited =3D false;
->>>>>> initialized =3D false
->>>>> ok.
->>>>>
->>>>>
->>>>>>> +=C2=A0=C2=A0=C2=A0 int ret;
->>>>>>> +
->>>>>>> +=C2=A0=C2=A0=C2=A0 if (inited)
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return;
->>>>>>> +
->>>>>>> +=C2=A0=C2=A0=C2=A0 /*
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * Try to initialize Xen resource the fi=
-rst and fall back to
->>>>>>> default
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * resource if arch doesn't offer one.
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>>>>> +=C2=A0=C2=A0=C2=A0 ret =3D arch_xen_unpopulated_init(&xen_resour=
-ce);
->>>>>>> +=C2=A0=C2=A0=C2=A0 if (!ret)
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 target_resource =3D &=
-xen_resource;
->>>>>>> +=C2=A0=C2=A0=C2=A0 else if (ret =3D=3D -ENOSYS)
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 target_resource =3D &=
-iomem_resource;
->>>>>>> +=C2=A0=C2=A0=C2=A0 else
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 pr_err("Cannot initia=
-lize Xen resource\n");
->>>>>>> +
->>>>>>> +=C2=A0=C2=A0=C2=A0 inited =3D true;
->>>>>>> +}
->>>>>> Would it make sense to call unpopulated_init from an init function=
-,
->>>>>> rather than every time xen_alloc_unpopulated_pages is called?
->>>>> Good point, thank you. Will do. To be honest, I also don't like the=
-
->>>>> current
->>>>> approach much.
->>>>>
->>>>>
->>>>>>> =C2=A0=C2=A0=C2=A0 /**
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0 * xen_alloc_unpopulated_pages - alloc un=
-populated pages
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0 * @nr_pages: Number of pages
->>>>>>> @@ -112,6 +182,16 @@ int xen_alloc_unpopulated_pages(unsigned int=
-
->>>>>>> nr_pages, struct page **pages)
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int i;
->>>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 int ret =3D 0;
->>>>>>> =C2=A0=C2=A0=C2=A0 +=C2=A0=C2=A0=C2=A0 unpopulated_init();
->>>>>>> +
->>>>>>> +=C2=A0=C2=A0=C2=A0 /*
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * Fall back to default behavior if we d=
-o not have any
->>>>>>> suitable
->>>>>>> resource
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * to allocate required region from and =
-as the result we won't
->>>>>>> be able
->>>>>>> to
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 * construct pages.
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0 */
->>>>>>> +=C2=A0=C2=A0=C2=A0 if (!target_resource)
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return alloc_xenballo=
-oned_pages(nr_pages, pages);
->>>>>> The commit message says that the behavior on x86 doesn't change=20
->>>>>> but this
->>>>>> seems to be a change that could impact x86?
->>>>> I don't think, however I didn't tested on x86 and might be wrong, b=
-ut
->>>>> according to the current patch, on x86 the "target_resource" is alw=
-ays
->>>>> valid
->>>>> and points to the "iomem_resource" as arch_xen_unpopulated_init()=20
->>>>> is not
->>>>> implemented. So there won't be any fallback to use
->>>>> alloc_(free)_xenballooned_pages() here and fill_list() will behave =
-as
->>>>> usual.
->>>> =C2=A0=C2=A0 If target_resource is always valid, then we don't need =
-this special
->>>> check. In fact, the condition should never be true.
->>>
->>> The target_resource is always valid and points to the=20
->>> "iomem_resource" on x86
->>> (this is equivalent to the behavior before this patch).
->>> On Arm target_resource might be NULL if arch_xen_unpopulated_init()=20
->>> failed,
->>> for example, if no extended regions reported by the hypervisor.
->>> We cannot use "iomem_resource" on Arm, only a resource constructed fr=
-om
->>> extended regions. This is why I added that check (and fallback to=20
->>> xenballooned
->>> pages).
->>> What I was thinking is that in case of using old Xen (although we=20
->>> would need
->>> to balloon out RAM pages) we still would be able to keep working, so =
-
->>> no need
->>> to disable CONFIG_XEN_UNPOPULATED_ALLOC on such setups.
->>>>> You raised a really good question, on Arm we need a fallback to=20
->>>>> balloon
->>>>> out
->>>>> RAM pages again if hypervisor doesn't provide extended regions (we =
-
->>>>> run on
->>>>> old
->>>>> version, no unused regions with reasonable size, etc), so I decided=
-=20
->>>>> to put
->>>>> a
->>>>> fallback code here, an indicator of the failure is invalid
->>>>> "target_resource".
->>>> I think it is unnecessary as we already assume today that
->>>> &iomem_resource is always available.
->>>>> I noticed the patch which is about to be upstreamed that removes
->>>>> alloc_(free)xenballooned_pages API [1]. Right now I have no idea=20
->>>>> how/where
->>>>> this fallback could be implemented as this is under build option=20
->>>>> control
->>>>> (CONFIG_XEN_UNPOPULATED_ALLOC). So the API with the same name is=20
->>>>> either
->>>>> used
->>>>> for unpopulated pages (if set) or ballooned pages (if not set). I=20
->>>>> would
->>>>> appreciate suggestions regarding that. I am wondering would it be=20
->>>>> possible
->>>>> and
->>>>> correctly to have both mechanisms (unpopulated and ballooned)=20
->>>>> enabled by
->>>>> default and some init code to decide which one to use at runtime or=
-=20
->>>>> some
->>>>> sort?
->>>> I would keep it simple and remove the fallback from this patch. So:
->>>>
->>>> - if not CONFIG_XEN_UNPOPULATED_ALLOC, then balloon
->>>> - if CONFIG_XEN_UNPOPULATED_ALLOC, then
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - xen_resource if present
->>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - otherwise iomem_resource
->>> Unfortunately, we cannot use iomem_resource on Arm safely, either=20
->>> xen_resource
->>> or fail (if no fallback exists).
->>>
->>>
->>>> The xen_resource/iomem_resource config can be done at init time usin=
-g
->>>> target_resource. At runtime, target_resource is always !=3D NULL so =
-we
->>>> just go ahead and use it.
->>>
->>> Thank you for the suggestion. OK, let's keep it simple and drop fallb=
-ack
->>> attempts for now. With one remark:
->>> We will make CONFIG_XEN_UNPOPULATED_ALLOC disabled by default on Arm =
-
->>> in next
->>> patch. So by default everything will behave as usual on Arm (balloon =
-
->>> out RAM
->>> pages),
->>> if user knows for sure that Xen reports extended regions, he/she can =
-
->>> enable
->>> the config. This way we won't break anything. What do you think?
->> Actually after reading your replies and explanation I changed opinion:=
- I
->> think we do need the fallback because Linux cannot really assume that
->> it is running on "new Xen" so it definitely needs to keep working if
->> CONFIG_XEN_UNPOPULATED_ALLOC is enabled and the extended regions are n=
-ot
->> advertised.
+>> The bug fixed by commit 53fafdbb8b21 ("KVM: x86: switch KVMCLOCK base to
+>> monotonic raw clock") may leave the cpu_hotplug_state at CPU_UP_PREPARE. As a
+>> result, to online this CPU again (even after removal) is always failed.
 >>
->> I think we'll have to roll back some of the changes introduced by
->> 121f2faca2c0a. That's because even if CONFIG_XEN_UNPOPULATED_ALLOC is
->> enabled we cannot know if we can use unpopulated-alloc or whether we
->> have to use alloc_xenballooned_pages until we parse the /hypervisor no=
-de
->> in device tree at runtime.
->=20
-> Exactly!
->=20
->=20
+>> I have tested that this patch works well to workaround the issue, by introducing
+>> either a mdeley(11000) or while(1); to start_secondary(). That is, to online
+>> the
+>> same CPU again is successful even after initial do_boot_cpu() failure.
 >>
->> In short, we cannot switch between unpopulated-alloc and
->> alloc_xenballooned_pages at build time, we have to do it at runtime
->> (boot time).
->=20
-> +1
->=20
->=20
-> I created a patch to partially revert 121f2faca2c0a "xen/balloon: renam=
-e=20
-> alloc/free_xenballooned_pages".
->=20
-> If there is no objections I will add it to V3 (which is almost ready,=20
-> except the fallback bits). Could you please tell me what do you think?
->=20
->=20
->  From dc79bcd425358596d95e715a8bd8b81deaaeb703 Mon Sep 17 00:00:00 2001=
+>> 1. add mdelay(11000) or while(1); to the start_secondary().
+>>
+>> 2. to online CPU is failed at do_boot_cpu().
+>>
+> 
+> Thanks for your testing :)
+> 
+> Does the cpu4 spin in wait_for_master_cpu() in your case ?
 
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Date: Tue, 23 Nov 2021 18:14:41 +0200
-> Subject: [PATCH] xen/balloon: Bring alloc(free)_xenballooned_pages help=
-ers
->  =C2=A0back
->=20
-> This patch rolls back some of the changes introduced by commit
-> 121f2faca2c0a "xen/balloon: rename alloc/free_xenballooned_pages"
-> in order to make possible to still allocate xenballooned pages
-> if CONFIG_XEN_UNPOPULATED_ALLOC is enabled.
->=20
-> On Arm the unpopulated pages will be allocated on top of extended
-> regions provided by Xen via device-tree (the subsequent patches
-> will add required bits to support unpopulated-alloc feature on Arm).
-> The problem is that extended regions feature has been introduced
-> into Xen quite recently (during 4.16 release cycle). So this
-> effectively means that Linux must only use unpopulated-alloc on Arm
-> if it is running on "new Xen" which advertises these regions.
-> But, it will only be known after parsing the "hypervisor" node
-> at boot time, so before doing that we cannot assume anything.
->=20
-> In order to keep working if CONFIG_XEN_UNPOPULATED_ALLOC is enabled
-> and the extended regions are not advertised (Linux is running on
-> "old Xen", etc) we need the fallback to alloc_xenballooned_pages().
->=20
-> This way we wouldn't reduce the amount of memory usable (wasting
-> RAM pages) for any of the external mappings anymore (and eliminate
-> XSA-300) with "new Xen", but would be still functional ballooning
-> out RAM pages with "old Xen".
->=20
-> Also rename alloc(free)_xenballooned_pages to=20
-> xen_alloc(free)_ballooned_pages.
->=20
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> ---
->  =C2=A0drivers/xen/balloon.c | 20 +++++++++-----------
->  =C2=A0include/xen/balloon.h |=C2=A0 3 +++
->  =C2=A0include/xen/xen.h=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 6 ++++++
->  =C2=A03 files changed, 18 insertions(+), 11 deletions(-)
->=20
-> diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
-> index ba2ea11..a2c4fc49 100644
-> --- a/drivers/xen/balloon.c
-> +++ b/drivers/xen/balloon.c
-> @@ -581,7 +581,6 @@ void balloon_set_new_target(unsigned long target)
->  =C2=A0}
->  =C2=A0EXPORT_SYMBOL_GPL(balloon_set_new_target);
->=20
-> -#ifndef CONFIG_XEN_UNPOPULATED_ALLOC
->  =C2=A0static int add_ballooned_pages(unsigned int nr_pages)
->  =C2=A0{
->  =C2=A0=C2=A0=C2=A0=C2=A0 enum bp_state st;
-> @@ -610,12 +609,12 @@ static int add_ballooned_pages(unsigned int nr_pa=
-ges)
->  =C2=A0}
->=20
->  =C2=A0/**
-> - * xen_alloc_unpopulated_pages - get pages that have been ballooned ou=
-t
-> + * xen_alloc_ballooned_pages - get pages that have been ballooned out
->  =C2=A0 * @nr_pages: Number of pages to get
->  =C2=A0 * @pages: pages returned
->  =C2=A0 * @return 0 on success, error otherwise
->  =C2=A0 */
-> -int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page=20
-> **pages)
-> +int xen_alloc_ballooned_pages(unsigned int nr_pages, struct page **pag=
-es)
->  =C2=A0{
->  =C2=A0=C2=A0=C2=A0=C2=A0 unsigned int pgno =3D 0;
->  =C2=A0=C2=A0=C2=A0=C2=A0 struct page *page;
-> @@ -652,23 +651,23 @@ int xen_alloc_unpopulated_pages(unsigned int=20
-> nr_pages, struct page **pages)
->  =C2=A0=C2=A0=C2=A0=C2=A0 return 0;
->  =C2=A0 out_undo:
->  =C2=A0=C2=A0=C2=A0=C2=A0 mutex_unlock(&balloon_mutex);
-> -=C2=A0=C2=A0=C2=A0 xen_free_unpopulated_pages(pgno, pages);
-> +=C2=A0=C2=A0=C2=A0 xen_free_ballooned_pages(pgno, pages);
->  =C2=A0=C2=A0=C2=A0=C2=A0 /*
-> -=C2=A0=C2=A0=C2=A0 =C2=A0* NB: free_xenballooned_pages will only subtr=
-act pgno pages, but=20
-> since
-> +=C2=A0=C2=A0=C2=A0 =C2=A0* NB: xen_free_ballooned_pages will only subt=
-ract pgno pages, but=20
-> since
->  =C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0* target_unpopulated is incremented wit=
-h nr_pages at the start we=20
-> need
->  =C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0* to remove the remaining ones also, or=
- accounting will be screwed.
->  =C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0*/
->  =C2=A0=C2=A0=C2=A0=C2=A0 balloon_stats.target_unpopulated -=3D nr_page=
-s - pgno;
->  =C2=A0=C2=A0=C2=A0=C2=A0 return ret;
->  =C2=A0}
-> -EXPORT_SYMBOL(xen_alloc_unpopulated_pages);
-> +EXPORT_SYMBOL(xen_alloc_ballooned_pages);
->=20
->  =C2=A0/**
-> - * xen_free_unpopulated_pages - return pages retrieved with=20
-> get_ballooned_pages
-> + * xen_free_ballooned_pages - return pages retrieved with=20
-> get_ballooned_pages
->  =C2=A0 * @nr_pages: Number of pages
->  =C2=A0 * @pages: pages to return
->  =C2=A0 */
-> -void xen_free_unpopulated_pages(unsigned int nr_pages, struct page=20
-> **pages)
-> +void xen_free_ballooned_pages(unsigned int nr_pages, struct page **pag=
-es)
->  =C2=A0{
->  =C2=A0=C2=A0=C2=A0=C2=A0 unsigned int i;
->=20
-> @@ -687,9 +686,9 @@ void xen_free_unpopulated_pages(unsigned int=20
-> nr_pages, struct page **pages)
->=20
->  =C2=A0=C2=A0=C2=A0=C2=A0 mutex_unlock(&balloon_mutex);
->  =C2=A0}
-> -EXPORT_SYMBOL(xen_free_unpopulated_pages);
-> +EXPORT_SYMBOL(xen_free_ballooned_pages);
->=20
-> -#if defined(CONFIG_XEN_PV)
-> +#if defined(CONFIG_XEN_PV) && !defined(CONFIG_XEN_UNPOPULATED_ALLOC)
->  =C2=A0static void __init balloon_add_region(unsigned long start_pfn,
->  =C2=A0=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=
-=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned long pages)
->  =C2=A0{
-> @@ -712,7 +711,6 @@ static void __init balloon_add_region(unsigned long=
-=20
-> start_pfn,
->  =C2=A0=C2=A0=C2=A0=C2=A0 balloon_stats.total_pages +=3D extra_pfn_end =
-- start_pfn;
->  =C2=A0}
->  =C2=A0#endif
-> -#endif
->=20
->  =C2=A0static int __init balloon_init(void)
->  =C2=A0{
-> diff --git a/include/xen/balloon.h b/include/xen/balloon.h
-> index e93d4f0..f78a6cc 100644
-> --- a/include/xen/balloon.h
-> +++ b/include/xen/balloon.h
-> @@ -26,6 +26,9 @@ extern struct balloon_stats balloon_stats;
->=20
->  =C2=A0void balloon_set_new_target(unsigned long target);
->=20
-> +int xen_alloc_ballooned_pages(unsigned int nr_pages, struct page **pag=
-es);
-> +void xen_free_ballooned_pages(unsigned int nr_pages, struct page **pag=
-es);
-> +
->  =C2=A0#ifdef CONFIG_XEN_BALLOON
->  =C2=A0void xen_balloon_init(void);
->  =C2=A0#else
-> diff --git a/include/xen/xen.h b/include/xen/xen.h
-> index 9f031b5..410e3e4 100644
-> --- a/include/xen/xen.h
-> +++ b/include/xen/xen.h
-> @@ -52,7 +52,13 @@ bool xen_biovec_phys_mergeable(const struct bio_vec =
+I did two tests.
 
-> *vec1,
->  =C2=A0extern u64 xen_saved_max_mem_size;
->  =C2=A0#endif
->=20
-> +#ifdef CONFIG_XEN_UNPOPULATED_ALLOC
->  =C2=A0int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct pa=
-ge=20
-> **pages);
->  =C2=A0void xen_free_unpopulated_pages(unsigned int nr_pages, struct pa=
-ge=20
-> **pages);
-> +#else
-> +#define xen_alloc_unpopulated_pages xen_alloc_ballooned_pages
-> +#define xen_free_unpopulated_pages xen_free_ballooned_pages
+TEST 1.
 
-Could you please make those inline functions instead?
+I added "mdelay(11000);" as the first line in start_secondary(). Once the issue
+was encountered, the RIP of CPU=4 was ffffffff8c242021 (from QEMU's "info
+registers -a") which was in the range of wait_for_master_cpu().
 
-Other than that I'm fine with the approach.
+# cat /proc/kallsyms | grep ffffffff8c2420
+ffffffff8c242010 t wait_for_master_cpu
+ffffffff8c242030 T load_fixmap_gdt
+ffffffff8c242060 T native_write_cr4
+ffffffff8c2420c0 T cr4_init
 
 
-Juergen
+TEST 2.
 
---------------D91E9B4B1E22D8AFFDA252EE
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+I added "while(true);" as the first line in start_secondary(). Once the issue
+was encountered, the RIP of CPU=4 was ffffffff91654c0a (from QEMU's "info
+registers -a") which was in the range of start_secondary().
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+# cat /proc/kallsyms | grep ffffffff91654c0
+ffffffff91654c00 t start_secondary
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Dongli Zhang
 
---------------D91E9B4B1E22D8AFFDA252EE--
 
---vYRbg6aD15TTF9AEtbMSp4LSwBRmT1vYD--
-
---0zbYD8Udb611Ee1FeeRnGZCxfY94x1rLa
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGdypQFAwAAAAAACgkQsN6d1ii/Ey+U
-qggAleg7TZwcLaoxNn8cgsaI7Dk9x/Tu4CkWNictgNZuvQjKxZkoDYCi04MJXI3ooPP3bzMCTgYy
-7cxbyYrIH7k47ditG2eovbAb72SNGLtBDfDwqBpMwfSj9RRhIOSgD2Ju0yTXHb8qFxQw3GeStJ5y
-aZNPCfXqqQb7d8oXXbmqUlTVVoqwhH+AvSAHnZPChxo+Epjytm8K2zoTlsq+h+ZL3EIfUsuMXQei
-10Y2xyDkRxmhw/5DsIAzfAtuRqvT6wQlG5hRMgnvn/sDUy+LWme/KbuRZqkxJVx+IFfwc653XufN
-f8LGf/IDya6PVaFYT+A+ejS2cAstBRO1IFEiL4sUEQ==
-=24n9
------END PGP SIGNATURE-----
-
---0zbYD8Udb611Ee1FeeRnGZCxfY94x1rLa--
+> 
+>> 3. to online CPU again is failed without this patch.
+>>
+>> # echo 1 > /sys/devices/system/cpu/cpu4/online
+>> -su: echo: write error: Input/output error
+>>
+>> 4. to online CPU again is successful with this patch.
+>>
+>> Thank you very much!
+>>
+>> Dongli Zhang
+>>
+>> On 11/22/21 7:47 AM, Sebastian Andrzej Siewior wrote:
+>>> From: "Longpeng(Mike)" <longpeng2@huawei.com>
+>>>
+>>> A CPU will not show up in virtualized environment which includes an
+>>> Enclave. The VM splits its resources into a primary VM and a Enclave
+>>> VM. While the Enclave is active, the hypervisor will ignore all requests
+>>> to bring up a CPU and this CPU will remain in CPU_UP_PREPARE state.
+>>> The kernel will wait up to ten seconds for CPU to show up
+>>> (do_boot_cpu()) and then rollback the hotplug state back to
+>>> CPUHP_OFFLINE leaving the CPU state in CPU_UP_PREPARE. The CPU state is
+>>> set back to CPUHP_TEARDOWN_CPU during the CPU_POST_DEAD stage.
+>>>
+>>> After the Enclave VM terminates, the primary VM can bring up the CPU
+>>> again.
+>>>
+>>> Allow to bring up the CPU if it is in the CPU_UP_PREPARE state.
+>>>
+>>> [bigeasy: Rewrite commit description.]
+>>>
+>>> Signed-off-by: Longpeng(Mike) <longpeng2@huawei.com>
+>>> Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+>>> Link:
+>> https://urldefense.com/v3/__https://lore.kernel.org/r/20210901051143.2752-1
+>> -longpeng2@huawei.com__;!!ACWV5N9M2RV99hQ!d4sCCXMQV7ekFwpd21vo1_9K-m5h4VZ-g
+>> E8Z62PLL58DT4VJ6StH57TR_KpBdbwhBE0$
+>>> ---
+>>>
+>>> For XEN: this changes the behaviour as it allows to invoke
+>>> cpu_initialize_context() again should it have have earlier. I *think*
+>>> this is okay and would to bring up the CPU again should the memory
+>>> allocation in cpu_initialize_context() fail.
+>>>
+>>>  kernel/smpboot.c | 7 +++++++
+>>>  1 file changed, 7 insertions(+)
+>>>
+>>> diff --git a/kernel/smpboot.c b/kernel/smpboot.c
+>>> index f6bc0bc8a2aab..34958d7fe2c1c 100644
+>>> --- a/kernel/smpboot.c
+>>> +++ b/kernel/smpboot.c
+>>> @@ -392,6 +392,13 @@ int cpu_check_up_prepare(int cpu)
+>>>  		 */
+>>>  		return -EAGAIN;
+>>>
+>>> +	case CPU_UP_PREPARE:
+>>> +		/*
+>>> +		 * Timeout while waiting for the CPU to show up. Allow to try
+>>> +		 * again later.
+>>> +		 */
+>>> +		return 0;
+>>> +
+>>>  	default:
+>>>
+>>>  		/* Should not happen.  Famous last words. */
+>>>
 
