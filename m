@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6763145CE7C
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 21:54:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.230547.398555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2FC745CE7E
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 21:54:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.230549.398565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpzHD-0006an-Ee; Wed, 24 Nov 2021 20:53:59 +0000
+	id 1mpzHE-0006lA-1z; Wed, 24 Nov 2021 20:54:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 230547.398555; Wed, 24 Nov 2021 20:53:59 +0000
+Received: by outflank-mailman (output) from mailman id 230549.398565; Wed, 24 Nov 2021 20:53:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpzHD-0006Yy-76; Wed, 24 Nov 2021 20:53:59 +0000
-Received: by outflank-mailman (input) for mailman id 230547;
+	id 1mpzHD-0006eC-P6; Wed, 24 Nov 2021 20:53:59 +0000
+Received: by outflank-mailman (input) for mailman id 230549;
  Wed, 24 Nov 2021 20:53:57 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vMcq=QL=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1mpzHB-0006Ij-Cr
+ id 1mpzHB-0006Ij-Qo
  for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 20:53:57 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a324125d-4d68-11ec-a9d2-d9f7a1cc8784;
+ id a385885a-4d68-11ec-a9d2-d9f7a1cc8784;
  Wed, 24 Nov 2021 21:53:55 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id c32so10584617lfv.4
+Received: by mail-lf1-x12f.google.com with SMTP id m27so10495085lfj.12
  for <xen-devel@lists.xenproject.org>; Wed, 24 Nov 2021 12:53:55 -0800 (PST)
 Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id j11sm97608ljc.9.2021.11.24.12.53.53
+ by smtp.gmail.com with ESMTPSA id j11sm97608ljc.9.2021.11.24.12.53.54
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 24 Nov 2021 12:53:54 -0800 (PST)
+ Wed, 24 Nov 2021 12:53:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,78 +43,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a324125d-4d68-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: a385885a-4d68-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=2+gPEFaRRl8eqNS/Y7LbhXO/rInityndJKkrLyh8HGc=;
-        b=IwvGIOlmD0oLisHuoxC0LwTIm8NUw9yKPbrPmZLK8GGePIHRwcp+OPgQg9/dFz2RM+
-         hiUSYru4os/gS4+2xDQ891EiT8Es/5YWqw9BDywwm1RY5ncIMObRrKeQgjYVgm8B6mkI
-         UveLsDorJ+JQODSdlevg+ZACcmr+4Hinld08AA5HcR8ehyfrQ1nMgCkaYC5qAhWQSESz
-         3y9fkpnDMP0RELGxwKQ9ofXdvltdwEWn94VpY5+xp5Y4y0Fk5nCw4RjtsfYxeAgV94kC
-         dkhG+TFfzQBAPGrBfx14mFdmFl4LmT6G97wesoZyIx3ogxjn4o/PvrkXx/cU5UZSOZr6
-         qyTQ==
+        bh=I5Ua+XOo9ED8QtDOWHq4o6dMZ+6zt8B38QrRs94d3jQ=;
+        b=N719U68AvD57cSsDPqL5VUMkg/l6W7dFaBn0ds0pOblImoqD4O8SZtTVbiKUWXvfVM
+         QwgG8Z6Ro3SdIlXgsHzI0FIZjBoGs6sAhbvkMgKp55HqgPCIvBZ/bDrqp+nLkExXIDXk
+         85VfW8+LD7yFAUgUpvJ/2m018THtiaHbBxWJqD8iahLuB6p5h86QVJOti4p/Vko/73Z+
+         qaK9Vh/scmIZQ9BMI7l50DJ1kbaNGmaBXek6irskc4a0CJq/yZOsKvS2cCwp3ouJixdO
+         l2ac3Q50aoO+804982jn926QvZK1sKU0l7f4bskWWYtjonKnDPp3c5jE7tbHdbSGR8QN
+         +RFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references;
-        bh=2+gPEFaRRl8eqNS/Y7LbhXO/rInityndJKkrLyh8HGc=;
-        b=m2O+7BByOZcpzVllj0Xqd7GxOEhcbtcCOdAdHr9Z3uAX2gqdYu6lvTHFVK+O4nzA66
-         JsXKLBkN4u75wuj8SC0mRZQnzguTesp/v0iw7MDz6+xITA6xda6mnoSvJLkEo/3QxCDs
-         pipLw3nKDeI0XlmwMs+iyXe/jSEc9hY1ZDlvARnUkXn/bBS2aq9kzZ/PuRYMhDyQXGr4
-         Gu9HflN02dhPRScTD39KEjzTc+edf942OmcTVvK6RLhjnDhIRQsZOqvu4KzELOb/zv7X
-         s5QWkH9W7+8fZKd3bgYUazd/yPLsCl644s+Zh2ilBeAiR0Uu5ykM6kLfJbZQGPKoRO1Y
-         kdjA==
-X-Gm-Message-State: AOAM5316ULt+dmQjtIIvbljjttldCAGWF/TFPavQuuzEUO2YylrFv++a
-	W3mQlvmAS++iYXqtuPicWUg2BIlt24VMgQ==
-X-Google-Smtp-Source: ABdhPJzgTBl/5RrVAWHSyUlG+h2B5h/aX5PT6dG7/gd2BKTy6uPSUT4F9O8nlmLnMgGhSJ12GFeJ4g==
-X-Received: by 2002:a05:6512:22d2:: with SMTP id g18mr17528659lfu.244.1637787234615;
-        Wed, 24 Nov 2021 12:53:54 -0800 (PST)
+        bh=I5Ua+XOo9ED8QtDOWHq4o6dMZ+6zt8B38QrRs94d3jQ=;
+        b=e9G7dXKebUWbBWV3ZXBwko4Nc8JT4gpT/EEL3qa2BHDvH4ti5EYWBV+jGCrBFdRi83
+         Rfaoyi2IyfXhVzhlwvFxpr8/cE4hO8j680yrR07sCluYucCgfAyt3Jx/YCdxWl8Cpz/m
+         b89CIbQBreri7yImM8Rwb+WhjTD9UIZ6zNV2z/61s7RCf04080OLhV2l4lA5VtDJCukh
+         a0dy9kKA6z2y6UTVL0BjUzOdJ6m9OAbEr8wFKVURuortUyEa7uvPJ5dnre+2jjvx2dQF
+         jJZfgp2T0qx3GDYehl/dzXVeSecLQikSjBwswOY9CSTo8XOlZrk3f8cup0wP3MZkz7Px
+         +bCg==
+X-Gm-Message-State: AOAM533PE6dJzTOfJHuPjdo9dOBIqxXMByL7AfFt4fr3FDbLZMRI40Vj
+	CcCOWvJbnky1v6HxjjrprtkxJO3ptlOrVQ==
+X-Google-Smtp-Source: ABdhPJwpqCkahz5EbzD+MVB6XyFKIyWyAaQlqRXN5qpJziSHo0yhzGV2dme1YXtZkarUALEtZaAUbg==
+X-Received: by 2002:a05:6512:20d4:: with SMTP id u20mr18715939lfr.339.1637787235341;
+        Wed, 24 Nov 2021 12:53:55 -0800 (PST)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
 	Julien Grall <julien@xen.org>
-Subject: [PATCH V3 1/6] xen/unpopulated-alloc: Drop check for virt_addr_valid() in fill_list()
-Date: Wed, 24 Nov 2021 22:53:38 +0200
-Message-Id: <1637787223-21129-2-git-send-email-olekstysh@gmail.com>
+Subject: [PATCH V3 2/6] arm/xen: Switch to use gnttab_setup_auto_xlat_frames() for DT
+Date: Wed, 24 Nov 2021 22:53:39 +0200
+Message-Id: <1637787223-21129-3-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1637787223-21129-1-git-send-email-olekstysh@gmail.com>
 References: <1637787223-21129-1-git-send-email-olekstysh@gmail.com>
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-If memremap_pages() succeeds the range is guaranteed to have proper page
-table, there is no need for an additional virt_addr_valid() check.
+Read the start address of the grant table space from DT
+(region 0).
+
+This patch mostly restores behaviour before commit 3cf4095d7446
+("arm/xen: Use xen_xlate_map_ballooned_pages to setup grant table")
+but trying not to break the ACPI support added after that commit.
+So the patch touches DT part only and leaves the ACPI part with
+xen_xlate_map_ballooned_pages(). Also in order to make a code more
+resilient use a fallback to xen_xlate_map_ballooned_pages() if grant
+table region wasn't found.
+
+This is a preparation for using Xen extended region feature
+where unused regions of guest physical address space (provided
+by the hypervisor) will be used to create grant/foreign/whatever
+mappings instead of wasting real RAM pages from the domain memory
+for establishing these mappings.
+
+The immediate benefit of this change:
+- Avoid superpage shattering in Xen P2M when establishing
+  stage-2 mapping (GFN <-> MFN) for the grant table space
+- Avoid wasting real RAM pages (reducing the amount of memory
+  usuable) for mapping grant table space
+- The grant table space is always mapped at the exact
+  same place (region 0 is reserved for the grant table)
 
 Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 ---
 Changes RFC -> V2:
-   - new patch, instead of
-     "[RFC PATCH 1/2] arm64: mm: Make virt_addr_valid to check for pfn_valid again"
+   - new patch
 
 Changes V2 -> V3:
-   - add Boris' R-b
+   - add __read_mostly specifier to xen_grant_frames
+   - retain a fallback to xen_xlate_map_ballooned_pages() if
+     xen_grant_frames is invalid
+   - process xen_events_irq before xen_grant_frames in
+     xen_dt_guest_init()
+   - update patch description
 ---
- drivers/xen/unpopulated-alloc.c | 1 -
- 1 file changed, 1 deletion(-)
+ arch/arm/xen/enlighten.c | 26 ++++++++++++++++++++------
+ 1 file changed, 20 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/xen/unpopulated-alloc.c b/drivers/xen/unpopulated-alloc.c
-index 87e6b7d..a03dc5b 100644
---- a/drivers/xen/unpopulated-alloc.c
-+++ b/drivers/xen/unpopulated-alloc.c
-@@ -85,7 +85,6 @@ static int fill_list(unsigned int nr_pages)
- 	for (i = 0; i < alloc_pages; i++) {
- 		struct page *pg = virt_to_page(vaddr + PAGE_SIZE * i);
+diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
+index 7619fbf..3fb3384 100644
+--- a/arch/arm/xen/enlighten.c
++++ b/arch/arm/xen/enlighten.c
+@@ -59,6 +59,9 @@ unsigned long xen_released_pages;
+ struct xen_memory_region xen_extra_mem[XEN_EXTRA_MEM_MAX_REGIONS] __initdata;
  
--		BUG_ON(!virt_addr_valid(vaddr + PAGE_SIZE * i));
- 		pg->zone_device_data = page_list;
- 		page_list = pg;
- 		list_count++;
+ static __read_mostly unsigned int xen_events_irq;
++static __read_mostly phys_addr_t xen_grant_frames;
++
++#define GRANT_TABLE_INDEX   0
+ 
+ uint32_t xen_start_flags;
+ EXPORT_SYMBOL(xen_start_flags);
+@@ -303,6 +306,7 @@ static void __init xen_acpi_guest_init(void)
+ static void __init xen_dt_guest_init(void)
+ {
+ 	struct device_node *xen_node;
++	struct resource res;
+ 
+ 	xen_node = of_find_compatible_node(NULL, NULL, "xen,xen");
+ 	if (!xen_node) {
+@@ -311,13 +315,19 @@ static void __init xen_dt_guest_init(void)
+ 	}
+ 
+ 	xen_events_irq = irq_of_parse_and_map(xen_node, 0);
++
++	if (of_address_to_resource(xen_node, GRANT_TABLE_INDEX, &res)) {
++		pr_err("Xen grant table region is not found\n");
++		return;
++	}
++	xen_grant_frames = res.start;
+ }
+ 
+ static int __init xen_guest_init(void)
+ {
+ 	struct xen_add_to_physmap xatp;
+ 	struct shared_info *shared_info_page = NULL;
+-	int cpu;
++	int rc, cpu;
+ 
+ 	if (!xen_domain())
+ 		return 0;
+@@ -370,12 +380,16 @@ static int __init xen_guest_init(void)
+ 	for_each_possible_cpu(cpu)
+ 		per_cpu(xen_vcpu_id, cpu) = cpu;
+ 
+-	xen_auto_xlat_grant_frames.count = gnttab_max_grant_frames();
+-	if (xen_xlate_map_ballooned_pages(&xen_auto_xlat_grant_frames.pfn,
+-					  &xen_auto_xlat_grant_frames.vaddr,
+-					  xen_auto_xlat_grant_frames.count)) {
++	if (!acpi_disabled || !xen_grant_frames) {
++		xen_auto_xlat_grant_frames.count = gnttab_max_grant_frames();
++		rc = xen_xlate_map_ballooned_pages(&xen_auto_xlat_grant_frames.pfn,
++										   &xen_auto_xlat_grant_frames.vaddr,
++										   xen_auto_xlat_grant_frames.count);
++	} else
++		rc = gnttab_setup_auto_xlat_frames(xen_grant_frames);
++	if (rc) {
+ 		free_percpu(xen_vcpu_info);
+-		return -ENOMEM;
++		return rc;
+ 	}
+ 	gnttab_init();
+ 
 -- 
 2.7.4
 
