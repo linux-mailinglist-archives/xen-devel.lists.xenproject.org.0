@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A01B45C6EC
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 15:12:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.230450.398358 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9124E45C7A4
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 15:39:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.230456.398372 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpt0l-0003Tu-4L; Wed, 24 Nov 2021 14:12:35 +0000
+	id 1mptQJ-0005sd-8W; Wed, 24 Nov 2021 14:38:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 230450.398358; Wed, 24 Nov 2021 14:12:35 +0000
+Received: by outflank-mailman (output) from mailman id 230456.398372; Wed, 24 Nov 2021 14:38:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpt0l-0003Qv-0u; Wed, 24 Nov 2021 14:12:35 +0000
-Received: by outflank-mailman (input) for mailman id 230450;
- Wed, 24 Nov 2021 14:12:34 +0000
+	id 1mptQJ-0005q2-57; Wed, 24 Nov 2021 14:38:59 +0000
+Received: by outflank-mailman (input) for mailman id 230456;
+ Wed, 24 Nov 2021 14:38:57 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mpt0k-0003Ql-C7; Wed, 24 Nov 2021 14:12:34 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mptQH-0005pw-Af
+ for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 14:38:57 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mpt0k-0008PX-7k; Wed, 24 Nov 2021 14:12:34 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mpt0j-0006vA-Vi; Wed, 24 Nov 2021 14:12:34 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mpt0j-0001Az-TL; Wed, 24 Nov 2021 14:12:33 +0000
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mptQH-0000Pg-97
+ for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 14:38:57 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <ijackson@chiark.greenend.org.uk>) id 1mptQH-0003I7-60
+ for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 14:38:57 +0000
+Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
+ by mariner.uk.xensource.com with esmtp (Exim 4.89)
+ (envelope-from <ijackson@chiark.greenend.org.uk>)
+ id 1mptQ5-0002v9-1m; Wed, 24 Nov 2021 14:38:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,87 +43,51 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=2C0fVTk2m7gb2Ojan1AOIGbyDKdmy0XbtNCoOodwPJ4=; b=dPszLWWQTid0PNwEhNWFKh1iY3
-	Ufi1HndoU54ncOdThmx2h+kO3zQrG3TAjD/Wik0XitoC1uw4oNIaeAStQUhWBZuflt72j/WYk8kfK
-	hTcXBsrkxdkX9G9aMeCxoWRtVdnao+7+8KGRe0PlRSjZqyAzE8psNgufOHhggHJMdQpY=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-166351-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-Id:Date:Subject:Cc:To:From;
+	bh=yL3nNJ0wENfliK/XlGH4BPoHU6YQulLqCIVl+AZ8Vk0=; b=p6Zb6Z44rbTxz2QhMuF+FogfYr
+	T3+f69qEJ4J0T3uXBYMUMWhKSqarF1a+RkGbgNNG771/YghwmXxlbHeh1HrIiqg0QbfDOP/VnJheJ
+	nfWn/y6OkBYv6ExOCl00NwAFBk8I8tF8Wpo2Cr4Xup+83wbEP/JqzdyDRgfN5y4WZkTk=;
+From: Ian Jackson <iwj@xenproject.org>
+To: xen-devel@lists.xenproject.org
+Cc: Ian Jackson <iwj@xenproject.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [OSSTEST PATCH] mg-repro-setup: Make ordinary alloc: work again
+Date: Wed, 24 Nov 2021 14:38:33 +0000
+Message-Id: <20211124143833.23480-1-iwj@xenproject.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 166351: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=5449ba84e99849ee2339fd79f9717e10113d702d
-X-Osstest-Versions-That:
-    xen=a5706b80f42e028c5153fc50734a1e86a99ff9d2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 24 Nov 2021 14:12:33 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 166351 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/166351/
+In e7febe5f6edc, we hosted an error earlier in the script.  But in the
+old location, OSSTEST_TASK would always be set if statictask was.  In
+the new one, that hasn't been done yet.
 
-Failures :-/ but no regressions.
+No release implications since it touches a by-hand utility only.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Fixes: e7febe5f6edc "mg-repro-setup: Promote an error test to before builds (nfc)"
+CC: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Ian Jackson <iwj@xenproject.org>
+Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+---
+ mg-repro-setup | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-version targeted for testing:
- xen                  5449ba84e99849ee2339fd79f9717e10113d702d
-baseline version:
- xen                  a5706b80f42e028c5153fc50734a1e86a99ff9d2
+diff --git a/mg-repro-setup b/mg-repro-setup
+index 895f29963..b00e182f3 100755
+--- a/mg-repro-setup
++++ b/mg-repro-setup
+@@ -254,7 +254,7 @@ while [ $# -ne 0 ]; do
+ done
+ 
+ if [ "${alloc_idents[*]}" ]; then
+-        if [ x"$OSSTEST_TASK" = x ]; then
++        if [ x"$OSSTEST_TASK" = x ] && ! $statictask; then
+                 # We would have to make a dynamic task and hold the
+                 #  fd for it in this script.  Would be quite awkward.
+                 echo >&2 'cannot hand-allocate in a way that will free'
+-- 
+2.20.1
 
-Last test of basis   166332  2021-11-24 00:00:33 Z    0 days
-Testing same since   166351  2021-11-24 11:01:39 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ian Jackson <iwj@xenproject.org>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   a5706b80f4..5449ba84e9  5449ba84e99849ee2339fd79f9717e10113d702d -> smoke
 
