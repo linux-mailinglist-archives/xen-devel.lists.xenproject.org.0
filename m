@@ -2,44 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F154945B4D8
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 08:01:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.230079.397798 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9700E45B543
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Nov 2021 08:22:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.230099.397808 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpmH8-0005eV-Ur; Wed, 24 Nov 2021 07:01:02 +0000
+	id 1mpmbE-00088N-Qc; Wed, 24 Nov 2021 07:21:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 230079.397798; Wed, 24 Nov 2021 07:01:02 +0000
+Received: by outflank-mailman (output) from mailman id 230099.397808; Wed, 24 Nov 2021 07:21:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mpmH8-0005cB-RZ; Wed, 24 Nov 2021 07:01:02 +0000
-Received: by outflank-mailman (input) for mailman id 230079;
- Wed, 24 Nov 2021 07:01:01 +0000
+	id 1mpmbE-00085n-Nd; Wed, 24 Nov 2021 07:21:48 +0000
+Received: by outflank-mailman (input) for mailman id 230099;
+ Wed, 24 Nov 2021 07:21:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iQO5=QL=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mpmH6-0005YU-VC
- for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 07:01:01 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ (envelope-from <SRS0=mG44=QL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1mpmbD-00085h-He
+ for xen-devel@lists.xenproject.org; Wed, 24 Nov 2021 07:21:47 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45f40cf3-4cf4-11ec-a9d2-d9f7a1cc8784;
- Wed, 24 Nov 2021 08:00:58 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id C9F842195D;
- Wed, 24 Nov 2021 07:00:56 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 953EF13240;
- Wed, 24 Nov 2021 07:00:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QinaIijjnWHdCAAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 24 Nov 2021 07:00:56 +0000
+ id 2e2de90d-4cf7-11ec-a9d2-d9f7a1cc8784;
+ Wed, 24 Nov 2021 08:21:46 +0100 (CET)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2056.outbound.protection.outlook.com [104.47.13.56]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-31-uHtkhGcyMLuKadbw4kZIHw-1; Wed, 24 Nov 2021 08:21:44 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB5470.eurprd04.prod.outlook.com (2603:10a6:803:d6::33)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Wed, 24 Nov
+ 2021 07:21:41 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4713.026; Wed, 24 Nov 2021
+ 07:21:41 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM6PR04CA0008.eurprd04.prod.outlook.com (2603:10a6:20b:92::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4713.21 via Frontend Transport; Wed, 24 Nov 2021 07:21:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,503 +55,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45f40cf3-4cf4-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1637737256; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: 2e2de90d-4cf7-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1637738505;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=CwiRND9sUmIgpLpyZ+X1paDgsGd1UAbnBN7Tro+bIjg=;
-	b=adVOxqqoivBQ6u91xCkV/oqFHK21Lg3Qmyyy7ggvyQOW23BYT7RNib0l4zmVNZnQCt7aiY
-	K6kTKJOuADUvQi0RT/ovQih1O4IcRc1rs83eoOAFST3pjjxjoMAcLUA3vnxagT6YWhXC1X
-	QhD+CbdQ+3IjxzqTU8hMDLTIq1WhkkM=
-Subject: Re: [PATCH v4] xenbus: support large messages
-To: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org, wl@xen.org
-References: <20211004094000.29868-1-jgross@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <244e6bc7-9158-7c52-13ab-d25daafbc2c8@suse.com>
-Date: Wed, 24 Nov 2021 08:00:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
-MIME-Version: 1.0
-In-Reply-To: <20211004094000.29868-1-jgross@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="Y181P6BFv7tgthqU2tAOS3T9XmO1q283n"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Y181P6BFv7tgthqU2tAOS3T9XmO1q283n
-Content-Type: multipart/mixed; boundary="dJ65ISaETfggy1VefxjzJAcoxxz0j18yK";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org, wl@xen.org
-Message-ID: <244e6bc7-9158-7c52-13ab-d25daafbc2c8@suse.com>
-Subject: Re: [PATCH v4] xenbus: support large messages
-References: <20211004094000.29868-1-jgross@suse.com>
-In-Reply-To: <20211004094000.29868-1-jgross@suse.com>
-
---dJ65ISaETfggy1VefxjzJAcoxxz0j18yK
-Content-Type: multipart/mixed;
- boundary="------------6E2ADA8ABB96A4523042F315"
+	bh=yFqVnAENQDllBUSyGSfZlLcMsiVQyNCRqsfLcJZhe/w=;
+	b=OVD4P9Kb+70hHiVCyor6mL3k8H+eIBIkjvWJYnyGrsG8L2NPcJobtrviZfZQO+Yrds90Rx
+	v6QRZD8V6tPYbVxR7hG9iubn2Wo8HqtgwTOlg5A9ZK27kdQYuc03lTR0y3hvwbc2M3Kic9
+	cxWKTqM/v4Z+Cc7nQSIBqq1GvmfWxeY=
+X-MC-Unique: uHtkhGcyMLuKadbw4kZIHw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Oq3ZVjOOrNbsNTWcnzx8mPoIK8XCiPpOxzkrRM+u6ODQpIzTsQinl/HEacFBdKarChSOd6PmzgDqAgh4odrD6BA+CzsSYB0+MFu6aoJG8i9DX6H9Q8yydeSt3OTCdLmcPYbhUhXTDz4+Qaif2MLe8cPYpTyZ3JLJV6e821SP16HXfVyTbVQGw1ndPY8tLmZ28p6JjnrWcC3LZN+XYAweMCATACe/TzfmjFx7/bf3Di50fHao4G2J++2t/wIHIgf2Ka5+V+QT8LfS6E6WRdQKMb1+ju1jhAb1dyqQUEA5umzLQInZ07vGUimpmlN0xICbhqg58tdP+xUphIFK69eXew==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yFqVnAENQDllBUSyGSfZlLcMsiVQyNCRqsfLcJZhe/w=;
+ b=b2/f7bWq9KduJF4WPO1j5Ph657Mp5E24IXJKmoDGq9TfsqiX6uWRTjSPOVHjCAZJwO6+btjlvrdriT0HqbPh1rDa74IQZ92Wb+E80l7GEIvBQ6tGdhQibPnpACMm5+1GnHtzq43l0o7yXyFjwCSxQDwGMT/Mb9RSwfEg9tx6STRQFDp2906nPo6v9lgMbm0Lzi/XAaYD7B4FPKG68XailSW/f3YTiTMoJtlYzFLVt2EWMXNYk2pxQBuEWPqma4yYgdKVP8lYgieouJkKqL/6apUstFD5aT0Es6d3nwAnrA8cTNtsQDspBM2neMrVi70NFb6OnWTDQrvxTYcv8BMSXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <984703cb-37f1-c418-679d-d4cb6cc01ed5@suse.com>
+Date: Wed, 24 Nov 2021 08:21:40 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Subject: Re: [PATCH 1/3] VT-d: prune SAGAW recognition
 Content-Language: en-US
+To: "Tian, Kevin" <kevin.tian@intel.com>
+References: <54e38a20-5281-2ab3-8513-3506ab66dbe8@suse.com>
+ <4e801190-ad7e-32da-da87-985e1b6a76bd@suse.com>
+ <BL1PR11MB5429877092DD0AF8A8C478DF8C619@BL1PR11MB5429.namprd11.prod.outlook.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <BL1PR11MB5429877092DD0AF8A8C478DF8C619@BL1PR11MB5429.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM6PR04CA0008.eurprd04.prod.outlook.com
+ (2603:10a6:20b:92::21) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5ec0fa5a-eb34-4aa0-8c12-08d9af1b0fd5
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5470:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB54706DDE8A30758822AB80FAB3619@VI1PR04MB5470.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	TLnruiRUZtGBJQzR4Vo9+tOmpFkh5jrUAEcCnDpDrYFq3gTu/yqibAJ7vsIpMuDZuj2gtzBvCdPTz33Ctx9K2fIH5mI09vqJ/32uXZfFZDG3h0bCBJGFopQS/WYdeGadW8zRPq5qbIYk8+9auvTI7bAVFmRBw4YmUv0YviEEbSmt9VF+n8T9+6xMDYIfbY24pO6ivuUuSsHKbLnkJembXlF7M5Wu/BxjVlfIuBJ38ubXOai1jppHoswwixvfXDs4JMJVNDa+IkDzEGQ57lBtuY19AGXOggG3jAJseuS+R0T7FH4jNMVShebeCCv9itlF5dI6SoivFn2USJ7OkCl/TnmV783YvCTgFfpsKh3uQ+zVB8EyJvR1m2V/SG+7QolqYmu1fKc0hv1kYpzfUGRPX4X1kWeic94VvmgxRVFhPXLtevj4IUuTEoq3H9g2LgoCk7cEvdfrrViLhuHM/0HIzymgl8jH+c4g1TS+hAgAWJB7dCSr+DqGV1d27uoRdr9M6sgPaOnDKjYKdsZNXjCQaHlR5KumwPDUyf5Y5ceStaR72yZnjJkZYPRkucbl8LwVEcE7a3k1ZFprGhWRbvscFKrTbqjEjCq9EuZ+ZfEWgsxbt1Lemo+8+FRo0qGp2in/vAMez+CrblQU6nu0mw8sOkiZhacoZ/GplU8cqFTetW8Sbxh26fx/sLH0u4JCH9TFg/XnskyD5k6tJfqw8svHrrhebcaaP+2MIfrYWIEzKfE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2616005)(508600001)(4326008)(956004)(53546011)(186003)(316002)(38100700002)(16576012)(26005)(8676002)(31686004)(36756003)(5660300002)(66476007)(66946007)(6486002)(66556008)(2906002)(31696002)(6916009)(86362001)(8936002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OCtZRSs4Y3o1N3RxMlliM1dYUzJRSVBsazh5U0ZGUjFpbEVHRXY1alJRYkJ6?=
+ =?utf-8?B?RE9ZWXpYRWs3NFpCa2JadlZCQlU2ZVZTRlJPUUg1YVM5QlhzcmlvNW9kTGh5?=
+ =?utf-8?B?eUgzTzg1cnJWREZOYXZaM2dvTlB6bjFSc0JCY1dxVzFjS3R1UzZPSmVOS2p2?=
+ =?utf-8?B?eC8ranVNd1g2V0JlaWllQURaUWJ4anY1UnBJSlZQTlRPcUF0cmhvMTVWenZI?=
+ =?utf-8?B?ajBJMlU0c2RESytTN1Y5R0lsWlZ6ZEFwSVZuazR0U3RQUGFGOGJ5a0dIRFBV?=
+ =?utf-8?B?TlVxSThNdFY5YnRObm5nbTI3NjBLU1Byek5mY1JPYzJ5dHIvMGNtUkRUNVdD?=
+ =?utf-8?B?ejU2RVlPMUxuY21yK1BSbi81dU5OOEo3dHZ3WFRvaGc3V2VQaXo1YjhDNjdn?=
+ =?utf-8?B?LzQyTEZLZU85MEZWTUhjMEhHNUVNWUJxS0ZZVUYrdzhiQ09FeDRIalZ1aTUw?=
+ =?utf-8?B?bXlYSzRWZWYwNldZUmpKWmRWazMrNHBHa3c5SFVvdDIyWWo3ZWRMU0xZa2ZX?=
+ =?utf-8?B?eWNVQW5zS2MrVnc1b2EvbGxqWEVPQjQ5VS8rYmR5VXhqK0hqS2xJWmdNL2JB?=
+ =?utf-8?B?SWlFWFAxS1k1VWV4SGYwK2l5eC9GaktFU0ZNNGtHUUZud2Q1VjhPYWoreUpX?=
+ =?utf-8?B?cTJPOGJNamNlaE1WSXBYazI4RFZHck5JUEsvc09ldVA1eEcyb2ZWbE5FYnFn?=
+ =?utf-8?B?bXhVOFozdDNtbXczd1pybkFKMjk3NEZCUTZ0Z1drS1RhcHJzT0xSVUhPUk1q?=
+ =?utf-8?B?UHIrMmdVUkdqSWVCQTdiL0RGZTk2eGZuQ0w1VzUvRW5KZ3BRTENJM1Y2MnUv?=
+ =?utf-8?B?TXZZZjRYYS9oR2wwWi9XSGdjck52aUY4YUpITlA1VldoazdQYkhnWTBaOXp2?=
+ =?utf-8?B?aTU1R1ZUa3F4cU1MTFdXSUlKNVZsWmg3c3BQdUEzWHlReVdkdjlpVEVQWGVX?=
+ =?utf-8?B?djFVd2VNZCtlOHZWUE1naVRhdWlwQzdVNktpU2hpQ24vNndCV2poNTM5VjRN?=
+ =?utf-8?B?WldGbEtIdmFleDMwOHdveUlRSWhiWDBoSC9zTThGMHZILzA1TE1rQU9iZncx?=
+ =?utf-8?B?NFN5MVBoOVAwZFN4Z1hkZFpJVmlicDF0TWdoWWdCSEM2OThMSXR1RFpKakFV?=
+ =?utf-8?B?QUV3dFlQRk9paU91M2pKVGlJellGVEQyTTBEV3pUYk8xQVlBODc0d3FHbjNM?=
+ =?utf-8?B?c3MyejJWVFBaaHRPNGkrejNNNFN0ODA0cmZmWmJzMUJwaWtqV0ErTFV2U1Ur?=
+ =?utf-8?B?dUN0VDh6V2E4dmxGMlYvSkM0bjR0UDFkRC9CS3I3NnZ1NlRlandTemZwbFdt?=
+ =?utf-8?B?V2kvcVlJcTVkZndNcXlNb0xyOFZoZ2R2VEd4dTRMbnk0WStUajZYV2l1U3gw?=
+ =?utf-8?B?STFETnVtcFBjZGtJYU9PZExzUGwxdndWem1kR1BQUnlRVCtIR1E4MEJITXJw?=
+ =?utf-8?B?SUpFYldhYkhmdnViMmJiMUJhQzZkaFhFZE1QRnFnK3pGQkZaN3dJZnMwZmpH?=
+ =?utf-8?B?VkhCK0VXL0hmdmlMajF6VThUcFhZcmpkUGtPQ3R6dENkYW1MQWxTWHo1cWJ5?=
+ =?utf-8?B?TGlZTk0xU2kyMUE0Z0dPSm8vVHlydnYxblZGR1huYlBYNXJCM2owbjZEY01Q?=
+ =?utf-8?B?eEFXUXdPUEtyRE1IUmZPb2hnYUlqSmNyNDJ1T3k4TTJuMHAvWWhERmprU0lu?=
+ =?utf-8?B?b2xieDA0eGpoemR5VUdVSVorcTR2V21JMFFFMXpCMUlzTk1ueUhPK0F4VDE5?=
+ =?utf-8?B?TnhHYnhzM1N2a2xua095OVFBT3JKZldkSGJTV1A5d1BzN2wzcVFmQlNvODlB?=
+ =?utf-8?B?cG05NTBjbG1qU2kwbk40L0hHNXJhVWhNY3dHd3VpcWlKbCszY2dYTDF6cGp6?=
+ =?utf-8?B?ZlVnTHprMUQ5eUJRa1pJU0lvSm1GdzhzSUExc0xwZm5RVHh0NXA1Yy9QU0Jl?=
+ =?utf-8?B?TmhpY292VnhLU0hDcjRvczE0eXBXb0FqclRzRmhiOXdROTBwSk83TENFU1dG?=
+ =?utf-8?B?Y2UxbldjUC9BcmhGQUZyS3REWXBhN3FnYndsMHFRZk9yQVZVR05mWjAzWlZT?=
+ =?utf-8?B?ZVV0NU1SNWh4Sk5sakpKeTRuV1RCdmNnazdpdVo2V2s4UURCaUdPaFZyUlZE?=
+ =?utf-8?B?Q3EyU05hRDZscVB4WDczTUVBZXk1eFdJbHdTWEs3dkdtTTRzZTVLbklqa09i?=
+ =?utf-8?Q?G4CaBMWK5zPE/L+kHTRbGjg=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5ec0fa5a-eb34-4aa0-8c12-08d9af1b0fd5
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Nov 2021 07:21:41.5856
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h/EUTR8D5mzs50Zz8ms2W/KK95CttWLI9pCpTpK0YhkQ/dTAOiP48gn5lOjzuy23o7Ofckjy+N0bFD5JkcTzAQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5470
 
-This is a multi-part message in MIME format.
---------------6E2ADA8ABB96A4523042F315
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+On 24.11.2021 02:22, Tian, Kevin wrote:
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: Tuesday, November 23, 2021 9:40 PM
+>>
+>> Bit 0 of the capability register field has become reserved at or before
+> 
+> Bit 0 of 'SAGAW' in the capability register ...
 
-Ping?
+I've changed it, but I thought the use of "field" in the sentence
+together with the title would be entirely unambiguous.
 
-On 04.10.21 11:40, Juergen Gross wrote:
-> Today the implementation of the xenbus protocol in Mini-OS will only
-> allow to transfer the complete message to or from the ring page buffer.=
+>> spec version 2.2. Treat it as such. Replace the effective open-coding of
+>> find_first_set_bit(). Adjust local variable types.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> Strictly speaking IOMMUs supporting only 3-level tables ought to result
+>> in guests seeing a suitably reduced physical address width in CPUID.
+>> And then the same would apply to restrictions resulting from MGAW.
+> 
+> Yes. I remember there was some old discussion in Qemu community
+> for whether guest physical addr width should be based on IOMMU
+> constraints when passthrough device is used. But it didn't go anywhere
+> (and I cannot find the link...)
 
-> This is limiting the maximum message size to lower values as the xenbus=
+I've added an item to my todo list.
 
-> protocol normally would allow.
->=20
-> Change that by allowing to transfer the xenbus message in chunks as
-> soon as they are available.
->=20
-> Avoid crashing Mini-OS in case of illegal data read from the ring
-> buffer.
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> V2:
-> - drop redundant if (Samuel Thibault)
-> - move rmb() (Samuel Thibault)
-> V3:
-> - correct notification test (Samuel Thibault)
-> V4:
-> - more memory barriers (Samuel Thibault)
-> ---
->   xenbus/xenbus.c | 210 ++++++++++++++++++++++++++++-------------------=
--
->   1 file changed, 122 insertions(+), 88 deletions(-)
->=20
-> diff --git a/xenbus/xenbus.c b/xenbus/xenbus.c
-> index 23de61e..b687678 100644
-> --- a/xenbus/xenbus.c
-> +++ b/xenbus/xenbus.c
-> @@ -29,6 +29,7 @@
->   #include <xen/hvm/params.h>
->   #include <mini-os/spinlock.h>
->   #include <mini-os/xmalloc.h>
-> +#include <mini-os/semaphore.h>
->  =20
->   #define min(x,y) ({                       \
->           typeof(x) tmpx =3D (x);                 \
-> @@ -46,6 +47,7 @@
->   static struct xenstore_domain_interface *xenstore_buf;
->   static DECLARE_WAIT_QUEUE_HEAD(xb_waitq);
->   DECLARE_WAIT_QUEUE_HEAD(xenbus_watch_queue);
-> +static __DECLARE_SEMAPHORE_GENERIC(xb_write_sem, 1);
->  =20
->   xenbus_event_queue xenbus_events;
->   static struct watch {
-> @@ -231,75 +233,103 @@ char *xenbus_wait_for_state_change(const char* p=
-ath, XenbusState *state, xenbus_
->   }
->  =20
->  =20
-> +static void xenbus_read_data(char *buf, unsigned int len)
-> +{
-> +    unsigned int off =3D 0;
-> +    unsigned int prod, cons;
-> +    unsigned int size;
-> +
-> +    while (off !=3D len)
-> +    {
-> +        wait_event(xb_waitq, xenstore_buf->rsp_prod !=3D xenstore_buf-=
->rsp_cons);
-> +
-> +        prod =3D xenstore_buf->rsp_prod;
-> +        cons =3D xenstore_buf->rsp_cons;
-> +        DEBUG("Rsp_cons %d, rsp_prod %d.\n", cons, prod);
-> +        size =3D min(len - off, prod - cons);
-> +
-> +        rmb();   /* Make sure data read from ring is ordered with rsp_=
-prod. */
-> +        memcpy_from_ring(xenstore_buf->rsp, buf + off,
-> +                         MASK_XENSTORE_IDX(cons), size);
-> +        off +=3D size;
-> +        mb();    /* memcpy() and rsp_cons update must not be reordered=
-=2E */
-> +        xenstore_buf->rsp_cons +=3D size;
-> +        mb();    /* rsp_cons must be visible before we look at rsp_pro=
-d. */
-> +        if (xenstore_buf->rsp_prod - cons >=3D XENSTORE_RING_SIZE)
-> +            notify_remote_via_evtchn(xenbus_evtchn);
-> +    }
-> +}
-> +
->   static void xenbus_thread_func(void *ign)
->   {
->       struct xsd_sockmsg msg;
-> -    unsigned prod =3D xenstore_buf->rsp_prod;
-> +    char *data;
->  =20
->       for (;;) {
-> -        wait_event(xb_waitq, prod !=3D xenstore_buf->rsp_prod);
-> -        while (1) {
-> -            prod =3D xenstore_buf->rsp_prod;
-> -            DEBUG("Rsp_cons %d, rsp_prod %d.\n", xenstore_buf->rsp_con=
-s,
-> -                  xenstore_buf->rsp_prod);
-> -            if (xenstore_buf->rsp_prod - xenstore_buf->rsp_cons < size=
-of(msg))
-> -                break;
-> -            rmb();
-> -            memcpy_from_ring(xenstore_buf->rsp, &msg,
-> -                             MASK_XENSTORE_IDX(xenstore_buf->rsp_cons)=
-,
-> -                             sizeof(msg));
-> -            DEBUG("Msg len %d, %d avail, id %d.\n", msg.len + sizeof(m=
-sg),
-> -                  xenstore_buf->rsp_prod - xenstore_buf->rsp_cons, msg=
-=2Ereq_id);
-> -
-> -            if (xenstore_buf->rsp_prod - xenstore_buf->rsp_cons <
-> -                sizeof(msg) + msg.len)
-> -                break;
-> -
-> -            DEBUG("Message is good.\n");
-> -
-> -            if (msg.type =3D=3D XS_WATCH_EVENT) {
-> -                struct xenbus_event *event =3D malloc(sizeof(*event) +=
- msg.len);
-> -                xenbus_event_queue *events =3D NULL;
-> -                char *data =3D (char*)event + sizeof(*event);
-> -                struct watch *watch;
-> -
-> -                memcpy_from_ring(xenstore_buf->rsp, data,
-> -                    MASK_XENSTORE_IDX(xenstore_buf->rsp_cons + sizeof(=
-msg)),
-> -                    msg.len);
-> -
-> -                event->path =3D data;
-> -                event->token =3D event->path + strlen(event->path) + 1=
-;
-> -
-> -                mb();
-> -                xenstore_buf->rsp_cons +=3D msg.len + sizeof(msg);
-> -
-> -                for (watch =3D watches; watch; watch =3D watch->next)
-> -                    if (!strcmp(watch->token, event->token)) {
-> -                        events =3D watch->events;
-> -                        break;
-> -                    }
-> -
-> -                if (events) {
-> -                    event->next =3D *events;
-> -                    *events =3D event;
-> -                    wake_up(&xenbus_watch_queue);
-> -                } else {
-> -                    printk("unexpected watch token %s\n", event->token=
-);
-> -                    free(event);
-> +        xenbus_read_data((char *)&msg, sizeof(msg));
-> +        DEBUG("Msg len %d, %d avail, id %d.\n", msg.len + sizeof(msg),=
+> anyway with above comment fixed:
+> 
+> 	Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 
-> +              xenstore_buf->rsp_prod - xenstore_buf->rsp_cons, msg.req=
-_id);
-> +
-> +        if (msg.len > XENSTORE_PAYLOAD_MAX) {
-> +            printk("Xenstore violates protocol, message longer than al=
-lowed.\n");
-> +            return;
-> +        }
-> +
-> +        if (msg.type =3D=3D XS_WATCH_EVENT) {
-> +            struct xenbus_event *event =3D malloc(sizeof(*event) + msg=
-=2Elen);
-> +            xenbus_event_queue *events =3D NULL;
-> +            struct watch *watch;
-> +            char *c;
-> +            int zeroes =3D 0;
-> +
-> +            data =3D (char*)event + sizeof(*event);
-> +            xenbus_read_data(data, msg.len);
-> +
-> +            for (c =3D data; c < data + msg.len; c++)
-> +                if (!*c)
-> +                    zeroes++;
-> +            if (zeroes !=3D 2) {
-> +                printk("Xenstore: illegal watch event data\n");
-> +                free(event);
-> +                continue;
-> +            }
-> +
-> +            event->path =3D data;
-> +            event->token =3D event->path + strlen(event->path) + 1;
-> +
-> +            for (watch =3D watches; watch; watch =3D watch->next)
-> +                if (!strcmp(watch->token, event->token)) {
-> +                    events =3D watch->events;
-> +                    break;
->                   }
-> +
-> +            if (events) {
-> +                event->next =3D *events;
-> +                *events =3D event;
-> +                wake_up(&xenbus_watch_queue);
->               } else {
-> -                req_info[msg.req_id].reply =3D malloc(sizeof(msg) + ms=
-g.len);
-> -                memcpy_from_ring(xenstore_buf->rsp, req_info[msg.req_i=
-d].reply,
-> -                                 MASK_XENSTORE_IDX(xenstore_buf->rsp_c=
-ons),
-> -                                 msg.len + sizeof(msg));
-> -                mb();
-> -                xenstore_buf->rsp_cons +=3D msg.len + sizeof(msg);
-> -                wake_up(&req_info[msg.req_id].waitq);
-> +                printk("Xenstore: unexpected watch token %s\n", event-=
->token);
-> +                free(event);
->               }
->  =20
-> -            wmb();
-> -            notify_remote_via_evtchn(xenbus_evtchn);
-> +            continue;
->           }
-> +
-> +        data =3D malloc(sizeof(msg) + msg.len);
-> +        memcpy(data, &msg, sizeof(msg));
-> +        xenbus_read_data(data + sizeof(msg), msg.len);
-> +
-> +        if (msg.req_id >=3D NR_REQS || !req_info[msg.req_id].in_use) {=
+Thanks.
 
-> +            printk("Xenstore: illegal request id %d\n", msg.req_id);
-> +            free(data);
-> +            continue;
-> +        }
-> +
-> +        DEBUG("Message is good.\n");
-> +
-> +        req_info[msg.req_id].reply =3D data;
-> +
-> +        wake_up(&req_info[msg.req_id].waitq);
->       }
->   }
->  =20
-> @@ -451,36 +481,40 @@ static void xb_write(int type, int req_id, xenbus=
-_transaction_t trans_id,
->  =20
->       cur_req =3D &header_req;
->  =20
-> -    BUG_ON(len > XENSTORE_RING_SIZE);
-> -    /* Wait for the ring to drain to the point where we can send the
-> -       message. */
-> -    prod =3D xenstore_buf->req_prod;
-> -    if (prod + len - xenstore_buf->req_cons > XENSTORE_RING_SIZE)
-> -    {
-> -        /* Wait for there to be space on the ring */
-> -        DEBUG("prod %d, len %d, cons %d, size %d; waiting.\n",
-> -                prod, len, xenstore_buf->req_cons, XENSTORE_RING_SIZE)=
-;
-> -        wait_event(xb_waitq,
-> -                xenstore_buf->req_prod + len - xenstore_buf->req_cons =
-<=3D
-> -                XENSTORE_RING_SIZE);
-> -        DEBUG("Back from wait.\n");
-> -        prod =3D xenstore_buf->req_prod;
-> -    }
-> +    BUG_ON(len > XENSTORE_PAYLOAD_MAX);
-> +
-> +    /* Make sure we are the only thread trying to write. */
-> +    down(&xb_write_sem);
->  =20
-> -    /* We're now guaranteed to be able to send the message without
-> -       overflowing the ring.  Do so. */
-> +    /* Send the message in chunks using free ring space when available=
-=2E */
->       total_off =3D 0;
->       req_off =3D 0;
-> -    while (total_off < len)
-> +    while (total_off < len)
->       {
-> +        prod =3D xenstore_buf->req_prod;
-> +        if (prod - xenstore_buf->req_cons >=3D XENSTORE_RING_SIZE)
-> +        {
-> +            /* Send evtchn to notify remote */
-> +            notify_remote_via_evtchn(xenbus_evtchn);
-> +
-> +            /* Wait for there to be space on the ring */
-> +            DEBUG("prod %d, len %d, cons %d, size %d; waiting.\n", pro=
-d,
-> +                  len - total_off, xenstore_buf->req_cons, XENSTORE_RI=
-NG_SIZE);
-> +            wait_event(xb_waitq,
-> +                       prod - xenstore_buf->req_cons < XENSTORE_RING_S=
-IZE);
-> +            DEBUG("Back from wait.\n");
-> +        }
-> +
->           this_chunk =3D min(cur_req->len - req_off,
-> -                XENSTORE_RING_SIZE - MASK_XENSTORE_IDX(prod));
-> +                         XENSTORE_RING_SIZE - MASK_XENSTORE_IDX(prod))=
-;
-> +        this_chunk =3D min(this_chunk,
-> +                         xenstore_buf->req_cons + XENSTORE_RING_SIZE -=
- prod);
->           memcpy((char *)xenstore_buf->req + MASK_XENSTORE_IDX(prod),
-> -                (char *)cur_req->data + req_off, this_chunk);
-> +               (char *)cur_req->data + req_off, this_chunk);
->           prod +=3D this_chunk;
->           req_off +=3D this_chunk;
->           total_off +=3D this_chunk;
-> -        if (req_off =3D=3D cur_req->len)
-> +        if (req_off =3D=3D cur_req->len)
->           {
->               req_off =3D 0;
->               if (cur_req =3D=3D &header_req)
-> @@ -488,20 +522,20 @@ static void xb_write(int type, int req_id, xenbus=
-_transaction_t trans_id,
->               else
->                   cur_req++;
->           }
-> +
-> +        /* Remote must see entire message before updating indexes */
-> +        wmb();
-> +        xenstore_buf->req_prod =3D prod;
->       }
->  =20
-> +    /* Send evtchn to notify remote */
-> +    notify_remote_via_evtchn(xenbus_evtchn);
-> +
->       DEBUG("Complete main loop of xb_write.\n");
->       BUG_ON(req_off !=3D 0);
->       BUG_ON(total_off !=3D len);
-> -    BUG_ON(prod > xenstore_buf->req_cons + XENSTORE_RING_SIZE);
->  =20
-> -    /* Remote must see entire message before updating indexes */
-> -    wmb();
-> -
-> -    xenstore_buf->req_prod +=3D len;
-> -
-> -    /* Send evtchn to notify remote */
-> -    notify_remote_via_evtchn(xenbus_evtchn);
-> +    up(&xb_write_sem);
->   }
->  =20
->   /* Send a mesasge to xenbus, in the same fashion as xb_write, and
->=20
+Jan
 
-
---------------6E2ADA8ABB96A4523042F315
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------6E2ADA8ABB96A4523042F315--
-
---dJ65ISaETfggy1VefxjzJAcoxxz0j18yK--
-
---Y181P6BFv7tgthqU2tAOS3T9XmO1q283n
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGd4ycFAwAAAAAACgkQsN6d1ii/Ey8r
-/gf/d+UjYEoQh9p/TToGUFUQ3mxUMT+FCS89F5+2W0aHiHQ1E/8xi6N8caTBtw79TUSJdxcibWYb
-joLIAK9li+92dkgUunJ0cxu/v+x2BNEDAIq/65wPUotunS/8f+ketntkc7W+OS/DMW7p4jB2XHEe
-jwBMVTD69oT33eRpbLa18Vbc2M0s/jxk/iVbzuvp4GvKHqR2O4XeP0S5hSjwUxCn2+1sJAWfqxz5
-j7166+x3oHaSVmP03gsZ8IM1Fw7+gbsw3HSci3b5O7BruJfcTxmT2ybRiVhtkdLuBr7Y1BclJGLw
-BLpugvf7IZ255XdD6pg91vvxcoi5pEEDRtvGL4fbxA==
-=8G1s
------END PGP SIGNATURE-----
-
---Y181P6BFv7tgthqU2tAOS3T9XmO1q283n--
 
