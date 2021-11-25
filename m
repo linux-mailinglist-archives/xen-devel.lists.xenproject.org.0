@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4146445D8A0
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 12:02:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.230868.399102 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7214445D8AB
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 12:03:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.230873.399125 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqCUr-0000mv-Sr; Thu, 25 Nov 2021 11:00:57 +0000
+	id 1mqCWo-0001da-Kf; Thu, 25 Nov 2021 11:02:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 230868.399102; Thu, 25 Nov 2021 11:00:57 +0000
+Received: by outflank-mailman (output) from mailman id 230873.399125; Thu, 25 Nov 2021 11:02:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqCUr-0000jz-P7; Thu, 25 Nov 2021 11:00:57 +0000
-Received: by outflank-mailman (input) for mailman id 230868;
- Thu, 25 Nov 2021 11:00:56 +0000
+	id 1mqCWo-0001az-Cu; Thu, 25 Nov 2021 11:02:58 +0000
+Received: by outflank-mailman (input) for mailman id 230873;
+ Thu, 25 Nov 2021 11:02:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ia/m=QM=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mqCUq-0000jt-KQ
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 11:00:56 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=68NU=QM=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
+ id 1mqCWm-0001K8-6i
+ for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 11:02:56 +0000
+Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
+ [2a00:1450:4864:20::236])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f61e58d3-4dde-11ec-a9d2-d9f7a1cc8784;
- Thu, 25 Nov 2021 12:00:55 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 97C802193C;
- Thu, 25 Nov 2021 11:00:54 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1CBCD13466;
- Thu, 25 Nov 2021 11:00:54 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id JcWZBOZsn2HtUQAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 25 Nov 2021 11:00:54 +0000
+ id 3db56a18-4ddf-11ec-a9d2-d9f7a1cc8784;
+ Thu, 25 Nov 2021 12:02:55 +0100 (CET)
+Received: by mail-lj1-x236.google.com with SMTP id 207so11700519ljf.10
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Nov 2021 03:02:55 -0800 (PST)
+Received: from a2klaptop.epam.com (host-176-36-245-220.b024.la.net.ua.
+ [176.36.245.220])
+ by smtp.gmail.com with ESMTPSA id bt10sm235165lfb.193.2021.11.25.03.02.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Nov 2021 03:02:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,390 +44,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f61e58d3-4dde-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1637838054; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NDeBCeEDHfhcuV9LoQQGH8DRzUoHtcpF+S1lG8XAmDc=;
-	b=fSGDAl1/wR0xexqTNERUnDbRCqcGzrf36fXk0U8Vy8829LwowfxZuyPRowQ1GVaTmE5sKD
-	oBG29X+5oWuvsrL7v71ISYfMyr3uulguvENQqnFNYcN+AY+lQPrebOvGLMjFFtW9/+u6rP
-	yqAMzRENTLG4CcjMUOgX9QDeCHle8yw=
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20210914123600.1626-1-jgross@suse.com>
- <20210914123600.1626-4-jgross@suse.com>
- <b1599a82-052f-9369-3774-69c5c570370c@suse.com>
- <5ea7400b-448b-039b-6d95-2552c9ae7cd4@suse.com>
- <e64c22c7-992b-9fdf-a276-263e9173a313@suse.com>
- <fffb492e-f570-069b-7355-c00f48215dad@suse.com>
- <8512f6a7-0b79-8fff-49fb-80c3d8a7a436@suse.com>
- <db2a0bc9-386e-3198-f8f8-95121571abdc@suse.com>
- <587fd950-ffdc-1888-5f97-2ea142069f57@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH RFC 3/4] xen: add new stable control hypercall
-Message-ID: <5c3a28f5-6620-7e5e-03ef-454d26a7aa01@suse.com>
-Date: Thu, 25 Nov 2021 12:00:53 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+X-Inumbo-ID: 3db56a18-4ddf-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=qWes27X+ww95HfJk0LcTwAiWNNZYkATb656Jfq7wn4Q=;
+        b=TfYgaQKGfxpbN/HfHfvDYvLeGaJVBWx6pnGSuK/XRZWj9QtRdyVs9TVG1VwZ6e0wsO
+         ci7aVDOwpNje0N/tZHLY0rncYEDwic8+GD/wO2cyhdMedfHodH2qpJhoftazi11+EkyV
+         fuTF8OISAgnATCSv4tLW2/37XmnkhrMEwLJMdEdVE+83ZSgWWn06VTKo0NRABercPnxW
+         t77q9RmRB8YIK4qHbGMbFIob2WRBRiV0bTuaP9k9U8jkrpLqFeoXYx6eHy9Nx/vWNYae
+         yvALdD0gY/mrUkSFMZJcIHL0/xqSrVvHFWloj/PQiF7QSEz7nkvsskw8AcS6MDTT4SoK
+         y8DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=qWes27X+ww95HfJk0LcTwAiWNNZYkATb656Jfq7wn4Q=;
+        b=Da5nUuArkA5k5G/w21lpJG0+aqK43LKawGzQjNJ+QwDK9FgX4vsZtwuEmJnfFyw4IQ
+         nF/mEpnNVjat/lIKBrU3ax7PDOb4OQ/3jIh1HUZZzowTPrbQlAr+lT4Hz+LlTElTGiX6
+         zgLAaMJzN+H+Hbd/Atdm1B/H3V7KCYdnhnHSi5U48ScFC8ipmU+/gEWaPa/vd4Earlim
+         Qv7ijrBVRofukhjjYK0Kvr8u+8v2YqNVbIM0DxWjOinIQkiDRibGypSNhG+RMA/DDAcw
+         ghHzuM1lXzRVyXQbQcAw1wg9vf7sL/vWSQJsXAikZWmvdlbNDRRC+7nM5Nyw3rCY5lyt
+         TeqQ==
+X-Gm-Message-State: AOAM533JqjCJrGUXx4Zk8JxTGYcOCwuTMQlFXS8lG55rZ3puBhVOFtjG
+	lczgahl+g1esC8E2DS4jMZ9l0d3GUSzJDQ==
+X-Google-Smtp-Source: ABdhPJzT9tUL7xkscIRcsW3Uf7EI3BnU4+bn/XI6is9iOshm3fDYlKUdkaEfavkmkaG24GOH5ijfkw==
+X-Received: by 2002:a05:651c:50c:: with SMTP id o12mr24253873ljp.438.1637838174135;
+        Thu, 25 Nov 2021 03:02:54 -0800 (PST)
+From: Oleksandr Andrushchenko <andr2000@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	sstabellini@kernel.org,
+	oleksandr_tyshchenko@epam.com,
+	volodymyr_babchuk@epam.com,
+	Artem_Mygaiev@epam.com,
+	roger.pau@citrix.com,
+	jbeulich@suse.com,
+	andrew.cooper3@citrix.com,
+	george.dunlap@citrix.com,
+	paul@xen.org,
+	bertrand.marquis@arm.com,
+	rahul.singh@arm.com,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Subject: [PATCH v5 00/14] PCI devices passthrough on Arm, part 3
+Date: Thu, 25 Nov 2021 13:02:37 +0200
+Message-Id: <20211125110251.2877218-1-andr2000@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <587fd950-ffdc-1888-5f97-2ea142069f57@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="Icn0KwlSQM6w454Fv5RqYpqmo7NkxVfWo"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---Icn0KwlSQM6w454Fv5RqYpqmo7NkxVfWo
-Content-Type: multipart/mixed; boundary="IERTyVQq9c6wSQKBEfbNSf3OzItntHnep";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <5c3a28f5-6620-7e5e-03ef-454d26a7aa01@suse.com>
-Subject: Re: [PATCH RFC 3/4] xen: add new stable control hypercall
-References: <20210914123600.1626-1-jgross@suse.com>
- <20210914123600.1626-4-jgross@suse.com>
- <b1599a82-052f-9369-3774-69c5c570370c@suse.com>
- <5ea7400b-448b-039b-6d95-2552c9ae7cd4@suse.com>
- <e64c22c7-992b-9fdf-a276-263e9173a313@suse.com>
- <fffb492e-f570-069b-7355-c00f48215dad@suse.com>
- <8512f6a7-0b79-8fff-49fb-80c3d8a7a436@suse.com>
- <db2a0bc9-386e-3198-f8f8-95121571abdc@suse.com>
- <587fd950-ffdc-1888-5f97-2ea142069f57@suse.com>
-In-Reply-To: <587fd950-ffdc-1888-5f97-2ea142069f57@suse.com>
+From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
---IERTyVQq9c6wSQKBEfbNSf3OzItntHnep
-Content-Type: multipart/mixed;
- boundary="------------A17716D857B0CCF3B2E537E9"
-Content-Language: en-US
+Hi, all!
 
-This is a multi-part message in MIME format.
---------------A17716D857B0CCF3B2E537E9
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+1. This patch series is focusing on vPCI and adds support for non-identity
+PCI BAR mappings which is required while passing through a PCI device to
+a guest. The highlights are:
 
-On 25.11.21 11:51, Jan Beulich wrote:
-> On 25.11.2021 11:33, Juergen Gross wrote:
->> On 25.11.21 11:19, Jan Beulich wrote:
->>> On 25.11.2021 11:12, Juergen Gross wrote:
->>>> On 25.11.21 10:38, Jan Beulich wrote:
->>>>> On 25.11.2021 07:55, Juergen Gross wrote:
->>>>>> On 22.11.21 16:39, Jan Beulich wrote:
->>>>>>> On 14.09.2021 14:35, Juergen Gross wrote:
->>>>>>>> @@ -103,6 +104,43 @@ void domain_reset_states(void)
->>>>>>>>          rcu_read_unlock(&domlist_read_lock);
->>>>>>>>      }
->>>>>>>>     =20
->>>>>>>> +int domain_get_dom_state_changed(struct xen_control_changed_dom=
-ain *info)
->>>>>>>> +{
->>>>>>>> +    unsigned int dom;
->>>>>>>> +    struct domain *d;
->>>>>>>> +
->>>>>>>> +    while ( (dom =3D find_first_bit(dom_state_changed, DOMID_MA=
-SK + 1)) <
->>>>>>>> +            DOMID_FIRST_RESERVED )
->>>>>>>
->>>>>>> As per my comment on the earlier patch - the use of DOMID_MASK + =
-1 vs
->>>>>>> is quite puzzling here.
->>>>>>
->>>>>> Okay, will change that.
->>>>>>
->>>>>>>
->>>>>>>> +    {
->>>>>>>> +        d =3D rcu_lock_domain_by_id(dom);
->>>>>>>> +
->>>>>>>> +        if ( test_and_clear_bit(dom, dom_state_changed) )
->>>>>>>> +        {
->>>>>>>> +            info->domid =3D dom;
->>>>>>>> +            if ( d )
->>>>>>>> +            {
->>>>>>>> +                info->state =3D XEN_CONTROL_CHANGEDDOM_STATE_EX=
-IST;
->>>>>>>> +                if ( d->is_shut_down )
->>>>>>>> +                    info->state |=3D XEN_CONTROL_CHANGEDDOM_STA=
-TE_SHUTDOWN;
->>>>>>>> +                if ( d->is_dying =3D=3D DOMDYING_dead )
->>>>>>>> +                    info->state |=3D XEN_CONTROL_CHANGEDDOM_STA=
-TE_DYING;
->>>>>>>> +                info->unique_id =3D d->unique_id;
->>>>>>>> +
->>>>>>>> +                rcu_unlock_domain(d);
->>>>>>>> +            }
->>>>>>>> +
->>>>>>>> +            return 0;
->>>>>>>
->>>>>>> With rapid creation of short lived domains, will the caller ever =
-get to
->>>>>>> see information on higher numbered domains (if, say, it gets "sui=
-tably"
->>>>>>> preempted within its own environment)? IOW shouldn't there be a w=
-ay for
->>>>>>> the caller to specify a domid to start from?
->>>>>>
->>>>>> I'd rather have a local variable for the last reported domid and s=
-tart
->>>>>> from that.
->>>>>
->>>>> Well, it probably doesn't matter much to have yet one more aspect m=
-aking
->>>>> this a single-consumer-only interface.
->>>>
->>>> For making it an interface consumable by multiple users you'd need t=
-o
->>>> have a per-consumer data set, which would include the bitmap of chan=
-ged
->>>> domains and could include the domid last tested.
->>>>
->>>> As one consumer is Xenstore, and Xenstore can run either in a dedica=
-ted
->>>> domain or in dom0, I believe a multiple user capable interface would=
+- Add relevant vpci register handlers when assigning PCI device to a domain
+  and remove those when de-assigning. This allows having different
+  handlers for different domains, e.g. hwdom and other guests.
 
->>>> even need to support multiple users in the same domain, which would =
-be
->>>> even more complicated. So I continue to be rather hesitant to add th=
-is
->>>> additional complexity with only some vague idea of "might come handy=
- in
->>>> the future".
->>>>
->>>>>
->>>>>>>> +/*
->>>>>>>> + * XEN_CONTROL_OP_get_state_changed_domain
->>>>>>>> + *
->>>>>>>> + * Get information about a domain having changed state and rese=
-t the state
->>>>>>>> + * change indicator for that domain. This function is usable on=
-ly by a domain
->>>>>>>> + * having registered the VIRQ_DOM_EXC event (normally Xenstore)=
-=2E
->>>>>>>> + *
->>>>>>>> + * arg: XEN_GUEST_HANDLE(struct xen_control_changed_domain)
->>>>>>>> + *
->>>>>>>> + * Possible return values:
->>>>>>>> + * 0: success
->>>>>>>> + * <0 : negative Xen errno value
->>>>>>>> + */
->>>>>>>> +#define XEN_CONTROL_OP_get_state_changed_domain     1
->>>>>>>> +struct xen_control_changed_domain {
->>>>>>>> +    domid_t domid;
->>>>>>>> +    uint16_t state;
->>>>>>>> +#define XEN_CONTROL_CHANGEDDOM_STATE_EXIST     0x0001  /* Domai=
-n is existing. */
->>>>>>>> +#define XEN_CONTROL_CHANGEDDOM_STATE_SHUTDOWN  0x0002  /* Shutd=
-own finished. */
->>>>>>>> +#define XEN_CONTROL_CHANGEDDOM_STATE_DYING     0x0004  /* Domai=
-n dying. */
->>>>>>>> +    uint32_t pad1;           /* Returned as 0. */
->>>>>>>> +    uint64_t unique_id;      /* Unique domain identifier. */
->>>>>>>> +    uint64_t pad2[6];        /* Returned as 0. */
->>>>>>>
->>>>>>> I think the padding fields have to be zero on input, not just on =
-return.
->>>>>>
->>>>>> I don't see why this would be needed, as this structure is only ev=
-er
->>>>>> copied to the caller, so "on input" just doesn't apply here.
->>>>>>
->>>>>>> Unless you mean to mandate them to be OUT only now and forever. I=
- also
->>>>>>
->>>>>> The whole struct is OUT only.
->>>>>
->>>>> Right now, yes. I wouldn't exclude "pad1" to become a flags field,
->>>>> controlling some future behavioral aspect of the operation.
->>>>
->>>> Right now I don't see the need for that, see my reasoning above.
->>>
->>> If your reference is to the single consumer aspect, then I don't see
->>> why that would matter here. Future xenstore may want/need to make
->>> use of such a future flag, yet older xenstore still wouldn't know
->>> about it.
->>
->> I'm not sure it is a good idea to mix IN and OUT fields in such a stru=
-ct
->> which is meant to return information only.
->>
->> I'd rather add a new sub-op in this case taking another parameter for
->> specifying additional options or a struct prepending the needed IN
->> fields to above struct.
->=20
-> Well, okay. May ask for a /* OUT */ comment then ahead of the first of
-> the struct fields?
+- Emulate guest BAR register values based on physical BAR values.
+  This allows creating a guest view of the registers and emulates
+  size and properties probe as it is done during PCI device enumeration by
+  the guest.
 
-Yes, will add it.
+- Instead of handling a single range set, that contains all the memory
+  regions of all the BARs and ROM, have them per BAR.
 
->=20
->>>>>>> wonder how the trailing padding plays up with the version sub-op:=
- Do we
->>>>>>> really need such double precaution?
->>>>>>
->>>>>> I can remove it.
->>>>>>
->>>>>>> Also - should we use uint64_aligned_t here?
->>>>>>
->>>>>> Yes.
->>>>>
->>>>> But you realize this isn't straightforward, for the type not being
->>>>> available in plain C89 (nor C99)? That's why it's presently used in=
+- Take into account guest's BAR view and program its p2m accordingly:
+  gfn is guest's view of the BAR and mfn is the physical BAR value as set
+  up by the host bridge in the hardware domain.
+  This way hardware doamin sees physical BAR values and guest sees
+  emulated ones.
 
->>>>> tools-only interfaces only, and the respective header are excluded
->>>>> from the "is ANSI compatible" checking (memory.h and hvm/dm_op.h
->>>>> have special but imo crude "precautions").
->>>>
->>>> No, I didn't realize that. I just looked how it is used today and
->>>> agreed I should follow current usage.
->>>>
->>>> But even with using a stable interface I'm not sure we need to make =
-it
->>>> strictly ANSI compatible, as usage of this interface will still be
->>>> restricted to tools.
->>>
->>> True. Problem is that our present __XEN_TOOLS__ guards have effective=
-ly
->>> dual meaning - "tools only" and "unstable". We merely need to be sure=
+2. The series also adds support for virtual PCI bus topology for guests:
+ - We emulate a single host bridge for the guest, so segment is always 0.
+ - The implementation is limited to 32 devices which are allowed on
+   a single PCI bus.
+ - The virtual bus number is set to 0, so virtual devices are seen
+   as embedded endpoints behind the root complex.
 
->>> everyone understands that this is changing. Perhaps when you add such=
- a
->>> guard here, it may want accompanying by a respective comment.
->>
->> I'd be fine with that.
->>
->> Maybe we want a new guard "__XEN_INTERNAL__" for that (new) purpose?
->=20
-> Not sure - this may result in undesirable code churn elsewhere.
+3. The series has complete re-work of the locking scheme used/absent before with
+the help of the work started by Roger [1]:
+[PATCH v5 03/13] vpci: move lock outside of struct vpci
 
-I won't insist on it. :-)
+This way the lock can be used to check whether vpci is present, and
+removal can be performed while holding the lock, in order to make
+sure there are no accesses to the contents of the vpci struct.
+Previously removal could race with vpci_read for example, since the
+lock was dropped prior to freeing pdev->vpci.
+This also solves synchronization issues between all vPCI code entities
+which could run in parallel.
 
+4. There is an outstanding TODO left unimplemented by this series:
+for unprivileged guests vpci_{read|write} need to be re-worked
+to not passthrough accesses to the registers not explicitly handled
+by the corresponding vPCI handlers: without fixing that passthrough
+to guests is completely unsafe as Xen allows them full access to
+the registers.
 
-Juergen
+Xen needs to be sure that every register a guest accesses is not
+going to cause the system to malfunction, so Xen needs to keep a
+list of the registers it is safe for a guest to access.
 
---------------A17716D857B0CCF3B2E537E9
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+For example, we should only expose the PCI capabilities that we know
+are safe for a guest to use, i.e.: MSI and MSI-X initially.
+The rest of the capabilities should be blocked from guest access,
+unless we audit them and declare safe for a guest to access.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+As a reference we might want to look at the approach currently used
+by QEMU in order to do PCI passthrough. A very limited set of PCI
+capabilities known to be safe for untrusted access are exposed to the
+guest and registers need to be explicitly handled or else access is
+rejected. Xen needs a fairly similar model in vPCI or else none of
+this will be safe for unprivileged access.
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+5. The series was also tested on:
+ - x86 PVH Dom0 and doesn't break it.
+ - x86 HVM with PCI passthrough to DomU and doesn't break it.
 
---------------A17716D857B0CCF3B2E537E9--
+Thank you,
+Oleksandr
 
---IERTyVQq9c6wSQKBEfbNSf3OzItntHnep--
+[1] https://lore.kernel.org/xen-devel/20180717094830.54806-2-roger.pau@citrix.com/
 
---Icn0KwlSQM6w454Fv5RqYpqmo7NkxVfWo
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Oleksandr Andrushchenko (13):
+  rangeset: add RANGESETF_no_print flag
+  vpci: fix function attributes for vpci_process_pending
+  vpci: cancel pending map/unmap on vpci removal
+  vpci: add hooks for PCI device assign/de-assign
+  vpci/header: implement guest BAR register handlers
+  vpci/header: handle p2m range sets per BAR
+  vpci/header: program p2m with guest BAR view
+  vpci/header: emulate PCI_COMMAND register for guests
+  vpci/header: reset the command register when adding devices
+  vpci: add initial support for virtual PCI bus topology
+  xen/arm: translate virtual PCI bus topology for guests
+  xen/arm: account IO handlers for emulated PCI MSI-X
+  vpci: add TODO for the registers not explicitly handled
 
------BEGIN PGP SIGNATURE-----
+Roger Pau Monne (1):
+  vpci: move lock outside of struct vpci
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGfbOUFAwAAAAAACgkQsN6d1ii/Ey9u
-dwf+JVvv2iGy/tK/Z/oTG06w1xkhJlYBWUDgiKX0nqCn7sCpmt7aV/gUabpFs8SYyzjXnR25J5Br
-r5iHXDocvueC6ycGlOtwoKCmWwOMvIgFrDyqgUPBjS7NsxLEViDCoKtE68vCcuwBrHTDmqPf1ji0
-B0ZNXyuem8MW+Z4ryAhiDv7OJ6sXb+j5lFiOiQX52n6+NCtkxD8cdBbLJ7r87nt+nxSrdjxotxNA
-JBTX3ZUo7CwNKq6xZX24zOBOHe2ooiwsB1NCC4PIjuLAXuynHpi+/Qq1pWv7ou/WoQjxdKoUowN2
-OGcQBkK6F2100aWJgUSelJVq4y1K6bAQejKHrkjsDg==
-=cIe1
------END PGP SIGNATURE-----
+ tools/tests/vpci/emul.h       |   5 +-
+ tools/tests/vpci/main.c       |   4 +-
+ xen/arch/arm/vpci.c           |  33 +++-
+ xen/arch/x86/hvm/vmsi.c       |   8 +-
+ xen/common/rangeset.c         |   5 +-
+ xen/drivers/Kconfig           |   4 +
+ xen/drivers/passthrough/pci.c |  11 ++
+ xen/drivers/vpci/header.c     | 352 +++++++++++++++++++++++++++-------
+ xen/drivers/vpci/msi.c        |  11 +-
+ xen/drivers/vpci/msix.c       |   8 +-
+ xen/drivers/vpci/vpci.c       | 252 +++++++++++++++++++++---
+ xen/include/xen/pci.h         |   6 +
+ xen/include/xen/rangeset.h    |   7 +-
+ xen/include/xen/sched.h       |   8 +
+ xen/include/xen/vpci.h        |  47 ++++-
+ 15 files changed, 644 insertions(+), 117 deletions(-)
 
---Icn0KwlSQM6w454Fv5RqYpqmo7NkxVfWo--
+-- 
+2.25.1
+
 
