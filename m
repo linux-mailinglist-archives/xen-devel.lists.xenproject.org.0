@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E26145D84C
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 11:33:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.230843.399059 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A97F645D866
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 11:44:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.230853.399075 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqC44-0004i8-NT; Thu, 25 Nov 2021 10:33:16 +0000
+	id 1mqCEi-0006G3-V5; Thu, 25 Nov 2021 10:44:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 230843.399059; Thu, 25 Nov 2021 10:33:16 +0000
+Received: by outflank-mailman (output) from mailman id 230853.399075; Thu, 25 Nov 2021 10:44:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqC44-0004fj-KQ; Thu, 25 Nov 2021 10:33:16 +0000
-Received: by outflank-mailman (input) for mailman id 230843;
- Thu, 25 Nov 2021 10:33:14 +0000
+	id 1mqCEi-0006Cb-RP; Thu, 25 Nov 2021 10:44:16 +0000
+Received: by outflank-mailman (input) for mailman id 230853;
+ Thu, 25 Nov 2021 10:44:15 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ia/m=QM=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mqC42-0004fd-On
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 10:33:14 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 17aab87c-4ddb-11ec-9787-a32c541c8605;
- Thu, 25 Nov 2021 11:33:13 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id F280121B36;
- Thu, 25 Nov 2021 10:33:12 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 965D213466;
- Thu, 25 Nov 2021 10:33:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id u+n5Imhmn2HIQwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 25 Nov 2021 10:33:12 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1dIP=QM=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1mqCEh-0006CR-Ik
+ for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 10:44:15 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a030bd92-4ddc-11ec-9787-a32c541c8605;
+ Thu, 25 Nov 2021 11:44:13 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,369 +36,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17aab87c-4ddb-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1637836393; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dD9s4GMPeNt5i9D+tD4ZADaZow0WF71niHJUNWXXLG8=;
-	b=bedgRl+FctBZfXkzKn26M5m9lWeX2Vopy1arZ14HtG84zZTN87JXvnIHYANSfAXfRC5am9
-	H3vGSWbRFn3B5uQLuc7d0Lv07hxAkshuDntP6a3HOitJZUEGjWzTSRei6xqwXr/ihXRbO0
-	IPJXjfoOn4oJVqJ/h8Fxp66Bzcgdfn4=
+X-Inumbo-ID: a030bd92-4ddc-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1637837053;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=sqK7WTqYcHQP4laJw9wiLU+GfMSE+QhhfqhGP8BQ8UM=;
+  b=EsckasjNNygBpYOppFou4wiuhDbX3An9Vzr+N3zCKcwOvrfTu+X6GKSC
+   Smuq2HMR9tPfNw6KOl8PSUef+4P1nsOLA9RuSgZzwwFB0JJ/wHhEnzxyA
+   MWIck1tPh3Kvg/iU/lrFNNrFSCh+0eQIPnW6eJuQuxru9w9mBpHdWjvvU
+   E=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: AEAQoPxSfpFi2Bg8a383ZVPJW378NPrg1xYv2CS8vO58jCZ7cYIHWbR9FYC+GZzRaVC5g3QYnZ
+ EIfVoDBFck2csGvCBfwB21NIHA+3mC0BAXVhVimEPO0K90B/juknr0GBgHmhzg2ujk6qvKGLqU
+ 8NWlYVtjP5yzNiu1a67zHSGt6CSJxragXCejBIXz6DXEElQJuljrWJGEbjCcFo7btThI8dDM7W
+ e73nSSsMG0VaM0GjQVBOPQDXUR1kuxpWZ0COxUz47jktCDXf/Uh7BKPvhmcpRYHvYy2q/pCYHQ
+ qV0ItlJ2Z79mLlZTh278Gg22
+X-SBRS: 5.1
+X-MesageID: 60624708
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:t/eD2KPYBH08ydLvrR1CkMFynXyQoLVcMsEvi/4bfWQNrUoq3mEAz
+ WUbUW7UPK6IamL8L40gO461oBlQ75/XxoJgGgto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6bUsxNbVU8En540Eg+w7RRbrNA2rBVPSvc4
+ bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
+ 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYozaCk9Uu9
+ PIVjLnzWzkkHKrUxPwWEBYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
+ 6VFdnZdNXhvhMrvqF6/YvNrick5atHiIasUu216zCGfBvEjKXzGa/uSu4UEg29g7ixINffOa
+ ZUwWWJpV1fvPEwIa1Y9AaJguc790xETdBUH8QnI9MLb+VP70whZwLXrdt3PdbSiVchT20qVu
+ G/C12D4GQ0BcsySzyKf9XChjfOJmjn0MKoQHrCl8v9hgHWI23ceThYRUDOToOa7ol6zXcpFL
+ E4Z8TZoqrI9nHFHVfGkAUf++iTd+EdBBZwASIXW9T1h1ILX6AqcWVQjFgdkK84Yue0xXWAy3
+ RyGyoaB6SNUjJWZTneU97GxpDy0ODQIIWJqWRLoXTfp8PG4/tht00unosJLVffs04arQW2YL
+ yWi9XBm390uYdg3O7JXFLwtqxalvdD3QwE8/W07tUr1v1oiNOZJi2FFgGU3DMqszq7FETFtX
+ 1BewqByCdzi6rnXyUSwrB0lRu3B2hp8GGS0baRTN5cg7S+x3HWoYJpd5jpzTG8wbJ1bJmC4M
+ B+C410AjHO2AJdNRfUpC79d9uxwlfSwfTgbfqy8giVyjmhZK1bcoXAGib+41GHxikk8+ZzTy
+ r/AGftA+U0yUPw9pBLvHr91+eZymkgWmDOCLbimnk/P+efPOxaopUItbQLmghYRt/jf/m04M
+ r93aqO39vmoeLGkP3SMr9dMdQtiwLpSLcmelvG7v9Wre2JOMGogF+XQ0fUmfYlklL5SjeDG4
+ je2XUow9bY1rSSvxdyiZi8xZbXxc4x4qH5nbyUgMUzxgyooYJq17bdZfJwyJOF1+OtmxP9yb
+ v8EZ8TfXagfFmWZo2wQPcvnsYhvVBW3ngbSbSCrVycyIsx7TAvT9966Iga2rHsSDjC6vNcVq
+ qG70l+JWoIKQglvVZ6EaP+mw16rk2IaneZ+AxnBLtVJIR2++4l2MS3hyPQwJphUexnEwzKb0
+ SeQAAsZ+raR89NkroGRiPnd/YmzEuZ4Ek5LJEXh7O67ZXvA426u4Y5cS+LULzrTY3z5pfe5b
+ uJPwvCibPBexARWs5BxGqpAxL4l44e9vKdTywlpESmZb1mvDb88cHCK0dMW6/9Iz75d/wC3R
+ liO6p9RPrDQYJHpF1sYJQwEaOWf1K5LxmmOvKpteEiqtjVq+LenUFlJO0jegSNQG7J5LYc5z
+ Lpzo8UR8QG+1kInP9vuYvq4LIhQwqjsi5kai6w=
+IronPort-HdrOrdr: A9a23:zHssfa8IXZjdT4Il9oRuk+E8db1zdoMgy1knxilNoENuHfBwxv
+ rDoB1E73LJYVYqOU3Jmbi7Sc69qFfnhORICOgqTMyftWzd1ldAQ7sSj7cKrweQfhEWs9QtqJ
+ uIEJIOduEYb2IK9PoSiTPQe71LoKjlgdGVbKXlvg9QpGlRGt5dBmxCe2Cm+yNNNW177c1TLu
+ vh2iMLnUvqRV0nKuCAQlUVVenKoNPG0LrgfB49HhYirC2Dlymh5rLWGwWRmk52aUID/Z4StU
+ z+1yDp7KSqtP+2jjfaym/o9pxT3P/s0MFKCsCggtUcbh/slgGrToJ8XKDqhkF+nMifrHIR1P
+ XcqRYpOMp+r1vXY2GOuBPonzLt1T4/gkWSv2OwsD/Gm4jUVTg6A81OicZyaR3C8Xctu9l6ze
+ Ziw3+Zn4A/N2KPoA3No/zzEz16nEu9pnQv1cQJiWZEbIcYYLhN6aQC4UJuFosaFi6S0vFpLA
+ BXNrCd2B9qSyLYU5iA1VMfguBEH05DUitue3Jy+/B8iFNt7TVEJ0hx/r1pop5PzuN4d3B+3Z
+ W2Dk1frsA7ciYnV9MMOA4/e7rENoXse2OEDIvAGyWuKEk4U0i93qIfpo9Fo92XRA==
+X-IronPort-AV: E=Sophos;i="5.87,263,1631592000"; 
+   d="scan'208";a="60624708"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NoEPTVVTctNGqnXrgWwwMsxT+FoT71u7pzDiF4U0g71xepJ40mgig+QXTAsjotRMBi+X9CcCpMinLVQ+P0Sd54fAIR+SLYsF/sDDVBkQMAbVJl36Rcvojz8Y2lodTDeQyHyTpj2SR/5FhRo+RYKpF9HPLZ12rO10ilL7Dy/ABreWI1fxzkbM3sCNot3uk7Nl468Msxx8BYaa1LYWrnWtzqy+luGSuLa0MoztCIvR2W5BtPzxp8AJzcFvCm8iuc2STbZKAAcOmV7AZ49sny6NFfdHH4zw05hiirnt+FaqsvUGthqa7GRNVqgyTDtkQWTkVp8NllM5KQ3eSyHE0X1jEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QrSNUfA6rg/8rOoYMleGgYV1k/V8+exu+bgURlUjxn4=;
+ b=VJfnaxQpKDX+enzKyGqnEUgihLwFa0kvdq2DbhUYo0yDMszBn39owCedxmcvT/Lq2Uzte6r1psH9l9JZ4V15VMXEkUxb+73TaOkfQ95mvq98ImGvKgjxZAObIE6RQHrE3XsfddI67Nm7W7Xqyew+Gh9W3fP8x0xO+V9RBTUq+QJdsJkBh3HRwiHkRo+VEOU/p3gVB0DrdPgAcUbvJoQjJWi8lVZe6iXLzRn/BI7IjSEdGXEexU0jkd4ZerbOUQb8ylqJ4l4PDoDBBM+wZIz75Vqh51DpeR8VcJodDcLATZB9/5a9WsWuqO4RpMWcPYE+RViMSrVpCl3FjWLfsXDAUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QrSNUfA6rg/8rOoYMleGgYV1k/V8+exu+bgURlUjxn4=;
+ b=edGhCIowk8eqeb1Ti7R0yFm6e3rrS3e2sVf5l2VPzDLbtaTiT7OAiGM3kvrvhSBo/n1hizirTF/KV9JmXFPHdx1SrU4BvgXRg8elx6VJ+RLatyXI95ARP3uso/SPURpcDzrmPnGHKx52SFbmP5v1LlhTJJHJDJluXp/6GwJq0aw=
+Date: Thu, 25 Nov 2021 11:43:17 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20210914123600.1626-1-jgross@suse.com>
- <20210914123600.1626-4-jgross@suse.com>
- <b1599a82-052f-9369-3774-69c5c570370c@suse.com>
- <5ea7400b-448b-039b-6d95-2552c9ae7cd4@suse.com>
- <e64c22c7-992b-9fdf-a276-263e9173a313@suse.com>
- <fffb492e-f570-069b-7355-c00f48215dad@suse.com>
- <8512f6a7-0b79-8fff-49fb-80c3d8a7a436@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH RFC 3/4] xen: add new stable control hypercall
-Message-ID: <db2a0bc9-386e-3198-f8f8-95121571abdc@suse.com>
-Date: Thu, 25 Nov 2021 11:33:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Ian Jackson
+	<iwj@xenproject.org>, Wei Liu <wl@xen.org>, Xen-devel
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH for-4.16] Revert "x86/CPUID: shrink max_{,sub}leaf fields
+ according to actual leaf contents"
+Message-ID: <YZ9oxXdnAEXaRtAD@Air-de-Roger>
+References: <20211124211152.1142-1-andrew.cooper3@citrix.com>
+ <00c77026-1b65-c73a-b786-0e0b9d22e994@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <00c77026-1b65-c73a-b786-0e0b9d22e994@suse.com>
+X-ClientProxiedBy: MR2P264CA0130.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:30::22) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-In-Reply-To: <8512f6a7-0b79-8fff-49fb-80c3d8a7a436@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="vcIXMR4jILkSAULwEwZgf5xLZh9LxoQhX"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b07dc2ab-c1f7-4a5c-289d-08d9b000826c
+X-MS-TrafficTypeDiagnostic: DM6PR03MB5178:
+X-Microsoft-Antispam-PRVS: <DM6PR03MB51784D30EB4C46D5C82ACE438F629@DM6PR03MB5178.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: XTN8FehQYe8D1YEAD/YWMr2tELExUF91uXzZTIN+LuT9ouyg+JSkK62B5ua4L+itaQRrKqRAho4s668movFQiHWYq9hnV0ROolxVFZpDXXR4xru2pV+/hj6JT2kmfOV8sqiuvRcKfvJEPa25wdqGuecExV3nR48y1XFmOPj0kwVlCoqaOYuENsPNWV4tz3vqMs32+WCS2VLZy7Z1yfdmRtXiEBR0CwxkUvift3TfZIYqDp9E2wlI3YQncC05w9zGke12ihq+8OwxVp1ulCJ//LobKf2jJx/Bc5sQ0WMYLB+A8sogmjgF+ODqRYn5H33dXlnX/+qzVeybElnJstHQhUpxUcPtm4L0THisFHB8RNYgpsYNgDqSn72g/ghotUKymM5dL4dvVM98d8MspqyiwDDkjOPsaiCBFBxecwrwIkvwSdgWQtRv6IL3rTG92QrZM7W/7CkErAfXdqU6x/zTUHDE7NqzZFrNi9ITGUZshPhypk5fS8OCBzDmqXwkXkR01YJSo47wqQKndloih9lyS/B1HH9fjwwzGag/qkJ8zrUAlJraJpT63kj8aCXVx6Egs311vdyZJAuT9yxdNTtxys72XKwN/oyuROyotTWnsHRgRsRtbzHcVvpMbM9sJme86okjvjEu4Q22Jk2KBPT2yg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(66556008)(54906003)(66476007)(8936002)(53546011)(9686003)(5660300002)(6496006)(86362001)(82960400001)(26005)(186003)(6666004)(956004)(8676002)(66946007)(316002)(38100700002)(85182001)(508600001)(33716001)(6916009)(83380400001)(2906002)(4326008)(6486002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OVRVR1FUL0tBR0p4eHZKeHdJYUd2MHdPeS9oQW5sODhzK2hQazhGM2xsQmpE?=
+ =?utf-8?B?dG9MeGt5cGVBbllROWt2b2xZVHpSSUxUS2FrNHlHeDF0bFdhSmVIUTJDdDF0?=
+ =?utf-8?B?NmF4aXJNNjdpNXM0WDUxcllGcytLL0xaREpscktucUplSE40YytOeGhBMGZH?=
+ =?utf-8?B?amg2NDZ4cGZRM2EyUnNGTGVNdldCTlNrNHlMdXBBekFmaDdoM1RrUUhqSm16?=
+ =?utf-8?B?WVY0R1M0eW1NakN3Z3lZa3Nna1g1VWpRWk5OeTBjQlNHajJuS0N3c2d6VDJQ?=
+ =?utf-8?B?VXhEeTI2dVUxT3BpYitFZXdIQ2ZaVG1MdGYyRUovYWNlQk5hL0IzcHlNa25D?=
+ =?utf-8?B?bUpQOGdTczZTNzFzb2Y0dTRjcnRLMVRwbloyNm9jWUkreGZjcml1U0NTUWlC?=
+ =?utf-8?B?cGJLbjhTMERYbnRWR2xjeXlSZHhMU3BYUHNpUUxVL1AzUGhIL2ZLSVFCenlm?=
+ =?utf-8?B?SHZjYkgwellCYXdlR0U4WkZKNUpDZi9YdlZLNjZVV0lGaU15NEd2aks5TDNq?=
+ =?utf-8?B?UE9uSWh2ZDE2QlU3b0NsZldscXR4dEJ1RVRTcDI3YUF2V0pKbngvVTZwMWJ3?=
+ =?utf-8?B?eDEvTzhmM044WnRKVVdhZWlKUTRESHdFaERBRVd2OVd0STFjdzBveFhSYzY0?=
+ =?utf-8?B?cjZWZGxtdkpPUUhCSVpmMjNSNkpTdDlRblY4Qng1UVBzbDl4RUZhUWRzeFhx?=
+ =?utf-8?B?VTAzT2diRitmbWtGVUlvZ2hPNm1xM0VjYkEwRmZQeFRqT0hsN0RMbXY1ankx?=
+ =?utf-8?B?bmF3aWM1eWNBNFlrY3MvYzZ1bTEzRnlVUkRWQWJiU1U2Sk14cWhBY09tVUE3?=
+ =?utf-8?B?RTVkcFZCeWdSblU2Rm5iTXBxYWh1cFl6dndYaXBFdkdDMy9KQXVWTWRmdnN3?=
+ =?utf-8?B?czNXemFSaEFQSEcwRTBZdTVrNENjcFVIZmRTWitQVGo4czRXSEVNWFI2Q2I5?=
+ =?utf-8?B?SjdaSWQvcnNqaWNKLzJ6NllGRHVIT1FKRDBMNnVWLzNUbmhXeWFnM0loelN6?=
+ =?utf-8?B?NmlVWi9ZY3FQYWcxVG5GNlBaK3FrQ2FidS8relRsVURzSEpPa010UWJEeVlh?=
+ =?utf-8?B?aWFjcnpEeXFON3ZkNElmUzRTQi9zL1h1SlB5Vld1NTN4TXFSWGhyYWpvWTNZ?=
+ =?utf-8?B?QkI1MnZGMjBWTWEyaVNzb010ZDZaUnZHdHFHTktTNGtSTUcydGE2em5yV2NV?=
+ =?utf-8?B?M2ZCNGEwRy9zVFVRdFJicjl2MGZnd1RKWmJnSXZVQm5hUzNZVU9NYm1pdHBq?=
+ =?utf-8?B?Qno4UkdHVUlIcTFpSGxnMmloTktYU0NwQlVNajlYZ1lZQm1QMkUwc1IvM2FK?=
+ =?utf-8?B?cWE2UmJjU0h5VjlueFU1ME5VWVdWWXV6R0xMa09tSlVVRzlqSXcxQkgwSnNz?=
+ =?utf-8?B?WlVCS2NCcDJ3Z05OdzljcjJmemF5VmNWbVdBQi9SMitIbHd5dHRjZER6Ynh1?=
+ =?utf-8?B?TEZ6UTAvMGo1QXhMUGdWUXBFeTVCTnNBWTNzcjN5K2NYZ2JiVkVyTWgzcnZK?=
+ =?utf-8?B?MU1BQzAwelFhODdWRXR3aXBxc1RqM1hnMDNwSDdrZGhLS3J0ZlZEb1U4dlBR?=
+ =?utf-8?B?b3M0Y2FFaFE1Nnp2Uyt6aEx5QjgrblpsMVNublVMeU1Pb0tvYnM0MGs3aUN3?=
+ =?utf-8?B?aFFqWnNOVE10dmtVaEdhbjFEbHVrTS9zRUd1NmhlWlRyWFBidUd2ZFNQY0Zi?=
+ =?utf-8?B?SUFla2dmeVJsNXpxMytkOWlaZ3JZVWdWWUVLUzFQYU9FZ0hwM1pvc2dQdld0?=
+ =?utf-8?B?eC9HSHV3ek5OMEF6N0Z2Q0h3SG1IbE5FODZ4UDE3aDZDY0ttbHJMa3Zaczdh?=
+ =?utf-8?B?MEkrYnA2OXJjakZmMDdlZFBybk1kWVJabUdZTTJnR09mUGxhQTBwVnk1N1I0?=
+ =?utf-8?B?UmVZZW5xL0tCKzh6S2ttU3BkNWdMdTRZZFY1OWRva0REV3Y5T25Ud09KT2tv?=
+ =?utf-8?B?a0F3NE5ZUHJ5VHFDWWUxNndMQ1pUcW9vUHZONlVJZlkvZlllWW1YOC84SWtW?=
+ =?utf-8?B?c2sybm5xSDZ3bk1BQmtTVXNqV2IwMjd1YmlWNXhzd0JFODhYZ0hRR1c4SG5p?=
+ =?utf-8?B?dktrSDU2amdYcm1VaXJFbHZ6bjVscDRZRnEyNWlyYTMxY0JYV2toWEp2b2U1?=
+ =?utf-8?B?YWVmUTJNQ1NYQ2s1TkpDU1dENDNqaU91dHY5eERTcWVoMDFkNXA0OE1ML012?=
+ =?utf-8?Q?6g3kacnc4x/CP6TUnPSqgog=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: b07dc2ab-c1f7-4a5c-289d-08d9b000826c
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2021 10:44:08.5116
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AtTD+JQL4XMD3ZwoBWGDv83cs8sQIIC+6XhigTfG4g5Id+ymHiIZuxCOry3DJR/0t2TvrheCiXQVpAZEVVoXvQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5178
+X-OriginatorOrg: citrix.com
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---vcIXMR4jILkSAULwEwZgf5xLZh9LxoQhX
-Content-Type: multipart/mixed; boundary="SGXLqm56UozSTABVNKJTItWVuIFTBLUud";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <db2a0bc9-386e-3198-f8f8-95121571abdc@suse.com>
-Subject: Re: [PATCH RFC 3/4] xen: add new stable control hypercall
-References: <20210914123600.1626-1-jgross@suse.com>
- <20210914123600.1626-4-jgross@suse.com>
- <b1599a82-052f-9369-3774-69c5c570370c@suse.com>
- <5ea7400b-448b-039b-6d95-2552c9ae7cd4@suse.com>
- <e64c22c7-992b-9fdf-a276-263e9173a313@suse.com>
- <fffb492e-f570-069b-7355-c00f48215dad@suse.com>
- <8512f6a7-0b79-8fff-49fb-80c3d8a7a436@suse.com>
-In-Reply-To: <8512f6a7-0b79-8fff-49fb-80c3d8a7a436@suse.com>
+On Thu, Nov 25, 2021 at 11:25:36AM +0100, Jan Beulich wrote:
+> On 24.11.2021 22:11, Andrew Cooper wrote:
+> > OSSTest has identified a 3rd regression caused by this change.  Migration
+> > between Xen 4.15 and 4.16 on the nocera pair of machines (AMD Opteron 4133)
+> > fails with:
+> > 
+> >   xc: error: Failed to set CPUID policy: leaf 00000000, subleaf ffffffff, msr ffffffff (22 = Invalid argument): Internal error
+> >   xc: error: Restore failed (22 = Invalid argument): Internal error
+> > 
+> > which is a safety check to prevent resuming the guest when the CPUID data has
+> > been truncated.  The problem is caused by shrinking of the max policies, which
+> > is an ABI that needs handling compatibly between different versions of Xen.
+> > 
+> > Furthermore, shrinking of the default policies also breaks things in some
+> > cases, because certain cpuid= settings in a VM config file which used to have
+> > an effect will now be silently discarded.
+> > 
+> > This reverts commit 540d911c2813c3d8f4cdbb3f5672119e5e768a3d, as well as the
+> > partial fix attempt in 81da2b544cbb003a5447c9b14d275746ad22ab37 (which added
+> > one new case where cpuid= settings might not apply correctly) and restores the
+> > same behaviour as Xen 4.15.
+> > 
+> > Fixes: 540d911c2813 ("x86/CPUID: shrink max_{,sub}leaf fields according to actual leaf contents")
+> > Fixes: 81da2b544cbb ("x86/cpuid: prevent shrinking migrated policies max leaves")
+> > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> 
+> While not strictly needed with Roger having given his already,
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> to signal my (basic) agreement with the course of action taken.
+> Nevertheless I fear this is going to become yet one more case where
+> future action is promised, but things then die out.
 
---SGXLqm56UozSTABVNKJTItWVuIFTBLUud
-Content-Type: multipart/mixed;
- boundary="------------3DF457D5D03AF616CE85E67E"
-Content-Language: en-US
+I'm certainly happy to look at newer versions of this patch, but I
+think we should consider doing the shrinking only on the toolstack
+said, and only after all the manipulations on the policy have been
+performed.
 
-This is a multi-part message in MIME format.
---------------3DF457D5D03AF616CE85E67E
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-On 25.11.21 11:19, Jan Beulich wrote:
-> On 25.11.2021 11:12, Juergen Gross wrote:
->> On 25.11.21 10:38, Jan Beulich wrote:
->>> On 25.11.2021 07:55, Juergen Gross wrote:
->>>> On 22.11.21 16:39, Jan Beulich wrote:
->>>>> On 14.09.2021 14:35, Juergen Gross wrote:
->>>>>> @@ -103,6 +104,43 @@ void domain_reset_states(void)
->>>>>>         rcu_read_unlock(&domlist_read_lock);
->>>>>>     }
->>>>>>    =20
->>>>>> +int domain_get_dom_state_changed(struct xen_control_changed_domai=
-n *info)
->>>>>> +{
->>>>>> +    unsigned int dom;
->>>>>> +    struct domain *d;
->>>>>> +
->>>>>> +    while ( (dom =3D find_first_bit(dom_state_changed, DOMID_MASK=
- + 1)) <
->>>>>> +            DOMID_FIRST_RESERVED )
->>>>>
->>>>> As per my comment on the earlier patch - the use of DOMID_MASK + 1 =
-vs
->>>>> is quite puzzling here.
->>>>
->>>> Okay, will change that.
->>>>
->>>>>
->>>>>> +    {
->>>>>> +        d =3D rcu_lock_domain_by_id(dom);
->>>>>> +
->>>>>> +        if ( test_and_clear_bit(dom, dom_state_changed) )
->>>>>> +        {
->>>>>> +            info->domid =3D dom;
->>>>>> +            if ( d )
->>>>>> +            {
->>>>>> +                info->state =3D XEN_CONTROL_CHANGEDDOM_STATE_EXIS=
-T;
->>>>>> +                if ( d->is_shut_down )
->>>>>> +                    info->state |=3D XEN_CONTROL_CHANGEDDOM_STATE=
-_SHUTDOWN;
->>>>>> +                if ( d->is_dying =3D=3D DOMDYING_dead )
->>>>>> +                    info->state |=3D XEN_CONTROL_CHANGEDDOM_STATE=
-_DYING;
->>>>>> +                info->unique_id =3D d->unique_id;
->>>>>> +
->>>>>> +                rcu_unlock_domain(d);
->>>>>> +            }
->>>>>> +
->>>>>> +            return 0;
->>>>>
->>>>> With rapid creation of short lived domains, will the caller ever ge=
-t to
->>>>> see information on higher numbered domains (if, say, it gets "suita=
-bly"
->>>>> preempted within its own environment)? IOW shouldn't there be a way=
- for
->>>>> the caller to specify a domid to start from?
->>>>
->>>> I'd rather have a local variable for the last reported domid and sta=
-rt
->>>> from that.
->>>
->>> Well, it probably doesn't matter much to have yet one more aspect mak=
-ing
->>> this a single-consumer-only interface.
->>
->> For making it an interface consumable by multiple users you'd need to
->> have a per-consumer data set, which would include the bitmap of change=
-d
->> domains and could include the domid last tested.
->>
->> As one consumer is Xenstore, and Xenstore can run either in a dedicate=
-d
->> domain or in dom0, I believe a multiple user capable interface would
->> even need to support multiple users in the same domain, which would be=
-
->> even more complicated. So I continue to be rather hesitant to add this=
-
->> additional complexity with only some vague idea of "might come handy i=
-n
->> the future".
->>
->>>
->>>>>> +/*
->>>>>> + * XEN_CONTROL_OP_get_state_changed_domain
->>>>>> + *
->>>>>> + * Get information about a domain having changed state and reset =
-the state
->>>>>> + * change indicator for that domain. This function is usable only=
- by a domain
->>>>>> + * having registered the VIRQ_DOM_EXC event (normally Xenstore).
->>>>>> + *
->>>>>> + * arg: XEN_GUEST_HANDLE(struct xen_control_changed_domain)
->>>>>> + *
->>>>>> + * Possible return values:
->>>>>> + * 0: success
->>>>>> + * <0 : negative Xen errno value
->>>>>> + */
->>>>>> +#define XEN_CONTROL_OP_get_state_changed_domain     1
->>>>>> +struct xen_control_changed_domain {
->>>>>> +    domid_t domid;
->>>>>> +    uint16_t state;
->>>>>> +#define XEN_CONTROL_CHANGEDDOM_STATE_EXIST     0x0001  /* Domain =
-is existing. */
->>>>>> +#define XEN_CONTROL_CHANGEDDOM_STATE_SHUTDOWN  0x0002  /* Shutdow=
-n finished. */
->>>>>> +#define XEN_CONTROL_CHANGEDDOM_STATE_DYING     0x0004  /* Domain =
-dying. */
->>>>>> +    uint32_t pad1;           /* Returned as 0. */
->>>>>> +    uint64_t unique_id;      /* Unique domain identifier. */
->>>>>> +    uint64_t pad2[6];        /* Returned as 0. */
->>>>>
->>>>> I think the padding fields have to be zero on input, not just on re=
-turn.
->>>>
->>>> I don't see why this would be needed, as this structure is only ever=
-
->>>> copied to the caller, so "on input" just doesn't apply here.
->>>>
->>>>> Unless you mean to mandate them to be OUT only now and forever. I a=
-lso
->>>>
->>>> The whole struct is OUT only.
->>>
->>> Right now, yes. I wouldn't exclude "pad1" to become a flags field,
->>> controlling some future behavioral aspect of the operation.
->>
->> Right now I don't see the need for that, see my reasoning above.
->=20
-> If your reference is to the single consumer aspect, then I don't see
-> why that would matter here. Future xenstore may want/need to make
-> use of such a future flag, yet older xenstore still wouldn't know
-> about it.
-
-I'm not sure it is a good idea to mix IN and OUT fields in such a struct
-which is meant to return information only.
-
-I'd rather add a new sub-op in this case taking another parameter for
-specifying additional options or a struct prepending the needed IN
-fields to above struct.
-
->=20
->>>>> wonder how the trailing padding plays up with the version sub-op: D=
-o we
->>>>> really need such double precaution?
->>>>
->>>> I can remove it.
->>>>
->>>>> Also - should we use uint64_aligned_t here?
->>>>
->>>> Yes.
->>>
->>> But you realize this isn't straightforward, for the type not being
->>> available in plain C89 (nor C99)? That's why it's presently used in
->>> tools-only interfaces only, and the respective header are excluded
->>> from the "is ANSI compatible" checking (memory.h and hvm/dm_op.h
->>> have special but imo crude "precautions").
->>
->> No, I didn't realize that. I just looked how it is used today and
->> agreed I should follow current usage.
->>
->> But even with using a stable interface I'm not sure we need to make it=
-
->> strictly ANSI compatible, as usage of this interface will still be
->> restricted to tools.
->=20
-> True. Problem is that our present __XEN_TOOLS__ guards have effectively=
-
-> dual meaning - "tools only" and "unstable". We merely need to be sure
-> everyone understands that this is changing. Perhaps when you add such a=
-
-> guard here, it may want accompanying by a respective comment.
-
-I'd be fine with that.
-
-Maybe we want a new guard "__XEN_INTERNAL__" for that (new) purpose?
-
-
-Juergen
-
---------------3DF457D5D03AF616CE85E67E
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------3DF457D5D03AF616CE85E67E--
-
---SGXLqm56UozSTABVNKJTItWVuIFTBLUud--
-
---vcIXMR4jILkSAULwEwZgf5xLZh9LxoQhX
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGfZmgFAwAAAAAACgkQsN6d1ii/Ey+C
-YAf/eHQwvREmvxJgqLRwHBMm7VCfBNyKHvLxC69EUtYQNgYxbQiTYWovzjwje7XMPwMaV3pFQbw9
-QNim2I924D8LYCoefTiiGlbiQ82qBMpln025Tm4Dvuayzh/czwIG19wPsJDGdGwAy+NIA8LXN4iG
-T+yA2sIxSEt41ZJjhAZ99TKMurpKiGiEycrZRbPaEN8d7IjrKNkb5y0if2RMP5Kkag7HAMAEn57V
-2F5RUcE1plzFzQWrXZemQBFeoafpm6ss9O4o0QSA5FUcQM5kvwRrNVx2LGGUz7it9uijvZrmRTcO
-ACNwmYLVBwQIq4LLP2t0HsLnNqHNYyQ8TdXIWuGnvA==
-=S2U7
------END PGP SIGNATURE-----
-
---vcIXMR4jILkSAULwEwZgf5xLZh9LxoQhX--
+Thanks, Roger.
 
