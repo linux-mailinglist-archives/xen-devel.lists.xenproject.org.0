@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B6DC45DB99
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 14:48:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.231322.400413 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E8E145DB89
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 14:47:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.231290.400260 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqF6i-0004xg-4d; Thu, 25 Nov 2021 13:48:12 +0000
+	id 1mqF6A-0005de-M8; Thu, 25 Nov 2021 13:47:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 231322.400413; Thu, 25 Nov 2021 13:48:12 +0000
+Received: by outflank-mailman (output) from mailman id 231290.400260; Thu, 25 Nov 2021 13:47:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqF6h-0004YY-HT; Thu, 25 Nov 2021 13:48:11 +0000
-Received: by outflank-mailman (input) for mailman id 231322;
- Thu, 25 Nov 2021 13:48:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mqF69-0005Ez-Vi; Thu, 25 Nov 2021 13:47:37 +0000
+Received: by outflank-mailman (input) for mailman id 231290;
+ Thu, 25 Nov 2021 13:47:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Nd7+=QM=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1mqF0g-00076i-37
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 13:41:58 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 74b08918-4df5-11ec-a9d2-d9f7a1cc8784;
- Thu, 25 Nov 2021 14:41:56 +0100 (CET)
+ id 1mqF0h-0007NX-KW
+ for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 13:41:59 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 75dbf48d-4df5-11ec-9787-a32c541c8605;
+ Thu, 25 Nov 2021 14:41:58 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,67 +36,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 74b08918-4df5-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 75dbf48d-4df5-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637847716;
+  d=citrix.com; s=securemail; t=1637847718;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=84a5ACH3vmAplQpyvArcPgKE++VGrDYmdqQ8lZna65Y=;
-  b=XmnRi66U57wVpGy2N8C9O9ZpxM/AHVygD4tWwRDQ+hBKZlJR1z4fmnDh
-   vbNpk7VuoPqLK/y4hxC5cu34HXUThQiU7RqMuCNyYS3nvWSUDCDjWHMq1
-   E4+xMIISi9sHsB6lXgEeKlbJ0U0ZLIohjC39jfdekZpypOiCRBO0gjRrV
-   o=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: NHGO3+FqzGWJR3qr8dh1z4wByAV6s5GnusgFPkohcA9qRdv6G1CfCKN7ZBURhD4yH/c5u8FIo/
- SGHBggdKiwQvO1hN30KMLebjCjhjwwFG+pHnXmw/Sdfa8IMLZ1CvKUOxpEN5KON2FAmxJ+YG57
- h4OSpdS0+Zj2Q6EckDOOexSxPmXSKxFs1mhv/HUHHjM8d03ypUDFQTd/h80oF0seopIrVGOCQL
- rGc4AlX4ZYNJHcLWH4vPxuYxN0ck4+Boxs2w5Gq4KVoUn2m5FQ67hmIjuUfEIaLOl1NtDYf8FU
- d7J1QImx3gg7WDEWcFS+D+0P
+  bh=B5VOkpfrwP2eJU5CJkGnpLSWbZA0WNl/g37hS+zmyXc=;
+  b=d2QVA48Js5vVqo0r6uSFIXckwuE6nBulUwHSSK8EbK2Il8ibs+1CRRoR
+   wjCbAFBZ1lN3UAhzqxXCKB9y9w1kVktFG0XcbJJaflhLK7lh2HQJ2RbCt
+   PS8OAVa61Zzxip/ICATPxpwUQtvhmkY9l4xe4TOGL87I6oNllDMn0AJsp
+   I=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: r23o05NSS7N9utzX3GZjNdfn8NR2ahYDzERWs2Mvd9EoEvJm8StOqMdOmNZHWOmlR/mPybolMn
+ nHTiW5TPhM9OPESq+BRKvzy2mighS0Ex+Os19efb5BwOKU1QrTvEiNgXn4Lglarfzl3yMU1sp0
+ Lwp5aU7xiy6qx03yLY4bzHWjO0LakUWvf+SznyBVEj9go7fuJ6gNzbRmSQqWFv0F0rH5JpKCly
+ c/66nvr/NIppMXR9RMGVMsN3v/hHr6L+yqF/7AyrucywPqP3d0RcoClDnLnIS4lZ6J23F+NUSF
+ gezsM3C33jAgriFKkBbdVqiK
 X-SBRS: 5.1
-X-MesageID: 58617708
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 60634184
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:oFz2fKDTA3Y1GxVW/4nkw5YqxClBgxIJ4kV8jS/XYbTApDoh1DRRy
- 2scUWDXO6qNZTTzfY8gYd6x/BsGuZ6Ey9FgQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WLGs1hxZH1c+EX540087wYbVv6Yz6TSHK1LV0
- T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
- Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/lSmEuv1Sz
- dt2usarWwI0JOrGxOM4akwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
- KFGbmBWBvyAr7veLLaTQ+9whsMlPY/zMZkWoH1IxjDFF/c2B5vERs0m4PcFjGlp2Z8WTZ4yY
- eIgRjdtKw79OSF1O1QYU6kjxeaavlLWJmgwRFW9+vNsvjm7IBZK+KP2LNPfd9iORMNUtkWVv
- GTL+yL+GB5yHN6CzTuI9Fq8i+mJmjn0MKoZHae08fNCi1SJymseThYRUDOTvv2RmkO4HdVFJ
- CQ88ywyra805QqzQ8P0RRGQr3uNvxpaUN1Ve8Uq5QfIxqfK7gKxAmkfUiUHeNEgrNUxRzEhy
- hmOhdyBLT5lvaCRSHmd3qyJtj70Mi8QRUcDei0sXQYD+8Pkoow4klTIVNkLLUKupoSrQ3eqm
- WnM9XVgweVI5SIW60ml1U7bjheBhZ3HdQFv/RfSQ3ji5F9+QbfwMuRE9mPnxfpHKY+YSHyIs
- 34Fh9WS4YgyMH2dqMCeaL5TRe/0vp5pJBWZ2AcyRMd5q1xB7lb6JdgIiAySMnuFJSrtldXBR
- EbI8T1c65ZIVJdBRf8mOtnhYyjGIEWJKDgEahw2RoYRCnSSXFXelM2LWaJ39zqw+HXAaYllZ
- f+mnT+EVB7285hPwjusXPs62rQ23C04zm67bcmllEv4juvONC/PF+Zt3L6yggcRtv3sneko2
- 4wHa5viJ+t3DIUSnRU7AaZMdAtXfBDX9Lj9qtBNd/7rH+aVMDpJNhMl+pt4I9YNt/0Mzo/gp
- yjhMmcFmAuXrSCWcm2iNyE8AI4DqL4i9BrXywR3Zg32s5XiCK7yhJoim2wfIeN6qbc9lKEsF
- JHouayoW5xyd9gOwBxFBbGVkWCoXEjDadumM3X3bT4hUYRnQgCVqNbochG2rHsFDzattNt4q
- Lqlj1uJTZ0GTgVkLcDXdPPwkA/h4SlDwLp/DxnSP91eWETw64w2eSb/ueA6fpMXIhLZyzrEi
- wvPWUUEpfPAqpMe+cXSgfzWtJ+gFuZzRxIIH2TS4busGzPd+26vnd1JXOqSJGiPX2Lo4qSyI
- +5SyqikYvEAmV9Ltat6Eqpqkv1it4e++ecCw109TnvRblmtBrdxGVW83JFC5v9X27tUmQqqQ
- UbTqNNUDqqEZZH+G1kLKQt7MunajaMImiPf5OgeKVnh4HMl56KOVEhfMkXeiCFZK7cpYoopz
- f145ZwT4g27zBErLsyHnmZf8GHVdi4MVKAut5c7Bo73i1V0lgEeMMKEUiKmsouSb9hsM1UxJ
- m7GjaXPsL1Q207efidhDnPKx+dc2cwDtR0iIIXu/LhVdg4pXsMK4SA=
-IronPort-HdrOrdr: A9a23:YLJgla9abbmZx1nCxcBuk+DeI+orL9Y04lQ7vn2YSXRuHfBw8P
- re+8jztCWE8Qr5N0tApTntAsS9qDbnhPxICOoqTNOftWvd2FdARbsKheCJ/9SjIVyaygc079
- YHT0EUMrPN5DZB4foSmDPIcOod/A==
+IronPort-Data: A9a23:fcohw6IBeLswchRXFE+RApIlxSXFcZb7ZxGr2PjKsXjdYENS0TQCy
+ zNKDDiFbKrcZmukL49+ad60px5XvZHQnNAwQAplqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZUideSc+EH140Es5xrZj6mJVqYPR7z2l6
+ IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
+ QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2Svssvk
+ tx3sKeUQF8qBpXcuccyC0lhRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
+ LpBdW5LPkvra+GemdpXTsFlgNgjK8/6epsSoHh6wRnSDOo8QICFSKLPjTNd9Glo2JsSRKaCD
+ yYfQQhvdRviWUV1AGwwNZwlnfeYl0PDQQQN/Tp5ooJoujOOnWSdyoPFMtDYZ9iLTsV9hVuDq
+ yTN+GGRKg4eHMySz3yC6H3Erv/Cm2b3VZwfEJW89+V2mxuDy2oLEhoUWFCn5/6jhSaWUtRDK
+ 0sS62w2oLI77kCDQdz0Xhn+q3mB1iPwQPIJTbd8slvUjPOJvUDJXQDoUwKtdvQ9ldRoHzUQ0
+ 2StlovqPQR/kZ66ESKko+L8QSyJBQAZKmoLZCkhRAQD4sX+rIxbsi8jXuqPA4bu0ISrRGiYL
+ ySi6XFn2u5N1ZJjO7CTpAif21qRSo71ohnZD+k9dkas9UtHaYGsfOREAnCLvK8bfO51orRs1
+ UXoevRyDshSUvlhdwTXGY3h+Y1FAN7fbVXhbaZHRcVJythU0yfLkXpsyD9/Plx1Fc0PZCXkZ
+ kTe0SsIusQMYyT7Pf8mOdzgYyjP8UQHPY67Ps04k/IUOsQhHON51H0GibGsM5DFzxF3zPBX1
+ WazesewF3cKYZmLPxLtL9rxJYQDn3hkrUuKHMiT503+jdK2OS7EIZ9YYQDmRr1os8u5TPD9r
+ o832z2ikE4EDoUTo0D/rOYuELz9BSRhWM2t9ZUILrXrz8gPMDhJNsI9CIgJI+RN95m5XM+Sl
+ p1kckMHmlf5m1PdLgCGNiJqZL/1BM4tpnMnJy08e12v3iF7M4qo6a4ecboxfKUmq7M/naIlE
+ aFddpXSGOlLRxTG5y8ZMcv3ort9eUn5ngmJJSekPmQyJsYyWwzT99b4VQLz7y1SXDGvvM4zr
+ uT4hAPWSJYOXSp4C8PSZK79xl+9pyFFyulzQ1HJMp9Yf0C1qNpmLCn4j/kWJcAQKEqcmmvGh
+ ljOWRpB/LvDuY449tXNlJuolYbxHrssBFdeEkna8a2yaXvQ8F28zNISS+2PZz3cCj/5of3we
+ eVPwvjgG/Qbh1IW4ZFkGrNmwK9itdvio7hWklZtEHnRNgn5D7phJj+N3NVVt70Lzbhc4FPkV
+ kWK89hcGLOIJMK6TwJBeFt7NryOhaMOhz3fzfUpO0GrtiZ48Y2OXVhWIxTR2jdWK6F4Md99z
+ Oos0CLMB9dTVvb+3g66sx1p
+IronPort-HdrOrdr: A9a23:ZHUwNavuVD1sNTzoGtU0F8DW7skDTtV00zEX/kB9WHVpmszxra
+ 6TdZMgpHnJYVcqKQkdcL+7WJVoLUmxyXcx2/h1AV7AZniAhILLFvAA0WKK+VSJcEeSygce79
+ YFT0EXMqyIMbEQt6fHCWeDfOrIuOP3kpyVuQ==
 X-IronPort-AV: E=Sophos;i="5.87,263,1631592000"; 
-   d="scan'208";a="58617708"
+   d="scan'208";a="60634184"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Anthony PERARD
-	<anthony.perard@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	"George Dunlap" <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
-	"Jan Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Doug Goldstein
-	<cardoe@cardoe.com>
-Subject: [XEN PATCH v8 38/47] WIP, no-VPATH: rework Makefile.host
-Date: Thu, 25 Nov 2021 13:39:57 +0000
-Message-ID: <20211125134006.1076646-39-anthony.perard@citrix.com>
+	<anthony.perard@gmail.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [XEN PATCH v8 39/47] RFC, no-VPATH: x86/boot: workaround gcc including the wrong file
+Date: Thu, 25 Nov 2021 13:39:58 +0000
+Message-ID: <20211125134006.1076646-40-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.34.0
 In-Reply-To: <20211125134006.1076646-1-anthony.perard@citrix.com>
 References: <20211125134006.1076646-1-anthony.perard@citrix.com>
@@ -106,194 +103,56 @@ Content-Type: text/plain
 
 From: Anthony PERARD <anthony.perard@gmail.com>
 
-Allow to build 'defconfig' target without VPATH in out-of-tree build
+we generate cmdline.S and reloc.S, so we should include those
+generated file as presented in the build tree, but for file included
+with quote, gcc will first look into the directory where the source
+file is, that is where head.S is located and thus include cmdline.S
+that is present in the source tree when it is dirty. But that the
+wrong file as we want to include the file from the build tree. Work
+around by using <> to include those file as if the come from the
+system, as gcc will first look in directories listed with '-I' on the
+command line.
+
+So now we also need to add -I when building in the source tree.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/scripts/Makefile.host  | 34 +++++++++++++++++++++++++---------
- xen/tools/kconfig/Makefile | 12 +++++++++---
- 2 files changed, 34 insertions(+), 12 deletions(-)
+ xen/arch/x86/boot/Makefile | 4 +++-
+ xen/arch/x86/boot/head.S   | 4 ++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/xen/scripts/Makefile.host b/xen/scripts/Makefile.host
-index d6c358095ee8..d083c6dbca76 100644
---- a/xen/scripts/Makefile.host
-+++ b/xen/scripts/Makefile.host
-@@ -8,7 +8,7 @@ target-stem = $(basename $(patsubst $(obj)/%,%,$@))
- quiet_cmd_flex = LEX     $@
-       cmd_flex = $(LEX) -o$@ -L $<
+diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
+index 04ee9da83333..4fc6b1d8ffc2 100644
+--- a/xen/arch/x86/boot/Makefile
++++ b/xen/arch/x86/boot/Makefile
+@@ -8,7 +8,9 @@ targets += $(head-objs:.S=.o)
+ head-objs := $(addprefix $(obj)/, $(head-objs))
  
--$(obj)/%.lex.c: $(src)/%.l FORCE
-+$(obj)/%.lex.c: $(srctree)/$(src)/%.l FORCE
- 	$(call if_changed,flex)
+ ifdef building_out_of_srctree
+-$(obj)/head.o: CFLAGS-y += -iquote $(obj)
++$(obj)/head.o: CFLAGS-y += -I$(obj)
++else
++$(obj)/head.o: CFLAGS-y += -I$(src)
+ endif
+ $(obj)/head.o: $(head-objs)
  
- # YACC
-@@ -16,7 +16,7 @@ $(obj)/%.lex.c: $(src)/%.l FORCE
- quiet_cmd_bison = YACC    $(basename $@).[ch]
-       cmd_bison = $(YACC) -o $(basename $@).c --defines=$(basename $@).h -t -l $<
+diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+index dd1bea0d10b3..66acd2e9bfc0 100644
+--- a/xen/arch/x86/boot/head.S
++++ b/xen/arch/x86/boot/head.S
+@@ -772,10 +772,10 @@ trampoline_setup:
+         lret
  
--$(obj)/%.tab.c $(obj)/%.tab.h: $(src)/%.y FORCE
-+$(obj)/%.tab.c $(obj)/%.tab.h: $(srctree)/$(src)/%.y FORCE
- 	$(call if_changed,bison)
+ cmdline_parse_early:
+-#include "cmdline.S"
++#include <cmdline.S>
  
- # ==========================================================================
-@@ -56,6 +56,11 @@ host-cmulti	:= $(foreach m,$(__hostprogs),\
+ reloc:
+-#include "reloc.S"
++#include <reloc.S>
  
- # Object (.o) files compiled from .c files
- host-cobjs	:= $(sort $(foreach m,$(__hostprogs),$($(m)-objs)))
-+# from generated .c files
-+host-cobjs-generated	:= $(sort $(foreach m,$(__hostprogs),$($(m)-objs-generated)))
-+ifndef building_out_of_srctree
-+host-cobjs += $(host-cobjs-generated)
-+endif
- 
- # C++ code
- # C++ executables compiled from at least one .cc file
-@@ -72,6 +77,9 @@ host-cxxshobjs	:= $(sort $(foreach m,$(host-cxxshlib),$($(m:.so=-objs))))
- host-csingle	:= $(addprefix $(obj)/,$(host-csingle))
- host-cmulti	:= $(addprefix $(obj)/,$(host-cmulti))
- host-cobjs	:= $(addprefix $(obj)/,$(host-cobjs))
-+ifdef building_out_of_srctree
-+host-cobjs-generated	:= $(addprefix $(obj)/,$(host-cobjs-generated))
-+endif
- host-cxxmulti	:= $(addprefix $(obj)/,$(host-cxxmulti))
- host-cxxobjs	:= $(addprefix $(obj)/,$(host-cxxobjs))
- host-cshlib	:= $(addprefix $(obj)/,$(host-cshlib))
-@@ -104,25 +112,30 @@ hostcxx_flags  = -Wp,-MD,$(depfile) $(_hostcxx_flags)
- quiet_cmd_host-csingle 	= HOSTCC  $@
-       cmd_host-csingle	= $(HOSTCC) $(hostc_flags) $(HOSTLDFLAGS) -o $@ $< \
- 		$(HOSTLDLIBS) $(HOSTLDLIBS_$(target-stem))
--$(host-csingle): $(obj)/%: $(src)/%.c FORCE
-+$(host-csingle): $(obj)/%: $(srctree)/$(src)/%.c FORCE
- 	$(call if_changed_dep,host-csingle)
- 
- # Link an executable based on list of .o files, all plain c
- # host-cmulti -> executable
- quiet_cmd_host-cmulti	= HOSTLD  $@
-       cmd_host-cmulti	= $(HOSTCC) $(HOSTLDFLAGS) -o $@ \
--			  $(addprefix $(obj)/, $($(target-stem)-objs)) \
-+			  $(foreach o,objs objs-generated, \
-+			  $(addprefix $(obj)/, $($(target-stem)-$(o)))) \
- 			  $(HOSTLDLIBS) $(HOSTLDLIBS_$(target-stem))
- $(host-cmulti): FORCE
- 	$(call if_changed,host-cmulti)
--$(call multi-depend, $(host-cmulti), , -objs)
-+$(call multi-depend, $(host-cmulti), , -objs -objs-generated)
- 
- # Create .o file from a single .c file
- # host-cobjs -> .o
- quiet_cmd_host-cobjs	= HOSTCC  $@
-       cmd_host-cobjs	= $(HOSTCC) $(hostc_flags) -c -o $@ $<
--$(host-cobjs): $(obj)/%.o: $(src)/%.c FORCE
-+$(host-cobjs): $(obj)/%.o: $(srctree)/$(src)/%.c FORCE
- 	$(call if_changed_dep,host-cobjs)
-+ifdef building_out_of_srctree
-+$(host-cobjs-generated): $(obj)/%.o: $(obj)/%.c FORCE
-+	$(call if_changed_dep,host-cobjs)
-+endif
- 
- # Link an executable based on list of .o files, a mixture of .c and .cc
- # host-cxxmulti -> executable
-@@ -138,14 +151,14 @@ $(call multi-depend, $(host-cxxmulti), , -objs -cxxobjs)
- # Create .o file from a single .cc (C++) file
- quiet_cmd_host-cxxobjs	= HOSTCXX $@
-       cmd_host-cxxobjs	= $(HOSTCXX) $(hostcxx_flags) -c -o $@ $<
--$(host-cxxobjs): $(obj)/%.o: $(src)/%.cc FORCE
-+$(host-cxxobjs): $(obj)/%.o: $(srctree)/$(src)/%.cc FORCE
- 	$(call if_changed_dep,host-cxxobjs)
- 
- # Compile .c file, create position independent .o file
- # host-cshobjs -> .o
- quiet_cmd_host-cshobjs	= HOSTCC  -fPIC $@
-       cmd_host-cshobjs	= $(HOSTCC) $(hostc_flags) -fPIC -c -o $@ $<
--$(host-cshobjs): $(obj)/%.o: $(src)/%.c FORCE
-+$(host-cshobjs): $(obj)/%.o: $(srctree)/$(src)/%.c FORCE
- 	$(call if_changed_dep,host-cshobjs)
- 
- # Compile .c file, create position independent .o file
-@@ -155,7 +168,7 @@ $(host-cshobjs): $(obj)/%.o: $(src)/%.c FORCE
- # host-cxxshobjs -> .o
- quiet_cmd_host-cxxshobjs	= HOSTCXX -fPIC $@
-       cmd_host-cxxshobjs	= $(HOSTCXX) $(hostcxx_flags) -fPIC -c -o $@ $<
--$(host-cxxshobjs): $(obj)/%.o: $(src)/%.c FORCE
-+$(host-cxxshobjs): $(obj)/%.o: $(srctree)/$(src)/%.c FORCE
- 	$(call if_changed_dep,host-cxxshobjs)
- 
- # Link a shared library, based on position independent .o files
-@@ -180,3 +193,6 @@ $(call multi-depend, $(host-cxxshlib), .so, -objs)
- 
- targets += $(host-csingle)  $(host-cmulti) $(host-cobjs)\
- 	   $(host-cxxmulti) $(host-cxxobjs) $(host-cshlib) $(host-cshobjs) $(host-cxxshlib) $(host-cxxshobjs)
-+ifdef building_out_of_srctree
-+targets += $(host-cobjs-generated)
-+endif
-diff --git a/xen/tools/kconfig/Makefile b/xen/tools/kconfig/Makefile
-index b7b9a419ad59..c2ecf4b36652 100644
---- a/xen/tools/kconfig/Makefile
-+++ b/xen/tools/kconfig/Makefile
-@@ -146,8 +146,9 @@ help:
- 
- # ===========================================================================
- # object files used by all kconfig flavours
--common-objs	:= confdata.o expr.o lexer.lex.o parser.tab.o preprocess.o \
-+common-objs	:= confdata.o expr.o  preprocess.o \
- 		   symbol.o
-+common-objs-generated := lexer.lex.o parser.tab.o
- 
- $(obj)/lexer.lex.o: $(obj)/parser.tab.h
- HOSTCFLAGS_lexer.lex.o	:= -I $(srctree)/$(src)
-@@ -156,10 +157,12 @@ HOSTCFLAGS_parser.tab.o	:= -I $(srctree)/$(src)
- # conf: Used for defconfig, oldconfig and related targets
- hostprogs-y	+= conf
- conf-objs	:= conf.o $(common-objs)
-+conf-objs-generated := $(common-objs-generated)
- 
- # nconf: Used for the nconfig target based on ncurses
- hostprogs-y	+= nconf
- nconf-objs	:= nconf.o nconf.gui.o $(common-objs)
-+nconf-objs-generated := $(common-objs-generated)
- 
- HOSTLDLIBS_nconf	= $(shell . $(obj)/nconf-cfg && echo $$libs)
- HOSTCFLAGS_nconf.o	= $(shell . $(obj)/nconf-cfg && echo $$cflags)
-@@ -172,6 +175,7 @@ hostprogs-y	+= mconf
- lxdialog	:= $(addprefix lxdialog/, \
- 		     checklist.o inputbox.o menubox.o textbox.o util.o yesno.o)
- mconf-objs	:= mconf.o $(lxdialog) $(common-objs)
-+mconf-objs-generated	:= $(common-objs-generated)
- 
- HOSTLDLIBS_mconf = $(shell . $(obj)/mconf-cfg && echo $$libs)
- $(foreach f, mconf.o $(lxdialog), \
-@@ -183,6 +187,7 @@ $(addprefix $(obj)/, mconf.o $(lxdialog)): $(obj)/mconf-cfg
- hostprogs-y	+= qconf
- qconf-cxxobjs	:= qconf.o
- qconf-objs	:= images.o $(common-objs)
-+qconf-objs-generated	:= $(common-objs-generated)
- 
- HOSTLDLIBS_qconf	= $(shell . $(obj)/qconf-cfg && echo $$libs)
- HOSTCXXFLAGS_qconf.o	= $(shell . $(obj)/qconf-cfg && echo $$cflags)
-@@ -192,12 +197,13 @@ $(obj)/qconf.o: $(obj)/qconf-cfg $(obj)/qconf.moc
- quiet_cmd_moc = MOC     $@
-       cmd_moc = $(shell . $(obj)/qconf-cfg && echo $$moc) -i $< -o $@
- 
--$(obj)/%.moc: $(src)/%.h $(obj)/qconf-cfg
-+$(obj)/%.moc: $(srctree)/$(src)/%.h $(obj)/qconf-cfg
- 	$(call cmd,moc)
- 
- # gconf: Used for the gconfig target based on GTK+
- hostprogs-y	+= gconf
- gconf-objs	:= gconf.o images.o $(common-objs)
-+gconf-objs-generated	:= $(common-objs-generated)
- 
- HOSTLDLIBS_gconf    = $(shell . $(obj)/gconf-cfg && echo $$libs)
- HOSTCFLAGS_gconf.o  = $(shell . $(obj)/gconf-cfg && echo $$cflags)
-@@ -207,7 +213,7 @@ $(obj)/gconf.o: $(obj)/gconf-cfg
- # check if necessary packages are available, and configure build flags
- filechk_conf_cfg = $(CONFIG_SHELL) $<
- 
--$(obj)/%conf-cfg: $(src)/%conf-cfg.sh FORCE
-+$(obj)/%conf-cfg: $(srctree)/$(src)/%conf-cfg.sh FORCE
- 	$(call filechk,conf_cfg)
- 
- clean-files += *conf-cfg
+ ENTRY(trampoline_start)
+ #include "trampoline.S"
 -- 
 Anthony PERARD
 
