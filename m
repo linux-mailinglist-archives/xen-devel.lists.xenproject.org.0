@@ -2,29 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6CE845D810
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 11:16:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.230820.399016 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3CD745D824
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 11:20:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.230826.399026 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqBn8-0000as-C3; Thu, 25 Nov 2021 10:15:46 +0000
+	id 1mqBqz-0001FK-SD; Thu, 25 Nov 2021 10:19:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 230820.399016; Thu, 25 Nov 2021 10:15:46 +0000
+Received: by outflank-mailman (output) from mailman id 230826.399026; Thu, 25 Nov 2021 10:19:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqBn8-0000Y2-8D; Thu, 25 Nov 2021 10:15:46 +0000
-Received: by outflank-mailman (input) for mailman id 230820;
- Thu, 25 Nov 2021 10:15:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1dIP=QM=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1mqBn6-0000Xu-F6
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 10:15:45 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a3dfcf9d-4dd8-11ec-9787-a32c541c8605;
- Thu, 25 Nov 2021 11:15:41 +0100 (CET)
+	id 1mqBqz-0001Cm-Or; Thu, 25 Nov 2021 10:19:45 +0000
+Received: by outflank-mailman (input) for mailman id 230826;
+ Thu, 25 Nov 2021 10:19:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=tSsM=QM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1mqBqy-0001Cg-8j
+ for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 10:19:44 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3445cd1a-4dd9-11ec-a9d2-d9f7a1cc8784;
+ Thu, 25 Nov 2021 11:19:42 +0100 (CET)
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01lp2056.outbound.protection.outlook.com [104.47.0.56]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-24-jg5YiZJIMI6wved2mEJb9A-2; Thu, 25 Nov 2021 11:19:40 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR0402MB3933.eurprd04.prod.outlook.com (2603:10a6:803:24::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.24; Thu, 25 Nov
+ 2021 10:19:36 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::8062:d7cb:ca45:1898]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::8062:d7cb:ca45:1898%3]) with mapi id 15.20.4713.027; Thu, 25 Nov 2021
+ 10:19:36 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AM6P194CA0094.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:8f::35) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4713.21 via Frontend Transport; Thu, 25 Nov 2021 10:19:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,259 +55,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a3dfcf9d-4dd8-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637835341;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=PeokghDe/5CMURbxAE1HEp7nxdNS643CxBIXgJ4axro=;
-  b=SpGBXkXnwjMZgFwVogygRsO2CmA4LDD5sgveA+w3mVJ3UK1n2THRfNZG
-   gWy0fTM/Iyf6Yo19+AUz/G6JTUt2JP5OSuJRmJ7RyrX297gDgpcC6Mp/s
-   RGNofWsD8V06hFRseumwnA+QI/9jO43/l4Z4o8onFVV1ggmMI6PXdCpDT
-   Y=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 7Gh0ZZqNqWn87HreQ9X7CS8oaTckiLM/YhwygK6nm6mWncNqkk0ksIyrTXzXA6jPRc+uCugwJU
- 2+5K1jvlcH85M65sgkdNy5HBdVRpwGyaU/dTx8djelMu3uLOE2iEi7pcEjhPT/lAnIPf6IP0K5
- PIbNY4IECufqksHZOtZ09smmWFhmuVOdft5aRCyIALMRAp06wU4GV4AQbBxwPQIYY5oBYTZ4CF
- rfl7OfPH4GhoKn/+cAjPOp7XlhAyR98lf5mafCoMIkNce2CAiD87462P+RGwaOjx5oPTz2n3N/
- INvrj6jl0R5pEskzppS86wWJ
-X-SBRS: 5.1
-X-MesageID: 58566233
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:Czk8UaBveOVj0BVW/87kw5YqxClBgxIJ4kV8jS/XYbTApGkm12RUy
- WAYXmyFOPaPamX2Lt1+YNu19h5Q7JDQyNJiQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WLGs1hxZH1c+EX540087wYbVv6Yz6TSHK1LV0
- T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
- Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/yBeOuop/9
- NR3uLOgUzwNFfHNnctFXEwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
- KFGbmBWBvyAr7veLLaTUO5ji95lNMD2FIgepmth3XfSCvNOrZXrHvWXu4ECh2xYasZmJdCAR
- fg/dRRVYhHpZQ0QNgcvOq5lg7L97pX4W2IB8w/EzUYt2EDS0w5ZwLXrKMDSeNGBWYNShEnwj
- nLL+SH1Dw8XMPSbyCGZ6TS8i+nXhyT5VYkOUrqi+ZZCglee22gSAx0+TkagrL+yjUvWc81bA
- 1wZ/Gwpt6dayaCwZoCjBVvi+ifC50NCHYoLewEn1O2T4un25CPDCFQFdDNueMYdkORqRDkFj
- lDcyrsFGgdTmLGSTHuc8JKdojWzJTUZIAc+WMMUcecWy4K9+d9u13ojWv4mSffo1YOtRVkc1
- hjT9HBm74j/m/LnwElSEbrvpzu37qbEQQcujuk8djL0t1gpDGJJimHB1LQ60RqiBNrGJrVil
- CJd8yR70AzpJcvQ/BFhuM1XQNmUCw+taVUwe2JHEZg77CiK8HW+Z41W6zwWDB43aZlbJm65M
- B6J51I5CHpv0JyCN/EfXm5MI55ykfiI+SrNCpg4keaikrAuLVTarUmClGab3nz3kVhErE3ME
- czzTCpYNl5DUf4P5GPvH481iOZ3rghjlTK7bc2qlHyPjOvBDEN5vJ9YaTNimMhit/jayOgUm
- v4CX/a3J+J3DLejP3KJqNFLdjjn7xETXPjLliCeTcbaSiJOE2A9Ef7Bh7Qnfo1uhaNOkenUu
- Hq6XydlJJDX3BUr8C2GNSJubq3BR5F6oS5pNCAgJw/wiXMifZyu/OEUcJ5uJesr8+lqzPhVS
- fgZeprfXqQTG2qfozlNP4PgqIFCdQiwgV7cNSSSfzViLYVrQBbE+4G4c1K3pjUOFCe+qeA3v
- 6akilHAWZMGSgk7VJTWZfujwkmfp38YnO4uDULELsMKIBfn8ZRwKjy3hfgyepleJRLGzzqc9
- gCXHRZH+rWd/95rqIHE3PnWoZ2oHu1yGlthM1PatbvmZzPH+meDwJNbVLradz7qS26pqr6pY
- v9Yzq+gPaRfzkpKqYd1D51i0bk6u4n0v7ZfwwlpQCfLYlCsBu8yK3WKx5AS5KhEx7sfsgqqQ
- EOfvNJdPOzRas/iFVcQIisjb/iCiq5IymWDs6xtLRWo/jJz8ZqGTV5WbkuFhyFqJbdoNJ8on
- LU6s8kM5g3j0hcnP75qVMyPG7hg+pDYb5gaiw==
-IronPort-HdrOrdr: A9a23:e7Nz3694lOCzdRNbvTtuk+FCdb1zdoMgy1knxilNoENuHfBwxv
- rDoB1E73LJYVYqOU3Jmbi7Sc69qFfnhORICO4qTMqftWjdyRCVxeRZg7cKrAeQeREWmtQtsJ
- uINpIOdOEYbmIK/PoSgjPIaurIqePvmMvD5Za8vgdQpENRGtldBm9Ce3im+yZNNW977PQCZf
- 6hDp0tnUveRZ1bVLXwOlA1G8z44/HbnpPvZhALQzYh9Qm1lDutrJr3CQKR0BsyWy5Ghe5Kyx
- mIryXJooGY992rwB7V0GHeq7xQhdva09NGQOiBkNIcJDnAghuhIK5hR7qBljYop/zH0idmrP
- D85zMbe+hj4XLYeW+45TPrxgnbyT4rr0TvzFeJ6EGT6PDRdXYfMY5slIhZehzW5w4Lp9dnyp
- 9G2Gqfqt5+EQ7AtD6V3amIazha0m6P5VYym+8aiHJSFaEEbqVKkIAZ9ERJVL8dASPB7pw9Gu
- UGNrCT2B9vSyLYU5nlhBgs/DT1NU5DWytuA3Jy9fB96gIm3EyQlCAjtYgidnRpzuNKd3AL3Z
- WCDk1SrsA9ciYhV9MLOA4we7rFNoXze2O4DIuzGyWuKEhVAQOHl3bIiI9FkN1CPqZ4iqcPpA
- ==
-X-IronPort-AV: E=Sophos;i="5.87,263,1631592000"; 
-   d="scan'208";a="58566233"
+X-Inumbo-ID: 3445cd1a-4dd9-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1637835582;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=jqsdztQilpudKGCZ0lO1rIe0NgvFa9EMCcZ/0W1o0wc=;
+	b=XcpdzwyncyEVRsRPl8PH7qmzjn3bFai6fmcYm+YH3g5IIeuucl+l/uhAXrve1XBQ1T599X
+	bVHb7tX/bQEylRNeYfnyO7+AznfwPrxVL6ybk+Ve1pQaoLNK3SrXsPuseMOPtIKEnOYMA5
+	r6fDiCwKlR9umfgOz5xnGSZszZ7e9ZA=
+X-MC-Unique: jg5YiZJIMI6wved2mEJb9A-2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WOuA13Jr4paky7+7fUA6yKvSfSKFM9MQrVot3vU8XMSaCsr2r/hbAOBnjdBvsmPbcHeQYQF63iXmjPQqlTLYpYFXsG2pMwVQa9i7fpW5CBvm0svy3g/xDeBihRi32n5TS1Fdl6yo7H5eVJGjGKlfanPrcW5y0SY1JtOkaAEhzG0mc3vQfAFxAFIrrG99fBJuwxKcHEt4V1UtKFsW5vWO84QKlqmeUCf6N2OhRvcMTu/DcVpeFu/QbkWJaefaHihG9TPWSH+50J7EVbzftjyZxg/xtcFdES6zztk/3mQJmxZWJLoJ9p3Hu0/4YCvFm+NRQdnNNrrVbGoEsfcGFtYsNg==
+ b=T5gv0WWGL6JmW00dmn0JYgLcH9T6xG2p69DUsCxMAeyFRM3FhemJ3GrQ55zdLmXpmmOM4f66nlgg9b0nakchBG5cel8GUSNsoH6U9nXWVG58MYoijXTOp20ozQuXaUljfRtWFWyLSVj2sFy6VdAPLuYu2LEDOfr2YTFR/eus1b1nFukuGeSjBaPZtNKTlHxCLihgc0pwJup7+CGhB6Loc5K5Kobg4uEQFSYkKjGk0hXBb0rscwpKX9Q509KiMJbfZ3oJH+Kk+4w8M3Vc/L534mY9dATo3TTFMb9uXtWg8pg1EC70ZIek7/BYpIfk8VtaIysltKj30Hyk+i8hxxk9IA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LNpL+w2RpxEXzvDwYtJ7L7SGl0DONk0ZKpymlGx9Wns=;
- b=i6Qxy9jG6djJSu+G+dI/cu/9OHP54Cm0bCq6CUo7VaqX2CWxGjQCkhMzXXKdqSxpVyQE+mPBEbT8isVVzagQ2nSursIzPh99ogDLUEfxm7Iw1ezu7g0jBAy14bSuiwIJzhzDAiLvVvDW00QSZwuRB6E2OVZpXrtjbcrmLcXF/q/6XSmhn7019rkvZxwToUhVJtU38spcMkbkQv5yaiMEEkLH4xsm7+umogrSXOrtKBwKXLmgMLKzyhAAGvGYMzQSIEEyQ9TAdecD0b5ZcVEvhjb0D/kxLupKYE511AkRalxFNA/A4XsZnKAcMGgrr1TfdLMTsEVVHAiT5cJhbQWrfA==
+ bh=jqsdztQilpudKGCZ0lO1rIe0NgvFa9EMCcZ/0W1o0wc=;
+ b=mPYYNgFUhglOtoAj5NkiE1IGWXigzR7uvLVFm4zOphuPzaMu+IHvrXmwFFh4nH39By6fJXQsvfj7ZZ9fa+/THJoUd/gWOALJGSceD3TP9jO0zq9vr+6DOZVRT+Lu/a/ElXVLrhEGFVOFAxgUUq4rrWDRmsSF4rYh2z3Y2dAGTClmgeIjYG0ktnUmTFubk4meObf+So6f0pH/xrnntmGMwCnVTPzapg2T6E2vp4vaLQP/3CtZ/MhTxr//u604LZKoO3xD7RPnu/+DOh2SHLfau8/idOvRAd9VyEnbgNUTDCcvrsOpvXjGdTZAGy8xLUlOBtp2Jz6e+hSjPsjYp7x0oA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LNpL+w2RpxEXzvDwYtJ7L7SGl0DONk0ZKpymlGx9Wns=;
- b=kqknSd5+3DQ+Ze6NEMHdf3dI95yO0WHve2j2ep7qiloQGiXwVebsCHFlX4+Qu46ovlIUgi6vo2Z4Lm1mKy4DA+q5BMN/GqosAHlbV8meqvP3ixSRre9aLfTXjIKcbvnoLUaEJUMvuVVF0YahjNZyg6674xUs9UGrTydV2KpQZVg=
-Date: Thu, 25 Nov 2021 11:15:30 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Ian
- Jackson <iwj@xenproject.org>, Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH for-4.16] Revert "x86/CPUID: shrink max_{,sub}leaf fields
- according to actual leaf contents"
-Message-ID: <YZ9iQg4Hoo5Y6kyv@Air-de-Roger>
-References: <20211124211152.1142-1-andrew.cooper3@citrix.com>
- <cbe791cc-848f-8511-6974-2c9e300ea66b@suse.com>
- <YZ9WSfy3pYp8uzqI@Air-de-Roger>
- <614efba0-a3fb-7ddf-1fe9-d4fe2feb21f2@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <614efba0-a3fb-7ddf-1fe9-d4fe2feb21f2@suse.com>
-X-ClientProxiedBy: MRXP264CA0032.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:14::20) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <8512f6a7-0b79-8fff-49fb-80c3d8a7a436@suse.com>
+Date: Thu, 25 Nov 2021 11:19:34 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Subject: Re: [PATCH RFC 3/4] xen: add new stable control hypercall
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>
+Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20210914123600.1626-1-jgross@suse.com>
+ <20210914123600.1626-4-jgross@suse.com>
+ <b1599a82-052f-9369-3774-69c5c570370c@suse.com>
+ <5ea7400b-448b-039b-6d95-2552c9ae7cd4@suse.com>
+ <e64c22c7-992b-9fdf-a276-263e9173a313@suse.com>
+ <fffb492e-f570-069b-7355-c00f48215dad@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <fffb492e-f570-069b-7355-c00f48215dad@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM6P194CA0094.EURP194.PROD.OUTLOOK.COM
+ (2603:10a6:209:8f::35) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: edde0f13-c2a8-424e-13d8-08d9affc8629
-X-MS-TrafficTypeDiagnostic: DM6PR03MB3578:
-X-Microsoft-Antispam-PRVS: <DM6PR03MB3578E45E1AFD62CDA81A69AC8F629@DM6PR03MB3578.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Office365-Filtering-Correlation-Id: 15dba0ec-bfd0-42e6-7368-08d9affd14e3
+X-MS-TrafficTypeDiagnostic: VI1PR0402MB3933:
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-Microsoft-Antispam-PRVS:
+	<VI1PR0402MB39337BF1548A740CF2FE816DB3629@VI1PR0402MB3933.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UwisHRkN9me5bqiL3BF2+1ZgpT2SqfyVfts/knxrV09I0jE7Opj6OhyVsmrZcXJ+6FkzWjqLYzQh17YcOqWB48zaHLJ1IdG82NmFPR4ndhZquYYQbCoiTVYGN/6E4K6axgaXD3WlYi9DUPpy5sYSiuELE1w42YowBfyhinBiVd/tMPGaDquyd9yhXT4sg9TBf9KGssaDaRQB2NiKivz3DLyMYjcEQg85a2dlB9vz3Z3tH70P3ZaSjkbcefBoEET1CD7DzCW1PSvEUXwP4+CEU3mwQMSSsxdtgJ3L1OKgyypCSH4MggUKUmk0xYLvSJS16F4F/TpAxX98YTz8FBPKWl3jg/xSMBvk78EH+w14WCA9RHA2xyrSHDizJzH9drCs3vKiu/A5Qw4LfLLaIlGMEqL4MPqVod7TerQy9viBZa9HF/j2nU/fVhS/InhKB566quZiY4QBdZ77rskcqBU20utHRa+6TVvcSTshJuOeA9EjWmBIJcoWVKJXq35PRvP1TYQftXW5OkWiuG3Wdl7tr70ldlxJXbigNnK41Z+p5vL4ha/vxXJ3KwSqoeMqaXrTtayUYUqU7rx97i/NMDFQqMNZAxmIlUci/oXhoV3MSKtdMBDtZt/skQC0e4L8ADbjS9ebNK5u11vwf5YKsTQO7YwxoPnMG94a2Rd+tl6R3WOFkVD/YHjqpPnwHTOJVmZmKgbGbfBdirfNYdzPj4AOzzTYxpeVAR5bAKDro5JVMqk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(83380400001)(86362001)(33716001)(508600001)(54906003)(316002)(8676002)(9686003)(966005)(66556008)(66476007)(66946007)(5660300002)(8936002)(6666004)(85182001)(82960400001)(956004)(6496006)(186003)(4326008)(26005)(2906002)(38100700002)(6916009)(6486002)(53546011);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info:
+	M5rY91JGRMjqRcZNGibsHpPFnFR6NuyuL0z8fQ81iHpkyS8qwa2/ZbFKEy9ZPywMJ5SHYDkvp+Rh8fRA4Xi6RqtaaSLzDG2NypvnNfzk6wmZ5us8/BvoVwk9auThTWvbauTkgmA0MQZ6kHOp1pUune6qLe8bNSOGolwwRUrFzUucFWNtNuECCTxvTIil1hS5hScRAAMLtA4NitU6UeS9t1fk5BiQaRXoK8nj+xO88Cyey9g0ehtXLJQqNp14w+/IxNRIXPmGdP03ksmKZEOddRYManwhYxo31mKoc6WXDiTBILbNScVrpBLPv33QXBgXKFDkSSB0P1gtu9T8OxrU+UGXuBJxwXaYXuu+aoQrnl9A3gVy+wslkM/IaJQkF5UZtqjXpW/u+y+zmulUa6qBYVwLuXoviQfR7xZREgj7CiKcZKhyrs12Er4ZIrettc7GuwSgvVSZYBAERUopFDzQIAyFlYh7QW6YLkFRdV1rWpgInrSJ4/4Zqy8+a6wgs4jHczPMhTHiVX07w7twx3avnjPnsmSVZpuE1Jg63+eblla7JNuiSqilkJAZIX1NJigHzpAI2R4QN1nxknrOLBdd19G1Ltwrb6bEBt+CEuYeQhWBLAd2Aqoh5FADrqBxXcIiWnEfUQMoJg/bR01hv3cMfc6ckf/jKz1nAN0ROuLejyve/+K5J4NO5IbdWgZJOjJJpWlGZmWAcMizJQRBvVNIu2OzDspJxgrEULrqx4Id1lk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2906002)(956004)(2616005)(26005)(316002)(36756003)(38100700002)(86362001)(31696002)(16576012)(186003)(83380400001)(53546011)(6636002)(37006003)(54906003)(4326008)(31686004)(66946007)(8676002)(6862004)(66476007)(8936002)(66556008)(7416002)(5660300002)(6486002)(508600001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qjc4cXg3WVd5VExnZDdwcytMTDRtSXEyVkJCamg3QjdVR0Y4R21DQVFmcW1P?=
- =?utf-8?B?UEp2SGZxeUN1S3JnN2R5aGVZZ3J6d05Wd1VEVld3SGp1aHhSUS9BdHVTV1Fl?=
- =?utf-8?B?SUhPcktFY2tEcUVSckRWZDhyN01FZEJRTGNSWXBYbElZZm8yeHp2bXNLeEFu?=
- =?utf-8?B?RlFGaXhBSFBkck5XSytpdi94b1Q4RGZxOTdjcTVrNDJBRGErY0REaVREMUNv?=
- =?utf-8?B?QmRkNUx2R2EwVUJsS2gxWkxDM2MwaHpHVkxDL2JaZTJqa0lnZEs3aUVnY1F5?=
- =?utf-8?B?M1I1TUFSVjBWQjhxQ2ZYU0o0VXBYWExDaFVwdkJNd3J4a3Y3Y0RBMitZMEo1?=
- =?utf-8?B?djkyd3I2WGRnOHoyb3FHM0g1Vk1QQlJwZ3JVOFNISXBpcVgzZmFJK05TazZ1?=
- =?utf-8?B?QUU4NDlIQy9lZCtmaW1zY0U1UzIrcVNQOW9HMW50OG80b3VlaFZaaDZiYVRx?=
- =?utf-8?B?RHdJVW1tN21Wc21tR0NMV05NeEFJMzdldHQxMGZZcDJ3VjlScXR1cTYrZG40?=
- =?utf-8?B?SWp4S3B1RmpUWXd0MndkTUtZMG1XOXFhblRUbVlwMEF5ZkhDMkxJSGxvTmF3?=
- =?utf-8?B?SHUzL2hJMzBDMkhBZjM0QlowQ0tUT3ZMQVE2ejZlWlQwK0p5Q2ZmSUN0alV0?=
- =?utf-8?B?d1NXR2thU2Zmbng3VWNkTHcrOE9WdDM3K3BKUStlSlVSSTlsSHd6cllyVmJq?=
- =?utf-8?B?OUhPQXJBV0dzcVpRTWRsemdzL1JLeVBXa3BRUWpBdnNOSG9CRER2dllMUnB6?=
- =?utf-8?B?VHFnT1dmbEh2N2NoS05lVWdFZWRRK3ZXbHlmOXROanBjMGFlSjhkMFZHeFBJ?=
- =?utf-8?B?cVFEZzM0Z2tnVjBFQXJ6V3FqZ0NJYldTTW4rWTVjWTlObjlIMTZuSnorYURV?=
- =?utf-8?B?WS9sYmhjc0ZOT0wvcExCM0p0RFcyQmxSZFlRRlAxL0EyZzZJTXNNME96Qmhr?=
- =?utf-8?B?YUdDZjhkWjVxRU11TVlLVWJvVjBaSXBBS05WTHVpZ25BVjQvT2ErQjhkZHRT?=
- =?utf-8?B?NVB0cGlOWTlOOHd5WXBON1Qvd0wzWlBGZVczdC9IZ1ZYNzJpY0JzZjI5dk50?=
- =?utf-8?B?UnUxanRLU1hOVnc1VkY3dWo4NUM5RDVoNTF4NGc1bW5BejEzcEJQWGZQRHBn?=
- =?utf-8?B?cG9FblBsajVEZHQvRFIzQU13UXk0SG9JaGMxWTJna2RuYU45M29WZ2oxQ0pO?=
- =?utf-8?B?Q2JwNmhOSC93SFl3MFJtZ2l5VVJCK2NXNU5FWkZRNVBHOXJEV2R0OEZkT1lJ?=
- =?utf-8?B?K2t3ajQwaWtMM0FxWjRsbjlLZXZNQklFYzJ2RXRXVnpZOG5ubEE0RFpwUm1L?=
- =?utf-8?B?U3g4bTZHT3RYRDZDU1V2MHY0U3BwQit0UTg1KzgyT1JiZDNweEpEZUljMVR2?=
- =?utf-8?B?MEwycndVaGtOQ2ltRUVZVVlKRnYyd0tBd1JxZjhQeFh6eG1iUVRVcVArcm4z?=
- =?utf-8?B?ZzduN1NnVEtGbVpnS1ZjRndNbEpyc0d4cnI4WEV2czR4djJ3UWlkZUdGNjhH?=
- =?utf-8?B?cnZEN2FwZk5iQks3WnMrbGFPVjNmSUNtRCtCVlZIM3ByNmVJOGhWeGhlRjFX?=
- =?utf-8?B?aUw3RFpDZHBkNFpBclkyc2MzWlpySVA0bmJGbk9vaU1kaDBsUzNXQyttajQ5?=
- =?utf-8?B?WjU2eGlNWHd3aVpxUW4xQ2l2c2tWYkZPc3FNejlCK0JzaElFYS8zWXl5ZGZP?=
- =?utf-8?B?WmJOcGZXN2dMOEVXSmJZVkVMYzBGS01ZajdCaTA4MjBYWS9KcFRTL2c1V2Er?=
- =?utf-8?B?RVQvSExIN3c5S1psZE8vR2F4ZFJRZUQxN3VGYjBuYjVPZmlKMUJuS01NMUdI?=
- =?utf-8?B?dEhUTUFsRzR3VmcyYzVIZ1hHS0RoWmdxQjYrdWwvM0ZzakNVZkNOaU94Ukxm?=
- =?utf-8?B?L3JVZ2p1YTM5UWFUcUUyUHhhZDVwK0ZjSGNIekVIN1pvR2k5TlVDZmRDMUpr?=
- =?utf-8?B?aXBQcTU3OERpUXdNWVlIbjZXYzBncDFGWThtQml3WjhvN3lYdDg2RTJVZDF4?=
- =?utf-8?B?eW4rK2QwK2lBeVlSQXNHUk54RjVYRFBBNndPOU5XTmlPb1owWFZoMFdFSk9u?=
- =?utf-8?B?UEJvNlp3VkVrc2hta2FkM3JNSVl4bGZrUHQ2QVlWKzJ0emV4bkdUb1lCdVh3?=
- =?utf-8?B?UWZONEtvNTFLd3c3eWJjVDdIa1J0d28vZFo2UVdjMUR2RUxnT3gxRm9yUk9t?=
- =?utf-8?Q?vDtk4MGKujhQBkIWd1lFEnM=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: edde0f13-c2a8-424e-13d8-08d9affc8629
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RWs4aGNIYUdlaU9HVkdiMlFWbFNTV05iMURKZkxqdDE4WFVqbkp5WlY2RVZy?=
+ =?utf-8?B?emVqajRHVDFwSXRZK1d1clVvaWhRcmpNKythdWU3MGJ3bVZKYUw5UmlUV1pi?=
+ =?utf-8?B?QnVtQWYzQ0xBVE9iTFFjY1BMTmNsTkl0TDRiV0NMSjVwZjRyZDNiZzhuM00v?=
+ =?utf-8?B?djZ3YzBZZDF1QzhMdW5ocEt3VFZMRDVGcVN0WS9QVWFocElXcVpFeDh0YnZX?=
+ =?utf-8?B?a2pyRU4xS1hEdnZicDlmaDIyU2ZzZjVCUnJQamdXSnViVHYxWE5zNkVzUE5I?=
+ =?utf-8?B?RUJLcFBxTWJXT1gyWnVqKzZKZGFZUDRkRGtxU0gzQk1MMlpXVERjeHRlM3Jz?=
+ =?utf-8?B?Mm5kNzRSOXdWcHBPdkNoTmsvOVdhdE1RWDJmRjZBMlB1emsyQ05Yc2RBa245?=
+ =?utf-8?B?WGZjWW1raE5LeUUweHVjWkJySXB4V21KRVdlZUtDOStlWlhXNytQTWJudGtV?=
+ =?utf-8?B?QU1Nc0xoWUR4VS9LVmpSM0JoVUVmT09rRzk2T2NsZFVJYWV5TXZVUUtSRXBr?=
+ =?utf-8?B?cWlVME5MMWtwTUZnTTZFOUxGSGdUOW5KQmEvQ3JUaENZYUVjTjdScWQ1elIv?=
+ =?utf-8?B?ZXJjU2pWY1U0WlFkUVVmV05MdWRyU3dKbWhFc0tYT2FUT1R1SzFpR3dMN1JY?=
+ =?utf-8?B?NE1JUktGS2doNmhuSTFCWnJqV0NmTHdtZFRGOUlacC93RllwcEV3RnI4UG8v?=
+ =?utf-8?B?TC8vc3B0d25WVU8rZ21CM1J4K1ZoVHY2Uy9PdlZwYlh0bjA4RW5pbkZsVEFN?=
+ =?utf-8?B?OGEraC9mQzlIc2tuNUQ1ZWwvYzBHVEV2VkxsTkNMMnVOM2xjL2pNa09rSVFM?=
+ =?utf-8?B?VmZ2YTVWYXBWb3BlcGkxQzJQdFRnZkZLOWs5ODhhK1gxdDVxRS82VFl6V28y?=
+ =?utf-8?B?ODRLZkcrZTdOS3NPTnI2NGFxNHAvYndWS2V0b3RYa3dpQnlaeDNycndjUVBl?=
+ =?utf-8?B?U0R6Ti9GRTVRb2JhUWR2K09ZME1Ec094WkhxNDNrVUh4UVkxY3A0QzFQV3dv?=
+ =?utf-8?B?VWxvZkQ5OGJ4c0FBKzJ4cVdNTnNXTHBrYVliQjAwU3Y5b3BwZVFGYzNmMWRT?=
+ =?utf-8?B?WFJQZXZPL0lqcG8rYy9LTktGazZWemFqSGFiUCt6a1ZSbCtSbUpCYjlHUnJK?=
+ =?utf-8?B?S2o3N0dGSnAyVWNHclNLQ29ubERmcHlPVVQ2Ni9FY0xzU3BTTDR4aTZGaEVz?=
+ =?utf-8?B?TEtYazVSR1BBSXlJc2V3cmhsVTNDemJTa0l3L1U1OE83dnpobXhzUXE2dFBB?=
+ =?utf-8?B?aGVpVzI4aG1abld1RWNSbEdWdjZ1eFVxSll0SWFEK2Q5SVpNdkNKekhzdCts?=
+ =?utf-8?B?WkFQTlByMTJpWmFOOCt3aS9FRGprcENGTDk1QjZ2V2VVOElPNjdZV0V6S28x?=
+ =?utf-8?B?dUhXQ1g4Zm11Qzl1dVk5Tjk5Mk15K1c0N2VKUjFqWmViZExweWg4Y2oxUjJq?=
+ =?utf-8?B?UjgweEpnMjNwOWZpK1hnb1FFdklyeG9uNVRsdlRzOUVseTZnS1BSc2tvb2Vo?=
+ =?utf-8?B?NGlFQk5nS3M5NlM5M25ER3NleFlkQmFVdmFEM1FUT1IxZHZobmljN2ZXMjc1?=
+ =?utf-8?B?WjZ4a0tKbytWWkJjaUZOYTlFT0k1Q1MydzR1ZXVVeDViVGFlaVcxMEJ4bFJQ?=
+ =?utf-8?B?Z3pRWjhTZEVzOUJPSUc4N3FNQUhES3prN3VRNTFCckhlRTdBL21yMzEzWm80?=
+ =?utf-8?B?M3ZhS1BJSXUxcTRLQVozeUVFb2Iwa1VUa3huZlBOZXMzTmppVVBJZU9nc2Vh?=
+ =?utf-8?B?Y1Y1QjdaU0hRRFNtV2E2bWZBNUZDQXp4SnhzQ3lmSVhOYk9pbVJRWEUrSHVQ?=
+ =?utf-8?B?MEwzQ2R4T2NMTmV3ZDIvZWYrRVhpc0pQdnNtQVNNMmRiUlVXbndRUlZqMGRr?=
+ =?utf-8?B?NmNPbDJPVDZ0ZVZCQkxhdTNFYXFlYzc2cEVjMTJGTTZaR1dGTjBmdVVqUTgy?=
+ =?utf-8?B?c2hnUVQraVErNjk5N1VZcnlJVU04UUJHYWovK0k4ZWgwbXVVVEZ6RGdDcUh6?=
+ =?utf-8?B?cjdqTTJUVDhVZDFOblpldit5RFRhVkRHUWNvcmd3WEFLbldXQnp5YTJ0eXVj?=
+ =?utf-8?B?YkJFMEVNNjVsM2FUT1FsTDlzTU9qdlhFbURVdTlOWGFIblY4bmFXL01HeEZB?=
+ =?utf-8?B?K1JUTGdpenlnc0VLbGVPK3VocmlLMkl1T010c09aUWxsejgvMFJCNGpmWVJu?=
+ =?utf-8?Q?7wAHh4cLhoZ/VRMVn31ian0=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15dba0ec-bfd0-42e6-7368-08d9affd14e3
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2021 10:15:36.8129
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2021 10:19:36.3152
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bXZV1SHol3KRj/eFAavfFDzrDod7sZzIwDgJwX0b/kovDNMMY0ll4y08QZ04O2m70n/dfFZGHIh/6QEyyEnUwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3578
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3NVTcrFjlVYC/c0KyUtudFAXKZQO2atypVHEfozF7o7X/ekiJn2C/fddUGedZKV0q20i+WX/okJAnjXd0Pc8IQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3933
 
-On Thu, Nov 25, 2021 at 10:52:12AM +0100, Jan Beulich wrote:
-> On 25.11.2021 10:24, Roger Pau Monné wrote:
-> > On Thu, Nov 25, 2021 at 09:57:31AM +0100, Jan Beulich wrote:
-> >> On 24.11.2021 22:11, Andrew Cooper wrote:
-> >>> OSSTest has identified a 3rd regression caused by this change.  Migration
-> >>> between Xen 4.15 and 4.16 on the nocera pair of machines (AMD Opteron 4133)
-> >>> fails with:
-> >>>
-> >>>   xc: error: Failed to set CPUID policy: leaf 00000000, subleaf ffffffff, msr ffffffff (22 = Invalid argument): Internal error
-> >>>   xc: error: Restore failed (22 = Invalid argument): Internal error
-> >>>
-> >>> which is a safety check to prevent resuming the guest when the CPUID data has
-> >>> been truncated.  The problem is caused by shrinking of the max policies, which
-> >>> is an ABI that needs handling compatibly between different versions of Xen.
-> >>
-> >> Would you mind pointing me to the flight which has hit this problem? I
-> >> don't think I've seen any respective failure. I also don't think I've
-> >> seen any respective discussion on irc, so I really wonder where all
-> >> this is coming from all of the sudden. It's not like the change in
-> >> question would have gone in just yesterday.
-> > 
-> > It's from a pair of newish boxes that Credativ and Ian where
-> > attempting to commission yesterday. Since the boxes are not yet in
-> > production Ian wasn't sure if the issue could be on the testing or
-> > hardware side, so emailed the details in private for us to provide
-> > some feedback on the issue. The error is at:
-> > 
-> > http://logs.test-lab.xenproject.org/osstest/logs/166296/test-amd64-amd64-migrupgrade/info.html
+On 25.11.2021 11:12, Juergen Gross wrote:
+> On 25.11.21 10:38, Jan Beulich wrote:
+>> On 25.11.2021 07:55, Juergen Gross wrote:
+>>> On 22.11.21 16:39, Jan Beulich wrote:
+>>>> On 14.09.2021 14:35, Juergen Gross wrote:
+>>>>> @@ -103,6 +104,43 @@ void domain_reset_states(void)
+>>>>>        rcu_read_unlock(&domlist_read_lock);
+>>>>>    }
+>>>>>    
+>>>>> +int domain_get_dom_state_changed(struct xen_control_changed_domain *info)
+>>>>> +{
+>>>>> +    unsigned int dom;
+>>>>> +    struct domain *d;
+>>>>> +
+>>>>> +    while ( (dom = find_first_bit(dom_state_changed, DOMID_MASK + 1)) <
+>>>>> +            DOMID_FIRST_RESERVED )
+>>>>
+>>>> As per my comment on the earlier patch - the use of DOMID_MASK + 1 vs
+>>>> is quite puzzling here.
+>>>
+>>> Okay, will change that.
+>>>
+>>>>
+>>>>> +    {
+>>>>> +        d = rcu_lock_domain_by_id(dom);
+>>>>> +
+>>>>> +        if ( test_and_clear_bit(dom, dom_state_changed) )
+>>>>> +        {
+>>>>> +            info->domid = dom;
+>>>>> +            if ( d )
+>>>>> +            {
+>>>>> +                info->state = XEN_CONTROL_CHANGEDDOM_STATE_EXIST;
+>>>>> +                if ( d->is_shut_down )
+>>>>> +                    info->state |= XEN_CONTROL_CHANGEDDOM_STATE_SHUTDOWN;
+>>>>> +                if ( d->is_dying == DOMDYING_dead )
+>>>>> +                    info->state |= XEN_CONTROL_CHANGEDDOM_STATE_DYING;
+>>>>> +                info->unique_id = d->unique_id;
+>>>>> +
+>>>>> +                rcu_unlock_domain(d);
+>>>>> +            }
+>>>>> +
+>>>>> +            return 0;
+>>>>
+>>>> With rapid creation of short lived domains, will the caller ever get to
+>>>> see information on higher numbered domains (if, say, it gets "suitably"
+>>>> preempted within its own environment)? IOW shouldn't there be a way for
+>>>> the caller to specify a domid to start from?
+>>>
+>>> I'd rather have a local variable for the last reported domid and start
+>>> from that.
+>>
+>> Well, it probably doesn't matter much to have yet one more aspect making
+>> this a single-consumer-only interface.
 > 
-> I see. Quite lucky timing then.
-
-Indeed, it was pure luck that we got this just yesterday.
-
+> For making it an interface consumable by multiple users you'd need to
+> have a per-consumer data set, which would include the bitmap of changed
+> domains and could include the domid last tested.
 > 
-> >>> Furthermore, shrinking of the default policies also breaks things in some
-> >>> cases, because certain cpuid= settings in a VM config file which used to have
-> >>> an effect will now be silently discarded.
-> >>
-> >> I'm afraid I don't see what you're talking about here. Could you give
-> >> an example? Is this about features the flags of which live in the
-> >> higher leaves, which would have got stripped from the default policies?
-> >> Which would mean the stripping really should happen on the max policies
-> >> only (where it may not have much of an effect).
-> > 
-> > I think there are two separate issues, which I tried to clarify in my
-> > reply to this same patch.
-> > 
-> > Options set using cpuid= with xl could now be rejected when in
-> > previous versions they were accepted just fine. That's because the
-> > shrinking to the policies can now cause find_leaf calls in
-> > xc_cpuid_xend_policy to fail, and thus the whole operation would
-> > fail.
+> As one consumer is Xenstore, and Xenstore can run either in a dedicated
+> domain or in dom0, I believe a multiple user capable interface would
+> even need to support multiple users in the same domain, which would be
+> even more complicated. So I continue to be rather hesitant to add this
+> additional complexity with only some vague idea of "might come handy in
+> the future".
 > 
-> Okay, this could be addressed by merely dropping the calls from
-> calculate_{pv,hvm}_def_policy(). Thinking about it, I can surely
-> agree they shouldn't have been put there in the first place.
-> Which would be quite the opposite of your initial proposal, where
-> you did drop them from calculate_{pv,hvm}_max_policy(). A guest
-> migrating in with a larger max leaf value should merely have that
-> max leaf value retained, but that ought to be possible without
-> dropping the shrinking from calculate_{pv,hvm}_max_policy().
-
-I won't argue it's not possible to do that without dropping the shrink
-from calculate_{pv,hvm}_max_policy(), but given the point we are on
-the release we should consider the safest option, and IMO that's the
-revert of the shrinking from there in order to restore the previous
-behavior and have working migrations from 4.15 -> 4.16.
-
-We can discuss other likely better approaches to solve this issue
-after the release.
-
-> Even
-> leaving aside migration, I guess an explicit request for a large
-> max leaf value should be honored; those possibly many trailing
-> leaves then would simply all be blank.
+>>
+>>>>> +/*
+>>>>> + * XEN_CONTROL_OP_get_state_changed_domain
+>>>>> + *
+>>>>> + * Get information about a domain having changed state and reset the state
+>>>>> + * change indicator for that domain. This function is usable only by a domain
+>>>>> + * having registered the VIRQ_DOM_EXC event (normally Xenstore).
+>>>>> + *
+>>>>> + * arg: XEN_GUEST_HANDLE(struct xen_control_changed_domain)
+>>>>> + *
+>>>>> + * Possible return values:
+>>>>> + * 0: success
+>>>>> + * <0 : negative Xen errno value
+>>>>> + */
+>>>>> +#define XEN_CONTROL_OP_get_state_changed_domain     1
+>>>>> +struct xen_control_changed_domain {
+>>>>> +    domid_t domid;
+>>>>> +    uint16_t state;
+>>>>> +#define XEN_CONTROL_CHANGEDDOM_STATE_EXIST     0x0001  /* Domain is existing. */
+>>>>> +#define XEN_CONTROL_CHANGEDDOM_STATE_SHUTDOWN  0x0002  /* Shutdown finished. */
+>>>>> +#define XEN_CONTROL_CHANGEDDOM_STATE_DYING     0x0004  /* Domain dying. */
+>>>>> +    uint32_t pad1;           /* Returned as 0. */
+>>>>> +    uint64_t unique_id;      /* Unique domain identifier. */
+>>>>> +    uint64_t pad2[6];        /* Returned as 0. */
+>>>>
+>>>> I think the padding fields have to be zero on input, not just on return.
+>>>
+>>> I don't see why this would be needed, as this structure is only ever
+>>> copied to the caller, so "on input" just doesn't apply here.
+>>>
+>>>> Unless you mean to mandate them to be OUT only now and forever. I also
+>>>
+>>> The whole struct is OUT only.
+>>
+>> Right now, yes. I wouldn't exclude "pad1" to become a flags field,
+>> controlling some future behavioral aspect of the operation.
 > 
-> > There's another likely error that only affects callers of
-> > xc_cpuid_apply_policy that pass a featureset (so not the upstream
-> > toolstack), where some leaves of the featureset could now be ignored
-> > by the guest if the max leaves value doesn't cover them anymore. Note
-> > this was already an issue even before 540d911c2813, as applying the
-> > featureset doesn't check that the set feature leaves are below the max
-> > leaf.
+> Right now I don't see the need for that, see my reasoning above.
+
+If your reference is to the single consumer aspect, then I don't see
+why that would matter here. Future xenstore may want/need to make
+use of such a future flag, yet older xenstore still wouldn't know
+about it.
+
+>>>> wonder how the trailing padding plays up with the version sub-op: Do we
+>>>> really need such double precaution?
+>>>
+>>> I can remove it.
+>>>
+>>>> Also - should we use uint64_aligned_t here?
+>>>
+>>> Yes.
+>>
+>> But you realize this isn't straightforward, for the type not being
+>> available in plain C89 (nor C99)? That's why it's presently used in
+>> tools-only interfaces only, and the respective header are excluded
+>> from the "is ANSI compatible" checking (memory.h and hvm/dm_op.h
+>> have special but imo crude "precautions").
 > 
-> If this was an issue before the commit to be reverted, I take it
-> the revert isn't going to help it?
+> No, I didn't realize that. I just looked how it is used today and
+> agreed I should follow current usage.
+> 
+> But even with using a stable interface I'm not sure we need to make it
+> strictly ANSI compatible, as usage of this interface will still be
+> restricted to tools.
 
-I think the commit makes it more likely to hit the above scenario by
-shrinking max leaves.
+True. Problem is that our present __XEN_TOOLS__ guards have effectively
+dual meaning - "tools only" and "unstable". We merely need to be sure
+everyone understands that this is changing. Perhaps when you add such a
+guard here, it may want accompanying by a respective comment.
 
-> In which case this information
-> is interesting, but not applicable as justification for the
-> revert?
+Jan
 
-As said above, while the commit at hand is not introducing the issue
-with the featuresets, it makes it more likely by shrinking the max
-leaves, and IMO it's a regression from behavior in 4.15.
-
-Ie: options set on the featureset on 4.15 would be exposed, while the
-same options could be hidden in 4.16 because of the shrinking to the
-default domain policies, if the user happens to set an option that's
-on an empty trailing featureset with a tail of zeroed leaves.
-
-Thanks, Roger.
 
