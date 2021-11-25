@@ -2,34 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF6D745D8A8
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 12:03:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.230872.399112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 822C045D8B4
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 12:03:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.230885.399227 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqCWn-0001NC-8H; Thu, 25 Nov 2021 11:02:57 +0000
+	id 1mqCX3-0004kq-7D; Thu, 25 Nov 2021 11:03:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 230872.399112; Thu, 25 Nov 2021 11:02:57 +0000
+Received: by outflank-mailman (output) from mailman id 230885.399227; Thu, 25 Nov 2021 11:03:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqCWn-0001L6-52; Thu, 25 Nov 2021 11:02:57 +0000
-Received: by outflank-mailman (input) for mailman id 230872;
- Thu, 25 Nov 2021 11:02:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mqCWl-0001K3-Md
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 11:02:55 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mqCWl-0000Mj-Ku
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 11:02:55 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <iwj@xenproject.org>) id 1mqCWl-0002dY-Jv
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 11:02:55 +0000
-Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
- (envelope-from <iwj@xenproject.org>)
- id 1mqCWd-0006cC-Rt; Thu, 25 Nov 2021 11:02:47 +0000
+	id 1mqCX2-0004Z0-G1; Thu, 25 Nov 2021 11:03:12 +0000
+Received: by outflank-mailman (input) for mailman id 230885;
+ Thu, 25 Nov 2021 11:03:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=68NU=QM=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
+ id 1mqCWy-0001K8-TG
+ for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 11:03:09 +0000
+Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
+ [2a00:1450:4864:20::22e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4587c4b2-4ddf-11ec-a9d2-d9f7a1cc8784;
+ Thu, 25 Nov 2021 12:03:08 +0100 (CET)
+Received: by mail-lj1-x22e.google.com with SMTP id z8so11729537ljz.9
+ for <xen-devel@lists.xenproject.org>; Thu, 25 Nov 2021 03:03:08 -0800 (PST)
+Received: from a2klaptop.epam.com (host-176-36-245-220.b024.la.net.ua.
+ [176.36.245.220])
+ by smtp.gmail.com with ESMTPSA id bt10sm235165lfb.193.2021.11.25.03.03.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 25 Nov 2021 03:03:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,46 +44,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
-	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
-	bh=MCfLxs2p6BLrEwGsXYHapn5lnCa1eeTWUE0I8mid8O0=; b=qsJbFtEkoJJH1WmQiczR716dxe
-	nA99+Gvqbvyo/qC8V6QdDkgoNmHSBsbloVSc4BeDxjKKq359Rkj1dBF43hvaMMmaTr91giclt8jvD
-	eO2/Wtgg/b9Me+mWguj4O4BpTi3OhYr+aBpJwmyzPUGSktXiTOBDyJCoFmNSF7MxRsfo=;
-From: Ian Jackson <iwj@xenproject.org>
+X-Inumbo-ID: 4587c4b2-4ddf-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=v/1hCqpbICaVhImJYbNH1Pzo/XjLvxlkPWIsYcGJ7iE=;
+        b=dsQ7fIdBbFEQQs2Kb7aJIZHQf8yS7jdmZpbsZmPLPp+D7gCSFnBnthiYhk1usVP3iJ
+         E+V2JEJKVrOee7Q3nN7Yw/eX/axIZ+2aiUWwRx1VTZVi31YlDTtSMTNVqa+n9DdRtG/I
+         swcHYM1ITfFItZHRJToOjmUTej2VquSRTl5ERXDfaum/IKjKfEXkrEnZWgjDaH8L4VDf
+         BoQ3eUxD2XyEFuasUzNVu6cVgKl5TeNElm1vSaRCJxR/8oUt96kKvjy0HURaDw7v7lym
+         RIVLa2CnK5NnCk7WJzHYT52/tdH+fy9TZy1r5MPMrcCay4qaA76sW3vlG21bIKq2iOx/
+         5ZhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=v/1hCqpbICaVhImJYbNH1Pzo/XjLvxlkPWIsYcGJ7iE=;
+        b=RjRI40w77MzBmTWENzUrTOxAFQgOfr9lIDS6xf1nEi1sM0CGyrYlpIUp+Fk1RYQ3Ml
+         vYOYebtqf+7oZvsJa0ew1IM3kGcJJ7jX0doz2TwT9QFRMu2joVRqc4BEsyaLCdYZmfml
+         IBqbrln1mhb6HUqmc4z0SwKeVKThMxb1jJzm381w9+sdxNAx2c2p+bG0oyjNR+HaxWuu
+         BCCEgqRB/qiUvYH2QaRsKtXw38nYOt/OKfPoEkO7ZkWeEERfBL/PUBv1udsM9Oy32+YR
+         2REFN6nYptPTaYQSbGzXIyHEZKM2MaAx+uNXUj3CzpZ4m/olEp5UWv38SV4521K9KWwj
+         qY8w==
+X-Gm-Message-State: AOAM531J47EHe7PVPnoGkAFndrW+OsEfAZJVy/J/slwmXfXkU9cgFQ2K
+	0CxftU4Ry0lVZ52C+oRK93KkXtFj8R6ekA==
+X-Google-Smtp-Source: ABdhPJzS3EW6c2oIc2r405IHk30Ssbig4XaZwvPXuufl47eVPHl5A6F8Pvxh9m5QoqHaFnustCOBYg==
+X-Received: by 2002:a05:651c:1035:: with SMTP id w21mr22964089ljm.278.1637838186915;
+        Thu, 25 Nov 2021 03:03:06 -0800 (PST)
+From: Oleksandr Andrushchenko <andr2000@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	sstabellini@kernel.org,
+	oleksandr_tyshchenko@epam.com,
+	volodymyr_babchuk@epam.com,
+	Artem_Mygaiev@epam.com,
+	roger.pau@citrix.com,
+	jbeulich@suse.com,
+	andrew.cooper3@citrix.com,
+	george.dunlap@citrix.com,
+	paul@xen.org,
+	bertrand.marquis@arm.com,
+	rahul.singh@arm.com,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Subject: [PATCH v5 10/14] vpci/header: reset the command register when adding devices
+Date: Thu, 25 Nov 2021 13:02:47 +0200
+Message-Id: <20211125110251.2877218-11-andr2000@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20211125110251.2877218-1-andr2000@gmail.com>
+References: <20211125110251.2877218-1-andr2000@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Message-ID: <24991.27991.43570.905419@mariner.uk.xensource.com>
-Date: Thu, 25 Nov 2021 11:02:47 +0000
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-    Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
-    Wei Liu <wl@xen.org>,
-    Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH for-4.16] Revert "x86/CPUID: shrink max_{,sub}leaf fields
- according to actual leaf contents"
-In-Reply-To: <00c77026-1b65-c73a-b786-0e0b9d22e994@suse.com>
-References: <20211124211152.1142-1-andrew.cooper3@citrix.com>
-	<00c77026-1b65-c73a-b786-0e0b9d22e994@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Content-Transfer-Encoding: 8bit
 
-Jan Beulich writes ("Re: [PATCH for-4.16] Revert "x86/CPUID: shrink max_{,sub}leaf fields according to actual leaf contents""):
-> While not strictly needed with Roger having given his already,
-> Acked-by: Jan Beulich <jbeulich@suse.com>
-> to signal my (basic) agreement with the course of action taken.
-> Nevertheless I fear this is going to become yet one more case where
-> future action is promised, but things then die out.
-> 
-> Ian - I guess all this now needs is your R-a.
+From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Thanks everyone.  Yes.
+Reset the command register when passing through a PCI device:
+it is possible that when passing through a PCI device its memory
+decoding bits in the command register are already set. Thus, a
+guest OS may not write to the command register to update memory
+decoding, so guest mappings (guest's view of the BARs) are
+left not updated.
 
-For the record,
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+---
+Since v1:
+ - do not write 0 to the command register, but respect host settings.
+---
+ xen/drivers/vpci/header.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+index 2e44055946b0..41dda3c43d56 100644
+--- a/xen/drivers/vpci/header.c
++++ b/xen/drivers/vpci/header.c
+@@ -491,8 +491,7 @@ static void cmd_write(const struct pci_dev *pdev, unsigned int reg,
+         pci_conf_write16(pdev->sbdf, reg, cmd);
+ }
+ 
+-static void guest_cmd_write(const struct pci_dev *pdev, unsigned int reg,
+-                            uint32_t cmd, void *data)
++static uint32_t emulate_cmd_reg(const struct pci_dev *pdev, uint32_t cmd)
+ {
+     /* TODO: Add proper emulation for all bits of the command register. */
+ 
+@@ -504,7 +503,13 @@ static void guest_cmd_write(const struct pci_dev *pdev, unsigned int reg,
+     }
+ #endif
+ 
+-    cmd_write(pdev, reg, cmd, data);
++    return cmd;
++}
++
++static void guest_cmd_write(const struct pci_dev *pdev, unsigned int reg,
++                            uint32_t cmd, void *data)
++{
++    cmd_write(pdev, reg, emulate_cmd_reg(pdev, cmd), data);
+ }
+ 
+ static void bar_write(const struct pci_dev *pdev, unsigned int reg,
+@@ -678,6 +683,10 @@ static int init_bars(struct pci_dev *pdev)
+         return -EOPNOTSUPP;
+     }
+ 
++    /* Reset the command register for the guest. */
++    if ( !is_hwdom )
++        pci_conf_write16(pdev->sbdf, PCI_COMMAND, emulate_cmd_reg(pdev, 0));
++
+     /* Setup a handler for the command register. */
+     rc = vpci_add_register(pdev->vpci, vpci_hw_read16,
+                            is_hwdom ? cmd_write : guest_cmd_write,
+-- 
+2.25.1
 
-I will commit it myself now.
-
-Ian.
 
