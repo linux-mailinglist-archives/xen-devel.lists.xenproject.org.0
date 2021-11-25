@@ -2,36 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1554D45D9F4
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 13:22:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.231018.399398 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2FE645DA2F
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 13:37:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.231073.399556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqDky-00057S-KH; Thu, 25 Nov 2021 12:21:40 +0000
+	id 1mqDzy-0007E4-V9; Thu, 25 Nov 2021 12:37:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 231018.399398; Thu, 25 Nov 2021 12:21:40 +0000
+Received: by outflank-mailman (output) from mailman id 231073.399556; Thu, 25 Nov 2021 12:37:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqDky-00054Q-Ga; Thu, 25 Nov 2021 12:21:40 +0000
-Received: by outflank-mailman (input) for mailman id 231018;
- Thu, 25 Nov 2021 12:21:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Lxap=QM=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1mqDkx-00054K-GW
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 12:21:39 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d173808-4dea-11ec-9787-a32c541c8605;
- Thu, 25 Nov 2021 13:21:38 +0100 (CET)
-Received: by mail-lf1-x12e.google.com with SMTP id y26so15813308lfa.11
- for <xen-devel@lists.xenproject.org>; Thu, 25 Nov 2021 04:21:38 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id x17sm222042lji.96.2021.11.25.04.21.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 25 Nov 2021 04:21:37 -0800 (PST)
+	id 1mqDzy-0007An-Ra; Thu, 25 Nov 2021 12:37:10 +0000
+Received: by outflank-mailman (input) for mailman id 231073;
+ Thu, 25 Nov 2021 12:37:09 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mqDzx-0007Ah-5S
+ for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 12:37:09 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mqDzx-00027d-4f
+ for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 12:37:09 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mqDzx-0000ib-3c
+ for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 12:37:09 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>)
+ id 1mqDzt-0006yu-RV; Thu, 25 Nov 2021 12:37:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,124 +41,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d173808-4dea-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=vKwW+VHe5OcMxed3R036glSM7CFNnysyFNmayki8jus=;
-        b=HmNbEV8gOFpo7zvwzGdiodhLx5aO0alsx+N0u4jE+PzgpviXCE34KVp+onkz+8jkrU
-         uO/5CPgXPir/GlBDsg47DNy1Ma6Vu2CxJZ5W2n/48nAcV8Fps9BzXhbzMblsQtEUNuKS
-         STL5otz6feV42aLr917H9BxgogTI7KN4zcqracOUhD6sFRp8+2AucwIe5ewEv9QXBThv
-         uYYPeemklzZTZqq1tNPWhKTpCYaGwBXsLvWUDD/a7W44DBFYfZN+LherWsQp9ko9eUuX
-         6IWaoxA1kwD6CQqGMF/5HUfljIUd5sh84yN7BWfp2K3p3diYl66SyKQtQfHGSnnEzWC9
-         1JLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=vKwW+VHe5OcMxed3R036glSM7CFNnysyFNmayki8jus=;
-        b=loU2ah6Dv9c2HdaikRiSZ77vcbKf9fYgFzJXzP8hOAZcA3hJxnrX0FKAm1QNioLbuU
-         osb9YT8fU7r/YXZaVV+AF5kug5oaxtXNsi/5/JvScNkYM+UGLV4TFYIyZ4yMCwNoEi+y
-         HctQY57bg2zTPXe4EIZk83xDxegwxRR5ScuI4+Ry75cNttxckFfhyXV4QIYJAGo3ftSH
-         xBRaCFTlqwf7Bzqyr78EYyJH4XshzntXDiw/zYRX/SgRY+42C6Ot5ddiPRF7plwa84ve
-         8Vd33MBp7N+3xmxtVdbqX8TWjtQIll4HEEIMF6GWRj4sJ2ZJW3V6ao0B+Tj0ia6VjL21
-         lXPQ==
-X-Gm-Message-State: AOAM530AV2namHzF8bTXURSVuhlx5jESadFOiVCakGn5FVwNRLnnvHNJ
-	nCi625dT06sXUw6obSAxkmluhi2/IfSIHA==
-X-Google-Smtp-Source: ABdhPJyjtb3X/8swejQdKOhc7frtnSzRSVwz0xBmcpEyK7dmM5Smu4K+sNVZW3KlH80bKOSjwvpNeg==
-X-Received: by 2002:a19:c3d5:: with SMTP id t204mr23073068lff.303.1637842898089;
-        Thu, 25 Nov 2021 04:21:38 -0800 (PST)
-Subject: Re: [PATCH V3 6/6] dt-bindings: xen: Clarify "reg" purpose
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Julien Grall <julien@xen.org>
-References: <1637787223-21129-1-git-send-email-olekstysh@gmail.com>
- <1637787223-21129-7-git-send-email-olekstysh@gmail.com>
- <alpine.DEB.2.22.394.2111241708170.1412361@ubuntu-linux-20-04-desktop>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <38cf1231-4a52-ea4a-cfc2-a73c09631031@gmail.com>
-Date: Thu, 25 Nov 2021 14:21:36 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:Cc:To:Date
+	:Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=WNRL2a8LWSx5TBAtQFZcHhZNdIxbP6PdAGE/+ONBtC4=; b=cSgI/YlfUuXe2Ckapnsv1cAnoC
+	JQlS+NtXOCRteUC+ovF6nttNo4OflwpTrzRbQ9UeDVq3e/7PCdCEUvY69wGAACsFfNBFF2Y/d2iqP
+	3u9W42eylPTPwiWk4A1AUymoM3OyOfJB6rmgI3ttm7y5U1wvd4ZYoja31ROY98ZRwyTY=;
+From: Ian Jackson <iwj@xenproject.org>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.22.394.2111241708170.1412361@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
-Content-Language: en-US
+Message-ID: <24991.33649.462352.914912@mariner.uk.xensource.com>
+Date: Thu, 25 Nov 2021 12:37:05 +0000
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org
+Subject: Re: [xen-4.15-testing test] 166311: regressions - FAIL
+In-Reply-To: <b3e1b1d6-9dc0-9692-d08d-64553f723666@suse.com>
+References: <osstest-166311-mainreport@xen.org>
+	<b3e1b1d6-9dc0-9692-d08d-64553f723666@suse.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
+Jan Beulich writes ("Re: [xen-4.15-testing test] 166311: regressions - FAIL"):
+> On 24.11.2021 03:00, osstest service owner wrote:
+> > flight 166311 xen-4.15-testing real [real]
+> > http://logs.test-lab.xenproject.org/osstest/logs/166311/
+> > 
+> > Regressions :-(
+> > 
+> > Tests which did not succeed and are blocking,
+> > including tests which could not be run:
+> >  test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 166198
+> 
+> At the example of this, I find:
+> 
+> Err:1 http://ftp.debian.org/debian buster/main amd64 genisoimage amd64 9:1.1.11-3+b2
+>   Could not connect to cache:3143 (172.16.148.6). - connect (113: No route to host)
+> Err:2 http://ftp.debian.org/debian buster/main amd64 rsync amd64 3.1.3-6
+>   Unable to connect to cache:3143:
+> E: Failed to fetch http://ftp.debian.org/debian/pool/main/c/cdrkit/genisoimage_1.1.11-3+b2_amd64.deb  Could not connect to cache:3143 (172.16.148.6). - connect (113: No route to host)
+> E: Failed to fetch http://ftp.debian.org/debian/pool/main/r/rsync/rsync_3.1.3-6_amd64.deb  Unable to connect to cache:3143:
+> E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+> 
+> Network issue (hopefully just a transient one)?
 
-On 25.11.21 03:09, Stefano Stabellini wrote:
+No.  That report reflects a networking problem internal to the colo.
+But the colo's internal networking is completely reliable.[1]
 
-Hi Stefano
+I investigated, and the host that job run on, italia0, has some kind
+of Problem:
+  http://logs.test-lab.xenproject.org/osstest/results/host/italia0.html
 
-> On Wed, 24 Nov 2021, Oleksandr Tyshchenko wrote:
->> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>
->> Xen on Arm has gained new support recently to calculate and report
->> extended regions (unused address space) safe to use for external
->> mappings. These regions are reported via "reg" property under
->> "hypervisor" node in the guest device-tree. As region 0 is reserved
->> for grant table space (always present), the indexes for extended
->> regions are 1...N.
->>
->> No device-tree bindings update is needed (except clarifying the text)
->> as guest infers the presence of extended regions from the number
->> of regions in "reg" property.
->>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> ---
->> According to the recent update to Xen's guest.txt:
->> https://xenbits.xen.org/gitweb/?p=xen.git;a=blob_plain;f=docs/misc/arm/device-tree/guest.txt;hb=refs/heads/master
->>
->> Changes V2 -> V3:
->>     - new patch
->> ---
->>   Documentation/devicetree/bindings/arm/xen.txt | 12 ++++++++----
->>   1 file changed, 8 insertions(+), 4 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/arm/xen.txt b/Documentation/devicetree/bindings/arm/xen.txt
->> index db5c56d..156fe10b 100644
->> --- a/Documentation/devicetree/bindings/arm/xen.txt
->> +++ b/Documentation/devicetree/bindings/arm/xen.txt
->> @@ -7,10 +7,14 @@ the following properties:
->>   	compatible = "xen,xen-<version>", "xen,xen";
->>     where <version> is the version of the Xen ABI of the platform.
->>   
->> -- reg: specifies the base physical address and size of a region in
->> -  memory where the grant table should be mapped to, using an
->> -  HYPERVISOR_memory_op hypercall. The memory region is large enough to map
->> -  the whole grant table (it is larger or equal to gnttab_max_grant_frames()).
->> +- reg: specifies the base physical address and size of the regions in memory
->> +  where the special resources should be mapped to, using an HYPERVISOR_memory_op
->> +  hypercall.
->> +  Region 0 is reserved for mapping grant table, it must be always present.
->> +  The memory region is large enough to map the whole grant table (it is larger
->> +  or equal to gnttab_max_grant_frames()).
->> +  Regions 1...N are extended regions (unused address space) for mapping foreign
->> +  GFNs and grants, they might be absent if there is nothing to expose.
->>     This property is unnecessary when booting Dom0 using ACPI.
-> I would remove the last sentence about ACPI as the initialization is not
-> done via the xen,xen device tree node in that case anyway.
+Meanwhile italia1 has been out of service due to a PDU fault, and we
+were working on recomissioning it.  I have unblessed itaila0 and asked
+Credativ to investigate.
 
-Agree, will do. I assume, the similar sentence for the "interrupts" 
-property down the text wants removing as well.
+Ian.
 
-
->
-> With that change:
->
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-Thanks!
-
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
+[1] After many allegations of random flaky, every test now has a ping
+test that would fail if there was any packet loss.
 
