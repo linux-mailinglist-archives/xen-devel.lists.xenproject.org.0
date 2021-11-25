@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABF9E45DB7F
+	by mail.lfdr.de (Postfix) with ESMTPS id D4B8B45DB80
 	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 14:47:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.231272.400172 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.231261.400147 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqF5s-0001Y0-IH; Thu, 25 Nov 2021 13:47:20 +0000
+	id 1mqF5q-0000ws-1M; Thu, 25 Nov 2021 13:47:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 231272.400172; Thu, 25 Nov 2021 13:47:20 +0000
+Received: by outflank-mailman (output) from mailman id 231261.400147; Thu, 25 Nov 2021 13:47:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqF5s-0001Ju-1t; Thu, 25 Nov 2021 13:47:20 +0000
-Received: by outflank-mailman (input) for mailman id 231272;
- Thu, 25 Nov 2021 13:47:17 +0000
+	id 1mqF5p-0000uK-Qc; Thu, 25 Nov 2021 13:47:17 +0000
+Received: by outflank-mailman (input) for mailman id 231261;
+ Thu, 25 Nov 2021 13:47:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Nd7+=QM=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1mqF0b-00076i-Vu
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 13:41:54 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 71e503af-4df5-11ec-a9d2-d9f7a1cc8784;
- Thu, 25 Nov 2021 14:41:53 +0100 (CET)
+ id 1mqF0a-00076i-Qx
+ for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 13:41:52 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 71cf687e-4df5-11ec-a9d2-d9f7a1cc8784;
+ Thu, 25 Nov 2021 14:41:51 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,69 +36,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71e503af-4df5-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 71cf687e-4df5-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637847712;
+  d=citrix.com; s=securemail; t=1637847711;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=8lx/+jmrSiPW0TNI8HSQ6GVzRfM87w+Yl5TJDEX54CU=;
-  b=ChiTAraC+gHUTVdnejHn5Q/4+0WZ9dUJ++QIauSyNUZQklOUmDtfRg1J
-   ez+vGXTlwmQf3iPZjPK7U79HYR7ryEQjQbMvoxe6aiMHB0YS/jGmPizoH
-   L2/rvu+KF1YVRb3mxuj5do+fYUkV6NuPYdIZg2+wkmCYASQ3600JFkh8f
-   o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: QCGyXCny18waiPeNFNdUK2P7IBiw+R9MtneBAJBU/vvid/7vySpZkENhfvopyfDJurMhWxGQLp
- IiwXw8RgdvAP2cRHu7uBnkOFR8L9OFT8yB4+jtbvuC3X+TcRjZF9vKxig9xn+BB2BAmOkOK+YX
- v2maK15/WY/GZtFEHToXkF1UVyt40dhhyF1C5cfIwmjdxQMZnaR3TD/gT3YL2EMjNTP4kLwhKs
- Cz3CDajNBz6qCSOnaX6yeZ+mzK73Oh+69H7SBCFk7ILhdHwab9kdhzMu3TFGZ/OdqeeQzRvsX9
- eA07HWnmqI9L+GKk7o7aoMMD
+  bh=CWsp0MdhX8GJ4/siL8IM7kIar9Uw1eonEXIe+1nIRyU=;
+  b=ht23CctioGJ7ppfpPRbknDiAVvt7ag2FNhmc75XxdJ04FNiDzAQWP1Lu
+   T2QENAuuMNpP5m4eIT5++XnCXSnp1VVKkVH+zTLfKMED6dkUYdL3BdhWi
+   Q7UEdHApjNwP5fEnhBBv4mAQgMScWcW+NziOOW4WCo6BwEfJcgL41/Q3w
+   M=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: k86/nwiWaQBbq9FQommKA4r3+yJbRPRDPopy1ke3GJfAVKukIirtNoXT9N3PzdTZLr/PzPySRA
+ PWhzTok7FnVKLDJS/khqINrtpcUacz3DLDtnBmHGuM5JJBUC4VgU+PqrDQNJ+MnFLTT0iBhGMx
+ +oIRbQSgzArtPtobuOllAs27BysTRkdbyDocTMiMPT2F3XpCYE7tELQOv4iBu2ctFmn3hJqR4N
+ Jl/bcOpQoddsY4sfRPD7SNHZnHEEFxviE2c6jQ/L3A9i89hGLILTsfP/n26hDzFRJ/vVwoM+C/
+ GANas4ZRAZLiEJ6etKX6h0UT
 X-SBRS: 5.1
-X-MesageID: 58637880
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 58617700
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:zScv/qI+g/1ul3pcFE+RHpIlxSXFcZb7ZxGr2PjKsXjdYENSg2ZTm
- GVNDDuAMq7cYmP0ct1yOtjk8kMPuZDRx4dqHgplqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZUideSc+EH140Es5xrZj6mJVqYPR7z2l6
- IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
- QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2noP58w
- Y1opaaMZiA0GZTInb4kY0NhRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
- LpBdW5LPkvra+GemdpXTsFlgNgjK8/6epsSoHh6wRnSDOo8QICFSKLPjTNd9Gpg2JsRTaaGD
- yYfQWAoZwSZOSUeBm4KDp8TzKSIo33xNBQN/Tp5ooJoujOOnWSdyoPFO9PPdtuHbc5chEqfq
- yTN+GGRKhgcKNyYzyvD6n+2j/XDtSz+UYMWUra/85ZCkFCVg2AeFhASfV+6uuWizF6zXcpFL
- E4Z8TZoqrI9nHFHVfGkAUf++iTd+EdBBZwASIXW9T1h1IL63CiUDzAhXgR9R/s7k/YyQGYT5
- gWwyoaB6SNUjJWZTneU97GxpDy0ODQIIWJqWRLoXTfp8PG4/tht00unosJLVffs04arQW2YL
- yWi9XBm390uYdg3O7JXFLwtqxalvdD3QwE8/W07tUr1v1oiNOZJi2FFgGU3DMqszq7FETFtX
- 1BewqByCdzi6rnXyUSwrB0lRu3B2hp8GGS0baRTN5cg7S+x3HWoYJpd5jpzTG8wbJ1bJmC4M
- B+C410AjHO2AJdNRfUpC79d9uxwlfSwfTgbfqy8giVyjmhZK1bcoXAGib+41GHxikk8+ZzTy
- r/AGftA+U0yUPw9pBLvHr91+eZymkgWmDOCLbimnk/P+efPOxaopUItbQLmghYRt/jf/m04M
- r93aqO39vmoeLGkP3SMr9dMdQtiwLpSLcmelvG7v9WremJOcFzNwdeKqV/4U4A6zalTiMnS+
- XSxBh1RxFbl3CWVIgSWcHFzLrjoWM8n/348OCUtO3eu2mQiPtnzvPtOKcNvcOl17vFnwN51U
- +IBJ5eKDMNQR2mV4D8ad5T88tBvLUz5mQKUMiO5SzEjZJo8FRfR89rpc1K3pikDBya6r+Ukp
- Lik2l+JSJYPXV06Xs3XdOiu3xW6un1EwLB+WE7BI99yfkTw8dc1d3yt36Fve8xVcEfN3DqX0
- QqSECw0n+iVrt9n6sTNiICFs5ytT7l0EH1FEjSJ9r2xLyTboDaumNcSTOaScDnBf2ro46H+N
- /5NxvTxPfBbzlZHt41wT+Riwa4kvoa9orZbykJvHWnRbkTtAbRleyHU0c5Kv6xL57lYpQrpB
- R7fpogEYe2EaJH/DVocBAs5deDSh/gblw7b4ekxPEintjR8+6CKUBkKMhSB4MCHwGCZ7G/xL
- T8dhfMr
-IronPort-HdrOrdr: A9a23:3x3n2q4SBz0OXktGywPXwU2BI+orL9Y04lQ7vn2ZFiYlEPBwxv
- re/8jziyWVtN9IYgBfpTlEAtjzfZquz+8F3WBxB9mftWbdyRGVxe1ZnOzfKnjbalLDH41mpO
- hdmspFeaDN5DFB5K6QimbYYrNQpOVr6JrFuQ6d9QYQcegDUdAi0+4TMHfjLqQCfng8OXNPLu
- vl2iMonUvHRV0nKu68C3U5Qe6Gg9HQjprpbT4qbiRXqTWmvHeD7rP3Lgaf5wwZWT9U27sumF
- K10zAR0p/T8c1ThyWsj1M6IPxt6Zfc4+oGIPbJptkeKz3qhArtTIN9W4eatDRwm+2r4EZCqq
- iGn/91Vf4f11rhOkWO5Tf90Qjp1zgjr1X4z0WDvHflqcvlABonFston+tiA0rkwntlmOs5/L
- NA3mqfuZYSJwjHhj7B69/BUAwvvlaooEAljfUYgxVkINUjgYdq3NwiFX5uYcs99WPBmd0a+d
- BVfZvhDSNtAAynh3OwhBgm/DXjZAV8b0S7qo5rgL3R79EcpgEI86Ii/r1qop/bnKhND6Wsr9
- 60QZiAtIs+CPP+PpgNXdvot6OMeyHwqSylChPlHbwRfJt3cU4l7aSHu4kd5OakfoEFxpp3mJ
- mpaiIeiYcCQTOmNSTV5uw/zvnkehTLYQjQ
+IronPort-Data: A9a23:hqhjF6NZLv2nxJLvrR1qkMFynXyQoLVcMsEvi/4bfWQNrUp23jAEy
+ zYXWT+GMv6ONjD3KYwlYNi//UwFsJOByoBjGgto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6bUsxNbVU8En540Eg+w7RRbrNA2rBVPSvc4
+ bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
+ 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYoyfRjt9S1
+ spkiYChcQU7PoDNwP4MChYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
+ 6VFdnZdNXhvhMrvqF6/YuBqmsQkKtitJI4Fs2ts5TrYEewnUdbIRKCiCdpwgWdu358RRa62i
+ 8wxQgI+VDHGezB1a3wQLJlnmOCTmHPdfGgNwL6SjfVuuDWCpOBr65DmOcDZfdGiTsxPkkGV4
+ GnB+gzRCxcGNNuZ2Hyd/2ilnOPnkibyWYZUH7q9ntZ6jVvWymENBRk+UVqgveL/mkO4Q8hYK
+ UEf5mwpt6dayaCwZoCjBVvi+ifC50NCHYoLewEn1O2T4riM8gm6GHctciJQUN40tOI3HSY7j
+ 1DcyrsFGgdTmLGSTHuc8JKdojWzJTUZIAc+WMMUcecWy4K9+d9u13ojWv4mSffo1YOtRVkc1
+ hjT9HBm74j/m/LnwElSEbrvpzu37qbEQQcujuk8djL0t1gpDGJJimHB1LQ60RqiBNrGJrVil
+ CJd8yR70AzpJcvQ/BFhuM1XQNmUCw+taVUwe2JHEZg77CiK8HW+Z41W6zwWDB43aZlbJm65M
+ B6J51I5CHpv0JyCN/EfXm5MI55ykfiI+SrNCpg4keaikrAuLVTarUmClGab3nz3kVhErE3ME
+ czzTCpYNl5DUf4P5GPvH481iOZ3rghjlTK7bc2qlHyPjOvBDEN5vJ9YaTNimMhit/jayOgUm
+ v4CX/a3J+J3DLejP3KJqNFLdjjn7xETXPjLliCeTcbbSiIOJY3rI6a5LWoJd9M3kqJLuP3P+
+ 33hCEZUxECm3S/MKBmQa2AlY7TqBM4toXU+NC0qHFCpx3l8Ptr/sPZBL8M6Les96ehu7f9oV
+ P1ZKc+ONetCF2bc8DMHYJij8IE7LEa3hRiDNjaOaSQke8IyXBTA/9LpJ1O99CQHAietm9E5p
+ rmsilHSTZYZHlwwB8fKcvO/iVi2uCFFyu51WkLJJPhVeVntr9c2e3Cg0KdvLphVexvZxzac2
+ wKHOjsipLHA890v7d3EpaGYtIP1QeFwKVVXQjvA5rGsOCiEomf6md1cUPyFdCz2XX/v/Pnwf
+ v1cyvzxPaFVnFtOtIYgQb9nwbhnuonqrr5eiA9lAG/KfxKgDbY5eiuK2sxGt6tswL5FuFTpB
+ hLTq4cCYbjZatn4FFMxJRY+arXR3P4ZrTDe8PApLRio/yRw5reGDR1fMhTkZPax91ep3FfJG
+ dschfM=
+IronPort-HdrOrdr: A9a23:Qr39da/9jgfndjQAPltuk+DgI+orL9Y04lQ7vn2YSXRuHPBw8P
+ re+sjztCWE8Ar5N0tBpTntAsW9qDbnhPtICOoqTNCftWvdyQiVxehZhOOIqVDd8m/Fh4pgPM
+ 9bAtFD4bbLbGSS4/yU3ODBKadD/OW6
 X-IronPort-AV: E=Sophos;i="5.87,263,1631592000"; 
-   d="scan'208";a="58637880"
+   d="scan'208";a="58617700"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Anthony PERARD
 	<anthony.perard@gmail.com>, Doug Goldstein <cardoe@cardoe.com>
-Subject: [XEN PATCH v8 35/47] RFC, no-VPATH: Kconfig: tell where Kconfig files are
-Date: Thu, 25 Nov 2021 13:39:54 +0000
-Message-ID: <20211125134006.1076646-36-anthony.perard@citrix.com>
+Subject: [XEN PATCH v8 36/47] RFC, no-VPATH: Kconfig: only ready auto.conf from objtree
+Date: Thu, 25 Nov 2021 13:39:55 +0000
+Message-ID: <20211125134006.1076646-37-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.34.0
 In-Reply-To: <20211125134006.1076646-1-anthony.perard@citrix.com>
 References: <20211125134006.1076646-1-anthony.perard@citrix.com>
@@ -108,27 +101,50 @@ Content-Type: text/plain
 
 From: Anthony PERARD <anthony.perard@gmail.com>
 
-deps_config is the list of all Kconfig files, we need to say that they
-are in the source tree, or make isn't going to find them without
-VPATH and will try to rebuild 'syncconfig' over and over again.
+zconf_fopen() will open file in $srctree if the file isn't in
+$objtree. This is an issue for "auto.conf" as it could be in the
+source tree if it is dirty. With "auto.conf" read from the source
+tree, kconfig will not properly set the file associated with a
+CONFIG_* properly in "include/config/" and instead only touch the
+files that correspond to new CONFIG_* option that were not set in the
+"auto.conf" found in the source tree.
+
+That might not be an issue, but it is probably better to have a
+populated "include/config/" directory in sync with
+"include/config/auto.conf".
+
+The second that read from conf_get_configname() would read ".config"
+from the source directory which is also not wanted in Xen.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/tools/kconfig/confdata.c | 1 +
- 1 file changed, 1 insertion(+)
+ xen/tools/kconfig/confdata.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/xen/tools/kconfig/confdata.c b/xen/tools/kconfig/confdata.c
-index a69250c91355..4f9139d055be 100644
+index 4f9139d055be..805d4c3e5636 100644
 --- a/xen/tools/kconfig/confdata.c
 +++ b/xen/tools/kconfig/confdata.c
-@@ -971,6 +971,7 @@ static int conf_write_dep(const char *name)
- 		else
- 			fprintf(out, "\t%s\n", file->name);
- 	}
-+	fprintf(out, "deps_config := $(addprefix $(srctree)/, $(deps_config))\n");
- 	fprintf(out, "\n%s: \\\n"
- 		     "\t$(deps_config)\n\n", conf_get_autoconfig_name());
+@@ -357,12 +357,17 @@ int conf_read_simple(const char *name, int def)
+ 	int i, def_flags;
  
+ 	if (name) {
+-		in = zconf_fopen(name);
++		if (def == S_DEF_AUTO) {
++			/* only open include/config/auto.conf in objtree */
++			in = fopen(name, "r");
++		} else {
++			in = zconf_fopen(name);
++		}
+ 	} else {
+ 		struct property *prop;
+ 
+ 		name = conf_get_configname();
+-		in = zconf_fopen(name);
++		in = fopen(name, "r");
+ 		if (in)
+ 			goto load;
+ 		sym_add_change_count(1);
 -- 
 Anthony PERARD
 
