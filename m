@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38B6745DB96
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 14:48:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.231316.400380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 086F345DB78
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 14:47:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.231234.400070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqF6Z-00035D-Uo; Thu, 25 Nov 2021 13:48:03 +0000
+	id 1mqF5S-000654-1x; Thu, 25 Nov 2021 13:46:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 231316.400380; Thu, 25 Nov 2021 13:48:03 +0000
+Received: by outflank-mailman (output) from mailman id 231234.400070; Thu, 25 Nov 2021 13:46:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqF6Z-0002oB-EG; Thu, 25 Nov 2021 13:48:03 +0000
-Received: by outflank-mailman (input) for mailman id 231316;
- Thu, 25 Nov 2021 13:47:59 +0000
+	id 1mqF5R-00063D-Uo; Thu, 25 Nov 2021 13:46:53 +0000
+Received: by outflank-mailman (input) for mailman id 231234;
+ Thu, 25 Nov 2021 13:46:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Nd7+=QM=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1mqF0M-00076i-E7
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 13:41:38 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 685bd498-4df5-11ec-a9d2-d9f7a1cc8784;
- Thu, 25 Nov 2021 14:41:36 +0100 (CET)
+ id 1mqF03-00076i-MS
+ for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 13:41:19 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5d8200b7-4df5-11ec-a9d2-d9f7a1cc8784;
+ Thu, 25 Nov 2021 14:41:18 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,72 +36,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 685bd498-4df5-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 5d8200b7-4df5-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637847696;
+  d=citrix.com; s=securemail; t=1637847678;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Dp4DeV5YFxptZKOsxSf8G7BcD3VPnKgmN4ccZ4WdFIE=;
-  b=SrCxHYmj/Azw1jVXQJXNoCkKaEAKsponODLiAWj5MOL0hAtGtD6Yhxge
-   yUsyvEvkhanIuN7XqWLa0tG9a+ZefTzBdPMj6WUdKDrdoDG+uuGR8lIdr
-   MO0E6EkSANwu7g57R+/E06ilPpu7N65KHNN6J4k8tMLqI6l3S+X5nSVbz
-   U=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 65FyAc2QaZf80z0IP+7V+OqHfQxS3gpEUnILkrUaqgFeyDu9J2j6LpaUX3OmQr4hCQeBmSjeMf
- 1v6IVZTyRhrE4I1iyj1hP6kaUv94twgCV3yTTw8FALMvkE7STZ5kbD+QR+vjfTW7qc+idusKxI
- qWoO4r1tGEK4wWz+/n4hOwje9HSz3FVkvprrL5HnyyzmdlLZaQOsc3GgZiPrY0kdqwGR9qM/v9
- su1QQTFfTO9JIZr4tu/KDio7K3dyxgvcj9cG30735QIt/jq/5OJF0ZUrPZvnhkv13SQfrLZG9S
- Qci5qQeWYWFyQIvKdA+BYcEC
+  bh=5TWrEHNuNLFROz3IyERYFp+CoH2z9NcBZf52JXIU9Zw=;
+  b=OxaSsMKuzrPIsRZNm1xSDw7YyruEdOv241n+BjGMXSVYxAA7gR1bBwd1
+   1MSCXjp/RrQ+vDJlBJRDEK8UFQ7/j1HXecWTqXVnUbcEcO+FvuBf95y1s
+   b45bE7AkNoUP5GhIft9nj2Ncxs+bRuetAOah0EaGF5wcUPBZq3hLFLbwv
+   s=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: RVJ7aAuQBHjZzqUlN7p4V1rdCRaDfIEJlzz8d/c0C8arvfBn/HNxit/kNlsINYx6LsUPqaP9TQ
+ BgnaggibGTylRaa8+lZ7Tj0c6n5WTwdW4YS9RqcjIMeZHXSsOAYBY6YKyEJ7QClXSQRKv7Y2Ip
+ 4bGyZ/RllGZZ48cnjfgvFCjDsbxRyiJezD453YtfaGuBAEHtOZ0IAySYpIZDa9USk0kCg9kuxr
+ ya4qJ3Ug4R3FQgQ85mKuYDSBhFbcxyQPp0dxpgDYJpuPaOKOdxy4oizaF3LOeZDhDNAAle4/Aj
+ Spg1svLVHGs38fgEfaip5jYc
 X-SBRS: 5.1
-X-MesageID: 58637853
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 59006026
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:sxZrBqzXniqew4e9E2Z6t+dLwCrEfRIJ4+MujC+fZmUNrF6WrkVSz
- 2pJWDiAM/uKNDOnc4hwao6zpkJSv8eByN9hGVY/qSAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAuLeNYYH1500s6wrRk2tQAbeWRWGthh
- /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
- wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt8pJ1
- fUOu63ociMoO4viyNU0f0RfHggraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
- 6ZBbmlQMFbT3Ipaw5riIgVors0lMMnsOpJZonx6xCvVJf0nXYrCU+PB4towMDIY25AQRqmOO
- pFxhTxHaBDxPgJTPlAsJLVgpeKIt2TGbiNGtwfAzUYwyzeKl1EguFT3C/Lfd8aWX8xTkgCdr
- 3jf4mXiKhgAMZqUzj/t2kyrgujDjCbqQrU4Hbez9uNpqFCLz2lVAxoTPXOxpvOzm0OlW9ZSL
- kUS0iUrpKk2skesS7HVVBq+pnmGshcCWsF4HOgz6QXLwa3Riy6QAmkfUjdAcpoorsYwTj0x/
- kCFlJXiAjkHmKKRYWKQ8PGTtzzaESofIHIGZCQEZRAY+NSlq4Y25jrfQ9AmHKOrg9ndHTDr3
- yvMvCU4n68Uj8MAy+O851+vqzOzpLDZQwgt/ALVU2m5qARja+aNfJe04FLW6fJBKoexTVSbu
- nUA3c+E44gmD4yJlSGLaPUAGveu/fntDdHHqQcxRd97rW3roiP9O9ALiN1jGKt3Gtw8ZB+qb
- n6LgidQ4bl9bEqDQfJwbqvkXqzG0pPcPdjiU/nVaP9HbZ5waBKL8UlSWKKA44z+uBNyyP9iY
- P93Ze7pVC9HUvo/kFJaUs9Eiedzrh3S018/UnwSI/6P9bOFLECYRr4eWLdlRrBotfjUyOk5H
- js2Cidr9/m9eLGhCsU02dRKRbzvEZTcLcqrw/G7jsbZfmJb9JgJUpc9O48JdY1/hLhynezV5
- Hy7UUIw4AOh3iKYdlTaOiE5NuKHsXNDQZUTZ3JEALpV8yJ7PdbHAFk3K/PbgoXLBMQ8lKUpH
- pHpiu2LA+hVSySvxtjuRcKVkWCWTzzy3VjmF3P8OFAXJsc8LySUqo6MVla+r0EmU3vo3fbSV
- pX9j2s3t7JYHF88ZCsXAdryp26MUY81xLgvAhCWe4YLIy0BMuFCckTMsxP+GOlUQT2r+9dQ/
- 1/PafvBjeWS8YIz7vfTgqWI89WgH+dkRxIIFGjH97emcyLd+zP7k4NHVe+JexHbVX/1p/r+N
- bkEkamkPa1VhktOvqp9D61vkfA06ezwquII1Q9jBnjKMQimU+syPnmc0MBTnaRR3bsF6xCuU
- 0eC94ACa7WEMc/oCnALIw8hYrjR3P0YgGCKv/80PF/79Gl8+7/eCRdeOByFiSp8KrppMdx6n
- bd96ZBOswHm00gkKNeLiCxQ5l+gFH1YXvV1rIweDa/qlhEvlgNIb6vDB3Kk+5qIcdhNbBUne
- 2fGmKrYir1A7UPeaH5vR2PV1O9QiJlS6hBHyFgOewaAltbf36Jl2RRQ9XI8TxhPzwUB2OV2Y
- zA5O0pwLKSI3jFpmMkcADz8R1AfXEWUqh7r1l8EtGzFVE35BGXCIVo0NfuJ4E1EoXlXeSJW/
- e3AxWvoOdowkBodAsfmtZZZlsHe
-IronPort-HdrOrdr: A9a23:g3Pg06outmdlW0nrZbPZbmIaV5oTeYIsimQD101hICG8cqSj+f
- xG+85rsyMc6QxhIE3I9urhBEDtex/hHNtOkOws1NSZLW7bUQmTXeJfBOLZqlWKcUDDH6xmpM
- NdmsBFeaTN5DNB7PoSjjPWLz9Z+qjkzJyV
+IronPort-Data: A9a23:fcA6BKLtsTbQAWS6FE+R6JIlxSXFcZb7ZxGr2PjKsXjdYENSgWAAz
+ DNKXT/SOPjZZGv3f9hyOo3j901UvZDUyNBnSARlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZUideSc+EH140Es5xrZj6mJVqYPR7z2l6
+ IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
+ QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2Lndt30
+ cd3r6buCi1wIPPVxO8AVENXRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
+ LpBdW5LPkvra+GemdpXTsFlgNgjK8/6epsSoHh6wRnSDOo8QICFSKLPjTNd9Gph3pgQRayAD
+ yYfQQU+XTTEbw19Bmo4A5hunsa2qHn9cwQN/Tp5ooJoujOOnWSdyoPFL979atGMA8JPkS6wp
+ GjL4mD4CREyL8GExHyO9XfErv/Cm2b3VZwfEJW89+V2mxuDy2oLEhoUWFCn5/6jhSaDt8l3c
+ hJOvHB09O5rqRLtHoKVswCETGCsvBwXXcNCKfcAtkKnk7SK+lqSG29eQWsUADA5j/MeSTsv3
+ 16PutrmAz1zrbGYIU6gGqeoQSCaYnZMczJbDcMQZU5cuoS4/tlv5v7aZo87SPbdszHjJd3nL
+ 9lmRgAajq5bs8ME3r7TEbvv02P1/cihouLYC2zqsoOZAuFRONHNi2+AswGzARN8wGGxFATpg
+ ZT8s5LChN3i9LnU/MB3fM0DHauy+9GOOyDGjFhkEvEJrmr2pCH8LNAAsWsgdS+F1/ronhezP
+ ifuVf55vscPbBNGk4crC25ONyja5fe5Tom0PhwlRtFPfoJwZGe6ENJGPiatM5TWuBF0y8kXY
+ M7DGe71VCpyIfk3nVKeGrZGuZd2l39W+I8mbc2ip/hR+eHFPyD9pHZsGAbmU93VG4vY+liIq
+ IgGaJPRo/idOcWnChTqHUcoBQhiBRAG6Vre8qS7r8aPfVhrHn8PEfjUze9zcoBphf0NxOzJ4
+ mu8SglTz1+m3S/LLgCDa3ZCbrLzXMkg8SJnbHJ0ZVv4iWI+ZYuP7bsEc8dld7cQ6+E+n+V/S
+ OMIepvcD60XGCjH4TkUcbL0sJdmKEawnQuLMif8OGo/cpdsShbn4NjhegezpiACAjDu7Zk1o
+ qG61xOdSp0GHlwwAMHTYfOp7lWwoXlCx74iAxqWeoFeIRy+/pJrJir9iu4MD/sNcRiTlCGH0
+ wu2AAsDobWfqYEC79SU17uPqJ2kErUiExMCTXXb97u/KQLT4nGnnd1bSO+NcD3QCDH09aGla
+ bkHxv3wKqRazlNDso46GLd316MuodDoouYCnAhjGXzKaXWtC69hfSbajZUe6PUVy+8LoxayV
+ 2KO5sJeaOeAN87SGVIMIBYoM7aY3vYOlziOtfk4LS0WPsOsEGZrhamKAySxtQ==
+IronPort-HdrOrdr: A9a23:/DRNAK04LvYOHONEZngSwAqjBLQkLtp133Aq2lEZdPRUGvb2qy
+ nIpoV96faUskdpZJhOo7G90cW7LE80sKQFg7X5Xo3SODUO2lHJEGgK1+KLqFfd8m/Fh4tgPM
+ 9bAs5D4bbLY2SS4/yX3ODBKadC/OW6
 X-IronPort-AV: E=Sophos;i="5.87,263,1631592000"; 
-   d="scan'208";a="58637853"
+   d="scan'208";a="59006026"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, Bob Eshleman <bobbyeshleman@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>, Connor Davis
-	<connojdavis@gmail.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>
-Subject: [XEN PATCH v8 20/47] build: add headers path to CFLAGS once for all archs
-Date: Thu, 25 Nov 2021 13:39:39 +0000
-Message-ID: <20211125134006.1076646-21-anthony.perard@citrix.com>
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>
+Subject: [XEN PATCH v8 21/47] build: generate x86's asm-macros.h with filechk
+Date: Thu, 25 Nov 2021 13:39:40 +0000
+Message-ID: <20211125134006.1076646-22-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.34.0
 In-Reply-To: <20211125134006.1076646-1-anthony.perard@citrix.com>
 References: <20211125134006.1076646-1-anthony.perard@citrix.com>
@@ -109,68 +100,67 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-This just remove duplication.
+When we will build out-of-tree, make is going to try to generate
+"asm-macros.h" before the directories "arch/x86/include/asm" exist,
+thus we would need to call `mkdir` explicitly. We will use "filechk"
+for that as it does everything that the current recipe does and does
+call `mkdir`.
+
+Also, they are no more "*.new" files generated in this directory.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/Makefile           | 3 +++
- xen/arch/arm/arch.mk   | 3 ---
- xen/arch/riscv/arch.mk | 2 --
- xen/arch/x86/arch.mk   | 2 --
- 4 files changed, 3 insertions(+), 7 deletions(-)
+ xen/arch/x86/Makefile | 29 ++++++++++++++++-------------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
 
-diff --git a/xen/Makefile b/xen/Makefile
-index 06d5e4fd61c1..efd7538099f3 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -312,6 +312,9 @@ CFLAGS += -flto
- LDFLAGS-$(CONFIG_CC_IS_CLANG) += -plugin LLVMgold.so
- endif
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 456b7eed7536..873b32cc6945 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -230,18 +230,21 @@ include: $(BASEDIR)/arch/x86/include/asm/asm-macros.h
+ $(obj)/asm-macros.i: CFLAGS-y += -D__ASSEMBLY__ -P
  
-+CFLAGS += -I$(srctree)/include
-+CFLAGS += -I$(srctree)/arch/$(TARGET_ARCH)/include
+ $(BASEDIR)/arch/x86/include/asm/asm-macros.h: $(obj)/asm-macros.i $(src)/Makefile
+-	echo '#if 0' >$@.new
+-	echo '.if 0' >>$@.new
+-	echo '#endif' >>$@.new
+-	echo '#ifndef __ASM_MACROS_H__' >>$@.new
+-	echo '#define __ASM_MACROS_H__' >>$@.new
+-	echo 'asm ( ".include \"$@\"" );' >>$@.new
+-	echo '#endif /* __ASM_MACROS_H__ */' >>$@.new
+-	echo '#if 0' >>$@.new
+-	echo '.endif' >>$@.new
+-	cat $< >>$@.new
+-	echo '#endif' >>$@.new
+-	$(call move-if-changed,$@.new,$@)
++	$(call filechk,asm-macros.h)
 +
- # Note that link order matters!
- ALL_OBJS-y                := common/built_in.o
- ALL_OBJS-y                += drivers/built_in.o
-diff --git a/xen/arch/arm/arch.mk b/xen/arch/arm/arch.mk
-index 4e3f7014305e..094b67072304 100644
---- a/xen/arch/arm/arch.mk
-+++ b/xen/arch/arm/arch.mk
-@@ -1,9 +1,6 @@
- ########################################
- # arm-specific definitions
++define filechk_asm-macros.h
++    echo '#if 0'; \
++    echo '.if 0'; \
++    echo '#endif'; \
++    echo '#ifndef __ASM_MACROS_H__'; \
++    echo '#define __ASM_MACROS_H__'; \
++    echo 'asm ( ".include \"$@\"" );'; \
++    echo '#endif /* __ASM_MACROS_H__ */'; \
++    echo '#if 0'; \
++    echo '.endif'; \
++    cat $<; \
++    echo '#endif'
++endef
  
--CFLAGS += -I$(srctree)/include
--CFLAGS += -I$(srctree)/arch/$(TARGET_ARCH)/include
--
- $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
- $(call cc-option-add,CFLAGS,CC,-Wnested-externs)
+ $(obj)/efi.lds: AFLAGS-y += -DEFI
+ $(obj)/xen.lds $(obj)/efi.lds: $(src)/xen.lds.S FORCE
+@@ -255,7 +258,7 @@ $(obj)/efi/mkreloc: $(src)/efi/mkreloc.c
  
-diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
-index 694ba053ceab..ae8fe9dec730 100644
---- a/xen/arch/riscv/arch.mk
-+++ b/xen/arch/riscv/arch.mk
-@@ -11,5 +11,3 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
- # -mcmodel=medlow would force Xen into the lower half.
- 
- CFLAGS += -march=$(riscv-march-y) -mstrict-align -mcmodel=medany
--CFLAGS += -I$(srctree)/include
--CFLAGS += -I$(srctree)/arch/$(TARGET_ARCH)/include
-diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
-index 5152de343082..1ba488d645c0 100644
---- a/xen/arch/x86/arch.mk
-+++ b/xen/arch/x86/arch.mk
-@@ -3,8 +3,6 @@
- 
- export XEN_IMG_OFFSET := 0x200000
- 
--CFLAGS += -I$(srctree)/include
--CFLAGS += -I$(srctree)/arch/$(TARGET_ARCH)/include
- CFLAGS += -I$(srctree)/arch/x86/include/asm/mach-generic
- CFLAGS += -I$(srctree)/arch/x86/include/asm/mach-default
- CFLAGS += -DXEN_IMG_OFFSET=$(XEN_IMG_OFFSET)
+ .PHONY: clean
+ clean::
+-	rm -f *.lds *.new boot/*.o boot/*~ boot/core boot/mkelf32
++	rm -f *.lds boot/*.o boot/*~ boot/core boot/mkelf32
+ 	rm -f asm-macros.i $(BASEDIR)/arch/x86/include/asm/asm-macros.*
+ 	rm -f $(BASEDIR)/.xen-syms.[0-9]* boot/.*.d $(BASEDIR)/.xen.elf32
+ 	rm -f $(BASEDIR)/.xen.efi.[0-9]* efi/*.efi efi/mkreloc
 -- 
 Anthony PERARD
 
