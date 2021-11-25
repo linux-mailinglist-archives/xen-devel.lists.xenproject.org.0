@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 974E445DB9A
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 14:48:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.231328.400436 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6AD445DB9C
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 14:48:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.231329.400445 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqF6o-0006dt-MR; Thu, 25 Nov 2021 13:48:18 +0000
+	id 1mqF6q-00070X-FS; Thu, 25 Nov 2021 13:48:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 231328.400436; Thu, 25 Nov 2021 13:48:18 +0000
+Received: by outflank-mailman (output) from mailman id 231329.400445; Thu, 25 Nov 2021 13:48:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqF6o-0006Tn-DD; Thu, 25 Nov 2021 13:48:18 +0000
-Received: by outflank-mailman (input) for mailman id 231328;
- Thu, 25 Nov 2021 13:48:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mqF6q-0006ur-2C; Thu, 25 Nov 2021 13:48:20 +0000
+Received: by outflank-mailman (input) for mailman id 231329;
+ Thu, 25 Nov 2021 13:48:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Nd7+=QM=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1mqF1D-0007NX-Hi
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 13:42:31 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 88f64a68-4df5-11ec-9787-a32c541c8605;
- Thu, 25 Nov 2021 14:42:30 +0100 (CET)
+ id 1mqF0s-00076i-H2
+ for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 13:42:10 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7b739584-4df5-11ec-a9d2-d9f7a1cc8784;
+ Thu, 25 Nov 2021 14:42:09 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88f64a68-4df5-11ec-9787-a32c541c8605
+X-Inumbo-ID: 7b739584-4df5-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637847750;
+  d=citrix.com; s=securemail; t=1637847729;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=M5y2bRJwpf/f0iMaWElHVm6rrtkE9/3uGDJa1vQtN3Q=;
-  b=XJ1agrudUQ1NaqUb7sXHOKZ2P6SUF8ASYQ53t/ozyBto7GC1H60wLdTm
-   loza74i3lFw/X0UZ3taK8UNExfIBaoYmvFuysZFfpEw7NnwRtkGqEvbs2
-   18F85z6bRBfvCepU0soJI2SEjSi1a+lzWw+iEzeOTWsGxzFBoXz8QHSS+
-   s=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: +2VEdq1WgiM/G1sp2lY11YCa7Erm61nQNOXokXF538l83+fX9k5dAvASaT44CAaIIM0zTs6pRv
- /ArX0jk6a9Ws6lcFXdk0cEZQDYk6kerArldHTosuhrBjU8VmdrmJXUr4syJjt/BpXFNm0+iGLL
- APgv3nrao5vzL/YfoWWzGQ9CyToQfHCYqVY171Fq5qzxhcr735Z4w0+Yqcbi83JeE5Zx1Wr7kJ
- eEhpYH8TlPyi32mvsQi0JeYKINidKljsc82yL5zVbVxXO6ivciLoAAf4Ew3YGfkZmY2ircxvxN
- Jc3EEgyEveoUTZNDkzpFvw4j
+  bh=o70thL8LZfXVGN0BO7FVeJVHlQxVD96SJrfgO735CIw=;
+  b=Z75/qpFCXf+PG1EyVL2smPIxEojmFvfSdIiDMGQ2WvHHGke+AUt4hM9F
+   WK54DRos6L+MBntxPeEP1RCEx5LdPgTI8h8HqMZTNtcF8EQszUy09QDbi
+   MRHwzXaAQV/5uUUQz098CkNZKPKV4VdsAWFWPJu09cbSuGd4e3V6tIBpA
+   Q=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: NuhfKlMtoiYjL7hI3xnhJJk2ng5kkY1GC7m9UKJeO4kPabWG7I1YbRETyTtAskKQ4MZDvrYky6
+ Nl6n7cFbwssCn3yCfIKOtiDxXil1ZCM4WBWAnCKWUotJV8KK+yuoyOXjBwcxWJ00qGSDeXQo3I
+ Re4C4Vx8yuzYMgwPJDe/3CxpAwuHKWsEj2P2tMRS+Hvw4Vw4SVTN3rIKjziTwesxPdFkaUo2Yq
+ f23HL+eMlXWaWNmT99Zk3pcRkPrmajvA47S7TcAHuGrhgV3zqXm9ln4MeWCfqqQBs91nzcVVRe
+ 7O7dgnCq6BEMZNNlGNhOuBBy
 X-SBRS: 5.1
-X-MesageID: 60634187
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 58576724
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:oL6KfatgdgMA6GCvFsJboqbUMefnVL9ZMUV32f8akzHdYApBsoF/q
- tZmKW2Gb6mDZDGjet8gPo238kpUupHRzYBgT1Q9rys0Hi9D+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHhJZS5LwbZj29cx24XhWWthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- Npl65GpWA4gErP2vMdCDRhKLAZbIapP5+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DNYUDunZm3HfBAOwvW5zrSKTW/95Imjw3g6iiGN6AP
- 5RCNWM/M3wsZTV/PQ0sDLY5l96Yl0j6VyZbqQO4mqsetj27IAtZj+G2bYu9lsaxbclakkuXv
- Gvu43XyAhZcMseWjzWC7BqEivfUmCLnWKobDLCi6uNxm1qX23ASDxsNE1C8pJGRmkO4Ht5SN
- UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JZFfE67wecjLLZ+Q+DCkALSzdAbJots8peeNAx/
- gbXxZWzX2Up6eDLDyLGnluJkd+sEXYYNH4LbAMady8mvIfisr4Uqw7IR8k2RcZZkebJMT33x
- jmLqg03iLMSkdMH2s2HwLzXv96/jsOXF1Bov207Skrgt1okP9D9O+RE/HCCta4YRLt1WGVtq
- 5TtdyK2yOkVRa+AmyWWKAnmNOH4vq3VWNEwbLMGInXAy9hP0yL8FWyzyGsnTKuMDirjUWW0C
- HI/QSsLuPdu0IKCNMebmb6ZBcUw1rTHHt/4TP3SZdcmSsEvL1DYo3A+NR/KgTGFfK0QfUYXY
- 8nzTCpRJSxCVfQPIMSeG4/xLoPHNghhnDiOFPgXPjys0KaEZW79dFv2GADmUwzN14vd+F+92
- 48Gb6OikkwDOMWjMni/2dNCdjgicClkba0aXuQKL4Zv1CI9Qzp/YxIQqJt8E7FYc1N9yr2Vo
- yrjAxAAkzISRxTvcG23V5yqU5u3Nb4XkJ7xFXdE0Y+A1ydxbICxwr0YcpdrL7Ar+PY6lax/T
- uUfetXGCfNKE2yV9zMYZJj7jYpjaBX02l7eY3v7OGAyL8x6WgjE2t74ZQ+zpiMAOTW66Jklq
- Lq62wKFHZdaH1Z+DNzbYe6Exk+quSRPg/p7WkbFe4EBeEjl/IVwBTb2i/s7f5MFJRnZn2PI3
- AeKGxYI4+LKptZtotXOgKmFqaavEvd/QRUGTzWKs+7uOHCDrGS5wIJGXOKZRhznVTv5qPe4e
- OFY7/DgK/lbzlxEhJVxTuRwxqUk6tqx+7IDllZ4HG/GZkiAA697JiXUxtFGs6BAy+MLuQayX
- U7TqNBWNa/QZZHgGV8VYgEkcv6CxbcfnTyLtaY5J0Dz5SlW+rubUBoNY0nQ2XIFdLYlYpk4x
- eoBudIN713tgxUnBd+KkyRI+jneNXcHSagm6skXDYKDZtDHEb2ejUgw0hPL3aw=
-IronPort-HdrOrdr: A9a23:3rvEOaF025sUspwxpLqE0MeALOsnbusQ8zAXP0AYc3Jom6uj5q
- aTdZUgpGfJYVkqOE3I9ertBEDEewK4yXcX2/h3AV7BZniEhILAFugLhuGO/9SjIVybygc079
- YYT0EUMrzN5DZB4voSmDPIceod/A==
+IronPort-Data: A9a23:yTl/Xa6GhV+/DuOF8XzF1gxRtMXAchMFZxGqfqrLsTDasY5as4F+v
+ jQfUD3Xbq3bYTH1L9wjaY6/pxtQvJbXmoRmHgJr/ykyHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FVAMpBsJ00o5wrdg2NMw27BVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zl
+ PddhKe+ZxUQH4bXwOUwXiBKAXlXBPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALJc/3PIQZqzd4wCvQF/oOSpHfWaTao9Rf2V/cg+gTTauBO
+ ZVDNVKDajztRkRfJWxKWakBu72GnnykKwdmgQis8P9fD2/7k1UqjemF3MDuUt6XQcRYmG6Iq
+ 2SA+H72ajkBL8CWwzeB9nOqh8fMkDn9VYZUE6e3ntZ1hHWDy2pVDwcZPXOrrP/8hkOgVtZ3L
+ 00P5jFovaU07FasTNT2Q1u/unHslh8DWfJAHusi8gaPx6HIpQGDCQAsTDRMddgnv88eXiEx2
+ xmCmNaBONB0mOTLEzTHrO7S9G7sf3hORYMfWcMaZVcn8+jYrq8htzPkVY5iPaOMnM+tMAill
+ lhmsxMCr7kUiMcK0YCy8lbGny+gq/D1c+Il2unEdjn7t10kPeZJc6TtsAGGtqgYcO51W3HY5
+ CBc8/Vy+tziGn1keMalZOwWVI+k6P+eWNE3qQ4+RsJxn9hBFpPKQGyx3N2cDBs2WirnUWWwC
+ KM2he+2zMUOVEZGlYctP+qM5z0ClMAM7+jNWPHOdcZpaZNsbgKB9ywGTRfOhD+yzxl8wfBlZ
+ 8bznSOQ4ZEyU/oP8dZLb71Fje9DKt4WmQs/uqwXPzz4iOHDNRZ5uJ8OMUeUb/BR0U93iF69z
+ jqrDOPTk083eLSnOkH/qNdPRXhXfSlTLc2n8KR/K7/cSjeK7Ul8Upc9N5t6INc790mU/8+Vl
+ kyAtrhwlACi2CaZcFrSMRiOqtrHBP5CkJ7yBgR0VX7A5pTpSdzHAH43e8RlcL852vZkyPIoH
+ fAJd9/ZWqZESyjd+iRbZp749dQweBOujAOIHiykfDlgIMIwG12XoofpLln16S0DLiurrs9i8
+ beu4RzWHMgYTAN4AceINP/2lwGtvWIQkf5ZVlfTJoUBY13l9YVncnSjjvI+L8wWBw/Ewz+Wi
+ 1SfDRsC/LGfqI4p6tjZw6uDqt7xQed5G0NbGUjd7Kq3anaGrjbyn9cYXb/RLz7HVW7y9KGzX
+ slvzqnxYK8dgVJHk4tgCLI3n6gw0MTi+u1BxQN+EXSVM1nyUuF8ImOL1NVkv7FWwuMLohO/X
+ 0+C94UIObiNP8+5QlcdKBB8M7aG3PAQ3DLT8e40MAPx4youpOiLVkBbPh+tji1BLeQqbNN5k
+ Ll54MNGuRaijhcKM8qdinEG/muBGXUMTqE7u8xIG4TskAcqlglPbJG05vUaO31ThwGg6nUXH
+ wI=
+IronPort-HdrOrdr: A9a23:HjttuqPPh/mKFMBcTsejsMiBIKoaSvp037Eqv3ofdfUzSL3+qy
+ nOpoVj6faaslcssR0b9OxofZPwI080lqQFhbX5X43DYOCOggLBR+tfBMnZsljd8kXFh4hgPM
+ xbHZSWZuedMbEDt7eY3DWF
 X-IronPort-AV: E=Sophos;i="5.87,263,1631592000"; 
-   d="scan'208";a="60634187"
+   d="scan'208";a="58576724"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Anthony PERARD
-	<anthony.perard@gmail.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, "Daniel
- P. Smith" <dpsmith@apertussolutions.com>
-Subject: [XEN PATCH v8 42/47] RFC, no-VPATH: workaround includes in xsm/flask
-Date: Thu, 25 Nov 2021 13:40:01 +0000
-Message-ID: <20211125134006.1076646-43-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Ian
+ Jackson" <iwj@xenproject.org>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>
+Subject: [XEN PATCH v8 43/47] WIP, no-VPATH: build object from generated assembly source file
+Date: Thu, 25 Nov 2021 13:40:02 +0000
+Message-ID: <20211125134006.1076646-44-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.34.0
 In-Reply-To: <20211125134006.1076646-1-anthony.perard@citrix.com>
 References: <20211125134006.1076646-1-anthony.perard@citrix.com>
@@ -100,76 +103,65 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-From: Anthony PERARD <anthony.perard@gmail.com>
+gen-objs-c and gen-objs-S can't have the list of targets.
 
-maybe generated header should be in a different directory
-
-using <>-included headers instead of "" to avoid gcc including headers
-from the source tree when it needs to includes them from the build
-tree.
+Alternative, merge both list and use $(filter ).
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/xsm/flask/include/avc.h      | 4 ++--
- xen/xsm/flask/include/avc_ss.h   | 2 +-
- xen/xsm/flask/include/objsec.h   | 2 +-
- xen/xsm/flask/include/security.h | 2 +-
- 4 files changed, 5 insertions(+), 5 deletions(-)
+ xen/Rules.mk | 6 ++++++
+ xen/build.mk | 7 +++++++
+ 2 files changed, 13 insertions(+)
 
-diff --git a/xen/xsm/flask/include/avc.h b/xen/xsm/flask/include/avc.h
-index c14bd07a2b39..b9be6ca5aa8b 100644
---- a/xen/xsm/flask/include/avc.h
-+++ b/xen/xsm/flask/include/avc.h
-@@ -14,8 +14,8 @@
- #include <xen/percpu.h>
- #include <xen/spinlock.h>
+diff --git a/xen/Rules.mk b/xen/Rules.mk
+index 44af005fd57e..2d8d32f5fd72 100644
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -26,6 +26,7 @@ lib-y :=
+ targets :=
+ ## targets made from generated sources
+ gen-objs-c :=
++gen-objs-S :=
+ subdir-y :=
+ CFLAGS-y :=
+ AFLAGS-y :=
+@@ -99,6 +100,7 @@ lib-y           := $(addprefix $(obj)/,$(lib-y))
+ obj-y           := $(addprefix $(obj)/,$(obj-y))
+ obj-bin-y       := $(addprefix $(obj)/,$(obj-bin-y))
+ gen-objs-c      := $(addprefix $(obj)/,$(gen-objs-c))
++gen-objs-S      := $(addprefix $(obj)/,$(gen-objs-S))
+ subdir-y        := $(addprefix $(obj)/,$(subdir-y))
+ nocov-y         := $(addprefix $(obj)/,$(nocov-y))
+ noubsan-y       := $(addprefix $(obj)/,$(noubsan-y))
+@@ -255,6 +257,10 @@ $(obj)/%.o: $(srctree)/$(src)/%.c FORCE
+ quiet_cmd_cc_o_S = CC      $@
+ cmd_cc_o_S = $(CC) $(a_flags) -c $< -o $@
  
--#include "flask.h"
--#include "av_permissions.h"
-+#include <flask.h>
-+#include <av_permissions.h>
- #include "security.h"
++ifdef building_out_of_srctree
++$(gen-objs-S): $(obj)/%.o: $(obj)/%.S FORCE
++	$(call if_changed_dep,cc_o_S)
++endif
+ $(obj)/%.o: $(src)/%.S FORCE
+ 	$(call if_changed_dep,cc_o_S)
  
- extern bool flask_enforcing;
-diff --git a/xen/xsm/flask/include/avc_ss.h b/xen/xsm/flask/include/avc_ss.h
-index a3d7d1ef07a8..d80c2c7e57d8 100644
---- a/xen/xsm/flask/include/avc_ss.h
-+++ b/xen/xsm/flask/include/avc_ss.h
-@@ -6,7 +6,7 @@
- #ifndef _FLASK_AVC_SS_H_
- #define _FLASK_AVC_SS_H_
+diff --git a/xen/build.mk b/xen/build.mk
+index 7b48b7eb1404..2f2cbbbeabf8 100644
+--- a/xen/build.mk
++++ b/xen/build.mk
+@@ -83,6 +83,13 @@ prelink.o: $(ALL_OBJS) $(ALL_LIBS) FORCE
+ 	$(call if_changed,ld)
+ endif
  
--#include "flask.h"
-+#include <flask.h>
++# Source generated in arch/*/Makefile to build $(TARGET)-syms
++gen-objs-S += .$(TARGET)-syms.0.o
++gen-objs-S += .$(TARGET)-syms.1.o
++# Source generated in arch/*/Makefile to build $(TARGET).efi
++gen-objs-S += .$(TARGET).efi.0r.o .$(TARGET).efi.0s.o
++gen-objs-S += .$(TARGET).efi.1r.o .$(TARGET).efi.1s.o
++
+ targets += prelink.o
  
- int avc_ss_reset(u32 seqno);
- 
-diff --git a/xen/xsm/flask/include/objsec.h b/xen/xsm/flask/include/objsec.h
-index b576a5dd4381..69ec66d3fe33 100644
---- a/xen/xsm/flask/include/objsec.h
-+++ b/xen/xsm/flask/include/objsec.h
-@@ -14,7 +14,7 @@
- #define _FLASK_OBJSEC_H_
- 
- #include <xen/sched.h>
--#include "flask.h"
-+#include <flask.h>
- #include "avc.h"
- 
- struct domain_security_struct {
-diff --git a/xen/xsm/flask/include/security.h b/xen/xsm/flask/include/security.h
-index ec8b442a8f3b..8433541aa738 100644
---- a/xen/xsm/flask/include/security.h
-+++ b/xen/xsm/flask/include/security.h
-@@ -10,7 +10,7 @@
- #ifndef _FLASK_SECURITY_H_
- #define _FLASK_SECURITY_H_
- 
--#include "flask.h"
-+#include <flask.h>
- 
- #define SECSID_NULL            0x00000000 /* unspecified SID */
- #define SECSID_WILD            0xffffffff /* wildcard SID */
+ $(TARGET): prelink.o FORCE
 -- 
 Anthony PERARD
 
