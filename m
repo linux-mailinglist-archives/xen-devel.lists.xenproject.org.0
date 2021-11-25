@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1407045D4D7
-	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 07:33:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.230661.398796 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BF1145D4D9
+	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 07:35:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.230665.398807 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mq8JK-0005Fe-2p; Thu, 25 Nov 2021 06:32:46 +0000
+	id 1mq8LB-0005rC-FU; Thu, 25 Nov 2021 06:34:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 230661.398796; Thu, 25 Nov 2021 06:32:46 +0000
+Received: by outflank-mailman (output) from mailman id 230665.398807; Thu, 25 Nov 2021 06:34:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mq8JJ-0005DN-W0; Thu, 25 Nov 2021 06:32:45 +0000
-Received: by outflank-mailman (input) for mailman id 230661;
- Thu, 25 Nov 2021 06:32:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mq8LB-0005pM-Bk; Thu, 25 Nov 2021 06:34:41 +0000
+Received: by outflank-mailman (input) for mailman id 230665;
+ Thu, 25 Nov 2021 06:34:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ia/m=QM=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mq8JI-0005CR-64
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 06:32:44 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7eb8a64b-4db9-11ec-a9d2-d9f7a1cc8784;
- Thu, 25 Nov 2021 07:32:43 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1F695218D6;
- Thu, 25 Nov 2021 06:32:43 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D730113AE9;
- Thu, 25 Nov 2021 06:32:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id t9H1Mgoun2EdZgAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 25 Nov 2021 06:32:42 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mq8L9-0005pC-US; Thu, 25 Nov 2021 06:34:39 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mq8L9-0003a9-OR; Thu, 25 Nov 2021 06:34:39 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mq8L9-0005xL-En; Thu, 25 Nov 2021 06:34:39 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mq8L9-00045j-EH; Thu, 25 Nov 2021 06:34:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,305 +42,280 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7eb8a64b-4db9-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1637821963; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wUgBIfhmwcBW7WhddOCWN8j24GXbcfG/1FFcr6Tdb3Y=;
-	b=DvuoHJ/E6V6W3O2kAfQxcBF1A4cC/lH7f7cnAMQ6qAa8i9eLjFjRNBJbVxEgfb4WHDzKzt
-	Tl596WT21QJqpJdihZ6yy+zLTR/q1PTpKe0OgvEqsXgL2SBhEIxg4tB2GPekwt69gn1/5w
-	FSgbJ4JVf5s9Wifzu3cZVEGE8bMbb+E=
-Subject: Re: [PATCH RFC 1/4] xen: add a domain unique id to each domain
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20210914123600.1626-1-jgross@suse.com>
- <20210914123600.1626-2-jgross@suse.com>
- <8fe9a5bd-030c-66b7-ccf3-4545cfb80f66@xen.org>
- <fa778d46-0a4b-254c-0cde-d3df4e53ec4a@suse.com>
- <407a8f05-f16c-26bb-9ba1-044f62e3c0a0@xen.org>
- <523bb99f-a37d-f3c4-c0a4-c2caa20485cd@suse.com>
- <ecca9185-3dab-89dd-c2d0-a7b974d45e1d@xen.org>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <f989733e-7973-c3f4-78a8-d619827da6a9@suse.com>
-Date: Thu, 25 Nov 2021 07:32:42 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ZYobdSQzICnulYZn9RnXWTH9XnJFR1VZfDxoLZGY4xs=; b=BTMcnWd5KA16+R3vsUXvuQjNsD
+	1nQF1N5ODtofdT58vRMWXdhAFGA8eTLIBmJ/i8ubYeQj170YKCTC5UnvYTSjVhKMZ+y7inhy04exl
+	HBc281iaOMr1ZvilSwlNopQr3raYfca09yztatiCzaLdeuecKEH56EDsWj2GrdM5Rge8=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166328-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <ecca9185-3dab-89dd-c2d0-a7b974d45e1d@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="guKlInAXfMwWQmHJbGft0eWWCBJF2wnY2"
+Subject: [linux-linus test] 166328: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:debian-hvm-install:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=5d9f4cf36721aba199975a9be7863a3ff5cd4b59
+X-Osstest-Versions-That:
+    linux=136057256686de39cc3a07c2e39ef6bc43003ff6
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 25 Nov 2021 06:34:39 +0000
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---guKlInAXfMwWQmHJbGft0eWWCBJF2wnY2
-Content-Type: multipart/mixed; boundary="zI9E2N4Kuo8EfvviipLyYVxPTPPZlwTik";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Message-ID: <f989733e-7973-c3f4-78a8-d619827da6a9@suse.com>
-Subject: Re: [PATCH RFC 1/4] xen: add a domain unique id to each domain
-References: <20210914123600.1626-1-jgross@suse.com>
- <20210914123600.1626-2-jgross@suse.com>
- <8fe9a5bd-030c-66b7-ccf3-4545cfb80f66@xen.org>
- <fa778d46-0a4b-254c-0cde-d3df4e53ec4a@suse.com>
- <407a8f05-f16c-26bb-9ba1-044f62e3c0a0@xen.org>
- <523bb99f-a37d-f3c4-c0a4-c2caa20485cd@suse.com>
- <ecca9185-3dab-89dd-c2d0-a7b974d45e1d@xen.org>
-In-Reply-To: <ecca9185-3dab-89dd-c2d0-a7b974d45e1d@xen.org>
+flight 166328 linux-linus real [real]
+flight 166375 linux-linus real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166328/
+http://logs.test-lab.xenproject.org/osstest/logs/166375/
 
---zI9E2N4Kuo8EfvviipLyYVxPTPPZlwTik
-Content-Type: multipart/mixed;
- boundary="------------FC3491EFEDB1EB1EF37F6CBC"
-Content-Language: en-US
+Regressions :-(
 
-This is a multi-part message in MIME format.
---------------FC3491EFEDB1EB1EF37F6CBC
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemut-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 166266
 
-On 22.11.21 15:37, Julien Grall wrote:
->=20
->=20
-> On 22/11/2021 14:29, Juergen Gross wrote:
->> On 22.11.21 15:10, Julien Grall wrote:
->>> Hi,
->=20
-> Hi,
->=20
->>> On 22/11/2021 12:48, Juergen Gross wrote:
->>>> On 22.11.21 12:42, Julien Grall wrote:
->>>>> Hi Juergen,
->>>>>
->>>>> On 14/09/2021 13:35, Juergen Gross wrote:
->>>>>> Xenstore is referencing domains by their domid, but reuse of a dom=
-id
->>>>>> can lead to the situation that Xenstore can't tell whether a domai=
-n
->>>>>> with that domid has been deleted and created again without Xenstor=
-e
->>>>>> noticing the domain is a new one now.
->>>>>>
->>>>>> Add a global domain creation unique id which is updated when creat=
-ing
->>>>>> a new domain, and store that value in struct domain of the new=20
->>>>>> domain.
->>>>>> The global unique id is initialized with the system time and updat=
-es
->>>>>> are done via the xorshift algorithm which is used for pseudo rando=
-m
->>>>>> number generation, too (see https://en.wikipedia.org/wiki/Xorshift=
-).
->>>>>>
->>>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>>>>> ---
->>>>>> =C2=A0 xen/common/domain.c=C2=A0=C2=A0=C2=A0=C2=A0 | 16 ++++++++++=
-++++++
->>>>>> =C2=A0 xen/include/xen/sched.h |=C2=A0 3 +++
->>>>>> =C2=A0 2 files changed, 19 insertions(+)
->>>>>>
->>>>>> diff --git a/xen/common/domain.c b/xen/common/domain.c
->>>>>> index 6ee5d033b0..755349b93f 100644
->>>>>> --- a/xen/common/domain.c
->>>>>> +++ b/xen/common/domain.c
->>>>>> @@ -84,6 +84,9 @@ vcpu_info_t dummy_vcpu_info;
->>>>>> =C2=A0 bool __read_mostly vmtrace_available;
->>>>>> +/* Unique domain identifier, protected by domctl lock. */
->>>>>> +static uint64_t unique_id;
->>>>>> +
->>>>>> =C2=A0 static void __domain_finalise_shutdown(struct domain *d)
->>>>>> =C2=A0 {
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct vcpu *v;
->>>>>> @@ -473,6 +476,18 @@ static void _domain_destroy(struct domain *d)=
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 166266
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 166266
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 166266
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 166266
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 166266
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 166266
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 166266
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 166266
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
 
->>>>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 free_domain_struct(d);
->>>>>> =C2=A0 }
->>>>>> +static uint64_t get_unique_id(void)
->>>>>
->>>>> The implementation is assuming that domain cannot be created=20
->>>>> concurrently. The rest of domain_create() seems to be able to cope =
+version targeted for testing:
+ linux                5d9f4cf36721aba199975a9be7863a3ff5cd4b59
+baseline version:
+ linux                136057256686de39cc3a07c2e39ef6bc43003ff6
 
->>>>> with concurrent call (even if domctl prevents this situation today)=
-=2E
->>>>>
->>>>> So I think we would want to make this call safe as well. One=20
->>>>> possibility would be to (ab)use the domlist_update_lock (I think=20
->>>>> the uniq ID is only necessary for real domains).
->>>>
->>>> In case this is thought to be needed, I'd rather use a cmpxchg=20
->>>> operation
->>>> for updating unique_id.
->>> I would be OK with cmpxchg(). But I would like to avoid cmpxchg()=20
->>> loop if possible.
->>
->> The chances for that loop to be needed are zero today, as the domctl
->> lock is prohibiting concurrent use.
->=20
-> Well for domain created by the toolstack yes... For domain created by=20
-> Xen no. Today, this is only happening at boot so you are safe (for now)=
-=2E
->=20
-> That said, I don't really see a reason to prevent concurrent=20
-> domain_create() and as I wrote nothing in domain_create() seems to make=
-=20
-> this assumption. So I am not happy to build on that in this new helper.=
+Last test of basis   166266  2021-11-22 06:26:56 Z    3 days
+Testing same since   166328  2021-11-23 22:12:35 Z    1 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+  Arnd Bergmann <arnd@arndb.de>
+  Bard Liao <yung-chuan.liao@linux.intel.com>
+  Charles Keepax <ckeepax@opensource.cirrus.com>
+  ChiYuan Huang <cy_huang@richtek.com>
+  David Rhodes <drhodes@opensource.cirrus.com>
+  Derek Fang <derek.fang@realtek.com>
+  Gongjun Song <gongjun.song@intel.com>
+  Hans de Goede <hdegoede@redhat.com>
+  Hans Verkuil <hverkuil-cisco@xs4all.nl>
+  Jack Yu <jack.yu@realtek.com>
+  John Stultz <john.stultz@linaro.org>
+  Kai Vehmanen <kai.vehmanen@linux.intel.com>
+  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+  Libin Yang <libin.yang@intel.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Mark Brown <broonie@kernel.org>
+  Martin Kepplinger <martin.kepplinger@puri.sm>
+  Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+  Nadav Amit <namit@vmware.com>
+  Olivier Moysan <olivier.moysan@foss.st.com>
+  Ondrej Mosnacek <omosnace@redhat.com>
+  Paul Moore <paul@paul-moore.com>
+  Peter Ujfalusi <peter.ujfalusi@gmail.com>
+  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+  Sakari Ailus <sakari.ailus@linux.intel.com>
+  Simon Trimmer <simont@opensource.cirrus.com>
+  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+  Takashi Iwai <tiwai@suse.de>
+  Werner Sembach <wse@tuxedocomputers.com>
+  Wolfram Sang <wsa+renesas@sang-engineering.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
-Fair enough.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
->=20
->>
->> Another possibility would be to use an:
->>
->> ASSERT(spin_is_locked(&domctl_lock));
->=20
-> This ASSERT() would be incorrect as it could be hit for any domain=20
-> created by Xen.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Oh, right.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-In the end it doesn't really hurt to add another lock. Its not as if
-we'd expect much contention for it. :-)
-
->=20
-> [...]
->=20
->>> Reading the commit message (and cover letter) again, I understand=20
->>> that you want a unique ID but it is not clear to me why this needs to=
-=20
->>> be pseudo-randomly generated. IOW, given the expected use, can you=20
->>> clarify what would be the concern to use an atomic_inc_return()=20
->>> instead of xorshift?
->>
->> Jan had a concern regarding potential misuse of the unique id in case =
-it
->> were kind of predictable.
->=20
-> Fair enough. Can this be written down in the commit message?
-
-Yes, will do that.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-Juergen
+Not pushing.
 
---------------FC3491EFEDB1EB1EF37F6CBC
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------FC3491EFEDB1EB1EF37F6CBC--
-
---zI9E2N4Kuo8EfvviipLyYVxPTPPZlwTik--
-
---guKlInAXfMwWQmHJbGft0eWWCBJF2wnY2
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGfLgoFAwAAAAAACgkQsN6d1ii/Ey82
-8gf/VVV2JR1nP9C6O5eJsCSMcVj2JhCr14laNIIIsAUImDanZDe/fiRfgVJI8CXqPRwVF7UZ/5iB
-0eZJQxRr5iWZObTdZM+QPtOm1CL6GHukj6t4QistSFIbSyxmP36G/exFn6sbgICrZLwCdAooP2Yq
-qLniJDXFpri7LIzyawG4rDqkyIiQEhqZqyQvI7jCTR9eodNo4nkNkhNugT4H73r3ysMQao56Va4y
-zSr0S+jsBXbmlkLjEpyJ/inizlv+pRI5hR7yRAu7f6fOz94mlZXN3TChS38wRjxzVlxvVD4iKYAd
-alQZZAKJECPlol1ek6pJc+OJLurNauesoMPbNB/Psw==
-=lPpQ
------END PGP SIGNATURE-----
-
---guKlInAXfMwWQmHJbGft0eWWCBJF2wnY2--
+(No revision log; it would be 1019 lines long.)
 
