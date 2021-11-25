@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4B8B45DB80
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B95745DB7E
 	for <lists+xen-devel@lfdr.de>; Thu, 25 Nov 2021 14:47:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.231261.400147 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.231262.400153 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqF5q-0000ws-1M; Thu, 25 Nov 2021 13:47:18 +0000
+	id 1mqF5q-0000za-JK; Thu, 25 Nov 2021 13:47:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 231261.400147; Thu, 25 Nov 2021 13:47:17 +0000
+Received: by outflank-mailman (output) from mailman id 231262.400153; Thu, 25 Nov 2021 13:47:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqF5p-0000uK-Qc; Thu, 25 Nov 2021 13:47:17 +0000
-Received: by outflank-mailman (input) for mailman id 231261;
+	id 1mqF5q-0000wx-6n; Thu, 25 Nov 2021 13:47:18 +0000
+Received: by outflank-mailman (input) for mailman id 231262;
  Thu, 25 Nov 2021 13:47:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Nd7+=QM=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1mqF0a-00076i-Qx
- for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 13:41:52 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 71cf687e-4df5-11ec-a9d2-d9f7a1cc8784;
- Thu, 25 Nov 2021 14:41:51 +0100 (CET)
+ id 1mqF0d-0007NX-UB
+ for xen-devel@lists.xenproject.org; Thu, 25 Nov 2021 13:41:56 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 72fe5a02-4df5-11ec-9787-a32c541c8605;
+ Thu, 25 Nov 2021 14:41:54 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,62 +36,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71cf687e-4df5-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 72fe5a02-4df5-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637847711;
+  d=citrix.com; s=securemail; t=1637847714;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=CWsp0MdhX8GJ4/siL8IM7kIar9Uw1eonEXIe+1nIRyU=;
-  b=ht23CctioGJ7ppfpPRbknDiAVvt7ag2FNhmc75XxdJ04FNiDzAQWP1Lu
-   T2QENAuuMNpP5m4eIT5++XnCXSnp1VVKkVH+zTLfKMED6dkUYdL3BdhWi
-   Q7UEdHApjNwP5fEnhBBv4mAQgMScWcW+NziOOW4WCo6BwEfJcgL41/Q3w
-   M=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: k86/nwiWaQBbq9FQommKA4r3+yJbRPRDPopy1ke3GJfAVKukIirtNoXT9N3PzdTZLr/PzPySRA
- PWhzTok7FnVKLDJS/khqINrtpcUacz3DLDtnBmHGuM5JJBUC4VgU+PqrDQNJ+MnFLTT0iBhGMx
- +oIRbQSgzArtPtobuOllAs27BysTRkdbyDocTMiMPT2F3XpCYE7tELQOv4iBu2ctFmn3hJqR4N
- Jl/bcOpQoddsY4sfRPD7SNHZnHEEFxviE2c6jQ/L3A9i89hGLILTsfP/n26hDzFRJ/vVwoM+C/
- GANas4ZRAZLiEJ6etKX6h0UT
+  bh=7q2b6ioZxw6miBARrIxzLFbv4WP2dzhNSHzrlYKQwac=;
+  b=bG8QDzpd4HwPDCkJbFiGlif7FgjQUAJD8a7CQ9L6PK8UrUm0ezcMpbhf
+   lZb0HJus1Fp4OKKRvhGKLw7po8oQ2UpOGoVsA1cXOGbiUnE+K2+Wyw862
+   jUUejYejMLzVXku0pEYaKZCy8V9IHVJBEp6ygakyYKqSmxOh6eP2tg39H
+   A=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: NAgK5Mclx2aJ6A4HFAKnMSqzl1JB86WHq5Wx/QDwFu7MJso88dYoOlV1VxrcHwzMUQdBMyAeRz
+ MJyKhgUdkoTC/CHb7tueIhpvW+42Yy7mVRYWWiNxeh8u95TMqt6ak4EhVer4ZSZSnJSQkhkGv8
+ 83sxOAdV/tucq5HdIkKmZ2hK02TLP4MD4Z/jPYic1b/Swe1RF0Ow21xkooThL8kTNIMK2aKlS4
+ pz+idZe/jbIR5mkiFBJZNR/pMiz2Pn7pfkRsHfWsDtA9C4lJMwChQWkZJ7TnX4mO7hTRVbc/XU
+ x3EHKgvMCLDhxWgaHgnQ8D5o
 X-SBRS: 5.1
-X-MesageID: 58617700
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 60634177
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:hqhjF6NZLv2nxJLvrR1qkMFynXyQoLVcMsEvi/4bfWQNrUp23jAEy
- zYXWT+GMv6ONjD3KYwlYNi//UwFsJOByoBjGgto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6bUsxNbVU8En540Eg+w7RRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYoyfRjt9S1
- spkiYChcQU7PoDNwP4MChYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YuBqmsQkKtitJI4Fs2ts5TrYEewnUdbIRKCiCdpwgWdu358RRa62i
- 8wxQgI+VDHGezB1a3wQLJlnmOCTmHPdfGgNwL6SjfVuuDWCpOBr65DmOcDZfdGiTsxPkkGV4
- GnB+gzRCxcGNNuZ2Hyd/2ilnOPnkibyWYZUH7q9ntZ6jVvWymENBRk+UVqgveL/mkO4Q8hYK
- UEf5mwpt6dayaCwZoCjBVvi+ifC50NCHYoLewEn1O2T4riM8gm6GHctciJQUN40tOI3HSY7j
- 1DcyrsFGgdTmLGSTHuc8JKdojWzJTUZIAc+WMMUcecWy4K9+d9u13ojWv4mSffo1YOtRVkc1
- hjT9HBm74j/m/LnwElSEbrvpzu37qbEQQcujuk8djL0t1gpDGJJimHB1LQ60RqiBNrGJrVil
- CJd8yR70AzpJcvQ/BFhuM1XQNmUCw+taVUwe2JHEZg77CiK8HW+Z41W6zwWDB43aZlbJm65M
- B6J51I5CHpv0JyCN/EfXm5MI55ykfiI+SrNCpg4keaikrAuLVTarUmClGab3nz3kVhErE3ME
- czzTCpYNl5DUf4P5GPvH481iOZ3rghjlTK7bc2qlHyPjOvBDEN5vJ9YaTNimMhit/jayOgUm
- v4CX/a3J+J3DLejP3KJqNFLdjjn7xETXPjLliCeTcbbSiIOJY3rI6a5LWoJd9M3kqJLuP3P+
- 33hCEZUxECm3S/MKBmQa2AlY7TqBM4toXU+NC0qHFCpx3l8Ptr/sPZBL8M6Les96ehu7f9oV
- P1ZKc+ONetCF2bc8DMHYJij8IE7LEa3hRiDNjaOaSQke8IyXBTA/9LpJ1O99CQHAietm9E5p
- rmsilHSTZYZHlwwB8fKcvO/iVi2uCFFyu51WkLJJPhVeVntr9c2e3Cg0KdvLphVexvZxzac2
- wKHOjsipLHA890v7d3EpaGYtIP1QeFwKVVXQjvA5rGsOCiEomf6md1cUPyFdCz2XX/v/Pnwf
- v1cyvzxPaFVnFtOtIYgQb9nwbhnuonqrr5eiA9lAG/KfxKgDbY5eiuK2sxGt6tswL5FuFTpB
- hLTq4cCYbjZatn4FFMxJRY+arXR3P4ZrTDe8PApLRio/yRw5reGDR1fMhTkZPax91ep3FfJG
- dschfM=
-IronPort-HdrOrdr: A9a23:Qr39da/9jgfndjQAPltuk+DgI+orL9Y04lQ7vn2YSXRuHPBw8P
- re+sjztCWE8Ar5N0tBpTntAsW9qDbnhPtICOoqTNCftWvdyQiVxehZhOOIqVDd8m/Fh4pgPM
- 9bAtFD4bbLbGSS4/yU3ODBKadD/OW6
+IronPort-Data: A9a23:8b61f605Knk94uHHNvbD5UR2kn2cJEfYwER7XKvMYLTBsI5bp2EFx
+ 2tJX2qHOP+DMDDzL9l2b4jioBkP7JLRnIJqTVM+pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
+ Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCan8ZqTNMEn970Es6wbNh2OaEvPDia++zk
+ YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
+ 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhvO8u8
+ N9LrKyJEl0JMIDFhNQGTkVVDHQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
+ 6VecW1TKEDY7w616OvTpu1Ej8I/LM7tLcUHt2tp1z3xBvc6W5HTBa7N4Le02R9u3p4VQa+BO
+ KL1bxJEKz3vTA9fGW42GZNmmbmn12P/WS9X/Qf9Sa0fvDGIkV0ZPKLWGNjIft2HQ+1Fk0Deo
+ XjJl0ziGQ0TPtGbzTuD81qvi/XJkCe9X5gdfJWn8tZ6jVvVwXYcYDUUX1ampfiyimalRslSb
+ UcT/0IGvaU0sUCmUNT5dxm5u2Kf+A4RXcJKFO834x3LzbDbiy6QAHQESThQLsQrrsYsSRQl0
+ 1aIm5XiAjkHmLyKS1qN+7GMtzSwNCMJa2gYakc5oRAtuoe55ttp11SWE4glQPXdYsDJ9S/Y4
+ A/VlCI4noUq1pQr2Yiy4WDcnm6huc2cJuIq3Tn/UmWg5wJ/QYeqYY209FTWhcp9wJalokqp5
+ yZdxZXHhAwaJdTUzXHWHr1RdF28z6/daGW0vLJ5I3U2G91BEVaHdJsY3jxxLVwB3i0sKW6wO
+ x+7Ve+8CfZu0JqWgU1fP93Z5ycCl/GI+THZuhf8NIcmX3SJXFXblByCnGbJt4wXrGAikLskJ
+ bCQetu2AHARBMxPlWTtGLhCgO97l3pglAs/oKwXKDz9j9KjiIO9E+9ZYDNikMhlhE97nOkl2
+ 4kGbJbbo/mueOb/fjPW4eYuwaMidhAG6WTNg5UPLIare1M+cEl4UqO56e5xKuRNwvUO/s+Vr
+ y7VZ6Ot4Aem7ZExAV7RMS4LhXKGdcsXkE/XygRwZwv1gCZ6Pt70hErdHrNuFYQaGCVY5aYcZ
+ 5E4lw+oW5yjkxzLpGYQa4fTtotneEj5jA6CJXP9MjM+Y4RhV0rC/dq9Jlnj8ywHDyyWs8oio
+ uL/ilOHEMRbHwkyXtzLbP+Pzk+quSRPkuxFQEaVcMJYf1/h8dY2JnWp3OM3OcwFNT7K2iCei
+ 1SNGR4dqOSU+901/dDFiLqqtYCsF+ciTENWE3OCteS9NDXA/3rlyohFCb7acTfYXWLy2aOje
+ eQKkK2sbKxZxA5H6tMuHaxqwKQy48rUi4Vblgk0Tm/Wa1mLC697JiXU18d4qaAQlKRSvhG7W
+ xzT94ACa6mJIs7sDHUYOBEhMraYzfgRlzTfsaY1LUH96HMl9baLSxwPbRyFiSgbJ7ppKoI1h
+ +wmvZdOuQC4jxMrNPeAjzxVqDvQfiBRDf1/u8FIGpLvhyoq1kpGMM7VBSLB6Z2Sb8lBbxsxK
+ TiOiaue37lRyyIuqZbo+aQhCQaFuakzhQ==
+IronPort-HdrOrdr: A9a23:aRF+L6rgNwlk7kZj8a/dtgoaV5oteYIsimQD101hICG8cqSj+P
+ xG+85rsiMc6QxhIU3I9urgBEDtex7hHNtOkOss1NSZLW3bUQmTTL2KhLGKq1aLJ8S9zJ856U
+ 4JSdkZNDSaNzZHZKjBjDVQa+xQo+W6zA==
 X-IronPort-AV: E=Sophos;i="5.87,263,1631592000"; 
-   d="scan'208";a="58617700"
+   d="scan'208";a="60634177"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Anthony PERARD
-	<anthony.perard@gmail.com>, Doug Goldstein <cardoe@cardoe.com>
-Subject: [XEN PATCH v8 36/47] RFC, no-VPATH: Kconfig: only ready auto.conf from objtree
-Date: Thu, 25 Nov 2021 13:39:55 +0000
-Message-ID: <20211125134006.1076646-37-anthony.perard@citrix.com>
+	<anthony.perard@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	"George Dunlap" <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+	"Jan Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [XEN PATCH v8 37/47] RFC, no-VPATH: build: remove --include-dir option from MAKEFLAGS
+Date: Thu, 25 Nov 2021 13:39:56 +0000
+Message-ID: <20211125134006.1076646-38-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.34.0
 In-Reply-To: <20211125134006.1076646-1-anthony.perard@citrix.com>
 References: <20211125134006.1076646-1-anthony.perard@citrix.com>
@@ -101,50 +105,85 @@ Content-Type: text/plain
 
 From: Anthony PERARD <anthony.perard@gmail.com>
 
-zconf_fopen() will open file in $srctree if the file isn't in
-$objtree. This is an issue for "auto.conf" as it could be in the
-source tree if it is dirty. With "auto.conf" read from the source
-tree, kconfig will not properly set the file associated with a
-CONFIG_* properly in "include/config/" and instead only touch the
-files that correspond to new CONFIG_* option that were not set in the
-"auto.conf" found in the source tree.
-
-That might not be an issue, but it is probably better to have a
-populated "include/config/" directory in sync with
-"include/config/auto.conf".
-
-The second that read from conf_get_configname() would read ".config"
-from the source directory which is also not wanted in Xen.
+File "include/config/auto.conf" and "include/config/auto.conf.cmd"
+should be included from the build tree even if they are present in the
+source tree. Avoiding to use make's command line option --include-dir
+will have make include the right "auto.conf" file. But that mean we
+now need to specify $(srctree) for all other Makefile we include.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- xen/tools/kconfig/confdata.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ xen/Makefile               | 11 +----------
+ xen/Rules.mk               |  2 +-
+ xen/common/libfdt/Makefile |  2 +-
+ xen/scripts/Makefile.clean |  2 +-
+ 4 files changed, 4 insertions(+), 13 deletions(-)
 
-diff --git a/xen/tools/kconfig/confdata.c b/xen/tools/kconfig/confdata.c
-index 4f9139d055be..805d4c3e5636 100644
---- a/xen/tools/kconfig/confdata.c
-+++ b/xen/tools/kconfig/confdata.c
-@@ -357,12 +357,17 @@ int conf_read_simple(const char *name, int def)
- 	int i, def_flags;
+diff --git a/xen/Makefile b/xen/Makefile
+index e39a6f82859a..fbce0f6771fb 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -153,15 +153,6 @@ ifneq ($(words $(subst :, ,$(abs_srctree))), 1)
+ $(error source directory cannot contain spaces or colons)
+ endif
  
- 	if (name) {
--		in = zconf_fopen(name);
-+		if (def == S_DEF_AUTO) {
-+			/* only open include/config/auto.conf in objtree */
-+			in = fopen(name, "r");
-+		} else {
-+			in = zconf_fopen(name);
-+		}
- 	} else {
- 		struct property *prop;
+-ifneq ($(abs_srctree),$(abs_objtree))
+-# Look for make include files relative to root of kernel src
+-#
+-# This does not become effective immediately because MAKEFLAGS is re-parsed
+-# once after the Makefile is read. We need to invoke sub-make.
+-MAKEFLAGS += --include-dir=$(abs_srctree)
+-need-sub-make := 1
+-endif
+-
+ export abs_srctree abs_objtree
+ export root-make-done := y
  
- 		name = conf_get_configname();
--		in = zconf_fopen(name);
-+		in = fopen(name, "r");
- 		if (in)
- 			goto load;
- 		sym_add_change_count(1);
+@@ -225,7 +216,7 @@ ifneq ($(filter %config,$(MAKECMDGOALS)),)
+     config-build := y
+ endif
+ 
+-include scripts/Kbuild.include
++include $(srctree)/scripts/Kbuild.include
+ 
+ ARCH=$(XEN_TARGET_ARCH)
+ SRCARCH=$(shell echo $(ARCH) | \
+diff --git a/xen/Rules.mk b/xen/Rules.mk
+index 745d892d0707..45d2b72158b8 100644
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -104,7 +104,7 @@ noubsan-y       := $(addprefix $(obj)/,$(noubsan-y))
+ # $(sort ...) is used here to remove duplicated words and excessive spaces.
+ hostprogs-y := $(sort $(hostprogs-y))
+ ifneq ($(hostprogs-y),)
+-include scripts/Makefile.host
++include $(srctree)/scripts/Makefile.host
+ endif
+ 
+ # subdir-builtin may contain duplications. Use $(sort ...)
+diff --git a/xen/common/libfdt/Makefile b/xen/common/libfdt/Makefile
+index 75aaefa2e37f..8d484063753b 100644
+--- a/xen/common/libfdt/Makefile
++++ b/xen/common/libfdt/Makefile
+@@ -1,4 +1,4 @@
+-include $(src)/Makefile.libfdt
++include $(srcdir)/Makefile.libfdt
+ 
+ SECTIONS := text data $(SPECIAL_DATA_SECTIONS)
+ OBJCOPYFLAGS := $(foreach s,$(SECTIONS),--rename-section .$(s)=.init.$(s))
+diff --git a/xen/scripts/Makefile.clean b/xen/scripts/Makefile.clean
+index 53f7a76b3075..fa5f332e49a0 100644
+--- a/xen/scripts/Makefile.clean
++++ b/xen/scripts/Makefile.clean
+@@ -12,7 +12,7 @@ clean::
+ 
+ include $(srctree)/scripts/Kbuild.include
+ 
+-include $(src)/Makefile
++include $(srcdir)/Makefile
+ 
+ # Figure out what we need to clean from the various variables
+ # ==========================================================================
 -- 
 Anthony PERARD
 
