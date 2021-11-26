@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A28545F311
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 18:39:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.233291.404698 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A30B845F356
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 19:02:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.233305.404721 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqfCM-00015I-2q; Fri, 26 Nov 2021 17:39:46 +0000
+	id 1mqfXl-0004Ol-4s; Fri, 26 Nov 2021 18:01:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 233291.404698; Fri, 26 Nov 2021 17:39:46 +0000
+Received: by outflank-mailman (output) from mailman id 233305.404721; Fri, 26 Nov 2021 18:01:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqfCL-00012t-W4; Fri, 26 Nov 2021 17:39:45 +0000
-Received: by outflank-mailman (input) for mailman id 233291;
- Fri, 26 Nov 2021 17:39:44 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=m7Hm=QN=arm.com=andre.przywara@srs-se1.protection.inumbo.net>)
- id 1mqfCK-00012j-FN
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 17:39:44 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id d6092a6d-4edf-11ec-9787-a32c541c8605;
- Fri, 26 Nov 2021 18:39:42 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3A6CC11D4;
- Fri, 26 Nov 2021 09:39:41 -0800 (PST)
-Received: from donnerap.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1C14D3F7B4;
- Fri, 26 Nov 2021 09:39:40 -0800 (PST)
+	id 1mqfXl-0004LZ-1A; Fri, 26 Nov 2021 18:01:53 +0000
+Received: by outflank-mailman (input) for mailman id 233305;
+ Fri, 26 Nov 2021 18:01:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=GGcH=QN=gmail.com=digetx@srs-se1.protection.inumbo.net>)
+ id 1mqfXj-0004LT-Di
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 18:01:51 +0000
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [2a00:1450:4864:20::232])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id edd85380-4ee2-11ec-a9d2-d9f7a1cc8784;
+ Fri, 26 Nov 2021 19:01:50 +0100 (CET)
+Received: by mail-lj1-x232.google.com with SMTP id p8so6762425ljo.5
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Nov 2021 10:01:50 -0800 (PST)
+Received: from localhost.localdomain (94-29-48-99.dynamic.spd-mgts.ru.
+ [94.29.48.99])
+ by smtp.gmail.com with ESMTPSA id i32sm553831lfv.295.2021.11.26.10.01.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 Nov 2021 10:01:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,301 +44,288 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6092a6d-4edf-11ec-9787-a32c541c8605
-Date: Fri, 26 Nov 2021 17:39:37 +0000
-From: Andre Przywara <andre.przywara@arm.com>
-To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-Cc: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
- <stefano.stabellini@xilinx.com>, <julien@xen.org>,
- <Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
- <rahul.singh@arm.com>
-Subject: Re: [RFC PATCH] Added the logic to decode 32 bit ldr/str
- post-indexing instructions
-Message-ID: <20211126173937.2d28c47d@donnerap.cambridge.arm.com>
-In-Reply-To: <5d72345d-3236-0fa6-24fc-652385f41b54@xilinx.com>
-References: <20211119165202.42442-1-ayankuma@xilinx.com>
-	<20211126131459.2bbc81ad@donnerap.cambridge.arm.com>
-	<5d72345d-3236-0fa6-24fc-652385f41b54@xilinx.com>
-Organization: ARM
-X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; aarch64-unknown-linux-gnu)
+X-Inumbo-ID: edd85380-4ee2-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=yZvlQF7jemGNKuxK9mzF5Z4xr/dnsXa5rLAqs5Ol3X8=;
+        b=Ed82JEObwjUcFpk7miNmCf04LkcGcLm/RlBewmnkusWrEy5/nqS3O+0w0eISPh4Aso
+         aBkMxDeUbWHPyXUv4atXu25kZtbexzsVvnJH9E6vyURjSI6deD6F0TbqH/7+HfxF12o0
+         X3vj9tEXqYwU3oJ6qfxcp+IxBq3g6jjWZacInNpp5YMyTAuOsjqTpzTJYXVd3VrfvNdu
+         PaHVIfiPoeVnU2nOs9nUhBDhZvXFXEUW6qI5Ij+ETQOM4SImHXEDcUtqsEnZ+zMbB/UP
+         Vb4UFAjGCcwPzOXiEcSB9psaFDi5qACBbyEL0pCzZY2OFahwTbJKwvpnUlR1RBt4FhLB
+         wmgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=yZvlQF7jemGNKuxK9mzF5Z4xr/dnsXa5rLAqs5Ol3X8=;
+        b=uOGatZxUsqcuRWLmjKh3T0RSOwfM9h60wE9lGXlr7uzHYuD/EmRNXf6LyZ/Ky5N2JO
+         kIfIzdWM7gcnPzhgTiwtzRxXE/PU5/hU2MkRjfI9k8gdq5jKLEWFJqkHSnUGlME0hPoI
+         D5QvQQy+sDtbau3q5RbCY7Fv/bbkI0rqOMEi0fU7jSp4iKr7vu+Urn2CltZUJ8xO+fX3
+         PjhpemnG9XvWhpt1FMYtecMsm4NJBAlrm1gHzyxH/ma7fnoNXvoOUKmoa2kSv5m8Fu4y
+         yJ56n3f00ChujoZhiaWZ9Y/mm0kUs1D/MhG6cu8SdfvbbPuu4xdV0woRqYMYLepnpZEy
+         4Cig==
+X-Gm-Message-State: AOAM530bMJS7DzDOB2jVgi4LeRgazrTE3IUG2WG7Ug4wF74NCLwuG6Gl
+	R+mzmTr7ZtUrSwIDpWB/ryY=
+X-Google-Smtp-Source: ABdhPJyUSCxf/+NOJZdoDZc8h3Vb/twk3Q7Gp7LgynrSk8F6dcdudijW4UqggVYffkqsltKi8Bb6Vg==
+X-Received: by 2002:a05:651c:1204:: with SMTP id i4mr32981935lja.437.1637949709729;
+        Fri, 26 Nov 2021 10:01:49 -0800 (PST)
+From: Dmitry Osipenko <digetx@gmail.com>
+To: Thierry Reding <thierry.reding@gmail.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Guo Ren <guoren@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Greg Ungerer <gerg@linux-m68k.org>,
+	Joshua Thompson <funaho@jurai.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Sebastian Reichel <sre@kernel.org>,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Greentime Hu <green.hu@gmail.com>,
+	Vincent Chen <deanbo422@gmail.com>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Helge Deller <deller@gmx.de>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+	Paul Mackerras <paulus@samba.org>,
+	Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Yoshinori Sato <ysato@users.sourceforge.jp>,
+	Rich Felker <dalias@libc.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Santosh Shilimkar <ssantosh@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Pavel Machek <pavel@ucw.cz>,
+	Lee Jones <lee.jones@linaro.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
+	alankao@andestech.com,
+	"K . C . Kuen-Chern Lin" <kclin@andestech.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-csky@vger.kernel.org,
+	linux-ia64@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org,
+	linux-mips@vger.kernel.org,
+	linux-parisc@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-riscv@lists.infradead.org,
+	linux-sh@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	linux-acpi@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH v4 00/25] Introduce power-off+restart call chain API
+Date: Fri, 26 Nov 2021 21:00:36 +0300
+Message-Id: <20211126180101.27818-1-digetx@gmail.com>
+X-Mailer: git-send-email 2.33.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Fri, 26 Nov 2021 15:28:06 +0000
-Ayan Kumar Halder <ayan.kumar.halder@xilinx.com> wrote:
+Problem
+-------
 
-Hi Ayan,
+SoC devices require power-off call chaining functionality from kernel.
+We have a widely used restart chaining provided by restart notifier API,
+but nothing for power-off.
 
-> Many thanks for your inputs.
-> Apologies if I sound dumb, but I need a few clarifications.
-> 
-> On 26/11/2021 13:14, Andre Przywara wrote:
-> > On Fri, 19 Nov 2021 16:52:02 +0000
-> > Ayan Kumar Halder <ayan.kumar.halder@xilinx.com> wrote:
-> > 
-> > Hi,
-> >   
-> >> At present, post indexing instructions are not emulated by Xen.
-> >> When Xen gets the exception, EL2_ESR.ISV bit not set. Thus as a
-> >> result, data abort is triggered.
-> >>
-> >> Added the logic to decode ldr/str post indexing instructions.
-> >> With this, Xen can decode instructions like these:-
-> >> ldr w2, [x1], #4
-> >> Thus, domU can read ioreg with post indexing instructions.  
-> > 
-> > Where do those instructions come from? A (C) compiler? (Some mail in
-> > another thread from Stefano suggests so)
-> > If yes, I would argue that is broken:
-> > IIUC C compilers assume normal memory attributes for every pointer they
-> > handle, so they are free to use unaligned accesses, load/store exclusives,
-> > split accesses (two halfword reads) and what not when generating code.
-> > The GIC needs to be mapped as device memory, which explicitly forbids
-> > unaligned accesses and exclusives (as in: always traps), so you cannot let
-> > compiler-generated code access the GIC (or most other MMIO devices, for
-> > that matter).
-> > I know, this somewhat works(TM) in practise, because a uint32_t assignment
-> > is very likely to end up in an ldr/str, but please let me know which car
-> > this code ends up in, so that can I avoid this brand ;-)
-> > 
-> > You can tell the compiler to avoid unaligned accesses with -mstrict-align
-> > (and should definitely do so when you are running C code with the MMU
-> > off), but that still leaves exclusives and split accesses at the
-> > compiler's discretion. A variation on the topic of split access is merged
-> > writes, where the compiler uses NEON or SVE instructions, for instance, to
-> > cover multiple words at once, possibly via some memset()/memcpy() routine.  
-> 
-> I understand that we should be using inline assembly instructions to 
-> access any MMIO region. This is to prevent the compiler doing any tricks.
-> 
-> But is there a restriction that post indexing instructions can never be 
-> used to access MMIO region ?
+Solution
+--------
 
-No, this is a pure virtualisation restriction, see below. On real
-hardware/bare-metal, ldr/str with post or pre-indexing works and is fine
-to use for MMIO.
-But we need to have the right access width, matching the MMIO device's
-expectation. So ldp/stp would probably be problematic, for instance.
+Introduce new API that provides both restart and power-off call chains.
 
-> > On top there is this architectural restriction of the ARMv7/v8
-> > virtualisation extension to not decode many "advanced" load/store
-> > instructions in ESR_EL2.  
-> Where do I find this restriction ?
+Why combine restart with power-off? Because drivers often do both.
+More practical to have API that provides both under the same roof.
 
-That's described in the ESR_ELx syndrome description in the ARMv8 ARM (DDI
-0487G.b), section "ISS encoding for an exception from a Data Abort" (page
-D13-3219 in my Issue G.b copy):
-"For other faults reported in ESR_EL2, ISV is 0 except for the following stage 2 aborts: ...."
+The new API is designed with simplicity and extensibility in mind.
+It's built upon the existing restart and reboot APIs. The simplicity
+is in new helper functions that are convenient for drivers. The
+extensibility is in the design that doesn't hardcode callback
+arguments, making easy to add new parameters and remove old.
 
-> Are you telling me that load/store with post indexing is an "advanced" 
-> instruction and ArmV8 does not allow decoding of these instructions in 
-> ESR_EL2 ?
+This is a third attempt to introduce the new API. First was made by
+Guenter Roeck back in 2014, second was made by Thierry Reding in 2017.
+In fact the work didn't stop and recently arm_pm_restart() was removed
+from v5.14 kernel, which was a part of preparatory work started by
+Guenter Roeck. I took into account experience and ideas from the
+previous attempts, extended and polished them.
 
-Yes, it is in the group of instructions for which the hardware does not
-provide syndrome information in ESR_EL2: " .... but excluding Load
-Exclusive or Store Exclusive and excluding those with writeback)."
+Adoption plan
+-------------
 
-> Isn't that a very strong limitation ?
+This patchset introduces the new API. It also converts multiple drivers
+and arch code to the new API to demonstrate how it all looks in practice.
 
-I don't know about that, it's what it is and what it was for years. Linux
-deliberately chose ldr/str only for readl/writel to be able to trap and
-handle MMIO aborts in hypervisors.
+The plan is:
 
-If you do MMIO accesses the right way, using (inline) assembly only, then
-you don't have the problem, and also avoid many others, see my previous
-mail.
+1. Merge new API (patches 1-8). This API will co-exist with the old APIs.
 
-If you think of it from an architectural and implementation point of view
-(and keep the RISC idea in mind): it should happen rarely, but would
-require many gates for something that you can do in software as well.
+2. Convert arch code to do_kernel_power_off() (patches 9-21).
 
-> Also what is your opinion on Xen decoding these instructions ?
+3. Convert drivers and platform code to the new API.
 
-I would be careful, we deliberately avoid this in KVM. This bubbles up
-from time to time, though, so we now allow delegating this case to
-userland, so the VMM can do the decoding there.
-In Xen you have less issues with walking the guest's page tables,
-though (a major problem in KVM), but it still adds complexity to a
-hypervisor which aims to be lean by design.
-Another argument would be that just post/pre does not cover everything, and
-the cases start to pile up quickly: what about the immediate versions,
-ldxr, stp, NEON/SVE load/stores, etc. Since many of those are not safe for
-MMIO anyway, you add a lot of code for little use (and which gets little
-testing!).
+4. Remove obsolete pm_power_off and pm_power_off_prepare variables.
 
-Cheers,
-Andre
+5. Make restart-notifier API private to kernel/reboot.c once no users left.
 
-> > Linux deliberately coded readl/writel using inline assembly, to only
-> > use instructions that provide syndrome information, plus guarantee
-> > device-memory compatible semantics.
-> > Check out https://lwn.net/Articles/698014/ for a comprehensive
-> > discussion of this whole MMIO topic.
-> > 
-> > So I think you should do the same in your guest/bare metal code: define
-> > {read,write}{b,h,l,q} as inline assembly functions, using ldr?/str?
-> > only. See xen/include/asm-arm/arm64/io.h for an example that uses
-> > static inline functions in a header file, to generate most optimal
-> > code. Then always do MMIO only via those accessors. That prevents any
-> > future compiler surprises, plus makes you perfectly virtualisable.
-> > 
-> > Cheers,
-> > Andre.
-> >   
-> >> Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
-> >> ---
-> >> Note to reviewer:-
-> >> This patch is based on an issue discussed in
-> >> https://lists.xenproject.org/archives/html/xen-devel/2021-11/msg00969.html
-> >> "Xen/ARM - Query about a data abort seen while reading GICD registers"
-> >>
-> >>
-> >>   xen/arch/arm/decode.c | 77
-> >> +++++++++++++++++++++++++++++++++++++++++++ xen/arch/arm/io.c     |
-> >> 14 ++++++-- 2 files changed, 88 insertions(+), 3 deletions(-)
-> >>
-> >> diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
-> >> index 792c2e92a7..7b60bedbc5 100644
-> >> --- a/xen/arch/arm/decode.c
-> >> +++ b/xen/arch/arm/decode.c
-> >> @@ -84,6 +84,80 @@ bad_thumb2:
-> >>       return 1;
-> >>   }
-> >>   
-> >> +static inline int32_t extract32(uint32_t value, int start, int
-> >> length) +{
-> >> +    int32_t ret;
-> >> +
-> >> +    if ( !(start >= 0 && length > 0 && length <= 32 - start) )
-> >> +        return -EINVAL;
-> >> +
-> >> +    ret = (value >> start) & (~0U >> (32 - length));
-> >> +
-> >> +    return ret;
-> >> +}
-> >> +
-> >> +static int decode_64bit_loadstore_postindexing(register_t pc, struct
-> >> hsr_dabt *dabt) +{
-> >> +    uint32_t instr;
-> >> +    int size;
-> >> +    int v;
-> >> +    int opc;
-> >> +    int rt;
-> >> +    int imm9;
-> >> +
-> >> +    /* For details on decoding, refer to Armv8 Architecture
-> >> reference manual
-> >> +     * Section - "Load/store register (immediate post-indexed)", Pg
-> >> 318
-> >> +    */
-> >> +    if ( raw_copy_from_guest(&instr, (void * __user)pc, sizeof
-> >> (instr)) )
-> >> +        return -EFAULT;
-> >> +
-> >> +    /* First, let's check for the fixed values */
-> >> +
-> >> +    /*  As per the "Encoding table for the Loads and Stores group",
-> >> Pg 299
-> >> +     * op4 = 1 - Load/store register (immediate post-indexed)
-> >> +     */
-> >> +    if ( extract32(instr, 10, 2) != 1 )
-> >> +        goto bad_64bit_loadstore;
-> >> +
-> >> +    /* For the following, refer to "Load/store register (immediate
-> >> post-indexed)"
-> >> +     * to get the fixed values at various bit positions.
-> >> +     */
-> >> +    if ( extract32(instr, 21, 1) != 0 )
-> >> +        goto bad_64bit_loadstore;
-> >> +
-> >> +    if ( extract32(instr, 24, 2) != 0 )
-> >> +        goto bad_64bit_loadstore;
-> >> +
-> >> +    if ( extract32(instr, 27, 3) != 7 )
-> >> +        goto bad_64bit_loadstore;
-> >> +
-> >> +    size = extract32(instr, 30, 2);
-> >> +    v = extract32(instr, 26, 1);
-> >> +    opc = extract32(instr, 22, 1);
-> >> +
-> >> +    /* At the moment, we support STR(immediate) - 32 bit variant and
-> >> +     * LDR(immediate) - 32 bit variant only.
-> >> +     */
-> >> +    if (!((size==2) && (v==0) && ((opc==0) || (opc==1))))
-> >> +        goto bad_64bit_loadstore;
-> >> +
-> >> +    rt = extract32(instr, 0, 5);
-> >> +    imm9 = extract32(instr, 12, 9);
-> >> +
-> >> +    if ( imm9 < 0 )
-> >> +        update_dabt(dabt, rt, size, true);
-> >> +    else
-> >> +        update_dabt(dabt, rt, size, false);
-> >> +
-> >> +    dabt->valid = 1;
-> >> +
-> >> +
-> >> +    return 0;
-> >> +bad_64bit_loadstore:
-> >> +    gprintk(XENLOG_ERR, "unhandled 64bit instruction 0x%x\n", instr);
-> >> +    return 1;
-> >> +}
-> >> +
-> >>   static int decode_thumb(register_t pc, struct hsr_dabt *dabt)
-> >>   {
-> >>       uint16_t instr;
-> >> @@ -155,6 +229,9 @@ int decode_instruction(const struct cpu_user_regs
-> >> *regs, struct hsr_dabt *dabt) if ( is_32bit_domain(current->domain)
-> >> && regs->cpsr & PSR_THUMB ) return decode_thumb(regs->pc, dabt);
-> >>   
-> >> +    if ( is_64bit_domain(current->domain) )
-> >> +        return decode_64bit_loadstore_postindexing(regs->pc, dabt);
-> >> +
-> >>       /* TODO: Handle ARM instruction */
-> >>       gprintk(XENLOG_ERR, "unhandled ARM instruction\n");
-> >>   
-> >> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-> >> index 729287e37c..49e80358c0 100644
-> >> --- a/xen/arch/arm/io.c
-> >> +++ b/xen/arch/arm/io.c
-> >> @@ -106,14 +106,13 @@ enum io_state try_handle_mmio(struct
-> >> cpu_user_regs *regs, .gpa = gpa,
-> >>           .dabt = dabt
-> >>       };
-> >> +    int rc;
-> >>   
-> >>       ASSERT(hsr.ec == HSR_EC_DATA_ABORT_LOWER_EL);
-> >>   
-> >>       handler = find_mmio_handler(v->domain, info.gpa);
-> >>       if ( !handler )
-> >>       {
-> >> -        int rc;
-> >> -
-> >>           rc = try_fwd_ioserv(regs, v, &info);
-> >>           if ( rc == IO_HANDLED )
-> >>               return handle_ioserv(regs, v);
-> >> @@ -123,7 +122,16 @@ enum io_state try_handle_mmio(struct
-> >> cpu_user_regs *regs, 
-> >>       /* All the instructions used on emulated MMIO region should be
-> >> valid */ if ( !dabt.valid )
-> >> -        return IO_ABORT;
-> >> +    {
-> >> +        /*
-> >> +         * Post indexing ldr/str instructions are not emulated by
-> >> Xen. So, the
-> >> +         * ISS is invalid. In such a scenario, we try to manually
-> >> decode the
-> >> +         * instruction from the program counter.
-> >> +         */
-> >> +        rc = decode_instruction(regs, &info.dabt);
-> >> +        if ( rc )
-> >> +            return IO_ABORT;
-> >> +    }
-> >>   
-> >>       /*
-> >>        * Erratum 766422: Thumb store translation fault to Hypervisor
-> >> may  
-> >   
+It's fully implemented here:
+
+[1] https://github.com/grate-driver/linux/commits/sys-off-handler
+
+For now I'm sending only the first 25 base patches out of ~180. It's
+preferable to squash 1-2, partially 3 and 4 points of the plan into a
+single patchset to ease and speed up applying of the rest of the patches.
+Majority of drivers and platform patches depend on the base, hence they
+will come later (and per subsystem), once base will land.
+
+All [1] patches are compile-tested. Tegra and x86 ACPI patches are tested
+on hardware. The remaining should be covered by unit tests (unpublished).
+
+Results
+-------
+
+1. Devices can be powered off properly.
+
+2. Global variables are removed from drivers.
+
+3. Global pm_power_off and pm_power_off_prepare callback variables are
+removed once all users are converted to the new API. The latter callback
+is removed by patch #25 of this series.
+
+4. Ambiguous call chain ordering is prohibited. See patch #5 which adds
+verification of restart handlers priorities, ensuring that they are unique.
+
+Changelog:
+
+v4: - Made a very minor improvement to doc comments, clarifying couple
+      default values.
+
+    - Corrected list of emails recipient by adding Linus, Sebastian,
+      Philipp and more NDS people. Removed bouncing emails.
+
+    - Added acks that were given to v3.
+
+v3: - Renamed power_handler to sys_off_handler as was suggested by
+      Rafael Wysocki.
+
+    - Improved doc-comments as was suggested by Rafael Wysocki. Added more
+      doc-comments.
+
+    - Implemented full set of 180 patches which convert whole kernel in
+      accordance to the plan, see link [1] above. Slightly adjusted API to
+      better suit for the remaining converted drivers.
+
+      * Added unregister_sys_off_handler() that is handy for a couple old
+        platform drivers.
+
+      * Dropped devm_register_trivial_restart_handler(), 'simple' variant
+        is enough to have.
+
+    - Improved "Add atomic/blocking_notifier_has_unique_priority()" patch,
+      as was suggested by Andy Shevchenko. Also replaced down_write() with
+      down_read() and factored out common notifier_has_unique_priority().
+
+    - Added stop_chain field to struct restart_data and reboot_prep_data
+      after discovering couple drivers wanting that feature.
+
+    - Added acks that were given to v2.
+
+v2: - Replaced standalone power-off call chain demo-API with the combined
+      power-off+restart API because this is what drivers want. It's a more
+      comprehensive solution.
+
+    - Converted multiple drivers and arch code to the new API. Suggested by
+      Andy Shevchenko. I skimmed through the rest of drivers, verifying that
+      new API suits them. The rest of the drivers will be converted once we
+      will settle on the new API, otherwise will be too many patches here.
+
+    - v2 API doesn't expose notifier to users and require handlers to
+      have unique priority. Suggested by Guenter Roeck.
+
+    - v2 API has power-off chaining disabled by default and require
+      drivers to explicitly opt-in to the chaining. This preserves old
+      behaviour for existing drivers once they are converted to the new
+      API.
+
+Dmitry Osipenko (25):
+  notifier: Remove extern annotation from function prototypes
+  notifier: Add blocking_notifier_call_chain_is_empty()
+  notifier: Add atomic/blocking_notifier_has_unique_priority()
+  reboot: Correct typo in a comment
+  reboot: Warn if restart handler has duplicated priority
+  reboot: Warn if unregister_restart_handler() fails
+  reboot: Remove extern annotation from function prototypes
+  kernel: Add combined power-off+restart handler call chain API
+  ARM: Use do_kernel_power_off()
+  csky: Use do_kernel_power_off()
+  riscv: Use do_kernel_power_off()
+  arm64: Use do_kernel_power_off()
+  parisc: Use do_kernel_power_off()
+  xen/x86: Use do_kernel_power_off()
+  powerpc: Use do_kernel_power_off()
+  m68k: Switch to new sys-off handler API
+  sh: Use do_kernel_power_off()
+  x86: Use do_kernel_power_off()
+  ia64: Use do_kernel_power_off()
+  mips: Use do_kernel_power_off()
+  nds32: Use do_kernel_power_off()
+  memory: emif: Use kernel_can_power_off()
+  ACPI: power: Switch to sys-off handler API
+  regulator: pfuze100: Use devm_register_sys_off_handler()
+  reboot: Remove pm_power_off_prepare()
+
+ arch/arm/kernel/reboot.c               |   4 +-
+ arch/arm64/kernel/process.c            |   3 +-
+ arch/csky/kernel/power.c               |   6 +-
+ arch/ia64/kernel/process.c             |   4 +-
+ arch/m68k/emu/natfeat.c                |   3 +-
+ arch/m68k/include/asm/machdep.h        |   1 -
+ arch/m68k/kernel/process.c             |   5 +-
+ arch/m68k/kernel/setup_mm.c            |   1 -
+ arch/m68k/kernel/setup_no.c            |   1 -
+ arch/m68k/mac/config.c                 |   4 +-
+ arch/mips/kernel/reset.c               |   3 +-
+ arch/nds32/kernel/process.c            |   3 +-
+ arch/parisc/kernel/process.c           |   4 +-
+ arch/powerpc/kernel/setup-common.c     |   4 +-
+ arch/powerpc/xmon/xmon.c               |   3 +-
+ arch/riscv/kernel/reset.c              |  12 +-
+ arch/sh/kernel/reboot.c                |   3 +-
+ arch/x86/kernel/reboot.c               |   4 +-
+ arch/x86/xen/enlighten_pv.c            |   4 +-
+ drivers/acpi/sleep.c                   |  25 +-
+ drivers/memory/emif.c                  |   2 +-
+ drivers/regulator/pfuze100-regulator.c |  38 +-
+ include/linux/notifier.h               |  37 +-
+ include/linux/pm.h                     |   1 -
+ include/linux/reboot.h                 | 305 ++++++++++++--
+ kernel/notifier.c                      |  83 ++++
+ kernel/power/hibernate.c               |   2 +-
+ kernel/reboot.c                        | 556 ++++++++++++++++++++++++-
+ 28 files changed, 985 insertions(+), 136 deletions(-)
+
+-- 
+2.33.1
 
 
