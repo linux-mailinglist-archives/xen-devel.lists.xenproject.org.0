@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 218B845EE03
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BD1145EE04
 	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 13:35:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.232670.403482 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.232664.403430 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqaRW-0002QV-1r; Fri, 26 Nov 2021 12:35:06 +0000
+	id 1mqaRQ-0001HG-8d; Fri, 26 Nov 2021 12:35:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 232670.403482; Fri, 26 Nov 2021 12:35:05 +0000
+Received: by outflank-mailman (output) from mailman id 232664.403430; Fri, 26 Nov 2021 12:35:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqaRV-0002J2-O1; Fri, 26 Nov 2021 12:35:05 +0000
-Received: by outflank-mailman (input) for mailman id 232670;
- Fri, 26 Nov 2021 12:35:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mqaRQ-0001FB-5Q; Fri, 26 Nov 2021 12:35:00 +0000
+Received: by outflank-mailman (input) for mailman id 232664;
+ Fri, 26 Nov 2021 12:34:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k+gV=QN=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mqaRT-0001V1-Bj
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 12:35:03 +0000
+ id 1mqaRP-0001F5-Ai
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 12:34:59 +0000
 Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 46703287-4eb5-11ec-a9d2-d9f7a1cc8784;
- Fri, 26 Nov 2021 13:35:02 +0100 (CET)
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 42b961ab-4eb5-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 13:34:57 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,249 +36,333 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46703287-4eb5-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 42b961ab-4eb5-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637930102;
+  d=citrix.com; s=securemail; t=1637930097;
   h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ZQYtvEE7popO91dkZaKOY9KOwwyjuGb56VfMJICY5lw=;
-  b=VNbcx+E8q9K2fLfplyO7Mr3j4LE1+Q/Zdcam7DGcAIVZPIX9USjYztIo
-   sN2Gd8Rd3Bsp45gWxfJT6AjqrRg1rTVP+9vbRm/8EICC/AiISQtoqD2cl
-   jsbeYFURmDQEgX5Pb1z4j/JaGXEeEDA41/jQnMgWD2D9fvaZqUKEZw076
-   U=;
+   references:mime-version;
+  bh=P6+wFk0+JaJVj/ZX7SdMdgmqS7z6GuiHKgY74wOhyk8=;
+  b=XXabGXOm/xDtqv/4PkD/jojExkGwr2V6komB1QEWA43hO3mZYnsr4xBl
+   ELrxTZDiWfN0enjfdJaNnAtg3pD6F7c5gcgzvHDqQSNRRU+zfqYenqTIA
+   UGAmvBjrmFAes1/RZYmgMFe8FcUbJNwCkS/yWndfytvJ1Qw4xzC7yCd4X
+   8=;
 Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: p/3ImIYAQw3Osavz7EyZ3PLUHL28sqDHszVEaLWodjgPmfMPk+AR0rrRlAMxeDhXcDREAZ2xYw
- A8fYJnV2D4AoetVlQWkUIvgjTwR5kJwYftzjeEl2FKW3YWXiZLMKrnhR6afxESEJqgQZ3u/yQ0
- KNWScBdmgMJ8Jg4Nb/xW+Cd012cIk2RQXFO9ewccP9F0mKCjZ4NlhX3dHBzdmEIzayH7uceWkh
- TCF/nWBl3CIcj7Io1TwRUruXcwANIJiiQIDd3RAI5C6sLyWZL5Ktxtjp0d0cHuAwzk4pikWYSD
- 3VnIzqhbf2f8vLpwSP243xhM
+IronPort-SDR: y72rfEu8k5kqf4e9U1JsSGxFKJTjzAjzP9VUDZbs6zDPPf3XebNHNsy5uvs12GZBBGlLSQ37XB
+ Hyt3Czjj6blcFWDJYSfGIZIbHCI9Wu3ENCoEFW7wYcREIEmQ8gMqkYNZlKp/NnHz7uXRick/TI
+ Qa+tAZl8858dyclEqqlsjnVdnuPj2svpQ4DVDtfZla7GXiHi1a4Tt41wG7U5HbGt2gQtDdqZxH
+ HKu2h/s3OlviqiPPqGZ4V6Tc46d5mS+rMnkG/Gpeu2Q9GGt6VuZK0ZkWP5NBr6B6s2Kxu1Vd/N
+ RzyGEDaTYamQRDx4DOZsZoX8
 X-SBRS: 5.1
-X-MesageID: 58192114
+X-MesageID: 58192115
 X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:Msgwna7qd/bCFvxQr0OlDQxRtPXAchMFZxGqfqrLsTDasY5as4F+v
- mtJUDvVa/rcNjbxfdF3PYW18xxQsZOBm4NhSwZkrCBhHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FVAMpBsJ00o5wrdg2NAw2LBVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z+
- fdM8rDpZS4QHoLyvL49EAEAIyxfFPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALBc/nJo4A/FpnyinUF60OSpHfWaTao9Rf2V/cg+gTTa+PP
- ZNANVKDajz6aT9TAgZLBqllp82BmVzRbWwB9HGs8P9fD2/7k1UqjemF3MDuUsOObdVYmACfv
- G2u10bTDwweNdef4SGY6X/qjejK9QvrVYRXGLCm+/pChFyI2ndVGBAQTUG8o/Sylgi5Qd03F
- qAP0nNw9+5orhXtF4SjGU3jyJKZgvICc+tyEqoWsS2k84r73SLDJiscFg5MSfVz4afaWgcW/
- lOOmtroAxlmv7uUVW+R+9+okN+iBcQGBTRcPHFZFGPp9/Gm+dhu1UyXEr6PBYbs1oWtcQwc1
- Qxmu8TXa187qccQn5u28lnc695HjsiYF1Vljuk7s4/M0++YWGJHT9D3gbQ4xawZRGp8crVnl
- CNf8yR5xLpTZaxhbATXHI0w8EiBvp5pygH0j191BIUG/D+w4XOldo04yGggfxg5bJtbKGO3P
- BS7VeZtCHl7ZyDCgUhfOd/ZNijX5fK4SYSNug78MrKinaSdhCfYpXozNCZ8LkjmkVQ2kLFXB
- HtoWZ3EMJruMow+lGDeb75EidcDn3lirUuOFcGT50n2itK2OS/KIYrpxXPTN4jVGovf+16Lm
- zueXuPXoyhivBrWPnOKrNVNdA9SdhDWx/ne8qRqSwJKGSI+cElJNhMb6elJl1VNk/sHm+HW0
- Gu6X0MEmlPziWeecVeBa2x5aaOpVpF69CppMSspNFeu+n4ifYfws/tPK8ppJeEqpL550Pp5b
- /gZYMHcUP5BfSvKpmYGZp7noY08KBny3VCSPzCoaSQUdoJ7Q1Cb4cftewbirXFcDie+ucYkj
- aen0wfXHcgKSwh4VZ6EY/Oz1VKh+3ManbsqDUfPJ9BSfmTq8ZRrdHOt3qNmfZlUJEyalDWA1
- guQDRMJnsX3otc4oIvTmKSJj4a1CO8iTEBUKHbWsOStPi7A82v9nYIZCLSUfSrQXX/f8bm5Y
- bkH1On1NfAKkQoYs4d4FLo3n6sy68G2+u1fxwVgWn7Kc06qGvVrJXzfhZtDsahEx7l4vwqqW
- x3QpokGaOvRYM61QkQMIAcFb/iY0aBGkzbf2v05PUHm6XIl57GAS0hTY0GBhSE1wGGZ62/5L
- TPNYPIr1jE=
-IronPort-HdrOrdr: A9a23:60Fb2aG+eXBUxhYqpLqE0MeALOsnbusQ8zAXP0AYc3Jom6uj5r
- mTdZUgpHnJYVkqOE3I9ertBEDEewK4yXcX2/h3AV7BZniEhILAFugLhuGO/9SjIVybygc079
- YZT0EUMrzN5DZB4voSmDPIceod/A==
+IronPort-Data: A9a23:pLZZZK8UEkcpIvaO8MPIDrUDv3mTJUtcMsCJ2f8bNWPcYEJGY0x3y
+ WIdD2+OafjeMDf8LtknYIS28koDuZWAyddnTgRlrC08E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhGmeIdA970Ug6wrdj3NYx6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhS6
+ cx1k6aLdTsII/Pg36dMSgd6KTlhaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguwKKsXxMZxZkXZn1TzDVt4tQIzZQrWM7thdtNs1rp0eRKeEP
+ pNEAdZpRE79SjNDJm4KM8wZrO6jrV/CVQdFtk3A8MLb5ECMlVcsgdABKuH9eNOQQt5Otl2Fv
+ W+A9GP8ajkKOdraxTeb/3aEgu7UgTi9SI8UDKe/9PNhnBuU3GN7NfENfQLl+7/j0Bf4Ao8Bb
+ RxPksYzkUQs3G+KV+HbZSaEnF+Z4DJbGItJDc8A8B7Yn8I4/D2lLmQDSzdAbvkvu8k3WSEm2
+ ze1oj/5OdB8mObLECzAr994uRv3YHFIdjFaOUfoWCNcu4G7yLzfmC4jWTqK/ESdqtTuUQ/9z
+ DmRxMTVr+VC1JVbv0lXEL2uvt5NmnQrZlJqjuk0djj8hu+cWGJDT9fzgbQ8xawdRLt1tnHb4
+ BA5dzG2tYji962lmi2XW/kqF7q0/fuDOzC0qQcxRMZxqWnyqiL9Ids4DNRCyKFBaZ1sldjBO
+ hK7hO+szMULYCvCgVFfP+pd9PjGPYC/TI+4B5g4n/JFY4RrdR/vwc2dTRX44owZq2B1yftXE
+ c7CKa6EVC9GYYw6nGveb7pMitcDm3FhrV4/sLimlnxLJ5LFPyXLIVrEWXPTBt0EAFSs/F+Ir
+ o0BbpTSkH2ykoTWO0HqzGLaFnhSRVBTOHw8g5Y/mjerLlU0FWc/JeXWxL99KYVpk74MzrXD/
+ 22nW18ew1363CWVJQKPY3FlSbXuQZcg8i5rYX1yZQ6liyo5fIKizKYDbJ9rL7Mpw/NukKxvR
+ P4fdsTeXvkWEmbb+y4QZIXWpZB5cEj5nhqHOieoOWBtf5NpSwHT1MXjew/jqHsHAiat7JNsq
+ Ly8zALLB5EEQl06XsrRbfuuyXK3vGQcx70uDxeZfIELdRy1ooZwKiH3gvsmGO02KE3OlmmAy
+ gKbIRYEvu2R8YU7x8bE2PKfpICzHuogQkcDRzvH7ay7PDXx93a4xdMSS/6BeD3QWT+m+KimY
+ ukJnfjwPOdewQRPuot4Vb1q0bg/953koLoDllZoG3DCblKKDLJ8IybZgZkT5/MVnrIJ6xGrX
+ k+v+8VBPeTbMczoJ1cdOQ45Y7nRzvoTgDTTsaw4LUiSCPWbJ1ZbvZG+5yWxtRE=
+IronPort-HdrOrdr: A9a23:zMmCHq7nBwrQhNdmUgPXwMrXdLJyesId70hD6qhwISY6TiX4rb
+ HWoB1173/JYVoqNE3I3OrwXZVoIkmsk6Kdg7NhXotKNTOO0ADDQb2Kr7GSpwEIcxeOkdK1vp
+ 0AT0ERMrLN5CBB/KTH3DU=
 X-IronPort-AV: E=Sophos;i="5.87,265,1631592000"; 
-   d="scan'208";a="58192114"
+   d="scan'208";a="58192115"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 01/65] x86: Introduce support for CET-IBT
-Date: Fri, 26 Nov 2021 12:33:42 +0000
-Message-ID: <20211126123446.32324-2-andrew.cooper3@citrix.com>
+CC: Juergen Gross <jgross@suse.com>
+Subject: [PATCH 02/65] x86/pv-shim: don't modify hypercall table
+Date: Fri, 26 Nov 2021 12:33:43 +0000
+Message-ID: <20211126123446.32324-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211126123446.32324-1-andrew.cooper3@citrix.com>
 References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-CET Indirect Branch Tracking is a hardware feature designed to provide
-forward-edge control flow integrity, protecting against jump/call oriented
-programming.
+From: Juergen Gross <jgross@suse.com>
 
-IBT requires the placement of ENDBR{32,64} instructions at the target of every
-indirect call/jmp, and every entrypoint.
+When running as pv-shim the hypercall is modified today in order to
+replace the functions for __HYPERVISOR_event_channel_op and
+__HYPERVISOR_grant_table_op hypercalls.
 
-However, the default -fcf-protection=branch places an ENDBR on every function
-which far more than necessary, and reduces the quantity of protection
-afforded.  Therefore, we use manual placement using the cf_check attribute.
+Change this to call the related functions from the normal handlers
+instead when running as shim. The performance implications are not
+really relevant, as a normal production hypervisor will not be
+configured to support shim mode, so the related calls will be dropped
+due to optimization of the compiler.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Note that for the CONFIG_PV_SHIM_EXCLUSIVE case there is a dummy
+wrapper do_grant_table_op() needed, as in this case grant_table.c
+isn't being built.
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- Config.mk                              |  1 -
- tools/firmware/Makefile                |  2 ++
- xen/arch/x86/Kconfig                   | 17 +++++++++++++++++
- xen/arch/x86/arch.mk                   |  6 ++++++
- xen/arch/x86/x86_emulate/x86_emulate.h |  5 +++++
- xen/include/asm-x86/asm-defns.h        |  6 ++++++
- xen/include/asm-x86/cpufeature.h       |  1 +
- xen/include/asm-x86/cpufeatures.h      |  1 +
- xen/include/xen/compiler.h             |  6 ++++++
- 9 files changed, 44 insertions(+), 1 deletion(-)
+ xen/arch/x86/pv/hypercall.c              |  2 +-
+ xen/arch/x86/pv/shim.c                   | 54 ++++++++++++++++----------------
+ xen/arch/x86/x86_64/platform_hypercall.c |  2 +-
+ xen/common/compat/multicall.c            |  3 +-
+ xen/common/event_channel.c               |  9 ++++++
+ xen/common/grant_table.c                 |  9 ++++++
+ xen/include/asm-x86/hypercall.h          |  4 ++-
+ xen/include/asm-x86/pv/shim.h            |  3 ++
+ 8 files changed, 54 insertions(+), 32 deletions(-)
 
-diff --git a/Config.mk b/Config.mk
-index 6587c7d626c9..508261a7dcf4 100644
---- a/Config.mk
-+++ b/Config.mk
-@@ -199,7 +199,6 @@ APPEND_CFLAGS += $(foreach i, $(APPEND_INCLUDES), -I$(i))
- 
- EMBEDDED_EXTRA_CFLAGS := -nopie -fno-stack-protector -fno-stack-protector-all
- EMBEDDED_EXTRA_CFLAGS += -fno-exceptions -fno-asynchronous-unwind-tables
--EMBEDDED_EXTRA_CFLAGS += -fcf-protection=none
- 
- XEN_EXTFILES_URL ?= http://xenbits.xen.org/xen-extfiles
- # All the files at that location were downloaded from elsewhere on
-diff --git a/tools/firmware/Makefile b/tools/firmware/Makefile
-index 1f2711779400..b2fd73248604 100644
---- a/tools/firmware/Makefile
-+++ b/tools/firmware/Makefile
-@@ -6,6 +6,8 @@ TARGET      := hvmloader/hvmloader
- INST_DIR := $(DESTDIR)$(XENFIRMWAREDIR)
- DEBG_DIR := $(DESTDIR)$(DEBUG_DIR)$(XENFIRMWAREDIR)
- 
-+EMBEDDED_EXTRA_CFLAGS += -fcf-protection=none
-+
- SUBDIRS-y :=
- SUBDIRS-$(CONFIG_OVMF) += ovmf-dir
- SUBDIRS-$(CONFIG_SEABIOS) += seabios-dir
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index b4abfca46f6a..8b7ad0145b29 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -39,6 +39,11 @@ config HAS_AS_CET_SS
- 	# binutils >= 2.29 or LLVM >= 6
- 	def_bool $(as-instr,wrssq %rax$(comma)0;setssbsy)
- 
-+config HAS_CC_CET_IBT
-+	# GCC >= 9 and binutils >= 2.29
-+	# Retpoline check to work around https://gcc.gnu.org/bugzilla/show_bug.cgi?id=93654
-+	def_bool $(cc-option,-fcf-protection=branch -mmanual-endbr -mindirect-branch=thunk-extern) && $(as-instr,endbr64)
-+
- menu "Architecture Features"
- 
- source "arch/Kconfig"
-@@ -124,6 +129,18 @@ config XEN_SHSTK
- 	  When CET-SS is active, 32bit PV guests cannot be used.  Backwards
- 	  compatiblity can be provided via the PV Shim mechanism.
- 
-+config XEN_IBT
-+	bool "Supervisor Indirect Branch Tracking"
-+	depends on HAS_CC_CET_IBT
-+	default y
-+	help
-+	  Control-flow Enforcement Technology (CET) is a set of features in
-+	  hardware designed to combat Return-oriented Programming (ROP, also
-+	  call/jump COP/JOP) attacks.  Indirect Branch Tracking is one CET
-+	  feature designed to provide function pointer protection.
-+
-+	  This option arranges for Xen to use CET-IBT for its own protection.
-+
- config SHADOW_PAGING
- 	bool "Shadow Paging"
- 	default !PV_SHIM_EXCLUSIVE
-diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
-index ce0c1a0e7fb2..1c8381f7c9d8 100644
---- a/xen/arch/x86/arch.mk
-+++ b/xen/arch/x86/arch.mk
-@@ -46,6 +46,12 @@ CFLAGS-$(CONFIG_INDIRECT_THUNK) += -mindirect-branch=thunk-extern
- CFLAGS-$(CONFIG_INDIRECT_THUNK) += -mindirect-branch-register
- CFLAGS-$(CONFIG_INDIRECT_THUNK) += -fno-jump-tables
- 
-+ifdef CONFIG_HAS_CC_CET_IBT
-+CFLAGS += -fcf-protection=branch -mmanual-endbr
-+else
-+$(call cc-option-add,CFLAGS,CC,-fcf-protection=none)
-+endif
-+
- # If supported by the compiler, reduce stack alignment to 8 bytes. But allow
- # this to be overridden elsewhere.
- $(call cc-option-add,CFLAGS-stack-boundary,CC,-mpreferred-stack-boundary=3)
-diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
-index d8fb3a990933..4a483a464804 100644
---- a/xen/arch/x86/x86_emulate/x86_emulate.h
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.h
-@@ -35,6 +35,11 @@
- # error Unknown compilation width
+diff --git a/xen/arch/x86/pv/hypercall.c b/xen/arch/x86/pv/hypercall.c
+index 3579ba905c1c..4744d9f78f01 100644
+--- a/xen/arch/x86/pv/hypercall.c
++++ b/xen/arch/x86/pv/hypercall.c
+@@ -64,7 +64,7 @@ const pv_hypercall_table_t pv_hypercall_table[] = {
+     COMPAT_CALL(xen_version),
+     HYPERCALL(console_io),
+     COMPAT_CALL(physdev_op_compat),
+-#ifdef CONFIG_GRANT_TABLE
++#if defined(CONFIG_GRANT_TABLE) || defined(CONFIG_PV_SHIM)
+     COMPAT_CALL(grant_table_op),
  #endif
+     HYPERCALL(vm_assist),
+diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
+index d9704121a739..7e891fe2f7a4 100644
+--- a/xen/arch/x86/pv/shim.c
++++ b/xen/arch/x86/pv/shim.c
+@@ -56,11 +56,6 @@ static DEFINE_SPINLOCK(balloon_lock);
  
-+#ifndef cf_check
-+/* Cope with userspace build not knowing about CET-IBT */
-+#define cf_check
-+#endif
-+
- struct x86_emulate_ctxt;
+ static struct platform_bad_page __initdata reserved_pages[2];
  
+-static long pv_shim_event_channel_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+-static long pv_shim_grant_table_op(unsigned int cmd,
+-                                   XEN_GUEST_HANDLE_PARAM(void) uop,
+-                                   unsigned int count);
+-
  /*
-diff --git a/xen/include/asm-x86/asm-defns.h b/xen/include/asm-x86/asm-defns.h
-index 505f39ad5f76..8bd9007731d5 100644
---- a/xen/include/asm-x86/asm-defns.h
-+++ b/xen/include/asm-x86/asm-defns.h
-@@ -57,6 +57,12 @@
-     INDIRECT_BRANCH jmp \arg
- .endm
+  * By default give the shim 1MB of free memory slack. Some users may wish to
+  * tune this constants for better memory utilization. This can be achieved
+@@ -203,7 +198,6 @@ void __init pv_shim_setup_dom(struct domain *d, l4_pgentry_t *l4start,
+                               start_info_t *si)
+ {
+     bool compat = is_pv_32bit_domain(d);
+-    pv_hypercall_table_t *rw_pv_hypercall_table;
+     uint64_t param = 0;
+     long rc;
  
-+#ifdef CONFIG_XEN_IBT
-+# define ENDBR64 endbr64
-+#else
-+# define ENDBR64
-+#endif
-+
- .macro guest_access_mask_ptr ptr:req, scratch1:req, scratch2:req
- #if defined(CONFIG_SPECULATIVE_HARDEN_GUEST_ACCESS)
+@@ -249,23 +243,6 @@ void __init pv_shim_setup_dom(struct domain *d, l4_pgentry_t *l4start,
+         consoled_set_ring_addr(page);
+     }
+ 
+-    /*
+-     * Locate pv_hypercall_table[] (usually .rodata) in the directmap (which
+-     * is writeable) and insert some shim-specific hypercall handlers.
+-     */
+-    rw_pv_hypercall_table = __va(__pa(pv_hypercall_table));
+-    rw_pv_hypercall_table[__HYPERVISOR_event_channel_op].native =
+-        (hypercall_fn_t *)pv_shim_event_channel_op;
+-    rw_pv_hypercall_table[__HYPERVISOR_grant_table_op].native =
+-        (hypercall_fn_t *)pv_shim_grant_table_op;
+-
+-#ifdef CONFIG_PV32
+-    rw_pv_hypercall_table[__HYPERVISOR_event_channel_op].compat =
+-        (hypercall_fn_t *)pv_shim_event_channel_op;
+-    rw_pv_hypercall_table[__HYPERVISOR_grant_table_op].compat =
+-        (hypercall_fn_t *)pv_shim_grant_table_op;
+-#endif
+-
+     guest = d;
+ 
      /*
-diff --git a/xen/include/asm-x86/cpufeature.h b/xen/include/asm-x86/cpufeature.h
-index 4754940e23f3..d9e1cd87f0fb 100644
---- a/xen/include/asm-x86/cpufeature.h
-+++ b/xen/include/asm-x86/cpufeature.h
-@@ -151,6 +151,7 @@
- #define cpu_has_nscb            boot_cpu_has(X86_FEATURE_NSCB)
- #define cpu_has_xen_lbr         boot_cpu_has(X86_FEATURE_XEN_LBR)
- #define cpu_has_xen_shstk       boot_cpu_has(X86_FEATURE_XEN_SHSTK)
-+#define cpu_has_xen_ibt         boot_cpu_has(X86_FEATURE_XEN_IBT)
+@@ -435,7 +412,7 @@ int pv_shim_shutdown(uint8_t reason)
+     return 0;
+ }
  
- #define cpu_has_msr_tsc_aux     (cpu_has_rdtscp || cpu_has_rdpid)
- 
-diff --git a/xen/include/asm-x86/cpufeatures.h b/xen/include/asm-x86/cpufeatures.h
-index b10154fc44bb..7413febd7ad8 100644
---- a/xen/include/asm-x86/cpufeatures.h
-+++ b/xen/include/asm-x86/cpufeatures.h
-@@ -39,6 +39,7 @@ XEN_CPUFEATURE(SC_VERW_PV,        X86_SYNTH(23)) /* VERW used by Xen for PV */
- XEN_CPUFEATURE(SC_VERW_HVM,       X86_SYNTH(24)) /* VERW used by Xen for HVM */
- XEN_CPUFEATURE(SC_VERW_IDLE,      X86_SYNTH(25)) /* VERW used by Xen for idle */
- XEN_CPUFEATURE(XEN_SHSTK,         X86_SYNTH(26)) /* Xen uses CET Shadow Stacks */
-+XEN_CPUFEATURE(XEN_IBT,           X86_SYNTH(27)) /* Xen uses CET Indirect Branch Tracking */
- 
- /* Bug words follow the synthetic words. */
- #define X86_NR_BUG 1
-diff --git a/xen/include/xen/compiler.h b/xen/include/xen/compiler.h
-index 696c7eb89e4c..575036f44b3b 100644
---- a/xen/include/xen/compiler.h
-+++ b/xen/include/xen/compiler.h
-@@ -37,6 +37,12 @@
- # define nocall
+-static long pv_shim_event_channel_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
++long pv_shim_event_channel_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+     struct domain *d = current->domain;
+     struct evtchn_close close;
+@@ -683,9 +660,9 @@ void pv_shim_inject_evtchn(unsigned int port)
+ # define compat_handle_okay guest_handle_okay
  #endif
  
-+#ifdef CONFIG_HAS_CC_CET_IBT
-+# define cf_check     __attribute__((__cf_check__))
-+#else
-+# define cf_check
+-static long pv_shim_grant_table_op(unsigned int cmd,
+-                                   XEN_GUEST_HANDLE_PARAM(void) uop,
+-                                   unsigned int count)
++long pv_shim_grant_table_op(unsigned int cmd,
++                            XEN_GUEST_HANDLE_PARAM(void) uop,
++                            unsigned int count)
+ {
+     struct domain *d = current->domain;
+     long rc = 0;
+@@ -845,6 +822,29 @@ static long pv_shim_grant_table_op(unsigned int cmd,
+     return rc;
+ }
+ 
++#ifndef CONFIG_GRANT_TABLE
++/* Thin wrapper(s) needed. */
++long do_grant_table_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) uop,
++                       unsigned int count)
++{
++    if ( !pv_shim )
++        return -ENOSYS;
++
++    return pv_shim_grant_table_op(cmd, uop, count);
++}
++
++#ifdef CONFIG_PV32
++int compat_grant_table_op(unsigned int cmd, XEN_GUEST_HANDLE_PARAM(void) uop,
++                          unsigned int count)
++{
++    if ( !pv_shim )
++        return -ENOSYS;
++
++    return pv_shim_grant_table_op(cmd, uop, count);
++}
++#endif
 +#endif
 +
- #if (!defined(__clang__) && (__GNUC__ == 4) && (__GNUC_MINOR__ < 5))
- #define unreachable() do {} while (1)
+ long pv_shim_cpu_up(void *data)
+ {
+     struct vcpu *v = data;
+diff --git a/xen/arch/x86/x86_64/platform_hypercall.c b/xen/arch/x86/x86_64/platform_hypercall.c
+index fbba893a47cb..966fd27b5f22 100644
+--- a/xen/arch/x86/x86_64/platform_hypercall.c
++++ b/xen/arch/x86/x86_64/platform_hypercall.c
+@@ -6,8 +6,8 @@ EMIT_FILE;
+ 
+ #include <xen/lib.h>
+ #include <compat/platform.h>
++#include <xen/hypercall.h>
+ 
+-DEFINE_XEN_GUEST_HANDLE(compat_platform_op_t);
+ #define xen_platform_op     compat_platform_op
+ #define xen_platform_op_t   compat_platform_op_t
+ #define do_platform_op(x)   compat_platform_op(_##x)
+diff --git a/xen/common/compat/multicall.c b/xen/common/compat/multicall.c
+index a0e9918f4805..b17739d21829 100644
+--- a/xen/common/compat/multicall.c
++++ b/xen/common/compat/multicall.c
+@@ -5,7 +5,7 @@
+ EMIT_FILE;
+ 
+ #include <xen/types.h>
+-#include <xen/multicall.h>
++#include <xen/hypercall.h>
+ #include <xen/trace.h>
+ 
+ #define COMPAT
+@@ -19,7 +19,6 @@ static inline void xlat_multicall_entry(struct mc_state *mcs)
+         mcs->compat_call.args[i] = mcs->call.args[i];
+ }
+ 
+-DEFINE_XEN_GUEST_HANDLE(multicall_entry_compat_t);
+ #define multicall_entry      compat_multicall_entry
+ #define multicall_entry_t    multicall_entry_compat_t
+ #define do_multicall_call    compat_multicall_call
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+index da88ad141a69..b38f49e0a616 100644
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -31,6 +31,10 @@
+ #include <public/event_channel.h>
+ #include <xsm/xsm.h>
+ 
++#ifdef CONFIG_PV_SHIM
++#include <asm/guest.h>
++#endif
++
+ #define ERROR_EXIT(_errno)                                          \
+     do {                                                            \
+         gdprintk(XENLOG_WARNING,                                    \
+@@ -1189,6 +1193,11 @@ long do_event_channel_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+     int rc;
+ 
++#ifdef CONFIG_PV_SHIM
++    if ( pv_shim )
++        return pv_shim_event_channel_op(cmd, arg);
++#endif
++
+     switch ( cmd )
+     {
+     case EVTCHNOP_alloc_unbound: {
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index 012a74455ba6..7dfbee2f370f 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -44,6 +44,10 @@
+ #include <asm/flushtlb.h>
+ #include <asm/guest_atomics.h>
+ 
++#ifdef CONFIG_PV_SHIM
++#include <asm/guest.h>
++#endif
++
+ /* Per-domain grant information. */
+ struct grant_table {
+     /*
+@@ -3543,6 +3547,11 @@ do_grant_table_op(
+     long rc;
+     unsigned int opaque_in = cmd & GNTTABOP_ARG_MASK, opaque_out = 0;
+ 
++#ifdef CONFIG_PV_SHIM
++    if ( pv_shim )
++        return pv_shim_grant_table_op(cmd, uop, count);
++#endif
++
+     if ( (int)count < 0 )
+         return -EINVAL;
+ 
+diff --git a/xen/include/asm-x86/hypercall.h b/xen/include/asm-x86/hypercall.h
+index 0ae3b8b043b2..45fa987a638f 100644
+--- a/xen/include/asm-x86/hypercall.h
++++ b/xen/include/asm-x86/hypercall.h
+@@ -161,8 +161,10 @@ extern int compat_mmuext_op(
+     XEN_GUEST_HANDLE_PARAM(uint) pdone,
+     unsigned int foreigndom);
+ 
++typedef struct compat_platform_op compat_platform_op_t;
++DEFINE_XEN_GUEST_HANDLE(compat_platform_op_t);
+ extern int compat_platform_op(
+-    XEN_GUEST_HANDLE_PARAM(void) u_xenpf_op);
++    XEN_GUEST_HANDLE_PARAM(compat_platform_op_t) u_xenpf_op);
+ 
+ extern long compat_callback_op(
+     int cmd, XEN_GUEST_HANDLE(void) arg);
+diff --git a/xen/include/asm-x86/pv/shim.h b/xen/include/asm-x86/pv/shim.h
+index 8a91f4f9dfbf..6415f8068e5c 100644
+--- a/xen/include/asm-x86/pv/shim.h
++++ b/xen/include/asm-x86/pv/shim.h
+@@ -19,6 +19,7 @@
+ #ifndef __X86_PV_SHIM_H__
+ #define __X86_PV_SHIM_H__
+ 
++#include <xen/hypercall.h>
+ #include <xen/types.h>
+ 
+ #if defined(CONFIG_PV_SHIM_EXCLUSIVE)
+@@ -45,6 +46,8 @@ domid_t get_initial_domain_id(void);
+ uint64_t pv_shim_mem(uint64_t avail);
+ void pv_shim_fixup_e820(struct e820map *e820);
+ const struct platform_bad_page *pv_shim_reserved_pages(unsigned int *size);
++typeof(do_event_channel_op) pv_shim_event_channel_op;
++typeof(do_grant_table_op) pv_shim_grant_table_op;
+ 
  #else
+ 
 -- 
 2.11.0
 
