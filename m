@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C8B445F375
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 19:07:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.233343.404907 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EF9045F482
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 19:26:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.233421.405008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqfd2-0004ne-0o; Fri, 26 Nov 2021 18:07:20 +0000
+	id 1mqfvO-0004O8-Kj; Fri, 26 Nov 2021 18:26:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 233343.404907; Fri, 26 Nov 2021 18:07:19 +0000
+Received: by outflank-mailman (output) from mailman id 233421.405008; Fri, 26 Nov 2021 18:26:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqfd1-0004hy-Sx; Fri, 26 Nov 2021 18:07:19 +0000
-Received: by outflank-mailman (input) for mailman id 233343;
- Fri, 26 Nov 2021 18:07:18 +0000
+	id 1mqfvO-0004L5-Gu; Fri, 26 Nov 2021 18:26:18 +0000
+Received: by outflank-mailman (input) for mailman id 233421;
+ Fri, 26 Nov 2021 18:26:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GGcH=QN=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1mqfYa-0004Lf-2n
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 18:02:44 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d8a5d8d-4ee3-11ec-9787-a32c541c8605;
- Fri, 26 Nov 2021 19:02:43 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id u3so26102402lfl.2
- for <xen-devel@lists.xenproject.org>; Fri, 26 Nov 2021 10:02:43 -0800 (PST)
-Received: from localhost.localdomain (94-29-48-99.dynamic.spd-mgts.ru.
- [94.29.48.99])
- by smtp.gmail.com with ESMTPSA id i32sm553831lfv.295.2021.11.26.10.02.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Nov 2021 10:02:41 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=oJOc=QN=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1mqfvN-0004Kz-HY
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 18:26:17 +0000
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5617ace9-4ee6-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 19:26:15 +0100 (CET)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 0F6F43201CAE;
+ Fri, 26 Nov 2021 13:26:11 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Fri, 26 Nov 2021 13:26:12 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 26 Nov 2021 13:26:10 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,210 +43,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d8a5d8d-4ee3-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=rkacp5n+z0D4++qm+Vz/WWDd0s3O3Dw6o+6i9hrIfWs=;
-        b=gVRV9emu6sYX58bEEaqERVRKC91eScCKmIAjLX2VmwN0wa1+mK+MpGIyKqyjDVneT0
-         8ByU8moWOxhGAZOqRsNrdfzw/WHiCdrjwDYBaylzPmQEZMm8NiqCeJ8AQeEgHT7S/aVY
-         CCO/A1GW+2nvOq93OXzPg0KzCTaviylHUl0tq5vTPSN+US3W8qjKLJ1EvDiDdm2L16dZ
-         LSCkAwWoIiRdWow4JUO8O6gemuLNa95U07IhIAStt4dCUOYKJkkjImr2UVsfDPgLpNiT
-         j9ujQpxiayn2r2/kqDdIgM9E0hJRJ2fNIAdbLnOzVNs30eC36+Q6ixCPCRXcFB3MODk8
-         4bEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=rkacp5n+z0D4++qm+Vz/WWDd0s3O3Dw6o+6i9hrIfWs=;
-        b=SCuw2lTqbB70x7c8PDmZGWY+M9zqkheuy9herbc9ZdkDyksZVo2ipzXmpe6k4rlzvG
-         MjAI0s2vDbxU9AtGALr+k44b2NytzIO8kVrmFIzy/0i1sKi1WbJp93mayWLdGW9G/VDp
-         9Ac0wW7+fg2YB0yGEczOlHpM+7YSB4oC3O6P4KQWiWCzGwU2Hp9xSjS9GXaAHsutbjna
-         ygjY70tUee79fPPMQYXh3zlNkKkVklc/YMHQK16GlEfHjS0NafJUT++XIgH+CNg0CdCZ
-         cLH38v8KUrF68uEOjKhgf5oOnK4XJHSpp/Hnb+gMtohqiSjci6dui8N+2P07izci0F29
-         YpJw==
-X-Gm-Message-State: AOAM530ZmZd4AOwxJDkduQPOrXqZ3WJn4rMecCuP43lPXrTVR+OJh5g3
-	JBW8pzNeDa8UcQqFOzbAAmM=
-X-Google-Smtp-Source: ABdhPJw9MgRdDicBI5Wn+wcNNayaaGrQ2l/CdlCTBQ9OL1cXXIqajfZf9e0vPeOiFVQvkoIkt+lx2w==
-X-Received: by 2002:a05:6512:1324:: with SMTP id x36mr31672997lfu.141.1637949761995;
-        Fri, 26 Nov 2021 10:02:41 -0800 (PST)
-From: Dmitry Osipenko <digetx@gmail.com>
-To: Thierry Reding <thierry.reding@gmail.com>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Guo Ren <guoren@kernel.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Greg Ungerer <gerg@linux-m68k.org>,
-	Joshua Thompson <funaho@jurai.org>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Sebastian Reichel <sre@kernel.org>,
-	Linus Walleij <linus.walleij@linaro.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Greentime Hu <green.hu@gmail.com>,
-	Vincent Chen <deanbo422@gmail.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Helge Deller <deller@gmx.de>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	Paul Mackerras <paulus@samba.org>,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Yoshinori Sato <ysato@users.sourceforge.jp>,
-	Rich Felker <dalias@libc.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>,
-	Santosh Shilimkar <ssantosh@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Pavel Machek <pavel@ucw.cz>,
-	Lee Jones <lee.jones@linaro.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	alankao@andestech.com,
-	"K . C . Kuen-Chern Lin" <kclin@andestech.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-csky@vger.kernel.org,
-	linux-ia64@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	linux-mips@vger.kernel.org,
-	linux-parisc@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-riscv@lists.infradead.org,
-	linux-sh@vger.kernel.org,
-	xen-devel@lists.xenproject.org,
-	linux-acpi@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: [PATCH v4 24/25] regulator: pfuze100: Use devm_register_sys_off_handler()
-Date: Fri, 26 Nov 2021 21:01:00 +0300
-Message-Id: <20211126180101.27818-25-digetx@gmail.com>
-X-Mailer: git-send-email 2.33.1
-In-Reply-To: <20211126180101.27818-1-digetx@gmail.com>
-References: <20211126180101.27818-1-digetx@gmail.com>
+X-Inumbo-ID: 5617ace9-4ee6-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=ztJTPm
+	cq0+uFyUQaQJxfPkFH/osFX4ZEqTLP+TwzvyI=; b=gdi0n1oDiuHFh+IGeKUqgg
+	5sDC9QnM9046tpDs+UyE48WWCieFHmTRttU6WasAPprDlrWE/Y/IZvFDChMc7i0b
+	l6rR4f0rzOdMKKWwA02NoaNTSJE3fFO0+PswKNeFyy1Xfzc5sAlE3xZCcTA6gN0b
+	UMhUD5c6v/muQjaCETid/ewfjKRc/24KCzHv+reJp+xkvtponRencJ6sSW8DIjEE
+	Y5e5sGyORECYSvHFX00nos2NAfHL5ylD2Wi9PFvwf2qDLRwGWLunREPsmx/T9YnU
+	VhvGudhISx6ZgKA7we17s0ifAVPrEVL7eNOZGC7CrCO5d+2pnQ8/dklJhPCDDeVg
+	==
+X-ME-Sender: <xms:wyahYQjkR0foBKjZ3tb_8GLbn0J3ch_tm2e6-FzN91abSk96u3pMeA>
+    <xme:wyahYZBj0V_1kJ2PrJvK8HYWnuKWig_4Zd2RVU5mdGbbdkt8pgxCGiMcDgfJK8Q-p
+    I-Zzi-S2ienOA>
+X-ME-Received: <xmr:wyahYYEcu4tsb8NcOF-PwgajvG9by6T9t_wxX35Bbt28Hhl5hEigyegEq8fAT1QndSy647XuZF69vQg-y2Z2LkmSEHnayypQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvuddrhedvgdduuddtucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetveff
+    iefghfekhffggeeffffhgeevieektedthfehveeiheeiiedtudegfeetffenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:wyahYRR1FgRtcl2tSCBKkvPYelhE1z76ijQQ5o-jPmH1Bk2-I_EcHQ>
+    <xmx:wyahYdyVc20H3Jw6LC13-mzyYzT4QKXgAaRnJKiTmdgup3PRzu74gw>
+    <xmx:wyahYf4SkeL-220agRAaPUhM9ZOcDw2CGAp0MpcnzptLYGmI912IFQ>
+    <xmx:wyahYY8Cke_C37JMucJj5c70SVPKiVvnJHHxjutqyYWMQiS-GQ5o4w>
+Date: Fri, 26 Nov 2021 19:26:07 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 59.5/65] x86: Introduce helpers/checks for endbr64
+ instructions
+Message-ID: <YaEmv7C4JJtJYe7i@mail-itl>
+References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
+ <20211126163340.26714-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="FwXODrAYaQ1x/RWb"
+Content-Disposition: inline
+In-Reply-To: <20211126163340.26714-1-andrew.cooper3@citrix.com>
 
-Use devm_register_sys_off_handler() that replaces global
-pm_power_off_prepare variable and allows to register multiple
-power-off handlers.
 
-Acked-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
----
- drivers/regulator/pfuze100-regulator.c | 38 ++++++++++----------------
- 1 file changed, 14 insertions(+), 24 deletions(-)
+--FwXODrAYaQ1x/RWb
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 26 Nov 2021 19:26:07 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <JBeulich@suse.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 59.5/65] x86: Introduce helpers/checks for endbr64
+ instructions
 
-diff --git a/drivers/regulator/pfuze100-regulator.c b/drivers/regulator/pfuze100-regulator.c
-index d60d7d1b7fa2..2eca8d43a097 100644
---- a/drivers/regulator/pfuze100-regulator.c
-+++ b/drivers/regulator/pfuze100-regulator.c
-@@ -10,6 +10,7 @@
- #include <linux/of_device.h>
- #include <linux/regulator/of_regulator.h>
- #include <linux/platform_device.h>
-+#include <linux/reboot.h>
- #include <linux/regulator/driver.h>
- #include <linux/regulator/machine.h>
- #include <linux/regulator/pfuze100.h>
-@@ -76,6 +77,7 @@ struct pfuze_chip {
- 	struct pfuze_regulator regulator_descs[PFUZE100_MAX_REGULATOR];
- 	struct regulator_dev *regulators[PFUZE100_MAX_REGULATOR];
- 	struct pfuze_regulator *pfuze_regulators;
-+	struct sys_off_handler sys_off;
- };
- 
- static const int pfuze100_swbst[] = {
-@@ -569,10 +571,10 @@ static inline struct device_node *match_of_node(int index)
- 	return pfuze_matches[index].of_node;
- }
- 
--static struct pfuze_chip *syspm_pfuze_chip;
--
--static void pfuze_power_off_prepare(void)
-+static void pfuze_power_off_prepare(struct power_off_prep_data *data)
- {
-+	struct pfuze_chip *syspm_pfuze_chip = data->cb_data;
-+
- 	dev_info(syspm_pfuze_chip->dev, "Configure standby mode for power off");
- 
- 	/* Switch from default mode: APS/APS to APS/Off */
-@@ -611,24 +613,23 @@ static void pfuze_power_off_prepare(void)
- 
- static int pfuze_power_off_prepare_init(struct pfuze_chip *pfuze_chip)
- {
-+	int err;
-+
- 	if (pfuze_chip->chip_id != PFUZE100) {
- 		dev_warn(pfuze_chip->dev, "Requested pm_power_off_prepare handler for not supported chip\n");
- 		return -ENODEV;
- 	}
- 
--	if (pm_power_off_prepare) {
--		dev_warn(pfuze_chip->dev, "pm_power_off_prepare is already registered.\n");
--		return -EBUSY;
--	}
-+	pfuze_chip->sys_off.power_off_prepare_cb = pfuze_power_off_prepare;
-+	pfuze_chip->sys_off.cb_data = pfuze_chip;
- 
--	if (syspm_pfuze_chip) {
--		dev_warn(pfuze_chip->dev, "syspm_pfuze_chip is already set.\n");
--		return -EBUSY;
-+	err = devm_register_sys_off_handler(pfuze_chip->dev, &pfuze_chip->sys_off);
-+	if (err) {
-+		dev_err(pfuze_chip->dev,
-+			"failed to register sys-off handler: %d\n", err);
-+		return err;
- 	}
- 
--	syspm_pfuze_chip = pfuze_chip;
--	pm_power_off_prepare = pfuze_power_off_prepare;
--
- 	return 0;
- }
- 
-@@ -837,23 +838,12 @@ static int pfuze100_regulator_probe(struct i2c_client *client,
- 	return 0;
- }
- 
--static int pfuze100_regulator_remove(struct i2c_client *client)
--{
--	if (syspm_pfuze_chip) {
--		syspm_pfuze_chip = NULL;
--		pm_power_off_prepare = NULL;
--	}
--
--	return 0;
--}
--
- static struct i2c_driver pfuze_driver = {
- 	.driver = {
- 		.name = "pfuze100-regulator",
- 		.of_match_table = pfuze_dt_ids,
- 	},
- 	.probe = pfuze100_regulator_probe,
--	.remove = pfuze100_regulator_remove,
- };
- module_i2c_driver(pfuze_driver);
- 
--- 
-2.33.1
+On Fri, Nov 26, 2021 at 04:33:40PM +0000, Andrew Cooper wrote:
+> ... to prevent the optimiser creating unsafe code.  See the code comment =
+for
+> full details.
+>=20
+> Also add a build time check for endbr64 embedded in imm32 operands, which
+> catches the obvious cases where the optimiser has done an unsafe thing.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> ---
+>  xen/arch/x86/Makefile       |  4 ++++
+>  xen/include/asm-x86/endbr.h | 55 +++++++++++++++++++++++++++++++++++++++=
+++++++
+>  2 files changed, 59 insertions(+)
+>  create mode 100644 xen/include/asm-x86/endbr.h
+>=20
+> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+> index 69b6cfaded25..64a5c0d20018 100644
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -190,6 +190,10 @@ $(TARGET)-syms: prelink.o xen.lds
+>  	$(MAKE) -f $(BASEDIR)/Rules.mk efi-y=3D $(@D)/.$(@F).1.o
+>  	$(LD) $(XEN_LDFLAGS) -T xen.lds -N prelink.o $(build_id_linker) \
+>  	    $(@D)/.$(@F).1.o -o $@
+> +ifeq ($(CONFIG_XEN_IBT),y)
+> +	$(OBJDUMP) -d $@ | grep 0xfa1e0ff3 >/dev/null && \
+> +		{ echo "Found embedded endbr64 instructions" >&2; false; } || :
+> +endif
 
+Some more robust check can be done this way (warning, PoC quality bash):
+
+    objcopy -j .text xen-syms xen-syms.text
+    offset=3D$(objdump -h xen-syms -j .text | tail -2|head -1|awk '{printf =
+"%x\n", (strtonum("0x" $4) - strtonum("0x" $6))}')
+    objdump --adjust-vma=3D-0x$offset -d xen-syms.text|grep endbr | cut -f =
+1 -d ':' | tr -d ' ' > valid-addrs
+    grep -aob $'\xf3\x0f\x1e\xfa' xen-syms.text|cut -f 1 -d :|xargs printf =
+'%x\n' > all-addrs
+    join -v 2 <(sort valid-addrs) <(sort all-addrs) | awk '{ printf "%x\n",=
+ 0x'$offset' + strtonum("0x" $1)}' | addr2line -e xen-syms
+
+Currently it finds just one match:
+xen/arch/x86/alternative.c:145
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--FwXODrAYaQ1x/RWb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmGhJr4ACgkQ24/THMrX
+1yxA5wgAjXqRUQdO0qVs33pPUFbGFEvWsreJBdrs68MHMQqs1V9bkGfGhDtIn88G
+Pg5RdVvOhlurkJaplJMkOyNNCCtQfM+mHdvtceZ/jY+JTOD+8p+m+GiKWFPrZgo1
+c0IHoUhwrokdKmWIQZQjDZfCNTwAdr75IkLjWvu/bMWAwyIvYry6FVY+tledGcwM
++4dadCaADeuAO7248pSpj+cG8VoWzo9RHr9bNZVHBaEnDWGhjA4g46pE0KMInn1k
+xP1/U2dytIXAS5LNc7N0mQmNMEmQ4MmftFCUeR4k5udMEryEkc2KbCDPbJ3t8U/H
+L/7Kk8l387NySB1AG+HswJH+aRQTDg==
+=2gCS
+-----END PGP SIGNATURE-----
+
+--FwXODrAYaQ1x/RWb--
 
