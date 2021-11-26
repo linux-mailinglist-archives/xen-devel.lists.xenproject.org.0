@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA92545F35D
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 19:02:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.233307.404742 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5F5745F357
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 19:02:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.233308.404754 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqfXo-0004vU-M1; Fri, 26 Nov 2021 18:01:56 +0000
+	id 1mqfXq-0005Bz-W9; Fri, 26 Nov 2021 18:01:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 233307.404742; Fri, 26 Nov 2021 18:01:56 +0000
+Received: by outflank-mailman (output) from mailman id 233308.404754; Fri, 26 Nov 2021 18:01:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqfXo-0004rw-IA; Fri, 26 Nov 2021 18:01:56 +0000
-Received: by outflank-mailman (input) for mailman id 233307;
- Fri, 26 Nov 2021 18:01:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mqfXq-00059q-RL; Fri, 26 Nov 2021 18:01:58 +0000
+Received: by outflank-mailman (input) for mailman id 233308;
+ Fri, 26 Nov 2021 18:01:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GGcH=QN=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1mqfXm-0004Lf-RQ
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 18:01:54 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f03094f6-4ee2-11ec-9787-a32c541c8605;
- Fri, 26 Nov 2021 19:01:54 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id b40so26076038lfv.10
- for <xen-devel@lists.xenproject.org>; Fri, 26 Nov 2021 10:01:54 -0800 (PST)
+ id 1mqfXp-0004LT-4Q
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 18:01:57 +0000
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f17e9ae7-4ee2-11ec-a9d2-d9f7a1cc8784;
+ Fri, 26 Nov 2021 19:01:56 +0100 (CET)
+Received: by mail-lf1-x130.google.com with SMTP id c32so26150356lfv.4
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Nov 2021 10:01:56 -0800 (PST)
 Received: from localhost.localdomain (94-29-48-99.dynamic.spd-mgts.ru.
  [94.29.48.99])
- by smtp.gmail.com with ESMTPSA id i32sm553831lfv.295.2021.11.26.10.01.51
+ by smtp.gmail.com with ESMTPSA id i32sm553831lfv.295.2021.11.26.10.01.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Nov 2021 10:01:53 -0800 (PST)
+ Fri, 26 Nov 2021 10:01:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f03094f6-4ee2-11ec-9787-a32c541c8605
+X-Inumbo-ID: f17e9ae7-4ee2-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=6FNFlMpNjS/DNcuPrR0BFjK6OkkBLQhzqGXiB9qxwwI=;
-        b=hZ+VKiheA+ksem4JjsmMOpgKXPoMWgUA+shKPVYf8CWxvU7oWldYH0H+4eQqBAv8FY
-         4SkaVnaWjJDb3H1aiFaT/XoyReuF35QGFGDgLCvFaztSiusmblr0WrlwXTQg1xtEIIWK
-         Aa+q2fqk9FNKSMyWo+flXzmjZbJfLmFJbzpki04Gyi8vWG/rtl/WU4nTSFM//ACHY153
-         1B3A/N11y2QrQ67sEfFQXitRorbGN1uZfWp2+IdeAJRQ2AzbU8zozyyZOREyjwZbVOrk
-         byUIk4jH3lFxkf8uNSeTP7J5EN42aV9NcIvUUUtISNly567/tzOwFt6Xc27xO+yi/QYr
-         TYAA==
+        bh=hKe22x9bX8JCg83Zw5KeGH71BwPAfgMBPhF5RAtnzGg=;
+        b=b2ZfJiMeqx8AeLNXyztIQbqzNlGBVbhad44TGqM7lHiw/fjxif6gU0gZoYYArSlKqo
+         EeAwZj+BCdzu3uIIM/smFVDttYIEyo/Z4cQTphN83yvq86PvnU0W4Ie+2AQfRx3m6El9
+         ezh/1hh7/6Ybscv4tcBLpgDBuHeraJRPSdMAVRwkC5F75rh6n2MHscxaOB/rlIJUGpHn
+         JYFzCa+B1QR2KMEZvRV/l+C8C5tLmBjWELwgqyH4k7ET0Q1PJi6aubc/gMu03uwbYwz0
+         9IzBTEPDl6TbzF28FQAcA3Viml2my3zBgMjGFEkpGjjrauzxX9PSIX9E5Ca5qAHE77RJ
+         Cyjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=6FNFlMpNjS/DNcuPrR0BFjK6OkkBLQhzqGXiB9qxwwI=;
-        b=fUSy15nc0GyJXGh7utJQzo25DUYjUqyxsisfRYZY8oAuU/mI/IR4pSEblPF6v/k6j3
-         WnRW8ZhPqshJrucY0KLKbYtb/lnXNZp4RzDdKbZWL8RmddDn6s/4jtUw2567rtl5k1Mn
-         dBmHewhRtIR4rk5zwessa0mrzYn351tGizAA+me7iWKaItRp9X6OmpBr/h+Tm4jyiJZx
-         sLx5WA+6XYibl4lFgv3YOIjmruOmM6YrjRLJDMVcYVytpOvjfLAXJEUSm5ceNnIIthUW
-         0cvSYadGHj3Rmpp8qneCZ2EIpeVEi3/znVaZX5RybbP+hBVcrYQPj4UZQCg1SFsTw8QX
-         WAgQ==
-X-Gm-Message-State: AOAM532mX0zD3ukt5aJEupLSVMKj8leYdMt+O0w4EuI7phhvz4jSTzSb
-	vpAwnMl1gLg7RYvNUd1D+do=
-X-Google-Smtp-Source: ABdhPJw0q1qKuJneV/VMSHuMj8HXGpja3sBl4tFzSQr3hqui9SbJmQ8r0/YjjnWZYT6ArCZ7g82Plw==
-X-Received: by 2002:ac2:51b8:: with SMTP id f24mr30853611lfk.83.1637949713891;
-        Fri, 26 Nov 2021 10:01:53 -0800 (PST)
+        bh=hKe22x9bX8JCg83Zw5KeGH71BwPAfgMBPhF5RAtnzGg=;
+        b=S8zX51IeS5DqCnnxsLxu7RlLr6mcnKzTVY0dGs3YKHaabxVvmpco6sHAK7QT3x2ea6
+         122i+AXbWGKAW0IPMmlGmICpWSWD55h2JCqYVtGgWza/aMiQJ/aIho/zM8KV0aiCFiwd
+         G6MRnvN2fkP27AFcrLnS5CD1uZXH0v4vuO2TUUdf4Ll1G0ZI1TzSGJAiQhCx9tZ+48ZG
+         9kDmcos8UqSvMihwTxxuwOJZKRg/MTjqEnLGdmybf5jAN3xsEeKm1f3CbNjaZ2aNCkoa
+         xTTu7lavM6pzFXvgSUQze4J/XT0lKM9pxmYUetlcPMC3jXwCjhbPP98ZT50dPhMzwHcD
+         gXKw==
+X-Gm-Message-State: AOAM530JUZClx4xGxJYrK50MPwekRREe28oraoG9EM/7pPfG900+WhXz
+	Jn30IpHVVEZSA8hhwn31U24=
+X-Google-Smtp-Source: ABdhPJxizgxN6H8utklWV5PP7BDnBAFFswn6Wu2IY4jESwUo2k1vRD/GT6BFqxqb00p7BIY/tAXbNQ==
+X-Received: by 2002:a05:6512:3192:: with SMTP id i18mr30735000lfe.205.1637949715998;
+        Fri, 26 Nov 2021 10:01:55 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -136,58 +136,130 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v4 02/25] notifier: Add blocking_notifier_call_chain_is_empty()
-Date: Fri, 26 Nov 2021 21:00:38 +0300
-Message-Id: <20211126180101.27818-3-digetx@gmail.com>
+Subject: [PATCH v4 03/25] notifier: Add atomic/blocking_notifier_has_unique_priority()
+Date: Fri, 26 Nov 2021 21:00:39 +0300
+Message-Id: <20211126180101.27818-4-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211126180101.27818-1-digetx@gmail.com>
 References: <20211126180101.27818-1-digetx@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add blocking_notifier_call_chain_is_empty() that returns true if call
-chain is empty.
+Add atomic/blocking_notifier_has_unique_priority() helpers which return
+true if given handler has unique priority.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- include/linux/notifier.h |  2 ++
- kernel/notifier.c        | 14 ++++++++++++++
- 2 files changed, 16 insertions(+)
+ include/linux/notifier.h |  5 +++
+ kernel/notifier.c        | 69 ++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 74 insertions(+)
 
 diff --git a/include/linux/notifier.h b/include/linux/notifier.h
-index 4b80a815b666..924c9d7c8e73 100644
+index 924c9d7c8e73..2c4036f225e1 100644
 --- a/include/linux/notifier.h
 +++ b/include/linux/notifier.h
-@@ -173,6 +173,8 @@ int blocking_notifier_call_chain_robust(struct blocking_notifier_head *nh,
- int raw_notifier_call_chain_robust(struct raw_notifier_head *nh,
- 		unsigned long val_up, unsigned long val_down, void *v);
+@@ -175,6 +175,11 @@ int raw_notifier_call_chain_robust(struct raw_notifier_head *nh,
  
-+bool blocking_notifier_call_chain_is_empty(struct blocking_notifier_head *nh);
+ bool blocking_notifier_call_chain_is_empty(struct blocking_notifier_head *nh);
+ 
++bool atomic_notifier_has_unique_priority(struct atomic_notifier_head *nh,
++		struct notifier_block *nb);
++bool blocking_notifier_has_unique_priority(struct blocking_notifier_head *nh,
++		struct notifier_block *nb);
 +
  #define NOTIFY_DONE		0x0000		/* Don't care */
  #define NOTIFY_OK		0x0001		/* Suits me */
  #define NOTIFY_STOP_MASK	0x8000		/* Don't call further */
 diff --git a/kernel/notifier.c b/kernel/notifier.c
-index b8251dc0bc0f..b20cb7b9b1f0 100644
+index b20cb7b9b1f0..7a325b742104 100644
 --- a/kernel/notifier.c
 +++ b/kernel/notifier.c
-@@ -322,6 +322,20 @@ int blocking_notifier_call_chain(struct blocking_notifier_head *nh,
+@@ -122,6 +122,19 @@ static int notifier_call_chain_robust(struct notifier_block **nl,
+ 	return ret;
  }
- EXPORT_SYMBOL_GPL(blocking_notifier_call_chain);
+ 
++static int notifier_has_unique_priority(struct notifier_block **nl,
++					struct notifier_block *n)
++{
++	while (*nl && (*nl)->priority >= n->priority) {
++		if ((*nl)->priority == n->priority && *nl != n)
++			return false;
++
++		nl = &((*nl)->next);
++	}
++
++	return true;
++}
++
+ /*
+  *	Atomic notifier chain routines.  Registration and unregistration
+  *	use a spinlock, and call_chain is synchronized by RCU (no locks).
+@@ -203,6 +216,30 @@ int atomic_notifier_call_chain(struct atomic_notifier_head *nh,
+ EXPORT_SYMBOL_GPL(atomic_notifier_call_chain);
+ NOKPROBE_SYMBOL(atomic_notifier_call_chain);
  
 +/**
-+ *	blocking_notifier_call_chain_is_empty - Check whether notifier chain is empty
-+ *	@nh: Pointer to head of the blocking notifier chain
++ *	atomic_notifier_has_unique_priority - Checks whether notifier's priority is unique
++ *	@nh: Pointer to head of the atomic notifier chain
++ *	@n: Entry in notifier chain to check
 + *
-+ *	Checks whether notifier chain is empty.
++ *	Checks whether there is another notifier in the chain with the same priority.
++ *	Must be called in process context.
 + *
-+ *	Returns true is notifier chain is empty, false otherwise.
++ *	Returns true if priority is unique, false otherwise.
 + */
-+bool blocking_notifier_call_chain_is_empty(struct blocking_notifier_head *nh)
++bool atomic_notifier_has_unique_priority(struct atomic_notifier_head *nh,
++		struct notifier_block *n)
 +{
-+	return !rcu_access_pointer(nh->head);
++	unsigned long flags;
++	bool ret;
++
++	spin_lock_irqsave(&nh->lock, flags);
++	ret = notifier_has_unique_priority(&nh->head, n);
++	spin_unlock_irqrestore(&nh->lock, flags);
++
++	return ret;
 +}
-+EXPORT_SYMBOL_GPL(blocking_notifier_call_chain_is_empty);
++EXPORT_SYMBOL_GPL(atomic_notifier_has_unique_priority);
++
+ /*
+  *	Blocking notifier chain routines.  All access to the chain is
+  *	synchronized by an rwsem.
+@@ -336,6 +373,38 @@ bool blocking_notifier_call_chain_is_empty(struct blocking_notifier_head *nh)
+ }
+ EXPORT_SYMBOL_GPL(blocking_notifier_call_chain_is_empty);
+ 
++/**
++ *	blocking_notifier_has_unique_priority - Checks whether notifier's priority is unique
++ *	@nh: Pointer to head of the blocking notifier chain
++ *	@n: Entry in notifier chain to check
++ *
++ *	Checks whether there is another notifier in the chain with the same priority.
++ *	Must be called in process context.
++ *
++ *	Returns true if priority is unique, false otherwise.
++ */
++bool blocking_notifier_has_unique_priority(struct blocking_notifier_head *nh,
++		struct notifier_block *n)
++{
++	bool ret;
++
++	/*
++	 * This code gets used during boot-up, when task switching is
++	 * not yet working and interrupts must remain disabled. At such
++	 * times we must not call down_read().
++	 */
++	if (system_state != SYSTEM_BOOTING)
++		down_read(&nh->rwsem);
++
++	ret = notifier_has_unique_priority(&nh->head, n);
++
++	if (system_state != SYSTEM_BOOTING)
++		up_read(&nh->rwsem);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(blocking_notifier_has_unique_priority);
 +
  /*
   *	Raw notifier chain routines.  There is no protection;
