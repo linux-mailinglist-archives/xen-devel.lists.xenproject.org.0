@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84D4845F359
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 19:02:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.233306.404732 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA92545F35D
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 19:02:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.233307.404742 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqfXm-0004d5-CY; Fri, 26 Nov 2021 18:01:54 +0000
+	id 1mqfXo-0004vU-M1; Fri, 26 Nov 2021 18:01:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 233306.404732; Fri, 26 Nov 2021 18:01:54 +0000
+Received: by outflank-mailman (output) from mailman id 233307.404742; Fri, 26 Nov 2021 18:01:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqfXm-0004bH-9F; Fri, 26 Nov 2021 18:01:54 +0000
-Received: by outflank-mailman (input) for mailman id 233306;
- Fri, 26 Nov 2021 18:01:53 +0000
+	id 1mqfXo-0004rw-IA; Fri, 26 Nov 2021 18:01:56 +0000
+Received: by outflank-mailman (input) for mailman id 233307;
+ Fri, 26 Nov 2021 18:01:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GGcH=QN=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1mqfXl-0004Lf-CW
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 18:01:53 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
+ id 1mqfXm-0004Lf-RQ
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 18:01:54 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eef85e9e-4ee2-11ec-9787-a32c541c8605;
- Fri, 26 Nov 2021 19:01:52 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id bu18so26237982lfb.0
- for <xen-devel@lists.xenproject.org>; Fri, 26 Nov 2021 10:01:52 -0800 (PST)
+ id f03094f6-4ee2-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 19:01:54 +0100 (CET)
+Received: by mail-lf1-x134.google.com with SMTP id b40so26076038lfv.10
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Nov 2021 10:01:54 -0800 (PST)
 Received: from localhost.localdomain (94-29-48-99.dynamic.spd-mgts.ru.
  [94.29.48.99])
- by smtp.gmail.com with ESMTPSA id i32sm553831lfv.295.2021.11.26.10.01.49
+ by smtp.gmail.com with ESMTPSA id i32sm553831lfv.295.2021.11.26.10.01.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Nov 2021 10:01:51 -0800 (PST)
+ Fri, 26 Nov 2021 10:01:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eef85e9e-4ee2-11ec-9787-a32c541c8605
+X-Inumbo-ID: f03094f6-4ee2-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=wTvK5kO0FUcGnxCyVmK+GKrZNfPhZFNt57h0QWat/qo=;
-        b=gJ0DkjtmLom1nWkv/0W2DL2MHnrP7PVGl4T7c36bF07+CacG7AQZMZNRDkMlhxmupZ
-         2QJC2UEPTMKdY+4biqu7WBTBfdbCdj2plEvTKtOCSTjp+rc0q+PBUlauwayT0D8hPaad
-         AakzzuPOdJEjAVqWcXkB0OyYyI/fHsAoxTIIixDaJ+B4vtLK8QO5UAOhd/25ogyuZT65
-         +7m5sj079P1HDfplS5NMgcjwo/0heTe0b1iG4fd4G5vR406eFn2qmqyIvvPaH0Rw/nQx
-         O007xMgzpOhTt25UC6EHCBi3q0bru6OS62Sqnaphpb4h3pPuhZt2HKPczdFRU0+NgPQP
-         pU4w==
+        bh=6FNFlMpNjS/DNcuPrR0BFjK6OkkBLQhzqGXiB9qxwwI=;
+        b=hZ+VKiheA+ksem4JjsmMOpgKXPoMWgUA+shKPVYf8CWxvU7oWldYH0H+4eQqBAv8FY
+         4SkaVnaWjJDb3H1aiFaT/XoyReuF35QGFGDgLCvFaztSiusmblr0WrlwXTQg1xtEIIWK
+         Aa+q2fqk9FNKSMyWo+flXzmjZbJfLmFJbzpki04Gyi8vWG/rtl/WU4nTSFM//ACHY153
+         1B3A/N11y2QrQ67sEfFQXitRorbGN1uZfWp2+IdeAJRQ2AzbU8zozyyZOREyjwZbVOrk
+         byUIk4jH3lFxkf8uNSeTP7J5EN42aV9NcIvUUUtISNly567/tzOwFt6Xc27xO+yi/QYr
+         TYAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=wTvK5kO0FUcGnxCyVmK+GKrZNfPhZFNt57h0QWat/qo=;
-        b=FEzds8jjHl9UuwZxwRAscoXCmx4wB1dS5wUaHQ6QBFG6V8Sz8uZl00Uftxn0d3GGlV
-         uLHyfLSUqB/tEywmfKCyO6HAZhgrXsWdvQ/dobHeCvtGJWYJLf1lcTzydyQly4R79fHM
-         ZbU0ChEF4CfpTkmKTRoGH+Fq5bOQ5RRiPupDfpwELWePgKlZUo3xJgAs9HD3ZybIQdIk
-         bg3wfbRAlKcHxqf6SvXZJ55Ut4e7PCFBnritQ7JoCIF8bGcwxUr4BGveRzVAIkjt4xII
-         coXhw86g05yctK4tpo2bByH4pC0fbaOdY2aRpbJtVeb3I3VU2ntkP410aNcXmnDFX/8u
-         Jauw==
-X-Gm-Message-State: AOAM532gOCdT/d6+71EBgdh3KZzA7LyLqqaC5ugADwc7RfcmgJ96zmGO
-	GVEcu+Va2ZnT5g79DtBO+I4=
-X-Google-Smtp-Source: ABdhPJw35TsPz9HwmqpECLcaU3H/etXXeb/ksFsDr4BSqfywev1sbvgeaFMRFyWFKE/Ruo82pHOW+A==
-X-Received: by 2002:a05:6512:3a87:: with SMTP id q7mr30679606lfu.515.1637949711821;
-        Fri, 26 Nov 2021 10:01:51 -0800 (PST)
+        bh=6FNFlMpNjS/DNcuPrR0BFjK6OkkBLQhzqGXiB9qxwwI=;
+        b=fUSy15nc0GyJXGh7utJQzo25DUYjUqyxsisfRYZY8oAuU/mI/IR4pSEblPF6v/k6j3
+         WnRW8ZhPqshJrucY0KLKbYtb/lnXNZp4RzDdKbZWL8RmddDn6s/4jtUw2567rtl5k1Mn
+         dBmHewhRtIR4rk5zwessa0mrzYn351tGizAA+me7iWKaItRp9X6OmpBr/h+Tm4jyiJZx
+         sLx5WA+6XYibl4lFgv3YOIjmruOmM6YrjRLJDMVcYVytpOvjfLAXJEUSm5ceNnIIthUW
+         0cvSYadGHj3Rmpp8qneCZ2EIpeVEi3/znVaZX5RybbP+hBVcrYQPj4UZQCg1SFsTw8QX
+         WAgQ==
+X-Gm-Message-State: AOAM532mX0zD3ukt5aJEupLSVMKj8leYdMt+O0w4EuI7phhvz4jSTzSb
+	vpAwnMl1gLg7RYvNUd1D+do=
+X-Google-Smtp-Source: ABdhPJw0q1qKuJneV/VMSHuMj8HXGpja3sBl4tFzSQr3hqui9SbJmQ8r0/YjjnWZYT6ArCZ7g82Plw==
+X-Received: by 2002:ac2:51b8:: with SMTP id f24mr30853611lfk.83.1637949713891;
+        Fri, 26 Nov 2021 10:01:53 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -136,87 +136,62 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v4 01/25] notifier: Remove extern annotation from function prototypes
-Date: Fri, 26 Nov 2021 21:00:37 +0300
-Message-Id: <20211126180101.27818-2-digetx@gmail.com>
+Subject: [PATCH v4 02/25] notifier: Add blocking_notifier_call_chain_is_empty()
+Date: Fri, 26 Nov 2021 21:00:38 +0300
+Message-Id: <20211126180101.27818-3-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211126180101.27818-1-digetx@gmail.com>
 References: <20211126180101.27818-1-digetx@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-There is no need to annotate function prototypes with 'extern', it makes
-code less readable. Remove unnecessary annotations from <notifier.h>.
+Add blocking_notifier_call_chain_is_empty() that returns true if call
+chain is empty.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- include/linux/notifier.h | 30 +++++++++++++++---------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+ include/linux/notifier.h |  2 ++
+ kernel/notifier.c        | 14 ++++++++++++++
+ 2 files changed, 16 insertions(+)
 
 diff --git a/include/linux/notifier.h b/include/linux/notifier.h
-index 87069b8459af..4b80a815b666 100644
+index 4b80a815b666..924c9d7c8e73 100644
 --- a/include/linux/notifier.h
 +++ b/include/linux/notifier.h
-@@ -90,7 +90,7 @@ struct srcu_notifier_head {
- 	} while (0)
- 
- /* srcu_notifier_heads must be cleaned up dynamically */
--extern void srcu_init_notifier_head(struct srcu_notifier_head *nh);
-+void srcu_init_notifier_head(struct srcu_notifier_head *nh);
- #define srcu_cleanup_notifier_head(name)	\
- 		cleanup_srcu_struct(&(name)->srcu);
- 
-@@ -141,36 +141,36 @@ extern void srcu_init_notifier_head(struct srcu_notifier_head *nh);
- 
- #ifdef __KERNEL__
- 
--extern int atomic_notifier_chain_register(struct atomic_notifier_head *nh,
-+int atomic_notifier_chain_register(struct atomic_notifier_head *nh,
- 		struct notifier_block *nb);
--extern int blocking_notifier_chain_register(struct blocking_notifier_head *nh,
-+int blocking_notifier_chain_register(struct blocking_notifier_head *nh,
- 		struct notifier_block *nb);
--extern int raw_notifier_chain_register(struct raw_notifier_head *nh,
-+int raw_notifier_chain_register(struct raw_notifier_head *nh,
- 		struct notifier_block *nb);
--extern int srcu_notifier_chain_register(struct srcu_notifier_head *nh,
-+int srcu_notifier_chain_register(struct srcu_notifier_head *nh,
- 		struct notifier_block *nb);
- 
--extern int atomic_notifier_chain_unregister(struct atomic_notifier_head *nh,
-+int atomic_notifier_chain_unregister(struct atomic_notifier_head *nh,
- 		struct notifier_block *nb);
--extern int blocking_notifier_chain_unregister(struct blocking_notifier_head *nh,
-+int blocking_notifier_chain_unregister(struct blocking_notifier_head *nh,
- 		struct notifier_block *nb);
--extern int raw_notifier_chain_unregister(struct raw_notifier_head *nh,
-+int raw_notifier_chain_unregister(struct raw_notifier_head *nh,
- 		struct notifier_block *nb);
--extern int srcu_notifier_chain_unregister(struct srcu_notifier_head *nh,
-+int srcu_notifier_chain_unregister(struct srcu_notifier_head *nh,
- 		struct notifier_block *nb);
- 
--extern int atomic_notifier_call_chain(struct atomic_notifier_head *nh,
-+int atomic_notifier_call_chain(struct atomic_notifier_head *nh,
- 		unsigned long val, void *v);
--extern int blocking_notifier_call_chain(struct blocking_notifier_head *nh,
-+int blocking_notifier_call_chain(struct blocking_notifier_head *nh,
- 		unsigned long val, void *v);
--extern int raw_notifier_call_chain(struct raw_notifier_head *nh,
-+int raw_notifier_call_chain(struct raw_notifier_head *nh,
- 		unsigned long val, void *v);
--extern int srcu_notifier_call_chain(struct srcu_notifier_head *nh,
-+int srcu_notifier_call_chain(struct srcu_notifier_head *nh,
- 		unsigned long val, void *v);
- 
--extern int blocking_notifier_call_chain_robust(struct blocking_notifier_head *nh,
-+int blocking_notifier_call_chain_robust(struct blocking_notifier_head *nh,
- 		unsigned long val_up, unsigned long val_down, void *v);
--extern int raw_notifier_call_chain_robust(struct raw_notifier_head *nh,
-+int raw_notifier_call_chain_robust(struct raw_notifier_head *nh,
+@@ -173,6 +173,8 @@ int blocking_notifier_call_chain_robust(struct blocking_notifier_head *nh,
+ int raw_notifier_call_chain_robust(struct raw_notifier_head *nh,
  		unsigned long val_up, unsigned long val_down, void *v);
  
++bool blocking_notifier_call_chain_is_empty(struct blocking_notifier_head *nh);
++
  #define NOTIFY_DONE		0x0000		/* Don't care */
+ #define NOTIFY_OK		0x0001		/* Suits me */
+ #define NOTIFY_STOP_MASK	0x8000		/* Don't call further */
+diff --git a/kernel/notifier.c b/kernel/notifier.c
+index b8251dc0bc0f..b20cb7b9b1f0 100644
+--- a/kernel/notifier.c
++++ b/kernel/notifier.c
+@@ -322,6 +322,20 @@ int blocking_notifier_call_chain(struct blocking_notifier_head *nh,
+ }
+ EXPORT_SYMBOL_GPL(blocking_notifier_call_chain);
+ 
++/**
++ *	blocking_notifier_call_chain_is_empty - Check whether notifier chain is empty
++ *	@nh: Pointer to head of the blocking notifier chain
++ *
++ *	Checks whether notifier chain is empty.
++ *
++ *	Returns true is notifier chain is empty, false otherwise.
++ */
++bool blocking_notifier_call_chain_is_empty(struct blocking_notifier_head *nh)
++{
++	return !rcu_access_pointer(nh->head);
++}
++EXPORT_SYMBOL_GPL(blocking_notifier_call_chain_is_empty);
++
+ /*
+  *	Raw notifier chain routines.  There is no protection;
+  *	the caller must provide it.  Use at your own risk!
 -- 
 2.33.1
 
