@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEAD845F35E
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 19:02:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.233316.404824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A3FA45F35F
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 19:02:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.233324.404842 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqfY6-0007fq-Ms; Fri, 26 Nov 2021 18:02:14 +0000
+	id 1mqfYB-0000LO-R6; Fri, 26 Nov 2021 18:02:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 233316.404824; Fri, 26 Nov 2021 18:02:14 +0000
+Received: by outflank-mailman (output) from mailman id 233324.404842; Fri, 26 Nov 2021 18:02:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqfY6-0007ZJ-8g; Fri, 26 Nov 2021 18:02:14 +0000
-Received: by outflank-mailman (input) for mailman id 233316;
- Fri, 26 Nov 2021 18:02:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mqfYB-0000Gs-M2; Fri, 26 Nov 2021 18:02:19 +0000
+Received: by outflank-mailman (input) for mailman id 233324;
+ Fri, 26 Nov 2021 18:02:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GGcH=QN=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1mqfY3-0004LT-Tl
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 18:02:12 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fa645829-4ee2-11ec-a9d2-d9f7a1cc8784;
- Fri, 26 Nov 2021 19:02:11 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id l22so26084911lfg.7
- for <xen-devel@lists.xenproject.org>; Fri, 26 Nov 2021 10:02:11 -0800 (PST)
+ id 1mqfY9-0004Lf-Hm
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 18:02:17 +0000
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [2a00:1450:4864:20::12f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fbb5dece-4ee2-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 19:02:13 +0100 (CET)
+Received: by mail-lf1-x12f.google.com with SMTP id l22so26085178lfg.7
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Nov 2021 10:02:13 -0800 (PST)
 Received: from localhost.localdomain (94-29-48-99.dynamic.spd-mgts.ru.
  [94.29.48.99])
- by smtp.gmail.com with ESMTPSA id i32sm553831lfv.295.2021.11.26.10.02.08
+ by smtp.gmail.com with ESMTPSA id i32sm553831lfv.295.2021.11.26.10.02.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Nov 2021 10:02:10 -0800 (PST)
+ Fri, 26 Nov 2021 10:02:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa645829-4ee2-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: fbb5dece-4ee2-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=WLlXRmIj/zMVA0EiitKjc0V06oQPoMgvuV0WtFcoWEk=;
-        b=dwQkjQc8XJ9Zv7re/xh1WQ2UESbNnOIjv44tV2yYkTMSfE9Pw4ixbam1sYNjgU1ziC
-         YsjSnbkQEYOmSOD/fv2OcaoktyLva3BRmUT1f1EHzpHOs1H4O5FRr9HjwLwmIJ0kwol4
-         En1ylnQpmG3ktfI1Fg/Q/EuJpzuzjUdYaT7dPWgdOpPbhofgmKEPmXbgYeO1l98bR8OD
-         7+AULvyVTAbuaPQqm0dZB4n1ycZXUvc6CpxX2dZaHQaHbP8ogu2BN4iuPHoYBKRTBq6b
-         tgYxssEnkU5biyG5fZrNPOs0vGjei7DrFVluWj41isSbTpsczS+9OOm9yoDDpdejZQ4Y
-         d6OQ==
+        bh=hKgqav8a8uS+JOYHQI8KBeK4UU43xCMXoqbNcSGFyUw=;
+        b=Po1r9nVFosID/XIv4S8lizZdxtb4AiKjgIf77Z9VdEmxeyZ4v2AKodX8o/k+Z3rD2d
+         e2PI94UHDmym38k6JGIB2xhQcbHnk++cihPLhjPUlu0ata6V7Elqqu1vX/dUvmX8vd//
+         gFGlEXk8MDQ81Mp13d+goJXAs9OHRCnyuOhZEEjTJ4y/wSzHt8J2Kug/9ssKueQtT4Bx
+         eKaeWcEuefXhfGSMQhhq6VHfHmDtX4qeoutfpXxh+4HClTuY5U63fmiF7CsLfkldK5nU
+         ruhLNjZH8cKw2EdHXxrwIzr9XSez2deXmOvWqitl0d7ezpYqqMN01hGnnX/7XN488JAq
+         2Xpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=WLlXRmIj/zMVA0EiitKjc0V06oQPoMgvuV0WtFcoWEk=;
-        b=OclzEaLfp/cH5LYxIDyHcrFnWjuckpzN9uQRDoD0/CriTCsbzMLi3Q0Awrs0Mqn7Tq
-         0fDJGpA717s6OabnbAIIAg8YZmOli59r9hWHEMkpZkaBqzbL/i0SFESgCwlxrzuLIKlL
-         1aCXUundbsvXh5t4l3RiXi19g5uylW9PBo5NnqIiS/Q+GvGX6ecNroyUpZd0iMo59oiO
-         VTFzst063eQ8/oh/i3diRwVIyM+io0YbbSoPQ1AGCDyn6byZHzZrP3tBjWbXegaUEe3f
-         /lE+myByJsuEwxvUhYn/ZXXhrdvkhogBeFWf1VxweHDtfhNtTtiWyVlT35XAqrXIoJGP
-         86hQ==
-X-Gm-Message-State: AOAM531AFlXSplKNcdn7HUhT/43829D6Hs/dVDRIWgQr8j7JCU1X0vZs
-	UKIOskoKE9UsBMyqqNh8KlU=
-X-Google-Smtp-Source: ABdhPJxQTNSOwCEIeWTILMI5rMPmmxh09mM/FdZM/5H+6ue5hatuq9sGyT0G3QPFh5axuTAZ8BDbdg==
-X-Received: by 2002:a05:6512:3456:: with SMTP id j22mr31418434lfr.89.1637949730890;
-        Fri, 26 Nov 2021 10:02:10 -0800 (PST)
+        bh=hKgqav8a8uS+JOYHQI8KBeK4UU43xCMXoqbNcSGFyUw=;
+        b=vRNtG8DGt+/pFoYMQvpZf7mCQ2XR4vj1WTml1ucZa3SyvcQLseWJWbQ28fpNSUVINE
+         dZpYq4iEQEY8RZTXmhZjskgVZCaLDRUZ2IVvpyr7QSbad2l1TGX8RDRyypXSDfxQkXBG
+         OAvWbvgFizLv7RGu+I9UJr6joVZNBkZA6Yn1A5c+EoR5uzOFy80CcJFIt6fgtjSQPZGO
+         RUQckpQ8WDDPf/7ta2QV8xRXF+MQoOroR/0rXpqDza9OwPdkERUzjn8DXbAWzw+nIJk7
+         8vQcb6vLlFjEJ96eRizKUJ/O4qGys0TCRLE55nK7kcG/bEzbsRwWKi9x3PqI3wpPn9Ql
+         uzsg==
+X-Gm-Message-State: AOAM533k7qxB8IoMfqfdqUKm/FxR2oPFFO8QXiui7TR30U7oW4VYQqWH
+	Scn9P63wPWf2EcYWCbMVIjc=
+X-Google-Smtp-Source: ABdhPJyU2gXG+eVj9py9Up4KS/i8crRthe+TvBFG99PRD6Vp7wlcfVEp3e9ky90MnSLaJ58dEaRzoA==
+X-Received: by 2002:ac2:5548:: with SMTP id l8mr30765420lfk.509.1637949732941;
+        Fri, 26 Nov 2021 10:02:12 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -136,9 +136,9 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v4 10/25] csky: Use do_kernel_power_off()
-Date: Fri, 26 Nov 2021 21:00:46 +0300
-Message-Id: <20211126180101.27818-11-digetx@gmail.com>
+Subject: [PATCH v4 11/25] riscv: Use do_kernel_power_off()
+Date: Fri, 26 Nov 2021 21:00:47 +0300
+Message-Id: <20211126180101.27818-12-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211126180101.27818-1-digetx@gmail.com>
 References: <20211126180101.27818-1-digetx@gmail.com>
@@ -150,35 +150,37 @@ that invokes chained power-off handlers. It also invokes legacy
 pm_power_off() for now, which will be removed once all drivers will
 be converted to the new power-off API.
 
-Acked-by: Guo Ren <guoren@kernel.org>
+Acked-by: Palmer Dabbelt <palmer@dabbelt.com>
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- arch/csky/kernel/power.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ arch/riscv/kernel/reset.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/arch/csky/kernel/power.c b/arch/csky/kernel/power.c
-index 923ee4e381b8..86ee202906f8 100644
---- a/arch/csky/kernel/power.c
-+++ b/arch/csky/kernel/power.c
-@@ -9,16 +9,14 @@ EXPORT_SYMBOL(pm_power_off);
- void machine_power_off(void)
- {
- 	local_irq_disable();
--	if (pm_power_off)
--		pm_power_off();
-+	do_kernel_power_off();
- 	asm volatile ("bkpt");
- }
+diff --git a/arch/riscv/kernel/reset.c b/arch/riscv/kernel/reset.c
+index 9c842c41684a..912288572226 100644
+--- a/arch/riscv/kernel/reset.c
++++ b/arch/riscv/kernel/reset.c
+@@ -23,16 +23,12 @@ void machine_restart(char *cmd)
  
  void machine_halt(void)
  {
- 	local_irq_disable();
--	if (pm_power_off)
+-	if (pm_power_off != NULL)
 -		pm_power_off();
+-	else
+-		default_power_off();
 +	do_kernel_power_off();
- 	asm volatile ("bkpt");
++	default_power_off();
  }
  
+ void machine_power_off(void)
+ {
+-	if (pm_power_off != NULL)
+-		pm_power_off();
+-	else
+-		default_power_off();
++	do_kernel_power_off();
++	default_power_off();
+ }
 -- 
 2.33.1
 
