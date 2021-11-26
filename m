@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CF2D45EE86
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:05:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.232757.403699 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51F3145EEC6
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:08:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.232886.404131 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqauV-00068P-8Y; Fri, 26 Nov 2021 13:05:03 +0000
+	id 1mqaxa-0003b4-6T; Fri, 26 Nov 2021 13:08:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 232757.403699; Fri, 26 Nov 2021 13:05:03 +0000
+Received: by outflank-mailman (output) from mailman id 232886.404131; Fri, 26 Nov 2021 13:08:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqauU-0005zA-Ji; Fri, 26 Nov 2021 13:05:02 +0000
-Received: by outflank-mailman (input) for mailman id 232757;
- Fri, 26 Nov 2021 13:04:59 +0000
+	id 1mqaxZ-0003GL-2p; Fri, 26 Nov 2021 13:08:13 +0000
+Received: by outflank-mailman (input) for mailman id 232886;
+ Fri, 26 Nov 2021 13:08:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k+gV=QN=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mqauR-0002zD-GO
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:04:59 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 750f485a-4eb9-11ec-9787-a32c541c8605;
- Fri, 26 Nov 2021 14:04:58 +0100 (CET)
+ id 1mqavF-0002zD-KQ
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:05:49 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9227ff5f-4eb9-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 14:05:48 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 750f485a-4eb9-11ec-9787-a32c541c8605
+X-Inumbo-ID: 9227ff5f-4eb9-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637931898;
+  d=citrix.com; s=securemail; t=1637931948;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=1m9xOwxe8Ri/U/q6tx5wCyVpE1aVwbjAxBpIt6ZgzWI=;
-  b=LmGn6gUg8ZzrV7/hXfyjVbWQYvWf6UB71QJMCZmh+um8kruuhkzpkoV2
-   Jz5l1tNUMojmV4K9hXIuINgg+KC+ymp4qUbWRLWnl/dN1SxbsKJ6P24kq
-   +y3nqE2nAcqS1J1ygdUjCxW2J6IA81UZ56W11nlie8WXvV6aZg5mVKdzI
-   g=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: uhEoPZybOJgCWemvUXicnrQPzSPxjiFlhay76PvHGtGlfRUkPIrbwG9xRGYIx3r/c51cAPKXU6
- n4YUzHkeONztXQgdJ+NrQH0leKkXA63/8B2AFMUdObluYbuOtSU6bHW4W0jTK9rWlaxMGEAvbl
- jMXqJTd/uW/c+zFdcDdWf6IunPNfMJF4yyUG4blthdKqCLWRfmDzdyehbUUVUF54z5kWgNp5gc
- qy4Gcs2pNR1DvCQc4wIkn4mlMqPnHixrynWq/96tIo5gOub0rcVpQbeN8jxTLRPP9TFsRzJ4FL
- 5FqqVDGfk8BJy3UUESLdxWz/
+  bh=LFV0YxOEuIiuCG9iI5eNKk5hv6ynkvXZ8FKbseF1zyo=;
+  b=A1IyxymbTVDa9ZMeZefHQcSm+ukEKsbWVTc+HR9jZaYXlJAPLOXR15lc
+   +itVk6Zjays+GiYCK3gSFo857Sap6kc7d6bamJyLvqx9N7ehSawFKOpzW
+   EVsR0QxIP7WIGnMMVEx6t9Bius3JKQ5vBE178rIuGwFoswcEOooXGzNHA
+   s=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: Q2YEL56UzM6ggU2Wf2ibE6MdCXcsbwTdC5Kj3RR/b0qIshnnNVIuD0y4PuDlIu7ndaSs4pYrNp
+ e61zTTay7OW6wsxdA8sGVLZXojGgNEl1bCrVpvFnOMK407n93Afw75Yyb9geq4E6g71egX8nlW
+ 2NJUPJB/N6+ZolBXiBwdnWYObvoOOxCwS/M30UaCLkXMDqO4x91//bAtAyJVibP8qu8NdKYOFA
+ Bb+7FAQwFB+fvMAujRFEUBmTwl5LA9b23XNvrEmrWvQGpGfum74NnwemIROUxy3haqKiaZM8V2
+ A118EYJuLMxKhcdQMEbBhHKD
 X-SBRS: 5.1
-X-MesageID: 59063946
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 58696019
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:I3tceq4QwI85Mvi30N9NjAxRtPXAchMFZxGqfqrLsTDasY5as4F+v
- msbWmCCbK3fZGqhKIt0bY/jpkIA6MPczYdnQQZr+SA2Hi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FVAMpBsJ00o5wrdg2NAw27BVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z9
- M9MqqOqdUQQEIKWl8A6VTV0MjBEIvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALBc/nJo4A/FpnyinUF60OSpHfWaTao9Rf2V/cg+gTTK6AP
- JtFN1KDajzvajEUZ3w7FKkZs8iyokfaWDBgsQiK8P9fD2/7k1UqjemF3MDuUsOObdVYmACfv
- G2u10bTDwweNdef4SGY6X/qjejK9QvrVYRXGLCm+/pChFyI2ndVGBAQTUG8o/Sylgi5Qd03F
- qAP0nNw9+5orhXtF4SjGU3jyJKZgvICc+ZKEvIF8j3O84T7uQm9IW4oYh9QUsNz4afaWgcW/
- lOOmtroAxlmv7uUVW+R+9+okN+iBcQGBTRcPHFZFGPp9/Gm+dhu1UyXEr6PBYbs1oWtcQwc1
- Qxmu8TXa187qccQn5u28lnc695HjsiYF1Vljuk7s4/M0++YWGJHT9D3gbQ4xawZRGp8crVnl
- CNf8yR5xLpTZaxhbATXHI0w8EiBvp5pygH0j191BIUG/D+w4XOldo04yGggfxg5bJtbKGO3P
- BS7VeZtCHl7ZyDCgUhfOd/ZNijX5fK4SYSNug78MrKinaSdhCfYpXozNCZ8LkjmkVQ2kLFXB
- HtoWZ3EMJruMow+lGDeb75EidcDn3lirUuOFcGT50n2itK2OS/KIYrpxXPTN4jVGovf+16Lm
- zueXuPXoyhivBrWPnOKrNVNdA9SdhDWx/ne8qRqSwJKGSI+cElJNhMb6epJl1VNk/sHm+HW0
- Gu6X0MEmlPziWeecVeBa2x5aaOpVpF69CppMSspNFeu+n4ifYfws/tPK8ppJeEqpL550Pp5b
- /gZYMHcUP5BfSvKpmYGZp7noY08KBny3VCSPzCoaSQUdoJ7Q1Cb4cftewbirXFcDie+ucYkj
- aen0wfXHcgKSwh4VZ6EY/Oz1VKh+3ManbsqDUfPJ9BSfmTq8ZRrdHOt3qNmfZlUJEyalDWA1
- guQDRMJnsX3otc4oIvTmKSJj4a1CO8iTEBUKHbWsOStPi7A82v9nYIZCLSUfSrQXX/f8bm5Y
- bkH1On1NfAKkQoYs4d4FLo3n6sy68G2+u1fxwVgWn7Kc06qGvVrJXzfhZtDsahEx7l4vwqqW
- x3QpokGaOvRYM61QkQMIAcFb/iY0aBGkzbf2v05PUHm6XIl57GAS0hTY0GBhSE1wGGZ62/5L
- TPNYPIr1jE=
-IronPort-HdrOrdr: A9a23:+qFMb6hWCXZxiPKLBE5zCf9byXBQXuIji2hC6mlwRA09TySZ//
- rBoB19726MtN9xYgBHpTnuAsm9qB/nmaKdpLNhWItKPzOW31dATrsSjrcKqgeIc0aVm9K1l5
- 0QF5SWYOeAdWSS5vya3ODXKbkdKaG8gcKVuds=
+IronPort-Data: A9a23:uEGppaL1vw/jpdHZFE+RHJIlxSXFcZb7ZxGr2PjKsXjdYENShmQDx
+ jQWWTqOb/fbMGuheI1xO9y2p00BusDXz9ZrHgRlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZUideSc+EH140Es5xbZj6mJVqYPR7z2l6
+ IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
+ QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2sho5u7
+ pYTu6WCYgd5HvHJn9s/CBdXRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
+ LpBdW5LPkvra+GemdpXTsFFgMg5IdatF4QYonx6lhnSDOo8QICFSKLPjTNd9Gpg2JEQRa+PD
+ yYfQWNEdx6eei9gAHEaOa8uuNannTqlczIN/Tp5ooJoujOOnWSdyoPFL979atGMA8JPkS6wh
+ EjL4mD4CREyL8GExHyO9XfErv/Cm2b3VZwfEJW89+V2mxuDy2oLEhoUWFCn5/6jhSaDt8l3c
+ hJOvHB09O5rqRLtHoKVswCETGCsmwdCRPwTTeMD2iqNmoqI5gGmJDMKQWsUADA5j/MeSTsv3
+ 16PutrmAz1zrbGYIU6gGqeoQSCaYnZMczJbDcMQZU5cuoS4/tlv5v7aZo87SPbdszHjJd3nL
+ 9lmRgAajq5bs8ME3r7TEbvv02P1/cihouLYC2zqsoOZAuFRONHNi2+AswGzARN8wGCxFQLpU
+ J8swZX20Qz2JcvR/BFhuc1UdF1T296LMSfHnXlkFIQ7+jKm9haLJN4Lv2EgeRg4bphYIlcFh
+ XM/XysKv/e/21PwMMdKj3+ZUZx2ncAM6/y5PhwrUja+SscoL1LWlM2fTUWRw3rsgCARfVIXY
+ v+mnTKXJS9CU8xPlWPuL89EiOND7n1ulAv7GMGgpzz6gOX2WZJgYepcWLd4Rrtit/3sTcS82
+ 4s3CvZmPD0DCrCjOXeOrtZIRb3IRFBiba3LRwVsXrbrCmJb9KsJUpc9GJstJN5ombp7jODN8
+ i3vU0NU0gOn13bGNR+LejZob7a2BcRzqncyPCoNO1e02id8PdbzvflHL5ZnL6M68OFDzOJvS
+ 6VXccu3HfkSGC/M/C4QbMehodU6Jgirnw+HIwGsfCM7I8x7XwXM99K9Jlnv+SACAzCZr8w7p
+ 7H8hArXTYBaH1ZpDdrMaeLpxFS05CBPlOV3VkrOA99SZESzr9Q6d32v1qc6epheJw/Cyz2W0
+ xetLS0Z/eSd8ZUo9NTphLyfq9v7GeVJAUcHTXLQ6qy7NHeG8zP7k5NASuuBYRvUSHjwpPe5f
+ exQwvzxbK8HkVJNv9YuGrpn1/tjtd7mprscxQV4BnTbKV+sD+o4cHWB2MBOsIxLx6NY5lTqC
+ h7epIECNOXbIt7hHX4QOBEhP7aK2vwjkzXP6eg4fRfh7yht8bvbCUhfMnFgUsCGwGeZ5G/9/
+ dochQ==
+IronPort-HdrOrdr: A9a23:7FEcL6/XJ8dFQCzmIj1uk+DgI+orL9Y04lQ7vn2YSXRuHPBw8P
+ re5cjztCWE7gr5N0tBpTntAsW9qDbnhPtICOoqTNCftWvdyQiVxehZhOOIqVDd8m/Fh4pgPM
+ 9bAtBD4bbLbGSS4/yU3ODBKadD/OW6
 X-IronPort-AV: E=Sophos;i="5.87,266,1631592000"; 
-   d="scan'208";a="59063946"
+   d="scan'208";a="58696019"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 34/65] x86/nmi: Annotate fnptr targets
-Date: Fri, 26 Nov 2021 12:34:15 +0000
-Message-ID: <20211126123446.32324-35-andrew.cooper3@citrix.com>
+Subject: [PATCH 35/65] x86/mtrr: Annotate fnptr targets
+Date: Fri, 26 Nov 2021 12:34:16 +0000
+Message-ID: <20211126123446.32324-36-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211126123446.32324-1-andrew.cooper3@citrix.com>
 References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
@@ -105,98 +105,97 @@ Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
----
- xen/arch/x86/alternative.c        | 4 ++--
- xen/arch/x86/cpu/microcode/core.c | 3 ++-
- xen/arch/x86/crash.c              | 3 ++-
- xen/arch/x86/livepatch.c          | 2 +-
- xen/arch/x86/oprofile/nmi_int.c   | 2 +-
- xen/arch/x86/traps.c              | 3 ++-
- 6 files changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/xen/arch/x86/alternative.c b/xen/arch/x86/alternative.c
-index 1cb531c9df83..436047abe021 100644
---- a/xen/arch/x86/alternative.c
-+++ b/xen/arch/x86/alternative.c
-@@ -324,8 +324,8 @@ static unsigned int __initdata alt_done;
-  * condition where an NMI hits while we are midway though patching some
-  * instructions in the NMI path.
-  */
--static int __init nmi_apply_alternatives(const struct cpu_user_regs *regs,
--                                         int cpu)
-+static int __init cf_check nmi_apply_alternatives(
-+    const struct cpu_user_regs *regs, int cpu)
- {
-     /*
-      * More than one NMI may occur between the two set_nmi_callback() below.
-diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index c07f68ba350e..f84dafa82693 100644
---- a/xen/arch/x86/cpu/microcode/core.c
-+++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -376,7 +376,8 @@ static int primary_thread_work(const struct microcode_patch *patch)
-     return ret;
+Most of mtrr/ looks to be compatibility for pre-64bit days.  It can probably
+be pruned substantially.
+---
+ xen/arch/x86/cpu/mtrr/generic.c | 18 ++++++++++--------
+ xen/arch/x86/cpu/mtrr/mtrr.h    |  8 ++++----
+ 2 files changed, 14 insertions(+), 12 deletions(-)
+
+diff --git a/xen/arch/x86/cpu/mtrr/generic.c b/xen/arch/x86/cpu/mtrr/generic.c
+index 7cf4cd01f3f6..47aaf76226e0 100644
+--- a/xen/arch/x86/cpu/mtrr/generic.c
++++ b/xen/arch/x86/cpu/mtrr/generic.c
+@@ -287,7 +287,8 @@ static void set_fixed_range(int msr, bool *changed, unsigned int *msrwords)
+ 	}
  }
  
--static int microcode_nmi_callback(const struct cpu_user_regs *regs, int cpu)
-+static int cf_check microcode_nmi_callback(
-+    const struct cpu_user_regs *regs, int cpu)
- {
-     unsigned int primary = cpumask_first(this_cpu(cpu_sibling_mask));
-     int ret;
-diff --git a/xen/arch/x86/crash.c b/xen/arch/x86/crash.c
-index f6264946a681..c383f718f5bd 100644
---- a/xen/arch/x86/crash.c
-+++ b/xen/arch/x86/crash.c
-@@ -36,7 +36,8 @@ static unsigned int crashing_cpu;
- static DEFINE_PER_CPU_READ_MOSTLY(bool, crash_save_done);
- 
- /* This becomes the NMI handler for non-crashing CPUs, when Xen is crashing. */
--static int noreturn do_nmi_crash(const struct cpu_user_regs *regs, int cpu)
-+static int noreturn cf_check do_nmi_crash(
-+    const struct cpu_user_regs *regs, int cpu)
- {
-     stac();
- 
-diff --git a/xen/arch/x86/livepatch.c b/xen/arch/x86/livepatch.c
-index 49f0d902e5bb..ea5fa832e4a4 100644
---- a/xen/arch/x86/livepatch.c
-+++ b/xen/arch/x86/livepatch.c
-@@ -174,7 +174,7 @@ static nmi_callback_t *saved_nmi_callback;
-  * Note that because of this NOP code the do_nmi is not safely patchable.
-  * Also if we do receive 'real' NMIs we have lost them.
-  */
--static int mask_nmi_callback(const struct cpu_user_regs *regs, int cpu)
-+static int cf_check mask_nmi_callback(const struct cpu_user_regs *regs, int cpu)
- {
-     /* TODO: Handle missing NMI/MCE.*/
-     return 1;
-diff --git a/xen/arch/x86/oprofile/nmi_int.c b/xen/arch/x86/oprofile/nmi_int.c
-index 6ebe20bd1d3e..a90b72825818 100644
---- a/xen/arch/x86/oprofile/nmi_int.c
-+++ b/xen/arch/x86/oprofile/nmi_int.c
-@@ -95,7 +95,7 @@ bool nmi_oprofile_send_virq(void)
- 	return v;
+-int generic_get_free_region(unsigned long base, unsigned long size, int replace_reg)
++int cf_check generic_get_free_region(
++    unsigned long base, unsigned long size, int replace_reg)
+ /*  [SUMMARY] Get a free MTRR.
+     <base> The starting (base) address of the region.
+     <size> The size (in bytes) of the region.
+@@ -309,8 +310,8 @@ int generic_get_free_region(unsigned long base, unsigned long size, int replace_
+ 	return -ENOSPC;
  }
  
--static int nmi_callback(const struct cpu_user_regs *regs, int cpu)
-+static int cf_check nmi_callback(const struct cpu_user_regs *regs, int cpu)
+-static void generic_get_mtrr(unsigned int reg, unsigned long *base,
+-			     unsigned long *size, mtrr_type *type)
++static void cf_check generic_get_mtrr(
++    unsigned int reg, unsigned long *base, unsigned long *size, mtrr_type *type)
  {
- 	int xen_mode, ovf;
+ 	uint64_t _mask, _base;
  
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index 07981db74cff..76b1b779b33c 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -741,7 +741,8 @@ static cpumask_t show_state_mask;
- static bool opt_show_all;
- boolean_param("async-show-all", opt_show_all);
+@@ -499,7 +500,7 @@ static void post_set(bool pge)
+ 	spin_unlock(&set_atomicity_lock);
+ }
  
--static int nmi_show_execution_state(const struct cpu_user_regs *regs, int cpu)
-+static int cf_check nmi_show_execution_state(
-+    const struct cpu_user_regs *regs, int cpu)
+-static void generic_set_all(void)
++static void cf_check generic_set_all(void)
  {
-     if ( !cpumask_test_cpu(cpu, &show_state_mask) )
-         return 0;
+ 	unsigned long mask, count;
+ 	unsigned long flags;
+@@ -522,8 +523,8 @@ static void generic_set_all(void)
+ 	}
+ }
+ 
+-static void generic_set_mtrr(unsigned int reg, unsigned long base,
+-			     unsigned long size, mtrr_type type)
++static void cf_check generic_set_mtrr(
++    unsigned int reg, unsigned long base, unsigned long size, mtrr_type type)
+ /*  [SUMMARY] Set variable MTRR register on the local CPU.
+     <reg> The register to set.
+     <base> The base address of the region.
+@@ -566,7 +567,8 @@ static void generic_set_mtrr(unsigned int reg, unsigned long base,
+ 	local_irq_restore(flags);
+ }
+ 
+-int generic_validate_add_page(unsigned long base, unsigned long size, unsigned int type)
++int cf_check generic_validate_add_page(
++    unsigned long base, unsigned long size, unsigned int type)
+ {
+ 	unsigned long lbase, last;
+ 
+@@ -584,7 +586,7 @@ int generic_validate_add_page(unsigned long base, unsigned long size, unsigned i
+ }
+ 
+ 
+-static int generic_have_wrcomb(void)
++static int cf_check generic_have_wrcomb(void)
+ {
+ 	unsigned long config;
+ 	rdmsrl(MSR_MTRRcap, config);
+diff --git a/xen/arch/x86/cpu/mtrr/mtrr.h b/xen/arch/x86/cpu/mtrr/mtrr.h
+index 9a406e6f6199..c7fd44daab27 100644
+--- a/xen/arch/x86/cpu/mtrr/mtrr.h
++++ b/xen/arch/x86/cpu/mtrr/mtrr.h
+@@ -24,10 +24,10 @@ struct mtrr_ops {
+ 	int	(*have_wrcomb)(void);
+ };
+ 
+-extern int generic_get_free_region(unsigned long base, unsigned long size,
+-				   int replace_reg);
+-extern int generic_validate_add_page(unsigned long base, unsigned long size,
+-				     unsigned int type);
++int cf_check generic_get_free_region(
++    unsigned long base, unsigned long size, int replace_reg);
++int cf_check generic_validate_add_page(
++    unsigned long base, unsigned long size, unsigned int type);
+ 
+ extern const struct mtrr_ops generic_mtrr_ops;
+ 
 -- 
 2.11.0
 
