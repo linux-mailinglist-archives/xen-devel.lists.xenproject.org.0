@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBE1445EEB5
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:07:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.232845.404011 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F33545EE7C
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:05:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.232750.403636 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqax7-0005gc-Rw; Fri, 26 Nov 2021 13:07:45 +0000
+	id 1mqauJ-00041z-AY; Fri, 26 Nov 2021 13:04:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 232845.404011; Fri, 26 Nov 2021 13:07:45 +0000
+Received: by outflank-mailman (output) from mailman id 232750.403636; Fri, 26 Nov 2021 13:04:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqax7-0005Ac-55; Fri, 26 Nov 2021 13:07:45 +0000
-Received: by outflank-mailman (input) for mailman id 232845;
- Fri, 26 Nov 2021 13:07:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mqauJ-0003vW-4C; Fri, 26 Nov 2021 13:04:51 +0000
+Received: by outflank-mailman (input) for mailman id 232750;
+ Fri, 26 Nov 2021 13:04:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k+gV=QN=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mqavW-0003W9-4X
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:06:06 +0000
+ id 1mqauH-0002zD-3t
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:04:49 +0000
 Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c0b457b-4eb9-11ec-a9d2-d9f7a1cc8784;
- Fri, 26 Nov 2021 14:06:04 +0100 (CET)
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6ed9d182-4eb9-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 14:04:48 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c0b457b-4eb9-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 6ed9d182-4eb9-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637931964;
+  d=citrix.com; s=securemail; t=1637931888;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=hONvnroaH0E3hbObIHELnWwYtV3ug1ZhmACYEbr++xc=;
-  b=CHZdsg2L+iRHfERqQu9SZhvywjaYMQkOXP6zqcyEWuMRIszgOsW+9mcG
-   ti+ojR66TPCnwQM+f+LoB7l2ohojJa4T+QKCMU8KwHVY5mjNkKljGNQCh
-   vdF6PYkn5jWrk07i4dRcc2YEv5XWwv8sOdBXoudoDFC1VfMF8ZI9eqaeq
-   Y=;
+  bh=ne9sR1Af4/V67CBqU4M6NCPQOFrIw5Az3Gw7QUu3Mac=;
+  b=AL0NIBVMpwvvxXsrfgyYrlV+k4CYk0MCzSCZapEBcsViVRThBLRlI/1e
+   +cwSVQerhycbdNTfoTp71ivATZmQmVUGvq5I833HT/2zbNHt1JD1dlO3U
+   1HkkZ362yS77rLGk8KGjXsJ/8GXLg8jdPbrPc87XBI9GC1k7RZpYira5U
+   o=;
 Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: fQ25UPOTu+fu01MWoH/vgj3u2zGbsKKD7QCLJWNp0kziqNHAAuOedr34hC0a7jgA23XdznJ+rF
- cBz0fcKSzLGXI9BuS7KlTBfjBs/+Pzsu8q2eNjD1XAsKIYIdL7KcgkCUw9d0uAZJNQOtoOHfj7
- C0Qqy83/e0e+fuMRAqYmAi0kCvzm4NEntLz87ennNnd0z1ENb1F7B89xEpuFNZ/ERLET2Vj6k5
- IgfLFL8VHDR5FvpYR9at5f3YtgIywWSOZapEQy/G5F13WgE2crQCAgvt5bFrdhmM9o1Rc9Iszc
- DapEFMsz1/4tWt7Q1aasqCdW
+IronPort-SDR: KeRx9sKZ+rVuae8W+b2HPau0rRsDaLoRSPCz/VU2HOfd97UJk91ogFSfaooAmqE/ij+HYfi+iZ
+ +u3e9iMZXz71TR42oHTAKoUGJXnAslglXD574vRVlCDncYckwh0Kvyqff5xqiN/SMnRZLtB90l
+ 2HkkFHAkIJUgTgTGtjtShEzzzS7W80XUfOwITQOtn9Oq2MjtKjrIqu7o7ft1+RnnRw6uOr2kf4
+ kPPpP9uJMUuBxEi1ssVUGoTJWOpCdlO/iSSeCDIMmco3UpINWRHjfMozGWSYNgLBM0uYBVgAsL
+ Td0YH4GQl1G7MTNjI5T2fcuB
 X-SBRS: 5.1
-X-MesageID: 58676436
+X-MesageID: 58676319
 X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:aAWv7apRmnzaiiC08hoOrVifxaBeBmLVYhIvgKrLsJaIsI4StFCzt
- garIBmFafiCM2TyKd8gPdi0/UoB6sTSy9YyHgRlrC89FykR8puZCYyVIHmrMnLJJKUvbq7GA
- +byyDXkBJppJpMJjk71atANlZT4vE2xbuKU5NTsY0idfic5Dnd+4f5fs7Rh2Ncx2ILnW1nlV
- e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
- 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
- DlCncCWFgJ1O4HhpL02fyNxCRlcA51s/ZaSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
- 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFKoZtmtt0nfyCvE+TIqYa67L+cVZzHE7gcUm8fP2O
- ppHNmQzN0qojxtnAA5KGJMEl8eUo0LCInpbpWOkgqMJ7D2GpOB2+Oe0a4eEEjCQfu1Kmm6Iq
- 2SA+H72ajk4HtGCzTuO8lq3m/TC2yj8Xeo6BLC+s/JnnlCX7mgSEwENE0u2p+GjjUyzUM4ZL
- FYbkhfCtoBrqhbtFIOkGUTl/jjU5XbwRua8DcVmzl6Ilq/4zjrALUQ+ZyR5SuIWnsofEGlCO
- kCyo/vlAjlmsbuwQH2b96uJoT7aBRX5PVPudgdfE1JbvoCLTJUby0uWE409SPLdYsjdQGmom
- 1i3QD4Ca6L/ZCLh/4Gy5hj5jj2lvfAlpSZlt1yMDgpJAu6UDbNJhrBEC3CHsp6sz67DFzFtW
- UTofeDFt4ji6rnXyUSwrB0lRu3B2hp8GGS0baRTN5cg7S+x3HWoYJpd5jpzTG8wbJ1bKWG0P
- x6P518KjHO2AJdMRfQsC25WI553pZUM6Py/DqyEBjawSsQZmPC7ENFGOhfLgjGFfLkEmqAjI
- 5aLGftA/l5BYZmLOAGeHr9HuZdyn3hW7TqKGfjTkkT2uZLDNSX9YepUbzOzghURsfrsTPP9q
- I0EaaNnCnx3DYXDX8Ug2dJJcA1RcyFkXcueRg4+XrfrHzeK0VoJU5f5qY7NsaQ890iMvuuXr
- Hy7RGFCz1/z2S/OJQmQMygxY7LzR5dv63k8OHV0b1qv3nEiZ6ep7bseKMRrLeV2qrQ7wK4mV
- eQBduWBHu9LFmbN9QMCYMSvt4dlbhmq216DZnL3fDglcpd8bAXV4du4LBD3/SwDA3Pv58szq
- rGtzC3BRp8HS1gwBcracqv3nViwoWIciKR5WE6Reotff0Dl8Y5LLS3tj6Bof5FQeEubnjbDj
- lSYGxYVo+XJsrQZytiRiPDWtZqtHst/AlFeQzvR44GpOHSI5WGk24JBDrqFJGiPSGPu9ay+T
- uxJ1PWgYuYflVNHvocgQbZmyaUyu4nmq7NAl1k2GXzKaxKgC696I2nA1s5K7/UfyrhcsAqwe
- 0SO5tgFZunZZJK7SAYcdFg/c+CO9fAIgT2Dv/06LXLz6DJz4LfaA15ZOAOBiXAFIbZ4WG//L
- TzNZCLCB9SDtycX
-IronPort-HdrOrdr: A9a23:bGlimapMfcIEts7cDGVDhYcaV5oTeYIsimQD101hICG8cqSj+f
- xG+85rrCMc6QxhPk3I9urhBEDtex/hHNtOkOws1NSZLW7bUQmTXeJfBOLZqlWKcUDDH6xmpM
- NdmsBFeaXN5DNB7PoSjjPWLz9Z+qjkzJyV
+IronPort-Data: A9a23:xsW1ZqwlI6JOurp/Ay56t+f6wSrEfRIJ4+MujC+fZmUNrF6WrkVUn
+ TYfWW3SPvaCYWf1eo1xPI3j8hkOsJXTn9c3TwVlqyAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAuLeNYYH1500s6wrRn2tQAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt8FOz
+ 9pVk5DocgAKfYHsqLQAQQR9IS4raMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVoru0lINPmI8U0vXZ4wCuCJf0nXYrCU+PB4towMDIY25AQQqiFP
+ ptxhTxHdE/Zb01SJ3AsWb0Yuuir2CjmUxRRpwfAzUYwyzeKl1EguFT3C/LKfvSaSMMTmVyXz
+ krk1WnkBhARNPSE1CGItHmrg4fnjS79HY4fCrC83vprm0GIgHweDgUMUlm2quX/jVSxM++zM
+ GRNpHBo9/JrshX2EJ+tBHVUvUJooDYNZN1fC8s2sDqK6en4wzbJG3oZawxOPYlOWNANeRQm0
+ VqAntXMDDNpsaGIRX/1yop4vQ9eKgBOczZcOHZsoR8tpoC6/dpt1k6nosNLSfbt1rXI9SfML
+ ydmRcTUr5EaloY12qqy5jgraBr898GSHmbZCug6N19JDz+Vhqb5OORECnCBtJ6sybp1qHHa5
+ xDofODEsYgz4WmlznDlfQn0NOjBCwy5GDPdm0VzOJIq6i6g/XWuFagJvmohdBk0bZdYJ2OyC
+ KM2he+3zMQIVJdNRfUqC79d9uxwlfSwfTgbfqy8giVyjmhZK1bcoXAGib+41GHxikk8+ZzTy
+ r/AGftA+U0yUPw9pBLvHr91+eZymkgWmDOCLbimnk/P+efPOxaopUItbQLmghYRt/jf/m04M
+ r93aqO39vmoeLGkP3SMr9dMdQtiwLpSLcmelvG7v9WremJOcFzNwdeLqV/4U4A6zalTiMnS+
+ XSxBh1RxFbl3CWVIgSWcHFzLrjoWM8n/348OCUtO3eu2mQiPtnzvPtOKcNvcOl17vFnwN51U
+ +IBJ5eKDMNQR2mV4D8ad5T88tBvLUz5mQKUMiO5SzEjZJo8FRfR89rpc1K3pikDBya6r+Ukp
+ Lik2l+JSJYPXV06Xs3XdOiu3xW6un1EwLB+WE7BI99yfkTw8dc1d3yt36Fve8xVcEfN3DqX0
+ QqSECw0n+iVrt9n6sTNiICFs5ytT7l0EH1FEjSJ9r2xLyTboDaumNcSTOaScDnBf2ro46H+N
+ /5NxvTxPfBbzlZHt41wT+Riwa4kvoa9orZbykJvHWnRbkTtAbRleyHU0c5Kv6xL57lYpQrpB
+ R7fpogEYe2EaJH/DVocBAs5deDSh/gblw7b4ekxPEintjR8+6CKUBkKMhSB4MCHwGCZ7G/xL
+ T8dhfMr
+IronPort-HdrOrdr: A9a23:SCgZ06v0/TEX60kqCvjsIDGn7skDTtV00zEX/kB9WHVpmszxra
+ 6TdZMgpGbJYVcqKRcdcL+7WJVoLUmxyXcx2/h1AV7AZniAhILLFvAA0WKK+VSJcEeSygce79
+ YFT0EXMqyJMbEQt6fHCWeDfOrIuOP3kpyVuQ==
 X-IronPort-AV: E=Sophos;i="5.87,266,1631592000"; 
-   d="scan'208";a="58676436"
+   d="scan'208";a="58676319"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 54/65] x86/stack: Annotate fnptr targets
-Date: Fri, 26 Nov 2021 12:34:35 +0000
-Message-ID: <20211126123446.32324-55-andrew.cooper3@citrix.com>
+Subject: [PATCH 55/65] x86/bugframe: Annotate fnptr targets
+Date: Fri, 26 Nov 2021 12:34:36 +0000
+Message-ID: <20211126123446.32324-56-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211126123446.32324-1-andrew.cooper3@citrix.com>
 References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
@@ -100,211 +100,141 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-The function typecheck in switch_stack_and_jump() is incompatible with control
-flow typechecking.  It's ok for reset_stack_and_jump_ind(), but for
-reset_stack_and_jump(), it would force us to ENDBR64 the targets which are
-branched to directly.
+run_in_exception_handler() managed to escape typechecking, as the compiler
+can't see where function pointer gets called.  After adding some ad-hoc
+typechecking, it turns out that dump_execution_state() alone differs in
+const-ness from the other users of run_in_exception_handler().
+
+Introduce a new show_execution_state_nonconst() to make the typechecking
+happy.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
-
-Honestly, the control flow typechecking is distinctly sub-par, but it's too
-late to do anything now.
 ---
- xen/arch/x86/domain.c             | 6 +++---
- xen/arch/x86/hvm/svm/svm.c        | 6 +++---
- xen/arch/x86/hvm/vmx/vmcs.c       | 2 +-
- xen/arch/x86/hvm/vmx/vmx.c        | 8 ++++----
- xen/arch/x86/pv/domain.c          | 2 +-
- xen/arch/x86/x86_64/entry.S       | 1 +
- xen/include/asm-x86/current.h     | 2 +-
- xen/include/asm-x86/hvm/vmx/vmx.h | 2 +-
- xen/include/asm-x86/pv/domain.h   | 4 ++--
- 9 files changed, 17 insertions(+), 16 deletions(-)
+ xen/arch/x86/traps.c            |  5 +++++
+ xen/common/keyhandler.c         |  4 ++--
+ xen/drivers/char/ehci-dbgp.c    |  2 +-
+ xen/drivers/char/ns16550.c      |  2 +-
+ xen/include/asm-x86/bug.h       | 10 +++++++++-
+ xen/include/asm-x86/processor.h |  4 +++-
+ xen/include/xen/lib.h           |  2 +-
+ 7 files changed, 22 insertions(+), 7 deletions(-)
 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index ae7c88b51af1..afccc1525f8b 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -132,7 +132,7 @@ void play_dead(void)
-         dead_idle();
+diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
+index 76b1b779b33c..81ab96115ead 100644
+--- a/xen/arch/x86/traps.c
++++ b/xen/arch/x86/traps.c
+@@ -670,6 +670,11 @@ void show_execution_state(const struct cpu_user_regs *regs)
+     console_unlock_recursive_irqrestore(flags);
  }
  
--static void noreturn idle_loop(void)
-+static void noreturn cf_check idle_loop(void)
++void cf_check show_execution_state_nonconst(struct cpu_user_regs *regs)
++{
++    show_execution_state(regs);
++}
++
+ void vcpu_show_execution_state(struct vcpu *v)
+ {
+     unsigned long flags = 0;
+diff --git a/xen/common/keyhandler.c b/xen/common/keyhandler.c
+index 5dc650a37c5c..b6e22d8120b1 100644
+--- a/xen/common/keyhandler.c
++++ b/xen/common/keyhandler.c
+@@ -138,7 +138,7 @@ static void cf_check show_handlers(unsigned char key)
+ 
+ static cpumask_t dump_execstate_mask;
+ 
+-void dump_execstate(struct cpu_user_regs *regs)
++void cf_check dump_execstate(struct cpu_user_regs *regs)
  {
      unsigned int cpu = smp_processor_id();
-     /*
-@@ -1790,7 +1790,7 @@ static void save_segments(struct vcpu *v)
-     }
+ 
+@@ -490,7 +490,7 @@ static void cf_check run_all_keyhandlers(
+     tasklet_schedule(&run_all_keyhandlers_tasklet);
  }
  
--void paravirt_ctxt_switch_from(struct vcpu *v)
-+void cf_check paravirt_ctxt_switch_from(struct vcpu *v)
+-static void do_debugger_trap_fatal(struct cpu_user_regs *regs)
++static void cf_check do_debugger_trap_fatal(struct cpu_user_regs *regs)
  {
-     save_segments(v);
+     (void)debugger_trap_fatal(0xf001, regs);
  
-@@ -1804,7 +1804,7 @@ void paravirt_ctxt_switch_from(struct vcpu *v)
-         write_debugreg(7, 0);
- }
+diff --git a/xen/drivers/char/ehci-dbgp.c b/xen/drivers/char/ehci-dbgp.c
+index e205c0da6a61..16c8ff394d5c 100644
+--- a/xen/drivers/char/ehci-dbgp.c
++++ b/xen/drivers/char/ehci-dbgp.c
+@@ -1247,7 +1247,7 @@ static int cf_check ehci_dbgp_getc(struct serial_port *port, char *pc)
+ /* Safe: ehci_dbgp_poll() runs as timer handler, so not reentrant. */
+ static struct serial_port *poll_port;
  
--void paravirt_ctxt_switch_to(struct vcpu *v)
-+void cf_check paravirt_ctxt_switch_to(struct vcpu *v)
+-static void _ehci_dbgp_poll(struct cpu_user_regs *regs)
++static void cf_check _ehci_dbgp_poll(struct cpu_user_regs *regs)
  {
-     root_pgentry_t *root_pgt = this_cpu(root_pgt);
+     struct serial_port *port = poll_port;
+     struct ehci_dbgp *dbgp = port->uart;
+diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+index 8df1ee4d5c2c..e5b4a9085516 100644
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -206,7 +206,7 @@ static void cf_check ns16550_interrupt(
+ /* Safe: ns16550_poll() runs as softirq so not reentrant on a given CPU. */
+ static DEFINE_PER_CPU(struct serial_port *, poll_port);
  
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index c01477c97c09..2d81e4256455 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -940,7 +940,7 @@ static inline void svm_tsc_ratio_load(struct vcpu *v)
-         wrmsrl(MSR_AMD64_TSC_RATIO, hvm_tsc_scaling_ratio(v->domain));
- }
- 
--static void svm_ctxt_switch_from(struct vcpu *v)
-+static void cf_check svm_ctxt_switch_from(struct vcpu *v)
+-static void __ns16550_poll(struct cpu_user_regs *regs)
++static void cf_check __ns16550_poll(struct cpu_user_regs *regs)
  {
-     int cpu = smp_processor_id();
+     struct serial_port *port = this_cpu(poll_port);
+     struct ns16550 *uart = port->uart;
+diff --git a/xen/include/asm-x86/bug.h b/xen/include/asm-x86/bug.h
+index 9bb4a194202f..b7265bdfbe33 100644
+--- a/xen/include/asm-x86/bug.h
++++ b/xen/include/asm-x86/bug.h
+@@ -65,7 +65,15 @@ struct bug_frame {
+     unreachable();                                              \
+ } while (0)
  
-@@ -965,7 +965,7 @@ static void svm_ctxt_switch_from(struct vcpu *v)
-     enable_each_ist(idt_tables[cpu]);
- }
+-#define run_in_exception_handler(fn) BUG_FRAME(BUGFRAME_run_fn, 0, fn, 0, NULL)
++/*
++ * TODO: untangle header dependences, break BUILD_BUG_ON() out of xen/lib.h,
++ * and use a real static inline here to get proper type checking of fn().
++ */
++#define run_in_exception_handler(fn)                            \
++    do {                                                        \
++        (void)((fn) == (void (*)(struct cpu_user_regs *))NULL); \
++        BUG_FRAME(BUGFRAME_run_fn, 0, fn, 0, NULL);             \
++    } while ( 0 )
  
--static void svm_ctxt_switch_to(struct vcpu *v)
-+static void cf_check svm_ctxt_switch_to(struct vcpu *v)
- {
-     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
-     int cpu = smp_processor_id();
-@@ -992,7 +992,7 @@ static void svm_ctxt_switch_to(struct vcpu *v)
-         wrmsr_tsc_aux(v->arch.msrs->tsc_aux);
- }
+ #define assert_failed(msg) do {                                 \
+     BUG_FRAME(BUGFRAME_assert, __LINE__, __FILE__, 1, msg);     \
+diff --git a/xen/include/asm-x86/processor.h b/xen/include/asm-x86/processor.h
+index f031a050cba0..547415ec68e1 100644
+--- a/xen/include/asm-x86/processor.h
++++ b/xen/include/asm-x86/processor.h
+@@ -497,7 +497,9 @@ void show_stack(const struct cpu_user_regs *regs);
+ void show_stack_overflow(unsigned int cpu, const struct cpu_user_regs *regs);
+ void show_registers(const struct cpu_user_regs *regs);
+ void show_execution_state(const struct cpu_user_regs *regs);
+-#define dump_execution_state() run_in_exception_handler(show_execution_state)
++void cf_check show_execution_state_nonconst(struct cpu_user_regs *regs);
++#define dump_execution_state() \
++    run_in_exception_handler(show_execution_state_nonconst)
+ void show_page_walk(unsigned long addr);
+ void noreturn fatal_trap(const struct cpu_user_regs *regs, bool_t show_remote);
  
--static void noreturn svm_do_resume(void)
-+static void noreturn cf_check svm_do_resume(void)
- {
-     struct vcpu *v = current;
-     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index 441be8127148..6dc4833aadd2 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -1865,7 +1865,7 @@ void vmx_vmentry_failure(void)
+diff --git a/xen/include/xen/lib.h b/xen/include/xen/lib.h
+index c6987973bf88..3a1fdaf7e35a 100644
+--- a/xen/include/xen/lib.h
++++ b/xen/include/xen/lib.h
+@@ -199,7 +199,7 @@ extern char *print_tainted(char *str);
+ extern void add_taint(unsigned int taint);
  
- void noreturn vmx_asm_do_vmentry(void);
+ struct cpu_user_regs;
+-void dump_execstate(struct cpu_user_regs *);
++void cf_check dump_execstate(struct cpu_user_regs *);
  
--void vmx_do_resume(void)
-+void cf_check vmx_do_resume(void)
- {
-     struct vcpu *v = current;
-     bool_t debug_state;
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 88a6a5ec824b..594de04568ea 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -63,8 +63,8 @@
- static bool_t __initdata opt_force_ept;
- boolean_param("force-ept", opt_force_ept);
- 
--static void vmx_ctxt_switch_from(struct vcpu *v);
--static void vmx_ctxt_switch_to(struct vcpu *v);
-+static void cf_check vmx_ctxt_switch_from(struct vcpu *v);
-+static void cf_check vmx_ctxt_switch_to(struct vcpu *v);
- 
- static int alloc_vlapic_mapping(void);
- static void vmx_install_vlapic_mapping(struct vcpu *v);
-@@ -885,7 +885,7 @@ static void cf_check vmx_fpu_leave(struct vcpu *v)
-     }
- }
- 
--static void vmx_ctxt_switch_from(struct vcpu *v)
-+static void cf_check vmx_ctxt_switch_from(struct vcpu *v)
- {
-     /*
-      * Return early if trying to do a context switch without VMX enabled,
-@@ -917,7 +917,7 @@ static void vmx_ctxt_switch_from(struct vcpu *v)
-         vmx_pi_switch_from(v);
- }
- 
--static void vmx_ctxt_switch_to(struct vcpu *v)
-+static void cf_check vmx_ctxt_switch_to(struct vcpu *v)
- {
-     vmx_restore_guest_msrs(v);
-     vmx_restore_dr(v);
-diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
-index 55146c15c853..f94f28c8e271 100644
---- a/xen/arch/x86/pv/domain.c
-+++ b/xen/arch/x86/pv/domain.c
-@@ -351,7 +351,7 @@ void pv_domain_destroy(struct domain *d)
-     FREE_XENHEAP_PAGE(d->arch.pv.gdt_ldt_l1tab);
- }
- 
--void noreturn continue_pv_domain(void);
-+void noreturn cf_check continue_pv_domain(void);
- 
- int pv_domain_initialise(struct domain *d)
- {
-diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index 3eaf0e67b2b9..8494b97a54a2 100644
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -625,6 +625,7 @@ ENTRY(dom_crash_sync_extable)
- /* No special register assumptions. */
- #ifdef CONFIG_PV
- ENTRY(continue_pv_domain)
-+        ENDBR64
-         call  check_wakeup_from_wait
- ret_from_intr:
-         GET_CURRENT(bx)
-diff --git a/xen/include/asm-x86/current.h b/xen/include/asm-x86/current.h
-index a74ad4bc4c44..d423f2fd82ca 100644
---- a/xen/include/asm-x86/current.h
-+++ b/xen/include/asm-x86/current.h
-@@ -173,7 +173,6 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
- #define switch_stack_and_jump(fn, instr, constr)                        \
-     ({                                                                  \
-         unsigned int tmp;                                               \
--        (void)((fn) == (void (*)(void))NULL);                           \
-         BUILD_BUG_ON(!ssaj_has_attr_noreturn(fn));                      \
-         __asm__ __volatile__ (                                          \
-             SHADOW_STACK_WORK                                           \
-@@ -198,6 +197,7 @@ unsigned long get_stack_dump_bottom (unsigned long sp);
- 
- /* The constraint may only specify non-call-clobbered registers. */
- #define reset_stack_and_jump_ind(fn)                                    \
-+    (void)((fn) == (void (*)(void))NULL);                               \
-     switch_stack_and_jump(fn, "INDIRECT_JMP %", "b")
- 
- /*
-diff --git a/xen/include/asm-x86/hvm/vmx/vmx.h b/xen/include/asm-x86/hvm/vmx/vmx.h
-index 459c84dd9f09..4bb8d08f2ed9 100644
---- a/xen/include/asm-x86/hvm/vmx/vmx.h
-+++ b/xen/include/asm-x86/hvm/vmx/vmx.h
-@@ -93,7 +93,7 @@ typedef enum {
- 
- void vmx_asm_vmexit_handler(struct cpu_user_regs);
- void vmx_intr_assist(void);
--void noreturn vmx_do_resume(void);
-+void noreturn cf_check vmx_do_resume(void);
- void vmx_vlapic_msr_changed(struct vcpu *v);
- struct hvm_emulate_ctxt;
- void vmx_realmode_emulate_one(struct hvm_emulate_ctxt *hvmemul_ctxt);
-diff --git a/xen/include/asm-x86/pv/domain.h b/xen/include/asm-x86/pv/domain.h
-index df9716ff26a8..68aec0b5a3fa 100644
---- a/xen/include/asm-x86/pv/domain.h
-+++ b/xen/include/asm-x86/pv/domain.h
-@@ -104,8 +104,8 @@ static inline unsigned long pv_make_cr4(const struct vcpu *v) { return ~0ul; }
- 
- #endif	/* CONFIG_PV */
- 
--void paravirt_ctxt_switch_from(struct vcpu *v);
--void paravirt_ctxt_switch_to(struct vcpu *v);
-+void cf_check paravirt_ctxt_switch_from(struct vcpu *v);
-+void cf_check paravirt_ctxt_switch_to(struct vcpu *v);
- 
- #endif	/* __X86_PV_DOMAIN_H__ */
+ void init_constructors(void);
  
 -- 
 2.11.0
