@@ -2,47 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF72D45EC15
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 12:00:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.232538.403229 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA4A745ECCC
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 12:40:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.232564.403290 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqYxy-0005Jq-Sj; Fri, 26 Nov 2021 11:00:30 +0000
+	id 1mqZZa-0000Md-MZ; Fri, 26 Nov 2021 11:39:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 232538.403229; Fri, 26 Nov 2021 11:00:30 +0000
+Received: by outflank-mailman (output) from mailman id 232564.403290; Fri, 26 Nov 2021 11:39:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqYxy-0005HK-Pg; Fri, 26 Nov 2021 11:00:30 +0000
-Received: by outflank-mailman (input) for mailman id 232538;
- Fri, 26 Nov 2021 10:57:23 +0000
+	id 1mqZZa-0000K4-J0; Fri, 26 Nov 2021 11:39:22 +0000
+Received: by outflank-mailman (input) for mailman id 232564;
+ Fri, 26 Nov 2021 11:39:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=93LH=QN=neclab.eu=simon.kuenzer@srs-se1.protection.inumbo.net>)
- id 1mqYuw-0004RP-LJ
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 10:57:23 +0000
-Received: from mailer2.neclab.eu (mailer2.neclab.eu [195.37.70.41])
+ <SRS0=3zX3=QN=gmail.com=ltykernel@srs-se1.protection.inumbo.net>)
+ id 1mqZZY-0000Ja-Pt
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 11:39:20 +0000
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [2607:f8b0:4864:20::533])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 85ded130-4ea7-11ec-a9d2-d9f7a1cc8784;
- Fri, 26 Nov 2021 11:56:35 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by mailer2.neclab.eu (Postfix) with ESMTP id CA23FF2008;
- Fri, 26 Nov 2021 11:57:20 +0100 (CET)
-Received: from mailer2.neclab.eu ([127.0.0.1])
- by localhost (atlas-b.office.hd [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id f1mP4a9VkC9T; Fri, 26 Nov 2021 11:57:20 +0100 (CET)
-Received: from titania.office.hd (titania.office.hd [192.168.24.89])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mailer2.neclab.eu (Postfix) with ESMTPS id 80843F2001;
- Fri, 26 Nov 2021 11:57:10 +0100 (CET)
-Received: from puck.office.hd (192.168.24.91) by titania.office.hd
- (192.168.24.89) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.17; Fri, 26 Nov
- 2021 11:57:10 +0100
-Received: from puck.office.hd ([192.168.126.12]) by puck.office.hd
- ([192.168.126.12]) with mapi id 15.01.2375.017; Fri, 26 Nov 2021 11:57:10
- +0100
+ id 7cdc487b-4ead-11ec-a9d2-d9f7a1cc8784;
+ Fri, 26 Nov 2021 12:39:18 +0100 (CET)
+Received: by mail-pg1-x533.google.com with SMTP id 137so856548pgg.3
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Nov 2021 03:39:18 -0800 (PST)
+Received: from ?IPV6:2404:f801:0:5:8000::50b? ([2404:f801:9000:18:efec::50b])
+ by smtp.gmail.com with ESMTPSA id
+ f21sm7243932pfe.69.2021.11.26.03.39.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 26 Nov 2021 03:39:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -54,133 +44,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 85ded130-4ea7-11ec-a9d2-d9f7a1cc8784
-X-Virus-Scanned: Amavisd on Debian GNU/Linux (atlas-b.office.hd)
-X-ENC: Last-Hop-TLS-encrypted
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=neclab.eu;
-	s=mailer2-20210408; t=1637924240;
-	bh=DOtE/14xDtsOfs3Q3eu5136dze70GcMIIgV8ryhIUI4=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=jq15+bFjoYphQedudKQ27CwcthWRgDtSdHJ5AM1Dc6DRxDndECDY7SF+1A1oA0urk
-	 7pkaA1TgczMdzmI3xx8sto5jY135M+5l3BtDVx7uxytgi6F/6rtTnhAbxlbkuCCprK
-	 k2oNuOF6GzP4BG2JnxvKEXGBGMig/lGq+SqKdKIWVuHbxk8bUcR0FJWNMZogM9YZAZ
-	 DiQg/isqYDjTYiUvj1oItlQ67rPgIJU2JBj9XJ1t9uGP3TwRg++uoQpiaMc1R7aOkf
-	 mfof9mZ/Lm6w3Q6wtW6ahUCa4XuSrNj/dQ9kHTH1Ar31A+LwmEjiWEXYreGM97Hb2t
-	 rl0s0seXALFJQ==
-X-ENC: Last-Hop-TLS-encrypted
-From: Simon Kuenzer <simon.kuenzer@neclab.eu>
-To: Juergen Gross <jgross@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Roger
- Pau Monne" <roger.pau@citrix.com>, Manuel Bouyer <bouyer@antioche.eu.org>,
-	Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH] public: add RING_NR_UNCONSUMED_*() macros to ring.h
-Thread-Topic: [PATCH] public: add RING_NR_UNCONSUMED_*() macros to ring.h
-Thread-Index: AQHX4pO3ccMM1QJyxkurYeSR+yaLN6wVkssA
-Date: Fri, 26 Nov 2021 10:57:09 +0000
-Message-ID: <18A6BC1C-E48B-4EAF-8972-AA7FEE7BC837@neclab.eu>
-References: <20211126065547.22644-1-jgross@suse.com>
-In-Reply-To: <20211126065547.22644-1-jgross@suse.com>
-Accept-Language: en-GB, gl-ES, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3608.120.23.2.7)
-x-originating-ip: [192.168.24.96]
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <D1DF4372E04ED748A828405A3AF7AD96@office.hd>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 7cdc487b-4ead-11ec-a9d2-d9f7a1cc8784
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=ambWW/4YEyu662pYE46PBmuDJfo9av+csYLqJQyv9eI=;
+        b=be/+Ee7qIA99Wogw9aDbu8FGuY+NkyZyPMuDQQQMyfJu74GW/p4hwR7Uk3SV8SOWot
+         OTvvRslVrIRWr+jhwF4djz3GnmhzFxoTjzdSB66EYMTFp4ObhQoXBUaxMmS0E8ljOC5C
+         BvMJB5gq9CLv6RX+bLXdcwcuXLE+FMY5lUFCbxIImkmK67mwpllFQSs45yZerfLFiBCR
+         DbhWdfqUQ3x6YsTjsY/25enAc6WD87puZv3GLXecg2pr4iVTltkGoYwbxLChdmS97p73
+         BAHuN7hbOH9DJ41QGZsyZO96dnKzD8IZFOupSItaLv9c137ht8NLB+g2Qd6+KKgLGpSA
+         nk6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=ambWW/4YEyu662pYE46PBmuDJfo9av+csYLqJQyv9eI=;
+        b=3Gtc8F0QeCPmtgm19Q38xvzSHhzL6KXegjE5NIoQSC837SJbqlxCzArazxEatgE/g3
+         mzw/YNOktmzTFF9+0SQ+OL+hRwdUQs2Fds9HDO8X/OGlx5VZuIJ66pp1KVQX7AAMBj64
+         sqJvkVd7MioONRjOMdu6/LtMV4GCVcxlXbuu01KfLo9MxRZdi5Nzm2vJbFw8RVhvg9Ed
+         m70op/VP/7lGuvaxPVmqpShX01+rbDmPpMoYVggDNm1wTD05qpNRzG5+gi4iPxZE8MnM
+         C7gXDsXctpslgfB7EJ2HpMy5n/Wsi6895KO8cEDavXsYc4JmRnZ4BSs8s+b51O4vVg5+
+         MPRQ==
+X-Gm-Message-State: AOAM531g0HbROg1RmuKfD9N6kLxpZtqX71CvuIn1zGt+tGaMRoEHWla1
+	R89a8dzxbwYqFg70TEh14Bo=
+X-Google-Smtp-Source: ABdhPJyqblxnRgV5wg5BPP9Vi1R0NhHs6AkjTX8lIUxkdCJzlfse/09nmYdMwJ3MumBswrLh4eDT7g==
+X-Received: by 2002:a65:5a8e:: with SMTP id c14mr20429967pgt.241.1637926756738;
+        Fri, 26 Nov 2021 03:39:16 -0800 (PST)
+Message-ID: <e874b4c3-1d09-8d2a-bd59-80bae7e554d6@gmail.com>
+Date: Fri, 26 Nov 2021 19:39:03 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.1
+Subject: Re: [PATCH 3/5] hyperv/IOMMU: Enable swiotlb bounce buffer for
+ Isolation VM
+Content-Language: en-US
+To: Christoph Hellwig <hch@lst.de>
+Cc: dave.hansen@linux.intel.com, luto@kernel.org, peterz@infradead.org,
+ tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
+ hpa@zytor.com, jgross@suse.com, sstabellini@kernel.org,
+ boris.ostrovsky@oracle.com, kys@microsoft.com, haiyangz@microsoft.com,
+ sthemmin@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+ joro@8bytes.org, will@kernel.org, davem@davemloft.net, kuba@kernel.org,
+ jejb@linux.ibm.com, martin.petersen@oracle.com, m.szyprowski@samsung.com,
+ robin.murphy@arm.com, xen-devel@lists.xenproject.org,
+ michael.h.kelley@microsoft.com, Tianyu Lan <Tianyu.Lan@microsoft.com>,
+ iommu@lists.linux-foundation.org, linux-hyperv@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
+ netdev@vger.kernel.org, vkuznets@redhat.com, brijesh.singh@amd.com,
+ konrad.wilk@oracle.com, parri.andrea@gmail.com, thomas.lendacky@amd.com,
+ dave.hansen@intel.com
+References: <20211116153923.196763-1-ltykernel@gmail.com>
+ <20211116153923.196763-4-ltykernel@gmail.com> <20211117100142.GB10330@lst.de>
+ <c93bf3d4-75c1-bc3d-2789-1d65e7c19158@gmail.com>
+ <20211126074022.GA23659@lst.de>
+From: Tianyu Lan <ltykernel@gmail.com>
+In-Reply-To: <20211126074022.GA23659@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Juergen,
+On 11/26/2021 3:40 PM, Christoph Hellwig wrote:
+> On Wed, Nov 17, 2021 at 10:00:08PM +0800, Tianyu Lan wrote:
+>> On 11/17/2021 6:01 PM, Christoph Hellwig wrote:
+>>> This doesn't really have much to do with normal DMA mapping,
+>>> so why does this direct through the dma ops?
+>>>
+>>
+>> According to the previous discussion, dma_alloc_noncontigous()
+>> and dma_vmap_noncontiguous() may be used to handle the noncontigous
+>> memory alloc/map in the netvsc driver. So add alloc/free and vmap/vunmap
+>> callbacks here to handle the case. The previous patch v4 & v5 handles
+>> the allocation and map in the netvsc driver. If this should not go though
+>> dma ops, We also may make it as vmbus specific function and keep
+>> the function in the vmbus driver.
+> 
+> But that only makes sense if they can actually use the normal DMA ops.
+> If you implement your own incomplete ops and require to use them you
+> do nothing but adding indirect calls to your fast path and making the
+> code convoluted.
+> 
 
-thanks a lot for putting us in CC. From the Unikraft perspective, we are fi=
-ne with the change because we currently maintain a copy of the Xen headers =
-in our tree. Our main reason is that we aim to keep compiling easier by avo=
-iding off-tree references. Obviously, we have to update our copy but a diff=
- will tell us where we need to adopt our code.
-In general, I like the clarity of the interface change that you are suggest=
-ing.
+Because the generic part implementation can't meet the netvsc driver
+requests that allocate 16M memory and map pages via vmap_pfn(). So add 
+Hyperv alloc_noncontiguous and vmap_noncontiguous callbacks. If this is
+not a right way. we should call these hyper-V functions in the netvsc
+driver directly, right?
 
-Simon
+Could you have a look at Michael summary about this series we made and
+give some guides?
 
-> On 26. Nov 2021, at 07:55, Juergen Gross <jgross@suse.com> wrote:
->=20
-> Today RING_HAS_UNCONSUMED_*() macros are returning the number of
-> unconsumed requests or responses instead of a boolean as the name of
-> the macros would imply.
->=20
-> As this "feature" is already being used, rename the macros to
-> RING_NR_UNCONSUMED_*() and define the RING_HAS_UNCONSUMED_*() macros
-> by using the new RING_NR_UNCONSUMED_*() macros. In order to avoid
-> future misuse let RING_HAS_UNCONSUMED_*() really return a boolean.
->=20
-> Note that the known misuses need to be switched to the new
-> RING_NR_UNCONSUMED_*() macros when using this version of ring.h.
->=20
-> Cc: Roger Pau Monne <roger.pau@citrix.com>
-> Cc: Manuel Bouyer <bouyer@antioche.eu.org>
-> Cc: Simon Kuenzer <simon.kuenzer@neclab.eu>
-> Cc: Paul Durrant <paul@xen.org>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> I have checked Xen, Mini-OS, qemu, grub2, OVMF and Linux kernel for
-> misuses of the RING_HAS_UNCONSUMED_*() macros. There is currently only
-> one instance in the Linux kernel netback driver. The BSDs, UNIKRAFT
-> and Windows PV drivers should be checked for misuse, too.
-> ---
-> xen/include/public/io/ring.h | 9 ++++++---
-> 1 file changed, 6 insertions(+), 3 deletions(-)
->=20
-> diff --git a/xen/include/public/io/ring.h b/xen/include/public/io/ring.h
-> index c486c457e0..efbc152174 100644
-> --- a/xen/include/public/io/ring.h
-> +++ b/xen/include/public/io/ring.h
-> @@ -208,11 +208,11 @@ typedef struct __name##_back_ring __name##_back_rin=
-g_t
->     (RING_FREE_REQUESTS(_r) =3D=3D 0)
->=20
-> /* Test if there are outstanding messages to be processed on a ring. */
-> -#define RING_HAS_UNCONSUMED_RESPONSES(_r)                               =
-\
-> +#define RING_NR_UNCONSUMED_RESPONSES(_r)                                =
-\
->     ((_r)->sring->rsp_prod - (_r)->rsp_cons)
->=20
-> #ifdef __GNUC__
-> -#define RING_HAS_UNCONSUMED_REQUESTS(_r) ({                             =
-\
-> +#define RING_NR_UNCONSUMED_REQUESTS(_r) ({                              =
-\
->     unsigned int req =3D (_r)->sring->req_prod - (_r)->req_cons;         =
- \
->     unsigned int rsp =3D RING_SIZE(_r) -                                 =
- \
->         ((_r)->req_cons - (_r)->rsp_prod_pvt);                          \
-> @@ -220,13 +220,16 @@ typedef struct __name##_back_ring __name##_back_rin=
-g_t
-> })
-> #else
-> /* Same as above, but without the nice GCC ({ ... }) syntax. */
-> -#define RING_HAS_UNCONSUMED_REQUESTS(_r)                                =
-\
-> +#define RING_NR_UNCONSUMED_REQUESTS(_r)                                 =
-\
->     ((((_r)->sring->req_prod - (_r)->req_cons) <                        \
->       (RING_SIZE(_r) - ((_r)->req_cons - (_r)->rsp_prod_pvt))) ?        \
->      ((_r)->sring->req_prod - (_r)->req_cons) :                         \
->      (RING_SIZE(_r) - ((_r)->req_cons - (_r)->rsp_prod_pvt)))
-> #endif
->=20
-> +#define RING_HAS_UNCONSUMED_RESPONSES(_r) (!!RING_NR_UNCONSUMED_RESPONSE=
-S(_r))
-> +#define RING_HAS_UNCONSUMED_REQUESTS(_r)  (!!RING_NR_UNCONSUMED_REQUESTS=
-(_r))
-> +
-> /* Direct access to individual ring elements, by index. */
-> #define RING_GET_REQUEST(_r, _idx)                                      \
->     (&((_r)->sring->ring[((_idx) & (RING_SIZE(_r) - 1))].req))
-> --=20
-> 2.26.2
->=20
+https://www.mail-archive.com/xen-devel@lists.xenproject.org/msg109284.html
+
+Thanks.
+
+
+
+
 
 
