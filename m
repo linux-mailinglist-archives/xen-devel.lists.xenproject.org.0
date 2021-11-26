@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 677CB45F651
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 22:24:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.233496.405174 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D515B45F650
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 22:24:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.233492.405135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqigp-0007iG-Ju; Fri, 26 Nov 2021 21:23:27 +0000
+	id 1mqigl-0006pG-96; Fri, 26 Nov 2021 21:23:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 233496.405174; Fri, 26 Nov 2021 21:23:27 +0000
+Received: by outflank-mailman (output) from mailman id 233492.405135; Fri, 26 Nov 2021 21:23:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqigp-0007bR-DA; Fri, 26 Nov 2021 21:23:27 +0000
-Received: by outflank-mailman (input) for mailman id 233496;
- Fri, 26 Nov 2021 21:23:25 +0000
+	id 1mqigl-0006mT-5j; Fri, 26 Nov 2021 21:23:23 +0000
+Received: by outflank-mailman (input) for mailman id 233492;
+ Fri, 26 Nov 2021 21:23:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k+gV=QN=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mqign-0006mN-48
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 21:23:25 +0000
+ id 1mqigk-0006mN-C5
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 21:23:22 +0000
 Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
  [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 159e72e1-4eff-11ec-9787-a32c541c8605;
- Fri, 26 Nov 2021 22:23:23 +0100 (CET)
+ id 132f5f49-4eff-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 22:23:20 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 159e72e1-4eff-11ec-9787-a32c541c8605
+X-Inumbo-ID: 132f5f49-4eff-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637961803;
+  d=citrix.com; s=securemail; t=1637961800;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=hKzw/5xvyhxl0lgipvVL1e85ARROZwUJRY07zD4G8Ow=;
-  b=Nxohs8vqQ50RNHlXXj49u7yBJ4zGo7GjVgDy0QBnJ/zfXPWPPYazGIGy
-   1CaXyQv6Nj7qh+hJYasAtCZKTNRy4P468fsMkapnRsm9BBVH7XHsoqN5b
-   Mdp7pqitGroDAWNlCsPAv9WJ9PpDFZTVOtZWlFRNdparcr8AYbwxh7Q5T
-   o=;
+  bh=bq6J9uivE4OFqVknMwT0glvJ/cJ2p4tmLYuqVTlL0Lk=;
+  b=CP+eHPxlhd9WTsTtqagvcCD8gqr+qeE1PovB6srdOkJXQbntA2z0RUTt
+   SpMpn/8F627Vzmv78QMpRynslHJfdlvyM/242WHAspde4wUB7N1JvLKMW
+   rgK3TYwRKWHCAjQRCFpDODTl3WD1aAEAcB3atd5w48SqhxRF4/H6qWiD+
+   A=;
 Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: 565yRgGU9nN57B+tPBd7vR2CnYMVNxuhYaiS0swu4/lZcTVFJ0PThc4qMk2TVlIMt5TnhcWAKQ
- hO+oby/ZOL9FyixXRrOiL3WYwZ1AqDCqB+kSDRRtep5B5NcB6D0CVBe9WzQM/IitU+CEqACxPu
- 8mQQc2c3r98+lnxBYEjZzNYCwYaYiOeahRWXXFtKJSqZ9q37hiamKRUStpUfh9Va+f+pOaYRY4
- LJthDppO1rbYLgOzkFUbAlUnnVRQamXbV+AGJR+Un2nt4T/SesDW4HCL/56Rt88RpoQNo5bUm2
- jjKICdV+vcdLP1rulUODXKtk
+IronPort-SDR: jjjHfZ7XNjv2KAbml77rhU0NWM9t2TmwMqi+zNaDiF3d1Uz/t3fqSUneKdTeIlM77/Rz+8NtG5
+ Ercv6V3ZK6OImyRt3yLn+pj9hmBWrt2YSSwNOzwTZfADLCwLql/5QKF4lBNVTFeFFLOxQOoCNJ
+ mpg8KiI2pNYE2GKAP3AdZ0BqqgQZ1nE1QktmuD0bbu9Gxtf/zNyGR/aP0WY1LOB8Et+Z0GI3i9
+ +0UlAZsXdLGLDjdQ39rvM8VbxUGxMtp1Q/QS0eYE2zA/ENYoBd3BTIkhoLcUk5xIRx14Klq9q3
+ jkFkWWHVn0dpM5+pWRyXShDe
 X-SBRS: 5.1
-X-MesageID: 58217720
+X-MesageID: 58217717
 X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:zahAsatqpTMNCJwp3K4ywvMlTOfnVJtZMUV32f8akzHdYApBsoF/q
- tZmKW6GOqmKZzb2Kox0YYTg8ExV6JCAz9dmSQM+rSxjFi8U+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHhJZS5LwbZj29cx24bhWWthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- Npl67G2QAMvDpb3us89bBVlEzhfBIxZ9+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6DN
- 5BANmU1NHwsZTVMO2tIUco+p9uig2jOfTFpql/M/YUOtj27IAtZj+G2bYu9lsaxbdpRtlaVo
- CTB5WuRKjMwOcGbyDGF2mmxneKJliT+MKoCGbv9+vN0jVm7wm0IFAZQRVa9ueO+iEO1R5RYM
- UN8x8Y1hfFsrgrxFIC7BkDm5i7f1vIBZzZOO7MX7giJzJrv2CSyJlcIcz5YSeUHq8BjEFTGy
- WS1t9/uADVutpicRnSc6qqYoFuOBMQFEYMRTXRaFFVYurEPtKl210uSFYg7TMZZm/WsQWmoq
- w1muhTSkFn6YSQj86ygtW7KjDu3znQiZl5kv16HNo5JA+4QWWJEW2BKwQSLhRqjBNzAJrVkg
- JTis5LGhAzpJcvQ/BFhuM1XQNmUCw+taVUwe2JHEZg77CiK8HW+Z41W6zwWDB43aZlVJGa0O
- xWJ51w5CHpv0J2CN/Qfj2WZUZlC8EQdPY69CqC8giRmPvCdizNrDAkxPBXNjggBYWAnkL0lO
- IfzTCpfJS1yNEiT9xLvH711+eZynkgWnDqPLbimn0XP+efPPxa9FOZaWGZim8hktctoVi2Oq
- I0BXyZLoj0CONDDjt7/rdROcAtUdCdjXvgbaaV/L4a+H+avI0l5Y9e5/F/rU9YNc319mria8
- 3ejdFVfzVaj13TLJR/TMiJoaa/1XIY5pnU+ZHR+MVGt0nklQICu8KZAKMdnIeh5rLRunaxuU
- v0IW8ScGfATGD7JzCsQMMvmp4t4eRX12Q/XZ3i5YCIydoJLThDS/oO2ZRPm8SQDV3LltcY3r
- 7C6+BncRJ4PG1ZrAMrMMar9xFKtp3kN3ul1WhKQcNVUfUzt9qlsKjDw0aBrc51dd02by2LDh
- QiMABoeqe3cmKMP8YHE1fKesoOkM+piBU4GTWPV2qm7aHvB9W25zI4eDOvRJWLBVHn58bmJb
- PlOy62uK+UOmVtHvtYuE7tvyq5itdLjq6UDk1ZhFXTPKV+qFqlhMj+N2swW7v9BwbpQuA2XX
- EOT+4YFZeXVaZ29SFNBdhA4aumj1O0PnmiA5Ps4F0z2+Str8efVSk5VJRSN1HRQIbYd3FnJG
- gv9VBr6MzCCtyc=
-IronPort-HdrOrdr: A9a23:sQhGKaxaOg9zAi/FIcMBKrPwFr1zdoMgy1knxilNoRw8SK2lfq
- eV7YwmPH7P+U8ssR4b6LO90cW7Lk80sKQFhbX5Xo3SOjUO2lHYTr2KhLGKq1aLdkHDH6xmpM
- BdmsBFeabN5DNB7foSjjPXLz9Z+qjjzJyV
+IronPort-Data: A9a23:EyFukK3jWiHtpgMFyvbD5St2kn2cJEfYwER7XKvMYLTBsI5bpzNWy
+ WcdDTjVPvnfYTbxKtoiO9iy8k0Gv5fcyYJmQVM/pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
+ Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCan8ZqTNMEn970Es6wbBh2OaEvPDia++zk
+ YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
+ 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhuuh6+
+ u0Tka2JSR4zYPyVh8A3VANoDHQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
+ 6VecW1TKEDY7w616OvTpu1Er8IvNsT0eqgYvWlt12rxBvc6W5HTBa7N4Le02R9t1poXQqmHO
+ KL1bxJSTzOYSi9rIW0LUpInuuS3oXf0fxJX/Qf9Sa0fvDGIkV0ZPKLWGPj/d8GORM5Vtl2Fv
+ W+A9GP8ajkFMPSPxDzD9Wij7sfDhTj+WZ4SPLSg++R2nUaIwWgOFBwRU0D9qv684mauVtQaJ
+ 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O+E15AyC0KP8/xeSBm9CSCVILtMhqqcLqScCj
+ wHT2YmzXHo27ePTGSn1GqqoQS2aHBAeH1dcQR49TRIfvYi6v6UZiQj/UYM2eEKqteHdFTb1y
+ jGMiSExgbQPkMIGv5mGEUD7byGE/caQEFNsjunDdif8t14iOtb5D2C9wQGDta4oEWqPcrWWU
+ JHoceC65ftGM5yCnTflrA4lTODwvKbt3NExbDdS83gdG9aFpy7LkWN4umgWyKJV3iAsI2eBj
+ Kj741452XOrFCH2BZKbmqroYyjQ8YDuFM7+StffZcdUb556eWevpX81Oh/Nhj22yhJyzsnT3
+ Kt3l+72Vh727ow9kVKLqxo1i+d3lkjSO0uPLXwE8/hX+eXHPyPEIVv0GFCPcvo4/Mu5TPb9q
+ L5i2z+x40wHCoXWO3CPmaZKdAxiBSVrVPje9p0MHsbec1UOJY3UI6KIqV/XU9c+xPo9eyah1
+ izVZ3K0P3Kj3yCaclvTNSg4AF4tNL4mxU8G0eUXFQ7A8xAejUyHtc/zrrM7Iusq8vJN1/lxQ
+ 6VXcsmMGK0XGD/G5y4cfd/2q4k7LEanggeHPiyEZjkjfsE/G1yVq4G8Jga/pjMTCieXtNclp
+ +Hy3A3sXpdeFR9pC9zbaazzwgrp72Qdgu97Q2DBPsJXJBf36IFvJiGo1q03LsgAJA/t3Dyf0
+ wrKUx4UqfOU+90+8cXThLDCpICsSrMsEk1fFmjdzLC3KSiFoTbznd4eCL6FJGmPWnn19aOuY
+ fRu48v9aPBXzkxXt4dcEqpwyf5s7dXYuLIHnB9vG2/Gbgr3B+o4cGWGx8RGqoZE2qRd5VmtQ
+ kuK99RXZeeJNcfiHAJDLQYpdL3eh/Qdmz2U5vUpOkTqoiRw+ePfA0lVOhCNjg1bLad0b9x5k
+ btw5pZO5lztkAcuP/aHkjtQpjaFIXE3Wqk6so0XXd3wgQ0xx1AeOZHRB0caOn1Uhwmg5qXyH
+ gKpuQ==
+IronPort-HdrOrdr: A9a23:IVHYNqEfXFqZKJCWpLqE0MeALOsnbusQ8zAXP0AYc3Jom6uj5r
+ mTdZUgpHnJYVkqOE3I9ertBEDEewK4yXcX2/h3AV7BZniEhILAFugLhuGO/9SjIVybygc079
+ YZT0EUMrzN5DZB4voSmDPIceod/A==
 X-IronPort-AV: E=Sophos;i="5.87,266,1631592000"; 
-   d="scan'208";a="58217720"
+   d="scan'208";a="58217717"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Daniel De Graaf
+	<dgdegra@tycho.nsa.gov>, Daniel Smith <dpsmith@apertussolutions.com>, "Jan
+ Beulich" <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 2/4] x86/altcall: Optimise away endbr64 instruction where possible
-Date: Fri, 26 Nov 2021 21:22:56 +0000
-Message-ID: <20211126212258.7550-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/4] xen/xsm: Use __init_data_cf_clobber for xsm_ops
+Date: Fri, 26 Nov 2021 21:22:57 +0000
+Message-ID: <20211126212258.7550-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211126212258.7550-1-andrew.cooper3@citrix.com>
 References: <20211126212258.7550-1-andrew.cooper3@citrix.com>
@@ -100,118 +102,66 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-With altcall, we convert indirect branches into direct ones.  With that
-complete, none of the potential targets need an endbr64 instruction.
+All calls through xsm_ops are fully altcall'd.  Harden all fnptr targets.
 
-Furthermore, removing the endbr64 instructions is a security defence-in-depth
-improvement, because it limits the options available to an attacker who has
-managed to hijack a function pointer.
+This yields:
 
-Introduce a new .init.data.cf_clobber section.  Have _apply_alternatives()
-walk over the entire section, looking for any pointers into .text, and clobber
-an endbr64 instruction if found.  This is some minor structure (ab)use but it
-works alarmingly well.
+  (XEN) altcall: Optimised away 197 endbr64 instructions
+
+of 1655 on an everything-enabled build of Xen, which is ~12%.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
+CC: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+CC: Daniel Smith <dpsmith@apertussolutions.com>
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
-
-It would be nice for the printk() to say "optimised away %u of %u", but the
-latter number can only feasibly come from post-processing of xen-syms during
-the build.
 ---
- xen/arch/x86/alternative.c | 38 ++++++++++++++++++++++++++++++++++++++
- xen/arch/x86/xen.lds.S     |  5 +++++
- xen/include/xen/init.h     |  2 ++
- 3 files changed, 45 insertions(+)
+ xen/xsm/dummy.c       | 2 +-
+ xen/xsm/flask/hooks.c | 2 +-
+ xen/xsm/silo.c        | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/x86/alternative.c b/xen/arch/x86/alternative.c
-index 5ae4c80d5119..65fc8534b97f 100644
---- a/xen/arch/x86/alternative.c
-+++ b/xen/arch/x86/alternative.c
-@@ -173,6 +173,9 @@ text_poke(void *addr, const void *opcode, size_t len)
-     return memcpy(addr, opcode, len);
- }
+diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
+index 4d29a9aa5b9f..4f1d352d5507 100644
+--- a/xen/xsm/dummy.c
++++ b/xen/xsm/dummy.c
+@@ -13,7 +13,7 @@
+ #define XSM_NO_WRAPPERS
+ #include <xsm/dummy.h>
  
-+extern unsigned long __initdata_cf_clobber_start[];
-+extern unsigned long __initdata_cf_clobber_end[];
-+
- /*
-  * Replace instructions with better alternatives for this CPU type.
-  * This runs before SMP is initialized to avoid SMP problems with
-@@ -329,6 +332,41 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
-         add_nops(buf + a->repl_len, total_len - a->repl_len);
-         text_poke(orig, buf, total_len);
-     }
-+
-+    /*
-+     * Clobber endbr64 instructions now that altcall has finished optimised
-+     * all indirect branches to direct ones.
-+     */
-+    if ( force && cpu_has_xen_ibt )
-+    {
-+        unsigned long *val;
-+        unsigned int clobbered = 0;
-+
-+        /*
-+         * This is some minor structure (ab)use.  We walk the entire contents
-+         * of .init.data.cf_clobber as if it were an array of pointers.
-+         *
-+         * If the pointer points into .text, and has an endbr64 instruction,
-+         * nop out the endbr64.  This causes the pointer to no longer be a
-+         * legal indirect branch target under CET-IBT.  This is a
-+         * defence-in-depth measure, to reduce the options available to an
-+         * adversary who has managed to hijack a function pointer.
-+         */
-+        for ( val = __initdata_cf_clobber_start;
-+              val < __initdata_cf_clobber_end;
-+              val++ )
-+        {
-+            void *ptr = (void *)*val;
-+
-+            if ( !is_kernel_text(ptr) || !is_endbr64(ptr) )
-+                continue;
-+
-+            add_nops(ptr, 4);
-+            clobbered++;
-+        }
-+
-+        printk("altcall: Optimised away %u endbr64 instructions\n", clobbered);
-+    }
- }
+-static const struct xsm_ops __initconstrel dummy_ops = {
++static struct xsm_ops __initdata_cf_clobber dummy_ops = {
+     .security_domaininfo           = xsm_security_domaininfo,
+     .domain_create                 = xsm_domain_create,
+     .getdomaininfo                 = xsm_getdomaininfo,
+diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+index 63484e323c09..b1c917113ec3 100644
+--- a/xen/xsm/flask/hooks.c
++++ b/xen/xsm/flask/hooks.c
+@@ -1765,7 +1765,7 @@ static int cf_check flask_argo_send(
  
- void init_or_livepatch apply_alternatives(struct alt_instr *start,
-diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index 87e344d4dd97..5b16a98e4df1 100644
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -214,6 +214,11 @@ SECTIONS
-        *(.initcall1.init)
-        __initcall_end = .;
+ #endif
  
-+       . = ALIGN(POINTER_ALIGN);
-+        __initdata_cf_clobber_start = .;
-+	*(.init.data.cf_clobber)
-+        __initdata_cf_clobber_end = .;
-+
-        *(.init.data)
-        *(.init.data.rel)
-        *(.init.data.rel.*)
-diff --git a/xen/include/xen/init.h b/xen/include/xen/init.h
-index bfe789e93f6b..66b324892a52 100644
---- a/xen/include/xen/init.h
-+++ b/xen/include/xen/init.h
-@@ -18,6 +18,8 @@
- #define __init_call(lvl)  __used_section(".initcall" lvl ".init")
- #define __exit_call       __used_section(".exitcall.exit")
+-static const struct xsm_ops __initconstrel flask_ops = {
++static struct xsm_ops __initdata_cf_clobber flask_ops = {
+     .security_domaininfo = flask_security_domaininfo,
+     .domain_create = flask_domain_create,
+     .getdomaininfo = flask_getdomaininfo,
+diff --git a/xen/xsm/silo.c b/xen/xsm/silo.c
+index 4d5fc98e7e54..7a17595888bb 100644
+--- a/xen/xsm/silo.c
++++ b/xen/xsm/silo.c
+@@ -102,7 +102,7 @@ static int cf_check silo_argo_send(
  
-+#define __initdata_cf_clobber __section(".init.data.cf_clobber")
-+
- /* These macros are used to mark some functions or 
-  * initialized data (doesn't apply to uninitialized data)
-  * as `initialization' functions. The kernel can take this
+ #endif
+ 
+-static const struct xsm_ops __initconstrel silo_xsm_ops = {
++static struct xsm_ops __initdata_cf_clobber silo_xsm_ops = {
+     .evtchn_unbound = silo_evtchn_unbound,
+     .evtchn_interdomain = silo_evtchn_interdomain,
+     .grant_mapref = silo_grant_mapref,
 -- 
 2.11.0
 
