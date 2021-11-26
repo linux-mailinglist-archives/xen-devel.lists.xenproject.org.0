@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D515B45F650
+	by mail.lfdr.de (Postfix) with ESMTPS id CF3D445F64F
 	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 22:24:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.233492.405135 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.233493.405146 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqigl-0006pG-96; Fri, 26 Nov 2021 21:23:23 +0000
+	id 1mqigm-00075e-Hy; Fri, 26 Nov 2021 21:23:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 233492.405135; Fri, 26 Nov 2021 21:23:23 +0000
+Received: by outflank-mailman (output) from mailman id 233493.405146; Fri, 26 Nov 2021 21:23:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqigl-0006mT-5j; Fri, 26 Nov 2021 21:23:23 +0000
-Received: by outflank-mailman (input) for mailman id 233492;
- Fri, 26 Nov 2021 21:23:22 +0000
+	id 1mqigm-00072A-E7; Fri, 26 Nov 2021 21:23:24 +0000
+Received: by outflank-mailman (input) for mailman id 233493;
+ Fri, 26 Nov 2021 21:23:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k+gV=QN=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mqigk-0006mN-C5
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 21:23:22 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 132f5f49-4eff-11ec-9787-a32c541c8605;
+ id 1mqigl-0006mN-3W
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 21:23:23 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1306db17-4eff-11ec-9787-a32c541c8605;
  Fri, 26 Nov 2021 22:23:20 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -36,65 +36,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 132f5f49-4eff-11ec-9787-a32c541c8605
+X-Inumbo-ID: 1306db17-4eff-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=citrix.com; s=securemail; t=1637961800;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=bq6J9uivE4OFqVknMwT0glvJ/cJ2p4tmLYuqVTlL0Lk=;
-  b=CP+eHPxlhd9WTsTtqagvcCD8gqr+qeE1PovB6srdOkJXQbntA2z0RUTt
-   SpMpn/8F627Vzmv78QMpRynslHJfdlvyM/242WHAspde4wUB7N1JvLKMW
-   rgK3TYwRKWHCAjQRCFpDODTl3WD1aAEAcB3atd5w48SqhxRF4/H6qWiD+
-   A=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: jjjHfZ7XNjv2KAbml77rhU0NWM9t2TmwMqi+zNaDiF3d1Uz/t3fqSUneKdTeIlM77/Rz+8NtG5
- Ercv6V3ZK6OImyRt3yLn+pj9hmBWrt2YSSwNOzwTZfADLCwLql/5QKF4lBNVTFeFFLOxQOoCNJ
- mpg8KiI2pNYE2GKAP3AdZ0BqqgQZ1nE1QktmuD0bbu9Gxtf/zNyGR/aP0WY1LOB8Et+Z0GI3i9
- +0UlAZsXdLGLDjdQ39rvM8VbxUGxMtp1Q/QS0eYE2zA/ENYoBd3BTIkhoLcUk5xIRx14Klq9q3
- jkFkWWHVn0dpM5+pWRyXShDe
+  bh=Fdg/mal0fwHNsO6+Dyz+0vovVFgRt44ymW0H5zE+iIs=;
+  b=QuQlqk2WusQo5uS57szMu5NjwWlzPNxstFBX+A8KktZZzNKr5TyWm+4r
+   buCqNh7sR/dAddBcS+eRRl/D+IzHBvjgupDp2zWzZXzhXGqd0suJrQqTU
+   1wZTEyP8Tq09PkR2wOrAmx7S0L+HxCtkEFSWBf/IDUvGalC9ZYnk/6Hz9
+   k=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: h1/aWimN67MANX8dI/ny8Aq8OE3NPwEhMzhRBnH8T2lpV2H6T67q25lTY7JgTxJukl2zU43JbD
+ r1Xs1Ujjig8wHLDz8tN0YdkR1jWIPFKsfyaGCVQGlCmM4Ac8TYISx7Tq+xNv/baldYkrMBfemg
+ z1k3TPd1T6LP5CIinhkmnMAiyELaDs6o7MOHk9K6g6dlnJvOjseZzaThX5nX/jnGkHwIJX7L6h
+ OfYjTxfD+tN8UFBQVqDisI8+PcbNTeMuFITVYRqj746JGBEJsXS8ebXkowYYQ/+1gfQKzqKs2T
+ 2/SJU9suGVcH4zsNKw9Eln4I
 X-SBRS: 5.1
-X-MesageID: 58217717
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 58700057
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:EyFukK3jWiHtpgMFyvbD5St2kn2cJEfYwER7XKvMYLTBsI5bpzNWy
- WcdDTjVPvnfYTbxKtoiO9iy8k0Gv5fcyYJmQVM/pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCan8ZqTNMEn970Es6wbBh2OaEvPDia++zk
- YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
- 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhuuh6+
- u0Tka2JSR4zYPyVh8A3VANoDHQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
- 6VecW1TKEDY7w616OvTpu1Er8IvNsT0eqgYvWlt12rxBvc6W5HTBa7N4Le02R9t1poXQqmHO
- KL1bxJSTzOYSi9rIW0LUpInuuS3oXf0fxJX/Qf9Sa0fvDGIkV0ZPKLWGPj/d8GORM5Vtl2Fv
- W+A9GP8ajkFMPSPxDzD9Wij7sfDhTj+WZ4SPLSg++R2nUaIwWgOFBwRU0D9qv684mauVtQaJ
- 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O+E15AyC0KP8/xeSBm9CSCVILtMhqqcLqScCj
- wHT2YmzXHo27ePTGSn1GqqoQS2aHBAeH1dcQR49TRIfvYi6v6UZiQj/UYM2eEKqteHdFTb1y
- jGMiSExgbQPkMIGv5mGEUD7byGE/caQEFNsjunDdif8t14iOtb5D2C9wQGDta4oEWqPcrWWU
- JHoceC65ftGM5yCnTflrA4lTODwvKbt3NExbDdS83gdG9aFpy7LkWN4umgWyKJV3iAsI2eBj
- Kj741452XOrFCH2BZKbmqroYyjQ8YDuFM7+StffZcdUb556eWevpX81Oh/Nhj22yhJyzsnT3
- Kt3l+72Vh727ow9kVKLqxo1i+d3lkjSO0uPLXwE8/hX+eXHPyPEIVv0GFCPcvo4/Mu5TPb9q
- L5i2z+x40wHCoXWO3CPmaZKdAxiBSVrVPje9p0MHsbec1UOJY3UI6KIqV/XU9c+xPo9eyah1
- izVZ3K0P3Kj3yCaclvTNSg4AF4tNL4mxU8G0eUXFQ7A8xAejUyHtc/zrrM7Iusq8vJN1/lxQ
- 6VXcsmMGK0XGD/G5y4cfd/2q4k7LEanggeHPiyEZjkjfsE/G1yVq4G8Jga/pjMTCieXtNclp
- +Hy3A3sXpdeFR9pC9zbaazzwgrp72Qdgu97Q2DBPsJXJBf36IFvJiGo1q03LsgAJA/t3Dyf0
- wrKUx4UqfOU+90+8cXThLDCpICsSrMsEk1fFmjdzLC3KSiFoTbznd4eCL6FJGmPWnn19aOuY
- fRu48v9aPBXzkxXt4dcEqpwyf5s7dXYuLIHnB9vG2/Gbgr3B+o4cGWGx8RGqoZE2qRd5VmtQ
- kuK99RXZeeJNcfiHAJDLQYpdL3eh/Qdmz2U5vUpOkTqoiRw+ePfA0lVOhCNjg1bLad0b9x5k
- btw5pZO5lztkAcuP/aHkjtQpjaFIXE3Wqk6so0XXd3wgQ0xx1AeOZHRB0caOn1Uhwmg5qXyH
- gKpuQ==
-IronPort-HdrOrdr: A9a23:IVHYNqEfXFqZKJCWpLqE0MeALOsnbusQ8zAXP0AYc3Jom6uj5r
- mTdZUgpHnJYVkqOE3I9ertBEDEewK4yXcX2/h3AV7BZniEhILAFugLhuGO/9SjIVybygc079
- YZT0EUMrzN5DZB4voSmDPIceod/A==
+IronPort-Data: A9a23:vjjqAalRGt7TdZlAd14Y66ro5gxMIURdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIXC2+HPauCY2HxLtx3Pd6zpEsF6sLcytFmTAE/r3ozQiMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA187IMsdoUg7wbdg29Q22YLR7z6l4
+ rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
+ s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
+ Pppq76zGBgLBZCPquZMDxMAOGZnerITrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
+ 6ZecmpUKEne2aTmm9pXScE17ignBODtMJkSpTdLyjbBAOx9aZvCX7/L9ZlT2zJYasVmQKaBP
+ 5JBNGUHgBLoYUF+Z1cSEZkFzeap3jr2fCcDqk+Iqv9ii4TU5FMoi+W8WDbPQfSVQe1Fk0Deo
+ XjJl0zbKBwHMN2UyRKe72mhwOTImEvTSI8UUbG16PNuqFmS3XAITg0bU0Ohpvu0gVL4XMhQQ
+ 3H44QJ38/J0rhbyCICgAVvo+xZooyLwRfJ/N/MY61CS6JHpoDSbVzQOFhUGcZs54ZpeqSMR6
+ neFmNbgBDpKubKTSG6A+rr8kQ5eKRT5PkdZO3ZaEFJtD83L5dhq00mRFooL/Lud14WtQVnNL
+ ya2QD/Sbln5peoCzO2F8F/OmFpATbCZH1dutm07so9Ihz6VhbJJhaT0uTA3Dt4ade51q2VtW
+ lBew6ByC8hUUPmweNSlGrllIV1Qz6/t3MfgqVBuBYI90D+m5mSue4tdiBknehw2Y5tdJGSzO
+ hGM0e+02HO1FCHxBUOQS9jsY/nGMIC6TYi1PhwqRoYmjmdNmP+vo3g1OB/4M5HFm0kwi6AvU
+ ap3gu73ZUv2/Z9PlWLsL89EiOdD7nlnmQv7GMCqpzz6gOH2TCPEFt843K6mM7lRAFWs+16Or
+ b6y9qKiln1ibQEJSnWNrNNIcwlVdSNT6FKfg5U/S9Nv6zFOQAkJY8I9C5t4E2C8t6gKxOrO4
+ F+nXUpUlAj2iXHdcF3YYXF/crL/G514qCtjbyArOF+p3VklYJqus/hDJ8dmI+F/+bwx1+NwQ
+ tkEZ96EXqZFRAPY9mlPdpL6toFjKkim3FrcIyq/bTEjVJd8XAiVqMT8dw7i+XBWXCq6vMczu
+ ZO60QbfTcZRTghuFp+OOvmu00mwrT4Wn+crBxnEJdxaeUPN9ol2KnOu0q9rcp9UcRian2mUz
+ QebBxsctNLhmY5t/Ymbn72AoqeoD/B6QhhQEV7E4OvkLiLd5Gein9NNCb7aYTDHWWro06y+f
+ uEJnerkOfgKkVsW4YpxF7FnkfA369f1/uIIyw1lGDPAbkixC6MmKX6DhJEduqpIz75fmA23R
+ kPQpYUKZeTXYJvoQAwLOQ4oTuWfzvVFyDDd4MM8LFj++CIqrqGMVl9fPkXUhSFQRFev3FjJH
+ Qv1VBYq1jGC
+IronPort-HdrOrdr: A9a23:h40MzaBo4u9YGi7lHemi55DYdb4zR+YMi2TDtnocdfUxSKelfq
+ +V88jzuSWbtN9yYhEdcKG7WZVoKEm0nfQZ3WB7B8bAYOCJghrMEKhSqafk3j38C2nf24dmpM
+ NdmnFFeb/NMWQ=
 X-IronPort-AV: E=Sophos;i="5.87,266,1631592000"; 
-   d="scan'208";a="58217717"
+   d="scan'208";a="58700057"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Daniel De Graaf
-	<dgdegra@tycho.nsa.gov>, Daniel Smith <dpsmith@apertussolutions.com>, "Jan
- Beulich" <JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 3/4] xen/xsm: Use __init_data_cf_clobber for xsm_ops
-Date: Fri, 26 Nov 2021 21:22:57 +0000
-Message-ID: <20211126212258.7550-4-andrew.cooper3@citrix.com>
+Subject: [PATCH 4/4] x86/ucode: Use altcall, and __initdata_cf_clobber
+Date: Fri, 26 Nov 2021 21:22:58 +0000
+Message-ID: <20211126212258.7550-5-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211126212258.7550-1-andrew.cooper3@citrix.com>
 References: <20211126212258.7550-1-andrew.cooper3@citrix.com>
@@ -102,66 +100,201 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-All calls through xsm_ops are fully altcall'd.  Harden all fnptr targets.
+Microcode loading is not a fastpath, but there are control flow security
+benefits from using altcall()'s hardening side effect.
 
-This yields:
-
-  (XEN) altcall: Optimised away 197 endbr64 instructions
-
-of 1655 on an everything-enabled build of Xen, which is ~12%.
+Convert the existing microcode_ops pointer into a __read_mostly structure, and
+move {amd,intel}_ucode_ops into __initdata_cf_clobber.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-CC: Daniel De Graaf <dgdegra@tycho.nsa.gov>
-CC: Daniel Smith <dpsmith@apertussolutions.com>
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 ---
- xen/xsm/dummy.c       | 2 +-
- xen/xsm/flask/hooks.c | 2 +-
- xen/xsm/silo.c        | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ xen/arch/x86/cpu/microcode/amd.c     |  2 +-
+ xen/arch/x86/cpu/microcode/core.c    | 38 +++++++++++++++++++-----------------
+ xen/arch/x86/cpu/microcode/intel.c   |  2 +-
+ xen/arch/x86/cpu/microcode/private.h |  2 +-
+ 4 files changed, 23 insertions(+), 21 deletions(-)
 
-diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
-index 4d29a9aa5b9f..4f1d352d5507 100644
---- a/xen/xsm/dummy.c
-+++ b/xen/xsm/dummy.c
-@@ -13,7 +13,7 @@
- #define XSM_NO_WRAPPERS
- #include <xsm/dummy.h>
+diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
+index 0afa2192bf1d..27c8644ab8ba 100644
+--- a/xen/arch/x86/cpu/microcode/amd.c
++++ b/xen/arch/x86/cpu/microcode/amd.c
+@@ -422,7 +422,7 @@ static struct microcode_patch *cf_check cpu_request_microcode(
+     return patch;
+ }
  
--static const struct xsm_ops __initconstrel dummy_ops = {
-+static struct xsm_ops __initdata_cf_clobber dummy_ops = {
-     .security_domaininfo           = xsm_security_domaininfo,
-     .domain_create                 = xsm_domain_create,
-     .getdomaininfo                 = xsm_getdomaininfo,
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index 63484e323c09..b1c917113ec3 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -1765,7 +1765,7 @@ static int cf_check flask_argo_send(
+-const struct microcode_ops amd_ucode_ops = {
++struct microcode_ops __initdata_cf_clobber amd_ucode_ops = {
+     .cpu_request_microcode            = cpu_request_microcode,
+     .collect_cpu_info                 = collect_cpu_info,
+     .apply_microcode                  = apply_microcode,
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index f84dafa82693..755f2dc9a1e5 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -21,6 +21,7 @@
+  * 2 of the License, or (at your option) any later version.
+  */
  
- #endif
++#include <xen/alternative-call.h>
+ #include <xen/cpu.h>
+ #include <xen/earlycpio.h>
+ #include <xen/err.h>
+@@ -214,7 +215,7 @@ void __init microcode_grab_module(
+         microcode_scan_module(module_map, mbi);
+ }
  
--static const struct xsm_ops __initconstrel flask_ops = {
-+static struct xsm_ops __initdata_cf_clobber flask_ops = {
-     .security_domaininfo = flask_security_domaininfo,
-     .domain_create = flask_domain_create,
-     .getdomaininfo = flask_getdomaininfo,
-diff --git a/xen/xsm/silo.c b/xen/xsm/silo.c
-index 4d5fc98e7e54..7a17595888bb 100644
---- a/xen/xsm/silo.c
-+++ b/xen/xsm/silo.c
-@@ -102,7 +102,7 @@ static int cf_check silo_argo_send(
+-static const struct microcode_ops __read_mostly *microcode_ops;
++static struct microcode_ops __read_mostly ucode_ops;
  
- #endif
+ static DEFINE_SPINLOCK(microcode_mutex);
  
--static const struct xsm_ops __initconstrel silo_xsm_ops = {
-+static struct xsm_ops __initdata_cf_clobber silo_xsm_ops = {
-     .evtchn_unbound = silo_evtchn_unbound,
-     .evtchn_interdomain = silo_evtchn_interdomain,
-     .grant_mapref = silo_grant_mapref,
+@@ -241,9 +242,9 @@ static const struct microcode_patch *nmi_patch = ZERO_BLOCK_PTR;
+  */
+ static struct microcode_patch *parse_blob(const char *buf, size_t len)
+ {
+-    microcode_ops->collect_cpu_info();
++    alternative_vcall(ucode_ops.collect_cpu_info);
+ 
+-    return microcode_ops->cpu_request_microcode(buf, len);
++    return alternative_call(ucode_ops.cpu_request_microcode, buf, len);
+ }
+ 
+ static void microcode_free_patch(struct microcode_patch *patch)
+@@ -258,8 +259,8 @@ static bool microcode_update_cache(struct microcode_patch *patch)
+ 
+     if ( !microcode_cache )
+         microcode_cache = patch;
+-    else if ( microcode_ops->compare_patch(patch,
+-                                           microcode_cache) == NEW_UCODE )
++    else if ( alternative_call(ucode_ops.compare_patch,
++                               patch, microcode_cache) == NEW_UCODE )
+     {
+         microcode_free_patch(microcode_cache);
+         microcode_cache = patch;
+@@ -311,14 +312,14 @@ static int microcode_update_cpu(const struct microcode_patch *patch)
+ {
+     int err;
+ 
+-    microcode_ops->collect_cpu_info();
++    alternative_vcall(ucode_ops.collect_cpu_info);
+ 
+     spin_lock(&microcode_mutex);
+     if ( patch )
+-        err = microcode_ops->apply_microcode(patch);
++        err = alternative_call(ucode_ops.apply_microcode, patch);
+     else if ( microcode_cache )
+     {
+-        err = microcode_ops->apply_microcode(microcode_cache);
++        err = alternative_call(ucode_ops.apply_microcode, microcode_cache);
+         if ( err == -EIO )
+         {
+             microcode_free_patch(microcode_cache);
+@@ -368,7 +369,7 @@ static int primary_thread_work(const struct microcode_patch *patch)
+     if ( !wait_for_state(LOADING_ENTER) )
+         return -EBUSY;
+ 
+-    ret = microcode_ops->apply_microcode(patch);
++    ret = alternative_call(ucode_ops.apply_microcode, patch);
+     if ( !ret )
+         atomic_inc(&cpu_updated);
+     atomic_inc(&cpu_out);
+@@ -481,7 +482,7 @@ static int control_thread_fn(const struct microcode_patch *patch)
+     }
+ 
+     /* Control thread loads ucode first while others are in NMI handler. */
+-    ret = microcode_ops->apply_microcode(patch);
++    ret = alternative_call(ucode_ops.apply_microcode, patch);
+     if ( !ret )
+         atomic_inc(&cpu_updated);
+     atomic_inc(&cpu_out);
+@@ -610,7 +611,8 @@ static long cf_check microcode_update_helper(void *data)
+      */
+     spin_lock(&microcode_mutex);
+     if ( microcode_cache &&
+-         microcode_ops->compare_patch(patch, microcode_cache) != NEW_UCODE )
++         alternative_call(ucode_ops.compare_patch,
++                          patch, microcode_cache) != NEW_UCODE )
+     {
+         spin_unlock(&microcode_mutex);
+         printk(XENLOG_WARNING "microcode: couldn't find any newer revision "
+@@ -678,7 +680,7 @@ int microcode_update(XEN_GUEST_HANDLE(const_void) buf, unsigned long len)
+     if ( len != (uint32_t)len )
+         return -E2BIG;
+ 
+-    if ( microcode_ops == NULL )
++    if ( !ucode_ops.apply_microcode )
+         return -EINVAL;
+ 
+     buffer = xmalloc_flex_struct(struct ucode_buf, buffer, len);
+@@ -722,10 +724,10 @@ __initcall(microcode_init);
+ /* Load a cached update to current cpu */
+ int microcode_update_one(void)
+ {
+-    if ( !microcode_ops )
++    if ( !ucode_ops.apply_microcode )
+         return -EOPNOTSUPP;
+ 
+-    microcode_ops->collect_cpu_info();
++    alternative_vcall(ucode_ops.collect_cpu_info);
+ 
+     return microcode_update_cpu(NULL);
+ }
+@@ -780,22 +782,22 @@ int __init early_microcode_init(void)
+     {
+     case X86_VENDOR_AMD:
+         if ( c->x86 >= 0x10 )
+-            microcode_ops = &amd_ucode_ops;
++            ucode_ops = amd_ucode_ops;
+         break;
+ 
+     case X86_VENDOR_INTEL:
+         if ( c->x86 >= 6 )
+-            microcode_ops = &intel_ucode_ops;
++            ucode_ops = intel_ucode_ops;
+         break;
+     }
+ 
+-    if ( !microcode_ops )
++    if ( !ucode_ops.apply_microcode )
+     {
+         printk(XENLOG_WARNING "Microcode loading not available\n");
+         return -ENODEV;
+     }
+ 
+-    microcode_ops->collect_cpu_info();
++    alternative_vcall(ucode_ops.collect_cpu_info);
+ 
+     if ( ucode_mod.mod_end || ucode_blob.size )
+         rc = early_microcode_update_cpu();
+diff --git a/xen/arch/x86/cpu/microcode/intel.c b/xen/arch/x86/cpu/microcode/intel.c
+index d3864b5ab03e..89e91f7fd06b 100644
+--- a/xen/arch/x86/cpu/microcode/intel.c
++++ b/xen/arch/x86/cpu/microcode/intel.c
+@@ -376,7 +376,7 @@ static struct microcode_patch *cf_check cpu_request_microcode(
+     return patch;
+ }
+ 
+-const struct microcode_ops intel_ucode_ops = {
++struct microcode_ops __initdata_cf_clobber intel_ucode_ops = {
+     .cpu_request_microcode            = cpu_request_microcode,
+     .collect_cpu_info                 = collect_cpu_info,
+     .apply_microcode                  = apply_microcode,
+diff --git a/xen/arch/x86/cpu/microcode/private.h b/xen/arch/x86/cpu/microcode/private.h
+index c085a1026847..4ee92a8fbaad 100644
+--- a/xen/arch/x86/cpu/microcode/private.h
++++ b/xen/arch/x86/cpu/microcode/private.h
+@@ -53,6 +53,6 @@ struct microcode_ops {
+         const struct microcode_patch *new, const struct microcode_patch *old);
+ };
+ 
+-extern const struct microcode_ops amd_ucode_ops, intel_ucode_ops;
++extern struct microcode_ops amd_ucode_ops, intel_ucode_ops;
+ 
+ #endif /* ASM_X86_MICROCODE_PRIVATE_H */
 -- 
 2.11.0
 
