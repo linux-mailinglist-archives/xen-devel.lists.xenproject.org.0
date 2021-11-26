@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6C1A45F245
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 17:38:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.233243.404608 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CF9445F24C
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 17:40:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.233255.404628 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqeEr-0001Ti-Ar; Fri, 26 Nov 2021 16:38:17 +0000
+	id 1mqeGM-0002Ke-Og; Fri, 26 Nov 2021 16:39:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 233243.404608; Fri, 26 Nov 2021 16:38:17 +0000
+Received: by outflank-mailman (output) from mailman id 233255.404628; Fri, 26 Nov 2021 16:39:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqeEr-0001RS-6V; Fri, 26 Nov 2021 16:38:17 +0000
-Received: by outflank-mailman (input) for mailman id 233243;
- Fri, 26 Nov 2021 16:38:16 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mqeGM-0002Iq-LN; Fri, 26 Nov 2021 16:39:50 +0000
+Received: by outflank-mailman (input) for mailman id 233255;
+ Fri, 26 Nov 2021 16:39:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k+gV=QN=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mqeEq-00016T-2v
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 16:38:16 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3fac4119-4ed7-11ec-9787-a32c541c8605;
- Fri, 26 Nov 2021 17:38:15 +0100 (CET)
+ id 1mqeGL-0002Id-21
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 16:39:49 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 76aaaa14-4ed7-11ec-a9d2-d9f7a1cc8784;
+ Fri, 26 Nov 2021 17:39:47 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fac4119-4ed7-11ec-9787-a32c541c8605
+X-Inumbo-ID: 76aaaa14-4ed7-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637944694;
+  d=citrix.com; s=securemail; t=1637944787;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=iSTdkE0nHLJGOO6QKVKdLSrlYBdgNwshsJepa2MYnPQ=;
-  b=IfDEyPOHU3dWChg48nlRVD0B81D5KNSncDDVmoXjspxxEo2escZBq1b5
-   pP5wIHwQ9ZH4kO1/Z7FrN0zGiZ/byne4yEERQsyULXTPAUIL493DK7TIB
-   U8gcxdpxmXfS6YTj/aNkf4omc3GrG6uNbnjtRqPMIx4yenUbfQ6i/+Zcr
-   c=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: j1O0amNu4WnABxO8wR389VwN1V9tYpOLOWCKCII3ywUkhB88zBxYwgBy+zauNorvkebXMK9P5X
- M+cHOCylB+6s43BtLb9o0Q7jfP7WBvY2IPfMSdtozspCgXDZECH0yg4Bx9yZjTl9DPMw6Pl0nZ
- gLw7zk/NffR2FV8ff7yu+3zHtqYLvZtOkA4LkRmo/rI6NAFRU26sA5npgVUT9w1hhLvYfkrDX3
- 340xxyKtnwOenii16QCeaZlmSMvbtUAoWZz6QhChqyCH7trnE40tdp/aD1BpIvXO2thvCt+nQ5
- YWZijXFOwBklN5MfH/X+Atd7
+  bh=h9LW2Z7OcjobSQpDdRkOtRJfqxEd9wK31rMUqlrU7c8=;
+  b=Vr36gQrAm+3Bj+YuBtUMXDkrBEcHQ7pGUydi6t9DnaTSCElwEfux9Zwl
+   P8cnd78xbWm6IypTW8BVS3/Q62wDoNP6XU/LhLbcNgCl1rlOIb1Fw+gKg
+   Q8sXWEnDDYCyHDsQIgeuVYxendCONjEQIbOqIVAZvZ4vduQskJB4KfIqz
+   E=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: wQ/zICD1qPxh/hItQiU9uzFMfE6yks6v2nQ9+901uzFNUQ77QWiMqEaPN/S/pLuxW9GJUaHsNs
+ 0oBvNVO7I/zheiFTH4RoVwKbI7K3fws7owBYhTRPqRhJ9FHUhGLN724+/mdNqkPkUOyNoRwZ5J
+ wS5gcSA9cFKY/4KxQAENIhbnKT9OzOQL2L+tRpjrkhgygNrHFBJ58W1ZxhbaLzCRR5Xuc016Pw
+ vZsCH73VRJWaHw0MPSzBH3Fx2Gr8ZJb3vYgS37FvMZgGrayNGZp0IwA8qvMc/Ltn8MyGFCFnaY
+ ozNKFMctqC15RKFoJPqqFUFh
 X-SBRS: 5.1
-X-MesageID: 58206773
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 58708258
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:IV4r06Mw0mezgJfvrR1okMFynXyQoLVcMsEvi/4bfWQNrUorgTZSy
- WVNXz+AOa6Ia2KkLdtybo7joE0H6sSAnNJlHQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6bUsxNbVU8En540Eg9w7RRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYoy20jf147
- Olzj4LuRlkZL4venectTRYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YsBqit4uM4/AO4QHt2s75TrYEewnUdbIRKCiCdpwgWdq3p4RQq22i
- 8wxSWFpNjnPXRB0NkoSOIwC3/inoDrCfGgNwL6SjfVuuDWCpOBr65DyNPLFd9rMQt9a9m66j
- G/b+2XyAjkBKceSjzGC9xqEluLJ2C/2Ro8WPLm57eJxxk2ewHQJDx8bXkf9puO24nNSQPoGd
- RZSoHB36/Fvqgr7FbERQiFUvlacgwwxUv5sLdcktg7T+rvy8QOaNnYLG2sphMMdiOc6Qjkj1
- 1msltzvBCByvLD9dU9x5ot4vhvpZ3FLcDZqiTssCFJcvoK9+N1bYgfnF447SMaIYsvJ9SYcK
- txghAw3nP0tgMECzM1XFniX0mv39vAlouPYjzg7v15JDCslO+ZJhKTysDA3CMqsyq7CFTFtW
- 1BexqCjABgmV83lqcB0aLxl8EuVz/iEKibAplVkAoMs8T+gk1b6I9sPsG8jexY1bJpfEdMMX
- KM1kVgKjHO0FCH3BZKbnqrrU5h6pUQePYiNug/ogipmPcEqKV7vENBGbk+MxWH9+HXAYolkU
- ap3hf2EVC5AYYw+lWLeb75EjdcDm3BvrUuOFMuT50n2jtKjiIu9FO5t3K2mNbtisstpYWz9r
- r5iCid940kFDbClPHCIqdV7wJJjBSFTOK0aYvd/LoarSjeK0kl7YxMI6b9+KYFjgYpPkeLEo
- iO0VkNCkQKtjnzbMwSaLHtkbeq3D5p4qHs6Ow0qPEqphCd/Mdr+sv9HestlZ6Qj+cxi0eVwE
- 6sPdfKfD6kdUT/A4TkcM8Xw9dQwaBSxiAuSFCO5ezxjLYV4TgnE94a8LAvi/SUDFAStss46r
- +Hy3w/XW8NbFQ9jENzXeLSkyFbo5SoRn+d7Xk3pJNhPeRqzrNg2enKp1vJuepMCMxTOwDeex
- j26OxZAqLmfuZIx/fnImbuA89WjHdxhExcIBGLc97u3a3XXpzLx3Y9aXe+UVjnBT2eoqr66b
- OBYwvygYv0KmFFG79h1H7pxlP9s4tLuo/lRzxh+HWWNZFOuU+syLn6D1MhJl6tM2r4G5lfmB
- hPRooFXaeeTJcfoMF8NPw50PO2M2MYdliTW8flocl7x4zV6/ebfXEhfV/VWZPex8Feh3FsZ/
- Noc
-IronPort-HdrOrdr: A9a23:nvXG/qr5H7YIu8kKJiVXDF8aV5oReYIsimQD101hICG8cqSj9v
- xG+85rrSMc6QxhIU3I9urwW5VoLUmyyXcx2/h0AV7AZniBhILLFvAB0WKK+VSJcEeSmtK1l5
- 0QFJSWYOeAdmSS5vyb3ODXKbgdKaG8gcWVuds=
+IronPort-Data: A9a23:FtgpyaujDDRUaKBLHqgtBNFIMOfnVJtZMUV32f8akzHdYApBsoF/q
+ tZmKTrTaPfZM2Wmc49/a4vjph9U6sXQy99lSwY//i8yFi8Q+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHhJZS5LwbZj29cx24bhWWthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ Npl5bnpciYEHZz1xKciXyUfEAFhMbMa9+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6DN
+ 5VBOWAyPHwsZTVLJlwONdVisdyuuUnvXyd1tBGZqvMotj27IAtZj+G2bYu9lsaxbdpRtlaVo
+ CTB5WuRKjMwOcGbyDGF2mmxneKJliT+MKoCGbv9+vN0jVm7wm0IFAZQRVa9ueO+iEO1R5RYM
+ UN8x8Y1hfFsrgrxFIC7BkDm5i7f1vIBZzZOO70fsTqs54nl2lraOWQ4CT1hd9A46MBjEFTGy
+ WS1t9/uADVutpicRnSc6qqYoFuOBMQFEYMRTXRaFFVYurEPtKl210uSFYg7TMZZm/WsQWmoq
+ w1muhTSkFn6YSQj86ygtW7KjDu3znQiZl5kv16HNo5JA+4QWWJEW2BKwQSEhRqjBNzAJrVkg
+ JTis5PFhAzpJcvQ/BFhuM1XQNmUCw+taVUwe2JHEZg77CiK8HW+Z41W6zwWDB43aZlUJ2K2M
+ RON5Vg5CHpv0J2CNvQfj2WZUZlC8EQdPY69CqC8giRmPvCdizNrDAkxPBXNjggBYWAnkL0lO
+ IfzTCpfJS1yNEiT9xLvH711+eZynkgWnDqPLbimn0XP+efPPxa9FOZaWGZim8hktctoVi2Oq
+ I0BXyZLoj0CONDDjt7/rdROcAtUdCdjXvgbaaV/L4a+H+avI0l5Y9e5/F/rU9INc319mria8
+ 3ejdFVfzVaj13TLJR/TMiJoaa/1XIY5pnU+ZHR+MVGt0nklQICu8KZAKMdnIeh5rLRunaxuU
+ v0IW8ScGfATGD7JzCsQMMvmp4t4eRX12Q/XZ3i5YCIydoJLThDS/oO2ZRPm8SQDV3LltcY3r
+ 7C6+BncRJ4PG1ZrAMrMMar9xFKtp3kN3ul1WhKQcNVUfUzt9qlsKjDw0aBrc51dd02by2LDh
+ QiMABoeqe3cmKMP8YHE1fKesoOkM+piBU4GTWPV2qm7aHvB9W25zI4eDOvRJWLBVHn58bmJb
+ PlOy62uK+UOmVtHvtYuE7tvyq5itdLjq6UDk1ZhFXTPKV+qFqlhMj+N2swW7v9BwbpQuA2XX
+ EOT+4YFZeXVaZ29SFNBdhA4aumj1O0PnmiA5Ps4F0z2+Str8efVSk5VJRSN1HRQIbYd3FnJG
+ gv9VBr6MzCCtyc=
+IronPort-HdrOrdr: A9a23:OPMoEK18qYQ4mrhQPmqJCAqjBIgkLtp133Aq2lEZdPRUGvb4qy
+ nIpoVi6faUskdpZJhOo6HiBEDtexzhHNtOkO0s1NSZLW/bUQmTXeNfBOLZqlWKcUCTygce79
+ YGT0EXMqyKMbEQt6bHCWeDferIuOP3lZyVuQ==
 X-IronPort-AV: E=Sophos;i="5.87,266,1631592000"; 
-   d="scan'208";a="58206773"
+   d="scan'208";a="58708258"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v1.1 61/65] x86/entry: Make syscall/sysenter entrypoints CET-IBT compatible
-Date: Fri, 26 Nov 2021 16:37:47 +0000
-Message-ID: <20211126163747.29517-1-andrew.cooper3@citrix.com>
+Subject: [PATCH v1.1 64/65] x86/efi: Disable CET-IBT around Runtime Services calls
+Date: Fri, 26 Nov 2021 16:38:30 +0000
+Message-ID: <20211126163830.30151-1-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211126123446.32324-1-andrew.cooper3@citrix.com>
 References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
@@ -100,16 +100,9 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Each of MSR_{L,C}STAR and MSR_SYSENTER_EIP need to land on an endbr64
-instruction.  For sysenter, this is easy.
-
-Unfortunately for syscall, the stubs are already 29 byte long with a limit of
-32.  endbr64 is 4 bytes.  Luckily, there is a 1 byte instruction which can
-move from the stubs into the main handlers.
-
-Move the push %rax out of the stub and into {l,c}star_entry(), allowing room
-for the endbr64 instruction when appropriate.  Update the comment describing
-the entry state.
+At least one TigerLake NUC has UEFI firmware which isn't CET-IBT compatible.
+Read under a function pointer to see whether an endbr64 instruction is
+present, and use this as a heuristic.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -117,98 +110,120 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 
-v2:
- * Update to use endbr helpers.
----
- xen/arch/x86/x86_64/entry.S | 18 +++++++++---------
- xen/arch/x86/x86_64/traps.c | 11 +++++++----
- 2 files changed, 16 insertions(+), 13 deletions(-)
+This was disappointing to discover.  I've pestered some folk and maybe
+something will improve in due course, but it remains an open question how best
+to discover that Runtime Services are CET-IBT compatible.
 
-diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index 8494b97a54a2..9abcf95bd010 100644
---- a/xen/arch/x86/x86_64/entry.S
-+++ b/xen/arch/x86/x86_64/entry.S
-@@ -241,18 +241,17 @@ iret_exit_to_guest:
-  * When entering SYSCALL from user mode:
-  *  Vector directly to the registered arch.syscall_addr.
-  *
-- * Initial work is done by per-CPU trampolines. At this point %rsp has been
-- * initialised to point at the correct Xen stack, %rsp has been saved, and
-- * %rax needs to be restored from the %ss save slot. All other registers are
-- * still to be saved onto the stack, starting with RFLAGS, and an appropriate
-- * %ss must be saved into the space left by the trampoline.
-+ * Initial work is done by per-CPU trampolines.
-+ *  - Guest %rax stored in the %ss slot
-+ *  - Guest %rsp stored in %rax
-+ *  - Xen stack loaded, pointing at the %ss slot
-  */
- ENTRY(lstar_enter)
- #ifdef CONFIG_XEN_SHSTK
-         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
- #endif
--        /* sti could live here when we don't switch page tables below. */
--        movq  8(%rsp),%rax /* Restore %rax. */
-+        push  %rax          /* Guest %rsp */
-+        movq  8(%rsp), %rax /* Restore guest %rax */
-         movq  $FLAT_KERNEL_SS,8(%rsp)
-         pushq %r11
-         pushq $FLAT_KERNEL_CS64
-@@ -288,9 +287,9 @@ ENTRY(cstar_enter)
- #ifdef CONFIG_XEN_SHSTK
-         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
- #endif
--        /* sti could live here when we don't switch page tables below. */
-+        push  %rax          /* Guest %rsp */
-         CR4_PV32_RESTORE
--        movq  8(%rsp), %rax /* Restore %rax. */
-+        movq  8(%rsp), %rax /* Restore guest %rax. */
-         movq  $FLAT_USER_SS32, 8(%rsp) /* Assume a 64bit domain.  Compat handled lower. */
-         pushq %r11
-         pushq $FLAT_USER_CS32
-@@ -323,6 +322,7 @@ ENTRY(cstar_enter)
-         jmp   switch_to_kernel
+v2:
+ * Switch to endbr helpers.
+---
+ xen/arch/x86/efi/stub.c  |  2 ++
+ xen/common/efi/boot.c    |  9 +++++++++
+ xen/common/efi/runtime.c | 17 +++++++++++++++++
+ xen/include/xen/efi.h    |  1 +
+ 4 files changed, 29 insertions(+)
+
+diff --git a/xen/arch/x86/efi/stub.c b/xen/arch/x86/efi/stub.c
+index 998493262641..5e44913e52db 100644
+--- a/xen/arch/x86/efi/stub.c
++++ b/xen/arch/x86/efi/stub.c
+@@ -11,6 +11,8 @@
+ #include <efi/efidevp.h>
+ #include <efi/efiapi.h>
  
- ENTRY(sysenter_entry)
-+        ENDBR64
- #ifdef CONFIG_XEN_SHSTK
-         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
- #endif
-diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
-index 6f3c65bedc7a..ab66515a3c75 100644
---- a/xen/arch/x86/x86_64/traps.c
-+++ b/xen/arch/x86/x86_64/traps.c
-@@ -16,6 +16,7 @@
- #include <asm/current.h>
- #include <asm/flushtlb.h>
- #include <asm/traps.h>
++bool __initdata efi_no_cet_ibt;
++
+ /*
+  * Here we are in EFI stub. EFI calls are not supported due to lack
+  * of relevant functionality in compiler and/or linker.
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index f5af71837d5a..c19f993af922 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -21,6 +21,7 @@
+ #include <xen/string.h>
+ #include <xen/stringify.h>
+ #ifdef CONFIG_X86
 +#include <asm/endbr.h>
- #include <asm/event.h>
- #include <asm/nmi.h>
- #include <asm/msr.h>
-@@ -295,6 +296,12 @@ static unsigned int write_stub_trampoline(
- {
-     unsigned char *p = stub;
+ /*
+  * Keep this arch-specific modified include in the common file, as moving
+  * it to the arch specific include file would obscure that special care is
+@@ -735,6 +736,14 @@ static void __init efi_init(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTabl
  
-+    if ( cpu_has_xen_ibt )
+     StdOut = SystemTable->ConOut;
+     StdErr = SystemTable->StdErr ?: StdOut;
++
++#ifdef CONFIG_X86
++    /*
++     * Heuristic.  Look under an arbitrary function pointer to see if UEFI was
++     * compiled with CET-IBT support.  Experimentally some are not.
++     */
++    efi_no_cet_ibt = !is_endbr64(efi_rs->GetTime);
++#endif
+ }
+ 
+ static void __init efi_console_set_mode(void)
+diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
+index d2fdc28df3e0..ef54863542db 100644
+--- a/xen/common/efi/runtime.c
++++ b/xen/common/efi/runtime.c
+@@ -21,6 +21,7 @@ struct efi_rs_state {
+   * don't strictly need that.
+   */
+  unsigned long __aligned(32) cr3;
++    unsigned long msr_s_cet;
+ #endif
+ };
+ 
+@@ -61,6 +62,7 @@ UINTN __read_mostly efi_apple_properties_len;
+ 
+ /* Bit field representing available EFI features/properties. */
+ unsigned int efi_flags;
++bool __read_mostly efi_no_cet_ibt;
+ 
+ struct efi __read_mostly efi = {
+ 	.acpi   = EFI_INVALID_TABLE_ADDR,
+@@ -113,6 +115,17 @@ struct efi_rs_state efi_rs_enter(void)
+ 
+     switch_cr3_cr4(mfn_to_maddr(efi_l4_mfn), read_cr4());
+ 
++    /*
++     * If UEFI doesn't appear to be CET-IBT compatible, stash and clobber
++     * ENDBR_EN.  Always read the current CET setting, because CET-SS isn't
++     * configured until very late on the BSP.
++     */
++    if ( cpu_has_xen_ibt && efi_no_cet_ibt )
 +    {
-+        place_endbr64(p);
-+        p += 4;
++        rdmsrl(MSR_S_CET, state.msr_s_cet);
++        wrmsrl(MSR_S_CET, state.msr_s_cet & ~CET_ENDBR_EN);
 +    }
 +
-     /* Store guest %rax into %ss slot */
-     /* movabsq %rax, stack_bottom - 8 */
-     *p++ = 0x48;
-@@ -315,10 +322,6 @@ static unsigned int write_stub_trampoline(
-     *(uint64_t *)p = stack_bottom - 8;
-     p += 8;
+     return state;
+ }
  
--    /* Store guest %rsp into %rsp slot */
--    /* pushq %rax */
--    *p++ = 0x50;
--
-     /* jmp target_va */
-     *p++ = 0xe9;
-     *(int32_t *)p = target_va - (stub_va + (p - stub) + 4);
+@@ -122,6 +135,10 @@ void efi_rs_leave(struct efi_rs_state *state)
+ 
+     if ( !state->cr3 )
+         return;
++
++    if ( state->msr_s_cet )
++        wrmsrl(MSR_S_CET, state->msr_s_cet);
++
+     switch_cr3_cr4(state->cr3, read_cr4());
+     if ( is_pv_vcpu(curr) && !is_idle_vcpu(curr) )
+     {
+diff --git a/xen/include/xen/efi.h b/xen/include/xen/efi.h
+index 94a7e547f97b..8c14f7f18718 100644
+--- a/xen/include/xen/efi.h
++++ b/xen/include/xen/efi.h
+@@ -30,6 +30,7 @@ union compat_pf_efi_info;
+ 
+ struct xenpf_efi_runtime_call;
+ struct compat_pf_efi_runtime_call;
++extern bool efi_no_cet_ibt;
+ 
+ bool efi_enabled(unsigned int feature);
+ void efi_init_memory(void);
 -- 
 2.11.0
 
