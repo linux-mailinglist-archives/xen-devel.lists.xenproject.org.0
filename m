@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCDA345EEAB
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:07:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.232819.403911 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F82045EE81
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:05:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.232752.403664 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqawo-0000do-5t; Fri, 26 Nov 2021 13:07:26 +0000
+	id 1mqauQ-0004xN-By; Fri, 26 Nov 2021 13:04:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 232819.403911; Fri, 26 Nov 2021 13:07:25 +0000
+Received: by outflank-mailman (output) from mailman id 232752.403664; Fri, 26 Nov 2021 13:04:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqawm-00009T-VO; Fri, 26 Nov 2021 13:07:24 +0000
-Received: by outflank-mailman (input) for mailman id 232819;
- Fri, 26 Nov 2021 13:07:21 +0000
+	id 1mqauQ-0004sZ-1J; Fri, 26 Nov 2021 13:04:58 +0000
+Received: by outflank-mailman (input) for mailman id 232752;
+ Fri, 26 Nov 2021 13:04:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k+gV=QN=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mqav3-0003W9-E5
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:05:37 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 89df46d3-4eb9-11ec-a9d2-d9f7a1cc8784;
- Fri, 26 Nov 2021 14:05:33 +0100 (CET)
+ id 1mqauN-0003W9-E0
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:04:55 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 718cc36b-4eb9-11ec-a9d2-d9f7a1cc8784;
+ Fri, 26 Nov 2021 14:04:54 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 89df46d3-4eb9-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 718cc36b-4eb9-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637931933;
+  d=citrix.com; s=securemail; t=1637931894;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Ih31JwK4ZhE/5fbqj/U4g/nJspiAVJIOtl0WbTPrTf0=;
-  b=dnkpZw9By2ciYTOoif79R0RC1YKV36CdVT/xSCa/CWU+75u4X9OfGsLe
-   yYPWo55WdUBXCYKtmm5UJZJlDSDQ6zV4ECeKr2WQIYZaDZZDfnh4+DoQX
-   QS7hbwXJBSB2SqdePzow38zOgk+OmqqSp1WKbbpJ6KQwXhQ3xdDZJW3xF
-   M=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: oQYG/ml5g7RQdhWOqKM8ehXsmYO6tNQXLbV0T35CpvWN8fP4ijOePptef0de3U+4Fvw7E6Afgf
- fGJNLtDuXjRhHEIiLhWHLXHquZyiYbxWupRdqcXA1PNRxLfFao420lWf90R7S/IDcrqtUM3eid
- 8c7JO4wYJy7LPHlNpjOfycW6PPCRspcv44CbZHZ/xam0uMCK2pemo2S0au7zgE8R3nyFLZntjU
- Zk9uNwcqpLNPxXQWwEGzO5nqhReeb0pvgiPIffjwbplAmVaBhHRNkzOe5UBOOVDJedORv00E3r
- lX3Qfv1Gy3wLpa7LfylUBek1
+  bh=HcmfBpauAYXuC35jOvSCXt5rS/45eJAP/EQh3RsIuyw=;
+  b=HzqFQ0t33tKuw/7Z/EhqY51lMi7J767xI0E/RpvygcMftgVDjMQ30780
+   1rs/or1bqqEmwWJeVYMqxb8h3mhqCjzScbo53KZB9bc8h/Tc3jF9NPGRe
+   dMorJtgIzzisjQlcu5ZsTgmh2Xo2mvNOxRr/12kG65qVJH2y+hyF2QoN8
+   Y=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: EVsLFuAFkDLW+JkrLW9MsUlIohhH3cb3mKa3DRvfjWtMzZ4p2H0dQLac9HgEC8oB9z8k77jkl+
+ luFKIHOX0f/AnPAUrrpIO+DjgP2gxtp65MSnU7hxM4fxos0Yv0s/iHVHrk9zHKLc8hJ8pzkjdE
+ YKs2BTY9A3KZZaLMC75hyeBFrD+qLtc/Dya+YD4K/9Z3/zHz90wDPtM2CsmaWpgLrSHaMFRkM/
+ ndB9S2KBRmf6MserNSewHIPHR0/RpkxwevXohvYBSRRSV2GRO/uh4ByKVB3E6ql9iCy1qQDHit
+ 4gniXb7ekmfOxqWxPmxLT16H
 X-SBRS: 5.1
-X-MesageID: 60695284
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 58634951
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:GBM0VKLfPwP3pyKFFE+RHJIlxSXFcZb7ZxGr2PjKsXjdYENS0jEFm
- jZKUTzSPvyLamD8L9F/bozg8B8D6p/cz4NhHARlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZUideSc+EH140Es5xbZj6mJVqYPR7z2l6
- IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
- QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB3Ygfpvk
- 8d29qWLchhyZqvTvck0SglhRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
- LpBdW5LPkvra+GemdpXTsFFgMg5IdatF4QYonx6lhnSDOo8QICFSKLPjTNd9Glo2JETR6aCD
- yYfQWA0ZSbEOwxgAFNUNdFuhuT3gmjmazIN/Tp5ooJoujOOnWSdyoPFL979atGMA8JPkS6wh
- EjL4mD4CREyL8GExHyO9XfErv/Cm2b3VZwfEJW89+V2mxuDy2oLEhoUWFCn5/6jhSaDt8l3c
- hJOvHB09O5rqRLtHoKVswCETGCs7wA2RYFCKK4D0zqSkfLS/CO0L3EUd2sUADA5j/MeSTsv3
- 16PutrmAz1zrbGYIU6gGqeoQSCaYnZMczJbDcMQZU5cuoS4/tlv5v7aZo87SPbdszHjJd3nL
- 9lmRgAajq5bs8ME3r7TEbvv02P1/cihouLYC2zqsoOZAuFRONHNi2+AswGzARN8wGCxFQLpU
- J8swZX20Qz2JcvR/BFhuc1UdF1T296LMSfHnXlkFIQ7+jKm9haLJN4Lv2EgeRg4bphYIlcFh
- XM/XysKv/e/21PwMMdKj3+ZUZx2ncAM6/y5PhwrUja+SscoL1LWlM2fTUWRw3rsgCARfVIXY
- v+mnTKXJS9CU8xPlWPuL89EiOND7n1ulAv7GMGgpzz6gOX2WZJgYepcWLd4Rrtit/3sTcS82
- 4s3CvZmPD0DCrCjOXeOrtZIRb3IRFBiba3LRwVsXrbrCmJb9KsJUpc9GJstJN5ombp7jODN8
- i3vU0NU0gOn13bGNR+LejZob7a2BcRzqncyPCoNO1e02id8PdbzvflHL5ZnL6M68OFDzOJvS
- 6VXccu3HfkSGC/M/C4QbMehodU6Jgirnw+HIwGsfCM7I8x7XwXM99K9Jlnv+SACAzCZr8w7p
- 7H8hArXTYBaH1ZpDdrMaeLpxFS05CBPlOV3VkrOA99SZESzr9Q6d32v1qc6epheJw/Cyz2W0
- xetLS0Z/eSd8ZUo9NTphLyfq9v7GeVJAUcHTXLQ6qy7NHeG8zP7k5NASuuBYRvUSHjwpPe5f
- exQwvzxbK8HkVJNv9YuGrpn1/tjtd7mprscxQV4BnTbKV+sD+o4cHWB2MBOsIxLx6NY5lTqC
- h7epIECNOXbIt7hHX4QOBEhP7aK2vwjkzXP6eg4fRfh7yht8bvbCUhfMnFgUsCGwGeZ5G/9/
- dochQ==
-IronPort-HdrOrdr: A9a23:DATMja9wuWdEpyQ097Juk+DLI+orL9Y04lQ7vn2ZKCYlEfBw+P
- rFoB1273LJYVUqOE3I++rvBEDoexq1nqKdh7N8AV7IZmjbUQWTQ72LKeDZsljd8+qUzJ8+6Z
- td
+IronPort-Data: A9a23:EY52sa1f1bFNsZqlyfbD5R52kn2cJEfYwER7XKvMYLTBsI5bpzICx
+ 2MbD22Cb6nbNjf1fItzYImx9EMBvJ7VyNJrTAU6pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
+ Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCan8ZqTNMEn970Es6wbBh2OaEvPDia++zk
+ YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
+ 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhg/5wz
+ up2mJmMdF0kAv3JnPosCzcBKnQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
+ 6VecW1TKEDY7w616OvTpu1Er8IvNsT0eqgYvWlt12rxBvc6W5HTBa7N4Le02R9t1p4VQaeDP
+ qL1bxJDTgnbXwBFCGxPK4AMmur5h1WgcTdH/Qf9Sa0fvDGIkV0ZPKLWGMXRUsyHQ4NShEnwj
+ kDs8nn9AxoaHMeC0jfD+XWp7sffkCW+VI8MGbmQ8v9xnEbV1mEVEAcRV1awvb++kEHWZj5EA
+ xVKoGx09/F0rRH1CImmN/GlnJKalgIyWtxvKMA/1DzXx5aE5gKHNzAqFwcUPbTKq/QKbTAt0
+ 1aImfbgCjpurKCZRBqhy1uEkd+hEXNLdDFfPEfoWSNAuoC++99r0nojW/46SPbt5uAZDw0c1
+ NxjQMIWo7wIxfAG2Kyglbwsq2L9/8OZJuLZC+i+Y45E0u+bTNL6D2BLwQKChRqlEGp/ZgLa1
+ JTjs5LDhN3i9bnXyESwrBwlRdlFHcqtPjzGmkJIFJI87Tmr8HPLVdkOu24ueho2Y5paJWSBj
+ KrvVeV5v8Q70JyCN/IfXm5MI55ykfiI+SrNCpg4keaikrAuLVTarUmClGab3nz3kVhErE3ME
+ czzTCpYNl5DUf4P5GPvH481iOZ3rghjlTK7bc2qlHyPjOvBDEN5vJ9YaTNimMhit/jayOgUm
+ v4CX/a3J+J3DLejP3KJqNFLdjjn7xETXPjLliCeTcbbSiIOJY3rI6a5LWoJd9M3kqJLuP3P+
+ 33hCEZUxECm3S/MKBmQa2AlY7TqBM4toXU+NC0qHFCpx3l8Ptr/sPZBL8M6Les96ehu7f9oV
+ P1ZKc+ONetCF2bc8DMHYJij8IE7LEa3hRiDNjaOaSQke8IyXBTA/9LpJ1O99CQHAietm9E5p
+ rmsilHSTZYZHlwwB8fKcvO/iVi2uCFFyu51WkLJJPhVeVntr9c2e3Cg0KdvLphVexvZxzac2
+ wKHOjsipLHA890v7d3EpaGYtIP1QeFwKVVXQjvA5rGsOCiEomf6md1cUPyFdCz2XX/v/Pnwf
+ v1cyvzxPaFVnFtOtIYgQb9nwbhnuonqrr5eiA9lAG/KfxKgDbY5eiuK2sxGt6tswL5FuFTpB
+ hLTq4cCYbjZatn4FFMxJRY+arXR3P4ZrTDe8PApLRio/yRw5reGDR1fMhTkZPax91ep3FfJG
+ dschfM=
+IronPort-HdrOrdr: A9a23:VV8wGaEyRdChOKgPpLqE0seALOsnbusQ8zAXP0AYc31om6uj5r
+ iTdZUgpGbJYVkqKRIdcLy7V5VoBEmskaKdgrNhW4tKPjOW2ldARbsKheCJrlHd8m/Fh4lgPM
+ 9bAtND4bbLbWSS4/yV3ODBKadE/OW6
 X-IronPort-AV: E=Sophos;i="5.87,266,1631592000"; 
-   d="scan'208";a="60695284"
+   d="scan'208";a="58634951"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 59/65] x86/traps: Rework write_stub_trampoline() to not hardcode the jmp
-Date: Fri, 26 Nov 2021 12:34:40 +0000
-Message-ID: <20211126123446.32324-60-andrew.cooper3@citrix.com>
+Subject: [PATCH 60/65] x86/emul: Update emulation stubs to be CET-IBT compatible
+Date: Fri, 26 Nov 2021 12:34:41 +0000
+Message-ID: <20211126123446.32324-61-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211126123446.32324-1-andrew.cooper3@citrix.com>
 References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
@@ -100,12 +100,10 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-For CET-IBT, we will need to optionally insert an endbr64 instruction at the
-start of the stub.  Don't hardcode the jmp displacement assuming that it
-starts at byte 24 of the stub.
+All indirect branches need to land on an endbr64 instruction.
 
-Also add extra comments describing what is going on.  The mix of %rax and %rsp
-is far from trivial to follow.
+For stub_selftests(), use endbr64 unconditionally for simplicity.  For ioport
+and instruction emulation, add endbr64 conditionally.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -113,66 +111,93 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 ---
- xen/arch/x86/x86_64/traps.c | 36 ++++++++++++++++++++++--------------
- 1 file changed, 22 insertions(+), 14 deletions(-)
+ xen/arch/x86/extable.c         | 14 +++++++++-----
+ xen/arch/x86/pv/emul-priv-op.c |  5 +++++
+ xen/arch/x86/x86_emulate.c     | 12 ++++++++++--
+ 3 files changed, 24 insertions(+), 7 deletions(-)
 
-diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
-index d661d7ffcaaf..6f3c65bedc7a 100644
---- a/xen/arch/x86/x86_64/traps.c
-+++ b/xen/arch/x86/x86_64/traps.c
-@@ -293,30 +293,38 @@ static unsigned int write_stub_trampoline(
-     unsigned char *stub, unsigned long stub_va,
-     unsigned long stack_bottom, unsigned long target_va)
+diff --git a/xen/arch/x86/extable.c b/xen/arch/x86/extable.c
+index 4aa1ab4b2a45..25c6fda00d28 100644
+--- a/xen/arch/x86/extable.c
++++ b/xen/arch/x86/extable.c
+@@ -129,19 +129,23 @@ search_exception_table(const struct cpu_user_regs *regs)
+ static int __init cf_check stub_selftest(void)
  {
-+    unsigned char *p = stub;
-+
-+    /* Store guest %rax into %ss slot */
-     /* movabsq %rax, stack_bottom - 8 */
--    stub[0] = 0x48;
--    stub[1] = 0xa3;
--    *(uint64_t *)&stub[2] = stack_bottom - 8;
-+    *p++ = 0x48;
-+    *p++ = 0xa3;
-+    *(uint64_t *)p = stack_bottom - 8;
-+    p += 8;
+     static const struct {
+-        uint8_t opc[4];
++        uint8_t opc[8];
+         uint64_t rax;
+         union stub_exception_token res;
+     } tests[] __initconst = {
+-        { .opc = { 0x0f, 0xb9, 0xc3, 0xc3 }, /* ud1 */
++        { .opc = { 0xf3, 0x0f, 0x1e, 0xfa,   /* endbr64 */
++                   0x0f, 0xb9, 0xc3, 0xc3 }, /* ud1 */
+           .res.fields.trapnr = TRAP_invalid_op },
+-        { .opc = { 0x90, 0x02, 0x00, 0xc3 }, /* nop; add (%rax),%al */
++        { .opc = { 0xf3, 0x0f, 0x1e, 0xfa,   /* endbr64 */
++                   0x90, 0x02, 0x00, 0xc3 }, /* nop; add (%rax),%al */
+           .rax = 0x0123456789abcdef,
+           .res.fields.trapnr = TRAP_gp_fault },
+-        { .opc = { 0x02, 0x04, 0x04, 0xc3 }, /* add (%rsp,%rax),%al */
++        { .opc = { 0xf3, 0x0f, 0x1e, 0xfa,   /* endbr64 */
++                   0x02, 0x04, 0x04, 0xc3 }, /* add (%rsp,%rax),%al */
+           .rax = 0xfedcba9876543210,
+           .res.fields.trapnr = TRAP_stack_error },
+-        { .opc = { 0xcc, 0xc3, 0xc3, 0xc3 }, /* int3 */
++        { .opc = { 0xf3, 0x0f, 0x1e, 0xfa,   /* endbr64 */
++                   0xcc, 0xc3, 0xc3, 0xc3 }, /* int3 */
+           .res.fields.trapnr = TRAP_int3 },
+     };
+     unsigned long addr = this_cpu(stubs.addr) + STUB_BUF_SIZE / 2;
+diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
+index 808ff1873352..51638c8f7273 100644
+--- a/xen/arch/x86/pv/emul-priv-op.c
++++ b/xen/arch/x86/pv/emul-priv-op.c
+@@ -68,6 +68,9 @@ static io_emul_stub_t *io_emul_stub_setup(struct priv_op_ctxt *ctxt, u8 opcode,
+      * helpers (non-standard ABI), and one of several possible stubs
+      * performing the real I/O.
+      */
++    static const char endbr64[] = {
++        0xf3, 0x0f, 0x1e, 0xfa, /* endbr64 */
++    };
+     static const char prologue[] = {
+         0x53,       /* push %rbx */
+         0x55,       /* push %rbp */
+@@ -111,6 +114,8 @@ static io_emul_stub_t *io_emul_stub_setup(struct priv_op_ctxt *ctxt, u8 opcode,
  
-+    /* Store guest %rsp in %rax */
-     /* movq %rsp, %rax */
--    stub[10] = 0x48;
--    stub[11] = 0x89;
--    stub[12] = 0xe0;
-+    *p++ = 0x48;
-+    *p++ = 0x89;
-+    *p++ = 0xe0;
+     p = ctxt->io_emul_stub;
  
-+    /* Switch to Xen stack */
-     /* movabsq $stack_bottom - 8, %rsp */
--    stub[13] = 0x48;
--    stub[14] = 0xbc;
--    *(uint64_t *)&stub[15] = stack_bottom - 8;
-+    *p++ = 0x48;
-+    *p++ = 0xbc;
-+    *(uint64_t *)p = stack_bottom - 8;
-+    p += 8;
++    if ( cpu_has_xen_ibt )
++        APPEND_BUFF(endbr64);
+     APPEND_BUFF(prologue);
+     APPEND_CALL(load_guest_gprs);
  
-+    /* Store guest %rsp into %rsp slot */
-     /* pushq %rax */
--    stub[23] = 0x50;
-+    *p++ = 0x50;
+diff --git a/xen/arch/x86/x86_emulate.c b/xen/arch/x86/x86_emulate.c
+index 60191a94dc18..8ba71a577f09 100644
+--- a/xen/arch/x86/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate.c
+@@ -29,11 +29,19 @@
+         cpu_has_amd_erratum(&current_cpu_data, AMD_ERRATUM_##nr)
  
-     /* jmp target_va */
--    stub[24] = 0xe9;
--    *(int32_t *)&stub[25] = target_va - (stub_va + 29);
-+    *p++ = 0xe9;
-+    *(int32_t *)p = target_va - (stub_va + (p - stub) + 4);
-+    p += 4;
- 
--    /* Round up to a multiple of 16 bytes. */
--    return 32;
-+    return p - stub;
- }
- 
- DEFINE_PER_CPU(struct stubs, stubs);
+ #define get_stub(stb) ({                                        \
++    void *ptr;                                                  \
+     BUILD_BUG_ON(STUB_BUF_SIZE / 2 < MAX_INST_LEN + 1);         \
+     ASSERT(!(stb).ptr);                                         \
+     (stb).addr = this_cpu(stubs.addr) + STUB_BUF_SIZE / 2;      \
+-    memset(((stb).ptr = map_domain_page(_mfn(this_cpu(stubs.mfn)))) +  \
+-           ((stb).addr & ~PAGE_MASK), 0xcc, STUB_BUF_SIZE / 2);        \
++    (stb).ptr = map_domain_page(_mfn(this_cpu(stubs.mfn))) +    \
++        ((stb).addr & ~PAGE_MASK);                              \
++    ptr = memset((stb).ptr, 0xcc, STUB_BUF_SIZE / 2);           \
++    if ( cpu_has_xen_ibt )                                      \
++    {                                                           \
++        memcpy(ptr, "\xf3\x0f\x1e\xfa", 4); /* endbr64 */       \
++        ptr += 4;                                               \
++    }                                                           \
++    ptr;                                                        \
+ })
+ #define put_stub(stb) ({                                   \
+     if ( (stb).ptr )                                       \
 -- 
 2.11.0
 
