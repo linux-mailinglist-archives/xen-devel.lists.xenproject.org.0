@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E46845EE7E
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:05:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.232747.403609 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B585E45EEAE
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:07:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.232834.403950 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqauB-0003Ie-4l; Fri, 26 Nov 2021 13:04:43 +0000
+	id 1mqawv-0002Xe-Qh; Fri, 26 Nov 2021 13:07:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 232747.403609; Fri, 26 Nov 2021 13:04:43 +0000
+Received: by outflank-mailman (output) from mailman id 232834.403950; Fri, 26 Nov 2021 13:07:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqauB-0003FS-0i; Fri, 26 Nov 2021 13:04:43 +0000
-Received: by outflank-mailman (input) for mailman id 232747;
- Fri, 26 Nov 2021 13:04:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mqawv-0002K3-5C; Fri, 26 Nov 2021 13:07:33 +0000
+Received: by outflank-mailman (input) for mailman id 232834;
+ Fri, 26 Nov 2021 13:07:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k+gV=QN=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mqauA-0002zD-1o
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:04:42 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69c06862-4eb9-11ec-9787-a32c541c8605;
- Fri, 26 Nov 2021 14:04:40 +0100 (CET)
+ id 1mqauz-0003W9-DW
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:05:33 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 85fddd33-4eb9-11ec-a9d2-d9f7a1cc8784;
+ Fri, 26 Nov 2021 14:05:26 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,64 +36,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69c06862-4eb9-11ec-9787-a32c541c8605
+X-Inumbo-ID: 85fddd33-4eb9-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637931880;
+  d=citrix.com; s=securemail; t=1637931926;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=0JgbBrfAwQwtdb0IBLWk+TvY2zX477eVRbHMu7fiRPk=;
-  b=cfDdmaCp21C/vy0kXf2V5fcMPtcUgfKblMaOT9X5gHVVa3NNjmn76KLB
-   qccYmsEgSGkntgRZsIBHkLKXwjMrIIk4zJZA/P+ffR7DScI10Q7cJ7v92
-   o4W2Qv0bWhIAl1Ei5FFRUpaQmKVDjrS5kbMwhXIO2lEszYvqFUV1Qu74i
-   o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: eAIUH47b1AWNmKD+/uw/I5BRdAKmPRFEGpwRUdKuAX1OK3OTmo4QQDh5Wmq9PZYv1kpCMDbf4O
- YPYjbtRiBIlcNXnM2AE3KKnBigEPttpKhkTYyC04swgtNCRde37Ia4CTQb0m2Alo7DRbq9sQzC
- InVIzqjU8TMPajBwsjra0dlkM2PhqTVQRvygssvqM602L3e0mEE7HVLP4Zet3HOaJ59iy2x6Xq
- QoxqI9XKFksU/ZXAcntxuKbWQwWFQRXKKBhdlcCFc619q2y0cjOr92seqMug/rC3yxPURlH5Es
- Ej9eTbsqkI3QDoeoiw2Nitcc
+  bh=/bd2B5JZciwzE0+dMFIIH8KGXsdKJbiMpcA3tfgV6qI=;
+  b=SLGI0254T9VpElD45XhyqRsctBGtlclB7XQKXU3d1hpfJCp4hD8iKdJy
+   N+ji/VC2804D0nXk6uzM5frH3NlvqYl1I5SIrhh4aMUAJYWum0FMTDmXG
+   dileimY3NOM0IMDj8TNzDCINfysrTzyE5FFTxadd6G1ZtdfqbvTGb+1LX
+   Y=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 0VJ2VbQS0zNheQg0h9xjkyhHsASv7a5dOFTxhYilSCwNr3j0B1FRaOedFFg/lPGWHzIDGsFF3X
+ oPBzHHrz1karrjowWj8EyjucIMekvPWhhld5b7oiPSNKba5sXrVp2U3AxBQH0nxd1h0yseAXF/
+ xPF5WfHHifL6Xaalc7MiY2DB3CnguJ2Fvy8OLW3QjaHsO9teLD4wrvz6fpPIuv4S7eXnGs+zli
+ O1DWBhSPudphVpaSifwp9s4R8PIIz+yn5EnyPh2l7gvdvn7u5DyrQOFs4+/PXdSEJq0VeEFdlF
+ kQixZx/2ecQKVpAUzS/KYunu
 X-SBRS: 5.1
-X-MesageID: 58695923
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 60695278
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:Bt187aIbe/7jiJdtFE+RJJIlxSXFcZb7ZxGr2PjKsXjdYENS02BVn
- GMeUGmFP6yDZDOkf9kibd6yoRgF75SAz4dmGwZlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZUideSc+EH140Es5xbZj6mJVqYPR7z2l6
- IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
- QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2Cg9Jwk
- stwvqe8VCYsJ5LPieQiSCdhRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
- LpBdW5LPkvra+GemdpXTsFFgMg5IdatF4QYonx6lhnSDOo8QICFSKLPjTNd9Gpg2JETTKyFD
- yYfQWVxd0rJeyVrA3YGVZEyl8iPonD+TxQN/Tp5ooJoujOOnWSdyoPFL979atGMA8JPkS6wp
- H/C/mn/KgEXMpqY0zXt2mm3mubFkCf/WYQTPL617PhnhBuU3GN7IA0bUx63rOe0jma6WslDM
- AoE9yw2t68w+Ue3CN7nUHWQglSJoxodUNp4CPAh5UeGza+83uqCLjFaFHgbMoVg7ZJoA2xxv
- rOUoz/3LTdzsrzPV0+WzbuJjDarBisELVAZWxZRGGPp/OLfiI00ixvOSPNqH6i0ksD5FFnM/
- tyakMQtr+5N1JBWjs1X6XiC2mvx/caREmbZ8y2OBjr9hj6VcrJJcGBBBbLzyf9bZLiUQVCa1
- JTvs5jPtbteZX1hecHkfQnsIF1Lz6raWNE/qQQ2d3XEy9hL0yX4FWy3yGsjTHqFyu5eJVfUj
- Lb74Gu9HqN7MnqwdrNQaImsEcksxqWIPY27Da+EMIcRM8QvKFTvEMRSiai4hDuFfK8Ey/xXB
- HtmWZz0USZy5VpPkFJauNvxIZd0n3tjlAs/tLjwzgi90Kr2WZJmYextDbd6VchgtPnsiFyMq
- 753bpLWoz0CALyWSnSGquY7cAFVRUXX8Lir8qS7gMbYeVE4cIzgYteMqY4cl3tNw/4Iy7yWp
- y7lASe1CjPX3BX6FOlDUVg7AJuHYHq1hStT0fUEMQn61n49T5yo6atDJZI7caN+rL5ozOJuT
- ulDcMKFW6wdRjPC8jUbTJ/8sI09K0j72VPQZ3KoMGolYpptZw3V4du4LAHhwzYDU3isvswkr
- rz+ig6CGcgfRx5vBdr9Ye60yw/jpmAUne9/BhOaItRadEj23pJtLij90q0+L80WcE2RzTqGz
- QeGRxwfoLCV8YMy9dDIg4GCrpuoTLQiThYLQTGD4O/vZyfA/2elzYtRa8qyfGjQBDHu5aGvR
- eRJ1PWgYvcJq0lH7thnGLFxwKNgu9a2/+1Gzh5pFWngZkiwDu8yOWGP2MRCu/EfxrJdvgfqC
- EuD9sMDZOeMMcLhVlUQOBAkfqKI0vRNwmve6vE8IUPb4i5r/eXYDRUObkfU0CENfqFoNI4Fw
- Ps6vJ9E4gOyvRMmL9Kag30G7G+LNHEBD/0qu5xy7FUHUeb3JoWuuaDhNxI=
-IronPort-HdrOrdr: A9a23:nwVYCalvYAar/SJVv27Xs/hqQtTpDfIU3DAbv31ZSRFFG/Fxl6
- iV8sjzsiWE8Qr5OUtQ/+xoV5PhfZqxz/JICMwqTNKftWrdyQyVxeNZnOjfKlTbckWUnINgPO
- VbAsxD4bXLfCBHZK3BgTVQfexO/DD+ytHLudvj
+IronPort-Data: A9a23:WoulwKATvpnLFBVW/9zkw5YqxClBgxIJ4kV8jS/XYbTApDh0hTBWz
+ mJNW2jQMvfbYGP0L48jOt/g8xsE7J/Sy9JlQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WLGs1hxZH1c+EX5400w7wYbVv6Yz6TSHK1LV0
+ T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
+ Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/jnbOpuxo6
+ ddxtN+rYkQqFajItcY4TEwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
+ KFGbmBWBvyAr7veLLaTY+9gnMk8auLsO5sSoCpIxjDFF/c2B5vERs0m4PcGhGlh25oRTZ4yY
+ eI7eQhJMSnFYyFIJw0XCaM3rtWsh3bgJmgwRFW9+vNsvjm7IBZK+KfpGMrYfJqNX8o9tkSFo
+ mPL+UzpDxdcM8aQoRKe6W6ljOLLmSL9WaoRGae++/osh0ecrkQDBRtTWValrP2Rjk+lR8kZO
+ 0ES4jApr6U56AqsVNaVdz+SrWOAvxUcc8FNCOB84waIopc4+C7AWDJCFGQYLoV76olmHlTGy
+ 2NlgfvsRntWjKS0S06ctay/7jCZPCw4D0odMHpsoRQ+3/Hvp4Q6jxTqR9llEbKogtCdJQwc0
+ wxmvwBl2exN0JdjO7GTuAme3mny/sShohsdv12PBgqYAhVFiJlJjmBCwXzS9r5+IYmQVTFtV
+ 1BUypHFvIji4Xxg/RFhodnh/pn1uJ5p0xWG2DaD+qXNERz2oBZPmqgKvVlDyL9BaJpsRNMQS
+ Ba7VfltzJFSJmC2SqR8fpi8Dc8npYC5S4+6Bq6JMYsSPMQqHONiwM2ITRXLt4wKuBJx+ZzTx
+ L/BKZr8ZZrkIfgPIMWKqxc1juZwm3FWKZL7TpHn1RW3uYdyl1bOIYrpxGCmN7hjhIvd+V292
+ 48Ga6OilkUOOMWjM3K/2dNCcjg3wY0TWMmeRzp/LbXYfGKL2QgJVpfs/F/WU9A/wvkOyL6Xp
+ irVt40x4AOXuEAr4D6iMhhLAI4Dl74lxZ7iFSBzb1uuxVY5ZoOjsPUWe5ctJOF1/+1/1/9kC
+ fICfpzYUPhITz3G/RUbbIX889M+JEj621rWMnr3eiU7cr5hWxfNpo3ucDzw+XRcFSGwr8Y//
+ eGtj1uJXZoZSg1+J8/Kc/bznUiptH0QlbsqDUvFK9VeYmv2941uJ3Cjh/M7OZhUex7C2iGbx
+ 0CdBhJB/bvBpIo88d/og6GYrtj2T7siTxQCR2SCtOS4LyjX+Gan0LRsaufQcGCPTn7w9YWje
+ f5Rk6P2PsoYkQsYqIF7Cbtqk/4zvoO9u79Aww14N3zXdFD3WKh4K3yL0MQT5K1AwrhV5Vm/V
+ k6Vo4QIPLyIPIXuEUILJRpjZeOGjKlGlj7X5PUzAUP7+C4oo+bXDRQMZ0GB2H5HMb94EII52
+ uNw6scZ5ju2hgcuLtvb3Dtf8H6BLyBYXqgq3n3A7FQHVub/Jol+XKHh
+IronPort-HdrOrdr: A9a23:SwZyDa9XhqFTZsU/0rJuk+DgI+orL9Y04lQ7vn2YSXRuHPBw8P
+ re5cjztCWE7gr5N0tBpTntAsW9qDbnhPtICOoqTNCftWvdyQiVxehZhOOIqVDd8m/Fh4pgPM
+ 9bAtBD4bbLbGSS4/yU3ODBKadD/OW6
 X-IronPort-AV: E=Sophos;i="5.87,266,1631592000"; 
-   d="scan'208";a="58695923"
+   d="scan'208";a="60695278"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
 	<wl@xen.org>, Julien Grall <julien@xen.org>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 24/65] xen/video: Annotate fnptr targets
-Date: Fri, 26 Nov 2021 12:34:05 +0000
-Message-ID: <20211126123446.32324-25-andrew.cooper3@citrix.com>
+Subject: [PATCH 25/65] xen/console: Annotate fnptr targets
+Date: Fri, 26 Nov 2021 12:34:06 +0000
+Message-ID: <20211126123446.32324-26-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211126123446.32324-1-andrew.cooper3@citrix.com>
 References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
@@ -109,95 +109,250 @@ CC: Wei Liu <wl@xen.org>
 CC: Julien Grall <julien@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/drivers/video/lfb.c  | 4 ++--
- xen/drivers/video/lfb.h  | 4 ++--
- xen/drivers/video/vesa.c | 4 ++--
- xen/drivers/video/vga.c  | 6 +++---
- 4 files changed, 9 insertions(+), 9 deletions(-)
+ xen/drivers/char/console.c   |  4 ++--
+ xen/drivers/char/ehci-dbgp.c | 24 +++++++++++++-----------
+ xen/drivers/char/ns16550.c   | 26 +++++++++++++-------------
+ 3 files changed, 28 insertions(+), 26 deletions(-)
 
-diff --git a/xen/drivers/video/lfb.c b/xen/drivers/video/lfb.c
-index 75b749b3303b..48c66f8acf10 100644
---- a/xen/drivers/video/lfb.c
-+++ b/xen/drivers/video/lfb.c
-@@ -53,7 +53,7 @@ static void lfb_show_line(
+diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
+index 380765ab02fd..d9d6556c2293 100644
+--- a/xen/drivers/char/console.c
++++ b/xen/drivers/char/console.c
+@@ -552,7 +552,7 @@ static void __serial_rx(char c, struct cpu_user_regs *regs)
+ #endif
  }
  
- /* Fast mode which redraws all modified parts of a 2D text buffer. */
--void lfb_redraw_puts(const char *s, size_t nr)
-+void cf_check lfb_redraw_puts(const char *s, size_t nr)
+-static void serial_rx(char c, struct cpu_user_regs *regs)
++static void cf_check serial_rx(char c, struct cpu_user_regs *regs)
  {
-     unsigned int i, min_redraw_y = lfb.ypos;
+     static int switch_code_count = 0;
  
-@@ -98,7 +98,7 @@ void lfb_redraw_puts(const char *s, size_t nr)
+@@ -1286,7 +1286,7 @@ void panic(const char *fmt, ...)
+  * **************************************************************
+  */
+ 
+-static void suspend_steal_fn(const char *str, size_t nr) { }
++static void cf_check suspend_steal_fn(const char *str, size_t nr) { }
+ static int suspend_steal_id;
+ 
+ int console_suspend(void)
+diff --git a/xen/drivers/char/ehci-dbgp.c b/xen/drivers/char/ehci-dbgp.c
+index a6b57fdf2d19..e205c0da6a61 100644
+--- a/xen/drivers/char/ehci-dbgp.c
++++ b/xen/drivers/char/ehci-dbgp.c
+@@ -1000,13 +1000,15 @@ static int ehci_dbgp_external_startup(struct ehci_dbgp *dbgp)
+ 
+ typedef void (*set_debug_port_t)(struct ehci_dbgp *, unsigned int);
+ 
+-static void default_set_debug_port(struct ehci_dbgp *dbgp, unsigned int port)
++static void cf_check default_set_debug_port(
++    struct ehci_dbgp *dbgp, unsigned int port)
+ {
  }
  
- /* Slower line-based scroll mode which interacts better with dom0. */
--void lfb_scroll_puts(const char *s, size_t nr)
-+void cf_check lfb_scroll_puts(const char *s, size_t nr)
+ static set_debug_port_t __read_mostly set_debug_port = default_set_debug_port;
+ 
+-static void nvidia_set_debug_port(struct ehci_dbgp *dbgp, unsigned int port)
++static void cf_check nvidia_set_debug_port(
++    struct ehci_dbgp *dbgp, unsigned int port)
  {
-     unsigned int i;
- 
-diff --git a/xen/drivers/video/lfb.h b/xen/drivers/video/lfb.h
-index e743ccdd6b11..42161402d611 100644
---- a/xen/drivers/video/lfb.h
-+++ b/xen/drivers/video/lfb.h
-@@ -35,8 +35,8 @@ struct lfb_prop {
-     unsigned int text_rows;
- };
- 
--void lfb_redraw_puts(const char *s, size_t nr);
--void lfb_scroll_puts(const char *s, size_t nr);
-+void cf_check lfb_redraw_puts(const char *s, size_t nr);
-+void cf_check lfb_scroll_puts(const char *s, size_t nr);
- void lfb_carriage_return(void);
- void lfb_free(void);
- 
-diff --git a/xen/drivers/video/vesa.c b/xen/drivers/video/vesa.c
-index cb0e443be4dd..155bc09d3237 100644
---- a/xen/drivers/video/vesa.c
-+++ b/xen/drivers/video/vesa.c
-@@ -17,7 +17,7 @@
- 
- #define vlfb_info    vga_console_info.u.vesa_lfb
- 
--static void lfb_flush(void);
-+static void cf_check lfb_flush(void);
- 
- static unsigned char *lfb;
- static const struct font_desc *font;
-@@ -177,7 +177,7 @@ void __init vesa_mtrr_init(void)
-     } while ( (size_total >= PAGE_SIZE) && (rc == -EINVAL) );
+     uint32_t dword = pci_conf_read32(PCI_SBDF(0, dbgp->bus, dbgp->slot,
+                                               dbgp->func), 0x74);
+@@ -1167,7 +1169,7 @@ static inline void _ehci_dbgp_flush(struct ehci_dbgp *dbgp)
+     dbgp->out.chunk = 0;
  }
  
--static void lfb_flush(void)
-+static void cf_check lfb_flush(void)
+-static void ehci_dbgp_flush(struct serial_port *port)
++static void cf_check ehci_dbgp_flush(struct serial_port *port)
  {
-     if ( vesa_mtrr == 3 )
-         __asm__ __volatile__ ("sfence" : : : "memory");
-diff --git a/xen/drivers/video/vga.c b/xen/drivers/video/vga.c
-index b7f04d0d97f4..abe295e477b1 100644
---- a/xen/drivers/video/vga.c
-+++ b/xen/drivers/video/vga.c
-@@ -19,8 +19,8 @@ static int vgacon_keep;
- static unsigned int xpos, ypos;
- static unsigned char *video;
+     struct ehci_dbgp *dbgp = port->uart;
+     s_time_t goal;
+@@ -1196,7 +1198,7 @@ static void ehci_dbgp_flush(struct serial_port *port)
+        set_timer(&dbgp->timer, goal);
+ }
  
--static void vga_text_puts(const char *s, size_t nr);
--static void vga_noop_puts(const char *s, size_t nr) {}
-+static void cf_check vga_text_puts(const char *s, size_t nr);
-+static void cf_check vga_noop_puts(const char *s, size_t nr) {}
- void (*video_puts)(const char *, size_t nr) = vga_noop_puts;
+-static void ehci_dbgp_putc(struct serial_port *port, char c)
++static void cf_check ehci_dbgp_putc(struct serial_port *port, char c)
+ {
+     struct ehci_dbgp *dbgp = port->uart;
  
- /*
-@@ -175,7 +175,7 @@ void __init video_endboot(void)
+@@ -1209,7 +1211,7 @@ static void ehci_dbgp_putc(struct serial_port *port, char c)
+         ehci_dbgp_flush(port);
+ }
+ 
+-static int ehci_dbgp_tx_ready(struct serial_port *port)
++static int cf_check ehci_dbgp_tx_ready(struct serial_port *port)
+ {
+     struct ehci_dbgp *dbgp = port->uart;
+ 
+@@ -1228,7 +1230,7 @@ static int ehci_dbgp_tx_ready(struct serial_port *port)
+            (dbgp->state == dbgp_idle) * DBGP_MAX_PACKET;
+ }
+ 
+-static int ehci_dbgp_getc(struct serial_port *port, char *pc)
++static int cf_check ehci_dbgp_getc(struct serial_port *port, char *pc)
+ {
+     struct ehci_dbgp *dbgp = port->uart;
+ 
+@@ -1309,7 +1311,7 @@ static bool_t ehci_dbgp_setup_preirq(struct ehci_dbgp *dbgp)
+     return 0;
+ }
+ 
+-static void __init ehci_dbgp_init_preirq(struct serial_port *port)
++static void __init cf_check ehci_dbgp_init_preirq(struct serial_port *port)
+ {
+     struct ehci_dbgp *dbgp = port->uart;
+     u32 debug_port, offset;
+@@ -1358,7 +1360,7 @@ static void ehci_dbgp_setup_postirq(struct ehci_dbgp *dbgp)
+     set_timer(&dbgp->timer, NOW() + MILLISECS(1));
+ }
+ 
+-static void __init ehci_dbgp_init_postirq(struct serial_port *port)
++static void __init cf_check ehci_dbgp_init_postirq(struct serial_port *port)
+ {
+     struct ehci_dbgp *dbgp = port->uart;
+ 
+@@ -1409,12 +1411,12 @@ static int ehci_dbgp_check_release(struct ehci_dbgp *dbgp)
+     return 0;
+ }
+ 
+-static void __init ehci_dbgp_endboot(struct serial_port *port)
++static void __init cf_check ehci_dbgp_endboot(struct serial_port *port)
+ {
+     ehci_dbgp_check_release(port->uart);
+ }
+ 
+-static void ehci_dbgp_suspend(struct serial_port *port)
++static void cf_check ehci_dbgp_suspend(struct serial_port *port)
+ {
+     struct ehci_dbgp *dbgp = port->uart;
+ 
+@@ -1431,7 +1433,7 @@ static void ehci_dbgp_suspend(struct serial_port *port)
+     dbgp->state = dbgp_unsafe;
+ }
+ 
+-static void ehci_dbgp_resume(struct serial_port *port)
++static void cf_check ehci_dbgp_resume(struct serial_port *port)
+ {
+     struct ehci_dbgp *dbgp = port->uart;
+ 
+diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+index 990cad39fe85..8df1ee4d5c2c 100644
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -174,7 +174,7 @@ static void handle_dw_usr_busy_quirk(struct ns16550 *uart)
      }
  }
  
--static void vga_text_puts(const char *s, size_t nr)
-+static void cf_check vga_text_puts(const char *s, size_t nr)
+-static void ns16550_interrupt(
++static void cf_check ns16550_interrupt(
+     int irq, void *dev_id, struct cpu_user_regs *regs)
  {
-     for ( ; nr > 0; nr--, s++ )
-     {
+     struct serial_port *port = dev_id;
+@@ -239,7 +239,7 @@ static void cf_check ns16550_poll(void *data)
+ #endif
+ }
+ 
+-static int ns16550_tx_ready(struct serial_port *port)
++static int cf_check ns16550_tx_ready(struct serial_port *port)
+ {
+     struct ns16550 *uart = port->uart;
+ 
+@@ -250,13 +250,13 @@ static int ns16550_tx_ready(struct serial_port *port)
+               uart->lsr_mask ) == uart->lsr_mask ) ? uart->fifo_size : 0;
+ }
+ 
+-static void ns16550_putc(struct serial_port *port, char c)
++static void cf_check ns16550_putc(struct serial_port *port, char c)
+ {
+     struct ns16550 *uart = port->uart;
+     ns_write_reg(uart, UART_THR, c);
+ }
+ 
+-static int ns16550_getc(struct serial_port *port, char *pc)
++static int cf_check ns16550_getc(struct serial_port *port, char *pc)
+ {
+     struct ns16550 *uart = port->uart;
+ 
+@@ -344,7 +344,7 @@ static void ns16550_setup_preirq(struct ns16550 *uart)
+                  UART_FCR_ENABLE | UART_FCR_CLRX | UART_FCR_CLTX | UART_FCR_TRG14);
+ }
+ 
+-static void __init ns16550_init_preirq(struct serial_port *port)
++static void __init cf_check ns16550_init_preirq(struct serial_port *port)
+ {
+     struct ns16550 *uart = port->uart;
+ 
+@@ -373,7 +373,7 @@ static void __init ns16550_init_preirq(struct serial_port *port)
+         uart->fifo_size = 16;
+ }
+ 
+-static void __init ns16550_init_irq(struct serial_port *port)
++static void __init cf_check ns16550_init_irq(struct serial_port *port)
+ {
+ #ifdef NS16550_PCI
+     struct ns16550 *uart = port->uart;
+@@ -399,7 +399,7 @@ static void ns16550_setup_postirq(struct ns16550 *uart)
+         set_timer(&uart->timer, NOW() + MILLISECS(uart->timeout_ms));
+ }
+ 
+-static void __init ns16550_init_postirq(struct serial_port *port)
++static void __init cf_check ns16550_init_postirq(struct serial_port *port)
+ {
+     struct ns16550 *uart = port->uart;
+     int rc, bits;
+@@ -491,7 +491,7 @@ static void __init ns16550_init_postirq(struct serial_port *port)
+     ns16550_setup_postirq(uart);
+ }
+ 
+-static void ns16550_suspend(struct serial_port *port)
++static void cf_check ns16550_suspend(struct serial_port *port)
+ {
+     struct ns16550 *uart = port->uart;
+ 
+@@ -543,7 +543,7 @@ static void cf_check ns16550_delayed_resume(void *data)
+         _ns16550_resume(port);
+ }
+ 
+-static void ns16550_resume(struct serial_port *port)
++static void cf_check ns16550_resume(struct serial_port *port)
+ {
+     struct ns16550 *uart = port->uart;
+ 
+@@ -569,7 +569,7 @@ static void ns16550_resume(struct serial_port *port)
+         _ns16550_resume(port);
+ }
+ 
+-static void __init ns16550_endboot(struct serial_port *port)
++static void __init cf_check ns16550_endboot(struct serial_port *port)
+ {
+ #ifdef CONFIG_HAS_IOPORTS
+     struct ns16550 *uart = port->uart;
+@@ -583,13 +583,13 @@ static void __init ns16550_endboot(struct serial_port *port)
+ #endif
+ }
+ 
+-static int __init ns16550_irq(struct serial_port *port)
++static int __init cf_check ns16550_irq(struct serial_port *port)
+ {
+     struct ns16550 *uart = port->uart;
+     return ((uart->irq > 0) ? uart->irq : -1);
+ }
+ 
+-static void ns16550_start_tx(struct serial_port *port)
++static void cf_check ns16550_start_tx(struct serial_port *port)
+ {
+     struct ns16550 *uart = port->uart;
+     u8 ier = ns_read_reg(uart, UART_IER);
+@@ -599,7 +599,7 @@ static void ns16550_start_tx(struct serial_port *port)
+         ns_write_reg(uart, UART_IER, ier | UART_IER_ETHREI);
+ }
+ 
+-static void ns16550_stop_tx(struct serial_port *port)
++static void cf_check ns16550_stop_tx(struct serial_port *port)
+ {
+     struct ns16550 *uart = port->uart;
+     u8 ier = ns_read_reg(uart, UART_IER);
 -- 
 2.11.0
 
