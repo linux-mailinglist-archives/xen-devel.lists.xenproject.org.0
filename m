@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22BAA45EEA3
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:07:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.232788.403835 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1ACB45EE99
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:07:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.232773.403757 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqawU-0004oW-Vw; Fri, 26 Nov 2021 13:07:06 +0000
+	id 1mqawL-0002iu-KO; Fri, 26 Nov 2021 13:06:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 232788.403835; Fri, 26 Nov 2021 13:07:06 +0000
+Received: by outflank-mailman (output) from mailman id 232773.403757; Fri, 26 Nov 2021 13:06:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqawT-0004aB-Uq; Fri, 26 Nov 2021 13:07:05 +0000
-Received: by outflank-mailman (input) for mailman id 232788;
- Fri, 26 Nov 2021 13:07:01 +0000
+	id 1mqawL-0002fS-EG; Fri, 26 Nov 2021 13:06:57 +0000
+Received: by outflank-mailman (input) for mailman id 232773;
+ Fri, 26 Nov 2021 13:06:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k+gV=QN=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mqavE-0002zD-Bk
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:05:48 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9159b3dc-4eb9-11ec-9787-a32c541c8605;
- Fri, 26 Nov 2021 14:05:47 +0100 (CET)
+ id 1mqavn-0002zD-FE
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:06:23 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a61a7074-4eb9-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 14:06:21 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,64 +36,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9159b3dc-4eb9-11ec-9787-a32c541c8605
+X-Inumbo-ID: a61a7074-4eb9-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637931947;
+  d=citrix.com; s=securemail; t=1637931981;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=UegzuZhXXHY5hqqFyS7Iw93YbL6XWSCZlaORkPJB840=;
-  b=fmbPKmOdEx1a0pdUxgRngzqMFtlESNgNq7Wa9bTcjN8qetlQ7Pqn94ZV
-   U93ba9rC3ODKmlCB/dpaP5tXZ65AYAGbltjzk7xSzuPtR2ypI043V63Kf
-   xgOsVqhouqj8iMvslFJUSoaBt860UATHaVVGWLrYdtPWcLIt6u6em6i2H
-   Q=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: IdT3NFWX9Hj68kTd32brC/LgREC0HLKlW7vgt8jFLvL0zEByVHaP7ZDEBTQxPGVQjTVR3JclgH
- PNDH4cUqFWo3iNyQYRX0msWEosxO7IiYeZqW1QLrzwltlP1nFwJQ8rDbb3EhuDwn02oldn74ES
- vW/fR53wk0hHRg9jCBItk2BFp1iBL0XYGef94vIVmT27i4/XUy5Wwg6gWHDi+SolLHZsfZiTbf
- VG9suuoh/J8C9WkmuvB+E0GsIoVPTxYyYailt2gbbUHSzyAonUkv5tdaKd53hl3EgkuPOJDa23
- yUTIlp67WZnQ7Ge8AO6ThD1Y
+  bh=U/I9hgUec63ZCE74xwerXvfwVJ+965BYzcV6BQ/X/5M=;
+  b=HDJvTva2aFT9lS5HKDei2IOHanRaESWHvH+vB5yAKdHjjWog0Shkym2u
+   gEG1DGThQTNBLUgHLpCs520qPNSYY/NBiQhljoL456ISJ48CLNyO7POHX
+   enQuDr987lm05QnzXTMKoMdI3a6EeqD4qDe8OuF3p9o5rprUEJhDNN2v8
+   M=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: n3wspB8X/1QGbSpyAjzvfuL4qomhOltSGM+0Zm2Q2Pk33Un/TPkkYtjGi6GIMtuUUQoMDEiEMu
+ uUmDMfKd7nQ3cyICQ+kV45K3Ic+YNQ5gi8iHZLphelpTm5smDPxg7CjpDZUPJNGPpapHPb/3nu
+ mTcxC4//wO/FmBeeI9jXHB11ebNPyGU73LNmM/e42HYe3nmj2Wj+eTrqnkZP8a+iJFq37Tobwi
+ jOmqRJabSJ+AT9RFbg61BJdjvk9Pq/MeQVHBxwfhbn8KCB+2U3sRQbMkHKMGW1nUe9WZ8uP+Jv
+ 47cFs2Ad4T+vgdlvH4RSYxk+
 X-SBRS: 5.1
-X-MesageID: 58635033
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 58676456
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:HpbFC69dDI9+AM7d51FEDrUDdXmTJUtcMsCJ2f8bNWPcYEJGY0x3m
- 2pKWG2EOPzZN2P0KIx+PYS/90JT6pfRy4JgSgI+qSs8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
- +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhGmeIdA970Ug6wrdj3NYy6TSEK1jlV
- e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
- I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhz0
- YhLmt+7Qz4jYJbXsrozDRlZGCBXaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
- 6ZCcXZUM07F17neLLGTE4GAguwKKsXxMZxZkXZn1TzDVt4tQIzZQrWM7thdtNs1rp0eQ62DP
- 5FCAdZpRBHlXD4QYGg0Mb8ZkcSR2Xr1SWdG72vA8MLb5ECMlVcsgdABKuH9ZdiiVchT2EGCq
- Qru/Xn9AxwcHMySz3yC6H3ErvTUgSrxVYYWFbu53v1nmluewioUEhJ+fUu2p7y1h1CzX/pbK
- lcI4Ww+oK4q7kupQ9LhGRqirxasnDQRRt5RGO0S8xyWx+zf5APxO4QfZmcfMpp87pZwHGF0k
- A/S9z/0OdBxmL+MFHSytbyelDnsAjM/c0FcZS4PTCJQtrEPv7oPph7IS99iFou8gdv0BSz8z
- li2kcQuu1kApZVVjvvmpDgrlxrp/8GUFVBtum07S0r8tlshDLNJcbBE/rQyARxoCI+CBmeMs
- 3Ef8yR1xLBfVMrd/MBhrQhkIV1I2xpnGGGD6bKMN8N4n9hIx5JFVdsLiN2ZDB00WvvogRezP
- CfuVfp5vfe/xkeCY65teJ6WAM8316XmHtmNfqmKNYUePMUuJVPZoHoGiausM4bFyxNEfUYXY
- 8rzTCpRJSxCVfQPIMSeG4/xLoPHNghhnDiOFPgXPjys0KaEZW79dFv2GADmUwzN14vd+F+92
- 48Gb6OikkwDOMWjMni/2dNCdjgicClkba0aXuQKL4Zv1CI9Qzp/YxIQqJt8E7FYc1N9yr2Vo
- yrjAxAAkzISRxTvcG23V5yqU5u3Nb4XkJ7xFXVE0Y+A1ydxbICxwr0YcpdrL7Ar+PY6lax/T
- uUfetXGCfNKE2yV9zMYZJj7jYpjaBX02l7eY3v7OGAyL8x6WgjE2t74ZQ+zpiMAOTW66Jklq
- Lq62wKFHZdaH1Z+DNzbYe6Exk+quSRPg/p7WkbFe4EBeEjl/IVwBTb2i/s7f5MFJRnZn2PI3
- AeKGxYI4+LKptZtotXOgKmFqaavEvd/QRUGTzWKs+7uOHCDrGS5wIJGXOKZRhznVTv5qPe4e
- OFY7/DgK/lbzlxEhJVxTuRwxqUk6tqx+7IDllZ4HG/GZkiAA697JiXUxtFGs6BAy+MLuQayX
- U7TqNBWNa/QZZHgGV8VYgEkcv6CxbcfnTyLtaY5J0Dz5SlW+rubUBoNY0nQ2XIFdLYlYpk4x
- eoBudIN713tgxUnBd+KkyRI+jneNXcHSagm6skXDYKDZtDHEb2ejUgw0hPL3aw=
-IronPort-HdrOrdr: A9a23:savNVKr5TE5rSQH0xT4iPqwaV5oReYIsimQD101hICG8cqSj9v
- xG+85rrSMc6QxhIU3I9urwW5VoLUmyyXcx2/h0AV7AZniBhILLFvAB0WKK+VSJcEeSmtK1l5
- 0QFJSWYOeAdmSS5vyb3ODXKbgdKaG8gcWVuds=
+IronPort-Data: A9a23:iw27+ayeAyOF5bWx5Oh6t+f6wSrEfRIJ4+MujC+fZmUNrF6WrkUGx
+ jEbCmCFPKuONDbwe9hyb4/i8kkG6pfRzNBqTVNppSAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAuLeNYYH1500s6wrRn2tQAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt/4y5
+ 9tzlZiodTdzPoGPmbU4QUNgExgraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVoru0lINPmI8U0vXZ4wCuCJf0nXYrCU+PB4towMDIY25AQQqiCO
+ pRxhTxHQxrSWCVuHnksEpcQwMSViiHlXSQGkQfAzUYwyzeKl1EguFT3C/LKfvSaSMMTmVyXz
+ krk1WnkBhARNPSE1CGItHmrg4fnjS79HY4fCrC83vprm0GIgHweDgUMUlm2quX/jVSxM++zM
+ GRNpHBo9/JrshX2EJ+tBHVUvUJooDYyGPVeLc0+8D29kKr4oAfII3pedj54PYlOWNANeRQm0
+ VqAntXMDDNpsaGIRX/1yop4vQ9eKgBOczZcOHZsoR8tpoC6/dpt1k6nosNLSfbt1rXI9SfML
+ ydmRcTUr5EaloY12qqy5jgraBr898GSHmbZCug6N19JDz+Vhqb5OORECnCBtJ6sybp1qHHa5
+ xDofODEsYgz4WmlznDlfQn0NOjBCwy5GDPdm0VzOJIq6i6g/XWuFagJvmohdBk0bZdYJ2OyC
+ KM2he+3zMQIVJdNRfUqC79d9uxwlfSwfTgbfqy8giVyjmhZK1bcoXAGib+41GHxikk8+ZzTy
+ r/AGftA+U0yUPw9pBLvHr91+eZymkgWmDOCLbimnk/P+efPOxaopUItbQLmghYRt/jf/m04M
+ r93aqO39vmoeLGkP3SMr9dMdQtiwLpSLcmelvG7v9WremJOcFzNwdeLqV/4U4A6zalTiMnS+
+ XSxBh1RxFbl3CWVIgSWcHFzLrjoWM8n/348OCUtO3eu2mQiPtnzvPtOKcNvcOl17vFnwN51U
+ +IBJ5eKDMNQR2mV4D8ad5T88tBvLUz5mQKUMiO5SzEjZJo8FRfR89rpc1K3pikDBya6r+Ukp
+ Lik2l+JSJYPXV06Xs3XdOiu3xW6un1EwLB+WE7BI99yfkTw8dc1d3yt36Fve8xVcEfN3DqX0
+ QqSECw0n+iVrt9n6sTNiICFs5ytT7l0EH1FEjSJ9r2xLyTboDaumNcSTOaScDnBf2ro46H+N
+ /5NxvTxPfBbzlZHt41wT+Riwa4kvoa9orZbykJvHWnRbkTtAbRleyHU0c5Kv6xL57lYpQrpB
+ R7fpogEYe2EaJH/DVocBAs5deDSh/gblw7b4ekxPEintjR8+6CKUBkKMhSB4MCHwGCZ7G/xL
+ T8dhfMr
+IronPort-HdrOrdr: A9a23:dEQ32a4TaXYTBqloTgPXwPDXdLJyesId70hD6qhwISY6TiX+rb
+ HWoB17726TtN9/YhEdcLy7VJVoBEmskKKdgrNhWotKPjOW21dARbsKheCJrgEIWReOktK1vZ
+ 0QC5SWY+eQMbEVt6nHCXGDYrQd/OU=
 X-IronPort-AV: E=Sophos;i="5.87,266,1631592000"; 
-   d="scan'208";a="58635033"
+   d="scan'208";a="58676456"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, Julien Grall <julien@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH 26/65] xen/misc: Annotate fnptr targets
-Date: Fri, 26 Nov 2021 12:34:07 +0000
-Message-ID: <20211126123446.32324-27-andrew.cooper3@citrix.com>
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH 27/65] x86: Annotate fnptr targets from request_irq()
+Date: Fri, 26 Nov 2021 12:34:08 +0000
+Message-ID: <20211126123446.32324-28-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211126123446.32324-1-andrew.cooper3@citrix.com>
 References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
@@ -101,277 +100,252 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
+...and friends; alloc_direct_apic_vector() and set_direct_apic_vector().
+
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Wei Liu <wl@xen.org>
-CC: Julien Grall <julien@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 ---
- xen/arch/x86/mm.c                        | 6 ++++--
- xen/arch/x86/setup.c                     | 4 ++--
- xen/common/domain.c                      | 2 +-
- xen/common/gdbstub.c                     | 5 ++---
- xen/common/livepatch.c                   | 7 +++----
- xen/common/memory.c                      | 4 ++--
- xen/common/page_alloc.c                  | 2 +-
- xen/common/radix-tree.c                  | 4 ++--
- xen/common/rangeset.c                    | 2 +-
- xen/common/spinlock.c                    | 6 +++---
- xen/common/vm_event.c                    | 6 +++---
- xen/common/xmalloc_tlsf.c                | 4 ++--
- xen/drivers/passthrough/amd/iommu_init.c | 2 +-
- 13 files changed, 27 insertions(+), 27 deletions(-)
+ xen/arch/x86/apic.c                      |  8 ++++----
+ xen/arch/x86/cpu/mcheck/mce_intel.c      |  4 ++--
+ xen/arch/x86/guest/xen/xen.c             |  2 +-
+ xen/arch/x86/hpet.c                      |  4 ++--
+ xen/arch/x86/hvm/vmx/vmx.c               |  4 ++--
+ xen/arch/x86/irq.c                       |  2 +-
+ xen/arch/x86/smp.c                       |  6 +++---
+ xen/arch/x86/time.c                      |  3 ++-
+ xen/drivers/passthrough/amd/iommu_init.c |  4 ++--
+ xen/drivers/passthrough/vtd/iommu.c      |  4 ++--
+ xen/include/asm-x86/irq.h                | 16 ++++++++--------
+ 11 files changed, 29 insertions(+), 28 deletions(-)
 
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 35d000921795..5d7acf705fb8 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -811,7 +811,8 @@ struct mmio_emul_range_ctxt {
-     unsigned long mfn;
+diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
+index dd6cf1529f1e..07611c481b0e 100644
+--- a/xen/arch/x86/apic.c
++++ b/xen/arch/x86/apic.c
+@@ -1365,7 +1365,7 @@ int reprogram_timer(s_time_t timeout)
+     return apic_tmict || !timeout;
+ }
+ 
+-void apic_timer_interrupt(struct cpu_user_regs * regs)
++void cf_check apic_timer_interrupt(struct cpu_user_regs *regs)
+ {
+     ack_APIC_irq();
+     perfc_incr(apic_timer);
+@@ -1384,7 +1384,7 @@ void smp_send_state_dump(unsigned int cpu)
+ /*
+  * Spurious interrupts should _never_ happen with our APIC/SMP architecture.
+  */
+-void spurious_interrupt(struct cpu_user_regs *regs)
++void cf_check spurious_interrupt(struct cpu_user_regs *regs)
+ {
+     /*
+      * Check if this is a vectored interrupt (most likely, as this is probably
+@@ -1415,7 +1415,7 @@ void spurious_interrupt(struct cpu_user_regs *regs)
+  * This interrupt should never happen with our APIC/SMP architecture
+  */
+ 
+-void error_interrupt(struct cpu_user_regs *regs)
++void cf_check error_interrupt(struct cpu_user_regs *regs)
+ {
+     static const char *const esr_fields[] = {
+         "Send CS error",
+@@ -1448,7 +1448,7 @@ void error_interrupt(struct cpu_user_regs *regs)
+  * This interrupt handles performance counters interrupt
+  */
+ 
+-void pmu_apic_interrupt(struct cpu_user_regs *regs)
++void cf_check pmu_apic_interrupt(struct cpu_user_regs *regs)
+ {
+     ack_APIC_irq();
+     vpmu_do_interrupt(regs);
+diff --git a/xen/arch/x86/cpu/mcheck/mce_intel.c b/xen/arch/x86/cpu/mcheck/mce_intel.c
+index 239b0b32327c..f587018cd2d2 100644
+--- a/xen/arch/x86/cpu/mcheck/mce_intel.c
++++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
+@@ -55,7 +55,7 @@ bool __read_mostly lmce_support;
+ #define MCE_RING                0x1
+ static DEFINE_PER_CPU(int, last_state);
+ 
+-static void intel_thermal_interrupt(struct cpu_user_regs *regs)
++static void cf_check intel_thermal_interrupt(struct cpu_user_regs *regs)
+ {
+     uint64_t msr_content;
+     unsigned int cpu = smp_processor_id();
+@@ -639,7 +639,7 @@ static void cpu_mcheck_disable(void)
+         clear_cmci();
+ }
+ 
+-static void cmci_interrupt(struct cpu_user_regs *regs)
++static void cf_check cmci_interrupt(struct cpu_user_regs *regs)
+ {
+     mctelem_cookie_t mctc;
+     struct mca_summary bs;
+diff --git a/xen/arch/x86/guest/xen/xen.c b/xen/arch/x86/guest/xen/xen.c
+index b2aa3a009b4a..17807cdea688 100644
+--- a/xen/arch/x86/guest/xen/xen.c
++++ b/xen/arch/x86/guest/xen/xen.c
+@@ -170,7 +170,7 @@ static void __init init_memmap(void)
+     }
+ }
+ 
+-static void xen_evtchn_upcall(struct cpu_user_regs *regs)
++static void cf_check xen_evtchn_upcall(struct cpu_user_regs *regs)
+ {
+     struct vcpu_info *vcpu_info = this_cpu(vcpu_info);
+     unsigned long pending;
+diff --git a/xen/arch/x86/hpet.c b/xen/arch/x86/hpet.c
+index 7b009a930498..c31fd97579dc 100644
+--- a/xen/arch/x86/hpet.c
++++ b/xen/arch/x86/hpet.c
+@@ -240,8 +240,8 @@ static void handle_hpet_broadcast(struct hpet_event_channel *ch)
+     }
+ }
+ 
+-static void hpet_interrupt_handler(int irq, void *data,
+-        struct cpu_user_regs *regs)
++static void cf_check hpet_interrupt_handler(
++    int irq, void *data, struct cpu_user_regs *regs)
+ {
+     struct hpet_event_channel *ch = data;
+ 
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 37c31c08b984..b1eee802fde7 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -2470,7 +2470,7 @@ static struct hvm_function_table __initdata vmx_function_table = {
  };
  
--static int print_mmio_emul_range(unsigned long s, unsigned long e, void *arg)
-+static int cf_check print_mmio_emul_range(
-+    unsigned long s, unsigned long e, void *arg)
+ /* Handle VT-d posted-interrupt when VCPU is blocked. */
+-static void pi_wakeup_interrupt(struct cpu_user_regs *regs)
++static void cf_check pi_wakeup_interrupt(struct cpu_user_regs *regs)
  {
-     const struct mmio_emul_range_ctxt *ctxt = arg;
- 
-@@ -4582,7 +4583,8 @@ static int _handle_iomem_range(unsigned long s, unsigned long e,
-     return 0;
+     struct vmx_vcpu *vmx, *tmp;
+     spinlock_t *lock = &per_cpu(vmx_pi_blocking, smp_processor_id()).lock;
+@@ -2502,7 +2502,7 @@ static void pi_wakeup_interrupt(struct cpu_user_regs *regs)
  }
  
--static int handle_iomem_range(unsigned long s, unsigned long e, void *p)
-+static int cf_check handle_iomem_range(
-+    unsigned long s, unsigned long e, void *p)
+ /* Handle VT-d posted-interrupt when VCPU is running. */
+-static void pi_notification_interrupt(struct cpu_user_regs *regs)
++static void cf_check pi_notification_interrupt(struct cpu_user_regs *regs)
  {
-     int err = 0;
- 
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index f35f3cb899ab..9bd42a55f94b 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -2034,8 +2034,8 @@ int __hwdom_init xen_in_range(unsigned long mfn)
-     return 0;
+     ack_APIC_irq();
+     this_cpu(irq_count)++;
+diff --git a/xen/arch/x86/irq.c b/xen/arch/x86/irq.c
+index f43b926ed26b..61e09a356f97 100644
+--- a/xen/arch/x86/irq.c
++++ b/xen/arch/x86/irq.c
+@@ -744,7 +744,7 @@ void move_native_irq(struct irq_desc *desc)
+     desc->handler->enable(desc);
  }
  
--static int __hwdom_init io_bitmap_cb(unsigned long s, unsigned long e,
--                                     void *ctx)
-+static int __hwdom_init cf_check io_bitmap_cb(
-+    unsigned long s, unsigned long e, void *ctx)
+-void irq_move_cleanup_interrupt(struct cpu_user_regs *regs)
++void cf_check irq_move_cleanup_interrupt(struct cpu_user_regs *regs)
  {
-     struct domain *d = ctx;
-     unsigned int i;
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 4fcf9e23911f..de8208a6c797 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -370,7 +370,7 @@ static void cf_check _free_pirq_struct(struct rcu_head *head)
-     xfree(container_of(head, struct pirq, rcu_head));
+     unsigned vector, me;
+ 
+diff --git a/xen/arch/x86/smp.c b/xen/arch/x86/smp.c
+index b9a696f61963..33748e629a21 100644
+--- a/xen/arch/x86/smp.c
++++ b/xen/arch/x86/smp.c
+@@ -246,7 +246,7 @@ static cpumask_t flush_cpumask;
+ static const void *flush_va;
+ static unsigned int flush_flags;
+ 
+-void invalidate_interrupt(struct cpu_user_regs *regs)
++void cf_check invalidate_interrupt(struct cpu_user_regs *regs)
+ {
+     unsigned int flags = flush_flags;
+     ack_APIC_irq();
+@@ -385,14 +385,14 @@ void smp_send_nmi_allbutself(void)
+     send_IPI_mask(&cpu_online_map, APIC_DM_NMI);
  }
  
--static void free_pirq_struct(void *ptr)
-+static void cf_check free_pirq_struct(void *ptr)
+-void event_check_interrupt(struct cpu_user_regs *regs)
++void cf_check event_check_interrupt(struct cpu_user_regs *regs)
  {
-     struct pirq *pirq = ptr;
- 
-diff --git a/xen/common/gdbstub.c b/xen/common/gdbstub.c
-index 079c3ca9616a..d6872721dc0d 100644
---- a/xen/common/gdbstub.c
-+++ b/xen/common/gdbstub.c
-@@ -69,7 +69,7 @@ static void gdb_smp_resume(void);
- static char __initdata opt_gdb[30];
- string_param("gdb", opt_gdb);
- 
--static void gdbstub_console_puts(const char *str, size_t nr);
-+static void cf_check gdbstub_console_puts(const char *str, size_t nr);
- 
- /* value <-> char (de)serialzers */
- static char
-@@ -546,8 +546,7 @@ __gdb_ctx = {
- };
- static struct gdb_context *gdb_ctx = &__gdb_ctx;
- 
--static void
--gdbstub_console_puts(const char *str, size_t nr)
-+static void cf_check gdbstub_console_puts(const char *str, size_t nr)
- {
-     const char *p;
- 
-diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
-index e8714920dc8f..ec301a9f120c 100644
---- a/xen/common/livepatch.c
-+++ b/xen/common/livepatch.c
-@@ -157,10 +157,9 @@ unsigned long livepatch_symbols_lookup_by_name(const char *symname)
-     return 0;
+     ack_APIC_irq();
+     perfc_incr(ipis);
+     this_cpu(irq_count)++;
  }
  
--static const char *livepatch_symbols_lookup(unsigned long addr,
--                                            unsigned long *symbolsize,
--                                            unsigned long *offset,
--                                            char *namebuf)
-+static const char *cf_check livepatch_symbols_lookup(
-+    unsigned long addr, unsigned long *symbolsize, unsigned long *offset,
-+    char *namebuf)
+-void call_function_interrupt(struct cpu_user_regs *regs)
++void cf_check call_function_interrupt(struct cpu_user_regs *regs)
  {
-     const struct payload *data;
-     unsigned int i, best;
-diff --git a/xen/common/memory.c b/xen/common/memory.c
-index fbd2ebb3ba75..8146e1136a6c 100644
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -1033,8 +1033,8 @@ struct get_reserved_device_memory {
-     unsigned int used_entries;
- };
- 
--static int get_reserved_device_memory(xen_pfn_t start, xen_ulong_t nr,
--                                      u32 id, void *ctxt)
-+static int cf_check get_reserved_device_memory(
-+    xen_pfn_t start, xen_ulong_t nr, u32 id, void *ctxt)
- {
-     struct get_reserved_device_memory *grdm = ctxt;
-     uint32_t sbdf = PCI_SBDF3(grdm->map.dev.pci.seg, grdm->map.dev.pci.bus,
-diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-index 906bfb6679df..f878cd110d1e 100644
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -1238,7 +1238,7 @@ struct scrub_wait_state {
-     bool drop;
- };
- 
--static void scrub_continue(void *data)
-+static void cf_check scrub_continue(void *data)
- {
-     struct scrub_wait_state *st = data;
- 
-diff --git a/xen/common/radix-tree.c b/xen/common/radix-tree.c
-index 33b47748ae49..adc3034222dc 100644
---- a/xen/common/radix-tree.c
-+++ b/xen/common/radix-tree.c
-@@ -52,7 +52,7 @@ struct rcu_node {
- 	struct rcu_head rcu_head;
- };
- 
--static struct radix_tree_node *rcu_node_alloc(void *arg)
-+static struct radix_tree_node *cf_check rcu_node_alloc(void *arg)
- {
- 	struct rcu_node *rcu_node = xmalloc(struct rcu_node);
- 	return rcu_node ? &rcu_node->node : NULL;
-@@ -65,7 +65,7 @@ static void cf_check _rcu_node_free(struct rcu_head *head)
- 	xfree(rcu_node);
+     ack_APIC_irq();
+     perfc_incr(ipis);
+diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
+index 9f8fdb209041..dda09f0680b3 100644
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -196,7 +196,8 @@ static void smp_send_timer_broadcast_ipi(void)
+     }
  }
  
--static void rcu_node_free(struct radix_tree_node *node, void *arg)
-+static void cf_check rcu_node_free(struct radix_tree_node *node, void *arg)
+-static void timer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
++static void cf_check timer_interrupt(
++    int irq, void *dev_id, struct cpu_user_regs *regs)
  {
- 	struct rcu_node *rcu_node = container_of(node, struct rcu_node, node);
- 	call_rcu(&rcu_node->rcu_head, _rcu_node_free);
-diff --git a/xen/common/rangeset.c b/xen/common/rangeset.c
-index 885b6b15c229..a6ef2640462a 100644
---- a/xen/common/rangeset.c
-+++ b/xen/common/rangeset.c
-@@ -384,7 +384,7 @@ int rangeset_consume_ranges(struct rangeset *r,
-     return rc;
- }
+     ASSERT(local_irq_is_enabled());
  
--static int merge(unsigned long s, unsigned long e, void *data)
-+static int cf_check merge(unsigned long s, unsigned long e, void *data)
- {
-     struct rangeset *r = data;
- 
-diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
-index 25bfbf3c47f7..62c83aaa6a73 100644
---- a/xen/common/spinlock.c
-+++ b/xen/common/spinlock.c
-@@ -375,7 +375,7 @@ static void spinlock_profile_iterate(lock_profile_subfunc *sub, void *par)
-     spin_unlock(&lock_profile_lock);
- }
- 
--static void spinlock_profile_print_elem(struct lock_profile *data,
-+static void cf_check spinlock_profile_print_elem(struct lock_profile *data,
-     int32_t type, int32_t idx, void *par)
- {
-     struct spinlock *lock = data->lock;
-@@ -404,7 +404,7 @@ void cf_check spinlock_profile_printall(unsigned char key)
-     spinlock_profile_iterate(spinlock_profile_print_elem, NULL);
- }
- 
--static void spinlock_profile_reset_elem(struct lock_profile *data,
-+static void cf_check spinlock_profile_reset_elem(struct lock_profile *data,
-     int32_t type, int32_t idx, void *par)
- {
-     data->lock_cnt = 0;
-@@ -428,7 +428,7 @@ typedef struct {
-     int                      rc;
- } spinlock_profile_ucopy_t;
- 
--static void spinlock_profile_ucopy_elem(struct lock_profile *data,
-+static void cf_check spinlock_profile_ucopy_elem(struct lock_profile *data,
-     int32_t type, int32_t idx, void *par)
- {
-     spinlock_profile_ucopy_t *p = par;
-diff --git a/xen/common/vm_event.c b/xen/common/vm_event.c
-index 70ab3ba406ff..84cf52636bc4 100644
---- a/xen/common/vm_event.c
-+++ b/xen/common/vm_event.c
-@@ -523,21 +523,21 @@ int __vm_event_claim_slot(struct domain *d, struct vm_event_domain *ved,
- 
- #ifdef CONFIG_MEM_PAGING
- /* Registered with Xen-bound event channel for incoming notifications. */
--static void mem_paging_notification(struct vcpu *v, unsigned int port)
-+static void cf_check mem_paging_notification(struct vcpu *v, unsigned int port)
- {
-     vm_event_resume(v->domain, v->domain->vm_event_paging);
- }
- #endif
- 
- /* Registered with Xen-bound event channel for incoming notifications. */
--static void monitor_notification(struct vcpu *v, unsigned int port)
-+static void cf_check monitor_notification(struct vcpu *v, unsigned int port)
- {
-     vm_event_resume(v->domain, v->domain->vm_event_monitor);
- }
- 
- #ifdef CONFIG_MEM_SHARING
- /* Registered with Xen-bound event channel for incoming notifications. */
--static void mem_sharing_notification(struct vcpu *v, unsigned int port)
-+static void cf_check mem_sharing_notification(struct vcpu *v, unsigned int port)
- {
-     vm_event_resume(v->domain, v->domain->vm_event_share);
- }
-diff --git a/xen/common/xmalloc_tlsf.c b/xen/common/xmalloc_tlsf.c
-index e3f6886e6b62..d2ad909502d0 100644
---- a/xen/common/xmalloc_tlsf.c
-+++ b/xen/common/xmalloc_tlsf.c
-@@ -512,13 +512,13 @@ int xmem_pool_maxalloc(struct xmem_pool *pool)
- 
- static struct xmem_pool *xenpool;
- 
--static void *xmalloc_pool_get(unsigned long size)
-+static void *cf_check xmalloc_pool_get(unsigned long size)
- {
-     ASSERT(size == PAGE_SIZE);
-     return alloc_xenheap_page();
- }
- 
--static void xmalloc_pool_put(void *p)
-+static void cf_check xmalloc_pool_put(void *p)
- {
-     free_xenheap_page(p);
- }
 diff --git a/xen/drivers/passthrough/amd/iommu_init.c b/xen/drivers/passthrough/amd/iommu_init.c
-index 06b4d2b1fea0..cebcd68a6c04 100644
+index cebcd68a6c04..d2ad282e93d3 100644
 --- a/xen/drivers/passthrough/amd/iommu_init.c
 +++ b/xen/drivers/passthrough/amd/iommu_init.c
-@@ -1073,7 +1073,7 @@ static void * __init allocate_ppr_log(struct amd_iommu *iommu)
- #define IVRS_MAPPINGS_DEVTAB(m) (m)[ivrs_bdf_entries].intremap_table
+@@ -715,8 +715,8 @@ static void cf_check do_amd_iommu_irq(void *unused)
+     }
+ }
  
- /* Gets passed to radix_tree_destroy(), so its param needs to be void *. */
--static void __init free_ivrs_mapping_callback(void *ptr)
-+static void __init cf_check free_ivrs_mapping_callback(void *ptr)
+-static void iommu_interrupt_handler(int irq, void *dev_id,
+-                                    struct cpu_user_regs *regs)
++static void cf_check iommu_interrupt_handler(
++    int irq, void *dev_id, struct cpu_user_regs *regs)
  {
-     const struct ivrs_mappings *ivrs_mappings = ptr;
+     unsigned long flags;
+     struct amd_iommu *iommu = dev_id;
+diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
+index 498a9ea9c9c1..ad3abdcdacfd 100644
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -1085,8 +1085,8 @@ static void cf_check do_iommu_page_fault(void *unused)
+         __do_iommu_page_fault(drhd->iommu);
+ }
+ 
+-static void iommu_page_fault(int irq, void *dev_id,
+-                             struct cpu_user_regs *regs)
++static void cf_check iommu_page_fault(
++    int irq, void *dev_id, struct cpu_user_regs *regs)
+ {
+     /*
+      * Just flag the tasklet as runnable. This is fine, according to VT-d
+diff --git a/xen/include/asm-x86/irq.h b/xen/include/asm-x86/irq.h
+index 7c825e9d9c0a..b3f49abc5556 100644
+--- a/xen/include/asm-x86/irq.h
++++ b/xen/include/asm-x86/irq.h
+@@ -93,14 +93,14 @@ static inline struct cpu_user_regs *set_irq_regs(struct cpu_user_regs *new_regs)
+ 
+ #define platform_legacy_irq(irq)	((irq) < 16)
+ 
+-void event_check_interrupt(struct cpu_user_regs *regs);
+-void invalidate_interrupt(struct cpu_user_regs *regs);
+-void call_function_interrupt(struct cpu_user_regs *regs);
+-void apic_timer_interrupt(struct cpu_user_regs *regs);
+-void error_interrupt(struct cpu_user_regs *regs);
+-void pmu_apic_interrupt(struct cpu_user_regs *regs);
+-void spurious_interrupt(struct cpu_user_regs *regs);
+-void irq_move_cleanup_interrupt(struct cpu_user_regs *regs);
++void cf_check event_check_interrupt(struct cpu_user_regs *regs);
++void cf_check invalidate_interrupt(struct cpu_user_regs *regs);
++void cf_check call_function_interrupt(struct cpu_user_regs *regs);
++void cf_check apic_timer_interrupt(struct cpu_user_regs *regs);
++void cf_check error_interrupt(struct cpu_user_regs *regs);
++void cf_check pmu_apic_interrupt(struct cpu_user_regs *regs);
++void cf_check spurious_interrupt(struct cpu_user_regs *regs);
++void cf_check irq_move_cleanup_interrupt(struct cpu_user_regs *regs);
+ 
+ uint8_t alloc_hipriority_vector(void);
  
 -- 
 2.11.0
