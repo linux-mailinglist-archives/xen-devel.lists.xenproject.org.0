@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E52A45EE9E
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:07:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.232782.403805 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FF4345EEC3
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:08:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.232885.404120 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqawQ-0003zI-PC; Fri, 26 Nov 2021 13:07:02 +0000
+	id 1mqaxY-0003Gh-9W; Fri, 26 Nov 2021 13:08:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 232782.403805; Fri, 26 Nov 2021 13:07:02 +0000
+Received: by outflank-mailman (output) from mailman id 232885.404120; Fri, 26 Nov 2021 13:08:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqawQ-0003kw-93; Fri, 26 Nov 2021 13:07:02 +0000
-Received: by outflank-mailman (input) for mailman id 232782;
- Fri, 26 Nov 2021 13:06:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mqaxX-00035W-K2; Fri, 26 Nov 2021 13:08:11 +0000
+Received: by outflank-mailman (input) for mailman id 232885;
+ Fri, 26 Nov 2021 13:08:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k+gV=QN=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mqavH-0003W9-0F
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:05:51 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 92ea1cf3-4eb9-11ec-a9d2-d9f7a1cc8784;
- Fri, 26 Nov 2021 14:05:49 +0100 (CET)
+ id 1mqavr-0002zD-Qh
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:06:27 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a8fd2f83-4eb9-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 14:06:26 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 92ea1cf3-4eb9-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: a8fd2f83-4eb9-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637931949;
+  d=citrix.com; s=securemail; t=1637931986;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Fjt4FTXRqzsNvO1Bgk1R2D4yNEdp9/3zXUQNGV4mJuY=;
-  b=KNJUnG5Ow1g9BDbB/Fw5OUP+iQ43hsgEcDd0Pq65ZW5eGfXu/Vts8BmL
-   /2TtO54yeLSowqM2QFZ70hy4m3840c87RMKf3cD6Ls4uOipruC2qAEHJ6
-   AlWmNMBKWbUWB96UdMq0xUN649WOe/GXiKJgnkoqBIJLng3bGxPMaFniW
-   c=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: YGBaZ+vcSFMZpJ7CJMlyA3tJ6oA7fLKQGFXtvt5tYIaUDpjSkNnDfsAt6EcKceRcn90+Vb7Bgd
- vvryaQwtkjvGUJbRH/xDHHQuIuzb/dZN01k+wSCTIo94DHbaJ6SHiyqBlFOdC5FqHnQ0Y4fYgJ
- PeKGAaXA//dEybytppsLE9RUHX6Or6fSz7B0SM3ChxFrBMPsJmPtNF5NVRLtFJJ9KeR2JWmc9h
- lgweT+XwIiypiFA0st6Ilk/ids6/pRdylrJYtXfFTnyr32uj4ycVDisHo1U+Da6bxXzsmFPJuI
- e7iQlWN2n//tRPoELe3Krc02
+  bh=mCzjaOkn5BbOoEcopUe7WTJn31Et1DKHCsnFeiI7nEk=;
+  b=c63xE59rmRwkgBgSnzCSydDt09D9EqApNKEbZs+foyyNRTtIE2x7A4Tv
+   E8UGTz5FjqLF/RzCqIOiOy6jdivWdfjviwHY2BG5Jx2spl/2yC4hCYAHc
+   tGUj2jh5DBsNExzuKPMkoUjW92XQ+ZAOMhm5nVs3X0R5YC1+mb8HX9Jlp
+   k=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: CTBTXSicJyP10PojeuUE/4iFSsYI4LUQxEqKPWHbFG5/tCPVhOKDv8jc0MBfADjZBwKs5uPIGZ
+ 0FpDcsOxngyrsk3RJuJci5aipK+bmI3B2abPVwUEyv4l7BCHABJnkUzP64Uwiqvi/zD1/MB9x4
+ 009SpuOsCZ0iSfdVo9EMK72L5ozWdCnv9k8hnH8UcQXcMDQs96pChbd4+o0zc0uH0kS5tPQKAZ
+ bNsClq33TkEL6PY9p5lkgQ/XaFO9+UVXXD63m1Xhg+W06SE+QoOz/uUJNX7COrqoeUn4+qVoUH
+ OH4Dax9hvGU36zVb84LcTsbD
 X-SBRS: 5.1
-X-MesageID: 58193841
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 60695367
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:IUAnuKMKjHbFzunvrR1okMFynXyQoLVcMsEvi/4bfWQNrUoihjFRn
- TQeWWzTb/uMYmugfY93PYnn80tUscSAmtYxTgto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6bUsxNbVU8En540Eg9w7RRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYozCsleBdm
- I4OicHzSB0jF5Xwk+AcWiANRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YsBqit4uM4/AO4QHt2s75TrYEewnUdbIRKCiCdpwgWdp15seQa+2i
- 8wxMiprajfaby11ZlpUI48fvej3l2ajWmgNwL6SjfVuuDWCpOBr65DyNPLFd9rMQt9a9m66j
- G/b+2XyAjkBKceSjzGC9xqEluLJ2C/2Ro8WPLm57eJxxk2ewHQJDx8bXkf9puO24nNSQPoGd
- RZSoHB36/Fvqgr7FbERQiFUvlaBmxQsd4oLUNFnqwCXwIPs3w2dB2E9G2sphMMdiOc6Qjkj1
- 1msltzvBCByvLD9dU9x5ot4vhvpZ3FLcDZqiTssCFJcvoK9+N1bYgfnF447SMaIYsvJ9SYcK
- txghAw3nP0tgMECzM1XFniX0mv39vAlouPYjzg7v15JDCslO+ZJhKTysDA3CMqsyq7CFTFtW
- 1BexqCjABgmV83lqcB0aLxl8EuVz/iEKibAplVkAoMs8T+gk1b6I9sPsG8jexY1bJpfEdMMX
- KM1kVgKjHO0FCH3BZKbnqrrU5h6pUQePYiNug/ogipmPcEqKV7vENBGbk+MxWH9+HXAYolkU
- ap3hf2EVC5AYYw+lWLeb75EjdcDm3BvrUuOFMuT50n2jtKjiIu9FO5t3K2mNbtisstpYWz9r
- r5iCid940kFDbClPHCIqdV7wJJjBSFTOK0aYvd/LoarSjeK0kl7YxMI6b9+KYFjgYpPkeLEo
- iO0VkNCkQKtjnzbMwSaLHtkbeq3D5p4qHs6Ow0qPEqphCd/Mdr+sv9HestlZ6Qj+cxi0eVwE
- 6sPdfKfD6kdUT/A4TkcM8Xw9dQwaBSxiAuSFCO5ezxjLYV4TgnE94a8LAvi/SUDFAStss46r
- +Hy3w/XW8NbFQ9jENzXeLSkyFbo5SoRn+d7Xk3pJNhPeRqzrNg2enKp1vJuepMCMxTOwDeex
- j26OxZAqLmfuZIx/fnImbuA89WjHdxhExcIBGLc97u3a3XXpzLx3Y9aXe+UVjnBT2eoqr66b
- OBYwvygYv0KmFFG79h1H7pxlP9s4tLuo/lRzxh+HWWNZFOuU+syLn6D1MhJl6tM2r4G5lfmB
- hPRooFXaeeTJcfoMF8NPw50PO2M2MYdliTW8flocl7x4zV6/ebfXEhfV/VWZPex8Feh3FsZ/
- Noc
-IronPort-HdrOrdr: A9a23:CIVp8qGjMyjCSUOGpLqE0MeALOsnbusQ8zAXP0AYc3Jom6uj5r
- mTdZUgpHnJYVkqOE3I9ertBEDEewK4yXcX2/h3AV7BZniEhILAFugLhuGO/9SjIVybygc079
- YZT0EUMrzN5DZB4voSmDPIceod/A==
+IronPort-Data: A9a23:J5RZXquvqRJMrAh2x7OgLh7rTefnVJtZMUV32f8akzHdYApBsoF/q
+ tZmKWzUbPiDYWHzetslb43np0kB6JSDzN8xTwFkqH01Hy1H+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHhJZS5LwbZj29cx24bhWWthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ Nplv4KcWDwmG4H3qOkCVB5IVB5xEp9dweqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6AP
+ 5RINGExM3wsZTVVOno9B54Dgd6woXjad2UHjGmz4pc4tj27IAtZj+G2bYu9lsaxbdpRtlaVo
+ CTB5WuRKjMwOcGbyDGF2mmxneKJliT+MKoCGbv9+vN0jVm7wm0IFAZQRVa9ueO+iEO1R5RYM
+ UN8x8Y1hfFsrgrxFIC7BkDm5i7f1vIBZzZOO+ckxBC2xY/42DaUGW8DXnl+Z/MUr/ZjEFTGy
+ WS1t9/uADVutpicRnSc6qqYoFuOBMQFEYMRTXRaFFVYurEPtKl210uSFYg7TMZZm/WsQWmoq
+ w1muhTSkFn6YSQj86ygtW7KjDu3znQiZl5kv16HNo5JA+4QWWJEW2BKwQSEhRqjBNzAJrVkg
+ JTis5PFhAzpJcvQ/BFhuM1XQNmUCw+taVUwe2JHEZg77CiK8HW+Z41W6zwWDB43aZlUJ2K2M
+ RON5Vg5CHpv0J2CNvQfj2WZUZlC8EQdPY69CqC8giRmPvCdizNrDAkxPBXNjggBYWAnkL0lO
+ IfzTCpfJS1yNEiT9xLvH711+eZynkgWnDqPLbimn0XP+efPPxa9FOZaWGZim8hktctoVi2Oq
+ I0BXyZLoj0CONDDjt7/rdROcAtUdCdjXvgbaaV/L4a+H+avI0l5Y9e5/F/rU9UNc319mria8
+ 3ejdFVfzVaj13TLJR/TMiJoaa/1XIY5pnU+ZHR+MVGt0nklQICu8KZAKMdnIeh5rLRunaxuU
+ v0IW8ScGfATGD7JzCsQMMvmp4t4eRX12Q/XZ3i5YCIydoJLThDS/oO2ZRPm8SQDV3LltcY3r
+ 7C6+BncRJ4PG1ZrAMrMMar9xFKtp3kN3ul1WhKQcNVUfUzt9qlsKjDw0aBrc51dd02by2LDh
+ QiMABoeqe3cmKMP8YHE1fKesoOkM+piBU4GTWPV2qm7aHvB9W25zI4eDOvRJWLBVHn58bmJb
+ PlOy62uK+UOmVtHvtYuE7tvyq5itdLjq6UDk1ZhFXTPKV+qFqlhMj+N2swW7v9BwbpQuA2XX
+ EOT+4YFZeXVaZ29SFNBdhA4aumj1O0PnmiA5Ps4F0z2+Str8efVSk5VJRSN1HRQIbYd3FnJG
+ gv9VBr6MzCCtyc=
+IronPort-HdrOrdr: A9a23:ro6YL6Po0936JcBcTvujsMiBIKoaSvp037Eqv3oRdfUzSL3hqy
+ nOpoVj6faaskdzZJhNo7+90ey7MBfhHP1OkO8s1NWZLWvbUQKTRekIh+aP/9SjIVyYygc079
+ YaT0EUMr3N5DZB4/oSmDPIduod/A==
 X-IronPort-AV: E=Sophos;i="5.87,266,1631592000"; 
-   d="scan'208";a="58193841"
+   d="scan'208";a="60695367"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 36/65] x86/idle: Annotate fnptr targets
-Date: Fri, 26 Nov 2021 12:34:17 +0000
-Message-ID: <20211126123446.32324-37-andrew.cooper3@citrix.com>
+Subject: [PATCH 37/65] x86/quirks: Annotate fnptr targets
+Date: Fri, 26 Nov 2021 12:34:18 +0000
+Message-ID: <20211126123446.32324-38-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211126123446.32324-1-andrew.cooper3@citrix.com>
 References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
@@ -106,298 +106,126 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 ---
- xen/arch/x86/acpi/cpu_idle.c                 | 31 +++++++++++++++++++++-------
- xen/arch/x86/acpi/cpuidle_menu.c             |  6 +++---
- xen/arch/x86/cpu/mwait-idle.c                |  2 +-
- xen/arch/x86/domain.c                        |  6 +++---
- xen/arch/x86/hpet.c                          |  4 ++--
- xen/arch/x86/time.c                          |  6 +++---
- xen/drivers/cpufreq/cpufreq_misc_governors.c | 14 ++++++-------
- xen/include/asm-x86/cpuidle.h                |  4 ++--
- xen/include/asm-x86/hpet.h                   |  4 ++--
- xen/include/asm-x86/time.h                   |  6 +++---
- 10 files changed, 49 insertions(+), 34 deletions(-)
+ xen/arch/x86/dmi_scan.c               | 10 +++++-----
+ xen/arch/x86/hvm/quirks.c             |  2 +-
+ xen/arch/x86/shutdown.c               |  2 +-
+ xen/arch/x86/x86_64/mmconfig-shared.c |  8 ++++----
+ 4 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/xen/arch/x86/acpi/cpu_idle.c b/xen/arch/x86/acpi/cpu_idle.c
-index 0142671bb836..557bc6ef8642 100644
---- a/xen/arch/x86/acpi/cpu_idle.c
-+++ b/xen/arch/x86/acpi/cpu_idle.c
-@@ -75,7 +75,7 @@
- #define GET_CC7_RES(val)  GET_HW_RES_IN_NS(0x3FE, val) /* SNB onwards */
- #define PHI_CC6_RES(val)  GET_HW_RES_IN_NS(0x3FF, val) /* Xeon Phi only */
+diff --git a/xen/arch/x86/dmi_scan.c b/xen/arch/x86/dmi_scan.c
+index d27cd3450a29..81f80c053a7a 100644
+--- a/xen/arch/x86/dmi_scan.c
++++ b/xen/arch/x86/dmi_scan.c
+@@ -476,7 +476,7 @@ static void __init dmi_save_ident(const struct dmi_header *dm, int slot, int str
+ #define NO_MATCH	{ DMI_NONE, NULL}
+ #define MATCH		DMI_MATCH
  
--static void lapic_timer_nop(void) { }
-+static void cf_check lapic_timer_nop(void) { }
- void (*__read_mostly lapic_timer_off)(void);
- void (*__read_mostly lapic_timer_on)(void);
- 
-@@ -310,12 +310,27 @@ static char* acpi_cstate_method_name[] =
-     "HALT"
- };
- 
--static uint64_t get_stime_tick(void) { return (uint64_t)NOW(); }
--static uint64_t stime_ticks_elapsed(uint64_t t1, uint64_t t2) { return t2 - t1; }
--static uint64_t stime_tick_to_ns(uint64_t ticks) { return ticks; }
-+static uint64_t cf_check get_stime_tick(void)
-+{
-+    return NOW();
-+}
-+
-+static uint64_t cf_check stime_ticks_elapsed(uint64_t t1, uint64_t t2)
-+{
-+    return t2 - t1;
-+}
-+
-+static uint64_t cf_check stime_tick_to_ns(uint64_t ticks)
-+{
-+    return ticks;
-+}
-+
-+static uint64_t cf_check get_acpi_pm_tick(void)
-+{
-+    return inl(pmtmr_ioport);
-+}
- 
--static uint64_t get_acpi_pm_tick(void) { return (uint64_t)inl(pmtmr_ioport); }
--static uint64_t acpi_pm_ticks_elapsed(uint64_t t1, uint64_t t2)
-+static uint64_t cf_check acpi_pm_ticks_elapsed(uint64_t t1, uint64_t t2)
+-static int __init ich10_bios_quirk(const struct dmi_system_id *d)
++static int __init cf_check ich10_bios_quirk(const struct dmi_system_id *d)
  {
-     if ( t2 >= t1 )
-         return (t2 - t1);
-@@ -664,7 +679,7 @@ void update_idle_stats(struct acpi_processor_power *power,
-     spin_unlock(&power->stat_lock);
+     u32 port, smictl;
+ 
+@@ -499,14 +499,14 @@ static int __init ich10_bios_quirk(const struct dmi_system_id *d)
+     return 0;
  }
  
--static void acpi_processor_idle(void)
-+static void cf_check acpi_processor_idle(void)
+-static __init int reset_videomode_after_s3(const struct dmi_blacklist *d)
++static __init int cf_check reset_videomode_after_s3(const struct dmi_blacklist *d)
  {
-     unsigned int cpu = smp_processor_id();
-     struct acpi_processor_power *power = processor_powers[cpu];
-@@ -869,7 +884,7 @@ static void acpi_processor_idle(void)
-         cpuidle_current_governor->reflect(power);
+ 	/* See wakeup.S */
+ 	acpi_video_flags |= 2;
+ 	return 0;
  }
  
--void acpi_dead_idle(void)
-+void cf_check acpi_dead_idle(void)
- {
-     struct acpi_processor_power *power;
-     struct acpi_processor_cx *cx;
-diff --git a/xen/arch/x86/acpi/cpuidle_menu.c b/xen/arch/x86/acpi/cpuidle_menu.c
-index 6ff5fb8ff215..a275436d799c 100644
---- a/xen/arch/x86/acpi/cpuidle_menu.c
-+++ b/xen/arch/x86/acpi/cpuidle_menu.c
-@@ -185,7 +185,7 @@ static unsigned int get_sleep_length_us(void)
-     return (us >> 32) ? (unsigned int)-2000 : (unsigned int)us;
- }
- 
--static int menu_select(struct acpi_processor_power *power)
-+static int cf_check menu_select(struct acpi_processor_power *power)
- {
-     struct menu_device *data = &this_cpu(menu_devices);
-     int i;
-@@ -237,7 +237,7 @@ static int menu_select(struct acpi_processor_power *power)
-     return data->last_state_idx;
- }
- 
--static void menu_reflect(struct acpi_processor_power *power)
-+static void cf_check menu_reflect(struct acpi_processor_power *power)
- {
-     struct menu_device *data = &this_cpu(menu_devices);
-     u64 new_factor;
-@@ -275,7 +275,7 @@ static void menu_reflect(struct acpi_processor_power *power)
-     data->correction_factor[data->bucket] = new_factor;
- }
- 
--static int menu_enable_device(struct acpi_processor_power *power)
-+static int cf_check menu_enable_device(struct acpi_processor_power *power)
- {
-     memset(&per_cpu(menu_devices, power->cpu), 0, sizeof(struct menu_device));
- 
-diff --git a/xen/arch/x86/cpu/mwait-idle.c b/xen/arch/x86/cpu/mwait-idle.c
-index 7a4b0837a01f..cf999070ee28 100644
---- a/xen/arch/x86/cpu/mwait-idle.c
-+++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -738,7 +738,7 @@ static const struct cpuidle_state dnv_cstates[] = {
- 	{}
- };
- 
--static void mwait_idle(void)
-+static void cf_check mwait_idle(void)
- {
- 	unsigned int cpu = smp_processor_id();
- 	struct acpi_processor_power *power = processor_powers[cpu];
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index 1c3a1ec2a080..ae7c88b51af1 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -74,11 +74,11 @@
- 
- DEFINE_PER_CPU(struct vcpu *, curr_vcpu);
- 
--static void default_idle(void);
-+static void cf_check default_idle(void);
- void (*pm_idle) (void) __read_mostly = default_idle;
- void (*dead_idle) (void) __read_mostly = default_dead_idle;
- 
--static void default_idle(void)
-+static void cf_check default_idle(void)
- {
-     struct cpu_info *info = get_cpu_info();
- 
-@@ -93,7 +93,7 @@ static void default_idle(void)
-         local_irq_enable();
- }
- 
--void default_dead_idle(void)
-+void cf_check default_dead_idle(void)
- {
-     /*
-      * When going into S3, without flushing caches modified data may be
-diff --git a/xen/arch/x86/hpet.c b/xen/arch/x86/hpet.c
-index c31fd97579dc..20fca839907c 100644
---- a/xen/arch/x86/hpet.c
-+++ b/xen/arch/x86/hpet.c
-@@ -709,7 +709,7 @@ void hpet_disable_legacy_broadcast(void)
-     smp_send_event_check_mask(&cpu_online_map);
- }
- 
--void hpet_broadcast_enter(void)
-+void cf_check hpet_broadcast_enter(void)
- {
-     unsigned int cpu = smp_processor_id();
-     struct hpet_event_channel *ch = per_cpu(cpu_bc_channel, cpu);
-@@ -740,7 +740,7 @@ void hpet_broadcast_enter(void)
-     spin_unlock(&ch->lock);
- }
- 
--void hpet_broadcast_exit(void)
-+void cf_check hpet_broadcast_exit(void)
- {
-     unsigned int cpu = smp_processor_id();
-     struct hpet_event_channel *ch = per_cpu(cpu_bc_channel, cpu);
-diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
-index dda09f0680b3..ef036a187415 100644
---- a/xen/arch/x86/time.c
-+++ b/xen/arch/x86/time.c
-@@ -535,7 +535,7 @@ static __init int cf_check init_pmtmr_scale(void)
- }
- __initcall(init_pmtmr_scale);
- 
--uint64_t acpi_pm_tick_to_ns(uint64_t ticks)
-+uint64_t cf_check acpi_pm_tick_to_ns(uint64_t ticks)
- {
-     return scale_delta(ticks, &pmt_scale);
- }
-@@ -2232,12 +2232,12 @@ static int __init cf_check disable_pit_irq(void)
- }
- __initcall(disable_pit_irq);
- 
--void pit_broadcast_enter(void)
-+void cf_check pit_broadcast_enter(void)
- {
-     cpumask_set_cpu(smp_processor_id(), &pit_broadcast_mask);
- }
- 
--void pit_broadcast_exit(void)
-+void cf_check pit_broadcast_exit(void)
- {
-     int cpu = smp_processor_id();
- 
-diff --git a/xen/drivers/cpufreq/cpufreq_misc_governors.c b/xen/drivers/cpufreq/cpufreq_misc_governors.c
-index ad79d0f5d246..f5571f5486ab 100644
---- a/xen/drivers/cpufreq/cpufreq_misc_governors.c
-+++ b/xen/drivers/cpufreq/cpufreq_misc_governors.c
-@@ -26,8 +26,8 @@
- static unsigned int __read_mostly userspace_cmdline_freq;
- static DEFINE_PER_CPU(unsigned int, cpu_set_freq);
- 
--static int cpufreq_governor_userspace(struct cpufreq_policy *policy,
--                                      unsigned int event)
-+static int cf_check cpufreq_governor_userspace(
-+    struct cpufreq_policy *policy, unsigned int event)
- {
-     int ret = 0;
-     unsigned int cpu;
-@@ -81,7 +81,7 @@ int write_userspace_scaling_setspeed(unsigned int cpu, unsigned int freq)
-     return __cpufreq_driver_target(policy, freq, CPUFREQ_RELATION_L);
- }
- 
--static bool_t __init
-+static bool __init cf_check
- cpufreq_userspace_handle_option(const char *name, const char *val)
- {
-     if (!strcmp(name, "speed") && val) {
-@@ -131,8 +131,8 @@ __initcall(cpufreq_gov_userspace_init);
+-static __init int dmi_disable_acpi(const struct dmi_blacklist *d)
++static __init int cf_check dmi_disable_acpi(const struct dmi_blacklist *d)
+ { 
+ 	if (!acpi_force) { 
+ 		printk(KERN_NOTICE "%s detected: acpi off\n",d->ident);
+@@ -521,7 +521,7 @@ static __init int dmi_disable_acpi(const struct dmi_blacklist *d)
  /*
-  * cpufreq performance governor
+  * Limit ACPI to CPU enumeration for HT
   */
--static int cpufreq_governor_performance(struct cpufreq_policy *policy,
--                                      unsigned int event)
-+static int cf_check cpufreq_governor_performance(
-+    struct cpufreq_policy *policy, unsigned int event)
+-static __init int force_acpi_ht(const struct dmi_blacklist *d)
++static __init int cf_check force_acpi_ht(const struct dmi_blacklist *d)
+ { 
+ 	if (!acpi_force) { 
+ 		printk(KERN_NOTICE "%s detected: force use of acpi=ht\n", d->ident);
+@@ -650,7 +650,7 @@ static const struct dmi_blacklist __initconstrel dmi_blacklist[] = {
+  *	out of here.
+  */
+ 
+-static void __init dmi_decode(const struct dmi_header *dm)
++static void __init cf_check dmi_decode(const struct dmi_header *dm)
  {
-     int ret = 0;
+ #ifdef DMI_DEBUG
+ 	const uint8_t *data = (const void *)dm;
+diff --git a/xen/arch/x86/hvm/quirks.c b/xen/arch/x86/hvm/quirks.c
+index 917356b1312c..2adab1f4b84b 100644
+--- a/xen/arch/x86/hvm/quirks.c
++++ b/xen/arch/x86/hvm/quirks.c
+@@ -25,7 +25,7 @@
+ s8 __read_mostly hvm_port80_allowed = -1;
+ boolean_param("hvm_port80", hvm_port80_allowed);
  
-@@ -170,8 +170,8 @@ __initcall(cpufreq_gov_performance_init);
- /*
-  * cpufreq powersave governor
-  */
--static int cpufreq_governor_powersave(struct cpufreq_policy *policy,
--                                      unsigned int event)
-+static int cf_check cpufreq_governor_powersave(
-+    struct cpufreq_policy *policy, unsigned int event)
+-static int __init dmi_hvm_deny_port80(const struct dmi_system_id *id)
++static int __init cf_check dmi_hvm_deny_port80(const struct dmi_system_id *id)
  {
-     int ret = 0;
+     printk(XENLOG_WARNING "%s: port 0x80 access %s allowed for HVM guests\n",
+            id->ident, hvm_port80_allowed > 0 ? "forcibly" : "not");
+diff --git a/xen/arch/x86/shutdown.c b/xen/arch/x86/shutdown.c
+index 30985d36a612..7619544d14da 100644
+--- a/xen/arch/x86/shutdown.c
++++ b/xen/arch/x86/shutdown.c
+@@ -158,7 +158,7 @@ static void default_reboot_type(void)
+         reboot_type = BOOT_ACPI;
+ }
  
-diff --git a/xen/include/asm-x86/cpuidle.h b/xen/include/asm-x86/cpuidle.h
-index 0981a8fd6417..3edd7a75d2ef 100644
---- a/xen/include/asm-x86/cpuidle.h
-+++ b/xen/include/asm-x86/cpuidle.h
-@@ -17,8 +17,8 @@ extern uint64_t (*cpuidle_get_tick)(void);
+-static int __init override_reboot(const struct dmi_system_id *d)
++static int __init cf_check override_reboot(const struct dmi_system_id *d)
+ {
+     enum reboot_type type = (long)d->driver_data;
  
- int mwait_idle_init(struct notifier_block *);
- int cpuidle_init_cpu(unsigned int cpu);
--void default_dead_idle(void);
--void acpi_dead_idle(void);
-+void cf_check default_dead_idle(void);
-+void cf_check acpi_dead_idle(void);
- void play_dead(void);
- void trace_exit_reason(u32 *irq_traced);
- void update_idle_stats(struct acpi_processor_power *,
-diff --git a/xen/include/asm-x86/hpet.h b/xen/include/asm-x86/hpet.h
-index 8f9725a95e21..f343fe4740f1 100644
---- a/xen/include/asm-x86/hpet.h
-+++ b/xen/include/asm-x86/hpet.h
-@@ -91,8 +91,8 @@ void hpet_disable_legacy_replacement_mode(void);
-  */
- void hpet_broadcast_init(void);
- void hpet_broadcast_resume(void);
--void hpet_broadcast_enter(void);
--void hpet_broadcast_exit(void);
-+void cf_check hpet_broadcast_enter(void);
-+void cf_check hpet_broadcast_exit(void);
- int hpet_broadcast_is_available(void);
- void hpet_disable_legacy_broadcast(void);
+diff --git a/xen/arch/x86/x86_64/mmconfig-shared.c b/xen/arch/x86/x86_64/mmconfig-shared.c
+index 2fa7f3f0bc4b..74b22b71a19c 100644
+--- a/xen/arch/x86/x86_64/mmconfig-shared.c
++++ b/xen/arch/x86/x86_64/mmconfig-shared.c
+@@ -62,7 +62,7 @@ static int __init cf_check parse_mmcfg(const char *s)
+ }
+ custom_param("mmcfg", parse_mmcfg);
  
-diff --git a/xen/include/asm-x86/time.h b/xen/include/asm-x86/time.h
-index f347311cc429..69742450575c 100644
---- a/xen/include/asm-x86/time.h
-+++ b/xen/include/asm-x86/time.h
-@@ -43,11 +43,11 @@ int hwdom_pit_access(struct ioreq *ioreq);
+-static const char __init *pci_mmcfg_e7520(void)
++static const char *__init cf_check pci_mmcfg_e7520(void)
+ {
+     u32 win;
+     win = pci_conf_read16(PCI_SBDF(0, 0, 0, 0), 0xce);
+@@ -84,7 +84,7 @@ static const char __init *pci_mmcfg_e7520(void)
+     return "Intel Corporation E7520 Memory Controller Hub";
+ }
  
- int cpu_frequency_change(u64 freq);
+-static const char __init *pci_mmcfg_intel_945(void)
++static const char *__init cf_check pci_mmcfg_intel_945(void)
+ {
+     u32 pciexbar, mask = 0, len = 0;
  
--void pit_broadcast_enter(void);
--void pit_broadcast_exit(void);
-+void cf_check pit_broadcast_enter(void);
-+void cf_check pit_broadcast_exit(void);
- int pit_broadcast_is_available(void);
+@@ -137,7 +137,7 @@ static const char __init *pci_mmcfg_intel_945(void)
+     return "Intel Corporation 945G/GZ/P/PL Express Memory Controller Hub";
+ }
  
--uint64_t acpi_pm_tick_to_ns(uint64_t ticks);
-+uint64_t cf_check acpi_pm_tick_to_ns(uint64_t ticks);
- uint64_t ns_to_acpi_pm_tick(uint64_t ns);
+-static const char __init *pci_mmcfg_amd_fam10h(void)
++static const char *__init cf_check pci_mmcfg_amd_fam10h(void)
+ {
+     uint32_t address;
+     uint64_t base, msr_content;
+@@ -190,7 +190,7 @@ static const char __init *pci_mmcfg_amd_fam10h(void)
+     return "AMD Family 10h NB";
+ }
  
- uint64_t tsc_ticks2ns(uint64_t ticks);
+-static const char __init *pci_mmcfg_nvidia_mcp55(void)
++static const char *__init cf_check pci_mmcfg_nvidia_mcp55(void)
+ {
+     static bool_t __initdata mcp55_checked;
+     int bus, i;
 -- 
 2.11.0
 
