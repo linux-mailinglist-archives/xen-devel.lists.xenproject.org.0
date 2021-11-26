@@ -2,49 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC5A245E8D6
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 08:47:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.232340.402780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF8C445E8FF
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 09:08:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.232356.402809 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqVwV-0001xi-1M; Fri, 26 Nov 2021 07:46:47 +0000
+	id 1mqWGH-0004vg-5h; Fri, 26 Nov 2021 08:07:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 232340.402780; Fri, 26 Nov 2021 07:46:47 +0000
+Received: by outflank-mailman (output) from mailman id 232356.402809; Fri, 26 Nov 2021 08:07:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqVwU-0001v5-Uc; Fri, 26 Nov 2021 07:46:46 +0000
-Received: by outflank-mailman (input) for mailman id 232340;
- Fri, 26 Nov 2021 07:46:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mqWGH-0004tb-2c; Fri, 26 Nov 2021 08:07:13 +0000
+Received: by outflank-mailman (input) for mailman id 232356;
+ Fri, 26 Nov 2021 08:07:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=F3w5=QN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mqVwT-0001uz-F7
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 07:46:45 +0000
+ id 1mqWGG-0004tV-7X
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 08:07:12 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 003758cf-4e8d-11ec-a9d2-d9f7a1cc8784;
- Fri, 26 Nov 2021 08:46:44 +0100 (CET)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2111.outbound.protection.outlook.com [104.47.17.111]) by
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id db02b0aa-4e8f-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 09:07:10 +0100 (CET)
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur02lp2053.outbound.protection.outlook.com [104.47.4.53]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-37-s3BY4HlyOQK-JKPBDtqI_A-1; Fri, 26 Nov 2021 08:46:42 +0100
+ de-mta-38-Yj_RkDSmMraKVujRQeRfYQ-2; Fri, 26 Nov 2021 09:07:09 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4191.eurprd04.prod.outlook.com (2603:10a6:803:45::22)
+ by VI1PR04MB4847.eurprd04.prod.outlook.com (2603:10a6:803:54::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22; Fri, 26 Nov
- 2021 07:46:40 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.24; Fri, 26 Nov
+ 2021 08:07:07 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe%5]) with mapi id 15.20.4734.023; Fri, 26 Nov 2021
- 07:46:40 +0000
+ 08:07:07 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM5PR1001CA0069.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:206:15::46) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.19 via Frontend
- Transport; Fri, 26 Nov 2021 07:46:39 +0000
+ AM6PR08CA0020.eurprd08.prod.outlook.com (2603:10a6:20b:b2::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4734.22 via Frontend Transport; Fri, 26 Nov 2021 08:07:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,159 +55,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 003758cf-4e8d-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: db02b0aa-4e8f-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1637912804;
+	t=1637914030;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Ue/+97yGCMNvbWu+AvN8iBKquKtgDOSOMnRt2uD6tjQ=;
-	b=Gnpt8QWhJ+RCCc4CjFxT43qQN1GQ2fFVR5e2PX2Sb3d+FKxtahqEpu1/dW2HWza8PUGipy
-	EO3NRzQovdX5i0lg7ykjrL2V2rpsxhx0j/WKz4NWGGT/wCmM7N5lM+dqibGp+kujPACBe0
-	R7jSowcm9QHcJkXHO9eDAEtRX83QzMU=
-X-MC-Unique: s3BY4HlyOQK-JKPBDtqI_A-1
+	bh=fObQzg7vV+qGsSkTeaEDu3xAdXwegYP7bqT4/fGJMKE=;
+	b=OVY6TznvfdzIFhn3zlj7fNhJjwIMXcTrufWe0iuvlbVMD+UcQntmX1fVBr3akSdj6gBenu
+	SYDzrKhafiC5hYKF3Iweyf1gNM4KoHjpdNa7HydGhtyp0sN2YgkH3iv3pl0+v54clKeMkn
+	YcQc7LrVEh+xQjYPQrZ5NOBVKR3iML0=
+X-MC-Unique: Yj_RkDSmMraKVujRQeRfYQ-2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LVfm388N+BwREqt5LODC0Uap4VawNeJMQyLIg/ADxzVXMsq3EDY44tNVa8pKkcR3PTbE+t/9iB5AHN3nbn2FNGLFQSghL/OB0uX8WdTihEIdiZKZe1hSAq14f4+wHMd1gotcKtRickSGzixwyMyP/fsVaj9TWl6bNM16FznGUGbK9Q/UggrF57d0rLh6iFnFWtPRAS16fRYbP8ayVZsqKdWrUuxK1dSGGeOIfV8KOP1F6QZwPKe0AseZeYJhVATUo38uDWal15ydMuiKmY4wbt8f2/kaAlPvicnejErkINM4byPlRknTO7Y8r/b7oUIXNA7bpLdxfxAM1jdLBCecMg==
+ b=VZqTDVjFdpbEW64XeAUFRsMOqTQjfnbuvoEUc4PRJS/eE5UtEqJlIBecaYdMW0s8lPH2oD5ZVeNxXj7BTBDmhbJsNlmID+PyMESrawbZLLK/BXED09MjRkshpFeF4ExglFRjyQ+Ueo6PmkIV85RmfxVr6i3otNe5L8jySACM9N/zdfLovdaCffX1ESgMCQ4YqJUEzK2dFHseuNhwGPH+H6uuhVeDetyYcB9LV6UXxwZBd80V74nm2RABIFjA/HH5R+l2OdIs8cB9CFm99Kz3Ibln0h3f4ezUKGWG/3/IHG9Po3pxMi7GulZcmbleoKpX2xVBDaKlYFkxK+q/fUwAIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ue/+97yGCMNvbWu+AvN8iBKquKtgDOSOMnRt2uD6tjQ=;
- b=SkA78y2HWzYyt5fnOaXzP1bM+LOsGvi8eLs9FME63TpguDyA/g3dBFH8/fUN9/2Rh7tDkwsEeL9melNKOagBwSVbs/T9A6mBgSasIXIPlR3VmvytIQLQLbwZZdHRspfXdzH0GHuhi3RzbTj22PLaQe2nEwi8Nc8v9GhiuDBDYKlddKFYa6073K8Jt8+j1uqJfkUkh6Ynn+izzHi4oVO+DjzrrYYvacRXTSqo66a/OjYHSOLSKXaBkblQ+eXsDcK6trFaCtQ9o3vxh5p4yvwK8km1W/x9gZzLIc5GtVybxrv/e+MjPrLguJJGVYX5l+AyB09EDIIeNIzdnGafYKxwLg==
+ bh=fObQzg7vV+qGsSkTeaEDu3xAdXwegYP7bqT4/fGJMKE=;
+ b=BsRGQYGLbN5cbHAx1QgLZf+uL7j6eRoOka6ozy+9WWr9KLGGBTv7oEAvljgcIjtRG83Ci7Q79R328M8g6RHZVVXZK+dRqOa9Q50Q7iahRQlSGVecqLo1ZbLv4bwaCoTJwOR3TF5+xg7v9WWPgF8R4VjKzuT9RWOGyRaA9hb3ytDnNbFnvaTOWyMbgcEPLIqXE38KI3igSkS8/0y29dk713H0zfOi4Z1gGyeOWB76qkIHosGkk/nrt0GZRVpBqEGUJIw5S14o5Nl2izrBrx8dBFr+/RFgcmeiqBZT3cjwVP1PZgVG1LKdsKcreexgJILToLd+zxo+8a9ANJyv0aJIDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b51fd518-6c32-c945-d220-f2092ff2666a@suse.com>
-Date: Fri, 26 Nov 2021 08:46:38 +0100
+Message-ID: <a01c4d48-0a87-65bb-0593-efa9826e0e4e@suse.com>
+Date: Fri, 26 Nov 2021 09:07:04 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.1
-Subject: Re: [RFC?] xen/arm: memaccess: Pass struct npfec by reference in
- p2m_mem_access_check
+Subject: Re: [PATCH 1/2] gnttab: remove guest_physmap_remove_page() call from
+ gnttab_map_frame()
 Content-Language: en-US
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-References: <1637880559-28821-1-git-send-email-olekstysh@gmail.com>
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <4f54456b-e8da-f67f-b6a0-b5ce2cf12cae@suse.com>
+ <8b73ff7c-4dd6-ff2e-14b9-088fdce0beb9@suse.com>
+ <da172ad3-47b8-8e60-c70a-4275aeb9efd7@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <1637880559-28821-1-git-send-email-olekstysh@gmail.com>
+In-Reply-To: <da172ad3-47b8-8e60-c70a-4275aeb9efd7@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM5PR1001CA0069.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:206:15::46) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM6PR08CA0020.eurprd08.prod.outlook.com
+ (2603:10a6:20b:b2::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1582817e-2406-466f-92bb-08d9b0b0e1f5
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4191:
+X-MS-Office365-Filtering-Correlation-Id: 217c210b-9bdd-42f4-67e4-08d9b0b3bd12
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4847:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB4191C43002E7F5EC5E22FB88B3639@VI1PR04MB4191.eurprd04.prod.outlook.com>
+	<VI1PR04MB4847FE647E0A9A71CA8FBBA1B3639@VI1PR04MB4847.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	COwqExwqCJdqbvKoE45uEmfWjMYZ+hFOMLQRaewMCbhJr8P/sY9f00x4HzR9SUmXRbvCX/0/j4oaw1ND+O+PqMc0Les1lb/hlJorYE6BbOV/5h0X7kb/yYOU3MTf6K0bqW/qUtU1zUsldmFTg33JT5Yrox86UKqR0jNm8saPMlQZuXQWFA3+Z+YlAx1tn6ZN6bhyBVREhcAmNzDtcDJ060OTkg/T5hVVwuIaRewnAjAJOtcfpq9WVQx/DUEKR+kK8ILaDqimR4DAeHtzg9ZqGHxC01h/F55AjLpxlHwjKUO5VOIcBLH//Nc5qEIN39RwsiAfSGxT17ytDhPxWOfSJz1lqYfwb88+++7CMX8ycxbzElTb/kuf9YDGxFhhZCP+mXYKf5J5kdbcOptO9aaboB7Ctl0SQ8KhkggLkw+jC+X8UAnrxl878aWhiGJb6mOQjCJSvgFkFXovgaGtqLfXRtawA1ciUKRjaojQ5kg6nos/dps1/l96+20hHMGEGYeKOT017/NDXFafU4JlgCu1J39qK1l2cnJj+Atsr1V5f1ee+L2nF3lQpkOprF+/p+0Sw/hWipHl7H+vIiGHkPImJdTrTD5/hlYDqdR45mzY5PVGOiTMlYEcW8iOZxIU9c2Ywpxpg9xhbMISXwkiKASjWgn1N66zo2fbgqBRS11MvO6nfSl5KOeuAkk3UuEf1kqh/hIZbz/ovwDo75t40U95DnR36TWJ7wPoZ4w6YOEL+utHvbNuIvfd7QlTE89QNkymGL5q+jcwDZMoDQpAmQKtqHIPwk4i9qUymqifLmuAuaiQ+cKpjGFwdWx1iL6SZ+aePP1WYDwNGOYj7A0isALyCvanUf4hL5suEiPxMIAmGqs=
+	CD17snTn9SqYR3GBV+y+i9qgypaly6LYl8KR1RFUujsPAXhA5RPTfF7q3Ser5+z6D7KCeT4WOwuLmfv/yy9seUsi1+vcr5utOxpOdy8+Fld9z//juraMfNf5t1pjpnefjOoRwPV0KOjWLBXDkCOx57e0c1sGtAR1jal5lWCCfwVDXo6HUjG8za8EbWQK92crDhGrU5uU3IEiD1uSiSUGFX/Jb05CcucbdNhTrND3WKPkLf04wOfmsunQ8MttmkWuWhyM4zEI1Im5abnfGAosr9mcq4N3q1pOEHfhykcgvuLoc9UxW7Suo4kfM7fqSgsav18bwuJhzbRnDRTy6iJrWXFXH+fRvC2BlcDLdpIwL/3eo03v13pzdXEkBUxtRH8LqP8wdMp/6G7TKMHbvlwN6pWrhAc6lIL3kXtVRaruWqJm9CTQkarEP8SIKzMJ067lVm+DykYwZ0bax0dC5Nw0i3/BkfgjhW4Qb5iQ7YiqpR7KIGObRIR4J0QzifevkN86dS7Aggz8GKvU4bW2vkaqhHiDBT+9cIN9OAYnr9ddmp70zlpOOdQM1bOzycVloF8izmELNZGDB6m9J6qDrSkS9O+lHkLGX6P1BcZ+WMcWS3lLUnZhzg2gCzyAmPmsZlai79MzG7lFn4/SdtwZpAi1de22KHA0xUDnFECjWNcZ7N8CqZxSg9Ik+tAT8pnFNW+DPx+4pdWstxbA/bv+9gn+ZRzo6u8kSrbNAvgEPaqEP9U=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(16576012)(2906002)(38100700002)(54906003)(8936002)(5660300002)(83380400001)(31696002)(2616005)(7416002)(186003)(4326008)(31686004)(6916009)(66556008)(66946007)(966005)(86362001)(956004)(6486002)(36756003)(8676002)(316002)(53546011)(26005)(508600001)(66476007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(86362001)(66946007)(16576012)(5660300002)(6486002)(8936002)(2616005)(53546011)(26005)(36756003)(8676002)(66556008)(4326008)(54906003)(186003)(31696002)(316002)(38100700002)(31686004)(83380400001)(66476007)(6916009)(956004)(2906002)(508600001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SUwxck9DYVpBQ1ZtOFFDclBuNUxrQ0FCTzc3UDdYOUtxNTNieDlkMGtTS1hL?=
- =?utf-8?B?UGRhK0U5bG1rMDdqTXVyUCs4dDRzeUNBYVdxYVZSc3owQkYzdnNvVitvcy9P?=
- =?utf-8?B?dHBwVDF6TThJTkN1NXJTRnAwR1Awd3JBV08zOFNyNDJ2QTR1dys3Z1BENUt1?=
- =?utf-8?B?d3hQa2wrbE5DSkM1VC8vWmcwbEJ5ZmczbTRhZ1Z6RUkyd2xla2hzVis3S2x6?=
- =?utf-8?B?Z3EvSXVySm0wcit4bEF1Y2hDMXg4TnF1SjhvWFN0Q3VoZEtQbEFtOW5pQVls?=
- =?utf-8?B?Snp4ZVd3RlprZWJNejM2T2RQNG8rMlQ1QWEvREdWMTl6clVUSThHTWYwY0tL?=
- =?utf-8?B?ajN3RjNrNHVNZlNtaG5WdWpZU21sMG5UUVEyTDlpNWQ1cGdDTnNqWC9nMzZ3?=
- =?utf-8?B?dktWME40Tk1XYVhmTVRidEZ0UTdhbnk2LzExRGZIa1NTYXlHczlyU0ZpN3Jm?=
- =?utf-8?B?eHVST2ZtY2R5UjF4M1RFWGxsOWRzNzlJdHVJajRlR0JyeHFWUUNKZVBzUXhu?=
- =?utf-8?B?STQxYlk5REkwNWdqdkpOcll4THhHRlJ6a0c0Rm1yYjdQZ3dncUsyb3lOWnNv?=
- =?utf-8?B?ZHByL3IxVjl4cGtQVHpXWDloSzVVcWJHS1JZRlhQcEVIS0lhMkU2ZXBDazB6?=
- =?utf-8?B?ZWRSakZPSkR1SDBNUk5zMEpQYjVIWUVsM2hvT09HMWc1NUlVVmZad01PTlBh?=
- =?utf-8?B?QXBrL1F5SzZyTmtmNmtiRjJuMzdCVU5FdU5YaW44cGM4NWZheGMzckx6RkFl?=
- =?utf-8?B?UDBOa3pielI5MEVVajlKdFNJWFJzWHBGcFBNaUxJYUZ0ZUZ4ejJhT1R4bnh1?=
- =?utf-8?B?QXNBUmFzdGlySi9oZDNpT2dndGpFK2tTS25Tb0ZLZzJDNytzVXQ4NHdjd2Nm?=
- =?utf-8?B?RW1RdytsT1B4aXlzSTJxbjFEM1BBUXpsaG1tV21wbUJseTVpdHdScmJGc0Jn?=
- =?utf-8?B?eWVyMTQ4MSt0TVphSDhCTkh3OXJodjd2STFIZnRKVFEwRUVNQXhxOEU0UUJO?=
- =?utf-8?B?VHZPMytCeGlDRFl6UlhaVWFlck1aQURRZ3FCQVFDaU9vemlHNFI5am1PRCtj?=
- =?utf-8?B?Qk9SV2lkcEYyUkZsRUxORHZ1M0h3WnRRNit0NC9rV0xtVmFkNVRXU1BtVFIy?=
- =?utf-8?B?U01tL1o1eXBaNTVKeFMwYjJZek1DMFlMTzRac09CWmsxTEJKelg3c0JzbU1W?=
- =?utf-8?B?cTlVMVVobTRkUFo5R3JOQXhDZmpiQ2ZKQmdPbzFHaktmT1had3FpTldOZ3lG?=
- =?utf-8?B?MTBzS3VaeW5uWDVJT29KS25jRm9Gd0p3Q0pBTzlsZ0FXSS9qNGsyUVp6eDVQ?=
- =?utf-8?B?UmloUVJHSDcvMXkzY2dDRlRtL0p6SHZlQ20vZ0NyNllDaFltcDFNTStzayti?=
- =?utf-8?B?VGNLWHN5Vkl3RGVZei83dDJwcXpqcUVSMVFZT2FtMm9VVm00MjJrZTJhVzBH?=
- =?utf-8?B?NTltRlJNZWpqUjRsZ21tbllhWW9oTzhWQnVLRWFkbGNER0xtZldTeEN3U09O?=
- =?utf-8?B?WS90SWw1TEFLRUNwaFZmaERzb29vdW9MOUZ3eHFQVGxLSVFla3FWUWVkWVFR?=
- =?utf-8?B?a2FTUjltRWdacDVGMzl1ZkpVd0ZPV3pvc2ppL2VBK1RSR0Qwb2drZEJGL0hO?=
- =?utf-8?B?ZzBzL2lMMElOUUt4TE9BNVNyK1hyMG40SjdySVg3ZG5YVXRVM2dpb2I4VXVm?=
- =?utf-8?B?T3FFQTlROU82RElOTUhSS2ZubDdOTDhIK1BMQnJhdXZzSkJhWkNvRTFwOC9Q?=
- =?utf-8?B?QjhNUEozYW5LTHAyMFV2YjlReFpUV0x5dWFkbFV0eExJV1d6bG9ieTFpL1Z4?=
- =?utf-8?B?a1lJZGhsbTN1alB2dmFvK003MGRrRngyNTU1YUxxcERWUjl3alZYM20zMW9l?=
- =?utf-8?B?b1Myb2c3bnRkYWFnV2tzUWk3MFZWL0FIT1U5TTRsUkNzZW9IcXUxcUNhQ0tV?=
- =?utf-8?B?RUZObHlMTkRGbkl6T3dWNFFjRjUycnJPR0hodG5HSGdQaVVWZ015M1VXSFR3?=
- =?utf-8?B?ZTg1d3pKRExKUkdZNTAyUzlxdTdBbEwxZzYyZzhQU1RvYWZodVlGNnpXWmk4?=
- =?utf-8?B?UG1JQ2txZnA5RVZkL3FGaUx2N1Z4TVNhQXpJUnJsd3g0WVRxeldWMGdtb25J?=
- =?utf-8?B?SEFqQUd3NXQrbURqKzRobnJtdEtRZTFGbUJua0RMT0J5WWM1N1FSakpJeEJQ?=
- =?utf-8?Q?V9XfuC1VasTd2qieyyAYJqE=3D?=
+	=?utf-8?B?NVNRM2ZrV2M0RXY4WFJpVVV2L1E1bFNUbDdEYlJXdkpJcWVwdDgxdG1zdDNI?=
+ =?utf-8?B?ZkNTNzlJNWsvUkhhWWRvb0w4enZtSTdQZmE5MUdFTndtVTF3Z0oybzZQME9Z?=
+ =?utf-8?B?bkEvUUdzaXlGRmZ5a2Q5NEVnM3JSVFN3eS9jL2gzRGZoQmNldjcwakFxbmR2?=
+ =?utf-8?B?Y1p0VktCcmVOeXZjdHJsRjk2Mk5xZlFIZTBBckFMTk44WXN3cUtuTkxvTDJO?=
+ =?utf-8?B?R2MvTUw0SE11enQ1c0JsczlNOTBEWlpFZVdXV0xGa2VyK3U3enBPVW5OQTd1?=
+ =?utf-8?B?ZzdtL0xIS3dXOEFWai9kcGxJdW43YlJpV1hlSmJMUEVOUHp0YU5iY1dONnda?=
+ =?utf-8?B?UGhmaXd5MThxS2ZwNnVBTXBxOCtZSUhxQXVUSEo2Rys0cDhZVWNxMVNwaWtR?=
+ =?utf-8?B?Z0JmRXhCSHBwYlFHUjA2VlRjaXJmenN2VlFXOGc5dGxLbE9oeFB5R0Y3UUZR?=
+ =?utf-8?B?c1p3UXE1dzcyY2xTQWtKRlhIT0lrcVhPcks4WkNycmtvRmxuVi82NUtQcFpK?=
+ =?utf-8?B?M204b2l0c05USVZKbm5xRzR5NGpkV3BBUTFEditVUThXbkgrWGg5b2pmaGFX?=
+ =?utf-8?B?YXhrd1FGNGRUcngxZk5jdGNUWGxUSWZYNEFYTHBpYXhyK2p5R0xvL3AzNUYy?=
+ =?utf-8?B?d0txYm9BR2svTCtxRm0xNHZIVVZKTWdoRFBZU1pZaDFtYWZ4RG52dGRxWUFT?=
+ =?utf-8?B?Mk0xSlFVV2xLN1JuMkpsaG4zWGkrS3VPbk5SM3BzWnRwV2pFS1l5R0pHUjFr?=
+ =?utf-8?B?VnRrSnFOd0hnWk9HLzB5ME1sei93WWNROHBjTmQ1dkQ2Qm9HcnphQmxCWFdm?=
+ =?utf-8?B?THV0Mnk2MWk1V1Rac3BoQ1FobTgzSzUzQnJMK3J0YjlTMnlMeFdHeUtkd3ox?=
+ =?utf-8?B?MHUrUDVra0cxc3hWMW9QTHFKNGZ0cEtDUnRONnRWSHV3cWhTVGlQTUtBeC84?=
+ =?utf-8?B?VnFEdjA5b0x3TW5mak45djQyd1oyalhVbW9zamhZWm5Xcnd5aTJ5dDMxUDMv?=
+ =?utf-8?B?RTVPOERETUtvdWFYMVBocDM3Rk9pdEs5NWgrQXpSOXR1dzN1Tm9rQngyYmdZ?=
+ =?utf-8?B?QWhhcXVhM1M5WG9ydnoydzZuU0FNaXR3N2JpUzdtYmh3dnhCM1hPUkxwNlFz?=
+ =?utf-8?B?ZXMxcEc4S3QrbENEZHpBcG43ZHRjZGR4TW9VY2dDVHFpanljRU4xYmJyMVZZ?=
+ =?utf-8?B?Q0xqMzJSZWt6UjlrMDE3cnhwUXhBQzl4eStHUEVhczV3MnErS3hpMTBnZ1ZK?=
+ =?utf-8?B?MTc5bW1Cd1ZDQW5KdDdLcDV1NE53MndJV28zVzQ4VVIwYXNUU0FZQ0RBbDNO?=
+ =?utf-8?B?QmkyYnJnZ1NkL1h6QUNpYVpJV3kyaERBN2lRbHY2THU1QytDUm80dW9kMjFj?=
+ =?utf-8?B?QVV5bC90SHlCVzh2K3Q5YWIrYUxPeFd5WWhrbk9vYlVLVmxIVFhLUWJKNlJs?=
+ =?utf-8?B?TlR0aHFyTVp0Mnp0RG9mbkRxVFJ2ekpDbzREbkFORmZrajRpMmFzSDlzNllK?=
+ =?utf-8?B?NXN0d1NzRE5sbW56aGcwYk9YYUYzcC9YTGMzVThFaUpVT0xFTlFEQmVqMlgw?=
+ =?utf-8?B?ZFh6MVFZTmVMQ0h5T0FxbEc2ZlVocFhRSWRZNVBNa293VGxyMUxQc0lweEQy?=
+ =?utf-8?B?UHk3bnJIeE4ya2crVS8yaG5yVXZnZWc5WmlNNUJHeC9rMUhnL21wODJLdTcy?=
+ =?utf-8?B?bEVLL3ArN0I5VXVjdWYzNTgraTZrZVpEUDRFcW4rL0c2dWVyTVpPTG5KTmYw?=
+ =?utf-8?B?SDlaMWFURFp5ZmNRKzZ1S3BtZXgwa1U2OHMzRDU4cWdzYVVPQ2tGcXRXM1Ev?=
+ =?utf-8?B?Q3VScnMybURrSTliVEdGNnNKRkYvb0hmYlZEYXFSWWdYbnprcGtVMHlTTUJE?=
+ =?utf-8?B?YnZHRUVTMjJMRjA5S3o4eUxpY0YwN2diVUVPYnpmUDZicXdNdzR2QTIwaVBp?=
+ =?utf-8?B?dzdvTGFEMmpnYVNzQWY3UGpWUkNKOHBHVXRNemJ3Q1kwUE5BazU1M0RWb3Bp?=
+ =?utf-8?B?L1lxdE9JNlkvcnM4WW1maUxHdldHejVpdlNPQTJkeVE5U1g3OXMwOFlnZXJX?=
+ =?utf-8?B?TUxOalpmMElIQUhiY1NhTWhsNm1RSG9pSlljbmNsaVV2dWdZWTJBc3BjZ1J2?=
+ =?utf-8?B?VExvVStkS29pclZ3ckhLOXRHU2FwaVFvUEhjMUV1bGdodWxOa09BTGxMbzdC?=
+ =?utf-8?Q?50TenaznWe4ptfoWHIZXPMo=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1582817e-2406-466f-92bb-08d9b0b0e1f5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 217c210b-9bdd-42f4-67e4-08d9b0b3bd12
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2021 07:46:40.2705
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2021 08:07:06.9249
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9FujrDW2BkWBDc5Aq+gm0/BXg3WekKmJKZ6EfBx+Ejc84FBCpsxK/dRuHVtn3yNVlI6dWsAxlGtbwoKUV/RreQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4191
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ja4wzwxWysI14uXAtXX4NPogMRO+Bx76hvrgjXfpNczIDNaPW+mqgj0bZkYzZHDIKBjTs+iOLb0Yig8n8+7ZKw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4847
 
-On 25.11.2021 23:49, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On 25.11.2021 17:37, Julien Grall wrote:
+> On 13/09/2021 07:41, Jan Beulich wrote:
+>> Without holding appropriate locks, attempting to remove a prior mapping
+>> of the underlying page is pointless, as the same (or another) mapping
+>> could be re-established by a parallel request on another vCPU. Move the
+>> code to Arm's gnttab_set_frame_gfn(). Of course this new placement
+>> doesn't improve things in any way as far as the security of grant status
+>> frame mappings goes (see XSA-379). Proper locking would be needed here
+>> to allow status frames to be mapped securely.
+>>
+>> In turn this then requires replacing the other use in
+>> gnttab_unpopulate_status_frames(), which yet in turn requires adjusting
+>> x86's gnttab_set_frame_gfn(). Note that with proper locking inside
+>> guest_physmap_remove_page() combined with checking the GFN's mapping
+>> there against the passed in MFN, there then is no issue with the
+>> involved multiple gnttab_set_frame_gfn()-s potentially returning varying
 > 
-> Today I noticed a "note" when building Xen on Arm64 with
-> aarch64-poky-linux-gcc (GCC) 9.3.0. It turned out that Andrew Cooper
-> had alredy reported it before [1]:
-> 
-> mem_access.c: In function 'p2m_mem_access_check':
-> mem_access.c:227:6: note: parameter passing for argument of type
-> 'const struct npfec' changed in GCC 9.1
->   227 | bool p2m_mem_access_check(paddr_t gpa, vaddr_t gla,
->                                   const struct npfec npfec)
-> 
-> From the explanation I understand that nothing bad actually is going
-> to happen in our case, it is harmless and shown to only draw our
-> attention that the ABI changed due to bug (with passing bit-fields
-> by value) fixed in GCC 9.1. This information doesn't mean much for us
-> as Xen is an embedded project with no external linkage. But, of course,
-> it would be better to eliminate the note. You can also find related
-> information about the bug at [2].
-> 
-> So make the note go away by passing bit-fields by reference.
-> 
-> [1] https://www.mail-archive.com/xen-devel@lists.xenproject.org/msg87439.html
-> [2] https://gcc.gnu.org/bugzilla/show_bug.cgi?id=88469
-> 
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> ---
-> Compile-tested only.
-> ---
->  xen/arch/arm/mem_access.c        | 28 ++++++++++++++--------------
->  xen/arch/arm/traps.c             |  2 +-
->  xen/include/asm-arm/mem_access.h |  2 +-
->  3 files changed, 16 insertions(+), 16 deletions(-)
+> Do you mean gnttab_get_frame_gfn()?
 
-It's all Arm code, so I'm not the one to judge, but I'd like to recommend
-to live with the note or convince distros to backport the gcc side fix.
-This definitely was a compiler flaw; see
-https://gcc.gnu.org/bugzilla/show_bug.cgi?id=91710.
+No, I don't think so; I do mean gnttab_set_frame_gfn(). Its return value
+directs the caller to do (or not) certain things.
+
+>> --- a/xen/include/asm-arm/grant_table.h
+>> +++ b/xen/include/asm-arm/grant_table.h
+>> @@ -71,11 +71,17 @@ int replace_grant_host_mapping(unsigned
+>>           XFREE((gt)->arch.status_gfn);                                    \
+>>       } while ( 0 )
+>>   
+>> -#define gnttab_set_frame_gfn(gt, st, idx, gfn)                           \
+>> -    do {                                                                 \
+>> -        ((st) ? (gt)->arch.status_gfn : (gt)->arch.shared_gfn)[idx] =    \
+>> -            (gfn);                                                       \
+>> -    } while ( 0 )
+>> +#define gnttab_set_frame_gfn(gt, st, idx, gfn, mfn)                      \
+>> +    ({                                                                   \
+>> +        int rc_ = 0;                                                     \
+>> +        gfn_t ogfn = gnttab_get_frame_gfn(gt, st, idx);                  \
+>> +        if ( gfn_eq(ogfn, INVALID_GFN) || gfn_eq(ogfn, gfn) ||           \
+>> +             (rc_ = guest_physmap_remove_page((gt)->domain, ogfn, mfn,   \
+>> +                                              0)) == 0 )                 \
+>> +            ((st) ? (gt)->arch.status_gfn                                \
+>> +                  : (gt)->arch.shared_gfn)[idx] = (gfn);                 \
+>> +        rc_;                                                             \
+>> +    })
+> 
+> I think using a function would make it a bit easier to understand what 
+> it does.
+
+I can convert it, but it's not very likely that it would be possible
+to make it an inline one. Not sure whether that's then still desirable.
+
+> However... The naming of the function is now quite confusing. The more 
+> on x86...
+> 
+>>   
+>>   #define gnttab_get_frame_gfn(gt, st, idx) ({                             \
+>>      (st) ? gnttab_status_gfn(NULL, gt, idx)                               \
+>> --- a/xen/include/asm-x86/grant_table.h
+>> +++ b/xen/include/asm-x86/grant_table.h
+>> @@ -37,7 +37,12 @@ static inline int replace_grant_host_map
+>>   
+>>   #define gnttab_init_arch(gt) 0
+>>   #define gnttab_destroy_arch(gt) do {} while ( 0 )
+>> -#define gnttab_set_frame_gfn(gt, st, idx, gfn) do {} while ( 0 )
+>> +#define gnttab_set_frame_gfn(gt, st, idx, gfn, mfn)                      \
+>> +    (gfn_eq(gfn, INVALID_GFN)                                            \
+>> +     ? guest_physmap_remove_page((gt)->domain,                           \
+>> +                                 gnttab_get_frame_gfn(gt, st, idx),      \
+>> +                                 mfn, 0)                                 \
+>> +     : 0 /* Handled in add_to_physmap_one(). */)
+> 
+> ... it will end up to remove the mapping. I don't have a better name at 
+> the moment. However I think this would deserve some documentation in the 
+> code so one can understand how to implement it for another arch.
+
+Hmm, perhaps. But wouldn't we better document the final behavior (i.e.
+once the remaining Arm issue got addressed)? That may then also lead
+to overall simpler code, ideally with more suitable names (if the
+present ones are deemed unsuitable, which I'm not convinced of).
 
 Jan
 
