@@ -2,41 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BE6A45F4B6
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 19:35:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.233431.405029 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A17145F51C
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 20:18:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.233447.405059 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqg4B-0006QV-PE; Fri, 26 Nov 2021 18:35:23 +0000
+	id 1mqgiy-0002Ft-6q; Fri, 26 Nov 2021 19:17:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 233431.405029; Fri, 26 Nov 2021 18:35:23 +0000
+Received: by outflank-mailman (output) from mailman id 233447.405059; Fri, 26 Nov 2021 19:17:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqg4B-0006Nk-MB; Fri, 26 Nov 2021 18:35:23 +0000
-Received: by outflank-mailman (input) for mailman id 233431;
- Fri, 26 Nov 2021 18:35:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9kjA=QN=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
- id 1mqg49-0006Ne-Kx
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 18:35:21 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9abb79ed-4ee7-11ec-a9d2-d9f7a1cc8784;
- Fri, 26 Nov 2021 19:35:20 +0100 (CET)
-Received: from mail.kernel.org (unknown [198.145.29.99])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 45EBF6233D;
- Fri, 26 Nov 2021 18:35:16 +0000 (UTC)
-Received: by mail.kernel.org (Postfix) with ESMTPS id C1F0A60230;
- Fri, 26 Nov 2021 18:35:15 +0000 (UTC)
-Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
- [127.0.0.1])
- by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id BBE6960A3E;
- Fri, 26 Nov 2021 18:35:15 +0000 (UTC)
+	id 1mqgiy-0002DE-3F; Fri, 26 Nov 2021 19:17:32 +0000
+Received: by outflank-mailman (input) for mailman id 233447;
+ Fri, 26 Nov 2021 19:17:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mqgix-0002D8-51
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 19:17:31 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mqgix-0006gD-3P
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 19:17:31 +0000
+Received: from iwj (helo=mariner.uk.xensource.com)
+ by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
+ (envelope-from <iwj@xenproject.org>) id 1mqgix-0006tE-2O
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 19:17:31 +0000
+Received: from iwj by mariner.uk.xensource.com with local (Exim 4.89)
+ (envelope-from <iwj@xenproject.org>) id 1mqgiu-0003if-T2
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 19:17:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,43 +41,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9abb79ed-4ee7-11ec-a9d2-d9f7a1cc8784
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1637951715;
-	bh=9S/92vgY1r+ITMC3wc1Z8mWpA9O4M0yTo3ncFbJ/wyU=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
-	b=B/IuEsi38PlymMXljcjHTXWD7aAWWMx7K2TQVXR0pJ7kOrk6HCzRAjEF51qxEfoVA
-	 vLhCdI4NkfwiCosz12hjc3ojV3dsat055nBiIAnkMCANZakDPPsSdMCj5BP2OASBJC
-	 d6t2sCGb1z2m1RcpXtJMEmXMVoRtDZfUVImmUhqS9E0ZvNjLq3hKafkXbvVG/NXj7p
-	 Ea5hTClRObTywggW+Bv4FlllcsiFwQdW89NNQlt6uHeWjOFvCgKMK4njGBfs/6SOBg
-	 tC4K/189QCv+FOohW4+2JNb2aANg1SLkDdi1O+ip24KKoJFbGvJhWhYH123/LppKEB
-	 dgqQQ3LTx2zJQ==
-Subject: Re: [GIT PULL] xen: branch for v5.16-rc3
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20211126153152.380-1-jgross@suse.com>
-References: <20211126153152.380-1-jgross@suse.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20211126153152.380-1-jgross@suse.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.16c-rc3-tag
-X-PR-Tracked-Commit-Id: 00db58cf21188f4b99bc5f15fcc2995e30e4a9fe
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 6b54698aec0b59943f7e8a88151bdf208de990d0
-Message-Id: <163795171576.22939.2366989648980472963.pr-tracker-bot@kernel.org>
-Date: Fri, 26 Nov 2021 18:35:15 +0000
-To: Juergen Gross <jgross@suse.com>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=References:In-Reply-To:Subject:To:Date:
+	Message-ID:Content-Transfer-Encoding:Content-Type:MIME-Version:From;
+	bh=q9gVPBkUnoJePWp10nNq8pZXCRX7DVJi8oCZ7SMct2w=; b=09KvZWMQJGJBwCSLQ5RBmXcE3Y
+	5XN2Lb2asOKLLdLE8V3QxuJU24iSIF9fp68E576vYb4ICwss0WqTq6Wj7B4XlhhRdrQ4eQGnJxWYW
+	03cIk3FC2cEjb2xIbgzfFOinfsOv8DFYBYH3es8oVa6/g/yEfEToXQ+v1yGheCwRLpMs=;
+From: Ian Jackson <iwj@xenproject.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <24993.13000.254192.278702@mariner.uk.xensource.com>
+Date: Fri, 26 Nov 2021 19:17:28 +0000
+To: xen-devel@lists.xenproject.org
+Subject: Re: [xen-unstable test] 166378: regressions - FAIL
+In-Reply-To: <osstest-166378-mainreport@xen.org>
+References: <osstest-166378-mainreport@xen.org>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 
-The pull request you sent on Fri, 26 Nov 2021 16:31:52 +0100:
+osstest service owner writes ("[xen-unstable test] 166378: regressions - FAIL"):
+> flight 166378 xen-unstable real [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/166378/
+> 
+> Regressions :-(
+> 
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>  build-amd64-prev              6 xen-build                fail REGR. vs. 166304
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.16c-rc3-tag
+git submodules.  Horror.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/6b54698aec0b59943f7e8a88151bdf208de990d0
+Cloning into '/home/osstest/build.166378.build-amd64-prev/xen/tools/firmware/ovmf-dir-remote/UnitTestFrameworkPkg/Library/CmockaLib/cmocka'...
+fatal: remote error: git-cache-proxy: git remote died with error exit code 1 // Fetching origin // fatal: unable to access 'https://git.cryptomilk.org/projects/cmocka.git/': Failed to connect to git.cryptomilk.org port 443: Connection refused // error: Could not fetch origin
+fatal: clone of 'https://git.cryptomilk.org/projects/cmocka.git' into submodule path '/home/osstest/build.166378.build-amd64-prev/xen/tools/firmware/ovmf-dir-remote/UnitTestFrameworkPkg/Library/CmockaLib/cmocka' failed
+Failed to clone 'UnitTestFrameworkPkg/Library/CmockaLib/cmocka'. Retry scheduled
+Cloning into '/home/osstest/build.166378.build-amd64-prev/xen/tools/firmware/ovmf-dir-remote/UnitTestFrameworkPkg/Library/CmockaLib/cmocka'...
+fatal: remote error: git-cache-proxy: git remote died with error exit code 1 // Fetching origin // fatal: unable to access 'https://git.cryptomilk.org/projects/cmocka.git/': Failed to connect to git.cryptomilk.org port 443: Connection refused // error: Could not fetch origin
+fatal: clone of 'https://git.cryptomilk.org/projects/cmocka.git' into submodule path '/home/osstest/build.166378.build-amd64-prev/xen/tools/firmware/ovmf-dir-remote/UnitTestFrameworkPkg/Library/CmockaLib/cmocka' failed
+Failed to clone 'UnitTestFrameworkPkg/Library/CmockaLib/cmocka' a second time, aborting
 
-Thank you!
+>  test-amd64-amd64-xl-pvshim   20 guest-localmigrate/x10   fail REGR. vs. 166304
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+ssh to guest took >10s.
+
+Ian.
 
