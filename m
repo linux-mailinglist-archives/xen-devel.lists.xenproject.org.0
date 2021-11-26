@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DB7545EEC8
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:08:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.232889.404144 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E673345EEA8
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 14:07:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.232804.403884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqaxd-00049t-1r; Fri, 26 Nov 2021 13:08:17 +0000
+	id 1mqawh-0007QA-CE; Fri, 26 Nov 2021 13:07:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 232889.404144; Fri, 26 Nov 2021 13:08:16 +0000
+Received: by outflank-mailman (output) from mailman id 232804.403884; Fri, 26 Nov 2021 13:07:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqaxb-0003tz-P2; Fri, 26 Nov 2021 13:08:15 +0000
-Received: by outflank-mailman (input) for mailman id 232889;
- Fri, 26 Nov 2021 13:08:11 +0000
+	id 1mqawg-00079D-FX; Fri, 26 Nov 2021 13:07:18 +0000
+Received: by outflank-mailman (input) for mailman id 232804;
+ Fri, 26 Nov 2021 13:07:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=k+gV=QN=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mqav1-0003W9-Dw
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:05:35 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 872dc6a3-4eb9-11ec-a9d2-d9f7a1cc8784;
- Fri, 26 Nov 2021 14:05:30 +0100 (CET)
+ id 1mqaug-0003W9-B4
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 13:05:14 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7cd3963a-4eb9-11ec-a9d2-d9f7a1cc8784;
+ Fri, 26 Nov 2021 14:05:12 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 872dc6a3-4eb9-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: 7cd3963a-4eb9-11ec-a9d2-d9f7a1cc8784
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1637931930;
+  d=citrix.com; s=securemail; t=1637931912;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=BQp5LAqKi9Mysj7MTKO9IkQnzJYceTwiMMvVtxZlU9w=;
-  b=PaouKdFrjJE5h2uXZxUnIFFL+OhEG+pK6Wn4Zt7M4aFP+skezcpHTQKO
-   4OQaVO/cbiBFqsR52cS5J3TFdNb5XEU5D9RZYSaSoxjCe3vKCd9IVumST
-   dRVdGY8BF3LO+3WYytqb74U/R/MgtrJKIVEwWIXtJ37Cmtfp6J759sMFw
-   M=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: r3rAfdmdu4PgYhns2nMOUSy/qbByDM1l4Opw1udkMe1l6L6GUGLdxGUKwtmdNFt6nJ0Le6i12H
- Zh0YLipD11tOMHFsNSW9Tz6L5fbA9kAKDs4WXxgInWHvFn42XCQSQNcjDCKUCy8AiREoMm3a/t
- YA79EVhM8A3WjxZDOv4HQ7m/9ZfBhn+7Jkd4Ce6wvFLoVRThvgj9JGurOhW6oTMMn5xgIA7e8d
- CiFrsnLZEJrb26LkJuT1h0hjHR45Bcj6KaT4tgyFvw+RoyiE+MHZM4mIcxXiTPi9SKO9D265im
- Z/rL3mVttoswlFDABxZ1CGF1
+  bh=746QsnWin6OQb455qcVFN7IMD2ME3Bl0zmu1yTWBR/k=;
+  b=boJok758E2DbyrfNGsW0K1nD22EK5GW2Bcuw0nD1yPlPRuZpjsf4PIUu
+   HBDjCjuiiKOLt5h8ylvzUeFpJu4z9biPxhqkJKRwVWEhTEp26iTvX9x1S
+   8sld+K90/oocxAWyJeWT076QSejlbdn/JS9nPEZXVSu6mXa6bsSi0M7IQ
+   k=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: RyIhBz+rJqLuLebsns2cQNRKoum3qY911Ub6CMBIynZx3p5kShJvORwI91t6gtehNJ26EdxU03
+ px/lmGMXc+gxRK3BkN6AOEtTbE0pmjZu4R3JBAL/8nMekGs0OHyjZygwW0Xk5w48+Xvs1ze8Ce
+ Lh2A3sTDRyZ14ZsVBEv1hnxVuxo7X06Z1h/836QHxzA/cjiqtPxBGLEnteV2sp+0gjmjQkJiaE
+ koGsWUDo9GSWVaBYUfwtkv1EuM2U3oM10DKeQRlq69OuIwAM++xs+7YjKfzKkm70iq/vfVchhI
+ U8LLK9h6AJNCGf29C68NHG4q
 X-SBRS: 5.1
-X-MesageID: 58676392
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 58193786
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:B2dizKu4EHfxiP0JpdPOvkX+x+fnVJtZMUV32f8akzHdYApBsoF/q
- tZmKWyFbK7eZ2vyeIp/bY+09E5XscDUnIQ3SQdtqH9hH3kV+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHhJZS5LwbZj29cx24bhWWthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- Npli72aZCANF4v3gulaTUR5FwxmFJVU9+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6DN
- 5RGN2E+NnwsZTVea3wuJ8x9uN2h3EOiKh0IpgOljrIotj27IAtZj+G2bYu9lsaxbdpRtlaVo
- CTB5WuRKjMwOcGbyDGF2mmxneKJliT+MKoCGbv9+vN0jVm7wm0IFAZQRVa9ueO+iEO1R5RYM
- UN8x8Y1hfFsrgrxFIC7BkDm5i7f1vIBZzZOO9Mbwiyq7oPy2ByUQXZZbzpscPUepsBjEFTGy
- WS1t9/uADVutpicRnSc6qqYoFuOBMQFEYMRTXRaFFVYurEPtKl210uSFYg7TMZZm/WsQWmoq
- w1muhTSkFn6YSQj86ygtW7KjDu3znQiZl5kv16HNo5JA+4QWWJEW2BKwQSEhRqjBNzAJrVkg
- JTis5PFhAzpJcvQ/BFhuM1XQNmUCw+taVUwe2JHEZg77CiK8HW+Z41W6zwWDB43aZlUJ2K2M
- RON5Vg5CHpv0J2CNvQfj2WZUZlC8EQdPY69CqC8giRmPvCdizNrDAkxPBXNjggBYWAnkL0lO
- IfzTCpfJS1yNEiT9xLvH711+eZynkgWnDqPLbimn0XP+efPPxa9FOZaWGZim8hktctoVi2Oq
- I0BXyZLoj0CONDDjt7/rdROcAtUdCdjXvgbaaV/L4a+H+avI0l5Y9e5/F/rU9YNc319mria8
- 3ejdFVfzVaj13TLJR/TMiJoaa/1XIY5pnU+ZHR+MVGt0nklQICu8KZAKMdnIeh5rLRunaxuU
- v0IW8ScGfATGD7JzCsQMMvmp4t4eRX12Q/XZ3i5YCIydoJLThDS/oO2ZRPm8SQDV3LltcY3r
- 7C6+BncRJ4PG1ZrAMrMMar9xFKtp3kN3ul1WhKQcNVUfUzt9qlsKjDw0aBrc51dd02by2LDh
- QiMABoeqe3cmKMP8YHE1fKesoOkM+piBU4GTWPV2qm7aHvB9W25zI4eDOvRJWLBVHn58bmJb
- PlOy62uK+UOmVtHvtYuE7tvyq5itdLjq6UDk1ZhFXTPKV+qFqlhMj+N2swW7v9BwbpQuA2XX
- EOT+4YFZeXVaZ29SFNBdhA4aumj1O0PnmiA5Ps4F0z2+Str8efVSk5VJRSN1HRQIbYd3FnJG
- gv9VBr6MzCCtyc=
-IronPort-HdrOrdr: A9a23:9e+Kv6PnpClXvsBcTvmjsMiBIKoaSvp037Eqv3oedfUzSL3gqy
- nOpoV86faaslYssR0b9exofZPwJE80lqQFhrX5X43SPzUO0VHAROoJgLcKgQeQfxEWntQtrZ
- uIGJIeNDSfNzdHZL7BkWuFL+o=
+IronPort-Data: A9a23:R5X73qhfWJcu/mk7Z9PhZS6iX161rRcKZh0ujC45NGQN5FlHY01je
+ htvCjyGOPuMMWX8fdl1bN7l9h9X7J7SztBjSAtk/ygzEn4b9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0F0/NtTo5w7Rg29cy34Dja++wk
+ YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
+ 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
+ /1W9o6wSV8LDJbrv/saWAdmKAF8G5J/reqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
+ KJCbmpXN1ba2rzwkOnTpupE36zPKOHCOo8Ft24m5jbeFfs8GrjIQrnQ5M8e1zA17ixLNauOP
+ ptCNmoxBPjGSwVPCH4RAZZkoOCtplDAcGRq9RGL/4NitgA/yyQuieOwYbI5YOeiWsF9jkue4
+ GXc8AzRIDsXKdiewjqt6W+3i6nEmiaTcJIfEvi0++BnhHWXx3cPE1sGWF2ju/67h0WiHdVFJ
+ CQpFjEG9PZoshbxF5+kAkP+8CXsUgMgt8R4CK4o6AHV6JjvxCGGAWMacAVhavoZjZpjLdA17
+ WOhk9TsDD1plbSaT3OB67uZxQ+P1TgpwXwqPnFdE1ZcizX3iMRq10+UEI4/eEKgpoStQWmY/
+ tyckMQpa1z/Z+Yv3r7zw13IiinESnPhHl9svVW/so5IA2pEiG+Zi26AtQezARVodt/xory9U
+ J4swJP2AAcmV8zlqcB1aL9RdIxFHt7cWNEmvXZhHoM66xOm8GO5cIZb7VlWfRkybZZaJGC4P
+ BGP4mu9AaO/2lPxNsebhKrrVqwXIVXIT4y5Bpg4kPISCnSOSON31H43PhPBt4wcuEMtjbs+K
+ f+mnTWEVh4n5VBc5GPuHY81iOZzrghnnD+7bc2rnnyPjOvFDFbIGOhtDbd7Rr1ghE9yiF6Oq
+ Ig32grj40g3bdASlQGLq9NOdg5TciBgbX00wuQOHtO+zsNdMDlJI5fsLXkJIeSJRoxZybXF+
+ G+TQEhdxAatjHHLM1zSOHtidKnuTdB0qndiZX4gOlOh2n4CZ4ez7fhAK8trLOd/rOEzn+RpS
+ /QletmbBqgdQDrw5DlAP4L2q5ZvdUr3iFvWbTalejU2Y7VpWxfNpo3/ZgLq+SRXVni3uMIyr
+ qeOzATeRZZfFQ1uANyPMKCkzk+rvGhbk+V3BhOaLt5WcUTq0Y5rNy2u0aNnf5BScU3On2LI2
+ RyXDBEUofj2j7U0qNSZ17qZq4qJEvdlGhYIFWfs8rvrZzLR+XCuwNEcXb/QLyzdTm795I6re
+ f5Rk6PnKPQCkVtH79h8HrJswf5s7tfjveYHnAFtHXGNZFW3ELJwZHKB2JAX5KFKw7ZYvyqwW
+ 16OpYYGaenYZpu9HQ5DPhchY8SCyeoQy2vb4vkCKUnn4DN6oeicWkJIMhjQ0CFQIdOZ6m/+L
+ TvNbCLO1zGCtw==
+IronPort-HdrOrdr: A9a23:dIgVs6hpd+3gt94YCVDXHWLOD3BQXuIji2hC6mlwRA09TySZ//
+ rBoB19726MtN9xYgBHpTnuAsm9qB/nmaKdpLNhWItKPzOW31dATrsSjrcKqgeIc0aVm9K1l5
+ 0QF5SWYOeAdWSS5vya3ODXKbkdKaG8gcKVuds=
 X-IronPort-AV: E=Sophos;i="5.87,266,1631592000"; 
-   d="scan'208";a="58676392"
+   d="scan'208";a="58193786"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 64/65] x86/efi: Disable CET-IBT around Runtime Services calls
-Date: Fri, 26 Nov 2021 12:34:45 +0000
-Message-ID: <20211126123446.32324-65-andrew.cooper3@citrix.com>
+Subject: [PATCH 65/65] x86: Enable CET Indirect Branch Tracking
+Date: Fri, 26 Nov 2021 12:34:46 +0000
+Message-ID: <20211126123446.32324-66-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211126123446.32324-1-andrew.cooper3@citrix.com>
 References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
@@ -100,117 +100,158 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-At least one TigerLake NUC has UEFI firmware which isn't CET-IBT compatible.
-Read under a function pointer to see whether an endbr64 instruction is
-present, and use this as a heuristic.
+With all the pieces now in place, turn CET-IBT on when available.
+
+MSR_S_CET, like SMEP/SMAP, controls Ring1 meaning that ENDBR_EN can't be
+enabled for Xen independently of PV32 kernels.  As we already disable PV32 for
+CET-SS, extend this to all CET, adjusting the documentation/comments as
+appropriate.
+
+Introduce a cet=no-ibt command line option to allow the admin to disable IBT
+even when everything else is configured correctly.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
-
-This was disappointing to discover.  I've pestered some folk and maybe
-something will improve in due course, but it remains an open question how best
-to discover that Runtime Services are CET-IBT compatible.
 ---
- xen/arch/x86/efi/stub.c  |  2 ++
- xen/common/efi/boot.c    |  6 ++++++
- xen/common/efi/runtime.c | 17 +++++++++++++++++
- xen/include/xen/efi.h    |  1 +
- 4 files changed, 26 insertions(+)
+ docs/misc/xen-command-line.pandoc | 16 +++++++++++----
+ xen/arch/x86/cpu/common.c         |  1 +
+ xen/arch/x86/setup.c              | 42 ++++++++++++++++++++++++++++++++++-----
+ 3 files changed, 50 insertions(+), 9 deletions(-)
 
-diff --git a/xen/arch/x86/efi/stub.c b/xen/arch/x86/efi/stub.c
-index 998493262641..5e44913e52db 100644
---- a/xen/arch/x86/efi/stub.c
-+++ b/xen/arch/x86/efi/stub.c
-@@ -11,6 +11,8 @@
- #include <efi/efidevp.h>
- #include <efi/efiapi.h>
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index f7797ea233f9..ea033c1a1d74 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -271,7 +271,7 @@ enough. Setting this to a high value may cause boot failure, particularly if
+ the NMI watchdog is also enabled.
  
-+bool __initdata efi_no_cet_ibt;
+ ### cet
+-    = List of [ shstk=<bool> ]
++    = List of [ shstk=<bool>, ibt=<bool> ]
+ 
+     Applicability: x86
+ 
+@@ -279,6 +279,10 @@ Controls for the use of Control-flow Enforcement Technology.  CET is group a
+ of hardware features designed to combat Return-oriented Programming (ROP, also
+ call/jmp COP/JOP) attacks.
+ 
++CET is incompatible with 32bit PV guests.  If any CET sub-options are active,
++they will override the `pv=32` boolean to `false`.  Backwards compatibility
++can be maintained with the `pv-shim` mechanism.
 +
- /*
-  * Here we are in EFI stub. EFI calls are not supported due to lack
-  * of relevant functionality in compiler and/or linker.
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index f5af71837d5a..2c7f86f4f534 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -735,6 +735,12 @@ static void __init efi_init(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTabl
+ *   The `shstk=` boolean controls whether Xen uses Shadow Stacks for its own
+     protection.
  
-     StdOut = SystemTable->ConOut;
-     StdErr = SystemTable->StdErr ?: StdOut;
+@@ -287,9 +291,13 @@ call/jmp COP/JOP) attacks.
+     `cet=no-shstk` will cause Xen not to use Shadow Stacks even when support
+     is available in hardware.
+ 
+-    Shadow Stacks are incompatible with 32bit PV guests.  This option will
+-    override the `pv=32` boolean to false.  Backwards compatibility can be
+-    maintained with the `pv-shim` mechanism.
++*   The `ibt=` boolean controls whether Xen uses Indirect Branch Tracking for
++    its own protection.
 +
-+    /*
-+     * Heuristic.  Look under an arbitrary function pointer to see if UEFI was
-+     * compiled with CET-IBT support.  Experimentally some are not.
-+     */
-+    efi_no_cet_ibt = memcmp(efi_rs->GetTime, "\xf3\x0f\x1e\xfa", 4) != 0;
- }
++    The option is available when `CONFIG_XEN_IBT` is compiled in, and defaults
++    to `true` on hardware supporting CET-IBT.  Specifying `cet=no-ibt` will
++    cause Xen not to use Indirect Branch Tracking even when support is
++    available in hardware.
  
- static void __init efi_console_set_mode(void)
-diff --git a/xen/common/efi/runtime.c b/xen/common/efi/runtime.c
-index d2fdc28df3e0..ef54863542db 100644
---- a/xen/common/efi/runtime.c
-+++ b/xen/common/efi/runtime.c
-@@ -21,6 +21,7 @@ struct efi_rs_state {
-   * don't strictly need that.
-   */
-  unsigned long __aligned(32) cr3;
-+    unsigned long msr_s_cet;
+ ### clocksource (x86)
+ > `= pit | hpet | acpi | tsc`
+diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+index 7c41a21bf07c..9658c31cab48 100644
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -345,6 +345,7 @@ void __init early_cpu_init(void)
+ 	if (c->cpuid_level >= 7) {
+ 		cpuid_count(7, 0, &eax, &ebx, &ecx, &edx);
+ 		c->x86_capability[cpufeat_word(X86_FEATURE_CET_SS)] = ecx;
++		c->x86_capability[cpufeat_word(X86_FEATURE_CET_IBT)] = edx;
+ 	}
+ 
+ 	eax = cpuid_eax(0x80000000);
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index daaba097d57f..6cec1918f66b 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -102,6 +102,12 @@ static bool __initdata opt_xen_shstk = true;
+ #define opt_xen_shstk false
  #endif
- };
  
-@@ -61,6 +62,7 @@ UINTN __read_mostly efi_apple_properties_len;
++#ifdef CONFIG_XEN_IBT
++static bool __initdata opt_xen_ibt = true;
++#else
++#define opt_xen_ibt false
++#endif
++
+ static int __init cf_check parse_cet(const char *s)
+ {
+     const char *ss;
+@@ -120,6 +126,14 @@ static int __init cf_check parse_cet(const char *s)
+             no_config_param("XEN_SHSTK", "cet", s, ss);
+ #endif
+         }
++        else if ( (val = parse_boolean("ibt", s, ss)) >= 0 )
++        {
++#ifdef CONFIG_XEN_IBT
++            opt_xen_ibt = val;
++#else
++            no_config_param("XEN_IBT", "cet", s, ss);
++#endif
++        }
+         else
+             rc = -EINVAL;
  
- /* Bit field representing available EFI features/properties. */
- unsigned int efi_flags;
-+bool __read_mostly efi_no_cet_ibt;
+@@ -1102,11 +1116,33 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+         printk("Enabling Supervisor Shadow Stacks\n");
  
- struct efi __read_mostly efi = {
- 	.acpi   = EFI_INVALID_TABLE_ADDR,
-@@ -113,6 +115,17 @@ struct efi_rs_state efi_rs_enter(void)
- 
-     switch_cr3_cr4(mfn_to_maddr(efi_l4_mfn), read_cr4());
- 
-+    /*
-+     * If UEFI doesn't appear to be CET-IBT compatible, stash and clobber
-+     * ENDBR_EN.  Always read the current CET setting, because CET-SS isn't
-+     * configured until very late on the BSP.
-+     */
-+    if ( cpu_has_xen_ibt && efi_no_cet_ibt )
-+    {
-+        rdmsrl(MSR_S_CET, state.msr_s_cet);
-+        wrmsrl(MSR_S_CET, state.msr_s_cet & ~CET_ENDBR_EN);
+         setup_force_cpu_cap(X86_FEATURE_XEN_SHSTK);
 +    }
 +
-     return state;
- }
- 
-@@ -122,6 +135,10 @@ void efi_rs_leave(struct efi_rs_state *state)
- 
-     if ( !state->cr3 )
-         return;
++    if ( opt_xen_ibt && boot_cpu_has(X86_FEATURE_CET_IBT) )
++    {
++        printk("Enabling Indirect Branch Tracking\n");
 +
-+    if ( state->msr_s_cet )
-+        wrmsrl(MSR_S_CET, state->msr_s_cet);
++        setup_force_cpu_cap(X86_FEATURE_XEN_IBT);
 +
-     switch_cr3_cr4(state->cr3, read_cr4());
-     if ( is_pv_vcpu(curr) && !is_idle_vcpu(curr) )
-     {
-diff --git a/xen/include/xen/efi.h b/xen/include/xen/efi.h
-index 94a7e547f97b..8c14f7f18718 100644
---- a/xen/include/xen/efi.h
-+++ b/xen/include/xen/efi.h
-@@ -30,6 +30,7 @@ union compat_pf_efi_info;
++        if ( efi_no_cet_ibt )
++            printk("  - UEFI Runtime Services not IBT safe\n");
++
++        /*
++         * Enable IBT now.  Only require the ENDBR64 on callees, which is
++         * entirely build-time arrangements.
++         */
++        wrmsrl(MSR_S_CET, CET_ENDBR_EN);
++    }
++
++    if ( cpu_has_xen_shstk || cpu_has_xen_ibt )
++    {
++        set_in_cr4(X86_CR4_CET);
++
+ #ifdef CONFIG_PV32
+         if ( opt_pv32 )
+         {
+             opt_pv32 = 0;
+-            printk("  - Disabling PV32 due to Shadow Stacks\n");
++            printk("  - Disabling PV32 due to CET\n");
+         }
+ #endif
+     }
+@@ -1863,10 +1899,6 @@ void __init noreturn __start_xen(unsigned long mbi_p)
  
- struct xenpf_efi_runtime_call;
- struct compat_pf_efi_runtime_call;
-+extern bool efi_no_cet_ibt;
+     alternative_branches();
  
- bool efi_enabled(unsigned int feature);
- void efi_init_memory(void);
+-    /* Defer CR4.CET until alternatives have finished playing with CR0.WP */
+-    if ( cpu_has_xen_shstk )
+-        set_in_cr4(X86_CR4_CET);
+-
+     /*
+      * NB: when running as a PV shim VCPUOP_up/down is wired to the shim
+      * physical cpu_add/remove functions, so launch the guest with only
 -- 
 2.11.0
 
