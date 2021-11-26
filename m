@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAE3245F358
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 19:02:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.233310.404776 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C57745F35C
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 19:02:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.233311.404787 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqfXu-0005oq-Qh; Fri, 26 Nov 2021 18:02:02 +0000
+	id 1mqfXx-00069h-7e; Fri, 26 Nov 2021 18:02:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 233310.404776; Fri, 26 Nov 2021 18:02:02 +0000
+Received: by outflank-mailman (output) from mailman id 233311.404787; Fri, 26 Nov 2021 18:02:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqfXu-0005lH-Lu; Fri, 26 Nov 2021 18:02:02 +0000
-Received: by outflank-mailman (input) for mailman id 233310;
- Fri, 26 Nov 2021 18:02:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mqfXx-00065j-2q; Fri, 26 Nov 2021 18:02:05 +0000
+Received: by outflank-mailman (input) for mailman id 233311;
+ Fri, 26 Nov 2021 18:02:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GGcH=QN=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1mqfXt-0004LT-C0
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 18:02:01 +0000
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [2a00:1450:4864:20::12c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f40f7d95-4ee2-11ec-a9d2-d9f7a1cc8784;
- Fri, 26 Nov 2021 19:02:00 +0100 (CET)
-Received: by mail-lf1-x12c.google.com with SMTP id n12so26158783lfe.1
- for <xen-devel@lists.xenproject.org>; Fri, 26 Nov 2021 10:02:00 -0800 (PST)
+ id 1mqfXv-0004Lf-DH
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 18:02:03 +0000
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [2a00:1450:4864:20::12a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f5564549-4ee2-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 19:02:02 +0100 (CET)
+Received: by mail-lf1-x12a.google.com with SMTP id bu18so26238871lfb.0
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Nov 2021 10:02:02 -0800 (PST)
 Received: from localhost.localdomain (94-29-48-99.dynamic.spd-mgts.ru.
  [94.29.48.99])
- by smtp.gmail.com with ESMTPSA id i32sm553831lfv.295.2021.11.26.10.01.58
+ by smtp.gmail.com with ESMTPSA id i32sm553831lfv.295.2021.11.26.10.02.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 26 Nov 2021 10:01:59 -0800 (PST)
+ Fri, 26 Nov 2021 10:02:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f40f7d95-4ee2-11ec-a9d2-d9f7a1cc8784
+X-Inumbo-ID: f5564549-4ee2-11ec-9787-a32c541c8605
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=xS83fHvJX20ICn8zHYRDKvqQ1GY72vd2riIHxwkjweU=;
-        b=d2rBY2F8FZR6fxo+AWivP8d/aANzXuwHT+cg69g6mn5w1PrR2Sa1IDulp20ge0kF/A
-         cHnbxdSmlImW4wjqRz81zw3X1kevspbs+ZSvuFeqFssl7QkZMhAYxFVlnhJC7t+o5Ekh
-         eNtRL2ojA7gJWr57oxbZKqm22O40Yv/rsDGA/NeWMpTdjAZIOo1PA/WaWBgnC2ALY5RA
-         62bhQhoX5OCa7ZShxw0qrygSKSdJKJGDVnCPcPOzYsdIdpEoCBnHtdYY6e8ZoWq4VDFh
-         N3S4qSVEELp33r/g+I5VvFht9D09Xj+u4OjF/0z+Ek8MwK4vNOYgNJskWndj6bmjKPsl
-         6oSg==
+        bh=idp+KUM0Lads56hMjVdKoUEucrYOLC8M0llXkHYfiR0=;
+        b=q2+3D7luLbLFGQf0rLpPcuWTJ51luwk4E0BLwdexAsMfEPwQ+vkLaGFyWTazwTiBO3
+         /31kHhpvsxvbKpD6AoRLviAKAyfSlaZuuBZ4G5+V4OQzeOPzvvdnKmespVy/IqSeX7hO
+         YTpSNWUfBdkYMm9sefGyGdAIypO41Y86jqoXG+FM5ZKY1SqW/Wp0Kge+e08k/V8NPYuz
+         YtC36m0FSAgcE4CC4jRft7WGjfF+hcgDrvOqUW7oFxpYyW5LwR3hKV2jrTJdfRtBiX7E
+         qc34DpRilSgV0iEhvXRNTWvVGUy3qFfYDOeUaBdaf+MPIjTcw1RGSJKn81/KWfdsBdx+
+         55DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=xS83fHvJX20ICn8zHYRDKvqQ1GY72vd2riIHxwkjweU=;
-        b=O377uj5SsKjLXk8W03dnU23xiubtkT60RwSJlOLoYkzZC+71Ds1t41iSlUojKRTSSu
-         ky5d3N0F43KoL7NDZVMqWtR97xB8VObIpr0J3ctIFhP2860MI0nbZTltdklbT6H5u87M
-         UH+r878OBE0wz2/4RkFUyjPIbswW+kM5mwix5EmtFNC5l8awJPhcMJNotzwdRo1hzKLp
-         mQGjnO+X/EbK9boQOD/M8uvlvLZhAOZ0aLH2xAD2G+xOsvF6P4EdH8S4D3wele5t4KCU
-         2HZCUEw3dzPFtAEhfxCQU776m+PhGfcL+X9xT2d5Tmg+0jK9usEGwztsYRYjn66IZgLx
-         0njg==
-X-Gm-Message-State: AOAM531s5jIROU+lIEoPGNNxRXYaOnnrOSx8BhjO17fLr3CXKmQEFhgK
-	HHAkm0Hh3ssQi6SME5wn+TQ=
-X-Google-Smtp-Source: ABdhPJyHlWHAIH2qsXkt3ruT7+BLFA3v5nYyOKPdcFWdHrRv9Oght1lKgGW/OoNNNMfJWGOCYURP8w==
-X-Received: by 2002:a05:6512:32ca:: with SMTP id f10mr32489980lfg.364.1637949720361;
-        Fri, 26 Nov 2021 10:02:00 -0800 (PST)
+        bh=idp+KUM0Lads56hMjVdKoUEucrYOLC8M0llXkHYfiR0=;
+        b=SXNV+aGBQVxWopMbgF7SlK7bZc83IV5ji8+KsJ7VdfjgBnAQ41ZEBUaEbHK3Y441hG
+         H8jhrMZ22Aaay1yYHIbc3RLOf1f6XFgC+FZ3jRQQmHwrMIaWtv0b5y96VESCKs6SEnY9
+         NZwtmZP4suj+CRAWZevEhyugzEsuiqWqxlOMC2B7po9Pykpm/N1nwZkbzYUoJuIGsDSv
+         /CiFoV9msDsIlrrglq9ma6NjBZEqQ2AyCiKSL7+pymdUjpskVlGEBERS45WT1MWTXYfY
+         3aUPpKEG/lutIwL3FKOHNycAyx6zLcdgeCVLMC0l4Y9d7Or1jqQtY0mAQh3R15q6a5sP
+         kIxg==
+X-Gm-Message-State: AOAM531mMZJaHqYbnDRy/FvfrkmO5dIDejh95A2szPphWBJZwikfLK/b
+	5ihabKaUVlupP3Fm5REuzLE=
+X-Google-Smtp-Source: ABdhPJyszCqoy2c22hJd1AwW3euuk/YQIYMf48+wUhpEids7tlSfZnt+31CbA93lLkfEy/WCRFUCww==
+X-Received: by 2002:ac2:4423:: with SMTP id w3mr31717979lfl.385.1637949722516;
+        Fri, 26 Nov 2021 10:02:02 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -136,49 +136,35 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v4 05/25] reboot: Warn if restart handler has duplicated priority
-Date: Fri, 26 Nov 2021 21:00:41 +0300
-Message-Id: <20211126180101.27818-6-digetx@gmail.com>
+Subject: [PATCH v4 06/25] reboot: Warn if unregister_restart_handler() fails
+Date: Fri, 26 Nov 2021 21:00:42 +0300
+Message-Id: <20211126180101.27818-7-digetx@gmail.com>
 X-Mailer: git-send-email 2.33.1
 In-Reply-To: <20211126180101.27818-1-digetx@gmail.com>
 References: <20211126180101.27818-1-digetx@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add sanity check which ensures that there are no two restart handlers
-registered with the same priority. Normally it's a direct sign of a
-problem if two handlers use the same priority.
+Emit warning if unregister_restart_handler() fails since it never should
+fail. This will ease further API development by catching mistakes early.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- kernel/reboot.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ kernel/reboot.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/reboot.c b/kernel/reboot.c
-index 6bcc5d6a6572..e6659ae329f1 100644
+index e6659ae329f1..f0e7b9c13f6b 100644
 --- a/kernel/reboot.c
 +++ b/kernel/reboot.c
-@@ -182,7 +182,20 @@ static ATOMIC_NOTIFIER_HEAD(restart_handler_list);
+@@ -210,7 +210,7 @@ EXPORT_SYMBOL(register_restart_handler);
   */
- int register_restart_handler(struct notifier_block *nb)
+ int unregister_restart_handler(struct notifier_block *nb)
  {
--	return atomic_notifier_chain_register(&restart_handler_list, nb);
-+	int ret;
-+
-+	ret = atomic_notifier_chain_register(&restart_handler_list, nb);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Handler must have unique priority. Otherwise call order is
-+	 * determined by registration order, which is unreliable.
-+	 */
-+	WARN(!atomic_notifier_has_unique_priority(&restart_handler_list, nb),
-+	     "restart handler must have unique priority\n");
-+
-+	return 0;
+-	return atomic_notifier_chain_unregister(&restart_handler_list, nb);
++	return WARN_ON(atomic_notifier_chain_unregister(&restart_handler_list, nb));
  }
- EXPORT_SYMBOL(register_restart_handler);
+ EXPORT_SYMBOL(unregister_restart_handler);
  
 -- 
 2.33.1
