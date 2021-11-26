@@ -2,46 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89A0F45EDC8
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 13:20:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.232648.403400 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D410F45EE0A
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 13:35:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.232665.403441 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqaCs-0007N6-Mq; Fri, 26 Nov 2021 12:19:58 +0000
+	id 1mqaRS-0001Yh-Jc; Fri, 26 Nov 2021 12:35:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 232648.403400; Fri, 26 Nov 2021 12:19:58 +0000
+Received: by outflank-mailman (output) from mailman id 232665.403441; Fri, 26 Nov 2021 12:35:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqaCs-0007KZ-Jc; Fri, 26 Nov 2021 12:19:58 +0000
-Received: by outflank-mailman (input) for mailman id 232648;
- Fri, 26 Nov 2021 12:19:56 +0000
+	id 1mqaRS-0001V2-EK; Fri, 26 Nov 2021 12:35:02 +0000
+Received: by outflank-mailman (input) for mailman id 232665;
+ Fri, 26 Nov 2021 12:35:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=l8BS=QN=epam.com=prvs=1964012c71=oleksandr_andrushchenko@srs-se1.protection.inumbo.net>)
- id 1mqaCq-00079e-Hi
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 12:19:56 +0000
-Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
- [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2925b5d3-4eb3-11ec-9787-a32c541c8605;
- Fri, 26 Nov 2021 13:19:55 +0100 (CET)
-Received: from pps.filterd (m0174677.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1AQBauFu002728;
- Fri, 26 Nov 2021 12:19:45 GMT
-Received: from eur05-db8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2111.outbound.protection.outlook.com [104.47.17.111])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3cjwtr0cdu-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 26 Nov 2021 12:19:44 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com (2603:10a6:20b:153::17)
- by AM0PR0302MB3428.eurprd03.prod.outlook.com (2603:10a6:208:c::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Fri, 26 Nov
- 2021 12:19:36 +0000
-Received: from AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::c038:e032:595a:651]) by AM0PR03MB6324.eurprd03.prod.outlook.com
- ([fe80::c038:e032:595a:651%9]) with mapi id 15.20.4734.023; Fri, 26 Nov 2021
- 12:19:35 +0000
+ <SRS0=k+gV=QN=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1mqaRQ-0001F5-I4
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 12:35:00 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4330bf51-4eb5-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 13:34:58 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,167 +36,502 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2925b5d3-4eb3-11ec-9787-a32c541c8605
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ORb6+PizVGtoovzi9WJhKaX6voejuoNyKFAtlN3PQMjRwO7Epdzu5iSd5TfrgtESaLR88Pz32nICQZw9ng0/c720WzoORPJGlIlMQy4iAsUvSWzH4QZiAebLiDOIRpIFeOyN680Asx9HEWH1uCdKocXsqVKufD+9KuuaK6Hn7ipBGrMZIKxLPmKMklzQr0XlSrlHb8MkRqb4aDpy2SN1ua5osrqTdHqVYrbA6VqYk7Z2TKltu2jw+aEeyVqOp/Jic3YWHZKMYKbSnKH2lHt+P9QjSbYfhzxQSxu0QxzDcnLEq53kncpe2avGlq3dh169yUIMIomDjmmQZemiEGHF2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4CJN6twaB/kwiO/2k7M17iV0qjqIB85527pwEKBSqL4=;
- b=OE5NniKjdngx0CB5YQ1o+1cVHjqVz/EEsmyKLUpTbJUPDEO8HPOMLGzoqtqtX6rc03Sl6gzanQWviGRqe3QFdPczV9KCzIGcSzP4oZDG1U/MG4fA/KpZxjSF256ZPVcZwxIvt47yhGjIqWkpMKyQFYHvf+jJXVh3bQ939K6tIZUlfh8AQEwPHDF9cio9gdgHa/Wt/6kMCt9nIGfBxHFLIizvgn3NMjB1opUHYeJAiPANyESPDUZI5qz6UKWKnDeNx2pK0/74ck4gxocYeC1Lu+V3pxnwY68IwqrDViEOsxePVkLS4xQwp+e4yI/+PyYPYDhE86yC0p3AnOocGZac/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
- dkim=pass header.d=epam.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4CJN6twaB/kwiO/2k7M17iV0qjqIB85527pwEKBSqL4=;
- b=Bf2IzO9gffoICiz6x+fohKvWs9ylda9UA8W9oIhWx9EHGBZbY9mTmjftUh/Q6bDFKyqmVoVYWth4JZH87T/tOB4oU03AoSVuuCGuls3RqbmlL40u06UjKawqZ3vI7Kc6mC2964EfLzh5g40JwOSi7JJrszK9S8hdYyQ1e7NcmVoUktER7p7Sx28pZZSZfZfYiCi6UurtN441EMGZw9Dz1Ig6xqwH+cS+vqZoi2PO+0Mjb5mkwWYRN1qok2SsRnKuSrKgnXG4C7seaiJQQ3h9Pmwb76KE9ONZKzdIHsKiOBaQPHBOJ/b6FJb5+7suPyS0/mLPNeoJVpG6vnTJQ+Q9Bw==
-From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-To: Bertrand Marquis <bertrand.marquis@arm.com>,
-        "roger.pau@citrix.com"
-	<roger.pau@citrix.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>,
-        "sstabellini@kernel.org" <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko
-	<Oleksandr_Tyshchenko@epam.com>,
-        Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>,
-        Artem Mygaiev <Artem_Mygaiev@epam.com>,
-        "jbeulich@suse.com" <jbeulich@suse.com>,
-        "andrew.cooper3@citrix.com"
-	<andrew.cooper3@citrix.com>,
-        "george.dunlap@citrix.com"
-	<george.dunlap@citrix.com>,
-        "paul@xen.org" <paul@xen.org>, Rahul Singh
-	<rahul.singh@arm.com>,
-        Oleksandr Andrushchenko
-	<Oleksandr_Andrushchenko@epam.com>,
-        Oleksandr Andrushchenko
-	<Oleksandr_Andrushchenko@epam.com>
-Subject: Re: [PATCH v5 06/14] vpci/header: implement guest BAR register
- handlers
-Thread-Topic: [PATCH v5 06/14] vpci/header: implement guest BAR register
- handlers
-Thread-Index: AQHX4ewHyWAyD811HEGp8pIjUuVWNawUby8AgAFMuIA=
-Date: Fri, 26 Nov 2021 12:19:35 +0000
-Message-ID: <a6ee236b-5a00-8116-c744-6c94fcf46ae1@epam.com>
-References: <20211125110251.2877218-1-andr2000@gmail.com>
- <20211125110251.2877218-7-andr2000@gmail.com>
- <34FC3FE6-EBA8-4A5C-A1F3-1E9F98C0337F@arm.com>
-In-Reply-To: <34FC3FE6-EBA8-4A5C-A1F3-1E9F98C0337F@arm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1af71ed0-bb3b-4311-8abf-08d9b0d702ba
-x-ms-traffictypediagnostic: AM0PR0302MB3428:
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
-x-microsoft-antispam-prvs: 
- <AM0PR0302MB3428CC62BD187FF0FE34E975E7639@AM0PR0302MB3428.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 
- zmG3WO0jvcheHsiqFAljNe4hPZigfU/ah2YYKYh/HoR/T8S6NY4sQ0LWZTF7AszpTSiTAhlM9oF7oBCtrtYONghNORyXFBVOXsG9YcwOoFWG9wLevG89hrKKrJ0Mp++em1rg/8938+x+d682gxXlLooBGbLUnzF7iHVrpP2IZut9rt6bQ6RJYhOO8oHkLzser6i+lWkK9tdZFnb1spq7rCdQ1MtEOyVp35THzfWczE0GXKg7JAcBzlzhRFsDrf1dHin2rK70GVEeAsp5FaiO146xNsKEagyzsinuzFlYYWrKvprHnE2M+4QIwK1BR1xO5YeVABup9+HaNEhS/yPm33HBFBA45cAl35xe3mVLn3G3j8YVEO3zfIIYpK3BM6gvJiiC9WQv5NZQuMbCRVcKXOGFNyAhBmEhkFMuOT0ol1xRsgkGfEg2BMxU4+KS2WNJSKx6UtxCc8KOBubXJ8Ahf/5KZUiYZHGtpIlutPn3kgcA2M1YfMgnOFabgPIO6L6rxQgWS65KIt6od4p45lX+/76e+V+lD5BipNFWHFaP1aX41tNfWLVnYh0Q/RJdzByQ8KeelVjA182jWqFMam1HXoDuNvhHUkMD+a4hEXhkN6d/Ned9IGViKwPV3aThvq5Q0B5z4EUebqP84lQvF1HSLZsGN+s7pqf76xVVzl3YSesE188F9eTR5LHR/3xle9hdxGxkRA/Pl6e4sAfkPM8gRurrx/VEQR3heNFRGyPiia+zU3ADju4eiOOBZ0A1xfDq
-x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR03MB6324.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(186003)(38100700002)(2616005)(26005)(38070700005)(71200400001)(36756003)(8936002)(8676002)(122000001)(31696002)(66446008)(508600001)(6486002)(6512007)(66946007)(86362001)(64756008)(66476007)(7416002)(66556008)(107886003)(91956017)(76116006)(5660300002)(4326008)(316002)(54906003)(110136005)(2906002)(6506007)(83380400001)(55236004)(53546011)(31686004)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: 
- =?utf-8?B?dzJKb293TU5pdEJEOEZLTUQxZ09NdTFIQ052ZG80dzk2a0ZoekRldkkvV1dz?=
- =?utf-8?B?OVF5NXVsWGFwZExMOXRaM0lPZTRSZjE1Q0ZxTXVha1o2ZDVscWFWQTlra2R1?=
- =?utf-8?B?bnBWN3VlM2FtbzkzblNQVDFjR3VxZmFlMHF6bVoydmlJUE42MW5oSFlqaEQ0?=
- =?utf-8?B?UXBjVkpNZGdpSG1EZjBxSmtPR0VHVnlSSEFIb0Z2UXR3dTQwNUQzWnB1NTJt?=
- =?utf-8?B?RDNqQ3VVNnVVd3dweC9DVEJiejJGQ05HSWpnakFNOG9uLzJrUmo4bjk5aVFR?=
- =?utf-8?B?T1ZzNWJsU1A3L251UzF1ZzlvSnVGcE5FR045LzltSUNxRE1lMnpCcEhHWlds?=
- =?utf-8?B?OGs0NmRvQzIzOEpDQ1hFRkMrN1N0c3prZDFTL1c1ZjVwVklSN1FXWS9KWU9I?=
- =?utf-8?B?a2ZyNDZOMEMvZWxlOUxVSWVoK3NhcG93SDRoTENyUUdaWVlCYmw5d2NQY0xt?=
- =?utf-8?B?a3dDbXc4UzBtVWV6TDdTOFc0ZFNJRkIyMlNTcUFncmZ3dEIraDdwd0NVZG9P?=
- =?utf-8?B?RmJjQnpLUEtMeGR4djNLM1ZwVGd0UzN6QnZWSStHZ0tRVU1tdUhIaDB3dThR?=
- =?utf-8?B?dDVOeWpUUHBYaUlzVmRqRjJnR3pqTENCVHFrK1RBT09MRHRQL1Y0TGhVQ2FQ?=
- =?utf-8?B?cDVRUVRpbXlvS0QzSXZvckU0ZWxVZnFJTnkyTTBnZzc1KzZ6ZHRJcE1EbmNj?=
- =?utf-8?B?MHViR3NzeUhSaG95cGRNYzBwNzRuVmlTUjZUcS95YU1aT2dIVUlvS1Y5RUdr?=
- =?utf-8?B?ZXV3dm1EY1RnUnU0U1V1T2lkenNTMTZxVE1QRjUrSnNRQnNFc2FZa0dvWGFL?=
- =?utf-8?B?bXd4b2drVzgwWk85aGFtRkJqZkJtTlFyZEdQcmx6S2w5QS9qQTRkaXBteXNE?=
- =?utf-8?B?enpLVkxVOHJHNVdzQVpoeDBDYk9hT0JCSTNwTCs1aXo2b3Jna1NlNDdXOUR2?=
- =?utf-8?B?WlJZY29wOFFTcjZqNWs4ZWZZRGVpZ041Y2xibWZ3S2xocklXdGxUYXFjbTd6?=
- =?utf-8?B?YjNpSk9tVFVId2U5VVFLbXh6bnpRVHVPdmNCaStMVHhtaEVjMkJXcTBhaExi?=
- =?utf-8?B?MFJBRnBxUW1SdjVUNHFxaVZwek4zSUFvMHk5aVpLSHVGUWFONVA2ZTFJN0tI?=
- =?utf-8?B?dFVvMjhOazVIcEtHOVBLSE9RVEFkb1BNS2NiQnQ3ajQrRVFjYlBxV3JwYzVG?=
- =?utf-8?B?Y1VxUTRZSHZVeUhBMDVNRzlHRDl1QUxJdGpuQ3EzZUliNmw1Y0pkNUdWakhG?=
- =?utf-8?B?NXRzM0VtU2VWZ21GWmtWaCsvUkJxVWFpK1JMZjFtTHQySm1GWnVSWEU1cHdP?=
- =?utf-8?B?VTZBNU0zdzFWQU1WUi81cXB3aURrM3VMQ1RsMXQ5b3hGUWJFdkMwcktZRXpB?=
- =?utf-8?B?MGZwajh2UFMzWFJGK29DU2I5aGtlNmtPbjRiUFVRVmNKQVJVcWFmZkVadE9C?=
- =?utf-8?B?WCtIQkdEM1Z3US9rK3ZmM0l2SDhuOUxHdVluek5PMGx2SGtFTnpSTERvYmZE?=
- =?utf-8?B?Z28vNTFyOWVvV25iL3JaOUsxanRQbXdWR2ZjQ0JudkMvQVZNTmYyYjhIVE1L?=
- =?utf-8?B?UHFReDBFcWdORG1JWG1qRDJCaDhEQ0lFMWVSa0psM0FoellleWczMUJ0TmU4?=
- =?utf-8?B?NUp2Z0dmcFZYOHVXN1V2WHBHbmxTUEZmK3V4dVRldVFDcUZuTTRJTUZ0SWhQ?=
- =?utf-8?B?bzI0QjRvMjJBS3hKejUyL3NncngrallWZ3VreHV2UXRzQlEwSUhoWjdQcHU1?=
- =?utf-8?B?WDlnV283WlpvdkVQOWxnczV5Rmp3S2srQ2ZJVmpwU0FHOW5IWFJnQlo4Tmg1?=
- =?utf-8?B?ckdSemxQTGZmSUxHS0NSV1AwcFFNZzQxanlyRnVOaW9JcGNuMFJmUU5heFNh?=
- =?utf-8?B?cG51bkM3aHRPTlB6K3p3SGVET3JzSmFWQXNnL1JIL2JyM1l3WXdEUFhqVVo0?=
- =?utf-8?B?UFVZK2E4K2ZhM3RjKzJ4NnAxTWVrVjRyckI4OTdCaG0xd3d3RU43MzFiR3Nt?=
- =?utf-8?B?L2RNUnNqem9ENnJ0K01UZUd1NTkrbE1KQ0NWZlc5YWxoVWRHNGtUMFRXZXJK?=
- =?utf-8?B?aVd5bjV1c2d4K2JmcVhkUnpNVWFLd00zcmJTTnIzL2YzRkFyRCtYYkY1bCtK?=
- =?utf-8?B?empPSVB3QzhwT3l6SVBWRGw5dllxUzlkVnhYNENFQVNjczhIWjYrdzBNTnla?=
- =?utf-8?B?REdyOGZNZStIUUgzUGN2RlFzRTBjTlhlUzNrN2NWVzlCRUxwUkU5SXRrTmNI?=
- =?utf-8?B?UnczQnUrV0pMWG5lMFdvaEgzbFFBY3p1YlZYU0VHRFFneW81Z2NYQkdrRXJU?=
- =?utf-8?B?VGdxTjAxWDMzNWpkTlBMS3ArMGdmbkt2N2N0YlVtZytRK3BwR3hpUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <0FC9E477967B5344AA0FCE1A07344634@eurprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 4330bf51-4eb5-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1637930098;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=LfjCnt4ZdLknfcUZQY16/MU7yjWEP3iLFA7xjg9eTHQ=;
+  b=Tu0V/MiLDZ4vpePd5mK18D/q7h4CRtk3iC+k82q4vSHSSvz7MPnfykAN
+   RdLk0uirCs+Md2iM67LBlYH1Mct0/ZW/7E1O5sKrNhOLrSFb4GlntPBdY
+   Mfzy9xDU8XDtvDdVSdcWC3UFJtq88+NkEzBtnvJUaZAcihBWRx9bsaQ+Y
+   w=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: c71WcVeqG1OaNG2XZqoPK3Ryv6y4xmWBsOCIRuzERuW8LgtJaeQjiNtcUl1DOmH+Kylgfl0WdH
+ hzto/LFP4DxEDMQUKuaok2irWdWkTtgq4mVNNUNuwaHmalku6xHxol4LSzMcelunv8ouH5CeyF
+ 0JKg2EnBhDNmDDdzztb9m8rJ4m1AY9TzyFmZoVS//AY4+GJEUT+IOlupXSXz6Bi22EijVeItmt
+ S+3YHxE56uPTu8Cih6RBMAycFLDsfmA5KaZRUhx1nixQjyo0uU2Hs8Q2MEYQTQsXMrwQs20AVK
+ k2CsOfRTbbMrJ7YZhyWPxYXK
+X-SBRS: 5.1
+X-MesageID: 59062302
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:WxZFRKN6CEOKW3LvrR3gkcFynXyQoLVcMsEvi/4bfWQNrUonhTdVm
+ zROWz2BP66NZTCgL9FxOoq29UwAvZWEmtM1QQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6bUsxNbVU8En540Eg9w7dRbrNA2rBVPSvc4
+ bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
+ 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYoy3YxdFe6
+ dJ8j4GPUiwgL4jgsucWbzANRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
+ 6VFdnZdNXhvhMrvqF6/YsBqit4uM4/AO4QHt2s75TrYEewnUdbIRKCiCdpwgWZo2JoVRay2i
+ 8wxaxZjXQ3nXUB1F1oYMrMEl8uQrHjGbGgNwL6SjfVuuDWCpOBr65DvP8DSYceiXthOkwCTo
+ Weu10bTDwweNdef4SGY6X/qjejK9Qv+UZgXHae19dZrhkOS3W0ZDBAKVVq9ruK9g0T4UNVaQ
+ 2QY4jErrLQy3EWzQ8PhQgajp3qZoh8bXcEWGOo/gCmW0bbd6QudAmkCTxZCZcYguctwQiYlv
+ neZktWsCTFxvbm9TXOG6qzSvT60ITISL2IJeWkDVwRty9v+pIA+iDrfQ9AlF7S65vXqHRngz
+ jbMqzIx74j/luZSif/9pwqexWvx+N6ZFWbZ+zk7QEq9v1l4S6+iVra11kPw5OdlAKyaRWWo6
+ S1sd9el0MgCCpSElSqoSeoLHa206/vtDAAwkWKDDLF6qW3zpifLkZR4pWgneRw3appslSrBO
+ ReL4WtsCIlv0GxGhEOdS6a4EIwUwKfpDrwJvdiEP4MVMvCdmOJqlRyChHJ8PUixzyDAcollY
+ P93lPpA615BUsyLKxLsGo8gPUcDnHxW+I8qbcmTI+6b+bSffmWJbrwOLUGDaOs0hIvd/l6Ko
+ 4gCaJrWlUkEOAEbXsUx2dVIRbztBSJmba0aVuQNLrLTSuaYMD1J5wDtLUMJJNU+wvU9ehbg9
+ XChQE5IoGcTdlWcQThmnktLMeu1Nb4m9CpTFXV1YT6AhihyCa7yvfx3X8ZmItEaGBlLkKcco
+ w8tIJ7bXJyii13vplwgUHUKhNA4KUnw21vRZ3HNjfpWV8cIejElM+TMJmPHnBTixALu3Sfni
+ 7H/hA7dX7QZQAFuUJTfZP61lgvjtnkBguNiGUDPJ4ALKknr9YFrLQ33j+M2fJ5QeUmSmGPC2
+ lbEGwocqMnMv5QxrIvDi5ebotr7COB5BEdbQTXWtO7kKSnA82O/6oZcS+LULyvFXWb59fz6N
+ +VYxv3xKtMdm1NOv9YuGrpn1/tmtdDuu6Vb3kJvG3CSNwanDbZpI3+n28hTt/ISmu8F6FXuA
+ k/Wo4tUI7SEPs/hAWU9Hgt9Y7TRz+wQlxnT8e8xfBfw6hho8efVSk5VJRSN1nBQdeMnLIM/z
+ O49k8cK8Ajj2AEyO9OLgy0IpWSBKnsMD/cuup0AWdK5jwMqzhdJYIDGCz+w65aKMo0ePk4vK
+ z6SpazDm7UDmRaSLyttTSDAjbhHmJADmBFW11tTdV2Gl+3MiuIzwBAMoy88SR5Yz0kf3u9+U
+ oSx25aZ+UlaE+9UufV+
+IronPort-HdrOrdr: A9a23:sIjSUqFrgmeROl07pLqE5MeALOsnbusQ8zAXP0AYc3Jom6uj5q
+ eTdZUgpHvJYVkqOE3I9ertBEDiewK4yXcW2/hzAV7KZmCP0wHEEGgL1/qF/9SKIUzDH4Bmup
+ uIC5IOauHNMQ==
+X-IronPort-AV: E=Sophos;i="5.87,265,1631592000"; 
+   d="scan'208";a="59062302"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Julien Grall <julien@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Juergen Gross
+	<jgross@suse.com>, Daniel Smith <dpsmith@apertussolutions.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+	<marmarek@invisiblethingslab.com>
+Subject: [PATCH 00/65] x86: Support for CET Indirect Branch Tracking
+Date: Fri, 26 Nov 2021 12:33:41 +0000
+Message-ID: <20211126123446.32324-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR03MB6324.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1af71ed0-bb3b-4311-8abf-08d9b0d702ba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Nov 2021 12:19:35.8608
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UweeIsC2LMWVikAnOamCnCRVLnBpTt3/iXN1216DH2EaGy1lpd9bxydbpfIF+jKzH+KHeTM7Rnrq5jWnVYbh21YIzZn2qa3cREdHTSqI60mCtNjjaC1kDuS3mGixae3J
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR0302MB3428
-X-Proofpoint-ORIG-GUID: STJUTReb5n_nCz0qnjvJAZV5PjptMEX2
-X-Proofpoint-GUID: STJUTReb5n_nCz0qnjvJAZV5PjptMEX2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.0.607.475
- definitions=2021-11-26_03,2021-11-25_02,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 phishscore=0 bulkscore=0
- mlxscore=0 clxscore=1015 priorityscore=1501 adultscore=0
- lowpriorityscore=0 malwarescore=0 impostorscore=0 spamscore=0
- mlxlogscore=388 suspectscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2110150000 definitions=main-2111260073
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-SGksIEJlcnRyYW5kIQ0KDQpPbiAyNS4xMS4yMSAxODoyOCwgQmVydHJhbmQgTWFycXVpcyB3cm90
-ZToNCj4gSGkgT2xla3NhbmRyLA0KPg0KPj4gT24gMjUgTm92IDIwMjEsIGF0IDExOjAyLCBPbGVr
-c2FuZHIgQW5kcnVzaGNoZW5rbyA8YW5kcjIwMDBAZ21haWwuY29tPiB3cm90ZToNCj4+DQo+PiBG
-cm9tOiBPbGVrc2FuZHIgQW5kcnVzaGNoZW5rbyA8b2xla3NhbmRyX2FuZHJ1c2hjaGVua29AZXBh
-bS5jb20+DQo+Pg0KPj4gQWRkIHJlbGV2YW50IHZwY2kgcmVnaXN0ZXIgaGFuZGxlcnMgd2hlbiBh
-c3NpZ25pbmcgUENJIGRldmljZSB0byBhIGRvbWFpbg0KPj4gYW5kIHJlbW92ZSB0aG9zZSB3aGVu
-IGRlLWFzc2lnbmluZy4gVGhpcyBhbGxvd3MgaGF2aW5nIGRpZmZlcmVudA0KPj4gaGFuZGxlcnMg
-Zm9yIGRpZmZlcmVudCBkb21haW5zLCBlLmcuIGh3ZG9tIGFuZCBvdGhlciBndWVzdHMuDQo+Pg0K
-Pj4gRW11bGF0ZSBndWVzdCBCQVIgcmVnaXN0ZXIgdmFsdWVzOiB0aGlzIGFsbG93cyBjcmVhdGlu
-ZyBhIGd1ZXN0IHZpZXcNCj4+IG9mIHRoZSByZWdpc3RlcnMgYW5kIGVtdWxhdGVzIHNpemUgYW5k
-IHByb3BlcnRpZXMgcHJvYmUgYXMgaXQgaXMgZG9uZQ0KPj4gZHVyaW5nIFBDSSBkZXZpY2UgZW51
-bWVyYXRpb24gYnkgdGhlIGd1ZXN0Lg0KPj4NCj4+IFJPTSBCQVIgaXMgb25seSBoYW5kbGVkIGZv
-ciB0aGUgaGFyZHdhcmUgZG9tYWluIGFuZCBmb3IgZ3Vlc3QgZG9tYWlucw0KPj4gdGhlcmUgaXMg
-YSBzdHViOiBhdCB0aGUgbW9tZW50IFBDSSBleHBhbnNpb24gUk9NIGhhbmRsaW5nIGlzIHN1cHBv
-cnRlZA0KPj4gZm9yIHg4NiBvbmx5IGFuZCBpdCBtaWdodCBub3QgYmUgdXNlZCBieSBvdGhlciBh
-cmNoaXRlY3R1cmVzIHdpdGhvdXQNCj4+IGVtdWxhdGluZyB4ODYuIE90aGVyIHVzZS1jYXNlcyBt
-YXkgaW5jbHVkZSB1c2luZyB0aGF0IGV4cGFuc2lvbiBST00gYmVmb3JlDQo+PiBYZW4gYm9vdHMs
-IGhlbmNlIG5vIGVtdWxhdGlvbiBpcyBuZWVkZWQgaW4gWGVuIGl0c2VsZi4gT3Igd2hlbiBhIGd1
-ZXN0DQo+PiB3YW50cyB0byB1c2UgdGhlIFJPTSBjb2RlIHdoaWNoIHNlZW1zIHRvIGJlIHJhcmUu
-DQo+IEluIHRoZSBnZW5lcmljIGNvZGUsIGJhcnMgZm9yIGlvcG9ydHMgYXJlIGFjdHVhbGx5IHNr
-aXBwZWQgKGNoZWNrIGNvZGUgYmVmb3JlDQo+IGluIGhlYWRlci5jLCBpbiBjYXNlIG9mIGlvcG9y
-dHMgdGhlcmUgaXMgYSBjb250aW51ZSkgYW5kIG5vIGhhbmRsZXIgaXMgcmVnaXN0ZXJlZCBmb3Ig
-dGhlbS4NCj4gVGhlIGNvbnNlcXVlbmNlIHdpbGwgYmUgdGhhdCBhIGd1ZXN0IHdpbGwgYWNjZXNz
-IGhhcmR3YXJlIHdoZW4gcmVhZGluZyB0aG9zZSBCQVJzLg0KWWVzLCB0aGlzIHNlZW1zIHRvIGJl
-IGEgdmFsaWQgcG9pbnQNCj4NCj4gSSB0aGluayB3ZSBzaG91bGQgaW5zdGVhZCBtYWtlIHN1cmUg
-dGhhdCB3ZSBpbnRlcmNlcHQgYWxsIGFjY2Vzc2VzIHRvIEJBUnMgYW5kIHJldHVybg0KPiBzb21l
-dGhpbmcgZW1wdHkgZm9yIElPUE9SVFMgQkFScy4NCkkgd291bGQgbGlrZSB0byBoZWFyIGZyb20g
-Um9nZXIgb24gd2hhdCB3YXMgdGhlIGluaXRpYWwgcGxhbiBmb3IgdGhhdCwgc28NCndlIGFyZSBh
-bGlnbmVkIGJldHdlZW4gdGhlIGRpZmZlcmVudCBhcmNoaXRlY3R1cmVzLCBBcm0gYW5kIHg4NiBo
-ZXJlIGZvciBub3cNCg0KVGhhbmsgeW91LA0KT2xla3NhbmRy
+CET Indirect Branch Tracking is a hardware feature designed to protect against
+forward-edge control flow hijacking (Call/Jump oriented programming), and is a
+companion feature to CET Shadow Stacks added in Xen 4.14.
+
+This series depends on lots of previously posted patches.  See
+xenbits/xen-cet-ibt for the full branch with all dependencies.
+
+Patch 1 introduces some compile time infrastructure.
+
+Patches 2 thru 56 annotate all function pointer targets in the common and x86
+hypervisor code.  Patches are split by API and in no particular order, and
+largely mechanical.  As such, I'm limiting review mainly to The Rest.  While
+doing this work does depend on an experimental GCC change (patch 56), the
+result does actually work properly with GCC 9 onwards.
+
+Patches 57 thru 65 do the final enablement of CET-IBT.
+
+I have developed this on a TigerLake NUC.  Many thanks to Marek who has also
+given the series a spin on a TigerLake laptop.
+
+Some CI runs, green across the board:
+  https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/416737379
+  https://cirrus-ci.com/build/6547947216175104
+
+Various note accumulated through the work:
+  * I have already posted patches fixing some of the most egregious (ab)uses of
+    function pointers.  There are plenty of other areas which could do with
+    cleanup.
+  * With everything turned on, we get 1688 runtime endbr64's, and 233 init
+    time.  The number of runtime endbr64's is expected to reduce with
+    Juergen's hypercall series (see later), and in common deployment cases
+    where not everything is compiled in by default.
+  * I have not checked for misaligned endbr64's, and I'm not sure there is
+    anything useful we could do upon discovering that there were any.
+    Naively, there is a 1 in 2^32 chance (endbr64 being 4 bytes long), but
+    this doesn't account for the structure of x86 code, which is most
+    certainly not a uniform random distribution of bytes.
+  * I have followup work to reduce the number of runtime endbr64's using boot
+    time patching, which further improves the security benefit.
+  * Patches 2 and 3 are a minimal subset of Juergen's hypercall series, with
+    patch 4 annotating every hypercall.  I failed to get the full series pass
+    in CI, so put this together as a stopgap.  It reduces the dependencies
+    involved, and patch 4 can be dropped if the hypercall series gets in
+    first.
+  * The x86 MTRR code is a complete mess, and as far as I can tell, is mostly
+    pre-64bit support.  It could do with a prune.
+  * We do many passes of the MADT counting objects.  This is a waste of time
+    and we should count them on a single pass.
+  * The NUMA setup (SRAT parsing) appears to happen twice.  I'm pretty sure
+    this is one too many.
+
+Andrew Cooper (63):
+  x86: Introduce support for CET-IBT
+  x86/hypercall: Annotate fnptr targets
+  xen: Annotate fnptr targets from custom_param()
+  xen: Annotate fnptr targets from __initcall()
+  xen: Annotate fnptr targets from notifier callbacks
+  xen: Annotate fnptr targets from acpi_table_parse()
+  xen: Annotate fnptr targets from continue_hypercall_on_cpu()
+  xen: Annotate fnptr targets from init_timer()
+  xen: Annotate fnptr targets from call_rcu()
+  xen: Annotate fnptr targets from IPIs
+  xen: Annotate fnptr targets from open_softirq()
+  xsm/flask:  Annotate fnptr targets in the security server
+  xsm: Annotate fnptr targets
+  xen/sched: Annotate fnptr targets
+  xen/evtchn: Annotate fnptr targets
+  xen/hypfs: Annotate fnptr targets
+  xen/tasklet: Annotate fnptr targets
+  xen/keyhandler: Annotate fnptr targets
+  xen/vpci: Annotate fnptr targets
+  xen/decompress: Annotate fnptr targets
+  xen/iommu: Annotate fnptr targets
+  xen/video: Annotate fnptr targets
+  xen/console: Annotate fnptr targets
+  xen/misc: Annotate fnptr targets
+  x86: Annotate fnptr targets from request_irq()
+  x86/hvm: Annotate fnptr targets from hvm_funcs
+  x86/hvm: Annotate fnptr targets from device emulation
+  x86/emul: Annotate fnptr targets
+  x86/ucode: Annotate fnptr targets
+  x86/power: Annotate fnptr targets
+  x86/apic: Annotate fnptr targets
+  x86/nmi: Annotate fnptr targets
+  x86/mtrr: Annotate fnptr targets
+  x86/idle: Annotate fnptr targets
+  x86/quirks: Annotate fnptr targets
+  x86/hvmsave: Annotate fnptr targets
+  x86/mce: Annotate fnptr targets
+  x86/pmu: Annotate fnptr targets
+  x86/cpu: Annotate fnptr targets
+  x86/guest: Annotate fnptr targets
+  x86/logdirty: Annotate fnptr targets
+  x86/shadow: Annotate fnptr targets
+  x86/hap: Annotate fnptr targets
+  x86/p2m: Annotate fnptr targets
+  x86/irq: Annotate fnptr targets
+  x86/aepi: Annotate fnptr targets
+  x86/psr: Annotate fnptr targets
+  x86/dpci: Annotate fnptr targets
+  x86/pt: Annotate fnptr targets
+  x86/time: Annotate fnptr targets
+  x86/misc: Annotate fnptr targets
+  x86/stack: Annotate fnptr targets
+  x86/bugframe: Annotate fnptr targets
+  x86: Use control flow typechecking where possible
+  x86/setup: Read CR4 earlier in __start_xen()
+  x86/alternatives: Clear CR4.CET when clearing CR0.WP
+  x86/traps: Rework write_stub_trampoline() to not hardcode the jmp
+  x86/emul: Update emulation stubs to be CET-IBT compatible
+  x86/entry: Make syscall/sysenter entrypoints CET-IBT compatible
+  x86/entry: Make IDT entrypoints CET-IBT compatible
+  x86/setup: Rework MSR_S_CET handling for CET-IBT
+  x86/efi: Disable CET-IBT around Runtime Services calls
+  x86: Enable CET Indirect Branch Tracking
+
+Juergen Gross (2):
+  x86/pv-shim: don't modify hypercall table
+  xen/x86: don't use hypercall table for calling compat hypercalls
+
+ Config.mk                                    |   1 -
+ docs/misc/xen-command-line.pandoc            |  16 +-
+ tools/firmware/Makefile                      |   2 +
+ tools/libs/guest/xg_dom_decompress_unsafe.h  |   4 +
+ xen/arch/x86/Kconfig                         |  17 ++
+ xen/arch/x86/acpi/boot.c                     |  24 +-
+ xen/arch/x86/acpi/cpu_idle.c                 |  43 ++--
+ xen/arch/x86/acpi/cpufreq/cpufreq.c          |  24 +-
+ xen/arch/x86/acpi/cpufreq/powernow.c         |  21 +-
+ xen/arch/x86/acpi/cpuidle_menu.c             |   6 +-
+ xen/arch/x86/acpi/lib.c                      |   2 +-
+ xen/arch/x86/acpi/power.c                    |   4 +-
+ xen/arch/x86/acpi/wakeup_prot.S              |  37 +--
+ xen/arch/x86/alternative.c                   |  13 +-
+ xen/arch/x86/apic.c                          |  12 +-
+ xen/arch/x86/arch.mk                         |   7 +
+ xen/arch/x86/boot/x86_64.S                   |  29 ++-
+ xen/arch/x86/compat.c                        |  21 +-
+ xen/arch/x86/cpu/amd.c                       |   8 +-
+ xen/arch/x86/cpu/centaur.c                   |   2 +-
+ xen/arch/x86/cpu/common.c                    |   3 +-
+ xen/arch/x86/cpu/cpu.h                       |   2 +-
+ xen/arch/x86/cpu/hygon.c                     |   2 +-
+ xen/arch/x86/cpu/intel.c                     |   6 +-
+ xen/arch/x86/cpu/mcheck/amd_nonfatal.c       |   4 +-
+ xen/arch/x86/cpu/mcheck/mce.c                |  22 +-
+ xen/arch/x86/cpu/mcheck/mce.h                |   2 +-
+ xen/arch/x86/cpu/mcheck/mce_amd.c            |   9 +-
+ xen/arch/x86/cpu/mcheck/mce_amd.h            |   4 +-
+ xen/arch/x86/cpu/mcheck/mce_intel.c          |  49 ++--
+ xen/arch/x86/cpu/mcheck/non-fatal.c          |   6 +-
+ xen/arch/x86/cpu/mcheck/vmce.c               |   4 +-
+ xen/arch/x86/cpu/microcode/amd.c             |   9 +-
+ xen/arch/x86/cpu/microcode/core.c            |  15 +-
+ xen/arch/x86/cpu/microcode/intel.c           |  10 +-
+ xen/arch/x86/cpu/mtrr/generic.c              |  20 +-
+ xen/arch/x86/cpu/mtrr/main.c                 |   4 +-
+ xen/arch/x86/cpu/mtrr/mtrr.h                 |   8 +-
+ xen/arch/x86/cpu/mwait-idle.c                |  12 +-
+ xen/arch/x86/cpu/shanghai.c                  |   2 +-
+ xen/arch/x86/cpu/vpmu.c                      |  13 +-
+ xen/arch/x86/cpu/vpmu_amd.c                  |  16 +-
+ xen/arch/x86/cpu/vpmu_intel.c                |  16 +-
+ xen/arch/x86/cpuid.c                         |   2 +-
+ xen/arch/x86/crash.c                         |   7 +-
+ xen/arch/x86/dmi_scan.c                      |  10 +-
+ xen/arch/x86/dom0_build.c                    |   8 +-
+ xen/arch/x86/domain.c                        |  16 +-
+ xen/arch/x86/efi/stub.c                      |   2 +
+ xen/arch/x86/emul-i8254.c                    |  14 +-
+ xen/arch/x86/extable.c                       |  20 +-
+ xen/arch/x86/genapic/bigsmp.c                |   4 +-
+ xen/arch/x86/genapic/delivery.c              |  12 +-
+ xen/arch/x86/genapic/probe.c                 |   2 +-
+ xen/arch/x86/genapic/x2apic.c                |  18 +-
+ xen/arch/x86/guest/hyperv/hyperv.c           |  10 +-
+ xen/arch/x86/guest/xen/xen.c                 |  15 +-
+ xen/arch/x86/hpet.c                          |  29 +--
+ xen/arch/x86/hvm/dm.c                        |   5 +-
+ xen/arch/x86/hvm/dom0_build.c                |  16 +-
+ xen/arch/x86/hvm/emulate.c                   |  93 ++++---
+ xen/arch/x86/hvm/hpet.c                      |  12 +-
+ xen/arch/x86/hvm/hvm.c                       |  47 ++--
+ xen/arch/x86/hvm/hypercall.c                 |   5 +-
+ xen/arch/x86/hvm/intercept.c                 |  28 ++-
+ xen/arch/x86/hvm/io.c                        |  38 +--
+ xen/arch/x86/hvm/ioreq.c                     |   2 +-
+ xen/arch/x86/hvm/irq.c                       |  16 +-
+ xen/arch/x86/hvm/mtrr.c                      |   8 +-
+ xen/arch/x86/hvm/nestedhvm.c                 |   6 +-
+ xen/arch/x86/hvm/pmtimer.c                   |  10 +-
+ xen/arch/x86/hvm/quirks.c                    |   4 +-
+ xen/arch/x86/hvm/rtc.c                       |  18 +-
+ xen/arch/x86/hvm/stdvga.c                    |  19 +-
+ xen/arch/x86/hvm/svm/nestedsvm.c             |  27 +-
+ xen/arch/x86/hvm/svm/svm.c                   | 358 ++++++++++++++-------------
+ xen/arch/x86/hvm/svm/vmcb.c                  |   2 +-
+ xen/arch/x86/hvm/vioapic.c                   |  12 +-
+ xen/arch/x86/hvm/viridian/time.c             |   2 +-
+ xen/arch/x86/hvm/viridian/viridian.c         |  17 +-
+ xen/arch/x86/hvm/vlapic.c                    |  25 +-
+ xen/arch/x86/hvm/vmsi.c                      |  16 +-
+ xen/arch/x86/hvm/vmx/intr.c                  |   2 +-
+ xen/arch/x86/hvm/vmx/vmcs.c                  |  22 +-
+ xen/arch/x86/hvm/vmx/vmx.c                   | 157 ++++++------
+ xen/arch/x86/hvm/vmx/vvmx.c                  |  21 +-
+ xen/arch/x86/hvm/vpic.c                      |   8 +-
+ xen/arch/x86/hvm/vpt.c                       |   2 +-
+ xen/arch/x86/i8259.c                         |  10 +-
+ xen/arch/x86/io_apic.c                       |  28 +--
+ xen/arch/x86/ioport_emulate.c                |   4 +-
+ xen/arch/x86/irq.c                           |  28 +--
+ xen/arch/x86/livepatch.c                     |   2 +-
+ xen/arch/x86/mm.c                            |  35 +--
+ xen/arch/x86/mm/hap/guest_walk.c             |   4 +-
+ xen/arch/x86/mm/hap/hap.c                    |  29 +--
+ xen/arch/x86/mm/hap/nested_hap.c             |   2 +-
+ xen/arch/x86/mm/hap/private.h                |  30 +--
+ xen/arch/x86/mm/mem_sharing.c                |   2 +-
+ xen/arch/x86/mm/p2m-ept.c                    |  34 ++-
+ xen/arch/x86/mm/p2m-pt.c                     |  19 +-
+ xen/arch/x86/mm/paging.c                     |   3 +-
+ xen/arch/x86/mm/shadow/common.c              |  33 +--
+ xen/arch/x86/mm/shadow/hvm.c                 |  16 +-
+ xen/arch/x86/mm/shadow/multi.c               |  80 +++---
+ xen/arch/x86/mm/shadow/multi.h               |  20 +-
+ xen/arch/x86/mm/shadow/private.h             |  12 +-
+ xen/arch/x86/mm/shadow/pv.c                  |   4 +-
+ xen/arch/x86/msi.c                           |  18 +-
+ xen/arch/x86/nmi.c                           |  16 +-
+ xen/arch/x86/numa.c                          |  10 +-
+ xen/arch/x86/oprofile/nmi_int.c              |  16 +-
+ xen/arch/x86/oprofile/op_model_athlon.c      |  18 +-
+ xen/arch/x86/oprofile/op_model_p4.c          |  14 +-
+ xen/arch/x86/oprofile/op_model_ppro.c        |  26 +-
+ xen/arch/x86/percpu.c                        |   6 +-
+ xen/arch/x86/physdev.c                       |   2 +-
+ xen/arch/x86/platform_hypercall.c            |  11 +-
+ xen/arch/x86/psr.c                           |  41 +--
+ xen/arch/x86/pv/callback.c                   |  25 +-
+ xen/arch/x86/pv/descriptor-tables.c          |  14 +-
+ xen/arch/x86/pv/domain.c                     |  12 +-
+ xen/arch/x86/pv/emul-gate-op.c               |   5 +-
+ xen/arch/x86/pv/emul-priv-op.c               |  70 +++---
+ xen/arch/x86/pv/emulate.h                    |   7 -
+ xen/arch/x86/pv/hypercall.c                  |  11 +-
+ xen/arch/x86/pv/iret.c                       |   4 +-
+ xen/arch/x86/pv/misc-hypercalls.c            |  10 +-
+ xen/arch/x86/pv/ro-page-fault.c              |  25 +-
+ xen/arch/x86/pv/shim.c                       |  60 ++---
+ xen/arch/x86/pv/traps.c                      |   2 +-
+ xen/arch/x86/setup.c                         |  80 ++++--
+ xen/arch/x86/shutdown.c                      |  10 +-
+ xen/arch/x86/smp.c                           |  20 +-
+ xen/arch/x86/smpboot.c                       |   2 +-
+ xen/arch/x86/spec_ctrl.c                     |   6 +-
+ xen/arch/x86/srat.c                          |   4 +-
+ xen/arch/x86/sysctl.c                        |   4 +-
+ xen/arch/x86/tboot.c                         |   2 +-
+ xen/arch/x86/time.c                          |  68 ++---
+ xen/arch/x86/traps.c                         |   8 +-
+ xen/arch/x86/tsx.c                           |   2 +-
+ xen/arch/x86/x86_64/acpi_mmcfg.c             |   2 +-
+ xen/arch/x86/x86_64/compat.c                 |   1 -
+ xen/arch/x86/x86_64/compat/entry.S           |   1 +
+ xen/arch/x86/x86_64/compat/mm.c              |   7 +-
+ xen/arch/x86/x86_64/entry.S                  |  47 +++-
+ xen/arch/x86/x86_64/mmconfig-shared.c        |  10 +-
+ xen/arch/x86/x86_64/mmconfig.h               |   2 +-
+ xen/arch/x86/x86_64/platform_hypercall.c     |   2 +-
+ xen/arch/x86/x86_64/traps.c                  |  45 ++--
+ xen/arch/x86/x86_emulate.c                   |  33 ++-
+ xen/arch/x86/x86_emulate/x86_emulate.c       |  10 +-
+ xen/arch/x86/x86_emulate/x86_emulate.h       |  38 +--
+ xen/common/argo.c                            |   6 +-
+ xen/common/bunzip2.c                         |   2 +-
+ xen/common/compat/domain.c                   |   3 +-
+ xen/common/compat/grant_table.c              |   5 +-
+ xen/common/compat/kernel.c                   |   2 +-
+ xen/common/compat/memory.c                   |   7 +-
+ xen/common/compat/multicall.c                |   3 +-
+ xen/common/core_parking.c                    |  10 +-
+ xen/common/cpu.c                             |   4 +-
+ xen/common/debugtrace.c                      |  10 +-
+ xen/common/decompress.c                      |   2 +-
+ xen/common/dm.c                              |   6 +-
+ xen/common/domain.c                          |  15 +-
+ xen/common/domctl.c                          |   2 +-
+ xen/common/efi/boot.c                        |  12 +-
+ xen/common/efi/runtime.c                     |  17 ++
+ xen/common/event_2l.c                        |  21 +-
+ xen/common/event_channel.c                   |  18 +-
+ xen/common/event_fifo.c                      |  30 +--
+ xen/common/gdbstub.c                         |   9 +-
+ xen/common/grant_table.c                     |  29 ++-
+ xen/common/hypfs.c                           |  63 +++--
+ xen/common/irq.c                             |   6 +-
+ xen/common/kernel.c                          |   6 +-
+ xen/common/kexec.c                           |  18 +-
+ xen/common/keyhandler.c                      |  47 ++--
+ xen/common/livepatch.c                       |  15 +-
+ xen/common/memory.c                          |   8 +-
+ xen/common/multicall.c                       |   2 +-
+ xen/common/page_alloc.c                      |  14 +-
+ xen/common/perfc.c                           |   4 +-
+ xen/common/radix-tree.c                      |   8 +-
+ xen/common/random.c                          |   2 +-
+ xen/common/rangeset.c                        |   2 +-
+ xen/common/rcupdate.c                        |   8 +-
+ xen/common/sched/arinc653.c                  |  20 +-
+ xen/common/sched/compat.c                    |   2 +-
+ xen/common/sched/core.c                      |  40 +--
+ xen/common/sched/cpupool.c                   |  35 +--
+ xen/common/sched/credit.c                    |  59 +++--
+ xen/common/sched/credit2.c                   |  55 ++--
+ xen/common/sched/null.c                      |  60 ++---
+ xen/common/sched/rt.c                        |  47 ++--
+ xen/common/spinlock.c                        |  12 +-
+ xen/common/stop_machine.c                    |   6 +-
+ xen/common/sysctl.c                          |   2 +-
+ xen/common/tasklet.c                         |   4 +-
+ xen/common/timer.c                           |   6 +-
+ xen/common/trace.c                           |   4 +-
+ xen/common/unlzma.c                          |   2 +-
+ xen/common/vm_event.c                        |   6 +-
+ xen/common/xenoprof.c                        |   2 +-
+ xen/common/xmalloc_tlsf.c                    |   4 +-
+ xen/common/zstd/zstd_common.c                |   4 +-
+ xen/common/zstd/zstd_internal.h              |   4 +-
+ xen/drivers/acpi/apei/apei-base.c            |  32 +--
+ xen/drivers/acpi/apei/apei-internal.h        |  20 +-
+ xen/drivers/acpi/apei/erst.c                 |  57 +++--
+ xen/drivers/acpi/apei/hest.c                 |   4 +-
+ xen/drivers/acpi/numa.c                      |  10 +-
+ xen/drivers/acpi/tables.c                    |   2 +-
+ xen/drivers/char/console.c                   |  36 +--
+ xen/drivers/char/ehci-dbgp.c                 |  28 ++-
+ xen/drivers/char/ns16550.c                   |  34 +--
+ xen/drivers/cpufreq/cpufreq.c                |   6 +-
+ xen/drivers/cpufreq/cpufreq_misc_governors.c |  22 +-
+ xen/drivers/cpufreq/cpufreq_ondemand.c       |  10 +-
+ xen/drivers/passthrough/amd/iommu.h          |  45 ++--
+ xen/drivers/passthrough/amd/iommu_acpi.c     |  15 +-
+ xen/drivers/passthrough/amd/iommu_guest.c    |  12 +-
+ xen/drivers/passthrough/amd/iommu_init.c     |  49 ++--
+ xen/drivers/passthrough/amd/iommu_intr.c     |  20 +-
+ xen/drivers/passthrough/amd/iommu_map.c      |  22 +-
+ xen/drivers/passthrough/amd/pci_amd_iommu.c  |  32 +--
+ xen/drivers/passthrough/arm/smmu-v3.c        |   6 +-
+ xen/drivers/passthrough/iommu.c              |  56 ++---
+ xen/drivers/passthrough/pci.c                |  18 +-
+ xen/drivers/passthrough/vtd/dmar.c           |   7 +-
+ xen/drivers/passthrough/vtd/extern.h         |  38 +--
+ xen/drivers/passthrough/vtd/intremap.c       |  14 +-
+ xen/drivers/passthrough/vtd/iommu.c          |  96 +++----
+ xen/drivers/passthrough/vtd/qinval.c         |  28 +--
+ xen/drivers/passthrough/vtd/quirks.c         |   2 +-
+ xen/drivers/passthrough/vtd/utils.c          |   2 +-
+ xen/drivers/passthrough/vtd/x86/hvm.c        |   4 +-
+ xen/drivers/passthrough/x86/hvm.c            |  14 +-
+ xen/drivers/video/lfb.c                      |   4 +-
+ xen/drivers/video/lfb.h                      |   4 +-
+ xen/drivers/video/vesa.c                     |   6 +-
+ xen/drivers/video/vga.c                      |   6 +-
+ xen/drivers/vpci/header.c                    |  18 +-
+ xen/drivers/vpci/msi.c                       |  42 ++--
+ xen/drivers/vpci/msix.c                      |  20 +-
+ xen/drivers/vpci/vpci.c                      |  16 +-
+ xen/include/acpi/cpufreq/cpufreq.h           |   1 -
+ xen/include/asm-x86/asm-defns.h              |   6 +
+ xen/include/asm-x86/bug.h                    |  10 +-
+ xen/include/asm-x86/cpufeature.h             |   1 +
+ xen/include/asm-x86/cpufeatures.h            |   1 +
+ xen/include/asm-x86/cpuidle.h                |   4 +-
+ xen/include/asm-x86/current.h                |   2 +-
+ xen/include/asm-x86/flushtlb.h               |   2 +-
+ xen/include/asm-x86/genapic.h                |  18 +-
+ xen/include/asm-x86/hpet.h                   |   8 +-
+ xen/include/asm-x86/hvm/emulate.h            |   8 +-
+ xen/include/asm-x86/hvm/save.h               |   2 +-
+ xen/include/asm-x86/hvm/svm/nestedsvm.h      |  22 +-
+ xen/include/asm-x86/hvm/svm/svm.h            |   1 -
+ xen/include/asm-x86/hvm/vioapic.h            |   2 +-
+ xen/include/asm-x86/hvm/vmx/vmcs.h           |   8 +-
+ xen/include/asm-x86/hvm/vmx/vmx.h            |   4 +-
+ xen/include/asm-x86/hvm/vmx/vvmx.h           |  23 +-
+ xen/include/asm-x86/hypercall.h              |  81 +++---
+ xen/include/asm-x86/irq.h                    |  24 +-
+ xen/include/asm-x86/mm.h                     |  16 +-
+ xen/include/asm-x86/msi.h                    |   8 +-
+ xen/include/asm-x86/msr-index.h              |   1 +
+ xen/include/asm-x86/mtrr.h                   |   2 +-
+ xen/include/asm-x86/p2m.h                    |   4 +-
+ xen/include/asm-x86/paging.h                 |   2 +-
+ xen/include/asm-x86/processor.h              |   4 +-
+ xen/include/asm-x86/pv/domain.h              |   4 +-
+ xen/include/asm-x86/pv/shim.h                |   7 +-
+ xen/include/asm-x86/shadow.h                 |   2 +-
+ xen/include/asm-x86/smp.h                    |   6 +-
+ xen/include/asm-x86/tboot.h                  |   2 +-
+ xen/include/asm-x86/time.h                   |   6 +-
+ xen/include/xen/acpi.h                       |   2 +-
+ xen/include/xen/compiler.h                   |   6 +
+ xen/include/xen/efi.h                        |   1 +
+ xen/include/xen/hypercall.h                  |  69 +++---
+ xen/include/xen/hypfs.h                      |  49 ++--
+ xen/include/xen/irq.h                        |   6 +-
+ xen/include/xen/lib.h                        |   2 +-
+ xen/include/xen/perfc.h                      |   4 +-
+ xen/include/xen/sched.h                      |   2 +-
+ xen/include/xen/spinlock.h                   |   4 +-
+ xen/include/xen/vpci.h                       |   8 +-
+ xen/include/xsm/dummy.h                      | 211 ++++++++--------
+ xen/xsm/flask/avc.c                          |   2 +-
+ xen/xsm/flask/flask_op.c                     |   7 +-
+ xen/xsm/flask/hooks.c                        | 232 +++++++++--------
+ xen/xsm/flask/private.h                      |   4 +-
+ xen/xsm/flask/ss/avtab.c                     |   4 +-
+ xen/xsm/flask/ss/conditional.c               |  10 +-
+ xen/xsm/flask/ss/conditional.h               |   6 +-
+ xen/xsm/flask/ss/policydb.c                  |  53 ++--
+ xen/xsm/flask/ss/services.c                  |   6 +-
+ xen/xsm/flask/ss/symtab.c                    |   5 +-
+ xen/xsm/silo.c                               |  24 +-
+ xen/xsm/xsm_core.c                           |   6 +-
+ 305 files changed, 2963 insertions(+), 2619 deletions(-)
+
+-- 
+2.11.0
+
 
