@@ -2,48 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BACC45EF9B
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 15:11:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.233125.404354 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53A1345EFB7
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Nov 2021 15:15:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.233130.404366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqbvi-0005xZ-QV; Fri, 26 Nov 2021 14:10:22 +0000
+	id 1mqc02-0006cH-DD; Fri, 26 Nov 2021 14:14:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 233125.404354; Fri, 26 Nov 2021 14:10:22 +0000
+Received: by outflank-mailman (output) from mailman id 233130.404366; Fri, 26 Nov 2021 14:14:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqbvi-0005vA-NH; Fri, 26 Nov 2021 14:10:22 +0000
-Received: by outflank-mailman (input) for mailman id 233125;
- Fri, 26 Nov 2021 14:10:21 +0000
+	id 1mqc02-0006ZQ-A8; Fri, 26 Nov 2021 14:14:50 +0000
+Received: by outflank-mailman (input) for mailman id 233130;
+ Fri, 26 Nov 2021 14:14:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=F3w5=QN=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mqbvh-0005v4-BD
- for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 14:10:21 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=skxS=QN=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1mqc00-0006ZJ-QN
+ for xen-devel@lists.xenproject.org; Fri, 26 Nov 2021 14:14:48 +0000
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [2a00:1450:4864:20::230])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 96adc375-4ec2-11ec-9787-a32c541c8605;
- Fri, 26 Nov 2021 15:10:20 +0100 (CET)
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01lp2057.outbound.protection.outlook.com [104.47.1.57]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-39-14-rgWZoNzmbAwJ4mBOAjg-1; Fri, 26 Nov 2021 15:10:18 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4605.eurprd04.prod.outlook.com (2603:10a6:803:65::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4713.22; Fri, 26 Nov
- 2021 14:10:17 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe%5]) with mapi id 15.20.4734.023; Fri, 26 Nov 2021
- 14:10:17 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- FR2P281CA0022.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:14::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4734.16 via Frontend Transport; Fri, 26 Nov 2021 14:10:17 +0000
+ id 3643c892-4ec3-11ec-9787-a32c541c8605;
+ Fri, 26 Nov 2021 15:14:47 +0100 (CET)
+Received: by mail-lj1-x230.google.com with SMTP id v15so19145067ljc.0
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Nov 2021 06:14:47 -0800 (PST)
+Received: from [192.168.1.7] ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id r10sm504722ljg.116.2021.11.26.06.14.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 26 Nov 2021 06:14:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,146 +43,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 96adc375-4ec2-11ec-9787-a32c541c8605
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1637935819;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YD0O1Cb5LPjOUy6fPt9e1rTxX0nxSQaYxZVe4srj4u8=;
-	b=Bmyk3OT2moqbmxrVrXNVG+szxR8JXB8bhxnaKnt1A7uzFYatTginBhz1Avmid5JoFZpwh6
-	hz3Pl1HMln/ZDhQtFwNkvD7KbFPiJxw8v3DSCq9KQwej/8qooxuNqw9H2WRVgztPP2FEmL
-	IDXutq2PjsC2FyE/lyQ0hECZeJDaXGI=
-X-MC-Unique: 14-rgWZoNzmbAwJ4mBOAjg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jqtu/EqtYpLTkPq+LxgAJXb9OOCut7ZsApIak6FJwLb+Vq6C4RB1W1gdg7t0ARCp6BSHReLdBC5gD/NJW94vhsJ0axwftZsDT8qqJ4uu4ZZRi6Bw4c9HKdCrJEfHRCMylYxd8J9pI4P+PfmDUCFilpsKfIusEjEW5hDJUhuSBE1mbU66J/bKzvhCU7toBa3/OomBwOhpv4qPrzu0trX0mLohEuDyAney7iDKZvm4dtPUHlj3wmtySB+DsbZ+I9xE/49iM2ST3y6dxV6u81o8KIpB+j+wkjKbn1UfiGvJpqg/E1jJBxEo3T88kV8AKRSyROuORtBK0scYbRrP416RgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YD0O1Cb5LPjOUy6fPt9e1rTxX0nxSQaYxZVe4srj4u8=;
- b=D9h62Wkxu+g+wbG94N/KKmjssRA595LZo+HrprsgHGJEtlTDhLcSXFhK3gJf6mqQums50b1ySKjAJhzQqkJ3uw7PhnAP0jwc/pHs8t1uHYV0cpR2LxApVUzVAnfOQN26U/D7OpSpBpxJShHmM45rnodAattiJ3B1cIuP8tyu58xab/Lw/bevY7+uGLS95ZAgMJWYOHUHaUafAWzJw1q0/rVSzYSlFUFUZfcCXcsWvxPxdm2rGr+z1+L5KwzfEbLmZgGIidcntvOf+JYyvhmrzIH0R8B0P7HE/pbJCHmk1ruzar0j6Br43Mht4OljNjTqh2TnDuErfQ6SPtsmxiIhVA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <69d1b4a3-a042-c2c4-2f59-ea897886ae1d@suse.com>
-Date: Fri, 26 Nov 2021 15:10:16 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.1
-Subject: Re: [PATCH 01/65] x86: Introduce support for CET-IBT
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
- <20211126123446.32324-2-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20211126123446.32324-2-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0022.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:14::9) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 3643c892-4ec3-11ec-9787-a32c541c8605
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-transfer-encoding:content-language;
+        bh=DEycIOH8xZy5jEK36I0SPjIJMYH+1ejJeC+2cNzwCLo=;
+        b=R73GxDIZnsHX+30Gu7DCbM8DWx2Amlr/Q3NCjZS8ZSB4BIaMV8DkwI9GNrQGrTXbrX
+         iWmyx6zlRpDLVXCXgwU2bB/eJgLgwE11Iti9vFSKarc/2jfpSUzh2mq7Eth+7O+0P/hK
+         bSdQzvjir9XPo6XH+LjBnuqvY0RFbD2YWgvWKQgS9SzatAqcGN4H1ry8MCsZYMH0qtCe
+         vukd2v5WbiBi+7cjDd5aCFpdDmYFy7RXln4zzDRACqBEq4BXel2Afrra1ID2VlgzF3vU
+         A8kMnsXNm5izsJjspodsEc1YtpyQsL3Y+VcJwXsP9ZaWs6oILoOrsSp2xfK+wkLmI/oA
+         zmqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-transfer-encoding
+         :content-language;
+        bh=DEycIOH8xZy5jEK36I0SPjIJMYH+1ejJeC+2cNzwCLo=;
+        b=x56Acp6JfV5L014dFenkzUcmW+SRJxl7Nktll3EyZNS/KLcSCXuCG7NyYhIzgJg3hy
+         30u7GMwftoDbeRZYnm+LzeyetBxTkzPeQPPI14i4XBJ884oDAiG+L/pIfCya3kVhprfF
+         WKcR+g9uZr+oA7nQ1mE7z+UMLYGtacil+zQQmst09IpiZ83WMKTrbzjDSu+C1FXm10BF
+         eNY13OGCdvtHxgbvMXFmexuXqt/SaNsb/fZx+Tjd4jph2WXagFIxGVf8ueJ9gc2BaFFg
+         k7amtVURXMoYXUzVFISVzNQ5PNt6uHbqEmP0q7XWadOZUfrJBlfCVq8w/sCdpeazxe9G
+         VK6w==
+X-Gm-Message-State: AOAM531w5OJwAumwhi60cjXQDzjD+M4I9oSg0M5IQl9WpmvSXYWF/tjW
+	Rc0HReYks2DPEwe9I+pOJWh1llWkJIA=
+X-Google-Smtp-Source: ABdhPJz5NQ8/i8EckoNxXdRsZq4BmpPy9gMnZhMpSyCy4+ofS1d0VjievOotSkHUHhnVvRtrsl+Q9A==
+X-Received: by 2002:a05:651c:112c:: with SMTP id e12mr6157837ljo.457.1637936087307;
+        Fri, 26 Nov 2021 06:14:47 -0800 (PST)
+Subject: Re: [RFC?] xen/arm: memaccess: Pass struct npfec by reference in
+ p2m_mem_access_check
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+References: <1637880559-28821-1-git-send-email-olekstysh@gmail.com>
+ <b51fd518-6c32-c945-d220-f2092ff2666a@suse.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <9ae92dcd-0f72-0c61-62e0-bf49ba09c5b5@gmail.com>
+Date: Fri, 26 Nov 2021 16:14:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3d82a074-8e5e-450d-a58f-08d9b0e67965
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4605:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB46059129D62A4F60AEC51FD3B3639@VI1PR04MB4605.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	FzHtrMgcQCjWXEWzAupgAeghtIytVVvXKF2HQ8zcZ1KfKZ3vRkho/waqGDV4tqPM6La8HCYb87ftE5fh9pyH3FVf7sf6nmJV6wegSYiV4PymcwkHoVT6H+5sJKwsYvmcALIjOH6DXEBMNri7ftG7oHR9X/VBM95/s6W+O/c88ylqGMjWHetw2RebIPgJaKmR+HZ8rb2pmJtxN0LOirVmJhg7I+IuLB87JDDzuLkzYW6YYHcjLRgoQhRGsdR6LWJ0zm742wJEiSO0EbFtEB2o7JrLQ9j7t9Ux7cU/gZHXDnyMj7FbfSor/WXVefEA434TZzVKMDJ6aqpCJB7W3b+/Gi+63T7wLaxW7uuCg3O272yZ6VEEFXNiU87X/eX/LCD9rBul5OuMih6zn1/i0G4oEnehNf8hEDeWCmSEDxXUw7XjkUNS3mNPIztpezePTPWmvHuLjtGMsyNKNi01hb/oUlL/r1jRf+zZy5jiF1k9gP03NlJjXU1pW8tMIcAqirwWydoymn3sSZhkxKkRgTZ88yOCtlmn5o3m9lCri0mRy2HUcOXabnzLkUPttz1wKw+cOHbL3nyS/DwKKaHMnvaeWUD7M/oHplsqmKQ1mNXoHa16obJMQDBlpal6fga+bPx7Rd5VG2jJ4BfSjULcZcSd47TaMc8xOHciDMplb4W+6WeJ3f2LcuBW47m8EybHn8BzBif5Fc0mjtD/2YT78vL/T8d1z0S4aH+pvUXoCWvD3as=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(956004)(66946007)(53546011)(36756003)(2906002)(4326008)(38100700002)(16576012)(186003)(6486002)(31686004)(54906003)(316002)(26005)(66476007)(6916009)(31696002)(508600001)(8936002)(86362001)(8676002)(66556008)(5660300002)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZmsrcWpoUzVBek5QRHoyY3Z0R2lQalpuYlpsemI3T1dYaHRsQ3dwNUJ2NU50?=
- =?utf-8?B?UFRmS0RJQ2k4QlBrdVZwTGpDK0loUTZ6ZWVvVGYzL3hodS80NHpDV1lEVzBl?=
- =?utf-8?B?amg3L3o0Q1BJZlpVT0NMaGZCQ0ZRTzVMcXpqbHhVVmNCM0Q3Nzg5VERPSUps?=
- =?utf-8?B?MkF1OWRVL09HQVhQSW4rNG1lakhoQkxFT0tzT3JqNGk2Tmh5MXNjbThaaTJD?=
- =?utf-8?B?dCsveVFOYU1WMmhhYlI3RFA0WmEwYXZVdm1CVk1LR2xKSW9GdWhqRXhaMVBy?=
- =?utf-8?B?RUc1OGxnY01tWGY4eXJhNm15Qy8yWUJJVVhGK0NJN0lJRkFieHFEMllWeVFC?=
- =?utf-8?B?bk1DQnVRb1V0dndIV2NaenRHTzF6bklFK1RmUjVXVlZ1WVZXOC9kME5kRGlk?=
- =?utf-8?B?MjJjTzBpZjNYVVBmM3kzYVNUMis1MGNhY1BudDdKUm5BTjNxQnF3dzhYUnhT?=
- =?utf-8?B?SWR0MEhPK09tYzN5UXF0WmNnem1PejY4WUpxWEN2U05LMU82Y0F6ZDFMekpp?=
- =?utf-8?B?YzU5RmZlUXpsTlo2YkFpYWZsd3p6YTFBNURVZlkyb3JtMjI4VExuUDgxMmg4?=
- =?utf-8?B?eFRHaE9vUEVSQ0p0b3RraVZibXZVT0J6b2NvRVJudCt3eEp3THZENktnc2sw?=
- =?utf-8?B?amFRVXh1NUYrL0MvUWFnK2t2N2NoS0JaR0pZVlkyZkVkbFNvbGxVblZhYWVL?=
- =?utf-8?B?Zms0YkhlZGtxMzliSUxQQ1Q2Z0FCRGRRRVcxM2V5dTEwSFB0b3BFWkVpZDJW?=
- =?utf-8?B?NmlXektwMXZ0SFRFa0tqczBsOHRHMXhiMDAzQmNEcHI5c3FWaXkwR1loUDNT?=
- =?utf-8?B?bVBxd0N0c0NBeTBmeWJyakZjU21kM0c0VE4yK2puS3ZBbzJ3dGpRMStkRVBI?=
- =?utf-8?B?RlRxT3g0ZjIzeEF0T1phcmNXRElndm9nYlpJYU5jOTZlOHBzcWFETmt1dE1o?=
- =?utf-8?B?VUw3TGFBeGJpMFhkRnY1Vit6V0xoOG93dDNUTE5WRVhqUGtXeUJsZy80b0xX?=
- =?utf-8?B?TUpSbTNlMUUvb2UzZ0FGUUVVclVVZldvbUcyYURTRXFiUnpNNWMwWHlEYklG?=
- =?utf-8?B?K0EyM1lkUFRRZTRUSTlMMTFWeE54QnBCR2JMWENOQVd0Rkg1VmhFY2EwNEw3?=
- =?utf-8?B?N0E3Kzdjc2k4Q0YvaStjcjA0NzJZL2l5MlVoUGJDMkgvcTZDK0xXWlErMzZD?=
- =?utf-8?B?MFFaSDg4TDkvTFlEOFY2S2JnSHo1U0VBSGlZWkJEOHdZejVES0w1OTJlNWxN?=
- =?utf-8?B?eWp6alVvM0t1R1lCTWNZMU9LWktsT1JmVUYvbjJWZGh2Q2xuZjJta2VpWlBR?=
- =?utf-8?B?am1CZFlYR0dnZkN5UzhOVGhVQk8zd2pnU2kyQVk0NWZoQnJZSGJCN09PbVNp?=
- =?utf-8?B?SVZVcnRuckJ4ZDBsWGwwbDFkaWtVcDNwWGJqWmpKbjhyNktvcHFXWmd5MjBp?=
- =?utf-8?B?c0pKYkJKay9WRFlUOWl3cGhHWkNLWlppRitZOTRlUkVRbFljN2JMMGxadjQx?=
- =?utf-8?B?SC9rWTJ5SzQ0UHU1QlFNNVlSYi8ycVB5cUMrU1g1Y1RySjAxQVlKVU0wU2NX?=
- =?utf-8?B?bmhJNDZ6YkNoSWNKUHRqQnYycGVvVFFMZ0FaaisxUTR1bUpYZjROSVV5OHdR?=
- =?utf-8?B?OEVYb0xpRktrL1VndCtKRG9CWW5XcUt3T2xjakNwUGRPMWtYQ2R6bHYxaS9u?=
- =?utf-8?B?bGRsR3ltbEVIaXAwT0ZLQWFZdEIwNjYxQWNCMmRzS3JXaUdvcnRtWGNiVmc4?=
- =?utf-8?B?eUlralhKT3hMRUJoNnVYRDdoMVNFaWxvMDdWd2ptQnN5ZFlhckc3bENTelor?=
- =?utf-8?B?YTZRVTYwbThpbnJFblViTVA3Y1JHQUE3VkJmQkovaHR0bUs1eXR5K2tZTGtv?=
- =?utf-8?B?SDZPVXlidTY4dk8xekRiMkdXa05hUGJRRGs2c0tsbjFaOXhNS3M0Mk1INWpZ?=
- =?utf-8?B?U21UVm13UGFycFFzRFM5ZGczTVBSTnh1QldTM0Q2bEtnQUVIc0ZrMytSR2Nx?=
- =?utf-8?B?SzNsbTlka3BhRVVKSTcwZ2FKWkhIQjltL2RMSFBkaVJFaXpIT2lwNDUwb1Jp?=
- =?utf-8?B?VjVla29pWlZCYTEwWkcyQU1aVFNqU0xhWTl0bmtySjNuUGtBWHlJai8vOWFJ?=
- =?utf-8?B?YUU1RVI2U1o2RTFUSGQwU1BuL1RZaHNXNXdpN1FGOGZ0bm5CVk1EWVY1U0VT?=
- =?utf-8?Q?Yo1FEv08X8jl+5GsDYMUML8=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d82a074-8e5e-450d-a58f-08d9b0e67965
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2021 14:10:17.6616
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2wwo2wLkJYsAFc0kr++WwvLIucwrRhKOw7hUk4ATQeyuudB1G+WXBzrpCn+27v2j0rmwfu3hhn8am/HPomwi3g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4605
+In-Reply-To: <b51fd518-6c32-c945-d220-f2092ff2666a@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 
-On 26.11.2021 13:33, Andrew Cooper wrote:
-> @@ -124,6 +129,18 @@ config XEN_SHSTK
->  	  When CET-SS is active, 32bit PV guests cannot be used.  Backwards
->  	  compatiblity can be provided via the PV Shim mechanism.
->  
-> +config XEN_IBT
-> +	bool "Supervisor Indirect Branch Tracking"
-> +	depends on HAS_CC_CET_IBT
-> +	default y
-> +	help
-> +	  Control-flow Enforcement Technology (CET) is a set of features in
-> +	  hardware designed to combat Return-oriented Programming (ROP, also
-> +	  call/jump COP/JOP) attacks.  Indirect Branch Tracking is one CET
-> +	  feature designed to provide function pointer protection.
-> +
-> +	  This option arranges for Xen to use CET-IBT for its own protection.
 
-Shouldn't this depend on BROKEN until it's actually functional?
+On 26.11.21 09:46, Jan Beulich wrote:
 
-> --- a/xen/arch/x86/x86_emulate/x86_emulate.h
-> +++ b/xen/arch/x86/x86_emulate/x86_emulate.h
-> @@ -35,6 +35,11 @@
->  # error Unknown compilation width
->  #endif
->  
-> +#ifndef cf_check
-> +/* Cope with userspace build not knowing about CET-IBT */
-> +#define cf_check
-> +#endif
+Hi Jan
 
-Imo this shouldn't go here, but in tools/tests/x86_emulator/x86-emulate.h,
-and then presumably without #ifdef.
+> On 25.11.2021 23:49, Oleksandr Tyshchenko wrote:
+>> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>>
+>> Today I noticed a "note" when building Xen on Arm64 with
+>> aarch64-poky-linux-gcc (GCC) 9.3.0. It turned out that Andrew Cooper
+>> had alredy reported it before [1]:
+>>
+>> mem_access.c: In function 'p2m_mem_access_check':
+>> mem_access.c:227:6: note: parameter passing for argument of type
+>> 'const struct npfec' changed in GCC 9.1
+>>    227 | bool p2m_mem_access_check(paddr_t gpa, vaddr_t gla,
+>>                                    const struct npfec npfec)
+>>
+>>  From the explanation I understand that nothing bad actually is going
+>> to happen in our case, it is harmless and shown to only draw our
+>> attention that the ABI changed due to bug (with passing bit-fields
+>> by value) fixed in GCC 9.1. This information doesn't mean much for us
+>> as Xen is an embedded project with no external linkage. But, of course,
+>> it would be better to eliminate the note. You can also find related
+>> information about the bug at [2].
+>>
+>> So make the note go away by passing bit-fields by reference.
+>>
+>> [1] https://www.mail-archive.com/xen-devel@lists.xenproject.org/msg87439.html
+>> [2] https://gcc.gnu.org/bugzilla/show_bug.cgi?id=88469
+>>
+>> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>> ---
+>> Compile-tested only.
+>> ---
+>>   xen/arch/arm/mem_access.c        | 28 ++++++++++++++--------------
+>>   xen/arch/arm/traps.c             |  2 +-
+>>   xen/include/asm-arm/mem_access.h |  2 +-
+>>   3 files changed, 16 insertions(+), 16 deletions(-)
+> It's all Arm code, so I'm not the one to judge, but I'd like to recommend
+> to live with the note or convince distros to backport the gcc side fix.
+> This definitely was a compiler flaw; see
+> https://gcc.gnu.org/bugzilla/show_bug.cgi?id=91710.
 
-Jan
+Thank you for the pointer and suggestion. Actually, after the 
+realization that note is harmless and doesn't matter in our case, we 
+could indeed tolerate it.
+
+It is up to the maintainers to decide. I will be ok either way.
+
+
+>
+> Jan
+>
+-- 
+Regards,
+
+Oleksandr Tyshchenko
 
 
