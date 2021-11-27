@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7940045FA6C
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E48B45FA6D
 	for <lists+xen-devel@lfdr.de>; Sat, 27 Nov 2021 02:28:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.233757.405953 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.233760.405968 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqmVx-0004EM-4O; Sat, 27 Nov 2021 01:28:29 +0000
+	id 1mqmVz-0004lv-IM; Sat, 27 Nov 2021 01:28:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 233757.405953; Sat, 27 Nov 2021 01:28:29 +0000
+Received: by outflank-mailman (output) from mailman id 233760.405968; Sat, 27 Nov 2021 01:28:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mqmVw-00049w-Ui; Sat, 27 Nov 2021 01:28:28 +0000
-Received: by outflank-mailman (input) for mailman id 233757;
- Sat, 27 Nov 2021 01:28:27 +0000
+	id 1mqmVz-0004X5-9i; Sat, 27 Nov 2021 01:28:31 +0000
+Received: by outflank-mailman (input) for mailman id 233760;
+ Sat, 27 Nov 2021 01:28:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Erow=QO=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1mqmMy-00020H-WE
- for xen-devel@lists.xenproject.org; Sat, 27 Nov 2021 01:19:13 +0000
+ id 1mqmN1-00020H-08
+ for xen-devel@lists.xenproject.org; Sat, 27 Nov 2021 01:19:15 +0000
 Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 047d877d-4f20-11ec-9787-a32c541c8605;
- Sat, 27 Nov 2021 02:19:07 +0100 (CET)
+ id 0559b9ad-4f20-11ec-9787-a32c541c8605;
+ Sat, 27 Nov 2021 02:19:09 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,25 +36,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 047d877d-4f20-11ec-9787-a32c541c8605
-Message-ID: <20211126223825.264524206@linutronix.de>
+X-Inumbo-ID: 0559b9ad-4f20-11ec-9787-a32c541c8605
+Message-ID: <20211126223825.320724006@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1637975946;
+	s=2020; t=1637975948;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=N3CFGfVjsY7LgA1Yw7Ey6P6ZQR/J2nTOxZlFyVj+tfU=;
-	b=Fv0in+37WjQu8qaGw1d+sJDwVg72jTWmW4A0ir4m/M4Ok5n1Maj2zCuqkFlqoDcwKtFhN9
-	usAjQogUj8AjRYgg4XnitKY5rxgW2TkyutAVrKlGFCgr/QOORGiNR/7ULx+gebHewQ2s/A
-	/cIqE2xCgTcvSdjMl/o8jTzKo/rp+T2wCqIQmwW2CBFlppFIU1Ogv1xMa/PU+QvLJWk4QA
-	8ApzSw5z7JxXdKYOPEwzVrt2L/3gLDfjQsxsE0x31MpU5s4q2t0v8iWXAumITmxLRYrtTJ
-	iU+boulqpaCbZh/WpK684wQ0UEls6YBAyu7dgFYcD4eyOfwcT+9k0SAxWnS9Bw==
+	 references:references; bh=kh2ZB8gumt7yFa2wjaDhpeN9tXzUfJvLkALkOS94EFA=;
+	b=rL3dSVq51HwJyrZ1GiK+2Uy987fWifzc93Kzd1rYDYc6CJES4RYQFW91VYz9giUBA4pc8g
+	3Gp8SO0SCSSci4EB0aGRBsqUldeO9DZdmixm6jmAcLXOjd3EDQN4ceHT5qIHtZ1M4OOjCs
+	5B1fwbTAHUDHkQfAY6r0w3SoQx1i3rzd1zp4I1umGTSQGLkl+Ug/rBlXyPGu1g3qmxiQdo
+	9/IiaSvnNmIreFZA0hbCMbgvbZt32iGcp6GO/Dw3rrPbcAK+xJsiiVNJEaCAM2vKSnhji3
+	6KWA27/ZxBzJeVpPdNFWb/PzJXwnrdawx9cM4YXt/mQphMHqQUhIcUngebAkPw==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1637975946;
+	s=2020e; t=1637975948;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=N3CFGfVjsY7LgA1Yw7Ey6P6ZQR/J2nTOxZlFyVj+tfU=;
-	b=LToY0nY68kcZvyJBO8o4NrjRDqhd7lfHJRva1kjIMCQSN9rrfWrqKa7vfx0y47lZyVAi7T
-	hHRAYB/im3bzNaAA==
+	 references:references; bh=kh2ZB8gumt7yFa2wjaDhpeN9tXzUfJvLkALkOS94EFA=;
+	b=QLwf6Eyk3o45pGBEtsCZ2xr7a4DlyXTC6NnM3m6uL6iU2aPZXLRZf3PE6XQ/TuIY8Xwpt7
+	hQcta2kLnH2eixAg==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Bjorn Helgaas <helgaas@kernel.org>,
@@ -81,44 +81,143 @@ Cc: Bjorn Helgaas <helgaas@kernel.org>,
  Juergen Gross <jgross@suse.com>,
  Christian Borntraeger <borntraeger@de.ibm.com>,
  Heiko Carstens <hca@linux.ibm.com>
-Subject: [patch 20/22] PCI/MSI: Make pci_msi_domain_check_cap() static
+Subject: [patch 21/22] genirq/msi: Handle PCI/MSI allocation fail in core code
 References: <20211126222700.862407977@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Sat, 27 Nov 2021 02:19:05 +0100 (CET)
+Date: Sat, 27 Nov 2021 02:19:07 +0100 (CET)
 
-No users outside of that file.
+Get rid of yet another irqdomain callback and let the core code return the
+already available information of how many descriptors could be allocated.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 ---
- drivers/pci/msi/irqdomain.c |    5 +++--
- include/linux/msi.h         |    2 --
- 2 files changed, 3 insertions(+), 4 deletions(-)
+ drivers/pci/msi/irqdomain.c |   13 -------------
+ include/linux/msi.h         |    5 +----
+ kernel/irq/msi.c            |   29 +++++++++++++++++++++++++----
+ 3 files changed, 26 insertions(+), 21 deletions(-)
 
 --- a/drivers/pci/msi/irqdomain.c
 +++ b/drivers/pci/msi/irqdomain.c
-@@ -79,8 +79,9 @@ static inline bool pci_msi_desc_is_multi
-  *  1 if Multi MSI is requested, but the domain does not support it
-  *  -ENOTSUPP otherwise
-  */
--int pci_msi_domain_check_cap(struct irq_domain *domain,
--			     struct msi_domain_info *info, struct device *dev)
-+static int pci_msi_domain_check_cap(struct irq_domain *domain,
-+				    struct msi_domain_info *info,
-+				    struct device *dev)
+@@ -95,16 +95,6 @@ static int pci_msi_domain_check_cap(stru
+ 	return 0;
+ }
+ 
+-static int pci_msi_domain_handle_error(struct irq_domain *domain,
+-				       struct msi_desc *desc, int error)
+-{
+-	/* Special handling to support __pci_enable_msi_range() */
+-	if (pci_msi_desc_is_multi_msi(desc) && error == -ENOSPC)
+-		return 1;
+-
+-	return error;
+-}
+-
+ static void pci_msi_domain_set_desc(msi_alloc_info_t *arg,
+ 				    struct msi_desc *desc)
  {
- 	struct msi_desc *desc = first_pci_msi_entry(to_pci_dev(dev));
+@@ -115,7 +105,6 @@ static void pci_msi_domain_set_desc(msi_
+ static struct msi_domain_ops pci_msi_domain_ops_default = {
+ 	.set_desc	= pci_msi_domain_set_desc,
+ 	.msi_check	= pci_msi_domain_check_cap,
+-	.handle_error	= pci_msi_domain_handle_error,
+ };
+ 
+ static void pci_msi_domain_update_dom_ops(struct msi_domain_info *info)
+@@ -129,8 +118,6 @@ static void pci_msi_domain_update_dom_op
+ 			ops->set_desc = pci_msi_domain_set_desc;
+ 		if (ops->msi_check == NULL)
+ 			ops->msi_check = pci_msi_domain_check_cap;
+-		if (ops->handle_error == NULL)
+-			ops->handle_error = pci_msi_domain_handle_error;
+ 	}
+ }
  
 --- a/include/linux/msi.h
 +++ b/include/linux/msi.h
-@@ -438,8 +438,6 @@ void *platform_msi_get_host_data(struct
- struct irq_domain *pci_msi_create_irq_domain(struct fwnode_handle *fwnode,
- 					     struct msi_domain_info *info,
- 					     struct irq_domain *parent);
--int pci_msi_domain_check_cap(struct irq_domain *domain,
--			     struct msi_domain_info *info, struct device *dev);
- u32 pci_msi_domain_get_msi_rid(struct irq_domain *domain, struct pci_dev *pdev);
- struct irq_domain *pci_msi_get_device_domain(struct pci_dev *pdev);
- bool pci_dev_has_special_msi_domain(struct pci_dev *pdev);
+@@ -285,7 +285,6 @@ struct msi_domain_info;
+  * @msi_check:		Callback for verification of the domain/info/dev data
+  * @msi_prepare:	Prepare the allocation of the interrupts in the domain
+  * @set_desc:		Set the msi descriptor for an interrupt
+- * @handle_error:	Optional error handler if the allocation fails
+  * @domain_alloc_irqs:	Optional function to override the default allocation
+  *			function.
+  * @domain_free_irqs:	Optional function to override the default free
+@@ -294,7 +293,7 @@ struct msi_domain_info;
+  * @get_hwirq, @msi_init and @msi_free are callbacks used by the underlying
+  * irqdomain.
+  *
+- * @msi_check, @msi_prepare, @handle_error and @set_desc are callbacks used by
++ * @msi_check, @msi_prepare and @set_desc are callbacks used by
+  * msi_domain_alloc/free_irqs().
+  *
+  * @domain_alloc_irqs, @domain_free_irqs can be used to override the
+@@ -331,8 +330,6 @@ struct msi_domain_ops {
+ 				       msi_alloc_info_t *arg);
+ 	void		(*set_desc)(msi_alloc_info_t *arg,
+ 				    struct msi_desc *desc);
+-	int		(*handle_error)(struct irq_domain *domain,
+-					struct msi_desc *desc, int error);
+ 	int		(*domain_alloc_irqs)(struct irq_domain *domain,
+ 					     struct device *dev, int nvec);
+ 	void		(*domain_free_irqs)(struct irq_domain *domain,
+--- a/kernel/irq/msi.c
++++ b/kernel/irq/msi.c
+@@ -538,6 +538,27 @@ static bool msi_check_reservation_mode(s
+ 	return desc->pci.msi_attrib.is_msix || desc->pci.msi_attrib.can_mask;
+ }
+ 
++static int msi_handle_pci_fail(struct irq_domain *domain, struct msi_desc *desc,
++			       int allocated)
++{
++	switch(domain->bus_token) {
++	case DOMAIN_BUS_PCI_MSI:
++	case DOMAIN_BUS_VMD_MSI:
++		if (IS_ENABLED(CONFIG_PCI_MSI))
++			break;
++		fallthrough;
++	default:
++		return -ENOSPC;
++	}
++
++	/* Let a failed PCI multi MSI allocation retry */
++	if (desc->nvec_used > 1)
++		return 1;
++
++	/* If there was a successful allocation let the caller know */
++	return allocated ? allocated : -ENOSPC;
++}
++
+ int __msi_domain_alloc_irqs(struct irq_domain *domain, struct device *dev,
+ 			    int nvec)
+ {
+@@ -546,6 +567,7 @@ int __msi_domain_alloc_irqs(struct irq_d
+ 	struct irq_data *irq_data;
+ 	struct msi_desc *desc;
+ 	msi_alloc_info_t arg = { };
++	int allocated = 0;
+ 	int i, ret, virq;
+ 	bool can_reserve;
+ 
+@@ -560,16 +582,15 @@ int __msi_domain_alloc_irqs(struct irq_d
+ 					       dev_to_node(dev), &arg, false,
+ 					       desc->affinity);
+ 		if (virq < 0) {
+-			ret = -ENOSPC;
+-			if (ops->handle_error)
+-				ret = ops->handle_error(domain, desc, ret);
+-			return ret;
++			ret = msi_handle_pci_fail(domain, desc, allocated);
++			goto cleanup;
+ 		}
+ 
+ 		for (i = 0; i < desc->nvec_used; i++) {
+ 			irq_set_msi_desc_off(virq, i, desc);
+ 			irq_debugfs_copy_devname(virq + i, dev);
+ 		}
++		allocated++;
+ 	}
+ 
+ 	can_reserve = msi_check_reservation_mode(domain, info, dev);
 
 
