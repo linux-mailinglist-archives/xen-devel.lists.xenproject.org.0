@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E46C460A07
-	for <lists+xen-devel@lfdr.de>; Sun, 28 Nov 2021 22:06:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.234231.406527 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3DC7460A12
+	for <lists+xen-devel@lfdr.de>; Sun, 28 Nov 2021 22:07:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.234236.406538 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mrRNW-0006yB-RP; Sun, 28 Nov 2021 21:06:30 +0000
+	id 1mrRO9-0007XL-4S; Sun, 28 Nov 2021 21:07:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 234231.406527; Sun, 28 Nov 2021 21:06:30 +0000
+Received: by outflank-mailman (output) from mailman id 234236.406538; Sun, 28 Nov 2021 21:07:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mrRNW-0006vy-Nk; Sun, 28 Nov 2021 21:06:30 +0000
-Received: by outflank-mailman (input) for mailman id 234231;
- Sun, 28 Nov 2021 21:06:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mrRO9-0007Ul-0z; Sun, 28 Nov 2021 21:07:09 +0000
+Received: by outflank-mailman (input) for mailman id 234236;
+ Sun, 28 Nov 2021 21:07:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YMG7=QP=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1mrRNV-0006v4-IK
- for xen-devel@lists.xenproject.org; Sun, 28 Nov 2021 21:06:29 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0e1572b1-508f-11ec-b941-1df2895da90e;
- Sun, 28 Nov 2021 22:06:28 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id k37so39285023lfv.3
- for <xen-devel@lists.xenproject.org>; Sun, 28 Nov 2021 13:06:28 -0800 (PST)
+ id 1mrRO7-0007TI-OW
+ for xen-devel@lists.xenproject.org; Sun, 28 Nov 2021 21:07:07 +0000
+Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
+ [2a00:1450:4864:20::12d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 24d29da2-508f-11ec-976b-d102b41d0961;
+ Sun, 28 Nov 2021 22:07:07 +0100 (CET)
+Received: by mail-lf1-x12d.google.com with SMTP id r26so39233723lfn.8
+ for <xen-devel@lists.xenproject.org>; Sun, 28 Nov 2021 13:07:07 -0800 (PST)
 Received: from [192.168.2.145] (94-29-46-111.dynamic.spd-mgts.ru.
  [94.29.46.111])
- by smtp.googlemail.com with ESMTPSA id v2sm1096217lfb.258.2021.11.28.13.06.26
+ by smtp.googlemail.com with ESMTPSA id s13sm1104272lfg.126.2021.11.28.13.07.04
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 28 Nov 2021 13:06:28 -0800 (PST)
+ Sun, 28 Nov 2021 13:07:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,37 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e1572b1-508f-11ec-b941-1df2895da90e
+X-Inumbo-ID: 24d29da2-508f-11ec-976b-d102b41d0961
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=dBFzSL4UYCAYQqmDupNTSShpvRMUEbaJ9Mx4K7HGHPc=;
-        b=oml1oX0ZWjhkzuRjHJtH1XTn55+HCuWM51eukHmTMUsqYvepCYTnsQ8nmJ1fi6Ny8O
-         hk+9nsbkv1H426inD0KEeQ2Fx2c/aojT5orC8a1HaRiSAHCfbZ4GibLUq6jXw8umdLa+
-         7Npmf61QEFnfrTJUhnvyNQXEcG3o44nwO/yhewKgQ2Tv5+cyXPwRAr9avOHgipiR7uOU
-         3lG/X5TvXt9e7Baba1QmnryaUy282ao9aOX5wnj9w2azfGP26R8Qk0MYK0SZQyDuBX5E
-         nJWhN9xVkrVnERfId0Z6c0a3FiVVFjBlUiijA64WcIz/4PjWlAuAjWR6TMU93ETZJ9CC
-         EpYg==
+        bh=Kep6H8+bfVZ1xeLjsaS2A7zU/qUFFdJhuzBNEKDyf18=;
+        b=MXJpk4bHJWHUsXnttmXJmMehCMhy9keZTcA7B/bYgzynu+fs9AEzA0zWS1didKGcXM
+         ufZY1nIVOAfP0n1FcIj/YQO+JHOspxllH7lEwqxum4orCJ0HB2fsnMEDGJmWeH/qyrsf
+         tBfKAbmns7/1QIwfCwYfnwageJ9+iaZP7wrA89IK5FuGsmtz3WgnEbf4CfOtVYKh+y1P
+         P/ivsGXGLfJ8qk+PLiIxuT1vyrHF2S+SyEG3Jc+cuHLep64IrIJ92EMzFal/KsyKC+gQ
+         ETMGdua/dzs6IwN9uDl7VCnKUva5ihWYK7VOkSKYM4fVdcc0cO/WridgO5+laEgsd2tU
+         tz4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=dBFzSL4UYCAYQqmDupNTSShpvRMUEbaJ9Mx4K7HGHPc=;
-        b=epaP/dK4+FVrtHBLza1H0UadN5Pj+mYHrPFk14nOYYvwgMXuveYJwugDhDgl0Nbgv2
-         qinyv6sSmbNpz4AsV4vgtVYBzmkTV2IbxM4FPNsDba2sxUJ+gEya51+TXUbcnLgp72I+
-         iLLecJe8S1RLEVX/0QXEQWOJDkLoW0rUfbtUPksne1sVV8nOibIDQ3ly8mVcOo9Bvhgp
-         MTrO4RW1x44eNEoB7oYQ83+xqNYo1avaS2tVksK8JWSGnjR31EBto4BMARpv5Xxei6/d
-         ZChfLN+EunSzXH5R9WIAmyJTm9HDrsS8SZZ3SEjH1IoMjsMOw27qGXyfQVDmiYD3dM+E
-         6agA==
-X-Gm-Message-State: AOAM532Ti8RuAl33+PZGnZmPDJfKGRd/ovKk1SoQkDbNfIUjiQVLcQkI
-	JmlvIGWaTktV1SWCxRhK1Lk=
-X-Google-Smtp-Source: ABdhPJw8DbrxRHQUKfkUrzcq3jrRe892hdaQjtTmhQ/Pf+osYN9e0RKllfwyJmy+SLn8xY0V3MlxVg==
-X-Received: by 2002:a05:6512:3fa1:: with SMTP id x33mr34004371lfa.676.1638133588639;
-        Sun, 28 Nov 2021 13:06:28 -0800 (PST)
-Subject: Re: [PATCH v4 05/25] reboot: Warn if restart handler has duplicated
- priority
+        bh=Kep6H8+bfVZ1xeLjsaS2A7zU/qUFFdJhuzBNEKDyf18=;
+        b=qS359CYMXCGEgC7f2GA4oYoEcspTu7TapDbiGB55rioVMoSBVnIXc+qFMwcLc9R5D+
+         nFIhDnOS78hXv3g0tTNTY2R+mH0YdIQA8lhPAQOE7FKbn9f94VXYfPZ6MwlFh9PxeMXv
+         guPTbDf9JQi2Ia9dZhGkBnmhgoAFxhmDlNXiF0YNTWPUOOdoFMcxR5HW+5O3Oy8cNQk9
+         CQmZQixtnqYSD8oeVQxN1jSgOOzxI8RvmXOD2XvZG6N9Mm3vndUtzPdfrAI+djAG5KgO
+         ln8r+kLdHMtyXddbWA6EoMJkESotI0tebnsROHQWsmA/KHHNT7fMYvraujrSmdxyjCQC
+         NUcw==
+X-Gm-Message-State: AOAM530jDXOfEqB/QfEZz6h+E37oLr3Q+5xr4uiwvf5Lc+d9IrHdFWv9
+	rzAGJ0KeH3I5piox0DwV0RE=
+X-Google-Smtp-Source: ABdhPJy4zl/AZzFPwJNVkHu3GSDT6aqXWQbZeWCJLgVwlcbzfRDN23rTDTUYoWjDb/oPahZVEVnA9Q==
+X-Received: by 2002:a19:5e59:: with SMTP id z25mr43385851lfi.686.1638133626682;
+        Sun, 28 Nov 2021 13:07:06 -0800 (PST)
+Subject: Re: [PATCH v4 18/25] x86: Use do_kernel_power_off()
 To: =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
 Cc: Thierry Reding <thierry.reding@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Russell King
@@ -115,48 +114,56 @@ Cc: Thierry Reding <thierry.reding@gmail.com>,
  xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
  linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org
 References: <20211126180101.27818-1-digetx@gmail.com>
- <20211126180101.27818-6-digetx@gmail.com> <YaLNOJTM+lVq+YNS@qmqm.qmqm.pl>
+ <20211126180101.27818-19-digetx@gmail.com> <YaLYR24XRijSmBq3@qmqm.qmqm.pl>
 From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <033ddf2a-6223-1a82-ec64-30f17c891f67@gmail.com>
-Date: Mon, 29 Nov 2021 00:06:19 +0300
+Message-ID: <3082ba7a-f8f6-b2d9-5ae3-ec639b1a6bee@gmail.com>
+Date: Mon, 29 Nov 2021 00:06:57 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <YaLNOJTM+lVq+YNS@qmqm.qmqm.pl>
+In-Reply-To: <YaLYR24XRijSmBq3@qmqm.qmqm.pl>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-28.11.2021 03:28, Michał Mirosław пишет:
-> On Fri, Nov 26, 2021 at 09:00:41PM +0300, Dmitry Osipenko wrote:
->> Add sanity check which ensures that there are no two restart handlers
->> registered with the same priority. Normally it's a direct sign of a
->> problem if two handlers use the same priority.
+28.11.2021 04:15, Michał Mirosław пишет:
+> On Fri, Nov 26, 2021 at 09:00:54PM +0300, Dmitry Osipenko wrote:
+>> Kernel now supports chained power-off handlers. Use do_kernel_power_off()
+>> that invokes chained power-off handlers. It also invokes legacy
+>> pm_power_off() for now, which will be removed once all drivers will
+>> be converted to the new power-off API.
+>>
+>> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+>> ---
+>>  arch/x86/kernel/reboot.c | 4 ++--
+>>  1 file changed, 2 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/arch/x86/kernel/reboot.c b/arch/x86/kernel/reboot.c
+>> index 0a40df66a40d..cd7d9416d81a 100644
+>> --- a/arch/x86/kernel/reboot.c
+>> +++ b/arch/x86/kernel/reboot.c
+>> @@ -747,10 +747,10 @@ static void native_machine_halt(void)
+>>  
+>>  static void native_machine_power_off(void)
+>>  {
+>> -	if (pm_power_off) {
+>> +	if (kernel_can_power_off()) {
+>>  		if (!reboot_force)
+>>  			machine_shutdown();
+>> -		pm_power_off();
+>> +		do_kernel_power_off();
+>>  	}
 > 
-> The patch doesn't ensure the property that there are no duplicated-priority
-> entries on the chain.
+> Judging from an old commit from 2006 [1], this can be rewritten as:
+> 
+> if (!reboot_force && kernel_can_power_off())
+> 	machine_shutdown();
+> do_kernel_power_off();
+> 
+> And maybe later reworked so it doesn't need kernel_can_power_off().
+> 
+> [1] http://lkml.iu.edu/hypermail//linux/kernel/0511.3/0681.html
 
-It's not the exact point of this patch.
-
-> I'd rather see a atomic_notifier_chain_register_unique() that returns
-> -EBUSY or something istead of adding an entry with duplicate priority.
-> That way it would need only one list traversal unless you want to
-> register the duplicate anyway (then you would call the older
-> atomic_notifier_chain_register() after reporting the error).
-
-The point of this patch is to warn developers about the problem that
-needs to be fixed. We already have such troubling drivers in mainline.
-
-It's not critical to register different handlers with a duplicated
-priorities, but such cases really need to be corrected. We shouldn't
-break users' machines during transition to the new API, meanwhile
-developers should take action of fixing theirs drivers.
-
-> (Or you could return > 0 when a duplicate is registered in
-> atomic_notifier_chain_register() if the callers are prepared
-> for that. I don't really like this way, though.)
-
-I had a similar thought at some point before and decided that I'm not in
-favor of this approach. It's nicer to have a dedicated function that
-verifies the uniqueness, IMO.
+It could be rewritten like you're suggesting, but I'd prefer to keep the
+old variant, for clarity.
 
