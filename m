@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ACB44609A4
-	for <lists+xen-devel@lfdr.de>; Sun, 28 Nov 2021 21:21:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.234199.406486 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7F7C4609F6
+	for <lists+xen-devel@lfdr.de>; Sun, 28 Nov 2021 22:05:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.234219.406505 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mrQfk-0001Xq-SC; Sun, 28 Nov 2021 20:21:16 +0000
+	id 1mrRLL-0005l1-4E; Sun, 28 Nov 2021 21:04:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 234199.406486; Sun, 28 Nov 2021 20:21:16 +0000
+Received: by outflank-mailman (output) from mailman id 234219.406505; Sun, 28 Nov 2021 21:04:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mrQfk-0001Vr-Oz; Sun, 28 Nov 2021 20:21:16 +0000
-Received: by outflank-mailman (input) for mailman id 234199;
- Sun, 28 Nov 2021 20:21:15 +0000
+	id 1mrRLL-0005iY-0J; Sun, 28 Nov 2021 21:04:15 +0000
+Received: by outflank-mailman (input) for mailman id 234219;
+ Sun, 28 Nov 2021 21:04:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FL9v=QP=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1mrQfj-0001Vl-AY
- for xen-devel@lists.xenproject.org; Sun, 28 Nov 2021 20:21:15 +0000
-Received: from mail-pl1-x634.google.com (mail-pl1-x634.google.com
- [2607:f8b0:4864:20::634])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=YMG7=QP=gmail.com=digetx@srs-se1.protection.inumbo.net>)
+ id 1mrRLJ-0005iS-9k
+ for xen-devel@lists.xenproject.org; Sun, 28 Nov 2021 21:04:13 +0000
+Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
+ [2a00:1450:4864:20::22b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb89bdd3-5088-11ec-b941-1df2895da90e;
- Sun, 28 Nov 2021 21:21:14 +0100 (CET)
-Received: by mail-pl1-x634.google.com with SMTP id m24so10360993pls.10
- for <xen-devel@lists.xenproject.org>; Sun, 28 Nov 2021 12:21:14 -0800 (PST)
-Received: from [10.11.22.27] (wsip-24-120-54-60.lv.lv.cox.net. [24.120.54.60])
- by smtp.gmail.com with ESMTPSA id
- d17sm13421956pfo.40.2021.11.28.12.21.11
+ id bc9e92a0-508e-11ec-b941-1df2895da90e;
+ Sun, 28 Nov 2021 22:04:12 +0100 (CET)
+Received: by mail-lj1-x22b.google.com with SMTP id t11so30546960ljh.6
+ for <xen-devel@lists.xenproject.org>; Sun, 28 Nov 2021 13:04:12 -0800 (PST)
+Received: from [192.168.2.145] (94-29-46-111.dynamic.spd-mgts.ru.
+ [94.29.46.111])
+ by smtp.googlemail.com with ESMTPSA id c17sm1100736lfr.235.2021.11.28.13.04.09
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 28 Nov 2021 12:21:12 -0800 (PST)
+ Sun, 28 Nov 2021 13:04:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,79 +44,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb89bdd3-5088-11ec-b941-1df2895da90e
+X-Inumbo-ID: bc9e92a0-508e-11ec-b941-1df2895da90e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:reply-to:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=U1whNi9SAc6ScOh1I9KuK0DsXkCOcS/Kb99p7Pdd+AY=;
-        b=el7LWb3/CvYkqOLrnV7/DGKGrT3cFN9MP37fC1rniZGORCOcF+ynzbGWuiDwueUFns
-         wYX9JgJ+UR1cmX+InTmBm0Fq1vXxvek/HD2JKRAcEwA9cmTR36DUH8Ew3ZcZ4YT+8QhK
-         gdeHHSZcajcZ52vSatI7aWeQPLyvCGSNuJpbRQ6VHvF36pQUPmo+L26AV1xTX+4XLCmA
-         mZBCthixy2xPCJkVasEvC9aA8wma3VWAVWiuxRKNF+TRJ511BO/389waO11dTzn6liBu
-         ZhL/JRlDwzVRZ6ElmhOkxgqlA9W7ySoBW4klanMgJ3d85ct2p/8j3DwPwzjikx1S1Mdv
-         JZqw==
+        h=subject:to:cc:references:from:message-id:date:user-agent
+         :mime-version:in-reply-to:content-language:content-transfer-encoding;
+        bh=wtn5Hkee5e4Yh99ylBrB3oNbIRTQMbXx6i2LcHRuAAA=;
+        b=D7axuJW5K4soTW7ePg2XEY/iNxftObXK2r+AyGGcLpSZUVVVDeOdARXPvJKsrnTiWz
+         AoAXcXPY5kZDAFmNd2VORgyu8fNJK2h3Akf7Z4wOIV4j7hl4k+Lg94oWKvPyZvxvLsrU
+         gHjqykqz9pVTUOOpARf13AebW7syYSoupun9EMn0XvrUZckKr/LqJa+4eSWKEzDWJLdo
+         K7OPzWs09+Av5yHcfZj3Q7MZQ+BDltCGiVFFVwhBt7T15YiSiT0WAJ3uiNnPq9pF4dyU
+         I8pWXsXnC3XNCL+7zY4D1T6JR7EW9moTsiVuNSfEmpW1ojxHFbjsYoYQXbcJq5XV5+Um
+         iPxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
-         :subject:content-language:to:cc:references:from:in-reply-to
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=U1whNi9SAc6ScOh1I9KuK0DsXkCOcS/Kb99p7Pdd+AY=;
-        b=WoafkqNcMaHlMsOsmxaTI4/rx5vphPSrvkVPKTGIltu2NGOKcmBJREy6SkzH22a2K8
-         ibW+Gzi1H7lygsyTTT/LSFfcJobAGZiJhqfaP9E4FC+HvZsa6qTi+AeekArKvbkh7XMW
-         WzJZwwMutTspk+qApDwEa027OqOZ75MTKpqrolg/cpPfbFSSJ+fdrv3Somumkmncid8r
-         PDT0W6CixedzyPdofex1VSqjZLPJ7r7UCI5UqUt5R7pjpb9/Cg+J3cuabD9cW/mKYfND
-         XOoDYkxZglKjL0hvmS7HWfe3uX2G5a8GnIpZ7W8V10AL9nSz3I+1xkGb86Fq4XFxGvpJ
-         YLbw==
-X-Gm-Message-State: AOAM533D6Qoa2iLvLWP5p/LjIPu9b607dgfGCzRzkapwdi1FaGKPw48z
-	8zD12KZStqlSLrvj1jnqM8E=
-X-Google-Smtp-Source: ABdhPJzglQTz56SHO3HBrpGJOjfbTAtP5t59UU+qc21TXhbd7fLW6rI8AoDz10WgFRiHyznrmYARkA==
-X-Received: by 2002:a17:902:f092:b0:141:ccb6:897 with SMTP id p18-20020a170902f09200b00141ccb60897mr54885424pla.89.1638130872844;
-        Sun, 28 Nov 2021 12:21:12 -0800 (PST)
-Message-ID: <66a71ffe-7a05-76d4-a3a1-cbf8a1c68006@gmail.com>
-Date: Sun, 28 Nov 2021 12:21:11 -0800
+        bh=wtn5Hkee5e4Yh99ylBrB3oNbIRTQMbXx6i2LcHRuAAA=;
+        b=baTsX54WlnLjvE9joKKuO6rWnzzHEHtWZwwbvI5tmQurTPLp0RijvikPz/kEvdVlAA
+         BRjTwjbr/WTb/hf/p0pWd0DMjB2jtRVA9bf7eFAaK0mKtmx4/JpiZADWA7m/3OTaaqmk
+         vmK3rWzXjmbgbYmc1+Z8VZfLNHgyDVU2HN9NgHN/AHC0uZaBXwlwqKCa9y1L3ZMZGBry
+         d7yE2QksrGyeBr28kO8/ojG0euMqR4JqjNjXF+7CrncF6Cf8wab5GFenTqx9WeqniZ7B
+         tYon8W5Ecn0+zHem5aKyr8R9fXNz5nyH8MKYiXHDpYG0/wmEdA2FgjEZTdyhkCHeWmbS
+         kFlA==
+X-Gm-Message-State: AOAM530oC53xhz2ieEh+j44kSo2Hs3ui/H+gRRhZ3X6xqGHG2ZmGweOH
+	GDtapkWOSyG5no35VMd4/XI=
+X-Google-Smtp-Source: ABdhPJxH7knkFdz7TFpFlawyIdB41srtPJMqsrOfzCPJDLK6AlWk3m8N6okcECoeJRZyDtP9PR9VhQ==
+X-Received: by 2002:a05:651c:1257:: with SMTP id h23mr44458754ljh.17.1638133451873;
+        Sun, 28 Nov 2021 13:04:11 -0800 (PST)
+Subject: Re: [PATCH v4 08/25] kernel: Add combined power-off+restart handler
+ call chain API
+To: =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
+Cc: Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Russell King
+ <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, Greg Ungerer
+ <gerg@linux-m68k.org>, Joshua Thompson <funaho@jurai.org>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Sebastian Reichel <sre@kernel.org>, Linus Walleij
+ <linus.walleij@linaro.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Michael Ellerman <mpe@ellerman.id.au>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
+ <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
+ Santosh Shilimkar <ssantosh@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Pavel Machek <pavel@ucw.cz>, Lee Jones <lee.jones@linaro.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Guenter Roeck
+ <linux@roeck-us.net>, Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Ulf Hansson <ulf.hansson@linaro.org>, alankao@andestech.com,
+ "K . C . Kuen-Chern Lin" <kclin@andestech.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-csky@vger.kernel.org, linux-ia64@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org,
+ linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-riscv@lists.infradead.org, linux-sh@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org
+References: <20211126180101.27818-1-digetx@gmail.com>
+ <20211126180101.27818-9-digetx@gmail.com> <YaLQqks8cB0vWp6Q@qmqm.qmqm.pl>
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <9213569e-0f40-0df1-4710-8dab564e12d6@gmail.com>
+Date: Mon, 29 Nov 2021 00:04:01 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Reply-To: paul@xen.org
-Subject: Re: [PATCH] public: add RING_NR_UNCONSUMED_*() macros to ring.h
+In-Reply-To: <YaLQqks8cB0vWp6Q@qmqm.qmqm.pl>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
- Manuel Bouyer <bouyer@antioche.eu.org>,
- Simon Kuenzer <simon.kuenzer@neclab.eu>, Paul Durrant <paul@xen.org>
-References: <20211126065547.22644-1-jgross@suse.com>
-From: "Durrant, Paul" <xadimgnik@gmail.com>
-In-Reply-To: <20211126065547.22644-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 25/11/2021 22:55, Juergen Gross wrote:
-> Today RING_HAS_UNCONSUMED_*() macros are returning the number of
-> unconsumed requests or responses instead of a boolean as the name of
-> the macros would imply.
+28.11.2021 03:43, Michał Mirosław пишет:
+> On Fri, Nov 26, 2021 at 09:00:44PM +0300, Dmitry Osipenko wrote:
+>> SoC platforms often have multiple ways of how to perform system's
+>> power-off and restart operations. Meanwhile today's kernel is limited to
+>> a single option. Add combined power-off+restart handler call chain API,
+>> which is inspired by the restart API. The new API provides both power-off
+>> and restart functionality.
+>>
+>> The old pm_power_off method will be kept around till all users are
+>> converted to the new API.
+>>
+>> Current restart API will be replaced by the new unified API since
+>> new API is its superset. The restart functionality of the sys-off handler
+>> API is built upon the existing restart-notifier APIs.
+>>
+>> In order to ease conversion to the new API, convenient helpers are added
+>> for the common use-cases. They will reduce amount of boilerplate code and
+>> remove global variables. These helpers preserve old behaviour for cases
+>> where only one power-off handler is expected, this is what all existing
+>> drivers want, and thus, they could be easily converted to the new API.
+>> Users of the new API should explicitly enable power-off chaining by
+>> setting corresponding flag of the power_handler structure.
+> [...]
 > 
-> As this "feature" is already being used, rename the macros to
-> RING_NR_UNCONSUMED_*() and define the RING_HAS_UNCONSUMED_*() macros
-> by using the new RING_NR_UNCONSUMED_*() macros. In order to avoid
-> future misuse let RING_HAS_UNCONSUMED_*() really return a boolean.
+> Hi,
 > 
-> Note that the known misuses need to be switched to the new
-> RING_NR_UNCONSUMED_*() macros when using this version of ring.h.
-> 
-> Cc: Roger Pau Monne <roger.pau@citrix.com>
-> Cc: Manuel Bouyer <bouyer@antioche.eu.org>
-> Cc: Simon Kuenzer <simon.kuenzer@neclab.eu>
-> Cc: Paul Durrant <paul@xen.org>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
-> I have checked Xen, Mini-OS, qemu, grub2, OVMF and Linux kernel for
-> misuses of the RING_HAS_UNCONSUMED_*() macros. There is currently only
-> one instance in the Linux kernel netback driver. The BSDs, UNIKRAFT
-> and Windows PV drivers should be checked for misuse, too.
+> A general question: do we really need three distinct chains for this?
 
-I don't think there will be any problem with Windows.
+Hello Michał,
 
-   Paul
+At minimum this makes code easier to follow.
+
+> Can't there be only one that chain of callbacks that get a stage
+> (RESTART_PREPARE, RESTART, POWER_OFF_PREPARE, POWER_OFF) and can ignore
+> them at will? Calling through POWER_OFF_PREPARE would also return
+> whether that POWER_OFF is possible (for kernel_can_power_off()).
+
+I'm having trouble with parsing this comment. Could you please try to
+rephrase it? I don't see how you could check whether power-off handler
+is available if you'll mix all handlers together.
+
+> I would also split this patch into preparation cleanups (like wrapping
+> pm_power_off call with a function) and adding the notifier-based
+> implementation.
+
+What's the benefit of this split up will be? Are you suggesting that it
+will ease reviewing of this patch or something else?
 
