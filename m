@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8DAA4602AA
-	for <lists+xen-devel@lfdr.de>; Sun, 28 Nov 2021 01:48:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.234112.406335 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9F0746029F
+	for <lists+xen-devel@lfdr.de>; Sun, 28 Nov 2021 01:44:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.234106.406323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mr8MZ-0006sd-AF; Sun, 28 Nov 2021 00:48:15 +0000
+	id 1mr8I2-0006EL-Oj; Sun, 28 Nov 2021 00:43:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 234112.406335; Sun, 28 Nov 2021 00:48:15 +0000
+Received: by outflank-mailman (output) from mailman id 234106.406323; Sun, 28 Nov 2021 00:43:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mr8MZ-0006qq-79; Sun, 28 Nov 2021 00:48:15 +0000
-Received: by outflank-mailman (input) for mailman id 234112;
- Sun, 28 Nov 2021 00:48:13 +0000
+	id 1mr8I2-0006CE-LO; Sun, 28 Nov 2021 00:43:34 +0000
+Received: by outflank-mailman (input) for mailman id 234106;
+ Sun, 28 Nov 2021 00:43:32 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LJYX=QP=rere.qmqm.pl=mirq-linux@srs-se1.protection.inumbo.net>)
- id 1mr8MX-0006qk-Hp
- for xen-devel@lists.xenproject.org; Sun, 28 Nov 2021 00:48:13 +0000
+ id 1mr8I0-0006C8-7a
+ for xen-devel@lists.xenproject.org; Sun, 28 Nov 2021 00:43:32 +0000
 Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dd2e4ee5-4fe4-11ec-976b-d102b41d0961;
- Sun, 28 Nov 2021 01:48:12 +0100 (CET)
+ id 34cb207b-4fe4-11ec-976b-d102b41d0961;
+ Sun, 28 Nov 2021 01:43:30 +0100 (CET)
 Received: from remote.user (localhost [127.0.0.1])
- by rere.qmqm.pl (Postfix) with ESMTPSA id 4J1q8r4xRGz9Y;
- Sun, 28 Nov 2021 01:28:44 +0100 (CET)
+ by rere.qmqm.pl (Postfix) with ESMTPSA id 4J1qTm1DhtzNL;
+ Sun, 28 Nov 2021 01:43:24 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,19 +39,19 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd2e4ee5-4fe4-11ec-976b-d102b41d0961
+X-Inumbo-ID: 34cb207b-4fe4-11ec-976b-d102b41d0961
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
-	t=1638059340; bh=BpCUv6sc6+ijt8bP2X1dBPBQztb08CMPEjcmSI4mWHs=;
+	t=1638060207; bh=ymi2rjesYlmYsrxY12X8vblXPJWiCK3o6T/SGnAjDZo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=E2pJXVdwpF7xa7NgJpuaA7I4sUgCSxdIM51ma240k1OvyN0BqmbHCll/qibc7LmRW
-	 l2lYyRdiOG0LzZZRcQGCbOEp7l5l7FW2EF13o78tAxh2BlfQLPIqSf2RtHjwNL3AHE
-	 ag5QLlLhW95Kp8fH9dCV3j4Imx5XQ5T4nV1vyleMAzKz1Soq6c6OnKpJ5TdzfdwJ2G
-	 LnQoKtgUWmpQEblg3IMnaxzgslueaP8apjKdZ9y96JJ35QjeXKQSawNEPmoxjBztTd
-	 XADr6Ffb3r0e7Kv67f/UCkeky+8m4GCPkGRqXkdYh2BWzTit8bUIHp4dPNUh/LgLHY
-	 SH/yCd1X39o+Q==
+	b=C6SfBZOFpiANlfwmDvX4OuIMVOJSlYKPAQ7cePS7VCRqQvRDRXyoU4e1HDyFW5286
+	 aMp77cXaWF2QuMJ//PO7Wx9adwPHxvzWlhsVptz1Bv8pKTYitnPzWsGYgxjQNrOvV7
+	 Uk484prqIxJAORTEmmGB3fc8u4Kn87uEVHmrPcrNw+TikFuKmaRxmZpfI/D7x9DxOR
+	 HEK/DHm3KCkqlnpSbmB87Uzzanvh59D/q1WHxqRBbTNokUG7ZgWXQQKaJ+DCHFVboG
+	 CiQGnas3tcMmGH5URTeE0feIhbti0vtOii+M7lKOB+wnpM9RCc3cCyDZ3xGFva1jKa
+	 oHCSKPMXxlqVw==
 X-Virus-Status: Clean
 X-Virus-Scanned: clamav-milter 0.103.3 at mail
-Date: Sun, 28 Nov 2021 01:28:40 +0100
+Date: Sun, 28 Nov 2021 01:43:22 +0100
 From: =?iso-8859-2?Q?Micha=B3_Miros=B3aw?= <mirq-linux@rere.qmqm.pl>
 To: Dmitry Osipenko <digetx@gmail.com>
 Cc: Thierry Reding <thierry.reding@gmail.com>,
@@ -103,35 +103,52 @@ Cc: Thierry Reding <thierry.reding@gmail.com>,
 	linux-riscv@lists.infradead.org, linux-sh@vger.kernel.org,
 	xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v4 05/25] reboot: Warn if restart handler has duplicated
- priority
-Message-ID: <YaLNOJTM+lVq+YNS@qmqm.qmqm.pl>
+Subject: Re: [PATCH v4 08/25] kernel: Add combined power-off+restart handler
+ call chain API
+Message-ID: <YaLQqks8cB0vWp6Q@qmqm.qmqm.pl>
 References: <20211126180101.27818-1-digetx@gmail.com>
- <20211126180101.27818-6-digetx@gmail.com>
+ <20211126180101.27818-9-digetx@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-2
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211126180101.27818-6-digetx@gmail.com>
+In-Reply-To: <20211126180101.27818-9-digetx@gmail.com>
 
-On Fri, Nov 26, 2021 at 09:00:41PM +0300, Dmitry Osipenko wrote:
-> Add sanity check which ensures that there are no two restart handlers
-> registered with the same priority. Normally it's a direct sign of a
-> problem if two handlers use the same priority.
+On Fri, Nov 26, 2021 at 09:00:44PM +0300, Dmitry Osipenko wrote:
+> SoC platforms often have multiple ways of how to perform system's
+> power-off and restart operations. Meanwhile today's kernel is limited to
+> a single option. Add combined power-off+restart handler call chain API,
+> which is inspired by the restart API. The new API provides both power-off
+> and restart functionality.
+> 
+> The old pm_power_off method will be kept around till all users are
+> converted to the new API.
+> 
+> Current restart API will be replaced by the new unified API since
+> new API is its superset. The restart functionality of the sys-off handler
+> API is built upon the existing restart-notifier APIs.
+> 
+> In order to ease conversion to the new API, convenient helpers are added
+> for the common use-cases. They will reduce amount of boilerplate code and
+> remove global variables. These helpers preserve old behaviour for cases
+> where only one power-off handler is expected, this is what all existing
+> drivers want, and thus, they could be easily converted to the new API.
+> Users of the new API should explicitly enable power-off chaining by
+> setting corresponding flag of the power_handler structure.
+[...]
 
-The patch doesn't ensure the property that there are no duplicated-priority
-entries on the chain.
+Hi,
 
-I'd rather see a atomic_notifier_chain_register_unique() that returns
--EBUSY or something istead of adding an entry with duplicate priority.
-That way it would need only one list traversal unless you want to
-register the duplicate anyway (then you would call the older
-atomic_notifier_chain_register() after reporting the error).
+A general question: do we really need three distinct chains for this?
+Can't there be only one that chain of callbacks that get a stage
+(RESTART_PREPARE, RESTART, POWER_OFF_PREPARE, POWER_OFF) and can ignore
+them at will? Calling through POWER_OFF_PREPARE would also return
+whether that POWER_OFF is possible (for kernel_can_power_off()).
 
-(Or you could return > 0 when a duplicate is registered in
-atomic_notifier_chain_register() if the callers are prepared
-for that. I don't really like this way, though.)
+I would also split this patch into preparation cleanups (like wrapping
+pm_power_off call with a function) and adding the notifier-based
+implementation.
 
 Best Regards
-Micha³ Miros³aw
+Micha³ Miros³aw
 
