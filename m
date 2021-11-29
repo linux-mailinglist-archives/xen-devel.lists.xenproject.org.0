@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A45C460BF9
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Nov 2021 02:02:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.234289.406614 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC3F2460F44
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Nov 2021 08:20:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.234296.406625 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mrV2s-00063s-D5; Mon, 29 Nov 2021 01:01:26 +0000
+	id 1mrawd-0001P9-K6; Mon, 29 Nov 2021 07:19:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 234289.406614; Mon, 29 Nov 2021 01:01:26 +0000
+Received: by outflank-mailman (output) from mailman id 234296.406625; Mon, 29 Nov 2021 07:19:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mrV2s-0005zd-9z; Mon, 29 Nov 2021 01:01:26 +0000
-Received: by outflank-mailman (input) for mailman id 234289;
- Mon, 29 Nov 2021 01:01:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pV+N=QQ=gmail.com=robherring2@srs-se1.protection.inumbo.net>)
- id 1mrV2q-00052H-E0
- for xen-devel@lists.xenproject.org; Mon, 29 Nov 2021 01:01:24 +0000
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
- [209.85.167.181]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de66ffd8-50af-11ec-976b-d102b41d0961;
- Mon, 29 Nov 2021 02:01:23 +0100 (CET)
-Received: by mail-oi1-f181.google.com with SMTP id t23so31449673oiw.3
- for <xen-devel@lists.xenproject.org>; Sun, 28 Nov 2021 17:01:23 -0800 (PST)
-Received: from robh.at.kernel.org ([172.58.99.229])
- by smtp.gmail.com with ESMTPSA id r22sm2635197oij.36.2021.11.28.17.01.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 28 Nov 2021 17:01:21 -0800 (PST)
-Received: (nullmailer pid 2935047 invoked by uid 1000);
- Mon, 29 Nov 2021 01:01:19 -0000
+	id 1mrawd-0001NH-Gw; Mon, 29 Nov 2021 07:19:23 +0000
+Received: by outflank-mailman (input) for mailman id 234296;
+ Mon, 29 Nov 2021 07:19:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=z1eq=QQ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1mrawb-0001NB-R1
+ for xen-devel@lists.xenproject.org; Mon, 29 Nov 2021 07:19:21 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id aac302b4-50e4-11ec-b941-1df2895da90e;
+ Mon, 29 Nov 2021 08:19:20 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 52BAA1FCA1;
+ Mon, 29 Nov 2021 07:19:19 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 30D0C133FE;
+ Mon, 29 Nov 2021 07:19:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id VfokCvd+pGHPGQAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 29 Nov 2021 07:19:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,61 +51,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de66ffd8-50af-11ec-976b-d102b41d0961
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=gkyjuo6MmtLiwh7POxoNoQdP1NjooIZOrMils/hYYIE=;
-        b=gUT2tTMk0BczHy3ryDY6B4Zhzar/0M8YaktP7Ufe62zuFb4o03d/BGvUbmDEkfm8Ev
-         J9h7nlLuoVDyrQqvukIgG707170ptlitFCoxT3w9Tfm6+AMK/NFXauBbvUk0vTuHFXOj
-         ng1yQXNfHhUs2NJV+U1nxXMiWd0DP+HDyYCL0aZ8XuN0sAu23mI0A2G4TolQVfz4IgOI
-         EW9XwrwnvQoyLlU9duvPKrrGWmNFNAta9bYmOs1/Ai/WC3fTcjQqDJakfPjAV1Ie3LSj
-         keJPmA6sZc/uBTqkqtcn3rrKp0YLiDV4LqWvZWttLqKUpcbOAxOScfiuYGpyMtSGyHbO
-         WMFw==
-X-Gm-Message-State: AOAM531DLb1B11orNdDjm1BXrqKpX+s/cON6USsM1UeSOfRqeii2RQYN
-	vyGlfDlnJv2qtE4EwtaajQ==
-X-Google-Smtp-Source: ABdhPJwr/v9hFcvb1N+bf6bPHrQUb9xfuS63o4Gq1N5QJ09K6S+ZDqeDG+Ki8ve08g69OHSEAFdsTw==
-X-Received: by 2002:aca:afc6:: with SMTP id y189mr37224521oie.46.1638147681830;
-        Sun, 28 Nov 2021 17:01:21 -0800 (PST)
-Date: Sun, 28 Nov 2021 19:01:19 -0600
-From: Rob Herring <robh@kernel.org>
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Rob Herring <robh+dt@kernel.org>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH V3 6/6] dt-bindings: xen: Clarify "reg" purpose
-Message-ID: <YaQmX/OlHFa0F4kD@robh.at.kernel.org>
-References: <1637787223-21129-1-git-send-email-olekstysh@gmail.com>
- <1637787223-21129-7-git-send-email-olekstysh@gmail.com>
+X-Inumbo-ID: aac302b4-50e4-11ec-b941-1df2895da90e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1638170359; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type;
+	bh=SYwXW/2pvGjEC+A3oUqLRQRnOe6kCH8gfjkqGE/npIo=;
+	b=MUNAoVjiHDT0uGW66GJxJEvqBFf7MXGJJr561fX3DjoAB0AY9l5aWE0I4GlBd6dLJIcQ27
+	0NGrCDd+5lSKfBxlwvs/WZk7zDAYLNWvYI81q/ulM5EsU6ek6grcxRcnsYihP0C5jRu784
+	KqZ98ZP59f8JPWmFynj2gONZY+aTl14=
+To: "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+From: Juergen Gross <jgross@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Patches for stable 5.10 kernel
+Message-ID: <59ff38c4-8355-ecf6-040d-1234320a806b@suse.com>
+Date: Mon, 29 Nov 2021 08:19:18 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1637787223-21129-7-git-send-email-olekstysh@gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="wpUMVDKHee1Hkri6ANmGTicGwGLHyCjqB"
 
-On Wed, 24 Nov 2021 22:53:43 +0200, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> Xen on Arm has gained new support recently to calculate and report
-> extended regions (unused address space) safe to use for external
-> mappings. These regions are reported via "reg" property under
-> "hypervisor" node in the guest device-tree. As region 0 is reserved
-> for grant table space (always present), the indexes for extended
-> regions are 1...N.
-> 
-> No device-tree bindings update is needed (except clarifying the text)
-> as guest infers the presence of extended regions from the number
-> of regions in "reg" property.
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> ---
-> According to the recent update to Xen's guest.txt:
-> https://xenbits.xen.org/gitweb/?p=xen.git;a=blob_plain;f=docs/misc/arm/device-tree/guest.txt;hb=refs/heads/master
-> 
-> Changes V2 -> V3:
->    - new patch
-> ---
->  Documentation/devicetree/bindings/arm/xen.txt | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
-> 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--wpUMVDKHee1Hkri6ANmGTicGwGLHyCjqB
+Content-Type: multipart/mixed; boundary="xhbnUF2toUKD6zqO2hFC27BzFtPuF8q0E";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <59ff38c4-8355-ecf6-040d-1234320a806b@suse.com>
+Subject: Patches for stable 5.10 kernel
 
-Acked-by: Rob Herring <robh@kernel.org>
+--xhbnUF2toUKD6zqO2hFC27BzFtPuF8q0E
+Content-Type: multipart/mixed;
+ boundary="------------BB97D6599586F986C0DB6E08"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------BB97D6599586F986C0DB6E08
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+Hi Greg,
+
+could you please add the following upstream patches to the stable 5.10
+kernel (I'll send separate mails for the older stable kernels as some
+of the patches don't apply for those)? They are hardening Xen PV
+frontends against attacks from related backends.
+
+Qubes-OS has asked for those patches to be added to stable, too.
+
+629a5d87e26fe96b ("xen: sync include/xen/interface/io/ring.h with Xen's=20
+newest version")
+71b66243f9898d0e ("xen/blkfront: read response from backend only once")
+8f5a695d99000fc3 ("xen/blkfront: don't take local copy of a request from =
+
+the ring page")
+b94e4b147fd1992a ("xen/blkfront: don't trust the backend response data=20
+blindly")
+8446066bf8c1f9f7 ("xen/netfront: read response from backend only once")
+162081ec33c2686a ("xen/netfront: don't read data from request on the=20
+ring page")
+21631d2d741a64a0 ("xen/netfront: disentangle tx_skb_freelist")
+a884daa61a7d9165 ("xen/netfront: don't trust the backend response data=20
+blindly")
+e679004dec37566f ("tty: hvc: replace BUG_ON() with negative return value"=
+)
+
+
+Thanks,
+
+Juergen
+
+--------------BB97D6599586F986C0DB6E08
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------BB97D6599586F986C0DB6E08--
+
+--xhbnUF2toUKD6zqO2hFC27BzFtPuF8q0E--
+
+--wpUMVDKHee1Hkri6ANmGTicGwGLHyCjqB
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGkfvYFAwAAAAAACgkQsN6d1ii/Ey96
+SQf+IMSByLeqzJc6+rE5sugQzWzB12wORVXoQfOGprVrqIcIdIVJTDYlC9KwHEGQ22k8P1939WGT
+0hUiz39M+6nJ+8zSspLU0Il/C8/3llyyN638tE7+Oe19ZgbjUA0BtlvX5lE6TAPhEsI1WRZ37ekY
+/+jVbODeo++XqU0haveyOa3i9K54SW4dSOQtDU9gcQcueReT1tDjpOc47xPD/T4H1w+vYXIp4s3D
+p50Zt/9jIGbSwcMJfdplcNdB/m8QRrbelXrBOC3bBL7KkyKBClvxcVvIGiU/r813wA2W/6q7pQWe
+ELDw+QwOO0EYHFgun8I9ZyEcXbk9ObvpFlx3eiWatQ==
+=nQoU
+-----END PGP SIGNATURE-----
+
+--wpUMVDKHee1Hkri6ANmGTicGwGLHyCjqB--
 
