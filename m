@@ -2,34 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A4D5461211
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Nov 2021 11:22:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.234467.406864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6212C46126A
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Nov 2021 11:27:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.234472.406876 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mrdnK-0005DC-H7; Mon, 29 Nov 2021 10:21:58 +0000
+	id 1mrdsS-0005t7-5n; Mon, 29 Nov 2021 10:27:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 234467.406864; Mon, 29 Nov 2021 10:21:58 +0000
+Received: by outflank-mailman (output) from mailman id 234472.406876; Mon, 29 Nov 2021 10:27:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mrdnK-0005Ad-E6; Mon, 29 Nov 2021 10:21:58 +0000
-Received: by outflank-mailman (input) for mailman id 234467;
- Mon, 29 Nov 2021 10:21:57 +0000
+	id 1mrdsS-0005qV-2h; Mon, 29 Nov 2021 10:27:16 +0000
+Received: by outflank-mailman (input) for mailman id 234472;
+ Mon, 29 Nov 2021 10:27:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GXrI=QQ=alpha.franken.de=tsbogend@srs-se1.protection.inumbo.net>)
- id 1mrdnJ-0005AX-C9
- for xen-devel@lists.xenproject.org; Mon, 29 Nov 2021 10:21:57 +0000
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 1a4bdde7-50fe-11ec-b941-1df2895da90e;
- Mon, 29 Nov 2021 11:21:23 +0100 (CET)
-Received: from uucp (helo=alpha)
- by elvis.franken.de with local-bsmtp (Exim 3.36 #1)
- id 1mrdmz-0004dt-00; Mon, 29 Nov 2021 11:21:37 +0100
-Received: by alpha.franken.de (Postfix, from userid 1000)
- id 5E79DC2F89; Mon, 29 Nov 2021 11:21:16 +0100 (CET)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=K9yz=QQ=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1mrdsR-0005qP-4D
+ for xen-devel@lists.xenproject.org; Mon, 29 Nov 2021 10:27:15 +0000
+Received: from ppsw-33.csi.cam.ac.uk (ppsw-33.csi.cam.ac.uk [131.111.8.133])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d799a3cc-50fe-11ec-b941-1df2895da90e;
+ Mon, 29 Nov 2021 11:26:42 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:50154)
+ by ppsw-33.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.137]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1mrdsO-000NYV-gv (Exim 4.95) (return-path <amc96@srcf.net>);
+ Mon, 29 Nov 2021 10:27:12 +0000
+Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id D42521FC54;
+ Mon, 29 Nov 2021 10:27:11 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,102 +45,42 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1a4bdde7-50fe-11ec-b941-1df2895da90e
-Date: Mon, 29 Nov 2021 11:21:16 +0100
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
-	Marc Zygnier <maz@kernel.org>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
-	Megha Dey <megha.dey@intel.com>, Ashok Raj <ashok.raj@intel.com>,
-	linux-pci@vger.kernel.org, linux-mips@vger.kernel.org,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Paul Mackerras <paulus@samba.org>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	linuxppc-dev@lists.ozlabs.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	sparclinux@vger.kernel.org, x86@kernel.org,
-	xen-devel@lists.xenproject.org, ath11k@lists.infradead.org,
-	Wei Liu <wei.liu@kernel.org>, linux-hyperv@vger.kernel.org,
-	Juergen Gross <jgross@suse.com>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>
-Subject: Re: [patch 09/22] MIPS: Octeon: Use arch_setup_msi_irq()
-Message-ID: <20211129102116.GA6158@alpha.franken.de>
-References: <20211126222700.862407977@linutronix.de>
- <20211126223824.618089023@linutronix.de>
+X-Inumbo-ID: d799a3cc-50fe-11ec-b941-1df2895da90e
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <89f31e12-6d68-881e-0622-bb19a80641dc@srcf.net>
+Date: Mon, 29 Nov 2021 10:27:11 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211126223824.618089023@linutronix.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH 01/65] x86: Introduce support for CET-IBT
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
+ <20211126123446.32324-2-andrew.cooper3@citrix.com>
+ <fb030726-c3c1-9225-08a9-8e2c37281962@suse.com>
+From: Andrew Cooper <amc96@srcf.net>
+In-Reply-To: <fb030726-c3c1-9225-08a9-8e2c37281962@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 27, 2021 at 02:18:48AM +0100, Thomas Gleixner wrote:
-> The core code provides the same loop code except for the MSI-X reject. Move
-> that to arch_setup_msi_irq() and remove the duplicated code.
-> 
-> No functional change.
-> 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-> Cc: linux-mips@vger.kernel.org
-> ---
->  arch/mips/pci/msi-octeon.c |   32 +++-----------------------------
->  1 file changed, 3 insertions(+), 29 deletions(-)
-> 
-> --- a/arch/mips/pci/msi-octeon.c
-> +++ b/arch/mips/pci/msi-octeon.c
-> @@ -68,6 +68,9 @@ int arch_setup_msi_irq(struct pci_dev *d
->  	u64 search_mask;
->  	int index;
->  
-> +	if (desc->pci.msi_attrib.is_msix)
-> +		return -EINVAL;
-> +
->  	/*
->  	 * Read the MSI config to figure out how many IRQs this device
->  	 * wants.  Most devices only want 1, which will give
-> @@ -182,35 +185,6 @@ int arch_setup_msi_irq(struct pci_dev *d
->  	return 0;
->  }
->  
-> -int arch_setup_msi_irqs(struct pci_dev *dev, int nvec, int type)
-> -{
-> -	struct msi_desc *entry;
-> -	int ret;
-> -
-> -	/*
-> -	 * MSI-X is not supported.
-> -	 */
-> -	if (type == PCI_CAP_ID_MSIX)
-> -		return -EINVAL;
-> -
-> -	/*
-> -	 * If an architecture wants to support multiple MSI, it needs to
-> -	 * override arch_setup_msi_irqs()
-> -	 */
-> -	if (type == PCI_CAP_ID_MSI && nvec > 1)
-> -		return 1;
-> -
-> -	for_each_pci_msi_entry(entry, dev) {
-> -		ret = arch_setup_msi_irq(dev, entry);
-> -		if (ret < 0)
-> -			return ret;
-> -		if (ret > 0)
-> -			return -ENOSPC;
-> -	}
-> -
-> -	return 0;
-> -}
-> -
->  /**
->   * Called when a device no longer needs its MSI interrupts. All
->   * MSI interrupts for the device are freed.
+On 29/11/2021 09:27, Jan Beulich wrote:
+> On 26.11.2021 13:33, Andrew Cooper wrote:
+>> --- a/xen/arch/x86/arch.mk
+>> +++ b/xen/arch/x86/arch.mk
+>> @@ -46,6 +46,12 @@ CFLAGS-$(CONFIG_INDIRECT_THUNK) += -mindirect-branch=thunk-extern
+>>  CFLAGS-$(CONFIG_INDIRECT_THUNK) += -mindirect-branch-register
+>>  CFLAGS-$(CONFIG_INDIRECT_THUNK) += -fno-jump-tables
+>>  
+>> +ifdef CONFIG_HAS_CC_CET_IBT
+>> +CFLAGS += -fcf-protection=branch -mmanual-endbr
+> Don't you mean to check XEN_IBT here rather than the underlying
+> compiler capability?
 
-Acked-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+I did, and elsewhere in the patch (already fixed up).  I added
+CONFIG_XEN_IBT rather late in the dev cycle, and missed a few conversions.
 
--- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+~Andrew
 
