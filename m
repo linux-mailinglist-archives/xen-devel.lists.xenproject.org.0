@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1952D4617A2
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Nov 2021 15:12:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.234525.407081 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2EE44616C9
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Nov 2021 14:40:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.234527.406959 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mrhNu-0008B3-F6; Mon, 29 Nov 2021 14:11:58 +0000
+	id 1mrgsC-0001rD-2m; Mon, 29 Nov 2021 13:39:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 234525.407081; Mon, 29 Nov 2021 14:11:58 +0000
+Received: by outflank-mailman (output) from mailman id 234527.406959; Mon, 29 Nov 2021 13:39:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mrhNu-00086u-8o; Mon, 29 Nov 2021 14:11:58 +0000
-Received: by outflank-mailman (input) for mailman id 234525;
- Mon, 29 Nov 2021 12:59:57 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ajmq=QQ=gmail.com=blsv.anton@srs-se1.protection.inumbo.net>)
- id 1mrgGD-0006hC-JZ
- for xen-devel@lists.xenproject.org; Mon, 29 Nov 2021 12:59:57 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 409bf6df-5114-11ec-976b-d102b41d0961;
- Mon, 29 Nov 2021 13:59:56 +0100 (CET)
-Received: by mail-lj1-x22d.google.com with SMTP id l7so34262409lja.2
- for <xen-devel@lists.xenproject.org>; Mon, 29 Nov 2021 04:59:56 -0800 (PST)
-Received: from draksrv.localdomain ([188.187.75.98])
- by smtp.gmail.com with ESMTPSA id g6sm1335958lfu.86.2021.11.29.04.59.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Nov 2021 04:59:56 -0800 (PST)
+	id 1mrgsB-0001pG-Ur; Mon, 29 Nov 2021 13:39:11 +0000
+Received: by outflank-mailman (input) for mailman id 234527;
+ Mon, 29 Nov 2021 13:39:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mrgsA-0001p6-Lh; Mon, 29 Nov 2021 13:39:10 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mrgsA-0001Xi-FF; Mon, 29 Nov 2021 13:39:10 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mrgsA-0001hi-6f; Mon, 29 Nov 2021 13:39:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mrgsA-0001rA-6A; Mon, 29 Nov 2021 13:39:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,356 +42,273 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 409bf6df-5114-11ec-976b-d102b41d0961
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=9FJp5yt4xuR5uC1hB4oW12qctM8N4BAya0AXA911I/o=;
-        b=bG0OFpRbjO6kACLykDn9pCCrycJLAWa0qtjW9HjybtH+FXvXmW6hHtYJcmYZnfLcS6
-         YvXC2rmzciMdSMX2SkX4AfWqTTrJ3e1Dip5WlLxrDbrsysYiamg++pDPITJj2IPopXuF
-         DlNkMHQMI1XkqTIKzx0PHW3/+8dwc9j1G3gMTN6KSx0TM2XJcjz2F9i3ThDVV4mlhzwo
-         DDVSWYFiUZXKDTl9ZOIJjVfhquCCksGDphRGpPcicXSPY4PFmd08jeO4JAm2Jyv7kZD1
-         0h5OTlC4gF7l2a2WSxOqDNgByPN+iuI0Q7vGprA5NuZw8Ckh5Jnbi0yJwegDNcfPFjG5
-         0kXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=9FJp5yt4xuR5uC1hB4oW12qctM8N4BAya0AXA911I/o=;
-        b=E2EzHkB7jA2Et2BbPx69VvJ8LFT3Z4n/elTwhFx4qLxz/bwjVd/0MVuEXhAAm+8OKx
-         utHVfVqySQqJT8c7YwD78VH923RNpdNn1b+3c6knICZM+rivcPWT11S5nQxZALAwMzbL
-         2q3s5t9LA04exJSps0k9JNlHtEfE3O3ezdNrHcJ6LSDOyCpiL5uThPnbGLHGSWMJ15k5
-         MfnTASV7Cktg5ijYRXp1E4grockX3DB6vQ4u5VOEBsjSlcbPys/pFiin3bt70o/yvew3
-         iuZ2TEftKQ/GRxslZEWTGXOPWlCpwKiBI7sYonYmkv2JCDiNpGKsySSeZT3b8jPYFedP
-         DL5w==
-X-Gm-Message-State: AOAM530RIIlGySovF/mN7RSobIP06XFZ33aKofcqKnlxe3YwMg285yHG
-	59MWxZAFaBCGe8r7O51JGAkj61Y786E=
-X-Google-Smtp-Source: ABdhPJzc3D9VlPruQ8CCKOZYQoF/62/iAMJTrir9n1zuO4mAFcPqCh2awV+J2Q0fJ2KZHxBkmUwTxA==
-X-Received: by 2002:a05:651c:1689:: with SMTP id bd9mr10004737ljb.192.1638190796334;
-        Mon, 29 Nov 2021 04:59:56 -0800 (PST)
-From: Anton Belousov <blsv.anton@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Anton Belousov <blsv.anton@gmail.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Ian Jackson <iwj@xenproject.org>
-Subject: [XEN PATCH 1/1] Add suport for SMBIOS tables 7,8,9,26,27,28 to improve virtual machine stealth from malware.
-Date: Mon, 29 Nov 2021 12:59:29 +0000
-Message-Id: <3ad07dc366117e43a46004a03cdb963581b16fd7.1638190663.git.blsv.anton@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1638190663.git.blsv.anton@gmail.com>
-References: <cover.1638190663.git.blsv.anton@gmail.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=pHVIHMQ74jd7zJ2ZUUOXyrtSCvUWUoWfAppC8b446kY=; b=U57A/FAHZbEsB7BmwlKwSyCMQL
+	wsoqGRenHbUKcwSXXXLTOVk1KM0abmLIXQBsOZrjFkM2WEazEDF6A5U9yEJTiDgnjMMmCheAOgIy5
+	mbZdVtVX/1rLcwPyRxLzPs2WJXUsCSpgI0waLjGmgtZHuvPlMr5xToAnuBii5NldqEjU=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166950-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 166950: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-xl-rtds:guest-localmigrate:fail:heisenbug
+    qemu-mainline:test-arm64-arm64-libvirt-raw:debian-di-install:fail:heisenbug
+    qemu-mainline:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=dd4b0de45965538f19bb40c7ddaaba384a8c613a
+X-Osstest-Versions-That:
+    qemuu=14d02cfbe4adaeebe7cb833a8cc71191352cf03b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 29 Nov 2021 13:39:10 +0000
 
----
- tools/firmware/hvmloader/smbios.c       | 146 ++++++++++++++++++++++++
- tools/firmware/hvmloader/smbios_types.h |  76 ++++++++++++
- 2 files changed, 222 insertions(+)
+flight 166950 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166950/
 
-diff --git a/tools/firmware/hvmloader/smbios.c b/tools/firmware/hvmloader/smbios.c
-index 97a054e9e3..f5e61c1159 100644
---- a/tools/firmware/hvmloader/smbios.c
-+++ b/tools/firmware/hvmloader/smbios.c
-@@ -33,12 +33,18 @@
- #define SMBIOS_HANDLE_TYPE2   0x0200
- #define SMBIOS_HANDLE_TYPE3   0x0300
- #define SMBIOS_HANDLE_TYPE4   0x0400
-+#define SMBIOS_HANDLE_TYPE7   0x0700
-+#define SMBIOS_HANDLE_TYPE8   0x0800
-+#define SMBIOS_HANDLE_TYPE9   0x0900
- #define SMBIOS_HANDLE_TYPE11  0x0B00
- #define SMBIOS_HANDLE_TYPE16  0x1000
- #define SMBIOS_HANDLE_TYPE17  0x1100
- #define SMBIOS_HANDLE_TYPE19  0x1300
- #define SMBIOS_HANDLE_TYPE20  0x1400
- #define SMBIOS_HANDLE_TYPE22  0x1600
-+#define SMBIOS_HANDLE_TYPE26  0x1A00
-+#define SMBIOS_HANDLE_TYPE27  0x1B00
-+#define SMBIOS_HANDLE_TYPE28  0x1C00
- #define SMBIOS_HANDLE_TYPE32  0x2000
- #define SMBIOS_HANDLE_TYPE39  0x2700
- #define SMBIOS_HANDLE_TYPE127 0x7f00
-@@ -77,6 +83,12 @@ static void *
- smbios_type_4_init(void *start, unsigned int cpu_number,
-                    char *cpu_manufacturer);
- static void *
-+smbios_type_7_init(void *start);
-+static void *
-+smbios_type_8_init(void *start);
-+static void *
-+smbios_type_9_init(void *start);
-+static void *
- smbios_type_11_init(void *start);
- static void *
- smbios_type_16_init(void *start, uint32_t memory_size_mb, int nr_mem_devs);
-@@ -89,6 +101,12 @@ smbios_type_20_init(void *start, uint32_t memory_size_mb, int instance);
- static void *
- smbios_type_22_init(void *start);
- static void *
-+smbios_type_26_init(void *start);
-+static void *
-+smbios_type_27_init(void *start);
-+static void *
-+smbios_type_28_init(void *start);
-+static void *
- smbios_type_32_init(void *start);
- static void *
- smbios_type_39_init(void *start);
-@@ -205,6 +223,9 @@ write_smbios_tables(void *ep, void *start,
-     do_struct(smbios_type_3_init(p));
-     for ( cpu_num = 1; cpu_num <= vcpus; cpu_num++ )
-         do_struct(smbios_type_4_init(p, cpu_num, cpu_manufacturer));
-+    do_struct(smbios_type_7_init(p));
-+    do_struct(smbios_type_8_init(p));
-+    do_struct(smbios_type_9_init(p));
-     do_struct(smbios_type_11_init(p));
- 
-     /* Each 'memory device' covers up to 16GB of address space. */
-@@ -221,6 +242,9 @@ write_smbios_tables(void *ep, void *start,
-     }
- 
-     do_struct(smbios_type_22_init(p));
-+    do_struct(smbios_type_26_init(p));
-+    do_struct(smbios_type_28_init(p));
-+    do_struct(smbios_type_27_init(p));
-     do_struct(smbios_type_32_init(p));
-     do_struct(smbios_type_39_init(p));
-     do_struct(smbios_type_vendor_oem_init(p));
-@@ -700,6 +724,66 @@ smbios_type_4_init(
-     return start+1;
- }
- 
-+/* Type 7 -- Cache Information */
-+static void *
-+smbios_type_7_init(void *start)
-+{
-+    struct smbios_type_7 *p = (struct smbios_type_7 *)start;
-+
-+    void *pts;
-+    uint32_t length;
-+
-+    pts = get_smbios_pt_struct(7, &length);
-+    if ( (pts != NULL)&&(length > 0) )
-+    {
-+        memcpy(start, pts, length);
-+        p->header.handle = SMBIOS_HANDLE_TYPE7;
-+        return (start + length);
-+    }
-+
-+    return start;
-+}
-+
-+/* Type 8 -- Port Connector Information */
-+static void *
-+smbios_type_8_init(void *start)
-+{
-+    struct smbios_type_8 *p = (struct smbios_type_8 *)start;
-+
-+    void *pts;
-+    uint32_t length;
-+
-+    pts = get_smbios_pt_struct(8, &length);
-+    if ( (pts != NULL)&&(length > 0) )
-+    {
-+        memcpy(start, pts, length);
-+        p->header.handle = SMBIOS_HANDLE_TYPE8;
-+        return (start + length);
-+    }
-+
-+    return start;
-+}
-+
-+/* Type 9 -- System Slots */
-+static void *
-+smbios_type_9_init(void *start)
-+{
-+    struct smbios_type_9 *p = (struct smbios_type_9 *)start;
-+
-+    void *pts;
-+    uint32_t length;
-+
-+    pts = get_smbios_pt_struct(9, &length);
-+    if ( (pts != NULL)&&(length > 0) )
-+    {
-+        memcpy(start, pts, length);
-+        p->header.handle = SMBIOS_HANDLE_TYPE9;
-+        return (start + length);
-+    }
-+
-+    return start;
-+}
-+
- /* Type 11 -- OEM Strings */
- static void *
- smbios_type_11_init(void *start) 
-@@ -923,6 +1007,68 @@ smbios_type_22_init(void *start)
-     return start+1; 
- }
- 
-+/* Type 26 -- Voltage Probe */
-+static void *
-+smbios_type_26_init(void *start)
-+{
-+    struct smbios_type_26 *p = (struct smbios_type_26 *)start;
-+
-+    void *pts;
-+    uint32_t length;
-+
-+    pts = get_smbios_pt_struct(26, &length);
-+    if ( (pts != NULL)&&(length > 0) )
-+    {
-+        memcpy(start, pts, length);
-+        p->header.handle = SMBIOS_HANDLE_TYPE26;
-+        return (start + length);
-+    }
-+
-+    return start;
-+}
-+
-+/* Type 27 -- Cooling Device */
-+static void *
-+smbios_type_27_init(void *start)
-+{
-+    struct smbios_type_27 *p = (struct smbios_type_27 *)start;
-+
-+    void *pts;
-+    uint32_t length;
-+
-+    pts = get_smbios_pt_struct(27, &length);
-+    if ( (pts != NULL)&&(length > 0) )
-+    {
-+        memcpy(start, pts, length);
-+        p->header.handle = SMBIOS_HANDLE_TYPE27;
-+        p->temperature_probe_handle = SMBIOS_HANDLE_TYPE28;
-+        p->cooling_unit_group = 0;
-+        return (start + length);
-+    }
-+
-+    return start;
-+}
-+
-+/* Type 28 -- Temperature Probe */
-+static void *
-+smbios_type_28_init(void *start)
-+{
-+    struct smbios_type_28 *p = (struct smbios_type_28 *)start;
-+
-+    void *pts;
-+    uint32_t length;
-+
-+    pts = get_smbios_pt_struct(28, &length);
-+    if ( (pts != NULL)&&(length > 0) )
-+    {
-+        memcpy(start, pts, length);
-+        p->header.handle = SMBIOS_HANDLE_TYPE28;
-+        return (start + length);
-+    }
-+
-+    return start;
-+}
-+
- /* Type 32 -- System Boot Information */
- static void *
- smbios_type_32_init(void *start)
-diff --git a/tools/firmware/hvmloader/smbios_types.h b/tools/firmware/hvmloader/smbios_types.h
-index 7c648ece71..f43be12dfc 100644
---- a/tools/firmware/hvmloader/smbios_types.h
-+++ b/tools/firmware/hvmloader/smbios_types.h
-@@ -149,6 +149,44 @@ struct smbios_type_4 {
-     uint8_t part_number_str;
- } __attribute__ ((packed));
- 
-+/* SMBIOS type 7 - Cache Information */
-+struct smbios_type_7 {
-+    struct smbios_structure_header header;
-+    uint8_t socket_designation_str;
-+    uint16_t cache_configuration;
-+    uint16_t maximum_cache_size;
-+    uint16_t installed_size;
-+    uint16_t supported_SRAM_type;
-+    uint16_t current_SRAM_type;
-+    uint8_t cache_speed;
-+    uint8_t error_connection_type;
-+    uint8_t system_cache_type;
-+    uint8_t associativity;
-+} __attribute__ ((packed));
-+
-+/* SMBIOS type 8 - Port Connector Information */
-+struct smbios_type_8 {
-+    struct smbios_structure_header header;
-+    uint8_t internal_reference_designator_str;
-+    uint8_t internal_connector_type;
-+    uint8_t external_reference_designator_str;
-+    uint8_t external_connector_type;
-+    uint8_t port_type;
-+} __attribute__ ((packed));
-+
-+/* SMBIOS type 9 - System Slots */
-+struct smbios_type_9 {
-+    struct smbios_structure_header header;
-+    uint8_t slot_designation_str;
-+    uint8_t slot_type;
-+    uint8_t slot_data_bus_width;
-+    uint8_t current_usage;
-+    uint8_t slot_length;
-+    uint16_t slot_id;
-+    uint8_t slot_characteristics_1;
-+    uint8_t slot_characteristics_2;
-+} __attribute__ ((packed));
-+
- /* SMBIOS type 11 - OEM Strings */
- struct smbios_type_11 {
-     struct smbios_structure_header header;
-@@ -232,6 +270,44 @@ struct smbios_type_22 {
-     uint32_t oem_specific;
- } __attribute__ ((packed));
- 
-+/* SMBIOS type 26 - Voltage Probe */
-+struct smbios_type_26 {
-+    struct smbios_structure_header header;
-+    uint8_t description_str;
-+    uint8_t location_and_status;
-+    uint16_t maximum_value;
-+    uint16_t minimum_value;
-+    uint16_t resolution;
-+    uint16_t tolerance;
-+    uint16_t accuracy;
-+    uint32_t oem_defined;
-+    uint16_t nominal_value;
-+} __attribute__ ((packed));
-+
-+/* SMBIOS type 27 - Cooling Device */
-+struct smbios_type_27 {
-+    struct smbios_structure_header header;
-+    uint16_t temperature_probe_handle;
-+    uint8_t device_type_and_status;
-+    uint8_t cooling_unit_group;
-+    uint32_t oem_defined;
-+    uint16_t nominal_speed;
-+} __attribute__ ((packed));
-+
-+/* SMBIOS type 28 - Temperature Probe */
-+struct smbios_type_28 {
-+    struct smbios_structure_header header;
-+    uint8_t description_str;
-+    uint8_t location_and_status;
-+    uint16_t maximum_value;
-+    uint16_t minimum_value;
-+    uint16_t resolution;
-+    uint16_t tolerance;
-+    uint16_t accuracy;
-+    uint32_t oem_defined;
-+    uint16_t nominal_value;
-+} __attribute__ ((packed));
-+
- /* SMBIOS type 32 - System Boot Information */
- struct smbios_type_32 {
-     struct smbios_structure_header header;
--- 
-2.25.1
+Failures :-/ but no regressions.
 
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-xl-rtds   18 guest-localmigrate fail in 166948 pass in 166950
+ test-arm64-arm64-libvirt-raw 12 debian-di-install          fail pass in 166948
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl-rtds 18 guest-start/debian.repeat fail in 166948 blocked in 166370
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check fail in 166948 never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check fail in 166948 never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 166370
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 166370
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 166370
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 166370
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 166370
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 166370
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 166370
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 166370
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+
+version targeted for testing:
+ qemuu                dd4b0de45965538f19bb40c7ddaaba384a8c613a
+baseline version:
+ qemuu                14d02cfbe4adaeebe7cb833a8cc71191352cf03b
+
+Last test of basis   166370  2021-11-25 03:10:11 Z    4 days
+Testing same since   166879  2021-11-26 13:32:54 Z    3 days    7 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Richard Henderson <richard.henderson@linaro.org>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/qemu-xen.git
+   14d02cfbe4..dd4b0de459  dd4b0de45965538f19bb40c7ddaaba384a8c613a -> upstream-tested
 
