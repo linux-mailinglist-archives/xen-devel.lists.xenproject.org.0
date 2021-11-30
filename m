@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78F4946395D
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Nov 2021 16:07:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.235254.408216 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 251D4463964
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Nov 2021 16:08:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.235261.408245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ms4j0-0005D7-U7; Tue, 30 Nov 2021 15:07:18 +0000
+	id 1ms4jh-0006j2-HR; Tue, 30 Nov 2021 15:08:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 235254.408216; Tue, 30 Nov 2021 15:07:18 +0000
+Received: by outflank-mailman (output) from mailman id 235261.408245; Tue, 30 Nov 2021 15:08:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ms4j0-00056Z-Ps; Tue, 30 Nov 2021 15:07:18 +0000
-Received: by outflank-mailman (input) for mailman id 235254;
- Tue, 30 Nov 2021 15:07:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ms4jh-0006gY-Cb; Tue, 30 Nov 2021 15:08:01 +0000
+Received: by outflank-mailman (input) for mailman id 235261;
+ Tue, 30 Nov 2021 15:07:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fRDO=QR=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1ms4iz-00054S-Ck
- for xen-devel@lists.xenproject.org; Tue, 30 Nov 2021 15:07:17 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3364460f-51ef-11ec-976b-d102b41d0961;
- Tue, 30 Nov 2021 16:07:15 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 04BF7CE1A4B;
- Tue, 30 Nov 2021 14:51:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D8BAC53FD0;
- Tue, 30 Nov 2021 14:51:45 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ms4jf-0006ew-MF; Tue, 30 Nov 2021 15:07:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ms4jf-0006ZN-Hv; Tue, 30 Nov 2021 15:07:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ms4jf-00054O-8X; Tue, 30 Nov 2021 15:07:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ms4jf-0002R0-6N; Tue, 30 Nov 2021 15:07:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,64 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3364460f-51ef-11ec-976b-d102b41d0961
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1638283906;
-	bh=XAjwUAiM/j8BKJZ3MPSJmE9O/lcstYIzLJvobanl0m4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Ewx6RN0gxrmQeqNLVGyYJLC0hrzXkdHRUE37iBemJboFNwbadRv7YVr+ipy+IwVAB
-	 PE0XVRVAIDmySM4q//8c46X8dO36NntjUptjl9oltYz8UoqVkdxrhQYY92WelHjyiS
-	 qyZmZBJvcka0P4/ZXeV9kc/w/uZka5gKUl2DajcLD5Wpl2nuGXxy3JKTxSYfS4jyd2
-	 Il0LfBV7F/lZJ6ejwOWKIkRBcsEiIUVXLNyPRdhjs8cLnGokRNod2Lqi7L+OLeIoqP
-	 SLWH/7kFcjh7lzqwF1oWSQvuJE8GfPSaGjqDuEZpF4Z2uHpdBt+TLG+uEigq80VG8E
-	 QrbceAUStiIYA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Sasha Levin <sashal@kernel.org>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 5.10 37/43] xen: flag pvcalls-front to be not essential for system boot
-Date: Tue, 30 Nov 2021 09:50:14 -0500
-Message-Id: <20211130145022.945517-37-sashal@kernel.org>
-X-Mailer: git-send-email 2.33.0
-In-Reply-To: <20211130145022.945517-1-sashal@kernel.org>
-References: <20211130145022.945517-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Jy1bRluRDeMDsp1sTP8WhGkRfG/FqXKUxzBSi8Ijc1o=; b=D3Qgn17Lo8iXhjUUNHoIBpooPo
+	EmqwjbAO66EJsMd0dJ54UlvA6icMaKKXFrPWoDz+b62t41hQ/m3Qk9v+5T4kZVZjXLR0caUkfAtaR
+	SCtK4wz8Pk+WN4ILls0hUmKTep6yOzRR5gumKIhBMvld5GsyzNyWPxV9PtkJ/E9CGMho=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166958-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 166958: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=e7f147bf4ac725492962a501da72f5ab6be682db
+X-Osstest-Versions-That:
+    xen=0e6c87b93e1d35fedf9cebd65395c2f79b4af11a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 30 Nov 2021 15:07:59 +0000
 
-From: Juergen Gross <jgross@suse.com>
+flight 166958 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166958/
 
-[ Upstream commit 03e143b2acebe23c893f22ebed9abc0fe2a7f27e ]
+Failures :-/ but no regressions.
 
-The Xen pvcalls device is not essential for booting. Set the respective
-flag.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Link: https://lore.kernel.org/r/20211022064800.14978-5-jgross@suse.com
-Signed-off-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/xen/pvcalls-front.c | 1 +
- 1 file changed, 1 insertion(+)
+version targeted for testing:
+ xen                  e7f147bf4ac725492962a501da72f5ab6be682db
+baseline version:
+ xen                  0e6c87b93e1d35fedf9cebd65395c2f79b4af11a
 
-diff --git a/drivers/xen/pvcalls-front.c b/drivers/xen/pvcalls-front.c
-index 7984645b59563..3c9ae156b597f 100644
---- a/drivers/xen/pvcalls-front.c
-+++ b/drivers/xen/pvcalls-front.c
-@@ -1275,6 +1275,7 @@ static struct xenbus_driver pvcalls_front_driver = {
- 	.probe = pvcalls_front_probe,
- 	.remove = pvcalls_front_remove,
- 	.otherend_changed = pvcalls_front_changed,
-+	.not_essential = true,
- };
- 
- static int __init pvcalls_frontend_init(void)
--- 
-2.33.0
+Last test of basis   166589  2021-11-25 18:07:34 Z    4 days
+Testing same since   166958  2021-11-30 12:00:32 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   0e6c87b93e..e7f147bf4a  e7f147bf4ac725492962a501da72f5ab6be682db -> smoke
 
