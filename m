@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E3ED462D7E
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Nov 2021 08:29:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.234880.407590 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4DCA462E11
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Nov 2021 08:58:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.234893.407602 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mrxZZ-0004XC-WD; Tue, 30 Nov 2021 07:29:06 +0000
+	id 1mry0s-0007xt-E3; Tue, 30 Nov 2021 07:57:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 234880.407590; Tue, 30 Nov 2021 07:29:05 +0000
+Received: by outflank-mailman (output) from mailman id 234893.407602; Tue, 30 Nov 2021 07:57:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mrxZZ-0004UE-S4; Tue, 30 Nov 2021 07:29:05 +0000
-Received: by outflank-mailman (input) for mailman id 234880;
- Tue, 30 Nov 2021 07:29:04 +0000
+	id 1mry0s-0007vs-Aj; Tue, 30 Nov 2021 07:57:18 +0000
+Received: by outflank-mailman (input) for mailman id 234893;
+ Tue, 30 Nov 2021 07:57:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=AOGb=QR=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mrxZY-0004S7-97
- for xen-devel@lists.xenproject.org; Tue, 30 Nov 2021 07:29:04 +0000
+ id 1mry0q-0007vm-RW
+ for xen-devel@lists.xenproject.org; Tue, 30 Nov 2021 07:57:17 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3178fb5c-51af-11ec-b941-1df2895da90e;
- Tue, 30 Nov 2021 08:29:03 +0100 (CET)
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01lp2059.outbound.protection.outlook.com [104.47.2.59]) by
+ id 21620951-51b3-11ec-b941-1df2895da90e;
+ Tue, 30 Nov 2021 08:57:14 +0100 (CET)
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2059.outbound.protection.outlook.com [104.47.12.59]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-22-_a-1MpBqPyaqeVCLWe4yBg-1; Tue, 30 Nov 2021 08:29:01 +0100
+ de-mta-31-QIw2wq2YNmKVvxB3qAKj9g-1; Tue, 30 Nov 2021 08:57:13 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VE1PR04MB6383.eurprd04.prod.outlook.com (2603:10a6:803:11b::20)
+ by VI1PR04MB5597.eurprd04.prod.outlook.com (2603:10a6:803:dd::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22; Tue, 30 Nov
- 2021 07:28:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Tue, 30 Nov
+ 2021 07:57:10 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe%5]) with mapi id 15.20.4734.024; Tue, 30 Nov 2021
- 07:28:59 +0000
+ 07:57:10 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AS8P251CA0012.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:2f2::33) with Microsoft
+ AM6PR05CA0031.eurprd05.prod.outlook.com (2603:10a6:20b:2e::44) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4734.21 via Frontend Transport; Tue, 30 Nov 2021 07:28:59 +0000
+ 15.20.4734.21 via Frontend Transport; Tue, 30 Nov 2021 07:57:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,186 +55,297 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3178fb5c-51af-11ec-b941-1df2895da90e
+X-Inumbo-ID: 21620951-51b3-11ec-b941-1df2895da90e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1638257343;
+	t=1638259034;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=riXpl2rI5n5scz2zsuRZ4uQqkJT+aptk+SVH1dCHE+M=;
-	b=LtVbnqokfATBsZovl737DxHzCwrZpH6fSrz4mrAtNakQntg9cMDoHaq6vjaEkmocZ4FGCu
-	p5CA3hLZMdQ6Vab5VgAuz3kn5l5zVbsfQH/bntrv3V0wkoZUoOBj5uvN6C2hHRgEuXxsKj
-	SCSlsecqeHXp0J6yRTPKhcA6ZPXMP30=
-X-MC-Unique: _a-1MpBqPyaqeVCLWe4yBg-1
+	bh=ApdZiVQqyuQXmeXu334eYxPkml/F76HUNqpOD2xqb28=;
+	b=gOkTxPUr9vwquhuo7WCvFccaJVN+BkqPUdVhjUTSTjnbtKPRT8UUQYh//qc0/risnTlYja
+	Gd8TpE2801qei/ENBMjWUY1TF9wFh7B7ueRdA/Ton4i4mE8RN6JHdXzyisD8ACHLjYJ+Xw
+	NZqDeTVaLnk80UyytjVwbOYYUpX9ePQ=
+X-MC-Unique: QIw2wq2YNmKVvxB3qAKj9g-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MKaxCGfYbXJDYY4cIm4PTKocN1sLDYTL6HWdo19xbA4Xs7yKOU7Q5PvX64cgEMAw75G12T1CIdu8+jrLcR+GQDzk29TW6gXQUC9gOMdqbT+q8vFXIh0Uba1L0887rcFqgt9JrwzvWVoFhaGzb+BIFLcgfpXoumHIOEKXOtuVYEgtKzn10IdwSgoP8qZ67D4wXDq/yUyVil4ihTx0Ydf0a+n3da50FTZy4YpXYvoXqNGNorJXI1CqIP6lWQ1OazOUuUS/bTxfDI1OuYNgbZ2t7hOGLyxo+GwbDTc2hTHJ0m2oTwi3HUufDgp5tWg5LtS0VZpf4JjIqNF1mzyYm5O2rw==
+ b=S9JRaTpembfwycHRyPbTSFBd0Oh//c5hEx7qXgQRbIGj1b/cAV/AZYTOj+2vVNeD6ZKHwRAnAe6p6I4pVkYr4vqHFTmSxpyq/rOZEGVh80Z2cL5rw1L0EjZ2PvPko8Jf4WD+SjHkFZ7HeCHzbjj5eXRUyxrxoX61HsKxztck06NczmqkDLemToRqmUBSVecSfpp9Lj+I/ldEvy/s+n7Kr1tv+VWdGpmGw19zRv2+3JOgWp35WjNRVEbM18ESs0iAYW8hWSimLm2nQ1nmus59RO5BcJ0FsQP6rFwJDgV0xe/gEp+luf1Hfn0GsMv/eQj2E+poUmbSCBFDuePVfTNzyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bcMuwCIf/3zNe7ITRHkVBpMM6xRtuH128dXgm68zJ9E=;
- b=ZZ9yFiGj8wG5bwYRFsJoL70MuauO6BdnPks/ZDsS/5+f40kLFPzggfkekJnNYYHEW76QhrO2bHeQTJb82his7NORB7kdrL9lmKqbh2LdIsoVZT/zo3ocJmt90s/Rg9pTxig4VD739M8/goyKS1DLlSE3E6a2IFudn+ihutH1j+PwqH6SENKz/CP/ES73N8pfpRuI2i8ssZulWVCR8z1334CRIEYKPLW+j/Ba7Wv3Gq2SMK1+QOj3dGBEJiZZzzt9YtC1qkRsUPsr293qu56GjVmS5L4Ie1uQNLAYxakFmk1XzCCWtQ7lSthXt46UMymy7gmhnVSrXKnyOvqoSYzmzQ==
+ bh=ApdZiVQqyuQXmeXu334eYxPkml/F76HUNqpOD2xqb28=;
+ b=f9V2V+waRr6qaoWlF+OwfmNF83ZC8DrZmodOIX1+EtZ4J3+ZQlw7KXT2482ySUUOkdKXRdWObsJkzKNJdUAAp6uvBj2x0+KsuuIaiGjC9pkJl4suPa8k1OiQUzIxCgFVwF3T1YDXBPvh1cDItd4L2iqKPt8uCwqvTKeumiz7OFlzTVlqFt1BxLhY2PUtt7hHuLQdavnF8lmtVjdRa8sLYe0E+z7aQt79Ywth5X7NkPKW+Btw0cPZBftRhP7syJfXquqZbokf0qWywrbVj8945zDUxTW1nMqbPaJ9kJD4/GsTWKXwHfjnMgqBAqL/EP5p74ywWckS0xCgFLNrmTFlgw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ab477724-ed2d-9d3f-4cff-00872759b9b3@suse.com>
-Date: Tue, 30 Nov 2021 08:28:58 +0100
+Message-ID: <7224343c-0af9-6610-a58b-291778183a53@suse.com>
+Date: Tue, 30 Nov 2021 08:57:07 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
-Subject: Re: [PATCH] x86/boot: Drop incorrect mapping at l2_xenmap[0]
+Subject: Re: [XEN v2] xen/arm64: io: Decode 32-bit ldr/str post-indexing
+ instructions
 Content-Language: en-US
-To: Andrew Cooper <amc96@srcf.net>, Andrew Cooper <andrew.cooper3@citrix.com>
-CC: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20211129172617.12779-1-andrew.cooper3@citrix.com>
- <dbba70b3-d811-8f40-f847-d5f310a47c74@srcf.net>
+To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, julien@xen.org,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
+ andre.przywara@arm.com, Ayan Kumar Halder <ayankuma@xilinx.com>,
+ xen-devel@lists.xenproject.org
+References: <20211129191638.19877-1-ayankuma@xilinx.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <dbba70b3-d811-8f40-f847-d5f310a47c74@srcf.net>
+In-Reply-To: <20211129191638.19877-1-ayankuma@xilinx.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS8P251CA0012.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:2f2::33) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM6PR05CA0031.eurprd05.prod.outlook.com
+ (2603:10a6:20b:2e::44) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b2abaaec-6199-4266-ea90-08d9b3d31384
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6383:
+X-MS-Office365-Filtering-Correlation-Id: 88a38c15-90e8-4461-e3df-08d9b3d70324
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5597:
 X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB6383DB66531E376DA94E7E1EB3679@VE1PR04MB6383.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+	<VI1PR04MB5597B56C05FF35269CFD8227B3679@VI1PR04MB5597.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	HkASVm5uRkxPs4dt6RNTyGVdiPB7t9ZV3rkOUZyVbCzysI7/nlM6s2qFG+Z8krOuHhWYGW++Wi46av3oudixLwK559JdYDIYy2g2jUYM3WbiVLaBrosEg1EptVJWuvSzXZrpo1y8O1hrNqFNTFfxBggaYaZT45Vo4+cxD2UVts3Pxn+3Hcv0nt6/UPqaUTDsxirf5cNAdEjRuifcXOCTqn8YKFHwwt3cL6XWqzDeHZMHXEJ9uMJO23iLFY9ZQPZ18wY84iPh+CA2pFVLbo9tafGYxRzxCgRRFj2/ohhrA8J9gkFfgvNfKCfH9wp+LLqS8/xLFqHbdhd/H5YL4yNy0WCT1xF1R4L/QBHD6bEGIBEJDxyq8wU8Ypq9o0y8aXf29nEkzQL/BqcFA8nDrt11gdX1uA+maUFsK0RdyzPWE0/OoCih4VpL6jSt8IEQzvu1VO4y7r0FkMMKGoT0lYzWwFvw11HXYZ9aqzy1jMRikWzPMfxPZrTss8uAw97iv4v4FbvPQbgMZxwTJLFrpY+4IOFEZBFkpknqmHTHgvQCVFyd6RCG5RHoIAJTnuOsmypEa7jvQFr3+Z53pc9FxKELqiud1fCGRrR/71eB+jpUVvZXPNpm24KfbKXCjG/gMKNibs+54ccJ8a8wRNsltanm3xaFsXYJ5irCcE21/EbSViZRFP1vs1o278y2i0LuOn3ZxGm/kGQLK5RuwDMX3ph8VQdStAlff1v/NZxoqyw+wJ8=
+	nn/fQS+TeypAt2RLaDwsOMEWBBbtcFJRVCISiK7bRtfKgGgxP3rRypZ3bPgxp/ig9qjYLRh2GVtloL6L35AsCcZ9vA5ihUIZbRkrYYl98PZ/y/ASbrkeWAlOEz1WMujC4Rk3yZWwDFHsrsdFDY+HHRtKKETlySRzOcKACrD6v5us9y+a6u0PKPlxJ2qHgSojxRX2LxHYORJNX/D25m0OJs4nnDlW2NTUZb39f6KOGrIDD5sbNRdorQ93fctkBeS4IFcRbpLBcCWG/zkyeiP+E372mVETK9Q+cm/aUCsRxLJIE22Is7OSH3B9KTUsiWFwUfUBUrMhNMx0rztmCUSQV6XasNxs9/ynHIwuWVk1fBV5OgL3x9dAwEeqm+M7UAaVhVapQDMptbz8oD0f8+3GFiFSJQVRpOMh8SJUpzyXD7MqjTqkFOptGcGHpaT6qtB/Qk91bNclnTfD+d5dzq7g+y5GFAwu1IrHMoY8m6D/VvzgNCmzcU+xxdoGkAmzcBzXM7KhEg9jsFhD+h4DknY8LPzUnEZnTmbQCN7JbWnk/XrGDlFPzrwkGH1NMPQz/fFOoRdxmdPBY0/h086C8B1WlZj6Q1mNFRtCB6080SsdxWxxvGJl8GXO46EzGF5lyQVZIDLw9frPQbqSIhqcFwQdGeYvE2MXp9/2fJOVav9sHeUM59LdCtaYSUuopIvo/mAcjLjW4vofgBYz+vO2Qf2U67iHTiSFPQ4Nnv6GKHSX6D94xgv6mT91A7gbvFmOhTef
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(66476007)(6486002)(83380400001)(4326008)(38100700002)(8936002)(54906003)(86362001)(31686004)(5660300002)(31696002)(110136005)(956004)(66946007)(66556008)(186003)(508600001)(36756003)(53546011)(16576012)(8676002)(2906002)(2616005)(26005)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(66556008)(66946007)(66476007)(38100700002)(6486002)(316002)(36756003)(2906002)(5660300002)(16576012)(4326008)(6916009)(31696002)(508600001)(26005)(8676002)(186003)(8936002)(86362001)(83380400001)(31686004)(53546011)(956004)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ynoFLmP3abAnpXsK1RyaQrA6aaFCn8oJDClbkNChC5eqDHTcGUIJXiHwEq5D?=
- =?us-ascii?Q?NGkTyv5QuJFqrINUYanHf2NgfG0Wtg05TIt+4e+d2/MTAAn0+AzW0dvZQJAE?=
- =?us-ascii?Q?KegV3jszCqCrKvHEe7Q01nWX3kAXpVth1Cmv+qlp61217bAbwIp2cZ9zPaqj?=
- =?us-ascii?Q?0uXpWVWttiBY1GV1TUklsA8Wc8WTR7yEtYt7KqNQu5WM6/H3Xr/uyskdd+ZV?=
- =?us-ascii?Q?dzwOLgwVDe82XgNHVLPqrGW6WAjps3h2zvBOKDITerqWBVea86hRMCq85RBG?=
- =?us-ascii?Q?4JuEk/ohV+dpIgIk/bwrkqAnM5KIhD6ey6NzN61U5wo5E8aRJI1FO1lKGu43?=
- =?us-ascii?Q?2a7yD3IC0DmcmLkVcc60IrKk7hlPji+BpDDT3HhPAMexWxKSwxJPkW8H4U1Q?=
- =?us-ascii?Q?mBkLZHe+kYt80Q+CvhxctSDUM2cu7WrBatuNNiC4j0h53qvEQBvSe0vs/RTe?=
- =?us-ascii?Q?NR0i3Yrc/EyfZRWG71d3L5PEzHvcjPjlfF+dYShxzVWW2mvnY9gIaBsX82R5?=
- =?us-ascii?Q?zCwUZu0375RZxzVYX/TaU1OzWYZqHxyGeSPuowsZpbT0cIwW8/9NK/uhsGaB?=
- =?us-ascii?Q?YBSGE2nzs65yRPV96PTc4K3WtIDn+0yBSJAet4ByLF0ptX49g1DAQCn3psBI?=
- =?us-ascii?Q?VcUYUaliKMtAWaIbdaAH+Zt1gnp7n3X5GvhQTDjN/aisc4euZENlJFl9VRd9?=
- =?us-ascii?Q?Sv2xjc553sO00fqmODt91MNREEnYpMRyTQlkvQm2224eZDKYiEvHLt3b/ZR2?=
- =?us-ascii?Q?9WwyuowFd2HyfWla8VCNJfMiL8TpPq1L6DqFHwCf9qi1TQ+ubdwC0zMQEzG7?=
- =?us-ascii?Q?kguKXy59uk8sVFRmZy9a19IHu5hcc6106wWK2IbGlfGuu/rSesA96cpPA/YW?=
- =?us-ascii?Q?xxi5+dP4x31drABXCZocD3C1PzQCsTuMrT4auvrDWxFHLjbPdLpB3KfUvK7o?=
- =?us-ascii?Q?vduuvz/fhd9Y7V2ytMCJ/luDEZDZNHah4lSdI5fM0fClVcBU6ZkosMjYd88B?=
- =?us-ascii?Q?bW4t/S7NeDOOB4G1EdgzST7X4CELJnaoPFfqVPTPjj6Dhc+qBh8n61KcLpJf?=
- =?us-ascii?Q?Ty1T+zpHbONDKJFJbOzM459+mbe/tlpuB0awwlPDujAGQSsrkXRnjhjPjtTQ?=
- =?us-ascii?Q?57Kd6ZnWKummFPdSBLQe/Jok2Oumd6FvbI0s0VKXusOhQwV85f9sUADkWilK?=
- =?us-ascii?Q?D+cMCIoyjoyd79Tbw7PDPhIKN4oly+cV9iikr5LaFe7jzizLt3gd3NLQFW2r?=
- =?us-ascii?Q?IeV4pJsLk+wguFKQ+fDP4M6vJ1eXNhnZACIHayRGwjp8Gp/5sb5yCJf9l5Rk?=
- =?us-ascii?Q?ULl46goJsrE68Sbj3nurC8Mm2ekJQsmWvqbsYeClEl4ARiaUsm0XvZWSkxTg?=
- =?us-ascii?Q?q6eTGUzaaLNzxR/L+534P/5hw4eBqkY3lGnWI+DgF17z9vQFIQGBgXMYqShI?=
- =?us-ascii?Q?j6VN+4cUyQVAovd3FbsxHxvs4l5ueQWYhwx3sI97YQI24vTalsaTWY9/Bx3v?=
- =?us-ascii?Q?frgAmifUr3LkVCH87SXwLJYShpDWrn/RQrnQdKbPIyviZCr6UP8Go4OhlkEC?=
- =?us-ascii?Q?VLvS+6ntl4TiHdtGp9oHMUU37W7+rQ1OkwlSZR/iHV7QZTv1zum1umSCX8fb?=
- =?us-ascii?Q?uheCzAC3uimxWJyomekhKFA=3D?=
+	=?utf-8?B?dER1WnRDY0thM3krWkpzZEVYLzlYbjhmWUlEdFluQnUzYkF5UmFYOG5QNXNC?=
+ =?utf-8?B?Y1d0VU9CeUQvUXZrNi9PWGJVTW9hVWdzbTgwZGgyRzY0MW5WMzRBaHJPTzll?=
+ =?utf-8?B?Zmw4OFk0V2dGZWxLOWJtaXJqdHQ2QllmMlVzOTdXNkZwWVJQb1orQitwTjNY?=
+ =?utf-8?B?TWRwNWtCTE96dGxRc1FHTU9vMkxYd2xtdG15bDE3ZkUyb0o1bGR5L2dTeGtG?=
+ =?utf-8?B?MEhTdFpQL3JEcWdSYng3OXZzcFhueWdYOW5Pd2xjZXdGWm1ySnhPT01scFU3?=
+ =?utf-8?B?N2hRRlM4N1JTVGZvT1hNRGJoT3pkM3hWVGIvOEtyKzRRdGFUaStIbUxvN0xq?=
+ =?utf-8?B?WjNvVHVVYVFOQUVYbXpzN3FIQjl3K0VLVTBSL3R3THAydVQ0SEVadUxMRVll?=
+ =?utf-8?B?NWFZb3hHZlg0QUNmNm9NeHZlT3JEeXdibnQ2T2NhOFdxdHRSYnoyTzUrVFZY?=
+ =?utf-8?B?OU4vdmorSi9pZHY4SHZTODZ2Smk5VTNpMkhORGpLWTV2NExmVjVyeFd2dmFQ?=
+ =?utf-8?B?eDZCdXVrWnR4NGEwUTVVcGJTSnFUZFVpdnVMY1d4ZURQM1BIdjJBU3phY091?=
+ =?utf-8?B?NXVXL3Jmc0Ixa3VnUkJ6alNheDhlTjdyTVF3WENFc3JCSjlHN0J1N0lENm4y?=
+ =?utf-8?B?L2ZxRjhETW5GSWphNzl3YllSc1ZaZzlMZnI1d0RXSlJwMkIrQllRekdkMjhj?=
+ =?utf-8?B?bk1oRDVCL25leDNELzlFbXpyV1hPSzJDa3p1Sy9rWDArOWRlVVFKZnB1enlC?=
+ =?utf-8?B?UDdVNnVvTjVYQWVrSkJ5RXRtTG9aTkhTeWRkSlROZ0hTeGluUHpYMjlzQ3FU?=
+ =?utf-8?B?bGxpeUF6Z2o4MXZ3c014bGxZcllMMlFPR3M2dVFDQ1lKK1hjRnc0ejJSYllK?=
+ =?utf-8?B?dWVNd2tEQVc5WDJVSzk4c1VyYzhFNTIxZEhBUFpnWElldFBsL0lGYStCNnNm?=
+ =?utf-8?B?L2t1SENoeXR3b2poTGs2b3l5RExvK3hhOStDWmZDZis5YzFOR0JtdWYxU09u?=
+ =?utf-8?B?WkVFUE1oOVNRcDJYWGV1MU9aWGdPVE9RcWF4VzM5dkZnYVhMcDFNeW1SZHJa?=
+ =?utf-8?B?OTJTOW1EMmhybXFRUFpTNFFpTTUxT3hxK0JsUkpCS0tmTExOdzJUeDFPQUJu?=
+ =?utf-8?B?RXFaK3N2YVBibmZmcC9DaXc0M3V1dStBOWFuZWNNT0V5N2tCMTEzMUlBY1Uy?=
+ =?utf-8?B?SFoydXczZzVIL0FDN0hsUm4yNHRwdTRUTXRnZHhkanpnSEkwdVdtTTVXMTNi?=
+ =?utf-8?B?Sm9FcHUrZFZBL3I4ZjZHQ0VPdndZSjIrSUN3OFpRYklic2JST1ZPbHVkNXRO?=
+ =?utf-8?B?eGQyVEI3N0pJUVZVTnJDOEVlZVhGTGtleG9PK09aRE5CNDRLa2pkaUV3SHFL?=
+ =?utf-8?B?MXpKSkNJOGhwd3ljVnBXSDZZRU8yNTNDUENDVG8wc1RuczN4K2tROFRPMkRx?=
+ =?utf-8?B?cXUwTFY5RHNVVVVwTnFZeHVla2RGUUxSbytSQVRQa3cxWkV3dGU5NldRSUdm?=
+ =?utf-8?B?UjF6NkoyZ0ljdHJacjNKZU5TZlFaSFJYMTlVaVo5UVZ5VmNQUm5jeG5RU0NM?=
+ =?utf-8?B?TU82RlY1VzRaZFJINnNTZHpVR1R6SVJGSWEwWjc4Wk1kUEYzVE53ZjRybEl6?=
+ =?utf-8?B?WEc3aGt5ZU4rYVExUVNXUE1JMnhXRDZkcmtuVmY3cTJDM01JOHBqWEQyU2xp?=
+ =?utf-8?B?OHpxRkY2RmxFOWY5aUwzUURiTWUyZnN3RkhaYXhkdjFudCtHOGhncVZ6THRT?=
+ =?utf-8?B?UG1OUHJRam5RYW1ZMW5uM3RvY1doWEpqOXZ1WEpKRFl6NitRdWtON2JXYUx2?=
+ =?utf-8?B?Wm04MXc1YTlLYndNOGoxTmRDTkhmdkZuOGJnK0NEcXpYaFJSdmtUNE1ieHpu?=
+ =?utf-8?B?NTMxMWg3YVVXTTdlY2ltcyswZnNGMkE4eEwzRXZtNFRLWXIrakRKWEFvVmJL?=
+ =?utf-8?B?T3pqeTNZaHo3ZW80WUZzb05UbUpNUG0wR04zV1l4Und1MjJ6OWR3ZVQwZmZB?=
+ =?utf-8?B?V1FxSXMvQzFaTDhFUzlUdXhjYTVtbk50RnZhcVJZYytMNDRaK2xwcllTTGlH?=
+ =?utf-8?B?ZVNSQnZpcDdzUE9sdmFoeEsxR3dDRllOcGJTVDllVk11OWx3dmNwNWYzUEZQ?=
+ =?utf-8?B?WTMrVWVGV1dCM1pTbHhDL1dqcGIrQVI5YW9pQUN2dVRoNWtUV1cwZ0NGeHNY?=
+ =?utf-8?Q?ShQEQLcYE6SQkOI0AqvqejI=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2abaaec-6199-4266-ea90-08d9b3d31384
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88a38c15-90e8-4461-e3df-08d9b3d70324
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2021 07:28:59.8144
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2021 07:57:10.2974
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fgSp2/JgoMvU9xLCcfVkE8ywVb6ZfY+MYpMo1N5uPWwm1hvYts+vbkCG1Kss4UPrnts94B0YQIVX6DPuPh6W/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6383
+X-MS-Exchange-CrossTenant-UserPrincipalName: PQTkSwpLsmQOl/PdFkdHDYQRLfFgVAJ1U+baSfT7ZOPRDhMlAZekcqJxE3ntbYbHmNSahkZHVMdrvDnIXRk8Vw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5597
 
-On 29.11.2021 18:42, Andrew Cooper wrote:
-> On 29/11/2021 17:26, Andrew Cooper wrote:
->> It has been 4 years since the default load address changed from 1M to 2M=
-, and
->> _stext ceased residing in l2_xenmap[0].  We should not be inserting an u=
-nused
->> mapping.
->>
->> To ensure we don't create/remove mappings accidentally, loop from 0 and =
-obey
->> _PAGE_PRESENT on all entries.
->>
->> Fixes: 7ed93f3a0dff ("x86: change default load address from 1 MiB to 2 M=
-iB")
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->> CC: Wei Liu <wl@xen.org>
->>
->> I ought to have spotted this in c/s 52975142d154 ("x86/boot: Create the
->> l2_xenmap[] mappings dynamically") too.
->> ---
->>  xen/arch/x86/setup.c | 10 +++-------
->>  1 file changed, 3 insertions(+), 7 deletions(-)
->>
->> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
->> index da47cdea14a1..6f241048425c 100644
->> --- a/xen/arch/x86/setup.c
->> +++ b/xen/arch/x86/setup.c
->> @@ -1279,16 +1279,12 @@ void __init noreturn __start_xen(unsigned long m=
-bi_p)
->> =20
->>              /* The only data mappings to be relocated are in the Xen ar=
-ea. */
->>              pl2e =3D __va(__pa(l2_xenmap));
->> -            /*
->> -             * Undo the temporary-hooking of the l1_directmap.  __2M_te=
-xt_start
->> -             * is contained in this PTE.
->> -             */
->> +
->>              BUG_ON(using_2M_mapping() &&
->>                     l2_table_offset((unsigned long)_erodata) =3D=3D
->>                     l2_table_offset((unsigned long)_stext));
->> -            *pl2e++ =3D l2e_from_pfn(xen_phys_start >> PAGE_SHIFT,
->> -                                   PAGE_HYPERVISOR_RX | _PAGE_PSE);
->> -            for ( i =3D 1; i < L2_PAGETABLE_ENTRIES; i++, pl2e++ )
->> +
->> +            for ( i =3D 0; i < L2_PAGETABLE_ENTRIES; i++, pl2e++ )
->>              {
->>                  unsigned int flags;
->> =20
->=20
-> Actually, on further consideration, this hunk should be included too, to
-> cross-check that we don't zap any of the dynamically created mappings.
+On 29.11.2021 20:16, Ayan Kumar Halder wrote:
+> At the moment, Xen is only handling data abort with valid syndrome (i.e.
+> ISV=0). Unfortunately, this doesn't cover all the instructions a domain
+> could use to access MMIO regions.
+> 
+> For instance, Xilinx baremetal OS will use:
+> 
+>         volatile u32 *LocalAddr = (volatile u32 *)Addr;
+>         *LocalAddr = Value;
+> 
+> This leave the compiler to decide which store instructions to use. This
+> may be a post-index store instruction where the HW will not provide a
+> valid syndrome.
+> 
+> In order to handle post-indexing store/load instructions, Xen will need
+> to fetch and decode the instruction.
+> 
+> This patch only cover post-index store/load instructions from AArch64 mode.
+> For now, this is left unimplemented for trap from AArch32 mode.
+> 
+> Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
 
-I agree in principle, but ...
+Just a couple of general remarks, with no judgement towards its use
+in the codebase, and leaving out several obvious style issues.
 
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -1320,7 +1320,7 @@ void __init noreturn __start_xen(unsigned long mbi_=
-p)
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 }
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 else
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 {
-> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *pl2e =3D l2e_empty();
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ASSERT_UNREACHABLE();
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 continue;
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 }
+> Changelog :-
+> 
+> v2 :- 1. Updated the rn register after reading from it. (Pointed by Julien,
+>  Stefano)
+> 2. Used a union to represent the instruction opcode (Suggestd by Bertrand)
+> 3. Fixed coding style issues (Pointed by Julien)
+> 4. In the previous patch, I was updating dabt->sign based on the signedness of
+> imm9. This was incorrect. As mentioned in ARMv8 ARM  DDI 0487G.b, Page 3221,
+> SSE indicates the signedness of the data item loaded. In our case, the data item
+> loaded is always unsigned.
+> 
+> This has been tested for the following cases :-
+> ldr x2, [x1], #4
 
-... this isn't going to help non-debug builds. Dropping the zapping would
-mean release builds then run with an unadjusted PTE. I can see two options:
-Extract the flags from the existing PTE as fallback (i.e. keeping the
-ASSERT_UNREACHABLE()) or use BUG() instead.
+DYM "ldr w2, [x1], #4" or "ldr x2, [x1], #8" here?
+
+> ldr w2, [x1], #-4
+> 
+> str x2, [x1], #4
+
+Similar aspect here.
+
+> str w2, [x1], #-4
+> 
+> The reason being  I am testing on 32bit MMIO registers only. I don't see a 8bit
+> or 16bit MMIO register.
+
+As per this, perhaps the former of the two.
+
+> --- a/xen/arch/arm/decode.c
+> +++ b/xen/arch/arm/decode.c
+> @@ -84,6 +84,66 @@ bad_thumb2:
+>      return 1;
+>  }
+>  
+> +static int decode_32bit_loadstore_postindexing(register_t pc,
+> +                                               struct hsr_dabt *dabt,
+> +                                               union ldr_str_instr_class *instr)
+> +{
+> +    if ( raw_copy_from_guest(&instr->value, (void * __user)pc, sizeof (instr)) )
+> +        return -EFAULT;
+> +
+> +    /* First, let's check for the fixed values */
+> +    if ( !((instr->code.fixed1 == 1) && (instr->code.fixed2 == 0) &&
+> +         (instr->code.fixed3 == 0) && (instr->code.fixed4 == 7)) )
+> +    {
+> +        gprintk(XENLOG_ERR, "Decoding not supported for instructions other than"
+> +            " ldr/str post indexing\n");
+> +        goto bad_32bit_loadstore;
+> +    }
+> +
+> +    if ( instr->code.size != 2 )
+> +    {
+> +        gprintk(XENLOG_ERR,
+> +            "ldr/str post indexing is supported for 32 bit variant only\n");
+> +        goto bad_32bit_loadstore;
+> +    }
+> +
+> +    if ( instr->code.v != 0 )
+> +    {
+> +        gprintk(XENLOG_ERR,
+> +            "ldr/str post indexing for vector types are not supported\n");
+> +        goto bad_32bit_loadstore;
+> +    }
+> +
+> +    /* Check for STR (immediate) - 32 bit variant */
+> +    if ( instr->code.opc == 0 )
+> +    {
+> +        dabt->write = 1;
+> +    }
+> +    /* Check for LDR (immediate) - 32 bit variant */
+> +    else if ( instr->code.opc == 1 )
+> +    {
+> +        dabt->write = 0;
+> +    }
+> +    else
+> +    {
+> +        gprintk(XENLOG_ERR,
+> +            "Decoding ldr/str post indexing is not supported for this variant\n");
+> +        goto bad_32bit_loadstore;
+> +    }
+> +
+> +    gprintk(XENLOG_INFO,
+> +        "instr->code.rt = 0x%x, instr->code.size = 0x%x, instr->code.imm9 = %d\n",
+> +        instr->code.rt, instr->code.size, instr->code.imm9);
+> +
+> +    update_dabt(dabt, instr->code.rt, instr->code.size, false);
+> +    dabt->valid = 1;
+> +
+> +    return 0;
+> +bad_32bit_loadstore:
+
+Please indent labels by at least a blank. I also think this would
+benefit from a preceding blank line.
+
+> --- a/xen/arch/arm/io.c
+> +++ b/xen/arch/arm/io.c
+> @@ -65,6 +65,16 @@ static enum io_state handle_write(const struct mmio_handler *handler,
+>      return ret ? IO_HANDLED : IO_ABORT;
+>  }
+>  
+> +static void post_incremenet_register(union ldr_str_instr_class *instr)
+
+I think you mean post_increment_register()?
+
+> +{
+> +    struct cpu_user_regs *regs = guest_cpu_user_regs();
+> +    unsigned int val;
+> +
+> +    val = get_user_reg(regs, instr->code.rn);
+> +    val += instr->code.imm9;
+> +    set_user_reg(regs, instr->code.rn, val);
+
+I don't think this handles the SP case correctly, and I also don't see
+that case getting rejected elsewhere.
+
+> --- a/xen/include/asm-arm/hsr.h
+> +++ b/xen/include/asm-arm/hsr.h
+> @@ -15,6 +15,32 @@ enum dabt_size {
+>      DABT_DOUBLE_WORD = 3,
+>  };
+>  
+> +/*
+> + * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Stores
+> + * Page 318 specifies the following bit pattern for
+> + * "load/store register (immediate post-indexed)".
+> + *
+> + * 31 30 29  27 26 25  23   21 20              11   9         4       0
+> + * ___________________________________________________________________
+> + * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt   |
+> + * |____|______|__|____|____|__|_______________|____|_________|_______|
+> + */
+> +union ldr_str_instr_class {
+> +    uint32_t value;
+> +    struct ldr_str {
+> +        unsigned int rt:5;     /* Rt register */
+> +        unsigned int rn:5;     /* Rn register */
+> +        unsigned int fixed1:2; /* value == 01b */
+> +        int imm9:9;            /* imm9 */
+
+Plain int bitfields are, iirc, signed or unsigned at the compiler's
+discretion. Hence I think you mean explicitly "signed int" here.
+
+> +        unsigned int fixed2:1; /* value == 0b */
+> +        unsigned int opc:2;    /* opc */
+> +        unsigned int fixed3:2; /* value == 00b */
+> +        unsigned int v:1;      /* vector */
+> +        unsigned int fixed4:3; /* value == 111b */
+> +        unsigned int size:2;   /* size */
+> +    } code;
+> +};
+
+I'd recommend types needed in just one CU to live there, rather than
+getting exposed to every source file including this header (even more
+so when - aiui - this is entirely unrelated to HSR). When used in
+just a single function, it might even want to live here (i.e. as
+close as possible to the [only] use).
 
 Jan
 
