@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C0AD4630AA
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Nov 2021 11:07:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.234984.407746 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7EB94630A0
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Nov 2021 11:05:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.234955.407719 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ms02a-0003Fn-Jb; Tue, 30 Nov 2021 10:07:12 +0000
+	id 1ms00f-00007N-Cm; Tue, 30 Nov 2021 10:05:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 234984.407746; Tue, 30 Nov 2021 10:07:12 +0000
+Received: by outflank-mailman (output) from mailman id 234955.407719; Tue, 30 Nov 2021 10:05:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ms02a-0003Dv-Fm; Tue, 30 Nov 2021 10:07:12 +0000
-Received: by outflank-mailman (input) for mailman id 234984;
- Tue, 30 Nov 2021 10:07:11 +0000
+	id 1ms00f-0008SE-5U; Tue, 30 Nov 2021 10:05:13 +0000
+Received: by outflank-mailman (input) for mailman id 234955;
+ Tue, 30 Nov 2021 10:05:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1hFC=QR=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1ms010-0007QZ-0D
- for xen-devel@lists.xenproject.org; Tue, 30 Nov 2021 10:05:34 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0cf75c0e-51c5-11ec-976b-d102b41d0961;
- Tue, 30 Nov 2021 11:05:32 +0100 (CET)
+ id 1ms00c-0007QZ-GH
+ for xen-devel@lists.xenproject.org; Tue, 30 Nov 2021 10:05:10 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ffefa7a9-51c4-11ec-976b-d102b41d0961;
+ Tue, 30 Nov 2021 11:05:09 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0cf75c0e-51c5-11ec-976b-d102b41d0961
+X-Inumbo-ID: ffefa7a9-51c4-11ec-976b-d102b41d0961
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1638266732;
+  d=citrix.com; s=securemail; t=1638266709;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=GLNFdCsQo1lgG4rFh7qYYZT9z5k1wotugxCu0CDIj2s=;
-  b=au9ftoYXWPShCl21mh2jFu9YImyBLso6I3S2cwg3PbAbiYbKOJFWxkgV
-   n2KTfqL2lJ9sWDc+Lmc0eNdt955lz3Gi8+7lI9YJJPJQQ2MGGMLFv4Xl8
-   pMjxwb9/Qjssk6/NtRz0YkVH6WNn22ohOjzF26DDCGexuzmdcwQEsbWRJ
-   c=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: WGrmbQzjO3MmuKrT0AMqwfj83nx9+CdYXBIbqgbe5G9McsoLsuhJ+vYTDxsQ7U0x1dB53n6jBy
- RT+44sToPcTG+G9KwABZSsa2SojLVPVZN55ele5RX6EyiLqg6T8l3apV44dBfbTVHiLtMdbucN
- Viz25uBp8d5mz0dKkOzZagx8E45pvJuuNKKVHfIl1nClWAT2FvzCz22qnjbFL9+1EGYL/mM0YF
- EXH43GwPGLLHp03h6WTnpfJRF5q9lNlyVdAIuZSHHEFRXprttJnqp6u0zfIkXapLXmDwNrnNWb
- f3cUgc6H37p7vf3+z58ZJ8SZ
+  bh=tDRmWPYoenWIe1ospZDKOXn6f22HabGgSyG7x1uHVLQ=;
+  b=HOTjMiJzZM2RqgBtEvSzKyR2tFY4xmRvrrfc21+QAhJXp9UFthDlnbGX
+   dKgBWdfpPm9qB3c2qS6I4S/yjNujs5XNAMKNBJA6wr3SgKvDRPK9nZ/2y
+   lerCQo/xPvkBb+yyuiclP/CLszC3QgVTXWZ8SmmoYUQQhl9Qejp/fexhe
+   g=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: pNoiC8DWjaVXj+ZVau4jBv68Xw8eyiwlnTRDO0KtZp8bMCBworqDPGk0Wr93geebcBw3ElyX0H
+ Gh3u06hhYtvos8oDj+SMYFN94rPbRV+JVbscZ4JrHZl787aUG0VGcwDgmOaZQ3LucKcw24GrET
+ UDf/I97/w7P999fYaBsltS+7rnqwBy7m5lyBxjZp0S85a7d315mInvHCJfCKl4xDwjoYEy6Nh1
+ 5SPZMDUrLhA5NWsRucJ9SOXgYnkWNTLjO8pcJ1cG/knlHDjpY73lxCkFwlODePBZ753sMp07x5
+ aFqDmo9QxGSIF5cTqqeVAUjT
 X-SBRS: 5.1
-X-MesageID: 58910850
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 59281588
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:hm929aCI0l5plBVW/+Tkw5YqxClBgxIJ4kV8jS/XYbTApD5w1z1Wy
- WEZCmjVOquPMGL3eYxxPdixo0IPsJXXx9E1QQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WLGs1hxZH1c+EX540ko7wobVv6Yz6TSHK1LV0
- T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
- Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/px6Zlo5oi
- +93q8aMGBcWG+7+oaNMekwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
- KFGbmBWBvyAr7veLLaTY+9gnMk8auLsO5sSoCpIxjDFF/c2B5vERs0m4PcFjGZp3pATRZ4yY
- eImQ2d0Uw7dRyFVGWsxGLw7p9/3nCjGJmgwRFW9+vNsvjm7IBZK+KfpGMrYfJqNX8o9tmSyq
- 3/C/m/5KgoHL9HZwj2Amlq8i+mKkS7lVYY6ELyj6uUskFCV3nYUChAdSR28u/bRt6Klc4sBc
- QpOoHNo9PVsshzwJjXgY/GmiFKvrhdCQplqKfNg1FCd9Y+X0T/eV0FRG1atd+canMMxQDUr0
- HqAkNXoGSFjvdWpdJ6NyluHhWjsYHZIdAfucQdBFFJYuIe7/OnfmzqWFo47eJNZmOEZDt0ZL
- 9qiiCElz4segscQv0lQ1QCW2mn8znQlo+Nc2+k2Yo5Hxl8pDGJGT9bxgbQ+0RqmBN3CJrVml
- CJZ8/VyFMhUUfmweNWlGY3h5o2B6fefKyH7ilVyBZQn/DnF0yf9JtAKuWglfxkzbpxsldrVj
- Kn74lg5CHh7ZibCUEOKS9jpV5RCIVbIS7wJqcw4nvIRO8MsJWdrDQllZFKK3nCFraTfufpXB
- HtvSu71VSxyIf0+lFKeHr5BuZd2lnFW7T6CHvjTkkX4uYdykVbIEN/pxnPVNbtnhE5FyS2Im
- +ti2zyil08CDbagO3aPqub+7zkidBAGOHw/kOQPHsbrH+asMDpJ5yb5zexzdop7sb5Sk+uUr
- HixVlUBkAj0hGHdKBXMYXdmMeu9UZF6pHM9HCotIVf3hCRzPdfxtP8SJ8ktYL0q1O1/1vooH
- fMLTNqNX6ZUQTPd9jVDMZSk9N5+dA6mjB6lNja+ZGRtZIZpQgHEo4e2fgbm+CQUIDCwsM8y/
- ++p2g/BGMJRTAV+FsfGLvmoygrp73QanetzWWrOI8VSJxqwoNQ7dXSpg6Zucc8WKBjFyj+L7
- CqsAE8V9bvXvos40NjVnqTY/Y2nJPRzQxhBFG7B4LfoaSSDpji/wZVNWfqjdCzGUD+m472rY
- OhYwq2uMPADm1oW4YNwH6wykPA77trr4bRb0h5lDDPAaFHyUuFsJXyP3M9usKxRx+AG5VvqC
- xzXotQKa6+UPM7FEUIKIFt3Z+uO4vgYhz3O4KlnO079/iJ2oOKKXEg608NgU8CBwG+Z6L8Y/
- No=
-IronPort-HdrOrdr: A9a23:nkvmQatjFWvrgaJba5S4Sd9s7skDTNV00zEX/kB9WHVpmszxra
- GTdZMgpGfJYVcqKQgdcL+7Scq9qB/nmqKdpLNhWYtKPzOW3ldATrsSj7cKqgeIc0aVm4JgPO
- VbAs9D4bXLfCNHZK3BgDVQfexP/DD+ytHMudvj
+IronPort-Data: A9a23:qtG/UK+IEdbO4Ug3R/vqDrUDTXmTJUtcMsCJ2f8bNWPcYEJGY0x3n
+ TEfCj3QOveKZmSnKdt3b4qy/U9T75eAytQ1TgRvqCA8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhGmeIdA970Ug6wrdi2tYx6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPgum
+ c5zp62KRj0tN72LkcE/VTcBPXBXaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguwKKsXxMZxZkXZn1TzDVt4tQIzZQrWM7thdtNs1rp0fR6aHO
+ ppJAdZpRDPxRF5WYUg3MpgZkvikgymjUgRfml3A8MLb5ECMlVcsgdABKuH9ZdiiVchT2EGCq
+ Qru3U70HxUbP9y30iee/zSngeqntTP2XsceGaO18tZugUaP3SoDBRsOT1y5rPKlzEmkVLpix
+ 1c8o3R06/JorQryE4e7D0bQTGO4UgA0BItLLf8L0g63zqPEpA+8JG4qFxAQQYlz3CMpfgAC2
+ liMltLvIDVgtryJVH6QnoupQSOO1Ts9djFbO3JdJecRy5y6+dxo0EqTJjp2OPft1oWdJN3m/
+ 9ydQMHSbZ03hNVD6ai09Euvb9mE9smQFV5dCuk6swuYAuJFiGyNO9zABbvzt68owGOlor+p5
+ yNsdy+2tr1mMH11vHbRKNjh5Znwjxp/DBXSgER0A74q/Cm39niocOh4uW8ldB0wa51fJ2W1O
+ ic/XD+9ArcIZxNGioctPuqM5zkCl/C8RbwJqNiKBjaxXnSBXFDep3w/DaJh92vsjFItgckC1
+ WSzKq6R4YIhIf0/llKeHr5FuZdyn3xW7T6DFPjTkkX8uZLDNSH9dFvwGAbXBgzPxPjf+1u9H
+ hc2H5bi9iizp8WiOHSKqtBKcghRRZX5bLivw/Fqmie4ClIOMAkc5zX5m9vNoqRpwPZYkPnm5
+ Ha4VhMKwVbznySfew6LdmpiePXkWpMm9SA3OiklPFCJ3Xk/YNnwsPdDJsVvJbR3pvZ+yfNUT
+ uUef5nSCPp4VTmaqS8WaoPwrdI+eU3z1x6OJSesfBM2Y4VkG17S4tbhcwa2rHsOAyO7uNEQu
+ bql0g+HE5MPSx47VJTdae61zkP3tn8YwbogU0zNK9hVWUPt7Ik1dHCh0q5pe5kBcEyRyCGb2
+ gCaBQYjidPM+4JlosPUga2krpuyF7csFERtAGSGv629MjPX/zT/zNYYAvqIZz3USEj95L6mO
+ bdO1/j5PfAKwARKvo57H+o5xK4y/YKy9bpTzwAiF3TXdVW7TLhnJyDej8VIs6RMwJ5fuBe3B
+ R3TqoULZ+3RNZO3CkMVKSokcv+HhKMdlTTl5PgoJFn3uX1s972dXEQOZxSBhUSx9leu3F/JF
+ Qv5hPMr1g==
+IronPort-HdrOrdr: A9a23:bE+UWKy+d6y3eswqWlWYKrPw1r1zdoMgy1knxilNoHxuH/BwWf
+ rPoB17726RtN91YhsdcL+7V5VoLUmzyXcX2/h1AV7BZniEhILAFugLgbcKqweKJ8SUzJ8+6U
+ 4PSclD4N2bNykGsS75ijPIb+rJFrO8gd+VbeS19QYScelzAZsQiDuQkmygYzZLrA8tP+teKL
+ OsovBpihCHYnotYsGyFhA+LpL+T42iruOeXfYebSRXkDWzsQ==
 X-IronPort-AV: E=Sophos;i="5.87,275,1631592000"; 
-   d="scan'208";a="58910850"
+   d="scan'208";a="59281588"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 6/8] x86/boot: Adjust .text/.rodata/etc permissions in one place
-Date: Tue, 30 Nov 2021 10:04:43 +0000
-Message-ID: <20211130100445.31156-7-andrew.cooper3@citrix.com>
+Subject: [PATCH 7/8] x86/boot: Support __ro_after_init
+Date: Tue, 30 Nov 2021 10:04:44 +0000
+Message-ID: <20211130100445.31156-8-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211130100445.31156-1-andrew.cooper3@citrix.com>
 References: <20211130100445.31156-1-andrew.cooper3@citrix.com>
@@ -100,15 +101,15 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-At the moment, we have two locations selecting restricted permissions, not
-very far apart on boot, dependent on opposite answers from using_2M_mapping().
-The later location however can shatter superpages if needed, while the former
-cannot.
+For security hardening reasons, it advantageous to make setup-once data
+immutable after boot.  Borrow __ro_after_init from Linux.
 
-Collect together all the permission adjustments at the slightly later point in
-boot, as we're may need to shatter a superpage to support __ro_after_init.
+On x86, place .data.ro_after_init at the start of .rodata, excluding it from
+the early permission restrictions.  Re-apply RO restrictions to the whole of
+.rodata in init_done(), attempting to reform the superpage if possible.
 
-No functional change.
+For architectures which don't implement __ro_after_init explicitly, variables
+merges into .data.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -116,117 +117,83 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 ---
- xen/arch/x86/setup.c | 74 ++++++++++++----------------------------------------
- 1 file changed, 16 insertions(+), 58 deletions(-)
+ xen/arch/x86/setup.c        | 12 +++++++++++-
+ xen/arch/x86/xen.lds.S      |  6 ++++++
+ xen/include/asm-x86/setup.h |  1 +
+ xen/include/xen/cache.h     |  2 ++
+ 4 files changed, 20 insertions(+), 1 deletion(-)
 
 diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 0e0e706404a3..8329263430ed 100644
+index 8329263430ed..3bbc46f244b9 100644
 --- a/xen/arch/x86/setup.c
 +++ b/xen/arch/x86/setup.c
-@@ -1281,55 +1281,16 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-                 }
-             }
+@@ -663,6 +663,11 @@ static void noreturn init_done(void)
+     init_xenheap_pages(__pa(start), __pa(end));
+     printk("Freed %lukB init memory\n", (end - start) >> 10);
  
--            BUG_ON(using_2M_mapping() &&
--                   l2_table_offset((unsigned long)_erodata) ==
--                   l2_table_offset((unsigned long)_stext));
--
-             /* Walk l2_xenmap[], relocating 2M superpage leaves. */
-             pl2e = __va(__pa(l2_xenmap));
-             for ( i = 0; i < L2_PAGETABLE_ENTRIES; i++, pl2e++ )
-             {
--                unsigned int flags;
--
-                 if ( !(l2e_get_flags(*pl2e) & _PAGE_PRESENT) ||
-                      !(l2e_get_flags(*pl2e) & _PAGE_PSE) ||
-                      (l2e_get_pfn(*pl2e) >= pte_update_limit) )
-                     continue;
- 
--                if ( !using_2M_mapping() )
--                {
--                    *pl2e = l2e_from_intpte(l2e_get_intpte(*pl2e) +
--                                            xen_phys_start);
--                    continue;
--                }
--
--                if ( i < l2_table_offset((unsigned long)&__2M_text_end) )
--                {
--                    flags = PAGE_HYPERVISOR_RX | _PAGE_PSE;
--                }
--                else if ( i >= l2_table_offset((unsigned long)&__2M_rodata_start) &&
--                          i <  l2_table_offset((unsigned long)&__2M_rodata_end) )
--                {
--                    flags = PAGE_HYPERVISOR_RO | _PAGE_PSE;
--                }
--                else if ( i >= l2_table_offset((unsigned long)&__2M_init_start) &&
--                          i <  l2_table_offset((unsigned long)&__2M_init_end) )
--                {
--                    flags = PAGE_HYPERVISOR_RWX | _PAGE_PSE;
--                }
--                else if ( (i >= l2_table_offset((unsigned long)&__2M_rwdata_start) &&
--                           i <  l2_table_offset((unsigned long)&__2M_rwdata_end)) )
--                {
--                    flags = PAGE_HYPERVISOR_RW | _PAGE_PSE;
--                }
--                else
--                {
--                    *pl2e = l2e_empty();
--                    continue;
--                }
--
--                *pl2e = l2e_from_paddr(
--                    l2e_get_paddr(*pl2e) + xen_phys_start, flags);
-+                *pl2e = l2e_from_intpte(l2e_get_intpte(*pl2e) + xen_phys_start);
-             }
- 
-             /* Re-sync the stack and then switch to relocated pagetables. */
-@@ -1572,31 +1533,28 @@ void __init noreturn __start_xen(unsigned long mbi_p)
- #endif
- 
-     /*
--     * If not using 2M mappings to gain suitable pagetable permissions
--     * directly from the relocation above, remap the code/data
--     * sections with decreased permissions.
-+     * Restrict permissions on the Xen code/data.
-+     *
-+     * Mark .text as RX.
-      */
--    if ( !using_2M_mapping() )
--    {
--        /* Mark .text as RX (avoiding the first 2M superpage). */
--        modify_xen_mappings(XEN_VIRT_START + MB(2),
--                            (unsigned long)&__2M_text_end,
--                            PAGE_HYPERVISOR_RX);
-+    modify_xen_mappings((unsigned long)&_start,
-+                        (unsigned long)&__2M_text_end,
-+                        PAGE_HYPERVISOR_RX);
- 
--        /* Mark .rodata as RO. */
--        modify_xen_mappings((unsigned long)&__2M_rodata_start,
--                            (unsigned long)&__2M_rodata_end,
--                            PAGE_HYPERVISOR_RO);
-+    /* Mark .rodata as RO. */
++    /* Mark .rodata/ro_after_init as RO.  Maybe reform the superpage. */
 +    modify_xen_mappings((unsigned long)&__2M_rodata_start,
 +                        (unsigned long)&__2M_rodata_end,
 +                        PAGE_HYPERVISOR_RO);
++
+     startup_cpu_idle_loop();
+ }
  
--        /* Mark .data and .bss as RW. */
--        modify_xen_mappings((unsigned long)&__2M_rwdata_start,
--                            (unsigned long)&__2M_rwdata_end,
--                            PAGE_HYPERVISOR_RW);
-+    /* Mark .data and .bss as RW. */
-+    modify_xen_mappings((unsigned long)&__2M_rwdata_start,
-+                        (unsigned long)&__2M_rwdata_end,
+@@ -1541,8 +1546,13 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+                         (unsigned long)&__2M_text_end,
+                         PAGE_HYPERVISOR_RX);
+ 
++    /* Mark .data.ro_after_init as RW.  Maybe shatters the .rodata superpage. */
++    modify_xen_mappings((unsigned long)&__ro_after_init_start,
++                        (unsigned long)&__ro_after_init_end,
 +                        PAGE_HYPERVISOR_RW);
++
+     /* Mark .rodata as RO. */
+-    modify_xen_mappings((unsigned long)&__2M_rodata_start,
++    modify_xen_mappings((unsigned long)&__ro_after_init_end,
+                         (unsigned long)&__2M_rodata_end,
+                         PAGE_HYPERVISOR_RO);
  
-+    if ( !IS_ALIGNED((unsigned long)&__2M_rwdata_end, MB(2)) )
-         /* Drop the remaining mappings in the shattered superpage. */
-         destroy_xen_mappings((unsigned long)&__2M_rwdata_end,
-                              ROUNDUP((unsigned long)&__2M_rwdata_end, MB(2)));
--    }
+diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+index 87e344d4dd97..4db5b404e073 100644
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -97,6 +97,12 @@ SECTIONS
+   __2M_rodata_start = .;       /* Start of 2M superpages, mapped RO. */
+   DECL_SECTION(.rodata) {
+        _srodata = .;
++
++       __ro_after_init_start = .;
++       *(.data.ro_after_init)
++       . = ALIGN(PAGE_SIZE);
++       __ro_after_init_end = .;
++
+        /* Bug frames table */
+        __start_bug_frames = .;
+        *(.bug_frames.0)
+diff --git a/xen/include/asm-x86/setup.h b/xen/include/asm-x86/setup.h
+index eb9d7b433c13..34edea405f85 100644
+--- a/xen/include/asm-x86/setup.h
++++ b/xen/include/asm-x86/setup.h
+@@ -6,6 +6,7 @@
  
-     nr_pages = 0;
-     for ( i = 0; i < e820.nr_map; i++ )
+ extern const char __2M_text_start[], __2M_text_end[];
+ extern const char __2M_rodata_start[], __2M_rodata_end[];
++extern const char __ro_after_init_start[], __ro_after_init_end[];
+ extern char __2M_init_start[], __2M_init_end[];
+ extern char __2M_rwdata_start[], __2M_rwdata_end[];
+ 
+diff --git a/xen/include/xen/cache.h b/xen/include/xen/cache.h
+index 6ee174efa439..f52a0aedf768 100644
+--- a/xen/include/xen/cache.h
++++ b/xen/include/xen/cache.h
+@@ -15,4 +15,6 @@
+ #define __cacheline_aligned __attribute__((__aligned__(SMP_CACHE_BYTES)))
+ #endif
+ 
++#define __ro_after_init __section(".data.ro_after_init")
++
+ #endif /* __LINUX_CACHE_H */
 -- 
 2.11.0
 
