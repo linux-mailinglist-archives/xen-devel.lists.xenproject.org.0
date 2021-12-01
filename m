@@ -2,48 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1079A464D54
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 12:52:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.235962.409299 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD9E8464D60
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 12:59:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.235970.409311 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msO9o-0001eM-77; Wed, 01 Dec 2021 11:52:16 +0000
+	id 1msOGP-0002YB-10; Wed, 01 Dec 2021 11:59:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 235962.409299; Wed, 01 Dec 2021 11:52:16 +0000
+Received: by outflank-mailman (output) from mailman id 235970.409311; Wed, 01 Dec 2021 11:59:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msO9o-0001ag-3I; Wed, 01 Dec 2021 11:52:16 +0000
-Received: by outflank-mailman (input) for mailman id 235962;
- Wed, 01 Dec 2021 11:52:14 +0000
+	id 1msOGO-0002WO-UD; Wed, 01 Dec 2021 11:59:04 +0000
+Received: by outflank-mailman (input) for mailman id 235970;
+ Wed, 01 Dec 2021 11:59:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=gc09=QS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1msO9m-0001aD-LK
- for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 11:52:14 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1f99ea94-529d-11ec-976b-d102b41d0961;
- Wed, 01 Dec 2021 12:52:13 +0100 (CET)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2110.outbound.protection.outlook.com [104.47.17.110]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-1-8Sv8aH-JMdaPmLWtdMHVfg-1; Wed, 01 Dec 2021 12:52:12 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB5598.eurprd04.prod.outlook.com (2603:10a6:803:e9::30)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Wed, 1 Dec
- 2021 11:52:11 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe%5]) with mapi id 15.20.4734.024; Wed, 1 Dec 2021
- 11:52:11 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM6P195CA0058.EURP195.PROD.OUTLOOK.COM (2603:10a6:209:87::35) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4734.22 via Frontend Transport; Wed, 1 Dec 2021 11:52:10 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=46ns=QS=arm.com=andre.przywara@srs-se1.protection.inumbo.net>)
+ id 1msOGN-0002WI-7z
+ for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 11:59:03 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 1208e2a1-529e-11ec-976b-d102b41d0961;
+ Wed, 01 Dec 2021 12:59:00 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 201071477;
+ Wed,  1 Dec 2021 03:59:00 -0800 (PST)
+Received: from donnerap.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 036F43F694;
+ Wed,  1 Dec 2021 03:58:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,164 +43,473 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1f99ea94-529d-11ec-976b-d102b41d0961
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1638359533;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=jFiFW1A5HX6NQdugw21gayywBYK+vQSEiTp/bOCwvUk=;
-	b=Mvij0ji9DSMjxqrYNiCw6JzfAYaIWYg4lozKY5IymnLfuTSdCrnBFvS9lmjQyRn5+uIGOV
-	XeCycDq3yMrbg5xiUfccp7uaamd9OLLOu+sdO6iddaXCCP0KFUvSoOLPNpnWvjGgNGXSQY
-	1RdWeMbqwNDWizSnaNWZzrA4YFRYw8c=
-X-MC-Unique: 8Sv8aH-JMdaPmLWtdMHVfg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g8+QdujFIaN3lpbRGY9kl0J35q/jeHmqhfiBUDkOpHJR4ztwbhfJs/LXIfXZoI+LeoAd4Oz0Daj0iLCx3Ub1RkTZjhskgo0QJej2IdCvlW2Rc8c6gkEUaDF8E6l7xmpSFLmY+EYQHz4FiqUdSRfvcdYx2Mur8q6J4CFMdsiyI8AuGQrFeN7sWveWCQweNTxRuEvJ2ihUNFpll03KC9sKmBeuedD+/TdjhfS65olDddystgrfr3Zv1sLJwtPOo/HD2WyN+OkX3xrcOKpfEqude/8NlKTBqsejBMVnzPa/BoT19c3+CEU4Y06axZ2RuIGQR/fbPlPHBbxTADP60UO0yA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jFiFW1A5HX6NQdugw21gayywBYK+vQSEiTp/bOCwvUk=;
- b=kzQHidR1fSJWaFpb08kVjAvMnorPNx54ervEN7SBfGf83KY21CtqU4oQ+2j24w+zufeC2RC5sjcTylVCaDksWt04domeoehGIJg4Mk92Aa6+lLEzkEj7zHnxgxZn7mmMaWijpop3OhNC5KVLHQr6RKORwZvPTZlNYa/9u5hh1D3kwCq0uUkrqwwyGSGDwxKtsrc13xrGPDaM44w4N/kHVSuLaAX/cCJJ8eWIuVrAd6c9k0z1UFrlLZ9qcobFfNeQ9092JB91Y6uGP9/bq17H4dOcHBNt4xiTgoac4sfs8Rd72of8ua9qwGvDnUgiy/7XZb+RbN+EjDZmcEIS+PNHrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <e698a39a-f9fc-18d7-07cd-d0b9da9c0eae@suse.com>
-Date: Wed, 1 Dec 2021 12:52:08 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH 2/2] x86/PoD: move increment of entry count
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>
-References: <ac46f25b-e669-f309-b36e-c4760e10479e@suse.com>
-Content-Language: en-US
-In-Reply-To: <ac46f25b-e669-f309-b36e-c4760e10479e@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P195CA0058.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:209:87::35) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 1208e2a1-529e-11ec-976b-d102b41d0961
+Date: Wed, 1 Dec 2021 11:58:46 +0000
+From: Andre Przywara <andre.przywara@arm.com>
+To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+Cc: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
+ <stefanos@xilinx.com>, <julien@xen.org>, <Volodymyr_Babchuk@epam.com>,
+ <bertrand.marquis@arm.com>, <jbeulich@suse.com>
+Subject: Re: [XEN v2] xen/arm64: io: Decode 32-bit ldr/str post-indexing
+ instructions
+Message-ID: <20211201115846.6f9b1d99@donnerap.cambridge.arm.com>
+In-Reply-To: <a69d41f1-7b57-c127-ae73-2de5a581dddd@xilinx.com>
+References: <20211129191638.19877-1-ayankuma@xilinx.com>
+	<20211130094950.1bf368d6@donnerap.cambridge.arm.com>
+	<a69d41f1-7b57-c127-ae73-2de5a581dddd@xilinx.com>
+Organization: ARM
+X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; aarch64-unknown-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c27536ab-408f-4c8a-2af3-08d9b4c10229
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5598:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB559803D103399B3FC97F87F3B3689@VI1PR04MB5598.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	MSY9GOsxx4vAmZ7TZnoSztFFdyXAc9sUATNaauHB50L5kOc18ilYGvkUuw172ai9PMMsiO4Oea7PFP5AJVFbDcGeD5I9FX4wxxDgk+bFi8V41OWD5u5D/R8ncpYmbMMllBRyE8gpkclIHVICdxNIvea8jXChCx6vGWDTHxNX+A5wqt/+kdjIZqGeJjkAiYzY9oRNLmpVBHOnAPl7zo5Pp3ejboqujiZypAy6mdG0Qb7ysyk7qqWWYvmmgSQ80YxgTvSGvKSENmtppRD2VWXd1qXYHRJI+J35bkilgCpTRMxDE7i/PMumVIEcjSZ/3zQFY198aoGuVSpQD4k5X7ybyuv8zVLFbyMkJHqZDVnpJvmH4gtRuWHrsmlwy2CT7oJK9UhrldzbXRIACGaMfkDXvPlMsDdS2X5FyXmp0UCVeNZlV4C5H9xYsqeh5O3eGDGnERG1F2NmLuXm0yHUcuwSTlCEEcrIs8n1lVaX/JUE1EV8cfNm/ydNGEsyeTzEoaAF4714xfFuR255h98DFq7I8WvR7fpFBB82dN2AK+ogYKgwX/dQRhWpz6PFdeKTD3svGJCOONBmbOrO+GuyG+7sEEmdDW8bXdWPK+GVM6lhLfR2h+zSn2y80kjyxwIC3yHiYu4+TciDUkZutbXNi/p8phEcprbGizX9SbxgS+/m5otr49HXujkK9o2nr2C2NBxPPUHzALrlKg2jtF87hn353sgV5lB4b+J2oZ7xts8KuDdyHEtSlePdbZtkPFHAW186
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(26005)(8936002)(8676002)(66946007)(66556008)(31686004)(66476007)(316002)(2906002)(36756003)(83380400001)(16576012)(186003)(2616005)(6916009)(86362001)(38100700002)(6486002)(31696002)(4326008)(956004)(5660300002)(508600001)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YVV6dWYyb0c5SVVwQWIyc2twS01ESSthYVd3Yk9WVnVuYnJjbzlGR1FublFE?=
- =?utf-8?B?M1UzQUJ6QWpDS1hzN2JhWXB5YjA3VEVTall1eVVRekNCMlNKTHcxUUFJSDA0?=
- =?utf-8?B?WTQydjZuNS9ydHRicmZNNlkxL3BpazNMbWgycHRmdlRQYzhzMzFicEdQR2xZ?=
- =?utf-8?B?elkvSDFHMHBrQkdtWTBvalN5SlUxb1FhTjNITnJ0QTlaU2ZwcHp2OWR0dk9M?=
- =?utf-8?B?emg4R1VTaC9WSTB6RVc5NTMzbXZuam5QZWhVM1pPUGRoRS9Cb2l1OGJPdXBG?=
- =?utf-8?B?STZEbmdnbkhLMlpHdGp0cTQ2Ri9yaks0cmFLclhjRTVUcTNpVnhhVGFQNjNO?=
- =?utf-8?B?YXczK2lrZTBjQnR5a05oUDJPaFAzWFUwVUgwd243dTdiU01rWm9YbHdidE1C?=
- =?utf-8?B?U3NWRWJKUTFUVlprNFFseG5vNGUyL0VWbzN5R3NkVmp0eEI1OEY4M1kwTmdw?=
- =?utf-8?B?NlNpeElrQTgyaUF0enBBWEd2MjFXVDRoYWlsQXp4TmJCTEorZ0R5RUZJeUlK?=
- =?utf-8?B?eEg1eHhWYmNzMDZRa3NSSGZBNnNTd1J1ZVNxbXVDSllIVGpjaFE1UkRhOGhO?=
- =?utf-8?B?M2pTUVdyTUJqenh4S0NnbW8yb3VMM1MwNjdNSEFyZUdLUFBldGNrQXU5R2V0?=
- =?utf-8?B?YkNwa2dtcFBXcXJoOHJkQzhPTkQ3djQrN1V5UktGNUg4NGQ1ZTFuZytsZTk3?=
- =?utf-8?B?VWlLbXhteUp5dE9qejl2Yk5TeTRmT3JsaHd5VXRtaHc0bWR6UlMwR1pGaHdl?=
- =?utf-8?B?OU9rK2FNRTVlRWFrQnVXODJ0UndON05Vc1ZYeXIvbDVvMnZ1c3ZCTXEyU1Fj?=
- =?utf-8?B?a2ZwNW1KNUFVOW1pWjRXdkZpZW8vTmt2K0xUY2IwRzRFdTFNZXBPS3E1ejdK?=
- =?utf-8?B?ZGg4NFpBQmxEQXpKK3duSGRNWHE1clhvamJ4cldqNkxlWi9TSi8zMTFnTlpG?=
- =?utf-8?B?MkJsbUR4Vk1nTk0xQTlCQjB5L1dnZ0FxcXBWaS9WSTdDM3ZTSkd6ZlBuVndm?=
- =?utf-8?B?Slg4d1pSS3N4R2Y3bE9jOWRxN09WYlJOU2NROXJTeHlqNGh6d3VKSG14aXR6?=
- =?utf-8?B?MWNEd3JuaGUzdktzR2VmeXp0OEhaMDZERXd5Qk4zdEdxQUJhRkV5cS9MWStW?=
- =?utf-8?B?b1FmVjJSc2haZ3lmRVN5ME00NUdxYlVGVFZQbjIwWGszeWNacFg3aXdHMVJi?=
- =?utf-8?B?QVcrMkhQbDBOMkc2WCtUdFJMQkNGeUkzbnYralptcHB6OWVOVnppMmZaeHlU?=
- =?utf-8?B?TTZleVV5QklpN3h1RnRNUXFHcCtkUnl6azltNGkxcE9OV2xxMkNFRE05Tmpp?=
- =?utf-8?B?c0FnWDVJWU9ocFNkSzIwTGJlUzhHOE5RRzFJTlJCckxYUFh1bjVENCsyT1dm?=
- =?utf-8?B?UXVxU2JNYVpJc3N2NGJxTkRoRVlFYi9nRjJpQVZFMjBsSEJCN1FYR3U1eGZh?=
- =?utf-8?B?MDFzNWQ1Yk9SSzh2aU4vSGJ5b2VMb0pFVDk1dVlTY0xDUkZDOTYzNitjS0dQ?=
- =?utf-8?B?aEgyM0pMdWZZUEZ6eTBxYjRaVFJaVXlFZ0dSWE94ZUk0RjRhMHVRdXdSeS9y?=
- =?utf-8?B?MERYc0Z0UFdTN2pwclpxdTYweDlmd0FWL2FkMWxQNUdVZUxDamFFRlltSHR3?=
- =?utf-8?B?TEQxSXJiMGtuTncvK2ZLeTJMNmxnSG5WRmtSTnBrTHZpcE5PTVAxYnBqZWVN?=
- =?utf-8?B?cVJ6TC9WTG4wQVhMQmJZSFd3OGk4d0hybGZ0UHd3eDhxSGU3TXZrQklJNlhX?=
- =?utf-8?B?cVVEM0RZeGtLdXVWcVV5WFMvSkhiOXJaMnFiYTZoTzJRcWx0RW1KYlgwN3VP?=
- =?utf-8?B?Rm5pdEl5ZGw5QTBGQyt1czNBNjlNSEZEaEdua1BmNTdwS1ZneTdNamxJMG1V?=
- =?utf-8?B?M0c2OWl5UWhjeVNxa0JIOVBVRVkwdHJrcUlNdytNU001eko2bWEydDZkaHBG?=
- =?utf-8?B?U2ZIVDB4RWtZdlNOWVg3eUV4SmJ4cmFxT2U5S2F6clVKc0dHMGxxQ2pma0pX?=
- =?utf-8?B?czVoSUxKVzV6RTZLc2Y3RXFRN2t4SXM4YkRVeU1Kb3dtTHZjeUpzWHFBdnZx?=
- =?utf-8?B?aVBVYnErSVArYWJoWGdQSTBXU2xBcUk2cmZmUEhiWEh0TGhkeVh1Z0VlM2lG?=
- =?utf-8?B?K1poTlB3YlRDWW1Ib1BjditTWHVWbjI5MENCRWxVOTRCeTloSW9yNy8za3lj?=
- =?utf-8?Q?tlfqtLmS6S8zLie3ui10kwk=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c27536ab-408f-4c8a-2af3-08d9b4c10229
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2021 11:52:10.9005
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Q8LjKjPJCDMDZbSZcA01SaBqPeFtwvkHMRmKNoNvRwGe+CWrf5d6bDlXG/wK3XL05kBzLit4ncb1tNKQi7+1eQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5598
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-When not holding the PoD lock across the entire region covering P2M
-update and stats update, the entry count should indicate too large a
-value in preference to a too small one, to avoid functions bailing early
-when they find the count is zero. Hence increments should happen ahead
-of P2M updates, while decrements should happen only after. Deal with the
-one place where this hasn't been the case yet.
+On Tue, 30 Nov 2021 19:13:41 +0000
+Ayan Kumar Halder <ayan.kumar.halder@xilinx.com> wrote:
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-Resending due to the original submission having had the same contents
-twice.
+Hi Ayan,
 
---- a/xen/arch/x86/mm/p2m-pod.c
-+++ b/xen/arch/x86/mm/p2m-pod.c
-@@ -1345,19 +1345,15 @@ mark_populate_on_demand(struct domain *d
-         }
-     }
- 
-+    pod_lock(p2m);
-+    p2m->pod.entry_count += (1UL << order) - pod_count;
-+    pod_unlock(p2m);
-+
-     /* Now, actually do the two-way mapping */
-     rc = p2m_set_entry(p2m, gfn, INVALID_MFN, order,
-                        p2m_populate_on_demand, p2m->default_access);
-     if ( rc == 0 )
--    {
--        pod_lock(p2m);
--        p2m->pod.entry_count += 1UL << order;
--        p2m->pod.entry_count -= pod_count;
--        BUG_ON(p2m->pod.entry_count < 0);
--        pod_unlock(p2m);
--
-         ioreq_request_mapcache_invalidate(d);
--    }
-     else if ( order )
-     {
-         /*
-@@ -1369,6 +1365,13 @@ mark_populate_on_demand(struct domain *d
-                d, gfn_l, order, rc);
-         domain_crash(d);
-     }
-+    else if ( !pod_count )
-+    {
-+        pod_lock(p2m);
-+        BUG_ON(!p2m->pod.entry_count);
-+        --p2m->pod.entry_count;
-+        pod_unlock(p2m);
-+    }
- 
- out:
-     gfn_unlock(p2m, gfn, order);
+> Thanks for your comments. They are useful.
+>=20
+> On 30/11/2021 09:49, Andre Przywara wrote:
+> > On Mon, 29 Nov 2021 19:16:38 +0000
+> > Ayan Kumar Halder <ayan.kumar.halder@xilinx.com> wrote:
+> >=20
+> > Hi,
+> >  =20
+> >> At the moment, Xen is only handling data abort with valid syndrome (i.=
+e.
+> >> ISV=3D0). Unfortunately, this doesn't cover all the instructions a dom=
+ain
+> >> could use to access MMIO regions.
+> >>
+> >> For instance, Xilinx baremetal OS will use:
+> >>
+> >>          volatile u32 *LocalAddr =3D (volatile u32 *)Addr;
+> >>          *LocalAddr =3D Value;
+> >>
+> >> This leave the compiler to decide which store instructions to use. =20
+> >=20
+> > As mentioned in the other email, this is wrong, if this points to MMIO:
+> > don't let the compiler do MMIO accesses. If a stage 2 fault isn't in
+> > an MMIO area, you should not see traps that you cannot handle already.
+> >=20
+> > So I don't think it's a good idea to use that as an example. And since
+> > this patch only seems to address this use case, I would doubt its
+> > usefulness in general. =20
+> Yes, I should have fixed the comment.
+>=20
+> Currently, I am testing with baremetal app which uses inline assembly=20
+> code with post indexing instructions, to access the MMIO.
+>=20
+> ATM, I am testing with 32 bit MMIO only.
+>=20
+> On the usefulness, I am kind of torn as it is legitimate for post=20
+> indexing instructions to be used in an inline-assembly code for=20
+> accessing MMIO. However, that may not be something commonly seen.
+
+It is legitimate, but I question the usefulness: for a start it wouldn't
+work under today's Xen (or KVM), and I doubt this would be backported. So
+you would always require users to use the newest version of the hypervisor.
+Also MMIO accesses are slow anyway, so while using post-indexing might be
+convenient from an assembly writer's point of view, it doesn't give you
+much performance-wise, probably. So if you are interested in running under
+Xen (or other virtualisation solutions), just don't use them for MMIO.
+
+And I am not sure that Xen aims to virtualise every piece of code on the
+planet: certainly we have certain expectations about the platform, so you
+would probably consider running under a hypervisor from the very beginning.
+
+> @Stefano/Bertrand/Julien/Volodymyr :- As you are the Arm mantainers, can=
+=20
+> you comment if we should have decoding logic or not ?
+>=20
+> >  =20
+> >> This
+> >> may be a post-index store instruction where the HW will not provide a
+> >> valid syndrome.
+> >>
+> >> In order to handle post-indexing store/load instructions, Xen will need
+> >> to fetch and decode the instruction.
+> >>
+> >> This patch only cover post-index store/load instructions from AArch64
+> >> mode. For now, this is left unimplemented for trap from AArch32 mode.
+> >>
+> >> Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
+> >> ---
+> >>
+> >> Changelog :-
+> >>
+> >> v2 :- 1. Updated the rn register after reading from it. (Pointed by
+> >> Julien, Stefano)
+> >> 2. Used a union to represent the instruction opcode (Suggestd by
+> >> Bertrand) 3. Fixed coding style issues (Pointed by Julien)
+> >> 4. In the previous patch, I was updating dabt->sign based on the
+> >> signedness of imm9. This was incorrect. As mentioned in ARMv8 ARM  DDI
+> >> 0487G.b, Page 3221, SSE indicates the signedness of the data item
+> >> loaded. In our case, the data item loaded is always unsigned.
+> >>
+> >> This has been tested for the following cases :-
+> >> ldr x2, [x1], #4 =20
+> >=20
+> > As Jan already mentioned: this is a bad example. First, this is a 64-bit
+> > access, which you don't emulate below. And second, you want to keep the
+> > pointer aligned. Unaligned accesses to device memory always trap, as per
+> > the architecture, even on bare metal.
+> >  =20
+> >>
+> >> ldr w2, [x1], #-4
+> >>
+> >> str x2, [x1], #4 =20
+> >=20
+> > Same as above.
+> >  =20
+> >> str w2, [x1], #-4
+> >>
+> >> The reason being  I am testing on 32bit MMIO registers only. I don't s=
+ee
+> >> a 8bit or 16bit MMIO register. =20
+> >=20
+> > Where did you look? There are plenty of examples out there, even the GIC
+> > allows 8-bit accesses to certain registers (grep for "VGIC_ACCESS_"), a=
+nd
+> > the Linux GIC driver is using them (but with proper accessors, of cours=
+e).
+> > Also GICv3 supports 64-bit accesses to some registers. Some PL011 UARTs=
+ use
+> > 16-bit MMIO accesses. =20
+> Yes, sorry I see them now. GICD_IPRIORITYR can be accessed with 8 bits.
+> Unfortunately, I have GIC-v2 on my hardware system. So, probably I can't=
+=20
+> test 64 bit access.
+>=20
+> >  =20
+> >>   xen/arch/arm/decode.c     | 68 +++++++++++++++++++++++++++++++++++++=
++-
+> >>   xen/arch/arm/decode.h     |  3 +-
+> >>   xen/arch/arm/io.c         | 40 +++++++++++++++++++----
+> >>   xen/include/asm-arm/hsr.h | 26 +++++++++++++++
+> >>   4 files changed, 129 insertions(+), 8 deletions(-)
+> >>
+> >> diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
+> >> index 792c2e92a7..0b3e8fcbc6 100644
+> >> --- a/xen/arch/arm/decode.c
+> >> +++ b/xen/arch/arm/decode.c
+> >> @@ -84,6 +84,66 @@ bad_thumb2:
+> >>       return 1;
+> >>   }
+> >>  =20
+> >> +static int decode_32bit_loadstore_postindexing(register_t pc,
+> >> +                                               struct hsr_dabt *dabt,
+> >> +                                               union ldr_str_instr_cl=
+ass *instr)
+> >> +{
+> >> +    if ( raw_copy_from_guest(&instr->value, (void * __user)pc, sizeof=
+ (instr)) )
+> >> +        return -EFAULT;
+> >> +
+> >> +    /* First, let's check for the fixed values */
+> >> +    if ( !((instr->code.fixed1 =3D=3D 1) && (instr->code.fixed2 =3D=
+=3D 0) &&
+> >> +         (instr->code.fixed3 =3D=3D 0) && (instr->code.fixed4 =3D=3D =
+7)) )
+> >> +    {
+> >> +        gprintk(XENLOG_ERR, "Decoding not supported for instructions =
+other than"
+> >> +            " ldr/str post indexing\n");
+> >> +        goto bad_32bit_loadstore;
+> >> +    }
+> >> +
+> >> +    if ( instr->code.size !=3D 2 ) =20
+> >=20
+> > I don't see a good reason for this limitation. If you are going to diss=
+ect
+> > the instruction, why not just support at least all access widths, so
+> > 64-bits, but also {ldr,str}{b,w}? I think the framework does the heavy
+> > lifting for you already? =20
+>=20
+> I see your point. My intention was to test first with the restricted=20
+> instruction set (ie ldr/str - 32 bit access with post indexing only) and=
+=20
+> get an opinion from the community. If the patch looks sane, then this=20
+> can be extended with other variants as well.
+>=20
+> > Same for the restriction to post-index above, supporting pre-index as w=
+ell
+> > should be easy. =20
+> For Pre-indexing instruction, the ISS is valid. So I am not sure what is=
+=20
+> to be done here?
+
+Where did you find this? The ARM ARM says that ISV=3D0 when the instruction
+is using writeback, which would include pre-index.
+I tested "ldr w0, [x1, #4]!" and it failed on KVM, as expected.
+
+> AFAIU, if the ISS is valid, there is no need to explicitly decode the=20
+> instructions.
+> >=20
+> > To me this has the bitter taste for being a one trick pony to work arou=
+nd
+> > your particular (broken!) use case.
+> >  =20
+> >> +    {
+> >> +        gprintk(XENLOG_ERR,
+> >> +            "ldr/str post indexing is supported for 32 bit variant on=
+ly\n");
+> >> +        goto bad_32bit_loadstore;
+> >> +    }
+> >> +
+> >> +    if ( instr->code.v !=3D 0 )
+> >> +    {
+> >> +        gprintk(XENLOG_ERR,
+> >> +            "ldr/str post indexing for vector types are not supported=
+\n");
+> >> +        goto bad_32bit_loadstore;
+> >> +    }
+> >> +
+> >> +    /* Check for STR (immediate) - 32 bit variant */
+> >> +    if ( instr->code.opc =3D=3D 0 )
+> >> +    {
+> >> +        dabt->write =3D 1;
+> >> +    }
+> >> +    /* Check for LDR (immediate) - 32 bit variant */
+> >> +    else if ( instr->code.opc =3D=3D 1 )
+> >> +    {
+> >> +        dabt->write =3D 0;
+> >> +    }
+> >> +    else
+> >> +    {
+> >> +        gprintk(XENLOG_ERR,
+> >> +            "Decoding ldr/str post indexing is not supported for this=
+ variant\n");
+> >> +        goto bad_32bit_loadstore;
+> >> +    }
+> >> +
+> >> +    gprintk(XENLOG_INFO,
+> >> +        "instr->code.rt =3D 0x%x, instr->code.size =3D 0x%x, instr->c=
+ode.imm9 =3D %d\n",
+> >> +        instr->code.rt, instr->code.size, instr->code.imm9);
+> >> +
+> >> +    update_dabt(dabt, instr->code.rt, instr->code.size, false);
+> >> +    dabt->valid =3D 1;
+> >> +
+> >> +    return 0;
+> >> +bad_32bit_loadstore:
+> >> +    gprintk(XENLOG_ERR, "unhandled 32bit Arm instruction 0x%x\n", ins=
+tr->value);
+> >> +    return 1;
+> >> +}
+> >> +
+> >>   static int decode_thumb(register_t pc, struct hsr_dabt *dabt)
+> >>   {
+> >>       uint16_t instr;
+> >> @@ -150,11 +210,17 @@ bad_thumb:
+> >>       return 1;
+> >>   }
+> >>  =20
+> >> -int decode_instruction(const struct cpu_user_regs *regs, struct hsr_d=
+abt *dabt)
+> >> +int decode_instruction(const struct cpu_user_regs *regs, struct hsr_d=
+abt *dabt,
+> >> +                       union ldr_str_instr_class *instr)
+> >>   {
+> >>       if ( is_32bit_domain(current->domain) && regs->cpsr & PSR_THUMB )
+> >>           return decode_thumb(regs->pc, dabt);
+> >>  =20
+> >> +    if ( (is_64bit_domain(current->domain) && !psr_mode_is_32bit(regs=
+)) )
+> >> +    {
+> >> +        return decode_32bit_loadstore_postindexing(regs->pc, dabt, in=
+str);
+> >> +    }
+> >> +
+> >>       /* TODO: Handle ARM instruction */
+> >>       gprintk(XENLOG_ERR, "unhandled ARM instruction\n");
+> >>  =20
+> >> diff --git a/xen/arch/arm/decode.h b/xen/arch/arm/decode.h
+> >> index 4613763bdb..d82fc4a0f6 100644
+> >> --- a/xen/arch/arm/decode.h
+> >> +++ b/xen/arch/arm/decode.h
+> >> @@ -35,7 +35,8 @@
+> >>    */
+> >>  =20
+> >>   int decode_instruction(const struct cpu_user_regs *regs,
+> >> -                       struct hsr_dabt *dabt);
+> >> +                       struct hsr_dabt *dabt,
+> >> +                       union ldr_str_instr_class *instr);
+> >>  =20
+> >>   #endif /* __ARCH_ARM_DECODE_H_ */
+> >>  =20
+> >> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
+> >> index 729287e37c..0d60754bc4 100644
+> >> --- a/xen/arch/arm/io.c
+> >> +++ b/xen/arch/arm/io.c
+> >> @@ -65,6 +65,16 @@ static enum io_state handle_write(const struct
+> >> mmio_handler *handler, return ret ? IO_HANDLED : IO_ABORT;
+> >>   }
+> >>  =20
+> >> +static void post_incremenet_register(union ldr_str_instr_class *instr)
+> >> +{
+> >> +    struct cpu_user_regs *regs =3D guest_cpu_user_regs();
+> >> +    unsigned int val;
+> >> +
+> >> +    val =3D get_user_reg(regs, instr->code.rn);
+> >> +    val +=3D instr->code.imm9;
+> >> +    set_user_reg(regs, instr->code.rn, val);
+> >> +}
+> >> +
+> >>   /* This function assumes that mmio regions are not overlapped */
+> >>   static int cmp_mmio_handler(const void *key, const void *elem)
+> >>   {
+> >> @@ -106,14 +116,26 @@ enum io_state try_handle_mmio(struct cpu_user_re=
+gs
+> >> *regs, .gpa =3D gpa,
+> >>           .dabt =3D dabt
+> >>       };
+> >> +    int rc;
+> >> +    union ldr_str_instr_class instr =3D {0};
+> >>  =20
+> >>       ASSERT(hsr.ec =3D=3D HSR_EC_DATA_ABORT_LOWER_EL);
+> >>  =20
+> >> +    /*
+> >> +     * Armv8 processor does not provide a valid syndrome for post-ind=
+exing
+> >> +     * ldr/str instructions. So in order to process these instruction=
+s,
+> >> +     * Xen must decode them.
+> >> +     */
+> >> +    if ( !info.dabt.valid )
+> >> +    {
+> >> +        rc =3D decode_instruction(regs, &info.dabt, &instr);
+> >> +        if ( rc )
+> >> +            return IO_ABORT;
+> >> +    }
+> >> +
+> >>       handler =3D find_mmio_handler(v->domain, info.gpa);
+> >>       if ( !handler )
+> >>       {
+> >> -        int rc;
+> >> -
+> >>           rc =3D try_fwd_ioserv(regs, v, &info);
+> >>           if ( rc =3D=3D IO_HANDLED )
+> >>               return handle_ioserv(regs, v);
+> >> @@ -122,7 +144,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs
+> >> *regs, }
+> >>  =20
+> >>       /* All the instructions used on emulated MMIO region should be
+> >> valid */
+> >> -    if ( !dabt.valid )
+> >> +    if ( !info.dabt.valid )
+> >>           return IO_ABORT;
+> >>  =20
+> >>       /*
+> >> @@ -134,7 +156,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs
+> >> *regs, {
+> >>           int rc;
+> >>  =20
+> >> -        rc =3D decode_instruction(regs, &info.dabt);
+> >> +        rc =3D decode_instruction(regs, &info.dabt, NULL);
+> >>           if ( rc )
+> >>           {
+> >>               gprintk(XENLOG_DEBUG, "Unable to decode instruction\n");
+> >> @@ -143,9 +165,15 @@ enum io_state try_handle_mmio(struct cpu_user_regs
+> >> *regs, }
+> >>  =20
+> >>       if ( info.dabt.write )
+> >> -        return handle_write(handler, v, &info);
+> >> +        rc =3D handle_write(handler, v, &info);
+> >>       else
+> >> -        return handle_read(handler, v, &info);
+> >> +        rc =3D handle_read(handler, v, &info);
+> >> +
+> >> +    if ( instr.value !=3D 0 )
+> >> +    {
+> >> +        post_incremenet_register(&instr);
+> >> +    }
+> >> +    return rc;
+> >>   }
+> >>  =20
+> >>   void register_mmio_handler(struct domain *d,
+> >> diff --git a/xen/include/asm-arm/hsr.h b/xen/include/asm-arm/hsr.h
+> >> index 9b91b28c48..72d67d2801 100644
+> >> --- a/xen/include/asm-arm/hsr.h
+> >> +++ b/xen/include/asm-arm/hsr.h
+> >> @@ -15,6 +15,32 @@ enum dabt_size {
+> >>       DABT_DOUBLE_WORD =3D 3,
+> >>   };
+> >>  =20
+> >> +/*
+> >> + * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Sto=
+res
+> >> + * Page 318 specifies the following bit pattern for
+> >> + * "load/store register (immediate post-indexed)".
+> >> + *
+> >> + * 31 30 29  27 26 25  23   21 20              11   9         4      =
+ 0
+> >> + * ___________________________________________________________________
+> >> + * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt  =
+ |
+> >> + * |____|______|__|____|____|__|_______________|____|_________|______=
+_|
+> >> + */
+> >> +union ldr_str_instr_class {
+> >> +    uint32_t value;
+> >> +    struct ldr_str {
+> >> +        unsigned int rt:5;     /* Rt register */ =20
+> >=20
+> > I don't think it's a particular good idea to use a bit-field here, if t=
+hat
+> > is expected to mimic a certain hardware provided bit pattern.
+> > It works in practise (TM), but the C standard does not guarantee the or=
+der
+> > the bits are allocated (ISO/IEC 9899:201x =C2=A76.7.2.1, stanza 11).
+> > Since you are *reading* only from the instruction word, you should get =
+away
+> > with accessor macros to extract the bits you need. For instance for
+> > filtering the opcode, you could use: ((insn & 0x3fe00c00) =3D=3D 0x3840=
+0400) =20
+>=20
+> Yes, this is a very good point. I will use bitmasks to access the bits=20
+> from the register.
+>=20
+> I saw the same logic (ie using bitfields) is used for some other=20
+> registers as well. For eg hsr_dabt, hsr_iabt in=20
+> xen/include/asm-arm/hsr.h. May be that needs fixing as well for some=20
+> other time. :)
+
+(erroneously put that part already in the mail to Bertrand, for the
+sake of completeness here it is again):
+
+Well, there is no easy and clear answer as to whether to use bit-fields in
+those occasions or not. From a practical point of view, it works (TM), and
+has some advantages, like saving you from fiddling around with a 9-bit
+sign extension, for instance.
+But the Linux kernel discourages those works-for-me solutions, one killer
+problem here is endianess, which is not a problem for Xen, IIRC.
+I personally prefer robust code: by not relying on certain implementation
+specifics (and be they very obvious or wide-spread), there will be less
+surprises in the future.
+
+So I'd leave this up to the maintainers to decide, IIUC the original
+suggestion came from Bertrand?
+
+Cheers,
+Andre
+
+> >> +        unsigned int rn:5;     /* Rn register */
+> >> +        unsigned int fixed1:2; /* value =3D=3D 01b */
+> >> +        int imm9:9;            /* imm9 */
+> >> +        unsigned int fixed2:1; /* value =3D=3D 0b */
+> >> +        unsigned int opc:2;    /* opc */
+> >> +        unsigned int fixed3:2; /* value =3D=3D 00b */
+> >> +        unsigned int v:1;      /* vector */
+> >> +        unsigned int fixed4:3; /* value =3D=3D 111b */
+> >> +        unsigned int size:2;   /* size */
+> >> +    } code;
+> >> +};
+> >> +
+> >>   union hsr {
+> >>       register_t bits;
+> >>       struct { =20
+> >  =20
 
 
