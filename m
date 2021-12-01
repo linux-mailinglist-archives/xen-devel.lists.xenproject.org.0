@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACFBF4652AE
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 17:22:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.236123.409557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1D434652CA
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 17:32:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.236129.409568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msSN8-0000w8-P3; Wed, 01 Dec 2021 16:22:18 +0000
+	id 1msSWc-0002Wp-Nw; Wed, 01 Dec 2021 16:32:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 236123.409557; Wed, 01 Dec 2021 16:22:18 +0000
+Received: by outflank-mailman (output) from mailman id 236129.409568; Wed, 01 Dec 2021 16:32:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msSN8-0000sh-M0; Wed, 01 Dec 2021 16:22:18 +0000
-Received: by outflank-mailman (input) for mailman id 236123;
- Wed, 01 Dec 2021 16:22:17 +0000
+	id 1msSWc-0002Tw-Ka; Wed, 01 Dec 2021 16:32:06 +0000
+Received: by outflank-mailman (input) for mailman id 236129;
+ Wed, 01 Dec 2021 16:32:05 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1msSN7-0000sb-3z
- for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 16:22:17 +0000
+ (envelope-from <julien@xen.org>) id 1msSWb-0002Tq-Ro
+ for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 16:32:05 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1msSN5-00083m-LC; Wed, 01 Dec 2021 16:22:15 +0000
+ id 1msSWa-0008Ew-IF; Wed, 01 Dec 2021 16:32:04 +0000
 Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=[192.168.22.155]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1msSN5-0000lp-CL; Wed, 01 Dec 2021 16:22:15 +0000
+ id 1msSWa-0001AJ-BI; Wed, 01 Dec 2021 16:32:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,11 +42,11 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=VFQVubdJcVarI3a8Jxa2tWhAoVXZdOKbQMmcgnIGP6Y=; b=HbQD5w7wbwQLa+L6A1cQobtx8x
-	kusB9h952dE6O6mLNdn+pnMZHU2dkqSWBdLHZXgPX6KEQbxiMoydHT1aFFavIjGkE0K36aZrv1P3m
-	ian8XfCKP09Syfc7XZp69SJAiaM4PnYIkx3i2sQNL1UopjBdIb8hosPrBzKwFZiSUPu8=;
-Message-ID: <a5aa0a6a-3765-9395-026f-3bfd88bba354@xen.org>
-Date: Wed, 1 Dec 2021 16:22:12 +0000
+	bh=rukXyaclqelQPFJHpnYvXG9RfVg4W/YjdsyAKr3PS3Q=; b=tXYqg6XIMoGXKG2i0GDIkR8AIc
+	LcLd5tnoDSU75hoIqpDahsPFMUZokCUGkHGsLNV5o7T35DePWp4efMyeDasA5qrFMxLJM8eMrOH7V
+	EVG/jiw8rWvPq865iZ7W5mC4xLQhYUaVXTP/3oKkOpuFFn3aL2FqtOWqO1Lf+iRn8wtc=;
+Message-ID: <d64d4bdc-a8bb-349c-b4b5-7c3a887e1621@xen.org>
+Date: Wed, 1 Dec 2021 16:32:01 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.3.2
@@ -64,147 +64,135 @@ Cc: xen-devel@lists.xenproject.org,
 References: <1632425551-18910-1-git-send-email-olekstysh@gmail.com>
  <863c9a06-f0af-eac1-fb04-e059e4ce0a09@xen.org>
  <89f27a30-187c-6223-9dbb-1e3f52213868@gmail.com>
- <15a507c7-17e3-6e48-152d-32f54b362889@gmail.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <15a507c7-17e3-6e48-152d-32f54b362889@gmail.com>
+In-Reply-To: <89f27a30-187c-6223-9dbb-1e3f52213868@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+Hi Oleksandr,
 
-
-On 29/11/2021 15:58, Oleksandr wrote:
-> 
-> Hi Julien
-
-Hi,
-
-> 
-> 
-> [snip]
-> 
-> 
+On 26/11/2021 13:51, Oleksandr wrote:
+> On 25.11.21 21:04, Julien Grall wrote:
+>>>   {
+>>> +    mfn_t mfn = lpae_get_mfn(pte);
+>>> +
+>>>       ASSERT(p2m_is_valid(pte));
+>>>         /*
+>>> @@ -731,11 +733,22 @@ static void p2m_put_l3_page(const lpae_t pte)
+>>>        */
+>>>       if ( p2m_is_foreign(pte.p2m.type) )
+>>>       {
+>>> -        mfn_t mfn = lpae_get_mfn(pte);
+>>> -
+>>>           ASSERT(mfn_valid(mfn));
+>>>           put_page(mfn_to_page(mfn));
+>>>       }
+>>> +
+>>> +#ifdef CONFIG_GRANT_TABLE
+>>> +    /*
+>>> +     * Check whether we deal with grant table page. As the grant 
+>>> table page
+>>> +     * is xen_heap page and its entry has known p2m type, detect it 
+>>> and mark
+>>> +     * the stored GFN as invalid. Although this check is not precise 
+>>> and we
+>>> +     * might end up updating this for other xen_heap pages, this 
+>>> action is
+>>> +     * harmless to these pages since only grant table pages have 
+>>> this field
+>>> +     * in use. So, at worst, unnecessary action might be performed.
+>>> +     */
+>>> +    if ( (pte.p2m.type == p2m_ram_rw) && is_xen_heap_mfn(mfn) )
 >>
->>>>
->>>> ! Please note, there is still unresolved locking question here for 
->>>> which
->>>> I failed to find a suitable solution. So, it is still an RFC !
->>>>
->>>> According to the internal conversation:
->>>> Now the GFN field in the struct page_info is accessed from
->>>> gnttab_set_frame_gfn() in the grant table code and from 
->>>> page_set_frame_gfn()
->>>> in the P2M code (the former uses the latter).
->>>>
->>>> We need to prevent the concurrent access to this field. But, we 
->>>> cannot grab
->>>> the grant lock from the P2M code because we will introduce a lock 
->>>> inversion.
->>>> The page_set_frame_gfn() will be called from the P2M code with the 
->>>> p2m lock held
->>>> and then acquire the grant table lock. The gnttab_map_frame() will 
->>>> do the inverse.
->>>
->>> This is a tricky one. I think, we will:
->>>
->>>   1) Need to use the P2M lock to protect the access to the GFN in the 
->>> struct page_info *.
->>>   2) Defer the call to page_set_frame_gfn() from gnttab_map_frame() 
->>> to xenmem_add_to_physmap_one()
->>>   3) In xenmem_add_to_physmap_one() hold the P2M lock while checking 
->>> the page was not already mapped (e.g. page_get_frame_gfn() == 
->>> INVALID_GFN) and do the mapping. Call page_set_frame_gfn() on success.
->>>
->>> This would still allow the guest to shot itself in the foot (e.g. 
->>> potentially removing the wrong mapping) if it tries concurrent 
->>> hypercall but I believe we would not introduce issue like XSA-380.
->>>
->>> At the end this would look quite similar to how x86 deal with the M2P 
->>> update.
+>> I would use p2m_is_ram() to cover read-only mapping. I think it would 
+>> also be better to use an ``else if`` so it is clear that this doesn't 
+>> cover foreign mapping (it is possible to map xenheap page from another 
+>> domain).
+> 
+> ok, will use p2m_is_ram() and ``else if`` construct, however I don't 
+> entirely understand why we also want/need to include read-only pages (as 
+> type is set to p2m_ram_rw in xenmem_add_to_physmap_one() for case 
+> XENMAPSPACE_grant_table)?
+
+Most of this code is already ready to be used by other xenheap pages 
+(see other part of the discussion). So I would like to use p2m_is_ram()
+as it reduces the risk of us forgetting that read-only are not handled.
+  [...]
+
+>>> + page_get_frame_gfn(pg_); \
+>>> +})
+>>>     #define gnttab_need_iommu_mapping(d)                    \
+>>>       (is_domain_direct_mapped(d) && is_iommu_enabled(d))
+>>> diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h
+>>> index 7b5e7b7..a00c5f5 100644
+>>> --- a/xen/include/asm-arm/mm.h
+>>> +++ b/xen/include/asm-arm/mm.h
+>>> @@ -98,9 +98,17 @@ struct page_info
+>>>   #define PGT_writable_page PG_mask(1, 1)  /* has writable 
+>>> mappings?         */
+>>>   #define PGT_type_mask     PG_mask(1, 1)  /* Bits 31 or 
+>>> 63.                 */
+>>>   - /* Count of uses of this frame as its current type. */
+>>> -#define PGT_count_width   PG_shift(2)
+>>> -#define PGT_count_mask    ((1UL<<PGT_count_width)-1)
+>>> + /* 2-bit count of uses of this frame as its current type. */
+>>> +#define PGT_count_mask    PG_mask(3, 3)
+>>> +
+>>> +/*
+>>> + * Stored in bits [28:0] or [60:0] GFN if page is used for grant 
+>>> table frame.
 >>
->> Thank you for the suggestion, I need to analyze the code to better 
->> understand your idea and technical possibility to implement it, I will 
->> come up with questions if any.
+>> I think this wording is conflicting with ...
+>>
+>>> + * This only valid for the xenheap pages.
+>>
+>> ... this becase xen heap pages are used in other situations. But I 
+>> would prefer if the comment doesn't mention grant-table frame. This 
+>> would allow use to repurpose the field for other xenheap if needed.
+>>
+>> Typo: This *is* only valid
 > 
-> I experimented a bit... Could you please clarify, is the code snippet 
-> below is close to what you meant?
-
-It is close to what I had in my mind. A few comments below.
-
 > 
+> ok, so how about to simply mention it's purpose as xenheap GFN here and 
+> down this header?
 > 
-> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index b594db4..dba9258 100644
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -1488,8 +1488,27 @@ int xenmem_add_to_physmap_one(
->           return -ENOSYS;
->       }
+> For example,
+> Stored in bits [28:0] or [60:0] GFN if page is xenheap page.
 > 
-> -    /* Map at new location. */
-> -    rc = guest_physmap_add_entry(d, gfn, mfn, 0, t);
-> +    if ( space != XENMAPSPACE_grant_table )
+> BTW, shall I rename the access helpers page_set(get)_frame_gfn() as 
+> well? For me the frame is associated with grant-table.
+> Something to: page_set(get)_xenheap_gfn() or even page_set(get)_gfn().
 
-I would consider to use this approach for any xenheap pages.
+Naming them to page_{set, get)_xenheap_gfn() sounds like a good idea.
+It would be clearer what is the purpose of the two helpers.
 
-> +        /* Map at new location. */
-> +        rc = guest_physmap_add_entry(d, gfn, mfn, 0, t);
-> +    else
-> +    {
-> +#ifdef CONFIG_GRANT_TABLE
-> +        struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> +
-> +        p2m_write_lock(p2m);
-> +        if ( gfn_eq(page_get_frame_gfn(page), INVALID_GFN) )
-
-I think we want to return an error if page_get_frame_gfn() return a 
-valid GFN.
-
-> +        {
-> +            rc = p2m_set_entry(p2m, gfn, 1, mfn, t, p2m->default_access);
-> +            if ( !rc )
-> +                page_set_frame_gfn(page, gfn);
-> +        }
-> +        p2m_write_unlock(p2m);
-> +#else
-> +        ASSERT_UNREACHABLE();
-> +        rc = -EINVAL;
-> +#endif
-> +    }
+>>> +#define arch_alloc_xenheap_page(p) page_set_frame_gfn(p, INVALID_GFN)
+>>> +#define arch_free_xenheap_page(p) \
+>>> +    BUG_ON(!gfn_eq(page_get_frame_gfn(p), INVALID_GFN))
+>>
+>> I believe this BUG_ON() could be triggered if gnttab_map_frame() 
+>> succeeds but then we fail to insert the entry in the P2M. This means 
+>> we would need to revert changes done in gnttab_map_frame() in case of 
+>> failure.
+>>
+>> However, I am still a bit unease with the BUG_ON(). A domain will not 
+>> necessarily remove the grant-table mapping from its P2M before 
+>> shutting down. So you are relying on Xen to go through the P2M before 
+>> we free the page.
+>>
+>> This is the case today, but I am not sure we would want to rely on it 
+>> because it will be hard to remember this requirement if we decide to 
+>> optimize p2m_relinquish().
+>>
+>> One possibility would be to add a comment in p2m_relinquish(). That's 
+>> assuming there are no other places which could lead to false 
+>> positively hit the BUG().
 > 
->       /*
->        * For XENMAPSPACE_gmfn_foreign if we failed to add the mapping, 
-> we need
-> diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-> index 59604b1..64e9e77 100644
-> --- a/xen/common/grant_table.c
-> +++ b/xen/common/grant_table.c
-> @@ -4167,10 +4167,8 @@ int gnttab_map_frame(struct domain *d, unsigned 
-> long idx, gfn_t gfn, mfn_t *mfn)
->            * Make sure gnttab_unpopulate_status_frames() won't 
-> (successfully)
->            * free the page until our caller has completed its operation.
->            */
-> -        if ( get_page(mfn_to_page(*mfn), d) )
-> -            gnttab_set_frame_gfn(gt, status, idx, gfn);
-> -        else
-> -            rc = -EBUSY;
-> +        if ( !get_page(mfn_to_page(*mfn), d) )
-> +           rc = -EBUSY;
->       }
-> 
->       grant_write_unlock(gt);
-> (END)
-> 
-> If yes *and* I correctly understand the code, then looks like 
-> gnttab_set_frame_gfn becomes useless on Arm and can be dropped globally 
-> (x86's variant is already dummy).
-
-It will not be a dummy version soon see [1].
+> These make me think that it would be better (safer and simpler) to just 
+> remove this BUG_ON() for now. Do you agree?
+I would drop the BUG_ON() here.
 
 Cheers,
-
-[1] 
-https://lore.kernel.org/xen-devel/8b73ff7c-4dd6-ff2e-14b9-088fdce0beb9@suse.com/
 
 -- 
 Julien Grall
