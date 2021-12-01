@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39C9C465874
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 22:40:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.236231.409765 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5026E4658F7
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 23:17:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.236242.409782 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msXJe-00081F-6J; Wed, 01 Dec 2021 21:39:02 +0000
+	id 1msXtd-00046k-A6; Wed, 01 Dec 2021 22:16:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 236231.409765; Wed, 01 Dec 2021 21:39:02 +0000
+Received: by outflank-mailman (output) from mailman id 236242.409782; Wed, 01 Dec 2021 22:16:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msXJe-0007yZ-1Z; Wed, 01 Dec 2021 21:39:02 +0000
-Received: by outflank-mailman (input) for mailman id 236231;
- Wed, 01 Dec 2021 21:39:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1msXtd-00044n-5h; Wed, 01 Dec 2021 22:16:13 +0000
+Received: by outflank-mailman (input) for mailman id 236242;
+ Wed, 01 Dec 2021 22:16:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fqf2=QS=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1msXJc-0007yT-7f
- for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 21:39:00 +0000
-Received: from ppsw-43.csi.cam.ac.uk (ppsw-43.csi.cam.ac.uk [131.111.8.143])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 15ffa05d-52ef-11ec-b1df-f38ee3fbfdf7;
- Wed, 01 Dec 2021 22:38:57 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:40266)
- by ppsw-43.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1msXJT-000rqI-pW (Exim 4.95) (return-path <amc96@srcf.net>);
- Wed, 01 Dec 2021 21:38:51 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 985851FA8E;
- Wed,  1 Dec 2021 21:38:51 +0000 (GMT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1msXtc-00044d-8x; Wed, 01 Dec 2021 22:16:12 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1msXtc-0005jV-1b; Wed, 01 Dec 2021 22:16:12 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1msXtb-0004gO-M9; Wed, 01 Dec 2021 22:16:11 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1msXtb-0000gX-Lf; Wed, 01 Dec 2021 22:16:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,87 +42,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 15ffa05d-52ef-11ec-b1df-f38ee3fbfdf7
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <77a6b9b4-8117-e818-e68e-af37eeec2dd7@srcf.net>
-Date: Wed, 1 Dec 2021 21:38:51 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-GB
-To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com, Ayan Kumar Halder <ayankuma@xilinx.com>,
- andre.przywara@arm.com, Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>,
- xen-devel@lists.xenproject.org
-References: <20211130181238.5501-1-ayankuma@xilinx.com>
- <c018e9dc-5221-a7e8-3da9-ebdb2c88311b@xen.org>
- <3caf216e-95dd-97e1-b380-a31f5388dc86@suse.com>
- <959d50ef-2a4c-8850-4a89-7eff0b649a13@xen.org>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH v2] bitops: Fix incorrect value in comment
-In-Reply-To: <959d50ef-2a4c-8850-4a89-7eff0b649a13@xen.org>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=9YjKl2YF3QMBdDLyKnGPgs9oIJLbgMqAv9OEivpzufU=; b=YNM6cvy00qh6MCTT8XLkAstAWm
+	rmj6aTrRy/1fPwD+0zZn5InLxuEjaf6htEs+YpTLnXGgIKss8aOVGqszZBT/dghA4fi94N79q804f
+	1Az9O7CfKG+hvmmaOQ5Ne4ji9xGYGR1TJddPYhtGQMi8JmEkRZq4GeONYyPIwLEZJw3I=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166977-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 166977: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start/debian.repeat:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=9012687f05adf96440316ce338514db574ebfde0
+X-Osstest-Versions-That:
+    xen=e7f147bf4ac725492962a501da72f5ab6be682db
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 01 Dec 2021 22:16:11 +0000
 
-On 01/12/2021 09:56, Julien Grall wrote:
-> Hi,
->
-> On 01/12/2021 09:38, Jan Beulich wrote:
->> On 01.12.2021 10:33, Julien Grall wrote:
->>> On 30/11/2021 18:12, Ayan Kumar Halder wrote:
->>>> --- a/xen/include/xen/bitops.h
->>>> +++ b/xen/include/xen/bitops.h
->>>> @@ -5,7 +5,7 @@
->>>>    /*
->>>>     * Create a contiguous bitmask starting at bit position @l and
->>>> ending at
->>>>     * position @h. For example
->>>> - * GENMASK(30, 21) gives us the 32bit vector 0x01fe00000.
->>>> + * GENMASK(30, 21) gives us the 32bit value 0x7fe00000.
->>>
->>> ... there are two extra changes here:
->>>     1) The bitmask is now described with 8-characters (rather than 9)
->>>     2) 'vector' is replaced with 'value'
->>>
->>> The former makes sense to me, but it is not clear to me why the latter
->>> should be changed.
->>
->> Would you mind explaining to me in which way you see "vector" accurately
->> describe the entity talked about?
->
-> This can be seen as a vector of bit. I can see why people may think
-> otherwise. However... if you think it doesn't describe it accurately,
-> then I think this ought to be changed in Linux first (where the code
-> and comment comes from).
->
->>
->> I also think the commit message is quite fine as is.
-> IMHO, this is similar to when one do coding style change in a patch.
-> They are unrelated but would be acceptable so long they are explained
-> in the commit message.
->
-> What I request is something like:
->
-> "GENMASK(30, 21) should be 0x7fe00000 and only use 8-characters (it is
-> a 32-bit comment). Fixed this in the comment.
->
-> Take the opportunity to replace 'vector' with 'value' because..."
->
-> This is simple enough and clarify what is the intent of the patch.
+flight 166977 xen-unstable-smoke real [real]
+flight 166982 xen-unstable-smoke real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166977/
+http://logs.test-lab.xenproject.org/osstest/logs/166982/
 
-This is an unreasonable quantity of bikeshedding.  It's just a comment,
-and a commit message of "fix the comment" is perfectly fine. 
-Furthermore, the intent of the text is clear.
+Regressions :-(
 
-However, "32bit $WHATEVER" is also wrong because GENMASK() yields a
-unsigned long constant.  Importantly, not 32 bits in an ARM64 build.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-xsm     18 guest-start/debian.repeat fail REGR. vs. 166958
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  9012687f05adf96440316ce338514db574ebfde0
+baseline version:
+ xen                  e7f147bf4ac725492962a501da72f5ab6be682db
+
+Last test of basis   166958  2021-11-30 12:00:32 Z    1 days
+Testing same since   166977  2021-12-01 17:08:21 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Luca Fancellu <luca.fancellu@arm.com>
+  Vikram Garhwal <fnu.vikram@xilinx.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-This trivial patch has lingered far too long.  I have committed it,
-along with an adjustment.  Further bikeshedding will be redirected to
-/dev/null.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-~Andrew
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 9012687f05adf96440316ce338514db574ebfde0
+Author: Luca Fancellu <luca.fancellu@arm.com>
+Date:   Tue Nov 16 15:06:24 2021 +0000
+
+    arm/efi: Improve performance requesting filesystem handle
+    
+    Currently, the code used to handle and possibly load from the filesystem
+    modules defined in the DT is allocating and closing the filesystem handle
+    for each module to be loaded.
+    
+    To improve the performance, the filesystem handle pointer is passed
+    through the call stack, requested when it's needed only once and closed
+    if it was allocated.
+    
+    Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit ad9cf6bde5b90d4c1e5a79a2803e98d6344c27d7
+Author: Vikram Garhwal <fnu.vikram@xilinx.com>
+Date:   Thu Nov 11 23:27:20 2021 -0800
+
+    Update libfdt to v1.6.1
+    
+    Update libfdt to v1.6.1 of libfdt taken from git://github.com/dgibson/dtc.
+    This update is done to support device tree overlays.
+    
+    A few minor changes are done to make it compatible with Xen:
+        fdt_overlay.c: overlay_fixup_phandle()
+    
+            Replace strtoul() with simple_strtoul() as strtoul() is not available in
+            Xen lib and included lib.h.
+    
+            Change char *endptr to const char *endptr. This change is required for
+            using simple_strtoul().
+    
+        libfdt_env.h:
+            Remaining Xen changes to libfdt_env.h carried over from existing
+            libfdt (v1.4.0)
+    
+    Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
+    Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+    Tested-by: Luca Fancellu <luca.fancellu@arm.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+(qemu changes not included)
 
