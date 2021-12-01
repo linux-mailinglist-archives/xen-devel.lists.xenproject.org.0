@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD9E8464D60
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 12:59:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.235970.409311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C832464D62
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 13:00:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.235974.409321 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msOGP-0002YB-10; Wed, 01 Dec 2021 11:59:05 +0000
+	id 1msOHP-0003n6-R3; Wed, 01 Dec 2021 12:00:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 235970.409311; Wed, 01 Dec 2021 11:59:05 +0000
+Received: by outflank-mailman (output) from mailman id 235974.409321; Wed, 01 Dec 2021 12:00:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msOGO-0002WO-UD; Wed, 01 Dec 2021 11:59:04 +0000
-Received: by outflank-mailman (input) for mailman id 235970;
- Wed, 01 Dec 2021 11:59:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=46ns=QS=arm.com=andre.przywara@srs-se1.protection.inumbo.net>)
- id 1msOGN-0002WI-7z
- for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 11:59:03 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 1208e2a1-529e-11ec-976b-d102b41d0961;
- Wed, 01 Dec 2021 12:59:00 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 201071477;
- Wed,  1 Dec 2021 03:59:00 -0800 (PST)
-Received: from donnerap.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 036F43F694;
- Wed,  1 Dec 2021 03:58:58 -0800 (PST)
+	id 1msOHP-0003jW-MS; Wed, 01 Dec 2021 12:00:07 +0000
+Received: by outflank-mailman (input) for mailman id 235974;
+ Wed, 01 Dec 2021 12:00:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1msOHO-0003Xe-6b; Wed, 01 Dec 2021 12:00:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1msOHO-00034G-2H; Wed, 01 Dec 2021 12:00:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1msOHN-0006TP-KP; Wed, 01 Dec 2021 12:00:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1msOHN-0006qx-Jw; Wed, 01 Dec 2021 12:00:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,473 +42,330 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1208e2a1-529e-11ec-976b-d102b41d0961
-Date: Wed, 1 Dec 2021 11:58:46 +0000
-From: Andre Przywara <andre.przywara@arm.com>
-To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-Cc: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
- <stefanos@xilinx.com>, <julien@xen.org>, <Volodymyr_Babchuk@epam.com>,
- <bertrand.marquis@arm.com>, <jbeulich@suse.com>
-Subject: Re: [XEN v2] xen/arm64: io: Decode 32-bit ldr/str post-indexing
- instructions
-Message-ID: <20211201115846.6f9b1d99@donnerap.cambridge.arm.com>
-In-Reply-To: <a69d41f1-7b57-c127-ae73-2de5a581dddd@xilinx.com>
-References: <20211129191638.19877-1-ayankuma@xilinx.com>
-	<20211130094950.1bf368d6@donnerap.cambridge.arm.com>
-	<a69d41f1-7b57-c127-ae73-2de5a581dddd@xilinx.com>
-Organization: ARM
-X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; aarch64-unknown-linux-gnu)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=U3NP/xCRMjFw4QNrl35RU8ukqvHjG8QtVSorDse4BdQ=; b=ZF25TSaEYbBESWo3PnFcSrnbCC
+	jkpVjFZa7l0mmS8LY8Ssol8gwL4Sqm7Ca4an+lUzCYGD1xyeV/F0ZceIQf8a6wtxwju3N2DIYLxAR
+	8/8H+R4GLnZ1WIfWanmr6SNdOTDfRuC4G+3n6yroEei/mH5IQxVAzPn4+QJam/1011Z8=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166965-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Subject: [libvirt test] 166965: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=4c8650ea987d269c27e5a7e7620cd2e45d6a2a52
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 01 Dec 2021 12:00:05 +0000
 
-On Tue, 30 Nov 2021 19:13:41 +0000
-Ayan Kumar Halder <ayan.kumar.halder@xilinx.com> wrote:
+flight 166965 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166965/
 
-Hi Ayan,
+Regressions :-(
 
-> Thanks for your comments. They are useful.
->=20
-> On 30/11/2021 09:49, Andre Przywara wrote:
-> > On Mon, 29 Nov 2021 19:16:38 +0000
-> > Ayan Kumar Halder <ayan.kumar.halder@xilinx.com> wrote:
-> >=20
-> > Hi,
-> >  =20
-> >> At the moment, Xen is only handling data abort with valid syndrome (i.=
-e.
-> >> ISV=3D0). Unfortunately, this doesn't cover all the instructions a dom=
-ain
-> >> could use to access MMIO regions.
-> >>
-> >> For instance, Xilinx baremetal OS will use:
-> >>
-> >>          volatile u32 *LocalAddr =3D (volatile u32 *)Addr;
-> >>          *LocalAddr =3D Value;
-> >>
-> >> This leave the compiler to decide which store instructions to use. =20
-> >=20
-> > As mentioned in the other email, this is wrong, if this points to MMIO:
-> > don't let the compiler do MMIO accesses. If a stage 2 fault isn't in
-> > an MMIO area, you should not see traps that you cannot handle already.
-> >=20
-> > So I don't think it's a good idea to use that as an example. And since
-> > this patch only seems to address this use case, I would doubt its
-> > usefulness in general. =20
-> Yes, I should have fixed the comment.
->=20
-> Currently, I am testing with baremetal app which uses inline assembly=20
-> code with post indexing instructions, to access the MMIO.
->=20
-> ATM, I am testing with 32 bit MMIO only.
->=20
-> On the usefulness, I am kind of torn as it is legitimate for post=20
-> indexing instructions to be used in an inline-assembly code for=20
-> accessing MMIO. However, that may not be something commonly seen.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
 
-It is legitimate, but I question the usefulness: for a start it wouldn't
-work under today's Xen (or KVM), and I doubt this would be backported. So
-you would always require users to use the newest version of the hypervisor.
-Also MMIO accesses are slow anyway, so while using post-indexing might be
-convenient from an assembly writer's point of view, it doesn't give you
-much performance-wise, probably. So if you are interested in running under
-Xen (or other virtualisation solutions), just don't use them for MMIO.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
 
-And I am not sure that Xen aims to virtualise every piece of code on the
-planet: certainly we have certain expectations about the platform, so you
-would probably consider running under a hypervisor from the very beginning.
+version targeted for testing:
+ libvirt              4c8650ea987d269c27e5a7e7620cd2e45d6a2a52
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-> @Stefano/Bertrand/Julien/Volodymyr :- As you are the Arm mantainers, can=
-=20
-> you comment if we should have decoding logic or not ?
->=20
-> >  =20
-> >> This
-> >> may be a post-index store instruction where the HW will not provide a
-> >> valid syndrome.
-> >>
-> >> In order to handle post-indexing store/load instructions, Xen will need
-> >> to fetch and decode the instruction.
-> >>
-> >> This patch only cover post-index store/load instructions from AArch64
-> >> mode. For now, this is left unimplemented for trap from AArch32 mode.
-> >>
-> >> Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
-> >> ---
-> >>
-> >> Changelog :-
-> >>
-> >> v2 :- 1. Updated the rn register after reading from it. (Pointed by
-> >> Julien, Stefano)
-> >> 2. Used a union to represent the instruction opcode (Suggestd by
-> >> Bertrand) 3. Fixed coding style issues (Pointed by Julien)
-> >> 4. In the previous patch, I was updating dabt->sign based on the
-> >> signedness of imm9. This was incorrect. As mentioned in ARMv8 ARM  DDI
-> >> 0487G.b, Page 3221, SSE indicates the signedness of the data item
-> >> loaded. In our case, the data item loaded is always unsigned.
-> >>
-> >> This has been tested for the following cases :-
-> >> ldr x2, [x1], #4 =20
-> >=20
-> > As Jan already mentioned: this is a bad example. First, this is a 64-bit
-> > access, which you don't emulate below. And second, you want to keep the
-> > pointer aligned. Unaligned accesses to device memory always trap, as per
-> > the architecture, even on bare metal.
-> >  =20
-> >>
-> >> ldr w2, [x1], #-4
-> >>
-> >> str x2, [x1], #4 =20
-> >=20
-> > Same as above.
-> >  =20
-> >> str w2, [x1], #-4
-> >>
-> >> The reason being  I am testing on 32bit MMIO registers only. I don't s=
-ee
-> >> a 8bit or 16bit MMIO register. =20
-> >=20
-> > Where did you look? There are plenty of examples out there, even the GIC
-> > allows 8-bit accesses to certain registers (grep for "VGIC_ACCESS_"), a=
-nd
-> > the Linux GIC driver is using them (but with proper accessors, of cours=
-e).
-> > Also GICv3 supports 64-bit accesses to some registers. Some PL011 UARTs=
- use
-> > 16-bit MMIO accesses. =20
-> Yes, sorry I see them now. GICD_IPRIORITYR can be accessed with 8 bits.
-> Unfortunately, I have GIC-v2 on my hardware system. So, probably I can't=
-=20
-> test 64 bit access.
->=20
-> >  =20
-> >>   xen/arch/arm/decode.c     | 68 +++++++++++++++++++++++++++++++++++++=
-+-
-> >>   xen/arch/arm/decode.h     |  3 +-
-> >>   xen/arch/arm/io.c         | 40 +++++++++++++++++++----
-> >>   xen/include/asm-arm/hsr.h | 26 +++++++++++++++
-> >>   4 files changed, 129 insertions(+), 8 deletions(-)
-> >>
-> >> diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
-> >> index 792c2e92a7..0b3e8fcbc6 100644
-> >> --- a/xen/arch/arm/decode.c
-> >> +++ b/xen/arch/arm/decode.c
-> >> @@ -84,6 +84,66 @@ bad_thumb2:
-> >>       return 1;
-> >>   }
-> >>  =20
-> >> +static int decode_32bit_loadstore_postindexing(register_t pc,
-> >> +                                               struct hsr_dabt *dabt,
-> >> +                                               union ldr_str_instr_cl=
-ass *instr)
-> >> +{
-> >> +    if ( raw_copy_from_guest(&instr->value, (void * __user)pc, sizeof=
- (instr)) )
-> >> +        return -EFAULT;
-> >> +
-> >> +    /* First, let's check for the fixed values */
-> >> +    if ( !((instr->code.fixed1 =3D=3D 1) && (instr->code.fixed2 =3D=
-=3D 0) &&
-> >> +         (instr->code.fixed3 =3D=3D 0) && (instr->code.fixed4 =3D=3D =
-7)) )
-> >> +    {
-> >> +        gprintk(XENLOG_ERR, "Decoding not supported for instructions =
-other than"
-> >> +            " ldr/str post indexing\n");
-> >> +        goto bad_32bit_loadstore;
-> >> +    }
-> >> +
-> >> +    if ( instr->code.size !=3D 2 ) =20
-> >=20
-> > I don't see a good reason for this limitation. If you are going to diss=
-ect
-> > the instruction, why not just support at least all access widths, so
-> > 64-bits, but also {ldr,str}{b,w}? I think the framework does the heavy
-> > lifting for you already? =20
->=20
-> I see your point. My intention was to test first with the restricted=20
-> instruction set (ie ldr/str - 32 bit access with post indexing only) and=
-=20
-> get an opinion from the community. If the patch looks sane, then this=20
-> can be extended with other variants as well.
->=20
-> > Same for the restriction to post-index above, supporting pre-index as w=
-ell
-> > should be easy. =20
-> For Pre-indexing instruction, the ISS is valid. So I am not sure what is=
-=20
-> to be done here?
+Last test of basis   151777  2020-07-10 04:19:19 Z  509 days
+Failing since        151818  2020-07-11 04:18:52 Z  508 days  491 attempts
+Testing same since   166965  2021-12-01 04:18:50 Z    0 days    1 attempts
 
-Where did you find this? The ARM ARM says that ISV=3D0 when the instruction
-is using writeback, which would include pre-index.
-I tested "ldr w0, [x1, #4]!" and it failed on KVM, as expected.
+------------------------------------------------------------
+People who touched revisions under test:
+    Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Ani Sinha <ani@anisinha.ca>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastian Germann <bastiangermann@fishpost.de>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Kirbach <christian.kirbach@gmail.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Didik Supriadi <didiksupriadi41@gmail.com>
+  dinglimin <dinglimin@cmss.chinamobile.com>
+  Dmitrii Shcherbakov <dmitrii.shcherbakov@canonical.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fabiano Fidêncio <fabiano@fidencio.org>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Franck Ridel <fridel@protonmail.com>
+  Gavi Teitz <gavi@nvidia.com>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Hiroki Narukawa <hnarukaw@yahoo-corp.jp>
+  Ian Wienand <iwienand@redhat.com>
+  Ioanna Alifieraki <ioanna-maria.alifieraki@canonical.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  jason lee <ppark5237@gmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jia Zhou <zhou.jia2@zte.com.cn>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jinsheng Zhang <zhangjl02@inspur.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Justin Gatzen <justin.gatzen@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Koichi Murase <myoga.murase@gmail.com>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee Yarwood <lyarwood@redhat.com>
+  Lei Yang <yanglei209@huawei.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Liu Yiding <liuyd.fnst@fujitsu.com>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matej Cepl <mcepl@cepl.eu>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Nathan <nathan95@live.it>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Chevsky <nchevsky@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Or Ozeri <oro@il.ibm.com>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Praveen K Paladugu <prapal@linux.microsoft.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Robin Lee <cheeselee@fedoraproject.org>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Chopin <chopin.simon@gmail.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Simon Rowe <simon.rowe@nutanix.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@gmail.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Vasiliy Ulyanov <vulyanov@suse.de>
+  Victor Toso <victortoso@redhat.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Vinayak Kale <vkale@nvidia.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Wei Liu <liuwe@microsoft.com>
+  Wei Liu <wei.liu@kernel.org>
+  Wei-Chen Chen <weicche@microsoft.com>
+  William Douglas <william.douglas@intel.com>
+  Xu Chao <xu.chao6@zte.com.cn>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Fei <yangfei85@huawei.com>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
+  zhangjl02 <zhangjl02@inspur.com>
+  zhanglei <zhanglei@smartx.com>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Ye <yezhenyu2@huawei.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+  Zhenzhong Duan <zhenzhong.duan@intel.com>
+  Дамјан Георгиевски <gdamjan@gmail.com>
 
-> AFAIU, if the ISS is valid, there is no need to explicitly decode the=20
-> instructions.
-> >=20
-> > To me this has the bitter taste for being a one trick pony to work arou=
-nd
-> > your particular (broken!) use case.
-> >  =20
-> >> +    {
-> >> +        gprintk(XENLOG_ERR,
-> >> +            "ldr/str post indexing is supported for 32 bit variant on=
-ly\n");
-> >> +        goto bad_32bit_loadstore;
-> >> +    }
-> >> +
-> >> +    if ( instr->code.v !=3D 0 )
-> >> +    {
-> >> +        gprintk(XENLOG_ERR,
-> >> +            "ldr/str post indexing for vector types are not supported=
-\n");
-> >> +        goto bad_32bit_loadstore;
-> >> +    }
-> >> +
-> >> +    /* Check for STR (immediate) - 32 bit variant */
-> >> +    if ( instr->code.opc =3D=3D 0 )
-> >> +    {
-> >> +        dabt->write =3D 1;
-> >> +    }
-> >> +    /* Check for LDR (immediate) - 32 bit variant */
-> >> +    else if ( instr->code.opc =3D=3D 1 )
-> >> +    {
-> >> +        dabt->write =3D 0;
-> >> +    }
-> >> +    else
-> >> +    {
-> >> +        gprintk(XENLOG_ERR,
-> >> +            "Decoding ldr/str post indexing is not supported for this=
- variant\n");
-> >> +        goto bad_32bit_loadstore;
-> >> +    }
-> >> +
-> >> +    gprintk(XENLOG_INFO,
-> >> +        "instr->code.rt =3D 0x%x, instr->code.size =3D 0x%x, instr->c=
-ode.imm9 =3D %d\n",
-> >> +        instr->code.rt, instr->code.size, instr->code.imm9);
-> >> +
-> >> +    update_dabt(dabt, instr->code.rt, instr->code.size, false);
-> >> +    dabt->valid =3D 1;
-> >> +
-> >> +    return 0;
-> >> +bad_32bit_loadstore:
-> >> +    gprintk(XENLOG_ERR, "unhandled 32bit Arm instruction 0x%x\n", ins=
-tr->value);
-> >> +    return 1;
-> >> +}
-> >> +
-> >>   static int decode_thumb(register_t pc, struct hsr_dabt *dabt)
-> >>   {
-> >>       uint16_t instr;
-> >> @@ -150,11 +210,17 @@ bad_thumb:
-> >>       return 1;
-> >>   }
-> >>  =20
-> >> -int decode_instruction(const struct cpu_user_regs *regs, struct hsr_d=
-abt *dabt)
-> >> +int decode_instruction(const struct cpu_user_regs *regs, struct hsr_d=
-abt *dabt,
-> >> +                       union ldr_str_instr_class *instr)
-> >>   {
-> >>       if ( is_32bit_domain(current->domain) && regs->cpsr & PSR_THUMB )
-> >>           return decode_thumb(regs->pc, dabt);
-> >>  =20
-> >> +    if ( (is_64bit_domain(current->domain) && !psr_mode_is_32bit(regs=
-)) )
-> >> +    {
-> >> +        return decode_32bit_loadstore_postindexing(regs->pc, dabt, in=
-str);
-> >> +    }
-> >> +
-> >>       /* TODO: Handle ARM instruction */
-> >>       gprintk(XENLOG_ERR, "unhandled ARM instruction\n");
-> >>  =20
-> >> diff --git a/xen/arch/arm/decode.h b/xen/arch/arm/decode.h
-> >> index 4613763bdb..d82fc4a0f6 100644
-> >> --- a/xen/arch/arm/decode.h
-> >> +++ b/xen/arch/arm/decode.h
-> >> @@ -35,7 +35,8 @@
-> >>    */
-> >>  =20
-> >>   int decode_instruction(const struct cpu_user_regs *regs,
-> >> -                       struct hsr_dabt *dabt);
-> >> +                       struct hsr_dabt *dabt,
-> >> +                       union ldr_str_instr_class *instr);
-> >>  =20
-> >>   #endif /* __ARCH_ARM_DECODE_H_ */
-> >>  =20
-> >> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-> >> index 729287e37c..0d60754bc4 100644
-> >> --- a/xen/arch/arm/io.c
-> >> +++ b/xen/arch/arm/io.c
-> >> @@ -65,6 +65,16 @@ static enum io_state handle_write(const struct
-> >> mmio_handler *handler, return ret ? IO_HANDLED : IO_ABORT;
-> >>   }
-> >>  =20
-> >> +static void post_incremenet_register(union ldr_str_instr_class *instr)
-> >> +{
-> >> +    struct cpu_user_regs *regs =3D guest_cpu_user_regs();
-> >> +    unsigned int val;
-> >> +
-> >> +    val =3D get_user_reg(regs, instr->code.rn);
-> >> +    val +=3D instr->code.imm9;
-> >> +    set_user_reg(regs, instr->code.rn, val);
-> >> +}
-> >> +
-> >>   /* This function assumes that mmio regions are not overlapped */
-> >>   static int cmp_mmio_handler(const void *key, const void *elem)
-> >>   {
-> >> @@ -106,14 +116,26 @@ enum io_state try_handle_mmio(struct cpu_user_re=
-gs
-> >> *regs, .gpa =3D gpa,
-> >>           .dabt =3D dabt
-> >>       };
-> >> +    int rc;
-> >> +    union ldr_str_instr_class instr =3D {0};
-> >>  =20
-> >>       ASSERT(hsr.ec =3D=3D HSR_EC_DATA_ABORT_LOWER_EL);
-> >>  =20
-> >> +    /*
-> >> +     * Armv8 processor does not provide a valid syndrome for post-ind=
-exing
-> >> +     * ldr/str instructions. So in order to process these instruction=
-s,
-> >> +     * Xen must decode them.
-> >> +     */
-> >> +    if ( !info.dabt.valid )
-> >> +    {
-> >> +        rc =3D decode_instruction(regs, &info.dabt, &instr);
-> >> +        if ( rc )
-> >> +            return IO_ABORT;
-> >> +    }
-> >> +
-> >>       handler =3D find_mmio_handler(v->domain, info.gpa);
-> >>       if ( !handler )
-> >>       {
-> >> -        int rc;
-> >> -
-> >>           rc =3D try_fwd_ioserv(regs, v, &info);
-> >>           if ( rc =3D=3D IO_HANDLED )
-> >>               return handle_ioserv(regs, v);
-> >> @@ -122,7 +144,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs
-> >> *regs, }
-> >>  =20
-> >>       /* All the instructions used on emulated MMIO region should be
-> >> valid */
-> >> -    if ( !dabt.valid )
-> >> +    if ( !info.dabt.valid )
-> >>           return IO_ABORT;
-> >>  =20
-> >>       /*
-> >> @@ -134,7 +156,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs
-> >> *regs, {
-> >>           int rc;
-> >>  =20
-> >> -        rc =3D decode_instruction(regs, &info.dabt);
-> >> +        rc =3D decode_instruction(regs, &info.dabt, NULL);
-> >>           if ( rc )
-> >>           {
-> >>               gprintk(XENLOG_DEBUG, "Unable to decode instruction\n");
-> >> @@ -143,9 +165,15 @@ enum io_state try_handle_mmio(struct cpu_user_regs
-> >> *regs, }
-> >>  =20
-> >>       if ( info.dabt.write )
-> >> -        return handle_write(handler, v, &info);
-> >> +        rc =3D handle_write(handler, v, &info);
-> >>       else
-> >> -        return handle_read(handler, v, &info);
-> >> +        rc =3D handle_read(handler, v, &info);
-> >> +
-> >> +    if ( instr.value !=3D 0 )
-> >> +    {
-> >> +        post_incremenet_register(&instr);
-> >> +    }
-> >> +    return rc;
-> >>   }
-> >>  =20
-> >>   void register_mmio_handler(struct domain *d,
-> >> diff --git a/xen/include/asm-arm/hsr.h b/xen/include/asm-arm/hsr.h
-> >> index 9b91b28c48..72d67d2801 100644
-> >> --- a/xen/include/asm-arm/hsr.h
-> >> +++ b/xen/include/asm-arm/hsr.h
-> >> @@ -15,6 +15,32 @@ enum dabt_size {
-> >>       DABT_DOUBLE_WORD =3D 3,
-> >>   };
-> >>  =20
-> >> +/*
-> >> + * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Sto=
-res
-> >> + * Page 318 specifies the following bit pattern for
-> >> + * "load/store register (immediate post-indexed)".
-> >> + *
-> >> + * 31 30 29  27 26 25  23   21 20              11   9         4      =
- 0
-> >> + * ___________________________________________________________________
-> >> + * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt  =
- |
-> >> + * |____|______|__|____|____|__|_______________|____|_________|______=
-_|
-> >> + */
-> >> +union ldr_str_instr_class {
-> >> +    uint32_t value;
-> >> +    struct ldr_str {
-> >> +        unsigned int rt:5;     /* Rt register */ =20
-> >=20
-> > I don't think it's a particular good idea to use a bit-field here, if t=
-hat
-> > is expected to mimic a certain hardware provided bit pattern.
-> > It works in practise (TM), but the C standard does not guarantee the or=
-der
-> > the bits are allocated (ISO/IEC 9899:201x =C2=A76.7.2.1, stanza 11).
-> > Since you are *reading* only from the instruction word, you should get =
-away
-> > with accessor macros to extract the bits you need. For instance for
-> > filtering the opcode, you could use: ((insn & 0x3fe00c00) =3D=3D 0x3840=
-0400) =20
->=20
-> Yes, this is a very good point. I will use bitmasks to access the bits=20
-> from the register.
->=20
-> I saw the same logic (ie using bitfields) is used for some other=20
-> registers as well. For eg hsr_dabt, hsr_iabt in=20
-> xen/include/asm-arm/hsr.h. May be that needs fixing as well for some=20
-> other time. :)
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
-(erroneously put that part already in the mail to Bertrand, for the
-sake of completeness here it is again):
 
-Well, there is no easy and clear answer as to whether to use bit-fields in
-those occasions or not. From a practical point of view, it works (TM), and
-has some advantages, like saving you from fiddling around with a 9-bit
-sign extension, for instance.
-But the Linux kernel discourages those works-for-me solutions, one killer
-problem here is endianess, which is not a problem for Xen, IIRC.
-I personally prefer robust code: by not relying on certain implementation
-specifics (and be they very obvious or wide-spread), there will be less
-surprises in the future.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-So I'd leave this up to the maintainers to decide, IIUC the original
-suggestion came from Bertrand?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Cheers,
-Andre
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> >> +        unsigned int rn:5;     /* Rn register */
-> >> +        unsigned int fixed1:2; /* value =3D=3D 01b */
-> >> +        int imm9:9;            /* imm9 */
-> >> +        unsigned int fixed2:1; /* value =3D=3D 0b */
-> >> +        unsigned int opc:2;    /* opc */
-> >> +        unsigned int fixed3:2; /* value =3D=3D 00b */
-> >> +        unsigned int v:1;      /* vector */
-> >> +        unsigned int fixed4:3; /* value =3D=3D 111b */
-> >> +        unsigned int size:2;   /* size */
-> >> +    } code;
-> >> +};
-> >> +
-> >>   union hsr {
-> >>       register_t bits;
-> >>       struct { =20
-> >  =20
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Not pushing.
+
+(No revision log; it would be 85318 lines long.)
 
