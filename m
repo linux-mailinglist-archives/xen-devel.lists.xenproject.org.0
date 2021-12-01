@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C1F3464ACB
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 10:40:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.235730.408918 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDB98464AD1
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 10:41:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.235742.408939 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msM5W-0000sj-6c; Wed, 01 Dec 2021 09:39:42 +0000
+	id 1msM79-0002oA-Pt; Wed, 01 Dec 2021 09:41:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 235730.408918; Wed, 01 Dec 2021 09:39:42 +0000
+Received: by outflank-mailman (output) from mailman id 235742.408939; Wed, 01 Dec 2021 09:41:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msM5W-0000pk-1h; Wed, 01 Dec 2021 09:39:42 +0000
-Received: by outflank-mailman (input) for mailman id 235730;
- Wed, 01 Dec 2021 09:39:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1msM79-0002lv-MS; Wed, 01 Dec 2021 09:41:23 +0000
+Received: by outflank-mailman (input) for mailman id 235742;
+ Wed, 01 Dec 2021 09:41:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=gc09=QS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1msM5U-0000op-Qy
- for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 09:39:40 +0000
+ id 1msM77-0002Rt-5a
+ for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 09:41:21 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9aa8efd3-528a-11ec-976b-d102b41d0961;
- Wed, 01 Dec 2021 10:39:39 +0100 (CET)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2058.outbound.protection.outlook.com [104.47.14.58]) by
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4f5e5d8b-5289-11ec-b945-1df2895da90e;
+ Wed, 01 Dec 2021 10:30:45 +0100 (CET)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2052.outbound.protection.outlook.com [104.47.13.52]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-33-uXMnin7MPoyxtPgGsd-MBA-1; Wed, 01 Dec 2021 10:39:38 +0100
+ de-mta-20-NBdHqzgHMJyJxrDlCcu5cQ-1; Wed, 01 Dec 2021 10:40:34 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB5471.eurprd04.prod.outlook.com (2603:10a6:803:d0::33)
+ by VI1PR04MB3293.eurprd04.prod.outlook.com (2603:10a6:802:11::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Wed, 1 Dec
- 2021 09:39:37 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.20; Wed, 1 Dec
+ 2021 09:40:26 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe%5]) with mapi id 15.20.4734.024; Wed, 1 Dec 2021
- 09:39:37 +0000
+ 09:40:26 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- FR2P281CA0029.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:14::16) with Microsoft
+ FR2P281CA0020.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:14::7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.9 via Frontend Transport; Wed, 1 Dec 2021 09:39:36 +0000
+ 15.20.4755.9 via Frontend Transport; Wed, 1 Dec 2021 09:40:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,316 +55,368 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9aa8efd3-528a-11ec-976b-d102b41d0961
+X-Inumbo-ID: 4f5e5d8b-5289-11ec-b945-1df2895da90e
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1638351579;
+	t=1638351635;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=IWiLXoypwdsEAY6kyd1+aV8MaMHsKsQSdAXMXWcxPL4=;
-	b=jX3XFIAMotZgGXPljnI3EYJbK2FEdpActgapowoaK/Q+bvR5QlSMKZYFCwjqfkLVjcJ+ea
-	etfBYh90748paoDIEeU4mQ/iPrSk3A3S35QyNBie3762/ix1TsjRAd11S3vJqyQwgdtXG3
-	/zsNW5KfYWiGi70aJjzLPebJXzBLbrc=
-X-MC-Unique: uXMnin7MPoyxtPgGsd-MBA-1
+	bh=0t8LMyxHaP2kl7/Dbfr610HjSp+BcW6EUg2e2egGqsk=;
+	b=R8fOljW83adIBWl0iRe2bxkfwXBsng2Vs2rNIDxwsQbvBS6AOddf1kEPYh5RpCsLwZXLi7
+	YxX6CRCdR4lAxNvs5dbxA5Ok5QFuv0iGB4H4fNTrZb9Xpg4VXSvyOVVVzNO2dCvCorm6xH
+	ZWveT+NZ9KLDVEyxzeebudaaL0RE4qI=
+X-MC-Unique: NBdHqzgHMJyJxrDlCcu5cQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Zg1p22ww2Mj8PuxNEd6kVkeC6CIraUD2K+mRcgpoECbqODXaSvtfdPjQm9j82D2btGHDlWdQawNrQgtrDdNOQanFXtbwfSQPzrbSPinN0WAKlfAWHmJeQLxLQ+LXXuL0jioEqPnxDfTvyTR0PFkfb9kP8MqgPrfxUh5VFU0HyG5imqpNJJwLH38pXhsreqFW0bJWP22PSAMRbeY31c0A+on2RUfpopM8oCt3suzG5uK2Mai9JJ7zcjyS0AGbfnRSgnB6N+fcX+1dsPmHW78BbdAVlbjA0JXKS1chYUzkf3rhlblfV6hlzDOKDJHpp1p+Q/zQ/4FC0fzm7f4lLVT1MA==
+ b=iwHbbjokC0TDYaIwOwb3ZDo0MhQpPxZcg/1TEo2bJ8qCjMuqJCxgYaJpmfgHS4kqiC/jClZRLP5FL7+Hj7xWbE+q4L34C9O9T5exY01Yw0FJEY+cKYl2aDzLVTM7QLcNgKuRjXlo2kfwkgg7iS7Fq1bm6+mnF5MqSckkritbJBbfaEJzODta8QluOEFxgVvRrAmlPkdp+o2p2ExBHmqHuxL2RsimntDNAIt3glh3fXJHeTS01kMOzEHCu28cBGa7y5aJ+xw/xt5E8uYRhi2e7vJLer3ExMF2SXdJBDkLHRYWSzywNdRhLEYo0wGoLZCaWBMRnDOZDQ1wXI4y7IgCng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IWiLXoypwdsEAY6kyd1+aV8MaMHsKsQSdAXMXWcxPL4=;
- b=a/VzMlj6WLNbnX7nVqs67SWZgi8drO7Tt2nYQdEDt+ZIn++pnzohHIqMclp0t4supNqPeqBJNExTaYMqokJFxSjtMx1NPwqpJfzm142rHvH/RWjgor0V3V9voQXmhuq3/pRr5bXP1wj/NmOOjOu5XWdm7JhoQgcMeIhaLa/z0qe9eJnUQpQR8IMVnGHEiDLC5+Mspu+UG78PVuBqRK0llAC1zkiCjHCzGd84OBqftLAwNy46wHHjoKz0qzHHtVHNP2R7JOrL58hGLPWFSbm1XNhI0Yd258jBTV6H3GpQjFFIgqgXEcjHvjQFbmcz5MyQOFb7h5R1LN/kXCn+/EB9Kg==
+ bh=0t8LMyxHaP2kl7/Dbfr610HjSp+BcW6EUg2e2egGqsk=;
+ b=R4n2TTwGvpE08/kvyoNGT1gvUTq7NDs4o3YiO2UGoLLuBmXrZjOq4F45ciFGLrKeSdxwAdEKQ3SBNmQe75XmEChV3izH82Xe/Uy5RBC2ItV7T7ABnaADKmdXr0trp+SatF4BXLRYxEsmVR4nhjjxRlk38EP+5KFeRq1UnqZhvKgzVGrSN//Uq8TwU+bEe1Lz/fa39md/lkL2+WUJYY8qZl1FUDvXpVun5A9F42Q9kOSWseYhEwd6zIrYONeA8Hek+p3Ofq/T+V713hGFjD2G8QpPQhYgiJr3WVlcqz5G8UpSDLFu30VFlkfjBovMgQHdMH9Ye+FfTXPBGd3qUPlm/w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <f7a7ce32-f921-ced7-4699-26f907392eb4@suse.com>
-Date: Wed, 1 Dec 2021 10:39:35 +0100
+Message-ID: <e0819175-83b4-9489-8e4b-7be4940f1d54@suse.com>
+Date: Wed, 1 Dec 2021 10:40:24 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
-Subject: [PATCH 1/4] IOMMU/x86: switch to alternatives-call patching in
- further instances
+Subject: [PATCH 2/4] VT-d / x86: re-arrange cache syncing
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Kevin Tian <kevin.tian@intel.com>
 References: <5d72c629-fabf-3d40-aa19-d177826fdde5@suse.com>
 In-Reply-To: <5d72c629-fabf-3d40-aa19-d177826fdde5@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0029.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:14::16) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR2P281CA0020.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::7) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9caa85a3-1e9f-4c7f-fb3d-08d9b4ae7d4b
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5471:
+X-MS-Office365-Filtering-Correlation-Id: 1b9d5ddd-7e77-4c67-b398-08d9b4ae9ab2
+X-MS-TrafficTypeDiagnostic: VI1PR04MB3293:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB54719C067BD76C4BC167108BB3689@VI1PR04MB5471.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+	<VI1PR04MB32931BACA3F42F3E418BF56AB3689@VI1PR04MB3293.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	vrXTh9NIooEEuC4eaWqEdhTcoVz9Kh0HZipCq1Cpr5R3Z6Bg7TzYsMqyePa0gIkoDpGzVB12kq60aHCjSzc5O+PAzD1Mpe75hfqm8M+O8OLcs5aGBS3EGoONIkWNCswOt/17KepgGip7FwzeIjNaV8ZPdafFrkR12RqUTVIqRR8GSEmBLLMxhU6WhU5BhN1M8oPhi3NHUZKEcxTEh6m0Jf7CulAvB41KeITAc3p/IAM8ZuyhD7tHUeDPSIx1uNIQHHTbKlWDVaOltj30dnA2JYrINIPxCvz+JoYVKVZz0c7gsfhWRGCVw0Hra1/tzaZowomR/oSZr/f7AM7n8WLfO8wEDiRkTxeKvDkvllBOMc47YLQKmsAdLQLn2+WpnhpLMc7pAPnECimmoEXAdeC1ItNdxGqsNriXDlt7ohUvry+pDy0b9iTjPeY9bAVTfuaBYVaVvPTNtmBb5o6cci5Ex2xIAtHgC3lrE+bN7IeeeUSXRbULqxfPv8l0d4h4+OKwmW+wJtRfK3N5NgyxncwkGuvG/4AwrEF1fv4sV/QkUqZLrcLG5OW3RoNNmWFjs20hSzyO6nBrPGNQYfF0wnjbSi6bpHzwmbGea8mkYD8A27bUpJnzxqXkO6F4xn0S2p77UhXXyx/3vWbowfjVb1qXDwtCpAR5zf4vFlp7lFqse6hSIGZsnMKFRnU3Edk2xGo9uphsQCzCqsRm5KnCVzeNzJ5lJjRE0Z5Y8E+UoGtK7vThScI27ewxO63VN+aWyxtG
+	vbcnGYpe9bLgLDUKvSGZ2hOcp/dEj/qbF95TeMb364lbYxvcz3G7A60zawJ4Bqc14Z3P3N+QGwRTM6woZie41/uzfVwlKmKOIBEKmwOhpKv9gp+FC2MTPiJ1OrkBgGmbDqKNBSpz0HaFbGZHRwZ0gl0VxVkiNa3GGayJ9dOz1Zb4KNcsr0n/g0pKsM8mmeIBo3Gk5U/zBvbrGoD+jrvw09285v7NDkLYamLCSSdr5BtvSLW2ZJgk8/xoJcUJfhei0Y/lL+MxH0KLzkF3HfAbaQleB/2nkMcY+JVgs3MIdyYPT3yx93tzWFidCIMka7B5xByWGRt8iVanpqMwNrIcPnuuZPYtWeddPYpv/bY5kDzf+JpZFqMuD5WLS3lmRHOEx2XVoA+NB7zEtFtyWJSGhK47EI4qUvuYElocdeMfsHP9EsSVEfELoFMWflIliI30PQG6bc2TLjGZtEUgg67W68+0sQ5RmZmPjvzJxSjqiQqI3xTgCHm9VC6/GxspP+2CybP5J03+qwE37ITTRgAAHuoWIqHDVjS648H8YZovovqXQBj9bW7f+YfzBkWhhw4MU61/P90PpcP74BaDnhZuWAQ09Aoy3Ji6mvLn/cZI3CGZpSFbMYUnR24S0qrP7aiR0WUP/QHK3Q5mkPdwFsx4l2LcueAeMzB+EFsr6Wq4g4KeLErvN0IcgClrr2GJO9603QcYhTMC8DiyWJNOV5l8dwrh1k4YJGhGCV0Bu4bMCiqvb+dcApfyPcEbqYErOct9
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(2906002)(16576012)(6916009)(66946007)(4326008)(66476007)(5660300002)(508600001)(26005)(66556008)(186003)(54906003)(2616005)(316002)(956004)(38100700002)(83380400001)(8936002)(86362001)(6486002)(36756003)(31686004)(31696002)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(83380400001)(2906002)(26005)(66946007)(4326008)(2616005)(66476007)(956004)(38100700002)(8676002)(86362001)(186003)(8936002)(5660300002)(31696002)(31686004)(16576012)(66556008)(6916009)(316002)(6486002)(36756003)(54906003)(508600001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MkpYeFA2T3FHRjRQL0ZwT0F5Uy8xZ1pIYWhuTStoaWRSR2hMaXU1ZHgyTkdj?=
- =?utf-8?B?Z1ZKVmNGQmh0bzJOR3lnaEIyWEJLeEdoMmJQcmozTGhwb2RTZStBeFE4TTU3?=
- =?utf-8?B?QXdueG04YlVPUGxLaWxncGc2MkZOd2dEbmRrQTlhcm81SmV4RXlDS2pyazFl?=
- =?utf-8?B?cnNGYklDcXBkblNURkdpS2NFbzN4U1JUS3RuTVB5ZFZDTDFlYkVYdHdGSGo0?=
- =?utf-8?B?NlRmeFJOejZIV3dwWThWTUY5ZWMvN0UvcGpqZ1Z5azF0MmlTbE8xYVVTTXJF?=
- =?utf-8?B?YVh6U1orb3ZaYnBNdWNKZytOdlk5TGNtbm1kQnpMQ1pLZmZ2M0pydU94cnNB?=
- =?utf-8?B?cThkQmlXMjV3RTV5M3VwN3lVak52YVVIOVovc3pPaVk5SFVNMlVacFU0MXhs?=
- =?utf-8?B?YW96ZU5ERGJHRUlMQitGbFBwcmo2RVN3LytrWmpZYmxUYWM2YjgvTVB5RWc1?=
- =?utf-8?B?NVJXMkdURTc0dWozNUpOU3EvWGJtb3NrUHpUOWtSNFNhdHhGTW9ldmdjbmg1?=
- =?utf-8?B?NVZ1VXJFZ29wS3JMaGlhMkc4cXpCNzAxM1AzZzNBQjBnK1VxaFY5eldEMStO?=
- =?utf-8?B?Z1RnbXJaK05sWUVyOE05MDd5TzJ6RjFZS0tQOUhZblZtK0xTamVIckNtTFov?=
- =?utf-8?B?MzBrckhHdzFHQ3lMQWlXTEdMdGx1SGZTbHJ4YlUrcmZkYlliT2lRTzhjc3Y3?=
- =?utf-8?B?RktTOEV6VityU0lpU1AzMUkwbDNxd0V2dXNJUVNwNVZZbndMT29ta1dYT2I3?=
- =?utf-8?B?ODYreWt1Vml5dkJJV3B2YkRZMVd5QzdnQ2pPMndibkxJZUtSb3RIdnFNYk01?=
- =?utf-8?B?cGpJRW4rNmZDY3krdGhldDZQay9wUFR1Z1pTSzFiQkJOZjdlcjVBeWdrSnF1?=
- =?utf-8?B?OEZFOHpZeU9rbDhmVFpZUnVicUQvbmh0Z0lHbFl0MkVJanY2dVBlSzB2RWYy?=
- =?utf-8?B?NlRPeEdTbFprZEFDU1VtQnJEUU1RRC8zS3ZOdCtOOTZZRzQvWWgwbzlCNEVO?=
- =?utf-8?B?a0RhMFVhZ3FITi94cktKZXpmNUoyR2RsRlcxbDVxUG05Y0Z3LzBTMUE1d1Yz?=
- =?utf-8?B?UC82NUNlYjlTS250WS9Pb3ZMYkp5dzN4anI0N0w1WHJZZHE3KzBnQnNmSDZx?=
- =?utf-8?B?YzFrZjRwYUpkWVh1QmZtOGdwb3ZzbkNOQjA2YjdzbXQ2aE9FdWZ0TUxZU0li?=
- =?utf-8?B?T1VQM0NLYysxazdiMFJBbzZWdFFEY1ZtOE9sVU0xREtsR2k5STZHVGJFbTBl?=
- =?utf-8?B?dEdtL3VZaDdJMml2MU1pdXhDdFlud01pc2pDM2Z6a0wvSmo3QjcxQWU2R3Na?=
- =?utf-8?B?T0d0ZEsyd1NIZFRoRCticTNMSDk0a051NmZ4MlNOSWFoaFU3aXlmZzhTTktV?=
- =?utf-8?B?NEIwbjJoeWdNZURwWmdQRjNpY3ZPMnE4b0lsd0p6TkQ5NElSTHBuQy9vcXM5?=
- =?utf-8?B?V2tSWWdKeitGQXZLTFBGUzVkM3BlVmdsSkt2VlpkMFVxa2xKT05qTzNjajB0?=
- =?utf-8?B?Y1lUbzFZYk1PNG1RYld4WHNSdzVtYm5CRE8wdys5dWluNjdQY1MzWDBpTmJL?=
- =?utf-8?B?WDg5b0ZTN2tCY2dnRkpqckZSUFJqNXBOeWJ2S3J6dTJLWElvZTFITjZzeGtK?=
- =?utf-8?B?UjFGK21sREZKVVBIMUw3M0RZNEFsNkZ4RmpvSjh1TTBQQ0piOHp1encxb0ZS?=
- =?utf-8?B?T3U5K3I0YnVwMVpueXdub2dLR2twV0FrcXBUb1lYNDY5ZE9peUg2Ni9BZFQr?=
- =?utf-8?B?S3Zydm96Um53K3BuSjNMWm5hMm1KVjVjTzgremdxQWVFNDE0aXNEMW4vZmFu?=
- =?utf-8?B?cm9ab1h5WWFHc3JnWG96OHZya0JaUkQrN2xBQ0VPWDdwdWRXRU5uR0pBNmxB?=
- =?utf-8?B?ZTY4S3JEMHRlRE1JT3o0QU5COUY4VFFkYVg0c0pNUHkyUXo3cVVaOEtCeW11?=
- =?utf-8?B?SlNXNmhFcGtYSXBwOUh5MEFTbTRRK3lWQmZnekUvVWUvRVFnSi9hMVpTMTZ5?=
- =?utf-8?B?clNCamlwNmg0NVBZS2RuVCthSDJIb3VaVE5kNDlmbTVpQ1VWUW1qODNpMHN6?=
- =?utf-8?B?NGZQSTZGa1IrelZNZFFiRVBmZVVSdjY3bGVZVldtcUo4cDNBWVZMZlU2bmlh?=
- =?utf-8?B?RjB1dHlsbjdQSEdxbjUrTW0xMEdJU050MnF5VXBuZkJwV3dQRThaRlU2NEVx?=
- =?utf-8?Q?jeL/Fxeawi5g7ydOQlAH6vU=3D?=
+	=?utf-8?B?elVoZ3V3dlZ2UlFkZ2xMZFIyOGNUekR4cGV1OUVrVlFGU2crQkp0bHJ2V2NT?=
+ =?utf-8?B?azJxcVdYNUpvUjIrWjE4T0IrYVQ2SExRWWQ0Qm1ILzZRSTNvQjV2bXN6ME5j?=
+ =?utf-8?B?Zkl5aHNHQy9oT0drWnFHZnF1UENyL2dDRlQ0ODR3ODk3M1haRE9pQ3JpaGtn?=
+ =?utf-8?B?VmdlTzRWd1Nhb0twQ0l3RUN2YXVkMjluWDZLMlZKTm1Gb0MreUl5ZnVydi9L?=
+ =?utf-8?B?SDNPbDhSYjVXc3BhNy9Cem1EYmllUnZCUDBQUWUzWnRQOVFwUStGOVdaTHhV?=
+ =?utf-8?B?Rm84bWZwNGlyWUNaWTVjTHJzMnlOVEVIRld0VEYwZlRFN05BV2VCZ0ZkaEFl?=
+ =?utf-8?B?YUtCWHc2WWV4UW1vOWc4Y1NNaC9SNmZvMnhYY3NIR1NaVFBQL2FhOTBkTFJ1?=
+ =?utf-8?B?QUZmWXRaRGN6bVI4Y1lWTC9LQVc4a0xLcWJBTzRId2NtS010R0FleWMvK3dx?=
+ =?utf-8?B?RDV2aUlIdFhyMnRIa2M2ZE5PSjN5Qk94ZzBNcytyV2RxdVdkM2RNQ09UTkxp?=
+ =?utf-8?B?MjhTSy9JcER2d0hnYWJnNlU0ZHcyOFVnVlBpZ3RMY3VIQU01NnVzUW9LWlll?=
+ =?utf-8?B?RDU4bGdpbkNRL285b2NPK0NmVzlwVDZ5VitpY1BxOXRhcGs4dWwveDZHWEV2?=
+ =?utf-8?B?dE9qbCtkaHJENFNOcjZ2Wm5WYXY4L1NwVHI2TWp3VCs2OUttY012dFNia3RG?=
+ =?utf-8?B?dEtjY2MwMWZjOEtvMG9oSlJYSDVYejRuSjhUTDZ3TDF3TWJHYmJ0TEh2cGt4?=
+ =?utf-8?B?NEhwa2VXbVRCYk5zUmpwS1JqWTJUZGs3VUViaGVkUjVVVzFJOTZOLzBOT2Ns?=
+ =?utf-8?B?Tmd0eDQzalRTeUp4L2dMNnhycmVIVUtzVVFOaW9WRGxaRUVMdzNHMElnVUZl?=
+ =?utf-8?B?TytGdmQ3QzlmTWtOajFkczVTV0JVK3JHdGEwVkxRUDM2cVdmcFppYkR4NFJS?=
+ =?utf-8?B?WHJxdXBHVFpxUFV1bjBVdnY1ZVA3VFhRMnp5WXdtcFRBd1J5bXVFNCsvV0VB?=
+ =?utf-8?B?U3oyd1pBR0w0d3E0UFJNZ0lFSGhHZmYxMVR4RUpBMmxoZFlkZDgrWVV1Yk96?=
+ =?utf-8?B?TkRKbEE2b01Yb3dHN0lNNXljSXcwQWhpWVhZYlN1ZHpaMmVmNm1ndmYzSE1u?=
+ =?utf-8?B?UVVnTjZrRlk4R1Nrem9pd1FObVc4L2MvYVJIbkl6bDNYOTJ2NDJ5UVh5SzFF?=
+ =?utf-8?B?YnpCMW5MY21YNzBrR3g3MXptMjNkalZkYVlLRnAvaWptYjcwbjBka3VrQkE5?=
+ =?utf-8?B?Nk0wYVlwaU5OajM0TFlRZUpqVWpYR1JyTVdtLzJHMUpJU25JRGREQnNPMlRC?=
+ =?utf-8?B?WlFlQUtaV1hBZk5NeXR2SkJpUGlFeXFOdmh1TWFIV2Q3M1YrZEUxMFZYVThO?=
+ =?utf-8?B?REtJUjJPQTVmMlY1Y3dGVHdtMkpadjFpaysxS2JYYytVUFBxRGJmZVdWNTBY?=
+ =?utf-8?B?RzdvMUZCbXRJMURDdU1sdC95VzN6V0JVVW1QSS8yazA0SXNocWZpSklTSHEv?=
+ =?utf-8?B?dFBpQlkvWU41VEY0STl4SUJ1bVZjSVEwK05kNTNFMUJOQ1F2NTBSdjFDUXRQ?=
+ =?utf-8?B?cFg2aUZmcWdIWGNhTG5sT0x1Ykl3YU1Wcmplbzg4NGtXL0dHR3V3V3dFbVNz?=
+ =?utf-8?B?c1BBNUVtTmlERlFZUXN5citXWDFMM3pmNVVySVJLNkR5WUNuVnVSQWFDUHRt?=
+ =?utf-8?B?Z3pkeWpmSDF6V1MwdGNTN0E5S05wRzd1UkxJbTE5Mzg1OWs3TnpycUNIVXBz?=
+ =?utf-8?B?R0lOckRCRERvak1qcjZXV2QyNHk4aml0ZWp1UmVlZVpudHcyZzIvNjVmSHh0?=
+ =?utf-8?B?aGd6U2hJc2tyRnlvdDlEY0dpUDNiaDJSZGxQWDZjNU5keWFhV3RXVG5YeFpu?=
+ =?utf-8?B?N1dWcHlVM1FRNkhoc205ZlRBTlFNOU5wbk1CS2ZaQ0xwSmJmYllLVk9iVkRh?=
+ =?utf-8?B?dE03OHBjMU54OU5RUUkza1Jva1doaVJkVDJ1WW5Oc1hQcXExL3F3ZGRDbHZq?=
+ =?utf-8?B?U3hJZ3hmNVUxMmV4VDFtYUNpekIwMXpGdzV4Q0ZqelpERWpXZytlUEdBcER3?=
+ =?utf-8?B?NmhMcktoL3lrK3A3bVVQcjVBS3hxWWJpcFNQelVENi9SNUZqUytQVWxRYkto?=
+ =?utf-8?B?bEtKNXhhK0xwbFUxY25pcnVnY0JNNy9hT0tubEVWVVcyWWRyL0x1MG1wd1U0?=
+ =?utf-8?Q?TAwEg4mRA1rdnAy6TQ7FeT8=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9caa85a3-1e9f-4c7f-fb3d-08d9b4ae7d4b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b9d5ddd-7e77-4c67-b398-08d9b4ae9ab2
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2021 09:39:37.0415
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2021 09:40:26.3696
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cA5etbvuCg52XXzDe7gtqaaLdff4JtzyuoC79iWrzq5XE6b4HV7K1/QfHfIFV4iBXJeYSCUP87SBDdD0k6QvrQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5471
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6Wz+LTp+1WdQ0+SraFh5OHLf18oPjNnt9Vaor7etwSnEJuGV0wXLXc/wAXkC1yrmCEBhEjobtlrO1CpzLCqMJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3293
 
-This is, once again, to limit the number of indirect calls as much as
-possible. The only hook invocation which isn't sensible to convert is
-setup(). And of course Arm-only use sites are left alone as well.
+The actual function should always have lived in core x86 code; move it
+there, replacing get_cache_line_size() by readily available (except very
+early during boot; see the code comment) data.
 
-Note regarding the introduction / use of local variables in pci.c:
-struct pci_dev's involved fields are const. This const propagates, via
-typeof(), to the local helper variables in the altcall macros. These
-helper variables are, however, used as outputs (and hence can't be
-const). In iommu_get_device_group() make use of the new local variables
-to also simplify some adjacent code.
+Drop the respective IOMMU hook, (re)introducing a respective boolean
+instead. Replace a true and an almost open-coding instance of
+iommu_sync_cache().
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+Placing the function next to flush_area_local() exposes a curious
+asymmetry between the SFENCE placements: sync_cache() has it after the
+flush, while flush_area_local() has it before it. I think the latter one
+is misplaced.
 
---- a/xen/drivers/passthrough/iommu.c
-+++ b/xen/drivers/passthrough/iommu.c
-@@ -198,7 +198,7 @@ int iommu_domain_init(struct domain *d,
-         return ret;
- 
-     hd->platform_ops = iommu_get_ops();
--    ret = hd->platform_ops->init(d);
-+    ret = iommu_call(hd->platform_ops, init, d);
-     if ( ret || is_system_domain(d) )
-         return ret;
- 
-@@ -233,7 +233,7 @@ void __hwdom_init iommu_hwdom_init(struc
- 
-     register_keyhandler('o', &iommu_dump_page_tables, "dump iommu page tables", 0);
- 
--    hd->platform_ops->hwdom_init(d);
-+    iommu_vcall(hd->platform_ops, hwdom_init, d);
+--- a/xen/arch/x86/flushtlb.c
++++ b/xen/arch/x86/flushtlb.c
+@@ -11,6 +11,7 @@
+ #include <xen/sched.h>
+ #include <xen/smp.h>
+ #include <xen/softirq.h>
++#include <asm/cache.h>
+ #include <asm/flushtlb.h>
+ #include <asm/invpcid.h>
+ #include <asm/nops.h>
+@@ -265,6 +266,57 @@ unsigned int flush_area_local(const void
+     return flags;
  }
  
- static void iommu_teardown(struct domain *d)
-@@ -576,7 +576,7 @@ int iommu_get_reserved_device_memory(iom
-     if ( !ops->get_reserved_device_memory )
-         return 0;
- 
--    return ops->get_reserved_device_memory(func, ctxt);
-+    return iommu_call(ops, get_reserved_device_memory, func, ctxt);
- }
- 
- bool_t iommu_has_feature(struct domain *d, enum iommu_feature feature)
-@@ -603,7 +603,7 @@ static void iommu_dump_page_tables(unsig
-             continue;
-         }
- 
--        dom_iommu(d)->platform_ops->dump_page_tables(d);
-+        iommu_vcall(dom_iommu(d)->platform_ops, dump_page_tables, d);
-     }
- 
-     rcu_read_unlock(&domlist_read_lock);
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -861,15 +861,15 @@ static int deassign_device(struct domain
-         devfn += pdev->phantom_stride;
-         if ( PCI_SLOT(devfn) != PCI_SLOT(pdev->devfn) )
-             break;
--        ret = hd->platform_ops->reassign_device(d, target, devfn,
--                                                pci_to_dev(pdev));
-+        ret = iommu_call(hd->platform_ops, reassign_device, d, target, devfn,
-+                         pci_to_dev(pdev));
-         if ( ret )
-             goto out;
-     }
- 
-     devfn = pdev->devfn;
--    ret = hd->platform_ops->reassign_device(d, target, devfn,
--                                            pci_to_dev(pdev));
-+    ret = iommu_call(hd->platform_ops, reassign_device, d, target, devfn,
-+                     pci_to_dev(pdev));
-     if ( ret )
-         goto out;
- 
-@@ -1300,7 +1300,7 @@ static int iommu_add_device(struct pci_d
++void sync_cache(const void *addr, unsigned int size)
++{
++    /*
++     * This function may be called before current_cpu_data is established.
++     * Hence a fallback is needed to prevent the loop below becoming infinite.
++     */
++    unsigned int clflush_size = current_cpu_data.x86_clflush_size ?: 16;
++    const void *end = addr + size;
++
++    addr -= (unsigned long)addr & (clflush_size - 1);
++    for ( ; addr < end; addr += clflush_size )
++    {
++/*
++ * The arguments to a macro must not include preprocessor directives. Doing so
++ * results in undefined behavior, so we have to create some defines here in
++ * order to avoid it.
++ */
++#if defined(HAVE_AS_CLWB)
++# define CLWB_ENCODING "clwb %[p]"
++#elif defined(HAVE_AS_XSAVEOPT)
++# define CLWB_ENCODING "data16 xsaveopt %[p]" /* clwb */
++#else
++# define CLWB_ENCODING ".byte 0x66, 0x0f, 0xae, 0x30" /* clwb (%%rax) */
++#endif
++
++#define BASE_INPUT(addr) [p] "m" (*(const char *)(addr))
++#if defined(HAVE_AS_CLWB) || defined(HAVE_AS_XSAVEOPT)
++# define INPUT BASE_INPUT
++#else
++# define INPUT(addr) "a" (addr), BASE_INPUT(addr)
++#endif
++        /*
++         * Note regarding the use of NOP_DS_PREFIX: it's faster to do a clflush
++         * + prefix than a clflush + nop, and hence the prefix is added instead
++         * of letting the alternative framework fill the gap by appending nops.
++         */
++        alternative_io_2(".byte " __stringify(NOP_DS_PREFIX) "; clflush %[p]",
++                         "data16 clflush %[p]", /* clflushopt */
++                         X86_FEATURE_CLFLUSHOPT,
++                         CLWB_ENCODING,
++                         X86_FEATURE_CLWB, /* no outputs */,
++                         INPUT(addr));
++#undef INPUT
++#undef BASE_INPUT
++#undef CLWB_ENCODING
++    }
++
++    alternative_2("", "sfence", X86_FEATURE_CLFLUSHOPT,
++                      "sfence", X86_FEATURE_CLWB);
++}
++
+ unsigned int guest_flush_tlb_flags(const struct domain *d)
  {
-     const struct domain_iommu *hd;
-     int rc;
--    u8 devfn;
-+    unsigned int devfn = pdev->devfn;
- 
-     if ( !pdev->domain )
-         return -EINVAL;
-@@ -1311,16 +1311,16 @@ static int iommu_add_device(struct pci_d
-     if ( !is_iommu_enabled(pdev->domain) )
-         return 0;
- 
--    rc = hd->platform_ops->add_device(pdev->devfn, pci_to_dev(pdev));
-+    rc = iommu_call(hd->platform_ops, add_device, devfn, pci_to_dev(pdev));
-     if ( rc || !pdev->phantom_stride )
-         return rc;
- 
--    for ( devfn = pdev->devfn ; ; )
-+    for ( ; ; )
-     {
-         devfn += pdev->phantom_stride;
-         if ( PCI_SLOT(devfn) != PCI_SLOT(pdev->devfn) )
-             return 0;
--        rc = hd->platform_ops->add_device(devfn, pci_to_dev(pdev));
-+        rc = iommu_call(hd->platform_ops, add_device, devfn, pci_to_dev(pdev));
-         if ( rc )
-             printk(XENLOG_WARNING "IOMMU: add %pp failed (%d)\n",
-                    &pdev->sbdf, rc);
-@@ -1341,7 +1341,7 @@ static int iommu_enable_device(struct pc
-          !hd->platform_ops->enable_device )
-         return 0;
- 
--    return hd->platform_ops->enable_device(pci_to_dev(pdev));
-+    return iommu_call(hd->platform_ops, enable_device, pci_to_dev(pdev));
+     bool shadow = paging_mode_shadow(d);
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -202,54 +202,6 @@ static void check_cleanup_domid_map(stru
+     }
  }
  
- static int iommu_remove_device(struct pci_dev *pdev)
-@@ -1363,7 +1363,8 @@ static int iommu_remove_device(struct pc
-         devfn += pdev->phantom_stride;
-         if ( PCI_SLOT(devfn) != PCI_SLOT(pdev->devfn) )
-             break;
--        rc = hd->platform_ops->remove_device(devfn, pci_to_dev(pdev));
-+        rc = iommu_call(hd->platform_ops, remove_device, devfn,
-+                        pci_to_dev(pdev));
-         if ( !rc )
-             continue;
+-static void sync_cache(const void *addr, unsigned int size)
+-{
+-    static unsigned long clflush_size = 0;
+-    const void *end = addr + size;
+-
+-    if ( clflush_size == 0 )
+-        clflush_size = get_cache_line_size();
+-
+-    addr -= (unsigned long)addr & (clflush_size - 1);
+-    for ( ; addr < end; addr += clflush_size )
+-/*
+- * The arguments to a macro must not include preprocessor directives. Doing so
+- * results in undefined behavior, so we have to create some defines here in
+- * order to avoid it.
+- */
+-#if defined(HAVE_AS_CLWB)
+-# define CLWB_ENCODING "clwb %[p]"
+-#elif defined(HAVE_AS_XSAVEOPT)
+-# define CLWB_ENCODING "data16 xsaveopt %[p]" /* clwb */
+-#else
+-# define CLWB_ENCODING ".byte 0x66, 0x0f, 0xae, 0x30" /* clwb (%%rax) */
+-#endif
+-
+-#define BASE_INPUT(addr) [p] "m" (*(const char *)(addr))
+-#if defined(HAVE_AS_CLWB) || defined(HAVE_AS_XSAVEOPT)
+-# define INPUT BASE_INPUT
+-#else
+-# define INPUT(addr) "a" (addr), BASE_INPUT(addr)
+-#endif
+-        /*
+-         * Note regarding the use of NOP_DS_PREFIX: it's faster to do a clflush
+-         * + prefix than a clflush + nop, and hence the prefix is added instead
+-         * of letting the alternative framework fill the gap by appending nops.
+-         */
+-        alternative_io_2(".byte " __stringify(NOP_DS_PREFIX) "; clflush %[p]",
+-                         "data16 clflush %[p]", /* clflushopt */
+-                         X86_FEATURE_CLFLUSHOPT,
+-                         CLWB_ENCODING,
+-                         X86_FEATURE_CLWB, /* no outputs */,
+-                         INPUT(addr));
+-#undef INPUT
+-#undef BASE_INPUT
+-#undef CLWB_ENCODING
+-
+-    alternative_2("", "sfence", X86_FEATURE_CLFLUSHOPT,
+-                      "sfence", X86_FEATURE_CLWB);
+-}
+-
+ /* Allocate page table, return its machine address */
+ uint64_t alloc_pgtable_maddr(unsigned long npages, nodeid_t node)
+ {
+@@ -268,8 +220,7 @@ uint64_t alloc_pgtable_maddr(unsigned lo
  
-@@ -1371,7 +1372,9 @@ static int iommu_remove_device(struct pc
-         return rc;
+         clear_page(vaddr);
+ 
+-        if ( (iommu_ops.init ? &iommu_ops : &vtd_ops)->sync_cache )
+-            sync_cache(vaddr, PAGE_SIZE);
++        iommu_sync_cache(vaddr, PAGE_SIZE);
+         unmap_domain_page(vaddr);
+         cur_pg++;
      }
+@@ -1295,7 +1246,7 @@ int __init iommu_alloc(struct acpi_drhd_
+     iommu->nr_pt_levels = agaw_to_level(agaw);
  
--    return hd->platform_ops->remove_device(pdev->devfn, pci_to_dev(pdev));
-+    devfn = pdev->devfn;
-+
-+    return iommu_call(hd->platform_ops, remove_device, devfn, pci_to_dev(pdev));
- }
+     if ( !ecap_coherent(iommu->ecap) )
+-        vtd_ops.sync_cache = sync_cache;
++        iommu_non_coherent = true;
  
- static int device_assigned(u16 seg, u8 bus, u8 devfn)
-@@ -1421,7 +1424,8 @@ static int assign_device(struct domain *
- 
-     pdev->fault.count = 0;
- 
--    if ( (rc = hd->platform_ops->assign_device(d, devfn, pci_to_dev(pdev), flag)) )
-+    if ( (rc = iommu_call(hd->platform_ops, assign_device, d, devfn,
-+                          pci_to_dev(pdev), flag)) )
-         goto done;
- 
-     for ( ; pdev->phantom_stride; rc = 0 )
-@@ -1429,7 +1433,8 @@ static int assign_device(struct domain *
-         devfn += pdev->phantom_stride;
-         if ( PCI_SLOT(devfn) != PCI_SLOT(pdev->devfn) )
-             break;
--        rc = hd->platform_ops->assign_device(d, devfn, pci_to_dev(pdev), flag);
-+        rc = iommu_call(hd->platform_ops, assign_device, d, devfn,
-+                        pci_to_dev(pdev), flag);
-     }
- 
-  done:
-@@ -1457,24 +1462,24 @@ static int iommu_get_device_group(
-     if ( !is_iommu_enabled(d) || !ops->get_device_group_id )
-         return 0;
- 
--    group_id = ops->get_device_group_id(seg, bus, devfn);
-+    group_id = iommu_call(ops, get_device_group_id, seg, bus, devfn);
- 
-     pcidevs_lock();
-     for_each_pdev( d, pdev )
-     {
--        if ( (pdev->seg != seg) ||
--             ((pdev->bus == bus) && (pdev->devfn == devfn)) )
-+        unsigned int b = pdev->bus;
-+        unsigned int df = pdev->devfn;
-+
-+        if ( (pdev->seg != seg) || ((b == bus) && (df == devfn)) )
-             continue;
- 
--        if ( xsm_get_device_group(XSM_HOOK, (seg << 16) | (pdev->bus << 8) | pdev->devfn) )
-+        if ( xsm_get_device_group(XSM_HOOK, (seg << 16) | (b << 8) | df) )
-             continue;
- 
--        sdev_id = ops->get_device_group_id(seg, pdev->bus, pdev->devfn);
-+        sdev_id = iommu_call(ops, get_device_group_id, seg, b, df);
-         if ( (sdev_id == group_id) && (i < max_sdevs) )
-         {
--            bdf = 0;
--            bdf |= (pdev->bus & 0xff) << 16;
--            bdf |= (pdev->devfn & 0xff) << 8;
-+            bdf = (b << 16) | (df << 8);
- 
-             if ( unlikely(copy_to_guest_offset(buf, i, &bdf, 1)) )
-             {
+     /* allocate domain id bitmap */
+     nr_dom = cap_ndoms(iommu->cap);
 --- a/xen/drivers/passthrough/x86/iommu.c
 +++ b/xen/drivers/passthrough/x86/iommu.c
-@@ -142,7 +142,7 @@ unsigned int iommu_read_apic_from_ire(un
- int __init iommu_setup_hpet_msi(struct msi_desc *msi)
- {
-     const struct iommu_ops *ops = iommu_get_ops();
--    return ops->setup_hpet_msi ? ops->setup_hpet_msi(msi) : -ENODEV;
-+    return ops->setup_hpet_msi ? iommu_call(ops, setup_hpet_msi, msi) : -ENODEV;
+@@ -28,6 +28,7 @@
+ 
+ const struct iommu_init_ops *__initdata iommu_init_ops;
+ struct iommu_ops __read_mostly iommu_ops;
++bool __read_mostly iommu_non_coherent;
+ 
+ enum iommu_intremap __read_mostly iommu_intremap = iommu_intremap_full;
+ 
+@@ -435,8 +436,7 @@ struct page_info *iommu_alloc_pgtable(st
+     p = __map_domain_page(pg);
+     clear_page(p);
+ 
+-    if ( hd->platform_ops->sync_cache )
+-        iommu_vcall(hd->platform_ops, sync_cache, p, PAGE_SIZE);
++    iommu_sync_cache(p, PAGE_SIZE);
+ 
+     unmap_domain_page(p);
+ 
+--- a/xen/include/asm-x86/cache.h
++++ b/xen/include/asm-x86/cache.h
+@@ -11,4 +11,10 @@
+ 
+ #define __read_mostly __section(".data.read_mostly")
+ 
++#ifndef __ASSEMBLY__
++
++void sync_cache(const void *addr, unsigned int size);
++
++#endif
++
+ #endif
+--- a/xen/include/asm-x86/iommu.h
++++ b/xen/include/asm-x86/iommu.h
+@@ -19,6 +19,7 @@
+ #include <xen/mem_access.h>
+ #include <xen/spinlock.h>
+ #include <asm/apicdef.h>
++#include <asm/cache.h>
+ #include <asm/processor.h>
+ #include <asm/hvm/vmx/vmcs.h>
+ 
+@@ -134,12 +135,13 @@ extern bool untrusted_msi;
+ int pi_update_irte(const struct pi_desc *pi_desc, const struct pirq *pirq,
+                    const uint8_t gvec);
+ 
+-#define iommu_sync_cache(addr, size) ({                 \
+-    const struct iommu_ops *ops = iommu_get_ops();      \
+-                                                        \
+-    if ( ops->sync_cache )                              \
+-        iommu_vcall(ops, sync_cache, addr, size);       \
+-})
++extern bool iommu_non_coherent;
++
++static inline void iommu_sync_cache(const void *addr, unsigned int size)
++{
++    if ( iommu_non_coherent )
++        sync_cache(addr, size);
++}
+ 
+ int __must_check iommu_free_pgtables(struct domain *d);
+ struct page_info *__must_check iommu_alloc_pgtable(struct domain *d);
+--- a/xen/include/xen/iommu.h
++++ b/xen/include/xen/iommu.h
+@@ -268,7 +268,6 @@ struct iommu_ops {
+     int (*setup_hpet_msi)(struct msi_desc *);
+ 
+     int (*adjust_irq_affinities)(void);
+-    void (*sync_cache)(const void *addr, unsigned int size);
+     void (*clear_root_pgtable)(struct domain *d);
+     int (*update_ire_from_msi)(struct msi_desc *msi_desc, struct msi_msg *msg);
+ #endif /* CONFIG_X86 */
+--- a/xen/drivers/passthrough/vtd/extern.h
++++ b/xen/drivers/passthrough/vtd/extern.h
+@@ -76,7 +76,6 @@ int __must_check qinval_device_iotlb_syn
+                                           struct pci_dev *pdev,
+                                           u16 did, u16 size, u64 addr);
+ 
+-unsigned int get_cache_line_size(void);
+ void flush_all_cache(void);
+ 
+ uint64_t alloc_pgtable_maddr(unsigned long npages, nodeid_t node);
+--- a/xen/drivers/passthrough/vtd/x86/vtd.c
++++ b/xen/drivers/passthrough/vtd/x86/vtd.c
+@@ -47,11 +47,6 @@ void unmap_vtd_domain_page(const void *v
+     unmap_domain_page(va);
  }
  
- void __hwdom_init arch_iommu_check_autotranslated_hwdom(struct domain *d)
-@@ -403,7 +403,7 @@ int iommu_free_pgtables(struct domain *d
-      * Pages will be moved to the free list below. So we want to
-      * clear the root page-table to avoid any potential use after-free.
-      */
--    hd->platform_ops->clear_root_pgtable(d);
-+    iommu_vcall(hd->platform_ops, clear_root_pgtable, d);
- 
-     while ( (pg = page_list_remove_head(&hd->arch.pgtables.list)) )
-     {
+-unsigned int get_cache_line_size(void)
+-{
+-    return ((cpuid_ebx(1) >> 8) & 0xff) * 8;
+-}
+-
+ void flush_all_cache()
+ {
+     wbinvd();
 
 
