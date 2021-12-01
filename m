@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ED5246527B
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 17:06:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.236111.409534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6603B465290
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 17:14:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.236119.409546 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msS7a-0006Am-3x; Wed, 01 Dec 2021 16:06:14 +0000
+	id 1msSEp-0007m4-S9; Wed, 01 Dec 2021 16:13:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 236111.409534; Wed, 01 Dec 2021 16:06:14 +0000
+Received: by outflank-mailman (output) from mailman id 236119.409546; Wed, 01 Dec 2021 16:13:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msS7a-00068U-0l; Wed, 01 Dec 2021 16:06:14 +0000
-Received: by outflank-mailman (input) for mailman id 236111;
- Wed, 01 Dec 2021 16:06:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1msSEp-0007kH-P9; Wed, 01 Dec 2021 16:13:43 +0000
+Received: by outflank-mailman (input) for mailman id 236119;
+ Wed, 01 Dec 2021 16:13:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fqf2=QS=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1msS7Y-00067q-AJ
- for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 16:06:12 +0000
-Received: from ppsw-32.csi.cam.ac.uk (ppsw-32.csi.cam.ac.uk [131.111.8.132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a1ec241-52c0-11ec-b945-1df2895da90e;
- Wed, 01 Dec 2021 17:06:11 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:44012)
- by ppsw-32.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.136]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1msS7X-000wa5-1K (Exim 4.95) (return-path <amc96@srcf.net>);
- Wed, 01 Dec 2021 16:06:11 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 3F4751FF79;
- Wed,  1 Dec 2021 16:06:11 +0000 (GMT)
+ (envelope-from <julien@xen.org>) id 1msSEn-0007kB-Tw
+ for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 16:13:41 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1msSEl-0007vO-HS; Wed, 01 Dec 2021 16:13:39 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=[192.168.22.155]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1msSEl-0000Em-BD; Wed, 01 Dec 2021 16:13:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +39,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a1ec241-52c0-11ec-b945-1df2895da90e
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <39afb361-4047-68d1-acdd-e0838f52cb5f@srcf.net>
-Date: Wed, 1 Dec 2021 16:06:11 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=ODZ3wX3gUKpBXwSTHsywzaY+em5RuIrZN/pOW8HuGao=; b=G1u+pZTFttfMlOj6fyEFedN//i
+	H4Gop9sWpSzfDjxJQrlD6OTp2txQM768qivF8qeSgRcMhRe/0UleIjX90nFUvBvfdAUvxV+Cg/6GU
+	2pq9jBo4/YltaVv6n0iEUSchztzJ6iiXEf3MnVm4NpNmni6Uy8lHxubQf3+KhM7gxtRM=;
+Message-ID: <1754aeef-f028-0901-edac-09565a1e4956@xen.org>
+Date: Wed, 1 Dec 2021 16:13:37 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-GB
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.2
+Subject: Re: [PATCH RFC] SUPPORT.md: limit security support for hosts with
+ very much memory
 To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>
-References: <69b75eb5-82fe-e075-146a-28a9758da433@suse.com>
- <e5070cbe-949a-4913-1f99-7b7a4e6c5536@suse.com>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH 2/2] x86/paging: tidy paging_mfn_is_dirty()
-In-Reply-To: <e5070cbe-949a-4913-1f99-7b7a4e6c5536@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <fff23663-b114-0726-e37f-06461b5ea63d@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <fff23663-b114-0726-e37f-06461b5ea63d@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 01/12/2021 10:35, Jan Beulich wrote:
-> The function returning a boolean indicator, make it return bool. Also
-> constify its struct domain parameter, albeit requiring to also adjust
-> mm_locked_by_me(). Furthermore the function is used by shadow code only.
->
+Hi,
+
+On 30/11/2021 16:14, Jan Beulich wrote:
+> Sufficient and in particular regular testing on very large hosts cannot
+> currently be guaranteed. Anyone wanting us to support larger hosts is
+> free to propose so, but will need to supply not only test results, but
+> also a test plan.
+> 
+> This is a follow-up to XSA-385.
+> 
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
->
-> --- a/xen/arch/x86/mm/mm-locks.h
-> +++ b/xen/arch/x86/mm/mm-locks.h
-> @@ -40,7 +40,7 @@ static inline void mm_lock_init(mm_lock_
->      l->unlock_level = 0;
->  }
->  
-> -static inline int mm_locked_by_me(mm_lock_t *l)
-> +static inline int mm_locked_by_me(const mm_lock_t *l)
 
-bool too?
+Acked-by: Julien Grall <jgrall@amazon.com>
 
->  {
->      return (l->lock.recurse_cpu == current->processor);
->  }
-> --- a/xen/arch/x86/mm/paging.c
-> +++ b/xen/arch/x86/mm/paging.c
-> @@ -351,14 +351,14 @@ void paging_mark_dirty(struct domain *d,
->      paging_mark_pfn_dirty(d, pfn);
->  }
->  
-> -
-> +#ifdef CONFIG_SHADOW_PAGING
->  /* Is this guest page dirty? */
-> -int paging_mfn_is_dirty(struct domain *d, mfn_t gmfn)
-> +bool paging_mfn_is_dirty(const struct domain *d, mfn_t gmfn)
->  {
->      pfn_t pfn;
->      mfn_t mfn, *l4, *l3, *l2;
->      unsigned long *l1;
-> -    int rv;
-> +    bool dirty;
->  
->      ASSERT(paging_locked_by_me(d));
->      ASSERT(paging_mode_log_dirty(d));
-> @@ -367,36 +367,37 @@ int paging_mfn_is_dirty(struct domain *d
->      pfn = _pfn(get_gpfn_from_mfn(mfn_x(gmfn)));
+Cheers,
 
-There's nothing inherently paging.c related about this function. 
-Thoughts on moving the implementation across, rather than #ifdef-ing it?
+> 
+> --- unstable.orig/SUPPORT.md	2021-06-25 11:19:03.000000000 +0200
+> +++ unstable/SUPPORT.md	2021-09-10 11:15:52.270364645 +0200
+> @@ -48,6 +48,12 @@ For the Cortex A57 r0p0 - r1p1, see Erra
+>   
+>       Status, x86: Supported
+>   
+> +### Physical Memory
+> +
+> +    Status: Supported up to 8 TiB
+> +
+> +Hosts with more memory are supported, but not security supported.
+> +
+>   ### Physical Memory Hotplug
+>   
+>       Status, x86: Supported
+> 
 
-If not, can we at least correct gmfn to mfn here and in the prototype?
-
-Alternatively, do we want to start putting things like this in a real
-library so we can have the toolchain figure this out automatically?
-
->      /* Invalid pages can't be dirty. */
->      if ( unlikely(!VALID_M2P(pfn_x(pfn))) )
-> -        return 0;
-> +        return false;
->  
->      mfn = d->arch.paging.log_dirty.top;
->      if ( !mfn_valid(mfn) )
-
-These don't need to be mfn_valid().  They can be checks against
-MFN_INVALID instead, because the logdirty bitmap is a Xen internal
-structure.
-
-In response to your comment in the previous patch, this would
-substantially reduce the overhead of paging_mark_pfn_dirty() and
-paging_mfn_is_dirty().
-
-~Andrew
+-- 
+Julien Grall
 
