@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06E0C464B15
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 10:57:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.235761.408962 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5143C464B79
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 11:18:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.235795.408995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msMMK-0005Zd-Jm; Wed, 01 Dec 2021 09:57:04 +0000
+	id 1msMgO-0000od-Pa; Wed, 01 Dec 2021 10:17:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 235761.408962; Wed, 01 Dec 2021 09:57:04 +0000
+Received: by outflank-mailman (output) from mailman id 235795.408995; Wed, 01 Dec 2021 10:17:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msMMK-0005WU-GK; Wed, 01 Dec 2021 09:57:04 +0000
-Received: by outflank-mailman (input) for mailman id 235761;
- Wed, 01 Dec 2021 09:57:02 +0000
+	id 1msMgO-0000mR-Jl; Wed, 01 Dec 2021 10:17:48 +0000
+Received: by outflank-mailman (input) for mailman id 235795;
+ Wed, 01 Dec 2021 10:17:47 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1msMMI-0005WO-Dm
- for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 09:57:02 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1msMgN-0000mH-PE; Wed, 01 Dec 2021 10:17:47 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1msMME-0000hY-Di; Wed, 01 Dec 2021 09:56:58 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=[192.168.22.155]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1msMME-0006ZU-7e; Wed, 01 Dec 2021 09:56:58 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1msMgN-0001Af-Ia; Wed, 01 Dec 2021 10:17:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1msMgN-00011o-B9; Wed, 01 Dec 2021 10:17:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1msMgN-0008VV-AQ; Wed, 01 Dec 2021 10:17:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,77 +42,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Lz9iJr8Sjd51677hTafpiEnTaUg0E6yjSBhBIiWHg3g=; b=i3xG7jDbODkgnFt6/64ykFOv8e
-	vsewmqvOh1chUYRJ8zb3D5GO86+x5gTCmsBHy6RClx7nicw7A560LWYyQwnCRIXjWbwt2sYDRWW91
-	l/Lu6kmWTPpyr51jP+RV8aa+nc7qnOedfwLafhDEV0Uqf22l7vya7O+521Wqjn90k8mk=;
-Message-ID: <959d50ef-2a4c-8850-4a89-7eff0b649a13@xen.org>
-Date: Wed, 1 Dec 2021 09:56:56 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=0WbY4PIPl7fIY/dry9ND7L5dt841BwVJGVqbNJH8RsE=; b=bGTmcGIvme/OPWVhdnMTlxswP0
+	I4SDUyNSb3vcr1s3kCnQMhxeQIj4Vhs/6bBvdnXzmpieaWmRf5TE0L6H1mmdqEdOYw4V0h34Pz0xp
+	jWJdl3TiJgah74UKfNo+Tw9Q3OmF6OUorKSSGLBxJNORcEbBcUVpeZl8GuHaed4N5ix4=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166971-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.3.2
-Subject: Re: [PATCH v2] bitops: Fix incorrect value in comment
-To: Jan Beulich <jbeulich@suse.com>
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com, Ayan Kumar Halder <ayankuma@xilinx.com>,
- andre.przywara@arm.com, Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>,
- xen-devel@lists.xenproject.org
-References: <20211130181238.5501-1-ayankuma@xilinx.com>
- <c018e9dc-5221-a7e8-3da9-ebdb2c88311b@xen.org>
- <3caf216e-95dd-97e1-b380-a31f5388dc86@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <3caf216e-95dd-97e1-b380-a31f5388dc86@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-coverity test] 166971: all pass - PUSHED
+X-Osstest-Versions-This:
+    xen=e7f147bf4ac725492962a501da72f5ab6be682db
+X-Osstest-Versions-That:
+    xen=5449ba84e99849ee2339fd79f9717e10113d702d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 01 Dec 2021 10:17:47 +0000
 
-Hi,
+flight 166971 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166971/
 
-On 01/12/2021 09:38, Jan Beulich wrote:
-> On 01.12.2021 10:33, Julien Grall wrote:
->> On 30/11/2021 18:12, Ayan Kumar Halder wrote:
->>> --- a/xen/include/xen/bitops.h
->>> +++ b/xen/include/xen/bitops.h
->>> @@ -5,7 +5,7 @@
->>>    /*
->>>     * Create a contiguous bitmask starting at bit position @l and ending at
->>>     * position @h. For example
->>> - * GENMASK(30, 21) gives us the 32bit vector 0x01fe00000.
->>> + * GENMASK(30, 21) gives us the 32bit value 0x7fe00000.
->>
->> ... there are two extra changes here:
->>     1) The bitmask is now described with 8-characters (rather than 9)
->>     2) 'vector' is replaced with 'value'
->>
->> The former makes sense to me, but it is not clear to me why the latter
->> should be changed.
-> 
-> Would you mind explaining to me in which way you see "vector" accurately
-> describe the entity talked about?
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  e7f147bf4ac725492962a501da72f5ab6be682db
+baseline version:
+ xen                  5449ba84e99849ee2339fd79f9717e10113d702d
 
-This can be seen as a vector of bit. I can see why people may think 
-otherwise. However... if you think it doesn't describe it accurately, 
-then I think this ought to be changed in Linux first (where the code and 
-comment comes from).
+Last test of basis   166945  2021-11-28 09:19:32 Z    3 days
+Testing same since   166971  2021-12-01 09:19:46 Z    0 days    1 attempts
 
-> 
-> I also think the commit message is quite fine as is.
-IMHO, this is similar to when one do coding style change in a patch. 
-They are unrelated but would be acceptable so long they are explained in 
-the commit message.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Roger Pau Monné <roger.pau@citrix.com>
 
-What I request is something like:
+jobs:
+ coverity-amd64                                               pass    
 
-"GENMASK(30, 21) should be 0x7fe00000 and only use 8-characters (it is a 
-32-bit comment). Fixed this in the comment.
 
-Take the opportunity to replace 'vector' with 'value' because..."
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-This is simple enough and clarify what is the intent of the patch.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Cheers,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
--- 
-Julien Grall
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   5449ba84e9..e7f147bf4a  e7f147bf4ac725492962a501da72f5ab6be682db -> coverity-tested/smoke
 
