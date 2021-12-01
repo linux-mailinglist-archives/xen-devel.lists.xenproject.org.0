@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE6D94656EC
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 21:14:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.236216.409730 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94541465831
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Dec 2021 22:11:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.236225.409750 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msVyq-0006rN-EB; Wed, 01 Dec 2021 20:13:28 +0000
+	id 1msWsR-00057l-RC; Wed, 01 Dec 2021 21:10:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 236216.409730; Wed, 01 Dec 2021 20:13:28 +0000
+Received: by outflank-mailman (output) from mailman id 236225.409750; Wed, 01 Dec 2021 21:10:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msVyq-0006os-Ac; Wed, 01 Dec 2021 20:13:28 +0000
-Received: by outflank-mailman (input) for mailman id 236216;
- Wed, 01 Dec 2021 20:13:26 +0000
+	id 1msWsR-000552-NH; Wed, 01 Dec 2021 21:10:55 +0000
+Received: by outflank-mailman (input) for mailman id 236225;
+ Wed, 01 Dec 2021 21:10:53 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=fqf2=QS=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1msVyo-0006om-PF
- for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 20:13:26 +0000
-Received: from ppsw-42.csi.cam.ac.uk (ppsw-42.csi.cam.ac.uk [131.111.8.142])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 21d3f233-52e3-11ec-976b-d102b41d0961;
- Wed, 01 Dec 2021 21:13:24 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:34820)
- by ppsw-42.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.138]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1msVyf-000BTf-8m (Exim 4.95) (return-path <amc96@srcf.net>);
- Wed, 01 Dec 2021 20:13:17 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 788291FD7A;
- Wed,  1 Dec 2021 20:13:17 +0000 (GMT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Zo2s=QS=wanadoo.fr=christophe.jaillet@srs-se1.protection.inumbo.net>)
+ id 1msWsP-00054v-U1
+ for xen-devel@lists.xenproject.org; Wed, 01 Dec 2021 21:10:53 +0000
+Received: from smtp.smtpout.orange.fr (smtp07.smtpout.orange.fr
+ [80.12.242.129]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2a23b1e5-52eb-11ec-976b-d102b41d0961;
+ Wed, 01 Dec 2021 22:10:52 +0100 (CET)
+Received: from pop-os.home ([86.243.171.122]) by smtp.orange.fr with ESMTPA
+ id sWsLmkjcv65jHsWsLmTQIX; Wed, 01 Dec 2021 22:10:51 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +38,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21d3f233-52e3-11ec-976b-d102b41d0961
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <5a1c0ba9-7583-39c0-87ce-dcb62ea4c7b9@srcf.net>
-Date: Wed, 1 Dec 2021 20:13:17 +0000
+X-Inumbo-ID: 2a23b1e5-52eb-11ec-976b-d102b41d0961
+X-ME-Helo: pop-os.home
+X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
+X-ME-Date: Wed, 01 Dec 2021 22:10:51 +0100
+X-ME-IP: 86.243.171.122
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: boris.ostrovsky@oracle.com,
+	jgross@suse.com,
+	sstabellini@kernel.org,
+	roger.pau@citrix.com,
+	axboe@kernel.dk
+Cc: xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Subject: [PATCH] xen-blkfront: Use the bitmap API when applicable
+Date: Wed,  1 Dec 2021 22:10:48 +0100
+Message-Id: <1c73cf8eaff02ea19439ec676c063e592d273cfe.1638392965.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20211130181139.14398-1-andrew.cooper3@citrix.com>
- <20211130181139.14398-3-andrew.cooper3@citrix.com>
- <037802f4-d28b-62bc-e830-78149f1cc2ff@suse.com>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH 2/2] x86/hvm: Rework nested hap functions to reduce
- parameters
-In-Reply-To: <037802f4-d28b-62bc-e830-78149f1cc2ff@suse.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 01/12/2021 09:14, Jan Beulich wrote:
-> On 30.11.2021 19:11, Andrew Cooper wrote:
->> Most functions in this call chain have 8 parameters, meaning that the final
->> two booleans are spilled to the stack for for calls.
->>
->> First, delete nestedhap_walk_L1_p2m and introduce nhvm_hap_walk_L1_p2m() as a
->> thin wrapper around hvm_funcs just like all the other nhvm_*() hooks.  This
->> involves including xen/mm.h as the forward declaration of struct npfec is no
->> longer enough.
->>
->> Next, replace the triple of booleans with struct npfec, which contains the
->> same information in the bottom 3 bits.
->>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->> CC: Wei Liu <wl@xen.org>
->> CC: Tamas K Lengyel <tamas@tklengyel.com>
->> CC: Alexandru Isaila <aisaila@bitdefender.com>
->> CC: Petre Pircalabu <ppircalabu@bitdefender.com>
->>
->> I don't much like this, but I think it's the least bad option in the short
->> term.  npfec is horribly mis-named/mis-used (at best, it should be considered
->> npf_info, and probably inherits from the same API/ABI mistakes our regular
->> pagewalk functions have) and is going to have to be untangled to make nested
->> virt a maintainable option.
-> So why use struct npfec here then in the first place? It could as well
-> be "unsigned int" with constants defined for X, R, and W, couldn't it?
+Use 'bitmap_zalloc()' to simplify code, improve the semantic and avoid some
+open-coded arithmetic in allocator arguments.
 
-I started prototyping that first, but substantially ups the work
-required to support XU/XS down the line, and that's far more likely to
-happen before getting around to cleaning up the API/ABI.
+Also change the corresponding 'kfree()' into 'bitmap_free()' to keep
+consistency.
 
->> --- a/xen/include/asm-x86/hvm/hvm.h
->> +++ b/xen/include/asm-x86/hvm/hvm.h
->> @@ -25,6 +25,7 @@
->>  #include <asm/current.h>
->>  #include <asm/x86_emulate.h>
->>  #include <asm/hvm/asid.h>
->> +#include <xen/mm.h>
-> Nit: Typically we have xen/ includes ahead of asm/ ones.
+Use 'bitmap_copy()' to avoid an explicit 'memcpy()'
 
-Fixed.
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+ drivers/block/xen-blkfront.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
->
->> @@ -631,6 +630,14 @@ static inline enum hvm_intblk nhvm_interrupt_blocked(struct vcpu *v)
->>      return hvm_funcs.nhvm_intr_blocked(v);
->>  }
->>  
->> +static inline int nhvm_hap_walk_L1_p2m(
->> +    struct vcpu *v, paddr_t L2_gpa, paddr_t *L1_gpa, unsigned int *page_order,
->> +    uint8_t *p2m_acc, struct npfec npfec)
->> +{
->> +    return hvm_funcs.nhvm_hap_walk_L1_p2m(
->> +        v, L2_gpa, L1_gpa, page_order, p2m_acc, npfec);
->> +}
-> Is there a specific reason you don't switch to altcall right in
-> this patch, making a follow-on change unnecessary?
+diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
+index 700c765a759a..fe4d69cf9469 100644
+--- a/drivers/block/xen-blkfront.c
++++ b/drivers/block/xen-blkfront.c
+@@ -442,16 +442,14 @@ static int xlbd_reserve_minors(unsigned int minor, unsigned int nr)
+ 	if (end > nr_minors) {
+ 		unsigned long *bitmap, *old;
+ 
+-		bitmap = kcalloc(BITS_TO_LONGS(end), sizeof(*bitmap),
+-				 GFP_KERNEL);
++		bitmap = bitmap_zalloc(end, GFP_KERNEL);
+ 		if (bitmap == NULL)
+ 			return -ENOMEM;
+ 
+ 		spin_lock(&minor_lock);
+ 		if (end > nr_minors) {
+ 			old = minors;
+-			memcpy(bitmap, minors,
+-			       BITS_TO_LONGS(nr_minors) * sizeof(*bitmap));
++			bitmap_copy(bitmap, minors, nr_minors);
+ 			minors = bitmap;
+ 			nr_minors = BITS_TO_LONGS(end) * BITS_PER_LONG;
+ 		} else
+@@ -2610,7 +2608,7 @@ static void __exit xlblk_exit(void)
+ 
+ 	xenbus_unregister_driver(&blkfront_driver);
+ 	unregister_blkdev(XENVBD_MAJOR, DEV_NAME);
+-	kfree(minors);
++	bitmap_free(minors);
+ }
+ module_exit(xlblk_exit);
+ 
+-- 
+2.30.2
 
-I was still hoping to keep the altcall stuff in one patch.  I'm happy to
-do the rebase.
-
-~Andrew
 
