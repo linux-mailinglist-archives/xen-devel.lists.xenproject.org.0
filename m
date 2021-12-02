@@ -2,35 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2E32465E94
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Dec 2021 08:18:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.236328.409953 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DEE7465EA6
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Dec 2021 08:24:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.236335.409968 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msgKu-0002wn-8o; Thu, 02 Dec 2021 07:16:56 +0000
+	id 1msgS6-0004Mm-0P; Thu, 02 Dec 2021 07:24:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 236328.409953; Thu, 02 Dec 2021 07:16:56 +0000
+Received: by outflank-mailman (output) from mailman id 236335.409968; Thu, 02 Dec 2021 07:24:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msgKu-0002uw-5g; Thu, 02 Dec 2021 07:16:56 +0000
-Received: by outflank-mailman (input) for mailman id 236328;
- Thu, 02 Dec 2021 07:16:55 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1msgS5-0004Ky-SU; Thu, 02 Dec 2021 07:24:21 +0000
+Received: by outflank-mailman (input) for mailman id 236335;
+ Thu, 02 Dec 2021 07:24:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1msgKt-0002um-AA; Thu, 02 Dec 2021 07:16:55 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1msgKt-0003CR-5z; Thu, 02 Dec 2021 07:16:55 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1msgKs-0005eV-U0; Thu, 02 Dec 2021 07:16:55 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1msgKs-0001Te-TX; Thu, 02 Dec 2021 07:16:54 +0000
+ (envelope-from <SRS0=9SUj=QT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1msgS4-0004Ks-8q
+ for xen-devel@lists.xenproject.org; Thu, 02 Dec 2021 07:24:20 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dcaacfc9-5340-11ec-b1df-f38ee3fbfdf7;
+ Thu, 02 Dec 2021 08:24:19 +0100 (CET)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2110.outbound.protection.outlook.com [104.47.18.110]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-26-mBKoVXJTPLufmJAA7_2L_Q-1; Thu, 02 Dec 2021 08:24:17 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB5742.eurprd04.prod.outlook.com (2603:10a6:803:e5::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22; Thu, 2 Dec
+ 2021 07:24:16 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::5951:a489:1cf0:19fe%5]) with mapi id 15.20.4734.024; Thu, 2 Dec 2021
+ 07:24:16 +0000
+Received: from [10.156.60.236] (37.24.206.209) by
+ AS9PR06CA0368.eurprd06.prod.outlook.com (2603:10a6:20b:460::32) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.14 via Frontend
+ Transport; Thu, 2 Dec 2021 07:24:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,196 +56,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Nr/fjLzjs3fvsgJqC7983HClMZ6vRd3JJjZ2IHO386U=; b=ccZSSVmMfsz7y1lLcHn4MDUKel
-	vLqhlzYpGXbo1c6EprZKDPE+HaRYWIlFLCSuzPEWyHPG21RsdPpNb7ZSVKo0gAY5ZJJxMux7MQbQO
-	KcvTrDALVn04pzIxhCA/5pCcCd1eNHZvehEurdDGT/p1pU35TCd9edZNodzY5SG5jwYA=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-166995-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: dcaacfc9-5340-11ec-b1df-f38ee3fbfdf7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1638429858;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fzxGWKaoW59Od2WpYxt5a7eai2jl7ItmwhCtKOxvhiI=;
+	b=dDTQQHrqvKuuS0BJpGUdUt9Dt5tVZbIBa0/SndVBmHPRPspRKUlUkRRItrPLarE7PYAJXY
+	6CLCTiIRPEhc+Ilqw/ughkGP6igIgonUN3uHMshU9BUB6Qi+riM9wwieH/uSYK2oP+To2N
+	sI2YBZZ1pvY/Bv+DJyhhz5qrEshjsAE=
+X-MC-Unique: mBKoVXJTPLufmJAA7_2L_Q-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RCc9VQbwNLgYa1LnyZ0X62lqda6fM714DOuLTYCzPGgbs34nBt5RYA0KJ7sgaJc3VklG7laE8kuDJ0WT6xwaXQa5zmHXQ7W62WK4PuFgRd2JjHgidLl/lgOpoLh3ypVFOGmrpNZhKnZOa1Op3/4UQmFmsIV3TPfeTVesn4TNWzM1iAtmUTchCgjcSSYN7bbU4ivz15+OL0cqr1/Lg1t0gEEzhrEcNi8B/0tb0F8QtR2Sv2fmsD5YJoVIrJANCzdvTNbJLItZz0D1MxLro1ORg0USs61zHp8SIa+cBTBza6vUWdF8HMRQUZCYo/CesBDIAF5g4NUZAd6IZCbK5qs6cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fzxGWKaoW59Od2WpYxt5a7eai2jl7ItmwhCtKOxvhiI=;
+ b=oVTmhfszWVafRY6zKJBoV/pNButWmk4VYIZkvRa3/kGGWlbwvH17o9T+8KOKH+UBc7cCVl8T2XnlY1yyT4LnFLt0t/tU7qYj5HEu1zbgewQisv6SxX97TYlQ3T2EKAyY2S+RJ1kaTSVnhSuvoJKOskLIywdEBHQHnVkHmh3/gLV3PSGsYe1veid8Fy2s2X22Jl0+hCGER6s/hKxlm4LtySRQun2SPtQtnOvVGVFuVdXcjRGIZ6u13e7Z4taORaEygC6/hXfACOuMcbpLNk/OTnAP3hbUAZ1ENrGQcGANJzC4caa8T2RNrJhSd0mmGkqTNjDLz+r72qndsRrr05OKXQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <f2b76ad4-6221-7e5b-b9d2-625f97167ba3@suse.com>
+Date: Thu, 2 Dec 2021 08:24:15 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Subject: Re: [PATCH 1/4] IOMMU/x86: switch to alternatives-call patching in
+ further instances
+Content-Language: en-US
+To: Andrew Cooper <amc96@srcf.net>
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <5d72c629-fabf-3d40-aa19-d177826fdde5@suse.com>
+ <f7a7ce32-f921-ced7-4699-26f907392eb4@suse.com>
+ <3dbcb5ed-c776-84d8-92a7-b9d265ef7d7b@srcf.net>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <3dbcb5ed-c776-84d8-92a7-b9d265ef7d7b@srcf.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0368.eurprd06.prod.outlook.com
+ (2603:10a6:20b:460::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 166995: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start/debian.repeat:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start/debian.repeat:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:heisenbug
-    xen-unstable-smoke:test-armhf-armhf-xl:guest-start/debian.repeat:fail:heisenbug
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=eb41074692094dff1413efb44fa4928a9140aa41
-X-Osstest-Versions-That:
-    xen=e7f147bf4ac725492962a501da72f5ab6be682db
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 02 Dec 2021 07:16:54 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: efb13d62-31bb-41c4-94d1-08d9b564bf97
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5742:
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB57429D0B41306203F9900FBFB3699@VI1PR04MB5742.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	X2nqWqrV4SUvI68NXW7WvifGsg3OhnLBDWZyfLQQPqHpFqGcXtiovhUUXPhdc67GfQdwq2WuTb0hgCSZxkmWuYFvLvrWJ+ukYlYYPmbb1duT+tzO0C8NqK9kfSQl1nSqgb4+uw+W85ZYNZaHS57BxDXoOZHhUKcpaC6HOYdh+4uytfms1YiDAbV0kpUeorb7v6YmvEfnChRtC1S4ufSIRXSSY/e195U7X/+BE5JYWLHpRIIdJUNc4s230JKYkx7a8NL8aAZ9Xdf46AVTPptz/oRp2ZLBbMa9NDmruy035pUoLTuM/XJ6NH175aQ0WQlIyXjVnwXyOnl5Fcgf+n/MaL6dmkZUh+ogg+U7YlGlpa5N5MCKwyIAbwM+aHiuJl6cV8woplNBFj3v6W6VUtqW0Yewmh2rLxYNvhZJbALaYT7SmxvLtNgMazVDRkFyVC69ZoSGenzcR/QOKWd7MB3eOBPk8x5cLBxMbE28bFWv21gnCnmiMj5uwOxoGt/5p+XP9iseld9yh5Qrfl4CapiWZiQwDrdg07TiWpcKAHzl3KA7y8tgAC0lWBe2LLCGJZnJYDlCejAGHa3HUuoFqUnSgdHzmpvKn47xOeenOSYYJqCHPcFiowz0W4RD+Dnjg1IuGrffaQN+jnBm4Xt+fN6gTX6QmJCEGvLB/zOTm3YdpafsQOkSK17hAj/Vv3/LA4J/YP3bCcy4Iy+PFeJbyOaFrfXrfdoSY3GoN5Bf1hK8ACk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6916009)(66476007)(66946007)(8936002)(6486002)(4326008)(31686004)(36756003)(66556008)(31696002)(4744005)(956004)(16576012)(38100700002)(2616005)(508600001)(2906002)(8676002)(316002)(86362001)(53546011)(54906003)(186003)(26005)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NDd3VWtwb1F4akhvT2pkVmFHTkpDV2hWdG1qcWlCT3R3a2dUbE1wd05hcHdP?=
+ =?utf-8?B?ZGdsOEFmc2JmOFFRZFNET2NYUlg4aGM5OG1JSFZqTFdaM0xGL2NBYzgrVWFB?=
+ =?utf-8?B?Q1JIbEt0eDFlM2ZrdDg1Vm03MEY4czJsMDZRRlVSNHdTUERYYzNMZGJIM2tM?=
+ =?utf-8?B?ajVhYlQ3eHcxdy9CT3cyVSt5bkNsTEZOUTdiV3RkTUwzRkJRU28xd3dTQ2I5?=
+ =?utf-8?B?ZzFxeGRoVERFekVGK040K2NPcXBEaXljMmF6VHBDeWh6d2p2Vy93TDB1Qitt?=
+ =?utf-8?B?a0J0ZG9TL0NGOHg2RG91V1FETk9yazJsY0hkRkg3S1VNR0tGZWpwWklYM0hB?=
+ =?utf-8?B?d1pkKzNLaVQ4aURvdXk1MEFhVUF3MWUrTlMyZkIySExsSGJOeGc3YmxhbTVu?=
+ =?utf-8?B?M2pNL0laZjZHclhWMUpzanF2OGNJKzA0dGczNFZ3S0t3V0c2OGJoRWc3Y2Nx?=
+ =?utf-8?B?QjJSZjdoOGhyVEJVdlZHczBNWmlQbzZrY2tzSzAzQitSenZJQytqZTRvZXVC?=
+ =?utf-8?B?MDBOcEVtbXdrcHppQ3k0RW9DT1BwOVlucnF3QzRTTHlLcHY5U3BSb3pnRVdC?=
+ =?utf-8?B?N256RW8rdDB6OHEwYTZveDYxTklxSm1IOEVrS0tnM2hEWkVKNm9Mc01RYjRj?=
+ =?utf-8?B?N2tOalRBdVM5eXR4UmFrQUNYWGhYYXVUTENNcEtmV2Q5RUFiZEF1RWdaZkpw?=
+ =?utf-8?B?bGxVekhpYjRYNFZHMXZNZkFxSTgrenlCQ1ZuRVMxOXhtQzkyRTBhZUo5T3hY?=
+ =?utf-8?B?OURKVjRad3ZGVWtBWUUrcGd5ME5lTUk4bm9CQ0xTOTRlUlplVW91dnk4THor?=
+ =?utf-8?B?V2lpMW0yUUhvWTkvdmlsSHlrSnFxbk9SSk9nUkdSdnp2UlRsTTdmbURzblU0?=
+ =?utf-8?B?b09Fa2FzWGJrNlpFRmc2NUdJNG1ZSS9XRW9zU3ZGbEhDbFNLTlFYeGdyNGI4?=
+ =?utf-8?B?SGlza3NmQUtPRXBkcUhYbklJWHpZSUF1NGtTVmljSDY1Mm1WczdUeGRtRWVv?=
+ =?utf-8?B?cHN5c3RTemZLWGdjRHEyakovZ3Vhb3AvdEdGQXhKcFI2NWt5S2Y3UTlaUUQ0?=
+ =?utf-8?B?WWVhRVNaYjhsU0VGL2dqa0pUcVdVd0k2TCthVitENnhoQXBhanE2Mm0wLzJz?=
+ =?utf-8?B?TDB2VHBXZGVWR3JURTFCMDBiRlVHcEpPM0VPQW5nU2NscnJWeXRCZ1NqSFN0?=
+ =?utf-8?B?dHVqSDRJQmRaRjdhSE5xTlRTaC9weENONXF6T25ZcnYyVExLWGZyZ0l1RjFP?=
+ =?utf-8?B?VUtPUi8ybW5aNmFScWJPY3dJbXVNeHFtUlRIdnd6dEpZeEV4aDM4TkhISHBx?=
+ =?utf-8?B?anRhM2lsSnpnL1JITHBzdC90MHNhUXZEK2tLUzZoZDVURmYydkJac0V6YWUx?=
+ =?utf-8?B?ZmVUYm5UMmRHalEwNWJCRXY2Q093YkUrYUtJYWdqWUdjRnVKZGRPV1VwVlZK?=
+ =?utf-8?B?YTlQYVcxVnNuMUgrbEtURU9EVS9TZ2oxMmRyQytEZ29vMFZFTGU0Q1ZNNWlq?=
+ =?utf-8?B?M0JsVzJCbkgrTU1mb2lLZG1oanFseXpaTnpQR1pHSXpDM3R1YzJmWmZjZE04?=
+ =?utf-8?B?cVFEZXJTMjc1UTRiSDBzSUV5NDh0SHRMR0ZvcDhYSkkvN0l5WU1PcUIzZzU2?=
+ =?utf-8?B?UEU2RWpWcm9SQzQrYUtqUi82RDRTZHQ4eGNsR2ViYmV2Ny9lYVRkaU5SR3g0?=
+ =?utf-8?B?Rkl4TWxPeXhQeE1LZ0FQY2NubmNxd000UjFTMzNvdERNcktlVS90c2hIUHFn?=
+ =?utf-8?B?MUFFQ0hLSHJzT0srQUVYV1dZam15dlV3SjJvWnN1VXg4WEVHWHQxUkQ2UHJL?=
+ =?utf-8?B?aVJmWFZZUTYzMHM4NXVEbjlva1pHdUczVjB5akpCa293dkRTVDE4d2Jxb3lZ?=
+ =?utf-8?B?WkpmZy9KaWppejdaaExldlNFZ0F5bTI2QjJXY1IvZDVxYTY3RmxtUHk5enQ2?=
+ =?utf-8?B?UkRtWnBnb1g0aWtLRkl4b1ozRHlXWHlwUDArM3ZLcGo2TGRNMGdUWkF0WU1R?=
+ =?utf-8?B?Y21veVpvVFBYenZNUzQzZzFPa0VnajU5TVV1VkJ6azhoVVR6QUpRR3huSGoz?=
+ =?utf-8?B?ckljamhtUGZNVzN0eElNTno2YktEUmZQUk5yVllzcExJUjBTdjlkVnlnWWZx?=
+ =?utf-8?B?NzY3dnhmWk9pY09iRDR0c3pQV0JPN0R5QWpSeEk5cTkxR1U4Q0RCUmEycThG?=
+ =?utf-8?Q?RNET2X3zPsmSk2wVb/JVwYI=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: efb13d62-31bb-41c4-94d1-08d9b564bf97
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2021 07:24:16.6804
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: P/eM319uPOA9Mi52qWUMgOvFqsKrPJP1Z/5xmOFzy75F1nSYixMO+BgL6q/LY2c8obrjNh7ilP0iKSIYXHykIA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5742
 
-flight 166995 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/166995/
+On 01.12.2021 16:13, Andrew Cooper wrote:
+> On 01/12/2021 09:39, Jan Beulich wrote:
+>> --- a/xen/drivers/passthrough/pci.c
+>> +++ b/xen/drivers/passthrough/pci.c
+>> @@ -1457,24 +1462,24 @@ static int iommu_get_device_group(
+>>      if ( !is_iommu_enabled(d) || !ops->get_device_group_id )
+>>          return 0;
+>>  
+>> -    group_id = ops->get_device_group_id(seg, bus, devfn);
+>> +    group_id = iommu_call(ops, get_device_group_id, seg, bus, devfn);
+> 
+> So I was going to suggest adjusting this to use more pci_sbdf_t, but the
+> Intel implementation can fail and return -1.
 
-Regressions :-(
+How are the two aspects related? Wouldn't you mean the parameter of the
+function to become pci_sbdf_t? If so, I'd view this as an orthogonal
+change. I'll reply to the question of removal on the subthread of patch 4.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-xl-xsm     18 guest-start/debian.repeat fail REGR. vs. 166958
- test-amd64-amd64-libvirt 20 guest-start/debian.repeat fail in 166988 REGR. vs. 166958
+Jan
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-libvirt     14 guest-start                fail pass in 166988
- test-armhf-armhf-xl          18 guest-start/debian.repeat  fail pass in 166988
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt    15 migrate-support-check fail in 166988 never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  eb41074692094dff1413efb44fa4928a9140aa41
-baseline version:
- xen                  e7f147bf4ac725492962a501da72f5ab6be682db
-
-Last test of basis   166958  2021-11-30 12:00:32 Z    1 days
-Failing since        166977  2021-12-01 17:08:21 Z    0 days    3 attempts
-Testing same since   166988  2021-12-01 23:02:57 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-  Ayan Kumar Halder <ayankuma@xilinx.com>
-  Ian Jackson <iwj@xenproject.org>
-  Luca Fancellu <luca.fancellu@arm.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Vikram Garhwal <fnu.vikram@xilinx.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit eb41074692094dff1413efb44fa4928a9140aa41
-Author: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-Date:   Tue Nov 30 18:12:38 2021 +0000
-
-    bitops: Fix incorrect value in comment
-    
-    GENMASK(30, 21) should be 0x7fe00000. Fixed this in the comment
-    in bitops.h.
-    
-    Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    [Tweak text, to put an end to any further bikeshedding]
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-commit 6c1c97e24f830a921a23e3b9694e20493c9986ee
-Author: Ian Jackson <iwj@xenproject.org>
-Date:   Wed Dec 1 18:07:40 2021 +0000
-
-    CHANGELOG.md: Start new "unstable" section
-    
-    I have just forward-ported the CHANGELOG.md updates from the
-    stable-4.16 branch.  But we need a new section for work in this
-    release cycle.
-    
-    Signed-off-by: Ian Jackson <iwj@xenproject.org>
-
-commit eef266eb770128db0d5258009b744f0e0c31c9bd
-Author: Ian Jackson <iwj@xenproject.org>
-Date:   Tue Nov 30 11:40:21 2021 +0000
-
-    CHANGELOG.md: Set 4.16 version and date
-    
-    Signed-off-by: Ian Jackson <iwj@xenproject.org>
-    (cherry picked from commit 36aa64095d0419d52d2466405ac13b9858463f48)
-
-commit e058b2d4e5e2ad7ad03941d36ef9243291b35671
-Author: Roger Pau Monne <roger.pau@citrix.com>
-Date:   Wed Nov 24 12:24:03 2021 +0100
-
-    CHANGELOG: add missing entries for work during the 4.16 release cycle
-    
-    Document some of the relevant changes during the 4.16 release cycle.
-    
-    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-    (cherry picked from commit e2544a28beacd854f295095d102a8773743ac917)
-
-commit 9012687f05adf96440316ce338514db574ebfde0
-Author: Luca Fancellu <luca.fancellu@arm.com>
-Date:   Tue Nov 16 15:06:24 2021 +0000
-
-    arm/efi: Improve performance requesting filesystem handle
-    
-    Currently, the code used to handle and possibly load from the filesystem
-    modules defined in the DT is allocating and closing the filesystem handle
-    for each module to be loaded.
-    
-    To improve the performance, the filesystem handle pointer is passed
-    through the call stack, requested when it's needed only once and closed
-    if it was allocated.
-    
-    Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit ad9cf6bde5b90d4c1e5a79a2803e98d6344c27d7
-Author: Vikram Garhwal <fnu.vikram@xilinx.com>
-Date:   Thu Nov 11 23:27:20 2021 -0800
-
-    Update libfdt to v1.6.1
-    
-    Update libfdt to v1.6.1 of libfdt taken from git://github.com/dgibson/dtc.
-    This update is done to support device tree overlays.
-    
-    A few minor changes are done to make it compatible with Xen:
-        fdt_overlay.c: overlay_fixup_phandle()
-    
-            Replace strtoul() with simple_strtoul() as strtoul() is not available in
-            Xen lib and included lib.h.
-    
-            Change char *endptr to const char *endptr. This change is required for
-            using simple_strtoul().
-    
-        libfdt_env.h:
-            Remaining Xen changes to libfdt_env.h carried over from existing
-            libfdt (v1.4.0)
-    
-    Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
-    Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-    Tested-by: Luca Fancellu <luca.fancellu@arm.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-(qemu changes not included)
 
