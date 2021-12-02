@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16BD1465E1A
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Dec 2021 07:13:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.236319.409931 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2E32465E94
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Dec 2021 08:18:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.236328.409953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msfKz-0004O0-9h; Thu, 02 Dec 2021 06:12:57 +0000
+	id 1msgKu-0002wn-8o; Thu, 02 Dec 2021 07:16:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 236319.409931; Thu, 02 Dec 2021 06:12:57 +0000
+Received: by outflank-mailman (output) from mailman id 236328.409953; Thu, 02 Dec 2021 07:16:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msfKz-0004Lc-5z; Thu, 02 Dec 2021 06:12:57 +0000
-Received: by outflank-mailman (input) for mailman id 236319;
- Thu, 02 Dec 2021 06:12:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1msgKu-0002uw-5g; Thu, 02 Dec 2021 07:16:56 +0000
+Received: by outflank-mailman (input) for mailman id 236328;
+ Thu, 02 Dec 2021 07:16:55 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Uf4i=QT=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1msfKx-0004Jz-HI
- for xen-devel@lists.xenproject.org; Thu, 02 Dec 2021 06:12:55 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e2a82486-5336-11ec-976b-d102b41d0961;
- Thu, 02 Dec 2021 07:12:54 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5CB52212BE;
- Thu,  2 Dec 2021 06:12:53 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 86CF813DFB;
- Thu,  2 Dec 2021 06:12:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id pWBwHuRjqGE4HwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 02 Dec 2021 06:12:52 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1msgKt-0002um-AA; Thu, 02 Dec 2021 07:16:55 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1msgKt-0003CR-5z; Thu, 02 Dec 2021 07:16:55 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1msgKs-0005eV-U0; Thu, 02 Dec 2021 07:16:55 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1msgKs-0001Te-TX; Thu, 02 Dec 2021 07:16:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,225 +42,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e2a82486-5336-11ec-976b-d102b41d0961
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638425573; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PoHxH+44BVmQxV5StpyJtBKJQ6b18O343WAGNo7xpu4=;
-	b=QxcuKPLlhBOYjqMoxMu9oUKMyvifbvVJlHyE3jKEW5UGA42eRXO48W3J25IBX3DFsdPI0x
-	aoHstQUDTMO6jZeLSN7Or6gKVcZjU6fPwe6GjTKt+CaPeqsOr3Yssx3q1F3VsNQClvdoI0
-	PnS5vd2zhFgWM1+oBblZyuz39IwZkS4=
-Subject: Re: [PATCH] xen-blkfront: Use the bitmap API when applicable
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- boris.ostrovsky@oracle.com, sstabellini@kernel.org, roger.pau@citrix.com,
- axboe@kernel.dk
-Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-References: <1c73cf8eaff02ea19439ec676c063e592d273cfe.1638392965.git.christophe.jaillet@wanadoo.fr>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <c529a221-f444-ad26-11ff-f693401c9429@suse.com>
-Date: Thu, 2 Dec 2021 07:12:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Nr/fjLzjs3fvsgJqC7983HClMZ6vRd3JJjZ2IHO386U=; b=ccZSSVmMfsz7y1lLcHn4MDUKel
+	vLqhlzYpGXbo1c6EprZKDPE+HaRYWIlFLCSuzPEWyHPG21RsdPpNb7ZSVKo0gAY5ZJJxMux7MQbQO
+	KcvTrDALVn04pzIxhCA/5pCcCd1eNHZvehEurdDGT/p1pU35TCd9edZNodzY5SG5jwYA=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166995-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <1c73cf8eaff02ea19439ec676c063e592d273cfe.1638392965.git.christophe.jaillet@wanadoo.fr>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="AfdMuwUczXW0MKITwWVq4jy42wC20ICQg"
+Subject: [xen-unstable-smoke test] 166995: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start/debian.repeat:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start/debian.repeat:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start:fail:heisenbug
+    xen-unstable-smoke:test-armhf-armhf-xl:guest-start/debian.repeat:fail:heisenbug
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=eb41074692094dff1413efb44fa4928a9140aa41
+X-Osstest-Versions-That:
+    xen=e7f147bf4ac725492962a501da72f5ab6be682db
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 02 Dec 2021 07:16:54 +0000
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---AfdMuwUczXW0MKITwWVq4jy42wC20ICQg
-Content-Type: multipart/mixed; boundary="pQIE5E6xcpkHUkTK3irWuIH6aIHhgRqRR";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- boris.ostrovsky@oracle.com, sstabellini@kernel.org, roger.pau@citrix.com,
- axboe@kernel.dk
-Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-Message-ID: <c529a221-f444-ad26-11ff-f693401c9429@suse.com>
-Subject: Re: [PATCH] xen-blkfront: Use the bitmap API when applicable
-References: <1c73cf8eaff02ea19439ec676c063e592d273cfe.1638392965.git.christophe.jaillet@wanadoo.fr>
-In-Reply-To: <1c73cf8eaff02ea19439ec676c063e592d273cfe.1638392965.git.christophe.jaillet@wanadoo.fr>
+flight 166995 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166995/
 
---pQIE5E6xcpkHUkTK3irWuIH6aIHhgRqRR
-Content-Type: multipart/mixed;
- boundary="------------90B5D640AB7801A38E7FE002"
-Content-Language: en-US
+Regressions :-(
 
-This is a multi-part message in MIME format.
---------------90B5D640AB7801A38E7FE002
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-xsm     18 guest-start/debian.repeat fail REGR. vs. 166958
+ test-amd64-amd64-libvirt 20 guest-start/debian.repeat fail in 166988 REGR. vs. 166958
 
-On 01.12.21 22:10, Christophe JAILLET wrote:
-> Use 'bitmap_zalloc()' to simplify code, improve the semantic and avoid =
-some
-> open-coded arithmetic in allocator arguments.
->=20
-> Also change the corresponding 'kfree()' into 'bitmap_free()' to keep
-> consistency.
->=20
-> Use 'bitmap_copy()' to avoid an explicit 'memcpy()'
->=20
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> ---
->   drivers/block/xen-blkfront.c | 8 +++-----
->   1 file changed, 3 insertions(+), 5 deletions(-)
->=20
-> diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.=
-c
-> index 700c765a759a..fe4d69cf9469 100644
-> --- a/drivers/block/xen-blkfront.c
-> +++ b/drivers/block/xen-blkfront.c
-> @@ -442,16 +442,14 @@ static int xlbd_reserve_minors(unsigned int minor=
-, unsigned int nr)
->   	if (end > nr_minors) {
->   		unsigned long *bitmap, *old;
->  =20
-> -		bitmap =3D kcalloc(BITS_TO_LONGS(end), sizeof(*bitmap),
-> -				 GFP_KERNEL);
-> +		bitmap =3D bitmap_zalloc(end, GFP_KERNEL);
->   		if (bitmap =3D=3D NULL)
->   			return -ENOMEM;
->  =20
->   		spin_lock(&minor_lock);
->   		if (end > nr_minors) {
->   			old =3D minors;
-> -			memcpy(bitmap, minors,
-> -			       BITS_TO_LONGS(nr_minors) * sizeof(*bitmap));
-> +			bitmap_copy(bitmap, minors, nr_minors);
->   			minors =3D bitmap;
->   			nr_minors =3D BITS_TO_LONGS(end) * BITS_PER_LONG;
->   		} else
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-libvirt     14 guest-start                fail pass in 166988
+ test-armhf-armhf-xl          18 guest-start/debian.repeat  fail pass in 166988
 
-Shouldn't you use bitmap_free(old) some lines down?
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt    15 migrate-support-check fail in 166988 never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-> @@ -2610,7 +2608,7 @@ static void __exit xlblk_exit(void)
->  =20
->   	xenbus_unregister_driver(&blkfront_driver);
->   	unregister_blkdev(XENVBD_MAJOR, DEV_NAME);
-> -	kfree(minors);
-> +	bitmap_free(minors);
->   }
->   module_exit(xlblk_exit);
+version targeted for testing:
+ xen                  eb41074692094dff1413efb44fa4928a9140aa41
+baseline version:
+ xen                  e7f147bf4ac725492962a501da72f5ab6be682db
+
+Last test of basis   166958  2021-11-30 12:00:32 Z    1 days
+Failing since        166977  2021-12-01 17:08:21 Z    0 days    3 attempts
+Testing same since   166988  2021-12-01 23:02:57 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+  Ayan Kumar Halder <ayankuma@xilinx.com>
+  Ian Jackson <iwj@xenproject.org>
+  Luca Fancellu <luca.fancellu@arm.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Vikram Garhwal <fnu.vikram@xilinx.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     fail    
 
 
-Juergen
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
---------------90B5D640AB7801A38E7FE002
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Not pushing.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+------------------------------------------------------------
+commit eb41074692094dff1413efb44fa4928a9140aa41
+Author: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+Date:   Tue Nov 30 18:12:38 2021 +0000
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+    bitops: Fix incorrect value in comment
+    
+    GENMASK(30, 21) should be 0x7fe00000. Fixed this in the comment
+    in bitops.h.
+    
+    Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    [Tweak text, to put an end to any further bikeshedding]
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
---------------90B5D640AB7801A38E7FE002--
+commit 6c1c97e24f830a921a23e3b9694e20493c9986ee
+Author: Ian Jackson <iwj@xenproject.org>
+Date:   Wed Dec 1 18:07:40 2021 +0000
 
---pQIE5E6xcpkHUkTK3irWuIH6aIHhgRqRR--
+    CHANGELOG.md: Start new "unstable" section
+    
+    I have just forward-ported the CHANGELOG.md updates from the
+    stable-4.16 branch.  But we need a new section for work in this
+    release cycle.
+    
+    Signed-off-by: Ian Jackson <iwj@xenproject.org>
 
---AfdMuwUczXW0MKITwWVq4jy42wC20ICQg
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+commit eef266eb770128db0d5258009b744f0e0c31c9bd
+Author: Ian Jackson <iwj@xenproject.org>
+Date:   Tue Nov 30 11:40:21 2021 +0000
 
------BEGIN PGP SIGNATURE-----
+    CHANGELOG.md: Set 4.16 version and date
+    
+    Signed-off-by: Ian Jackson <iwj@xenproject.org>
+    (cherry picked from commit 36aa64095d0419d52d2466405ac13b9858463f48)
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGoY+MFAwAAAAAACgkQsN6d1ii/Ey9C
-GQf7B6nQsjmwuu6nmhJBkobL+EuHIRbd8Q+Fp4t1UNVICF9LvicwjotgNHBHo0LRRxq0vWn6E8td
-31rc+lkllzJ5oDo2gsFTbgZxPXc83NA0MTPygu+E1bKQNOUhJqKtgryvIoeWAl4/VAu4f4RhFVPI
-0F/GLXISo/1UXVO9Yk/aokmFHIK5RR/vzuTc3XPhbsNiIjIydv3ba2Wa5UXqsp8bN5vi3+HQp0hu
-Wxgsdluph/jEidWDVWFQHj2namNURRXFhqJA2ImwE5e0aHs4Yfd+RAAF437L+zSDtX549zo0HONd
-HGVya/rFi+QEWNCaDpq4FoN6JafAsS+P56dgQq+x6Q==
-=QD8J
------END PGP SIGNATURE-----
+commit e058b2d4e5e2ad7ad03941d36ef9243291b35671
+Author: Roger Pau Monne <roger.pau@citrix.com>
+Date:   Wed Nov 24 12:24:03 2021 +0100
 
---AfdMuwUczXW0MKITwWVq4jy42wC20ICQg--
+    CHANGELOG: add missing entries for work during the 4.16 release cycle
+    
+    Document some of the relevant changes during the 4.16 release cycle.
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+    (cherry picked from commit e2544a28beacd854f295095d102a8773743ac917)
+
+commit 9012687f05adf96440316ce338514db574ebfde0
+Author: Luca Fancellu <luca.fancellu@arm.com>
+Date:   Tue Nov 16 15:06:24 2021 +0000
+
+    arm/efi: Improve performance requesting filesystem handle
+    
+    Currently, the code used to handle and possibly load from the filesystem
+    modules defined in the DT is allocating and closing the filesystem handle
+    for each module to be loaded.
+    
+    To improve the performance, the filesystem handle pointer is passed
+    through the call stack, requested when it's needed only once and closed
+    if it was allocated.
+    
+    Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit ad9cf6bde5b90d4c1e5a79a2803e98d6344c27d7
+Author: Vikram Garhwal <fnu.vikram@xilinx.com>
+Date:   Thu Nov 11 23:27:20 2021 -0800
+
+    Update libfdt to v1.6.1
+    
+    Update libfdt to v1.6.1 of libfdt taken from git://github.com/dgibson/dtc.
+    This update is done to support device tree overlays.
+    
+    A few minor changes are done to make it compatible with Xen:
+        fdt_overlay.c: overlay_fixup_phandle()
+    
+            Replace strtoul() with simple_strtoul() as strtoul() is not available in
+            Xen lib and included lib.h.
+    
+            Change char *endptr to const char *endptr. This change is required for
+            using simple_strtoul().
+    
+        libfdt_env.h:
+            Remaining Xen changes to libfdt_env.h carried over from existing
+            libfdt (v1.4.0)
+    
+    Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
+    Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+    Tested-by: Luca Fancellu <luca.fancellu@arm.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+(qemu changes not included)
 
