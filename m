@@ -2,31 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48AB24669A9
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Dec 2021 19:13:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.236899.410855 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 254A34669C3
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Dec 2021 19:16:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.236906.410866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msqZ0-0005ls-AR; Thu, 02 Dec 2021 18:12:10 +0000
+	id 1msqdC-0006T7-TR; Thu, 02 Dec 2021 18:16:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 236899.410855; Thu, 02 Dec 2021 18:12:10 +0000
+Received: by outflank-mailman (output) from mailman id 236906.410866; Thu, 02 Dec 2021 18:16:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msqZ0-0005iG-6s; Thu, 02 Dec 2021 18:12:10 +0000
-Received: by outflank-mailman (input) for mailman id 236899;
- Thu, 02 Dec 2021 18:12:08 +0000
+	id 1msqdC-0006QW-Pw; Thu, 02 Dec 2021 18:16:30 +0000
+Received: by outflank-mailman (input) for mailman id 236906;
+ Thu, 02 Dec 2021 18:16:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wP8P=QT=wanadoo.fr=christophe.jaillet@srs-se1.protection.inumbo.net>)
- id 1msqYy-0005iA-7V
- for xen-devel@lists.xenproject.org; Thu, 02 Dec 2021 18:12:08 +0000
-Received: from smtp.smtpout.orange.fr (smtp08.smtpout.orange.fr
- [80.12.242.130]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5bc97fa6-539b-11ec-976b-d102b41d0961;
- Thu, 02 Dec 2021 19:12:07 +0100 (CET)
-Received: from [192.168.1.18] ([86.243.171.122]) by smtp.orange.fr with ESMTPA
- id sqYum8DwlHQrlsqYumWmIy; Thu, 02 Dec 2021 19:12:06 +0100
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=XjF0=QT=perches.com=joe@srs-se1.protection.inumbo.net>)
+ id 1msqdC-0006QQ-7b
+ for xen-devel@lists.xenproject.org; Thu, 02 Dec 2021 18:16:30 +0000
+Received: from smtprelay.hostedemail.com (smtprelay0236.hostedemail.com
+ [216.40.44.236]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f6e69d4f-539b-11ec-976b-d102b41d0961;
+ Thu, 02 Dec 2021 19:16:28 +0100 (CET)
+Received: from omf05.hostedemail.com (clb03-v110.bra.tucows.net [216.40.38.60])
+ by smtprelay07.hostedemail.com (Postfix) with ESMTP id 4E9A918484CB8;
+ Thu,  2 Dec 2021 18:16:26 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
+ omf05.hostedemail.com (Postfix) with ESMTPA id A265920016; 
+ Thu,  2 Dec 2021 18:16:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,86 +42,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bc97fa6-539b-11ec-976b-d102b41d0961
-X-ME-Helo: [192.168.1.18]
-X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
-X-ME-Date: Thu, 02 Dec 2021 19:12:06 +0100
-X-ME-IP: 86.243.171.122
+X-Inumbo-ID: f6e69d4f-539b-11ec-976b-d102b41d0961
+Message-ID: <6fcddba84070c021eb92aa9a5ff15fb2a47e9acb.camel@perches.com>
 Subject: Re: [PATCH] xen-blkfront: Use the bitmap API when applicable
-To: Juergen Gross <jgross@suse.com>, boris.ostrovsky@oracle.com,
- sstabellini@kernel.org, roger.pau@citrix.com, axboe@kernel.dk
-Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-References: <1c73cf8eaff02ea19439ec676c063e592d273cfe.1638392965.git.christophe.jaillet@wanadoo.fr>
- <c529a221-f444-ad26-11ff-f693401c9429@suse.com>
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Message-ID: <d8f87c17-75d1-2e6b-65e1-23adc75bb515@wanadoo.fr>
-Date: Thu, 2 Dec 2021 19:12:01 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
+From: Joe Perches <joe@perches.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Juergen Gross
+	 <jgross@suse.com>, boris.ostrovsky@oracle.com, sstabellini@kernel.org, 
+	roger.pau@citrix.com, axboe@kernel.dk
+Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Date: Thu, 02 Dec 2021 10:16:23 -0800
+In-Reply-To: <d8f87c17-75d1-2e6b-65e1-23adc75bb515@wanadoo.fr>
+References: 
+	<1c73cf8eaff02ea19439ec676c063e592d273cfe.1638392965.git.christophe.jaillet@wanadoo.fr>
+	 <c529a221-f444-ad26-11ff-f693401c9429@suse.com>
+	 <d8f87c17-75d1-2e6b-65e1-23adc75bb515@wanadoo.fr>
+Content-Type: text/plain; charset="ISO-8859-1"
+User-Agent: Evolution 3.40.4-1ubuntu2 
 MIME-Version: 1.0
-In-Reply-To: <c529a221-f444-ad26-11ff-f693401c9429@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: fr
 Content-Transfer-Encoding: 8bit
+X-Spam-Status: No, score=-4.77
+X-Stat-Signature: 561o3yrhzhgof883pt4t3mmwux5dja7y
+X-Rspamd-Server: rspamout03
+X-Rspamd-Queue-Id: A265920016
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX18JTU2ijvwIy/Ds0rg5WhKwO4BPDfU4ABw=
+X-HE-Tag: 1638468984-745583
 
-Le 02/12/2021 Ã  07:12, Juergen Gross a Ã©critÂ :
-> On 01.12.21 22:10, Christophe JAILLET wrote:
->> Use 'bitmap_zalloc()' to simplify code, improve the semantic and avoid 
->> some
->> open-coded arithmetic in allocator arguments.
->>
->> Also change the corresponding 'kfree()' into 'bitmap_free()' to keep
->> consistency.
->>
->> Use 'bitmap_copy()' to avoid an explicit 'memcpy()'
->>
->> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
->> ---
->> Â  drivers/block/xen-blkfront.c | 8 +++-----
->> Â  1 file changed, 3 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
->> index 700c765a759a..fe4d69cf9469 100644
->> --- a/drivers/block/xen-blkfront.c
->> +++ b/drivers/block/xen-blkfront.c
->> @@ -442,16 +442,14 @@ static int xlbd_reserve_minors(unsigned int 
->> minor, unsigned int nr)
->> Â Â Â Â Â  if (end > nr_minors) {
->> Â Â Â Â Â Â Â Â Â  unsigned long *bitmap, *old;
->> -Â Â Â Â Â Â Â  bitmap = kcalloc(BITS_TO_LONGS(end), sizeof(*bitmap),
->> -Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  GFP_KERNEL);
->> +Â Â Â Â Â Â Â  bitmap = bitmap_zalloc(end, GFP_KERNEL);
->> Â Â Â Â Â Â Â Â Â  if (bitmap == NULL)
->> Â Â Â Â Â Â Â Â Â Â Â Â Â  return -ENOMEM;
->> Â Â Â Â Â Â Â Â Â  spin_lock(&minor_lock);
->> Â Â Â Â Â Â Â Â Â  if (end > nr_minors) {
->> Â Â Â Â Â Â Â Â Â Â Â Â Â  old = minors;
->> -Â Â Â Â Â Â Â Â Â Â Â  memcpy(bitmap, minors,
->> -Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â Â  BITS_TO_LONGS(nr_minors) * sizeof(*bitmap));
->> +Â Â Â Â Â Â Â Â Â Â Â  bitmap_copy(bitmap, minors, nr_minors);
->> Â Â Â Â Â Â Â Â Â Â Â Â Â  minors = bitmap;
->> Â Â Â Â Â Â Â Â Â Â Â Â Â  nr_minors = BITS_TO_LONGS(end) * BITS_PER_LONG;
->> Â Â Â Â Â Â Â Â Â  } else
-> 
-> Shouldn't you use bitmap_free(old) some lines down?
+On Thu, 2021-12-02 at 19:12 +0100, Christophe JAILLET wrote:
+> Le 02/12/2021 à 07:12, Juergen Gross a écrit :
+> > On 01.12.21 22:10, Christophe JAILLET wrote:
+> > > Use 'bitmap_zalloc()' to simplify code, improve the semantic and avoid 
+> > > some open-coded arithmetic in allocator arguments.
+> > > 
+> > > Also change the corresponding 'kfree()' into 'bitmap_free()' to keep
+> > > consistency.
+> > > 
+> > > Use 'bitmap_copy()' to avoid an explicit 'memcpy()'
+[]
+> > > diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
+[]
+> > > @@ -442,16 +442,14 @@ static int xlbd_reserve_minors(unsigned int 
+> > > minor, unsigned int nr)
+> > >       if (end > nr_minors) {
+> > >           unsigned long *bitmap, *old;
+> > > -        bitmap = kcalloc(BITS_TO_LONGS(end), sizeof(*bitmap),
+> > > -                 GFP_KERNEL);
+> > > +        bitmap = bitmap_zalloc(end, GFP_KERNEL);
+> > >           if (bitmap == NULL)
+> > >               return -ENOMEM;
+> > >           spin_lock(&minor_lock);
+> > >           if (end > nr_minors) {
+> > >               old = minors;
+> > > -            memcpy(bitmap, minors,
+> > > -                   BITS_TO_LONGS(nr_minors) * sizeof(*bitmap));
+> > > +            bitmap_copy(bitmap, minors, nr_minors);
+> > >               minors = bitmap;
+> > >               nr_minors = BITS_TO_LONGS(end) * BITS_PER_LONG;
 
-Obvious.
-I'll send a V2, Thx for the review.
+		nr_minors = end;
+?
 
-CJ
-
-> 
->> @@ -2610,7 +2608,7 @@ static void __exit xlblk_exit(void)
->> Â Â Â Â Â  xenbus_unregister_driver(&blkfront_driver);
->> Â Â Â Â Â  unregister_blkdev(XENVBD_MAJOR, DEV_NAME);
->> -Â Â Â  kfree(minors);
->> +Â Â Â  bitmap_free(minors);
->> Â  }
->> Â  module_exit(xlblk_exit);
-> 
-> 
-> Juergen
-> 
 
 
