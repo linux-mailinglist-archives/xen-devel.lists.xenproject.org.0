@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77967465EBC
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Dec 2021 08:31:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.236342.409979 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDA5E465F11
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Dec 2021 09:02:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.236354.409995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msgYJ-0005zX-S0; Thu, 02 Dec 2021 07:30:47 +0000
+	id 1msh1p-0001oh-HW; Thu, 02 Dec 2021 08:01:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 236342.409979; Thu, 02 Dec 2021 07:30:47 +0000
+Received: by outflank-mailman (output) from mailman id 236354.409995; Thu, 02 Dec 2021 08:01:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msgYJ-0005xb-Ng; Thu, 02 Dec 2021 07:30:47 +0000
-Received: by outflank-mailman (input) for mailman id 236342;
- Thu, 02 Dec 2021 07:30:46 +0000
+	id 1msh1p-0001lv-EI; Thu, 02 Dec 2021 08:01:17 +0000
+Received: by outflank-mailman (input) for mailman id 236354;
+ Thu, 02 Dec 2021 08:01:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9SUj=QT=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1msgYI-0005xV-08
- for xen-devel@lists.xenproject.org; Thu, 02 Dec 2021 07:30:46 +0000
+ id 1msh1o-0001lp-4o
+ for xen-devel@lists.xenproject.org; Thu, 02 Dec 2021 08:01:16 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c212a2e3-5341-11ec-976b-d102b41d0961;
- Thu, 02 Dec 2021 08:30:45 +0100 (CET)
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur03lp2055.outbound.protection.outlook.com [104.47.8.55]) by
+ id 05481177-5346-11ec-976b-d102b41d0961;
+ Thu, 02 Dec 2021 09:01:14 +0100 (CET)
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-am5eur02lp2052.outbound.protection.outlook.com [104.47.4.52]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-19-Lr4XQ64lMVuIZUKIOfwxnw-1; Thu, 02 Dec 2021 08:30:42 +0100
+ de-mta-23-JZsyXgqTMxCRZu00Lf26DQ-1; Thu, 02 Dec 2021 09:01:13 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB7040.eurprd04.prod.outlook.com (2603:10a6:800:121::19)
+ by VI1PR04MB6303.eurprd04.prod.outlook.com (2603:10a6:803:f2::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22; Thu, 2 Dec
- 2021 07:30:41 +0000
+ 2021 08:01:11 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe%5]) with mapi id 15.20.4734.024; Thu, 2 Dec 2021
- 07:30:41 +0000
+ 08:01:11 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM6P195CA0088.EURP195.PROD.OUTLOOK.COM (2603:10a6:209:86::29) with Microsoft
+ AM6P193CA0089.EURP193.PROD.OUTLOOK.COM (2603:10a6:209:88::30) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.14 via Frontend Transport; Thu, 2 Dec 2021 07:30:40 +0000
+ 15.20.4734.23 via Frontend Transport; Thu, 2 Dec 2021 08:01:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,154 +55,346 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c212a2e3-5341-11ec-976b-d102b41d0961
+X-Inumbo-ID: 05481177-5346-11ec-976b-d102b41d0961
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1638430243;
+	t=1638432074;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=dSIifU+P2EvTWsn/xzDMk5vCsMNBEysWPaExFM22GEQ=;
-	b=hTcPgWRDIF7zkHDWW7jhUH6PW7wu+PTVr+PcGCPfoJ3gg+ZZML00859+INltsAQg2aYFDi
-	Lqkt+X6fiSMzTCuxeYK6xt4ySM+9lHca1ODRC9/08JuGa84lN8u5Jrr6cN0XI+pduvqsaT
-	+chKIh1oRNi07wvOFRF/3KG7SuYE6RQ=
-X-MC-Unique: Lr4XQ64lMVuIZUKIOfwxnw-1
+	bh=HP3jcaKvbHL7Zxs5uAF+yfMGJmr7CJY35reZ6wqXHEI=;
+	b=Zb7JVBi7SEVWD71eNQbDL+Aktc+PmQ2sopA2lGMHA2kec6osf4Cmu2+JUQMBB13F+JXYTw
+	0nzR23Mw8h5+sl+UJhEBexYatc1SGuA60ChoU+zsrs634BTJ7E3P/aSpu6PWxn3KSBcldy
+	1p+sv4YN6L3ATC+a0mJBXKZcjFpi6ao=
+X-MC-Unique: JZsyXgqTMxCRZu00Lf26DQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ii60zwkFTm71zxzguSwahRvjo8lKuMRPv9gkrVaGX88AridwDv2QGPPrR18vayZKClru5svRNURwMC7afaXZ3lcx0i26YbdCyJ8ZRAASZeOcen2Z0B4+x8PjbQX10F9pBApzR7CjWsy3w+G22j6AXDNZVc7yMrsoNWyU1NPxRQgqWoBzMTogPkTSsBc2b8GWeoAYrMf3LvebAJILetZ+oHQeplqRJaOZ+KHoDoCgPz5jErLH7lJx74oc8ApXRmGMYj92DZccc1D+xMzQo2OIhqXhXfZiaf20R96Jg7zPI25mC6NmngmBR5J2d+gSr5zjWEJHybeHwqSY+KiXmAvjwg==
+ b=DdtG+UeLXCmxJHlnafGht0FyrI/sUyrbCuWR5m6a4k07F+e9GikHip55klFyknm/aOMnaWpWgvj0cJyZyk02Bsqgx/Z+URnEXq+C35f77bBoudiYWAl0+YYVGNa/OTG5Oo0xrFMEQOq0xRbRev+lMvOwQxyi3vrNDrm5iJAdh7U9paVdcGYbhMlKwAq6t6MaWxJBglMDhdssEyK8Elce2RpWahzS1Nq93VfKspE0HXIuQbNSwLFwCC00R9+HLYvGRTE7JjKHz5DeTgx6vukyZY6FvNfD/KE8FjvXU5rtIEkueTRXKY0Rha0SGrNIbXhxll5fZrHYp8pxppWwssXBJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oAqlqgzhEnJGOcrJ57AoOl+1KamxRZmtYbGPvq45KW4=;
- b=C+dEzY7FoD/0fBi1tG/3up41WK/2aX31MAoHZJ79xsdoGNgA3xi54CE5n89ZuyVc70EJbE1MJv5PbJKAU7SHRV8Zc1u2hHozGDYh243FeQkm1AaDqtNkoyYnOeA0z/GNMH7rXCYcaxAfRLQuORjLgvoABJLpULW7BOSugr0t8wlC7W3X3G3Oyey/LUmnu9TD65/i/Spy40TLDxLH6ajruMDjDMSEGw8w89Fw71+GLySzj8SDMEJxJxn4448PmoTw/WLT9j2TWxWCPs4QxKb/KtHpaJFP53X/o5wsgvM4UXuNLQRJYV4svnyK2QULIXhfV6WlufG76XKq/g1VOmPyeg==
+ bh=mNUmxyTqdS4N4Sv475DClV/JoGIohZGgSoqCoXGyot4=;
+ b=YqKJeI3hq3bR8MOrJ1/qewDeQoF6y475PpMXJuJLcOGDk4s2N6FvOBF7hrKNQaflEp2bvQ5p5QWdp3XpC+j1tCATzOgiZKuK6PdbfXMckoMQFV35iVyiugI/1ncOSXhgjOFYi3D5ODB25dBy7LAbz3AwCHlsJkfiY0zoYnPZjjt3zmSeXUcZ7KGAZKqQM8P46nkv/hrmNnbhlN8CD92ym//v8hmxIMvOBcftQha6srsiSaTx9ttpLxa5jySpAPrI4z9dBuO6APRV3AG+yo6tdUA7zdaTQsH0uqZ0xsSOy07rCeMaaI8ll4VQEampknTw7EsSzbQ+Hr1rhBVYhh38kg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <daebe6a9-7126-0f09-2c68-c13dbdd02f92@suse.com>
-Date: Thu, 2 Dec 2021 08:30:39 +0100
+Message-ID: <33d466b3-338b-d2dc-f993-c5fac22072e0@suse.com>
+Date: Thu, 2 Dec 2021 09:01:09 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
-Subject: Re: [PATCH 4/4] libxc: correct bounce direction in
- xc_get_device_group()
+Subject: Re: [PATCH 2/4] x86/altcall: Optimise away endbr64 instruction where
+ possible
 Content-Language: en-US
-To: Andrew Cooper <amc96@srcf.net>, Ian Jackson <ian.jackson@citrix.com>,
- Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Juergen Gross <jgross@suse.com>
-References: <5d72c629-fabf-3d40-aa19-d177826fdde5@suse.com>
- <b53c7853-b53a-37a0-d3bb-81093b19f305@suse.com>
- <ae971612-71e2-2005-88cf-22006b7fc9b9@srcf.net>
+To: Andrew Cooper <amc96@srcf.net>, Andrew Cooper <andrew.cooper3@citrix.com>
+CC: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20211126212258.7550-1-andrew.cooper3@citrix.com>
+ <20211126212258.7550-3-andrew.cooper3@citrix.com>
+ <3ca82514-2adf-2445-04d1-0020dde16019@suse.com>
+ <4ee538d8-5063-1bf6-025a-62474be7ab0c@srcf.net>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ae971612-71e2-2005-88cf-22006b7fc9b9@srcf.net>
+In-Reply-To: <4ee538d8-5063-1bf6-025a-62474be7ab0c@srcf.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6P195CA0088.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:209:86::29) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM6P193CA0089.EURP193.PROD.OUTLOOK.COM
+ (2603:10a6:209:88::30) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: de8906d4-4908-4b6e-704c-08d9b565a500
-X-MS-TrafficTypeDiagnostic: VI1PR04MB7040:
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Office365-Filtering-Correlation-Id: 46185755-4cf0-4764-0503-08d9b569e7c0
+X-MS-TrafficTypeDiagnostic: VI1PR04MB6303:
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB70403CB682C53D4AF549EA6BB3699@VI1PR04MB7040.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:84;
+	<VI1PR04MB630382046E90723F6CBD5543B3699@VI1PR04MB6303.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	gg0S7Tz2pAMGsyBxuShAdCkxNYvKCgCEVtfbE4Zw7dhiC7ubwbrO0dSZxqZ9MEKHBSLsT7mY016MYpRiN9a/MvqM8yFY4lBiQV3jrTX6sp4xJMwo4UU4j7Md84TqqEl949PID4dsNqhxIO+13VAqVWoiHXIEWn9a4aZFSYDMSzeYQwxVwkeZB7eMPS12zSQJw/CbWep9YZLubCQK4rwDXaO2Mohjb0D172uUvOimiHPX9sbP2lVpeIe2VAnRVPno3ZVq80Sa0JUlM8GpPVyimjBkeDtvFoYRsTmyalb0c1BNxeLAo4KRC94Nprz7d02OzNdu+ewQYIcwk/PWF4SYKtwqXLGft7kKbFo5xgtWeI92sJgCgH/h2dUUs+nZqAI5HIUKPpswvg5jMkGf51YHtDW9Rbj49TFg3uibPVs4RUyt3mqwD9lNqwLIwwBE+sM/NVL795W2aQByMKP2iZ8llLFD1njFzT1O+n31W2EDP8erdTyiSp2uNLPr5/IMp5w0dliHqaRqSlaa9NKBnb3XpnBYLz7+ZU94pQNAbqs9f348C4kjvR0Yz/uEhNFvUQSupMiXxl4Nc4fJnlVxF3ET7NMBMOqTI7xAni2d4ZmJpK8OiHapEwW4ZlvrzTbpJRx0UsjbKZj9amNdgEiXSYz9z8jqzEkOeeavdH1fY9D7mFM8+jmbboNBnmEPQLCL3knCJ1Xmh5IIZ4AlgqoDq+10CtNl+lZoqDCFCGedSix+sRFKpx0uNZGa+2qn0xCZy44U
+	hRizbNrcaVW6JMftyoqpaQGxScG/cEnLE1wHOuQVN67e1G9wzDoEWIBhj3O1+ZpiNK2EaRAxJGiYrJ7Mr0lAnELcPaQtjN+hrd2gI6+Kc8y1txHmssmbdm/eexBCcM1O4BXBLsB1ntorHtMxvlXZ9cpQDFANjVKvbuJdzZN/di9OW4qtwPx9QlGIb0vJCIN33kopnIkdmHuQKymy8vwyIjnxZRcvD+EoAyhOKRiHY8erwZGja3gxv/EpIUh3gVSSuHFAJWRG9sEsiqajAlQaFreioYDgBJzBBsmz/leknKcfv2BOM+uQixOc3GKiswtv88VSRVAlmBqi2/IYnWNfhozASc6wHto0Ma9nD4FUNdtXLoxU5iilG/oqX9maqEKZH2Xuy5zL0Fjz3Y6N8krTnpDCmG0x7jROzmPEyGs/0a2mcoGsr+BizdYmHgKU6ohSlCjlrs9tWOH1RChMkZiiUmw4PFVN07hQBYS4iU0pI5UIGwUb+ycktAWY5p2hopA2clJ0wdx1k+LZR3TRPblWLqGlaCYgn27Tez6drshbTL0ihGAtsLtShbLlbJS+hug/LOqBI7X/kN4uex2zPh2ZERmDB4kZ30aOk523qapbtXHg+o8uFHnzXkVYKAUReYAN26i7ahBJbLS+g+4tZX+XqwK3c0wt1Zc/RbdfoJJa/GFRGaVpsbYinijCCQjDTWLAhE62/1ePcsl+Z9V3P1TH/Snnh9+hKN+Ad/IhjD0FPhI=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(31696002)(26005)(110136005)(54906003)(16576012)(66476007)(66946007)(107886003)(4326008)(316002)(53546011)(66556008)(86362001)(31686004)(508600001)(83380400001)(2906002)(956004)(5660300002)(2616005)(186003)(8676002)(38100700002)(36756003)(6486002)(8936002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(83380400001)(110136005)(956004)(66556008)(31696002)(2906002)(316002)(6486002)(5660300002)(54906003)(66476007)(16576012)(8936002)(186003)(66946007)(36756003)(2616005)(31686004)(4326008)(26005)(86362001)(38100700002)(508600001)(53546011)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?VAhdJDMxA5iHzEsb0KhnBO15rH24eLI9UIntlBbuOI19AMXClFgocYWl9Xv0?=
- =?us-ascii?Q?Zs9Xl/+t7FK16Hxnky6xa0Oe/ATDB3+TZz1QnXkNbeAjZuUqqVv92SVRTs3M?=
- =?us-ascii?Q?a4d02N6mT/IOdwFiMNHkAO7AM/N8J1nxRir/IIwZya4bSwlhz/JibKiCaMEl?=
- =?us-ascii?Q?ClFKTrZX4JMdCQCJsYP2f86nNTAdK9yEDRSYdJRsE46SOVRe0vdsfvV/Xcda?=
- =?us-ascii?Q?B5CPV0sky7DfxfQmm15S4KlxFr7e9QWcCujYh7edm72hop0UWtkb2Fl1qEYy?=
- =?us-ascii?Q?sKbuxDJFneK1x3PFiR5ksEKyLw7BU7nmDh+rPuu0z7fnbCg2GpshFDkhMW+U?=
- =?us-ascii?Q?0wbi8LoaJtHpXlkGb2qz1+vT3vWJ5ri7rsdG0Jo7Z1zP3cc1lWm95rrj11RF?=
- =?us-ascii?Q?LT6lKyYIlaY3rRJgIhej32DbM1GlHQENH4fthGNFCntA+NdCvlrpDSnHsP53?=
- =?us-ascii?Q?FAOGcWcTrMrEgeTLcZrP7IF+A2XLJLX5bQr+soHF1sppnynzSI4Bzur7YCU8?=
- =?us-ascii?Q?gzUJUm7tDBC6OycbK5TacwAFbhvnIHm14CFiF0VdZiRyTKpedzoCV3I080LA?=
- =?us-ascii?Q?DzSsdZxE8MP4NQDT1aiWOvFuGKlQs4VVSA0A4JTMMaaQIzeE9HnsJzv2wY8Y?=
- =?us-ascii?Q?Y8G7Za/hvMRIBvlqWDxDv3mDrx3XnAHl7B1Hlmud8KNyjJ2ieJyyC/varxYB?=
- =?us-ascii?Q?ytuJx2nUfjIgvRqgvuifZ6yzfRk0M8W24j6S3V5owlneQHi8nRLksm+l+SO6?=
- =?us-ascii?Q?7TnIqs1Wfa2zY2yGIkhjA+DNdClc071CYHMVGqskMltJfiDgqw1+NK5EAtHc?=
- =?us-ascii?Q?U7flDJsCMOih2ZaxP4E/9KCeBSAcag4wblz85Ky3ySPkU6Qbf7FrxnnB7Mx4?=
- =?us-ascii?Q?2e8czL39a5qM/NkHr4S5BvgceMyLCrc4wi0OFVkGZpKK5wWfZvltF6h2fItj?=
- =?us-ascii?Q?jL9S5xLSpKrXNSY4FXjYByb/+WwNZRMaAa0Dh1+3o57e0fG1Upkg8btEfGbD?=
- =?us-ascii?Q?NZV9RLIY+l39pKYrmKm3YajVct3FxNw35K/3Qq+FdfLvEMi+QWhvVHfgXlyc?=
- =?us-ascii?Q?9MoBCXYxrRKXHUOnhtQNJwrM45X0YGwRdNbbw4awpyf77nqCJvqHulr2xl9B?=
- =?us-ascii?Q?fICE6DVYeYxTGSU/uVwjOQOILFyV2bMaHgXiL8BROkw0VG96rEtQykst0d+U?=
- =?us-ascii?Q?QB34P11akHVJ7ffIk+TshU9PqaYURht8y4SSRZfgO7zmYFFsIodQSovyqEWu?=
- =?us-ascii?Q?TmrhQ5d4ucFFX9RINw94l8KxPz3e23WZaM3T8uX5tj94EE5eYggBPpn2Gbt9?=
- =?us-ascii?Q?siKE6dRO3Crn0AMdR/WCjkoyUDuIsC61YTzfb8ClyyLypa7bAdqomcpvug5G?=
- =?us-ascii?Q?liZnyg4he0cUIheEDiZ10LotpDMzQvCLuRyFjMpxJ4YqKe8Gq9GjT/siwclr?=
- =?us-ascii?Q?aco9MRy1rVEvtxovML8mbpZaj2YXESLdWyMDRu64/W0JeJsiZ7kBll0ed8dg?=
- =?us-ascii?Q?qDTkZWFyjy3VNQvf05pTIx0BuSh6jMfrmcmW88b7qqT1q0VQad1BGPLYVx8a?=
- =?us-ascii?Q?7jf+usR5U4wR28NNhCrcTqpY7dDXQ9mnVZBQl0NFaox9EZMELh42lfSzVyJn?=
- =?us-ascii?Q?dtZkrkzbeXx7GCsb7levnUQ=3D?=
+	=?us-ascii?Q?tZIFsaeeTjx6LxL3aotwItz34+lJ5P1y6w8q+fOgYtRixipVoZBr614jSmiz?=
+ =?us-ascii?Q?D+93kbHfhgiJiHzFMf1REgqmFnOT0ymt0u/BAlvES4uKpbAL573ONtaHpYis?=
+ =?us-ascii?Q?cOHUhU5dbaEZer97/pU2YxCw3n6TwrC1kUFhgUgbMTK+eL+AhwUjK8ydSnj+?=
+ =?us-ascii?Q?65DzwI9TqsDlhouiJxSqeEy6Jcr4hWNPX3Dda6ftcHzdB4egmtmRqLKA1yqL?=
+ =?us-ascii?Q?Ig2ZVKST3/8vLUlh1pLndJDTaqs/l/+ydHnOzU28B2VT7RCjHMF0YlsFRAhG?=
+ =?us-ascii?Q?LsHDfrgRA6qXmBPyAstONMG+GidzDIQrXyeYVo/wJuiXql3X23r2/Xtgl9Cu?=
+ =?us-ascii?Q?rAzIYkmDDsG5uX06eMl1eoClpssR8wBxr0TTqr2Vlkh5EVwYRq99jbQ0eIQb?=
+ =?us-ascii?Q?mXUQvmtD4luDwZ9IlGL4KlR3kO2h+0iJLKcdzbniElf5eOT/fMbSmvhJLQ65?=
+ =?us-ascii?Q?+iOxMN3z5JNqVjb0reub6j5UdtsLTM49ImycsIi1DsDHAGk0wwwW297XD8po?=
+ =?us-ascii?Q?roHQQh8PE2CvKsRqIelNiJpJkPRA/To4OR0VlSjHnhP3ADFa2M1RrkjQPMMo?=
+ =?us-ascii?Q?3QHJy6RgCJ3zzyuQfOrArtKr3GuwmeIMKiXFk9gHtRF4QydVHmkJ7vzFkA/k?=
+ =?us-ascii?Q?S1IFh8YxP1/TOBVR98BVjZ9sFHuf7u2jQNo0UabBsFDKoQ92LEX3N94tLpYR?=
+ =?us-ascii?Q?fhbK0cUgTJG/q/5DpAlP+vbfelpo3sTASUcUcfqe2IycHecOyyAwwoigAp3q?=
+ =?us-ascii?Q?4bjI4CkA6FxoFNtLUvfiN1qCIpttMSyLa4vRX2AUEsXF6uGfY5vBh+JmFtU6?=
+ =?us-ascii?Q?7tFtZjJ3xZr/4Z09fGJCfC1X+FIAXBb16PfSoXs4fI/vUgP3wos4A3xgmLX1?=
+ =?us-ascii?Q?MqeYD45qa178qw6OC47Ybq662AHsJsxWtRw063BeRaCL3gfU1PRA7RZEe4mF?=
+ =?us-ascii?Q?0HtM6HxrL2IsTPFiWgbsnKK5F+INtmz9O50w6Fww4vdI3x9GMmzXobKTX3v9?=
+ =?us-ascii?Q?uwJ9avC0IaXddqF+a9rtbvXWtFHXRAgN3YLj8h50aaoNIJCUHzYiFe0rQnNr?=
+ =?us-ascii?Q?8SeS0HqoCjrDUi4iuG9iuc0+LzCc2ZJ2ey+X/thaU7HoKTpShS9G5qb3E1wb?=
+ =?us-ascii?Q?w7+PLb8w8VxapLrNy0QI+xDeI+fulqoaz9cP7SFgDEeERyh867F96Vl4Av1D?=
+ =?us-ascii?Q?bov8ezfCHxYKn/hxUddCR7YWKySSAybPXcW/rhkBo29vJqObkqdbuYiPHozg?=
+ =?us-ascii?Q?qiTh7ol3Q5RHqIG9YWEtJdrqMJBS15ByAg8qtPufgnSNFCzb0TuYZFWWDD/y?=
+ =?us-ascii?Q?bKBOSj3KHAat5wkBVAWCNC5hR4vRtEHphQez5G11IFkJfG/TvVrqhdu+SKGY?=
+ =?us-ascii?Q?YaBzJ5AgHVZEn4VKLnWoFsJqLTohXA5e8CFI4Mguf80cZb83NAx2c7JslsEP?=
+ =?us-ascii?Q?6FKMtMOqBS9p+DFdOs37DT63IwPhVOWAvJoCG5b88kwTgMDvRk0kl8DElYKq?=
+ =?us-ascii?Q?mfeoQyrG8DzEO3Rq5kf7O8CD2gSuTHPSYUVQSGxVQymlbnzE3yJ9i7issm2/?=
+ =?us-ascii?Q?2ISgvqGHkUYur83JrwfQq6ZscDpxMlrKTTFhxUfDJ7NS2giI1Z1lehpqX6uJ?=
+ =?us-ascii?Q?1+8lf4Zg4olPMOGcekfA8VM=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de8906d4-4908-4b6e-704c-08d9b565a500
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46185755-4cf0-4764-0503-08d9b569e7c0
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2021 07:30:41.5588
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2021 08:01:11.5039
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ndQrlRXXHgrjq2NXqV/nE+Ar401dSnf2udZzoQcd49mkupUO7Kukl2HHoGs7KwcWn+0bBetvaVnBm8yag+Phqg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7040
+X-MS-Exchange-CrossTenant-UserPrincipalName: WwrjBJQdIyiPSxpqyghHRfDlh89YVjxDdaKSqwpVSgBbBBN9MI4hKIWuGO7nZkY6Gb+D52B01NKT0OZMPURB3Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6303
 
-On 01.12.2021 16:11, Andrew Cooper wrote:
-> On 01/12/2021 09:42, Jan Beulich wrote:
->> The array of IDs is an output.
+On 01.12.2021 20:07, Andrew Cooper wrote:
+> On 01/12/2021 08:20, Jan Beulich wrote:
+>> On 26.11.2021 22:22, Andrew Cooper wrote:
+>>> With altcall, we convert indirect branches into direct ones.  With that
+>>> complete, none of the potential targets need an endbr64 instruction.
+>> Assuming that no other hooks remain which re-use the same function. I
+>> think this constraint wants at least mentioning explicitly.
+>=20
+> Fair point, but I think it is entirely reasonable to expect logic not to
+> mix and match altcall on the same hook.
+
+Take XSM's silo_xsm_ops and dummy_ops as an example. With what
+xsm_fixup_ops() does it should be entirely benign if silo_xsm_ops
+set any or all of the hooks which are currently unset to what
+dummy_ops has.
+
+>>> Furthermore, removing the endbr64 instructions is a security defence-in=
+-depth
+>>> improvement, because it limits the options available to an attacker who=
+ has
+>>> managed to hijack a function pointer.
+>>>
+>>> Introduce a new .init.data.cf_clobber section.  Have _apply_alternative=
+s()
+>>> walk over the entire section, looking for any pointers into .text, and =
+clobber
+>>> an endbr64 instruction if found.  This is some minor structure (ab)use =
+but it
+>>> works alarmingly well.
+>> Iirc you've said more than once that non-function-pointer data in
+>> those structures is fine; I'm not convinced. What if a sequence of
+>> sub-pointer-size fields has a value looking like a pointer into
+>> .text? This may not be very likely, but would result in corruption
+>> that may be hard to associate with anything. Of course, with the
+>> is_endbr64() check and with a build time check of there not being
+>> any stray ENDBR64 patterns in .text, that issue would disappear.
+>> But we aren't quite there yet.
+>=20
+> I disagree with "not very likely" and put it firmly in the "not
+> plausible" category.
+>=20
+> To cause a problem, you need an aligned something which isn't actually a
+> function pointer with a bit pattern forming [0xffff82d040200000,
+> ffff82d04039e1ba) which hits an ENDBR64 pattern.=C2=A0 Removing the stray
+> ENDBR64's doesn't prevent such a bit pattern pointing at a real (wrong)
+> function.
+
+Why "aligned" in "aligned something"? And I also don't see what you're
+trying to tell me with the last sentence. It's still .text corruption
+that would result if such a pattern (crossing an insn boundary)
+happened to be pointed at.
+
+> These structures are almost exclusively compile time generated.
+>=20
+> So yes - it's not impossible, but it's also not going to happen
+> accidentally.
+
+I wonder how you mean to exclude such accidents. It occurs to me that
+checking the linked binary for the pattern isn't going to be enough.
+Such a patter could also form with alternatives patching. (It's all
+quite unlikely, yes, but imo we need to fully exclude the possibility.)
+
+>>> --- a/xen/arch/x86/alternative.c
+>>> +++ b/xen/arch/x86/alternative.c
+>>> @@ -173,6 +173,9 @@ text_poke(void *addr, const void *opcode, size_t le=
+n)
+>>>      return memcpy(addr, opcode, len);
+>>>  }
+>>> =20
+>>> +extern unsigned long __initdata_cf_clobber_start[];
+>>> +extern unsigned long __initdata_cf_clobber_end[];
+>> const please. I also would find it quite a bit better if these
+>> were suitably typed such that ...
 >>
->> Fixes: 79647c5bc9c6 ("libxc: convert domctl interfaces over to hypercall=
- buffers")
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> Clearly the function, including its Python wrapper, cannot have been
->> used by anything for many years. I wonder whether that isn't good enough
->> a reason to sanitize the layout of the array elements: Right now they
->> have BDF in bits 8...23, when conventionally this would be bits 0...15.
+>>> @@ -329,6 +332,41 @@ static void init_or_livepatch _apply_alternatives(=
+struct alt_instr *start,
+>>>          add_nops(buf + a->repl_len, total_len - a->repl_len);
+>>>          text_poke(orig, buf, total_len);
+>>>      }
+>>> +
+>>> +    /*
+>>> +     * Clobber endbr64 instructions now that altcall has finished opti=
+mised
+>>> +     * all indirect branches to direct ones.
+>>> +     */
+>>> +    if ( force && cpu_has_xen_ibt )
+>>> +    {
+>>> +        unsigned long *val;
+>>> +        unsigned int clobbered =3D 0;
+>>> +
+>>> +        /*
+>>> +         * This is some minor structure (ab)use.  We walk the entire c=
+ontents
+>>> +         * of .init.data.cf_clobber as if it were an array of pointers=
+.
+>>> +         *
+>>> +         * If the pointer points into .text, and has an endbr64 instru=
+ction,
+>>> +         * nop out the endbr64.  This causes the pointer to no longer =
+be a
+>>> +         * legal indirect branch target under CET-IBT.  This is a
+>>> +         * defence-in-depth measure, to reduce the options available t=
+o an
+>>> +         * adversary who has managed to hijack a function pointer.
+>>> +         */
+>>> +        for ( val =3D __initdata_cf_clobber_start;
+>>> +              val < __initdata_cf_clobber_end;
+>>> +              val++ )
+>>> +        {
+>>> +            void *ptr =3D (void *)*val;
+>> ... no cast was needed here.
 >=20
-> There is a lot of WTF with this hypercall.=C2=A0 It's obviously an attemp=
-t to
-> do the thing that Linux calls IOMMU groups now, except that the correct
-> way to do this would be for the group ID to be the unit of
-> assignment/deassignment.=C2=A0 (We need to do this anyway for other reaso=
-ns.)
->=20
-> The last user was deleted with Xend (2013), which suggests that it was
-> broken for 3 years due to the incorrect bounce direction (2010).
->=20
-> Furthermore, it will arbitrarily fail if targetting domains without an
-> IOMMU configured, but everything else seems to be invariant of the
-> passed domain.=C2=A0 This should clearly be sysctl, not a domctl.
->=20
->=20
-> I suggest ripping all of this infrastructure out.=C2=A0 It's clearly unus=
-ed
-> (and broken in Xen too - see patch 1),
+> Unless you know what this type is, I already tried and am stuck.=C2=A0
+> Everything else requires more horrible casts on val.
 
-I've not seen you point out any breakage in reply to patch 1, unless you
-mean VT-d's returning of -1 (which you didn't point out as broken, but
-which I can see would lead to misbehavior).
+It's as simple as I thought is would be; proposed respective patch
+at the end of the mail (the two //temp-marked #define-s were needed so
+I could build-test this without needing to pull in further patches of
+yours). No new casts at all, and the one gone that I wanted to see
+eliminated.
 
-> and not something which should be used in this form in the future.
+>>> --- a/xen/include/xen/init.h
+>>> +++ b/xen/include/xen/init.h
+>>> @@ -18,6 +18,8 @@
+>>>  #define __init_call(lvl)  __used_section(".initcall" lvl ".init")
+>>>  #define __exit_call       __used_section(".exitcall.exit")
+>>> =20
+>>> +#define __initdata_cf_clobber __section(".init.data.cf_clobber")
+>> Just to repeat what I've said elsewhere: I think we want a const
+>> version of this as well.
+>=20
+> I can, but does it really matter?=C2=A0 initconst is merged into initdata=
+ and
+> not actually read-only to begin with.
 
-I didn't think the concept here was wrong. What's missing is the tool
-stack actually making use of this plus a way to do assignment in groups.
-Iirc the latter was something Paul had started work on before leaving
-Citrix? (That's leaving aside the bug you mention plus potential further
-ones.)
-
-Paul, Ian, Wei - what are your thoughts towards Andrew's proposal?
+My remark wasn't about the actual mapping properties at all. What I'm
+after is the compiler being able to spot modifications. If I see a
+struct instance marked "const" and if I know the thing builds okay, I
+know I don't need to go hunt for possible writes to this struct
+instance. When it's non-const, to be sure there's no possible conflict
+with the patching (yours or just the altcall part), I'd need to find
+and verify all instances where the object gets written to.
 
 Jan
+
+**********************************************************************
+
+--- a/xen/arch/x86/alternative.c
++++ b/xen/arch/x86/alternative.c
+@@ -28,6 +28,9 @@
+ #include <asm/nops.h>
+ #include <xen/livepatch.h>
+=20
++#define cpu_has_xen_ibt true//temp
++#define is_endbr64(p) false//temp
++
+ #define MAX_PATCH_LEN (255-1)
+=20
+ extern struct alt_instr __alt_instructions[], __alt_instructions_end[];
+@@ -174,6 +177,9 @@ text_poke(void *addr, const void *opcode
+     cpuid_eax(0);
+ }
+=20
++extern void *const __initdata_cf_clobber_start[];
++extern void *const __initdata_cf_clobber_end[];
++
+ /*
+  * Replace instructions with better alternatives for this CPU type.
+  * This runs before SMP is initialized to avoid SMP problems with
+@@ -309,6 +315,41 @@ static void init_or_livepatch _apply_alt
+         add_nops(buf + a->repl_len, total_len - a->repl_len);
+         text_poke(orig, buf, total_len);
+     }
++
++    /*
++     * Clobber endbr64 instructions now that altcall has finished optimise=
+d
++     * all indirect branches to direct ones.
++     */
++    if ( force && cpu_has_xen_ibt )
++    {
++        void *const *val;
++        unsigned int clobbered =3D 0;
++
++        /*
++         * This is some minor structure (ab)use.  We walk the entire conte=
+nts
++         * of .init.data.cf_clobber as if it were an array of pointers.
++         *
++         * If the pointer points into .text, and has an endbr64 instructio=
+n,
++         * nop out the endbr64.  This causes the pointer to no longer be a
++         * legal indirect branch target under CET-IBT.  This is a
++         * defence-in-depth measure, to reduce the options available to an
++         * adversary who has managed to hijack a function pointer.
++         */
++        for ( val =3D __initdata_cf_clobber_start;
++              val < __initdata_cf_clobber_end;
++              val++ )
++        {
++            void *ptr =3D *val;
++
++            if ( !is_kernel_text(ptr) || !is_endbr64(ptr) )
++                continue;
++
++            add_nops(ptr, 4);
++            clobbered++;
++        }
++
++        printk("altcall: Optimised away %u endbr64 instructions\n", clobbe=
+red);
++    }
+ }
+=20
+ void init_or_livepatch apply_alternatives(struct alt_instr *start,
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -217,6 +217,11 @@ SECTIONS
+        *(.initcall1.init)
+        __initcall_end =3D .;
+=20
++       . =3D ALIGN(POINTER_ALIGN);
++        __initdata_cf_clobber_start =3D .;
++       *(.init.data.cf_clobber)
++        __initdata_cf_clobber_end =3D .;
++
+        *(.init.data)
+        *(.init.data.rel)
+        *(.init.data.rel.*)
+--- a/xen/include/xen/init.h
++++ b/xen/include/xen/init.h
+@@ -18,6 +18,8 @@
+ #define __init_call(lvl)  __used_section(".initcall" lvl ".init")
+ #define __exit_call       __used_section(".exitcall.exit")
+=20
++#define __initdata_cf_clobber __section(".init.data.cf_clobber")
++
+ /* These macros are used to mark some functions or=20
+  * initialized data (doesn't apply to uninitialized data)
+  * as `initialization' functions. The kernel can take this
 
 
