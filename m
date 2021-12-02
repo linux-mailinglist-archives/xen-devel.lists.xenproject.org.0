@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FB8C465B89
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Dec 2021 02:08:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.236281.409856 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB686465CA1
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Dec 2021 04:21:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.236296.409882 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msaaA-0003sN-At; Thu, 02 Dec 2021 01:08:18 +0000
+	id 1mscdg-0001mZ-D3; Thu, 02 Dec 2021 03:20:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 236281.409856; Thu, 02 Dec 2021 01:08:18 +0000
+Received: by outflank-mailman (output) from mailman id 236296.409882; Thu, 02 Dec 2021 03:20:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msaaA-0003pZ-7L; Thu, 02 Dec 2021 01:08:18 +0000
-Received: by outflank-mailman (input) for mailman id 236281;
- Thu, 02 Dec 2021 01:08:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ufdD=QT=intel.com=megha.dey@srs-se1.protection.inumbo.net>)
- id 1msaa8-0003pT-IW
- for xen-devel@lists.xenproject.org; Thu, 02 Dec 2021 01:08:16 +0000
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51349ba5-530c-11ec-b1df-f38ee3fbfdf7;
- Thu, 02 Dec 2021 02:08:13 +0100 (CET)
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2021 17:08:10 -0800
-Received: from meghadey-mobl1.amr.corp.intel.com (HELO [10.213.191.214])
- ([10.213.191.214])
- by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 01 Dec 2021 17:08:09 -0800
+	id 1mscdg-0001jY-6m; Thu, 02 Dec 2021 03:20:04 +0000
+Received: by outflank-mailman (input) for mailman id 236296;
+ Thu, 02 Dec 2021 03:20:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mscde-0001T7-EL; Thu, 02 Dec 2021 03:20:02 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mscde-000793-4f; Thu, 02 Dec 2021 03:20:02 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mscdd-0003EK-Qs; Thu, 02 Dec 2021 03:20:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mscdd-0004WC-QQ; Thu, 02 Dec 2021 03:20:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,133 +42,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51349ba5-530c-11ec-b1df-f38ee3fbfdf7
-X-IronPort-AV: E=McAfee;i="6200,9189,10185"; a="216611002"
-X-IronPort-AV: E=Sophos;i="5.87,280,1631602800"; 
-   d="scan'208";a="216611002"
-X-IronPort-AV: E=Sophos;i="5.87,280,1631602800"; 
-   d="scan'208";a="602514884"
-Message-ID: <7ad200fa-dda3-4932-cd23-ad6e79288ea4@intel.com>
-Date: Wed, 1 Dec 2021 17:08:01 -0800
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=RMGoVwiCyRIhjC58CoxQm3aBB/yds8cQ95g+cXwPUdY=; b=BN2MPEaLCa+vlykXUaJ0FzQmCV
+	E7ZZjnYqqEP761msWFhyvmyzkKemseLaToMgXfVv2ztodS0jrSeFmMX4jTteEyVdVeOh5vob5NZ2L
+	KtSbugpc4t1ArmjID6XLB1r4zYckHkIJYmohzZ/u8X3BFMXW+bvopWYW0Tl51DZmv5gU=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-166988-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [patch 09/10] PCI/MSI: Provide pci_msix_expand_vectors[_at]()
-Content-Language: en-US
-To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Marc Zygnier <maz@kernel.org>,
- Alex Williamson <alex.williamson@redhat.com>,
- Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Ashok Raj <ashok.raj@intel.com>, Michael Ellerman <mpe@ellerman.id.au>,
- Andrew Cooper <amc96@cam.ac.uk>, Juergen Gross <jgross@suse.com>,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org
-References: <20211126233124.618283684@linutronix.de>
- <20211127000919.004572849@linutronix.de>
-From: "Dey, Megha" <megha.dey@intel.com>
-In-Reply-To: <20211127000919.004572849@linutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 166988: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start/debian.repeat:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start/debian.repeat:fail:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=eb41074692094dff1413efb44fa4928a9140aa41
+X-Osstest-Versions-That:
+    xen=e7f147bf4ac725492962a501da72f5ab6be682db
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 02 Dec 2021 03:20:01 +0000
 
-Hi Thomas,
-On 11/26/2021 5:25 PM, Thomas Gleixner wrote:
-> Provide a new interface which allows to expand the MSI-X vector space if
-> the underlying irq domain implementation supports it.
->
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> ---
->   drivers/pci/msi/msi.c |   41 +++++++++++++++++++++++++++++++++++++++++
->   include/linux/pci.h   |   13 +++++++++++++
->   2 files changed, 54 insertions(+)
->
-> --- a/drivers/pci/msi/msi.c
-> +++ b/drivers/pci/msi/msi.c
-> @@ -1025,6 +1025,47 @@ int pci_alloc_irq_vectors_affinity(struc
->   EXPORT_SYMBOL(pci_alloc_irq_vectors_affinity);
->   
->   /**
-> + * pci_msix_expand_vectors_at - Expand MSI-X interrupts for a device
-> + *
-> + * @dev:	PCI device to operate on
-> + * @at:		Allocate at MSI-X index. If @at == PCI_MSI_EXPAND_AUTO
-> + *		the function expands automatically after the last
-Not sure why some of these changes related to PCI_MSIX_EXPAND_AUTO and 
-num_descs did not make it to the 'msi' branch.
-Is this intentional?
-> + *		active index.
-> + * @nvec:	Number of vectors to allocate
-> + *
-> + * Expand the MSI-X vectors of a device after an initial enablement and
-> + * allocation.
-> + *
-> + * Return: 0 if the allocation was successful, an error code otherwise.
-> + */
-> +int pci_msix_expand_vectors_at(struct pci_dev *dev, unsigned int at, unsigned int nvec)
-> +{
-> +	struct msi_device_data *md = dev->dev.msi.data;
-> +	struct msi_range range = { .ndesc = nvec, };
-> +	unsigned int max_vecs;
-> +	int ret;
-> +
-> +	if (!pci_msi_enable || !dev || !dev->msix_enabled || !md)
-> +		return -ENOTSUPP;
-> +
-> +	if (!pci_msi_domain_supports_expand(dev))
-> +		return -ENOTSUPP;
-> +
-> +	max_vecs = pci_msix_vec_count(dev);
-> +	if (!nvec || nvec > max_vecs)
-> +		return -EINVAL;
-> +
-> +	range.first = at == PCI_MSIX_EXPAND_AUTO ? md->num_descs : at;
-> +
-> +	if (range.first >= max_vecs || nvec > max_vecs - range.first)
-> +		return -ENOSPC;
-> +
-> +	ret = msix_setup_interrupts(dev, dev->msix_base, &range, NULL, NULL, true);
-> +	return ret <= 0 ? ret : -ENOSPC;;
-> +}
-> +EXPORT_SYMBOL_GPL(pci_msix_expand_vectors_at);
-> +
-I am having trouble fully comprehending how this expansion scheme would 
-work..
+flight 166988 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/166988/
 
-For instance, say:
-1. Driver requests for 5 vectors:
-pci_enable_msix_range(dev, NULL, 5, 5)
-=>num_descs = 5
+Regressions :-(
 
-2. Driver frees vectors at index 1,2:
-range = {1, 2, 2};
-pci_msi_teardown_msi_irqs(dev, range)
-=>num_descs = 3; Current active vectors are at index: 0, 3, 4
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt    20 guest-start/debian.repeat fail REGR. vs. 166958
+ test-arm64-arm64-xl-xsm     18 guest-start/debian.repeat fail REGR. vs. 166958
 
-3. Driver requests for 3 more vectors using the new API:
-pci_msix_expand_vectors(dev, 3)
-=>range.first = 3 => It will try to allocate index 3-5, but we already 
-have 3,4 active?
-Ideally, we would want index 1,2 and 5 to be allocated for this request 
-right?
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Could you please let me know what I am missing?
+version targeted for testing:
+ xen                  eb41074692094dff1413efb44fa4928a9140aa41
+baseline version:
+ xen                  e7f147bf4ac725492962a501da72f5ab6be682db
 
-With the 'range' approach, the issue is that we are trying to allocate 
-contiguous indexes. Perhaps, we also need to check if all the indexes in 
-the requested range are available,
-if not, find a contiguous range large enough to accommodate the request. 
-But there will be fragmentation issues if we choose to go with this way...
+Last test of basis   166958  2021-11-30 12:00:32 Z    1 days
+Failing since        166977  2021-12-01 17:08:21 Z    0 days    2 attempts
+Testing same since   166988  2021-12-01 23:02:57 Z    0 days    1 attempts
 
-I had a version of the dynamic MSI-X patch series (which never got sent 
-out). For the expansion, I had the following:
-pci_add_msix_irq_vector(pdev): On each invocation, add 1 MSI-X vector to 
-the device and return the msi-x index assigned by the kernel (using a 
-bitmap)
-Correspondingly, pci_free_msix_irq_vector(pdev, irq) frees all the 
-allocated resources associated with MSI-X interrupt with Linux IRQ 
-number 'irq'.
-I had issues when trying to dynamically allocate more than 1 interrupt 
-because I didn't have a clean way to communicate to the driver what 
-indexes were assigned in the current allocation.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+  Ayan Kumar Halder <ayankuma@xilinx.com>
+  Ian Jackson <iwj@xenproject.org>
+  Luca Fancellu <luca.fancellu@arm.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Vikram Garhwal <fnu.vikram@xilinx.com>
 
--Megha
->
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit eb41074692094dff1413efb44fa4928a9140aa41
+Author: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+Date:   Tue Nov 30 18:12:38 2021 +0000
+
+    bitops: Fix incorrect value in comment
+    
+    GENMASK(30, 21) should be 0x7fe00000. Fixed this in the comment
+    in bitops.h.
+    
+    Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    [Tweak text, to put an end to any further bikeshedding]
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 6c1c97e24f830a921a23e3b9694e20493c9986ee
+Author: Ian Jackson <iwj@xenproject.org>
+Date:   Wed Dec 1 18:07:40 2021 +0000
+
+    CHANGELOG.md: Start new "unstable" section
+    
+    I have just forward-ported the CHANGELOG.md updates from the
+    stable-4.16 branch.  But we need a new section for work in this
+    release cycle.
+    
+    Signed-off-by: Ian Jackson <iwj@xenproject.org>
+
+commit eef266eb770128db0d5258009b744f0e0c31c9bd
+Author: Ian Jackson <iwj@xenproject.org>
+Date:   Tue Nov 30 11:40:21 2021 +0000
+
+    CHANGELOG.md: Set 4.16 version and date
+    
+    Signed-off-by: Ian Jackson <iwj@xenproject.org>
+    (cherry picked from commit 36aa64095d0419d52d2466405ac13b9858463f48)
+
+commit e058b2d4e5e2ad7ad03941d36ef9243291b35671
+Author: Roger Pau Monne <roger.pau@citrix.com>
+Date:   Wed Nov 24 12:24:03 2021 +0100
+
+    CHANGELOG: add missing entries for work during the 4.16 release cycle
+    
+    Document some of the relevant changes during the 4.16 release cycle.
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+    (cherry picked from commit e2544a28beacd854f295095d102a8773743ac917)
+
+commit 9012687f05adf96440316ce338514db574ebfde0
+Author: Luca Fancellu <luca.fancellu@arm.com>
+Date:   Tue Nov 16 15:06:24 2021 +0000
+
+    arm/efi: Improve performance requesting filesystem handle
+    
+    Currently, the code used to handle and possibly load from the filesystem
+    modules defined in the DT is allocating and closing the filesystem handle
+    for each module to be loaded.
+    
+    To improve the performance, the filesystem handle pointer is passed
+    through the call stack, requested when it's needed only once and closed
+    if it was allocated.
+    
+    Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit ad9cf6bde5b90d4c1e5a79a2803e98d6344c27d7
+Author: Vikram Garhwal <fnu.vikram@xilinx.com>
+Date:   Thu Nov 11 23:27:20 2021 -0800
+
+    Update libfdt to v1.6.1
+    
+    Update libfdt to v1.6.1 of libfdt taken from git://github.com/dgibson/dtc.
+    This update is done to support device tree overlays.
+    
+    A few minor changes are done to make it compatible with Xen:
+        fdt_overlay.c: overlay_fixup_phandle()
+    
+            Replace strtoul() with simple_strtoul() as strtoul() is not available in
+            Xen lib and included lib.h.
+    
+            Change char *endptr to const char *endptr. This change is required for
+            using simple_strtoul().
+    
+        libfdt_env.h:
+            Remaining Xen changes to libfdt_env.h carried over from existing
+            libfdt (v1.4.0)
+    
+    Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
+    Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+    Tested-by: Luca Fancellu <luca.fancellu@arm.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+(qemu changes not included)
 
