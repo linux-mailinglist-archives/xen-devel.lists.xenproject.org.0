@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C01A466DBC
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Dec 2021 00:28:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.237047.411101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A82ED466ECC
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Dec 2021 01:51:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.237069.411142 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msvTg-0004v8-HO; Thu, 02 Dec 2021 23:27:00 +0000
+	id 1mswmK-00072T-BX; Fri, 03 Dec 2021 00:50:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 237047.411101; Thu, 02 Dec 2021 23:27:00 +0000
+Received: by outflank-mailman (output) from mailman id 237069.411142; Fri, 03 Dec 2021 00:50:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1msvTg-0004tG-Cb; Thu, 02 Dec 2021 23:27:00 +0000
-Received: by outflank-mailman (input) for mailman id 237047;
- Thu, 02 Dec 2021 23:26:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1msvTf-0004t6-Et; Thu, 02 Dec 2021 23:26:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1msvTf-0003zb-9A; Thu, 02 Dec 2021 23:26:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1msvTf-0002Q1-1S; Thu, 02 Dec 2021 23:26:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1msvTf-0000uF-0w; Thu, 02 Dec 2021 23:26:59 +0000
+	id 1mswmK-00070g-8I; Fri, 03 Dec 2021 00:50:20 +0000
+Received: by outflank-mailman (input) for mailman id 237069;
+ Fri, 03 Dec 2021 00:50:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=FxXt=QU=intel.com=ashok.raj@srs-se1.protection.inumbo.net>)
+ id 1mswmI-00070a-UC
+ for xen-devel@lists.xenproject.org; Fri, 03 Dec 2021 00:50:18 +0000
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f947ab06-53d2-11ec-976b-d102b41d0961;
+ Fri, 03 Dec 2021 01:50:15 +0100 (CET)
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Dec 2021 16:50:03 -0800
+Received: from otc-nc-03.jf.intel.com (HELO otc-nc-03) ([10.54.39.123])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Dec 2021 16:50:02 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,198 +42,235 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=cCG6zM75SM5pJBuNEN+kFrzt9V/i/Zz9ybb63Mg/e0E=; b=4kJzF4WLvR3Ee5r87CpLeKpz2M
-	eYh9z3sqx2BQH0WMK1vlzPVtX3K8UU5M+d8shCu75I3XqzxmZQVPAe9aTEHwic7rhVnVQl6kdmSqV
-	BVY/pxzqNVe4tNXluiFBt0YV1oI3TiPk+K6n0emS/Sr/6RGCos6wtSzW2Fgkr1hjnaTc=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-167033-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f947ab06-53d2-11ec-976b-d102b41d0961
+X-IronPort-AV: E=McAfee;i="6200,9189,10186"; a="237107303"
+X-IronPort-AV: E=Sophos;i="5.87,283,1631602800"; 
+   d="scan'208";a="237107303"
+X-IronPort-AV: E=Sophos;i="5.87,283,1631602800"; 
+   d="scan'208";a="513457950"
+Date: Thu, 2 Dec 2021 16:45:45 -0800
+From: "Raj, Ashok" <ashok.raj@intel.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: "Dey, Megha" <megha.dey@intel.com>, LKML <linux-kernel@vger.kernel.org>,
+	Bjorn Helgaas <helgaas@kernel.org>, Marc Zygnier <maz@kernel.org>,
+	Alex Williamson <alex.williamson@redhat.com>,
+	Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Andrew Cooper <amc96@cam.ac.uk>, Juergen Gross <jgross@suse.com>,
+	linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org,
+	Ashok Raj <ashok.raj@intel.com>
+Subject: Re: [patch 09/10] PCI/MSI: Provide pci_msix_expand_vectors[_at]()
+Message-ID: <20211203004545.GF364748@otc-nc-03>
+References: <20211126233124.618283684@linutronix.de>
+ <20211127000919.004572849@linutronix.de>
+ <7ad200fa-dda3-4932-cd23-ad6e79288ea4@intel.com>
+ <871r2v71mg.ffs@tglx>
+ <20211202192139.GE364748@otc-nc-03>
+ <87r1au68rb.ffs@tglx>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 167033: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start.2:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:guest-start/debian.repeat:fail:heisenbug
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start:fail:heisenbug
-    xen-unstable-smoke:test-armhf-armhf-xl:guest-start/debian.repeat:fail:heisenbug
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=eb41074692094dff1413efb44fa4928a9140aa41
-X-Osstest-Versions-That:
-    xen=e7f147bf4ac725492962a501da72f5ab6be682db
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 02 Dec 2021 23:26:59 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87r1au68rb.ffs@tglx>
 
-flight 167033 xen-unstable-smoke real [real]
-flight 167046 xen-unstable-smoke real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/167033/
-http://logs.test-lab.xenproject.org/osstest/logs/167046/
+Hi Thomas
 
-Regressions :-(
+On Thu, Dec 02, 2021 at 09:40:08PM +0100, Thomas Gleixner wrote:
+> Ashok,
+> 
+> On Thu, Dec 02 2021 at 11:21, Ashok Raj wrote:
+> > On Thu, Dec 02, 2021 at 11:16:39AM +0100, Thomas Gleixner wrote:
+> >> On Wed, Dec 01 2021 at 17:08, Megha Dey wrote:
+> >> You're missing the real world use case. The above is fiction.
+> >
+> > I don't think there is a valid use case for freeing specific vectors. Its
+> > true some are special, IDXD has vector#0 like that. But I expect drivers to
+> > acquire these special vectors  once and never free them until driver 
+> > tear down time.
+> >
+> > But there is a need to free on demand, for a subdevice constructed for idxd
+> > pass-through, when the guest is torn down, host would need to free them.
+> > Only growing on demand seems to only catch one part of the dynamic part.
+> >
+> > IDXD also allocates interrupt only when the WQ is enabled, and frees when its
+> > disabled.
+> 
+> You're talking about IMS not MSI-X here, right? IMS cannot be allocated
+> via the PCI/MSI interfaces as we established long ago.
+> 
+> And if you are talking about the 8 MSI-X interrupts for IDXD then I
+> really do not see the point of ever releasing it.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt     21 guest-start.2            fail REGR. vs. 166958
+Not worried about MSI-x for IDXD :), I assumed the purpose of this exercise
+was about 2 things.
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-libvirt 20 guest-start/debian.repeat fail in 167020 pass in 167033
- test-arm64-arm64-xl-xsm      14 guest-start                fail pass in 167020
- test-armhf-armhf-xl          18 guest-start/debian.repeat  fail pass in 167020
+- Fix the VFIO mask/unmask weirdness ending up disable, reenable with more
+  interrupts. 
+  - We are only fixing the case by not calling the disable_msi, but just
+    growing on demand.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-xsm     15 migrate-support-check fail in 167020 never pass
- test-arm64-arm64-xl-xsm 16 saverestore-support-check fail in 167020 never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+- Use this as a case to build IMS. but if we treat MSIx and IMS
+  differently, IMS would be bit different in how the dynamic parts work.
 
-version targeted for testing:
- xen                  eb41074692094dff1413efb44fa4928a9140aa41
-baseline version:
- xen                  e7f147bf4ac725492962a501da72f5ab6be682db
+Although there is no real need for MSIx being dynamic except to avoid host
+vector exhausion, do you think we could still allocate specific entries.
+Since unmask is per-vector, is there benefit to doing just that vs
+allocating current+N?
 
-Last test of basis   166958  2021-11-30 12:00:32 Z    2 days
-Failing since        166977  2021-12-01 17:08:21 Z    1 days    6 attempts
-Testing same since   166988  2021-12-01 23:02:57 Z    1 days    5 attempts
+> 
+> >> If a driver would release 1 and 2 then it should explicitely reallocate
+> >> 1 and 2 and not let the core decide to magically allocate something.
+> >> 
+> >> If the driver wants three more after freeing 1, 2 then the core could
+> >> just allocate 5, 6, 7, and would still fulfil the callers request to
+> >> allocate three more, right?
+> >
+> > Since the core is already managing what's allocated and free, requiring
+> > drivers to manage each allocated entries seem hard, while the core can
+> > easily manage it. For IDXD cases, we don't really care which ones of the
+> > IMS is being allocated and freed. It just wants one of the available IMS
+> > entries. The assumption is since the driver would have acquired any special
+> > ones upfront with the alloc_irqs().
+> 
+> For MSI-X the free vector use case does not exist today and even if it
+> would exist the driver has to know about the index.
+> 
+> If the index -> function accociation is hard wired, it needs to know it
+> obviously.
+> 
+> If it's not hardwired then it still needs to know the resulting index,
+> because it has to program that index into a device function register so
+> that the device knows which entry to use.
+> 
+> IMS is not any different. You need to know the index in order to
+> associate it to the queue, no? And you need the index in order to figure
+> out the Linux irq number.
+> 
+> But again, that's not a problem of this very API because this API is
+> about PCI/MSI and not about IMS.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-  Ayan Kumar Halder <ayankuma@xilinx.com>
-  Ian Jackson <iwj@xenproject.org>
-  Luca Fancellu <luca.fancellu@arm.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Vikram Garhwal <fnu.vikram@xilinx.com>
+fair enough..the thought was even though MSIx doesn't require that, but the
+implementations can be consistent if we aren't breaking MSIx. 
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+but as you said they don't have to be the same and can differ in how they
+are implemented.
 
 
-Not pushing.
+> 
+> >> And even if it just allocates one, then the caller still has to know the
+> >> index upfront. Why? Because it needs to know it in order to get the
+> >> Linux interrupt number via pci_irq_vector().
+> >
+> > If we were to allocate one, the new API can simply return the index
+> > directly to the caller, and they call pci_irq_vector() to get the IRQ
+> > number.
+> 
+> That can work, but then we need both variants:
+> 
+>      pci_msix_alloc_vector_at() and pci_msix_alloc_vector_any()
+> 
+> Why?
+> 
+> Because pci_msix_alloc_vector_any() cannot solve the VFIO on demand
+> allocation problem and it cannot be used to replace the sparse
+> allocations which are done via pci_enable_msix_exact() today.
+> 
+> If there is an MSI-X use case to allocate any vector then we can
+> implement that. If there is none, then we don't need it, right?
 
-------------------------------------------------------------
-commit eb41074692094dff1413efb44fa4928a9140aa41
-Author: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-Date:   Tue Nov 30 18:12:38 2021 +0000
+agreed.
 
-    bitops: Fix incorrect value in comment
-    
-    GENMASK(30, 21) should be 0x7fe00000. Fixed this in the comment
-    in bitops.h.
-    
-    Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
-    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    [Tweak text, to put an end to any further bikeshedding]
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> 
+> >> So if the driver would free the vector for a particular functionality,
+> >> or not allocate it in the first place, then it exactly knows what it
+> >> freed and what it needs to allocate when it needs that functionality
+> >> (again).
+> >
+> > It doesn't *have* to be that all vectors are special. Some of them are
+> > special that they acquired all during driver load time. These are allocated
+> > once and never freed. The rest are for say completion interrupts or such and 
+> > such that go with work queues. These can dynamically be allocated and
+> > freed.
+> >
+> > The driver doesn't really care which index it wants or what the next index
+> > should be. But it has to remember the allocated ones so it can pass down
+> > for the free. Maybe the one we did a while back
+> >
+> > https://lore.kernel.org/lkml/1561162778-12669-1-git-send-email-megha.dey@linux.intel.com/
+> >
+> > This has a group handle, and kept adding things to it.
+> 
+> Was it really necessary to bring those memories back?
 
-commit 6c1c97e24f830a921a23e3b9694e20493c9986ee
-Author: Ian Jackson <iwj@xenproject.org>
-Date:   Wed Dec 1 18:07:40 2021 +0000
+:-)
 
-    CHANGELOG.md: Start new "unstable" section
-    
-    I have just forward-ported the CHANGELOG.md updates from the
-    stable-4.16 branch.  But we need a new section for work in this
-    release cycle.
-    
-    Signed-off-by: Ian Jackson <iwj@xenproject.org>
+> 
+> If we want groups, then surely not with these kind of hacks. I still
+> need to see the usecase for the groups. The discussion back then just
+> provided handwaving about internal request which never materialized.
 
-commit eef266eb770128db0d5258009b744f0e0c31c9bd
-Author: Ian Jackson <iwj@xenproject.org>
-Date:   Tue Nov 30 11:40:21 2021 +0000
+true, we didn't hear back from the groups that asked for them.
+> 
+> But talking about groups. That's very similar to the other discussion
+> vs. storing the IMS entries for these sliced devices, queues or
+> whatever. That's at least a use case.
 
-    CHANGELOG.md: Set 4.16 version and date
-    
-    Signed-off-by: Ian Jackson <iwj@xenproject.org>
-    (cherry picked from commit 36aa64095d0419d52d2466405ac13b9858463f48)
+Correct.
 
-commit e058b2d4e5e2ad7ad03941d36ef9243291b35671
-Author: Roger Pau Monne <roger.pau@citrix.com>
-Date:   Wed Nov 24 12:24:03 2021 +0100
+> 
+> >> What you are trying to create is a solution in search of a problem. You
+> >> cannot declare via a random allocation API how devices work. You neither
+> >> can fix the VFIO issue in a sensible way.
+> >> 
+> >> VFIO starts with vector #0 allocated. The guest then unmasks vector #50.
+> >> 
+> >> With your magic interface VFIO has to allocate 49 vectors and then free
+> >> 48 of them again or just keep 48 around for nothing which defeats the
+> >> purpose of on demand allocation completely.
+> >
+> > This use case is broken already, the VFIO case sort of assumes things are
+> > growing in sequence. Today it doesn't have a hint on which entry is being
+> > unmasked I suppose. So VFIO simply releases everything, adds N more than
+> > currently allocated.
+> 
+> VFIO exactly knows which entry is unmasked simply because the write into
+> the MSI-X table in the device config space is trapped so it knows
+> exactly which entry is unmasked, no? Guess how VFIO knows about $N more?
 
-    CHANGELOG: add missing entries for work during the 4.16 release cycle
-    
-    Document some of the relevant changes during the 4.16 release cycle.
-    
-    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
-    (cherry picked from commit e2544a28beacd854f295095d102a8773743ac917)
+bah.. i missed that little fact.
 
-commit 9012687f05adf96440316ce338514db574ebfde0
-Author: Luca Fancellu <luca.fancellu@arm.com>
-Date:   Tue Nov 16 15:06:24 2021 +0000
+When VFIO knows exactly which entry is being unmasked, is it enough to just
+allocate exact one, or do we need to all all N? I didn't see why we need to
+grown by N additional vectors instead of only allocating 1 for the entry
+being unmasked?
 
-    arm/efi: Improve performance requesting filesystem handle
-    
-    Currently, the code used to handle and possibly load from the filesystem
-    modules defined in the DT is allocating and closing the filesystem handle
-    for each module to be loaded.
-    
-    To improve the performance, the filesystem handle pointer is passed
-    through the call stack, requested when it's needed only once and closed
-    if it was allocated.
-    
-    Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> 
+> > Maybe for MSIx we don't have a need to shrink based on current usage. IMS
+> > requires both grow and shrink. But it might be odd to have 2 domains behave
+> > quite differently.
+> 
+> We are not implementing the full MSI[X] zoo for IMS either. So the
+> interfaces are different in the first place.
 
-commit ad9cf6bde5b90d4c1e5a79a2803e98d6344c27d7
-Author: Vikram Garhwal <fnu.vikram@xilinx.com>
-Date:   Thu Nov 11 23:27:20 2021 -0800
+The ones that actually differ between the MSIx and IMS are:
 
-    Update libfdt to v1.6.1
-    
-    Update libfdt to v1.6.1 of libfdt taken from git://github.com/dgibson/dtc.
-    This update is done to support device tree overlays.
-    
-    A few minor changes are done to make it compatible with Xen:
-        fdt_overlay.c: overlay_fixup_phandle()
-    
-            Replace strtoul() with simple_strtoul() as strtoul() is not available in
-            Xen lib and included lib.h.
-    
-            Change char *endptr to const char *endptr. This change is required for
-            using simple_strtoul().
-    
-        libfdt_env.h:
-            Remaining Xen changes to libfdt_env.h carried over from existing
-            libfdt (v1.4.0)
-    
-    Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
-    Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-    Tested-by: Luca Fancellu <luca.fancellu@arm.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-(qemu changes not included)
+- Discovery on where to find that unlike the PCIe standard mechanism.
+  (Although in initial implementation we have forced a common way to manage
+  this, but I think people already hinted this isn't going to work
+  for different vendors or even between gen1/gen2 devices.
+- Managing the location of the add/data write, mask/unmask etc.
+- Might have other attributes such as PASID etc for the IDXD case exposed
+  to guest/user space.
+
+
+Are there other differences between them?
+
+> 
+> Making them artificially uniform is a horrible idea.
+
+Totally!
+
+> 
+> They are two different things, really. The only thing they have in common
+> is that at the end of the day the device sends a message over the bus
+> and they happen to share the underlying MSI code infrastructure.
 
