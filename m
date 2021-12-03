@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3037467EA6
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Dec 2021 21:08:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.237953.412649 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 938A5467ED8
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Dec 2021 21:34:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.237961.412659 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mtEpq-00063k-Ur; Fri, 03 Dec 2021 20:07:10 +0000
+	id 1mtFFp-0001Hh-5v; Fri, 03 Dec 2021 20:34:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 237953.412649; Fri, 03 Dec 2021 20:07:10 +0000
+Received: by outflank-mailman (output) from mailman id 237961.412659; Fri, 03 Dec 2021 20:34:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mtEpq-00061K-Qm; Fri, 03 Dec 2021 20:07:10 +0000
-Received: by outflank-mailman (input) for mailman id 237953;
- Fri, 03 Dec 2021 20:07:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mtFFp-0001Ew-26; Fri, 03 Dec 2021 20:34:01 +0000
+Received: by outflank-mailman (input) for mailman id 237961;
+ Fri, 03 Dec 2021 20:33:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yIma=QU=amd.com=Thomas.Lendacky@srs-se1.protection.inumbo.net>)
- id 1mtEpq-00061E-1w
- for xen-devel@lists.xenproject.org; Fri, 03 Dec 2021 20:07:10 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on20603.outbound.protection.outlook.com
- [2a01:111:f400:7e89::603])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 95a391be-5474-11ec-a5e1-b9374ead2679;
- Fri, 03 Dec 2021 21:07:08 +0100 (CET)
-Received: from DM4PR12MB5229.namprd12.prod.outlook.com (2603:10b6:5:398::12)
- by DM4PR12MB5070.namprd12.prod.outlook.com (2603:10b6:5:389::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.28; Fri, 3 Dec
- 2021 20:07:02 +0000
-Received: from DM4PR12MB5229.namprd12.prod.outlook.com
- ([fe80::1ddd:71e4:5803:e44a]) by DM4PR12MB5229.namprd12.prod.outlook.com
- ([fe80::1ddd:71e4:5803:e44a%3]) with mapi id 15.20.4734.028; Fri, 3 Dec 2021
- 20:07:02 +0000
-Received: from office-ryzen.texastahm.com (67.79.209.213) by
- SN6PR16CA0051.namprd16.prod.outlook.com (2603:10b6:805:ca::28) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.16 via Frontend Transport; Fri, 3 Dec 2021 20:06:59 +0000
+ <SRS0=u6Th=QU=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1mtFFn-0001Eq-6c
+ for xen-devel@lists.xenproject.org; Fri, 03 Dec 2021 20:33:59 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5601af36-5478-11ec-8a4d-196798b21f7b;
+ Fri, 03 Dec 2021 21:33:57 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id q3so8135471wru.5
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Dec 2021 12:33:56 -0800 (PST)
+Received: from otyshchenko.router ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id q26sm3512045wrc.39.2021.12.03.12.33.54
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 03 Dec 2021 12:33:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,329 +43,532 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95a391be-5474-11ec-a5e1-b9374ead2679
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CWdLt9Du38kEfy+ZifqRZ0BbExQJ0JqFhGZGtflLSZpRvaGEiVj3E6ui81fZtSU5NV8RJOqhD7oHWbPzNZ40QqjSJ3LRqcLz4CTSUZsgIPRk8319c8Tyu5w6p6MJEE9lytkmbym8LeNaJcU0O51Gk52cmzB1pPj+Cd8zsSrZyGDWSOGf/XK24DW6sKSTI1PAWrrYV58L6hbTA8VtzVcjBn7xC0eHJw2s/2xzOOJo2DZOOscAfrB5i2U/rCQeceb9pLC2C+O4R0C8h4NOM7R+gYfcjqtJUXNFn+79bqYl+EDYUC3jabySlcXPhG7Hvpi1iBJ4JE7mhZYTvwDitZWSRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qU7G+ZiaWrsg+p7MM9oMcVNwq3c0SZRE6z6LspM1vKA=;
- b=fhS71m0B1eSNcWNeVIym6bYyLZhYCd07WLuvrBOtFhFnsXoq6res7GochKz9dmCTXTg3M2Fi5EAt/9MxIcDeaIB0KVbtfLilmtq6PDml5v6sklTj2qwqHUaDVs1DRcvicYqRbbFa+UuwPBmDo1yJjNR5WYqHPinj+wPQxsNY7Qy1UZdU1uJl3rQg2I2kLurzDptnveN2yIIq7d/ZMT7otskoD05AXHoxVvwVujTWjGSW8mMVBZg7haBc53UsmYpzNGYopWFjMR7lDfC/fOVukiVE7JXKE2YRHu2VLKVGJilAHYm4u2GZ20+BrqQxTzC3HXLR9E2UBZ4NcEe1+8SWZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qU7G+ZiaWrsg+p7MM9oMcVNwq3c0SZRE6z6LspM1vKA=;
- b=D8lmOURMOLEy5n1O1VpgG7PBLINbz5CbTx9hrG1dABsPmaqaCjF7b0oDXHR6TolLODpB4miIleymZVg/bACcvPDHKvlWPBeXasuGZkOd5X2Piyh6n/TYdhF5kH13+zfDvnzsr16ZN3Q5zbJEbINHQZRQzVYp3cPjlmwAAxYq7M0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Subject: Re: [PATCH V3 1/5] Swiotlb: Add Swiotlb bounce buffer remap function
- for HV IVM
-From: Tom Lendacky <thomas.lendacky@amd.com>
-To: Tianyu Lan <ltykernel@gmail.com>, kys@microsoft.com,
- haiyangz@microsoft.com, sthemmin@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, jgross@suse.com,
- sstabellini@kernel.org, boris.ostrovsky@oracle.com, joro@8bytes.org,
- will@kernel.org, davem@davemloft.net, kuba@kernel.org, jejb@linux.ibm.com,
- martin.petersen@oracle.com, arnd@arndb.de, hch@infradead.org,
- m.szyprowski@samsung.com, robin.murphy@arm.com, Tianyu.Lan@microsoft.com,
- xen-devel@lists.xenproject.org, michael.h.kelley@microsoft.com
-Cc: iommu@lists.linux-foundation.org, linux-arch@vger.kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-scsi@vger.kernel.org, netdev@vger.kernel.org, vkuznets@redhat.com,
- brijesh.singh@amd.com, konrad.wilk@oracle.com, hch@lst.de,
- parri.andrea@gmail.com, dave.hansen@intel.com
-References: <20211201160257.1003912-1-ltykernel@gmail.com>
- <20211201160257.1003912-2-ltykernel@gmail.com>
- <41bb0a87-9fdb-4c67-a903-9e87d092993a@amd.com>
- <e78ba239-2dad-d48f-671e-f76a943052f1@gmail.com>
- <06faf04c-dc4a-69fd-0be9-04f57f779ffe@amd.com>
-Message-ID: <1b7b8e20-a861-ab26-26a1-dad1eb80a461@amd.com>
-Date: Fri, 3 Dec 2021 14:06:58 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
-In-Reply-To: <06faf04c-dc4a-69fd-0be9-04f57f779ffe@amd.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN6PR16CA0051.namprd16.prod.outlook.com
- (2603:10b6:805:ca::28) To DM4PR12MB5229.namprd12.prod.outlook.com
- (2603:10b6:5:398::12)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4dd0dd4e-1914-4c16-3f9c-08d9b698784c
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5070:
-X-Microsoft-Antispam-PRVS:
-	<DM4PR12MB5070F11FF25976AA7BF5A2A9EC6A9@DM4PR12MB5070.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2331;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	o1WNw3gw4sfxpai0SCYeyLMCLThQbioDmSsgisuE3MtWeyEiUaoAAxqFmr/0PFnseMEaMaI8MxYD4Vh7wBVYBC8K72RXfAhwHunGXZpjvNF2dVRsfA+aBE9KbYqOvnDF1/UkF5qxik975l/HnWWxdxoxnQ7czlUdmdAGH8DwPb5Acf5CyHhiFSC0Plvx1mMkXA5CChp2++XnS1/ILz1zlEUqE1bsZz0uYvt3KIp63T2VtAbjmlQxNMK7J0FFVlRRWgsEJop205ZwxVjjx9jfQPuyVOF/Onv319UGWcDlk8jxcQnaMsynX7w+OnL+yV8GcJpGHd4QrHRLznSWbKux0BcDU64OF0tSKFCR0dGuhLv6I9VXTYyZwuwfr33owb+so4+o7osKduHkjgdI0vt7dLmXyx4rwYcFPxksnSGvWs+iSjj2Um73H6dl+49+f00NCOWiDcYluudYZ5bDmO/syt4LT2N2lWi1cZPdC1ctzgWTX8/ztpvBxQG0A5k0det4AMuCrOn41yR06f2QWThLvoXiaulYZobBByhb+VWfnAXYT1t3e0/unNchZ6VdS0KPR3H5IuV49cI6Pk+FhNQ64i4xaWhANAss0YNT6rGqLrTHlQLFyV+6GcK96vPmF15fGL7An5X5lfYVAEW7n9TZzmyu12WR+sHCgK7KbVBUrFVsTlWNzpdVV9mSgSllUr8O/Tvwc9S45RvSE8kZD/7pvxhcxQrASK2wDTIN/z9yFarWhHZOJ7XnJWZsJIt0JqI5WhTVtFx07mR1mvVNvg1oeQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB5229.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(83380400001)(4326008)(31696002)(921005)(38100700002)(6512007)(36756003)(86362001)(8676002)(186003)(2616005)(5660300002)(7406005)(7416002)(956004)(31686004)(66556008)(6506007)(53546011)(66476007)(66946007)(8936002)(2906002)(45080400002)(6486002)(26005)(508600001)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?anNOVERHVG5TTGR0emFJM203UWprTXVTM01zSVdUa00wWnJ4Um9UamEwSjZP?=
- =?utf-8?B?UHdwcWtJR0ZiMFVOTnp4TzhNWGxXNkU4YytSRVE0ZlR6Sml2Z0lBdVFQR1hx?=
- =?utf-8?B?SlRxV3NvdEl4SUttWmFnNGVGTGtnbVBiVTM5NlNWeFc3MnNXdzRCbHYwYXpB?=
- =?utf-8?B?UU1aZC8xNm1jYnJoOUtsa3FIeGJ5ZTNyclhnd01TbVlEQ2ROQU4wb1l2dERR?=
- =?utf-8?B?ZStVTnN5ejJxT2k3aGxVcjY2TXNNOEVjRzZHY3VveXpjZUVxQ0RPVTJrWTB6?=
- =?utf-8?B?TEVxS2pGWk5PK2R1a1VjditxT1NvMzVQazd4SXpUd092cVNIZ1MvaFJXYnNs?=
- =?utf-8?B?MnlVSnprT3VWSG52V0w1Z0w0R0ZOZG9nMmVFaDhnV2czSDljTWsyTkRXZm1z?=
- =?utf-8?B?dUFhSWRxSnhza2E1OTJZbW9OeHJxZ0gyUDhnWkIyZFpwbUR1VGdOdktBQ1RS?=
- =?utf-8?B?NGZiQlRnZ3hsdXdwY3NTeVRValZZd0ZZcjFYZ2RHNng4dUtHaU9saVlWY2NC?=
- =?utf-8?B?SWhUVjNENXJlYlNaWXcvaTVkSytFTGxDNnNnYzBmdUdaVGQxMFBRVmQ5VDY4?=
- =?utf-8?B?RmhDOWI5Q0F4RU5iUDc4bVRVN21UWFpYM2lBUmpQZzhLbmNIRmd4YzJnWk9M?=
- =?utf-8?B?Yk5UVXkzNCthVndJUkdzcWF1Lzh2S3J1MGN6ZFl2bEMwWXgrMkQ3dUd0VnB2?=
- =?utf-8?B?NFM0K2xyZjlkOWZhTWptczVjWDBMdjBBTVphSTVudDFrMDJqUS95MXI5SjBn?=
- =?utf-8?B?MS8vVkEzWVMxZ2FrdzdQSEpKNFRwQ1Q5TktOdG1GRUdkMCtwbUJKRHlUUmVW?=
- =?utf-8?B?MjJkLzlNWm9tRWZBZjVvSEZvZHdyNW9MUWo1VnpNU2llYlBGUk8zTTlHUWti?=
- =?utf-8?B?dUllYlk5WGpqQ0doK3FyYWFTdURMMTMrcUcvNUJqeEVDdGtpeFNVTU44SUdB?=
- =?utf-8?B?eVhONmNjd0wyNm1rR1hnUVNhUmVYZjQ1Uk1aRnF1aG5iZVU3WWUzQ0wzUjd0?=
- =?utf-8?B?ZExES2ZuUFk4ME9GT1lpa2p5OU1oWE50UklxSDBmenVGWW11eUhjcDNoZDdS?=
- =?utf-8?B?RzhCcVB6VENDSWRPeDQzZ2N2NnlKKzFzSTNkaW9sNGp6cEtQdnNjNWU4YnBU?=
- =?utf-8?B?UDhwbUxwNmFQb1pkTm0vaSs4R3pjZ0xyM25ZMXdtYTNsdFArQkJUazVjaGwx?=
- =?utf-8?B?WFNPc3ZEbFJIUzk5UDllZ0wyb0pEYUdHRmdFN2JLMGlwengxcmtMOEc5Z3Ja?=
- =?utf-8?B?K1E1RWtIK2JjTEE2ZEM4bjNvdDU2eU9KM3VHeUZ1U1lDL09BWHZEUFlQUEVm?=
- =?utf-8?B?UldzbmJEOGlrUFBFT2NFUWpFK1k3TFQwb1lhcnVWcWhDL0l5b1FEZ21TM2po?=
- =?utf-8?B?SnlTVk5nL2lPdVBDVm13YW1YZnJJZk5XOERadmJpM3M2YVMrY3NYK0IrdU9D?=
- =?utf-8?B?aTY3cDFMY2hLS1JWdkQ2S05CZzY0ak9XSmVtUDZURnh2Rm50d0VOS0FoYWVQ?=
- =?utf-8?B?MVUzbGg3Q0xnNjZKK0s4d2FCblNIaDhRS0t3YWt4QVZRN1BnMWYyWmEyUVFZ?=
- =?utf-8?B?eHU2cEpoUDRsTElnNkY4Ry9WY3lZc0kzWEJmNnRoMk1aUytxeStubG1DZlI3?=
- =?utf-8?B?VHAxeC9yZWdKZDVNc3Y4ZzV0UTVCUWhPMlgwcjlCclZxUlB2T0hLTVRWTWp6?=
- =?utf-8?B?UkQ3RkVnNnR5UXRIeHBBMktaczJNRjBZZkNrRmVBa3lDMGdqY25sNWg3MEFB?=
- =?utf-8?B?QXNtQ0s0b1FVbG8zSGNJNVJ0THNZUDZYT2xXTnZUY29lZUI0UWxGTHY0K3hS?=
- =?utf-8?B?T0tqUmEwTDBDV3N3RFR2azd1RHpzTks4SFBnOEx3cldPa0hPZTNCZ0NmbnJR?=
- =?utf-8?B?Z09mM0FMb3dkL2dXbE5VZDRGTTRoR3hwL2pWV1BCTmpDRjVWdFlaUmpJOGN1?=
- =?utf-8?B?bW0wSGVIc2JJc1lHYXdDM2pLUTgvdlZEbzh6ZWkwUG9zeW95UHhqSkY3aDk0?=
- =?utf-8?B?dm83ODl0YWYrcjF6SUJTWTJxUnBjMXZySkZmWGJVbXhleWl4dnJCT2ZPSDJN?=
- =?utf-8?B?RklRUjZuVnlxNE5XQjFRUjZmL21BK040dWpwQmIrNXpxY3hBcFZweUdqOW1F?=
- =?utf-8?B?aEltay92RzV4dUNhd2lMZDA2QlVHNG5QRnZVQ3U4dmZaM1JXbWhIL3Z3eEpQ?=
- =?utf-8?Q?iAy2VZ1220VEuoGkCOuhywE=3D?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4dd0dd4e-1914-4c16-3f9c-08d9b698784c
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5229.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2021 20:07:02.1054
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FNFDqGR43QFLZPhB63ocWTL6UWhWK+2BmgzGd4pfDMYVnGmtlXQNiWgVo2GTMo0Lkzq5sI8C7GcF6s1/lkSayg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5070
+X-Inumbo-ID: 5601af36-5478-11ec-8a4d-196798b21f7b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id;
+        bh=P3/coR+Ce+KVGKSZhioMDcgTipywu+ws8A9dJr646ig=;
+        b=LyzHFQOJydTY0dTQ9IiPnaEzQOlDFtUpNULqLvhCU+K3+vxJBHyZ39531/gGP4l29e
+         s/bSiNsOMg76kEpKtK/cseYGHUAIehIy09cgowPrKeqUBufjB0Ytmzjy3Bm0nL32CX1h
+         r3NN2dUyeJgRBL69Pur7sUk7ykuKOoYBZ3OYzDtixffTlhON5hmU1uJYXw45mFrbqKav
+         c72EI1R9MMnx5//Cd1LnBmbvrqkyUGiv6pvxLmeGDX/k3exScS0Dxt28JyGaSIGCJPlX
+         pFFWgJqogsf0hkSWMCSjt6sq/sK+K6I4nV//Qqzk/50Afs6xgIva5e79qBKTrqwukVl5
+         6Njg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=P3/coR+Ce+KVGKSZhioMDcgTipywu+ws8A9dJr646ig=;
+        b=Q6J5kLeN4AzIioSS45f6OcaU/6JCXFHclft5rd6bK5Y/BRNI9+jFHyHgf1eRQSEZas
+         G35DPsSyQ4PCVlB8qZt0Kpqs/YHb5ZWkV3qxyNAeTnVDoPM3NXaOQ9fijnY1ajMWimzA
+         +t7iIcmkCueBCZHruexSBGQha1G9njCzkfpqMgeiK91yDd+5gpfcg90K4sXozxDt1i87
+         gEoXxASZjbwFBCeiiqUcBfiwjsHO4wD9+12u1WAt/XO74WhpWhQgPltpzotTxXwDEK3S
+         JOdSf3YJNLqUMEKrJn6B1uueilzzL70v/VWZ5C1O/n9vrq1dNkPw14BxPHHI1/s3bjOr
+         ZVxQ==
+X-Gm-Message-State: AOAM531oYe9iiBnURzqqr+q869WL0sPHKGwaGZ63RTI30l3HdbDRoAJp
+	q8M9Hi6URjsmwqDqIDMpPGoCuTQiWnw=
+X-Google-Smtp-Source: ABdhPJzCPEm5ernGdJkUaeY4aMhqxbyqZEf73lTI/M/t1xgZ1oGcrHhjca1bEcrvEV7ChopMEhPfew==
+X-Received: by 2002:adf:fa81:: with SMTP id h1mr23769190wrr.27.1638563635137;
+        Fri, 03 Dec 2021 12:33:55 -0800 (PST)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>
+Subject: [PATCH V4] xen/gnttab: Store frame GFN in struct page_info on Arm
+Date: Fri,  3 Dec 2021 22:33:30 +0200
+Message-Id: <1638563610-4419-1-git-send-email-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.7.4
 
-On 12/3/21 1:11 PM, Tom Lendacky wrote:
-> On 12/3/21 5:20 AM, Tianyu Lan wrote:
->> On 12/2/2021 10:42 PM, Tom Lendacky wrote:
->>> On 12/1/21 10:02 AM, Tianyu Lan wrote:
->>>> From: Tianyu Lan <Tianyu.Lan@microsoft.com>
->>>>
->>>> In Isolation VM with AMD SEV, bounce buffer needs to be accessed via
->>>> extra address space which is above shared_gpa_boundary (E.G 39 bit
->>>> address line) reported by Hyper-V CPUID ISOLATION_CONFIG. The access
->>>> physical address will be original physical address + shared_gpa_boundary.
->>>> The shared_gpa_boundary in the AMD SEV SNP spec is called virtual top of
->>>> memory(vTOM). Memory addresses below vTOM are automatically treated as
->>>> private while memory above vTOM is treated as shared.
->>>>
->>>> Expose swiotlb_unencrypted_base for platforms to set unencrypted
->>>> memory base offset and platform calls swiotlb_update_mem_attributes()
->>>> to remap swiotlb mem to unencrypted address space. memremap() can
->>>> not be called in the early stage and so put remapping code into
->>>> swiotlb_update_mem_attributes(). Store remap address and use it to copy
->>>> data from/to swiotlb bounce buffer.
->>>>
->>>> Signed-off-by: Tianyu Lan <Tianyu.Lan@microsoft.com>
->>>
->>> This patch results in the following stack trace during a bare-metal boot
->>> on my EPYC system with SME active (e.g. mem_encrypt=on):
->>>
->>> [    0.123932] BUG: Bad page state in process swapper  pfn:108001
->>> [    0.123942] page:(____ptrval____) refcount:0 mapcount:-128 
->>> mapping:0000000000000000 index:0x0 pfn:0x108001
->>> [    0.123946] flags: 0x17ffffc0000000(node=0|zone=2|lastcpupid=0x1fffff)
->>> [    0.123952] raw: 0017ffffc0000000 ffff88904f2d5e80 ffff88904f2d5e80 
->>> 0000000000000000
->>> [    0.123954] raw: 0000000000000000 0000000000000000 00000000ffffff7f 
->>> 0000000000000000
->>> [    0.123955] page dumped because: nonzero mapcount
->>> [    0.123957] Modules linked in:
->>> [    0.123961] CPU: 0 PID: 0 Comm: swapper Not tainted 
->>> 5.16.0-rc3-sos-custom #2
->>> [    0.123964] Hardware name: AMD Corporation
->>> [    0.123967] Call Trace:
->>> [    0.123971]  <TASK>
->>> [    0.123975]  dump_stack_lvl+0x48/0x5e
->>> [    0.123985]  bad_page.cold+0x65/0x96
->>> [    0.123990]  __free_pages_ok+0x3a8/0x410
->>> [    0.123996]  memblock_free_all+0x171/0x1dc
->>> [    0.124005]  mem_init+0x1f/0x14b
->>> [    0.124011]  start_kernel+0x3b5/0x6a1
->>> [    0.124016]  secondary_startup_64_no_verify+0xb0/0xbb
->>> [    0.124022]  </TASK>
->>>
->>> I see ~40 of these traces, each for different pfns.
->>>
->>> Thanks,
->>> Tom
->>
->> Hi Tom:
->>        Thanks for your test. Could you help to test the following patch 
->> and check whether it can fix the issue.
-> 
-> The patch is mangled. Is the only difference where set_memory_decrypted() 
-> is called?
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-I de-mangled the patch. No more stack traces with SME active.
+Rework Arm implementation to store grant table frame GFN
+in struct page_info directly instead of keeping it in
+standalone status/shared arrays. This patch is based on
+the assumption that grant table page is the xenheap page.
 
-Thanks,
-Tom
+To cover 64-bit/40-bit IPA on Arm64/Arm32 we need the space
+to hold 52-bit/28-bit + extra bit value respectively. In order
+to not grow the size of struct page_info borrow the required
+amount of bits from type_info's count portion which current
+context won't suffer (currently only 1 bit is used on Arm).
+Please note, to minimize code changes and avoid introducing
+an extra #ifdef-s to the header, we keep the same amount of
+bits on both subarches, although the count portion on Arm64
+could be wider, so we waste some bits here.
 
-> 
-> Thanks,
-> Tom
-> 
->>
->>
->> diff --git a/include/linux/swiotlb.h b/include/linux/swiotlb.h
->> index 569272871375..f6c3638255d5 100644
->> --- a/include/linux/swiotlb.h
->> +++ b/include/linux/swiotlb.h
->> @@ -73,6 +73,9 @@ extern enum swiotlb_force swiotlb_force;
->>    * @end:       The end address of the swiotlb memory pool. Used to do 
->> a quick
->>    *             range check to see if the memory was in fact allocated 
->> by this
->>    *             API.
->> + * @vaddr:     The vaddr of the swiotlb memory pool. The swiotlb memory 
->> pool
->> + *             may be remapped in the memory encrypted case and store 
->> virtual
->> + *             address for bounce buffer operation.
->>    * @nslabs:    The number of IO TLB blocks (in groups of 64) between 
->> @start and
->>    *             @end. For default swiotlb, this is command line 
->> adjustable via
->>    *             setup_io_tlb_npages.
->> @@ -92,6 +95,7 @@ extern enum swiotlb_force swiotlb_force;
->>   struct io_tlb_mem {
->>          phys_addr_t start;
->>          phys_addr_t end;
->> +       void *vaddr;
->>          unsigned long nslabs;
->>          unsigned long used;
->>          unsigned int index;
->> @@ -186,4 +190,6 @@ static inline bool is_swiotlb_for_alloc(struct 
->> device *dev)
->>   }
->>   #endif /* CONFIG_DMA_RESTRICTED_POOL */
->>
->> +extern phys_addr_t swiotlb_unencrypted_base;
->> +
->>   #endif /* __LINUX_SWIOTLB_H */
->> diff --git a/kernel/dma/swiotlb.c b/kernel/dma/swiotlb.c
->> index 8e840fbbed7c..34e6ade4f73c 100644
->> --- a/kernel/dma/swiotlb.c
->> +++ b/kernel/dma/swiotlb.c
->> @@ -50,6 +50,7 @@
->>   #include <asm/io.h>
->>   #include <asm/dma.h>
->>
->> +#include <linux/io.h>
->>   #include <linux/init.h>
->>   #include <linux/memblock.h>
->>   #include <linux/iommu-helper.h>
->> @@ -72,6 +73,8 @@ enum swiotlb_force swiotlb_force;
->>
->>   struct io_tlb_mem io_tlb_default_mem;
->>
->> +phys_addr_t swiotlb_unencrypted_base;
->> +
->>   /*
->>    * Max segment that we can provide which (if pages are contingous) will
->>    * not be bounced (unless SWIOTLB_FORCE is set).
->> @@ -155,6 +158,27 @@ static inline unsigned long nr_slots(u64 val)
->>          return DIV_ROUND_UP(val, IO_TLB_SIZE);
->>   }
->>
->> +/*
->> + * Remap swioltb memory in the unencrypted physical address space
->> + * when swiotlb_unencrypted_base is set. (e.g. for Hyper-V AMD SEV-SNP
->> + * Isolation VMs).
->> + */
->> +void *swiotlb_mem_remap(struct io_tlb_mem *mem, unsigned long bytes)
->> +{
->> +       void *vaddr = NULL;
->> +
->> +       if (swiotlb_unencrypted_base) {
->> +               phys_addr_t paddr = mem->start + swiotlb_unencrypted_base;
->> +
->> +               vaddr = memremap(paddr, bytes, MEMREMAP_WB);
->> +               if (!vaddr)
->> +                       pr_err("Failed to map the unencrypted memory 
->> %llx size %lx.\n",
->> +                              paddr, bytes);
->> +       }
->> +
->> +       return vaddr;
->> +}
->> +
->>   /*
->>    * Early SWIOTLB allocation may be too early to allow an architecture to
->>    * perform the desired operations.  This function allows the 
->> architecture to
->> @@ -172,7 +196,12 @@ void __init swiotlb_update_mem_attributes(void)
->>          vaddr = phys_to_virt(mem->start);
->>          bytes = PAGE_ALIGN(mem->nslabs << IO_TLB_SHIFT);
->>          set_memory_decrypted((unsigned long)vaddr, bytes >> PAGE_SHIFT);
->> -       memset(vaddr, 0, bytes);
->> +
->> +       mem->vaddr = swiotlb_mem_remap(mem, bytes);
->> +       if (!mem->vaddr)
->> +               mem->vaddr = vaddr;
->> +
->> +       memset(mem->vaddr, 0, bytes);
->>   }
->>
->>   static void swiotlb_init_io_tlb_mem(struct io_tlb_mem *mem, 
->> phys_addr_t start,
->> @@ -196,7 +225,17 @@ static void swiotlb_init_io_tlb_mem(struct 
->> io_tlb_mem *mem, phys_addr_t start,
->>                  mem->slots[i].orig_addr = INVALID_PHYS_ADDR;
->>                  mem->slots[i].alloc_size = 0;
->>          }
->> +
->> +       /*
->> +        * If swiotlb_unencrypted_base is set, the bounce buffer memory 
->> will
->> +        * be remapped and cleared in swiotlb_update_mem_attributes.
->> +        */
->> +       if (swiotlb_unencrypted_base)
->> +               return;
->> +
->>          memset(vaddr, 0, bytes);
->> +       mem->vaddr = vaddr;
->> +       return;
->>   }
->>
->>   int __init swiotlb_init_with_tbl(char *tlb, unsigned long nslabs, int 
->> verbose)
->> @@ -371,7 +410,7 @@ static void swiotlb_bounce(struct device *dev, 
->> phys_addr_t tlb_addr, size_t size
->>          phys_addr_t orig_addr = mem->slots[index].orig_addr;
->>          size_t alloc_size = mem->slots[index].alloc_size;
->>          unsigned long pfn = PFN_DOWN(orig_addr);
->> -       unsigned char *vaddr = phys_to_virt(tlb_addr);
->> +       unsigned char *vaddr = mem->vaddr + tlb_addr - mem->start;
->>          unsigned int tlb_offset, orig_addr_offset;
->>
->>          if (orig_addr == INVALID_PHYS_ADDR)
->>
->>
->> Thanks.
->>
+Introduce corresponding PGT_* constructs and access macros.
+Update existing gnttab macros to deal with GFN value according
+to new location. Also update the use of count portion on Arm
+in share_xen_page_with_guest().
+
+While at it, extend this simplified M2P-like approach for any
+xenheap pages which are proccessed in xenmem_add_to_physmap_one()
+except foreign ones. Update the code to set GFN portion after
+establishing new mapping for the xenheap page in said function
+and to clean GFN portion when putting a reference on that page
+in p2m_put_l3_page().
+
+And for everything to work correctly introduce arch-specific
+macros arch_alloc_(free)xenheap_page to be called from
+alloc_(free)xenheap_pages() respectively, the former's purpose
+on Arm is to clear the GFN portion before use, the latter was
+left dummy for now. On x86 both are just stubs.
+
+This patch is intended to fix the potential issue on Arm
+which might happen when remapping grant-table frame.
+A guest (or the toolstack) will unmap the grant-table frame
+using XENMEM_remove_physmap. This is a generic hypercall,
+so on x86, we are relying on the fact the M2P entry will
+be cleared on removal. For architecture without the M2P,
+the GFN would still be present in the grant frame/status
+array. So on the next call to map the page, we will end up to
+request the P2M to remove whatever mapping was the given GFN.
+This could well be another mapping.
+
+Besides that, this patch simplifies arch code on Arm by
+removing arrays and corresponding management code and
+as the result gnttab_init_arch/gnttab_destroy_arch helpers
+and struct grant_table_arch become useless and can be
+dropped globally.
+
+Suggested-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+Dear @RISC-V maintainers, please note in current patch I drop arch
+specific gnttab_init(destroy)_arch helpers as unneeded for both Arm and x86.
+Please let me know if you are going to reuse them in the nearest future and
+I will retain them.
+
+You can find the related discussions at:
+https://lore.kernel.org/xen-devel/93d0df14-2c8a-c2e3-8c51-54412190171c@xen.org/
+https://lore.kernel.org/xen-devel/1628890077-12545-1-git-send-email-olekstysh@gmail.com/
+https://lore.kernel.org/xen-devel/1631652245-30746-1-git-send-email-olekstysh@gmail.com/
+https://lore.kernel.org/xen-devel/1632425551-18910-1-git-send-email-olekstysh@gmail.com/
+
+Changes RFC1 -> RFC2:
+ - update patch description
+ - add/update comments in code
+ - clarify check in p2m_put_l3_page()
+ - introduce arch_alloc_xenheap_page() and arch_free_xenheap_page()
+   and drop page_arch_init()
+ - add ASSERT to gnttab_shared_page() and gnttab_status_page()
+ - rework changes to Arm's struct page_info: do not split type_info,
+   allocate GFN portion by reducing count portion, create corresponding
+   PGT_* construct, etc
+ - update page_get_frame_gfn() and page_set_frame_gfn()
+ - update the use of count portion on Arm
+ - drop the leading underscore in the macro parameter names
+
+Changes RFC2 -> RFC3:
+ - update patch description
+ - drop PGT_count_base and MASK_INSR() in share_xen_page_with_guest()
+ - update alloc_xenheap_page() and free_xenheap_page() for SEPARATE_XENHEAP
+   case (Arm32)
+ - provide an extra bit for GFN portion, to get PGT_INVALID_FRAME_GFN
+   one bit more than the maximum number of physical address bits on Arm32
+
+Changes RFC3 -> V4:
+ - rebase on Jan's "gnttab: remove guest_physmap_remove_page() call
+   from gnttab_map_frame()"
+ - finally resolve locking question by recent Julien's suggestion,
+   so drop the RFC tag
+ - update comments in Arm's mm.h/p2m.c to not mention grant table
+ - convert page_set(get)_frame_gfn to static inline func and
+   rename them to page_set(get)_xenheap_gfn()
+ - rename PGT_INVALID_FRAME_GFN to PGT_INVALID_XENHEAP_GFN
+ - add ASSERT(is_xen_heap_page(...)) in page_set(get)_frame_gfn
+ - remove BUG_ON() in arch_free_xenheap_page
+ - remove local type_info in share_xen_page_with_guest()
+ - remove an extra argument p2m in p2m_put_l3_page()
+ - remove #ifdef CONFIG_GRANT_TABLE in p2m_put_l3_page()
+ - also cover real-only pages by using p2m_is_ram instead of a check
+   against p2m_ram_rw in p2m_put_l3_page() and use "else if" construct
+ - call arch_free_xenheap_page() before clearing the PGC_xen_heap in
+   free_xenheap_pages()
+ - remove ASSERT() in gnttab_shared(status)_page and use simpler
+   virt_to_page
+ - remove local pg_ in gnttab_shared(status)_gfn
+ - update patch description to reflect recent changes
+---
+ xen/arch/arm/mm.c                 | 24 ++++++++++++++--
+ xen/arch/arm/p2m.c                |  7 +++--
+ xen/common/grant_table.c          |  9 ------
+ xen/common/page_alloc.c           | 20 +++++++++++++-
+ xen/include/asm-arm/grant_table.h | 58 ++++++++++++---------------------------
+ xen/include/asm-arm/mm.h          | 39 ++++++++++++++++++++++++--
+ xen/include/asm-x86/grant_table.h |  5 ----
+ xen/include/asm-x86/mm.h          |  4 +++
+ 8 files changed, 102 insertions(+), 64 deletions(-)
+
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index eea926d..4f4cab3 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -1382,8 +1382,10 @@ void share_xen_page_with_guest(struct page_info *page, struct domain *d,
+     spin_lock(&d->page_alloc_lock);
+ 
+     /* The incremented type count pins as writable or read-only. */
+-    page->u.inuse.type_info =
+-        (flags == SHARE_ro ? PGT_none : PGT_writable_page) | 1;
++    page->u.inuse.type_info &= ~(PGT_type_mask | PGT_count_mask);
++    page->u.inuse.type_info |= (flags == SHARE_ro ? PGT_none
++                                                  : PGT_writable_page) |
++                                MASK_INSR(1, PGT_count_mask);
+ 
+     page_set_owner(page, d);
+     smp_wmb(); /* install valid domain ptr before updating refcnt. */
+@@ -1487,7 +1489,23 @@ int xenmem_add_to_physmap_one(
+     }
+ 
+     /* Map at new location. */
+-    rc = guest_physmap_add_entry(d, gfn, mfn, 0, t);
++    if ( !p2m_is_ram(t) || !is_xen_heap_mfn(mfn) )
++        rc = guest_physmap_add_entry(d, gfn, mfn, 0, t);
++    else
++    {
++        struct p2m_domain *p2m = p2m_get_hostp2m(d);
++
++        p2m_write_lock(p2m);
++        if ( gfn_eq(page_get_xenheap_gfn(mfn_to_page(mfn)), INVALID_GFN) )
++        {
++            rc = p2m_set_entry(p2m, gfn, 1, mfn, t, p2m->default_access);
++            if ( !rc )
++                page_set_xenheap_gfn(mfn_to_page(mfn), gfn);
++        }
++        else
++            rc = -EBUSY;
++        p2m_write_unlock(p2m);
++    }
+ 
+     /*
+      * For XENMAPSPACE_gmfn_foreign if we failed to add the mapping, we need
+diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+index 8b20b43..fd8aff9 100644
+--- a/xen/arch/arm/p2m.c
++++ b/xen/arch/arm/p2m.c
+@@ -720,6 +720,8 @@ static int p2m_mem_access_radix_set(struct p2m_domain *p2m, gfn_t gfn,
+  */
+ static void p2m_put_l3_page(const lpae_t pte)
+ {
++    mfn_t mfn = lpae_get_mfn(pte);
++
+     ASSERT(p2m_is_valid(pte));
+ 
+     /*
+@@ -731,11 +733,12 @@ static void p2m_put_l3_page(const lpae_t pte)
+      */
+     if ( p2m_is_foreign(pte.p2m.type) )
+     {
+-        mfn_t mfn = lpae_get_mfn(pte);
+-
+         ASSERT(mfn_valid(mfn));
+         put_page(mfn_to_page(mfn));
+     }
++    /* Detect the xenheap page and mark the stored GFN as invalid. */
++    else if ( p2m_is_ram(pte.p2m.type) && is_xen_heap_mfn(mfn) )
++        page_set_xenheap_gfn(mfn_to_page(mfn), INVALID_GFN);
+ }
+ 
+ /* Free lpae sub-tree behind an entry */
+diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
+index 0262f2c..01d7a29 100644
+--- a/xen/common/grant_table.c
++++ b/xen/common/grant_table.c
+@@ -94,8 +94,6 @@ struct grant_table {
+ 
+     /* Domain to which this struct grant_table belongs. */
+     struct domain *domain;
+-
+-    struct grant_table_arch arch;
+ };
+ 
+ unsigned int __read_mostly opt_max_grant_frames = 64;
+@@ -1997,14 +1995,9 @@ int grant_table_init(struct domain *d, int max_grant_frames,
+ 
+     grant_write_lock(gt);
+ 
+-    ret = gnttab_init_arch(gt);
+-    if ( ret )
+-        goto unlock;
+-
+     /* gnttab_grow_table() allocates a min number of frames, so 0 is okay. */
+     ret = gnttab_grow_table(d, 0);
+ 
+- unlock:
+     grant_write_unlock(gt);
+ 
+  out:
+@@ -3911,8 +3904,6 @@ grant_table_destroy(
+     if ( t == NULL )
+         return;
+ 
+-    gnttab_destroy_arch(t);
+-
+     for ( i = 0; i < nr_grant_frames(t); i++ )
+         free_xenheap_page(t->shared_raw[i]);
+     xfree(t->shared_raw);
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index d0baaa2..2306d9a 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -2161,6 +2161,7 @@ void init_xenheap_pages(paddr_t ps, paddr_t pe)
+ void *alloc_xenheap_pages(unsigned int order, unsigned int memflags)
+ {
+     struct page_info *pg;
++    unsigned int i;
+ 
+     ASSERT(!in_irq());
+ 
+@@ -2169,6 +2170,9 @@ void *alloc_xenheap_pages(unsigned int order, unsigned int memflags)
+     if ( unlikely(pg == NULL) )
+         return NULL;
+ 
++    for ( i = 0; i < (1u << order); i++ )
++        arch_alloc_xenheap_page(&pg[i]);
++
+     memguard_unguard_range(page_to_virt(pg), 1 << (order + PAGE_SHIFT));
+ 
+     return page_to_virt(pg);
+@@ -2177,14 +2181,22 @@ void *alloc_xenheap_pages(unsigned int order, unsigned int memflags)
+ 
+ void free_xenheap_pages(void *v, unsigned int order)
+ {
++    struct page_info *pg;
++    unsigned int i;
++
+     ASSERT(!in_irq());
+ 
+     if ( v == NULL )
+         return;
+ 
++    pg = virt_to_page(v);
++
+     memguard_guard_range(v, 1 << (order + PAGE_SHIFT));
+ 
+-    free_heap_pages(virt_to_page(v), order, false);
++    for ( i = 0; i < (1u << order); i++ )
++        arch_free_xenheap_page(&pg[i]);
++
++    free_heap_pages(pg, order, false);
+ }
+ 
+ #else  /* !CONFIG_SEPARATE_XENHEAP */
+@@ -2220,7 +2232,10 @@ void *alloc_xenheap_pages(unsigned int order, unsigned int memflags)
+         return NULL;
+ 
+     for ( i = 0; i < (1u << order); i++ )
++    {
+         pg[i].count_info |= PGC_xen_heap;
++        arch_alloc_xenheap_page(&pg[i]);
++    }
+ 
+     return page_to_virt(pg);
+ }
+@@ -2238,7 +2253,10 @@ void free_xenheap_pages(void *v, unsigned int order)
+     pg = virt_to_page(v);
+ 
+     for ( i = 0; i < (1u << order); i++ )
++    {
++        arch_free_xenheap_page(&pg[i]);
+         pg[i].count_info &= ~PGC_xen_heap;
++    }
+ 
+     free_heap_pages(pg, order, true);
+ }
+diff --git a/xen/include/asm-arm/grant_table.h b/xen/include/asm-arm/grant_table.h
+index d31a4d6..d6fda31 100644
+--- a/xen/include/asm-arm/grant_table.h
++++ b/xen/include/asm-arm/grant_table.h
+@@ -11,11 +11,6 @@
+ #define INITIAL_NR_GRANT_FRAMES 1U
+ #define GNTTAB_MAX_VERSION 1
+ 
+-struct grant_table_arch {
+-    gfn_t *shared_gfn;
+-    gfn_t *status_gfn;
+-};
+-
+ static inline void gnttab_clear_flags(struct domain *d,
+                                       unsigned int mask, uint16_t *addr)
+ {
+@@ -46,41 +41,12 @@ int replace_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
+ #define gnttab_dom0_frames()                                             \
+     min_t(unsigned int, opt_max_grant_frames, PFN_DOWN(_etext - _stext))
+ 
+-#define gnttab_init_arch(gt)                                             \
+-({                                                                       \
+-    unsigned int ngf_ = (gt)->max_grant_frames;                          \
+-    unsigned int nsf_ = grant_to_status_frames(ngf_);                    \
+-                                                                         \
+-    (gt)->arch.shared_gfn = xmalloc_array(gfn_t, ngf_);                  \
+-    (gt)->arch.status_gfn = xmalloc_array(gfn_t, nsf_);                  \
+-    if ( (gt)->arch.shared_gfn && (gt)->arch.status_gfn )                \
+-    {                                                                    \
+-        while ( ngf_-- )                                                 \
+-            (gt)->arch.shared_gfn[ngf_] = INVALID_GFN;                   \
+-        while ( nsf_-- )                                                 \
+-            (gt)->arch.status_gfn[nsf_] = INVALID_GFN;                   \
+-    }                                                                    \
+-    else                                                                 \
+-        gnttab_destroy_arch(gt);                                         \
+-    (gt)->arch.shared_gfn ? 0 : -ENOMEM;                                 \
+-})
+-
+-#define gnttab_destroy_arch(gt)                                          \
+-    do {                                                                 \
+-        XFREE((gt)->arch.shared_gfn);                                    \
+-        XFREE((gt)->arch.status_gfn);                                    \
+-    } while ( 0 )
+-
+ #define gnttab_set_frame_gfn(gt, st, idx, gfn, mfn)                      \
+     ({                                                                   \
+-        int rc_ = 0;                                                     \
+         gfn_t ogfn = gnttab_get_frame_gfn(gt, st, idx);                  \
+-        if ( gfn_eq(ogfn, INVALID_GFN) || gfn_eq(ogfn, gfn) ||           \
+-             (rc_ = guest_physmap_remove_page((gt)->domain, ogfn, mfn,   \
+-                                              0)) == 0 )                 \
+-            ((st) ? (gt)->arch.status_gfn                                \
+-                  : (gt)->arch.shared_gfn)[idx] = (gfn);                 \
+-        rc_;                                                             \
++        (!gfn_eq(ogfn, INVALID_GFN) && !gfn_eq(ogfn, gfn))               \
++         ? guest_physmap_remove_page((gt)->domain, ogfn, mfn, 0)         \
++         : 0;                                                            \
+     })
+ 
+ #define gnttab_get_frame_gfn(gt, st, idx) ({                             \
+@@ -88,11 +54,21 @@ int replace_grant_host_mapping(unsigned long gpaddr, mfn_t mfn,
+         : gnttab_shared_gfn(NULL, gt, idx);                              \
+ })
+ 
+-#define gnttab_shared_gfn(d, t, i)                                       \
+-    (((i) >= nr_grant_frames(t)) ? INVALID_GFN : (t)->arch.shared_gfn[i])
++#define gnttab_shared_page(t, i) ({                                      \
++    virt_to_page((t)->shared_raw[i]);                                    \
++})
++
++#define gnttab_status_page(t, i) ({                                      \
++    virt_to_page((t)->status[i]);                                        \
++})
+ 
+-#define gnttab_status_gfn(d, t, i)                                       \
+-    (((i) >= nr_status_frames(t)) ? INVALID_GFN : (t)->arch.status_gfn[i])
++#define gnttab_shared_gfn(d, t, i) ({                                    \
++    page_get_xenheap_gfn(gnttab_shared_page(t, i));                      \
++})
++
++#define gnttab_status_gfn(d, t, i) ({                                    \
++    page_get_xenheap_gfn(gnttab_status_page(t, i));                      \
++})
+ 
+ #define gnttab_need_iommu_mapping(d)                    \
+     (is_domain_direct_mapped(d) && is_iommu_enabled(d))
+diff --git a/xen/include/asm-arm/mm.h b/xen/include/asm-arm/mm.h
+index 7b5e7b7..74b6485 100644
+--- a/xen/include/asm-arm/mm.h
++++ b/xen/include/asm-arm/mm.h
+@@ -98,9 +98,16 @@ struct page_info
+ #define PGT_writable_page PG_mask(1, 1)  /* has writable mappings?         */
+ #define PGT_type_mask     PG_mask(1, 1)  /* Bits 31 or 63.                 */
+ 
+- /* Count of uses of this frame as its current type. */
+-#define PGT_count_width   PG_shift(2)
+-#define PGT_count_mask    ((1UL<<PGT_count_width)-1)
++ /* 2-bit count of uses of this frame as its current type. */
++#define PGT_count_mask    PG_mask(3, 3)
++
++/*
++ * Stored in bits [28:0] or [60:0] GFN if page is xenheap page.
++ */
++#define PGT_gfn_width     PG_shift(3)
++#define PGT_gfn_mask      ((1UL<<PGT_gfn_width)-1)
++
++#define PGT_INVALID_XENHEAP_GFN   _gfn(PGT_gfn_mask)
+ 
+  /* Cleared when the owning guest 'frees' this page. */
+ #define _PGC_allocated    PG_shift(1)
+@@ -166,6 +173,32 @@ extern unsigned long xenheap_base_pdx;
+ 
+ #define maddr_get_owner(ma)   (page_get_owner(maddr_to_page((ma))))
+ 
++static inline gfn_t page_get_xenheap_gfn(struct page_info *p)
++{
++    gfn_t gfn_ = _gfn(p->u.inuse.type_info & PGT_gfn_mask);
++
++    ASSERT(is_xen_heap_page(p));
++
++    return gfn_eq(gfn_, PGT_INVALID_XENHEAP_GFN) ? INVALID_GFN : gfn_;
++}
++
++static inline void page_set_xenheap_gfn(struct page_info *p, gfn_t gfn)
++{
++    gfn_t gfn_ = gfn_eq(gfn, INVALID_GFN) ? PGT_INVALID_XENHEAP_GFN : gfn;
++
++    ASSERT(is_xen_heap_page(p));
++
++    p->u.inuse.type_info &= ~PGT_gfn_mask;
++    p->u.inuse.type_info |= gfn_x(gfn_);
++}
++
++/*
++ * As the struct page_info representing the xenheap page on Arm can contain
++ * the valid GFN we need to clear it beforehand.
++ */
++#define arch_alloc_xenheap_page(p)   page_set_xenheap_gfn(p, INVALID_GFN)
++#define arch_free_xenheap_page(p)    do {} while ( 0 )
++
+ #define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
+ /* PDX of the first page in the frame table. */
+ extern unsigned long frametable_base_pdx;
+diff --git a/xen/include/asm-x86/grant_table.h b/xen/include/asm-x86/grant_table.h
+index a8a2143..5c23cec 100644
+--- a/xen/include/asm-x86/grant_table.h
++++ b/xen/include/asm-x86/grant_table.h
+@@ -14,9 +14,6 @@
+ 
+ #define INITIAL_NR_GRANT_FRAMES 1U
+ 
+-struct grant_table_arch {
+-};
+-
+ static inline int create_grant_host_mapping(uint64_t addr, mfn_t frame,
+                                             unsigned int flags,
+                                             unsigned int cache_flags)
+@@ -35,8 +32,6 @@ static inline int replace_grant_host_mapping(uint64_t addr, mfn_t frame,
+     return replace_grant_pv_mapping(addr, frame, new_addr, flags);
+ }
+ 
+-#define gnttab_init_arch(gt) 0
+-#define gnttab_destroy_arch(gt) do {} while ( 0 )
+ #define gnttab_set_frame_gfn(gt, st, idx, gfn, mfn)                      \
+     (gfn_eq(gfn, INVALID_GFN)                                            \
+      ? guest_physmap_remove_page((gt)->domain,                           \
+diff --git a/xen/include/asm-x86/mm.h b/xen/include/asm-x86/mm.h
+index cb90527..3c153c6 100644
+--- a/xen/include/asm-x86/mm.h
++++ b/xen/include/asm-x86/mm.h
+@@ -327,6 +327,10 @@ struct page_info
+ 
+ #define maddr_get_owner(ma)   (page_get_owner(maddr_to_page((ma))))
+ 
++/* No arch-specific actions are needed for the xenheap page */
++#define arch_alloc_xenheap_page(p)   do {} while ( 0 )
++#define arch_free_xenheap_page(p)    do {} while ( 0 )
++
+ #define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
+ extern unsigned long max_page;
+ extern unsigned long total_pages;
+-- 
+2.7.4
+
 
