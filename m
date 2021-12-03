@@ -2,49 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED9EA467227
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Dec 2021 07:42:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.237142.411292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AA2E467262
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Dec 2021 08:04:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.237148.411306 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mt2GW-0000NK-Ac; Fri, 03 Dec 2021 06:41:52 +0000
+	id 1mt2cE-0003Ax-7v; Fri, 03 Dec 2021 07:04:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 237142.411292; Fri, 03 Dec 2021 06:41:52 +0000
+Received: by outflank-mailman (output) from mailman id 237148.411306; Fri, 03 Dec 2021 07:04:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mt2GW-0000LW-6d; Fri, 03 Dec 2021 06:41:52 +0000
-Received: by outflank-mailman (input) for mailman id 237142;
- Fri, 03 Dec 2021 06:41:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mt2cE-00038R-1V; Fri, 03 Dec 2021 07:04:18 +0000
+Received: by outflank-mailman (input) for mailman id 237148;
+ Fri, 03 Dec 2021 07:04:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EuM9=QU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mt2GU-0000LP-9V
- for xen-devel@lists.xenproject.org; Fri, 03 Dec 2021 06:41:50 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 16f8e077-5404-11ec-b1df-f38ee3fbfdf7;
- Fri, 03 Dec 2021 07:41:48 +0100 (CET)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2112.outbound.protection.outlook.com [104.47.17.112]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-29-GfOO8NatOfqKnJUZVhENoA-1; Fri, 03 Dec 2021 07:41:47 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VE1PR04MB6669.eurprd04.prod.outlook.com (2603:10a6:803:125::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Fri, 3 Dec
- 2021 06:41:44 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe%5]) with mapi id 15.20.4734.028; Fri, 3 Dec 2021
- 06:41:44 +0000
-Received: from [IPV6:2003:ca:b71a:8998:d194:2575:a6a8:6413]
- (2003:ca:b71a:8998:d194:2575:a6a8:6413) by
- AM6P194CA0096.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:8f::37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.11 via Frontend Transport; Fri, 3 Dec 2021 06:41:43 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mt2cC-00038G-BI; Fri, 03 Dec 2021 07:04:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mt2cC-0006Lj-1l; Fri, 03 Dec 2021 07:04:16 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mt2cB-0007su-QD; Fri, 03 Dec 2021 07:04:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mt2cB-0008Pq-Pe; Fri, 03 Dec 2021 07:04:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,293 +42,304 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16f8e077-5404-11ec-b1df-f38ee3fbfdf7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1638513708;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Bgd2EIlSJpwXYbDVd+GAtaOdlLwkOLlaCmopKLRT11E=;
-	b=ZWU64Ta+art83810+Qnq7qw4roz5+D+G9Ox/bD0edDf0Eio9SHJ04Yodkds7UlkPBgR96+
-	rXgsUDkct+yQ5cmV5FGpB23xPxXY/XZvx4Sy9LVeLBccxXYkpWhALfDM0c7XDBXapLi2wG
-	NOKLABxin1oB+EEcr1BLeLPINmUgshQ=
-X-MC-Unique: GfOO8NatOfqKnJUZVhENoA-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T1mQHwNNG/SS6ugzI5Xda1cx+7tfMwQltxnMCN8QHRi/TvrA/p8hl2Mu166BY/rnMoKcvpVowSxOc6wYRoTNRmvNL62Fep5sp6zE8FXXJ1rlPsLYGm5HqfemnDxYQneNOFoW1zCv/vRryjbKLeyI4DvIsUlsOtcIkrN+qmCQmtlYzB/UNnYP62HhaM5sBNOblzDELAKsbhkkD1BjkqxgBeC9PseeJtT4XTghx165e6TrhUnd2Yv02Y+grWjhhCkgBMJHhESp19WF5qPnu6Rencc/HG9nP2O08U/B+Wbzq8nZGPA4+p5e4U3fbNz93ROSNwdIA9Z6WLfFFbPeCNOSHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YEC8C36ucthq1KVn9e+D1mZNV5qqS3WzoDe4M8yJiC4=;
- b=MoPaawlA5ne696cd1eMVvMDaRGWiyL35jhcVNPeDv0fZ+IO8ONf+2PNghcrBilxyMda5umtGTucPLWg5whTarabv1/+2tCGJBbtKdew5d6lUwajDJot6G8AU6AATMyz+oiQqHdfLyHX3FzBMSeCFiEzcHnbee4JyHXcTWs6VQ5ntVq8T1J8zjGhFT55eMh9kLNVUFs4JnoC7OETgz24RxXdUMZXitzbhYicJWiNkzQIyHNJ+WMpzS+yxJXjpzzNdvGl7D9sS4UnkSdczR16wjihP0CjD4913fWUS6Syw92ROQuTU0oI0bIKgubBy0eH65/pwdgW/tvdNYC2J+tjwWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <259bb05d-b227-03e1-1342-a50241c51088@suse.com>
-Date: Fri, 3 Dec 2021 07:41:40 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH v2 06/18] IOMMU/x86: restrict IO-APIC mappings for PV Dom0
-Content-Language: en-US
-To: Andrew Cooper <amc96@srcf.net>, Andrew Cooper <andrew.cooper3@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-References: <957f067b-9fe1-2350-4266-51982f09d3a9@suse.com>
- <f66b6403-13dd-cb05-7411-20efd7364b08@suse.com>
- <Yac7uLaQ1+YdCqtW@Air-de-Roger>
- <fd5ff1e0-88f0-3fba-4573-b007afdbb3a5@suse.com>
- <YadPLZqfN2pu5SeG@Air-de-Roger>
- <8b2c09f5-1f64-9754-17a4-936f1e496a82@suse.com>
- <YajiQeaPx7KcL0Tw@Air-de-Roger>
- <49991d39-f976-af50-b203-152564fa458e@suse.com>
- <09a1961b-2647-f25e-f028-9e398fa2c83e@srcf.net>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <09a1961b-2647-f25e-f028-9e398fa2c83e@srcf.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6P194CA0096.EURP194.PROD.OUTLOOK.COM
- (2603:10a6:209:8f::37) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=EOoRUVhsi8VDfBPD2QX1jzOEp0YjmlyfnuX/bJonkAE=; b=AeMld+SGEhe+LwbTu85XLD00af
+	QDjSzYGEWvnDDR00AUJTbsQ+es+a/d4Mw7REt0KlJ4p4mLr/jFlgH6CXZLwWBQHEHT5cJY5/pObOG
+	x6NZeaUHmF2RAQYkVUb2b6biUALo5ZVQz/dp0XRNa7gdFw/MXzFS0nPR6smMhiZ6+Nzs=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-167064-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 71255f5e-2f44-4375-e336-08d9b627f879
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6669:
-X-Microsoft-Antispam-PRVS:
-	<VE1PR04MB6669088CA1011643BA1A571DB36A9@VE1PR04MB6669.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	u65JvZEgPJVt2q2ch+FtVRCaA2ujEzuzVdfFpstqKRMnBj3vQkXH1R1+EpSAXKd5x/fClT8wkpXKRSoojRYdkvxVQbwjGWO9EE4bFxho3FK1oEHgvfvn8qKy3GSxiaV9Pd+Q8cx2eoO6pInyZ2o0mgAYCJzlpvm4+wEKf6B3qyNFT9LxsfAPNJpaOlRcD2Ls5LVYaRn68p8ga4NbIYIEJdW3/TroQID0TL5OKheJRiEiVDkHYZO8Iyi9UeAPnpmMxxLtFcFIkq9w2tI2rrcObiluXSOy+x85C8ENf98IB7nMz32hKSSQsejp7AQ4EXyWNC5VeKDfDZtzpw++2wZx6nW77Jpjiw1qBc9UOzqukLcdLFtMvy22EpbzZsm9gAOjpONZQaMXeNBU4B+aIwgwi5UDNj0pDqRcRsOzOogsXfro/SykvmngdXodEh8GzEEZR/pCVnFSW/BONeGPBvrG/4wPBrlsEVrew4u3HaN/UIq1JHHxpic2YdX393T4UDzBS6poAf+GFXjGagFz9VKUR0HUaxm54hw1/zosf0wQu0xygue/GkTHyB5H1z/dPUtOTOnrxf51NGavUC+TUgxqvITx+wpWNF9g2lworRxkNr2pad0sXwfBYh2bvRqhKslkbonxB0ScMoyw8UypCN+UjE03kb03jroQWl87VFUBQMGcQAggWAJ0voJQpKbIuQ9TXa3U44sBHDe9WcsH4OrlKpegv+Ic7h5MNYtbEBtaUfQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(508600001)(38100700002)(66946007)(8676002)(31696002)(86362001)(6486002)(53546011)(110136005)(66556008)(66476007)(2906002)(54906003)(83380400001)(36756003)(4326008)(316002)(31686004)(186003)(2616005)(8936002)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UYOeB22lrl1+QennLpUKgVujXqjX7IwMrN681fDhziKWUy4NBfD8LHyQuBMT?=
- =?us-ascii?Q?tFwzXDi1snVrlOn5CctxA/3GLb+V2fscTfuTU7SM4Y/9jX3f2tMkKSse/zRo?=
- =?us-ascii?Q?Bsf52PTb32TIh4fHlxwHrMhOAWThNfdfGNXHByvQKmyxRkYLXoenQd0WfIz0?=
- =?us-ascii?Q?WP3h661neHBTPFkWhui7cJLLdDS0xheumvCdI/QfyJ5g0cs1qHVpJzLPqJYf?=
- =?us-ascii?Q?8ztHdABYXexWyLlak6BVvQVyScjfN/ufFdRo8JH7BoSwiZuRAQSvC19KXAy6?=
- =?us-ascii?Q?Y7xv52W+SLxkAqWK3GntZ1I2YwX5gH59qW1OklfirtLxzAKvPCw+FzwNPOJ3?=
- =?us-ascii?Q?WWZFa1/tiQAFraj4TclYn1xn/p/UJEJ6sY7Aje2DeefePpX9XBHxv9fT0YCB?=
- =?us-ascii?Q?sKeGR6iPALdLWNrt+5uVcTfK2KzWy+DAoZx7A1S0950lBhUFTWjLvOCu/4O8?=
- =?us-ascii?Q?Qx7qUOQW6giMolRJN961Zq3GDNBFfphexKTICWUI6RErI+QlYgxZqBhzvLlr?=
- =?us-ascii?Q?js7CWNOaw7dONqHykxwVAFM0Tzi164CTSi5MU8Hsi5u4zYbUllV9NzBhSu0R?=
- =?us-ascii?Q?truBWAs21W2Y9yBOghesdrSfOi5NbabAQiUON9eeECkHgGTgtK3HI7gdb7Md?=
- =?us-ascii?Q?spaoUZGSsbzdboip3k6PsXBuiIS0kTzptAvCsfZlYCYoPsjpXo6r18XL4Y2k?=
- =?us-ascii?Q?UnGuxzboqgprNZJA+AK5mkcSiakUm2FLiaIWwn2MJ9hBSFodmlazA40D1nmL?=
- =?us-ascii?Q?lMYZM2jOihZD2YMZgLGKVSRKck02huhgfhmVlxHhOVJD3CEMpcOGX598YmEm?=
- =?us-ascii?Q?w0mKtBhcDHEWy4E+4RgfoMEiCD0anSW7gCnv8d39cdbyL9EL8DZuteTuogXD?=
- =?us-ascii?Q?DuCjBLAZ11OtBl+C4mrRKimXj33POU2XEN/59sAaXLHmLVl1BEVHxdBlOctm?=
- =?us-ascii?Q?BwdFReHA87a6Vfwy6a/vbMiDzHM7HBkuj6LqbqG0xTM3wRfN/xHm6u/vp7cg?=
- =?us-ascii?Q?j6H68FbGntLm4ZVnR6UoSi/M0/02mTytzwWXv9eb8f4jPqiQ7AphAkYBWy8u?=
- =?us-ascii?Q?gEmBUV6ah4vvsCsSYcsE0ICerEtgPWkfapN2dsyOpk7mmumCb5rBDWQxvBf7?=
- =?us-ascii?Q?YvDWhMrqz+hk8BF+rQnx+kymEtUDfTq2Bdj+ASb7C83+5DF75xU/y9yETX8U?=
- =?us-ascii?Q?6q5VWqtNfkjsjPcBxhFglbPGsCTklIxzOgP7ER12Yl0o2ayEHAsXO8JJwKDL?=
- =?us-ascii?Q?GlVFWpn8p7RAuRTEMVBblf+Jscks+WkzNw90D1l9UfDLrUdaizIAGNo3vs50?=
- =?us-ascii?Q?B/eHkAFdeayxsKibS+C0nw3qROptKIo2uGeKCNtE8Y51+HlKNcNUAHCNb/km?=
- =?us-ascii?Q?qHeNnmP7IiT5x67tfVRDc+K1tXhNEBaFL4hVokspLqtEycP99FJ8l2439rwz?=
- =?us-ascii?Q?mrn1WoaU7jp3pEGvLNz7TeAae2xNcb4Agbmfu1oEZn5X6esphfaviFtUvvQV?=
- =?us-ascii?Q?pVJcA4P1wpH5d8I+waEkaqSeMfs59RvepZOrqs85ETYiw/5AFNFtPRl2aA9R?=
- =?us-ascii?Q?rS74xDhSt1B6cBD423BfCZxWCZmnMDUm7ds2mXZBTdErcDVyMB2r/gXv2g8q?=
- =?us-ascii?Q?ihWqSTjZKKCd9EmPpLxnMfQ+fa1IxYAcfRfolMPGAFyaQWi9v7+KMcUyDVez?=
- =?us-ascii?Q?fp6hi+4XDR4TMIj9Nf915isi+sY=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 71255f5e-2f44-4375-e336-08d9b627f879
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2021 06:41:44.2580
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: URYljO/yPN85FlC16y6bMtJBAJ/BBZ/2XT64RPWG+Ypro8eUj7Yv4FvGuPdiEWmvEhm9DXL5TApH3Q7t271RIA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6669
+Subject: [xen-unstable-smoke test] 167064: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-start/debianhvm.repeat:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:guest-start/debian.repeat:fail:regression
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:guest-start/debian.repeat:fail:heisenbug
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=05657c6d1821dfc4e9a618767a942b3555406046
+X-Osstest-Versions-That:
+    xen=e7f147bf4ac725492962a501da72f5ab6be682db
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 03 Dec 2021 07:04:15 +0000
 
-On 02.12.2021 20:16, Andrew Cooper wrote:
-> On 02/12/2021 15:28, Jan Beulich wrote:
->> On 02.12.2021 16:12, Roger Pau Monn=C3=A9 wrote:
->>> On Wed, Dec 01, 2021 at 12:45:12PM +0100, Jan Beulich wrote:
->>>> On 01.12.2021 11:32, Roger Pau Monn=C3=A9 wrote:
->>>>> On Wed, Dec 01, 2021 at 10:27:21AM +0100, Jan Beulich wrote:
->>>>>> On 01.12.2021 10:09, Roger Pau Monn=C3=A9 wrote:
->>>>>>> On Fri, Sep 24, 2021 at 11:46:57AM +0200, Jan Beulich wrote:
->>>>>>>> @@ -267,44 +267,60 @@ static bool __hwdom_init hwdom_iommu_map
->>>>>>>>       * that fall in unusable ranges for PV Dom0.
->>>>>>>>       */
->>>>>>>>      if ( (pfn > max_pfn && !mfn_valid(mfn)) || xen_in_range(pfn) =
-)
->>>>>>>> -        return false;
->>>>>>>> +        return 0;
->>>>>>>> =20
->>>>>>>>      switch ( type =3D page_get_ram_type(mfn) )
->>>>>>>>      {
->>>>>>>>      case RAM_TYPE_UNUSABLE:
->>>>>>>> -        return false;
->>>>>>>> +        return 0;
->>>>>>>> =20
->>>>>>>>      case RAM_TYPE_CONVENTIONAL:
->>>>>>>>          if ( iommu_hwdom_strict )
->>>>>>>> -            return false;
->>>>>>>> +            return 0;
->>>>>>>>          break;
->>>>>>>> =20
->>>>>>>>      default:
->>>>>>>>          if ( type & RAM_TYPE_RESERVED )
->>>>>>>>          {
->>>>>>>>              if ( !iommu_hwdom_inclusive && !iommu_hwdom_reserved =
-)
->>>>>>>> -                return false;
->>>>>>>> +                perms =3D 0;
->>>>>>>>          }
->>>>>>>> -        else if ( is_hvm_domain(d) || !iommu_hwdom_inclusive || p=
-fn > max_pfn )
->>>>>>>> -            return false;
->>>>>>>> +        else if ( is_hvm_domain(d) )
->>>>>>>> +            return 0;
->>>>>>>> +        else if ( !iommu_hwdom_inclusive || pfn > max_pfn )
->>>>>>>> +            perms =3D 0;
->>>>>>> I'm confused about the reason to set perms =3D 0 instead of just
->>>>>>> returning here. AFAICT perms won't be set to any other value below,
->>>>>>> so you might as well just return 0.
->>>>>> This is so that ...
->>>>>>
->>>>>>>>      }
->>>>>>>> =20
->>>>>>>>      /* Check that it doesn't overlap with the Interrupt Address R=
-ange. */
->>>>>>>>      if ( pfn >=3D 0xfee00 && pfn <=3D 0xfeeff )
->>>>>>>> -        return false;
->>>>>>>> +        return 0;
->>>>>>>>      /* ... or the IO-APIC */
->>>>>>>> -    for ( i =3D 0; has_vioapic(d) && i < d->arch.hvm.nr_vioapics;=
- i++ )
->>>>>>>> -        if ( pfn =3D=3D PFN_DOWN(domain_vioapic(d, i)->base_addre=
-ss) )
->>>>>>>> -            return false;
->>>>>>>> +    if ( has_vioapic(d) )
->>>>>>>> +    {
->>>>>>>> +        for ( i =3D 0; i < d->arch.hvm.nr_vioapics; i++ )
->>>>>>>> +            if ( pfn =3D=3D PFN_DOWN(domain_vioapic(d, i)->base_a=
-ddress) )
->>>>>>>> +                return 0;
->>>>>>>> +    }
->>>>>>>> +    else if ( is_pv_domain(d) )
->>>>>>>> +    {
->>>>>>>> +        /*
->>>>>>>> +         * Be consistent with CPU mappings: Dom0 is permitted to =
-establish r/o
->>>>>>>> +         * ones there, so it should also have such established fo=
-r IOMMUs.
->>>>>>>> +         */
->>>>>>>> +        for ( i =3D 0; i < nr_ioapics; i++ )
->>>>>>>> +            if ( pfn =3D=3D PFN_DOWN(mp_ioapics[i].mpc_apicaddr) =
-)
->>>>>>>> +                return rangeset_contains_singleton(mmio_ro_ranges=
-, pfn)
->>>>>>>> +                       ? IOMMUF_readable : 0;
->>>>>>>> +    }
->>>>>> ... this return, as per the comment, takes precedence over returning
->>>>>> zero.
->>>>> I see. This is because you want to map those in the IOMMU page tables
->>>>> even if the IO-APIC ranges are outside of a reserved region.
->>>>>
->>>>> I have to admit this is kind of weird, because the purpose of this
->>>>> function is to add mappings for all memory below 4G, and/or for all
->>>>> reserved regions.
->>>> Well, that was what it started out as. The purpose here is to be consi=
-stent
->>>> about IO-APICs: Either have them all mapped, or none of them. Since we=
- map
->>>> them in the CPU page tables and since Andrew asked for the two mapping=
-s to
->>>> be consistent, this is the only way to satisfy the requests. Personall=
-y I'd
->>>> be okay with not mapping IO-APICs here (but then regardless of whether=
- they
->>>> are covered by a reserved region).
->>> I'm unsure of the best way to deal with this, it seems like both
->>> the CPU and the IOMMU page tables would never be equal for PV dom0,
->>> because we have no intention to map the MSI-X tables in RO mode in the
->>> IOMMU page tables.
->>>
->>> I'm not really opposed to having the IO-APIC mapped RO in the IOMMU
->>> page tables, but I also don't see much benefit of doing it unless we
->>> have a user-case for it. The IO-APIC handling in PV is already
->>> different from native, so I would be fine if we add a comment noting
->>> that while the IO-APIC is mappable to the CPU page tables as RO it's
->>> not present in the IOMMU page tables (and then adjust hwdom_iommu_map
->>> to prevent it's mapping).
->> Andrew, you did request both mappings to get in sync - thoughts?
->=20
-> Lets step back to first principles.
->=20
-> On real hardware, there is no such thing as read-only-ness of the
-> physical address space.=C2=A0 Anything like that is a device which accept=
-s
-> and discards writes.
->=20
-> It's not clear what a real hardware platform would do in this scenario,
-> but from reading some of the platform docs, I suspect the System Address
-> Decoder would provide a symmetric view of the hardware address space,
-> but this doesn't mean that UBOX would tolerate memory accesses uniformly
-> from all sources.=C2=A0 Also, there's nothing to say that all platforms
-> behave the same.
->=20
->=20
-> For HVM with shared-pt, the CPU and IOMMU mappings really are
-> identical.=C2=A0 The IOMMU really will get a read-only mapping of real MM=
-CFG,
-> and holes for fully-emulated devices, which would suffer a IOMMU fault
-> if targetted.
->=20
-> For HVM without shared-pt, the translations are mostly kept in sync, but
-> the permissions in the CPU mappings may be reduced for e.g. logdirty
-> reasons.
->=20
-> For PV guests, things are mostly like the HVM shared-pt case, except
-> we've got the real IO-APICs mapped read-only, and no fully-emulated devic=
-es.
->=20
->=20
-> Putting the real IO-APICs in the IOMMU is about as short sighted as
-> letting the PV guest see them to begin with, but there is nothing
-> fundamentally wrong with letting a PV guest do a DMA read of the
-> IO-APIC, seeing as we let it do a CPU read.=C2=A0 (And whether the platfo=
-rm
-> will even allow it, is a different matter.)
->=20
->=20
-> However, it is really important for there to not be a load of special
-> casing (all undocumented, naturally) keeping the CPU and IOMMU views
-> different.=C2=A0 It is an error that the views were ever different
-> (translation wise), and the only legitimate permission difference I can
-> think of is to support logdirty mode for migration.=C2=A0 (Introspection
-> protection for device-enabled VMs will be left as an exercise to
-> whomever first wants to use it.)
->=20
-> Making the guest physical address space view consistent between the CPU
-> and device is a "because its obviously the correct thing to do" issue.=C2=
-=A0
-> Deciding "well it makes no sense for you to have an IO mapping of $FOO"
-> is a matter of policy that Xen has no legitimate right to be enforcing.
+flight 167064 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167064/
 
-To summarize: You continue to think it's better to map the IO-APICs r/o
-also in the IOMMU, despite there not being any practical need for these
-mappings (the CPU ones get permitted as a workaround only, after all).
-Please correct me if that's a wrong understanding of your reply. And I
-take it that you're aware that CPU mappings get inserted only upon Dom0's
-request, whereas IOMMU mappings get created once during boot (the
-inconsistent form of which had been present prior to this patch).
+Regressions :-(
 
-Any decision here would then imo also want to apply to e.g. the HPET
-region, which we have a mode for where Dom0 can map it r/o. And the
-MSI-X tables and PBAs (which get dynamically entered into mmio_ro_ranges).
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64 20 guest-start/debianhvm.repeat fail REGR. vs. 166958
+ test-armhf-armhf-xl         18 guest-start/debian.repeat fail REGR. vs. 166958
 
-Jan
+Tests which are failing intermittently (not blocking):
+ test-arm64-arm64-xl-xsm      18 guest-start/debian.repeat  fail pass in 167051
 
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  05657c6d1821dfc4e9a618767a942b3555406046
+baseline version:
+ xen                  e7f147bf4ac725492962a501da72f5ab6be682db
+
+Last test of basis   166958  2021-11-30 12:00:32 Z    2 days
+Failing since        166977  2021-12-01 17:08:21 Z    1 days    8 attempts
+Testing same since   167051  2021-12-03 00:00:28 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+  Ayan Kumar Halder <ayankuma@xilinx.com>
+  Ian Jackson <iwj@xenproject.org>
+  Jan Beulich <jbeulich@suse.com>
+  Luca Fancellu <luca.fancellu@arm.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Vikram Garhwal <fnu.vikram@xilinx.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 05657c6d1821dfc4e9a618767a942b3555406046
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Nov 29 20:11:01 2021 +0000
+
+    x86/boot: Support __ro_after_init
+    
+    For security hardening reasons, it advantageous to make setup-once data
+    immutable after boot.  Borrow __ro_after_init from Linux.
+    
+    On x86, place .data.ro_after_init at the start of .rodata, excluding it from
+    the early permission restrictions.  Re-apply RO restrictions to the whole of
+    .rodata in init_done(), attempting to reform the superpage if possible.
+    
+    For architectures which don't implement __ro_after_init explicitly, variables
+    merges into .data.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 8de86b5cd4353bf2cc415e4563f973f071b4e8a3
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Nov 29 20:04:11 2021 +0000
+
+    x86/boot: Adjust .text/.rodata/etc permissions in one place
+    
+    At the moment, we have two locations selecting restricted permissions, not
+    very far apart on boot, dependent on opposite answers from using_2M_mapping().
+    The later location however can shatter superpages if needed, while the former
+    cannot.
+    
+    Collect together all the permission adjustments at the slightly later point in
+    boot, as we likely need to shatter a superpage to support __ro_after_init.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit c182e89d0b341d2efc930c2e1211d3e866c0effb
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Nov 29 19:01:50 2021 +0000
+
+    x86/boot: Drop xen_virt_end
+    
+    The calculation in __start_xen() for xen_virt_end is an opencoding of
+    ROUNDUP(_end, 2M).  This is __2M_rwdata_end as provided by the linker script.
+    
+    This corrects the bound calculations in arch_livepatch_init() and
+    update_xen_mappings() to not enforce 2M alignment when Xen is not compiled
+    with CONFIG_XEN_ALIGN_2M.
+    
+    Furthermore, since 52975142d154 ("x86/boot: Create the l2_xenmap[] mappings
+    dynamically"), there have not been extraneous mappings to delete, meaning that
+    the call to destroy_xen_mappings() has been a no-op.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit ffa5d037c78fe175f31373deec0759ff8cc8d66c
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Nov 29 19:52:05 2021 +0000
+
+    x86/boot: Fix data placement around __high_start()
+    
+    multiboot_ptr should be in __initdata - it is only used on the BSP path.
+    Furthermore, the .align 8 then .long means that stack_start is misaligned.
+    
+    Move both into setup.c, which lets the compiler handle the details correctly,
+    as well as providing proper debug information for them.
+    
+    Declare stack_start in setup.h and avoid extern-ing it locally in smpboot.c.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 3099ff3ce15481b4f1536470cb87ac0ebf82b7bb
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Nov 29 19:19:43 2021 +0000
+
+    x86/boot: Better describe the pagetable relocation loops
+    
+    The first loop relocates all reachable non-leaf entries in idle_pg_table[],
+    which includes l2_xenmap[511]'s reference to l1_fixmap_x[].
+    
+    The second loop relocates only leaf mappings in l2_xenmap[], so update the
+    skip condition to be opposite to the first loop.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Jan Beulich <jbeulich@suse.com>
+
+commit a15b143a5f1c20dc6893bc3e50873e308ef61d87
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Nov 29 16:09:08 2021 +0000
+
+    x86/boot: Drop incorrect mapping at l2_xenmap[0]
+    
+    It has been 4 years since the default load address changed from 1M to 2M, and
+    _stext ceased residing in l2_xenmap[0].  We should not be inserting an unused
+    mapping.
+    
+    To ensure we don't create mappings accidentally, loop from 0 and obey
+    _PAGE_PRESENT on all entries.
+    
+    Fixes: 7ed93f3a0dff ("x86: change default load address from 1 MiB to 2 MiB")
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit eb41074692094dff1413efb44fa4928a9140aa41
+Author: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+Date:   Tue Nov 30 18:12:38 2021 +0000
+
+    bitops: Fix incorrect value in comment
+    
+    GENMASK(30, 21) should be 0x7fe00000. Fixed this in the comment
+    in bitops.h.
+    
+    Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    [Tweak text, to put an end to any further bikeshedding]
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 6c1c97e24f830a921a23e3b9694e20493c9986ee
+Author: Ian Jackson <iwj@xenproject.org>
+Date:   Wed Dec 1 18:07:40 2021 +0000
+
+    CHANGELOG.md: Start new "unstable" section
+    
+    I have just forward-ported the CHANGELOG.md updates from the
+    stable-4.16 branch.  But we need a new section for work in this
+    release cycle.
+    
+    Signed-off-by: Ian Jackson <iwj@xenproject.org>
+
+commit eef266eb770128db0d5258009b744f0e0c31c9bd
+Author: Ian Jackson <iwj@xenproject.org>
+Date:   Tue Nov 30 11:40:21 2021 +0000
+
+    CHANGELOG.md: Set 4.16 version and date
+    
+    Signed-off-by: Ian Jackson <iwj@xenproject.org>
+    (cherry picked from commit 36aa64095d0419d52d2466405ac13b9858463f48)
+
+commit e058b2d4e5e2ad7ad03941d36ef9243291b35671
+Author: Roger Pau Monne <roger.pau@citrix.com>
+Date:   Wed Nov 24 12:24:03 2021 +0100
+
+    CHANGELOG: add missing entries for work during the 4.16 release cycle
+    
+    Document some of the relevant changes during the 4.16 release cycle.
+    
+    Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+    Release-Acked-by: Ian Jackson <iwj@xenproject.org>
+    (cherry picked from commit e2544a28beacd854f295095d102a8773743ac917)
+
+commit 9012687f05adf96440316ce338514db574ebfde0
+Author: Luca Fancellu <luca.fancellu@arm.com>
+Date:   Tue Nov 16 15:06:24 2021 +0000
+
+    arm/efi: Improve performance requesting filesystem handle
+    
+    Currently, the code used to handle and possibly load from the filesystem
+    modules defined in the DT is allocating and closing the filesystem handle
+    for each module to be loaded.
+    
+    To improve the performance, the filesystem handle pointer is passed
+    through the call stack, requested when it's needed only once and closed
+    if it was allocated.
+    
+    Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit ad9cf6bde5b90d4c1e5a79a2803e98d6344c27d7
+Author: Vikram Garhwal <fnu.vikram@xilinx.com>
+Date:   Thu Nov 11 23:27:20 2021 -0800
+
+    Update libfdt to v1.6.1
+    
+    Update libfdt to v1.6.1 of libfdt taken from git://github.com/dgibson/dtc.
+    This update is done to support device tree overlays.
+    
+    A few minor changes are done to make it compatible with Xen:
+        fdt_overlay.c: overlay_fixup_phandle()
+    
+            Replace strtoul() with simple_strtoul() as strtoul() is not available in
+            Xen lib and included lib.h.
+    
+            Change char *endptr to const char *endptr. This change is required for
+            using simple_strtoul().
+    
+        libfdt_env.h:
+            Remaining Xen changes to libfdt_env.h carried over from existing
+            libfdt (v1.4.0)
+    
+    Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
+    Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+    Tested-by: Luca Fancellu <luca.fancellu@arm.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+(qemu changes not included)
 
