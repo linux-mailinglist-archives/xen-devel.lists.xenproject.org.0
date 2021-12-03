@@ -2,49 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 441A64677A9
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Dec 2021 13:50:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.237576.412045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DEB0C4677AA
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Dec 2021 13:50:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.237578.412058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mt81Q-0007t8-TR; Fri, 03 Dec 2021 12:50:40 +0000
+	id 1mt81Y-0008D6-BE; Fri, 03 Dec 2021 12:50:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 237576.412045; Fri, 03 Dec 2021 12:50:40 +0000
+Received: by outflank-mailman (output) from mailman id 237578.412058; Fri, 03 Dec 2021 12:50:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mt81Q-0007qs-Pq; Fri, 03 Dec 2021 12:50:40 +0000
-Received: by outflank-mailman (input) for mailman id 237576;
- Fri, 03 Dec 2021 12:50:39 +0000
+	id 1mt81Y-0008Ap-6W; Fri, 03 Dec 2021 12:50:48 +0000
+Received: by outflank-mailman (input) for mailman id 237578;
+ Fri, 03 Dec 2021 12:50:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EuM9=QU=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mt81P-0007qN-1Q
- for xen-devel@lists.xenproject.org; Fri, 03 Dec 2021 12:50:39 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ (envelope-from <SRS0=A+hS=QU=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1mt81X-0007qN-8A
+ for xen-devel@lists.xenproject.org; Fri, 03 Dec 2021 12:50:47 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d333860-5437-11ec-976b-d102b41d0961;
- Fri, 03 Dec 2021 13:50:38 +0100 (CET)
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur02lp2058.outbound.protection.outlook.com [104.47.5.58]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-7-esFGO2z0OWyqmEXH1suymw-1; Fri, 03 Dec 2021 13:50:36 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0401MB2336.eurprd04.prod.outlook.com (2603:10a6:800:27::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Fri, 3 Dec
- 2021 12:50:34 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe%5]) with mapi id 15.20.4734.028; Fri, 3 Dec 2021
- 12:50:34 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM7PR03CA0012.eurprd03.prod.outlook.com (2603:10a6:20b:130::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22 via Frontend
- Transport; Fri, 3 Dec 2021 12:50:33 +0000
+ id a1dd99bf-5437-11ec-976b-d102b41d0961;
+ Fri, 03 Dec 2021 13:50:46 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7E5B61FD3F;
+ Fri,  3 Dec 2021 12:50:45 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 592F213DC9;
+ Fri,  3 Dec 2021 12:50:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id yofvE6USqmGHUAAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 03 Dec 2021 12:50:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -56,128 +51,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d333860-5437-11ec-976b-d102b41d0961
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1638535837;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: a1dd99bf-5437-11ec-976b-d102b41d0961
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1638535845; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Qe6yEJ+aGUWE6fZf6eyPC4snHVft0GIs90q8N6YOv/Q=;
-	b=Pxqq5kf3bK+OoIN2SzPMsQ0YjZaRWG9vFD6dNAe5BXWTZ8cpKzuEVGQRo4vnJD3Re9rgIi
-	Pt5DxdHUGKqDlHwmfD41zS29PrBUhhdzfhcX/GA6b/PJmQS7e8EEeOJ1eimqmRdTyi0lss
-	cnC5DoEUoUEkyTXwswvtbLtEvzsNIQs=
-X-MC-Unique: esFGO2z0OWyqmEXH1suymw-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q9t2NSFq11pJiWzKlqxf4USQJ5Ad7Xw+u9nhDRfAZ2x0f7bo4n5P3YpDy1wduyMbudScwjNyEzTuyd+oLd9h31ykaaEEdU4fXlZRfe/gGTle8CPJl2qhfXD2hSV+EuwLITAO7ZLpvz0ZmqJOqmZWFl/A4ZpNXjAsgmQ1MLuj+GRpBbJ8D2QVPmax2B3Te9Qy2vtjxQ/sr4t2VRg+17m2DFA0ZO8dQT9U3iETZ1gkYlz9FNiRaxiMEQmjwEE3z0nBseIJyS+DqMdKMX7w6J5nulpIZ7p/vziMv3w3cC2NlLEGSAtA/oNocwCT+7v3dZSw+QlY7f2W5qrwJgMliANU5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KrPc8cD+EJ8zaFM/6eDcq7gpUw2conBGCQOsCRVdOrY=;
- b=KnpdIX9uLkvCTRrvIav5axOrtCPwz0rkCDv/MGxfxSST+KQEEKLYTVyVDHuRT074TJtiorwhAux3BIaF7HRIYAZLFn0L3NEz3gxdwtdvmnTkFQOM4VbgdrX87niNjsv0wPzVebRrfRBG65FtIKi8QtkerCwBGUF+XMYKEvQQIGijDyUpE8JSyYzy1TbGDztte7WJ8tVabDFmtkC2/3nGqlJKN8uhYpUuWf2OcDusToKpwOmO6/3JRFaU0enxw5E1JnIxHC9FjxuUu+to5b1YF6hWi/k6kCb6+5xyEkoowU4F4Jfl5UO+L2bxHDjFUd5uPsHGj3joRr8lywtgvU3bzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <0418bdcc-62eb-3d98-1c1a-6b1af0f75d00@suse.com>
-Date: Fri, 3 Dec 2021 13:50:32 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH 1/3] EFI: move efi-boot.h inclusion point
-Content-Language: en-US
-To: Andrew Cooper <amc96@srcf.net>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <46de3a57-76d0-1538-ec3b-79290d1bfb70@suse.com>
- <8b369fc8-8f9e-c350-95de-790d47fd9aae@suse.com>
- <8413bd97-90f5-1b9b-9090-d9fd3bcbcc66@srcf.net>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <8413bd97-90f5-1b9b-9090-d9fd3bcbcc66@srcf.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM7PR03CA0012.eurprd03.prod.outlook.com
- (2603:10a6:20b:130::22) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+	bh=SKtEJiiVmVjiKuYxlfAWTyTTb/iSm7ZWQwrEhO21/xE=;
+	b=tb8s6wAurXzbDiX3OdN+edOGFXNBgKE2Nl9AU4N/jGYGULm4dicV5mVQOy5jY2xYei5eis
+	cbeHaB5+Awj4heQPFh59gjOEGhEVwbgwbMNeyStEH/rDUahqWg6aTBMl/mhHMioZWax53a
+	hvSFt+vdfvdl1DNag6hNGjfyT+dQK9o=
+Subject: Re: [PATCH v7 2/3] usb: Introduce Xen pvUSB frontend (xen hcd)
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: xen-devel@lists.xenproject.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20211123132048.5335-1-jgross@suse.com>
+ <20211123132048.5335-3-jgross@suse.com> <YaoSTnkYyCFXOyvJ@kroah.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <b43c416e-d81a-7d21-5b92-7bc8329bb296@suse.com>
+Date: Fri, 3 Dec 2021 13:50:44 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 29a1ed01-afb4-4c3b-a32f-08d9b65b7f44
-X-MS-TrafficTypeDiagnostic: VI1PR0401MB2336:
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB23367B94C9F0B5247790D338B36A9@VI1PR0401MB2336.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	SOUSBofXR2CH+fIiFA7SJucqv+7pYOER2SeI8z3zeGHpqGmpBV5SKZpaZ++qB3ID+1Bf90TCD7mvG4ouqzv8JKYaWulSMixMoE2HYSk/thDhwLTfG7TV6g3G78s0PAgvt5OotPz/fM4apyKWVXj2ppP/2p/p+4/zIGrxn6xlwjo5Qh1inN1biY7sGA4FBEVJ3FXocmYqD+2IlgrPi6Qf+bpqqRaK4Zbo+lIsk9TscQqAtYeJvhyP7dSssQOs5HN4JcANLWG03Cz/xM/Az2/z6FlVQeyfUz81sZJB55zp5xWv1iBvyXvZrJAxnY1sWZC6YEU+Dlm/+9EW5D0TK9R/DBPI276gBSKWT/K0LP70eLyn2T1GX0K66Bf12LFAWiFm5XKqPr3u3bcTiOSasRAVCpbjHiXGSSjenriw4jOnp8jVjerPVxvyQWxsp6JTsiNQtZEImGCRszfZ8j3YHeLU0/CYsy62MHPYdFvybPkNhYWD83hMzIr9AFvBxdT1iuGWqdN92hNHcm/kz7CjRnhtrRD7SNYY51Wvg+emF0ym8lomB24jTyRAspUCavZxH4Kk5Ufo1rzYNyxcflcu3tjFlyHIKN1zrv5rxUMTma3xOLQ1YUAeHrZBa1ZmF2lr42KFFMv0kpSZFD4utEjDr92qa+0IFDDVyBiqb4R1g8QKf/FpEcukLbNUIUX3wMjiTT+NJoaS0k4X+Gl0eYzu5cFirE9U4wjHGQH1Btubb5C2nBk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(26005)(316002)(8676002)(36756003)(8936002)(66946007)(31686004)(83380400001)(66556008)(38100700002)(53546011)(66476007)(2616005)(956004)(6916009)(86362001)(186003)(6486002)(54906003)(16576012)(31696002)(2906002)(508600001)(5660300002)(4326008)(4744005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2qmYH+BTe9cKHrQDrPXrSBTtpH31UtE5odv60QVXknrYD7FPHDyv9eCKc9Wj?=
- =?us-ascii?Q?2vDcVQDG44m5jkecvJGaMkI2fQef3xwyEbfcdAAQJnFDjKQTey3ZtBcQcS7n?=
- =?us-ascii?Q?Gc/fGtvCvgYP7Ksc8dveYLCa07lVUPBajs/gFpoKs1Iz5WWGCpa1VxROn6sy?=
- =?us-ascii?Q?pw21mdm2xbbfw4i1NnOPhmBnTRq+NAfopAp/IocXMA0Y164oVb45Kq45D2kt?=
- =?us-ascii?Q?FOyAEbdxeoFpLv3zQr6gpdducA+I703ty786mqL9lu/6vZpaG3jNSl5w8CGy?=
- =?us-ascii?Q?b14rq9I+qJdwfMkVlj6dNL70wSFNOOjyK1sp+qGYpz7d9WDp+ZYaCZhOJs18?=
- =?us-ascii?Q?1nQHCrPom9sqOX4E3w0+8WyAKIrjdBCP0WNze7uVW9Gv9SphK+xXIiT9iFCZ?=
- =?us-ascii?Q?/Klfmx5IzbyfPpKydkyC89EkRrj8/PKMnbp3rQL/vgYToGIhfhc+95jArpa4?=
- =?us-ascii?Q?BLqvnqOfv5jtskPI/spPujAaZZbF+RN+ie8JYrdSxa4J+BWBLuWZRDGUH23t?=
- =?us-ascii?Q?8CD8kYFu4XlvFji5D7rqBRhuQ8/+p0ItApIkFSYmr9t59wCc9+Ia3BIIpUR0?=
- =?us-ascii?Q?B8sjGzjNIVup2C7E8ii2h21EXgp7dEfHdz8uCXnsqawlQlIRd0OAb1uoWyST?=
- =?us-ascii?Q?Eie6QmHVTe3Nd4DJ3owOZ5ezBeWMq7Xc1R/R0rNSJtMFVz3SAOOcYhkMcnmt?=
- =?us-ascii?Q?1x9aDjkUWtm2UT9ieLDDIJiZVHPWXEisWYUIU51iLqv6uR0xofFQiN6pIPcJ?=
- =?us-ascii?Q?gIpjRyegQm88zhtq92uSxd9WziSZ2b2b+ndlQ4URDFAzKvDjTTCMSpfhrbZC?=
- =?us-ascii?Q?ulLX6LW8+6yveeb3nTkanvWwb8jkN+Fs7SVQzkC1lv8zznO39vAtEq2DlH9Z?=
- =?us-ascii?Q?MOIhlFLsfw/gUivUCx25zlGKopTWLFX886hTrr6srzBGoASidM95TrBpZekf?=
- =?us-ascii?Q?SP76mNkRS/F19SU0065ntFcb3gv0Wb/EgFQHJhjOuRlRV2YPpaNjHT9o7n1H?=
- =?us-ascii?Q?oo6DKqUY6XDZt04H9FqLbhv3wMPCgFmJMKxdrjHrOiHvFrh59kE94Wjax+aB?=
- =?us-ascii?Q?bw6F77l94EFf37uGK0q2xIdfuODO4IMyT0CdaPIbaYc64iarO9+Jtpro+yxS?=
- =?us-ascii?Q?358twUhMhQsB47ocFH8TXnLrbeIYRnsS9+tPu+M892VLseHVQ7X5XTbNkkvR?=
- =?us-ascii?Q?UDkrvA9ISqUcsrwl+wjRPe6g7NDgG3OjqDpWJ8pcm/dqxPFH9IwRcdOMcgJ2?=
- =?us-ascii?Q?xSXqZcpMczpnCN+dCZQquP0rUosNxJeVGMRVKowElajAOST/204ZbOnoyaNZ?=
- =?us-ascii?Q?Q47r0ux8331h74xhqrcPyu6RPwrL9wbDVN+7A/hMVjYERuyao3oa7XjpxdlW?=
- =?us-ascii?Q?ICIdNrfXbucjVRbyDU+NPnujLV7wqHruXgS9C8sBBMWehtPUocLKoc+RPu02?=
- =?us-ascii?Q?p4GPBAwskmDRVRp+6tBnJwoX1mgBbxrNF6S2aXjvJV1KhI9Jim0DSkfgwsua?=
- =?us-ascii?Q?Q1pQYeFkheBUTqpsgmTVkFymj4EGP0bawtsp8StEzCNrW1pyM7aMUJOiufvG?=
- =?us-ascii?Q?oEoZnNPNOWNua+JML4SXV0/ckRf4+4MhfQmILfVA4BIwE7oV9rg8T+qMBIxK?=
- =?us-ascii?Q?cL5ldx0YAYK+6tlJtYB5cJQ=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29a1ed01-afb4-4c3b-a32f-08d9b65b7f44
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2021 12:50:34.4728
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pq700X23Ly8387rzftRrXr2fFAJa6si97rHtuzptgIt0v8lvWyfuc4J69xAImf3F7nDZ/yoljtEzrIDqJ1/m/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2336
+In-Reply-To: <YaoSTnkYyCFXOyvJ@kroah.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="x1mYDcVqmz7b5bc8MJK83imoEBOV0AN4c"
 
-On 03.12.2021 12:21, Andrew Cooper wrote:
-> On 03/12/2021 10:56, Jan Beulich wrote:
->> When it was introduced, it was imo placed way too high up, making it
->> necessary to forward-declare way too many static functions. Move it down
->> together with
->> - the efi_check_dt_boot() stub, which afaict was deliberately placed
->>   immediately ahead of the #include,
->> - blexit(), because of its use of the efi_arch_blexit() hook.
->> Move up get_value() and set_color() to before the inclusion so their
->> forward declarations can also be zapped.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--x1mYDcVqmz7b5bc8MJK83imoEBOV0AN4c
+Content-Type: multipart/mixed; boundary="IrZAaRCDRAW8mmqbSA2GhRkvh41Wxu1ze";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: xen-devel@lists.xenproject.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-ID: <b43c416e-d81a-7d21-5b92-7bc8329bb296@suse.com>
+Subject: Re: [PATCH v7 2/3] usb: Introduce Xen pvUSB frontend (xen hcd)
+References: <20211123132048.5335-1-jgross@suse.com>
+ <20211123132048.5335-3-jgross@suse.com> <YaoSTnkYyCFXOyvJ@kroah.com>
+In-Reply-To: <YaoSTnkYyCFXOyvJ@kroah.com>
+
+--IrZAaRCDRAW8mmqbSA2GhRkvh41Wxu1ze
+Content-Type: multipart/mixed;
+ boundary="------------BE40DD6938C15AA655817C7F"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------BE40DD6938C15AA655817C7F
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 03.12.21 13:49, Greg Kroah-Hartman wrote:
+> On Tue, Nov 23, 2021 at 02:20:47PM +0100, Juergen Gross wrote:
+>> Introduces the Xen pvUSB frontend. With pvUSB it is possible for a Xen=
+
+>> domU to communicate with a USB device assigned to that domU. The
+>> communication is all done via the pvUSB backend in a driver domain
+>> (usually Dom0) which is owner of the physical device.
 >>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> The pvUSB frontend is a USB hcd for a virtual USB host connector.
+>>
+>> The code is taken from the pvUSB implementation in Xen done by Fujitsu=
+
+>> based on Linux kernel 2.6.18.
+>>
+>> Changes from the original version are:
+>> - port to upstream kernel
+>> - put all code in just one source file
+>> - move module to appropriate location in kernel tree
+>> - adapt to Linux style guide
+>> - minor code modifications to increase readability
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>>   drivers/usb/host/Kconfig   |   11 +
+>>   drivers/usb/host/Makefile  |    1 +
+>>   drivers/usb/host/xen-hcd.c | 1606 ++++++++++++++++++++++++++++++++++=
+++
+>>   3 files changed, 1618 insertions(+)
+>>   create mode 100644 drivers/usb/host/xen-hcd.c
 >=20
-> Why does blexit() need moving?=C2=A0 It isn't static, and has a real
-> prototype in efi.h
+> This looks sane to me, but I don't know the HCD interface as well as
+> others on linux-usb do, like Alan Stern.
+>=20
+> What tree do you want this to be merged through, my USB one?
 
-Correct, but the movement is for the functions it uses from efi-boot.h:
-efi_arch_halt() and efi_arch_blexit() at least (which actually the
-commit message also says, for one of the two at least).
+Either that, or I can carry it through the Xen tree.
 
-Jan
+Its your choice. :-)
 
+
+Juergen
+
+--------------BE40DD6938C15AA655817C7F
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------BE40DD6938C15AA655817C7F--
+
+--IrZAaRCDRAW8mmqbSA2GhRkvh41Wxu1ze--
+
+--x1mYDcVqmz7b5bc8MJK83imoEBOV0AN4c
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGqEqQFAwAAAAAACgkQsN6d1ii/Ey83
+nQf+Jd52GN9HgJC6vsgHZCz14Cz5jdkhbcDLc6uQeP3YMSNNGQWKXvJEoKj+tyaHr6gQBp+ipqRJ
+SwdQ3JsneWyp1EY2vXy99hdINWcA/fOa2iiYOFWUQx+T8n2qx3kv1HPZjGGWYDWqXRPmPsFrQEXf
+b6XVRRBp4/7qmMidy58sAcWYmHQwpLL1XvzJ6tdfMCPzFrMgPWBrrtnL9Lu0ADrcJ0hWapdt5h/P
+J34DrhzYJLbdhH2CMUrUBS3Ne5f6kLWOwHcBhj/vsr1P2utnf1BAoZRta7sA1rfZcuKdl7QLezzM
+CG6Z9YJUu4Avwt93fIQvwJG9pi80Lp0H0K3pzQJc0g==
+=OjP3
+-----END PGP SIGNATURE-----
+
+--x1mYDcVqmz7b5bc8MJK83imoEBOV0AN4c--
 
