@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 015ED467928
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Dec 2021 15:11:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.237696.412276 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48CCF467930
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Dec 2021 15:12:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.237701.412286 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mt9H9-0001tm-WB; Fri, 03 Dec 2021 14:10:59 +0000
+	id 1mt9IX-0002U0-B4; Fri, 03 Dec 2021 14:12:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 237696.412276; Fri, 03 Dec 2021 14:10:59 +0000
+Received: by outflank-mailman (output) from mailman id 237701.412286; Fri, 03 Dec 2021 14:12:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mt9H9-0001rm-SW; Fri, 03 Dec 2021 14:10:59 +0000
-Received: by outflank-mailman (input) for mailman id 237696;
- Fri, 03 Dec 2021 14:10:58 +0000
+	id 1mt9IX-0002RG-7y; Fri, 03 Dec 2021 14:12:25 +0000
+Received: by outflank-mailman (input) for mailman id 237701;
+ Fri, 03 Dec 2021 14:12:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=LwEy=QU=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1mt9H8-0001rf-PX
- for xen-devel@lists.xenproject.org; Fri, 03 Dec 2021 14:10:58 +0000
-Received: from ppsw-42.csi.cam.ac.uk (ppsw-42.csi.cam.ac.uk [131.111.8.142])
+ id 1mt9IV-0002R0-DC
+ for xen-devel@lists.xenproject.org; Fri, 03 Dec 2021 14:12:23 +0000
+Received: from ppsw-32.csi.cam.ac.uk (ppsw-32.csi.cam.ac.uk [131.111.8.132])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d5afb6a7-5442-11ec-b1df-f38ee3fbfdf7;
- Fri, 03 Dec 2021 15:10:57 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:35098)
- by ppsw-42.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.138]:25)
+ id 0827c63e-5443-11ec-b1df-f38ee3fbfdf7;
+ Fri, 03 Dec 2021 15:12:22 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:44318)
+ by ppsw-32.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.136]:25)
  with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1mt9H6-000HOP-9B (Exim 4.95) (return-path <amc96@srcf.net>);
- Fri, 03 Dec 2021 14:10:56 +0000
+ id 1mt9IT-000mMJ-1s (Exim 4.95) (return-path <amc96@srcf.net>);
+ Fri, 03 Dec 2021 14:12:21 +0000
 Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
  (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id A72211FC8B;
- Fri,  3 Dec 2021 14:10:56 +0000 (GMT)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 662331FC8B;
+ Fri,  3 Dec 2021 14:12:21 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,112 +45,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5afb6a7-5442-11ec-b1df-f38ee3fbfdf7
+X-Inumbo-ID: 0827c63e-5443-11ec-b1df-f38ee3fbfdf7
 X-Cam-AntiVirus: no malware found
 X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <ef297668-96ba-851d-2990-179f6dcb9f37@srcf.net>
-Date: Fri, 3 Dec 2021 14:10:56 +0000
+Message-ID: <76c98cae-13d5-4ad8-9238-71bef56609d1@srcf.net>
+Date: Fri, 3 Dec 2021 14:12:21 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
+Subject: Re: [PATCH 62/65] x86/entry: Make IDT entrypoints CET-IBT compatible
 Content-Language: en-GB
 To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
 References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
- <20211126163340.26714-1-andrew.cooper3@citrix.com>
- <e5da1903-20bc-4523-9d0a-6071f117c3ce@suse.com>
+ <20211126123446.32324-63-andrew.cooper3@citrix.com>
+ <c41e4bf9-e523-ec9b-aeb9-c91662685dc4@suse.com>
 From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH 59.5/65] x86: Introduce helpers/checks for endbr64
- instructions
-In-Reply-To: <e5da1903-20bc-4523-9d0a-6071f117c3ce@suse.com>
+In-Reply-To: <c41e4bf9-e523-ec9b-aeb9-c91662685dc4@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 03/12/2021 13:59, Jan Beulich wrote:
-> On 26.11.2021 17:33, Andrew Cooper wrote:
->> ... to prevent the optimiser creating unsafe code.  See the code comment for
->> full details.
+On 03/12/2021 13:23, Jan Beulich wrote:
+> On 26.11.2021 13:34, Andrew Cooper wrote:
+>> Each IDT vector needs to land on an endbr64 instruction.  This is especially
+>> important for the #CP handler, which will escalate to #DF if the endbr64 is
+>> missing.
 >>
->> Also add a build time check for endbr64 embedded in imm32 operands, which
->> catches the obvious cases where the optimiser has done an unsafe thing.
-> But this is hardly enough to be safe. I'd even go as far as saying we can
-> do without it if we don't check more thoroughly.
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-I will do the full check in v2.  Marek wrote the full check in response
-to a discussion about this patch.
+Thanks.
 
 >
->> --- a/xen/arch/x86/Makefile
->> +++ b/xen/arch/x86/Makefile
->> @@ -190,6 +190,10 @@ $(TARGET)-syms: prelink.o xen.lds
->>  	$(MAKE) -f $(BASEDIR)/Rules.mk efi-y= $(@D)/.$(@F).1.o
->>  	$(LD) $(XEN_LDFLAGS) -T xen.lds -N prelink.o $(build_id_linker) \
->>  	    $(@D)/.$(@F).1.o -o $@
->> +ifeq ($(CONFIG_XEN_IBT),y)
->> +	$(OBJDUMP) -d $@ | grep 0xfa1e0ff3 >/dev/null && \
->> +		{ echo "Found embedded endbr64 instructions" >&2; false; } || :
-> I guess I'm confused: The "false;" suggests to me you want to make the
-> build fail in such a case. The "|| :" otoh suggests you want to silence
-> errors (and not just the one from grep when not finding the pattern
-> aiui).
-
-The exit code of grep needs inverting for the build to proceed
-correctly.  Without || :, all builds fail when they've not got the pattern.
-
-> Also isn't passing -q to grep standard enough (and shorter) to use in
-> place of redirecting its output to /dev/null?
-
-That caused problems on the BSDs.  c/s e632d56f0f5 went through several
-iterations before settling on this pattern.
-
+> One remark though:
 >
->> --- /dev/null
->> +++ b/xen/include/asm-x86/endbr.h
->> @@ -0,0 +1,55 @@
->> +/******************************************************************************
->> + * include/asm-x86/endbr.h
->> + *
->> + * This program is free software; you can redistribute it and/or modify
->> + * it under the terms of the GNU General Public License as published by
->> + * the Free Software Foundation; either version 2 of the License, or
->> + * (at your option) any later version.
->> + *
->> + * This program is distributed in the hope that it will be useful,
->> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
->> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->> + * GNU General Public License for more details.
->> + *
->> + * You should have received a copy of the GNU General Public License
->> + * along with this program; If not, see <http://www.gnu.org/licenses/>.
->> + *
->> + * Copyright (c) 2021 Citrix Systems Ltd.
->> + */
->> +#ifndef XEN_ASM_ENDBR_H
->> +#define XEN_ASM_ENDBR_H
->> +
->> +#include <xen/compiler.h>
->> +
->> +/*
->> + * In some cases we need to inspect/insert endbr64 instructions.
->> + *
->> + * The naive way, mem{cmp,cpy}(ptr, "\xf3\x0f\x1e\xfa", 4), optimises unsafely
->> + * by placing 0xfa1e0ff3 in an imm32 operand, which marks a legal indirect
->> + * branch target as far as the CPU is concerned.
->> + *
->> + * gen_endbr64() is written deliberately to avoid the problematic operand, and
->> + * marked __const__ as it is safe for the optimiser to hoist/merge/etc.
->> + */
->> +static inline uint32_t __attribute_const__ gen_endbr64(void)
->> +{
->> +    uint32_t res;
->> +
->> +    asm ( "mov $~0xfa1e0ff3, %[res]\n\t"
->> +          "not %[res]\n\t"
->> +          : [res] "=r" (res) );
-> Strictly speaking "=&r".
+>> @@ -1136,7 +1158,8 @@ autogen_stubs: /* Automatically generated stubs. */
+>>  #endif
+>>  
+>>          ALIGN
+>> -1:      pushq $0
+>> +1:      ENDBR64
+>> +        pushq $0
+>>          movb  $vec,4(%rsp)
+>>          jmp   common_interrupt
+>>  
+>> @@ -1146,7 +1169,8 @@ autogen_stubs: /* Automatically generated stubs. */
+>>          .elseif vec == X86_EXC_CSO || vec == X86_EXC_SPV || \
+>>                  vec == X86_EXC_VE  || (vec > X86_EXC_CP && vec < TRAP_nr)
+>>  
+>> -1:      test  $8,%spl        /* 64bit exception frames are 16 byte aligned, but the word */
+>> +1:      ENDBR64
+>> +        test  $8,%spl        /* 64bit exception frames are 16 byte aligned, but the word */
+>>          jz    2f             /* size is 8 bytes.  Check whether the processor gave us an */
+>>          pushq $0             /* error code, and insert an empty one if not.              */
+>>  2:      movb  $vec,4(%rsp)
+> Like with initializers of compound objects vs trailing commas there, I
+> think it would help if we moved away from placing insns on the same
+> lines as labels. As can be seen here, inserting something always means
+> touching two lines instead of just adding one.
 
-Ok.
+I had actually wondered the same, without drawing a comparison to
+trailing commas.  I'll adjust.
 
 ~Andrew
 
