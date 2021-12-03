@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52CE0467B0B
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Dec 2021 17:11:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.237813.412431 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A25E7467B09
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Dec 2021 17:11:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.237814.412442 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mtB93-0005Q2-P4; Fri, 03 Dec 2021 16:10:45 +0000
+	id 1mtB98-0005fk-05; Fri, 03 Dec 2021 16:10:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 237813.412431; Fri, 03 Dec 2021 16:10:45 +0000
+Received: by outflank-mailman (output) from mailman id 237814.412442; Fri, 03 Dec 2021 16:10:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mtB93-0005NA-Kk; Fri, 03 Dec 2021 16:10:45 +0000
-Received: by outflank-mailman (input) for mailman id 237813;
- Fri, 03 Dec 2021 16:10:43 +0000
+	id 1mtB97-0005dX-S7; Fri, 03 Dec 2021 16:10:49 +0000
+Received: by outflank-mailman (input) for mailman id 237814;
+ Fri, 03 Dec 2021 16:10:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/Fj5=QU=perches.com=joe@srs-se1.protection.inumbo.net>)
- id 1mtB91-0005N2-PO
- for xen-devel@lists.xenproject.org; Fri, 03 Dec 2021 16:10:43 +0000
-Received: from smtprelay.hostedemail.com (smtprelay0009.hostedemail.com
- [216.40.44.9]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f59a762-5453-11ec-976b-d102b41d0961;
- Fri, 03 Dec 2021 17:10:41 +0100 (CET)
-Received: from omf12.hostedemail.com (clb03-v110.bra.tucows.net [216.40.38.60])
- by smtprelay05.hostedemail.com (Postfix) with ESMTP id 0E2FB180AF868;
- Fri,  3 Dec 2021 16:10:40 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by
- omf12.hostedemail.com (Postfix) with ESMTPA id 564242D; 
- Fri,  3 Dec 2021 16:10:38 +0000 (UTC)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BQRQ=QU=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1mtB95-0005N2-Vx
+ for xen-devel@lists.xenproject.org; Fri, 03 Dec 2021 16:10:48 +0000
+Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
+ [2607:f8b0:4864:20::430])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 92c37a01-5453-11ec-976b-d102b41d0961;
+ Fri, 03 Dec 2021 17:10:47 +0100 (CET)
+Received: by mail-pf1-x430.google.com with SMTP id o4so3300734pfp.13
+ for <xen-devel@lists.xenproject.org>; Fri, 03 Dec 2021 08:10:47 -0800 (PST)
+Received: from [10.11.23.113] (wsip-24-120-54-60.lv.lv.cox.net. [24.120.54.60])
+ by smtp.gmail.com with ESMTPSA id w19sm2713866pjh.10.2021.12.03.08.10.45
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 03 Dec 2021 08:10:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,138 +44,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f59a762-5453-11ec-976b-d102b41d0961
-Message-ID: <737d7d96deec73039699d62cd42b26b8862ae373.camel@perches.com>
-Subject: Re: [PATCH] xen-blkfront: Use the bitmap API when applicable
-From: Joe Perches <joe@perches.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, Juergen Gross
-	 <jgross@suse.com>, boris.ostrovsky@oracle.com, sstabellini@kernel.org, 
-	roger.pau@citrix.com, axboe@kernel.dk
-Cc: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
-Date: Fri, 03 Dec 2021 08:10:37 -0800
-In-Reply-To: <1e9291c6-48bb-88e5-37dc-f604cfa4c4db@wanadoo.fr>
-References: 
-	<1c73cf8eaff02ea19439ec676c063e592d273cfe.1638392965.git.christophe.jaillet@wanadoo.fr>
-	 <c529a221-f444-ad26-11ff-f693401c9429@suse.com>
-	 <d8f87c17-75d1-2e6b-65e1-23adc75bb515@wanadoo.fr>
-	 <6fcddba84070c021eb92aa9a5ff15fb2a47e9acb.camel@perches.com>
-	 <3d71577f-dabe-6e1a-4b03-2a44f304b702@wanadoo.fr>
-	 <863f2cddacac590d581cda09d548ee0a652df8a1.camel@perches.com>
-	 <1e9291c6-48bb-88e5-37dc-f604cfa4c4db@wanadoo.fr>
-Content-Type: text/plain; charset="ISO-8859-1"
-User-Agent: Evolution 3.40.4-1ubuntu2 
+X-Inumbo-ID: 92c37a01-5453-11ec-976b-d102b41d0961
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:reply-to:subject
+         :content-language:to:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=XoL6Grb/bJtvvyOFRBlLY63JKkRh7VeY4v7ZnbbCBGc=;
+        b=SOJ9rHCIYoJDRrUPHbyhGDiYgj+aySuB4y+E/XCdhYGTrFwsF33KPzFqQ3hZv5IWko
+         +TuSKC4S6vNYpqWr7C8qXvonSErwcyLHUjHdjPF9QA9bfrIPBssnXrCdV2NqTEInCmLV
+         aeLD3da2lrR/YyXVN9qOL7mXx3WeODtEsfNRbFhrSmqzoGIYZc5pKUZXWSQpS0q9wEpH
+         QDGjitscNjuDF2reREItCqYWzzL4nvA54zGmLtepve/KOADCPu1zKg3j59QFDWCumuFZ
+         CKQwLVrjVoy820JjJ7So5sTjY1VTlgZx6crjGqXHVzqF/jH8LcvdgYhkk8LIriNP2nVV
+         vrAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
+         :subject:content-language:to:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=XoL6Grb/bJtvvyOFRBlLY63JKkRh7VeY4v7ZnbbCBGc=;
+        b=eSntKCmqoC6Y93LB31NaMtyukdDSwjkCTfw+uIaTPjXlNy+X6Zukb8WYnk5KsPItEm
+         0jhry54Y+jKqknLr+nMZWHHtl6wL0I6vERFwlsf1Fy8xWzT5ukUXimtRht9h2XuDosEF
+         jUaDt593xOkgSrIX2l+uJzcjlY4n3OWo2fRLBEHxBEIF3TJSwlE8xqE2hQ1eZrE/3KGr
+         ITyvAFgGEiqj4YoI225m7Ll/PZrZWcj5o8kMj2aFsoarxu0ymynSXTmZnpc6UcKc8vug
+         Z2gLnS1NtHVon1RBfD9ZOBuFnFLQno+fcefSqTiYyXENQaWbXFRLNtYg0Eo1sDNRAUPV
+         aitw==
+X-Gm-Message-State: AOAM531qLlWcukROFYW8DLE8yZhhKKnnn3Z9x6sOehj6yrqIIE5z/+nk
+	Q3PqdRL38YWVBwM6JinSbBDIxltQ8aL/UQ==
+X-Google-Smtp-Source: ABdhPJx08RY05QSK05UPhcxaDTteUlpF6rLSoyl/NUtBTZOTZsPu9PiBsb1TbIMex8WKD+j4C1lw0g==
+X-Received: by 2002:a65:5ccb:: with SMTP id b11mr5039148pgt.408.1638547845685;
+        Fri, 03 Dec 2021 08:10:45 -0800 (PST)
+Message-ID: <9647b586-e325-0d3a-3369-e3b13e45af9d@gmail.com>
+Date: Fri, 3 Dec 2021 08:10:44 -0800
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 564242D
-X-Spam-Status: No, score=-4.90
-X-Stat-Signature: skzu1e47gn4yh4br1u6yk3izt6hqdaja
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX1/Cp6pUluPgKVCI9lR+/9PfIk4J2JPI1hA=
-X-HE-Tag: 1638547838-500636
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Reply-To: paul@xen.org
+Subject: Re: [PATCH v7 6/7] xen/arm: process pending vPCI map/unmap operations
+Content-Language: en-US
+To: xen-devel@lists.xenproject.org
+References: <20211124075942.2645445-1-andr2000@gmail.com>
+ <20211124075942.2645445-7-andr2000@gmail.com>
+From: "Durrant, Paul" <xadimgnik@gmail.com>
+In-Reply-To: <20211124075942.2645445-7-andr2000@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2021-12-03 at 16:54 +0100, Christophe JAILLET wrote:
-> Le 03/12/2021 à 04:03, Joe Perches a écrit :
-> > On Thu, 2021-12-02 at 20:07 +0100, Christophe JAILLET wrote:
-> > > Le 02/12/2021 à 19:16, Joe Perches a écrit :
-> > > > On Thu, 2021-12-02 at 19:12 +0100, Christophe JAILLET wrote:
-> > > > > Le 02/12/2021 à 07:12, Juergen Gross a écrit :
-> > > > > > On 01.12.21 22:10, Christophe JAILLET wrote:
-> > > > > > > Use 'bitmap_zalloc()' to simplify code, improve the semantic and avoid
-> > > > > > > some open-coded arithmetic in allocator arguments.
-> > > > > > > 
-> > > > > > > Also change the corresponding 'kfree()' into 'bitmap_free()' to keep
-> > > > > > > consistency.
-> > > > > > > 
-> > > > > > > Use 'bitmap_copy()' to avoid an explicit 'memcpy()'
-> > > > []
-> > > > > > > diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-> > > > []
-> > > > > > > @@ -442,16 +442,14 @@ static int xlbd_reserve_minors(unsigned int
-> > > > > > > minor, unsigned int nr)
-> > > > > > >         if (end > nr_minors) {
-> > > > > > >             unsigned long *bitmap, *old;
-> > > > > > > -        bitmap = kcalloc(BITS_TO_LONGS(end), sizeof(*bitmap),
-> > > > > > > -                 GFP_KERNEL);
-> > > > > > > +        bitmap = bitmap_zalloc(end, GFP_KERNEL);
-> > > > > > >             if (bitmap == NULL)
-> > > > > > >                 return -ENOMEM;
-> > > > > > >             spin_lock(&minor_lock);
-> > > > > > >             if (end > nr_minors) {
-> > > > > > >                 old = minors;
-> > > > > > > -            memcpy(bitmap, minors,
-> > > > > > > -                   BITS_TO_LONGS(nr_minors) * sizeof(*bitmap));
-> > > > > > > +            bitmap_copy(bitmap, minors, nr_minors);
-> > > > > > >                 minors = bitmap;
-> > > > > > >                 nr_minors = BITS_TO_LONGS(end) * BITS_PER_LONG;
-> > > > 
-> > > > 		nr_minors = end;
-> > > > ?
-> > > > 
-> > > 
-> > > No,
-> > > My understanding of the code is that if we lack space (end > nr_minors),
-> > > we need to allocate more. In such a case, we want to keep track of what
-> > > we have allocated, not what we needed.
-> > > The "padding" bits in the "long align" allocation, can be used later.
-> > 
-> > > 
-> > > first call
-> > > ----------
-> > > end = 65
-> > > nr_minors = 63
-> > > 
-> > > --> we need some space
-> > > --> we allocate 2 longs = 128 bits
-> > > --> we now use 65 bits of these 128 bits
-> > 
-> > or 96, 32 or 64 bit longs remember.
+On 23/11/2021 23:59, Oleksandr Andrushchenko wrote:
+> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 > 
-> 32 and 64 for sure, but I was not aware of 96. On which arch?
-
-For more clarity that should have been a period instead of comma after 96.
-
-
-> > The initial allocation is now bitmap_zalloc which
-> > specifies only bits and the nr_minors is then in
-> > BITS_TO_LONGS(bits) * BITS_PER_LONG
-> > 
-> > Perhaps that assumes too much about the internal
-> > implementation of bitmap_alloc
+> vPCI may map and unmap PCI device memory (BARs) being passed through which
+> may take a lot of time. For this those operations may be deferred to be
+> performed later, so that they can be safely preempted.
 > 
-> I get your point now, and I agree with you.
+> Currently this deferred processing is happening in common IOREQ code
+> which doesn't seem to be the right place for x86 and is even more
+> doubtful because IOREQ may not be enabled for Arm at all.
+> So, for Arm the pending vPCI work may have no chance to be executed
+> if the processing is left as is in the common IOREQ code only.
+> For that reason make vPCI processing happen in arch specific code.
 > 
-> Maybe something as what is done in mc-entity.c?
-> Explicitly require more bits (which will be allocated anyway), instead 
-> of taking advantage (read "hoping") that it will be done.
-
-Sure, that's sensible.
-
-> Could be:
+> Please be aware that there are a few outstanding TODOs affecting this
+> code path, see xen/drivers/vpci/header.c:map_range and
+> xen/drivers/vpci/header.c:vpci_process_pending.
 > 
-> @@ -440,26 +440,25 @@ static int xlbd_reserve_minors(unsigned int minor, 
-> unsigned int nr)
->   	int rc;
-> 
->   	if (end > nr_minors) {
->   		unsigned long *bitmap, *old;
-> 
-> -		bitmap = kcalloc(BITS_TO_LONGS(end), sizeof(*bitmap),
-> -				 GFP_KERNEL);
-> +		end = ALIGN(end, BITS_PER_LONG);
+> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> [x86 part]
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-Though it may be more sensible to use some other alignment
-like round_up and not use BITS_PER_LONG at all as the
-number of these may not be dependent on 32/64 bit arches
-at all.
-
-Maybe something like:
-
-#define GROW_MINORS	64
-
-		end = round_up(nr_minors, GROW_MINORS);
-
-etc...
-
+Reviewed-by: Paul Durrant <paul@xen.org>
 
