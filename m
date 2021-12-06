@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D80946A1E8
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 18:03:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.239417.414959 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B97B46A23B
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 18:07:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.239443.415097 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muHOF-00061e-5N; Mon, 06 Dec 2021 17:02:59 +0000
+	id 1muHS4-0004tC-HZ; Mon, 06 Dec 2021 17:06:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 239417.414959; Mon, 06 Dec 2021 17:02:59 +0000
+Received: by outflank-mailman (output) from mailman id 239443.415097; Mon, 06 Dec 2021 17:06:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muHOF-0005vh-1H; Mon, 06 Dec 2021 17:02:59 +0000
-Received: by outflank-mailman (input) for mailman id 239417;
- Mon, 06 Dec 2021 17:02:57 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1muHS4-0004qz-D3; Mon, 06 Dec 2021 17:06:56 +0000
+Received: by outflank-mailman (input) for mailman id 239443;
+ Mon, 06 Dec 2021 17:06:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+yl1=QX=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1muHOD-0005ti-PF
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 17:02:57 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5aafbb36-56b6-11ec-8a4d-196798b21f7b;
- Mon, 06 Dec 2021 18:02:56 +0100 (CET)
+ id 1muHOg-0005ta-M1
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 17:03:26 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6bcafb74-56b6-11ec-a5e1-b9374ead2679;
+ Mon, 06 Dec 2021 18:03:25 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,66 +36,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5aafbb36-56b6-11ec-8a4d-196798b21f7b
+X-Inumbo-ID: 6bcafb74-56b6-11ec-a5e1-b9374ead2679
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1638810175;
+  d=citrix.com; s=securemail; t=1638810205;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=TKhye1HdvBigP9+nr6Vr3o8+wKLgJNZaOQSBuxAwT3A=;
-  b=D9pSmLqtU6tjHnaq4wiHRboT7YKSEUgXwBxwKlV6AJ0leXicu4zpK17s
-   oUNOiAYaI8Pk0UJEEukdILCH/TcFNldERvuHVTlugF2/hYAvhrUvvVArL
-   IS1fvldlg43w5FH+bSxmJZiTECMTBXdwZY0H4ZasEv5gOu2+19IW5PzvB
-   E=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: IoCEYYuY/DFWYmh5ZyCzieeAJWqnNZtsTDbox4g5TBa6c6aASZlK9sGjCzw/778vYTuenwhs/1
- BabPmbzf8+v3CPGnaSHZqaYLPJQ7TlcfQS36CWLgBaJ1fPfEa+IZDHlAQVLzRXvN1ZZlYFfC6E
- AmvWDkK4vJ3edBmZczrFyOymvFF9G8QsAdaAgp4uwdcVhqfj1USGS5TT29Kyhx6SLliwjb1eeg
- WKq+y97A/5MtXWZcr7lfuspnw4SllwDM594lJpZz5iI/zdUkPVefQAc9NnBksUxlGmpf/UHveD
- KH1phze3r0WTLoP4of1TZDrE
+  bh=7aOw8syolA2pTNhK+TaqXfl93M4Y1PlS90vYN+kTCEs=;
+  b=ZXBM6mt2KR8XlgTCinH9E4/rzpLzIt+hWK1iktxaj+pxOp+/8jn9chIg
+   +gona542ud50hqtV4TZe6DmqpSKCLzTlio5hDQ/W1ZfpMkn44jCx1xtAD
+   U0jABKCKXJt8tt+uh88JILsVL/MRx66yv8hdtCPALOhJczHPc1R1MGB1n
+   A=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: rQVJznZ5uG9sm+n5Vr8uI41OMqkvi/LSOFE2AFkmUsO58NtDw0w7Ab6eRfrJl+81DSs9hU0C1C
+ Y6TxwQ0bK1y1MhkZRtDH/DaWEvC2jn8SLpo1H6ao5P62cqamfqS9JhM2VwHJvAnmZ35CQ9YCdx
+ nVFTq91G8HSvLGCWjwQAwxsM/u+Okbu2HjJQ2f4fSIpjjCL8q3yxYUZlxm3B4sfLbD8WAHRrGg
+ EBdHDVbSeY85GwKtXY7fLp6mH8Mx5KbOeNsauSRXJa5AZmrHkKmpuuFZaLR8780wsAgR85ITdX
+ jDm6V/7RUTMAOfJozAYJ3EHP
 X-SBRS: 5.1
-X-MesageID: 58884262
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 59766334
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:HBweeasv9KWcO5iyglgQT8dxpufnVM1ZMUV32f8akzHdYApBsoF/q
- tZmKT/XM/yMMWH9eoojO4m09RkA7JaHy9BkTAtu+CozHn8b+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHhJZS5LwbZj29cy2YbhWWthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- NpllseRQgIYH7L1gN8SWT14CCFxD6Ia0eqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DNYUDunZm3HfBAOwvW5zrSKTW/95Imjw3g6iiGN6DN
- 5pJNWAxNnwsZTUXNn4HLZE6mdvyhybWS2EAhA/El7Qetj27IAtZj+G2bYu9lsaxbcdImkeVo
- ErW8mK/BQsVXPSE0iaM+H+ogu7JnAv4VZgUGbn+8eRl6HWMwkQDBRtQUkG0ydG7gEOjX9NUK
- 2QP5zEj66M18SSDXtT7GhG1vnOAlhodQMZLVf037hmXzajZ6BrfAXILJhZIbsAms8knAyQnz
- FaTk/vmADVutPueTnf13raLrxuiNC4NN2gAaCQYCwwf7LHeTJob10yVCIw5Sejs04OzSWqYL
- y22QDYWpO4yhss69rqC5WvIiRaMvZjGfAFpz1CCNo661T9RaImgbo2uzFHU6/dcMYqUJmW8U
- Gg4d9u2t75XU8zU/MCZaKBURezyua7ZWNHJqQc3R8FJyti7x5K0kWm8ChlaLVwhDMsLcCSBj
- KT76VIIv8870JdHgMZKj2ON5yYCkPGI+TfNDKm8gj9yjn5ZLlXvEMZGPxH44owVuBJw+ZzTw
- L/CGSpWMV4UCL580B29TPoH3Lkgy0gWnD2IFc+hnkn9i+TBNBZ5rIvp1nPUNIjVC4ve/23oH
- yt3bZPWm32zrsWgCsUozWLjBQ9TdiVqbXwHg8dWavSCMmJb9JIJUJfsLUcaU9U9xcx9z76Ql
- lnkAxMw4Aev1BXvdFTRAlg+OeyHYHqKhS9iVcDaFQ3zgCZLjEfGxPp3SqbbipF7rrE+lqAtE
- KFeEyhCa9wWIgn6F/0mRcGVhORfmN6D3Gpi5gKpP2oyeYBOXQvM9oO2dwfj7nBWXCG2qdE/s
- /ur0QaCGcgPQAFrDcD3bvOzzgzu4ShBybwqB0aYcMNOfEjM8ZRxL3CjhPEAPMxRew7IwSGX1
- ljKDE5A9/XNuYI87PLAmbuA89WyC+J7E0cDRzvb4L+6ODP05G2mxYMcAu+EcSqEDDH/+bm4Z
- PUTxPb5aaVVkFFPuot6MrBq0aNhuIe/++4EllxpRSyZYU6qB7VsJmi98fNO7qAdlKVEvQaWW
- 16U/oUIM7u+J864QkUaIxAob7rf2KhMyCXS9/k8PG7z+DRzoOicSUxXMhSB1H5dIb9yPN93y
- OstopdLuQm2ix5sOdealCFEsW+LKyVYAakgs5gbBq7tixYqlQ4eMcCNVHeu7cHdcchIP2krP
- iSQ1fjLiLlrz0bfd2Y+SCrW1u1HiJVS4B1HwTfu/bhSdgYpUhPv4CBszA==
-IronPort-HdrOrdr: A9a23:/6+aKqCLRx9gtI3lHemq55DYdb4zR+YMi2TC1yhKJiC9Ffbo8P
- xG/c5rrCMc5wxxZJhNo7290ey7MBHhHP1OkO0s1NWZPDUO0VHAROoJ0WKh+UyEJ8SXzJ866U
- 4KScZD4bPLYWSS9fyKgzWFLw==
+IronPort-Data: A9a23:Aapz5qnY0gOW1xt3iF16ZGHo5gxnIURdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJJXzyAM/aOM2OmftxxYYWz/E9Uv5DWnINlSgFrqCwzRCMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA187IMsdoUg7wbdg2NY22YLR7z6l4
+ rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
+ s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
+ PVpl6KobgcbAvHVwe0bUBAfSjleY7ITrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
+ 6ZecmpUKEne2aTmm9pXScE17ignBMDtIIMYvGAm1TzDBOwqaZvCX7/L9ZlT2zJYasVmQKeBO
+ ZRCMmYHgBLofREQAVsdL5MFl9i4hzr4cwdbsVbEqv9ii4TU5FMoi+W8WDbPQfSLWsd9jkuev
+ njB/WnyHlcdLtP34SWB2mKhgKnIhyyTcJIfEvi0++BnhHWXx3cPE1sGWF2ju/67h0WiHdVFJ
+ CQ88ywyra805QqzQ8P0RRGQr3uNvxpaUN1Ve9DW8ynUlPCSuVzAQDFZEHgRM7TKqfPaWxQK8
+ n23h/TpNwAzqeScT3GUse6MjW2tbH19wXA5WQcISg4M4t/GqY41jw7SQtsLLJNZnuEZChmrn
+ WnU8XFWa6E7yJdSiv7lpQyvbyeE/8CRFmYIChPrsnVJB++TTKqsfMSW5FfS9p6sx67JHwDa7
+ BDodyVzhd3i7K1hdgTQGY3h/5nzvp5p1QEwZ3Y1RfHNEBz3pBaekXh4um0WGauQGp9slcXVS
+ EHSoxhNw5RYIWGna6R6C6roVZ96kvKxSI6/CK+EBjarXnSXXFXdlM2JTRTPt10BbWB2yf1vU
+ XtlWZjE4Ykm5VRPk2PtGrZ1PU4DzSEi32LDLa0XPDz8uYdykEW9EO9fWHPXN7hRxPrd/G39r
+ oYOX+PXmk43eLCvPUHqHXs7cAliwY4TXsut9aS6t4erf2JbJY3WI6OLnO56JdU6x/89eyWh1
+ ijVZ3K0AWHX3RXvQThmoFgyAF82dZog/389IwI2OlOkhyoqbYq1tf9NfJorZ7g3sudkyKcsH
+ fUCfsyBBNVJSyjGpGtBPcWs8tQ6eUT5nx+KMgqkfCM7I8xqSTvW94K2ZQDo7iQPUHa67JNsv
+ 7262wrHapMfXAA+Xt3OYfeiwgrp73gQke5/RWXSJdxXdBm++YRmMXWp3PQ2P9sNOVPIwT7Dj
+ 1SaBhIRpO/spY4p8YaW2fDY/tnxS+YnRxhUBWjW67qyJBL2xGv7zN8SSvuMcBDcSHjwpPeoa
+ 9JKwqyuK/YAhltL7dZxSu450aIk6tLzjLZG1QA4Tm7TZlGmB748cHmL2c5D6v9EyrND4FbkX
+ 0uO/p9ROKmTOdOjG1kUfVJ3YuOG3PASuz/T8fVqfxmquH4ppOKKARdIIh2BqC1BN78kYooqz
+ NAotNMS9wHi2AEhNcyLj3wM+mmBRpDav37Lan3O7FfXtzcW
+IronPort-HdrOrdr: A9a23:1zU9FaC39zQ1h83lHemU55DYdb4zR+YMi2TC1yhKJyC9Ffbo8f
+ xG/c5rrSMc5wxwZJhNo7y90ey7MBbhHP1OkO4s1NWZLWrbUQKTRekIh+bfKn/baknDH4ZmpN
+ 5dmsNFaeEYY2IUsS+D2njbL+od
 X-IronPort-AV: E=Sophos;i="5.87,292,1631592000"; 
-   d="scan'208";a="58884262"
+   d="scan'208";a="59766334"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@gmail.com>, Anthony PERARD
-	<anthony.perard@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH 01/57] .gitignore: Non existing toolcore/include files.
-Date: Mon, 6 Dec 2021 17:01:44 +0000
-Message-ID: <20211206170241.13165-2-anthony.perard@citrix.com>
+	<anthony.perard@citrix.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
+	<wl@xen.org>
+Subject: [XEN PATCH 02/57] tools/configure.ac: Remove left over system_aio
+Date: Mon, 6 Dec 2021 17:01:45 +0000
+Message-ID: <20211206170241.13165-3-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20211206170241.13165-1-anthony.perard@citrix.com>
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
@@ -103,26 +100,46 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-4664034cdc (tools/libs: move official headers to common directory)
-forgot one .gitignore update.
+system_aio isn't set since 3d4678108a (tools: remove in tree libaio).
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- .gitignore | 1 -
- 1 file changed, 1 deletion(-)
+ tools/configure.ac | 1 -
+ tools/configure    | 2 --
+ 2 files changed, 3 deletions(-)
 
-diff --git a/.gitignore b/.gitignore
-index 9513506dd9..cad5aacd8d 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -384,7 +384,6 @@ tools/include/xen-foreign/arm64.h
- .git
- tools/misc/xen-hptool
- tools/misc/xen-mfndump
--tools/libs/toolcore/include/_*.h
- tools/firmware/etherboot/eb-roms.h
- tools/firmware/etherboot/gpxe-git-snapshot.tar.gz
- tools/misc/xenhypfs
+diff --git a/tools/configure.ac b/tools/configure.ac
+index 3ac62626a5..5a4fb9022d 100644
+--- a/tools/configure.ac
++++ b/tools/configure.ac
+@@ -402,7 +402,6 @@ AC_CHECK_LIB([lzo2], [lzo1x_decompress], [zlib="$zlib -DHAVE_LZO1X -llzo2"])
+ PKG_CHECK_MODULES([libzstd], [libzstd],
+     [zlib="$zlib -DHAVE_ZSTD $libzstd_CFLAGS $libzstd_LIBS"], [true])
+ AC_SUBST(zlib)
+-AC_SUBST(system_aio)
+ AX_CHECK_EXTFS
+ AX_CHECK_PTHREAD
+ AX_CHECK_PTYFUNCS
+diff --git a/tools/configure b/tools/configure
+index 21e3a83795..8e4a59c2cb 100755
+--- a/tools/configure
++++ b/tools/configure
+@@ -641,7 +641,6 @@ PTHREAD_LIBS
+ PTHREAD_LDFLAGS
+ PTHREAD_CFLAGS
+ EXTFS_LIBS
+-system_aio
+ zlib
+ libzstd_LIBS
+ libzstd_CFLAGS
+@@ -8772,7 +8771,6 @@ $as_echo "yes" >&6; }
+ fi
+ 
+ 
+-
+ ac_fn_c_check_header_mongrel "$LINENO" "ext2fs/ext2fs.h" "ac_cv_header_ext2fs_ext2fs_h" "$ac_includes_default"
+ if test "x$ac_cv_header_ext2fs_ext2fs_h" = xyes; then :
+ 
 -- 
 Anthony PERARD
 
