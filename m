@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8489B46AD06
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 23:47:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240034.416209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A2F946AD1D
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 23:48:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240068.416396 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muMlb-0005oT-PR; Mon, 06 Dec 2021 22:47:27 +0000
+	id 1muMmP-0006Tq-T9; Mon, 06 Dec 2021 22:48:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240034.416209; Mon, 06 Dec 2021 22:47:27 +0000
+Received: by outflank-mailman (output) from mailman id 240068.416396; Mon, 06 Dec 2021 22:48:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muMlb-0005mT-Ll; Mon, 06 Dec 2021 22:47:27 +0000
-Received: by outflank-mailman (input) for mailman id 240034;
- Mon, 06 Dec 2021 22:47:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1muMmP-0006NF-LB; Mon, 06 Dec 2021 22:48:17 +0000
+Received: by outflank-mailman (input) for mailman id 240068;
+ Mon, 06 Dec 2021 22:48:16 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5qlu=QX=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1muMe1-0004dp-UA
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 22:39:37 +0000
+ id 1muMe3-0004ul-A0
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 22:39:39 +0000
 Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 64510e66-56e5-11ec-a5e1-b9374ead2679;
- Mon, 06 Dec 2021 23:39:37 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 65269bd2-56e5-11ec-8a4d-196798b21f7b;
+ Mon, 06 Dec 2021 23:39:38 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,25 +36,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64510e66-56e5-11ec-a5e1-b9374ead2679
-Message-ID: <20211206210439.021277807@linutronix.de>
+X-Inumbo-ID: 65269bd2-56e5-11ec-8a4d-196798b21f7b
+Message-ID: <20211206210439.074795958@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1638830376;
+	s=2020; t=1638830378;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=OQ0f5KjFgbSgmAVP4hnPtoqFO6q3+Ey9wT8c/Y+fgX8=;
-	b=qT4xZpBBQ0W0WAPiWf1zJJDYqrWw+ae2Lg455lzO/6P3dumvTkmmO4OyNNpV7Ehjg/w2fl
-	manHJleIsU6+wlUO34qbZ1k6P6+fjxe8BUkOz6OIEK3o0dKzrtvUgPypQwoUUUNIuZDXWM
-	jnT7oY4poA/FbJovF4S/oz4eehalct4S0HCuDJJLpJBmvaR5HibVjBTc7GIHDoqZivOfX3
-	iNd/9PdHT8ILfKUVyXiifKPtOz1VtZWGnO4Nr1SM+0tOgRkRXdJgokjEVSeB/BR9gvjNQB
-	gsA5BgMNnlWPVbKtzFcSx9515yBP8sGdsrFziNqK9jyPrTDomPQd0ggxKPGeng==
+	 references:references; bh=cOZ0U3ouey82JJdJiPY/OdjPVZlxKAZBH84jVxEoqTU=;
+	b=wz3TzWYBvl04aCerKYeWR58lfzMKGU0iQIuBeqOL+QMp3fzox5TmpoLeGGdAyjIdRF9we0
+	u9yR0O7Qw/bXjizcycQ1gt+G/WeBK/oTI1LUwf2kX7mBg7E4BLQU+LhtJn98G1rHyhAeXN
+	uZibzflizAgUufHizJH6rsQmehdTaX7twbvYr5V+KethG1Scbt8X2tNbTw+IA0tYplWXos
+	ZwOGv2nZnU5zW+yHNbttX2IEcKFWRwLT0XfzLzZMFn7NfGrUzA3FstQug2ylwpcRUwc/5i
+	kvFiRVvXUUkrTAhTuq9cCrdEEKtF1I+UAps11N3QhGaOgS9dJJn2kcoxCDkHWQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1638830376;
+	s=2020e; t=1638830378;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=OQ0f5KjFgbSgmAVP4hnPtoqFO6q3+Ey9wT8c/Y+fgX8=;
-	b=pP/dPC6PWwsNwzwAXjslgxnuRXxlApMSk05YyUr2uPuStX/4iB4GmcP+0fnXmnf907i7Do
-	3vW65Ey/2ZjD8lDQ==
+	 references:references; bh=cOZ0U3ouey82JJdJiPY/OdjPVZlxKAZBH84jVxEoqTU=;
+	b=hWRF+jAuLUmdTtCJbsFelzhT8GqoJCFIgM9B0HzB2yZ+yr1G/1kR55tWj9RhnBzNSOA67w
+	E7/UVXYkvpVaIZCQ==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Bjorn Helgaas <helgaas@kernel.org>,
@@ -82,60 +82,79 @@ Cc: Bjorn Helgaas <helgaas@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Robin Murphy <robin.murphy@arm.com>,
  Sinan Kaya <okaya@kernel.org>
-Subject: [patch V2 25/36] PCI/MSI: Provide MSI_FLAG_MSIX_CONTIGUOUS
+Subject: [patch V2 26/36] powerpc/pseries/msi: Let core code check for
+ contiguous entries
 References: <20211206210307.625116253@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Mon,  6 Dec 2021 23:39:36 +0100 (CET)
+Date: Mon,  6 Dec 2021 23:39:37 +0100 (CET)
 
-Provide a domain info flag which makes the core code check for a contiguous
-MSI-X index on allocation. That's simpler than checking it at some other
-domain callback in architecture code.
+Set the domain info flag and remove the check.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- drivers/pci/msi/irqdomain.c |   16 ++++++++++++++--
- include/linux/msi.h         |    2 ++
- 2 files changed, 16 insertions(+), 2 deletions(-)
+V2: Remove it completely - Cedric
+---
+ arch/powerpc/platforms/pseries/msi.c |   33 ++++++++-------------------------
+ 1 file changed, 8 insertions(+), 25 deletions(-)
 
---- a/drivers/pci/msi/irqdomain.c
-+++ b/drivers/pci/msi/irqdomain.c
-@@ -89,9 +89,21 @@ static int pci_msi_domain_check_cap(stru
- 	if (pci_msi_desc_is_multi_msi(desc) &&
- 	    !(info->flags & MSI_FLAG_MULTI_PCI_MSI))
- 		return 1;
--	else if (desc->pci.msi_attrib.is_msix && !(info->flags & MSI_FLAG_PCI_MSIX))
--		return -ENOTSUPP;
- 
-+	if (desc->pci.msi_attrib.is_msix) {
-+		if (!(info->flags & MSI_FLAG_PCI_MSIX))
-+			return -ENOTSUPP;
-+
-+		if (info->flags & MSI_FLAG_MSIX_CONTIGUOUS) {
-+			unsigned int idx = 0;
-+
-+			/* Check for gaps in the entry indices */
-+			for_each_msi_entry(desc, dev) {
-+				if (desc->msi_index != idx++)
-+					return -ENOTSUPP;
-+			}
-+		}
-+	}
- 	return 0;
+--- a/arch/powerpc/platforms/pseries/msi.c
++++ b/arch/powerpc/platforms/pseries/msi.c
+@@ -321,27 +321,6 @@ static int msi_quota_for_device(struct p
+ 	return request;
  }
  
---- a/include/linux/msi.h
-+++ b/include/linux/msi.h
-@@ -376,6 +376,8 @@ enum {
- 	MSI_FLAG_LEVEL_CAPABLE		= (1 << 6),
- 	/* Populate sysfs on alloc() and destroy it on free() */
- 	MSI_FLAG_DEV_SYSFS		= (1 << 7),
-+	/* MSI-X entries must be contiguous */
-+	MSI_FLAG_MSIX_CONTIGUOUS	= (1 << 8),
+-static int check_msix_entries(struct pci_dev *pdev)
+-{
+-	struct msi_desc *entry;
+-	int expected;
+-
+-	/* There's no way for us to express to firmware that we want
+-	 * a discontiguous, or non-zero based, range of MSI-X entries.
+-	 * So we must reject such requests. */
+-
+-	expected = 0;
+-	for_each_pci_msi_entry(entry, pdev) {
+-		if (entry->msi_index != expected) {
+-			pr_debug("rtas_msi: bad MSI-X entries.\n");
+-			return -EINVAL;
+-		}
+-		expected++;
+-	}
+-
+-	return 0;
+-}
+-
+ static void rtas_hack_32bit_msi_gen2(struct pci_dev *pdev)
+ {
+ 	u32 addr_hi, addr_lo;
+@@ -380,9 +359,6 @@ static int rtas_prepare_msi_irqs(struct
+ 	if (quota && quota < nvec)
+ 		return quota;
+ 
+-	if (type == PCI_CAP_ID_MSIX && check_msix_entries(pdev))
+-		return -EINVAL;
+-
+ 	/*
+ 	 * Firmware currently refuse any non power of two allocation
+ 	 * so we round up if the quota will allow it.
+@@ -530,9 +506,16 @@ static struct irq_chip pseries_pci_msi_i
+ 	.irq_write_msi_msg	= pseries_msi_write_msg,
  };
  
- int msi_domain_set_affinity(struct irq_data *data, const struct cpumask *mask,
++
++/*
++ * Set MSI_FLAG_MSIX_CONTIGUOUS as there is no way to express to
++ * firmware to request a discontiguous or non-zero based range of
++ * MSI-X entries. Core code will reject such setup attempts.
++ */
+ static struct msi_domain_info pseries_msi_domain_info = {
+ 	.flags = (MSI_FLAG_USE_DEF_DOM_OPS | MSI_FLAG_USE_DEF_CHIP_OPS |
+-		  MSI_FLAG_MULTI_PCI_MSI  | MSI_FLAG_PCI_MSIX),
++		  MSI_FLAG_MULTI_PCI_MSI  | MSI_FLAG_PCI_MSIX |
++		  MSI_FLAG_MSIX_CONTIGUOUS),
+ 	.ops   = &pseries_pci_msi_domain_ops,
+ 	.chip  = &pseries_pci_msi_irq_chip,
+ };
 
 
