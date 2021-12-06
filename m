@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66BFF4698DC
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 15:27:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.239087.414410 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DC444698DE
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 15:27:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.239091.414428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muExE-0001oG-ON; Mon, 06 Dec 2021 14:26:56 +0000
+	id 1muExP-0002Jz-J5; Mon, 06 Dec 2021 14:27:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 239087.414410; Mon, 06 Dec 2021 14:26:56 +0000
+Received: by outflank-mailman (output) from mailman id 239091.414428; Mon, 06 Dec 2021 14:27:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muExE-0001mQ-Kn; Mon, 06 Dec 2021 14:26:56 +0000
-Received: by outflank-mailman (input) for mailman id 239087;
- Mon, 06 Dec 2021 14:26:55 +0000
+	id 1muExP-0002FM-AW; Mon, 06 Dec 2021 14:27:07 +0000
+Received: by outflank-mailman (input) for mailman id 239091;
+ Mon, 06 Dec 2021 14:27:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0GdR=QX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1muEqj-0004et-I9
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 14:20:13 +0000
+ id 1muEr3-0004et-IH
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 14:20:33 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9ffa662c-569f-11ec-a5e1-b9374ead2679;
- Mon, 06 Dec 2021 15:20:12 +0100 (CET)
+ id abf877bd-569f-11ec-a5e1-b9374ead2679;
+ Mon, 06 Dec 2021 15:20:32 +0100 (CET)
 Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2108.outbound.protection.outlook.com [104.47.17.108]) by
+ (mail-db8eur05lp2111.outbound.protection.outlook.com [104.47.17.111]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-17-YWmGVimnM4GaEqKzmODPNA-1; Mon, 06 Dec 2021 15:20:11 +0100
+ de-mta-37-EXMgWJVFN6al_o42eC66nA-1; Mon, 06 Dec 2021 15:20:31 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
  by VI1PR0401MB2333.eurprd04.prod.outlook.com (2603:10a6:800:28::24)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Mon, 6 Dec
- 2021 14:20:10 +0000
+ 2021 14:20:30 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4755.021; Mon, 6 Dec 2021
- 14:20:10 +0000
+ 14:20:30 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM6P191CA0006.EURP191.PROD.OUTLOOK.COM (2603:10a6:209:8b::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.17 via Frontend Transport; Mon, 6 Dec 2021 14:20:09 +0000
+ AS8PR04CA0044.eurprd04.prod.outlook.com (2603:10a6:20b:312::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.11 via Frontend
+ Transport; Mon, 6 Dec 2021 14:20:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,35 +56,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ffa662c-569f-11ec-a5e1-b9374ead2679
+X-Inumbo-ID: abf877bd-569f-11ec-a5e1-b9374ead2679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1638800412;
+	t=1638800432;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=juBJGq4ZapzX50bKGD151YensGcEVFSl2L4HTOV0500=;
-	b=I3hcgTriyde+o9Kpz0eA7nuclXpFLrxLNbWyvi+5d95TpvVB984po+6jnq2ZgmOy+mTNvI
-	dEzUf1oIVDZ58rX2ORd8kr3AKiK0I1JpTjKYgIFP6v5Rat3C2EmTXcF1e0Jx4OG81qO7LC
-	tF7esXy9otpL2KTpdEMZXWynfes0EHw=
-X-MC-Unique: YWmGVimnM4GaEqKzmODPNA-1
+	bh=KNU533Nas71KGaxkrjt8Y4qhfH0SyWRPA/lY3YgjMd0=;
+	b=HJ2vg5iAb+UVWo7C3erMEG2We4go+ub2MlUSm3MWI8ggDBS+hfapHSEo+JwJTxFmCupPm7
+	g15U+I1aN11wviQSgm7pOshfevFcOwhJOTNwJE2y3e2MIzjL3fF9Bm76BE9HGI9cjClsVF
+	y6DiTZO0NrHLf6MkbfNgw2tW/Nnn/6M=
+X-MC-Unique: EXMgWJVFN6al_o42eC66nA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dSI9SuUMgo/E8SWU9yMqXTF+Mu3lCr0yNu8X9rZkh+g7LjL01aeOEymM8yt+DtGjneJk/TXjKdPzAOjN5Zw+Yg79iHK5uG1jS9ONYYALEjEEviIFkVnBdTR6AVjpGWmU8SWrPQNqnp61qMChzBHbeUgLb+WwNI9u7orPr0SaByEeqDAbjW4ri61Bvz/wHPr+xDeCKlTwgDLLzxKHghFMR9j5kCFyboM+pnsmGp1WMZisnqYDNztQekeORpB6xJ4KvU7nnItr6qx8r8OepsxA41eDe5YzGpti+0Mu8H9M5zUKrBNuJOEWYQcWAK+LNaUB3ebzO/ZfKa8H4xKKwNmb9w==
+ b=jzAArQcSkhr1ruc0LADmNaN3rCMlbvb5x20QU2Ed8IU+5/n2kYJ9dPYBTxuGohQBwCBsoEbm5HeinNwfsE9UY4A27QCYKIHSj2LhUUMS5ieDq/Uwfk8cBmGcxOElyvxS+ZKbfSqNPWSP5LwbelaR0xNChN0c8XUakJ5I0C83ND/tqSNxnh0H3dqRdo0BfJT0fFGM3nUVd6zQT1I+F6LCvGewJ61FSPDjm8cF3C83QyXLMOWFp61Z7UGUmqTrlL+3xjiR2GFQ4s9/2ioCYYH0Qmhn8zoTP3qhMmaeQxZ4NX6FUwRcLNzAfqJoWRfi3QLPKo39TX9EG8cmB8RRFWO8mQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=juBJGq4ZapzX50bKGD151YensGcEVFSl2L4HTOV0500=;
- b=HN975pnAwacdR9JVgm4IoOQ5fNSfrBB8hzgh0ZgEHJgJIi2M9gOL6E615uywvt7ibBKtgl8h9lyRJS76rdybjcNyE8OfR/hCfPtUNfvbASQo4PuotvfiPFAwYvYQYhO1TgMPfy14OuJ60VWhT/uXX8ekFdtz7inK2ClqXwrOa5a3sTYfdgjwjHJGSUuJ7kQC2VbBumdcGRJ57KD4IH71zxEtBvm1SkV3oqbTvIqP6Lj+/dFdJF2pzg2mvEHIdyjg3BhQpBuCYOOWs/vHGuvI47SlZBqbzDhTSKbWLvkFXXMlUZmSCiVMuVOCQl+ku4mdwLDxuL9Zz3GyACE28B9W9g==
+ bh=KNU533Nas71KGaxkrjt8Y4qhfH0SyWRPA/lY3YgjMd0=;
+ b=SQGkW7LfnzCTjVVMeQQDcJzRhEL01zWPITCzXdh3afniwy+SSEglYO4lLvxy0U1KijfZed2oAytXKX0eGsv9ZGIvxTdu3jloRPU699icW19NPsfb9Oo+CmxQAN2z/lMKcf0iGTkRoVKE4UCyG5CO9eIMnltaxGpXFedaZmCOyTwDrBOaXHgq5PsndK3SNnhVb8vVclPxAoi+772pdh4bsRSqSk6fbuniYDqIzYI0fOcXp5aCbF+lg0nerSqjFtlhL8c9UZeCl9AVUVZk2n7Kh95oJp65v/js2kDamw5t8u4UJpVpaPuLVBBIayhtDHZl360QEIxPH+5hNyNEBNulWg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <8db595d1-a0c7-4a7a-4a06-16689adbf938@suse.com>
-Date: Mon, 6 Dec 2021 15:20:08 +0100
+Message-ID: <905a1d43-9f35-21b4-fdec-97c592f59afc@suse.com>
+Date: Mon, 6 Dec 2021 15:20:28 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
-Subject: [PATCH v3 6/7] x86/boot: fold/replace moves in video handling code
+Subject: [PATCH v3 7/7] x86/boot: fold two MOVs into an ADD
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -93,194 +94,93 @@ References: <4af7ce92-8f4b-0be2-2439-a1bfaff59be6@suse.com>
 In-Reply-To: <4af7ce92-8f4b-0be2-2439-a1bfaff59be6@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P191CA0006.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:209:8b::19) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS8PR04CA0044.eurprd04.prod.outlook.com
+ (2603:10a6:20b:312::19) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: f946c7c7-737c-473b-1091-08d9b8c3829c
+X-MS-Office365-Filtering-Correlation-Id: 48b1df6d-2759-47a5-495c-08d9b8c38ed1
 X-MS-TrafficTypeDiagnostic: VI1PR0401MB2333:EE_
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0401MB2333937533AB0095D829B4CDB36D9@VI1PR0401MB2333.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+	<VI1PR0401MB23338C4196BFED1E95E57BC1B36D9@VI1PR0401MB2333.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Nis2F3zYkPzKQl4LzPMTLoZh8BP8J+gGlmco6zMRCvt7s8y6J6B2ysj7xF7JdU10flXTbZtfwDSU2lv6SPDpesRV0E/zpSN6fwgEQBWGkLwEZyW4hc8mEi2dsYVA7iBEAB+qcIXBs5M+skVfH87SEloQ/R40n0AY9TjuN4Rfi19qpMLG8DrFilM491rOmsyOMxfMKhXOmIFYneHcdDW6Xd67MR2tHS8iJSfLiZRUplLdBlKDWZpZu7k9dMzQ9B+VEMz3oaNYLnZAifGGRBLmTcEyQrA+4MpeitHwmIU72p5KgXxYRBBt79QYV48OoBCpxYi5WOqSh4iPnKQCtBgCdv2JLUBAXjkH1AzUbtRxoRlSqR//XFv1lcuWBnkghUbju13MQAw27uWDH/FGICUjYYZLpEiWIaMe4zX9v1Pw+4euGVCizn7iDB6OfwuEC4vR0ilbEsBE9Vq+j9mDq4aVCgj2wYxEx3t7zexbEemsPt/A8/PkQYB++QF/KfqHR7rcbfhq1Dx9gwHBDN73dsNWjJgVVzPEsemTx9xWpTcLQt9wnlqo92piEIu7thw2tBERazVuPSMvYmEjzsIAX/PRG/aBt9cqUW2IlovC4/I1HOOWtS761Jt0TDI8y/uatV1fIvZ/xShZrxXD7ZSv08TnuJhYZ87C677XCWtZtndRDUPpMlAhU9h6jdSBHaT0ZRXtGY5Uq3kebWu0tk8yKrmeuichvCg/KYOi2pKGGX11WWA=
+	sEst+LtSrESXJbSMKLk+6JvrbflMca+Z4VxXFVmg3a+xUNNLMvNmowwx6YQmAGU10i9+LVZojhz5d77pmZiTYFxQeI+30nAP13NWC64c5r4fcBsbNsBdWe8ZDWokBG91ke1MfuZ/vIawqBHiuS63ToSz4R0HyK0lTEFqHM0BbYlveZxGvwDxRQR1n5bGLJHJqbUatpj+Cs73Dcz/tu4k1UVVBcFhIfiicE1OmAiFsy1mQoRxWwavY+DiiRE7rawuux0UymF+zSbcmY5AN1NsRzuZMPNHPoBZ+/sDqXHMvAuaQqxPd258N5aaZNC4c0zIBPu/h0QUMmOvZBt+nEvQiSZY5pJlDS540T7e1V7yrIVLfG+sKk+rlnOjaGIpJ3+GR0IcFb9UDGqbuFvTrpMDfJrGAEqLo8gqUCsGis04AvJ2Rs56OB+8AnB5NO9nPH7oORPjtsqGikcpu0bqcIwtkxdwkIov2Sz0BN7nLUU4vKbbBX9NMgnk/0B733+GdEZrOfm/uZXFenlAPr4AWtmsVrO0gPYcMr8OLa1ZtR0KCa87BXFlYaT3BadRlCnnu1daaZP9xXUQ5sGoPGtIl0ewC9ELv6hK4MootBEXZlq7PcPq+8xPkgBTxGQVtc+4EDELmMUue/oGnCALuRNAZLeBVDwSjF0HfOy9LTQIIlHboqnlSwcX1us+ro+upQIrqFAhdex9TePjhetaQk7eN36LccbzUwKTlsrQGatW+ncX7js=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(31686004)(54906003)(316002)(16576012)(86362001)(31696002)(66476007)(66556008)(66946007)(5660300002)(2906002)(508600001)(8936002)(4326008)(8676002)(186003)(6486002)(2616005)(956004)(38100700002)(6916009)(26005)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(31686004)(54906003)(316002)(16576012)(86362001)(31696002)(66476007)(66556008)(4744005)(66946007)(5660300002)(2906002)(508600001)(8936002)(4326008)(8676002)(186003)(6486002)(2616005)(956004)(38100700002)(6916009)(26005)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aWx2Y21oYnJOUVFxdlpkSFRFWFJxZ0dsaFpDSVRYVXU2ajF1SHlseEhhY2dG?=
- =?utf-8?B?dUVzRzZ4blRTaldTZXBrblFTR3ByS3RiemlrblFwNFF6TVpTbFREaWgwVjFw?=
- =?utf-8?B?RHkwTE0zb2xFd1lNVGRMTTBzc21tRUl2RWZRQzk4ZDZ5OGgxazdhZG0vdEFK?=
- =?utf-8?B?cjJYZWlHMFBBVXh4NVBMcHViVGptZ3JYU01PT2ZRZXJlY25FM2dCeDJkc1Jo?=
- =?utf-8?B?TVpVRTFBZS9ybGJzVm9vdXIxdm1zOFMySHNzYWVUc1g1MU56ejBhYUZVTE5p?=
- =?utf-8?B?YVNpK01reG10eFZGcmlucW01MVZRZ24yRWVRTFZkMW5IYjNyRmZGamxuZ05Q?=
- =?utf-8?B?OVNrM3JQYlVzVzFkcnJzZ0VqZ3FyNlFVZzBudjdXL0poZy9WNFJhSXdSbnFl?=
- =?utf-8?B?dFBwMzFEajVOL2RjSFBBalVZSitwMWZ3aTNxaXNZT0VrdW4xdmdXSnNDTUF4?=
- =?utf-8?B?d0FFQTNrdjM5Z2hIQk1URDIrZFd4cXAzeml3MWxOcUM4Rk9kMG9IdGMreGlv?=
- =?utf-8?B?bWlEeVRpbUtmU25tK1RoQVM3N1VtV2hCejVhSHd0cmUyc0xKWWxrbk16U0li?=
- =?utf-8?B?dXI0Sm9DY3FzNWF6WE9JMjR3Ri9vRFF4RExUeXJGdlJheW9LVjhMVmVHekth?=
- =?utf-8?B?K0I3RXRxQzFGMGcvSnNDdy91TXhtbFlmS3BBdHBZRG1aNVFoM2RiRzAvK3BD?=
- =?utf-8?B?WnBDWHllajRoay9VbktuSjAyK0x2ekd3MDRLODNudHlqYng3a1UySzd1bGIx?=
- =?utf-8?B?ZCtTM3VLbWROejR1SllyZHFOamFoMVkzQkdBSnRLWVF5NWtlYXh0VU1UNWdE?=
- =?utf-8?B?QkpDZ2poeEZjV1BIY0hXZkdnR2c5VHUvNGUzZWoyMFpqSWE0aCs1UHR4eDR1?=
- =?utf-8?B?NlA4RkFjUUFFK2kvWnhDcXdiaGhybi8zcjR0dXFMWVRRVisrNHVqTkdpT3M1?=
- =?utf-8?B?SlFiS0ZJaUpDaUwwd3lhN1BJVjA1SlBzejlxRkFCVkpIZ0NKSEpsT3g5WkE1?=
- =?utf-8?B?ZW5PNDZ5aWVWeU1CWk9DU3FyZkI4TytSRElneEp2dnpqOFVHNS9EMmppcEZs?=
- =?utf-8?B?L2lwdXZPVUszRHpBNGdBL3BWdGloakI2SnlvWmdiQTF4UnRsR2VxTFU0aGFo?=
- =?utf-8?B?Z2Q0dkFXeXFkeFVnS2ZwT3ZGWDh3WUJDSi95UThJcWp2aVB5ZzlGZ00rbHlx?=
- =?utf-8?B?V2xjeVdqeFJHTCtob0Jxb0hPcitwdk9pMWpaV2NUdlJBc3cwOUR5VWJwSEFJ?=
- =?utf-8?B?SGhraTlxbC9jd2I1c2pSWlR3c3JEYVIxZFQ5STI2aDY5enBmTU1STGV6RkFM?=
- =?utf-8?B?bXk4Wk1hWGQwbXM0TUZWazlkdHgxa0NSK0wxVGJMQU9lM0JGWEhvZjFoQWpv?=
- =?utf-8?B?anl0YkgxNDFKSElPR3lpS3FYS0lzUHRCbTJJMzdySHdYMUk4WmIrTkhGNzBI?=
- =?utf-8?B?YWZIWFFFL0FjSnNWQ1c2NTBQNWlwWWRvbjVHMHFFWnFRbCswOUVxTGQ0a2lF?=
- =?utf-8?B?bG1BQ3RCM2c3TVV0UHVEWUowd2o3a3U4S3lhdGRadkdLVERlWitVeGVxUnU3?=
- =?utf-8?B?V1ZJbFI2VHJWWm90KzIxTkJUKzdWSFBxVzhkMjBwdkE2R0hadHFheVdLQlAy?=
- =?utf-8?B?T2d2dWZKUUp0L3h1RDJVdzgvbWFOcmIrNDlBZzdZTjZhS1ZReFN5eEVjUE5X?=
- =?utf-8?B?WmgvaEhzcWpid0padDBueGxrbjVWUkpBWlFvZUdHR00vQnpLZWlpNHFBTlZM?=
- =?utf-8?B?ckgwWjNPQVJsYU1KM2dzM2pPNFZlVjV6c1JxRHlGNGd4OHlIcTIwb1pwY2sr?=
- =?utf-8?B?RGRuNnJIN3htN2haNFBZODlSWXY5OEk0MVVxU0JXQkpFYVRqVkNReDh4N3Vl?=
- =?utf-8?B?cU1wRExKbGpkTWYvdHRjR0dpSFhIdjNSU25xWk1WZnhYSzM1enNab2c3dmZU?=
- =?utf-8?B?UFdjOWU2ZWVaYXdtcFlyU2lrMlVDeUhRaVRxVFAzRTd1WTBwbklCbXRVVGgy?=
- =?utf-8?B?WUE4MlB0NWJDeUNxV3h6UlF3SzBUdWdjRm9QbGlKVFJReE9mcHVxTFdmR3JK?=
- =?utf-8?B?Um1OLzdnaHVDc0FVdlhCTCthSkhJRjdqOVVsUFdta2cxaktOSFZvZHZBRkVT?=
- =?utf-8?B?emVYSGJiL2NHNEFMc21qaDhqNCtwQ0pWNTBPZklUNFJ2cnhJSnNWVWV4cE00?=
- =?utf-8?Q?0fwGjgjHpFks1CokeUbiPWQ=3D?=
+	=?utf-8?B?bzI4cTIwdWpaS3lyTkovaXZjRHlpMlZnVzlGRTVCUjcxSjM0SjdFQlJmVnVT?=
+ =?utf-8?B?UmpVRUFrL0w2aWVkT3VmZHZpVXJrQ252WUw1ay9TRENkNlFUcStBQmRBSkFO?=
+ =?utf-8?B?UHdTVVoyWmJuZ0Y5NGJYbzI0OTAxZXl3ZWxQQTR5VXhCRDc1VDVocWlyMUFm?=
+ =?utf-8?B?cng1NHgzdXVHOEdEc0QyZUlBaWlrVEttTzVMM0g1eW5XL0gxQWY0Qnh2azIz?=
+ =?utf-8?B?NkdoZW9JUnUrOThCb1pnM2lJa285ZUNXenhHVnNZa0NWZXRyd0pZUkNSQjlk?=
+ =?utf-8?B?UDVrN1lwamhwcTZtVDM3Z0c2c2g3cFJQVVozWkFtaVc2T3Z0ZEFzWHg2djVu?=
+ =?utf-8?B?eGlQOWZXQ3NUOEFuci84R0F1VDR3Q04vTnlKQk0rNW5IdGFzYW14TzFmTTdi?=
+ =?utf-8?B?aXF4a3VuemoxdjdIRmtMSkMzdkt1ZTdLbkswblVaOEdaWXBaS0RGWWtkRzRP?=
+ =?utf-8?B?MVZRM1JlTlVZWkVxVTdyT0cvSkp6MXdtNHRoQVJqNzNxdlY5UDE4a291dFdn?=
+ =?utf-8?B?czBEVEJWUEtGc0JsZGdqRFdLR0thaVZ2SUpZYW9ZNHFFcXBSaEZKZjJzWnky?=
+ =?utf-8?B?K0twUUYyejdZT0ZZajFTaWwyOHROdkFFWkVDUytTVGpsSTZOS0FNaHkvazI3?=
+ =?utf-8?B?MEEvL0lrMHBmVDlBT0lFQmFTSFZJdHMrNGo1MEl4R0FiQ083Rk9ObVJ3bHhF?=
+ =?utf-8?B?TWIzL1Zyc0puM05LOEUrMmt4ZXV0T1NKQUIvSmRqMlhOeUpJNTU5aXhaYmZ0?=
+ =?utf-8?B?Rzk3ZTJlNTJPOTRtMUFKVjNZazhyN01BQmhIbzE1QWFzcEtNRVNZRE1vQzdw?=
+ =?utf-8?B?WnZrTHYrZTc5V3NkWE5wOThlRFpXVS9HTVpQcG8yV04xbXdnaXhLRVFDRit1?=
+ =?utf-8?B?Ti9FQVE1UEtUS0VVWmFPWFBQa1hXVHVCWkV1Y3luNGVVUVBpUE9DeEZPdVhi?=
+ =?utf-8?B?MkRjTE9GL25seHowQmczMXNMWDRBbkNNQ3FXUmdET2FFVWtHYmlsdzVXemhG?=
+ =?utf-8?B?RzEyUGQySU9KZFdJY1E3TjdsZVRNcXdEU3VUMWFwZ0d4bVJraUExL2F6S0NV?=
+ =?utf-8?B?SXRjUmh5WUpmZGkyMnlPQnpINmVRS2crZGhoYW4zbXZPWmNabHM1SXVDV3ZZ?=
+ =?utf-8?B?SlVldmUzcUNCSnQwY1VpTUJOSUlhYWhCaGpTSDN1Wi9QZUp4RTJKR2RzRURL?=
+ =?utf-8?B?dC9ZZW8xV1NLNUFtczh4cm5xMlFZam8xeG5FNDI1VDBOZGxCb1hlZG5BRTVa?=
+ =?utf-8?B?bHVaeWhPbUMxNWkrQkN4cW9DdlEvQU1nY1BySFA1bTVvS2w1SnhIa1VWWXlO?=
+ =?utf-8?B?NTJtRmV3UlJwS0hhM0Jld2N2OUpLVzZ1T0Fqam1TN1FDME5uSUx5ZlhPWVRp?=
+ =?utf-8?B?a0ZQcHRWek0wUGxXdVlJdXk2cDl3cWRoVEd6Q2cwNTVPMXl1TmxkK0R3WFNI?=
+ =?utf-8?B?WVd6ZThIY1JaTDY5enlwcmVCTS9MYkZLYUxEZU5DeXpWaDVQQWVPdGNyQ05T?=
+ =?utf-8?B?dEgxL0ZPRFlVTDI4MWQ3SVo0L3JEM3Y1NkRMOXQwVFcrK1NFNHRBZlZkRHFr?=
+ =?utf-8?B?d3BtcklEbXI1Tk9DZzJDZndjdHNkc1ZPc2pQWS8zbHlsUTU0ZDhDNzdSK216?=
+ =?utf-8?B?Znh1WThjUmx5YXgwd0xubVVza1BuQXhOd2tuaDJUR3N2dmQzcDQzbDZITXJs?=
+ =?utf-8?B?clVyRndiRTJackJnaEJYSDlMY21zZElrMVRhekk3ZFNBNnhzRFM4eGx3VWky?=
+ =?utf-8?B?dndBcHIweENRaWpiRnQxK0cvN0V4YUJSK3hnM2hqM1Bka3JLOW85S282SUk3?=
+ =?utf-8?B?Q0ZuVTRLb3U2T3VjTnpYc3hkb3FBSFhvNjgwaXRJMnJtakFXaGY1ckp2OVNT?=
+ =?utf-8?B?SEkwRnFXUE85ZHdkYnJuRU9pM0ZDZlZwK25tZVJkaEU3YmdrQXFTVXp2Zm9n?=
+ =?utf-8?B?RGR1K1FmaTk3eWpWRTJoczhWM2ozRzNwRFhCdU1TN0Q2ZjY3S0x1a292QzdC?=
+ =?utf-8?B?UUhUVEZBTTN2R0VncXZXQVBpNVI4OTFuNWEveVpBb1Q3Ym9maXZ1TG1pVVRH?=
+ =?utf-8?B?M29OdDFoWDFzeWdySmtWK1hUbWJjVVlBeFVhZ0FUdUN5UG5PcUNEQXk3d3I4?=
+ =?utf-8?B?VjFEc01jU2FWZnhGN2Q3QUE3NGM2TjlpeTlZTVpKTFNFemh0WXJTZkR0dGlM?=
+ =?utf-8?Q?hoYalOwCXjJFeByH1sIJMH4=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f946c7c7-737c-473b-1091-08d9b8c3829c
+X-MS-Exchange-CrossTenant-Network-Message-Id: 48b1df6d-2759-47a5-495c-08d9b8c38ed1
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2021 14:20:10.0434
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2021 14:20:30.5498
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4c9v+gm6dIaSdFJn3sBVZNX0grqqECno/hEIr/pSgHtU1woHlnSnwPXlpOdXHI90Q3Zf4MitjJtm9WCBtZO7ew==
+X-MS-Exchange-CrossTenant-UserPrincipalName: rfxdOZpd6vHHsU2FBC8TmXhkOgno80co6s9UtLgbHjgOvr0K4bhd2xHv2tY/Y8BNvR4Rv39msPWlLYG+7ZEi7A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0401MB2333
 
-Replace (mainly) MOV forms with shorter insns (or sequences thereof).
+There's no point going through %ax; the addition can be done directly in
+%di.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-Of course there's more room for improvement. For example there look to
-be a number of LEAs which really could be MOVs.
+v2: New.
 
---- a/xen/arch/x86/boot/video.S
-+++ b/xen/arch/x86/boot/video.S
-@@ -121,8 +121,7 @@ mopar_gr:
-         movw    %ax, _param(PARAM_LFB_WIDTH)
-         movw    20(%di), %ax
-         movw    %ax, _param(PARAM_LFB_HEIGHT)
--        movb    25(%di), %al
--        movb    $0, %ah
-+        movzbw  25(%di), %ax
-         movw    %ax, _param(PARAM_LFB_DEPTH)
-         movl    40(%di), %eax
-         movl    %eax, _param(PARAM_LFB_BASE)
-@@ -135,8 +134,7 @@ mopar_gr:
+--- a/xen/arch/x86/boot/mem.S
++++ b/xen/arch/x86/boot/mem.S
+@@ -24,9 +24,7 @@ get_memory_map:
+         cmpw    $E820_BIOS_MAX, bootsym(bios_e820nr) # up to this many entries
+         jae     .Ldone
  
- # get video mem size
-         leaw    vesa_glob_info, %di
--        xorl    %eax, %eax
--        movw    18(%di), %ax
-+        movzwl  18(%di), %eax
-         movl    %eax, _param(PARAM_LFB_SIZE)
- 
- # store mode capabilities
-@@ -144,14 +142,11 @@ mopar_gr:
-         movl    %eax, _param(PARAM_CAPABILITIES)
- 
- # switching the DAC to 8-bit is for <= 8 bpp only
--        movw    _param(PARAM_LFB_DEPTH), %ax
--        cmpw    $8, %ax
-+        cmpw    $8, _param(PARAM_LFB_DEPTH)
-         jg      dac_done
- 
- # get DAC switching capability
--        xorl    %eax, %eax
--        movb    10(%di), %al
--        testb   $1, %al
-+        testb   $1, 10(%di)
-         jz      dac_set
- 
- # attempt to switch DAC to 8-bit
-@@ -164,17 +159,17 @@ mopar_gr:
- 
- dac_set:
- # set color size to DAC size
--        movb    bootsym(dac_size), %al
-+        movzbw  bootsym(dac_size), %ax
-         movb    %al, _param(PARAM_LFB_COLORS+0)
-         movb    %al, _param(PARAM_LFB_COLORS+2)
-         movb    %al, _param(PARAM_LFB_COLORS+4)
-         movb    %al, _param(PARAM_LFB_COLORS+6)
- 
- # set color offsets to 0
--        movb    $0, _param(PARAM_LFB_COLORS+1)
--        movb    $0, _param(PARAM_LFB_COLORS+3)
--        movb    $0, _param(PARAM_LFB_COLORS+5)
--        movb    $0, _param(PARAM_LFB_COLORS+7)
-+        movb    %ah, _param(PARAM_LFB_COLORS+1)
-+        movb    %ah, _param(PARAM_LFB_COLORS+3)
-+        movb    %ah, _param(PARAM_LFB_COLORS+5)
-+        movb    %ah, _param(PARAM_LFB_COLORS+7)
- 
- dac_done:
- # get protected mode interface information
-@@ -504,7 +499,8 @@ setvesabysize:
-         call    mode_table
-         leaw    modelist,%si
- 1:      add     $8,%si
--        cmpw    $ASK_VGA,-8(%si)        # End?
-+        movw    -8(%si),%bx
-+        cmpw    $ASK_VGA,%bx            # End?
-         je      setbad
-         movw    -6(%si),%ax
-         cmpw    %ax,bootsym(vesa_size)+0
-@@ -515,9 +511,7 @@ setvesabysize:
-         movw    -2(%si),%ax
-         cmpw    %ax,bootsym(vesa_size)+4
-         jne     1b
--        movw    -8(%si),%ax
--        movw    %ax,%bx
--        movw    %ax,bootsym(boot_vid_mode)
-+        movw    %bx,bootsym(boot_vid_mode)
-         jmp     check_vesa
- 
- # Table of routines for setting of the special modes.
-@@ -773,8 +767,7 @@ vesa2:  pushw   %cx
-         movw    %bx, 2(%di)
-         movw    0x14(%di), %bx          # Height
-         movw    %bx, 4(%di)
--        xorw    %bx, %bx
--        movb    0x19(%di), %bl          # Depth
-+        movzbw  0x19(%di), %bx          # Depth
-         movw    %bx, 6(%di)
- 
-         addw    $8, %di                 # The mode is valid. Store it.
-@@ -901,8 +894,7 @@ gettime:
-         movb    %dh, %al                # %dh contains the seconds
-         andb    $0x0f, %al
-         movb    %dh, %ah
--        movb    $0x04, %cl
--        shrb    %cl, %ah
-+        shrb    $4, %ah
-         aad
-         popw    %cx
-         ret
-@@ -959,8 +951,8 @@ store_edid:
- .Lforce_edid:
-         movw    $0x4f15, %ax            # do VBE/DDC
-         movw    $0x01, %bx
--        movw    $0x00, %cx
--        movw    $0x00, %dx
-+        xorw    %cx, %cx
-+        xorw    %dx, %dx
-         movw    $bootsym(boot_edid_info), %di
-         int     $0x10
+-        movw    %di,%ax
+-        addw    $20,%ax
+-        movw    %ax,%di
++        addw    $20,%di
+         testl   %ebx,%ebx                       # check to see if
+         jnz     1b                              # %ebx is set to EOF
  
 
 
