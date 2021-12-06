@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1DAF46A260
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 18:08:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.239514.415361 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB65E46A244
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 18:07:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.239466.415163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muHTX-0001Tx-42; Mon, 06 Dec 2021 17:08:27 +0000
+	id 1muHSY-00085E-54; Mon, 06 Dec 2021 17:07:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 239514.415361; Mon, 06 Dec 2021 17:08:27 +0000
+Received: by outflank-mailman (output) from mailman id 239466.415163; Mon, 06 Dec 2021 17:07:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muHTW-0001Q6-TV; Mon, 06 Dec 2021 17:08:26 +0000
-Received: by outflank-mailman (input) for mailman id 239514;
- Mon, 06 Dec 2021 17:08:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1muHSX-00081M-Vl; Mon, 06 Dec 2021 17:07:25 +0000
+Received: by outflank-mailman (input) for mailman id 239466;
+ Mon, 06 Dec 2021 17:07:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+yl1=QX=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1muHPg-0005ta-7S
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 17:04:28 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 90c3a7a2-56b6-11ec-a5e1-b9374ead2679;
- Mon, 06 Dec 2021 18:04:27 +0100 (CET)
+ id 1muHPf-0005ti-O7
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 17:04:27 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 91512ef9-56b6-11ec-8a4d-196798b21f7b;
+ Mon, 06 Dec 2021 18:04:26 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 90c3a7a2-56b6-11ec-a5e1-b9374ead2679
+X-Inumbo-ID: 91512ef9-56b6-11ec-8a4d-196798b21f7b
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1638810267;
+  d=citrix.com; s=securemail; t=1638810266;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=1nH3DERE1JlMh8VwtbIndoxT3Z56m8Z/3wBuefLC+Yw=;
-  b=XV9s3SIefE0kF/n7YJUfCBGvChX1OviAHpE8ALt/VPcPgL6LYtR8pqoP
-   8rJGH9m0sCrSZPzOQ0boDl/dr2PJBqcxQ5fBX1obo4ZNNCHXh73bM2xZj
-   IEkyYNI0DxdG+bc5W8jZsPs5rpGyz4PzmedFnDh9MOTyZ4E0gux0BuWji
-   8=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: aDd2dpyJ7gRfSVbxV4+9/bzhPrf3mPz4foNM8gwZeG9SEPtXKtb3t64tf6/AXampwdzjPdLOoM
- sA7Uexx3oSwZwtLqp5Emnz+oBUSIqPdKLY9hn3X0FkZvVgrwMt3Led8LAnCIx9TRUen14VD3XM
- C3AOgMF+1UMgm++3gfJzPvP7AvZ409pZVDDPbkAeYXN0vSbG3f/v6eeukk0sJ36eJw3ONatVrj
- fA67+69DtiNidWjHJmVvGuB5uD9JBlXwgXTr+Xh12Nq9BcLPuv61rU7M+z0Xz2/6NPaHzIA+Y6
- BYLgJDC5GvOZ14VJakOWh/DJ
+  bh=QUW3oQGRCIsCTBwhj/I18yejXA0w2YENn2RLNn0NPtM=;
+  b=JuePm0wKVw0oYpRWf4feSH/z17Y2zzA7sbfGg0JrYjQKk3XVPuYqp6qV
+   lgbR+ytUlUnVBz24vtosHouW+1p2qx8y1VnTzzKa8Ck9cNKhWN1vtrRIO
+   GaM2q3TsFWdbL8OP6fC5XLNn52ufifnTcTRPBIGIDzqZzpNjTDsRwrByr
+   k=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: IItMqUgkway0r+Nq/loDXcAFMx6wq8tuD+pZ2gYoiVbGJm7EqQJjdH8CHBcAIbgEgwADRLXjp6
+ ozRSMSShm8lK8KIo7Hu4sF7Nn+mHIXX/8rKohQjZZzY6Ko7kY4Y4WS4XhSE8HKRIa/eOGlaWIv
+ zbzrfqesfBhQD8sJKNBwjCi2ChkI2sAdwaxw67hK6Qfl2bfigD3KPK0uZEPLOhK5yI/Jh41Z7e
+ jmiPgqz32EiTCpnGLbGPtINNtFtTZcGY1tOs4/wMbE3AJiH9HNdlbwuGWrj3ihCiWQ4HePaPoN
+ hIHCP/PAbKR72oUs8tNWR2sV
 X-SBRS: 5.1
-X-MesageID: 59766550
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 58884496
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:kA42gqKMdy6/d3K4FE+RIJIlxSXFcZb7ZxGr2PjKsXjdYENS1jcPy
- GUcUGiPMv6DZmb1e4oiPIS+o00F6pLUndBmGQBlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUZUideSc+EH140Eg7xbZj6mJVqYPR7z2l6
- IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
- QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2nsspjk
- +RLk6C2Cj0SL/zsl84FdCJhRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
- LpBdW5LPkvra+GemdpXTsFlgNgjK8/6epsSoHh6wRnSDOo8QICFSKLPjTNd9Gph2Z4QQKuGD
- yYfQWM2cxKHXxpWBmwSN4oSrfqmnWjxLxQN/Tp5ooJoujOOnWSdyoPFL979atGMA8JPkS6wp
- G3c+H/iKgoHL9HZwj2Amlqtme3njS79QJgVFrCz6rhtmlL77nweDlgaWEW2pdG9i1WiQJRPJ
- koM4C0soKMuskuxQbHVVhukoHmCr1gEVsBZCeES5wSEy66S6AGcblXoVRYYNoZg7pVvA2V3i
- BnZxLsFGACDrpW7ZGiPrYaSiw+0ehIuPD4iagUcajA8toyLTJ4IsjrDSdNqEaiQh9LzGC3tz
- z3ikBXSl4n/nuZQifzloAmvbyaE48GQE1Vrvlm/sneNt1shPOaYi5qUBU83BBqqBKKQVRG/s
- XcNgKByB8heXMjWxERhrAjgdYxFBspp0hWB2DaD/LF7rlxBHkJPm6gKulmSw28zba45lcfBO
- hO7hO+ozMY70IGWRaF2eZmtLM8h0LLtE9/oPtiNMIEePcIgKVXdon4+DaJ144wLuBJ2+U3YE
- c3EGftA8F5AUfg3pNZIb7l1PUAXKtAWmjqIGMGTI+WP2ruCfn+FIYrpw3PVBt3VGJis+V2Pm
- /4GbpPi40wGDIXWP3mGmaZOfAtiBSVqWvjLRzl/K7frzvxOQzp6VZc8ANoJJuRYokiivruSo
- yzmBBYHkAGXaL+uAVziV02PoYjHBf5XxU/X9wR1Vbpx83R8M4up8okFcJ47Iesu+OB5lKYmR
- PgZYcSQRP9IT22fqTgaaJD8qq1kdQiq2l3Sb3b0PmBncs4yXRHN9//lYhDrqHsEAB2ouJZsu
- LanzA7aH8YOHlwwEMbMZfuz5FqtpnxByvlqVk7FL4ALKkXh+YRnMQLrifozL51eIBnP3GLCh
- Q2XHQ0Zta/GpIpsqIvFgqWNroGIFepiHxUFQzmHvOjubSSDpzit245NVuqMbAvxbmKs9fXwf
- /hRwtH9LOYDwARAvb1jHus51qk5/dbu+eNXl1w2AHXRYl23Ibp8OX3aj9JXv6hAy7IF6wu7X
- kWDpotTNbmTYZ63FVcQIEwub/iZ1OFSkT7XtKxnLEL/7S5x3byGTUQNYEXc1H0DdON4YNE/3
- OMsmM8K8Aju2BMlP+GPgj1Q62nRfGcLVL8qt81CDYLm4ubxJoquvXAI5vfK3ayy
-IronPort-HdrOrdr: A9a23:bIKx8K3LAnLHUrfS1DC0ewqjBLgkLtp133Aq2lEZdPRUGvb2qy
- nIpoV/6faUskd3ZJhOo7G90cW7LE80lqQFg7X5X43DYOCOggLBR+tfBOPZslnd8kbFmNK1u5
- 0NT0EHMqySMWRH
+IronPort-Data: A9a23:E4mUoq9bdH6w7H0DknP1DrUDcXmTJUtcMsCJ2f8bNWPcYEJGY0x3z
+ GYbUGuPP6zfZ2P9LtB0a96//E9QucTXz4BmTgI5+Ck8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhGmeIdA970Ug6wrRh3NYy6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPgu7
+ fJxvr6sWTwyL43+qtkQUDV/TH1xaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguwqKtXrO4UO/Glt1zjDAd4tQIzZQrWM7thdtNs1rp0eTaaCO
+ 5tHAdZpRAT7TgEQK3ocMooRxdqHhCH8LRBjinvA8MLb5ECMlVcsgdABKuH9ZdiiVchT2EGCq
+ Qru/WvjBQoBHMeC0jfD+XWp7sfOgiHTSI8UDKe/9PNhnBuU3GN7IA0bUx63rOe0jma6WslDM
+ AoE9yw2t68w+Ue3CN7nUHWQqXiYvhkaSpxIHvcz8g2lxa/d4gLfDW8BJgOtc/R/6pVwH2Zzk
+ AbUwZW5XlSDrYF5V1rC05CophGuKRMOPE8wVxIJTicivIXs9dRbYg30cv5vF6u8j9vQED72w
+ iyXoCVWu4j/nfLnxI3gowmZ3mvESozhC1dsu16JBj7NAhZRPdb9P+SVBU7nAeGsxWpzZn2Ip
+ zA6lseX94ji5rndxXXWEI3h8FxEjstp0QEwY3YyRvHNFBz3ohZPmLy8Bhkkfi+F1e5eJlfUj
+ Lf741852XOqFCLCgVVLS4ywEd826qPrCM7oUPvZBvIXPMMhK1XWoXs0OxHAt4wIrKTKuftlU
+ Xt8WZzzZUv29Iw9lGbmLwvj+eFDKt8CKZP7GsmgkkXPPUu2b3+JU7YVWGZinchihJ5oVD79q
+ o4FX+PTkk03eLSnPkH/rN5CRXhXfCNTLc2n9KRqmhurf1MO9JcJUKSKn9vMuuVNwsxoqws/1
+ i3nBxIDlgOg3SavxMfjQikLVY4DlK1X9RoTVRHA937ys5T6SYrwvqoZabUterwrqL5qwfJuF
+ qFXcMScGPVfDD/A/m1FP5X6qYVjcjWthB6PYHX5MGRuIcY4Slyb4MLgcyvu6DIKUni9u/whr
+ uDyzQjcW5cCGVhvVZ6EdPK1wlqtlnEBg+YuDVDQK9xedRy0oohnIiD8lNEtJMQIJUmRzzeWz
+ V/OUxwZufPMs8k+99yQ3fKIqIKgEu1fGEtGHjaEsebqZHeCpmf6mN1OSueFezzZRVjYwqT6a
+ LUH1ez4Pd0GgE1O79h2HYF0wP9s/NDovbJbkFhpRS2Zc1SxB7p8CXCaxs0T5LZVz7pUtAbqC
+ EKC/t5WZeeANM//SQNDIQMkaqKI1O0OmymU5vMweR2o6Chy9buBcENTIxjT13ANcOoraNsok
+ bU7pcobyw2jkR57YN+Jgxdd+3mIMnFdAb4ssYsXAdOzhwcmor2YjUcw1sMiDEmzVuhx
+IronPort-HdrOrdr: A9a23:EYaJNa3ZMI7xKRYqPmM61QqjBLQkLtp133Aq2lEZdPRUGvb2qy
+ nIpoV96faUskdpZJhOo7G90cW7LE80sKQFg7X5Xo3SODUO2lHJEGgK1+KLqFfd8m/Fh4tgPM
+ 9bAs5D4bbLY2SS4/yX3ODBKadC/OW6
 X-IronPort-AV: E=Sophos;i="5.87,292,1631592000"; 
-   d="scan'208";a="59766550"
+   d="scan'208";a="58884496"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@gmail.com>, Anthony PERARD
 	<anthony.perard@citrix.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
 	<wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: [XEN PATCH 45/57] libs/guest: rework CFLAGS
-Date: Mon, 6 Dec 2021 17:02:28 +0000
-Message-ID: <20211206170241.13165-46-anthony.perard@citrix.com>
+Subject: [XEN PATCH 46/57] libs/store: use of -iquote instead of -I
+Date: Mon, 6 Dec 2021 17:02:29 +0000
+Message-ID: <20211206170241.13165-47-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20211206170241.13165-1-anthony.perard@citrix.com>
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
@@ -100,88 +100,24 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Remove '-Werror -Wmissing-progress -I./include $(CFLAGS_xeninclude)',
-those flags are already added via "libs.mk".
-
-Flag "-I." isn't needed, we just need to fix the #include of
-"xg_core.h" as this header isn't expected to be installed.
-
-Make use of "-iquote" instead of '-I' for double-quote included
-headers.
-
-Also, regroup the CFLAGS into the same place in the makefile.
-
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- tools/libs/guest/Makefile          | 20 +++++++++-----------
- tools/libs/guest/xg_offline_page.c |  2 +-
- 2 files changed, 10 insertions(+), 12 deletions(-)
+ tools/libs/store/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/libs/guest/Makefile b/tools/libs/guest/Makefile
-index 770b9a7ef1..62b8fead86 100644
---- a/tools/libs/guest/Makefile
-+++ b/tools/libs/guest/Makefile
-@@ -28,18 +28,13 @@ OBJS-y       += xg_core.o
- OBJS-$(CONFIG_X86) += xg_core_x86.o
- OBJS-$(CONFIG_ARM) += xg_core_arm.o
+diff --git a/tools/libs/store/Makefile b/tools/libs/store/Makefile
+index 6cc9baaabe..65092d8432 100644
+--- a/tools/libs/store/Makefile
++++ b/tools/libs/store/Makefile
+@@ -22,7 +22,7 @@ CFLAGS += -DXEN_LIB_STORED="\"$(XEN_LIB_STORED)\""
+ CFLAGS += -DXEN_RUN_STORED="\"$(XEN_RUN_STORED)\""
  
--CFLAGS += -I$(XEN_libxenctrl)
--
- vpath %.c ../../../xen/common/libelf
--CFLAGS += -I../../../xen/common/libelf
+ vpath xs_lib.c $(XEN_ROOT)/tools/xenstore
+-CFLAGS += -I $(XEN_ROOT)/tools/xenstore
++CFLAGS += -iquote $(XEN_ROOT)/tools/xenstore
  
- LIBELF_OBJS += libelf-tools.o libelf-loader.o
- LIBELF_OBJS += libelf-dominfo.o
- 
- OBJS-y += $(LIBELF_OBJS)
- 
--$(LIBELF_OBJS) $(LIBELF_OBJS:.o=.opic): CFLAGS += -Wno-pointer-sign
--
- ifeq ($(CONFIG_X86),y) # Add libx86 to the build
- vpath %.c ../../../xen/lib/x86
- 
-@@ -70,10 +65,12 @@ OBJS-y                 += xg_dom_decompress_unsafe_xz.o
- OBJS-y                 += xg_dom_decompress_unsafe_zstd.o
- endif
- 
--CFLAGS   += -Werror -Wmissing-prototypes
--CFLAGS   += -I. -I./include $(CFLAGS_xeninclude)
--CFLAGS   += -D__XEN_TOOLS__
--CFLAGS   += -include $(XEN_ROOT)/tools/config.h
-+CFLAGS += -D__XEN_TOOLS__
-+CFLAGS += -include $(XEN_ROOT)/tools/config.h
-+CFLAGS += -iquote ../../../xen/common/libelf
-+
-+# To be able to include xc_private.h
-+CFLAGS += -iquote $(XEN_libxenctrl)
- 
- # Needed for posix_fadvise64() in xc_linux.c
- CFLAGS-$(CONFIG_Linux) += -D_GNU_SOURCE
-@@ -92,8 +89,9 @@ ZLIB_CFLAGS :=
- ZLIB_LIBS :=
- endif
- 
--xg_dom_bzimageloader.o: CFLAGS += $(ZLIB_CFLAGS)
--xg_dom_bzimageloader.opic: CFLAGS += $(ZLIB_CFLAGS)
-+xg_dom_bzimageloader.o xg_dom_bzimageloader.opic: CFLAGS += $(ZLIB_CFLAGS)
-+
-+$(LIBELF_OBJS) $(LIBELF_OBJS:.o=.opic): CFLAGS += -Wno-pointer-sign
- 
- LIBHEADER := xenguest.h
- 
-diff --git a/tools/libs/guest/xg_offline_page.c b/tools/libs/guest/xg_offline_page.c
-index cfe0e2d537..c594fdba41 100644
---- a/tools/libs/guest/xg_offline_page.c
-+++ b/tools/libs/guest/xg_offline_page.c
-@@ -25,7 +25,7 @@
- #include <stdlib.h>
- #include <unistd.h>
- #include <sys/time.h>
--#include <xg_core.h>
-+#include "xg_core.h"
- 
- #include "xc_private.h"
- #include "xg_private.h"
+ xs.opic: CFLAGS += -DUSE_PTHREAD
+ ifeq ($(CONFIG_Linux),y)
 -- 
 Anthony PERARD
 
