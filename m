@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E1D44690C2
+	by mail.lfdr.de (Postfix) with ESMTPS id 25FF14690C1
 	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 08:24:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.238646.413651 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.238642.413631 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mu8Ll-00011g-4C; Mon, 06 Dec 2021 07:23:49 +0000
+	id 1mu8Lj-0000ZB-2l; Mon, 06 Dec 2021 07:23:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 238646.413651; Mon, 06 Dec 2021 07:23:49 +0000
+Received: by outflank-mailman (output) from mailman id 238642.413631; Mon, 06 Dec 2021 07:23:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mu8Lk-0000rp-NM; Mon, 06 Dec 2021 07:23:48 +0000
-Received: by outflank-mailman (input) for mailman id 238646;
- Mon, 06 Dec 2021 07:23:47 +0000
+	id 1mu8Li-0000U6-MS; Mon, 06 Dec 2021 07:23:46 +0000
+Received: by outflank-mailman (input) for mailman id 238642;
+ Mon, 06 Dec 2021 07:23:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=9VqD=QX=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mu8Li-0008Mk-PL
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 07:23:46 +0000
+ id 1mu8Lg-0008Mk-P7
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 07:23:44 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6f610693-5665-11ec-8a4d-196798b21f7b;
+ id 6f7d7449-5665-11ec-8a4d-196798b21f7b;
  Mon, 06 Dec 2021 08:23:41 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 08A651FD5F;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 395151FDF2;
  Mon,  6 Dec 2021 07:23:40 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D17051330B;
- Mon,  6 Dec 2021 07:23:39 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0E8A01330B;
+ Mon,  6 Dec 2021 07:23:40 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +KHPMXu6rWHVdAAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 06 Dec 2021 07:23:39 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8D9LAny6rWHVdAAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 06 Dec 2021 07:23:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,118 +51,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f610693-5665-11ec-8a4d-196798b21f7b
+X-Inumbo-ID: 6f7d7449-5665-11ec-8a4d-196798b21f7b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1638775420; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9EBgP/t2UoDrCarm09EUmFu2+s1qFBTeUbKK/KiO/DY=;
-	b=BRqj6916g8tEUhYg2upskhF6cz1U43E+S8kWYjh4/UANTdYbnyxixtQ0HloMJ9ZR7FWFOz
-	DXxLfY9F/iyeWYFWKluw1kbLFenMDocBRk0rG0hYDlJ3571vIMJADFgot0qLlVzrDxLijz
-	Itl0wPxaH91UsJn7gYh4bdUmNigV4iI=
+	bh=2T/0NcFBUay+umzcIVeBLzt93p/NF1ROTt/i4aaQWm8=;
+	b=Efh8bL88xHn6VBERl0JJiPtNHp4+hYDaguiD7BajgSnsl1zjovl6LdewERRMNpnIvJ+zAg
+	+N/0Aw1awnndKXgPYBx7VqGyfzGegxatcKxZnM2tdUBUNqmw4p+gSU/wEyCxlNpAKvf6GH
+	9sxgiwDdn7genYuvrgcOIKLeZ0DmU8k=
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org,
 	wl@xen.org,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH 02/10] mini-os: sort and sanitize e820 memory map
-Date: Mon,  6 Dec 2021 08:23:29 +0100
-Message-Id: <20211206072337.9517-3-jgross@suse.com>
+Subject: [PATCH 03/10] mini-os: don't assume contiguous RAM when initializing in PVH mode
+Date: Mon,  6 Dec 2021 08:23:30 +0100
+Message-Id: <20211206072337.9517-4-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20211206072337.9517-1-jgross@suse.com>
 References: <20211206072337.9517-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Do some processing of the E820 memory map obtained from the hypervisor:
-
-- align the entries to page boundaries
-- sort the entries by their start address
-- merge adjacent entries of same type
-
-This is relevant for PVH mode only.
+Sizing the available memory should respect memory holes, so look at
+the memory map when setting the boundary for the memory allocator.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- e820.c | 56 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
+ arch/x86/mm.c  |  6 +-----
+ e820.c         | 13 ++++++++-----
+ include/e820.h |  2 +-
+ 3 files changed, 10 insertions(+), 11 deletions(-)
 
-diff --git a/e820.c b/e820.c
-index 2165280..336a8b8 100644
---- a/e820.c
-+++ b/e820.c
-@@ -57,6 +57,60 @@ static char *e820_types[E820_TYPES] = {
-     [E820_PMEM]     = "PMEM"
- };
- 
-+static void e820_remove_entry(int idx)
-+{
-+    int i;
-+
-+    e820_entries--;
-+    for ( i = idx; i < e820_entries; i++ )
-+        e820_map[i] = e820_map[i + 1];
-+}
-+
-+static void e820_swap_entries(int idx1, int idx2)
-+{
-+    struct e820entry entry;
-+
-+    entry = e820_map[idx1];
-+    e820_map[idx1] = e820_map[idx2];
-+    e820_map[idx2] = entry;
-+}
-+
-+static void e820_sanitize(void)
-+{
-+    int i;
-+    unsigned long end;
-+
-+    /* Adjust map entries to page boundaries. */
-+    for ( i = 0; i < e820_entries; i++ )
-+    {
-+        end = (e820_map[i].addr + e820_map[i].size + PAGE_SIZE - 1) & PAGE_MASK;
-+        e820_map[i].addr &= PAGE_MASK;
-+        e820_map[i].size = end - e820_map[i].addr;
-+    }
-+
-+    /* Sort entries by start address. */
-+    for ( i = 0; i < e820_entries - 1; i++ )
-+    {
-+        if ( e820_map[i].addr > e820_map[i + 1].addr )
-+        {
-+            e820_swap_entries(i, i + 1);
-+            i = -1;
-+        }
-+    }
-+
-+    /* Merge adjacent entries of same type. */
-+    for ( i = 0; i < e820_entries - 1; i++ )
-+    {
-+        if ( e820_map[i].type == e820_map[i + 1].type &&
-+             e820_map[i].addr + e820_map[i].size == e820_map[i + 1].addr )
-+        {
-+            e820_map[i].size += e820_map[i + 1].size;
-+            e820_remove_entry(i + 1);
-+            i--;
-+        }
-+    }
-+}
-+
- static void e820_get_memmap(void)
+diff --git a/arch/x86/mm.c b/arch/x86/mm.c
+index 8df93da..3bf6170 100644
+--- a/arch/x86/mm.c
++++ b/arch/x86/mm.c
+@@ -107,7 +107,6 @@ void arch_mm_preinit(void *p)
  {
      long ret;
-@@ -71,6 +125,8 @@ static void e820_get_memmap(void)
+     domid_t domid = DOMID_SELF;
+-    unsigned long max;
+ 
+     pt_base = page_table_base;
+     first_free_pfn = PFN_UP(to_phys(&_end));
+@@ -117,11 +116,8 @@ void arch_mm_preinit(void *p)
+         xprintk("could not get memory size\n");
          do_exit();
      }
-     e820_entries = memmap.nr_entries;
-+
-+    e820_sanitize();
- }
+-    last_free_pfn = ret;
  
- void arch_print_memmap(void)
+-    max = e820_get_maxpfn();
+-    if ( max < last_free_pfn )
+-        last_free_pfn = max;
++    last_free_pfn = e820_get_maxpfn(ret);
+ }
+ #endif
+ 
+diff --git a/e820.c b/e820.c
+index 336a8b8..14fd3cd 100644
+--- a/e820.c
++++ b/e820.c
+@@ -155,10 +155,10 @@ void arch_print_memmap(void)
+ }
+ #endif
+ 
+-unsigned long e820_get_maxpfn(void)
++unsigned long e820_get_maxpfn(unsigned long pages)
+ {
+     int i;
+-    unsigned long pfn, max = 0;
++    unsigned long pfns, max = 0;
+ 
+     e820_get_memmap();
+ 
+@@ -166,9 +166,12 @@ unsigned long e820_get_maxpfn(void)
+     {
+         if ( e820_map[i].type != E820_RAM )
+             continue;
+-        pfn = (e820_map[i].addr + e820_map[i].size) >> PAGE_SHIFT;
+-        if ( pfn > max )
+-            max = pfn;
++        pfns = e820_map[i].size >> PAGE_SHIFT;
++        max = e820_map[i].addr >> PAGE_SHIFT;
++        if ( pages <= pfns )
++            return max + pages;
++        pages -= pfns;
++        max += pfns;
+     }
+ 
+     return max;
+diff --git a/include/e820.h b/include/e820.h
+index af2129f..6a57f05 100644
+--- a/include/e820.h
++++ b/include/e820.h
+@@ -49,6 +49,6 @@ struct __packed e820entry {
+ extern struct e820entry e820_map[];
+ extern unsigned e820_entries;
+ 
+-unsigned long e820_get_maxpfn(void);
++unsigned long e820_get_maxpfn(unsigned long pages);
+ 
+ #endif /*__E820_HEADER*/
 -- 
 2.26.2
 
