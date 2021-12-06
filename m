@@ -2,29 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AF33469747
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 14:39:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.238973.414195 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74658469750
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 14:41:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.238978.414206 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muECe-0001kt-JI; Mon, 06 Dec 2021 13:38:48 +0000
+	id 1muEEf-00037O-21; Mon, 06 Dec 2021 13:40:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 238973.414195; Mon, 06 Dec 2021 13:38:48 +0000
+Received: by outflank-mailman (output) from mailman id 238978.414206; Mon, 06 Dec 2021 13:40:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muECe-0001hv-GF; Mon, 06 Dec 2021 13:38:48 +0000
-Received: by outflank-mailman (input) for mailman id 238973;
- Mon, 06 Dec 2021 13:38:47 +0000
+	id 1muEEe-00034G-Tc; Mon, 06 Dec 2021 13:40:52 +0000
+Received: by outflank-mailman (input) for mailman id 238978;
+ Mon, 06 Dec 2021 13:40:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3Xlh=QX=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1muECd-0001hg-H2
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 13:38:47 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d4d2d159-5699-11ec-8a4d-196798b21f7b;
- Mon, 06 Dec 2021 14:38:45 +0100 (CET)
+ <SRS0=oXlf=QX=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
+ id 1muEEc-000344-Tn
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 13:40:50 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1edd099e-569a-11ec-8a4d-196798b21f7b;
+ Mon, 06 Dec 2021 14:40:49 +0100 (CET)
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1B6D40pI006632; 
+ Mon, 6 Dec 2021 13:40:06 GMT
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by mx0b-00069f02.pphosted.com with ESMTP id 3csc72a1pr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 06 Dec 2021 13:40:06 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1B6Da3pJ089851;
+ Mon, 6 Dec 2021 13:40:05 GMT
+Received: from nam12-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12lp2171.outbound.protection.outlook.com [104.47.59.171])
+ by aserp3020.oracle.com with ESMTP id 3cr053e60h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 06 Dec 2021 13:40:05 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by BL0PR10MB2978.namprd10.prod.outlook.com (2603:10b6:208:79::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Mon, 6 Dec
+ 2021 13:40:02 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::8d84:1f40:881:7b12]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::8d84:1f40:881:7b12%5]) with mapi id 15.20.4755.022; Mon, 6 Dec 2021
+ 13:40:02 +0000
+Received: from [10.74.106.57] (138.3.200.57) by
+ SN6PR2101CA0026.namprd21.prod.outlook.com (2603:10b6:805:106::36) with
+ Microsoft SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
+ Mon, 6 Dec 2021 13:39:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,107 +64,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4d2d159-5699-11ec-8a4d-196798b21f7b
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1638797926;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=6oMmZ8HEgzBLe2fLCyP3ITktUGqesp5ZKkUue/5pPCw=;
-  b=QRlDgFxxj26+a7XSbAbXacGLi1NLrE7nuh4NSOgdXWvySm5jz8dw3MLI
-   mlgMcS9jzDHtubny+M44J2VmoQ7o8F+ElioScdne0r5np1Ss6xzT3g0m1
-   iYEpXlVxOB1Z/v5lPUP+slXjF8xIMcA3hCDZZ8P21XtaGT+rQDGEjSOUL
-   4=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: tlTJxcwR8AbYtJyTpjGo0Pkh/WsShdyJCJfDD0UNxjIB2hqhbpmgjkTWVKzefjRwOKxNAjdHSn
- Ar6TFbmeMOWalMI9w30orSGt8CE8F8G6bfhjvN80Kz6r9+aI+wqZByo6UIjmqX0Tg6HFcbkyeq
- l2r6xWrF1zCqTic0/IE0iRlT3VYe9c8zH7a2qfL2WNFshR9Sypm9ZphIu9p1wZEBwRULSIOpjR
- M7dxGmwsXFVcDmU+zItu6pWTx9/fwc55QdHw8XZy1/c6YbUT0EDeW54Nz1K5ZJ2BpiOY1dZfIx
- 8wlqEZaP+zU+28nChD6Rp0Ry
-X-SBRS: 4.0
-X-MesageID: 59744673
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:DDlvNqCLCZOGTBVW/xLkw5YqxClBgxIJ4kV8jS/XYbTApDwmhjUBx
- jRNDGmCOK3cajehfIp+atu/8kgPvZfWnNIxQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WLGs1hxZH1c+EX570Uw7wobVv6Yz6TSHK1LV0
- T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
- Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/jC+jhdNK4
- 9V0qL+aa1x0favcucItakwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
- KFGbmBWBvyAr7veLLaTY+9gnMk8auLsO5sSoCpIxjDFF/c2B5vERs0m4PcFjWhs2p4RRp4yY
- eIabBtJQhaQZyESFWsJKYBhs8L4in7gJmgwRFW9+vNsvjm7IBZK+KfpGMrYfJqNX8o9tmSyq
- 3/C/m/5KgoHL9HZwj2Amlq8i+mKkS7lVYY6ELyj6uUskFCV3nYUChAdSR28u/bRt6Klc4sBc
- QpOoHNo9PVsshzwJjXgY/GmiHmelAQfYPFQKvAZwiPWl+nS8ye/NlFRG1atd+canMMxQDUr0
- HqAkNXoGSFjvdWpdJ6NyluHhWjsYHZIdAfucQdBFFJYuIe7/OnfmzqWFo47eJNZmOEZDt0ZL
- 9qiiCElz4segscQv0lQ1QCW2mn8znQlo+Nc2+k2Yo5Hxl4gDGJGT9bxgbQ+0RqmBNzDJrVml
- CJb8/VyFMhUUfmweNWlGY3h5o2B6fefKyH7ilVyBZQn/DnF0yf9JtAPumAjfh03bZZsldrVj
- Kn741k5CHh7ZiTCUEOKS9jpV5RCIVbIS7wJqcw4nvIRO8MsJWdrDQllZFKK3nCFraTfufpXB
- HtvSu71VSxyIf0+lFKeHr5BuZd2l3tW+I8mbcyjp/hR+ebHOiL9pHZsGAfmU93VG4vY+liIq
- IgGaJPRo/idOcWnChTqHUcoBQhiBRAG6Vre8qS7r8aPfVhrHn8PEfjUze9zcoBphf0NxOzJ4
- mu8SglTz1+m3S/LLgCDa3ZCbrLzXMkg8SJnbHJ0ZVv4iWI+ZYuP7bsEc8dld7cQ6+E+n+V/S
- OMIepvcD60XGCjH4TkUcbL0sJdmKEawnQuLMif8OGo/cpdsShbn4NjhegezpiACAjDu7Zk1o
- qG61xOdSp0GHlwwAMHTYfOp7lWwoXlCx74iAxqWeoFeIRy+/pJrJir9iu4MD/sNcRiTlCGH0
- wu2AAsDobWfqYEC79SU17uPqJ2kErUiExMCTXXb97u/KQLT4nGnnd1bSO+NcD3QCDH09aGla
- bkHxv3wKqRazlNDso46GLd316MuodDoouYCnAhjGXzKaXWtC69hfSbajZUe6PUVy+8LoxayV
- 2KO5sJeaOeAN87SGVIMIBYoM7aY3vYOlziOtfk4LS0WPsOsEGZrhamKAySxtQ==
-IronPort-HdrOrdr: A9a23:M5pKkKCg7hR4+kblHehusceALOsnbusQ8zAXPh9KKCC9I/b3qy
- nxppsmPH7P+XgssRQb+exoV5PwOU80maQFhLX5eI3SITUO21HYbb2Kj7GSuAEIcheWnoU2uM
- sQENkdNDSzNykBsS+Q2njeLz9U+qj/zEnev5a5854Cd3APV0hI1XYHNi+rVmlNACVWD5swE5
- SRouBdoSC7RHgRZsOnQlEYQunqvbTw5dLbSC9DIyRixBiFjDuu5rK/OQOfxA0iXzRGxqpn2X
- TZkjb++r6ov5iAu1zhPi7ontZrcenau59+7f+3+48owwDX+0OVjN4IYcz9gNl6mpDo1L9gqq
- ixn/5pBbUD15qWRBDtnfMosDOQiwrHLBTZuAelaDLY0LzErGdTMbsyuatJNhTe8EYup9d6ze
- ZC2H+YrYNeCVfakD36/MWgbWAkqqOYmwturQcotQ0SbWLeUs4ZkaUPuEdOVJsQFiPz744qVO
- FoEcHH/f5TNUiXanjI11MfiuBFdhwIb2K7qmFrgL3n79GXpgEz86I1/r1pop4wzuN0d3Af3Z
- WxDk1BrsA5cvMr
-X-IronPort-AV: E=Sophos;i="5.87,291,1631592000"; 
-   d="scan'208";a="59744673"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH] x86/irq: Improve local_irq_restore() code generation and performance
-Date: Mon, 6 Dec 2021 13:38:28 +0000
-Message-ID: <20211206133828.8811-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+X-Inumbo-ID: 1edd099e-569a-11ec-8a4d-196798b21f7b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
+ subject : to : cc : references : from : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2021-07-09;
+ bh=FTSWx2zpYLbbOuaN9PiB/j55Kh0iAWfbOK3m5GF2lPY=;
+ b=cFq0LNqvpJzRYah7P4URkNIAL+F3GPgbBGJvdAJ0UGsMBS5VK/1wk6esHL4TtEbFddiD
+ A+JwM95uGgPabVWA6fTYBa/JI8xyKhBoNDgxAmhrclp4HwZ5QBuLmqiiGpQgQN5qUq90
+ UYctfyAwRZndKfULMbM4ea07MZye9dLZ4k+XYpSKBYo+VHchE3YvjHPcVr+5ys0hJOBc
+ J0cHwtx0vYX0+DiXVnAUh7Er5hfMETCn4svi8J2xU7JKqsu43hGzsr5cFSV9Jvh8UuCv
+ iMw95KXNdXAxGF8E4ORsgiuPuXA8bvvsWEk72RK/3DDzj95SoW2Z8Nr+OrlgEKlfi1jo 8Q== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IC6kIJOjoUzzLOvT73dD+gGpwmn8EPUA1kAIbjgbv70YiQvkhMTC7IzTooMZ/eT75RF01lBewR1f3kG/k/v7/YC3e3uvia6HsXpyJSqL5lLN8AKn46o44L6YTV5TpgawQm4/0Ha5O3LdnQmZKP0zGvUSPsSc7hC8kCRi1mnb7lj0smDc2qoxzTkqNwvCglxkZXeI8SarDTy7XDOZd1TPrV/tJR/zVSCinjNT7pdfiHKbb7yD5PJONoZ4WnJPULL2AOvCjn60m8HExtLJpS4C0It4D5VXlyfC2Qffj1dx2ZdzF2HYBpokUnZBzh1WlKtM5RLl4h494ougjMk5sbDkzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FTSWx2zpYLbbOuaN9PiB/j55Kh0iAWfbOK3m5GF2lPY=;
+ b=EIIg6if26uQ2+5Kw5v/KM7l+rvI5grtQGaSbIv+WYNaALJtKfZvumbCW7Q/10UTiUUPA4uAoAggiEFGau3cdkH1HORj7doApyy5pmLji/+Q6POp8icChc75oUhD9T00clLy4c61Dh/tw7hgAG1QoKRDEgPmqVgwPSwRE5htokLKHbH8Z1pd0K/foLfOEoMupgh+dvvzpkUTKuTxigkTdAM2ajhvx66eDoBGSEoKJZ2oFedooIevXeiQP6fH0r2Luw34ja147sMwb20tdjBo9VScaAs/PUttZthNO+WNNTUPkPDA8Ph+WI6GlVIM+z7CwS3wIE1p7EM66K3rC+5RCYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FTSWx2zpYLbbOuaN9PiB/j55Kh0iAWfbOK3m5GF2lPY=;
+ b=Db2nm9wtiLU41o46JP4TC6M3SLK66jCv8rs8MVVXmcuzMpdiQPlbnUzOgEILckPqzV8vMvBet0tVsOBJ3yVwO9jijeZreXwyewzF6Ioy+zTeC8c5ssAqn0gGGCn5wMiKjnEJz2K3pz6QOIOYXmjayrkZxzf2CsAcNHbrxxZEBqU=
+Message-ID: <5a687e9c-f375-d9cc-f781-37cd5bedacb9@oracle.com>
+Date: Mon, 6 Dec 2021 08:39:53 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.2
+Subject: Re: [PATCH] cpu/hotplug: Allow the CPU in CPU_UP_PREPARE state to be
+ brought up again.
+Content-Language: en-US
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+        "Longpeng (Mike, Cloud Infrastructure Service Product Dept.)"
+ <longpeng2@huawei.com>,
+        linux-kernel@vger.kernel.org,
+        "Gonglei (Arei)" <arei.gonglei@huawei.com>, x86@kernel.org,
+        xen-devel@lists.xenproject.org, Peter Zijlstra <peterz@infradead.org>,
+        Ingo Molnar <mingo@kernel.org>,
+        Valentin Schneider <valentin.schneider@arm.com>,
+        Juergen Gross <jgross@suse.com>,
+        Stefano Stabellini
+ <sstabellini@kernel.org>,
+        Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        "H. Peter Anvin" <hpa@zytor.com>
+References: <20211122154714.xaoxok3fpk5bgznz@linutronix.de>
+ <87y25djhaj.ffs@tglx> <4d04ea65-ea74-dcfd-5b0e-984b44f91961@oracle.com>
+ <20211206112555.ubscfwwxnn5bnyte@linutronix.de>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+In-Reply-To: <20211206112555.ubscfwwxnn5bnyte@linutronix.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN6PR2101CA0026.namprd21.prod.outlook.com
+ (2603:10b6:805:106::36) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 320bff4b-b5fe-4841-b299-08d9b8bde7bc
+X-MS-TrafficTypeDiagnostic: BL0PR10MB2978:EE_
+X-Microsoft-Antispam-PRVS: 
+	<BL0PR10MB2978A395237B15D45F7E631B8A6D9@BL0PR10MB2978.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	Iz8VjNkWoZlUUu5M2gkdJJUMpnyt48j6FMNskSRzgEBIwJCsjtAwc3F1bKBuUXFpWNBR1nCwIQnnlmdcLPsrfyWHLYdBcuCwYbQ5xy6D7ep1p6zmv8qeMn6IXxdwhZWsK538YFix6lB7GpKZ8N2FiVUBlptCrkKKByhgVkoRmv7UJS+BCUzF0wPLkwch+3v28+cF3y0dZDzhQ2faD1SpNGvikXCYVJgj8EJIf62qcJJbrCwkHWDq7I1YGmn3yzzxkjAh6td7M1p3bclSL9S4NE8x4tCu/yoZ0hWONN0/rbA+PgRp1WPWkNpkEUWwXhIzalhigaWzYEp701eNqUuMAgy9SWObCxqeYKBT3sSJ1C42G8BW0gkehI27V2PkEWXFwqqJ5Lwq05TjUwkOPhwu4CNp1+4dF0/JSif6hDLkvyMZBA+2DwFQepBNMvz9uPr2Nt0EyfOk50Y1RREYtnT6LG6ioLqsSyt0yBFbgnhmzbLcvUjbBdJF0oDgaYUCIBQaC6ZJEfucnkWIvpG4WGOfv2YP3oetX0xQ4MgO940QoZ2dZEQy/5uF+GveUrCx5Br8K7o3aIL1PqRn+CQVjpTel4Qym4ck4fnJ3mIMMokjv0yfex9LMeif6x6CObD3uZ8ufcntT81Wg5nUjGExD2Ve64o+Zk3ZcWdsL+CfNSHGU0UH0AaSU173zQchIHim3CNSgT6daI7CRD8v7BqGK+P0td3LkOEvLByGX05KJv93ZGV3lfrK2EoHQ0f5sxn9l1xi
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6916009)(8676002)(508600001)(8936002)(4001150100001)(66946007)(38100700002)(66476007)(66556008)(6666004)(956004)(53546011)(44832011)(26005)(2616005)(186003)(36756003)(2906002)(6486002)(86362001)(5660300002)(31686004)(7416002)(316002)(54906003)(4326008)(31696002)(16576012)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?UUd4NXJMV1diY0o3aDdFMGlqeTBaUktsRjk3Y2FyNXJ5U0lEV09MTzNiU0hq?=
+ =?utf-8?B?UjZHNk1xNSt4MjZCNXVFYU02NmE0VGJpOTZqUVA2Wlg2OXM1cmFTQ09Nd1pz?=
+ =?utf-8?B?cjlmc0FBdUpKQlRHNmtSR2RvL0FDb0ZFYnU5TkhmWE9TaVhwTzRsZVhwZDll?=
+ =?utf-8?B?VlRXSVdGaFlaaGFsaUVodENHUmp5VGlsblk3TG45VlFnUkErK1pXS3kvczJs?=
+ =?utf-8?B?MlphZ1Y3VE1BSGxQZFpqQVZqaWZBdHFIS3ZYMkRCTE9UZVJkVmRyQnJjdHFq?=
+ =?utf-8?B?QThyTUdtQzNjV2VzY1AxRktCNG9KTlpzdnlBR291ZThDYlhVSHVUQ0IveVZi?=
+ =?utf-8?B?bE11dHZWVlkzMlRKdldTUjE2WXhZdFhkRE05R2JvM3BraWlpcXRwUkt6NnZL?=
+ =?utf-8?B?bmZXaG8vQ2YyV28zbStWdnhaeEpCS01lMW9Pdkxvb2hBUldabmpBL1Vuelg2?=
+ =?utf-8?B?V0R0NDVjaEIraHBjT3V3SW1YaTh4THhTYnpUL3RvY1lZM3FsSXNaMFd1SjNt?=
+ =?utf-8?B?c2poZzJJb0tFT0locnNYZi82QmhjcU5zRS9aajZYak5QZzJCM3ZpVUNTS3lO?=
+ =?utf-8?B?VlNoQ1lrUjhpU2tsb3dHU25LZUM2NkRlak84RVdFeUV3WUhldGI4UURvYkh3?=
+ =?utf-8?B?T3gzZUZxNmJ1a2VwOHN4eFFJMW9iUnVyQ2tUeGwzQ1BLQXRjS0tOOUxuYURF?=
+ =?utf-8?B?UGhha2l6bFR1UDNSOVJnZ2lQNlVDcUNYN0RvR2xyOEcyY24vdTJOdGl5dk5L?=
+ =?utf-8?B?ampONjk1WXRWZi9mNlFmdnRVVk93VWdtSk9aMUhmc3g4Y2paZ1E4d0txRHdE?=
+ =?utf-8?B?aEVVdjZRSDV4QXJhanNDN2kvZjExK05oRkJ6M1FicXF6VEFNdlN2SjNzNFhh?=
+ =?utf-8?B?ZURXQzhPV0dPWFh0a3Vudy9pbzdmUUNPZGF1bXpPSi9zUFFFVzJNZ3lnbGp0?=
+ =?utf-8?B?Q3FoMldHc2ovWWJRNjFOY29SZU13bHB1SzhLTmhOZUt6SjJRUHlWc3hydnRE?=
+ =?utf-8?B?TXdLWjJBNExxVUhQMkhneHBQdnB3SzkvQXRsQ2IwcXBtclByWTlveVZIUWhw?=
+ =?utf-8?B?ZzNMMFZMWDlTTkI4cTVFLzlPSVZkdThnd0hPdWtYdmtYb0dTR3hra2hOekFJ?=
+ =?utf-8?B?Q2pGS0dJb3M2dkdXdmhUczJsWnBTMWd4cksvK2ZwbGUrME1CMTQ2bjFUNklv?=
+ =?utf-8?B?UytiTURodE9iU2FFWWkxUlJZS1VmVithbVhJUGZHMFRCeGwveXRXbjZnSUZu?=
+ =?utf-8?B?L0Zzdk5PRWtIUy95eEtoSlFuQmJ0bHFBUTkxcWswM21ER0ljODFrZnZFaVhy?=
+ =?utf-8?B?a2syanErdnFZRFNVVFlBY05XRy9CSWFxRkcrbWZ3M2dxWUNuaXBlZGVVVnp3?=
+ =?utf-8?B?ME52M1RLYmV0RzcxWWgyZU5raXpSYlZkdFBLeFJhNytNc0hxVVoyc092dndM?=
+ =?utf-8?B?LzNuenNHRUc5RHRZTC9jSUh2YlN1Sm52eWxRL09DcHcrcUlTSkVPSEpuNFNt?=
+ =?utf-8?B?ellZOWM4S3VSaURkSzFyYkNpQWwzbWNpRVFUV3B3eHRWSWI4Rmg3c0JtQ1N3?=
+ =?utf-8?B?ZlJRTU9OQ3VLdksvUU1Cb3FTRC9uUVhqU2tSUDBzQnVKd0ltZWdHYi9GRTlp?=
+ =?utf-8?B?TTFEOGUrTXhmWXByUVloN0VCM1c4SlpqYk9LY3BmNVdsZzVQek4yYXpTTEEy?=
+ =?utf-8?B?aTlCWG1HZ0VVQmhaaXc2aCtVQUJZdnJMcHpWOWN5c1JFMTUxZUtiZGRmUCtN?=
+ =?utf-8?B?Njl4bjNZSGdhOEs0K0I3dEd6N1k5L2ZkaGZtVDZHQjJGK0pYRHRzbE5IRXhP?=
+ =?utf-8?B?cVdlb2hiaUlPQUhpY2hzOWMwWkhZQjVxY09mYXFWdnBDTXp4TDUyOTVzTjZn?=
+ =?utf-8?B?ZWlZMzBGTHpRZ3JLR3ZVdUgzRWZqMEpJQnYrdmwwSWRPekVRYzBoS0lxVGJp?=
+ =?utf-8?B?dHdwZmdBa0JNNHRDN29ERmJFczRnb2ZUK1phVnJjUUFCZmJjaC95Q0pLODB3?=
+ =?utf-8?B?TjNoeEQrY3dWMVBMYkJtSDdCc3ZqUS93eE1JK1pFU2xEWG1VQzZ2VWVBV0RJ?=
+ =?utf-8?B?SFlzVTdzY1hoVHpVSU1YK3J1bGlucWVVZ1U3TjdzWkVCcHBaWGp6WldQeHg3?=
+ =?utf-8?B?b1hqRERXb0N4Ujl2amFZbUE2U2ZrQ1hvWlBnc2MwdHFRQUk0VGFEdmVQYmlY?=
+ =?utf-8?B?NVFQZzF5NnRpSC92UEp6dmowcDFZR1BFbGdPWWN1RStrZllxOTZPU2JJKzMr?=
+ =?utf-8?Q?uzE60qXnbkZf9r5cPVaKChwVvYh2ztyL/AR5PKKl7w=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 320bff4b-b5fe-4841-b299-08d9b8bde7bc
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2021 13:40:02.7720
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pkjaqUObnPSxKDefcTwHWi/5Ke+PRss1uc4DUIp+cMtJ+q+vBI+/u1GsO8yKa6wye1IkhhJ+O54oq400EFJSxoAhEBA++kdyEw4bD9GAfRc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR10MB2978
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10189 signatures=668683
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 mlxscore=0 phishscore=0
+ malwarescore=0 spamscore=0 mlxlogscore=999 adultscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
+ definitions=main-2112060084
+X-Proofpoint-ORIG-GUID: 3geAe5Ak03wp3KAmWXAZp0du-t9lWZEL
+X-Proofpoint-GUID: 3geAe5Ak03wp3KAmWXAZp0du-t9lWZEL
 
-popf is a horribly expensive instruction, while sti is an optimised fastpath.
-Switching popf for a conditional branch and sti caused an 8% perf improvement
-in various linux measurements.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/include/asm-x86/system.h | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+On 12/6/21 6:25 AM, Sebastian Andrzej Siewior wrote:
+> On 2021-11-24 21:17:34 [-0500], Boris Ostrovsky wrote:
+>> On 11/24/21 5:54 PM, Thomas Gleixner wrote:
+>>> Any comment from XEN folks?
+>>
+>> If memory allocation in cpu_initialize_context() fails we will not be
+>> able to bring up the VCPU because xen_cpu_initialized_map bit at the
+>> top of that routine will already have been set. We will BUG in
+>> xen_pv_cpu_up() on second (presumably successful) attempt because
+>> nothing for that VCPU would be initialized. This can in principle be
+>> fixed by moving allocation to the top of the routine and freeing
+>> context if the bit in the bitmap is already set.
+>>
+>>
+>> Having said that, allocation really should not fail: for PV guests we
+>> first bring max number of VCPUs up and then offline them down to
+>> however many need to run. I think if we fail allocation during boot we
+>> are going to have a really bad day anyway.
+>>
+> So can we keep the patch as-is or are some changes needed?
 
-diff --git a/xen/include/asm-x86/system.h b/xen/include/asm-x86/system.h
-index 65e63de69a67..4be235472ecd 100644
---- a/xen/include/asm-x86/system.h
-+++ b/xen/include/asm-x86/system.h
-@@ -267,13 +267,8 @@ static inline unsigned long array_index_mask_nospec(unsigned long index,
- })
- #define local_irq_restore(x)                                     \
- ({                                                               \
--    BUILD_BUG_ON(sizeof(x) != sizeof(long));                     \
--    asm volatile ( "pushfq\n\t"                                  \
--                   "andq %0, (%%rsp)\n\t"                        \
--                   "orq  %1, (%%rsp)\n\t"                        \
--                   "popfq"                                       \
--                   : : "i?r" ( ~X86_EFLAGS_IF ),                 \
--                       "ri" ( (x) & X86_EFLAGS_IF ) );           \
-+    if ( (x) & X86_EFLAGS_IF )                                   \
-+        local_irq_enable();                                      \
- })
- 
- static inline int local_irq_is_enabled(void)
--- 
-2.11.0
+
+I think for the sake of completeness we could add
+
+
+diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
+index 6a8f3b53ab83..86368fcef466 100644
+--- a/arch/x86/xen/smp_pv.c
++++ b/arch/x86/xen/smp_pv.c
+@@ -277,8 +277,11 @@ cpu_initialize_context(unsigned int cpu, struct task_struct *idle)
+                 return 0;
+
+         ctxt = kzalloc(sizeof(*ctxt), GFP_KERNEL);
+-       if (ctxt == NULL)
++       if (ctxt == NULL) {
++               cpumask_clear_cpu(cpu, xen_cpu_initialized_map);
++               cpumask_clear_cpu(cpu, cpu_callout_mask);
+                 return -ENOMEM;
++       }
+
+         gdt = get_cpu_gdt_rw(cpu);
+
+
+-boris
 
 
