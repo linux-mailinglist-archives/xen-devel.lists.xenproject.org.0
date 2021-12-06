@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ABAA46A4C3
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 19:38:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.239781.415785 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F22B46A4C6
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 19:38:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.239788.415800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muIsC-000351-IE; Mon, 06 Dec 2021 18:38:00 +0000
+	id 1muIsh-0004Jh-1M; Mon, 06 Dec 2021 18:38:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 239781.415785; Mon, 06 Dec 2021 18:38:00 +0000
+Received: by outflank-mailman (output) from mailman id 239788.415800; Mon, 06 Dec 2021 18:38:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muIsC-00031q-Ek; Mon, 06 Dec 2021 18:38:00 +0000
-Received: by outflank-mailman (input) for mailman id 239781;
- Mon, 06 Dec 2021 18:37:58 +0000
+	id 1muIsg-0004HL-Rc; Mon, 06 Dec 2021 18:38:30 +0000
+Received: by outflank-mailman (input) for mailman id 239788;
+ Mon, 06 Dec 2021 18:38:29 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1muIsA-00030F-T2
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 18:37:58 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1muIsf-0004H1-L5; Mon, 06 Dec 2021 18:38:29 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1muIsA-0004PO-SK
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 18:37:58 +0000
-Received: from iwj (helo=mariner.uk.xensource.com)
- by xenbits.xenproject.org with local-bsmtp (Exim 4.92)
- (envelope-from <ijackson@chiark.greenend.org.uk>) id 1muIsA-0005yn-RP
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 18:37:58 +0000
-Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
- by mariner.uk.xensource.com with esmtp (Exim 4.89)
- (envelope-from <ijackson@chiark.greenend.org.uk>)
- id 1muIZe-0001ab-B9; Mon, 06 Dec 2021 18:18:50 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1muIsf-0004QL-Ib; Mon, 06 Dec 2021 18:38:29 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1muIsf-0005vE-BE; Mon, 06 Dec 2021 18:38:29 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1muIsf-0002xd-Ae; Mon, 06 Dec 2021 18:38:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,55 +43,86 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Content-Transfer-Encoding:Content-Type:
-	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=Ezi+pDANaaVnGfDPhbBun2anRmQhQjQ+Vf4Yn52Xjy8=; b=UOSYx1lw+uauCKIitsPDcgQVxF
-	dyhTThXCyiS6fSnxuvgFdo1wpeEm6JIHm7T7c6YOjFkmx6NGnzF2dxBdd5YMkpuyflMTxcTsdYRqm
-	8JdGIscC4dTyLPuAI8lj7iWhxjiTBaDgYsfTwUSiYXuHMTouaKjlsu0h74BBOK/gY+p8=;
-From: Ian Jackson <iwj@xenproject.org>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Ian Jackson <iwj@xenproject.org>
-Subject: [OSSTEST PATCH 13/13] ts-xen-install: enable timestamp on guests logs
-Date: Mon,  6 Dec 2021 18:18:39 +0000
-Message-Id: <20211206181839.23463-14-iwj@xenproject.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20211206181839.23463-1-iwj@xenproject.org>
-References: <20211206181839.23463-1-iwj@xenproject.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7qqaYaWckHz/XGHzbjlGWX4OQjaa7w/ynLBSy6OSsYs=; b=xKj2Y/OhhxirxcxN+VU8W9wddz
+	s2HoBJWaDAMlOkByg/RofzxgVARRBVQBsP1x65vDonRuCj7wFrUwEz/ShxTFooPNi+87aVJXxtaNH
+	z+SwY2fFtY7KnnpP3EC+7s8q+aYiWY4imVcGCYk2cFZIuWqSRmUKLpIhLtJWokj6vbb8=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-167213-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 167213: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=f0abfb5eca6821fb58c09331d0fa3ec97f86e0bb
+X-Osstest-Versions-That:
+    xen=ea0c08bc77fe7bd7e4e65c648e17752e91912d01
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 06 Dec 2021 18:38:29 +0000
 
-From: Roger Pau Monne <roger.pau@citrix.com>
+flight 167213 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167213/
 
-Enable the timestamp feature of xenconsoled so guests logs have a time
-reference. Can be helpful when debugging boot related slowness.
+Failures :-/ but no regressions.
 
-This requires using the XENCONSOLED_ARGS option and setting both the
-log and the timestamp options. Note that setting XENCONSOLED_TRACE
-will override any options in XENCONSOLED_ARGS, so they can not be used
-in conjunction.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Acked-by: Ian Jackson <iwj@xenproject.org>
----
- ts-xen-install | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+version targeted for testing:
+ xen                  f0abfb5eca6821fb58c09331d0fa3ec97f86e0bb
+baseline version:
+ xen                  ea0c08bc77fe7bd7e4e65c648e17752e91912d01
 
-diff --git a/ts-xen-install b/ts-xen-install
-index 47865eb60..bf55d4e5c 100755
---- a/ts-xen-install
-+++ b/ts-xen-install
-@@ -140,7 +140,7 @@ sub adjustconfig () {
- 
-     my @commons_config =
-         (
--	   "XENCONSOLED_TRACE" => "guest",
-+	   "XENCONSOLED_ARGS" => '"--log=guest --timestamp=all"',
- 	);
- 
-     my $xenstored = target_var($ho, 'xenstored');
--- 
-2.20.1
+Last test of basis   167110  2021-12-04 22:19:19 Z    1 days
+Testing same since   167213  2021-12-06 14:01:38 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Tim Deegan <tim@xen.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   ea0c08bc77..f0abfb5eca  f0abfb5eca6821fb58c09331d0fa3ec97f86e0bb -> smoke
 
