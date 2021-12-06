@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E611469874
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 15:17:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.239055.414340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D3DD469878
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 15:17:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.239060.414357 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muEnl-0005Lr-5W; Mon, 06 Dec 2021 14:17:09 +0000
+	id 1muEo3-00064s-JS; Mon, 06 Dec 2021 14:17:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 239055.414340; Mon, 06 Dec 2021 14:17:09 +0000
+Received: by outflank-mailman (output) from mailman id 239060.414357; Mon, 06 Dec 2021 14:17:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muEnl-0005J9-2V; Mon, 06 Dec 2021 14:17:09 +0000
-Received: by outflank-mailman (input) for mailman id 239055;
- Mon, 06 Dec 2021 14:17:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BmDh=QX=gmail.com=ltykernel@srs-se1.protection.inumbo.net>)
- id 1muEnj-0004et-4h
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 14:17:07 +0000
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [2607:f8b0:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 308f6e8f-569f-11ec-a5e1-b9374ead2679;
- Mon, 06 Dec 2021 15:17:06 +0100 (CET)
-Received: by mail-pf1-x430.google.com with SMTP id g18so10286237pfk.5
- for <xen-devel@lists.xenproject.org>; Mon, 06 Dec 2021 06:17:06 -0800 (PST)
-Received: from ?IPV6:2404:f801:0:5:8000::50b? ([2404:f801:9000:18:efec::50b])
- by smtp.gmail.com with ESMTPSA id
- d6sm10030597pgv.48.2021.12.06.06.16.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Dec 2021 06:17:04 -0800 (PST)
+	id 1muEo3-00061H-FR; Mon, 06 Dec 2021 14:17:27 +0000
+Received: by outflank-mailman (input) for mailman id 239060;
+ Mon, 06 Dec 2021 14:17:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=9VqD=QX=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1muEo1-00043L-Vy
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 14:17:25 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3bd67aa1-569f-11ec-8a4d-196798b21f7b;
+ Mon, 06 Dec 2021 15:17:24 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 49A5F21B45;
+ Mon,  6 Dec 2021 14:17:24 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1A97513C4C;
+ Mon,  6 Dec 2021 14:17:24 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id YwUeBXQbrmFENgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 06 Dec 2021 14:17:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,74 +51,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 308f6e8f-569f-11ec-a5e1-b9374ead2679
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=MlPjTzqAzGMiJV1XIvo3CWuIKKPvCgUAVf8fFzgqOVA=;
-        b=aUNHCl+dyTHAibi55HobGp+ZEySdQG08OEI+Y5k9nKK1X7xf+qtKsmguZgkbi+whPm
-         GdJx9SeuhwP2ruODw9GfMgbHlzGk1gA6u4kF0GNnRTEbqTtzWhv5aQOvFkSisqrp80Je
-         AuiZLyvBxRbWVKNJfUOgUEgQe+/ruz2KLZzOD08be7j/r8WHZNcwGCfhgny3RP1zHKHA
-         1KDnGlCjbWtR+gN0SkVDdYDBRV83mT0qrFufECTGnYo50zNSja6vhsEoHMcB7bAvEpfm
-         2tJ0a1+Qw3wjhe2hKKQCf2+fKGAqtRWFQXDtWW6xNYHAMZ+JXZUxTRR80tunhwvY2yh9
-         HWsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=MlPjTzqAzGMiJV1XIvo3CWuIKKPvCgUAVf8fFzgqOVA=;
-        b=uAY+zmvbsLUciXB0+mBoaDn4opAxITg35DZzi+BHJIXWNnK7U+GaDDoFOBwzvuFMAC
-         K08dqzYRPbVwRUus94dJgkFzdYMNLnC7umO4Y2FiK6n3Sjh+hSCLUzaVXspupwypB8Vy
-         WlGRlL20gY2SduaIy+yNZZHfoxfNsjdLRextcktri8vH7t+Fyct+zWbSPxEihH1F2VKa
-         wg0THv/NLAPVzA2pexMxITWE470Wb4sVww/4ZtH5kb+OQlxzR8VFQ0BfYBQvdSGmPzmJ
-         iAIKtMkyvgLHPilrIf0LdgYXzFUVGjS64fd/m8oHSLRZhQvNdeT9D+JrOqFu34lQMde9
-         2ZGg==
-X-Gm-Message-State: AOAM533Z9av51ene6YD2vXld1XBxE8rv/NK0hSTUyLu8bcZFRyxj2jH9
-	dpb5ehkuI9vr4BVtMyxRZsM=
-X-Google-Smtp-Source: ABdhPJwC0KD/zVGir6spSXosBbRFLHsih0Tulm1FqYapzoO5PMARObP84mGb9GeA31fKmf/7FDoFjA==
-X-Received: by 2002:a62:1cc4:0:b0:49f:99b6:3507 with SMTP id c187-20020a621cc4000000b0049f99b63507mr37506196pfc.76.1638800225207;
-        Mon, 06 Dec 2021 06:17:05 -0800 (PST)
-Message-ID: <ed333f81-0527-ae98-6348-a2bf6e783dae@gmail.com>
-Date: Mon, 6 Dec 2021 22:16:51 +0800
+X-Inumbo-ID: 3bd67aa1-569f-11ec-8a4d-196798b21f7b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1638800244; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ci4XGMPd4XtETtT8yrd6qqmUEhD9O23TZHpCQkVi1tk=;
+	b=P8H03erbeHbkyRoLuX8UKi1ZswOrKYHzumFywaQfHesIRVEi23MmdkXbwm5UWGqVKC0prV
+	5uJ8ASQDZrKIFQdPAfI6SyLrW0RXd0mojhSNyGF7qpklNV/4mEVjc7/mG1F0MV+XhylMwd
+	hYNdF4r9iYTdExGrGkYUuGIlEfCMxRU=
+To: Jan Beulich <jbeulich@suse.com>
+Cc: samuel.thibault@ens-lyon.org, wl@xen.org,
+ minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
+References: <20211206072337.9517-1-jgross@suse.com>
+ <20211206124612.24758-1-jgross@suse.com>
+ <39a4ae01-7ea9-7526-74da-1fea71274890@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] mini-os: support event channel 0 for console
+Message-ID: <4cd75f8f-9026-9d3b-750b-3f3c6eb200c2@suse.com>
+Date: Mon, 6 Dec 2021 15:17:23 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH V4 1/5] Swiotlb: Add Swiotlb bounce buffer remap function
- for HV IVM
+In-Reply-To: <39a4ae01-7ea9-7526-74da-1fea71274890@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="EldJmA8XQezjl9Kra1ypXlj8GflOIsPrP"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--EldJmA8XQezjl9Kra1ypXlj8GflOIsPrP
+Content-Type: multipart/mixed; boundary="2hNHuU50ZUpvu1NRS1f8nBdWgvnfgdhwD";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: samuel.thibault@ens-lyon.org, wl@xen.org,
+ minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
+Message-ID: <4cd75f8f-9026-9d3b-750b-3f3c6eb200c2@suse.com>
+Subject: Re: [PATCH] mini-os: support event channel 0 for console
+References: <20211206072337.9517-1-jgross@suse.com>
+ <20211206124612.24758-1-jgross@suse.com>
+ <39a4ae01-7ea9-7526-74da-1fea71274890@suse.com>
+In-Reply-To: <39a4ae01-7ea9-7526-74da-1fea71274890@suse.com>
+
+--2hNHuU50ZUpvu1NRS1f8nBdWgvnfgdhwD
+Content-Type: multipart/mixed;
+ boundary="------------FD3935A15D5EE7887C6FDEA3"
 Content-Language: en-US
-To: Christoph Hellwig <hch@lst.de>
-Cc: kys@microsoft.com, haiyangz@microsoft.com, sthemmin@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, tglx@linutronix.de,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- hpa@zytor.com, jgross@suse.com, sstabellini@kernel.org,
- boris.ostrovsky@oracle.com, joro@8bytes.org, will@kernel.org,
- davem@davemloft.net, kuba@kernel.org, jejb@linux.ibm.com,
- martin.petersen@oracle.com, arnd@arndb.de, hch@infradead.org,
- m.szyprowski@samsung.com, robin.murphy@arm.com, thomas.lendacky@amd.com,
- Tianyu.Lan@microsoft.com, xen-devel@lists.xenproject.org,
- michael.h.kelley@microsoft.com, iommu@lists.linux-foundation.org,
- linux-arch@vger.kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
- netdev@vger.kernel.org, vkuznets@redhat.com, brijesh.singh@amd.com,
- konrad.wilk@oracle.com, parri.andrea@gmail.com, dave.hansen@intel.com
-References: <20211205081815.129276-1-ltykernel@gmail.com>
- <20211205081815.129276-2-ltykernel@gmail.com> <20211206140916.GB5100@lst.de>
-From: Tianyu Lan <ltykernel@gmail.com>
-In-Reply-To: <20211206140916.GB5100@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 12/6/2021 10:09 PM, Christoph Hellwig wrote:
-> Please spell swiotlb with a lower case s.  Otherwise this look good
-> 
-> Acked-by: Christoph Hellwig <hch@lst.de>
-> 
-> Feel free to carry this in whatever tree is suitable for the rest of the
-> patches.
-> 
+This is a multi-part message in MIME format.
+--------------FD3935A15D5EE7887C6FDEA3
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Sure. Thanks for your ack and will update "swiotlb" in the next version.
+On 06.12.21 14:24, Jan Beulich wrote:
+> On 06.12.2021 13:46, Juergen Gross wrote:
+>> The console event channel might be 0 for the console, so use the value=
 
+>> of ~0 as invalid instead.
+>=20
+> I may be missing something mini-os specific here, but in Xen channel 0
+> is always invalid. It's not just here that this value would be used as
+> a sentinel.
+
+This made me look at th domain creation paths again, and it seems as if
+the parameter settings for HVM guests is split in an awful way: the
+console ring page pfn is set from libxenguest, while the console event
+channel is set from libxl only. :-(
+
+This means that this patch can be dropped, while init-xenstore-domain
+needs to gain another one.
+
+Thanks for your feedback,
+
+
+Juergen
+
+--------------FD3935A15D5EE7887C6FDEA3
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------FD3935A15D5EE7887C6FDEA3--
+
+--2hNHuU50ZUpvu1NRS1f8nBdWgvnfgdhwD--
+
+--EldJmA8XQezjl9Kra1ypXlj8GflOIsPrP
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB4BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGuG3MFAwAAAAAACgkQsN6d1ii/Ey8L
+WAf4p++3OidMd8W+sJDBABGF/LRbbdyxcSoMW7KovZ5qC1oAwhNTxeH5+aKo1gKFdjqq8G1LGvFr
+d6xn3mVeKCHDv5RTkdJ0yxzsVlF+CPrumk71ERzbZ5PDOfrc8yJG/Qmyb/LyIllP1nYv/gMonFSX
+uPnbc6aptWhqeajjtsX7Z6z5fA/+P7DjnqemYpXuHxxx8JKXgsVjkALwTHTnMI+mwaiWze+2QovZ
+xh1AQoPmrTBzhC9OgqEsFqlgOQzpma0LDYBJZGevcuL32Mi6U3sm57GtVMKlvF2g7AglJh4/glMQ
+mWbWv06l4biMhTJ3LlHmSZEiVQ1V8WjfP3nAnyLI
+=gvaW
+-----END PGP SIGNATURE-----
+
+--EldJmA8XQezjl9Kra1ypXlj8GflOIsPrP--
 
