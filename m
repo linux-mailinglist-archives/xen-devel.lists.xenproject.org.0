@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A2F946AD1D
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 23:48:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240068.416396 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C995446AD14
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 23:48:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240050.416310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muMmP-0006Tq-T9; Mon, 06 Dec 2021 22:48:17 +0000
+	id 1muMm4-0001tM-T8; Mon, 06 Dec 2021 22:47:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240068.416396; Mon, 06 Dec 2021 22:48:17 +0000
+Received: by outflank-mailman (output) from mailman id 240050.416310; Mon, 06 Dec 2021 22:47:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muMmP-0006NF-LB; Mon, 06 Dec 2021 22:48:17 +0000
-Received: by outflank-mailman (input) for mailman id 240068;
- Mon, 06 Dec 2021 22:48:16 +0000
+	id 1muMm4-0001o5-Fc; Mon, 06 Dec 2021 22:47:56 +0000
+Received: by outflank-mailman (input) for mailman id 240050;
+ Mon, 06 Dec 2021 22:47:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5qlu=QX=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1muMe3-0004ul-A0
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 22:39:39 +0000
+ id 1muMe4-0004ul-Ue
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 22:39:41 +0000
 Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 65269bd2-56e5-11ec-8a4d-196798b21f7b;
- Mon, 06 Dec 2021 23:39:38 +0100 (CET)
+ id 661cc391-56e5-11ec-8a4d-196798b21f7b;
+ Mon, 06 Dec 2021 23:39:40 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,25 +36,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65269bd2-56e5-11ec-8a4d-196798b21f7b
-Message-ID: <20211206210439.074795958@linutronix.de>
+X-Inumbo-ID: 661cc391-56e5-11ec-8a4d-196798b21f7b
+Message-ID: <20211206210439.128089025@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1638830378;
+	s=2020; t=1638830380;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=cOZ0U3ouey82JJdJiPY/OdjPVZlxKAZBH84jVxEoqTU=;
-	b=wz3TzWYBvl04aCerKYeWR58lfzMKGU0iQIuBeqOL+QMp3fzox5TmpoLeGGdAyjIdRF9we0
-	u9yR0O7Qw/bXjizcycQ1gt+G/WeBK/oTI1LUwf2kX7mBg7E4BLQU+LhtJn98G1rHyhAeXN
-	uZibzflizAgUufHizJH6rsQmehdTaX7twbvYr5V+KethG1Scbt8X2tNbTw+IA0tYplWXos
-	ZwOGv2nZnU5zW+yHNbttX2IEcKFWRwLT0XfzLzZMFn7NfGrUzA3FstQug2ylwpcRUwc/5i
-	kvFiRVvXUUkrTAhTuq9cCrdEEKtF1I+UAps11N3QhGaOgS9dJJn2kcoxCDkHWQ==
+	 references:references; bh=yTGriMSBQw12ZMYwEGW0S48cT2DY3/1yk7kZdgU1pmY=;
+	b=abvHkvl7MHes9mfOR9bqibGGIq+vx064Sx/2IoxZNFoXq1/arNYeM7Fbw9vyud2BFpcCyl
+	8gYXLi5T6uox7YrF/wkwGrMbOYbu8YeDNLMftUhInxY9rK7K3bLobmPm3i1yFDmDTt3Sz8
+	FivfavzedB+NMyNAHZGsBXI5xY3YXl5/y7Z8BJwltsgNA86ygdtVAKJ9/QL9NYaT4aF83x
+	FfUbp+918U2Of/Jb3GGCZN/G6A6CFJdtTNeZeidruI3SVzDwS/Wqx5Mwzt5+j9ENoiITfF
+	2EmWdlKv5+TyJK4oh9mDVyz937Nyh0L46t/la0gvE9sDn8q0Hx5sEwvmQSn/0g==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1638830378;
+	s=2020e; t=1638830380;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=cOZ0U3ouey82JJdJiPY/OdjPVZlxKAZBH84jVxEoqTU=;
-	b=hWRF+jAuLUmdTtCJbsFelzhT8GqoJCFIgM9B0HzB2yZ+yr1G/1kR55tWj9RhnBzNSOA67w
-	E7/UVXYkvpVaIZCQ==
+	 references:references; bh=yTGriMSBQw12ZMYwEGW0S48cT2DY3/1yk7kZdgU1pmY=;
+	b=1N0K5YuxqLac5NJ0H3KkeMbsgwgxSEc2RhXJyC59uy5mjovjdeMAYcA2crOwpjyQKiRZJy
+	VIAHD13n0j3h8SAA==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Bjorn Helgaas <helgaas@kernel.org>,
@@ -82,79 +82,82 @@ Cc: Bjorn Helgaas <helgaas@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Robin Murphy <robin.murphy@arm.com>,
  Sinan Kaya <okaya@kernel.org>
-Subject: [patch V2 26/36] powerpc/pseries/msi: Let core code check for
- contiguous entries
+Subject: [patch V2 27/36] genirq/msi: Provide interface to retrieve Linux
+ interrupt number
 References: <20211206210307.625116253@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Mon,  6 Dec 2021 23:39:37 +0100 (CET)
+Date: Mon,  6 Dec 2021 23:39:39 +0100 (CET)
 
-Set the domain info flag and remove the check.
+This allows drivers to retrieve the Linux interrupt number instead of
+fiddling with MSI descriptors.
+
+msi_get_virq() returns the Linux interrupt number or 0 in case that there
+is no entry for the given MSI index.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 ---
-V2: Remove it completely - Cedric
+V2: Simplify the implementation and let PCI deal with the PCI specialities - Marc
 ---
- arch/powerpc/platforms/pseries/msi.c |   33 ++++++++-------------------------
- 1 file changed, 8 insertions(+), 25 deletions(-)
+ include/linux/msi.h |    2 ++
+ kernel/irq/msi.c    |   36 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 38 insertions(+)
 
---- a/arch/powerpc/platforms/pseries/msi.c
-+++ b/arch/powerpc/platforms/pseries/msi.c
-@@ -321,27 +321,6 @@ static int msi_quota_for_device(struct p
- 	return request;
+--- a/include/linux/msi.h
++++ b/include/linux/msi.h
+@@ -170,6 +170,8 @@ static inline bool msi_device_has_proper
+ static inline void msi_device_set_properties(struct device *dev, unsigned long prop) { }
+ #endif
+ 
++unsigned int msi_get_virq(struct device *dev, unsigned int index);
++
+ /* Helpers to hide struct msi_desc implementation details */
+ #define msi_desc_to_dev(desc)		((desc)->dev)
+ #define dev_to_msi_list(dev)		(&(dev)->msi_list)
+--- a/kernel/irq/msi.c
++++ b/kernel/irq/msi.c
+@@ -129,6 +129,42 @@ int msi_setup_device_data(struct device
+ 	return 0;
  }
  
--static int check_msix_entries(struct pci_dev *pdev)
--{
--	struct msi_desc *entry;
--	int expected;
--
--	/* There's no way for us to express to firmware that we want
--	 * a discontiguous, or non-zero based, range of MSI-X entries.
--	 * So we must reject such requests. */
--
--	expected = 0;
--	for_each_pci_msi_entry(entry, pdev) {
--		if (entry->msi_index != expected) {
--			pr_debug("rtas_msi: bad MSI-X entries.\n");
--			return -EINVAL;
--		}
--		expected++;
--	}
--
--	return 0;
--}
--
- static void rtas_hack_32bit_msi_gen2(struct pci_dev *pdev)
- {
- 	u32 addr_hi, addr_lo;
-@@ -380,9 +359,6 @@ static int rtas_prepare_msi_irqs(struct
- 	if (quota && quota < nvec)
- 		return quota;
- 
--	if (type == PCI_CAP_ID_MSIX && check_msix_entries(pdev))
--		return -EINVAL;
--
- 	/*
- 	 * Firmware currently refuse any non power of two allocation
- 	 * so we round up if the quota will allow it.
-@@ -530,9 +506,16 @@ static struct irq_chip pseries_pci_msi_i
- 	.irq_write_msi_msg	= pseries_msi_write_msg,
- };
- 
-+
-+/*
-+ * Set MSI_FLAG_MSIX_CONTIGUOUS as there is no way to express to
-+ * firmware to request a discontiguous or non-zero based range of
-+ * MSI-X entries. Core code will reject such setup attempts.
++/**
++ * msi_get_virq - Return Linux interrupt number of a MSI interrupt
++ * @dev:	Device to operate on
++ * @index:	MSI interrupt index to look for (0-based)
++ *
++ * Return: The Linux interrupt number on success (> 0), 0 if not found
 + */
- static struct msi_domain_info pseries_msi_domain_info = {
- 	.flags = (MSI_FLAG_USE_DEF_DOM_OPS | MSI_FLAG_USE_DEF_CHIP_OPS |
--		  MSI_FLAG_MULTI_PCI_MSI  | MSI_FLAG_PCI_MSIX),
-+		  MSI_FLAG_MULTI_PCI_MSI  | MSI_FLAG_PCI_MSIX |
-+		  MSI_FLAG_MSIX_CONTIGUOUS),
- 	.ops   = &pseries_pci_msi_domain_ops,
- 	.chip  = &pseries_pci_msi_irq_chip,
- };
++unsigned int msi_get_virq(struct device *dev, unsigned int index)
++{
++	struct msi_desc *desc;
++	bool pcimsi;
++
++	if (!dev->msi.data)
++		return 0;
++
++	pcimsi = msi_device_has_property(dev, MSI_PROP_PCI_MSI);
++
++	for_each_msi_entry(desc, dev) {
++		/* PCI-MSI has only one descriptor for multiple interrupts. */
++		if (pcimsi) {
++			if (desc->irq && index < desc->nvec_used)
++				return desc->irq + index;
++			break;
++		}
++
++		/*
++		 * PCI-MSIX and platform MSI use a descriptor per
++		 * interrupt.
++		 */
++		if (desc->msi_index == index)
++			return desc->irq;
++	}
++	return 0;
++}
++EXPORT_SYMBOL_GPL(msi_get_virq);
++
+ #ifdef CONFIG_SYSFS
+ static ssize_t msi_mode_show(struct device *dev, struct device_attribute *attr,
+ 			     char *buf)
 
 
