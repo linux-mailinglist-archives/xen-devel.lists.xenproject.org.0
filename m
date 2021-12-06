@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7F2846ADCF
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 23:57:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240163.416671 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2874846AD5D
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 23:51:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240143.416662 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muMus-0007me-BF; Mon, 06 Dec 2021 22:57:02 +0000
+	id 1muMpU-0004na-Sy; Mon, 06 Dec 2021 22:51:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240163.416671; Mon, 06 Dec 2021 22:57:02 +0000
+Received: by outflank-mailman (output) from mailman id 240143.416662; Mon, 06 Dec 2021 22:51:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muMus-0007kF-89; Mon, 06 Dec 2021 22:57:02 +0000
-Received: by outflank-mailman (input) for mailman id 240163;
- Mon, 06 Dec 2021 22:57:01 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1muMpU-0004fb-KE; Mon, 06 Dec 2021 22:51:28 +0000
+Received: by outflank-mailman (input) for mailman id 240143;
+ Mon, 06 Dec 2021 22:51:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5qlu=QX=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1muMpQ-0000Tb-Qa
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 22:51:24 +0000
+ id 1muMpS-0008NM-Fc
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 22:51:26 +0000
 Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 09af890e-56e7-11ec-8a4d-196798b21f7b;
- Mon, 06 Dec 2021 23:51:24 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0aa8c2cb-56e7-11ec-a5e1-b9374ead2679;
+ Mon, 06 Dec 2021 23:51:25 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,25 +36,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09af890e-56e7-11ec-8a4d-196798b21f7b
-Message-ID: <20211206210748.305656158@linutronix.de>
+X-Inumbo-ID: 0aa8c2cb-56e7-11ec-a5e1-b9374ead2679
+Message-ID: <20211206210748.359766435@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1638831084;
+	s=2020; t=1638831085;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=Llq/xc7jQ8Xd7gII/ZN8QZkMZgTGCYn2L7HFq42V+hA=;
-	b=Z2biEVRp+uIYck8r4Ho+V21YXII6yZ5ZRe38dX2SGGbQEilaMhIIBS+2IEq6sPpnqjPpuN
-	qQ+spdcJ5hQdQlkQeo3Sqz9NnuylGzktoi8AVjGh8OmbhMV3HvqkWhBhICHjjvKMJu6p0j
-	w+EQFpg9MCXMdPidPi+SrM7XNAY9KM+Z5mHiwpamR4rBy1p2Srmgn8bFkkcswG3lq+7drk
-	HiZieyWr3molk0V+3zEapZBf+CgVGomuwIRfjNGQyOdMeaey22DpkF7rcH1ZPM2PBZ/94N
-	3qbYP+WoVk0EXQnE2KLkhLs4qGHKpDH6bnwaDLh3XA1tzRqm5ls7hq1S54xFhg==
+	 references:references; bh=Zss9mzfScWFeJ2auPATLVX18AC4Qn1uic4NkiF38xfU=;
+	b=QbOlaYLd67illK+RXm69ncvgL9zwen35YS0qk4pw2VmlWKfHuqtlqEHHBm8vTfCpXOVtGC
+	/YwYsNN2mahTQwgaL5yHyodmBR4odrjNXlKrzL/KtcBH6KXWAa4V/sWDWnkIubcpUyPHLb
+	WSphnGnNUyWJ23dyyU1+ZSv9x7GgoRVYZObpp2cDLcN8+Vd4BcIZ5tJ9Mu3arYQje2EL2W
+	yzXoWqEcFaE3Ua/TtvSqE+g/9BboZUtfpvfEwH+AS94IqtD9d3NU2w2eybpzXq9zn1r0w+
+	rTmvXHoN/7+UEFzjo2qzKQhqJJY8iJqDqw5N5DZ2ZCTqJli84gAxmaYA1nl4KQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1638831084;
+	s=2020e; t=1638831085;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=Llq/xc7jQ8Xd7gII/ZN8QZkMZgTGCYn2L7HFq42V+hA=;
-	b=fV+NCA62RUR8rO/r5/VENKLtT9TPLmuFCqDiM2Pu6iytwciOqUFqiJGeIQfx53iyI8pjpS
-	5T4WtTJIXTp/qeDQ==
+	 references:references; bh=Zss9mzfScWFeJ2auPATLVX18AC4Qn1uic4NkiF38xfU=;
+	b=z/DvlpsspWgWro1GdhpcO0qe0cuCFF8HxhKT/D0ITEBaCrXK2e5haCQ2KBiMQ5WWMYJW+s
+	H9AWbWwHjRClppAw==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Bjorn Helgaas <helgaas@kernel.org>,
@@ -68,55 +68,51 @@ Cc: Bjorn Helgaas <helgaas@kernel.org>,
  Cedric Le Goater <clg@kaod.org>,
  xen-devel@lists.xenproject.org,
  Juergen Gross <jgross@suse.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Niklas Schnelle <schnelle@linux.ibm.com>,
  linux-s390@vger.kernel.org,
  Heiko Carstens <hca@linux.ibm.com>,
  Christian Borntraeger <borntraeger@de.ibm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Logan Gunthorpe <logang@deltatee.com>,
  Jon Mason <jdmason@kudzu.us>,
  Dave Jiang <dave.jiang@intel.com>,
  Allen Hubbe <allenbh@gmail.com>,
  linux-ntb@googlegroups.com
-Subject: [patch V2 13/31] s390/pci: Rework MSI descriptor walk
+Subject: [patch V2 14/31] powerpc/4xx/hsta: Rework MSI handling
 References: <20211206210600.123171746@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Mon,  6 Dec 2021 23:51:23 +0100 (CET)
+Date: Mon,  6 Dec 2021 23:51:25 +0100 (CET)
 
 Replace the about to vanish iterators and make use of the filtering.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Tested-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Acked-by: Niklas Schnelle <schnelle@linux.ibm.com>
-Cc: linux-s390@vger.kernel.org
-Cc: Heiko Carstens <hca@linux.ibm.com>
-Cc: Christian Borntraeger <borntraeger@de.ibm.com>
 ---
- arch/s390/pci/pci_irq.c |    6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ arch/powerpc/platforms/4xx/hsta_msi.c |    7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
---- a/arch/s390/pci/pci_irq.c
-+++ b/arch/s390/pci/pci_irq.c
-@@ -303,7 +303,7 @@ int arch_setup_msi_irqs(struct pci_dev *
+--- a/arch/powerpc/platforms/4xx/hsta_msi.c
++++ b/arch/powerpc/platforms/4xx/hsta_msi.c
+@@ -47,7 +47,7 @@ static int hsta_setup_msi_irqs(struct pc
+ 		return -EINVAL;
+ 	}
  
- 	/* Request MSI interrupts */
- 	hwirq = bit;
--	for_each_pci_msi_entry(msi, pdev) {
-+	msi_for_each_desc(msi, &pdev->dev, MSI_DESC_NOTASSOCIATED) {
- 		rc = -EIO;
- 		if (hwirq - bit >= msi_vecs)
- 			break;
-@@ -362,9 +362,7 @@ void arch_teardown_msi_irqs(struct pci_d
- 		return;
+-	for_each_pci_msi_entry(entry, dev) {
++	msi_for_each_desc(entry, &dev->dev, MSI_DESC_NOTASSOCIATED) {
+ 		irq = msi_bitmap_alloc_hwirqs(&ppc4xx_hsta_msi.bmp, 1);
+ 		if (irq < 0) {
+ 			pr_debug("%s: Failed to allocate msi interrupt\n",
+@@ -105,10 +105,7 @@ static void hsta_teardown_msi_irqs(struc
+ 	struct msi_desc *entry;
+ 	int irq;
  
- 	/* Release MSI interrupts */
--	for_each_pci_msi_entry(msi, pdev) {
--		if (!msi->irq)
+-	for_each_pci_msi_entry(entry, dev) {
+-		if (!entry->irq)
 -			continue;
-+	msi_for_each_desc(msi, &pdev->dev, MSI_DESC_ASSOCIATED) {
- 		irq_set_msi_desc(msi->irq, NULL);
- 		irq_free_desc(msi->irq);
- 		msi->msg.address_lo = 0;
+-
++	msi_for_each_desc(entry, &dev->dev, MSI_DESC_ASSOCIATED) {
+ 		irq = hsta_find_hwirq_offset(entry->irq);
+ 
+ 		/* entry->irq should always be in irq_map */
 
 
