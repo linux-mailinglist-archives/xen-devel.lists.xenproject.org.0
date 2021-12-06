@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3327546AD0C
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 23:47:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240041.416247 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC05C46AD0A
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 23:47:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240036.416220 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muMlq-0007S9-Tq; Mon, 06 Dec 2021 22:47:42 +0000
+	id 1muMlg-0006IJ-5k; Mon, 06 Dec 2021 22:47:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240041.416247; Mon, 06 Dec 2021 22:47:42 +0000
+Received: by outflank-mailman (output) from mailman id 240036.416220; Mon, 06 Dec 2021 22:47:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muMlq-0007Ek-DU; Mon, 06 Dec 2021 22:47:42 +0000
-Received: by outflank-mailman (input) for mailman id 240041;
- Mon, 06 Dec 2021 22:47:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1muMlg-0006FN-05; Mon, 06 Dec 2021 22:47:32 +0000
+Received: by outflank-mailman (input) for mailman id 240036;
+ Mon, 06 Dec 2021 22:47:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5qlu=QX=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1muMdc-0004ul-Jt
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 22:39:12 +0000
+ id 1muMdd-0004dp-QI
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 22:39:13 +0000
 Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 54db4abf-56e5-11ec-8a4d-196798b21f7b;
- Mon, 06 Dec 2021 23:39:11 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 55d43975-56e5-11ec-a5e1-b9374ead2679;
+ Mon, 06 Dec 2021 23:39:13 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,25 +36,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 54db4abf-56e5-11ec-8a4d-196798b21f7b
-Message-ID: <20211206210438.146453385@linutronix.de>
+X-Inumbo-ID: 55d43975-56e5-11ec-a5e1-b9374ead2679
+Message-ID: <20211206210438.202985003@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1638830351;
+	s=2020; t=1638830352;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=NDdACHNkETpAg6PVNWE42mBs5Rd33bpzz4k5zrHM7tw=;
-	b=vErMpjt+MCZSBS1ICGFQpx4ysNXbGwI+93xws8KfOZfVncryB+KTjslkXPz+B27v8EaHZT
-	0Hc5pfViilVyeeiPM+G5xX8YBHj2/SlqdOEdtJyvNVzLD0hXKGtaBjAMQvKGAyOcP5OWm8
-	cZUt/UKPbhSBS0DZsLaRMRntX2BWFbl2Dqkd5iUmlbFUyw5dbrKuYFwA7j5HIKO6tE6hM/
-	Ulq3WbR/oBGKMKMTG/Ab7aXWiIISpxs0RrF5z4w7VdpbPWgrEPTVj8VT052BuUhjWhtLSN
-	+fOMgQuwcu1sxL0cXpwsBnZgKW2ZC+hBiIuczvBS/Jx+NbjXaTC560HQvAnolw==
+	 references:references; bh=jCIs00AnDFN/pc+q7M02Zi/IVzmHXkQ9Es/hPheHeNQ=;
+	b=2rP4FoL+xyNZoK6iUxAgaa7dbsHImJq276/KG1o/LUFvLA49PK6zuyNk2tHd1FnpDZe1pj
+	WgNT217qYGl9KImId6YuDBfpl4ZBK6ckoB8TbZMLsur0kqWQXSuJhMtOlnBdevGYhX1so1
+	8Q7gMjsFNIwBuKizDqmmZmjndYpH/K+ytUK5m4ZxvFwCFrTtMS+R8nNq2SLXmGgvZj/pil
+	01qaTS3PEnGoHQJ4ewsijixErWUYRCdGTAkpCz4KtjK+mgnxe0jAde8P4/OBnU0/FCqJ1W
+	PpUdfJU2Bnf4bbA7MBJ16iPuIUHeBltKDUmr5wy0U6SWq4ShpwsliojXtUj6Sg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1638830351;
+	s=2020e; t=1638830352;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=NDdACHNkETpAg6PVNWE42mBs5Rd33bpzz4k5zrHM7tw=;
-	b=WM5V9C6MO1EBchUpOkknWZtZQWNoaCYH46V0rZmCJD95akbr+ZDoZFYNhOj++9Z/kWQmKb
-	rKp4y6urxJvnScBQ==
+	 references:references; bh=jCIs00AnDFN/pc+q7M02Zi/IVzmHXkQ9Es/hPheHeNQ=;
+	b=vn0WhJVtza9YwvoVinEXZsAJsCpYbIuH3KXYlJb8+4+vUdUnnJxqCHdsQplJVhDzk/K79b
+	+BUN5SUUBhz0gtCg==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Bjorn Helgaas <helgaas@kernel.org>,
@@ -82,63 +82,144 @@ Cc: Bjorn Helgaas <helgaas@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>,
  Robin Murphy <robin.murphy@arm.com>,
  Sinan Kaya <okaya@kernel.org>
-Subject: [patch V2 09/36] platform-msi: Let the core code handle sysfs groups
+Subject: [patch V2 10/36] genirq/msi: Remove the original sysfs interfaces
 References: <20211206210307.625116253@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Mon,  6 Dec 2021 23:39:10 +0100 (CET)
+Date: Mon,  6 Dec 2021 23:39:12 +0100 (CET)
 
-Set the domain info flag and remove the local sysfs code.
+No more users. Refactor the core code accordingly and move the global
+interface under CONFIG_PCI_MSI_ARCH_FALLBACKS.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
- drivers/base/platform-msi.c |   11 +----------
- 1 file changed, 1 insertion(+), 10 deletions(-)
+ include/linux/msi.h |   29 +++++++---------------------
+ kernel/irq/msi.c    |   53 +++++++++++++++++++---------------------------------
+ 2 files changed, 28 insertions(+), 54 deletions(-)
 
---- a/drivers/base/platform-msi.c
-+++ b/drivers/base/platform-msi.c
-@@ -23,7 +23,6 @@
- struct platform_msi_priv_data {
- 	struct device			*dev;
- 	void				*host_data;
--	const struct attribute_group    **msi_irq_groups;
- 	msi_alloc_info_t		arg;
- 	irq_write_msi_msg_t		write_msg;
- 	int				devid;
-@@ -191,6 +190,7 @@ struct irq_domain *platform_msi_create_i
- 		platform_msi_update_dom_ops(info);
- 	if (info->flags & MSI_FLAG_USE_DEF_CHIP_OPS)
- 		platform_msi_update_chip_ops(info);
-+	info->flags |= MSI_FLAG_DEV_SYSFS;
+--- a/include/linux/msi.h
++++ b/include/linux/msi.h
+@@ -246,26 +246,6 @@ void __pci_write_msi_msg(struct msi_desc
+ void pci_msi_mask_irq(struct irq_data *data);
+ void pci_msi_unmask_irq(struct irq_data *data);
  
- 	domain = msi_create_irq_domain(fwnode, info, parent);
- 	if (domain)
-@@ -279,16 +279,8 @@ int platform_msi_domain_alloc_irqs(struc
- 	if (err)
- 		goto out_free_desc;
- 
--	priv_data->msi_irq_groups = msi_populate_sysfs(dev);
--	if (IS_ERR(priv_data->msi_irq_groups)) {
--		err = PTR_ERR(priv_data->msi_irq_groups);
--		goto out_free_irqs;
--	}
+-#ifdef CONFIG_SYSFS
+-int msi_device_populate_sysfs(struct device *dev);
+-void msi_device_destroy_sysfs(struct device *dev);
 -
- 	return 0;
+-const struct attribute_group **msi_populate_sysfs(struct device *dev);
+-void msi_destroy_sysfs(struct device *dev,
+-		       const struct attribute_group **msi_irq_groups);
+-#else
+-static inline int msi_device_populate_sysfs(struct device *dev) { return 0; }
+-static inline void msi_device_destroy_sysfs(struct device *dev) { }
+-
+-static inline const struct attribute_group **msi_populate_sysfs(struct device *dev)
+-{
+-	return NULL;
+-}
+-static inline void msi_destroy_sysfs(struct device *dev, const struct attribute_group **msi_irq_groups)
+-{
+-}
+-#endif
+-
+ /*
+  * The arch hooks to setup up msi irqs. Default functions are implemented
+  * as weak symbols so that they /can/ be overriden by architecture specific
+@@ -279,7 +259,14 @@ int arch_setup_msi_irq(struct pci_dev *d
+ void arch_teardown_msi_irq(unsigned int irq);
+ int arch_setup_msi_irqs(struct pci_dev *dev, int nvec, int type);
+ void arch_teardown_msi_irqs(struct pci_dev *dev);
+-#endif
++#ifdef CONFIG_SYSFS
++int msi_device_populate_sysfs(struct device *dev);
++void msi_device_destroy_sysfs(struct device *dev);
++#else /* CONFIG_SYSFS */
++static inline int msi_device_populate_sysfs(struct device *dev) { return 0; }
++static inline void msi_device_destroy_sysfs(struct device *dev) { }
++#endif /* !CONFIG_SYSFS */
++#endif /* CONFIG_PCI_MSI_ARCH_FALLBACKS */
  
--out_free_irqs:
--	msi_domain_free_irqs(dev->msi.domain, dev);
- out_free_desc:
- 	platform_msi_free_descs(dev, 0, nvec);
- out_free_priv_data:
-@@ -308,7 +300,6 @@ void platform_msi_domain_free_irqs(struc
- 		struct msi_desc *desc;
+ /*
+  * The restore hook is still available even for fully irq domain based
+--- a/kernel/irq/msi.c
++++ b/kernel/irq/msi.c
+@@ -131,12 +131,8 @@ static ssize_t msi_mode_show(struct devi
+ /**
+  * msi_populate_sysfs - Populate msi_irqs sysfs entries for devices
+  * @dev:	The device(PCI, platform etc) who will get sysfs entries
+- *
+- * Return attribute_group ** so that specific bus MSI can save it to
+- * somewhere during initilizing msi irqs. If devices has no MSI irq,
+- * return NULL; if it fails to populate sysfs, return ERR_PTR
+  */
+-const struct attribute_group **msi_populate_sysfs(struct device *dev)
++static const struct attribute_group **msi_populate_sysfs(struct device *dev)
+ {
+ 	const struct attribute_group **msi_irq_groups;
+ 	struct attribute **msi_attrs, *msi_attr;
+@@ -227,41 +223,32 @@ int msi_device_populate_sysfs(struct dev
+ }
  
- 		desc = first_msi_entry(dev);
--		msi_destroy_sysfs(dev, desc->platform.msi_priv_data->msi_irq_groups);
- 		platform_msi_free_priv_data(desc->platform.msi_priv_data);
- 	}
+ /**
+- * msi_destroy_sysfs - Destroy msi_irqs sysfs entries for devices
+- * @dev:		The device(PCI, platform etc) who will remove sysfs entries
+- * @msi_irq_groups:	attribute_group for device msi_irqs entries
+- */
+-void msi_destroy_sysfs(struct device *dev, const struct attribute_group **msi_irq_groups)
+-{
+-	struct device_attribute *dev_attr;
+-	struct attribute **msi_attrs;
+-	int count = 0;
+-
+-	if (msi_irq_groups) {
+-		sysfs_remove_groups(&dev->kobj, msi_irq_groups);
+-		msi_attrs = msi_irq_groups[0]->attrs;
+-		while (msi_attrs[count]) {
+-			dev_attr = container_of(msi_attrs[count],
+-					struct device_attribute, attr);
+-			kfree(dev_attr->attr.name);
+-			kfree(dev_attr);
+-			++count;
+-		}
+-		kfree(msi_attrs);
+-		kfree(msi_irq_groups[0]);
+-		kfree(msi_irq_groups);
+-	}
+-}
+-
+-/**
+  * msi_device_destroy_sysfs - Destroy msi_irqs sysfs entries for a device
+  * @dev:		The device (PCI, platform etc) for which to remove
+  *			sysfs entries
+  */
+ void msi_device_destroy_sysfs(struct device *dev)
+ {
+-	msi_destroy_sysfs(dev, dev->msi.data->attrs);
++	const struct attribute_group **msi_irq_groups = dev->msi.data->attrs;
++	struct device_attribute *dev_attr;
++	struct attribute **msi_attrs;
++	int count = 0;
++
+ 	dev->msi.data->attrs = NULL;
++	if (!msi_irq_groups)
++		return;
++
++	sysfs_remove_groups(&dev->kobj, msi_irq_groups);
++	msi_attrs = msi_irq_groups[0]->attrs;
++	while (msi_attrs[count]) {
++		dev_attr = container_of(msi_attrs[count], struct device_attribute, attr);
++		kfree(dev_attr->attr.name);
++		kfree(dev_attr);
++		++count;
++	}
++	kfree(msi_attrs);
++	kfree(msi_irq_groups[0]);
++	kfree(msi_irq_groups);
+ }
+ #endif
  
 
 
