@@ -2,30 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B53846AE19
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 00:00:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240280.416760 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7ECA446AE25
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 00:01:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240329.416843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muMyG-0005az-0d; Mon, 06 Dec 2021 23:00:32 +0000
+	id 1muMzV-000183-Hj; Mon, 06 Dec 2021 23:01:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240280.416760; Mon, 06 Dec 2021 23:00:31 +0000
+Received: by outflank-mailman (output) from mailman id 240329.416843; Mon, 06 Dec 2021 23:01:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muMyF-0005XT-Tp; Mon, 06 Dec 2021 23:00:31 +0000
-Received: by outflank-mailman (input) for mailman id 240280;
- Mon, 06 Dec 2021 23:00:31 +0000
+	id 1muMzV-00012b-BZ; Mon, 06 Dec 2021 23:01:49 +0000
+Received: by outflank-mailman (input) for mailman id 240329;
+ Mon, 06 Dec 2021 23:01:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5qlu=QX=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1muMpU-0000Tb-0G
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 22:51:28 +0000
-Received: from galois.linutronix.de (galois.linutronix.de
- [2a0a:51c0:0:12e:550::1])
+ id 1muMpV-0000Tb-MH
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 22:51:29 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b985621-56e7-11ec-8a4d-196798b21f7b;
- Mon, 06 Dec 2021 23:51:27 +0100 (CET)
+ id 0c94c268-56e7-11ec-8a4d-196798b21f7b;
+ Mon, 06 Dec 2021 23:51:29 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,25 +36,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b985621-56e7-11ec-8a4d-196798b21f7b
-Message-ID: <20211206210748.414712173@linutronix.de>
+X-Inumbo-ID: 0c94c268-56e7-11ec-8a4d-196798b21f7b
+Message-ID: <20211206210748.468512783@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1638831087;
+	s=2020; t=1638831088;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=doaEN4PngPF6b3Ms4+nCLub9WRL+cYqg2iUonunceVg=;
-	b=mDVbOZFMq2r0fFSal6nGytKiR9N0dKq5PqwK3juP1cFnlgmQUuw4LpkD1Hpm/hkbKZm+u7
-	Yea4cNfID7VRix/TmSW0sPFLvyDtgOlkMm7w8ymCcbMXlPLtwak2/32g8dpHmlOP3O/F6G
-	jdU4NlHvekujXArGpsBa5yUjWwJ1eEzk2cniYcCq3kZdS9WskWSkWr65L4WuQjer6xqU1f
-	Ul5hlmIH9G0tFTvOrZ6TNqwpU2DDuWudK+A/4sOQoKvCebsyPKW3/F+OiN3j2Uvb53neJ1
-	tJE6RPkzzdtCxeELmNPrSmNWxRMUlB41D5TaNxMfPsoV84Jl5DW5WZfsZ5VwLQ==
+	 references:references; bh=rqnSsBxgLRUZrf8NprfQGM3zrSARm5hvHEZd8TZTvDo=;
+	b=h9HO3s1ktar1QeAbr3otNX0rmxAlcW1iQ88vyJogrIMq41wqZRiE89OLLV+PN6bEroFkHj
+	H3ATEdX2zJOFD1nguj09YCLx3R6eZsFH5kdhDX8CpEUlVbN9Ph5FEjF84eTddzqBWNFBR5
+	ypH18/7SUa5inaLDA+TTnwmgnQfHDjztdKXryvbI22vPIMfBpBKXAC2LJkU/1W00LDagBQ
+	dYuRA0G0MDWP3yUTLdCMVCgSG6GaLDPglC9ZXiTbk+0m9+uvHXPqeyGyRSSfgslep8BueY
+	WhdIKyOSOg2ZGorzCHLkcATlyXF92ldijDDv8FlXniMtkwUmZ5qTeqenZ/2niA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1638831087;
+	s=2020e; t=1638831088;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=doaEN4PngPF6b3Ms4+nCLub9WRL+cYqg2iUonunceVg=;
-	b=edZkzp0cQopCCOVDx2I8Wc5M/D97TZhEVVbeeZnpase12JmLW+w6pTojHaCFf7vSYnKATQ
-	gAtXqukltBF2IkBw==
+	 references:references; bh=rqnSsBxgLRUZrf8NprfQGM3zrSARm5hvHEZd8TZTvDo=;
+	b=w5AdxxaOLU0xPGWEInq++C8OVVfck3vvMYuz0+9mwGNrvA/PCygz8XkOrssgo6p/9Q5c7a
+	lsWj5BB4Ewc5fsCg==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Bjorn Helgaas <helgaas@kernel.org>,
@@ -79,41 +78,48 @@ Cc: Bjorn Helgaas <helgaas@kernel.org>,
  Dave Jiang <dave.jiang@intel.com>,
  Allen Hubbe <allenbh@gmail.com>,
  linux-ntb@googlegroups.com
-Subject: [patch V2 15/31] powerpc/cell/axon_msi: Convert to msi_on_each_desc()
+Subject: [patch V2 16/31] powerpc/pasemi/msi: Convert to msi_on_each_dec()
 References: <20211206210600.123171746@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Mon,  6 Dec 2021 23:51:26 +0100 (CET)
+Date: Mon,  6 Dec 2021 23:51:28 +0100 (CET)
 
 Replace the about to vanish iterators and make use of the filtering.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 ---
- arch/powerpc/platforms/cell/axon_msi.c |    7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+ arch/powerpc/platforms/pasemi/msi.c |    9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
---- a/arch/powerpc/platforms/cell/axon_msi.c
-+++ b/arch/powerpc/platforms/cell/axon_msi.c
-@@ -265,7 +265,7 @@ static int axon_msi_setup_msi_irqs(struc
- 	if (rc)
- 		return rc;
+--- a/arch/powerpc/platforms/pasemi/msi.c
++++ b/arch/powerpc/platforms/pasemi/msi.c
+@@ -62,17 +62,12 @@ static void pasemi_msi_teardown_msi_irqs
  
--	for_each_pci_msi_entry(entry, dev) {
-+	msi_for_each_desc(entry, &dev->dev, MSI_DESC_NOTASSOCIATED) {
- 		virq = irq_create_direct_mapping(msic->irq_domain);
- 		if (!virq) {
- 			dev_warn(&dev->dev,
-@@ -288,10 +288,7 @@ static void axon_msi_teardown_msi_irqs(s
+ 	pr_debug("pasemi_msi_teardown_msi_irqs, pdev %p\n", pdev);
  
- 	dev_dbg(&dev->dev, "axon_msi: tearing down msi irqs\n");
- 
--	for_each_pci_msi_entry(entry, dev) {
+-	for_each_pci_msi_entry(entry, pdev) {
 -		if (!entry->irq)
 -			continue;
 -
-+	msi_for_each_desc(entry, &dev->dev, MSI_DESC_ASSOCIATED) {
++	msi_for_each_desc(entry, &pdev->dev, MSI_DESC_ASSOCIATED) {
+ 		hwirq = virq_to_hw(entry->irq);
  		irq_set_msi_desc(entry->irq, NULL);
  		irq_dispose_mapping(entry->irq);
+ 		msi_bitmap_free_hwirqs(&msi_mpic->msi_bitmap, hwirq, ALLOC_CHUNK);
  	}
+-
+-	return;
+ }
+ 
+ static int pasemi_msi_setup_msi_irqs(struct pci_dev *pdev, int nvec, int type)
+@@ -90,7 +85,7 @@ static int pasemi_msi_setup_msi_irqs(str
+ 	msg.address_hi = 0;
+ 	msg.address_lo = PASEMI_MSI_ADDR;
+ 
+-	for_each_pci_msi_entry(entry, pdev) {
++	msi_for_each_desc(entry, &pdev->dev, MSI_DESC_NOTASSOCIATED) {
+ 		/* Allocate 16 interrupts for now, since that's the grouping for
+ 		 * affinity. This can be changed later if it turns out 32 is too
+ 		 * few MSIs for someone, but restrictions will apply to how the
 
 
