@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FD19469742
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 14:37:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.238944.414151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AF33469747
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 14:39:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.238973.414195 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muEAp-0007Wc-1v; Mon, 06 Dec 2021 13:36:55 +0000
+	id 1muECe-0001kt-JI; Mon, 06 Dec 2021 13:38:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 238944.414151; Mon, 06 Dec 2021 13:36:55 +0000
+Received: by outflank-mailman (output) from mailman id 238973.414195; Mon, 06 Dec 2021 13:38:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muEAo-0007Un-Uv; Mon, 06 Dec 2021 13:36:54 +0000
-Received: by outflank-mailman (input) for mailman id 238944;
- Mon, 06 Dec 2021 13:36:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9VqD=QX=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1muEAn-0006qp-FD
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 13:36:53 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 924a5a34-5699-11ec-a5e1-b9374ead2679;
- Mon, 06 Dec 2021 14:36:52 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4EC4B2114D;
- Mon,  6 Dec 2021 13:36:52 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 36BD913BAE;
- Mon,  6 Dec 2021 13:36:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id TDsXDPQRrmFAIwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 06 Dec 2021 13:36:52 +0000
+	id 1muECe-0001hv-GF; Mon, 06 Dec 2021 13:38:48 +0000
+Received: by outflank-mailman (input) for mailman id 238973;
+ Mon, 06 Dec 2021 13:38:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3Xlh=QX=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1muECd-0001hg-H2
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 13:38:47 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d4d2d159-5699-11ec-8a4d-196798b21f7b;
+ Mon, 06 Dec 2021 14:38:45 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,244 +36,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 924a5a34-5699-11ec-a5e1-b9374ead2679
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638797812; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=h4BWGVsrE4Oco0xccQ1YnIvtM6fhDzH8Kupet9TSctQ=;
-	b=jWCsJdPArrYcpSzSYNI4zp4TDWKv1eQAHZEpXEqOujV+QP8P0Ss/2nVp1MH5aK4wNXB7hU
-	ytokC+U79UXXShWdnNm11ici4ERHHjDT6i5hrWLIPV/WndZxhcc7xcgPPAyLxCkkhy3EIB
-	Ce5VImpHVCbFQcW56kwgH8NMXhgZnxI=
-To: Jonas Blixt <jonas.blixt@actia.se>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <5a2d079fe8db41338464381dd2dc9575@actia.se>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: XEN CAN Driver
-Message-ID: <e87175c9-bf55-f79a-a910-b94d69aead86@suse.com>
-Date: Mon, 6 Dec 2021 14:36:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+X-Inumbo-ID: d4d2d159-5699-11ec-8a4d-196798b21f7b
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1638797926;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=6oMmZ8HEgzBLe2fLCyP3ITktUGqesp5ZKkUue/5pPCw=;
+  b=QRlDgFxxj26+a7XSbAbXacGLi1NLrE7nuh4NSOgdXWvySm5jz8dw3MLI
+   mlgMcS9jzDHtubny+M44J2VmoQ7o8F+ElioScdne0r5np1Ss6xzT3g0m1
+   iYEpXlVxOB1Z/v5lPUP+slXjF8xIMcA3hCDZZ8P21XtaGT+rQDGEjSOUL
+   4=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: tlTJxcwR8AbYtJyTpjGo0Pkh/WsShdyJCJfDD0UNxjIB2hqhbpmgjkTWVKzefjRwOKxNAjdHSn
+ Ar6TFbmeMOWalMI9w30orSGt8CE8F8G6bfhjvN80Kz6r9+aI+wqZByo6UIjmqX0Tg6HFcbkyeq
+ l2r6xWrF1zCqTic0/IE0iRlT3VYe9c8zH7a2qfL2WNFshR9Sypm9ZphIu9p1wZEBwRULSIOpjR
+ M7dxGmwsXFVcDmU+zItu6pWTx9/fwc55QdHw8XZy1/c6YbUT0EDeW54Nz1K5ZJ2BpiOY1dZfIx
+ 8wlqEZaP+zU+28nChD6Rp0Ry
+X-SBRS: 4.0
+X-MesageID: 59744673
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:DDlvNqCLCZOGTBVW/xLkw5YqxClBgxIJ4kV8jS/XYbTApDwmhjUBx
+ jRNDGmCOK3cajehfIp+atu/8kgPvZfWnNIxQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WLGs1hxZH1c+EX570Uw7wobVv6Yz6TSHK1LV0
+ T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
+ Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/jC+jhdNK4
+ 9V0qL+aa1x0favcucItakwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
+ KFGbmBWBvyAr7veLLaTY+9gnMk8auLsO5sSoCpIxjDFF/c2B5vERs0m4PcFjWhs2p4RRp4yY
+ eIabBtJQhaQZyESFWsJKYBhs8L4in7gJmgwRFW9+vNsvjm7IBZK+KfpGMrYfJqNX8o9tmSyq
+ 3/C/m/5KgoHL9HZwj2Amlq8i+mKkS7lVYY6ELyj6uUskFCV3nYUChAdSR28u/bRt6Klc4sBc
+ QpOoHNo9PVsshzwJjXgY/GmiHmelAQfYPFQKvAZwiPWl+nS8ye/NlFRG1atd+canMMxQDUr0
+ HqAkNXoGSFjvdWpdJ6NyluHhWjsYHZIdAfucQdBFFJYuIe7/OnfmzqWFo47eJNZmOEZDt0ZL
+ 9qiiCElz4segscQv0lQ1QCW2mn8znQlo+Nc2+k2Yo5Hxl4gDGJGT9bxgbQ+0RqmBNzDJrVml
+ CJb8/VyFMhUUfmweNWlGY3h5o2B6fefKyH7ilVyBZQn/DnF0yf9JtAPumAjfh03bZZsldrVj
+ Kn741k5CHh7ZiTCUEOKS9jpV5RCIVbIS7wJqcw4nvIRO8MsJWdrDQllZFKK3nCFraTfufpXB
+ HtvSu71VSxyIf0+lFKeHr5BuZd2l3tW+I8mbcyjp/hR+ebHOiL9pHZsGAfmU93VG4vY+liIq
+ IgGaJPRo/idOcWnChTqHUcoBQhiBRAG6Vre8qS7r8aPfVhrHn8PEfjUze9zcoBphf0NxOzJ4
+ mu8SglTz1+m3S/LLgCDa3ZCbrLzXMkg8SJnbHJ0ZVv4iWI+ZYuP7bsEc8dld7cQ6+E+n+V/S
+ OMIepvcD60XGCjH4TkUcbL0sJdmKEawnQuLMif8OGo/cpdsShbn4NjhegezpiACAjDu7Zk1o
+ qG61xOdSp0GHlwwAMHTYfOp7lWwoXlCx74iAxqWeoFeIRy+/pJrJir9iu4MD/sNcRiTlCGH0
+ wu2AAsDobWfqYEC79SU17uPqJ2kErUiExMCTXXb97u/KQLT4nGnnd1bSO+NcD3QCDH09aGla
+ bkHxv3wKqRazlNDso46GLd316MuodDoouYCnAhjGXzKaXWtC69hfSbajZUe6PUVy+8LoxayV
+ 2KO5sJeaOeAN87SGVIMIBYoM7aY3vYOlziOtfk4LS0WPsOsEGZrhamKAySxtQ==
+IronPort-HdrOrdr: A9a23:M5pKkKCg7hR4+kblHehusceALOsnbusQ8zAXPh9KKCC9I/b3qy
+ nxppsmPH7P+XgssRQb+exoV5PwOU80maQFhLX5eI3SITUO21HYbb2Kj7GSuAEIcheWnoU2uM
+ sQENkdNDSzNykBsS+Q2njeLz9U+qj/zEnev5a5854Cd3APV0hI1XYHNi+rVmlNACVWD5swE5
+ SRouBdoSC7RHgRZsOnQlEYQunqvbTw5dLbSC9DIyRixBiFjDuu5rK/OQOfxA0iXzRGxqpn2X
+ TZkjb++r6ov5iAu1zhPi7ontZrcenau59+7f+3+48owwDX+0OVjN4IYcz9gNl6mpDo1L9gqq
+ ixn/5pBbUD15qWRBDtnfMosDOQiwrHLBTZuAelaDLY0LzErGdTMbsyuatJNhTe8EYup9d6ze
+ ZC2H+YrYNeCVfakD36/MWgbWAkqqOYmwturQcotQ0SbWLeUs4ZkaUPuEdOVJsQFiPz744qVO
+ FoEcHH/f5TNUiXanjI11MfiuBFdhwIb2K7qmFrgL3n79GXpgEz86I1/r1pop4wzuN0d3Af3Z
+ WxDk1BrsA5cvMr
+X-IronPort-AV: E=Sophos;i="5.87,291,1631592000"; 
+   d="scan'208";a="59744673"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] x86/irq: Improve local_irq_restore() code generation and performance
+Date: Mon, 6 Dec 2021 13:38:28 +0000
+Message-ID: <20211206133828.8811-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-In-Reply-To: <5a2d079fe8db41338464381dd2dc9575@actia.se>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="1OkKmluj8gSLfKk0SMNcXrAO6D1rgyFmU"
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---1OkKmluj8gSLfKk0SMNcXrAO6D1rgyFmU
-Content-Type: multipart/mixed; boundary="fYxAjp0VkgfMCsyXNbVwNe4zNdFA2kzC0";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jonas Blixt <jonas.blixt@actia.se>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <e87175c9-bf55-f79a-a910-b94d69aead86@suse.com>
-Subject: Re: XEN CAN Driver
-References: <5a2d079fe8db41338464381dd2dc9575@actia.se>
-In-Reply-To: <5a2d079fe8db41338464381dd2dc9575@actia.se>
+popf is a horribly expensive instruction, while sti is an optimised fastpath.
+Switching popf for a conditional branch and sti caused an 8% perf improvement
+in various linux measurements.
 
---fYxAjp0VkgfMCsyXNbVwNe4zNdFA2kzC0
-Content-Type: multipart/mixed;
- boundary="------------8A65E2AFE35C2B27B564A14A"
-Content-Language: en-US
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/include/asm-x86/system.h | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-This is a multi-part message in MIME format.
---------------8A65E2AFE35C2B27B564A14A
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: quoted-printable
+diff --git a/xen/include/asm-x86/system.h b/xen/include/asm-x86/system.h
+index 65e63de69a67..4be235472ecd 100644
+--- a/xen/include/asm-x86/system.h
++++ b/xen/include/asm-x86/system.h
+@@ -267,13 +267,8 @@ static inline unsigned long array_index_mask_nospec(unsigned long index,
+ })
+ #define local_irq_restore(x)                                     \
+ ({                                                               \
+-    BUILD_BUG_ON(sizeof(x) != sizeof(long));                     \
+-    asm volatile ( "pushfq\n\t"                                  \
+-                   "andq %0, (%%rsp)\n\t"                        \
+-                   "orq  %1, (%%rsp)\n\t"                        \
+-                   "popfq"                                       \
+-                   : : "i?r" ( ~X86_EFLAGS_IF ),                 \
+-                       "ri" ( (x) & X86_EFLAGS_IF ) );           \
++    if ( (x) & X86_EFLAGS_IF )                                   \
++        local_irq_enable();                                      \
+ })
+ 
+ static inline int local_irq_is_enabled(void)
+-- 
+2.11.0
 
-Hi,
-
-On 06.12.21 09:31, Jonas Blixt wrote:
-> Hello XEN developers,
->=20
-> We're working on a virtualized CAN driver for XEN (PV-CAN) with the int=
-ention to upstream the patches.
-> In our project we use the PV CAN driver to expose a pysical CAN interfa=
-ce to domU. We use cangw in
-> dom0 for routing between the physical interface and the PV CAN interfac=
-e.
->=20
-> The driver implements two rings, a tx and rx ring for sending CAN frame=
-s between dom0 and domU.
-> It uses three interrupts, one for indicating to domU that there are fra=
-mes to be processed in the tx ring,
-> one for the other way around to indicate to dom0 that domU has transmit=
-ted a can frame and
-> the third to implement flow control in domU.
->=20
-> We're unsure if we are using the RING_ -macros the way it's intended. F=
-or example, before
-> writing to the rx ring we want to check if there is enough available sp=
-ace in that ring.
-> This is how we currently do that:
->=20
->  =A0=A0=A0 if (abs(priv->rx_ring.sring->req_prod - priv->rx_ring.sring-=
->req_event)
->  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 >=3D RING_SIZE(&priv->rx_ring)-2)=
- {
->=20
-> This seems wrong but at least works. The macros we tried first (RING_FR=
-EE_REQUESTS and RING_FULL)
-> does not seem to work for us and that might be an indication we're not =
-using the RING -macros correctly.
->=20
-> The backend driver has one callback for receiving can frames from the i=
-nterface in
-> dom0 (pvcan_tx) and one interrupt handler for receiving frames from dom=
-U (pvcan_interrupt_rx).
-> The frontend driver has a similar setup.
->=20
-> When we are sending frames to domU we're using the RING_GET_RESPONSE ma=
-cro to allocate space
-> in the tx_ring and in the frontend driver(pvcan_interrupt) we're also u=
-sing the RING_GET_RESPONSE
-> to receive the same frame. However in the other direction we're using R=
-ING_GET_REQUEST.
-> I think we needed to have this setup to get the interrupts between dom0=
- and domU.
->=20
-> Should we use two different rings for full duplex communication or is o=
-ne ring enough? I suppose if
-> we only used one ring the RESPONSE/REQUEST macros make more sense, I im=
-agine that
-> the front end would always allocate and write RESPONSES and the backend=
- would allocate and write
-> REQUESTS.
->=20
-> Another curious thing we did to get this working is in the pvcan_interr=
-upt_rx (backend). When we
-> receive frames using the RING_GET_REQUEST we also call RING_GET_RESPONS=
-E. This
-> is the result of trial and error so I can't justify it beyond: if we di=
-d not have this the ring would stall.
-
-Basically all answers to your questions depend on the protocol used.
-
-Is the data being sent/received by the domU put directly onto the
-rings, or is it mapped via grant mappings by dom0?
-
-Are all the requests on the rings of the same size?
-
-Are the single requests/responses acknowledged by the other side
-(I guess "yes", as I presume this is what you are referring to as
-"flow control")?
-
-
-Juergen
-
-
---------------8A65E2AFE35C2B27B564A14A
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------8A65E2AFE35C2B27B564A14A--
-
---fYxAjp0VkgfMCsyXNbVwNe4zNdFA2kzC0--
-
---1OkKmluj8gSLfKk0SMNcXrAO6D1rgyFmU
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGuEfMFAwAAAAAACgkQsN6d1ii/Ey84
-eAf/YwmBNZ10yh+zifDq0pCHAivMo3K2BVFIra5MabeBq29ajeYIwJxV91eFsonOLgksMCIK95RA
-hxVuYvxGvkQjYy5unDNVpV6WPenGy1yxZEDMUiQZG0id7bF0zB8gBJ5DGH4wrhB6+9KySOxtOR41
-cLq0bLSmQVZDGiVBEYaExMYUdeoDTYuJqM7nKxo961Rh9cvoAjpWMV3MB9gYLHICS3LUwAyzs0yv
-TdWUrX8myIRc6xZwrVyQ8zovmlHhWiaclEP0T6GIYcLzuP0gnA1kpeEJR66bliLGsiji6s49W6Sj
-aALwfdaTL2M5dubOwLhdJV+iUTCJlncOlSZW/cUGRA==
-=4Vjn
------END PGP SIGNATURE-----
-
---1OkKmluj8gSLfKk0SMNcXrAO6D1rgyFmU--
 
