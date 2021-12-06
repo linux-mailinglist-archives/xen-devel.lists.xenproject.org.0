@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BA5146A240
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 18:07:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.239449.415120 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D0A046A256
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 18:08:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.239502.415301 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muHSI-0005s1-Az; Mon, 06 Dec 2021 17:07:10 +0000
+	id 1muHTA-0006XF-QU; Mon, 06 Dec 2021 17:08:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 239449.415120; Mon, 06 Dec 2021 17:07:10 +0000
+Received: by outflank-mailman (output) from mailman id 239502.415301; Mon, 06 Dec 2021 17:08:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muHSI-0005oW-3G; Mon, 06 Dec 2021 17:07:10 +0000
-Received: by outflank-mailman (input) for mailman id 239449;
- Mon, 06 Dec 2021 17:07:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1muHTA-0006SP-J1; Mon, 06 Dec 2021 17:08:04 +0000
+Received: by outflank-mailman (input) for mailman id 239502;
+ Mon, 06 Dec 2021 17:08:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+yl1=QX=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1muHPL-0005ti-G6
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 17:04:07 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8461dcdc-56b6-11ec-8a4d-196798b21f7b;
- Mon, 06 Dec 2021 18:04:06 +0100 (CET)
+ id 1muHP5-0005ta-6k
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 17:03:51 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7a879e1f-56b6-11ec-a5e1-b9374ead2679;
+ Mon, 06 Dec 2021 18:03:49 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,66 +36,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8461dcdc-56b6-11ec-8a4d-196798b21f7b
+X-Inumbo-ID: 7a879e1f-56b6-11ec-a5e1-b9374ead2679
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1638810246;
+  d=citrix.com; s=securemail; t=1638810229;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=SYJTJIKxHEFQcMKNpvz4kHz4LT/E8ZyffBaU/35UM+o=;
-  b=SZpZIlN/a17Ht6GaXvXX8/7SyBd3Pp2dTxLfhp7yRWDcgEMHZ9E4rZRi
-   7rTWRxC+oRNoPbUoDjMaJbXUz/Dd1Fw+EB2JyRBGsbAICc9S/ptJ609+o
-   molDybIW1BCryY0UNuuxS50EkR4doQccRDH/wQyhfotnzr7biwB1Mfw+6
-   Y=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: VCdhQLflCCIZyRDomZsky6KSMXnle3oGtqd3o5o8N7VxYOorQ/qkUU4iNNAzQcdffkS21AIJlM
- gjy7VQ1ZNkfstePOqeQz9jCWEGCmsmIgPuQxysZk6bxRWtWiOC/eUdbHseV8hXQs6u+kM7oren
- PuEWLFXSw/BosuoSlvze/WY/Ghk4McC4ekghT9eaICt8yd2pKILl2RtEIr8+AJV6myEICKQOrl
- 7l+4ouN8vfjx09W+Ht9XEoR+i4Bjjf5XXCh9PH/Hrxs5ic4iTxyUC+YU2ioEU+Z6jsoEAbqPq3
- AHXvs4FrJVgDM+kwDSDm51q8
+  bh=BHKgdcCFIcw2aiewzH6pZ1uVlVigf4URrqTZQIJcZwI=;
+  b=aWAlpeRPquChvIDdxnpX6wHzzAIuOAEFMGyzOUu1kshr98uix1niOO02
+   55uxkwsBg3xRDiVDXqp2nIIKi2U76ClZ4lWm0xk44Ejxdsa5104jU/pNJ
+   aalJ27VffPoTTKSKKCGfT4i4vU8i4IhyQ3jmmfwWpS8x2eZLOPfuYkvJ9
+   Q=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: awMe2UEYGgJ6YVSNJTcx4uOQBPZtcMozEo6Gb0XSc5/gjJpI/J1x5WSIwh5RKy0Sst6+qLRvHY
+ +kvYfuB/0MtGUz2UzWeeoaJSPcFPAM6+dV82njyVa/NqTe0mV2aiTfMhqadskkpyaY6mSgk2VB
+ qsXkg38jpOkufAuoZeWpSIJh9IYqG1RIsol4Db+vogdA9jzn2r5aqrglEFYLgcLcOH1HccN5x6
+ BF5SsHhzI6K9Yh3I5cXWZ7XQ0PT2n9/Oilfr1yT4gl7EArt4aoZPK0LYMuB44+tE6dUIgptUGn
+ 25SxMsOVel72n0dmof0BCmui
 X-SBRS: 5.1
-X-MesageID: 59387870
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 59324094
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:otoXGKiBxFDXDfpOgfhSP/JAX161khcKZh0ujC45NGQN5FlHY01je
- htvXGDSOanZN2qme4xyYI+z8UpSvMLczYc3QQVsryA8E38b9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0F0/NtTo5w7Rg29Qw34Dja++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /136cCxYg0DM5HDhbw6dTgbThByIY9/reqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
- KJCbmpXN1ba2rzwkOnTpupE36zPKOHiOp8fvXdxiynUF/88TbjIQrnQ5M8e1zA17ixLNauPP
- JpGOWU3BPjGSxIICGg0N6gFpc6HljrQcjNGrnCL9INitgA/yyQuieOwYbI5YOeiWsF9jkue4
- GXc8AzRAw4YHMySzyKf9XChjfOJmjn0MKoQHrCl8v9hgHWI23ceThYRUDOTsfS/z0KzRd9bA
- 0gV4TY167g/8lSxSdvwVAH+p2SL1jYVXcZQFOsrrhmA0KPO7y6WA2EFSnhKb9lOiSMtbWV0j
- BnTxYqvXGEx9u3OIZ6AyluKhQnuZSk+J0UPWSAZFSwjwpq+kY0vrCuaG76PD5WJptHyHDjxx
- RWDoy4/m6gfgKY36kmrwbzUq2ny/8aUF2bZ8i2SBzv4tV0hOOZJcqTxsQCDhcusOrp1WbVoU
- JIsv8GFpN4DApiW/MBmaLVcRer5jxpp3dC1vLKOI3XD32n0k5JAVdoJiN2bGKuPGpxeEdMOS
- BWM0T69HLcJYBOXgVZfOupd8fgCw6n6DsjCXfvJdNdIaZUZXFbZp3ExPx/NhTqzzxhEfUQD1
- XGzK5zE4ZEyU/sP8dZLb71Fje9DKt4Wmws/uqwXPzz4iOHDNRZ5uJ8OMUeUb/BR0U93iF69z
- jqrDOPTk083eLSnOkH/qNdPRXhXfSlTLc2n8KR/K7/cSjeK7Ul8Upc9N5t6INc790mU/8+Vl
- kyAtrhwlACi2CaZcFrSMRiOqtrHBP5CkJ7yBgR0VX7A5pTpSdv0hEvGX5doL7Qh6sJ5yvt4E
- 6sMd8maW6wdQTXb4TUNK5L6qdU6JhisgAuPOQujYSQ+IME8F1CYpIe8c1u97jQKAwq2qdA6/
- ++q2DTETMdRXA9lFsvXNq6ilgvjoXgHletudELUOd0PKl70+Y1nJnWp3P86Ks0BMzvZwT6e2
- 1rECBsUv7CV8YQ07MPIleaPqILwS7lyGU9THm/667eqNHaFojr/kNEYCOvRJGLTTmL5/qmmd
- N559fCkPa1VhktOvqp9D61vkfA06ezwquII1Q9jBnjKMQimU+syPnmc0MBTnaRR3bsF6xCuU
- 0eC99QGa7WEPMTpTAwYKAY/N7nR0PgVnn/Z7OgvIVW87yhypeLVXUJXNhiKqSpcMLoqb991n
- bZ/4JYbu16llx4nEtealSQFpW2DI0sJX7gjqpxHUpTgjRAmyw0abJHRYsMsDEpjtzmY3pEWH
- wKp
-IronPort-HdrOrdr: A9a23:2jT6tqsanajhhILcCJNg4BUy7skDfNV00zEX/kB9WHVpmszxra
- +TdZMgpHrJYVcqKRYdcL+7WZVoLUmwyXcX2/hyAV7BZmnbUQKTRekIh7cKqweQfxEWndQy6U
- 4PScRD4aXLfDtHsfo=
+IronPort-Data: A9a23:o7nY7azFhEaYtWPCfgh6t+eswSrEfRIJ4+MujC+fZmUNrF6WrkVSy
+ WYeDD+BO6mNNzHwe95yPN+y/RhX6JfWm9FmGlNrpCAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAuLeNYYH1500s6wbZn2tQAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt4Eo+
+ e1ui4eecgwKFIqLnu88bDBUFRgraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVors0lMMnsOpJZonx6xCvVJf0nXYrCU+PB4towMDIY25EVR6qGN
+ pZxhTxHSBXyXw1kKkksBbUejOjr33PdfRYCtwfAzUYwyzeKl1EguFT3C/LXZ9iLSMN9jkue4
+ GXc8AzRGQoGPdaSzT6E9HOEheLVmy7/HoUIG9WQ6fpCkFCVgGsJB3U+V1G2vP24gU6WQM9EJ
+ gof/S9Ghbg/8gmnQ8fwWzW8oWWYpVgMVtxICeo45QqRjK3O7G6xD24YTjlHeZo+udU/XzAC2
+ VqAntevDjtq2JWUVnC15rqStSm1OyUeMSkFfyBscOcey4C9+sdp1EuJF4s9Vv7u5jHoJd3u6
+ 2HTnRAdua49tsUo/YL8+1vmvBugoKGcG2bZ+T7rdm6i6wp4YqusaIqp9UXX4J58EWqJcrWSl
+ CNawpbDtYjiGbnIzXXQG7tVQNlF8t7caGWE6WODCaXN4NhEF5SLWYlLqA9zK05yWirvUW+4O
+ RSD0e+9CXI6AZdLUUOVS9/oYyjJ5fK5fTgAahwyRoAUCnSWXFXYlByCnWbKgwjQfLEEyMnTw
+ 6uzf8e2Fmo9Aq961jewTOp1+eZ1nXBhnzKOH8qlkETPPV+iiJi9E+1t3LymNL9R0U95iF+Nr
+ 4Y32zWilX2zr9ESkgGIqNVOfDjm3FAwBIzsqtw/SwJwClEOJY3VMNeImelJU9U8x8x9z76Ul
+ lngCh4w4Aeu3hXvdFTVAk2PnZuyBP6TW1pgZndyVbtpslB+CbuSAFA3K8FqIOJ5rbM7lpaZj
+ ZAtIq29PxiGcRyfkxx1UHU3hNAKmM2DiV3cMiy7TiI4epI8FQXF9sW9Jlnk9TUUDzrxvsw7+
+ uXy2gTeSJsFZgJjEMeJN67/kwLv5SAQyLBoQk/FAthPY0GwooJkHDP8060sKMYWJBSdmjbDj
+ 1SKAQ0VrPXmqpMu9IWbnriNqoqkSrMsHkdTE2TBw6yxMC3WojiqzYNaCb7adjHBTmLkvq6lY
+ LwNnf37NfQGmndMspZ9TOk3nf5vuYO3quYDnAp+HXjNY1C6MZ9aIyGLjZtVq6lA5r5Fog/qC
+ EiBzcZXZOeSM8T/HV9PeAd8Nraf1esZkyX55OguJBmo/zd++beKXBkAPxSIjyABfrJ5PJl8n
+ LUksc8SrQe+lgArIpCNiSUNrzaAKXkJUqMGsJAGAdC01lp3mw8aOZGMWDXr5JyvaslXNhh4K
+ zCZs6POmrBAyxeQaHE0D3XMgbJQiJlmVMqmF7Pey4BlQub4u8I=
+IronPort-HdrOrdr: A9a23:N+xA662ldZKWd4fSpzOQyQqjBLQkLtp133Aq2lEZdPRUGvb2qy
+ nIpoV96faUskdpZJhOo7G90cW7LE80sKQFg7X5Xo3SODUO2lHJEGgK1+KLqFfd8m/Fh4tgPM
+ 9bAs5D4bbLY2SS4/yX3ODBKadC/OW6
 X-IronPort-AV: E=Sophos;i="5.87,292,1631592000"; 
-   d="scan'208";a="59387870"
+   d="scan'208";a="59324094"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@gmail.com>, Anthony PERARD
-	<anthony.perard@citrix.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Ian Jackson
-	<iwj@xenproject.org>
-Subject: [XEN PATCH 26/57] tools/firmware/hvmloader: rework Makefile
-Date: Mon, 6 Dec 2021 17:02:09 +0000
-Message-ID: <20211206170241.13165-27-anthony.perard@citrix.com>
+	<anthony.perard@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [XEN PATCH 27/57] tools/fuzz/libelf: rework makefile
+Date: Mon, 6 Dec 2021 17:02:10 +0000
+Message-ID: <20211206170241.13165-28-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20211206170241.13165-1-anthony.perard@citrix.com>
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
@@ -103,79 +103,80 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Setup proper dependencies with libacpi so we don't need to run "make
-hvmloader" in the "all" target. ("build.o" new prerequisite isn't
-exactly proper but a side effect of building the $(DSDT_FILES) is to
-generate the "ssdt_*.h" needed by "build.o".)
+Rename ELF_LIB_OBJS to LIBELF_OBJS as to have the same name as in
+libs/guest/.
 
-Make use if "-iquote" instead of a plain "-I".
+Replace "-I" by "-iquote".
 
-For "roms.inc" target, use "$(SHELL)" instead of plain "sh". And use
-full path to "mkhex" instead of a relative one. Lastly, add "-f" flag
-to "mv", in case the target already exist.
+Remove the use of "vpath". It will not works when we will convert this
+makefile to subdirmk. Instead, we create symlinks to the source files.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
- tools/firmware/hvmloader/Makefile | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ .gitignore                 |  1 +
+ tools/fuzz/libelf/Makefile | 21 ++++++++++-----------
+ 2 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/tools/firmware/hvmloader/Makefile b/tools/firmware/hvmloader/Makefile
-index b754220839..fc20932110 100644
---- a/tools/firmware/hvmloader/Makefile
-+++ b/tools/firmware/hvmloader/Makefile
-@@ -60,8 +60,7 @@ ROMS += $(ROMBIOS_ROM) $(STDVGA_ROM) $(CIRRUSVGA_ROM)
- endif
+diff --git a/.gitignore b/.gitignore
+index c31fa9b841..4267bb4dee 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -197,6 +197,7 @@ tools/flask/utils/flask-setenforce
+ tools/flask/utils/flask-set-bool
+ tools/flask/utils/flask-label-pci
+ tools/fuzz/libelf/afl-libelf-fuzzer
++tools/fuzz/libelf/libelf-*.c
+ tools/fuzz/x86_instruction_emulator/asm
+ tools/fuzz/x86_instruction_emulator/afl-harness
+ tools/fuzz/x86_instruction_emulator/afl-harness-cov
+diff --git a/tools/fuzz/libelf/Makefile b/tools/fuzz/libelf/Makefile
+index 9eb30ee40c..9211f75951 100644
+--- a/tools/fuzz/libelf/Makefile
++++ b/tools/fuzz/libelf/Makefile
+@@ -1,25 +1,24 @@
+ XEN_ROOT = $(CURDIR)/../../..
+ include $(XEN_ROOT)/tools/Rules.mk
  
- .PHONY: all
--all: acpi
--	$(MAKE) hvmloader
-+all: hvmloader
+-# libelf fuzz target
+-vpath %.c ../../../xen/common/libelf
+-CFLAGS += -I../../../xen/common/libelf
+-ELF_SRCS-y += libelf-tools.c libelf-loader.c libelf-dominfo.c
+-ELF_LIB_OBJS := $(patsubst %.c,%.o,$(ELF_SRCS-y))
++LIBELF_OBJS := libelf-tools.o libelf-loader.o libelf-dominfo.o
  
- .PHONY: acpi
- acpi:
-@@ -73,12 +72,15 @@ smbios.o: CFLAGS += -D__SMBIOS_DATE__="\"$(SMBIOS_REL_DATE)\""
- ACPI_PATH = ../../libacpi
- DSDT_FILES = dsdt_anycpu.c dsdt_15cpu.c dsdt_anycpu_qemu_xen.c
- ACPI_OBJS = $(patsubst %.c,%.o,$(DSDT_FILES)) build.o static_tables.o
--$(ACPI_OBJS): CFLAGS += -I. -DLIBACPI_STDUTILS=\"$(CURDIR)/util.h\"
-+$(ACPI_OBJS): CFLAGS += -iquote . -DLIBACPI_STDUTILS=\"$(CURDIR)/util.h\"
- CFLAGS += -I$(ACPI_PATH)
- vpath build.c $(ACPI_PATH)
- vpath static_tables.c $(ACPI_PATH)
- OBJS += $(ACPI_OBJS)
+-$(patsubst %.c,%.o,$(ELF_SRCS-y)): CFLAGS += -Wno-pointer-sign
+-
+-$(ELF_LIB_OBJS): CFLAGS += -DFUZZ_NO_LIBXC $(CFLAGS_xeninclude)
++CFLAGS += -iquote ../../../xen/common/libelf
++$(LIBELF_OBJS): CFLAGS += -Wno-pointer-sign
++$(LIBELF_OBJS): CFLAGS += -DFUZZ_NO_LIBXC $(CFLAGS_xeninclude)
  
-+$(DSDT_FILES): acpi
-+build.o: $(DSDT_FILES)
+ libelf-fuzzer.o: CFLAGS += $(CFLAGS_xeninclude)
+ 
+-libelf.a: libelf-fuzzer.o $(ELF_LIB_OBJS)
++$(LIBELF_OBJS:.o=.c): libelf-%.c: ../../../xen/common/libelf/libelf-%.c FORCE
++	ln -nsf $< $@
 +
- hvmloader: $(OBJS) hvmloader.lds
- 	$(LD) $(LDFLAGS_DIRECT) -N -T hvmloader.lds -o $@ $(OBJS)
++libelf.a: libelf-fuzzer.o $(LIBELF_OBJS)
+ 	$(AR) rc $@ $^
  
-@@ -87,21 +89,21 @@ roms.inc: $(ROMS)
+ .PHONY: libelf-fuzzer-all
+ libelf-fuzzer-all: libelf.a libelf-fuzzer.o
  
- ifneq ($(ROMBIOS_ROM),)
- 	echo "#ifdef ROM_INCLUDE_ROMBIOS" >> $@.new
--	sh ../../misc/mkhex rombios $(ROMBIOS_ROM) >> $@.new
-+	$(SHELL) $(XEN_ROOT)/tools/misc/mkhex rombios $(ROMBIOS_ROM) >> $@.new
- 	echo "#endif" >> $@.new
- endif
+-afl-libelf-fuzzer: afl-libelf-fuzzer.o libelf-fuzzer.o $(ELF_LIB_OBJS)
++afl-libelf-fuzzer: afl-libelf-fuzzer.o libelf-fuzzer.o $(LIBELF_OBJS)
+ 	$(CC) $(CFLAGS) $^ -o $@
  
- ifneq ($(STDVGA_ROM),)
- 	echo "#ifdef ROM_INCLUDE_VGABIOS" >> $@.new
--	sh ../../misc/mkhex vgabios_stdvga $(STDVGA_ROM) >> $@.new
-+	$(SHELL) $(XEN_ROOT)/tools/misc/mkhex vgabios_stdvga $(STDVGA_ROM) >> $@.new
- 	echo "#endif" >> $@.new
- endif
- ifneq ($(CIRRUSVGA_ROM),)
- 	echo "#ifdef ROM_INCLUDE_VGABIOS" >> $@.new
--	sh ../../misc/mkhex vgabios_cirrusvga $(CIRRUSVGA_ROM) >> $@.new
-+	$(SHELL) $(XEN_ROOT)/tools/misc/mkhex vgabios_cirrusvga $(CIRRUSVGA_ROM) >> $@.new
- 	echo "#endif" >> $@.new
- endif
--	mv $@.new $@
-+	mv -f $@.new $@
+ # Common targets
+@@ -31,7 +30,7 @@ distclean: clean
  
  .PHONY: clean
  clean:
+-	rm -f *.o .*.d *.a *-libelf-fuzzer
++	rm -f *.o .*.d *.a *-libelf-fuzzer $(LIBELF_OBJS:.o=.c)
+ 
+ .PHONY: install
+ install: all
 -- 
 Anthony PERARD
 
