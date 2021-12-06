@@ -2,48 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD9F346970C
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 14:30:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.238912.414059 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 676BA46970D
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 14:30:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.238915.414070 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muE43-0001ms-6F; Mon, 06 Dec 2021 13:29:55 +0000
+	id 1muE4T-0002yW-F7; Mon, 06 Dec 2021 13:30:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 238912.414059; Mon, 06 Dec 2021 13:29:55 +0000
+Received: by outflank-mailman (output) from mailman id 238915.414070; Mon, 06 Dec 2021 13:30:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muE43-0001l4-2w; Mon, 06 Dec 2021 13:29:55 +0000
-Received: by outflank-mailman (input) for mailman id 238912;
- Mon, 06 Dec 2021 13:29:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1muE4T-0002vj-BL; Mon, 06 Dec 2021 13:30:21 +0000
+Received: by outflank-mailman (input) for mailman id 238915;
+ Mon, 06 Dec 2021 13:30:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=0GdR=QX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1muE41-0001ky-BH
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 13:29:53 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 97674f77-5698-11ec-a5e1-b9374ead2679;
- Mon, 06 Dec 2021 14:29:51 +0100 (CET)
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04lp2055.outbound.protection.outlook.com [104.47.13.55]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-16-IFcU3Z6rN2SdMgnKV-E19g-1; Mon, 06 Dec 2021 14:29:50 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB2829.eurprd04.prod.outlook.com (2603:10a6:800:bb::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.23; Mon, 6 Dec
- 2021 13:29:48 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4755.021; Mon, 6 Dec 2021
- 13:29:48 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AM6PR10CA0046.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:209:80::23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.16 via Frontend Transport; Mon, 6 Dec 2021 13:29:47 +0000
+ (envelope-from <SRS0=9VqD=QX=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1muE4S-0002vN-4o
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 13:30:20 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a7af0572-5698-11ec-8a4d-196798b21f7b;
+ Mon, 06 Dec 2021 14:30:19 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AFF9921138;
+ Mon,  6 Dec 2021 13:30:18 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 79B1D13BAE;
+ Mon,  6 Dec 2021 13:30:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id qh0KHGoQrmFAIAAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 06 Dec 2021 13:30:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,129 +51,186 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97674f77-5698-11ec-a5e1-b9374ead2679
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1638797391;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=XaFqQ/j5v8nVoRuIcB8FLvaeesWu7Z2skNYq1vYcRGw=;
-	b=cCSr6i0mr5JWwKfSt7NviYs7Dw8XSEHvPyNcgScIDn9A7755GwWhvXS2u2aE4NaEockijS
-	qQm1pV0qVPjTSDC98WFSfYLEOZ65GEhl3dBuSu1xEsjSiOBhxP5VnHQeuXIBUL/oPk3OdK
-	2fHaS3uCHe0be9UIfFD1SAvip1tGJqA=
-X-MC-Unique: IFcU3Z6rN2SdMgnKV-E19g-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h7RtipHL6iWBdo3rgFUxdxA1UhHnAcINeyn488UbnWt0CM8Ux/rYPWDdzuvz4G6wUX9vckE6z340VWDDJ7+mZ+DSJF3pzHlC8V3EBqt+z1C1VI7/K9rHKdXxy3WADlFcXz4svH28R5uR/CSXLHAuRIh8jP8pJiYQnI8sWlhJD8vOMQrD6dMLkixCw2R9Q3vHJZ1iexhb5td72ctbIKPAm4/aKlHZR1SxCQW0NJYu8X47x4XGFc+JKf0oUPPv5aW2FFvFo0Q19Oomfit5oaa8QbG0dML+86m1cAiYiqB1LRGu9wQd1cxmj82d9nP6SLolfZMXkWhZS9IrpGMCe4mo6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XaFqQ/j5v8nVoRuIcB8FLvaeesWu7Z2skNYq1vYcRGw=;
- b=TJ+48e3cy+9SlFXJlG9a96hKZ93/7zR23aeXUXzfshEaKrQuAlmgPAQCW4VGBZXmQm/XELFYzWLuOItOsUzB0H1Ff2ZuwbYe3a3Zhdy7AVdnPehAXYvjw8yd8M8VNKx6yfAVFEXgIeLi8Yr6GVnv4/36jYYR4urW996wcvRBi96Udd/Wyfy1KAVmn3Pb0IpOW/WmNkPo9745FDzMlNa9I9hF8LZ0v/xXsgJrmWV+BaLZRoCkoA6vq28C8qt5cogJp9Oi7XjqKQBV7rQdfVVZFvPfNx4g6SvUlfprWhbIiKzUeCr0at21s+xEha/Pctpk5aAGvXeewvx7Jx+GXEmR8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <adba1753-4d6b-0ee4-a7c0-42c5ef520b67@suse.com>
-Date: Mon, 6 Dec 2021 14:29:46 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2 0/7] (mainly) xz imports from Linux
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR10CA0046.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:209:80::23) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: a7af0572-5698-11ec-8a4d-196798b21f7b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1638797418; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=rjH3GlR6qZT+gmpjB2DhmHifnrM7sEnhkVMQpV3UbrE=;
+	b=gS6adLdFpQXfcIb97KxYBNFuK2u8R+zBKWC7a2XW9CMfeRrykQBu3V2raxnNFjdw1EFmoK
+	+lECzyB3BGaNGHJawdRoplBik6ZGfVN3Q72zf6MxbskPRpEYoPP8PaxdDB+9rlbWocvNRp
+	svgM+2KCXB2kAWQMkQQ4e8MPeIP55qM=
+Subject: Re: [PATCH] mini-os: support event channel 0 for console
+To: Jan Beulich <jbeulich@suse.com>
+Cc: samuel.thibault@ens-lyon.org, wl@xen.org,
+ minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
+References: <20211206072337.9517-1-jgross@suse.com>
+ <20211206124612.24758-1-jgross@suse.com>
+ <39a4ae01-7ea9-7526-74da-1fea71274890@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <e3a098f7-e296-de04-889b-3983d23e58c5@suse.com>
+Date: Mon, 6 Dec 2021 14:30:17 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eb9bbc42-789e-4c37-aa8a-08d9b8bc7975
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB2829:EE_
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB28292549FDC7EB43CC74B94EB36D9@VI1PR0402MB2829.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Z9Im3KAz/2WgTu6CAoifqhFOf9k8LV3uY8C76NkPupChGWjPwdXw7m9WsxxHu4UIU8pfZ7T5X6hqylvriPU/Ikh+yw5pssw292D7uVeTwZQ+JCeu5yfSQuG0xxh79NZXPCcm1d9kEebj2lS7OIJCKilgNgqW40uVFxlJ3I4LBPRjGZLFPZ1izR9YAD4eYgP7ol5jRrNEgAYAC1PpOOL+Es98C337H9QyqEXnTNDH5lrSyH4i6c8iVHH5ns4rHX23ea6YHkg7LCGkfto06OEqfqj4viK9yfOzBAun2L5Xiqh7WgU5sCjKzeZNQ91d1XL/wbhccqzzVKXw8eGOmmGIBvPtv8N2NYSHhYqPQ01BXMX5vel1PuU02SYlZJQX59sVBDc5fCEeVLlYSNEp4p4G7DsiHk3cN+2XDm9cKsvDW2hrh4w5AKxOLjhnUmU4LSeBCO4dFQVOocLv9fK0sJvkho6ca2pjE6uaMeIpZqgVbRJ1hGtiPlzNt2Gg1C8LWwyNbu45bNflY0Vx4YVbDcWPkPlS5iV/ctdfdJlI/tYYDmGi3AsvzJOvOu4KkciDR+y/T1ffpCZd9reRf1BjIM3zeK7yM1VHi32pdFfm1iZMZUgv1pxMGmkuHNaGNbD8CnY5malyg3WBBQhypihZykY1gQsTklgSRNbOAPlo0X/H773d6Jpj+hHs9ppgIIoOpjOB/HhXGNmCy4V01Q7a6MbMOlC3xmia0LzNdZ7zDYMMJIMflnYyPb32O2mzoAjH4hL0
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(86362001)(31696002)(2906002)(5660300002)(6486002)(66476007)(316002)(6916009)(83380400001)(54906003)(4326008)(66946007)(508600001)(16576012)(66556008)(26005)(8936002)(4744005)(38100700002)(956004)(2616005)(36756003)(8676002)(186003)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N3pKSWcxQ0FtTXV1WEZDUjduQjBJS0czN25Fd1g0TnNEbEV4Uk1BTTUzZTJy?=
- =?utf-8?B?NFFPWS9NcmVyOU8xVzN1eEttRzJ1TmF2MG9mUDJqTWY5MGg5RDFFZFVUcklk?=
- =?utf-8?B?WmZLeHVRRS8zNTI2emNCTEU4dmFBR05lblJEeDhhM2k5bUdsV0ErVXIvUGor?=
- =?utf-8?B?eWV6R0FzZ0gxekJwdUdMcitjUEJXN1VZUllDVTJCZFVockRDalZOMyszcDZ2?=
- =?utf-8?B?UWtFTFQ5dFJZSWNVZC9OdDVDdzl5Z3YrYXVreCtLRVI1U0dUa0RpbFlYK3NC?=
- =?utf-8?B?U1A0VmFpdnBhdElCcWlZSUpCUTV6NFlHYk90dnAzSUgzb2wzTnNtTE9GL3BE?=
- =?utf-8?B?MVRpdDUzTDZsQnI2cncxV014Rkl4V1F5Mm16MDZOMVJQd1BQd25WZXV2MnFi?=
- =?utf-8?B?YkUyTTlWL1RrRTM5SHRldnQ2OUFFTENvZytMYUFtSldGZEFXcXlmdmhFaHkx?=
- =?utf-8?B?d0hJckh1bHk4YzQrSjVoK21MbHRlbUl1VEN5RlZGeW9KWHJlNDJTVlR3Nkcv?=
- =?utf-8?B?K250dzRlSVc0YUt3VmlSVC94MFNFSXdiNU9kbzVhN2R3RXNreGdHc0M2KzVs?=
- =?utf-8?B?ZTJ2MEVxUnVYdXR0Z0NIazB4VkMzc01ydk9od25rWnFkenBRek15eTVzbVRx?=
- =?utf-8?B?QitaUlZYaGYyQ3ExTDFTWE5UTVZvUnVBVDhzRXFpQmN4QzdPYjhaNlROMDF5?=
- =?utf-8?B?bDUrR3k4ZW9Vd1VLMjJGV253OHRqZjAweUsrSG5ZV1lFYjd6UGRpaVduUkpE?=
- =?utf-8?B?Qi8xUzJySWNZWmh5SEFvOUtnNzE2bXVwWTk0VzgvOHdyT1BuSzdDVXFTVkxH?=
- =?utf-8?B?d21DODV4TXAyZWFRSmVYd1JKOGdiQzRHMlY0YWthSy9GZzB4c0FmcHdTc2Zv?=
- =?utf-8?B?dURhbnYrL01kSHZpR0EwQ3hwR1VOaTBZWFZnVE1kelJjWGVQRmFHbVJkdjJE?=
- =?utf-8?B?YjBVK3lDZDlrcE50VE1oeXNNNnptRzUyOERaZ1VwV0NrRFpPaUs1RzdsbXdw?=
- =?utf-8?B?MG5ZQVhmUkNVZTJSSFl3UnBMbHY3eUZwM0xUUS8rY1VPOVk4aE13OFBhN3NH?=
- =?utf-8?B?eHJFMHhXeDloYVlodnhqMHlMNzJvVWVMcHJVVks1d3hSODU3WlRpYzE1cG54?=
- =?utf-8?B?aldEK1lFOStKN0FDZlFYYTBBMzAwd0hCSFN5UmVVM0E0aS9odC9uY3N2b0Jy?=
- =?utf-8?B?TFcwWnBpeVFkZTI0YUtpQTNBVDdPR1hGa0VYV3pwWlB0R0lMRDNVaHpVZ0ZD?=
- =?utf-8?B?RStlZ0xVWFlqK2s1U3V4QlZRTUkvamhLeXVKU2NLdzJ3aWUxVGwzVGlkSGt5?=
- =?utf-8?B?b2VjWDhFTStEb0ZnRmhncExtRHVjUVd2VVlzYnpSeUtQYkVwZkpPeStlcm1R?=
- =?utf-8?B?VU5ISmIyVmtNTkhkN1pBd0h3VFFiSnJRenUrVVlWV0srR2c1UDJBUlp3NXR4?=
- =?utf-8?B?R0N0Qis0Vld1VnZYZWI4M01qMUc2bzBFOWtESUdHUUtMVVFZYjQybEMzajJW?=
- =?utf-8?B?TTVFbUx4QkxSS3BRTmoxT2FTWDdFdlBZZGhNclRHVmhjZGhDclNQeUs2Qm5D?=
- =?utf-8?B?aCtRNzBLbmt4UkJCSy90WUVXZkpWbE5nRnNuZmFVNnFzR0ZmSG8xVVhDNG5u?=
- =?utf-8?B?VHVLSjVnY3RsSmxpUFdnNjJ3SnJqRklsQUYxTHlwSFp3TUVuYUV4M0NGVlgw?=
- =?utf-8?B?WkJzQ1BqelhJQXdCZ2w1TkJZcDUwV29nYjIzTUZveTBaT2MrSWFEai9JWVRk?=
- =?utf-8?B?N1BUbEcwa3c5dkJwcTJjcnRZdXlWV3FqdGxVVnhodFVreHp2ZHh0dzZMUFgr?=
- =?utf-8?B?bXJVQzBhL3hueEVVenBlS1ZvWWpIZDBubkhKK294MmgvK2g2OEZXVHIzV2Q5?=
- =?utf-8?B?OTJKcUJreHBueXkvZ1daZlo1NTlDUFJlRzZCcDJJRUtqNmIzbWtRcDlxVEZD?=
- =?utf-8?B?NnNJSEgwNUU5RmM0MjBBQ1JCRHRYd1A2b05DYXhmUHFNNkJNT0Z6eFNRcXNF?=
- =?utf-8?B?VjR2eFZPN1JtVzU1VVZxYjJvQVQ5Z3I2S3daOElOWitsZmpmZ1lKVTFmREJV?=
- =?utf-8?B?MWFnMW55RnpiMDJhWU0yOG1Qd3B6S3VWaEJxK1RuMnc0RWtRWU9FYXVRMFVN?=
- =?utf-8?B?ZGRrU3hQekQ1NS9PTUc1cUlFYitTeUpKZFlNWGQxdVB6cG0weFplNVRsWHJD?=
- =?utf-8?Q?3roCptehR7n26yikaqqjkPg=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb9bbc42-789e-4c37-aa8a-08d9b8bc7975
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2021 13:29:48.2401
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cBj/S64UzSrpdUEPe8XVeFo0kWefFsVhI/YTm7FAIyJRR2lTeRmBvXk5Od25YkjMRnXuYSF4zPDp7bEYK/jHMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB2829
+In-Reply-To: <39a4ae01-7ea9-7526-74da-1fea71274890@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="0yj4b187kHHxs2gYxzlqTiOSZhnZSWTHm"
 
-While going through their 5.15.3 log I did notice two changes, which made
-me go check what else we might be missing. The series here is the result.
-Linux has also updated zstd, but that includes a pretty large change which
-I'm not ready to deal with right now. Them moving closer to the upstream
-zstd sources is certainly a good thing, so I suppose sooner or later we
-will want to follow them in doing so.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--0yj4b187kHHxs2gYxzlqTiOSZhnZSWTHm
+Content-Type: multipart/mixed; boundary="Ppp2vYvGThO8wQQ2EBYyUaL68OiVZg9IC";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: samuel.thibault@ens-lyon.org, wl@xen.org,
+ minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
+Message-ID: <e3a098f7-e296-de04-889b-3983d23e58c5@suse.com>
+Subject: Re: [PATCH] mini-os: support event channel 0 for console
+References: <20211206072337.9517-1-jgross@suse.com>
+ <20211206124612.24758-1-jgross@suse.com>
+ <39a4ae01-7ea9-7526-74da-1fea71274890@suse.com>
+In-Reply-To: <39a4ae01-7ea9-7526-74da-1fea71274890@suse.com>
 
-The only change in v2 is the re-adding of some previously dropped S-o-b
-representing the original, documentable submission flow.
+--Ppp2vYvGThO8wQQ2EBYyUaL68OiVZg9IC
+Content-Type: multipart/mixed;
+ boundary="------------2BC56277A4C35AB15AE644E2"
+Content-Language: en-US
 
-1: xz: add fall-through comments to a switch statement
-2: xz: fix XZ_DYNALLOC to avoid useless memory reallocations
-3: decompressors: fix spelling mistakes
-4: xz: avoid overlapping memcpy() with invalid input with in-place decompression
-5: xz: fix spelling in comments
-6: xz: move s->lzma.len = 0 initialization to lzma_reset()
-7: xz: validate the value before assigning it to an enum variable
+This is a multi-part message in MIME format.
+--------------2BC56277A4C35AB15AE644E2
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-Jan
+On 06.12.21 14:24, Jan Beulich wrote:
+> On 06.12.2021 13:46, Juergen Gross wrote:
+>> The console event channel might be 0 for the console, so use the value=
 
+>> of ~0 as invalid instead.
+>=20
+> I may be missing something mini-os specific here, but in Xen channel 0
+> is always invalid. It's not just here that this value would be used as
+> a sentinel.
+
+Maybe this is a special case for Xenstore stubdom. Without this change
+I can't connect to the console when the system is up, with this patch
+it is possible.
+
+
+Juergen
+
+--------------2BC56277A4C35AB15AE644E2
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------2BC56277A4C35AB15AE644E2--
+
+--Ppp2vYvGThO8wQQ2EBYyUaL68OiVZg9IC--
+
+--0yj4b187kHHxs2gYxzlqTiOSZhnZSWTHm
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGuEGkFAwAAAAAACgkQsN6d1ii/Ey+U
+2gf/QyjWryYWgG4hsAgy3ipz3es5FZ5ydqr/7kmBNEpyn89hb4XemnnrBpT1D61h/deoUH/i6qII
+OyM6GQWfCPUPSTDXXffU1BV+RrbWpXxMbKgGlW8xJAdopuHRPk8DhM3UOqVfHtR+oC6rEuHWDAWm
+sIJkFvnaQ8JEXgYdwBKhsp1F7ET3zr25eGWZy3YEtJd51Mw5/qipJCz33pOZg28Fadx97S8mMxnI
+GSPYf2Siz7kAZEkLx6p750ErOIXO2m3+lc3Aiws1YL50sWkpi47Tw53Q+ulVz2Yv8SGp+0HNqoHR
+bHerv1WGQ0uMKG4ymJYpt7kQSziu02ElD/Oe4OXVfQ==
+=OwFN
+-----END PGP SIGNATURE-----
+
+--0yj4b187kHHxs2gYxzlqTiOSZhnZSWTHm--
 
