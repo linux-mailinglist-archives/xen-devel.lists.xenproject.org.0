@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E911846AE12
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Dec 2021 23:59:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240252.416749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9112946AE22
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 00:01:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240313.416814 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muMxH-0003ur-MK; Mon, 06 Dec 2021 22:59:31 +0000
+	id 1muMzG-0008IE-Hw; Mon, 06 Dec 2021 23:01:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240252.416749; Mon, 06 Dec 2021 22:59:31 +0000
+Received: by outflank-mailman (output) from mailman id 240313.416814; Mon, 06 Dec 2021 23:01:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muMxH-0003sJ-IS; Mon, 06 Dec 2021 22:59:31 +0000
-Received: by outflank-mailman (input) for mailman id 240252;
- Mon, 06 Dec 2021 22:59:29 +0000
+	id 1muMzG-0008FL-EC; Mon, 06 Dec 2021 23:01:34 +0000
+Received: by outflank-mailman (input) for mailman id 240313;
+ Mon, 06 Dec 2021 23:01:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5qlu=QX=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1muMpf-0000Tb-94
- for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 22:51:39 +0000
+ id 1muMpg-0000Tb-Tg
+ for xen-devel@lists.xenproject.org; Mon, 06 Dec 2021 22:51:41 +0000
 Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1252291d-56e7-11ec-8a4d-196798b21f7b;
- Mon, 06 Dec 2021 23:51:38 +0100 (CET)
+ id 133e5d72-56e7-11ec-8a4d-196798b21f7b;
+ Mon, 06 Dec 2021 23:51:40 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,25 +36,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1252291d-56e7-11ec-8a4d-196798b21f7b
-Message-ID: <20211206210748.793119155@linutronix.de>
+X-Inumbo-ID: 133e5d72-56e7-11ec-8a4d-196798b21f7b
+Message-ID: <20211206210748.847219474@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1638831098;
+	s=2020; t=1638831100;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=GUR2OxklGtF7nIOBqOyJrqx9CLAOqYt69MVFmzr2xdI=;
-	b=nn7dEwkEAkvWRKbdApCe1Nm/bB6LC9VNn6X6hBZTCaCIYeYxE+VrS7/Mtl1kphsy8a/Q23
-	kjB4YpSOhYoMrj7ErcNmK8M8f0lj0Y59umb1wroZ3CNKfFENgr+n8OkJ6r8b3o/v1b8yXW
-	b7ndtXG/q2hCY9j6o4RicdXwGGzUa/M29ROck6jbO2NDHydrPYG9wL2lRiWRf/AFhMUQt1
-	iLIG8S61ibfICnkXqLvCZK6jr50bd2s65rfMK1h0boqu09T3/hPzNOypVDSANi0qi3ySMa
-	qOn/Tsktc2oYmhtwz6s1KlZz+zosMMfgyON0d7vskLdthwamU1D2s5rhVbATcA==
+	 references:references; bh=BUH8kO9WlotKw1Jm4iAVN62jvoEejpolEUEH0KsFyqY=;
+	b=tkf6bcVZHT1vI5JwxsngLbDMdnn2lBna/IkgSEZ9qzd3LKYAdX5p3zvNKUebBGpCAM6CJx
+	BbKf+B1Qk5UyIKOzpvq++GVC6W6rWHVd0BvjEVOtA/GJvzzu66VcQgk+kGe+ar7QZPe6t0
+	/ww5Acp8h5i0qKoObgyWrNfQ08o3c2XWlUN4zltdcbyzTI9jfj1h9knJjj8mYFeNzno8W+
+	OrSP+fB66SMGpTT1Y+4sLn8gpfJhkXq6fpNwI1zgA2WGZsdX1ibWLHtxfQAZNPGKhNrNy6
+	xmWW8XjfZUQpp7yv/8hWXrYyZavzKNpUoFIYuiefEaNe9+P8ge2U69ebgZMuoA==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1638831098;
+	s=2020e; t=1638831100;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=GUR2OxklGtF7nIOBqOyJrqx9CLAOqYt69MVFmzr2xdI=;
-	b=8CfzsmQ7CNDe0nMTxrF9BsEbKCFk5GvK6bcHAeaT1wkDGjUkuPIqDQJmgOzxewvdhSqDDu
-	CQ5LX8F2K+7lXrAA==
+	 references:references; bh=BUH8kO9WlotKw1Jm4iAVN62jvoEejpolEUEH0KsFyqY=;
+	b=V7ZDB1fDrNysdWEbulYRahYuzwoHAn9aIh3jtzGHZC23V577AVQihnfAkbh0fZTVDbvuIZ
+	V36JM4tCqbvyYeAA==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Bjorn Helgaas <helgaas@kernel.org>,
@@ -78,41 +78,116 @@ Cc: Bjorn Helgaas <helgaas@kernel.org>,
  Dave Jiang <dave.jiang@intel.com>,
  Allen Hubbe <allenbh@gmail.com>,
  linux-ntb@googlegroups.com
-Subject: [patch V2 22/31] soc: ti: ti_sci_inta_msi: Remove
- ti_sci_inta_msi_domain_free_irqs()
+Subject: [patch V2 23/31] bus: fsl-mc-msi: Simplify MSI descriptor handling
 References: <20211206210600.123171746@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Mon,  6 Dec 2021 23:51:37 +0100 (CET)
+Date: Mon,  6 Dec 2021 23:51:39 +0100 (CET)
 
-The function has no users and is pointless now that the core frees the MSI
-descriptors, which means potential users can just use msi_domain_free_irqs().
+Let the MSI irq domain code handle descriptor allocation and free.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 ---
- drivers/soc/ti/ti_sci_inta_msi.c       |    6 ------
- include/linux/soc/ti/ti_sci_inta_msi.h |    1 -
- 2 files changed, 7 deletions(-)
+ drivers/bus/fsl-mc/fsl-mc-msi.c |   61 ++--------------------------------------
+ 1 file changed, 4 insertions(+), 57 deletions(-)
 
---- a/drivers/soc/ti/ti_sci_inta_msi.c
-+++ b/drivers/soc/ti/ti_sci_inta_msi.c
-@@ -121,9 +121,3 @@ int ti_sci_inta_msi_domain_alloc_irqs(st
- 	return ret;
+--- a/drivers/bus/fsl-mc/fsl-mc-msi.c
++++ b/drivers/bus/fsl-mc/fsl-mc-msi.c
+@@ -170,6 +170,7 @@ struct irq_domain *fsl_mc_msi_create_irq
+ 		fsl_mc_msi_update_dom_ops(info);
+ 	if (info->flags & MSI_FLAG_USE_DEF_CHIP_OPS)
+ 		fsl_mc_msi_update_chip_ops(info);
++	info->flags |= MSI_FLAG_ALLOC_SIMPLE_MSI_DESCS | MSI_FLAG_FREE_MSI_DESCS;
+ 
+ 	domain = msi_create_irq_domain(fwnode, info, parent);
+ 	if (domain)
+@@ -210,45 +211,7 @@ struct irq_domain *fsl_mc_find_msi_domai
+ 	return msi_domain;
  }
- EXPORT_SYMBOL_GPL(ti_sci_inta_msi_domain_alloc_irqs);
--
--void ti_sci_inta_msi_domain_free_irqs(struct device *dev)
+ 
+-static void fsl_mc_msi_free_descs(struct device *dev)
 -{
--	msi_domain_free_irqs(dev->msi.domain, dev);
+-	struct msi_desc *desc, *tmp;
+-
+-	list_for_each_entry_safe(desc, tmp, dev_to_msi_list(dev), list) {
+-		list_del(&desc->list);
+-		free_msi_entry(desc);
+-	}
 -}
--EXPORT_SYMBOL_GPL(ti_sci_inta_msi_domain_free_irqs);
---- a/include/linux/soc/ti/ti_sci_inta_msi.h
-+++ b/include/linux/soc/ti/ti_sci_inta_msi.h
-@@ -18,5 +18,4 @@ struct irq_domain
- 				   struct irq_domain *parent);
- int ti_sci_inta_msi_domain_alloc_irqs(struct device *dev,
- 				      struct ti_sci_resource *res);
--void ti_sci_inta_msi_domain_free_irqs(struct device *dev);
- #endif /* __INCLUDE_LINUX_IRQCHIP_TI_SCI_INTA_H */
+-
+-static int fsl_mc_msi_alloc_descs(struct device *dev, unsigned int irq_count)
+-
+-{
+-	unsigned int i;
+-	int error;
+-	struct msi_desc *msi_desc;
+-
+-	for (i = 0; i < irq_count; i++) {
+-		msi_desc = alloc_msi_entry(dev, 1, NULL);
+-		if (!msi_desc) {
+-			dev_err(dev, "Failed to allocate msi entry\n");
+-			error = -ENOMEM;
+-			goto cleanup_msi_descs;
+-		}
+-
+-		msi_desc->msi_index = i;
+-		INIT_LIST_HEAD(&msi_desc->list);
+-		list_add_tail(&msi_desc->list, dev_to_msi_list(dev));
+-	}
+-
+-	return 0;
+-
+-cleanup_msi_descs:
+-	fsl_mc_msi_free_descs(dev);
+-	return error;
+-}
+-
+-int fsl_mc_msi_domain_alloc_irqs(struct device *dev,
+-				 unsigned int irq_count)
++int fsl_mc_msi_domain_alloc_irqs(struct device *dev,  unsigned int irq_count)
+ {
+ 	struct irq_domain *msi_domain;
+ 	int error;
+@@ -261,28 +224,17 @@ int fsl_mc_msi_domain_alloc_irqs(struct
+ 	if (error)
+ 		return error;
+ 
+-	if (!list_empty(dev_to_msi_list(dev)))
++	if (msi_first_desc(dev, MSI_DESC_ALL))
+ 		return -EINVAL;
+ 
+-	error = fsl_mc_msi_alloc_descs(dev, irq_count);
+-	if (error < 0)
+-		return error;
+-
+ 	/*
+ 	 * NOTE: Calling this function will trigger the invocation of the
+ 	 * its_fsl_mc_msi_prepare() callback
+ 	 */
+ 	error = msi_domain_alloc_irqs(msi_domain, dev, irq_count);
+ 
+-	if (error) {
++	if (error)
+ 		dev_err(dev, "Failed to allocate IRQs\n");
+-		goto cleanup_msi_descs;
+-	}
+-
+-	return 0;
+-
+-cleanup_msi_descs:
+-	fsl_mc_msi_free_descs(dev);
+ 	return error;
+ }
+ 
+@@ -295,9 +247,4 @@ void fsl_mc_msi_domain_free_irqs(struct
+ 		return;
+ 
+ 	msi_domain_free_irqs(msi_domain, dev);
+-
+-	if (list_empty(dev_to_msi_list(dev)))
+-		return;
+-
+-	fsl_mc_msi_free_descs(dev);
+ }
 
 
