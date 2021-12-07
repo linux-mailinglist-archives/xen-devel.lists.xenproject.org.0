@@ -2,69 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57A4546B98F
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 11:52:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240862.417606 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A06046B994
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 11:53:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240867.417617 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muY58-0006Wc-2w; Tue, 07 Dec 2021 10:52:22 +0000
+	id 1muY6O-0007BX-Gz; Tue, 07 Dec 2021 10:53:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240862.417606; Tue, 07 Dec 2021 10:52:22 +0000
+Received: by outflank-mailman (output) from mailman id 240867.417617; Tue, 07 Dec 2021 10:53:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muY57-0006U8-Vv; Tue, 07 Dec 2021 10:52:21 +0000
-Received: by outflank-mailman (input) for mailman id 240862;
- Tue, 07 Dec 2021 10:52:20 +0000
+	id 1muY6O-00078h-Di; Tue, 07 Dec 2021 10:53:40 +0000
+Received: by outflank-mailman (input) for mailman id 240867;
+ Tue, 07 Dec 2021 10:53:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=bINN=QY=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1muY56-0006Ty-JV
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 10:52:20 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on061b.outbound.protection.outlook.com
- [2a01:111:f400:fe1e::61b])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=myTo=QY=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1muY6N-00078Z-0M
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 10:53:39 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bebf1cc7-574b-11ec-9d12-4777fae47e2b;
- Tue, 07 Dec 2021 11:52:18 +0100 (CET)
-Received: from AM6P194CA0066.EURP194.PROD.OUTLOOK.COM (2603:10a6:209:84::43)
- by AM8PR08MB5604.eurprd08.prod.outlook.com (2603:10a6:20b:1d5::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.11; Tue, 7 Dec
- 2021 10:52:16 +0000
-Received: from AM5EUR03FT013.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:209:84:cafe::2a) by AM6P194CA0066.outlook.office365.com
- (2603:10a6:209:84::43) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.16 via Frontend
- Transport; Tue, 7 Dec 2021 10:52:16 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT013.mail.protection.outlook.com (10.152.16.140) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.13 via Frontend Transport; Tue, 7 Dec 2021 10:52:15 +0000
-Received: ("Tessian outbound dbb52aec1fa6:v110");
- Tue, 07 Dec 2021 10:52:15 +0000
-Received: from 4bab25662f21.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 58DC2858-795D-41B0-B092-A2F33B02121B.1; 
- Tue, 07 Dec 2021 10:52:07 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 4bab25662f21.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 07 Dec 2021 10:52:07 +0000
-Received: from PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
- by PAXPR08MB6717.eurprd08.prod.outlook.com (2603:10a6:102:131::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Tue, 7 Dec
- 2021 10:52:06 +0000
-Received: from PAXPR08MB6816.eurprd08.prod.outlook.com
- ([fe80::b9c9:c5dc:15e:b622]) by PAXPR08MB6816.eurprd08.prod.outlook.com
- ([fe80::b9c9:c5dc:15e:b622%5]) with mapi id 15.20.4755.022; Tue, 7 Dec 2021
- 10:52:06 +0000
-Received: from smtpclient.apple (82.8.129.65) by
- LO2P123CA0040.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600::28) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.16 via Frontend Transport; Tue, 7 Dec 2021 10:52:05 +0000
+ id ee3b61c7-574b-11ec-9d12-4777fae47e2b;
+ Tue, 07 Dec 2021 11:53:37 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DC29121B3D;
+ Tue,  7 Dec 2021 10:53:36 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9876B13A1F;
+ Tue,  7 Dec 2021 10:53:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id A4/zIzA9r2EnfAAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 10:53:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -76,206 +51,213 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bebf1cc7-574b-11ec-9d12-4777fae47e2b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9SNRZIlkIQfr2XxDNhrlBDHkr/swtumsR7/J+3zcYVU=;
- b=q0M+J/bQadmK/4mE+zNAdAAoYr02QAmJoeoKYI7tmz/Z9pKVPg6+fVphaQf8skqqik4r8sTFEDvFyDNvuWtHABDtONLXtKvvjV0Nehny2WIlLP9JXOT7AlBQ+F801TDM1+7Ij1Ke4R4sCyV+EK2FDoUxbpLe+MLsXgRA0HCBcIQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: d21ec180b7ed8a14
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Xao76e67KvxzmA60XxBsM9gatkD7NpbuIzcZjHkZJKUjvhNg39SyQ8ELJjGclFYIqZ8G+xAiV0Ls4UcLWLYiQD/3bNBUR1CqaWGtWzsb1qHBHH52KDbFlCJIzh5KCrXANu1YmZECw3mCDzzxazT4yCF8aPx9f5vfjTc9ToC6gSl7s8g5QJNFOY5SxRR/kV3HeEmT0V4qwNEAFED3EA1YoYQStICAT4yxSOPmI9RPiUZ4TcPmiLctXkAIDIWXqvhVgVEV7iT+00NqfZ9yi6Ac5pW41+ejnLGYUeJJPFWN+ytF7K4izR4u0IUxhAxNy7EwaujBE8Tr9zCREA8kZYPT/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9SNRZIlkIQfr2XxDNhrlBDHkr/swtumsR7/J+3zcYVU=;
- b=OwFfv0h6fFzVn5eaQd6WIrXQwFO/iYR0IIPU82tvRv6d7SS24iizpU+RxBFFDMmptiH7YNwmwTNWF7kZTxg8Q8PhUhNg7sQIkod5OgobO/5twDB1s2IRso/LG5UxFRPTAb9QQWil/NK3D+G7+BOkJYXDzzUXNRbd9N5wBxP1+QbrwbCjINL+18EtUQYHw1e53tkapORKALbEth7ajxsLjcMf6PwR9ArQ5kLioFbviIb6cv/UUGuq+HOscUPYww5gULVKwJCrf2uB9JiWzjlo/IEmb7BP1obiBp7NAjJ+JYobNHIhXwCyJiDwE/4CBj0oFd1LboiulXSEcrJGewi9BQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9SNRZIlkIQfr2XxDNhrlBDHkr/swtumsR7/J+3zcYVU=;
- b=q0M+J/bQadmK/4mE+zNAdAAoYr02QAmJoeoKYI7tmz/Z9pKVPg6+fVphaQf8skqqik4r8sTFEDvFyDNvuWtHABDtONLXtKvvjV0Nehny2WIlLP9JXOT7AlBQ+F801TDM1+7Ij1Ke4R4sCyV+EK2FDoUxbpLe+MLsXgRA0HCBcIQ=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Content-Type: text/plain;
-	charset=utf-8
-Subject: Re: [PATCH] xen/arm: Add Kconfig parameter for memory banks number
-From: Luca Fancellu <luca.fancellu@arm.com>
-In-Reply-To: <f439d5c4-aa6c-4066-3941-e497b67aeae1@xen.org>
-Date: Tue, 7 Dec 2021 10:52:04 +0000
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- bertrand.marquis@arm.com,
- wei.chen@arm.com,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <C96E90F4-611E-4765-9627-EDE75A952E10@arm.com>
-References: <20211206153730.49791-1-luca.fancellu@arm.com>
- <f439d5c4-aa6c-4066-3941-e497b67aeae1@xen.org>
-To: Julien Grall <julien@xen.org>
-X-Mailer: Apple Mail (2.3693.20.0.1.32)
-X-ClientProxiedBy: LO2P123CA0040.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600::28)
- To PAXPR08MB6816.eurprd08.prod.outlook.com (2603:10a6:102:130::10)
+X-Inumbo-ID: ee3b61c7-574b-11ec-9d12-4777fae47e2b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1638874416; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iMU5kFRFW4+mIyjlpwDRmaB93Kkrj4D2KFkdZFHBh+I=;
+	b=OVxh46/Of1hKJDvZ3zjFRJKpELSoo6e2w+WERG1jyP90CYYURPdQKr30BGB6+4pBCYavbG
+	NrETmzYiBNnPnwxXBxgBrJSDo1EW+8T7FXX8rsvvB+AihNKBaolu61wgxMqE16+m6D3wly
+	UYI3k9Ux8Z7JA03KOqWfWzYC9K6HNG0=
+Subject: Re: [XEN PATCH 18/57] tools: Use config.h from autoconf instead of
+ "buildmakevars2header"
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Anthony PERARD
+ <anthony.perard@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20211206170241.13165-1-anthony.perard@citrix.com>
+ <20211206170241.13165-19-anthony.perard@citrix.com>
+ <d9819a32-7a45-f753-0b6d-50e01aacb6a1@suse.com> <Ya88SjdSbANPGrcF@perard>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <1c7d51ee-a3f7-e458-b699-906e50ef57a0@suse.com>
+Date: Tue, 7 Dec 2021 11:53:36 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-Office365-Filtering-Correlation-Id: 2d2b22d2-13ba-4054-2e5f-08d9b96fa1f6
-X-MS-TrafficTypeDiagnostic:
-	PAXPR08MB6717:EE_|AM5EUR03FT013:EE_|AM8PR08MB5604:EE_
-X-Microsoft-Antispam-PRVS:
-	<AM8PR08MB5604137535D4DD27B1E1FF53E46E9@AM8PR08MB5604.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- h1IslRp1z4/LEe9ctmY6mVFz+5/tGzcM05fIb47eaCVdLHww5Kol7v+RHJGHwPhi2o108+YD8KuYsAqeL6bGjy1ltf/HAeyMoHOck7m2p4NPDIC/GoJv1PSIv88rXnkJnd0JnaTpVkhgAs6tHHWBpED5saVbyzQfVTB/WpzseWWmp/b+pRekpKf9gfvVR/EV+2kxeoas/7/9TQ5vtGLcDrgobBV8T0WG73ksPCUbP11QH4X50XxWIy0dZEDFBpJJzyawhLBbRmb39JtUNf75K+sRS35oJDU3jzXJB9XBvg6pvC83UEibtSvje5yareAM5mVtJCf7mEXGaii7nDw/vAvHq5YOJBWdG8txHkTPG/Po9wRHGuogxfmlUmmdH0fvnjqnWmxUeTZiI+5E05pxOMnHWSeLCvudnXMUsBZqZAGhrXNt9sk/ebdWgW77BLCvVI9oJCFReS47Lbo5kKw/a9dfVApPCUj8RMyQ1KaBNo9pVfvSdD3cw6zk0F05cg9WAqW5A3jeaj8mhwTpcDUUw8L4VytDY7GX25QCjaWQUEEyLnaFCIkA+qc8u+unJl1d0Lnk8QtGjH91NeMTGgEZtju58PLY9VLfkYo2VJT9J+H1m1WNusziuDyY3QcfF8lco9aaKoCsfrunkLHnS8UbGZFjBWGCwsgWycTR2t+Ea98eQyFaqr2oiPbWWz68bxNpCuMRzf8oUQBpRG+BjSWcJO/rfaAwAup18A4EylXAJnqZ+UnQ49M5rdneW4Avoj9L
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB6816.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(8676002)(508600001)(6916009)(2906002)(6486002)(8936002)(52116002)(86362001)(66476007)(54906003)(66556008)(66946007)(83380400001)(26005)(186003)(15650500001)(33656002)(5660300002)(6506007)(38350700002)(6512007)(36756003)(316002)(53546011)(38100700002)(4326008)(2616005)(44832011)(956004)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6717
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT013.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	a349be8c-64bd-4069-9f09-08d9b96f9bf1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	U1aFxpQGTV30iDFOlgyS1Wthv9yXKKdanoulYN3EeFyFGfPcUfpTtK5qT8YaMv99N7HjiuR0YEv3s7MY0Tr8Nj9bau9i2Zq8rihz+FEb+TBZ3PiEs2SF2BmUQeCOyJRwlb4+8lEZvbhx0iMGVGUgNQh8PQepBlCN4+W+xS5DddBXxnJCTkTUwg9NPscV3AcuVdXPINlLlhKZiN2ImXSDu/anqxiWeoAUiRxbdwiJ9w/w02R0YBd5wA2ERr33/WOL/DVRtyDX+1DqRw5rOmiuaQ8L7GQv+idfHHnlC+BgZ/c3E9hzlqDsoJGy2duwsBLBG1IaNeEwiWJIKmCOq0TWKzihP9I0MV1J/LFkDknCxrm5ZgvtJVcKiNO+qMxWuoWy4CJxc/YCv06vLMgyy7a1POocRtisRHL4LW5ekfaDzcv/UdBMUNfTkQunXvf1pK1U+v75eN6WbZQmO6X3vhKT7F7IpYOlKlkNA0MA51B7FlhIFxkywFxOEahMAuwy1RXWSURF1U6WT20inU+PyOVxlMofQdBDT5DZntQgU28mYIR80tyM0dKdTemJWgY1++3y5ULCFJeRIHS4TYI82BhOgxH9aVbyihDDFo1Nt8Y3rjtgsiYBWYuO97E0Jgx4h5h2fHHG+DjieuTrRK5JkH9lg5ebgpx1svfP3DxAS/0w+glB6RYrcyYdj2Ouk1wG8sCg8VIBPf12biYU1YNsdTsK3g==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(6486002)(316002)(15650500001)(33656002)(36756003)(8936002)(6512007)(44832011)(6862004)(86362001)(956004)(70586007)(81166007)(8676002)(70206006)(6506007)(54906003)(186003)(47076005)(53546011)(107886003)(26005)(2616005)(83380400001)(5660300002)(36860700001)(4326008)(2906002)(82310400004)(508600001)(336012)(356005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2021 10:52:15.8506
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2d2b22d2-13ba-4054-2e5f-08d9b96fa1f6
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT013.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB5604
+In-Reply-To: <Ya88SjdSbANPGrcF@perard>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="iQduExcDZJDa2grjZDDFjdZLwUA2PjwRm"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--iQduExcDZJDa2grjZDDFjdZLwUA2PjwRm
+Content-Type: multipart/mixed; boundary="7pKB62OYhZGVVlrXApwTt2DjCrVokXCHz";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Anthony PERARD
+ <anthony.perard@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Message-ID: <1c7d51ee-a3f7-e458-b699-906e50ef57a0@suse.com>
+Subject: Re: [XEN PATCH 18/57] tools: Use config.h from autoconf instead of
+ "buildmakevars2header"
+References: <20211206170241.13165-1-anthony.perard@citrix.com>
+ <20211206170241.13165-19-anthony.perard@citrix.com>
+ <d9819a32-7a45-f753-0b6d-50e01aacb6a1@suse.com> <Ya88SjdSbANPGrcF@perard>
+In-Reply-To: <Ya88SjdSbANPGrcF@perard>
+
+--7pKB62OYhZGVVlrXApwTt2DjCrVokXCHz
+Content-Type: multipart/mixed;
+ boundary="------------7BAF95EC78BB71DC8159B772"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------7BAF95EC78BB71DC8159B772
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 07.12.21 11:49, Anthony PERARD wrote:
+> On Tue, Dec 07, 2021 at 11:08:55AM +0100, Juergen Gross wrote:
+>> On 06.12.21 18:02, Anthony PERARD wrote:
+>>> This avoid the need to generate the _paths.h header when the
+>>> information is from autoconf anyway.
+>>>
+>>> They are no more users of the "buildmakevars2header" macro, so it can=
+
+>>> be removed from "Config.mk".
+>>>
+>>> Also removed the extra "-f" flag where "$(RM)" is used (xl/Makefile).=
+
+>>>
+>>> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+>>
+>> The changes for configure should be done in the respective configure.a=
+c
+>> files and then configure can be generated via a call of "autoconf".
+>=20
+> This is what this patch does, via changes in "m4/paths.m4" ;-).
+> All the respective "configure.ac" have "m4_include([m4/paths.m4])", so
+> nearly any modification to "paths.m4" will change the generated
+> "configure" script.
+
+Oh, I just looked at the modified files and didn't see any *.ac ones.
+
+I was already wondering how you could miss that, especially as you did
+it correctly in the next patch. :-)
+
+You can then add my:
+
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
 
+Juergen
 
-> On 6 Dec 2021, at 17:05, Julien Grall <julien@xen.org> wrote:
->=20
-> Hi Luca,
->=20
-> On 06/12/2021 15:37, Luca Fancellu wrote:
->> Currently the maximum number of memory banks is fixed to
->> 128, but on some new platforms that have a large amount
->> of memory, this value is not enough=20
->=20
+--------------7BAF95EC78BB71DC8159B772
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-Hi Julien,
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-> Can you provide some information on the setup? Is it using UEFI?
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-Yes it is a platform with 32gb of ram, I=E2=80=99ve built Xen with ACPI sup=
-port and it=E2=80=99s starting using UEFI+ACPI.
+--------------7BAF95EC78BB71DC8159B772--
 
->=20
->> and prevents Xen
->> from booting.
->=20
-> AFAIK, the restriction should only prevent Xen to use all the memory. If =
-that's not the case, then this should be fixed.
+--7pKB62OYhZGVVlrXApwTt2DjCrVokXCHz--
 
-The code that it=E2=80=99s failing is this, inside efi_process_memory_map_b=
-ootinfo(=E2=80=A6) in the arch/arm/efi/efi-boot.h:
+--iQduExcDZJDa2grjZDDFjdZLwUA2PjwRm
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-#ifdef CONFIG_ACPI
-        else if ( desc_ptr->Type =3D=3D EfiACPIReclaimMemory )
-        {
-            if ( !meminfo_add_bank(&bootinfo.acpi, desc_ptr) )
-            {
-                PrintStr(L"Error: All " __stringify(NR_MEM_BANKS)
-                          " acpi meminfo mem banks exhausted.\r\n");
-                return EFI_LOAD_ERROR;
-            }
-        }
-#endif
+-----BEGIN PGP SIGNATURE-----
 
->=20
->> Create a Kconfig parameter to set the value, by default
->> 128.
->=20
-> I think Xen should be able to boot on any platform with the default confi=
-guration. So the value should at least be bumped.
->=20
->> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
->> ---
->>  xen/arch/arm/Kconfig        | 8 ++++++++
->>  xen/include/asm-arm/setup.h | 2 +-
->>  2 files changed, 9 insertions(+), 1 deletion(-)
->> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
->> index ecfa6822e4d3..805e3c417e89 100644
->> --- a/xen/arch/arm/Kconfig
->> +++ b/xen/arch/arm/Kconfig
->> @@ -25,6 +25,14 @@ menu "Architecture Features"
->>    source "arch/Kconfig"
->>  +config MEM_BANKS
->> +	int "Maximum number of memory banks."
->> +	default "128"
->> +	help
->> +	  Controls the build-time size memory bank array.
->> +	  It is the upper bound of the number of logical entities describing
->> +	  the memory.
->=20
-> NR_MEM_BANKS is going to be used by multiple internal structure in Xen (e=
-.g. static memory, reserved memory, normal memory). So how could an admin d=
-ecide the correct value?
->=20
-> In particular for UEFI, we are at the mercy of the firmware that can expo=
-se any kind of memory map (that's why we had to increase the original numbe=
-r of banks).
->=20
-> So maybe it is time for us to move out from a static array and re-think h=
-ow we discover the memory.
->=20
-> That this is probably going to take some time to get it properly, so
-> I would be OK with bumping the value + a config gated UNSUPPORTED.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvPTAFAwAAAAAACgkQsN6d1ii/Ey/S
+4wf/U5RHMU/cjsN6Y/B7gWHHsmVa0B1neCtcTE+p9UganhA+GUtohlcoLFKXInxSBuQ2FKzW11+k
+YIZrJr8jlGgtotk2Ts2g2u2j8bqkg0L6Nig3HcWoTDsuBACKl2uRvnHdoVTDJ9Gba7dtYaP5/oTA
+D72sa+Vj4kxqtNfz5VVKkK6w9GPiozObal2wKK7FM4w3GR2sKzaGgX4M6q67keLY4sXdjpAO6xyq
+m1+73hbp+WtKSAGpj8KpNtilsUNboXRHsTaXQ/uic1dzXVa/XkfjHuZYgmSSVW9rYMoYiaBn/cgV
+A7159VNvQ3c6Bb+LJbmkSjHSxsw8QsceiSeQf55a1w==
+=UN2i
+-----END PGP SIGNATURE-----
 
-I can do that.
-
-Cheers,
-Luca
-
->=20
->> +
->>  config ACPI
->>  	bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUP=
-PORTED)" if UNSUPPORTED
->>  	depends on ARM_64
->> diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
->> index 95da0b7ab9cd..785a8fe81450 100644
->> --- a/xen/include/asm-arm/setup.h
->> +++ b/xen/include/asm-arm/setup.h
->> @@ -6,7 +6,7 @@
->>  #define MIN_FDT_ALIGN 8
->>  #define MAX_FDT_SIZE SZ_2M
->>  -#define NR_MEM_BANKS 128
->> +#define NR_MEM_BANKS CONFIG_MEM_BANKS
->>    #define MAX_MODULES 32 /* Current maximum useful modules */
->> =20
->=20
-> Cheers,
->=20
-> --=20
-> Julien Grall
-
+--iQduExcDZJDa2grjZDDFjdZLwUA2PjwRm--
 
