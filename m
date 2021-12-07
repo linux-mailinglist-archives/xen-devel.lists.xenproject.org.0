@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1998946BAC9
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 13:15:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241031.417844 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C426D46BAE5
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 13:17:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241041.417856 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muZMk-0006MG-E6; Tue, 07 Dec 2021 12:14:38 +0000
+	id 1muZPS-0007dk-TM; Tue, 07 Dec 2021 12:17:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241031.417844; Tue, 07 Dec 2021 12:14:38 +0000
+Received: by outflank-mailman (output) from mailman id 241041.417856; Tue, 07 Dec 2021 12:17:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muZMk-0006Jw-B0; Tue, 07 Dec 2021 12:14:38 +0000
-Received: by outflank-mailman (input) for mailman id 241031;
- Tue, 07 Dec 2021 12:14:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1muZPS-0007bV-PB; Tue, 07 Dec 2021 12:17:26 +0000
+Received: by outflank-mailman (input) for mailman id 241041;
+ Tue, 07 Dec 2021 12:17:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=myTo=QY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1muZMj-0006JX-5n
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 12:14:37 +0000
+ id 1muZPR-0007bP-6a
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 12:17:25 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3de84bcb-5757-11ec-9d12-4777fae47e2b;
- Tue, 07 Dec 2021 13:14:35 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a27450cc-5757-11ec-a831-37629979565c;
+ Tue, 07 Dec 2021 13:17:24 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 7FCF121B38;
- Tue,  7 Dec 2021 12:14:35 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 01A0C21B3D;
+ Tue,  7 Dec 2021 12:17:24 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 537D913A42;
- Tue,  7 Dec 2021 12:14:35 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A2B1113A42;
+ Tue,  7 Dec 2021 12:17:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OyvTEitQr2GzJQAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 12:14:35 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 2BiyJNNQr2FeJwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 12:17:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,62 +51,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3de84bcb-5757-11ec-9d12-4777fae47e2b
+X-Inumbo-ID: a27450cc-5757-11ec-a831-37629979565c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638879275; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1638879444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bf4+He2VcmAlYBZY1yQQYdYtEy2pg0i+8Yt6LRpqaJM=;
-	b=vAhE/IGA0b849GccHnR6c9GYJB3iwzHZaPO+xcBHC2Z/pmTojAxRQy5EP5UmOZuH0GC4WU
-	zLxa7GAiOErGANIvtse975q/+RNDdGhM3KGsL3T8vPiy/9+QpP2bpUxL4gBEv+u5R8lspa
-	pEqdYPvDPG19PFwXQeqwwz3bNODEMHc=
-Subject: Re: [XEN PATCH 39/57] libs: Remove both "libs" and "build" target
+	bh=fxyGg2MrI5Rj6EaGs0Qh+qEmyL4s9xxHME6B2cp21bo=;
+	b=P+MUu7r3BrZ2zeG21ME+ryCDuoevVwxkAS5gnYFiN4waASsbkvyJMMOcLmDw/krI7llOib
+	WB4i9Jv/84Li6b4JVHC9HVdhC8t7Mr2xdwH4bQDqThLiO0Xdl7QpqFXTmm7kPCavvYYTHR
+	5H1yN8jwe260RDBo+3BKHohVh+LNo4Y=
+Subject: Re: [XEN PATCH 40/57] libs: rename LDUSELIBS to LDLIBS and use it
+ instead of APPEND_LDFLAGS
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-40-anthony.perard@citrix.com>
+ <20211206170241.13165-41-anthony.perard@citrix.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <76f52851-fa91-0e2f-dc2a-8fef54704176@suse.com>
-Date: Tue, 7 Dec 2021 13:14:34 +0100
+Message-ID: <468bb631-f18f-32ac-72ad-1c6943d48221@suse.com>
+Date: Tue, 7 Dec 2021 13:17:22 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20211206170241.13165-40-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-41-anthony.perard@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="ITIIn0mJmypSYyRfOm3nIHT6ocnGSOJBB"
+ boundary="CpZ6IWaNV1EwE1DbG4JCUoY91XHIp91mE"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ITIIn0mJmypSYyRfOm3nIHT6ocnGSOJBB
-Content-Type: multipart/mixed; boundary="aeqRHE5SOP4iDPtYub9b81Y0oQAb62vqv";
+--CpZ6IWaNV1EwE1DbG4JCUoY91XHIp91mE
+Content-Type: multipart/mixed; boundary="z6YThoMwhHTTouIfEvelRUyKMUBa1wejc";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <76f52851-fa91-0e2f-dc2a-8fef54704176@suse.com>
-Subject: Re: [XEN PATCH 39/57] libs: Remove both "libs" and "build" target
+Message-ID: <468bb631-f18f-32ac-72ad-1c6943d48221@suse.com>
+Subject: Re: [XEN PATCH 40/57] libs: rename LDUSELIBS to LDLIBS and use it
+ instead of APPEND_LDFLAGS
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-40-anthony.perard@citrix.com>
-In-Reply-To: <20211206170241.13165-40-anthony.perard@citrix.com>
+ <20211206170241.13165-41-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-41-anthony.perard@citrix.com>
 
---aeqRHE5SOP4iDPtYub9b81Y0oQAb62vqv
+--z6YThoMwhHTTouIfEvelRUyKMUBa1wejc
 Content-Type: multipart/mixed;
- boundary="------------C769B62DF5BE6DDDC419536D"
+ boundary="------------5A64C9D54187F261DD290B0B"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------C769B62DF5BE6DDDC419536D
+--------------5A64C9D54187F261DD290B0B
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 06.12.21 18:02, Anthony PERARD wrote:
-> "libs" is odd and has been introduced without a reason by c7d3afbb44.
-> Instead, only use "all".
->=20
-> Also remove "build" target as "all" is more appropriate and nothing is
-> using "build" in libs/ in the xen.git repo.
+> LDLIBS is more appropriate and intended to be used to add library
+> dependencies. APPEND_LDFLAGS wasn't intended to be changed by the
+> build system.
 >=20
 > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
@@ -115,7 +115,7 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 
 Juergen
 
---------------C769B62DF5BE6DDDC419536D
+--------------5A64C9D54187F261DD290B0B
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -207,25 +207,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------C769B62DF5BE6DDDC419536D--
+--------------5A64C9D54187F261DD290B0B--
 
---aeqRHE5SOP4iDPtYub9b81Y0oQAb62vqv--
+--z6YThoMwhHTTouIfEvelRUyKMUBa1wejc--
 
---ITIIn0mJmypSYyRfOm3nIHT6ocnGSOJBB
+--CpZ6IWaNV1EwE1DbG4JCUoY91XHIp91mE
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvUCoFAwAAAAAACgkQsN6d1ii/Ey97
-hAf/Ug1T7HkQn0VwHNFS4JUeyaB6jHCRXSqXZmOifOPT0z9Yf2IkPBGHX8E15GQaoNskM2yLDTSS
-x/0fbypb3/iZUQCHuoRasm8ARLK0+Rj0/UluhfGzRy8BAUF8UpIQxZf0FqL9445L68pU11qsBSGb
-EEkeLzAq+7CPN3BrhusZ4NnW7SEiIj6WQzMamnmsteJOX7zLkvS4ToGiqwpceiUFADxZrfzP0EP/
-5ur9P4jD3rDkn6ItoE9Y5INSaufFQehtD9QBCZopA38+i84DShJtvM/CHXIRmh7lkpWNawxcn85w
-EAZdjW/8lFIHRIrMLxylztlZaOTEXdFVKUSAdvyMww==
-=vteV
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvUNIFAwAAAAAACgkQsN6d1ii/Ey/6
+Swf/SHmpEVyG0VH23A2sqPAs6vepaj3jg9T2+GHlPLENBRSpfgK1WOD4/BaRYbmZmxNh64rsL8+b
+oBY+toxAz3h1UUk7fhvX1zlPngt3TyAnmRxlWus43LPoSacLByvj8GLxpeReS3iuHATc3jg1w+tj
+Lv8QdAUQWXaOKW56nmUgQdm4LWV20hS3ztS1/6LrICaPtebLQfEGVhE535SonM1GVehY6N42lYod
+hcE3N6qNuve9YgPJUwb/WVDl0veR9QdEDYhAOjSMxNRYjoris1rnfbse44JgahQjwz1Jv4AZ5fs8
+7UmPhOWBzmrt6F3OMPuwZ/n0+uK96ybHF8+EVogxHw==
+=gtVs
 -----END PGP SIGNATURE-----
 
---ITIIn0mJmypSYyRfOm3nIHT6ocnGSOJBB--
+--CpZ6IWaNV1EwE1DbG4JCUoY91XHIp91mE--
 
