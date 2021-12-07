@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AAE846C35F
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 20:11:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241759.418233 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06AF346C39A
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 20:25:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241767.418244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mufsB-000409-CM; Tue, 07 Dec 2021 19:11:31 +0000
+	id 1mug5V-0005ua-IW; Tue, 07 Dec 2021 19:25:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241759.418233; Tue, 07 Dec 2021 19:11:31 +0000
+Received: by outflank-mailman (output) from mailman id 241767.418244; Tue, 07 Dec 2021 19:25:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mufsB-0003yC-7g; Tue, 07 Dec 2021 19:11:31 +0000
-Received: by outflank-mailman (input) for mailman id 241759;
- Tue, 07 Dec 2021 19:11:29 +0000
+	id 1mug5V-0005ry-Ev; Tue, 07 Dec 2021 19:25:17 +0000
+Received: by outflank-mailman (input) for mailman id 241767;
+ Tue, 07 Dec 2021 19:25:16 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mufs9-0003y6-F3
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 19:11:29 +0000
+ (envelope-from <julien@xen.org>) id 1mug5U-0005rs-2Q
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 19:25:16 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mufs8-0000jn-Ud; Tue, 07 Dec 2021 19:11:28 +0000
+ id 1mug5P-0000xk-SM; Tue, 07 Dec 2021 19:25:11 +0000
 Received: from [54.239.6.187] (helo=[10.95.81.235])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mufs8-00007D-Oe; Tue, 07 Dec 2021 19:11:28 +0000
+ id 1mug5P-0000pK-L1; Tue, 07 Dec 2021 19:25:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,100 +42,100 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=zHH6DV0eYjfkSBT3G08YnAeelsLQglgCnFPA2flglPc=; b=H1VYOvARb0UVmpc/Y0KxSkG7dI
-	J5pXw3wCRX6cq/+LskDI1z6NiC4WcPQGtYq/n4lyE3Ji8hkW2SJAd2CXiUZjH3zKdzJvKA46TkHzV
-	vvx54QrE3uJUI9shhz2Tfl99nSB5GKwz3ZuB8MLYB4uXP7iRYJmmCFMKdx68iLKPkeCM=;
-Message-ID: <b7a53384-39cb-f368-f39b-9b560336226b@xen.org>
-Date: Tue, 7 Dec 2021 19:11:26 +0000
+	bh=wimSA2WoZnpW6l9b4jWoQriO2mDgiXNKfENifs7vuQI=; b=bu3GJ8s+NTVINCFv2xG1lfXdD3
+	7ylcnvyTTfbiGV2GDdxAunZNgxqoItMb9W6GQfYH/PBGMRqVxwxCjHAPjFOrYX2YjErMTjeoT6AmF
+	fsMjsn2L/0uhqcbqMWFXyj7tcumRuhtbdPdR+Eu9jg1DVQgvxC0vH975+BFMZB46FPc8=;
+Message-ID: <ed24bb81-2905-b50a-bc26-326dd5cbc934@xen.org>
+Date: Tue, 7 Dec 2021 19:25:09 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.3.2
 Subject: Re: [PATCH] xen/arm64: Zero the top 32 bits of gp registers on
  entry...
-To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
+To: Jan Beulich <jbeulich@suse.com>, Michal Orzel <michal.orzel@arm.com>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
 References: <20211206142032.27536-1-michal.orzel@arm.com>
  <f3573439-4893-440f-54e1-fdeba3eb4508@xen.org>
  <dc114877-b9da-7a5b-260d-b9438cddd777@arm.com>
+ <086feb9a-7d6b-3797-3643-1b4474e4a420@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <dc114877-b9da-7a5b-260d-b9438cddd777@arm.com>
+In-Reply-To: <086feb9a-7d6b-3797-3643-1b4474e4a420@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+Hi Jan,
 
-
-On 07/12/2021 08:37, Michal Orzel wrote:
-> Hi Julien,
-
-Hi,
-
-> On 06.12.2021 16:29, Julien Grall wrote:
->> Hi,
->>
->> On 06/12/2021 14:20, Michal Orzel wrote:
->>> to hypervisor when switching to AArch32 state.
+On 07/12/2021 09:55, Jan Beulich wrote:
+>>>> --- a/xen/arch/arm/arm64/entry.S
+>>>> +++ b/xen/arch/arm/arm64/entry.S
+>>>> @@ -109,8 +109,16 @@
+>>>>     * If 0, we rely on the on x0/x1 to have been saved at the correct
+>>>>     * position on the stack before.
+>>>>     */
+>>>> -        .macro  entry, hyp, compat, save_x0_x1=1
+>>>> +        .macro  entry, hyp, compat=0, save_x0_x1=1
+>>>>            sub     sp, sp, #(UREGS_SPSR_el1 - UREGS_LR) /* CPSR, PC, SP, LR */
+>>>> +
+>>>> +        /* Zero the upper 32 bits of the registers when switching to AArch32 */
+>>>> +        .if \compat == 1      /* AArch32 mode */
+>>>> +        .irp nr,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+>>>> +        mov w\nr, w\nr
+>>>> +        .endr
+>>>> +        .endif
 >>>
-> I will change to "from AArch32 state".
->>> According to section D1.20.2 of Arm Arm(DDI 0487A.j):
->>> "If the general-purpose register was accessible from AArch32 state the
->>> upper 32 bits either become zero, or hold the value that the same
->>> architectural register held before any AArch32 execution.
->>> The choice between these two options is IMPLEMENTATIONDEFINED"
->>
->> Typo: Missing space between IMPLEMENTATION and DEFINED.
->>
-> Ok.
+>>> So Jan mentioned, the x0/x1 may have already been saved. So you may need to fetch them from the stack and then clobber the top 32-bit.
 >>>
->>> Currently Xen does not ensure that the top 32 bits are zeroed and this
->>> needs to be fixed.
+>> So I would do the following:
+>> -fetch x0/x1 from the stack
+>> -clobber them
+>> -store them again on the stack
 >>
->> Can you outline why this is a problem and why we need to protect? IIRC, the main concern is Xen may misinterpret what the guest requested but we are not concerned about Xen using wrong value.
+>> /*
+>>   * Zero the upper 32 bits of the gp registers when switching
+>>   * from AArch32.
+>>   */
+>> .if \compat == 1      /* AArch32 mode */
 >>
-> I would say:
-> "
-> The reason why this is a problem is that there are places in Xen where we assume that top 32bits are zero for AArch32 guests.
-> If they are not, this can lead to misinterpretation of Xen regarding what the guest requested.
-> For example hypercalls returning an error encoded in a signed long like do_sched_op, do_hmv_op, do_memory_op would return -ENOSYS
-> if the command passed as the first argument was clobbered,
-> "
->>>
->>> Fix this bug by zeroing the upper 32 bits of these registers on an
->>> entry to hypervisor when switching to AArch32 state.
->>>
->>> Set default value of parameter compat of macro entry to 0 (AArch64 mode
->>> as we are on 64-bit hypervisor) to avoid checking if parameter is blank
->>> when not passed.
+>> /* x0/x1 have already been saved so fetch them to zero top 32 bits */
+>> .if \save_x0_x1 == 0
+>> ldp     x0, x1, [sp], #(UREGS_kernel_sizeof - UREGS_X0)
+>> .endif
 >>
->> Which error do you see otherwise? Is it a compilation error?
+>> .irp nr,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+>> mov w\nr, w\nr
+>> .endr
 >>
-> Yes, this is a compilation error. The errors appear at each line when "entry" is called without passing value for "compat".
-> So basically in all the places where entry is called with hyp=1.
-> When taking the current patch and removing default value for compat you will get:
-> ```
-> entry.S:254: Error: ".endif" without ".if"
-> entry.S:258: Error: symbol `.if' is already defined
-> entry.S:258: Error: ".endif" without ".if"
-> entry.S:262: Error: symbol `.if' is already defined
-> entry.S:262: Error: ".endif" without ".if"
-> entry.S:266: Error: symbol `.if' is already defined
-> entry.S:266: Error: ".endif" without ".if"
-> entry.S:278: Error: symbol `.if' is already defined
-> entry.S:278: Error: ".endif" without ".if"
-> entry.S:292: Error: symbol `.if' is already defined
-> entry.S:292: Error: ".endif" without ".if"
-> entry.S:317: Error: symbol `.if' is already defined
-> entry.S:317: Error: ".endif" without ".if"
-> ```
+>> .if \save_x0_x1 == 0
+>> stp     x0, x1, [sp, #-(UREGS_kernel_sizeof - UREGS_X0)]
+>> .endif
+>>
+>> .endif
+> 
+> Wouldn't it be more efficient to store 32 bits of zero each into the
+> high halves of the respective stack slots? Afaict same code size, but
+> less memory / cache traffic.
 
-Thanks for input. I am concerned with your suggested approach (or using 
-.if 0\compat as suggested by Jan) because they allow the caller to not 
-properly specify compat when hyp=0. The risk here is we may generate the 
-wrong entry.
+It would indeed be more efficient.
 
-compat should need to be specified when hyp=1 as we will always run in 
-aarch64 mode. So could we protect this code with hyp=0?
+> Plus it would avoid the latent issue of
+> a user of the macro actually expecting the two registers to retain
+> their values across the macro invocation.
+
+While this is not explicitely written, a caller cannot expect the 
+registers to be preserved by this macro.
+
+> 
+> I'm also puzzled by the two different memory addressing forms, but I
+> can easily see that I may be lacking enough Arm knowledge there.
+
+I agree this is quite puzzling. The first one would update 'sp' after 
+loading the register but I don't quite understand why it is necessary.
+
+Assuming the this is happening before the instruction 'sub sp, sp, ...', 
+then we should only need to load/store from sp with an offset (i.e. the 
+second form).
 
 Cheers,
 
