@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 488E546C5EC
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 22:02:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241874.418435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C643846C5F3
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 22:04:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241881.418446 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muhbn-0002ui-Ri; Tue, 07 Dec 2021 21:02:43 +0000
+	id 1muhct-0003a8-4Z; Tue, 07 Dec 2021 21:03:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241874.418435; Tue, 07 Dec 2021 21:02:43 +0000
+Received: by outflank-mailman (output) from mailman id 241881.418446; Tue, 07 Dec 2021 21:03:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muhbn-0002sk-NP; Tue, 07 Dec 2021 21:02:43 +0000
-Received: by outflank-mailman (input) for mailman id 241874;
- Tue, 07 Dec 2021 21:02:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1muhct-0003Xi-1I; Tue, 07 Dec 2021 21:03:51 +0000
+Received: by outflank-mailman (input) for mailman id 241881;
+ Tue, 07 Dec 2021 21:03:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/XZh=QY=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
- id 1muhbm-0001Tg-4T
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 21:02:42 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 03ed57c5-57a1-11ec-a831-37629979565c;
- Tue, 07 Dec 2021 22:02:41 +0100 (CET)
+ id 1muhcr-0003XP-RQ
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 21:03:49 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2c4a3ead-57a1-11ec-9d12-4777fae47e2b;
+ Tue, 07 Dec 2021 22:03:48 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0ED39B81E85;
- Tue,  7 Dec 2021 21:02:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DF0FC341C1;
- Tue,  7 Dec 2021 21:02:39 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 644DEB81E83;
+ Tue,  7 Dec 2021 21:03:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3146C341C3;
+ Tue,  7 Dec 2021 21:03:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,18 +44,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 03ed57c5-57a1-11ec-a831-37629979565c
+X-Inumbo-ID: 2c4a3ead-57a1-11ec-9d12-4777fae47e2b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1638910959;
-	bh=xQoYzuJZBtazlb9l9/rEZFpq4l8ZITO51ml+vNgPc6M=;
+	s=k20201202; t=1638911027;
+	bh=vdg+fdIoCSHr3OuhnQ0WRPeCcsFTBIQTTd4u0ji8WKw=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=e153nty81BUAPS50lzOeG3i/XMpm26Pk8TGxhpDoheH+aGOAhJjiCObFncc/cOH46
-	 OXARkgcqJJlGa0F/Bsl/N/Hr8iyx5YBElDJEc4KBNNajc4emj6cdjk7cQoxzm32rM6
-	 wS8QDvcYSbelmRSilLFSFpzwM4nEMGo1OciLG1fy1ib0RAXNhpEhAgwC7XOVLwtEMg
-	 hUh+UVjgpZDPJcdCSkYndl3E5r7GBkkzKgk8s3NaLe/CmCRfbyieQFOca/oFRIERXj
-	 HKyqHP6oyciLgO6YSOX23lsQkoLBX7Z1J+QJANGpc3FC3xvrJLcihkCi836KsOw4gQ
-	 4SgZq/E6VBAOQ==
-Date: Tue, 7 Dec 2021 15:02:38 -0600
+	b=BWMnoqb5zI+AmfRiWx3hI7UPFSjiK/sP2RxrS/8pFSfaQGXzC3HU5dj9jSSkTmxbf
+	 ycQhxHGG+Fcj7qVvDrSdgVJzP+m2Fjh741SbIXpMXFhrEEquIdcMBPdXl+aCsQmDEI
+	 3zeK6GYY3etemeN1yu/6VsPnz0YoMH8zSdcDzIsPZqnlh4gHq48kIVDNWK7rfFTy1S
+	 gUW/xdBLJLcAxyL2Qhdnp0jAybfRKhRZLoNsDlD33Kr8AWcXVe4iBXGW98+dAzo2jz
+	 rnorth7z8Yvh3+kr56v1pmkD4iYXulFwuR50cFJdivxqVn0FvmmJNz1QRCJTf0dRQk
+	 vTu+UFqcSYVkw==
+Date: Tue, 7 Dec 2021 15:03:45 -0600
 From: Bjorn Helgaas <helgaas@kernel.org>
 To: Thomas Gleixner <tglx@linutronix.de>
 Cc: LKML <linux-kernel@vger.kernel.org>, Marc Zygnier <maz@kernel.org>,
@@ -62,107 +63,82 @@ Cc: LKML <linux-kernel@vger.kernel.org>, Marc Zygnier <maz@kernel.org>,
 	Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
 	Megha Dey <megha.dey@intel.com>, Ashok Raj <ashok.raj@intel.com>,
 	linux-pci@vger.kernel.org, Cedric Le Goater <clg@kaod.org>,
-	Juergen Gross <jgross@suse.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Paul Mackerras <paulus@samba.org>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	linuxppc-dev@lists.ozlabs.org,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	linux-mips@vger.kernel.org, Kalle Valo <kvalo@codeaurora.org>,
+	xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	sparclinux@vger.kernel.org, x86@kernel.org,
-	xen-devel@lists.xenproject.org, ath11k@lists.infradead.org,
-	Wei Liu <wei.liu@kernel.org>, linux-hyperv@vger.kernel.org,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>
-Subject: Re: [patch V2 23/23] PCI/MSI: Move descriptor counting on allocation
- fail to the legacy code
-Message-ID: <20211207210238.GA77554@bhelgaas>
+	Will Deacon <will@kernel.org>,
+	Santosh Shilimkar <ssantosh@kernel.org>,
+	iommu@lists.linux-foundation.org, dmaengine@vger.kernel.org,
+	Stuart Yoder <stuyoder@gmail.com>,
+	Laurentiu Tudor <laurentiu.tudor@nxp.com>,
+	Nishanth Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Robin Murphy <robin.murphy@arm.com>, Sinan Kaya <okaya@kernel.org>
+Subject: Re: [patch V2 03/36] PCI/MSI: Allocate MSI device data on first use
+Message-ID: <20211207210345.GA77648@bhelgaas>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20211206210225.101336873@linutronix.de>
+In-Reply-To: <20211206210437.821900680@linutronix.de>
 
-On Mon, Dec 06, 2021 at 11:28:00PM +0100, Thomas Gleixner wrote:
-> The irqdomain code already returns the information. Move the loop to the
-> legacy code.
+On Mon, Dec 06, 2021 at 11:39:00PM +0100, Thomas Gleixner wrote:
+> Allocate MSI device data on first use, i.e. when a PCI driver invokes one
+> of the PCI/MSI enablement functions.
 > 
 > Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> Tested-by: Juergen Gross <jgross@suse.com>
+> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 > Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
 Acked-by: Bjorn Helgaas <bhelgaas@google.com>
 
 > ---
->  drivers/pci/msi/legacy.c |   20 +++++++++++++++++++-
->  drivers/pci/msi/msi.c    |   19 +------------------
->  2 files changed, 20 insertions(+), 19 deletions(-)
+>  drivers/pci/msi/msi.c |   20 +++++++++++++++-----
+>  1 file changed, 15 insertions(+), 5 deletions(-)
 > 
-> --- a/drivers/pci/msi/legacy.c
-> +++ b/drivers/pci/msi/legacy.c
-> @@ -50,9 +50,27 @@ void __weak arch_teardown_msi_irqs(struc
->  	}
->  }
->  
-> +static int pci_msi_setup_check_result(struct pci_dev *dev, int type, int ret)
-> +{
-> +	struct msi_desc *entry;
-> +	int avail = 0;
-> +
-> +	if (type != PCI_CAP_ID_MSIX || ret >= 0)
-> +		return ret;
-> +
-> +	/* Scan the MSI descriptors for successfully allocated ones. */
-> +	for_each_pci_msi_entry(entry, dev) {
-> +		if (entry->irq != 0)
-> +			avail++;
-> +	}
-> +	return avail ? avail : ret;
-> +}
-> +
->  int pci_msi_legacy_setup_msi_irqs(struct pci_dev *dev, int nvec, int type)
->  {
-> -	return arch_setup_msi_irqs(dev, nvec, type);
-> +	int ret = arch_setup_msi_irqs(dev, nvec, type);
-> +
-> +	return pci_msi_setup_check_result(dev, type, ret);
->  }
->  
->  void pci_msi_legacy_teardown_msi_irqs(struct pci_dev *dev)
 > --- a/drivers/pci/msi/msi.c
 > +++ b/drivers/pci/msi/msi.c
-> @@ -609,7 +609,7 @@ static int msix_capability_init(struct p
+> @@ -889,10 +889,12 @@ static int __pci_enable_msi_range(struct
+>  /* deprecated, don't use */
+>  int pci_enable_msi(struct pci_dev *dev)
+>  {
+> -	int rc = __pci_enable_msi_range(dev, 1, 1, NULL);
+> -	if (rc < 0)
+> -		return rc;
+> -	return 0;
+> +	int rc = msi_setup_device_data(&dev->dev);
+> +
+> +	if (!rc)
+> +		rc = __pci_enable_msi_range(dev, 1, 1, NULL);
+> +
+> +	return rc < 0 ? rc : 0;
+>  }
+>  EXPORT_SYMBOL(pci_enable_msi);
 >  
->  	ret = pci_msi_setup_msi_irqs(dev, nvec, PCI_CAP_ID_MSIX);
->  	if (ret)
-> -		goto out_avail;
-> +		goto out_free;
+> @@ -947,7 +949,11 @@ static int __pci_enable_msix_range(struc
+>  int pci_enable_msix_range(struct pci_dev *dev, struct msix_entry *entries,
+>  		int minvec, int maxvec)
+>  {
+> -	return __pci_enable_msix_range(dev, entries, minvec, maxvec, NULL, 0);
+> +	int ret = msi_setup_device_data(&dev->dev);
+> +
+> +	if (!ret)
+> +		ret = __pci_enable_msix_range(dev, entries, minvec, maxvec, NULL, 0);
+> +	return ret;
+>  }
+>  EXPORT_SYMBOL(pci_enable_msix_range);
 >  
->  	/* Check if all MSI entries honor device restrictions */
->  	ret = msi_verify_entries(dev);
-> @@ -634,23 +634,6 @@ static int msix_capability_init(struct p
->  	pcibios_free_irq(dev);
->  	return 0;
+> @@ -974,8 +980,12 @@ int pci_alloc_irq_vectors_affinity(struc
+>  				   struct irq_affinity *affd)
+>  {
+>  	struct irq_affinity msi_default_affd = {0};
+> +	int ret = msi_setup_device_data(&dev->dev);
+>  	int nvecs = -ENOSPC;
 >  
-> -out_avail:
-> -	if (ret < 0) {
-> -		/*
-> -		 * If we had some success, report the number of IRQs
-> -		 * we succeeded in setting up.
-> -		 */
-> -		struct msi_desc *entry;
-> -		int avail = 0;
-> -
-> -		for_each_pci_msi_entry(entry, dev) {
-> -			if (entry->irq != 0)
-> -				avail++;
-> -		}
-> -		if (avail != 0)
-> -			ret = avail;
-> -	}
-> -
->  out_free:
->  	free_msi_irqs(dev);
->  
+> +	if (ret)
+> +		return ret;
+> +
+>  	if (flags & PCI_IRQ_AFFINITY) {
+>  		if (!affd)
+>  			affd = &msi_default_affd;
 > 
 
