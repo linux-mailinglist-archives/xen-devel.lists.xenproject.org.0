@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1489A46BE55
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 15:57:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241237.418126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 506A646BE5D
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 15:58:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241244.418137 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mubuB-0005O5-RE; Tue, 07 Dec 2021 14:57:19 +0000
+	id 1mubv9-00060q-44; Tue, 07 Dec 2021 14:58:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241237.418126; Tue, 07 Dec 2021 14:57:19 +0000
+Received: by outflank-mailman (output) from mailman id 241244.418137; Tue, 07 Dec 2021 14:58:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mubuB-0005M3-OE; Tue, 07 Dec 2021 14:57:19 +0000
-Received: by outflank-mailman (input) for mailman id 241237;
- Tue, 07 Dec 2021 14:57:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mubv9-0005yM-15; Tue, 07 Dec 2021 14:58:19 +0000
+Received: by outflank-mailman (input) for mailman id 241244;
+ Tue, 07 Dec 2021 14:58:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=myTo=QY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mubuA-0004eJ-AA
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 14:57:18 +0000
+ id 1mubv7-0005yC-O6
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 14:58:17 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f888a555-576d-11ec-a831-37629979565c;
- Tue, 07 Dec 2021 15:57:17 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1bf10f8e-576e-11ec-9d12-4777fae47e2b;
+ Tue, 07 Dec 2021 15:58:17 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 43D192170E;
- Tue,  7 Dec 2021 14:57:17 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BDD3D21B39;
+ Tue,  7 Dec 2021 14:58:16 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 03EE713A8C;
- Tue,  7 Dec 2021 14:57:16 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9347313A8C;
+ Tue,  7 Dec 2021 14:58:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IPNCO0x2r2HadwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 14:57:16 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id zqvBIoh2r2FjeAAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 14:58:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,69 +51,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f888a555-576d-11ec-a831-37629979565c
+X-Inumbo-ID: 1bf10f8e-576e-11ec-9d12-4777fae47e2b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638889037; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1638889096; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TaIH6SGfZCFmVlzrAOuw1mdswCpmvsE0+rBMfpb+6zA=;
-	b=eLkWxLe5AZCWoy2RghjJmpoAy9KGEmudnrQtRme6yAFbBZGaCyc7yeiwtDUscNqFsK0i1M
-	KACVPMxuCgWdfK+DXHTIa5ZOIuU7WytrEKl7TsGv6/fxC3Hk/ERm3AoIfu3saFKXswF6Yi
-	j2un+QB4p/zhgRhiS14N8KaPHzIbpU4=
-Subject: Re: [XEN PATCH 54/57] tools/libs: create Makefile.common to be used
- by stubdom build system
+	bh=bKu3j0ce9dOeLrgDAnwT6sOdWbOKrvHJhezxYCGMNK8=;
+	b=cVUN7d2HY3sna7VFH9wn4dX6QaxElfW8Fgp6orA01uYpbROrKYU34HPBMgdt918PDIviDl
+	dLRqxbzE2TG2KmzA2FL9aKY4JA2oHhOfTuR9u4Wy38mXRABgF+QbIxB9ZL/q2B5nWIfI5C
+	MPxJ0TWBqye6Mmiphg7nVTt3c3YndfM=
+Subject: Re: [XEN PATCH 55/57] tools/xenstore: introduce Makefile.common to be
+ used by stubdom
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
  Samuel Thibault <samuel.thibault@ens-lyon.org>
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-55-anthony.perard@citrix.com>
+ <20211206170241.13165-56-anthony.perard@citrix.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <82362379-75e7-b1a6-604c-53a313a1c64c@suse.com>
-Date: Tue, 7 Dec 2021 15:57:16 +0100
+Message-ID: <6b7d4cd5-fcab-c782-61a7-f25b07296693@suse.com>
+Date: Tue, 7 Dec 2021 15:58:16 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20211206170241.13165-55-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-56-anthony.perard@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="RvDzpKFu3m6eiQveBNSLonHUrIXJjcZ0h"
+ boundary="mN5wkinfZPPobJ3mmOpETQEDiyB7Mkt7O"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---RvDzpKFu3m6eiQveBNSLonHUrIXJjcZ0h
-Content-Type: multipart/mixed; boundary="Up7doXiWszVUPyZTWLrXviSWFxyrsNkls";
+--mN5wkinfZPPobJ3mmOpETQEDiyB7Mkt7O
+Content-Type: multipart/mixed; boundary="XtZPuWu2JzGkeIlpP93nOLnxglurSGWEE";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
  Samuel Thibault <samuel.thibault@ens-lyon.org>
-Message-ID: <82362379-75e7-b1a6-604c-53a313a1c64c@suse.com>
-Subject: Re: [XEN PATCH 54/57] tools/libs: create Makefile.common to be used
- by stubdom build system
+Message-ID: <6b7d4cd5-fcab-c782-61a7-f25b07296693@suse.com>
+Subject: Re: [XEN PATCH 55/57] tools/xenstore: introduce Makefile.common to be
+ used by stubdom
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-55-anthony.perard@citrix.com>
-In-Reply-To: <20211206170241.13165-55-anthony.perard@citrix.com>
+ <20211206170241.13165-56-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-56-anthony.perard@citrix.com>
 
---Up7doXiWszVUPyZTWLrXviSWFxyrsNkls
+--XtZPuWu2JzGkeIlpP93nOLnxglurSGWEE
 Content-Type: multipart/mixed;
- boundary="------------220D37E4D19C4C76B1EBED24"
+ boundary="------------3A5E035E680D087F375AF2ED"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------220D37E4D19C4C76B1EBED24
+--------------3A5E035E680D087F375AF2ED
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 06.12.21 18:02, Anthony PERARD wrote:
-> This new "Makefile.common" is intended to be used by both tools/ and
-> stubdom/ build system without stubdom needed to use tools/ build
-> system.
->=20
-> It should contain the necessary list of objects and CFLAGS needed to
-> build a static library.
->=20
-> Change stubdom/ to check Makefile.common, for the linkfarm.
+> Also change stubdom to depends on Makefile.common.
 >=20
 > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
@@ -122,8 +115,7 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 
 Juergen
 
-
---------------220D37E4D19C4C76B1EBED24
+--------------3A5E035E680D087F375AF2ED
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -215,25 +207,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------220D37E4D19C4C76B1EBED24--
+--------------3A5E035E680D087F375AF2ED--
 
---Up7doXiWszVUPyZTWLrXviSWFxyrsNkls--
+--XtZPuWu2JzGkeIlpP93nOLnxglurSGWEE--
 
---RvDzpKFu3m6eiQveBNSLonHUrIXJjcZ0h
+--mN5wkinfZPPobJ3mmOpETQEDiyB7Mkt7O
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvdkwFAwAAAAAACgkQsN6d1ii/Ey/8
-RggAhl0Jh85UqmAGQAIcOU+FdAHPP8Otdl1Mqtzl8sh7J5wQHp3TOy88zxuNJxLHsuxb16FTKGDo
-7TdEqVFjuvLTtqaR1gXdr94N0bmFf9EmfuDvN0IYm3tOmQkfvwv9n+NqqcbKHNfRj5fjy6C/XTIE
-a+2Vt3/wUfAJcmIqfUiwJ6VHZ5wQ6bN+2cj0mGUBo15d7YHTXxHunqY/MiIxoWJ0skPHiYwfPF+S
-PqR55m54Yp8rm0jV96v7SOEdVqrIMb7Ba1djXQK+i0FtrRLgYvMcnjfLCC1aMvyXwQFU4DopBig3
-5/YBtYcXmHvoxFxkE0ZsnctN2LZMcJ4DoHqVEwGszQ==
-=1bJf
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvdogFAwAAAAAACgkQsN6d1ii/Ey+W
+fgf+J4pPWC/LNHf2neZXWlbJOM88SRFuo7uMx3k7JHpg0l589T080MVhiz9qGE0U9vK1+z4Cvq9t
+FfxsCS91a33dWjmojIHFRmEqnzfolkCF9wh/fzvLaa/7IVQoo34o/bQfiY+SRY4USqaFDyH+MTVN
+GPIrZckQzD0fsyBLYm3SdmAvPtiqceTv4WoN4I7a1ckzO/+TRT8YX4t2q3XGGp9cvJxp5c1SZ/Iw
+d0NTOdAky4L2rqMxAn+C6Hn3LKKT97LcHcgAw8zJG+F06dyKBh9a3EbJWHE/UgxbHj0lok9T2HvJ
+PqDZ2KJx+LhUiIJ6Ih6RiA8hJzKd9pYnQekiUPcmnQ==
+=pnTZ
 -----END PGP SIGNATURE-----
 
---RvDzpKFu3m6eiQveBNSLonHUrIXJjcZ0h--
+--mN5wkinfZPPobJ3mmOpETQEDiyB7Mkt7O--
 
