@@ -2,29 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6658F46BBD7
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 13:53:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241064.417889 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5114346BC5E
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 14:21:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241078.417899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muZyX-0006QX-A0; Tue, 07 Dec 2021 12:53:41 +0000
+	id 1muaOX-00036K-F7; Tue, 07 Dec 2021 13:20:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241064.417889; Tue, 07 Dec 2021 12:53:41 +0000
+Received: by outflank-mailman (output) from mailman id 241078.417899; Tue, 07 Dec 2021 13:20:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muZyX-0006NL-6Y; Tue, 07 Dec 2021 12:53:41 +0000
-Received: by outflank-mailman (input) for mailman id 241064;
- Tue, 07 Dec 2021 12:53:40 +0000
+	id 1muaOX-000335-Bv; Tue, 07 Dec 2021 13:20:33 +0000
+Received: by outflank-mailman (input) for mailman id 241078;
+ Tue, 07 Dec 2021 13:20:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vuaW=QY=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1muZyW-0006NF-88
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 12:53:40 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=myTo=QY=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1muaOV-00032z-UM
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 13:20:31 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b26324a0-575c-11ec-9d12-4777fae47e2b;
- Tue, 07 Dec 2021 13:53:39 +0100 (CET)
+ id 732013c4-5760-11ec-9d12-4777fae47e2b;
+ Tue, 07 Dec 2021 14:20:30 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CB5FF1FD56;
+ Tue,  7 Dec 2021 13:20:29 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9995F13A63;
+ Tue,  7 Dec 2021 13:20:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 6/JHJJ1fr2HURgAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 13:20:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,78 +51,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b26324a0-575c-11ec-9d12-4777fae47e2b
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1638881617;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
+X-Inumbo-ID: 732013c4-5760-11ec-9d12-4777fae47e2b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1638883229; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=aNhnkzcLIHS9o6REcIVVTdi6HJHMTMekwoWhR5Os8KA=;
-	b=fDdfjoBrqymOl2a+g4MXycXTFQvrRmQZeNf3rg3L6n1PiCtdWcCcmDaVpdvwx1WHZPu2/v
-	fJ5y/fl9rqcMBqPDwA5dGahXUq/mN6Rr/ElGbNuccnYfY2zSKXTbzkZQodP7GLSEpFoYdh
-	46+uktDwZ2vMiIgjrLAfY7tW6+YkhG+kEnyrqVcu/yhSumZnuVQZSPFDDqkewYdktBX2W1
-	E5XHAvsHcg+oePKYbcgXP8R5bFs+hJf3t4yTvMtPo50NBwX80mLh/AIBUE7bofDK/aFu6H
-	qtf+AY+yYI2U4AcWEXhnQ22yGPrAzddB3aN+8X6CX1qpB5O1+EGPIoTqDwRh5g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1638881617;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aNhnkzcLIHS9o6REcIVVTdi6HJHMTMekwoWhR5Os8KA=;
-	b=9LR8QBp7ApgLB6V6Z+0XA4lyUUgGXXJ03ul38aiaIn/PFJSbmKuGwWEzOcLJoDF8z5Se10
-	uqB+RdhRp6Pw8iDA==
-To: =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@kaod.org>, LKML
- <linux-kernel@vger.kernel.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Marc Zygnier <maz@kernel.org>, Alex
- Williamson <alex.williamson@redhat.com>, Kevin Tian <kevin.tian@intel.com>,
- Jason Gunthorpe <jgg@nvidia.com>, Megha Dey <megha.dey@intel.com>, Ashok
- Raj <ashok.raj@intel.com>, linux-pci@vger.kernel.org,
- xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Will Deacon <will@kernel.org>,
- Santosh Shilimkar <ssantosh@kernel.org>, iommu@lists.linux-foundation.org,
- dmaengine@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>, Laurentiu
- Tudor <laurentiu.tudor@nxp.com>, Nishanth Menon <nm@ti.com>, Tero Kristo
- <kristo@kernel.org>, linux-arm-kernel@lists.infradead.org, Vinod Koul
- <vkoul@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Robin Murphy
- <robin.murphy@arm.com>, Sinan Kaya <okaya@kernel.org>
-Subject: Re: [patch V2 18/36] genirq/msi: Add msi_device_data::properties
-In-Reply-To: <87ilw037km.ffs@tglx>
-References: <20211206210307.625116253@linutronix.de>
- <20211206210438.634566968@linutronix.de>
- <6f06c9f0-1f8f-e467-b0fb-2f9985d5be0d@kaod.org> <87ilw037km.ffs@tglx>
-Date: Tue, 07 Dec 2021 13:53:36 +0100
-Message-ID: <87fsr437an.ffs@tglx>
+	bh=i+nviJexRolV21wub8IbWTVS40+659B2KUTP/FF8XD4=;
+	b=IRqe8xNG2lFDSA+aDjVEx5uRAcuGAP1Gh8/ZGOdCsVL3uum/jV7TlU9LWCLyGVqtmKx3yY
+	skwFP3CpPj9WSCBZ5BW0VLwqJEkd9teDoow8HQVdDIqROHBlMQusIQB2fO8Pwx2KAT5i3j
+	CVG6z4Q7gu2hnHrX3N8oORuwlsFKwhU=
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@gmail.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+References: <20211206170241.13165-1-anthony.perard@citrix.com>
+ <20211206170241.13165-42-anthony.perard@citrix.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [XEN PATCH 41/57] libs: Remove need for *installlocal targets
+Message-ID: <bc5bc497-d1a0-007a-802f-e411159fb88e@suse.com>
+Date: Tue, 7 Dec 2021 14:20:29 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20211206170241.13165-42-anthony.perard@citrix.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="LcgQS0Xl0zyJoxaZ19G7eeelIEzIi8iuv"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--LcgQS0Xl0zyJoxaZ19G7eeelIEzIi8iuv
+Content-Type: multipart/mixed; boundary="noe57VO5yCsN3TB7G75OF09M96YLmHck7";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Anthony PERARD <anthony.perard@gmail.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Message-ID: <bc5bc497-d1a0-007a-802f-e411159fb88e@suse.com>
+Subject: Re: [XEN PATCH 41/57] libs: Remove need for *installlocal targets
+References: <20211206170241.13165-1-anthony.perard@citrix.com>
+ <20211206170241.13165-42-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-42-anthony.perard@citrix.com>
+
+--noe57VO5yCsN3TB7G75OF09M96YLmHck7
+Content-Type: multipart/mixed;
+ boundary="------------3BB6FBEC9357192216A6F0C2"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------3BB6FBEC9357192216A6F0C2
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Dec 07 2021 at 13:47, Thomas Gleixner wrote:
-> On Tue, Dec 07 2021 at 10:04, C=C3=A9dric Le Goater wrote:
->>> +/**
->>> + * msi_device_set_properties - Set device specific MSI properties
->>> + * @dev:	Pointer to the device which is queried
->>> + * @prop:	Properties to set
->>> + */
->>> +void msi_device_set_properties(struct device *dev, unsigned long prop)
->>> +{
->>> +	if (WARN_ON_ONCE(!dev->msi.data))
->>> +		return ;
->>> +	dev->msi.data->properties =3D 0;
->> It would work better if the prop variable was used instead of 0.
->>
->> With that fixed,
->
-> Indeed. Copy & pasta w/o brain usage ...
+On 06.12.21 18:02, Anthony PERARD wrote:
+> There is no need for an extra "installlocal" target, we can use
+> double-colon rules instead.
 
-I've pushed out an incremental fix on top. Will be folded back.
+Doesn't that mean that with the ultimate goal of including all
+Makefiles of the tree that all "install" and "uninstall" rules in the
+tree will have to be double-colon rules? Citing from the make manual:
 
-     git://git.kernel.org/pub/scm/linux/kernel/git/tglx/devel.git msi-v2-pa=
-rt-3-1
+   When a target appears in multiple rules, all the rules must be the
+   same type: all ordinary, or all double-colon.
 
-Thanks,
+>=20
+> "install-headers" in "libs/store" was introduced for the same reason
+> that "installlocal" exist, so it is replaced as well.
+>=20
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
-        tglx
+With above remark I don't see how tools/libs/stat/Makefile can be left
+unmodified, as it includes libs.mk and it contains an "intall:" rule.
+
+
+Juergen
+
+--------------3BB6FBEC9357192216A6F0C2
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------3BB6FBEC9357192216A6F0C2--
+
+--noe57VO5yCsN3TB7G75OF09M96YLmHck7--
+
+--LcgQS0Xl0zyJoxaZ19G7eeelIEzIi8iuv
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvX50FAwAAAAAACgkQsN6d1ii/Ey8d
+IQf9Fcrn0+S6HuOBvR8LxbpVilXLR3gPmd6fFnM0C+cnYC3/4bhUtTCUwtkMP5En7S7wjhRMK9BI
+yFfdZ8LFQ24l7FF8guKwA84nmkdTGfrG7VQpIzgOxd3gOP2srwzeP9H+7v8t5K26pKtZt4ikn0BE
+rEjsha3C5v36kdXb1LHNKMY+sldBiTCKacFURoFXxUGtqmEB5VGsqFW/Uy6CQ0uBCWrobcDmoC9i
+miRKItdprgniPJxmRLVerXcdck0xZdfw9MVGj3aYK9PyWMlx6ZWeW1WCkvDDkJ8p9/PqtMOWiTal
+eYgEBX9G3WKDLfxiCJ+gak9i9qXPBx1qQKoZxaittA==
+=qu+R
+-----END PGP SIGNATURE-----
+
+--LcgQS0Xl0zyJoxaZ19G7eeelIEzIi8iuv--
 
