@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C885D46B9A4
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 11:57:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240895.417673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08A8546B9C3
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 12:05:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240909.417683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muY9Y-000234-Du; Tue, 07 Dec 2021 10:56:56 +0000
+	id 1muYHV-0003rn-4y; Tue, 07 Dec 2021 11:05:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240895.417673; Tue, 07 Dec 2021 10:56:56 +0000
+Received: by outflank-mailman (output) from mailman id 240909.417683; Tue, 07 Dec 2021 11:05:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muY9Y-0001zq-8Y; Tue, 07 Dec 2021 10:56:56 +0000
-Received: by outflank-mailman (input) for mailman id 240895;
- Tue, 07 Dec 2021 10:56:54 +0000
+	id 1muYHV-0003ps-1l; Tue, 07 Dec 2021 11:05:09 +0000
+Received: by outflank-mailman (input) for mailman id 240909;
+ Tue, 07 Dec 2021 11:05:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=myTo=QY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1muY7R-00078Z-HJ
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 10:54:45 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 164150ec-574c-11ec-9d12-4777fae47e2b;
- Tue, 07 Dec 2021 11:54:44 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id AB92E1FD2F;
- Tue,  7 Dec 2021 10:54:44 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8475513A42;
- Tue,  7 Dec 2021 10:54:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Ly8hH3Q9r2GvfAAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 10:54:44 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sjJF=QY=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1muYHT-0003pm-Om
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 11:05:07 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 87ef0376-574d-11ec-9d12-4777fae47e2b;
+ Tue, 07 Dec 2021 12:05:06 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,177 +36,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 164150ec-574c-11ec-9d12-4777fae47e2b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638874484; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UakNnKF1HSU69BP9LNPjtG6WwED6J8HWrlBYx3uHlPc=;
-	b=ccwX2jkocsy08zpLpnmZlobyBdJdYR38QIi/oW680c6OmFEjCWpf5EhEXNaeVoCl+FUl5L
-	qBw8fnVs37mIcOswXhSLPFu5YDPgb3H/DOQ5Eu4nlwkBLgkEs3UFIJappN6OzSF9SHuq+r
-	fx6pm6LPzRuyQVrj2aGfC+nBQFcH+Qk=
-Subject: Re: [XEN PATCH 20/57] tools/Rules.mk: introduce FORCE target
-To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@gmail.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-21-anthony.perard@citrix.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <227c5233-b08c-e044-d01a-963ed66f64d7@suse.com>
-Date: Tue, 7 Dec 2021 11:54:43 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+X-Inumbo-ID: 87ef0376-574d-11ec-9d12-4777fae47e2b
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1638875106;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qnuwmZ0s2+L6Oqn1GJpILqnTqNt4yFWd7OprzsuOPZk=;
+  b=XxhoatsbKGkfRwyboNgy+sq4Hzi1wOKynjzFxYsPm86T5pFqLk8hWV1q
+   N1duZzP8rTSGFALzeI/xliIQmDeQ7g3BWITXOucEBItGjU/LfcpFjzhZ+
+   05NZRDAiPaA+APxRh2yFCJJNtB5y0/CDTd/xMt7mhf+jXpQiBmZ9zAVIZ
+   0=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 1BLCXziVWLQjptncfCrmG8Ap6QA6iOTMEtR52BxMX0J8myMhoZz2zMtPcevgSQcfqLLnFzXeWi
+ U/E0S41rQzbXZNYpyekPr7OS/+Usk7wsWp8RTnkRirpai6WZBb3DwkcacF7Lq+r0+uTry9hoDp
+ m+dJOBOTZii/bu16vtu93mUyymByVJXpHcJGwQDGnE7zNxx4GyixRSqCrxbwPNxFuukBRo2ZTR
+ 1r6+mVmjlasMC4Alld1P2Jp4deLGBzbsgoKLkAI3JF4nPGTODx6Z/nYfnNTerAeR5bPeuEtZIE
+ 5NU/iF4E+fIH2ripOzr5zMP+
+X-SBRS: 5.1
+X-MesageID: 59451336
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:j3qLyq7njwAl1Rqwf9JlGAxRtAHAchMFZxGqfqrLsTDasY5as4F+v
+ mBOXjjSPPyOY2P8f9giYITkoUgPvcOEnd8xSgJkpC5hHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FVAMpBsJ00o5wrdj2tEw27BVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zz
+ NlMt7KrcFoQDILzx+gwQhZqOTx4IvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALJc/3PIQZqzd4wCvQF/oOSpHfWaTao9Rf2V/cg+gTTKqDP
+ pFCN1KDajzrehN3BlUlFKszxue3nXbTdzlX+HWK8P9fD2/7k1UqjemF3MDuUsyHQ4BZk1iVo
+ krC/n/lGVcKOdqH0z2H/3mwwOjVkkvTR4Y6BLC+sPlwjzW7xGYeFRkXXluTuuSihwi1XNc3F
+ qAP0nNw9+5orhXtF4SjGU3jyJKZgvICc95cEu8U8zjQ85j73FmVK3kLfBRcbsNz4afaWgcW/
+ lOOmtroAxlmv7uUVW+R+9+okN+iBcQGBTRcPHFZFGPp9/Gm+dhu1UyXEr6PBYbs1oWtcQwc1
+ Qxmu8TXa187qccQn5u28lnc695HjsiYF1Vljuk7s4/M0++YWGJHT9D5gbQ4xawZRGp8crVml
+ CJb8/VyFMhUUfmweNWlGY3h5o2B6fefKyH7ilVyBZQn/DnF0yf9JtAAuW8gfB0xbphsldrVj
+ Kj741w52XOuFCHyMf8fj3yZVazGMpQM5fy6D6uJP7Kik7B6dROd/TEGWKJj9zuFraTYqolmY
+ c3zWZ/1VR4yUP07pBLrF7Z1+eJ6nUgWmDKMLa0XOjz6iNJyklbOEuxbWLZPB8hkhJ65TPL9r
+ 4wCapDUkkoHC4UToED/qOYuELzDFlBjbbieliCdXrfrztNOFD5zBvnP76kmfoA5za1Zmv2Rp
+ iO2W1NCyUq5jnrCcF3YZndmYbLpfJB+sXNkYnB8YQf2gyAuMdS18aMSV5orZr17puZt+uF5E
+ qsecMKaD/URFjmeo2YBbYPwpZBJfQiwgV7cJDKsZTUyJsYyRwHA9tL+UBHo8S0CUni+ucck+
+ uXy3QLHW5sTAQ9lCZ+OOv6oylqwu1kbmf5zABSUcoUCJh20/dEzeSLrj/IxL8UdEjn5x2OXh
+ 1SMHBMVhejRuItpotPHsr+J8tWyGOxkE0sEQ2SCteSqNTPX93aIyJNbVLraZijUUW759fnwZ
+ ehRyP2gYvQLkEwT7th5Grdvi6k/+8Hut/lRyQE9RCfHaFGiC7VBJHia3JYQ6v0Rl+EB4QbmC
+ FiS/tR6OKmSPJK3GVEcEwMpc+Cf2KxGgTLV9/k0fB336SIfEGBriqmO081gUBBgEYY=
+IronPort-HdrOrdr: A9a23:03RmA6HD+H9yqixlpLqEi8eALOsnbusQ8zAXPiFKKSC9F/byqy
+ nAppkmPHPP4gr5O0tApTn/Asa9qBrnnPZICOIqUYtKMjOJhFeV
+X-IronPort-AV: E=Sophos;i="5.87,293,1631592000"; 
+   d="scan'208";a="59451336"
+Date: Tue, 7 Dec 2021 11:04:56 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Roger Pau
+ =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v8 04/47] build: set XEN_BUILD_EFI earlier
+Message-ID: <Ya8/2Dc5yEp/ovf/@perard>
+References: <20211125134006.1076646-1-anthony.perard@citrix.com>
+ <20211125134006.1076646-5-anthony.perard@citrix.com>
+ <2bffd73c-ce1b-40cf-73b7-f988e69c4f07@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20211206170241.13165-21-anthony.perard@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="TthqW0v7lSweTtokZg9qJv0y9fK1qztmd"
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <2bffd73c-ce1b-40cf-73b7-f988e69c4f07@suse.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---TthqW0v7lSweTtokZg9qJv0y9fK1qztmd
-Content-Type: multipart/mixed; boundary="20ijPQX7hzQBuCELIBPJy5VcClrENRNvC";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@gmail.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <227c5233-b08c-e044-d01a-963ed66f64d7@suse.com>
-Subject: Re: [XEN PATCH 20/57] tools/Rules.mk: introduce FORCE target
-References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-21-anthony.perard@citrix.com>
-In-Reply-To: <20211206170241.13165-21-anthony.perard@citrix.com>
+On Thu, Dec 02, 2021 at 03:06:54PM +0100, Jan Beulich wrote:
+> On 25.11.2021 14:39, Anthony PERARD wrote:
+> > +efi-check-o := arch/x86/efi/check.o
+> 
+> How about making this
+> 
+> efi-check := arch/x86/efi/check
+> 
+> That way you wouldn't need to replace the extension in a number of places,
+> but simply append the respective one in every place using this.
 
---20ijPQX7hzQBuCELIBPJy5VcClrENRNvC
-Content-Type: multipart/mixed;
- boundary="------------0D9253E91D792674F7DCD6C7"
-Content-Language: en-US
+This change sound fine. I guess it will make reading the code a bit
+easier.
 
-This is a multi-part message in MIME format.
---------------0D9253E91D792674F7DCD6C7
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+> > +export XEN_BUILD_EFI XEN_BUILD_PE MKRELOC
+> > +export EFI_LDFLAGS
+> > +endif
+> 
+> Exporting MKRELOC in particular isn't very nice. I wonder whether there
+> wouldn't be a way to keep it local to xen/Makefile.
 
-On 06.12.21 18:02, Anthony PERARD wrote:
-> And replace the one defined in libs.mk.
->=20
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+I don't think that's possible. The value of MKRELOC depends on a call
+with OBJDUMP which depends on call with LD which depends on a call with
+CC. And the call with CC is the one I'm trying to move.
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+Unless there is a better way to build *.efi, we need to know whether to
+use `mkreloc` or not.
 
+I could rename it XEN_MKRELOC. Or if there is another name that could
+make sense, that would be fine too, like XEN_BUILD_EFI_NEED_RELOC which
+could be a boolean.
 
-Juergen
+Thanks,
 
---------------0D9253E91D792674F7DCD6C7
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------0D9253E91D792674F7DCD6C7--
-
---20ijPQX7hzQBuCELIBPJy5VcClrENRNvC--
-
---TthqW0v7lSweTtokZg9qJv0y9fK1qztmd
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvPXQFAwAAAAAACgkQsN6d1ii/Ey8t
-TQf+I0boPe2pyky2ZbzPPOyuApRUfukErQSLdkwX6xcoSSrywED6B4yyxm9VaLma7oO/o1zEhnGT
-IXHBar5P1DnoILP5kwyuP6T616md4b816ox1VR2ZFpDWJKgDuY5REJgoZPH8LnM+Ce5gXTXH9veU
-JK6vtNBw9LAtrUtCuW6yjF2gj+4hbxdyulUl7s+PgD1xFY8Yz1bGDch0+y3aDWY/P0EHl4KI75V+
-o+voYi0jlLyXoVF3Zm+7AWCHKQ46aVXqUMbmEKOFePg2iTgIkdjicUQ6eZfyv/SPhKyjtTdKXc1N
-kHi8MnhPR1xzHvADXs0M73pkJGinLXYpBGRryo+b2A==
-=On9n
------END PGP SIGNATURE-----
-
---TthqW0v7lSweTtokZg9qJv0y9fK1qztmd--
+-- 
+Anthony PERARD
 
