@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D0AE46BA21
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 12:34:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240975.417779 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6183146BA29
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 12:36:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240981.417790 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muYjO-0004tW-Sa; Tue, 07 Dec 2021 11:33:58 +0000
+	id 1muYlc-0005VR-96; Tue, 07 Dec 2021 11:36:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240975.417779; Tue, 07 Dec 2021 11:33:58 +0000
+Received: by outflank-mailman (output) from mailman id 240981.417790; Tue, 07 Dec 2021 11:36:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muYjO-0004re-Oi; Tue, 07 Dec 2021 11:33:58 +0000
-Received: by outflank-mailman (input) for mailman id 240975;
- Tue, 07 Dec 2021 11:33:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1muYlc-0005Sq-5a; Tue, 07 Dec 2021 11:36:16 +0000
+Received: by outflank-mailman (input) for mailman id 240981;
+ Tue, 07 Dec 2021 11:36:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=sjJF=QY=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1muYjM-0004rY-LY
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 11:33:56 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8ebe19d4-5751-11ec-a831-37629979565c;
- Tue, 07 Dec 2021 12:33:55 +0100 (CET)
+ <SRS0=xxIL=QY=ellerman.id.au=mpe@srs-se1.protection.inumbo.net>)
+ id 1muYla-0005Sg-Br
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 11:36:14 +0000
+Received: from gandalf.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id de24b362-5751-11ec-9d12-4777fae47e2b;
+ Tue, 07 Dec 2021 12:36:11 +0100 (CET)
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4J7dXf3dSsz4xYy;
+ Tue,  7 Dec 2021 22:36:02 +1100 (AEDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,102 +42,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ebe19d4-5751-11ec-a831-37629979565c
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1638876835;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=n4DyWk46PSHaxgjtXS+uinNibz9uA3IDi75AAOqgJ5k=;
-  b=ZIAnsV5pgt6kk4UTQ1Lhd6o9d3SD8IBoMcaFrpk0Fdz5e6CwLrJZg6Cu
-   XHt8tXtYveATq9HMyTSAQJSKwTanVeElRhLq7ff/X3rG8/xmaoQvBQ3Vv
-   Bt4Lh7qQFvveIBWARx4lwgk3zMkOD72SBkiMBGV+euknSz8PaQAURJ5ip
-   0=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: JMecT7lzKNVLu3V9t2+51oDmUTHTXK3a4EDfiZodenfTFYZWHNbMz325KtU4bbHaUMn6Xg8pTL
- b+OGqpE7dmq3hVmFl+CwrvomgP14OGnUmCEH2MdRClJPlbQ1NAkP+Lt+GeaTj4G/A4cO6ucpFn
- 0Ubbbh+n14UUGCxW7EEYOivY/A42xnLU2iC8LSdH2lyvdNHqTH2GS4IM2PBTlQzlLhOVi4J82H
- 5S1wGNQPo8GGFYHc9cbeuaXOpxedG5Tc7UHKLaeB0Y0X4LAYcmMW2cKtEGKYII8ZxYNk5mwB+r
- st9YadJ6BuKZ4k7Dmpq89+tV
-X-SBRS: 5.1
-X-MesageID: 59387228
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:b59DK69rx3sM7UJ1qTIRDrUDfXmTJUtcMsCJ2f8bNWPcYEJGY0x3m
- DQdDzuAO/aKMzb1KdFyaty19xxX65eAndY2GgJqrXg8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
- +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhGmeIdA970Ug6wrRh3dYy6TSEK1jlV
- e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
- I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPgr8
- Nh2lLmuTDsRfamUwsdDVAZiGg5HaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
- 6ZCcXZUM07F17neLLGTE4GAguwqKtXrO4UO/Glt1zjDAd4tQIzZQrWM7thdtNs1rp0fRqaBP
- ZBJAdZpRDKeM0d/C3c0Mptkh7j4l1TZMB10uWvA8MLb5ECMlVcsgdABKuH9YceWTM9YmkKZo
- GPu/GnjBBwectuFxlKt7XaEluLJ2yThV+o6BLC+s/JnnlCX7mgSEwENE0u2p+GjjUyzUM4ZL
- FYbkgIsp6Uv8E2gTvHmQga15nWDu3Y0WsVSO/037hmXzajZ6BrfAXILJhZDddgnuckeVTEsk
- FiTkLvU6SdH6ePPDyjHr/HN8G30aXN9wXI+iTEsFzMI2PjGvoQPtlHLFoxATqmqtNTaIGSlq
- 9yVlxQWi7IWhM8N8qy0+1Hbnj6hzqT0oh4JChb/BTz8sF4gDGKxT8nxsAWAs64cRGqMZgDZ5
- CBspiSI0AwZ4XhhfgSpSf5FIrym7u3t3Nb00Q82RMlJG9hAFheekWFsDNNWeBYB3iUsI2aBj
- KrvVeR5vsA7AZdSRfUrC79d8uxzpUQaKfzrV+rPcv1FaYVreQmM8UlGPBDLjzC0zhZ0y/ljZ
- /93lPpA6l5AVsxaIMeeHb9BgdfHOAhgrY8seXwL50v+iufPDJJkYbwELEGPfogEAFCs+23oH
- yJkH5LSkX13CbSmCgGOqNJ7BQ1afBATWMGtw+QKJ7HrH+aTMDx4YxMn6eh6ININcmU8vrqgw
- 0xRrWcEkgei3iOedl3RAp2hAZu2NatCQbsAFXREFT6VN7ILOO5DNY8TKMk6e6cJ7utmwaImR
- vUJYZzYUP9OVi7G63IWapyk9N5ucxGihASvOSu5YWdgI848FlKRotK0LBHy8CQuDzassZdsq
- bOXyQ6GE4EIQB5vDZiKZav3nU+xp3UUhMl7Q1DMfotIYEzp/YUzc37xg/Y7LtsiMxLGwjfGh
- Q+aDQ1B/bvGopMv8cmPjqeB9t/7H+x7F0tcPm/a8bfpanWKojv9mddNCb/acyrcWWX4/LSZS
- d9Ul/ysYucamFtqspZnF+o5x6wJ+Nay9aRRyR5pHSuXYg3zWK9gOHSPweJGqrZJmu1CoQKzV
- 0+CpotaNLGONJ+3GVIdPlN4POGK1PVSkTjO9/UlZk794XYvrraAVExTOTiKiTBcc+QpYN90n
- 795tZ5E8RG7hzorLs2C33Jd+Gm7J3AdV7kq68MBC4jxhwt3klxPbPQw0MMtDE1jvzmUDnQXH
- w==
-IronPort-HdrOrdr: A9a23:hn+sQ680YFsSu/J3cwNuk+DYI+orL9Y04lQ7vn2YSXRuHPBws/
- re+MjztCWE7Qr5N0tMpTntAsW9qDbnhPlICOoqTNWftWvd2FdARbsKheCJ/9SjIVycygc079
- YHT0EUMrzN5DZB4vrH3A==
-X-IronPort-AV: E=Sophos;i="5.87,293,1631592000"; 
-   d="scan'208";a="59387228"
-Date: Tue, 7 Dec 2021 11:33:50 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v8 11/47] build: fix enforce unique symbols for
- recent clang version
-Message-ID: <Ya9GnjMXU8YNDP3x@perard>
-References: <20211125134006.1076646-1-anthony.perard@citrix.com>
- <20211125134006.1076646-12-anthony.perard@citrix.com>
- <6b92c237-9ca9-813c-615a-74a2f3e858d3@suse.com>
+X-Inumbo-ID: de24b362-5751-11ec-9d12-4777fae47e2b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ellerman.id.au;
+	s=201909; t=1638876964;
+	bh=lTsXMkBa68SdK2mCmwfpSshAWpT0dRMMMq4RDsTmMUc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=BMwzDWkPEIYhXynBVAirAw4gLvuuvW+w979j7Yqtpl/UPXPORphUfbt+jK+l0pabP
+	 GTehyWDzuL/CjvtZ3vJKYoj5rsJPb1bnDWny7P2YlVPjCcML69cHmHBNG0AIDWe7Gz
+	 7IRiJMIJ4Kb9b5hGDoNDnHaxCTClNUWIJdKvD1WISOHxae57UeEHW0ELnQ3BY1ByPF
+	 1oPzO4gyeKDsiFe+zukx8HTbH7jtndcbjgt+u2Img9ev7FSfwZJM9PLRYWX7kshjFe
+	 JBwE+rXxecauzokxEZQ57uU9ynC6VsB3Nd14q1sEiH2ivRH0Hx8EhFL3DwxqA8pymw
+	 p3ZiZsIoOoIIQ==
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@kaod.org>, Thomas Gleixner
+ <tglx@linutronix.de>,
+ LKML <linux-kernel@vger.kernel.org>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Marc Zygnier <maz@kernel.org>, Alex
+ Williamson <alex.williamson@redhat.com>, Kevin Tian
+ <kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>, Megha Dey
+ <megha.dey@intel.com>, Ashok Raj <ashok.raj@intel.com>,
+ linux-pci@vger.kernel.org, Paul Mackerras <paulus@samba.org>, Benjamin
+ Herrenschmidt <benh@kernel.crashing.org>, linuxppc-dev@lists.ozlabs.org,
+ Juergen Gross <jgross@suse.com>, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, Kalle Valo
+ <kvalo@codeaurora.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ sparclinux@vger.kernel.org, x86@kernel.org,
+ xen-devel@lists.xenproject.org, ath11k@lists.infradead.org, Wei Liu
+ <wei.liu@kernel.org>, linux-hyperv@vger.kernel.org, Christian Borntraeger
+ <borntraeger@de.ibm.com>, Heiko Carstens <hca@linux.ibm.com>
+Subject: Re: [patch V2 01/23] powerpc/4xx: Remove MSI support which never
+ worked
+In-Reply-To: <8d1e9d2b-fbe9-2e15-6df6-03028902791a@kaod.org>
+References: <20211206210147.872865823@linutronix.de>
+ <20211206210223.872249537@linutronix.de>
+ <8d1e9d2b-fbe9-2e15-6df6-03028902791a@kaod.org>
+Date: Tue, 07 Dec 2021 22:36:02 +1100
+Message-ID: <87ilw0odel.fsf@mpe.ellerman.id.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <6b92c237-9ca9-813c-615a-74a2f3e858d3@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Dec 07, 2021 at 11:23:26AM +0100, Jan Beulich wrote:
-> On 25.11.2021 14:39, Anthony PERARD wrote:
-> > clang 6.0 and newer behave like gcc in regards for the FILE symbol, so
-> > only the filename rather than the full path to the source file.
-> > 
-> > clang 3.8.1-24 (in our debian:stretch container) and 3.5.0-10
-> > (in our debian:jessie container) do store the full path to the source
-> > file in the FILE symbol.
-> > 
-> > This means that we also need to check clang version to figure out
-> > which command we need to use to redefine symbol.
-> > 
-> > I don't know which version of clang change behavior, we will guess
-> > 4.0.
-> 
-> When I did this earlier work, it was clang5 that I used. Which would seem
-> to mean the change in behavior was in version 6.
+C=C3=A9dric Le Goater <clg@kaod.org> writes:
+> Hello Thomas,
+>
+> On 12/6/21 23:27, Thomas Gleixner wrote:
+>> This code is broken since day one. ppc4xx_setup_msi_irqs() has the
+>> following gems:
+>>=20
+>>   1) The handling of the result of msi_bitmap_alloc_hwirqs() is complete=
+ly
+>>      broken:
+>>=20=20=20=20=20=20
+>>      When the result is greater than or equal 0 (bitmap allocation
+>>      successful) then the loop terminates and the function returns 0
+>>      (success) despite not having installed an interrupt.
+>>=20
+>>      When the result is less than 0 (bitmap allocation fails), it prints=
+ an
+>>      error message and continues to "work" with that error code which wo=
+uld
+>>      eventually end up in the MSI message data.
+>>=20
+>>   2) On every invocation the file global pp4xx_msi::msi_virqs bitmap is
+>>      allocated thereby leaking the previous one.
+>>=20
+>> IOW, this has never worked and for more than 10 years nobody cared. Remo=
+ve
+>> the gunk.
+>>=20
+>> Fixes: 3fb7933850fa ("powerpc/4xx: Adding PCIe MSI support")
+>
+> Shouldn't we remove all of it ? including the updates in the device trees
+> and the Kconfig changes under :
+>
+> arch/powerpc/platforms/44x/Kconfig:	select PPC4xx_MSI
+> arch/powerpc/platforms/44x/Kconfig:	select PPC4xx_MSI
+> arch/powerpc/platforms/44x/Kconfig:	select PPC4xx_MSI
+> arch/powerpc/platforms/44x/Kconfig:	select PPC4xx_MSI
+> arch/powerpc/platforms/40x/Kconfig:	select PPC4xx_MSI
 
-Thanks, I forgot this fact. I'll make change in the patch, and replace
-the last paragraph of the patch description and add something link this
-instead:
+This patch should drop those selects I guess. Can you send an
+incremental diff for Thomas to squash in?
 
-    Also, based on commit 81ecb38b83 ("build: provide option to
-    disambiguate symbol names"), which were using clang 5, the change of
-    behavior likely happened in clang 6.0.
+Removing all the tendrils in various device tree files will probably
+require some archaeology, and it should be perfectly safe to leave those
+in the tree with the driver gone. So I think we can do that as a
+subsequent patch, rather than in this series.
 
-Thanks,
-
--- 
-Anthony PERARD
+cheers
 
