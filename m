@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06AF346C39A
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 20:25:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241767.418244 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA46546C3F8
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 20:51:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241776.418254 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mug5V-0005ua-IW; Tue, 07 Dec 2021 19:25:17 +0000
+	id 1mugUP-0001k7-Iq; Tue, 07 Dec 2021 19:51:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241767.418244; Tue, 07 Dec 2021 19:25:17 +0000
+Received: by outflank-mailman (output) from mailman id 241776.418254; Tue, 07 Dec 2021 19:51:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mug5V-0005ry-Ev; Tue, 07 Dec 2021 19:25:17 +0000
-Received: by outflank-mailman (input) for mailman id 241767;
- Tue, 07 Dec 2021 19:25:16 +0000
+	id 1mugUP-0001iK-FV; Tue, 07 Dec 2021 19:51:01 +0000
+Received: by outflank-mailman (input) for mailman id 241776;
+ Tue, 07 Dec 2021 19:50:59 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mug5U-0005rs-2Q
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 19:25:16 +0000
+ (envelope-from <julien@xen.org>) id 1mugUN-0001iE-Eg
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 19:50:59 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mug5P-0000xk-SM; Tue, 07 Dec 2021 19:25:11 +0000
+ id 1mugUN-0001NF-5s; Tue, 07 Dec 2021 19:50:59 +0000
 Received: from [54.239.6.187] (helo=[10.95.81.235])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mug5P-0000pK-L1; Tue, 07 Dec 2021 19:25:11 +0000
+ id 1mugUM-0002Ab-W2; Tue, 07 Dec 2021 19:50:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,100 +42,152 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=wimSA2WoZnpW6l9b4jWoQriO2mDgiXNKfENifs7vuQI=; b=bu3GJ8s+NTVINCFv2xG1lfXdD3
-	7ylcnvyTTfbiGV2GDdxAunZNgxqoItMb9W6GQfYH/PBGMRqVxwxCjHAPjFOrYX2YjErMTjeoT6AmF
-	fsMjsn2L/0uhqcbqMWFXyj7tcumRuhtbdPdR+Eu9jg1DVQgvxC0vH975+BFMZB46FPc8=;
-Message-ID: <ed24bb81-2905-b50a-bc26-326dd5cbc934@xen.org>
-Date: Tue, 7 Dec 2021 19:25:09 +0000
+	bh=HwiU/NtMO6SqQ7Zv8a4/t8OkjeeJTzQ5f4trUOxfoWo=; b=zNZORF5ZZXE5rsC4eljr2O7VKh
+	06PN1WqLu4nfjGFNhyOE7OWNRWi0ABWEjcwr0UWzbbSZZ0Lg3HBhbhvbSnXjnRBedS7z49xoZirc9
+	9w7xeDK7yLP3WlVF/qT+xbzT4JtLSCzI6ymtzrHvJEoA6bF1V7XNvHn9KlOzgkK20ZY4=;
+Message-ID: <8f1c0cec-7f0a-35f6-1157-e23b8a058e6d@xen.org>
+Date: Tue, 7 Dec 2021 19:50:57 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.3.2
-Subject: Re: [PATCH] xen/arm64: Zero the top 32 bits of gp registers on
- entry...
-To: Jan Beulich <jbeulich@suse.com>, Michal Orzel <michal.orzel@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <20211206142032.27536-1-michal.orzel@arm.com>
- <f3573439-4893-440f-54e1-fdeba3eb4508@xen.org>
- <dc114877-b9da-7a5b-260d-b9438cddd777@arm.com>
- <086feb9a-7d6b-3797-3643-1b4474e4a420@suse.com>
+Subject: Re: [PATCH] xen/arm: Add Kconfig parameter for memory banks number
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20211206153730.49791-1-luca.fancellu@arm.com>
+ <f439d5c4-aa6c-4066-3941-e497b67aeae1@xen.org>
+ <C96E90F4-611E-4765-9627-EDE75A952E10@arm.com>
+ <A6E7CDAA-E4AD-4AC3-8745-216FDC4DD8BF@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <086feb9a-7d6b-3797-3643-1b4474e4a420@suse.com>
+In-Reply-To: <A6E7CDAA-E4AD-4AC3-8745-216FDC4DD8BF@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+Hi Bertrand and Luca,
 
-On 07/12/2021 09:55, Jan Beulich wrote:
->>>> --- a/xen/arch/arm/arm64/entry.S
->>>> +++ b/xen/arch/arm/arm64/entry.S
->>>> @@ -109,8 +109,16 @@
->>>>     * If 0, we rely on the on x0/x1 to have been saved at the correct
->>>>     * position on the stack before.
->>>>     */
->>>> -        .macro  entry, hyp, compat, save_x0_x1=1
->>>> +        .macro  entry, hyp, compat=0, save_x0_x1=1
->>>>            sub     sp, sp, #(UREGS_SPSR_el1 - UREGS_LR) /* CPSR, PC, SP, LR */
->>>> +
->>>> +        /* Zero the upper 32 bits of the registers when switching to AArch32 */
->>>> +        .if \compat == 1      /* AArch32 mode */
->>>> +        .irp nr,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
->>>> +        mov w\nr, w\nr
->>>> +        .endr
->>>> +        .endif
+On 07/12/2021 11:09, Bertrand Marquis wrote:
+>> On 7 Dec 2021, at 10:52, Luca Fancellu <Luca.Fancellu@arm.com> wrote:
+>>
+>>
+>>
+>>> On 6 Dec 2021, at 17:05, Julien Grall <julien@xen.org> wrote:
 >>>
->>> So Jan mentioned, the x0/x1 may have already been saved. So you may need to fetch them from the stack and then clobber the top 32-bit.
+>>> Hi Luca,
 >>>
->> So I would do the following:
->> -fetch x0/x1 from the stack
->> -clobber them
->> -store them again on the stack
+>>> On 06/12/2021 15:37, Luca Fancellu wrote:
+>>>> Currently the maximum number of memory banks is fixed to
+>>>> 128, but on some new platforms that have a large amount
+>>>> of memory, this value is not enough
+>>>
 >>
->> /*
->>   * Zero the upper 32 bits of the gp registers when switching
->>   * from AArch32.
->>   */
->> .if \compat == 1      /* AArch32 mode */
+>> Hi Julien,
 >>
->> /* x0/x1 have already been saved so fetch them to zero top 32 bits */
->> .if \save_x0_x1 == 0
->> ldp     x0, x1, [sp], #(UREGS_kernel_sizeof - UREGS_X0)
->> .endif
+>>> Can you provide some information on the setup? Is it using UEFI?
 >>
->> .irp nr,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
->> mov w\nr, w\nr
->> .endr
+>> Yes it is a platform with 32gb of ram, I’ve built Xen with ACPI support and it’s starting using UEFI+ACPI.
+Thanks! That makes more sense now. Although...
+
 >>
->> .if \save_x0_x1 == 0
->> stp     x0, x1, [sp, #-(UREGS_kernel_sizeof - UREGS_X0)]
->> .endif
+>>>
+>>>> and prevents Xen
+>>>> from booting.
+>>>
+>>> AFAIK, the restriction should only prevent Xen to use all the memory. If that's not the case, then this should be fixed.
 >>
->> .endif
+>> The code that it’s failing is this, inside efi_process_memory_map_bootinfo(…) in the arch/arm/efi/efi-boot.h:
+>>
+>> #ifdef CONFIG_ACPI
+>>         else if ( desc_ptr->Type == EfiACPIReclaimMemory )
+>>         {
+>>             if ( !meminfo_add_bank(&bootinfo.acpi, desc_ptr) )
+>>             {
+>>                 PrintStr(L"Error: All " __stringify(NR_MEM_BANKS)
+>>                           " acpi meminfo mem banks exhausted.\r\n");
+>>                 return EFI_LOAD_ERROR;
+>>             }
+>>         }
+>> #endif
+
+... I was expecting bootinfo.mem to be filled rather than bootinfo.acpi:
+
+             if ( !meminfo_add_bank(&bootinfo.mem, desc_ptr) )
+             {
+                 PrintStr(L"Warning: All " __stringify(NR_MEM_BANKS)
+                           " bootinfo mem banks exhausted.\r\n");
+                 break;
+             }
+
+It is actually quite surprising that you end up with more than 128 
+regions here.
+
+>
+>>>
+>>>> Create a Kconfig parameter to set the value, by default
+>>>> 128.
+>>>
+>>> I think Xen should be able to boot on any platform with the default configuration. So the value should at least be bumped.
+>>>
+>>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>>> ---
+>>>> xen/arch/arm/Kconfig        | 8 ++++++++
+>>>> xen/include/asm-arm/setup.h | 2 +-
+>>>> 2 files changed, 9 insertions(+), 1 deletion(-)
+>>>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+>>>> index ecfa6822e4d3..805e3c417e89 100644
+>>>> --- a/xen/arch/arm/Kconfig
+>>>> +++ b/xen/arch/arm/Kconfig
+>>>> @@ -25,6 +25,14 @@ menu "Architecture Features"
+>>>>    source "arch/Kconfig"
+>>>> +config MEM_BANKS
+>>>> +	int "Maximum number of memory banks."
+>>>> +	default "128"
+>>>> +	help
+>>>> +	  Controls the build-time size memory bank array.
+>>>> +	  It is the upper bound of the number of logical entities describing
+>>>> +	  the memory.
+>>>
+>>> NR_MEM_BANKS is going to be used by multiple internal structure in Xen (e.g. static memory, reserved memory, normal memory). So how could an admin decide the correct value?
+>>>
+>>> In particular for UEFI, we are at the mercy of the firmware that can expose any kind of memory map (that's why we had to increase the original number of banks).
+>>>
+>>> So maybe it is time for us to move out from a static array and re-think how we discover the memory.
+>>>
+>>> That this is probably going to take some time to get it properly, so
+>>> I would be OK with bumping the value + a config gated UNSUPPORTED.
 > 
-> Wouldn't it be more efficient to store 32 bits of zero each into the
-> high halves of the respective stack slots? Afaict same code size, but
-> less memory / cache traffic.
+> 
+> Looking at what we have, the memory is actually fragmented by ACPI but a long term solution could be to make the code a little bit more smart and try to merge together adjacent banks.
 
-It would indeed be more efficient.
+That could work, but I think we could get rid of bootinfo.acpi completely.
 
-> Plus it would avoid the latent issue of
-> a user of the macro actually expecting the two registers to retain
-> their values across the macro invocation.
+If I am not mistaken, bootinfo.acpi is only used by Xen to figure out 
+how to create the EFI memory map for dom0. So this could be replaced 
+with a walk of the UEFI memory map.
 
-While this is not explicitely written, a caller cannot expect the 
-registers to be preserved by this macro.
+Looking at the code, we have already some boiler plate for x86 to pass 
+the UEFI memory map from the stub to Xen. They would need need to be 
+adjusted for Arm to:
+
+    * Enable ebmalloc() (see TODOs in common/efi/ebmalloc.c)
+    * Switch efi_arch_allocate_mmap_buffer() to use ebmalloc()
+    * Adjust the pointers (see end of the efi_exit_boot()). I think we 
+would want to pass the physical and let the actual Xen to translate to a 
+virtual address
 
 > 
-> I'm also puzzled by the two different memory addressing forms, but I
-> can easily see that I may be lacking enough Arm knowledge there.
+> I would suggest to just increase the existing define to 256 to fix the current issue (which might be encountered by anybody using ACPI) and put a comment in the code for now with a TODO explaining why we currently need such a high value and what should be done to fix this.
 
-I agree this is quite puzzling. The first one would update 'sp' after 
-loading the register but I don't quite understand why it is necessary.
+I am fine with simply bumping the value (the actual array doesn't take a 
+lot of space and will be freed after boot).
 
-Assuming the this is happening before the instruction 'sub sp, sp, ...', 
-then we should only need to load/store from sp with an offset (i.e. the 
-second form).
+Long term, I think it would be better if we start to reduce the number 
+of bootinfo.mem* and removing any hardcoded size.
+
+When using UEFI, we could replace with the UEFI memory map. For non-UEFI 
+DT boot, we would still need to create the memory map by hand to avoid 
+walking the DT every time.
 
 Cheers,
 
