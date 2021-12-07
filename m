@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CCF146B70D
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 10:29:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240782.417507 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB22F46B82B
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 10:56:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240794.417519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muWm6-0005Bl-Lc; Tue, 07 Dec 2021 09:28:38 +0000
+	id 1muXCG-0001B0-S1; Tue, 07 Dec 2021 09:55:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240782.417507; Tue, 07 Dec 2021 09:28:38 +0000
+Received: by outflank-mailman (output) from mailman id 240794.417519; Tue, 07 Dec 2021 09:55:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muWm6-00059W-IZ; Tue, 07 Dec 2021 09:28:38 +0000
-Received: by outflank-mailman (input) for mailman id 240782;
- Tue, 07 Dec 2021 09:28:37 +0000
+	id 1muXCG-000196-Ne; Tue, 07 Dec 2021 09:55:40 +0000
+Received: by outflank-mailman (input) for mailman id 240794;
+ Tue, 07 Dec 2021 09:55:39 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J7u3=QY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1muWm4-000597-UR
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 09:28:37 +0000
+ id 1muXCF-000190-6D
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 09:55:39 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0c8d2c15-5740-11ec-9d12-4777fae47e2b;
- Tue, 07 Dec 2021 10:28:35 +0100 (CET)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2176.outbound.protection.outlook.com [104.47.17.176]) by
+ id d3da8ebc-5743-11ec-9d12-4777fae47e2b;
+ Tue, 07 Dec 2021 10:55:37 +0100 (CET)
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2057.outbound.protection.outlook.com [104.47.12.57]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-29-vxk_XcoNPf2WHUkngk-OEw-1; Tue, 07 Dec 2021 10:28:33 +0100
+ de-mta-40-HdPu2g8gOg6Im6CSo5W4sg-1; Tue, 07 Dec 2021 10:55:35 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6304.eurprd04.prod.outlook.com (2603:10a6:803:fd::14)
+ by VI1PR04MB5599.eurprd04.prod.outlook.com (2603:10a6:803:de::19)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.22; Tue, 7 Dec
- 2021 09:28:32 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Tue, 7 Dec
+ 2021 09:55:34 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4755.023; Tue, 7 Dec 2021
- 09:28:31 +0000
+ 09:55:34 +0000
 Received: from [10.156.60.236] (37.24.206.209) by
- AM6PR04CA0020.eurprd04.prod.outlook.com (2603:10a6:20b:92::33) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.11 via Frontend Transport; Tue, 7 Dec 2021 09:28:30 +0000
+ FR3P281CA0033.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:1c::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
+ Tue, 7 Dec 2021 09:55:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,326 +55,238 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c8d2c15-5740-11ec-9d12-4777fae47e2b
+X-Inumbo-ID: d3da8ebc-5743-11ec-9d12-4777fae47e2b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1638869314;
+	t=1638870936;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=lfcSPe1W1IJzWhvNWEVpuh7t8+DZxBDrBzdcSgNnuys=;
-	b=WKo3Fn8k8l4cfFNssYzktU7IG1sviYp09BTYXjQdITTyVt5p2bIn/hPRZq7pHlXzsA+WC6
-	oiIksPYDQ8oVXIF2V16HQ0/pAhX7I2F9L3G99tDQwTokgdOXXHEsMJkXS6E0RhVYBsSrrK
-	R24gXMsDGfu8B96QbV4RkNQgIxdub04=
-X-MC-Unique: vxk_XcoNPf2WHUkngk-OEw-1
+	bh=Pj/lEd0HsPGhvb13IAIKSMVJynSm0L/NlAWjwyy29PE=;
+	b=fsLs9PswpY5AwJK8rOMKBk5FwEHOCwY6aHWCiLEOGU5rdzfSz9Bqui5BVDfZ9Hfilq6r0E
+	cGb+0pjMRMqtvX64QyCJPB/RzyBd+xG5d0SV6XhHcOfYtBGyJjYKaWS5RT+6YdODn2emVj
+	/oytTOcNHmwmj3wJORWmPnGl9kgyWSE=
+X-MC-Unique: HdPu2g8gOg6Im6CSo5W4sg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RBgAwGH+erjFAl51lYAhaDXaAXIpPMgRtHxQ8HHSo7Cot4S8/4GOOAE6OA9JtzvD16i3krudw1PXnDSEYdiNoOtF5o6yRRnRJ+wyjQFzb6I2o5Lo/beiqkpvt0XXxKhUhKs/DWtDV97Jt1CnfsKYDBjsQ8F0+4nw2+MfPqERX2xrQpV6pAIGD6VKyo2XOxrpIjnioMFdPtDlCJetoIQXEeUA4M+rPfAo2knJQP3IMssBIhbRpWQ8EFelT1iqB06ezO9P8U1iLrXJHPSy7YnGZbicZkKDGgDSyAqd3IC1zXvlhbdfzhCA6jvdGzxclJ9kweMJyv4IeA/SKscVDdfAEA==
+ b=Fs9g4by6A//JyJcsr6/Eg+zfiojOWl51YOB/cVSKhOZlu1MxdIG2UGhaaXfRj6h8CxkR+3RNxplMPExlXIY0mkkDoY6pkO+v2PoZwK8U4hcKBEdz0s3Pp4Cgd2Ze3uFKY0rwaCL01twLQeqWwF4JyzTP1Sy8olSXJgfMFerbLYwxfQKcxxJQLSv9GmhemDmgbwlG+E5DDyE0lhGNzIDWEJMimKUARp6az8BTf+9qgGon/RUtmM8fLBHl9ZyrTOMhEjvU38fEq+46B+l5QaTdHijiS9+iQOdFZn1uR8++dgd5ZnfccVZdKayF2gQ0mpmmcnBnv4p/5srQTV7tDjkd7A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JiteJttIURtn9v2zxI5oX4XFbu5Jd/LPlFnN4ErCAAs=;
- b=akBFeAw7e0MinXpHAHUWzSUtA9q+HYp9jKrPrFr5pv0fJJVAa0PPs01SrhShzXU/NjYgj0NccY78y1JF6vVBcIXjkcrvwMY3SwwAuBB9xc8tN0wfpn+zJ1BX1ga9+jh4403w5oAazACPWhTknfl9iHnN5pB5PxXEwaGBrXHBx7IAnCvaxscJ2dHlBJwmq3zVc5u7C5uSJZRM6sH5/ekwzcZdRmXnqZAcBh6OpD4tEF7yT7UqIiq5XRipwin2Jh8V0bDRywOGurspzJ67U+IUtwyoIIgh4OzsK1brz0Pu7pj7GHJ3fFkipS6lwie5VzWvqN8PVLP7GiUp2c189dRUfw==
+ bh=0KlHYmbH61dD+K/LUDBrR1FbJ+1p6kbQA6hhQnRTe8s=;
+ b=i5aQ82rsOy0wlaP3UEdfmoLwg3W/p8ClqL3ku62AVS2YmhGhGNOhrxFbOEpqiTGm2uv9fNLDy1/uDOehNy383qN1fOlqnXjaUpwm5dj0kE2ZTaSwW7le4Cui854N1kGLzC+NqrDW41SSTv86+PzwOMnsSVULG9fj7s4h2cPswmSHRY5rHmhSlWof2qko2ff1jLXOVhPmvGdS6/5Klcg1igpzO+9trTpv1QsiQSEDuzM+2LyF3AA2xj1EEIMYZVuc6QKgWPUHOfMwkXUA6/CmsjJc6ZYsxPG7+Wbta6ifDVML56MgGfNMhwQwZlTKbAE/G90INa/bPRq9T1goPrlCag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <50a8c9c3-9d44-1cd3-d456-a78a03835799@suse.com>
-Date: Tue, 7 Dec 2021 10:28:23 +0100
+Message-ID: <086feb9a-7d6b-3797-3643-1b4474e4a420@suse.com>
+Date: Tue, 7 Dec 2021 10:55:32 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.3.2
-Subject: Re: [PATCH v3 01/10] xen: introduce XEN_DOMCTL_CDF_INTERNAL_directmap
+Subject: Re: [PATCH] xen/arm64: Zero the top 32 bits of gp registers on
+ entry...
 Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>
-CC: Wei Chen <Wei.Chen@arm.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <Michal.Orzel@arm.com>, "julien@xen.org" <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20211116052506.880728-1-penny.zheng@arm.com>
- <20211116052506.880728-2-penny.zheng@arm.com>
- <DU2PR08MB7325137A71A2D7277F1A1650F76E9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+To: Michal Orzel <michal.orzel@arm.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Julien Grall <julien@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20211206142032.27536-1-michal.orzel@arm.com>
+ <f3573439-4893-440f-54e1-fdeba3eb4508@xen.org>
+ <dc114877-b9da-7a5b-260d-b9438cddd777@arm.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <DU2PR08MB7325137A71A2D7277F1A1650F76E9@DU2PR08MB7325.eurprd08.prod.outlook.com>
+In-Reply-To: <dc114877-b9da-7a5b-260d-b9438cddd777@arm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6PR04CA0020.eurprd04.prod.outlook.com
- (2603:10a6:20b:92::33) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0033.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::12) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 97822326-73a5-4dbb-84cf-08d9b963ef3e
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6304:EE_
+X-MS-Office365-Filtering-Correlation-Id: d13bca8e-fe16-449c-5103-08d9b967b66f
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5599:EE_
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB63044BCC594BB552D98A1717B36E9@VI1PR04MB6304.eurprd04.prod.outlook.com>
+	<VI1PR04MB55994B528B7E83873F3331E9B36E9@VI1PR04MB5599.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	LnWrOc/waiwiMhMMnB0P6Te9SGz3+6efik7gyp0m3dlkhYfoLMUZGL01MPzF4Tkg+1be0/tUw4VnEZOz7Du1bpTxBxYn4uriYtx6asUxSgyOkT82p2nJR6VnYTpE3XwUKEeRplEK9rk/uhL84sQEYBefI5x5cXBSBfEzXUqQebcfXlY9zZgujLFpyN/z8OOWCuO75Jvxz5gZj6SJSweYlJXEMUpacutjdlX3AEJVXohh2MYwt/jYqbMMf1bj9yZdMJNn9D2yj2Z3PfgUVfA/f24Doe7l1ZhYArZdHDmR0kLRkIcvl8OGplUyDdT8FefCrw3LH11fOw9mCaQ0cREgWSof/n3q6nKQZv74rLkTVZuftf53/WhlXqQ7UZ5SsL85T6H7Sgv5hmAKKcnvWHu4PWBrSfOYmWPaoCwNbRwqzxuYYuVW2dqolNaVpZHYcEZMI3axrYZLMtgsJjv8TJyvfB+1ThslbRldtHMHscUT78wbExbzPVl7e2yyKXb57on/BbhpFHgwO6jb8obG50E1M91AAKsD3w1NWw7COuvOjdgX4BTjZac7DiQg7jvmOUg2Fm42LuQ+wAFpiD99sYZq8739BGcM60MAzfgtbygjnJcf1UH04m5eM0tlZ/x7ZdZ4IkAmDkJO8OXLK21Uk5g/1A5O0v3hAh4QcWdkmGpRhdEPvjI5m09kWRG4tAGBesnLLj6Qcmil8shmpv6c9YGMm/QQoHInf2DA4sKkvTTnbX0D6D6v4PhsDAGULIjN6Bafo77Tk0LA2E26856Vbnc7kxWFFgbNOpkHJ1lmcWntHGQptRvC/jjLAO8WhE3NAZQ8DoBe0A4Xt6RN/MSoFbC8rw==
+	HDI3WA9ezf+cHfYOFBl8SgFEbq0Ab2nxNqDyDOOdufkvKxaDWsqH4ZfYIv6ZEhbLezMOa+nTt9yUAJTG8nUQp3WM0cNtDOw/s6GBIMLRRe9+jvAqxc6hS+N0R3TRTAvw7tY0xBRxKG+3yBA6oLHS3G0N37gDjQUEq5rw8v49cL9bu1Ys5iLgZDAVxUaLgatxrxIt4g7dzXdHg0kg4SGHIqIN7sYjDhuiWQD9KezujtkjIdwl1SoXJ3X/K+WC2P8WJ1cREP85wF+krAuEG5/ebnNFd2xY8u0q/x2IF6wbhIKsYKomly7gT/JiZ7dAXwtdB9XWho+8vbJEDFeAPBvQKHXT+OpX6SvlgyszDp0ttNxoqXzDxHsYL2p5MeyqnjAUAChvg06me7sRGxBdVgaHLvvcAcc5uSxKguhG+LBoE/Q4RIN8MAlVRre6m6u69lA4smYjWBPVmqi12Gy083wMtwUv+15/sxS3Dez8YLQkrBZVSHtXyMDqyL8FNWOr4ylD99ETHhTHI5S1NyEoeLzK6eTlnJaZVGsMBzo9mubNiNrYtykHol7hza7Pkz/7pgN/DI0Q3+x9Ha3uELY4OGrVLFVSKAcRqjFlKVWHH8Nrqw2GlnyPQUKHpEmdzngaexIcdDnO6uW/icE19OVwLpDYUZrzbSnd4o17yM4RQw/cVKdO/cgvit6bHaSHBhGzy40vhU/3ZTdoJcMsPEPUBwFfPrdUvwe+eOIwOwr+/YvVo5U=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8676002)(5660300002)(6486002)(36756003)(31686004)(66556008)(8936002)(31696002)(38100700002)(316002)(16576012)(54906003)(2616005)(86362001)(66476007)(66946007)(956004)(26005)(966005)(4326008)(53546011)(6916009)(2906002)(508600001)(6666004)(186003)(83380400001)(21314003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8936002)(4326008)(508600001)(6916009)(66556008)(66476007)(66946007)(26005)(8676002)(86362001)(5660300002)(186003)(16576012)(2906002)(31686004)(316002)(83380400001)(38100700002)(6486002)(2616005)(36756003)(956004)(54906003)(53546011)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cI6ehfjnwfQtWbYCMhq0ToRKDTq9cFzpHUSc6nKLeeYmpHkxRhkq9qlWshY0?=
- =?us-ascii?Q?LOFW3FYDreoh8FlXszcxnsgyxhdVnKT7+tqMopwQMUjyTKkPkuArx6KjAAd9?=
- =?us-ascii?Q?LIh9HYhs+Lq+R+UhPKrSBmY06bJ25fA38IPnotyGIr1DOdPMNQhYvAqeQ0Nb?=
- =?us-ascii?Q?r6qOXVJs7NfsEzPlw9NJ1HjiPFmFi5H2uzqgfCbsbY13Ilq60hxL58EqG0ct?=
- =?us-ascii?Q?xqqElHF09SkfuFicgYQaqIny0uoZDduUJo0tFG1biy+/gukLVRN+K4xBEA61?=
- =?us-ascii?Q?1rIxguXEOEC3G6p6Js0gdvtux1avdPQ3kQMon1rwtgW/uAYUN8uH3B7VLNx9?=
- =?us-ascii?Q?LoU8DCgzjkkhofyOc+agF8mGgF+whX9TGfg5GUAAjJQEYkm9cBlVUoVIXa+t?=
- =?us-ascii?Q?A+crqS0Hm/ddVvcYDGohHtH3DVgy+cX/mwbpl9KWd5zI8Ph1q4HpyIjl5cek?=
- =?us-ascii?Q?fOraDgFPqHwEBKiUJX6bQA+vn2OPwSLvYr5/B2NZ5NVFtRY1PyeKVmoapdXq?=
- =?us-ascii?Q?6bFCMgKatn1XW0v2xGdElpxbtJ76towHESNQe5YlDtXTXglpqhCjyap0mRHn?=
- =?us-ascii?Q?Lq8rfGB4FSrJQkclD347LJanCwXVF+lKwdpw1ibgB8dhPang8oFD6YdqON+t?=
- =?us-ascii?Q?MLzbDgOfbwa8Y8Z/+vPNhLZKVF4GZK1hIIBB/IfkR+WFI2iLuRHuEStDthiD?=
- =?us-ascii?Q?Lgl8oA8/5rtSOrF0euZ8CNnmNGXW4VHjpag28GKRnNn64xA8/yg7KPfb+k3e?=
- =?us-ascii?Q?XFxYKEskaa3b5xO761UmEfhJvRlafWsWH5bkW/kg7LI3JHsQttpp169Fq9+H?=
- =?us-ascii?Q?xlKftuogbvGtJIvgKXDUt3P3urFXchXbct2PbOEMDtJFUzhnAx5EHD6cb/nD?=
- =?us-ascii?Q?1ZAaCo6WXtTJiz34GR8neeCkxi17MMSiuYYApLxOd6dhf2do8chnO8G6DCY0?=
- =?us-ascii?Q?j4Yiikyr1Mqdms9jGNAs6buxb+p6bHRD9lrs7pLZmMDQepOlkh5rCeiKB6fT?=
- =?us-ascii?Q?pB8+u4no+y/hOIvi9X6ToZc+k3l/n/XKqYnterId6xYzry590nIq/q0EfPcl?=
- =?us-ascii?Q?Dp437X339aBEFaDzGEu5H9dR04YHXEq5oDk7+iACE62yoIQ8v0AKmL/cFchn?=
- =?us-ascii?Q?2+SfjUwuTcxWoJg+tMzJVm8ZaQ8jKUWZY9sgxQQQZn6gyud5xlVPqKcDw6Ri?=
- =?us-ascii?Q?q4idTVITG+foaSWvHeIqhrqWmdGUJuGUWQ7NAaldfMsX48hVVRwz6Keunwa+?=
- =?us-ascii?Q?34NeMTj9dz/VW83eP5fqTsWjwi5m8Yi+h1S6hUsO/etYfA0ZdbHPQ3BrNt47?=
- =?us-ascii?Q?9zDA4AcVNxaCvz9e32hp6VKn0UOWIPNHZCgFmtsdJUD+r6FIlaK0Q0aezn5n?=
- =?us-ascii?Q?v9wxgs7R0m7+ksU32IjNpCxO/YsOGfrdk0Wf0T1/01TsxvE2xeHnkrFIbhgs?=
- =?us-ascii?Q?Iy2HhiVd8viwofQvVKafkawVAtYDe+JFmcid/+3gjOuTOR85iRxiiC2gN3+y?=
- =?us-ascii?Q?YcUYKlCXizCwc3yWAcN40mxqz2m25sv6FndsWg9Y7+tTQtldIohABmwysgm+?=
- =?us-ascii?Q?XE297KPyDudMJqSET2hmVZmS/0sTA/CepMiV/XOlnaGNE+sgoZDzJkv3+Yxp?=
- =?us-ascii?Q?mJjWLCsK2SzkX8rc8rAycKM=3D?=
+	=?us-ascii?Q?cwAwcfwiGt6Z09OtGa2Rjd0LtGZCnBUHqLloyAOfk14tdXdhp7cp8iWIuLfL?=
+ =?us-ascii?Q?oME67i/XfGAZQU3Up6De/M3MqsRYLYtb7X25/XbS0e5wGUn7EhOy/jh1/fkn?=
+ =?us-ascii?Q?fbm/VAyWR/ADGyd4Utfyd+BGXZmqE+X51OWQtXIAs1b7MffXG9TgCmGrJTj1?=
+ =?us-ascii?Q?VLDoBJwWWbbpUdSPBrIClIfUx6O/9lBBw3xG2J6qHN3zIji5xbLE3kkvb9Dq?=
+ =?us-ascii?Q?FJ3t82mickjZdZqxwcLqfmgPlYWZRBJoOQVxvj8z7aYrV4Lb+En3IxQqmXd2?=
+ =?us-ascii?Q?mg9tomCRe6/YkuDY0U2fh2rPXIjqILx4K0tXLtO/Y0qRMR+BusKdsmyvIdZ1?=
+ =?us-ascii?Q?qGJl9yoUfsg40KlAsXiZXiB7MFQOjGyNGN7gkPmvWTApgJsCdzD7W6JaBH03?=
+ =?us-ascii?Q?EDFOydKOvZ0a88A8BZg1zfXrGOAt5K5COUi2+D3Zslb00ljhbokmsDn+CINb?=
+ =?us-ascii?Q?cnwQxMnv2DoI+GwwkD/yfRwg9XmM5a7AdRxwwOE4dUrpAfefvbYU9K4B2y6M?=
+ =?us-ascii?Q?2bD+v984Nwe8SPBvsbr2tmmMBKaT4hCIeCC4PJY8aThHf3Z9w4oB4UTWFzSZ?=
+ =?us-ascii?Q?o3rvFkM7aKOtWu0kcN5U3QhkWoLH3hM9xanTHS2Zb2Bnu/0xUwP5hZZD9aVk?=
+ =?us-ascii?Q?IzfJjiOSY4I5t2MPZ9M1WlEYpXAWIDL6RvVXnZtMlLEHXkfvmA6umcYy5ESB?=
+ =?us-ascii?Q?kzCPFJ7uVwD/1K+BXmP715NE8pvqhNkBkzLNuGGmByO8q9ZQj5jCHUgb+3d6?=
+ =?us-ascii?Q?ici3bl1RUJBfWcUVMImUSQgXY2oDJqvZHnrt93iydTjN3y7uE2SYkMRf8zYa?=
+ =?us-ascii?Q?O7nN3vNpGXbWy4np5a4f2/i/yxOabnqQSu0Fe03h0UDToEZrdAGdDp/kHyS5?=
+ =?us-ascii?Q?+Su3xyRQHilYRBxL6bSL2I8hGWyq30kWOHR40SpuxPGhA4w3IyJChyklAyfM?=
+ =?us-ascii?Q?MvMj+M6pY0pdbHiCf+4W6/UHJtI3hioQ9AiYvMmPOpMSyEHFprUvdjPrIyBR?=
+ =?us-ascii?Q?zhG8YqRnYCxsz/QZf4RqP5McQHlJnXGQQNGC3a0eNSWQg/uU1Xo3BuS6eUqG?=
+ =?us-ascii?Q?4/iPviGQ8KC9QaBCtgLf282RFy8iV0r1YmUDM0NeINiD5V/XTVigP93FMkhc?=
+ =?us-ascii?Q?SRrcdrd3MDqTij6fV+YLjkPguPfxeuTTr6+wbwJF73kDhuZ+Q2ANc4ORLGJq?=
+ =?us-ascii?Q?EpMjEZXStE7YN0TTEYE6IL2DxnIHHaWXbH7HYOv61WcPNX9rK+cGHMlbFrV4?=
+ =?us-ascii?Q?uOfmiBeURPLsmrzW052PtvwOGw3yTm8WbDnYgXDeBGq9HKi3cRMDDEt3Wi6l?=
+ =?us-ascii?Q?c1l4NL7KvqLo4WoSV9pW+5ZJ0FDhoJMcQCebP0J91iDQxjjepd6mAA820VqX?=
+ =?us-ascii?Q?mXCJDuRcjxWyu1AUTwvqxATQbwDXAHeXkHJrf0jod44gR7gQOgM/eQGTQBKK?=
+ =?us-ascii?Q?aVSIJXfF21fkEAc38dX19TZ2iLncuGstm1j3A8N4FogmWs8j1xw2vn7+Q6x4?=
+ =?us-ascii?Q?7diB1t1Z72LmAqTs3uUsTdxolkRVV05v+FGP9BSgf7ogfSoz40uO4GboFSE8?=
+ =?us-ascii?Q?QBvHVPInzI5T1yIcP6TG8KTK5GvQlt3OY6zgrd7PRfApb5gfX45XekuPVOkZ?=
+ =?us-ascii?Q?qqftl7hA8qMJ5VAhB7YkOTo=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97822326-73a5-4dbb-84cf-08d9b963ef3e
+X-MS-Exchange-CrossTenant-Network-Message-Id: d13bca8e-fe16-449c-5103-08d9b967b66f
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2021 09:28:31.8517
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Dec 2021 09:55:34.5003
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZbaCD28dTVHJz+rM3Q3pq7BC7Et3GPbdqBwtCD/WhgwctgVgCi1wXPbmrkZkC8JOxiru4QsvOJrmHupCEVr/8w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6304
+X-MS-Exchange-CrossTenant-UserPrincipalName: MgQz/pHFGeUVgap+IlAY66ZZjwc2+KjH5S3PsM81vUTfp06PQWPtvojHrKsw467K3WPty2E/WMu1mLFhqbAgoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5599
 
-On 07.12.2021 10:15, Penny Zheng wrote:
-> Hi guys
->=20
->> -----Original Message-----
->> From: Penny Zheng <penny.zheng@arm.com>
->> Sent: Tuesday, November 16, 2021 1:25 PM
->> To: Penny Zheng <Penny.Zheng@arm.com>
->> Cc: nd <nd@arm.com>
->> Subject: [PATCH v3 01/10] xen: introduce
->> XEN_DOMCTL_CDF_INTERNAL_directmap
+On 07.12.2021 09:37, Michal Orzel wrote:
+> On 06.12.2021 16:29, Julien Grall wrote:
+>> On 06/12/2021 14:20, Michal Orzel wrote:
+>>> to hypervisor when switching to AArch32 state.
+>>>
+> I will change to "from AArch32 state".
+>>> According to section D1.20.2 of Arm Arm(DDI 0487A.j):
+>>> "If the general-purpose register was accessible from AArch32 state the
+>>> upper 32 bits either become zero, or hold the value that the same
+>>> architectural register held before any AArch32 execution.
+>>> The choice between these two options is IMPLEMENTATIONDEFINED"
 >>
->> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+>> Typo: Missing space between IMPLEMENTATION and DEFINED.
 >>
->> This commit introduces a new arm-specific flag
->> XEN_DOMCTL_CDF_INTERNAL_directmap to specify that a domain should
->> have its memory direct-map(guest physical address =3D=3D physical addres=
-s) at
->> domain creation.
+> Ok.
+>>>
+>>> Currently Xen does not ensure that the top 32 bits are zeroed and this
+>>> needs to be fixed.
 >>
->> Since this flag is only available for domain created by XEN, not exposed=
- to the
->> toolstack, we name it with extra "INTERNAL" to distinguish from other pu=
-blic
->> XEN_DOMCTL_CDF_xxx flags, and add comments to warn developers not to
->> accidently use its bitfield when introducing new XEN_DOMCTL_CDF_xxx flag=
-.
+>> Can you outline why this is a problem and why we need to protect? IIRC, =
+the main concern is Xen may misinterpret what the guest requested but we ar=
+e not concerned about Xen using wrong value.
 >>
->> Refine is_domain_direct_mapped to check whether the flag
->> XEN_DOMCTL_CDF_INTERNAL_directmap is set.
+> I would say:
+> "
+> The reason why this is a problem is that there are places in Xen where we=
+ assume that top 32bits are zero for AArch32 guests.
+> If they are not, this can lead to misinterpretation of Xen regarding what=
+ the guest requested.
+> For example hypercalls returning an error encoded in a signed long like d=
+o_sched_op, do_hmv_op, do_memory_op would return -ENOSYS
+> if the command passed as the first argument was clobbered,
+> "
+>>>
+>>> Fix this bug by zeroing the upper 32 bits of these registers on an
+>>> entry to hypervisor when switching to AArch32 state.
+>>>
+>>> Set default value of parameter compat of macro entry to 0 (AArch64 mode
+>>> as we are on 64-bit hypervisor) to avoid checking if parameter is blank
+>>> when not passed.
 >>
->> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
->> ---
->> CC: andrew.cooper3@citrix.com
->> CC: jbeulich@suse.com
->> CC: George Dunlap <George.Dunlap@eu.citrix.com>
->> CC: Ian Jackson <ian.jackson@eu.citrix.com>
->> CC: Wei Liu <wl@xen.org>
->> CC: "Roger Pau Monn=C3=A9" <roger.pau@citrix.com>
->> ---
->> v2 changes
->> - remove the introduce of internal flag
->> - remove flag direct_map since we already store this flag in d->options
->> - Refine is_domain_direct_mapped to check whether the flag
->> XEN_DOMCTL_CDF_directmap is set
->> - reword "1:1 direct-map" to just "direct-map"
->> ---
->> v3 changes
->> - move flag back to xen/include/xen/domain.h, to let it be only availabl=
-e for
->> domain created by XEN.
->> - name it with extra "INTERNAL" and add comments to warn developers not =
-to
->> accidently use its bitfield when introducing new XEN_DOMCTL_CDF_xxx flag=
-.
->> - reject this flag in x86'es arch_sanitise_domain_config()
->> ---
->>  xen/arch/arm/domain.c        | 3 ++-
->>  xen/arch/arm/domain_build.c  | 4 +++-
->>  xen/arch/x86/domain.c        | 6 ++++++
->>  xen/common/domain.c          | 3 ++-
->>  xen/include/asm-arm/domain.h | 4 ++--
->>  xen/include/public/domctl.h  | 4 ++++
->>  xen/include/xen/domain.h     | 3 +++
->>  7 files changed, 22 insertions(+), 5 deletions(-)
+>> Which error do you see otherwise? Is it a compilation error?
 >>
->> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c index
->> 96e1b23550..d77265c03f 100644
->> --- a/xen/arch/arm/domain.c
->> +++ b/xen/arch/arm/domain.c
->> @@ -629,7 +629,8 @@ int arch_sanitise_domain_config(struct
->> xen_domctl_createdomain *config)  {
->>      unsigned int max_vcpus;
->>      unsigned int flags_required =3D (XEN_DOMCTL_CDF_hvm |
->> XEN_DOMCTL_CDF_hap);
->> -    unsigned int flags_optional =3D (XEN_DOMCTL_CDF_iommu |
->> XEN_DOMCTL_CDF_vpmu);
->> +    unsigned int flags_optional =3D (XEN_DOMCTL_CDF_iommu |
->> XEN_DOMCTL_CDF_vpmu |
->> +                                   XEN_DOMCTL_CDF_INTERNAL_directmap);
->>
->>      if ( (config->flags & ~flags_optional) !=3D flags_required )
->>      {
->> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->> index 19487c79da..664c88ebe4 100644
->> --- a/xen/arch/arm/domain_build.c
->> +++ b/xen/arch/arm/domain_build.c
->> @@ -3089,8 +3089,10 @@ static int __init construct_dom0(struct domain *d=
-)
->> void __init create_dom0(void)  {
->>      struct domain *dom0;
->> +    /* DOM0 has always its memory direct-map. */
->>      struct xen_domctl_createdomain dom0_cfg =3D {
->> -        .flags =3D XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
->> +        .flags =3D XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
->> +                 XEN_DOMCTL_CDF_INTERNAL_directmap,
->>          .max_evtchn_port =3D -1,
->>          .max_grant_frames =3D gnttab_dom0_frames(),
->>          .max_maptrack_frames =3D -1,
->> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c index
->> ef1812dc14..eba6502218 100644
->> --- a/xen/arch/x86/domain.c
->> +++ b/xen/arch/x86/domain.c
->> @@ -692,6 +692,12 @@ int arch_sanitise_domain_config(struct
->> xen_domctl_createdomain *config)
->>          return -EINVAL;
->>      }
->>
->> +    if ( config->flags & XEN_DOMCTL_CDF_INTERNAL_directmap )
->> +    {
->> +        dprintk(XENLOG_INFO, "direct-map cannot be enabled yet\n");
->> +        return -EINVAL;
->> +    }
->> +
->>      return 0;
->>  }
->>
->> diff --git a/xen/common/domain.c b/xen/common/domain.c index
->> 56d47dd664..13ac5950bc 100644
->> --- a/xen/common/domain.c
->> +++ b/xen/common/domain.c
->> @@ -486,7 +486,8 @@ static int sanitise_domain_config(struct
->> xen_domctl_createdomain *config)
->>           ~(XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap |
->>             XEN_DOMCTL_CDF_s3_integrity | XEN_DOMCTL_CDF_oos_off |
->>             XEN_DOMCTL_CDF_xs_domain | XEN_DOMCTL_CDF_iommu |
->> -           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpmu) )
->> +           XEN_DOMCTL_CDF_nested_virt | XEN_DOMCTL_CDF_vpmu |
->> +           XEN_DOMCTL_CDF_INTERNAL_directmap) )
->>      {
->>          dprintk(XENLOG_INFO, "Unknown CDF flags %#x\n", config->flags);
->>          return -EINVAL;
->> diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
->> index 9b3647587a..4f2c3f09d4 100644
->> --- a/xen/include/asm-arm/domain.h
->> +++ b/xen/include/asm-arm/domain.h
->> @@ -29,8 +29,8 @@ enum domain_type {
->>  #define is_64bit_domain(d) (0)
->>  #endif
->>
->> -/* The hardware domain has always its memory direct mapped. */ -#define
->> is_domain_direct_mapped(d) is_hardware_domain(d)
->> +#define is_domain_direct_mapped(d) \
->> +        (d->options & XEN_DOMCTL_CDF_INTERNAL_directmap)
->>
->>  struct vtimer {
->>      struct vcpu *v;
->> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h i=
-ndex
->> 1c21d4dc75..054e545c97 100644
->> --- a/xen/include/public/domctl.h
->> +++ b/xen/include/public/domctl.h
->> @@ -72,6 +72,10 @@ struct xen_domctl_createdomain {
->>  #define XEN_DOMCTL_CDF_nested_virt    (1U <<
->> _XEN_DOMCTL_CDF_nested_virt)
->>  /* Should we expose the vPMU to the guest? */
->>  #define XEN_DOMCTL_CDF_vpmu           (1U << 7)
->> +/*
->> + * Be aware that bit 8 has already been occupied by flag
->> + * XEN_DOMCTL_CDF_INTERNAL_directmap, defined in
->> xen/include/xen/domain.h.
->> + */
->>
->>  /* Max XEN_DOMCTL_CDF_* constant.  Used for ABI checking. */  #define
->> XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_vpmu diff --git
->> a/xen/include/xen/domain.h b/xen/include/xen/domain.h index
->> 160c8dbdab..2b9edfdcee 100644
->> --- a/xen/include/xen/domain.h
->> +++ b/xen/include/xen/domain.h
->> @@ -28,6 +28,9 @@ void getdomaininfo(struct domain *d, struct
->> xen_domctl_getdomaininfo *info);  void arch_get_domain_info(const struct
->> domain *d,
->>                            struct xen_domctl_getdomaininfo *info);
->>
->> +/* Should domain memory be directly mapped? */
->> +#define XEN_DOMCTL_CDF_INTERNAL_directmap      (1U << 8)
->> +
->=20
-> I run into some trouble with defining this flag internal in the new serie=
-.
->=20
-> Let me explain in details here:
->=20
-> 1. Currently XEN_DOMCTL_CDF_MAX is set to XEN_DOMCTL_CDF_vpmu.
-> So we can say that XEN_DOMCTL_CDF_MAX knows that there are 8 CDF flags(0 =
-to 7).
-> The corresponding ocaml tool has a list of CDF flags and currently it kno=
-ws that there are 8 CDF flags:
-> https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dblob;f=3Dtools/ocaml/libs=
-/xc/xenctrl.ml;h=3D7503031d8f61c2dbcd4aa803738c83e10dfb7bb8;hb=3DHEAD#l64=20
-> This tool performs a check to see if the XEN_DOMCTL_CDF_MAX is equal to t=
-he number of entries in domain_create_flag.
->=20
-> 2. Here we are reserving bit 8 for internal flag XEN_DOMCTL_CDF_INTERNAL_=
-directmap. As this is internal flag,
-> I do not want to modify XEN_DOMCTL_CDF_MAX.
->=20
-> 3. Everything is perfect until someone tries to add another global CDF fl=
-ag:
->=20
-> #define XEN_DOMCTL_CDF_next_flag  (1<<9)
-> #define XEN_DOMCTL_CDF_MAX XEN_DOMCTL_CDF_next_flag
->=20
-> XEN_DOMCTL_CDF_MAX shows right now that there are 10 flags but ocaml tool=
- sees only 9.
-> then we are getting build error.
->=20
-> Hmm, would you please help me find a way to fix this dilemma, thx.
+> Yes, this is a compilation error. The errors appear at each line when "en=
+try" is called without passing value for "compat".
+> So basically in all the places where entry is called with hyp=3D1.
+> When taking the current patch and removing default value for compat you w=
+ill get:
+> ```
+> entry.S:254: Error: ".endif" without ".if"
+> entry.S:258: Error: symbol `.if' is already defined
+> entry.S:258: Error: ".endif" without ".if"
+> entry.S:262: Error: symbol `.if' is already defined
+> entry.S:262: Error: ".endif" without ".if"
+> entry.S:266: Error: symbol `.if' is already defined
+> entry.S:266: Error: ".endif" without ".if"
+> entry.S:278: Error: symbol `.if' is already defined
+> entry.S:278: Error: ".endif" without ".if"
+> entry.S:292: Error: symbol `.if' is already defined
+> entry.S:292: Error: ".endif" without ".if"
+> entry.S:317: Error: symbol `.if' is already defined
+> entry.S:317: Error: ".endif" without ".if"
+> ```
 
-This was already outlined, but let me do so again: You do _not_ want to
-overlay with XEN_DOMCTL_CDF_*. domain_create() already has an internal-
-only parameter. That's a "bool" right now and wants extending to an
-"unsigned int" covering both the existing "is_priv" (step 1) and your
-new "directmap" (step 2). To make visible the relationship, naming the
-respective constants CDF_* (with no XEN_DOMCTL_ prefix to represent the
-difference) might be appopriate.
+An alternative might be to use
 
-Btw, as a result (if that's not the plan already anyway) you then
-probably also want to decouple is_domain_direct_mapped() from
-is_hardware_domain(), and hence create Dom0 also with the new flag set.
+.if 0\compat
+
+>>> --- a/xen/arch/arm/arm64/entry.S
+>>> +++ b/xen/arch/arm/arm64/entry.S
+>>> @@ -109,8 +109,16 @@
+>>> =C2=A0=C2=A0 * If 0, we rely on the on x0/x1 to have been saved at the =
+correct
+>>> =C2=A0=C2=A0 * position on the stack before.
+>>> =C2=A0=C2=A0 */
+>>> -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .macro=C2=A0 entry, hyp, co=
+mpat, save_x0_x1=3D1
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .macro=C2=A0 entry, hyp, co=
+mpat=3D0, save_x0_x1=3D1
+>>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sub=C2=A0=C2=A0=
+=C2=A0=C2=A0 sp, sp, #(UREGS_SPSR_el1 - UREGS_LR) /* CPSR, PC, SP, LR */
+>>> +
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Zero the upper 32 bits o=
+f the registers when switching to AArch32 */
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .if \compat =3D=3D 1=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 /* AArch32 mode */
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .irp nr,0,1,2,3,4,5,6,7,8,9=
+,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mov w\nr, w\nr
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .endr
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .endif
+>>
+>> So Jan mentioned, the x0/x1 may have already been saved. So you may need=
+ to fetch them from the stack and then clobber the top 32-bit.
+>>
+> So I would do the following:
+> -fetch x0/x1 from the stack
+> -clobber them
+> -store them again on the stack
+>=20
+> /*
+>  * Zero the upper 32 bits of the gp registers when switching
+>  * from AArch32.
+>  */
+> .if \compat =3D=3D 1      /* AArch32 mode */
+>=20
+> /* x0/x1 have already been saved so fetch them to zero top 32 bits */
+> .if \save_x0_x1 =3D=3D 0
+> ldp     x0, x1, [sp], #(UREGS_kernel_sizeof - UREGS_X0)
+> .endif
+>=20
+> .irp nr,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,=
+25,26,27,28,29
+> mov w\nr, w\nr
+> .endr
+>=20
+> .if \save_x0_x1 =3D=3D 0
+> stp     x0, x1, [sp, #-(UREGS_kernel_sizeof - UREGS_X0)]
+> .endif
+>=20
+> .endif
+
+Wouldn't it be more efficient to store 32 bits of zero each into the
+high halves of the respective stack slots? Afaict same code size, but
+less memory / cache traffic. Plus it would avoid the latent issue of
+a user of the macro actually expecting the two registers to retain
+their values across the macro invocation.
+
+I'm also puzzled by the two different memory addressing forms, but I
+can easily see that I may be lacking enough Arm knowledge there.
 
 Jan
 
