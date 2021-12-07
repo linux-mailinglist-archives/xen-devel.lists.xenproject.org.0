@@ -2,44 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C426D46BAE5
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 13:17:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241041.417856 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3764646BB9B
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 13:47:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241051.417867 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muZPS-0007dk-TM; Tue, 07 Dec 2021 12:17:26 +0000
+	id 1muZrV-0003jd-95; Tue, 07 Dec 2021 12:46:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241041.417856; Tue, 07 Dec 2021 12:17:26 +0000
+Received: by outflank-mailman (output) from mailman id 241051.417867; Tue, 07 Dec 2021 12:46:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muZPS-0007bV-PB; Tue, 07 Dec 2021 12:17:26 +0000
-Received: by outflank-mailman (input) for mailman id 241041;
- Tue, 07 Dec 2021 12:17:25 +0000
+	id 1muZrV-0003hi-5f; Tue, 07 Dec 2021 12:46:25 +0000
+Received: by outflank-mailman (input) for mailman id 241051;
+ Tue, 07 Dec 2021 12:46:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=myTo=QY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1muZPR-0007bP-6a
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 12:17:25 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=vuaW=QY=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1muZrT-0003hc-Na
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 12:46:23 +0000
+Received: from galois.linutronix.de (galois.linutronix.de
+ [2a0a:51c0:0:12e:550::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a27450cc-5757-11ec-a831-37629979565c;
- Tue, 07 Dec 2021 13:17:24 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 01A0C21B3D;
- Tue,  7 Dec 2021 12:17:24 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A2B1113A42;
- Tue,  7 Dec 2021 12:17:23 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2BiyJNNQr2FeJwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 12:17:23 +0000
+ id ad2b5d62-575b-11ec-a831-37629979565c;
+ Tue, 07 Dec 2021 13:46:21 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,181 +37,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a27450cc-5757-11ec-a831-37629979565c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638879444; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+X-Inumbo-ID: ad2b5d62-575b-11ec-a831-37629979565c
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1638881179;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fxyGg2MrI5Rj6EaGs0Qh+qEmyL4s9xxHME6B2cp21bo=;
-	b=P+MUu7r3BrZ2zeG21ME+ryCDuoevVwxkAS5gnYFiN4waASsbkvyJMMOcLmDw/krI7llOib
-	WB4i9Jv/84Li6b4JVHC9HVdhC8t7Mr2xdwH4bQDqThLiO0Xdl7QpqFXTmm7kPCavvYYTHR
-	5H1yN8jwe260RDBo+3BKHohVh+LNo4Y=
-Subject: Re: [XEN PATCH 40/57] libs: rename LDUSELIBS to LDLIBS and use it
- instead of APPEND_LDFLAGS
-To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@gmail.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-41-anthony.perard@citrix.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <468bb631-f18f-32ac-72ad-1c6943d48221@suse.com>
-Date: Tue, 7 Dec 2021 13:17:22 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+	bh=QKzQcfpFrakF1gaQnErus44+ZE9ndLllCgtGuvnr0lo=;
+	b=zkOUIyV/MINXrUxqZ9LTk6Hht+Xmk8q0kbB/5Y19WuZGmYCp1YnKcRHA/Ud2ZzNf0tBhD1
+	5ewm51F2t/LbVeitPsQv0NzSQYvxBgYBwS2c0MPgw3mJzPZAZ6q2GBlz1ILLKxM7NY+q56
+	y6FO2Jf6F60qKB/xuNibwDIcpP0cREBO9k1rd9lF2bKMpcZfrjSZUCAv611PzYSfI9kaYD
+	ozerFcwa3CJXVTsQElTER2+/qf7c08a86zn5ZozkKNQ9QsA7UC2wyWhtESX00QKpP6+lNz
+	FelqwJ4Bd7vCMzYyeRjT3d7rSGV/Gz0CUgOyfaKzjKzk1KOF0aTbcueGSTp9SQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1638881179;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QKzQcfpFrakF1gaQnErus44+ZE9ndLllCgtGuvnr0lo=;
+	b=yZ3GrlUbR1OmCFoNBVL41nwID0yawuJjFK0MUow1uzlkJmWNC0fYtNtLkZbCEAFV92VP56
+	kQjuYi/bhsZdtdDA==
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
+ Marc Zygnier <maz@kernel.org>, Alex Williamson
+ <alex.williamson@redhat.com>, Kevin Tian <kevin.tian@intel.com>, Jason
+ Gunthorpe <jgg@nvidia.com>, Megha Dey <megha.dey@intel.com>, Ashok Raj
+ <ashok.raj@intel.com>, linux-pci@vger.kernel.org, Cedric Le Goater
+ <clg@kaod.org>, xen-devel@lists.xenproject.org, Juergen Gross
+ <jgross@suse.com>, Niklas Schnelle <schnelle@linux.ibm.com>,
+ linux-s390@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>, Christian
+ Borntraeger <borntraeger@de.ibm.com>, Logan Gunthorpe
+ <logang@deltatee.com>, Jon Mason <jdmason@kudzu.us>, Dave Jiang
+ <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
+ linux-ntb@googlegroups.com
+Subject: Re: [patch V2 29/31] genirq/msi: Add abuse prevention comment to
+ msi header
+In-Reply-To: <Ya8Zj+bADtKEISSP@kroah.com>
+References: <20211206210600.123171746@linutronix.de>
+ <20211206210749.170847844@linutronix.de> <Ya8Zj+bADtKEISSP@kroah.com>
+Date: Tue, 07 Dec 2021 13:46:18 +0100
+Message-ID: <87lf0w37mt.ffs@tglx>
 MIME-Version: 1.0
-In-Reply-To: <20211206170241.13165-41-anthony.perard@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="CpZ6IWaNV1EwE1DbG4JCUoY91XHIp91mE"
+Content-Type: text/plain
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---CpZ6IWaNV1EwE1DbG4JCUoY91XHIp91mE
-Content-Type: multipart/mixed; boundary="z6YThoMwhHTTouIfEvelRUyKMUBa1wejc";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@gmail.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <468bb631-f18f-32ac-72ad-1c6943d48221@suse.com>
-Subject: Re: [XEN PATCH 40/57] libs: rename LDUSELIBS to LDLIBS and use it
- instead of APPEND_LDFLAGS
-References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-41-anthony.perard@citrix.com>
-In-Reply-To: <20211206170241.13165-41-anthony.perard@citrix.com>
+On Tue, Dec 07 2021 at 09:21, Greg Kroah-Hartman wrote:
+> On Mon, Dec 06, 2021 at 11:51:49PM +0100, Thomas Gleixner wrote:
+>>  #include <linux/cpumask.h>
+>>  #include <linux/mutex.h>
+>>  #include <linux/list.h>
+>> 
+> Ah, to be young and idealistic and hope that kernel developers read
+> comments in header files :)
 
---z6YThoMwhHTTouIfEvelRUyKMUBa1wejc
-Content-Type: multipart/mixed;
- boundary="------------5A64C9D54187F261DD290B0B"
-Content-Language: en-US
+Hope dies last.
 
-This is a multi-part message in MIME format.
---------------5A64C9D54187F261DD290B0B
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+> You might want to add this to the driver-api kernel doc build?
 
-On 06.12.21 18:02, Anthony PERARD wrote:
-> LDLIBS is more appropriate and intended to be used to add library
-> dependencies. APPEND_LDFLAGS wasn't intended to be changed by the
-> build system.
->=20
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+When I do the next round of refactoring, I'm going to move the functions
+which are available for drivers into a separate header file.
 
-Reviewed-by: Juergen Gross <jgross@suse.com>
+Thanks,
 
-
-Juergen
-
---------------5A64C9D54187F261DD290B0B
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------5A64C9D54187F261DD290B0B--
-
---z6YThoMwhHTTouIfEvelRUyKMUBa1wejc--
-
---CpZ6IWaNV1EwE1DbG4JCUoY91XHIp91mE
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvUNIFAwAAAAAACgkQsN6d1ii/Ey/6
-Swf/SHmpEVyG0VH23A2sqPAs6vepaj3jg9T2+GHlPLENBRSpfgK1WOD4/BaRYbmZmxNh64rsL8+b
-oBY+toxAz3h1UUk7fhvX1zlPngt3TyAnmRxlWus43LPoSacLByvj8GLxpeReS3iuHATc3jg1w+tj
-Lv8QdAUQWXaOKW56nmUgQdm4LWV20hS3ztS1/6LrICaPtebLQfEGVhE535SonM1GVehY6N42lYod
-hcE3N6qNuve9YgPJUwb/WVDl0veR9QdEDYhAOjSMxNRYjoris1rnfbse44JgahQjwz1Jv4AZ5fs8
-7UmPhOWBzmrt6F3OMPuwZ/n0+uK96ybHF8+EVogxHw==
-=gtVs
------END PGP SIGNATURE-----
-
---CpZ6IWaNV1EwE1DbG4JCUoY91XHIp91mE--
+        tglx
 
