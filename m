@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F5A546B503
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 09:01:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240711.417387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34B5046B517
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 09:05:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240717.417398 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muVPP-0003Bd-75; Tue, 07 Dec 2021 08:01:07 +0000
+	id 1muVTP-0003q9-Ny; Tue, 07 Dec 2021 08:05:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240711.417387; Tue, 07 Dec 2021 08:01:07 +0000
+Received: by outflank-mailman (output) from mailman id 240717.417398; Tue, 07 Dec 2021 08:05:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muVPP-000391-3K; Tue, 07 Dec 2021 08:01:07 +0000
-Received: by outflank-mailman (input) for mailman id 240711;
- Tue, 07 Dec 2021 08:01:05 +0000
+	id 1muVTP-0003oK-Kn; Tue, 07 Dec 2021 08:05:15 +0000
+Received: by outflank-mailman (input) for mailman id 240717;
+ Tue, 07 Dec 2021 08:05:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=myTo=QY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1muVPN-00038r-50
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 08:01:05 +0000
+ id 1muVTN-0003oE-VZ
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 08:05:13 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d347e1d7-5733-11ec-a5e1-b9374ead2679;
- Tue, 07 Dec 2021 09:01:04 +0100 (CET)
+ id 679a09d4-5734-11ec-a5e1-b9374ead2679;
+ Tue, 07 Dec 2021 09:05:13 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 10C031FD56;
- Tue,  7 Dec 2021 08:01:04 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C52F31FD56;
+ Tue,  7 Dec 2021 08:05:12 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA4C313522;
- Tue,  7 Dec 2021 08:01:03 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 97EAA13522;
+ Tue,  7 Dec 2021 08:05:12 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id fG8GNL8Ur2H5JgAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 08:01:03 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id P32JI7gVr2EHKQAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 08:05:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,58 +51,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d347e1d7-5733-11ec-a5e1-b9374ead2679
+X-Inumbo-ID: 679a09d4-5734-11ec-a5e1-b9374ead2679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638864064; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1638864312; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SPemss8Z5knZA1HV4QiwKfixim/dwFLA63AQqyfGVoI=;
-	b=dZ+RqYqrXz4elxCq+N3V55oq472xYYpoA8p6qRsEvq31kaqMVp1LaLBuvEUd5TKjpYLyde
-	KDj1lE9ZPjqYNHtBr+Vc4BExEaBGESc0W0aJlyNG4DFkDtoec7dAtWuKzFHQUbak1b/b9v
-	tJzEFzUZc2mD2RkQn6z8F10HnACRm7k=
-Subject: Re: [XEN PATCH 10/57] libs/stat: Remove duplicated CFLAGS from deps
+	bh=+jxGhxQE/Hd5nSmdWI96OpIadLCncMAgIKCij1KE+JI=;
+	b=QDX29MgDr3PuG/DFg46c/UNA5xsTqbsTylioCh7yJn5/INzd6sSaZINEX7+QT2I/qhUQPc
+	3sAYGQI2PTo+k1jdMtfiLnxiRX5D/X6UMSNvyDfnOnSuP42wPh8geYRaXTw8SRIvZbQhv4
+	rzrlaHNDa5XxYE2dQ/bbsDTaxfXfww0=
+Subject: Re: [XEN PATCH 11/57] libs/store: Remove PKG_CONFIG_REMOVE
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-11-anthony.perard@citrix.com>
+ <20211206170241.13165-12-anthony.perard@citrix.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <9ac570ff-3575-3489-ff0f-7910326f7686@suse.com>
-Date: Tue, 7 Dec 2021 09:01:03 +0100
+Message-ID: <5c870d5b-0aed-2722-e186-48a6569750bb@suse.com>
+Date: Tue, 7 Dec 2021 09:05:12 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20211206170241.13165-11-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-12-anthony.perard@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="5tJlVDNnmO3n4W04MwqHZAY9Zh6x7uCos"
+ boundary="6ZjDyU4CtZXx5AYDPZ7vKoGSGBkeXGg6y"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---5tJlVDNnmO3n4W04MwqHZAY9Zh6x7uCos
-Content-Type: multipart/mixed; boundary="he3M2ASL4dzZIfPXymA2stQtqQWbhheWb";
+--6ZjDyU4CtZXx5AYDPZ7vKoGSGBkeXGg6y
+Content-Type: multipart/mixed; boundary="tdrNuoOR3EY74bWKJmv9hPPsgQTbIhTaQ";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <9ac570ff-3575-3489-ff0f-7910326f7686@suse.com>
-Subject: Re: [XEN PATCH 10/57] libs/stat: Remove duplicated CFLAGS from deps
+Message-ID: <5c870d5b-0aed-2722-e186-48a6569750bb@suse.com>
+Subject: Re: [XEN PATCH 11/57] libs/store: Remove PKG_CONFIG_REMOVE
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-11-anthony.perard@citrix.com>
-In-Reply-To: <20211206170241.13165-11-anthony.perard@citrix.com>
+ <20211206170241.13165-12-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-12-anthony.perard@citrix.com>
 
---he3M2ASL4dzZIfPXymA2stQtqQWbhheWb
+--tdrNuoOR3EY74bWKJmv9hPPsgQTbIhTaQ
 Content-Type: multipart/mixed;
- boundary="------------394C938FE61AEBD151407DCA"
+ boundary="------------7923D05B1E62B798DEA94772"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------394C938FE61AEBD151407DCA
+--------------7923D05B1E62B798DEA94772
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 06.12.21 18:01, Anthony PERARD wrote:
-> Those CFLAGS_* are already added in libs.mk via USELIBS_stat.
+> PKG_CONFIG_REMOVE doesn't do anything anymore. Commit dd33fd2e81
+> (tools: split libxenstore into new tools/libs/store directory) had
+> reintroduced it without saying why.
 >=20
 > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
@@ -111,7 +113,7 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 
 Juergen
 
---------------394C938FE61AEBD151407DCA
+--------------7923D05B1E62B798DEA94772
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -203,25 +205,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------394C938FE61AEBD151407DCA--
+--------------7923D05B1E62B798DEA94772--
 
---he3M2ASL4dzZIfPXymA2stQtqQWbhheWb--
+--tdrNuoOR3EY74bWKJmv9hPPsgQTbIhTaQ--
 
---5tJlVDNnmO3n4W04MwqHZAY9Zh6x7uCos
+--6ZjDyU4CtZXx5AYDPZ7vKoGSGBkeXGg6y
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvFL8FAwAAAAAACgkQsN6d1ii/Ey9g
-2wf/ahZTs/d+cTnSjCsu2kGMR73E+qeMRFZaZpD0ZA0k6yYrXKStwpVNYdMZD2YGG9YU+vZifX9r
-C5F1HSG/0IyNqv3Q76mEsXG1aZjC3mY8azWqDCHrD0xPMdvH7bbvv+2T8kqNi3BLm9LIUbFNRQV4
-dojBPRoeMwMhLNN0gtveSbcmtxj1dI5RsYHUr6Q5czL7LR5fIUFbNAsMdINiA71a/1nHarUOCsCT
-krs0Q7gWq+qnsqdIbdVKB925FBajueBQCoz3Oxqz4J5zNEVkvtacrz+VlHVn7VCxRCpmGiK6mH+x
-rYE7R4b5XfR+4OmMm0p/xn3S9GlndH8BGf/svOmk4Q==
-=YT1X
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvFbgFAwAAAAAACgkQsN6d1ii/Ey8Q
+Dwf+IzkMb7nKhujKEHXHZr1KKyhrswWs4Gp7wcOpXzrK2q1ni6GbuUu+GLwNKlvYJSWcaQAyqrsi
+3ctNrZcao3QZhph1EPGZSp0JGa5Q0RbIoi0rlpQt7FXqqKxJolOHzGBUcxQcZz0L5wOB7bk23guQ
+qhDiEGxdMgsRpIMuZyyeb2S1igIZ/69E7L26hrinHAE+Lk4bkLy7sCtlhNX9B5qWuJZ+CPDTx49V
+9M0P/gXbI0LOixND7SSHyfst5CGDqWCpfS0Y4chHg9cbXKOlzmYcu8lx1gergUvARmIUBztEom60
+ru0AavQQz3In/DKzmJvv7LOzNp+9XDTP31F5QQPCiA==
+=+Csg
 -----END PGP SIGNATURE-----
 
---5tJlVDNnmO3n4W04MwqHZAY9Zh6x7uCos--
+--6ZjDyU4CtZXx5AYDPZ7vKoGSGBkeXGg6y--
 
