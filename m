@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4516546C1FF
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 18:42:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241742.418211 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2931C46C33E
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 20:00:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241751.418221 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mueU1-0008Pc-L4; Tue, 07 Dec 2021 17:42:29 +0000
+	id 1mufgG-0001Oa-8b; Tue, 07 Dec 2021 18:59:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241742.418211; Tue, 07 Dec 2021 17:42:29 +0000
+Received: by outflank-mailman (output) from mailman id 241751.418221; Tue, 07 Dec 2021 18:59:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mueU1-0008NJ-HX; Tue, 07 Dec 2021 17:42:29 +0000
-Received: by outflank-mailman (input) for mailman id 241742;
- Tue, 07 Dec 2021 17:42:28 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mufgG-0001MM-5T; Tue, 07 Dec 2021 18:59:12 +0000
+Received: by outflank-mailman (input) for mailman id 241751;
+ Tue, 07 Dec 2021 18:59:11 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7Lsp=QY=kaod.org=clg@srs-se1.protection.inumbo.net>)
- id 1mueU0-0008ND-JG
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 17:42:28 +0000
-Received: from smtpout1.mo529.mail-out.ovh.net
- (smtpout1.mo529.mail-out.ovh.net [178.32.125.2])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0aae1efa-5785-11ec-a831-37629979565c;
- Tue, 07 Dec 2021 18:42:26 +0100 (CET)
-Received: from mxplan5.mail.ovh.net (unknown [10.108.16.17])
- by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 4DC6CD06F169;
- Tue,  7 Dec 2021 18:42:25 +0100 (CET)
-Received: from kaod.org (37.59.142.102) by DAG4EX1.mxp5.local (172.16.2.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.20; Tue, 7 Dec
- 2021 18:42:23 +0100
+ (envelope-from <julien@xen.org>) id 1mufgF-0001MG-DP
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 18:59:11 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mufgF-0000Vy-2q; Tue, 07 Dec 2021 18:59:11 +0000
+Received: from [54.239.6.187] (helo=[10.95.81.235])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mufgE-0007Tv-Sn; Tue, 07 Dec 2021 18:59:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,144 +39,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0aae1efa-5785-11ec-a831-37629979565c
-Authentication-Results: garm.ovh; auth=pass (GARM-102R0045e25c049-ab10-4875-94b1-6aac2f02c5c1,
-                    EDCC1E77E28A65BD51DFCD2B92BF934EEA10E5FB) smtp.auth=clg@kaod.org
-X-OVh-ClientIp: 86.201.172.254
-Message-ID: <e32237f3-0ff2-cf80-cd99-0b4813d1ed21@kaod.org>
-Date: Tue, 7 Dec 2021 18:42:22 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Xnvh+R2aJPzyAtuVCtDfW91EHL4slRZJfk16rHxbuc8=; b=Zr+krmsuQT1SDofqidYd5KEWyV
+	NcpnYuOAyABKu5s7iFSE+VY0h/EqpQgFmU5gX5LVd81syamp6s+ErT/1KWW6G24SEoFbKoeuA5m8+
+	1jx6aadGyBMJ2b/Wg2EepQfQb7876v449Pq+XnVrMdt8pHZf7Sk1PdMzX58Ts7uj4foQ=;
+Message-ID: <f16dab0a-e119-f464-d5de-38bc0d31ff62@xen.org>
+Date: Tue, 7 Dec 2021 18:59:09 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [patch V2 29/36] PCI/MSI: Simplify pci_irq_get_affinity()
-Content-Language: en-US
-To: Thomas Gleixner <tglx@linutronix.de>, LKML <linux-kernel@vger.kernel.org>
-CC: Bjorn Helgaas <helgaas@kernel.org>, Marc Zygnier <maz@kernel.org>, Alex
- Williamson <alex.williamson@redhat.com>, Kevin Tian <kevin.tian@intel.com>,
-	Jason Gunthorpe <jgg@nvidia.com>, Megha Dey <megha.dey@intel.com>, Ashok Raj
-	<ashok.raj@intel.com>, <linux-pci@vger.kernel.org>,
-	<xen-devel@lists.xenproject.org>, Juergen Gross <jgross@suse.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Will Deacon <will@kernel.org>,
-	Santosh Shilimkar <ssantosh@kernel.org>, <iommu@lists.linux-foundation.org>,
-	<dmaengine@vger.kernel.org>, Stuart Yoder <stuyoder@gmail.com>, Laurentiu
- Tudor <laurentiu.tudor@nxp.com>, Nishanth Menon <nm@ti.com>, Tero Kristo
-	<kristo@kernel.org>, <linux-arm-kernel@lists.infradead.org>, Vinod Koul
-	<vkoul@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Robin Murphy
-	<robin.murphy@arm.com>, Sinan Kaya <okaya@kernel.org>
-References: <20211206210307.625116253@linutronix.de>
- <20211206210439.235197701@linutronix.de>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-In-Reply-To: <20211206210439.235197701@linutronix.de>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [37.59.142.102]
-X-ClientProxiedBy: DAG5EX1.mxp5.local (172.16.2.41) To DAG4EX1.mxp5.local
- (172.16.2.31)
-X-Ovh-Tracer-GUID: 9a201c60-92f7-40d1-8e65-204b0cf1b1c0
-X-Ovh-Tracer-Id: 11313323742435773410
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvuddrjeehgddutdeiucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkfffgggfuffvfhfhjggtgfhisehtjeertddtfeejnecuhfhrohhmpeevrogurhhitggpnfgvpgfiohgrthgvrhcuoegtlhhgsehkrghougdrohhrgheqnecuggftrfgrthhtvghrnhephffhleegueektdetffdvffeuieeugfekkeelheelteeftdfgtefffeehueegleehnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrddutddvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpohhuthdphhgvlhhopehmgihplhgrnhehrdhmrghilhdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheptghlgheskhgrohgurdhorhhgpdhrtghpthhtohepohhkrgihrgeskhgvrhhnvghlrdhorhhg
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.2
+Subject: Re: [PATCH] xen/arm: Do not include in the image functions...
+To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20211206141923.26757-1-michal.orzel@arm.com>
+ <61a730e2-fe20-ae74-bf47-a283c5efc717@xen.org>
+ <e149b283-23bd-9d8f-4be4-4a26722f0ed6@arm.com>
+ <65035935-935a-f8a9-a797-5d6a1bce4e66@xen.org>
+ <abd3beeb-eccb-8c6e-0751-b881efc08d57@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <abd3beeb-eccb-8c6e-0751-b881efc08d57@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thomas,
+Hi,
 
-On 12/6/21 23:39, Thomas Gleixner wrote:
-> Replace open coded MSI descriptor chasing and use the proper accessor
-> functions instead.
+On 07/12/2021 07:10, Michal Orzel wrote:
+> On 06.12.2021 17:40, Julien Grall wrote:
+>>
+>>
+>> On 06/12/2021 15:00, Michal Orzel wrote:
+>>> Hi Julien,
+>>
+>> Hi Michal,
+>>
+>>> On 06.12.2021 15:39, Julien Grall wrote:
+>>>> Hi Michal,
+>>>>
+>>>> On 06/12/2021 14:19, Michal Orzel wrote:
+>>>>> vtimer_update_irqs, vtimer_update_irq and vcpu_update_evtchn_irq if
+>>>>> CONFIG_NEW_VGIC is not set.
+>>>>>
+>>>>> enter_hypervisor_from_guest is protecting calls to these functions
+>>>>> with CONFIG_NEW_VGIC but their definitions and declarations are not > protected. This means that we are including them in the image even
+>>>>> though we are not making use of them. Fix that.
+>>>>
+>>>> While I agree, they are only used by the new vGIC, the implementation of the functions are not. So I don't think they should be protected by CONFIG_NEW_VGIC.
+>>>>
+>>>> Actually, I am not convinced they should be protected. But I guess you did that for a reason. Would you be able to clarify what is your reason?
+>>>>
+>>>   From what I know + what the commit introducing these fucntions states (b9db96f71a74), the current vGIC does not handle level-triggered vIRQs.
+>>> The functionality of these functions is only related to new VGIC implementation which can handle level triggered vIRQs.
+>>
+>> This is a known error in the vGIC implementation which should be resolved before this leads to a disaster.
 > 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> ---
->   drivers/pci/msi/msi.c |   26 ++++++++++----------------
->   1 file changed, 10 insertions(+), 16 deletions(-)
-> 
-> --- a/drivers/pci/msi/msi.c
-> +++ b/drivers/pci/msi/msi.c
-> @@ -1056,26 +1056,20 @@ EXPORT_SYMBOL(pci_irq_vector);
->    */
->   const struct cpumask *pci_irq_get_affinity(struct pci_dev *dev, int nr)
->   {
-> -	if (dev->msix_enabled) {
-> -		struct msi_desc *entry;
-> +	int irq = pci_irq_vector(dev, nr);
-> +	struct msi_desc *desc;
->   
-> -		for_each_pci_msi_entry(entry, dev) {
-> -			if (entry->msi_index == nr)
-> -				return &entry->affinity->mask;
-> -		}
-> -		WARN_ON_ONCE(1);
-> +	if (WARN_ON_ONCE(irq <= 0))
->   		return NULL;
-> -	} else if (dev->msi_enabled) {
-> -		struct msi_desc *entry = first_pci_msi_entry(dev);
->   
-> -		if (WARN_ON_ONCE(!entry || !entry->affinity ||
-> -				 nr >= entry->nvec_used))
-> -			return NULL;
-> -
-> -		return &entry->affinity[nr].mask;
-> -	} else {
-> +	desc = irq_get_msi_desc(irq);
-> +	/* Non-MSI does not have the information handy */
-> +	if (!desc)
->   		return cpu_possible_mask;
-> -	}
-> +
-> +	if (WARN_ON_ONCE(!desc->affinity))
-> +		return NULL;
-> +	return &desc->affinity[nr].mask;
->   }
->   EXPORT_SYMBOL(pci_irq_get_affinity);
+> I just thought that if this error is present for such a long time, there are no plans to make current vgic handle level type irqs.
 
-This is breaking nvme on pseries but it's probably one of the previous
-patches. I haven't figured out what's wrong yet. Here is the oops FYI.
+The error has been present for such a long time because no-one yet 
+volunteered to properly fix it. That said, the new vGIC has been an 
+attempt to resolve it but the effort kind of died.
 
-Thanks,
+It would be nice to revive the effort.
 
-C.
+Cheers,
 
-[   32.494536] ------------[ cut here ]------------
-[   32.494562] WARNING: CPU: 26 PID: 658 at kernel/irq/chip.c:210 irq_startup+0x1c0/0x1e0
-[   32.494575] Modules linked in: ibmvscsi ibmveth scsi_transport_srp bnx2x ipr libata xhci_pci xhci_hcd nvme xts vmx_crypto nvme_core mdio t10_pi libcrc32c dm_mirror dm_region_hash dm_log dm_mod
-[   32.494601] CPU: 26 PID: 658 Comm: kworker/26:1H Not tainted 5.16.0-rc4-clg+ #54
-[   32.494607] Workqueue: kblockd blk_mq_timeout_work
-[   32.494615] NIP:  c000000000206f00 LR: c000000000206df0 CTR: c000000000201570
-[   32.494619] REGS: c0000018050f3610 TRAP: 0700   Not tainted  (5.16.0-rc4-clg+)
-[   32.494624] MSR:  800000000282b033 <SF,VEC,VSX,EE,FP,ME,IR,DR,RI,LE>  CR: 44002288  XER: 00000000
-[   32.494636] CFAR: c000000000206e0c IRQMASK: 1
-[   32.494636] GPR00: c000000000206df0 c0000018050f38b0 c000000001ca2900 0000000000000800
-[   32.494636] GPR04: c000000001ce21b8 0000000000000800 0000000000000800 0000000000000000
-[   32.494636] GPR08: 0000000000000000 0000000000000200 0000000000000000 fffffffffffffffd
-[   32.494636] GPR12: 0000000000000000 c000001fff7c5880 c00000000018f488 c00000012faaba40
-[   32.494636] GPR16: 0000000000000000 0000000000000000 0000000000000000 0000000000000001
-[   32.494636] GPR20: 0000000000000000 c0000018050f3c40 c00000000076e110 c00000013ac23678
-[   32.494636] GPR24: 000000000000007f 0000000000000100 0000000000000001 c000001805b08000
-[   32.494636] GPR28: c000000139b8cc18 0000000000000001 0000000000000001 c000000139b8cc00
-[   32.494681] NIP [c000000000206f00] irq_startup+0x1c0/0x1e0
-[   32.494686] LR [c000000000206df0] irq_startup+0xb0/0x1e0
-[   32.494690] Call Trace:
-[   32.494692] [c0000018050f38b0] [c000000000206df0] irq_startup+0xb0/0x1e0 (unreliable)
-[   32.494699] [c0000018050f38f0] [c00000000020155c] __enable_irq+0x9c/0xb0
-[   32.494705] [c0000018050f3950] [c0000000002015d0] enable_irq+0x60/0xc0
-[   32.494710] [c0000018050f39d0] [c008000014a54ae8] nvme_poll_irqdisable+0x80/0xc0 [nvme]
-[   32.494719] [c0000018050f3a00] [c008000014a55824] nvme_timeout+0x18c/0x420 [nvme]
-[   32.494726] [c0000018050f3ae0] [c00000000076e1b8] blk_mq_check_expired+0xa8/0x130
-[   32.494732] [c0000018050f3b10] [c0000000007793e8] bt_iter+0xd8/0x120
-[   32.494737] [c0000018050f3b60] [c00000000077a34c] blk_mq_queue_tag_busy_iter+0x25c/0x3f0
-[   32.494742] [c0000018050f3c20] [c00000000076ffa4] blk_mq_timeout_work+0x84/0x1a0
-[   32.494747] [c0000018050f3c70] [c000000000182a78] process_one_work+0x2a8/0x5a0
-[   32.494754] [c0000018050f3d10] [c000000000183468] worker_thread+0xa8/0x610
-[   32.494759] [c0000018050f3da0] [c00000000018f634] kthread+0x1b4/0x1c0
-[   32.494764] [c0000018050f3e10] [c00000000000cd64] ret_from_kernel_thread+0x5c/0x64
-[   32.494769] Instruction dump:
-[   32.494773] 60000000 0b030000 38a00000 7f84e378 7fc3f378 4bff9a55 60000000 7fe3fb78
-[   32.494781] 4bfffd79 eb810020 7c7e1b78 4bfffe94 <0fe00000> 60000000 60000000 60420000
-[   32.494788] ---[ end trace 2a27b87f2b3e7a1f ]---
-[   32.494798] nvme nvme0: I/O 192 QID 128 timeout, aborting
-[   32.584562] nvme nvme0: Abort status: 0x0
-[   62.574526] nvme nvme0: I/O 200 QID 128 timeout, aborting
-[   62.574587]  nvme0n1: p1
-
+-- 
+Julien Grall
 
