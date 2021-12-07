@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1366046C68F
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 22:18:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241963.418589 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 878F546C696
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 22:19:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241971.418599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muhq7-0004X0-01; Tue, 07 Dec 2021 21:17:31 +0000
+	id 1muhrd-0005Rn-Bm; Tue, 07 Dec 2021 21:19:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241963.418589; Tue, 07 Dec 2021 21:17:30 +0000
+Received: by outflank-mailman (output) from mailman id 241971.418599; Tue, 07 Dec 2021 21:19:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muhq6-0004UC-TB; Tue, 07 Dec 2021 21:17:30 +0000
-Received: by outflank-mailman (input) for mailman id 241963;
- Tue, 07 Dec 2021 21:17:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1muhrd-0005PQ-8a; Tue, 07 Dec 2021 21:19:05 +0000
+Received: by outflank-mailman (input) for mailman id 241971;
+ Tue, 07 Dec 2021 21:19:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/XZh=QY=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
- id 1muhh3-0000d3-4e
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 21:08:09 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c6439ae3-57a1-11ec-a831-37629979565c;
- Tue, 07 Dec 2021 22:08:07 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id DC252CE1E22;
- Tue,  7 Dec 2021 21:08:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8250C341C1;
- Tue,  7 Dec 2021 21:08:04 +0000 (UTC)
+ <SRS0=vuaW=QY=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1muhrc-0005PE-2K
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 21:19:04 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4cb5c801-57a3-11ec-9d12-4777fae47e2b;
+ Tue, 07 Dec 2021 22:19:02 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,82 +36,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6439ae3-57a1-11ec-a831-37629979565c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1638911285;
-	bh=Un8pVb1ViG+hHJBV0K32UXMvYIETtBkFtRlli7CA0QM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:From;
-	b=aCbzd0NEb2pQzyZ0dxCVmc3D7+wht440q0E0LtCH9EBL6AmXweh77FA6vFVv+lovw
-	 QxUM8o9yuv91Owv+YX0uqXzLPMe9Xmgrdwsq/Q0XtDXLOgeHXtR/qWyue29zAHe+qn
-	 ZNo6fhJJvBTogag2oEBDmFwEwkYMA/6cjrRB9/RvEo/WrLVjhaCtSMKZ3lJBI/ML0e
-	 H2WKoiCX7z7ZcvhMozBDewcD4TrkbQVYFGuZQ6IhOk/J97KO7Fn9gfBhXnI6eBTMOi
-	 jxz2bdl5MIQY5mZHQt4K9hdDQz+EBL7RNknLIwfMhihldvflaMJpn9QmDetpivNk4I
-	 5elH8aZ6ytVgA==
-Date: Tue, 7 Dec 2021 15:08:03 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, Marc Zygnier <maz@kernel.org>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
-	Megha Dey <megha.dey@intel.com>, Ashok Raj <ashok.raj@intel.com>,
-	linux-pci@vger.kernel.org, Cedric Le Goater <clg@kaod.org>,
-	xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	linux-s390@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	Logan Gunthorpe <logang@deltatee.com>, Jon Mason <jdmason@kudzu.us>,
-	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
-	linux-ntb@googlegroups.com
-Subject: Re: [patch V2 19/31] PCI: hv: Rework MSI handling
-Message-ID: <20211207210803.GA78366@bhelgaas>
+X-Inumbo-ID: 4cb5c801-57a3-11ec-9d12-4777fae47e2b
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1638911940;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fejqz/bIS5UVVez3Xtjq2jInYaufJY/nLKnDbenyBtw=;
+	b=VC5Rvg7jiq8Ikfw+JFC2if6V+C51JARVBdC0uW9vUW0CHLXLMJTCVCws2bKyhUrgzzbYBD
+	TspgTWIoCN3z1mpSmBTfGbx4XIbh9GbNDRxSmFXBfJwIBX3j0sw+jnfm/oYCbc43OrEUpM
+	SS9tX2diiZM5lYRGla6ljcr7iPYUAT/RJ9qMdqhJZgpVF0sfTve/39i5qs1L2SbKmA26Kk
+	RuYaS8IxyMjfJtp5yErMcFm+uepejATF2VudC9wKWykGQzcm11Soqa0vOKrqlwq9Qy2ES/
+	hIUI+MznVV8wAM/ESPIdQN7tFRoLJxRc700tRc0QEredDULx8y3xvMEgR1lqVw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1638911940;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fejqz/bIS5UVVez3Xtjq2jInYaufJY/nLKnDbenyBtw=;
+	b=tpxYQz931aJ9NXdPSYYAooQnjmQcVTU6ncg1A9XfE7ZYmworf/GnMN1rkeaSCd4LIsHO3E
+	LsosR2mIUwj5rrDw==
+To: =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@kaod.org>, LKML
+ <linux-kernel@vger.kernel.org>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Marc Zygnier <maz@kernel.org>, Alex
+ Williamson <alex.williamson@redhat.com>, Kevin Tian
+ <kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>, Megha Dey
+ <megha.dey@intel.com>, Ashok Raj <ashok.raj@intel.com>,
+ linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org, Juergen Gross
+ <jgross@suse.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Will
+ Deacon <will@kernel.org>, Santosh Shilimkar <ssantosh@kernel.org>,
+ iommu@lists.linux-foundation.org, dmaengine@vger.kernel.org, Stuart Yoder
+ <stuyoder@gmail.com>, Laurentiu Tudor <laurentiu.tudor@nxp.com>, Nishanth
+ Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>, Mark
+ Rutland <mark.rutland@arm.com>, Robin Murphy <robin.murphy@arm.com>, Sinan
+ Kaya <okaya@kernel.org>, Dan Williams <dan.j.williams@intel.com>,
+ Christoph Hellwig <hch@infradead.org>, Keith Busch <kbusch@kernel.org>
+Subject: Re: [patch V2 29/36] PCI/MSI: Simplify pci_irq_get_affinity()
+In-Reply-To: <e32237f3-0ff2-cf80-cd99-0b4813d1ed21@kaod.org>
+References: <20211206210307.625116253@linutronix.de>
+ <20211206210439.235197701@linutronix.de>
+ <e32237f3-0ff2-cf80-cd99-0b4813d1ed21@kaod.org>
+Date: Tue, 07 Dec 2021 22:19:00 +0100
+Message-ID: <87zgpc15bv.ffs@tglx>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211206210748.629363944@linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Dec 06, 2021 at 11:51:33PM +0100, Thomas Gleixner wrote:
-> Replace the about to vanish iterators and make use of the filtering. Take
-> the descriptor lock around the iterators.
-> 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Cedric,
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+On Tue, Dec 07 2021 at 18:42, C=C3=A9dric Le Goater wrote:
+>
+> This is breaking nvme on pseries but it's probably one of the previous
+> patches. I haven't figured out what's wrong yet. Here is the oops FYI.
 
-> ---
->  drivers/pci/controller/pci-hyperv.c |   15 ++++++++++-----
->  1 file changed, 10 insertions(+), 5 deletions(-)
-> 
-> --- a/drivers/pci/controller/pci-hyperv.c
-> +++ b/drivers/pci/controller/pci-hyperv.c
-> @@ -3445,18 +3445,23 @@ static int hv_pci_suspend(struct hv_devi
->  
->  static int hv_pci_restore_msi_msg(struct pci_dev *pdev, void *arg)
->  {
-> -	struct msi_desc *entry;
->  	struct irq_data *irq_data;
-> +	struct msi_desc *entry;
-> +	int ret = 0;
->  
-> -	for_each_pci_msi_entry(entry, pdev) {
-> +	msi_lock_descs(&pdev->dev);
-> +	msi_for_each_desc(entry, &pdev->dev, MSI_DESC_ASSOCIATED) {
->  		irq_data = irq_get_irq_data(entry->irq);
-> -		if (WARN_ON_ONCE(!irq_data))
-> -			return -EINVAL;
-> +		if (WARN_ON_ONCE(!irq_data)) {
-> +			ret = -EINVAL;
-> +			break;
-> +		}
->  
->  		hv_compose_msi_msg(irq_data, &entry->msg);
->  	}
-> +	msi_unlock_descs(&pdev->dev);
->  
-> -	return 0;
-> +	return ret;
->  }
->  
->  /*
-> 
+Hrm.
+
+> [   32.494562] WARNING: CPU: 26 PID: 658 at kernel/irq/chip.c:210 irq_sta=
+rtup+0x1c0/0x1e0
+
+This complains about a manual enable_irq() on a managed interrupt.
+
+> [   32.494575] Modules linked in: ibmvscsi ibmveth scsi_transport_srp bnx=
+2x ipr libata xhci_pci xhci_hcd nvme xts vmx_crypto nvme_core mdio t10_pi l=
+ibcrc32c dm_mirror dm_region_hash dm_log dm_mod
+> [   32.494601] CPU: 26 PID: 658 Comm: kworker/26:1H Not tainted 5.16.0-rc=
+4-clg+ #54
+> [   32.494607] Workqueue: kblockd blk_mq_timeout_work
+> [   32.494681] NIP [c000000000206f00] irq_startup+0x1c0/0x1e0
+> [   32.494686] LR [c000000000206df0] irq_startup+0xb0/0x1e0
+> [   32.494690] Call Trace:
+> [   32.494692] [c0000018050f38b0] [c000000000206df0] irq_startup+0xb0/0x1=
+e0 (unreliable)
+> [   32.494699] [c0000018050f38f0] [c00000000020155c] __enable_irq+0x9c/0x=
+b0
+> [   32.494705] [c0000018050f3950] [c0000000002015d0] enable_irq+0x60/0xc0
+> [   32.494710] [c0000018050f39d0] [c008000014a54ae8] nvme_poll_irqdisable=
++0x80/0xc0 [nvme]
+> [   32.494719] [c0000018050f3a00] [c008000014a55824] nvme_timeout+0x18c/0=
+x420 [nvme]
+> [   32.494726] [c0000018050f3ae0] [c00000000076e1b8] blk_mq_check_expired=
++0xa8/0x130
+> [   32.494732] [c0000018050f3b10] [c0000000007793e8] bt_iter+0xd8/0x120
+> [   32.494737] [c0000018050f3b60] [c00000000077a34c] blk_mq_queue_tag_bus=
+y_iter+0x25c/0x3f0
+> [   32.494742] [c0000018050f3c20] [c00000000076ffa4] blk_mq_timeout_work+=
+0x84/0x1a0
+> [   32.494747] [c0000018050f3c70] [c000000000182a78] process_one_work+0x2=
+a8/0x5a0
+
+Confused. I diffed against v1, but could not spot anything except that
+properties issue which you found too.
+
+Thanks,
+
+        tglx
+
 
