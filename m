@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8267E46BC6F
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 14:25:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241092.417932 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DB3646BC7E
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 14:27:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241115.417987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muaSf-0004j1-LE; Tue, 07 Dec 2021 13:24:49 +0000
+	id 1muaUY-0007zN-TU; Tue, 07 Dec 2021 13:26:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241092.417932; Tue, 07 Dec 2021 13:24:49 +0000
+Received: by outflank-mailman (output) from mailman id 241115.417987; Tue, 07 Dec 2021 13:26:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muaSf-0004g5-Hp; Tue, 07 Dec 2021 13:24:49 +0000
-Received: by outflank-mailman (input) for mailman id 241092;
- Tue, 07 Dec 2021 13:24:48 +0000
+	id 1muaUY-0007wn-QV; Tue, 07 Dec 2021 13:26:46 +0000
+Received: by outflank-mailman (input) for mailman id 241115;
+ Tue, 07 Dec 2021 13:26:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=myTo=QY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1muaSe-0004L1-3k
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 13:24:48 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1muaUX-0007wT-8K
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 13:26:45 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0c5a7a70-5761-11ec-a831-37629979565c;
- Tue, 07 Dec 2021 14:24:47 +0100 (CET)
+ id 52060cca-5761-11ec-a831-37629979565c;
+ Tue, 07 Dec 2021 14:26:44 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 3055D218A8;
- Tue,  7 Dec 2021 13:24:47 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 05E451FDFE;
+ Tue,  7 Dec 2021 13:26:44 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C694313A7E;
- Tue,  7 Dec 2021 13:24:46 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D54DF13A7E;
+ Tue,  7 Dec 2021 13:26:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id PdFSLZ5gr2GpSAAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 13:24:46 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id xRbgMhNhr2GOSQAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 13:26:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,60 +51,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0c5a7a70-5761-11ec-a831-37629979565c
+X-Inumbo-ID: 52060cca-5761-11ec-a831-37629979565c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638883487; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1638883604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=K8SLfBZgUQybWaMSjbBaCqA78IE4w8q9SvRV9Qxjrio=;
-	b=oortxMNWf6ABqKq6qwXkwGQVo0dKhGShiY0Y4csZ2OL90Px1cUJGI3gLjZLJ1w8rDd3ICt
-	6US+yiKPEuKhgqhUPaJk3o5jS6eJfGFFLkL4shqxwycAnFPDa/dIOScbAe8qhvbnOmukTP
-	+oH9+Dchhx4QisR7zQ4YR6IurAYs9OY=
-Subject: Re: [XEN PATCH 43/57] libs: Rename $(SRCS-y) to $(OBJS-y)
+	bh=ytyY5eBpYhBlOfJqOE/DBsfdRmoNqEUOuxaUeUJHLMQ=;
+	b=jVIqy3rPBeNhsJFCBp2ZsV+Cft1pWFZ3HEQ2jxrhv1reaCcJylOmE5ZOPFp2vtl08sUMVV
+	3dWh2wp4Pg6/sdzEzJDDVneW96C5YuoP5Id06jlreIrt4iSZsq/HSHeM97gK/vmX2t6v6v
+	Y07Lp4zWC21X4e0PLsdfjQN00gDsBjI=
+Subject: Re: [XEN PATCH 44/57] libs/guest: rename ELF_OBJS to LIBELF_OBJS
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-44-anthony.perard@citrix.com>
+ <20211206170241.13165-45-anthony.perard@citrix.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <2c15da4b-b351-58a4-b9ec-1d819c0799b2@suse.com>
-Date: Tue, 7 Dec 2021 14:24:46 +0100
+Message-ID: <4f2a3509-e854-4713-d634-cb4e72d8e112@suse.com>
+Date: Tue, 7 Dec 2021 14:26:43 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20211206170241.13165-44-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-45-anthony.perard@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="9v6hLDWLp345sAvinzjI4lhCfCfg1On7i"
+ boundary="GArAHF1YXkQfMO78u4z5zZAtW0esg0JJ4"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---9v6hLDWLp345sAvinzjI4lhCfCfg1On7i
-Content-Type: multipart/mixed; boundary="d3gdz6SgAvgVXFnxh8amannibRqzOx06d";
+--GArAHF1YXkQfMO78u4z5zZAtW0esg0JJ4
+Content-Type: multipart/mixed; boundary="YjGmOZulIUpphAtPp8HTDkuhPHqX03vsx";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <2c15da4b-b351-58a4-b9ec-1d819c0799b2@suse.com>
-Subject: Re: [XEN PATCH 43/57] libs: Rename $(SRCS-y) to $(OBJS-y)
+Message-ID: <4f2a3509-e854-4713-d634-cb4e72d8e112@suse.com>
+Subject: Re: [XEN PATCH 44/57] libs/guest: rename ELF_OBJS to LIBELF_OBJS
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-44-anthony.perard@citrix.com>
-In-Reply-To: <20211206170241.13165-44-anthony.perard@citrix.com>
+ <20211206170241.13165-45-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-45-anthony.perard@citrix.com>
 
---d3gdz6SgAvgVXFnxh8amannibRqzOx06d
+--YjGmOZulIUpphAtPp8HTDkuhPHqX03vsx
 Content-Type: multipart/mixed;
- boundary="------------0935232C5BC3D4E91F661A2B"
+ boundary="------------1CB6C7726BBFB532A874563C"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------0935232C5BC3D4E91F661A2B
+--------------1CB6C7726BBFB532A874563C
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 06.12.21 18:02, Anthony PERARD wrote:
-> The only thing done thing done with $(SRCS-y) is to replace ".c" by
-> ".o". It is more useful to collect which object we want to build as
-> make will figure out how to build it and from which source file.
+> It seems a better name. Latter, we will introduce LIBX86_OBJS to
+
+s/Latter/Later/
+
+> collect lib/x86/* objects.
 >=20
 > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
@@ -113,8 +115,7 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 
 Juergen
 
-
---------------0935232C5BC3D4E91F661A2B
+--------------1CB6C7726BBFB532A874563C
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -206,25 +207,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------0935232C5BC3D4E91F661A2B--
+--------------1CB6C7726BBFB532A874563C--
 
---d3gdz6SgAvgVXFnxh8amannibRqzOx06d--
+--YjGmOZulIUpphAtPp8HTDkuhPHqX03vsx--
 
---9v6hLDWLp345sAvinzjI4lhCfCfg1On7i
+--GArAHF1YXkQfMO78u4z5zZAtW0esg0JJ4
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvYJ4FAwAAAAAACgkQsN6d1ii/Ey8L
-SAf8D709CFzE0mrLX/ClWcg/HeC9Q0Qd4s6WdbJ2Dd9D/MAFjBk0WwSv2ym2seoCyLYTWt9upDtY
-YICXOZVNJD3U88ZxOLq0yqIjeGLfJHeJcCwyvyQfpp72UzSW9gvI1uEF56jayPw3h6TjVE5ySMU2
-VUqCRU+gbOct0/B4b389H4PjG8ORse2tZUlA0gtbv3Ym8ACZHBcxJ+UV+M8t5zoYSCC/0gYx7vQr
-lM0+2+0u5WjrrRbt/i8gL59KTM8OqbNMWl9ZRMiZxJbPBg+03YW9D7im0Gb3YM2oBYNV2iLj1Avm
-zindqIcmGa72lbUVJwteyz3VgZQQcAyGeb06UAlgMw==
-=T6Ov
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvYRMFAwAAAAAACgkQsN6d1ii/Ey98
+0gf/cJVbjRqGLpahP1ZWUkC8DA11j6MEGzOAZJd1RvZlRABAEyiZzaY4nCLBCbjuelXIjbEXFbis
+S2UI3TY6PMjHslimJEF307Yq1u3KJ2ej7lB/p/8Rl5C436CHnAO0FDNolMVu5iE7ZvcDjsFq2EUo
+uqB+BCUnsavdHKKFwfB6RvrYuPBK/Bpz1Ro1xAa5zQe9K0UIkklgOrzOyd4Z772QVgkgae+EbU1U
+8PZkczyphRmJSeaCutFvc5PwrjgVoRiS7p5FVJYGeNx4fq5s4VqRtTkKNBWJA3MkvccDmCOE0NC5
+dJfJGGqFOprR5yAoKLH2RHoOpFXbzi0GfHyAxr8Pgw==
+=+2bc
 -----END PGP SIGNATURE-----
 
---9v6hLDWLp345sAvinzjI4lhCfCfg1On7i--
+--GArAHF1YXkQfMO78u4z5zZAtW0esg0JJ4--
 
