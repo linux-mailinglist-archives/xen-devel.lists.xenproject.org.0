@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5969246B493
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 08:52:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240625.417259 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF27946B499
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 08:52:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240626.417269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muVGa-0002y1-1h; Tue, 07 Dec 2021 07:52:00 +0000
+	id 1muVGk-0003JC-C9; Tue, 07 Dec 2021 07:52:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240625.417259; Tue, 07 Dec 2021 07:52:00 +0000
+Received: by outflank-mailman (output) from mailman id 240626.417269; Tue, 07 Dec 2021 07:52:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muVGZ-0002wE-Um; Tue, 07 Dec 2021 07:51:59 +0000
-Received: by outflank-mailman (input) for mailman id 240625;
- Tue, 07 Dec 2021 07:51:58 +0000
+	id 1muVGk-0003Gf-8W; Tue, 07 Dec 2021 07:52:10 +0000
+Received: by outflank-mailman (input) for mailman id 240626;
+ Tue, 07 Dec 2021 07:52:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3MF5=QY=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1muVGY-0002w4-MH
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 07:51:58 +0000
+ id 1muVGi-0002w4-E4
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 07:52:08 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8d932cef-5732-11ec-8a4d-196798b21f7b;
- Tue, 07 Dec 2021 08:51:57 +0100 (CET)
+ id 9390bd66-5732-11ec-8a4d-196798b21f7b;
+ Tue, 07 Dec 2021 08:52:07 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7AAC8B80E8C;
- Tue,  7 Dec 2021 07:51:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6A69C341C3;
- Tue,  7 Dec 2021 07:51:55 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 88C2AB816D2;
+ Tue,  7 Dec 2021 07:52:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91414C341C3;
+ Tue,  7 Dec 2021 07:52:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,15 +43,15 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d932cef-5732-11ec-8a4d-196798b21f7b
+X-Inumbo-ID: 9390bd66-5732-11ec-8a4d-196798b21f7b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1638863516;
-	bh=jJB7V/1FDjCODHYTLlFlS5enXptOdG8ZYS3VC4cWcVw=;
+	s=korg; t=1638863527;
+	bh=tQN7ei8MO5k5ZSrc1wKOamJhApJA81L4p4xiMaAbxCc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=vRE24ncYXDsRhhK2eQiUlxP7Y8oQsTsshV3hfVEv8bGtSxchPZ8/SkzPNYE1E38An
-	 aOvrifHb/I9rQaWzQ07/d2NwtcfBxBO7tW7Ohdsq63Q2QKH1LNL+bVYpuGXJT676qi
-	 Uz/SbFs2qPx/iZd1dSkcACeZlmJJNSFCfEQlT6xo=
-Date: Tue, 7 Dec 2021 08:51:53 +0100
+	b=I5VO1ii2U6A2zXtMiP57Uym70Rs4GX4p7a0kYlCwOcJtg+d4e8Y4wK49CiC+T7eOF
+	 GGTT5dxj4o5oFna87R8rr33KGlfqxwVKI5Kf41BOdlSMGdnZgXHVqakqawlGMXTHLu
+	 z9ZU5j7f67Ry+fGSGK4edcTT/3F1u5K83oupoib0=
+Date: Tue, 7 Dec 2021 08:52:04 +0100
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Thomas Gleixner <tglx@linutronix.de>
 Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
@@ -70,25 +70,22 @@ Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
 	linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
 	Mark Rutland <mark.rutland@arm.com>,
 	Robin Murphy <robin.murphy@arm.com>, Sinan Kaya <okaya@kernel.org>
-Subject: Re: [patch V2 27/36] genirq/msi: Provide interface to retrieve Linux
- interrupt number
-Message-ID: <Ya8SmWGiCnt4xTmC@kroah.com>
+Subject: Re: [patch V2 26/36] powerpc/pseries/msi: Let core code check for
+ contiguous entries
+Message-ID: <Ya8SpNVEKFZnhesH@kroah.com>
 References: <20211206210307.625116253@linutronix.de>
- <20211206210439.128089025@linutronix.de>
+ <20211206210439.074795958@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20211206210439.128089025@linutronix.de>
+In-Reply-To: <20211206210439.074795958@linutronix.de>
 
-On Mon, Dec 06, 2021 at 11:39:39PM +0100, Thomas Gleixner wrote:
-> This allows drivers to retrieve the Linux interrupt number instead of
-> fiddling with MSI descriptors.
-> 
-> msi_get_virq() returns the Linux interrupt number or 0 in case that there
-> is no entry for the given MSI index.
+On Mon, Dec 06, 2021 at 11:39:37PM +0100, Thomas Gleixner wrote:
+> Set the domain info flag and remove the check.
 > 
 > Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 
 Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
 
 
