@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DB3646BC7E
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 14:27:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241115.417987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5A3946BC95
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 14:30:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241142.418020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muaUY-0007zN-TU; Tue, 07 Dec 2021 13:26:46 +0000
+	id 1muaXi-0002M3-W6; Tue, 07 Dec 2021 13:30:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241115.417987; Tue, 07 Dec 2021 13:26:46 +0000
+Received: by outflank-mailman (output) from mailman id 241142.418020; Tue, 07 Dec 2021 13:30:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muaUY-0007wn-QV; Tue, 07 Dec 2021 13:26:46 +0000
-Received: by outflank-mailman (input) for mailman id 241115;
- Tue, 07 Dec 2021 13:26:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1muaXi-0002J7-R7; Tue, 07 Dec 2021 13:30:02 +0000
+Received: by outflank-mailman (input) for mailman id 241142;
+ Tue, 07 Dec 2021 13:30:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=myTo=QY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1muaUX-0007wT-8K
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 13:26:45 +0000
+ id 1muaXh-00024S-C9
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 13:30:01 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 52060cca-5761-11ec-a831-37629979565c;
- Tue, 07 Dec 2021 14:26:44 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c7016a3d-5761-11ec-9d12-4777fae47e2b;
+ Tue, 07 Dec 2021 14:30:00 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 05E451FDFE;
- Tue,  7 Dec 2021 13:26:44 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4A6AA1FDFE;
+ Tue,  7 Dec 2021 13:30:00 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D54DF13A7E;
- Tue,  7 Dec 2021 13:26:43 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1B9E913A7E;
+ Tue,  7 Dec 2021 13:30:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id xRbgMhNhr2GOSQAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 13:26:43 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id jbUzBdhhr2EiSwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 13:30:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,62 +51,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52060cca-5761-11ec-a831-37629979565c
+X-Inumbo-ID: c7016a3d-5761-11ec-9d12-4777fae47e2b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638883604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1638883800; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ytyY5eBpYhBlOfJqOE/DBsfdRmoNqEUOuxaUeUJHLMQ=;
-	b=jVIqy3rPBeNhsJFCBp2ZsV+Cft1pWFZ3HEQ2jxrhv1reaCcJylOmE5ZOPFp2vtl08sUMVV
-	3dWh2wp4Pg6/sdzEzJDDVneW96C5YuoP5Id06jlreIrt4iSZsq/HSHeM97gK/vmX2t6v6v
-	Y07Lp4zWC21X4e0PLsdfjQN00gDsBjI=
-Subject: Re: [XEN PATCH 44/57] libs/guest: rename ELF_OBJS to LIBELF_OBJS
+	bh=36prU6Ne5X8/6o1kj8MwaiRlzrtCu3ZQpAImGX8Jumk=;
+	b=vVdRBGWBk1TwDxheDX47k1OK717gUXCM+U2HYpbQyWb14ASqQDox6GEW2khYZjE4rssd4f
+	UfU61ZTK7pX42GwU2bQGknBT/63UPeXDR4uT3Yrk1CV4OMqU0M5WEUd/4WNZoZ/IrL/dfJ
+	yb8pxTskPXMct9zYHEcz4Xc5foFt5Ec=
+Subject: Re: [XEN PATCH 45/57] libs/guest: rework CFLAGS
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-45-anthony.perard@citrix.com>
+ <20211206170241.13165-46-anthony.perard@citrix.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <4f2a3509-e854-4713-d634-cb4e72d8e112@suse.com>
-Date: Tue, 7 Dec 2021 14:26:43 +0100
+Message-ID: <a8835cd7-abf1-6972-47be-2ba5cfd118b7@suse.com>
+Date: Tue, 7 Dec 2021 14:29:59 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20211206170241.13165-45-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-46-anthony.perard@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="GArAHF1YXkQfMO78u4z5zZAtW0esg0JJ4"
+ boundary="OzZ76xS72a7VcXnTXUAfXaiu45f4kGQSI"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---GArAHF1YXkQfMO78u4z5zZAtW0esg0JJ4
-Content-Type: multipart/mixed; boundary="YjGmOZulIUpphAtPp8HTDkuhPHqX03vsx";
+--OzZ76xS72a7VcXnTXUAfXaiu45f4kGQSI
+Content-Type: multipart/mixed; boundary="xWBnyshziHHRmjPfaSBRfd7PaVgGYagz0";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <4f2a3509-e854-4713-d634-cb4e72d8e112@suse.com>
-Subject: Re: [XEN PATCH 44/57] libs/guest: rename ELF_OBJS to LIBELF_OBJS
+Message-ID: <a8835cd7-abf1-6972-47be-2ba5cfd118b7@suse.com>
+Subject: Re: [XEN PATCH 45/57] libs/guest: rework CFLAGS
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-45-anthony.perard@citrix.com>
-In-Reply-To: <20211206170241.13165-45-anthony.perard@citrix.com>
+ <20211206170241.13165-46-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-46-anthony.perard@citrix.com>
 
---YjGmOZulIUpphAtPp8HTDkuhPHqX03vsx
+--xWBnyshziHHRmjPfaSBRfd7PaVgGYagz0
 Content-Type: multipart/mixed;
- boundary="------------1CB6C7726BBFB532A874563C"
+ boundary="------------63D0AE4215BEBF1E87A189D9"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------1CB6C7726BBFB532A874563C
+--------------63D0AE4215BEBF1E87A189D9
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 06.12.21 18:02, Anthony PERARD wrote:
-> It seems a better name. Latter, we will introduce LIBX86_OBJS to
-
-s/Latter/Later/
-
-> collect lib/x86/* objects.
+> Remove '-Werror -Wmissing-progress -I./include $(CFLAGS_xeninclude)',
+> those flags are already added via "libs.mk".
+>=20
+> Flag "-I." isn't needed, we just need to fix the #include of
+> "xg_core.h" as this header isn't expected to be installed.
+>=20
+> Make use of "-iquote" instead of '-I' for double-quote included
+> headers.
+>=20
+> Also, regroup the CFLAGS into the same place in the makefile.
 >=20
 > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
@@ -115,7 +120,7 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 
 Juergen
 
---------------1CB6C7726BBFB532A874563C
+--------------63D0AE4215BEBF1E87A189D9
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -207,25 +212,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------1CB6C7726BBFB532A874563C--
+--------------63D0AE4215BEBF1E87A189D9--
 
---YjGmOZulIUpphAtPp8HTDkuhPHqX03vsx--
+--xWBnyshziHHRmjPfaSBRfd7PaVgGYagz0--
 
---GArAHF1YXkQfMO78u4z5zZAtW0esg0JJ4
+--OzZ76xS72a7VcXnTXUAfXaiu45f4kGQSI
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvYRMFAwAAAAAACgkQsN6d1ii/Ey98
-0gf/cJVbjRqGLpahP1ZWUkC8DA11j6MEGzOAZJd1RvZlRABAEyiZzaY4nCLBCbjuelXIjbEXFbis
-S2UI3TY6PMjHslimJEF307Yq1u3KJ2ej7lB/p/8Rl5C436CHnAO0FDNolMVu5iE7ZvcDjsFq2EUo
-uqB+BCUnsavdHKKFwfB6RvrYuPBK/Bpz1Ro1xAa5zQe9K0UIkklgOrzOyd4Z772QVgkgae+EbU1U
-8PZkczyphRmJSeaCutFvc5PwrjgVoRiS7p5FVJYGeNx4fq5s4VqRtTkKNBWJA3MkvccDmCOE0NC5
-dJfJGGqFOprR5yAoKLH2RHoOpFXbzi0GfHyAxr8Pgw==
-=+2bc
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvYdcFAwAAAAAACgkQsN6d1ii/Ey/o
+ggf/eHY+nuISGsHJUCyL14slgrZBwsifZ5UysT42g8ciRPPGLRlKDF7dSloueVc57yDAkBAnMdbe
+rkBVgeoDAkqvwnzDYb/ll1IAZwxxBLmcBH0JDCYDJUFjHarOtfmYpfAJe6MrY3sQGKM9m3d9rps/
+Ba9Mn6sIfUt7TohNSbJMaNA8FP3zdaFPYHum4nhE7U7EoStnKAol6KJKK6nqhE5wGdKuIucilime
+MsWC8LqkSBQ1RvPs0hkMmJT0nV6R5ALnKmPHgifSIxAVi4ovjGWv/JS3bMh3w9FlAGsbs2Balk/E
+FbCIz35+XTiTyoFhDRU2Ariqkg5CIgzqtSU6tmRUuw==
+=3UWU
 -----END PGP SIGNATURE-----
 
---GArAHF1YXkQfMO78u4z5zZAtW0esg0JJ4--
+--OzZ76xS72a7VcXnTXUAfXaiu45f4kGQSI--
 
