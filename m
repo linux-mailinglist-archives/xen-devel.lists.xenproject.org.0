@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 421AC46BE0F
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 15:46:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241208.418082 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68FA046BE15
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 15:46:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241213.418094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mubiw-0000gv-Um; Tue, 07 Dec 2021 14:45:42 +0000
+	id 1mubjl-0001IT-9G; Tue, 07 Dec 2021 14:46:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241208.418082; Tue, 07 Dec 2021 14:45:42 +0000
+Received: by outflank-mailman (output) from mailman id 241213.418094; Tue, 07 Dec 2021 14:46:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mubiw-0000dn-RM; Tue, 07 Dec 2021 14:45:42 +0000
-Received: by outflank-mailman (input) for mailman id 241208;
- Tue, 07 Dec 2021 14:45:41 +0000
+	id 1mubjl-0001FQ-59; Tue, 07 Dec 2021 14:46:33 +0000
+Received: by outflank-mailman (input) for mailman id 241213;
+ Tue, 07 Dec 2021 14:46:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=myTo=QY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mubiv-0000dd-QO
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 14:45:41 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1mubjj-0000dd-Ee
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 14:46:31 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5918d207-576c-11ec-9d12-4777fae47e2b;
- Tue, 07 Dec 2021 15:45:40 +0100 (CET)
+ id 7700b8fe-576c-11ec-9d12-4777fae47e2b;
+ Tue, 07 Dec 2021 15:46:30 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 102F02170E;
- Tue,  7 Dec 2021 14:45:40 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 850551FDFE;
+ Tue,  7 Dec 2021 14:46:30 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DA92313A8C;
- Tue,  7 Dec 2021 14:45:39 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 531CB13A8C;
+ Tue,  7 Dec 2021 14:46:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 3HwINJNzr2HPcQAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 14:45:39 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id FCQbE8Zzr2E+cgAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 14:46:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,83 +51,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5918d207-576c-11ec-9d12-4777fae47e2b
+X-Inumbo-ID: 7700b8fe-576c-11ec-9d12-4777fae47e2b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638888340; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1638888390; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=4UKQGIoPvsN+4ZLai38q0MD9ieq/sba1wLW27MFL3L0=;
-	b=sW6WlNtA1wb2LI73s/Pz+VoEbNGvC1A5aY8iZI/qGwd0q4lDmPSzZY4kIZLoiZA4zrFUwW
-	AdufaW1DAjiBf8BS/A44+gnyqaOwg2qPKuG/HbRdC+MgS7lDIScFbSJqy8ofOKTeBfrjpZ
-	4FxYXlEljjP7Ko16SQl+dN+y6fnW1p8=
-Subject: Re: [XEN PATCH 47/57] libs/stat: Fix and rework python-bindings build
+	bh=wRY1LBBbpxhY7al533EiPAZr6fx/aeM88mX5czSjq4g=;
+	b=YRztkdhpfLm60pTkeqbv/QIu27sdoqB1qyxBJs1ljG2z5VuY+FQ+s11TJPEZe5UmD7PCah
+	hmigUFSYZvhGsFnG8U9FP/dOPbeQFZmRLe9UHa1U0xTNqXTAS5QTsuOBLlxvI09tOMPWaC
+	gdfmWPPf0mNtWi/uO+467ULuVUEn29U=
+Subject: Re: [XEN PATCH 48/57] libs/stat: Fix and rework perl-binding build
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-48-anthony.perard@citrix.com>
+ <20211206170241.13165-49-anthony.perard@citrix.com>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <eccd5cda-2606-90cc-e796-bfe2a7211522@suse.com>
-Date: Tue, 7 Dec 2021 15:45:39 +0100
+Message-ID: <d2ee82e3-85e1-78f8-064b-9fd126ec0d4b@suse.com>
+Date: Tue, 7 Dec 2021 15:46:29 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20211206170241.13165-48-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-49-anthony.perard@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="teIz20kXtalrcI5vcJFCxcRTpt4vlq30H"
+ boundary="vt9JkTyR6PTskuvwx56dJ8hWR5QCxVdcC"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---teIz20kXtalrcI5vcJFCxcRTpt4vlq30H
-Content-Type: multipart/mixed; boundary="QhtOf0l6m749n3ygLivxGXojY2IWaoICg";
+--vt9JkTyR6PTskuvwx56dJ8hWR5QCxVdcC
+Content-Type: multipart/mixed; boundary="hKyu8wkvRtcUPQlKSgLGEvTW7vTJauSNS";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <eccd5cda-2606-90cc-e796-bfe2a7211522@suse.com>
-Subject: Re: [XEN PATCH 47/57] libs/stat: Fix and rework python-bindings build
+Message-ID: <d2ee82e3-85e1-78f8-064b-9fd126ec0d4b@suse.com>
+Subject: Re: [XEN PATCH 48/57] libs/stat: Fix and rework perl-binding build
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-48-anthony.perard@citrix.com>
-In-Reply-To: <20211206170241.13165-48-anthony.perard@citrix.com>
+ <20211206170241.13165-49-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-49-anthony.perard@citrix.com>
 
---QhtOf0l6m749n3ygLivxGXojY2IWaoICg
+--hKyu8wkvRtcUPQlKSgLGEvTW7vTJauSNS
 Content-Type: multipart/mixed;
- boundary="------------98398EEC076B90634D5EB02B"
+ boundary="------------6BA80D22831D5933FE86C50D"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------98398EEC076B90634D5EB02B
+--------------6BA80D22831D5933FE86C50D
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 06.12.21 18:02, Anthony PERARD wrote:
-> Fix the dependency on the library, $(SHLIB) variable doesn't exist
-> anymore.
+> For PERL_FLAGS, use make's shell rather than a backquote.
 >=20
-> Rework dependency on the include file, we can let `swig` generate the
-> dependency for us with the use of "-M*" flags.
->=20
-> The xenstat.h file has moved so we need to fix the include location.
->=20
-> Rather than relaying on the VCS to create an empty directory for us,
+> Rather than relying on the VCS to create an empty directory for us,
 > we can create one before generating the *.c file for the bindings.
 >=20
 > Make use of generic variable names to build a shared library from a
 > source file: CFLAGS, LDFLAGS, and LDLIBS.
 >=20
-> Fix python's specific *flags by using python-config, and add them to
-> generic flags variables: CFLAGS, LDLIBS.
->=20
 > To build a shared library, we need to build the source file with
 > "-fPIC", which was drop by 6d0ec05390 (tools: split libxenstat into
 > new tools/libs/stat directory).
 >=20
-> The source file generated by swig seems to be missing a prototype for
-> the "init" function, so we need "-Wno-missing-prototypes" in order to
-> build it.
->=20
-> Add some targets to .PHONY.
+> The source file generated by swig seems to be missing many prototype fo=
+r
+> many functions, so we need "-Wno-missing-prototypes" in order to
+> build it. Also, one of the prototype is deemed malformed, so we also
+> need "-Wno-strict-prototypes".
 >=20
 > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
@@ -136,7 +127,7 @@ Reviewed-by: Juergen Gross <jgross@suse.com>
 
 Juergen
 
---------------98398EEC076B90634D5EB02B
+--------------6BA80D22831D5933FE86C50D
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -228,25 +219,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------98398EEC076B90634D5EB02B--
+--------------6BA80D22831D5933FE86C50D--
 
---QhtOf0l6m749n3ygLivxGXojY2IWaoICg--
+--hKyu8wkvRtcUPQlKSgLGEvTW7vTJauSNS--
 
---teIz20kXtalrcI5vcJFCxcRTpt4vlq30H
+--vt9JkTyR6PTskuvwx56dJ8hWR5QCxVdcC
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvc5MFAwAAAAAACgkQsN6d1ii/Ey9T
-Pgf+MHG2AT9t/D5JwZs8B9XOjQEZq523cgM5DP0gsVrC/BbP4i1QnOZK9ogzmza5VvuXyKMqgz/L
-oi+NxquJMM8moRG93omlRUBa7jiZLSku/TzY8wqIXpZvumC9E2gb87sYAl8HV/+8h5ddhlCcMKTT
-TzBJVlFMYcGoZGJgQihv2XMEZ4o12TQpLv7esyZIaN6CnhqY3Dqlv+boK+Bg2ty5ufD2/lFL2Sou
-T7J2YQip2JlCJyaT8/XziUPx5FLng+XBP4g4yxSByvIezdVNSZBCrBIAPi0GB+vgm+GQT4rFe/zj
-MnxwtcSlEn5ayqHcD7WvHxAbbublD21BkwU2CZCSRA==
-=S1JW
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvc8UFAwAAAAAACgkQsN6d1ii/Ey/R
+LQf/eiGiEiPze8/KAd/oGxIL0pEmNduJwOUH0PrxjGoKXsFV2CZ5uu2+zFeCPLBveLCflWu/1jgP
+QobeLYgomi1Ki03x3FTvaKA4enhSCIpmAli+iHCa9TjUrKm8mSgqL1XHT8dBMLicgBDmJyzfTwK7
+pQ24BNVr5Lwk0B/KfP1eLYOcpMAW4NnYqWlk+8XeiqY+qtZBsVMwCoPMkqiwIKOarkjg4MNBEvJV
+pwJP/HF3llYgL7EBkZqUzuP07EQBFbcTVQEs5TeM8sw88vw+UygpvvHVyotb3Lz5Bw/6VI9CR/u4
+qpkZ1nqaxCZrSHDTzdGsW4CzAHg2DOPRrhM6A6FrZw==
+=e/aw
 -----END PGP SIGNATURE-----
 
---teIz20kXtalrcI5vcJFCxcRTpt4vlq30H--
+--vt9JkTyR6PTskuvwx56dJ8hWR5QCxVdcC--
 
