@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 878F546C696
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 22:19:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241971.418599 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7160846C850
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 00:38:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241982.418611 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muhrd-0005Rn-Bm; Tue, 07 Dec 2021 21:19:05 +0000
+	id 1muk1A-0007GY-CP; Tue, 07 Dec 2021 23:37:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241971.418599; Tue, 07 Dec 2021 21:19:05 +0000
+Received: by outflank-mailman (output) from mailman id 241982.418611; Tue, 07 Dec 2021 23:37:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muhrd-0005PQ-8a; Tue, 07 Dec 2021 21:19:05 +0000
-Received: by outflank-mailman (input) for mailman id 241971;
- Tue, 07 Dec 2021 21:19:04 +0000
+	id 1muk1A-0007E3-8u; Tue, 07 Dec 2021 23:37:04 +0000
+Received: by outflank-mailman (input) for mailman id 241982;
+ Tue, 07 Dec 2021 23:37:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vuaW=QY=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1muhrc-0005PE-2K
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 21:19:04 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ <SRS0=q3n9=QY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1muk18-0007Dx-MN
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 23:37:02 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4cb5c801-57a3-11ec-9d12-4777fae47e2b;
- Tue, 07 Dec 2021 22:19:02 +0100 (CET)
+ id 9269ba7c-57b6-11ec-9d12-4777fae47e2b;
+ Wed, 08 Dec 2021 00:37:00 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 1FEE9CE1C51;
+ Tue,  7 Dec 2021 23:36:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA742C341C3;
+ Tue,  7 Dec 2021 23:36:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,103 +43,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4cb5c801-57a3-11ec-9d12-4777fae47e2b
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1638911940;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fejqz/bIS5UVVez3Xtjq2jInYaufJY/nLKnDbenyBtw=;
-	b=VC5Rvg7jiq8Ikfw+JFC2if6V+C51JARVBdC0uW9vUW0CHLXLMJTCVCws2bKyhUrgzzbYBD
-	TspgTWIoCN3z1mpSmBTfGbx4XIbh9GbNDRxSmFXBfJwIBX3j0sw+jnfm/oYCbc43OrEUpM
-	SS9tX2diiZM5lYRGla6ljcr7iPYUAT/RJ9qMdqhJZgpVF0sfTve/39i5qs1L2SbKmA26Kk
-	RuYaS8IxyMjfJtp5yErMcFm+uepejATF2VudC9wKWykGQzcm11Soqa0vOKrqlwq9Qy2ES/
-	hIUI+MznVV8wAM/ESPIdQN7tFRoLJxRc700tRc0QEredDULx8y3xvMEgR1lqVw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1638911940;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fejqz/bIS5UVVez3Xtjq2jInYaufJY/nLKnDbenyBtw=;
-	b=tpxYQz931aJ9NXdPSYYAooQnjmQcVTU6ncg1A9XfE7ZYmworf/GnMN1rkeaSCd4LIsHO3E
-	LsosR2mIUwj5rrDw==
-To: =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@kaod.org>, LKML
- <linux-kernel@vger.kernel.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Marc Zygnier <maz@kernel.org>, Alex
- Williamson <alex.williamson@redhat.com>, Kevin Tian
- <kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>, Megha Dey
- <megha.dey@intel.com>, Ashok Raj <ashok.raj@intel.com>,
- linux-pci@vger.kernel.org, xen-devel@lists.xenproject.org, Juergen Gross
- <jgross@suse.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Will
- Deacon <will@kernel.org>, Santosh Shilimkar <ssantosh@kernel.org>,
- iommu@lists.linux-foundation.org, dmaengine@vger.kernel.org, Stuart Yoder
- <stuyoder@gmail.com>, Laurentiu Tudor <laurentiu.tudor@nxp.com>, Nishanth
- Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>, Mark
- Rutland <mark.rutland@arm.com>, Robin Murphy <robin.murphy@arm.com>, Sinan
- Kaya <okaya@kernel.org>, Dan Williams <dan.j.williams@intel.com>,
- Christoph Hellwig <hch@infradead.org>, Keith Busch <kbusch@kernel.org>
-Subject: Re: [patch V2 29/36] PCI/MSI: Simplify pci_irq_get_affinity()
-In-Reply-To: <e32237f3-0ff2-cf80-cd99-0b4813d1ed21@kaod.org>
-References: <20211206210307.625116253@linutronix.de>
- <20211206210439.235197701@linutronix.de>
- <e32237f3-0ff2-cf80-cd99-0b4813d1ed21@kaod.org>
-Date: Tue, 07 Dec 2021 22:19:00 +0100
-Message-ID: <87zgpc15bv.ffs@tglx>
+X-Inumbo-ID: 9269ba7c-57b6-11ec-9d12-4777fae47e2b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1638920215;
+	bh=FG2SGFwHcUyA+9+/Ri7rTgQT9k2NE3/aM61sY9WDemQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Aok5DLUJj+Jy+u4ZaMwSlbC6ocZ+w7ekCFqJtmvUvFk88u7LuWmPb2RtTfOeKJ+vj
+	 74uRJCdnaTNBaLlNCL85DkWQ3ctIxEImPA/IjNSnrAU4RDG3ozJGTMnEH8LqxLCt0t
+	 M7L/j8LTAapBoD22PIB7nlv5uIAWuNbF5VX5lLdurPYF2WssIJmXdUM/kpkGsOIoj0
+	 hZ1vkRZUR0bho/yrYDQg1m5hNj3V/igTBF+RgOKwwsTFsYZM8XIZVtlil77U/38TKM
+	 qYlB/av2z5AFJH8/fB2CHpPVVOY9sAJhxDtFDi9D7dMKcgqpBTPTe1F0x3YU8vBlP+
+	 vsA2scHSad/Ww==
+Date: Tue, 7 Dec 2021 15:36:53 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksandr <olekstysh@gmail.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
+Subject: Re: [PATCH V3 4/6] xen/unpopulated-alloc: Add mechanism to use Xen
+ resource
+In-Reply-To: <c2e8c00a-3856-8330-8e8f-ab8a92e93e47@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2112071506370.4091490@ubuntu-linux-20-04-desktop>
+References: <1637787223-21129-1-git-send-email-olekstysh@gmail.com> <1637787223-21129-5-git-send-email-olekstysh@gmail.com> <alpine.DEB.2.22.394.2111241701240.1412361@ubuntu-linux-20-04-desktop> <c2e8c00a-3856-8330-8e8f-ab8a92e93e47@gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; BOUNDARY="8323329-1417778164-1638918436=:4091490"
+Content-ID: <alpine.DEB.2.22.394.2112071520320.4091490@ubuntu-linux-20-04-desktop>
 
-Cedric,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On Tue, Dec 07 2021 at 18:42, C=C3=A9dric Le Goater wrote:
->
-> This is breaking nvme on pseries but it's probably one of the previous
-> patches. I haven't figured out what's wrong yet. Here is the oops FYI.
+--8323329-1417778164-1638918436=:4091490
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2112071520321.4091490@ubuntu-linux-20-04-desktop>
 
-Hrm.
+On Thu, 25 Nov 2021, Oleksandr wrote:
+> > > Please note the following:
+> > > for V3 arch_xen_unpopulated_init() was moved to init() as was agreed
+> > > and gained __init specifier. So the target_resource is initialized there.
+> > > 
+> > > With current patch series applied if CONFIG_XEN_UNPOPULATED_ALLOC
+> > > is enabled:
+> > > 
+> > > 1. On Arm, under normal circumstances, the xen_alloc_unpopulated_pages()
+> > > won't be called “before” arch_xen_unpopulated_init(). It will only be
+> > > called "before" when either ACPI is in use or something wrong happened
+> > > with DT (and we failed to read xen_grant_frames), so we fallback to
+> > > xen_xlate_map_ballooned_pages() in arm/xen/enlighten.c:xen_guest_init(),
+> > > please see "arm/xen: Switch to use gnttab_setup_auto_xlat_frames() for DT"
+> > > for details. But in that case, I think, it doesn't matter much whether
+> > > xen_alloc_unpopulated_pages() is called "before" of "after"
+> > > target_resource
+> > > initialization, as we don't have extended regions in place the
+> > > target_resource
+> > > will remain invalid even after initialization, so
+> > > xen_alloc_ballooned_pages()
+> > > will be used in both scenarios.
+> > > 
+> > > 2. On x86, I am not quite sure which modes use unpopulated-alloc (PVH?),
+> > > but it looks like xen_alloc_unpopulated_pages() can (and will) be called
+> > > “before” arch_xen_unpopulated_init().
+> > > At least, I see that xen_xlate_map_ballooned_pages() is called in
+> > > x86/xen/grant-table.c:xen_pvh_gnttab_setup(). According to the initcall
+> > > levels for both xen_pvh_gnttab_setup() and init() I expect the former
+> > > to be called earlier.
+> > > If it is true, the sentence in the commit description which mentions
+> > > that “behaviour on x86 is not changed” is not precise. I don’t think
+> > > it would be correct to fallback to xen_alloc_ballooned_pages() just
+> > > because we haven’t initialized target_resource yet (on x86 it is just
+> > > assigning it iomem_resource), at least this doesn't look like an expected
+> > > behaviour and unlikely would be welcome.
+> > > 
+> > > I am wondering whether it would be better to move
+> > > arch_xen_unpopulated_init()
+> > > to a dedicated init() marked with an appropriate initcall level
+> > > (early_initcall?)
+> > > to make sure it will always be called *before*
+> > > xen_xlate_map_ballooned_pages().
+> > > What do you think?
+> 
+>    ... here (#2). Or I really missed something and there wouldn't be an issue?
 
-> [   32.494562] WARNING: CPU: 26 PID: 658 at kernel/irq/chip.c:210 irq_sta=
-rtup+0x1c0/0x1e0
+Yes, I see your point. Yeah, it makes sense to make sure that
+drivers/xen/unpopulated-alloc.c:init is executed before
+xen_pvh_gnttab_setup.
 
-This complains about a manual enable_irq() on a managed interrupt.
+If we move it to early_initcall, then we end up running it before
+xen_guest_init on ARM. But that might be fine: it looks like it should
+work OK and would also allow us to execute xen_xlate_map_ballooned_pages
+with target_resource already set.
 
-> [   32.494575] Modules linked in: ibmvscsi ibmveth scsi_transport_srp bnx=
-2x ipr libata xhci_pci xhci_hcd nvme xts vmx_crypto nvme_core mdio t10_pi l=
-ibcrc32c dm_mirror dm_region_hash dm_log dm_mod
-> [   32.494601] CPU: 26 PID: 658 Comm: kworker/26:1H Not tainted 5.16.0-rc=
-4-clg+ #54
-> [   32.494607] Workqueue: kblockd blk_mq_timeout_work
-> [   32.494681] NIP [c000000000206f00] irq_startup+0x1c0/0x1e0
-> [   32.494686] LR [c000000000206df0] irq_startup+0xb0/0x1e0
-> [   32.494690] Call Trace:
-> [   32.494692] [c0000018050f38b0] [c000000000206df0] irq_startup+0xb0/0x1=
-e0 (unreliable)
-> [   32.494699] [c0000018050f38f0] [c00000000020155c] __enable_irq+0x9c/0x=
-b0
-> [   32.494705] [c0000018050f3950] [c0000000002015d0] enable_irq+0x60/0xc0
-> [   32.494710] [c0000018050f39d0] [c008000014a54ae8] nvme_poll_irqdisable=
-+0x80/0xc0 [nvme]
-> [   32.494719] [c0000018050f3a00] [c008000014a55824] nvme_timeout+0x18c/0=
-x420 [nvme]
-> [   32.494726] [c0000018050f3ae0] [c00000000076e1b8] blk_mq_check_expired=
-+0xa8/0x130
-> [   32.494732] [c0000018050f3b10] [c0000000007793e8] bt_iter+0xd8/0x120
-> [   32.494737] [c0000018050f3b60] [c00000000077a34c] blk_mq_queue_tag_bus=
-y_iter+0x25c/0x3f0
-> [   32.494742] [c0000018050f3c20] [c00000000076ffa4] blk_mq_timeout_work+=
-0x84/0x1a0
-> [   32.494747] [c0000018050f3c70] [c000000000182a78] process_one_work+0x2=
-a8/0x5a0
-
-Confused. I diffed against v1, but could not spot anything except that
-properties issue which you found too.
-
-Thanks,
-
-        tglx
-
+So I'd say go for it :)
+--8323329-1417778164-1638918436=:4091490--
 
