@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95B3046B49E
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 08:52:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.240629.417281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 234D246B4A7
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 08:52:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.240631.417292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muVGv-0003py-MF; Tue, 07 Dec 2021 07:52:21 +0000
+	id 1muVH6-0004PE-UI; Tue, 07 Dec 2021 07:52:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 240629.417281; Tue, 07 Dec 2021 07:52:21 +0000
+Received: by outflank-mailman (output) from mailman id 240631.417292; Tue, 07 Dec 2021 07:52:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muVGv-0003o4-HT; Tue, 07 Dec 2021 07:52:21 +0000
-Received: by outflank-mailman (input) for mailman id 240629;
- Tue, 07 Dec 2021 07:52:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1muVH6-0004N5-Pf; Tue, 07 Dec 2021 07:52:32 +0000
+Received: by outflank-mailman (input) for mailman id 240631;
+ Tue, 07 Dec 2021 07:52:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=3MF5=QY=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1muVGu-0003mG-Dy
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 07:52:20 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9a47d1bc-5732-11ec-a5e1-b9374ead2679;
- Tue, 07 Dec 2021 08:52:19 +0100 (CET)
+ id 1muVH5-0002w4-Hw
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 07:52:31 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a0a2902c-5732-11ec-8a4d-196798b21f7b;
+ Tue, 07 Dec 2021 08:52:30 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C4F0EB816D8;
- Tue,  7 Dec 2021 07:52:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780C2C341C3;
- Tue,  7 Dec 2021 07:52:16 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id E5A4DCE1A02;
+ Tue,  7 Dec 2021 07:52:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74FDEC341C6;
+ Tue,  7 Dec 2021 07:52:26 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,15 +43,15 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a47d1bc-5732-11ec-a5e1-b9374ead2679
+X-Inumbo-ID: a0a2902c-5732-11ec-8a4d-196798b21f7b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1638863537;
-	bh=YYyYDqi7BKUMM2VLzZGPdlwcQYloLbHu+PMAAmx4vhQ=;
+	s=korg; t=1638863547;
+	bh=nCz2eprBDDZQ3hphsrTchcKKsptlZR6ElROa48+S3D0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Lrf2b5VSroC8kPE/EiMROJoVWuZNxt44LjP49Y2om8BhI+BBXM8o24IwyEFOVAbJ9
-	 6DDZrdJtryDpOkn0TScv95xjBYKuAaQom3T6s67hk1FezNRypOhHKdh/ZpWaMaCohx
-	 8uO6pfgsd8KtuoUxhX/hHicEdoYvaTBX5V3Rkp40=
-Date: Tue, 7 Dec 2021 08:52:14 +0100
+	b=THSlYZzdDomIjyopvU5UfNwTG47lpNK4jXGRHhOoFNXwX5+imnG0HcAyKtwYLRR5x
+	 nrrwNNGJQmDJIgRHihmrMpGobufnGW2QTi+2XkoTvxG8s0uo8t2HjLG/kOjX2Oo5zw
+	 Z8t/Sg2MiIE1W7osNN65DigsH0oO3jivQutxb2t4=
+Date: Tue, 7 Dec 2021 08:52:24 +0100
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: Thomas Gleixner <tglx@linutronix.de>
 Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
@@ -71,20 +70,22 @@ Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
 	linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
 	Mark Rutland <mark.rutland@arm.com>,
 	Robin Murphy <robin.murphy@arm.com>, Sinan Kaya <okaya@kernel.org>
-Subject: Re: [patch V2 23/36] powerpc/cell/axon_msi: Use MSI device properties
-Message-ID: <Ya8SrlbeCdsN7ujX@kroah.com>
+Subject: Re: [patch V2 19/36] PCI/MSI: Store properties in device::msi::data
+Message-ID: <Ya8SuMnuZ4I64xLh@kroah.com>
 References: <20211206210307.625116253@linutronix.de>
- <20211206210438.913603962@linutronix.de>
+ <20211206210438.688216619@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20211206210438.913603962@linutronix.de>
+In-Reply-To: <20211206210438.688216619@linutronix.de>
 
-On Mon, Dec 06, 2021 at 11:39:33PM +0100, Thomas Gleixner wrote:
-> instead of fiddling with MSI descriptors.
+On Mon, Dec 06, 2021 at 11:39:26PM +0100, Thomas Gleixner wrote:
+> Store the properties which are interesting for various places so the MSI
+> descriptor fiddling can be removed.
 > 
 > Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 
 Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
 
 
