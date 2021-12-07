@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5114346BC5E
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 14:21:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.241078.417899 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C87DC46BC60
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Dec 2021 14:22:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.241082.417911 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muaOX-00036K-F7; Tue, 07 Dec 2021 13:20:33 +0000
+	id 1muaPz-0003e6-R2; Tue, 07 Dec 2021 13:22:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 241078.417899; Tue, 07 Dec 2021 13:20:33 +0000
+Received: by outflank-mailman (output) from mailman id 241082.417911; Tue, 07 Dec 2021 13:22:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muaOX-000335-Bv; Tue, 07 Dec 2021 13:20:33 +0000
-Received: by outflank-mailman (input) for mailman id 241078;
- Tue, 07 Dec 2021 13:20:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1muaPz-0003cH-NB; Tue, 07 Dec 2021 13:22:03 +0000
+Received: by outflank-mailman (input) for mailman id 241082;
+ Tue, 07 Dec 2021 13:22:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=myTo=QY=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1muaOV-00032z-UM
- for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 13:20:31 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 732013c4-5760-11ec-9d12-4777fae47e2b;
- Tue, 07 Dec 2021 14:20:30 +0100 (CET)
+ id 1muaPx-0003c7-LZ
+ for xen-devel@lists.xenproject.org; Tue, 07 Dec 2021 13:22:01 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a8ddb40f-5760-11ec-a831-37629979565c;
+ Tue, 07 Dec 2021 14:22:00 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CB5FF1FD56;
- Tue,  7 Dec 2021 13:20:29 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 4D17C218D6;
+ Tue,  7 Dec 2021 13:22:00 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9995F13A63;
- Tue,  7 Dec 2021 13:20:29 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 27B9013A63;
+ Tue,  7 Dec 2021 13:22:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 6/JHJJ1fr2HURgAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 13:20:29 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id xJdcCPhfr2F5RwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 07 Dec 2021 13:22:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,80 +51,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 732013c4-5760-11ec-9d12-4777fae47e2b
+X-Inumbo-ID: a8ddb40f-5760-11ec-a831-37629979565c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638883229; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1638883320; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=i+nviJexRolV21wub8IbWTVS40+659B2KUTP/FF8XD4=;
-	b=IRqe8xNG2lFDSA+aDjVEx5uRAcuGAP1Gh8/ZGOdCsVL3uum/jV7TlU9LWCLyGVqtmKx3yY
-	skwFP3CpPj9WSCBZ5BW0VLwqJEkd9teDoow8HQVdDIqROHBlMQusIQB2fO8Pwx2KAT5i3j
-	CVG6z4Q7gu2hnHrX3N8oORuwlsFKwhU=
+	bh=/9UmRT2NcL0UTT/SjF9CeSwcVD7vF9+WF9agbGusyDo=;
+	b=bAGs4vgds/VxPPzDVuvO81jskMKcyAZt8viH7ZH8l2XDhAns9Wg0G5VH0hTn2dfKCClHje
+	De0U5prvXE298nta4uc9SQrAOOkW1BRwchUMvYL7qDcD2RJ6Qx4rj69eRyXQdXZiMGNdjR
+	NoD6soOM2Wt8n4woNptGgQgw+sfBgjo=
+Subject: Re: [XEN PATCH 42/57] libs,tools/include: Clean "clean" targets
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-42-anthony.perard@citrix.com>
+ <20211206170241.13165-43-anthony.perard@citrix.com>
 From: Juergen Gross <jgross@suse.com>
-Subject: Re: [XEN PATCH 41/57] libs: Remove need for *installlocal targets
-Message-ID: <bc5bc497-d1a0-007a-802f-e411159fb88e@suse.com>
-Date: Tue, 7 Dec 2021 14:20:29 +0100
+Message-ID: <210e3196-feea-7df5-ce38-cd8789e8af23@suse.com>
+Date: Tue, 7 Dec 2021 14:21:59 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20211206170241.13165-42-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-43-anthony.perard@citrix.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="LcgQS0Xl0zyJoxaZ19G7eeelIEzIi8iuv"
+ boundary="94XAOVebDixBlVJJxtrLl5xzl8r7QlfxT"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---LcgQS0Xl0zyJoxaZ19G7eeelIEzIi8iuv
-Content-Type: multipart/mixed; boundary="noe57VO5yCsN3TB7G75OF09M96YLmHck7";
+--94XAOVebDixBlVJJxtrLl5xzl8r7QlfxT
+Content-Type: multipart/mixed; boundary="NuuD8cdHKIjMsd0edb73UPFR7ah8RHtlS";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
  Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Message-ID: <bc5bc497-d1a0-007a-802f-e411159fb88e@suse.com>
-Subject: Re: [XEN PATCH 41/57] libs: Remove need for *installlocal targets
+Message-ID: <210e3196-feea-7df5-ce38-cd8789e8af23@suse.com>
+Subject: Re: [XEN PATCH 42/57] libs,tools/include: Clean "clean" targets
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-42-anthony.perard@citrix.com>
-In-Reply-To: <20211206170241.13165-42-anthony.perard@citrix.com>
+ <20211206170241.13165-43-anthony.perard@citrix.com>
+In-Reply-To: <20211206170241.13165-43-anthony.perard@citrix.com>
 
---noe57VO5yCsN3TB7G75OF09M96YLmHck7
+--NuuD8cdHKIjMsd0edb73UPFR7ah8RHtlS
 Content-Type: multipart/mixed;
- boundary="------------3BB6FBEC9357192216A6F0C2"
+ boundary="------------75C4C79D18772802E66F0B95"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------3BB6FBEC9357192216A6F0C2
+--------------75C4C79D18772802E66F0B95
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
 On 06.12.21 18:02, Anthony PERARD wrote:
-> There is no need for an extra "installlocal" target, we can use
+> There is no need for an extra "cleanlocal" target, we can use
 > double-colon rules instead.
-
-Doesn't that mean that with the ultimate goal of including all
-Makefiles of the tree that all "install" and "uninstall" rules in the
-tree will have to be double-colon rules? Citing from the make manual:
-
-   When a target appears in multiple rules, all the rules must be the
-   same type: all ordinary, or all double-colon.
-
 >=20
-> "install-headers" in "libs/store" was introduced for the same reason
-> that "installlocal" exist, so it is replaced as well.
+> Generated headers are now in tools/include/, so remove those file
+> there.
+>=20
+> Remove -f flag as it's already in $(RM).
+>=20
+> libs.mk:
+>    - don't try to remove "*.rpm" anymore.
+>=20
+> libs/light:
+>    - "_paths.*.tmp" isn't created anymore.
+>    - clean "libxenlight_test.so" and "libxl_test_*.opic".
+>=20
+> libs/util:
+>    - fix clean of version-script file.
+>=20
+> include/xen-foreign:
+>    - remove __pycache__
 >=20
 > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
-With above remark I don't see how tools/libs/stat/Makefile can be left
-unmodified, as it includes libs.mk and it contains an "intall:" rule.
+Same remark regarding double-colon rules as for last patch.
 
 
 Juergen
 
---------------3BB6FBEC9357192216A6F0C2
+--------------75C4C79D18772802E66F0B95
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -216,25 +222,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------3BB6FBEC9357192216A6F0C2--
+--------------75C4C79D18772802E66F0B95--
 
---noe57VO5yCsN3TB7G75OF09M96YLmHck7--
+--NuuD8cdHKIjMsd0edb73UPFR7ah8RHtlS--
 
---LcgQS0Xl0zyJoxaZ19G7eeelIEzIi8iuv
+--94XAOVebDixBlVJJxtrLl5xzl8r7QlfxT
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvX50FAwAAAAAACgkQsN6d1ii/Ey8d
-IQf9Fcrn0+S6HuOBvR8LxbpVilXLR3gPmd6fFnM0C+cnYC3/4bhUtTCUwtkMP5En7S7wjhRMK9BI
-yFfdZ8LFQ24l7FF8guKwA84nmkdTGfrG7VQpIzgOxd3gOP2srwzeP9H+7v8t5K26pKtZt4ikn0BE
-rEjsha3C5v36kdXb1LHNKMY+sldBiTCKacFURoFXxUGtqmEB5VGsqFW/Uy6CQ0uBCWrobcDmoC9i
-miRKItdprgniPJxmRLVerXcdck0xZdfw9MVGj3aYK9PyWMlx6ZWeW1WCkvDDkJ8p9/PqtMOWiTal
-eYgEBX9G3WKDLfxiCJ+gak9i9qXPBx1qQKoZxaittA==
-=qu+R
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGvX/cFAwAAAAAACgkQsN6d1ii/Ey/P
+GAf/S1CoX7b4Pm+0HqVLE041jm6pVxeJdVoe8sHYOkADsb+jMrlCpEqx1u+fJefUfVe9QsEZgEOP
+E7NWBpKgvMZAawicg3ZGctD6WE+mLScGk1sOs3dMJ7eNmNJWjCizrttYGjtSxliafcBWc2kT3hEs
+cXEfDZ53eiiPaEEXQ0jD0bYhNVsElniOEXKzzQJgVc6RzgGe94UOLnaXLl0zLu+2CqbYKVFj8bNU
+9/bpd2sz3iJumdADCRXamNIUDWzK+/BNvNa6LANTzy3AV0I78nFjHQMci4xbZn2BLk4wn7T9ydL8
+f2mRxSYdeSdcAY6TEnRiqs+3CxTw8KrILMk+aALCRw==
+=EHSU
 -----END PGP SIGNATURE-----
 
---LcgQS0Xl0zyJoxaZ19G7eeelIEzIi8iuv--
+--94XAOVebDixBlVJJxtrLl5xzl8r7QlfxT--
 
