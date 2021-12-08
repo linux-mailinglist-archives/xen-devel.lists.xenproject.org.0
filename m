@@ -2,45 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1B1E46D77D
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 16:55:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.242343.419178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 651F446D788
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 16:56:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.242354.419188 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muzHP-0000im-CW; Wed, 08 Dec 2021 15:54:51 +0000
+	id 1muzIi-0001O2-OG; Wed, 08 Dec 2021 15:56:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 242343.419178; Wed, 08 Dec 2021 15:54:51 +0000
+Received: by outflank-mailman (output) from mailman id 242354.419188; Wed, 08 Dec 2021 15:56:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muzHP-0000fZ-8a; Wed, 08 Dec 2021 15:54:51 +0000
-Received: by outflank-mailman (input) for mailman id 242343;
- Wed, 08 Dec 2021 15:54:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1muzIi-0001ME-Iw; Wed, 08 Dec 2021 15:56:12 +0000
+Received: by outflank-mailman (input) for mailman id 242354;
+ Wed, 08 Dec 2021 15:56:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=EU5o=QZ=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
- id 1muzHN-00008O-Un
- for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 15:54:50 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2060b.outbound.protection.outlook.com
- [2a01:111:f400:fe5a::60b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b16c51e-583f-11ec-9d12-4777fae47e2b;
- Wed, 08 Dec 2021 16:54:49 +0100 (CET)
-Received: from BL1PR12MB5350.namprd12.prod.outlook.com (2603:10b6:208:31d::23)
- by BL1PR12MB5031.namprd12.prod.outlook.com (2603:10b6:208:31a::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.16; Wed, 8 Dec
- 2021 15:54:45 +0000
-Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
- by BL1PR12MB5350.namprd12.prod.outlook.com (2603:10b6:208:31d::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Wed, 8 Dec
- 2021 15:54:44 +0000
-Received: from BL0PR12MB5506.namprd12.prod.outlook.com
- ([fe80::d8be:e4e4:ce53:6d11]) by BL0PR12MB5506.namprd12.prod.outlook.com
- ([fe80::d8be:e4e4:ce53:6d11%7]) with mapi id 15.20.4778.013; Wed, 8 Dec 2021
- 15:54:44 +0000
+ (envelope-from <SRS0=J2Or=QZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1muzIh-0001LM-66
+ for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 15:56:11 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5c89904e-583f-11ec-a831-37629979565c;
+ Wed, 08 Dec 2021 16:56:10 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C80A21FD3E;
+ Wed,  8 Dec 2021 15:56:09 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7741C13C8E;
+ Wed,  8 Dec 2021 15:56:09 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id PW7OG5nVsGHIXwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 08 Dec 2021 15:56:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,119 +51,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b16c51e-583f-11ec-9d12-4777fae47e2b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jG4nc7UZ3iiPvfZibLDl6Au68dbmTOy0vRWFjdBjeORUsNkfj2f4xmj25fMQcaPLKxK5Qc08d/kgSqqubJPQ2xL+aUTpRgaktiGDrTEUfYt+YtfFBcbzqB9WY9FvQ9QXcYny5y9HTJ0unN9siYl47sX3bJkeDYfAhdFEruH81hJ70CrAxbGHIcxl6L3hgeR1N7ZaMSe5mJBJkniA/afIoHkV+/lK9u7cQrBR+eRa8qK2GwbrsPTLgdKVsezkouP2MvuuPXY7yUgnOvdh3HbVRVXU+OBebfMj+BVTkVRe90CBhcoBEkZAadTT9aAQOXwDsgPFFkaVu4Vx4L66h2doWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0S9D9HSbenoCsZdgUbSLEczlESblMObwYdCamPqNeJ8=;
- b=PjjDI0xD1HLaoi8LHkIpVahr9daCi4beokar1D/voM7+FZ1YUPmGsacJZp/s8p0fyCV3FVHgqThvQQwNGhk+WAbYungSlRn3NIap/cu5WzZDYQ36yssfTghPfCNmmjyM/oNRL6tAkuVlNhYFIUxwZ9Urv3WkQPpJ1NrDgT9Jyjadw8poapkYTttphDZQ1TcVrRVV4XNWtSQGTPJSV/heIjK+ZASHvFBCMW4m9BngfIXmFR0PHo9/LSG5uuo8jzOxBFkB51Wcs7nY/YTqsJyAopbLYfOIoeKTWKgTubGwVI4zYP4SjYjjReizbotxNHqaueE/Kv9vuVT79XxTVn332A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0S9D9HSbenoCsZdgUbSLEczlESblMObwYdCamPqNeJ8=;
- b=aUQ9m6qe1hMXRyHlx5vWsyc3oZzRYMS8t8yAvtuBuNwUNVd8OeeKiIKtvz64i6NYloNFMcpp/WR+pY6I0xvn+FdyKdMwICVVVBxBnPLDN59ZWKNi4667SBWMd/OgrBzgbtPLf+IYHEncvwdC4ETbjpBto86LKKr3P3e4AVGn8Wvf1zvUcXFTS42UW+1eNQiVyy+jaKDXmPRXtUtFa8SrRE+jOjNPIsBds52DXu0bee1PcioxS5VDX0rqc0Ctwimxlz6RYTv79gXjo71I17D9Fb5dVsgqJNaZ4PyIeajvBJ0DGGS255qGtQEKI/0x+Ab89HA/dI+JpAY1975QweIMkw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Date: Wed, 8 Dec 2021 11:54:42 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
-	Marc Zygnier <maz@kernel.org>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Kevin Tian <kevin.tian@intel.com>, Megha Dey <megha.dey@intel.com>,
-	Ashok Raj <ashok.raj@intel.com>, linux-pci@vger.kernel.org,
-	Cedric Le Goater <clg@kaod.org>, xen-devel@lists.xenproject.org,
-	Juergen Gross <jgross@suse.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Will Deacon <will@kernel.org>,
-	Santosh Shilimkar <ssantosh@kernel.org>,
-	iommu@lists.linux-foundation.org, dmaengine@vger.kernel.org,
-	Stuart Yoder <stuyoder@gmail.com>,
-	Laurentiu Tudor <laurentiu.tudor@nxp.com>,
-	Nishanth Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Robin Murphy <robin.murphy@arm.com>, Sinan Kaya <okaya@kernel.org>
-Subject: Re: [patch V2 23/36] powerpc/cell/axon_msi: Use MSI device properties
-Message-ID: <20211208155442.GY6385@nvidia.com>
-References: <20211206210307.625116253@linutronix.de>
- <20211206210438.913603962@linutronix.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211206210438.913603962@linutronix.de>
-X-ClientProxiedBy: SJ0PR13CA0061.namprd13.prod.outlook.com
- (2603:10b6:a03:2c4::6) To BL0PR12MB5506.namprd12.prod.outlook.com
- (2603:10b6:208:1cb::22)
+X-Inumbo-ID: 5c89904e-583f-11ec-a831-37629979565c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1638978969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=rQV7j0YW8AXR7oZuq5XEnisypq+N6I53xv0CTVE9+3M=;
+	b=fiptY8MRyhZZUaImPizpJyybGwmsWQ+BlfeYSgYQ+HwpX+WLMq9CrLLjN82MSFczMNGUxu
+	PJ6wIA7lA66VyB4gtQjL+dSj19kosRqmyU/n6Os9apeT9N6BmLU7WKadgW0jA5z6ymdd4u
+	WsxH1rzcBfvFDHssuvwplK0w2zhL7ao=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Christopher Clark <christopher.w.clark@gmail.com>
+Subject: [PATCH v3 00/13] xen: drop hypercall function tables
+Date: Wed,  8 Dec 2021 16:55:53 +0100
+Message-Id: <20211208155606.20029-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 77e04d19-7845-4e12-165e-08d9ba630dce
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5350:EE_|BL1PR12MB5031:EE_
-X-Microsoft-Antispam-PRVS:
- <BL1PR12MB5350B3C88F1E00FF1E43B09BC26F9@BL1PR12MB5350.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	GS+LISBVHteK4d841oWu9hKYKQM1y6NDJhhOZSs/2MqNgq2WySGYMofcjJatgfH1IfNYwLWx1q/jJmxiL0b5+081jpBOKsqFtyuZaPNlrS3nbnOWBfpmoFvttzqdLqnm2zp6Z24krj8/foxWBDQdG8Bc1BMc7jzZMMbijdIPDUZXKMgloTuhMdy898Kf7gb+TV4JWRMgcrQW6q8zAwZjdCEgUELQQDsF2O3MSuBXumzYNYiSfqTOD2P8WEbzfj90pIj0k6Vcjb9ZFP6ccMvv5esslnYauYanDtx4HAwE0Tw7rndk+X+BaxjaVbTuKocXxIuQj4qxMLwooM4Of+2oPzLN7mCmWp7mfPSJxmpeHYHSiW6oGW2nDjxOn+lNfkOufF8woHPsvmnDAhNkkS3sN7KlIyOsgRLM6K97EJgE05Q1W48yTOwOm6POV1FlSOnpojoxPsXnbnV1R2Eb51b5wZgPofDYGkjHqXgv1Twhqn0ck+3dLYmuCjALr8MTT5a3kwT+d4ClnrXlVG0gCMwiwsOZSVztjEMHsLIjhvOPDGbYHo+19lo3WqGiRsoIoXgg+/n0uOHyDc1pHp+dXbzJV3YJr0s6p4rUlk+2LeS/QwP8llv33W+i2c06aCQ6D7fQy5ia1v7MwHprPWGelAgUVw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5350.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(66556008)(316002)(6512007)(558084003)(66476007)(6506007)(186003)(8936002)(66946007)(7416002)(54906003)(508600001)(33656002)(1076003)(26005)(4326008)(5660300002)(38100700002)(86362001)(6916009)(36756003)(2616005)(8676002)(6486002)(2906002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?nMIbCOUusUhlSao/i/r5Za3Hl4BbRO+/ixs7S7Sbyo2qpr0bfkFiQlTn5Ukp?=
- =?us-ascii?Q?P9Qt4DdTE5PVo3yyhRiGRwhkA68y/LNtU52Fziau3Gl43RxMGaWptIwDIVDI?=
- =?us-ascii?Q?k2WAigMy/+uhzZX00hUDaobg5b3oHxuJ8hohRAV1v2GiLYYtM0ynZnfQQjAB?=
- =?us-ascii?Q?mlQalBjVF9cK2gjSezEAuDeHRMUbYeJ/OAaOGZgbW++PIeAbhw2UI2e0+ZX8?=
- =?us-ascii?Q?xVoUHeZoTP2UCEqqOUZbUEr6SjFkrEELyw8rS772rL5FXDa2XDp1qulBWJWG?=
- =?us-ascii?Q?R+PNZT8sIAdB6sFbvcpQjBq3OIwiZdCFvLe1ElcjRV54q5hOV2cBtmQE+lUn?=
- =?us-ascii?Q?fsXDKKt/C41q8Lv9cn1hw/3jW+fQI7fqzdozXgN1elLr5QiaoItKrB7YJItE?=
- =?us-ascii?Q?n3klZpFCv+p5y7Zker72MVCfRQXWzFXMSWZGJZWpKG7ahQF/OOIa9kc1UlXH?=
- =?us-ascii?Q?C+0irnLb+NSJiTLh8/xTRgufYznCzi4qW8GFn9ACMF+nNqqoRFQdwsJhsrR0?=
- =?us-ascii?Q?/EP6Gq9ufz86gsxSELLy8FLuUt/eo3Dpu6PZTeArAvgu4oPLxgYPgplFYnKG?=
- =?us-ascii?Q?nh9UJuW9aZnQEhPgcWruA5/EpYRuD+7FCTEXEgsmDJmGazfBa39WP+T56tfW?=
- =?us-ascii?Q?zRDWAxxBaWavK0tl/o6lPM27fgXDmntYqlNvEzCssNEyCOxpY3WKpPrnsJ5T?=
- =?us-ascii?Q?pXOJTJoHiP1jwIolm2bNVxgChb6CCxiJb7ZhRtRDUDRxYxdzAEDRV+IKb2qB?=
- =?us-ascii?Q?E/sMcNssiGLgWKB7tWVCc3IUI06cg08cOLUF8m842WhBNP1Z9pMCMD62WUq2?=
- =?us-ascii?Q?GlpIqSnJXfRnEnW+j7flQyCbCtvniyCu3M9X1Hns9xZK5ZUepyoHe3G7Kqfp?=
- =?us-ascii?Q?9PDTI0+z7ad1WLMaHctq2qtP2VO8o/+RNr+D/s4V3GCUYX4lSCp5tHPhnIRt?=
- =?us-ascii?Q?Uvg4HlKUsc/Nd2ywAUPiLeUAusZCygcQ3TZ5FV4vnCq9o2yp3mq9JS/czv7P?=
- =?us-ascii?Q?UeExS7EPn1SNq/toVVFsrJIUHSGTACMS/cs6nd3sqw9d+ClI4hneCyvgoPmh?=
- =?us-ascii?Q?b9tpH/eWfC9xVWCZsROJcNNdAnXmScNfR2pFeE8BRdyccMIWx4h7j7icAjqG?=
- =?us-ascii?Q?nLHhcdCbPo/q0L5SQvBsmFq/FGMvyKWdSEw/ED/5VXGksXQzzNzTta6rJlT9?=
- =?us-ascii?Q?OkpgW4qJC9dywL5uM4P9VisOMDYOyt8KnRx31pd9/ZwtLa+lh8qDbOc31YqY?=
- =?us-ascii?Q?D+GjF782BlTG92LcBSp7oWfgMsWJYtP+8VOS2AWRCOZa5lytxd04bvtYNs6T?=
- =?us-ascii?Q?UkSNUVhhiRF10G3Rlw/JpO4kyzLgf8Ds6NNlhxqVH3uxbgIrgIpJu0AZiGJP?=
- =?us-ascii?Q?t7wVlvw7mrfPuWXtQ1Zof62goARD19menGb2VBfHI5b6L4shE80B63Q9HftX?=
- =?us-ascii?Q?YvR1UKWxtdVpUJ4mEPASzpGNgopUVUgnpvgD7k2HCKWk7X04uXKKFpmUQS3E?=
- =?us-ascii?Q?WVKPedGQ2DNhrVJa0Ai8mExItSbcOB6/bfC00EY5gd4OTc5qND8cFWAlJ9QJ?=
- =?us-ascii?Q?Yvx8MltJjTvXH9tiE6o=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77e04d19-7845-4e12-165e-08d9ba630dce
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2021 15:54:44.7180
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pmTBmT44qbdWtuOamRiWQCTPBIWAzZjS3q0G0peziap0cWI7ghEGY/geYwduYXx4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5031
+Content-Transfer-Encoding: 8bit
 
-On Mon, Dec 06, 2021 at 11:39:33PM +0100, Thomas Gleixner wrote:
+In order to avoid indirect function calls on the hypercall path as
+much as possible this series is removing the hypercall function tables
+and is replacing the hypercall handler calls via the function array
+by automatically generated call macros.
 
-> @@ -209,10 +209,10 @@ static int setup_msi_msg_address(struct
->  		return -ENODEV;
->  	}
->  
-> -	entry = first_pci_msi_entry(dev);
-> +	is_64bit = msi_device_has_property(&dev->dev, MSI_PROP_64BIT);
+Another by-product of generating the call macros is the automatic
+generating of the hypercall handler prototypes from the same data base
+which is used to generate the macros.
 
-How about  !dev->no_64bit_msi ?
+This has the additional advantage of using type safe calls of the
+handlers and to ensure related handler (e.g. PV and HVM ones) share
+the same prototypes.
 
-Jason
+A very brief performance test (parallel build of the Xen hypervisor
+in a 6 vcpu guest) showed a very slim improvement (less than 1%) of
+the performance with the patches applied. The test was performed using
+a PV and a PVH guest.
+
+Changes in V2:
+- new patches 6, 14, 15
+- patch 7: support hypercall priorities for faster code
+- comments addressed
+
+Changes in V3:
+- patches 1 and 4 removed as already applied
+- comments addressed
+
+Juergen Gross (13):
+  xen: move do_vcpu_op() to arch specific code
+  xen: harmonize return types of hypercall handlers
+  xen: don't include asm/hypercall.h from C sources
+  xen: include compat/platform.h from hypercall.h
+  xen: generate hypercall interface related code
+  xen: use generated prototypes for hypercall handlers
+  x86/pv-shim: don't modify hypercall table
+  xen/x86: don't use hypercall table for calling compat hypercalls
+  xen/x86: call hypercall handlers via generated macro
+  xen/arm: call hypercall handlers via generated macro
+  xen/x86: add hypercall performance counters for hvm, correct pv
+  xen: drop calls_to_multicall performance counter
+  tools/xenperf: update hypercall names
+
+ .gitignore                               |   1 +
+ tools/misc/xenperf.c                     |   5 +
+ xen/arch/arm/domain.c                    |  15 +-
+ xen/arch/arm/hvm.c                       |   3 +-
+ xen/arch/arm/physdev.c                   |   2 +-
+ xen/arch/arm/platform_hypercall.c        |   1 +
+ xen/arch/arm/traps.c                     | 124 ++-------
+ xen/arch/x86/compat.c                    |  14 +-
+ xen/arch/x86/cpu/vpmu.c                  |   1 +
+ xen/arch/x86/domain.c                    |  11 +-
+ xen/arch/x86/domctl.c                    |   4 +-
+ xen/arch/x86/hvm/hypercall.c             | 178 ++-----------
+ xen/arch/x86/hypercall.c                 |  59 -----
+ xen/arch/x86/mm.c                        |   1 -
+ xen/arch/x86/mm/paging.c                 |   3 +-
+ xen/arch/x86/platform_hypercall.c        |   1 +
+ xen/arch/x86/pv/callback.c               |  20 +-
+ xen/arch/x86/pv/emul-priv-op.c           |   2 +-
+ xen/arch/x86/pv/hypercall.c              | 182 ++-----------
+ xen/arch/x86/pv/iret.c                   |   5 +-
+ xen/arch/x86/pv/misc-hypercalls.c        |  14 +-
+ xen/arch/x86/pv/shim.c                   |  54 ++--
+ xen/arch/x86/traps.c                     |   2 +-
+ xen/arch/x86/x86_64/compat.c             |   1 -
+ xen/arch/x86/x86_64/compat/mm.c          |   1 +
+ xen/arch/x86/x86_64/domain.c             |  16 +-
+ xen/arch/x86/x86_64/mm.c                 |   2 -
+ xen/arch/x86/x86_64/platform_hypercall.c |   3 +-
+ xen/common/argo.c                        |  12 +-
+ xen/common/compat/domain.c               |  14 +-
+ xen/common/compat/grant_table.c          |   1 +
+ xen/common/compat/multicall.c            |   2 +-
+ xen/common/domain.c                      |  11 +-
+ xen/common/event_channel.c               |  10 +
+ xen/common/grant_table.c                 |  10 +
+ xen/common/kexec.c                       |   6 +-
+ xen/common/multicall.c                   |   2 +-
+ xen/include/Makefile                     |  13 +
+ xen/include/asm-arm/hypercall.h          |   7 +-
+ xen/include/asm-x86/hypercall.h          | 205 ++++-----------
+ xen/include/asm-x86/paging.h             |   3 -
+ xen/include/asm-x86/pv/shim.h            |   3 +
+ xen/include/hypercall-defs.c             | 280 ++++++++++++++++++++
+ xen/include/xen/hypercall.h              | 184 +------------
+ xen/include/xen/perfc_defn.h             |   1 -
+ xen/scripts/gen_hypercall.awk            | 314 +++++++++++++++++++++++
+ 46 files changed, 874 insertions(+), 929 deletions(-)
+ create mode 100644 xen/include/hypercall-defs.c
+ create mode 100644 xen/scripts/gen_hypercall.awk
+
+-- 
+2.26.2
+
 
