@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09A8046D13E
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 11:45:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.242135.418819 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E02B746D1A5
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 12:09:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.242141.418829 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muuRL-00033Y-1W; Wed, 08 Dec 2021 10:44:47 +0000
+	id 1muuoG-0006bO-VN; Wed, 08 Dec 2021 11:08:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 242135.418819; Wed, 08 Dec 2021 10:44:47 +0000
+Received: by outflank-mailman (output) from mailman id 242141.418829; Wed, 08 Dec 2021 11:08:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muuRK-00030m-UG; Wed, 08 Dec 2021 10:44:46 +0000
-Received: by outflank-mailman (input) for mailman id 242135;
- Wed, 08 Dec 2021 10:44:46 +0000
+	id 1muuoG-0006Yz-SR; Wed, 08 Dec 2021 11:08:28 +0000
+Received: by outflank-mailman (input) for mailman id 242141;
+ Wed, 08 Dec 2021 11:08:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=f9Z0=QZ=kaod.org=clg@srs-se1.protection.inumbo.net>)
- id 1muuRK-00030c-2m
- for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 10:44:46 +0000
-Received: from smtpout1.mo529.mail-out.ovh.net
- (smtpout1.mo529.mail-out.ovh.net [178.32.125.2])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=KNkV=QZ=gmail.com=jiangshanlai@srs-se1.protection.inumbo.net>)
+ id 1muuoF-0006Yt-1s
+ for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 11:08:27 +0000
+Received: from mail-pl1-x629.google.com (mail-pl1-x629.google.com
+ [2607:f8b0:4864:20::629])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id db1a4ddf-5813-11ec-a831-37629979565c;
- Wed, 08 Dec 2021 11:44:44 +0100 (CET)
-Received: from mxplan5.mail.ovh.net (unknown [10.109.156.35])
- by mo529.mail-out.ovh.net (Postfix) with ESMTPS id 4A0F4D092F09;
- Wed,  8 Dec 2021 11:44:42 +0100 (CET)
-Received: from kaod.org (37.59.142.96) by DAG4EX1.mxp5.local (172.16.2.31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.20; Wed, 8 Dec
- 2021 11:44:40 +0100
+ id 28fb83f5-5817-11ec-a831-37629979565c;
+ Wed, 08 Dec 2021 12:08:25 +0100 (CET)
+Received: by mail-pl1-x629.google.com with SMTP id u11so1313154plf.3
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Dec 2021 03:08:24 -0800 (PST)
+Received: from localhost ([47.251.3.230])
+ by smtp.gmail.com with ESMTPSA id h13sm3072127pfv.37.2021.12.08.03.08.21
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 08 Dec 2021 03:08:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,85 +43,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: db1a4ddf-5813-11ec-a831-37629979565c
-Authentication-Results: garm.ovh; auth=pass (GARM-96R001f5056120-68a4-4c0a-bc06-f617410d6d7e,
-                    EB01F339838E5AA67C986A6C3251B49097B81903) smtp.auth=clg@kaod.org
-X-OVh-ClientIp: 86.201.172.254
-Message-ID: <e92f2bb3-b5e1-c870-8151-3917a789a640@kaod.org>
-Date: Wed, 8 Dec 2021 11:44:39 +0100
+X-Inumbo-ID: 28fb83f5-5817-11ec-a831-37629979565c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Vg9Y2qwD//mZgSKr3fZbhivDw/ZV22tqoORXTECSxD0=;
+        b=itA2cU4V+5hxMb7u2gRFEQ1+caoQ2C6iLL4Fv57ZS4wZBzPvuhal8+Wof+IBV2ZzFb
+         s2tdy0Tr/vbgqc2MIJigFoYeK2iyBV8JxxmYf5q/00Xg/nJbsoP4kmY/9BaWVuGvv2s2
+         lLetMIdPIz5oRvlGXasZrXiq6C5QKp1frYuVwMsgnvETSMhtBF0wwrkQcW9lI86ig/FW
+         7cskonVCDC3F55ogBf3ouGCxkQv7EJlkYJYn2787sM5cAs6rdlG8444budASlJXS7phF
+         6YHtZaKt41EOOPo+aL15YJjiGRzr7l7dYwx/MybZUEc4N41Rgw7J4UKXwAxZZsXPeNft
+         AJhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Vg9Y2qwD//mZgSKr3fZbhivDw/ZV22tqoORXTECSxD0=;
+        b=MgxFa3Uam3xwcm6a7cwqA0AET/wJkgBzG8BvVx/GGqTJqdJJwSg4bAnH0KsdP/t4B5
+         3a7gnRs/L/Koc7nonqKKmV5xy4Q5KDIuzmA7j7cZLpzP2AzeqaUJLEQMzsE+ZqPDeA8r
+         11eupJaCS5+K8wqMY3QdQDi46GTk736W+QFUTqYvlFJLl08sqzTPfR1wh6GRLVR9ko57
+         6RgqoG3usKvf9l3Wz8bkH8famzR+K0rCvNVKhmahMgHnjzbbWQujsPLkbwPAUdPfDrgv
+         KdUzNhOVZRzGV9wzJkxx3T/mY4f3dk3KzJZDwXL3JbXYg86PEIhkCyKnxAbm2gxfMfY2
+         m7bw==
+X-Gm-Message-State: AOAM533MKjrf5Hw0KCrqdkECjokk6hkogFB0ABSe7gZsGUvFW29U5Lr6
+	UKaLye079hucqRSssVcoxRwrwZLo814=
+X-Google-Smtp-Source: ABdhPJyJqUq+r8DKUrbjm4AzKKBjH7UT96ssoju6KRFceh7AParCUM4v9ULbwlHtBmu1m5eyPpa1Ww==
+X-Received: by 2002:a17:90a:384d:: with SMTP id l13mr6534667pjf.104.1638961702635;
+        Wed, 08 Dec 2021 03:08:22 -0800 (PST)
+From: Lai Jiangshan <jiangshanlai@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: x86@kernel.org,
+	xen-devel@lists.xenproject.org,
+	Lai Jiangshan <laijs@linux.alibaba.com>
+Subject: [PATCH 00/11] x86/entry: Clean up entry code
+Date: Wed,  8 Dec 2021 19:08:22 +0800
+Message-Id: <20211208110833.65366-1-jiangshanlai@gmail.com>
+X-Mailer: git-send-email 2.19.1.6.gb485710b
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.0
-Subject: Re: [patch V2 01/23] powerpc/4xx: Remove MSI support which never
- worked
-Content-Language: en-US
-To: Thomas Gleixner <tglx@linutronix.de>, Michael Ellerman
-	<mpe@ellerman.id.au>, LKML <linux-kernel@vger.kernel.org>
-CC: Bjorn Helgaas <helgaas@kernel.org>, Marc Zygnier <maz@kernel.org>, Alex
- Williamson <alex.williamson@redhat.com>, Kevin Tian <kevin.tian@intel.com>,
-	Jason Gunthorpe <jgg@nvidia.com>, Megha Dey <megha.dey@intel.com>, Ashok Raj
-	<ashok.raj@intel.com>, <linux-pci@vger.kernel.org>, Paul Mackerras
-	<paulus@samba.org>, Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	<linuxppc-dev@lists.ozlabs.org>, Juergen Gross <jgross@suse.com>, Thomas
- Bogendoerfer <tsbogend@alpha.franken.de>, <linux-mips@vger.kernel.org>, Kalle
- Valo <kvalo@codeaurora.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	<sparclinux@vger.kernel.org>, <x86@kernel.org>,
-	<xen-devel@lists.xenproject.org>, <ath11k@lists.infradead.org>, Wei Liu
-	<wei.liu@kernel.org>, <linux-hyperv@vger.kernel.org>, Christian Borntraeger
-	<borntraeger@de.ibm.com>, Heiko Carstens <hca@linux.ibm.com>
-References: <20211206210147.872865823@linutronix.de>
- <20211206210223.872249537@linutronix.de>
- <8d1e9d2b-fbe9-2e15-6df6-03028902791a@kaod.org>
- <87ilw0odel.fsf@mpe.ellerman.id.au>
- <27f22e0e-8f84-a6d7-704b-d9eddc642d74@kaod.org> <8735n42lld.ffs@tglx>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-In-Reply-To: <8735n42lld.ffs@tglx>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Originating-IP: [37.59.142.96]
-X-ClientProxiedBy: DAG4EX1.mxp5.local (172.16.2.31) To DAG4EX1.mxp5.local
- (172.16.2.31)
-X-Ovh-Tracer-GUID: d54a9dd7-eba7-4e7f-a7a0-0dc7c43fc796
-X-Ovh-Tracer-Id: 10131410315672259365
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedvuddrjeekgddulecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkffggfgfuvfhfhfgjtgfgihesthekredttdefjeenucfhrhhomhepveorughrihgtpgfnvggpifhorghtvghruceotghlgheskhgrohgurdhorhhgqeenucggtffrrghtthgvrhhnpeeuveelvdejteegteefieevfeetffefvddvieekteevleefgeelgfeutedvfedvfeenucffohhmrghinhepghhithhhuhgsrdgtohhmnecukfhppedtrddtrddtrddtpdefjedrheelrddugedvrdelieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphhouhhtpdhhvghlohepmhigphhlrghnhedrmhgrihhlrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegtlhhgsehkrghougdrohhrghdprhgtphhtthhopehhtggrsehlihhnuhigrdhisghmrdgtohhm
 
-On 12/7/21 21:42, Thomas Gleixner wrote:
-> Cedric,
-> 
-> On Tue, Dec 07 2021 at 16:50, Cédric Le Goater wrote:
->> On 12/7/21 12:36, Michael Ellerman wrote:
->>>
->>> This patch should drop those selects I guess. Can you send an
->>> incremental diff for Thomas to squash in?
->>
->> Sure.
->>
->>> Removing all the tendrils in various device tree files will probably
->>> require some archaeology, and it should be perfectly safe to leave those
->>> in the tree with the driver gone. So I think we can do that as a
->>> subsequent patch, rather than in this series.
->>
->> Here are the changes. Compiled tested with ppc40x and ppc44x defconfigs.
-> 
-> < Lots of patch skipped />
->> @@ -141,7 +138,6 @@ config REDWOOD
->>    	select FORCE_PCI
->>    	select PPC4xx_PCI_EXPRESS
->>    	select PCI_MSI
->> -	select PPC4xx_MSI
->>    	help
->>    	  This option enables support for the AMCC PPC460SX Redwood board.
-> 
-> While that is incremental it certainly is worth a patch on it's
-> own. Could you add a proper changelog and an SOB please?
+From: Lai Jiangshan <laijs@linux.alibaba.com>
 
-Here you are.
+This patchset moves the stack-switch code to the place where
+error_entry() return, distangles error_entry() from XENpv and makes
+entry_INT80_compat use idtentry macro.
 
-  https://github.com/legoater/linux/commit/75d2764b11fe8f6d8bf50d60a3feb599ce27b16d
+This patchset is highly related to XENpv, because it does the extra
+cleanup to convert SWAPGS to swapgs after major cleanup is done.
 
-Thanks,
+After error_entry() is distangled from XENpv, a branch in sync_regs()
+is removed to.
 
-C.
+Patch 1-10 are picked from the patchset
+https://lore.kernel.org/lkml/20211126101209.8613-1-jiangshanlai@gmail.com/
+which coverts ASM code to C code.  These patches are prepared for that
+purpose.  But this patchset has it own value: it simplifies the stack
+switch, avoids leaving the old stack inside a function, and separates
+XENpv code with native code without adding new code which can lead to
+more cleanups.
+
+Patch 11 is new in this patchset.
+
+Lai Jiangshan (11):
+  x86/entry: Use swapgs and native_iret directly in
+    swapgs_restore_regs_and_return_to_usermode
+  x86/traps: Move pt_regs only in fixup_bad_iret()
+  x86/entry: Switch the stack after error_entry() returns
+  x86/entry: move PUSH_AND_CLEAR_REGS out of error_entry
+  x86/entry: Move cld to the start of idtentry
+  x86/entry: Don't call error_entry for XENPV
+  x86/entry: Convert SWAPGS to swapgs in error_entry()
+  x86/entry: Use idtentry macro for entry_INT80_compat
+  x86/entry: Convert SWAPGS to swapgs in entry_SYSENTER_compat()
+  x86: Remove the definition of SWAPGS
+  x86/entry: Remove the branch in sync_regs()
+
+ arch/x86/entry/entry_64.S        |  65 +++++++++++++------
+ arch/x86/entry/entry_64_compat.S | 104 +------------------------------
+ arch/x86/include/asm/idtentry.h  |  47 ++++++++++++++
+ arch/x86/include/asm/irqflags.h  |   2 -
+ arch/x86/include/asm/proto.h     |   4 --
+ arch/x86/include/asm/traps.h     |   2 +-
+ arch/x86/kernel/traps.c          |  25 ++++----
+ 7 files changed, 107 insertions(+), 142 deletions(-)
+
+-- 
+2.19.1.6.gb485710b
+
 
