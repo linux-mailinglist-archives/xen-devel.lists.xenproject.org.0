@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9B6046D99B
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 18:24:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.242551.419481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFF4246DA6C
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 18:54:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.242559.419493 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mv0fz-0004EG-RJ; Wed, 08 Dec 2021 17:24:19 +0000
+	id 1mv17w-0000FX-3j; Wed, 08 Dec 2021 17:53:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 242551.419481; Wed, 08 Dec 2021 17:24:19 +0000
+Received: by outflank-mailman (output) from mailman id 242559.419493; Wed, 08 Dec 2021 17:53:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mv0fz-0004CB-Nq; Wed, 08 Dec 2021 17:24:19 +0000
-Received: by outflank-mailman (input) for mailman id 242551;
- Wed, 08 Dec 2021 17:24:17 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mv0fx-0004By-LR
- for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 17:24:17 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mv0fw-0002N4-LA; Wed, 08 Dec 2021 17:24:16 +0000
-Received: from [54.239.6.189] (helo=[192.168.13.103])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mv0fw-0000LT-FA; Wed, 08 Dec 2021 17:24:16 +0000
+	id 1mv17w-0000Co-0Q; Wed, 08 Dec 2021 17:53:12 +0000
+Received: by outflank-mailman (input) for mailman id 242559;
+ Wed, 08 Dec 2021 17:53:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rXGX=QZ=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1mv17v-0000Cg-3N
+ for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 17:53:11 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b442a424-584f-11ec-9d12-4777fae47e2b;
+ Wed, 08 Dec 2021 18:53:09 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,61 +36,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=OuAPBDev9/Uu9bm2z7JUAGO2V7fL7Ay6vD6bdAgeJGo=; b=55ME+ehw2fgCl0Jx6PV5Kt2NPj
-	8L/6asewHDuE/OfMI7mQCYWGqnC+gFfUEluu86Uur2MumPRE9ysL2/nOpNByKKQ/tvTzjG7O5o4TF
-	ExqTwGtYgW/ekBNqkS/lyNt03eXsaPe6ZWf6CMlBCdcejRvUv5BHic+Rfy/9lvL4dmSQ=;
-Message-ID: <9a6473ba-e8c2-08fb-6391-617e34a6a2a6@xen.org>
-Date: Wed, 8 Dec 2021 17:24:13 +0000
+X-Inumbo-ID: b442a424-584f-11ec-9d12-4777fae47e2b
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1638985988;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3VE0nNlLZyDP2MmX/vYQZeWgKNo5Uy6Cr5E5oEyE//0=;
+	b=yVnW54g9mJPoCSUF2QVZDU2f/xrPC/IYtzosNqipMCrUE3ublT0WkCXcFyPVrEXNiDojbG
+	WW1CUtpK3VyoAq9fSgOMsdsrptfY0amXBwna/GvfaJqkTvsyAVL5hI1SpplK1OmRnxMVrX
+	L5hSSsO8qCmLbj+GpNXsAcp58GYvqbj2Cej56RVnAFHSASUWcdaICSkYgNnc4MXsVS22aL
+	8yNx41somh4ngRIGaL6Bs8mvddn976wAff7JClugcbIPHTmhPJafFg/+oWVQNEXsavVz8Q
+	ECHb4fzOEv458qXYE4Q7kYbod/VikxJKFLy0KA5gkzv0UDl1V1bDcOOf7ps2JA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1638985988;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3VE0nNlLZyDP2MmX/vYQZeWgKNo5Uy6Cr5E5oEyE//0=;
+	b=tcPpBzNArpjTicF6DwnR6v7vnK+DexgwPINycnkhbizry34b4Yd5f7r99TAQsJpmyDoy7E
+	NsIoYzOvgoObEZDg==
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
+ Marc Zygnier <maz@kernel.org>, Alex Williamson
+ <alex.williamson@redhat.com>, Kevin Tian <kevin.tian@intel.com>, Megha Dey
+ <megha.dey@intel.com>, Ashok Raj <ashok.raj@intel.com>,
+ linux-pci@vger.kernel.org, Cedric Le Goater <clg@kaod.org>,
+ xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Will Deacon <will@kernel.org>,
+ Santosh Shilimkar <ssantosh@kernel.org>, iommu@lists.linux-foundation.org,
+ dmaengine@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>, Laurentiu
+ Tudor <laurentiu.tudor@nxp.com>, Nishanth Menon <nm@ti.com>, Tero Kristo
+ <kristo@kernel.org>, linux-arm-kernel@lists.infradead.org, Vinod Koul
+ <vkoul@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Robin Murphy
+ <robin.murphy@arm.com>, Sinan Kaya <okaya@kernel.org>
+Subject: Re: [patch V2 20/36] x86/pci/XEN: Use device MSI properties
+In-Reply-To: <20211208155314.GX6385@nvidia.com>
+References: <20211206210307.625116253@linutronix.de>
+ <20211206210438.742297272@linutronix.de>
+ <20211208155314.GX6385@nvidia.com>
+Date: Wed, 08 Dec 2021 18:53:07 +0100
+Message-ID: <877dcf0yrg.ffs@tglx>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.3.2
-Subject: Re: [PATCH v7 2/7] xen/arm: add pci-domain for disabled devices
-To: Oleksandr Andrushchenko <andr2000@gmail.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
- volodymyr_babchuk@epam.com, Artem_Mygaiev@epam.com, roger.pau@citrix.com,
- jbeulich@suse.com, andrew.cooper3@citrix.com, george.dunlap@citrix.com,
- paul@xen.org, bertrand.marquis@arm.com, rahul.singh@arm.com,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-References: <20211124075942.2645445-1-andr2000@gmail.com>
- <20211124075942.2645445-3-andr2000@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20211124075942.2645445-3-andr2000@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-Hi Oleksandr,
+On Wed, Dec 08 2021 at 11:53, Jason Gunthorpe wrote:
+> On Mon, Dec 06, 2021 at 11:39:28PM +0100, Thomas Gleixner wrote:
+>>  static void xen_pv_teardown_msi_irqs(struct pci_dev *dev)
+>>  {
+>> -	struct msi_desc *msidesc = first_pci_msi_entry(dev);
+>> -
+>> -	if (msidesc->pci.msi_attrib.is_msix)
+>> +	if (msi_device_has_property(&dev->dev, MSI_PROP_PCI_MSIX))
+>>  		xen_pci_frontend_disable_msix(dev);
+>>  	else
+>>  		xen_pci_frontend_disable_msi(dev);
+>
+> Same remark as for power, we have a pci_dev, so can it be
+> dev->msix_enabled?
 
-On 24/11/2021 07:59, Oleksandr Andrushchenko wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> If a PCI host bridge device is present in the device tree, but is
-> disabled, then its PCI host bridge driver was not instantiated.
-> This results in the failure of the pci_get_host_bridge_segment()
-> and the following panic during Xen start:
-> 
-> (XEN) Device tree generation failed (-22).
-> (XEN)
-> (XEN) ****************************************
-> (XEN) Panic on CPU 0:
-> (XEN) Could not set up DOM0 guest OS
-> (XEN) ****************************************
-> 
-> Fix this by adding "linux,pci-domain" property for all device tree nodes
-> which have "pci" device type, so we know which segments will be used by
-> the guest for which bridges.
-> 
-> Fixes: 4cfab4425d39 ("xen/arm: Add linux,pci-domain property for hwdom if not available.")
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-
-Acked-by: Julien Grall <jgrall@amazon.com>
-
-Cheers,
-
--- 
-Julien Grall
+Yes, let me rework that.
 
