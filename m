@@ -2,44 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8494846D790
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 16:58:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.242427.419342 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CF3A46D798
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 16:58:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.242435.419353 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muzKM-0001ng-90; Wed, 08 Dec 2021 15:57:54 +0000
+	id 1muzKr-0002Wq-Ha; Wed, 08 Dec 2021 15:58:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 242427.419342; Wed, 08 Dec 2021 15:57:54 +0000
+Received: by outflank-mailman (output) from mailman id 242435.419353; Wed, 08 Dec 2021 15:58:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muzKM-0001lk-61; Wed, 08 Dec 2021 15:57:54 +0000
-Received: by outflank-mailman (input) for mailman id 242427;
- Wed, 08 Dec 2021 15:57:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1muzKr-0002V1-EP; Wed, 08 Dec 2021 15:58:25 +0000
+Received: by outflank-mailman (input) for mailman id 242435;
+ Wed, 08 Dec 2021 15:58:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J2Or=QZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1muzKK-0001im-O2
- for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 15:57:52 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 99200d72-583f-11ec-9d12-4777fae47e2b;
- Wed, 08 Dec 2021 16:57:51 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9855D21763;
- Wed,  8 Dec 2021 15:57:51 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1AD1813C8E;
- Wed,  8 Dec 2021 15:57:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Bh17A//VsGGbYAAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 08 Dec 2021 15:57:51 +0000
+ (envelope-from <SRS0=EU5o=QZ=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
+ id 1muzKq-0002M7-Lg
+ for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 15:58:24 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20631.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::631])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ab5895e2-583f-11ec-a831-37629979565c;
+ Wed, 08 Dec 2021 16:58:23 +0100 (CET)
+Received: from BL1PR12MB5269.namprd12.prod.outlook.com (2603:10b6:208:30b::20)
+ by BL1PR12MB5351.namprd12.prod.outlook.com (2603:10b6:208:317::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4734.24; Wed, 8 Dec
+ 2021 15:58:20 +0000
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
+ by BL1PR12MB5269.namprd12.prod.outlook.com (2603:10b6:208:30b::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.11; Wed, 8 Dec
+ 2021 15:58:19 +0000
+Received: from BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::d8be:e4e4:ce53:6d11]) by BL0PR12MB5506.namprd12.prod.outlook.com
+ ([fe80::d8be:e4e4:ce53:6d11%7]) with mapi id 15.20.4778.013; Wed, 8 Dec 2021
+ 15:58:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,228 +52,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99200d72-583f-11ec-9d12-4777fae47e2b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638979071; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0ff3PXmoawfeRWKK2+WEoneeOzt3SY6TL0hTUbB6omY=;
-	b=u+eAOxbS2bUQq4q9RzYTS/z54CQij0AwivYTHBya0Dx6YqGyNd5KKIptAGMZrp1dDxmL3G
-	FLvdFrIBjA1stsv+OsRb/EQsN/SYF10sSbn5C3HE+XS35+jCa/NjMAfcjcHMoQL5v7ABG6
-	CEnF5BWTfZQ9nQ4AJUaC+FecU7+vSNs=
-Subject: Re: [PATCH v3 2/2] tools: set event channel HVM parameters in
- libxenguest
-To: Andrew Cooper <amc96@srcf.net>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20211208084745.31082-1-jgross@suse.com>
- <20211208084745.31082-3-jgross@suse.com>
- <83920ef7-ae82-01ad-e011-58f39a3b3e12@srcf.net>
- <ad570954-98f6-f345-d965-f664f28a6e7d@suse.com>
- <18497abb-7f3f-1479-636d-edc35b2861ad@srcf.net>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <efaa6395-f52e-193f-dec7-fc2114e760a5@suse.com>
-Date: Wed, 8 Dec 2021 16:57:50 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
+X-Inumbo-ID: ab5895e2-583f-11ec-a831-37629979565c
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=chndAGNUgD5BvxKKa3jogynbRMZnPmAPmyVxEZZp6IcGyNTtW9wkUoSUHzMMIHuhqRjpJ/vSg4jNkoP4CyUEbUOBenTXf36FvYMYan4BJQ71hPbo4G/UOngLHrbKJrz4kJLiYrS6e9VvPBQ+PFgNzNCqWx5akz7DNRXK8PJikYx9letxuIk6FrSsJTkEybED6lIQJzqW3W93qjm9DCNPEtzBKFq4IVa/n+AW8EWsnmWhrePV0bVmJNVL6aklGpza1eiilzTzGV3+CbpXD1BQ3h34P1j/hcxo9+/3+Gf17Ov4G5QgdxsjbIIYqZ8Q7pRMXfqThGu4iTkqoRZllbjNEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Vhhfh1Z4OaRQAiAKVqajt2RcGp0Iv7kNsws6AfW8ZpI=;
+ b=Oql9Lrdxw0j7i6nI+IeEjbjtCl+IHI9XXZvlFxODbp2YnmV+OBLRBsR/BI4cQoxN6hB6NrnUXa5mOBRu1e4qGpO61NZ4XhQnOVqvqwP6SVq0bdhZif4vmTlKxC98DjhK+l9zqUcwvn9LdRNhjHfgAmNeLUnMywA6c9xGgrQs3T8zfvL2wsA64JwrSVZyDM/EmpZkhSJyiJ45Qz7psdgzBg9OGvH7Hz9Z7R3m96HkXP3mM0mcj7eO7lnT+BPcU1Tj1OSMJ4pe6NzA+3XjX0qt6eHFVq9JbkPNZgvd0C0mCs1gjtTBRD1Cbm8sWcIarRuG+Dmk9KbBxmqF7J4Nf5PIuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Vhhfh1Z4OaRQAiAKVqajt2RcGp0Iv7kNsws6AfW8ZpI=;
+ b=nMh5CiPeaRGaX/3xcOKLjL4+gmOaTyN9J+rYYY6pBEwdDLCgLHHiDC1YiZQR8OUz6m6OsseL7Ho9jtHT5c8mqJAW2doUKMF1oBCS6g25C60JVsVubSpPgPb7G/Wzp+JzVO7tqi4wO7/re5u6YL642u3i2viKc43CuzG0uCUY/J0+riKX9eWNCMsO4zltTsEW6ijMhl55Y0HAFvJ9uXy6QkxBKODMbkDfg0VvaKuolI51BobZDRKyCIjqEVcHBRYaOFntgD58cre4xsHKwfdzGW6Q/NmgDp3duuFp2HI5REi5rGTvIZ1S49M0B2J/MJ6wgvxMVuvUhSZOKhT3O3UEUg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Date: Wed, 8 Dec 2021 11:58:16 -0400
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
+	Marc Zygnier <maz@kernel.org>,
+	Alex Williamson <alex.williamson@redhat.com>,
+	Kevin Tian <kevin.tian@intel.com>, Megha Dey <megha.dey@intel.com>,
+	Ashok Raj <ashok.raj@intel.com>, linux-pci@vger.kernel.org,
+	Cedric Le Goater <clg@kaod.org>, xen-devel@lists.xenproject.org,
+	Juergen Gross <jgross@suse.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Will Deacon <will@kernel.org>,
+	Santosh Shilimkar <ssantosh@kernel.org>,
+	iommu@lists.linux-foundation.org, dmaengine@vger.kernel.org,
+	Stuart Yoder <stuyoder@gmail.com>,
+	Laurentiu Tudor <laurentiu.tudor@nxp.com>,
+	Nishanth Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Robin Murphy <robin.murphy@arm.com>, Sinan Kaya <okaya@kernel.org>
+Subject: Re: [patch V2 19/36] PCI/MSI: Store properties in device::msi::data
+Message-ID: <20211208155816.GZ6385@nvidia.com>
+References: <20211206210307.625116253@linutronix.de>
+ <20211206210438.688216619@linutronix.de>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20211206210438.688216619@linutronix.de>
+X-ClientProxiedBy: SJ0PR05CA0049.namprd05.prod.outlook.com
+ (2603:10b6:a03:33f::24) To BL0PR12MB5506.namprd12.prod.outlook.com
+ (2603:10b6:208:1cb::22)
 MIME-Version: 1.0
-In-Reply-To: <18497abb-7f3f-1479-636d-edc35b2861ad@srcf.net>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="35J2LrcOLET4Xu6rrYPAxEdOZL6caqdqY"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 28a579de-45b7-4536-909e-08d9ba638dd0
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5269:EE_|BL1PR12MB5351:EE_
+X-Microsoft-Antispam-PRVS:
+ <BL1PR12MB52692E87C2447367C43FE935C26F9@BL1PR12MB5269.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	8A6Tqb8bg2+mXXGWrraUraNjt+Dbk+HoakX3aEWnfX58e1AzaV00tQp+0kOxXo6MbMlfHUFse3CgyaL9Y6NWq5XZerzJawx0urbwMgCM/DuLquEWhR0JhzTIuDdLKIyjlYLfacb/bcYXTD+I6/BrqLFw2wl9/UiC8bEKcw41sdVJLEAX6hUsqJHeZHQH43nJ4OCNctXMB/a0pzEJx8bYyJwcWstGzuf53a1/VrtpwA/Ksv2+TNwTjqYlAhdylMQC5/tmVCO1WP/1r+Q7Um33/ZEEtkg+4uvqbyzYiKS67W6OkOfOCFngTg7xPDuWcKhUowMy0aQXvp3WoTHAtK633R4pBQ8q/rcMqhTXNsByN9Up9p8VWhSZQ497W/0F1NeH0zaxSp0c0Ts8nNvNyr/Z3BA07/dLWBbC0/d7XmK3BiEqvzeARQp4g0/eTl9OsxtmL/XSCTvRMp3Zc+wPrpkumA5CNT3cVzigdLqeW9741yUORR0JB3Gb5h+Gm4g4//PVe7tJ2xuNKOoJ544A5cle5kOB2FsD1S2y3shHNJ8sAiWCIGyKq4P+o2G2FTtxbL6QgRRqcdtW/RL3Y9zoOZCcLT2aj4bSoGHavtGjWrzwT9J6/gRAZDwGK7dSptjohhaqJqKBiCYQvxhOiJahzLS7Pg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5269.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(36756003)(7416002)(508600001)(6512007)(38100700002)(66476007)(6666004)(2616005)(33656002)(4326008)(6486002)(6506007)(26005)(6916009)(66946007)(66556008)(316002)(8676002)(5660300002)(83380400001)(1076003)(54906003)(186003)(2906002)(8936002)(86362001)(4744005);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?+qJJFjN+ab39S6TkbsBWOnrA2Qhu0Lg7bmLz0bRasCyrNSVAZqUoZLH12o/j?=
+ =?us-ascii?Q?mwrtjEJf0Xctb7VWN6RaSJ53vsVyLvz1Fy2dia1dSmWRA7CywsiHRgyhsb4b?=
+ =?us-ascii?Q?jbR9ifS79g2y8v124mTT6tk6ms6+cFK+Z9zS2T67m79O9DM2FL6wspNmz0eZ?=
+ =?us-ascii?Q?4I2qu91XUZRXe2MfipurcsT84ScnfwbpRaFtKn89PE4VxnGxbc/igLU/ouYQ?=
+ =?us-ascii?Q?nmx7DVe73HAfxpZMk21wkfA5ohIwmL3UVudBMSsutoFBrsqTcmh7NeoKcAon?=
+ =?us-ascii?Q?mG+d0NFiHSD4oxA8MU65HtSGcrz8hctyn03do7ej4RTNVeiHElhRuWgGU/c4?=
+ =?us-ascii?Q?BB+QIJ2X6jdO91L0KjIKom1xvPaM/7vkA2xSAGaEmJvjaCQqvNWx7Fbli6Ih?=
+ =?us-ascii?Q?eVaQ9+W7SgOtOQywK7zbMol/wvAeV+HHNKl8XPSfWRbnUBzoTQnwrEMK74pe?=
+ =?us-ascii?Q?nrqKcMEMy/bB7ricfLzpgCGamVOMGhWkwwhSZHY7WxicAj2dcoOdMgG9fOkR?=
+ =?us-ascii?Q?C76ik4/rd84mTeNGFmjq3k+lxFqyFLN9UpHznhtNZQzOdgnNoCEJM9dnDJne?=
+ =?us-ascii?Q?GdND7gpDT0RWpO+QPJjFWecVP0FZuc+C9E8OV7QtA/iQVzDb/WKN4tXCGuuA?=
+ =?us-ascii?Q?30FtTnyxhcVdsmLqwVS+p5/LK5KLDon04cdNOUOuMPSYsRy2poGtxjsjNnwG?=
+ =?us-ascii?Q?F7/RgSW3Xa6gh2W+xiXNiyP2LCS2yMrFQdcf6RTWHj6s90Uge3pWTeMJtmSJ?=
+ =?us-ascii?Q?WJUl3lUv44NmZt6HN4foh5a707vA9SrMfND4fKnI55R3LllCG4fy6UTvdVen?=
+ =?us-ascii?Q?b86T1q1yHKg7ygoVMz/hflupeWKPqkdgnssoWdfgPgAx2nco/ltxzp+MqO2B?=
+ =?us-ascii?Q?wGyH8hubTFZ87EhalIZZfHOZ0ERUun83C6qsZk+iQpm/26+c6z04q47O0fPI?=
+ =?us-ascii?Q?b4yezGpgBsOYTa1S5XS6TxVXXqc2w1f07Q5LIskTLxKXiQWUYA3AhEJFd1Cn?=
+ =?us-ascii?Q?5iEppfVFqH+wE289Iymmd91AIntcjlcESu1PORIn/Gg9Q/+3sAfHWK96U+9S?=
+ =?us-ascii?Q?KNMTt2tDGMZ2xmGlPkfdqN00D8NqmGg2dyWBblDx3v1y8c07A+QSkKvcU2g0?=
+ =?us-ascii?Q?wtXqvAFzMYrhdTSc7xDQU8jeLiZ60rNlSlxilRRirigdqDCnnYZAl5RqW0kJ?=
+ =?us-ascii?Q?lGRCTiWGgAAwh4xB9NTn7yj9PZXHS4uFXvLsuJbpRdlfBHgUZCKPCnRDlMuy?=
+ =?us-ascii?Q?PyScBDWUAM2c3FozhJFemgpfHij5rJDTwGK0UELT5M2/z5sJM+ijo/RCoi2G?=
+ =?us-ascii?Q?ndpn6ak6f5e14Bywc8jzVNa9bH7NMLRRgAuJcuWnX7+1q4aynp/q3BMjWNW/?=
+ =?us-ascii?Q?vqfX8yojGFkQnfBcnp6mAWSKQ4TCI6AIWf0uS8XOXoGn5fNGe/EEDjou3HQJ?=
+ =?us-ascii?Q?I062LqwAc4+sYXt0xjXfw0Eiq1/In/czgSNH4TPbM2RHURw2irHaCDf4Hq12?=
+ =?us-ascii?Q?BCLzW1TE6qevIlh9CiTx7pij3hVcw6/O+IbfcW60nwt1k9pOwKguuLBclDMO?=
+ =?us-ascii?Q?e72QxSd7SWVGnrL7Zmg=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28a579de-45b7-4536-909e-08d9ba638dd0
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2021 15:58:19.4670
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bYAPMq42LAnCm/sVgjoOZU1ZAepIR0bIxzYB/ZUFhj2xhN34MlFNK59fq6POtcTv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5351
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---35J2LrcOLET4Xu6rrYPAxEdOZL6caqdqY
-Content-Type: multipart/mixed; boundary="6zR7RmubX32NocimjaP2W7754qagzeVmI";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Andrew Cooper <amc96@srcf.net>, xen-devel@lists.xenproject.org
-Cc: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <efaa6395-f52e-193f-dec7-fc2114e760a5@suse.com>
-Subject: Re: [PATCH v3 2/2] tools: set event channel HVM parameters in
- libxenguest
-References: <20211208084745.31082-1-jgross@suse.com>
- <20211208084745.31082-3-jgross@suse.com>
- <83920ef7-ae82-01ad-e011-58f39a3b3e12@srcf.net>
- <ad570954-98f6-f345-d965-f664f28a6e7d@suse.com>
- <18497abb-7f3f-1479-636d-edc35b2861ad@srcf.net>
-In-Reply-To: <18497abb-7f3f-1479-636d-edc35b2861ad@srcf.net>
+On Mon, Dec 06, 2021 at 11:39:26PM +0100, Thomas Gleixner wrote:
+> Store the properties which are interesting for various places so the MSI
+> descriptor fiddling can be removed.
+> 
+> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+> ---
+> V2: Use the setter function
+> ---
+>  drivers/pci/msi/msi.c |    8 ++++++++
+>  1 file changed, 8 insertions(+)
 
---6zR7RmubX32NocimjaP2W7754qagzeVmI
-Content-Type: multipart/mixed;
- boundary="------------92EC60AFD1FF8E114417BBEF"
-Content-Language: en-US
+I took more time to look at this, to summarize my remarks on the other
+patches
 
-This is a multi-part message in MIME format.
---------------92EC60AFD1FF8E114417BBEF
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
+I think we don't need properties. The info in the msi_desc can come
+from the pci_dev which we have easy access to. This seems overall
+clearer
 
-On 08.12.21 16:54, Andrew Cooper wrote:
-> On 08/12/2021 14:22, Juergen Gross wrote:
->> On 08.12.21 14:43, Andrew Cooper wrote:
->>> On 08/12/2021 08:47, Juergen Gross wrote:
->>>> The HVM parameters for pre-allocated event channels should be set in=
+The notable one is the sysfs, but that is probably better handled by
+storing a
 
->>>> libxenguest, like it is done for PV guests and for the pre-allocated=
+  const char *sysfs_label
 
->>>> ring pages.
->>>>
->>>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>>
->>> I'm not sure that we have the concept of pre-allocated ring pages.
->>>
->>> For PV, we have:
->>>
->>>  =C2=A0=C2=A0=C2=A0=C2=A0 dom->console_pfn =3D xc_dom_alloc_page(dom,=
- "console");
->>>  =C2=A0=C2=A0=C2=A0=C2=A0 if ( dom->console_pfn =3D=3D INVALID_PFN )
->>>  =C2=A0=C2=A0 =C2=A0=C2=A0 =C2=A0=C2=A0 return -1;
->>>  =C2=A0=C2=A0=C2=A0=C2=A0 xc_clear_domain_page(dom->xch, dom->guest_d=
-omid,
->>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 xc_dom_p2m(dom, dom->console_pfn));
->>>
->>> and for HVM, we have:
->>>
->>>  =C2=A0=C2=A0=C2=A0=C2=A0 dom->console_pfn =3D special_pfn(SPECIALPAG=
-E_CONSOLE);
->>>  =C2=A0=C2=A0=C2=A0=C2=A0 xc_clear_domain_page(dom->xch, dom->guest_d=
-omid, dom->console_pfn);
->>
->> Isn't that a pre-allocation? The PFNs are fixed at boot time of the
->> guest.
->=20
-> Yeah, but "allocated in the library call we're making" is not the same
-> as "caller has to allocate and pass details in".
->=20
-> I would not class the frames as "pre-allocated" in this context.
-> "allocated" sure, so perhaps "just like it is done for PV guests, and
-> the ring pages that libxenguest allocates" ?
+in the dev->msi and emitting that instead of computing it.
 
-Fine with me.
-
-Should I send another round, or can this be changed when committing?
-
-
-Juergen
-
---------------92EC60AFD1FF8E114417BBEF
-Content-Type: application/pgp-keys;
- name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Transfer-Encoding: quoted-printable
-Content-Description: OpenPGP public key
-Content-Disposition: attachment;
- filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
-cWx
-w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
-f8Z
-d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
-9bf
-IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
-G7/
-377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
-3Jv
-c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
-QIe
-AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
-hpw
-dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
-MbD
-1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
-oPH
-Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
-5QL
-+qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
-2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
-QoL
-BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
-Wf0
-teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
-/nu
-AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
-ITT
-d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
-XBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
-80h
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
-AcD
-AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
-FOX
-gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
-jnD
-kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
-N51
-N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
-otu
-fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
-tqS
-EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
-hsD
-BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
-g3O
-ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
-dM7
-wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
-D+j
-LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
-V2x
-AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
-Eaw
-QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
-nHI
-s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
-wgn
-BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
-bVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
-pEd
-IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
-QAB
-wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
-Tbe
-8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
-vJz
-Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
-VGi
-wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
-svi
-uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
-zXs
-ZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------92EC60AFD1FF8E114417BBEF--
-
---6zR7RmubX32NocimjaP2W7754qagzeVmI--
-
---35J2LrcOLET4Xu6rrYPAxEdOZL6caqdqY
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmGw1f4FAwAAAAAACgkQsN6d1ii/Ey86
-Vgf/W6MceExo2bXndfi4YAtJNm7e23d+tCzMISX0X2EYuLbzjqNrlH0K/AdwNmi92N9GHbamMGdV
-DhFBqWRcKcumt24tQ/4+8aG9MsxAR/hhZxilrPJ5ZfPVtukvt/vd+JUbLR7/rEg0ro5tZn9T0c93
-e4k1gnv3b27qjP0cZ2ThN4Es6qwEIXwc7ZFyiDwlENXYtOxXFye6dMLAR4KG5N9g+4P2BpFa9le9
-GqpNgA/Zg1d7RBbtf3cDh+b9T7q5mVz6iF6aYhAY7uBMOgD4HwMU4YYZou31ORlzIyqB2SkjSe+w
-not6cbl3SnOv3/oc2JcN8cZ1J4xaxpZlY+oUauyohw==
-=BTdF
------END PGP SIGNATURE-----
-
---35J2LrcOLET4Xu6rrYPAxEdOZL6caqdqY--
+Jason
 
