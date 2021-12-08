@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E603F46DC9B
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 21:05:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.242607.419575 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1DC246DD5B
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 21:57:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.242613.419589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mv3Am-0004nb-KT; Wed, 08 Dec 2021 20:04:16 +0000
+	id 1mv3zj-0003gC-Ax; Wed, 08 Dec 2021 20:56:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 242607.419575; Wed, 08 Dec 2021 20:04:16 +0000
+Received: by outflank-mailman (output) from mailman id 242613.419589; Wed, 08 Dec 2021 20:56:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mv3Am-0004kl-HP; Wed, 08 Dec 2021 20:04:16 +0000
-Received: by outflank-mailman (input) for mailman id 242607;
- Wed, 08 Dec 2021 20:04:15 +0000
+	id 1mv3zj-0003cl-7g; Wed, 08 Dec 2021 20:56:55 +0000
+Received: by outflank-mailman (input) for mailman id 242613;
+ Wed, 08 Dec 2021 20:56:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=n09u=QZ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1mv3Al-0004kf-RB
- for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 20:04:15 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ <SRS0=rXGX=QZ=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1mv3zi-0003TN-9i
+ for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 20:56:54 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 02a20b6b-5862-11ec-a831-37629979565c;
- Wed, 08 Dec 2021 21:04:13 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id 596F7CE233D;
- Wed,  8 Dec 2021 20:04:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F2DFC00446;
- Wed,  8 Dec 2021 20:04:07 +0000 (UTC)
+ id 5e89df8d-5869-11ec-a831-37629979565c;
+ Wed, 08 Dec 2021 21:56:52 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,85 +36,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 02a20b6b-5862-11ec-a831-37629979565c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1638993847;
-	bh=MIhJ8lZkdDtebo1SC8dEsnZC72impxjCzMMry55F/2M=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=jt2CwxWA5UYViyNnMh2H2roU2XMx6AjwJ1jUllhWvhEqPo7XbCNcDmHWk1O/ORP0l
-	 qqSbKCYv5hsiSZ31FnWw/AkqTMsks5McSj07TQWXC3vkmvoLyl49RgiVpkwqy2oUYW
-	 dZoMNf5Awj8z/1ayvCOUB1n+C3Ghub10yqAHqUFO1CqD3VmKWJnJfJyU4fWd0ahkD+
-	 tPfJNOmeAmzW5NfSiqEonGD7yn3OYHcNS7Ys59kYrs2Zvb2w2LLUDEQ0uXQCS35Td3
-	 cHyUnZDp90kdD03znu3C0TNLFCXxi+LyyqkgpTJLaJ4MJucSd0xGvReAz1yXjeHUDp
-	 +TkDrT1v8CzKw==
-Date: Wed, 8 Dec 2021 12:04:06 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-    Ian Jackson <iwj@xenproject.org>
-Subject: Re: [PATCH] MAINTAINERS: widen Anthony's area
-In-Reply-To: <e47c7976-dae0-4d45-e0c0-f845e5522f1f@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2112081203550.4091490@ubuntu-linux-20-04-desktop>
-References: <e47c7976-dae0-4d45-e0c0-f845e5522f1f@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 5e89df8d-5869-11ec-a831-37629979565c
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1638997011;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RI9goYiyaxxlyowVIy50GRXpRhCNUYZrM4r3seD1bKI=;
+	b=NIPhL0sgn8M0aJUIi890pmZGlk891yoUSSDMnC4hnbyawxG2Kyh7G1sHH/xsmtSWUM8FfZ
+	FyiBCPJVbWpXpFfMUl77mb1l8QqDIF5HigALgdn/RYqTMPCpOHMr0KIFCokDN7aLnrEdks
+	8rrnfZKCxcaetGnTQyHUg4mAfEc2N1sxXiIWn5IbWqnhikYmOYt6fknKqXzV7CdqL4P4H4
+	8ZS0DFKNdnSGea2HezKm7Hkc6llGKcBl9S+VI9FjnibvCSYHAcSlNTnETtfGbCxdf3f6N4
+	HjxoAKj0UnKj8JjZlpBFr0/NMCZQnVLvInv7aT9TCLkwNt6S0nNqOl/aBjfedw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1638997011;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=RI9goYiyaxxlyowVIy50GRXpRhCNUYZrM4r3seD1bKI=;
+	b=KF19qqsUtSG+rWG9NpEYyzGIEvbq/ti9eoiMayWfd1iK3FYz9roP5HeWY227THj1hSYyZu
+	bO4E+0TC1Z5Br/AA==
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
+ Marc Zygnier <maz@kernel.org>, Alex Williamson
+ <alex.williamson@redhat.com>, Kevin Tian <kevin.tian@intel.com>, Megha Dey
+ <megha.dey@intel.com>, Ashok Raj <ashok.raj@intel.com>,
+ linux-pci@vger.kernel.org, Cedric Le Goater <clg@kaod.org>, Michael
+ Ellerman <mpe@ellerman.id.au>, Paul Mackerras <paulus@samba.org>, Benjamin
+ Herrenschmidt <benh@kernel.crashing.org>, linuxppc-dev@lists.ozlabs.org,
+ Juergen Gross <jgross@suse.com>, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>, linux-mips@vger.kernel.org, Kalle Valo
+ <kvalo@codeaurora.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ sparclinux@vger.kernel.org, x86@kernel.org,
+ xen-devel@lists.xenproject.org, ath11k@lists.infradead.org, Wei Liu
+ <wei.liu@kernel.org>, linux-hyperv@vger.kernel.org, Christian Borntraeger
+ <borntraeger@de.ibm.com>, Heiko Carstens <hca@linux.ibm.com>
+Subject: Re: [patch V2 20/23] PCI/MSI: Move msi_lock to struct pci_dev
+In-Reply-To: <20211208152925.GU6385@nvidia.com>
+References: <20211206210147.872865823@linutronix.de>
+ <20211206210224.925241961@linutronix.de>
+ <20211208152925.GU6385@nvidia.com>
+Date: Wed, 08 Dec 2021 21:56:50 +0100
+Message-ID: <871r2m24tp.ffs@tglx>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain
 
-On Wed, 8 Dec 2021, Jan Beulich wrote:
-> As was briefly discussed on the December Community Call, I'd like to
-> propose to widen Anthony's maintainership to all of tools/. This then
-> means that the special LIBXENLIGHT entry can go away.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Wed, Dec 08 2021 at 11:29, Jason Gunthorpe wrote:
+> On Mon, Dec 06, 2021 at 11:27:56PM +0100, Thomas Gleixner wrote:
+>>  	if (!desc->pci.msi_attrib.can_mask)
+>
+> It looks like most of the time this is called by an irq_chip, except
+> for a few special cases list pci_msi_shutdown()
+>
+> Is this something that should ideally go away someday and use some
+> lock in the irq_chip - not unlike what we've thought is needed for
+> IMS?
 
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
-> Note that we're still looking for a 2nd maintainer there, considering
-> that Wei's time is rather limited.
-> 
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -375,9 +375,11 @@
->  
->  LIBS
->  M:	Wei Liu <wl@xen.org>
-> +M:	Anthony PERARD <anthony.perard@citrix.com>
->  R:	Juergen Gross <jgross@suse.com>
->  S:	Supported
->  F:	tools/include/libxenvchan.h
-> +F:	tools/include/libxl*.h
->  F:	tools/include/xencall.h
->  F:	tools/include/xenctrl*.h
->  F:	tools/include/xendevicemodel.h
-> @@ -393,15 +395,6 @@
->  F:	tools/include/xentoollog.h
->  F:	tools/libs/
->  
-> -LIBXENLIGHT
-> -M:	Wei Liu <wl@xen.org>
-> -M:	Anthony PERARD <anthony.perard@citrix.com>
-> -S:	Supported
-> -F:	tools/include/libxl*.h
-> -F:	tools/libs/light/
-> -F:	tools/libs/util/
-> -F:	tools/xl/
-> -
->  LIVEPATCH
->  M:	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
->  M:	Ross Lagerwall <ross.lagerwall@citrix.com>
-> @@ -514,6 +507,7 @@
->  
->  TOOLSTACK
->  M:	Wei Liu <wl@xen.org>
-> +M:	Anthony PERARD <anthony.perard@citrix.com>
->  S:	Supported
->  F:	autogen.sh
->  F:	config/*.in
-> 
+Some day we'll have that yes.
 
