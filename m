@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 651F446D788
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 16:56:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.242354.419188 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41BF246D782
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 16:56:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.242355.419194 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muzIi-0001O2-OG; Wed, 08 Dec 2021 15:56:12 +0000
+	id 1muzIj-0001Ub-3a; Wed, 08 Dec 2021 15:56:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 242354.419188; Wed, 08 Dec 2021 15:56:12 +0000
+Received: by outflank-mailman (output) from mailman id 242355.419194; Wed, 08 Dec 2021 15:56:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muzIi-0001ME-Iw; Wed, 08 Dec 2021 15:56:12 +0000
-Received: by outflank-mailman (input) for mailman id 242354;
+	id 1muzIi-0001Nc-UZ; Wed, 08 Dec 2021 15:56:12 +0000
+Received: by outflank-mailman (input) for mailman id 242355;
  Wed, 08 Dec 2021 15:56:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J2Or=QZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1muzIh-0001LM-66
+ id 1muzIh-0001Lz-Nc
  for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 15:56:11 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5c89904e-583f-11ec-a831-37629979565c;
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5c9fec9a-583f-11ec-9d12-4777fae47e2b;
  Wed, 08 Dec 2021 16:56:10 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C80A21FD3E;
- Wed,  8 Dec 2021 15:56:09 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1EE312113A;
+ Wed,  8 Dec 2021 15:56:10 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7741C13C8E;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CBC8913F91;
  Wed,  8 Dec 2021 15:56:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id PW7OG5nVsGHIXwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id uMW1MJnVsGHIXwAAMHmgww
  (envelope-from <jgross@suse.com>); Wed, 08 Dec 2021 15:56:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,14 +51,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c89904e-583f-11ec-a831-37629979565c
+X-Inumbo-ID: 5c9fec9a-583f-11ec-9d12-4777fae47e2b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638978969; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=rQV7j0YW8AXR7oZuq5XEnisypq+N6I53xv0CTVE9+3M=;
-	b=fiptY8MRyhZZUaImPizpJyybGwmsWQ+BlfeYSgYQ+HwpX+WLMq9CrLLjN82MSFczMNGUxu
-	PJ6wIA7lA66VyB4gtQjL+dSj19kosRqmyU/n6Os9apeT9N6BmLU7WKadgW0jA5z6ymdd4u
-	WsxH1rzcBfvFDHssuvwplK0w2zhL7ao=
+	t=1638978970; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FlS8C8pTHUC6JbtaYLzXhbhXJUoUDmpJnMmf+HYN34I=;
+	b=ooH4SqaphRsimhkuvj7/qhy4maS6M2xcLNkXiqUvRfGW+pAgWCs6ZTxPDTt2XYwwzxtCwE
+	pueabQML9WkYAXfoBGjVcPG8grZZ6rMUnLwCWHCpdLaBYfuXnF3ShjpYCDkAtDkYTellxA
+	Ph5ExecRE1zwLjucV7tcGxE38lh30Po=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -70,107 +72,284 @@ Cc: Juergen Gross <jgross@suse.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
 	Wei Liu <wl@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Christopher Clark <christopher.w.clark@gmail.com>
-Subject: [PATCH v3 00/13] xen: drop hypercall function tables
-Date: Wed,  8 Dec 2021 16:55:53 +0100
-Message-Id: <20211208155606.20029-1-jgross@suse.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v3 01/13] xen: move do_vcpu_op() to arch specific code
+Date: Wed,  8 Dec 2021 16:55:54 +0100
+Message-Id: <20211208155606.20029-2-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20211208155606.20029-1-jgross@suse.com>
+References: <20211208155606.20029-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In order to avoid indirect function calls on the hypercall path as
-much as possible this series is removing the hypercall function tables
-and is replacing the hypercall handler calls via the function array
-by automatically generated call macros.
+Today Arm is using another entry point for the vcpu_op hypercall as
+x86, as some of the common sub-ops are not supported on Arm. The Arm
+specific handler filetrs out the not supported sub-ops and then calls
+the common handler. This leads to the weird call hierarchy:
 
-Another by-product of generating the call macros is the automatic
-generating of the hypercall handler prototypes from the same data base
-which is used to generate the macros.
+  do_arm_vcpu_op()
+    do_vcpu_op()
+      arch_do_vcpu_op()
 
-This has the additional advantage of using type safe calls of the
-handlers and to ensure related handler (e.g. PV and HVM ones) share
-the same prototypes.
+Clean this up by renaming do_vcpu_op() to common_vcpu_op() and
+arch_do_vcpu_op() in each architecture to do_vcpu_op(). This way one
+of above calls can be avoided without restricting any potential
+future use of common sub-ops for Arm.
 
-A very brief performance test (parallel build of the Xen hypervisor
-in a 6 vcpu guest) showed a very slim improvement (less than 1%) of
-the performance with the patches applied. The test was performed using
-a PV and a PVH guest.
+Additionally the single user of HYPERCALL_ARM() can be modified and
+HYPERCALL_ARM() can be removed.
 
-Changes in V2:
-- new patches 6, 14, 15
-- patch 7: support hypercall priorities for faster code
-- comments addressed
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ xen/arch/arm/domain.c           | 15 ++++++++-------
+ xen/arch/arm/traps.c            |  7 +------
+ xen/arch/x86/domain.c           | 11 +++++++----
+ xen/arch/x86/x86_64/domain.c    | 16 ++++++++++++----
+ xen/common/compat/domain.c      | 14 ++++++--------
+ xen/common/domain.c             | 11 ++++-------
+ xen/include/asm-arm/hypercall.h |  2 --
+ xen/include/asm-x86/hypercall.h |  2 +-
+ xen/include/xen/hypercall.h     |  2 +-
+ 9 files changed, 40 insertions(+), 40 deletions(-)
 
-Changes in V3:
-- patches 1 and 4 removed as already applied
-- comments addressed
-
-Juergen Gross (13):
-  xen: move do_vcpu_op() to arch specific code
-  xen: harmonize return types of hypercall handlers
-  xen: don't include asm/hypercall.h from C sources
-  xen: include compat/platform.h from hypercall.h
-  xen: generate hypercall interface related code
-  xen: use generated prototypes for hypercall handlers
-  x86/pv-shim: don't modify hypercall table
-  xen/x86: don't use hypercall table for calling compat hypercalls
-  xen/x86: call hypercall handlers via generated macro
-  xen/arm: call hypercall handlers via generated macro
-  xen/x86: add hypercall performance counters for hvm, correct pv
-  xen: drop calls_to_multicall performance counter
-  tools/xenperf: update hypercall names
-
- .gitignore                               |   1 +
- tools/misc/xenperf.c                     |   5 +
- xen/arch/arm/domain.c                    |  15 +-
- xen/arch/arm/hvm.c                       |   3 +-
- xen/arch/arm/physdev.c                   |   2 +-
- xen/arch/arm/platform_hypercall.c        |   1 +
- xen/arch/arm/traps.c                     | 124 ++-------
- xen/arch/x86/compat.c                    |  14 +-
- xen/arch/x86/cpu/vpmu.c                  |   1 +
- xen/arch/x86/domain.c                    |  11 +-
- xen/arch/x86/domctl.c                    |   4 +-
- xen/arch/x86/hvm/hypercall.c             | 178 ++-----------
- xen/arch/x86/hypercall.c                 |  59 -----
- xen/arch/x86/mm.c                        |   1 -
- xen/arch/x86/mm/paging.c                 |   3 +-
- xen/arch/x86/platform_hypercall.c        |   1 +
- xen/arch/x86/pv/callback.c               |  20 +-
- xen/arch/x86/pv/emul-priv-op.c           |   2 +-
- xen/arch/x86/pv/hypercall.c              | 182 ++-----------
- xen/arch/x86/pv/iret.c                   |   5 +-
- xen/arch/x86/pv/misc-hypercalls.c        |  14 +-
- xen/arch/x86/pv/shim.c                   |  54 ++--
- xen/arch/x86/traps.c                     |   2 +-
- xen/arch/x86/x86_64/compat.c             |   1 -
- xen/arch/x86/x86_64/compat/mm.c          |   1 +
- xen/arch/x86/x86_64/domain.c             |  16 +-
- xen/arch/x86/x86_64/mm.c                 |   2 -
- xen/arch/x86/x86_64/platform_hypercall.c |   3 +-
- xen/common/argo.c                        |  12 +-
- xen/common/compat/domain.c               |  14 +-
- xen/common/compat/grant_table.c          |   1 +
- xen/common/compat/multicall.c            |   2 +-
- xen/common/domain.c                      |  11 +-
- xen/common/event_channel.c               |  10 +
- xen/common/grant_table.c                 |  10 +
- xen/common/kexec.c                       |   6 +-
- xen/common/multicall.c                   |   2 +-
- xen/include/Makefile                     |  13 +
- xen/include/asm-arm/hypercall.h          |   7 +-
- xen/include/asm-x86/hypercall.h          | 205 ++++-----------
- xen/include/asm-x86/paging.h             |   3 -
- xen/include/asm-x86/pv/shim.h            |   3 +
- xen/include/hypercall-defs.c             | 280 ++++++++++++++++++++
- xen/include/xen/hypercall.h              | 184 +------------
- xen/include/xen/perfc_defn.h             |   1 -
- xen/scripts/gen_hypercall.awk            | 314 +++++++++++++++++++++++
- 46 files changed, 874 insertions(+), 929 deletions(-)
- create mode 100644 xen/include/hypercall-defs.c
- create mode 100644 xen/scripts/gen_hypercall.awk
-
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index 96e1b23550..691a14277e 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -1074,23 +1074,24 @@ void arch_dump_domain_info(struct domain *d)
+ }
+ 
+ 
+-long do_arm_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
++long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
++    struct domain *d = current->domain;
++    struct vcpu *v;
++
++    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
++        return -ENOENT;
++
+     switch ( cmd )
+     {
+         case VCPUOP_register_vcpu_info:
+         case VCPUOP_register_runstate_memory_area:
+-            return do_vcpu_op(cmd, vcpuid, arg);
++            return common_vcpu_op(cmd, v, arg);
+         default:
+             return -EINVAL;
+     }
+ }
+ 
+-long arch_do_vcpu_op(int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
+-{
+-    return -ENOSYS;
+-}
+-
+ void arch_dump_vcpu_info(struct vcpu *v)
+ {
+     gic_dump_info(v);
+diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+index 219ab3c3fb..7abc28848e 100644
+--- a/xen/arch/arm/traps.c
++++ b/xen/arch/arm/traps.c
+@@ -1351,11 +1351,6 @@ typedef struct {
+         .nr_args = _nr_args,                                         \
+     }
+ 
+-#define HYPERCALL_ARM(_name, _nr_args)                        \
+-    [ __HYPERVISOR_ ## _name ] =  {                                  \
+-        .fn = (arm_hypercall_fn_t) &do_arm_ ## _name,                \
+-        .nr_args = _nr_args,                                         \
+-    }
+ /*
+  * Only use this for hypercalls which were deprecated (i.e. replaced
+  * by something else) before Xen on ARM was created, i.e. *not* for
+@@ -1386,7 +1381,7 @@ static arm_hypercall_t arm_hypercall_table[] = {
+ #endif
+     HYPERCALL(multicall, 2),
+     HYPERCALL(platform_op, 1),
+-    HYPERCALL_ARM(vcpu_op, 3),
++    HYPERCALL(vcpu_op, 3),
+     HYPERCALL(vm_assist, 2),
+ #ifdef CONFIG_ARGO
+     HYPERCALL(argo_op, 5),
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index ef1812dc14..e1440ec2f5 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -1488,11 +1488,14 @@ int arch_vcpu_reset(struct vcpu *v)
+     return 0;
+ }
+ 
+-long
+-arch_do_vcpu_op(
+-    int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
++long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+     long rc = 0;
++    struct domain *d = current->domain;
++    struct vcpu *v;
++
++    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
++        return -ENOENT;
+ 
+     switch ( cmd )
+     {
+@@ -1544,7 +1547,7 @@ arch_do_vcpu_op(
+     }
+ 
+     default:
+-        rc = -ENOSYS;
++        rc = common_vcpu_op(cmd, v, arg);
+         break;
+     }
+ 
+diff --git a/xen/arch/x86/x86_64/domain.c b/xen/arch/x86/x86_64/domain.c
+index c46dccc25a..62fe51ee74 100644
+--- a/xen/arch/x86/x86_64/domain.c
++++ b/xen/arch/x86/x86_64/domain.c
+@@ -13,10 +13,14 @@ CHECK_vcpu_get_physid;
+ #undef xen_vcpu_get_physid
+ 
+ int
+-arch_compat_vcpu_op(
+-    int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
++compat_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+-    int rc = -ENOSYS;
++    int rc;
++    struct domain *d = current->domain;
++    struct vcpu *v;
++
++    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
++        return -ENOENT;
+ 
+     switch ( cmd )
+     {
+@@ -55,7 +59,11 @@ arch_compat_vcpu_op(
+     }
+ 
+     case VCPUOP_get_physid:
+-        rc = arch_do_vcpu_op(cmd, v, arg);
++        rc = do_vcpu_op(cmd, vcpuid, arg);
++        break;
++
++    default:
++        rc = compat_common_vcpu_op(cmd, v, arg);
+         break;
+     }
+ 
+diff --git a/xen/common/compat/domain.c b/xen/common/compat/domain.c
+index 98b8c15cea..1119534679 100644
+--- a/xen/common/compat/domain.c
++++ b/xen/common/compat/domain.c
+@@ -38,14 +38,12 @@ CHECK_vcpu_hvm_context;
+ 
+ #endif
+ 
+-int compat_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
++int compat_common_vcpu_op(int cmd, struct vcpu *v,
++                          XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+-    struct domain *d = current->domain;
+-    struct vcpu *v;
+     int rc = 0;
+-
+-    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
+-        return -ENOENT;
++    struct domain *d = current->domain;
++    unsigned int vcpuid = v->vcpu_id;
+ 
+     switch ( cmd )
+     {
+@@ -102,7 +100,7 @@ int compat_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) ar
+     case VCPUOP_stop_singleshot_timer:
+     case VCPUOP_register_vcpu_info:
+     case VCPUOP_send_nmi:
+-        rc = do_vcpu_op(cmd, vcpuid, arg);
++        rc = common_vcpu_op(cmd, v, arg);
+         break;
+ 
+     case VCPUOP_get_runstate_info:
+@@ -133,7 +131,7 @@ int compat_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) ar
+     }
+ 
+     default:
+-        rc = arch_compat_vcpu_op(cmd, v, arg);
++        rc = -ENOSYS;
+         break;
+     }
+ 
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 093bb4403f..5fadd5c196 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -1558,14 +1558,11 @@ int default_initialise_vcpu(struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
+     return rc;
+ }
+ 
+-long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
++long common_vcpu_op(int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+-    struct domain *d = current->domain;
+-    struct vcpu *v;
+     long rc = 0;
+-
+-    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
+-        return -ENOENT;
++    struct domain *d = current->domain;
++    unsigned int vcpuid = v->vcpu_id;
+ 
+     switch ( cmd )
+     {
+@@ -1737,7 +1734,7 @@ long do_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg)
+     }
+ 
+     default:
+-        rc = arch_do_vcpu_op(cmd, v, arg);
++        rc = -ENOSYS;
+         break;
+     }
+ 
+diff --git a/xen/include/asm-arm/hypercall.h b/xen/include/asm-arm/hypercall.h
+index a0c5a31a2f..9fd13c6b2c 100644
+--- a/xen/include/asm-arm/hypercall.h
++++ b/xen/include/asm-arm/hypercall.h
+@@ -4,8 +4,6 @@
+ #include <public/domctl.h> /* for arch_do_domctl */
+ int do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+-long do_arm_vcpu_op(int cmd, unsigned int vcpuid, XEN_GUEST_HANDLE_PARAM(void) arg);
+-
+ long subarch_do_domctl(struct xen_domctl *domctl, struct domain *d,
+                        XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl);
+ 
+diff --git a/xen/include/asm-x86/hypercall.h b/xen/include/asm-x86/hypercall.h
+index 5d394d4923..e614f7c78c 100644
+--- a/xen/include/asm-x86/hypercall.h
++++ b/xen/include/asm-x86/hypercall.h
+@@ -152,7 +152,7 @@ compat_physdev_op(
+     XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+ extern int
+-arch_compat_vcpu_op(
++compat_common_vcpu_op(
+     int cmd, struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
+ extern int compat_mmuext_op(
+diff --git a/xen/include/xen/hypercall.h b/xen/include/xen/hypercall.h
+index 07b10ec230..30558d3c61 100644
+--- a/xen/include/xen/hypercall.h
++++ b/xen/include/xen/hypercall.h
+@@ -110,7 +110,7 @@ do_vcpu_op(
+ 
+ struct vcpu;
+ extern long
+-arch_do_vcpu_op(int cmd,
++common_vcpu_op(int cmd,
+     struct vcpu *v,
+     XEN_GUEST_HANDLE_PARAM(void) arg);
+ 
 -- 
 2.26.2
 
