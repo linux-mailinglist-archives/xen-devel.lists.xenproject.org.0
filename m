@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30FDA46CF70
+	by mail.lfdr.de (Postfix) with ESMTPS id AA64F46CF71
 	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 09:48:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.242082.418761 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.242081.418745 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muscC-0001td-9t; Wed, 08 Dec 2021 08:47:52 +0000
+	id 1muscA-0001Tj-VI; Wed, 08 Dec 2021 08:47:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 242082.418761; Wed, 08 Dec 2021 08:47:52 +0000
+Received: by outflank-mailman (output) from mailman id 242081.418745; Wed, 08 Dec 2021 08:47:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muscC-0001po-5Y; Wed, 08 Dec 2021 08:47:52 +0000
-Received: by outflank-mailman (input) for mailman id 242082;
- Wed, 08 Dec 2021 08:47:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1muscA-0001N7-RG; Wed, 08 Dec 2021 08:47:50 +0000
+Received: by outflank-mailman (input) for mailman id 242081;
+ Wed, 08 Dec 2021 08:47:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=J2Or=QZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1muscA-0001K1-7I
- for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 08:47:50 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8503115e-5803-11ec-a831-37629979565c;
+ id 1musc9-0001K2-M0
+ for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 08:47:49 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 851f2b1c-5803-11ec-9d12-4777fae47e2b;
  Wed, 08 Dec 2021 09:47:48 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 0B6352191A;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 418F21FD3E;
  Wed,  8 Dec 2021 08:47:48 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D68F813F3B;
- Wed,  8 Dec 2021 08:47:47 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 122CE13BE9;
+ Wed,  8 Dec 2021 08:47:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id AOoeMzNxsGGzdQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 08 Dec 2021 08:47:47 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id UKkcAzRxsGGzdQAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 08 Dec 2021 08:47:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,76 +51,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8503115e-5803-11ec-a831-37629979565c
+X-Inumbo-ID: 851f2b1c-5803-11ec-9d12-4777fae47e2b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1638953268; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nT3PojRsjaFLQH8p/xAS/Bo0Edytu7k5yswmTd3p+WU=;
-	b=UvBlVWL1x0/G7DJ4GahBrQIUwzTNp7P6vYBL61uj9csWpmzLvAgjU6q1K2PEqq5F7jKpjk
-	oeSQqU35zbMmC3i4UhtxsDczk7qjozkgZIJyVfe9Ts6ej+AACj+iJiD6W7ODW0+jds/IH5
-	g7UcKdnXiarpssq735mbcS1rfVXJW/Y=
+	bh=S6awGi2Fwbno8QaG6NAZfKYFH8aFqnE5sERtOBDmAbA=;
+	b=hxJ9yWCE8Yc8x0BugzwO/+upHnZi4yk5OAzREbFkbpMlrE0oIUc6OjwJgD50qbcBzzl8Ii
+	kGl8pifEYkWN8NhaTuDtI1ifXedaRLoBouf3P5chq1HOWTBnzeWP+z+0T+lOqKh9SvDMSd
+	0c/5LiOYGfgzKIX/ypcnA8XQGk9i3LA=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Ian Jackson <iwj@xenproject.org>,
 	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v3 1/2] tools/helpers: fix PVH xenstore-stubdom console parameters
-Date: Wed,  8 Dec 2021 09:47:44 +0100
-Message-Id: <20211208084745.31082-2-jgross@suse.com>
+Subject: [PATCH v3 2/2] tools: set event channel HVM parameters in libxenguest
+Date: Wed,  8 Dec 2021 09:47:45 +0100
+Message-Id: <20211208084745.31082-3-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20211208084745.31082-1-jgross@suse.com>
 References: <20211208084745.31082-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When using a PVH mode xenstore-stubdom the frame number of the console
-should be a PFN instead of a MFN.
+The HVM parameters for pre-allocated event channels should be set in
+libxenguest, like it is done for PV guests and for the pre-allocated
+ring pages.
 
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-V2:
-- rename variable (Andrew Cooper)
+V3:
+- replacement for former patch 2 (Andrew Cooper)
 ---
- tools/helpers/init-xenstore-domain.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ tools/libs/guest/xg_dom_x86.c |  6 ++++++
+ tools/libs/light/libxl_dom.c  | 15 ++++++---------
+ 2 files changed, 12 insertions(+), 9 deletions(-)
 
-diff --git a/tools/helpers/init-xenstore-domain.c b/tools/helpers/init-xenstore-domain.c
-index b205a79ee6..9457d0251b 100644
---- a/tools/helpers/init-xenstore-domain.c
-+++ b/tools/helpers/init-xenstore-domain.c
-@@ -30,7 +30,7 @@ static char *param;
- static char *name = "Xenstore";
- static int memory;
- static int maxmem;
--static xen_pfn_t console_mfn;
-+static xen_pfn_t console_gfn;
- static xc_evtchn_port_or_error_t console_evtchn;
- 
- static struct option options[] = {
-@@ -283,7 +283,9 @@ static int build(xc_interface *xch)
+diff --git a/tools/libs/guest/xg_dom_x86.c b/tools/libs/guest/xg_dom_x86.c
+index b6e75afba2..9328fbf804 100644
+--- a/tools/libs/guest/xg_dom_x86.c
++++ b/tools/libs/guest/xg_dom_x86.c
+@@ -1866,6 +1866,12 @@ static int bootlate_hvm(struct xc_dom_image *dom)
+         munmap(hvm_info_page, PAGE_SIZE);
      }
  
-     rv = 0;
--    console_mfn = xc_dom_p2m(dom, dom->console_pfn);
-+    console_gfn = (dom->container_type == XC_DOM_PV_CONTAINER)
-+                  ? xc_dom_p2m(dom, dom->console_pfn)
-+                  : dom->console_pfn;
++    if ( xc_hvm_param_set(xch, domid, HVM_PARAM_CONSOLE_EVTCHN,
++                          dom->console_evtchn) ||
++         xc_hvm_param_set(xch, domid, HVM_PARAM_STORE_EVTCHN,
++                          dom->xenstore_evtchn) )
++        return -1;
++
+     return 0;
+ }
  
- err:
-     if ( dom )
-@@ -528,7 +530,7 @@ int main(int argc, char** argv)
-     do_xs_write_dir_node(xsh, fe_path, "tty", "");
-     snprintf(buf, 16, "%d", console_evtchn);
-     do_xs_write_dir_node(xsh, fe_path, "port", buf);
--    snprintf(buf, 16, "%ld", console_mfn);
-+    snprintf(buf, 16, "%ld", console_gfn);
-     do_xs_write_dir_node(xsh, fe_path, "ring-ref", buf);
-     xs_close(xsh);
+diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
+index fe9f760f71..c9c24666cd 100644
+--- a/tools/libs/light/libxl_dom.c
++++ b/tools/libs/light/libxl_dom.c
+@@ -723,9 +723,8 @@ out:
  
+ static int hvm_build_set_params(xc_interface *handle, uint32_t domid,
+                                 libxl_domain_build_info *info,
+-                                int store_evtchn, unsigned long *store_mfn,
+-                                int console_evtchn, unsigned long *console_mfn,
+-                                domid_t store_domid, domid_t console_domid)
++                                unsigned long *store_mfn,
++                                unsigned long *console_mfn)
+ {
+     struct hvm_info_table *va_hvm;
+     uint8_t *va_map, sum;
+@@ -752,8 +751,6 @@ static int hvm_build_set_params(xc_interface *handle, uint32_t domid,
+ 
+     xc_hvm_param_get(handle, domid, HVM_PARAM_STORE_PFN, &str_mfn);
+     xc_hvm_param_get(handle, domid, HVM_PARAM_CONSOLE_PFN, &cons_mfn);
+-    xc_hvm_param_set(handle, domid, HVM_PARAM_STORE_EVTCHN, store_evtchn);
+-    xc_hvm_param_set(handle, domid, HVM_PARAM_CONSOLE_EVTCHN, console_evtchn);
+ 
+     *store_mfn = str_mfn;
+     *console_mfn = cons_mfn;
+@@ -1123,7 +1120,9 @@ int libxl__build_hvm(libxl__gc *gc, uint32_t domid,
+     dom->vga_hole_size = device_model ? LIBXL_VGA_HOLE_SIZE : 0;
+     dom->device_model = device_model;
+     dom->max_vcpus = info->max_vcpus;
++    dom->console_evtchn = state->console_port;
+     dom->console_domid = state->console_domid;
++    dom->xenstore_evtchn = state->store_port;
+     dom->xenstore_domid = state->store_domid;
+ 
+     rc = libxl__domain_device_construct_rdm(gc, d_config,
+@@ -1169,10 +1168,8 @@ int libxl__build_hvm(libxl__gc *gc, uint32_t domid,
+     if (rc != 0)
+         goto out;
+ 
+-    rc = hvm_build_set_params(ctx->xch, domid, info, state->store_port,
+-                               &state->store_mfn, state->console_port,
+-                               &state->console_mfn, state->store_domid,
+-                               state->console_domid);
++    rc = hvm_build_set_params(ctx->xch, domid, info, &state->store_mfn,
++                              &state->console_mfn);
+     if (rc != 0) {
+         LOG(ERROR, "hvm build set params failed");
+         goto out;
 -- 
 2.26.2
 
