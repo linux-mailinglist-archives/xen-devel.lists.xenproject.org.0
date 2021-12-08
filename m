@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17ED946D8F2
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 17:53:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.242513.419427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACB1F46D917
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 18:00:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.242520.419437 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mv0C0-0005g2-2f; Wed, 08 Dec 2021 16:53:20 +0000
+	id 1mv0Ij-0007Xe-OI; Wed, 08 Dec 2021 17:00:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 242513.419427; Wed, 08 Dec 2021 16:53:20 +0000
+Received: by outflank-mailman (output) from mailman id 242520.419437; Wed, 08 Dec 2021 17:00:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mv0Bz-0005do-US; Wed, 08 Dec 2021 16:53:19 +0000
-Received: by outflank-mailman (input) for mailman id 242513;
- Wed, 08 Dec 2021 16:53:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mv0By-0005di-NG
- for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 16:53:18 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mv0Bx-0001oY-IB; Wed, 08 Dec 2021 16:53:17 +0000
-Received: from [54.239.6.189] (helo=[192.168.13.103])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mv0Bx-0004cT-Ba; Wed, 08 Dec 2021 16:53:17 +0000
+	id 1mv0Ij-0007Ve-Kz; Wed, 08 Dec 2021 17:00:17 +0000
+Received: by outflank-mailman (input) for mailman id 242520;
+ Wed, 08 Dec 2021 17:00:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ity+=QZ=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1mv0Ih-0007VY-ST
+ for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 17:00:15 +0000
+Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
+ [2a00:1450:4864:20::133])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5031040a-5848-11ec-9d12-4777fae47e2b;
+ Wed, 08 Dec 2021 18:00:14 +0100 (CET)
+Received: by mail-lf1-x133.google.com with SMTP id bi37so6842303lfb.5
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Dec 2021 09:00:14 -0800 (PST)
+Received: from otyshchenko.router ([212.22.223.21])
+ by smtp.gmail.com with ESMTPSA id b14sm302767lfs.174.2021.12.08.09.00.13
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 08 Dec 2021 09:00:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,80 +43,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=O05kB8Vl7RHOAiMe94cfoJE5/NLlSmmoEh+WONy/5To=; b=PCU8f+LEf7AmShiHv4smzuTJr6
-	NnHnfV8KL6ce1hO1vLoUwW+pPv41UUkBEvkAdeGQYVC0P/YBE/Qw9zvHu/jk/UJpI3iYbUj7FPtZp
-	2nl8a3RNomSRdP9QjefCE73V7b1dmOiRMmsNF9IKc95QFWTIAGNOZjrXlYSoqaFzXulA=;
-Message-ID: <77326c24-9d2a-22ef-00cf-b89f1e70eaaf@xen.org>
-Date: Wed, 8 Dec 2021 16:53:14 +0000
+X-Inumbo-ID: 5031040a-5848-11ec-9d12-4777fae47e2b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=irpOZlHnLuCFvgvt7pasDPosQACWGgbdRbyKuJ7cmBo=;
+        b=iUFu/MHHZhkppZ6XYyd5oYPfhGgHxAnxa2IaMN/epp2c8KCFkUYKgNoAPhRmGHceDx
+         rWdvlE2KmDCp37apRa+0zHjU5O5KFljD2ebqbREddWmBFZsfnlEeKqytzYPcPdFkvatl
+         mImFZmp3XZYYLqS2TxHlD35FalHWrJLf+KvWeiray5Ywgvo71DlzcfxspdmsULC3xMTO
+         iwF+BENmvpwFQK+N6y07+w3NXRrVr5/BkZxA9e1QXhKpUM4Se7DlZlzPAZrBh+W72AhP
+         A4HTUmI1wvClpDQi4dqG6ezqsOtdtRGfRZvD3p2E9ufujA7nwaceCvNs7DkyxM5tXu4E
+         Lw8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=irpOZlHnLuCFvgvt7pasDPosQACWGgbdRbyKuJ7cmBo=;
+        b=0DgZnXH4MwNaJEKk7twAUjLlP54tCvpspsxTFuIAV8Odcvz9ohKvfePVgApZADN5nN
+         8vMWshDxkOtWnNFkNCBxTd4rVQW5M6bjm443E6JoOqMHvz9zKm32lCEXAThrdVbw6euo
+         yV5Fg050amvn+nawGup7X/U18UIVsTCVBuXUHPoib495Ro04sOr31j43Ynlebi257fFm
+         M3pI/EHTSwyWmGbjWU97DjI1+gPzSqmVrmU6FoCjYXHfUb6zRERCtCw3PJ8hoYIpO1Yh
+         9BqIRXJXIau+1lribLGWxf+jnksulOAcGrucVn6GqEvakv406JNlA3jZ/9zFMNHsN3Qn
+         FuXQ==
+X-Gm-Message-State: AOAM5309Wkh/KcGq7cryMb7HAlxDrvxWtW7SD81na0DBEE4kHW8uvtGp
+	IyEAAFNovdb+qXJ7tdhjxWqwLi06wjQ=
+X-Google-Smtp-Source: ABdhPJwlxYFJf0RDSgS7tzGaKYOttYlxhI41eqlNrorSK+738YWPrW0ZF5DfTMeRs19cG3z9y/cAnA==
+X-Received: by 2002:a05:6512:2820:: with SMTP id cf32mr661584lfb.510.1638982814338;
+        Wed, 08 Dec 2021 09:00:14 -0800 (PST)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Nick Rosbrook <rosbrookn@ainfosec.com>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Wei Chen <Wei.Chen@arm.com>,
+	Kaly Xin <Kaly.Xin@arm.com>,
+	Jiamei Xie <Jiamei.Xie@arm.com>,
+	Henry Wang <Henry.Wang@arm.com>,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>
+Subject: [PATCH V6 0/2] Virtio support for toolstack on Arm (Was "IOREQ feature (+ virtio-mmio) on Arm")
+Date: Wed,  8 Dec 2021 18:59:42 +0200
+Message-Id: <1638982784-14390-1-git-send-email-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.3.2
-Subject: Re: [PATCH v7 4/7] xen/arm: account IO handler for emulated PCI host
- bridge
-To: Oleksandr Andrushchenko <andr2000@gmail.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
- volodymyr_babchuk@epam.com, Artem_Mygaiev@epam.com, roger.pau@citrix.com,
- jbeulich@suse.com, andrew.cooper3@citrix.com, george.dunlap@citrix.com,
- paul@xen.org, bertrand.marquis@arm.com, rahul.singh@arm.com,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-References: <20211124075942.2645445-1-andr2000@gmail.com>
- <20211124075942.2645445-5-andr2000@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20211124075942.2645445-5-andr2000@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Oleksandr,
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
-On 24/11/2021 07:59, Oleksandr Andrushchenko wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> At the moment, we always allocate an extra 16 slots for IO handlers
-> (see MAX_IO_HANDLER). So while adding an IO trap handler for the emulated
-> PCI host bridge we are not breaking anything, but we have a latent bug
-> as the maximum number of IOs may be exceeded.
-> Fix this by explicitly telling that we have an additional IO handler, so it is
-> accounted.
-> 
-> Fixes: d59168dc05a5 ("xen/arm: Enable the existing x86 virtual PCI support for ARM")
+Hello all.
 
-In general, it is better to have the fixes at the beginning of a series. 
-So they are relying on less rework and easier to backport (if needed).
+The purpose of this patch series is to add missing virtio-mmio bits to Xen toolstack on Arm.
+The Virtio support for toolstack [1] was postponed as the main target was to upstream IOREQ/DM
+support on Arm in the first place. Now, we already have IOREQ support in, so we can resume Virtio
+enabling work. You can find previous discussions at [2].
 
-In this case, PCI passthrough is still a technical preview so it doesn't 
-matter too much.
+Patch series [3] is based on recent "staging branch"
+(608531a0cc34a5bc096ccf585e16f182b5ed83e1 MAINTAINERS: Resign from my maintainership roles)
+and tested on Renesas Salvator-X board + H3 ES3.0 SoC (Arm64) with virtio-mmio disk backend [4]
+running in Driver domain and unmodified Linux Guest running on existing virtio-blk driver (frontend).
+No issues were observed. Guest domain 'reboot/destroy' use-cases work properly.
 
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
- >
-> diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
-> index ccd998d8dba2..8e801f275879 100644
-> --- a/xen/arch/arm/vpci.c
-> +++ b/xen/arch/arm/vpci.c
-> @@ -126,7 +126,8 @@ unsigned int domain_vpci_get_num_mmio_handlers(struct domain *d)
->           return ret < 0 ? 0 : ret;
->       }
->   
-> -    return 0;
-> +    /* For a single emulated host bridge's configuration space. */
+Any feedback/help would be highly appreciated.
 
-This comment is lacking some context. I would suggest to reword to 
-something like:
+[1] 
+https://lore.kernel.org/xen-devel/1610488352-18494-24-git-send-email-olekstysh@gmail.com/
+https://lore.kernel.org/xen-devel/1610488352-18494-25-git-send-email-olekstysh@gmail.com/
+[2]
+https://lists.xenproject.org/archives/html/xen-devel/2021-01/msg02403.html
+https://lists.xenproject.org/archives/html/xen-devel/2021-01/msg02536.html
+https://lore.kernel.org/xen-devel/1621626361-29076-1-git-send-email-olekstysh@gmail.com/
 
-"For the guests, each host bridge requires one region to cover the 
-configuration space. At the moment, we only expose a single host bridge.
-"
+[3] https://github.com/otyshchenko1/xen/commits/libxl_virtio1
+[4] https://github.com/xen-troops/virtio-disk/commits/ioreq_ml3
 
-With that (or a similar comment):
+Julien Grall (1):
+  libxl: Introduce basic virtio-mmio support on Arm
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Oleksandr Tyshchenko (1):
+  libxl: Add support for Virtio disk configuration
 
-Cheers,
+ docs/man/xl-disk-configuration.5.pod.in   |  27 +
+ tools/golang/xenlight/helpers.gen.go      |   6 +
+ tools/golang/xenlight/types.gen.go        |   4 +
+ tools/include/libxl.h                     |   6 +
+ tools/libs/light/libxl_arm.c              | 131 ++++-
+ tools/libs/light/libxl_device.c           |  38 +-
+ tools/libs/light/libxl_disk.c             |  99 +++-
+ tools/libs/light/libxl_types.idl          |   4 +
+ tools/libs/light/libxl_types_internal.idl |   1 +
+ tools/libs/light/libxl_utils.c            |   2 +
+ tools/libs/util/libxlu_disk_l.c           | 881 +++++++++++++++---------------
+ tools/libs/util/libxlu_disk_l.h           |   2 +-
+ tools/libs/util/libxlu_disk_l.l           |   1 +
+ tools/xl/xl_block.c                       |  11 +
+ xen/include/public/arch-arm.h             |   7 +
+ 15 files changed, 772 insertions(+), 448 deletions(-)
 
 -- 
-Julien Grall
+2.7.4
+
 
