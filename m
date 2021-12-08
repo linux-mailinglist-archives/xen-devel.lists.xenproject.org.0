@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA64F46CF71
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 09:48:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.242081.418745 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF23C46D074
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Dec 2021 10:56:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.242104.418771 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muscA-0001Tj-VI; Wed, 08 Dec 2021 08:47:50 +0000
+	id 1mutfy-0002sO-GA; Wed, 08 Dec 2021 09:55:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 242081.418745; Wed, 08 Dec 2021 08:47:50 +0000
+Received: by outflank-mailman (output) from mailman id 242104.418771; Wed, 08 Dec 2021 09:55:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1muscA-0001N7-RG; Wed, 08 Dec 2021 08:47:50 +0000
-Received: by outflank-mailman (input) for mailman id 242081;
- Wed, 08 Dec 2021 08:47:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mutfy-0002pg-Cs; Wed, 08 Dec 2021 09:55:50 +0000
+Received: by outflank-mailman (input) for mailman id 242104;
+ Wed, 08 Dec 2021 09:55:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=J2Or=QZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1musc9-0001K2-M0
- for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 08:47:49 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 851f2b1c-5803-11ec-9d12-4777fae47e2b;
- Wed, 08 Dec 2021 09:47:48 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 418F21FD3E;
- Wed,  8 Dec 2021 08:47:48 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 122CE13BE9;
- Wed,  8 Dec 2021 08:47:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UKkcAzRxsGGzdQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 08 Dec 2021 08:47:48 +0000
+ (envelope-from <julien@xen.org>) id 1mutfx-0002pa-CR
+ for xen-devel@lists.xenproject.org; Wed, 08 Dec 2021 09:55:49 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mutft-0002KR-LI; Wed, 08 Dec 2021 09:55:45 +0000
+Received: from [54.239.6.189] (helo=[192.168.13.103])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mutft-0006lm-F6; Wed, 08 Dec 2021 09:55:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,112 +39,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 851f2b1c-5803-11ec-9d12-4777fae47e2b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1638953268; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S6awGi2Fwbno8QaG6NAZfKYFH8aFqnE5sERtOBDmAbA=;
-	b=hxJ9yWCE8Yc8x0BugzwO/+upHnZi4yk5OAzREbFkbpMlrE0oIUc6OjwJgD50qbcBzzl8Ii
-	kGl8pifEYkWN8NhaTuDtI1ifXedaRLoBouf3P5chq1HOWTBnzeWP+z+0T+lOqKh9SvDMSd
-	0c/5LiOYGfgzKIX/ypcnA8XQGk9i3LA=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Ian Jackson <iwj@xenproject.org>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v3 2/2] tools: set event channel HVM parameters in libxenguest
-Date: Wed,  8 Dec 2021 09:47:45 +0100
-Message-Id: <20211208084745.31082-3-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20211208084745.31082-1-jgross@suse.com>
-References: <20211208084745.31082-1-jgross@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=oVcnsqiknoJr2KCk247C8Qv8DBhB7s98VvYWxkyS/Yo=; b=MLhoqLszMDNZWkmOcVDHeOf3Gi
+	Y/G01dg+JnAs1EsEVAaJBcP22e3D+rgiX23RR4T7vZzQag9aSFd9j97IRpuX3F99nkSoZub1qxq5m
+	tjgUoyEG7biUpI82Zc9io232FQwAKKEUAP0A9ANczJ6ChVyW8RQtDYEc/1BcqO/MEFGA=;
+Message-ID: <73913bdf-7449-34fb-b86b-662774cb3e62@xen.org>
+Date: Wed, 8 Dec 2021 09:55:43 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.3.2
+Subject: Re: [PATCH] xen/arm64: Zero the top 32 bits of gp registers on
+ entry...
+To: Jan Beulich <jbeulich@suse.com>, Michal Orzel <michal.orzel@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+References: <20211206142032.27536-1-michal.orzel@arm.com>
+ <f3573439-4893-440f-54e1-fdeba3eb4508@xen.org>
+ <dc114877-b9da-7a5b-260d-b9438cddd777@arm.com>
+ <b7a53384-39cb-f368-f39b-9b560336226b@xen.org>
+ <6ab797ce-86dc-2c32-1cd0-417fab7516c7@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <6ab797ce-86dc-2c32-1cd0-417fab7516c7@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The HVM parameters for pre-allocated event channels should be set in
-libxenguest, like it is done for PV guests and for the pre-allocated
-ring pages.
+Hi,
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V3:
-- replacement for former patch 2 (Andrew Cooper)
----
- tools/libs/guest/xg_dom_x86.c |  6 ++++++
- tools/libs/light/libxl_dom.c  | 15 ++++++---------
- 2 files changed, 12 insertions(+), 9 deletions(-)
+On 08/12/2021 07:20, Jan Beulich wrote:
+> On 07.12.2021 20:11, Julien Grall wrote:
+>>
+>>
+>> On 07/12/2021 08:37, Michal Orzel wrote:
+>>> Hi Julien,
+>>
+>> Hi,
+>>
+>>> On 06.12.2021 16:29, Julien Grall wrote:
+>>>> Hi,
+>>>>
+>>>> On 06/12/2021 14:20, Michal Orzel wrote:
+>>>>> to hypervisor when switching to AArch32 state.
+>>>>>
+>>> I will change to "from AArch32 state".
+>>>>> According to section D1.20.2 of Arm Arm(DDI 0487A.j):
+>>>>> "If the general-purpose register was accessible from AArch32 state the
+>>>>> upper 32 bits either become zero, or hold the value that the same
+>>>>> architectural register held before any AArch32 execution.
+>>>>> The choice between these two options is IMPLEMENTATIONDEFINED"
+>>>>
+>>>> Typo: Missing space between IMPLEMENTATION and DEFINED.
+>>>>
+>>> Ok.
+>>>>>
+>>>>> Currently Xen does not ensure that the top 32 bits are zeroed and this
+>>>>> needs to be fixed.
+>>>>
+>>>> Can you outline why this is a problem and why we need to protect? IIRC, the main concern is Xen may misinterpret what the guest requested but we are not concerned about Xen using wrong value.
+>>>>
+>>> I would say:
+>>> "
+>>> The reason why this is a problem is that there are places in Xen where we assume that top 32bits are zero for AArch32 guests.
+>>> If they are not, this can lead to misinterpretation of Xen regarding what the guest requested.
+>>> For example hypercalls returning an error encoded in a signed long like do_sched_op, do_hmv_op, do_memory_op would return -ENOSYS
+>>> if the command passed as the first argument was clobbered,
+>>> "
+>>>>>
+>>>>> Fix this bug by zeroing the upper 32 bits of these registers on an
+>>>>> entry to hypervisor when switching to AArch32 state.
+>>>>>
+>>>>> Set default value of parameter compat of macro entry to 0 (AArch64 mode
+>>>>> as we are on 64-bit hypervisor) to avoid checking if parameter is blank
+>>>>> when not passed.
+>>>>
+>>>> Which error do you see otherwise? Is it a compilation error?
+>>>>
+>>> Yes, this is a compilation error. The errors appear at each line when "entry" is called without passing value for "compat".
+>>> So basically in all the places where entry is called with hyp=1.
+>>> When taking the current patch and removing default value for compat you will get:
+>>> ```
+>>> entry.S:254: Error: ".endif" without ".if"
+>>> entry.S:258: Error: symbol `.if' is already defined
+>>> entry.S:258: Error: ".endif" without ".if"
+>>> entry.S:262: Error: symbol `.if' is already defined
+>>> entry.S:262: Error: ".endif" without ".if"
+>>> entry.S:266: Error: symbol `.if' is already defined
+>>> entry.S:266: Error: ".endif" without ".if"
+>>> entry.S:278: Error: symbol `.if' is already defined
+>>> entry.S:278: Error: ".endif" without ".if"
+>>> entry.S:292: Error: symbol `.if' is already defined
+>>> entry.S:292: Error: ".endif" without ".if"
+>>> entry.S:317: Error: symbol `.if' is already defined
+>>> entry.S:317: Error: ".endif" without ".if"
+>>> ```
+>>
+>> Thanks for input. I am concerned with your suggested approach (or using
+>> .if 0\compat as suggested by Jan) because they allow the caller to not
+>> properly specify compat when hyp=0. The risk here is we may generate the
+>> wrong entry.
+>>
+>> compat should need to be specified when hyp=1 as we will always run in
+>> aarch64 mode. So could we protect this code with hyp=0?
+> 
+> Since my suggestion was only to avoid the need for specifying a default
+> for the parameter (which you didn't seem to be happy about), it would
+> then merely extend to
+> 
+> .if !0\hyp && 0\compat
+Isn't it effectively the same as setting a default value?
 
-diff --git a/tools/libs/guest/xg_dom_x86.c b/tools/libs/guest/xg_dom_x86.c
-index b6e75afba2..9328fbf804 100644
---- a/tools/libs/guest/xg_dom_x86.c
-+++ b/tools/libs/guest/xg_dom_x86.c
-@@ -1866,6 +1866,12 @@ static int bootlate_hvm(struct xc_dom_image *dom)
-         munmap(hvm_info_page, PAGE_SIZE);
-     }
- 
-+    if ( xc_hvm_param_set(xch, domid, HVM_PARAM_CONSOLE_EVTCHN,
-+                          dom->console_evtchn) ||
-+         xc_hvm_param_set(xch, domid, HVM_PARAM_STORE_EVTCHN,
-+                          dom->xenstore_evtchn) )
-+        return -1;
-+
-     return 0;
- }
- 
-diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
-index fe9f760f71..c9c24666cd 100644
---- a/tools/libs/light/libxl_dom.c
-+++ b/tools/libs/light/libxl_dom.c
-@@ -723,9 +723,8 @@ out:
- 
- static int hvm_build_set_params(xc_interface *handle, uint32_t domid,
-                                 libxl_domain_build_info *info,
--                                int store_evtchn, unsigned long *store_mfn,
--                                int console_evtchn, unsigned long *console_mfn,
--                                domid_t store_domid, domid_t console_domid)
-+                                unsigned long *store_mfn,
-+                                unsigned long *console_mfn)
- {
-     struct hvm_info_table *va_hvm;
-     uint8_t *va_map, sum;
-@@ -752,8 +751,6 @@ static int hvm_build_set_params(xc_interface *handle, uint32_t domid,
- 
-     xc_hvm_param_get(handle, domid, HVM_PARAM_STORE_PFN, &str_mfn);
-     xc_hvm_param_get(handle, domid, HVM_PARAM_CONSOLE_PFN, &cons_mfn);
--    xc_hvm_param_set(handle, domid, HVM_PARAM_STORE_EVTCHN, store_evtchn);
--    xc_hvm_param_set(handle, domid, HVM_PARAM_CONSOLE_EVTCHN, console_evtchn);
- 
-     *store_mfn = str_mfn;
-     *console_mfn = cons_mfn;
-@@ -1123,7 +1120,9 @@ int libxl__build_hvm(libxl__gc *gc, uint32_t domid,
-     dom->vga_hole_size = device_model ? LIBXL_VGA_HOLE_SIZE : 0;
-     dom->device_model = device_model;
-     dom->max_vcpus = info->max_vcpus;
-+    dom->console_evtchn = state->console_port;
-     dom->console_domid = state->console_domid;
-+    dom->xenstore_evtchn = state->store_port;
-     dom->xenstore_domid = state->store_domid;
- 
-     rc = libxl__domain_device_construct_rdm(gc, d_config,
-@@ -1169,10 +1168,8 @@ int libxl__build_hvm(libxl__gc *gc, uint32_t domid,
-     if (rc != 0)
-         goto out;
- 
--    rc = hvm_build_set_params(ctx->xch, domid, info, state->store_port,
--                               &state->store_mfn, state->console_port,
--                               &state->console_mfn, state->store_domid,
--                               state->console_domid);
-+    rc = hvm_build_set_params(ctx->xch, domid, info, &state->store_mfn,
-+                              &state->console_mfn);
-     if (rc != 0) {
-         LOG(ERROR, "hvm build set params failed");
-         goto out;
+The reason we seem to get away is because other part of the macro (e.g. 
+entry_guest) will need compat to be valid.
+
+But that seems pretty fragile to me. So I would prefer if the new code 
+it added within a macro that is only called when hyp==0.
+
+Cheers,
+
+> 
+> or something along those lines.
+> 
+> Jan
+> 
+
 -- 
-2.26.2
-
+Julien Grall
 
