@@ -2,48 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B132F46E61E
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Dec 2021 11:05:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.242861.419992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 632AF46E674
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Dec 2021 11:17:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.242871.420009 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvGIA-0006TL-LB; Thu, 09 Dec 2021 10:04:46 +0000
+	id 1mvGTf-0008U7-Tg; Thu, 09 Dec 2021 10:16:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 242861.419992; Thu, 09 Dec 2021 10:04:46 +0000
+Received: by outflank-mailman (output) from mailman id 242871.420009; Thu, 09 Dec 2021 10:16:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvGIA-0006RG-Gc; Thu, 09 Dec 2021 10:04:46 +0000
-Received: by outflank-mailman (input) for mailman id 242861;
- Thu, 09 Dec 2021 10:04:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+Con=Q2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mvGI9-0006RA-Dt
- for xen-devel@lists.xenproject.org; Thu, 09 Dec 2021 10:04:45 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6db65c8e-58d7-11ec-9d12-4777fae47e2b;
- Thu, 09 Dec 2021 11:04:44 +0100 (CET)
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur02lp2055.outbound.protection.outlook.com [104.47.5.55]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-4-awWb22AFO3yfmADZZ-IWcg-1; Thu, 09 Dec 2021 11:04:41 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6864.eurprd04.prod.outlook.com (2603:10a6:803:138::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.21; Thu, 9 Dec
- 2021 10:04:39 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4755.024; Thu, 9 Dec 2021
- 10:04:39 +0000
-Received: from [10.156.60.236] (37.24.206.209) by
- AS8PR07CA0034.eurprd07.prod.outlook.com (2603:10a6:20b:459::19) with
- Microsoft SMTP Server (version=TLS1_2, cipher=) via Frontend Transport;
- Thu, 9 Dec 2021 10:04:38 +0000
+	id 1mvGTf-0008SJ-PT; Thu, 09 Dec 2021 10:16:39 +0000
+Received: by outflank-mailman (input) for mailman id 242871;
+ Thu, 09 Dec 2021 10:16:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=A59D=Q2=redhat.com=sgarzare@srs-se1.protection.inumbo.net>)
+ id 1mvGTd-0008SD-Cf
+ for xen-devel@lists.xenproject.org; Thu, 09 Dec 2021 10:16:37 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 168e6522-58d9-11ec-a831-37629979565c;
+ Thu, 09 Dec 2021 11:16:36 +0100 (CET)
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-169-43TT07apOyiRV62Y01BGhA-1; Thu, 09 Dec 2021 05:16:33 -0500
+Received: by mail-qt1-f198.google.com with SMTP id
+ e2-20020ac84142000000b002b4bc4ffc49so8028555qtm.8
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Dec 2021 02:16:33 -0800 (PST)
+Received: from steredhat (host-87-21-203-138.retail.telecomitalia.it.
+ [87.21.203.138])
+ by smtp.gmail.com with ESMTPSA id y18sm3753945qtx.19.2021.12.09.02.16.29
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Dec 2021 02:16:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -55,130 +49,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6db65c8e-58d7-11ec-9d12-4777fae47e2b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1639044282;
+X-Inumbo-ID: 168e6522-58d9-11ec-a831-37629979565c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1639044994;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=IQJolgPx58vBCP3gruV/auBd7uHNx7OWlDec7UmJ8v8=;
-	b=Opa5aTov3Cwfdtx1aOzsUfrGfYp67IwvSqwW7dKy13IYzv8chBROIN3t2Ak9Sg8ilMulsE
-	VKG2R8iS9Qd0beLCzAw4sJASl+99N8pcBGMg+030puwZ06xHBCvQl6pjCLIywQgB6DO8iA
-	byeaFqzrzBmCjmdDguf81Yp1XBT8YYI=
-X-MC-Unique: awWb22AFO3yfmADZZ-IWcg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UuVTTgQwCF7OIjZrYAbQR2mQweMVkKIZj6w+IcNcf2E7xnu1jd4hzbIpj4fxcaOZrIEDbzb0nKooC7Hq3gTe7AyQkTeVFo0jWnuFIt1olq/XjqNbRAiNyT3okYYyCjuOQRJt9UyUz0BB5BkdkHfShkUfyWhTOLLpMaH0TK5ILK0Z/tJ5aKuj9vsBM5TgHTQvfH6brJsIKOy53aqWR8Pu3psquYim0DdVFyiGMv0UovtvKkBRtCKV9uU4UEiPQM3QD830LURy/Zfc7KBS0QxyW0bRUXWK6TFV+GnlxehVAn/6bIcRC2nAqrs0+1V+wREqE9UroPPPb+6UBsmQvxv4VQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IQJolgPx58vBCP3gruV/auBd7uHNx7OWlDec7UmJ8v8=;
- b=n8eibC8MytqlfFN9SrGYe9tdvLAy/XUxgDllxb6Os1FrHGukiaE/hvhyeBKl66FH/p15UzPAW3y1NwfdiluQ90prwP9GCWgoEKGCB5K9zVVYx+glqsyaMnDXrjKWfpnyjA/LNSHJ2IL6q8deiHVLGIAcE0wAEKKpNUmkFHpS9fnYgBnnY//oBI0lQTUKnrHpfWWIjFc3Zcp/7NfkFVI2lvRoZ2FqiKlXxEu0fTvJ+kej/FDJXfRbh38Fp9Qcqf/SeFU7Cxx00nLAKOj0i/AawyZGxiABCqzotfOXRzfNm8dJ7EFY2S/b3ORKKlDtRYYuFkG/SFZrqogdPvxVBTLtPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <0e664c33-a340-bc97-d561-d96f19afb42a@suse.com>
-Date: Thu, 9 Dec 2021 11:04:36 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Subject: Re: [PATCH v2 1/2] IOMMU/x86: disallow device assignment to PoD
- guests
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Paul Durrant <paul@xen.org>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Alexandru Isaila <aisaila@bitdefender.com>
-References: <8bb92e3f-38b4-16a1-0a45-5f393081f230@suse.com>
- <81a27b5a-99f7-d929-987a-1dcf2433144b@suse.com>
-In-Reply-To: <81a27b5a-99f7-d929-987a-1dcf2433144b@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR07CA0034.eurprd07.prod.outlook.com
- (2603:10a6:20b:459::19) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+	bh=skSdkMP3/Z5ledz3SKJURFKwF+2QK06u2MtL2wrAHEA=;
+	b=eJ3PPnqGbgDhaOFwlkM/pWlsQIi+recOU/k/PNnRCXZzMyx/m2uDqlH2c4YmJC153IL2IV
+	Osh0vpH9yIMFTkPN1Bobj65JcZFSRAKVMJRZseojpDEyUS+J2QuUaMWm/j/RA2z3upqyrX
+	rU7B6ID90F2sIjtr8dQd5ubBGymX0xw=
+X-MC-Unique: 43TT07apOyiRV62Y01BGhA-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=skSdkMP3/Z5ledz3SKJURFKwF+2QK06u2MtL2wrAHEA=;
+        b=AGUKy0WQ8TLqHn09CNvsKn+TpE9BztbKP+AhEzY/CJ0K/h81UMKg/0LqArTV47buWZ
+         w5jiHzavFRSAWxcOa9/Meqdsf5vjGEavp3zm1DbMcmLlWx7lLE5zgvXBbZYGQdC3OXiA
+         fXg2Jt9voBbfJvG9a0WCWEqyZkm5aBpRncbaBVVoDsfXiZkxZKxKNAg3keNlNYE4HO3A
+         ECZpgqjOBbSVw5dgwArE3DXlNpY/D7NKIbk0A/Nm8dN1IfYuuENFTDmRzbEm4bMSPTRy
+         QnXtUb9s2AWOtUWzLpvXfWexYqWN5oh6vUaF0D9ZLwYcWtpVwVhtL6JqlqUAXA29Bacb
+         h8CQ==
+X-Gm-Message-State: AOAM5338MK6LKovQMI0y2OQDRJHTcrURRsHI87jto767ZNzWYFgShYpt
+	6vOoDYebSMNmHwdgin6vVa5s8tBPQ0jrwUfNrJEOELnIQn4/EF179NOy1B/MubMDWjIxSZvaSLi
+	ZVBkJJ+pPzqXhhbQO0fKUCPX3aHQ=
+X-Received: by 2002:a05:622a:346:: with SMTP id r6mr15827160qtw.78.1639044993488;
+        Thu, 09 Dec 2021 02:16:33 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxRJ/jy5gwTgSypAPgE1xPC61ttuND6x5A5qbkOiCsntHwUEjX6o68lu/SOhEC/Ll9Ki4cxXQ==
+X-Received: by 2002:a05:622a:346:: with SMTP id r6mr15827126qtw.78.1639044993273;
+        Thu, 09 Dec 2021 02:16:33 -0800 (PST)
+Date: Thu, 9 Dec 2021 11:16:26 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Stefan Hajnoczi <stefanha@redhat.com>
+Cc: qemu-devel@nongnu.org,
+	Daniel =?utf-8?B?UC4gQmVycmFuZ8Op?= <berrange@redhat.com>,
+	"Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+	Julia Suvorova <jusual@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Juan Quintela <quintela@redhat.com>, xen-devel@lists.xenproject.org,
+	Aarushi Mehta <mehta.aaru20@gmail.com>,
+	Stefan Weil <sw@weilnetz.de>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Coiby Xu <Coiby.Xu@gmail.com>,
+	"Richard W.M. Jones" <rjones@redhat.com>,
+	Kevin Wolf <kwolf@redhat.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Hanna Reitz <hreitz@redhat.com>, qemu-block@nongnu.org,
+	Fam Zheng <fam@euphon.net>,
+	Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
+	Paul Durrant <paul@xen.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Peter Lieven <pl@kamp.de>
+Subject: Re: [PATCH v3 0/6] aio-posix: split poll check from ready handler
+Message-ID: <20211209101626.t5fkmsnjxwjveb5i@steredhat>
+References: <20211207132336.36627-1-stefanha@redhat.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fc36f57f-782e-452c-7dd8-08d9bafb5027
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6864:EE_
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB68648B78C76CF1948E703DBFB3709@VI1PR04MB6864.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	fO7VFwlxVEODAU5o5aP82JxR8qHZtpOoXb0ibJu48+g5MhFtBDZRnimXpPuF5IPTCaDj3lH/maxRbceZ3XgbHq6yNUn54IBY5FQ7PDQzNw9ZI3d5nsGXGeBISV1FwMX3FAGsaz6frFWYMxPkDswyDadSwHnluIhfpO+uzKo9SedLhZmHi+Zw58gh+W8sUQV0qshqTZlA4Gyj/j2/0YqdkOJWS5ODgNpoXdkCpzrp5T71fPfKQYM/XB9tkrO3Xwk6JxAieEDV9uxp+/jXc5AzCauxfVL7lwW5Xo+59k1OzpNV3MYLH01Uc+Uq1ymYTvYEsFiZ2UWCKxTdbny8FmRQkoXqt6/1icRXdCxxDQqkU7uR/3sqQcEkllbnQ0uTSXPvFqvLL8k2EyeK+jn2lk1+0x5EoNUB4KquV0tzTzb5YkihejJQqq1DiKK7h7kwd1QSsc5N/BVxkzyretk6orTV8Op7+KHdUCz1+bS6sKgKJ84gXTSKIpc7zTnjB7pWAcTQ5ovpiAK7Gc8DxT2LucR8ToA9+slt5v9xWjkpH8+IDqmAJYMia8xNT82DKb8MxvhlvHB080Op8IeaIPDWOGwVaLUdjg6msMp/ibYJu4rO3v6PPG14k6EgOLaxzyA8KJFu5NEQ+eV7kUHfGDkbfu25M1oy+kUDMYXkfovtIjWvdY6ed8pHKO0V2527qizpGE3XDcgL/eHaUmMzMT00I8fx8zly+SNj+EvJeawewDTAeLo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(508600001)(316002)(16576012)(6916009)(6486002)(4744005)(31696002)(54906003)(5660300002)(4326008)(66556008)(36756003)(2906002)(186003)(53546011)(8936002)(86362001)(26005)(8676002)(956004)(2616005)(66946007)(31686004)(66476007)(38100700002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S1lwTnFZSGJhL2swMWlaRmlJNW5TMUxRQVdiVTA1aDFRYlRZcDRYVGtpWlZx?=
- =?utf-8?B?ZDFITGtQdjBmc0h0eFlhQTdWRUhtSjZaOExRNHZ6c2hhS1BZdGRQVTVKV0Qv?=
- =?utf-8?B?L1g0YmozY2lOUjhoMVBtVHg1UVVTamYyaUFnTlY0a2trbnNVcWVtTGNvVUZx?=
- =?utf-8?B?L1BJOHYxdWFKNnM2ME9ZazdlYlBKWDdBanM5UWhIUTUxc1dzS014K29EK0tL?=
- =?utf-8?B?RGtXUGl4Q2VreTBnWHhkenZJU25KQitTTm16N1U1VVcxcDBlbGltSFpUdVZF?=
- =?utf-8?B?Kzh2UDFjKy9ScklnMzJnSDdxNEtSL2hMWUV4YlB2a0ZzWUx0Y3R1ckluWG50?=
- =?utf-8?B?akZJaS9RekxlcFJrUUh0djFFeldDNVE3b3hSZHBVWVFoVFlYN2Frc1RjeG1n?=
- =?utf-8?B?Y21vQnFpd1Rsb0JyVzlkdng3YVZxUWJKemVjZ01rU2NQdXBycEs2bzJsdDZ4?=
- =?utf-8?B?eHhPNXpMbGNhK2ZNa3Y3T2xUVmY4NUdPT2NlMG10VkxKZHhlamdCU1B2K3Qz?=
- =?utf-8?B?ZUorMGNmR2NkNFFiUHdIZjNzSUVqUGwxT2JrOHJoTlNkTkx0NVZ2Tmxsa3lN?=
- =?utf-8?B?KzhwVE1jemw2SXlhZFo0eCtKTTdscUE2Z3dFbEU4NkE1YTFQU2JxTWdrU0hT?=
- =?utf-8?B?R0d1TzcyTy9saGJjMG10ZVVJSG1TQmlSRnFOd0RDWHBNK3VRbk4zYjNweWQr?=
- =?utf-8?B?UzFRQklGZFBXbExjZTduTW45RkJsQ0o0NFlWWmJJZVh3eWVPdllDeWZQSU03?=
- =?utf-8?B?QitKVVRiRnRSUGpIUWF4RVgrQnM2elBNZEpRN0VWMkFPT0lhNVJaSFFVeThu?=
- =?utf-8?B?bnNVWXZ4MDdZaEVWWlRrRXpRem5PRlYxYk96T0JMcmxORlFFTXZOS1NIa1oy?=
- =?utf-8?B?M1JQZU9NcWtXUmxaT3BhbEdia09qYUw5UVBHVEV0VHppSi9vejhwRHI4RDgy?=
- =?utf-8?B?dUJYZDAyV0ZsRU9VdnlRb2FYd1NuZXNoeDY4bjQ4NE94V3REZEowZUNWakZI?=
- =?utf-8?B?M0d5NmpoZDY3T0VuTVkwSXVOVENDam83Z2lIc0kvWmwvY29qSHV0SXlqbXZE?=
- =?utf-8?B?U1JsTmd3OTBNay81SUQ1dHE1SXY1eWlFUGV3aDVna3dGZ1FWQzFzaHUxQ0xs?=
- =?utf-8?B?aGhlMVFYRVhPZk1xelFFcmNaMTdzNlFqTlRPeEo4Q3J6eTBRaEU3VjRyUnhn?=
- =?utf-8?B?ZmtQcUVwM3pDdENOK3dNNGVFRzhVZEJnM3pseXZPOVl1WUFGQ3pYWWl6SDFR?=
- =?utf-8?B?TTRvcTY5MkhBdG9pRXBINkRaTjZNenRlYTE3UVYzcGsxT2hjU0t0NDVtT3Z5?=
- =?utf-8?B?bGdWT3pKOGoveS9oaWpHOVo1NlFuanRpRXk4WUsrVVJiVFo4alJjTnp2YWFJ?=
- =?utf-8?B?NEMwd1dYc2ZhalhxNWpJeUxSeGY3VHVuYUVEU2xxUmNtMWVVYnZ3N0tYYjJ3?=
- =?utf-8?B?Z2NaT3lLZ2JrZTNRMFdxZ1BqN3V1YUtpcCtDSHhzSXhVSVA3bk82MHRaeXpW?=
- =?utf-8?B?L0F0NWJyWVEzS1FtYUVxSFF0T3l6UGtwemR6QnE4Z2tsMkQrRHlxU2pMdGFB?=
- =?utf-8?B?L1VDRmlYc3dkc092a3BtL1AybzMxbTdpNS9KOWdOMnZhYllzckw0N1ZmZTdR?=
- =?utf-8?B?dWFLazhLOERPekY3TUJOTmNOVE9IUzNIYzlaWDQ1bTNya21NWmY3UFA1bDhJ?=
- =?utf-8?B?cjBpY2xUa2JzNTNjNm1QVkNkcU05UDNGTG5vNFgyVFI3VlRMRFhMNDNQdmZt?=
- =?utf-8?B?akdUZkNSdXYvZlVLR2hSOEVMTzdldHpxMXRkdTdLR1JJSURQbC9qNk9KbXMz?=
- =?utf-8?B?MGVqRndWTWJzdFAwakFlRXBSY0dvTlhOZFhMVkRPQWpSTXBYMU1nZUlQWk5F?=
- =?utf-8?B?dDhVcTA3WEJWelNTNjJMb2s0OEFNQ25WUHZVa2J0eFM5cXdpem9Mc3IwR3BO?=
- =?utf-8?B?TWFUaUd0VnZOdFpFUXdsNjhibE1WZVBrNnFidEpCcEg0dklYdkdETXZuaGtr?=
- =?utf-8?B?dFp4Um15S3RtbzZRQUtPZzhmeCtYeE0wTTRFazB1ZStBSmFzeVN5c3NIU1FS?=
- =?utf-8?B?ZEV3SkJQY3djQ0dDVTF5REdkVys0MFJ5VUZKWlJnQXFPbmNpMzBEbHM0ZEFk?=
- =?utf-8?B?UFBickFFOTFnSGc4VzZpeXk2WXRvSytZQ1paSDlBdkdHU3o1SWphU3NCOVVj?=
- =?utf-8?Q?dIuDpw/tyg4jDXlJco3QOlg=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc36f57f-782e-452c-7dd8-08d9bafb5027
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 10:04:39.5967
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jPG84+qRQaLVW7t85INq0kmezhmBobVNdY3tzrbzkjNWSEQD1zNdKd0G2FwRcmCZr2XUfvuAAkAf3DuEbHh7iA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6864
+In-Reply-To: <20211207132336.36627-1-stefanha@redhat.com>
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=sgarzare@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
 
-On 01.12.2021 12:20, Jan Beulich wrote:
-> @@ -333,6 +334,9 @@ p2m_pod_set_mem_target(struct domain *d,
->      int ret = 0;
->      unsigned long populated, pod_target;
->  
-> +    if ( has_arch_pdevs(d) || cache_flush_permitted(d) )
-> +        return -ENOTEMPTY;
+On Tue, Dec 07, 2021 at 01:23:30PM +0000, Stefan Hajnoczi wrote:
+>v3:
+>- Fixed FUSE export aio_set_fd_handler() call that I missed and double-checked
+>  for any other missing call sites using Coccinelle [Rich]
+>v2:
+>- Cleaned up unused return values in nvme and virtio-blk [Stefano]
+>- Documented try_poll_mode() ready_list argument [Stefano]
+>- Unified virtio-blk/scsi dataplane and non-dataplane virtqueue handlers [Stefano]
+>
+>The first patch improves AioContext's adaptive polling execution time
+>measurement. This can result in better performance because the algorithm makes
+>better decisions about when to poll versus when to fall back to file descriptor
+>monitoring.
+>
+>The remaining patches unify the virtio-blk and virtio-scsi dataplane and
+>non-dataplane virtqueue handlers. This became possible because the dataplane
+>handler function now has the same function signature as the non-dataplane
+>handler function. Stefano Garzarella prompted me to make this refactoring.
 
-This breaks toolstack based ballooning of PVH Dom0. While I question
-the invocation of set_pod_target in that case, for v3 I'm moving the
-check down to near the end of the function.
+Great clean up! Thanks for doing this, everything LGTM:
 
-Jan
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
 
 
