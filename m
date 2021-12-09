@@ -2,65 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B84946E297
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Dec 2021 07:35:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.242682.419709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C416346E2C9
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Dec 2021 07:51:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.242688.419720 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvD1R-0005Ab-6k; Thu, 09 Dec 2021 06:35:17 +0000
+	id 1mvDGI-0008In-IM; Thu, 09 Dec 2021 06:50:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 242682.419709; Thu, 09 Dec 2021 06:35:17 +0000
+Received: by outflank-mailman (output) from mailman id 242688.419720; Thu, 09 Dec 2021 06:50:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvD1R-00057X-2k; Thu, 09 Dec 2021 06:35:17 +0000
-Received: by outflank-mailman (input) for mailman id 242682;
- Thu, 09 Dec 2021 06:35:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mvDGI-0008Gy-EA; Thu, 09 Dec 2021 06:50:38 +0000
+Received: by outflank-mailman (input) for mailman id 242688;
+ Thu, 09 Dec 2021 06:50:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qm81=Q2=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1mvD1P-00057R-Cq
- for xen-devel@lists.xenproject.org; Thu, 09 Dec 2021 06:35:15 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2060a.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::60a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 281644a9-58ba-11ec-9d12-4777fae47e2b;
- Thu, 09 Dec 2021 07:35:13 +0100 (CET)
-Received: from DB6PR0501CA0025.eurprd05.prod.outlook.com (2603:10a6:4:67::11)
- by GV1PR08MB7329.eurprd08.prod.outlook.com (2603:10a6:150:1c::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.19; Thu, 9 Dec
- 2021 06:35:06 +0000
-Received: from DB5EUR03FT025.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:67:cafe::c7) by DB6PR0501CA0025.outlook.office365.com
- (2603:10a6:4:67::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.17 via Frontend
- Transport; Thu, 9 Dec 2021 06:35:06 +0000
+ <SRS0=WAzj=Q2=arm.com=Jiamei.Xie@srs-se1.protection.inumbo.net>)
+ id 1mvDGF-0008Gs-Tm
+ for xen-devel@lists.xenproject.org; Thu, 09 Dec 2021 06:50:36 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on0628.outbound.protection.outlook.com
+ [2a01:111:f400:fe1e::628])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4d622732-58bc-11ec-a831-37629979565c;
+ Thu, 09 Dec 2021 07:50:32 +0100 (CET)
+Received: from DB8PR06CA0028.eurprd06.prod.outlook.com (2603:10a6:10:100::41)
+ by HE1PR0801MB1978.eurprd08.prod.outlook.com (2603:10a6:3:52::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.12; Thu, 9 Dec
+ 2021 06:50:28 +0000
+Received: from DB5EUR03FT056.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:100:cafe::93) by DB8PR06CA0028.outlook.office365.com
+ (2603:10a6:10:100::41) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.13 via Frontend
+ Transport; Thu, 9 Dec 2021 06:50:28 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT025.mail.protection.outlook.com (10.152.20.104) with
+ DB5EUR03FT056.mail.protection.outlook.com (10.152.21.124) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4755.13 via Frontend Transport; Thu, 9 Dec 2021 06:35:05 +0000
-Received: ("Tessian outbound f493ab4f1fb8:v110");
- Thu, 09 Dec 2021 06:35:05 +0000
-Received: from eabc2ce09baa.2
+ 15.20.4778.12 via Frontend Transport; Thu, 9 Dec 2021 06:50:28 +0000
+Received: ("Tessian outbound a33f292be81b:v110");
+ Thu, 09 Dec 2021 06:50:28 +0000
+Received: from a3f1d3e18a30.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 476834EB-92B0-49D0-91FF-71751F5B9B34.1; 
- Thu, 09 Dec 2021 06:34:59 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id eabc2ce09baa.2
+ 8FDED004-3F5E-4643-9CEB-4C82FCE74C56.1; 
+ Thu, 09 Dec 2021 06:50:18 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id a3f1d3e18a30.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 09 Dec 2021 06:34:59 +0000
-Received: from PA4PR08MB6253.eurprd08.prod.outlook.com (2603:10a6:102:e4::8)
- by PAXPR08MB6943.eurprd08.prod.outlook.com (2603:10a6:102:135::10) with
- Microsoft SMTP Server (version=TLS1_2,
+ Thu, 09 Dec 2021 06:50:18 +0000
+Received: from VI1PR08MB3056.eurprd08.prod.outlook.com (2603:10a6:803:3d::28)
+ by VI1PR0802MB2477.eurprd08.prod.outlook.com (2603:10a6:800:ba::8)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.16; Thu, 9 Dec
- 2021 06:34:57 +0000
-Received: from PA4PR08MB6253.eurprd08.prod.outlook.com
- ([fe80::99cd:3d3b:4670:7413]) by PA4PR08MB6253.eurprd08.prod.outlook.com
- ([fe80::99cd:3d3b:4670:7413%5]) with mapi id 15.20.4778.013; Thu, 9 Dec 2021
- 06:34:57 +0000
+ 2021 06:50:14 +0000
+Received: from VI1PR08MB3056.eurprd08.prod.outlook.com
+ ([fe80::8124:9971:1db2:b704]) by VI1PR08MB3056.eurprd08.prod.outlook.com
+ ([fe80::8124:9971:1db2:b704%7]) with mapi id 15.20.4755.024; Thu, 9 Dec 2021
+ 06:50:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,12 +72,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 281644a9-58ba-11ec-9d12-4777fae47e2b
+X-Inumbo-ID: 4d622732-58bc-11ec-a831-37629979565c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fMXSeHiFxkBI/tUs0uRWbNjp7s1B6jHptdm1d0wrwXo=;
- b=oYsYOxXA8hq5zUSXrLqQF9PQ9I+CRBLiM+f79XGvU+t7aQPQVQowfmkj33Ddf6R6XRxGJnvAjL2w3o+KJLlTYDDO3qJemR/oui7GcTQTdtGh/G3Eh70ouz4dVXmDRyRvfAOWY7Wez94AlWS4qtnWgslBfThPISLfypiu5YU7QwU=
+ bh=QgSYQWqiwaZ7mNK6iTbE/ns1VSxz1/YUQ0zuGCgYHSQ=;
+ b=7o5xozI9pH4wO7VlD2lfwezFFQyn5aHh52mTSZmgF6isItooAJ6GuH5b1qDY30YJvbvTJOUEyoVVI3Tibjlzld4xUMsHlf4upVES4MgS82S5vIdC4iyNUZFDfWSfYktfyjFw+F9fw0+78ogiBAXpolvTsp0e8Q1PQmztcXUQEX0=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
@@ -86,271 +86,1855 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UENoAlvbW7Rvw7B2RQEDCXXSOrwPptYhZpA58lcANNJ9iMZhFPIgP0m5F5duqSOL8RqnS2qAMywZ4VOLYqebhFKMf4i5tzbPAaCmKfm0GtN1jdBIRtpOG26sjzG3oF7maeqzfT1j68w7NJSqxNmOiLEezMFbibqxUUns91U1X32SFXdDpDNjjZU31mI+toACicvkib7SP5drFANrf3B7n7dM+W6pm5Z0sDVmciKqhud4uXJSyEWyak5fS3ZP8fAUEe/TYjjPg0BMFVlrTMDSgXuv89oFDghq2LPCRvQ2Ka+kuhsTLEEiDNbJrduGOaSqNntKfUiZWDpS6toV+KBoQw==
+ b=KqF755BE8CX/FJEpL6FQ634esIcLAZz6u7krtlzYQ10VYTeaMQLOcfENsAxFOkWj7K8yEMA7EFmsh0FBWssOO51F1rtnW4fW+13K+daK9HCH38CmhGGv5k+o3HImbjRgz24akXnAKi3oZAhQ1axZlrPNR4Mao7MrYGiDG/BeAtTi0dFzdAelVOoc2SnnQZxqqmfxyYvECLu4+SAOEOBE/c9sG7o9Ym6DOmAKQ5p8Uee/7dH646K6WTbAPZrE32I20lllqzG41soBWjFGsrbKWjlYwiGfLhfkkJbL5RjAbqP7tLg1PlNJBvBQB8p8e5eQsAzDxMEUOm73Z9ovdyYLbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fMXSeHiFxkBI/tUs0uRWbNjp7s1B6jHptdm1d0wrwXo=;
- b=TOznYA0ABUcIhjYH//UMDsXOBUoc0TlO3IZhcr3LkjmIcItJNS8zm0u1hAr5CdihFNJPdmEsgv3TnWbaDtL4iqOLjeDO6zj9khB9xMAbXXptLVtmwlcADysXMxr8rw29pLy3eqYRYoWIp+pRluLgeQSGBctzsiWs8LnsnE3Zi5+LcyEImcKV/kIiP1evoedb8EYeS/HUwJ4U65v1FSefxkAZ4ThOlnVj776Zgmz2+hsniDU235uYpypYYZAzkcmaaTqC8DHB0DR0Aq3JC6jWX+DAoCL8OgxQC/wIVE25GfOn1AXlUbYXtS8ZxNSYEhW1J8IGtO1qc2BaUlEOxCqThQ==
+ bh=QgSYQWqiwaZ7mNK6iTbE/ns1VSxz1/YUQ0zuGCgYHSQ=;
+ b=H7Nspf4o5SrwMWLNQK6GtsdEXibHuEqDqgIDPPogS6QwMDEsZHqsYC8J5i0pKKL4tYCVT9yAl9+J3z+kJfOJScKdk6h964HuA/X8v8m7UOAVPRb9KG74etMWIVcAR1X5TlDXujSF/UGuQ/Wzm5jbIqZwrRJAb6BycdV1SWaiHEEE/J/F9ac/X6cpvW1eVzP/ObBWZat+tfGFIEQnjv4uA5VpC58yzNlA7WrtNdBY1LhxY3+JYqGcdTYFoa2dZyHjDcwi+tE1jlE0nkDZDxRYVCJotHv0Ahzl/3fduwIA1HD0FEk+FlhkceEySht9xyoPPX8bY1FtyueNdQrWdnO+1w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fMXSeHiFxkBI/tUs0uRWbNjp7s1B6jHptdm1d0wrwXo=;
- b=oYsYOxXA8hq5zUSXrLqQF9PQ9I+CRBLiM+f79XGvU+t7aQPQVQowfmkj33Ddf6R6XRxGJnvAjL2w3o+KJLlTYDDO3qJemR/oui7GcTQTdtGh/G3Eh70ouz4dVXmDRyRvfAOWY7Wez94AlWS4qtnWgslBfThPISLfypiu5YU7QwU=
-From: Henry Wang <Henry.Wang@arm.com>
+ bh=QgSYQWqiwaZ7mNK6iTbE/ns1VSxz1/YUQ0zuGCgYHSQ=;
+ b=7o5xozI9pH4wO7VlD2lfwezFFQyn5aHh52mTSZmgF6isItooAJ6GuH5b1qDY30YJvbvTJOUEyoVVI3Tibjlzld4xUMsHlf4upVES4MgS82S5vIdC4iyNUZFDfWSfYktfyjFw+F9fw0+78ogiBAXpolvTsp0e8Q1PQmztcXUQEX0=
+From: Jiamei Xie <Jiamei.Xie@arm.com>
 To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
 	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Julien Grall <Julien.Grall@arm.com>, Wei Liu <wl@xen.org>, Anthony PERARD
-	<anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>
-Subject: RE: [PATCH V6 2/2] libxl: Introduce basic virtio-mmio support on Arm
-Thread-Topic: [PATCH V6 2/2] libxl: Introduce basic virtio-mmio support on Arm
-Thread-Index: AQHX7FUn0czI/NY3iEeAQwXmMstuq6wptMyg
-Date: Thu, 9 Dec 2021 06:34:56 +0000
+CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Wei Liu
+	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
+	<rosbrookn@ainfosec.com>, Anthony PERARD <anthony.perard@citrix.com>, Juergen
+ Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>
+Subject: RE: [PATCH V6 1/2] libxl: Add support for Virtio disk configuration
+Thread-Topic: [PATCH V6 1/2] libxl: Add support for Virtio disk configuration
+Thread-Index: AQHX7FUvpAP29Ikygk2AvgN46q9B56wpuTkw
+Date: Thu, 9 Dec 2021 06:50:13 +0000
 Message-ID:
- <PA4PR08MB62534DEB59CBA2105EF9448392709@PA4PR08MB6253.eurprd08.prod.outlook.com>
+ <VI1PR08MB3056365510C828BDED52C37B92709@VI1PR08MB3056.eurprd08.prod.outlook.com>
 References: <1638982784-14390-1-git-send-email-olekstysh@gmail.com>
- <1638982784-14390-3-git-send-email-olekstysh@gmail.com>
-In-Reply-To: <1638982784-14390-3-git-send-email-olekstysh@gmail.com>
-Accept-Language: zh-CN, en-US
+ <1638982784-14390-2-git-send-email-olekstysh@gmail.com>
+In-Reply-To: <1638982784-14390-2-git-send-email-olekstysh@gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-x-ts-tracking-id: EE8BE45EF1990746A95019775AE84D86.0
+x-ts-tracking-id: CE7933A3165BCA47847925B94C78C979.0
 x-checkrecipientchecked: true
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: 3e11f65f-7fd7-43bf-a3ee-08d9bade09a5
+X-MS-Office365-Filtering-Correlation-Id: eec4dfc1-3833-4e56-277d-08d9bae02fbc
 x-ms-traffictypediagnostic:
-	PAXPR08MB6943:EE_|DB5EUR03FT025:EE_|GV1PR08MB7329:EE_
+	VI1PR0802MB2477:EE_|DB5EUR03FT056:EE_|HE1PR0801MB1978:EE_
 X-Microsoft-Antispam-PRVS:
-	<GV1PR08MB7329E2C6C8CA953DF00DB69292709@GV1PR08MB7329.eurprd08.prod.outlook.com>
+	<HE1PR0801MB1978C82CAD3DB06590B8F5E492709@HE1PR0801MB1978.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:454;OLM:454;
+x-ms-oob-tlc-oobclassifiers: OLM:2089;OLM:2089;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- vGUIqyZhWpoXepPKyZwONbnRX6/plof1J28gX/RJRSs2NpJiamaa97q54CIXqtrlwcOJBhOLXXE1eyK0ej7TuNjnVmyXHD9WAF9TJrEeDQQxNhhoQ+Rdti412SUR9uXdq9PJ7IDF2k7cmNo+xAZLNi30CPRiN+6y4RRkXiVPNgtltqT5jfeRThJC6Q5dS9mVBV17nZYk1dffxj3XTRu1OllxtUbEVaScHqXy7w1LdNh4Chd019jXg4LACrecEwNaMXlf/WgkNxYGUN9gdCMYisRBKC+zPsoztCnVTLXwlz9vk6BatGodGSgy+jCK5y/ViYf6IfZ9uDBzKBFlgD2EmJCr9zwVc1nqZOwLpqLk15SvXPxBEDyuGqmLEj92QjaDzGs770vU8ReVZRSQIWRQhiq9YfcKrQ9P5RjZNAybtO1MvELsubfV7b5B3y5AKczi2sCgCIo0mPD7H5SqKYoxMXO5TTeQc1dbcx5cyO80Fi5ItDoPMSOoSddElyp0BzopXpbrhPtt1TaDGE1jn7NHUQyqAJcfaJ2yPybPr58fQ6zErGlNMGoQs6eTAFEc9CoGiCAXDOKtbg8HWl83xFSP2ZkjHAYY8Gdp+NEgz+JySVV2nEMXzQibBvXvlq15AZ+dgauBB8wkZ1OXsDn4KeAoDCpVr85eOP1wJWFGlrZkAPhxHqSJNApEoXMUa+fw0BtTtvwsbryPktcWFCt5NIsUHA==
+ VTHkBePCximGvZO6mNk6Xcbg8PxXMOjVT19cCFgxQhcLPU8gF5+7VNJoeMC1JK1y/Yy4ZaaO+zXS7Pa9qLAcIdIL+L4cKyTpJCxAPLY2KzFgXFK7FaR36sryY1YvgC0iIILWQyaJqCa8myYzioTKkhiPFSg8N1JbgbBUyT/TxthnSp+cENUjVtTCzNDHCCtgfzGXpwqF1cul40Azk0+mzto+d3MvCAedt8jHzZf27Cnj3aUDX4ltTW/e1ifof2DHxOUGyr/aMrUhnHp3YQK+TpT2E9FEm73EcsjgeAafcyYUtQ/0Rs8kFptmDWPmwGqw4FF5QswNJeXfcHNt+TybG3wFMrQaIaXztaR6BbFBP7kThAfKcwgcyyydGTmT04GJBZebB5OB6R4I1aMwB8trc8MWa2wc+jQ2RfGae8o8Af5f3eemIqToxohEqlBbnMtRYariZ2HVRdS8b0MLX2JNq/4dyDJW5RzRcBsg5Uv/xQoDmyWAxfSPxeNmnsPEZrojoKQee9bnBUYkOD1/1DbT0e99607+c9BCMfFVsBERg09q7BVUpH+P4yKywSySdNoLxnbQrO1L9CrWNLEXF7BQvA+YD6/Ck2g+zeTkfJub3vQZPO59JE6Y9UKnsdlK09FREFy6VkFs8ZCT/X4Cf3q1YbTtwwAMbw+lEH5P9wksHhg2GufFWQpRZ33XsN58PbJ6n41mWNuXBkQ+9icsF1IA6A==
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR08MB6253.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(186003)(33656002)(38100700002)(9686003)(508600001)(2906002)(83380400001)(4326008)(38070700005)(122000001)(86362001)(8676002)(66556008)(7696005)(110136005)(76116006)(8936002)(6506007)(53546011)(26005)(316002)(52536014)(5660300002)(54906003)(71200400001)(66946007)(66476007)(64756008)(66446008)(55016003);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR08MB3056.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(64756008)(66446008)(6506007)(66556008)(66946007)(76116006)(66476007)(53546011)(7416002)(5660300002)(83380400001)(7696005)(71200400001)(4326008)(52536014)(38070700005)(30864003)(33656002)(86362001)(9686003)(2906002)(508600001)(186003)(26005)(38100700002)(122000001)(54906003)(110136005)(8936002)(316002)(55016003)(8676002)(579004)(559001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB6943
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0802MB2477
 Original-Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT025.eop-EUR03.prod.protection.outlook.com
+ DB5EUR03FT056.eop-EUR03.prod.protection.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	3d091c94-9441-4e6a-701b-08d9bade048a
+	7dc64360-15fd-4933-030a-08d9bae0273a
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	AyFwRjwUphOrcjFsixwUTaaqDGpkIqt/Xl9jepfR25LrRXKQ4XgY1MjO1+3UqCjzycWXn8zymZoPcFWbFDFuEdApjpH4MVmXA0j1h+5OJ5ufGL57zYI40vHNctK189RRq1MEulPDlKVSk9E1M56FB2RY3ZTUmPpctU0khVRUb9dWJepE1dcWPNLIT1fM5f08cMcWticcZlEOpW7YhLsmq3SSmJQtf4e6R2RwBuCGKTVsygK3aN1ueTVaQ2dkS02/kDg/CJEjsLNDlTIevCVBvzuuvK6va4JvNU2A5gSsdrG0mR3jFXMndee0UazILJzGThCNywAR11MFr6r1/9Nf33bqKnZu/kA923HtcYAcv4fnFBayLqvS/yWVu6+jWbY80qUGIqj4rMD9YOaR2J2w3cG22BuKxZMX7sIbJw4KebYuf7BF550rJdvvMoD0O3OMPjEEe0akKR7/LIPAiYguQ0wgFCxAEGA/tCX1EQSmIYDGw/5orngHVlxvJy/1H+8q91uD4Sd/JUbSNg0R5iDAK5T6n9G3P0uJa6DPZysxdEkuw68+pudkINhYsctVvA+z9NHQ6p1arEzEJo0g9+CaMPN5x8LQUSaBqZxRJTBB+fmRzUOu+D947l98NwhWxGBXzmwhlzmVLKI33cZzbKNVFKtOVR5Ad8DtLflRw7KLSKtl5+PS08dwc9RY1Y0XkeobfqwZJjW4gqEjin3nSoP03OevmgUzETfJQHuBzKMmbyK2KhbunMSESHxylnjqAjyASAMSNWOJBwAvDlHCVcCDNA==
+	3xmRbj4iOzPxTaoh+pRpfRUBN3GRWnlst6DP7WNtsfFDn7FB4fKTPgjYN4Cyhms8VdoV3/dMJY6Nx0dUKYfJR2LeR1gjeoEfzJL9M8JBwJVqQKyelMUgK10yorCant/DOpEh8AI78G5n7UX9pnsOmxB8IxXVtIGsFU5fCXIWl99IJI2Uar/18flPkXnFkscbUS/AMAJkROl13oz8b9DUDVXXroRw0EKbFwwreXFDsKjxtSHTUtpK/lx4utDEoSshWK5lUr2iDyu6VcQ4sRTscNrEi31O5yweEzCsQnTa6WVMfrKsUbFMPQc46mbCKLxmMHDbslOy3063G30eyNGJwf1cMUgk2OACjGHX3JQ00LE6qmtIYXHJXysRCUAs4mGLysvoFWvCloWbVujzfHR1j0IqDXW4C+XRfEYt4G49B/3UXQdwZTmkD/tsch13jRypVztWHJ84SMAjGi+m3Xs/u7cvAnz7OkzjWWq9g3EmLuMKdfw86h+whr9Y9htOg2x1bXfThqHI+SqPxJp7mUIO30geoIsw60jWCrClyBw/pf81uPL2AWM4J7iDTXvKATs9ZL8loLIRArDo7HqSMl3F0SqnFa+p3dss5GolWUTZ8ybdv18bGpYOml2r02sr/1kFSaGlPCoomdO6A6jSLLwOOQNBokek5H71Qeda7Varch2NH+1EcjwKm6GhXJewtqpOAAi8nzgbXCWfJTneuN2WMjHa5LwpOo4Ff19mLwN2CXc3sAhE46adiMWprSdZWl5ViXSOJlSW0gsCozdYMqf8nA==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(40470700001)(356005)(40460700001)(186003)(82310400004)(36860700001)(107886003)(316002)(9686003)(52536014)(70206006)(81166007)(70586007)(86362001)(336012)(83380400001)(508600001)(26005)(53546011)(6506007)(55016003)(8936002)(2906002)(47076005)(4326008)(5660300002)(8676002)(54906003)(33656002)(110136005)(7696005);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(40470700001)(316002)(8936002)(110136005)(36860700001)(55016003)(53546011)(81166007)(54906003)(9686003)(70206006)(508600001)(5660300002)(4326008)(30864003)(70586007)(2906002)(52536014)(82310400004)(47076005)(8676002)(83380400001)(26005)(7696005)(336012)(356005)(186003)(6506007)(33656002)(40460700001)(86362001)(579004)(559001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 06:35:05.6902
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2021 06:50:28.5780
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e11f65f-7fd7-43bf-a3ee-08d9bade09a5
+X-MS-Exchange-CrossTenant-Network-Message-Id: eec4dfc1-3833-4e56-277d-08d9bae02fbc
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT025.eop-EUR03.prod.protection.outlook.com
+	DB5EUR03FT056.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB7329
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1PR0801MB1978
 
-SGkgT2xla3NhbmRyLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IFhl
-bi1kZXZlbCA8eGVuLWRldmVsLWJvdW5jZXNAbGlzdHMueGVucHJvamVjdC5vcmc+IE9uIEJlaGFs
-ZiBPZg0KPiBPbGVrc2FuZHIgVHlzaGNoZW5rbw0KPiBTZW50OiBUaHVyc2RheSwgRGVjZW1iZXIg
-OSwgMjAyMSAxOjAwIEFNDQo+IFRvOiB4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcNCj4g
-Q2M6IEp1bGllbiBHcmFsbCA8SnVsaWVuLkdyYWxsQGFybS5jb20+OyBXZWkgTGl1IDx3bEB4ZW4u
-b3JnPjsgQW50aG9ueQ0KPiBQRVJBUkQgPGFudGhvbnkucGVyYXJkQGNpdHJpeC5jb20+OyBKdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+Ow0KPiBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFi
-ZWxsaW5pQGtlcm5lbC5vcmc+OyBKdWxpZW4gR3JhbGwgPGp1bGllbkB4ZW4ub3JnPjsNCj4gVm9s
-b2R5bXlyIEJhYmNodWsgPFZvbG9keW15cl9CYWJjaHVrQGVwYW0uY29tPjsgQmVydHJhbmQgTWFy
-cXVpcw0KPiA8QmVydHJhbmQuTWFycXVpc0Bhcm0uY29tPjsgT2xla3NhbmRyIFR5c2hjaGVua28N
-Cj4gPG9sZWtzYW5kcl90eXNoY2hlbmtvQGVwYW0uY29tPg0KPiBTdWJqZWN0OiBbUEFUQ0ggVjYg
-Mi8yXSBsaWJ4bDogSW50cm9kdWNlIGJhc2ljIHZpcnRpby1tbWlvIHN1cHBvcnQgb24gQXJtDQo+
-IA0KPiBGcm9tOiBKdWxpZW4gR3JhbGwgPGp1bGllbi5ncmFsbEBhcm0uY29tPg0KPiANCj4gVGhp
-cyBwYXRjaCBpbnRyb2R1Y2VzIGhlbHBlcnMgdG8gYWxsb2NhdGUgVmlydGlvIE1NSU8gcGFyYW1z
-DQo+IChJUlEgYW5kIG1lbW9yeSByZWdpb24pIGFuZCBjcmVhdGUgc3BlY2lmaWMgZGV2aWNlIG5v
-ZGUgaW4NCj4gdGhlIEd1ZXN0IGRldmljZS10cmVlIHdpdGggYWxsb2NhdGVkIHBhcmFtcy4gSW4g
-b3JkZXIgdG8gZGVhbA0KPiB3aXRoIG11bHRpcGxlIFZpcnRpbyBkZXZpY2VzLCByZXNlcnZlIGNv
-cnJlc3BvbmRpbmcgcmFuZ2VzLg0KPiBGb3Igbm93LCB3ZSByZXNlcnZlIDFNQiBmb3IgbWVtb3J5
-IHJlZ2lvbnMgYW5kIDEwIFNQSXMuDQo+IA0KPiBBcyB0aGVzZSBoZWxwZXJzIHNob3VsZCBiZSB1
-c2VkIGZvciBldmVyeSBWaXJ0aW8gZGV2aWNlIGF0dGFjaGVkDQo+IHRvIHRoZSBHdWVzdCwgY2Fs
-bCB0aGVtIGZvciBWaXJ0aW8gZGlzayhzKS4NCj4gDQo+IFBsZWFzZSBub3RlLCB3aXRoIHN0YXRp
-Y2FsbHkgYWxsb2NhdGVkIFZpcnRpbyBJUlFzIHRoZXJlIGlzDQo+IGEgcmlzayBvZiBhIGNsYXNo
-IHdpdGggYSBwaHlzaWNhbCBJUlFzIG9mIHBhc3N0aHJvdWdoIGRldmljZXMuDQo+IEZvciB0aGUg
-Zmlyc3QgdmVyc2lvbiwgaXQncyBmaW5lLCBidXQgd2Ugc2hvdWxkIGNvbnNpZGVyIGFsbG9jYXRp
-bmcNCj4gdGhlIFZpcnRpbyBJUlFzIGF1dG9tYXRpY2FsbHkuIFRoYW5rZnVsbHksIHdlIGtub3cg
-aW4gYWR2YW5jZSB3aGljaA0KPiBJUlFzIHdpbGwgYmUgdXNlZCBmb3IgcGFzc3Rocm91Z2ggdG8g
-YmUgYWJsZSB0byBjaG9vc2Ugbm9uLWNsYXNoZWQNCj4gb25lcy4NCj4gDQo+IFNpZ25lZC1vZmYt
-Ynk6IEp1bGllbiBHcmFsbCA8anVsaWVuLmdyYWxsQGFybS5jb20+DQo+IFNpZ25lZC1vZmYtYnk6
-IE9sZWtzYW5kciBUeXNoY2hlbmtvIDxvbGVrc2FuZHJfdHlzaGNoZW5rb0BlcGFtLmNvbT4NCj4g
-LS0tDQo+IFBsZWFzZSBub3RlLCB0aGlzIGlzIGEgc3BsaXQvY2xlYW51cC9oYXJkZW5pbmcgb2Yg
-SnVsaWVuJ3MgUG9DOg0KPiAiQWRkIHN1cHBvcnQgZm9yIEd1ZXN0IElPIGZvcndhcmRpbmcgdG8g
-YSBkZXZpY2UgZW11bGF0b3IiDQo+IA0KPiBDaGFuZ2VzIFJGQyAtPiBWMToNCj4gICAgLSB3YXMg
-c3F1YXNoZWQgd2l0aDoNCj4gICAgICAiW1JGQyBQQVRDSCBWMSAwOS8xMl0gbGlieGw6IEhhbmRs
-ZSB2aXJ0aW8tbW1pbyBpcnEgaW4gbW9yZSBjb3JyZWN0IHdheSINCj4gICAgICAiW1JGQyBQQVRD
-SCBWMSAxMS8xMl0gbGlieGw6IEluc2VydCAiZG1hLWNvaGVyZW50IiBwcm9wZXJ0eSBpbnRvIHZp
-cnRpby0NCj4gbW1pbyBkZXZpY2Ugbm9kZSINCj4gICAgICAiW1JGQyBQQVRDSCBWMSAxMi8xMl0g
-bGlieGw6IEZpeCBkdXBsaWNhdGUgbWVtb3J5IG5vZGUgaW4gRFQiDQo+ICAgIC0gbW92ZSBWaXJ0
-SU8gTU1JTyAjZGVmaW5lLXMgdG8geGVuL2luY2x1ZGUvcHVibGljL2FyY2gtYXJtLmgNCj4gDQo+
-IENoYW5nZXMgVjEgLT4gVjI6DQo+ICAgIC0gdXBkYXRlIHRoZSBhdXRob3Igb2YgYSBwYXRjaA0K
-PiANCj4gQ2hhbmdlcyBWMiAtPiBWMzoNCj4gICAgLSBubyBjaGFuZ2VzDQo+IA0KPiBDaGFuZ2Vz
-IFYzIC0+IFY0Og0KPiAgICAtIG5vIGNoYW5nZXMNCj4gDQo+IENoYW5nZXMgVjQgLT4gVjU6DQo+
-ICAgIC0gc3BsaXQgdGhlIGNoYW5nZXMsIGNoYW5nZSB0aGUgb3JkZXIgb2YgdGhlIHBhdGNoZXMN
-Cj4gICAgLSBkcm9wIGFuIGV4dHJhICJ2aXJ0aW8iIGNvbmZpZ3VyYXRpb24gb3B0aW9uDQo+ICAg
-IC0gdXBkYXRlIHBhdGNoIGRlc2NyaXB0aW9uDQo+ICAgIC0gdXNlIENPTlRBSU5FUl9PRiBpbnN0
-ZWFkIG9mIG93biBpbXBsZW1lbnRhdGlvbg0KPiAgICAtIHJlc2VydmUgcmFuZ2VzIGZvciBWaXJ0
-aW8gTU1JTyBwYXJhbXMgYW5kIHB1dCB0aGVtDQo+ICAgICAgaW4gY29ycmVjdCBsb2NhdGlvbg0K
-PiAgICAtIGNyZWF0ZSBoZWxwZXJzIHRvIGFsbG9jYXRlIFZpcnRpbyBNTUlPIHBhcmFtcywgYWRk
-DQo+ICAgICAgY29ycmVzcG9uZGluZyBzYW5pdHkt0YFoZWNrcw0KPiAgICAtIGFkZCBjb21tZW50
-IHdoeSBNTUlPIHNpemUgMHgyMDAgaXMgY2hvc2VuDQo+ICAgIC0gdXBkYXRlIGRlYnVnIHByaW50
-DQo+ICAgIC0gZHJvcCBXZWkncyBULWINCj4gDQo+IENoYW5nZXMgVjUgLT4gVjY6DQo+ICAgIC0g
-cmViYXNlIG9uIGN1cnJlbnQgc3RhZ2luZw0KPiAtLS0NCj4gIHRvb2xzL2xpYnMvbGlnaHQvbGli
-eGxfYXJtLmMgIHwgMTMxDQo+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrLQ0KPiAgeGVuL2luY2x1ZGUvcHVibGljL2FyY2gtYXJtLmggfCAgIDcgKysrDQo+ICAyIGZp
-bGVzIGNoYW5nZWQsIDEzNiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KPiANCj4gZGlm
-ZiAtLWdpdCBhL3Rvb2xzL2xpYnMvbGlnaHQvbGlieGxfYXJtLmMgYi90b29scy9saWJzL2xpZ2h0
-L2xpYnhsX2FybS5jDQo+IGluZGV4IGVlZjFkZTAuLmQ0NzUyNDkgMTAwNjQ0DQo+IC0tLSBhL3Rv
-b2xzL2xpYnMvbGlnaHQvbGlieGxfYXJtLmMNCj4gKysrIGIvdG9vbHMvbGlicy9saWdodC9saWJ4
-bF9hcm0uYw0KPiBAQCAtOCw2ICs4LDU2IEBADQo+ICAjaW5jbHVkZSA8YXNzZXJ0Lmg+DQo+ICAj
-aW5jbHVkZSA8eGVuL2RldmljZV90cmVlX2RlZnMuaD4NCj4gDQo+ICsvKg0KPiArICogVGhlcmUg
-aXMgbm8gY2xlYXIgcmVxdWlyZW1lbnRzIGZvciB0aGUgdG90YWwgc2l6ZSBvZiBWaXJ0aW8gTU1J
-TyByZWdpb24uDQo+ICsgKiBUaGUgc2l6ZSBvZiBjb250cm9sIHJlZ2lzdGVycyBpcyAweDEwMCBh
-bmQgZGV2aWNlLXNwZWNpZmljIGNvbmZpZ3VyYXRpb24NCj4gKyAqIHJlZ2lzdGVycyBzdGFydHMg
-YXQgdGhlIG9mZnNldCAweDEwMCwgaG93ZXZlciBpdCdzIHNpemUgZGVwZW5kcyBvbiB0aGUNCj4g
-ZGV2aWNlDQo+ICsgKiBhbmQgdGhlIGRyaXZlci4gUGljayB0aGUgYmlnZ2VzdCBrbm93biBzaXpl
-IGF0IHRoZSBtb21lbnQgdG8gY292ZXIgbW9zdA0KPiArICogb2YgdGhlIGRldmljZXMgKGFsc28g
-Y29uc2lkZXIgYWxsb3dpbmcgdGhlIHVzZXIgdG8gY29uZmlndXJlIHRoZSBzaXplIHZpYQ0KPiAr
-ICogY29uZmlnIGZpbGUgZm9yIHRoZSBvbmUgbm90IGNvbmZvcm1pbmcgd2l0aCB0aGUgcHJvcG9z
-ZWQgdmFsdWUpLg0KPiArICovDQo+ICsjZGVmaW5lIFZJUlRJT19NTUlPX0RFVl9TSVpFICAgeGVu
-X21rX3VsbG9uZygweDIwMCkNCj4gKw0KPiArc3RhdGljIHVpbnQ2NF90IHZpcnRpb19tbWlvX2Jh
-c2U7DQo+ICtzdGF0aWMgdWludDMyX3QgdmlydGlvX21taW9faXJxOw0KPiArDQo+ICtzdGF0aWMg
-dm9pZCBpbml0X3ZpcnRpb19tbWlvX3BhcmFtcyh2b2lkKQ0KPiArew0KPiArICAgIHZpcnRpb19t
-bWlvX2Jhc2UgPSBHVUVTVF9WSVJUSU9fTU1JT19CQVNFOw0KPiArICAgIHZpcnRpb19tbWlvX2ly
-cSA9IEdVRVNUX1ZJUlRJT19NTUlPX1NQSV9GSVJTVDsNCj4gK30NCj4gKw0KPiArc3RhdGljIHVp
-bnQ2NF90IGFsbG9jX3ZpcnRpb19tbWlvX2Jhc2UobGlieGxfX2djICpnYykNCj4gK3sNCj4gKyAg
-ICB1aW50NjRfdCBiYXNlID0gdmlydGlvX21taW9fYmFzZTsNCj4gKw0KPiArICAgIC8qIE1ha2Ug
-c3VyZSB3ZSBoYXZlIGVub3VnaCByZXNlcnZlZCByZXNvdXJjZXMgKi8NCj4gKyAgICBpZiAoKHZp
-cnRpb19tbWlvX2Jhc2UgKyBWSVJUSU9fTU1JT19ERVZfU0laRSA+DQo+ICsgICAgICAgIEdVRVNU
-X1ZJUlRJT19NTUlPX0JBU0UgKyBHVUVTVF9WSVJUSU9fTU1JT19TSVpFKSkgew0KPiArICAgICAg
-ICBMT0coRVJST1IsICJSYW4gb3V0IG9mIHJlc2VydmVkIHJhbmdlIGZvciBWaXJ0aW8gTU1JTyBC
-QVNFDQo+IDB4JSJQUkl4NjQiXG4iLA0KPiArICAgICAgICAgICAgdmlydGlvX21taW9fYmFzZSk7
-DQo+ICsgICAgICAgIHJldHVybiAwOw0KPiArICAgIH0NCj4gKyAgICB2aXJ0aW9fbW1pb19iYXNl
-ICs9IFZJUlRJT19NTUlPX0RFVl9TSVpFOw0KPiArDQo+ICsgICAgcmV0dXJuIGJhc2U7DQo+ICt9
-DQo+ICsNCj4gK3N0YXRpYyB1aW50MzJfdCBhbGxvY192aXJ0aW9fbW1pb19pcnEobGlieGxfX2dj
-ICpnYykNCj4gK3sNCj4gKyAgICB1aW50MzJfdCBpcnEgPSB2aXJ0aW9fbW1pb19pcnE7DQo+ICsN
-Cj4gKyAgICAvKiBNYWtlIHN1cmUgd2UgaGF2ZSBlbm91Z2ggcmVzZXJ2ZWQgcmVzb3VyY2VzICov
-DQo+ICsgICAgaWYgKHZpcnRpb19tbWlvX2lycSA+IEdVRVNUX1ZJUlRJT19NTUlPX1NQSV9MQVNU
-KSB7DQo+ICsgICAgICAgIExPRyhFUlJPUiwgIlJhbiBvdXQgb2YgcmVzZXJ2ZWQgcmFuZ2UgZm9y
-IFZpcnRpbyBNTUlPIElSUSAldVxuIiwNCj4gKyAgICAgICAgICAgIHZpcnRpb19tbWlvX2lycSk7
-DQo+ICsgICAgICAgIHJldHVybiAwOw0KPiArICAgIH0NCj4gKyAgICB2aXJ0aW9fbW1pb19pcnEr
-KzsNCj4gKw0KPiArICAgIHJldHVybiBpcnE7DQo+ICt9DQo+ICsNCj4gIHN0YXRpYyBjb25zdCBj
-aGFyICpnaWN2X3RvX3N0cmluZyhsaWJ4bF9naWNfdmVyc2lvbiBnaWNfdmVyc2lvbikNCj4gIHsN
-Cj4gICAgICBzd2l0Y2ggKGdpY192ZXJzaW9uKSB7DQo+IEBAIC0yNiw4ICs3Niw4IEBAIGludCBs
-aWJ4bF9fYXJjaF9kb21haW5fcHJlcGFyZV9jb25maWcobGlieGxfX2djICpnYywNCj4gIHsNCj4g
-ICAgICB1aW50MzJfdCBucl9zcGlzID0gMDsNCj4gICAgICB1bnNpZ25lZCBpbnQgaTsNCj4gLSAg
-ICB1aW50MzJfdCB2dWFydF9pcnE7DQo+IC0gICAgYm9vbCB2dWFydF9lbmFibGVkID0gZmFsc2U7
-DQo+ICsgICAgdWludDMyX3QgdnVhcnRfaXJxLCB2aXJ0aW9faXJxID0gMDsNCj4gKyAgICBib29s
-IHZ1YXJ0X2VuYWJsZWQgPSBmYWxzZSwgdmlydGlvX2VuYWJsZWQgPSBmYWxzZTsNCj4gDQo+ICAg
-ICAgLyoNCj4gICAgICAgKiBJZiBwbDAxMSB2dWFydCBpcyBlbmFibGVkIHRoZW4gaW5jcmVtZW50
-IHRoZSBucl9zcGlzIHRvIGFsbG93IGFsbG9jYXRpb24NCj4gQEAgLTM5LDYgKzg5LDM1IEBAIGlu
-dCBsaWJ4bF9fYXJjaF9kb21haW5fcHJlcGFyZV9jb25maWcobGlieGxfX2djICpnYywNCj4gICAg
-ICAgICAgdnVhcnRfZW5hYmxlZCA9IHRydWU7DQo+ICAgICAgfQ0KPiANCj4gKyAgICAvKg0KPiAr
-ICAgICAqIFZpcnRpbyBNTUlPIHBhcmFtcyBhcmUgbm9uLXVuaXF1ZSBhY3Jvc3MgdGhlIHdob2xl
-IHN5c3RlbSBhbmQNCj4gbXVzdCBiZQ0KPiArICAgICAqIGluaXRpYWxpemVkIGZvciBldmVyeSBu
-ZXcgZ3Vlc3QuDQo+ICsgICAgICovDQo+ICsgICAgaW5pdF92aXJ0aW9fbW1pb19wYXJhbXMoKTsN
-Cj4gKyAgICBmb3IgKGkgPSAwOyBpIDwgZF9jb25maWctPm51bV9kaXNrczsgaSsrKSB7DQo+ICsg
-ICAgICAgIGxpYnhsX2RldmljZV9kaXNrICpkaXNrID0gJmRfY29uZmlnLT5kaXNrc1tpXTsNCj4g
-Kw0KPiArICAgICAgICBpZiAoZGlzay0+dmlydGlvKSB7DQo+ICsgICAgICAgICAgICBkaXNrLT5i
-YXNlID0gYWxsb2NfdmlydGlvX21taW9fYmFzZShnYyk7DQo+ICsgICAgICAgICAgICBpZiAoIWRp
-c2stPmJhc2UpDQo+ICsgICAgICAgICAgICAgICAgcmV0dXJuIEVSUk9SX0ZBSUw7DQo+ICsNCj4g
-KyAgICAgICAgICAgIGRpc2stPmlycSA9IGFsbG9jX3ZpcnRpb19tbWlvX2lycShnYyk7DQo+ICsg
-ICAgICAgICAgICBpZiAoIWRpc2stPmlycSkNCj4gKyAgICAgICAgICAgICAgICByZXR1cm4gRVJS
-T1JfRkFJTDsNCj4gKw0KPiArICAgICAgICAgICAgaWYgKHZpcnRpb19pcnEgPCBkaXNrLT5pcnEp
-DQo+ICsgICAgICAgICAgICAgICAgdmlydGlvX2lycSA9IGRpc2stPmlycTsNCj4gKyAgICAgICAg
-ICAgIHZpcnRpb19lbmFibGVkID0gdHJ1ZTsNCj4gKw0KPiArICAgICAgICAgICAgTE9HKERFQlVH
-LCAiQWxsb2NhdGUgVmlydGlvIE1NSU8gcGFyYW1zIGZvciBWZGV2ICVzOiBJUlEgJXUNCj4gQkFT
-RSAweCUiUFJJeDY0LA0KPiArICAgICAgICAgICAgICAgIGRpc2stPnZkZXYsIGRpc2stPmlycSwg
-ZGlzay0+YmFzZSk7DQo+ICsgICAgICAgIH0NCj4gKyAgICB9DQo+ICsNCj4gKyAgICBpZiAodmly
-dGlvX2VuYWJsZWQpDQo+ICsgICAgICAgIG5yX3NwaXMgKz0gKHZpcnRpb19pcnEgLSAzMikgKyAx
-Ow0KPiArDQo+ICAgICAgZm9yIChpID0gMDsgaSA8IGRfY29uZmlnLT5iX2luZm8ubnVtX2lycXM7
-IGkrKykgew0KPiAgICAgICAgICB1aW50MzJfdCBpcnEgPSBkX2NvbmZpZy0+Yl9pbmZvLmlycXNb
-aV07DQo+ICAgICAgICAgIHVpbnQzMl90IHNwaTsNCj4gQEAgLTU4LDYgKzEzNywxMyBAQCBpbnQg
-bGlieGxfX2FyY2hfZG9tYWluX3ByZXBhcmVfY29uZmlnKGxpYnhsX19nYyAqZ2MsDQo+ICAgICAg
-ICAgICAgICByZXR1cm4gRVJST1JfRkFJTDsNCj4gICAgICAgICAgfQ0KPiANCj4gKyAgICAgICAg
-LyogVGhlIHNhbWUgY2hlY2sgYXMgZm9yIHZwbDAxMSAqLw0KPiArICAgICAgICBpZiAodmlydGlv
-X2VuYWJsZWQgJiYNCj4gKyAgICAgICAgICAgKGlycSA+PSBHVUVTVF9WSVJUSU9fTU1JT19TUElf
-RklSU1QgJiYgaXJxIDw9IHZpcnRpb19pcnEpKSB7DQo+ICsgICAgICAgICAgICBMT0coRVJST1Is
-ICJQaHlzaWNhbCBJUlEgJXUgY29uZmxpY3Rpbmcgd2l0aCBWaXJ0aW8gTU1JTyBJUlENCj4gcmFu
-Z2VcbiIsIGlycSk7DQo+ICsgICAgICAgICAgICByZXR1cm4gRVJST1JfRkFJTDsNCj4gKyAgICAg
-ICAgfQ0KPiArDQo+ICAgICAgICAgIGlmIChpcnEgPCAzMikNCj4gICAgICAgICAgICAgIGNvbnRp
-bnVlOw0KPiANCj4gQEAgLTc4Nyw2ICs4NzMsMzkgQEAgc3RhdGljIGludCBtYWtlX3ZwY2lfbm9k
-ZShsaWJ4bF9fZ2MgKmdjLCB2b2lkICpmZHQsDQo+ICAgICAgcmV0dXJuIDA7DQo+ICB9DQo+IA0K
-PiArDQo+ICtzdGF0aWMgaW50IG1ha2VfdmlydGlvX21taW9fbm9kZShsaWJ4bF9fZ2MgKmdjLCB2
-b2lkICpmZHQsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB1aW50NjRfdCBi
-YXNlLCB1aW50MzJfdCBpcnEpDQo+ICt7DQo+ICsgICAgaW50IHJlczsNCj4gKyAgICBnaWNfaW50
-ZXJydXB0IGludHI7DQo+ICsgICAgLyogUGxhY2Vob2xkZXIgZm9yIHZpcnRpb0AgKyBhIDY0LWJp
-dCBudW1iZXIgKyBcMCAqLw0KPiArICAgIGNoYXIgYnVmWzI0XTsNCj4gKw0KPiArICAgIHNucHJp
-bnRmKGJ1Ziwgc2l6ZW9mKGJ1ZiksICJ2aXJ0aW9AJSJQUkl4NjQsIGJhc2UpOw0KPiArICAgIHJl
-cyA9IGZkdF9iZWdpbl9ub2RlKGZkdCwgYnVmKTsNCj4gKyAgICBpZiAocmVzKSByZXR1cm4gcmVz
-Ow0KPiArDQo+ICsgICAgcmVzID0gZmR0X3Byb3BlcnR5X2NvbXBhdChnYywgZmR0LCAxLCAidmly
-dGlvLG1taW8iKTsNCj4gKyAgICBpZiAocmVzKSByZXR1cm4gcmVzOw0KPiArDQo+ICsgICAgcmVz
-ID0gZmR0X3Byb3BlcnR5X3JlZ3MoZ2MsIGZkdCwgR1VFU1RfUk9PVF9BRERSRVNTX0NFTExTLA0K
-PiBHVUVTVF9ST09UX1NJWkVfQ0VMTFMsDQo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-MSwgYmFzZSwgVklSVElPX01NSU9fREVWX1NJWkUpOw0KPiArICAgIGlmIChyZXMpIHJldHVybiBy
-ZXM7DQo+ICsNCj4gKyAgICBzZXRfaW50ZXJydXB0KGludHIsIGlycSwgMHhmLCBEVF9JUlFfVFlQ
-RV9FREdFX1JJU0lORyk7DQo+ICsgICAgcmVzID0gZmR0X3Byb3BlcnR5X2ludGVycnVwdHMoZ2Ms
-IGZkdCwgJmludHIsIDEpOw0KPiArICAgIGlmIChyZXMpIHJldHVybiByZXM7DQo+ICsNCj4gKyAg
-ICByZXMgPSBmZHRfcHJvcGVydHkoZmR0LCAiZG1hLWNvaGVyZW50IiwgTlVMTCwgMCk7DQo+ICsg
-ICAgaWYgKHJlcykgcmV0dXJuIHJlczsNCj4gKw0KPiArICAgIHJlcyA9IGZkdF9lbmRfbm9kZShm
-ZHQpOw0KPiArICAgIGlmIChyZXMpIHJldHVybiByZXM7DQo+ICsNCj4gKyAgICByZXR1cm4gMDsN
-Cj4gK30NCj4gKw0KPiAgc3RhdGljIGNvbnN0IHN0cnVjdCBhcmNoX2luZm8gKmdldF9hcmNoX2lu
-Zm8obGlieGxfX2djICpnYywNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGNvbnN0IHN0cnVjdCB4Y19kb21faW1hZ2UgKmRvbSkNCj4gIHsNCj4gQEAgLTk4
-OCw2ICsxMTA3LDcgQEAgc3RhdGljIGludCBsaWJ4bF9fcHJlcGFyZV9kdGIobGlieGxfX2djICpn
-YywNCj4gbGlieGxfZG9tYWluX2NvbmZpZyAqZF9jb25maWcsDQo+ICAgICAgc2l6ZV90IGZkdF9z
-aXplID0gMDsNCj4gICAgICBpbnQgcGZkdF9zaXplID0gMDsNCj4gICAgICBsaWJ4bF9kb21haW5f
-YnVpbGRfaW5mbyAqY29uc3QgaW5mbyA9ICZkX2NvbmZpZy0+Yl9pbmZvOw0KPiArICAgIHVuc2ln
-bmVkIGludCBpOw0KPiANCj4gICAgICBjb25zdCBsaWJ4bF92ZXJzaW9uX2luZm8gKnZlcnM7DQo+
-ICAgICAgY29uc3Qgc3RydWN0IGFyY2hfaW5mbyAqYWluZm87DQo+IEBAIC0xMDk0LDYgKzEyMTQs
-MTMgQEAgbmV4dF9yZXNpemU6DQo+ICAgICAgICAgIGlmIChkX2NvbmZpZy0+bnVtX3BjaWRldnMp
-DQo+ICAgICAgICAgICAgICBGRFQoIG1ha2VfdnBjaV9ub2RlKGdjLCBmZHQsIGFpbmZvLCBkb20p
-ICk7DQo+IA0KPiArICAgICAgICBmb3IgKGkgPSAwOyBpIDwgZF9jb25maWctPm51bV9kaXNrczsg
-aSsrKSB7DQo+ICsgICAgICAgICAgICBsaWJ4bF9kZXZpY2VfZGlzayAqZGlzayA9ICZkX2NvbmZp
-Zy0+ZGlza3NbaV07DQo+ICsNCj4gKyAgICAgICAgICAgIGlmIChkaXNrLT52aXJ0aW8pDQo+ICsg
-ICAgICAgICAgICAgICAgRkRUKCBtYWtlX3ZpcnRpb19tbWlvX25vZGUoZ2MsIGZkdCwgZGlzay0+
-YmFzZSwgZGlzay0+aXJxKSApOw0KPiArICAgICAgICB9DQo+ICsNCj4gICAgICAgICAgaWYgKHBm
-ZHQpDQo+ICAgICAgICAgICAgICBGRFQoIGNvcHlfcGFydGlhbF9mZHQoZ2MsIGZkdCwgcGZkdCkg
-KTsNCj4gDQo+IGRpZmYgLS1naXQgYS94ZW4vaW5jbHVkZS9wdWJsaWMvYXJjaC1hcm0uaCBiL3hl
-bi9pbmNsdWRlL3B1YmxpYy9hcmNoLWFybS5oDQo+IGluZGV4IDk0YjMxNTEuLjZkYzU1ZGYgMTAw
-NjQ0DQo+IC0tLSBhL3hlbi9pbmNsdWRlL3B1YmxpYy9hcmNoLWFybS5oDQo+ICsrKyBiL3hlbi9p
-bmNsdWRlL3B1YmxpYy9hcmNoLWFybS5oDQo+IEBAIC0zOTgsNiArMzk4LDEwIEBAIHR5cGVkZWYg
-dWludDY0X3QgeGVuX2NhbGxiYWNrX3Q7DQo+IA0KPiAgLyogUGh5c2ljYWwgQWRkcmVzcyBTcGFj
-ZSAqLw0KPiANCj4gKy8qIFZpcnRpbyBNTUlPIG1hcHBpbmdzICovDQo+ICsjZGVmaW5lIEdVRVNU
-X1ZJUlRJT19NTUlPX0JBU0UgICB4ZW5fbWtfdWxsb25nKDB4MDIwMDAwMDApDQo+ICsjZGVmaW5l
-IEdVRVNUX1ZJUlRJT19NTUlPX1NJWkUgICB4ZW5fbWtfdWxsb25nKDB4MDAxMDAwMDApDQo+ICsN
-Cj4gIC8qDQo+ICAgKiB2R0lDIG1hcHBpbmdzOiBPbmx5IG9uZSBzZXQgb2YgbWFwcGluZyBpcyB1
-c2VkIGJ5IHRoZSBndWVzdC4NCj4gICAqIFRoZXJlZm9yZSB0aGV5IGNhbiBvdmVybGFwLg0KPiBA
-QCAtNDg0LDYgKzQ4OCw5IEBAIHR5cGVkZWYgdWludDY0X3QgeGVuX2NhbGxiYWNrX3Q7DQo+IA0K
-PiAgI2RlZmluZSBHVUVTVF9WUEwwMTFfU1BJICAgICAgICAzMg0KPiANCj4gKyNkZWZpbmUgR1VF
-U1RfVklSVElPX01NSU9fU1BJX0ZJUlNUICAgMzMNCj4gKyNkZWZpbmUgR1VFU1RfVklSVElPX01N
-SU9fU1BJX0xBU1QgICAgNDMNCj4gKw0KPiAgLyogUFNDSSBmdW5jdGlvbnMgKi8NCj4gICNkZWZp
-bmUgUFNDSV9jcHVfc3VzcGVuZCAwDQo+ICAjZGVmaW5lIFBTQ0lfY3B1X29mZiAgICAgMQ0KPiAt
-LQ0KPiAyLjcuNA0KPiANCg0KUmV2aWV3ZWQtYnk6IEhlbnJ5IFdhbmcgPEhlbnJ5LldhbmdAYXJt
-LmNvbT4NCg0KS2luZCByZWdhcmRzLA0KDQpIZW5yeQ0K
+
+
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
+> Oleksandr Tyshchenko
+> Sent: 2021=1B$BG/=1B(B12=1B$B7n=1B(B9=1B$BF|=1B(B 1:00
+> To: xen-devel@lists.xenproject.org
+> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>; Wei Liu
+> <wl@xen.org>; George Dunlap <george.dunlap@citrix.com>; Nick Rosbrook
+> <rosbrookn@ainfosec.com>; Anthony PERARD <anthony.perard@citrix.com>;
+> Juergen Gross <jgross@suse.com>; Stefano Stabellini
+> <sstabellini@kernel.org>; Julien Grall <julien@xen.org>; Volodymyr Babchu=
+k
+> <Volodymyr_Babchuk@epam.com>; Bertrand Marquis
+> <Bertrand.Marquis@arm.com>
+> Subject: [PATCH V6 1/2] libxl: Add support for Virtio disk configuration
+>=20
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>=20
+> This patch adds basic support for configuring and assisting virtio-disk
+> backend (emualator) which is intended to run out of Qemu and could be
+> run in any domain.
+> Although the Virtio block device is quite different from traditional
+> Xen PV block device (vbd) from the toolstack point of view:
+>  - as the frontend is virtio-blk which is not a Xenbus driver, nothing
+>    written to Xenstore are fetched by the frontend (the vdev is not
+>    passed to the frontend)
+>  - the ring-ref/event-channel are not used for the backend<->frontend
+>    communication, the proposed IPC for Virtio is IOREQ/DM
+> it is still a "block device" and ought to be integrated in existing
+> "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
+> logic to deal with Virtio devices as well.
+>=20
+> Besides introducing new disk backend type (LIBXL_DISK_BACKEND_VIRTIO)
+> introduce new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
+> one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model.
+>=20
+> In order to inform the toolstack that Virtio disk needs to be used
+> extend "disk" configuration by introducing new "virtio" flag.
+> An example of domain configuration:
+> disk =3D [ 'backend=3DDomD, phy:/dev/mmcblk1p3, xvda1, rw, virtio' ]
+>=20
+> Please note, this patch is not enough for virtio-disk to work
+> on Xen (Arm), as for every Virtio device (including disk) we need
+> to allocate Virtio MMIO params (IRQ and memory region) and pass
+> them to the backend, also update Guest device-tree. The subsequent
+> patch will add these missing bits. For the current patch,
+> the default "irq" and "base" are just written to the Xenstore.
+>=20
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+>=20
+> ---
+> Changes RFC -> V1:
+>    - no changes
+>=20
+> Changes V1 -> V2:
+>    - rebase according to the new location of libxl_virtio_disk.c
+>=20
+> Changes V2 -> V3:
+>    - no changes
+>=20
+> Changes V3 -> V4:
+>    - rebase according to the new argument for DEFINE_DEVICE_TYPE_STRUCT
+>=20
+> Changes V4 -> V5:
+>    - split the changes, change the order of the patches
+>    - update patch description
+>    - don't introduce new "vdisk" configuration option with own parsing lo=
+gic,
+>      re-use Xen PV block "disk" parsing/configuration logic for the virti=
+o-disk
+>    - introduce "virtio" flag and document it's usage
+>    - add LIBXL_HAVE_DEVICE_DISK_VIRTIO
+>    - update libxlu_disk_l.[ch]
+>    - drop num_disks variable/MAX_VIRTIO_DISKS
+>    - drop Wei's T-b
+>=20
+> Changes V5 -> V6:
+>    - rebase on current staging
+>    - use "%"PRIu64 instead of %lu for disk->base in device_disk_add()
+>    - update *.gen.go files
+> ---
+>  docs/man/xl-disk-configuration.5.pod.in   |  27 +
+>  tools/golang/xenlight/helpers.gen.go      |   6 +
+>  tools/golang/xenlight/types.gen.go        |   4 +
+>  tools/include/libxl.h                     |   6 +
+>  tools/libs/light/libxl_device.c           |  38 +-
+>  tools/libs/light/libxl_disk.c             |  99 +++-
+>  tools/libs/light/libxl_types.idl          |   4 +
+>  tools/libs/light/libxl_types_internal.idl |   1 +
+>  tools/libs/light/libxl_utils.c            |   2 +
+>  tools/libs/util/libxlu_disk_l.c           | 881 +++++++++++++++---------=
+------
+>  tools/libs/util/libxlu_disk_l.h           |   2 +-
+>  tools/libs/util/libxlu_disk_l.l           |   1 +
+>  tools/xl/xl_block.c                       |  11 +
+>  13 files changed, 636 insertions(+), 446 deletions(-)
+>=20
+> diff --git a/docs/man/xl-disk-configuration.5.pod.in b/docs/man/xl-disk-
+> configuration.5.pod.in
+> index 71d0e86..9cc189f 100644
+> --- a/docs/man/xl-disk-configuration.5.pod.in
+> +++ b/docs/man/xl-disk-configuration.5.pod.in
+> @@ -344,8 +344,35 @@ can be used to disable "hole punching" for file
+> based backends which
+>  were intentionally created non-sparse to avoid fragmentation of the
+>  file.
+>=20
+> +=3Ditem B<virtio>
+> +
+> +=3Dover 4
+> +
+> +=3Ditem Description
+> +
+> +Enables experimental Virtio support for disk
+> +
+> +=3Ditem Supported values
+> +
+> +absent, present
+> +
+> +=3Ditem Mandatory
+> +
+> +No
+> +
+> +=3Ditem Default value
+> +
+> +absent
+> +
+>  =3Dback
+>=20
+> +Besides forcing toolstack to use specific Xen Virtio backend implementat=
+ion
+> +(for example, virtio-disk), this also affects the guest's view of the de=
+vice
+> +and requires virtio-blk driver to be used.
+> +Please note, the virtual device (vdev) is not passed to the guest in tha=
+t case,
+> +but it still must be specified for the internal purposes.
+> +
+> +=3Dback
+>=20
+>  =3Dhead1 COLO Parameters
+>=20
+> diff --git a/tools/golang/xenlight/helpers.gen.go
+> b/tools/golang/xenlight/helpers.gen.go
+> index b746ff1..787e3ba 100644
+> --- a/tools/golang/xenlight/helpers.gen.go
+> +++ b/tools/golang/xenlight/helpers.gen.go
+> @@ -1751,6 +1751,9 @@ x.DirectIoSafe =3D bool(xc.direct_io_safe)
+>  if err :=3D x.DiscardEnable.fromC(&xc.discard_enable);err !=3D nil {
+>  return fmt.Errorf("converting field DiscardEnable: %v", err)
+>  }
+> +x.Virtio =3D bool(xc.virtio)
+> +x.Irq =3D uint32(xc.irq)
+> +x.Base =3D uint64(xc.base)
+>  if err :=3D x.ColoEnable.fromC(&xc.colo_enable);err !=3D nil {
+>  return fmt.Errorf("converting field ColoEnable: %v", err)
+>  }
+> @@ -1788,6 +1791,9 @@ xc.direct_io_safe =3D C.bool(x.DirectIoSafe)
+>  if err :=3D x.DiscardEnable.toC(&xc.discard_enable); err !=3D nil {
+>  return fmt.Errorf("converting field DiscardEnable: %v", err)
+>  }
+> +xc.virtio =3D C.bool(x.Virtio)
+> +xc.irq =3D C.uint32_t(x.Irq)
+> +xc.base =3D C.uint64_t(x.Base)
+>  if err :=3D x.ColoEnable.toC(&xc.colo_enable); err !=3D nil {
+>  return fmt.Errorf("converting field ColoEnable: %v", err)
+>  }
+> diff --git a/tools/golang/xenlight/types.gen.go
+> b/tools/golang/xenlight/types.gen.go
+> index b1e84d5..1d6868a 100644
+> --- a/tools/golang/xenlight/types.gen.go
+> +++ b/tools/golang/xenlight/types.gen.go
+> @@ -99,6 +99,7 @@ DiskBackendUnknown DiskBackend =3D 0
+>  DiskBackendPhy DiskBackend =3D 1
+>  DiskBackendTap DiskBackend =3D 2
+>  DiskBackendQdisk DiskBackend =3D 3
+> +DiskBackendVirtio DiskBackend =3D 4
+>  )
+>=20
+>  type NicType int
+> @@ -643,6 +644,9 @@ Readwrite int
+>  IsCdrom int
+>  DirectIoSafe bool
+>  DiscardEnable Defbool
+> +Virtio bool
+> +Irq uint32
+> +Base uint64
+>  ColoEnable Defbool
+>  ColoRestoreEnable Defbool
+>  ColoHost string
+> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+> index 2bbbd21..1ea7475 100644
+> --- a/tools/include/libxl.h
+> +++ b/tools/include/libxl.h
+> @@ -528,6 +528,12 @@
+>  #define LIBXL_HAVE_MAX_GRANT_VERSION 1
+>=20
+>  /*
+> + * LIBXL_HAVE_DEVICE_DISK_VIRTIO indicates that a 'virtio' field
+> + * (of boolean type) is present in libxl_device_disk.
+> + */
+> +#define LIBXL_HAVE_DEVICE_DISK_VIRTIO 1
+> +
+> +/*
+>   * libxl ABI compatibility
+>   *
+>   * The only guarantee which libxl makes regarding ABI compatibility
+> diff --git a/tools/libs/light/libxl_device.c b/tools/libs/light/libxl_dev=
+ice.c
+> index 36c4e41..7c8cb53 100644
+> --- a/tools/libs/light/libxl_device.c
+> +++ b/tools/libs/light/libxl_device.c
+> @@ -292,6 +292,9 @@ static int disk_try_backend(disk_try_backend_args *a,
+>      /* returns 0 (ie, DISK_BACKEND_UNKNOWN) on failure, or
+>       * backend on success */
+>=20
+> +    if (a->disk->virtio && backend !=3D LIBXL_DISK_BACKEND_VIRTIO)
+> +        goto bad_virtio;
+> +
+>      switch (backend) {
+>      case LIBXL_DISK_BACKEND_PHY:
+>          if (a->disk->format !=3D LIBXL_DISK_FORMAT_RAW) {
+> @@ -329,6 +332,29 @@ static int disk_try_backend(disk_try_backend_args
+> *a,
+>          if (a->disk->script) goto bad_script;
+>          return backend;
+>=20
+> +    case LIBXL_DISK_BACKEND_VIRTIO:
+> +        if (a->disk->format !=3D LIBXL_DISK_FORMAT_RAW)
+> +            goto bad_format;
+> +
+> +        if (a->disk->script)
+> +            goto bad_script;
+> +
+> +        if (libxl_defbool_val(a->disk->colo_enable))
+> +            goto bad_colo;
+> +
+> +        if (a->disk->backend_domid !=3D LIBXL_TOOLSTACK_DOMID) {
+> +            LOG(DEBUG, "Disk vdev=3D%s, is using a storage driver domain=
+, "
+> +                       "skipping physical device check", a->disk->vdev);
+> +            return backend;
+> +        }
+> +
+> +        if (libxl__try_phy_backend(a->stab.st_mode))
+> +            return backend;
+> +
+> +        LOG(DEBUG, "Disk vdev=3D%s, backend virtio unsuitable as phys pa=
+th not
+> a "
+> +                   "block device", a->disk->vdev);
+> +        return 0;
+> +
+>      default:
+>          LOG(DEBUG, "Disk vdev=3D%s, backend %d unknown", a->disk->vdev,
+> backend);
+>          return 0;
+> @@ -352,6 +378,11 @@ static int disk_try_backend(disk_try_backend_args
+> *a,
+>      LOG(DEBUG, "Disk vdev=3D%s, backend %s not compatible with colo",
+>          a->disk->vdev, libxl_disk_backend_to_string(backend));
+>      return 0;
+> +
+> + bad_virtio:
+> +    LOG(DEBUG, "Disk vdev=3D%s, backend %s not compatible with virtio",
+> +        a->disk->vdev, libxl_disk_backend_to_string(backend));
+> +    return 0;
+>  }
+>=20
+>  int libxl__backendpath_parse_domid(libxl__gc *gc, const char *be_path,
+> @@ -392,7 +423,8 @@ int libxl__device_disk_set_backend(libxl__gc *gc,
+> libxl_device_disk *disk) {
+>          }
+>          memset(&a.stab, 0, sizeof(a.stab));
+>      } else if ((disk->backend =3D=3D LIBXL_DISK_BACKEND_UNKNOWN ||
+> -                disk->backend =3D=3D LIBXL_DISK_BACKEND_PHY) &&
+> +                disk->backend =3D=3D LIBXL_DISK_BACKEND_PHY ||
+> +                disk->backend =3D=3D LIBXL_DISK_BACKEND_VIRTIO) &&
+>                 disk->backend_domid =3D=3D LIBXL_TOOLSTACK_DOMID &&
+>                 !disk->script) {
+>          if (stat(disk->pdev_path, &a.stab)) {
+> @@ -408,7 +440,8 @@ int libxl__device_disk_set_backend(libxl__gc *gc,
+> libxl_device_disk *disk) {
+>          ok=3D
+>              disk_try_backend(&a, LIBXL_DISK_BACKEND_PHY) ?:
+>              disk_try_backend(&a, LIBXL_DISK_BACKEND_QDISK) ?:
+> -            disk_try_backend(&a, LIBXL_DISK_BACKEND_TAP);
+> +            disk_try_backend(&a, LIBXL_DISK_BACKEND_TAP) ?:
+> +            disk_try_backend(&a, LIBXL_DISK_BACKEND_VIRTIO);
+>          if (ok)
+>              LOG(DEBUG, "Disk vdev=3D%s, using backend %s",
+>                         disk->vdev,
+> @@ -441,6 +474,7 @@ char
+> *libxl__device_disk_string_of_backend(libxl_disk_backend backend)
+>          case LIBXL_DISK_BACKEND_QDISK: return "qdisk";
+>          case LIBXL_DISK_BACKEND_TAP: return "phy";
+>          case LIBXL_DISK_BACKEND_PHY: return "phy";
+> +        case LIBXL_DISK_BACKEND_VIRTIO: return "virtio_disk";
+>          default: return NULL;
+>      }
+>  }
+> diff --git a/tools/libs/light/libxl_disk.c b/tools/libs/light/libxl_disk.=
+c
+> index 93936d0..912b3f5 100644
+> --- a/tools/libs/light/libxl_disk.c
+> +++ b/tools/libs/light/libxl_disk.c
+> @@ -174,6 +174,16 @@ static int libxl__device_disk_setdefault(libxl__gc *=
+gc,
+> uint32_t domid,
+>          disk->backend =3D LIBXL_DISK_BACKEND_QDISK;
+>      }
+>=20
+> +    /* Force virtio_disk backend for Virtio devices */
+> +    if (disk->virtio) {
+> +        if (!(disk->backend =3D=3D LIBXL_DISK_BACKEND_VIRTIO ||
+> +              disk->backend =3D=3D LIBXL_DISK_BACKEND_UNKNOWN)) {
+> +            LOGD(ERROR, domid, "Backend for Virtio devices on must be
+> virtio_disk");
+> +            return ERROR_FAIL;
+> +        }
+> +        disk->backend =3D LIBXL_DISK_BACKEND_VIRTIO;
+> +    }
+> +
+>      rc =3D libxl__device_disk_set_backend(gc, disk);
+>      return rc;
+>  }
+> @@ -204,6 +214,9 @@ static int libxl__device_from_disk(libxl__gc *gc,
+> uint32_t domid,
+>          case LIBXL_DISK_BACKEND_QDISK:
+>              device->backend_kind =3D LIBXL__DEVICE_KIND_QDISK;
+>              break;
+> +        case LIBXL_DISK_BACKEND_VIRTIO:
+> +            device->backend_kind =3D LIBXL__DEVICE_KIND_VIRTIO_DISK;
+> +            break;
+>          default:
+>              LOGD(ERROR, domid, "Unrecognized disk backend type: %d",
+>                   disk->backend);
+> @@ -212,7 +225,8 @@ static int libxl__device_from_disk(libxl__gc *gc,
+> uint32_t domid,
+>=20
+>      device->domid =3D domid;
+>      device->devid =3D devid;
+> -    device->kind  =3D LIBXL__DEVICE_KIND_VBD;
+> +    device->kind =3D disk->backend =3D=3D LIBXL_DISK_BACKEND_VIRTIO ?
+> +        LIBXL__DEVICE_KIND_VIRTIO_DISK : LIBXL__DEVICE_KIND_VBD;
+>=20
+>      return 0;
+>  }
+> @@ -330,7 +344,17 @@ static void device_disk_add(libxl__egc *egc,
+> uint32_t domid,
+>=20
+>                  assert(device->backend_kind =3D=3D LIBXL__DEVICE_KIND_VB=
+D);
+>                  break;
+> +            case LIBXL_DISK_BACKEND_VIRTIO:
+> +                dev =3D disk->pdev_path;
+> +
+> +                flexarray_append(back, "params");
+> +                flexarray_append(back, dev);
+>=20
+> +                flexarray_append_pair(back, "base", GCSPRINTF("%"PRIu64,=
+ disk-
+> >base));
+> +                flexarray_append_pair(back, "irq", GCSPRINTF("%u", disk-=
+>irq));
+> +
+> +                assert(device->backend_kind =3D=3D
+> LIBXL__DEVICE_KIND_VIRTIO_DISK);
+> +                break;
+>              case LIBXL_DISK_BACKEND_TAP:
+>                  LOG(ERROR, "blktap is not supported");
+>                  rc =3D ERROR_FAIL;
+> @@ -532,6 +556,26 @@ static int libxl__disk_from_xenstore(libxl__gc *gc,
+> const char *libxl_path,
+>      }
+>      libxl_string_to_backend(ctx, tmp, &(disk->backend));
+>=20
+> +    if (disk->backend =3D=3D LIBXL_DISK_BACKEND_VIRTIO) {
+> +        disk->virtio =3D true;
+> +
+> +        tmp =3D libxl__xs_read(gc, XBT_NULL,
+> +                             GCSPRINTF("%s/base", libxl_path));
+> +        if (!tmp) {
+> +            LOG(ERROR, "Missing xenstore node %s/base", libxl_path);
+> +            goto cleanup;
+> +        }
+> +        disk->base =3D strtoul(tmp, NULL, 10);
+> +
+> +        tmp =3D libxl__xs_read(gc, XBT_NULL,
+> +                             GCSPRINTF("%s/irq", libxl_path));
+> +        if (!tmp) {
+> +            LOG(ERROR, "Missing xenstore node %s/irq", libxl_path);
+> +            goto cleanup;
+> +        }
+> +        disk->irq =3D strtoul(tmp, NULL, 10);
+> +    }
+> +
+>      disk->vdev =3D xs_read(ctx->xsh, XBT_NULL,
+>                           GCSPRINTF("%s/dev", libxl_path), &len);
+>      if (!disk->vdev) {
+> @@ -575,6 +619,41 @@ cleanup:
+>      return rc;
+>  }
+>=20
+> +static int libxl_device_disk_get_path(libxl__gc *gc, uint32_t domid,
+> +                                      char **path)
+> +{
+> +    const char *dir;
+> +    int rc;
+> +
+> +    /*
+> +     * As we don't know exactly what device kind to be used here, guess =
+it
+> +     * by checking the presence of the corresponding path in Xenstore.
+> +     * First, try to read path for vbd device (default) and if not exist=
+s
+> +     * read path for virtio_disk device. This will work as long as both =
+Xen PV
+> +     * and Virtio disk devices are not assigned to the same guest.
+> +     */
+> +    *path =3D GCSPRINTF("%s/device/%s",
+> +                      libxl__xs_libxl_path(gc, domid),
+> +                      libxl__device_kind_to_string(LIBXL__DEVICE_KIND_VB=
+D));
+> +
+> +    rc =3D libxl__xs_read_checked(gc, XBT_NULL, *path, &dir);
+> +    if (rc)
+> +        return rc;
+> +
+> +    if (dir)
+> +        return 0;
+> +
+> +    *path =3D GCSPRINTF("%s/device/%s",
+> +                      libxl__xs_libxl_path(gc, domid),
+> +
+> libxl__device_kind_to_string(LIBXL__DEVICE_KIND_VIRTIO_DISK));
+> +
+> +    rc =3D libxl__xs_read_checked(gc, XBT_NULL, *path, &dir);
+> +    if (rc)
+> +        return rc;
+> +
+> +    return 0;
+> +}
+> +
+>  int libxl_vdev_to_device_disk(libxl_ctx *ctx, uint32_t domid,
+>                                const char *vdev, libxl_device_disk *disk)
+>  {
+> @@ -588,10 +667,12 @@ int libxl_vdev_to_device_disk(libxl_ctx *ctx,
+> uint32_t domid,
+>=20
+>      libxl_device_disk_init(disk);
+>=20
+> -    libxl_path =3D libxl__domain_device_libxl_path(gc, domid, devid,
+> -                                                 LIBXL__DEVICE_KIND_VBD)=
+;
+> +    rc =3D libxl_device_disk_get_path(gc, domid, &libxl_path);
+> +    if (rc)
+> +        return rc;
+>=20
+> -    rc =3D libxl__disk_from_xenstore(gc, libxl_path, devid, disk);
+> +    rc =3D libxl__disk_from_xenstore(gc, GCSPRINTF("%s/%d", libxl_path, =
+devid),
+> +                                   devid, disk);
+>=20
+>      GC_FREE;
+>      return rc;
+> @@ -605,16 +686,19 @@ int libxl_device_disk_getinfo(libxl_ctx *ctx,
+> uint32_t domid,
+>      char *fe_path, *libxl_path;
+>      char *val;
+>      int rc;
+> +    libxl__device_kind kind;
+>=20
+>      diskinfo->backend =3D NULL;
+>=20
+>      diskinfo->devid =3D libxl__device_disk_dev_number(disk->vdev, NULL, =
+NULL);
+>=20
+> -    /* tap devices entries in xenstore are written as vbd devices. */
+> +    /* tap devices entries in xenstore are written as vbd/virtio_disk de=
+vices.
+> */
+> +    kind =3D disk->backend =3D=3D LIBXL_DISK_BACKEND_VIRTIO ?
+> +        LIBXL__DEVICE_KIND_VIRTIO_DISK : LIBXL__DEVICE_KIND_VBD;
+>      fe_path =3D libxl__domain_device_frontend_path(gc, domid, diskinfo-
+> >devid,
+> -                                                 LIBXL__DEVICE_KIND_VBD)=
+;
+> +                                                 kind);
+>      libxl_path =3D libxl__domain_device_libxl_path(gc, domid, diskinfo->=
+devid,
+> -                                                 LIBXL__DEVICE_KIND_VBD)=
+;
+> +                                                 kind);
+>      diskinfo->backend =3D xs_read(ctx->xsh, XBT_NULL,
+>                                  GCSPRINTF("%s/backend", libxl_path), NUL=
+L);
+>      if (!diskinfo->backend) {
+> @@ -1418,6 +1502,7 @@ LIBXL_DEFINE_DEVICE_LIST(disk)
+>  #define libxl__device_disk_update_devid NULL
+>=20
+>  DEFINE_DEVICE_TYPE_STRUCT(disk, VBD, disks,
+> +    .get_path    =3D libxl_device_disk_get_path,
+>      .merge       =3D libxl_device_disk_merge,
+>      .dm_needed   =3D libxl_device_disk_dm_needed,
+>      .from_xenstore =3D (device_from_xenstore_fn_t)libxl__disk_from_xenst=
+ore,
+> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_ty=
+pes.idl
+> index 2a42da2..31e4a15 100644
+> --- a/tools/libs/light/libxl_types.idl
+> +++ b/tools/libs/light/libxl_types.idl
+> @@ -130,6 +130,7 @@ libxl_disk_backend =3D Enumeration("disk_backend", [
+>      (1, "PHY"),
+>      (2, "TAP"),
+>      (3, "QDISK"),
+> +    (4, "VIRTIO"),
+>      ])
+>=20
+>  libxl_nic_type =3D Enumeration("nic_type", [
+> @@ -704,6 +705,9 @@ libxl_device_disk =3D Struct("device_disk", [
+>      ("is_cdrom", integer),
+>      ("direct_io_safe", bool),
+>      ("discard_enable", libxl_defbool),
+> +    ("virtio", bool),
+> +    ("irq", uint32),
+> +    ("base", uint64),
+>      # Note that the COLO configuration settings should be considered uns=
+table.
+>      # They may change incompatibly in future versions of Xen.
+>      ("colo_enable", libxl_defbool),
+> diff --git a/tools/libs/light/libxl_types_internal.idl
+> b/tools/libs/light/libxl_types_internal.idl
+> index 3593e21..8f71980 100644
+> --- a/tools/libs/light/libxl_types_internal.idl
+> +++ b/tools/libs/light/libxl_types_internal.idl
+> @@ -32,6 +32,7 @@ libxl__device_kind =3D Enumeration("device_kind", [
+>      (14, "PVCALLS"),
+>      (15, "VSND"),
+>      (16, "VINPUT"),
+> +    (17, "VIRTIO_DISK"),
+>      ])
+>=20
+>  libxl__console_backend =3D Enumeration("console_backend", [
+> diff --git a/tools/libs/light/libxl_utils.c b/tools/libs/light/libxl_util=
+s.c
+> index 4699c4a..fa406de 100644
+> --- a/tools/libs/light/libxl_utils.c
+> +++ b/tools/libs/light/libxl_utils.c
+> @@ -304,6 +304,8 @@ int libxl_string_to_backend(libxl_ctx *ctx, char *s,
+> libxl_disk_backend *backend
+>          *backend =3D LIBXL_DISK_BACKEND_TAP;
+>      } else if (!strcmp(s, "qdisk")) {
+>          *backend =3D LIBXL_DISK_BACKEND_QDISK;
+> +    } else if (!strcmp(s, "virtio_disk")) {
+> +        *backend =3D LIBXL_DISK_BACKEND_VIRTIO;
+>      } else if (!strcmp(s, "tap")) {
+>          p =3D strchr(s, ':');
+>          if (!p) {
+> diff --git a/tools/libs/util/libxlu_disk_l.c b/tools/libs/util/libxlu_dis=
+k_l.c
+> index 32d4b74..7abc699 100644
+> --- a/tools/libs/util/libxlu_disk_l.c
+> +++ b/tools/libs/util/libxlu_disk_l.c
+> @@ -549,8 +549,8 @@ static void yynoreturn yy_fatal_error ( const char*
+> msg , yyscan_t yyscanner );
+>  	yyg->yy_hold_char =3D *yy_cp; \
+>  	*yy_cp =3D '\0'; \
+>  	yyg->yy_c_buf_p =3D yy_cp;
+> -#define YY_NUM_RULES 36
+> -#define YY_END_OF_BUFFER 37
+> +#define YY_NUM_RULES 37
+> +#define YY_END_OF_BUFFER 38
+>  /* This struct is not used in this scanner,
+>     but its presence is necessary. */
+>  struct yy_trans_info
+> @@ -558,74 +558,75 @@ struct yy_trans_info
+>  	flex_int32_t yy_verify;
+>  	flex_int32_t yy_nxt;
+>  	};
+> -static const flex_int16_t yy_acclist[575] =3D
+> +static const flex_int16_t yy_acclist[583] =3D
+>      {   0,
+> -       35,   35,   37,   33,   34,   36, 8193,   33,   34,   36,
+> -    16385, 8193,   33,   36,16385,   33,   34,   36,   34,   36,
+> -       33,   34,   36,   33,   34,   36,   33,   34,   36,   33,
+> -       34,   36,   33,   34,   36,   33,   34,   36,   33,   34,
+> -       36,   33,   34,   36,   33,   34,   36,   33,   34,   36,
+> -       33,   34,   36,   33,   34,   36,   33,   34,   36,   33,
+> -       34,   36,   33,   34,   36,   33,   34,   36,   35,   36,
+> -       36,   33,   33, 8193,   33, 8193,   33,16385, 8193,   33,
+> -     8193,   33,   33, 8224,   33,16416,   33,   33,   33,   33,
+> -       33,   33,   33,   33,   33,   33,   33,   33,   33,   33,
+> -
+> -       33,   33,   33,   33,   33,   33,   33,   33,   33,   35,
+> -     8193,   33, 8193,   33, 8193, 8224,   33, 8224,   33, 8224,
+> -       23,   33,   33,   33,   33,   33,   33,   33,   33,   33,
+> -       33,   33,   33,   33,   33,   33,   33,   33,   33,   33,
+> -       33,   33,   33,   33,   33, 8224,   33, 8224,   33, 8224,
+> -       23,   33,   33,   28, 8224,   33,16416,   33,   33,   15,
+> -       33,   33,   33,   33,   33,   33,   33,   33,   33, 8217,
+> -     8224,   33,16409,16416,   33,   33,   31, 8224,   33,16416,
+> -       33, 8216, 8224,   33,16408,16416,   33,   33, 8219, 8224,
+> -       33,16411,16416,   33,   33,   33,   33,   33,   28, 8224,
+> -
+> -       33,   28, 8224,   33,   28,   33,   28, 8224,   33,    3,
+> -       33,   15,   33,   33,   33,   33,   33,   30, 8224,   33,
+> -    16416,   33,   33,   33, 8217, 8224,   33, 8217, 8224,   33,
+> -     8217,   33, 8217, 8224,   33,   33,   31, 8224,   33,   31,
+> -     8224,   33,   31,   33,   31, 8224, 8216, 8224,   33, 8216,
+> -     8224,   33, 8216,   33, 8216, 8224,   33, 8219, 8224,   33,
+> -     8219, 8224,   33, 8219,   33, 8219, 8224,   33,   33,   10,
+> -       33,   33,   28, 8224,   33,   28, 8224,   33,   28, 8224,
+> -       28,   33,   28,   33,    3,   33,   33,   33,   33,   33,
+> -       33,   33,   30, 8224,   33,   30, 8224,   33,   30,   33,
+> -
+> -       30, 8224,   33,   33,   29, 8224,   33,16416, 8217, 8224,
+> -       33, 8217, 8224,   33, 8217, 8224, 8217,   33, 8217,   33,
+> -       33,   31, 8224,   33,   31, 8224,   33,   31, 8224,   31,
+> -       33,   31, 8216, 8224,   33, 8216, 8224,   33, 8216, 8224,
+> -     8216,   33, 8216,   33, 8219, 8224,   33, 8219, 8224,   33,
+> -     8219, 8224, 8219,   33, 8219,   33,   33,   10,   23,   10,
+> -        7,   33,   33,   33,   33,   33,   33,   33,   13,   33,
+> -       30, 8224,   33,   30, 8224,   33,   30, 8224,   30,   33,
+> -       30,    2,   33,   29, 8224,   33,   29, 8224,   33,   29,
+> -       33,   29, 8224,   16,   33,   33,   11,   33,   22,   10,
+> -
+> -       10,   23,    7,   23,    7,   33,    8,   33,   33,   33,
+> -       33,    6,   33,   13,   33,    2,   23,    2,   33,   29,
+> -     8224,   33,   29, 8224,   33,   29, 8224,   29,   33,   29,
+> -       16,   33,   33,   11,   23,   11,   26, 8224,   33,16416,
+> -       22,   23,   22,    7,    7,   23,   33,    8,   23,    8,
+> -       33,   33,   33,   33,    6,   23,    6,    6,   23,    6,
+> -       23,   33,    2,    2,   23,   33,   33,   11,   11,   23,
+> -       26, 8224,   33,   26, 8224,   33,   26,   33,   26, 8224,
+> -       22,   23,   33,    8,    8,   23,   33,   33,   17,   18,
+> -        6,    6,   23,    6,    6,   33,   33,   14,   33,   26,
+> -
+> -     8224,   33,   26, 8224,   33,   26, 8224,   26,   33,   26,
+> -       33,   33,   33,   17,   23,   17,   18,   23,   18,    6,
+> -        6,   33,   33,   14,   33,   20,    9,   19,   17,   17,
+> -       23,   18,   18,   23,    6,    5,    6,   33,   21,   20,
+> -       23,   20,    9,   23,    9,   19,   23,   19,    4,    6,
+> -        5,    6,   33,   21,   23,   21,   20,   20,   23,    9,
+> -        9,   23,   19,   19,   23,    4,    6,   12,   33,   21,
+> -       21,   23,   12,   33
+> +       36,   36,   38,   34,   35,   37, 8193,   34,   35,   37,
+> +    16385, 8193,   34,   37,16385,   34,   35,   37,   35,   37,
+> +       34,   35,   37,   34,   35,   37,   34,   35,   37,   34,
+> +       35,   37,   34,   35,   37,   34,   35,   37,   34,   35,
+> +       37,   34,   35,   37,   34,   35,   37,   34,   35,   37,
+> +       34,   35,   37,   34,   35,   37,   34,   35,   37,   34,
+> +       35,   37,   34,   35,   37,   34,   35,   37,   36,   37,
+> +       37,   34,   34, 8193,   34, 8193,   34,16385, 8193,   34,
+> +     8193,   34,   34, 8225,   34,16417,   34,   34,   34,   34,
+> +       34,   34,   34,   34,   34,   34,   34,   34,   34,   34,
+> +
+> +       34,   34,   34,   34,   34,   34,   34,   34,   34,   34,
+> +       36, 8193,   34, 8193,   34, 8193, 8225,   34, 8225,   34,
+> +     8225,   24,   34,   34,   34,   34,   34,   34,   34,   34,
+> +       34,   34,   34,   34,   34,   34,   34,   34,   34,   34,
+> +       34,   34,   34,   34,   34,   34,   34, 8225,   34, 8225,
+> +       34, 8225,   24,   34,   34,   29, 8225,   34,16417,   34,
+> +       34,   16,   34,   34,   34,   34,   34,   34,   34,   34,
+> +       34, 8218, 8225,   34,16410,16417,   34,   34,   32, 8225,
+> +       34,16417,   34, 8217, 8225,   34,16409,16417,   34,   34,
+> +     8220, 8225,   34,16412,16417,   34,   34,   34,   34,   34,
+> +
+> +       34,   29, 8225,   34,   29, 8225,   34,   29,   34,   29,
+> +     8225,   34,    3,   34,   16,   34,   34,   34,   34,   34,
+> +       31, 8225,   34,16417,   34,   34,   34, 8218, 8225,   34,
+> +     8218, 8225,   34, 8218,   34, 8218, 8225,   34,   34,   32,
+> +     8225,   34,   32, 8225,   34,   32,   34,   32, 8225, 8217,
+> +     8225,   34, 8217, 8225,   34, 8217,   34, 8217, 8225,   34,
+> +     8220, 8225,   34, 8220, 8225,   34, 8220,   34, 8220, 8225,
+> +       34,   34,   10,   34,   34,   34,   29, 8225,   34,   29,
+> +     8225,   34,   29, 8225,   29,   34,   29,   34,    3,   34,
+> +       34,   34,   34,   34,   34,   34,   31, 8225,   34,   31,
+> +
+> +     8225,   34,   31,   34,   31, 8225,   34,   34,   30, 8225,
+> +       34,16417, 8218, 8225,   34, 8218, 8225,   34, 8218, 8225,
+> +     8218,   34, 8218,   34,   34,   32, 8225,   34,   32, 8225,
+> +       34,   32, 8225,   32,   34,   32, 8217, 8225,   34, 8217,
+> +     8225,   34, 8217, 8225, 8217,   34, 8217,   34, 8220, 8225,
+> +       34, 8220, 8225,   34, 8220, 8225, 8220,   34, 8220,   34,
+> +       34,   10,   24,   10,   15,   34,    7,   34,   34,   34,
+> +       34,   34,   34,   34,   13,   34,   31, 8225,   34,   31,
+> +     8225,   34,   31, 8225,   31,   34,   31,    2,   34,   30,
+> +     8225,   34,   30, 8225,   34,   30,   34,   30, 8225,   17,
+> +
+> +       34,   34,   11,   34,   23,   10,   10,   24,   15,   34,
+> +        7,   24,    7,   34,    8,   34,   34,   34,   34,    6,
+> +       34,   13,   34,    2,   24,    2,   34,   30, 8225,   34,
+> +       30, 8225,   34,   30, 8225,   30,   34,   30,   17,   34,
+> +       34,   11,   24,   11,   27, 8225,   34,16417,   23,   24,
+> +       23,    7,    7,   24,   34,    8,   24,    8,   34,   34,
+> +       34,   34,    6,   24,    6,    6,   24,    6,   24,   34,
+> +        2,    2,   24,   34,   34,   11,   11,   24,   27, 8225,
+> +       34,   27, 8225,   34,   27,   34,   27, 8225,   23,   24,
+> +       34,    8,    8,   24,   34,   34,   18,   19,    6,    6,
+> +
+> +       24,    6,    6,   34,   34,   14,   34,   27, 8225,   34,
+> +       27, 8225,   34,   27, 8225,   27,   34,   27,   34,   34,
+> +       34,   18,   24,   18,   19,   24,   19,    6,    6,   34,
+> +       34,   14,   34,   21,    9,   20,   18,   18,   24,   19,
+> +       19,   24,    6,    5,    6,   34,   22,   21,   24,   21,
+> +        9,   24,    9,   20,   24,   20,    4,    6,    5,    6,
+> +       34,   22,   24,   22,   21,   21,   24,    9,    9,   24,
+> +       20,   20,   24,    4,    6,   12,   34,   22,   22,   24,
+> +       12,   34
+>      } ;
+>=20
+> -static const flex_int16_t yy_accept[356] =3D
+> +static const flex_int16_t yy_accept[362] =3D
+>      {   0,
+>          1,    1,    1,    2,    3,    4,    7,   12,   16,   19,
+>         21,   24,   27,   30,   33,   36,   39,   42,   45,   48,
+> @@ -633,39 +634,40 @@ static const flex_int16_t yy_accept[356] =3D
+>         74,   76,   79,   81,   82,   83,   84,   87,   87,   88,
+>         89,   90,   91,   92,   93,   94,   95,   96,   97,   98,
+>         99,  100,  101,  102,  103,  104,  105,  106,  107,  108,
+> -      109,  110,  111,  113,  115,  116,  118,  120,  121,  122,
+> +      109,  110,  111,  112,  114,  116,  117,  119,  121,  122,
+>        123,  124,  125,  126,  127,  128,  129,  130,  131,  132,
+>        133,  134,  135,  136,  137,  138,  139,  140,  141,  142,
+> -      143,  144,  145,  146,  148,  150,  151,  152,  153,  154,
+> -
+> -      158,  159,  160,  162,  163,  164,  165,  166,  167,  168,
+> -      169,  170,  175,  176,  177,  181,  182,  187,  188,  189,
+> -      194,  195,  196,  197,  198,  199,  202,  205,  207,  209,
+> -      210,  212,  214,  215,  216,  217,  218,  222,  223,  224,
+> -      225,  228,  231,  233,  235,  236,  237,  240,  243,  245,
+> -      247,  250,  253,  255,  257,  258,  261,  264,  266,  268,
+> -      269,  270,  271,  272,  273,  276,  279,  281,  283,  284,
+> -      285,  287,  288,  289,  290,  291,  292,  293,  296,  299,
+> -      301,  303,  304,  305,  309,  312,  315,  317,  319,  320,
+> -      321,  322,  325,  328,  330,  332,  333,  336,  339,  341,
+> -
+> -      343,  344,  345,  348,  351,  353,  355,  356,  357,  358,
+> -      360,  361,  362,  363,  364,  365,  366,  367,  368,  369,
+> -      371,  374,  377,  379,  381,  382,  383,  384,  387,  390,
+> -      392,  394,  396,  397,  398,  399,  400,  401,  403,  405,
+> -      406,  407,  408,  409,  410,  411,  412,  413,  414,  416,
+> -      418,  419,  420,  423,  426,  428,  430,  431,  433,  434,
+> -      436,  437,  441,  443,  444,  445,  447,  448,  450,  451,
+> -      452,  453,  454,  455,  457,  458,  460,  462,  463,  464,
+> -      466,  467,  468,  469,  471,  474,  477,  479,  481,  483,
+> -      484,  485,  487,  488,  489,  490,  491,  492,  494,  495,
+> -
+> -      496,  497,  498,  500,  503,  506,  508,  510,  511,  512,
+> -      513,  514,  516,  517,  519,  520,  521,  522,  523,  524,
+> -      526,  527,  528,  529,  530,  532,  533,  535,  536,  538,
+> -      539,  540,  542,  543,  545,  546,  548,  549,  551,  553,
+> -      554,  556,  557,  558,  560,  561,  563,  564,  566,  568,
+> -      570,  571,  573,  575,  575
+> +      143,  144,  145,  146,  147,  148,  150,  152,  153,  154,
+> +
+> +      155,  156,  160,  161,  162,  164,  165,  166,  167,  168,
+> +      169,  170,  171,  172,  177,  178,  179,  183,  184,  189,
+> +      190,  191,  196,  197,  198,  199,  200,  201,  202,  205,
+> +      208,  210,  212,  213,  215,  217,  218,  219,  220,  221,
+> +      225,  226,  227,  228,  231,  234,  236,  238,  239,  240,
+> +      243,  246,  248,  250,  253,  256,  258,  260,  261,  264,
+> +      267,  269,  271,  272,  273,  274,  275,  276,  277,  280,
+> +      283,  285,  287,  288,  289,  291,  292,  293,  294,  295,
+> +      296,  297,  300,  303,  305,  307,  308,  309,  313,  316,
+> +      319,  321,  323,  324,  325,  326,  329,  332,  334,  336,
+> +
+> +      337,  340,  343,  345,  347,  348,  349,  352,  355,  357,
+> +      359,  360,  361,  362,  364,  365,  367,  368,  369,  370,
+> +      371,  372,  373,  374,  375,  377,  380,  383,  385,  387,
+> +      388,  389,  390,  393,  396,  398,  400,  402,  403,  404,
+> +      405,  406,  407,  409,  411,  413,  414,  415,  416,  417,
+> +      418,  419,  420,  421,  422,  424,  426,  427,  428,  431,
+> +      434,  436,  438,  439,  441,  442,  444,  445,  449,  451,
+> +      452,  453,  455,  456,  458,  459,  460,  461,  462,  463,
+> +      465,  466,  468,  470,  471,  472,  474,  475,  476,  477,
+> +      479,  482,  485,  487,  489,  491,  492,  493,  495,  496,
+> +
+> +      497,  498,  499,  500,  502,  503,  504,  505,  506,  508,
+> +      511,  514,  516,  518,  519,  520,  521,  522,  524,  525,
+> +      527,  528,  529,  530,  531,  532,  534,  535,  536,  537,
+> +      538,  540,  541,  543,  544,  546,  547,  548,  550,  551,
+> +      553,  554,  556,  557,  559,  561,  562,  564,  565,  566,
+> +      568,  569,  571,  572,  574,  576,  578,  579,  581,  583,
+> +      583
+>      } ;
+>=20
+>  static const YY_CHAR yy_ec[256] =3D
+> @@ -708,216 +710,217 @@ static const YY_CHAR yy_meta[35] =3D
+>          1,    1,    1,    1
+>      } ;
+>=20
+> -static const flex_int16_t yy_base[424] =3D
+> +static const flex_int16_t yy_base[430] =3D
+>      {   0,
+> -        0,    0,  901,  900,  902,  897,   33,   36,  905,  905,
+> -       45,   63,   31,   42,   51,   52,  890,   33,   65,   67,
+> -       69,   70,  889,   71,  888,   75,    0,  905,  893,  905,
+> -       91,   94,    0,    0,  103,  886,  112,    0,   89,   98,
+> -      113,   92,  114,   99,  100,   48,  121,  116,  119,   74,
+> -      124,  129,  123,  135,  132,  133,  137,  134,  138,  139,
+> -      141,    0,  155,    0,    0,  164,    0,    0,  849,  142,
+> -      152,  164,  140,  161,  165,  166,  167,  168,  169,  173,
+> -      174,  178,  176,  180,  184,  208,  189,  183,  192,  195,
+> -      215,  191,  193,  223,    0,    0,  905,  208,  204,  236,
+> -
+> -      219,  209,  238,  196,  237,  831,  242,  815,  241,  224,
+> -      243,  261,  244,  259,  277,  266,  286,  250,  288,  298,
+> -      249,  283,  274,  282,  294,  308,    0,  310,    0,  295,
+> -      305,  905,  308,  306,  313,  314,  342,  319,  316,  320,
+> -      331,    0,  349,    0,  342,  344,  356,    0,  358,    0,
+> -      365,    0,  367,    0,  354,  375,    0,  377,    0,  363,
+> -      356,  809,  327,  322,  384,    0,    0,    0,    0,  379,
+> -      905,  382,  384,  386,  390,  372,  392,  403,    0,  410,
+> -        0,  407,  413,  423,  426,    0,    0,    0,    0,  409,
+> -      424,  435,    0,    0,    0,    0,  437,    0,    0,    0,
+> -
+> -        0,  433,  444,    0,    0,    0,    0,  391,  440,  781,
+> -      905,  769,  439,  445,  444,  447,  449,  454,  453,  399,
+> -      464,    0,    0,    0,    0,  757,  465,  476,    0,  478,
+> -        0,  479,  476,  753,  462,  490,  749,  905,  745,  905,
+> -      483,  737,  424,  485,  487,  490,  500,  493,  905,  729,
+> -      905,  502,  518,    0,    0,    0,    0,  905,  498,  721,
+> -      905,  527,  713,    0,  705,  905,  495,  697,  905,  365,
+> -      521,  528,  530,  685,  905,  534,  540,  540,  657,  905,
+> -      537,  542,  650,  905,  553,    0,  557,    0,    0,  551,
+> -      641,  905,  558,  557,  633,  614,  613,  905,  547,  555,
+> -
+> -      563,  565,  569,  584,    0,    0,    0,    0,  583,  570,
+> -      585,  612,  905,  601,  905,  522,  580,  589,  594,  905,
+> -      600,  585,  563,  520,  905,  514,  905,  586,  486,  597,
+> -      480,  441,  905,  416,  905,  345,  905,  334,  905,  601,
+> -      254,  905,  242,  905,  200,  905,  151,  905,  905,  607,
+> -       86,  905,  905,  905,  620,  624,  627,  631,  635,  639,
+> -      643,  647,  651,  655,  659,  663,  667,  671,  675,  679,
+> -      683,  687,  691,  695,  699,  703,  707,  711,  715,  719,
+> -      723,  727,  731,  735,  739,  743,  747,  751,  755,  759,
+> -      763,  767,  771,  775,  779,  783,  787,  791,  795,  799,
+> -
+> -      803,  807,  811,  815,  819,  823,  827,  831,  835,  839,
+> -      843,  847,  851,  855,  859,  863,  867,  871,  875,  879,
+> -      883,  887,  891
+> +        0,    0,  912,  911,  913,  908,   33,   36,  916,  916,
+> +       45,   63,   31,   42,   51,   52,  901,   33,   65,   67,
+> +       69,   70,  900,   71,  899,   77,    0,  916,  904,  916,
+> +       93,   96,    0,    0,  105,  897,  114,    0,   91,  100,
+> +      115,   94,  116,  101,  102,   48,   74,  118,  121,  123,
+> +       78,  128,  131,  137,  124,  125,  133,  135,  136,  140,
+> +      142,  141,    0,  163,    0,    0,  166,    0,    0,  902,
+> +      143,  146,  163,  164,  166,  167,  149,  169,  170,  175,
+> +      179,  176,  182,  177,  184,  192,  212,  193,  186,  196,
+> +      187,  219,  201,  150,  199,  227,    0,    0,  916,  209,
+> +
+> +      212,  243,  224,  213,  245,  223,  198,  895,  231,  894,
+> +      244,  230,  243,  261,  255,  259,  279,  266,  288,  275,
+> +      291,  301,  268,  284,  298,  301,  285,  302,  311,    0,
+> +      314,    0,  311,  318,  916,  312,  317,  246,  232,  342,
+> +      320,  325,  323,  349,    0,  351,    0,  344,  349,  360,
+> +        0,  363,    0,  367,    0,  370,    0,  330,  377,    0,
+> +      379,    0,  365,  358,  899,  368,  329,  331,  381,    0,
+> +        0,    0,    0,  381,  916,  383,  385,  387,  391,  397,
+> +      393,  409,    0,  411,    0,  412,  414,  424,  427,    0,
+> +        0,    0,    0,  422,  425,  436,    0,    0,    0,    0,
+> +
+> +      438,    0,    0,    0,    0,  434,  445,    0,    0,    0,
+> +        0,  440,  442,  898,  916,  400,  897,  443,  448,  449,
+> +      451,  453,  458,  457,  413,  469,    0,    0,    0,    0,
+> +      896,  469,  480,    0,  482,    0,  483,  480,  895,  489,
+> +      497,  894,  916,  916,  851,  916,  490,  839,  478,  492,
+> +      494,  497,  507,  501,  916,  823,  916,  509,  525,    0,
+> +        0,    0,    0,  916,  505,  811,  916,  534,  783,    0,
+> +      771,  916,  518,  759,  916,  523,  528,  538,  540,  755,
+> +      916,  511,  540,  549,  751,  916,  544,  547,  747,  916,
+> +      560,    0,  562,    0,    0,  555,  739,  916,  484,  561,
+> +
+> +      731,  723,  715,  916,  449,  566,  564,  566,  576,  578,
+> +        0,    0,    0,    0,  584,  574,  586,  707,  916,  699,
+> +      916,  581,  587,  590,  597,  916,  687,  659,  652,  643,
+> +      916,  635,  916,  597,  616,  599,  614,  604,  916,  600,
+> +      916,  541,  916,  467,  916,  603,  455,  916,  404,  916,
+> +      385,  916,  328,  916,  916,  609,  203,  916,  916,  916,
+> +      622,  626,  629,  633,  637,  641,  645,  649,  653,  657,
+> +      661,  665,  669,  673,  677,  681,  685,  689,  693,  697,
+> +      701,  705,  709,  713,  717,  721,  725,  729,  733,  737,
+> +      741,  745,  749,  753,  757,  761,  765,  769,  773,  777,
+> +
+> +      781,  785,  789,  793,  797,  801,  805,  809,  813,  817,
+> +      821,  825,  829,  833,  837,  841,  845,  849,  853,  857,
+> +      861,  865,  869,  873,  877,  881,  885,  889,  893
+>      } ;
+>=20
+> -static const flex_int16_t yy_def[424] =3D
+> +static const flex_int16_t yy_def[430] =3D
+>      {   0,
+> -      354,    1,  355,  355,  354,  356,  357,  357,  354,  354,
+> -      358,  358,   12,   12,   12,   12,   12,   12,   12,   12,
+> -       12,   12,   12,   12,   12,   12,  359,  354,  356,  354,
+> -      360,  357,  361,  361,  362,   12,  356,  363,   12,   12,
+> +      360,    1,  361,  361,  360,  362,  363,  363,  360,  360,
+> +      364,  364,   12,   12,   12,   12,   12,   12,   12,   12,
+> +       12,   12,   12,   12,   12,   12,  365,  360,  362,  360,
+> +      366,  363,  367,  367,  368,   12,  362,  369,   12,   12,
+>         12,   12,   12,   12,   12,   12,   12,   12,   12,   12,
+>         12,   12,   12,   12,   12,   12,   12,   12,   12,   12,
+> -       12,  359,  360,  361,  361,  364,  365,  365,  354,   12,
+> +       12,   12,  365,  366,  367,  367,  370,  371,  371,  360,
+>         12,   12,   12,   12,   12,   12,   12,   12,   12,   12,
+> -       12,   12,   12,   12,   12,  362,   12,   12,   12,   12,
+> -       12,   12,   12,  364,  365,  365,  354,   12,   12,  366,
+> -
+> -       12,   12,   12,   12,   12,   12,   12,   12,   12,   12,
+> -       12,  367,   86,   86,  368,   12,  369,   12,   12,  370,
+> -       12,   12,   12,   12,   12,  371,  372,  366,  372,   12,
+> -       12,  354,   86,   12,   12,   12,  373,   12,   12,   12,
+> -      374,  375,  367,  375,   86,   86,  376,  377,  368,  377,
+> -      378,  379,  369,  379,   12,  380,  381,  370,  381,   12,
+> -       12,  382,   12,   12,  371,  372,  372,  383,  383,   12,
+> -      354,   86,   86,   86,   12,   12,   12,  384,  385,  373,
+> -      385,   12,   12,  386,  374,  375,  375,  387,  387,   86,
+> -       86,  376,  377,  377,  388,  388,  378,  379,  379,  389,
+> -
+> -      389,   12,  380,  381,  381,  390,  390,   12,   12,  391,
+> -      354,  392,   86,   12,   86,   86,   86,   12,   86,   12,
+> -      384,  385,  385,  393,  393,  394,   86,  395,  396,  386,
+> -      396,   86,   86,  397,   12,  398,  391,  354,  399,  354,
+> -       86,  400,   12,   86,   86,   86,  401,   86,  354,  402,
+> -      354,   86,  395,  396,  396,  403,  403,  354,   86,  404,
+> -      354,  405,  406,  406,  399,  354,   86,  407,  354,   12,
+> -       86,   86,   86,  408,  354,  408,  408,   86,  402,  354,
+> -       86,   86,  404,  354,  409,  410,  405,  410,  406,   86,
+> -      407,  354,   12,   86,  411,  412,  408,  354,  408,  408,
+> -
+> -       86,   86,   86,  409,  410,  410,  413,  413,   86,   12,
+> -       86,  414,  354,  415,  354,  408,  408,   86,   86,  354,
+> -      416,  417,  418,  414,  354,  415,  354,  408,  408,   86,
+> -      419,  420,  354,  421,  354,  422,  354,  408,  354,   86,
+> -      423,  354,  420,  354,  421,  354,  422,  354,  354,   86,
+> -      423,  354,  354,    0,  354,  354,  354,  354,  354,  354,
+> -      354,  354,  354,  354,  354,  354,  354,  354,  354,  354,
+> -      354,  354,  354,  354,  354,  354,  354,  354,  354,  354,
+> -      354,  354,  354,  354,  354,  354,  354,  354,  354,  354,
+> -      354,  354,  354,  354,  354,  354,  354,  354,  354,  354,
+> -
+> -      354,  354,  354,  354,  354,  354,  354,  354,  354,  354,
+> -      354,  354,  354,  354,  354,  354,  354,  354,  354,  354,
+> -      354,  354,  354
+> +       12,   12,   12,   12,   12,   12,  368,   12,   12,   12,
+> +       12,   12,   12,   12,   12,  370,  371,  371,  360,   12,
+> +
+> +       12,  372,   12,   12,   12,   12,   12,   12,   12,   12,
+> +       12,   12,   12,  373,   87,   87,  374,   12,  375,   12,
+> +       12,  376,   12,   12,   12,   12,   12,   12,  377,  378,
+> +      372,  378,   12,   12,  360,   87,   12,   12,   12,  379,
+> +       12,   12,   12,  380,  381,  373,  381,   87,   87,  382,
+> +      383,  374,  383,  384,  385,  375,  385,   12,  386,  387,
+> +      376,  387,   12,   12,  388,   12,   12,   12,  377,  378,
+> +      378,  389,  389,   12,  360,   87,   87,   87,   12,   12,
+> +       12,  390,  391,  379,  391,   12,   12,  392,  380,  381,
+> +      381,  393,  393,   87,   87,  382,  383,  383,  394,  394,
+> +
+> +      384,  385,  385,  395,  395,   12,  386,  387,  387,  396,
+> +      396,   12,   12,  397,  360,   12,  398,   87,   12,   87,
+> +       87,   87,   12,   87,   12,  390,  391,  391,  399,  399,
+> +      400,   87,  401,  402,  392,  402,   87,   87,  403,   12,
+> +      404,  397,  360,  360,  405,  360,   87,  406,   12,   87,
+> +       87,   87,  407,   87,  360,  408,  360,   87,  401,  402,
+> +      402,  409,  409,  360,   87,  410,  360,  411,  412,  412,
+> +      405,  360,   87,  413,  360,   12,   87,   87,   87,  414,
+> +      360,  414,  414,   87,  408,  360,   87,   87,  410,  360,
+> +      415,  416,  411,  416,  412,   87,  413,  360,   12,   87,
+> +
+> +      417,  418,  414,  360,  414,  414,   87,   87,   87,  415,
+> +      416,  416,  419,  419,   87,   12,   87,  420,  360,  421,
+> +      360,  414,  414,   87,   87,  360,  422,  423,  424,  420,
+> +      360,  421,  360,  414,  414,   87,  425,  426,  360,  427,
+> +      360,  428,  360,  414,  360,   87,  429,  360,  426,  360,
+> +      427,  360,  428,  360,  360,   87,  429,  360,  360,    0,
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360,  360,
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360,  360,
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360,  360,
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360,  360,
+> +
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360,  360,
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360,  360,
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360
+>      } ;
+>=20
+> -static const flex_int16_t yy_nxt[940] =3D
+> +static const flex_int16_t yy_nxt[951] =3D
+>      {   0,
+>          6,    7,    8,    9,    6,    6,    6,    6,   10,   11,
+>         12,   13,   14,   15,   16,   17,   18,   19,   17,   17,
+>         17,   17,   20,   17,   21,   22,   23,   24,   25,   17,
+>         26,   17,   17,   17,   32,   32,   33,   32,   32,   33,
+>         36,   34,   36,   42,   34,   29,   29,   29,   30,   35,
+> -       50,   36,   37,   38,   43,   44,   39,   36,   79,   45,
+> +       50,   36,   37,   38,   43,   44,   39,   36,   80,   45,
+>         36,   36,   40,   29,   29,   29,   30,   35,   46,   48,
+>         37,   38,   41,   47,   36,   49,   36,   53,   36,   36,
+> -       36,   56,   58,   36,   36,   55,   82,   60,   51,  342,
+> -       54,   61,   52,   29,   64,   32,   32,   33,   36,   65,
+> -
+> -       70,   36,   34,   29,   29,   29,   30,   36,   36,   36,
+> -       29,   38,   66,   66,   66,   67,   66,   71,   74,   66,
+> -       68,   72,   36,   36,   73,   36,   77,   78,   36,   76,
+> -       36,   53,   36,   36,   75,   85,   80,   83,   36,   86,
+> -       84,   36,   36,   36,   36,   81,   36,   36,   36,   36,
+> -       36,   36,   93,   89,  337,   98,   88,   29,   64,  101,
+> -       90,   36,   91,   65,   92,   87,   29,   95,   89,   99,
+> -       36,  100,   96,   36,   36,   36,   36,   36,   36,  106,
+> -      105,   85,   36,   36,  102,   36,  107,   36,  103,   36,
+> -      109,  112,   36,   36,  104,  108,  115,  110,   36,  117,
+> -
+> -       36,   36,   36,  335,   36,   36,  122,  111,   29,   29,
+> -       29,   30,  118,   36,  116,   29,   38,   36,   36,  113,
+> -      114,  119,  120,  123,   36,   29,   95,  121,   36,  134,
+> -      131,   96,  130,   36,  125,  124,  126,  126,   66,  127,
+> -      126,  132,  133,  126,  129,  333,   36,   36,  135,  137,
+> -       36,   36,   36,  140,  139,   35,   35,  352,   36,   36,
+> -       85,  141,  141,   66,  142,  141,  160,  145,  141,  144,
+> -       35,   35,   89,  117,  155,   36,  146,  147,  147,   66,
+> -      148,  147,  162,   36,  147,  150,  151,  151,   66,  152,
+> -      151,   36,   36,  151,  154,  120,  161,   36,  156,  156,
+> -
+> -       66,  157,  156,   36,   36,  156,  159,  164,  171,  163,
+> -       29,  166,   29,  168,   36,   36,  167,  170,  169,   35,
+> -       35,  172,   36,   36,  173,   36,  213,  184,   36,   36,
+> -      175,   36,  174,   29,  186,  212,   36,  349,  183,  187,
+> -      177,  176,  178,  178,   66,  179,  178,  182,  348,  178,
+> -      181,   29,  188,   35,   35,   35,   35,  189,   29,  193,
+> -       29,  195,  190,   36,  194,   36,  196,   29,  198,   29,
+> -      200,  191,   36,  199,   36,  201,  219,   29,  204,   29,
+> -      206,   36,  202,  205,  209,  207,   29,  166,   36,  293,
+> -      208,  214,  167,   35,   35,   35,   35,   35,   35,   36,
+> -
+> -       36,   36,  249,  218,  220,   29,  222,  216,   36,  217,
+> -      235,  223,   29,  224,  215,  226,   36,  227,  225,  346,
+> -       35,   35,   36,  228,  228,   66,  229,  228,   29,  186,
+> -      228,  231,  232,   36,  187,  233,   35,   29,  193,   29,
+> -      198,  234,   36,  194,  344,  199,   29,  204,  236,   36,
+> -       35,  241,  205,  242,   36,   35,   35,  270,   35,   35,
+> -       35,   35,  247,   36,   35,   35,   29,  222,  244,  262,
+> -      248,   36,  223,  243,  245,  246,   35,  252,   29,  254,
+> -       29,  256,  258,  342,  255,  259,  257,   35,   35,  339,
+> -       35,   35,   69,  264,   35,   35,   35,   35,   35,   35,
+> -
+> -      267,   35,   35,  275,   35,   35,   35,   35,  271,   35,
+> -       35,  276,  277,   35,   35,  272,  278,  315,  273,  281,
+> -       29,  254,  290,  313,  282,  275,  255,  285,  285,   66,
+> -      286,  285,   35,   35,  285,  288,  295,  298,  296,   35,
+> -       35,   35,   35,  298,  301,  328,  299,  294,   35,   35,
+> -      275,   35,   35,   35,  303,   29,  305,  300,  275,   29,
+> -      307,  306,   35,   35,  302,  308,  337,   36,   35,   35,
+> -      309,  310,  320,  316,   35,   35,   35,   35,  322,   36,
+> -       35,   35,  317,  275,  319,  311,   29,  305,  335,  275,
+> -      318,  321,  306,  323,   35,   35,   35,   35,  330,  329,
+> -
+> -       35,   35,  331,  333,  327,   35,   35,  338,   35,   35,
+> -      353,  340,   35,   35,  350,  325,  275,  315,   35,   35,
+> -       27,   27,   27,   27,   29,   29,   29,   31,   31,   31,
+> -       31,   36,   36,   36,   36,   62,  313,   62,   62,   63,
+> -       63,   63,   63,   65,  269,   65,   65,   35,   35,   35,
+> -       35,   69,   69,  261,   69,   94,   94,   94,   94,   96,
+> -      251,   96,   96,  128,  128,  128,  128,  143,  143,  143,
+> -      143,  149,  149,  149,  149,  153,  153,  153,  153,  158,
+> -      158,  158,  158,  165,  165,  165,  165,  167,  298,  167,
+> -      167,  180,  180,  180,  180,  185,  185,  185,  185,  187,
+> -
+> -      292,  187,  187,  192,  192,  192,  192,  194,  240,  194,
+> -      194,  197,  197,  197,  197,  199,  289,  199,  199,  203,
+> -      203,  203,  203,  205,  284,  205,  205,  210,  210,  210,
+> -      210,  169,  280,  169,  169,  221,  221,  221,  221,  223,
+> -      269,  223,  223,  230,  230,  230,  230,  189,  266,  189,
+> -      189,  196,  211,  196,  196,  201,  261,  201,  201,  207,
+> -      251,  207,  207,  237,  237,  237,  237,  239,  239,  239,
+> -      239,  225,  240,  225,  225,  250,  250,  250,  250,  253,
+> -      253,  253,  253,  255,  238,  255,  255,  260,  260,  260,
+> -      260,  263,  263,  263,  263,  265,  265,  265,  265,  268,
+> -
+> -      268,  268,  268,  274,  274,  274,  274,  279,  279,  279,
+> -      279,  257,  211,  257,  257,  283,  283,  283,  283,  287,
+> -      287,  287,  287,  264,  138,  264,  264,  291,  291,  291,
+> -      291,  297,  297,  297,  297,  304,  304,  304,  304,  306,
+> -      136,  306,  306,  312,  312,  312,  312,  314,  314,  314,
+> -      314,  308,   97,  308,  308,  324,  324,  324,  324,  326,
+> -      326,  326,  326,  332,  332,  332,  332,  334,  334,  334,
+> -      334,  336,  336,  336,  336,  341,  341,  341,  341,  343,
+> -      343,  343,  343,  345,  345,  345,  345,  347,  347,  347,
+> -      347,  351,  351,  351,  351,   36,   30,   59,   57,   36,
+> -
+> -       30,  354,   28,   28,    5,  354,  354,  354,  354,  354,
+> -      354,  354,  354,  354,  354,  354,  354,  354,  354,  354,
+> -      354,  354,  354,  354,  354,  354,  354,  354,  354,  354,
+> -      354,  354,  354,  354,  354,  354,  354,  354,  354
+> +       36,   56,   58,   36,   53,   55,   36,   36,   51,   60,
+> +       54,   84,   52,   61,   62,   29,   65,   32,   32,   33,
+> +
+> +       36,   66,   71,   36,   34,   29,   29,   29,   30,   36,
+> +       36,   36,   29,   38,   67,   67,   67,   68,   67,   72,
+> +       75,   67,   69,   73,   36,   36,   74,   36,   78,   79,
+> +       36,   77,   36,   36,   36,   83,   76,   36,   81,   85,
+> +       36,   87,   36,   86,   36,   36,   36,   82,   89,   36,
+> +       36,   36,   36,   94,   90,   36,  100,   88,   36,   36,
+> +       92,   91,   93,  101,   90,   29,   65,   95,   29,   97,
+> +      102,   66,   36,   36,   98,   36,   36,  106,   36,   36,
+> +      125,  108,  107,  103,   36,   36,   36,   86,   36,  104,
+> +      105,   36,  109,   36,  111,   36,   36,  110,  112,  114,
+> +
+> +      117,   36,   36,  119,  120,   36,  348,   36,   36,  138,
+> +       36,  113,   29,   29,   29,   30,  124,  118,   36,   29,
+> +       38,   36,   36,  115,  116,  121,  122,  126,   36,   29,
+> +       97,  123,   36,   36,  134,   98,  127,  133,  140,   36,
+> +       36,   36,  128,  129,  129,   67,  130,  129,  135,  136,
+> +      129,  132,   36,   36,   36,   36,  137,  142,  181,  143,
+> +       86,  144,  144,   67,  145,  144,   35,   35,  144,  147,
+> +       35,   35,   90,  119,  180,   36,  149,   36,  148,  150,
+> +      150,   67,  151,  150,   36,  163,  150,  153,  154,  154,
+> +       67,  155,  154,   36,   36,  154,  157,  164,  122,  158,
+> +
+> +       36,  159,  159,   67,  160,  159,  165,   36,  159,  162,
+> +       36,   36,  167,   29,  170,  168,   29,  172,  166,  171,
+> +       36,  175,  173,   35,   35,  176,   36,   36,  177,   36,
+> +      188,  343,   36,  174,   36,  218,  178,  217,   36,   36,
+> +       36,  179,  182,  182,   67,  183,  182,  187,  186,  182,
+> +      185,   29,  190,   29,  192,   35,   35,  191,  206,  193,
+> +       35,   35,   29,  197,  194,   29,  199,   36,  198,   29,
+> +      202,  200,   29,  204,   36,  203,  195,   36,  205,   29,
+> +      208,   29,  210,   29,  170,  209,  213,  211,  341,  171,
+> +       36,  216,  212,  219,   35,   35,   35,   35,   35,   35,
+> +
+> +       36,  224,   36,  244,  223,  225,   36,  339,  221,   36,
+> +      222,   29,  227,   29,  229,  220,  255,  228,  232,  230,
+> +      231,   36,   36,   36,  233,  233,   67,  234,  233,   29,
+> +      190,  233,  236,   35,   35,  191,  238,   35,   29,  197,
+> +       29,  202,  239,   36,  198,  237,  203,   29,  208,   36,
+> +      241,   36,  281,  209,   35,  247,  248,   36,  358,  240,
+> +       35,   35,   35,   35,   35,   35,  253,   36,   35,   35,
+> +      355,   29,  227,  250,  254,  322,  249,  228,  251,  252,
+> +       35,  258,   29,  260,   29,  262,  264,   36,  261,  265,
+> +      263,   35,   35,   36,   35,   35,  268,  316,   36,   70,
+> +
+> +      270,   35,   35,   35,   35,   35,   35,  273,   35,   35,
+> +      281,  276,   35,   35,  304,  277,   35,   35,  282,  283,
+> +       35,   35,  278,  305,  284,  279,  287,   29,  260,   35,
+> +       35,  288,   36,  261,  291,  291,   67,  292,  291,   35,
+> +       35,  291,  294,  304,  354,  296,  301,  299,  302,   35,
+> +       35,   35,   35,  307,  300,   35,   35,  306,   35,  309,
+> +       35,   35,   29,  311,   29,  313,   35,   35,  312,  281,
+> +      314,  308,   35,   35,  315,   35,   35,   35,   35,  326,
+> +       29,  311,  328,   36,  281,  325,  312,   35,   35,  317,
+> +      281,  324,  327,  323,  329,   35,   35,   35,   35,  336,
+> +
+> +      281,   35,   35,  352,  334,  337,  335,  350,   35,   35,
+> +       35,   35,  359,  346,   35,   35,  356,  348,  344,  345,
+> +       35,   35,   27,   27,   27,   27,   29,   29,   29,   31,
+> +       31,   31,   31,   36,   36,   36,   36,   63,  321,   63,
+> +       63,   64,   64,   64,   64,   66,  319,   66,   66,   35,
+> +       35,   35,   35,   70,   70,  343,   70,   96,   96,   96,
+> +       96,   98,  341,   98,   98,  131,  131,  131,  131,  146,
+> +      146,  146,  146,  152,  152,  152,  152,  156,  156,  156,
+> +      156,  161,  161,  161,  161,  169,  169,  169,  169,  171,
+> +      339,  171,  171,  184,  184,  184,  184,  189,  189,  189,
+> +
+> +      189,  191,  333,  191,  191,  196,  196,  196,  196,  198,
+> +      331,  198,  198,  201,  201,  201,  201,  203,  281,  203,
+> +      203,  207,  207,  207,  207,  209,  321,  209,  209,  214,
+> +      214,  214,  214,  173,  319,  173,  173,  226,  226,  226,
+> +      226,  228,  275,  228,  228,  235,  235,  235,  235,  193,
+> +      267,  193,  193,  200,  257,  200,  200,  205,  304,  205,
+> +      205,  211,  298,  211,  211,  242,  242,  242,  242,  245,
+> +      245,  245,  245,  230,  246,  230,  230,  256,  256,  256,
+> +      256,  259,  259,  259,  259,  261,  295,  261,  261,  266,
+> +      266,  266,  266,  269,  269,  269,  269,  271,  271,  271,
+> +
+> +      271,  274,  274,  274,  274,  280,  280,  280,  280,  285,
+> +      285,  285,  285,  263,  290,  263,  263,  289,  289,  289,
+> +      289,  293,  293,  293,  293,  270,  286,  270,  270,  297,
+> +      297,  297,  297,  303,  303,  303,  303,  310,  310,  310,
+> +      310,  312,  275,  312,  312,  318,  318,  318,  318,  320,
+> +      320,  320,  320,  314,  272,  314,  314,  330,  330,  330,
+> +      330,  332,  332,  332,  332,  338,  338,  338,  338,  340,
+> +      340,  340,  340,  342,  342,  342,  342,  347,  347,  347,
+> +      347,  349,  349,  349,  349,  351,  351,  351,  351,  353,
+> +      353,  353,  353,  357,  357,  357,  357,  215,  267,  257,
+> +
+> +      246,  243,  215,  141,  139,   99,   36,   30,   59,   57,
+> +       36,   30,  360,   28,   28,    5,  360,  360,  360,  360,
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360,  360,
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360,  360,
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360,  360
+>      } ;
+>=20
+> -static const flex_int16_t yy_chk[940] =3D
+> +static const flex_int16_t yy_chk[951] =3D
+>      {   0,
+>          1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+>          1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+> @@ -927,101 +930,102 @@ static const flex_int16_t yy_chk[940] =3D
+>         18,   14,   11,   11,   13,   14,   11,   46,   46,   14,
+>         15,   16,   11,   12,   12,   12,   12,   12,   14,   16,
+>         12,   12,   12,   15,   19,   16,   20,   20,   21,   22,
+> -       24,   22,   24,   50,   26,   21,   50,   26,   19,  351,
+> -       20,   26,   19,   31,   31,   32,   32,   32,   39,   31,
+> -
+> -       39,   42,   32,   35,   35,   35,   35,   40,   44,   45,
+> -       35,   35,   37,   37,   37,   37,   37,   39,   42,   37,
+> -       37,   40,   41,   43,   41,   48,   45,   45,   49,   44,
+> -       47,   47,   53,   51,   43,   53,   48,   51,   52,   54,
+> -       52,   55,   56,   58,   54,   49,   57,   59,   60,   73,
+> -       61,   70,   60,   61,  347,   70,   56,   63,   63,   73,
+> -       58,   71,   59,   63,   59,   55,   66,   66,   57,   71,
+> -       74,   72,   66,   72,   75,   76,   77,   78,   79,   78,
+> -       77,   79,   80,   81,   74,   83,   80,   82,   75,   84,
+> -       82,   85,   88,   85,   76,   81,   87,   83,   87,   89,
+> -
+> -       92,   89,   93,  345,   90,  104,   92,   84,   86,   86,
+> -       86,   86,   90,   99,   88,   86,   86,   98,  102,   86,
+> -       86,   91,   91,   93,   91,   94,   94,   91,  101,  104,
+> -      102,   94,  101,  110,   99,   98,  100,  100,  100,  100,
+> -      100,  103,  103,  100,  100,  343,  105,  103,  105,  107,
+> -      109,  107,  111,  110,  109,  113,  113,  341,  121,  118,
+> -      111,  112,  112,  112,  112,  112,  121,  113,  112,  112,
+> -      114,  114,  116,  116,  118,  116,  114,  115,  115,  115,
+> -      115,  115,  123,  123,  115,  115,  117,  117,  117,  117,
+> -      117,  124,  122,  117,  117,  119,  122,  119,  120,  120,
+> -
+> -      120,  120,  120,  125,  130,  120,  120,  125,  131,  124,
+> -      126,  126,  128,  128,  131,  134,  126,  130,  128,  133,
+> -      133,  133,  135,  136,  133,  139,  164,  140,  138,  140,
+> -      134,  164,  133,  141,  141,  163,  163,  338,  139,  141,
+> -      136,  135,  137,  137,  137,  137,  137,  138,  336,  137,
+> -      137,  143,  143,  145,  145,  146,  146,  143,  147,  147,
+> -      149,  149,  145,  155,  147,  161,  149,  151,  151,  153,
+> -      153,  146,  160,  151,  270,  153,  176,  156,  156,  158,
+> -      158,  176,  155,  156,  161,  158,  165,  165,  170,  270,
+> -      160,  170,  165,  172,  172,  173,  173,  174,  174,  175,
+> -
+> -      208,  177,  220,  175,  177,  178,  178,  173,  220,  174,
+> -      208,  178,  180,  180,  172,  182,  182,  183,  180,  334,
+> -      190,  190,  183,  184,  184,  184,  184,  184,  185,  185,
+> -      184,  184,  190,  243,  185,  191,  191,  192,  192,  197,
+> -      197,  202,  202,  192,  332,  197,  203,  203,  209,  209,
+> -      213,  213,  203,  214,  214,  215,  215,  243,  216,  216,
+> -      217,  217,  218,  218,  219,  219,  221,  221,  215,  235,
+> -      219,  235,  221,  214,  216,  217,  227,  227,  228,  228,
+> -      230,  230,  232,  331,  228,  233,  230,  233,  233,  329,
+> -      232,  232,  236,  236,  241,  241,  244,  244,  245,  245,
+> -
+> -      241,  246,  246,  247,  248,  248,  267,  267,  244,  259,
+> -      259,  247,  247,  252,  252,  245,  248,  326,  246,  252,
+> -      253,  253,  267,  324,  259,  316,  253,  262,  262,  262,
+> -      262,  262,  271,  271,  262,  262,  272,  276,  273,  272,
+> -      272,  273,  273,  277,  278,  316,  276,  271,  281,  281,
+> -      299,  278,  278,  282,  282,  285,  285,  277,  300,  287,
+> -      287,  285,  290,  290,  281,  287,  323,  293,  294,  294,
+> -      290,  293,  303,  299,  301,  301,  302,  302,  310,  310,
+> -      303,  303,  300,  317,  302,  294,  304,  304,  322,  328,
+> -      301,  309,  304,  311,  309,  309,  311,  311,  318,  317,
+> -
+> -      318,  318,  319,  321,  314,  319,  319,  328,  330,  330,
+> -      350,  330,  340,  340,  340,  312,  297,  296,  350,  350,
+> -      355,  355,  355,  355,  356,  356,  356,  357,  357,  357,
+> -      357,  358,  358,  358,  358,  359,  295,  359,  359,  360,
+> -      360,  360,  360,  361,  291,  361,  361,  362,  362,  362,
+> -      362,  363,  363,  283,  363,  364,  364,  364,  364,  365,
+> -      279,  365,  365,  366,  366,  366,  366,  367,  367,  367,
+> -      367,  368,  368,  368,  368,  369,  369,  369,  369,  370,
+> -      370,  370,  370,  371,  371,  371,  371,  372,  274,  372,
+> -      372,  373,  373,  373,  373,  374,  374,  374,  374,  375,
+> -
+> -      268,  375,  375,  376,  376,  376,  376,  377,  265,  377,
+> -      377,  378,  378,  378,  378,  379,  263,  379,  379,  380,
+> -      380,  380,  380,  381,  260,  381,  381,  382,  382,  382,
+> -      382,  383,  250,  383,  383,  384,  384,  384,  384,  385,
+> -      242,  385,  385,  386,  386,  386,  386,  387,  239,  387,
+> -      387,  388,  237,  388,  388,  389,  234,  389,  389,  390,
+> -      226,  390,  390,  391,  391,  391,  391,  392,  392,  392,
+> -      392,  393,  212,  393,  393,  394,  394,  394,  394,  395,
+> -      395,  395,  395,  396,  210,  396,  396,  397,  397,  397,
+> -      397,  398,  398,  398,  398,  399,  399,  399,  399,  400,
+> -
+> -      400,  400,  400,  401,  401,  401,  401,  402,  402,  402,
+> -      402,  403,  162,  403,  403,  404,  404,  404,  404,  405,
+> -      405,  405,  405,  406,  108,  406,  406,  407,  407,  407,
+> -      407,  408,  408,  408,  408,  409,  409,  409,  409,  410,
+> -      106,  410,  410,  411,  411,  411,  411,  412,  412,  412,
+> -      412,  413,   69,  413,  413,  414,  414,  414,  414,  415,
+> -      415,  415,  415,  416,  416,  416,  416,  417,  417,  417,
+> -      417,  418,  418,  418,  418,  419,  419,  419,  419,  420,
+> -      420,  420,  420,  421,  421,  421,  421,  422,  422,  422,
+> -      422,  423,  423,  423,  423,   36,   29,   25,   23,   17,
+> -
+> -        6,    5,    4,    3,  354,  354,  354,  354,  354,  354,
+> -      354,  354,  354,  354,  354,  354,  354,  354,  354,  354,
+> -      354,  354,  354,  354,  354,  354,  354,  354,  354,  354,
+> -      354,  354,  354,  354,  354,  354,  354,  354,  354
+> +       24,   22,   24,   47,   47,   21,   26,   51,   19,   26,
+> +       20,   51,   19,   26,   26,   31,   31,   32,   32,   32,
+> +
+> +       39,   31,   39,   42,   32,   35,   35,   35,   35,   40,
+> +       44,   45,   35,   35,   37,   37,   37,   37,   37,   39,
+> +       42,   37,   37,   40,   41,   43,   41,   48,   45,   45,
+> +       49,   44,   50,   55,   56,   50,   43,   52,   48,   52,
+> +       53,   54,   57,   53,   58,   59,   54,   49,   56,   60,
+> +       62,   61,   71,   60,   61,   72,   71,   55,   77,   94,
+> +       59,   58,   59,   72,   57,   64,   64,   62,   67,   67,
+> +       73,   64,   73,   74,   67,   75,   76,   77,   78,   79,
+> +       94,   79,   78,   74,   80,   82,   84,   80,   81,   75,
+> +       76,   83,   81,   85,   83,   89,   91,   82,   84,   86,
+> +
+> +       88,   86,   88,   90,   91,   90,  357,  107,   95,  107,
+> +       93,   85,   87,   87,   87,   87,   93,   89,  100,   87,
+> +       87,  101,  104,   87,   87,   92,   92,   95,   92,   96,
+> +       96,   92,  106,  103,  104,   96,  100,  103,  109,  112,
+> +      109,  139,  101,  102,  102,  102,  102,  102,  105,  105,
+> +      102,  102,  113,  111,  105,  138,  106,  111,  139,  112,
+> +      113,  114,  114,  114,  114,  114,  115,  115,  114,  114,
+> +      116,  116,  118,  118,  138,  118,  116,  123,  115,  117,
+> +      117,  117,  117,  117,  120,  123,  117,  117,  119,  119,
+> +      119,  119,  119,  124,  127,  119,  119,  124,  121,  120,
+> +
+> +      121,  122,  122,  122,  122,  122,  125,  125,  122,  122,
+> +      126,  128,  127,  129,  129,  128,  131,  131,  126,  129,
+> +      133,  134,  131,  136,  136,  136,  137,  134,  136,  141,
+> +      143,  353,  143,  133,  142,  168,  136,  167,  167,  158,
+> +      168,  137,  140,  140,  140,  140,  140,  142,  141,  140,
+> +      140,  144,  144,  146,  146,  148,  148,  144,  158,  146,
+> +      149,  149,  150,  150,  148,  152,  152,  164,  150,  154,
+> +      154,  152,  156,  156,  163,  154,  149,  166,  156,  159,
+> +      159,  161,  161,  169,  169,  159,  164,  161,  351,  169,
+> +      174,  166,  163,  174,  176,  176,  177,  177,  178,  178,
+> +
+> +      179,  180,  181,  216,  179,  181,  180,  349,  177,  216,
+> +      178,  182,  182,  184,  184,  176,  225,  182,  187,  184,
+> +      186,  186,  225,  187,  188,  188,  188,  188,  188,  189,
+> +      189,  188,  188,  194,  194,  189,  195,  195,  196,  196,
+> +      201,  201,  206,  206,  196,  194,  201,  207,  207,  212,
+> +      213,  213,  305,  207,  218,  218,  219,  219,  347,  212,
+> +      220,  220,  221,  221,  222,  222,  223,  223,  224,  224,
+> +      344,  226,  226,  220,  224,  305,  219,  226,  221,  222,
+> +      232,  232,  233,  233,  235,  235,  237,  249,  233,  238,
+> +      235,  238,  238,  299,  237,  237,  240,  299,  240,  241,
+> +
+> +      241,  247,  247,  250,  250,  251,  251,  247,  252,  252,
+> +      253,  249,  254,  254,  282,  250,  265,  265,  253,  253,
+> +      258,  258,  251,  282,  254,  252,  258,  259,  259,  273,
+> +      273,  265,  276,  259,  268,  268,  268,  268,  268,  277,
+> +      277,  268,  268,  283,  342,  273,  278,  276,  279,  278,
+> +      278,  279,  279,  284,  277,  287,  287,  283,  288,  288,
+> +      284,  284,  291,  291,  293,  293,  296,  296,  291,  306,
+> +      293,  287,  300,  300,  296,  307,  307,  308,  308,  309,
+> +      310,  310,  316,  316,  322,  308,  310,  309,  309,  300,
+> +      323,  307,  315,  306,  317,  315,  315,  317,  317,  324,
+> +
+> +      334,  324,  324,  340,  322,  325,  323,  338,  325,  325,
+> +      336,  336,  356,  336,  346,  346,  346,  337,  334,  335,
+> +      356,  356,  361,  361,  361,  361,  362,  362,  362,  363,
+> +      363,  363,  363,  364,  364,  364,  364,  365,  332,  365,
+> +      365,  366,  366,  366,  366,  367,  330,  367,  367,  368,
+> +      368,  368,  368,  369,  369,  329,  369,  370,  370,  370,
+> +      370,  371,  328,  371,  371,  372,  372,  372,  372,  373,
+> +      373,  373,  373,  374,  374,  374,  374,  375,  375,  375,
+> +      375,  376,  376,  376,  376,  377,  377,  377,  377,  378,
+> +      327,  378,  378,  379,  379,  379,  379,  380,  380,  380,
+> +
+> +      380,  381,  320,  381,  381,  382,  382,  382,  382,  383,
+> +      318,  383,  383,  384,  384,  384,  384,  385,  303,  385,
+> +      385,  386,  386,  386,  386,  387,  302,  387,  387,  388,
+> +      388,  388,  388,  389,  301,  389,  389,  390,  390,  390,
+> +      390,  391,  297,  391,  391,  392,  392,  392,  392,  393,
+> +      289,  393,  393,  394,  285,  394,  394,  395,  280,  395,
+> +      395,  396,  274,  396,  396,  397,  397,  397,  397,  398,
+> +      398,  398,  398,  399,  271,  399,  399,  400,  400,  400,
+> +      400,  401,  401,  401,  401,  402,  269,  402,  402,  403,
+> +      403,  403,  403,  404,  404,  404,  404,  405,  405,  405,
+> +
+> +      405,  406,  406,  406,  406,  407,  407,  407,  407,  408,
+> +      408,  408,  408,  409,  266,  409,  409,  410,  410,  410,
+> +      410,  411,  411,  411,  411,  412,  256,  412,  412,  413,
+> +      413,  413,  413,  414,  414,  414,  414,  415,  415,  415,
+> +      415,  416,  248,  416,  416,  417,  417,  417,  417,  418,
+> +      418,  418,  418,  419,  245,  419,  419,  420,  420,  420,
+> +      420,  421,  421,  421,  421,  422,  422,  422,  422,  423,
+> +      423,  423,  423,  424,  424,  424,  424,  425,  425,  425,
+> +      425,  426,  426,  426,  426,  427,  427,  427,  427,  428,
+> +      428,  428,  428,  429,  429,  429,  429,  242,  239,  231,
+> +
+> +      217,  214,  165,  110,  108,   70,   36,   29,   25,   23,
+> +       17,    6,    5,    4,    3,  360,  360,  360,  360,  360,
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360,  360,
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360,  360,
+> +      360,  360,  360,  360,  360,  360,  360,  360,  360,  360
+>      } ;
+>=20
+>  #define YY_TRAILING_MASK 0x2000
+> @@ -1199,9 +1203,9 @@ static int vdev_and_devtype(DiskParseContext
+> *dpc, char *str) {
+>  #undef DPC /* needs to be defined differently the actual lexer */
+>  #define DPC ((DiskParseContext*)yyextra)
+>=20
+> -#line 1202 "libxlu_disk_l.c"
+> +#line 1206 "libxlu_disk_l.c"
+>=20
+> -#line 1204 "libxlu_disk_l.c"
+> +#line 1208 "libxlu_disk_l.c"
+>=20
+>  #define INITIAL 0
+>  #define LEXERR 1
+> @@ -1483,7 +1487,7 @@ YY_DECL
+>  #line 180 "libxlu_disk_l.l"
+>   /*----- the scanner rules which do the parsing -----*/
+>=20
+> -#line 1486 "libxlu_disk_l.c"
+> +#line 1490 "libxlu_disk_l.c"
+>=20
+>  	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is
+> reached */
+>  		{
+> @@ -1515,14 +1519,14 @@ yy_match:
+>  			while ( yy_chk[yy_base[yy_current_state] + yy_c] !=3D
+> yy_current_state )
+>  				{
+>  				yy_current_state =3D (int)
+> yy_def[yy_current_state];
+> -				if ( yy_current_state >=3D 355 )
+> +				if ( yy_current_state >=3D 361 )
+>  					yy_c =3D yy_meta[yy_c];
+>  				}
+>  			yy_current_state =3D yy_nxt[yy_base[yy_current_state]
+> + yy_c];
+>  			*yyg->yy_state_ptr++ =3D yy_current_state;
+>  			++yy_cp;
+>  			}
+> -		while ( yy_current_state !=3D 354 );
+> +		while ( yy_current_state !=3D 360 );
+>=20
+>  yy_find_action:
+>  		yy_current_state =3D *--yyg->yy_state_ptr;
+> @@ -1648,76 +1652,81 @@ YY_RULE_SETUP
+>  #line 201 "libxlu_disk_l.l"
+>  { libxl_defbool_set(&DPC->disk->discard_enable, false); }
+>  	YY_BREAK
+> -/* Note that the COLO configuration settings should be considered unstab=
+le.
+> -  * They may change incompatibly in future versions of Xen. */
+>  case 15:
+>  YY_RULE_SETUP
+> -#line 204 "libxlu_disk_l.l"
+> -{ libxl_defbool_set(&DPC->disk->colo_enable, true); }
+> +#line 202 "libxlu_disk_l.l"
+> +{ DPC->disk->virtio =3D 1; }
+>  	YY_BREAK
+> +/* Note that the COLO configuration settings should be considered unstab=
+le.
+> +  * They may change incompatibly in future versions of Xen. */
+>  case 16:
+>  YY_RULE_SETUP
+>  #line 205 "libxlu_disk_l.l"
+> -{ libxl_defbool_set(&DPC->disk->colo_enable, false); }
+> +{ libxl_defbool_set(&DPC->disk->colo_enable, true); }
+>  	YY_BREAK
+>  case 17:
+> -/* rule 17 can match eol */
+>  YY_RULE_SETUP
+>  #line 206 "libxlu_disk_l.l"
+> -{ STRIP(','); SAVESTRING("colo-host", colo_host, FROMEQUALS); }
+> +{ libxl_defbool_set(&DPC->disk->colo_enable, false); }
+>  	YY_BREAK
+>  case 18:
+>  /* rule 18 can match eol */
+>  YY_RULE_SETUP
+>  #line 207 "libxlu_disk_l.l"
+> -{ STRIP(','); setcoloport(DPC, FROMEQUALS); }
+> +{ STRIP(','); SAVESTRING("colo-host", colo_host, FROMEQUALS); }
+>  	YY_BREAK
+>  case 19:
+>  /* rule 19 can match eol */
+>  YY_RULE_SETUP
+>  #line 208 "libxlu_disk_l.l"
+> -{ STRIP(','); SAVESTRING("colo-export", colo_export, FROMEQUALS); }
+> +{ STRIP(','); setcoloport(DPC, FROMEQUALS); }
+>  	YY_BREAK
+>  case 20:
+>  /* rule 20 can match eol */
+>  YY_RULE_SETUP
+>  #line 209 "libxlu_disk_l.l"
+> -{ STRIP(','); SAVESTRING("active-disk", active_disk, FROMEQUALS); }
+> +{ STRIP(','); SAVESTRING("colo-export", colo_export, FROMEQUALS); }
+>  	YY_BREAK
+>  case 21:
+>  /* rule 21 can match eol */
+>  YY_RULE_SETUP
+>  #line 210 "libxlu_disk_l.l"
+> +{ STRIP(','); SAVESTRING("active-disk", active_disk, FROMEQUALS); }
+> +	YY_BREAK
+> +case 22:
+> +/* rule 22 can match eol */
+> +YY_RULE_SETUP
+> +#line 211 "libxlu_disk_l.l"
+>  { STRIP(','); SAVESTRING("hidden-disk", hidden_disk, FROMEQUALS); }
+>  	YY_BREAK
+>  /* the target magic parameter, eats the rest of the string */
+> -case 22:
+> +case 23:
+>  YY_RULE_SETUP
+> -#line 214 "libxlu_disk_l.l"
+> +#line 215 "libxlu_disk_l.l"
+>  { STRIP(','); SAVESTRING("target", pdev_path, FROMEQUALS); }
+>  	YY_BREAK
+>  /* unknown parameters */
+> -case 23:
+> -/* rule 23 can match eol */
+> +case 24:
+> +/* rule 24 can match eol */
+>  YY_RULE_SETUP
+> -#line 218 "libxlu_disk_l.l"
+> +#line 219 "libxlu_disk_l.l"
+>  { xlu__disk_err(DPC,yytext,"unknown parameter"); }
+>  	YY_BREAK
+>  /* deprecated prefixes */
+>  /* the "/.*" in these patterns ensures that they count as if they
+>     * matched the whole string, so these patterns take precedence */
+> -case 24:
+> +case 25:
+>  YY_RULE_SETUP
+> -#line 225 "libxlu_disk_l.l"
+> +#line 226 "libxlu_disk_l.l"
+>  {
+>                      STRIP(':');
+>                      DPC->had_depr_prefix=3D1; DEPRECATE("use `[format=3D=
+]...,'");
+>                      setformat(DPC, yytext);
+>                   }
+>  	YY_BREAK
+> -case 25:
+> +case 26:
+>  YY_RULE_SETUP
+> -#line 231 "libxlu_disk_l.l"
+> +#line 232 "libxlu_disk_l.l"
+>  {
+>                      char *newscript;
+>                      STRIP(':');
+> @@ -1731,30 +1740,22 @@ YY_RULE_SETUP
+>                      free(newscript);
+>                  }
+>  	YY_BREAK
+> -case 26:
+> +case 27:
+>  *yy_cp =3D yyg->yy_hold_char; /* undo effects of setting up yytext */
+>  yyg->yy_c_buf_p =3D yy_cp =3D yy_bp + 8;
+>  YY_DO_BEFORE_ACTION; /* set up yytext again */
+>  YY_RULE_SETUP
+> -#line 244 "libxlu_disk_l.l"
+> -{ DPC->had_depr_prefix=3D1; DEPRECATE(0); }
+> -	YY_BREAK
+> -case 27:
+> -YY_RULE_SETUP
+>  #line 245 "libxlu_disk_l.l"
+>  { DPC->had_depr_prefix=3D1; DEPRECATE(0); }
+>  	YY_BREAK
+>  case 28:
+> -*yy_cp =3D yyg->yy_hold_char; /* undo effects of setting up yytext */
+> -yyg->yy_c_buf_p =3D yy_cp =3D yy_bp + 4;
+> -YY_DO_BEFORE_ACTION; /* set up yytext again */
+>  YY_RULE_SETUP
+>  #line 246 "libxlu_disk_l.l"
+>  { DPC->had_depr_prefix=3D1; DEPRECATE(0); }
+>  	YY_BREAK
+>  case 29:
+>  *yy_cp =3D yyg->yy_hold_char; /* undo effects of setting up yytext */
+> -yyg->yy_c_buf_p =3D yy_cp =3D yy_bp + 6;
+> +yyg->yy_c_buf_p =3D yy_cp =3D yy_bp + 4;
+>  YY_DO_BEFORE_ACTION; /* set up yytext again */
+>  YY_RULE_SETUP
+>  #line 247 "libxlu_disk_l.l"
+> @@ -1762,7 +1763,7 @@ YY_RULE_SETUP
+>  	YY_BREAK
+>  case 30:
+>  *yy_cp =3D yyg->yy_hold_char; /* undo effects of setting up yytext */
+> -yyg->yy_c_buf_p =3D yy_cp =3D yy_bp + 5;
+> +yyg->yy_c_buf_p =3D yy_cp =3D yy_bp + 6;
+>  YY_DO_BEFORE_ACTION; /* set up yytext again */
+>  YY_RULE_SETUP
+>  #line 248 "libxlu_disk_l.l"
+> @@ -1770,26 +1771,34 @@ YY_RULE_SETUP
+>  	YY_BREAK
+>  case 31:
+>  *yy_cp =3D yyg->yy_hold_char; /* undo effects of setting up yytext */
+> -yyg->yy_c_buf_p =3D yy_cp =3D yy_bp + 4;
+> +yyg->yy_c_buf_p =3D yy_cp =3D yy_bp + 5;
+>  YY_DO_BEFORE_ACTION; /* set up yytext again */
+>  YY_RULE_SETUP
+>  #line 249 "libxlu_disk_l.l"
+>  { DPC->had_depr_prefix=3D1; DEPRECATE(0); }
+>  	YY_BREAK
+>  case 32:
+> -/* rule 32 can match eol */
+> +*yy_cp =3D yyg->yy_hold_char; /* undo effects of setting up yytext */
+> +yyg->yy_c_buf_p =3D yy_cp =3D yy_bp + 4;
+> +YY_DO_BEFORE_ACTION; /* set up yytext again */
+> +YY_RULE_SETUP
+> +#line 250 "libxlu_disk_l.l"
+> +{ DPC->had_depr_prefix=3D1; DEPRECATE(0); }
+> +	YY_BREAK
+> +case 33:
+> +/* rule 33 can match eol */
+>  YY_RULE_SETUP
+> -#line 251 "libxlu_disk_l.l"
+> +#line 252 "libxlu_disk_l.l"
+>  {
+>  		  xlu__disk_err(DPC,yytext,"unknown deprecated disk
+> prefix");
+>  		  return 0;
+>  		}
+>  	YY_BREAK
+>  /* positional parameters */
+> -case 33:
+> -/* rule 33 can match eol */
+> +case 34:
+> +/* rule 34 can match eol */
+>  YY_RULE_SETUP
+> -#line 258 "libxlu_disk_l.l"
+> +#line 259 "libxlu_disk_l.l"
+>  {
+>      STRIP(',');
+>=20
+> @@ -1816,27 +1825,27 @@ YY_RULE_SETUP
+>      }
+>  }
+>  	YY_BREAK
+> -case 34:
+> +case 35:
+>  YY_RULE_SETUP
+> -#line 284 "libxlu_disk_l.l"
+> +#line 285 "libxlu_disk_l.l"
+>  {
+>      BEGIN(LEXERR);
+>      yymore();
+>  }
+>  	YY_BREAK
+> -case 35:
+> +case 36:
+>  YY_RULE_SETUP
+> -#line 288 "libxlu_disk_l.l"
+> +#line 289 "libxlu_disk_l.l"
+>  {
+>      xlu__disk_err(DPC,yytext,"bad disk syntax"); return 0;
+>  }
+>  	YY_BREAK
+> -case 36:
+> +case 37:
+>  YY_RULE_SETUP
+> -#line 291 "libxlu_disk_l.l"
+> +#line 292 "libxlu_disk_l.l"
+>  YY_FATAL_ERROR( "flex scanner jammed" );
+>  	YY_BREAK
+> -#line 1839 "libxlu_disk_l.c"
+> +#line 1848 "libxlu_disk_l.c"
+>  			case YY_STATE_EOF(INITIAL):
+>  			case YY_STATE_EOF(LEXERR):
+>  				yyterminate();
+> @@ -2104,7 +2113,7 @@ static int yy_get_next_buffer (yyscan_t yyscanner)
+>  		while ( yy_chk[yy_base[yy_current_state] + yy_c] !=3D
+> yy_current_state )
+>  			{
+>  			yy_current_state =3D (int) yy_def[yy_current_state];
+> -			if ( yy_current_state >=3D 355 )
+> +			if ( yy_current_state >=3D 361 )
+>  				yy_c =3D yy_meta[yy_c];
+>  			}
+>  		yy_current_state =3D yy_nxt[yy_base[yy_current_state] + yy_c];
+> @@ -2128,11 +2137,11 @@ static int yy_get_next_buffer (yyscan_t
+> yyscanner)
+>  	while ( yy_chk[yy_base[yy_current_state] + yy_c] !=3D yy_current_state =
+)
+>  		{
+>  		yy_current_state =3D (int) yy_def[yy_current_state];
+> -		if ( yy_current_state >=3D 355 )
+> +		if ( yy_current_state >=3D 361 )
+>  			yy_c =3D yy_meta[yy_c];
+>  		}
+>  	yy_current_state =3D yy_nxt[yy_base[yy_current_state] + yy_c];
+> -	yy_is_jam =3D (yy_current_state =3D=3D 354);
+> +	yy_is_jam =3D (yy_current_state =3D=3D 360);
+>  	if ( ! yy_is_jam )
+>  		*yyg->yy_state_ptr++ =3D yy_current_state;
+>=20
+> @@ -2941,4 +2950,4 @@ void yyfree (void * ptr , yyscan_t yyscanner)
+>=20
+>  #define YYTABLES_NAME "yytables"
+>=20
+> -#line 291 "libxlu_disk_l.l"
+> +#line 292 "libxlu_disk_l.l"
+> diff --git a/tools/libs/util/libxlu_disk_l.h b/tools/libs/util/libxlu_dis=
+k_l.h
+> index 6abeecf..df20fcc 100644
+> --- a/tools/libs/util/libxlu_disk_l.h
+> +++ b/tools/libs/util/libxlu_disk_l.h
+> @@ -694,7 +694,7 @@ extern int yylex (yyscan_t yyscanner);
+>  #undef yyTABLES_NAME
+>  #endif
+>=20
+> -#line 291 "libxlu_disk_l.l"
+> +#line 292 "libxlu_disk_l.l"
+>=20
+>  #line 699 "libxlu_disk_l.h"
+>  #undef xlu__disk_yyIN_HEADER
+> diff --git a/tools/libs/util/libxlu_disk_l.l b/tools/libs/util/libxlu_dis=
+k_l.l
+> index 3bd639a..d68a59c 100644
+> --- a/tools/libs/util/libxlu_disk_l.l
+> +++ b/tools/libs/util/libxlu_disk_l.l
+> @@ -198,6 +198,7 @@ script=3D[^,]*,?	{ STRIP(','); SAVESTRING("script",
+> script, FROMEQUALS); }
+>  direct-io-safe,? { DPC->disk->direct_io_safe =3D 1; }
+>  discard,?	{ libxl_defbool_set(&DPC->disk->discard_enable, true); }
+>  no-discard,?	{ libxl_defbool_set(&DPC->disk->discard_enable, false); }
+> +virtio,?	{ DPC->disk->virtio =3D 1; }
+>   /* Note that the COLO configuration settings should be considered unsta=
+ble.
+>    * They may change incompatibly in future versions of Xen. */
+>  colo,?		{ libxl_defbool_set(&DPC->disk->colo_enable, true); }
+> diff --git a/tools/xl/xl_block.c b/tools/xl/xl_block.c
+> index 70eed43..50a4d45 100644
+> --- a/tools/xl/xl_block.c
+> +++ b/tools/xl/xl_block.c
+> @@ -50,6 +50,11 @@ int main_blockattach(int argc, char **argv)
+>          return 0;
+>      }
+>=20
+> +    if (disk.virtio) {
+> +        fprintf(stderr, "block-attach is not supported for Virtio device=
+\n");
+> +        return 1;
+> +    }
+> +
+>      if (libxl_device_disk_add(ctx, fe_domid, &disk, 0)) {
+>          fprintf(stderr, "libxl_device_disk_add failed.\n");
+>          return 1;
+> @@ -119,6 +124,12 @@ int main_blockdetach(int argc, char **argv)
+>          fprintf(stderr, "Error: Device %s not connected.\n", argv[optind=
++1]);
+>          return 1;
+>      }
+> +
+> +    if (disk.virtio) {
+> +        fprintf(stderr, "block-detach is not supported for Virtio device=
+\n");
+> +        return 1;
+> +    }
+> +
+>      rc =3D !force ? libxl_device_disk_safe_remove(ctx, domid, &disk, 0) =
+:
+>          libxl_device_disk_destroy(ctx, domid, &disk, 0);
+>      if (rc) {
+> --
+> 2.7.4
+>=20
+[Jiamei Xie]=20
+Tested-by: Jiamei Xie <Jiamei.xie@arm.com>
+
+Best wishes
+Jiamei Xie
+
+
 
