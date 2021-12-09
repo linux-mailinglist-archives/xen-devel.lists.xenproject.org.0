@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A82A446F586
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Dec 2021 22:02:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.243379.421010 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B711046F5AC
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Dec 2021 22:11:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.243385.421022 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvQYL-0002ob-Oz; Thu, 09 Dec 2021 21:02:09 +0000
+	id 1mvQhQ-0004pr-LW; Thu, 09 Dec 2021 21:11:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 243379.421010; Thu, 09 Dec 2021 21:02:09 +0000
+Received: by outflank-mailman (output) from mailman id 243385.421022; Thu, 09 Dec 2021 21:11:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvQYL-0002mo-M6; Thu, 09 Dec 2021 21:02:09 +0000
-Received: by outflank-mailman (input) for mailman id 243379;
- Thu, 09 Dec 2021 21:02:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mvQhQ-0004nJ-I4; Thu, 09 Dec 2021 21:11:32 +0000
+Received: by outflank-mailman (input) for mailman id 243385;
+ Thu, 09 Dec 2021 21:11:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PaQb=Q2=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1mvQYK-0002mi-33
- for xen-devel@lists.xenproject.org; Thu, 09 Dec 2021 21:02:08 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 442726d5-5933-11ec-a831-37629979565c;
- Thu, 09 Dec 2021 22:02:06 +0100 (CET)
+ <SRS0=PYs1=Q2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1mvQhP-0004nD-A7
+ for xen-devel@lists.xenproject.org; Thu, 09 Dec 2021 21:11:31 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 92841e3e-5934-11ec-9d12-4777fae47e2b;
+ Thu, 09 Dec 2021 22:11:28 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 0BF01CE288B;
+ Thu,  9 Dec 2021 21:11:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 240EEC004DD;
+ Thu,  9 Dec 2021 21:11:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,75 +43,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 442726d5-5933-11ec-a831-37629979565c
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1639083725;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xxqdvbsXfW9ZTgMmCuXp8YRHSWgAbwtAttb91gr8JjI=;
-	b=DOc6YJ2ZnBO/S4LCXZXRmaCbKg4mw4ULShgz8TQVMTQrtnAO2Xt2ML2QqNoyx+YxXUsHJN
-	M9Uc19toNCVSDrL0eBe6B+2C6HaFEOtjxR4Vo4wDMaGkR/fPp4Wnk8pCtSmMV+G3zim+uJ
-	dTY6cTrRvZdPCszRejdDVRTgiEJq+lNz109fnZuFt1e703qlfscJY8ERwknVxLcHHHkz7A
-	wxSoldZRl7kvhteRoNYLnpDjrMlrysFM5RCRJ+id9dYpo1pfWpwST9eeIao0MKlvGxa//1
-	fq90+ELl15EUbs0r5Np+mZtUBnTVF1oCbSyBny5RQeJBwFKovf/OUugsxVxS8A==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1639083725;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xxqdvbsXfW9ZTgMmCuXp8YRHSWgAbwtAttb91gr8JjI=;
-	b=7h0lucwwwhZa1hvXVoxI9ymbY55FLNkqkYChkOSRhqiPlIIQ18VrnDa7PbaNLMd6ZwoxZ+
-	K+aavqocs9ZCuaAA==
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
- Marc Zygnier <maz@kernel.org>, Alex Williamson
- <alex.williamson@redhat.com>, Kevin Tian <kevin.tian@intel.com>, Megha Dey
- <megha.dey@intel.com>, Ashok Raj <ashok.raj@intel.com>,
- linux-pci@vger.kernel.org, Cedric Le Goater <clg@kaod.org>,
- xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Will Deacon <will@kernel.org>,
- Santosh Shilimkar <ssantosh@kernel.org>, iommu@lists.linux-foundation.org,
- dmaengine@vger.kernel.org, Stuart Yoder <stuyoder@gmail.com>, Laurentiu
- Tudor <laurentiu.tudor@nxp.com>, Nishanth Menon <nm@ti.com>, Tero Kristo
- <kristo@kernel.org>, linux-arm-kernel@lists.infradead.org, Vinod Koul
- <vkoul@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Robin Murphy
- <robin.murphy@arm.com>, Sinan Kaya <okaya@kernel.org>
-Subject: Re: [patch V2 19/36] PCI/MSI: Store properties in device::msi::data
-In-Reply-To: <87k0gdzmu6.ffs@tglx>
-References: <20211206210307.625116253@linutronix.de>
- <20211206210438.688216619@linutronix.de>
- <20211208155816.GZ6385@nvidia.com> <87k0gdzmu6.ffs@tglx>
-Date: Thu, 09 Dec 2021 22:02:04 +0100
-Message-ID: <875yrxze43.ffs@tglx>
+X-Inumbo-ID: 92841e3e-5934-11ec-9d12-4777fae47e2b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1639084281;
+	bh=8WpG4OXjQyn6mi5bo4AZx7Url5LvKeKpTOmOYuwuxIs=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=iG0BtPFCnrVRufvJ4kKJXdaHV2nEA+R6Q3/9tEgUAqcmXgJA7xvuMf0dT1VOu/NRd
+	 ohqSZXxZKUKPzNu9owZcTRk8tU4zYRbYQezKeJ1HL6mXYufelbMj3rG2CmIG96Ycqm
+	 XjskG3qjat31uCYVLcdRzfZECYM9MjX2pUpWEi0BPKPHocpcMbEuLN9mYRhwuY+aIq
+	 t385ffiuD0WMTcsxE0xI1sRsMqrZOt4QyBcpRCbKPzy6xWY1R+DHwQuNfatOrSHaxy
+	 0cH9wgFQuFvBa532xxJfp2cG6bBksZHbKOyKCOaOWT3BFXkodJAQrqWbPTOXufjHx8
+	 LCNXsz8UJPgwA==
+Date: Thu, 9 Dec 2021 13:11:19 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [RFC PATCH V3] xen/gnttab: Store frame GFN in struct page_info
+ on Arm
+In-Reply-To: <863c9a06-f0af-eac1-fb04-e059e4ce0a09@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2112091309280.4091490@ubuntu-linux-20-04-desktop>
+References: <1632425551-18910-1-git-send-email-olekstysh@gmail.com> <863c9a06-f0af-eac1-fb04-e059e4ce0a09@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 
-On Thu, Dec 09 2021 at 18:53, Thomas Gleixner wrote:
-> On Wed, Dec 08 2021 at 11:58, Jason Gunthorpe wrote:
->> On Mon, Dec 06, 2021 at 11:39:26PM +0100, Thomas Gleixner wrote:
->>> Store the properties which are interesting for various places so the MSI
->>> descriptor fiddling can be removed.
->>> 
->>> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
->>> ---
->>> V2: Use the setter function
->>> ---
->>>  drivers/pci/msi/msi.c |    8 ++++++++
->>>  1 file changed, 8 insertions(+)
->>
->> I took more time to look at this, to summarize my remarks on the other
->> patches
->>
->> I think we don't need properties. The info in the msi_desc can come
->> from the pci_dev which we have easy access to. This seems overall
->> clearer
->
-> I fixed that now.
+On Thu, 25 Nov 2021, Julien Grall wrote:
+> For the record, I actually considered whether it is worth to fully implement
+> an M2P on Arm. We technically have space in the struct page_info for that.
+> However, I don't see it necessary in other place of Xen, so I would prefer to
+> keep the space free for other purpose (or event be able to remove it).
+> 
+> @Stefano, what do you think?
 
-So much for the theory. dev->msi[x]_enabled are set after everything is
-set up. Some of the places are part of the setup...
+Sorry for the late reply, I am still catching up after my holidays.
 
-/me goes back to stare
+I agree with you here.
 
