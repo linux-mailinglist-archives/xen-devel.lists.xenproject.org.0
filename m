@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C46B46F3F4
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Dec 2021 20:29:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.243268.420767 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BADE46F476
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Dec 2021 20:59:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.243280.420792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvP6K-0005ic-1u; Thu, 09 Dec 2021 19:29:08 +0000
+	id 1mvPYu-00029o-D4; Thu, 09 Dec 2021 19:58:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 243268.420767; Thu, 09 Dec 2021 19:29:08 +0000
+Received: by outflank-mailman (output) from mailman id 243280.420792; Thu, 09 Dec 2021 19:58:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvP6J-0005fY-TN; Thu, 09 Dec 2021 19:29:07 +0000
-Received: by outflank-mailman (input) for mailman id 243268;
- Thu, 09 Dec 2021 19:29:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mvPYu-000281-9H; Thu, 09 Dec 2021 19:58:40 +0000
+Received: by outflank-mailman (input) for mailman id 243280;
+ Thu, 09 Dec 2021 19:58:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mvP6I-0005fO-HR; Thu, 09 Dec 2021 19:29:06 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mvP6I-0000D4-A2; Thu, 09 Dec 2021 19:29:06 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mvP6I-00036M-1a; Thu, 09 Dec 2021 19:29:06 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mvP6I-00084A-15; Thu, 09 Dec 2021 19:29:06 +0000
+ (envelope-from <SRS0=UPJR=Q2=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1mvPYs-00027t-Of
+ for xen-devel@lists.xenproject.org; Thu, 09 Dec 2021 19:58:38 +0000
+Received: from ppsw-43.csi.cam.ac.uk (ppsw-43.csi.cam.ac.uk [131.111.8.143])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 64487aa4-592a-11ec-a831-37629979565c;
+ Thu, 09 Dec 2021 20:58:36 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:41444)
+ by ppsw-43.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1mvPYp-000U5I-mQ (Exim 4.95) (return-path <amc96@srcf.net>);
+ Thu, 09 Dec 2021 19:58:35 +0000
+Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id CD08F1FD51;
+ Thu,  9 Dec 2021 19:58:34 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,101 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=MZoweFmzinvMpqRZ/ndJnZJ6xZ5Sg3m/sY42Ca3C/rM=; b=XOU3/lmAa8krN7VY2nC+hqik4s
-	WH7m2nxsX2diHzMl2uL7y7T8xp/2ENWT+nxpOqcaagWKshXvBTKI+lvHZZdpg5t0LsKZuHp7x0uQi
-	SW4oYpzLEzS1cydDdmzRlxWxQDInzPa1qcox7asCObWByVEcMIKi2ePHo6R5SZTZ8ddo=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-167285-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 64487aa4-592a-11ec-a831-37629979565c
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <becdcf55-51fb-0b62-6b34-d5c790b7d238@srcf.net>
+Date: Thu, 9 Dec 2021 19:58:34 +0000
 MIME-Version: 1.0
-Subject: [ovmf test] 167285: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=06544455d0d460ed18c8582121247bf53292d7e4
-X-Osstest-Versions-That:
-    ovmf=c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 09 Dec 2021 19:29:06 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20211207105339.28440-1-andrew.cooper3@citrix.com>
+ <20211207105339.28440-3-andrew.cooper3@citrix.com>
+ <81893ccf-6b94-ddc7-d92b-f254861fe994@suse.com>
+From: Andrew Cooper <amc96@srcf.net>
+Subject: Re: [PATCH 2/3] x86/boot: Drop move_memory() and use memcpy()
+ directly
+In-Reply-To: <81893ccf-6b94-ddc7-d92b-f254861fe994@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 167285 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/167285/
+On 07/12/2021 12:03, Jan Beulich wrote:
+> On 07.12.2021 11:53, Andrew Cooper wrote:
+>> @@ -1243,7 +1196,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>>               * data until after we have switched to the relocated pagetables!
+>>               */
+>>              barrier();
+>> -            move_memory(e, XEN_IMG_OFFSET, _end - _start, 1);
+>> +            memcpy(__va(__pa(_start)), _start, _end - _start);
+>>  
+>>              /* Walk idle_pg_table, relocating non-leaf entries. */
+>>              pl4e = __va(__pa(idle_pg_table));
+>> @@ -1300,8 +1253,6 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>>                     "1" (__va(__pa(cpu0_stack))), "2" (STACK_SIZE / 8)
+>>                  : "memory" );
+>>  
+>> -            bootstrap_map(NULL);
+>> -
+>>              printk("New Xen image base address: %#lx\n", xen_phys_start);
+>>          }
+> This bootstrap_map() must have been dead code already before, except
+> for the "keep" argument above needlessly having got passed as 1? Afaict
+> passing 1 was pointless without using the function's return value.
 
-Regressions :-(
+bootstrap_map(NULL) is necessary to zap the constructed mappings, but it
+seems like the use of the return address was dropped by c/s 0b76ce20de
+"x86/setup: don't relocate the VGA hole" in 2013.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 167239
- build-i386-xsm                6 xen-build                fail REGR. vs. 167239
- build-i386                    6 xen-build                fail REGR. vs. 167239
- build-amd64-xsm               6 xen-build                fail REGR. vs. 167239
+>
+>> @@ -1325,9 +1276,10 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>>                   (headroom ||
+>>                    ((end - size) >> PAGE_SHIFT) > mod[j].mod_start) )
+>>              {
+>> -                move_memory(end - size + headroom,
+>> -                            (uint64_t)mod[j].mod_start << PAGE_SHIFT,
+>> -                            mod[j].mod_end, 0);
+>> +                memcpy(__va(end - size + headroom),
+>> +                       __va((uint64_t)mod[j].mod_start << PAGE_SHIFT),
+>> +                       mod[j].mod_end);
+> I'm not convinced this can be memcpy() - consider_modules() specifically
+> allows for the current module's source and destination areas to overlap.
+> See also the comment ahead of its invocation a few lines up from here.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+The comment which says:
 
-version targeted for testing:
- ovmf                 06544455d0d460ed18c8582121247bf53292d7e4
-baseline version:
- ovmf                 c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
+/* Don't overlap with other modules (or Xen itself). */
+end = consider_modules(s, e, size, mod,
+                       mbi->mods_count + relocated, j);
 
-Last test of basis   167239  2021-12-09 06:23:17 Z    0 days
-Testing same since   167240  2021-12-09 08:42:46 Z    0 days   13 attempts
+?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Brijesh Singh <brijesh.singh@amd.com>
-  Brijesh Singh via groups.io <brijesh.singh=amd.com@groups.io>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Jiewen Yao <Jiewen.yao@intel.com>
-  Michael Roth <michael.roth@amd.com>
-  Ray Ni <ray.ni@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
+memmove() in move_memory() is broken, and in fact always results in a
+backwards copy, which means that one way or another, overlapping source
+and destination doesn't work.
 
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+If it was really broken before, then it can be fixed now by using
+memmove() here, because using 2 directmap mappings means the
+forward/backward check will now work as expected.
 
+> I'm also not convinced we have the source range (fully) direct-mapped at
+> this point. Only full superpages have been mapped so far, and only those
+> for the current or higher address E820 entries (plus of course the pre-
+> built mappings of the space below 1Gb [PREBUILT_MAP_LIMIT]) located
+> below 4Gb.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+PREBUILT_MAP_LIMIT is 2M, and that's only to cover the fact that we
+build l1_directmap[] with the VGA UC range at build time.  I was hoping
+to remove it in due course.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+As to the other mappings, that is awkward.  Perhaps what we ought to do
+is split the loops.  First fill in all 2M superpages into the directmap,
+then relocate Xen, at which point we've got plenty of frames to feed
+into the allocator, to let us do a second pass filling in non-2M regions.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+We can depend on the modules living in RAM regions, but might want to
+explicitly confirm.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> As to the 2nd argument - if this can indeed be converted in the first
+> place, may I suggest to also switch to using pfn_to_paddr()?
 
+Honestly, that's taking a terrible situation and making it worse.
 
-Not pushing.
+Calling pfn_to_paddr() on what is logically a paddr_t already ought to
+be a compilation error, and the logic which makes this change
+deliberately is some of the most nack-worthy logic I've ever come across.
 
-(No revision log; it would be 1042 lines long.)
+It's very much not ok to have mod_start be a paddr or pfn, and for
+mod_end to either be an end or a sized, epending on where you are during
+boot.
+
+~Andrew
 
