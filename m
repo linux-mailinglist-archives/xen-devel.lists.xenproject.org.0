@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AC0046FD9A
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 10:20:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.243631.421474 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE61E46FDC0
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 10:28:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.243636.421485 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvc4m-0002Wl-8X; Fri, 10 Dec 2021 09:20:24 +0000
+	id 1mvcCU-0003lK-0m; Fri, 10 Dec 2021 09:28:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 243631.421474; Fri, 10 Dec 2021 09:20:24 +0000
+Received: by outflank-mailman (output) from mailman id 243636.421485; Fri, 10 Dec 2021 09:28:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvc4m-0002Tw-46; Fri, 10 Dec 2021 09:20:24 +0000
-Received: by outflank-mailman (input) for mailman id 243631;
- Fri, 10 Dec 2021 09:20:22 +0000
+	id 1mvcCT-0003jG-Tt; Fri, 10 Dec 2021 09:28:21 +0000
+Received: by outflank-mailman (input) for mailman id 243636;
+ Fri, 10 Dec 2021 09:28:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dYg4=Q3=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1mvc4k-0002Tq-2g
- for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 09:20:22 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
+ <SRS0=At30=Q3=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
+ id 1mvcCT-0003jA-As
+ for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 09:28:21 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 658b9d0e-599a-11ec-a831-37629979565c;
- Fri, 10 Dec 2021 10:20:20 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id cf39so4790584lfb.8
- for <xen-devel@lists.xenproject.org>; Fri, 10 Dec 2021 01:20:21 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id j20sm253534lfm.136.2021.12.10.01.20.19
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Dec 2021 01:20:20 -0800 (PST)
+ id 832ff8fa-599b-11ec-a831-37629979565c;
+ Fri, 10 Dec 2021 10:28:20 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id x10so10627109edd.5
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Dec 2021 01:28:20 -0800 (PST)
+Received: from a2klaptop.epam.com (host-176-36-245-220.b024.la.net.ua.
+ [176.36.245.220])
+ by smtp.gmail.com with ESMTPSA id u10sm1100969edo.16.2021.12.10.01.28.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Dec 2021 01:28:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,124 +44,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 658b9d0e-599a-11ec-a831-37629979565c
+X-Inumbo-ID: 832ff8fa-599b-11ec-a831-37629979565c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=O4zVFLahCre8SRQUmVJmme9V5fkFHSrE7LdKPl4d58s=;
-        b=aWsrKjGxQvnfprrQT84tGmXmB6AOpiF4BYv1soFBVpUHPMd5/cSV8bzhoEfq9yZ2VW
-         nNqIW9SXPOz4zPRNtK0Tbhe2Tbxs0TSWpFhvVSSdh5ePLaZe/RO+dDVItNcxYYuQFu8i
-         hpoOhTmXOI4q+abTc8DuZp5vdait0G4H8nuaCAfw7CDndnQjAxlk9yOrP6qDq2brEkuk
-         PSzZ0SjxSi4lGb6vtnLLYM6aZw4eA29c5WeW0kZIIFDNHjnBQe3VRjrAR9S5VUEWA/oh
-         e5dXnbIyJ5iqPWB1sVRonGFIlRm1vCAoghUyveqHakiqcEiyhNYZaaFoizDeNI6YFHvv
-         L2cw==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Wo+kEjPRCNOeRmpc24VwDoZ3sGXxzMQEGIk47myQMF4=;
+        b=D25x5s7aOfBvkoF1TAnTBMhjleDypIR/jVNd0p2Z75eSnIZErDAv1fx6EJlzyYEERD
+         rWV5T4fMEPDldGHGy4lzjbH3kK0SbORPAwBxvAUGhcNaDSrirLbvpNIXQFsSlrLISZpT
+         8EOim2hyYjFNofT0F/PjVWXDxbocKSnhkeWUqI5OyqmPf2t4jS2iSgJ3Mtzqt5Hr1Fpm
+         oXJkmh2A/7omfykgSbnPUptdgPB7L2dfxgU0jrKd8c9WMhF2cwUEQg0p7Ikio0NbJu9d
+         uKeBFO4Egbg/KQ0sOh+YG+ckeIcBg/bMkIkQpCJxqs5lWNnFvg6wHJ/eSZ4h2OX3+avB
+         HkZg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=O4zVFLahCre8SRQUmVJmme9V5fkFHSrE7LdKPl4d58s=;
-        b=xSOFaOyyFIxPGXqsM5Vx5sisrcSSXcnFa6AHnicUKTkpA9DcxVzpLHo9Q9kmBqTtj4
-         QPKsywk77jTGmS4tUA4dKorsrvG9g+X623+QmP7/1PuW17eh+YbjCQPvhL3fKr6mdby1
-         5+KbEzRQBcgtZ+hHWxchSmUGoQK4iRk2iNE8R9FaL8N8f0Cj9e6F3LmSO8OaN3DiLxuH
-         PpA3rzEJv6soYdMPtLQG70anGAuxU618Gawb0YcS6jB8FREz57dIVRsAJ/E76MhJdUc5
-         rZnyic7IWNhxutiFYkE7g7UkP29DgrI5bnUx5UZCm3f1ghWe7Whz8OXZemZZUkeq+t/L
-         oSNg==
-X-Gm-Message-State: AOAM530gmBlAXW8t15UeT7LlqDqFR0Febsu2abgUfSQ1nHYZLRAK822e
-	SGxweGSWy5ki+3BrdmmrnP0=
-X-Google-Smtp-Source: ABdhPJz66p28hML9WrIlquVkqzllJisH5ltmqgrCAxA9LGX01EGg3RtGyvAMKYpK+3F9cFzecnhGEw==
-X-Received: by 2002:a19:614f:: with SMTP id m15mr11279515lfk.187.1639128020526;
-        Fri, 10 Dec 2021 01:20:20 -0800 (PST)
-Subject: Re: [PATCH] arm/docs: Drop mentioning of ACPI for properties under
- "hypervisor" node
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <1639083050-31782-1-git-send-email-olekstysh@gmail.com>
- <9602b019-6c20-cdc7-23f3-9e4f8fd720f6@xen.org>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <e243cee9-d97d-2bf6-3a20-62dab544b74d@gmail.com>
-Date: Fri, 10 Dec 2021 11:20:19 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Wo+kEjPRCNOeRmpc24VwDoZ3sGXxzMQEGIk47myQMF4=;
+        b=LOgku2zzZnrD8A9xDgiKQ4e19+hSCwzO+LT+RKkydTt1kSVlDPkQ4mmijOHQ9z3Nt7
+         N8wB/lFqRc+J0zNCiNBc4X9AMn0U/g6x4dckxFM3g98f9SLT3ji/7SKcW6+OCslGU4DM
+         gHsMETNFMsXlbvxwB63GZ8WkMYFRDR5/U9k5xbM+XDXtsG4MuIUQTrTBJXNrfNPSvXU9
+         yPxfx3p4eagpozbBmcW+npnwhOGgejyid1dEK0FNL2O95cuEEUw/VgbP4y2/d1fKtuS7
+         I8UVpxokFXMfdvx2juluYDXI5r0gv9FNFz2lA9TZLsZaVEk4F5VvEbOvxVEcLOtrLk2D
+         SU6A==
+X-Gm-Message-State: AOAM531Boc0RJATPs7Agu2UMeDlrx9+VjryXXolYU35LTtxLi6zW0RSe
+	KkG1r6FgIOERuC5vFN6TPZY8b8FohHxPWA==
+X-Google-Smtp-Source: ABdhPJwcTAzhR9JhHlzlbR4kehZa3+II/LWyggzIRg1fSi6WukM1ZJJNUF2G5HcniWyScx8qbyyG8g==
+X-Received: by 2002:a05:6402:1e95:: with SMTP id f21mr38172357edf.139.1639128499650;
+        Fri, 10 Dec 2021 01:28:19 -0800 (PST)
+From: Oleksandr Andrushchenko <andr2000@gmail.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: boris.ostrovsky@oracle.com,
+	jgross@suse.com,
+	sstabellini@kernel.org,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] xen/gntdev: fix unmap notification order
+Date: Fri, 10 Dec 2021 11:28:17 +0200
+Message-Id: <20211210092817.580718-1-andr2000@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <9602b019-6c20-cdc7-23f3-9e4f8fd720f6@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
 
+From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-On 10.12.21 11:00, Julien Grall wrote:
-> Hi Oleksandr,
+While working with Xen's libxenvchan library I have faced an issue with
+unmap notifications sent in wrong order if both UNMAP_NOTIFY_SEND_EVENT
+and UNMAP_NOTIFY_CLEAR_BYTE were requested: first we send an event channel
+notification and then clear the notification byte which renders in the below
+inconsistency (cli_live is the byte which was requested to be cleared on unmap):
 
+[  444.514243] gntdev_put_map UNMAP_NOTIFY_SEND_EVENT map->notify.event 6
+libxenvchan_is_open cli_live 1
+[  444.515239] __unmap_grant_pages UNMAP_NOTIFY_CLEAR_BYTE at 14
 
-Hi Julien
+Thus it is not possible to reliably implement the checks like
+- wait for the notification (UNMAP_NOTIFY_SEND_EVENT)
+- check the variable (UNMAP_NOTIFY_CLEAR_BYTE)
+because it is possible that the variable gets checked before it is cleared
+by the kernel.
 
+To fix that we need to re-order the notifications, so the variable is first
+gets cleared and then the event channel notification is sent.
+With this fix I can see the correct order of execution:
 
->
-> On 09/12/2021 20:50, Oleksandr Tyshchenko wrote:
->> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->>
->> Remove the following sentence:
->> "This property is unnecessary when booting Dom0 using ACPI."
->> for "reg" and "interrupts" properties as the initialization is not
->> done via device-tree "hypervisor" node in that case anyway.
->
-> Why do you think that? On ACPI, the hypervisor node is used to 
-> discover whether the OS is running on top of Xen (see [1]).
->
-> For dom0, Xen will actually create the hypervisor node with the 
-> compatible property and the uefi bits (see [2]).
->
-> The properties "regs" and "interrupts" are not created for ACPI and 
-> therefore this should be mentioned in the Device-Tree bindings.
+[   54.522611] __unmap_grant_pages UNMAP_NOTIFY_CLEAR_BYTE at 14
+[   54.537966] gntdev_put_map UNMAP_NOTIFY_SEND_EVENT map->notify.event 6
+libxenvchan_is_open cli_live 0
 
+Cc: stable@vger.kernel.org
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+---
+ drivers/xen/gntdev.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-You are right. I missed that fact. Current patch is not needed in this case.
-
-
->
->
->>
->> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
->> ---
->>   docs/misc/arm/device-tree/guest.txt | 2 --
->>   1 file changed, 2 deletions(-)
->>
->> diff --git a/docs/misc/arm/device-tree/guest.txt 
->> b/docs/misc/arm/device-tree/guest.txt
->> index c115751..2b974bb 100644
->> --- a/docs/misc/arm/device-tree/guest.txt
->> +++ b/docs/misc/arm/device-tree/guest.txt
->> @@ -15,11 +15,9 @@ the following properties:
->>     or equal to gnttab_max_grant_frames()).
->>     Regions 1...N are extended regions (unused address space) for 
->> mapping foreign
->>     GFNs and grants, they might be absent if there is nothing to expose.
->> -  This property is unnecessary when booting Dom0 using ACPI.
->>     - interrupts: the interrupt used by Xen to inject event 
->> notifications.
->>     A GIC node is also required.
->> -  This property is unnecessary when booting Dom0 using ACPI.
->>     To support UEFI on Xen ARM virtual platforms, Xen populates the 
->> FDT "uefi" node
->>   under /hypervisor with following parameters:
->
-> Cheers,
->
-> [1] 
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/arm/xen/enlighten.c#n253
->
-> [2] 
-> https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/arch/arm/acpi/domain_build.c;h=bbdc90f92c003c0c6d0f0b0290a1776336224719;hb=HEAD#l90
->
+diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
+index fec1b6537166..59ffea800079 100644
+--- a/drivers/xen/gntdev.c
++++ b/drivers/xen/gntdev.c
+@@ -250,13 +250,13 @@ void gntdev_put_map(struct gntdev_priv *priv, struct gntdev_grant_map *map)
+ 	if (!refcount_dec_and_test(&map->users))
+ 		return;
+ 
++	if (map->pages && !use_ptemod)
++		unmap_grant_pages(map, 0, map->count);
++
+ 	if (map->notify.flags & UNMAP_NOTIFY_SEND_EVENT) {
+ 		notify_remote_via_evtchn(map->notify.event);
+ 		evtchn_put(map->notify.event);
+ 	}
+-
+-	if (map->pages && !use_ptemod)
+-		unmap_grant_pages(map, 0, map->count);
+ 	gntdev_free_map(map);
+ }
+ 
 -- 
-Regards,
-
-Oleksandr Tyshchenko
+2.25.1
 
 
