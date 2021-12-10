@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BAA0470312
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 15:45:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.243980.422116 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 722BA47034D
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 15:59:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.243992.422129 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvh8p-0003QZ-O0; Fri, 10 Dec 2021 14:44:55 +0000
+	id 1mvhMQ-0006DK-Ve; Fri, 10 Dec 2021 14:58:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 243980.422116; Fri, 10 Dec 2021 14:44:55 +0000
+Received: by outflank-mailman (output) from mailman id 243992.422129; Fri, 10 Dec 2021 14:58:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvh8p-0003OR-L2; Fri, 10 Dec 2021 14:44:55 +0000
-Received: by outflank-mailman (input) for mailman id 243980;
- Fri, 10 Dec 2021 14:44:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mvhMQ-0006BO-RG; Fri, 10 Dec 2021 14:58:58 +0000
+Received: by outflank-mailman (input) for mailman id 243992;
+ Fri, 10 Dec 2021 14:58:57 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=a5or=Q3=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1mvh8o-0003OH-3N
- for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 14:44:54 +0000
-Received: from ppsw-42.csi.cam.ac.uk (ppsw-42.csi.cam.ac.uk [131.111.8.142])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bbe59301-59c7-11ec-9d12-4777fae47e2b;
- Fri, 10 Dec 2021 15:44:53 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:36080)
- by ppsw-42.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.138]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1mvh8k-000JOB-7Q (Exim 4.95) (return-path <amc96@srcf.net>);
- Fri, 10 Dec 2021 14:44:50 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 072851FBFC;
- Fri, 10 Dec 2021 14:44:50 +0000 (GMT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvhMP-0006BE-57; Fri, 10 Dec 2021 14:58:57 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvhMO-00080r-PV; Fri, 10 Dec 2021 14:58:56 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvhMO-0000eN-Gn; Fri, 10 Dec 2021 14:58:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvhMO-0000x5-GI; Fri, 10 Dec 2021 14:58:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,74 +42,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bbe59301-59c7-11ec-9d12-4777fae47e2b
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <dac66683-a2b1-e548-9d19-3a0e9a74c5cb@srcf.net>
-Date: Fri, 10 Dec 2021 14:44:49 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
- <20211126123446.32324-9-andrew.cooper3@citrix.com>
- <bddd9fc4-d442-9272-0fcd-4472c83e36e7@suse.com>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH 08/65] xen: Annotate fnptr targets from acpi_table_parse()
-In-Reply-To: <bddd9fc4-d442-9272-0fcd-4472c83e36e7@suse.com>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=B1vvzz5RFZD/WvXuVpxrxpjDKWWIPqSy07/I03KoI4M=; b=ScG7r6e8eqzUqaYTlXBDzxXeWy
+	tNlQtOAaFIgBzv6Ze6+tNyLvPqL7rJX4YDtWTbKTZINWkNqQQi5+yMHrSFSsWrF3ALsKuE+sPwdA6
+	svkqk1s7e+GPr5aR39Vtgo+65Z2L2uuyiWetN0GV8ZN48/28Jphdrvi7G5RpEC4z2q8w=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-167342-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 167342: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=0f1d7477c0a86a31e2edede7d3a3c74087bb6e21
+X-Osstest-Versions-That:
+    ovmf=c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 10 Dec 2021 14:58:56 +0000
 
-On 06/12/2021 08:36, Jan Beulich wrote:
-> On 26.11.2021 13:33, Andrew Cooper wrote:
->> --- a/xen/arch/x86/hvm/dom0_build.c
->> +++ b/xen/arch/x86/hvm/dom0_build.c
-> Elsewhere in this file we have
->
->         rc = map ?   map_mmio_regions(d, _gfn(pfn), nr_pages, _mfn(pfn))
->                  : unmap_mmio_regions(d, _gfn(pfn), nr_pages, _mfn(pfn));
->
-> which has been in this shape only as of commit e3b418ac4919
-> ("x86/pvh-dom0: Remove unnecessary function pointer call from
-> modify_identity_mmio()"). Aren't we relying on the compiler not
-> transforming this back into the earlier
->
->         rc = (map ? map_mmio_regions : unmap_mmio_regions)
->              (d, _gfn(pfn), nr_pages, _mfn(pfn));
->
-> ?
+flight 167342 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167342/
 
-That old code was especially dumb even before retpoline.  See also the
-damage caused by c/s 245a320ce2.
+Regressions :-(
 
-Yes, we are relying on the compiler not to do transformations behind our
-backs, but it won't of its own accord.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 167239
+ build-i386-xsm                6 xen-build                fail REGR. vs. 167239
+ build-i386                    6 xen-build                fail REGR. vs. 167239
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 167239
 
->  And aren't we further relying on the compiler not transforming direct
-> calls into indirect ones for other reasons (I recall Microsoft's compiler
-> being pretty aggressive about this when the same function was called
-> more than once in close succession, it at least certain past versions)?
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-That sounds like a broken compiler.
+version targeted for testing:
+ ovmf                 0f1d7477c0a86a31e2edede7d3a3c74087bb6e21
+baseline version:
+ ovmf                 c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
 
-There are legal cases where a direct call has to turn into an indirect
-one, and that's when we need to traverse more than disp32 distance.
+Last test of basis   167239  2021-12-09 06:23:17 Z    1 days
+Failing since        167240  2021-12-09 08:42:46 Z    1 days   31 attempts
+Testing same since   167338  2021-12-10 10:40:22 Z    0 days    5 attempts
 
-But without going to a larger mcmodel, we'd get linker errors before
-that becomes a problem, because R_X86_64_PLT32 relocations can't be
-retrofitted into an indirect call at link time.
+------------------------------------------------------------
+People who touched revisions under test:
+  Brijesh Singh <brijesh.singh@amd.com>
+  Brijesh Singh via groups.io <brijesh.singh=amd.com@groups.io>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jiewen Yao <Jiewen.yao@intel.com>
+  Michael Roth <michael.roth@amd.com>
+  Philippe Mathieu-Daude <philmd@redhat.com>
+  Ray Ni <ray.ni@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
 
-> Is the widened effect of the annotation intended to also guarantee that
-> indirect calls will not be produced by the compiler for any reason when
-> the annotation is absent on a targeted function's declaration?
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
-That would be one for the clang and gcc developers.
 
-I don't see a plausible problem here.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-~Andrew
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1070 lines long.)
 
