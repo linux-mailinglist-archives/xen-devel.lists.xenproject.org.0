@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACF19470A9C
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 20:43:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.244315.422562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 297B2470AA7
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 20:45:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.244320.422573 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvln6-0004Hx-4T; Fri, 10 Dec 2021 19:42:48 +0000
+	id 1mvlp0-0004tz-Hz; Fri, 10 Dec 2021 19:44:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 244315.422562; Fri, 10 Dec 2021 19:42:48 +0000
+Received: by outflank-mailman (output) from mailman id 244320.422573; Fri, 10 Dec 2021 19:44:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvln6-0004F0-1H; Fri, 10 Dec 2021 19:42:48 +0000
-Received: by outflank-mailman (input) for mailman id 244315;
- Fri, 10 Dec 2021 19:42:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mvlp0-0004rL-Du; Fri, 10 Dec 2021 19:44:46 +0000
+Received: by outflank-mailman (input) for mailman id 244320;
+ Fri, 10 Dec 2021 19:44:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Lr8x=Q3=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1mvln4-0004Eu-OL
- for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 19:42:46 +0000
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [2a00:1450:4864:20::233])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 58f7eade-59f1-11ec-a74f-db008197e53d;
- Fri, 10 Dec 2021 20:42:45 +0100 (CET)
-Received: by mail-lj1-x233.google.com with SMTP id m12so15227499ljj.6
- for <xen-devel@lists.xenproject.org>; Fri, 10 Dec 2021 11:42:45 -0800 (PST)
+ id 1mvloz-0004rF-Dd
+ for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 19:44:45 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9fc5d669-59f1-11ec-ad7a-b7ef48004f0a;
+ Fri, 10 Dec 2021 20:44:44 +0100 (CET)
+Received: by mail-lf1-x134.google.com with SMTP id k37so19986358lfv.3
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Dec 2021 11:44:44 -0800 (PST)
 Received: from [192.168.2.145] (94-29-46-111.dynamic.spd-mgts.ru.
  [94.29.46.111])
- by smtp.googlemail.com with ESMTPSA id a24sm397890ljd.25.2021.12.10.11.42.43
+ by smtp.googlemail.com with ESMTPSA id c15sm394938lfb.154.2021.12.10.11.44.42
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Dec 2021 11:42:45 -0800 (PST)
+ Fri, 10 Dec 2021 11:44:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,37 +44,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58f7eade-59f1-11ec-a74f-db008197e53d
+X-Inumbo-ID: 9fc5d669-59f1-11ec-ad7a-b7ef48004f0a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
+        h=subject:from:to:cc:references:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=enFW8kq8VV/q8dA9a71dgatcJTVb3G9Q0VbIAiUg3GI=;
-        b=OX0KzgQUdES/90pWlhpcoFWULe5/02wjF+ZN5bPPd3PaEe6K8Rw2QbmG+hYBDryF8r
-         t1f6EkNRPieboSxPtviSTR/1V4y4Mr8zIstzUICcEoY48eKM2+0m88Bup+wVJuu+v7rM
-         mwIk5EqSpZDyoTDNu1aQivf7cqdLiwt7kJ7MYsCU49jLtqsBENUcVljNfz8djr77JsJw
-         nEuxWBBZFJueyYpPkJsYZuSAKA0Qf9vITcyimaXwItLwdGCf5tFbJFT6C3clmEwXp7kg
-         1TFGkI4NdX0eDs8czP/NCn+FzZ3eaPKoluKA8KfWOjMbGdEYGco1sgCURxizjwPPW+3Z
-         YGiQ==
+        bh=bghkq/gqakBG3UMA9KtKqv9kgT5Wq1LJh/DaMMP+Buo=;
+        b=lFdiyPZK17AYCTV65ZUsvdfciaNUYWPxmzSgJajTwQ07RVOIMn5cd3OMLqgm70DBAO
+         sO9a+0M7Ylp7HtPfjlNdELPWJPhFEsL+BBJZhlleZ8ktrzvWgXu2rCggboh+AgCAyR+i
+         WdIEhcqPzr+EGbl0oQk36HsGosG8oJ4OqatnVU+rYKpyd3R/jmhh8wJ5nt8gGw45GBZy
+         rNd0gesXdm60r4RJ7qNGWsHGKiq3UiUqi5FkpCzhl0LGExdzbir7EPh4UTzIBF/YRE+s
+         kyUVKadGSflj2NYa6m+B4vuldmIqJM59VgWObzoRC+XA5qxz4D0b/H+jRuY2tRZWYoPI
+         /XGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=enFW8kq8VV/q8dA9a71dgatcJTVb3G9Q0VbIAiUg3GI=;
-        b=eHO7zDtpuc36Yp7tRJxLLH/4PMQ2AWipUymu+GY2Ulum0afqXjmA8OMS9VpDkag6Qr
-         sDhsRgUKgEgk5ZeiYt6p/lqVAJqQIiOstcSDuiihTgmT2SWKdSrFR28EUyOPDWAUVB8j
-         5ht4s9n1I+24Qw3A3QxQftb2Ci7UQDnJEJUeUrlxmt8c+ALFwiCJ8qpvG9bbARwU7WcA
-         pLVd7jV0NKvVYUTQ4Ha1L5g9B9gbRcAFtau1h9wX2s+/vZjdddfV4cxwa6gCscawGdPW
-         9QX5lUU17LwgAvOYFLzg00BO8LZVaKSuvpigThev4IQX5TOAf/s1hN2/ga1A+fz0mMWJ
-         DMFQ==
-X-Gm-Message-State: AOAM532hmnOIwHRVCM6eLyEF8lgyrDg/TLQW5uYPOhQEy5we8iP6V1OP
-	6IxBIh/kjUpr3keWs+/JY/A=
-X-Google-Smtp-Source: ABdhPJw7x5EmEcRpJsG2MrtTa2zjfPAYa0CkU29XHMHibYlDXJBMyWndjSh2p83fU9klfOOOmpp/mQ==
-X-Received: by 2002:a2e:9003:: with SMTP id h3mr15096538ljg.68.1639165365371;
-        Fri, 10 Dec 2021 11:42:45 -0800 (PST)
+        bh=bghkq/gqakBG3UMA9KtKqv9kgT5Wq1LJh/DaMMP+Buo=;
+        b=EihEzm1uUGl2bdGtMJ9AYmcDyZZWzzl6O3R8tBQkyO7c+GJg5xDIn69Hr1rNxtDt4P
+         JsfIDhNB4zWhvsst9ShcLZLua1sdzF+ihNZy3VZC27ZnciB0OaVKxy+9PlEb/gLFUUoE
+         3tkoL0kzddnmf4KcVeC2zeEYXu5Nl3EmLnsusAWP2tWzGorYkJE7vIl6UTBMVxlD1uWG
+         3QJJAnIkl+7DFhJO5inHdrj6vYVFWlgez1+ViM8KIxlhN8FQrt+bcYTm+S+XTxvkSoIe
+         vlPCIx+xev13I/JDRIOL7ON0JAAap6iEVymEAMGv4cL9VECb504jb/M1xucHNTfBDDbO
+         89vA==
+X-Gm-Message-State: AOAM530A15lot9eHqqhbdhLf1Ycahs66QwH5apcXHkE8tbyyzWpDePfB
+	ECE1b/5WFB57l8WiO5c1a2c=
+X-Google-Smtp-Source: ABdhPJwdPpKxpD5iCVpMoy0RbhPzj8+6gSmN9/Uu5pMKxteqUazmF0c3BRQXsHXIE6Vu9MIa4P5vrA==
+X-Received: by 2002:ac2:4c50:: with SMTP id o16mr14291331lfk.517.1639165484083;
+        Fri, 10 Dec 2021 11:44:44 -0800 (PST)
 Subject: Re: [PATCH v4 05/25] reboot: Warn if restart handler has duplicated
  priority
+From: Dmitry Osipenko <digetx@gmail.com>
 To: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
  Thierry Reding <thierry.reding@gmail.com>,
@@ -125,127 +126,49 @@ References: <20211126180101.27818-1-digetx@gmail.com>
  <CAJZ5v0jMvdhfBqjY+V9h_Z6EH1ohuJH+KjuGiOw_Jor1Tnp7vg@mail.gmail.com>
  <45025b2d-4be1-f694-be61-31903795cf5d@gmail.com>
  <CAJZ5v0ieTwnBVjW8R_VTdPFH3yr5AwLc+ZEG5N3KrpTH+j8qZw@mail.gmail.com>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <45228c88-4d51-591e-5da5-9ec468e71684@gmail.com>
-Date: Fri, 10 Dec 2021 22:42:43 +0300
+ <45228c88-4d51-591e-5da5-9ec468e71684@gmail.com>
+Message-ID: <ad6c7d73-e7d3-4901-fd63-ef87eecd39a2@gmail.com>
+Date: Fri, 10 Dec 2021 22:44:41 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <CAJZ5v0ieTwnBVjW8R_VTdPFH3yr5AwLc+ZEG5N3KrpTH+j8qZw@mail.gmail.com>
+In-Reply-To: <45228c88-4d51-591e-5da5-9ec468e71684@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-10.12.2021 22:14, Rafael J. Wysocki пишет:
-> On Fri, Dec 10, 2021 at 8:04 PM Dmitry Osipenko <digetx@gmail.com> wrote:
+10.12.2021 22:42, Dmitry Osipenko пишет:
+...
+>>> There is no strong requirement for priorities to be unique, the reboot.c
+>>> code will work properly.
 >>
->> 10.12.2021 21:27, Rafael J. Wysocki пишет:
->>> On Mon, Nov 29, 2021 at 12:34 PM Dmitry Osipenko <digetx@gmail.com> wrote:
->>>>
->>>> 29.11.2021 03:26, Michał Mirosław пишет:
->>>>> On Mon, Nov 29, 2021 at 12:06:19AM +0300, Dmitry Osipenko wrote:
->>>>>> 28.11.2021 03:28, Michał Mirosław пишет:
->>>>>>> On Fri, Nov 26, 2021 at 09:00:41PM +0300, Dmitry Osipenko wrote:
->>>>>>>> Add sanity check which ensures that there are no two restart handlers
->>>>>>>> registered with the same priority. Normally it's a direct sign of a
->>>>>>>> problem if two handlers use the same priority.
->>>>>>>
->>>>>>> The patch doesn't ensure the property that there are no duplicated-priority
->>>>>>> entries on the chain.
->>>>>>
->>>>>> It's not the exact point of this patch.
->>>>>>
->>>>>>> I'd rather see a atomic_notifier_chain_register_unique() that returns
->>>>>>> -EBUSY or something istead of adding an entry with duplicate priority.
->>>>>>> That way it would need only one list traversal unless you want to
->>>>>>> register the duplicate anyway (then you would call the older
->>>>>>> atomic_notifier_chain_register() after reporting the error).
->>>>>>
->>>>>> The point of this patch is to warn developers about the problem that
->>>>>> needs to be fixed. We already have such troubling drivers in mainline.
->>>>>>
->>>>>> It's not critical to register different handlers with a duplicated
->>>>>> priorities, but such cases really need to be corrected. We shouldn't
->>>>>> break users' machines during transition to the new API, meanwhile
->>>>>> developers should take action of fixing theirs drivers.
->>>>>>
->>>>>>> (Or you could return > 0 when a duplicate is registered in
->>>>>>> atomic_notifier_chain_register() if the callers are prepared
->>>>>>> for that. I don't really like this way, though.)
->>>>>>
->>>>>> I had a similar thought at some point before and decided that I'm not in
->>>>>> favor of this approach. It's nicer to have a dedicated function that
->>>>>> verifies the uniqueness, IMO.
->>>>>
->>>>> I don't like the part that it traverses the list second time to check
->>>>> the uniqueness. But actually you could avoid that if
->>>>> notifier_chain_register() would always add equal-priority entries in
->>>>> reverse order:
->>>>>
->>>>>  static int notifier_chain_register(struct notifier_block **nl,
->>>>>               struct notifier_block *n)
->>>>>  {
->>>>>       while ((*nl) != NULL) {
->>>>>               if (unlikely((*nl) == n)) {
->>>>>                       WARN(1, "double register detected");
->>>>>                       return 0;
->>>>>               }
->>>>> -             if (n->priority > (*nl)->priority)
->>>>> +             if (n->priority >= (*nl)->priority)
->>>>>                       break;
->>>>>               nl = &((*nl)->next);
->>>>>       }
->>>>>       n->next = *nl;
->>>>>       rcu_assign_pointer(*nl, n);
->>>>>       return 0;
->>>>>  }
->>>>>
->>>>> Then the check for uniqueness after adding would be:
->>>>>
->>>>>  WARN(nb->next && nb->priority == nb->next->priority);
->>>>
->>>> We can't just change the registration order because invocation order of
->>>> the call chain depends on the registration order
->>>
->>> It doesn't if unique priorities are required and isn't that what you want?
->>>
->>>> and some of current
->>>> users may rely on that order. I'm pretty sure that changing the order
->>>> will have unfortunate consequences.
->>>
->>> Well, the WARN() doesn't help much then.
->>>
->>> Either you can make all of the users register with unique priorities,
->>> and then you can make the registration reject non-unique ones, or you
->>> cannot assume them to be unique.
+>> In which case adding the WARN() is not appropriate IMV.
 >>
->> There is no strong requirement for priorities to be unique, the reboot.c
->> code will work properly.
+>> Also I've looked at the existing code and at least in some cases the
+>> order in which the notifiers run doesn't matter.  I'm not sure what
+>> the purpose of this patch is TBH.
 > 
-> In which case adding the WARN() is not appropriate IMV.
+> The purpose is to let developer know that driver needs to be corrected.
 > 
-> Also I've looked at the existing code and at least in some cases the
-> order in which the notifiers run doesn't matter.  I'm not sure what
-> the purpose of this patch is TBH.
+>>> The potential problem is on the user's side and the warning is intended
+>>> to aid the user.
+>>
+>> Unless somebody has the panic_on_warn mentioned previously set and
+>> really the user need not understand what the WARN() is about.  IOW,
+>> WARN() helps developers, not users.
+>>
+>>> We can make it a strong requirement, but only after converting and
+>>> testing all kernel drivers.
+>>
+>> Right.
+>>
+>>> I'll consider to add patches for that.
+>>
+>> But can you avoid adding more patches to this series?
+> 
+> I won't add more patches since such patches can be added only after
+> completion of transition to the new API of the whole kernel.
+> 
 
-The purpose is to let developer know that driver needs to be corrected.
-
->> The potential problem is on the user's side and the warning is intended
->> to aid the user.
-> 
-> Unless somebody has the panic_on_warn mentioned previously set and
-> really the user need not understand what the WARN() is about.  IOW,
-> WARN() helps developers, not users.
-> 
->> We can make it a strong requirement, but only after converting and
->> testing all kernel drivers.
-> 
-> Right.
-> 
->> I'll consider to add patches for that.
-> 
-> But can you avoid adding more patches to this series?
-
-I won't add more patches since such patches can be added only after
-completion of transition to the new API of the whole kernel.
+Thank you for the review.
 
