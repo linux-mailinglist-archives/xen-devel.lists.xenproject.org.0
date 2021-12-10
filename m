@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE61E46FDC0
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 10:28:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.243636.421485 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86E4F46FDC4
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 10:31:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.243640.421496 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvcCU-0003lK-0m; Fri, 10 Dec 2021 09:28:22 +0000
+	id 1mvcF7-00057Y-Et; Fri, 10 Dec 2021 09:31:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 243636.421485; Fri, 10 Dec 2021 09:28:21 +0000
+Received: by outflank-mailman (output) from mailman id 243640.421496; Fri, 10 Dec 2021 09:31:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvcCT-0003jG-Tt; Fri, 10 Dec 2021 09:28:21 +0000
-Received: by outflank-mailman (input) for mailman id 243636;
- Fri, 10 Dec 2021 09:28:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=At30=Q3=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1mvcCT-0003jA-As
- for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 09:28:21 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 832ff8fa-599b-11ec-a831-37629979565c;
- Fri, 10 Dec 2021 10:28:20 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id x10so10627109edd.5
- for <xen-devel@lists.xenproject.org>; Fri, 10 Dec 2021 01:28:20 -0800 (PST)
-Received: from a2klaptop.epam.com (host-176-36-245-220.b024.la.net.ua.
- [176.36.245.220])
- by smtp.gmail.com with ESMTPSA id u10sm1100969edo.16.2021.12.10.01.28.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Dec 2021 01:28:19 -0800 (PST)
+	id 1mvcF7-00055O-Ba; Fri, 10 Dec 2021 09:31:05 +0000
+Received: by outflank-mailman (input) for mailman id 243640;
+ Fri, 10 Dec 2021 09:31:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvcF5-000559-NM; Fri, 10 Dec 2021 09:31:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvcF5-00025t-GB; Fri, 10 Dec 2021 09:31:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvcF5-0004Lm-7m; Fri, 10 Dec 2021 09:31:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvcF5-0001lD-7H; Fri, 10 Dec 2021 09:31:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,103 +42,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 832ff8fa-599b-11ec-a831-37629979565c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=Wo+kEjPRCNOeRmpc24VwDoZ3sGXxzMQEGIk47myQMF4=;
-        b=D25x5s7aOfBvkoF1TAnTBMhjleDypIR/jVNd0p2Z75eSnIZErDAv1fx6EJlzyYEERD
-         rWV5T4fMEPDldGHGy4lzjbH3kK0SbORPAwBxvAUGhcNaDSrirLbvpNIXQFsSlrLISZpT
-         8EOim2hyYjFNofT0F/PjVWXDxbocKSnhkeWUqI5OyqmPf2t4jS2iSgJ3Mtzqt5Hr1Fpm
-         oXJkmh2A/7omfykgSbnPUptdgPB7L2dfxgU0jrKd8c9WMhF2cwUEQg0p7Ikio0NbJu9d
-         uKeBFO4Egbg/KQ0sOh+YG+ckeIcBg/bMkIkQpCJxqs5lWNnFvg6wHJ/eSZ4h2OX3+avB
-         HkZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=Wo+kEjPRCNOeRmpc24VwDoZ3sGXxzMQEGIk47myQMF4=;
-        b=LOgku2zzZnrD8A9xDgiKQ4e19+hSCwzO+LT+RKkydTt1kSVlDPkQ4mmijOHQ9z3Nt7
-         N8wB/lFqRc+J0zNCiNBc4X9AMn0U/g6x4dckxFM3g98f9SLT3ji/7SKcW6+OCslGU4DM
-         gHsMETNFMsXlbvxwB63GZ8WkMYFRDR5/U9k5xbM+XDXtsG4MuIUQTrTBJXNrfNPSvXU9
-         yPxfx3p4eagpozbBmcW+npnwhOGgejyid1dEK0FNL2O95cuEEUw/VgbP4y2/d1fKtuS7
-         I8UVpxokFXMfdvx2juluYDXI5r0gv9FNFz2lA9TZLsZaVEk4F5VvEbOvxVEcLOtrLk2D
-         SU6A==
-X-Gm-Message-State: AOAM531Boc0RJATPs7Agu2UMeDlrx9+VjryXXolYU35LTtxLi6zW0RSe
-	KkG1r6FgIOERuC5vFN6TPZY8b8FohHxPWA==
-X-Google-Smtp-Source: ABdhPJwcTAzhR9JhHlzlbR4kehZa3+II/LWyggzIRg1fSi6WukM1ZJJNUF2G5HcniWyScx8qbyyG8g==
-X-Received: by 2002:a05:6402:1e95:: with SMTP id f21mr38172357edf.139.1639128499650;
-        Fri, 10 Dec 2021 01:28:19 -0800 (PST)
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=wn2W9DrpAMTbtRNpRzZnEqZgGyVpfEpjRXzoYwll2gk=; b=AbSlVEeR4yq/7tkpIp+0JIYFO8
+	ZktNqRXqyyo1HOkbZonml+rRKGNk0vqy+WFuGUh8xCupGclv7L28BHEhTNwYGB080XOG4fRrQ287v
+	bVc50C21tV0OhSEoNhrKWbJU76+OiDg+fdNiGc/nN955mU4I9xopmtC8jZglBZi/yb+8=;
 To: xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org
-Cc: boris.ostrovsky@oracle.com,
-	jgross@suse.com,
-	sstabellini@kernel.org,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] xen/gntdev: fix unmap notification order
-Date: Fri, 10 Dec 2021 11:28:17 +0200
-Message-Id: <20211210092817.580718-1-andr2000@gmail.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
+    osstest-admin@xenproject.org
+Message-ID: <osstest-167334-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 167334: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=06544455d0d460ed18c8582121247bf53292d7e4
+X-Osstest-Versions-That:
+    ovmf=c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 10 Dec 2021 09:31:03 +0000
 
-From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+flight 167334 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167334/
 
-While working with Xen's libxenvchan library I have faced an issue with
-unmap notifications sent in wrong order if both UNMAP_NOTIFY_SEND_EVENT
-and UNMAP_NOTIFY_CLEAR_BYTE were requested: first we send an event channel
-notification and then clear the notification byte which renders in the below
-inconsistency (cli_live is the byte which was requested to be cleared on unmap):
+Regressions :-(
 
-[  444.514243] gntdev_put_map UNMAP_NOTIFY_SEND_EVENT map->notify.event 6
-libxenvchan_is_open cli_live 1
-[  444.515239] __unmap_grant_pages UNMAP_NOTIFY_CLEAR_BYTE at 14
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 167239
+ build-i386-xsm                6 xen-build                fail REGR. vs. 167239
+ build-i386                    6 xen-build                fail REGR. vs. 167239
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 167239
 
-Thus it is not possible to reliably implement the checks like
-- wait for the notification (UNMAP_NOTIFY_SEND_EVENT)
-- check the variable (UNMAP_NOTIFY_CLEAR_BYTE)
-because it is possible that the variable gets checked before it is cleared
-by the kernel.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-To fix that we need to re-order the notifications, so the variable is first
-gets cleared and then the event channel notification is sent.
-With this fix I can see the correct order of execution:
+version targeted for testing:
+ ovmf                 06544455d0d460ed18c8582121247bf53292d7e4
+baseline version:
+ ovmf                 c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
 
-[   54.522611] __unmap_grant_pages UNMAP_NOTIFY_CLEAR_BYTE at 14
-[   54.537966] gntdev_put_map UNMAP_NOTIFY_SEND_EVENT map->notify.event 6
-libxenvchan_is_open cli_live 0
+Last test of basis   167239  2021-12-09 06:23:17 Z    1 days
+Testing same since   167240  2021-12-09 08:42:46 Z    1 days   25 attempts
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
----
- drivers/xen/gntdev.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+------------------------------------------------------------
+People who touched revisions under test:
+  Brijesh Singh <brijesh.singh@amd.com>
+  Brijesh Singh via groups.io <brijesh.singh=amd.com@groups.io>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jiewen Yao <Jiewen.yao@intel.com>
+  Michael Roth <michael.roth@amd.com>
+  Ray Ni <ray.ni@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
 
-diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-index fec1b6537166..59ffea800079 100644
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -250,13 +250,13 @@ void gntdev_put_map(struct gntdev_priv *priv, struct gntdev_grant_map *map)
- 	if (!refcount_dec_and_test(&map->users))
- 		return;
- 
-+	if (map->pages && !use_ptemod)
-+		unmap_grant_pages(map, 0, map->count);
-+
- 	if (map->notify.flags & UNMAP_NOTIFY_SEND_EVENT) {
- 		notify_remote_via_evtchn(map->notify.event);
- 		evtchn_put(map->notify.event);
- 	}
--
--	if (map->pages && !use_ptemod)
--		unmap_grant_pages(map, 0, map->count);
- 	gntdev_free_map(map);
- }
- 
--- 
-2.25.1
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1042 lines long.)
 
