@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 935284702A0
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 15:20:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.243956.422092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1874F470311
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 15:44:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.243976.422102 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvgkw-0007iE-NO; Fri, 10 Dec 2021 14:20:14 +0000
+	id 1mvh7o-0002sT-Dt; Fri, 10 Dec 2021 14:43:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 243956.422092; Fri, 10 Dec 2021 14:20:14 +0000
+Received: by outflank-mailman (output) from mailman id 243976.422102; Fri, 10 Dec 2021 14:43:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvgkw-0007gC-JJ; Fri, 10 Dec 2021 14:20:14 +0000
-Received: by outflank-mailman (input) for mailman id 243956;
- Fri, 10 Dec 2021 14:20:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mvh7o-0002qO-AV; Fri, 10 Dec 2021 14:43:52 +0000
+Received: by outflank-mailman (input) for mailman id 243976;
+ Fri, 10 Dec 2021 14:43:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=a5or=Q3=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1mvgkv-0007g5-HM
- for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 14:20:13 +0000
-Received: from ppsw-43.csi.cam.ac.uk (ppsw-43.csi.cam.ac.uk [131.111.8.143])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 481872d2-59c4-11ec-a831-37629979565c;
- Fri, 10 Dec 2021 15:20:10 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:41522)
- by ppsw-43.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1mvgkr-0007EV-p0 (Exim 4.95) (return-path <amc96@srcf.net>);
- Fri, 10 Dec 2021 14:20:09 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 67F3C1FDB9;
- Fri, 10 Dec 2021 14:20:09 +0000 (GMT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvh7n-0002qE-9O; Fri, 10 Dec 2021 14:43:51 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvh7m-0007lm-Vb; Fri, 10 Dec 2021 14:43:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvh7m-0000AW-MI; Fri, 10 Dec 2021 14:43:50 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvh7m-0003By-Lq; Fri, 10 Dec 2021 14:43:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,61 +42,89 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 481872d2-59c4-11ec-a831-37629979565c
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <44707bed-ceb3-377b-f2b3-9864b7fa4e97@srcf.net>
-Date: Fri, 10 Dec 2021 14:20:09 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=5fGruBeXLjwZIearlRsKx6f4TtYAum/jOJJpT6z9gZI=; b=QLGfX/AXS5XXvC0CLRFBlfyVgy
+	qJuPh6dGwZipGmPy13Ja68zoJ3Xk3v8ULJqfJioPEUZ8mQ2gJD+lHJJBYmXhljTUrLq+I8ET5GiFM
+	DVEvDd52m8lUIy/XgouDDyHCgREb5hdORPEhykAhXX9Q5ekTUHpzGAo4D7QERiW2hJNc=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-167337-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.3.2
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
- <20211126123446.32324-2-andrew.cooper3@citrix.com>
- <69d1b4a3-a042-c2c4-2f59-ea897886ae1d@suse.com>
- <e7f8a52a-5761-88dc-97ff-6c2feca2effb@srcf.net>
- <566dbf20-2881-80ac-eafd-57ac4b217f0f@suse.com>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH 01/65] x86: Introduce support for CET-IBT
-In-Reply-To: <566dbf20-2881-80ac-eafd-57ac4b217f0f@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 167337: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=29e31aaf5d81e57679c2abfe8ffd3851a87042b5
+X-Osstest-Versions-That:
+    xen=1384d4e1e4ef6e846a1cac54f6d2868d40309607
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 10 Dec 2021 14:43:50 +0000
 
-On 29/11/2021 09:21, Jan Beulich wrote:
-> On 26.11.2021 16:21, Andrew Cooper wrote:
->> On 26/11/2021 14:10, Jan Beulich wrote:
->>> On 26.11.2021 13:33, Andrew Cooper wrote:
->>>> @@ -124,6 +129,18 @@ config XEN_SHSTK
->>>>  	  When CET-SS is active, 32bit PV guests cannot be used.  Backwards
->>>>  	  compatiblity can be provided via the PV Shim mechanism.
->>>>  
->>>> +config XEN_IBT
->>>> +	bool "Supervisor Indirect Branch Tracking"
->>>> +	depends on HAS_CC_CET_IBT
->>>> +	default y
->>>> +	help
->>>> +	  Control-flow Enforcement Technology (CET) is a set of features in
->>>> +	  hardware designed to combat Return-oriented Programming (ROP, also
->>>> +	  call/jump COP/JOP) attacks.  Indirect Branch Tracking is one CET
->>>> +	  feature designed to provide function pointer protection.
->>>> +
->>>> +	  This option arranges for Xen to use CET-IBT for its own protection.
->>> Shouldn't this depend on BROKEN until it's actually functional?
->> It compiles fine right from now, and making it BROKEN would inhibit
->> bisection through the series.
->>
->> Nothing actually matters until patch 65 turns on MSR_S_CET.ENDBR_EN.
-> "Nothing" except that until then the promised extra security isn't
-> there.
+flight 167337 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167337/
 
-The series is very likely to be committed in one fell swoop, but even
-that aside, it really doesn't matter until 4.17-rc1
+Failures :-/ but no regressions.
 
-As it stands, this is ~65 patches of incremental changes to the binary,
-and oughtn't to be 65 nops and a massive switch at the end.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-~Andrew
+version targeted for testing:
+ xen                  29e31aaf5d81e57679c2abfe8ffd3851a87042b5
+baseline version:
+ xen                  1384d4e1e4ef6e846a1cac54f6d2868d40309607
+
+Last test of basis   167290  2021-12-09 20:01:35 Z    0 days
+Testing same since   167337  2021-12-10 10:00:26 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Ian Jackson <iwj@xenproject.org>
+  Jan Beulich <jbeulich@suse.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   1384d4e1e4..29e31aaf5d  29e31aaf5d81e57679c2abfe8ffd3851a87042b5 -> smoke
 
