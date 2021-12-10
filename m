@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 055D0470DBB
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 23:27:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.244406.422876 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 264FC470DC0
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 23:27:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.244419.422919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvoM9-0000oR-T5; Fri, 10 Dec 2021 22:27:09 +0000
+	id 1mvoMO-0003j3-7t; Fri, 10 Dec 2021 22:27:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 244406.422876; Fri, 10 Dec 2021 22:27:09 +0000
+Received: by outflank-mailman (output) from mailman id 244419.422919; Fri, 10 Dec 2021 22:27:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvoM9-0000kM-JV; Fri, 10 Dec 2021 22:27:09 +0000
-Received: by outflank-mailman (input) for mailman id 244406;
- Fri, 10 Dec 2021 22:27:07 +0000
+	id 1mvoMO-0003fD-34; Fri, 10 Dec 2021 22:27:24 +0000
+Received: by outflank-mailman (input) for mailman id 244419;
+ Fri, 10 Dec 2021 22:27:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nm8/=Q3=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1mvoEf-0005LK-2j
- for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 22:19:25 +0000
+ id 1mvoEg-0005LK-IA
+ for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 22:19:26 +0000
 Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3b035812-5a07-11ec-a74f-db008197e53d;
- Fri, 10 Dec 2021 23:19:24 +0100 (CET)
+ id 3bea19be-5a07-11ec-a74f-db008197e53d;
+ Fri, 10 Dec 2021 23:19:25 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,25 +36,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b035812-5a07-11ec-a74f-db008197e53d
-Message-ID: <20211210221814.780824745@linutronix.de>
+X-Inumbo-ID: 3bea19be-5a07-11ec-a74f-db008197e53d
+Message-ID: <20211210221814.841243231@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1639174764;
+	s=2020; t=1639174765;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=ZEIc+hYHtGZ+R8Y42PTVzHWVlXMSBVtNMJGsH152424=;
-	b=ZnOdjYsyWWWPA45DX/sEP1Hz7/N21g6u4UZdn8c1qyQRQwctj1a4i6BAp20kDLoVrj6D2s
-	MbD+ZTo1q9CByKhQo2XRoN4WdhbqsWP8IhvQmO5n4QjDLb4bQeMj+tjt/r7iv7ulqjYgof
-	F4ISSFlfQwvH4mj7rI3COb7fhYfIaOuZZwt6hdi7/i1KgHhxe1miuwBC9ALPHJWSgBGtAq
-	Hm9GThVygPLyQUzGEUG99ih95uj7Ifn3w+/L6+ojF2urlcLuEKAYpMauAHf1+Mdai5rTl4
-	6N8IRoupzCe+vvFuCq6MovD0Voro2Z7OmtZqPzl66KvGCxnWY1NqHMI0nV1/OA==
+	 references:references; bh=ja9fbkTMChiYC+RHKTG35XzzVDvmaXMgaMrb6WY3XeQ=;
+	b=z6iPEnfVAgwlW1Qbnq1nCFWwA6bNapErKquzAi3fk6aQqeO9o4U4iwQjv+EebRfvLnwN8n
+	e63ahKnp4QuQIaqzvffdsynbWgeJGaK4CvS+c+uMgRBceXI7VODqOegmQe3L/CvghbDhuO
+	LN91tjaF0S12KexgZs8cR5/oZ2rSgoo7wgdZrtLgJvkHGW3yStep1fiuvR7g41IWJCZNnu
+	Rdmmg97HfnTylsxqpzgAYVzZaMeXvWfNQQ5rvNFbwpEWwzgtXnQ4/DZTiIX/XN8OvdQ75p
+	NdflsNWb6DcWnXBSu0XhAKL30N7MQvosu7Eo61JG6PvjMi8bgOFzC5eVez11kQ==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1639174764;
+	s=2020e; t=1639174765;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 references:references; bh=ZEIc+hYHtGZ+R8Y42PTVzHWVlXMSBVtNMJGsH152424=;
-	b=IxahGrtxRlopXsWUYNpTNdhCUtnqonpOEodZ3IuQBz/DFc/KxGCheju7XzPFrWnx3hqpKg
-	Kcg6g5cSFSWCRQCA==
+	 references:references; bh=ja9fbkTMChiYC+RHKTG35XzzVDvmaXMgaMrb6WY3XeQ=;
+	b=ClMHqdNEhBqMOb1sVFaSm0KweWWAEZJCgeJM/hGJMp5ROj9kquAcj3PJfKxxeM3i7GOxBS
+	FHUfoC+s+JX7GLDA==
 From: Thomas Gleixner <tglx@linutronix.de>
 To: LKML <linux-kernel@vger.kernel.org>
 Cc: Bjorn Helgaas <helgaas@kernel.org>,
@@ -90,85 +90,61 @@ Cc: Bjorn Helgaas <helgaas@kernel.org>,
  Jassi Brar <jassisinghbrar@gmail.com>,
  Peter Ujfalusi <peter.ujfalusi@gmail.com>,
  Sinan Kaya <okaya@kernel.org>
-Subject: [patch V3 26/35] genirq/msi: Provide interface to retrieve Linux
- interrupt number
+Subject: [patch V3 27/35] PCI/MSI: Use __msi_get_virq() in pci_get_vector()
 References: <20211210221642.869015045@linutronix.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Fri, 10 Dec 2021 23:19:23 +0100 (CET)
+Date: Fri, 10 Dec 2021 23:19:25 +0100 (CET)
 
 From: Thomas Gleixner <tglx@linutronix.de>
 
-This allows drivers to retrieve the Linux interrupt number instead of
-fiddling with MSI descriptors.
+Use msi_get_vector() and handle the return value to be compatible.
 
-msi_get_virq() returns the Linux interrupt number or 0 in case that there
-is no entry for the given MSI index.
+No functional change intended.
 
 Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
 Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-V2: Simplify the implementation and let PCI deal with the PCI specialities - Marc
+V2: Handle the INTx case directly instead of trying to be overly smart - Marc
 ---
- include/linux/msi.h |    2 ++
- kernel/irq/msi.c    |   36 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 38 insertions(+)
+ drivers/pci/msi/msi.c |   25 +++++--------------------
+ 1 file changed, 5 insertions(+), 20 deletions(-)
 
---- a/include/linux/msi.h
-+++ b/include/linux/msi.h
-@@ -153,6 +153,8 @@ struct msi_device_data {
+--- a/drivers/pci/msi/msi.c
++++ b/drivers/pci/msi/msi.c
+@@ -1037,28 +1037,13 @@ EXPORT_SYMBOL(pci_free_irq_vectors);
+  */
+ int pci_irq_vector(struct pci_dev *dev, unsigned int nr)
+ {
+-	if (dev->msix_enabled) {
+-		struct msi_desc *entry;
++	unsigned int irq;
  
- int msi_setup_device_data(struct device *dev);
+-		for_each_pci_msi_entry(entry, dev) {
+-			if (entry->msi_index == nr)
+-				return entry->irq;
+-		}
+-		WARN_ON_ONCE(1);
+-		return -EINVAL;
+-	}
++	if (!dev->msi_enabled && !dev->msix_enabled)
++		return !nr ? dev->irq : -EINVAL;
  
-+unsigned int msi_get_virq(struct device *dev, unsigned int index);
-+
- /* Helpers to hide struct msi_desc implementation details */
- #define msi_desc_to_dev(desc)		((desc)->dev)
- #define dev_to_msi_list(dev)		(&(dev)->msi_list)
---- a/kernel/irq/msi.c
-+++ b/kernel/irq/msi.c
-@@ -105,6 +105,42 @@ int msi_setup_device_data(struct device
- 	return 0;
+-	if (dev->msi_enabled) {
+-		struct msi_desc *entry = first_pci_msi_entry(dev);
+-
+-		if (WARN_ON_ONCE(nr >= entry->nvec_used))
+-			return -EINVAL;
+-	} else {
+-		if (WARN_ON_ONCE(nr > 0))
+-			return -EINVAL;
+-	}
+-
+-	return dev->irq + nr;
++	irq = msi_get_virq(&dev->dev, nr);
++	return irq ? irq : -EINVAL;
  }
+ EXPORT_SYMBOL(pci_irq_vector);
  
-+/**
-+ * msi_get_virq - Return Linux interrupt number of a MSI interrupt
-+ * @dev:	Device to operate on
-+ * @index:	MSI interrupt index to look for (0-based)
-+ *
-+ * Return: The Linux interrupt number on success (> 0), 0 if not found
-+ */
-+unsigned int msi_get_virq(struct device *dev, unsigned int index)
-+{
-+	struct msi_desc *desc;
-+	bool pcimsi;
-+
-+	if (!dev->msi.data)
-+		return 0;
-+
-+	pcimsi = dev_is_pci(dev) ? to_pci_dev(dev)->msi_enabled : false;
-+
-+	for_each_msi_entry(desc, dev) {
-+		/* PCI-MSI has only one descriptor for multiple interrupts. */
-+		if (pcimsi) {
-+			if (desc->irq && index < desc->nvec_used)
-+				return desc->irq + index;
-+			break;
-+		}
-+
-+		/*
-+		 * PCI-MSIX and platform MSI use a descriptor per
-+		 * interrupt.
-+		 */
-+		if (desc->msi_index == index)
-+			return desc->irq;
-+	}
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(msi_get_virq);
-+
- #ifdef CONFIG_SYSFS
- static ssize_t msi_mode_show(struct device *dev, struct device_attribute *attr,
- 			     char *buf)
 
 
