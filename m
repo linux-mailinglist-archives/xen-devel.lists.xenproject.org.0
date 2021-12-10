@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D8FB470AEB
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 20:50:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.244327.422583 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA061470B78
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 21:08:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.244333.422596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvlty-0006Dg-7p; Fri, 10 Dec 2021 19:49:54 +0000
+	id 1mvmAu-0001Lg-L4; Fri, 10 Dec 2021 20:07:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 244327.422583; Fri, 10 Dec 2021 19:49:54 +0000
+Received: by outflank-mailman (output) from mailman id 244333.422596; Fri, 10 Dec 2021 20:07:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvlty-0006Bv-4Z; Fri, 10 Dec 2021 19:49:54 +0000
-Received: by outflank-mailman (input) for mailman id 244327;
- Fri, 10 Dec 2021 19:49:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mvmAu-0001Jn-Fv; Fri, 10 Dec 2021 20:07:24 +0000
+Received: by outflank-mailman (input) for mailman id 244333;
+ Fri, 10 Dec 2021 20:07:22 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Lr8x=Q3=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1mvltw-0006Bp-1D
- for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 19:49:52 +0000
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [2a00:1450:4864:20::135])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 565699e4-59f2-11ec-a74f-db008197e53d;
- Fri, 10 Dec 2021 20:49:50 +0100 (CET)
-Received: by mail-lf1-x135.google.com with SMTP id k37so20007230lfv.3
- for <xen-devel@lists.xenproject.org>; Fri, 10 Dec 2021 11:49:50 -0800 (PST)
-Received: from [192.168.2.145] (94-29-46-111.dynamic.spd-mgts.ru.
- [94.29.46.111])
- by smtp.googlemail.com with ESMTPSA id z24sm395757lfh.289.2021.12.10.11.49.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Dec 2021 11:49:49 -0800 (PST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvmAs-0001Jd-8E; Fri, 10 Dec 2021 20:07:22 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvmAs-0005do-22; Fri, 10 Dec 2021 20:07:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvmAr-0003lD-Pl; Fri, 10 Dec 2021 20:07:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvmAr-00049V-PD; Fri, 10 Dec 2021 20:07:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,136 +42,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 565699e4-59f2-11ec-a74f-db008197e53d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:from:to:cc:references:message-id:date:user-agent
-         :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=8Fx2AxGyl7h70TiPIfAS4vLJoC4O4KHoawTu1bt5PLU=;
-        b=V/Owe18bjaHxi/q9LMXS8LNROf16L9DCZYGpExoCj+SNTLCiSQNB3HcPLajV/NP5JE
-         39hqIvfIb3bc7xrS2E0EYCC3yAPKzLg7BnA0PumFQ89YOCGyLF9Ipz3BTISejc0ZvQJA
-         z5FDAeVaX1e2/Z9TFGOO31SRX4KXbVNvKZ2tbYOwQTeu/RyJ9cs6xalps+Kn8iqrggDL
-         HFUryH5SPjqHR6nW0F4ENPTnll1o3uJ7tQu3AMV7MUX+qx7nV3LMFjM06jk+Y2dJ7HtP
-         J+zk+OszrogiRw5+RRL4W19jTgJEJXo+L0tNHRiDg9ofDsu8gJQpDKtlXAuJgOp4GYiB
-         LSvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:from:to:cc:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=8Fx2AxGyl7h70TiPIfAS4vLJoC4O4KHoawTu1bt5PLU=;
-        b=I1iWMn+/1LD3isNyUc0D7eHene3dSYDtFHdNHJxkLyMRNTcBBr4DFbK4al0sl3GEoP
-         +zMTyDUVrSxFYlPruq73oS4PAM7kcWWCz/hS/0n+pWBcTv367VAj341s0ia+ATDwlh/w
-         BNE/P5rQYQ2DL7bd7PFpWvJlUB7UULlQBfAxwHpN46Hy4SFUyfMpqZ6TnRs2He67ZiAT
-         p4WL5DzLhwD8B0CfkhZeYk1YNuZfPz/j42WQHId3fvCDNDeRd1qbdBwj/IQG/Hngc8Qe
-         WdbVSk00O7tcpuNbDWbxuJSt9i6/dTf2M1Q/1aV7bGwwSAUcYxV47pSMC7dwruhmum5a
-         MhqQ==
-X-Gm-Message-State: AOAM533rHheZ1rE7uQbBcUqF7H5dlko5bJu6Lkfo2H+vkmoj/Qp28dMD
-	Ww4dfWoWengpi/BADFxT1nU=
-X-Google-Smtp-Source: ABdhPJz32UCAa2RfOn9XCHx2JjAq/5XnkzKJ8mqE0CmU9Bnm8cg96K7fElVvubFW0G/2Bv0vNQ8r/g==
-X-Received: by 2002:a05:6512:114a:: with SMTP id m10mr14457333lfg.188.1639165790431;
-        Fri, 10 Dec 2021 11:49:50 -0800 (PST)
-Subject: Re: [PATCH v4 05/25] reboot: Warn if restart handler has duplicated
- priority
-From: Dmitry Osipenko <digetx@gmail.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
-Cc: Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Russell King
- <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Greg Ungerer
- <gerg@linux-m68k.org>, Joshua Thompson <funaho@jurai.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Sebastian Reichel <sre@kernel.org>, Linus Walleij
- <linus.walleij@linaro.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Michael Ellerman <mpe@ellerman.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- the arch/x86 maintainers <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Len Brown <lenb@kernel.org>, Santosh Shilimkar <ssantosh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Pavel Machek <pavel@ucw.cz>, Lee Jones <lee.jones@linaro.org>,
- Andrew Morton <akpm@linux-foundation.org>, Guenter Roeck
- <linux@roeck-us.net>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, alankao@andestech.com,
- "K . C . Kuen-Chern Lin" <kclin@andestech.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-csky@vger.kernel.org, linux-ia64@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-mips@vger.kernel.org,
- linux-parisc@vger.kernel.org, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- linux-riscv@lists.infradead.org, Linux-sh list <linux-sh@vger.kernel.org>,
- xen-devel@lists.xenproject.org,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Linux PM <linux-pm@vger.kernel.org>,
- linux-tegra <linux-tegra@vger.kernel.org>
-References: <20211126180101.27818-1-digetx@gmail.com>
- <20211126180101.27818-6-digetx@gmail.com> <YaLNOJTM+lVq+YNS@qmqm.qmqm.pl>
- <033ddf2a-6223-1a82-ec64-30f17c891f67@gmail.com>
- <YaQeQgbW+CjEdsqG@qmqm.qmqm.pl>
- <091321ea-4919-0579-88a8-23d05871575d@gmail.com>
- <CAJZ5v0jMvdhfBqjY+V9h_Z6EH1ohuJH+KjuGiOw_Jor1Tnp7vg@mail.gmail.com>
- <45025b2d-4be1-f694-be61-31903795cf5d@gmail.com>
- <CAJZ5v0ieTwnBVjW8R_VTdPFH3yr5AwLc+ZEG5N3KrpTH+j8qZw@mail.gmail.com>
- <45228c88-4d51-591e-5da5-9ec468e71684@gmail.com>
- <ad6c7d73-e7d3-4901-fd63-ef87eecd39a2@gmail.com>
-Message-ID: <7875d10b-0d9b-ca29-668b-630ea3650fd0@gmail.com>
-Date: Fri, 10 Dec 2021 22:49:47 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-MIME-Version: 1.0
-In-Reply-To: <ad6c7d73-e7d3-4901-fd63-ef87eecd39a2@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=zNx/kbH87ZTaC+6rB7yY6YCcuBF4DxzxNNqsMTcoDK8=; b=WXvf1xsysgl5AgqP6wpId82tzz
+	jXXLq6oTG9H7SMyWVhbiPs12bERib/k6Si+YaUJcfAIXIga7RPNV8EUlb2o1cF7SXNfbJ6uLdSzdF
+	6+Pi3d7/aQFPoZ0Jh8ccyp6ubYc4jfd8O8koN9pXeiNDuCATzNafx+7i5RX+kv3azUGA=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-167350-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 167350: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=0f1d7477c0a86a31e2edede7d3a3c74087bb6e21
+X-Osstest-Versions-That:
+    ovmf=c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 10 Dec 2021 20:07:21 +0000
 
-10.12.2021 22:44, Dmitry Osipenko пишет:
-> 10.12.2021 22:42, Dmitry Osipenko пишет:
-> ...
->>>> There is no strong requirement for priorities to be unique, the reboot.c
->>>> code will work properly.
->>>
->>> In which case adding the WARN() is not appropriate IMV.
->>>
->>> Also I've looked at the existing code and at least in some cases the
->>> order in which the notifiers run doesn't matter.  I'm not sure what
->>> the purpose of this patch is TBH.
->>
->> The purpose is to let developer know that driver needs to be corrected.
->>
->>>> The potential problem is on the user's side and the warning is intended
->>>> to aid the user.
->>>
->>> Unless somebody has the panic_on_warn mentioned previously set and
->>> really the user need not understand what the WARN() is about.  IOW,
->>> WARN() helps developers, not users.
->>>
->>>> We can make it a strong requirement, but only after converting and
->>>> testing all kernel drivers.
->>>
->>> Right.
->>>
->>>> I'll consider to add patches for that.
->>>
->>> But can you avoid adding more patches to this series?
->>
->> I won't add more patches since such patches can be added only after
->> completion of transition to the new API of the whole kernel.
->>
-> 
-> Thank you for the review.
-> 
+flight 167350 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167350/
 
-I meant you, Rafael, and Michał, just in case :)
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 167239
+ build-i386-xsm                6 xen-build                fail REGR. vs. 167239
+ build-i386                    6 xen-build                fail REGR. vs. 167239
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 167239
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 0f1d7477c0a86a31e2edede7d3a3c74087bb6e21
+baseline version:
+ ovmf                 c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
+
+Last test of basis   167239  2021-12-09 06:23:17 Z    1 days
+Failing since        167240  2021-12-09 08:42:46 Z    1 days   37 attempts
+Testing same since   167338  2021-12-10 10:40:22 Z    0 days   11 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Brijesh Singh <brijesh.singh@amd.com>
+  Brijesh Singh via groups.io <brijesh.singh=amd.com@groups.io>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jiewen Yao <Jiewen.yao@intel.com>
+  Michael Roth <michael.roth@amd.com>
+  Philippe Mathieu-Daude <philmd@redhat.com>
+  Ray Ni <ray.ni@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1070 lines long.)
 
