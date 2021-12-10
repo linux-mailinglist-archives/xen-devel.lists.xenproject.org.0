@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2954F470877
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 19:20:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.244197.422372 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92C4147088C
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 19:21:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.244204.422383 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvkV5-0006nc-KF; Fri, 10 Dec 2021 18:20:07 +0000
+	id 1mvkWL-0007QT-VW; Fri, 10 Dec 2021 18:21:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 244197.422372; Fri, 10 Dec 2021 18:20:07 +0000
+Received: by outflank-mailman (output) from mailman id 244204.422383; Fri, 10 Dec 2021 18:21:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvkV5-0006kv-GM; Fri, 10 Dec 2021 18:20:07 +0000
-Received: by outflank-mailman (input) for mailman id 244197;
- Fri, 10 Dec 2021 18:20:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mvkWL-0007Oe-Qm; Fri, 10 Dec 2021 18:21:25 +0000
+Received: by outflank-mailman (input) for mailman id 244204;
+ Fri, 10 Dec 2021 18:21:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2dzg=Q3=gmail.com=rjwysocki@srs-se1.protection.inumbo.net>)
- id 1mvkV3-0006ev-QV
- for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 18:20:05 +0000
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
- [209.85.161.44]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cb747a9b-59e5-11ec-a74f-db008197e53d;
- Fri, 10 Dec 2021 19:20:04 +0100 (CET)
-Received: by mail-oo1-f44.google.com with SMTP id
- w15-20020a4a9d0f000000b002c5cfa80e84so2595243ooj.5
- for <xen-devel@lists.xenproject.org>; Fri, 10 Dec 2021 10:20:04 -0800 (PST)
+ id 1mvkWK-0007OU-3I
+ for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 18:21:24 +0000
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fa604526-59e5-11ec-ad7a-b7ef48004f0a;
+ Fri, 10 Dec 2021 19:21:23 +0100 (CET)
+Received: by mail-ot1-f50.google.com with SMTP id
+ 47-20020a9d0332000000b005798ac20d72so10420096otv.9
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Dec 2021 10:21:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,30 +39,30 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cb747a9b-59e5-11ec-a74f-db008197e53d
+X-Inumbo-ID: fa604526-59e5-11ec-ad7a-b7ef48004f0a
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:mime-version:references:in-reply-to:from:date
          :message-id:subject:to:cc;
-        bh=otNvdkTkoV7wYQ8jKu5rR7dHo6vQCE5BmfrHPdMYTOI=;
-        b=4BJDWz75nxCkv1l8VcO9qGsBppwao+2LMCsxohG7tgxn3CCzLMuNtqOE4MGnpt3Kh+
-         05v3AQcgUVrJza7s7jG5hD6jON7kumXc3h/IiT6YPYS6D4gXw9p+O0jYzdtDgzR3LfQU
-         crVKS6eMhrBhpNJ5zbg8eIZSiXPgfy3opedBVXZiydSTFbeTLeYgP03Uv79TcEsS0nWV
-         9ZkWswqpUKb/HPnH8Xhe+40byT8WHxfrSLb/XgF/o409vBncH2ktk0A/awdnTmgqqDN/
-         aKYLGoXzSIqTEZb48tOFumpkOiBK5b6a04jo6ViJ2EPFEMNlkE1MwYn85zEYa30lRecB
-         XOzA==
-X-Gm-Message-State: AOAM531TRMfvvz+ifJY1CSyjQ4vK1k1YI1wKNxFO8goOjGSCijEKcxlX
-	JJMI5iPlB759qK7r6LKj1OkPdnT5+p1VgiBCEk8=
-X-Google-Smtp-Source: ABdhPJwWhlgSTT1XO9DdsJeGtp3+qj/KLI9CFrQ1iXrm/9qKavB6UGr0uIjkNl6uj3XKEKq2VM+aZTVW+dl+zG+2Q+M=
-X-Received: by 2002:a4a:1d82:: with SMTP id 124mr9074671oog.91.1639160403307;
- Fri, 10 Dec 2021 10:20:03 -0800 (PST)
+        bh=CGnO4bxnTAqMK/uthYlBDN3+OwLPbg309qxpgobdKxI=;
+        b=ksZIEvcpYx33W6T4oWVnODlPjYPbc9kw21gBhLsMkR3d244tlOdMTPp3s8LUBzIcCa
+         v6EBL8Np37eCJiz5tHp+8NGOVEzgHgIzDX7idvJzwwX6CzbpCTlKfoJN8w/SNV3nej6J
+         MGbsRXXTWa9llJjzs+0sV2PWNA7K4pHw62T6CjGErmnhaGMjRNUiKnT+QziFnwb6MbzQ
+         JqTAeJwZrOTew9kAZPkv+5SZzEOr7GfQsPQ3M5nXoeSfbqxXD3aDJI3VLGAwqZDtGzCX
+         x/0rte4KdsALwG9aKKLs0LMLvRXCbJV6Fi2XbbvmKQ9LOiqdpVvqC3ZaTl+W5Ly0qst7
+         /P6Q==
+X-Gm-Message-State: AOAM53172OnmRj/1/Lk9dtf6DQW3NJGC3lCZ/iYLPYrrQd53SoeXDrvM
+	px8HjdfKMToF6q0uhTw8nGlOiqDwM+NJ81PePik=
+X-Google-Smtp-Source: ABdhPJxyUbegeOKjvJ3CxiHL7dwpj9EzFVDPRUNdKiJGM3d307QrxgUO9bUGZj0EMwemLB2snxZHAeDirffJcqK0rDM=
+X-Received: by 2002:a05:6830:1e57:: with SMTP id e23mr12377743otj.16.1639160481982;
+ Fri, 10 Dec 2021 10:21:21 -0800 (PST)
 MIME-Version: 1.0
-References: <20211126180101.27818-1-digetx@gmail.com> <20211126180101.27818-4-digetx@gmail.com>
-In-Reply-To: <20211126180101.27818-4-digetx@gmail.com>
+References: <20211126180101.27818-1-digetx@gmail.com> <20211126180101.27818-5-digetx@gmail.com>
+In-Reply-To: <20211126180101.27818-5-digetx@gmail.com>
 From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Fri, 10 Dec 2021 19:19:52 +0100
-Message-ID: <CAJZ5v0jTJ3f7oUUR690PGaPJsxA8yzua9XDa8MONBHMzHnDfOQ@mail.gmail.com>
-Subject: Re: [PATCH v4 03/25] notifier: Add atomic/blocking_notifier_has_unique_priority()
+Date: Fri, 10 Dec 2021 19:21:11 +0100
+Message-ID: <CAJZ5v0h_OfrQ92KqsUdiKAfUrXDT9dPXzq4S=b6zi4k_2cPAjg@mail.gmail.com>
+Subject: Re: [PATCH v4 04/25] reboot: Correct typo in a comment
 To: Dmitry Osipenko <digetx@gmail.com>
 Cc: Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
 	Russell King <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, 
@@ -101,138 +101,29 @@ Content-Type: text/plain; charset="UTF-8"
 
 On Fri, Nov 26, 2021 at 7:02 PM Dmitry Osipenko <digetx@gmail.com> wrote:
 >
-> Add atomic/blocking_notifier_has_unique_priority() helpers which return
-> true if given handler has unique priority.
+> Correct s/implemenations/implementations/ in <reboot.h>.
 >
 > Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+
+This patch clearly need not be part of this series.
+
 > ---
->  include/linux/notifier.h |  5 +++
->  kernel/notifier.c        | 69 ++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 74 insertions(+)
+>  include/linux/reboot.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/include/linux/notifier.h b/include/linux/notifier.h
-> index 924c9d7c8e73..2c4036f225e1 100644
-> --- a/include/linux/notifier.h
-> +++ b/include/linux/notifier.h
-> @@ -175,6 +175,11 @@ int raw_notifier_call_chain_robust(struct raw_notifier_head *nh,
+> diff --git a/include/linux/reboot.h b/include/linux/reboot.h
+> index af907a3d68d1..7c288013a3ca 100644
+> --- a/include/linux/reboot.h
+> +++ b/include/linux/reboot.h
+> @@ -63,7 +63,7 @@ struct pt_regs;
+>  extern void machine_crash_shutdown(struct pt_regs *);
 >
->  bool blocking_notifier_call_chain_is_empty(struct blocking_notifier_head *nh);
->
-> +bool atomic_notifier_has_unique_priority(struct atomic_notifier_head *nh,
-> +               struct notifier_block *nb);
-> +bool blocking_notifier_has_unique_priority(struct blocking_notifier_head *nh,
-> +               struct notifier_block *nb);
-> +
->  #define NOTIFY_DONE            0x0000          /* Don't care */
->  #define NOTIFY_OK              0x0001          /* Suits me */
->  #define NOTIFY_STOP_MASK       0x8000          /* Don't call further */
-> diff --git a/kernel/notifier.c b/kernel/notifier.c
-> index b20cb7b9b1f0..7a325b742104 100644
-> --- a/kernel/notifier.c
-> +++ b/kernel/notifier.c
-> @@ -122,6 +122,19 @@ static int notifier_call_chain_robust(struct notifier_block **nl,
->         return ret;
->  }
->
-> +static int notifier_has_unique_priority(struct notifier_block **nl,
-> +                                       struct notifier_block *n)
-> +{
-> +       while (*nl && (*nl)->priority >= n->priority) {
-> +               if ((*nl)->priority == n->priority && *nl != n)
-> +                       return false;
-> +
-> +               nl = &((*nl)->next);
-> +       }
-> +
-> +       return true;
-> +}
-> +
 >  /*
->   *     Atomic notifier chain routines.  Registration and unregistration
->   *     use a spinlock, and call_chain is synchronized by RCU (no locks).
-> @@ -203,6 +216,30 @@ int atomic_notifier_call_chain(struct atomic_notifier_head *nh,
->  EXPORT_SYMBOL_GPL(atomic_notifier_call_chain);
->  NOKPROBE_SYMBOL(atomic_notifier_call_chain);
+> - * Architecture independent implemenations of sys_reboot commands.
+> + * Architecture independent implementations of sys_reboot commands.
+>   */
 >
-> +/**
-> + *     atomic_notifier_has_unique_priority - Checks whether notifier's priority is unique
-> + *     @nh: Pointer to head of the atomic notifier chain
-> + *     @n: Entry in notifier chain to check
-> + *
-> + *     Checks whether there is another notifier in the chain with the same priority.
-> + *     Must be called in process context.
-> + *
-> + *     Returns true if priority is unique, false otherwise.
-> + */
-> +bool atomic_notifier_has_unique_priority(struct atomic_notifier_head *nh,
-> +               struct notifier_block *n)
-> +{
-> +       unsigned long flags;
-> +       bool ret;
-> +
-> +       spin_lock_irqsave(&nh->lock, flags);
-> +       ret = notifier_has_unique_priority(&nh->head, n);
-> +       spin_unlock_irqrestore(&nh->lock, flags);
-
-This only works if the caller can prevent new entries from being added
-to the list at this point or if the caller knows that they cannot be
-added for some reason, but the kerneldoc doesn't mention this
-limitation.
-
-> +
-> +       return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(atomic_notifier_has_unique_priority);
-> +
->  /*
->   *     Blocking notifier chain routines.  All access to the chain is
->   *     synchronized by an rwsem.
-> @@ -336,6 +373,38 @@ bool blocking_notifier_call_chain_is_empty(struct blocking_notifier_head *nh)
->  }
->  EXPORT_SYMBOL_GPL(blocking_notifier_call_chain_is_empty);
->
-> +/**
-> + *     blocking_notifier_has_unique_priority - Checks whether notifier's priority is unique
-> + *     @nh: Pointer to head of the blocking notifier chain
-> + *     @n: Entry in notifier chain to check
-> + *
-> + *     Checks whether there is another notifier in the chain with the same priority.
-> + *     Must be called in process context.
-> + *
-> + *     Returns true if priority is unique, false otherwise.
-> + */
-> +bool blocking_notifier_has_unique_priority(struct blocking_notifier_head *nh,
-> +               struct notifier_block *n)
-> +{
-> +       bool ret;
-> +
-> +       /*
-> +        * This code gets used during boot-up, when task switching is
-> +        * not yet working and interrupts must remain disabled. At such
-> +        * times we must not call down_read().
-> +        */
-> +       if (system_state != SYSTEM_BOOTING)
-
-No, please don't do this, it makes the whole thing error-prone.
-
-> +               down_read(&nh->rwsem);
-> +
-> +       ret = notifier_has_unique_priority(&nh->head, n);
-> +
-> +       if (system_state != SYSTEM_BOOTING)
-> +               up_read(&nh->rwsem);
-
-And still what if a new entry with a non-unique priority is added to
-the chain at this point?
-
-> +
-> +       return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(blocking_notifier_has_unique_priority);
-> +
->  /*
->   *     Raw notifier chain routines.  There is no protection;
->   *     the caller must provide it.  Use at your own risk!
+>  extern void kernel_restart_prepare(char *cmd);
 > --
 > 2.33.1
 >
