@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6CB23470695
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 18:00:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.244066.422224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 568694706D7
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 18:16:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.244109.422239 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvjFp-0004jo-My; Fri, 10 Dec 2021 17:00:17 +0000
+	id 1mvjVH-0006uu-1C; Fri, 10 Dec 2021 17:16:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 244066.422224; Fri, 10 Dec 2021 17:00:17 +0000
+Received: by outflank-mailman (output) from mailman id 244109.422239; Fri, 10 Dec 2021 17:16:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvjFp-0004hc-JK; Fri, 10 Dec 2021 17:00:17 +0000
-Received: by outflank-mailman (input) for mailman id 244066;
- Fri, 10 Dec 2021 17:00:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1mvjVG-0006t7-UJ; Fri, 10 Dec 2021 17:16:14 +0000
+Received: by outflank-mailman (input) for mailman id 244109;
+ Fri, 10 Dec 2021 17:16:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mvjFn-0004hS-U4; Fri, 10 Dec 2021 17:00:15 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mvjFn-0002Ez-LA; Fri, 10 Dec 2021 17:00:15 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mvjFn-00066e-DZ; Fri, 10 Dec 2021 17:00:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mvjFn-0007GH-D5; Fri, 10 Dec 2021 17:00:15 +0000
+ (envelope-from <SRS0=a5or=Q3=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1mvjVF-0006t1-PG
+ for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 17:16:13 +0000
+Received: from ppsw-42.csi.cam.ac.uk (ppsw-42.csi.cam.ac.uk [131.111.8.142])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ded68ef4-59dc-11ec-ad7a-b7ef48004f0a;
+ Fri, 10 Dec 2021 18:16:12 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:36146)
+ by ppsw-42.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.138]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1mvjVC-00059H-87 (Exim 4.95) (return-path <amc96@srcf.net>);
+ Fri, 10 Dec 2021 17:16:10 +0000
+Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 54EC1200D8;
+ Fri, 10 Dec 2021 17:16:10 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,103 +45,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=LlIH5CARvRUr1fhgEL/C0CclVJ9lsHT43ZmYfPDXVJI=; b=EnuRjisoUbpoPS4ZEZZylCMNMD
-	5zqJaDj+042gdUfS8hkI6KKKqjC4rNjl6bYu963bNDho1onOVLQuR2EWVE5fv0zS3OkgmrHn2AsC0
-	6PjGrcRcjFjBd09syL/d8Kqb591zA3e1iN9ekUOCwKccEYZFCK79346rlZXYgdJBEINw=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-167346-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: ded68ef4-59dc-11ec-ad7a-b7ef48004f0a
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <23feef0d-2913-69cf-1a1f-59b1e933ad37@srcf.net>
+Date: Fri, 10 Dec 2021 17:16:10 +0000
 MIME-Version: 1.0
-Subject: [ovmf test] 167346: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=0f1d7477c0a86a31e2edede7d3a3c74087bb6e21
-X-Osstest-Versions-That:
-    ovmf=c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 10 Dec 2021 17:00:15 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.3.2
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20211126123446.32324-1-andrew.cooper3@citrix.com>
+ <20211126163830.30151-1-andrew.cooper3@citrix.com>
+ <f3a94e22-5136-8cb8-6df5-58899a8bc4a7@suse.com>
+From: Andrew Cooper <amc96@srcf.net>
+Subject: Re: [PATCH v1.1 64/65] x86/efi: Disable CET-IBT around Runtime
+ Services calls
+In-Reply-To: <f3a94e22-5136-8cb8-6df5-58899a8bc4a7@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 167346 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/167346/
+On 06/12/2021 11:06, Jan Beulich wrote:
+> On 26.11.2021 17:38, Andrew Cooper wrote:
+>> --- a/xen/arch/x86/efi/stub.c
+>> +++ b/xen/arch/x86/efi/stub.c
+>> @@ -11,6 +11,8 @@
+>>  #include <efi/efidevp.h>
+>>  #include <efi/efiapi.h>
+>>  
+>> +bool __initdata efi_no_cet_ibt;
+> I'm having trouble seeing what this is needed for - when this file gets
+> built, neither boot.c nor runtime.c will get compiled, and hence there
+> should not be any reference to the symbol that needs satisfying.
+>
+>> @@ -735,6 +736,14 @@ static void __init efi_init(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTabl
+>>  
+>>      StdOut = SystemTable->ConOut;
+>>      StdErr = SystemTable->StdErr ?: StdOut;
+>> +
+>> +#ifdef CONFIG_X86
+> CONFIG_XEN_IBT?
+>
+>> +    /*
+>> +     * Heuristic.  Look under an arbitrary function pointer to see if UEFI was
+>> +     * compiled with CET-IBT support.  Experimentally some are not.
+>> +     */
+>> +    efi_no_cet_ibt = !is_endbr64(efi_rs->GetTime);
+> I'm afraid I consider this insufficient. Even if the core EFI was built
+> with IBT support, some driver may not have been.
 
-Regressions :-(
+That's not an issue.  Everything is built together in practice.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 167239
- build-i386-xsm                6 xen-build                fail REGR. vs. 167239
- build-i386                    6 xen-build                fail REGR. vs. 167239
- build-amd64-xsm               6 xen-build                fail REGR. vs. 167239
+>  Hence I think there
+> needs to be a command line control to force turning off IBT. The only
+> question is whether we want to also honor its positive form - that
+> would, afaict, be a recipe for a guaranteed crash if used wrongly (and
+> it would be meaningless when used on IBT-aware firmware).
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+It turns out that IBT support is lacking from tianocore, so nothing is
+going to support IBT for a good while yet.
 
-version targeted for testing:
- ovmf                 0f1d7477c0a86a31e2edede7d3a3c74087bb6e21
-baseline version:
- ovmf                 c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
+https://bugzilla.tianocore.org/show_bug.cgi?id=3726 is the proposed
+change to the spec to support this.
 
-Last test of basis   167239  2021-12-09 06:23:17 Z    1 days
-Failing since        167240  2021-12-09 08:42:46 Z    1 days   34 attempts
-Testing same since   167338  2021-12-10 10:40:22 Z    0 days    8 attempts
+In the meantime, I'm just going to blanket disable IBT for RS calls.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Brijesh Singh <brijesh.singh@amd.com>
-  Brijesh Singh via groups.io <brijesh.singh=amd.com@groups.io>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Jiewen Yao <Jiewen.yao@intel.com>
-  Michael Roth <michael.roth@amd.com>
-  Philippe Mathieu-Daude <philmd@redhat.com>
-  Ray Ni <ray.ni@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 1070 lines long.)
+~Andrew
 
