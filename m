@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3B64470967
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 19:52:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.244249.422437 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA5C247097B
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 19:54:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.244254.422448 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvl03-00072j-HW; Fri, 10 Dec 2021 18:52:07 +0000
+	id 1mvl2E-0007mh-Uf; Fri, 10 Dec 2021 18:54:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 244249.422437; Fri, 10 Dec 2021 18:52:07 +0000
+Received: by outflank-mailman (output) from mailman id 244254.422448; Fri, 10 Dec 2021 18:54:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvl03-00070M-EW; Fri, 10 Dec 2021 18:52:07 +0000
-Received: by outflank-mailman (input) for mailman id 244249;
- Fri, 10 Dec 2021 18:52:06 +0000
+	id 1mvl2E-0007kT-RT; Fri, 10 Dec 2021 18:54:22 +0000
+Received: by outflank-mailman (input) for mailman id 244254;
+ Fri, 10 Dec 2021 18:54:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Lr8x=Q3=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1mvl02-00070B-2q
- for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 18:52:06 +0000
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [2a00:1450:4864:20::12e])
+ id 1mvl2D-0007kE-7Q
+ for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 18:54:21 +0000
+Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
+ [2a00:1450:4864:20::129])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4482967b-59ea-11ec-a74f-db008197e53d;
- Fri, 10 Dec 2021 19:52:05 +0100 (CET)
-Received: by mail-lf1-x12e.google.com with SMTP id c32so19746755lfv.4
- for <xen-devel@lists.xenproject.org>; Fri, 10 Dec 2021 10:52:04 -0800 (PST)
+ id 95395280-59ea-11ec-a74f-db008197e53d;
+ Fri, 10 Dec 2021 19:54:20 +0100 (CET)
+Received: by mail-lf1-x129.google.com with SMTP id l22so19676368lfg.7
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Dec 2021 10:54:20 -0800 (PST)
 Received: from [192.168.2.145] (94-29-46-111.dynamic.spd-mgts.ru.
  [94.29.46.111])
- by smtp.googlemail.com with ESMTPSA id c21sm387216lfv.29.2021.12.10.10.52.02
+ by smtp.googlemail.com with ESMTPSA id v15sm390403ljj.5.2021.12.10.10.54.17
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 10 Dec 2021 10:52:04 -0800 (PST)
+ Fri, 10 Dec 2021 10:54:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,37 +44,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4482967b-59ea-11ec-a74f-db008197e53d
+X-Inumbo-ID: 95395280-59ea-11ec-a74f-db008197e53d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=subject:to:cc:references:from:message-id:date:user-agent
          :mime-version:in-reply-to:content-language:content-transfer-encoding;
-        bh=j1hvlB2w2BrWNScbCJyLwX4oBGKG9hr6NJqtvFkNM/U=;
-        b=DpLCPmMgrOty3y0HrpqopSxxp/qGs/dwG/CgN0apuyA6on28PorJtUybksa6iWzXUQ
-         1nC+svp1ZReaFc8Ho69TZxII0UpyuP8U7xwSjZaJzyMIRrgh64VdMWwWLpT7FD5pRO3K
-         REVQTxyYOO3tzHZOXPhjO1pz+wC6sFrKKUXdbaxaG08xMkm/2y6DNn/B8j1qrJKM7+bp
-         P06T1NhQFOSTeILIcDdZiYIbm1FILYdO04vFRszXD6zy1FhLrwMPIaNrfLI1p4FempaK
-         JIbIyvDEnU7xy4tOpOMAsYn+ngt9JZU69+QjylTYb0y426O41rF96XAtvzhN80gJmNuF
-         j5Ug==
+        bh=IKf1m11e2CmLOphgB5tXRwG67Tf75LBrlnq5Vg7yJZw=;
+        b=IxhbpvG2CFXB3xmkjVMdWRMntYmHOq8xg7eP7zr/AbSS5vu1B9sdxo5o91nGOD2995
+         QQ3KG6tw48EY7IhOrAyb30j6v2PDl8KJF+jKSnPayvNkG1XmqZAU+fLfW7OnlwsZZOnn
+         0A9elkL050dIg2mh2nAMxrCkv1StUF1LjCWn+NlhosKjCmIUCMa0MKcmxWQ+/W+IgKI6
+         i8CNkkus5bglRUlOxac8XP3LVuSzA40MUvRiA2U0B7IAsHpJ1AsKj9N6snoJl+u70szG
+         pZzPqoOnQIc/elfvbeQCxFa9JUiQLy0NMI8wwjD0fM288MJ0ySJSpfHIgwDyPyb7i3mv
+         C2Og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=j1hvlB2w2BrWNScbCJyLwX4oBGKG9hr6NJqtvFkNM/U=;
-        b=Sl/nIy8qrVyqJTgO80k04zRpoaVtH27/WjPUfTnAfs2u5MD8Mx5CcQpvPTEmXMEUxg
-         p18JAlDZDX3bGra596hSurZUkhJWv564ygjVVHuPIDL1+tCB+E15vyNblEnSOGCbWXtg
-         WbQtEl4m9FuowOWqwK/k7IrHawvwo8BR2FCn/lxFvziqiH0RSA6+Oe5EuDM28/WQfemp
-         Wlh5g1Yvw0QhJPupKifHwhq1CHpcAwsSQaBRHXKXpk4NzrVZmbKSBeAQsfsPQymE++lp
-         VVi+X5yNiUgh8AjJqEHrkv4iNafzz3/dydMDm6ZxSqNpmKH1O4RB1aOECTAa8pOJva9h
-         RxpA==
-X-Gm-Message-State: AOAM533lw64oXtafa/n1Vq13YW/010781af8rs2rEWWp82CRqI2OYbP9
-	Jg9fSAV5qFiDGLLMlQtJ3hE=
-X-Google-Smtp-Source: ABdhPJwwyZAuw0wQQ6Dju/0DgEoENSIDq2aqqR4iP7Vldq5bfh8DtMEIrZOS6poEr19ZPeaYgjpDkg==
-X-Received: by 2002:ac2:58d9:: with SMTP id u25mr14351127lfo.514.1639162324540;
-        Fri, 10 Dec 2021 10:52:04 -0800 (PST)
-Subject: Re: [PATCH v4 03/25] notifier: Add
- atomic/blocking_notifier_has_unique_priority()
+        bh=IKf1m11e2CmLOphgB5tXRwG67Tf75LBrlnq5Vg7yJZw=;
+        b=fzcYg7Lna60xSy4StUxMNsFpCY9sy8bhlTUC7iBGxrEGj+rB27EU2ZIdP07NsA9k9v
+         Xwq7TqW+d4884KSeRFCeuu+PjVTrq6fwSsys1Oaau39J8xcpxUjvhZ0TmQxhITRZ2MxR
+         06GP+bSAi0FyOUMa4f2N+ziCu2MNMWZvubCIE7NoSxFpNBLxweDI1D8MSkt3ty6Yapu4
+         cMgX8kHOuNYla9F2JcE1oxMthiTS/DlcC6SN6pDUbOS6TBv+YHCtmzNrv4VTmeyRQ0nn
+         kW76Cxb8aJoLmF++xCOFtcqQGVuYRon+8wMGFRPgZxmt/b/oMEezjTatJejwWzPxQftE
+         PH+w==
+X-Gm-Message-State: AOAM530UisyksIoNym8q2k2BFLqXPKjELmsCpdYvedFmDd/xyhm8b73j
+	4WmHFlkguUPpKiQaDCse67wNB4rYAaw=
+X-Google-Smtp-Source: ABdhPJyNtPZVq+j4jRpVe2vNWn4eVPA/mLyRKU7MjcAV9J6qXLR8NEClMh21SuEPG0vCBnH7Acz/0w==
+X-Received: by 2002:ac2:4c4d:: with SMTP id o13mr13668768lfk.196.1639162460068;
+        Fri, 10 Dec 2021 10:54:20 -0800 (PST)
+Subject: Re: [PATCH v4 06/25] reboot: Warn if unregister_restart_handler()
+ fails
 To: "Rafael J. Wysocki" <rafael@kernel.org>
 Cc: Thierry Reding <thierry.reding@gmail.com>,
  Jonathan Hunter <jonathanh@nvidia.com>, Russell King
@@ -117,67 +117,52 @@ Cc: Thierry Reding <thierry.reding@gmail.com>,
  Linux PM <linux-pm@vger.kernel.org>,
  linux-tegra <linux-tegra@vger.kernel.org>
 References: <20211126180101.27818-1-digetx@gmail.com>
- <20211126180101.27818-4-digetx@gmail.com>
- <CAJZ5v0jTJ3f7oUUR690PGaPJsxA8yzua9XDa8MONBHMzHnDfOQ@mail.gmail.com>
+ <20211126180101.27818-7-digetx@gmail.com>
+ <CAJZ5v0ii7tGRDbxw+5GqdyONXvRPznXUqBZd03+pdoAd+pH=JQ@mail.gmail.com>
 From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <e6ff1cea-a168-1cb0-25c5-fb16c681cf4a@gmail.com>
-Date: Fri, 10 Dec 2021 21:52:01 +0300
+Message-ID: <c518ce36-09d2-16a3-cec2-6bab8260e3cf@gmail.com>
+Date: Fri, 10 Dec 2021 21:54:17 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.14.0
 MIME-Version: 1.0
-In-Reply-To: <CAJZ5v0jTJ3f7oUUR690PGaPJsxA8yzua9XDa8MONBHMzHnDfOQ@mail.gmail.com>
+In-Reply-To: <CAJZ5v0ii7tGRDbxw+5GqdyONXvRPznXUqBZd03+pdoAd+pH=JQ@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 
-10.12.2021 21:19, Rafael J. Wysocki пишет:
-...
->> +bool atomic_notifier_has_unique_priority(struct atomic_notifier_head *nh,
->> +               struct notifier_block *n)
->> +{
->> +       unsigned long flags;
->> +       bool ret;
->> +
->> +       spin_lock_irqsave(&nh->lock, flags);
->> +       ret = notifier_has_unique_priority(&nh->head, n);
->> +       spin_unlock_irqrestore(&nh->lock, flags);
+10.12.2021 21:32, Rafael J. Wysocki пишет:
+> On Fri, Nov 26, 2021 at 7:02 PM Dmitry Osipenko <digetx@gmail.com> wrote:
+>>
+>> Emit warning if unregister_restart_handler() fails since it never should
+>> fail. This will ease further API development by catching mistakes early.
+>>
+>> Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+>> ---
+>>  kernel/reboot.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/kernel/reboot.c b/kernel/reboot.c
+>> index e6659ae329f1..f0e7b9c13f6b 100644
+>> --- a/kernel/reboot.c
+>> +++ b/kernel/reboot.c
+>> @@ -210,7 +210,7 @@ EXPORT_SYMBOL(register_restart_handler);
+>>   */
+>>  int unregister_restart_handler(struct notifier_block *nb)
+>>  {
+>> -       return atomic_notifier_chain_unregister(&restart_handler_list, nb);
+>> +       return WARN_ON(atomic_notifier_chain_unregister(&restart_handler_list, nb));
 > 
-> This only works if the caller can prevent new entries from being added
-> to the list at this point or if the caller knows that they cannot be
-> added for some reason, but the kerneldoc doesn't mention this
-> limitation.
+> The only reason why it can fail is if the object pointed to by nb is
+> not in the chain.
 
-I'll update the comment.
+I had exactly this case where object wasn't in the chain due to a bug
+and this warning was very helpful.
 
-..
->> +bool blocking_notifier_has_unique_priority(struct blocking_notifier_head *nh,
->> +               struct notifier_block *n)
->> +{
->> +       bool ret;
->> +
->> +       /*
->> +        * This code gets used during boot-up, when task switching is
->> +        * not yet working and interrupts must remain disabled. At such
->> +        * times we must not call down_read().
->> +        */
->> +       if (system_state != SYSTEM_BOOTING)
-> 
-> No, please don't do this, it makes the whole thing error-prone.
+>  Why WARN() about this?  And what about systems with
+> panic_on_warn set?
 
-What should I do then?
+That warning condition will never happen normally, only when something
+is seriously wrong.
 
->> +               down_read(&nh->rwsem);
->> +
->> +       ret = notifier_has_unique_priority(&nh->head, n);
->> +
->> +       if (system_state != SYSTEM_BOOTING)
->> +               up_read(&nh->rwsem);
-> 
-> And still what if a new entry with a non-unique priority is added to
-> the chain at this point?
-
-If entry with a non-unique priority is added after the check, then
-obviously it won't be detected. I don't understand the question. These
-down/up_read() are the locks that prevent the race, if that's the question.
-
+Those systems with panic_on_warn will get what was they asked for.
 
