@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B0F746F860
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 02:20:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.243472.421210 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6561246F872
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Dec 2021 02:26:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.243479.421229 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvUZg-00062V-QP; Fri, 10 Dec 2021 01:19:48 +0000
+	id 1mvUfX-0007VK-Ma; Fri, 10 Dec 2021 01:25:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 243472.421210; Fri, 10 Dec 2021 01:19:48 +0000
+Received: by outflank-mailman (output) from mailman id 243479.421229; Fri, 10 Dec 2021 01:25:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvUZg-00060l-Mu; Fri, 10 Dec 2021 01:19:48 +0000
-Received: by outflank-mailman (input) for mailman id 243472;
- Fri, 10 Dec 2021 01:19:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YiMI=Q3=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1mvUZf-00060f-GR
- for xen-devel@lists.xenproject.org; Fri, 10 Dec 2021 01:19:47 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4248977d-5957-11ec-9d12-4777fae47e2b;
- Fri, 10 Dec 2021 02:19:46 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4795FB8273C;
- Fri, 10 Dec 2021 01:19:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490B3C004DD;
- Fri, 10 Dec 2021 01:19:42 +0000 (UTC)
+	id 1mvUfX-0007TP-I1; Fri, 10 Dec 2021 01:25:51 +0000
+Received: by outflank-mailman (input) for mailman id 243479;
+ Fri, 10 Dec 2021 01:25:50 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvUfW-0007TF-0J; Fri, 10 Dec 2021 01:25:50 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvUfV-0000Xc-S8; Fri, 10 Dec 2021 01:25:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvUfV-0006Zu-L5; Fri, 10 Dec 2021 01:25:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvUfV-0006L0-Kb; Fri, 10 Dec 2021 01:25:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,273 +42,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4248977d-5957-11ec-9d12-4777fae47e2b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1639099183;
-	bh=IFigGwU8llVFOWo9j5SLTHKDnhRiAQJVF3W4ZVu+nWE=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=s0a7a6BcHfokRWz7x71QwmFziprxpA7/Id3fNMWgSO+tAuWzvD0/DQpsWZ5l1/Lkf
-	 diHrCt1etTlqXz3ptTHOp17P7tIjkcoQ7cMxbA9jjhJNRTbTsCGa7PwmwE9eplH3ZC
-	 4GkD1so2Kj30ZmJVXxjOQHG85CiZMR+qslDZQ/GSv0tBcPF4QvJpMKofVW5kstOSnK
-	 ZHSMKsgicjCbGJW46Fk0PYaH0svJTwJSgZGnbF4CkZCW6uJKlyoPuWMAkdorsmKuWO
-	 bc8eFB5yEh3bXmOO1HLbJnalu+FwSn07q0k1RAmXYyv5LpCx3LZMjbD5FZW1JH5P/g
-	 v5dskxHkLyIgQ==
-Date: Thu, 9 Dec 2021 17:19:41 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
-Subject: Re: [PATCH V4 4/6] xen/unpopulated-alloc: Add mechanism to use Xen
- resource
-In-Reply-To: <1639080336-26573-5-git-send-email-olekstysh@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2112091719150.4091490@ubuntu-linux-20-04-desktop>
-References: <1639080336-26573-1-git-send-email-olekstysh@gmail.com> <1639080336-26573-5-git-send-email-olekstysh@gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Itz/ls6/HzngAG0erd1+GTipcw7ZzpV8oeuhHH6WYv4=; b=rxRWXHhsfZMu6KrdvomNNnr1j5
+	zAlsqNlTapSXlnlk/BABQiwjmuK0ZnR58GjneITugD8bVhglgm+CJnz6FW2gpNtxJq1sEamajoqlV
+	e9oYY9gsCmvc5y+O8NFZxVgAfZyxY4rMaLZIqBvUqA8u7SQVPks0LsuWPC8cIzApeDBA=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-167309-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 167309: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=06544455d0d460ed18c8582121247bf53292d7e4
+X-Osstest-Versions-That:
+    ovmf=c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 10 Dec 2021 01:25:49 +0000
 
-On Thu, 9 Dec 2021, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> The main reason of this change is that unpopulated-alloc
-> code cannot be used in its current form on Arm, but there
-> is a desire to reuse it to avoid wasting real RAM pages
-> for the grant/foreign mappings.
-> 
-> The problem is that system "iomem_resource" is used for
-> the address space allocation, but the really unallocated
-> space can't be figured out precisely by the domain on Arm
-> without hypervisor involvement. For example, not all device
-> I/O regions are known by the time domain starts creating
-> grant/foreign mappings. And following the advise from
-> "iomem_resource" we might end up reusing these regions by
-> a mistake. So, the hypervisor which maintains the P2M for
-> the domain is in the best position to provide unused regions
-> of guest physical address space which could be safely used
-> to create grant/foreign mappings.
-> 
-> Introduce new helper arch_xen_unpopulated_init() which purpose
-> is to create specific Xen resource based on the memory regions
-> provided by the hypervisor to be used as unused space for Xen
-> scratch pages. If arch doesn't define arch_xen_unpopulated_init()
-> the default "iomem_resource" will be used.
-> 
-> Update the arguments list of allocate_resource() in fill_list()
-> to always allocate a region from the hotpluggable range
-> (maximum possible addressable physical memory range for which
-> the linear mapping could be created). If arch doesn't define
-> arch_get_mappable_range() the default range (0,-1) will be used.
-> 
-> The behaviour on x86 won't be changed by current patch as both
-> arch_xen_unpopulated_init() and arch_get_mappable_range()
-> are not implemented for it.
-> 
-> Also fallback to allocate xenballooned pages (balloon out RAM
-> pages) if we do not have any suitable resource to work with
-> (target_resource is invalid) and as the result we won't be able
-> to provide unpopulated pages on a request.
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+flight 167309 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167309/
 
-Given the changes, I took a second look. The patch looks fine to me.
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 167239
+ build-i386-xsm                6 xen-build                fail REGR. vs. 167239
+ build-i386                    6 xen-build                fail REGR. vs. 167239
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 167239
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 06544455d0d460ed18c8582121247bf53292d7e4
+baseline version:
+ ovmf                 c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
+
+Last test of basis   167239  2021-12-09 06:23:17 Z    0 days
+Testing same since   167240  2021-12-09 08:42:46 Z    0 days   20 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Brijesh Singh <brijesh.singh@amd.com>
+  Brijesh Singh via groups.io <brijesh.singh=amd.com@groups.io>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jiewen Yao <Jiewen.yao@intel.com>
+  Michael Roth <michael.roth@amd.com>
+  Ray Ni <ray.ni@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
-> ---
-> Changes RFC -> V2:
->    - new patch, instead of
->     "[RFC PATCH 2/2] xen/unpopulated-alloc: Query hypervisor to provide unallocated space"
-> 
-> Changes V2 -> V3:
->    - update patch description and comments in code
->    - modify arch_xen_unpopulated_init() to pass target_resource as an argument
->      and update default helper to assign iomem_resource to it, also drop
->      xen_resource as it will be located in arch code in the future
->    - allocate region from hotpluggable range instead of hardcoded range (0,-1)
->      in fill_list()
->    - use %pR specifier in error message
->    - do not call unpopulated_init() at runtime from xen_alloc_unpopulated_pages(),
->      drop an extra helper and call arch_xen_unpopulated_init() directly from __init()
->    - include linux/ioport.h instead of forward declaration of struct resource
->    - replace insert_resource() with request_resource() in fill_list()
->    - add __init specifier to arch_xen_unpopulated_init()
-> 
-> Changes V3 -> V4:
->    - add Stefano's R-b
->    - fix copy-paste error in fill_list(), must be "if (!tmp_res)" instead of
->      "if (!res)" in string 66
->    - add unpopulated_init() with early initcall level specifically to call
->      arch_xen_unpopulated_init()
-> ---
->  drivers/xen/unpopulated-alloc.c | 86 +++++++++++++++++++++++++++++++++++++++--
->  include/xen/xen.h               |  2 +
->  2 files changed, 84 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/xen/unpopulated-alloc.c b/drivers/xen/unpopulated-alloc.c
-> index a03dc5b..a8b4105 100644
-> --- a/drivers/xen/unpopulated-alloc.c
-> +++ b/drivers/xen/unpopulated-alloc.c
-> @@ -8,6 +8,7 @@
->  
->  #include <asm/page.h>
->  
-> +#include <xen/balloon.h>
->  #include <xen/page.h>
->  #include <xen/xen.h>
->  
-> @@ -15,13 +16,29 @@ static DEFINE_MUTEX(list_lock);
->  static struct page *page_list;
->  static unsigned int list_count;
->  
-> +static struct resource *target_resource;
-> +
-> +/*
-> + * If arch is not happy with system "iomem_resource" being used for
-> + * the region allocation it can provide it's own view by creating specific
-> + * Xen resource with unused regions of guest physical address space provided
-> + * by the hypervisor.
-> + */
-> +int __weak __init arch_xen_unpopulated_init(struct resource **res)
-> +{
-> +	*res = &iomem_resource;
-> +
-> +	return 0;
-> +}
-> +
->  static int fill_list(unsigned int nr_pages)
->  {
->  	struct dev_pagemap *pgmap;
-> -	struct resource *res;
-> +	struct resource *res, *tmp_res = NULL;
->  	void *vaddr;
->  	unsigned int i, alloc_pages = round_up(nr_pages, PAGES_PER_SECTION);
-> -	int ret = -ENOMEM;
-> +	struct range mhp_range;
-> +	int ret;
->  
->  	res = kzalloc(sizeof(*res), GFP_KERNEL);
->  	if (!res)
-> @@ -30,14 +47,40 @@ static int fill_list(unsigned int nr_pages)
->  	res->name = "Xen scratch";
->  	res->flags = IORESOURCE_MEM | IORESOURCE_BUSY;
->  
-> -	ret = allocate_resource(&iomem_resource, res,
-> -				alloc_pages * PAGE_SIZE, 0, -1,
-> +	mhp_range = mhp_get_pluggable_range(true);
-> +
-> +	ret = allocate_resource(target_resource, res,
-> +				alloc_pages * PAGE_SIZE, mhp_range.start, mhp_range.end,
->  				PAGES_PER_SECTION * PAGE_SIZE, NULL, NULL);
->  	if (ret < 0) {
->  		pr_err("Cannot allocate new IOMEM resource\n");
->  		goto err_resource;
->  	}
->  
-> +	/*
-> +	 * Reserve the region previously allocated from Xen resource to avoid
-> +	 * re-using it by someone else.
-> +	 */
-> +	if (target_resource != &iomem_resource) {
-> +		tmp_res = kzalloc(sizeof(*tmp_res), GFP_KERNEL);
-> +		if (!tmp_res) {
-> +			ret = -ENOMEM;
-> +			goto err_insert;
-> +		}
-> +
-> +		tmp_res->name = res->name;
-> +		tmp_res->start = res->start;
-> +		tmp_res->end = res->end;
-> +		tmp_res->flags = res->flags;
-> +
-> +		ret = request_resource(&iomem_resource, tmp_res);
-> +		if (ret < 0) {
-> +			pr_err("Cannot request resource %pR (%d)\n", tmp_res, ret);
-> +			kfree(tmp_res);
-> +			goto err_insert;
-> +		}
-> +	}
-> +
->  	pgmap = kzalloc(sizeof(*pgmap), GFP_KERNEL);
->  	if (!pgmap) {
->  		ret = -ENOMEM;
-> @@ -95,6 +138,11 @@ static int fill_list(unsigned int nr_pages)
->  err_memremap:
->  	kfree(pgmap);
->  err_pgmap:
-> +	if (tmp_res) {
-> +		release_resource(tmp_res);
-> +		kfree(tmp_res);
-> +	}
-> +err_insert:
->  	release_resource(res);
->  err_resource:
->  	kfree(res);
-> @@ -112,6 +160,14 @@ int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages)
->  	unsigned int i;
->  	int ret = 0;
->  
-> +	/*
-> +	 * Fallback to default behavior if we do not have any suitable resource
-> +	 * to allocate required region from and as the result we won't be able to
-> +	 * construct pages.
-> +	 */
-> +	if (!target_resource)
-> +		return xen_alloc_ballooned_pages(nr_pages, pages);
-> +
->  	mutex_lock(&list_lock);
->  	if (list_count < nr_pages) {
->  		ret = fill_list(nr_pages - list_count);
-> @@ -159,6 +215,11 @@ void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages)
->  {
->  	unsigned int i;
->  
-> +	if (!target_resource) {
-> +		xen_free_ballooned_pages(nr_pages, pages);
-> +		return;
-> +	}
-> +
->  	mutex_lock(&list_lock);
->  	for (i = 0; i < nr_pages; i++) {
->  		pages[i]->zone_device_data = page_list;
-> @@ -201,3 +262,20 @@ static int __init init(void)
->  }
->  subsys_initcall(init);
->  #endif
-> +
-> +static int __init unpopulated_init(void)
-> +{
-> +	int ret;
-> +
-> +	if (!xen_domain())
-> +		return -ENODEV;
-> +
-> +	ret = arch_xen_unpopulated_init(&target_resource);
-> +	if (ret) {
-> +		pr_err("xen:unpopulated: Cannot initialize target resource\n");
-> +		target_resource = NULL;
-> +	}
-> +
-> +	return ret;
-> +}
-> +early_initcall(unpopulated_init);
-> diff --git a/include/xen/xen.h b/include/xen/xen.h
-> index 86c5b37..a99bab8 100644
-> --- a/include/xen/xen.h
-> +++ b/include/xen/xen.h
-> @@ -55,6 +55,8 @@ extern u64 xen_saved_max_mem_size;
->  #ifdef CONFIG_XEN_UNPOPULATED_ALLOC
->  int xen_alloc_unpopulated_pages(unsigned int nr_pages, struct page **pages);
->  void xen_free_unpopulated_pages(unsigned int nr_pages, struct page **pages);
-> +#include <linux/ioport.h>
-> +int arch_xen_unpopulated_init(struct resource **res);
->  #else
->  #include <xen/balloon.h>
->  static inline int xen_alloc_unpopulated_pages(unsigned int nr_pages,
-> -- 
-> 2.7.4
-> 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1042 lines long.)
 
