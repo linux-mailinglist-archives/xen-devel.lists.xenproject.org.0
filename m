@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21732471755
-	for <lists+xen-devel@lfdr.de>; Sun, 12 Dec 2021 00:54:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.245485.423553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5A7B471756
+	for <lists+xen-devel@lfdr.de>; Sun, 12 Dec 2021 00:56:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.245491.423568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwCBY-0006j3-Qv; Sat, 11 Dec 2021 23:53:48 +0000
+	id 1mwCEF-0007N8-Ap; Sat, 11 Dec 2021 23:56:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 245485.423553; Sat, 11 Dec 2021 23:53:48 +0000
+Received: by outflank-mailman (output) from mailman id 245491.423568; Sat, 11 Dec 2021 23:56:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwCBY-0006gV-N2; Sat, 11 Dec 2021 23:53:48 +0000
-Received: by outflank-mailman (input) for mailman id 245485;
- Sat, 11 Dec 2021 23:53:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mwCEF-0007Jf-7N; Sat, 11 Dec 2021 23:56:35 +0000
+Received: by outflank-mailman (input) for mailman id 245491;
+ Sat, 11 Dec 2021 23:56:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1IHf=Q4=ens-lyon.org=samuel.thibault@srs-se1.protection.inumbo.net>)
- id 1mwCBX-0006gP-8k
- for xen-devel@lists.xenproject.org; Sat, 11 Dec 2021 23:53:47 +0000
-Received: from hera.aquilenet.fr (hera.aquilenet.fr [2a0c:e300::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 930917c2-5add-11ec-a74f-db008197e53d;
- Sun, 12 Dec 2021 00:53:46 +0100 (CET)
+ id 1mwCED-0007JG-Jk
+ for xen-devel@lists.xenproject.org; Sat, 11 Dec 2021 23:56:33 +0000
+Received: from hera.aquilenet.fr (hera.aquilenet.fr [185.233.100.1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f61515b0-5add-11ec-bf02-3911bdbc85ab;
+ Sun, 12 Dec 2021 00:56:31 +0100 (CET)
 Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id B0C03392;
- Sun, 12 Dec 2021 00:53:43 +0100 (CET)
+ by hera.aquilenet.fr (Postfix) with ESMTP id 466AB28B;
+ Sun, 12 Dec 2021 00:56:30 +0100 (CET)
 Received: from hera.aquilenet.fr ([127.0.0.1])
  by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id tFpEpRvR65lK; Sun, 12 Dec 2021 00:53:43 +0100 (CET)
+ with ESMTP id fN01haenjv7s; Sun, 12 Dec 2021 00:56:29 +0100 (CET)
 Received: from begin (unknown [IPv6:2a01:cb19:956:1b00:de41:a9ff:fe47:ec49])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id AFD9C181;
- Sun, 12 Dec 2021 00:53:42 +0100 (CET)
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id 00D7A1CF;
+ Sun, 12 Dec 2021 00:56:28 +0100 (CET)
 Received: from samy by begin with local (Exim 4.95)
- (envelope-from <samuel.thibault@ens-lyon.org>) id 1mwCBR-001qKM-U2;
- Sun, 12 Dec 2021 00:53:41 +0100
+ (envelope-from <samuel.thibault@ens-lyon.org>) id 1mwCE8-001qNi-88;
+ Sun, 12 Dec 2021 00:56:28 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,96 +48,356 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 930917c2-5add-11ec-a74f-db008197e53d
+X-Inumbo-ID: f61515b0-5add-11ec-bf02-3911bdbc85ab
 X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Date: Sun, 12 Dec 2021 00:53:41 +0100
+Date: Sun, 12 Dec 2021 00:56:28 +0100
 From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@gmail.com>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 57/57] stubdom: xenlibs linkfarm, ignore non-regular
- files
-Message-ID: <20211211235341.zogxzqinhxoowkxw@begin>
+To: Juergen Gross <jgross@suse.com>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+	wl@xen.org
+Subject: Re: [PATCH 01/10] mini-os: split e820 map handling into new source
+ file
+Message-ID: <20211211235628.kcbzkjl4xnlduu5w@begin>
 Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	xen-devel@lists.xenproject.org,
-	Anthony PERARD <anthony.perard@gmail.com>,
-	Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
-References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-58-anthony.perard@citrix.com>
+	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org, wl@xen.org
+References: <20211206072337.9517-1-jgross@suse.com>
+ <20211206072337.9517-2-jgross@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20211206170241.13165-58-anthony.perard@citrix.com>
+In-Reply-To: <20211206072337.9517-2-jgross@suse.com>
 Organization: I am not organized
 User-Agent: NeoMutt/20170609 (1.8.3)
-X-Spamd-Bar: +
-X-Spam-Level: *
-X-Rspamd-Server: hera
+X-Spamd-Bar: /
 Authentication-Results: hera.aquilenet.fr;
 	none
-X-Rspamd-Queue-Id: B0C03392
-X-Spamd-Result: default: False [1.90 / 15.00];
+X-Rspamd-Server: hera
+X-Rspamd-Queue-Id: 466AB28B
+X-Spamd-Result: default: False [0.40 / 15.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
 	 FROM_HAS_DN(0.00)[];
+	 RCPT_COUNT_THREE(0.00)[4];
 	 TO_DN_SOME(0.00)[];
-	 FREEMAIL_ENVRCPT(0.00)[gmail.com];
 	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 TAGGED_RCPT(0.00)[];
 	 MIME_GOOD(-0.10)[text/plain];
-	 RCPT_COUNT_FIVE(0.00)[5];
 	 HAS_ORG_HEADER(0.00)[];
 	 RCVD_COUNT_THREE(0.00)[3];
 	 FROM_EQ_ENVFROM(0.00)[];
 	 MIME_TRACE(0.00)[0:+];
 	 RCVD_TLS_LAST(0.00)[];
-	 FREEMAIL_CC(0.00)[lists.xenproject.org,gmail.com,xenproject.org,xen.org];
-	 MID_RHS_NOT_FQDN(0.50)[];
-	 SUSPICIOUS_RECIPS(1.50)[]
+	 MID_RHS_NOT_FQDN(0.50)[]
 
-Anthony PERARD, le lun. 06 déc. 2021 17:02:40 +0000, a ecrit:
-> When we will convert tools/ build system, their will be a need to
-> replace some use of "vpath". This will done making symbolic links.
-> Those symlinks are not wanted by stubdom build system when making a
-> linkfarm for the Xen libraries. To avoid them, we will use `find`
-> instead of plain shell globbing.
+Juergen Gross, le lun. 06 déc. 2021 08:23:28 +0100, a ecrit:
+> Introduce e820.c containing all the E820 memory map handling.
 > 
-> For example, there will be a link to "xen/lib/x86/cpuid.o" in
-> "tools/libs/guest/".
+> No functional change.
 > 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
 Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
 > ---
->  stubdom/Makefile | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  Makefile       |   1 +
+>  arch/arm/mm.c  |   8 ----
+>  arch/x86/mm.c  |  70 +----------------------------
+>  e820.c         | 119 +++++++++++++++++++++++++++++++++++++++++++++++++
+>  include/e820.h |   6 +++
+>  5 files changed, 128 insertions(+), 76 deletions(-)
+>  create mode 100644 e820.c
 > 
-> diff --git a/stubdom/Makefile b/stubdom/Makefile
-> index 1fa075b9ad..b312f710cd 100644
-> --- a/stubdom/Makefile
-> +++ b/stubdom/Makefile
-> @@ -345,7 +345,7 @@ define do_links
->    mkdir -p $(dir $@)include
->    cd $(dir $@); \
->    ln -sf $(dir $<)include/*.h include/; \
-> -  ln -sf $(dir $<)*.[ch] .; \
-> +  find $(dir $<) -maxdepth 1 -type f -name '*.[ch]' -exec ln -sf {} . \; ; \
->    ln -sf $(dir $<)Makefile.common .
->    touch $@
->  endef
+> diff --git a/Makefile b/Makefile
+> index 4b76b55..06b60fc 100644
+> --- a/Makefile
+> +++ b/Makefile
+> @@ -41,6 +41,7 @@ src-$(CONFIG_TPMFRONT) += tpmfront.c
+>  src-$(CONFIG_TPM_TIS) += tpm_tis.c
+>  src-$(CONFIG_TPMBACK) += tpmback.c
+>  src-y += daytime.c
+> +src-y += e820.c
+>  src-y += events.c
+>  src-$(CONFIG_FBFRONT) += fbfront.c
+>  src-y += gntmap.c
+> diff --git a/arch/arm/mm.c b/arch/arm/mm.c
+> index f806c9f..9068166 100644
+> --- a/arch/arm/mm.c
+> +++ b/arch/arm/mm.c
+> @@ -7,14 +7,6 @@
+>  #include <lib.h>
+>  
+>  uint32_t physical_address_offset;
+> -struct e820entry e820_map[1] = {
+> -    {
+> -        .addr = 0,
+> -        .size = ULONG_MAX - 1,
+> -        .type = E820_RAM
+> -    }
+> -};
+> -unsigned e820_entries = 1;
+>  
+>  unsigned long allocate_ondemand(unsigned long n, unsigned long alignment)
+>  {
+> diff --git a/arch/x86/mm.c b/arch/x86/mm.c
+> index 8ba14a5..8df93da 100644
+> --- a/arch/x86/mm.c
+> +++ b/arch/x86/mm.c
+> @@ -64,15 +64,6 @@ extern char stack[];
+>  extern void page_walk(unsigned long va);
+>  
+>  #ifdef CONFIG_PARAVIRT
+> -struct e820entry e820_map[1] = {
+> -    {
+> -        .addr = 0,
+> -        .size = ULONG_MAX - 1,
+> -        .type = E820_RAM
+> -    }
+> -};
+> -unsigned e820_entries = 1;
+> -
+>  void arch_mm_preinit(void *p)
+>  {
+>      start_info_t *si = p;
+> @@ -112,25 +103,11 @@ desc_ptr idt_ptr =
+>      .base = (unsigned long)&idt,
+>  };
+>  
+> -struct e820entry e820_map[E820_MAX];
+> -unsigned e820_entries;
+> -
+> -static char *e820_types[E820_TYPES] = {
+> -    [E820_RAM]      = "RAM",
+> -    [E820_RESERVED] = "Reserved",
+> -    [E820_ACPI]     = "ACPI",
+> -    [E820_NVS]      = "NVS",
+> -    [E820_UNUSABLE] = "Unusable",
+> -    [E820_PMEM]     = "PMEM"
+> -};
+> -
+>  void arch_mm_preinit(void *p)
+>  {
+>      long ret;
+>      domid_t domid = DOMID_SELF;
+> -    struct xen_memory_map memmap;
+> -    int i;
+> -    unsigned long pfn, max = 0;
+> +    unsigned long max;
+>  
+>      pt_base = page_table_base;
+>      first_free_pfn = PFN_UP(to_phys(&_end));
+> @@ -142,53 +119,10 @@ void arch_mm_preinit(void *p)
+>      }
+>      last_free_pfn = ret;
+>  
+> -    memmap.nr_entries = E820_MAX;
+> -    set_xen_guest_handle(memmap.buffer, e820_map);
+> -    ret = HYPERVISOR_memory_op(XENMEM_memory_map, &memmap);
+> -    if ( ret < 0 )
+> -    {
+> -        xprintk("could not get memory map\n");
+> -        do_exit();
+> -    }
+> -    e820_entries = memmap.nr_entries;
+> -
+> -    for ( i = 0; i < e820_entries; i++ )
+> -    {
+> -        if ( e820_map[i].type != E820_RAM )
+> -            continue;
+> -        pfn = (e820_map[i].addr + e820_map[i].size) >> PAGE_SHIFT;
+> -        if ( pfn > max )
+> -            max = pfn;
+> -    }
+> -
+> +    max = e820_get_maxpfn();
+>      if ( max < last_free_pfn )
+>          last_free_pfn = max;
+>  }
+> -
+> -void arch_print_memmap(void)
+> -{
+> -    int i;
+> -    unsigned long from, to;
+> -    char *type;
+> -    char buf[12];
+> -
+> -    printk("Memory map:\n");
+> -    for ( i = 0; i < e820_entries; i++ )
+> -    {
+> -        if ( e820_map[i].type >= E820_TYPES || !e820_types[e820_map[i].type] )
+> -        {
+> -            snprintf(buf, sizeof(buf), "%8x", e820_map[i].type);
+> -            type = buf;
+> -        }
+> -        else
+> -        {
+> -            type = e820_types[e820_map[i].type];
+> -        }
+> -        from = e820_map[i].addr;
+> -        to = from + e820_map[i].size - 1;
+> -        printk("%012lx-%012lx: %s\n", from, to, type);
+> -    }
+> -}
+>  #endif
+>  
+>  /*
+> diff --git a/e820.c b/e820.c
+> new file mode 100644
+> index 0000000..2165280
+> --- /dev/null
+> +++ b/e820.c
+> @@ -0,0 +1,119 @@
+> +/* -*-  Mode:C; c-basic-offset:4; tab-width:4 -*-
+> + *
+> + * (C) 2021 - Juergen Gross, SUSE Software Solutions Germany GmbH
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining a copy
+> + * of this software and associated documentation files (the "Software"), to
+> + * deal in the Software without restriction, including without limitation the
+> + * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+> + * sell copies of the Software, and to permit persons to whom the Software is
+> + * furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be included in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+> + * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+> + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+> + * DEALINGS IN THE SOFTWARE.
+> + */
+> +
+> +#include <mini-os/types.h>
+> +#include <mini-os/lib.h>
+> +#include <mini-os/console.h>
+> +#include <mini-os/os.h>
+> +#include <mini-os/posix/limits.h>
+> +#include <mini-os/e820.h>
+> +#include <xen/memory.h>
+> +
+> +#ifdef CONFIG_E820_TRIVIAL
+> +struct e820entry e820_map[1] = {
+> +    {
+> +        .addr = 0,
+> +        .size = ULONG_MAX - 1,
+> +        .type = E820_RAM
+> +    }
+> +};
+> +
+> +unsigned e820_entries = 1;
+> +
+> +static void e820_get_memmap(void)
+> +{
+> +}
+> +
+> +#else
+> +struct e820entry e820_map[E820_MAX];
+> +unsigned e820_entries;
+> +
+> +static char *e820_types[E820_TYPES] = {
+> +    [E820_RAM]      = "RAM",
+> +    [E820_RESERVED] = "Reserved",
+> +    [E820_ACPI]     = "ACPI",
+> +    [E820_NVS]      = "NVS",
+> +    [E820_UNUSABLE] = "Unusable",
+> +    [E820_PMEM]     = "PMEM"
+> +};
+> +
+> +static void e820_get_memmap(void)
+> +{
+> +    long ret;
+> +    struct xen_memory_map memmap;
+> +
+> +    memmap.nr_entries = E820_MAX;
+> +    set_xen_guest_handle(memmap.buffer, e820_map);
+> +    ret = HYPERVISOR_memory_op(XENMEM_memory_map, &memmap);
+> +    if ( ret < 0 )
+> +    {
+> +        xprintk("could not get memory map\n");
+> +        do_exit();
+> +    }
+> +    e820_entries = memmap.nr_entries;
+> +}
+> +
+> +void arch_print_memmap(void)
+> +{
+> +    int i;
+> +    unsigned long from, to;
+> +    char *type;
+> +    char buf[12];
+> +
+> +    printk("Memory map:\n");
+> +    for ( i = 0; i < e820_entries; i++ )
+> +    {
+> +        if ( e820_map[i].type >= E820_TYPES || !e820_types[e820_map[i].type] )
+> +        {
+> +            snprintf(buf, sizeof(buf), "%8x", e820_map[i].type);
+> +            type = buf;
+> +        }
+> +        else
+> +        {
+> +            type = e820_types[e820_map[i].type];
+> +        }
+> +        from = e820_map[i].addr;
+> +        to = from + e820_map[i].size - 1;
+> +        printk("%012lx-%012lx: %s\n", from, to, type);
+> +    }
+> +}
+> +#endif
+> +
+> +unsigned long e820_get_maxpfn(void)
+> +{
+> +    int i;
+> +    unsigned long pfn, max = 0;
+> +
+> +    e820_get_memmap();
+> +
+> +    for ( i = 0; i < e820_entries; i++ )
+> +    {
+> +        if ( e820_map[i].type != E820_RAM )
+> +            continue;
+> +        pfn = (e820_map[i].addr + e820_map[i].size) >> PAGE_SHIFT;
+> +        if ( pfn > max )
+> +            max = pfn;
+> +    }
+> +
+> +    return max;
+> +}
+> diff --git a/include/e820.h b/include/e820.h
+> index 920551c..af2129f 100644
+> --- a/include/e820.h
+> +++ b/include/e820.h
+> @@ -24,6 +24,10 @@
+>  #ifndef __E820_HEADER
+>  #define __E820_HEADER
+>  
+> +#if defined(__arm__) || defined(__aarch64__) || defined(CONFIG_PARAVIRT)
+> +#define CONFIG_E820_TRIVIAL
+> +#endif
+> +
+>  /* PC BIOS standard E820 types and structure. */
+>  #define E820_RAM          1
+>  #define E820_RESERVED     2
+> @@ -45,4 +49,6 @@ struct __packed e820entry {
+>  extern struct e820entry e820_map[];
+>  extern unsigned e820_entries;
+>  
+> +unsigned long e820_get_maxpfn(void);
+> +
+>  #endif /*__E820_HEADER*/
 > -- 
-> Anthony PERARD
+> 2.26.2
 > 
 
 -- 
 Samuel
-$ du temp.iso 
-2,0T    temp.iso
-$ ls temp.iso -l
--r-xr-xr-x    1 samy     thibault      16E 2003-03-22 14:44 temp.iso*
- -+- je vous dirai pas la marque de mon disque dur, na :p -+- 
+* c is away : cuisine; bouffe
+<y> oh, moi je fais plutôt cuisine & bouffe en fait :)
+<c> oui c'est vrai, certains font cuisine && bouffe (juste au cas où... ;-))
+<y> ( cuisine && bouffe ) || restau
+<N> voire ((cuisine && bouffe) || restau) & apéritif
+ -+- #ens-mim -+-
 
