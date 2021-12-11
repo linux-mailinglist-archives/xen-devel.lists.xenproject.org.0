@@ -2,53 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75482470F97
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Dec 2021 01:48:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.244606.423043 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01A5D470FCE
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Dec 2021 02:20:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.244611.423055 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvqY0-0008RB-SU; Sat, 11 Dec 2021 00:47:32 +0000
+	id 1mvr3J-00072y-FH; Sat, 11 Dec 2021 01:19:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 244606.423043; Sat, 11 Dec 2021 00:47:32 +0000
+Received: by outflank-mailman (output) from mailman id 244611.423055; Sat, 11 Dec 2021 01:19:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mvqY0-0008PO-PR; Sat, 11 Dec 2021 00:47:32 +0000
-Received: by outflank-mailman (input) for mailman id 244606;
- Sat, 11 Dec 2021 00:47:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Vst5=Q4=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
- id 1mvqXz-0008PH-5u
- for xen-devel@lists.xenproject.org; Sat, 11 Dec 2021 00:47:31 +0000
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e9058ae3-5a1b-11ec-ad7a-b7ef48004f0a;
- Sat, 11 Dec 2021 01:47:27 +0100 (CET)
-Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 1BANhjFO012859; 
- Sat, 11 Dec 2021 00:47:16 GMT
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by mx0b-00069f02.pphosted.com with ESMTP id 3cve1vgakv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sat, 11 Dec 2021 00:47:16 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 1BB0kHOe112107;
- Sat, 11 Dec 2021 00:47:15 GMT
-Received: from nam12-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam12lp2044.outbound.protection.outlook.com [104.47.66.44])
- by aserp3020.oracle.com with ESMTP id 3cr05a0614-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sat, 11 Dec 2021 00:47:14 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by BL0PR10MB2785.namprd10.prod.outlook.com (2603:10b6:208:73::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.13; Sat, 11 Dec
- 2021 00:47:12 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::8d84:1f40:881:7b12]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::8d84:1f40:881:7b12%4]) with mapi id 15.20.4778.016; Sat, 11 Dec 2021
- 00:47:12 +0000
+	id 1mvr3J-00070n-Bi; Sat, 11 Dec 2021 01:19:53 +0000
+Received: by outflank-mailman (input) for mailman id 244611;
+ Sat, 11 Dec 2021 01:19:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvr3H-00070d-Td; Sat, 11 Dec 2021 01:19:51 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvr3H-0004rj-JZ; Sat, 11 Dec 2021 01:19:51 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvr3H-0003yD-9G; Sat, 11 Dec 2021 01:19:51 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mvr3H-000434-8m; Sat, 11 Dec 2021 01:19:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,156 +42,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9058ae3-5a1b-11ec-ad7a-b7ef48004f0a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=jRRZynkeiDfsyhXjA6TFGTv6xSoyW7P3MlF8MKByi/I=;
- b=n6ET3Fr39FqM6gTpJeT/9+8mpBtXEh0FvCt3I0n3YsVBTpi6ZKCNqXagdzppGtsatMP3
- 8mbXDziGp6ZymPWW73Ru+/49l/SWYRfYwJFK/EtuqRrEGo2bhq3WPQSQK5CFDms1z7fE
- xEv/bZdbWVNmNX5i4s17tEELNBx1lwDi7POgX22d2FZJHWMDgHVfcYCAgtVruq6EOSlv
- 1GoFRYJQGRj9eFDAsXgjl/BpvVMM9I71tO5X3MAS33JnzRs/0jrrXYeSs+KytI612706
- vozUEkxv6uAhIfuI2EZD0bx4mE1hp7I6vEKiJxLD3JFjyY0zvvsJb35m2FLZ+4cc1fv5 FQ== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BWGR5o1tdIO9dfUDBvqwSb7++Bk27SwpjF7Vy2nYVVtnSNK7KMOO/80yoZb7oOvn8n181MIRHMrDi/AcqeAd71Ml/EdDhnv1mbak0VBE5OoNe+Wck5x0WlmKru78NucRiA20pMGcnFlrPkX03MYZ3idinrgnhpX6Kw8IVh0rur+H3C7gyMF78iP2G6UwRXgJmIErev70bPcDDzGAS/IpdjOj13PsEK1zkqYwhdQ68Jod2a0vxSMrS6PkvFKaWa+mPgnKjYEFoup2peoF52+NEhYtZeqs/tq5jV9WcijsNenMqA3s1gdAdYckbp9AI5ZsWpuRPBBYnylWDu6JseVcuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jRRZynkeiDfsyhXjA6TFGTv6xSoyW7P3MlF8MKByi/I=;
- b=Re6LvqsclUT9/jVaZqei0DWNFyxu5i8BhH3wWIVevv7bAqgdn4WQp2oP1dq6bLBEg48w2f5w06VCiJ+bnJx5K+5NE/ztHRfheBZMjIOYjijbzvkr7UdF9x/BWkwvEJbwSJcja+080PEEqC7ppPasuxSlJzrUqMY/P6+nkSOKCmUYV7CoaUxQym109MIFg8gA6ifPlEfBGrUuBqEuSENFAbNW1vYUNiGtLDgN326De94h37l+M+baXIiEi26fFWA1tmITn87S+TSqWTS9nRViJUTqUlfZYnZEe/GxbTklKJAxmA63i0TUQ8MWf2zyoenic6dJTHTNXlHQGmejc7EUTg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
- dkim=pass header.d=oracle.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jRRZynkeiDfsyhXjA6TFGTv6xSoyW7P3MlF8MKByi/I=;
- b=NBBdWDnVpv9u4lM8EMjGGZDj155q2XKZNMKeyLqoKiXR0O6EHaE/S+otDQ7c7CxBVTYQNP6DTUQGHEG0eIapfYUcsXJioLSvHnqA1RPrrxCnw+80RzF8/oXO8PKWl+UjDMUzzU0quyYM3TAb3ImVP3ABTxGsp17RztXmrESN3H4=
-Message-ID: <7d113a50-5efd-d45e-04b9-a29023092518@oracle.com>
-Date: Fri, 10 Dec 2021 19:47:06 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.3.2
-Subject: Re: [PATCH] xen/gntdev: fix unmap notification order
-Content-Language: en-US
-To: Oleksandr Andrushchenko <andr2000@gmail.com>,
-        xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: jgross@suse.com, sstabellini@kernel.org,
-        Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
-        stable@vger.kernel.org
-References: <20211210092817.580718-1-andr2000@gmail.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <20211210092817.580718-1-andr2000@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN4PR0201CA0015.namprd02.prod.outlook.com
- (2603:10b6:803:2b::25) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=RjxHMl0NrU1/xCO1qJFkWFLrqdYRbYJ4uDRPrg/xkdo=; b=ZC2nr9/D62OAYroBg1VC2jUL1e
+	/yhpMDMLoQePVJcyKpql6WvHqzsLiTehDWfgzkP4GOaWLXq5J1XNDRWeXGLKykiknbGChHC2nuIm1
+	8qI0jYdSg+LnsdWogB8W8nfn/oylQB1vYxqTAOSZXud8LMSfyL4m2TA+W4OP4si1SkzI=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-167354-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: d8dffe1f-896d-4998-8b1f-08d9bc3fc4d6
-X-MS-TrafficTypeDiagnostic: BL0PR10MB2785:EE_
-X-Microsoft-Antispam-PRVS: 
-	<BL0PR10MB2785E04155ADECA7099BF23B8A729@BL0PR10MB2785.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	hG21/S96hg0eQZ1/+7Z2osTJvhN4XxjA18oFNal6nwdX2vqpQxTytpwNVIc0VNu+nNveb1blYR5o6EUSoBs4gJDoTI1N/aLdmEoDoQ7zEFrS/s/MOU92GUIR4DT1zp+3Gw+COx5Dyc6KXnp4d8iEDthHgly9MLPII/wjZEp76Haa5Fd/noeCYUU1ItAW4NR4RU2NkrtPYCwFWd2jk5+L5kjAPabBVDEZAzXdNCmQI5+KtrWo+WFGE8QOFCHLLsBCLR+8oJYBbTFoDLzAvdSKcyBd/gqstm26g3PocNhEmSaQCuYXBVYy8wON3wWDJljwV2lV+VGPi8S7kii/3Px4Ud/4a3IzUTXeEmVjJG8NocdI5BUEMTdavR00QlF9w9lq9PIQ1RgrglvhdYCqDoD9QKDIW+gQlY1kE1pAl0FlweCy3CVCHXey5fSIXIT9Y7yQcBLfStounce8+4t2mn8/SAt+AEhiJ8P4uPj75Q1rWC6SuZjcNLIyHyZ59f1KvjduZYVRkP1RUk4TDD7PFnShtRETkWTaReRYvmPqk01+KKFxYgr5nYzJyORBvwlWATcMEgjWnn1XKi2MUR4Rz7OlEurzvK/V235PjKYJyLbVkFGR2v6WjeQOYkDVCdxZfqYPABiPcMdjw+HtDsb/4DmZuO1c2yL5IvHPEXeLUGzV5eFCfnBJgMqnt1QuuFyoITOx6CPJB5cKmOJs+daghon0ZNs296oTMpKiHmdrsQWHHAi4lEimqkOzrl/TJcNh2y/u
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(66556008)(31686004)(44832011)(2906002)(66476007)(83380400001)(15650500001)(66946007)(8936002)(5660300002)(38100700002)(4326008)(6506007)(53546011)(31696002)(8676002)(316002)(6486002)(6666004)(508600001)(2616005)(6512007)(86362001)(36756003)(186003)(26005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?cFMyNHZyc1RQQktFbStsYmxxbWQwRmRTUlhmU1JKbVl1THNraWVWUWdKVFFj?=
- =?utf-8?B?b0RxOGcrSHNkeVBXSjZpeVZSbzR6a1NjODkxb3UwRGErUmdWcmRNMy9GaGNM?=
- =?utf-8?B?alBZckNpNW9EQW9UZ0dlME85cTFaOHYzMFpDTTRpRWwycFNyQTFoUE9KT09h?=
- =?utf-8?B?Z0Q0a0tZeVZUMVFua1ZWRXc0U1JYRUNJdyttZkRDOFdKY012dks3bm45NFFH?=
- =?utf-8?B?bHlZV0E5UGJ4TXpQSzlKODE1NzRNMWZ0NDUwZGprcUV2NTU1MlZTajR2Q0dP?=
- =?utf-8?B?UzZLOXN3WlZ3eU1YSkdkb2xZMGpNb1FGWWZESXJTbmRSME9Xb29LZDhPSWEv?=
- =?utf-8?B?WTN3VXFrUkxnTXk0RDc3bXdkbHA4MDQzU1JmZGQvcThYY0ZsbGJUUmFXTmtw?=
- =?utf-8?B?RlpJYTh1cGlIMHowZTdpRDVEWVExRWJxMW5QNjd5YTNuYkppSG9TeHNNTVNE?=
- =?utf-8?B?TTdsbDRUSk9zSy9ERGl5MUw1QmJsa0pZZFZ4QzlPSG54dkRYNkxsc0hpRUxi?=
- =?utf-8?B?bUVpQnBsWTA2SG93WmUxVUFYWUJnTUNlUzlSa0kxZE83U2tLN2JHbUxUMHgx?=
- =?utf-8?B?RW1EdmpjRTBnZjlUWnhBL1c0VjFVekRCQzY4ZDdtcTJBNHFSd1ZiZ3VpMUIx?=
- =?utf-8?B?NTA1NWdBeUpQY3F4TEQ2aHdhRVJJck14TjR5NHcwUWFvVk9UY3ZSQlRSVE5U?=
- =?utf-8?B?Ky80TUF0cmJMWng2bTY3dXk1TlFJUTNRcHJMdk52bHZJODRyVlpJZEIvWHFF?=
- =?utf-8?B?dCtwbWFweDR6Wi9DMHRwckNYNnJzelNrSmhDOU5ETjVPOUx3dkZNSVd6QXps?=
- =?utf-8?B?Rzhzakc0OW5YYU5vZEl6V2NjcHZiNkxrYkRJTnl5Q0pTTS85ZGFBTk90MnZX?=
- =?utf-8?B?UU9mTnpXWUNZckRId0NKdkNyMUU5MnArNmhNN0xrWGZNWkFtWTZXL0ozTGpJ?=
- =?utf-8?B?R0hMQzlOOEFzbDBKN3pSOUJSbDhlNEtidHU1M1JKZHpRdTgvVFJRWjVlcDQ1?=
- =?utf-8?B?c2Jqc3ZHb2UyWnVrVWxmM3lCMmZIdDNPY1ZqNmZNLy9Pekk0emlGQWpNQkR6?=
- =?utf-8?B?bmQ5WHZFK0Fwd3hscncwamdDMXlmNnQydHhkQWNKRm82eW1xRnovQUROTVN1?=
- =?utf-8?B?eVdPK3dnWXpoSlhMSE1pRjlFWkZVRVQzN1M0blUvU1o3c0hiZDFoZzZFbit0?=
- =?utf-8?B?TTJtSUY4Y3F4aUtHQ3NtVDZVT2hSQUdXdy9STUpHZE5nYWZwMjJqRWFHRFJK?=
- =?utf-8?B?eGZCdnE2SERrVE1NNmRvdkVENWJmY3pCN2x3VVJhMitMYnlLNUhxdHd3bkp0?=
- =?utf-8?B?WUNWR3VtK2VxakhFOHRBK2xjWS9PdkFDVzMxS2ljanQzQk4wNDZ3c2xGc0xE?=
- =?utf-8?B?allETVdQWU9rbHk3NVl1K2NRVk1PeEJ4WmYyQ0RORWl5YVFac1A2a0Z0bWpy?=
- =?utf-8?B?WHBwNHhWZEZ0dHZ1SjJXWmI1RThIWGZBTUdjU0s5bTlNbGVZbXNnL3lSbWVu?=
- =?utf-8?B?YlB5L09keDQrVXF2Y0FuZXdmejZIOFdobk9iVTFJekw2YmdkUTBuUVdDUFI2?=
- =?utf-8?B?QjkwS3VMa1hzNVcwbzR5Z2Q5WGFTTWpMS3Jaem00Q2FiRElWS1hZNm4vNE5u?=
- =?utf-8?B?bTlzeFBIYmRmQmJ2YmZMSEg5Y2J3aHlqVTBxbUw0T1lMQVNGN2x3Y005SFhi?=
- =?utf-8?B?RjhVKzUwUFc0SUdMa0wyVTdjUCt2RmFyZWw1VXlLbTJZRXZXcXlFaDk1ZFpH?=
- =?utf-8?B?T3pkdGY1UFUwbG4wSlEwZlZ1Zlp3QVN4U2VheFZyUHhyVmpsOE9aZ2IvM05Y?=
- =?utf-8?B?Nml2ME41eEdoeitqQmxWUGxVSnVQek0vcUpVY0swa2YvZGU0QUtoeTJZSldL?=
- =?utf-8?B?eWxYVzVMUUVQczlrY0d6K3NuTmpUMExTOHBYSEtGTU83d1A3U0xIZ1hYZldp?=
- =?utf-8?B?VndickdCZ3p0b04wSk5kTHQrLzNPUVMrRmtBQ0FFdEV4YWd5TE5HOFc1SUZJ?=
- =?utf-8?B?eDhJS3VUejYrVGtCbXZvTlFkU3lMRmJEQ0U4T0F2WTYzVkpjRjl2bi8vQ20z?=
- =?utf-8?B?RjVwejVIYk45UG1zejRnWXJnblFQNlF4WGpsVkFRWTIveGNnRENXU1FDS2E2?=
- =?utf-8?B?K0t0SjJFZHZXVHpVSDQ5ZHJEdy94bkJnVnZzSlNWcW1xSlJkRDFPR0JiNlNs?=
- =?utf-8?B?aVdoTWZOZHpBQS9EMnYzM1Z4ZEoydUxySGRIcW1uWkEvQTRXdUVjeHhZTHJz?=
- =?utf-8?Q?ZYQr9kHO+AF7Exd75l8UPi4unPKVEUp6PN6X8nynAM=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d8dffe1f-896d-4998-8b1f-08d9bc3fc4d6
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Dec 2021 00:47:12.2435
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Yl9OsHMNy00jvK5+I3EsJWRnA0tmv9LLN1bEseKohsbsmZb7nCGwZZOnvhpj+Az33HuaXGgfEq5ONbiH6jcxxF3e4HLon6V7BoVKKz30xtQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR10MB2785
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10194 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 mlxscore=0 phishscore=0
- malwarescore=0 spamscore=0 mlxlogscore=999 adultscore=0 bulkscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
- definitions=main-2112110002
-X-Proofpoint-GUID: TWGs4aqLsOq0i3R41SlAq0tg-krBIW4K
-X-Proofpoint-ORIG-GUID: TWGs4aqLsOq0i3R41SlAq0tg-krBIW4K
+Subject: [ovmf test] 167354: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=e81a81e5846edcc4c2e91cf3a39d0ba8c31b687a
+X-Osstest-Versions-That:
+    ovmf=c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 11 Dec 2021 01:19:51 +0000
+
+flight 167354 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167354/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 167239
+ build-i386-xsm                6 xen-build                fail REGR. vs. 167239
+ build-i386                    6 xen-build                fail REGR. vs. 167239
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 167239
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 e81a81e5846edcc4c2e91cf3a39d0ba8c31b687a
+baseline version:
+ ovmf                 c82ab4d8c148c4009e0b31d1dd2ea6f7d4aea80d
+
+Last test of basis   167239  2021-12-09 06:23:17 Z    1 days
+Failing since        167240  2021-12-09 08:42:46 Z    1 days   40 attempts
+Testing same since   167352  2021-12-10 20:11:48 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Brijesh Singh <brijesh.singh@amd.com>
+  Brijesh Singh via groups.io <brijesh.singh=amd.com@groups.io>
+  Chris Jones <christopher.jones@arm.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jiewen Yao <Jiewen.yao@intel.com>
+  Michael Roth <michael.roth@amd.com>
+  Philippe Mathieu-Daude <philmd@redhat.com>
+  Ray Ni <ray.ni@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
-On 12/10/21 4:28 AM, Oleksandr Andrushchenko wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->
-> While working with Xen's libxenvchan library I have faced an issue with
-> unmap notifications sent in wrong order if both UNMAP_NOTIFY_SEND_EVENT
-> and UNMAP_NOTIFY_CLEAR_BYTE were requested: first we send an event channel
-> notification and then clear the notification byte which renders in the below
-> inconsistency (cli_live is the byte which was requested to be cleared on unmap):
->
-> [  444.514243] gntdev_put_map UNMAP_NOTIFY_SEND_EVENT map->notify.event 6
-> libxenvchan_is_open cli_live 1
-> [  444.515239] __unmap_grant_pages UNMAP_NOTIFY_CLEAR_BYTE at 14
->
-> Thus it is not possible to reliably implement the checks like
-> - wait for the notification (UNMAP_NOTIFY_SEND_EVENT)
-> - check the variable (UNMAP_NOTIFY_CLEAR_BYTE)
-> because it is possible that the variable gets checked before it is cleared
-> by the kernel.
->
-> To fix that we need to re-order the notifications, so the variable is first
-> gets cleared and then the event channel notification is sent.
-> With this fix I can see the correct order of execution:
->
-> [   54.522611] __unmap_grant_pages UNMAP_NOTIFY_CLEAR_BYTE at 14
-> [   54.537966] gntdev_put_map UNMAP_NOTIFY_SEND_EVENT map->notify.event 6
-> libxenvchan_is_open cli_live 0
->
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Not pushing.
 
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-
+(No revision log; it would be 1185 lines long.)
 
