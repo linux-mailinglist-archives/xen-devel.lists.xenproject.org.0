@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEFB74722C9
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Dec 2021 09:40:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.245877.424146 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA84B472338
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Dec 2021 09:50:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.245885.424157 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwgrI-00067U-2A; Mon, 13 Dec 2021 08:38:56 +0000
+	id 1mwh1v-0007oZ-6T; Mon, 13 Dec 2021 08:49:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 245877.424146; Mon, 13 Dec 2021 08:38:56 +0000
+Received: by outflank-mailman (output) from mailman id 245885.424157; Mon, 13 Dec 2021 08:49:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwgrH-00065A-Tu; Mon, 13 Dec 2021 08:38:55 +0000
-Received: by outflank-mailman (input) for mailman id 245877;
- Mon, 13 Dec 2021 08:38:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mwh1v-0007lL-37; Mon, 13 Dec 2021 08:49:55 +0000
+Received: by outflank-mailman (input) for mailman id 245885;
+ Mon, 13 Dec 2021 08:49:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=RwxN=Q6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mwgrG-000654-HH
- for xen-devel@lists.xenproject.org; Mon, 13 Dec 2021 08:38:54 +0000
+ id 1mwh1u-0007lE-2d
+ for xen-devel@lists.xenproject.org; Mon, 13 Dec 2021 08:49:54 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 195d162e-5bf0-11ec-a74f-db008197e53d;
- Mon, 13 Dec 2021 09:38:52 +0100 (CET)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2106.outbound.protection.outlook.com [104.47.18.106]) by
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a344eadc-5bf1-11ec-bf02-3911bdbc85ab;
+ Mon, 13 Dec 2021 09:49:52 +0100 (CET)
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01lp2051.outbound.protection.outlook.com [104.47.1.51]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-2-WjCFY0fpM4i5Bx84zxbZtQ-1; Mon, 13 Dec 2021 09:38:50 +0100
+ de-mta-15-yPuZLpg3M-GtwLBEu2ubUw-1; Mon, 13 Dec 2021 09:49:51 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB5328.eurprd04.prod.outlook.com (2603:10a6:803:59::25)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.16; Mon, 13 Dec
- 2021 08:38:49 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.16; Mon, 13 Dec
+ 2021 08:49:49 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4778.017; Mon, 13 Dec 2021
- 08:38:49 +0000
+ 08:49:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,176 +51,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 195d162e-5bf0-11ec-a74f-db008197e53d
+X-Inumbo-ID: a344eadc-5bf1-11ec-bf02-3911bdbc85ab
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1639384731;
+	t=1639385392;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=84A/1vkL4ov7So67BWwr0gB5ZeNVY92WcQ4KCBg0kEg=;
-	b=cu0CyMsDzVCs9ZhDnBEp23AoirIYuL1vhtluQkp8H2JbpKklp+5KhsAhkT2uxUuBsCwhkW
-	zM8i9UbulLVmndOSKRT2RWOhcFEf4/vYbTEsWbcnU3wvTTSNnUMmQJz5RKs+Nh4ChUXvwo
-	G5nhtLlKz5pXrOJC9gMUGNza5xo9yrw=
-X-MC-Unique: WjCFY0fpM4i5Bx84zxbZtQ-1
+	bh=oMEP5QVK22axG4eddfrPgsXtspkPr8gsDXZteRa5uqI=;
+	b=GvV6PWhzW08mH2XZHyfREtUXHKLdrJVkLKuawEjehfWLuF82jIRgPAmuOkLEqiHuQ2X4uI
+	o2lCnuWDtBJCWQAGYEUPQNMOgeq639tMm/Zg+Za4mXz9mbmqDuf8fPvutx3mIMG4nKenUJ
+	FGocenHaoIoBlvYMsSB3mZGT52r3RuI=
+X-MC-Unique: yPuZLpg3M-GtwLBEu2ubUw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XXAG7pw1d+yaz9qu2mgJ6vz1ndEMIiPgsOVrnOj/Rog4BmFiY6A87mX4YxJc6yNL1X3nG7GAJUcfol7tg6leTfbxxAHCxm4Xc2f+UheQIWqoiXWy2OpBUQHbcxIcLWtCebxENznqxYs5lYzwTAr8jWpr0fToM/QDFz+lyGaq4l5OuSUa76FA0P9O9HfZvAOc/ZEHL03d0jFH0Z5hZyk9hHiHdXzcxigutnmOHzaKkXcIp5gQ/dzpFDRc4qLyEZhKquoMtEX13nrCZTeuw12T0xvJQWWW5i+YRiLoEMHt4JImNzLDsIad6kfSTl8F6AmzyZ/ImvIxmbZxca0MgBgmFg==
+ b=Pdcf1JzdYEcnIwv9ClK2AJfo2GCnzY3FO40uE1lqreiGBZ1IRqk/0AN3mN4+Yj6S/QDUdOhLcETqqsf+tlwPMotTDHR6j915Jx58IxBLB9xybCQveTGnotRzViFa1SJyaC4xTl2PWkcIF40a9aKjW/ixQJFmLdg2OT62OoxMgti0NOwkpfJijxUtYCRXSj4DybdRt7FshlAJLguBrlEHQTxZWdN6DVSVt+IPg5FPX7gBpak9ySfBw9JER2GVDQREpsZbWQi3HzLsNHPG/P7UMCQ8veuojf8cjw2lNBmeSaGNMQ3bEfwlwQ1ohdIaGPrd2YWWhfkILpNj220CJjq9xQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5dxNM6d1NEHtjAWfElhcxBUJSpnLa6yE27FisM8KjQY=;
- b=MQF4++vyTFfpLRrmkHtwalerL8aTMljNPl3+uurw+ymKJPwLMwFITizAy5FB+KeHJXmUojcmSPbbB/jYfwIbZv97teF+3O1BkxQkAZeUtDl1IY1whG3nPIUtFiyPkNnacGZoX+GDVZTqlORM2WDavH9+pGTx5c8+c4oODvjpHuqtzaF4OkYBI4yT9xwTRShcdwlLBggjOSTGx40+gLnpE83a72g7rJbeOFkngP7ffTOTB7VpVDYDSaxy3DuPIYnDt0oHOtKyJS5moO8rf78YPxH8x6jJLRRYdm9RXLjqVQ4AvWrdji+lCS1/TABqZsQtAzRyGt/lnU2mhNZertN6ew==
+ bh=ohJ8t7lloX5sC8D8ws7KI7zCjKwxwysN4U15Zet3tsg=;
+ b=XFPQE4u0aUS2fpDTk+Vfsyk48dtkdq00e/v4CH9l8FTIttxTtmEeCTkl2zmLNVPJfX+kkU3Pm2+WnlGObBXfXaX8SmW6l1l+Ys/D180YNwQfzPTrMMcw0JZT6x/+WA1iG/91SdLo9g9z/3PvizoWg0nlnMzFAbFw5kwa7+0sm4KwAZVWw+YGFhSievec8Y9HOy6tzFLnO4WWUzFgyD7sMlApkC+YbQIkpqbom8MZ9X8DwLKgpvqCOLYkZ1ZVFGsELliAIO9yKp7186x4Vm2wouyqPK4jtu2FUve8//ZMkdpbT8Hm7oENQXoAlOgJf882DNWnUzL4CFWPem3wOEhknA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <47786373-aa55-d572-3205-38513042cf88@suse.com>
-Date: Mon, 13 Dec 2021 09:38:50 +0100
+Message-ID: <d472fbb5-95f3-dc6b-8103-e7d76e71290a@suse.com>
+Date: Mon, 13 Dec 2021 09:49:50 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.4.0
-Subject: Re: [PATCH v2 08/18] IOMMU/x86: support freeing of pagetables
+Subject: Re: [PATCH v2 12/18] AMD/IOMMU: allow use of superpage mappings
 Content-Language: en-US
 To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
  Wei Liu <wl@xen.org>
 References: <957f067b-9fe1-2350-4266-51982f09d3a9@suse.com>
- <c12fccbf-82f4-1259-f69d-a6ad8d78ea15@suse.com>
- <YbNbafZMMbRJxlzs@Air-de-Roger>
+ <cc93398d-982a-edbc-4ddd-b5459cef8f9a@suse.com>
+ <YbNtBPv1M1lIyEOd@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YbNbafZMMbRJxlzs@Air-de-Roger>
+In-Reply-To: <YbNtBPv1M1lIyEOd@Air-de-Roger>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6PR01CA0046.eurprd01.prod.exchangelabs.com
- (2603:10a6:20b:e0::23) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS8PR04CA0082.eurprd04.prod.outlook.com
+ (2603:10a6:20b:313::27) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eca7b970-2935-48f3-765c-08d9be13fc0b
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5600:EE_
+X-MS-Office365-Filtering-Correlation-Id: abc3400d-4f96-4bf0-6055-08d9be158589
+X-MS-TrafficTypeDiagnostic: VI1PR04MB5328:EE_
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB5600E7776190C69A06B0BCCDB3749@VI1PR04MB5600.eurprd04.prod.outlook.com>
+	<VI1PR04MB532820F302788607DE646097B3749@VI1PR04MB5328.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	5ENY0MMZpYGTAl1wGCQRJlGWTP5IPKdwV3PrWyev2Ps//itiQwYwnRZZQO1LXPe6aYsz9Cd1623lzLSvZh1t9a88fTt8B8U4+q0jRoW1ausl5fzh2ykPa8RjShrTWAmkVso37b48mi590PfJSfRSzRAhUZXx7z6i5RPM5tKO+oMfqkSJxfwzHtEZAihJR7Qqb1dvQnJ2/5nA5kIWOoTGh6J1eogBQrogfzgnlqpis+ruB3MGDG+EL+0qE8feVTOQ6gMqlfNAk9O/UgAEaESjhG++eV+TPR9t5GPm8TK3IDMfGZn6PxZ3tQuj7knXGwzd8DIh+tYTyaoCtdWa9TcrXc0jRHkZ6TQLMhyYWPWehqdv4OVAo9KifDXrKOfSDEdwd3NXZSRRjYoptP57evFXwaEMaNcJghrSFa8zEIEVxhWmfKGokvSYmZewseGlpIvkPQf+y/ksJQ/VLRANMn3GwFYlFsGHOsZ746rSlMz6zlYVph9jk/GGDsdkLUwdwucT7cAmeQYPZAqds1IJS5NM2E3zFECB0CH/eGGjwD7M1A5F8P/xxNM1L+mfE9fq08Az0DsDn59VoRed7zvKT21S1TsMMy7OmoxiRcUgvoOYrm7NQOw1hl+Shk+QjvGJNblbh+txoey6kOPgs97Cb1HsngeyWX3EdhyGmJH0jOnx7zv9rCYcrV23FJnD7gnLPGT5Xq1EIR9aCpIL1RRHB6oFSwNNufLa9sYPH3t8ryR2iX0APdWrRgE4KNRLcDG4k3OYGPlNyHHds0/pB7V6LXG1+8w0KF++WbScGuImxnTOD3lNoLaiBVY8Zi5z/630tjqU
+	isoyS159sTw9ZPJhsY/Cy4XRLDyMzASkabmjj0PtNNRoHwwV4s9QEUXs/iH5ib0l3cy7a7Fn75KqteDt23I8eBMYIMdUzBTnqUqvelA9ICF7nmNY8ipURtpgabbvpJtDHtyUnu0eN9Rzrl6iKQ/BOOKhq9LluKfw17eAp64CXgcfVICC2PjdBzivAX6tpkj7NQ5KChDuRRVnbsmIAkiDrA74BXwzdEB6RfDKRubosBsvDnJMeAdAviLVqvF/LxRbykcX35W0iLZufH1UI2cOhQ3+GxlQoL1+vVOb25aSal8ZU/RzTRejL3V6f47RcHEWk+MnQraOyISURXgZ5LYAwrvIJIKzLsZKnzarQnTBJlZlUDMq0d+fRb0T8E8oxjp1MPuhEHq7BsLd+Ye3EXPEGvN7mvtskzoWbHzOPdTqhaoVFZv9yGIhZ2Gavyktc2B+2/l5ZduLORObjhsA5iH6xsM8mKsxtsr07taAzfM5tty3JpQlGKtcVe8me65/8q30hYOor2QXK6A/BJ/lwWtbBQkF+nTduJOEq0n6k3ImsNYwIoFZCgY15T3XN+ZSN8GLNHo5kKcbVh8J2nDPBU0MWhFn03VJ2P8VAp87IuNHoewyuGSeRm7HQO4KzQo9BqtuAvM08Chhp7hF7vZuCKyrZIJhulKZ8h37iXjI4yLTudlUV+8kUvVXWE0fyE27Wu7YUIh/X58MnUNj3ft+MQxDVayV/Ti/zuJ9Ht1ITBLizc2aM/TKW9RnuOOpgz5v/oLL
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(31696002)(6666004)(2616005)(38100700002)(8936002)(186003)(86362001)(54906003)(4326008)(2906002)(66946007)(36756003)(5660300002)(66556008)(508600001)(31686004)(8676002)(316002)(6506007)(66476007)(26005)(6916009)(6486002)(53546011)(6512007)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(66946007)(31686004)(6512007)(316002)(66476007)(66556008)(2906002)(6506007)(53546011)(2616005)(8936002)(83380400001)(54906003)(6486002)(508600001)(6916009)(186003)(6666004)(5660300002)(86362001)(31696002)(26005)(36756003)(38100700002)(4326008)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?MZXfhZ4gWXZeECmy6WMawViODJ1hP66ptXM3dMqH9lrSn+JBBUmFvQpnzO7t?=
- =?us-ascii?Q?9dk5dr7LO8NTmKCGi4uCvwQ269QbO3OSUVUkhBJhZ8W53SB8fUy/a9nv9CYc?=
- =?us-ascii?Q?bLafPsvnPE4UHUInHQtmPNzcUG96fTVkfYSYe3OO5dMEvR+8GPqgoo2cW1uK?=
- =?us-ascii?Q?fcdEqmGn6Ak8Bh+5aNI5mbzhn+nAdrVdqSReY0BvcIQdbUQNmzTgMBCaqhem?=
- =?us-ascii?Q?xnsA1uz9ySjnXOVAPFOy37SkcTbjAY8rGzvJWwmeKvzyuiIAZAcfEN2P+FII?=
- =?us-ascii?Q?lLo0aDbXRF15sWJ0jf58CB4ErbazaZhjcKsV2CDwE1DILSHP1BNyvrXJfcS0?=
- =?us-ascii?Q?+hQTdQxv8qhcvb8Gojh0aoF8A3CbluswgKhx7SY8Jpr4wi4lw6Z5/YkYgmR1?=
- =?us-ascii?Q?7StpvJFhZrJugOovkkCOEoL2B0qT1M8VUGt2b82XY/nTSs7VxXT9JE38p4Wy?=
- =?us-ascii?Q?5AovbmLY0p0f3vQg8vs/yjHgVSS6ACGYSAsmOXyC/2J77sBs8AxVUCIFkySL?=
- =?us-ascii?Q?tx4t6nxMyvjZg+kvDIGHDiNUJlCSgOrbvuRmU5FfjxFOvBL9X+fAGPFQs+Yq?=
- =?us-ascii?Q?AwUW/Si0AKFfItKWEVu53BtVKLjwiV+efcUqdcTcm9+ydzQBnxN+c8YbiJwZ?=
- =?us-ascii?Q?6SK4OGzrsGxWSK1g33+0kcoM7QuBAq5FQ/kfqqrvqS9un2w/y6QXBw4IfCA+?=
- =?us-ascii?Q?TSUtvA0UR1VQIsyxMneGCB8tyPzURQWWQgj1xCoYqq7GRBySBSgPKfMgNOL9?=
- =?us-ascii?Q?YZytNy8yakxnA8greV+6vCrgZ317DbaL+v21JedPfWiNnqEazhw6xrt5v7/C?=
- =?us-ascii?Q?/dAjFZk/+dt5epfKOwyW3zSmaX9Qk1VtHsosUGnF4/zuzor1bdF0eR3/+4Ph?=
- =?us-ascii?Q?TSYopBwh+chak3KI947nqM+qopGdOwX1hAHzXcpBPuOT5l2qjSYFOdf4rugh?=
- =?us-ascii?Q?eat50JCxLpeoODesRbHVC0zX0yRI5Ke7dXtbRp7HIiCi7xT861Jr/emvG1V4?=
- =?us-ascii?Q?8X2GQB2ckBI5r7a7Jrcrl+YJCCQpMu444cmCrHz/D0+2kNTF1eWTZXp7PLEu?=
- =?us-ascii?Q?IgBbCRasuLSV5g9t/OTmsWDHUW3kyAHhb+BIZn4vNxe98QnYwbwbypGcME6E?=
- =?us-ascii?Q?3K5ougzrqocgL5NHyMVLkzXLDEHpOHJXCYA+JJ9bgU+LD3cqEua/iPwb+e1d?=
- =?us-ascii?Q?b9pRfehYNUJ4kiuRxGi3ipVDCAyWYWJDZya1nov/XOukDD3x0lGDPms4N60s?=
- =?us-ascii?Q?MB2LwXZb//qdr607Q+67XL3N8uB/20xuZpVYz2gYaDe3Jlu9iRk2mXNYc+bl?=
- =?us-ascii?Q?P2dLVgrd6axyluQ61QQhWiymUdLArZjAusoyhO013w7jOJQXOEqGwZjFy05b?=
- =?us-ascii?Q?aVFedSvauNnpXBrLW7NYcXdPvmnAl2a2/Zj+FsDBMXmDo51SNjw82fmwJVJy?=
- =?us-ascii?Q?GZbEdON8RmNSnKBnZe8HaTu7FuknkO1/09MKugdaj8PQJ1khzFldfvhxqBrF?=
- =?us-ascii?Q?qBbyn39hBc1QoUahbIGDa715JCCczGkf2YSmigns4LejtV57cwpisebLx8mn?=
- =?us-ascii?Q?Nt8udtFgoVpKtopCXQmGuRZSZO1EBCgS2Uhj5nv+LUoIzcpYVaottNzr5p9g?=
- =?us-ascii?Q?/Y7iizmQZ/MtbTCF40fztkU=3D?=
+	=?us-ascii?Q?7IHAjBt7XumaeV8yyPyW8BWHQcxNWmtXs/zotD4kCpyYC5XB1eCj5+eUUwny?=
+ =?us-ascii?Q?KvG9zHfv7LuwzeCl2z43RGiakuB9wTLkPVh7ysvgUt8EdLLYP5/egCx+tSFp?=
+ =?us-ascii?Q?iTYScM5XqXWFYGB1n5/YISnBmr3A71Uiidmi6CQbLKurXzFNRtQrk1Rjb+aG?=
+ =?us-ascii?Q?IkciyyG8Pbs+pE1QRpJImxxrnDFujdbFNFzvjRCv2A0z+3UUqtWdoM1kfJ8k?=
+ =?us-ascii?Q?wfj5xkBXAPqbC8hW0/iQT0/+bZdA8QU34oEIYl6AZiCywzDtH4dY6PLp+/1P?=
+ =?us-ascii?Q?nig7UugboUvwGMEJ+LiOefKkL9kWJeoo1syN3pXwwHjOTDxJnWB1Mn9ILJgW?=
+ =?us-ascii?Q?iUL22TzalcTJ4lOC5trfdfuZGnNChyhR8iRmiBTUev6U9gwwVmRdjspc6dw9?=
+ =?us-ascii?Q?nEzNusU3bpo1GZ3WWAiz5n6im6KRkVgt94aBqhfMAz0wQPhyQ/sKcTk2Pl0L?=
+ =?us-ascii?Q?iMkRGGZxpkmi0r9yp5U/ma4fzvVej2T5yqhbJJk3s0Kv3AI4emnDly6nUoPN?=
+ =?us-ascii?Q?nknkyyUqpe3bVmVl6hCsUpox/dhXCzDWjbcRRT/yv0oTcR5vAKo/f1rmVmdP?=
+ =?us-ascii?Q?2MybGZCY+2NODjhtHFhUDJXDBqQIBXriSEtfREbcO8pfV5z4wfaz3hFeQFVE?=
+ =?us-ascii?Q?ITwwUW8RBmNyjUTP3oUNpzx1iiumI7AWN8A4lZKlq4Lz50b9Bn93mmPCoX4K?=
+ =?us-ascii?Q?mA2lOz2zRFxA6IgG6zOQm5sh22sBIEufUZQrtCDSQy1Rc1pT6sKXsuXJwbaD?=
+ =?us-ascii?Q?leoULgrT68XHm1n/SNTBUJuW2gWqAIC1BqjlS42bInD0tJrd6rw58rSX/CsG?=
+ =?us-ascii?Q?775hcG79PEBgaiLAFdhezsu5C6Z00vtqdEYWRpRWNIqk7oRvd2d/y8mFQgHE?=
+ =?us-ascii?Q?Rxn9UxCA9cf+19NLjn1M2tR6LO9Al03YSZN1vj6ZyuGw+iIh+fnCXzbe75x7?=
+ =?us-ascii?Q?HDNZHK/AVHy+OoHAn4FWYrLp9VBactVq0xggPTE76DWSR6dNclSeec+tEmDv?=
+ =?us-ascii?Q?RswwjsbqpHd8DBVNPQ8PnNbLMkeLDsOZdVrMSih7Vxli/cNX1YFu1a92kyAu?=
+ =?us-ascii?Q?hbRXbrY55bHpS+BRScbJLo0acQaHAgFvIA1d4SQ6KWgDi0p7LV8Q4m+8NiH1?=
+ =?us-ascii?Q?5StqAajHBRE+BMQfxoi7va5higgbnZxVrjS8z8PlSEYgz4fEUFKkpxXtQ50k?=
+ =?us-ascii?Q?nb9wAAA+uTsKLT1UMgewL0aVJOz7opr2n+CzRQqZgNezBUR77s4X17NArDrl?=
+ =?us-ascii?Q?8KS0t4w/5EvmZQAjZtaQ3OgPbOCkz34eE5vxgRAx/IhSpQ6LVjLh5JHTgJV1?=
+ =?us-ascii?Q?pL7lXTJm75AwCOnld6RU9r59hVV5tn6atlpGvuCRQRQx2lj9DJV8kTxj4uzC?=
+ =?us-ascii?Q?66MZIoebLWMdtEYCvZIsmY0pG/jd8vRA2RIQ+QlvEqHIvigX+lA9mqtN8MHS?=
+ =?us-ascii?Q?rMdsrCg1NxnIpbxXbwTUqqsd44b6bGcm5C7kEeGm1gksa80uXJwl/VvAf3pZ?=
+ =?us-ascii?Q?Wd2UeN4EZEj6/GpHg2mlUIM7ggS6BRJzckVoCaJ0WavlfCR8I+mq23rQSFxp?=
+ =?us-ascii?Q?ULSV/K75JpGEaeLRYJLQRHI36Ku72wRSfWL4Y4eF3dnGMeyZMppEJRHKql3W?=
+ =?us-ascii?Q?cSReZeT3atZzBf6lR6RnVP8=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eca7b970-2935-48f3-765c-08d9be13fc0b
+X-MS-Exchange-CrossTenant-Network-Message-Id: abc3400d-4f96-4bf0-6055-08d9be158589
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2021 08:38:49.3840
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2021 08:49:49.5208
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JmbxY7i8INr1FG90L5PkUGZJMVzjCq3l+s9it18n//b/VtKzy8iDCmj9WtU3mGXN6tRZmLWPAJajasQmCpHsCw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5600
+X-MS-Exchange-CrossTenant-UserPrincipalName: LpDU5w/tzxOrxGc7PA5sRzVtgcU23iYlgCC57tZiv17WV+DLTdDvMbaKjGwqS3iVfW4KK/5JT+PQVr1waqu+Ww==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5328
 
-On 10.12.2021 14:51, Roger Pau Monn=C3=A9 wrote:
-> On Fri, Sep 24, 2021 at 11:48:21AM +0200, Jan Beulich wrote:
->> For vendor specific code to support superpages we need to be able to
->> deal with a superpage mapping replacing an intermediate page table (or
->> hierarchy thereof). Consequently an iommu_alloc_pgtable() counterpart is
->> needed to free individual page tables while a domain is still alive.
->> Since the freeing needs to be deferred until after a suitable IOTLB
->> flush was performed, released page tables get queued for processing by a
->> tasklet.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 10.12.2021 16:06, Roger Pau Monn=C3=A9 wrote:
+> On Fri, Sep 24, 2021 at 11:52:14AM +0200, Jan Beulich wrote:
 >> ---
->> I was considering whether to use a softirq-taklet instead. This would
->> have the benefit of avoiding extra scheduling operations, but come with
->> the risk of the freeing happening prematurely because of a
->> process_pending_softirqs() somewhere.
+>> I'm not fully sure about allowing 512G mappings: The scheduling-for-
+>> freeing of intermediate page tables can take quite a while when
+>> replacing a tree of 4k mappings by a single 512G one. Plus (or otoh)
+>> there's no present code path via which 512G chunks of memory could be
+>> allocated (and hence mapped) anyway.
 >=20
-> The main one that comes to mind would be the debug keys and it's usage
-> of process_pending_softirqs that could interfere with iommu unmaps, so
-> I guess if only for that reason it's best to run in idle vcpu context.
+> I would limit to 1G, which is what we support for CPU page tables
+> also.
 
-IOW you support the choice made.
+I'm not sure I buy comparing with CPU side support when not sharing
+page tables. Not the least with PV in mind.
 
->> --- a/xen/drivers/passthrough/x86/iommu.c
->> +++ b/xen/drivers/passthrough/x86/iommu.c
->> @@ -12,6 +12,7 @@
->>   * this program; If not, see <http://www.gnu.org/licenses/>.
->>   */
->> =20
->> +#include <xen/cpu.h>
->>  #include <xen/sched.h>
->>  #include <xen/iommu.h>
->>  #include <xen/paging.h>
->> @@ -463,6 +464,85 @@ struct page_info *iommu_alloc_pgtable(st
->>      return pg;
+>> @@ -288,10 +289,31 @@ static int iommu_pde_from_dfn(struct dom
+>>      return 0;
 >>  }
 >> =20
->> +/*
->> + * Intermediate page tables which get replaced by large pages may only =
-be
->> + * freed after a suitable IOTLB flush. Hence such pages get queued on a
->> + * per-CPU list, with a per-CPU tasklet processing the list on the assu=
-mption
->> + * that the necessary IOTLB flush will have occurred by the time taskle=
-ts get
->> + * to run. (List and tasklet being per-CPU has the benefit of accesses =
-not
->> + * requiring any locking.)
->> + */
->> +static DEFINE_PER_CPU(struct page_list_head, free_pgt_list);
->> +static DEFINE_PER_CPU(struct tasklet, free_pgt_tasklet);
->> +
->> +static void free_queued_pgtables(void *arg)
->> +{
->> +    struct page_list_head *list =3D arg;
->> +    struct page_info *pg;
->> +
->> +    while ( (pg =3D page_list_remove_head(list)) )
->> +        free_domheap_page(pg);
+>> +static void queue_free_pt(struct domain *d, mfn_t mfn, unsigned int nex=
+t_level)
 >=20
-> Should you add a preempt check here to yield and schedule the tasklet
-> again, in order to be able to process any pending work?
+> Nit: should the last parameter be named level rather than next_level?
+> AFAICT it's the level of the mfn parameter.
 
-I did ask myself this question, yes, but ...
+Yeah, might make sense.
 
-> Maybe just calling process_pending_softirqs would be enough?
+> Should we also assert that level (or next_level) is always !=3D 0 for
+> extra safety?
 
-... I think I didn't consider this as a possible simpler variant (compared
-to re-scheduling the tasklet). Let me add such - I agree that this should
-be sufficient.
+As said elsewhere - if this wasn't a static helper, I'd agree. But all
+call sites have respective conditionals around the call. If anything
+I'd move those checks into the function (but only if you think that
+would improve things, as to me having them at the call sites is more
+logical).
 
 Jan
 
