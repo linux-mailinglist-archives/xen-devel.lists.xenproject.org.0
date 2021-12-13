@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA84B472338
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Dec 2021 09:50:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.245885.424157 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C15754723BA
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Dec 2021 10:25:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.245898.424167 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwh1v-0007oZ-6T; Mon, 13 Dec 2021 08:49:55 +0000
+	id 1mwhYZ-0002Iq-MA; Mon, 13 Dec 2021 09:23:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 245885.424157; Mon, 13 Dec 2021 08:49:55 +0000
+Received: by outflank-mailman (output) from mailman id 245898.424167; Mon, 13 Dec 2021 09:23:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwh1v-0007lL-37; Mon, 13 Dec 2021 08:49:55 +0000
-Received: by outflank-mailman (input) for mailman id 245885;
- Mon, 13 Dec 2021 08:49:54 +0000
+	id 1mwhYZ-0002H6-Db; Mon, 13 Dec 2021 09:23:39 +0000
+Received: by outflank-mailman (input) for mailman id 245898;
+ Mon, 13 Dec 2021 09:23:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=RwxN=Q6=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mwh1u-0007lE-2d
- for xen-devel@lists.xenproject.org; Mon, 13 Dec 2021 08:49:54 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a344eadc-5bf1-11ec-bf02-3911bdbc85ab;
- Mon, 13 Dec 2021 09:49:52 +0100 (CET)
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01lp2051.outbound.protection.outlook.com [104.47.1.51]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-15-yPuZLpg3M-GtwLBEu2ubUw-1; Mon, 13 Dec 2021 09:49:51 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB5328.eurprd04.prod.outlook.com (2603:10a6:803:59::25)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.16; Mon, 13 Dec
- 2021 08:49:49 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4778.017; Mon, 13 Dec 2021
- 08:49:49 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=7HxJ=Q6=gmail.com=geert.uytterhoeven@srs-se1.protection.inumbo.net>)
+ id 1mwhYY-0002Gy-Ou
+ for xen-devel@lists.xenproject.org; Mon, 13 Dec 2021 09:23:38 +0000
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com
+ [209.85.222.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 593aa127-5bf6-11ec-bf02-3911bdbc85ab;
+ Mon, 13 Dec 2021 10:23:36 +0100 (CET)
+Received: by mail-ua1-f50.google.com with SMTP id w23so28024565uao.5
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Dec 2021 01:23:36 -0800 (PST)
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com.
+ [209.85.222.43])
+ by smtp.gmail.com with ESMTPSA id p46sm4070497uad.16.2021.12.13.01.23.34
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Dec 2021 01:23:34 -0800 (PST)
+Received: by mail-ua1-f43.google.com with SMTP id n6so28071736uak.1
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Dec 2021 01:23:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,144 +46,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a344eadc-5bf1-11ec-bf02-3911bdbc85ab
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1639385392;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oMEP5QVK22axG4eddfrPgsXtspkPr8gsDXZteRa5uqI=;
-	b=GvV6PWhzW08mH2XZHyfREtUXHKLdrJVkLKuawEjehfWLuF82jIRgPAmuOkLEqiHuQ2X4uI
-	o2lCnuWDtBJCWQAGYEUPQNMOgeq639tMm/Zg+Za4mXz9mbmqDuf8fPvutx3mIMG4nKenUJ
-	FGocenHaoIoBlvYMsSB3mZGT52r3RuI=
-X-MC-Unique: yPuZLpg3M-GtwLBEu2ubUw-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Pdcf1JzdYEcnIwv9ClK2AJfo2GCnzY3FO40uE1lqreiGBZ1IRqk/0AN3mN4+Yj6S/QDUdOhLcETqqsf+tlwPMotTDHR6j915Jx58IxBLB9xybCQveTGnotRzViFa1SJyaC4xTl2PWkcIF40a9aKjW/ixQJFmLdg2OT62OoxMgti0NOwkpfJijxUtYCRXSj4DybdRt7FshlAJLguBrlEHQTxZWdN6DVSVt+IPg5FPX7gBpak9ySfBw9JER2GVDQREpsZbWQi3HzLsNHPG/P7UMCQ8veuojf8cjw2lNBmeSaGNMQ3bEfwlwQ1ohdIaGPrd2YWWhfkILpNj220CJjq9xQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ohJ8t7lloX5sC8D8ws7KI7zCjKwxwysN4U15Zet3tsg=;
- b=XFPQE4u0aUS2fpDTk+Vfsyk48dtkdq00e/v4CH9l8FTIttxTtmEeCTkl2zmLNVPJfX+kkU3Pm2+WnlGObBXfXaX8SmW6l1l+Ys/D180YNwQfzPTrMMcw0JZT6x/+WA1iG/91SdLo9g9z/3PvizoWg0nlnMzFAbFw5kwa7+0sm4KwAZVWw+YGFhSievec8Y9HOy6tzFLnO4WWUzFgyD7sMlApkC+YbQIkpqbom8MZ9X8DwLKgpvqCOLYkZ1ZVFGsELliAIO9yKp7186x4Vm2wouyqPK4jtu2FUve8//ZMkdpbT8Hm7oENQXoAlOgJf882DNWnUzL4CFWPem3wOEhknA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <d472fbb5-95f3-dc6b-8103-e7d76e71290a@suse.com>
-Date: Mon, 13 Dec 2021 09:49:50 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Subject: Re: [PATCH v2 12/18] AMD/IOMMU: allow use of superpage mappings
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-References: <957f067b-9fe1-2350-4266-51982f09d3a9@suse.com>
- <cc93398d-982a-edbc-4ddd-b5459cef8f9a@suse.com>
- <YbNtBPv1M1lIyEOd@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YbNtBPv1M1lIyEOd@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS8PR04CA0082.eurprd04.prod.outlook.com
- (2603:10a6:20b:313::27) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 593aa127-5bf6-11ec-bf02-3911bdbc85ab
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc:content-transfer-encoding;
+        bh=7JQ6xhDuC8UGs/jm3YR6x8QoCCs8KyehtdxluDCRZKo=;
+        b=z3dP0ilTwwNTFIG2zDDB+21srqDYIITV8Xs3OaZSyqIOvGl+EP6vDsiGysk/piDgcC
+         2PzZHjLe+2RpQ1+xBRmW9cirXAA7fg/34BXhnwOu/Xe4M0aUMzic2Eh5dA/3vFN+9+/S
+         luafk+cA6C25+xupGUSSmpHWnN8Avxfvu7Zzge15TJUl2uB/Yc4Ykibwcc8CfESbllsB
+         QcV2SK9RoqodbCSz/+aZOG3WLdvamKlxW3CMdDTjnJ3Nu/fZK+DmMHDGhF///V/3Ksu+
+         LZlXFxrqymzSXmLtL/eoNHLd8NqtZst1Tq0lisCVpLbg/7lRtAExiFWZBP3p8WnBw3fM
+         X5/w==
+X-Gm-Message-State: AOAM533mAiKDx85c2UPzk8dRQIIa/YdspHYK06gsaYEj/VDPx9WnChRZ
+	WGNoHG3A0QR3kzO+0LZBtLknA1iUXQ1vxA==
+X-Google-Smtp-Source: ABdhPJycpHNND4n/wrsHreJDjBldsE0W9MUNVpaASuXxMopzz2eaxZxHWqASrFhWeEHZZd2Ku6CPMA==
+X-Received: by 2002:a67:b917:: with SMTP id q23mr27480169vsn.80.1639387415315;
+        Mon, 13 Dec 2021 01:23:35 -0800 (PST)
+X-Received: by 2002:a67:c106:: with SMTP id d6mr26074577vsj.77.1639387403608;
+ Mon, 13 Dec 2021 01:23:23 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: abc3400d-4f96-4bf0-6055-08d9be158589
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5328:EE_
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB532820F302788607DE646097B3749@VI1PR04MB5328.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	isoyS159sTw9ZPJhsY/Cy4XRLDyMzASkabmjj0PtNNRoHwwV4s9QEUXs/iH5ib0l3cy7a7Fn75KqteDt23I8eBMYIMdUzBTnqUqvelA9ICF7nmNY8ipURtpgabbvpJtDHtyUnu0eN9Rzrl6iKQ/BOOKhq9LluKfw17eAp64CXgcfVICC2PjdBzivAX6tpkj7NQ5KChDuRRVnbsmIAkiDrA74BXwzdEB6RfDKRubosBsvDnJMeAdAviLVqvF/LxRbykcX35W0iLZufH1UI2cOhQ3+GxlQoL1+vVOb25aSal8ZU/RzTRejL3V6f47RcHEWk+MnQraOyISURXgZ5LYAwrvIJIKzLsZKnzarQnTBJlZlUDMq0d+fRb0T8E8oxjp1MPuhEHq7BsLd+Ye3EXPEGvN7mvtskzoWbHzOPdTqhaoVFZv9yGIhZ2Gavyktc2B+2/l5ZduLORObjhsA5iH6xsM8mKsxtsr07taAzfM5tty3JpQlGKtcVe8me65/8q30hYOor2QXK6A/BJ/lwWtbBQkF+nTduJOEq0n6k3ImsNYwIoFZCgY15T3XN+ZSN8GLNHo5kKcbVh8J2nDPBU0MWhFn03VJ2P8VAp87IuNHoewyuGSeRm7HQO4KzQo9BqtuAvM08Chhp7hF7vZuCKyrZIJhulKZ8h37iXjI4yLTudlUV+8kUvVXWE0fyE27Wu7YUIh/X58MnUNj3ft+MQxDVayV/Ti/zuJ9Ht1ITBLizc2aM/TKW9RnuOOpgz5v/oLL
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(66946007)(31686004)(6512007)(316002)(66476007)(66556008)(2906002)(6506007)(53546011)(2616005)(8936002)(83380400001)(54906003)(6486002)(508600001)(6916009)(186003)(6666004)(5660300002)(86362001)(31696002)(26005)(36756003)(38100700002)(4326008)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7IHAjBt7XumaeV8yyPyW8BWHQcxNWmtXs/zotD4kCpyYC5XB1eCj5+eUUwny?=
- =?us-ascii?Q?KvG9zHfv7LuwzeCl2z43RGiakuB9wTLkPVh7ysvgUt8EdLLYP5/egCx+tSFp?=
- =?us-ascii?Q?iTYScM5XqXWFYGB1n5/YISnBmr3A71Uiidmi6CQbLKurXzFNRtQrk1Rjb+aG?=
- =?us-ascii?Q?IkciyyG8Pbs+pE1QRpJImxxrnDFujdbFNFzvjRCv2A0z+3UUqtWdoM1kfJ8k?=
- =?us-ascii?Q?wfj5xkBXAPqbC8hW0/iQT0/+bZdA8QU34oEIYl6AZiCywzDtH4dY6PLp+/1P?=
- =?us-ascii?Q?nig7UugboUvwGMEJ+LiOefKkL9kWJeoo1syN3pXwwHjOTDxJnWB1Mn9ILJgW?=
- =?us-ascii?Q?iUL22TzalcTJ4lOC5trfdfuZGnNChyhR8iRmiBTUev6U9gwwVmRdjspc6dw9?=
- =?us-ascii?Q?nEzNusU3bpo1GZ3WWAiz5n6im6KRkVgt94aBqhfMAz0wQPhyQ/sKcTk2Pl0L?=
- =?us-ascii?Q?iMkRGGZxpkmi0r9yp5U/ma4fzvVej2T5yqhbJJk3s0Kv3AI4emnDly6nUoPN?=
- =?us-ascii?Q?nknkyyUqpe3bVmVl6hCsUpox/dhXCzDWjbcRRT/yv0oTcR5vAKo/f1rmVmdP?=
- =?us-ascii?Q?2MybGZCY+2NODjhtHFhUDJXDBqQIBXriSEtfREbcO8pfV5z4wfaz3hFeQFVE?=
- =?us-ascii?Q?ITwwUW8RBmNyjUTP3oUNpzx1iiumI7AWN8A4lZKlq4Lz50b9Bn93mmPCoX4K?=
- =?us-ascii?Q?mA2lOz2zRFxA6IgG6zOQm5sh22sBIEufUZQrtCDSQy1Rc1pT6sKXsuXJwbaD?=
- =?us-ascii?Q?leoULgrT68XHm1n/SNTBUJuW2gWqAIC1BqjlS42bInD0tJrd6rw58rSX/CsG?=
- =?us-ascii?Q?775hcG79PEBgaiLAFdhezsu5C6Z00vtqdEYWRpRWNIqk7oRvd2d/y8mFQgHE?=
- =?us-ascii?Q?Rxn9UxCA9cf+19NLjn1M2tR6LO9Al03YSZN1vj6ZyuGw+iIh+fnCXzbe75x7?=
- =?us-ascii?Q?HDNZHK/AVHy+OoHAn4FWYrLp9VBactVq0xggPTE76DWSR6dNclSeec+tEmDv?=
- =?us-ascii?Q?RswwjsbqpHd8DBVNPQ8PnNbLMkeLDsOZdVrMSih7Vxli/cNX1YFu1a92kyAu?=
- =?us-ascii?Q?hbRXbrY55bHpS+BRScbJLo0acQaHAgFvIA1d4SQ6KWgDi0p7LV8Q4m+8NiH1?=
- =?us-ascii?Q?5StqAajHBRE+BMQfxoi7va5higgbnZxVrjS8z8PlSEYgz4fEUFKkpxXtQ50k?=
- =?us-ascii?Q?nb9wAAA+uTsKLT1UMgewL0aVJOz7opr2n+CzRQqZgNezBUR77s4X17NArDrl?=
- =?us-ascii?Q?8KS0t4w/5EvmZQAjZtaQ3OgPbOCkz34eE5vxgRAx/IhSpQ6LVjLh5JHTgJV1?=
- =?us-ascii?Q?pL7lXTJm75AwCOnld6RU9r59hVV5tn6atlpGvuCRQRQx2lj9DJV8kTxj4uzC?=
- =?us-ascii?Q?66MZIoebLWMdtEYCvZIsmY0pG/jd8vRA2RIQ+QlvEqHIvigX+lA9mqtN8MHS?=
- =?us-ascii?Q?rMdsrCg1NxnIpbxXbwTUqqsd44b6bGcm5C7kEeGm1gksa80uXJwl/VvAf3pZ?=
- =?us-ascii?Q?Wd2UeN4EZEj6/GpHg2mlUIM7ggS6BRJzckVoCaJ0WavlfCR8I+mq23rQSFxp?=
- =?us-ascii?Q?ULSV/K75JpGEaeLRYJLQRHI36Ku72wRSfWL4Y4eF3dnGMeyZMppEJRHKql3W?=
- =?us-ascii?Q?cSReZeT3atZzBf6lR6RnVP8=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: abc3400d-4f96-4bf0-6055-08d9be158589
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2021 08:49:49.5208
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LpDU5w/tzxOrxGc7PA5sRzVtgcU23iYlgCC57tZiv17WV+DLTdDvMbaKjGwqS3iVfW4KK/5JT+PQVr1waqu+Ww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5328
+References: <20211126180101.27818-1-digetx@gmail.com> <20211126180101.27818-6-digetx@gmail.com>
+ <YaLNOJTM+lVq+YNS@qmqm.qmqm.pl> <033ddf2a-6223-1a82-ec64-30f17c891f67@gmail.com>
+ <YaQeQgbW+CjEdsqG@qmqm.qmqm.pl> <091321ea-4919-0579-88a8-23d05871575d@gmail.com>
+ <CAJZ5v0jMvdhfBqjY+V9h_Z6EH1ohuJH+KjuGiOw_Jor1Tnp7vg@mail.gmail.com>
+ <45025b2d-4be1-f694-be61-31903795cf5d@gmail.com> <CAJZ5v0ieTwnBVjW8R_VTdPFH3yr5AwLc+ZEG5N3KrpTH+j8qZw@mail.gmail.com>
+In-Reply-To: <CAJZ5v0ieTwnBVjW8R_VTdPFH3yr5AwLc+ZEG5N3KrpTH+j8qZw@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 13 Dec 2021 10:23:12 +0100
+X-Gmail-Original-Message-ID: <CAMuHMdXW1bCLkJhC1Jnf2rkS1rBnXsMX=4LMVdXDvMV5HOzrLw@mail.gmail.com>
+Message-ID: <CAMuHMdXW1bCLkJhC1Jnf2rkS1rBnXsMX=4LMVdXDvMV5HOzrLw@mail.gmail.com>
+Subject: Re: [PATCH v4 05/25] reboot: Warn if restart handler has duplicated priority
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Dmitry Osipenko <digetx@gmail.com>, =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	Thierry Reding <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Russell King <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>, Greg Ungerer <gerg@linux-m68k.org>, 
+	Joshua Thompson <funaho@jurai.org>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	Sebastian Reichel <sre@kernel.org>, Linus Walleij <linus.walleij@linaro.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Greentime Hu <green.hu@gmail.com>, 
+	Vincent Chen <deanbo422@gmail.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
+	Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "the arch/x86 maintainers" <x86@kernel.org>, 
+	"H. Peter Anvin" <hpa@zytor.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Len Brown <lenb@kernel.org>, 
+	Santosh Shilimkar <ssantosh@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Pavel Machek <pavel@ucw.cz>, Lee Jones <lee.jones@linaro.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Daniel Lezcano <daniel.lezcano@linaro.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, 
+	alankao@andestech.com, "K . C . Kuen-Chern Lin" <kclin@andestech.com>, 
+	Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-csky@vger.kernel.org, 
+	linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+	linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+	linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, linux-riscv@lists.infradead.org, 
+	Linux-sh list <linux-sh@vger.kernel.org>, xen-devel@lists.xenproject.org, 
+	ACPI Devel Maling List <linux-acpi@vger.kernel.org>, Linux PM <linux-pm@vger.kernel.org>, 
+	linux-tegra <linux-tegra@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10.12.2021 16:06, Roger Pau Monn=C3=A9 wrote:
-> On Fri, Sep 24, 2021 at 11:52:14AM +0200, Jan Beulich wrote:
->> ---
->> I'm not fully sure about allowing 512G mappings: The scheduling-for-
->> freeing of intermediate page tables can take quite a while when
->> replacing a tree of 4k mappings by a single 512G one. Plus (or otoh)
->> there's no present code path via which 512G chunks of memory could be
->> allocated (and hence mapped) anyway.
->=20
-> I would limit to 1G, which is what we support for CPU page tables
-> also.
+On Fri, Dec 10, 2021 at 8:14 PM Rafael J. Wysocki <rafael@kernel.org> wrote=
+:
+> On Fri, Dec 10, 2021 at 8:04 PM Dmitry Osipenko <digetx@gmail.com> wrote:
+> > 10.12.2021 21:27, Rafael J. Wysocki =D0=BF=D0=B8=D1=88=D0=B5=D1=82:
+> > > On Mon, Nov 29, 2021 at 12:34 PM Dmitry Osipenko <digetx@gmail.com> w=
+rote:
+> > >> 29.11.2021 03:26, Micha=C5=82 Miros=C5=82aw =D0=BF=D0=B8=D1=88=D0=B5=
+=D1=82:
+> > >>> On Mon, Nov 29, 2021 at 12:06:19AM +0300, Dmitry Osipenko wrote:
+> > >>>> 28.11.2021 03:28, Micha=C5=82 Miros=C5=82aw =D0=BF=D0=B8=D1=88=D0=
+=B5=D1=82:
+> > >>>>> On Fri, Nov 26, 2021 at 09:00:41PM +0300, Dmitry Osipenko wrote:
+> > >>>>>> Add sanity check which ensures that there are no two restart han=
+dlers
+> > >>>>>> registered with the same priority. Normally it's a direct sign o=
+f a
+> > >>>>>> problem if two handlers use the same priority.
+> > >>>>>
+> > >>>>> The patch doesn't ensure the property that there are no duplicate=
+d-priority
+> > >>>>> entries on the chain.
+> > >>>>
+> > >>>> It's not the exact point of this patch.
+> > >>>>
+> > >>>>> I'd rather see a atomic_notifier_chain_register_unique() that ret=
+urns
+> > >>>>> -EBUSY or something istead of adding an entry with duplicate prio=
+rity.
+> > >>>>> That way it would need only one list traversal unless you want to
+> > >>>>> register the duplicate anyway (then you would call the older
+> > >>>>> atomic_notifier_chain_register() after reporting the error).
+> > >>>>
+> > >>>> The point of this patch is to warn developers about the problem th=
+at
+> > >>>> needs to be fixed. We already have such troubling drivers in mainl=
+ine.
+> > >>>>
+> > >>>> It's not critical to register different handlers with a duplicated
+> > >>>> priorities, but such cases really need to be corrected. We shouldn=
+'t
+> > >>>> break users' machines during transition to the new API, meanwhile
+> > >>>> developers should take action of fixing theirs drivers.
+> > >>>>
+> > >>>>> (Or you could return > 0 when a duplicate is registered in
+> > >>>>> atomic_notifier_chain_register() if the callers are prepared
+> > >>>>> for that. I don't really like this way, though.)
+> > >>>>
+> > >>>> I had a similar thought at some point before and decided that I'm =
+not in
+> > >>>> favor of this approach. It's nicer to have a dedicated function th=
+at
+> > >>>> verifies the uniqueness, IMO.
+> > >>>
+> > >>> I don't like the part that it traverses the list second time to che=
+ck
+> > >>> the uniqueness. But actually you could avoid that if
+> > >>> notifier_chain_register() would always add equal-priority entries i=
+n
+> > >>> reverse order:
+> > >>>
+> > >>>  static int notifier_chain_register(struct notifier_block **nl,
+> > >>>               struct notifier_block *n)
+> > >>>  {
+> > >>>       while ((*nl) !=3D NULL) {
+> > >>>               if (unlikely((*nl) =3D=3D n)) {
+> > >>>                       WARN(1, "double register detected");
+> > >>>                       return 0;
+> > >>>               }
+> > >>> -             if (n->priority > (*nl)->priority)
+> > >>> +             if (n->priority >=3D (*nl)->priority)
+> > >>>                       break;
+> > >>>               nl =3D &((*nl)->next);
+> > >>>       }
+> > >>>       n->next =3D *nl;
+> > >>>       rcu_assign_pointer(*nl, n);
+> > >>>       return 0;
+> > >>>  }
+> > >>>
+> > >>> Then the check for uniqueness after adding would be:
+> > >>>
+> > >>>  WARN(nb->next && nb->priority =3D=3D nb->next->priority);
+> > >>
+> > >> We can't just change the registration order because invocation order=
+ of
+> > >> the call chain depends on the registration order
+> > >
+> > > It doesn't if unique priorities are required and isn't that what you =
+want?
+> > >
+> > >> and some of current
+> > >> users may rely on that order. I'm pretty sure that changing the orde=
+r
+> > >> will have unfortunate consequences.
+> > >
+> > > Well, the WARN() doesn't help much then.
+> > >
+> > > Either you can make all of the users register with unique priorities,
+> > > and then you can make the registration reject non-unique ones, or you
+> > > cannot assume them to be unique.
+> >
+> > There is no strong requirement for priorities to be unique, the reboot.=
+c
+> > code will work properly.
+>
+> In which case adding the WARN() is not appropriate IMV.
+>
+> Also I've looked at the existing code and at least in some cases the
+> order in which the notifiers run doesn't matter.  I'm not sure what
+> the purpose of this patch is TBH.
+>
+> > The potential problem is on the user's side and the warning is intended
+> > to aid the user.
+>
+> Unless somebody has the panic_on_warn mentioned previously set and
+> really the user need not understand what the WARN() is about.  IOW,
+> WARN() helps developers, not users.
 
-I'm not sure I buy comparing with CPU side support when not sharing
-page tables. Not the least with PV in mind.
+Do panic_on_warn and reboot_on_panic play well with having a WARN()
+in the reboot notifier handling?
 
->> @@ -288,10 +289,31 @@ static int iommu_pde_from_dfn(struct dom
->>      return 0;
->>  }
->> =20
->> +static void queue_free_pt(struct domain *d, mfn_t mfn, unsigned int nex=
-t_level)
->=20
-> Nit: should the last parameter be named level rather than next_level?
-> AFAICT it's the level of the mfn parameter.
+Gr{oetje,eeting}s,
 
-Yeah, might make sense.
+                        Geert
 
-> Should we also assert that level (or next_level) is always !=3D 0 for
-> extra safety?
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
 
-As said elsewhere - if this wasn't a static helper, I'd agree. But all
-call sites have respective conditionals around the call. If anything
-I'd move those checks into the function (but only if you think that
-would improve things, as to me having them at the call sites is more
-logical).
-
-Jan
-
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
 
