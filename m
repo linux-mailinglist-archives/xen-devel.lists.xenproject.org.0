@@ -2,41 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C6A1473681
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Dec 2021 22:22:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.246309.424771 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 648B247369D
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Dec 2021 22:38:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.246315.424784 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwslu-0006vg-Ox; Mon, 13 Dec 2021 21:22:10 +0000
+	id 1mwt1Y-0000D5-6N; Mon, 13 Dec 2021 21:38:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 246309.424771; Mon, 13 Dec 2021 21:22:10 +0000
+Received: by outflank-mailman (output) from mailman id 246315.424784; Mon, 13 Dec 2021 21:38:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwslu-0006t7-Lf; Mon, 13 Dec 2021 21:22:10 +0000
-Received: by outflank-mailman (input) for mailman id 246309;
- Mon, 13 Dec 2021 21:22:09 +0000
+	id 1mwt1Y-00009m-2h; Mon, 13 Dec 2021 21:38:20 +0000
+Received: by outflank-mailman (input) for mailman id 246315;
+ Mon, 13 Dec 2021 21:38:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4sGW=Q6=ens-lyon.org=samuel.thibault@srs-se1.protection.inumbo.net>)
- id 1mwslt-0006qn-TK
- for xen-devel@lists.xenproject.org; Mon, 13 Dec 2021 21:22:09 +0000
-Received: from hera.aquilenet.fr (hera.aquilenet.fr [185.233.100.1])
+ <SRS0=x6XJ=Q6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1mwt1X-00009g-0Q
+ for xen-devel@lists.xenproject.org; Mon, 13 Dec 2021 21:38:19 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ba0c8745-5c5a-11ec-85d3-df6b77346a89;
- Mon, 13 Dec 2021 22:22:08 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id C313538A;
- Mon, 13 Dec 2021 22:22:07 +0100 (CET)
-Received: from hera.aquilenet.fr ([127.0.0.1])
- by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 9VvTf2Be1UGX; Mon, 13 Dec 2021 22:22:07 +0100 (CET)
-Received: from begin (unknown [IPv6:2a01:cb19:956:1b00:de41:a9ff:fe47:ec49])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id 25AD4229;
- Mon, 13 Dec 2021 22:22:07 +0100 (CET)
-Received: from samy by begin with local (Exim 4.95)
- (envelope-from <samuel.thibault@ens-lyon.org>) id 1mwslq-006yzC-C0;
- Mon, 13 Dec 2021 22:22:06 +0100
+ id fb2be206-5c5c-11ec-85d3-df6b77346a89;
+ Mon, 13 Dec 2021 22:38:17 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B17A3B815C6;
+ Mon, 13 Dec 2021 21:38:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35315C34600;
+ Mon, 13 Dec 2021 21:38:14 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,92 +44,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba0c8745-5c5a-11ec-85d3-df6b77346a89
-X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Date: Mon, 13 Dec 2021 22:22:06 +0100
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
-	wl@xen.org
-Subject: Re: [PATCH 03/10] mini-os: don't assume contiguous RAM when
- initializing in PVH mode
-Message-ID: <20211213212206.htg4eykr32x63swk@begin>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org, wl@xen.org
-References: <20211206072337.9517-1-jgross@suse.com>
- <20211206072337.9517-4-jgross@suse.com>
- <20211212001542.qhz7wfdwq7k5ymxr@begin>
- <e44571e4-ba85-06a4-99b2-648d94e9af8c@suse.com>
+X-Inumbo-ID: fb2be206-5c5c-11ec-85d3-df6b77346a89
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1639431494;
+	bh=vbVv8bv33hlXicn8w2PRzVbOWmmZ1tS837zrDbSvNlU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=uivK7tmtyhf52O3HplxKIGBWlIOEq9JH9bIF1QAihq+h/icb8T8U8kshDAy/UW3r3
+	 03xb/oVHOz4mskz6JrwNBN8zvqLakkjcxiW6m3Xj38/+0zPwWq+e5zIe5c+2PXLHED
+	 +utSOm+7zAKS0wZh8elO5zQ6TWWozIVSJhIRohgcqainU6k85xENoDZr6j3gIaIS8Z
+	 YWmU/ANyRfXxKhQS6g5Orr6hOx1K6/PLN2LILxG4lwRLMVPkLOCE2AvxF3GmgXL1Rs
+	 zMLMklGvtL/U1wPV9PA7ShFO6YX+bY8/acOifWqsO02VXzqkC8VUr28k4pjd6TpLY/
+	 WH6SSWVu6zh8Q==
+Date: Mon, 13 Dec 2021 13:38:14 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Luca Fancellu <luca.fancellu@arm.com>
+cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, wei.chen@arm.com, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: increase memory banks number define value
+In-Reply-To: <20211213114823.25570-1-luca.fancellu@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2112131337570.3376@ubuntu-linux-20-04-desktop>
+References: <20211213114823.25570-1-luca.fancellu@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e44571e4-ba85-06a4-99b2-648d94e9af8c@suse.com>
-Organization: I am not organized
-User-Agent: NeoMutt/20170609 (1.8.3)
-X-Spamd-Bar: /
-Authentication-Results: hera.aquilenet.fr;
-	none
-X-Rspamd-Server: hera
-X-Rspamd-Queue-Id: C313538A
-X-Spamd-Result: default: False [0.40 / 15.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[4];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 HAS_ORG_HEADER(0.00)[];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_LAST(0.00)[];
-	 MID_RHS_NOT_FQDN(0.50)[]
+Content-Type: text/plain; charset=US-ASCII
 
-Juergen Gross, le lun. 13 déc. 2021 15:58:58 +0100, a ecrit:
-> On 12.12.21 01:15, Samuel Thibault wrote:
-> > Juergen Gross, le lun. 06 déc. 2021 08:23:30 +0100, a ecrit:
-> > > -    unsigned long pfn, max = 0;
-> > > +    unsigned long pfns, max = 0;
-> > 
-> > I'd say rather rename max to start.
-> > 
-> > >       e820_get_memmap();
-> > > @@ -166,9 +166,12 @@ unsigned long e820_get_maxpfn(void)
-> > >       {
-> > >           if ( e820_map[i].type != E820_RAM )
-> > >               continue;
-> > > -        pfn = (e820_map[i].addr + e820_map[i].size) >> PAGE_SHIFT;
-> > > -        if ( pfn > max )
-> > > -            max = pfn;
-> > > +        pfns = e820_map[i].size >> PAGE_SHIFT;
-> > > +        max = e820_map[i].addr >> PAGE_SHIFT;
-> > 
-> > since it's it's always the start of the e820 entry.
-> > 
-> > > +        if ( pages <= pfns )
-> > > +            return max + pages;
-> > > +        pages -= pfns;
-> > > +        max += pfns;
-> > 
-> > Here we don't need do change max, only pages.
+On Mon, 13 Dec 2021, Luca Fancellu wrote:
+> Currently the maximum number of memory banks (NR_MEM_BANKS define)
+> is fixed to 128, but on some new platforms that have a large amount
+> of memory, this value is not enough and prevents Xen from booting.
 > 
-> It is needed in case the loop is finished.
+> Increase the value to 256.
 > 
-> And this was the reason for naming it max.
+> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 
-Ah, ok.
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-At first read the name was confusing me. Perhaps better use two
-variables then: start and max, so that we have
 
-start = e820_map[i].addr >> PAGE_SHIFT;
-if ( pages <= pfns )
-    return start + pages;
-pages -= pfns;
-max = start + pfns;
-
-Samuel
+> ---
+>  xen/include/asm-arm/setup.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
+> index 95da0b7ab9cd..07daf160dc57 100644
+> --- a/xen/include/asm-arm/setup.h
+> +++ b/xen/include/asm-arm/setup.h
+> @@ -6,7 +6,7 @@
+>  #define MIN_FDT_ALIGN 8
+>  #define MAX_FDT_SIZE SZ_2M
+>  
+> -#define NR_MEM_BANKS 128
+> +#define NR_MEM_BANKS 256
+>  
+>  #define MAX_MODULES 32 /* Current maximum useful modules */
+>  
+> -- 
+> 2.17.1
+> 
 
