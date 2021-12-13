@@ -2,45 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A2E8472F09
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Dec 2021 15:23:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.246119.424519 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BE51472FD9
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Dec 2021 15:56:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.246145.424552 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwmEk-0000ux-97; Mon, 13 Dec 2021 14:23:30 +0000
+	id 1mwmkc-0005em-EY; Mon, 13 Dec 2021 14:56:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 246119.424519; Mon, 13 Dec 2021 14:23:30 +0000
+Received: by outflank-mailman (output) from mailman id 246145.424552; Mon, 13 Dec 2021 14:56:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwmEk-0000st-4o; Mon, 13 Dec 2021 14:23:30 +0000
-Received: by outflank-mailman (input) for mailman id 246119;
- Mon, 13 Dec 2021 14:23:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mwmkc-0005aY-Ac; Mon, 13 Dec 2021 14:56:26 +0000
+Received: by outflank-mailman (input) for mailman id 246145;
+ Mon, 13 Dec 2021 14:56:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=CKkq=Q6=nvidia.com=jgg@srs-se1.protection.inumbo.net>)
- id 1mwmEi-0000sf-FB
- for xen-devel@lists.xenproject.org; Mon, 13 Dec 2021 14:23:28 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2062a.outbound.protection.outlook.com
- [2a01:111:f400:7eae::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3b376efa-5c20-11ec-9e60-abaf8a552007;
- Mon, 13 Dec 2021 15:23:26 +0100 (CET)
-Received: from BL1PR12MB5143.namprd12.prod.outlook.com (2603:10b6:208:31b::13)
- by BL0PR12MB5523.namprd12.prod.outlook.com (2603:10b6:208:1ce::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Mon, 13 Dec
- 2021 14:23:23 +0000
-Received: from BL0PR12MB5506.namprd12.prod.outlook.com (2603:10b6:208:1cb::22)
- by BL1PR12MB5143.namprd12.prod.outlook.com (2603:10b6:208:31b::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.11; Mon, 13 Dec
- 2021 14:23:22 +0000
-Received: from BL0PR12MB5506.namprd12.prod.outlook.com
- ([fe80::d8be:e4e4:ce53:6d11]) by BL0PR12MB5506.namprd12.prod.outlook.com
- ([fe80::d8be:e4e4:ce53:6d11%7]) with mapi id 15.20.4778.017; Mon, 13 Dec 2021
- 14:23:22 +0000
+ (envelope-from <SRS0=/ja4=Q6=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1mwmkb-0005YO-EB
+ for xen-devel@lists.xenproject.org; Mon, 13 Dec 2021 14:56:25 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d65b574a-5c24-11ec-85d3-df6b77346a89;
+ Mon, 13 Dec 2021 15:56:23 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5167921123;
+ Mon, 13 Dec 2021 14:56:22 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2D53313DE2;
+ Mon, 13 Dec 2021 14:56:22 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id l+q1CRZft2FWNwAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 13 Dec 2021 14:56:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,132 +51,234 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b376efa-5c20-11ec-9e60-abaf8a552007
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BuHvCSV5d2vACK8wVjcXijViROigYc/lf7KdVhJgHA95goWmYi8VsqjDAV5CpijW3TzQ1rCO6WRhCx/HWwH2ogWQ/4hM1k+YWEb9YhkMLWrsrnPNJR0XlwKz14hnsifQhiddRYava8iRHq9nvrheUTm/hHQ8hIzgspjVU2lYxpYWagubua6lhNf3Z5H+iOjhmkBT/mwjLzV3JHTpKzLzOkIXlluf1per3yuw7KDAcikoz0Etjul8R+RMJi61Sznvp5aP3eCz0RR58tNfv+CcBV+vjXwx1WVrEDFBl6JSO5Q0fXo6b604Ljpt6m6sm0MxjZtdGuVaQ6hIG3lWR2XipQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hcvkLSxUrexFwmEl22G3OBeDexHDcm8N7OZdbKxaJBU=;
- b=bYGmqWd5rWbmzk5GH2+er0/GtFfUUIkkB0ajq1T+RmnPTSmHbiTFwGiWSmtxRFFpEVUrdi75YHsDD9LSu3OwHLCoZo8kwvGYXAxFalja+SZT53zqCEidARBpL7Lms++P2XttBEYbpk3Shxh8ZJXknjx5fO9ZjmJ9zsOhqkYVE40uoHPcYBCWdSbfowX0FC8pdiW36L5IylJE7JiFHHT09r3z8m0D3X3j5Ots6DSX1GCfNZlax406oQ5wf5iF/TJinXxKNIfrxTq2HQAbRDykhXG/R6V5HV3VXJo1VpSjB+f49OuZn0Eve673jR39WNI6EqJBUl0Www1bRU7Nm1n0ZA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hcvkLSxUrexFwmEl22G3OBeDexHDcm8N7OZdbKxaJBU=;
- b=bdyG4ZJrDwpVcIaTLObgZApxloyne5u3LUVX49qJisqSyuXnykwi8e0c6fGUGgpib8N1aDh8GeNtK8Ph3tHlhNWBrz7oH0CKEeSr86fojY9WNtIQw5PMeDMq9QfvqWmZ8jwlE+wcaRNX4OqO9fFW55Q0sDWBlNBYKRy99szMNRDFKEr6GqR/18aN+u+sPYvRTQr8GBT4rAGg69ZHTzKl0tRRbiyH1+zLk3wtmSVev1VfZBEDvplB+czEXMyjKec+hZgAgY7H4S0PlWGhBxGLg/9jzPsim5+ZymsjTJ9jjMj+k5IOITCUkt8s0NoNZ2YKODUILX6u5aZ1/3llojyMnQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Date: Mon, 13 Dec 2021 10:23:19 -0400
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
-	Marc Zygnier <maz@kernel.org>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Kevin Tian <kevin.tian@intel.com>, Megha Dey <megha.dey@intel.com>,
-	Ashok Raj <ashok.raj@intel.com>, linux-pci@vger.kernel.org,
-	Cedric Le Goater <clg@kaod.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
-	Arnd Bergmann <arnd@arndb.de>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Benjamin Herrenschmidt <benh@kernel.crashing.org>,
-	linuxppc-dev@lists.ozlabs.org, Bjorn Helgaas <bhelgaas@google.com>,
-	Stuart Yoder <stuyoder@gmail.com>,
-	Laurentiu Tudor <laurentiu.tudor@nxp.com>,
-	Nishanth Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>,
-	Santosh Shilimkar <ssantosh@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
-	dmaengine@vger.kernel.org, Mark Rutland <mark.rutland@arm.com>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Joerg Roedel <joro@8bytes.org>, iommu@lists.linux-foundation.org,
-	Jassi Brar <jassisinghbrar@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@gmail.com>,
-	Sinan Kaya <okaya@kernel.org>
-Subject: Re: [patch V3 27/35] PCI/MSI: Use __msi_get_virq() in
- pci_get_vector()
-Message-ID: <20211213142319.GC6385@nvidia.com>
-References: <20211210221642.869015045@linutronix.de>
- <20211210221814.841243231@linutronix.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20211210221814.841243231@linutronix.de>
-X-ClientProxiedBy: YTXPR0101CA0034.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::47) To BL0PR12MB5506.namprd12.prod.outlook.com
- (2603:10b6:208:1cb::22)
+X-Inumbo-ID: d65b574a-5c24-11ec-85d3-df6b77346a89
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1639407382; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=j7cVxE04IfsTIEumjoh0h0K2JpqO07CGgJNiGKv+uYU=;
+	b=rTwGDY9Uw5nUopNc2mxAT8fkgtxzs1B/+a6gkCcbxVvv6fX0JD/YwJxlI2sBomnSIB3cwX
+	MpqMQBL+0u9yDAtWt9av48q3fFqmW3GhSwLF9m14U3nseQb48FiK6jNId1+9O3A+9cIqZQ
+	0yfvDtB4AQlvH6rzj/d67Q+GB7eqv9Q=
+To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, wl@xen.org
+References: <20211206072337.9517-1-jgross@suse.com>
+ <20211206072337.9517-3-jgross@suse.com>
+ <20211212000558.232nzs7k5lklpbym@begin>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH 02/10] mini-os: sort and sanitize e820 memory map
+Message-ID: <ab1b2e26-65c1-c877-cf88-0df50d38b925@suse.com>
+Date: Mon, 13 Dec 2021 15:56:21 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a9113e18-d38a-4d89-55f4-08d9be441e0c
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5143:EE_|BL0PR12MB5523:EE_
-X-Microsoft-Antispam-PRVS:
- <BL1PR12MB51437D808E60C0DC80DDBDFAC2749@BL1PR12MB5143.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	SiIReGv5ViTNmRUm3GWfQ/6oexO3oFbF+wAE1ske0bIY++8NRNVljaR7Rq0Q4tbhfzIIasTrhjolWthJ34jxaeOIER20SV+dC/JFs29fWOCK+ElO3foLNTacI9c4bsf9d3MdJ+KlbcUDObQHmZb5AU4r2K176/MH6nX7Xnb0pLtUdwIE5JjRV8n7TnZQQ5WOG8/uQQw3BAi110uk3/C+xo/iiBFmF1QchF+HzWMmsoNdR2LfepBjJKp1Nl+b0cOy0UsuJjgJ7Yd0tceNaLPmlwfN6k3vbzlhWdv54a/amVjl1zr9/WPxPFnZKsP82k4Q9KAwtE2TbWh8SABMvL9lKLmDshSwTNgpCXKDqq8ywPg1LibnpvYvmi3ckcruevZJqpTx2IrObzQ8+v9GWZM8up8Xb9+UcqPgz62cyZMJmqED5rWICLH/3FP1i46qkIOh7B61WvGRnP7pm7RqT/gf1RyPrp5EQxXn5If8w1/tkhQHERq+GKP7GldFRzzYfwb42gNR2RVF13z5mTmg64aaWBDMWX5XqZT5AXbPb4MVPfx7sVlGqhQAg/A9NIKyWAxfCkScJgSIlUrqoJknaXgVRpbtrWsHb6FdGBEPNUmy4e545pqzTIPbI3OaMH7GQJIk8qkFQGzF9PFNxAHzwdWIpQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5143.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(6506007)(8676002)(8936002)(54906003)(2616005)(186003)(6486002)(6512007)(83380400001)(316002)(7406005)(7416002)(66556008)(6666004)(6916009)(26005)(4744005)(38100700002)(66476007)(4326008)(508600001)(66946007)(5660300002)(33656002)(36756003)(1076003)(86362001)(2906002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UdZTbKneE6nGhVTOfihQqiTo1Qt4/yNIfP6Lj5FtBtkuj97TWidSSaO4TLxr?=
- =?us-ascii?Q?bu4POC9xFVAX8UBm9mdW05nSbiy7F4ZhivLsX/eweXPVBe39pfIWuYdk3Vsc?=
- =?us-ascii?Q?v0yrCcknH34HzUGsvF5h1HTCBHgWK/zaC4evj+WNWRI8g44zx/ibqMOmh2cb?=
- =?us-ascii?Q?EsER9bQgPEZdLJKGisWmuADjVT51meMdyX1B1ykqBv3krcJxaJeEGwfPYoOW?=
- =?us-ascii?Q?bxaI1swyppyF51HoxXo6jWc/ArXumWJxPl6xKVescIn5+rp0lTcg9exmDNb/?=
- =?us-ascii?Q?i22cu+3qTPml5EyxBol1LdYZFv5tErJ9+HM2lqysZei+2oCuhkOGp9VuHIfH?=
- =?us-ascii?Q?qUrKEbeN6wA8L37nUeytPUOW4DCPXvVruqn7Bxr0biAiJcA27aWIW1xeaj3A?=
- =?us-ascii?Q?VqBEcTs/lPiilABweeZWiQ1Sez/9gl/64Bbfc5xBLxNr9j8uEQGguACin8iP?=
- =?us-ascii?Q?WGAEjM/vOclCHNY8bq3ObcG6GRLvhW7jtb+2uYJVPYoWhvSzzA0z411PSFBL?=
- =?us-ascii?Q?qDfiTupTvFIZT5Y34vQYeqQ4SmbczYDysFOf929KCHHobmLoQ8BFwIMX+Hb4?=
- =?us-ascii?Q?WNZMPWC++yrHsfZxoMGJFXjCK4b3PoCtb6VlrB4NP38XxojEoLpLiLf5sRD4?=
- =?us-ascii?Q?dEHsa+0pCbz8gOzO63M9QEMvkyLozYkZjVhBJNQ0QktfJBQxiD6CC4BC1PNf?=
- =?us-ascii?Q?nmMhcxXdtTtySEbHsGAL3caVmBmg4vqioyhWLE6/Pv/dvDvjkTlBhXXHCtPP?=
- =?us-ascii?Q?itZUmhtIGzsgSLaNAxmdZyKCuyZ/NbaWK6phedCjfo1/ztIH+NitdwgB+A5T?=
- =?us-ascii?Q?+qKnbcvex4TIcCtaG/zzDBAGQT6gOvwEq4eLKj2J87Dm03QZKnIfIgcWip5F?=
- =?us-ascii?Q?KsUVIVWDSZZCyoOusUDo5NR9n86PgGpB/GWZX8IarGKmUaG73577JTGuWT8+?=
- =?us-ascii?Q?PPwg1M7LWnVIBJernM9U6ZcUvAaeKp3Hszh0ZANacC9fLjyDyhxHrlSkX5/1?=
- =?us-ascii?Q?CtSdpqXTFFqkqmqTBm8S+m47L0PumiedW0tCcAeyo2BJQIaC9kiL3dsmnwEd?=
- =?us-ascii?Q?Z7Cfy+y0qEK0d5dHMIOqatHqWZjpJcFoMyha4qgc6pDuRIi3uZVQi6wwSJdb?=
- =?us-ascii?Q?c641Backr6RtQgg9DmFVTikvzqA1M2APqN3XCaCdfIaS0SVrQFNonXjMfoN1?=
- =?us-ascii?Q?mIZgYmeMEpxE/vksb8SoDiKy1TxfLMAPFldGYLna3SjDvz0TGqmf+BIhI1ZF?=
- =?us-ascii?Q?3PGmjQ5ZQN8ZQxCGLg4X3K2Vtx0+ezehOv3mQ9QV7jluiuuNNx7unZdGZDY/?=
- =?us-ascii?Q?27J8tGwy6lvtDMlORg14xso4hdE/uwAEbHQaYIgFJXvwDQMh8UFfytTB9up2?=
- =?us-ascii?Q?Alsa2UsvMel5kUDx/mgZBJRXqgxhuT0Oq4DPCDSk7ux+gt0ye2YUTJjqCVzC?=
- =?us-ascii?Q?DrBLTQHsDblBEmErZ0uskud4gqc97I3MLeh5QJhIPrq4OW2MvME/HxT5HbNP?=
- =?us-ascii?Q?h9UP+2vEJLOpgcOkSNcRQ5eiBZllrVbPOG9IrzVzzfPBCTS5zXVZOxxzqzA2?=
- =?us-ascii?Q?zfzIVl0PQTpLwbNQl1M=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9113e18-d38a-4d89-55f4-08d9be441e0c
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB5506.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2021 14:23:22.2701
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q/ECntS8fh8ZLrZFpJFupHNoZTpVITuBmuPCq8r5VPOP+PA6J6entj0tG44juQHF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB5523
+In-Reply-To: <20211212000558.232nzs7k5lklpbym@begin>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="IAFzW0f4rRLv6G6aH0YvjuKBDF6qBTSig"
 
-On Fri, Dec 10, 2021 at 11:19:25PM +0100, Thomas Gleixner wrote:
-> From: Thomas Gleixner <tglx@linutronix.de>
-> 
-> Use msi_get_vector() and handle the return value to be compatible.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> ---
-> V2: Handle the INTx case directly instead of trying to be overly smart - Marc
-> ---
->  drivers/pci/msi/msi.c |   25 +++++--------------------
->  1 file changed, 5 insertions(+), 20 deletions(-)
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--IAFzW0f4rRLv6G6aH0YvjuKBDF6qBTSig
+Content-Type: multipart/mixed; boundary="eYeR0dxD77OMlNuDhk2i5UNuo2LM5MmRq";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, wl@xen.org
+Message-ID: <ab1b2e26-65c1-c877-cf88-0df50d38b925@suse.com>
+Subject: Re: [PATCH 02/10] mini-os: sort and sanitize e820 memory map
+References: <20211206072337.9517-1-jgross@suse.com>
+ <20211206072337.9517-3-jgross@suse.com>
+ <20211212000558.232nzs7k5lklpbym@begin>
+In-Reply-To: <20211212000558.232nzs7k5lklpbym@begin>
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+--eYeR0dxD77OMlNuDhk2i5UNuo2LM5MmRq
+Content-Type: multipart/mixed;
+ boundary="------------9740D0F2639D38120BDF7612"
+Content-Language: en-US
 
-Jason
+This is a multi-part message in MIME format.
+--------------9740D0F2639D38120BDF7612
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 12.12.21 01:05, Samuel Thibault wrote:
+> Hello,
+>=20
+> Juergen Gross, le lun. 06 d=C3=A9c. 2021 08:23:29 +0100, a ecrit:
+>> - align the entries to page boundaries
+>=20
+>> +    /* Adjust map entries to page boundaries. */
+>> +    for ( i =3D 0; i < e820_entries; i++ )
+>> +    {
+>> +        end =3D (e820_map[i].addr + e820_map[i].size + PAGE_SIZE - 1)=
+ & PAGE_MASK;
+>> +        e820_map[i].addr &=3D PAGE_MASK;
+>> +        e820_map[i].size =3D end - e820_map[i].addr;
+>> +    }
+>=20
+> Mmm, what if the previous entry ends after the aligned start?
+>=20
+> On real machines that does happen, and you'd rather round up the start
+> address of usable areas, rather than rounding it down (and conversely
+> for the end).
+
+I think you are partially right. :-)
+
+Entries for resources managed by Mini-OS (RAM, maybe NVME?) should be
+rounded to cover only complete pages (start rounded up, end rounded
+down), but all other entries should be rounded to cover the complete
+area (start rounded down, end rounded up) in order not to use any
+partial used page for e.g. mapping foreign pages.
+
+>=20
+>> +    /* Sort entries by start address. */
+>> +    for ( i =3D 0; i < e820_entries - 1; i++ )
+>> +    {
+>> +        if ( e820_map[i].addr > e820_map[i + 1].addr )
+>> +        {
+>> +            e820_swap_entries(i, i + 1);
+>> +            i =3D -1;
+>> +        }
+>> +    }
+>=20
+> This looks O(n^3) to me? A bubble sort like this should be fine:
+>=20
+>      /* Sort entries by start address. */
+>      for ( last =3D e820_entries; last > 1; last-- )
+>      {
+>          for ( i =3D 0; i < last - 1; i++ )
+>          {
+>              if ( e820_map[i].addr > e820_map[i + 1].addr )
+>              {
+>                  e820_swap_entries(i, i + 1);
+>              }
+>          }
+>      }
+
+Hmm, depends.
+
+Assuming a rather well sorted map my version is O(n), while yours
+is still O(n^2).
+
+In the end it won't matter that much, because a normal map will have
+only very few entries (usually 5 before merging consecutive entries).
+
+I'm fine both ways, whatever you prefer.
+
+
+Juergen
+
+--------------9740D0F2639D38120BDF7612
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------9740D0F2639D38120BDF7612--
+
+--eYeR0dxD77OMlNuDhk2i5UNuo2LM5MmRq--
+
+--IAFzW0f4rRLv6G6aH0YvjuKBDF6qBTSig
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmG3XxUFAwAAAAAACgkQsN6d1ii/Ey/T
+6Af/ffa1ro8nIoFT9rqUrMD4+zE0MDXNfA6ALAGIQgYN2C4K3CaBZQcObHjFxFtlKSuBhOgovOl9
+cIpLS/aQHhQ3jw1rlGK5FeY6fc1XPqMq8nXvJbjL07pmpB2bwbFlyqpRttEc+Qsg5eUMtY2OLmMZ
+zSTgo2BGFfhplkGkT/79ytvMS8k9Y0SeiNa+J1vVUrX7cN6Tltn/6KwKLxyiYYVL/6ph2bfqItwS
+eFHNhHKFEIwOhED+fblcnjhVn3wM2qDzhWn+C79KbDUGOFG42fLRnM6xbFBIa4BgkOq4ZwW5tQUi
+1488mBtZbBUliW7xrAfLKm4OEsYB6gVLibI7W99u0A==
+=CHAl
+-----END PGP SIGNATURE-----
+
+--IAFzW0f4rRLv6G6aH0YvjuKBDF6qBTSig--
 
