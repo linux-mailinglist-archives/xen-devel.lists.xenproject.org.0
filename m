@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BE51472FD9
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Dec 2021 15:56:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.246145.424552 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93949472FE6
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Dec 2021 15:59:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.246154.424567 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwmkc-0005em-EY; Mon, 13 Dec 2021 14:56:26 +0000
+	id 1mwmn8-0006Xw-TC; Mon, 13 Dec 2021 14:59:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 246145.424552; Mon, 13 Dec 2021 14:56:26 +0000
+Received: by outflank-mailman (output) from mailman id 246154.424567; Mon, 13 Dec 2021 14:59:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwmkc-0005aY-Ac; Mon, 13 Dec 2021 14:56:26 +0000
-Received: by outflank-mailman (input) for mailman id 246145;
- Mon, 13 Dec 2021 14:56:25 +0000
+	id 1mwmn8-0006VO-Pv; Mon, 13 Dec 2021 14:59:02 +0000
+Received: by outflank-mailman (input) for mailman id 246154;
+ Mon, 13 Dec 2021 14:59:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/ja4=Q6=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mwmkb-0005YO-EB
- for xen-devel@lists.xenproject.org; Mon, 13 Dec 2021 14:56:25 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1mwmn7-0006So-07
+ for xen-devel@lists.xenproject.org; Mon, 13 Dec 2021 14:59:01 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d65b574a-5c24-11ec-85d3-df6b77346a89;
- Mon, 13 Dec 2021 15:56:23 +0100 (CET)
+ id 339600a0-5c25-11ec-85d3-df6b77346a89;
+ Mon, 13 Dec 2021 15:58:59 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5167921123;
- Mon, 13 Dec 2021 14:56:22 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id F19AE1F3B9;
+ Mon, 13 Dec 2021 14:58:58 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2D53313DE2;
- Mon, 13 Dec 2021 14:56:22 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CBA1413DE2;
+ Mon, 13 Dec 2021 14:58:58 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id l+q1CRZft2FWNwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 13 Dec 2021 14:56:22 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id kGmFL7Jft2F9OAAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 13 Dec 2021 14:58:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,124 +51,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d65b574a-5c24-11ec-85d3-df6b77346a89
+X-Inumbo-ID: 339600a0-5c25-11ec-85d3-df6b77346a89
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1639407382; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	t=1639407538; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=j7cVxE04IfsTIEumjoh0h0K2JpqO07CGgJNiGKv+uYU=;
-	b=rTwGDY9Uw5nUopNc2mxAT8fkgtxzs1B/+a6gkCcbxVvv6fX0JD/YwJxlI2sBomnSIB3cwX
-	MpqMQBL+0u9yDAtWt9av48q3fFqmW3GhSwLF9m14U3nseQb48FiK6jNId1+9O3A+9cIqZQ
-	0yfvDtB4AQlvH6rzj/d67Q+GB7eqv9Q=
+	bh=zurqn5UDxl0JDJcf5v6FfEBfec82sylpyBbRFRa/6YI=;
+	b=CxhDNSX8FinoGB1L5cZc/lxKYuF3qhjYRmnVix9nq9ESMVHV7zBvKT1Y/y6aR60zIJUU27
+	u0FhlbNKHTk2jXqClGrNKzvRk0XbmYqKpMGxrz87pUSzb4y+SY06P9pQp2uPCkw3WTktxT
+	Pbxm4xESdSbGSRe0NAyxP+YLELOc0Dk=
+Subject: Re: [PATCH 03/10] mini-os: don't assume contiguous RAM when
+ initializing in PVH mode
 To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
  minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, wl@xen.org
 References: <20211206072337.9517-1-jgross@suse.com>
- <20211206072337.9517-3-jgross@suse.com>
- <20211212000558.232nzs7k5lklpbym@begin>
+ <20211206072337.9517-4-jgross@suse.com>
+ <20211212001542.qhz7wfdwq7k5ymxr@begin>
 From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH 02/10] mini-os: sort and sanitize e820 memory map
-Message-ID: <ab1b2e26-65c1-c877-cf88-0df50d38b925@suse.com>
-Date: Mon, 13 Dec 2021 15:56:21 +0100
+Message-ID: <e44571e4-ba85-06a4-99b2-648d94e9af8c@suse.com>
+Date: Mon, 13 Dec 2021 15:58:58 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20211212000558.232nzs7k5lklpbym@begin>
+In-Reply-To: <20211212001542.qhz7wfdwq7k5ymxr@begin>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="IAFzW0f4rRLv6G6aH0YvjuKBDF6qBTSig"
+ boundary="5l2iD5t6rMNHYWVMtsa1YRUnFkiq12ncu"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---IAFzW0f4rRLv6G6aH0YvjuKBDF6qBTSig
-Content-Type: multipart/mixed; boundary="eYeR0dxD77OMlNuDhk2i5UNuo2LM5MmRq";
+--5l2iD5t6rMNHYWVMtsa1YRUnFkiq12ncu
+Content-Type: multipart/mixed; boundary="e3LXZZSMPTqrrIGTauAXG641EU8VjabVd";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
  minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, wl@xen.org
-Message-ID: <ab1b2e26-65c1-c877-cf88-0df50d38b925@suse.com>
-Subject: Re: [PATCH 02/10] mini-os: sort and sanitize e820 memory map
+Message-ID: <e44571e4-ba85-06a4-99b2-648d94e9af8c@suse.com>
+Subject: Re: [PATCH 03/10] mini-os: don't assume contiguous RAM when
+ initializing in PVH mode
 References: <20211206072337.9517-1-jgross@suse.com>
- <20211206072337.9517-3-jgross@suse.com>
- <20211212000558.232nzs7k5lklpbym@begin>
-In-Reply-To: <20211212000558.232nzs7k5lklpbym@begin>
+ <20211206072337.9517-4-jgross@suse.com>
+ <20211212001542.qhz7wfdwq7k5ymxr@begin>
+In-Reply-To: <20211212001542.qhz7wfdwq7k5ymxr@begin>
 
---eYeR0dxD77OMlNuDhk2i5UNuo2LM5MmRq
+--e3LXZZSMPTqrrIGTauAXG641EU8VjabVd
 Content-Type: multipart/mixed;
- boundary="------------9740D0F2639D38120BDF7612"
+ boundary="------------268835E92D5168298BA9F1DE"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------9740D0F2639D38120BDF7612
+--------------268835E92D5168298BA9F1DE
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 12.12.21 01:05, Samuel Thibault wrote:
-> Hello,
+On 12.12.21 01:15, Samuel Thibault wrote:
+> Juergen Gross, le lun. 06 d=C3=A9c. 2021 08:23:30 +0100, a ecrit:
+>> -    unsigned long pfn, max =3D 0;
+>> +    unsigned long pfns, max =3D 0;
 >=20
-> Juergen Gross, le lun. 06 d=C3=A9c. 2021 08:23:29 +0100, a ecrit:
->> - align the entries to page boundaries
+> I'd say rather rename max to start.
 >=20
->> +    /* Adjust map entries to page boundaries. */
->> +    for ( i =3D 0; i < e820_entries; i++ )
->> +    {
->> +        end =3D (e820_map[i].addr + e820_map[i].size + PAGE_SIZE - 1)=
- & PAGE_MASK;
->> +        e820_map[i].addr &=3D PAGE_MASK;
->> +        e820_map[i].size =3D end - e820_map[i].addr;
->> +    }
+>>       e820_get_memmap();
+>>  =20
+>> @@ -166,9 +166,12 @@ unsigned long e820_get_maxpfn(void)
+>>       {
+>>           if ( e820_map[i].type !=3D E820_RAM )
+>>               continue;
+>> -        pfn =3D (e820_map[i].addr + e820_map[i].size) >> PAGE_SHIFT;
+>> -        if ( pfn > max )
+>> -            max =3D pfn;
+>> +        pfns =3D e820_map[i].size >> PAGE_SHIFT;
+>> +        max =3D e820_map[i].addr >> PAGE_SHIFT;
 >=20
-> Mmm, what if the previous entry ends after the aligned start?
+> since it's it's always the start of the e820 entry.
 >=20
-> On real machines that does happen, and you'd rather round up the start
-> address of usable areas, rather than rounding it down (and conversely
-> for the end).
-
-I think you are partially right. :-)
-
-Entries for resources managed by Mini-OS (RAM, maybe NVME?) should be
-rounded to cover only complete pages (start rounded up, end rounded
-down), but all other entries should be rounded to cover the complete
-area (start rounded down, end rounded up) in order not to use any
-partial used page for e.g. mapping foreign pages.
-
+>> +        if ( pages <=3D pfns )
+>> +            return max + pages;
+>> +        pages -=3D pfns;
+>> +        max +=3D pfns;
 >=20
->> +    /* Sort entries by start address. */
->> +    for ( i =3D 0; i < e820_entries - 1; i++ )
->> +    {
->> +        if ( e820_map[i].addr > e820_map[i + 1].addr )
->> +        {
->> +            e820_swap_entries(i, i + 1);
->> +            i =3D -1;
->> +        }
->> +    }
->=20
-> This looks O(n^3) to me? A bubble sort like this should be fine:
->=20
->      /* Sort entries by start address. */
->      for ( last =3D e820_entries; last > 1; last-- )
->      {
->          for ( i =3D 0; i < last - 1; i++ )
->          {
->              if ( e820_map[i].addr > e820_map[i + 1].addr )
->              {
->                  e820_swap_entries(i, i + 1);
->              }
->          }
->      }
+> Here we don't need do change max, only pages.
 
-Hmm, depends.
+It is needed in case the loop is finished.
 
-Assuming a rather well sorted map my version is O(n), while yours
-is still O(n^2).
-
-In the end it won't matter that much, because a normal map will have
-only very few entries (usually 5 before merging consecutive entries).
-
-I'm fine both ways, whatever you prefer.
+And this was the reason for naming it max.
 
 
 Juergen
 
---------------9740D0F2639D38120BDF7612
+--------------268835E92D5168298BA9F1DE
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -260,25 +230,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------9740D0F2639D38120BDF7612--
+--------------268835E92D5168298BA9F1DE--
 
---eYeR0dxD77OMlNuDhk2i5UNuo2LM5MmRq--
+--e3LXZZSMPTqrrIGTauAXG641EU8VjabVd--
 
---IAFzW0f4rRLv6G6aH0YvjuKBDF6qBTSig
+--5l2iD5t6rMNHYWVMtsa1YRUnFkiq12ncu
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmG3XxUFAwAAAAAACgkQsN6d1ii/Ey/T
-6Af/ffa1ro8nIoFT9rqUrMD4+zE0MDXNfA6ALAGIQgYN2C4K3CaBZQcObHjFxFtlKSuBhOgovOl9
-cIpLS/aQHhQ3jw1rlGK5FeY6fc1XPqMq8nXvJbjL07pmpB2bwbFlyqpRttEc+Qsg5eUMtY2OLmMZ
-zSTgo2BGFfhplkGkT/79ytvMS8k9Y0SeiNa+J1vVUrX7cN6Tltn/6KwKLxyiYYVL/6ph2bfqItwS
-eFHNhHKFEIwOhED+fblcnjhVn3wM2qDzhWn+C79KbDUGOFG42fLRnM6xbFBIa4BgkOq4ZwW5tQUi
-1488mBtZbBUliW7xrAfLKm4OEsYB6gVLibI7W99u0A==
-=CHAl
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmG3X7IFAwAAAAAACgkQsN6d1ii/Ey/o
+5Af+NX88Uja52iDBy4HAhF+kUjk2NNlsKfBnbQHQn3ZI9aJKdD8CAunZO3UJMUWeAAOdkrRWehHR
+k/wIIMkJgxP7AA0autwMaG2jQhNE4sP8uq533wj9P7tz0emuGMe8tNdmUbOyjy1Ha130cNrsf6Ca
+oC9nDTq0p9LAJ/T9hfbdYKk52Ip1UUP6ceaRzZEWJFPuLoofekm7Apda3K/KTw2iOZgkc2rUjhEM
+bw6dd8FXsHhSBg+Jo3KJA+Ig4PZKItiAQOMS3iy3et+zGKvF1/VTezNHd3CMKgV+H/KhrymIJkbG
+XdYG1bsdSTXJikBcYzqegb6HygIZxNx5QjtNBjSXUg==
+=0t8/
 -----END PGP SIGNATURE-----
 
---IAFzW0f4rRLv6G6aH0YvjuKBDF6qBTSig--
+--5l2iD5t6rMNHYWVMtsa1YRUnFkiq12ncu--
 
