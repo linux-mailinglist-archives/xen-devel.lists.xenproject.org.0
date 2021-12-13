@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ADEA472BA4
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Dec 2021 12:39:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.245989.424312 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF8E5472BC7
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Dec 2021 12:49:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.246000.424336 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwjfA-0006F2-CM; Mon, 13 Dec 2021 11:38:36 +0000
+	id 1mwjoy-0008Qf-HC; Mon, 13 Dec 2021 11:48:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 245989.424312; Mon, 13 Dec 2021 11:38:36 +0000
+Received: by outflank-mailman (output) from mailman id 246000.424336; Mon, 13 Dec 2021 11:48:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mwjfA-0006Cg-8j; Mon, 13 Dec 2021 11:38:36 +0000
-Received: by outflank-mailman (input) for mailman id 245989;
- Mon, 13 Dec 2021 11:38:34 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mwjf8-0006CW-Sw; Mon, 13 Dec 2021 11:38:34 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mwjf8-0002yS-MN; Mon, 13 Dec 2021 11:38:34 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mwjf8-0000vE-Cs; Mon, 13 Dec 2021 11:38:34 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mwjf8-0000rr-CM; Mon, 13 Dec 2021 11:38:34 +0000
+	id 1mwjoy-0008OE-EB; Mon, 13 Dec 2021 11:48:44 +0000
+Received: by outflank-mailman (input) for mailman id 246000;
+ Mon, 13 Dec 2021 11:48:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=nKfH=Q6=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1mwjox-0008O8-A9
+ for xen-devel@lists.xenproject.org; Mon, 13 Dec 2021 11:48:43 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 9dda2c1a-5c0a-11ec-b1ef-a74572bcbcad;
+ Mon, 13 Dec 2021 12:48:41 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 79E0B6D;
+ Mon, 13 Dec 2021 03:48:40 -0800 (PST)
+Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
+ [10.1.195.16])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 932103F793;
+ Mon, 13 Dec 2021 03:48:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +43,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=sKqVqIPdrFfDxsGYLhLKOPNwaAljLI/UWao5d0Pgsuk=; b=wNGJCilCZ7zE5K8Fy8iQx2Giz5
-	rj3LL97nBfEZYcH+Ek0ADr2YN2z3pHNC/Fil0TG8gJ1SJsepu9t4vbQdjAhdSWa8G6N7dEaszeZkk
-	kCgLPmGVYEn8GciFc8/i+/UFVXqBjtLSZI6tY/dh4SQH+vBz5oOrg47sBl0cRZRk10dI=;
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-167391-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 167391: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=2686468c437f23e5dbd0a517b04852c3c1f84f39
-X-Osstest-Versions-That:
-    ovmf=8c06c53b585a7443b1e0e6c0eff45a62d56472cc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 13 Dec 2021 11:38:34 +0000
+X-Inumbo-ID: 9dda2c1a-5c0a-11ec-b1ef-a74572bcbcad
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com,
+	wei.chen@arm.com,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm: increase memory banks number define value
+Date: Mon, 13 Dec 2021 11:48:23 +0000
+Message-Id: <20211213114823.25570-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-flight 167391 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/167391/
+Currently the maximum number of memory banks (NR_MEM_BANKS define)
+is fixed to 128, but on some new platforms that have a large amount
+of memory, this value is not enough and prevents Xen from booting.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 2686468c437f23e5dbd0a517b04852c3c1f84f39
-baseline version:
- ovmf                 8c06c53b585a7443b1e0e6c0eff45a62d56472cc
+Increase the value to 256.
 
-Last test of basis   167379  2021-12-11 18:11:27 Z    1 days
-Testing same since   167391  2021-12-13 09:41:34 Z    0 days    1 attempts
+Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+---
+ xen/include/asm-arm/setup.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
+diff --git a/xen/include/asm-arm/setup.h b/xen/include/asm-arm/setup.h
+index 95da0b7ab9cd..07daf160dc57 100644
+--- a/xen/include/asm-arm/setup.h
++++ b/xen/include/asm-arm/setup.h
+@@ -6,7 +6,7 @@
+ #define MIN_FDT_ALIGN 8
+ #define MAX_FDT_SIZE SZ_2M
+ 
+-#define NR_MEM_BANKS 128
++#define NR_MEM_BANKS 256
+ 
+ #define MAX_MODULES 32 /* Current maximum useful modules */
+ 
+-- 
+2.17.1
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   8c06c53b58..2686468c43  2686468c437f23e5dbd0a517b04852c3c1f84f39 -> xen-tested-master
 
