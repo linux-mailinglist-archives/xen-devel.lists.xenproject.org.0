@@ -2,30 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7F434748C7
+	by mail.lfdr.de (Postfix) with ESMTPS id A42CA4748C6
 	for <lists+xen-devel@lfdr.de>; Tue, 14 Dec 2021 18:04:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.246935.425886 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.246936.425897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxBDa-00049G-8K; Tue, 14 Dec 2021 17:03:58 +0000
+	id 1mxBDf-0004RL-Hc; Tue, 14 Dec 2021 17:04:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 246935.425886; Tue, 14 Dec 2021 17:03:58 +0000
+Received: by outflank-mailman (output) from mailman id 246936.425897; Tue, 14 Dec 2021 17:04:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxBDa-00046v-5D; Tue, 14 Dec 2021 17:03:58 +0000
-Received: by outflank-mailman (input) for mailman id 246935;
- Tue, 14 Dec 2021 17:03:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iTjg=Q7=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1mxBDY-00046n-Pl
- for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 17:03:56 +0000
-Received: from galois.linutronix.de (galois.linutronix.de
- [2a0a:51c0:0:12e:550::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cc0ebb62-5cff-11ec-85d3-df6b77346a89;
- Tue, 14 Dec 2021 18:03:48 +0100 (CET)
+	id 1mxBDf-0004OT-Dz; Tue, 14 Dec 2021 17:04:03 +0000
+Received: by outflank-mailman (input) for mailman id 246936;
+ Tue, 14 Dec 2021 17:04:02 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mxBDe-0004O3-7S
+ for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 17:04:02 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mxBDc-0004Yp-0r; Tue, 14 Dec 2021 17:04:00 +0000
+Received: from [54.239.6.190] (helo=[192.168.26.72])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mxBDb-0004RZ-RG; Tue, 14 Dec 2021 17:03:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,92 +39,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc0ebb62-5cff-11ec-85d3-df6b77346a89
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1639501430;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RXDy+gEt+jM/GLA+wNxlJEuBnWYy8r3p2Ru1kkxGm4Q=;
-	b=4P9YNy0ES7591XCDm5PSWup8bN4QZP7lauZPNqzguglGF810Qx6tlHC+ni+cCTXT//bRrL
-	8sy8xtbBW2WNueS1zjqp8h8A0yb4naQSxUV7RBh2hqT1tsFq6begUYU0evqtkPzN01b278
-	fd9gHbaeywBmVDCmDPd2qQ/zpjMiaB9wQAqsRoE0OI6pkTd0Mdkr8wct9zyvWczqltcPfP
-	gVFurKQstARHhwA4cqkMjQuwW0a240akK7UOWCq2KqJXtL/Zk07hDvbDB6Geb3dHg82+ku
-	rQEa7JysFMGTutJcrfi+Bj+sn5C4cesBd4+iCf7oAFV+qmPbWW589QvaRwSxBw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1639501430;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=RXDy+gEt+jM/GLA+wNxlJEuBnWYy8r3p2Ru1kkxGm4Q=;
-	b=NEaZQwUVupGSoHFBC83jQ5nykyNdZrjtpZRBFsQka5WyTgqzd9VoqFy4Lrz/ewIMzZW0fK
-	mYumgixv6qanTNBQ==
-To: Nishanth Menon <nm@ti.com>
-Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
- Marc Zygnier <maz@kernel.org>, Alex Williamson
- <alex.williamson@redhat.com>, Kevin Tian <kevin.tian@intel.com>, Jason
- Gunthorpe <jgg@nvidia.com>, Megha Dey <megha.dey@intel.com>, Ashok Raj
- <ashok.raj@intel.com>, linux-pci@vger.kernel.org, Cedric Le Goater
- <clg@kaod.org>, Juergen Gross <jgross@suse.com>,
- xen-devel@lists.xenproject.org, Arnd Bergmann <arnd@arndb.de>, Michael
- Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt
- <benh@kernel.crashing.org>, linuxppc-dev@lists.ozlabs.org, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Bjorn Helgaas
- <bhelgaas@google.com>, Stuart Yoder <stuyoder@gmail.com>, Laurentiu Tudor
- <laurentiu.tudor@nxp.com>, Tero Kristo <kristo@kernel.org>, Santosh
- Shilimkar <ssantosh@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Vinod Koul <vkoul@kernel.org>, dmaengine@vger.kernel.org, Mark Rutland
- <mark.rutland@arm.com>, Will Deacon <will@kernel.org>, Robin Murphy
- <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- iommu@lists.linux-foundation.org, Jassi Brar <jassisinghbrar@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>, Sinan Kaya <okaya@kernel.org>,
- linux-wireless@vger.kernel.org, Johannes Berg <johannes.berg@intel.com>
-Subject: Re: [patch V3 00/35] genirq/msi, PCI/MSI: Spring cleaning - Part 2
-In-Reply-To: <87wnk7rvnz.ffs@tglx>
-References: <20211210221642.869015045@linutronix.de>
- <20211213182958.ytj4m6gsg35u77cv@detonator> <87fsqvttfv.ffs@tglx>
- <20211214162247.ocjm7ihg5oi7uiuv@slider> <87wnk7rvnz.ffs@tglx>
-Date: Tue, 14 Dec 2021 18:03:50 +0100
-Message-ID: <87tufbrudl.ffs@tglx>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=cs377JxwHdAJu/wXuE4+voLmIwWBaQNxiEvBgwGbng4=; b=BzfEhWjETVX+ttE2LQE1dM9Ayi
+	VAA7/pnYBLU0t4smq/c+CbNUbdwn4QWwIlqh7KHMijr/dktTbdKqhgqhwMOODWlXVabFJ9GPdw1mX
+	nJmlGWzNn0Ss36E+V1eALyYw43NneaGhYqjEBv7gf4bas+5/ikW0RqsWXUPYpHtiuhhs=;
+Message-ID: <b2724f38-6dcb-e7c6-40ce-783de9941e16@xen.org>
+Date: Tue, 14 Dec 2021 17:03:56 +0000
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.4.0
+Subject: Re: [XEN PATCH v8 12/47] build: build everything from the root dir,
+ use obj=$subdir
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Bob Eshleman <bobbyeshleman@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>
+References: <20211125134006.1076646-1-anthony.perard@citrix.com>
+ <20211125134006.1076646-13-anthony.perard@citrix.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20211125134006.1076646-13-anthony.perard@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Dec 14 2021 at 17:36, Thomas Gleixner wrote:
-> On Tue, Dec 14 2021 at 10:22, Nishanth Menon wrote:
->> On 10:41-20211214, Thomas Gleixner wrote:
-> [   13.478122] Call trace:
-> [   13.509042]  msi_device_destroy_sysfs+0x18/0x88
-> [   13.509058]  msi_domain_free_irqs+0x34/0x58
-> [   13.509064]  pci_msi_teardown_msi_irqs+0x30/0x3c
-> [   13.509072]  free_msi_irqs+0x78/0xd4
-> [   13.509077]  pci_disable_msix+0x138/0x164
-> [   13.529930]  pcim_release+0x70/0x238
-> [   13.529942]  devres_release_all+0x9c/0xfc
-> [   13.529951]  device_release_driver_internal+0x1a0/0x244
-> [   13.542725]  device_release_driver+0x18/0x24
-> [   13.542741]  iwl_req_fw_callback+0x1a28/0x1ddc [iwlwifi]
-> [   13.552308]  request_firmware_work_func+0x50/0x9c
-> [   13.552320]  process_one_work+0x194/0x25c
->
-> That's not a driver problem, that's an ordering issue vs. the devres
-> muck. Let me go back to the drawing board. Sigh...
+Hi Anthonny,
 
-Which is pretty obvious why:
+On 25/11/2021 13:39, Anthony PERARD wrote:
+> A subdirectory is now built by setting "$(obj)" instead of changing
+> directory. "$(obj)" should always be set when using "Rules.mk" and
+> thus a shortcut "$(build)" is introduced and should be used.
+> 
+> A new variable "$(need-builtin)" is introduce. It is to be used
+> whenever a "built_in.o" is wanted from a subdirectory. "built_in.o"
+> isn't the main target anymore, and thus only needs to depends on the
+> objects that should be part of "built_in.o".
+> 
+> Introduce $(srctree) and $(objtree) to replace $(BASEDIR) in cases a
+> relative path is better, and $(abs_srctree) and $(abs_objtree) which
+> have an absolute path.
+> 
+> DEPS is updated as the existing macro to deal with it doesn't know
+> about $(obj).
+> 
+> There's some changes in "Rules.mk" which in addition to deal with
+> "$(obj)" also make it's looks more like "Makefile.build" from Linux
+> v5.12.
+> 
+> test/Makefile doesn't need special handling in order to build
+> everything under test/, Rules.mk will visit test/livepatch via
+> $(subdir-y), thus "tests" "all" and "build" target are removed.
+> "subtree-force-update" target isn't useful so it is removed as well.
+> 
+> test/livepatch/Makefile doesn't need default target anymore, Rules.mk
+> will build everything in $(extra-y) and thus all *.livepatch.
+> 
+> Adjust cloc recipe: dependency files generated by CC will now have the
+> full path to the source file, so we don't need to prepend the
+> subdirectory. This fix some issue with source not been parsed by cloc
+> before. Also source from tools/kconfig would be listed with changes in
+> this patch so adjust the find command to stop listing the "tools"
+> directory and thus kconfig. With a default build of Xen on X86, they
+> are a few new files parsed by cloc:
+>      arch/x86/x86_64/compat/mm.c
+>      arch/x86/x86_64/mm.c
+>      common/compat/domain.c
+>      common/compat/memory.c
+>      common/compat/xlat.c
+> 
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> Acked-by: Bob Eshleman <bobbyeshleman@gmail.com>
 
-   pcim_enable_device()
-        devres_alloc(pcim_release...);
-        ...
-        pci_irq_alloc()
-          msi_setup_device_data()
-             devres_alloc(msi_device_data_release, ...)
+For Arm:
 
-and once the device is released:
+Acked-by: Julien Grall <jgrall@amazon.com>
 
-    msi_device_data_release()
-    ...
-    pcim_release()
-       pci_disable_msi[x]()
+Cheers,
 
-Groan....
+-- 
+Julien Grall
 
