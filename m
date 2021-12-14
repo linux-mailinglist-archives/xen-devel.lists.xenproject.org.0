@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 843D54743FE
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Dec 2021 14:57:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.246770.425573 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EF42474493
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Dec 2021 15:16:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.246783.425584 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mx8Iy-0000wW-5n; Tue, 14 Dec 2021 13:57:20 +0000
+	id 1mx8aj-0003eJ-P5; Tue, 14 Dec 2021 14:15:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 246770.425573; Tue, 14 Dec 2021 13:57:20 +0000
+Received: by outflank-mailman (output) from mailman id 246783.425584; Tue, 14 Dec 2021 14:15:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mx8Iy-0000th-1w; Tue, 14 Dec 2021 13:57:20 +0000
-Received: by outflank-mailman (input) for mailman id 246770;
- Tue, 14 Dec 2021 13:57:19 +0000
+	id 1mx8aj-0003bQ-LA; Tue, 14 Dec 2021 14:15:41 +0000
+Received: by outflank-mailman (input) for mailman id 246783;
+ Tue, 14 Dec 2021 14:15:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=pVj/=Q7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mx8Iw-0000tW-Vi
- for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 13:57:18 +0000
+ id 1mx8ah-0003bK-Qm
+ for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 14:15:39 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bfdf976e-5ce5-11ec-9e60-abaf8a552007;
- Tue, 14 Dec 2021 14:57:18 +0100 (CET)
+ id 4f8b1814-5ce8-11ec-9e60-abaf8a552007;
+ Tue, 14 Dec 2021 15:15:38 +0100 (CET)
 Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2051.outbound.protection.outlook.com [104.47.12.51]) by
+ (mail-db3eur04lp2058.outbound.protection.outlook.com [104.47.12.58]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-37-jdc5vjMpMc-OVqkVnPCM6w-1; Tue, 14 Dec 2021 14:57:16 +0100
+ de-mta-5-sGugHCXENSmaOOeuckITjA-1; Tue, 14 Dec 2021 15:15:36 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB6174.eurprd04.prod.outlook.com (2603:10a6:803:fa::17)
+ by VI1PR04MB4944.eurprd04.prod.outlook.com (2603:10a6:803:60::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Tue, 14 Dec
- 2021 13:57:13 +0000
+ 2021 14:15:33 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4778.018; Tue, 14 Dec 2021
- 13:57:13 +0000
+ 14:15:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,160 +51,299 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bfdf976e-5ce5-11ec-9e60-abaf8a552007
+X-Inumbo-ID: 4f8b1814-5ce8-11ec-9e60-abaf8a552007
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1639490237;
+	t=1639491337;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=d82SRRXUwYU57am3sBelN7Vzrjljofv/UekY15CZkOc=;
-	b=DmO8CwF6R4Su9BKM8sL/s5ISJwoWKe+79ukHu/DwEaoA2T1nGpWh9EZ7jqhnmJ2HkeWK2G
-	4neeQmVs8tzQbVowuCAp8o1MwmeCkNtrArd9kiJKGbs13vm9Iqc8xa2xgmaIOFKzpyD/m0
-	lC4ZmPL9rZFJHgAac5pfVrDFRm2Mk3M=
-X-MC-Unique: jdc5vjMpMc-OVqkVnPCM6w-1
+	bh=8zaD+wrF98sV2bkLjh0h3jn/wLVrDA+xd4/sIpuA/AY=;
+	b=fmtlxRq4GZ3jZ8E7ow+mfxkBKnDXy1XVMKDg804/I2fsDuoxoXJizBY8kvSlWtoMvISh1R
+	GPmhSWQ7DQXFiyLcL9w+jETL7KZJIdrIXrrx5iB9DeQ5nOXuHnk4Dy/zg8EW8m8FqIoL0A
+	RnBO0awPPCqhf3GRbCa/ReTMGFKdDNs=
+X-MC-Unique: sGugHCXENSmaOOeuckITjA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DWJVqiQBJkLd6D/8D9HjHDoqRMUwpZjYJjm+PWn6BXSgvUIWpCctHQhotxPOsRDgJkQuDHpPOW/YduyEv4IOcDzVbr/9ZOjE8NjqLNLHWffMVntHtxL9cdYi2VQeORnAg3GTieT5hhHBz8cc872Aih2Ja4rep4zXuanlWyt/uCcixKdSBzuXXwNa1iyhgS+EdDJuhiEIU0PrQ/iJR+Y0NsBysaONsMeOA4EBKXChd4WwBNW+zO21zkyuFDxzpfFuMLJI4DvpZ7oheZjEiptntuWj7LX+77t5J6/86Ygi5VDX99kqOYBkV4o4+Tw7tsG7ofbfmcrRbGjiAwJtB5ENqA==
+ b=SE9wonCMOCVI4jxWV5RJyBIsRDRGYNVIbstWADanVgFXf34YmhUsoZiI8/Scga7Pay1H/wxnWBgB3fubJTkYxoRiUeVmhe+jnEdmIk7DHHIxWfIVoeKjDKXN4Q5smY2OtZG40YCykPwqiIQscYqwHDyjY2wepMYjLmFvMlbNP/Daug3v/MhYdz1v86n1SdcfHNPqAux07d2EoIU0j6Ylw56l8oVTjMdESCacE0qV463j6pocuUntlJV7ar85E9jfPqgZoGc5dpFhyR7IzGV3QoKvZFknga5ZoniUZCvWY7mi0P8lMXDvcoFrNjCRJabfJDnDW68dAQzL5J8Z4yCoQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gL7B/+3GB/q7NpfNxCWO1Yl+U7BzzRJ4Nt2Gs18E03Q=;
- b=YVvyiYpwEqDdDPKoWv2zyDQN8867rOlUQHvWAY/BbPO+JfcbxwZEQhDbUi9c3tf3VX7o/54v3rdy+aU8xJtpTkwKfKnHNOqR3Ev1Unz0fti5m8cDM87sqKYJUI7+gM78D6S5fliFtj6074NDugMkoHBPfxuFbMC/HvArfckhOvd4DOZMrhwuZUZ2Ek7I7ujEw4P0L331t6tX4pnErzE+k7+bIc+q2mWb9A6ze/U+D2XYPfbrQq6T5xzJ4ff82Kmoj6EcVmmXR8eHryn9mzBNwU825swyamrD6aC9aCdU64DTRHRL9yCF/A3gxOOUaTeuoIfxeN1exCnRzNQdjAxFYQ==
+ bh=8zaD+wrF98sV2bkLjh0h3jn/wLVrDA+xd4/sIpuA/AY=;
+ b=TPC84Ha3/ZBkYoKGM5qnBug036NF+AgcYI5BKBIwJDxxGQPpbb0ZXNj0qnDxt8+LjeYJiI1bnYz4EGIhCo/o6bNO7jt1Cii2ULGZ66E3S8xSdxlIV2SApb6SWJ6CR9b3wCxze8UrVzQQg5eP4abfGGFH/Uz1AfdJo9k0bt/nTfENjXQnBzwONc+RVDjRmUMVRR3zjdQcIqoWwU2ST8zD+PwfY05WV7xPZveMXI2E1b/akYPWFkUfJERJBZnnwWTL6ApHcVpCV8UoPnTB7iMKWo21TS33wv23IPivF7KTDYde85chpYaFjDyW8HBTZ8e8E9mgejQJp9UforaeKxeLAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <72ba2a9a-e5a9-5a42-9761-f8a68dd9c70a@suse.com>
-Date: Tue, 14 Dec 2021 14:57:10 +0100
+Message-ID: <90c66d68-4939-f203-de2a-caebd0d6fc6c@suse.com>
+Date: Tue, 14 Dec 2021 15:15:31 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.4.0
-Subject: Re: [PATCH] tools/libs: Don't recursively expand MAJOR ?= $(shell
- ...)
+Subject: Re: [PATCH] xen/vpci: msix: move x86 specific code to x86 file
 Content-Language: en-US
-To: Andrew Cooper <amc96@srcf.net>, Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20211213190449.4830-1-andrew.cooper3@citrix.com>
- <76367980-c0ff-13c6-4a86-24be90f28f8d@suse.com>
- <4210cadd-a717-2a8b-1cba-044f2bede588@srcf.net>
+To: Rahul Singh <rahul.singh@arm.com>
+Cc: bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+References: <b8c0e550dde0fd80b2f72e9136a94caab2c3d52c.1639478534.git.rahul.singh@arm.com>
+ <bfb2b7f282249cee8b6ff15d424a2b7d823ac743.1639478564.git.rahul.singh@arm.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <4210cadd-a717-2a8b-1cba-044f2bede588@srcf.net>
+In-Reply-To: <bfb2b7f282249cee8b6ff15d424a2b7d823ac743.1639478564.git.rahul.singh@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS8PR04CA0115.eurprd04.prod.outlook.com
- (2603:10a6:20b:31e::30) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0216.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45e::30) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a9b53dab-c65a-486e-c1c9-08d9bf09a11a
-X-MS-TrafficTypeDiagnostic: VI1PR04MB6174:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Office365-Filtering-Correlation-Id: dc27fc3e-2dd4-4abd-2e7a-08d9bf0c3139
+X-MS-TrafficTypeDiagnostic: VI1PR04MB4944:EE_
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB6174E44F0F43552FD6FD6F44B3759@VI1PR04MB6174.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+	<VI1PR04MB49449DF1C1FF6EC101DABB4BB3759@VI1PR04MB4944.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	gs2C1nq0zrNUIq5ebEM9KuK9cTLyTJLjAatFvU18ahX1BWHNnn+ufVnQzLohhMpYe5Vo/UdpJogiRSOPt5Xhb1xWavDX0Hji6Z15uOYG77+tmtErkRDkPoR3/zU48G5O0NXK9RtxXWTZdTqtFNTMlMMBvR98oic8za+0idMrH3Q4B5P4dTiM2mKrUtyXTirK71c6BLyTUAJ49oTxhSG6uCoV0LPwMJRSpxENN8oTIZT4XbDi+9b4U8LiKBgVOv/2I0JaNPVvGc+mO7RzMWndwO8eIJkKQRrClveuAMINCfqxZKXf6nU0Xei+D8Hp1vPQsG2xmY5N/C0Ys50V7v6X6sjctpQa3MRMM0G++h7IG+OAqvtyXdW8nRC6scOcPPOAry9A0y+TcTBmvdFjjd1iBBiPVSU72bUL/CLwj4YelZLUCWiumY7/hmtoKjerD5f8VrSwL/OiBovYKFuglVFXET+4pzkqQSQgnHA4yqusRQ/6PKOXDfYVQm+zRKov9n0s7+cFPrkxaR2L+NWs5zBPZCdMtGQ6mNC5kd8d0VUoEqyW+04h4EF1ULONaep8vIy8kmwzHRmVdm92dKYRSssmsHuPNgOznFyXAl6VIVN4V+0Y/etAzJSpktlqvHByJn/jxFXej1ZoNtsW6b4+HEge5qz2z1JFus2Io4I4HzcQxkHTuPoxjnFfbFa137ZLfFW9PLAJFZvIGvzhS6DrYZNuhI3n01zoQTRuiexjEYRkfZyCGgFprGj408MWdPjCeMxY
+	fDc57fjTyEIHhCHBHPfd6IRzyxhqCJuDdnk5sdu32D+itW8rtR9eM6VVw3rl+GphGTDcGsvM2hLWPx1A+kVqyZyYqUzEOI42EVeC9n0w8NX9sGNuXxkWP2GznIZwqAjYUJhwHN+7guUX05TGqu+mTMI2B//TRBAfsAuJftxbNokLInhEYXE7I4RJL0lIrZW/r4UnSItUrxy/rmqI3S6+twquBrhwBX0xKmrGdoCQqw1YY70JRbqSwGdlwhht1yyw9Ln6QwApx/gvXkK7EfEHvjYAMRvENoh2Now4MIbQcG3aqOFXTMeQVHvFmt4+nXZgqpnl8d7dLwB+ZnsJf0NkIO1LAyFIAiPX481f0jYrTiehfKqwqreAIqB8pAkU4HyKRKkploU8mK8VH9pLHXdncpgwe3VDtZrpn9hoATk4t03XBQ85DJbPCfiPD2WRpzQZdJr896VsQugqSt+3VJIBzKYmYKXRN1EVpaMmOZIihHlxs1BrUfYE7nPN7MwR4YT3X96JOK6Gh/HuT7OlmdVfTy7e21Ak46hDoF+E8AjZH+IyYhVCpGk/Eu/vkqfkV+R3zpb/MYl8posVbE1Bwpdc8/2u6tLCvFsmPeE+RFrL/RFDQd7f2wxkiIKqFRljfrS3DwJNSwLXITKbbv+MTsHihMZ/t9V8JKaqf+NXFvFjAFy7SbRxGDFv/i+JksMCWwMjQ21x3x0UoJRUuujwZW3XJbJKtH4jzrMURihG9xzdgnJEwi4hsrUzV9+UCNQGAcAMnBJx8UQ0L6HKLmL25pCXipMv5UKAgtYrgnxG14orUjCBkYLnMhqCwJ+FxkfaqaObJtk0DTXlNoJcNs3zwmJoCA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6486002)(54906003)(26005)(6512007)(38100700002)(110136005)(31696002)(316002)(186003)(8936002)(4326008)(66946007)(86362001)(6506007)(2906002)(36756003)(53546011)(66476007)(66556008)(8676002)(508600001)(31686004)(2616005)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(66556008)(66476007)(66946007)(186003)(2616005)(8936002)(26005)(86362001)(5660300002)(31686004)(508600001)(6916009)(83380400001)(6512007)(38100700002)(36756003)(8676002)(53546011)(6506007)(54906003)(4326008)(2906002)(316002)(31696002)(6486002)(2004002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7Ey453SWY6wTfdKKZolnDy71okboyIGJweyWv1vOzLX3RnFKtLKwgXR8S613?=
- =?us-ascii?Q?dvpWuBrJn55wvGmWT8L9lISjIGKWhBCNc2J7zbtu0ltGfHXvPXSypV9SjSUy?=
- =?us-ascii?Q?8j34qOaB/iWJQrPpci1UakWfDR3IgPXJLvoZOzE4ALa/KGKqGr+1BomQF9jo?=
- =?us-ascii?Q?nIV5RiZa8eysQQexM2ht5+uWvio6rUWF3mjR8Y2pad9pu/n3+qiYATRjNVgf?=
- =?us-ascii?Q?GO0B8NVuorFMiodKnXCTWUzTYeIx/YwK1+ZxqenlTgBQo598tyze7i6LRden?=
- =?us-ascii?Q?grJ/WTJoax4IXDm/VguR87NHZel7YY4vkoK4iMWwlbDohF2ldEwnpLu4cqMz?=
- =?us-ascii?Q?wVVz8CLv7pieA9yRkzhdCFHEuHDZECUeWSuvExk++l+u68FZvNkP9wW3Ity6?=
- =?us-ascii?Q?186U6uJWxQzx9og36ldhVVNeQmvMajZmQebO8zPav7DCr1LjJ3EhP/2iEfv7?=
- =?us-ascii?Q?and9k2kcc7lShtB2x8NNdc6xRLywrbSwo94z6kAunQBqfo6wCdKxkxNcAAQ2?=
- =?us-ascii?Q?FS8+uv8ixV1nnwzHuS0JUrcnaRwNtsC5pK2oCUrCg0ZLo6rBkvG79ZG6NOZj?=
- =?us-ascii?Q?pTwaS/KP0W4rmlB5qZt1WWFSHkfQwEvuzASBFWWI6NNvVhwGPJnCnZ63I+6M?=
- =?us-ascii?Q?41uvY/Ozmxn2JuG8RgEdMWOG5Easof3ITOanWvfrm1/U6/5zv0tWcKXHNamS?=
- =?us-ascii?Q?4ZO1e/vOgJvrTIHS1HUF/t91fwoV+yC77ftsIm91NYjlQRsKAXo4CYKt1VwD?=
- =?us-ascii?Q?UggrgxqjyrHyOKb/uOKj+cqOfzd73QAhwO7Cawuilh8OJN0lY7UZprbdu/Kr?=
- =?us-ascii?Q?lg5DyiEEVK4Ota2kiGUea9vHVrvCUWFvTcUGdzCC+PZnurr7czThpQ1tHeCI?=
- =?us-ascii?Q?ywEoG9iIILdTRkM+BEGmYfq/BqHy36Rk/efoYznKu8OUE5HesSUPBPl84S2s?=
- =?us-ascii?Q?kaek9qKEMh9tnnJHV/BqDt1mpy6m9QRDyy/EEawh6cwhaeCrg58R2l2vt/hx?=
- =?us-ascii?Q?K/YUSgnJVjGcaFeG2B25PbI6lEEW6jdDqslSQC+qEYu9fTWDP4ylEX+jWsiX?=
- =?us-ascii?Q?GEQwtIicb54a2h3nnHqV1vE4mPXEjbWAYw1d14p9Et5AU7lBlnz+mCRgrhFn?=
- =?us-ascii?Q?ko+NzOqU7Rz3H2MIPDEE+hSffxmls0rVkF0GTFomHphmnUZnVTKH89w3qRJc?=
- =?us-ascii?Q?iawzdgfCyVF0WDgodl6zWhGZiddljJgVdHVDJDsaZx2dZXvA0m9Z5DITEwm+?=
- =?us-ascii?Q?RlIxHzhAAUrWTMkXoKSrMNW9GZTbYOI5mlvr7vRxqLHg7R06W88jeNS2Foab?=
- =?us-ascii?Q?VSHP9hz7GdZMJqBrdMKEvL+7UKmyRlh5l92nBsa12yPSDAVEo7G2y8WZpLs9?=
- =?us-ascii?Q?h4INMqYBb2XqHLgBy+6wrLsSkqHWI5hVmVxwvM198qmUpv+7s0qhzYL1QLBD?=
- =?us-ascii?Q?BcrwG8NoYUKAoj8OrQZeR/0iyldHS0ymlSboEs+FiqYs8Ahii6fSKUoS+v7X?=
- =?us-ascii?Q?QJcb7Yl4WJZktM2rs1w+CW05aldyJNUiWn/da7zqLMrXxYcCrcu+4XxCEYob?=
- =?us-ascii?Q?OjktS+cssJnRU/H3qb63pIvnExNvDj71O+KYleGMVrLQhgURjps113wmVDHf?=
- =?us-ascii?Q?OLzvQRYxph90LrCly/xC3RM=3D?=
+	=?utf-8?B?TjkvdTR2cG92ZWR4SWZzQUE1TkwycFpqdUJlbjJQSlpiQUxnMG83TTIvZGIy?=
+ =?utf-8?B?eG9uUGNEZGtYdFZrOWJ3a1l2QUE1a1hyMGNRcU9hLzhWREllWTE3c2tKMHRB?=
+ =?utf-8?B?eHhzVy9ZcmJpb0NQTndIbE5MV2V0dklXUnd2bHNMdWVKWHNMaHpBeTgrdFBR?=
+ =?utf-8?B?eFRPZTROQ0JReVhjZ2pIUENvcW9oNWVKaXh3bnVxNmd0dFBKNjRXNU9jbndU?=
+ =?utf-8?B?Mmg5Z2t2dkpiTnIyYmxYaHFEcmZtc1doUXJRditLR3B2dU83L1o2bUVaNFRX?=
+ =?utf-8?B?Q3ZaR0dTMUp1dS9IeE85NWhsc3R2Tmp5VGRNNGNLM3dlRUlrYjRsb3doR0lT?=
+ =?utf-8?B?ZFE3K3lqektMSHV6dkZKMTNFdDZlWG4wVEg3Z0lLYUxGd0NUYUltSmRqQlpm?=
+ =?utf-8?B?eXZtaUNUT2xGRnh0aE5DOUtUTktaV1pnRUdFd0tKdEJnYUZITjlQOUszWi9Q?=
+ =?utf-8?B?RFpwb0tadnRqY0Vsblltb3Z0bWc4YU5sZHAvQjhVOGY1RWhTVklpaDkyWWlX?=
+ =?utf-8?B?cm9xYXZsSjBuQjJwTGxDSEl2QmJlTXg5R0w2K1J6MjRqbFJ5Zkc2VnYzNitj?=
+ =?utf-8?B?YW1pYUNNakdGeXhrUUd2aU5OUThlY0J5R3ZYR1ZGR1pZZVZlTkk3amZVa2ZP?=
+ =?utf-8?B?UUh3MFY2Qk5jc3c0RzlxcndOZkRoVy9kNE1yNVU5VFhjMUUrV2FPTXU5Y3VW?=
+ =?utf-8?B?T3NFNVRFeDdMYytjR0RIT2lxUjV2ODczMHhPNGlaMEJ5Tm1RK013TThidU9E?=
+ =?utf-8?B?STlpdktBdm94L09KdUhzcUF5anVjdlRjcE1qTlowem4zQzZpUFRDYXcreWRp?=
+ =?utf-8?B?aW9oRFIrYUlreU9KVTdWelB0M3VKV2JCeENsSmtuMS9zQnkxaC9KYldveDQx?=
+ =?utf-8?B?cUNBNU5VTGpQQS9zaWVuUUxUbnZMTWJ6QlZscVlaMjh4bVZ0SkU1ellxc1JZ?=
+ =?utf-8?B?d0IrMFp2VVhJRGdGR1JBOHhPb2hMTXF4SEZOOEh6M3JuYUFwNWwzWmYxc3VI?=
+ =?utf-8?B?VzRNakFuY0trSTl2bGgvTnZkV1h4bytReWZYSnlKbXNObElZWGhYUVZYL1kr?=
+ =?utf-8?B?TGQ5WjBKVFZPaFg0YlhKTDd2MVdxWGwvc1FzNU0yYmJLNnl6ZmU1RWpSbHB0?=
+ =?utf-8?B?UTRFYUFxTFhGc1ZsOVV4Z0VyL1RiZGpHR0hoWFlKazI2YWxWMXNSU283aEVT?=
+ =?utf-8?B?ODA3Y2g3ZEUvaW5mQ1BmTEhvRDBGM29PTVhRa0xsUDZCdGpDZ3JiaGZ6cFJx?=
+ =?utf-8?B?eDByMm1JNEI4dS9tTFBTYzdWSDRwK0FFbElaRmJCTUJNZ0hyZGRpc1JqL0dt?=
+ =?utf-8?B?aC9oWEJKRFBlWVhJZWZmaEJIRlNYUnNhK29EUytDdVlsc3JNRVVBa1l2QU1h?=
+ =?utf-8?B?bjk4VC91alUxRWlucWNZTUt4bWs2Tmtmam5TSnZuUUdHMHhHMFJKVzM1UFhF?=
+ =?utf-8?B?WnpWRURXVm1HbDF0K2tEbmc3amZmcTIvejB4dGtBRFVYb3NyOUl1b1NYdnJt?=
+ =?utf-8?B?TVJZYU9FenhEWE93QkNCR3pSMnNRZmtRcGVsRlY4QVVueUhxTm1rOFVpdnha?=
+ =?utf-8?B?R0d6K2ZlWFBscUY5WWVnVDBERk5kUGZYL2ZFcWdHdjRjZlhmVjR3V1VIUnRX?=
+ =?utf-8?B?YkhEdEdiQi8xTlJhQTNMNEF1NCtlejdhdHhoeDhqR04zdTdCYlBZa2RGdTFs?=
+ =?utf-8?B?SU1tQ3J5TmhYbFhGS0swQVBxODE0SEJMMmRobzA4VmVMa3ZpbEtRdC8wVFV5?=
+ =?utf-8?B?NHUvRHovRXplQjBlWGdwcDYxNGtLdHZDU0FPUjJ5QzlaMVIwVnlINlNpazMz?=
+ =?utf-8?B?S3lRV3diSXZ6SlJpY2dKeFdGSTNRaVNJRXUxdVpVS0VpMUFTQVRqTGI5S2NC?=
+ =?utf-8?B?aGMzQUdMeDI4Z1RrYlhJS3hwNlFVdUxITElyWE92aDY1KzJ5THUzNXl6OGxy?=
+ =?utf-8?B?S2lPOXhucVRIUjUzd0ZhaDJ6UTZsYlFRaDROaWpoOCs2QlRPdmR2MVpiNWkv?=
+ =?utf-8?B?N0NYYWhUNk56T3hzTzhWaTRpNitMZGtvOUNQRGFPNy8zRnBMM3k0QUg1Nm85?=
+ =?utf-8?B?eWs3K2s0Wjh5ZWtyWFVGK2pSN2ljWWtoR29RVldORThtM3YvQnlXZ1V2UTkx?=
+ =?utf-8?B?VGM3bUpxR2lrdEwwb3VNUXU0RThpdXVTeVNUcEMzQ0VhbnhKb0lSMm14YnZa?=
+ =?utf-8?Q?nHT+ARRO4J4s9v/VJsugYtc=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9b53dab-c65a-486e-c1c9-08d9bf09a11a
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc27fc3e-2dd4-4abd-2e7a-08d9bf0c3139
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2021 13:57:12.9661
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2021 14:15:33.7598
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2TeS5nlHnE6+89yveZ7ECVt9Z/pT4nUCsgjdOKxavOGxpYC5Ge9/v/hElQ3Tp3H7APhyUReTQ4wcq61AX1hgzw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6174
+X-MS-Exchange-CrossTenant-UserPrincipalName: hAu2CVFRT7xYA4hlffDPEsOhW0lmzrRSNU7fGH1wMqXqzVHOj3SkWgp6hMr+F229EzvES5izxURVb/xpFfJHmg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4944
 
-On 14.12.2021 13:52, Andrew Cooper wrote:
-> On 14/12/2021 08:17, Jan Beulich wrote:
->> On 13.12.2021 20:04, Andrew Cooper wrote:
->>> --- a/tools/libs/libs.mk
->>> +++ b/tools/libs/libs.mk
->>> @@ -6,7 +6,10 @@
->>>  #   MINOR:   minor version of lib (0 if empty)
->>> =20
->>>  LIBNAME :=3D $(notdir $(CURDIR))
->>> -MAJOR ?=3D $(shell $(XEN_ROOT)/version.sh $(XEN_ROOT)/xen/Makefile)
->>> +
->>> +ifeq ($(origin MAJOR), undefined)
->>> +MAJOR :=3D $(shell $(XEN_ROOT)/version.sh $(XEN_ROOT)/xen/Makefile)
->>> +endif
->>>  MINOR ?=3D 0
->>> =20
->>>  SHLIB_LDFLAGS +=3D -Wl,--version-script=3Dlibxen$(LIBNAME).map
->> Wouldn't it be better to move the "endif" past the setting of MINOR
->> (which then could use :=3D as well)? Libraries with their own versioning
->> would imo better specify both rather than relying on getting 0 from
->> here (which at present none of them does). Would require an
->> adjustment to the comment at the top of libs.mk, though.
->=20
-> I considered that, but decided against it.
->=20
-> Absolutely nothing good can come of having a mix/match of whether MAJOR
-> and MINOR are set, and the whole point of this logic is to provide a
-> safe default when things are unspecified.
->=20
->>
->> And further, since you're switching to $(origin ...), wouldn't this
->> be an opportunity to avoid stray inheriting of values from the
->> environment, by switching to "ifneq ($(origin MAJOR), file)"?
->=20
-> No.=C2=A0 Not because I think setting MAJOR on the command line is sensib=
-le,
-> but because it fails the principle of lease surprise.
->=20
-> Basically all variables are editable on the command line and the
-> environment.=C2=A0 Prohibiting this one alone is bizarre, unnecessary, an=
-d
-> fragile in the case where if it is encountered, it's probably someone
-> who knows exactly what they're doing, trying to debug the build system.
+On 14.12.2021 11:45, Rahul Singh wrote:
+> --- a/xen/drivers/vpci/msix.c
+> +++ b/xen/drivers/vpci/msix.c
+> @@ -17,15 +17,24 @@
+>   * License along with this program; If not, see <http://www.gnu.org/licenses/>.
+>   */
+>  
+> +#include <xen/msi.h>
+>  #include <xen/sched.h>
+>  #include <xen/vpci.h>
+>  
+> -#include <asm/msi.h>
+>  #include <asm/p2m.h>
+>  
+> -#define VMSIX_ADDR_IN_RANGE(addr, vpci, nr)                               \
+> -    ((addr) >= vmsix_table_addr(vpci, nr) &&                              \
+> -     (addr) < vmsix_table_addr(vpci, nr) + vmsix_table_size(vpci, nr))
+> +/*
+> + * The return value is different for the MMIO handler on ARM and x86
+> + * architecture. To make the code common for both architectures create
+> + * generic return code with architecture dependent values.
+> + */
+> +#ifdef CONFIG_X86
+> +#define VPCI_EMUL_OKAY      X86EMUL_OKAY
+> +#define VPCI_EMUL_RETRY     X86EMUL_RETRY
+> +#else
+> +#define VPCI_EMUL_OKAY      1
+> +#define VPCI_EMUL_RETRY     VPCI_EMUL_OKAY
+> +#endif
 
-And then there's that someone else who ends up having MAJOR or MINOR
-set in the environment from whatever was done previously in a shell.
-The two variables are simply of too generic name to sensibly be
-communicated via the environment (and I specifically separate the
-variant where they're specified on the make command line).
+In addition to what Roger has said, at the example of the above I think
+you want to split this change. The change in return value naming could
+likely quite well be a separate thing. And then it'll be easier to see
+which other suggested changes are really movement of x86-specific stuff
+(looking over it I wasn't convinced everything you move really is).
 
-Anyway - none of what I've said is an objection. I was merely hoping
-we could get the whole thing a little less fragile at this occasion.
+> @@ -472,11 +401,10 @@ static int init_msix(struct pci_dev *pdev)
+>          vpci_msix_arch_init_entry(&msix->entries[i]);
+>      }
+>  
+> -    if ( list_empty(&d->arch.hvm.msix_tables) )
+> -        register_mmio_handler(d, &vpci_msix_table_ops);
+> +    register_msix_mmio_handler(d);
+> +    vpci_msix_add_to_msix_table(msix, d);
+>  
+>      pdev->vpci->msix = msix;
+> -    list_add(&msix->next, &d->arch.hvm.msix_tables);
+>  
+>      return 0;
+
+May I ask that you don't alter the order of operations? I take it that
+vpci_msix_add_to_msix_table() is the replacement of the list_add().
+That should occur only after pdev->vcpi has been updated. I could in
+fact imagine that in cases like this one for Arm barriers may need
+adding.
+
+> --- /dev/null
+> +++ b/xen/drivers/vpci/x86_msix.c
+> @@ -0,0 +1,155 @@
+> +/*
+> + * This program is free software; you can redistribute it and/or
+> + * modify it under the terms and conditions of the GNU General Public
+> + * License, version 2, as published by the Free Software Foundation.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+> + * General Public License for more details.
+> + *
+> + * You should have received a copy of the GNU General Public
+> + * License along with this program; If not, see <http://www.gnu.org/licenses/>.
+> + */
+> +
+> +#include <xen/sched.h>
+> +#include <xen/vpci.h>
+> +
+> +#include <asm/msi.h>
+> +#include <asm/p2m.h>
+> +
+> +u32 vpci_arch_readl(unsigned long addr)
+
+Nit: No new uses of u<N> please; these are being phased out, with
+uint<N>_t being the intended types.
+
+> +{
+> +    return readl(addr);
+> +}
+> +
+> +u64 vpci_arch_readq(unsigned long addr)
+> +{
+> +    return readq(addr);
+> +}
+> +
+> +void vpci_arch_writel(u32 data, unsigned long addr)
+> +{
+> +    writel(data, addr);
+> +}
+> +
+> +void vpci_arch_writeq(u64 data, unsigned long addr)
+> +{
+> +    writeq(data, addr);
+> +}
+
+Functions like these (if, as Roger said, they need abstracting in the
+first place) or ...
+
+> +void register_msix_mmio_handler(struct domain *d)
+> +{
+> +    if ( list_empty(&d->arch.hvm.msix_tables) )
+> +        register_mmio_handler(d, &vpci_msix_table_ops);
+> +}
+> +
+> +void vpci_msix_add_to_msix_table(struct vpci_msix *msix,
+> +                                 struct domain *d)
+> +{
+> +    list_add(&msix->next, &d->arch.hvm.msix_tables);
+> +}
+
+... these would imo better be inline helpers.
+
+> --- a/xen/include/asm-x86/msi.h
+> +++ b/xen/include/asm-x86/msi.h
+> @@ -148,34 +148,6 @@ int msi_free_irq(struct msi_desc *entry);
+>   */
+>  #define NR_HP_RESERVED_VECTORS 	20
+>  
+> -#define msi_control_reg(base)		(base + PCI_MSI_FLAGS)
+> -#define msi_lower_address_reg(base)	(base + PCI_MSI_ADDRESS_LO)
+> -#define msi_upper_address_reg(base)	(base + PCI_MSI_ADDRESS_HI)
+> -#define msi_data_reg(base, is64bit)	\
+> -	( (is64bit == 1) ? base+PCI_MSI_DATA_64 : base+PCI_MSI_DATA_32 )
+> -#define msi_mask_bits_reg(base, is64bit) \
+> -	( (is64bit == 1) ? base+PCI_MSI_MASK_BIT : base+PCI_MSI_MASK_BIT-4)
+> -#define msi_pending_bits_reg(base, is64bit) \
+> -	((base) + PCI_MSI_MASK_BIT + ((is64bit) ? 4 : 0))
+> -#define msi_disable(control)		control &= ~PCI_MSI_FLAGS_ENABLE
+> -#define multi_msi_capable(control) \
+> -	(1 << ((control & PCI_MSI_FLAGS_QMASK) >> 1))
+> -#define multi_msi_enable(control, num) \
+> -	control |= (((fls(num) - 1) << 4) & PCI_MSI_FLAGS_QSIZE);
+> -#define is_64bit_address(control)	(!!(control & PCI_MSI_FLAGS_64BIT))
+> -#define is_mask_bit_support(control)	(!!(control & PCI_MSI_FLAGS_MASKBIT))
+> -#define msi_enable(control, num) multi_msi_enable(control, num); \
+> -	control |= PCI_MSI_FLAGS_ENABLE
+> -
+> -#define msix_control_reg(base)		(base + PCI_MSIX_FLAGS)
+> -#define msix_table_offset_reg(base)	(base + PCI_MSIX_TABLE)
+> -#define msix_pba_offset_reg(base)	(base + PCI_MSIX_PBA)
+> -#define msix_enable(control)	 	control |= PCI_MSIX_FLAGS_ENABLE
+> -#define msix_disable(control)	 	control &= ~PCI_MSIX_FLAGS_ENABLE
+> -#define msix_table_size(control) 	((control & PCI_MSIX_FLAGS_QSIZE)+1)
+> -#define msix_unmask(address)	 	(address & ~PCI_MSIX_VECTOR_BITMASK)
+> -#define msix_mask(address)		(address | PCI_MSIX_VECTOR_BITMASK)
+> -
+>  /*
+>   * MSI Defined Data Structures
+>   */
+> diff --git a/xen/include/xen/msi.h b/xen/include/xen/msi.h
+> index c903d0050c..1c22c9a4a7 100644
+> --- a/xen/include/xen/msi.h
+> +++ b/xen/include/xen/msi.h
+> @@ -3,6 +3,34 @@
+>  
+>  #include <xen/pci.h>
+>  
+> +#define msi_control_reg(base)       (base + PCI_MSI_FLAGS)
+> +#define msi_lower_address_reg(base) (base + PCI_MSI_ADDRESS_LO)
+> +#define msi_upper_address_reg(base) (base + PCI_MSI_ADDRESS_HI)
+> +#define msi_data_reg(base, is64bit) \
+> +	( (is64bit == 1) ? base+PCI_MSI_DATA_64 : base+PCI_MSI_DATA_32 )
+
+As you move this code, please tidy is style-wise. For the construct
+here, for example this would mean
+
+#define msi_data_reg(base, is64bit) \
+    ((is64bit) ? (base) + PCI_MSI_DATA_64 : (base) + PCI_MSI_DATA_32)
+
+or perhaps even
+
+#define msi_data_reg(base, is64bit) \
+    ((base) + ((is64bit) ? PCI_MSI_DATA_64 : PCI_MSI_DATA_32))
+
+Further items would want similar adjustments.
 
 Jan
 
