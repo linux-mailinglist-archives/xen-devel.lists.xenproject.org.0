@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF6A1473F93
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C503473F91
 	for <lists+xen-devel@lfdr.de>; Tue, 14 Dec 2021 10:34:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.246488.425132 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.246487.425113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mx4Cr-00006Q-KH; Tue, 14 Dec 2021 09:34:45 +0000
+	id 1mx4Cp-0007w3-2q; Tue, 14 Dec 2021 09:34:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 246488.425132; Tue, 14 Dec 2021 09:34:45 +0000
+Received: by outflank-mailman (output) from mailman id 246487.425113; Tue, 14 Dec 2021 09:34:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mx4Cr-0008VC-GI; Tue, 14 Dec 2021 09:34:45 +0000
-Received: by outflank-mailman (input) for mailman id 246488;
- Tue, 14 Dec 2021 09:34:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mx4Co-0007p2-Tp; Tue, 14 Dec 2021 09:34:42 +0000
+Received: by outflank-mailman (input) for mailman id 246487;
+ Tue, 14 Dec 2021 09:34:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qXUZ=Q7=epam.com=prvs=298265c1fe=oleksii_moisieiev@srs-se1.protection.inumbo.net>)
- id 1mx4Cp-0007DW-9a
- for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 09:34:43 +0000
+ id 1mx4Cm-0007JG-Ta
+ for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 09:34:41 +0000
 Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
- [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 100e8040-5cc1-11ec-9e60-abaf8a552007;
- Tue, 14 Dec 2021 10:34:41 +0100 (CET)
-Received: from pps.filterd (m0174683.ppops.net [127.0.0.1])
- by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BE8mM0e003673;
- Tue, 14 Dec 2021 09:34:31 GMT
-Received: from eur05-am6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2109.outbound.protection.outlook.com [104.47.18.109])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3cxr33874b-1
+ [148.163.137.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 341575b3-5cc0-11ec-85d3-df6b77346a89;
+ Tue, 14 Dec 2021 10:28:32 +0100 (CET)
+Received: from pps.filterd (m0174682.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BE943EG004675;
+ Tue, 14 Dec 2021 09:34:35 GMT
+Received: from eur05-db8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2107.outbound.protection.outlook.com [104.47.17.107])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3cxraag3uw-2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 14 Dec 2021 09:34:31 +0000
+ Tue, 14 Dec 2021 09:34:35 +0000
 Received: from PA4PR03MB7136.eurprd03.prod.outlook.com (2603:10a6:102:ea::23)
- by PR2PR03MB5162.eurprd03.prod.outlook.com (2603:10a6:101:26::23)
+ by PA4PR03MB6976.eurprd03.prod.outlook.com (2603:10a6:102:e4::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.16; Tue, 14 Dec
- 2021 09:34:25 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.17; Tue, 14 Dec
+ 2021 09:34:27 +0000
 Received: from PA4PR03MB7136.eurprd03.prod.outlook.com
  ([fe80::85d2:c8aa:2196:21c6]) by PA4PR03MB7136.eurprd03.prod.outlook.com
  ([fe80::85d2:c8aa:2196:21c6%9]) with mapi id 15.20.4778.018; Tue, 14 Dec 2021
- 09:34:25 +0000
+ 09:34:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,40 +53,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 100e8040-5cc1-11ec-9e60-abaf8a552007
+X-Inumbo-ID: 341575b3-5cc0-11ec-85d3-df6b77346a89
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UwMCwwQXqjdWHPoSIBNlXW/2kkQyifJHYa+QPpeSwcRB7t1lx1HlqFsJvsgv9vEakc7Pn2D1k6AMcs7G4T7tQBREewIztTHdaTCXm1yJIQa3xD5qs84q8Dy8hq1e7S27+LevN4pJeX0K7UeJz3bqSiq4fOiRn1UMqKO9RoaCd+gmTSLbf5kUCr2mLU7qzWGAaFOepjw3141inXlNv+BwSREZ7G3PdKv2b6cwMdqdf9dwa/VGMENLgUlcz0nANTlvrb8bRp6OyzL/gQo2cX69Bgt5g+GDnnn/oTaY4w7qBNCJ8C7/1bqcgiNY+MM756/Wf99Zami+PpXE1RGzJitFKw==
+ b=UwnGUl9bX6i59s6B7qkAKXp2jvEk4m7FzejG+a51nPdxUmLM/UBuMP9Z4IyX3NzazUlxzRvPAm8CsE8l4BrWmg1ZC/s3ine+LIUY5e4ebh2wJ2jawc5NwvluPjX4ZBcrQQ3AwQHmPKTXRLR0CUFA1HYjBzVqE0HgkbwimfbmbDzWS4HubPke9bqMhXvUNKoCp2Sp3V3pgC/MwyvB7vQMJSK0d+9qfXL6xcETr6oxk6IqYKiqEggHDczWqoXFsYb7aXVwDHupBWznBoi+DKqtcjkvLCs0XNr2sUrASSHLyj3nyeJmzcj1ufzpkQRPxjFO4HEDgKN8luqIyxv3Hwbl/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5HKrYB6SvkH+0z8vtwa49lxvxU4I58QQAwDDiPC1Yg8=;
- b=exkoGv/nni6YNhrwNCGwJa/o3/hHlAJYN99pZwxec5yZFjuKnQUqi8g4ZL95U//u2DlPJLzL/ePdBw702dvNDGB72jUrE4ne6x3vNgZEyxaaedYPvNTRCHxP8PP1v+y3XNUWbCzBMNaHStRjvWwSlt7QkjlCcSgurnMlFts/D1kzAsTlRPrRIJYtD31Zs7xIaag7ppbZYXfhHGdkitzVfN/5AYM6wEc15ZOEtXJl+dYjD/YXfHS8sQO55BMFSBx3q6VirlO4D2QqB3L2KubVFRiOtKKfXfksd246xhSngqncjEcryKLCNyVuXcE0XecbeVxSZfRpn8W4qLIDhJv+hw==
+ bh=RqDx/qBEgEJtOnIYy1d9FCWR8MG1fPXkQ1whSTJXTl0=;
+ b=h5II6aVCW9LhIQ0pcInCCgzIW9lD0XJZ+6e/hPWM5IF7INA5AGmj6HMFZ1G/Kj2c/kqT6WpD7d94pbrxw2NeXtZnSGdqkEyS442DNNbK36HTJCo5ChJ71YBoR63M47dj0a6WpyBvWl63sFtMWQVppsp6JGI4sUD85eD7cJ/PwVjYDuUapESz2WUzs0piisObrveiAZqtZPeIFX8jZvY04rSFAQ/Na4JYL+10AE9wzKJK/2mG268hNdh6ggS91n4f6GrJ9COB8bKvB9r5KCANBmpj0dh1ipWxdz5veDCoUCf+oaB3rHup596GhKfbotFZ5AW/aF/OukbPhAgkNtq2TQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5HKrYB6SvkH+0z8vtwa49lxvxU4I58QQAwDDiPC1Yg8=;
- b=Ty4slgKMwrGKaBsjf+B2udHjXAv2RU8B5k6EkwDLHamKtqSEODDL5b3bUoRWtVngybn/pmeNvTWxqnUOyZKJffFkbrMPEjAa2GHZ6NfdQBiCF9Nk6CN27lE2vyPOyyrneR4e2x0T51wpOxObEu3j/xP4eyUPTsIGBqCTzyFvCFchGnkIKoobPOOT0GqaxoZ0OzBHDBLcQYnhh4x+7KYtudMvMxtTe1ZuWRlgXbV9EWJixgPCAncOuI+GBPX0F5l2f5iIN19HBm0gG3KeKLD6vGqzMm5QcguNXL2hr4KEomNF74by+Gd6HLrdFIgiC7Nd0hLK1BrEF682VnRApcdFOA==
+ bh=RqDx/qBEgEJtOnIYy1d9FCWR8MG1fPXkQ1whSTJXTl0=;
+ b=S2qouYjWnD58sLL8Daum0iLSgcv0bumf18ECt3jQopfj51OJx+IdRDc5l7TDqryrN6YQbT//YHOVX4XY6znp+W72rdS2YgrbLKODk4AdOClSuhfu8aUnXRUmROER+T9N6DWU7PPduBmLAhcjowZzVIUuVKDsjsGFugj9wZq8wO4zL23gKfv6CWVA3MQ67XEUhyRgCynnS5SOgGDFwId4Io8+ZzsnoUzIPGROMSJ88dkja2JLX4bGKHHwdmoH/pP4+/lNzlu8bLxwlb4gIbLXhpyCc+eaQen8ppz4WzElGfi4dyYVb1M6qCU5i/+PlwX0Hs9mSdBRTQfC57s8Bk2oKw==
 From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
-        Andrew Cooper
-	<andrew.cooper3@citrix.com>,
-        George Dunlap <george.dunlap@citrix.com>,
-        Jan
- Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-        Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+        Stefano Stabellini
+	<sstabellini@kernel.org>,
+        Julien Grall <julien@xen.org>,
         Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>,
         Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [RFC v1 2/5] xen/arm: add generic SCI mediator framework
-Thread-Topic: [RFC v1 2/5] xen/arm: add generic SCI mediator framework
-Thread-Index: AQHX8M3IB9WR9OXgbE2xll7qsLGWCw==
-Date: Tue, 14 Dec 2021 09:34:24 +0000
+Subject: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
+Thread-Topic: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
+Thread-Index: AQHX8M3JF7Ng56/tV0+8/7pODiaWfA==
+Date: Tue, 14 Dec 2021 09:34:27 +0000
 Message-ID: 
- <c0afe4837fe99e7f7921fc43b130aa2234f234be.1639472078.git.oleksii_moisieiev@epam.com>
+ <e9dadd96aa5b64b9232e10a083ce393af620adde.1639472078.git.oleksii_moisieiev@epam.com>
 References: <cover.1639472078.git.oleksii_moisieiev@epam.com>
 In-Reply-To: <cover.1639472078.git.oleksii_moisieiev@epam.com>
 Accept-Language: en-US
@@ -94,318 +90,146 @@ Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e8ab3c2b-0600-422c-935b-08d9bee4ead6
-x-ms-traffictypediagnostic: PR2PR03MB5162:EE_
+x-ms-office365-filtering-correlation-id: ca2bd1b1-d2d6-4e69-31af-08d9bee4ec24
+x-ms-traffictypediagnostic: PA4PR03MB6976:EE_
 x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
 x-microsoft-antispam-prvs: 
- <PR2PR03MB51629015715B55D1DF6A15D7E3759@PR2PR03MB5162.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
+ <PA4PR03MB6976A3FC83739D5FC3B491B3E3759@PA4PR03MB6976.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2512;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- Lr+EizdDW3+1EkhjMTkYs51YyfAHaFeV8ARQ6c+fXlL+W5JJQhTblV2bw7AnzpfyUfx41UUIxf6GErurKQLo9Jzu/NPGbJgf6r2sbmkytup6yZgeAkJ0O7Q3Gc8XsrWMDsXmP+PBTjaR9FPeS+RHbCRv6B5BJUPgxVoVPYwyI4mQ5wYK1MIGQ72tdvuWbLU1WbdAMEOXKyNJ5zgHanrralo3rxTSlxEMREUdSibc47aQzYdXc9kqcfAmBYEsAY8gmsnXjvbz3f4nDltil/oWnaDu6njSn5Zsr6PwnuyoeUEuteAPDE8nn7kskUz4I+UOv39croeIbcyJdG1UUEHA4+Nl0A/lcXIxpWbnufaaPkpxSLhQ8Sf7q2YCqXLF6aVcUtMRZnU/zWXZeT9HsVcXdm4sKIkE0sPfYZl8fkInpD4+7wddZxu9n62vky5PTlSrkktflv/2KI9dv6fXWu5CQxBsriGqi66e2e6dldRVLFPXr0PclJLkJLVR1M/4xAV1NuwgReDmqa3O30nsyJ1lGy3qNJpYdEOVaDbwIWzOxQAbw9GF13mZWTGcVwX/OF52pyNjD8VMspnJU00gxR6MM5db3TuGUjHIo/7Jzr/fB/09btyxbBAugnSYKifrhxu5Xyf305BcYpd3y+UXmEin7SrcUnSUd6U5Q6Gece7+oIlqLEdk6hbYxZcphNQbZXWxjYzUwfuAU5vMNfqVO72SOgrstYvOW8sy+R8V8rv0CGZiCgmvoXbQzFLB5s/I9pTpLJI6/gsaWOqQC2xZYrE3Yw==
+ QwNPoH92G8HviE3JqVCX0MMKrkRnBlo95OojdFpOxpxXsoVZb7ZxL7H/ygk4JxkgBoRJQ6b5pp1fIajW4hwT9UHWaXRp79JW9o8s8mMhhA0x0q+nOjdP27JF2ydYhvlnMqUuAGsTxxFFpuWIj+bxUtIK4cOU0a/EAkNUkaKoxPPndinnZod7nuM5MGRyKxsPKfYAiMsj3RhBgDmkJAhvPrRmPOQ3aIqG6px0u8lYeXT01LnNuctFRF9s2vcJPXPp8dIFKAwoWg6+Mnud2Nyz1ZEJtpzyXIn5PBKzpZdgv/0ZIfTBFzbWQftJRcsVuGW+iBZnsoku8ckB7tFedt6Qobjgynd5UYrSxiDF9VnpDwV1jt6Ce1lF4Q1KweMX0TeycvHNeCYKhWrCBBtE6xD7vUl0/68atdi1l/fxRd0porCLQUzR3R7fzNKtAhcJFEoXlL5o1OHB/LCfIfebEiqV5CkPNJOhu7E7sh39xzpCguWgkdJ7BkTtlNOTk8cyPJPhyEb/tWGiMz+5TtrS6CZQ11pvAJmFvyksYAOI1rSD2AI6B9uyD1wJgjylvsje4vEQJO9IFNXpwzOge8rLPJa9sUe3hBvsGkGazQ1BtXEAIVCcDNn5GHLz77CilsrZEFiSxkmFrMMWnzCDdY0OplHZQXWFFPz3qVzPqoAJSA89vcYq1bk5OrdUlzaYusbewIdGhz52t/HeTHHV95ll+m/DKHz0umTQN3PPopKikkk58z4=
 x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7136.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(508600001)(30864003)(5660300002)(38070700005)(38100700002)(8676002)(4326008)(316002)(122000001)(2616005)(36756003)(54906003)(6512007)(186003)(26005)(66476007)(66556008)(83380400001)(64756008)(66446008)(2906002)(6486002)(71200400001)(76116006)(6506007)(86362001)(8936002)(91956017)(66946007)(6916009)(41533002)(21314003)(2004002);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7136.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(66476007)(64756008)(66556008)(66946007)(26005)(66446008)(76116006)(5660300002)(91956017)(508600001)(86362001)(83380400001)(186003)(30864003)(6916009)(4326008)(2906002)(6486002)(38070700005)(8936002)(2616005)(36756003)(71200400001)(8676002)(38100700002)(122000001)(6512007)(6506007)(316002)(54906003)(2004002)(579004)(559001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?PF+a1wDPNITxYzO+CVWLhv6cupeYFD4x4az5b/Fw7baZ2ZiWdNurw3J+Ed?=
- =?iso-8859-1?Q?lrAyyuJXWs6Y3VcNxhNaqa70WJ3sEUT60ejR8ifTplaf7Wjfz6AhnTQ/xk?=
- =?iso-8859-1?Q?cCdt1NsnS1SG7EFASg6sPI5rnxUv/F8P2KoD4+QaosXvxiuias0h47hXra?=
- =?iso-8859-1?Q?ek90V8P/g8xk9xb6nJyIU7JfB9sTd6FXMDv0sH0Xb/DfNzqV1ctI6VKl4U?=
- =?iso-8859-1?Q?+9yo94sfG2Z7CzjldJn8EdUxQbqv4tw+dfztT298LTsGsFoGjnqLvMk2T6?=
- =?iso-8859-1?Q?okTp0Jj/VsE1VayD/jQNr7MJ+NIJ1stPOIPUf4qedLwSX0JWJdxlbzwiTt?=
- =?iso-8859-1?Q?lxBlM0CFinxlqx91ZLoNlwNXg3l2GmYcOcjY/kdxTKeRdEy8f6vqSwQWjT?=
- =?iso-8859-1?Q?UYVVTyr8KDa6rWggn5PmL2r5mCRmPzIwfGLpPM7oPCmfLfe/0H2icE/rz2?=
- =?iso-8859-1?Q?UJUkuX9SIZ98jnVf90yZc6WO8CV9BSK0ZXhk+i4zLfl7HG8sUALPQLNgRq?=
- =?iso-8859-1?Q?StrvVwTTjxEjoZO3m8aj55jZ4/5wxz5rG+OqT6C0wDBDPQI0CEZLKCHwt6?=
- =?iso-8859-1?Q?Prl+Px8JYf3aAyBqp11HnYaCT+O7LrzxJOS6KQyo+kUL3sRHwRr910oN5F?=
- =?iso-8859-1?Q?dkj0ibmB0LYPPUVitQIE8/1g2x4pwY7RcijVa16qPCkQeiXEuf8vkZaCOo?=
- =?iso-8859-1?Q?H9+MrjEr2Vieo3FEuTRxmPBSOvOyRgZNTPKYNaxeAD4s+pekQLd3uqOMvv?=
- =?iso-8859-1?Q?L9+ztoAxveJRjp5fugJ8lMa1Wtz90ZHFVFCn/b06si7t7tQa4R36bienUS?=
- =?iso-8859-1?Q?3/gt9UK5AkVjKzg/hQHKP6fDnpHLVYzrW4/p/6cdWxukSOxNXLpdTMsh17?=
- =?iso-8859-1?Q?LIUh1Sa9LxYFf3rdIVuWKsaPaqYXCtlF9104StSkn4airCPuBo4vt2YdCI?=
- =?iso-8859-1?Q?vR/vuJn8uCx0xSMmSoMhld8bzqzXva9iaIxfpL30WmjhxEn9AmhgLTIXxR?=
- =?iso-8859-1?Q?bSK1X3s0ga8GUEIibzDwxfQiFvwxGkuSRHNtHnKD4NQjKmPWmFjYK8/IRz?=
- =?iso-8859-1?Q?joyifMIFtQ50GGHpxZkXBcrhJsv/DpgAdLN/pmYswnDH1QDsnsnTu0H8Qm?=
- =?iso-8859-1?Q?YM4mUm0r0z6xFzV/k1RLng6mEtQphDKM0mNyucYXVEjgkiur3Yr7IrPoxo?=
- =?iso-8859-1?Q?1W385XTfEFRCFHP5VrqfEuBNh+PZW8kTCCVPl3IjAkKP7WCubYIR4V6h7W?=
- =?iso-8859-1?Q?uI0DZC3WKTsDSqxw/Je6E/zeHLqlRIMypQe+35X6xykRKADwHvlS0YHV8/?=
- =?iso-8859-1?Q?ZU9X3UOmpN1+zrbYp/z0t9ev47KJWtScb6ZNmFQxLRYjJqmJ3pnwDNi2YR?=
- =?iso-8859-1?Q?oSncDe0rK2Qzw7GwW0jW+IXS1pIOSMjgvWTZEEcEft1V+q/mVizDo7XjTe?=
- =?iso-8859-1?Q?ELwTjkKM9Ws7RZem6j6lglK7btpg14EHPe5NqDrY5xKh0y+zVCRsI20MaZ?=
- =?iso-8859-1?Q?y2cfaAU5kU+VwHOAgwEA7NV1+KLIXp2wx7XkD0a46F7YN6+tE2OX4JMNgS?=
- =?iso-8859-1?Q?YvG7F5YvQlZh7Q5Wq9EfVkTwjYq1dTZG7DRNAKLsMQ2InWLRLjX3svkLmV?=
- =?iso-8859-1?Q?9qiyG6bQtBtOBZsHjppKiutPcunHtgmJXEQLChTuzlHGNan7/1/edF+tCO?=
- =?iso-8859-1?Q?wQu2g7bfa68DLc53hz97m2l7J0hJ1vCa+Hy/ZlTHa+wCRIpaZE2/v2bbBn?=
- =?iso-8859-1?Q?iG38K3872OWZzugmMthC7nJpY=3D?=
+ =?iso-8859-1?Q?ACcJU8qchTVDnGm/rPhClN22iecsD0+V2QbTOgNWdsKL/Cejigh3DRJ3Pv?=
+ =?iso-8859-1?Q?XIyAesdLAQ6gDvzH5dsc3M5B09HfVVXVq2T4De2gAktQYjykZS3ouW8P9C?=
+ =?iso-8859-1?Q?g3opwMiO8C9wI86nQa1Hsj610D09VQp6u2y41s0868gFLQHoxrar0d+zJ5?=
+ =?iso-8859-1?Q?WTMF5SZ2nPwC6ZJar178KTkDgSZomff0FXmx0IUSH81VPkr/S21aECD2gS?=
+ =?iso-8859-1?Q?xMbf5JhrxndxZGaWCRXBNYhXRc1pK6twGx160H221H7bhKd0R32MN7+4Fg?=
+ =?iso-8859-1?Q?ptuFuud3p1LXL5VjFV8WQijEGSIo2lP2d8TRlbZFthO5JjCzl+PtQpilvB?=
+ =?iso-8859-1?Q?GekbmuzL+C/7cw6AJZ4igt4KS7hYDo6NoXWHK7eBEuKNXZ4RhZUR7Bk6jk?=
+ =?iso-8859-1?Q?0+an3vCkO2hpJmy5WcKwLv64EN+Mpnb4YfPdc1sRDh2cND/rj3rSnlsjaJ?=
+ =?iso-8859-1?Q?RG5N/SgJCO5eTgJYQBsEeedK7iofMmokZIXfQYxLNqqKxzoB7iF2dV8Azz?=
+ =?iso-8859-1?Q?ryOAwfxiO7ck/enc79YIGzHWasu/3mZDGJeXg3uFCjYAWG/zWmoHdGTNmV?=
+ =?iso-8859-1?Q?JQceO4Ctzor8JEWchAR46xx0zFDGK80GGTjxQxgooIr7wjoszL26clKeem?=
+ =?iso-8859-1?Q?n01N+EVJxCKnVHn4iW4y4F1SlXDsDy7IsLIEoEfPBQ153Nn2g+1j41bfrY?=
+ =?iso-8859-1?Q?I2OrxFG1wvjWlUFAPurQetQ90BBx/qsTuTkChFxfFOwap/zM7HeKqjWvAW?=
+ =?iso-8859-1?Q?4dYXaos5V3w3mRtFxbzUXqIVNNtt9/31c0qvV1SJzoqbFiJg3wNzeJ3iAd?=
+ =?iso-8859-1?Q?maRmhLjXfYuF46kVIROqaS4WgF1b+bLKfrymq4xn37XLLRPpvSwlztEtk6?=
+ =?iso-8859-1?Q?5mfZ/YI0sGdL3VwvjqrOdOCS1tpRsLnENA97k4M5T8bWQSZH2ViiEvUsRn?=
+ =?iso-8859-1?Q?7KWsK9BgWSSfDhxXA+R1KYFQTLoy2PCzAUbJ3AUOBnmJNp43Cz8cBals2S?=
+ =?iso-8859-1?Q?xns2rLGKR0mkDpFXA2RWM5KqQc+pgBB2PXNVcGMnOZdk6rQOvOJEUDgdP8?=
+ =?iso-8859-1?Q?JhqaJPh9DwV4xCPABe+ivJTdajly+QRnhiDm0SsTKFs/ZJP2o6Jf6P8s7q?=
+ =?iso-8859-1?Q?ylNqom3IjOpXVPYj5R1DapIQBQJz2nsCs3nUhvqDgYhDMBGZhhDrK0BFyS?=
+ =?iso-8859-1?Q?qYH9U7WWYyyoO721FXhD6nKGI2M6rlnT923RLwhQCSMGTLoxi2KFD7OzJs?=
+ =?iso-8859-1?Q?PVeQ34ZQiHcCujPHSJxswAdOdy+8tvTCJbhom4105LCtw2YPidOHyydeT/?=
+ =?iso-8859-1?Q?gYh13GT2WevJCQZs2LkNmHC4XsmBXIIg3hDvJ8570DbLV8hjH0O1djQAXs?=
+ =?iso-8859-1?Q?+y2IxcCw0sFfUS286qR5uXRI8LWTdrA4ZkB5vRBatX3dBKpEhyipiLKfD/?=
+ =?iso-8859-1?Q?D0aWaI6PhWnIWpiPvFqPy71xCiqxYL/cLqu+YlEjMhDDrmSnWEV6CPSb9V?=
+ =?iso-8859-1?Q?tVZI4DPpX1+1TTBrNNul3Nu8xbZrtMpJ9ibs78QddRoFB333515WJLxsNe?=
+ =?iso-8859-1?Q?pjYS9K0ZYxxCwTU4T2vwpDqNL0WmRspyklpgjw1fzEuyqy7w0ABT5XUm2W?=
+ =?iso-8859-1?Q?n7GHZcyoqL/HD/rulG0TPuIKoLfw4L4yY2kVu4tbups7jSnp/NL0XhvYcT?=
+ =?iso-8859-1?Q?CEv61RpeMkN3x2y79sW+UVPdhdRy6VPTCNKwtz3ixXKk3JtuaGlJDoB/UN?=
+ =?iso-8859-1?Q?MrswuMkvL+lEVJEz9XlcBllJA=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7136.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8ab3c2b-0600-422c-935b-08d9bee4ead6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Dec 2021 09:34:25.0294
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca2bd1b1-d2d6-4e69-31af-08d9bee4ec24
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Dec 2021 09:34:27.2470
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RfqdyPuxzpK6fVl6BWZCRh4B0qxyja2icLr2P17aFoi0M0sb2PDsGY4FW6M9rRx0f1R2uC9DFJUED9BG5sQ7NsCJzR2J7eSLsAKmmjESwPA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR2PR03MB5162
-X-Proofpoint-ORIG-GUID: wlhcHQlPM2w9Xz2Hror1NT-CP53P_nvL
-X-Proofpoint-GUID: wlhcHQlPM2w9Xz2Hror1NT-CP53P_nvL
+X-MS-Exchange-CrossTenant-userprincipalname: srjvjyhM4KXgTORbS998EPN9Xp8+YAyT1IeXfJ44QFbEe6qaThdp+G2XjhWMoXb460rZLmaCbQlIVi1SLiJl4vZglk82YAM1byWvxiop6NU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB6976
+X-Proofpoint-ORIG-GUID: bnENPmIRLNVAf6yDf1GfFMAyvJYcr5gA
+X-Proofpoint-GUID: bnENPmIRLNVAf6yDf1GfFMAyvJYcr5gA
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
  definitions=2021-12-14_05,2021-12-13_01,2021-12-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxlogscore=999 mlxscore=0
- bulkscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- malwarescore=0 suspectscore=0 adultscore=0 impostorscore=0 phishscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 adultscore=0 mlxscore=0
+ bulkscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0 phishscore=0
+ priorityscore=1501 suspectscore=0 mlxlogscore=999 spamscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2110150000 definitions=main-2112140054
 
-This patch adds the basic framework for SCI mediator.
-SCI is System Control Interface, which is designed to redirect
-requests for the Hardware (such as power-domain/clock/resets etc)
-from the Domains to the firmware. Originally, cpg should be passed
-to the domain so it can work with power-domains/clocks/resets etc.
-Considering that cpg can't be split between the Domains, we get the
-limitation that the devices, which are using power-domains/clocks/resets
-etc, couldn't be split between the domains.
-The solution is to move the power-domain/clock/resets etc to the
-Firmware (such as SCP firmware or ATF) and provide interface for the Domain=
-s.
-XEN shoud have an entity, caled SCI-Mediator, which is responsible for mess=
-ages
-redirection between Domains and Firmware and for permission handling.
+This is the implementation of SCI interface, called SCMI-SMC driver,
+which works as the mediator between XEN Domains and Firmware (SCP, ATF etc)=
+.
+This allows devices from the Domains to work with clocks, resets and
+power-domains without access to CPG.
 
-This is how it works: user can build XEN with multiple SCI mediators.
-See the next patches, where SCMI-SMC mediator is introduced.
-SCI mediator register itself with REGISTER_SCI_MEDIATOR() macro.
-
-At run-time, during initialization, framework calls probe for the first
-matching device in the device-tree. When no device-tree is present - the
-first registered mediator should be probed.
+The following features are implemented:
+- request SCMI channels from ATF and pass channels to Domains;
+- set device permissions for Domains based on the Domain partial
+device-tree. Devices with permissions are able to work with clocks,
+resets and power-domains via SCMI;
+- redirect scmi messages from Domains to ATF.
 
 Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
 ---
- MAINTAINERS                    |   6 ++
- xen/arch/arm/Kconfig           |   8 ++
- xen/arch/arm/Makefile          |   1 +
- xen/arch/arm/domain.c          |  24 +++++
- xen/arch/arm/domain_build.c    |  11 +++
- xen/arch/arm/platforms/rcar3.c |   3 +-
- xen/arch/arm/sci/Makefile      |   1 +
- xen/arch/arm/sci/sci.c         | 128 ++++++++++++++++++++++++++
- xen/arch/arm/setup.c           |   1 +
- xen/arch/arm/xen.lds.S         |   7 ++
- xen/include/asm-arm/domain.h   |   4 +
- xen/include/asm-arm/sci/sci.h  | 162 +++++++++++++++++++++++++++++++++
- xen/include/public/arch-arm.h  |  10 ++
- 13 files changed, 365 insertions(+), 1 deletion(-)
- create mode 100644 xen/arch/arm/sci/Makefile
- create mode 100644 xen/arch/arm/sci/sci.c
- create mode 100644 xen/include/asm-arm/sci/sci.h
+ xen/arch/arm/Kconfig          |   2 +
+ xen/arch/arm/sci/Kconfig      |  10 +
+ xen/arch/arm/sci/Makefile     |   1 +
+ xen/arch/arm/sci/scmi_smc.c   | 795 ++++++++++++++++++++++++++++++++++
+ xen/include/public/arch-arm.h |   1 +
+ 5 files changed, 809 insertions(+)
+ create mode 100644 xen/arch/arm/sci/Kconfig
+ create mode 100644 xen/arch/arm/sci/scmi_smc.c
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e43dc0edce..5f96ea35ba 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -512,6 +512,12 @@ S:	Supported
- F:	xen/arch/arm/tee/
- F:	xen/include/asm-arm/tee
-=20
-+SCI MEDIATORS
-+M:	Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-+S:	Supported
-+F:	xen/arch/arm/sci
-+F:	xen/include/asm-arm/sci
-+
- TOOLSTACK
- M:	Wei Liu <wl@xen.org>
- S:	Supported
 diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index ecfa6822e4..186e1db389 100644
+index 186e1db389..02d96c6cfc 100644
 --- a/xen/arch/arm/Kconfig
 +++ b/xen/arch/arm/Kconfig
-@@ -106,6 +106,14 @@ config TEE
+@@ -114,6 +114,8 @@ config SCI
+ 	  support. It allows guests to control system resourcess via one of
+ 	  SCI mediators implemented in XEN.
 =20
- source "arch/arm/tee/Kconfig"
-=20
-+config SCI
-+	bool "Enable SCI mediators support"
-+	default n
-+	help
-+	  This option enables generic SCI (System Control Interface) mediators
-+	  support. It allows guests to control system resourcess via one of
-+	  SCI mediators implemented in XEN.
++source "arch/arm/sci/Kconfig"
 +
  endmenu
 =20
  menu "ARM errata workaround via the alternative framework"
-diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
-index 07f634508e..6366ff55e5 100644
---- a/xen/arch/arm/Makefile
-+++ b/xen/arch/arm/Makefile
-@@ -8,6 +8,7 @@ obj-y +=3D platforms/
- endif
- obj-$(CONFIG_TEE) +=3D tee/
- obj-$(CONFIG_HAS_VPCI) +=3D vpci.o
-+obj-$(CONFIG_SCI) +=3D sci/
-=20
- obj-$(CONFIG_HAS_ALTERNATIVE) +=3D alternative.o
- obj-y +=3D bootfdt.init.o
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index 96e1b23550..80d0a23767 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -34,6 +34,7 @@
- #include <asm/platform.h>
- #include <asm/procinfo.h>
- #include <asm/regs.h>
-+#include <asm/sci/sci.h>
- #include <asm/tee/tee.h>
- #include <asm/vfp.h>
- #include <asm/vgic.h>
-@@ -688,6 +689,13 @@ int arch_sanitise_domain_config(struct xen_domctl_crea=
-tedomain *config)
-         return -EINVAL;
-     }
-=20
-+    if ( config->arch.sci_type !=3D XEN_DOMCTL_CONFIG_SCI_NONE &&
-+         config->arch.sci_type !=3D sci_get_type() )
-+    {
-+        dprintk(XENLOG_INFO, "Unsupported SCI type\n");
-+        return -EINVAL;
-+    }
+diff --git a/xen/arch/arm/sci/Kconfig b/xen/arch/arm/sci/Kconfig
+new file mode 100644
+index 0000000000..9563067ddc
+--- /dev/null
++++ b/xen/arch/arm/sci/Kconfig
+@@ -0,0 +1,10 @@
++config SCMI_SMC
++	bool "Enable SCMI-SMC mediator driver"
++	default n
++	depends on SCI
++	---help---
 +
-     return 0;
- }
-=20
-@@ -764,6 +772,15 @@ int arch_domain_create(struct domain *d,
-         /* At this stage vgic_reserve_virq should never fail */
-         if ( !vgic_reserve_virq(d, GUEST_EVTCHN_PPI) )
-             BUG();
-+
-+        if ( config->arch.sci_type !=3D XEN_DOMCTL_CONFIG_SCI_NONE )
-+        {
-+            if ( (rc =3D sci_domain_init(d, config->arch.sci_type)) !=3D 0=
-)
-+                goto fail;
-+
-+            if ( (rc =3D sci_get_channel_info(d, &config->arch)) !=3D 0)
-+                goto fail;
-+        }
-     }
-=20
-     /*
-@@ -796,6 +813,7 @@ void arch_domain_destroy(struct domain *d)
-     domain_vgic_free(d);
-     domain_vuart_free(d);
-     free_xenheap_page(d->shared_info);
-+    sci_domain_destroy(d);
- #ifdef CONFIG_ACPI
-     free_xenheap_pages(d->arch.efi_acpi_table,
-                        get_order_from_bytes(d->arch.efi_acpi_len));
-@@ -996,6 +1014,7 @@ enum {
-     PROG_xen,
-     PROG_page,
-     PROG_mapping,
-+    PROG_sci,
-     PROG_done,
- };
-=20
-@@ -1056,6 +1075,11 @@ int domain_relinquish_resources(struct domain *d)
-         if ( ret )
-             return ret;
-=20
-+    PROGRESS(sci):
-+        ret =3D sci_relinquish_resources(d);
-+        if ( ret )
-+            return ret;
-+
-     PROGRESS(done):
-         break;
-=20
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index d02bacbcd1..38874615dd 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -22,6 +22,7 @@
- #include <asm/kernel.h>
- #include <asm/setup.h>
- #include <asm/tee/tee.h>
-+#include <asm/sci/sci.h>
- #include <asm/platform.h>
- #include <asm/psci.h>
- #include <asm/setup.h>
-@@ -1894,6 +1895,10 @@ static int __init handle_device(struct domain *d, st=
-ruct dt_device_node *dev,
-                 return res;
-             }
-         }
-+
-+        res =3D sci_add_dt_device(d, dev);
-+        if ( res < 0 )
-+            return res;
-     }
-=20
-     res =3D handle_device_interrupts(d, dev, need_mapping);
-@@ -3075,6 +3080,10 @@ static int __init construct_dom0(struct domain *d)
-     if ( rc < 0 )
-         return rc;
-=20
-+    rc =3D sci_domain_init(d, sci_get_type());
-+    if ( rc < 0 )
-+        return rc;
-+
-     if ( acpi_disabled )
-         rc =3D prepare_dtb_hwdom(d, &kinfo);
-     else
-@@ -3109,6 +3118,8 @@ void __init create_dom0(void)
-     dom0_cfg.arch.tee_type =3D tee_get_type();
-     dom0_cfg.max_vcpus =3D dom0_max_vcpus();
-=20
-+    dom0_cfg.arch.sci_type =3D sci_get_type();
-+
-     if ( iommu_enabled )
-         dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
-=20
-diff --git a/xen/arch/arm/platforms/rcar3.c b/xen/arch/arm/platforms/rcar3.=
-c
-index d740145c71..a268b09454 100644
---- a/xen/arch/arm/platforms/rcar3.c
-+++ b/xen/arch/arm/platforms/rcar3.c
-@@ -18,10 +18,11 @@
-  */
-=20
- #include <asm/platform.h>
-+#include <asm/sci/sci.h>
-=20
- static bool rcar3_smc(struct cpu_user_regs *regs)
- {
--    return false;
-+    return sci_handle_call(current->domain, regs);
- }
-=20
- static const char *const rcar3_dt_compat[] __initconst =3D
++	Enables mediator in XEN to pass SCMI requests from Domains to ATF.
++	This feature allows drivers from Domains to work with System
++	Controllers (such as power,resets,clock etc.). SCP is used as transport
++	for communication.
 diff --git a/xen/arch/arm/sci/Makefile b/xen/arch/arm/sci/Makefile
-new file mode 100644
-index 0000000000..837dc7492b
---- /dev/null
+index 837dc7492b..67f2611872 100644
+--- a/xen/arch/arm/sci/Makefile
 +++ b/xen/arch/arm/sci/Makefile
-@@ -0,0 +1 @@
-+obj-y +=3D sci.o
-diff --git a/xen/arch/arm/sci/sci.c b/xen/arch/arm/sci/sci.c
+@@ -1 +1,2 @@
+ obj-y +=3D sci.o
++obj-$(CONFIG_SCMI_SMC) +=3D scmi_smc.o
+diff --git a/xen/arch/arm/sci/scmi_smc.c b/xen/arch/arm/sci/scmi_smc.c
 new file mode 100644
-index 0000000000..5961b4cd5d
+index 0000000000..2eb01ea82d
 --- /dev/null
-+++ b/xen/arch/arm/sci/sci.c
-@@ -0,0 +1,128 @@
++++ b/xen/arch/arm/sci/scmi_smc.c
+@@ -0,0 +1,795 @@
 +/*
-+ * xen/arch/arm/sci/sci.c
++ * xen/arch/arm/sci/scmi_smc.c
 + *
-+ * Generic part of SCI mediator driver
++ * SCMI mediator driver, using SCP as transport.
 + *
 + * Oleksii Moisieiev <oleksii_moisieiev@epam.com>
 + * Copyright (C) 2021, EPAM Systems.
@@ -421,320 +245,791 @@ index 0000000000..5961b4cd5d
 + * GNU General Public License for more details.
 + */
 +
-+#include <xen/errno.h>
-+#include <xen/init.h>
-+#include <xen/sched.h>
-+#include <xen/types.h>
-+
 +#include <asm/sci/sci.h>
++#include <asm/smccc.h>
++#include <asm/io.h>
++#include <xen/bitops.h>
++#include <xen/config.h>
++#include <xen/sched.h>
++#include <xen/device_tree.h>
++#include <xen/iocap.h>
++#include <xen/init.h>
++#include <xen/err.h>
++#include <xen/lib.h>
++#include <xen/list.h>
++#include <xen/mm.h>
++#include <xen/string.h>
++#include <xen/time.h>
++#include <xen/vmap.h>
 +
-+extern const struct sci_mediator_desc _sscimediator[], _escimediator[];
-+static const struct sci_mediator_desc __read_mostly *cur_mediator;
++#define SCMI_BASE_PROTOCOL                  0x10
++#define SCMI_BASE_PROTOCOL_ATTIBUTES        0x1
++#define SCMI_BASE_SET_DEVICE_PERMISSIONS    0x9
++#define SCMI_BASE_RESET_AGENT_CONFIGURATION 0xB
++#define SCMI_BASE_DISCOVER_AGENT            0x7
 +
-+bool sci_handle_call(struct domain *d, void *args)
++/* SCMI return codes. See section 4.1.4 of SCMI spec (DEN0056C) */
++#define SCMI_SUCCESS              0
++#define SCMI_NOT_SUPPORTED      (-1)
++#define SCMI_INVALID_PARAMETERS (-2)
++#define SCMI_DENIED             (-3)
++#define SCMI_NOT_FOUND          (-4)
++#define SCMI_OUT_OF_RANGE       (-5)
++#define SCMI_BUSY               (-6)
++#define SCMI_COMMS_ERROR        (-7)
++#define SCMI_GENERIC_ERROR      (-8)
++#define SCMI_HARDWARE_ERROR     (-9)
++#define SCMI_PROTOCOL_ERROR     (-10)
++
++#define DT_MATCH_SCMI_SMC DT_MATCH_COMPATIBLE("arm,scmi-smc")
++
++#define SCMI_SMC_ID                        "arm,smc-id"
++#define SCMI_SHARED_MEMORY                 "linux,scmi_mem"
++#define SCMI_SHMEM                         "shmem"
++
++#define HYP_CHANNEL                          0x0
++
++#define HDR_ID                             GENMASK(7,0)
++#define HDR_TYPE                           GENMASK(9, 8)
++#define HDR_PROTO                          GENMASK(17, 10)
++
++/* SCMI protocol, refer to section 4.2.2.2 (DEN0056C) */
++#define MSG_N_AGENTS_MASK                  GENMASK(15, 8)
++
++#define FIELD_GET(_mask, _reg)\
++    ((typeof(_mask))(((_reg) & (_mask)) >> (ffs64(_mask) - 1)))
++#define FIELD_PREP(_mask, _val)\
++    (((typeof(_mask))(_val) << (ffs64(_mask) - 1)) & (_mask))
++
++typedef struct scmi_msg_header {
++    uint8_t id;
++    uint8_t type;
++    uint8_t protocol;
++} scmi_msg_header_t;
++
++typedef struct scmi_perms_tx {
++    uint32_t agent_id;
++    uint32_t device_id;
++    uint32_t flags;
++} scmi_perms_tx_t;
++
++#define SCMI_SHMEM_CHAN_STAT_CHANNEL_FREE   BIT(0, UL)
++#define SCMI_SHMEM_CHAN_STAT_CHANNEL_ERROR  BIT(1, UL)
++
++#define SCMI_ALLOW_ACCESS                   BIT(0, UL)
++
++struct scmi_shared_mem {
++    uint32_t reserved;
++    uint32_t channel_status;
++    uint32_t reserved1[2];
++    uint32_t flags;
++    uint32_t length;
++    uint32_t msg_header;
++    uint8_t msg_payload[];
++};
++
++struct scmi_channel {
++    int chan_id;
++    int agent_id;
++    uint32_t func_id;
++    int domain_id;
++    uint64_t paddr;
++    struct scmi_shared_mem *shmem;
++    spinlock_t lock;
++    struct list_head list;
++};
++
++struct scmi_data {
++    struct list_head channel_list;
++    spinlock_t channel_list_lock;
++    bool initialized;
++    u64 shmem_addr, shmem_size;
++};
++
++static struct scmi_data scmi_data;
++
++/*
++ * pack_scmi_header() - packs and returns 32-bit header
++ *
++ * @hdr: pointer to header containing all the information on message id,
++ *    protocol id and type id.
++ *
++ * Return: 32-bit packed message header to be sent to the platform.
++ */
++static inline uint32_t pack_scmi_header(scmi_msg_header_t *hdr)
 +{
-+    if ( unlikely(!cur_mediator) )
++    return FIELD_PREP(HDR_ID, hdr->id) |
++        FIELD_PREP(HDR_TYPE, hdr->type) |
++        FIELD_PREP(HDR_PROTO, hdr->protocol);
++}
++
++/*
++ * unpack_scmi_header() - unpacks and records message and protocol id
++ *
++ * @msg_hdr: 32-bit packed message header sent from the platform
++ * @hdr: pointer to header to fetch message and protocol id.
++ */
++static inline void unpack_scmi_header(uint32_t msg_hdr, scmi_msg_header_t =
+*hdr)
++{
++    hdr->id =3D FIELD_GET(HDR_ID, msg_hdr);
++    hdr->type =3D FIELD_GET(HDR_TYPE, msg_hdr);
++    hdr->protocol =3D FIELD_GET(HDR_PROTO, msg_hdr);
++}
++
++static inline int channel_is_free(struct scmi_channel *chan_info)
++{
++    return ( chan_info->shmem->channel_status
++            & SCMI_SHMEM_CHAN_STAT_CHANNEL_FREE ) ? 0 : -EBUSY;
++}
++
++static int send_smc_message(struct scmi_channel *chan_info,
++                            scmi_msg_header_t *hdr, void *data, int len)
++{
++    struct arm_smccc_res resp;
++    int ret;
++
++    printk(XENLOG_DEBUG "scmi: status =3D%d len=3D%d\n",
++           chan_info->shmem->channel_status, len);
++    printk(XENLOG_DEBUG "scmi: header id =3D %d type =3D %d, proto =3D %d\=
+n",
++           hdr->id, hdr->type, hdr->protocol);
++
++    ret =3D channel_is_free(chan_info);
++    if ( IS_ERR_VALUE(ret) )
++        return ret;
++
++    chan_info->shmem->channel_status =3D 0x0;
++    /* Writing 0x0 right now, but SCMI_SHMEM_FLAG_INTR_ENABLED can be set =
+*/
++    chan_info->shmem->flags =3D 0x0;
++    chan_info->shmem->length =3D sizeof(chan_info->shmem->msg_header) + le=
+n;
++    chan_info->shmem->msg_header =3D pack_scmi_header(hdr);
++
++    printk(XENLOG_DEBUG "scmi: Writing to shmem address %p\n",
++           chan_info->shmem);
++    if ( len > 0 && data )
++        memcpy((void *)(chan_info->shmem->msg_payload), data, len);
++
++    arm_smccc_smc(chan_info->func_id, 0, 0, 0, 0, 0, 0, chan_info->chan_id=
+,
++                  &resp);
++
++    printk(XENLOG_DEBUG "scmi: scmccc_smc response %d\n", (int)(resp.a0));
++
++    if ( resp.a0 )
++        return -EOPNOTSUPP;
++
++    return 0;
++}
++
++static int check_scmi_status(int scmi_status)
++{
++    if ( scmi_status =3D=3D SCMI_SUCCESS )
++        return 0;
++
++    printk(XENLOG_DEBUG "scmi: Error received: %d\n", scmi_status);
++
++    switch ( scmi_status )
++    {
++    case SCMI_NOT_SUPPORTED:
++        return -EOPNOTSUPP;
++    case SCMI_INVALID_PARAMETERS:
++        return -EINVAL;
++    case SCMI_DENIED:
++        return -EACCES;
++    case SCMI_NOT_FOUND:
++        return -ENOENT;
++    case SCMI_OUT_OF_RANGE:
++        return -ERANGE;
++    case SCMI_BUSY:
++        return -EBUSY;
++    case SCMI_COMMS_ERROR:
++        return -ENOTCONN;
++    case SCMI_GENERIC_ERROR:
++        return -EIO;
++    case SCMI_HARDWARE_ERROR:
++        return -ENXIO;
++    case SCMI_PROTOCOL_ERROR:
++        return -EBADMSG;
++    }
++
++    return -EINVAL;
++}
++
++static int get_smc_response(struct scmi_channel *chan_info,
++                            scmi_msg_header_t *hdr, void *data, int len)
++{
++    int recv_len;
++    int ret;
++
++    printk(XENLOG_DEBUG "scmi: get smc responce msgid %d\n", hdr->id);
++
++    ret =3D channel_is_free(chan_info);
++    if ( IS_ERR_VALUE(ret) )
++        return ret;
++
++    recv_len =3D chan_info->shmem->length - sizeof(chan_info->shmem->msg_h=
+eader);
++
++    if ( recv_len < 0 )
++    {
++        printk(XENLOG_ERR
++               "scmi: Wrong size of smc message. Data may be invalid\n");
++        return -EINVAL;
++    }
++
++    if ( recv_len > len )
++    {
++        printk(XENLOG_ERR
++               "scmi: Not enough buffer for message %d, expecting %d\n",
++               recv_len, len);
++        return -EINVAL;
++    }
++
++    unpack_scmi_header(chan_info->shmem->msg_header, hdr);
++
++    if ( recv_len > 0 )
++    {
++        memcpy(data, chan_info->shmem->msg_payload, recv_len);
++    }
++
++    return 0;
++}
++
++static int do_smc_xfer(struct scmi_channel *channel, scmi_msg_header_t *hd=
+r, void *tx_data, int tx_size,
++                       void *rx_data, int rx_size)
++{
++    int ret =3D 0;
++
++    if ( !hdr )
++        return -EINVAL;
++
++    spin_lock(&channel->lock);
++
++    ret =3D send_smc_message(channel, hdr, tx_data, tx_size);
++    if ( ret )
++        goto clean;
++
++    ret =3D get_smc_response(channel, hdr, rx_data, rx_size);
++clean:
++    spin_unlock(&channel->lock);
++
++    return ret;
++}
++
++static struct scmi_channel *get_channel_by_id(uint8_t chan_id)
++{
++    struct scmi_channel *curr;
++    bool found =3D false;
++
++    spin_lock(&scmi_data.channel_list_lock);
++    list_for_each_entry(curr, &scmi_data.channel_list, list)
++        if ( curr->chan_id =3D=3D chan_id )
++        {
++            found =3D true;
++            break;
++        }
++
++    spin_unlock(&scmi_data.channel_list_lock);
++    if ( found )
++        return curr;
++
++    return NULL;
++}
++
++static struct scmi_channel *get_channel_by_domain(uint8_t domain_id)
++{
++    struct scmi_channel *curr;
++    bool found =3D false;
++
++    spin_lock(&scmi_data.channel_list_lock);
++    list_for_each_entry(curr, &scmi_data.channel_list, list)
++        if ( curr->domain_id =3D=3D domain_id )
++        {
++            found =3D true;
++            break;
++        }
++
++    spin_unlock(&scmi_data.channel_list_lock);
++    if ( found )
++        return curr;
++
++    return NULL;
++}
++
++static struct scmi_channel *aquire_scmi_channel(int domain_id)
++{
++    struct scmi_channel *curr;
++    bool found =3D false;
++
++    ASSERT(domain_id !=3D DOMID_INVALID && domain_id >=3D 0);
++
++    spin_lock(&scmi_data.channel_list_lock);
++    list_for_each_entry(curr, &scmi_data.channel_list, list)
++        if ( (curr->domain_id =3D=3D DOMID_INVALID)
++            && (curr->chan_id !=3D HYP_CHANNEL) )
++        {
++            curr->domain_id =3D domain_id;
++            found =3D true;
++            break;
++        }
++
++    spin_unlock(&scmi_data.channel_list_lock);
++    if ( found )
++        return curr;
++
++    return NULL;
++}
++
++static void relinquish_scmi_channel(struct scmi_channel *channel)
++{
++    spin_lock(&scmi_data.channel_list_lock);
++    ASSERT(channel !=3D NULL);
++    channel->domain_id =3D DOMID_INVALID;
++    spin_unlock(&scmi_data.channel_list_lock);
++}
++
++static struct scmi_channel *smc_create_channel(uint8_t chan_id,
++                                               uint32_t func_id, uint64_t =
+addr)
++{
++    struct scmi_channel *channel;
++    mfn_t mfn;
++
++    channel =3D get_channel_by_id(chan_id);
++    if ( channel )
++        return ERR_PTR(EEXIST);
++
++    channel =3D xmalloc(struct scmi_channel);
++    if ( !channel )
++        return ERR_PTR(ENOMEM);
++
++    channel->chan_id =3D chan_id;
++    channel->func_id =3D func_id;
++    channel->domain_id =3D DOMID_INVALID;
++    mfn =3D maddr_to_mfn(addr);
++    channel->shmem =3D vmap(&mfn, 1);
++    if ( !channel->shmem )
++    {
++        xfree(channel);
++        return ERR_PTR(ENOMEM);
++    }
++
++    printk(XENLOG_DEBUG "scmi: Got shmem after vmap %p\n", channel->shmem)=
+;
++    channel->paddr =3D addr;
++    channel->shmem->channel_status =3D SCMI_SHMEM_CHAN_STAT_CHANNEL_FREE;
++    spin_lock_init(&channel->lock);
++    spin_lock(&scmi_data.channel_list_lock);
++    list_add(&channel->list, &scmi_data.channel_list);
++    spin_unlock(&scmi_data.channel_list_lock);
++    return channel;
++}
++
++static int map_memory_to_domain(struct domain *d, uint64_t addr, uint64_t =
+len)
++{
++    return iomem_permit_access(d, paddr_to_pfn(addr),
++                paddr_to_pfn(PAGE_ALIGN(addr + len -1)));
++}
++
++static int unmap_memory_from_domain(struct domain *d, uint64_t addr,
++                                     uint64_t len)
++{
++    return iomem_deny_access(d, paddr_to_pfn(addr),
++                paddr_to_pfn(PAGE_ALIGN(addr + len -1)));
++}
++
++static int dt_update_domain_range(struct domain *d, uint64_t addr,
++                                  uint64_t size)
++{
++    struct dt_device_node *shmem_node;
++    __be32 *hw_reg;
++    const struct dt_property *pp;
++    uint32_t len;
++
++    shmem_node =3D dt_find_compatible_node(NULL, NULL, "arm,scmi-shmem");
++
++    if ( !shmem_node )
++    {
++        printk(XENLOG_ERR "scmi: Unable to find %s node in DT\n", SCMI_SHM=
+EM);
++        return -EINVAL;
++    }
++
++    pp =3D dt_find_property(shmem_node, "reg", &len);
++    if ( !pp )
++    {
++        printk(XENLOG_ERR "scmi: Unable to find regs entry in shmem node\n=
+");
++        return -ENOENT;
++    }
++
++    hw_reg =3D pp->value;
++    dt_set_range(&hw_reg, shmem_node, addr, size);
++
++    return 0;
++}
++
++static void free_channel_list(void)
++{
++    struct scmi_channel *curr, *_curr;
++
++    spin_lock(&scmi_data.channel_list_lock);
++    list_for_each_entry_safe (curr, _curr, &scmi_data.channel_list, list)
++    {
++        vunmap(curr->shmem);
++        list_del(&curr->list);
++        xfree(curr);
++    }
++
++    spin_unlock(&scmi_data.channel_list_lock);
++}
++
++static __init bool scmi_probe(struct dt_device_node *scmi_node)
++{
++    struct dt_device_node *shmem_node;
++    int ret, i;
++    struct scmi_channel *channel, *agent_channel;
++    int n_agents;
++    scmi_msg_header_t hdr;
++    struct rx_t {
++        int32_t status;
++        uint32_t attributes;
++    } rx;
++
++    uint32_t func_id;
++
++    ASSERT(scmi_node !=3D NULL);
++
++    INIT_LIST_HEAD(&scmi_data.channel_list);
++    spin_lock_init(&scmi_data.channel_list_lock);
++
++    if ( !dt_property_read_u32(scmi_node, SCMI_SMC_ID, &func_id) )
++    {
++        printk(XENLOG_ERR "scmi: Unable to read smc-id from DT\n");
++        return false;
++    }
++
++    shmem_node =3D dt_find_node_by_name(NULL, SCMI_SHARED_MEMORY);
++    if ( IS_ERR_OR_NULL(shmem_node) )
++    {
++        printk(XENLOG_ERR
++               "scmi: Device tree error, can't parse shmem phandle %ld\n",
++               PTR_ERR(shmem_node));
++        return false;
++    }
++
++    ret =3D dt_device_get_address(shmem_node, 0, &scmi_data.shmem_addr,
++                                &scmi_data.shmem_size);
++    if ( IS_ERR_VALUE(ret) )
 +        return false;
 +
-+    return cur_mediator->ops->handle_call(d, args);
-+}
++    channel =3D smc_create_channel(HYP_CHANNEL, func_id, scmi_data.shmem_a=
+ddr);
++    if ( IS_ERR(channel) )
++        return false;
 +
-+int sci_domain_init(struct domain *d, uint16_t sci_type)
-+{
-+    if ( sci_type =3D=3D XEN_DOMCTL_CONFIG_SCI_NONE )
-+        return 0;
++    hdr.id =3D SCMI_BASE_PROTOCOL_ATTIBUTES;
++    hdr.type =3D 0;
++    hdr.protocol =3D SCMI_BASE_PROTOCOL;
 +
-+    if ( unlikely(!cur_mediator) )
-+        return -ENODEV;
++    ret =3D do_smc_xfer(channel, &hdr, NULL, 0, &rx, sizeof(rx));
++    if ( ret )
++        goto clean;
 +
-+    if ( cur_mediator->sci_type !=3D sci_type )
-+        return -EINVAL;
++    ret =3D check_scmi_status(rx.status);
++    if ( ret )
++        goto clean;
 +
-+    return cur_mediator->ops->domain_init(d);
-+}
++    n_agents =3D FIELD_GET(MSG_N_AGENTS_MASK, rx.attributes);
++    printk(XENLOG_DEBUG "scmi: Got agent count %d\n", n_agents);
 +
-+void sci_domain_destroy(struct domain *d)
-+{
-+    if ( unlikely(!cur_mediator) )
-+        return;
++    n_agents =3D (n_agents > scmi_data.shmem_size / PAGE_SIZE) ?
++        scmi_data.shmem_size / PAGE_SIZE : n_agents;
 +
-+    cur_mediator->ops->domain_destroy(d);
-+}
-+
-+int sci_relinquish_resources(struct domain *d)
-+{
-+    if ( unlikely(!cur_mediator) )
-+        return 0;
-+
-+    return cur_mediator->ops->relinquish_resources(d);
-+}
-+
-+
-+int sci_add_dt_device(struct domain *d, struct dt_device_node *dev)
-+{
-+    if ( unlikely(!cur_mediator) )
-+        return 0;
-+
-+    return cur_mediator->ops->add_dt_device(d, dev);
-+}
-+
-+int sci_get_channel_info(struct domain *d,
-+                         struct xen_arch_domainconfig *config)
-+{
-+    if ( unlikely(!cur_mediator) )
-+        return 0;
-+
-+    return cur_mediator->ops->get_channel_info(d->arch.sci, config);
-+}
-+
-+uint16_t sci_get_type(void)
-+{
-+    if ( unlikely(!cur_mediator) )
-+        return XEN_DOMCTL_CONFIG_SCI_NONE;
-+
-+    return cur_mediator->sci_type;
-+}
-+
-+static int __init sci_init(void)
-+{
-+    const struct sci_mediator_desc *desc;
-+    struct dt_device_node *dt =3D NULL;
-+
-+    for ( desc =3D _sscimediator; desc !=3D _escimediator; desc++ )
++    for ( i =3D 1; i < n_agents; i++ )
 +    {
-+        if ( likely(dt_host) )
++        uint32_t tx_agent_id =3D 0xFFFFFFFF;
++        struct {
++            int32_t status;
++            uint32_t agent_id;
++            char name[16];
++        } da_rx;
++
++        agent_channel =3D smc_create_channel(i, func_id, scmi_data.shmem_a=
+ddr +
++                                           i * PAGE_SIZE);
++        if ( IS_ERR(agent_channel) )
 +        {
-+            dt =3D dt_find_matching_node(dt_host, desc->dt_match);
-+            if ( !dt )
-+                continue;
++            ret =3D PTR_ERR(agent_channel);
++            goto clean;
 +        }
 +
-+        if ( desc->ops->probe(dt) )
++        hdr.id =3D SCMI_BASE_DISCOVER_AGENT;
++        hdr.type =3D 0;
++        hdr.protocol =3D SCMI_BASE_PROTOCOL;
++
++        ret =3D do_smc_xfer(agent_channel, &hdr, &tx_agent_id,
++                          sizeof(tx_agent_id), &da_rx, sizeof(da_rx));
++        if ( ret )
++            goto clean;
++
++        ret =3D check_scmi_status(da_rx.status);
++        if ( ret )
++            goto clean;
++
++        printk(XENLOG_DEBUG "scmi: status=3D0x%x id=3D0x%x name=3D%s\n",
++                da_rx.status, da_rx.agent_id, da_rx.name);
++
++        agent_channel->agent_id =3D da_rx.agent_id;
++    }
++
++    scmi_data.initialized =3D true;
++    return true;
++
++clean:
++    free_channel_list();
++    return ret =3D=3D 0;
++}
++
++static int scmi_domain_init(struct domain *d)
++{
++    struct scmi_channel *channel;
++    int ret;
++
++    if ( !scmi_data.initialized )
++        return 0;
++
++    channel =3D aquire_scmi_channel(d->domain_id);
++    if ( IS_ERR_OR_NULL(channel) )
++        return -ENOENT;
++
++    printk(XENLOG_INFO "scmi: Aquire SCMI channel id =3D 0x%x , domain_id =
+=3D %d"
++           "paddr =3D 0x%lx\n", channel->chan_id, channel->domain_id,
++           channel->paddr);
++
++    if ( is_hardware_domain(d) )
++    {
++        ret =3D map_memory_to_domain(d, scmi_data.shmem_addr,
++                                   scmi_data.shmem_size);
++        if ( IS_ERR_VALUE(ret) )
++            goto error;
++
++        ret =3D dt_update_domain_range(d, channel->paddr, PAGE_SIZE);
++        if ( IS_ERR_VALUE(ret) )
 +        {
-+            printk(XENLOG_INFO "Using SCI mediator for %s\n", desc->name);
-+            cur_mediator =3D desc;
-+            return 0;
++            int rc =3D unmap_memory_from_domain(d, scmi_data.shmem_addr,
++                                              scmi_data.shmem_size);
++            if ( rc )
++                printk(XENLOG_ERR "Unable to unmap_memory_from_domain\n");
++
++            goto error;
 +        }
 +    }
 +
++    d->arch.sci =3D channel;
++
 +    return 0;
++error:
++    relinquish_scmi_channel(channel);
++
++    return ret;
 +}
 +
-+__initcall(sci_init);
-+
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index d5d0792ed4..201de01411 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -50,6 +50,7 @@
- #include <asm/cpufeature.h>
- #include <asm/platform.h>
- #include <asm/procinfo.h>
-+#include <asm/sci/sci.h>
- #include <asm/setup.h>
- #include <xsm/xsm.h>
- #include <asm/acpi.h>
-diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S
-index 08016948ab..3683f4821f 100644
---- a/xen/arch/arm/xen.lds.S
-+++ b/xen/arch/arm/xen.lds.S
-@@ -142,6 +142,13 @@ SECTIONS
-       _eteemediator =3D .;
-   } :text
-=20
-+  . =3D ALIGN(8);
-+  .scimediator.info : {
-+      _sscimediator =3D .;
-+      *(.scimediator.info)
-+      _escimediator =3D .;
-+  } :text
-+
-   . =3D ALIGN(PAGE_SIZE);             /* Init code and data */
-   __init_begin =3D .;
-   .init.text : {
-diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
-index 9b3647587a..d9b164017f 100644
---- a/xen/include/asm-arm/domain.h
-+++ b/xen/include/asm-arm/domain.h
-@@ -89,6 +89,10 @@ struct arch_domain
- #ifdef CONFIG_TEE
-     void *tee;
- #endif
-+
-+#ifdef CONFIG_SCI
-+    void *sci;
-+#endif
- }  __cacheline_aligned;
-=20
- struct arch_vcpu
-diff --git a/xen/include/asm-arm/sci/sci.h b/xen/include/asm-arm/sci/sci.h
-new file mode 100644
-index 0000000000..aeff689c72
---- /dev/null
-+++ b/xen/include/asm-arm/sci/sci.h
-@@ -0,0 +1,162 @@
-+/*
-+ * xen/include/asm-arm/sci/sci.h
-+ *
-+ * Generic part of the SCI (System Control Interface) subsystem.
-+ *
-+ * Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-+ * Copyright (C) 2021, EPAM Systems.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or
-+ * (at your option) any later version.
-+ *
-+ * This program is distributed in the hope that it will be useful,
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+ * GNU General Public License for more details.
-+ */
-+
-+#ifndef __ASM_ARM_SCI_H
-+#define __ASM_ARM_SCI_H
-+
-+#include <xen/lib.h>
-+#include <xen/types.h>
-+#include <xen/device_tree.h>
-+
-+#ifdef CONFIG_SCI
-+
-+struct sci_mediator_ops {
-+
-+    /*
-+     * Probe for SCI. Should return true if SCI found and
-+     * mediator is initialized.
-+     */
-+    bool (*probe)(struct dt_device_node *scmi_node);
-+
-+    /*
-+     * Called during domain construction if toolstack requests to enable
-+     * SCI support so mediator can inform SCP-firmware about new
-+     * guest and create own structures for the new domain.
-+     */
-+    int (*domain_init)(struct domain *d);
-+
-+    /*
-+     * Called during domain destruction, releases all resources, that
-+     * were allocated by the mediator.
-+     */
-+    void (*domain_destroy)(struct domain *d);
-+
-+    /*
-+     * Called during parsing partial device-sci for the domain.
-+     * Passing device_node so mediator could process the device and
-+     * mark the device as related to the domain if needed.
-+     */
-+    int (*add_dt_device)(struct domain *d, struct dt_device_node *dev);
-+
-+    /*
-+     * Called during domain destruction to relinquish resources used
-+     * by mediator itself. This function can return -ERESTART to indicate
-+     * that it does not finished work and should be called again.
-+     */
-+    int (*relinquish_resources)(struct domain *d);
-+
-+    /* Handle call for current domain */
-+    bool (*handle_call)(struct domain *d, void *regs);
-+
-+    /* Gets channel configuration and store it in domainconfig */
-+    int (*get_channel_info)(void *sci_ops,
-+                            struct xen_arch_domainconfig *config);
-+
-+};
-+
-+struct sci_mediator_desc {
-+    /* Printable name of the SCI. */
-+    const char *name;
-+
-+    /* Mediator callbacks as described above. */
-+    const struct sci_mediator_ops *ops;
-+
-+    /*
-+     * ID of SCI. Corresponds to xen_arch_domainconfig.sci_type.
-+     * Should be one of XEN_DOMCTL_CONFIG_SCI_xxx
-+     */
-+    uint16_t sci_type;
-+
-+    /* Match structure to init mediator */
-+    const struct dt_device_match *dt_match;
-+
-+};
-+
-+int sci_domain_init(struct domain *d, uint16_t sci_type);
-+void sci_domain_destroy(struct domain *d);
-+int sci_add_dt_device(struct domain *d, struct dt_device_node *dev);
-+int sci_relinquish_resources(struct domain *d);
-+bool sci_handle_call(struct domain *d, void *args);
-+int sci_get_channel_info(struct domain *d,
-+                         struct xen_arch_domainconfig *config);
-+uint16_t sci_get_type(void);
-+
-+#define REGISTER_SCI_MEDIATOR(_name, _namestr, _type, _match, _ops) \
-+static const struct sci_mediator_desc __sci_desc_##_name __used     \
-+__section(".scimediator.info") =3D {                                  \
-+    .name =3D _namestr,                                               \
-+    .ops =3D _ops,                                                    \
-+    .sci_type =3D _type,                                              \
-+    .dt_match =3D _match                                              \
-+}
-+
-+#else
-+#include <public/errno.h>
-+
-+static inline int sci_domain_init(struct domain *d, uint16_t sci_type)
++static int scmi_add_device_by_devid(struct domain *d, uint32_t scmi_devid)
 +{
-+    if ( likely(sci_type =3D=3D XEN_DOMCTL_CONFIG_SCI_NONE) )
++    struct scmi_channel *channel, *agent_channel;
++    scmi_msg_header_t hdr;
++    scmi_perms_tx_t tx;
++    struct rx_t {
++        int32_t status;
++        uint32_t attributes;
++    } rx;
++    int ret;
++
++    if ( !scmi_data.initialized )
 +        return 0;
 +
-+    return -XEN_ENODEV;
-+}
++    printk(XENLOG_DEBUG "scmi: scmi_devid =3D %d\n", scmi_devid);
 +
-+static inline void sci_domain_destroy(struct domain *d)
-+{
-+}
++    agent_channel =3D get_channel_by_domain(d->domain_id);
++    if ( IS_ERR_OR_NULL(agent_channel) )
++        return PTR_ERR(agent_channel);
 +
-+static inline int sci_add_dt_device(struct domain *d,
-+                                    struct dt_device_node *dev)
-+{
++    channel =3D get_channel_by_id(HYP_CHANNEL);
++    if ( IS_ERR_OR_NULL(channel) )
++        return PTR_ERR(channel);
++
++    hdr.id =3D SCMI_BASE_SET_DEVICE_PERMISSIONS;
++    hdr.type =3D 0;
++    hdr.protocol =3D SCMI_BASE_PROTOCOL;
++
++    tx.agent_id =3D agent_channel->agent_id;
++    tx.device_id =3D scmi_devid;
++    tx.flags =3D SCMI_ALLOW_ACCESS;
++
++    ret =3D do_smc_xfer(channel, &hdr, &tx, sizeof(tx), &rx, sizeof(&rx));
++    if ( IS_ERR_VALUE(ret) )
++        return ret;
++
++    ret =3D check_scmi_status(rx.status);
++    if ( IS_ERR_VALUE(ret) )
++        return ret;
++
 +    return 0;
 +}
 +
-+static inline int sci_relinquish_resources(struct domain *d)
++static int scmi_add_dt_device(struct domain *d, struct dt_device_node *dev=
+)
 +{
++    uint32_t scmi_devid;
++
++    if ( (!scmi_data.initialized) || (!d->arch.sci) )
++        return 0;
++
++    if ( !dt_property_read_u32(dev, "scmi_devid", &scmi_devid) )
++        return 0;
++
++    printk(XENLOG_INFO "scmi: dt_node =3D %s\n", dt_node_full_name(dev));
++
++    return scmi_add_device_by_devid(d, scmi_devid);
++}
++
++static int scmi_relinquish_resources(struct domain *d)
++{
++    int ret;
++    struct scmi_channel *channel, *agent_channel;
++    scmi_msg_header_t hdr;
++    struct reset_agent_tx {
++        uint32_t agent_id;
++        uint32_t flags;
++    } tx;
++    uint32_t rx;
++
++    if ( !d->arch.sci )
++        return 0;
++
++    agent_channel =3D d->arch.sci;
++
++    spin_lock(&agent_channel->lock);
++    tx.agent_id =3D agent_channel->agent_id;
++    spin_unlock(&agent_channel->lock);
++
++    channel =3D get_channel_by_id(HYP_CHANNEL);
++    if ( !channel )
++    {
++        printk(XENLOG_ERR
++               "scmi: Unable to get Hypervisor scmi channel for domain %d\=
+n",
++               d->domain_id);
++        return -EINVAL;
++    }
++
++    hdr.id =3D SCMI_BASE_RESET_AGENT_CONFIGURATION;
++    hdr.type =3D 0;
++    hdr.protocol =3D SCMI_BASE_PROTOCOL;
++
++    tx.flags =3D 0;
++
++    ret =3D do_smc_xfer(channel, &hdr, &tx, sizeof(tx), &rx, sizeof(rx));
++    if ( ret )
++        return ret;
++
++    ret =3D check_scmi_status(rx);
++
++    return ret;
++}
++
++static void scmi_domain_destroy(struct domain *d)
++{
++    struct scmi_channel *channel;
++
++    if ( !d->arch.sci )
++        return;
++
++    channel =3D d->arch.sci;
++    spin_lock(&channel->lock);
++
++    relinquish_scmi_channel(channel);
++    printk(XENLOG_DEBUG "scmi: Free domain %d\n", d->domain_id);
++
++    d->arch.sci =3D NULL;
++
++    unmap_memory_from_domain(d, channel->paddr, PAGE_SIZE);
++    spin_unlock(&channel->lock);
++    return;
++}
++
++static bool scmi_handle_call(struct domain *d, void *args)
++{
++    bool res =3D false;
++    struct scmi_channel *agent_channel;
++    struct arm_smccc_res resp;
++    struct cpu_user_regs *regs =3D args;
++
++    if ( !d->arch.sci )
++        return false;
++
++    agent_channel =3D d->arch.sci;
++    spin_lock(&agent_channel->lock);
++
++    if ( agent_channel->func_id !=3D regs->x0 )
++    {
++        printk(XENLOG_ERR "scmi: func_id mismatch, exiting\n");
++        goto unlock;
++    }
++
++    arm_smccc_smc(agent_channel->func_id, 0, 0, 0, 0, 0, 0,
++                  agent_channel->chan_id, &resp);
++
++    set_user_reg(regs, 0, resp.a0);
++    set_user_reg(regs, 1, resp.a1);
++    set_user_reg(regs, 2, resp.a2);
++    set_user_reg(regs, 3, resp.a3);
++    res =3D true;
++unlock:
++    spin_unlock(&agent_channel->lock);
++
++    return res;
++}
++
++static int scmi_get_channel_paddr(void *scmi_ops,
++                           struct xen_arch_domainconfig *config)
++{
++    struct scmi_channel *agent_channel =3D scmi_ops;
++
++    if ( !agent_channel )
++        return -EINVAL;
++
++    config->sci_agent_paddr =3D agent_channel->paddr;
 +    return 0;
 +}
 +
-+static inline bool sci_handle_call(struct domain *d, void *args)
++static const struct dt_device_match scmi_smc_match[] __initconst =3D
 +{
-+    return false;
-+}
++    DT_MATCH_SCMI_SMC,
++    { /* sentinel */ },
++};
 +
-+static inline int sci_get_channel_info(struct domain *d,
-+                                       struct xen_arch_domainconfig *confi=
-g)
++static const struct sci_mediator_ops scmi_ops =3D
 +{
-+    return 0;
-+}
++    .probe =3D scmi_probe,
++    .domain_init =3D scmi_domain_init,
++    .domain_destroy =3D scmi_domain_destroy,
++    .add_dt_device =3D scmi_add_dt_device,
++    .relinquish_resources =3D scmi_relinquish_resources,
++    .handle_call =3D scmi_handle_call,
++    .get_channel_info =3D scmi_get_channel_paddr
++};
 +
-+static inline uint16_t sci_get_type(void)
-+{
-+    return XEN_DOMCTL_CONFIG_SCI_NONE;
-+}
-+
-+#endif  /* CONFIG_SCI */
-+
-+#endif /* __ASM_ARM_SCI_H */
++REGISTER_SCI_MEDIATOR(scmi_smc, "SCMI-SMC", XEN_DOMCTL_CONFIG_SCI_SCMI_SMC=
+,
++                      scmi_smc_match, &scmi_ops);
 +
 +/*
 + * Local variables:
@@ -745,39 +1040,17 @@ g)
 + * End:
 + */
 diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-index 94b31511dd..9180be5e86 100644
+index 9180be5e86..a67237942d 100644
 --- a/xen/include/public/arch-arm.h
 +++ b/xen/include/public/arch-arm.h
-@@ -314,12 +314,16 @@ DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
- #define XEN_DOMCTL_CONFIG_TEE_NONE      0
+@@ -315,6 +315,7 @@ DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
  #define XEN_DOMCTL_CONFIG_TEE_OPTEE     1
 =20
-+#define XEN_DOMCTL_CONFIG_SCI_NONE      0
-+
+ #define XEN_DOMCTL_CONFIG_SCI_NONE      0
++#define XEN_DOMCTL_CONFIG_SCI_SCMI_SMC  1
+=20
  struct xen_arch_domainconfig {
      /* IN/OUT */
-     uint8_t gic_version;
-     /* IN */
-     uint16_t tee_type;
-     /* IN */
-+    uint8_t sci_type;
-+    /* IN */
-     uint32_t nr_spis;
-     /*
-      * OUT
-@@ -335,6 +339,12 @@ struct xen_arch_domainconfig {
-      *
-      */
-     uint32_t clock_frequency;
-+
-+    /* Sets shared address to sw domains.
-+     * This information is needed to set correct channel in Domain partial
-+     * device-tree
-+     */
-+    uint64_t sci_agent_paddr;
- };
- #endif /* __XEN__ || __XEN_TOOLS__ */
-=20
 --=20
 2.27.0
 
