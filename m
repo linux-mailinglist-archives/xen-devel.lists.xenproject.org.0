@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A42CA4748C6
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Dec 2021 18:04:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.246936.425897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D61AA4748D7
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Dec 2021 18:06:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.246946.425908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxBDf-0004RL-Hc; Tue, 14 Dec 2021 17:04:03 +0000
+	id 1mxBFQ-0005KM-Ru; Tue, 14 Dec 2021 17:05:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 246936.425897; Tue, 14 Dec 2021 17:04:03 +0000
+Received: by outflank-mailman (output) from mailman id 246946.425908; Tue, 14 Dec 2021 17:05:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxBDf-0004OT-Dz; Tue, 14 Dec 2021 17:04:03 +0000
-Received: by outflank-mailman (input) for mailman id 246936;
- Tue, 14 Dec 2021 17:04:02 +0000
+	id 1mxBFQ-0005Hn-P1; Tue, 14 Dec 2021 17:05:52 +0000
+Received: by outflank-mailman (input) for mailman id 246946;
+ Tue, 14 Dec 2021 17:05:50 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mxBDe-0004O3-7S
- for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 17:04:02 +0000
+ (envelope-from <julien@xen.org>) id 1mxBFO-0005HZ-Ko
+ for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 17:05:50 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mxBDc-0004Yp-0r; Tue, 14 Dec 2021 17:04:00 +0000
+ id 1mxBFN-0004bo-Cd; Tue, 14 Dec 2021 17:05:49 +0000
 Received: from [54.239.6.190] (helo=[192.168.26.72])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1mxBDb-0004RZ-RG; Tue, 14 Dec 2021 17:03:59 +0000
+ id 1mxBFN-0004ZE-5z; Tue, 14 Dec 2021 17:05:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,89 +42,77 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=cs377JxwHdAJu/wXuE4+voLmIwWBaQNxiEvBgwGbng4=; b=BzfEhWjETVX+ttE2LQE1dM9Ayi
-	VAA7/pnYBLU0t4smq/c+CbNUbdwn4QWwIlqh7KHMijr/dktTbdKqhgqhwMOODWlXVabFJ9GPdw1mX
-	nJmlGWzNn0Ss36E+V1eALyYw43NneaGhYqjEBv7gf4bas+5/ikW0RqsWXUPYpHtiuhhs=;
-Message-ID: <b2724f38-6dcb-e7c6-40ce-783de9941e16@xen.org>
-Date: Tue, 14 Dec 2021 17:03:56 +0000
+	bh=+lIwA4ZRTVSYc1f5arQHlKa8htLLoqiCznblSSNKg6Y=; b=ndlW8Xqi0trp/BGMJWe+aNZOPh
+	JhJs7FWe6jKCBuiPkmVMiCKCdiEO5x2fjK3OovqeTN7OiteNCtnqYF6JeOb/j0XVwFbgGBiz7tWO7
+	GZBCrq/zk1lNuichKUt7d23yB8e3QppAAZupcPXhqoObH2pOkT5sALHDgwMsLFX7jTlg=;
+Message-ID: <bcca6950-666f-63ea-9ea2-49f70d8a252a@xen.org>
+Date: Tue, 14 Dec 2021 17:05:46 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.4.0
-Subject: Re: [XEN PATCH v8 12/47] build: build everything from the root dir,
- use obj=$subdir
+Subject: Re: [XEN PATCH v8 14/47] build: rename __LINKER__ to LINKER_SCRIPT
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Bob Eshleman <bobbyeshleman@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Stefano Stabellini
  <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>
+ Bertrand Marquis <bertrand.marquis@arm.com>
 References: <20211125134006.1076646-1-anthony.perard@citrix.com>
- <20211125134006.1076646-13-anthony.perard@citrix.com>
+ <20211125134006.1076646-15-anthony.perard@citrix.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20211125134006.1076646-13-anthony.perard@citrix.com>
+In-Reply-To: <20211125134006.1076646-15-anthony.perard@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Anthonny,
+Hi Anthony,
 
 On 25/11/2021 13:39, Anthony PERARD wrote:
-> A subdirectory is now built by setting "$(obj)" instead of changing
-> directory. "$(obj)" should always be set when using "Rules.mk" and
-> thus a shortcut "$(build)" is introduced and should be used.
-> 
-> A new variable "$(need-builtin)" is introduce. It is to be used
-> whenever a "built_in.o" is wanted from a subdirectory. "built_in.o"
-> isn't the main target anymore, and thus only needs to depends on the
-> objects that should be part of "built_in.o".
-> 
-> Introduce $(srctree) and $(objtree) to replace $(BASEDIR) in cases a
-> relative path is better, and $(abs_srctree) and $(abs_objtree) which
-> have an absolute path.
-> 
-> DEPS is updated as the existing macro to deal with it doesn't know
-> about $(obj).
-> 
-> There's some changes in "Rules.mk" which in addition to deal with
-> "$(obj)" also make it's looks more like "Makefile.build" from Linux
-> v5.12.
-> 
-> test/Makefile doesn't need special handling in order to build
-> everything under test/, Rules.mk will visit test/livepatch via
-> $(subdir-y), thus "tests" "all" and "build" target are removed.
-> "subtree-force-update" target isn't useful so it is removed as well.
-> 
-> test/livepatch/Makefile doesn't need default target anymore, Rules.mk
-> will build everything in $(extra-y) and thus all *.livepatch.
-> 
-> Adjust cloc recipe: dependency files generated by CC will now have the
-> full path to the source file, so we don't need to prepend the
-> subdirectory. This fix some issue with source not been parsed by cloc
-> before. Also source from tools/kconfig would be listed with changes in
-> this patch so adjust the find command to stop listing the "tools"
-> directory and thus kconfig. With a default build of Xen on X86, they
-> are a few new files parsed by cloc:
->      arch/x86/x86_64/compat/mm.c
->      arch/x86/x86_64/mm.c
->      common/compat/domain.c
->      common/compat/memory.c
->      common/compat/xlat.c
+> For two reasons: this macro is used to generate a "linker script" and
+> is not by the linker, and name starting with an underscore '_' are
+> supposed to be reserved, so better avoid them when not needed.
+
+If that's the case, then shouldn't we also rename __ASSEMBLY__?
+
 > 
 > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> Acked-by: Bob Eshleman <bobbyeshleman@gmail.com>
-
-For Arm:
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 Acked-by: Julien Grall <jgrall@amazon.com>
 
 Cheers,
+
+> ---
+>   xen/Rules.mk                      | 2 +-
+>   xen/arch/arm/include/asm/config.h | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/Rules.mk b/xen/Rules.mk
+> index 4624739ca7e2..d32fec0ae037 100644
+> --- a/xen/Rules.mk
+> +++ b/xen/Rules.mk
+> @@ -256,7 +256,7 @@ $(obj)/%.s: $(src)/%.S FORCE
+>   
+>   # Linker scripts, .lds.S -> .lds
+>   quiet_cmd_cpp_lds_S = LDS     $@
+> -cmd_cpp_lds_S = $(CPP) -P $(call cpp_flags,$(a_flags)) -D__LINKER__ -MQ $@ -o $@ $<
+> +cmd_cpp_lds_S = $(CPP) -P $(call cpp_flags,$(a_flags)) -DLINKER_SCRIPT -MQ $@ -o $@ $<
+>   
+>   targets := $(filter-out $(PHONY), $(targets))
+>   
+> diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
+> index c7b77912013e..2aced0bc3b8b 100644
+> --- a/xen/arch/arm/include/asm/config.h
+> +++ b/xen/arch/arm/include/asm/config.h
+> @@ -191,7 +191,7 @@ extern unsigned long frametable_virt_end;
+>   #define watchdog_disable() ((void)0)
+>   #define watchdog_enable()  ((void)0)
+>   
+> -#if defined(__ASSEMBLY__) && !defined(__LINKER__)
+> +#if defined(__ASSEMBLY__) && !defined(LINKER_SCRIPT)
+>   #include <asm/asm_defns.h>
+>   #include <asm/macros.h>
+>   #endif
 
 -- 
 Julien Grall
