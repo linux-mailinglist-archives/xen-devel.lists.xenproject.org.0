@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90F6B474711
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Dec 2021 17:03:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.246873.425763 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03F10474782
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Dec 2021 17:20:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.246880.425774 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxAGm-0008FM-Qu; Tue, 14 Dec 2021 16:03:12 +0000
+	id 1mxAWm-0001j3-DR; Tue, 14 Dec 2021 16:19:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 246873.425763; Tue, 14 Dec 2021 16:03:12 +0000
+Received: by outflank-mailman (output) from mailman id 246880.425774; Tue, 14 Dec 2021 16:19:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxAGm-0008Cw-NZ; Tue, 14 Dec 2021 16:03:12 +0000
-Received: by outflank-mailman (input) for mailman id 246873;
- Tue, 14 Dec 2021 16:03:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q7Ra=Q7=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1mxAGk-0008Cq-Ss
- for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 16:03:11 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4eeebe87-5cf7-11ec-85d3-df6b77346a89;
- Tue, 14 Dec 2021 17:03:01 +0100 (CET)
+	id 1mxAWm-0001ge-9q; Tue, 14 Dec 2021 16:19:44 +0000
+Received: by outflank-mailman (input) for mailman id 246880;
+ Tue, 14 Dec 2021 16:19:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mxAWl-0001gU-EC; Tue, 14 Dec 2021 16:19:43 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mxAWl-0003jJ-4h; Tue, 14 Dec 2021 16:19:43 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mxAWk-00022h-Qf; Tue, 14 Dec 2021 16:19:42 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mxAWk-0007xr-QC; Tue, 14 Dec 2021 16:19:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,142 +42,331 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4eeebe87-5cf7-11ec-85d3-df6b77346a89
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1639497787;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=caysg20LYi0EhTAWT/KHfFYtdPiBMPQZuUXeSMnogUM=;
-  b=Us8zmrah6j2/FqeCSEgfoxA9VoXurV6YdLmQZFqXevC3OE03ZYNW3pUH
-   4HQAOTEyZynRefttJ41Fqc97v+caEyXE2utshDHLVVrWmBVkFomIWQmQn
-   mxKsqzw5GoDl36RrISHod52si/nc118EfqlJSu8e0vDAnlMB/D6XCXPsJ
-   o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: XKX/I7FhXgjC+hJsx+R7vVltiq4NG0+XVhJkwfOqvlHQjsORA2Hg4wtEYZHbgYt6SE0VCDjgul
- XvipK2YVWDZvvCSsw7exfl3v5/P2IMnpYbwVT7jvmrmV6cuEsebP2rBXcS60tYJAmYCm641ZGo
- 2hx9Z174wHhZW+EjaUpl8/LO+AMd9cnoozqJ+T9tU0dbGqNvQRQLS1T12O415GV3+WfPUQnO9n
- xca8OjK6JpqBscs+MNm0t3ZXv8tpNUJqN6IQVG4RF2M4ObPHuYiWkrmPINVGm9bhcH3g9Djhs5
- 3175TgdLPK06lQ8W5cJdfgX/
-X-SBRS: 5.1
-X-MesageID: 60009620
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:rZz4rKPRaBVDRmrvrR3QkcFynXyQoLVcMsEvi/4bfWQNrUom0mRWm
- 2NJDzuPa67cZDf0fdwkO4Ww8ENT68eExt8xQAto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En5400s/w7RRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYo3LYz9Es9
- 9kOjJ2XdCkTN/bhvf9GViANRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YuBqmsQkKtitJI4Fs2ts5TrYEewnUdbIRKCiCdpwgm9o3pEQR662i
- 8wxOTwzcCieYSN2C3A8D7Y7u/iJqFvDSmgNwL6SjfVuuDWCpOBr65D2K8bccNGOQcRTn26bq
- 3jA8mC/BQsVXPSdxiCC6WmEnfLUkGXwX4d6PL+l8v9nhnWDy2pVDwcZPXOxrOOlkEe4V5RaI
- lYN5ys1haEo8QqgSdyVdyO/pHmIrxsNQe16Gucx6ByO4qfM6gPfDW8BJhZRZdpjuMIoSDgC0
- l6Sg8ivFTFpqKeSS3+W6vGTtzzaES8RIGwZeT4fTSMK5tDipMc4iRenZtFnHa2uh9v5Awbs0
- iuKpygzgbYUpcMT3qD99lfC6xq2oYPDVAky5QP/V2Oj4ARiaYXjbIutgXDE6d5QIYDfSUOO1
- EXogODHsrpIV8vU0nXQHqNdR9lF+sppLhWb0A5uQqYttA2s3EONR4kLzRRlf0JQZ5NslSDSX
- GffvgZY5Zl2NXSsbLNqb4/ZN/nG3ZQMBvy+CKmKM4MmjoxZMVbeoXowPRL4M3XFyRB0yckC1
- YGnndFA5JrwIYBu13KISugUytfHLQhulDqIFfgXI/lKuIdyhUJ5q59ZYDNijchjtctoRTk5F
- f4FaKNmLD0FD4XDjtH/q9J7ELzzBSFT6WrKg8JWbPWfBQFtBXssDfTcqZt4Jdc0w/4MzrqWo
- SDtMqO99LYZrSeYQeltQio8AI4DoL4l9S5rVcDSFQjAN4cfjXaHs/5EKspfkUgP/+1/1/9kJ
- 8TpiO3basmjvg/vomxHBbGk9dQKXE3y2WqmYnv9CBBiLsUIb1GYpbfZkv7HqXBm4tyf7pBl/
- dVNF2rzHPI+euiVJJqMNa/0kQru5SN1dSAbdxKgH+S/sX7EqOBCQxEdRNdtSy3VARmclDacy
- SiMBhIU+bvEr4MvqYGbjqGYtYa5VeB5GxMCTWXc6L+3Mwjc/3aintAcALrZI2iFWTOm4rima
- MVU0+r4bK8NkmFVvtcuCL1s168/uYfi/ucI0gR+EXzXRF23Ebc8cGKe1MxCu/QVlL9UsAe7Q
- GyV/dxeNenbMc/pCgdJdgEkcv6CxbcfnTyLtaY5J0Dz5SlW+rubUBoNY0nQ2XIFdLYsadEr2
- +YsvsIS+jeTsBtyP4bUlD1Q+kSNMmcED/ctuKYFDdK5kQEs0FxDP8DRU3ek/JGVZtxQGUA2O
- TvI1rHajrFRy0eeIXo+EX/BgbhUiZgU4U0YyVYDIxKCm8bfh+9x1xpUqGxlQgNQxxRB8uRyJ
- mk0aBElefTQp29l1JpZQmShOwBdHxnIqEX+xmwAmHDdU0T1BHfGK3cwOLrV8U0Um46GkuO3I
- F1MJL7ZbAvX
-IronPort-HdrOrdr: A9a23:+K0bd6mX85AttVytnd4M7/PIxZDpDfIu3DAbv31ZSRFFG/Fxl6
- iV/cjz8SWE7wr5OUtQ/exoV5PtfZqxz/FICMwqTNGftWrdyQ6VxeNZnOjfKlTbckWUnINgPO
- VbAspD4bXLfCFHZK3BgDVQfexP/OW6
-X-IronPort-AV: E=Sophos;i="5.88,205,1635220800"; 
-   d="scan'208";a="60009620"
-Date: Tue, 14 Dec 2021 16:03:00 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-CC: <xen-devel@lists.xenproject.org>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<george.dunlap@citrix.com>, Nick Rosbrook <rosbrookn@ainfosec.com>, "Juergen
- Gross" <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	"Julien Grall" <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH V6 1/2] libxl: Add support for Virtio disk configuration
-Message-ID: <YbjANCjAUGe4BAar@perard>
-References: <1638982784-14390-1-git-send-email-olekstysh@gmail.com>
- <1638982784-14390-2-git-send-email-olekstysh@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Q7iWRRkw7Gh/BALpTdxyYcz+3J143dOabZRUiRQfZCU=; b=cUUXPKIJmj2BI2lI0F++vJ3o64
+	05C0NpBbmafd6Uh926lsIP6rbQqsqtsQMKb8FxEvGTu/fOlCHFsAR6ePScJpYmEfgYRrJGfI7qVk1
+	4e+iTk6bm0bj9hJ4ivX2wrnMJti1luWlwY1lDptu/KxbtjIVAS5jfetFGP+z7dEieQHs=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-167405-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <1638982784-14390-2-git-send-email-olekstysh@gmail.com>
+Subject: [libvirt test] 167405: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=497e6f5fa6504cd0390a228befb410c16b959135
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 14 Dec 2021 16:19:42 +0000
 
-On Wed, Dec 08, 2021 at 06:59:43PM +0200, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> This patch adds basic support for configuring and assisting virtio-disk
-> backend (emualator) which is intended to run out of Qemu and could be
-> run in any domain.
-> Although the Virtio block device is quite different from traditional
-> Xen PV block device (vbd) from the toolstack point of view:
->  - as the frontend is virtio-blk which is not a Xenbus driver, nothing
->    written to Xenstore are fetched by the frontend (the vdev is not
->    passed to the frontend)
->  - the ring-ref/event-channel are not used for the backend<->frontend
->    communication, the proposed IPC for Virtio is IOREQ/DM
-> it is still a "block device" and ought to be integrated in existing
-> "disk" handling. So, re-use (and adapt) "disk" parsing/configuration
-> logic to deal with Virtio devices as well.
+flight 167405 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167405/
 
-How backend are intended to be created? Is there something listening on
-xenstore?
+Regressions :-(
 
-You mention QEMU as been the backend, do you intend to have QEMU
-listening on xenstore to create a virtio backend? Or maybe it is on the
-command line? There is QMP as well, but it's probably a lot more
-complicated as I think libxl needs refactoring for that.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
 
-> Besides introducing new disk backend type (LIBXL_DISK_BACKEND_VIRTIO)
-> introduce new device kind (LIBXL__DEVICE_KIND_VIRTIO_DISK) as current
-> one (LIBXL__DEVICE_KIND_VBD) doesn't fit into Virtio disk model.
-> 
-> In order to inform the toolstack that Virtio disk needs to be used
-> extend "disk" configuration by introducing new "virtio" flag.
-> An example of domain configuration:
-> disk = [ 'backend=DomD, phy:/dev/mmcblk1p3, xvda1, rw, virtio' ]
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
 
-This new "virtio" flags feels strange. Would having something like
-"backendtype=virtio" works?
+version targeted for testing:
+ libvirt              497e6f5fa6504cd0390a228befb410c16b959135
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-> Please note, this patch is not enough for virtio-disk to work
-> on Xen (Arm), as for every Virtio device (including disk) we need
-> to allocate Virtio MMIO params (IRQ and memory region) and pass
-> them to the backend, also update Guest device-tree. The subsequent
-> patch will add these missing bits. For the current patch,
-> the default "irq" and "base" are just written to the Xenstore.
+Last test of basis   151777  2020-07-10 04:19:19 Z  522 days
+Failing since        151818  2020-07-11 04:18:52 Z  521 days  503 attempts
+Testing same since   167405  2021-12-14 04:18:51 Z    0 days    1 attempts
 
-This feels like the patches are in the wrong order. I don't think it is
-a good idea to allow to create broken configuration until a follow-up
-patch fixes things.
+------------------------------------------------------------
+People who touched revisions under test:
+    Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Ani Sinha <ani@anisinha.ca>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastian Germann <bastiangermann@fishpost.de>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Kirbach <christian.kirbach@gmail.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Didik Supriadi <didiksupriadi41@gmail.com>
+  dinglimin <dinglimin@cmss.chinamobile.com>
+  Dmitrii Shcherbakov <dmitrii.shcherbakov@canonical.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fabiano Fidêncio <fabiano@fidencio.org>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Franck Ridel <fridel@protonmail.com>
+  Gavi Teitz <gavi@nvidia.com>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Hiroki Narukawa <hnarukaw@yahoo-corp.jp>
+  Ian Wienand <iwienand@redhat.com>
+  Ioanna Alifieraki <ioanna-maria.alifieraki@canonical.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  jason lee <ppark5237@gmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jia Zhou <zhou.jia2@zte.com.cn>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jinsheng Zhang <zhangjl02@inspur.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Joachim Falk <joachim.falk@gmx.de>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Justin Gatzen <justin.gatzen@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Koichi Murase <myoga.murase@gmail.com>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee Yarwood <lyarwood@redhat.com>
+  Lei Yang <yanglei209@huawei.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Liu Yiding <liuyd.fnst@fujitsu.com>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matej Cepl <mcepl@cepl.eu>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Nathan <nathan95@live.it>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Chevsky <nchevsky@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Or Ozeri <oro@il.ibm.com>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Praveen K Paladugu <prapal@linux.microsoft.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Robin Lee <cheeselee@fedoraproject.org>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Chopin <chopin.simon@gmail.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Simon Rowe <simon.rowe@nutanix.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@gmail.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Vasiliy Ulyanov <vulyanov@suse.de>
+  Victor Toso <victortoso@redhat.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Vinayak Kale <vkale@nvidia.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Wei Liu <liuwe@microsoft.com>
+  Wei Liu <wei.liu@kernel.org>
+  Wei-Chen Chen <weicche@microsoft.com>
+  William Douglas <william.douglas@intel.com>
+  Xu Chao <xu.chao6@zte.com.cn>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Fei <yangfei85@huawei.com>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
+  zhangjl02 <zhangjl02@inspur.com>
+  zhanglei <zhanglei@smartx.com>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Ye <yezhenyu2@huawei.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+  Zhenzhong Duan <zhenzhong.duan@intel.com>
+  Дамјан Георгиевски <gdamjan@gmail.com>
 
-> diff --git a/tools/xl/xl_block.c b/tools/xl/xl_block.c
-> index 70eed43..50a4d45 100644
-> --- a/tools/xl/xl_block.c
-> +++ b/tools/xl/xl_block.c
-> @@ -50,6 +50,11 @@ int main_blockattach(int argc, char **argv)
->          return 0;
->      }
->  
-> +    if (disk.virtio) {
-> +        fprintf(stderr, "block-attach is not supported for Virtio device\n");
-> +        return 1;
-> +    }
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
-This might not be the right place. libxl might want to prevent hotplug
-instead.
 
-Thanks,
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
--- 
-Anthony PERARD
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 88693 lines long.)
 
