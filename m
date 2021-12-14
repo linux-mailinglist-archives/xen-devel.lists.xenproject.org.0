@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00E894740FF
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Dec 2021 12:01:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.246596.425275 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F49C474123
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Dec 2021 12:09:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.246604.425286 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mx5YR-0001h2-P1; Tue, 14 Dec 2021 11:01:07 +0000
+	id 1mx5fm-0002TR-LV; Tue, 14 Dec 2021 11:08:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 246596.425275; Tue, 14 Dec 2021 11:01:07 +0000
+Received: by outflank-mailman (output) from mailman id 246604.425286; Tue, 14 Dec 2021 11:08:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mx5YR-0001f7-Lw; Tue, 14 Dec 2021 11:01:07 +0000
-Received: by outflank-mailman (input) for mailman id 246596;
- Tue, 14 Dec 2021 11:01:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mx5YQ-0001f0-0g
- for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 11:01:06 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mx5YM-0005y9-VT; Tue, 14 Dec 2021 11:01:02 +0000
-Received: from [54.239.6.190] (helo=[192.168.26.72])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mx5YM-0007mf-P1; Tue, 14 Dec 2021 11:01:02 +0000
+	id 1mx5fm-0002RQ-IO; Tue, 14 Dec 2021 11:08:42 +0000
+Received: by outflank-mailman (input) for mailman id 246604;
+ Tue, 14 Dec 2021 11:08:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=xzzU=Q7=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1mx5fk-0002RK-Nd
+ for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 11:08:40 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2e544945-5cce-11ec-9e60-abaf8a552007;
+ Tue, 14 Dec 2021 12:08:36 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,192 +36,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=SY2NtsuHZYxhJkjj3ratLDMSWFvs5DrNh7WkKsLWtzE=; b=CQiPV9D1tCFwuSG+QsU1XN2Fks
-	7HOKAM6mJ8YWy/76Vs/QBVpEvNikWG8qHHmVqP1/VFui8UoWvOnI04ua89G8p87w2ylDlCfKgapK9
-	rIsRGLw4RM7o7OcMA+prsRb0lPsIvLBgQcARA4euSRP1mLfIJbZkQO42BvaouW/Pr6wo=;
-Message-ID: <87080c9d-803d-608a-1c5a-2102f014d2bc@xen.org>
-Date: Tue, 14 Dec 2021 11:01:00 +0000
+X-Inumbo-ID: 2e544945-5cce-11ec-9e60-abaf8a552007
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1639480116;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=5EAFu/HMn9FrEeyNoroT7Pt3sVrE+2Ra3fLKi5vt3OY=;
+  b=NysZMy4dI2ACr/HuAHcK6cJfkMC3njwAEJ2aQMuCymjFVv1jN4bahrUV
+   so1PhJq2StWnKXT7kpck6nilUfIw3UacYtSglBiXOa2IoaDz2x7hFlxv3
+   dCZ/CZqCOShhmLRmMR8BGHxmWN8eKJI4nEDc5vwJ2MzEWEybkBdD2Ffoi
+   s=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: B8Z1VmTAJwOsifiTBGGNYVhTDSDM+MiSB/GML7aO9RqIUVPhBdPrfQ9qWqxmy2ADGVbP2Xb5Bw
+ whNArWDYilhGr7pwMwRXsi1V6+Tgl8+uLQ8pb8IQ3928wZ1K2zhXpiPffb40UlR5CZ/j/G/i3p
+ OeyVQRiEaabDaBxjLNGnJSdTR9OklxVIHP3VRsRYqJM63el5/P9bwLePTYWy/KSpJ2krLdwtt6
+ T6Xpbbbd5em52TTHkBrmPTAS6mUP6dSpSvrnEFDpCxMPDABINNysZB4qmVv8XSTjYUyDl5B6Yn
+ bsZ5mtz5NjWiUB/SMicZpHnk
+X-SBRS: 5.1
+X-MesageID: 62039465
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:Azrtmq7Cgv7AyYhnYhMirQxRtDHBchMFZxGqfqrLsTDasY5as4F+v
+ jEZCDuHO/iJazamL4p3b9/koRhUucDWydVkQFdk/ikyHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FV8MpBsJ00o5wrdj29Iw27BVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zx
+ tlUjs2SeFYTJYLIhvQnDUhXIzFPBPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALNs7kMZlZonh95TrYEewnUdbIRKCiCdpwgm1o3ZESQ6u2i
+ 8wxRR1ybU7yfBx2ZFoLDsIGh7uSmyjBbGgNwL6SjfVuuDWCpOBr65DpMdzIapmAQcJenW6Gq
+ W/cuWf0GBcXMJqY0zXt2mKhgKrDkD32XKoWFaak7bh6jVuL3GsRBRYKE1yhrpGRiUOkXd9bb
+ k4d/CsyqrIp3FKkQ8O7XBCipnOA+BkGVLJ4F+w89RHIyafO5QudLnYLQyQHa9E8ssIyAzsw2
+ TehlsPjAjFHs7CPT3+ZsLuXxRu4PjIUNikFfjMeShUe4MjLp5s6hRbCCN1kFcadhd3vGCrsx
+ CiKoW48jrQXicMX/7qy+1nLhDXqqIKhZhUu+gzdU2ah7wV4TI2ofYql7R7c9/koBISWVF6ap
+ 1AfhtOTqusJCPmweDelGbtXWuvzvrDcbWOa0QUH84QdGyqF9XK6RtFy0WBEP2htLNY+J27mU
+ F/igFYEjHNMB0eCYahyaoO3Ls0ly6n8CNjoPszpgspyjotZL1Heonw3DaKE9yW0yRV3z/ljU
+ XuOWZ/0VS5yNEhx8Nahqw7xO5cPzzt2+27cTIuTI/+PgevHPy79pVvo3TKzggEFAEGs/FW9H
+ zV3bZLiJ/BjvAvWOHa/HWk7dw9iEJTDLcqqw/G7j8baSuacJEkvCuXK3ZQqcJF/kqJem4/gp
+ y/mCxMCkQKi2yKWeW1mj0yPjpu1Av6TSlphYkQR0auAgSB/Me5DEo9BH3fIQVXX3LM6lqMlJ
+ xX0U86BHu5OWlz6F8c1NvHAQHhZXE3z32qmZnP9CBBmJsIIb1GYorfMI1q0nAFTX3XfiCfLi
+ +D5vu8tacFYHFoK4Qe/QK/H8m5dSlBBwr8vBBWRfYEIEKgumaAzQxHMYjYMC5hkAT3IxyeA1
+ hbQBhEdpOLXpJQy/sWPjqeBx7pF2cMndqaDN2WEv7uwKwfA+W+vnd1JXOqSJGiPX2Lo4qSyI
+ +5SyqikYvEAmV9Ltat6Eqpqkv1it4e++ecCw1Q2BmjPYnSqFqhkfiuM0/5Qu/Af3bReowa3B
+ B6Co4EIJbWTNcr5O1cNPw55PP+b3PQZl2CKv/Q4KUn3/gFt+7+DXRkANhWAknUFfrB0LJkk0
+ aEqv8tPs16zjR8jM9CniCFI9jvTcixcAvt/7pxDWd3lkAsmzF1GcKfwMC6u7cHdcchIP2krP
+ iSQ2PjIiYNDyxeQaHE0D3XMg7ZQ3MxcpBBQwVYeDF2Vgd6Z1OQv1Rhc/DlrHARYyhJLj7B6N
+ mRxbhAnIKyP+3FjhdRZXnDqEAZEXUXL9kv0wloPtWvYU0j3CTCdcDxjYb6ArBID7mZRXjlH5
+ 7XJmm/qXAHjcNz1wiZvC1VurObuTIAp+wDP8Cx98x9pw3XujeLZv5KT
+IronPort-HdrOrdr: A9a23:qxryUqAY2aqKuKTlHeg2sceALOsnbusQ8zAXPh9KJyC9I/b2qy
+ nxppgmPH/P6Ar4WBkb6La90Y27MA7hHPlOkPUs1NaZLXPbUQ6TTb2KgrGSpgEIdxeOktK1kJ
+ 0QDJSWa+eAfWSS7/yKmDVQeuxIqLLsndHK9IXjJjVWPHpXgslbnnZE422gYzRLrWd9dP0E/M
+ 323Ls4m9PsQwVcUu2LQl0+G8TTrdzCk5zrJTYAGh4c8QGLyRel8qTzHRS01goXF2on+8ZvzU
+ H11yjCoomzufCyzRHRk0fV8pRtgdPkjv9OHtaFhMQ5IijlziyoeINicbufuy1dmpDj1H8a1P
+ 335zswNcV67H3cOkmzvBvWwgHllA0j7nfzoGXoyEfLkIjcfnYXGsBBjYVWfl/y8Ew7puxx16
+ pNwiawq4dXJQmoplW92/H4EzVR0makq3srluAey1ZFV5EFVbNXpYsDuGtIDZY7Gj7g4oxPKp
+ ghMCjl3ocUTbqmVQGagoE2q+bcG0jbXy32DXTqg/blkwS/xxtCvg8lLM92pAZ3yHtycegC2w
+ 3+CNUbqFh5dL5gUUtMPpZzfSKJMB25ffvtChPbHb21LtBNB5ryw6SHlIndotvaPqA18A==
+X-IronPort-AV: E=Sophos;i="5.88,205,1635220800"; 
+   d="scan'208";a="62039465"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kuYPJW8sdJpKXA0L1MuvjnJNJ9cdc0i3elUUcWC920hUpT4DXgE06ZOSCT5QJoe+hbBKzRz3QriGuAn815QUk+az/7nk6Q26TYvgY/5623Z66RtrrLZdZ+tRDd+Mfke+lPZNx/kD2xZTM/vh6Z42qoMJ9t5FiNqbUMtquw+MnYzuzjDgBhxcWNZ/Qj1ZznfFD99Tfu/ojeIk4ykj5jUHospylDFRX0dSzE3g0cmWdWBV7p3LeUJWr3qNLvjqEzLmAaqkQ+V7rALEWgrzst+5cUqIlonJ2VdKvQjnhgAVmA27ifH7U1SZk9MW7QfEJB8QfriI/uDYz8Sl62Dy4XO02Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=73NJWetcVUrSo6Bba6C96xaPBU2yixLWFWq42EYFVtE=;
+ b=mZwzQ80avLBZvllUUK8cAIORSfk19ahN9QlrTrryelBUbfkT3fz7GBHjNiQtSWutdYyX1YPffKrLEWPxc2cd1kWi+AUd3ukM+viNsHzoi9jooDB/zuI4la8nD7cquxBy7UXN6rJotr7iISIgkl0UXmkHG07/pC1EGDi9X5cR7as5a1l09PC1MOXk0uwmhxDZ+mv3jgWA5Ik3i2njmDiqJ0hlKrwq9W/skXWUMeCldT6Otr3agYwCDVgcYysITX1BJHfjd4CDiKUVWkIiJwbfhQ+nV70wBuoofkMq+9ZeaTj8FnYpyDp944QTZo6sw9ZWkB3YA56IFdpmWB7VN+oiTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=73NJWetcVUrSo6Bba6C96xaPBU2yixLWFWq42EYFVtE=;
+ b=mV10h1P0LAKaxTwnLQAch/+xu47AfySrX1wXTyqsvSVI5d9d0Thkq16Udpgfjg2iGdFtSL3n7Z2XeEWgM7EFylwWORfHcR4hZUd5PUU2+DO4+/H4QX92iNZKw37zvxris2VAgHkV8VMzYG7V92nJcClgjP4FPPr3oRlB5+0b7VA=
+Date: Tue, 14 Dec 2021 12:08:26 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+CC: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	<boris.ostrovsky@oracle.com>, <jgross@suse.com>, <sstabellini@kernel.org>,
+	<axboe@kernel.dk>, <xen-devel@lists.xenproject.org>,
+	<linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<kernel-janitors@vger.kernel.org>
+Subject: Re: [PATCH v2] xen-blkfront: Use the bitmap API when applicable
+Message-ID: <Ybh7KgtQt0/MFtyw@Air-de-Roger>
+References: <d6f31db1d2542e1b4ba66d4cea80d3891678aa5a.1638476031.git.christophe.jaillet@wanadoo.fr>
+ <Ybh5G2ziyRXkz3WF@Air-de-Roger>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Ybh5G2ziyRXkz3WF@Air-de-Roger>
+X-ClientProxiedBy: MR2P264CA0160.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:1::23) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.4.0
-Subject: Re: [PATCH] xen/arm64: Zero the top 32 bits of gp registers on
- entry...
-To: Jan Beulich <jbeulich@suse.com>, Michal Orzel <michal.orzel@arm.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <20211206142032.27536-1-michal.orzel@arm.com>
- <f3573439-4893-440f-54e1-fdeba3eb4508@xen.org>
- <dc114877-b9da-7a5b-260d-b9438cddd777@arm.com>
- <b7a53384-39cb-f368-f39b-9b560336226b@xen.org>
- <6ab797ce-86dc-2c32-1cd0-417fab7516c7@suse.com>
- <73913bdf-7449-34fb-b86b-662774cb3e62@xen.org>
- <865fb3a7-76fc-24da-e07d-c6e59e3e1abe@arm.com>
- <3aae0020-938e-d5fe-7d7f-d5d1c8335a24@xen.org>
- <447b6c54-7d0c-132f-6202-c1ae7fb16e5d@arm.com>
- <871bda7e-3f94-a5bd-3caa-16b0c8f6d693@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <871bda7e-3f94-a5bd-3caa-16b0c8f6d693@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 35627b30-57d5-4ce5-1c5d-08d9bef2102d
+X-MS-TrafficTypeDiagnostic: DM6PR03MB4971:EE_
+X-Microsoft-Antispam-PRVS: <DM6PR03MB497102200AC5DD8776A863DE8F759@DM6PR03MB4971.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: LzCS+4iQlwBnB+Ly3nHX84Mx0FJQlLWb+/rCdUKj1dkeYxOFqIUvPA4sV8EvRgQ4GrUmwGyZmo6HtgLNOCDyYrfdfY5rShUn3TQ/P6pg0FPZhlVokkywyKvrPSIfgOFoXt7kNcaM95Uv0qGgsQm+F9wDdy3/AU0P0fPtnGKc1lNdfn73E3oFVm21dlOA7vqHF/M4PVDN46siAARON+soIxBc1mqI+BloN7744cUSP4jVUq+BNo7pkj4KINgdo8VCXugioDJWmY9b09m+7ydYnAfRmKY4Bs273f4di6WGbYqEF1Ux1kkfSioycx+c/C1x6L9jKQQW2Nz4T8sTp0HIb63mgUUQ9vPLzhaiz7/mzoK8jITH8CNccKYeHNSpNAIyINX+XSUuDFioqJMjsZRVlpkf6qPnJadN0/lpBWXdDU9DkhXgUI23rEnKc9L+FqIyeuxpdLNblpUIWuVlsfVzFmE31pv1nnhF/kR6UR3gdhLbdgH2q5JHSm6mwaVrdiNX7dliF9ifP+XqVlI2JntWpPo6U+LeKA52pN49e2pzKs0ARjWc+XvcEZt6U8mCcMikAU1RV/U1pi7PO01ce6Tgip0uT4u4X/GZljFCRQzaYFQfVuFaAhlAkUWLJbIoB6FpeO8DQli4vWKcabneQ3rpsA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(508600001)(6862004)(6506007)(2906002)(186003)(6512007)(86362001)(6200100001)(316002)(9686003)(8676002)(26005)(33716001)(6666004)(4744005)(8936002)(66476007)(6486002)(66946007)(5660300002)(85182001)(38100700002)(66556008)(4326008)(82960400001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UlRpUXMxb3F6QjRqVlpMWDhjdy9qS3JiZVdNL2d3aUZrYi9oWHo2d1ZHM29l?=
+ =?utf-8?B?WGhPYy8vQ0crWkVJYy9YdDhXaDh1SjY5TmFveFpFMXNWZ240dlU0Vko5SGR5?=
+ =?utf-8?B?MXhxZWJ5SGFxQVRYQTVTclViZ0FEcnp4MUQwclhvakRSVFp1SUFMR2pMcVlJ?=
+ =?utf-8?B?dGpiUitkZXQ3YzB1d000VGFKSlZhZk5SUUFBTWhTbGpOZGVTS1ZrWGhQYmlY?=
+ =?utf-8?B?S3Z1YXRxU2lrMHBzNTgxM2lKUENQbzZSZndVSllNNy92RWVUNnRxY0JxN09l?=
+ =?utf-8?B?NkFHMlJWTjZZUjJ4S3F4eUN0bGJqUHFtYUVqQTRMTVdYeDNkSFRFZHV5MzJM?=
+ =?utf-8?B?VjlSWDVOZTB3V2VyNmJWTHlsNjJ2S1lCNW5NNUw2NmZFQUhFclF3K0FkNlk0?=
+ =?utf-8?B?OWpadHNsbzlkc1Q3MFBEK2lpSWdBVzk0Smg4bEtqTXdLbkE3V25XTE9Tb1ZX?=
+ =?utf-8?B?eEVTQStFckI3cmgwQkVTWGI5NlMxS3hCMzg2V1hYT2d5M0tvZFkrZkQ2NHRZ?=
+ =?utf-8?B?ODJZM25xWEVuWm1lRFlqWGl0bXFKOUp1czEvRjJiMUlxMmV2QnVrSFZBbmh6?=
+ =?utf-8?B?NTRNdzU0OTUrK1dlUDZjVDVQTEdETFdCTGlQZVdPdVN1TGJQbHF3bER3QlNo?=
+ =?utf-8?B?TmluelRDVDZDSzl2YzJHVGU3aGdBK251L09la1REd1MrUm1EaTI5UUhVTTUw?=
+ =?utf-8?B?OXE2bk91aFRyTlc1NGk5c3lMekZIWmhzc05NYnF1aG8zc2QzbGI0ekRWNDV3?=
+ =?utf-8?B?SHlHb3R4cnZ4d3dnZ1NjMWUvUTI2bHVxSGc5TmdIelJQaHM5TTJwcW1UUSt6?=
+ =?utf-8?B?OWcrbVp3TmdDWFF6TjExQkQ1YnZzUnFNR2g2cXFrd2s3aEdxZEM5LzUrRmRa?=
+ =?utf-8?B?VC85QVl3ZFQ4SmdrMXVhRE5RSkQxQkVNajk4N2xsdXRRUk1Kd0ovUVppWmJw?=
+ =?utf-8?B?a3FPa0E4Z0RJaEZ1dFprWlpQZW9MdHMvcnNMUDB2RmRuakhVM2xaQUtyNGI0?=
+ =?utf-8?B?ZEdJVDlrWXhEc0VtRDI2ZE96V2Q3SU5JNFBDTFBNY0dRTGxhbG9VTWZoUGxO?=
+ =?utf-8?B?ZEltb0ZQMUdLOGExR1c5UlB1RUs0b3JlZzk2NVIxbUxVclRzbHlTdDZpQjVF?=
+ =?utf-8?B?SGQ5MkZnNFk4UlhMZGJWVTlnTjVjK21FNTFVUFFLUElZcENxdFliOHdTbHV5?=
+ =?utf-8?B?clNYbzAxKzAwdXRyWFVXNFVudnF1WUM3Y2NkU3pOZXV4Ny93bVVOSWhoU0Q3?=
+ =?utf-8?B?TnkxUFkyRHhpWThmMUdMYS9QaTBKaFprRk1CSGpxRkQxRGZISDQrcjZTakM1?=
+ =?utf-8?B?WXFCdE81ZnNRMytuVEtWMWJuZmpLdWJtYXdIeStQUiszYU9lL1VNaTVnYWhs?=
+ =?utf-8?B?ZTBuMzdnWUdoazdOKy9hZThPOWZyVU9OR01zNVlBRUp0aW9yWU5tN1RTRVM2?=
+ =?utf-8?B?WWdZQmJIa05NczJVOHQxbENEZzBzRmtOZGFvaFdvbm0vK1lmWHlic0VaWDJ3?=
+ =?utf-8?B?Z0tpVGRuQU9LVXZ4SXpoRFdqZCtZcFZ3ZnJUbGQrMTNvd0JqbStPSHdMbVl1?=
+ =?utf-8?B?c2laQ3lPKy9NVVdJdFJ6NC80Zm1vNzlzYksrL3VXa3lZUk9heExseHk5OEQv?=
+ =?utf-8?B?dUM5d3U2dE4yYTFHMkxnd3h5SUgycmhEMVlBbjloY0VhdWNaU3hNOS8vTlIw?=
+ =?utf-8?B?UTcrSHhHVWw4enY1dVFnWXlUSUt0MFZzU3JPT08xTkZjNGlnTHpCQTdQTzZ2?=
+ =?utf-8?B?MUh4TXZsdWhPaWxrQUNuL0pyTkVqWnVUR2ppN0ErdVFXUENkQXF4dVNWTnRw?=
+ =?utf-8?B?cVFwYUVDR1A5ZS9HRWZUSXB3T3NPRERRUlhHdXdQbzl4c2xuY3d2cnFpalNz?=
+ =?utf-8?B?RS8rbWxlcHBkNzYyZWxXL1IrYkpHUFByb3FGMUFhcDFqSWRmUjdETXVTbG53?=
+ =?utf-8?B?SDFGWVhwdG40aXRBYXNkY29CeXdRNXF3eUJDZmxhK3VXRTd3TVNyQTNUUHRx?=
+ =?utf-8?B?b1hjU2hVR2JiaUlFa0FWc1llVm9RaE5JQjJnUzFOODVyV1dSemU1OG01VFdt?=
+ =?utf-8?B?NlNIZXhtbkJNeS9tN2Iyb216dEl2ZEhIKzRjN0x0dnlscWtRSm1VRFlDTEV2?=
+ =?utf-8?B?Q0pwS1ozM2xzNi9uTUtFVWJMbzVzUGdHWlAwS2NPa21yOVJNNjg5czJSa2JU?=
+ =?utf-8?Q?SMTkc6lbhfKijSAPEEMiers=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35627b30-57d5-4ce5-1c5d-08d9bef2102d
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2021 11:08:31.2998
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hl8D57BSl0OchbNbsrFFnyi0Cg8S0PwsDgXGQ19h4OF2KR182VbTnroB7x4L+oI8zs5ukrBuIVarH6gy2kZslQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4971
+X-OriginatorOrg: citrix.com
 
-Hi,
-
-Replying in one e-mail the comments from Jan and Michal.
-
-On 14/12/2021 10:01, Jan Beulich wrote:
-> On 14.12.2021 10:51, Michal Orzel wrote:
->> Hi Julien,
->>
->> On 14.12.2021 10:33, Julien Grall wrote:
->>>
->>>
->>> On 14/12/2021 09:17, Michal Orzel wrote:
->>>> Hi Julien, Jan
->>>
->>> Hi,
->>>
->>>> On 08.12.2021 10:55, Julien Grall wrote:
->>>>> Hi,
->>>>>
->>>>> On 08/12/2021 07:20, Jan Beulich wrote:
->>>>>> On 07.12.2021 20:11, Julien Grall wrote:
->>>>>>>
->>>>>>>
->>>>>>> On 07/12/2021 08:37, Michal Orzel wrote:
->>>>>>>> Hi Julien,
->>>>>>>
->>>>>>> Hi,
->>>>>>>
->>>>>>>> On 06.12.2021 16:29, Julien Grall wrote:
->>>>>>>>> Hi,
->>>>>>>>>
->>>>>>>>> On 06/12/2021 14:20, Michal Orzel wrote:
->>>>>>>>>> to hypervisor when switching to AArch32 state.
->>>>>>>>>>
->>>>>>>> I will change to "from AArch32 state".
->>>>>>>>>> According to section D1.20.2 of Arm Arm(DDI 0487A.j):
->>>>>>>>>> "If the general-purpose register was accessible from AArch32 state the
->>>>>>>>>> upper 32 bits either become zero, or hold the value that the same
->>>>>>>>>> architectural register held before any AArch32 execution.
->>>>>>>>>> The choice between these two options is IMPLEMENTATIONDEFINED"
->>>>>>>>>
->>>>>>>>> Typo: Missing space between IMPLEMENTATION and DEFINED.
->>>>>>>>>
->>>>>>>> Ok.
->>>>>>>>>>
->>>>>>>>>> Currently Xen does not ensure that the top 32 bits are zeroed and this
->>>>>>>>>> needs to be fixed.
->>>>>>>>>
->>>>>>>>> Can you outline why this is a problem and why we need to protect? IIRC, the main concern is Xen may misinterpret what the guest requested but we are not concerned about Xen using wrong value.
->>>>>>>>>
->>>>>>>> I would say:
->>>>>>>> "
->>>>>>>> The reason why this is a problem is that there are places in Xen where we assume that top 32bits are zero for AArch32 guests.
->>>>>>>> If they are not, this can lead to misinterpretation of Xen regarding what the guest requested.
->>>>>>>> For example hypercalls returning an error encoded in a signed long like do_sched_op, do_hmv_op, do_memory_op would return -ENOSYS
->>>>>>>> if the command passed as the first argument was clobbered,
->>>>>>>> "
->>>>>>>>>>
->>>>>>>>>> Fix this bug by zeroing the upper 32 bits of these registers on an
->>>>>>>>>> entry to hypervisor when switching to AArch32 state.
->>>>>>>>>>
->>>>>>>>>> Set default value of parameter compat of macro entry to 0 (AArch64 mode
->>>>>>>>>> as we are on 64-bit hypervisor) to avoid checking if parameter is blank
->>>>>>>>>> when not passed.
->>>>>>>>>
->>>>>>>>> Which error do you see otherwise? Is it a compilation error?
->>>>>>>>>
->>>>>>>> Yes, this is a compilation error. The errors appear at each line when "entry" is called without passing value for "compat".
->>>>>>>> So basically in all the places where entry is called with hyp=1.
->>>>>>>> When taking the current patch and removing default value for compat you will get:
->>>>>>>> ```
->>>>>>>> entry.S:254: Error: ".endif" without ".if"
->>>>>>>> entry.S:258: Error: symbol `.if' is already defined
->>>>>>>> entry.S:258: Error: ".endif" without ".if"
->>>>>>>> entry.S:262: Error: symbol `.if' is already defined
->>>>>>>> entry.S:262: Error: ".endif" without ".if"
->>>>>>>> entry.S:266: Error: symbol `.if' is already defined
->>>>>>>> entry.S:266: Error: ".endif" without ".if"
->>>>>>>> entry.S:278: Error: symbol `.if' is already defined
->>>>>>>> entry.S:278: Error: ".endif" without ".if"
->>>>>>>> entry.S:292: Error: symbol `.if' is already defined
->>>>>>>> entry.S:292: Error: ".endif" without ".if"
->>>>>>>> entry.S:317: Error: symbol `.if' is already defined
->>>>>>>> entry.S:317: Error: ".endif" without ".if"
->>>>>>>> ```
->>>>>>>
->>>>>>> Thanks for input. I am concerned with your suggested approach (or using
->>>>>>> .if 0\compat as suggested by Jan) because they allow the caller to not
->>>>>>> properly specify compat when hyp=0. The risk here is we may generate the
->>>>>>> wrong entry.
->>>>>>>
->>>>>>> compat should need to be specified when hyp=1 as we will always run in
->>>>>>> aarch64 mode. So could we protect this code with hyp=0?
->>>>>>
->>>>>> Since my suggestion was only to avoid the need for specifying a default
->>>>>> for the parameter (which you didn't seem to be happy about), it would
->>>>>> then merely extend to
->>>>>>
->>>>>> .if !0\hyp && 0\compat
->>>>> Isn't it effectively the same as setting a default value?
->>>>>
->>>>> The reason we seem to get away is because other part of the macro (e.g. entry_guest) will need compat to be valid.
->>>>>
->>>>> But that seems pretty fragile to me. So I would prefer if the new code it added within a macro that is only called when hyp==0.
->>>>>
->>>> So you would like to have a macro that is called if hyp=0 (which means compat had to be passed) and inside this macro additional check if compat is 1?
->>>
->>> Yes. This is the only way I could think to avoid making 'compat'optional.
->>>
->>>>> Cheers,
->>>>>
->>>>>>
->>>>>> or something along those lines.
->>>>>>
->>>>>> Jan
->>>>>>
->>>>>
->>>> So when it comes to zeroing the top 32bits by pushing zero to higher halves of stack slots I would do in a loop:
->>>> stp wzr, wzr, [sp #8 * 0]
->>>> stp wzr, wzr, [sp #8 * 1]
->>>> ...
->>>
->>> I don't think you can use stp here because this would store two 32-bit values consecutively. Instead, you would need to use ldr to store one 32-bit value at the time.
->>>
->> I hope you meant str and not ldr.
-
-Yes. I am not sure why I wrote ldr.
-
->> So a loop would look like that:
->> str wzr, [sp, #8 * 1]
->> str wzr, [sp, #8 * 3]
->> ...
+On Tue, Dec 14, 2021 at 11:59:39AM +0100, Roger Pau Monné wrote:
+> On Thu, Dec 02, 2021 at 09:16:04PM +0100, Christophe JAILLET wrote:
+> > Use 'bitmap_zalloc()' to simplify code, improve the semantic and avoid some
+> > open-coded arithmetic in allocator arguments.
+> > 
+> > Also change the corresponding 'kfree()' into 'bitmap_free()' to keep
+> > consistency.
+> > 
+> > Use 'bitmap_copy()' to avoid an explicit 'memcpy()'
+> > 
+> > Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 > 
-> Why "a loop" and why #8 (I'd have expected #4)?
-> 
-> There's another oddity which I'm noticing only now, but which also
-> may look odd to me only because I lack sufficient Arm details: On
-> x86, it would not be advisable to store anything below the stack
-> pointer (like is done here when storing x0 and x1 early), unless
-> it's absolutely certain that no further interruptions could clobber
-> that part of the stack.
+> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-We are entering the hypervisor with both Interrupts and SErrors masked. 
-They will only be unmasked after the guest registers have been saved on 
-the stack.
+Oh, I see there's been further discussion on this to avoid relying
+implicitly on the size of the bitmap being rounded to the size of an
+unsigned long. I think a new version is expected then?
 
-You may still receive a Data Abort before the macro 'entry' has 
-completed. But this is going to result to an hypervisor crash because 
-they are not meant to happen in those paths.
-
-So I believe, we are safe to modify sp before.
-
-Cheers,
-
--- 
-Julien Grall
+Thanks, Roger.
 
