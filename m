@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83EE2474886
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Dec 2021 17:51:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.246911.425832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BBA747488F
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Dec 2021 17:54:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.246916.425843 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxB1H-0008Vy-Vg; Tue, 14 Dec 2021 16:51:15 +0000
+	id 1mxB4N-0000ib-FN; Tue, 14 Dec 2021 16:54:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 246911.425832; Tue, 14 Dec 2021 16:51:15 +0000
+Received: by outflank-mailman (output) from mailman id 246916.425843; Tue, 14 Dec 2021 16:54:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxB1H-0008T6-Rx; Tue, 14 Dec 2021 16:51:15 +0000
-Received: by outflank-mailman (input) for mailman id 246911;
- Tue, 14 Dec 2021 16:51:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KYVb=Q7=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1mxB1G-0008T0-U1
- for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 16:51:15 +0000
-Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
- [2a00:1450:4864:20::22d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 084e911a-5cfe-11ec-85d3-df6b77346a89;
- Tue, 14 Dec 2021 17:51:07 +0100 (CET)
-Received: by mail-lj1-x22d.google.com with SMTP id i63so29251764lji.3
- for <xen-devel@lists.xenproject.org>; Tue, 14 Dec 2021 08:51:13 -0800 (PST)
-Received: from [192.168.1.7] ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id s15sm40278lfb.216.2021.12.14.08.51.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Dec 2021 08:51:12 -0800 (PST)
+	id 1mxB4N-0000gL-An; Tue, 14 Dec 2021 16:54:27 +0000
+Received: by outflank-mailman (input) for mailman id 246916;
+ Tue, 14 Dec 2021 16:54:25 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mxB4L-0000gC-Jg
+ for xen-devel@lists.xenproject.org; Tue, 14 Dec 2021 16:54:25 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mxB4K-0004KH-Io; Tue, 14 Dec 2021 16:54:24 +0000
+Received: from [54.239.6.190] (helo=[192.168.26.72])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mxB4K-0002AD-CF; Tue, 14 Dec 2021 16:54:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,111 +39,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 084e911a-5cfe-11ec-85d3-df6b77346a89
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=subject:to:cc:references:from:message-id:date:user-agent
-         :mime-version:in-reply-to:content-transfer-encoding:content-language;
-        bh=OiNxOwpxiOMNu2w7h9qWcHz9qxeoJCMQlCzPYcP/iUc=;
-        b=Ubkj2k/iuYEKMqZEbka2uXDBKzgqLXzvUhlKYdO0BjUeFmJbjgmYNtPW2bpXIQsaIP
-         RuRvoJNSVaRRBKJjaMd2TqyKvVlnVC8jj3oU7akcr7lS1O2nFeEZD2fXW1CpRK9fTZQF
-         8pNMNYYk2WPsMyL5um2ywPm4gj0gKMvtxQBUq1wrSPy49NrU+ZI2K7B+FrXfFjUGHVn8
-         pU6lxnGc1jY8tT1hEDAKlhNjbQBgaghV8TzZZBOHACA2WxQKyj8QgGi/N0cnIA9/u5zn
-         SBpk8po6hypk4Z/MEQMVcSSctLQIUpOyDgwpYPLvUKR3D6ZQzNzjA9dzA1+epNIkXJqo
-         ws+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-transfer-encoding
-         :content-language;
-        bh=OiNxOwpxiOMNu2w7h9qWcHz9qxeoJCMQlCzPYcP/iUc=;
-        b=i1YLvclZkRqVoo0+5g/9OVMLA3rzWZH+mgsSL9z6zIoYdPag3nl5eYEC/apae959bQ
-         zm7Pb0WlH1FI2phyUVBPYSUcfMazE95nYAAYb7VsSAKf456UoaY/iNvm9HsGv0xZr162
-         cq/2zHICOF0Unk5P5PRFUcyQQ1TazW1Av7lZLdF23SgPsYXhBKlIHD5jqi8/mIJk7+f5
-         O7bfNPU4hH1uMjr7I3wlnnAuiOCWmCMIHLHD7cA/FtmpXybPlR1QDby3DAa8C7dPxnVN
-         yQvBc/i1Z0JK0FMadgdmyuwHPjrM4GdehPlwW5U5/TgnqqXMoLBTSKgrUPFqY2F0KNYq
-         CR3w==
-X-Gm-Message-State: AOAM532aWWBvmLr6ck2KFx4qDyqGPcRFf54px8QvElGdUCxlg2I0HBXi
-	al4O2n5+o5RFDlS3DssNChM=
-X-Google-Smtp-Source: ABdhPJwEAQ/1c+e41U+3CAiWRvKmRPG91vpYWU+BgmGyUW5ullZ0xLel8WvJkw/R2hCZUVeYOsyQDg==
-X-Received: by 2002:a2e:a594:: with SMTP id m20mr5640187ljp.332.1639500673341;
-        Tue, 14 Dec 2021 08:51:13 -0800 (PST)
-Subject: Re: [PATCH V4] xen/gnttab: Store frame GFN in struct page_info on Arm
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=upQLjFNoZXCyppKCSlH6HchYl35o/wg3rq4iXzg9dGY=; b=fjqb3aOaUdtKGk2UZeqB7xO7HX
+	+MqnHW9YVa3k2Mt7Z+HnwAipNkN9tebH25yb8ql7Yqk1qNYk3El4LJmMaFmpYD4utG4y/lt6gzHci
+	Zffcg7icA37P9LDedZ9eGIiX7p7I5Zx3qI3pjEtq2iwl9PyBrHRCa2SH/Ecc1OUu7U7g=;
+Message-ID: <f9a5844a-6e70-cb10-a5b8-4bdf55751f5f@xen.org>
+Date: Tue, 14 Dec 2021 16:54:21 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.4.0
+Subject: Re: [XEN PATCH v8 01/47] build: factorise generation of the linker
+ scripts
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <iwj@xenproject.org>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org,
- Julien Grall <julien@xen.org>
-References: <1638563610-4419-1-git-send-email-olekstysh@gmail.com>
- <ebfaf88c-38a8-638c-298e-a92e5827baf1@suse.com>
- <6f4813ce-5d23-2192-fabc-e933241cf30e@gmail.com>
- <c1c043b1-bffd-f758-f7b0-fd08539550a5@suse.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <12f4e7fb-2908-99ae-eaf7-22861aa37484@gmail.com>
-Date: Tue, 14 Dec 2021 18:51:11 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.10.0
-MIME-Version: 1.0
-In-Reply-To: <c1c043b1-bffd-f758-f7b0-fd08539550a5@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20211125134006.1076646-1-anthony.perard@citrix.com>
+ <20211125134006.1076646-2-anthony.perard@citrix.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20211125134006.1076646-2-anthony.perard@citrix.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Content-Language: en-US
 
+Hi Anthony,
 
-On 14.12.21 18:45, Jan Beulich wrote:
+On 25/11/2021 13:39, Anthony PERARD wrote:
+> In Arm and X86 makefile, generating the linker script is the same, so
+> we can simply have both call the same macro.
+> 
+> We need to add *.lds files into extra-y so that Rules.mk can find the
+> .*.cmd dependency file and load it.
+> 
+> Change made to the command line:
+> - Use cpp_flags macro which simply filter -Wa,% options from $(a_flags).
+> - Added -D__LINKER__ even it is only used by Arm's lds.
+> 
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> 
+> Notes:
+>      v6:
+>      - CPP already used instead of CC -E
+>      - -Ui386 already removed
+>      - cpp_flags is now a macro
+>      - rebased
+>      
+>      v5:
+>      - rename cc_lds_S to cpp_lds_S as the binary runned is now CPP
+>      - Use new cpp_flags instead of the open-coded filter of a_flags.
+>      
+>      v4:
+>      - fix rebuild by adding FORCE as dependency
+>      - Use $(CPP)
+>      - remove -Ui386
+>      - avoid using "define" for cmd_cc_lds_S, as adding '; \' on each line is
+>        still mandatory for if_changed (or cmd) macro to work.
+> 
+>   xen/Rules.mk          | 4 ++++
+>   xen/arch/arm/Makefile | 6 ++++--
+>   xen/arch/x86/Makefile | 6 ++++--
+>   3 files changed, 12 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/Rules.mk b/xen/Rules.mk
+> index 5e0699e58b2b..d21930a7bf71 100644
+> --- a/xen/Rules.mk
+> +++ b/xen/Rules.mk
+> @@ -238,6 +238,10 @@ cmd_cpp_s_S = $(CPP) $(call cpp_flags,$(a_flags)) -MQ $@ -o $@ $<
+>   %.s: %.S FORCE
+>   	$(call if_changed,cpp_s_S)
+>   
+> +# Linker scripts, .lds.S -> .lds
+> +quiet_cmd_cpp_lds_S = LDS     $@
+> +cmd_cpp_lds_S = $(CPP) -P $(call cpp_flags,$(a_flags)) -D__LINKER__ -MQ $@ -o $@ $<
+> +
+>   # Add intermediate targets:
+>   # When building objects with specific suffix patterns, add intermediate
+>   # targets that the final targets are derived from.
+> diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+> index 07f634508eee..a3a497bafe89 100644
+> --- a/xen/arch/arm/Makefile
+> +++ b/xen/arch/arm/Makefile
+> @@ -67,6 +67,8 @@ obj-y += vsmc.o
+>   obj-y += vpsci.o
+>   obj-y += vuart.o
+>   
+> +extra-y += xen.lds
+> +
+>   #obj-bin-y += ....o
+>   
+>   ifneq ($(CONFIG_DTB_FILE),"")
+> @@ -132,8 +134,8 @@ $(TARGET)-syms: prelink.o xen.lds
+>   .PHONY: include
+>   include:
+>   
+> -xen.lds: xen.lds.S
+> -	$(CPP) -P $(a_flags) -D__LINKER__ -MQ $@ -o $@ $<
+> +xen.lds: xen.lds.S FORCE
 
-Hi Jan.
+Sorry, I haven't really followed the build system rework. Could you 
+explain why it is necessary to add FORCE?
 
-> On 14.12.2021 17:26, Oleksandr wrote:
->> On 14.12.21 15:37, Jan Beulich wrote:
->>> On 03.12.2021 21:33, Oleksandr Tyshchenko wrote:
->>>> @@ -2177,14 +2181,22 @@ void *alloc_xenheap_pages(unsigned int order, unsigned int memflags)
->>>>    
->>>>    void free_xenheap_pages(void *v, unsigned int order)
->>>>    {
->>>> +    struct page_info *pg;
->>>> +    unsigned int i;
->>>> +
->>>>        ASSERT(!in_irq());
->>>>    
->>>>        if ( v == NULL )
->>>>            return;
->>>>    
->>>> +    pg = virt_to_page(v);
->>>> +
->>>>        memguard_guard_range(v, 1 << (order + PAGE_SHIFT));
->>> ... this really want to (logically) move into the new arch hooks.
->>> That'll effectively mean to simply drop the Arm stubs afaict (and I
->>> notice there's some dead code there on x86, which I guess I'll make
->>> a patch to clean up). But first of all this suggests that you want
->>> to call the hooks with base page and order, putting the loops there.
->> I see your point and agree ... However I see the on-list patches that
->> remove common memguard_* invocations and x86 bits.
->> So I assume, this request is not actual anymore, or I still need to pass
->> an order to new arch hooks? Please clarify.
-> Well, that patch (really just the Arm one) effectively takes care of
-> part of what I did say above. Irrespective I continue to think that
-> the hook should take a (page,order) tuple instead of getting invoked
-> once for every order-0 page. And the hook invocations should be placed
-> such that they could fulfill the (being removed) memguard function
-> (iirc that was already the case, at least mostly).
+> +	$(call if_changed,cpp_lds_S)
+>   
+>   dtb.o: $(patsubst "%",%,$(CONFIG_DTB_FILE))
+>   
+> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+> index 69b6cfaded25..669e16e72690 100644
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -78,6 +78,7 @@ obj-y += sysctl.o
+>   endif
+>   
+>   extra-y += asm-macros.i
+> +extra-y += xen.lds
+>   
+>   ifneq ($(CONFIG_HVM),y)
+>   x86_emulate.o: CFLAGS-y += -Wno-unused-label
+> @@ -238,6 +239,7 @@ endif
+>   note_file_option ?= $(note_file)
+>   
+>   ifeq ($(XEN_BUILD_PE),y)
+> +extra-y += efi.lds
+>   $(TARGET).efi: prelink.o $(note_file) efi.lds efi/relocs-dummy.o efi/mkreloc
+>   ifeq ($(CONFIG_DEBUG_INFO),y)
+>   	$(if $(filter --strip-debug,$(EFI_LDFLAGS)),echo,:) "Will strip debug info from $(@F)"
+> @@ -290,8 +292,8 @@ $(BASEDIR)/include/asm-x86/asm-macros.h: asm-macros.i Makefile
+>   	$(call move-if-changed,$@.new,$@)
+>   
+>   efi.lds: AFLAGS-y += -DEFI
+> -xen.lds efi.lds: xen.lds.S
+> -	$(CPP) -P $(call cpp_flags,$(a_flags)) -MQ $@ -o $@ $<
+> +xen.lds efi.lds: xen.lds.S FORCE
+> +	$(call if_changed,cpp_lds_S)
+>   
+>   boot/mkelf32: boot/mkelf32.c
+>   	$(HOSTCC) $(HOSTCFLAGS) -o $@ $<
 
-ok, thank you for the clarification, will do.
+Cheers,
 
-
->
-> Jan
->
 -- 
-Regards,
-
-Oleksandr Tyshchenko
-
+Julien Grall
 
