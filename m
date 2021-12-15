@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43353475E71
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Dec 2021 18:20:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.247491.426747 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 427F6475F70
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Dec 2021 18:37:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.247496.426757 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxXwX-00047x-3F; Wed, 15 Dec 2021 17:19:53 +0000
+	id 1mxYCb-0006Xo-GW; Wed, 15 Dec 2021 17:36:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 247491.426747; Wed, 15 Dec 2021 17:19:53 +0000
+Received: by outflank-mailman (output) from mailman id 247496.426757; Wed, 15 Dec 2021 17:36:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxXwW-00046A-VT; Wed, 15 Dec 2021 17:19:52 +0000
-Received: by outflank-mailman (input) for mailman id 247491;
- Wed, 15 Dec 2021 17:19:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EjzN=RA=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1mxXwW-000462-7l
- for xen-devel@lists.xenproject.org; Wed, 15 Dec 2021 17:19:52 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 35dc1890-5dcb-11ec-9e60-abaf8a552007;
- Wed, 15 Dec 2021 18:19:50 +0100 (CET)
+	id 1mxYCb-0006VL-Da; Wed, 15 Dec 2021 17:36:29 +0000
+Received: by outflank-mailman (input) for mailman id 247496;
+ Wed, 15 Dec 2021 17:36:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mxYCZ-0006VF-SO
+ for xen-devel@lists.xenproject.org; Wed, 15 Dec 2021 17:36:27 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mxYCZ-0000Zx-Ki; Wed, 15 Dec 2021 17:36:27 +0000
+Received: from [54.239.6.190] (helo=[10.85.97.145])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mxYCZ-0008SP-EP; Wed, 15 Dec 2021 17:36:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,106 +39,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35dc1890-5dcb-11ec-9e60-abaf8a552007
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1639588790;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8dWZtEdF7LamMiNHDQtUJa+ux0BuM6MSUIqH9b+Hvyo=;
-	b=wYhmWV2tAzCQfd9US7tK/sDWCnBbJEkh0toY9VDuwtDZ0a56PMo8BoccPtbLPELWo9I28H
-	HKc2neisW5z7nVF58H33hQ6I3JpDjp7x8Kvp/cCgjUvnYD8QdYGH61A1BeXSEXOYr4fYH5
-	DLBlYKQg7bDxik0O85eEeU6t0YgTJ460cdP5T6mA0DAEz4t2jvbnSoMRyHmCdRIsX+WU5+
-	q/5iZYQod3bSNBGwjqvNjip+w8Kzgei0iFMPfqmZqeU25htKL5R6ykYiRwqQfnG6lFz+mQ
-	r3FvWyI39vnZ4v4UgiVkKOdpkffYfcVyqNIiIF+3PGfZRf0ksOR9s1/A7ZSHGA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1639588790;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8dWZtEdF7LamMiNHDQtUJa+ux0BuM6MSUIqH9b+Hvyo=;
-	b=lk+vW3OXeYaf8seyWIaOrmuYBvQZ09fZDnlpC9df3JMNaqJ74ZUxSByXPFwmhYxR0MLbL9
-	iLeRWTRdVJiovHBA==
-To: LKML <linux-kernel@vger.kernel.org>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Marc Zygnier <maz@kernel.org>, Alex
- Williamson <alex.williamson@redhat.com>, Kevin Tian <kevin.tian@intel.com>,
- Jason Gunthorpe <jgg@nvidia.com>, Megha Dey <megha.dey@intel.com>, Ashok
- Raj <ashok.raj@intel.com>, linux-pci@vger.kernel.org, Cedric Le Goater
- <clg@kaod.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Bjorn Helgaas
- <bhelgaas@google.com>, Juergen Gross <jgross@suse.com>,
- xen-devel@lists.xenproject.org, Arnd Bergmann <arnd@arndb.de>, Michael
- Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt
- <benh@kernel.crashing.org>, linuxppc-dev@lists.ozlabs.org, Stuart Yoder
- <stuyoder@gmail.com>, Laurentiu Tudor <laurentiu.tudor@nxp.com>, Nishanth
- Menon <nm@ti.com>, Tero Kristo <kristo@kernel.org>, Santosh Shilimkar
- <ssantosh@kernel.org>, linux-arm-kernel@lists.infradead.org, Vinod Koul
- <vkoul@kernel.org>, dmaengine@vger.kernel.org, Mark Rutland
- <mark.rutland@arm.com>, Will Deacon <will@kernel.org>, Robin Murphy
- <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
- iommu@lists.linux-foundation.org, Jassi Brar <jassisinghbrar@gmail.com>,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>, Sinan Kaya <okaya@kernel.org>
-Subject: [patch V4 09-02/35] PCI/MSI: Allocate MSI device data on first use
-In-Reply-To: <87tuf9rdoj.ffs@tglx>
-References: <20211210221642.869015045@linutronix.de>
- <20211210221813.740644351@linutronix.de> <87tuf9rdoj.ffs@tglx>
-Date: Wed, 15 Dec 2021 18:19:49 +0100
-Message-ID: <87r1adrdje.ffs@tglx>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=hUUFyS/gdCmhvpgv+kxy2T441Ba74d4RYuLPHMiEqT8=; b=cRbtBA1v5CRmGJ88iKDTMlzwxN
+	OS8frRS2OIrUhva85beiAmibTKkQJc3y3UTQai3AZ++dDuKO3QdhkbC7nLRTDMZPmxbmVWm2Jeol+
+	dsSltonPorsYMNflb03qbq+fyABxmM0zWW7R5jGb0LFZ8wPyIce/l+2Fi9l6baUCE7mM=;
+Message-ID: <bf28a521-9187-4d12-2072-77f20e2c69ca@xen.org>
+Date: Wed, 15 Dec 2021 17:36:25 +0000
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.4.0
+Subject: Re: [PATCH v8 2/4] xen/arm: setup MMIO range trap handlers for
+ hardware domain
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Oleksandr Andrushchenko <andr2000@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Rahul Singh <rahul.singh@arm.com>
+References: <20211209072918.460902-1-andr2000@gmail.com>
+ <20211209072918.460902-3-andr2000@gmail.com>
+ <78ee3d68-7901-2cfe-b0f1-76239339dc49@xen.org>
+ <d58e87db-2be9-e982-b78e-64d72afb59ef@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <d58e87db-2be9-e982-b78e-64d72afb59ef@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Allocate MSI device data on first use, i.e. when a PCI driver invokes one
-of the PCI/MSI enablement functions.
+On 10/12/2021 18:37, Oleksandr Andrushchenko wrote:
+> Hi, Julien!
 
-Add a wrapper function to ensure that the ordering vs. pcim_msi_release()
-is correct.
+Hello,
 
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
----
-V4: Adopted to ensure devres ordering
----
- drivers/pci/msi/msi.c |   17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
+> On 10.12.21 19:52, Julien Grall wrote:
+>> Hi Oleksandr,
+>>
+>> On 09/12/2021 07:29, Oleksandr Andrushchenko wrote:
+>>> +unsigned int domain_vpci_get_num_mmio_handlers(struct domain *d)
+>>> +{
+>>> +    if ( !has_vpci(d) )
+>>> +        return 0;
+>>> +
+>>> +    if ( is_hardware_domain(d) )
+>>> +    {
+>>> +        int ret = pci_host_iterate_bridges_and_count(d, vpci_get_num_handlers_cb);
+>>> +
+>>> +        return ret < 0 ? 0 : ret;
+>>
+>> Sorry I only spotted this now. AFAICT, ret is not meant to return ret < 0 in this case. But if it were then I think it would be wrong to continue as nothing happened because the code will likely fall over/crash when registering the I/O handlers.
+>>
+>> I would document this oddity with
+>>
+>> if ( ret < 0 )
+>> {
+>>     ASSERT_UNREACHABLE();
+>>     return 0;
+>> }
+>>
+>> I can do the change on commit if the others are happy with it.
+> Yes, please, do me a favor
 
---- a/drivers/pci/msi/msi.c
-+++ b/drivers/pci/msi/msi.c
-@@ -366,6 +366,19 @@ static int pcim_setup_msi_release(struct
- 	return ret;
- }
- 
-+/*
-+ * Ordering vs. devres: msi device data has to be installed first so that
-+ * pcim_msi_release() is invoked before it on device release.
-+ */
-+static int pci_setup_msi_context(struct pci_dev *dev)
-+{
-+	int ret = msi_setup_device_data(&dev->dev);
-+
-+	if (!ret)
-+		ret = pcim_setup_msi_release(dev);
-+	return ret;
-+}
-+
- static struct msi_desc *
- msi_setup_entry(struct pci_dev *dev, int nvec, struct irq_affinity *affd)
- {
-@@ -909,7 +922,7 @@ static int __pci_enable_msi_range(struct
- 	if (nvec > maxvec)
- 		nvec = maxvec;
- 
--	rc = pcim_setup_msi_release(dev);
-+	rc = pci_setup_msi_context(dev);
- 	if (rc)
- 		return rc;
- 
-@@ -956,7 +969,7 @@ static int __pci_enable_msix_range(struc
- 	if (WARN_ON_ONCE(dev->msix_enabled))
- 		return -EINVAL;
- 
--	rc = pcim_setup_msi_release(dev);
-+	rc = pci_setup_msi_context(dev);
- 	if (rc)
- 		return rc;
- 
+Ok. With that:
+
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
+>>
+>> Cheers,
+>>
+> Thank you,
+> Oleksandr
+
+-- 
+Julien Grall
 
