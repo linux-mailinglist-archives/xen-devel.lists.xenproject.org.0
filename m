@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CCFC47537C
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Dec 2021 08:04:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.247205.426232 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E1ED475385
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Dec 2021 08:12:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.247210.426243 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxOJx-0000Wq-4u; Wed, 15 Dec 2021 07:03:25 +0000
+	id 1mxOSJ-00026R-Vq; Wed, 15 Dec 2021 07:12:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 247205.426232; Wed, 15 Dec 2021 07:03:25 +0000
+Received: by outflank-mailman (output) from mailman id 247210.426243; Wed, 15 Dec 2021 07:12:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxOJx-0000UC-1t; Wed, 15 Dec 2021 07:03:25 +0000
-Received: by outflank-mailman (input) for mailman id 247205;
- Wed, 15 Dec 2021 07:03:23 +0000
+	id 1mxOSJ-00024O-SU; Wed, 15 Dec 2021 07:12:03 +0000
+Received: by outflank-mailman (input) for mailman id 247210;
+ Wed, 15 Dec 2021 07:12:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kH8z=RA=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mxOJv-0000U6-P8
- for xen-devel@lists.xenproject.org; Wed, 15 Dec 2021 07:03:23 +0000
+ id 1mxOSI-00024I-HU
+ for xen-devel@lists.xenproject.org; Wed, 15 Dec 2021 07:12:02 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 16114ba3-5d75-11ec-85d3-df6b77346a89;
- Wed, 15 Dec 2021 08:03:20 +0100 (CET)
+ id 4c92cb22-5d76-11ec-85d3-df6b77346a89;
+ Wed, 15 Dec 2021 08:12:01 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2B30921129;
- Wed, 15 Dec 2021 07:03:20 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3463221129;
+ Wed, 15 Dec 2021 07:12:01 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D56BA139CF;
- Wed, 15 Dec 2021 07:03:19 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E247213A9F;
+ Wed, 15 Dec 2021 07:12:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id TqfRMjeTuWH7FAAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 15 Dec 2021 07:03:19 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id iXrKNUCVuWG3FwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 15 Dec 2021 07:12:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,42 +51,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 16114ba3-5d75-11ec-85d3-df6b77346a89
+X-Inumbo-ID: 4c92cb22-5d76-11ec-85d3-df6b77346a89
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1639551800; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1639552321; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=I7tE/WmrRh0tbRmNof3iBkuV11rlx3fWL5o4e1WDJgs=;
-	b=VC55i5QvB0u29JISehTJplAjl9n4hkjRPXJAaV+gy2C2A/ZyPeHOyvsiDmzcrhKYOIwLt0
-	8jyt/mOVCz/2i8LgVL1qm3D8/VLp/lhMBdKQMx5v8flkkISGeVfM/s7ZriXojqfi/L803s
-	Z1KnhNW7Lec5FImWJMyXAUPlIc6BErY=
+	bh=15My+PJ6ro/29XJ7JPxPnTvWs3MugXPrknbtyof5fn4=;
+	b=dry/vHdEj3t68n8iZ68fSXnK9DsHmPiVSmekUGEyxwq6py1dAfd7kdyhxXFmfA3LtwVq/H
+	MhAYC89nQw7Ht03U1s1FLULkeeBs8LuBBLa5ZGJLOKW6LLcsS3n5DQ9jTspaF2V3vpqEpV
+	j4T2RCH66gcEW4S7WhoH8k7uE5XTUvY=
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Christopher Clark <christopher.w.clark@gmail.com>
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <20211208155606.20029-1-jgross@suse.com>
- <20211208155606.20029-3-jgross@suse.com>
- <7dd419c1-9ad0-798e-317b-71c8e613ff3e@xen.org>
+ <20211208155606.20029-2-jgross@suse.com>
+ <1ce9aa8a-adc2-18cb-2c06-8a8a63c3b774@xen.org>
 From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v3 02/13] xen: harmonize return types of hypercall
- handlers
-Message-ID: <4e9947b6-08b4-4ac6-9cfe-538c3b34175e@suse.com>
-Date: Wed, 15 Dec 2021 08:03:19 +0100
+Subject: Re: [PATCH v3 01/13] xen: move do_vcpu_op() to arch specific code
+Message-ID: <3af8127b-36b6-b810-3060-313736ce1735@suse.com>
+Date: Wed, 15 Dec 2021 08:12:00 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <7dd419c1-9ad0-798e-317b-71c8e613ff3e@xen.org>
+In-Reply-To: <1ce9aa8a-adc2-18cb-2c06-8a8a63c3b774@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="z0rgR56fMnYEIWcmJLqhGk2F8AM62QRz0"
+ boundary="x7SYBZboS7A9pr6GNVHuw3RrSTI1pXgp7"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---z0rgR56fMnYEIWcmJLqhGk2F8AM62QRz0
-Content-Type: multipart/mixed; boundary="hvUyHbuLxdlKobNpd8FF7ecSSyGfHZhDG";
+--x7SYBZboS7A9pr6GNVHuw3RrSTI1pXgp7
+Content-Type: multipart/mixed; boundary="uXBEoWnl3ybfSedL27BmyzCDvnqce1jZC";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
@@ -95,88 +93,72 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Christopher Clark <christopher.w.clark@gmail.com>
-Message-ID: <4e9947b6-08b4-4ac6-9cfe-538c3b34175e@suse.com>
-Subject: Re: [PATCH v3 02/13] xen: harmonize return types of hypercall
- handlers
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Message-ID: <3af8127b-36b6-b810-3060-313736ce1735@suse.com>
+Subject: Re: [PATCH v3 01/13] xen: move do_vcpu_op() to arch specific code
 References: <20211208155606.20029-1-jgross@suse.com>
- <20211208155606.20029-3-jgross@suse.com>
- <7dd419c1-9ad0-798e-317b-71c8e613ff3e@xen.org>
-In-Reply-To: <7dd419c1-9ad0-798e-317b-71c8e613ff3e@xen.org>
+ <20211208155606.20029-2-jgross@suse.com>
+ <1ce9aa8a-adc2-18cb-2c06-8a8a63c3b774@xen.org>
+In-Reply-To: <1ce9aa8a-adc2-18cb-2c06-8a8a63c3b774@xen.org>
 
---hvUyHbuLxdlKobNpd8FF7ecSSyGfHZhDG
+--uXBEoWnl3ybfSedL27BmyzCDvnqce1jZC
 Content-Type: multipart/mixed;
- boundary="------------89277A122A0C5C84F18DC9C3"
+ boundary="------------69BD973EF22395FF7CC7512D"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------89277A122A0C5C84F18DC9C3
+--------------69BD973EF22395FF7CC7512D
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 14.12.21 18:36, Julien Grall wrote:
-> Hi,
+On 14.12.21 18:21, Julien Grall wrote:
+> Hi Juergen,
 >=20
 > On 08/12/2021 15:55, Juergen Gross wrote:
->> Today most hypercall handlers have a return type of long, while the
->> compat ones return an int. There are a few exceptions from that rule,
->> however.
+>> Today Arm is using another entry point for the vcpu_op hypercall as
 >=20
-> So on Arm64, I don't think you can make use of the full 64-bit because =
-a=20
-> 32-bit domain would not be able to see the top 32-bit.
->=20
-> In fact, this could potentially cause us some trouble (see [1]) in Xen.=
+> NIT: The 'as' doesn't sound right here. Did you mean 'compare to'?
 
-> So it feels like the hypercalls should always return a 32-bit signed=20
-> value on Arm.
+Hmm, it should even be "different" instead of "another". And then it
+should be:
 
-This would break hypercalls like XENMEM_maximum_ram_page which are able
-to return larger values, right?
-
-> The other advantage is it would be clear that the top 32-bit are not=20
-> usuable. Stefano, what do you think?
-
-Wouldn't it make more sense to check the return value to be a sign
-extended 32-bit value for 32-bit guests in do_trap_hypercall() instead?
-
-The question is what to return if this is not the case. -EDOM?
+   The entry point used for the vcpu_op hypercall on Arm is different
+   from the one on x86 today.
 
 >=20
+>> x86, as some of the common sub-ops are not supported on Arm. The Arm
+>> specific handler filetrs out the not supported sub-ops and then calls
+>=20
+> Typo: s/filetrs/filters/
+
+Yes.
+
+>=20
+>> the common handler. This leads to the weird call hierarchy:
 >>
->> Get rid of the exceptions by letting compat handlers always return int=
-
->> and others always return long.
+>> =C2=A0=C2=A0 do_arm_vcpu_op()
+>> =C2=A0=C2=A0=C2=A0=C2=A0 do_vcpu_op()
+>> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arch_do_vcpu_op()
 >>
->> For the compat hvm case use eax instead of rax for the stored result a=
-s
->> it should have been from the beginning.
+>> Clean this up by renaming do_vcpu_op() to common_vcpu_op() and
+>> arch_do_vcpu_op() in each architecture to do_vcpu_op(). This way one
+>> of above calls can be avoided without restricting any potential
+>> future use of common sub-ops for Arm.
 >>
->> Additionally move some prototypes to include/asm-x86/hypercall.h
->> as they are x86 specific. Move the do_physdev_op() prototype from both=
-
->> architecture dependant headers to the common one. Move the
->> compat_platform_op() prototype to the common header.
+>> Additionally the single user of HYPERCALL_ARM() can be modified and
+>> HYPERCALL_ARM() can be removed.
 >>
->> Switch some non style compliant types (u32, s32, s64) to style complia=
-nt
->> ones.
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
 >=20
-> TBH, I think this should have been split because the modifications are =
+> Reviewed-by: Julien Grall <jgrall@amazon.com>
 
-> done on lines that are untouched.
->=20
-> The extra patch would have made the review easier (even if this patch i=
-s=20
-> still quite small).
-
-I can split the patch if you want.
+Thanks,
 
 
 Juergen
 
---------------89277A122A0C5C84F18DC9C3
+
+--------------69BD973EF22395FF7CC7512D
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -268,25 +250,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------89277A122A0C5C84F18DC9C3--
+--------------69BD973EF22395FF7CC7512D--
 
---hvUyHbuLxdlKobNpd8FF7ecSSyGfHZhDG--
+--uXBEoWnl3ybfSedL27BmyzCDvnqce1jZC--
 
---z0rgR56fMnYEIWcmJLqhGk2F8AM62QRz0
+--x7SYBZboS7A9pr6GNVHuw3RrSTI1pXgp7
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmG5kzcFAwAAAAAACgkQsN6d1ii/Ey/I
-/Af+KZoKfwOcntX3GBMl0kbhVtOoNsqtNfxCpbWt8sa/i0cBK7f3+2xtDGe3f8qwGGb9hVM33bi8
-v+vaQYbiwcLqkFStakE0SGU/lhYreh3TLrdOCZ2CBEnhmodMBHoZ9fy7BUh/iSb3OyFW1FX5RfaJ
-T9SuP1QTqefN2lJSQeDof6FVzAuO6km4vVYDE2uT9zfEpi16T9TPKQF8fzGD9rmFE+7JQfZKdUgE
-gE8XL0ge3JL3OsZYCL7xTDssPiBkDnbUcVy/mKKXmQ4svxyxUJnrvEipkPH4HWEVhv3bnpSSr7bW
-KhjrLafCPzSWBALyHJjHJc1M8vrxA1/cGEXicYiKaQ==
-=9V5H
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmG5lUAFAwAAAAAACgkQsN6d1ii/Ey9V
++QgAhiJ94tekZvvRqy6hOczHq+mECr6FJQwlBC6dsLWy4OeklwkCRpO3R3/tuuCMdNxjIhrvF3yU
+MGT0dk2S09pMIRvq+cP/Vxi2b8lcypZLpVTPYPhfJX62/2anmAuuf828xGqz3n/fpb++hY66lpKv
+Up058u7K+/FAs+PzhNScVcKuCwALJS7aQuOi6easQSe/Y6z909m5DEG4DEyMjWKWWdOs6BwZXEsJ
+5BBK3HAZ0kqAgUjDeXolEI6EJky1jtw2KnuyVUll9VepCbTxPjqwCdu3TkuTVUFwsmT81G4NXYOM
+KBetwy2jmhHelw8Zyh91nkEbFp9P6/nzKt0uX6loGg==
+=S6Ms
 -----END PGP SIGNATURE-----
 
---z0rgR56fMnYEIWcmJLqhGk2F8AM62QRz0--
+--x7SYBZboS7A9pr6GNVHuw3RrSTI1pXgp7--
 
