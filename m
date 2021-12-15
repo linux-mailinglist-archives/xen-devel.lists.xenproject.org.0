@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 089FA4760A6
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Dec 2021 19:25:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.247539.426851 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74F5D4760ED
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Dec 2021 19:43:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.247545.426866 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxYyE-0007em-TW; Wed, 15 Dec 2021 18:25:42 +0000
+	id 1mxZEn-0001rw-HD; Wed, 15 Dec 2021 18:42:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 247539.426851; Wed, 15 Dec 2021 18:25:42 +0000
+Received: by outflank-mailman (output) from mailman id 247545.426866; Wed, 15 Dec 2021 18:42:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxYyE-0007bv-QP; Wed, 15 Dec 2021 18:25:42 +0000
-Received: by outflank-mailman (input) for mailman id 247539;
- Wed, 15 Dec 2021 18:25:41 +0000
+	id 1mxZEn-0001oK-BV; Wed, 15 Dec 2021 18:42:49 +0000
+Received: by outflank-mailman (input) for mailman id 247545;
+ Wed, 15 Dec 2021 18:42:48 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1mxYyD-0007bp-AF
- for xen-devel@lists.xenproject.org; Wed, 15 Dec 2021 18:25:41 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mxZEm-0001oA-4F; Wed, 15 Dec 2021 18:42:48 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mxYyA-0001X8-NS; Wed, 15 Dec 2021 18:25:38 +0000
-Received: from [54.239.6.190] (helo=[10.85.97.145])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1mxYyA-0003HU-H6; Wed, 15 Dec 2021 18:25:38 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mxZEl-0001qW-Jv; Wed, 15 Dec 2021 18:42:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1mxZEl-0000Gg-9m; Wed, 15 Dec 2021 18:42:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1mxZEl-0003SP-9K; Wed, 15 Dec 2021 18:42:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,82 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=S5tQfAIKkuATzyaKtKEK1++P0nF1HSnJSfdCOM/Va7k=; b=KVhS9/l//JSXxFIcHZM0JwV+IS
-	D0CoaB/9ULEd+MsrsYdyRhAu4u2D0jqS+kRGZgTLrLLD20sn0mTNuPSF7Ea6EBfWXFIWBw62JHDZ6
-	wnHHOtHlxHrrlL84Z3tiEWnkgaibQTsUDE9VVazVBt0mP198OYb31kHItRhczHBY9RWQ=;
-Message-ID: <4b6c1865-5ded-fe6d-aead-bcd2e5cd4125@xen.org>
-Date: Wed, 15 Dec 2021 18:25:36 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=tw/iS2Su1/CEjhCa9HxETXNxd6QOgoVMixmDvuYdkcQ=; b=Eu7yPScjaZXukdFW7XmaCT+Va5
+	58MFyWSpiv3IZCD7qk9RYOwFJTz/oQVtBf1sSPrC4sh56VrsVP9IBA5Xh50aHkPtZIhxOz5PfdwjN
+	28d57AylXiCQ0AAm1KbjyO+yOPMbW/NJt7cBW2ZtlCr/TJ1GnNbRg//OkDSaKF19BjHk=;
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-167435-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.4.0
-Subject: Re: [PATCH] xen/arm64: Zero the top 32 bits of gp registers on
- entry...
-To: Michal Orzel <michal.orzel@arm.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
-References: <20211206142032.27536-1-michal.orzel@arm.com>
- <f3573439-4893-440f-54e1-fdeba3eb4508@xen.org>
- <dc114877-b9da-7a5b-260d-b9438cddd777@arm.com>
- <b7a53384-39cb-f368-f39b-9b560336226b@xen.org>
- <6ab797ce-86dc-2c32-1cd0-417fab7516c7@suse.com>
- <73913bdf-7449-34fb-b86b-662774cb3e62@xen.org>
- <865fb3a7-76fc-24da-e07d-c6e59e3e1abe@arm.com>
- <3aae0020-938e-d5fe-7d7f-d5d1c8335a24@xen.org>
- <447b6c54-7d0c-132f-6202-c1ae7fb16e5d@arm.com>
- <871bda7e-3f94-a5bd-3caa-16b0c8f6d693@suse.com>
- <87080c9d-803d-608a-1c5a-2102f014d2bc@xen.org>
- <1fcc18d4-70ce-12d1-6d54-ae82e511a4d7@xen.org>
- <040a1871-08ee-00e9-b46f-ca4854e8a541@arm.com>
- <82557218-539b-204a-a1a7-7c796a2baa8a@suse.com>
- <9dc003f8-4dd0-282f-61ce-6ca74c543f20@arm.com>
- <6e54f971-84c3-3635-12c8-643b619b2b53@suse.com>
- <219d27fe-4e77-59f5-b559-4bc70c2a0399@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <219d27fe-4e77-59f5-b559-4bc70c2a0399@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 167435: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=8b3cbdbe782cae972e9a47cf22620ebee61a96a6
+X-Osstest-Versions-That:
+    xen=9956fdc70f99b0f133be7f16f62417928a84622c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 15 Dec 2021 18:42:47 +0000
 
-Hi Michal,
+flight 167435 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167435/
 
-On 15/12/2021 10:40, Michal Orzel wrote:
-> On 15.12.2021 11:32, Jan Beulich wrote:
->> (Re-sending an abridged version, as apparently spam filters didn't like
->> the original message with more retained context; I'll have to see whether
->> this one also isn't liked. Sorry.)
->>
->> On 15.12.2021 10:48, Michal Orzel wrote:
->>> This patch and the problem it solves is about clearing top 32bits of all gp registers so not only x0,x1.
->>
->> That's well understood. Yet for everything still in registers simply
->> using mov ahead of the respective push (as you had it) is still
->> preferable imo.
->>
->> Jan
->>
-> 
-> In that case let's wait for Julien's opinion to decide whether I should get back to the previous
-> solution with mov or to the stack solution.
+Failures :-/ but no regressions.
 
-IIUC, your proposal is to:
-    1) Push all the 64-bit registers
-    2) Zero the top 32-bit
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Jan's suggestion is to:
-    1) clobber the top 32-bit using mov wX, wX
-    2) Push all the registers
+version targeted for testing:
+ xen                  8b3cbdbe782cae972e9a47cf22620ebee61a96a6
+baseline version:
+ xen                  9956fdc70f99b0f133be7f16f62417928a84622c
 
-My preference is for the latter because there will be less memory/cache 
-access.
+Last test of basis   167429  2021-12-15 10:02:58 Z    0 days
+Testing same since   167435  2021-12-15 15:03:05 Z    0 days    1 attempts
 
-So, this would be your original patch + a compile time check to ensure 
-save_x0_x1 is 0 when compat=1.
+------------------------------------------------------------
+People who touched revisions under test:
+  Bobby Eshleman <bobby.eshleman@gmail.com>
+  Julien Grall <jgrall@amazon.com>
 
-Cheers,
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
--- 
-Julien Grall
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   9956fdc70f..8b3cbdbe78  8b3cbdbe782cae972e9a47cf22620ebee61a96a6 -> smoke
 
