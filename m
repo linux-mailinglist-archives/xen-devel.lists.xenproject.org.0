@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3A3D476591
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Dec 2021 23:22:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.247619.427012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C63B4476595
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Dec 2021 23:22:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.247620.427028 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxceh-00062V-4K; Wed, 15 Dec 2021 22:21:47 +0000
+	id 1mxcei-0006Rw-Hx; Wed, 15 Dec 2021 22:21:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 247619.427012; Wed, 15 Dec 2021 22:21:47 +0000
+Received: by outflank-mailman (output) from mailman id 247620.427028; Wed, 15 Dec 2021 22:21:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxceg-0005ug-VP; Wed, 15 Dec 2021 22:21:46 +0000
-Received: by outflank-mailman (input) for mailman id 247619;
- Wed, 15 Dec 2021 22:21:45 +0000
+	id 1mxcei-0006MT-B5; Wed, 15 Dec 2021 22:21:48 +0000
+Received: by outflank-mailman (input) for mailman id 247620;
+ Wed, 15 Dec 2021 22:21:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LTfI=RA=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1mxcef-0005ZJ-Mx
- for xen-devel@lists.xenproject.org; Wed, 15 Dec 2021 22:21:45 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 620a7ecf-5df5-11ec-9e60-abaf8a552007;
- Wed, 15 Dec 2021 23:21:43 +0100 (CET)
+ id 1mxceg-0005ZJ-Mu
+ for xen-devel@lists.xenproject.org; Wed, 15 Dec 2021 22:21:46 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 62bea4b9-5df5-11ec-9e60-abaf8a552007;
+ Wed, 15 Dec 2021 23:21:45 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 620a7ecf-5df5-11ec-9e60-abaf8a552007
+X-Inumbo-ID: 62bea4b9-5df5-11ec-9e60-abaf8a552007
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=citrix.com; s=securemail; t=1639606904;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=x7dgLyygTieu5IPGh9PaNnQdDucWMUK0ck0vN46ZQe0=;
-  b=byCEMiZw4MKNEKkANXCa6N9y3etkM51+1/2PWZ6mi5+0G/A6QIOlHVmY
-   E1qi3qCqUCiM/wDLF0c3wn4p3UD1U+NIp+OQk/E9je0cfn/P7fM9OY5rz
-   m7wClo85gFnXEeVA/pxYGvReUehJgmTAzvPJtBpFQql1y474SbQektdZr
-   A=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: B+uNPfy2nMfU3sOoyVOiRequXFFuiYR57zcsfX2zsEcXeV68gNmZpJ8hf+DjDYi84FjSZkA7EN
- fX9y/MZDBnh91QVIJ4g1gnpdApt7WTW65Aq7kCLPhD8YCKzOQlxF4tkSTA3l7hHRGSwW9mRO91
- QczXBawPOQlibfduiGaw2ChaSIigxA2RJd/5qoTyRoFM7Nt0eX9JvhNA8FsKuqDijlOcoeEmcA
- rRKr17PS16a+RL9fQ8d0DQuch+QAeMzo911F+WJbzt1mo9OA7pPc5J88ggAjFGwUNs843GXe5v
- pvaYM8ySv+2IoasRIEjZr9GX
+  bh=1sJTP2vFe7TUxYv8fxcjX4sbJWFBPyrCwJr81dmHE5A=;
+  b=QZlKSctVc7MTYak1OnqQnE1rJ+kPqbYcnj8AIElwLlb1oOERCo4OCu1l
+   VsStOEmPf8xgpYShKkK3f8ycDfgs7/2SufZBtXUAoSI0o93s3WI4Sz1CW
+   diN4uXMYqwseUYdZzdrcpCQW6ORzmgWtNKQeof7dioQ5I5j6+z8+Zp5NN
+   s=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: bfkV+bUSFRfie8G58yskNAm4RdSahQqULovzT5f9dhAknp/T5GNtOf8ZeXBSQKfRdy3v1vVCBq
+ lQK2SsfV1r9xKzD0gbdWMD1TfhIb/Wt9qpEZLfSGLNk+aATyywmS8tpmCzl8ElI6mCPdoXxPe+
+ vuFMuj6LGgeodUm6Lw6ZCCVqS2kQEMxy+r970Wzlq01hhdeuJ05wS0Q0KJSJ9q+1Qhd4HdIgC+
+ Syt+Kx6eWE3oUW5ox8NazXPJqyPbZLHWRAUvE2I0JW1Xf/ZJArYF4nxOJdso9Q72ECeVqvqvVd
+ kQSH6MxtmU0pvDCYpg3fpFzv
 X-SBRS: 5.1
-X-MesageID: 59629092
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 60126720
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:iQAcgKAEp/YpWxVW/+Tkw5YqxClBgxIJ4kV8jS/XYbTApG5z1TAAx
- mQcUDrVPfiKZzakKY0jPIXi9E5QvpDcnIBnQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
- xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WL6s1hxZH1c+EX570E87wIbVv6Yz6TSHK1LV0
- T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
- Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/kinYkvpek
- 4l2v4GOeTcwHPyUm6MSTEwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
- KFGbmBWBvyAr7veLLaTY+9gnMk8auLsO5sSoCpIxjDFF/c2B5vERs0m4PcFjWlq15gfR54yY
- eIcZDxXMlffRCFjPws4JYM8meGCunrWJmgwRFW9+vNsvjm7IBZK+KfpGMrYfJqNX8o9tmSyq
- 3/C/m/5KgoHL9HZwj2Amlq8i+mKkS7lVYY6ELyj6uUskFCV3nYUChAdSR28u/bRt6Klc4sBc
- QpOoHNo9PVsshzwJjXgY/GmiGeY7xM2dIEMKOcn1jG904iFuwXeCXdRG1atd+canMMxQDUr0
- HqAkNXoGSFjvdWpdJ6NyluHhWjsYHZIdAfucQdBFFJYuIe7/OnfmzqWFo47eJNZmOEZDt0ZL
- 9qiiCElz4segscQv0lQ1QCW2mn8znQlo+Nc2+k2Yo5Hxl8pDGJGT9bxgbQ+0RqmBNzDJrVml
- CJb8/VyFMhUUfmweNWlGY3h5o2B6fefKyH7ilVyBZQn/DnF0yf9JtENsWohdBozap1sldrVj
- Kn741k5CHh7ZiTCUEOKS9jpV5RCIVbIS7wJqcw4nvIRO8MsJWdrDQllZFKK3nCFraTfufpXB
- HtvSu71VSxyIf0+lFKeHr5BuZd2l3hW7T6CHvjTkkX4uYdykVbIEN/pxnPVNbtnhE5FyS2Im
- +ti2zyil08CDbagO3aPqub+7zkidBAGOHw/kOQPHsbrH+asMDhJ5yb5zexzdop7sb5Sk+uUr
- HixVlUBkAj0hGHdKBXMYXdmMeu9UZF6pHM9HCotIVf3hCRzPdfxtP8SJ8ktYL0q1O1/1vooH
- fMLTNqNX6ZUQTPd9jVDMZSk9N5+dA6mjB6lNja+ZGRtZIZpQgHEo4e2fgbm+CQUIDCwsM8y/
- ++p2g/BGMJRTAV+FsfGLvmoygrp73QanetzWWrOI8VSJxqwoNQ7dXSpg6Zucc8WKBjFyj+L7
- CqsAE8V9bvXvos40NjVnqTY/Y2nJPRzQxhBFG7B4LfoaSSDpji/wZVNWfqjdCzGUD+m472rY
- OhYwq2uMPADm1oW4YNwH6wykPA77trr4bRb0h5lDDPAaFHyUuFsJXyP3M9usKxRx+AG5VvqC
- xzXotQKa6+UPM7FEUIKIFt3Z+uO4vgYhz3O4KlnO079/iJ2oOKKXEg608NgU8CBwG+Z6L8Y/
- No=
-IronPort-HdrOrdr: A9a23:hufbQq9tjKQRhlZMxPJuk+DgI+orL9Y04lQ7vn2YSXRuHPBw8P
- re5cjztCWE7gr5N0tBpTntAsW9qDbnhPtICOoqTNCftWvdyQiVxehZhOOIqVDd8m/Fh4pgPM
- 9bAtBD4bbLbGSS4/yU3ODBKadD/OW6
+IronPort-Data: A9a23:2F+FPqMM72hx4RrvrR1okMFynXyQoLVcMsEvi/4bfWQNrUp01TEFz
+ TccWWyCPf6LYWDwL48latvgo0MH7JLSn9FmQQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En5400s+w7VRbrNA2rBVPSvc4
+ bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
+ 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYowuktOhvx
+ NBkj4WbcSc0fbXxsdgHXDANRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
+ 6VFdnZdNXhvhMrvqF6/YsBqit4uM4/AO4QHt2s75TrYEewnUdbIRKCiCdpwgm9p3J4RR662i
+ 8wxSjVORx38PjB1BFYcLpYgt9imgHf9WmgNwL6SjfVuuDWCpOBr65DyNPLFd9rMQt9a9m66j
+ G/b+2XyAjkBKceSjzGC9xqEluLJ2C/2Ro8WPLm57eJxxk2ewHQJDx8bXkf9puO24nNSQPoGd
+ RZSoHB36/Fvqgr7FbERQiFUvla6kzUkRdZVOtcjwzmt1+nM3i+lHGctG2sphMMdiOc6Qjkj1
+ 1msltzvBCByvLD9dU9x5ot4vhvpZ3FLcDZqiTssCFJcvoK9+N1bYgfnF447SMaIYsvJ9SYcK
+ txghAw3nP0tgMECzM1XFniX0mv39vAlouPYjzg7v15JDCslNOZJhKTysDA3CMqsyq7DFDFtW
+ 1BexKCjABgmV83lqcB0aLxl8EuVz/iEKibAplVkAoMs8T+gk1b6I9sBvWAlexc0aJ5fEdMMX
+ KM1kVkLjHO0FCH1BZKbnqrrU5h6pUQePYqNug/ogipmPcEqKV7vENBGbk+MxWH9+HXAYolkU
+ ap3hf2EVC5AYYw+lWLeb75EjdcDm3FmrUuOFMuT50n2jtKjiIu9FO5t3K2mNbtisstpYWz9r
+ r5iCid940kFDbClPHCIqdV7wJJjBSFTOK0aYvd/LoarSjeK0kl7YxMI6b9+KYFjgYpPkeLEo
+ iO0VkNCkQKtjnzbMwSaLHtkbeq3D5p4qHs6Ow0qPEqphCd/Mdr+sv9HestlZ6Qj+cxi0eVwE
+ 6sPdfKfD6kdUT/A4TkcM8Xw9dQwaBSxiAuSFCO5ezxjLYV4TgnE94a8LAvi/SUDFAStss46r
+ +Hy3w/XW8NbFQ9jENzXeLSkyFbo5SoRn+d7Xk3pJNhPeRqzrNg2enKp1vJuepMCMxTOwDeex
+ j26OxZAqLmfuZIx/fnImbuA89WjHdxhExcIBGLc97u3a3XXpzLx3Y9aXe+UVjnBT2eoqr66b
+ OBYwvygYv0KmFFG79h1H7pxlP9s4tLuo/lRzxh+HWWNZFOuU+syLn6D1MhJl6tM2r4G5lfmB
+ hPRooFXaeeTJcfoMF8NPw50PO2M2MYdliTW8flocl7x4zV6/ebfXEhfV/VWZPex8Feh3FsZ/
+ Noc
+IronPort-HdrOrdr: A9a23:EaD/Nqp0yV2NSod8zw6W+rcaV5rReYIsimQD101hICG9Evb0qy
+ lhppQmPH7P+VIssRQb8+xoV5PufZqxz/BICOoqTNKftWvdyQiVxehZhOOP/9SJIUbDH4VmpM
+ VdmsZFaeEZDTJB/LvHCAvTKadd/DFQmprY+ts3zB1WPH9Xg7kL1XYfNu4CeHcGPzWvA/ACZf
+ yhz/sCnRWMU1INYP+2A3EUNtKz3eEixPrdEGc77wdM0nj3sQ+V
 X-IronPort-AV: E=Sophos;i="5.88,209,1635220800"; 
-   d="scan'208";a="59629092"
+   d="scan'208";a="60126720"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 2/4] x86/cpuid: Factor common parsing out of parse_xen_cpuid()
-Date: Wed, 15 Dec 2021 22:21:13 +0000
-Message-ID: <20211215222115.6829-3-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 3/4] x86/cpuid: Introduce dom0-cpuid command line option
+Date: Wed, 15 Dec 2021 22:21:14 +0000
+Message-ID: <20211215222115.6829-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20211215222115.6829-1-andrew.cooper3@citrix.com>
 References: <20211215222115.6829-1-andrew.cooper3@citrix.com>
@@ -100,15 +101,14 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-dom0-cpuid= is going to want to reuse the common parsing loop, so factor it
-out into parse_cpuid().
+Specifically, this lets the user opt in to non-default for dom0.
 
-Irritatingly, despite being static const, the features[] array gets duplicated
-each time parse_cpuid() is inlined.  As it is a large (and ever growing with
-new CPU features) datastructure, move it to being file scope so all inlines
-use the same single object.
+Collect all dom0 settings together in dom0_{en,dis}able_feat[], and apply it
+to dom0's policy when other tweaks are being made.
 
-No functional change.
+As recalculate_cpuid_policy() is an expensive action, and dom0-cpuid= is
+likely to only be used by the x86 maintainers for development purposes, forgo
+the recalculation in the general case.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -117,96 +117,94 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 
 v2:
- * New
-
-We probably want to be wary of fallout from this pattern elsewhere.  I only
-noticed it by chance.
+ * Rework almost from scratch, on top of broken-out changes.
 ---
- xen/arch/x86/cpuid.c | 45 ++++++++++++++++++++++++++++++++-------------
- 1 file changed, 32 insertions(+), 13 deletions(-)
+ docs/misc/xen-command-line.pandoc | 17 +++++++++++++++++
+ xen/arch/x86/cpuid.c              | 36 ++++++++++++++++++++++++++++++++++++
+ 2 files changed, 53 insertions(+)
 
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index f7797ea233f9..383a854dec60 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -801,6 +801,23 @@ Controls for how dom0 is constructed on x86 systems.
+ 
+     If using this option is necessary to fix an issue, please report a bug.
+ 
++### dom0-cpuid
++    = List of comma separated booleans
++
++    Applicability: x86
++
++This option allows for fine tuning of the facilities dom0 will use, after
++accounting for hardware capabilities and Xen settings as enumerated via CPUID.
++
++Options are accepted in positive and negative form, to enable or disable
++specific features, but specify both forms of the same option is undefined.
++All selections via this mechanism are subject to normal CPU Policy safety and
++dependency logic.
++
++This option is intended for developers to opt dom0 into non-default features,
++and is not intended for use in production circumstances.  If using this option
++is necessary to fix an issue, please report a bug.
++
+ ### dom0-iommu
+     = List of [ passthrough=<bool>, strict=<bool>, map-inclusive=<bool>,
+                 map-reserved=<bool>, none ]
 diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index f63f5efc17f5..e11f5a3c9a6b 100644
+index e11f5a3c9a6b..83a80ba6de70 100644
 --- a/xen/arch/x86/cpuid.c
 +++ b/xen/arch/x86/cpuid.c
-@@ -26,17 +26,26 @@ static const uint32_t __initconst hvm_hap_def_featuremask[] =
-     INIT_HVM_HAP_DEF_FEATURES;
- static const uint32_t deep_features[] = INIT_DEEP_FEATURES;
- 
--static int __init parse_xen_cpuid(const char *s)
-+static const struct feature_name {
-+    const char *name;
-+    unsigned int bit;
-+} feature_names[] __initconstrel = INIT_FEATURE_NAMES;
-+
-+/*
-+ * Parse a list of cpuid feature names -> bool, calling the callback for any
-+ * matches found.
-+ *
-+ * always_inline, because this is init code only and we really don't want a
-+ * function pointer call in the middle of the loop.
-+ */
-+static int __init always_inline parse_cpuid(
-+    const char *s, void (*callback)(unsigned int feat, bool val))
- {
-     const char *ss;
-     int val, rc = 0;
- 
-     do {
--        static const struct feature {
--            const char *name;
--            unsigned int bit;
--        } features[] __initconstrel = INIT_FEATURE_NAMES;
--        const struct feature *lhs, *rhs, *mid = NULL /* GCC... */;
-+        const struct feature_name *lhs, *rhs, *mid = NULL /* GCC... */;
-         const char *feat;
- 
-         ss = strchr(s, ',');
-@@ -49,8 +58,8 @@ static int __init parse_xen_cpuid(const char *s)
-             feat += 3;
- 
-         /* (Re)initalise lhs and rhs for binary search. */
--        lhs = features;
--        rhs = features + ARRAY_SIZE(features);
-+        lhs = feature_names;
-+        rhs = feature_names + ARRAY_SIZE(feature_names);
- 
-         while ( lhs < rhs )
-         {
-@@ -72,11 +81,7 @@ static int __init parse_xen_cpuid(const char *s)
- 
-             if ( (val = parse_boolean(mid->name, s, ss)) >= 0 )
-             {
--                if ( !val )
--                    setup_clear_cpu_cap(mid->bit);
--                else if ( mid->bit == X86_FEATURE_RDRAND &&
--                          (cpuid_ecx(1) & cpufeat_mask(X86_FEATURE_RDRAND)) )
--                    setup_force_cpu_cap(X86_FEATURE_RDRAND);
-+                callback(mid->bit, val);
-                 mid = NULL;
-             }
- 
-@@ -95,6 +100,20 @@ static int __init parse_xen_cpuid(const char *s)
- 
-     return rc;
+@@ -116,6 +116,23 @@ static int __init parse_xen_cpuid(const char *s)
  }
-+
-+static void __init _parse_xen_cpuid(unsigned int feat, bool val)
-+{
-+    if ( !val )
-+        setup_clear_cpu_cap(feat);
-+    else if ( feat == X86_FEATURE_RDRAND &&
-+              (cpuid_ecx(1) & cpufeat_mask(X86_FEATURE_RDRAND)) )
-+        setup_force_cpu_cap(X86_FEATURE_RDRAND);
-+}
-+
-+static int __init parse_xen_cpuid(const char *s)
-+{
-+    return parse_cpuid(s, _parse_xen_cpuid);
-+}
  custom_param("cpuid", parse_xen_cpuid);
  
++static bool __initdata dom0_cpuid_cmdline;
++static uint32_t __initdata dom0_enable_feat[FSCAPINTS];
++static uint32_t __initdata dom0_disable_feat[FSCAPINTS];
++
++static void __init _parse_dom0_cpuid(unsigned int feat, bool val)
++{
++    __set_bit(feat, val ? dom0_enable_feat : dom0_disable_feat);
++}
++
++static int __init parse_dom0_cpuid(const char *s)
++{
++    dom0_cpuid_cmdline = true;
++
++    return parse_cpuid(s, _parse_dom0_cpuid);
++}
++custom_param("dom0-cpuid", parse_dom0_cpuid);
++
  #define EMPTY_LEAF ((struct cpuid_leaf){})
+ static void zero_leaves(struct cpuid_leaf *l,
+                         unsigned int first, unsigned int last)
+@@ -768,6 +785,25 @@ void __init init_dom0_cpuid_policy(struct domain *d)
+      */
+     if ( cpu_has_arch_caps )
+         p->feat.arch_caps = true;
++
++    /* Apply dom0-cpuid= command line settings, if provided. */
++    if ( dom0_cpuid_cmdline )
++    {
++        uint32_t fs[FSCAPINTS];
++        unsigned int i;
++
++        cpuid_policy_to_featureset(p, fs);
++
++        for ( i = 0; i < ARRAY_SIZE(fs); ++i )
++        {
++            fs[i] |= dom0_enable_feat[i];
++            fs[i] &= ~dom0_disable_feat[i];
++        }
++
++        cpuid_featureset_to_policy(fs, p);
++
++        recalculate_cpuid_policy(d);
++    }
+ }
+ 
+ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
 -- 
 2.11.0
 
