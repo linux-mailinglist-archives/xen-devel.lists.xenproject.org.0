@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA776475868
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Dec 2021 13:08:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.247347.426497 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFE32475899
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Dec 2021 13:14:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.247353.426507 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxT4Q-0001k3-GU; Wed, 15 Dec 2021 12:07:42 +0000
+	id 1mxTA5-0003Gp-4y; Wed, 15 Dec 2021 12:13:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 247347.426497; Wed, 15 Dec 2021 12:07:42 +0000
+Received: by outflank-mailman (output) from mailman id 247353.426507; Wed, 15 Dec 2021 12:13:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxT4Q-0001hG-DH; Wed, 15 Dec 2021 12:07:42 +0000
-Received: by outflank-mailman (input) for mailman id 247347;
- Wed, 15 Dec 2021 12:07:40 +0000
+	id 1mxTA5-0003Ej-1z; Wed, 15 Dec 2021 12:13:33 +0000
+Received: by outflank-mailman (input) for mailman id 247353;
+ Wed, 15 Dec 2021 12:13:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=E5lv=RA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mxT4O-0001gi-Oj
- for xen-devel@lists.xenproject.org; Wed, 15 Dec 2021 12:07:40 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ (envelope-from <SRS0=4tZ4=RA=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1mxTA3-0003Ed-A4
+ for xen-devel@lists.xenproject.org; Wed, 15 Dec 2021 12:13:31 +0000
+Received: from ppsw-32.csi.cam.ac.uk (ppsw-32.csi.cam.ac.uk [131.111.8.132])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 99170540-5d9f-11ec-85d3-df6b77346a89;
- Wed, 15 Dec 2021 13:07:39 +0100 (CET)
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur03lp2055.outbound.protection.outlook.com [104.47.8.55]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-24-DxGG4ctFMGKxak2UNYO1ig-1; Wed, 15 Dec 2021 13:07:37 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB3533.eurprd04.prod.outlook.com (2603:10a6:803:b::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.25; Wed, 15 Dec
- 2021 12:07:35 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4778.018; Wed, 15 Dec 2021
- 12:07:35 +0000
+ id 694c1d7b-5da0-11ec-85d3-df6b77346a89;
+ Wed, 15 Dec 2021 13:13:29 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:44218)
+ by ppsw-32.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.136]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1mxT9x-000za2-0t (Exim 4.95) (return-path <amc96@srcf.net>);
+ Wed, 15 Dec 2021 12:13:25 +0000
+Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 0FBE61FB86;
+ Wed, 15 Dec 2021 12:13:25 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,256 +45,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 99170540-5d9f-11ec-85d3-df6b77346a89
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1639570059;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nxyhZTlEzR5YCpYo4L4Y4mwpF9Atr6VzvbS9ubaWdmo=;
-	b=KYzN9dD7w3U7JJ5FaS6dUmUVkAzxIZ/pJm8uo5bblZfwzqYdVpIgwvRctZaApoSZcNoBxY
-	FV94wL4Kopa33W/ihFzP+IzINHwVEheDIGZKOaG3aQY6XmyzQYzz0GyQhDMsFrDdC8g/3V
-	Y695ns7sIyakKQQSJkPImEut0L0wgL4=
-X-MC-Unique: DxGG4ctFMGKxak2UNYO1ig-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JMKvDw7En3wVFDrNERdFbg+EL5Efd9oo99hWBwa6a9JFZDw0Gpv6sTjO0rJ7yBP3lyobvpdQYwPONi7CizrmtYR4yfeAtmg+5RcnKzQNXSJRTrdZIhaVNnapwZiK9iv5KhJ6ajLStK3DEXtyzPL9g0n/D8Fl+E/s2OADEpOlixSWLc9DLnTjSGNKIl7clh/sIm0zD48ACaFK0iyUYrFpYhaPoEQwJRU5Gkv0OlEHxL/cJvoQ7727ts4kQxmgx1ohBA4cJ1Oy98uv8zxrqPcC/QmAgJycucPhN+uwSKDa1x8LfcYOcbdziOKHnZcojtzZx7svro8h0CERMYwWremBxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nxyhZTlEzR5YCpYo4L4Y4mwpF9Atr6VzvbS9ubaWdmo=;
- b=dImBW6oS1NURllzz9cKA+zU88PXj2wls3MVKDgNxsQdmGLX0hC+8Pg0sW6SBaIbyTcdxo8s2aBWDuviPNOc76vsPjWPlQJ/ikh1GpTi49a05/ph7I2kZLoecwMAQliVVGJiH9r+Z2hwempuW5hifx8VXAyh6l+KBfVzJmzDDXkyFBrG4C2jLVWOXV413kDI/t/fI4q8f8E6/JL2AV1XkIEgnthSEC2j2ZVCIfGC86C3RXssq5LA7hUzebW/zPau0bNK8mc3ygLxEaMX9mR8AeHbCx9AiEVKrlae5zGGrYDPWv0QohqqO+pLGn1rPUzm1l/Jti7lfYnXEADhnW1McyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <79466492-fd58-1be0-c47e-13fc1e17479d@suse.com>
-Date: Wed, 15 Dec 2021 13:07:33 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Subject: Re: [PATCH v5 00/14] PCI devices passthrough on Arm, part 3
-Content-Language: en-US
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-Cc: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Artem Mygaiev <Artem_Mygaiev@epam.com>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>, "paul@xen.org"
- <paul@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Rahul Singh <rahul.singh@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, "julien@xen.org" <julien@xen.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20211125110251.2877218-1-andr2000@gmail.com>
- <3a9f16d5-f076-92e2-f1b9-33a3c1a3371b@epam.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <3a9f16d5-f076-92e2-f1b9-33a3c1a3371b@epam.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FRYP281CA0007.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::17)
- To VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+X-Inumbo-ID: 694c1d7b-5da0-11ec-85d3-df6b77346a89
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <1d937a49-e0a2-58a2-b51c-495a957adb0d@srcf.net>
+Date: Wed, 15 Dec 2021 12:13:24 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 56f840b9-ec58-46cf-8677-08d9bfc37ada
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3533:EE_
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB3533A0FD13209013A9D028C4B3769@VI1PR0402MB3533.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	aFSutYcQQkez6sTuemjeNSp06haCbkWAXn1hvj+q8etHRskJLTu4KQM8ThyZ6HwCyTt8XHKF4hEphgyMCLgpBk6OxsNO2rMk/8O3e5FTxS270SaIfIzVKO6LVDso7ncjp1ZkRsDyBIoh/AVtVzCaZBaZhTE27yINjhZFixaSZke4BXB2r4mFJej5EzQ9Kgi1F8HZFLoUBgi6OU8nNudVWHUZkOk2LwV2XNp2+aMeHfdZPJysIIGjvBbPrH0oScH289FmKD3whNdk7xvLRLEzyro39Hq2xAmXVyAgjK4xN56JnB66PR25X/SOZHLbTdovdc9Rmk1LfIiWUacy50Vpj/+15U8R4jeX4BwMYKlJ4NKhrxZYzWAXf7iyVnd1RzdjaRWxhFRbMZFUmGxb676iO07dvKdpTRnpXRn6LkRPqYprpKERIR7fHu+gMWJZSXNixPi7LHDOWfR5yMlxrlVJoSIYArRQr09GmVfPLjYB9fnbKIn3jac4DuDh8KnptP+WLxYlx+IChn2egxGVNy/ZQWDkTuKbORcg+wJR0hD93DaG5XT5joYxTt36kQ9CkajfTj4lG3Qs+jfgiAPohJ+WFeZV6NEZizVh8ZfdzE69/KJMqjdpXQXfeJf7vFX4lyWziTR11AD5NYb8kwr2z+dt61JjZP1C6/OHn2fV28uGf/oiYuu97e1u5y6PjL+NKyHm9zcH8+8Xs0B3fKf1f5Vn+z+CfkvOx61Osy9USXOz3M5BxZnP/BArgMHLUg+2sAH9e0md9K6SgYIENhAbW8B/NVDzPH2HS/X7xmdFYliwGm+dZqkCWfQm72ApS3acV7Bn
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(31686004)(5660300002)(54906003)(2906002)(966005)(83380400001)(6916009)(26005)(86362001)(8936002)(66476007)(2616005)(6512007)(6486002)(186003)(66556008)(508600001)(7416002)(8676002)(36756003)(66946007)(53546011)(316002)(31696002)(38100700002)(4326008)(6506007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N2FRalhhTEhNd09FNTkvdDg1TTZXaGVqdm40TjVlVS9aTEJLNEJRQzBLUU1L?=
- =?utf-8?B?U2hSTUZtNXVHTWJXRmVtS2FZeG5MM3F6bE55SHBPbTJPcFRrWjZuMlNPVmRE?=
- =?utf-8?B?NDM0RGZMb1pXY2lYbDhhVFdtUDdQMlk3QVNEcm5qT2h1UTBVVkZUb0pUblhh?=
- =?utf-8?B?ZTBsdXFySlJPSzVQMUtMR2ZUcU9XenNudDRRaXNmOGE5MmxlMXRkR05PVXl1?=
- =?utf-8?B?dDUxamVlMmpRS1VsTzJReU5yUFBPbHdKbkF5aCtSRlhHWmhxTU5zK2lZWkRN?=
- =?utf-8?B?MWZIQm96alR1b2I0d2ZNSkE2UmZQclpISzFsSVJFRzczWmVManlCZmJudVp1?=
- =?utf-8?B?OUFNb2doQVA4Y2NneGhSMkZoNzlaZXZFOStVZ0NKckRnejJaMHIrL0tPdUxt?=
- =?utf-8?B?NUFTNUo0V2s3WXM0M2ZweE5mY1V0V2ROQUtTTi9ocThBRHJQZFZGcGFKa0Zv?=
- =?utf-8?B?NDJkZnVHVldzTnY3cncrajJTeEhMVTlSUkkrU2xoOVU5NDZMaUpLUjd5YjRP?=
- =?utf-8?B?Mmg3Zys2Rkw5eGJWWU5rcnFEYytYb2FKdlB6MnVoNGI3U0hWUU5Cdi9UQ0da?=
- =?utf-8?B?dmFQREkzSEUrVUIvOVd4c1h6ZG1nQU96eXZYUVJTdnByN281RlFKOC9leFdr?=
- =?utf-8?B?OTFoR0RZK2tlZHQ5VTRLcXJpWEw5QUVISytLaC9MMERnaHFEaTBycmxzdVhk?=
- =?utf-8?B?TlViOTgrajJNMzMzSWZzYnRxT05PMjVMSEJSV1N6SkNNWVN5WHkzNDYxY2Rn?=
- =?utf-8?B?THNYcHhxMFdYUjJ2Ukc4S05HVE5yMmlZWXBYdFJrT0pPSXF3VUU2TnAxWFJK?=
- =?utf-8?B?TUZQRUxQdXZ1dWJFekdyOXdIazBMeHR2MHhoUmNucVp2RHlEa09CaFVqNEVE?=
- =?utf-8?B?QTgreXVKVFRRUE9pK0lqb3JuYjR3cm9sMEtQTzB4S2RhMUlESTZnemNDRzJE?=
- =?utf-8?B?dkdBVkEwWlovSFBmaDhGb291MERYc3Z0cnVxOW5xQmNTMkYwWEszNThCQW5M?=
- =?utf-8?B?TlI4NTgvQUFQUnVyMzVXVExWYm0rUml3RVoySmpYWXdKV0NOWlFvdmhjQkwx?=
- =?utf-8?B?bzAzWXRKMHN1ZUdKU0V4T2VWeUZiSTgyemhuMU95VmgyTXE1NWkvT3BMQlRS?=
- =?utf-8?B?eVlPREZqTDIrVmZJdFAyR2ZnbFRCbTJPUTNEQlJHWkt2OHNGbnJTS3IrcURS?=
- =?utf-8?B?SXZLZk5WWkEwUEttVE11OTRiYXUvc0V3QWN1Zy9xeFFGU2JMM0xibUkwSkdK?=
- =?utf-8?B?WHU4bTRCL1JjVXpOMmRtRFBocG1aZmJMcVJ6L3UweDhEeGk3NFMra29Zc2Y3?=
- =?utf-8?B?eXBTN1pVMjhWMGR3V1Z0ZzJGMnlkZ2Q3Zlk1eFQrYWpYMUxpOSs5S2EvQWZK?=
- =?utf-8?B?aWNram9xbDN0RHI5OVllZEZUMzZmWWJXaEhxMXJ3UVNjL3JsdEFEQzlLVW54?=
- =?utf-8?B?OWg3MGI4aTRUR0NxNXhsN2ZMKzl5WkdMblFsWFM1VE9meEhtcFFYdVdmK243?=
- =?utf-8?B?eWQ5TTlBSlZwbVhsMmtKaDk1ZnhlckluTHd0YmhQMzNWODJWMUtGbVA3Ryt4?=
- =?utf-8?B?cDI5elhPZTUyekpBUS9rSWo2OEJwLzZOQ0syWkMrNGdoREExVTAycklrcEs1?=
- =?utf-8?B?RUpPWThncS9OR2NBT3VsVHNpdGM4bGhySjgweEY4REpNMXNqRmdkb3FQRVpt?=
- =?utf-8?B?L2s1d3V2V2s2RFpwZE5HaFROQ0pHMy9ZMmNPd2E4c21GcUovNnNjbk12bkJV?=
- =?utf-8?B?RTdCZ05MNnJIVUtWQTIzMHVRYU5PNXUrbEIwOHZCSi9PRXdOQ1Y0ZU5zZkc2?=
- =?utf-8?B?d2RhQm9FL25NeTQ3NHpodTE3eDFRTVpXR0lJazNsaWxXNGdoQlBoU0RUQkk4?=
- =?utf-8?B?SjZSUDVtRG1qSWsrdHhrVUhiS1AvOVB6cGZUamowY3lKck9vVFRxdEE1NzFZ?=
- =?utf-8?B?d3ZwanRXSGx4MWFVcGVFOExzM0VPNFpreGZnLy8zUWhxeE9HY2luYXpTdmNl?=
- =?utf-8?B?Y0VKa21jU3g1RHlQZUVNdER1MDBKS01wKzhqV3R6RWM0b05ud3c1b1RQZlVi?=
- =?utf-8?B?cGpyRThYY3FsQ0h0TGJXSysrbDNZWGQyNXZhNzRZSlJQazVVb3p5ZHVnbHlw?=
- =?utf-8?B?NTd5dFh1VjVhMW55bmE5cnF1RU1UcWxDRVYraExFRWtLQTlCQTFGRExKYUUy?=
- =?utf-8?Q?qzgW1B01sj7AHkE/p3qM2S4=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56f840b9-ec58-46cf-8677-08d9bfc37ada
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2021 12:07:35.1914
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QXwOjCmoPt3x8ynqZToOn2gSKlQJlG+oBtWO6IvOU60C2l5d284UAxJxh+J7hHJQuoOJVYpiunIAgQUiFvSnCQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3533
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Daniel Smith <dpsmith@apertussolutions.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20211214211600.2751-1-andrew.cooper3@citrix.com>
+ <b187ef25-bbfa-1880-0a10-462c2ba64e72@suse.com>
+From: Andrew Cooper <amc96@srcf.net>
+Subject: Re: [PATCH] x86/cpuid: Introduce dom0-cpuid command line option
+In-Reply-To: <b187ef25-bbfa-1880-0a10-462c2ba64e72@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 15.12.2021 12:56, Oleksandr Andrushchenko wrote:
-> Dear rest maintainers!
-> 
-> Could you please review this series which seems to get stuck?
+On 15/12/2021 08:34, Jan Beulich wrote:
+> On 14.12.2021 22:16, Andrew Cooper wrote:
+>> Specifically, this lets the user opt in to non-default for dom0.
+>>
+>> Split features[] out of parse_xen_cpuid(), giving it a lightly more
+>> appropraite name, so it can be shared with parse_xen_cpuid().
+> With the latter one I guess you mean parse_dom0_cpuid()?
 
-I don't seem to have any record of you having pinged Roger as the vPCI
-maintainer. Also, as said on the Community Call when discussing this,
-I don't think I'd view this series as in a state where an emergency
-fallback to REST would be appropriate. As indicated, in particular I
-wouldn't want to commit any of it without Roger's basic agreement. IOW
-while REST maintainer reviews may help making progress (but as much
-would reviews by anyone else), they may not put the series in a state
-where it could go in.
+I do, yes.  This is a copy/paste error.
+>> Collect all dom0 settings together in dom0_{en,dis}able_feat[], and apply it
+>> to dom0's policy when other tweaks are being made.
+>>
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> ---
+>> CC: Jan Beulich <JBeulich@suse.com>
+>> CC: Roger Pau Monné <roger.pau@citrix.com>
+>> CC: Wei Liu <wl@xen.org>
+>> CC: Daniel Smith <dpsmith@apertussolutions.com>
+>>
+>> RFC, because I think we've got a preexisting error with late hwdom here.  We
+>> really should not be cobbering a late hwdom's settings (which were provided in
+>> the usual way by the toolstack in dom0).
+> For ITSC I think also covering late hwdom is at least acceptable. For the
+> speculation controls I'm less certain (but as per the comment there they're
+> temporary only anyway), and I agree the command line option here should
+> strictly only apply to Dom0 (or else, as a minor aspect, the option also
+> would better be named "hwdom-cpuid=").
+>
+>> Furthermore, the distinction gets more murky in a hyperlaunch future where
+>> multiple domains may be constructed by Xen, and there is reason to expect that
+>> a full toolstack-like configuration is made available for them.
+> Like above, anything created via the toolstack interfaces should use the
+> toolstack controls. If there was something dom0less-like on x86, domains
+> created that way (without toolstack involvement) would instead want to
+> have another way of controlling their CPUID settings.
+>
+>> One option might be to remove the special case from init_domain_cpuid_policy()
+>> and instead make a call into the cpuid code from create_dom0().  It would have
+>> to be placed between domain_create() and alloc_dom0_vcpu0() for dynamic sizing
+>> of the FPU block to work.  Thoughts?
+> As said above, I think the ITSC special case could stay. But apart from
+> this I agree.
 
-In any event, as also said on the call, afaic this series is in my to-
-be-reviewed folder, alongside a few dozen more patches. I'll get to it
-if nobody else would, but I can't predict when that's going to be.
-There's simply too much other stuff in need of taking care of.
+So I disagree with keeping the ITSC special case.
 
-Jan
+I do agree that a non-dom0 hwdom probably wants ITSC, but ITSC
+explicitly can be controlled by the toolstack, and therefore Xen should
+not be overriding the toolstack's decision.
 
-> Thank you in advance,
-> Oleksandr
-> 
-> On 25.11.21 13:02, Oleksandr Andrushchenko wrote:
->> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
->>
->> Hi, all!
->>
->> 1. This patch series is focusing on vPCI and adds support for non-identity
->> PCI BAR mappings which is required while passing through a PCI device to
->> a guest. The highlights are:
->>
->> - Add relevant vpci register handlers when assigning PCI device to a domain
->>    and remove those when de-assigning. This allows having different
->>    handlers for different domains, e.g. hwdom and other guests.
->>
->> - Emulate guest BAR register values based on physical BAR values.
->>    This allows creating a guest view of the registers and emulates
->>    size and properties probe as it is done during PCI device enumeration by
->>    the guest.
->>
->> - Instead of handling a single range set, that contains all the memory
->>    regions of all the BARs and ROM, have them per BAR.
->>
->> - Take into account guest's BAR view and program its p2m accordingly:
->>    gfn is guest's view of the BAR and mfn is the physical BAR value as set
->>    up by the host bridge in the hardware domain.
->>    This way hardware doamin sees physical BAR values and guest sees
->>    emulated ones.
->>
->> 2. The series also adds support for virtual PCI bus topology for guests:
->>   - We emulate a single host bridge for the guest, so segment is always 0.
->>   - The implementation is limited to 32 devices which are allowed on
->>     a single PCI bus.
->>   - The virtual bus number is set to 0, so virtual devices are seen
->>     as embedded endpoints behind the root complex.
->>
->> 3. The series has complete re-work of the locking scheme used/absent before with
->> the help of the work started by Roger [1]:
->> [PATCH v5 03/13] vpci: move lock outside of struct vpci
->>
->> This way the lock can be used to check whether vpci is present, and
->> removal can be performed while holding the lock, in order to make
->> sure there are no accesses to the contents of the vpci struct.
->> Previously removal could race with vpci_read for example, since the
->> lock was dropped prior to freeing pdev->vpci.
->> This also solves synchronization issues between all vPCI code entities
->> which could run in parallel.
->>
->> 4. There is an outstanding TODO left unimplemented by this series:
->> for unprivileged guests vpci_{read|write} need to be re-worked
->> to not passthrough accesses to the registers not explicitly handled
->> by the corresponding vPCI handlers: without fixing that passthrough
->> to guests is completely unsafe as Xen allows them full access to
->> the registers.
->>
->> Xen needs to be sure that every register a guest accesses is not
->> going to cause the system to malfunction, so Xen needs to keep a
->> list of the registers it is safe for a guest to access.
->>
->> For example, we should only expose the PCI capabilities that we know
->> are safe for a guest to use, i.e.: MSI and MSI-X initially.
->> The rest of the capabilities should be blocked from guest access,
->> unless we audit them and declare safe for a guest to access.
->>
->> As a reference we might want to look at the approach currently used
->> by QEMU in order to do PCI passthrough. A very limited set of PCI
->> capabilities known to be safe for untrusted access are exposed to the
->> guest and registers need to be explicitly handled or else access is
->> rejected. Xen needs a fairly similar model in vPCI or else none of
->> this will be safe for unprivileged access.
->>
->> 5. The series was also tested on:
->>   - x86 PVH Dom0 and doesn't break it.
->>   - x86 HVM with PCI passthrough to DomU and doesn't break it.
->>
->> Thank you,
->> Oleksandr
->>
->> [1] https://lore.kernel.org/xen-devel/20180717094830.54806-2-roger.pau@citrix.com/
->>
->> Oleksandr Andrushchenko (13):
->>    rangeset: add RANGESETF_no_print flag
->>    vpci: fix function attributes for vpci_process_pending
->>    vpci: cancel pending map/unmap on vpci removal
->>    vpci: add hooks for PCI device assign/de-assign
->>    vpci/header: implement guest BAR register handlers
->>    vpci/header: handle p2m range sets per BAR
->>    vpci/header: program p2m with guest BAR view
->>    vpci/header: emulate PCI_COMMAND register for guests
->>    vpci/header: reset the command register when adding devices
->>    vpci: add initial support for virtual PCI bus topology
->>    xen/arm: translate virtual PCI bus topology for guests
->>    xen/arm: account IO handlers for emulated PCI MSI-X
->>    vpci: add TODO for the registers not explicitly handled
->>
->> Roger Pau Monne (1):
->>    vpci: move lock outside of struct vpci
->>
->>   tools/tests/vpci/emul.h       |   5 +-
->>   tools/tests/vpci/main.c       |   4 +-
->>   xen/arch/arm/vpci.c           |  33 +++-
->>   xen/arch/x86/hvm/vmsi.c       |   8 +-
->>   xen/common/rangeset.c         |   5 +-
->>   xen/drivers/Kconfig           |   4 +
->>   xen/drivers/passthrough/pci.c |  11 ++
->>   xen/drivers/vpci/header.c     | 352 +++++++++++++++++++++++++++-------
->>   xen/drivers/vpci/msi.c        |  11 +-
->>   xen/drivers/vpci/msix.c       |   8 +-
->>   xen/drivers/vpci/vpci.c       | 252 +++++++++++++++++++++---
->>   xen/include/xen/pci.h         |   6 +
->>   xen/include/xen/rangeset.h    |   7 +-
->>   xen/include/xen/sched.h       |   8 +
->>   xen/include/xen/vpci.h        |  47 ++++-
->>   15 files changed, 644 insertions(+), 117 deletions(-)
->>
+IMO, this really does want to remain dom0-cpuid= rather than
+hwdom-cpuid=.  It is specific to the domain which Xen creates as part of
+bringing the system up.
 
+In a future world with hyperlaunch/dom0less/etc, there is (or should be)
+adequate provision to specify settings like this for all created
+domains.  In this case, perhaps hyperlaunch declares that dom0-cpuid=
+gets ignored, because we probably don't want random command line
+settings impacting one N'th of the carefully curated system configuration.
+
+(Also, any Xen constructed domains in a hyperlaunch world probably want
+ITSC, but I'll again argue firmly that Xen should not be special-casing
+this one feature.)
+>> --- a/docs/misc/xen-command-line.pandoc
+>> +++ b/docs/misc/xen-command-line.pandoc
+>> @@ -801,6 +801,22 @@ Controls for how dom0 is constructed on x86 systems.
+>>  
+>>      If using this option is necessary to fix an issue, please report a bug.
+>>  
+>> +### dom0-cpuid
+>> +    = List of comma separated booleans
+>> +
+>> +    Applicability: x86
+>> +
+>> +This option allows for fine tuning of the facilities dom0 will use, after
+>> +accounting for hardware capabilities and Xen settings as enumerated via CPUID.
+>> +
+>> +Options are accepted in positive and negative form, to enable or disable
+>> +specific features.  All selections via this mechanism are subject to normal
+>> +CPU Policy safety logic.
+>> +
+>> +This option is intended for developers to opt dom0 into non-default features,
+>> +and is not intended for use in production circumstances.  If using this option
+>> +is necessary to fix an issue, please report a bug.
+> You may want to state explicitly that disables take priority over enables,
+> as per the present implementation. Personally I would find it better if the
+> item specified last took effect. This is, as mentioned in other contexts,
+> so one can override earlier settings (e.g. in a xen.cfg file used with
+> xen.efi) by simply appending to the command line.
+
+Order of enabled/disabled I feel is an implementation detail.  Perhaps
+what to put in the docs is that specifying both forms is unsupported,
+but "this is for developers only" is already a fairly big hint.
+
+The only way to make a latest-takes-priority scheme work is to use
+string_param() (creating an arbitrary upper bound limit), and parsing
+the list during dom0 construction.  For a developer-only option, I
+really don't think the complexity is worth the effort.
+>> @@ -97,6 +98,73 @@ static int __init parse_xen_cpuid(const char *s)
+>>  }
+>>  custom_param("cpuid", parse_xen_cpuid);
+>>  
+>> +static uint32_t __hwdom_initdata dom0_enable_feat[FSCAPINTS];
+>> +static uint32_t __hwdom_initdata dom0_disable_feat[FSCAPINTS];
+>> +
+>> +static int __init parse_dom0_cpuid(const char *s)
+>> +{
+>> +    const char *ss;
+>> +    int val, rc = 0;
+>> +
+>> +    do {
+>> +        const struct feature_name *lhs, *rhs, *mid = NULL /* GCC... */;
+>> +        const char *feat;
+>> +
+>> +        ss = strchr(s, ',');
+>> +        if ( !ss )
+>> +            ss = strchr(s, '\0');
+>> +
+>> +        /* Skip the 'no-' prefix for name comparisons. */
+>> +        feat = s;
+>> +        if ( strncmp(s, "no-", 3) == 0 )
+>> +            feat += 3;
+>> +
+>> +        /* (Re)initalise lhs and rhs for binary search. */
+>> +        lhs = feature_names;
+>> +        rhs = feature_names + ARRAY_SIZE(feature_names);
+>> +
+>> +        while ( lhs < rhs )
+>> +        {
+>> +            int res;
+>> +
+>> +            mid = lhs + (rhs - lhs) / 2;
+>> +            res = cmdline_strcmp(feat, mid->name);
+>> +
+>> +            if ( res < 0 )
+>> +            {
+>> +                rhs = mid;
+>> +                continue;
+>> +            }
+>> +            if ( res > 0 )
+>> +            {
+>> +                lhs = mid + 1;
+>> +                continue;
+>> +            }
+>> +
+>> +            if ( (val = parse_boolean(mid->name, s, ss)) >= 0 )
+>> +            {
+>> +                __set_bit(mid->bit,
+>> +                          val ? dom0_enable_feat : dom0_disable_feat);
+>> +                mid = NULL;
+>> +            }
+>> +
+>> +            break;
+>> +        }
+>> +
+>> +        /*
+>> +         * Mid being NULL means that the name and boolean were successfully
+>> +         * identified.  Everything else is an error.
+>> +         */
+>> +        if ( mid )
+>> +            rc = -EINVAL;
+>> +
+>> +        s = ss + 1;
+>> +    } while ( *ss );
+>> +
+>> +    return rc;
+>> +}
+>> +custom_param("dom0-cpuid", parse_dom0_cpuid);
+> I wonder whether it wouldn't be better (less duplication) if the bulk
+> of the code was also shared with parse_xen_cpuid(). In return moving
+> features[] wouldn't be needed then.
+
+I wondered the same, but couldn't think of anything I liked.
+
+I suppose an always_inline parse_cpuid(void (*cb)(feat, val)) wouldn't
+be too bad.  We'd need 5 functions in total, but it will optimise back
+to 2 with no function pointers.
+
+~Andrew
 
