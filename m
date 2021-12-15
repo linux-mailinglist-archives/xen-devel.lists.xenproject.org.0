@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EE554755A0
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Dec 2021 10:58:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.247307.426427 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E329475671
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Dec 2021 11:33:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.247316.426439 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxR2d-0001i1-EP; Wed, 15 Dec 2021 09:57:43 +0000
+	id 1mxRat-0006MF-BR; Wed, 15 Dec 2021 10:33:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 247307.426427; Wed, 15 Dec 2021 09:57:43 +0000
+Received: by outflank-mailman (output) from mailman id 247316.426439; Wed, 15 Dec 2021 10:33:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxR2d-0001en-BL; Wed, 15 Dec 2021 09:57:43 +0000
-Received: by outflank-mailman (input) for mailman id 247307;
- Wed, 15 Dec 2021 09:57:41 +0000
+	id 1mxRat-0006J7-8H; Wed, 15 Dec 2021 10:33:07 +0000
+Received: by outflank-mailman (input) for mailman id 247316;
+ Wed, 15 Dec 2021 10:33:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uCzL=RA=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1mxR2b-0001eh-OQ
- for xen-devel@lists.xenproject.org; Wed, 15 Dec 2021 09:57:41 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=E5lv=RA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1mxRas-0006J1-8m
+ for xen-devel@lists.xenproject.org; Wed, 15 Dec 2021 10:33:06 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 709c7e45-5d8d-11ec-85d3-df6b77346a89;
- Wed, 15 Dec 2021 10:57:40 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id s1so3018832wrg.1
- for <xen-devel@lists.xenproject.org>; Wed, 15 Dec 2021 01:57:40 -0800 (PST)
+ id 62c4540e-5d92-11ec-85d3-df6b77346a89;
+ Wed, 15 Dec 2021 11:33:05 +0100 (CET)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2106.outbound.protection.outlook.com [104.47.18.106]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-14-M3fWBv74Mya1BFhAjLtbvQ-1; Wed, 15 Dec 2021 11:33:03 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by VI1PR04MB7038.eurprd04.prod.outlook.com (2603:10a6:800:12d::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4755.11; Wed, 15 Dec
+ 2021 10:33:02 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4778.018; Wed, 15 Dec 2021
+ 10:33:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,264 +51,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 709c7e45-5d8d-11ec-85d3-df6b77346a89
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=a48mFvuUcnCIP9cUd4qhU8qQ0bb/d/xrOxAOQhxTyq8=;
-        b=X3e3owUVcUqJYstARIdMCgY949jtyGhpYJV70LWkIO0Jf9SCF1lNOMBanK3cUt+cq2
-         aoPjrs4uM2ZjBNKdYUcG2FxIR2Klx1cfi8T+FBCajQbvum4QoqHtyTk39KgVgdcsIxCC
-         Q3pi3QxGJ7LBuWL5DjEpKQqS5/xIcVQidtwx1hiLd81Y429WS7Qex06ISXIYwfyI+5Lu
-         YAzlnEPCVJFL0k7RbxrnEHo12nAXhMTFrEgydyIExkIOr5VYst5Bob7wka1fXRK3gnIA
-         DErB6d6ndll7zrT6yW50nV5OvdmJj+jrxZitNHhwYgOiUDr7XKLQ/Dul1mal1nGhvLoB
-         UcHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=a48mFvuUcnCIP9cUd4qhU8qQ0bb/d/xrOxAOQhxTyq8=;
-        b=jVp+9TGAhqy5mlhyTW6xPGzL1hFjxkpIu5XNHyvHvu3zqdb7Ce8Tn1U/KWCx/zY0jZ
-         +yt8enHpmSYNXQ6WFQ8+fYj86noOKsVLeNMbfGZrRfCNsxR8ockZnuSn1WwjdBlZDstu
-         KYShImJ/tDpNGIocJryM8SMhgm5xa2qNmGRHJKtphmSOziagqfKxiwVeMuMP2zokF6Xj
-         CdN3kiaMWEUber/yG3GbSYcbInBsfEFjmiVhiDuNBSg/q2pQdyx1FU/sJ4XWyqSY6nj6
-         TAkh102JYXnCrjD+xcSBaUw0gM16EeyfK0ySOAPh5fjKyYjOGzVmGDt2hBTwDrCNJhC8
-         sBJw==
-X-Gm-Message-State: AOAM533bnz0jxJLqYUNbILyLrdvy7X03x7QAX6xNQpGMbGrPeHw0AWCy
-	KK6PnvqIrFWW19SogZICB59i93cDdfcgCb8fb34=
-X-Google-Smtp-Source: ABdhPJzfiaeA6axviDewYMYN45aOZj4gzclrDCiPKIkEhIXDoiQEa5vnifzLr6G/KdiMowZQI/2XzWnCbDV0HY154eg=
-X-Received: by 2002:adf:ef4f:: with SMTP id c15mr3696725wrp.226.1639562259957;
- Wed, 15 Dec 2021 01:57:39 -0800 (PST)
+X-Inumbo-ID: 62c4540e-5d92-11ec-85d3-df6b77346a89
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1639564384;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fNY97RAWAvq49SPTtqhfLbGCOmtlRioiKDhBUo1Ak8Y=;
+	b=VIM5UBf1pQOSekriDTo5OnOSg0Q2DYYWW0w3LiVTXcJS+YFQ5Xq9unmOhddrfhonba9Dj4
+	Lzb6W8vTrh1XM7qdM8hUOqU7Rys6pfPaADRbcMyrFdLohxr8l3bHSujqrY9Dzt6mKXvn4u
+	1w/VMmQ6190PwDfBpM+tn8DYgJei3m8=
+X-MC-Unique: M3fWBv74Mya1BFhAjLtbvQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fAK28v7D0zIw+kCvuWgAIjrWGnDNIrI2JJP7/N7FwnVRYEHHSvGqWTSjSIm/5OfSFH5eTpufAGKDJc0Wda5tEGyiT4dAdsNtSMm+UwR18xaANLJ/O4Y+6GDyCOsDxpnfgfJUUAVeIefJAgRPzEXucq2WezXw773R+my5WC99YhK8bOwbcA7h1YlNS3RP8TSJV5K9vqjva3sCuMYdv7pK5BKGCNGct2det3fJh5VCG3PtN/N03DAwQgvj5nYtRFHoe0TQBWJ/t6biGJBWrAxBynn/ebVVK6J5vBq1q9Zo6Z5Us0cjyJRlJTuEZqp2gv2HDBAJh4pbCz0ZG+JR5G7c8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fNY97RAWAvq49SPTtqhfLbGCOmtlRioiKDhBUo1Ak8Y=;
+ b=OYKZ9RFxP5MQ2uMw+Jxq+Yb57KhMGZpmO3xYjhC2cwgqiM5mdfVAG365Sr1QEUVCR+QDgEgDxglxpG/nJxrFzU2l+6N0WDyApWSL/3Dqc6s7S1Ea4HtzzW+VYwiz5BrW0kglffOL6v3HSBHwp8CYhrZMFajpMdHCO0nrywGeQogCZVqc71Vb501CtzxAUV3Ci85sP7IN+/frC4BtZlgeoKNLJkdXF6Rn5HijG0lnO3ZzGBWIyppmEZ+Fu/55WVyOvlsKBoEPkeCrySgzoAokNX0pqbiqpDur1H0TMBcd5VVSHi/w2romRSIaQg55Ww3ytJxPxSHMflipgVq94Vl/Ig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <6e54f971-84c3-3635-12c8-643b619b2b53@suse.com>
+Date: Wed, 15 Dec 2021 11:32:59 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+From: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH] xen/arm64: Zero the top 32 bits of gp registers on
+ entry...
+To: Michal Orzel <michal.orzel@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org,
+ Julien Grall <julien@xen.org>
+References: <20211206142032.27536-1-michal.orzel@arm.com>
+ <f3573439-4893-440f-54e1-fdeba3eb4508@xen.org>
+ <dc114877-b9da-7a5b-260d-b9438cddd777@arm.com>
+ <b7a53384-39cb-f368-f39b-9b560336226b@xen.org>
+ <6ab797ce-86dc-2c32-1cd0-417fab7516c7@suse.com>
+ <73913bdf-7449-34fb-b86b-662774cb3e62@xen.org>
+ <865fb3a7-76fc-24da-e07d-c6e59e3e1abe@arm.com>
+ <3aae0020-938e-d5fe-7d7f-d5d1c8335a24@xen.org>
+ <447b6c54-7d0c-132f-6202-c1ae7fb16e5d@arm.com>
+ <871bda7e-3f94-a5bd-3caa-16b0c8f6d693@suse.com>
+ <87080c9d-803d-608a-1c5a-2102f014d2bc@xen.org>
+ <1fcc18d4-70ce-12d1-6d54-ae82e511a4d7@xen.org>
+ <040a1871-08ee-00e9-b46f-ca4854e8a541@arm.com>
+ <82557218-539b-204a-a1a7-7c796a2baa8a@suse.com>
+ <9dc003f8-4dd0-282f-61ce-6ca74c543f20@arm.com>
+Content-Language: en-US
+In-Reply-To: <9dc003f8-4dd0-282f-61ce-6ca74c543f20@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM5PR1001CA0016.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:206:2::29) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-References: <cover.1639472078.git.oleksii_moisieiev@epam.com> <7ac8512b5479cf192b4aa399fa2501d0bccaaf48.1639472078.git.oleksii_moisieiev@epam.com>
-In-Reply-To: <7ac8512b5479cf192b4aa399fa2501d0bccaaf48.1639472078.git.oleksii_moisieiev@epam.com>
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Date: Wed, 15 Dec 2021 11:57:29 +0200
-Message-ID: <CAPD2p-mWWUT=kLFDOfsYrZp7hGLLbbU4SiPaFg1SKjF3Tkj5kQ@mail.gmail.com>
-Subject: Re: [RFC v1 1/5] xen/arm: add support for Renesas R-Car Gen3 platform
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
-Content-Type: multipart/alternative; boundary="000000000000178b5e05d32c56b8"
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 31895e42-28bf-45a3-4bee-08d9bfb64595
+X-MS-TrafficTypeDiagnostic: VI1PR04MB7038:EE_
+X-Microsoft-Antispam-PRVS:
+	<VI1PR04MB7038F0E21144F28213EEF000B3769@VI1PR04MB7038.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	6Tw3mtNEioUQ2d9x7CLUBhR7pxDc2iHcS/WovX64qg5D/E//8qDahdEfXxto9Tc2V/Wq2vVKdZDrwBvcHxoJdRqGSnQ6e23wSXDUiSR2q467yeiv5ph2/BLFg+oKRoZkFb+zjQdgrzszOuCV+IiHH9/j01iMPCrGIUSOIfz/uUBM5gDzDagyNRott9owyPiLgDY+Lk+cJQKPF9CGcPaXuNdw1NbX2r3jTbXVKGJUoEVZI56xD3CHDff1Hhggac0/S3IZIwa1ctcaO4ifxLoRuQF2Vct9+yV4gYaSO9a35u/vFo8feN9MlISc58tLth26yRNKin47oE6CQXpH0c5gD5RGmIsWN99yigR55cHjiXQGp647Iz4py5MEu3idm+u6sKBYdvY7sapk6VNX9GQdGLO7F+ZQ8DuTemZzBqEWsiKYkueV+aWvQsxQh2QQG3SfxaLssNooG73bluFX83xdze+fCtvksCRFzam5mKNn0nfdvGTMkL/dC2mHgvjfz/EFJeqPpH14X+xFd+5a5qcZrtqgHN83tw68usl/jSQFPhmXhNLLOmPYGg1Mq9GOzRykiMjtmdw2hLLbDqkwRQcfhkJaKuIG5Gt1DqZfeupFySkMOPAuJvbN2UusdfWiUgzYptl+yewVKQo6LHETN/RHJH6NE/k1hNamAwDJnHMUr+2aajDrWdgbGCrJGR99imPkUmlh7FkfFViM/zU945hg68sfy6cFP4y3J/L/UsWKopAxBytAgLQPtumxLlPbMcp0
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(31696002)(26005)(8936002)(38100700002)(8676002)(86362001)(6512007)(66556008)(6486002)(66476007)(508600001)(66946007)(83380400001)(31686004)(36756003)(186003)(4326008)(53546011)(54906003)(4744005)(6916009)(6666004)(6506007)(2616005)(316002)(2906002)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MzFTaXIwaXdRRDdNRmMvK3A5M1JkSWY1cS9RR0p1NUp5eGljUkszZjhvcWZ6?=
+ =?utf-8?B?RndPUnhrcDNMZU9JZTVORURiaWJ4V09WNGlYaE1EZGJvZjNnb09VZmJMeWxN?=
+ =?utf-8?B?dFdTeFdTMGFCdHpJZ1hkeWJYdDF0RUJhSGpndW44Z2JDaHVNRzhObWdsVzZO?=
+ =?utf-8?B?VFViNnZhTW1lSklOdE02d3BBS0YrbGNldHpFWkZFazRoS3dkSkJqOXVnRFpz?=
+ =?utf-8?B?b3BPWWJrZitRcGFCd0VTZEJsMzFZQzlhUnlqbERIbzJhNmxkaWU5L0UxRFM0?=
+ =?utf-8?B?ekFpaFo4T0RMcmhKTkNqRHNDZGhQd0doRHlVRExhZVpZNWdKNEdidWZXTTFh?=
+ =?utf-8?B?aHpwM0MvdnlsdlA0Y09SY3JadnNDRHg5TVhRRnZVbXhReE0wTGt3NjFyNUR6?=
+ =?utf-8?B?NUh4SnN5ZXpTSTJ6OWdyQTBDbFZQeldrV3NiTngyd2p0cnRxZlR6amJhWnk0?=
+ =?utf-8?B?TlZLZGJTTmFCMnVFdzRQbno3bklsNHRUeTh2NWJBYmN4bjUyaFdZTERoNllM?=
+ =?utf-8?B?TGc0cTJ2SkxxNm9DaEZkR2ZPZUpBV3hWaytKLy83cFgyWnRyVm5pdy92V3d0?=
+ =?utf-8?B?U3JMWnJOd1FWQkJUM0VsME5seG9YYkZXNTBZZzh1VlhEYjJVWmVCYlU5V2Vq?=
+ =?utf-8?B?d3N2bEV4emNvVzZtYm1aOExKNEpCZEorUFB5bVlwUmJDOVJYUzJtZE9sNmJm?=
+ =?utf-8?B?YmRFM0E3THVBMTB4NURvNThhQUpWcHBJRkJsZk52U0JTdmd4cG1mRkpOcDRu?=
+ =?utf-8?B?S0RpZGZXdng2bmJaL3FlbVFYMk5ybndHTFN3aFIrMnR0eUNKcGJFVm1Pb2dx?=
+ =?utf-8?B?dmVpczNYdmVBRGEyVHJaUHh1aSs0MkYvT281djNiTHpoTG9LbGdBUVBaZit5?=
+ =?utf-8?B?Sk5Fb1BEem0waHFlck1semJBVnNYM3BiY1F1bEp3SlRLUjhKN3YwOTkyTWcx?=
+ =?utf-8?B?a2szVE1NZWZKcWdxTjI3cUE5V1ZkaGYweCtVVFZmaGY5US9IVDdIRmRSN1pC?=
+ =?utf-8?B?SlNMekV6ekluMXdkWmNNa1VyeWJSRHJGN1A0YzVYQ3RsY0tzVkwxL2VYVDg5?=
+ =?utf-8?B?RHRvYzdDWnp1VTM2U2hzWlhBMkhReSt4b3lIU3FkUGNTLy9lRWFGZm1uY04r?=
+ =?utf-8?B?Y0dkRnhmdzJuenVwMWp2Y21QVzJvUjVhTlE3SFhmNzdaUDRHRWZsQnQ4Y3hU?=
+ =?utf-8?B?ZjVmcUNOdkUvQW96cHpsTlY1cDdvNlhwY3RIbVNTY3VSRWp5WlI4TnlkSlAr?=
+ =?utf-8?B?OFdIU25vK3pwelpXbmdoT0hBVjRkNExJREx3aFc4M0srQkdrNGVBamp2UkFa?=
+ =?utf-8?B?R2IwUU5kUmk1V01wU05JSDlpaXM0SHloRml2eHkyNkhLUGZ4RUhMRXFxNy93?=
+ =?utf-8?B?UjcyRXRoZGttamtPZUY4SGJ3TlV0djFWZ1dmWXpUcmNLanJEazArYkI0OG9w?=
+ =?utf-8?B?N2lVZnlyaWNoOXd1WERNQ2VHV3VwQWZnYWNiSm8zWk1LTzlyV1VWbXJIS3JG?=
+ =?utf-8?B?K01xNURpS1c1YjRPUlBDMWpla3hnSUpnZlhvMWtWaFFaMDlPZk1lM1VhWVZj?=
+ =?utf-8?B?UWtlV1FWSnBpOFdCRHZxQiswRUtHam1aR2lxRkM0M1lBN0NQaXByb1BTSXpx?=
+ =?utf-8?B?bTZZNklHYmc0cU11MkdmQ3VXWEVkTmhsRjZGaVlVbENTYTdzcGUxbTQzY3A3?=
+ =?utf-8?B?aW54cjFiY28wVDNjbTcwdVJVQ1ZtSFVMc01CalZVdFVVTTdTNk42N2EvM1hp?=
+ =?utf-8?B?c3JOUTlKWkVCYklQZ2QvOVMzWWNDSmMzdmswVjk5a0k3THJMdWpaek1palZJ?=
+ =?utf-8?B?dStPWFFPZjZtMzdaSGJOZ0UxNnZEOGhlak5HU1VBR05uclpJS2x3L0UzczND?=
+ =?utf-8?B?aVIxdm96YWJIa05iU0JZT3dGTTkzNmlvYW1mY0VaYUthemZRa095TldqektQ?=
+ =?utf-8?B?VWNRR2JKeDhYdHYydUEra3pKU0ovWVJzbXhUcFRSN2pWY1Brcmtnd0xjRWtM?=
+ =?utf-8?B?bnRFVkNlSnFTblYvaTIxWDhMVDRGT0tvUENRQmJCMnJHbU0yTzgrbStFcEhz?=
+ =?utf-8?B?cEJtRjJ2R3haZHkyeENhcytRMDdhRjZPOFVBTHBZVXZCQXFNVEswR0RLekRO?=
+ =?utf-8?B?UFc5VVNqcmU0QWdyMEdSR0tpNkI2WEc3cFBxMzZkcGJ5Wnk0a2E4T1dpaERu?=
+ =?utf-8?Q?1M3YsOZX8vMdObCF8HtSwGo=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 31895e42-28bf-45a3-4bee-08d9bfb64595
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2021 10:33:02.3380
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6JGLAg5zdottTN4nDTv8dfDAOYoOhnV9608AF0aNhHIgSFQRL0Fd7oAcHxrnKS8tM85n31gszmafVjR9vx0K6w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7038
 
---000000000000178b5e05d32c56b8
-Content-Type: text/plain; charset="UTF-8"
+(Re-sending an abridged version, as apparently spam filters didn't like
+the original message with more retained context; I'll have to see whether
+this one also isn't liked. Sorry.)
 
-On Tue, Dec 14, 2021 at 11:35 AM Oleksii Moisieiev <
-Oleksii_Moisieiev@epam.com> wrote:
+On 15.12.2021 10:48, Michal Orzel wrote:
+> This patch and the problem it solves is about clearing top 32bits of all gp registers so not only x0,x1.
 
-Hi Oleksii
+That's well understood. Yet for everything still in registers simply
+using mov ahead of the respective push (as you had it) is still
+preferable imo.
 
-[sorry for the possible format issues]
+Jan
 
-Implementation includes platform-specific smc handler for rcar3 platform.
->
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> ---
->  xen/arch/arm/platforms/Makefile |  1 +
->  xen/arch/arm/platforms/rcar3.c  | 46 +++++++++++++++++++++++++++++++++
->  2 files changed, 47 insertions(+)
->  create mode 100644 xen/arch/arm/platforms/rcar3.c
->
-> diff --git a/xen/arch/arm/platforms/Makefile
-> b/xen/arch/arm/platforms/Makefile
-> index 8632f4115f..b64c25de6c 100644
-> --- a/xen/arch/arm/platforms/Makefile
-> +++ b/xen/arch/arm/platforms/Makefile
-> @@ -4,6 +4,7 @@ obj-$(CONFIG_ALL32_PLAT) += exynos5.o
->  obj-$(CONFIG_ALL32_PLAT) += midway.o
->  obj-$(CONFIG_ALL32_PLAT) += omap5.o
->  obj-$(CONFIG_ALL32_PLAT) += rcar2.o
-> +obj-$(CONFIG_RCAR3) += rcar3.o
->  obj-$(CONFIG_ALL64_PLAT) += seattle.o
->  obj-$(CONFIG_ALL_PLAT)   += sunxi.o
->  obj-$(CONFIG_ALL64_PLAT) += thunderx.o
-> diff --git a/xen/arch/arm/platforms/rcar3.c
-> b/xen/arch/arm/platforms/rcar3.c
-> new file mode 100644
-> index 0000000000..d740145c71
-> --- /dev/null
-> +++ b/xen/arch/arm/platforms/rcar3.c
-> @@ -0,0 +1,46 @@
-> +/*
-> + * xen/arch/arm/platforms/rcar3.c
-> + *
-> + * Renesas R-Car Gen3 specific settings
-> + *
-> + * Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> + * Copyright (C) 2021 EPAM Systems
-> + *
-> + * This program is free software; you can redistribute it and/or modify
-> + * it under the terms of the GNU General Public License as published by
-> + * the Free Software Foundation; either version 2 of the License, or
-> + * (at your option) any later version.
-> + *
-> + * This program is distributed in the hope that it will be useful,
-> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> + * GNU General Public License for more details.
-> + */
-> +
-> +#include <asm/platform.h>
-> +
-> +static bool rcar3_smc(struct cpu_user_regs *regs)
-> +{
-> +    return false;
-> +}
-> +
-> +static const char *const rcar3_dt_compat[] __initconst =
-> +{
-> +    "renesas,r8a7795",
-> +    "renesas,r8a7796",
->
-
-
-Please note that since Linux commit:
-"9c9f7891093b02eb64ca4e1c7ab776a4296c058f soc: renesas: Identify R-Car
-M3-W+"
-the compatible string for R-Car M3-W+ (ES3.0) SoC is "renesas,r8a77961". So
-in case we want to have vSCMI feature on this new SoC revision as well we
-will need
-to extend the compatible list.
-
-
-+    NULL
-> +};
-> +
-> +PLATFORM_START(rcar3, "Renesas R-Car Gen3")
-> +    .compatible = rcar3_dt_compat,
-> +    .smc = rcar3_smc
-> +PLATFORM_END
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> --
-> 2.27.0
->
->
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
---000000000000178b5e05d32c56b8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Tue, Dec 14, 2021 at 11:35 AM Olek=
-sii Moisieiev &lt;<a href=3D"mailto:Oleksii_Moisieiev@epam.com" target=3D"_=
-blank">Oleksii_Moisieiev@epam.com</a>&gt; wrote:<br></div><div dir=3D"ltr" =
-class=3D"gmail_attr"><br></div><div class=3D"gmail_attr">Hi Oleksii</div><d=
-iv dir=3D"ltr" class=3D"gmail_attr"><br></div><div class=3D"gmail_attr">[so=
-rry for the possible format issues]</div><div dir=3D"ltr" class=3D"gmail_at=
-tr"><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
- 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Implementat=
-ion includes platform-specific smc handler for rcar3 platform.<br>
-<br>
-Signed-off-by: Oleksii Moisieiev &lt;<a href=3D"mailto:oleksii_moisieiev@ep=
-am.com" target=3D"_blank">oleksii_moisieiev@epam.com</a>&gt;<br>
----<br>
-=C2=A0xen/arch/arm/platforms/Makefile |=C2=A0 1 +<br>
-=C2=A0xen/arch/arm/platforms/rcar3.c=C2=A0 | 46 +++++++++++++++++++++++++++=
-++++++<br>
-=C2=A02 files changed, 47 insertions(+)<br>
-=C2=A0create mode 100644 xen/arch/arm/platforms/rcar3.c<br>
-<br>
-diff --git a/xen/arch/arm/platforms/Makefile b/xen/arch/arm/platforms/Makef=
-ile<br>
-index 8632f4115f..b64c25de6c 100644<br>
---- a/xen/arch/arm/platforms/Makefile<br>
-+++ b/xen/arch/arm/platforms/Makefile<br>
-@@ -4,6 +4,7 @@ obj-$(CONFIG_ALL32_PLAT) +=3D exynos5.o<br>
-=C2=A0obj-$(CONFIG_ALL32_PLAT) +=3D midway.o<br>
-=C2=A0obj-$(CONFIG_ALL32_PLAT) +=3D omap5.o<br>
-=C2=A0obj-$(CONFIG_ALL32_PLAT) +=3D rcar2.o<br>
-+obj-$(CONFIG_RCAR3) +=3D rcar3.o<br>
-=C2=A0obj-$(CONFIG_ALL64_PLAT) +=3D seattle.o<br>
-=C2=A0obj-$(CONFIG_ALL_PLAT)=C2=A0 =C2=A0+=3D sunxi.o<br>
-=C2=A0obj-$(CONFIG_ALL64_PLAT) +=3D thunderx.o<br>
-diff --git a/xen/arch/arm/platforms/rcar3.c b/xen/arch/arm/platforms/rcar3.=
-c<br>
-new file mode 100644<br>
-index 0000000000..d740145c71<br>
---- /dev/null<br>
-+++ b/xen/arch/arm/platforms/rcar3.c<br>
-@@ -0,0 +1,46 @@<br>
-+/*<br>
-+ * xen/arch/arm/platforms/rcar3.c<br>
-+ *<br>
-+ * Renesas R-Car Gen3 specific settings<br>
-+ *<br>
-+ * Oleksii Moisieiev &lt;<a href=3D"mailto:oleksii_moisieiev@epam.com" tar=
-get=3D"_blank">oleksii_moisieiev@epam.com</a>&gt;<br>
-+ * Copyright (C) 2021 EPAM Systems<br>
-+ *<br>
-+ * This program is free software; you can redistribute it and/or modify<br=
->
-+ * it under the terms of the GNU General Public License as published by<br=
->
-+ * the Free Software Foundation; either version 2 of the License, or<br>
-+ * (at your option) any later version.<br>
-+ *<br>
-+ * This program is distributed in the hope that it will be useful,<br>
-+ * but WITHOUT ANY WARRANTY; without even the implied warranty of<br>
-+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.=C2=A0 See the<br>
-+ * GNU General Public License for more details.<br>
-+ */<br>
-+<br>
-+#include &lt;asm/platform.h&gt;<br>
-+<br>
-+static bool rcar3_smc(struct cpu_user_regs *regs)<br>
-+{<br>
-+=C2=A0 =C2=A0 return false;<br>
-+}<br>
-+<br>
-+static const char *const rcar3_dt_compat[] __initconst =3D<br>
-+{<br>
-+=C2=A0 =C2=A0 &quot;renesas,r8a7795&quot;,<br>
-+=C2=A0 =C2=A0 &quot;renesas,r8a7796&quot;,<br></blockquote><div><br></div>=
-<div><br></div><div>Please note that since Linux commit: &quot;9c9f7891093b=
-02eb64ca4e1c7ab776a4296c058f soc: renesas: Identify R-Car M3-W+&quot;<br>th=
-e compatible string for R-Car M3-W+ (ES3.0) SoC is &quot;renesas,r8a77961&q=
-uot;. So in case we want to have vSCMI feature on this new SoC revision as =
-well we will need<br>to extend the compatible list.=C2=A0<br></div><div><br=
-></div><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-+=C2=A0 =C2=A0 NULL<br>
-+};<br>
-+<br>
-+PLATFORM_START(rcar3, &quot;Renesas R-Car Gen3&quot;)<br>
-+=C2=A0 =C2=A0 .compatible =3D rcar3_dt_compat,<br>
-+=C2=A0 =C2=A0 .smc =3D rcar3_smc<br>
-+PLATFORM_END<br>
-+<br>
-+/*<br>
-+ * Local variables:<br>
-+ * mode: C<br>
-+ * c-file-style: &quot;BSD&quot;<br>
-+ * c-basic-offset: 4<br>
-+ * indent-tabs-mode: nil<br>
-+ * End:<br>
-+ */<br>
--- <br>
-2.27.0<br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
-><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><span style=
-=3D"background-color:rgb(255,255,255)"><font size=3D"2"><span style=3D"colo=
-r:rgb(51,51,51);font-family:Arial,sans-serif">Regards,</span></font></span>=
-</div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div><span style=3D"backg=
-round-color:rgb(255,255,255)"><font size=3D"2">Oleksandr Tyshchenko</font><=
-/span></div></div></div></div></div></div></div></div>
-
---000000000000178b5e05d32c56b8--
 
