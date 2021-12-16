@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FBE24774D9
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Dec 2021 15:42:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.248011.427734 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CB09477514
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Dec 2021 15:56:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.248016.427744 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxrwg-0008OD-RA; Thu, 16 Dec 2021 14:41:22 +0000
+	id 1mxsAr-0001dQ-00; Thu, 16 Dec 2021 14:56:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 248011.427734; Thu, 16 Dec 2021 14:41:22 +0000
+Received: by outflank-mailman (output) from mailman id 248016.427744; Thu, 16 Dec 2021 14:56:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxrwg-0008Ll-NM; Thu, 16 Dec 2021 14:41:22 +0000
-Received: by outflank-mailman (input) for mailman id 248011;
- Thu, 16 Dec 2021 14:41:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2y9W=RB=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1mxrwe-0008Lf-IS
- for xen-devel@lists.xenproject.org; Thu, 16 Dec 2021 14:41:20 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 38d45292-5e7e-11ec-9e60-abaf8a552007;
- Thu, 16 Dec 2021 15:41:17 +0100 (CET)
+	id 1mxsAq-0001bc-T7; Thu, 16 Dec 2021 14:56:00 +0000
+Received: by outflank-mailman (input) for mailman id 248016;
+ Thu, 16 Dec 2021 14:55:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mxsAo-0001bW-P9
+ for xen-devel@lists.xenproject.org; Thu, 16 Dec 2021 14:55:58 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mxsAl-00019k-L4; Thu, 16 Dec 2021 14:55:55 +0000
+Received: from [54.239.6.186] (helo=[192.168.25.129])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mxsAl-0001Hi-F0; Thu, 16 Dec 2021 14:55:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,113 +39,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 38d45292-5e7e-11ec-9e60-abaf8a552007
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1639665677;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0JiiNvjhTe5vdgk3BPz4HCdNzr/rQSjc6pWc7sHjoOI=;
-  b=XqSRdS1n6equFSuOAUcG2Qj6XioWLrdijZ2cqVJMFVJqBhSV9Jf3eQKh
-   qcqguGPBjidbKFfcMiPhBmQdq2Q1+Imfz0NpUB+C/a+jFooLyQw0Gl4VY
-   wi1ug3onIYH7O6XW+yfmTIjq4MolKX1hIeuoPJB4M8+Ac7YJ/qsPm8ElY
-   A=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: g2rJlTRZQtGInIc4zQlKQxyOZ0N/EyjD7aX6YFB2W1+k6/GTUDP+nvw+MgVvAnBkXrS7MZ0t2K
- qd3AoxMTeKkhUAGoXtvcwlOxs4VYH2XnbaVhx/Kp1t+UvZCK4K7XxEMAYKr6R+ENH1mknTe6X/
- AhB+/ITQGeSx7lpNh2d6TgBY38MJo3O2fK/6WM36wquiAPTHYV+xS22WJZUU1K6eYZ86DtoLyE
- 8liZDh6NVnixLMzY6D0mb7Mbb5u4BkIq+2ZbwaaiTX/aSgeAH6Sv344MGRP/0NaoYhgS5Xr9xo
- jnN4s+Qyb5S3/xKHlCwOIhTm
-X-SBRS: 5.1
-X-MesageID: 60196343
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:zQInk6oUv9hbMGa5TIdlDBpHTY5eBmK7YhIvgKrLsJaIsI4StFCzt
- garIBmDPq2Kamfxf4p+Odu1oB8AvZTXm95nSwo/+C5kRCxHopuZCYyVIHmrMnLJJKUvbq7GA
- +byyDXkBJppJpMJjk71atANlZT4vE2xbuKU5NTsY0idfic5Dndx4f5fs7Rh2Ncx24HnW1nlV
- e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
- 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
- DlCnbm2dVgNAfPqofUyCRVTQzp7HvFJpaCSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
- 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFIoZpnFnyyCfFfs8SIrPa67L+cVZzHE7gcUm8fP2O
- ZJAOGQ0ME+ojxtnNUg8CJ4kv/qTunj5LRZzlVSTiIYP2j2GpOB2+Oe0a4eEEjCQfu1Xg0KZq
- 2Tu72n/RBYAO7S39z2B9X69g/7VqgnyUokSCb6Q++ZjhRuYwWl7IBcbT0ehqP+1zEu3QctCK
- lc88zAr66M18SSDVcLhVhe1pHqFuB80WNdKFeA+rgaXxcL88wufQ2QJUDNFQNgnr9MtAywn0
- EeTmNHkDiApt6eaIVq/3LqJqTK5OQAOMHQPIyQDSGMt/N3LsIw1yBXVQb5e/LWd14OvX2uqm
- nbT8XZ41+57YdM3O7uT2Fb73BaT+L7wXyFv6g6HRWeGsgwke9vwD2C30mTz4fFFJYefa1COu
- nkYhsSThNwz4YGxeD+lG7tUQuzwjxqRGHiF2AM0QcF9n9i40yf7Jdg43d1oGKt+3i/okxfNa
- VSbhw5e7YQ70JCCPf4uONLZ5yjHIMHd+TXZuhL8MoomjntZLlbvEMRSiai4hTqFfK8Ey/5XB
- HtjWZzwZUv28Iw+pNZMe88T0KUw2gc1zn7JSJbwwnyPiOTFNSPEEuhVbQHWNYjVCZ9oRi2Pq
- b6z0OPQlH1ivBDWOHGLoeb/03hURZTEOXwGg5MOLbPSSuaXMGogF+XQ0dscl39NxMxoehPz1
- ijlACdwkQOn7VWecFniQi0zOdvHAMckxVpmbHNEALpd8yV6CWpZxPxELMVfkHhO3LEL8MOYu
- NFZIZjdWaoWFWyck9nfBLGkxLFfmN2QrVrmF0KYjPIXI/aMniTFpY3peBXB7i4LAnblvMcyu
- eT4hAjaXYACV0JpC8OPMKCjyFa4vH48nuNuXhSXfokPKRu0qIU6eTbsivIXIt0XLUmRzDWty
- AvLUwwTovPAotFp/YCR17yEtYqgD8B3AlFeQzvA9b+zOCSDpjijzIZMXfymZzfYUG+oqqyua
- f8Ml6P3MeEdnUYMuI15Su45waU77trphrlb0gU7QymbMwX1UutteyDU09NOu6tBwq5ilTG3A
- k/fqMNHPbipOd/+FAJDLgQSceneh+ofnSPf7KppLRyitjN35reOTW5bIwKI1H5GNLJwPY4on
- bUhtcoR51DtgxYmKI/b3CVd9mDKJX0cSaQ38JodBdaz2AYsz1hDZ73aCzP3v87TO4kdbBFyL
- 2/GnrfGipRd2lHGIig6GnX61OZAgYgD5UJRx1gYKlXVwtfIi5fbBvGKHejbmuiN8ih67g==
-IronPort-HdrOrdr: A9a23:ACV2P62RzX690pdSEQQGNQqjBLAkLtp133Aq2lEZdPRUGvb4qy
- mLpoV96faUskd0ZJhOo7y90cW7Lk80sKQFh7X5Xo3SOTUO2lHYT72KhLGKq1aLdhEWtNQtt5
- uIG5IOceEYZmIbsS+V2meFL+o=
-X-IronPort-AV: E=Sophos;i="5.88,211,1635220800"; 
-   d="scan'208";a="60196343"
-Date: Thu, 16 Dec 2021 14:41:05 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich
-	<JBeulich@suse.com>, Roger Pau =?iso-8859-1?Q?Monn=E9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [PATCH] xen/build: Fix `make cscope` rune
-Message-ID: <YbtQARdhTgju72lF@perard>
-References: <20211216092014.707-1-andrew.cooper3@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=3+PmK0RJKYZ+RBqp0LyHRZGqE6OzPUZ4vn2aGNwpMzM=; b=cR1NmF3YDMS+Ciiioj7wtcPYPe
+	3hVeEI7lfwYSl7maWqbgzuIsKCdSDh26ZOZdfwXv6HZ5FT0LRrkrZ7NMiikyxTk7uxa7SKZVCPJ07
+	Wr0fvmSFFTFfuVlbkj5h9QgHNt6qIJn8tgD1cFBrBEfMGldxZ1ACeHTwOozWZA+5jnYY=;
+Message-ID: <0ddf5147-1f72-37e2-ca56-72307800463b@xen.org>
+Date: Thu, 16 Dec 2021 14:55:53 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20211216092014.707-1-andrew.cooper3@citrix.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.4.0
+Subject: Re: [PATCH v2] xen/arm64: Zero the top 32 bits of gp registers on
+ entry...
+To: Michal Orzel <michal.orzel@arm.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, xen-devel@lists.xenproject.org
+References: <20211216092134.579-1-michal.orzel@arm.com>
+ <58061d10-7299-6aec-5cb4-4c2d54f0043d@suse.com>
+ <56435926-e091-fe33-9044-b669ecba23f1@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <56435926-e091-fe33-9044-b669ecba23f1@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Dec 16, 2021 at 09:20:14AM +0000, Andrew Cooper wrote:
-> There are two problems, both in the all_sources definition.
-> 
-> First, everything in arch/*/include gets double hits with cscope queries,
-> because they end up getting listed twice in cscope.files.
-> 
-> Drop the first `find` rune of the three, because it's redundant with the third
-> rune following c/s 725381a5eab3 ("xen: move include/asm-* to
-> arch/*/include/asm").
-> 
-> Second, and this way for a long time:
-> 
->   $ make cscope
->   ( find arch/x86/include -name '*.h' -print; find include -name '*.h' -print;
->   find xsm arch/x86 common drivers lib test -name '*.[chS]' -print ) >
->   cscope.files
->   cscope -k -b -q
->   cscope: cannot find file arch/x86/efi/efi.h
->   cscope: cannot find file arch/x86/efi/ebmalloc.c
->   cscope: cannot find file arch/x86/efi/compat.c
->   cscope: cannot find file arch/x86/efi/pe.c
->   cscope: cannot find file arch/x86/efi/boot.c
->   cscope: cannot find file arch/x86/efi/runtime.c
+Hi,
 
-It's kind of weird that cscope can't read symlinks, but I guess that the
-way it is.
+On 16/12/2021 14:26, Michal Orzel wrote:
+> On 16.12.2021 14:50, Jan Beulich wrote:
+>> On 16.12.2021 10:21, Michal Orzel wrote:
+>>> to hypervisor when switching from AArch32 state.
+>>>
+>>> According to section D1.20.2 of Arm Arm(DDI 0487A.j):
+>>> "If the general-purpose register was accessible from AArch32 state the
+>>> upper 32 bits either become zero, or hold the value that the same
+>>> architectural register held before any AArch32 execution.
+>>> The choice between these two options is IMPLEMENTATION DEFINED"
+>>>
+>>> Currently Xen does not ensure that the top 32 bits are zeroed and this
+>>> needs to be fixed. The reason why is that there are places in Xen
+>>> where we assume that top 32bits are zero for AArch32 guests.
+>>> If they are not, this can lead to misinterpretation of Xen regarding
+>>> what the guest requested. For example hypercalls returning an error
+>>> encoded in a signed long like do_sched_op, do_hmv_op, do_memory_op
+>>> would return -ENOSYS if the command passed as the first argument was
+>>> clobbered.
+>>>
+>>> Create a macro clobber_gp_top_halves to clobber top 32 bits of gp
+>>> registers when hyp == 0 (guest mode) and compat == 1 (AArch32 mode).
+>>> Add a compile time check to ensure that save_x0_x1 == 1 if
+>>> compat == 1.
+>>>
+>>> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+>>> ---
+>>>   xen/arch/arm/arm64/entry.S | 29 +++++++++++++++++++++++++++++
+>>>   1 file changed, 29 insertions(+)
+>>>
+>>> diff --git a/xen/arch/arm/arm64/entry.S b/xen/arch/arm/arm64/entry.S
+>>> index fc3811ad0a..01f32324d0 100644
+>>> --- a/xen/arch/arm/arm64/entry.S
+>>> +++ b/xen/arch/arm/arm64/entry.S
+>>> @@ -102,6 +102,30 @@
+>>>           .endif
+>>>   
+>>>           .endm
+>>> +
+>>> +/*
+>>> + * Clobber top 32 bits of gp registers when switching from AArch32
+>>> + */
+>>> +        .macro clobber_gp_top_halves, compat, save_x0_x1
+>>> +
+>>> +        .if \compat == 1      /* AArch32 mode */
+>>> +
+>>> +        /*
+>>> +         * save_x0_x1 is equal to 0 only for guest_sync (compat == 0).
+>>> +         * Add a compile time check to avoid violating this rule.
+>>> +         */
+>>> +        .if \save_x0_x1 == 0
+>>> +        .error "save_x0_x1 is 0 but compat is 1"
+>>> +        .endif
+>>> +
+>>> +        .irp n,0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29
+>>> +        mov w\n, w\n
+>>> +        .endr
+>>
+>> What about x30 (aka lr)?
+>>
+> Well the docs says about gp registers as a whole so including lr.
+> However I do not see how clobbering lr would impact Xen.
 
-> This is caused by these being symlinks to common/efi.  Restrict all find runes
-> to `-type f` to skip symlinks, because common/efi/*.c are already listed.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Xen may not be directly impacted. However this may be used by some 
+userspace application (such as for VM introspection) and could be dumped 
+on the console.
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+So I would cover all the GPR to give a consistent view to everyone.
 
-> Anthony: I looked through the remainder of your build series and I cant spot
-> any edits to all_sources.  Apologies if I missed it.
-
-I don't think I've made further edit of this.
-
-Thanks,
+Cheers,
 
 -- 
-Anthony PERARD
+Julien Grall
 
