@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29FF94771F3
+	by mail.lfdr.de (Postfix) with ESMTPS id 22DE44771F2
 	for <lists+xen-devel@lfdr.de>; Thu, 16 Dec 2021 13:37:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.247927.427563 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.247930.427574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxpzO-0002aD-Rl; Thu, 16 Dec 2021 12:36:02 +0000
+	id 1mxq0F-000375-5J; Thu, 16 Dec 2021 12:36:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 247927.427563; Thu, 16 Dec 2021 12:36:02 +0000
+Received: by outflank-mailman (output) from mailman id 247930.427574; Thu, 16 Dec 2021 12:36:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxpzO-0002XY-O2; Thu, 16 Dec 2021 12:36:02 +0000
-Received: by outflank-mailman (input) for mailman id 247927;
- Thu, 16 Dec 2021 12:36:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UvFT=RB=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1mxpzN-0002XS-VI
- for xen-devel@lists.xenproject.org; Thu, 16 Dec 2021 12:36:02 +0000
-Received: from sender3-of-o51.zoho.com (sender3-of-o51.zoho.com
- [136.143.184.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b85616e2-5e6c-11ec-9e60-abaf8a552007;
- Thu, 16 Dec 2021 13:35:59 +0100 (CET)
-Received: from [10.10.1.128] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 163965815283657.3094722243668;
- Thu, 16 Dec 2021 04:35:52 -0800 (PST)
+	id 1mxq0F-00034n-16; Thu, 16 Dec 2021 12:36:55 +0000
+Received: by outflank-mailman (input) for mailman id 247930;
+ Thu, 16 Dec 2021 12:36:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=sk45=RB=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1mxq0D-000337-HY
+ for xen-devel@lists.xenproject.org; Thu, 16 Dec 2021 12:36:53 +0000
+Received: from ppsw-32.csi.cam.ac.uk (ppsw-32.csi.cam.ac.uk [131.111.8.132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d6e8c251-5e6c-11ec-85d3-df6b77346a89;
+ Thu, 16 Dec 2021 13:36:50 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:44428)
+ by ppsw-32.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.136]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1mxq02-000qN8-0P (Exim 4.95) (return-path <amc96@srcf.net>);
+ Thu, 16 Dec 2021 12:36:42 +0000
+Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id CBE6A1FAC8;
+ Thu, 16 Dec 2021 12:36:41 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,56 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b85616e2-5e6c-11ec-9e60-abaf8a552007
-ARC-Seal: i=1; a=rsa-sha256; t=1639658153; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=GtJEsSGxYF9WleIW3w7Bl+PHB9YkSVbKf3C9Y/uevIGmaV3Juxeo0+92slmRUZDjOObQ5AfKKRboyPZbgFvOgeS8OhCxuM/45Dv5WpHYIA+OB/80mQU3RqcGDJpXc7c3mvWJlDBtwmr/KSk2/V2M/UxY+Yo0Gm5piDyy0VQ0dVA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1639658153; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=W0m9LoOjMMMtUDWn/i5djot6EpVNM5tkM0hp3ugHTH8=; 
-	b=bViq2EfrPo9eK4hHm4dWQp3DzVAY5S3o/OaitjrDSFLWjT+9TEit93Mw1DbTEZK7OMfSOPKGXhhxXz932yvCaJY8w8VXmAqnaSTe7YLq2qHvMKUzcKGmEYdBYnAVVJVIj+AVvVydeCkoaOWXICEJU6eiLmMfvA3XoHx1iRAkANI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1639658153;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=W0m9LoOjMMMtUDWn/i5djot6EpVNM5tkM0hp3ugHTH8=;
-	b=F7A/mkoZ8+YEUMWi8wAwRIh8ODKH2UB7jr5IiV+OToPimQ/x/PXKjiOBx2XfiAKK
-	9kOUeFz3KMOSGDrbbIiLdIDZKBUtt7Y+/xDykOYwov/l8DkPPRqB512H1CGGV8i51C5
-	kSx2CIHiRgkdWsj4mjLa0sOfZ5NIaiZe7LUEq2fQ=
+X-Inumbo-ID: d6e8c251-5e6c-11ec-85d3-df6b77346a89
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <5286a1b7-3db5-1e00-f9bf-36fa537871b1@srcf.net>
+Date: Thu, 16 Dec 2021 12:36:41 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
 Subject: Re: [XEN PATCH 14/57] tools/flask/utils: remove unused
  variables/targets from Makefile
+Content-Language: en-GB
 To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
 Cc: Anthony PERARD <anthony.perard@gmail.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Ian Jackson <iwj@xenproject.org>,
- Wei Liu <wl@xen.org>
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
  <20211206170241.13165-15-anthony.perard@citrix.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-Message-ID: <2c3e4435-3cf9-b3bb-bdd1-090b8ece2473@apertussolutions.com>
-Date: Thu, 16 Dec 2021 07:35:24 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.14.0
-MIME-Version: 1.0
+From: Andrew Cooper <amc96@srcf.net>
 In-Reply-To: <20211206170241.13165-15-anthony.perard@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-On 12/6/21 12:01 PM, Anthony PERARD wrote:
-> They are no *.opic or *.so in this subdir, so no need to clean them.
-> 
-> The TEST* variables doesn't seems to be used anywhere, and they weren't
-> used by xen.git when introduced.
-> Both CLIENTS_* variables aren't used.
-> Both target "print-dir" and "print-end" only exist in this directory
-> and are probably not used anywhere.
-> 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> ---
+On 06/12/2021 17:01, Anthony PERARD wrote:
+> @@ -35,21 +29,13 @@ flask-set-bool: set-bool.o
+>  
+>  .PHONY: clean
+>  clean: 
+> -	rm -f *.o *.opic *.so
+> +	rm -f *.o
+>  	rm -f $(CLIENTS)
+>  	$(RM) $(DEPS_RM)
 
-Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Can we collapse this to $(RM) *.o $(CLIENTS) $(DEPS_RM) ?
+
+Here and in plenty of subsequent patches, there's manipulation of raw
+`rm -f`'s which ought to be cleaned up to $(RM)
+
+I can fix this on commit if you're happy.
+
+~Andrew
 
