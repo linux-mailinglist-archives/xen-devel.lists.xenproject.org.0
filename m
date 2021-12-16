@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F108D477665
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Dec 2021 16:54:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.248055.427823 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6514C47774E
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Dec 2021 17:11:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.248060.427833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxt5Q-0003j7-3J; Thu, 16 Dec 2021 15:54:28 +0000
+	id 1mxtLj-0006tX-Gc; Thu, 16 Dec 2021 16:11:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 248055.427823; Thu, 16 Dec 2021 15:54:28 +0000
+Received: by outflank-mailman (output) from mailman id 248060.427833; Thu, 16 Dec 2021 16:11:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxt5P-0003fg-Vc; Thu, 16 Dec 2021 15:54:27 +0000
-Received: by outflank-mailman (input) for mailman id 248055;
- Thu, 16 Dec 2021 15:54:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mxtLj-0006rC-DZ; Thu, 16 Dec 2021 16:11:19 +0000
+Received: by outflank-mailman (input) for mailman id 248060;
+ Thu, 16 Dec 2021 16:11:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=VxGf=RB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mxt5O-0003fX-3v
- for xen-devel@lists.xenproject.org; Thu, 16 Dec 2021 15:54:26 +0000
+ id 1mxtLh-0006r6-J8
+ for xen-devel@lists.xenproject.org; Thu, 16 Dec 2021 16:11:17 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 711da740-5e88-11ec-9e60-abaf8a552007;
- Thu, 16 Dec 2021 16:54:25 +0100 (CET)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2112.outbound.protection.outlook.com [104.47.18.112]) by
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cbe22609-5e8a-11ec-85d3-df6b77346a89;
+ Thu, 16 Dec 2021 17:11:16 +0100 (CET)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2172.outbound.protection.outlook.com [104.47.17.172]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-5-4wkPwgemNEKDhlmW7MGbFg-2; Thu, 16 Dec 2021 16:54:23 +0100
+ de-mta-31-IDoZ6GCFPFaXd--Mh6cKDQ-1; Thu, 16 Dec 2021 17:11:14 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB5168.eurprd04.prod.outlook.com (2603:10a6:803:56::33)
+ by VI1PR04MB7024.eurprd04.prod.outlook.com (2603:10a6:800:124::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.18; Thu, 16 Dec
- 2021 15:54:21 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4778.16; Thu, 16 Dec
+ 2021 16:11:14 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4778.018; Thu, 16 Dec 2021
- 15:54:21 +0000
+ 16:11:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,187 +51,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 711da740-5e88-11ec-9e60-abaf8a552007
+X-Inumbo-ID: cbe22609-5e8a-11ec-85d3-df6b77346a89
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1639670064;
+	t=1639671076;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=EAekPYbp9sH2QX5o7Ez5afHWt/ZrWPM/Zx0fWwm3C24=;
-	b=XVlBmqfTsIJ7Nhztg2VVZ5VMsHU1Uk0eA6T0wd5/QhJKQtELZ6k3RPEGgwle5J1sOY5mND
-	oIDLJUpMUbC5bzM4ufc1F1RJ3R7ssrZryPKvobscE5QsM+uQJkPacVNghL8uWZUEgog9Ng
-	xoSH8oJvR7iUK5dQtLP2C17cXmmicwc=
-X-MC-Unique: 4wkPwgemNEKDhlmW7MGbFg-2
+	bh=I92ZBA85YhkaIz1utKS+c48AvSwviGrRAUr86FhXOpg=;
+	b=QQiHu2EJSbf6peT/K6XatVU5FgmqGX54j3uE04Px3SKdoqoeIgXglYwR1Gb8kZ/3JbEBE2
+	fEq770gZnI9cMC9JbYm0ktr2X0Oyzdm7lxTxn0h6/oc0Gb0aj4mixXETozrm28LU1DI3QD
+	dKYRsRG+2mP4yxI5I6zDDFziVXbfjBo=
+X-MC-Unique: IDoZ6GCFPFaXd--Mh6cKDQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ByVTBbdTT04RIZkR7YsM4oSymkybQu6dgl8Byh9x7yOcXk/X0DdEJTqbcZvyhlKKhfzpUjiLL7IENvo4jXNn2mzvxNCH4OXoLv8levCdHFLNyg5TuPXjo8LaVg0sSyZHPNeR5w/nf5ae8in8PzRSZTO8d2PMOOHDj9hRhhj+tAihTukISq8a3RbRq1kjIqVVGL2GHoXK6bPPYQe1BfKUhsxrTUBYHjKMkCft+o2zmjdw7+qfsqwEA6wz4b2IyDKrVNJ3ggJI3c7YU+UWFLfIT4l0r5Pz/+fd0Qft/unqgJt/RjszX5RiQRFogJetSSYtac0GY09Ij4Ei7RjGy24R5A==
+ b=dk0bkO0Cydb9fz8uym0hW7FkWyohMRGgUWmxL9DAFsEWGWfSxcmNSZIdRSL3KX40n9FA/Dt8/NYZmkgTnCd6UkVq++RohcSJirwyjR4zCOkZ05k2KWF8xB2Q/EOo8qnfC1f/560v47zV86bUCiHz88/VI0pcwIn+TGW5hviPGSRBuoUkgWOmLhKt576iT441p+DDJu7BX/ZSoXOnkr99t1gp/o8STPZ+ZyluApYAMzrFLrw9QaKV5l/xZhFVIyyzA6d6IJG3qWASfg+HXVhttrGduKW/yh/LDE4PEgtlMWK2Febc1Yg807qxlHDySFirS13G/wO4X31nx7yd2x5jLw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kolHVCKRISc55qMUa98tPsqjb33uk16OcDO37vM/GuY=;
- b=RiwoAiNy9orVKZzZycPsO8a4B9b4MbLnS9BO31JwRaKS+WDwIRhyOcO6w2X6K+IB5eRB8fa0kX0URhWXBfNDZ77eIlvblWcplmjIRnHg61Hudq2TSknirbeVZXAjPPDhdTlJcmiTDsOCsJOetPEQJsR6fU4BBZLRC8/by4JHXeEIUHS1WVeiAgrBhhQ0uBKMnvFLIApbLXOgKDXhfq2tICtpRGBME/t+LMGWAp1kYYr7SpMM/DdwyA5j5crpIpZdFa5tVdkl+P9Ueh7v9uw4q0NQ8HrsU6sSC6JpTcpnQWOxXGENwRBXiBdFAB8DUfTLTOS+kAely5PGD/HbspQQVw==
+ bh=I92ZBA85YhkaIz1utKS+c48AvSwviGrRAUr86FhXOpg=;
+ b=GK5xe2LKseTW18K7y9kUr90vQZ4hqiKrnxGb2RVqfswKx6wyfHCioqR8G6jZXqQPmdazuFL5LmRhuWE89OxdKNDFoJ0BX3au74otBBWpME9aVsRmSa+Mi5ltEwV5u+a3CMO2yzxGCeB4pEdpD1K4Mm83cmrbky4LTKIntxarg2w49jzfNfXy2XkxGKTD3tLABactwxhAPp203quT7erA2Pblut3UDmeNkneGf5cxoTYC4B3rbHrNKZ/bTYW5whS4oRERYJXtxziKXddMqUo9ibeQ3fp1INQ7EPTySgtIgxsYxy6Xz+Ul1RX71FIsvR4e5/GnXvGjAgswKG7BI4VwGQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <bdf38cfb-2de6-7443-33b4-11f0a135ad49@suse.com>
-Date: Thu, 16 Dec 2021 16:54:19 +0100
+Message-ID: <75446682-7f6a-d8c2-d30f-977096209a26@suse.com>
+Date: Thu, 16 Dec 2021 17:11:11 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.4.0
-Subject: Re: [PATCH v2 17/18] AMD/IOMMU: free all-empty page tables
+Subject: Re: [PATCH] xen: arch_mfn_in_directmap: Reconciliate the name and the
+ implementation
 Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>
-References: <957f067b-9fe1-2350-4266-51982f09d3a9@suse.com>
- <ef31b6f4-09f5-cded-a235-5dce3c5399ce@suse.com>
- <YboGXiHaAO1cuUnd@Air-de-Roger>
+To: Julien Grall <julien@xen.org>
+Cc: Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <20211216152220.3317-1-julien@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YboGXiHaAO1cuUnd@Air-de-Roger>
+In-Reply-To: <20211216152220.3317-1-julien@xen.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM5PR0601CA0051.eurprd06.prod.outlook.com
- (2603:10a6:206::16) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS8PR04CA0033.eurprd04.prod.outlook.com
+ (2603:10a6:20b:312::8) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: ef667b80-26ba-4090-3d31-08d9c0ac5328
-X-MS-TrafficTypeDiagnostic: VI1PR04MB5168:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a399538-9366-4f80-502d-08d9c0aeaeb5
+X-MS-TrafficTypeDiagnostic: VI1PR04MB7024:EE_
 X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB51687128BD2AA329F9469F33B3779@VI1PR04MB5168.eurprd04.prod.outlook.com>
+	<VI1PR04MB7024796FF38D1AF09326E2F8B3779@VI1PR04MB7024.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	yp54cAxJC5iz7qi+dHLTPzht2cyJ6kEf20v0S3TNn3+IyR7qmpU8q56xtjduQJURhaW8gBBd/qUP6YnhbGBqNi18fL04qVeSgPBDUJ4rM/nhA0HkFH7V8qJr/zgC4+4OvYePYvJvhwQCjIkdL5IxgP+mA37REifOFHUjLEQGKXgixstvmBC78kaYrPFa54uayQdwAlX6qRg7UVWDMYM33C5+neToY24DUEo8TTG9SmNWK84oowJm67VGr4aKiduonmYnjPOvbp9MtAegHKfVkgA8vFKAKHgnDeepmQFkZdMjqeF0TEYXU+ZajXRJItW5yVFstmkmvfsfuV2a5VW6JXGURcTDa9Twu9tYAKQthcR2stuS5U2yQ6+oHMoSwTbaijZzP2NlcidpvA5x2/s/S9EsImeUp8lku9ebhTWXr6tW84lDdWKcbdqvB8ZYAiDI6Ml5U/TKv9apOXBN+IaLtA1TIdzWaugRV6T4D6BYzdUVY6KAgh8PFreJVBrQ/RKjo+tEc5sVcmEQh7q7PNxs1UfxS9Ol/XvWep2xlOFBN4HkUyR/LgPkZPJ8o6EPcy/mTrInMhgKzclsQiS954EIEOVf6RUEL+puQrjcJ6f+hCGnsnlx/0barfVIHTWNXPBYhYUO3tLxBH3GEC+NWU49PGWL1AWl8Rmi+bJ4RJR4+4/jH/vQxpB1M2jYoTx+l9In7qoKUrzr9aD3Km2CROOURETX8VJ71ryQmvtC3FwsO5o=
+	mZBZEhtZnnvThzi6plB9IcQkdwy13RLAs8FXIFnchsYpxFxAodk1FbSc1fq0pluNnvxSzL6aKsthwDR/kht2wCiA0HxcufoT4at0hZI0Q2cx7Omr+ndjK2GFkcBV3HvOCGPf3Q7KDALcAvnfG1c8vXkc87m072XJV5Tx7s3UBiPUsg92pYD8da9zC66iV8UjnmGP6I6Ji1W2bCw4SMiuqZPzi98+9PLu5ce8o2ZRuYxweInlSZM5v3COTYjvrg8n9wtok1vteJ7rHk4gEZhZ5EK40oxp+hmdJ3EUq4p1LdNB1xjJGprhSoKXlGzMCXFbGAROxHyT4KbXMMzESNtg3p334NntNkgfEbEybwqRkoDhsYZSkkn/yeWN28ml9sE0sOEEojHbjgoWUsB7/IwHh2PZWi+SOG/HvU/rJ0gFfJb/HVBk+cOh5LC3olcUYh5ybKGC9mfNAWi4LxSeVDjg42u6YLCLGLr32GFRwdSVSP+EH+ZTwVubH3bKbjlVvhZYGaawfHCTpU5UNrEUZc8ZOF1MvMXpdgRXmvyzBFxK/yD2vJLePOAr3NVivMAo4MhzPnRPnB5TYfpZHemLCHBrCjbFz73Lbz1QM1aXBxZY+Z90t6o9X0ns4lFO5mZ7KYPILNwylaSBjO7moseRpn1Y6Ol3YVNBA0lm4GjqdjMZ4LrGSvJ6oxfJh1nL0hea0KJB9P8eTJoRc5vKHRP0RmMvoGyuvUqWWpCcHB1yMtY7Yn7dupiTF17fXnsmQKhY3kUT
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(86362001)(508600001)(6916009)(5660300002)(54906003)(66476007)(2616005)(66946007)(316002)(6486002)(66556008)(53546011)(38100700002)(36756003)(31696002)(2906002)(8676002)(8936002)(26005)(83380400001)(31686004)(6512007)(4326008)(6506007)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(8936002)(26005)(31686004)(6486002)(86362001)(83380400001)(6512007)(186003)(508600001)(4326008)(36756003)(66556008)(66946007)(66476007)(6916009)(2616005)(54906003)(38100700002)(53546011)(316002)(31696002)(2906002)(5660300002)(6506007)(8676002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Yu0mKUTz10Y0xEDSuMjHGx1zyuYYW5nNLM+g5jXOjdMiQt0wP/9rkuqA9I3n?=
- =?us-ascii?Q?KO0DbBG0VGFjDXsvaT73uyUlZJNRhDzDNU38EAKbr8oODVpDQzJuOjj2AiPl?=
- =?us-ascii?Q?b7v+L7BzCP/5SnMPfFk4NlhJbYHDOzY3Mds3IrVAa/mglNLRSI4ke9ow10NE?=
- =?us-ascii?Q?m83YuwASBA2vgbD68cSOBBGwxk0wsuisV+Z6iow2TP0tjfH26UuGLklnQram?=
- =?us-ascii?Q?z4QOWPmn3YQYJsaqyn7aTTXXNhIjmMT7enlRZItM++u6fiZDplbstYedvBq+?=
- =?us-ascii?Q?mtU8cMtegUM+h22UxdMFZJqsRiUOeRoAHWf6U5EgwChGXWpLCdvEXjYGQJcD?=
- =?us-ascii?Q?xkctcrtHWT6hBz+LXsLHa1xSvpGGFTZHMRagapvXngd/QJYuD6JMh6kbxv7K?=
- =?us-ascii?Q?4mCtTFaTE8KiRnCdfS1lghdXXpCcewCdt20Dzodlf3kfnXw+bqwUMCG4ZJtf?=
- =?us-ascii?Q?H6ZUKwnHKAug8Wf3kYspql/7blnqHn8p8HSjZ+AB5A4PvQElMS8+0RcyD5VZ?=
- =?us-ascii?Q?6O00M+H+74rLrO/h/OIk64+EretwEazxIkN0lEvNXCG0r/6Eyv4tgR7EYQJG?=
- =?us-ascii?Q?GrqgeH2GkaSH5Y5Q0nfyPsG0k6FngdJobjnK26Vnxmpk4sGmf7w9v1imVfRe?=
- =?us-ascii?Q?xgmEDhgm1zc9pHM8DRJdLypU/YHGSEKRQkVi35iEoncsWVB8NuGe8F4vSWGJ?=
- =?us-ascii?Q?6GKbzBt8uQv9c2Jci1iBTJzWkl82oQzsI90uwacAHnRl2/R6WTHSVGlFBIk4?=
- =?us-ascii?Q?qLYJQgMxXtk8GZxs9AHG9Vkw1pfJ0Yk5egsiaonICAIwxOH2Q2kQD3vaDwxY?=
- =?us-ascii?Q?ffGBO9bS5xxtpDzKZMUJVMpL76oGeY8wg3lW57N3D+9x0rdAXmvTWfBPJa0e?=
- =?us-ascii?Q?HMk64mtyduIJIMJZj9GiV+ldCnoaX2HGkFmv1+vSEoTsZIsDXDGxdC71Ce6e?=
- =?us-ascii?Q?/eR+vpSTzb9f6mmaIiHAO7GOD/bCf/3b0gsHbxHndAww5RlFPVSCXqpnxPAy?=
- =?us-ascii?Q?c6KRcucDDW7A0wIeLBmGU3QbQRXB8yNbHaTpS4VKU0fLA3bBqhpXjhI26oZc?=
- =?us-ascii?Q?i4+d4mMcAvv8DyrtqYF8LrS2xze6kWjJtTZufsyIj5GlQtriFHS5q0J3mjtC?=
- =?us-ascii?Q?uihneiwxHW/WqNjSt1tlHpcu299jXNuFQN4SQ3BKgEJuSu+S2SMOVpnz4/KH?=
- =?us-ascii?Q?biIwpJfclEgmQw6Lvq5tIaOrLPxx5fipcJkmqzAQeo0Nd/rswlmc6qz6pY3I?=
- =?us-ascii?Q?RgykrQiHPqvn4w/+H6uIwHDquAz3WttaU27gdz+sc/MHdkFKQYsDv9gzMpk1?=
- =?us-ascii?Q?i82ATQ8ekJk12Y4tmapC/a2PrhdrZrjqwkQgyERkQqftzY+fIRjhfqiYHsuS?=
- =?us-ascii?Q?KHpKABSpCcLH9DUlN+7HVEZLBfuNOV9lnJhIRatoBcsoeIaZw61kSHvFSAEE?=
- =?us-ascii?Q?PmQzjAajn1VhFx5qfYV/KfPB9a9QS6Y6ITEigGPPL4HBoGNSYBogcqhrTwVI?=
- =?us-ascii?Q?Det6tJ49A8uihM0MIrStClGxY/3r1e2/lcT4vi39qdeySL1O6+UfYdG/J6Cb?=
- =?us-ascii?Q?tDvCLqcD1A8EweTBe0WsrZGkpnMD0Waoxn/V3561EZoK6ExkbKH8Dh4i4xbO?=
- =?us-ascii?Q?Yl+bdkOtNUhVukLfS7ASIqI=3D?=
+	=?utf-8?B?cyt1Z3V1dVFZREwwZkNCNWdteS9Va05yM2U4TzNCUXhQNnUreUhYSXJUNno0?=
+ =?utf-8?B?ZTQ2RHpvTHEzV1VTUVdGMWF1aXJPMHdnNDhHeEZXckFqK0RxS01iSGR3YzZY?=
+ =?utf-8?B?TkkxVEgxZkxCZzJZVmVubDJMMGp6cy8rdEdpQlFRK3NLSXVNbGJlcnVpR2RR?=
+ =?utf-8?B?bUk1OGZIdGc4cUUzT04xOW9tRWIwc2I1RDg3S3lTNjlKVkJabHVJcE9hc045?=
+ =?utf-8?B?R0t1MHZMc2pONDVlejFzVm5maDBjTU1YMnZBL2FEUGZIbHQ1c3NvYjY2L01Y?=
+ =?utf-8?B?VkVFQWRyUnlndFBGdnh1aEtkazREK1k3Q1JQaFRpcURNZDNHb05MdkV3K0h4?=
+ =?utf-8?B?d2pZWmswWUlYWVZndjVpOW9TL2hiK3ZpeWphcW5SQmhQWHBZU2tURVc3Z1pV?=
+ =?utf-8?B?U1hHK3NyWmdQYy9XaEhpR3phaGRNdUc0NWRXUW1xd1A0S3NyQktQVm93Mms0?=
+ =?utf-8?B?Y2JBUlhEMmJ2cXIrZmR1YWNwbU96eHBoamlRS1RER2dUY0JCNVc1R2ZpcVM2?=
+ =?utf-8?B?K2xEWUpoT1ZJckFhMWhBdkIreWhiMmFRbklxMEdndVQ5MUZsVGxJZFN0VTVD?=
+ =?utf-8?B?QWI5RERvTGxJOFM3MzFHQzVDWG11bFFwQVpuS3EzSURqM1pOZktmelE5ZG9C?=
+ =?utf-8?B?M3J0Um84OFZQS1VkRWFPckFJem1UU0FzWWk3aUdjNUF1Ni9DRlRKVkZyWnpV?=
+ =?utf-8?B?U0FUREZlNnNaVWZCVitRd1lkSHFWRlhlVWE0VGxhOHYyejlsejhBa3FzaHRM?=
+ =?utf-8?B?Z3V2RFpXenVrVVJsdHB6L0RVaS9JYWZaWktTcHhCU3dtZnNRbFV6bEt1TFVI?=
+ =?utf-8?B?ZUdvRUg3eXFZdFUxVzY1UUQ5bGNtQncwN3FrNTd5RWwxekZjeXM0b3R0M1BS?=
+ =?utf-8?B?UDFkRHNRZWNSOGJlU1pGd3FWby8vYjZ1Y2tTRjgyQUxDZ2F0NFNncVBJOVcz?=
+ =?utf-8?B?VCtXallKWFE3aU5KU09ZMXBTUXRvZDQzeUxxb2thdktjemZmdlRDalM2alFn?=
+ =?utf-8?B?OUQ1a2VWQ3dZakM3ZmhvdTNUdVNIRFprUHpVeU5JbU55QnYzeGZzbVYyRDZn?=
+ =?utf-8?B?OEVob0MrNnlVeVE2TnYrZU9IMHgzcncrSE5QOE9kT25NZ1NvZDJHTlZNaUJn?=
+ =?utf-8?B?YzBVUjVrekJRZGw4djlnb04yVGhPZ3U5YkpDVWNJeFVDZmUyczdGVmhucmZy?=
+ =?utf-8?B?THZxUyt0VDRsYWlMUHR0dGc5QmVUVXZvMXhLTDZ4d0NZSW1RSTl1eFJqd2Rw?=
+ =?utf-8?B?UUdzVlBETWxCZDJFbDJGK3l5MlNidHh5N1ZpSk5CdjhjWkIrdGhkK0ZBUjdO?=
+ =?utf-8?B?Q3BpUWhPWXBZRnQ0MTBUUnFzVVd6bVBQUE9xN1I1NXZCVk4vUSswYnJVS0dY?=
+ =?utf-8?B?a3J3YlE3cHRKNGZuRU9yMlVsVHZkenVIc09DdXhMZkJXTllmQkNIOW1OakIx?=
+ =?utf-8?B?UmNDaVh0ZjU3d3JMYnJPbWVkYk5POXorTWFIY0dtS2ovd25xQytiMG13aFJ0?=
+ =?utf-8?B?RE5uMnI0eGxHOHhMQng2OVl1WnB3Q0VUV0hYNCtzVEZNQlV6M1RTUk5BSWtJ?=
+ =?utf-8?B?ZmxLK3RlMGc3Z2k2S3B5T29vVGpreTBjNURaUW5JUGNCdHcxQlNjV0x0LzdM?=
+ =?utf-8?B?UjhYeFJScDNFUFp5d2VlWlQ0SEtNaXJJOUtDSE5iUVBzSmIzclFpYllLME4v?=
+ =?utf-8?B?Nm9WZlJIRDlscUxsQ0xqM0dnd2dZQUswWEQrNVR5eGZnYStsZkFiaGlkeUpU?=
+ =?utf-8?B?NnBNQmhId3NQWXNaVDRPZzc5bGU4WHViV3AzWDlRT3liTk5vQllWSitMNGd3?=
+ =?utf-8?B?RUR3SkM5aWpUWWRUOFVoTDZmdDR4OG9sb25QdE0wT1c1U0NzTUQxWE83cGM5?=
+ =?utf-8?B?S3BBSlNFaXNYZHFFT1o4dGxBWCtsN0U5S2hNM2xnbkVuTFF6V2tXT2M0UXdw?=
+ =?utf-8?B?QU9SYWhKWFZPQ2xoREdmbVVxd0tTekp1YUJRUFpMczJLMnNoS2xMVi9uMk0z?=
+ =?utf-8?B?VldWZmRBT0hRMTRqdjRSRFFFRC9vRENNM0NzN3E2eUhuaDVYeVhVaGQxdWN4?=
+ =?utf-8?B?eVIvR2lNOUxucmI0eTlzMm52MWRBaU93OTgwZ0J1M2lrb09yTkszbW5xblVW?=
+ =?utf-8?B?ZUVBWkFWTE9tUDZZcVNKak9sNWJacE8xSmFndHJiL3JJRkNadmcxZElmK3JN?=
+ =?utf-8?Q?dew07yzMNPSKnEKg1MBg4ss=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef667b80-26ba-4090-3d31-08d9c0ac5328
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a399538-9366-4f80-502d-08d9c0aeaeb5
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2021 15:54:21.3148
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2021 16:11:13.9105
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zuBCc+1StfDnAmWQXNBuxGGk0eNJ8z3OexGeQN7hNrvwVZBScoeUkn4KjaTBNynnUIzeMiVzgFtlXZNQJBz9bw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5168
+X-MS-Exchange-CrossTenant-UserPrincipalName: KVqEJRoHfnVOMQ7s5nKXVEXJ/2Q/mUG+GYmTy26bB5cSTSq4Y46N+tYrXL76lhNG2qgOCMY+0N//H2PZgabMHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7024
 
-On 15.12.2021 16:14, Roger Pau Monn=C3=A9 wrote:
-> On Fri, Sep 24, 2021 at 11:55:57AM +0200, Jan Beulich wrote:
->> When a page table ends up with no present entries left, it can be
->> replaced by a non-present entry at the next higher level. The page table
->> itself can then be scheduled for freeing.
->>
->> Note that while its output isn't used there yet, update_contig_markers()
->> right away needs to be called in all places where entries get updated,
->> not just the one where entries get cleared.
->=20
-> Couldn't you also coalesce all contiguous page tables into a
-> super-page entry at the higher level? (not that should be done here,
-> it's just that I'm not seeing any patch to that effect in the series)
+On 16.12.2021 16:22, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> The name of arch_mfn_in_directmap() suggests that it will check against
+> that the passed MFN should be in the directmap.
+> 
+> However, the current callers are passing the next MFN and the
+> implementation will return true for up to one MFN past the directmap.
+> 
+> It would be more meaningful to test the exact MFN rather than the
+> next one. So rework the implementation and the caller to match the
+> name.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> ---
+> 
+> Looking at the history, it looks like the check in init_node_heap()
+> was <= and it was simply moved to a new helper without any adjustment
+> as part of c6fdc9696a "boot allocator: use arch helper for virt_to_mfn
+> on DIRECTMAP_VIRT region".
 
-Yes I could. And in v3 I will (but before getting to that I first
-had to work around what looks to be an erratum on very old VT-d
-hardware). See the cover letter.
+Really the original intention was to check the entire range; maybe it
+would be better to express this again by ...
 
->> @@ -33,16 +36,20 @@ static unsigned int pfn_to_pde_idx(unsig
->> =20
->>  static union amd_iommu_pte clear_iommu_pte_present(unsigned long l1_mfn=
-,
->>                                                     unsigned long dfn,
->> -                                                   unsigned int level)
->> +                                                   unsigned int level,
->> +                                                   bool *free)
->>  {
->>      union amd_iommu_pte *table, *pte, old;
->> +    unsigned int idx =3D pfn_to_pde_idx(dfn, level);
->> =20
->>      table =3D map_domain_page(_mfn(l1_mfn));
->> -    pte =3D &table[pfn_to_pde_idx(dfn, level)];
->> +    pte =3D &table[idx];
->>      old =3D *pte;
->> =20
->>      write_atomic(&pte->raw, 0);
->> =20
->> +    *free =3D update_contig_markers(&table->raw, idx, level, PTE_kind_n=
-ull);
->> +
->>      unmap_domain_page(table);
->> =20
->>      return old;
->> @@ -85,7 +92,11 @@ static union amd_iommu_pte set_iommu_pte
->>      if ( !old.pr || old.next_level ||
->>           old.mfn !=3D next_mfn ||
->>           old.iw !=3D iw || old.ir !=3D ir )
->> +    {
->>          set_iommu_pde_present(pde, next_mfn, 0, iw, ir);
->> +        update_contig_markers(&table->raw, pfn_to_pde_idx(dfn, level), =
-level,
->> +                              PTE_kind_leaf);
->> +    }
->>      else
->>          old.pr =3D false; /* signal "no change" to the caller */
->> =20
->> @@ -259,6 +270,9 @@ static int iommu_pde_from_dfn(struct dom
->>              smp_wmb();
->>              set_iommu_pde_present(pde, next_table_mfn, next_level, true=
-,
->>                                    true);
->> +            update_contig_markers(&next_table_vaddr->raw,
->> +                                  pfn_to_pde_idx(dfn, level),
->> +                                  level, PTE_kind_table);
->> =20
->>              *flush_flags |=3D IOMMU_FLUSHF_modified;
->>          }
->> @@ -284,6 +298,9 @@ static int iommu_pde_from_dfn(struct dom
->>                  next_table_mfn =3D mfn_x(page_to_mfn(table));
->>                  set_iommu_pde_present(pde, next_table_mfn, next_level, =
-true,
->>                                        true);
->> +                update_contig_markers(&next_table_vaddr->raw,
->> +                                      pfn_to_pde_idx(dfn, level),
->> +                                      level, PTE_kind_table);
->=20
-> Would be nice if we could pack the update_contig_markers in
-> set_iommu_pde_present (like you do for clear_iommu_pte_present).
+> --- a/xen/arch/x86/include/asm/mm.h
+> +++ b/xen/arch/x86/include/asm/mm.h
+> @@ -641,7 +641,7 @@ static inline bool arch_mfn_in_directmap(unsigned long mfn)
+>  {
+>      unsigned long eva = min(DIRECTMAP_VIRT_END, HYPERVISOR_VIRT_END);
+>  
+> -    return mfn <= (virt_to_mfn(eva - 1) + 1);
+> +    return mfn < (virt_to_mfn(eva - 1) + 1);
+>  }
 
-I'm actually viewing things the other way around: I would have liked
-to avoid placing the call in clear_iommu_pte_present(), but that's
-where the mapping gets established and torn down.
+... this instead:
+
+static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
+{
+    unsigned long eva = min(DIRECTMAP_VIRT_END, HYPERVISOR_VIRT_END);
+
+    return mfn + nr <= (virt_to_mfn(eva - 1) + 1);
+}
+
+This would allow an arch hook to also go beyond verifying just the last
+MFN.
 
 Jan
 
