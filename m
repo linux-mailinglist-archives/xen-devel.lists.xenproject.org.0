@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99446477A6F
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Dec 2021 18:19:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.248138.427990 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7902B477A7F
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Dec 2021 18:24:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.248144.428001 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxuPd-00058O-3n; Thu, 16 Dec 2021 17:19:25 +0000
+	id 1mxuTq-0006WN-Kn; Thu, 16 Dec 2021 17:23:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 248138.427990; Thu, 16 Dec 2021 17:19:25 +0000
+Received: by outflank-mailman (output) from mailman id 248144.428001; Thu, 16 Dec 2021 17:23:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxuPd-00055Q-0U; Thu, 16 Dec 2021 17:19:25 +0000
-Received: by outflank-mailman (input) for mailman id 248138;
- Thu, 16 Dec 2021 17:19:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=sk45=RB=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1mxuPc-00055K-4K
- for xen-devel@lists.xenproject.org; Thu, 16 Dec 2021 17:19:24 +0000
-Received: from ppsw-43.csi.cam.ac.uk (ppsw-43.csi.cam.ac.uk [131.111.8.143])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4f95723c-5e94-11ec-9e60-abaf8a552007;
- Thu, 16 Dec 2021 18:19:22 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:47108)
- by ppsw-43.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1mxuPZ-0002v8-p9 (Exim 4.95) (return-path <amc96@srcf.net>);
- Thu, 16 Dec 2021 17:19:21 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 798E01FAC8;
- Thu, 16 Dec 2021 17:19:21 +0000 (GMT)
+	id 1mxuTq-0006U9-HS; Thu, 16 Dec 2021 17:23:46 +0000
+Received: by outflank-mailman (input) for mailman id 248144;
+ Thu, 16 Dec 2021 17:23:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=VBzi=RB=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1mxuTo-0006U3-Qx
+ for xen-devel@lists.xenproject.org; Thu, 16 Dec 2021 17:23:44 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ead23690-5e94-11ec-85d3-df6b77346a89;
+ Thu, 16 Dec 2021 18:23:43 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,56 +36,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f95723c-5e94-11ec-9e60-abaf8a552007
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <9cd576e2-956d-a61f-f840-d1dcdfdae2a6@srcf.net>
-Date: Thu, 16 Dec 2021 17:19:21 +0000
+X-Inumbo-ID: ead23690-5e94-11ec-85d3-df6b77346a89
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1639675422;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ih3MOpW/yCW+x5F+uZuuVRHaDZ9exo66WfrPCFsrhAY=;
+	b=OMVjennJ3dIFrwVfMs8MzDcb41Xr30oKty6fkqZ9/dg2KPX2j01Itd6kvCYu1225sOnYuo
+	IeaHw/JoJkXrtGr3oWwJMzzEwGmbkJFG3vgu9mNytV1jkcv4dag6oBGHon+mbf9Ogyak6J
+	JF0hQ4F7JA1yDzHNDLmTJM8en1l9nh0l4RtyKkhJNdGp1qF+PkIKoY49IEUHTkOsVif77X
+	EDZmJYVvTSc9g7y9TRGoIHjKz9B63drgsnnIlXTKDk1IKqeYDrXtl+Qq6LpiQy1hqLdDie
+	mG/yWvrQXdNGXa7j6B8oNi6M8Sbe5B02MnwHdqWu6fekNoxcotWWNW+EPmJPkg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1639675422;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ih3MOpW/yCW+x5F+uZuuVRHaDZ9exo66WfrPCFsrhAY=;
+	b=KLmanqyVLTn1a9p7GzpJVoRlRAGdDGqehRu/zZHojbSx8/zpp5uAkFxpqxeluTK3IDEpyQ
+	hmWFXp91ZBiOKlBQ==
+To: Nishanth Menon <nm@ti.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
+ Marc Zygnier <maz@kernel.org>, Alex Williamson
+ <alex.williamson@redhat.com>, Kevin Tian <kevin.tian@intel.com>, Jason
+ Gunthorpe <jgg@nvidia.com>, Megha Dey <megha.dey@intel.com>, Ashok Raj
+ <ashok.raj@intel.com>, linux-pci@vger.kernel.org, Cedric Le Goater
+ <clg@kaod.org>, Juergen Gross <jgross@suse.com>,
+ xen-devel@lists.xenproject.org, Arnd Bergmann <arnd@arndb.de>, Michael
+ Ellerman <mpe@ellerman.id.au>, Benjamin Herrenschmidt
+ <benh@kernel.crashing.org>, linuxppc-dev@lists.ozlabs.org, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Bjorn Helgaas
+ <bhelgaas@google.com>, Stuart Yoder <stuyoder@gmail.com>, Laurentiu Tudor
+ <laurentiu.tudor@nxp.com>, Tero Kristo <kristo@kernel.org>, Santosh
+ Shilimkar <ssantosh@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Vinod Koul <vkoul@kernel.org>, dmaengine@vger.kernel.org, Mark Rutland
+ <mark.rutland@arm.com>, Will Deacon <will@kernel.org>, Robin Murphy
+ <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ iommu@lists.linux-foundation.org, Jassi Brar <jassisinghbrar@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>, Sinan Kaya <okaya@kernel.org>,
+ linux-wireless@vger.kernel.org, Johannes Berg <johannes.berg@intel.com>
+Subject: Re: [patch V3 00/35] genirq/msi, PCI/MSI: Spring cleaning - Part 2
+In-Reply-To: <20211216014527.5d3sqs2klrqjmm2k@lunacy>
+References: <20211213182958.ytj4m6gsg35u77cv@detonator>
+ <87fsqvttfv.ffs@tglx> <20211214162247.ocjm7ihg5oi7uiuv@slider>
+ <87wnk7rvnz.ffs@tglx> <87tufbrudl.ffs@tglx> <87mtl3rli1.ffs@tglx>
+ <20211214205626.lrnddha6bd6d6es5@possibly> <87h7basx36.ffs@tglx>
+ <87zgp1rge4.ffs@tglx> <87wnk5rfkt.ffs@tglx>
+ <20211216014527.5d3sqs2klrqjmm2k@lunacy>
+Date: Thu, 16 Dec 2021 18:23:41 +0100
+Message-ID: <87wnk4cvky.ffs@tglx>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Subject: Re: [XEN PATCH 36/57] tools/xenstore: Cleanup makefile
-Content-Language: en-GB
-To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Anthony PERARD <anthony.perard@gmail.com>,
- Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>,
- Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
-References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-37-anthony.perard@citrix.com>
-From: Andrew Cooper <amc96@srcf.net>
-In-Reply-To: <20211206170241.13165-37-anthony.perard@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 06/12/2021 17:02, Anthony PERARD wrote:
-> Regroup *FLAGS together, use $(LDLIBS).
->
-> Remove $(LDLIBS_xenstored) which was the wrong name name as it doesn't
-> decribe how to link to a potential libxenstored.so, instead add the
-> value to $(LDLIBS) of xenstored.
->
-> Add SYSTEMD_LIBS into $(LDLIBS) instead of $(LDFLAGS).
->
-> Remove the "-I." from $(CFLAGS), it shouldn't be needed.
->
-> Removed $(CFLAGS-y) and $(LDFLAGS-y). $(CFLAGS-y) is already included
-> in $(CFLAGS) and both aren't used anyway.
->
-> Rename ALL_TARGETS to TARGETS.
-> Only add programmes we want to build in $(TARGETS), not phony-targets
-> (replace "clients").
->
-> Store all `xenstored` objs into $(XENSTORED_OBJS-y).
->
-> Replace one $< by $^ even if there's only one dependency,
-> (xenstore-control).
->
-> clean: "init-xenstore-domain" isn't built here, so stop trying to
-> remove it, remove $(TARGETS).
+Nishanth,
 
-"isn't built here any more".  It was, until c/s 89bf86d1eb4a4
+On Wed, Dec 15 2021 at 19:45, Nishanth Menon wrote:
+> On 17:35-20211215, Thomas Gleixner wrote:
+> Thanks once again for your help. Hope we can roll in the fixes for
+> part3.
 
-I'll tweak on commit.
+Sure, it's only the one-liner for ti sci. Got it folded already.
 
-~Andrew
+Thanks for your help and testing!
+
+       tglx
 
