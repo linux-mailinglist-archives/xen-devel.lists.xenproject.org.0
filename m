@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 723C7477E7E
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Dec 2021 22:11:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.248244.428190 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D644477E8D
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Dec 2021 22:16:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.248265.428202 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxy10-0007MC-3N; Thu, 16 Dec 2021 21:10:14 +0000
+	id 1mxy6c-00083A-Nb; Thu, 16 Dec 2021 21:16:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 248244.428190; Thu, 16 Dec 2021 21:10:14 +0000
+Received: by outflank-mailman (output) from mailman id 248265.428202; Thu, 16 Dec 2021 21:16:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mxy10-0007Jb-04; Thu, 16 Dec 2021 21:10:14 +0000
-Received: by outflank-mailman (input) for mailman id 248244;
- Thu, 16 Dec 2021 21:10:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=sk45=RB=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1mxy0y-0007JV-RL
- for xen-devel@lists.xenproject.org; Thu, 16 Dec 2021 21:10:12 +0000
-Received: from ppsw-43.csi.cam.ac.uk (ppsw-43.csi.cam.ac.uk [131.111.8.143])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8d29fdab-5eb4-11ec-9e60-abaf8a552007;
- Thu, 16 Dec 2021 22:10:11 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:47262)
- by ppsw-43.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1mxy0m-000AoV-nf (Exim 4.95) (return-path <amc96@srcf.net>);
- Thu, 16 Dec 2021 21:10:00 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 299521FC68;
- Thu, 16 Dec 2021 21:10:00 +0000 (GMT)
+	id 1mxy6c-00081L-Jv; Thu, 16 Dec 2021 21:16:02 +0000
+Received: by outflank-mailman (input) for mailman id 248265;
+ Thu, 16 Dec 2021 21:16:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CyNJ=RB=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1mxy6b-00081F-30
+ for xen-devel@lists.xenproject.org; Thu, 16 Dec 2021 21:16:01 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5cf2feba-5eb5-11ec-85d3-df6b77346a89;
+ Thu, 16 Dec 2021 22:15:59 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id C9601618B3;
+ Thu, 16 Dec 2021 21:15:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AECE0C36AE7;
+ Thu, 16 Dec 2021 21:15:56 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,59 +43,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8d29fdab-5eb4-11ec-9e60-abaf8a552007
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <d75ef96c-ab0a-adb9-ca15-70e1c9c5e27e@srcf.net>
-Date: Thu, 16 Dec 2021 21:09:59 +0000
+X-Inumbo-ID: 5cf2feba-5eb5-11ec-85d3-df6b77346a89
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1639689357;
+	bh=7rRmfTrToD4jqpF7Ax6Xi68uwKeLH0FDxcLqsWl3p7o=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=EI69Mofl7T1nECNowTigZChE8x97q66y36IhWkmVeTtdhzmq6+TbZU3Tel8hGV2vH
+	 XK6xzjVX6NhPX2P1Yy40yOXjIQiCcExG/stRAKmezN31IOsEaV8RlYTmvv0x+BZICD
+	 LyGG84+shiuZCXzYuMblDCQUSIqEp3btprpIlGIlkDvaHaXRkUdF2oXSN57re+GHaR
+	 zpIJZtD7En7/PM+2bqiA+e4RQ3tMRve3+f8jjpKw10xVj6zJ2a0ss7BtsvpQTV/Da9
+	 0Sx41vFpMgqquEAzu25boyuxSMj1YzHp2KGbF8P/bSN01XxLQPoNYfK3TCxwKO6Plv
+	 cNjyexby7Jg6A==
+Date: Thu, 16 Dec 2021 13:15:56 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Stefano Stabellini <sstabellini@kernel.org>
+cc: Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>, 
+    xen-devel@lists.xenproject.org, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Wei Liu <wl@xen.org>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Christopher Clark <christopher.w.clark@gmail.com>
+Subject: Re: [PATCH v3 02/13] xen: harmonize return types of hypercall
+ handlers
+In-Reply-To: <alpine.DEB.2.22.394.2112161232310.3376@ubuntu-linux-20-04-desktop>
+Message-ID: <alpine.DEB.2.22.394.2112161246180.3376@ubuntu-linux-20-04-desktop>
+References: <20211208155606.20029-1-jgross@suse.com> <20211208155606.20029-3-jgross@suse.com> <7dd419c1-9ad0-798e-317b-71c8e613ff3e@xen.org> <4e9947b6-08b4-4ac6-9cfe-538c3b34175e@suse.com> <alpine.DEB.2.22.394.2112151757410.3376@ubuntu-linux-20-04-desktop>
+ <c650062f-948e-569d-d4fa-e5333867854e@suse.com> <alpine.DEB.2.22.394.2112161232310.3376@ubuntu-linux-20-04-desktop>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Content-Language: en-GB
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Kevin Tian <kevin.tian@intel.com>
-References: <20211216095421.12871-1-andrew.cooper3@citrix.com>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH 0/6] x86: Support PKS
-In-Reply-To: <20211216095421.12871-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 16/12/2021 09:54, Andrew Cooper wrote:
-> I found a spare half hour, and this turned out to go very smoothly.
->
-> It's tentatively RFC right now, because I'm still adding PKS support to the
-> XTF comprehensive pagewalk test, but the series is definitely fit for review
-> at this point.
+On Thu, 16 Dec 2021, Stefano Stabellini wrote:
+> On Thu, 16 Dec 2021, Juergen Gross wrote:
+> > On 16.12.21 03:10, Stefano Stabellini wrote:
+> > > On Wed, 15 Dec 2021, Juergen Gross wrote:
+> > > > On 14.12.21 18:36, Julien Grall wrote:
+> > > > > Hi,
+> > > > > 
+> > > > > On 08/12/2021 15:55, Juergen Gross wrote:
+> > > > > > Today most hypercall handlers have a return type of long, while the
+> > > > > > compat ones return an int. There are a few exceptions from that rule,
+> > > > > > however.
+> > > > > 
+> > > > > So on Arm64, I don't think you can make use of the full 64-bit because a
+> > > > > 32-bit domain would not be able to see the top 32-bit.
+> > > > > 
+> > > > > In fact, this could potentially cause us some trouble (see [1]) in Xen.
+> > > > > So it feels like the hypercalls should always return a 32-bit signed
+> > > > > value
+> > > > > on Arm.
+> > > > 
+> > > > This would break hypercalls like XENMEM_maximum_ram_page which are able
+> > > > to return larger values, right?
+> > > > 
+> > > > > The other advantage is it would be clear that the top 32-bit are not
+> > > > > usuable. Stefano, what do you think?
+> > > > 
+> > > > Wouldn't it make more sense to check the return value to be a sign
+> > > > extended 32-bit value for 32-bit guests in do_trap_hypercall() instead?
+> > > > 
+> > > > The question is what to return if this is not the case. -EDOM?
+> > > 
+> > > 
+> > > I can see where Julien is coming from: we have been trying to keep the
+> > > arm32 and arm64 ABIs identical since the beginning of the project. So,
+> > > like Julien, my preference would be to always return 32-bit on ARM, both
+> > > aarch32 and aarch64. It would make things simple.
+> > > 
+> > > The case of XENMEM_maximum_ram_page is interesting but it is not a
+> > > problem in reality because the max physical address size is only 40-bit
+> > > for aarch32 guests, so 32-bit are always enough to return the highest
+> > > page in memory for 32-bit guests.
+> > 
+> > You are aware that this isn't the guest's max page, but the host's?
 
-I suppose it's worth expanding on this a little.  What I've proposed
-here is the most efficient option, and it is very non-invasive but comes
-with the downside that Xen can't set CR4.PKS.
+I can see now that you meant to say that, no matter what is the max
+pseudo-physical address supported by the VM, XENMEM_maximum_ram_page is
+supposed to return the max memory page, which could go above the
+addressibility limit of the VM.
 
-It is tied to VT-x behaviour, so I've left a deliberate clobber so it
-won't engage automatically if AMD add support on future CPUs.
+So XENMEM_maximum_ram_page should potentially be able to return (1<<44)
+even when called by an aarch32 VM, with max IPA 40-bit.
 
+I would imagine it could be useful if dom0 is 32-bit but domUs are
+64-bit on a 64-bit hypervisor (which I think it would be a very rare
+configuration on ARM.)
 
-If we want Xen to be able to use PKS, then a couple of things change.
+Then it looks like XENMEM_maximum_ram_page needs to be able to return a
+value > 32-bit when called by a 32-bit guest.
 
-1) PV32 needs inhibiting.  This is likely the case anyway, due to CET.
-2) VT-x will need to start using the PKRS load/save controls
-2a) Need new get/set_pkrs hvm_funcs accessors to abstract the
-VMREAD/WRITE out of common code.
-2b) guest_{rd,wr}msr() and pagewalk updated to cope
-3) Whatever AMD needs (if applicable).
+The hypercall ABI follows the ARM C calling convention, so a 64-bit
+value should be returned using r0 and r1. But looking at
+xen/arch/arm/traps.c:do_trap_hypercall, it doesn't seem it ever sets r1
+today. Only r0 is set, so effectively we only support 32-bit return
+values on aarch32 and for aarch32 guests.
 
+In other words, today all hypercalls on ARM return 64-bit to 64-bit
+guests and 32-bit to 32-bit guests. Which in the case of memory_op is
+"technically" the correct thing to do because it matches the C
+declaration in xen/include/xen/hypercall.h:
 
-In terms of Xen using PKS, the first piece of low hanging fruit is
-removing access to the stubs by default, to prevent stray writes from
-interfering with other CPUs.
+extern long
+do_memory_op(
+    unsigned long cmd,
+    XEN_GUEST_HANDLE_PARAM(void) arg);
 
-Changing PKEY is a WRMSR, so not the fastest action in the world even if
-it is well optimised in microcode, but modification of the stubs is not
-a fastpath, so this would be entirely fine.
-
-~Andrew
+So...  I guess the conclusion is that on ARM do_memory_op should return
+"long" although it is not actually enough for a correct implementation
+of XENMEM_maximum_ram_page for aarch32 guests ?
 
