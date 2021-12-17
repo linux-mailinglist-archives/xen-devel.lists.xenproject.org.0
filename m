@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10A4D4785B0
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Dec 2021 08:46:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.248450.428569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 119A94785BC
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Dec 2021 08:51:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.248456.428580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1my7w1-00066n-38; Fri, 17 Dec 2021 07:45:45 +0000
+	id 1my81B-0007h3-NR; Fri, 17 Dec 2021 07:51:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 248450.428569; Fri, 17 Dec 2021 07:45:45 +0000
+Received: by outflank-mailman (output) from mailman id 248456.428580; Fri, 17 Dec 2021 07:51:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1my7w0-00063s-Vm; Fri, 17 Dec 2021 07:45:44 +0000
-Received: by outflank-mailman (input) for mailman id 248450;
- Fri, 17 Dec 2021 07:45:43 +0000
+	id 1my81B-0007e4-Jz; Fri, 17 Dec 2021 07:51:05 +0000
+Received: by outflank-mailman (input) for mailman id 248456;
+ Fri, 17 Dec 2021 07:51:03 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zqed=RC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1my7vz-00063m-05
- for xen-devel@lists.xenproject.org; Fri, 17 Dec 2021 07:45:43 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ (envelope-from <SRS0=NBDy=RC=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1my819-0007dy-QQ
+ for xen-devel@lists.xenproject.org; Fri, 17 Dec 2021 07:51:03 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 556867e7-5f0d-11ec-9e60-abaf8a552007;
- Fri, 17 Dec 2021 08:45:41 +0100 (CET)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2054.outbound.protection.outlook.com [104.47.12.54]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-28-SRvdX3doMpeHhn2cOvbgag-1; Fri, 17 Dec 2021 08:45:40 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB7150.eurprd04.prod.outlook.com (2603:10a6:800:12a::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.15; Fri, 17 Dec
- 2021 07:45:38 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4801.016; Fri, 17 Dec 2021
- 07:45:38 +0000
+ id 149a42a2-5f0e-11ec-9e60-abaf8a552007;
+ Fri, 17 Dec 2021 08:51:02 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E0A171F3AD;
+ Fri, 17 Dec 2021 07:51:01 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B0BFB13F21;
+ Fri, 17 Dec 2021 07:51:01 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id jrLdKWVBvGFWZQAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 17 Dec 2021 07:51:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,189 +51,381 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 556867e7-5f0d-11ec-9e60-abaf8a552007
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1639727141;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qcUuXRJge8RWhJbZRHFg8OMe8tfU/g5vm435YLV2DEw=;
-	b=GmxxdIcq4/dhdQJmLYwDWps0FHEWsCw/wFYSTeVB1n+diLLSNE/dFdKOaPh2b8/pGhxsfy
-	aUerMJVQwPPcxMpD655mYa8AbKqsaooWQhINYoCmMGTCfXosHsoF0LukkutzEmI/rrMx1L
-	okn6nYoRouanf08EkMaabPBJEooVw6I=
-X-MC-Unique: SRvdX3doMpeHhn2cOvbgag-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lVu0FHmLwsdjT3lRV1s1qUuuiZgXiuv+4JlUiREON3L66hT59fKXsHJ2rfq2p2JmvodV0dsarMvWM/OcsbswWHOeX4VOdpItEQdg7qx9hZ1ctSOA5axyRtRWz/6kMvOJAM+rVRWG1EhwhAZpnttp1IvXMlx8BU9Z1rkDDETqTPZS/LKSWLctyzdPjrC0Kemj6b3AJOpmJNnJR12Ux5PKyHLa0/0cIH/6hN4Vd+CZxOyuvktGdfkeKRpLvGn1+hoabvV5n49l8rilfYrIvG1C0NtnKYTt7b1Y83Sy1WYp2VYMTelfbPPSkgprZzLEB3y9QR+NEkl6FFoe/sYMFbxCXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qcUuXRJge8RWhJbZRHFg8OMe8tfU/g5vm435YLV2DEw=;
- b=Bk34KXFISe+4EsRKvbt8HW0GQLWwx327GlfUjuE4u6yLXGpcR6YbOuc8thdoMIW/DOgBTo7cvg4fRfdPqfKkE4hxRXd9FHR0nXyhOrVffG5DPrt0TjtbvKGoZp/DjPvocD4xx7tWYy10Qrgmm2dE59FUylNBvCCp4BTimuzB4avxzJKLlfGKpUiCfZRGcdjlJhMoVXUuQoj/s6nT4kOZwQcpYNqoU6xofGzpLv6h7/JtBCquUYwbnkdzeJHF96pJrwHye0YePmEbRK7gyVQPSqyja8tkwjXvTu1tcBYGM7cCDKUozGyvA97V5rWAkFM37nbjsd4+K4DPTL6+/YUn+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <67d3c4da-9a20-24ca-543f-02ecf4676277@suse.com>
-Date: Fri, 17 Dec 2021 08:45:36 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Subject: Re: [PATCH v3 02/13] xen: harmonize return types of hypercall
- handlers
-Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20211208155606.20029-1-jgross@suse.com>
- <20211208155606.20029-3-jgross@suse.com>
- <7dd419c1-9ad0-798e-317b-71c8e613ff3e@xen.org>
- <4e9947b6-08b4-4ac6-9cfe-538c3b34175e@suse.com>
- <alpine.DEB.2.22.394.2112151757410.3376@ubuntu-linux-20-04-desktop>
- <c650062f-948e-569d-d4fa-e5333867854e@suse.com>
- <alpine.DEB.2.22.394.2112161232310.3376@ubuntu-linux-20-04-desktop>
- <alpine.DEB.2.22.394.2112161246180.3376@ubuntu-linux-20-04-desktop>
- <29c14fd7-4ae2-a277-2413-faa330afc49b@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <29c14fd7-4ae2-a277-2413-faa330afc49b@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR04CA0039.eurprd04.prod.outlook.com
- (2603:10a6:20b:46a::33) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 149a42a2-5f0e-11ec-9e60-abaf8a552007
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1639727461; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=Ge/T7sfWxdaImWMIF/IC9l8ofgbDkde6Zgt9g58mXQs=;
+	b=mc6XG7Xx3c4gssU/JCCnlbwMieWQYmYFZxhyT/UnUwG0Cxmdd3wZVMrE6FJ/dw0SsYw3wu
+	rckMdGcrQ5NSlnEW1wgNqPrlxMP+2B9V+VJPKLpswpRNSqtCXH+HFG7gkuPVHxasX3e8uy
+	Lcf85BSiqIcKTgMLPUdkAan5VucdaiE=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Wei Liu <wl@xen.org>,
+	Julien Grall <julien@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH] tools/xenstore: drop support for running under SunOS
+Date: Fri, 17 Dec 2021 08:50:59 +0100
+Message-Id: <20211217075059.14466-1-jgross@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 304fc689-83e6-48bf-edea-08d9c1313788
-X-MS-TrafficTypeDiagnostic: VI1PR04MB7150:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB71502250D8ECD90ADC73AC16B3789@VI1PR04MB7150.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	PmLdjnfuuIv7y7decwER5DWKKcA5B+Kd/g/gSzP8neTJ+srLfQSiDJ4MAaQ9deIPxrmzDAJf7k7+seMC0+IK/a/8lG/roipDQJAtly5jHct92tRH/Hjq+0rY15fHNYbzQxptBjMAQL0+8hBIanZuXpftlJyULY0wk2zdwFQHv7/2XvjQLsUoBi6rlEtSIl4pEidbxRx5pBx3oAUKypJEOk8ElwIc/3tYsP2ccrZjvh65Ga73Ly4PqXOA3hFVDlTYwW2qjc5ihYD2ja+NtDG91mvFFUXSW6mIZmValEpCWEbdxTuokpxQy2wXfTpmm3XBQQr2Jr2UtZO89FzpS5BuuU0PUoBiQLGyzpqIgIrm7MQFIVTaSAFae5zmgWIOAaBzt/2dtjVeX8NzXQG/pg9xEIVmAjDCREEGZ+MmMvVqae5+iMtf/z/89k107avrd6UwhUvh4mCvLTh+b6IhyK7tJG9lO24s7xgRMbrhLSmCaKUSxiBtZQzUSz+3JjBGGXwZsk7RG0qI0z3wYLtuftEuQn6D7IS997cQOASGvHrLWoGOMMFyLGlnaR09oKNubYpC7jBKedfs1fBmMwT1IH4AQ61qZLe8fNMzvsmH/UhmR1N92/drr41f2S9hHUSfNkB1nfwTyMLybcup40XxbQfHep7X7AIbDAkgeM5YWOGWyYD3aqiYypDgGL85VcR+yZ99+7wS/qbf4EFYFMayQCsd8DWHC3Ctq9D9FggikMgLKRhJ6At9ErszQb1IQ2piAhKj
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6486002)(6512007)(37006003)(5660300002)(4326008)(66946007)(8676002)(66476007)(31696002)(66556008)(2906002)(316002)(6862004)(38100700002)(36756003)(8936002)(54906003)(53546011)(31686004)(508600001)(26005)(7416002)(6506007)(83380400001)(2616005)(6636002)(86362001)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RFJzRk1UMmRSenVLTGh4MUFZR2pXZ3ZWZ0VKKzlINUZaU3czZ2Fkc3ZWWHZK?=
- =?utf-8?B?eTlaOC8raWk0YmliZE8yNGxjSGVXd1dzUWRaS1Y5TmJkQVBjWlBzSXArT2t0?=
- =?utf-8?B?V3lCYXJTL1ZXYjRBT0c4alBmQmZvS3ZjN0RIaXpNZW9yNkdoZU5OZHdNTkpO?=
- =?utf-8?B?RFRhQ2tRdURFZ0ZvSzB1YllRbnU2akFSUnNrQnVJSHJZaDNDS0huaFMyU0Qz?=
- =?utf-8?B?Skp5SzFmaFRzK2xFRFVuZmtMVEMzbDJxaUd3WG00VnF4aTBId0Y5T211RXl5?=
- =?utf-8?B?alNIci92c0ZyVmdmbWNpWUU5eVlRNDRhWnA5cXBTNkVtMjZxdi9qbWdSbTl1?=
- =?utf-8?B?TVd1cVFETC9JMWNKS1MzQ2RjUVNXYjZ2bTdsOUdTdkZyQVR5Z2pxNUNHdmVi?=
- =?utf-8?B?cGI2WDIyUnQ0OEVTVnAxNlNSblBtWHlHTEFaN3R1dytHWXoycjdoRWNvaUxK?=
- =?utf-8?B?dFczVUgvZ3BoOTY4cUlUUE9nWjRrOVlDYnB2N3MrV3ZGTXJEaWdvWGpBMEw5?=
- =?utf-8?B?cncweDhCZ0VFTmlUVThGWE1HU25UN2hjWEZFOHM5ZjMwTmZSS2N4Qy9naXVG?=
- =?utf-8?B?MDZPRDZ5L2lEY2l1YUpzRzBndjRvRmtKSGs3RVNFQkhpSG1oeDc2Lzl2ZGRl?=
- =?utf-8?B?ZFlUQTh0aWxUcURTV0ZIcWpyUU92dVlsd3pabmFmUkFzZEtFNm9rKzllOXdD?=
- =?utf-8?B?YVI3dHZjOUxBdStiY2ZPQ3IySmhUalFaN1FnVlRZaTV5byswTzVHajhidytt?=
- =?utf-8?B?cWFHazE2ckw0Y0pKYmVSRDErR0xFdTNpWFhuVTdtMjdIc2pTWkRsWlB5Rm1J?=
- =?utf-8?B?YUlNN2FKMnNiZUtWOVA2azg4SEx3T0ZKbCtGMjlFcWtwK1lBcjRLUDcyZG5B?=
- =?utf-8?B?ek1FdFR3aVhFakt4bXVISTR2SG1iK04valdlcUNUbnRnUjFtQTNnZCtOQm9p?=
- =?utf-8?B?cThoTlI3aTNmTHlydFZPK0FLSHNieVdSQTBUcmhyOTRGRk82blgxZlk0dzEy?=
- =?utf-8?B?cWEzWTBzaXRCd2pZZWlaNXl5ZzBPUzNmelNvdEp0VFN3N3pTOW1IZnJGbXF3?=
- =?utf-8?B?Ujl1Nld2Q2ozR25NNlpjYWRjcW5pZEFaN1UweWRJeWdmRGZFeUhXZ0NuamNS?=
- =?utf-8?B?bFQvMzl5ZzdpK1I0R2ZIRElITlVSS2ZhWFZ0ZFNiT012VDBBSzFCamZIOFE0?=
- =?utf-8?B?YXpReHBjUDFoVExSTFIxdkVRNWFYNE9Ta3JQdC9vck51OW43R2h4MUZGa2V0?=
- =?utf-8?B?ZEdOdmRJd2dZSE9LQktxWHBmWkRjdE5pYU9RVUV2RkVzeTlmQ28wdzgxL3NL?=
- =?utf-8?B?S0FQUVhTTDcwNUp2amx0ZzZBM1haT3JQUSt4WVdWZXlwR010blVucGh4eEd6?=
- =?utf-8?B?RFplOWFCOTZOZEE4Vkh5aW1XQWs5NnhGcGlBWGxndHJtT1NaWWdKYzlVYjdE?=
- =?utf-8?B?K3RlN1RBaEoyQjBaN2ZhTHFMa2V6OGJPTUh2RjNaUzVhU1QxVXRjdVhjYjhx?=
- =?utf-8?B?eXp3S3laU1doNVYwQjZMRXlhRmlJUVdsR3NyWkZZYzFVNHgzRzBLSTZONmR6?=
- =?utf-8?B?cHBmNGlKWTZ2cFVLbC9DSjdsZSttb05oOUlyOFhqNE1aOGw3VXY4TG5GVURI?=
- =?utf-8?B?bkNhS1VMM0VjOHFMZUwyUVlMKzkwWXA2YVN4ei9VbUdIL01mVHJKbk5CU1NK?=
- =?utf-8?B?RFhCVjNETHdGdUlJemMxMTk5N29KWUFYV3lpU2dGZ0haQVlXZ2Z6a3dzWHNJ?=
- =?utf-8?B?SmJibkVaVCs0RWUzcFdkdWNKMVZaN0JmamhGbmdwS0c3UVkydHFlSXFFWmVM?=
- =?utf-8?B?ODgwSG5wSDVCTmp1SE92K1dTb1hQbW85NUhCaFFMS0w1Rm1ZNGZ4T1JQMnUr?=
- =?utf-8?B?cXpGTGFmY3RKcXoyWnVpYU5pSUQ4NC85aGtWVkh5bEpJMWVqZm1CWklmbVd2?=
- =?utf-8?B?WEJhQ0Z2cDZVdjV3VTUySG9EbnlZcjNwK3JrOGlJYitpYVpUN1VyOXZNbksx?=
- =?utf-8?B?MEpNUmhiYyszRitmaDNoaU9GZnZkQkEyQnJtN1pJNllsRHpmQUExQVhYbHUx?=
- =?utf-8?B?aUpqVCtRV0cyVWxPRFI0UzdpSmdzR0xxZm5FcG9nRW9PQnZhWnRuTTN6YmxQ?=
- =?utf-8?B?NjJvKzljMkVsUEZGMXY2dHF0MEFJT2NrNVBDZU1FcTBDQkJObW85ZWhqQjNM?=
- =?utf-8?Q?Mu1Dl5bCKZ2Pap4Xt1Gw/CQ=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 304fc689-83e6-48bf-edea-08d9c1313788
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Dec 2021 07:45:38.0423
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZdeA7laYw9gqAPQI6xOjEIHqwpzOGsHvRAZK13EMqt2CaqP3uLwfMSGarIM20RxtSODz89crY4+4pCrFBYwnxg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7150
+Content-Transfer-Encoding: 8bit
 
-On 17.12.2021 06:34, Juergen Gross wrote:
-> On 16.12.21 22:15, Stefano Stabellini wrote:
->> On Thu, 16 Dec 2021, Stefano Stabellini wrote:
->>> On Thu, 16 Dec 2021, Juergen Gross wrote:
->>>> On 16.12.21 03:10, Stefano Stabellini wrote:
->>>>> The case of XENMEM_maximum_ram_page is interesting but it is not a
->>>>> problem in reality because the max physical address size is only 40-bit
->>>>> for aarch32 guests, so 32-bit are always enough to return the highest
->>>>> page in memory for 32-bit guests.
->>>>
->>>> You are aware that this isn't the guest's max page, but the host's?
->>
->> I can see now that you meant to say that, no matter what is the max
->> pseudo-physical address supported by the VM, XENMEM_maximum_ram_page is
->> supposed to return the max memory page, which could go above the
->> addressibility limit of the VM.
->>
->> So XENMEM_maximum_ram_page should potentially be able to return (1<<44)
->> even when called by an aarch32 VM, with max IPA 40-bit.
->>
->> I would imagine it could be useful if dom0 is 32-bit but domUs are
->> 64-bit on a 64-bit hypervisor (which I think it would be a very rare
->> configuration on ARM.)
->>
->> Then it looks like XENMEM_maximum_ram_page needs to be able to return a
->> value > 32-bit when called by a 32-bit guest.
->>
->> The hypercall ABI follows the ARM C calling convention, so a 64-bit
->> value should be returned using r0 and r1. But looking at
->> xen/arch/arm/traps.c:do_trap_hypercall, it doesn't seem it ever sets r1
->> today. Only r0 is set, so effectively we only support 32-bit return
->> values on aarch32 and for aarch32 guests.
->>
->> In other words, today all hypercalls on ARM return 64-bit to 64-bit
->> guests and 32-bit to 32-bit guests. Which in the case of memory_op is
->> "technically" the correct thing to do because it matches the C
->> declaration in xen/include/xen/hypercall.h:
->>
->> extern long
->> do_memory_op(
->>      unsigned long cmd,
->>      XEN_GUEST_HANDLE_PARAM(void) arg);
->>
->> So...  I guess the conclusion is that on ARM do_memory_op should return
->> "long" although it is not actually enough for a correct implementation
->> of XENMEM_maximum_ram_page for aarch32 guests ?
->>
-> 
-> Hence my suggestion to check the return value of _all_ hypercalls to be
-> proper sign extended int values for 32-bit guests. This would fix all
-> potential issues without silently returning truncated values.
+Since several years now xenstored is no longer capable to run under
+SunOS, as the needed libxengnttab interfaces are not available there.
 
-Are we absolutely certain we have no other paths left where a possibly
-large unsigned values might be returned? In fact while
-compat_memory_op() does the necessary saturation, I've never been fully
-convinced of this being the best way of dealing with things. The range
-of error indicators is much smaller than [-INT_MIN,-1], so almost
-double the range of effectively unsigned values could be passed back
-fine. (Obviously we can't change existing interfaces, so this mem-op
-will need to remain as is.)
+Several attempts to let the SunOS maintainers address this situation
+didn't change anything in this regard.
 
-Jan
+For those reasons drop SunOS support in xenstored by removing the SunOS
+specific code.
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ tools/xenstore/Makefile            |  15 +--
+ tools/xenstore/xenstored_core.c    |   7 --
+ tools/xenstore/xenstored_core.h    |   4 -
+ tools/xenstore/xenstored_minios.c  |   4 -
+ tools/xenstore/xenstored_posix.c   |   6 --
+ tools/xenstore/xenstored_probes.d  |  28 -----
+ tools/xenstore/xenstored_solaris.c | 168 -----------------------------
+ 7 files changed, 1 insertion(+), 231 deletions(-)
+ delete mode 100644 tools/xenstore/xenstored_probes.d
+ delete mode 100644 tools/xenstore/xenstored_solaris.c
+
+diff --git a/tools/xenstore/Makefile b/tools/xenstore/Makefile
+index 292b478fa1..c86278fdb1 100644
+--- a/tools/xenstore/Makefile
++++ b/tools/xenstore/Makefile
+@@ -27,7 +27,6 @@ XENSTORED_OBJS += xenstored_transaction.o xenstored_control.o
+ XENSTORED_OBJS += xs_lib.o talloc.o utils.o tdb.o hashtable.o
+ 
+ XENSTORED_OBJS_$(CONFIG_Linux) = xenstored_posix.o
+-XENSTORED_OBJS_$(CONFIG_SunOS) = xenstored_solaris.o xenstored_posix.o xenstored_probes.o
+ XENSTORED_OBJS_$(CONFIG_NetBSD) = xenstored_posix.o
+ XENSTORED_OBJS_$(CONFIG_FreeBSD) = xenstored_posix.o
+ XENSTORED_OBJS_$(CONFIG_MiniOS) = xenstored_minios.o
+@@ -50,18 +49,6 @@ all: $(ALL_TARGETS)
+ .PHONY: clients
+ clients: xenstore $(CLIENTS) xenstore-control
+ 
+-ifeq ($(CONFIG_SunOS),y)
+-xenstored_probes.h: xenstored_probes.d
+-	dtrace -C -h -s xenstored_probes.d
+-
+-xenstored_solaris.o: xenstored_probes.h
+-
+-xenstored_probes.o: xenstored_solaris.o
+-	dtrace -C -G -s xenstored_probes.d xenstored_solaris.o 
+-
+-CFLAGS += -DHAVE_DTRACE=1
+-endif
+-
+ ifeq ($(CONFIG_SYSTEMD),y)
+ $(XENSTORED_OBJS): CFLAGS += $(SYSTEMD_CFLAGS)
+ xenstored: LDFLAGS += $(SYSTEMD_LIBS)
+@@ -89,7 +76,7 @@ xs_tdb_dump: xs_tdb_dump.o utils.o tdb.o talloc.o
+ 
+ .PHONY: clean
+ clean:
+-	rm -f *.a *.o xenstored_probes.h
++	rm -f *.a *.o
+ 	rm -f xenstored
+ 	rm -f xs_tdb_dump xenstore-control init-xenstore-domain
+ 	rm -f xenstore $(CLIENTS)
+diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+index 91d093a12e..c386ae6129 100644
+--- a/tools/xenstore/xenstored_core.c
++++ b/tools/xenstore/xenstored_core.c
+@@ -146,10 +146,6 @@ static void trace_io(const struct connection *conn,
+ 	time_t now;
+ 	struct tm *tm;
+ 
+-#ifdef HAVE_DTRACE
+-	dtrace_io(conn, data, out);
+-#endif
+-
+ 	if (tracefd < 0)
+ 		return;
+ 
+@@ -2337,9 +2333,6 @@ int main(int argc, char *argv[])
+ 	/* Get ready to listen to the tools. */
+ 	initialize_fds(&sock_pollfd_idx, &timeout);
+ 
+-	/* Tell the kernel we're up and running. */
+-	xenbus_notify_running();
+-
+ #if defined(XEN_SYSTEMD_ENABLED)
+ 	if (!live_update) {
+ 		sd_notify(1, "READY=1");
+diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
+index 07d861d924..190d2447cd 100644
+--- a/tools/xenstore/xenstored_core.h
++++ b/tools/xenstore/xenstored_core.h
+@@ -225,7 +225,6 @@ int delay_request(struct connection *conn, struct buffered_data *in,
+ void trace_create(const void *data, const char *type);
+ void trace_destroy(const void *data, const char *type);
+ void trace(const char *fmt, ...) __attribute__ ((format (printf, 1, 2)));
+-void dtrace_io(const struct connection *conn, const struct buffered_data *data, int out);
+ void reopen_log(void);
+ void close_log(void);
+ 
+@@ -250,9 +249,6 @@ static inline int xenbus_master_domid(void) { return dom0_domid; }
+ /* Return the event channel used by xenbus. */
+ evtchn_port_t xenbus_evtchn(void);
+ 
+-/* Tell the kernel xenstored is running. */
+-void xenbus_notify_running(void);
+-
+ /* Write out the pidfile */
+ void write_pidfile(const char *pidfile);
+ 
+diff --git a/tools/xenstore/xenstored_minios.c b/tools/xenstore/xenstored_minios.c
+index c94493e52a..aa384e50c8 100644
+--- a/tools/xenstore/xenstored_minios.c
++++ b/tools/xenstore/xenstored_minios.c
+@@ -38,10 +38,6 @@ void init_pipe(int reopen_log_pipe[2])
+ 	reopen_log_pipe[1] = -1;
+ }
+ 
+-void xenbus_notify_running(void)
+-{
+-}
+-
+ evtchn_port_t xenbus_evtchn(void)
+ {
+ 	return dom0_event;
+diff --git a/tools/xenstore/xenstored_posix.c b/tools/xenstore/xenstored_posix.c
+index 48c37ffe3e..b20504d1b6 100644
+--- a/tools/xenstore/xenstored_posix.c
++++ b/tools/xenstore/xenstored_posix.c
+@@ -111,7 +111,6 @@ void unmap_xenbus(void *interface)
+ 	munmap(interface, getpagesize());
+ }
+ 
+-#ifndef __sun__
+ evtchn_port_t xenbus_evtchn(void)
+ {
+ 	int fd;
+@@ -158,8 +157,3 @@ void *xenbus_map(void)
+ 
+ 	return addr;
+ }
+-
+-void xenbus_notify_running(void)
+-{
+-}
+-#endif /* !__sun__ */
+diff --git a/tools/xenstore/xenstored_probes.d b/tools/xenstore/xenstored_probes.d
+deleted file mode 100644
+index f72d38f935..0000000000
+--- a/tools/xenstore/xenstored_probes.d
++++ /dev/null
+@@ -1,28 +0,0 @@
+-/*
+- * Copyright 2007 Sun Microsystems, Inc.  All rights reserved.
+- * Use is subject to license terms.
+- *
+- * This program is free software; you can redistribute it and/or modify
+- * it under the terms of the GNU General Public License as published by
+- * the Free Software Foundation, version 2 of the License.
+- */
+-
+-#include <sys/types.h>
+-
+-provider xenstore {
+-	/* tx id, dom id, pid, type, msg */
+-	probe msg(uint32_t, unsigned int, pid_t, int, const char *);
+-	/* tx id, dom id, pid, type, reply */
+-	probe reply(uint32_t, unsigned int, pid_t, int, const char *);
+-	/* tx id, dom id, pid, reply */
+-	probe error(uint32_t, unsigned int, pid_t, const char *);
+-	/* dom id, pid, watch details */
+-	probe watch_event(unsigned int, pid_t, const char *);
+-};
+-
+-#pragma D attributes Evolving/Evolving/Common provider xenstore provider
+-#pragma D attributes Private/Private/Unknown provider xenstore module
+-#pragma D attributes Private/Private/Unknown provider xenstore function
+-#pragma D attributes Evolving/Evolving/Common provider xenstore name
+-#pragma D attributes Evolving/Evolving/Common provider xenstore args
+-
+diff --git a/tools/xenstore/xenstored_solaris.c b/tools/xenstore/xenstored_solaris.c
+deleted file mode 100644
+index 06052d124a..0000000000
+--- a/tools/xenstore/xenstored_solaris.c
++++ /dev/null
+@@ -1,168 +0,0 @@
+-/******************************************************************************
+- *
+- * Copyright 2006 Sun Microsystems, Inc.  All rights reserved.
+- * Use is subject to license terms.
+- *
+- * Copyright (C) 2005 Rusty Russell IBM Corporation
+- *
+- * This program is free software; you can redistribute it and/or
+- * modify it under the terms of the GNU General Public License as
+- * published by the Free Software Foundation, version 2 of the
+- * License.
+- */
+-
+-#include <fcntl.h>
+-#include <unistd.h>
+-#include <stdlib.h>
+-#include <stdarg.h>
+-#include <sys/mman.h>
+-#include <strings.h>
+-#include <ucred.h>
+-#include <stdio.h>
+-
+-#include <xen/sys/xenbus.h>
+-
+-#include "talloc.h"
+-#include "xenstored_core.h"
+-#include "xenstored_probes.h"
+-
+-evtchn_port_t xenbus_evtchn(void)
+-{
+-	int fd;
+-	evtchn_port_t port; 
+-
+-	fd = open("/dev/xen/xenbus", O_RDONLY); 
+-	if (fd == -1)
+-		return -1;
+-
+-	port = ioctl(fd, IOCTL_XENBUS_XENSTORE_EVTCHN);
+-
+-	close(fd); 
+-	return port;
+-}
+-
+-void *xenbus_map(void)
+-{
+-	int fd;
+-	void *addr;
+-
+-	fd = open("/dev/xen/xenbus", O_RDWR);
+-	if (fd == -1)
+-		return NULL;
+-
+-	addr = mmap(NULL, getpagesize(), PROT_READ|PROT_WRITE,
+-		MAP_SHARED, fd, 0);
+-
+-	if (addr == MAP_FAILED)
+-		addr = NULL;
+-
+-	close(fd);
+-
+-	return addr;
+-}
+-
+-void xenbus_notify_running(void)
+-{
+-	int fd;
+-
+-	fd = open("/dev/xen/xenbus", O_RDONLY);
+-
+-	(void) ioctl(fd, IOCTL_XENBUS_NOTIFY_UP);
+-
+-	close(fd);
+-}
+-
+-static pid_t cred(const struct connection *conn)
+-{
+-	ucred_t *ucred = NULL;
+-	pid_t pid;
+-
+-	if (conn->domain)
+-		return (0);
+-
+-	if (getpeerucred(conn->fd, &ucred) == -1)
+-		return (0);
+-
+-	pid = ucred_getpid(ucred);
+-
+-	ucred_free(ucred);
+-	return (pid);
+-}
+-
+-/*
+- * The strings are often a number of nil-separated strings. We'll just
+- * replace the separators with spaces - not quite right, but good
+- * enough.
+- */
+-static char *
+-mangle(const struct connection *conn, const struct buffered_data *in)
+-{
+-	char *str;
+-	int i;
+-
+-	if (in->hdr.msg.len == 0)
+-		return (talloc_strdup(conn, ""));
+-
+-	if ((str = talloc_zero_size(conn, in->hdr.msg.len + 1)) == NULL)
+-		return (NULL);
+-
+-	memcpy(str, in->buffer, in->hdr.msg.len);
+-	
+-	/*
+-	 * The protocol is absurdly inconsistent in whether the length
+-	 * includes the terminating nil or not; replace all nils that
+-	 * aren't the last one.
+-	 */
+-	for (i = 0; i < (in->hdr.msg.len - 1); i++) {
+-		if (str[i] == '\0')
+-			str[i] = ' ';
+-	}
+-
+-	return (str);
+-}
+-
+-void
+-dtrace_io(const struct connection *conn, const struct buffered_data *in,
+-    int io_out)
+-{
+-	if (!io_out) {
+-		if (XENSTORE_MSG_ENABLED()) {
+-			char *mangled = mangle(conn, in);
+-			XENSTORE_MSG(in->hdr.msg.tx_id, conn->id, cred(conn),
+-			    in->hdr.msg.type, mangled);
+-		}
+-
+-		goto out;
+-	}
+-
+-	switch (in->hdr.msg.type) {
+-	case XS_ERROR:
+-		if (XENSTORE_ERROR_ENABLED()) {
+-			char *mangled = mangle(conn, in);
+-			XENSTORE_ERROR(in->hdr.msg.tx_id, conn->id,
+-			    cred(conn), mangled);
+-		}
+-		break;
+-
+-	case XS_WATCH_EVENT:
+-		if (XENSTORE_WATCH_EVENT_ENABLED()) {
+-			char *mangled = mangle(conn, in);
+-			XENSTORE_WATCH_EVENT(conn->id, cred(conn), mangled);
+-		}
+-		break;
+-
+-	default:
+-		if (XENSTORE_REPLY_ENABLED()) {
+-			char *mangled = mangle(conn, in);
+-			XENSTORE_REPLY(in->hdr.msg.tx_id, conn->id, cred(conn),
+-			    in->hdr.msg.type, mangled);
+-		}
+-		break;
+-	}
+-
+-out:
+-	/*
+-	 * 6589130 dtrace -G fails for certain tail-calls on x86
+-	 */
+-	asm("nop");
+-}
+-- 
+2.26.2
 
 
