@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FCC54787ED
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Dec 2021 10:40:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.248492.428620 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 624F7478850
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Dec 2021 11:02:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.248500.428632 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1my9iW-0004JA-Ii; Fri, 17 Dec 2021 09:39:56 +0000
+	id 1myA3K-0007rD-DP; Fri, 17 Dec 2021 10:01:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 248492.428620; Fri, 17 Dec 2021 09:39:56 +0000
+Received: by outflank-mailman (output) from mailman id 248500.428632; Fri, 17 Dec 2021 10:01:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1my9iW-0004Ge-Fg; Fri, 17 Dec 2021 09:39:56 +0000
-Received: by outflank-mailman (input) for mailman id 248492;
- Fri, 17 Dec 2021 09:39:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1myA3K-0007oC-95; Fri, 17 Dec 2021 10:01:26 +0000
+Received: by outflank-mailman (input) for mailman id 248500;
+ Fri, 17 Dec 2021 10:01:24 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6k1w=RC=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1my9iV-0004GY-2P
- for xen-devel@lists.xenproject.org; Fri, 17 Dec 2021 09:39:55 +0000
-Received: from ppsw-32.csi.cam.ac.uk (ppsw-32.csi.cam.ac.uk [131.111.8.132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4919bcb0-5f1d-11ec-85d3-df6b77346a89;
- Fri, 17 Dec 2021 10:39:53 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:44750)
- by ppsw-32.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.136]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1my9iS-000XUT-1J (Exim 4.95) (return-path <amc96@srcf.net>);
- Fri, 17 Dec 2021 09:39:52 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 275B71FA77;
- Fri, 17 Dec 2021 09:39:52 +0000 (GMT)
+ (envelope-from <julien@xen.org>) id 1myA3I-0007o5-S8
+ for xen-devel@lists.xenproject.org; Fri, 17 Dec 2021 10:01:24 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1myA3I-0008Vf-ID; Fri, 17 Dec 2021 10:01:24 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231]
+ helo=[192.168.25.72]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1myA3I-0005qu-C4; Fri, 17 Dec 2021 10:01:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,48 +39,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4919bcb0-5f1d-11ec-85d3-df6b77346a89
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <59705f15-3f9b-cd28-ad60-1f033933840f@srcf.net>
-Date: Fri, 17 Dec 2021 09:39:51 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=z8V44etTx8ljcpiMN+pKJ0etQtpFz4XxrA/r7bY2gog=; b=jX5jV6NCYZISbWfxImc5odnEuV
+	cF2wM6LRH9UcOoGUoF6D5AHUULfp3BbT9y0/7K/PATkb5IhDxzpt+jsWncRN/HgLnsTZsB700hmNm
+	S4Z9R99wPbU6hZVGVPalaR3HphSPBcBNRFmwp54nFsbJSOJO64rawnrhm8qUa/HB10o0=;
+Message-ID: <48666542-6647-d1ec-78df-2fbb43efcc0d@xen.org>
+Date: Fri, 17 Dec 2021 10:01:22 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Content-Language: en-GB
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <20211217075059.14466-1-jgross@suse.com>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH] tools/xenstore: drop support for running under SunOS
-In-Reply-To: <20211217075059.14466-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.4.0
+Subject: Re: [PATCH v3] xen/arm64: Zero the top 32 bits of gp registers on
+ entry...
+To: Michal Orzel <michal.orzel@arm.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20211217072159.3464-1-michal.orzel@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20211217072159.3464-1-michal.orzel@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 17/12/2021 07:50, Juergen Gross wrote:
-> Since several years now xenstored is no longer capable to run under
-> SunOS, as the needed libxengnttab interfaces are not available there.
->
-> Several attempts to let the SunOS maintainers address this situation
-> didn't change anything in this regard.
->
-> For those reasons drop SunOS support in xenstored by removing the SunOS
-> specific code.
->
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+Hi,
 
-FWIW, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On 17/12/2021 07:21, Michal Orzel wrote:
+> to hypervisor when switching from AArch32 state.
+> 
+> According to section D1.20.2 of Arm Arm(DDI 0487A.j):
+> "If the general-purpose register was accessible from AArch32 state the
+> upper 32 bits either become zero, or hold the value that the same
+> architectural register held before any AArch32 execution.
+> The choice between these two options is IMPLEMENTATION DEFINED"
+> 
+> Currently Xen does not ensure that the top 32 bits are zeroed and this
+> needs to be fixed. The reason why is that there are places in Xen
+> where we assume that top 32bits are zero for AArch32 guests.
+> If they are not, this can lead to misinterpretation of Xen regarding
+> what the guest requested. For example hypercalls returning an error
+> encoded in a signed long like do_sched_op, do_hmv_op, do_memory_op
+> would return -ENOSYS if the command passed as the first argument was
+> clobbered.
+> 
+> Create a macro clobber_gp_top_halves to clobber top 32 bits of gp
+> registers when hyp == 0 (guest mode) and compat == 1 (AArch32 mode).
+> Add a compile time check to ensure that save_x0_x1 == 1 if
+> compat == 1.
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@arm.com>
+> ---
+> Changes since v2:
+> -add clobbering of w30
+> Changes since v1:
+> -put new code into macro
+> -add compile time check for save_x0_x1
+> ---
+>   xen/arch/arm/arm64/entry.S | 29 +++++++++++++++++++++++++++++
+>   1 file changed, 29 insertions(+)
+> 
+> diff --git a/xen/arch/arm/arm64/entry.S b/xen/arch/arm/arm64/entry.S
+> index fc3811ad0a..e351ef8639 100644
+> --- a/xen/arch/arm/arm64/entry.S
+> +++ b/xen/arch/arm/arm64/entry.S
+> @@ -102,6 +102,30 @@
+>           .endif
+>   
+>           .endm
+> +
+> +/*
+> + * Clobber top 32 bits of gp registers when switching from AArch32
+> + */
+> +        .macro clobber_gp_top_halves, compat, save_x0_x1
+> +
+> +        .if \compat == 1      /* AArch32 mode */
+> +
+> +        /*
+> +         * save_x0_x1 is equal to 0 only for guest_sync (compat == 0).
+> +         * Add a compile time check to avoid violating this rule.
+> +         */
 
-> -out:
-> -	/*
-> -	 * 6589130 dtrace -G fails for certain tail-calls on x86
-> -	 */
-> -	asm("nop");
-> -}
+We may want in the future to allow save_x0_x1 == 1 with compat == 1 if 
+we need to create fastpath like we did when entering AArch64.
 
-Code like this makes me extra sad... It only works for the same reasons
-as why asm ("") would be fine as well.
+So I would reword the comment to make clear this is an implementation 
+decision. How about:
 
-~Andrew
+"At the moment, no-one is using save_x0_x1 == 0 with compat == 1. So the 
+code is not handling it to simplify the implementation."
+
+If you are happy with the new comment, I can update it on commit:
+
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
+-- 
+Julien Grall
 
