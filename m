@@ -2,33 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96ED54794F4
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Dec 2021 20:39:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.248885.429323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D153479666
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Dec 2021 22:41:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.248918.429344 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1myJ4o-0004ao-HM; Fri, 17 Dec 2021 19:39:34 +0000
+	id 1myKxY-0003FL-CI; Fri, 17 Dec 2021 21:40:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 248885.429323; Fri, 17 Dec 2021 19:39:34 +0000
+Received: by outflank-mailman (output) from mailman id 248918.429344; Fri, 17 Dec 2021 21:40:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1myJ4o-0004Xj-Cp; Fri, 17 Dec 2021 19:39:34 +0000
-Received: by outflank-mailman (input) for mailman id 248885;
- Fri, 17 Dec 2021 19:39:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qR5E=RC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1myIzq-0008Bq-Nq
- for xen-devel@lists.xenproject.org; Fri, 17 Dec 2021 19:34:26 +0000
-Received: from sender3-of-o50.zoho.com (sender3-of-o50.zoho.com
- [136.143.184.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5730ecc9-5f70-11ec-85d3-df6b77346a89;
- Fri, 17 Dec 2021 20:34:25 +0100 (CET)
-Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1639769537988673.3922656446274;
- Fri, 17 Dec 2021 11:32:17 -0800 (PST)
+	id 1myKxY-0003Cc-9D; Fri, 17 Dec 2021 21:40:12 +0000
+Received: by outflank-mailman (input) for mailman id 248918;
+ Fri, 17 Dec 2021 21:40:11 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1myKxX-0003CS-FT; Fri, 17 Dec 2021 21:40:11 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1myKxX-0004VV-9s; Fri, 17 Dec 2021 21:40:11 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1myKxW-0006Kw-V9; Fri, 17 Dec 2021 21:40:11 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1myKxW-0006GP-Ug; Fri, 17 Dec 2021 21:40:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,141 +42,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5730ecc9-5f70-11ec-85d3-df6b77346a89
-ARC-Seal: i=1; a=rsa-sha256; t=1639769539; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=SN9tTyT2zwY2lOr0z0ysHo/VS/72rE5opud8fZhI77td4LQ144T48gZMOuw/PnS2bJuPu0i6LPr6AmLr353q/cnvg5FQJ4dZ7EwtbDjFvYbBmu6h2S77kH2jwes5PTRscxOqmA3g8BXmtTqLqoK8IlZ9y+AbrL2xW7EiFs1/MeA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1639769539; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=jwECCbUo2nQZxRvb7JqeHbk/5gA0ySBH1Pa0syLScWY=; 
-	b=CLXiw5Pjg2JnmotSAxt/N/xJsY6kXNuhQL8lxceZwp3IHFnXEkWx8PSQe5UnWhaolTtXRCnkAj1ch3rmdyEIh9smWojjI6sHWsObViLU28Cbsm4QO0d+di6rcYjQjO/L7uz5sBBlpFmfEGy3F0gVdLEIXfM7DG/ISIrWrxugm9A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1639769539;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jwECCbUo2nQZxRvb7JqeHbk/5gA0ySBH1Pa0syLScWY=;
-	b=L258LMmqN+sntWZC+xo0y75MDFpm1U/v8NR/PlZiv3+LP0ZazyMffu3KprdcN5qF
-	XjS/C+z4rmFYg4q/jE6ZXTUaMc3SgDxHYD6oR2uqkVYPb+YRsqRPrngK+aj8tQigM+j
-	xawyLUYmZUj5xv8XL3Ms9aZzIR5gHQPTxltrYVA0=
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: Wei Liu <wl@xen.org>,
-	xen-devel@lists.xenproject.org
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Christopher Clark <christopher.clark@starlab.io>,
-	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [RFC 10/10] hyperlaunch: integrate dtb parse and domain creation
-Date: Fri, 17 Dec 2021 18:34:36 -0500
-Message-Id: <20211217233437.13791-11-dpsmith@apertussolutions.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20211217233437.13791-1-dpsmith@apertussolutions.com>
-References: <20211217233437.13791-1-dpsmith@apertussolutions.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=384vxr4878ntAZfzG1r5FZS+y52Jp6WM+U+1U3AchNA=; b=XKCeKbmUXnF8QfU/18JPH17Cgu
+	4Pkevt4LKU3t/TjrFigGPM+SFC++o9W1ms5lH9ozaJvEfGIeILDZ1g8HzdS9YkEZ3rmAMUdkVJ4rY
+	btU0ucLMqsUD7DmhU49UKKybOL55B7yPMlRZfbflwafywKAn97st6xJkYFbsh65DabFk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-167465-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Subject: [ovmf test] 167465: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=ee1f8262b83dd88b30091e6e81221ff299796099
+X-Osstest-Versions-That:
+    ovmf=ab5ab2f60348138a4b7b1c95ad6f5d0954fb96f1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 17 Dec 2021 21:40:10 +0000
 
-This commit introduces into x86 start_xen the detection and parsing of a
-hyperlaunch DTB file and then using that information to construct the domains
-contained in the hyperlaunch configuration.
+flight 167465 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167465/
 
-Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
-Reviewed-by: Christopher Clark <christopher.clark@starlab.io>
----
- xen/arch/x86/setup.c | 54 ++++++++++++++++++++++++++++++--------------
- 1 file changed, 37 insertions(+), 17 deletions(-)
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 ee1f8262b83dd88b30091e6e81221ff299796099
+baseline version:
+ ovmf                 ab5ab2f60348138a4b7b1c95ad6f5d0954fb96f1
 
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index bee221d5ee..c007c421b0 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1020,6 +1020,9 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-     bitmap_fill(module_map, mbi->mods_count);
-     __clear_bit(0, module_map); /* Dom0 kernel is always first */
- 
-+    if ( hyperlaunch_mb_init(mod) )
-+        printk(XENLOG_INFO "Hyperlaunch enabled\n");
-+
-     if ( pvh_boot )
-     {
-         /* pvh_init() already filled in e820_raw */
-@@ -1142,6 +1145,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-             panic("Bootloader didn't honor module alignment request\n");
-         mod[i].mod_end -= mod[i].mod_start;
-         mod[i].mod_start >>= PAGE_SHIFT;
-+        mod[i].headroom = 0;
-         mod[i].reserved = 0;
-     }
- 
-@@ -1158,8 +1162,12 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-         mod[mbi->mods_count].mod_end = __2M_rwdata_end - _stext;
-     }
- 
--    mod->headroom = bzimage_headroom(bootstrap_map(mod), mod->mod_end);
--    bootstrap_map(NULL);
-+    if ( hyperlaunch_enabled ) {
-+        hyperlaunch_mb_headroom();
-+    } else {
-+        mod->headroom = bzimage_headroom(bootstrap_map(mod), mod->mod_end);
-+        bootstrap_map(NULL);
-+    }
- 
- #ifndef highmem_start
-     /* Don't allow split below 4Gb. */
-@@ -1890,22 +1898,34 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-            cpu_has_nx ? XENLOG_INFO : XENLOG_WARNING "Warning: ",
-            cpu_has_nx ? "" : "not ");
- 
--    initrdidx = find_first_bit(module_map, mbi->mods_count);
--    if ( !hyperlaunch_enabled &&
--         bitmap_weight(module_map, mbi->mods_count) > 1 )
--        printk(XENLOG_WARNING
--               "Multiple initrd candidates, picking module #%u\n",
--               initrdidx);
-+    if ( hyperlaunch_enabled )
-+    {
-+        uint32_t ndoms;
- 
--    /*
--     * We're going to setup domain0 using the module(s) that we stashed safely
--     * above our heap. The second module, if present, is an initrd ramdisk.
--     */
--    dom0 = create_dom0(mod, mod->headroom,
--                       initrdidx < mbi->mods_count ? mod + initrdidx : NULL,
--                       kextra, loader);
--    if ( !dom0 )
--        panic("Could not set up DOM0 guest OS\n");
-+        printk(XENLOG_INFO "Hyperlaunch starting domain construction...\n");
-+        ndoms = hyperlaunch_create_domains(&dom0, kextra, loader);
-+        if ( ndoms == 0 )
-+            panic("Hyperlaunch could not set up the domains\n");
-+
-+        printk(XENLOG_INFO "Hyperlaunch created %u domains\n", ndoms);
-+    } else {
-+        initrdidx = find_first_bit(module_map, mbi->mods_count);
-+        if ( bitmap_weight(module_map, mbi->mods_count) > 1 )
-+            printk(XENLOG_WARNING
-+                   "Multiple initrd candidates, picking module #%u\n",
-+                   initrdidx);
-+
-+        /*
-+         * We're going to setup domain0 using the module(s) that we stashed
-+         * safely above our heap. The second module, if present, is an initrd
-+         * ramdisk.
-+         */
-+        dom0 = create_dom0(mod, mod->headroom,
-+                           initrdidx < mbi->mods_count ? mod + initrdidx : NULL,
-+                           kextra, loader);
-+        if ( !dom0 )
-+            panic("Could not set up DOM0 guest OS\n");
-+    }
- 
-     heap_init_late();
- 
--- 
-2.20.1
+Last test of basis   167463  2021-12-17 15:10:34 Z    0 days
+Testing same since   167465  2021-12-17 17:41:43 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Leif Lindholm <leif@nuviainc.com>
+  Nhi Pham <nhi@os.amperecomputing.com>
+  Shivanshu Goyal <shivanshu3@gmail.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   ab5ab2f603..ee1f8262b8  ee1f8262b83dd88b30091e6e81221ff299796099 -> xen-tested-master
 
