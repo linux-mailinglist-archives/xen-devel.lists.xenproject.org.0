@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 079864794CF
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Dec 2021 20:32:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.248831.429213 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 166F14794CC
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Dec 2021 20:32:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.248832.429224 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1myIxh-0007Pf-WE; Fri, 17 Dec 2021 19:32:14 +0000
+	id 1myIxw-0007lE-D0; Fri, 17 Dec 2021 19:32:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 248831.429213; Fri, 17 Dec 2021 19:32:13 +0000
+Received: by outflank-mailman (output) from mailman id 248832.429224; Fri, 17 Dec 2021 19:32:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1myIxh-0007ME-S8; Fri, 17 Dec 2021 19:32:13 +0000
-Received: by outflank-mailman (input) for mailman id 248831;
- Fri, 17 Dec 2021 19:32:12 +0000
+	id 1myIxw-0007hg-9Y; Fri, 17 Dec 2021 19:32:28 +0000
+Received: by outflank-mailman (input) for mailman id 248832;
+ Fri, 17 Dec 2021 19:32:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qR5E=RC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1myIxf-0007M8-MV
- for xen-devel@lists.xenproject.org; Fri, 17 Dec 2021 19:32:12 +0000
-Received: from sender3-of-o52.zoho.com (sender3-of-o52.zoho.com
- [136.143.184.52]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05d0fe18-5f70-11ec-9e60-abaf8a552007;
- Fri, 17 Dec 2021 20:32:09 +0100 (CET)
+ id 1myIxt-0007M8-T0
+ for xen-devel@lists.xenproject.org; Fri, 17 Dec 2021 19:32:26 +0000
+Received: from sender3-of-o51.zoho.com (sender3-of-o51.zoho.com
+ [136.143.184.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0f0f9589-5f70-11ec-9e60-abaf8a552007;
+ Fri, 17 Dec 2021 20:32:25 +0100 (CET)
 Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1639769522844320.4261730992407;
- Fri, 17 Dec 2021 11:32:02 -0800 (PST)
+ with SMTPS id 1639769524862112.54010405527049;
+ Fri, 17 Dec 2021 11:32:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,124 +40,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05d0fe18-5f70-11ec-9e60-abaf8a552007
-ARC-Seal: i=1; a=rsa-sha256; t=1639769525; cv=none; 
+X-Inumbo-ID: 0f0f9589-5f70-11ec-9e60-abaf8a552007
+ARC-Seal: i=1; a=rsa-sha256; t=1639769527; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=ZnnYkCGvNy1IMBK7HZQhZxKLEhAiDZoT8A2Gm/V02WKcwczYudXJZWP6gOP65E5jV/ytYq/zf908cMAuLfRAA66/HNvQQWWlrmacX2ZN+AN4XtB1OH0avGCrAcAUMngSikTDitlb4orcOewsH1xeC7As+mm9j1qlqbR3o/H2XQ0=
+	b=ljqU0Yxk3HOkGSLVjYIS2HhHILvsIGXieSamAN+iNBVQ9PVTmH6ko/dwbVmzJb9uWWixOY8DncM+cOj1W3e3Q8BrI49IAr4u7ozv0kwr81VrKhCPmqs+R6PBRJK6kLHsbqN0mH9lccbTQ9ewTLLOg3x7ueCupcTvjz1+ujXLpfo=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1639769525; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
-	bh=fa0wW/29nJurPMLwiV2rnoDa2hoPbWTa1Hg41W4npRw=; 
-	b=JaCo0cT93rl4UAvZ32ReMGoqnM87o4UO/vFYi/Cad6Kk9f7Uj7WzQkrowbZXETT8KmEleND4E7bPDda4M64YhqBOuEJYBJoMCf0hwJy67QkXTg5QCZlrHHo7l0CWjS1h/qe+wdcXkaBRT5iQwSLKdlvicyDidTfvhzHqjJnQHwM=
+	t=1639769527; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=/VbuytX0Q+D4LsMewdpZJiBY6pOL9LLoWZ6MNlm7AeU=; 
+	b=acWHGoec9Ohbik9eZLOlMvS1ou5Gi8WYhZjPTx6gfGGSEsksx5C0HdGmXEHdBllp1SPBa1jIt4SJpFKuC+3DXswaeJeZ85Nl5BV4xDDktK7L7dDTsJ54UPxf4fTx9vsjdu9pWwaqbgwvcmF7CyEcwtl7uh0CIA5W3BEwRZ4i+A8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1639769525;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1639769527;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Transfer-Encoding;
-	bh=fa0wW/29nJurPMLwiV2rnoDa2hoPbWTa1Hg41W4npRw=;
-	b=JUDRoFf8M6mQ8J1xWe7bC//JADa6eCocRw+DHXGMXPEhu8/07qcxzBWX8KDdvbGQ
-	ZNxi3REIz8Kq7Zb5vwWzHOlwccohW6toHol6KmDDim3lRWUCuYWAo0lDqDJPMoQaFUQ
-	ytZyNOrJ3xmVTGjLaEvH26HTzRilQ0lEdv3uJDOo=
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=/VbuytX0Q+D4LsMewdpZJiBY6pOL9LLoWZ6MNlm7AeU=;
+	b=asPoXZYjr1hLb56DR0cGtZIIuASHvFviAHV2eIRSizQBKqfv6dt2v462I/kFZ/TS
+	ZWPP8zdV2w3nbXHrvewYoT7HmxiD3mDxoC1J3LPuwWs6Lu125ss8+ThOK2KDdHPziNU
+	ioD2dR5f7aARK0SL+M1F4z4aRVdAgRpL5BkMQoEY=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org
-Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	"Andrew Cooper" <andrew.cooper3@citrix.com>,
-	"Jan Beulich" <jbeulich@suse.com>,
-	"Christopher Clark" <christopher.w.clark@gmail.com>,
-	"Julien Grall" <julien@xen.org>,
-	"Stefano Stabellini" <sstabellini@kernel.org>,
-	"Bertrand Marquis" <bertrand.marquis@arm.com>
-Subject: [RFC 00/10] Hyperlaunch x86 Dom0 launch
-Date: Fri, 17 Dec 2021 18:34:26 -0500
-Message-Id: <20211217233437.13791-1-dpsmith@apertussolutions.com>
+To: Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
+Cc: Christopher Clark <christopher.w.clark@gmail.com>,
+	Christopher Clark <christopher.clark@starlab.io>,
+	"Daniel P . Smith" <dpsmith@apertussolutions.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [RFC 01/10] introduce hyperlaunch kconfig and core
+Date: Fri, 17 Dec 2021 18:34:27 -0500
+Message-Id: <20211217233437.13791-2-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20211217233437.13791-1-dpsmith@apertussolutions.com>
+References: <20211217233437.13791-1-dpsmith@apertussolutions.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-This RFC is to provide the base approach of how hyperlaunch would integrate
-into the x86 start sequence with the specific intention to vet the
-implementation approach early. What this RFC provides is a working
-implementation of hyperlaunch for x86 that is capable of strictly starting a
-Dom0 configuration. Even so the majority of the remaining hyperlaunch work will
-be focused on domain construction and enabling the transient boot domain (DomB)
-ability.
+From: Christopher Clark <christopher.w.clark@gmail.com>
 
-It is important to note that for this RFC patch set the work was split into
-smaller commits to ease review. When the first hyperlaunch patch set is
-submitted for acceptance, it is expected to see 5-7 rolled up and 9 & 10 also
-rolled up.
+Add a CONFIG_HYPERLAUNCH to allow enabling/disabling the hyperlaunch code
+paths. Introduce an initial use of the hyperlaunch_enabled variable to suppress
+the warning about multiple initrd candidates when multiboot modules are
+detected when the hyperlaunch boolean is true.
 
-There are a couple of areas that explicitly need review and discussion and the
-commit message for a patch with one of these in them has the details, which
-will be repeated here for them to also all be centralized for comment.
+Added to common code since this option will apply to all architectures.
 
-- For hyperlaunch it has become necessary to track decompression headroom at an
-individual boot module level. The most sensible place for this information on
-x86 is in the module_t structure. The challenge encountered with this is that
-Xen's multiboot support is implemented by reusing MB module_t structure as a
-common structure for MB and MB2. Early in Xen's x86 startup the multiboot chain
-is copied(MB)/converted(MB2) into the trampoline data heap. To minimize change
-for this RFC the MB module_t reserved field was split into a bitfield to allow
-it to serve the existing usage of the field (relocation flag) and for headroom
-tracking. While this provided a clean solution, it is viewed as a short term
-solution. A suggestion might be to unify the existing architectures'
-representation of a boot module and refactor x86's reloc.c to convert MB and
-MB2 module descriptions into this common representation. This would have the
-added benefit of reducing the static allocations currently being used for
-hyperlaunch.
-
-- When enabling device tree for use with x86, it exposed some arch specific
-code in the device tree code in common and shared includes. Specifically both
-Arm and x86 define a `struct device` but are totally different structures. The
-device tree code uses references to Arm's version of `struct device` which
-creates a conflict when the device tree code is used under x86. It was also
-found that generic device tree code was currently in the Arm arch tree. Patch 4
-contains a work around for the first issue and patch 7 copies the reusable
-device tree parsing code from Arm arch for local/internal usage. Each patch
-provides a few additional details and ultimately a generalized solution for
-both problems is the preferable approach versus a minimal solution for enabling
-hyperlaunch 
-
-- To ease getting a Dom0 construction working under hyperlaunch the existing
-`create_dom0()` function was exposed and reused. This was for the RFC only
-and will be dropped in lieu of hyperlaunch gaining its own more general domain
-creation function.
- 
-Christopher Clark (2):
-  introduce hyperlaunch kconfig and core
-  is_system_domain: replace open-coded instances
-
-Daniel P. Smith (8):
-  multiboot: moving headroom to per module_t
-  device-tree: split agnostic device-tree from arm
-  hyperlaunch: update device tree documentation
-  hyperlaunch: add structures to hold parsed dtb
-  hyperlaunch: add parsing of dtb
-  hyperlaunch: make create_dom0 externally callable
-  hyperlaunch: add domain creation logic
-  hyperlaunch: integrate dtb parse and domain creation
-
- .../designs/launch/hyperlaunch-devicetree.rst | 448 ++++++++++-------
- xen/arch/x86/boot/reloc.c                     |   1 +
- xen/arch/x86/cpu/vpmu.c                       |   2 +-
- xen/arch/x86/include/asm/setup.h              |   5 +
- xen/arch/x86/setup.c                          |  75 +--
- xen/common/Kconfig                            |  15 +
- xen/common/Makefile                           |   5 +-
- xen/common/device_tree.c                      |   2 +
- xen/common/domctl.c                           |   2 +-
- xen/common/sched/core.c                       |   4 +-
- xen/common/setup.c                            | 450 ++++++++++++++++++
- xen/include/xen/device_tree.h                 |   4 +
- xen/include/xen/multiboot.h                   |   3 +-
- xen/include/xen/sched.h                       |   5 +
- xen/include/xen/setup.h                       | 131 +++++
- 15 files changed, 948 insertions(+), 204 deletions(-)
+Signed-off-by: Christopher Clark <christopher.clark@starlab.io>
+Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+---
+ xen/arch/x86/setup.c    |  4 +++-
+ xen/common/Kconfig      | 10 ++++++++++
+ xen/common/Makefile     |  1 +
+ xen/common/setup.c      |  8 ++++++++
+ xen/include/xen/setup.h | 14 ++++++++++++++
+ 5 files changed, 36 insertions(+), 1 deletion(-)
  create mode 100644 xen/common/setup.c
  create mode 100644 xen/include/xen/setup.h
 
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index f40a9fe5d3..190d7aefb5 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -26,6 +26,7 @@
+ #include <xen/nodemask.h>
+ #include <xen/virtual_region.h>
+ #include <xen/watchdog.h>
++#include <xen/setup.h>
+ #include <public/version.h>
+ #ifdef CONFIG_COMPAT
+ #include <compat/platform.h>
+@@ -1891,7 +1892,8 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+            cpu_has_nx ? "" : "not ");
+ 
+     initrdidx = find_first_bit(module_map, mbi->mods_count);
+-    if ( bitmap_weight(module_map, mbi->mods_count) > 1 )
++    if ( !hyperlaunch_enabled &&
++         bitmap_weight(module_map, mbi->mods_count) > 1 )
+         printk(XENLOG_WARNING
+                "Multiple initrd candidates, picking module #%u\n",
+                initrdidx);
+diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+index db687b1785..5e6aad644e 100644
+--- a/xen/common/Kconfig
++++ b/xen/common/Kconfig
+@@ -331,6 +331,16 @@ config ARGO
+ 
+ 	  If unsure, say N.
+ 
++config HYPERLAUNCH
++	bool "Hyperlaunch support (UNSUPPORTED)" if UNSUPPORTED
++	---help---
++	  Enables launch of multiple VMs at host boot as an alternative
++	  method of starting a Xen system.
++
++	  This feature is currently experimental.
++
++	  If unsure, say N.
++
+ source "common/sched/Kconfig"
+ 
+ config CRYPTO
+diff --git a/xen/common/Makefile b/xen/common/Makefile
+index 141d7d40d3..a6337e065a 100644
+--- a/xen/common/Makefile
++++ b/xen/common/Makefile
+@@ -35,6 +35,7 @@ obj-y += rangeset.o
+ obj-y += radix-tree.o
+ obj-y += rcupdate.o
+ obj-y += rwlock.o
++obj-y += setup.o
+ obj-y += shutdown.o
+ obj-y += softirq.o
+ obj-y += smp.o
+diff --git a/xen/common/setup.c b/xen/common/setup.c
+new file mode 100644
+index 0000000000..e18ea14fe0
+--- /dev/null
++++ b/xen/common/setup.c
+@@ -0,0 +1,8 @@
++#include <xen/types.h>
++#include <xen/init.h>
++
++#ifdef CONFIG_HYPERLAUNCH
++
++bool __initdata hyperlaunch_enabled;
++
++#endif
+diff --git a/xen/include/xen/setup.h b/xen/include/xen/setup.h
+new file mode 100644
+index 0000000000..6fbe87860e
+--- /dev/null
++++ b/xen/include/xen/setup.h
+@@ -0,0 +1,14 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++
++#ifndef XEN_SETUP_H
++#define XEN_SETUP_H
++
++#include <asm/setup.h>
++
++#ifdef CONFIG_HYPERLAUNCH
++extern bool hyperlaunch_enabled;
++#else
++#define hyperlaunch_enabled false
++#endif
++
++#endif /* XEN_SETUP_H */
 -- 
 2.20.1
 
