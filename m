@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 307C54794F2
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Dec 2021 20:39:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.248881.429300 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96ED54794F4
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Dec 2021 20:39:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.248885.429323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1myJ4c-0003xT-Pj; Fri, 17 Dec 2021 19:39:22 +0000
+	id 1myJ4o-0004ao-HM; Fri, 17 Dec 2021 19:39:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 248881.429300; Fri, 17 Dec 2021 19:39:22 +0000
+Received: by outflank-mailman (output) from mailman id 248885.429323; Fri, 17 Dec 2021 19:39:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1myJ4c-0003uf-M8; Fri, 17 Dec 2021 19:39:22 +0000
-Received: by outflank-mailman (input) for mailman id 248881;
- Fri, 17 Dec 2021 19:39:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1myJ4o-0004Xj-Cp; Fri, 17 Dec 2021 19:39:34 +0000
+Received: by outflank-mailman (input) for mailman id 248885;
+ Fri, 17 Dec 2021 19:39:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qR5E=RC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1myIze-0007M8-AB
- for xen-devel@lists.xenproject.org; Fri, 17 Dec 2021 19:34:14 +0000
-Received: from sender3-of-o51.zoho.com (sender3-of-o51.zoho.com
- [136.143.184.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4fb49dad-5f70-11ec-9e60-abaf8a552007;
- Fri, 17 Dec 2021 20:34:13 +0100 (CET)
+ id 1myIzq-0008Bq-Nq
+ for xen-devel@lists.xenproject.org; Fri, 17 Dec 2021 19:34:26 +0000
+Received: from sender3-of-o50.zoho.com (sender3-of-o50.zoho.com
+ [136.143.184.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5730ecc9-5f70-11ec-85d3-df6b77346a89;
+ Fri, 17 Dec 2021 20:34:25 +0100 (CET)
 Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1639769536692979.2933938584735;
- Fri, 17 Dec 2021 11:32:16 -0800 (PST)
+ with SMTPS id 1639769537988673.3922656446274;
+ Fri, 17 Dec 2021 11:32:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,38 +40,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4fb49dad-5f70-11ec-9e60-abaf8a552007
-ARC-Seal: i=1; a=rsa-sha256; t=1639769538; cv=none; 
+X-Inumbo-ID: 5730ecc9-5f70-11ec-85d3-df6b77346a89
+ARC-Seal: i=1; a=rsa-sha256; t=1639769539; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=RDK9IwhFyLlcrau1HLkiCLie1koVD68x2sxkYoIienDSzl0T5QeSv85CMMBq0dlzN6O4nyMS9oB8MV9CSuLp0z098cUrbpY/1IQRxdDO0AykeBgcZd5SU5uI6lP7Oc0z7D0fZnmTejPaDCcKm2uOOFnJlxX9lioZC2lmqPlSGV0=
+	b=SN9tTyT2zwY2lOr0z0ysHo/VS/72rE5opud8fZhI77td4LQ144T48gZMOuw/PnS2bJuPu0i6LPr6AmLr353q/cnvg5FQJ4dZ7EwtbDjFvYbBmu6h2S77kH2jwes5PTRscxOqmA3g8BXmtTqLqoK8IlZ9y+AbrL2xW7EiFs1/MeA=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1639769538; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=1+rH6E1T2X2GXGjtweKYSNPXNycy0FvEQLaaEz+oWec=; 
-	b=mS9lXSLSCN/7pBwxZs/wY+XHHQu1yfNx0xtU0jHjNWk9rx3HwqE6427IFEkhW4xa15wh2hYuh5I1dwzolT4gawqSF+J4j1v5yB79V0mgezkrTtkakD2/t2goTRUEv0CzqXOkVFi93UptEHs48PurzO1dqBjdTnvSPYTkqyPlmxg=
+	t=1639769539; h=Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=jwECCbUo2nQZxRvb7JqeHbk/5gA0ySBH1Pa0syLScWY=; 
+	b=CLXiw5Pjg2JnmotSAxt/N/xJsY6kXNuhQL8lxceZwp3IHFnXEkWx8PSQe5UnWhaolTtXRCnkAj1ch3rmdyEIh9smWojjI6sHWsObViLU28Cbsm4QO0d+di6rcYjQjO/L7uz5sBBlpFmfEGy3F0gVdLEIXfM7DG/ISIrWrxugm9A=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1639769538;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1639769539;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=1+rH6E1T2X2GXGjtweKYSNPXNycy0FvEQLaaEz+oWec=;
-	b=D5L0hz30hKsnOfgdwYKqhAawyQ1rRzL4ODgjTMERvyW/9hGTNCrlmuJmNcI6xiYY
-	rzo05LpNV3f66ZRmIfYW/FjYCAtZAFfWIm0N3AIGQQRY4QSsnuA7FQwZ6KAMCm/mGLQ
-	HtW0Bln9Ut7a1TVDGIaRp4UiKZVIu4hCpEyEv4TM=
+	bh=jwECCbUo2nQZxRvb7JqeHbk/5gA0ySBH1Pa0syLScWY=;
+	b=L258LMmqN+sntWZC+xo0y75MDFpm1U/v8NR/PlZiv3+LP0ZazyMffu3KprdcN5qF
+	XjS/C+z4rmFYg4q/jE6ZXTUaMc3SgDxHYD6oR2uqkVYPb+YRsqRPrngK+aj8tQigM+j
+	xawyLUYmZUj5xv8XL3Ms9aZzIR5gHQPTxltrYVA0=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-To: xen-devel@lists.xenproject.org
+To: Wei Liu <wl@xen.org>,
+	xen-devel@lists.xenproject.org
 Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	Christopher Clark <christopher.clark@starlab.io>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [RFC 09/10] hyperlaunch: add domain creation logic
-Date: Fri, 17 Dec 2021 18:34:35 -0500
-Message-Id: <20211217233437.13791-10-dpsmith@apertussolutions.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [RFC 10/10] hyperlaunch: integrate dtb parse and domain creation
+Date: Fri, 17 Dec 2021 18:34:36 -0500
+Message-Id: <20211217233437.13791-11-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20211217233437.13791-1-dpsmith@apertussolutions.com>
 References: <20211217233437.13791-1-dpsmith@apertussolutions.com>
@@ -79,145 +77,103 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-ZohoMailClient: External
 
-This commit introduces the skeleton of hyperlaunch domain construction
-mechanics and adds the preliminary ability to construct dom0.
+This commit introduces into x86 start_xen the detection and parsing of a
+hyperlaunch DTB file and then using that information to construct the domains
+contained in the hyperlaunch configuration.
 
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 Reviewed-by: Christopher Clark <christopher.clark@starlab.io>
 ---
- xen/common/setup.c      | 77 +++++++++++++++++++++++++++++++++++++++++
- xen/include/xen/setup.h | 16 +++++++++
- 2 files changed, 93 insertions(+)
+ xen/arch/x86/setup.c | 54 ++++++++++++++++++++++++++++++--------------
+ 1 file changed, 37 insertions(+), 17 deletions(-)
 
-diff --git a/xen/common/setup.c b/xen/common/setup.c
-index af2b1a422d..cd24f60297 100644
---- a/xen/common/setup.c
-+++ b/xen/common/setup.c
-@@ -1,3 +1,4 @@
-+#include <asm/bzimage.h> /* for bzimage_headroom */
- #include <xen/pci.h> /* needed by device_tree.h */
- #include <xen/device_tree.h>
- #include <xen/init.h>
-@@ -368,6 +369,82 @@ bool __init hyperlaunch_mb_init(module_t *mods)
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index bee221d5ee..c007c421b0 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1020,6 +1020,9 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+     bitmap_fill(module_map, mbi->mods_count);
+     __clear_bit(0, module_map); /* Dom0 kernel is always first */
  
-     return ret;
- }
++    if ( hyperlaunch_mb_init(mod) )
++        printk(XENLOG_INFO "Hyperlaunch enabled\n");
 +
-+void __init hyperlaunch_mb_headroom(void)
-+{
-+    int i,j;
-+
-+    for( i = 0; i < hl_config.nr_doms; i++ )
-+    {
-+        for ( j = 0; j < hl_config.domains[i].nr_mods; j++ )
-+        {
-+            if ( hl_config.domains[i].modules[j].kind == BOOTMOD_KERNEL )
-+            {
-+                module_t *kern =
-+                    (module_t *)_p(hl_config.domains[i].modules[j].start);
-+
-+                kern->headroom = bzimage_headroom(bootstrap_map(kern),
-+                                                  kern->mod_end);
-+                bootstrap_map(NULL);
-+            }
-+        }
+     if ( pvh_boot )
+     {
+         /* pvh_init() already filled in e820_raw */
+@@ -1142,6 +1145,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+             panic("Bootloader didn't honor module alignment request\n");
+         mod[i].mod_end -= mod[i].mod_start;
+         mod[i].mod_start >>= PAGE_SHIFT;
++        mod[i].headroom = 0;
+         mod[i].reserved = 0;
+     }
+ 
+@@ -1158,8 +1162,12 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+         mod[mbi->mods_count].mod_end = __2M_rwdata_end - _stext;
+     }
+ 
+-    mod->headroom = bzimage_headroom(bootstrap_map(mod), mod->mod_end);
+-    bootstrap_map(NULL);
++    if ( hyperlaunch_enabled ) {
++        hyperlaunch_mb_headroom();
++    } else {
++        mod->headroom = bzimage_headroom(bootstrap_map(mod), mod->mod_end);
++        bootstrap_map(NULL);
 +    }
-+}
- #endif
  
-+uint32_t __init hyperlaunch_create_domains(
-+    struct domain **hwdom, const char *kextra, const char *loader)
-+{
-+    uint32_t dom_count = 0, functions_used = 0;
-+    int i;
-+
-+    *hwdom = NULL;
-+
-+    for ( i = 0; i < hl_config.nr_doms; i++ )
+ #ifndef highmem_start
+     /* Don't allow split below 4Gb. */
+@@ -1890,22 +1898,34 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+            cpu_has_nx ? XENLOG_INFO : XENLOG_WARNING "Warning: ",
+            cpu_has_nx ? "" : "not ");
+ 
+-    initrdidx = find_first_bit(module_map, mbi->mods_count);
+-    if ( !hyperlaunch_enabled &&
+-         bitmap_weight(module_map, mbi->mods_count) > 1 )
+-        printk(XENLOG_WARNING
+-               "Multiple initrd candidates, picking module #%u\n",
+-               initrdidx);
++    if ( hyperlaunch_enabled )
 +    {
-+        struct bootdomain *d = &(hl_config.domains[i]);
++        uint32_t ndoms;
+ 
+-    /*
+-     * We're going to setup domain0 using the module(s) that we stashed safely
+-     * above our heap. The second module, if present, is an initrd ramdisk.
+-     */
+-    dom0 = create_dom0(mod, mod->headroom,
+-                       initrdidx < mbi->mods_count ? mod + initrdidx : NULL,
+-                       kextra, loader);
+-    if ( !dom0 )
+-        panic("Could not set up DOM0 guest OS\n");
++        printk(XENLOG_INFO "Hyperlaunch starting domain construction...\n");
++        ndoms = hyperlaunch_create_domains(&dom0, kextra, loader);
++        if ( ndoms == 0 )
++            panic("Hyperlaunch could not set up the domains\n");
 +
-+        /* build a legacy dom0 and set it as the hwdom */
-+        if ( (d->functions & HL_FUNCTION_LEGACY_DOM0) &&
-+             !(functions_used & HL_FUNCTION_LEGACY_DOM0) )
-+        {
-+            module_t *image = NULL, *initrd = NULL;
-+            int j;
++        printk(XENLOG_INFO "Hyperlaunch created %u domains\n", ndoms);
++    } else {
++        initrdidx = find_first_bit(module_map, mbi->mods_count);
++        if ( bitmap_weight(module_map, mbi->mods_count) > 1 )
++            printk(XENLOG_WARNING
++                   "Multiple initrd candidates, picking module #%u\n",
++                   initrdidx);
 +
-+            for ( j = 0; j < d->nr_mods; j++ )
-+            {
-+                if ( d->modules[j].kind == BOOTMOD_KERNEL )
-+                    image = (module_t *)_p(d->modules[j].start);
-+
-+                if ( d->modules[j].kind == BOOTMOD_RAMDISK )
-+                    initrd = (module_t *)_p(d->modules[j].start);
-+
-+                if ( image && initrd )
-+                    break;
-+            }
-+
-+            if ( image == NULL )
-+                return 0;
-+
-+#ifdef CONFIG_MULTIBOOT
-+            *hwdom = create_dom0(image, image->headroom, initrd, kextra,
-+                                 loader);
-+#endif
-+            if ( *hwdom )
-+            {
-+                functions_used |= HL_FUNCTION_LEGACY_DOM0;
-+                dom_count++;
-+            }
-+            else
-+                panic("HYPERLAUNCH: "
-+                      "Dom0 config present but dom0 construction failed\n");
-+        }
-+        else
-+            printk(XENLOG_WARNING "hyperlaunch: "
-+                   "currently only supports classic dom0 construction");
++        /*
++         * We're going to setup domain0 using the module(s) that we stashed
++         * safely above our heap. The second module, if present, is an initrd
++         * ramdisk.
++         */
++        dom0 = create_dom0(mod, mod->headroom,
++                           initrdidx < mbi->mods_count ? mod + initrdidx : NULL,
++                           kextra, loader);
++        if ( !dom0 )
++            panic("Could not set up DOM0 guest OS\n");
 +    }
-+
-+    return dom_count;
-+}
-+
- #endif
-diff --git a/xen/include/xen/setup.h b/xen/include/xen/setup.h
-index fd4c23c08f..3833867470 100644
---- a/xen/include/xen/setup.h
-+++ b/xen/include/xen/setup.h
-@@ -93,8 +93,12 @@ int __init hyperlaunch_init(const void *fdt);
  
- #ifdef CONFIG_MULTIBOOT
- bool __init hyperlaunch_mb_init(module_t *mods);
-+void __init hyperlaunch_mb_headroom(void);
- #endif
+     heap_init_late();
  
-+uint32_t __init hyperlaunch_create_domains(
-+    struct domain **hwdom, const char *kextra, const char *loader);
-+
- #else /* CONFIG_HYPERLAUNCH */
- 
- #define hyperlaunch_enabled false
-@@ -109,7 +113,19 @@ static inline bool __init hyperlaunch_mb_init(module_t *mods)
- {
-     return false;
- }
-+
-+void __init hyperlaunch_mb_headroom(void)
-+{
-+    return;
-+}
- #endif
- 
-+static inline uint32_t __init hyperlaunch_create_domains(
-+    struct domain **hwdom, const char *kextra, const char *loader)
-+{
-+    return 0;
-+}
-+
- #endif /* CONFIG_HYPERLAUNCH */
-+
- #endif /* XEN_SETUP_H */
 -- 
 2.20.1
 
