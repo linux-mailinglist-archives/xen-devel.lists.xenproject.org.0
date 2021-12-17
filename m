@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ED14479517
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Dec 2021 20:51:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.248911.429333 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 079864794CF
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Dec 2021 20:32:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.248831.429213 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1myJFL-0007jI-Gn; Fri, 17 Dec 2021 19:50:27 +0000
+	id 1myIxh-0007Pf-WE; Fri, 17 Dec 2021 19:32:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 248911.429333; Fri, 17 Dec 2021 19:50:27 +0000
+Received: by outflank-mailman (output) from mailman id 248831.429213; Fri, 17 Dec 2021 19:32:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1myJFL-0007gR-Da; Fri, 17 Dec 2021 19:50:27 +0000
-Received: by outflank-mailman (input) for mailman id 248911;
- Fri, 17 Dec 2021 19:50:25 +0000
+	id 1myIxh-0007ME-S8; Fri, 17 Dec 2021 19:32:13 +0000
+Received: by outflank-mailman (input) for mailman id 248831;
+ Fri, 17 Dec 2021 19:32:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6k1w=RC=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1myJFJ-0007gL-R2
- for xen-devel@lists.xenproject.org; Fri, 17 Dec 2021 19:50:25 +0000
-Received: from ppsw-33.csi.cam.ac.uk (ppsw-33.csi.cam.ac.uk [131.111.8.133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9270bec2-5f72-11ec-9e60-abaf8a552007;
- Fri, 17 Dec 2021 20:50:23 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:44372)
- by ppsw-33.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.137]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1myJF9-000y9u-h4 (Exim 4.95) (return-path <amc96@srcf.net>);
- Fri, 17 Dec 2021 19:50:15 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 089D41FC34;
- Fri, 17 Dec 2021 19:50:14 +0000 (GMT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qR5E=RC=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1myIxf-0007M8-MV
+ for xen-devel@lists.xenproject.org; Fri, 17 Dec 2021 19:32:12 +0000
+Received: from sender3-of-o52.zoho.com (sender3-of-o52.zoho.com
+ [136.143.184.52]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 05d0fe18-5f70-11ec-9e60-abaf8a552007;
+ Fri, 17 Dec 2021 20:32:09 +0100 (CET)
+Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1639769522844320.4261730992407;
+ Fri, 17 Dec 2021 11:32:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,88 +40,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9270bec2-5f72-11ec-9e60-abaf8a552007
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <4382c02a-4207-729b-67b8-c9a8bf65b921@srcf.net>
-Date: Fri, 17 Dec 2021 19:50:14 +0000
+X-Inumbo-ID: 05d0fe18-5f70-11ec-9e60-abaf8a552007
+ARC-Seal: i=1; a=rsa-sha256; t=1639769525; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=ZnnYkCGvNy1IMBK7HZQhZxKLEhAiDZoT8A2Gm/V02WKcwczYudXJZWP6gOP65E5jV/ytYq/zf908cMAuLfRAA66/HNvQQWWlrmacX2ZN+AN4XtB1OH0avGCrAcAUMngSikTDitlb4orcOewsH1xeC7As+mm9j1qlqbR3o/H2XQ0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1639769525; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
+	bh=fa0wW/29nJurPMLwiV2rnoDa2hoPbWTa1Hg41W4npRw=; 
+	b=JaCo0cT93rl4UAvZ32ReMGoqnM87o4UO/vFYi/Cad6Kk9f7Uj7WzQkrowbZXETT8KmEleND4E7bPDda4M64YhqBOuEJYBJoMCf0hwJy67QkXTg5QCZlrHHo7l0CWjS1h/qe+wdcXkaBRT5iQwSLKdlvicyDidTfvhzHqjJnQHwM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1639769525;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Transfer-Encoding;
+	bh=fa0wW/29nJurPMLwiV2rnoDa2hoPbWTa1Hg41W4npRw=;
+	b=JUDRoFf8M6mQ8J1xWe7bC//JADa6eCocRw+DHXGMXPEhu8/07qcxzBWX8KDdvbGQ
+	ZNxi3REIz8Kq7Zb5vwWzHOlwccohW6toHol6KmDDim3lRWUCuYWAo0lDqDJPMoQaFUQ
+	ytZyNOrJ3xmVTGjLaEvH26HTzRilQ0lEdv3uJDOo=
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+To: xen-devel@lists.xenproject.org
+Cc: "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	"Andrew Cooper" <andrew.cooper3@citrix.com>,
+	"Jan Beulich" <jbeulich@suse.com>,
+	"Christopher Clark" <christopher.w.clark@gmail.com>,
+	"Julien Grall" <julien@xen.org>,
+	"Stefano Stabellini" <sstabellini@kernel.org>,
+	"Bertrand Marquis" <bertrand.marquis@arm.com>
+Subject: [RFC 00/10] Hyperlaunch x86 Dom0 launch
+Date: Fri, 17 Dec 2021 18:34:26 -0500
+Message-Id: <20211217233437.13791-1-dpsmith@apertussolutions.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Content-Language: en-GB
-To: "Daniel P. Smith" <dpsmith@apertussolutions.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Cc: Christopher Clark <christopher.w.clark@gmail.com>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Dario Faggioli <dfaggioli@suse.com>
-References: <20211217233437.13791-1-dpsmith@apertussolutions.com>
- <20211217233437.13791-3-dpsmith@apertussolutions.com>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [RFC 02/10] is_system_domain: replace open-coded instances
-In-Reply-To: <20211217233437.13791-3-dpsmith@apertussolutions.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On 17/12/2021 23:34, Daniel P. Smith wrote:
-> From: Christopher Clark <christopher.w.clark@gmail.com>
->
-> There were several instances of open-coded domid range checking. This commit
-> replaces those with the is_system_domain inline function.
->
-> Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
-> Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+This RFC is to provide the base approach of how hyperlaunch would integrate
+into the x86 start sequence with the specific intention to vet the
+implementation approach early. What this RFC provides is a working
+implementation of hyperlaunch for x86 that is capable of strictly starting a
+Dom0 configuration. Even so the majority of the remaining hyperlaunch work will
+be focused on domain construction and enabling the transient boot domain (DomB)
+ability.
 
-Ah - probably my fault.  When I added is_system_domain(), I didn't think
-to scan for other opencodes - I was guts deep in the domain creation logic.
+It is important to note that for this RFC patch set the work was split into
+smaller commits to ease review. When the first hyperlaunch patch set is
+submitted for acceptance, it is expected to see 5-7 rolled up and 9 & 10 also
+rolled up.
 
-In addition to the ones you've got here...
+There are a couple of areas that explicitly need review and discussion and the
+commit message for a patch with one of these in them has the details, which
+will be repeated here for them to also all be centralized for comment.
 
-xen/arch/x86/cpu/mcheck/mce.c:1521
-xen/common/domain.c:586
-common/domctl.c:55, 411 and 421
+- For hyperlaunch it has become necessary to track decompression headroom at an
+individual boot module level. The most sensible place for this information on
+x86 is in the module_t structure. The challenge encountered with this is that
+Xen's multiboot support is implemented by reusing MB module_t structure as a
+common structure for MB and MB2. Early in Xen's x86 startup the multiboot chain
+is copied(MB)/converted(MB2) into the trampoline data heap. To minimize change
+for this RFC the MB module_t reserved field was split into a bitfield to allow
+it to serve the existing usage of the field (relocation flag) and for headroom
+tracking. While this provided a clean solution, it is viewed as a short term
+solution. A suggestion might be to unify the existing architectures'
+representation of a boot module and refactor x86's reloc.c to convert MB and
+MB2 module descriptions into this common representation. This would have the
+added benefit of reducing the static allocations currently being used for
+hyperlaunch.
 
-according to `git grep DOMID_FIRST_RESERVED`
+- When enabling device tree for use with x86, it exposed some arch specific
+code in the device tree code in common and shared includes. Specifically both
+Arm and x86 define a `struct device` but are totally different structures. The
+device tree code uses references to Arm's version of `struct device` which
+creates a conflict when the device tree code is used under x86. It was also
+found that generic device tree code was currently in the Arm arch tree. Patch 4
+contains a work around for the first issue and patch 7 copies the reusable
+device tree parsing code from Arm arch for local/internal usage. Each patch
+provides a few additional details and ultimately a generalized solution for
+both problems is the preferable approach versus a minimal solution for enabling
+hyperlaunch 
 
-> diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
-> index 8ec4547bed..179f3dcc5a 100644
-> --- a/xen/arch/x86/cpu/vpmu.c
-> +++ b/xen/arch/x86/cpu/vpmu.c
-> @@ -188,7 +188,7 @@ void vpmu_do_interrupt(struct cpu_user_regs *regs)
->       * in XENPMU_MODE_ALL, for everyone.
->       */
->      if ( (vpmu_mode & XENPMU_MODE_ALL) ||
-> -         (sampled->domain->domain_id >= DOMID_FIRST_RESERVED) )
-> +         (is_system_domain(sampled->domain)) )
+- To ease getting a Dom0 construction working under hyperlaunch the existing
+`create_dom0()` function was exposed and reused. This was for the RFC only
+and will be dropped in lieu of hyperlaunch gaining its own more general domain
+creation function.
+ 
+Christopher Clark (2):
+  introduce hyperlaunch kconfig and core
+  is_system_domain: replace open-coded instances
 
-Can drop one set of brackets now.
+Daniel P. Smith (8):
+  multiboot: moving headroom to per module_t
+  device-tree: split agnostic device-tree from arm
+  hyperlaunch: update device tree documentation
+  hyperlaunch: add structures to hold parsed dtb
+  hyperlaunch: add parsing of dtb
+  hyperlaunch: make create_dom0 externally callable
+  hyperlaunch: add domain creation logic
+  hyperlaunch: integrate dtb parse and domain creation
 
-> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> index 28146ee404..1df09bcb77 100644
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -613,6 +613,11 @@ extern struct vcpu *idle_vcpu[NR_CPUS];
->  #define is_idle_domain(d) ((d)->domain_id == DOMID_IDLE)
->  #define is_idle_vcpu(v)   (is_idle_domain((v)->domain))
->  
-> +static inline bool is_system_domain_id(domid_t id)
-> +{
-> +    return (id >= DOMID_FIRST_RESERVED);
-> +}
-> +
->  static inline bool is_system_domain(const struct domain *d)
->  {
->      return d->domain_id >= DOMID_FIRST_RESERVED;
+ .../designs/launch/hyperlaunch-devicetree.rst | 448 ++++++++++-------
+ xen/arch/x86/boot/reloc.c                     |   1 +
+ xen/arch/x86/cpu/vpmu.c                       |   2 +-
+ xen/arch/x86/include/asm/setup.h              |   5 +
+ xen/arch/x86/setup.c                          |  75 +--
+ xen/common/Kconfig                            |  15 +
+ xen/common/Makefile                           |   5 +-
+ xen/common/device_tree.c                      |   2 +
+ xen/common/domctl.c                           |   2 +-
+ xen/common/sched/core.c                       |   4 +-
+ xen/common/setup.c                            | 450 ++++++++++++++++++
+ xen/include/xen/device_tree.h                 |   4 +
+ xen/include/xen/multiboot.h                   |   3 +-
+ xen/include/xen/sched.h                       |   5 +
+ xen/include/xen/setup.h                       | 131 +++++
+ 15 files changed, 948 insertions(+), 204 deletions(-)
+ create mode 100644 xen/common/setup.c
+ create mode 100644 xen/include/xen/setup.h
 
-is_system_domain() wants implementing in terms of is_system_domain_id().
+-- 
+2.20.1
 
-That said, could I talk you into is_system_domid() as a better name?
-
-This is all sufficiently trivial that I'm tempted to fix on commit if
-you'd like.  This patch is cleanup that stands on its own merit, and
-isn't tied to hyperlaunch specifically.
-
-~Andrew
 
