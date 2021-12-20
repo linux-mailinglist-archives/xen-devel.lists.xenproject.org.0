@@ -2,44 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8033B47B0ED
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Dec 2021 17:09:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.249883.430394 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6238B47B1EF
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Dec 2021 18:14:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.249921.430409 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzLEF-0003OE-G4; Mon, 20 Dec 2021 16:09:35 +0000
+	id 1mzMEa-0002mm-Tm; Mon, 20 Dec 2021 17:14:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 249883.430394; Mon, 20 Dec 2021 16:09:35 +0000
+Received: by outflank-mailman (output) from mailman id 249921.430409; Mon, 20 Dec 2021 17:14:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzLEF-0003LS-Ce; Mon, 20 Dec 2021 16:09:35 +0000
-Received: by outflank-mailman (input) for mailman id 249883;
- Mon, 20 Dec 2021 16:09:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=DqEV=RF=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mzLCG-00055x-Mv
- for xen-devel@lists.xenproject.org; Mon, 20 Dec 2021 16:07:32 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e99c05da-61ae-11ec-9e60-abaf8a552007;
- Mon, 20 Dec 2021 17:07:21 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0B0E61F3B3;
- Mon, 20 Dec 2021 16:07:21 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D252713D6B;
- Mon, 20 Dec 2021 16:07:20 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kBDxMTiqwGEUTAAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 20 Dec 2021 16:07:20 +0000
+	id 1mzMEa-0002l0-QT; Mon, 20 Dec 2021 17:14:00 +0000
+Received: by outflank-mailman (input) for mailman id 249921;
+ Mon, 20 Dec 2021 17:13:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=D44S=RF=gmail.com=firemeteor.guo@srs-se1.protection.inumbo.net>)
+ id 1mzMEZ-0002ku-DI
+ for xen-devel@lists.xen.org; Mon, 20 Dec 2021 17:13:59 +0000
+Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
+ [209.85.166.41]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 36c84863-61b8-11ec-85d3-df6b77346a89;
+ Mon, 20 Dec 2021 18:13:57 +0100 (CET)
+Received: by mail-io1-f41.google.com with SMTP id b187so14183845iof.11
+ for <xen-devel@lists.xen.org>; Mon, 20 Dec 2021 09:13:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,193 +38,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e99c05da-61ae-11ec-9e60-abaf8a552007
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1640016441; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2zdQgzlV0Lz7UQXRFdnEwu37UxJwIePFbmpJgrcmrrs=;
-	b=cIrE1NZbVnDGYkqyRper8jcEWCZAJdk3Br9r1GRzza5OM5fPT4kXfv0ngZHUl4fn0iZ6tW
-	h+sq6ZsGnP6RsLm13byTnCo1CZ/lDlcTRnxfrTeHnM0uZeZ0+Vt8185UPLyFFrxJrZ/wCp
-	aTJZL567BK5Z4U1aCMcRfCtgiowLuQA=
-From: Juergen Gross <jgross@suse.com>
-To: minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org,
-	wl@xen.org,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2 10/10] mini-os: modify grant mappings to work in PVH mode
-Date: Mon, 20 Dec 2021 17:07:16 +0100
-Message-Id: <20211220160716.4159-11-jgross@suse.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20211220160716.4159-1-jgross@suse.com>
-References: <20211220160716.4159-1-jgross@suse.com>
+X-Inumbo-ID: 36c84863-61b8-11ec-85d3-df6b77346a89
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to;
+        bh=9Z86u/eYv90k7dQ52gyj/BqP0l/kowECwRY5YIzP74Y=;
+        b=Ku7PhNfztlsHg40t/VM99telGuW02R3x+FjgpMzXQVME/HawF1Bb3bGsv0PaHwMeUm
+         XdIYEc1JCu9vd85JNjIRxNTNtNkXnSuo9O6iG5w1kYoecSCCXrgo4oZk7qoZ9gdTLgz2
+         3cS91StxUPaLzZRJthKRb4DK7K+yHjqjm2zW54WjlwRh0JVwJSY2xmRSLmknErb2nBcP
+         4E5D0IvzAAQVxjghMI9wOizKp0nBrrfiIg78juHDMcI1jBwefpR+u6lqzuRq32CAUeKJ
+         25XpYP0VxmCQ/PzhRiWwvx+/cELxMB6fDbjl4ypJg6F2c56HpWH5rG29i8n4X4BMDr72
+         WgFg==
+X-Gm-Message-State: AOAM530gCbTh9vnWVF1+t1bcCR2jE2zeQfBnq6IdgA9Znj5pI//0pIXf
+	JWFMhfZNQSIu06ApyNuAat4u6UarYviHJraLubAEpcT7zgSdLw==
+X-Google-Smtp-Source: ABdhPJza7/162JEYtwTrJZzxa5Cj4SKBusS0LTjdBRO5Ju33CFQ7ocBu5BOyBBCSGp36EVCTPWJA5aTQtbQul7AtKdo=
+X-Received: by 2002:a6b:7f04:: with SMTP id l4mr8666403ioq.62.1640020435440;
+ Mon, 20 Dec 2021 09:13:55 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAKhsbWZ5KCrwJqbchx31LWfaJeS=khP9sgoo4y8ZZqOexsUUdA@mail.gmail.com>
+ <CAKhsbWYLC+cEuaJefi4Zy1ZcZaOtM6_2WV+9uq8=pTdi5NYLJA@mail.gmail.com>
+In-Reply-To: <CAKhsbWYLC+cEuaJefi4Zy1ZcZaOtM6_2WV+9uq8=pTdi5NYLJA@mail.gmail.com>
+From: "G.R." <firemeteor@users.sourceforge.net>
+Date: Tue, 21 Dec 2021 01:13:43 +0800
+Message-ID: <CAKhsbWbv-Poscajj=Hwe3g6WO9b8VaZm39ygFnsbEfHTpRzrfA@mail.gmail.com>
+Subject: Re: Possible bug? DOM-U network stopped working after fatal error
+ reported in DOM0
+To: xen-devel <xen-devel@lists.xen.org>
+Content-Type: text/plain; charset="UTF-8"
 
-For being able to use the grant mapping interface in PVH mode some
-changes are required, as the guest needs to specify a physical address
-in the hypercall interface.
+First of all, thank you for your quick response, Juergen and Roger.
+I just realized that I run into mail forwarding issue from sourceforge
+mail alias service, and only found the responses when I checked the
+list archive. As a result, I have to manually merge Roger's response
+to reply...
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
----
- gntmap.c         | 81 ++++++++++++++++++++++++++++++++++--------------
- include/gntmap.h |  1 +
- 2 files changed, 59 insertions(+), 23 deletions(-)
+> > I have to admit that this trial process is blind as I have no idea
+> > which component in the combo is to be blamed. Is it a bug in the
+> > backend-driver, frontend-driver or the hypervisor itself? Or due to
+> > incompatible versions? Any suggestion on other diagnose ideas (e.g.
+> > debug logs) will be welcome, while I work on the planned experiments.
+>
+> This is a bug in FreeBSD netfront, so no matter which Linux or Xen
+> version you use.
+>
+> Does it make a difference if you disable TSO and LRO from netfront?
+>
+> $ ifconfig xn0 -tso -lro
+It does not, the fatal error still show up after this command.
 
-diff --git a/gntmap.c b/gntmap.c
-index 7ae8fe6..126b04f 100644
---- a/gntmap.c
-+++ b/gntmap.c
-@@ -32,6 +32,7 @@
- 
- #include <mini-os/os.h>
- #include <mini-os/lib.h>
-+#include <mini-os/e820.h>
- #include <mini-os/xmalloc.h>
- #include <errno.h>
- #include <xen/grant_table.h>
-@@ -97,11 +98,42 @@ gntmap_set_max_grants(struct gntmap *map, int count)
-     if (map->entries == NULL)
-         return -ENOMEM;
- 
-+#ifndef CONFIG_PARAVIRT
-+    map->start_pfn = e820_get_reserved_pfns(count);
-+#endif
-+
-     memset(map->entries, 0, sizeof(struct gntmap_entry) * count);
-     map->nentries = count;
-     return 0;
- }
- 
-+static int
-+_gntmap_unmap_grant_ref(struct gntmap *map, int idx)
-+{
-+    struct gntmap_entry *entry = map->entries + idx;
-+    struct gnttab_unmap_grant_ref op;
-+    int rc;
-+
-+#ifdef CONFIG_PARAVIRT
-+    op.host_addr    = (uint64_t) entry->host_addr;
-+#else
-+    op.host_addr    = (uint64_t)(map->start_pfn + idx) << PAGE_SHIFT;
-+#endif
-+    op.dev_bus_addr = 0;
-+    op.handle       = entry->handle;
-+
-+    rc = HYPERVISOR_grant_table_op(GNTTABOP_unmap_grant_ref, &op, 1);
-+    if (rc != 0 || op.status != GNTST_okay) {
-+        printk("GNTTABOP_unmap_grant_ref failed: "
-+               "returned %d, status %" PRId16 "\n",
-+               rc, op.status);
-+        return rc != 0 ? rc : op.status;
-+    }
-+
-+    entry->host_addr = 0;
-+    return 0;
-+}
-+
- static int
- _gntmap_map_grant_ref(struct gntmap *map, int idx,
-                       unsigned long host_addr,
-@@ -112,10 +144,17 @@ _gntmap_map_grant_ref(struct gntmap *map, int idx,
-     struct gntmap_entry *entry = map->entries + idx;
-     struct gnttab_map_grant_ref op;
-     int rc;
-+#ifndef CONFIG_PARAVIRT
-+    unsigned long pfn = map->start_pfn + idx;
-+#endif
- 
-     op.ref = (grant_ref_t) ref;
-     op.dom = (domid_t) domid;
-+#ifdef CONFIG_PARAVIRT
-     op.host_addr = (uint64_t) host_addr;
-+#else
-+    op.host_addr = (uint64_t)pfn << PAGE_SHIFT; 
-+#endif
-     op.flags = GNTMAP_host_map;
-     if (!writable)
-         op.flags |= GNTMAP_readonly;
-@@ -128,31 +167,18 @@ _gntmap_map_grant_ref(struct gntmap *map, int idx,
-         return rc != 0 ? rc : op.status;
-     }
- 
--    entry->host_addr = host_addr;
--    entry->handle = op.handle;
--    return 0;
--}
--
--static int
--_gntmap_unmap_grant_ref(struct gntmap *map, int idx)
--{
--    struct gntmap_entry *entry = map->entries + idx;
--    struct gnttab_unmap_grant_ref op;
--    int rc;
--
--    op.host_addr    = (uint64_t) entry->host_addr;
--    op.dev_bus_addr = 0;
--    op.handle       = entry->handle;
--
--    rc = HYPERVISOR_grant_table_op(GNTTABOP_unmap_grant_ref, &op, 1);
--    if (rc != 0 || op.status != GNTST_okay) {
--        printk("GNTTABOP_unmap_grant_ref failed: "
--               "returned %d, status %" PRId16 "\n",
--               rc, op.status);
--        return rc != 0 ? rc : op.status;
-+#ifndef CONFIG_PARAVIRT
-+    rc = do_map_frames(host_addr, &pfn, 1, 0, 0, DOMID_SELF, NULL,
-+                       writable ? L1_PROT : L1_PROT_RO);
-+    if ( rc )
-+    {
-+        _gntmap_unmap_grant_ref(map, idx);
-+        return rc;
-     }
-+#endif
- 
--    entry->host_addr = 0;
-+    entry->host_addr = host_addr;
-+    entry->handle = op.handle;
-     return 0;
- }
- 
-@@ -165,6 +191,10 @@ gntmap_munmap(struct gntmap *map, unsigned long start_address, int count)
-     DEBUG("(map=%p, start_address=%lx, count=%d)",
-            map, start_address, count);
- 
-+#ifndef CONFIG_PARAVIRT
-+    unmap_frames(start_address, count);
-+#endif
-+
-     for (i = 0; i < count; i++) {
-         idx = gntmap_find_entry(map, start_address + PAGE_SIZE * i);
-         if (idx < 0) {
-@@ -242,6 +272,11 @@ gntmap_fini(struct gntmap *map)
-             (void) _gntmap_unmap_grant_ref(map, i);
-     }
- 
-+#ifndef CONFIG_PARAVIRT
-+    e820_put_reserved_pfns(map->start_pfn, map->nentries);
-+    map->start_pfn = 0;
-+#endif
-+
-     xfree(map->entries);
-     map->entries = NULL;
-     map->nentries = 0;
-diff --git a/include/gntmap.h b/include/gntmap.h
-index fde53f3..d3d7e88 100644
---- a/include/gntmap.h
-+++ b/include/gntmap.h
-@@ -10,6 +10,7 @@
- struct gntmap {
-     int nentries;
-     struct gntmap_entry *entries;
-+    unsigned long start_pfn;
- };
- 
- int
--- 
-2.26.2
+>
+> Do you have instructions I can follow in order to try to reproduce the
+> issue?
+I don't know if there are any special details in my setup.
+Hopefully I don't miss anything useful:
+1. Build a TrueNAS 12.0U7 DOM-U by flushing the OS image into a vdisk
+2. Create / import a zfs pool to the DOM-U
+3. Create and share some file based iSCSI extents on the pool
+4. Mount the iSCSI extent through some initiator clients.
+The domU xn0 should be disabled immediately after step #4.
 
+I omitted all operational details with the assumption that you are familiar
+with TrueNAS and iSCSI setup.
+For step #4, I can reproduce it with both ipxe initiator and the win7
+built-in client.
+As a result, I assume the client version does not matter.
+For #2, I actually have a physical disk and controller assigned to DOM-U.
+But I suspect this is probably irrelevant.
+For #3, I'm not sure if the content in the extent matters.
+So far I have been testing the same extent, which is formatted as an NTFS disk.
+
+>
+> Thanks, Roger.
+
+> >
+> > Thanks,
+> > G.R.
 
