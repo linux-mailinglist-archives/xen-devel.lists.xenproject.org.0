@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65A5747A8F4
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Dec 2021 12:48:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.249582.430007 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 023C047A9AC
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Dec 2021 13:26:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.249782.430190 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzH9H-0006rl-6x; Mon, 20 Dec 2021 11:48:11 +0000
+	id 1mzHkF-0004YD-6f; Mon, 20 Dec 2021 12:26:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 249582.430007; Mon, 20 Dec 2021 11:48:11 +0000
+Received: by outflank-mailman (output) from mailman id 249782.430190; Mon, 20 Dec 2021 12:26:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzH9H-0006po-3t; Mon, 20 Dec 2021 11:48:11 +0000
-Received: by outflank-mailman (input) for mailman id 249582;
- Mon, 20 Dec 2021 11:48:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mzHkF-0004WA-2h; Mon, 20 Dec 2021 12:26:23 +0000
+Received: by outflank-mailman (input) for mailman id 249782;
+ Mon, 20 Dec 2021 12:26:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hnIC=RF=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1mzH9G-0006pi-3H
- for xen-devel@lists.xenproject.org; Mon, 20 Dec 2021 11:48:10 +0000
+ id 1mzHkD-0004W4-5u
+ for xen-devel@lists.xenproject.org; Mon, 20 Dec 2021 12:26:21 +0000
 Received: from sender3-of-o50.zoho.com (sender3-of-o50.zoho.com
- [136.143.184.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b208fefa-618a-11ec-85d3-df6b77346a89;
- Mon, 20 Dec 2021 12:48:07 +0100 (CET)
+ [136.143.184.50]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 084a1642-6190-11ec-9e60-abaf8a552007;
+ Mon, 20 Dec 2021 13:26:19 +0100 (CET)
 Received: from sisyou.hme. (static-72-81-132-2.bltmmd.fios.verizon.net
  [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1640000861742943.2120228389215;
- Mon, 20 Dec 2021 03:47:41 -0800 (PST)
+ with SMTPS id 1640003174372547.9730149426596;
+ Mon, 20 Dec 2021 04:26:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,25 +40,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b208fefa-618a-11ec-85d3-df6b77346a89
-ARC-Seal: i=1; a=rsa-sha256; t=1640000885; cv=none; 
+X-Inumbo-ID: 084a1642-6190-11ec-9e60-abaf8a552007
+ARC-Seal: i=1; a=rsa-sha256; t=1640003175; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=VF3CXsJj54wbz6wP+KNz4JHAZKcptCyEV8xfNWQx6YF962I5rerxpS2gZ3s3lQo4fB2rxvX/Ca8oOBy2bnK5Oy5hv1YibFcX4VXjqczstJahlMYt2Hzkv5RDkVh2itVtlxx5wPhhcqTPNR65ifitvQ7sYXPx6/PsAhErSHPUtV8=
+	b=h5QG/f6FdbGkDmCKZ9cgDGepgdD0ozJW+DayZ87UUIQkOSPdJlE/iFSue0lWcW7i833xY2mJ0Yk07AoeUy+H7GNzcGRJH8qsIYHagFyMG8NK11jA0qPdKdIOm94Hz62llKzhyJhRHVgmXbnR7GROEtBnFa2JWR1gfsL2lpdoeGE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1640000885; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
-	bh=0s4Vuqs7ufyKC/tb7lLUJ5CNxSzJesKBdHhoKh0EG+M=; 
-	b=OHttxzaARGkIPM6solDNMq05QrdMJ+9R67r4l5C3OK0SnOMytJvMPOUsyFTZ/3+RSKJypbmYIGh+oG1AWKSnlpoa7sUoYel0fYwQRwaPsM0n74pZAuW3N/fx2UWHwgViF8IBwsT2N7PA2+B+yOy/miDf1aHAO7xhhZthS9l44Rg=
+	t=1640003175; h=Content-Transfer-Encoding:Cc:Date:From:MIME-Version:Message-ID:Subject:To; 
+	bh=wfNf9AYcu5cI6Pjc5sAav3xuf03fkML/AM4sJnjWfjw=; 
+	b=h2U3T+c73OdaoinCFA912h8jiTE6DY7zX504FmMVT5ACrWWwu5csohZHTnK4s/JsG8iATMr8+9VxccdXRHPkJg1p5SgDmld8WVt3AZHRXrxnpz5WRRi/2+/wyqvt7NQUZMeriR+/C6w2YHupeqHmgK/c1u6WAbbhwZXlb4U4EXs=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=apertussolutions.com;
 	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
 	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1640000885;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1640003175;
 	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
 	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Transfer-Encoding;
-	bh=0s4Vuqs7ufyKC/tb7lLUJ5CNxSzJesKBdHhoKh0EG+M=;
-	b=MXB7F3T7pPjCNBQcbPmtE33pzItAH26nIDESMlw4cks5Gh8t6D2EDI3eGAmcNIuG
-	VYwIjZ8UqFtTw0xA6OyIx/jkAGgfYyNH5A00NFc++Wfi3+PWJaZrQeN8s8fvMsHImtj
-	5qiVZK/zUFT4Q+b3/bP8AxtqDOx7lcXw1r8lSkJw=
+	bh=wfNf9AYcu5cI6Pjc5sAav3xuf03fkML/AM4sJnjWfjw=;
+	b=jJwIHg71GPmaPho4yfVmktUy4rEW1FWzbhRo1NRdKNPyR1x6w8gLx7u+mYW+LMIS
+	z1D4BFZA0sYHP4Y2nXaDvLVR9Cp53ha9EBJGZAoFO1Z6QUrEhdds8SUBQc0PQuKwf4M
+	PY3z67QtuDFCG7irCwaYj2d6VUgfT7RLFnlje+Ts=
 From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
 To: Wei Liu <wl@xen.org>,
 	xen-devel@lists.xenproject.org
@@ -71,9 +71,9 @@ Cc: Christopher Clark <christopher.w.clark@gmail.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH V2] is_system_domain: replace open-coded instances
-Date: Mon, 20 Dec 2021 10:50:13 -0500
-Message-Id: <20211220155013.28896-1-dpsmith@apertussolutions.com>
+Subject: [PATCH v3] is_system_domain: replace open-coded instances
+Date: Mon, 20 Dec 2021 11:28:53 -0500
+Message-Id: <20211220162853.10603-1-dpsmith@apertussolutions.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -90,17 +90,13 @@ Signed-off-by: Christopher Clark <christopher.w.clark@gmail.com>
 Signed-off-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 Acked-by: Dario Faggioli <dfaggioli@suse.com>
 ---
- xen/arch/x86/cpu/mcheck/mce.c     |   2 +-
- xen/arch/x86/cpu/vpmu.c           |   2 +-
- xen/common/domain.c               |   2 +-
- xen/common/domctl.c               |   4 +-
- xen/common/sched/core.c           |   4 +-
- xen/include/asm-x86/asm-macros.h  |  86 ++++++++++++++++++++
- xen/include/asm-x86/asm-offsets.h | 127 ++++++++++++++++++++++++++++++
- xen/include/xen/sched.h           |   7 +-
- 8 files changed, 226 insertions(+), 8 deletions(-)
- create mode 100644 xen/include/asm-x86/asm-macros.h
- create mode 100644 xen/include/asm-x86/asm-offsets.h
+ xen/arch/x86/cpu/mcheck/mce.c | 2 +-
+ xen/arch/x86/cpu/vpmu.c       | 2 +-
+ xen/common/domain.c           | 2 +-
+ xen/common/domctl.c           | 4 ++--
+ xen/common/sched/core.c       | 4 ++--
+ xen/include/xen/sched.h       | 7 ++++++-
+ 6 files changed, 13 insertions(+), 8 deletions(-)
 
 diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
 index 7f433343bc..5c1df39075 100644
@@ -185,231 +181,6 @@ index 8f4b1ca10d..6ea8bcf62f 100644
  
      if ( d->cpupool )
      {
-diff --git a/xen/include/asm-x86/asm-macros.h b/xen/include/asm-x86/asm-macros.h
-new file mode 100644
-index 0000000000..0c3d538b5c
---- /dev/null
-+++ b/xen/include/asm-x86/asm-macros.h
-@@ -0,0 +1,86 @@
-+#if 0
-+.if 0
-+#endif
-+#ifndef __ASM_MACROS_H__
-+#define __ASM_MACROS_H__
-+asm ( ".include \"/home/build/projects/starlab/xen-private/xen/include/asm-x86/asm-macros.h\"" );
-+#endif /* __ASM_MACROS_H__ */
-+#if 0
-+.endif
-+.macro vmrun
-+    .byte 0x0f, 0x01, 0xd8
-+.endm
-+.macro stgi
-+    .byte 0x0f, 0x01, 0xdc
-+.endm
-+.macro clgi
-+    .byte 0x0f, 0x01, 0xdd
-+.endm
-+.macro INDIRECT_BRANCH insn:req arg:req
-+    .if 1 == 1
-+        $done = 0
-+        .irp reg, ax, cx, dx, bx, bp, si, di, 8, 9, 10, 11, 12, 13, 14, 15
-+        .ifeqs "\arg", "%r\reg"
-+            \insn __x86_indirect_thunk_r\reg
-+            $done = 1
-+           .exitm
-+        .endif
-+        .endr
-+        .if $done != 1
-+            .error "Bad register arg \arg"
-+        .endif
-+    .else
-+        \insn *\arg
-+    .endif
-+.endm
-+.macro INDIRECT_CALL arg:req
-+    INDIRECT_BRANCH call \arg
-+.endm
-+.macro INDIRECT_JMP arg:req
-+    INDIRECT_BRANCH jmp \arg
-+.endm
-+.macro guest_access_mask_ptr ptr:req, scratch1:req, scratch2:req
-+    mov $((((((256 >> 8) * 0xffff000000000000) | (256 << 39))) + (1 << 39)*16) - 1), \scratch1
-+    mov $~0, \scratch2
-+    cmp \ptr, \scratch1
-+    rcr $1, \scratch2
-+    and \scratch2, \ptr
-+.endm
-+.macro altinstruction_entry orig repl feature orig_len repl_len pad_len
-+    .long \orig - .
-+    .long \repl - .
-+    .word \feature
-+    .byte \orig_len
-+    .byte \repl_len
-+    .byte \pad_len
-+    .byte 0
-+.endm
-+.macro mknops nr_bytes
-+    .nops \nr_bytes, 9
-+.endm
-+.macro ALTERNATIVE oldinstr, newinstr, feature
-+    .L\@_orig_s: \oldinstr; .L\@_orig_e: .L\@_diff = (.L\@_repl_e\()1 - .L\@_repl_s\()1) - (.L\@_orig_e - .L\@_orig_s); mknops ((-(.L\@_diff > 0)) * .L\@_diff); .L\@_orig_p:
-+    .pushsection .altinstructions, "a", @progbits
-+    altinstruction_entry .L\@_orig_s, .L\@_repl_s1, \feature, (.L\@_orig_e - .L\@_orig_s), (.L\@_repl_e\()1 - .L\@_repl_s\()1), (.L\@_orig_p - .L\@_orig_e)
-+    .section .discard, "a", @progbits
-+    .byte (.L\@_orig_p - .L\@_orig_s)
-+    .byte 0xff + (.L\@_repl_e\()1 - .L\@_repl_s\()1) - (.L\@_orig_p - .L\@_orig_s)
-+    .section .altinstr_replacement, "ax", @progbits
-+    .L\@_repl_s\()1: \newinstr; .L\@_repl_e\()1:
-+    .popsection
-+.endm
-+.macro ALTERNATIVE_2 oldinstr, newinstr1, feature1, newinstr2, feature2
-+    .L\@_orig_s: \oldinstr; .L\@_orig_e: .L\@_diff = (((.L\@_repl_e\()1 - .L\@_repl_s\()1)) ^ ((((.L\@_repl_e\()1 - .L\@_repl_s\()1)) ^ ((.L\@_repl_e\()2 - .L\@_repl_s\()2))) & -(-(((.L\@_repl_e\()1 - .L\@_repl_s\()1)) < ((.L\@_repl_e\()2 - .L\@_repl_s\()2)))))) - (.L\@_orig_e - .L\@_orig_s); mknops ((-(.L\@_diff > 0)) * .L\@_diff); .L\@_orig_p:
-+    .pushsection .altinstructions, "a", @progbits
-+    altinstruction_entry .L\@_orig_s, .L\@_repl_s1, \feature1, (.L\@_orig_e - .L\@_orig_s), (.L\@_repl_e\()1 - .L\@_repl_s\()1), (.L\@_orig_p - .L\@_orig_e)
-+    altinstruction_entry .L\@_orig_s, .L\@_repl_s2, \feature2, (.L\@_orig_e - .L\@_orig_s), (.L\@_repl_e\()2 - .L\@_repl_s\()2), (.L\@_orig_p - .L\@_orig_e)
-+    .section .discard, "a", @progbits
-+    .byte (.L\@_orig_p - .L\@_orig_s)
-+    .byte 0xff + (.L\@_repl_e\()1 - .L\@_repl_s\()1) - (.L\@_orig_p - .L\@_orig_s)
-+    .byte 0xff + (.L\@_repl_e\()2 - .L\@_repl_s\()2) - (.L\@_orig_p - .L\@_orig_s)
-+    .section .altinstr_replacement, "ax", @progbits
-+    .L\@_repl_s\()1: \newinstr1; .L\@_repl_e\()1:
-+    .L\@_repl_s\()2: \newinstr2; .L\@_repl_e\()2:
-+    .popsection
-+.endm
-+#endif
-diff --git a/xen/include/asm-x86/asm-offsets.h b/xen/include/asm-x86/asm-offsets.h
-new file mode 100644
-index 0000000000..5eeced15ec
---- /dev/null
-+++ b/xen/include/asm-x86/asm-offsets.h
-@@ -0,0 +1,127 @@
-+/*
-+ * DO NOT MODIFY.
-+ *
-+ * This file was auto-generated from asm-offsets.s
-+ *
-+ */
-+
-+#ifndef __ASM_OFFSETS_H__
-+#define __ASM_OFFSETS_H__
-+
-+#define UREGS_r15 0 /* offsetof(struct cpu_user_regs, r15) */
-+#define UREGS_r14 8 /* offsetof(struct cpu_user_regs, r14) */
-+#define UREGS_r13 16 /* offsetof(struct cpu_user_regs, r13) */
-+#define UREGS_r12 24 /* offsetof(struct cpu_user_regs, r12) */
-+#define UREGS_rbp 32 /* offsetof(struct cpu_user_regs, rbp) */
-+#define UREGS_rbx 40 /* offsetof(struct cpu_user_regs, rbx) */
-+#define UREGS_r11 48 /* offsetof(struct cpu_user_regs, r11) */
-+#define UREGS_r10 56 /* offsetof(struct cpu_user_regs, r10) */
-+#define UREGS_r9 64 /* offsetof(struct cpu_user_regs, r9) */
-+#define UREGS_r8 72 /* offsetof(struct cpu_user_regs, r8) */
-+#define UREGS_rax 80 /* offsetof(struct cpu_user_regs, rax) */
-+#define UREGS_rcx 88 /* offsetof(struct cpu_user_regs, rcx) */
-+#define UREGS_rdx 96 /* offsetof(struct cpu_user_regs, rdx) */
-+#define UREGS_rsi 104 /* offsetof(struct cpu_user_regs, rsi) */
-+#define UREGS_rdi 112 /* offsetof(struct cpu_user_regs, rdi) */
-+#define UREGS_error_code 120 /* offsetof(struct cpu_user_regs, error_code) */
-+#define UREGS_entry_vector 124 /* offsetof(struct cpu_user_regs, entry_vector) */
-+#define UREGS_rip 128 /* offsetof(struct cpu_user_regs, rip) */
-+#define UREGS_cs 136 /* offsetof(struct cpu_user_regs, cs) */
-+#define UREGS_eflags 144 /* offsetof(struct cpu_user_regs, rflags) */
-+#define UREGS_rsp 152 /* offsetof(struct cpu_user_regs, rsp) */
-+#define UREGS_ss 160 /* offsetof(struct cpu_user_regs, ss) */
-+#define UREGS_kernel_sizeof 168 /* offsetof(struct cpu_user_regs, es) */
-+
-+#define VCPU_processor 4 /* offsetof(struct vcpu, processor) */
-+#define VCPU_domain 16 /* offsetof(struct vcpu, domain) */
-+#define VCPU_vcpu_info 8 /* offsetof(struct vcpu, vcpu_info) */
-+#define VCPU_trap_bounce 1456 /* offsetof(struct vcpu, arch.pv.trap_bounce) */
-+#define VCPU_thread_flags 896 /* offsetof(struct vcpu, arch.flags) */
-+#define VCPU_event_addr 1384 /* offsetof(struct vcpu, arch.pv.event_callback_eip) */
-+#define VCPU_event_sel 1400 /* offsetof(struct vcpu, arch.pv.event_callback_cs) */
-+#define VCPU_syscall_addr 1400 /* offsetof(struct vcpu, arch.pv.syscall_callback_eip) */
-+#define VCPU_syscall32_addr 1408 /* offsetof(struct vcpu, arch.pv.syscall32_callback_eip) */
-+#define VCPU_syscall32_sel 1424 /* offsetof(struct vcpu, arch.pv.syscall32_callback_cs) */
-+#define VCPU_syscall32_disables_events 1428 /* offsetof(struct vcpu, arch.pv.syscall32_disables_events) */
-+#define VCPU_sysenter_addr 1416 /* offsetof(struct vcpu, arch.pv.sysenter_callback_eip) */
-+#define VCPU_sysenter_sel 1426 /* offsetof(struct vcpu, arch.pv.sysenter_callback_cs) */
-+#define VCPU_sysenter_disables_events 1429 /* offsetof(struct vcpu, arch.pv.sysenter_disables_events) */
-+#define VCPU_trap_ctxt 1168 /* offsetof(struct vcpu, arch.pv.trap_ctxt) */
-+#define VCPU_kernel_sp 1312 /* offsetof(struct vcpu, arch.pv.kernel_sp) */
-+#define VCPU_kernel_ss 1304 /* offsetof(struct vcpu, arch.pv.kernel_ss) */
-+#define VCPU_iopl 1484 /* offsetof(struct vcpu, arch.pv.iopl) */
-+#define VCPU_guest_context_flags 1160 /* offsetof(struct vcpu, arch.pv.vgc_flags) */
-+#define VCPU_cr3 2856 /* offsetof(struct vcpu, arch.cr3) */
-+#define VCPU_arch_msrs 3416 /* offsetof(struct vcpu, arch.msrs) */
-+#define VCPU_nmi_pending 960 /* offsetof(struct vcpu, arch.async_exception_state[(1)-1].pending) */
-+#define VCPU_mce_pending 962 /* offsetof(struct vcpu, arch.async_exception_state[(2)-1].pending) */
-+#define VCPU_nmi_old_mask 961 /* offsetof(struct vcpu, arch.async_exception_state[(1)-1].old_mask) */
-+#define VCPU_mce_old_mask 963 /* offsetof(struct vcpu, arch.async_exception_state[(2)-1].old_mask) */
-+#define VCPU_async_exception_mask 964 /* offsetof(struct vcpu, arch.async_exception_mask) */
-+#define VCPU_TRAP_NMI 1 /* VCPU_TRAP_NMI */
-+#define VCPU_TRAP_MCE 2 /* VCPU_TRAP_MCE */
-+#define _VGCF_syscall_disables_events 4 /* _VGCF_syscall_disables_events */
-+
-+#define VCPU_svm_vmcb_pa 1480 /* offsetof(struct vcpu, arch.hvm.svm.vmcb_pa) */
-+#define VCPU_svm_vmcb 1472 /* offsetof(struct vcpu, arch.hvm.svm.vmcb) */
-+
-+#define VCPU_vmx_launched 1516 /* offsetof(struct vcpu, arch.hvm.vmx.launched) */
-+#define VCPU_vmx_realmode 1738 /* offsetof(struct vcpu, arch.hvm.vmx.vmx_realmode) */
-+#define VCPU_vmx_emulate 1739 /* offsetof(struct vcpu, arch.hvm.vmx.vmx_emulate) */
-+#define VCPU_vm86_seg_mask 1742 /* offsetof(struct vcpu, arch.hvm.vmx.vm86_segment_mask) */
-+#define VCPU_hvm_guest_cr2 1040 /* offsetof(struct vcpu, arch.hvm.guest_cr[2]) */
-+
-+#define VCPU_nhvm_guestmode 1960 /* offsetof(struct vcpu, arch.hvm.nvcpu.nv_guestmode) */
-+#define VCPU_nhvm_p2m 2192 /* offsetof(struct vcpu, arch.hvm.nvcpu.nv_p2m) */
-+#define VCPU_nsvm_hap_enabled 2148 /* offsetof(struct vcpu, arch.hvm.nvcpu.u.nsvm.ns_hap_enabled) */
-+
-+#define VCPUINFO_upcall_pending 0 /* offsetof(struct vcpu_info, evtchn_upcall_pending) */
-+#define VCPUINFO_upcall_mask 1 /* offsetof(struct vcpu_info, evtchn_upcall_mask) */
-+
-+#define CPUINFO_guest_cpu_user_regs 0 /* offsetof(struct cpu_info, guest_cpu_user_regs) */
-+#define CPUINFO_verw_sel 204 /* offsetof(struct cpu_info, verw_sel) */
-+#define CPUINFO_current_vcpu 208 /* offsetof(struct cpu_info, current_vcpu) */
-+#define CPUINFO_per_cpu_offset 216 /* offsetof(struct cpu_info, per_cpu_offset) */
-+#define CPUINFO_cr4 224 /* offsetof(struct cpu_info, cr4) */
-+#define CPUINFO_xen_cr3 232 /* offsetof(struct cpu_info, xen_cr3) */
-+#define CPUINFO_pv_cr3 240 /* offsetof(struct cpu_info, pv_cr3) */
-+#define CPUINFO_shadow_spec_ctrl 248 /* offsetof(struct cpu_info, shadow_spec_ctrl) */
-+#define CPUINFO_xen_spec_ctrl 252 /* offsetof(struct cpu_info, xen_spec_ctrl) */
-+#define CPUINFO_spec_ctrl_flags 253 /* offsetof(struct cpu_info, spec_ctrl_flags) */
-+#define CPUINFO_root_pgt_changed 254 /* offsetof(struct cpu_info, root_pgt_changed) */
-+#define CPUINFO_use_pv_cr3 255 /* offsetof(struct cpu_info, use_pv_cr3) */
-+#define CPUINFO_sizeof 264 /* sizeof(struct cpu_info) */
-+
-+#define TRAPINFO_eip 8 /* offsetof(struct trap_info, address) */
-+#define TRAPINFO_cs 2 /* offsetof(struct trap_info, cs) */
-+#define TRAPINFO_flags 1 /* offsetof(struct trap_info, flags) */
-+#define TRAPINFO_sizeof 16 /* sizeof(struct trap_info) */
-+
-+#define TRAPBOUNCE_error_code 0 /* offsetof(struct trap_bounce, error_code) */
-+#define TRAPBOUNCE_flags 4 /* offsetof(struct trap_bounce, flags) */
-+#define TRAPBOUNCE_cs 6 /* offsetof(struct trap_bounce, cs) */
-+#define TRAPBOUNCE_eip 8 /* offsetof(struct trap_bounce, eip) */
-+
-+#define VCPUMSR_spec_ctrl_raw 0 /* offsetof(struct vcpu_msrs, spec_ctrl.raw) */
-+
-+#define IRQSTAT_shift 7 /* ilog2(sizeof(irq_cpustat_t)) */
-+#define IRQSTAT_softirq_pending 0 /* offsetof(irq_cpustat_t, __softirq_pending) */
-+
-+#define CPUINFO_features 12 /* offsetof(struct cpuinfo_x86, x86_capability) */
-+
-+#define MB_flags 0 /* offsetof(multiboot_info_t, flags) */
-+#define MB_cmdline 16 /* offsetof(multiboot_info_t, cmdline) */
-+#define MB_mem_lower 4 /* offsetof(multiboot_info_t, mem_lower) */
-+
-+#define MB2_fixed_sizeof 8 /* sizeof(multiboot2_fixed_t) */
-+#define MB2_fixed_total_size 0 /* offsetof(multiboot2_fixed_t, total_size) */
-+#define MB2_tag_type 0 /* offsetof(multiboot2_tag_t, type) */
-+#define MB2_tag_size 4 /* offsetof(multiboot2_tag_t, size) */
-+#define MB2_load_base_addr 8 /* offsetof(multiboot2_tag_load_base_addr_t, load_base_addr) */
-+#define MB2_mem_lower 8 /* offsetof(multiboot2_tag_basic_meminfo_t, mem_lower) */
-+#define MB2_efi64_st 8 /* offsetof(multiboot2_tag_efi64_t, pointer) */
-+#define MB2_efi64_ih 8 /* offsetof(multiboot2_tag_efi64_ih_t, pointer) */
-+
-+#define DOMAIN_vm_assist 544 /* offsetof(struct domain, vm_assist) */
-+
-+#endif
 diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
 index 28146ee404..0df72baf2e 100644
 --- a/xen/include/xen/sched.h
