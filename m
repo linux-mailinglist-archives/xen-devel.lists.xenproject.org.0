@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6238B47B1EF
+	by mail.lfdr.de (Postfix) with ESMTPS id 71EE347B1F0
 	for <lists+xen-devel@lfdr.de>; Mon, 20 Dec 2021 18:14:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.249921.430409 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.249923.430420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzMEa-0002mm-Tm; Mon, 20 Dec 2021 17:14:00 +0000
+	id 1mzMEu-0003AF-Ar; Mon, 20 Dec 2021 17:14:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 249921.430409; Mon, 20 Dec 2021 17:14:00 +0000
+Received: by outflank-mailman (output) from mailman id 249923.430420; Mon, 20 Dec 2021 17:14:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzMEa-0002l0-QT; Mon, 20 Dec 2021 17:14:00 +0000
-Received: by outflank-mailman (input) for mailman id 249921;
- Mon, 20 Dec 2021 17:13:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=D44S=RF=gmail.com=firemeteor.guo@srs-se1.protection.inumbo.net>)
- id 1mzMEZ-0002ku-DI
- for xen-devel@lists.xen.org; Mon, 20 Dec 2021 17:13:59 +0000
-Received: from mail-io1-f41.google.com (mail-io1-f41.google.com
- [209.85.166.41]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 36c84863-61b8-11ec-85d3-df6b77346a89;
- Mon, 20 Dec 2021 18:13:57 +0100 (CET)
-Received: by mail-io1-f41.google.com with SMTP id b187so14183845iof.11
- for <xen-devel@lists.xen.org>; Mon, 20 Dec 2021 09:13:56 -0800 (PST)
+	id 1mzMEu-00038Q-7b; Mon, 20 Dec 2021 17:14:20 +0000
+Received: by outflank-mailman (input) for mailman id 249923;
+ Mon, 20 Dec 2021 17:14:19 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1mzMEt-00037y-6K
+ for xen-devel@lists.xenproject.org; Mon, 20 Dec 2021 17:14:19 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mzMEq-0001Sw-J8; Mon, 20 Dec 2021 17:14:16 +0000
+Received: from [54.239.6.189] (helo=[192.168.16.72])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mzMEq-0006El-8h; Mon, 20 Dec 2021 17:14:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,80 +39,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 36c84863-61b8-11ec-85d3-df6b77346a89
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to;
-        bh=9Z86u/eYv90k7dQ52gyj/BqP0l/kowECwRY5YIzP74Y=;
-        b=Ku7PhNfztlsHg40t/VM99telGuW02R3x+FjgpMzXQVME/HawF1Bb3bGsv0PaHwMeUm
-         XdIYEc1JCu9vd85JNjIRxNTNtNkXnSuo9O6iG5w1kYoecSCCXrgo4oZk7qoZ9gdTLgz2
-         3cS91StxUPaLzZRJthKRb4DK7K+yHjqjm2zW54WjlwRh0JVwJSY2xmRSLmknErb2nBcP
-         4E5D0IvzAAQVxjghMI9wOizKp0nBrrfiIg78juHDMcI1jBwefpR+u6lqzuRq32CAUeKJ
-         25XpYP0VxmCQ/PzhRiWwvx+/cELxMB6fDbjl4ypJg6F2c56HpWH5rG29i8n4X4BMDr72
-         WgFg==
-X-Gm-Message-State: AOAM530gCbTh9vnWVF1+t1bcCR2jE2zeQfBnq6IdgA9Znj5pI//0pIXf
-	JWFMhfZNQSIu06ApyNuAat4u6UarYviHJraLubAEpcT7zgSdLw==
-X-Google-Smtp-Source: ABdhPJza7/162JEYtwTrJZzxa5Cj4SKBusS0LTjdBRO5Ju33CFQ7ocBu5BOyBBCSGp36EVCTPWJA5aTQtbQul7AtKdo=
-X-Received: by 2002:a6b:7f04:: with SMTP id l4mr8666403ioq.62.1640020435440;
- Mon, 20 Dec 2021 09:13:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=kT5/DuaZntvxRNXMDV0ddY2qC25IBFOAs/5OhpObHRM=; b=RH9aPOwgA5sO65mu11Lj+EkDlU
+	QzKG0x6AsCnR1NOOy84tdZZwQELOB1OcuAAn/KPH574R+g0zOsu49D5RYyY8cN5264y1sLpv2eE3j
+	7zIxRI50nVmbie8G5KqZif+R5uNcrkO0mrQLA6wjHcE1w2hJaD4Ck8wFKOxVWnFcB9oI=;
+Message-ID: <df06a42a-89a2-625e-25a3-da0090cc7bc7@xen.org>
+Date: Mon, 20 Dec 2021 18:14:13 +0100
 MIME-Version: 1.0
-References: <CAKhsbWZ5KCrwJqbchx31LWfaJeS=khP9sgoo4y8ZZqOexsUUdA@mail.gmail.com>
- <CAKhsbWYLC+cEuaJefi4Zy1ZcZaOtM6_2WV+9uq8=pTdi5NYLJA@mail.gmail.com>
-In-Reply-To: <CAKhsbWYLC+cEuaJefi4Zy1ZcZaOtM6_2WV+9uq8=pTdi5NYLJA@mail.gmail.com>
-From: "G.R." <firemeteor@users.sourceforge.net>
-Date: Tue, 21 Dec 2021 01:13:43 +0800
-Message-ID: <CAKhsbWbv-Poscajj=Hwe3g6WO9b8VaZm39ygFnsbEfHTpRzrfA@mail.gmail.com>
-Subject: Re: Possible bug? DOM-U network stopped working after fatal error
- reported in DOM0
-To: xen-devel <xen-devel@lists.xen.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.4.0
+Subject: Re: [PATCH v3 02/13] xen: harmonize return types of hypercall
+ handlers
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ Juergen Gross <jgross@suse.com>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>
+References: <20211208155606.20029-1-jgross@suse.com>
+ <20211208155606.20029-3-jgross@suse.com>
+ <7dd419c1-9ad0-798e-317b-71c8e613ff3e@xen.org>
+ <4e9947b6-08b4-4ac6-9cfe-538c3b34175e@suse.com>
+ <alpine.DEB.2.22.394.2112151757410.3376@ubuntu-linux-20-04-desktop>
+ <c650062f-948e-569d-d4fa-e5333867854e@suse.com>
+ <alpine.DEB.2.22.394.2112161232310.3376@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2112161246180.3376@ubuntu-linux-20-04-desktop>
+ <29c14fd7-4ae2-a277-2413-faa330afc49b@suse.com>
+ <67d3c4da-9a20-24ca-543f-02ecf4676277@suse.com>
+ <287c8fba-b22f-95ec-21d4-e440e7e7fb36@suse.com>
+ <e41d26aa-9ef5-459a-c143-caf28e43c47c@xen.org>
+ <a91217dc-8f97-2882-ce08-2a408654295e@suse.com>
+ <alpine.DEB.2.22.394.2112171459490.1662642@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2112171459490.1662642@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-First of all, thank you for your quick response, Juergen and Roger.
-I just realized that I run into mail forwarding issue from sourceforge
-mail alias service, and only found the responses when I checked the
-list archive. As a result, I have to manually merge Roger's response
-to reply...
+Hi,
 
-> > I have to admit that this trial process is blind as I have no idea
-> > which component in the combo is to be blamed. Is it a bug in the
-> > backend-driver, frontend-driver or the hypervisor itself? Or due to
-> > incompatible versions? Any suggestion on other diagnose ideas (e.g.
-> > debug logs) will be welcome, while I work on the planned experiments.
->
-> This is a bug in FreeBSD netfront, so no matter which Linux or Xen
-> version you use.
->
-> Does it make a difference if you disable TSO and LRO from netfront?
->
-> $ ifconfig xn0 -tso -lro
-It does not, the fatal error still show up after this command.
+On 18/12/2021 00:00, Stefano Stabellini wrote:
+> On Fri, 17 Dec 2021, Juergen Gross wrote:
+>> On 17.12.21 11:41, Julien Grall wrote:
+>>> Hi Juergen,
+>>>
+>>> On 17/12/2021 08:50, Juergen Gross wrote:
+>>>> On 17.12.21 08:45, Jan Beulich wrote:
+>>>>> On 17.12.2021 06:34, Juergen Gross wrote:
+>>>>>> On 16.12.21 22:15, Stefano Stabellini wrote:
+>>>>>>> On Thu, 16 Dec 2021, Stefano Stabellini wrote:
+>>>>>>>> On Thu, 16 Dec 2021, Juergen Gross wrote:
+>>>>>>>>> On 16.12.21 03:10, Stefano Stabellini wrote:
+>>>>>>>>>> The case of XENMEM_maximum_ram_page is interesting but it is
+>>>>>>>>>> not a
+>>>>>>>>>> problem in reality because the max physical address size is
+>>>>>>>>>> only 40-bit
+>>>>>>>>>> for aarch32 guests, so 32-bit are always enough to return the
+>>>>>>>>>> highest
+>>>>>>>>>> page in memory for 32-bit guests.
+>>>>>>>>>
+>>>>>>>>> You are aware that this isn't the guest's max page, but the
+>>>>>>>>> host's?
+>>>>>>>
+>>>>>>> I can see now that you meant to say that, no matter what is the max
+>>>>>>> pseudo-physical address supported by the VM, XENMEM_maximum_ram_page
+>>>>>>> is
+>>>>>>> supposed to return the max memory page, which could go above the
+>>>>>>> addressibility limit of the VM.
+>>>>>>>
+>>>>>>> So XENMEM_maximum_ram_page should potentially be able to return
+>>>>>>> (1<<44)
+>>>>>>> even when called by an aarch32 VM, with max IPA 40-bit.
+>>>>>>>
+>>>>>>> I would imagine it could be useful if dom0 is 32-bit but domUs are
+>>>>>>> 64-bit on a 64-bit hypervisor (which I think it would be a very rare
+>>>>>>> configuration on ARM.)
+>>>>>>>
+>>>>>>> Then it looks like XENMEM_maximum_ram_page needs to be able to
+>>>>>>> return a
+>>>>>>> value > 32-bit when called by a 32-bit guest.
+>>>>>>>
+>>>>>>> The hypercall ABI follows the ARM C calling convention, so a 64-bit
+>>>>>>> value should be returned using r0 and r1. But looking at
+>>>>>>> xen/arch/arm/traps.c:do_trap_hypercall, it doesn't seem it ever sets
+>>>>>>> r1
+>>>>>>> today. Only r0 is set, so effectively we only support 32-bit return
+>>>>>>> values on aarch32 and for aarch32 guests.
+>>>>>>>
+>>>>>>> In other words, today all hypercalls on ARM return 64-bit to 64-bit
+>>>>>>> guests and 32-bit to 32-bit guests. Which in the case of memory_op
+>>>>>>> is
+>>>>>>> "technically" the correct thing to do because it matches the C
+>>>>>>> declaration in xen/include/xen/hypercall.h:
+>>>>>>>
+>>>>>>> extern long
+>>>>>>> do_memory_op(
+>>>>>>>        unsigned long cmd,
+>>>>>>>        XEN_GUEST_HANDLE_PARAM(void) arg);
+>>>>>>>
+>>>>>>> So...  I guess the conclusion is that on ARM do_memory_op should
+>>>>>>> return
+>>>>>>> "long" although it is not actually enough for a correct
+>>>>>>> implementation
+>>>>>>> of XENMEM_maximum_ram_page for aarch32 guests ?
+>>>>>>>
+>>>>>>
+>>>>>> Hence my suggestion to check the return value of _all_ hypercalls to
+>>>>>> be
+>>>>>> proper sign extended int values for 32-bit guests. This would fix all
+>>>>>> potential issues without silently returning truncated values.
+>>>>>
+>>>>> Are we absolutely certain we have no other paths left where a possibly
+>>>>> large unsigned values might be returned? In fact while
+>>>>> compat_memory_op() does the necessary saturation, I've never been fully
+>>>>> convinced of this being the best way of dealing with things. The range
+>>>>> of error indicators is much smaller than [-INT_MIN,-1], so almost
+>>>>> double the range of effectively unsigned values could be passed back
+>>>>> fine. (Obviously we can't change existing interfaces, so this mem-op
+>>>>> will need to remain as is.)
+>>>>
+>>>> In fact libxenctrl tries do deal with this fact by wrapping a memory_op
+>>>> for a 32-bit environment into a multicall. This will work fine for a
+>>>> 32-bit Arm guest, as xen_ulong_t is a uint64 there.
+>>>>
+>>>> So do_memory_op should return long on Arm, yes. OTOH doing so will
+>>>> continue to be a problem in case a 32-bit guest doesn't use the
+>>>> multicall technique for handling possible 64-bit return values.
+>>>>
+>>>> So I continue to argue that on Arm the return value of a hypercall
+>>>> should be tested to fit into 32 bits.
+>>>
+>>> It would make sense. But what would you return if the value doesn't fit?
+>>
+>> I guess some errno value would be appropriate, like -EDOM, -ERANGE or
+>> -E2BIG.
+> 
+> This seems to be better than the alternative below as it is a lot
+> simpler.
 
->
-> Do you have instructions I can follow in order to try to reproduce the
-> issue?
-I don't know if there are any special details in my setup.
-Hopefully I don't miss anything useful:
-1. Build a TrueNAS 12.0U7 DOM-U by flushing the OS image into a vdisk
-2. Create / import a zfs pool to the DOM-U
-3. Create and share some file based iSCSI extents on the pool
-4. Mount the iSCSI extent through some initiator clients.
-The domU xn0 should be disabled immediately after step #4.
+We would still need to special case XENMEM_maximum_reservation (or 
+rework the implementation of the sub-op) because the value returned is 
+an unsigned long. So technically, the unsigned value for -EDOM & co 
+could be interpreted as the maximum host frame number.
 
-I omitted all operational details with the assumption that you are familiar
-with TrueNAS and iSCSI setup.
-For step #4, I can reproduce it with both ipxe initiator and the win7
-built-in client.
-As a result, I assume the client version does not matter.
-For #2, I actually have a physical disk and controller assigned to DOM-U.
-But I suspect this is probably irrelevant.
-For #3, I'm not sure if the content in the extent matters.
-So far I have been testing the same extent, which is formatted as an NTFS disk.
+I also would like to see the hypercall returning 'int' when they are 
+only meant to return 32-bit value. This will make easier to spot someone 
+that decide to return a 64-bit value.
 
->
-> Thanks, Roger.
+> 
+> 
+>>>> The only really clean alternative
+>>>> would be to have separate hypercall function classes for Arm 32- and
+>>>> 64-bit guests (which still could share most of the functions by letting
+>>>> those return "int"). This would allow to use the 64-bit variant even for
+>>>> 32-bit guests in multicall (fine as the return field is 64-bit wide),
+>>>> and a probably saturating compat version for the 32-bit guest direct
+>>>> hypercall.
+>>>
+>>> I am not entirely sure to understand this proposal. Can you clarify it?
+>>
+>> 1. In patch 5 modify the hypercall table by adding another column, so
+>>     instead of:
+>>     +table:           pv32     pv64     hvm32    hvm64    arm
+>>     use:
+>>     +table:           pv32     pv64     hvm32    hvm64    arm32    arm64
+>>
+>> 2. Let most of the hypercalls just return int instead of long:
+>>     +rettype: do int
+>>
+>> 3. Have an explicit 64-bit variant of memory_op (the 32-bit one is the
+>>     compat variant existing already):
+>>     +rettype: do64 long
+>>     +prefix: do64 PREFIX_hvm
+>>     +memory_op(unsigned long cmd, void *arg)
+>>
+>> 4. Use the appropriate calls in each column:
+>>     +memory_op         compat   do64     hvm      hvm      compat  do64
+>>
+>> 5. In the Arm hypercall trap handler do:
+>>     if ( is_32bit_domain(current->domain) )
+>>         call_handlers_arm32(...);
+>>     else
+>>         call_handlers_arm64(...);
+>>
+>> 6. In the multicall handler always do:
+>>     call_handlers_arm64(...);
+I am probably missing something. But why do we need to have separate 
+call handlers for arm32/arm64?
 
-> >
-> > Thanks,
-> > G.R.
+Cheers,
+
+-- 
+Julien Grall
 
