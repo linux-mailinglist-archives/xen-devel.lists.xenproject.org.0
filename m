@@ -2,29 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A36247B02E
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Dec 2021 16:27:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.249837.430223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED2C847B07F
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Dec 2021 16:42:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.249844.430234 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzKYH-0007mG-Pl; Mon, 20 Dec 2021 15:26:13 +0000
+	id 1mzKnJ-0001us-7Q; Mon, 20 Dec 2021 15:41:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 249837.430223; Mon, 20 Dec 2021 15:26:13 +0000
+Received: by outflank-mailman (output) from mailman id 249844.430234; Mon, 20 Dec 2021 15:41:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzKYH-0007jF-LI; Mon, 20 Dec 2021 15:26:13 +0000
-Received: by outflank-mailman (input) for mailman id 249837;
- Mon, 20 Dec 2021 15:26:12 +0000
+	id 1mzKnJ-0001sZ-44; Mon, 20 Dec 2021 15:41:45 +0000
+Received: by outflank-mailman (input) for mailman id 249844;
+ Mon, 20 Dec 2021 15:41:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rfhU=RF=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1mzKYG-0007j9-4q
- for xen-devel@lists.xenproject.org; Mon, 20 Dec 2021 15:26:12 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 226bda90-61a9-11ec-85d3-df6b77346a89;
- Mon, 20 Dec 2021 16:26:02 +0100 (CET)
+ <SRS0=CBxd=RF=epam.com=prvs=298802dd99=oleksii_moisieiev@srs-se1.protection.inumbo.net>)
+ id 1mzKnH-0001sT-BG
+ for xen-devel@lists.xenproject.org; Mon, 20 Dec 2021 15:41:43 +0000
+Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
+ [148.163.137.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5301c3fc-61ab-11ec-85d3-df6b77346a89;
+ Mon, 20 Dec 2021 16:41:41 +0100 (CET)
+Received: from pps.filterd (m0174682.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 1BKEpO5K024258;
+ Mon, 20 Dec 2021 15:41:30 GMT
+Received: from eur01-db5-obe.outbound.protection.outlook.com
+ (mail-db5eur01lp2053.outbound.protection.outlook.com [104.47.2.53])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3d2uy2072t-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 20 Dec 2021 15:41:30 +0000
+Received: from PA4PR03MB7136.eurprd03.prod.outlook.com (2603:10a6:102:ea::23)
+ by PR3PR03MB6571.eurprd03.prod.outlook.com (2603:10a6:102:7b::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.17; Mon, 20 Dec
+ 2021 15:41:28 +0000
+Received: from PA4PR03MB7136.eurprd03.prod.outlook.com
+ ([fe80::85d2:c8aa:2196:21c6]) by PA4PR03MB7136.eurprd03.prod.outlook.com
+ ([fe80::85d2:c8aa:2196:21c6%9]) with mapi id 15.20.4801.020; Mon, 20 Dec 2021
+ 15:41:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,328 +53,255 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 226bda90-61a9-11ec-85d3-df6b77346a89
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1640013962;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=AAiWOlqSj02Wk513cGcuIKrmLzCaM/a1oKkBNjD359w=;
-  b=IohGtJDLYZglf2CuQoytSYrdUkiI6d1r62l0hSkdhgx0DppkSfXQnPJq
-   S6vTQqX9AzSkUVVj7xypkRVdZPcv2aRCaYa25asNIrS5855jF3vkEaG1j
-   HwaQG/+poTIzLXfc6imhmOyZxpvLWrKuMnoz8n2kFIo/GnMzLAhBDuMkV
-   A=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 2QWbXfMpdHUxY5OH6WOhiwhtmRCtG2+XBb+5HNbwGe3JLLEt9XoMaHYTba7QFJEnSu05N777FG
- u/oIkDZTVKCWp7ISMbr/OOAbEdXPCPz0mkOWJhbywqM+eNWVs9iDMPtxpKxOgMR6/Ddd1Dy4p0
- hFMOrO90GNxK38SfEYEt4bNGrcJGHYfgKS/qVRA9W2uiUfwSbcoNqa9oGlIXYFOqr8ENO0N5a7
- 5RHCDOIuimYxi5xyT7U7p8V8pWo/Rg8H6zV6XDSuGI4rqSLkQjdVHWnDhbTRzK6uxDsz8WffMO
- SI1r6nS6pwp/rFU+mpGVLEB/
-X-SBRS: 5.1
-X-MesageID: 60823926
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:SyKIF6soV/mmgMfbIYseTHq9eufnVI5ZMUV32f8akzHdYApBsoF/q
- tZmKWuEPPnbZmWnfdwjYIW28k9SvpLTmtdkSwtk/C43RSsT+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHdJZS5LwbZj29cy24DhWmthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- NplmK2sZ1o1ZY72yOE2agUBNQYgO6FU0eqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DJoQQt2sm1TjEJf0nXYrCU+PB4towMDIY2JgeR62PP
- ZRxhTxHTQ/ueT9IBmouK4sgvc6smmu8UgVKkQfAzUYwyzeKl1EguFT3C/LNc8GObdVYmACfv
- G2u13v9KgEXMpqY0zXt2nCmi/LLnCj7cJkPD7D+/flv6HWDy2pWBBAIWF+TpfiillX4S99ZM
- 1YT+Cclse417kPDczXmd0Tm+jje5EdaAocOVb1hgO2Q9kbKyyuoGkZZUmViUowjn/YqHBoNi
- FmFjfq8UFSDr4apYX6a876Vqxa7Ni4UMXIOaEc4cOcV3zXwiNpt10ySF76PBIbw14SoQm+on
- 1hmuQBn3+1L5fPnwZlX6rwub9iEgpHSBjA46QzMNo5OxlMoPdX1D2BEBLWy0BqhEGp7ZgTY1
- JTns5LHhAzrMX1qvHbSKNjh5Jnzu5643MT02DaD5aUJ+TW34GKEdotN+jx4L0oBGp9aIm64O
- x6P510LtcA70J6WgUhfOd3ZNijX5fK4SYSNug78M7KinaSdhCfYpXozNCZ8LkjmkVQ2kLFXB
- HtoWZ3EMJruMow+lGDeb75EidcDn3lirUuOFcGT50n2itK2OS/KIYrpxXPTN4jVGovf+16Lm
- zueXuPXoyhivBrWPnOKrNVNdA9SdhDWx/ne8qRqSwJKGSI/cEkJAP7N27IxPYtjmqVejODT+
- X+hHERfzTLCabfvc1zihqlLZOy9UJBhg2g8OCBwb1+k12J6OdSk7bsFdotxdr4irbQxwflxR
- vgDWsOBHvUQFWiXp2VDNcHw/N54aRCmpQOSJC75MjIxSIFtGl7S8dj+cwqxqCRXVnirtdEzq
- qGL3x/ARcZRXBxrCcvbMar9z164sXUHtvh1Wk/EfotadEn2qdA4IC3tlP4nZcoLLEyblDed0
- g+XBzYepPXM/NBpoIWY2/jcot7wQeVkH0dcE23K1pqMNHHXrji53ItNcOeUZjSBBmn6z7qvO
- LdOxPbmPfxZwFsT69hgE6xmxL4V7sf0o+MI1RxtGXjGYgj5Cr5kJXXaj8BDurcUm+1csAqyH
- EmO5sNbKfOCP8a8SAwdIw8sb+Ki0/AIm2aNsaRpcRuivCInrqCaVUhyPgWXjH0PJbR4B4op3
- OM9tZNE8Ae4kBcrbo6Lgy08G75g9ZDcv3HLbq0nPbI=
-IronPort-HdrOrdr: A9a23:Ws6C9KAKyWWun03lHeg2sceALOsnbusQ8zAXPh9KJyC9I/b2qy
- nxppgmPH/P6Ar4WBkb6La90Y27MA7hHPlOkPUs1NaZLXPbUQ6TTb2KgrGSpgEIdxeOktK1kJ
- 0QDJSWa+eAfWSS7/yKmDVQeuxIqLLsndHK9IXjJjVWPHpXgslbnnZE422gYzRLrWd9dP0E/M
- 323Ls4m9PsQwVcUu2LQl0+G8TTrdzCk5zrJTYAGh4c8QGLyRel8qTzHRS01goXF2on+8ZvzU
- H11yjCoomzufCyzRHRk0fV8pRtgdPkjv9OHtaFhMQ5IijlziyoeINicbufuy1dmpDj1H8a1P
- 335zswNcV67H3cOkmzvBvWwgHllA0j7nfzoGXoyEfLkIjcfnYXGsBBjYVWfl/y8Ew7puxx16
- pNwiawq4dXJQmoplW92/H4EzVR0makq3srluAey1ZFV5EFVbNXpYsDuGtIDZY7Gj7g4oxPKp
- ghMCjl3ocUTbqmVQGagoE2q+bcG0jbXy32DXTqg/blkwS/xxtCvg8lLM92pAZ3yHtycegC2w
- 3+CNUbqFh5dL5gUUtMPpZzfSKJMB25ffvtChPbHb21LtBNB5ryw6SHlIndotvaPqA18A==
-X-IronPort-AV: E=Sophos;i="5.88,220,1635220800"; 
-   d="scan'208";a="60823926"
+X-Inumbo-ID: 5301c3fc-61ab-11ec-85d3-df6b77346a89
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UBYCt+Ysv6wihteTRvi1qnA0mfuYel1dWnYr2+vWvJezeezkIbAdAMdn67Acj7TLUZbGyIbbDRJABzC6wF0WgwhikFStD1Gu2hdnuSbZVZBjBh+j+lfCgxgQVaZqiqSxXOtLefHmwAshqFA28eD4peTCch5ixHpT+hws4sXURlcxsOwFsowx2J5yCCK2Q9k4RlJhgroDSyIuHZZEwLvH/qgIVcThV+I49GBTQG3UVSOIBg7NSdeeRB2bKp09w3jitZXvjLxDZlZXxCScecwpyG6sWbqhDB6ouRE5zxfZDKh4TMBMAf5Hbt1n3tBW2B+D4znjavr1YdDylL0VbudbjA==
+ b=M7HvTTWPPFNuA/TaJXOqkwyNU9qsY2f/LmcYiSLbt4JJAea3o+y5KGOWULmm0i7QgJFryP6j4WOiMWJcm2iWGsqXvs+KqglgEQfoX6OqpFJP2XO1N8ivGbc83peYVnhL2qSySw5rv+Hw1CsaY62OqyvY7Rs4+1EW1ghYhqpifIUGcQQhzJxZJ4iTNh1KU3GeaHL3rEGan1KWLAzJy5qQYmBga45bAtvQMZAbzQhCjGYY71lJ68zzyxtuvF4NPclJZEADnYfevA1fiOVU2gCZki2GgH96fi1vJmV0snpH7aWOCF3DIbGxPjQ4rygIw3F6t2aUBNlyiiJPYLsxtJ2KRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6r9yazLJ7J3E/Km7y/bxviJ5JNZbO7ImVN3JZKYD1PQ=;
- b=ABtRYRQwU80BXl6cfIO8laWhJO0OjeHPxSBcOhIJC+t7Q68IZRymlskfdW7EqX6K6JN9XJ41LJzja1jNEXCA+YseLbrhGYQfeeD2O/V1zRX4UEkog3rmloZqfZH53TMAMiayEhj5CEIetBTaSee7wK/8Hxx+oOhgf7LdXmcKY2/ZU8fk9eyKrzCkPtf84wyf9tm6X7uXr985s2mH4+X95IhEaJTyuBrek0WMRnl+G50yHrmTURNOkDX/er8Oe47QAguaj91nk8FVC2EkNhdldm2nMtY/c8/6TPIcCm2lS/joQCFa1PK/pAtucN44InVs3L5qmVqIjErjpBAnsAuD4g==
+ bh=q3BXmTVfE+kfGVHoYLtw7B2qCfY0BKvJ951kywdyNCA=;
+ b=c9yhNGGtI/WYyz9yzleUVKNlaBdmzG3v1LxEbJYubdyK/NrP26TV4zgwh0hbQn5mtWyOgLDHTIhbhE1rrz5U72M4RAROZltDfcKlkzk6aRqNjrPinQQUBRl3KzXlXLsRVk53btBXFeVxo141QTJ6qJVfsDs3Ap+aKnIvc36mMRlX5H80eztpwCgqYYM5EnSMHGRUDdrMkBfHQhHZd8Q3hFqHdJqFZFc+1MwW/RTj01neF8ulsK+cuaCdI9rnIJVP35u8E1SZl2byPYS10rxvy53S8W6jFJGQKUOEphQP/tyqCLgmU2mLFp6USWW6OxXZ5R/4Iq/2ZZ2kw7fdFmZJOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6r9yazLJ7J3E/Km7y/bxviJ5JNZbO7ImVN3JZKYD1PQ=;
- b=iz7QtJvYFJjQwaLbFM2AHKhpF1JUyBNWfJAm9uI1wk3Bchl6MEnzbjKgLT+8kTyULycwWtrHbJM6kxKYC3lQ84D/BQBxV6Z2j5h7F9NzHAO2NknN99/xmruIOXgVa2ZyYrCP1OF9gdiFyioTYFzGb4hDuQuUU1Io06o8dVIwbSs=
-Date: Mon, 20 Dec 2021 16:25:11 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>, Wei Liu
-	<wl@xen.org>
-Subject: Re: [PATCH v2 16/18] x86: introduce helper for recording degree of
- contiguity in page tables
-Message-ID: <YcCgV/o+1I0qry+q@Air-de-Roger>
-References: <957f067b-9fe1-2350-4266-51982f09d3a9@suse.com>
- <aab0b88b-7643-cc08-756b-0684f93be257@suse.com>
- <Ybn0LaRuFpUfcmoU@Air-de-Roger>
- <bbcbd938-170d-94dc-4fa3-49766fb2a9c3@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <bbcbd938-170d-94dc-4fa3-49766fb2a9c3@suse.com>
-X-ClientProxiedBy: MR2P264CA0100.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:33::16) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+ bh=q3BXmTVfE+kfGVHoYLtw7B2qCfY0BKvJ951kywdyNCA=;
+ b=M2lUF2ErYbnNhuZvEm2esSeeEAhKLmzj8jf13asreYSEC/PpwYout2H77PLWRy9QDtVZhYxBI8juxFcFacxtOtotE3gH4olRZO5tYVYsVQgJ8qZDzsEKvs2xUBU+nn9sxQTPqD/Htwn/kNAo5bRxCjdZX9ht55N3VZihAu0K3VtbeVuD5sh5jrpE/+2chUva0+gwwX6v7Z4X07NHu5KGOG3RlE1X/deESZI/6MLNU4U2b0QJuqb6E5APaXYsDWJ/BV1bQwbb/6Gb3+Pkb/g4j8j9dJsexsq7cazr8I/xkDcly5ERrEKdrazDd5/zVQbSQph1t70YtO6IvbDb+IOi6w==
+From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+To: Julien Grall <julien@xen.org>
+CC: Oleksandr <olekstysh@gmail.com>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>,
+        Stefano Stabellini
+	<sstabellini@kernel.org>,
+        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+        Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
+Thread-Topic: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
+Thread-Index: 
+ AQHX8M3JF7Ng56/tV0+8/7pODiaWfKw2ks6AgAAeBwCAAAQPgIAABfaAgAAsl4CABKcNgA==
+Date: Mon, 20 Dec 2021 15:41:27 +0000
+Message-ID: <20211220154127.GA1688861@EPUAKYIW015D>
+References: <cover.1639472078.git.oleksii_moisieiev@epam.com>
+ <e9dadd96aa5b64b9232e10a083ce393af620adde.1639472078.git.oleksii_moisieiev@epam.com>
+ <51104b62-14a1-79b8-1184-4f4d8418a2f6@gmail.com>
+ <20211217132304.GA4041869@EPUAKYIW015D>
+ <04263b01-85a1-a6cf-9c36-a31629caef12@xen.org>
+ <20211217135855.GA4072899@EPUAKYIW015D>
+ <7924e699-5e70-6fdc-8633-6a15894d66db@xen.org>
+In-Reply-To: <7924e699-5e70-6fdc-8633-6a15894d66db@xen.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 856e9850-27c1-4b5c-39fb-08d9c3cf3007
+x-ms-traffictypediagnostic: PR3PR03MB6571:EE_
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-microsoft-antispam-prvs: 
+ <PR3PR03MB6571CB5CB9D50FAB5CECDCC5E37B9@PR3PR03MB6571.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ 6raLqfe2oYGX3AIDYln6rbl+1Ye0Ro9IVv2+vLc1/691A+QCtHpv8YBqTVKq9P4+oCFiW+VdPkirouBAz7HtLa78Ljuw+UMtKLEV9jJ619ubzOn6f2PpyGR7WH0f5r3rmQctdfzBmaNhzd8TrxYceiJFvi4pVxpoTOLiXqY+ydhLspWzOUOBnz4YBE+PW2HJKxbRXEJ0ZN+v1oeLNwykDbR/2IU+3LUqcgHxIr/7O/qOpyz0eICk3mb5Gt3aS3drVBTZ0Oarxia27+6YNlh/yHjFsVz5rXQv8+gHS07tR739aUGR+OkDcugOk/ZziG8vtOlBsRL3iNnSqrwG+M59PVpU1CfiBslCF0PeK7TsK4hKB7Ju9BZp+8n+d2OqZCdjskEIaGxPqmojdi7ceZijrOsUuJGS+BSYd5dTnbino192PsfObVklJJilnTrTMlBsvXowG+2m8V9XiamZkfdqjodv/W9T7d0Tv+ZxmSnK/EF3IH6twPCcn4cc63fcxAZIw+cW7+nAGCvxnZ+wPAKVWsADbQyQewFpzB+pd6S30sTquNRtbAZeeb95vmmwIQWRm0isSrTfcf+uy8VpWNyRxX70YPWjwD0n5c2VmnOyW5eSPiknvgcHFw4Vh7IBb/LZDsvuXXxurEDuB2f+Hhk5Szknoa+vinMJrvQ7oK8wZUUT2HvrcGOQZI7Re3Fdh1Ya1ITokUzass5VmSubFQuwPIm4HoY2XSnYhYuqcf4hG/+Q5fmROu/oFL1cOD5al/m3LkkH+qs//hsewgFIFVP70NemFyy8GHj4MtvrU3/yRY0=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7136.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(76116006)(66946007)(66556008)(6486002)(66446008)(66476007)(91956017)(1076003)(38100700002)(8676002)(83380400001)(122000001)(33716001)(64756008)(86362001)(8936002)(5660300002)(6916009)(4326008)(6506007)(508600001)(966005)(33656002)(38070700005)(53546011)(26005)(186003)(316002)(6512007)(71200400001)(2906002)(9686003)(54906003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?c8CJa1KMUaydDpTbefczwHubDUiJ9Iit3rnVsl8x8pIn+uEkgOD7OPegWyh7?=
+ =?us-ascii?Q?TRUBX3tf4nNz+ahFHCq1hbSTrtRSt6Bi2a4cXjK+lKpZs4JPZDGYa7fbfWlq?=
+ =?us-ascii?Q?w2A8ubIz/EZLmHggx/GkFbR61XccBWwttUJBw8V0qrv6U/TJ3ybSj5XF22AN?=
+ =?us-ascii?Q?eojWhq4FKLyjS8uN3IJLSpxt2NMQtCVDFzyC/MT0uZRfPIVtCqRsHaL6z+IS?=
+ =?us-ascii?Q?jzyMFKXrdQ+zeWgrjOo7JLtsQfSQry8S2LHCFMseJVOHf1uR4BRK5G9ZB6pH?=
+ =?us-ascii?Q?l9MX/GVlmPhxBwgVs16de3QFBo+a7nM6RzuEJMnxYgki78i5b1hFqI8xVP+d?=
+ =?us-ascii?Q?QTmVD1+hMdakdWSweTw0lZI+uYOBG7Re6Sqm6+6ZaYLRn5//eUo4MWRW6Xe4?=
+ =?us-ascii?Q?GH+J5at+CD3yts3v905dYvEfEW8IxXjonu/0tRJBs4XR8iQvJ3BTqoGW3+CZ?=
+ =?us-ascii?Q?r8WABxC3h/ZJ+AnZgdUsRMl9S1pR3Q02eSU6kFnx6uIuOEwIVKK0PduiStNc?=
+ =?us-ascii?Q?3OPiggHPE27Y4a5YqcH/xdESdVLKQ0HaTDexBJ8YgtXXVTZxZSm8wo/DIQHM?=
+ =?us-ascii?Q?h669omrCmOlmLFTcUo7txWz88HeBk6DURfSCsAy0EmKoJ/VI+hTFpSxNqURl?=
+ =?us-ascii?Q?w/SJWP+LeZhydT3A+pCUxdwjGe1w84MpR/RsMpslLAd4uwTDhXyJnBTh8/3Y?=
+ =?us-ascii?Q?RfdA/QOCrEoO8Eeuf3yZb/LvmXeprVay1smye5uvMNNL6CByr61lzLPQUYMf?=
+ =?us-ascii?Q?hLCZFnjgX0870kz2y9XEXiXeDX84ihu/JDx7KT1fCan5ef7artw6gawpJtp1?=
+ =?us-ascii?Q?49Ry21kTw5z7ntUH+P8OV58wi5j++prROUGCCw8gCjBCHU3C+mprAZUAbq4X?=
+ =?us-ascii?Q?rVanmZlMVHKS2xLY+7+e7XlPi+vdybTAHSg5qfDR+GMp5P1kRrJarykaQD3x?=
+ =?us-ascii?Q?OAXHxktaq7n+tHmf7PaQV/yG2jrYWRPPobH4TBLqACTL90Y1pxFqIMK/H61x?=
+ =?us-ascii?Q?3SPFHqI9Sk/h1kn1KkuoWPvUW2vKvqP+0JL2K99O+rNgXUycQPrbMNv3WH3Q?=
+ =?us-ascii?Q?gNnwGN7cI74TNz9hY20oBJGLt2VAn+C9+rFDFRUs1g9haTaz4t7E88FwfQep?=
+ =?us-ascii?Q?FId0Ig5kH/DAP9+F/OOhuYAkX5D7k5E5FhpHoXS3jYHMFQEm+igy/IR4PBDq?=
+ =?us-ascii?Q?wtsucfE+Q3U7om2cNZa7KJhbOYahqVsVbVgkZMkouBwNLGJgU+osYz9u/HI6?=
+ =?us-ascii?Q?IvbPbtiYYFb5VCjEfIrg4UAi3Y4TTkAkdTsOcSM8WWlyq3jzMYaO8KXdwv01?=
+ =?us-ascii?Q?cXxF4LhhvN2CnSVJ/FKBo6f/lFd+9Xu6DrCpjzXXY4uwHizPFiZlpKb+elOh?=
+ =?us-ascii?Q?Kj8ifDtx8QBo7Dy5eGHv6JJQtgYiyYGubSgWa1FwCWrxM+zh6sfZyEqVyiX+?=
+ =?us-ascii?Q?YJiltSD4VEn+JPLkuTUMh7po4y4msmrziaFUVtVOJLwAJ/krjFMUnbQlqQ38?=
+ =?us-ascii?Q?8Ui0WLt4GmnAI7cbM0TUWuw+TkqqgXxSuM8n9pBGngZDSNjXInR98wUqZk8y?=
+ =?us-ascii?Q?zwG7QkyxxDsl/nCOyQmJURd+Se7qbNjWRLy/d2sFsC1gUapkwbPfyyI9Ld5f?=
+ =?us-ascii?Q?qc5KNK28O6XuemjD6TwgM4Vw2/FRexiVAy7Qr/PBwsb6hxtmIE9g3htB7Kh2?=
+ =?us-ascii?Q?XZsuE6ovJSh+SWkp2yuHlKuo9t8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <6444D2EEE436094A9681C56B515E527B@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 34b6c63d-c0b0-4e28-823b-08d9c3ccecec
-X-MS-TrafficTypeDiagnostic: DM6PR03MB3577:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR03MB3577AEB7F361A91B3E78039D8F7B9@DM6PR03MB3577.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2887;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: o2ysqp0Ju4gvRqYb3+4EbNuiXw30QcY+Dzz2qYVRtyW537Qo+jvMus7FjNwwXh6OfqE47mu39acpJwHzQvo2iLCa/n7QPoOfpTot2nn7/YEEgXrgCxIpfAkfDgTfuUJtIwrSs++kUQiqVnIwo/oypuj1VQU4kll5AgSDech8yjyWy2jTBxNlXJiAwG9vwac3q/9wgzS0cCW0IQuvmfMkUbJ7/GyxRCduY8kwbpCe1LoNOOsX0vPB0yRKapadNGU/toLpH02yZKW65WqSDUjsK7wgdObgACzqzWI+GWdwtsLoJX+jkiz1AXOLwkZOIiu/JvZRXmYkBXtqNvDZiC1z0orzLNO8RTCTYdchFWNaGbxecNXS07OisYGoGoXUHNFk08bGlXkW4hhCYxNidCAeY7o08zQ/w5ZGI+Vrvy403KHMbPrK+jJjgFYDwhYJ8H+R1XBR5FyXxPROe+Y5fBlQ25znwTk5klQ/UmYbdWG2iHOWxYanSI+XmbuwK+Q9k49QSRJA3zxt+TAgJI3CbHp5+D/nlQj3RZBiK9o4CDUcg3vtUwlDRzk7XoByLJpvPERHxyhWndO5Tg4CuWxh91sBa+kOgzFvbc1mz2jXUn43M8VeCQNM7ACC+5HK6pFcFs0eY4EhXKJwQ5rzjtg/AWEO1w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(33716001)(83380400001)(5660300002)(6512007)(9686003)(6486002)(26005)(186003)(53546011)(508600001)(6506007)(8936002)(86362001)(82960400001)(8676002)(54906003)(316002)(2906002)(85182001)(66556008)(6666004)(66476007)(6916009)(66946007)(4326008)(38100700002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QVNyT29xVEdPc0ljcGZZNDVXR25aTGcxK0tYSmRIa1IvK3ZiMDg5Snd0TFRs?=
- =?utf-8?B?V3E1bTNFMzh3cG1OMXYyVlFFTlB5RDVwTVRqYjltYlBKMzcveGNORld6YXBw?=
- =?utf-8?B?R1FRRWcrVWFjNzJ4N01iZzQ0di9FTW4xMFpWdjFydGdQOWU5R3NKZXQwWDJz?=
- =?utf-8?B?enE3M092bjVkQUdYVklxZi8wV0JUWVF6L0dINXFreXl0czAzM1NsZHYwWGFz?=
- =?utf-8?B?TjJTTloxV3kwSU5iWUh2WXMvbUJTK2x2L015UE1JM0JKUnlLRS9wdjFZajFJ?=
- =?utf-8?B?THc0TFdvNUw1VVVuMDVSUm9Ga0I2YkFkbGx5UFphZGo1bm1FOUcwc2ZUSFh2?=
- =?utf-8?B?eUlXRU1Mdkl0cCtPT3ZUYkNRRStGcnRQVy9tYy92S2tjSG11NkZLbHJGeXBi?=
- =?utf-8?B?TzBsN1hGVGVNTS8xTkJQKzRKMHNTa0U0bktYSHF6SGhEQ3lIb3N1WTZpMlh1?=
- =?utf-8?B?Nm4xL21sRDIxb2F6ZXgvVE4rMm42RTV2OU9QOTR2T3NHb3UwbEV3OHRFR25u?=
- =?utf-8?B?S3BZRWZ0dGtTcDJTM3FBM2ltUjU4dzgvc3plSWpxbVZUamQzUElpYmh5cCta?=
- =?utf-8?B?cjJtUVVlam43V3U5TGs4eFpQNlI1UjlxMWFJbWp4cHo3UHJ4WFJKTDlPRTY5?=
- =?utf-8?B?WkFJWTNBSGZuRVBZZGNQdk12Z2krd2pNZWh6MHkrU1NDOHBRb1MwNXB6enlm?=
- =?utf-8?B?QS90RWVieHMva2p5SUMxSnhrS0tFQ2pTeFJZUFVrdHB3OWdEbit6N21Xakht?=
- =?utf-8?B?RDlscW5HMUo2eXdqSkR4UkdzeVZCaFc4b0FGbXU3d3d5VXdQdXU2VG9KbWtk?=
- =?utf-8?B?aFlaOUhncnlycW9MZ3VLSnVlTWp6VG02S0NLRDBNZFhMMWpwYkNLdEU2clB5?=
- =?utf-8?B?bkl6WUoycjRhQ20rVUpwM0tLTWNIdWZPeWUySDhCZWRSSkVHZWpiNi8xblBo?=
- =?utf-8?B?TThra1ZYbHRqQVpaWlFmdnBNakQwTm1IVlZuc0lqZXBHSW9zUklsTytvYkFz?=
- =?utf-8?B?WmNvSjhwUFd6THRiNmc0N0E3VW9jbnJaSmFlNnRmTHJ3a0E2SHAwQVplc3A5?=
- =?utf-8?B?RTZjZHdKdnV5NHFnMVVoUjBPOUt0WnBWc3VMMERRemlrWlI5T1NMcG96MmNU?=
- =?utf-8?B?Q3lSYUczd0FacndvbGJGOFY3T0JhZ2xKeFY0Tjg1bngybmEyZE90MS9aNE5F?=
- =?utf-8?B?ZXBDQmxZYzFVeFkvV3NZQlRialFaU2htb0hZODRubTFpQmVhUFhoaW1YWVJJ?=
- =?utf-8?B?SjZ1SGowZXlnNldUcHVNUGl4YnNZVHBDZmE4aGVsWWp3YnlVZkYycTE3UTNV?=
- =?utf-8?B?b2RyTDRrRlNLRWlBRXRwaFo0NEIvUFdvUnpKY0hoUEhqeE9XMmpOVGJMN3RY?=
- =?utf-8?B?NE1mRlgwWW9Jb2p4TmVDbHhCU3FvLzFnQm42emFwbDdYUk10MUFPNmpGS3Ax?=
- =?utf-8?B?NDhmbHo1OWQ5U0E3YmZXbTR3UnozUldHL0o1NDhERng0akZlYmJTbkkzeFZm?=
- =?utf-8?B?ZnhnUVpDcXp3ZHlEMC9VNVpPM1o2S0lvc0x5SXRUbk5oS1FpNFAvZFB2SXU1?=
- =?utf-8?B?V2ZzbDRvRWppeHlnZTVEdXVtbEhHSDE5eUgyQmx5RTRnbnNNdDdaTGV0UDBp?=
- =?utf-8?B?dHVIVVBhYW5UYVZ4a3F3Q1JTaFdoWTFtZ2NaRGdxR2ptbUNUdmYwU2dqVlBp?=
- =?utf-8?B?YTl6eHhid1MxNW5IUXlxaTdCdCsyeUNzS2NtK0xud1MreDFGdFNXeG1iWUdV?=
- =?utf-8?B?RmFPcnlvd3dJOEhpaEZaMVpkYk5RbkRsVmVIczBsRWNWcHAzUzR3a0ozS1My?=
- =?utf-8?B?VG91ODFmNGlhYURIbnpjVlovcytZa1VIbG4wYmUrMDN6V2tyOFJadG1iWlFF?=
- =?utf-8?B?WVVSMnZ5SDZVaVduaFQzUTd1NjJvWEJiZVRWTEp1MXVRQTZmeE1jMEZRU2Z4?=
- =?utf-8?B?QUJONTMzRlFBS21HOUg0YlJ2MjNWdDRCT1NTeThLOXN2SU9XTWp4VHNvNnZ6?=
- =?utf-8?B?YlRkS3JvVFRycFN6OTlZazlUSFlLK3VzcTRNZ1N2Z1NNNGRSNnEweEpwZytr?=
- =?utf-8?B?VnhmVnYzSklyQTA2N1REWmg4MzhadlZySjJHZG40dFd1MGdxZHpWOThGYlAr?=
- =?utf-8?B?ajFER2h0VjZMUEhZOHZKRCtiZ1BTdWZMUUEzUXlHZjBld3VrcVlZb2s4NFEz?=
- =?utf-8?Q?w0K7bfN39sxzCc4NzfUXzBI=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34b6c63d-c0b0-4e28-823b-08d9c3ccecec
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2021 15:25:16.7802
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7136.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 856e9850-27c1-4b5c-39fb-08d9c3cf3007
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Dec 2021 15:41:27.9812
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RPheXbsSvNGUSSjFuuPtAuL2TcRmgU6iar+zxpx8Eej33w0x3vaz0C7hVvumppyEjU4zot2eb/tvbsZF8QvBvg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB3577
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: b51BmA5yP5qqbORpv/KPj73QhTrbsfeJeZOiBwJqw97vy7Hdv4LG9qkEemBx7+g2/h58aqITWldIDY/8nXUZvu4kmR0oCo4diYekZb3XfTs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR03MB6571
+X-Proofpoint-ORIG-GUID: vI70oUhGMdjH46lYfnaBUrsjA9Cflq5E
+X-Proofpoint-GUID: vI70oUhGMdjH46lYfnaBUrsjA9Cflq5E
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.790,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2021-12-20_06,2021-12-20_01,2021-12-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 clxscore=1015 impostorscore=0
+ mlxlogscore=999 bulkscore=0 malwarescore=0 lowpriorityscore=0 mlxscore=0
+ spamscore=0 phishscore=0 priorityscore=1501 adultscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2110150000
+ definitions=main-2112200089
 
-On Thu, Dec 16, 2021 at 04:47:30PM +0100, Jan Beulich wrote:
-> On 15.12.2021 14:57, Roger Pau Monné wrote:
-> > On Fri, Sep 24, 2021 at 11:55:30AM +0200, Jan Beulich wrote:
-> >> --- /dev/null
-> >> +++ b/xen/include/asm-x86/contig-marker.h
-> >> @@ -0,0 +1,105 @@
-> >> +#ifndef __ASM_X86_CONTIG_MARKER_H
-> >> +#define __ASM_X86_CONTIG_MARKER_H
-> >> +
-> >> +/*
-> >> + * Short of having function templates in C, the function defined below is
-> >> + * intended to be used by multiple parties interested in recording the
-> >> + * degree of contiguity in mappings by a single page table.
-> >> + *
-> >> + * Scheme: Every entry records the order of contiguous successive entries,
-> >> + * up to the maximum order covered by that entry (which is the number of
-> >> + * clear low bits in its index, with entry 0 being the exception using
-> >> + * the base-2 logarithm of the number of entries in a single page table).
-> >> + * While a few entries need touching upon update, knowing whether the
-> >> + * table is fully contiguous (and can hence be replaced by a higher level
-> >> + * leaf entry) is then possible by simply looking at entry 0's marker.
-> >> + *
-> >> + * Prereqs:
-> >> + * - CONTIG_MASK needs to be #define-d, to a value having at least 4
-> >> + *   contiguous bits (ignored by hardware), before including this file,
-> >> + * - page tables to be passed here need to be initialized with correct
-> >> + *   markers.
-> > 
-> > Given this requirement I think it would make sense to place the page
-> > table marker initialization currently placed in iommu_alloc_pgtable as
-> > a helper here also?
-> 
-> I would be nice, yes, but it would also cause problems. I specifically do
-> not want to make the function here "inline". Hence a source file including
-> it would need to be given a way to suppress its visibility to the compiler.
-> Which would mean #ifdef-ary I'd prefer to avoid. Yet by saying "prefer" I
-> mean to leave open that I could be talked into doing what you suggest.
+Hi Julien,
 
-Could you mark those as __maybe_unused? Or would you rather like to
-assert that they are used when included?
+On Fri, Dec 17, 2021 at 04:38:31PM +0000, Julien Grall wrote:
+>=20
+>=20
+> On 17/12/2021 13:58, Oleksii Moisieiev wrote:
+> > Hi Julien,
+>=20
+> Hi,
+>=20
+> > On Fri, Dec 17, 2021 at 01:37:35PM +0000, Julien Grall wrote:
+> > > Hi,
+> > >=20
+> > > On 17/12/2021 13:23, Oleksii Moisieiev wrote:
+> > > > > > +static int map_memory_to_domain(struct domain *d, uint64_t add=
+r, uint64_t len)
+> > > > > > +{
+> > > > > > +    return iomem_permit_access(d, paddr_to_pfn(addr),
+> > > > > > +                paddr_to_pfn(PAGE_ALIGN(addr + len -1)));
+> > > > > > +}
+> > > > > > +
+> > > > > > +static int unmap_memory_from_domain(struct domain *d, uint64_t=
+ addr,
+> > > > > > +                                     uint64_t len)
+> > > > > > +{
+> > > > > > +    return iomem_deny_access(d, paddr_to_pfn(addr),
+> > > > > > +                paddr_to_pfn(PAGE_ALIGN(addr + len -1)));
+> > > > > > +}
+> > > > >=20
+> > > > > I wonder, why we need an extra level of indirection here. And if =
+this is
+> > > > > really needed, I wonder why map(unmap)_memory* name was chosen, a=
+s there is
+> > > > > no memory mapping/unmapping really happens here.
+> > > > >=20
+> > > >=20
+> > > > I've added extra indirection to hide math like
+> > > > paddr_to_pfn(PAGE_ALIGN(addr + len -1)
+> > > > so you don't have to math in each call. unmap_memory_from_domain ca=
+lled
+> > > > from 2 places, so I moved both calls to separate function.
+> > > > Although, I agree that map/unmap is not perfect name. I consider
+> > > > renaming it to mem_permit_acces and mam_deny_access.
+> > >=20
+> > > I haven't looked at the rest of the series. But this discussion caugh=
+t my
+> > > eye. This code implies that the address is page-aligned but the lengt=
+h not.
+> > > Is that intended?
+> > >=20
+> > > That said, if you give permission to the domain on a full page then i=
+t means
+> > > it may be able to access address it should not. Can you explain why t=
+his is
+> > > fine?
+> > >=20
+> >=20
+> > The idea was that xen receives some memory from the dt_node linux,scmi_=
+mem,
+> > then we split memory between the agents, so each agent get 1 page (we
+> > allocate 0x10 pages right now).
+>=20
+> Thanks for the clarification. Does this imply the guest will be able to
+> write message directly to the firmware?
 
-> >> + */
-> >> +
-> >> +#include <xen/bitops.h>
-> >> +#include <xen/lib.h>
-> >> +#include <xen/page-size.h>
-> >> +
-> >> +/* This is the same for all anticipated users, so doesn't need passing in. */
-> >> +#define CONTIG_LEVEL_SHIFT 9
-> >> +#define CONTIG_NR          (1 << CONTIG_LEVEL_SHIFT)
-> >> +
-> >> +#define GET_MARKER(e) MASK_EXTR(e, CONTIG_MASK)
-> >> +#define SET_MARKER(e, m) \
-> >> +    ((void)(e = ((e) & ~CONTIG_MASK) | MASK_INSR(m, CONTIG_MASK)))
-> >> +
-> >> +enum PTE_kind {
-> >> +    PTE_kind_null,
-> >> +    PTE_kind_leaf,
-> >> +    PTE_kind_table,
-> >> +};
-> >> +
-> >> +static bool update_contig_markers(uint64_t *pt, unsigned int idx,
-> > 
-> > Maybe pt_update_contig_markers, so it's not such a generic name.
-> 
-> I can do that. The header may then want to be named pt-contig-marker.h
-> or pt-contig-markers.h. Thoughts?
+We used DEN0056C Specification as base. Available on: https://developer.arm=
+.com/documentation/den0056/latest.
+SCMI transport is described in Section 5.1. We implemented Shared Memory tr=
+ansport.
+Firmware has N pages of the shared memory, used to communicate with Agents.
+It allocates N agents and assign a page for each agent, such as:
+-------------------------------------
+| Agent H | Agent 1 | Agent 2 | ... |
+-------------------------------------
+Agent H is the privilleged Hypervisor agent, which is used to do the base c=
+ommands,
+such as getting Agent list, set\unset permissions etc.
+Hypervisor assign agent to the guest and maps page, related to the agent to=
+ the Guest.
+So the Guest, which is Agent 1 will get an access to Agent 1 page.
 
-Seems fine to me.
+Guest places SCMI message to Agent 1 memory, then sends SMC message.
+Hypervisor process SMC request, add agent id to the message parameters and =
+redirects it to the Firmware.
+Based on the agent_id Firmware knows which page it should read.=20
+Then after permission check ( if the resetId/clockID/powerID etc from messa=
+ge
+is assigned to agent_id ) it does changes to the HW and places response to =
+Agent
+shared memory and marks channel as FREE ( by setting free bit in shared mem=
+ory ).
+Once channel is marked as free - Guest read response from the shared memory=
+.
 
-> >> +                                  unsigned int level, enum PTE_kind kind)
-> >> +{
-> >> +    unsigned int b, i = idx;
-> >> +    unsigned int shift = (level - 1) * CONTIG_LEVEL_SHIFT + PAGE_SHIFT;
-> >> +
-> >> +    ASSERT(idx < CONTIG_NR);
-> >> +    ASSERT(!(pt[idx] & CONTIG_MASK));
-> >> +
-> >> +    /* Step 1: Reduce markers in lower numbered entries. */
-> >> +    while ( i )
-> >> +    {
-> >> +        b = find_first_set_bit(i);
-> >> +        i &= ~(1U << b);
-> >> +        if ( GET_MARKER(pt[i]) > b )
-> >> +            SET_MARKER(pt[i], b);
-> >> +    }
-> >> +
-> >> +    /* An intermediate table is never contiguous with anything. */
-> >> +    if ( kind == PTE_kind_table )
-> >> +        return false;
-> >> +
-> >> +    /*
-> >> +     * Present entries need in sync index and address to be a candidate
-> >> +     * for being contiguous: What we're after is whether ultimately the
-> >> +     * intermediate table can be replaced by a superpage.
-> >> +     */
-> >> +    if ( kind != PTE_kind_null &&
-> >> +         idx != ((pt[idx] >> shift) & (CONTIG_NR - 1)) )
-> > 
-> > Don't you just need to check that the address is aligned to at least
-> > idx, not that it's exactly aligned?
-> 
-> No, that wouldn't be sufficient. We're not after a general "is
-> contiguous" here, but strictly after "is this slot meeting the
-> requirements for the whole table eventually getting replaced by a
-> superpage".
+Non-virtualized systems will work as well. OS should send SMC directly to t=
+he Firmware.=20
 
-I see, makes sense. I didn't relate this check to the 'replaced by a
-superpage' part of the comment.
+>=20
+> If so, this brings a few more questions:
+>   1) What will the guest write in it? Can it contains addresses?
+Guest can write scmi request to the shared memory, which include the follow=
+ing data:=20
+1) protocol_id - which protocol is requested, such as clock, power, reset e=
+tc
+2) message_id - action that should be done to HW, such as do_reset or get_c=
+lock
+3) message data - which includes reset_id/clock_id/power_id etc. that shoul=
+d be changed.
+Reset IDs and Clock IDs are assigned in Firmware. Guest receives ID, corres=
+ponding to the device from the device-tree.=20
+dt_node as an example:=20
+&avb { =20
+	scmi_devid =3D <0>;
+	clocks =3D <&scmi_clock 0>;
+	power-domains =3D <&scmi_power 0>;
+	resets =3D <&scmi_reset 0>;
+};
 
-> >> +        return false;
-> >> +
-> >> +    /* Step 2: Check higher numbered entries for contiguity. */
-> >> +    for ( b = 0; b < CONTIG_LEVEL_SHIFT && !(idx & (1U << b)); ++b )
-> >> +    {
-> >> +        i = idx | (1U << b);
-> >> +        if ( (kind == PTE_kind_leaf
-> >> +              ? ((pt[i] ^ pt[idx]) & ~CONTIG_MASK) != (1ULL << (b + shift))
-> > 
-> > Maybe this could be a macro, CHECK_CONTIG or some such? It's also used
-> > below.
-> 
-> Hmm, yes, this might indeed help readability. There's going to be a
-> lot of parameters though; not sure whether omitting all(?) parameters
-> for such a locally used macro would be considered acceptable.
-> 
-> > I would also think this would be clearer as:
-> > 
-> > (pt[idx] & ~CONTIG_MASK) + (1ULL << (shift + b)) == (pt[i] & ~CONTIG_MASK)
-> 
-> By using + we'd consider entries contiguous which for our purposes
-> shouldn't be considered so. Yes, the earlier check should already
-> have caught that case, but I'd like the checks to be as tight as
-> possible.
-> 
-> >> +              : pt[i] & ~CONTIG_MASK) ||
-> > 
-> > Isn't PTE_kind_null always supposed to be empty?
-> 
-> Yes (albeit this could be relaxed, but then the logic here would
-> need to know where the "present" bit(s) is/are).
-> 
-> > (ie: wouldn't this check always succeed?)
-> 
-> No - "kind" describes pt[idx], not pt[i].
-> 
-> >> +             GET_MARKER(pt[i]) != b )
-> >> +            break;
-> >> +    }
-> >> +
-> >> +    /* Step 3: Update markers in this and lower numbered entries. */
-> >> +    for ( ; SET_MARKER(pt[idx], b), b < CONTIG_LEVEL_SHIFT; ++b )
-> >> +    {
-> >> +        i = idx ^ (1U << b);
-> >> +        if ( (kind == PTE_kind_leaf
-> >> +              ? ((pt[i] ^ pt[idx]) & ~CONTIG_MASK) != (1ULL << (b + shift))
-> >> +              : pt[i] & ~CONTIG_MASK) ||
-> >> +             GET_MARKER(pt[i]) != b )
-> >> +            break;
-> >> +        idx &= ~(1U << b);
-> > 
-> > There's an iteration where idx will be 0, and then there's no further
-> > point in doing the & anymore?
-> 
-> Yes, but doing the & anyway is cheaper than adding a conditional.
+>   2) What are the expected memory attribute for the regions?
 
-I think it might be interesting to add some kind of unit testing to
-this code in tools/tests. It's a standalone piece of code that could
-be easily tested for correct functionality. Not that you should do it
-here, in fact it might be interesting for me to do so in order to
-better understand the code.
+xen uses iommu_permit_access to pass agent page to the guest. So guest can =
+access the page directly.
 
-Thanks, Roger.
+>   3) What's the threat model for the firmware? Will it verify every reque=
+st?
+
+Firmware reads data from agent page, then makes check if clockid/resetid/po=
+werid
+etc is assigned to agent.
+During building guest, Xen sends permission request to the firmware for eac=
+h device,
+which is passed-through to the guest. So for avb from previous example the
+device_id 0 permission request will be sent. Based on the device_id firmwar=
+e will
+set permission for clockid 0, resetid 0 and powerid 0.=20
+
+Best regards,
+Oleksii.=
 
