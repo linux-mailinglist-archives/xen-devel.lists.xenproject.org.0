@@ -2,36 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52FDA47B4F2
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Dec 2021 22:16:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.250002.430579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05AF847B61E
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Dec 2021 00:18:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.250045.430603 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzQ1D-0007jT-7Y; Mon, 20 Dec 2021 21:16:27 +0000
+	id 1mzRuT-0006zu-Rh; Mon, 20 Dec 2021 23:17:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 250002.430579; Mon, 20 Dec 2021 21:16:27 +0000
+Received: by outflank-mailman (output) from mailman id 250045.430603; Mon, 20 Dec 2021 23:17:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzQ1C-0007Yr-Vx; Mon, 20 Dec 2021 21:16:26 +0000
-Received: by outflank-mailman (input) for mailman id 250002;
- Mon, 20 Dec 2021 21:16:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mzRuT-0006xr-Oi; Mon, 20 Dec 2021 23:17:37 +0000
+Received: by outflank-mailman (input) for mailman id 250045;
+ Mon, 20 Dec 2021 23:17:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6gYK=RF=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1mzQ19-0005IB-CZ
- for xen-devel@lists.xenproject.org; Mon, 20 Dec 2021 21:16:23 +0000
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [2a00:1450:4864:20::22b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 150591d1-61da-11ec-85d3-df6b77346a89;
- Mon, 20 Dec 2021 22:16:22 +0100 (CET)
-Received: by mail-lj1-x22b.google.com with SMTP id k2so18068267lji.4
- for <xen-devel@lists.xenproject.org>; Mon, 20 Dec 2021 13:16:22 -0800 (PST)
-Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id b35sm635132lfv.209.2021.12.20.13.16.21
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 20 Dec 2021 13:16:21 -0800 (PST)
+ <SRS0=8lA0=RF=ens-lyon.org=samuel.thibault@srs-se1.protection.inumbo.net>)
+ id 1mzRuT-0006xl-2x
+ for xen-devel@lists.xenproject.org; Mon, 20 Dec 2021 23:17:37 +0000
+Received: from hera.aquilenet.fr (hera.aquilenet.fr [185.233.100.1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0328e659-61eb-11ec-9e60-abaf8a552007;
+ Tue, 21 Dec 2021 00:17:34 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by hera.aquilenet.fr (Postfix) with ESMTP id 31D4E4EC;
+ Tue, 21 Dec 2021 00:17:33 +0100 (CET)
+Received: from hera.aquilenet.fr ([127.0.0.1])
+ by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id xn2FJjRoLvxK; Tue, 21 Dec 2021 00:17:32 +0100 (CET)
+Received: from begin.home (2a01cb0088600700de41a9fffe47ec49.ipv6.abo.wanadoo.fr
+ [IPv6:2a01:cb00:8860:700:de41:a9ff:fe47:ec49])
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id 7BB4E63;
+ Tue, 21 Dec 2021 00:17:32 +0100 (CET)
+Received: from samy by begin.home with local (Exim 4.95)
+ (envelope-from <samuel.thibault@ens-lyon.org>) id 1mzRuN-00065d-0B;
+ Tue, 21 Dec 2021 00:17:31 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,149 +49,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 150591d1-61da-11ec-85d3-df6b77346a89
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=xEJ/as6c2Y3IKG5DtZXdMpOhtzqpglhGl1VKpLommlg=;
-        b=bxGK8XoFncudNK8ijCfMDVnV8Ugd3evS/gun5assQK01IdDTTme9eoHJ9hn01SFBFu
-         AglMLMZsDwZF494RmxroKyz+LkoZvL4H3hWk6eHKtXJFBFN9ljmb5FLihHMDLjvK9+zu
-         MLZjTH4KUGfOiiCfUGP59Mi0Z9kvU3jr7wNbq1ltfjVhTSG2J2kMAXLzEhKoFLGl4HhI
-         vuSS+Uvn9aM4f51YSyEZRq+t8bpIPxF+7NZlbqxtu/2gDgIeecz+9T3Gi3u7d9nz1dBY
-         yuZvB7C/HuHIomIzdNWAru9+rn+N4KoZRdPJUKK53zPXIg1NkAm0zmAmEe9iNvSJfmdQ
-         FjcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references;
-        bh=xEJ/as6c2Y3IKG5DtZXdMpOhtzqpglhGl1VKpLommlg=;
-        b=G99CQAMJF5CAmUSMQ0wbf47w+OgCmyC0EMGmPQVC9R3mDt6RkUVF78kTQwvb2hcgyr
-         Xyh394pKbCoiacuFLRSo9gktKtili9B/XOvoHlpNGI7RXHPR6Gdau3MLGnW5g5BCDze3
-         7LU2cZvQUHzWmf+QZJsJgwBMfdGTgDrz5vlhpBPQ88RRK6+OAsGzrN19/hfnji7jfK9g
-         hkz0v43GFLI5VmHz2ijuhm1Ht3I8NSXrPFARGyatI70PgRdvIpoeeudUHFzWhYmCia0s
-         nvPmJKwaVVeiWmVjR9ra88HYjxdaIH07byva8sWEIkulCUWzrLttC2Y8NadrQpUYIqfW
-         dGTQ==
-X-Gm-Message-State: AOAM533xVYwIaVwTYOLS4proYFpqX2t7Qod4jmwUphtQswtt07LRF08R
-	2M1xR2rB/cRGseX3Emtdn6FMcE55qCE=
-X-Google-Smtp-Source: ABdhPJyHVZaNSJHo2OIPrA0WgJpGUxpjHQvokrcmd6B6Dh+19rKeup/HjUJRLxpz11VTIqNQv4POKA==
-X-Received: by 2002:a05:651c:1696:: with SMTP id bd22mr15878925ljb.57.1640034982132;
-        Mon, 20 Dec 2021 13:16:22 -0800 (PST)
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Rahul Singh <rahul.singh@arm.com>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH V2 10/10] iommu/arm: Remove code duplication in all IOMMU drivers
-Date: Mon, 20 Dec 2021 23:15:57 +0200
-Message-Id: <1640034957-19764-11-git-send-email-olekstysh@gmail.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1640034957-19764-1-git-send-email-olekstysh@gmail.com>
-References: <1640034957-19764-1-git-send-email-olekstysh@gmail.com>
+X-Inumbo-ID: 0328e659-61eb-11ec-9e60-abaf8a552007
+X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
+Date: Tue, 21 Dec 2021 00:17:30 +0100
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+	wl@xen.org
+Subject: Re: [PATCH v2 02/10] mini-os: sort and sanitize e820 memory map
+Message-ID: <20211220231730.nivaq6vgtlyfqhng@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org, wl@xen.org
+References: <20211220160716.4159-1-jgross@suse.com>
+ <20211220160716.4159-3-jgross@suse.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20211220160716.4159-3-jgross@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
+X-Spamd-Bar: /
+Authentication-Results: hera.aquilenet.fr;
+	none
+X-Rspamd-Server: hera
+X-Rspamd-Queue-Id: 31D4E4EC
+X-Spamd-Result: default: False [0.40 / 15.00];
+	 ARC_NA(0.00)[];
+	 RCVD_VIA_SMTP_AUTH(0.00)[];
+	 FROM_HAS_DN(0.00)[];
+	 RCPT_COUNT_THREE(0.00)[4];
+	 TO_DN_SOME(0.00)[];
+	 TO_MATCH_ENVRCPT_ALL(0.00)[];
+	 MIME_GOOD(-0.10)[text/plain];
+	 HAS_ORG_HEADER(0.00)[];
+	 RCVD_COUNT_THREE(0.00)[3];
+	 FROM_EQ_ENVFROM(0.00)[];
+	 MIME_TRACE(0.00)[0:+];
+	 RCVD_TLS_LAST(0.00)[];
+	 MID_RHS_NOT_FQDN(0.50)[]
 
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Juergen Gross, le lun. 20 déc. 2021 17:07:08 +0100, a ecrit:
+> +static void e820_sanitize(void)
+> +{
+> +    int i;
+> +    unsigned long end, start;
+> +
+> +    /* Sanitize memory map in current form. */
+> +    e820_process_entries();
+> +
+> +    /* Adjust map entries to page boundaries. */
+> +    for ( i = 0; i < e820_entries; i++ )
+> +    {
+> +        start = e820_map[i].addr;
+> +        end = start + e820_map[i].size;
+> +        if ( (1U << e820_map[i].type) & E820_NARROW )
+> +        {
+> +            if ( start & (PAGE_SIZE - 1) )
+> +            {
+> +                start = round_pgup(start);
+> +                e820_insert_entry_at(i, start - PAGE_SIZE, PAGE_SIZE,
+> +                                     E820_TMP_RESERVED);
+> +                i++;
+> +            }
+> +            if ( end & (PAGE_SIZE - 1) )
+> +            {
+> +                end = round_pgdown(end);
+> +                e820_insert_entry_at(i, end, PAGE_SIZE, E820_TMP_RESERVED);
 
-All IOMMU drivers on Arm perform almost the same generic actions in
-hwdom_init callback. Move this code to common arch_iommu_hwdom_init()
-in order to get rid of code duplication.
+Rather i+1 so it's most probably already sorted?
 
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-Reviewed-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
----
-Changes V1 -> V2:
-   - add R-b
----
- xen/drivers/passthrough/arm/iommu.c      |  7 +++++++
- xen/drivers/passthrough/arm/ipmmu-vmsa.c |  8 --------
- xen/drivers/passthrough/arm/smmu-v3.c    | 10 ----------
- xen/drivers/passthrough/arm/smmu.c       | 10 ----------
- 4 files changed, 7 insertions(+), 28 deletions(-)
+Apart from that,
 
-diff --git a/xen/drivers/passthrough/arm/iommu.c b/xen/drivers/passthrough/arm/iommu.c
-index ee653a9..fc45318 100644
---- a/xen/drivers/passthrough/arm/iommu.c
-+++ b/xen/drivers/passthrough/arm/iommu.c
-@@ -134,6 +134,13 @@ void arch_iommu_domain_destroy(struct domain *d)
- 
- void __hwdom_init arch_iommu_hwdom_init(struct domain *d)
- {
-+    /* Set to false options not supported on ARM. */
-+    if ( iommu_hwdom_inclusive )
-+        printk(XENLOG_WARNING "map-inclusive dom0-iommu option is not supported on ARM\n");
-+    iommu_hwdom_inclusive = false;
-+    if ( iommu_hwdom_reserved == 1 )
-+        printk(XENLOG_WARNING "map-reserved dom0-iommu option is not supported on ARM\n");
-+    iommu_hwdom_reserved = 0;
- }
- 
- /*
-diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-index 1224ea4..64d8ddc 100644
---- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-+++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-@@ -1325,14 +1325,6 @@ static int ipmmu_iommu_domain_init(struct domain *d)
- 
- static void __hwdom_init ipmmu_iommu_hwdom_init(struct domain *d)
- {
--    /* Set to false options not supported on ARM. */
--    if ( iommu_hwdom_inclusive )
--        printk(XENLOG_WARNING "ipmmu: map-inclusive dom0-iommu option is not supported on ARM\n");
--    iommu_hwdom_inclusive = false;
--    if ( iommu_hwdom_reserved == 1 )
--        printk(XENLOG_WARNING "ipmmu: map-reserved dom0-iommu option is not supported on ARM\n");
--    iommu_hwdom_reserved = 0;
--
-     arch_iommu_hwdom_init(d);
- }
- 
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-index d115df7..ca8b5c7 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.c
-+++ b/xen/drivers/passthrough/arm/smmu-v3.c
-@@ -3404,16 +3404,6 @@ static int arm_smmu_iommu_xen_domain_init(struct domain *d)
- 
- static void __hwdom_init arm_smmu_iommu_hwdom_init(struct domain *d)
- {
--	/* Set to false options not supported on ARM. */
--	if (iommu_hwdom_inclusive)
--		printk(XENLOG_WARNING
--		"map-inclusive dom0-iommu option is not supported on ARM\n");
--	iommu_hwdom_inclusive = false;
--	if (iommu_hwdom_reserved == 1)
--		printk(XENLOG_WARNING
--		"map-reserved dom0-iommu option is not supported on ARM\n");
--	iommu_hwdom_reserved = 0;
--
- 	arch_iommu_hwdom_init(d);
- }
- 
-diff --git a/xen/drivers/passthrough/arm/smmu.c b/xen/drivers/passthrough/arm/smmu.c
-index c9dfc4c..ec18df7 100644
---- a/xen/drivers/passthrough/arm/smmu.c
-+++ b/xen/drivers/passthrough/arm/smmu.c
-@@ -2851,16 +2851,6 @@ static int arm_smmu_iommu_domain_init(struct domain *d)
- 
- static void __hwdom_init arm_smmu_iommu_hwdom_init(struct domain *d)
- {
--	/* Set to false options not supported on ARM. */
--	if ( iommu_hwdom_inclusive )
--		printk(XENLOG_WARNING
--		"map-inclusive dom0-iommu option is not supported on ARM\n");
--	iommu_hwdom_inclusive = false;
--	if ( iommu_hwdom_reserved == 1 )
--		printk(XENLOG_WARNING
--		"map-reserved dom0-iommu option is not supported on ARM\n");
--	iommu_hwdom_reserved = 0;
--
- 	arch_iommu_hwdom_init(d);
- }
- 
--- 
-2.7.4
+Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
+Samuel
 
