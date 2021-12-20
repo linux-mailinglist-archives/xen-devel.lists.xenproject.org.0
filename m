@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E51D47B4EE
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Dec 2021 22:16:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.249995.430506 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D031047B4EB
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Dec 2021 22:16:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.249996.430509 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzQ16-0005nI-HP; Mon, 20 Dec 2021 21:16:20 +0000
+	id 1mzQ16-0005rM-NF; Mon, 20 Dec 2021 21:16:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 249995.430506; Mon, 20 Dec 2021 21:16:20 +0000
+Received: by outflank-mailman (output) from mailman id 249996.430509; Mon, 20 Dec 2021 21:16:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzQ16-0005eI-9L; Mon, 20 Dec 2021 21:16:20 +0000
-Received: by outflank-mailman (input) for mailman id 249995;
- Mon, 20 Dec 2021 21:16:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mzQ16-0005nM-IZ; Mon, 20 Dec 2021 21:16:20 +0000
+Received: by outflank-mailman (input) for mailman id 249996;
+ Mon, 20 Dec 2021 21:16:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=6gYK=RF=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1mzQ14-0005IB-EW
+ id 1mzQ14-0005IG-RZ
  for xen-devel@lists.xenproject.org; Mon, 20 Dec 2021 21:16:18 +0000
-Received: from mail-lf1-x12b.google.com (mail-lf1-x12b.google.com
- [2a00:1450:4864:20::12b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 11ee8156-61da-11ec-85d3-df6b77346a89;
- Mon, 20 Dec 2021 22:16:17 +0100 (CET)
-Received: by mail-lf1-x12b.google.com with SMTP id bt1so24502703lfb.13
- for <xen-devel@lists.xenproject.org>; Mon, 20 Dec 2021 13:16:17 -0800 (PST)
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [2a00:1450:4864:20::130])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 125b3604-61da-11ec-9e60-abaf8a552007;
+ Mon, 20 Dec 2021 22:16:18 +0100 (CET)
+Received: by mail-lf1-x130.google.com with SMTP id b22so24579781lfb.9
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Dec 2021 13:16:18 -0800 (PST)
 Received: from otyshchenko.router ([212.22.223.21])
- by smtp.gmail.com with ESMTPSA id b35sm635132lfv.209.2021.12.20.13.16.16
+ by smtp.gmail.com with ESMTPSA id b35sm635132lfv.209.2021.12.20.13.16.17
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 20 Dec 2021 13:16:16 -0800 (PST)
+ Mon, 20 Dec 2021 13:16:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,34 +43,33 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11ee8156-61da-11ec-85d3-df6b77346a89
+X-Inumbo-ID: 125b3604-61da-11ec-9e60-abaf8a552007
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=hajm4OA2mR1rqKBWo1oPRyQ75UieT0Vx1ZnO7YitzIM=;
-        b=qIXmN3ldE/ZN74+4YThza4AYid4jpygjX+xdmfkD6EAA5y37CvzdUbPtTSqP+1hezy
-         FbateqQKdPFMOjjVuW3VU6Std4HufcBhyTDj+OTVAdRyBwkZNr0k/MHwOk9aYF+ijU1z
-         50fNGe+Ij8QFC6URM0g//2mLElYzbjnUFC4cs4myBgUpaHWUG9fB3EfSmWFmWIlCqG/R
-         e4uCVxbL6WrKLuyi/hgXa5dpUx1cVncs8xDJoil1jpJPbOdHZiQEuTIpBnDUonl6P6kI
-         Pweo79tXZ5V1g8p0e8nexsWb8XlHgeuno1/k/jxl3Sp9RBn9Su9HDg01r8kaK3EVMhWF
-         v9FQ==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references;
+        bh=KJJAXoBnqeeexsUsPrxE65JqoMaWk11lTyVByXKTYSU=;
+        b=gOLATyKm4zSuOWV9E6Se+183dJv3dZ4/1hi1dCnT5d0xz/p49ipsWk4V+62Um9IuBV
+         rXA6KY/y9/6AbhC7qupKNiWW2cVU68mDGL7tetdBNNv1EtYpiFMhUVL2ihZ7sGQxh3M9
+         cVb7anEJhQ2h3n6Z2f32MmLl6TWR+uugTRwLnidi1KpP4CFIO0Dn9ztq49JAzMtWx/nZ
+         OI/iBvIwdtbUhiX81WTHj1fvg+TJi10f6qqRdn0KEmkhI9SHbfRvkevt71a8XedKaQkc
+         IV1Kjwr0YxIQZvKezY9U/6U5tg4DhurweX+Yna+L9OBmffGONeFCvmXZoW6Ktzu8f5UH
+         phqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=hajm4OA2mR1rqKBWo1oPRyQ75UieT0Vx1ZnO7YitzIM=;
-        b=z70XkiH2NGmtAtHattaH6UB4GV+988PBJwoQYJkJ/iftam1D068s1rOKIH2QzwNclj
-         f2aFUt11kE1nijbcMIwGi3Nq7FHIfHkTY8VmHbYtMaxV+jjhsQ0snJjQudsvwsCosidR
-         BVoC7jzgkBS1YXBugV3SSBKKveizofBmaa3fvTYICxLbXnVfWWkeedP6dVdoITEyHo+L
-         00fg8A2H+jSqIq0cHjf1tR7lf6hUFWwW1otP+WaD6d1Zz3CYvqtERFmcJJikhBULr13f
-         aylHy1la0tACvfplAoDUeIGZMs7mDNQfh88GzO6UpamNjEptV6Z5X5ob/eWWEmFQ5qcv
-         tpSQ==
-X-Gm-Message-State: AOAM531Lbzhh+U4WQqfkTdGpUmznGyNfrAK73Ufvjd1m2gzZrjoNzB9h
-	A9sBooliReySq1WWltcpt5+QucRfkOY=
-X-Google-Smtp-Source: ABdhPJxzTfRun3YkUwibQaiDMstuUa+taVcJp9VRWabBxAHUy/4zPZawhc2OjDWcR5BYP0Abgva61g==
-X-Received: by 2002:a05:6512:3054:: with SMTP id b20mr2857353lfb.359.1640034976971;
-        Mon, 20 Dec 2021 13:16:16 -0800 (PST)
+         :references;
+        bh=KJJAXoBnqeeexsUsPrxE65JqoMaWk11lTyVByXKTYSU=;
+        b=JeaTIAcOoi00fNUCrMfXj9FnPM0kHTd6CxIKb3c9VR7/brW90m1WLx0GWmF+IebHjQ
+         6A6QYWcY+q9xkOpHF1HAE8jSAJ/WOpybjubcD9XYh6hnrOa9j6g/TFjAAjhne3OIR/fX
+         ybIAbxsH5VZncI9SXpKV0xohWOh0qXxcmVhZ49oaIuMjMqqjZQgTV4CdAEclY9WjKUFW
+         Yr6mkAPQjbhO9e/MQHM/ilxrhKnB1x/StnxfI/DBkFop52Fy/Ma5NKUoKyv2WC8N6k3E
+         blWqh/5JtC+5Rd+/Gclyf1bf2H48wAxGR1ccqgI94SqDpwZzPv8Gv5T65AC5gJ12RsrT
+         btwA==
+X-Gm-Message-State: AOAM530Lfr0WFzL/C+WqWtc/c8mzry2i9tb+7vKIdqdMJzqawPgFdQXW
+	lsGzCoC0lPd2/jGDEsROR4cEudD+bZE=
+X-Google-Smtp-Source: ABdhPJzeapJ3eaEjC6WFLDArDArLz+er0iTpagcYpbad82rG1wadmR8bGLj+UfFhkSAmAEukK9hM2w==
+X-Received: by 2002:a19:dc4b:: with SMTP id f11mr17029793lfj.585.1640034977686;
+        Mon, 20 Dec 2021 13:16:17 -0800 (PST)
 From: Oleksandr Tyshchenko <olekstysh@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
@@ -80,46 +79,26 @@ Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH V2 03/10] iommu/ipmmu-vmsa: Add helper functions for "uTLB" registers
-Date: Mon, 20 Dec 2021 23:15:50 +0200
-Message-Id: <1640034957-19764-4-git-send-email-olekstysh@gmail.com>
+Subject: [PATCH V2 04/10] iommu/ipmmu-vmsa: Add light version of Linux's ipmmu_features
+Date: Mon, 20 Dec 2021 23:15:51 +0200
+Message-Id: <1640034957-19764-5-git-send-email-olekstysh@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1640034957-19764-1-git-send-email-olekstysh@gmail.com>
 References: <1640034957-19764-1-git-send-email-olekstysh@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-
-This is a non-verbatim port of corresponding Linux upsteam commit:
-3667c9978b2911dc1ded77f5971df477885409c4
-
-Original commit message:
- commit 3667c9978b2911dc1ded77f5971df477885409c4
- Author: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
- Date:   Wed Nov 6 11:35:49 2019 +0900
-
-  iommu/ipmmu-vmsa: Add helper functions for "uTLB" registers
-
-  Since we will have changed memory mapping of the IPMMU in the future,
-  This patch adds helper functions ipmmu_utlb_reg() and
-  ipmmu_imu{asid,ctr}_write() for "uTLB" registers. No behavior change.
-
-  Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-  Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-  Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-  Signed-off-by: Joerg Roedel <jroedel@suse.de>
-
-**********
 
 This is a prereq work needed to add support for S4 series easily
 in the future.
 
-Besides changes done in the original commit, we also need to introduce
-ipmmu_imuctr_read() since Xen driver contains an additional logic in
-ipmmu_utlb_enable() to prevent the use cases where devices which use
-the same micro-TLB are assigned to different Xen domains.
+We don't need to pull the whole struct and all instances as Xen
+driver doesn't support old Arm32 based Gen2 SoCs, so there is no
+point in keeping all differences between Gen2 and Gen3 here.
+All what we need is a minimal support to be able to operate with
+Gen3 and new S4.
+
+Add Gen3 specific info with only two fields (number_of_contexts and
+num_utlbs) for now, the subsequent patches will add remaining bits.
 
 No change in behavior.
 
@@ -129,74 +108,128 @@ Reviewed-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
 Changes V1 -> V2:
    - add R-b
 ---
- xen/drivers/passthrough/arm/ipmmu-vmsa.c | 33 +++++++++++++++++++++++++++-----
- 1 file changed, 28 insertions(+), 5 deletions(-)
+ xen/drivers/passthrough/arm/ipmmu-vmsa.c | 54 +++++++++++++++++++++++---------
+ 1 file changed, 40 insertions(+), 14 deletions(-)
 
 diff --git a/xen/drivers/passthrough/arm/ipmmu-vmsa.c b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-index ce5c3bc..1b94af2 100644
+index 1b94af2..369be4c 100644
 --- a/xen/drivers/passthrough/arm/ipmmu-vmsa.c
 +++ b/xen/drivers/passthrough/arm/ipmmu-vmsa.c
-@@ -366,6 +366,29 @@ static void ipmmu_ctx_write_all(struct ipmmu_vmsa_domain *domain,
-     ipmmu_ctx_write_root(domain, reg, data);
- }
+@@ -71,9 +71,9 @@
+  * R-Car Gen3 SoCs make use of up to 8 IPMMU contexts (sets of page table) and
+  * these can be managed independently. Each context is mapped to one Xen domain.
+  */
+-#define IPMMU_CTX_MAX     8
++#define IPMMU_CTX_MAX     8U
+ /* R-Car Gen3 SoCs make use of up to 48 micro-TLBs per IPMMU device. */
+-#define IPMMU_UTLB_MAX    48
++#define IPMMU_UTLB_MAX    48U
  
-+static uint32_t ipmmu_utlb_reg(struct ipmmu_vmsa_device *mmu, uint32_t reg)
-+{
-+    return reg;
-+}
-+
-+static void ipmmu_imuasid_write(struct ipmmu_vmsa_device *mmu,
-+                                unsigned int utlb, uint32_t data)
-+{
-+    ipmmu_write(mmu, ipmmu_utlb_reg(mmu, IMUASID(utlb)), data);
-+}
-+
-+static void ipmmu_imuctr_write(struct ipmmu_vmsa_device *mmu,
-+                               unsigned int utlb, uint32_t data)
-+{
-+    ipmmu_write(mmu, ipmmu_utlb_reg(mmu, IMUCTR(utlb)), data);
-+}
-+
-+static uint32_t ipmmu_imuctr_read(struct ipmmu_vmsa_device *mmu,
-+                                  unsigned int utlb)
-+{
-+    return ipmmu_read(mmu, ipmmu_utlb_reg(mmu, IMUCTR(utlb)));
-+}
-+
- /* TLB and micro-TLB Management */
+ /* IPMMU context supports IPA size up to 40 bit. */
+ #define IPMMU_MAX_P2M_IPA_BITS    40
+@@ -106,17 +106,22 @@ struct ipmmu_vmsa_xen_device {
+     struct ipmmu_vmsa_device *mmu;
+ };
  
- /* Wait for any pending TLB invalidations to complete. */
-@@ -413,7 +436,7 @@ static int ipmmu_utlb_enable(struct ipmmu_vmsa_domain *domain,
-      * context_id for already enabled micro-TLB and prevent different context
-      * bank from being set.
-      */
--    imuctr = ipmmu_read(mmu, IMUCTR(utlb));
-+    imuctr = ipmmu_imuctr_read(mmu, utlb);
-     if ( imuctr & IMUCTR_MMUEN )
-     {
-         unsigned int context_id;
-@@ -431,9 +454,9 @@ static int ipmmu_utlb_enable(struct ipmmu_vmsa_domain *domain,
-      * TODO: Reference-count the micro-TLB as several bus masters can be
-      * connected to the same micro-TLB.
-      */
--    ipmmu_write(mmu, IMUASID(utlb), 0);
--    ipmmu_write(mmu, IMUCTR(utlb), imuctr |
--                IMUCTR_TTSEL_MMU(domain->context_id) | IMUCTR_MMUEN);
-+    ipmmu_imuasid_write(mmu, utlb, 0);
-+    ipmmu_imuctr_write(mmu, utlb, imuctr |
-+                       IMUCTR_TTSEL_MMU(domain->context_id) | IMUCTR_MMUEN);
++struct ipmmu_features {
++    unsigned int number_of_contexts;
++    unsigned int num_utlbs;
++};
++
+ /* Root/Cache IPMMU device's information */
+ struct ipmmu_vmsa_device {
+     struct device *dev;
+     void __iomem *base;
+     struct ipmmu_vmsa_device *root;
+     struct list_head list;
+-    unsigned int num_utlbs;
+     unsigned int num_ctx;
+     spinlock_t lock;    /* Protects ctx and domains[] */
+     DECLARE_BITMAP(ctx, IPMMU_CTX_MAX);
+     struct ipmmu_vmsa_domain *domains[IPMMU_CTX_MAX];
++    const struct ipmmu_features *features;
+ };
  
+ /*
+@@ -727,6 +732,11 @@ static int ipmmu_init_platform_device(struct device *dev,
      return 0;
  }
-@@ -444,7 +467,7 @@ static void ipmmu_utlb_disable(struct ipmmu_vmsa_domain *domain,
- {
-     struct ipmmu_vmsa_device *mmu = domain->mmu;
  
--    ipmmu_write(mmu, IMUCTR(utlb), 0);
-+    ipmmu_imuctr_write(mmu, utlb, 0);
++static const struct ipmmu_features ipmmu_features_rcar_gen3 = {
++    .number_of_contexts = 8,
++    .num_utlbs = 48,
++};
++
+ static void ipmmu_device_reset(struct ipmmu_vmsa_device *mmu)
+ {
+     unsigned int i;
+@@ -798,6 +808,27 @@ static __init bool ipmmu_stage2_supported(void)
+     return stage2_supported;
  }
  
- /* Domain/Context Management */
++static const struct dt_device_match ipmmu_dt_match[] __initconst =
++{
++    {
++        .compatible = "renesas,ipmmu-r8a7795",
++        .data = &ipmmu_features_rcar_gen3,
++    },
++    {
++        .compatible = "renesas,ipmmu-r8a77965",
++        .data = &ipmmu_features_rcar_gen3,
++    },
++    {
++        .compatible = "renesas,ipmmu-r8a7796",
++        .data = &ipmmu_features_rcar_gen3,
++    },
++    {
++        .compatible = "renesas,ipmmu-r8a77961",
++        .data = &ipmmu_features_rcar_gen3,
++    },
++    { /* sentinel */ },
++};
++
+ /*
+  * This function relies on the fact that Root IPMMU device is being probed
+  * the first. If not the case, it denies further Cache IPMMU device probes
+@@ -806,6 +837,7 @@ static __init bool ipmmu_stage2_supported(void)
+  */
+ static int ipmmu_probe(struct dt_device_node *node)
+ {
++    const struct dt_device_match *match;
+     struct ipmmu_vmsa_device *mmu;
+     uint64_t addr, size;
+     int irq, ret;
+@@ -817,9 +849,12 @@ static int ipmmu_probe(struct dt_device_node *node)
+         return -ENOMEM;
+     }
+ 
++    match = dt_match_node(ipmmu_dt_match, node);
++    ASSERT(match);
++    mmu->features = match->data;
++
+     mmu->dev = &node->dev;
+-    mmu->num_utlbs = IPMMU_UTLB_MAX;
+-    mmu->num_ctx = IPMMU_CTX_MAX;
++    mmu->num_ctx = min(IPMMU_CTX_MAX, mmu->features->number_of_contexts);
+     spin_lock_init(&mmu->lock);
+     bitmap_zero(mmu->ctx, IPMMU_CTX_MAX);
+ 
+@@ -1296,15 +1331,6 @@ static const struct iommu_ops ipmmu_iommu_ops =
+     .add_device      = ipmmu_add_device,
+ };
+ 
+-static const struct dt_device_match ipmmu_dt_match[] __initconst =
+-{
+-    DT_MATCH_COMPATIBLE("renesas,ipmmu-r8a7795"),
+-    DT_MATCH_COMPATIBLE("renesas,ipmmu-r8a77965"),
+-    DT_MATCH_COMPATIBLE("renesas,ipmmu-r8a7796"),
+-    DT_MATCH_COMPATIBLE("renesas,ipmmu-r8a77961"),
+-    { /* sentinel */ },
+-};
+-
+ static __init int ipmmu_init(struct dt_device_node *node, const void *data)
+ {
+     int ret;
 -- 
 2.7.4
 
