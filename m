@@ -2,29 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1515E47C5AA
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Dec 2021 19:03:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.250549.431561 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C359A47C64E
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Dec 2021 19:19:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.250553.431572 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzjUA-0003lz-Pk; Tue, 21 Dec 2021 18:03:38 +0000
+	id 1mzjjM-0005SD-5c; Tue, 21 Dec 2021 18:19:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 250549.431561; Tue, 21 Dec 2021 18:03:38 +0000
+Received: by outflank-mailman (output) from mailman id 250553.431572; Tue, 21 Dec 2021 18:19:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzjUA-0003jv-Mo; Tue, 21 Dec 2021 18:03:38 +0000
-Received: by outflank-mailman (input) for mailman id 250549;
- Tue, 21 Dec 2021 18:03:37 +0000
+	id 1mzjjM-0005Pa-2c; Tue, 21 Dec 2021 18:19:20 +0000
+Received: by outflank-mailman (input) for mailman id 250553;
+ Tue, 21 Dec 2021 18:19:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=f1Ud=RG=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1mzjU9-0003jp-70
- for xen-devel@lists.xenproject.org; Tue, 21 Dec 2021 18:03:37 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 50300fdb-6288-11ec-bb0b-79c175774b5d;
- Tue, 21 Dec 2021 19:03:35 +0100 (CET)
+ <SRS0=9qtw=RG=gmail.com=firemeteor.guo@srs-se1.protection.inumbo.net>)
+ id 1mzjjJ-0005PU-SC
+ for xen-devel@lists.xen.org; Tue, 21 Dec 2021 18:19:17 +0000
+Received: from mail-io1-f46.google.com (mail-io1-f46.google.com
+ [209.85.166.46]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 81550fe5-628a-11ec-bb0b-79c175774b5d;
+ Tue, 21 Dec 2021 19:19:16 +0100 (CET)
+Received: by mail-io1-f46.google.com with SMTP id z26so18763060iod.10
+ for <xen-devel@lists.xen.org>; Tue, 21 Dec 2021 10:19:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,95 +38,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 50300fdb-6288-11ec-bb0b-79c175774b5d
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1640109815;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=MQX2LlmddlrhD3qhTHN+iApvoQmjpliLZsH1M6xt0QY=;
-  b=FhysBzoX2cSCTpBov/aBom7UwN5yL+nzQlu8zBqJBKz7p/1WdfuA2wTn
-   Gr+SHdGH4NBHudPwLciDGxxQVQHXdJmYP671pEM961sHS6yEUPk0HUpEI
-   EIolrsx1k8/9grQZ4B4P44ya6Rv11D5k1VKL7p+CY1Sw1waLkTfVt35CT
-   8=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: o6wGqAPjT4pAwDBjR51MdeKoAdAbtXAe1T6yYxdU0Btn7dxA0Dlnc/05RIa8rPp56yrxlzwsWr
- 0gRd8s1MZJ4f+lg+Ho/KUPBFuAoUwuSgo2ivjIEecsLQ0eaw0Ye+ze60HAF02XlMHJyKjp/zxz
- 7qF9k+t8Ec7vArFD7kzohP4e5Dpad0guBG9Wrr3rmnokCZoZtKyzohQt6JRO7df1u9UmFw0II0
- IFxbRiwb1LGe3x9UYw9T4JmXY05DI2hRISEh4xw/XHEkNNbcIsyPmnRpu9iHLQM5VoHPUjVt1W
- CEbqL4OOgYQ4F7V4XRy4WJ+a
-X-SBRS: 5.1
-X-MesageID: 62621915
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:PPsgB67h4ZnRsyVXxNcxPwxRtLnAchMFZxGqfqrLsTDasY5as4F+v
- mMbWD/TMvzeMzGhLo90bduz/RkBupKByYIyQQJtrHsyHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FV8MpBsJ00o5wrdj2Ncw2rBVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zm
- Y9tlb6JYi4QNaD8ku0NFEgCFj5/MvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALJc/3PIQZqzd4wCvQF/oOSpHfWaTao9Rf2V/cg+gQR6iEP
- ptANFKDajz9bxhBeUwXDKsy37auqkLuXDR0sm2K8P9fD2/7k1UqjemF3MDuUt2VR+1Fk0CAv
- GXE8m/lRBYAO7S31j6t4n+qwOjVkkvTWo0IE6aj3uV3m1DVzWsWYDUfUFDq/9GikEWwHdRSN
- yQ86ico6KQ/6kGvZt38RAGj5m6JuAYGXNhdGPF87xuCooLd5RqZAW4VCCZMctU8uOc5QDUr0
- hmCmNaBONB0mOTLEzTHrO7S9G7sf3hORYMfWcMaZVpfw/nBmaoatxnCftxqAOnk1NjqGD6ll
- lhmsxMCr7kUiMcK0YCy8lbGny+gq/D1c+Il2unEdjn7t10kPeZJc6TtsAGGtqgYcO51W3HY5
- CBc8/Vy+tziGn1keMalZOwWVI+k6P+eWNE3qQ4+RsJxn9hBFpPKQGyx3N2cDBs4WirnUWWwC
- KM2he+3zMULVJdNRfUoC79d8+xwkcDd+S3ND5g4lOZmbJlrbxOg9ypzf0OW1G2FuBFyzflnY
- 8rELZz1Vixy5UFbINyeHb91PVgDnH9W+I8ubcqjk0TPPUS2ORZ5tovpwHPRN7tkvctoUS3e8
- spFNtvi9vmseLaWX8UjyqZKdQpiBSFiXfje8pULHsbeclsOMDxwUJf5nOJ+E7GJaowIz48kC
- FnmARQGoLc+7FWaQTi3hodLNOmyAM0h9C1jZkTB/z+AghAeXGpm149HH7NfQFXt3LcLISdcQ
- 6ZXdsOeLO5ITzibqT0RYYOk9N5pdQixhBLINC2gOWBtc5llTg3P29nlYgqwq3VeUnvp7ZMz8
- ++6ywfWYZsfXAA+XszYX+2ikgGqtn8HleMsA0aReotPeF/h+ZRBIjDqiqNlONkFLBjOn2PI1
- wufDRoCi/PKpos5rIvAiaye9t/7GOpiBEtKWWLc6O/uZyXd+2Oix65GUfqJIm+BBD+lpv36a
- LwMnf/mMfABkFJbiKZGEu5mnfAk+t/ih75G1QA4Tn/FWEumV+F7KX6c0MgR6qAUnu1FuRG7U
- 16k88VBPenbI9vsFVMcKVZ3bumH0v1IyDDe4e5sfRf/7S5zurGGTV9TL1+HjykEdOl5N4Ysw
- OEAvs8K6lPg1kp2Y4je1i0EpX6RKnEgUrk8ssBICYDmvQMn11VebMGOESTx+pyON41BP0RCz
- uV4X0Yea2CwHnb/Tkc=
-IronPort-HdrOrdr: A9a23:+4jflKnFLcmI0cjYR/z5bYNKbxTpDfIq3DAbv31ZSRFFG/Fxl6
- iV8sjz8SWE7Ar5P0tQ/uxoWZPwJE80mqQZ3WB8B9uftUzdyQ2VxeJZnOnfKl/bexEWn9Q1vc
- wLT0E9MqySMbETt7eC3ODSKbcdKbe8n5yVuQ==
-X-IronPort-AV: E=Sophos;i="5.88,224,1635220800"; 
-   d="scan'208";a="62621915"
-Date: Tue, 21 Dec 2021 18:03:12 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Andrew Cooper <amc96@srcf.net>
-CC: <xen-devel@lists.xenproject.org>, Anthony PERARD
-	<anthony.perard@gmail.com>, Ian Jackson <iwj@xenproject.org>, Wei Liu
-	<wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: Re: [XEN PATCH 47/57] libs/stat: Fix and rework python-bindings build
-Message-ID: <YcIW4E5d+EHGV+sB@perard>
-References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-48-anthony.perard@citrix.com>
- <edc0491b-a778-0ca1-88c6-c7076db3a14b@srcf.net>
+X-Inumbo-ID: 81550fe5-628a-11ec-bb0b-79c175774b5d
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=lDlfNhDCr4ohIGOVlzAAXPJw620YBKRYu7z6otJRRqo=;
+        b=GZ2tcSgVyh42LN23MarqaNcX4TPV7atVeU2oPlNLEZLHq2ApbA3AGEvZmjQRxDsPOL
+         mm246/dOxROrFDHCWpEBnqvQXhySNBkqxwdI9bj/M4irwZ5FJZ9gPAqsx4KQZ0DiL+DG
+         lB198IUgCsQPHRroAr6wu8QCadZlM1JRe22UBkqoRxdH7fc7ylRVrRwfLgdgBOs4luyo
+         kW4BC2v9E2SG57apOmKQUnG/SS5b3PvuuBCxSHPEOv9G31DDiSzijmEacfMi5lgWID1T
+         71ru9ZwyvBwZ6h1N2YyqYehLLD+IuwaoObwo1Ln8EpdnFUO/eJQY0aF61LcZJC69zfcG
+         ffOg==
+X-Gm-Message-State: AOAM531PBSEU3Fdk2EzgHbFm81nhy+Rn9J3cvV4rcXXQjq3MUXwmqJDB
+	ZCjv8nIh0tsQxqVcaKWeyOJ3EWicDU9pCSxH8Ec=
+X-Google-Smtp-Source: ABdhPJw9kK6GIdqU+VGH8k3QRZaYrwVr2GgW50MNN73utoaTGpsAs7UdysR7LSzU6J+BsoJ5GaC0gFVs++jSwVTX3IU=
+X-Received: by 2002:a05:6638:2055:: with SMTP id t21mr985394jaj.298.1640110755202;
+ Tue, 21 Dec 2021 10:19:15 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <edc0491b-a778-0ca1-88c6-c7076db3a14b@srcf.net>
+References: <CAKhsbWZ5KCrwJqbchx31LWfaJeS=khP9sgoo4y8ZZqOexsUUdA@mail.gmail.com>
+ <CAKhsbWYLC+cEuaJefi4Zy1ZcZaOtM6_2WV+9uq8=pTdi5NYLJA@mail.gmail.com>
+ <CAKhsbWbv-Poscajj=Hwe3g6WO9b8VaZm39ygFnsbEfHTpRzrfA@mail.gmail.com> <YcHbuug9AECvKXm9@Air-de-Roger>
+In-Reply-To: <YcHbuug9AECvKXm9@Air-de-Roger>
+From: "G.R." <firemeteor@users.sourceforge.net>
+Date: Wed, 22 Dec 2021 02:19:03 +0800
+Message-ID: <CAKhsbWZkSoM-N=HXfb_OeSGLqYMdtcxRph+=_vqp6tjHgikYVQ@mail.gmail.com>
+Subject: Re: Possible bug? DOM-U network stopped working after fatal error
+ reported in DOM0
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: xen-devel <xen-devel@lists.xen.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Dec 16, 2021 at 06:47:17PM +0000, Andrew Cooper wrote:
-> On 06/12/2021 17:02, Anthony PERARD wrote:
-> > Fix the dependency on the library, $(SHLIB) variable doesn't exist
-> > anymore.
-> >
-> > Rework dependency on the include file, we can let `swig` generate the
-> > dependency for us with the use of "-M*" flags.
-> 
-> Hmm.  At no point is swig mentioned in README/etc, and it's not in any
-> of the CI logic.  I wasn't even aware that we had python bindings here.
-> 
-> Unless someone tries and confirms them not to be broken, I'd be tempted
-> to drop it all.  I bet this has been dead since we dropped Xend.
+> > I omitted all operational details with the assumption that you are familiar
+> > with TrueNAS and iSCSI setup.
+>
+> Not really. Ideally I would like a way to reproduce that can be done
+> using iperf, nc or similar simple command line tool, without requiring
+> to setup iSCSI.
+I think it would be tricky then. The problem hide itself well enough
+that I wasn't
+aware soon after upgrading since everything else works flawlessly --
+nfs, ssh, web etc.
 
-How about the perl binding? Nothing to do with xend for them.
+> Can you also paste the output of `ifconfig xn0`?
+Here it is:
+xn0: flags=8843<UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST> metric 0 mtu 1500
+    options=503<RXCSUM,TXCSUM,TSO4,LRO>
+    ether 00:18:3c:51:6e:4c
+    inet 192.168.1.9 netmask 0xffffff00 broadcast 192.168.1.255
+    media: Ethernet manual
+    status: active
+    nd6 options=1<PERFORMNUD>
 
-The only way to build the binding is to set a variable. It's not
-possible to enable the binding via ./configure at the moment. So, yes,
-maybe no one uses them.
+>
+> If I provided a patch for the FreeBSD kernel, would you be able to
+> apply and test it?
+Probably. I did this before when your XEN support for freeBSD was not
+available out-of-box.
+Just need to recreate all the required environments to apply the patch.
 
-Cheers,
+BTW, uname -a gives me the following;
+>12.2-RELEASE-p11 FreeBSD 12.2-RELEASE-p11 75566f060d4(HEAD) TRUENAS  amd64
 
--- 
-Anthony PERARD
+Thanks,
+Timothy
 
