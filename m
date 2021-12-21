@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2E7347C502
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Dec 2021 18:26:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.250519.431496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5205E47C509
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Dec 2021 18:31:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.250524.431506 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mziuC-0004R2-FT; Tue, 21 Dec 2021 17:26:28 +0000
+	id 1mziyN-0005yx-0y; Tue, 21 Dec 2021 17:30:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 250519.431496; Tue, 21 Dec 2021 17:26:28 +0000
+Received: by outflank-mailman (output) from mailman id 250524.431506; Tue, 21 Dec 2021 17:30:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mziuC-0004PF-Ca; Tue, 21 Dec 2021 17:26:28 +0000
-Received: by outflank-mailman (input) for mailman id 250519;
- Tue, 21 Dec 2021 17:26:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1mziyM-0005vu-U1; Tue, 21 Dec 2021 17:30:46 +0000
+Received: by outflank-mailman (input) for mailman id 250524;
+ Tue, 21 Dec 2021 17:30:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f1Ud=RG=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1mziuA-0004P9-Td
- for xen-devel@lists.xenproject.org; Tue, 21 Dec 2021 17:26:26 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1db661e1-6283-11ec-9e60-abaf8a552007;
- Tue, 21 Dec 2021 18:26:25 +0100 (CET)
+ id 1mziyM-0005vo-4r
+ for xen-devel@lists.xenproject.org; Tue, 21 Dec 2021 17:30:46 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b973cbd8-6283-11ec-bb0b-79c175774b5d;
+ Tue, 21 Dec 2021 18:30:44 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,159 +36,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1db661e1-6283-11ec-9e60-abaf8a552007
+X-Inumbo-ID: b973cbd8-6283-11ec-bb0b-79c175774b5d
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1640107585;
+  d=citrix.com; s=securemail; t=1640107844;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=3SB8VNGpH09J4DsV/MUYfNfzgo5i5lh1tdAvMj2ZDzc=;
-  b=OeqzFZ9mEF6qvEJ7Pe2Sk4ieOLJqHbLh/Oe+hPbePA7jeQloRE7Cnq8h
-   RGioZTj87pcSBLGFXw1l3ryinKUEpB7x5+z2VIUPnJs/R4vp9T8pBj7UV
-   BFtJcfjUYHp2R2v27quag7S2pTY4oS/B9DAoZZELymFoC2a7p1zO7qocB
-   w=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: nTtVF0yl2JT9To0kyOIL+yF2/loZ2iTHvQi4VWlsZ6WjsUvQz5zD2wBHLaoeu5AJ9Zu5iKJjX2
- 3rrHdCnyh7cs22XIZJG+htapSBH49M/XpI2sUUnuq09Thd/dQohxvyNIatt095cUIecNMtj93J
- FzbKqyh8V6ZclUXfg4T5wMDw9csLKBEi6NnaxKLkkOM+aqoOt/XvHa42RamW5/fzIlJ78fOqTj
- 6jknLrgJ5y/gAy0giy1ManHUN+1dVj9iGHX2dSmxzCmzlcfbooVwaFxFCBpGhJxwJgCcWZ8AtG
- qOjAq1ZUB7rf5H4zInwXQkCV
+  bh=xn5qMGE+vmCZsSA3KdmK1gRo+2f/TDiBlrPIKST3Hoc=;
+  b=Gc+IE/zVPa+aivt8CzMpDo714HSrtXChV779YNTA6TDRxLjVjrwxiLzs
+   Zx6KddxMHV96ovEDzFMy+diRauc4p+EAPDAYnbgtBPRgmJt1Hx6VNmGjv
+   PvItPzU8a253TCoYFhmFzX0fpHlXmeDj6D7DPWGAuQ8TaqZ5/MoNbHsmX
+   g=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: sXRWb7X01lik0YtQ6l0RPMOfZQzNNmUvfAUgBAEmp4AlXu4gXDmEq+XIUZWm0r/5IwuoIXkP+Q
+ NiOfpz5HOMyxUOoWuEaauYjk2G39vTxBcND6dzdG4NbeEf4FgYSc6ZO2FgXlI8pcpHnS67u/2k
+ LTgBUOpamCe1DsyykoRxSMojX7K8uzB62wD4qs70PGYG4AXOkSJ5HutLva56dPVDAq5NW7l5tZ
+ 7iXskAuMFWDzQthpJPqqJpL5EvyUmqPbcURWoOdTRSErlqtc7Abe8fl1iTQGL3HmiSZiur1+Un
+ ig0nkjeBUwx/kyoz7cI3ceF7
 X-SBRS: 5.1
-X-MesageID: 60024723
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 60920995
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:rTUDj6PJjb8qV+rvrR0PkMFynXyQoLVcMsEvi/4bfWQNrUojhmRRy
- jEXWmGEP6uDN2ryetoiaoW2oE9UvZXUx9ZlSgto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En5400g6w7VRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYozCiufdt4
- vVvjLu1ajgXZKidpKcTbBYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YuBqmsQkKtitJI4Fs2ts5TrYEewnUdbIRKCiCdpwgm9o3JwRR622i
- 8wxdBsyPSmeQRJ2N0o5N5Bgu/WyikPEWmgNwL6SjfVuuDWCpOBr65DvLd7Ud9qiVchT2EGCq
- Qru/W70HxUbP9y30iee/zSngeqntTz/cJIfEvu/7PECqEaI2mUZBRkSVF26ifq0kEizX5RYM
- UN80jojq+0++VKmSvH5XgakuziUsxgEQd1SHuYmrgaXxcL86gOSVzYsVSRKZpogudNebT011
- HeZktXxHzttvbaJD3WH+d+8pDWuOS8TPCkaaDUNVwct7NzqoYV1hRXKJuuPC4bs0IezQ2uph
- WnX8m5u3N3/kPLnyY2+1nbgnxiMhKHuSy0K2F/SD17m4Dx2MdvNi5OT1XDX6vNJLYC8R1aHv
- WQZl8X20N3iHa1hhwTWHrxTQejBC+KtdWSF3AUxR8VJGyGFoib7JehtDCdCyFCF2yruURvge
- wfttAxY//e/11P6PPYsM+pd5ynHpJUM9OgJtNiIP7KigbArLWdrGR2Cg2bKhwgBd2B2zskC1
- W+zK5rEMJrjIf0PIMCKb+kcy6Q34Ss12HneQ5v2pzz+j+bGPCTIFutfaQDUBgzc0E9iiF+Nm
- zq4H5HVoyizrcWkOnWHmWLtBQ1iwYcH6WDe9JUMK7/rzvtOE2A9Ef7BqY7NiKQ+95m5Ytzgp
- ynnMmcBkQKXrSSedW2iNyAyAJuyDM0XhS9qYkQR0aOAhiFLjXCHt/xEKfPavNAPqYRe8BKDZ
- 6VfJpjbXK0QEm+vFvZ0RcCVkbGOvS+D3WqmVxdJqhBlJfaMniTFpY3peBXB7i4LAnblvMcyu
- eT4hAjaXYACV0JpC8OPMKCjyFa4vH48nuNuXhSXfokPKRu0qIU6eTbsivIXIt0XLUmRzDWty
- AvLUwwTovPAotFp/YCR17yEtYqgD8B3AlFeQzvA9b+zOCSDpjijzIZMXfymZzfYUG+oqqyua
- f8Ml6P3MeEdnUYMuI15Su45waU77trphrlb0gU7QymbMwX1UutteyDU09NOu6tBwq5ilTG3A
- k/fqMNHPbipOd/+FAJDLgQSceneh+ofnSPf7KppLRyitjN35reOTW5bIwKI1H5GNLJwPY4on
- bUhtcoR51DtgxYmKI/b3CVd9mDKJX0cSaQ38JodBdaz2AYsz1hDZ73aCzP3v87TO4kdbBFyL
- 2/GnrfGipRd2lHGIig6GnX61OZAgYgD5UJRx1gYKlXVwtfIi5fbBvGKHejbmuiN8ih67g==
-IronPort-HdrOrdr: A9a23:1flLMKOrjwnkAMBcTsGjsMiBIKoaSvp037Eqv3oedfVwSL39qy
- nOpoV/6faaslsssR0b9exofZPwJk80lqQFg7X5X43DYOCOggLBR+tfBMnZsl7d8kXFh4hgPM
- xbEpSWZueeMWRH
+IronPort-Data: A9a23:3iAwyau0JtVBbqNGeOg+MIZb3efnVNxZMUV32f8akzHdYApBsoF/q
+ tZmKTjXa/ffazf2Ltx+aIzi8UwOvsXSzdVgQQFvqykzRXsR+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHdJZS5LwbZj29cy24HhWGthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ NpljZqbVVkVJ5fwp8s/CDoIHgZRGpF90eqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DNYUDunZm3HfBAOwvW5zrSKTW/95Imjw3g6iiGN6AP
+ 5tDMWs+MXwsZTV/HQwKNZYVpdv3vVDwKw9pkHm4n6Eotj27IAtZj+G2bYu9lsaxbchRk0CR4
+ H/I/mHlGRwEPfSY0zOO9n/qjejK9Qv6R4A6BLC+7uRtglCY2ioUEhJ+fUS/iem0jAi5Qd03A
+ 0UR8XtwhbMo/0LtSNThNzWorXjBshMCVt54F+wh9BrL2qfS+xyeBGUPUnhGctNOnMYwWTwt0
+ E7Ph97zDCZjmLKQQHOZsLyTqFuP1TM9dDFYI3VeFE1cvoel8NpbYg/zoshLKKiekoPJAAvM/
+ B+o9wtuipI8qvIw/vDulbzYuA6Eqp/MRw8zwwzYWGO58w90DLKYi5yUBUvztqgZctvAJrWVl
+ D1dwpXFsrhSZX2YvHXVGL1lIV2/2xqS3NQwa3ZLFoJpyTmi8mXLkWt4sGAnfxcB3irplFbUj
+ K7vVeF5uM470JiCN/Yfj2eN5yICl/CI+TPNDK+8Uza2SsItHDJrBQk3DaJq40jjkVI3jYY0M
+ oqBfMCnAB4yUPo7lGLsGrhBi+ZwnEjSIF8/o7ihl3xLNpLEOxaopUotagPSPojVEovZyOkqz
+ zqvH5TTkEgOOAEPSiLW7ZQSPTg3wYsTXvjLRzhsXrfbeGJOQTh5Y9eImO9JU9E1zsx9y7aTl
+ lngCxAw9bYKrSCeQel8Qis4M+2HsFcWhS9TABHAyn70gSV+Otj2s/9EH3b1FJF+nNFeITdPZ
+ 6FtU6297j5nEFwrIhwRMsvwqpJMbhOuiV7cNiapemFnLZVhWxbI6pnveQ62rHsCCS++tM0fp
+ by811yEHcpfFlo6VMuGOuiyy16RvGQGnL4gVUX/PdQOKl7n95JnKnKtg6Zvcd0MMxjK2hCTy
+ x2SXUUDveDIroJsqIvJiKmIop2HCex7GkYGTWDX4azvbXvR/3a5wJ8GW+GNJGiPWGTx8aSkR
+ ONU0/Cjb6FXwAcU69JxSu85w7g/6t3jo65h4j5lRHibPU62Dr5AI2Wd2ZUdvKN62bIE6xC9X
+ ViC+4cGNOzRat/lClMYOCEscv+HiaMPgjDX4Pk4fBf66Stw8ObVWEleJUDR2ilULb8zO4I52
+ +Yx/sUR7lXn2BYtN9+HiAFS9niNcSNcA/l26MlCDd+5kBcvx3FDfYfYW33/75y4YtlRNlUnf
+ 22Pj63YirUAnkfPfhLfz5QWMTaxUXjWhC138Q==
+IronPort-HdrOrdr: A9a23:hQSU3aj/slAsiKRd+WnSDf6NgnBQXtgji2hC6mlwRA09TySZ//
+ rOoB0+726StN9xYgBFpTnuAsW9qB/nmqKdpLNhW4tKPzOW3VdATrsSjrcKqgeIc0aVm9K1l5
+ 0QEZSWYOeAdGSS5vyb3ODXKbgd/OU=
 X-IronPort-AV: E=Sophos;i="5.88,224,1635220800"; 
-   d="scan'208";a="60024723"
-Date: Tue, 21 Dec 2021 17:25:36 +0000
+   d="scan'208";a="60920995"
+Date: Tue, 21 Dec 2021 17:30:28 +0000
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: Andrew Cooper <amc96@srcf.net>
 CC: <xen-devel@lists.xenproject.org>, Anthony PERARD
-	<anthony.perard@gmail.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	"George Dunlap" <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
-	"Jan Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [XEN PATCH 22/57] tools/console: have one Makefile per
- program/directory
-Message-ID: <YcIOEC0kNjMfCQUl@perard>
+	<anthony.perard@gmail.com>, Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+	"Ian Jackson" <iwj@xenproject.org>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN PATCH 24/57] tools/debugger/gdbsx: Fix and cleanup makefiles
+Message-ID: <YcIPNDlwv0do6BqC@perard>
 References: <20211206170241.13165-1-anthony.perard@citrix.com>
- <20211206170241.13165-23-anthony.perard@citrix.com>
- <edcb690b-c21c-137f-0bda-79eda64a0164@srcf.net>
+ <20211206170241.13165-25-anthony.perard@citrix.com>
+ <ec048161-a117-36cf-b84f-e537a300d35b@srcf.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <edcb690b-c21c-137f-0bda-79eda64a0164@srcf.net>
+In-Reply-To: <ec048161-a117-36cf-b84f-e537a300d35b@srcf.net>
 
-On Thu, Dec 16, 2021 at 05:26:49PM +0000, Andrew Cooper wrote:
+On Thu, Dec 16, 2021 at 05:55:29PM +0000, Andrew Cooper wrote:
 > On 06/12/2021 17:02, Anthony PERARD wrote:
-> > Sources of both xenconsoled and xenconsole are already separated into
-> > different directory and don't share anything in common. Having two
-> > different Makefile means it's easier to deal with *FLAGS.
-> >
-> > Some common changes:
-> > Rename $(BIN) to $(TARGETS), this will be useful later.
-> > Stop removing *.so *.rpm *.a as they aren't created here.
-> > Use $(OBJS-y) to list objects.
-> > Update $(CFLAGS) for the directory rather than a single object.
-> >
-> > daemon:
-> >     Remove the need for $(LDLIBS_xenconsoled), use $(LDLIBS) instead.
-> >     Remove the need for $(CONSOLE_CFLAGS-y) and use $(CFLAGS-y)
-> > 	instead.
-> >
-> > client:
-> >     Remove the unused $(LDLIBS_xenconsole)
-> >
-> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> > ---
-> >  .gitignore                    |  4 +--
-> >  tools/console/Makefile        | 49 +++-------------------------------
-> >  tools/console/client/Makefile | 39 +++++++++++++++++++++++++++
-> >  tools/console/daemon/Makefile | 50 +++++++++++++++++++++++++++++++++++
-> >  4 files changed, 94 insertions(+), 48 deletions(-)
-> >  create mode 100644 tools/console/client/Makefile
-> >  create mode 100644 tools/console/daemon/Makefile
-> >
-> > diff --git a/.gitignore b/.gitignore
-> > index b39b996718..c31fa9b841 100644
-> > --- a/.gitignore
-> > +++ b/.gitignore
-> > @@ -159,8 +159,8 @@ tools/libs/util/libxenutil.map
-> >  tools/libs/vchan/headers.chk
-> >  tools/libs/vchan/libxenvchan.map
-> >  tools/libs/vchan/xenvchan.pc
-> > -tools/console/xenconsole
-> > -tools/console/xenconsoled
-> > +tools/console/client/xenconsole
-> > +tools/console/daemon/xenconsoled
+> > diff --git a/tools/debugger/gdbsx/Makefile b/tools/debugger/gdbsx/Makefile
+> > index 8d7cd94a31..4aaf427c45 100644
+> > --- a/tools/debugger/gdbsx/Makefile
+> > +++ b/tools/debugger/gdbsx/Makefile
+> > @@ -28,7 +28,7 @@ uninstall:
+> >  gdbsx: gx/gx_all.a xg/xg_all.a 
+> >  	$(CC) $(LDFLAGS) -o $@ $^
+> >  
+> > -xg/xg_all.a:
+> > +xg/xg_all.a: FORCE
+> >  	$(MAKE) -C xg
+> > -gx/gx_all.a:
+> > +gx/gx_all.a: FORCE
+> >  	$(MAKE) -C gx
 > 
-> $ git ls-files -- :/ | grep gitignore
-> ../.gitignore
-> ../tools/fuzz/cpu-policy/.gitignore
-> ../tools/libs/.gitignore
-> ../tools/misc/.gitignore
-> ../tools/tests/cpu-policy/.gitignore
-> ../tools/tests/resource/.gitignore
-> ../tools/tests/tsx/.gitignore
-> ../tools/tests/vhpet/.gitignore
-> ../tools/tests/xenstore/.gitignore
-> tools/kconfig/.gitignore
-> xsm/flask/.gitignore
+> Shouldn't these be in the sub Make's ?
+
+No, this is how we tell make how to build some of the prerequisite
+needed to build "gdbsx", we tell make that they are build in
+sub-directory.
+
+> > diff --git a/tools/debugger/gdbsx/gx/Makefile b/tools/debugger/gdbsx/gx/Makefile
+> > -#%.o: %.c $(GX_HDRS) Makefile
+> > -#	$(CC) -c $(CFLAGS) -o $@ $<
+> > -
+> > -gx_all.a: $(GX_OBJS) Makefile $(GX_HDRS)
+> > -	ar cr $@ $(GX_OBJS)        # problem with ld using -m32 
+> > +gx_all.a: $(GX_OBJS) Makefile
+> > +	ar cr $@ $(GX_OBJS)
 > 
-> 
-> We're starting to use per-dir gitignores, because it has far less
-> problematic behaviour for code movement.
+> There's probably an $(AR) we ought to be using.
 
-You mean "we", I don't think everyone agree we that yet ;-). They aren't
-any "xen/.gitignore" yet, despite me trying to add one at some point.
-
-> I think we ought to take this opportunity to clean things up for the better.
-
-Sounds good to me, I'll make the change.
-
-> > diff --git a/tools/console/client/Makefile b/tools/console/client/Makefile
-> > new file mode 100644
-> > index 0000000000..44176c6d93
-> > --- /dev/null
-> > +++ b/tools/console/client/Makefile
-> > @@ -0,0 +1,39 @@
-> > +XEN_ROOT=$(CURDIR)/../../..
-> > +include $(XEN_ROOT)/tools/Rules.mk
-> > +
-> > +CFLAGS += -Werror
-> 
-> -Werror really ought to come from somewhere common, seeing as we expect
-> it to be unilaterally set.
-
-Yes. I think I'll also look at having "./configure --disable-werror" or
-similar so -Werror could be easly disable, by for example someone
-building an ancient release and not wanting to deal with warnings.
+Yes, I'll look at that.
 
 Thanks,
 
