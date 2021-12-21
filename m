@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D71A47BC89
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Dec 2021 10:07:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.250236.431009 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E19347BCAA
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Dec 2021 10:16:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.250240.431020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzb6Z-0003yj-V3; Tue, 21 Dec 2021 09:06:43 +0000
+	id 1mzbFm-0005bm-1D; Tue, 21 Dec 2021 09:16:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 250236.431009; Tue, 21 Dec 2021 09:06:43 +0000
+Received: by outflank-mailman (output) from mailman id 250240.431020; Tue, 21 Dec 2021 09:16:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzb6Z-0003vd-Qu; Tue, 21 Dec 2021 09:06:43 +0000
-Received: by outflank-mailman (input) for mailman id 250236;
- Tue, 21 Dec 2021 09:06:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1mzbFl-0005Ze-Ta; Tue, 21 Dec 2021 09:16:13 +0000
+Received: by outflank-mailman (input) for mailman id 250240;
+ Tue, 21 Dec 2021 09:16:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=GYHQ=RG=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1mzb6X-0003vX-LQ
- for xen-devel@lists.xenproject.org; Tue, 21 Dec 2021 09:06:41 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f2c6f95-623d-11ec-8d39-b1a4ed000e3e;
- Tue, 21 Dec 2021 10:06:40 +0100 (CET)
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur02lp2056.outbound.protection.outlook.com [104.47.6.56]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-37-5yioj75yMf6mNxQwcKVfpg-1; Tue, 21 Dec 2021 10:06:38 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR04MB4192.eurprd04.prod.outlook.com (2603:10a6:803:4c::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4801.17; Tue, 21 Dec
- 2021 09:06:37 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4801.022; Tue, 21 Dec 2021
- 09:06:37 +0000
+ (envelope-from <julien@xen.org>) id 1mzbFk-0005ZY-RE
+ for xen-devel@lists.xenproject.org; Tue, 21 Dec 2021 09:16:12 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mzbFi-0005Bm-BP; Tue, 21 Dec 2021 09:16:10 +0000
+Received: from [54.239.6.184] (helo=[192.168.7.23])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1mzbFi-0000T7-0y; Tue, 21 Dec 2021 09:16:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,123 +39,250 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f2c6f95-623d-11ec-8d39-b1a4ed000e3e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1640077600;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=gH5MbTcJvT77Z9zn+XoYH/FASY78MuQLZhpJ0wDWtJ4=;
-	b=aUlR/gh+ComP8BKbcFCi8NQzCC1LdCexst0JKiCfX7Inl0awDV1C6AfC4GKiFFpY/U/Y+N
-	sqEAyWX8+bxy2rhV/j4yyX+SgGSJSghPRLNP8Il2gJMerfreKRfEqAdxRbW3mf2CRVBEMO
-	dQAMKPgnSCpbjI7VqzKraJu8y3I/Kkw=
-X-MC-Unique: 5yioj75yMf6mNxQwcKVfpg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kaazHE1ZD/pvbxk8TYF1PYkMDk6PmCj9zBeKOIuc1c6j2oLjp+IUomdIZK3mZeDyKluTgmAA26+65EBL7lFEneqsaDY/JocMxv/YkslUPo558br/HXsr++SPnIJ3Cr2OLcTNQnNS+mLtC6f0opCWFEBu0iyLh0HkH3N1u5OEubYQ4K0OHDQ5UKLCxzRhD2EypaOaEJZ7qz+lNjWFuw9vMXNLcmMYiXTslsJoTAN38o3jts1dh+xGEzHmQogj1O8kmH/OghX8mSJBCPb80S5LdpsAoLBy0hQ5Y3cGxx4WgZZ9UsAAN7BGl7AFiO0cP+GLjDFDNx0+NS3xiduRMV9fhA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iNuiDYRPGBvoIkiCKAuooGfZ66pPh+w/mWfHJKiN/A8=;
- b=PyuLzWc3cOMgXfORehZRiKb0fhSbqvyfMQbPXZQLm7pr9TvAuVpAwzg+u9nLo/QrwFEz07kqzjzlDdILSN1z3ZJAt/mnYgNIEMV5Brn3Hj1K5/P5hCUk/If1LZPJrvX0wERKQO+HgU8SoRZR0GGXJjZEGSFYR+SSVD+qkXASQAaWKxM8wovCWA9ulMo4V9e+hS5yRYME2upb4DlY9MkV/kLREQIaIe1fLRN2Tkx3TIruiNvgXsC4CpRdlLToQu/uHKyUH2uNquWMbNR7LALsPr5fOKXRpf3WBiwmso5fAXbI0Cshz5b/D4MoKrtuSEQA1zz+j09uxwmhiM/TvKwoqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <8334f9e5-bee3-8090-595d-1d45c9af0eb0@suse.com>
-Date: Tue, 21 Dec 2021 10:06:37 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- =?UTF-8?Q?Mateusz_M=c3=b3wka?= <mateusz.mowka@intel.com>,
- =?UTF-8?Q?Pawe=c5=82_Randzio?= <pawel.randzio@intel.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] MAINTAINERS: update TXT section
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS8PR04CA0027.eurprd04.prod.outlook.com
- (2603:10a6:20b:310::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=xSs5i88a9h2mc4jGkw8ER0pLaLyTKl9RfZj60ujhmdY=; b=2mZvV6PtuYv2y5UdH3QOV5firm
+	VIAM1ILN9ib/PCoYMLpCvXPS/jMJrHZFe9gNmKXnLmjQXw6uhsc3pLCZS0xBCF6Z1gufX2Cl8b2de
+	osH84PemNMNiYsqrWNIwo5rTDYR6Bnih53pOZ4xPF2jmh8iNxzcff9zioaTwhEHpMgk4=;
+Message-ID: <dcc6903c-f478-548e-9642-269eaf2291a0@xen.org>
+Date: Tue, 21 Dec 2021 10:16:06 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3a4a6ce0-2148-4c76-798b-08d9c46131c0
-X-MS-TrafficTypeDiagnostic: VI1PR04MB4192:EE_
-X-Microsoft-Antispam-PRVS:
-	<VI1PR04MB4192F26922A13C8E25A34CA0B37C9@VI1PR04MB4192.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	pQ46DtiwaR+Uas4i3EoSFUPXPWRvA/t2IntLdBSxZCbkzFuoRw9e1/jJSrJRTe4mriLoJbUiV85mNLhy61hIFQ5uQnGMCYPEb/o8Yod/JmhpesVnc0RQ2Y/CsDh6IuEkf+sMZf4dei7/v2tFyTM8xJt5DQr6XKEQNzrCoPS4LtIPscVTijb8QKcJwWCPajTMsytVnL880BdgmKEqcyGfhL0HCOkn1txhhZkGrONQi4a6Tc5OHfLH0cmJ0RHYKUl7Egp5K2vWRSiKZthPNHmJCLtcl2esBSZSn30VBwgAheOAVF+1SxRBag0LvvEWj38NdwZ8ANOO3pcIQo6hBmkmSHQU2vXIwRdTZenBM09HJ8GUBA0uwNmBUCphTuluuSy82pLNMM9Dj5s5tIZC+D6NCrJ+wALAHLh7wxIO7alLVVfxXgZ1Sg2m9uogSnd6kDXwPL5aoR8+NbVYWuNMdmU1hMaSBxpRfxx36KRVs1itUdzxetjYQaRkwHwyUP4fu32OXmmVfcSOxa8Hr9KV3ZNlm8GdIuTZlban4grfparIw3N4GZMpVvr1U3GTfmNWofxVKJRoAFcJRJwjLnRRMG+R8/ofAdxjGMTteUawHJQ46gGT3jOFmYL29qSiDhxjLWvsTKyw1kGZIjzKoLW4XdSnRZenZSJAkPTLdQdo2gQchvHC0KE2fk1w6tUw4q0huRnC/OH9BFS2EZyTYtttqGBxJ5wJDIuX7tyXukbVZtTE9hI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(66476007)(5660300002)(6486002)(4326008)(36756003)(66946007)(54906003)(66556008)(6512007)(316002)(6916009)(2906002)(2616005)(8936002)(508600001)(8676002)(38100700002)(26005)(4744005)(31696002)(6506007)(31686004)(186003)(86362001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2cxd+QYP1J26TgZ0dKvIIn2r9n+RXxb54Gs7jod8UZJlMYnBc8WO655ETx8D?=
- =?us-ascii?Q?e8YRKRW8T+F2MNz63by+6sINgo5d3uo2XHzqhHXly+5MUGBSvlWo5nvwNhBg?=
- =?us-ascii?Q?9keiQubppBoYCyzfhf/nhrqHQk4sKh1ICLtDnvXNJ6gGJb3+STuuDEYlSvrY?=
- =?us-ascii?Q?Y7S+Wrcp9rpl9C7aRcdzXuv9ZlC4osUdKJJBvjtN3Jrn5icFcOWH4dAN9sqq?=
- =?us-ascii?Q?m6h7vGXDyE8xdOoB89QRk1n+50qaPS8QFOahhU1URPSYrO/Dyh4JTWy45cip?=
- =?us-ascii?Q?ALPDF49QYiidhA6ur6S2c1p/YOlVsQnrY8KtEBF8gvllir0pYw6T5ZCdU73C?=
- =?us-ascii?Q?iB/iX6f/hzzm+s0JDDgsEMnAHNNzbi7gG7/wUHdXVWHWphcooa00VGhIR9Gl?=
- =?us-ascii?Q?UA17Map/1GkX3x64btjfj9ZsnaWVITnY9cmidcTAIJFFy90c/dqVwiBd+WZN?=
- =?us-ascii?Q?g5TBRhxSI0q2t+LtUIt6IpDnZiuDivKjgO+8aIgFnmBYMd8esSAZW6GXPTOr?=
- =?us-ascii?Q?SyKJl64pPxWLHK9zCeHiLbniUsc8fqUbOiAp0CKsrU/vwM4kOS0phmIQzk74?=
- =?us-ascii?Q?cNFMsCv3KWm9C2gUp3+HlvbXyns8wxOMOyQVZCCRwJjuZsTIb41GvqEmKP8s?=
- =?us-ascii?Q?UIEJ2r8zHkuNRDPDU71+8nFl1PnxlsHnfQaKWn3XA1hLCzNjmkfZMXbGQpyd?=
- =?us-ascii?Q?WfPB2IFoCAAQd0FrBFkwPNEuyl5ossaxwCn6itSaSRml7VyI3y+YESTQs+ea?=
- =?us-ascii?Q?PvyC73lK/xWkTxE5MSMqpNGqM/BT40XVw7iW4TEpDxguPwhzPIv5x9YV5CeE?=
- =?us-ascii?Q?XrufPc5EbzK8DKEuyoxBN4Y57ZWGCgTHpNNsemdG1ScXyZHdF8e3n5oGSKsE?=
- =?us-ascii?Q?R9ax7xcaMYvDJ8+J/As39KAYQ5g6vaZo5d5Eq1uhVFoCCo/UFTkTNcJWnwg8?=
- =?us-ascii?Q?8gLGMTooEkbrjAyhfyHVVFfuUG/UgLux1/1NuPYWGzMCxVI8/xMSEmCQ5hXK?=
- =?us-ascii?Q?8k7YwplLypq+tk6bFUuac9mX+EToiEjTsLAW2hOgmETLtqATVobawqWRe0zz?=
- =?us-ascii?Q?AqyISKxlVqOMRo8w5xBL7hk3StfzzBzxon02g6tSMbFDHg/wJ9dmna1SZrDt?=
- =?us-ascii?Q?nR4ORICBj0zCbCsX5ieMUaPApFxaY8PDrlcAVEP1Xl7FTRVZMZ7lcWYvTZy+?=
- =?us-ascii?Q?ZUzSG6nT1Azvilspi/dSy1YS5CfBGWZu7GnDGfH1lafegQWYk5z+cIwroR7r?=
- =?us-ascii?Q?a24kOOGYNW6255sOc9d7iY+LJ/5HLSCCpypE3xBLm+St1vYB46SpDlxP0UPE?=
- =?us-ascii?Q?RTonUXPZ1DE6J1+U4LalCJE/n5PAi/mosFxd2nNUb2Vnij4KRyA+5mbBHiCD?=
- =?us-ascii?Q?9Bhh6VuzkDtVwHlnakfzELcKC3BCLg/c1ZoB5u+kKafKbm24eKi9nay114ZT?=
- =?us-ascii?Q?olzPsLI4IGZnu31etrDFK+hsHhe7e8G97QY2UExCyDOLEUhkmAixA9p5RG9n?=
- =?us-ascii?Q?mVC8kO2KXzc+F9RenJUdCLu3+iTJvwa7HXhtRbRNkK9dRVmB6F6KWbv8pufK?=
- =?us-ascii?Q?Q8JjlAFzRYc6TGDUE3jETtYBBF7q/W9k4qyj2mkB3NYd0Dq1IhRL0gtKZVJf?=
- =?us-ascii?Q?V3H5AqQoSwHfhW7fst60+os=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a4a6ce0-2148-4c76-798b-08d9c46131c0
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2021 09:06:37.6654
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8GWsuD6F1US4JB/Q6L5KQw057MaTmh8Ixyer0wO1Z+FFdXvx/+TFe/TucYnlRXaqLq/6n4cikEwpKrzahImx1A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4192
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.4.0
+Subject: Re: [PATCH v3 02/13] xen: harmonize return types of hypercall
+ handlers
+To: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>
+References: <20211208155606.20029-1-jgross@suse.com>
+ <20211208155606.20029-3-jgross@suse.com>
+ <7dd419c1-9ad0-798e-317b-71c8e613ff3e@xen.org>
+ <4e9947b6-08b4-4ac6-9cfe-538c3b34175e@suse.com>
+ <alpine.DEB.2.22.394.2112151757410.3376@ubuntu-linux-20-04-desktop>
+ <c650062f-948e-569d-d4fa-e5333867854e@suse.com>
+ <alpine.DEB.2.22.394.2112161232310.3376@ubuntu-linux-20-04-desktop>
+ <alpine.DEB.2.22.394.2112161246180.3376@ubuntu-linux-20-04-desktop>
+ <29c14fd7-4ae2-a277-2413-faa330afc49b@suse.com>
+ <67d3c4da-9a20-24ca-543f-02ecf4676277@suse.com>
+ <287c8fba-b22f-95ec-21d4-e440e7e7fb36@suse.com>
+ <e41d26aa-9ef5-459a-c143-caf28e43c47c@xen.org>
+ <a91217dc-8f97-2882-ce08-2a408654295e@suse.com>
+ <alpine.DEB.2.22.394.2112171459490.1662642@ubuntu-linux-20-04-desktop>
+ <df06a42a-89a2-625e-25a3-da0090cc7bc7@xen.org>
+ <0d7f817a-d012-cbff-8179-6926dffa2352@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <0d7f817a-d012-cbff-8179-6926dffa2352@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Since mail to Lukasz'es address has been bouncing, Intel have suggested
-replacement contacts.
+Hi Juergen,
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-To be frank, I'm not fully convinced of the M: - I'd instead see us use
-R: for both just like we had it for Lukasz.
+On 21/12/2021 08:45, Juergen Gross wrote:
+> On 20.12.21 18:14, Julien Grall wrote:
+>> Hi,
+>>
+>> On 18/12/2021 00:00, Stefano Stabellini wrote:
+>>> On Fri, 17 Dec 2021, Juergen Gross wrote:
+>>>> On 17.12.21 11:41, Julien Grall wrote:
+>>>>> Hi Juergen,
+>>>>>
+>>>>> On 17/12/2021 08:50, Juergen Gross wrote:
+>>>>>> On 17.12.21 08:45, Jan Beulich wrote:
+>>>>>>> On 17.12.2021 06:34, Juergen Gross wrote:
+>>>>>>>> On 16.12.21 22:15, Stefano Stabellini wrote:
+>>>>>>>>> On Thu, 16 Dec 2021, Stefano Stabellini wrote:
+>>>>>>>>>> On Thu, 16 Dec 2021, Juergen Gross wrote:
+>>>>>>>>>>> On 16.12.21 03:10, Stefano Stabellini wrote:
+>>>>>>>>>>>> The case of XENMEM_maximum_ram_page is interesting but it is
+>>>>>>>>>>>> not a
+>>>>>>>>>>>> problem in reality because the max physical address size is
+>>>>>>>>>>>> only 40-bit
+>>>>>>>>>>>> for aarch32 guests, so 32-bit are always enough to return the
+>>>>>>>>>>>> highest
+>>>>>>>>>>>> page in memory for 32-bit guests.
+>>>>>>>>>>>
+>>>>>>>>>>> You are aware that this isn't the guest's max page, but the
+>>>>>>>>>>> host's?
+>>>>>>>>>
+>>>>>>>>> I can see now that you meant to say that, no matter what is the 
+>>>>>>>>> max
+>>>>>>>>> pseudo-physical address supported by the VM, 
+>>>>>>>>> XENMEM_maximum_ram_page
+>>>>>>>>> is
+>>>>>>>>> supposed to return the max memory page, which could go above the
+>>>>>>>>> addressibility limit of the VM.
+>>>>>>>>>
+>>>>>>>>> So XENMEM_maximum_ram_page should potentially be able to return
+>>>>>>>>> (1<<44)
+>>>>>>>>> even when called by an aarch32 VM, with max IPA 40-bit.
+>>>>>>>>>
+>>>>>>>>> I would imagine it could be useful if dom0 is 32-bit but domUs are
+>>>>>>>>> 64-bit on a 64-bit hypervisor (which I think it would be a very 
+>>>>>>>>> rare
+>>>>>>>>> configuration on ARM.)
+>>>>>>>>>
+>>>>>>>>> Then it looks like XENMEM_maximum_ram_page needs to be able to
+>>>>>>>>> return a
+>>>>>>>>> value > 32-bit when called by a 32-bit guest.
+>>>>>>>>>
+>>>>>>>>> The hypercall ABI follows the ARM C calling convention, so a 
+>>>>>>>>> 64-bit
+>>>>>>>>> value should be returned using r0 and r1. But looking at
+>>>>>>>>> xen/arch/arm/traps.c:do_trap_hypercall, it doesn't seem it ever 
+>>>>>>>>> sets
+>>>>>>>>> r1
+>>>>>>>>> today. Only r0 is set, so effectively we only support 32-bit 
+>>>>>>>>> return
+>>>>>>>>> values on aarch32 and for aarch32 guests.
+>>>>>>>>>
+>>>>>>>>> In other words, today all hypercalls on ARM return 64-bit to 
+>>>>>>>>> 64-bit
+>>>>>>>>> guests and 32-bit to 32-bit guests. Which in the case of memory_op
+>>>>>>>>> is
+>>>>>>>>> "technically" the correct thing to do because it matches the C
+>>>>>>>>> declaration in xen/include/xen/hypercall.h:
+>>>>>>>>>
+>>>>>>>>> extern long
+>>>>>>>>> do_memory_op(
+>>>>>>>>>        unsigned long cmd,
+>>>>>>>>>        XEN_GUEST_HANDLE_PARAM(void) arg);
+>>>>>>>>>
+>>>>>>>>> So...  I guess the conclusion is that on ARM do_memory_op should
+>>>>>>>>> return
+>>>>>>>>> "long" although it is not actually enough for a correct
+>>>>>>>>> implementation
+>>>>>>>>> of XENMEM_maximum_ram_page for aarch32 guests ?
+>>>>>>>>>
+>>>>>>>>
+>>>>>>>> Hence my suggestion to check the return value of _all_ 
+>>>>>>>> hypercalls to
+>>>>>>>> be
+>>>>>>>> proper sign extended int values for 32-bit guests. This would 
+>>>>>>>> fix all
+>>>>>>>> potential issues without silently returning truncated values.
+>>>>>>>
+>>>>>>> Are we absolutely certain we have no other paths left where a 
+>>>>>>> possibly
+>>>>>>> large unsigned values might be returned? In fact while
+>>>>>>> compat_memory_op() does the necessary saturation, I've never been 
+>>>>>>> fully
+>>>>>>> convinced of this being the best way of dealing with things. The 
+>>>>>>> range
+>>>>>>> of error indicators is much smaller than [-INT_MIN,-1], so almost
+>>>>>>> double the range of effectively unsigned values could be passed back
+>>>>>>> fine. (Obviously we can't change existing interfaces, so this mem-op
+>>>>>>> will need to remain as is.)
+>>>>>>
+>>>>>> In fact libxenctrl tries do deal with this fact by wrapping a 
+>>>>>> memory_op
+>>>>>> for a 32-bit environment into a multicall. This will work fine for a
+>>>>>> 32-bit Arm guest, as xen_ulong_t is a uint64 there.
+>>>>>>
+>>>>>> So do_memory_op should return long on Arm, yes. OTOH doing so will
+>>>>>> continue to be a problem in case a 32-bit guest doesn't use the
+>>>>>> multicall technique for handling possible 64-bit return values.
+>>>>>>
+>>>>>> So I continue to argue that on Arm the return value of a hypercall
+>>>>>> should be tested to fit into 32 bits.
+>>>>>
+>>>>> It would make sense. But what would you return if the value doesn't 
+>>>>> fit?
+>>>>
+>>>> I guess some errno value would be appropriate, like -EDOM, -ERANGE or
+>>>> -E2BIG.
+>>>
+>>> This seems to be better than the alternative below as it is a lot
+>>> simpler.
+>>
+>> We would still need to special case XENMEM_maximum_reservation (or 
+>> rework the implementation of the sub-op) because the value returned is 
+>> an unsigned long. So technically, the unsigned value for -EDOM & co 
+>> could be interpreted as the maximum host frame number.
+> 
+> I guess you meant XENMEM_maximum_ram_page.
 
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -316,7 +316,8 @@ F:	xen/common/hypfs.c
- F:	xen/include/xen/hypfs.h
-=20
- INTEL(R) TRUSTED EXECUTION TECHNOLOGY (TXT)
--R:	Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>
-+M:	Mateusz M=C3=B3wka <mateusz.mowka@intel.com>
-+R:	Pawe=C5=82 Randzio <pawel.randzio@intel.com>
- S:	Odd Fixes
- F:	xen/arch/x86/include/asm/tboot.h
- F:	xen/arch/x86/tboot.c
+Hmmmm yes.
 
+> 
+> What about setting -EDOM only if the high 32 bits are not all the same?
+> This would mean to clamp the highest RAM page to -EDOM in case the
+> caller is interpreting it as an unsigned value. This would still be
+> better than silently dropping the high bits, which could lead to a
+> rather low page number instead.
+
+This feels like quite a hack. So I would prefer the low page number. I 
+am interested to hear about the others.
+
+> 
+>> I also would like to see the hypercall returning 'int' when they are 
+>> only meant to return 32-bit value. This will make easier to spot 
+>> someone that decide to return a 64-bit value.
+> 
+> I guess this would need to include all hypercalls handled in common
+> code?
+
+Ideally yes.
+
+> 
+>>>>>> The only really clean alternative
+>>>>>> would be to have separate hypercall function classes for Arm 32- and
+>>>>>> 64-bit guests (which still could share most of the functions by 
+>>>>>> letting
+>>>>>> those return "int"). This would allow to use the 64-bit variant 
+>>>>>> even for
+>>>>>> 32-bit guests in multicall (fine as the return field is 64-bit wide),
+>>>>>> and a probably saturating compat version for the 32-bit guest direct
+>>>>>> hypercall.
+>>>>>
+>>>>> I am not entirely sure to understand this proposal. Can you clarify 
+>>>>> it?
+>>>>
+>>>> 1. In patch 5 modify the hypercall table by adding another column, so
+>>>>     instead of:
+>>>>     +table:           pv32     pv64     hvm32    hvm64    arm
+>>>>     use:
+>>>>     +table:           pv32     pv64     hvm32    hvm64    arm32    
+>>>> arm64
+>>>>
+>>>> 2. Let most of the hypercalls just return int instead of long:
+>>>>     +rettype: do int
+>>>>
+>>>> 3. Have an explicit 64-bit variant of memory_op (the 32-bit one is the
+>>>>     compat variant existing already):
+>>>>     +rettype: do64 long
+>>>>     +prefix: do64 PREFIX_hvm
+>>>>     +memory_op(unsigned long cmd, void *arg)
+>>>>
+>>>> 4. Use the appropriate calls in each column:
+>>>>     +memory_op         compat   do64     hvm      hvm      compat  do64
+>>>>
+>>>> 5. In the Arm hypercall trap handler do:
+>>>>     if ( is_32bit_domain(current->domain) )
+>>>>         call_handlers_arm32(...);
+>>>>     else
+>>>>         call_handlers_arm64(...);
+>>>>
+>>>> 6. In the multicall handler always do:
+>>>>     call_handlers_arm64(...);
+>> I am probably missing something. But why do we need to have separate 
+>> call handlers for arm32/arm64?
+> 
+> How else could you have different functions called for 32- and 64-bit
+> guests (other than doing the distinction in the called functions)?
+
+At least for near future, I expect do_memory_op() to be the only one 
+requiring special distinction. So my preference would be to handle the 
+difference there rather than adding extra logic/indirection.
+
+Cheers,
+
+-- 
+Julien Grall
 
