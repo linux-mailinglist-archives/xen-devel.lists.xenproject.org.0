@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27C4147B9DF
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Dec 2021 07:11:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.250105.430722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7393F47B9EA
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Dec 2021 07:17:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.250110.430738 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzYMZ-0006fC-VC; Tue, 21 Dec 2021 06:11:03 +0000
+	id 1mzYSC-0007P0-Mw; Tue, 21 Dec 2021 06:16:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 250105.430722; Tue, 21 Dec 2021 06:11:03 +0000
+Received: by outflank-mailman (output) from mailman id 250110.430738; Tue, 21 Dec 2021 06:16:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzYMZ-0006cE-Rr; Tue, 21 Dec 2021 06:11:03 +0000
-Received: by outflank-mailman (input) for mailman id 250105;
- Tue, 21 Dec 2021 06:11:02 +0000
+	id 1mzYSC-0007KU-Ix; Tue, 21 Dec 2021 06:16:52 +0000
+Received: by outflank-mailman (input) for mailman id 250110;
+ Tue, 21 Dec 2021 06:16:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=rEWG=RG=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1mzYMY-0006bs-Bl
- for xen-devel@lists.xenproject.org; Tue, 21 Dec 2021 06:11:02 +0000
+ id 1mzYSB-0007K2-QJ
+ for xen-devel@lists.xenproject.org; Tue, 21 Dec 2021 06:16:51 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c4307c56-6224-11ec-9e60-abaf8a552007;
- Tue, 21 Dec 2021 07:11:00 +0100 (CET)
+ id 95522ac5-6225-11ec-9e60-abaf8a552007;
+ Tue, 21 Dec 2021 07:16:50 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D9CB81F388;
- Tue, 21 Dec 2021 06:10:58 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CE1331F388;
+ Tue, 21 Dec 2021 06:16:49 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B653613BEC;
- Tue, 21 Dec 2021 06:10:58 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AC0C213BEC;
+ Tue, 21 Dec 2021 06:16:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 0PU/K/JvwWGpcQAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 21 Dec 2021 06:10:58 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id q2ugKFFxwWHPcwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 21 Dec 2021 06:16:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,103 +51,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4307c56-6224-11ec-9e60-abaf8a552007
+X-Inumbo-ID: 95522ac5-6225-11ec-9e60-abaf8a552007
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1640067058; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	t=1640067409; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+BCGWtcrwcZjd1gTY6yMO7hvlsZU7ZjX2+zQpiK62SA=;
-	b=EkDpu1dBgVO0DRk4iQsQDCF4Kl+0mx5Mi5troK5G4d6F5Cx7xmUHc08j0QcycF2VbdFjPG
-	tz8miKMtxcvLnDqWHQp0BYp/O/3V1DARUVxU4ugsuretWsjNWXwCy+85YKiY5smhk6mTw+
-	LRLW6FOHSIkp89kS4fcZ9Dg3v1/sCuY=
-Subject: Re: [PATCH v2 02/10] mini-os: sort and sanitize e820 memory map
+	bh=FNzFSW66KymIMqXtTT0NTCRx2C1DMMVxbRTWoJaBfKk=;
+	b=NYsJQNoG6eK52gLxp8R3whIsbeaLtuwhzCfrZKqGx/iQ+TzuxRNZHfGQgjLKMA/P4GYnhb
+	yp4ZEjqV7FzSgosQr9dQ5/DEtl5MoffMt/i2VQ8UpUecLkvFW1NO2wF+k120e9sSBZvSxQ
+	6h6qxL9XFCwO1LXA+WCRySQcvKn/kqQ=
 To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
  minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, wl@xen.org
 References: <20211220160716.4159-1-jgross@suse.com>
- <20211220160716.4159-3-jgross@suse.com>
- <20211220231730.nivaq6vgtlyfqhng@begin>
+ <20211220160716.4159-5-jgross@suse.com>
+ <20211220232231.sylwjfk6rsjrgeqi@begin>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <cb114a22-f795-6d55-7101-84bd201f3dd8@suse.com>
-Date: Tue, 21 Dec 2021 07:10:58 +0100
+Subject: Re: [PATCH v2 04/10] mini-os: respect memory map when ballooning up
+Message-ID: <75aa6bf0-dbbc-3076-ee45-42eb0b89eeff@suse.com>
+Date: Tue, 21 Dec 2021 07:16:49 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20211220231730.nivaq6vgtlyfqhng@begin>
+In-Reply-To: <20211220232231.sylwjfk6rsjrgeqi@begin>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="EmIQs1fIhx0bqgUGFs2mZ38AM4ITK67AQ"
+ boundary="A73FxjnSIIT9oLpEwxB9PDWIhnmEujgci"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---EmIQs1fIhx0bqgUGFs2mZ38AM4ITK67AQ
-Content-Type: multipart/mixed; boundary="DXQcuAgICIldR3Cl4iRbQZIN2pHSvcgAa";
+--A73FxjnSIIT9oLpEwxB9PDWIhnmEujgci
+Content-Type: multipart/mixed; boundary="ZWjDWZxF06NPOmmDPw4yOGvNfjBZravob";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
  minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, wl@xen.org
-Message-ID: <cb114a22-f795-6d55-7101-84bd201f3dd8@suse.com>
-Subject: Re: [PATCH v2 02/10] mini-os: sort and sanitize e820 memory map
+Message-ID: <75aa6bf0-dbbc-3076-ee45-42eb0b89eeff@suse.com>
+Subject: Re: [PATCH v2 04/10] mini-os: respect memory map when ballooning up
 References: <20211220160716.4159-1-jgross@suse.com>
- <20211220160716.4159-3-jgross@suse.com>
- <20211220231730.nivaq6vgtlyfqhng@begin>
-In-Reply-To: <20211220231730.nivaq6vgtlyfqhng@begin>
+ <20211220160716.4159-5-jgross@suse.com>
+ <20211220232231.sylwjfk6rsjrgeqi@begin>
+In-Reply-To: <20211220232231.sylwjfk6rsjrgeqi@begin>
 
---DXQcuAgICIldR3Cl4iRbQZIN2pHSvcgAa
+--ZWjDWZxF06NPOmmDPw4yOGvNfjBZravob
 Content-Type: multipart/mixed;
- boundary="------------851CCEB259C389291C020CC8"
+ boundary="------------CBF0F8890831CB17AA15B325"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------851CCEB259C389291C020CC8
+--------------CBF0F8890831CB17AA15B325
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 21.12.21 00:17, Samuel Thibault wrote:
-> Juergen Gross, le lun. 20 d=C3=A9c. 2021 17:07:08 +0100, a ecrit:
->> +static void e820_sanitize(void)
+On 21.12.21 00:22, Samuel Thibault wrote:
+> Juergen Gross, le lun. 20 d=C3=A9c. 2021 17:07:10 +0100, a ecrit:
+>> +unsigned long e820_get_max_contig_pages(unsigned long pfn, unsigned l=
+ong pages)
 >> +{
 >> +    int i;
->> +    unsigned long end, start;
+>> +    unsigned long end;
 >> +
->> +    /* Sanitize memory map in current form. */
->> +    e820_process_entries();
->> +
->> +    /* Adjust map entries to page boundaries. */
->> +    for ( i =3D 0; i < e820_entries; i++ )
->> +    {
->> +        start =3D e820_map[i].addr;
->> +        end =3D start + e820_map[i].size;
->> +        if ( (1U << e820_map[i].type) & E820_NARROW )
->> +        {
->> +            if ( start & (PAGE_SIZE - 1) )
->> +            {
->> +                start =3D round_pgup(start);
->> +                e820_insert_entry_at(i, start - PAGE_SIZE, PAGE_SIZE,=
-
->> +                                     E820_TMP_RESERVED);
->> +                i++;
->> +            }
->> +            if ( end & (PAGE_SIZE - 1) )
->> +            {
->> +                end =3D round_pgdown(end);
->> +                e820_insert_entry_at(i, end, PAGE_SIZE, E820_TMP_RESE=
-RVED);
+>> +    for ( i =3D 0; i < e820_entries && e820_map[i].addr < (pfn << PAG=
+E_SHIFT);
 >=20
-> Rather i+1 so it's most probably already sorted?
+> Shouldn't that be addr+size? Otherwise if pfn is in the middle of an
+> e820 entry, we will miss picking up that.
 
-Ah, yes, good catch.
-
->=20
-> Apart from that,
->=20
-> Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-
-Thanks,
+No, we want to check all map entries starting below or at the given pfn.
+The test should be "e820_map[i].addr <=3D (pfn << PAGE_SHIFT)", of course=
+=2E
 
 
 Juergen
 
-
---------------851CCEB259C389291C020CC8
+--------------CBF0F8890831CB17AA15B325
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -239,25 +214,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------851CCEB259C389291C020CC8--
+--------------CBF0F8890831CB17AA15B325--
 
---DXQcuAgICIldR3Cl4iRbQZIN2pHSvcgAa--
+--ZWjDWZxF06NPOmmDPw4yOGvNfjBZravob--
 
---EmIQs1fIhx0bqgUGFs2mZ38AM4ITK67AQ
+--A73FxjnSIIT9oLpEwxB9PDWIhnmEujgci
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHBb/IFAwAAAAAACgkQsN6d1ii/Ey8m
-MAf/Sq+eUsguw/e2YhMA3eAnmtDZGTywIHkGv7qjcSCs+xcv5ChPLakkWCktuuzA+GvBpvNsYg3f
-BUkf8AuvDfWdL94M+kCQqwxDkQd/2sN5u8/s3qtRPc8arLNSdNSU4qon76XKI5RAOXJuAg1XHZOR
-qiL0SPg/Ggki8HaBNZkQHxRT621qsyH40uee8S8A3VG62OC0rsR3itX/hnU5WQYAS1mNcVaYsDrg
-OlcsEF7jJus8zUnTOIb/l55JH3wjMiauR96NZUsOydkjbeU1Y0yLCgVGZugoYr7sdduHpAILwlnx
-2TxxtF/IY7E55OcgI6bcyb1vC5AlkBBkG4YQIQZCkw==
-=xlCx
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHBcVEFAwAAAAAACgkQsN6d1ii/Ey9t
+bAf/cGtRjmjSThW9QT/JgEuMetMO6XNVQ3v7Lu6pdThHuFT5sVpVtnhBu6f83Cg/4wO3cJ5uJSjA
+DMZiUUYwospX2SLsT4d446C/6XJwxrhJWahVX8a3PDABd32xZts3e8+44MnihSO0Fn42Zu9YUb8T
+D1eQ/wda9dtVS2TTiBqpWi6mv2ZrVeXW8j6jeTD9gO9BXShHyVQKLjuLBH3FmbP0rsP4Y16P8c62
+LPkRChWDU65l2GMVvOg+y/5JlL4doHYQ8TC77zSsOM2PbfMrRTFAzr65+g8GA2B1rsHbWWSpM0yy
+iUlN0lJ74V75IbSiZVt+Ct/FDjavRYnudFJI0qipuA==
+=HlF8
 -----END PGP SIGNATURE-----
 
---EmIQs1fIhx0bqgUGFs2mZ38AM4ITK67AQ--
+--A73FxjnSIIT9oLpEwxB9PDWIhnmEujgci--
 
