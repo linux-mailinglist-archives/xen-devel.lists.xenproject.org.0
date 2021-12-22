@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C38F47CDBA
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Dec 2021 08:56:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.250670.431704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC50847CDD6
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Dec 2021 09:06:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.250688.431715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzwSY-0007Xj-1Q; Wed, 22 Dec 2021 07:54:50 +0000
+	id 1mzwdB-0001Ny-Kt; Wed, 22 Dec 2021 08:05:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 250670.431704; Wed, 22 Dec 2021 07:54:50 +0000
+Received: by outflank-mailman (output) from mailman id 250688.431715; Wed, 22 Dec 2021 08:05:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1mzwSX-0007VR-To; Wed, 22 Dec 2021 07:54:49 +0000
-Received: by outflank-mailman (input) for mailman id 250670;
- Wed, 22 Dec 2021 07:54:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mzwSV-0007VH-S4; Wed, 22 Dec 2021 07:54:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mzwSV-0006rn-Ns; Wed, 22 Dec 2021 07:54:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1mzwSV-0004Et-Cl; Wed, 22 Dec 2021 07:54:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1mzwSV-0007ZI-CG; Wed, 22 Dec 2021 07:54:47 +0000
+	id 1mzwdB-0001LO-HP; Wed, 22 Dec 2021 08:05:49 +0000
+Received: by outflank-mailman (input) for mailman id 250688;
+ Wed, 22 Dec 2021 08:05:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=HtqY=RH=gmail.com=ryancaicse@srs-se1.protection.inumbo.net>)
+ id 1mzwdA-0001LH-00
+ for xen-devel@lists.xen.org; Wed, 22 Dec 2021 08:05:48 +0000
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [2607:f8b0:4864:20::533])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f6944d37-62fd-11ec-bb0b-79c175774b5d;
+ Wed, 22 Dec 2021 09:05:46 +0100 (CET)
+Received: by mail-pg1-x533.google.com with SMTP id m15so1437428pgu.11
+ for <xen-devel@lists.xen.org>; Wed, 22 Dec 2021 00:05:46 -0800 (PST)
+Received: from [30.135.82.253] ([8.218.232.85])
+ by smtp.gmail.com with ESMTPSA id c2sm1509154pfl.200.2021.12.22.00.05.42
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 22 Dec 2021 00:05:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,272 +43,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=eQYsCvnMc3wjxf/I4MGJdvce82HywRKxee4KuYRQuuM=; b=50lbe9GhhJE01m5ISUC6LZjib6
-	77k8SpNrXHZlXYfTKIO1qvshwrCINXaTDE7Bs7MIShBAmjS0q+ue1WtPdxpxjSwylScyfcyAChpQW
-	5mGrIF6aHmWEGqQ7OpavEm5rzcxTIQzwZxMSBGn4TY3Gz/Vwm3yVYzaBR+QQvwH+h+Bs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-167509-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [qemu-mainline test] 167509: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    qemu-mainline:test-amd64-amd64-xl-shadow:guest-localmigrate/x10:fail:heisenbug
-    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    qemuu=5316e12bb2b4408a1597b283ef4bb4794dd7b4f7
-X-Osstest-Versions-That:
-    qemuu=2bf40d0841b942e7ba12953d515e62a436f0af84
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 22 Dec 2021 07:54:47 +0000
+X-Inumbo-ID: f6944d37-62fd-11ec-bb0b-79c175774b5d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=user-agent:date:subject:from:to:message-id:thread-topic
+         :mime-version;
+        bh=92tAYZJCH+R0jJnZ+FpbLB7ckqn85Vv7DdOdKvJSnNU=;
+        b=PnNELN0IAm8UAxJ0y8Qq/9FJzVSSnK2lyHzCeFRsDCCibQ3+oAN3wQnRBpBoIZIm1m
+         DAzbO23CRcPI4stwzbifdBWm3JcmbEpvIwCsmwOgXEahLGEqd/lfKRZ9TLg2cWXqvEvT
+         IMvZ15jI6gvlDCCJD9ijikqzlceK0HndprpFjLI7pItZGfz8nyd+xUPZ+7IWwV8kmOzz
+         1hxHoLFbmW/7PuzG2BaFEfRt1vJ8mTg/f6Lrm9rsWagCwqD5ryCXf6Nh5EQTBcrnNBji
+         hq5hGvvmdjC2ZwMNF0BkS7Zr0Ocsl3fOJFpuloibC71U9hp7+px2XSPYlP5FllQf2+EC
+         rndg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:user-agent:date:subject:from:to:message-id
+         :thread-topic:mime-version;
+        bh=92tAYZJCH+R0jJnZ+FpbLB7ckqn85Vv7DdOdKvJSnNU=;
+        b=poymvZvviq/W8EQSHM7F4COHL1dHJCMU1oLEFqurUL2NisS78vYbY9CH32aSx4lMmm
+         2ohFaNr/7QbtYw1uN3kO05aiiXhooCZtirz251bdMlBE+ViWvlsQkM3susYubAxh2Pcg
+         h09dTyfDdJHf7iW1QFgo3iRQiapavVt3LviIN78Du+MW6oJLg0JGwxWNSroD65nTRJfd
+         IIEQpu0AX4plceh6aG4r9NINtTzFu160595sdwl9+ZkmhOYVePHnCUsuvRH/rgVOQjRW
+         LUcTcDvzcnMuaUORgYQyo20Q2ZjLVajNF4CR3KA44wRdpjWXWh7n2+Ne7lL1b1+uAZ9r
+         bAMg==
+X-Gm-Message-State: AOAM533MSp7ivWjG/Q8I/+L9CAWvs+28FWmEAiSjLDTMDbfun8Js3rDd
+	DaSQN5ZluoR5n41+7fLQ0i9psuxLg7lt7mwM
+X-Google-Smtp-Source: ABdhPJwSnwULjY7vc364YWVlZSH3tOLhV8PPuOCDhiL/ZKdSHzTlClwXjsEb2LE7v1CPAruC34pzrg==
+X-Received: by 2002:a63:657:: with SMTP id 84mr1706685pgg.399.1640160344145;
+        Wed, 22 Dec 2021 00:05:44 -0800 (PST)
+User-Agent: Microsoft-MacOutlook/16.56.21121100
+Date: Wed, 22 Dec 2021 16:05:40 +0800
+Subject: [BUG] Resource leaks in Xen
+From: Ryan Cai <ryancaicse@gmail.com>
+To: <xen-devel@lists.xen.org>,
+	<keir@xen.org>,
+	<dgdegra@tycho.nsa.gov>
+Message-ID: <62B51AB1-2C2B-402A-A7C8-5ADACE265DA4@gmail.com>
+Thread-Topic: [BUG] Resource leaks in Xen
+Mime-version: 1.0
+Content-type: multipart/alternative;
+	boundary="B_3723033942_215283608"
 
-flight 167509 qemu-mainline real [real]
-flight 167514 qemu-mainline real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/167509/
-http://logs.test-lab.xenproject.org/osstest/logs/167514/
+> This message is in MIME format. Since your mail reader does not understand
+this format, some or all of this message may not be legible.
 
-Failures :-/ but no regressions.
+--B_3723033942_215283608
+Content-type: text/plain;
+	charset="UTF-8"
+Content-transfer-encoding: 7bit
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-shadow 20 guest-localmigrate/x10 fail pass in 167514-retest
+Dear maintainers for Xen Project,
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 167501
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 167501
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 167501
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 167501
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 167501
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 167501
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 167501
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 167501
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ 
 
-version targeted for testing:
- qemuu                5316e12bb2b4408a1597b283ef4bb4794dd7b4f7
-baseline version:
- qemuu                2bf40d0841b942e7ba12953d515e62a436f0af84
+             I am writing you to report potential resource leak bugs. In the file /xen/tools/flask/utils/label-pci.c, the methods fopen and fclose may not matched when returning at Line 76, resulting in a resource leak. Looking forward to your feedback. Thank for checking.
 
-Last test of basis   167501  2021-12-21 06:49:30 Z    1 days
-Testing same since   167509  2021-12-21 19:38:18 Z    0 days    1 attempts
+ 
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Richard Henderson <richard.henderson@linaro.org>
+ 
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   fail    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+Locations, https://github.com/xen-project/xen/blame/25849c8b16f2a5b7fcd0a823e80a5f1b590291f9/tools/flask/utils/label-pci.c#L63-L76
+
+ 
+
+ 
+
+Best,
+
+Ryan Cai
+
+ 
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+--B_3723033942_215283608
+Content-type: text/html;
+	charset="UTF-8"
+Content-transfer-encoding: quoted-printable
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:schema=
+s-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/office/20=
+04/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta http-equiv=3DC=
+ontent-Type content=3D"text/html; charset=3Dutf-8"><meta name=3DGenerator content=3D=
+"Microsoft Word 15 (filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:12.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.apple-converted-space
+	{mso-style-name:apple-converted-space;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:12.0pt;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style></head><body lang=3DEN-HK link=3D"#0563C1" vlink=3D"#954F72" style=3D'wo=
+rd-wrap:break-word'><div class=3DWordSection1><p class=3DMsoNormal><span lang=3DEN=
+-US style=3D'font-size:14.0pt;font-family:"Times New Roman",serif;color:black'=
+>Dear maintainers for<span class=3Dapple-converted-space>&nbsp;</span></span><=
+span lang=3DEN-US style=3D'font-size:14.0pt;font-family:"Times New Roman",serif;=
+color:#070706;background:#FFEE94'>Xen</span><span class=3Dapple-converted-spac=
+e><span lang=3DEN-US style=3D'font-size:14.0pt;font-family:"Times New Roman",ser=
+if;color:black'>&nbsp;</span></span><span lang=3DEN-US style=3D'font-size:14.0pt=
+;font-family:"Times New Roman",serif;color:black'>Project,</span><span style=
+=3D'font-family:"Times New Roman",serif;color:black'><o:p></o:p></span></p><p =
+class=3DMsoNormal style=3D'caret-color: rgb(0, 0, 0);font-variant-caps: normal;o=
+rphans: auto;text-align:start;widows: auto;-webkit-text-size-adjust: auto;-w=
+ebkit-text-stroke-width: 0px;word-spacing:0px'><span lang=3DEN-US style=3D'font-=
+size:14.0pt;font-family:"Times New Roman",serif;color:black'>&nbsp;</span><s=
+pan style=3D'font-family:"Times New Roman",serif;color:black'><o:p></o:p></spa=
+n></p><p class=3DMsoNormal style=3D'caret-color: rgb(0, 0, 0);font-variant-caps:=
+ normal;orphans: auto;text-align:start;widows: auto;-webkit-text-size-adjust=
+: auto;-webkit-text-stroke-width: 0px;word-spacing:0px'><span lang=3DEN-US sty=
+le=3D'font-size:14.0pt;font-family:"Times New Roman",serif;color:black'>&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I am writ=
+ing you to report potential resource leak bugs. In the file /xen/tools/flask=
+/utils/label-pci.c, the methods fopen and fclose may not matched when return=
+ing at Line 76, resulting in a resource leak. </span><span style=3D'font-size:=
+14.0pt;font-family:"Times New Roman",serif;color:black'>Looking forward to y=
+our feedback. Thank for checking</span><span lang=3DEN-US style=3D'font-size:14.=
+0pt;font-family:"Times New Roman",serif;color:black'>.<o:p></o:p></span></p>=
+<p class=3DMsoNormal><span style=3D'font-size:14.0pt;font-family:"Times New Roma=
+n",serif;color:black'>&nbsp;</span><span style=3D'font-family:"Times New Roman=
+",serif;color:black'><o:p></o:p></span></p><p class=3DMsoNormal style=3D'caret-c=
+olor: rgb(0, 0, 0);font-variant-caps: normal;orphans: auto;text-align:start;=
+widows: auto;-webkit-text-size-adjust: auto;-webkit-text-stroke-width: 0px;w=
+ord-spacing:0px'><span lang=3DEN-US style=3D'font-size:14.0pt;font-family:"Times=
+ New Roman",serif;color:black'>&nbsp;</span><span style=3D'font-family:"Times =
+New Roman",serif;color:black'><o:p></o:p></span></p><p class=3DMsoNormal style=
+=3D'caret-color: rgb(0, 0, 0);font-variant-caps: normal;orphans: auto;text-ali=
+gn:start;widows: auto;-webkit-text-size-adjust: auto;-webkit-text-stroke-wid=
+th: 0px;word-spacing:0px'><span lang=3DEN-US style=3D'font-size:14.0pt;font-fami=
+ly:"Times New Roman",serif;color:black'>Locations,<span class=3Dapple-converte=
+d-space>&nbsp;</span><a href=3D"https://github.com/xen-project/xen/blame/25849=
+c8b16f2a5b7fcd0a823e80a5f1b590291f9/tools/flask/utils/label-pci.c#L63-L76">h=
+ttps://github.com/xen-project/xen/blame/25849c8b16f2a5b7fcd0a823e80a5f1b5902=
+91f9/tools/flask/utils/label-pci.c#L63-L76</a><o:p></o:p></span></p><p class=
+=3DMsoNormal><span style=3D'font-family:"Times New Roman",serif;color:black'><o:=
+p>&nbsp;</o:p></span></p><p class=3DMsoNormal style=3D'caret-color: rgb(0, 0, 0)=
+;font-variant-caps: normal;orphans: auto;text-align:start;widows: auto;-webk=
+it-text-size-adjust: auto;-webkit-text-stroke-width: 0px;word-spacing:0px'><=
+span lang=3DEN-US style=3D'font-size:14.0pt;font-family:"Times New Roman",serif;=
+color:black'>&nbsp;</span><span style=3D'font-family:"Times New Roman",serif;c=
+olor:black'><o:p></o:p></span></p><p class=3DMsoNormal style=3D'caret-color: rgb=
+(0, 0, 0);font-variant-caps: normal;orphans: auto;text-align:start;widows: a=
+uto;-webkit-text-size-adjust: auto;-webkit-text-stroke-width: 0px;word-spaci=
+ng:0px'><span style=3D'font-size:14.0pt;font-family:"Times New Roman",serif;co=
+lor:black'>Best,</span><span style=3D'font-family:"Times New Roman",serif;colo=
+r:black'><o:p></o:p></span></p><p class=3DMsoNormal style=3D'caret-color: rgb(0,=
+ 0, 0);font-variant-caps: normal;orphans: auto;text-align:start;widows: auto=
+;-webkit-text-size-adjust: auto;-webkit-text-stroke-width: 0px;word-spacing:=
+0px'><span style=3D'font-size:14.0pt;font-family:"Times New Roman",serif;color=
+:black'>Ryan Cai</span><span style=3D'font-family:"Times New Roman",serif;colo=
+r:black'><o:p></o:p></span></p><p class=3DMsoNormal><span style=3D'font-size:11.=
+0pt'><o:p>&nbsp;</o:p></span></p></div></body></html>
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+--B_3723033942_215283608--
 
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/qemu-xen.git
-   2bf40d0841..5316e12bb2  5316e12bb2b4408a1597b283ef4bb4794dd7b4f7 -> upstream-tested
 
