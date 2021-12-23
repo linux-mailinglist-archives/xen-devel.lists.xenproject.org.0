@@ -2,31 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9546247E604
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Dec 2021 16:50:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.251122.432363 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E21CD47E653
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Dec 2021 17:23:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.251127.432374 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n0QLK-0003Mc-LU; Thu, 23 Dec 2021 15:49:22 +0000
+	id 1n0Qs1-00008N-8t; Thu, 23 Dec 2021 16:23:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 251122.432363; Thu, 23 Dec 2021 15:49:22 +0000
+Received: by outflank-mailman (output) from mailman id 251127.432374; Thu, 23 Dec 2021 16:23:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n0QLK-0003Ka-Hq; Thu, 23 Dec 2021 15:49:22 +0000
-Received: by outflank-mailman (input) for mailman id 251122;
- Thu, 23 Dec 2021 15:49:22 +0000
+	id 1n0Qs1-00005a-5M; Thu, 23 Dec 2021 16:23:09 +0000
+Received: by outflank-mailman (input) for mailman id 251127;
+ Thu, 23 Dec 2021 16:23:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xdKn=RI=gmail.com=firemeteor.guo@srs-se1.protection.inumbo.net>)
- id 1n0QLK-0003KT-0Z
- for xen-devel@lists.xen.org; Thu, 23 Dec 2021 15:49:22 +0000
-Received: from mail-io1-f45.google.com (mail-io1-f45.google.com
- [209.85.166.45]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e4522994-6407-11ec-bb0b-79c175774b5d;
- Thu, 23 Dec 2021 16:49:20 +0100 (CET)
-Received: by mail-io1-f45.google.com with SMTP id u8so7630767iol.5
- for <xen-devel@lists.xen.org>; Thu, 23 Dec 2021 07:49:20 -0800 (PST)
+ <SRS0=/cjH=RI=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1n0Qrz-00005U-Ry
+ for xen-devel@lists.xenproject.org; Thu, 23 Dec 2021 16:23:07 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9ad197f2-640c-11ec-bb0b-79c175774b5d;
+ Thu, 23 Dec 2021 17:23:05 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -38,73 +36,164 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e4522994-6407-11ec-bb0b-79c175774b5d
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=G9c/L0SIJCU70WhuqWHTiXFgSxsq352JlPnfYky8nlI=;
-        b=2f/9Slg8yjA2t7olZrFr8ykdvYtJvqAGy907IopIfCbiu/gthQKpJPB85OXr9TPVGH
-         LXsZ2CTrLnQ/VncGJm4a3SZpsiSAmUI4FJopmjuQ9bl4ItpPNv8wwewfjTh+ax24ecZ8
-         2IvoKsCc8d04iBaZfHtvj+4K/xvruO4T584N7EADEdEaGbaobqltniuQ6teXoHRRNX8O
-         qPaoDPhUPEMwFOYoBGO7bG4OWC51wk5JoOCj+462DNmU52GK91GRBOaH8L4ElBcUfd+L
-         B17QI1evR1zvSGE+voTUekVWjbYRLwNaEhTDdy5tExbaxlIXqMSzrPqpjOF0PCJjn5TL
-         zAsA==
-X-Gm-Message-State: AOAM5329jPwHYgM2I0T1NG4cncd8Y+m/DrhEcGyWIancNgGbmBtQ8EoW
-	Q3iHcb1hvigLaiVD26VpIpJHpCuWX7yMkMgV0Vc=
-X-Google-Smtp-Source: ABdhPJz43FfikZuVJAAN4Ox40RkZiOyRNWeyjNqKCEOgrKhsCQ87AKjaLn8pLtjh+OJVrqIV3d2D8oL1F93JH1YOnNM=
-X-Received: by 2002:a05:6602:2bc2:: with SMTP id s2mr1478841iov.23.1640274559523;
- Thu, 23 Dec 2021 07:49:19 -0800 (PST)
+X-Inumbo-ID: 9ad197f2-640c-11ec-bb0b-79c175774b5d
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1640276585;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=7hzbK3gy7YX7ljX+ayb8kqwNfu76Q1Tcy0UrKhN4VcY=;
+  b=cSpmZPo7eRv0VjteKXMCxbrlmhkFQpm8I82l8aN1b6LnSqIvjVHHXRYq
+   HSpSkf67C8X/TDq7OMRTj/NpHc3ZcO1A1uMbfHBbSo4XRfXEFyBoS6fRh
+   H5LwWpRWEnAyRK+S84sauxOxdvxoa+wuv2CdTFFgCOsA2b2J5KaTn+nmQ
+   g=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: QEEgBh/VahF6FDSr1YkqcGf6/2CmgYw1Dt+Gx5KQPLtpZ94teh7fSWXMeFNP5nNRnfW/NAdvoD
+ eD9WiANW5StGd2wYMOl3uGAAs/sYhNE/3MLo+Su5RlmWrCWXI/ecsTEUmktvFIIFRoEttsiPEX
+ Xi2yo07lHu7FAPyAoNCSUDZST5GpRxQVAc+jGsq4QQPnOhU0vmkCqc3v4GdQPT6BzDUxS77I1S
+ rvrZcbH9ahZABHGJsNbXdlCmXGyXYICS75GhNpwUpY+Hx1WP2gGacyrtXX18ZuUr6GUameEIQA
+ ThEnOO7iklhfFwTsZIdXW2mM
+X-SBRS: 5.1
+X-MesageID: 60692699
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:qCbN0qtv9BkSt/KN9lJ1BI5u9+fnVH1ZMUV32f8akzHdYApBsoF/q
+ tZmKWqEOKqKNjSkKo8nbIjg9x5UvMCEyYc3TVM4r380RCwV+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHdJZS5LwbZj29cy24PhWGthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ Npl5bDqcVgYNaz3teUGWStlIxhjGrIZweqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6AP
+ 5RIM2Q+PXwsZTV1HV0YKZ4Ou97xg0nnSjoB93aUiZQetj27IAtZj+G2bYu9lsaxbcdahEGDv
+ Urd4n/0RBodMbS32TeDt36hmOLLtSf6Q54JUq218OZwh1+ezXBVDwcZPWZXutHg1BT4AYgGb
+ RVJpGx+9sDe6XBHUPGtc0eA/0+PvyUxWsFaIdAK0Ryq1fXttlPx6nc/chZNb9kvtckTTDMs1
+ 0OUk96BOQGDoIF5WlrGqO7K8Gra1Tw9aDZbOHRaFVdtD8zL+dlr1nryosBf/LlZZzEfMRX52
+ Hi0oSc3nN3/ZuZbhvzgrTgrb99Bz6UlrzLZBC2LDwpJDSsjPeZJgrBEDnCBsp59wH6xFAXpg
+ ZT9s5H2ABoyJZ+MjjeRZ+4GAauk4f2IWBWF3wI3Rshxpmr8oCP5FWy13N2ZDB02WvvohBezO
+ BOD0e+vzMI70ISWgV9fPNvqVpVCIVnIHtX5TPHEBueikbAqHDJrCBpGPBbKt0i0yRBEufhmZ
+ f+zLJb9ZV5HWP8P5GfnGI8gPUoDm3lWKZX7HsugkXxKENO2ORaodFvyGAfUM71isvrb+F69H
+ hQ2H5Li9iizmdbWOkH/mbP/53hTRZTiLZyp+cFRaMCZJQ9qRDMoB/PLmOtzcI15haVF0OzP+
+ yjlCENfzVP+g1zBKBmLNS8/OO++A84noCJpJzEoMHapx2MnPdSl4pAAesZlZrIg7uFik6J5F
+ qFXZ8WaD/1TYT3b4DBBP4LlpYlveU3z1wKDNiaoehYleJtkS1Cb89PoZFK3piIPEjC2pY01p
+ Lj5jlHXRp8KRgJDCsfKaa3wkwPt7CZFwO8rBhnGONhefkno4bNGES2pg69lOdwIJDXC2iCei
+ 1ScDyAHqLSfuIQy6tTI2/yJ9t/7D+tkE0NGNGDH9rLqZzLC92+uzIIcAuaFeTfRCDH99Km4P
+ LgHyvj9NLsMnUpQspo6GLFulPps69zqrr5c7wJlAHSUMAj7VuI+eiGLjZtVq6lA5r5Fog/nC
+ EuA9+5TNaiNJM64QkUaIxAob7jb2PwZ8tUIAS/Z/KkuCPdLwYe6
+IronPort-HdrOrdr: A9a23:lRR/CqqaTWoJJmA8llnJ04UaV5o9eYIsimQD101hICG8cqSj+f
+ xG/c5rsiMc5wxwZJhNo7y90cq7MBfhHPxOkOos1N6ZNWGM0gaVxelZnO7fKlbbehEWmNQz6U
+ 4ZSdkdNOHN
+X-IronPort-AV: E=Sophos;i="5.88,230,1635220800"; 
+   d="scan'208";a="60692699"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Anthony PERARD
+	<anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
+Subject: [PATCH] tools/libxc: Drop copy-in in xc_physinfo()
+Date: Thu, 23 Dec 2021 16:22:44 +0000
+Message-ID: <20211223162244.16198-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-References: <CAKhsbWZ5KCrwJqbchx31LWfaJeS=khP9sgoo4y8ZZqOexsUUdA@mail.gmail.com>
- <CAKhsbWYLC+cEuaJefi4Zy1ZcZaOtM6_2WV+9uq8=pTdi5NYLJA@mail.gmail.com>
- <CAKhsbWbv-Poscajj=Hwe3g6WO9b8VaZm39ygFnsbEfHTpRzrfA@mail.gmail.com>
- <YcHbuug9AECvKXm9@Air-de-Roger> <CAKhsbWZkSoM-N=HXfb_OeSGLqYMdtcxRph+=_vqp6tjHgikYVQ@mail.gmail.com>
- <YcInKtCNgA9v0k+c@Air-de-Roger>
-In-Reply-To: <YcInKtCNgA9v0k+c@Air-de-Roger>
-From: "G.R." <firemeteor@users.sourceforge.net>
-Date: Thu, 23 Dec 2021 23:49:08 +0800
-Message-ID: <CAKhsbWZMRMfrsWDcZLSS7q4ciR0UbyGE2sO-tN1dr+9juuEfsQ@mail.gmail.com>
-Subject: Re: Possible bug? DOM-U network stopped working after fatal error
- reported in DOM0
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Cc: xen-devel <xen-devel@lists.xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Wed, Dec 22, 2021 at 3:13 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com>=
- wrote:
+The first thing XEN_SYSCTL_physinfo does is zero op->u.physinfo.
 
-> Could you build a debug kernel with the following patch applied and
-> give me the trace when it explodes?
+Do not copy-in.  It's pointless, and most callers don't initialise their
+xc_physinfo_t buffer to begin with.  Remove the pointless zeroing from the
+remaining callers.
 
-Please find the trace and the kernel CL below.
-Note, the domU get stuck into a bootloop with this assertion as the
-situation will come back after domU restart and only dom0 reboot can
-get the situation back to normal.
-The trace I captured below is within the boot loop. I suspect the
-initial trigger may look different. Will give it another try soon.
+Spotted by Coverity.
 
-FreeBSD 12.2-RELEASE-p11 #0 c8625d629c3(truenas/12.0-stable)-dirty:
-Wed Dec 22 20:26:46 UTC 2021
-The repo is here: https://github.com/freenas/os.git
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Anthony PERARD <anthony.perard@citrix.com>
+CC: Juergen Gross <jgross@suse.com>
+---
+ tools/libs/ctrl/xc_misc.c | 2 --
+ tools/libs/light/libxl.c  | 2 +-
+ tools/libs/stat/xenstat.c | 2 +-
+ tools/misc/xenpm.c        | 2 +-
+ tools/xenmon/xenbaked.c   | 2 +-
+ tools/xentrace/xentrace.c | 2 +-
+ 6 files changed, 5 insertions(+), 7 deletions(-)
 
-db:0:kdb.enter.default>  bt
-Tracing pid 0 tid 101637 td 0xfffff80069cc4000
-kdb_enter() at kdb_enter+0x37/frame 0xfffffe009f121460
-vpanic() at vpanic+0x197/frame 0xfffffe009f1214b0
-panic() at panic+0x43/frame 0xfffffe009f121510
-xn_txq_mq_start_locked() at xn_txq_mq_start_locked+0x4c6/frame
-0xfffffe009f121580
-xn_txq_mq_start() at xn_txq_mq_start+0x84/frame 0xfffffe009f1215b0
-ether_output_frame() at ether_output_frame+0xb4/frame 0xfffffe009f1215e0
-ether_output() at ether_output+0x6a5/frame 0xfffffe009f121680
-ip_output() at ip_output+0x1319/frame 0xfffffe009f1217e0
-tcp_output() at tcp_output+0x1dbf/frame 0xfffffe009f121980
-tcp_usr_send() at tcp_usr_send+0x3c9/frame 0xfffffe009f121a40
-sosend_generic() at sosend_generic+0x440/frame 0xfffffe009f121af0
-sosend() at sosend+0x66/frame 0xfffffe009f121b20
-icl_send_thread() at icl_send_thread+0x44e/frame 0xfffffe009f121bb0
-fork_exit() at fork_exit+0x80/frame 0xfffffe009f121bf0
-fork_trampoline() at fork_trampoline+0xe/frame 0xfffffe009f121bf0
+diff --git a/tools/libs/ctrl/xc_misc.c b/tools/libs/ctrl/xc_misc.c
+index 3820394413a9..265f15ec2da3 100644
+--- a/tools/libs/ctrl/xc_misc.c
++++ b/tools/libs/ctrl/xc_misc.c
+@@ -195,8 +195,6 @@ int xc_physinfo(xc_interface *xch,
+ 
+     sysctl.cmd = XEN_SYSCTL_physinfo;
+ 
+-    memcpy(&sysctl.u.physinfo, put_info, sizeof(*put_info));
+-
+     if ( (ret = do_sysctl(xch, &sysctl)) != 0 )
+         return ret;
+ 
+diff --git a/tools/libs/light/libxl.c b/tools/libs/light/libxl.c
+index a77aa856fdd6..667ae6409be7 100644
+--- a/tools/libs/light/libxl.c
++++ b/tools/libs/light/libxl.c
+@@ -351,7 +351,7 @@ const char *libxl_defbool_to_string(libxl_defbool b)
+ /******************************************************************************/
+ int libxl_get_physinfo(libxl_ctx *ctx, libxl_physinfo *physinfo)
+ {
+-    xc_physinfo_t xcphysinfo = { 0 };
++    xc_physinfo_t xcphysinfo;
+     int rc;
+     long l;
+     GC_INIT(ctx);
+diff --git a/tools/libs/stat/xenstat.c b/tools/libs/stat/xenstat.c
+index e49689aa2da9..8bab2e66a7fe 100644
+--- a/tools/libs/stat/xenstat.c
++++ b/tools/libs/stat/xenstat.c
+@@ -135,7 +135,7 @@ xenstat_node *xenstat_get_node(xenstat_handle * handle, unsigned int flags)
+ {
+ #define DOMAIN_CHUNK_SIZE 256
+ 	xenstat_node *node;
+-	xc_physinfo_t physinfo = { 0 };
++	xc_physinfo_t physinfo;
+ 	xc_domaininfo_t domaininfo[DOMAIN_CHUNK_SIZE];
+ 	int new_domains;
+ 	unsigned int i;
+diff --git a/tools/misc/xenpm.c b/tools/misc/xenpm.c
+index d0191d498484..4f8cde690a7c 100644
+--- a/tools/misc/xenpm.c
++++ b/tools/misc/xenpm.c
+@@ -1244,7 +1244,7 @@ struct {
+ int main(int argc, char *argv[])
+ {
+     int i, ret = 0;
+-    xc_physinfo_t physinfo = { 0 };
++    xc_physinfo_t physinfo;
+     int nr_matches = 0;
+     int matches_main_options[ARRAY_SIZE(main_options)];
+ 
+diff --git a/tools/xenmon/xenbaked.c b/tools/xenmon/xenbaked.c
+index 1ed34334c824..7591de7c609f 100644
+--- a/tools/xenmon/xenbaked.c
++++ b/tools/xenmon/xenbaked.c
+@@ -436,7 +436,7 @@ static struct t_struct *map_tbufs(unsigned long tbufs_mfn, unsigned int num,
+  */
+ static unsigned int get_num_cpus(void)
+ {
+-    xc_physinfo_t physinfo = { 0 };
++    xc_physinfo_t physinfo;
+     xc_interface *xc_handle = xc_interface_open(0,0,0);
+     int ret;
+ 
+diff --git a/tools/xentrace/xentrace.c b/tools/xentrace/xentrace.c
+index a8903ebf4625..864e30d50cc3 100644
+--- a/tools/xentrace/xentrace.c
++++ b/tools/xentrace/xentrace.c
+@@ -589,7 +589,7 @@ static void set_evt_mask(uint32_t mask)
+  */
+ static unsigned int get_num_cpus(void)
+ {
+-    xc_physinfo_t physinfo = { 0 };
++    xc_physinfo_t physinfo;
+     int ret;
+     
+     ret = xc_physinfo(xc_handle, &physinfo);
+-- 
+2.11.0
+
 
