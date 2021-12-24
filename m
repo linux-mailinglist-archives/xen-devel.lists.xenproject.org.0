@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C25847E9D1
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Dec 2021 01:17:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.251185.432468 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BFF247E9E9
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Dec 2021 01:46:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.251188.432480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n0YGU-0008BN-SW; Fri, 24 Dec 2021 00:16:54 +0000
+	id 1n0YiP-0003bg-0d; Fri, 24 Dec 2021 00:45:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 251185.432468; Fri, 24 Dec 2021 00:16:54 +0000
+Received: by outflank-mailman (output) from mailman id 251188.432480; Fri, 24 Dec 2021 00:45:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n0YGU-00089S-Pd; Fri, 24 Dec 2021 00:16:54 +0000
-Received: by outflank-mailman (input) for mailman id 251185;
- Fri, 24 Dec 2021 00:16:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1n0YiO-0003Zt-T2; Fri, 24 Dec 2021 00:45:44 +0000
+Received: by outflank-mailman (input) for mailman id 251188;
+ Fri, 24 Dec 2021 00:45:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+lMa=RJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1n0YGT-00087x-Bu
- for xen-devel@lists.xenproject.org; Fri, 24 Dec 2021 00:16:53 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org
- [2604:1380:40e1:4800::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca0dff84-644e-11ec-9e60-abaf8a552007;
- Fri, 24 Dec 2021 01:16:51 +0100 (CET)
+ id 1n0YiN-0003Zn-Pk
+ for xen-devel@lists.xenproject.org; Fri, 24 Dec 2021 00:45:43 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d10be756-6452-11ec-bb0b-79c175774b5d;
+ Fri, 24 Dec 2021 01:45:40 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id B22E5CE0F83;
- Fri, 24 Dec 2021 00:16:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B59D1C36AE9;
- Fri, 24 Dec 2021 00:16:45 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 52E5B61FA7;
+ Fri, 24 Dec 2021 00:45:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D409C36AE9;
+ Fri, 24 Dec 2021 00:45:37 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,352 +43,487 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca0dff84-644e-11ec-9e60-abaf8a552007
+X-Inumbo-ID: d10be756-6452-11ec-bb0b-79c175774b5d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1640305006;
-	bh=qL21nLHWTr/azaP96wBOlsT6QnpPfCyrfQYajqWbfwU=;
+	s=k20201202; t=1640306738;
+	bh=4HefQp9Azj2EUV+cvY+xo0e+RXN2FORcGKY0eB6eSZ0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Ots6RtRCu4pJa4+yyFGQupZ6ATfOqhpnijMtSokA11ZNoDxlQRDYZfHnskJzxRihD
-	 NyyhEm+VG1xOQtGBo6c/VYv+t4d71to5CcW0RlLmKQfcC/Eey1+dJjUWrPULhM7yV1
-	 kBCdAx4EuRmTbitXEKKfglxe7labQdmUAdvytQmFskwPiB0lv8x7AhWAorITjo+we+
-	 rZam+aB9B/HLrk6b7G3mjkF2iyYjMXu/hy0uXwuOYwtUvSbcOFOfdGE3S2bnWlCA07
-	 ECExXCrQ3SctnoZHh9wnM6XNjd8rEm9tKod5Yjuq8NfMS9R9i632esatOHkTngho56
-	 AjV46oyKTy4bw==
-Date: Thu, 23 Dec 2021 16:16:45 -0800 (PST)
+	b=EXEj/4278N0p+0ETw17k5O2ggebcufoBqG4StJgOWGDk+hr33MQ2dBMeVwNzf286K
+	 pZ8a9/ZebNLP/xWwkTw1Ws6nRstzolQ1z5KrcZiUZO5XMopxI+9CbSRaPxlt8FWkIt
+	 ecfalkzZqx9cvn9mSM8gQukg/4CHc4ZWkqlFs9YT3Dg2mp14eri72iEoV7Pik/7lr6
+	 MG9VuCCsilyo1i1MPwDK/vprkZWB1qybZPJ5NNgj2FbeflM+sy2euMPK6U32DPTGDO
+	 RHMIRTCtZic/FVyQV7kTmKNgKf/qELyPsCgDaUZX0SV0WxaiNFpILUwT9eP9KRJiJO
+	 zTXJa1Mhanntw==
+Date: Thu, 23 Dec 2021 16:45:38 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Julien Grall <julien@xen.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
-In-Reply-To: <20211223190637.GA99855@EPUAKYIW015D>
-Message-ID: <alpine.DEB.2.22.394.2112231610270.2060010@ubuntu-linux-20-04-desktop>
-References: <cover.1639472078.git.oleksii_moisieiev@epam.com> <e9dadd96aa5b64b9232e10a083ce393af620adde.1639472078.git.oleksii_moisieiev@epam.com> <alpine.DEB.2.22.394.2112171709140.2060010@ubuntu-linux-20-04-desktop> <20211220181215.GA1702335@EPUAKYIW015D>
- <alpine.DEB.2.22.394.2112201613210.2060010@ubuntu-linux-20-04-desktop> <20211221200305.GA2460476@EPUAKYIW015D> <alpine.DEB.2.22.394.2112211310000.2060010@ubuntu-linux-20-04-desktop> <20211222110414.GA2883815@EPUAKYIW015D>
- <alpine.DEB.2.22.394.2112221627190.2060010@ubuntu-linux-20-04-desktop> <20211223190637.GA99855@EPUAKYIW015D>
+To: Julien Grall <julien@xen.org>
+cc: Vikram Garhwal <fnu.vikram@xilinx.com>, xen-devel@lists.xenproject.org, 
+    sstabellini@kernel.org, bertrand.marquis@arm.com, 
+    volodymyr_babchuk@epam.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, 
+    Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+Subject: Re: [XEN][RFC PATCH v2 08/12] xen/arm: Implement device tree node
+ removal functionalities
+In-Reply-To: <229a8fb4-816d-bfc3-31d3-5c375c5cd14b@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2112231627060.2060010@ubuntu-linux-20-04-desktop>
+References: <1636441347-133850-1-git-send-email-fnu.vikram@xilinx.com> <1636441347-133850-9-git-send-email-fnu.vikram@xilinx.com> <229a8fb4-816d-bfc3-31d3-5c375c5cd14b@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 23 Dec 2021, Oleksii Moisieiev wrote:
-> On Wed, Dec 22, 2021 at 06:23:24PM -0800, Stefano Stabellini wrote:
-> > On Wed, 22 Dec 2021, Oleksii Moisieiev wrote:
-> > > On Tue, Dec 21, 2021 at 01:22:50PM -0800, Stefano Stabellini wrote:
-> > > > On Tue, 21 Dec 2021, Oleksii Moisieiev wrote:
-> > > > > Hi Stefano,
-> > > > > 
-> > > > > On Mon, Dec 20, 2021 at 04:52:01PM -0800, Stefano Stabellini wrote:
-> > > > > > On Mon, 20 Dec 2021, Oleksii Moisieiev wrote:
-> > > > > > > Hi Stefano,
-> > > > > > > 
-> > > > > > > On Fri, Dec 17, 2021 at 06:14:55PM -0800, Stefano Stabellini wrote:
-> > > > > > > > On Tue, 14 Dec 2021, Oleksii Moisieiev wrote:
-> > > > > > > > > This is the implementation of SCI interface, called SCMI-SMC driver,
-> > > > > > > > > which works as the mediator between XEN Domains and Firmware (SCP, ATF etc).
-> > > > > > > > > This allows devices from the Domains to work with clocks, resets and
-> > > > > > > > > power-domains without access to CPG.
-> > > > > > > > > 
-> > > > > > > > > The following features are implemented:
-> > > > > > > > > - request SCMI channels from ATF and pass channels to Domains;
-> > > > > > > > > - set device permissions for Domains based on the Domain partial
-> > > > > > > > > device-tree. Devices with permissions are able to work with clocks,
-> > > > > > > > > resets and power-domains via SCMI;
-> > > > > > > > > - redirect scmi messages from Domains to ATF.
-> > > > > > > > > 
-> > > > > > > > > Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> > > > > > > > > ---
-> > > > > > > > >  xen/arch/arm/Kconfig          |   2 +
-> > > > > > > > >  xen/arch/arm/sci/Kconfig      |  10 +
-> > > > > > > > >  xen/arch/arm/sci/Makefile     |   1 +
-> > > > > > > > >  xen/arch/arm/sci/scmi_smc.c   | 795 ++++++++++++++++++++++++++++++++++
-> > > > > > > > >  xen/include/public/arch-arm.h |   1 +
-> > > > > > > > >  5 files changed, 809 insertions(+)
-> > > > > > > > >  create mode 100644 xen/arch/arm/sci/Kconfig
-> > > > > > > > >  create mode 100644 xen/arch/arm/sci/scmi_smc.c
-> > > > > > > > > 
-> > > > > > > > > diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> > > > > > > > > index 186e1db389..02d96c6cfc 100644
-> > > > > > > > > --- a/xen/arch/arm/Kconfig
-> > > > > > > > > +++ b/xen/arch/arm/Kconfig
-> > > > > > > > > @@ -114,6 +114,8 @@ config SCI
-> > > > > > > > >  	  support. It allows guests to control system resourcess via one of
-> > > > > > > > >  	  SCI mediators implemented in XEN.
-> > > > > > > > >  
-> > > > > > > > > +source "arch/arm/sci/Kconfig"
-> > > > > > > > > +
-> > > > > > > > >  endmenu
-> > > > > > > > >  
-> > > > > > > > >  menu "ARM errata workaround via the alternative framework"
-> > > > > > > > > diff --git a/xen/arch/arm/sci/Kconfig b/xen/arch/arm/sci/Kconfig
-> > > > > > > > > new file mode 100644
-> > > > > > > > > index 0000000000..9563067ddc
-> > > > > > > > > --- /dev/null
-> > > > > > > > > +++ b/xen/arch/arm/sci/Kconfig
-> > > > > > > > > @@ -0,0 +1,10 @@
-> > > > > > > > > +config SCMI_SMC
-> > > > > > > > > +	bool "Enable SCMI-SMC mediator driver"
-> > > > > > > > > +	default n
-> > > > > > > > > +	depends on SCI
-> > > > > > > > > +	---help---
-> > > > > > > > > +
-> > > > > > > > > +	Enables mediator in XEN to pass SCMI requests from Domains to ATF.
-> > > > > > > > > +	This feature allows drivers from Domains to work with System
-> > > > > > > > > +	Controllers (such as power,resets,clock etc.). SCP is used as transport
-> > > > > > > > > +	for communication.
-> > > > > > > > > diff --git a/xen/arch/arm/sci/Makefile b/xen/arch/arm/sci/Makefile
-> > > > > > > > > index 837dc7492b..67f2611872 100644
-> > > > > > > > > --- a/xen/arch/arm/sci/Makefile
-> > > > > > > > > +++ b/xen/arch/arm/sci/Makefile
-> > > > > > > > > @@ -1 +1,2 @@
-> > > > > > > > >  obj-y += sci.o
-> > > > > > > > > +obj-$(CONFIG_SCMI_SMC) += scmi_smc.o
-> > > > > > > > > diff --git a/xen/arch/arm/sci/scmi_smc.c b/xen/arch/arm/sci/scmi_smc.c
-> > > > > > > > > new file mode 100644
-> > > > > > > > > index 0000000000..2eb01ea82d
-> > > > > > > > > --- /dev/null
-> > > > > > > > > +++ b/xen/arch/arm/sci/scmi_smc.c
-> > > > > > > > > @@ -0,0 +1,795 @@
-> > > > > > > > > +/*
-> > > > > > > > > + * xen/arch/arm/sci/scmi_smc.c
-> > > > > > > > > + *
-> > > > > > > > > + * SCMI mediator driver, using SCP as transport.
-> > > > > > > > > + *
-> > > > > > > > > + * Oleksii Moisieiev <oleksii_moisieiev@epam.com>
-> > > > > > > > > + * Copyright (C) 2021, EPAM Systems.
-> > > > > > > > > + *
-> > > > > > > > > + * This program is free software; you can redistribute it and/or modify
-> > > > > > > > > + * it under the terms of the GNU General Public License as published by
-> > > > > > > > > + * the Free Software Foundation; either version 2 of the License, or
-> > > > > > > > > + * (at your option) any later version.
-> > > > > > > > > + *
-> > > > > > > > > + * This program is distributed in the hope that it will be useful,
-> > > > > > > > > + * but WITHOUT ANY WARRANTY; without even the implied warranty of
-> > > > > > > > > + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-> > > > > > > > > + * GNU General Public License for more details.
-> > > > > > > > > + */
-> > > > > > > > > +
-> > > > > > > > > +#include <asm/sci/sci.h>
-> > > > > > > > > +#include <asm/smccc.h>
-> > > > > > > > > +#include <asm/io.h>
-> > > > > > > > > +#include <xen/bitops.h>
-> > > > > > > > > +#include <xen/config.h>
-> > > > > > > > > +#include <xen/sched.h>
-> > > > > > > > > +#include <xen/device_tree.h>
-> > > > > > > > > +#include <xen/iocap.h>
-> > > > > > > > > +#include <xen/init.h>
-> > > > > > > > > +#include <xen/err.h>
-> > > > > > > > > +#include <xen/lib.h>
-> > > > > > > > > +#include <xen/list.h>
-> > > > > > > > > +#include <xen/mm.h>
-> > > > > > > > > +#include <xen/string.h>
-> > > > > > > > > +#include <xen/time.h>
-> > > > > > > > > +#include <xen/vmap.h>
-> > > > > > > > > +
-> > > > > > > > > +#define SCMI_BASE_PROTOCOL                  0x10
-> > > > > > > > > +#define SCMI_BASE_PROTOCOL_ATTIBUTES        0x1
-> > > > > > > > > +#define SCMI_BASE_SET_DEVICE_PERMISSIONS    0x9
-> > > > > > > > > +#define SCMI_BASE_RESET_AGENT_CONFIGURATION 0xB
-> > > > > > > > > +#define SCMI_BASE_DISCOVER_AGENT            0x7
-> > > > > > > > > +
-> > > > > > > > > +/* SCMI return codes. See section 4.1.4 of SCMI spec (DEN0056C) */
-> > > > > > > > > +#define SCMI_SUCCESS              0
-> > > > > > > > > +#define SCMI_NOT_SUPPORTED      (-1)
-> > > > > > > > > +#define SCMI_INVALID_PARAMETERS (-2)
-> > > > > > > > > +#define SCMI_DENIED             (-3)
-> > > > > > > > > +#define SCMI_NOT_FOUND          (-4)
-> > > > > > > > > +#define SCMI_OUT_OF_RANGE       (-5)
-> > > > > > > > > +#define SCMI_BUSY               (-6)
-> > > > > > > > > +#define SCMI_COMMS_ERROR        (-7)
-> > > > > > > > > +#define SCMI_GENERIC_ERROR      (-8)
-> > > > > > > > > +#define SCMI_HARDWARE_ERROR     (-9)
-> > > > > > > > > +#define SCMI_PROTOCOL_ERROR     (-10)
-> > > > > > > > > +
-> > > > > > > > > +#define DT_MATCH_SCMI_SMC DT_MATCH_COMPATIBLE("arm,scmi-smc")
-> > > > > > > > > +
-> > > > > > > > > +#define SCMI_SMC_ID                        "arm,smc-id"
-> > > > > > > > > +#define SCMI_SHARED_MEMORY                 "linux,scmi_mem"
-> > > > > > > > 
-> > > > > > > > I could find the following SCMI binding in Linux, which describes
-> > > > > > > > the arm,scmi-smc compatible and the arm,smc-id property:
-> > > > > > > > 
-> > > > > > > > Documentation/devicetree/bindings/firmware/arm,scmi.yaml
-> > > > > > > > 
-> > > > > > > > However, linux,scmi_mem is not described. Aren't you supposed to read
-> > > > > > > > the "shmem" property instead? And the compatible string used for this
-> > > > > > > > seems to be "arm,scmi-shmem".
-> > > > > > > > 
-> > > > > > > 
-> > > > > > > We use linux,scmi_mem node to reserve memory, needed for all
-> > > > > > > channels:
-> > > > > > > 
-> > > > > > > reserved-memory {
-> > > > > > >     /* reserved region for scmi channels*/
-> > > > > > >     scmi_memory: linux,scmi_mem@53FF0000 {
-> > > > > > >         no-map;
-> > > > > > >         reg = <0x0 0x53FF0000 0x0 0x10000>;
-> > > > > > >     };
-> > > > > > > };
-> > > > > > > 
-> > > > > > > arm,scmi-shmem node used in shmem property defines only 1 page needed to
-> > > > > > > the current scmi channel:
-> > > > > > > 
-> > > > > > > cpu_scp_shm: scp-shmem@0x53FF0000 {
-> > > > > > >     compatible = "arm,scmi-shmem";
-> > > > > > >     reg = <0x0 0x53FF0000 0x0 0x1000>;
-> > > > > > > };
-> > > > > > > 
-> > > > > > > For each Domain reg points to unigue page from linux,scmi_mem region,
-> > > > > > > assigned to this agent.
-> > > > > > 
-> > > > > > If we were to use "linux,scmi_mem" we would have to introduce it as a
-> > > > > > compatible string, not as a node name, and it would need to be described
-> > > > > > in Documentation/devicetree/bindings/firmware/arm,scmi.yaml.
-> > > > > > 
-> > > > > > But from your description I don't think it is necessary. We can just use
-> > > > > > "arm,scmi-shmem" to describe all the required regions:
-> > > > > > 
-> > > > > > reserved-memory {
-> > > > > >     scp-shmem@0x53FF0000 {
-> > > > > >         compatible = "arm,scmi-shmem";
-> > > > > >         reg = <0x0 0x53FF0000 0x0 0x1000>;
-> > > > > >     };
-> > > > > >     scp-shmem@0x53FF1000 {
-> > > > > >         compatible = "arm,scmi-shmem";
-> > > > > >         reg = <0x0 0x53FF1000 0x0 0x1000>;
-> > > > > >     };
-> > > > > >     scp-shmem@0x53FF2000 {
-> > > > > >         compatible = "arm,scmi-shmem";
-> > > > > >         reg = <0x0 0x53FF2000 0x0 0x1000>;
-> > > > > >     };
-> > > > > >     ...
-> > > > > > 
-> > > > > > In other words, if all the individual channel pages are described as
-> > > > > > "arm,scmi-shmem", why do we also need a single larger region as
-> > > > > > "linux,scmi_mem"?
-> > > > > > 
-> > > > > 
-> > > > > That was my first implementation. But I've met a problem with
-> > > > > scmi driver in kernel. I don't remember the exact place, but I remember
-> > > > > there were some if, checking if memory weren't reserved.
-> > > > > That's why I ended up splitting nodes reserved memory region and actual
-> > > > > shmem page.
-> > > > > For linux,scmi_mem node I took format from /reserved-memory/linux,lossy_decompress@54000000,
-> > > > > which has no compatible string and provides no-map property.
-> > > > > linux,scmi_shmem node is needed to prevent xen from allocating this
-> > > > > space for the domain.
-> > > > > 
-> > > > > Very interesting question about should I introduce linux,scmi_mem node
-> > > > > and scmi_devid property to the
-> > > > > Documentation/devicetree/bindings/firmware/arm,scmi.yaml?
-> > > > > Those node and property are needed only for Xen and useless for
-> > > > > non-virtualized systems. I can add this node and property description to
-> > > > > arm,scmi.yaml, but leave a note that this is Xen specific params.
-> > > > > What do you think about it?
-> > > > 
-> > > > Reply below
-> > > > 
-> > > > [...]
-> > > >  
-> > > > 
-> > > > > > In general we can't use properties that are not part of the device tree
-> > > > > > spec, either https://urldefense.com/v3/__https://www.devicetree.org/specifications/__;!!GF_29dbcQIUBPA!kNodtgmOQBc1iO76_6vTK-O1SoLxee_ChowYQiQYC595rMOsrnmof2zmk7BnhXCSnJPN$ [devicetree[.]org] or
-> > > > > > https://urldefense.com/v3/__https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings__;!!GF_29dbcQIUBPA!kNodtgmOQBc1iO76_6vTK-O1SoLxee_ChowYQiQYC595rMOsrnmof2zmk7BnhXloYUaj$ [git[.]kernel[.]org]
-> > > > > > 
-> > > > > > "linux,scmi_mem" is currently absent. Are you aware of any upstreaming
-> > > > > > activities to get "linux,scmi_mem" upstream under
-> > > > > > Documentation/devicetree/bindings in Linux?
-> > > > > > 
-> > > > > > If "linux,scmi_mem" is going upstream in Linux, then we could use it.
-> > > > > > Otherwise, first "linux,scmi_mem" needs to be added somewhere under
-> > > > > > Documentation/devicetree/bindings (probably
-> > > > > > Documentation/devicetree/bindings/firmware/arm,scmi.yaml), then we can
-> > > > > > work on the Xen code that makes use of it.
-> > > > > > 
-> > > > > > Does it make sense?
-> > > > > > 
-> > > > > 
-> > > > > Yes I agree. I think linux,scmi_mem and scmi_devid should be upstreamed.
-> > > > > I will add those properties to arm,scmi.yaml, mark them as related to XEN and send patch.
-> > > > 
-> > > > I didn't realize that linux,scmi_mem and scmi_devid are supposed to be
-> > > > Xen specific. In general, it would be best not to introduce Xen specific
-> > > > properties into generic bindings. It is a problem both from a
-> > > > specification perspective (because it has hard to handle Xen specific
-> > > > cases in fully generic bindings, especially as those bindings are
-> > > > maintained as part of the Linux kernel) and from a user perspective
-> > > > (because now the user has to deal with a Xen-specific dtb, or has to
-> > > > modify the host dtb to add Xen-specific information by hand.)
-> > > > 
-> > > > 
-> > > > Let me start from scmi_devid.  Why would scmi_devid be Xen-specific? It
-> > > > looks like a generic property that should be needed for the Linux SCMI
-> > > > driver too. Why the Linux driver doesn't need it?
-> > > > 
-> > > 
-> > > scmi_devid used during domain build. It passed as input parameter for SCMI_BASE_SET_DEVICE_PERMISSIONS message.
-> > > On non-virtualized systems - there is no need of this call, because OS
-> > > is the only one entity, running on the system.
-> > 
-> > OK. Even if it is only required for virtualized systems, I think that
-> > scmi_devid is important enough that should be part of the upstream
-> > binding. I think it is worth starting an email thread on the LKML with
-> > Rob Herring and the SCMI maintainers to discuss the addition of
-> > scmi_devid to the binding.
-> > 
+On Wed, 22 Dec 2021, Julien Grall wrote:
+> Hi,
 > 
-> Ok I will start the thread about scmi_devid.
-> > 
-> > > I've chatted with Volodymyr_Babchuk and he gave a great idea to add a
-> > > list of device_ids to dom.cfg, such as:
-> > > sci_devs = [ 0, 1, 15, 35 ];
-> > > 
-> > > Using this approach, we can remove scmi_devid from the device tree and
-> > > just pass a list of scmi_devids to XEN using additional hypercall.
-> > > We can probably make hypercall taking devid list as input parameter.
-> > > This will take only 1 hypercall to setup sci permissions.
-> > 
-> > But how would a user know which are the right SCMI IDs to add to the
-> > sci_devs list? Would the user have to go and read the reference manual
-> > of the platform to find the SCMI IDs and then write sci_devs by hand?
-> > If that is the case, then I think that it would be better to add
-> > scmi_devid to device tree.
-> > 
-> > In general, I think this configuration should happen automatically
-> > without user intervention. The user should just specify "enable SCMI"
-> > and it should work.
-> > 
+> On 09/11/2021 08:02, Vikram Garhwal wrote:
+> > Introduce sysctl XEN_SYSCTL_overlay to remove device-tree nodes added using
 > 
-> Ok. This sounds reasonable.
+> I agree with Jan about the name being too generic. I will comment on this a
+> bit further down.
 > 
+> > device tree overlay.
 > > 
-> > > > In regards to linux,scmi_mem, I think it would be best to do without it
-> > > > and fix the Linux SCMI driver if we need to do so. Xen should be able to
-> > > > parse the native "arm,scmi-shmem" nodes and Linux (dom0 or domU) should
-> > > > be able to parse the "arm,scmi-shmem" nodes generated by Xen. Either
-> > > > way, I don't think we should need linux,scmi_mem.
-> > > 
-> > > This requires further investigation. I will try to make implementation
-> > > without linux,scmi_mem, using only arm,scmi-shmem nodes and share
-> > > reuslts with you.
+> > xl overlay remove file.dtbo:
+> >      Removes all the nodes in a given dtbo.
+> >      First, removes IRQ permissions and MMIO accesses. Next, it finds the
+> > nodes
+> >      in dt_host and delete the device node entries from dt_host.
 > > 
-> > OK, thanks.
+> >      The nodes get removed only if it is not used by any of dom0 or domus.
+> > If
+> >      even one of the node in dtbo is not available for removal i.e. either
+> > not
+> >      there in dt_host or currently used by any domain, in that case we don't
+> >      remove any node in the given dtbo.
+> > 
+> > Also, added overlay_track struct to keep the track of added node through
+> > device
+> > tree overlay. overlay_track has dt_host_new which is unflattened form of
+> > updated
+> > fdt and name of overlay node. When a node is removed, we also free the
+> > memory
+> > used by overlay_track for the particular overlay node.
+> > 
+> > Signed-off-by: Vikram Garhwal <fnu.vikram@xilinx.com>
+> > ---
+> >   xen/common/device_tree.c      |  53 ++++++
+> >   xen/common/sysctl.c           | 372
+> > ++++++++++++++++++++++++++++++++++++++++++
+> >   xen/include/public/sysctl.h   |  23 +++
+> >   xen/include/xen/device_tree.h |   4 +
+> >   4 files changed, 452 insertions(+)
+> > 
+> > diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+> > index 26d2e28..19320e1 100644
+> > --- a/xen/common/device_tree.c
+> > +++ b/xen/common/device_tree.c
+> > @@ -385,6 +385,59 @@ void dt_print_node_names(struct dt_device_node *dt)
+> >       return;
+> >   }
+> >   +#if defined (CONFIG_OVERLAY_DTB)
+> > +int overlay_remove_node(struct dt_device_node *device_node)
 > 
-> One more question: As you probably seen - Jan had a complains about SCI
-> term. He said SCI is ambiguous with ACPI's System
-> Control Interrupt.
+> This want to be prefixed with dt_* so it is clear which components it is
+> touching. But I think all the DT overlay code (including sysctl) should be
+> moved in a new file (maybe dt_overlay.c) to spreading the overlay code and
+> growing
+> the size of sysctl.c.
+> 
+> > +{
+> > +    struct dt_device_node *np;
+> > +    struct dt_device_node *parent_node;
+> > +    struct dt_device_node *current_node;
+> > +
+> > +    parent_node = device_node->parent;
+> > +
+> > +    current_node = parent_node;
+> > +
+> > +    if ( parent_node == NULL )
+> > +    {
+> > +        dt_dprintk("%s's parent node not found\n", device_node->name);
+> > +        return -EFAULT;
+> > +    }
+> > +
+> > +    np = parent_node->child;
+> > +
+> > +    if ( np == NULL )
+> > +    {
+> > +        dt_dprintk("parent node %s's not found\n", parent_node->name);
+> > +        return -EFAULT;
+> > +    }
+> > +
+> > +    /* If node to be removed is only child node or first child. */
+> > +    if ( np->name == device_node->name )
+> 
+> Why are you checking the equality between the fields name rather than the node
+> itself?
+> 
+> If it is intended, then I think this wants to be explained because often
+> people wants to check the names are equal (e.g str*cmp()) rather than the
+> pointer where the names are stored.
+> 
+> > +    {
+> > +        current_node->allnext = np->next;
+> > +        return 0;
+> > +    }
+> > +
+> > +    for ( np = parent_node->child; np->sibling != NULL; np = np->sibling )
+> > +    {
+> > +        current_node = np;
+> > +        if ( np->sibling->name == device_node->name )
+> 
+> Same question.
+> 
+> > +        {
+> > +            /* Found the node. Now we remove it. */
+> > +            current_node->allnext = np->allnext->allnext;
+> > +
+> > +            if ( np->sibling->sibling )
+> > +                current_node->sibling = np->sibling->sibling;
+> > +            else
+> > +                current_node->sibling = NULL;
+> > +
+> > +            break;
+> > +        }
+> > +    }
+> > +
+> > +    return 0;
+> > +}
+> > +#endif
+> > +
+> >   int dt_find_node_by_gpath(XEN_GUEST_HANDLE(char) u_path, uint32_t u_plen,
+> >                             struct dt_device_node **node)
+> >   {
+> > diff --git a/xen/common/sysctl.c b/xen/common/sysctl.c
+> > index f2dab72..fca47f5 100644
+> > --- a/xen/common/sysctl.c
+> > +++ b/xen/common/sysctl.c
+> > @@ -28,6 +28,311 @@
+> >   #include <xen/livepatch.h>
+> >   #include <xen/coverage.h>
+> >   +#if defined (CONFIG_OVERLAY_DTB)
+> 
+> This can be shortend to #ifdef CONFIG_<...>.
+> 
+> > +#include <xen/list.h>
+> > +#include <xen/libfdt/libfdt.h>
+> > +#include <xen/xmalloc.h>
+> > +#include <xen/device_tree.h>
+> > +#include <asm/domain_build.h>
+> > +#endif
+> > +
+> > +#if defined (CONFIG_OVERLAY_DTB)
+> 
+> Same here.
+> 
+> > +static LIST_HEAD(overlay_tracker);
+> > +static DEFINE_SPINLOCK(overlay_lock);
+> > +
+> > +/*
+> > + * overlay_node_track describes information about added nodes through dtbo.
+> > + * @dt_host_new: Pointer to the updated dt_host_new unflattened 'updated
+> > fdt'.
+> > + * @node_fullname: Store the name of nodes.
+> > + * @entry: List pointer.
+> > + */
+> > +struct overlay_track {
+> > +    struct list_head entry;
+> > +    struct dt_device_node *dt_host_new;
+> > +    char **node_fullname;
+> > +    uint8_t num_nodes;
+> 
+> Any reason to restrict to 256 nodes?
+> 
+> > +};
+> > +
+> > +/* Basic sanity check for the dtbo tool stack provided to Xen. */
+> > +static int check_overlay_fdt(void *overlay_fdt, uint32_t overlay_fdt_size)
+> This function doesn't modify overlay_fdt. So I think it should be const if
+> fdt_total_size() and fdt_check_header() allows it.
+> 
+> > +{
+> > +    if ( (fdt_totalsize(overlay_fdt) != overlay_fdt_size) ||
+> > +          fdt_check_header(overlay_fdt) )
+> > +    {
+> > +        printk(XENLOG_ERR "The overlay FDT is not a valid Flat Device
+> > Tree\n");
+> > +        return -EINVAL;
+> > +    }
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +static int overlay_node_count(void *fdto)
+> > +{
+> > +    int num_overlay_nodes = 0;
+> 
+> The name suggests this should be an unsiged int.
+> 
+> > +    int fragment;
+> > +
+> > +    fdt_for_each_subnode(fragment, fdto, 0)
+> > +    {
+> > +
+> > +        int subnode;
+> > +        int overlay;
+> > +
+> > +        overlay = fdt_subnode_offset(fdto, fragment, "__overlay__");
+> 
+> This may return < 0 if __overlay__ is not found. From my understanding,
+> fdt_for_each_subnode() would end up to start from 0.
+> 
+> So I think you want to add a check here.
+> 
+> > +
+> > +        fdt_for_each_subnode(subnode, fdto, overlay)
+> > +        {
+> > +            num_overlay_nodes++;
+> > +        }
+> > +    }
+> > +
+> > +    return num_overlay_nodes;
+> > +}
+> > +
+> > +/*
+> > + * overlay_get_node_info will get the all node's full name with path. This
+> > is
+> > + * useful when checking node for duplication i.e. dtbo tries to add nodes
+> > which
+> > + * already exists in device tree.
+> > + */
+> > +static void overlay_get_node_info(void *fdto, char ***node_full_path,
+> 
+> You will retrieve mutiple nodes. So I think the function wants to be named
+> 'overlay_get_nodes_info()'. Same for node_full_path.
+> 
+> Furthermore, you could drop one * if you return the list of paths. This will
+> also allow you to return an error when xmalloc fails (see below)
+> 
+> Lastly, AFAICT, fdto can be const.
+> 
+> > +                                  int num_overlay_nodes)
+> 
+> This coud be unsigned int.
+> 
+> > +{
+> > +    int fragment;
+> > +    int node_num = 0;
+> 
+> This could be unsigned int.
+> 
+> > +
+> > +    *node_full_path = xmalloc_bytes(num_overlay_nodes * sizeof(char *));
+> 
+> Memory allocation can fail.
+> 
+> > +
+> > +    fdt_for_each_subnode(fragment, fdto, 0)
+> > +    {
+> > +        int target;
+> > +        int overlay;
+> > +        int subnode;
+> > +        const char *target_path;
+> > +
+> > +        target = fdt_overlay_get_target(device_tree_flattened, fdto,
+> > fragment,
+> > +                                    &target_path);
+> 
+> fdt_overlay_get_target() can fail. Also, the indentation looks strange.
+> 
+> > +        overlay = fdt_subnode_offset(fdto, fragment, "__overlay__");
+> 
+> fdt_subnode_offset can fail.
+> 
+> > +
+> > +        fdt_for_each_subnode(subnode, fdto, overlay)
+> > +        {
+> > +            const char *node_name = fdt_get_name(fdto, subnode, NULL);
+> 
+> AFAIU, fdt_get_name() can return NULL;
+> 
+> > +            int node_name_len = strlen(node_name);
+> 
+> fdt_get_name() can already provide the len for you. Can you re-use it?
+> 
+> 
+> 
+> > +            int target_path_len = strlen(target_path);
+> > +            int node_full_name_len = target_path_len + node_name_len + 2;
+> 
+> node_name_len, target_path_len, node_full_name_len can be unsigned. Also, I
+> would add a comment explain what '2' refers to.
+> 
+> > +
+> > +            (*node_full_path)[node_num] =
+> > xmalloc_bytes(node_full_name_len);
+> 
+> xmalloc_bytes() can fail.
+> 
+> > +
+> > +            memcpy((*node_full_path)[node_num], target_path,
+> > target_path_len);
+> > +
+> > +            (*node_full_path)[node_num][target_path_len] = '/';
+> > +
+> > +            memcpy((*node_full_path)[node_num] + target_path_len + 1,
+> > node_name,
+> > +                   node_name_len);
+> > +
+> > +            (*node_full_path)[node_num][node_full_name_len - 1] = '\0';
+> > +
+> > +            node_num++;
+> > +        }
+> > +    }
+> > +}
+> > +
+> > +/*
+> > + * Checks if all the devices node listed are present in dt_host and used by
+> > any
+> > + * domain.
+> > + */
+> 
+> Why do we need to handle all the nodes together? I think the code would end up
+> to be simpler if we were handling node by node.
+> 
+> > +static int check_nodes(char **full_dt_node_path, uint32_t num_nodes)
+> > +{
+> > +    int rc = 0;
+> > +    unsigned int i;
+> > +    struct dt_device_node *overlay_node;
+> > +    uint32_t ret = 0;
+> 
+> AFAICT, you are storing a domid here, so this wants to be a domid_t and
+> possible renamed to domid.
+> 
+> > +
+> > +    for ( i = 0; i < num_nodes; i++ ) {
+> > +        dt_dprintk("Finding node %s in the dt_host\n",
+> > full_dt_node_path[i]);
+> > +
+> > +        overlay_node = dt_find_node_by_path(full_dt_node_path[i]);
+> > +
+> > +        if ( overlay_node == NULL )
+> > +        {
+> > +            rc = -EINVAL;
+> > +
+> > +            printk(XENLOG_G_ERR "Device %s is not present in the tree."
+> 
+> You seem to use a mix of XENLOG_G_ERR and XENLOG_ERR. However, it is not
+> entirely clear some messages are more critical than the other. Could you
+> clarify?
+> 
+> > +                   " Removing nodes failed\n", full_dt_node_path[i]);
+> 
+> Coding style: We don't split error message even if they are more than 80
+> lines. This helps grepping them in the log.
+> 
+> > +            return rc;
+> > +        }
+> > +
+> > +        ret = dt_device_used_by(overlay_node);
+> > +
+> > +        dt_dprintk("Checking if node %s is used by any domain\n",
+> > +                   full_dt_node_path[i]);
+> > +
+> > +        if ( ret != 0 && ret != DOMID_IO )
+> 
+> In the commit message you wrote:
+> 
+> "The nodes get removed only if it is not used by any of dom0 or domus"
+> 
+> This implies that this should return -EINVAL for domid as well. Can you make
+> sure the two matches? (I am not sure which one you want).
+> 
+> Also, what does prevent the device to not be assigned for the check?
+> 
+> > +        {
+> > +            rc = -EINVAL;
+> 
+> NIT: This is a bit pointless to set rc when it is just used 2 lines below in
+> the return. The alternative is to replace the return with a break.
+> 
+> > +
+> > +            printk(XENLOG_G_ERR "Device %s as it is being used by domain
+> > %d."
+> > +                   " Removing nodes failed\n", full_dt_node_path[i], ret);
+> 
+> Coding style: Same about the error message.
+> 
+> > +            return rc;
+> > +        }
+> > +    }
+> > +
+> > +    return rc;
+> > +}
+> > +
+> > +/* Remove nodes from dt_host. */
+> > +static int remove_nodes(char **full_dt_node_path, uint32_t num_nodes)
+> 
+> In the commit message, you said you wanted to remove all the nodes together.
+> But this function could possibly fail leaving some nodes present or not.
+> 
+> As I wrote above, I think handling node by node would be fine. However, we
+> need to make sure that the remove operation can be called again to clean-up
+> the rest of the nodes.
+> 
+> > +{
+> > +    struct domain *d = hardware_domain;
+> > +    int rc = 0;
+> > +    struct dt_device_node *overlay_node;
+> > +    unsigned int naddr;
+> > +    unsigned int i, j, nirq;
+> > +    struct dt_raw_irq rirq;
+> > +    u64 addr, size;
+> > +
+> > +    for ( j = 0; j < num_nodes; j++ ) {
+> > +        dt_dprintk("Removing node: %s\n", full_dt_node_path[j]);
+> > +
+> > +        overlay_node = dt_find_node_by_path(full_dt_node_path[j]);
+> > +
+> > +        nirq = dt_number_of_irq(overlay_node);
+> > +
+> > +        /* Remove IRQ permission */
+> > +        for ( i = 0; i < nirq; i++ )
+> > +        {
+> > +            rc = dt_device_get_raw_irq(overlay_node, i, &rirq);
+> > +            if ( rc )
+> > +            {
+> > +                printk(XENLOG_ERR "Unable to retrieve irq %u for %s\n",
+> > +                       i, dt_node_full_name(overlay_node));
+> > +                return rc;
+> > +            }
+> 
+> The interrupt may not be routed to the GIC, in which case we want to skip
+> them. So you want to check the controller is equal to dt_interrupt_controller.
+> 
+> The code is also quite similar to handle_device_interrupts(). So I would
+> abstract the code to avoid duplication.
+> 
+> That said, I find a bit odd to have to parse the overlay again on remove given
+> you expect the same to be passed.  I think it might be better to use rangeset
+> to keep track of the interrupts added with that specific overlay.
+> 
+> This will reduce the possibility that remove can go wrong.
+> 
+> > +
+> > +            rc = platform_get_irq(overlay_node, i);
+> > +            if ( rc < 0 )
+> > +            {
+> > +                printk(XENLOG_ERR "Unable to get irq %u for %s\n",
+> > +                       i, dt_node_full_name(overlay_node));
+> > +                return rc;
+> > +            }
+> > +
+> > +            rc = irq_deny_access(d, rc);
+> 
+> A few things:
+> 
+>   1) IRQs can be assigned to another domain without the device being assigned.
+> So this want to be checked.
+>   2) This is assuming the IRQ was not shared. I am not entirely sure how to
+> solve this one. Maybe a TODO and note in the documentation will do for now.
+> Stefano?
 
-I see his point. As a term I see "SCMI" often and sometimes "SCPI" but
-"SCI" is the first time I saw it with this patch series.
-
-
-> I think of using SC (as System Control) instead. What do you think
-> about it? 
-
-Yeah, I am not great at naming things but maybe "ARM_SCI"?  "SC" alone
-doesn't give me enough context to guess what it is.
-
-Or we could broaden the scope and call it "firmware_interface"?
+I think it is fine if we don't handle shared IRQs for now. A note in the
+documentation and a TODO is OK.
 
