@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F388A47EA57
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Dec 2021 02:32:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.251201.432502 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A285347EA66
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Dec 2021 02:52:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.251205.432512 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n0ZRS-0003wl-UX; Fri, 24 Dec 2021 01:32:18 +0000
+	id 1n0ZkI-0006lP-Jf; Fri, 24 Dec 2021 01:51:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 251201.432502; Fri, 24 Dec 2021 01:32:18 +0000
+Received: by outflank-mailman (output) from mailman id 251205.432512; Fri, 24 Dec 2021 01:51:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n0ZRS-0003um-QK; Fri, 24 Dec 2021 01:32:18 +0000
-Received: by outflank-mailman (input) for mailman id 251201;
- Fri, 24 Dec 2021 01:32:17 +0000
+	id 1n0ZkI-0006jf-GF; Fri, 24 Dec 2021 01:51:46 +0000
+Received: by outflank-mailman (input) for mailman id 251205;
+ Fri, 24 Dec 2021 01:51:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=+lMa=RJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1n0ZRQ-0003ug-V4
- for xen-devel@lists.xenproject.org; Fri, 24 Dec 2021 01:32:16 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1n0ZkH-0006jG-9a
+ for xen-devel@lists.xenproject.org; Fri, 24 Dec 2021 01:51:45 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51fad479-6459-11ec-bb0b-79c175774b5d;
- Fri, 24 Dec 2021 02:32:15 +0100 (CET)
+ id 0afc148c-645c-11ec-bb0b-79c175774b5d;
+ Fri, 24 Dec 2021 02:51:43 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A254C61F9F;
- Fri, 24 Dec 2021 01:32:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D5DCC36AE5;
- Fri, 24 Dec 2021 01:32:11 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2F75661F9E;
+ Fri, 24 Dec 2021 01:51:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 512B0C36AE5;
+ Fri, 24 Dec 2021 01:51:41 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,173 +43,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51fad479-6459-11ec-bb0b-79c175774b5d
+X-Inumbo-ID: 0afc148c-645c-11ec-bb0b-79c175774b5d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1640309531;
-	bh=LPshgZ3zjboQ5EJzVyDW/BQmBB7iaDhLVaPrAzACgww=;
+	s=k20201202; t=1640310701;
+	bh=+Yuj+jIIU5uavavlXqFjjqLLM2Y8gy6tn41H9Y3xIlk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=IAtDxYENSt4l+ipbneOt0QkAmsfwUzjATkYZIMHH8+AOWRGV/C7hQwpwMpCOWdcYg
-	 I0IGDUYD53oA+K4XIDF//h0n7jCMKXDf4Ys4GEPxE3okm5r+lsz3e/yWrSODqtZ8Vo
-	 VBQn/750qduQdTbVXZQKkapcN7dNOJhaHjFeKUn6p1hnfHehlMvcYKyeuUq2bQgzWH
-	 yHZkFAj10N2rLD9cEmje9svEQ780rJxIkAXo19MMXcpaZKH2tcxFzmr5ODf3u7cVfi
-	 svGOKrc3ikWodtfqpOFqUeY+CoUKgxRMKOlSlots9jHAEAiu/r+GGaEpkghE3W+jUD
-	 KUSgBID2WPkfA==
-Date: Thu, 23 Dec 2021 17:32:11 -0800 (PST)
+	b=m0B3GCxmmeYD2b4CD0pnEoZvfJM8sO+RdJiyFpZ2A6Ir6G0W+X3wb8rSBbTYGSPGo
+	 KdbSHlK62cLIxtS0ovrBGCoh7KlQ4YoVv60azrJ79+5D91EmpKtbhDUOlPdLrE9xl5
+	 hg18PBX0JcirQTJS3f1yRyz0JwKXNAIjE+GU8oYeCD8KdChjf4LNjaSYEoLgxadWBg
+	 qW8bkxXk6tQ1I2D+5ZsX+9zUgyqBZhs75UiDtzOC110CDj24eRyrujYd6qQ/7KSWPN
+	 9IoGtS65RQZTGaC8dYDo0Qx4bAq8vQXc2AmDLW1bPGGxsqXqyrxmzMurYuI75WKtiD
+	 x5zZoa7d6XkHg==
+Date: Thu, 23 Dec 2021 17:51:41 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
-    Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-Subject: Re: [XEN PATCH 1/1] xen/arm: introduce dummy iommu node for dom0
-In-Reply-To: <20211222131847.2476835-2-Sergiy_Kibrik@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2112231724570.2060010@ubuntu-linux-20-04-desktop>
-References: <20211222131847.2476835-1-Sergiy_Kibrik@epam.com> <20211222131847.2476835-2-Sergiy_Kibrik@epam.com>
+cc: xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 1/1] arm/xen: don't use xen DMA ops when the device is
+ protected by an IOMMU
+In-Reply-To: <20211222131847.2476835-3-Sergiy_Kibrik@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2112231738550.2060010@ubuntu-linux-20-04-desktop>
+References: <20211222131847.2476835-1-Sergiy_Kibrik@epam.com> <20211222131847.2476835-3-Sergiy_Kibrik@epam.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 22 Dec 2021, Sergiy Kibrik wrote:
-> Currently no IOMMU properties are exposed to dom0, thus kernel by default
-> assumes no protection and enables swiotlb-xen, which leads to costly and
-> unnecessary buffers bouncing.
-> 
-> To let kernel know which device is behing IOMMU and hence needs no swiotlb
-> services we introduce dummy xen-iommu node in FDT and link protected device
-> nodes to it, using here device tree iommu bindings.
+> Only Xen is able to know if a device can safely avoid to use xen-swiotlb.
+> However since Xen links FDT nodes of protected devices to special dummy
+> xen-iommu node we can use that information to decide whether
+> xen-swiotlb is needed.
 > 
 > Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-
-Hi Sergiy,
-
-Thanks for the patch, I like how simple it is. FYI the patch doesn't
-apply cleanly to staging any longer, you might need to rebase it.
-
-
 > ---
->  xen/arch/arm/domain_build.c           | 44 +++++++++++++++++++++++++++
->  xen/include/asm-arm/kernel.h          |  3 ++
->  xen/include/public/device_tree_defs.h |  1 +
->  3 files changed, 48 insertions(+)
+>  arch/arm/mm/dma-mapping.c   | 2 +-
+>  arch/arm/xen/enlighten.c    | 9 +++++++++
+>  arch/arm64/mm/dma-mapping.c | 2 +-
+>  include/xen/swiotlb-xen.h   | 1 +
+>  4 files changed, 12 insertions(+), 2 deletions(-)
 > 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 6cfc772e66..951ca0a0cb 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -623,6 +623,12 @@ static int __init write_properties(struct domain *d, struct kernel_info *kinfo,
->          }
->      }
+> diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
+> index c4b8df2ad328..fc875dd16e0e 100644
+> --- a/arch/arm/mm/dma-mapping.c
+> +++ b/arch/arm/mm/dma-mapping.c
+> @@ -2280,7 +2280,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
+>  	set_dma_ops(dev, dma_ops);
 >  
-> +    if ( iommu_node && kinfo->phandle_iommu && dt_device_is_protected(node) )
-> +    {
-> +        res = fdt_property_cell(kinfo->fdt, "iommus", kinfo->phandle_iommu);
-> +        if ( res )
-> +            return res;
-> +    }
->      return 0;
->  }
+>  #ifdef CONFIG_XEN
+> -	if (xen_initial_domain())
+> +	if (xen_initial_domain() && !xen_is_protected_device(dev))
+>  		dev->dma_ops = &xen_swiotlb_dma_ops;
+>  #endif
+>  	dev->archdata.dma_ops_setup = true;
+> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
+> index 49f566ad9acb..b36659238db3 100644
+> --- a/arch/arm/xen/enlighten.c
+> +++ b/arch/arm/xen/enlighten.c
+> @@ -66,6 +66,15 @@ static __read_mostly unsigned int xen_events_irq;
+>  uint32_t xen_start_flags;
+>  EXPORT_SYMBOL(xen_start_flags);
 >  
-> @@ -948,6 +954,38 @@ static int __init make_cpus_node(const struct domain *d, void *fdt)
->      return res;
->  }
->  
-> +static int __init make_iommu_node(const struct domain *d,
-> +                                  const struct kernel_info *kinfo)
+> +bool xen_is_protected_device(struct device *dev)
 > +{
-> +    const char compat[] = "xen,iommu-el2-v1";
-> +    int res;
-> +
-> +    if ( !kinfo->phandle_iommu )
-> +        return 0;
-> +
-> +    dt_dprintk("Create iommu node\n");
-> +
-> +    res = fdt_begin_node(kinfo->fdt, "xen-iommu");
-> +    if ( res )
-> +        return res;
-> +
-> +    res = fdt_property(kinfo->fdt, "compatible", compat, sizeof(compat));
-> +    if ( res )
-> +        return res;
-> +
-> +    res = fdt_property_cell(kinfo->fdt, "#iommu-cells", 0);
-> +    if ( res )
-> +        return res;
-> +
-> +    res = fdt_property_cell(kinfo->fdt, "phandle", kinfo->phandle_iommu);
-> +
-> +    res = fdt_end_node(kinfo->fdt);
-> +    if ( res )
-> +        return res;
-> +
-> +    return res;
+> +	struct fwnode_handle *fwnode =
+> +		fwnode_find_reference(dev_fwnode(dev), "iommus", 0) ;
+> +	if (IS_ERR(fwnode))
+> +		return false;
+> +	return of_device_is_compatible(to_of_node(fwnode), "xen,iommu-el2-v1");
 > +}
-> +
->  static int __init make_gic_node(const struct domain *d, void *fdt,
->                                  const struct dt_device_node *node)
+
+We need to add a description of the "xen,iommu-el2-v1" compatible node
+under Documentation/devicetree/bindings. Maybe it could be added to
+Documentation/devicetree/bindings/arm/xen.txt, but it could also be its
+own new file.
+
+
+>  int xen_unmap_domain_gfn_range(struct vm_area_struct *vma,
+>  			       int nr, struct page **pages)
 >  {
-> @@ -1584,6 +1622,10 @@ static int __init handle_node(struct domain *d, struct kernel_info *kinfo,
->          if ( res )
->              return res;
+> diff --git a/arch/arm64/mm/dma-mapping.c b/arch/arm64/mm/dma-mapping.c
+> index 93e87b287556..68248e72e052 100644
+> --- a/arch/arm64/mm/dma-mapping.c
+> +++ b/arch/arm64/mm/dma-mapping.c
+> @@ -53,7 +53,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
+>  		iommu_setup_dma_ops(dev, dma_base, size);
 >  
-> +        res = make_iommu_node(d, kinfo);
-> +        if ( res )
-> +            return res;
-> +
->          res = make_memory_node(d, kinfo->fdt, addrcells, sizecells, &kinfo->mem);
->          if ( res )
->              return res;
-> @@ -2177,6 +2219,8 @@ static int __init prepare_dtb_hwdom(struct domain *d, struct kernel_info *kinfo)
->      ASSERT(dt_host && (dt_host->sibling == NULL));
+>  #ifdef CONFIG_XEN
+> -	if (xen_initial_domain())
+> +	if (xen_initial_domain() && !xen_is_protected_device(dev))
+>  		dev->dma_ops = &xen_swiotlb_dma_ops;
+
+This patch needs to be rebased on the latest master. You'll see that now
+we have a more sophisticated xen_swiotlb_detect(), instead of the simple
+xen_initial_domain() we used to have. Still, xen_swiotlb_detect() is
+global, not per device, so I think this change would still apply as is,
+resulting in:
+
+if (xen_swiotlb_detect() && !xen_is_protected_device(dev))
+    dev->dma_ops = &xen_swiotlb_dma_ops;
+
+
+>  #endif
+>  }
+> diff --git a/include/xen/swiotlb-xen.h b/include/xen/swiotlb-xen.h
+> index d5eaf9d682b8..00b2782430fb 100644
+> --- a/include/xen/swiotlb-xen.h
+> +++ b/include/xen/swiotlb-xen.h
+> @@ -8,6 +8,7 @@ void xen_dma_sync_for_cpu(struct device *dev, dma_addr_t handle,
+>  			  size_t size, enum dma_data_direction dir);
+>  void xen_dma_sync_for_device(struct device *dev, dma_addr_t handle,
+>  			     size_t size, enum dma_data_direction dir);
+> +bool xen_is_protected_device(struct device *dev);
 >  
->      kinfo->phandle_gic = dt_interrupt_controller->phandle;
-> +    if ( is_iommu_enabled(d) )
-> +        kinfo->phandle_iommu = GUEST_PHANDLE_IOMMU;
-
-It doesn't look like we need to save GUEST_PHANDLE_IOMMU under kinfo.
-GUEST_PHANDLE_IOMMU is static. Instead we can just:
-
-if ( !is_iommu_enabled(d) )
-    return 0;
-
-at the beginning of make_iommu_node. Same for write_properties, we can
-just skip the kinfo->phandle_iommu check and use GUEST_PHANDLE_IOMMU in
-fdt_property_cell.
-
-
-
-
-
->      fdt = device_tree_flattened;
->  
->      new_size = fdt_totalsize(fdt) + DOM0_FDT_EXTRA_SIZE;
-> diff --git a/xen/include/asm-arm/kernel.h b/xen/include/asm-arm/kernel.h
-> index 874aa108a7..efe09cd1e0 100644
-> --- a/xen/include/asm-arm/kernel.h
-> +++ b/xen/include/asm-arm/kernel.h
-> @@ -39,6 +39,9 @@ struct kernel_info {
->      /* GIC phandle */
->      uint32_t phandle_gic;
->  
-> +    /* dummy iommu phandle */
-> +    uint32_t phandle_iommu;
-> +
->      /* loader to use for this kernel */
->      void (*load)(struct kernel_info *info);
->      /* loader specific state */
-> diff --git a/xen/include/public/device_tree_defs.h b/xen/include/public/device_tree_defs.h
-> index 209d43de3f..df58944bd0 100644
-> --- a/xen/include/public/device_tree_defs.h
-> +++ b/xen/include/public/device_tree_defs.h
-> @@ -7,6 +7,7 @@
->   * onwards. Reserve a high value for the GIC phandle.
->   */
->  #define GUEST_PHANDLE_GIC (65000)
-> +#define GUEST_PHANDLE_IOMMU (GUEST_PHANDLE_GIC + 1)
->  
->  #define GUEST_ROOT_ADDRESS_CELLS 2
->  #define GUEST_ROOT_SIZE_CELLS 2
-> -- 
-> 2.25.1
-> 
-> 
+>  extern int xen_swiotlb_init(int verbose, bool early);
+>  extern const struct dma_map_ops xen_swiotlb_dma_ops;
 
