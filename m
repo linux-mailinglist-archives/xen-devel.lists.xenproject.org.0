@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B24C047F662
-	for <lists+xen-devel@lfdr.de>; Sun, 26 Dec 2021 11:08:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.251838.432872 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D63347F665
+	for <lists+xen-devel@lfdr.de>; Sun, 26 Dec 2021 11:23:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.251848.432882 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n1QQi-0001lA-D7; Sun, 26 Dec 2021 10:07:04 +0000
+	id 1n1Qg9-0004BD-RX; Sun, 26 Dec 2021 10:23:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 251838.432872; Sun, 26 Dec 2021 10:07:04 +0000
+Received: by outflank-mailman (output) from mailman id 251848.432882; Sun, 26 Dec 2021 10:23:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n1QQi-0001iN-8B; Sun, 26 Dec 2021 10:07:04 +0000
-Received: by outflank-mailman (input) for mailman id 251838;
- Sun, 26 Dec 2021 10:07:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UNhb=RL=gmail.com=gengdongjiu1@srs-se1.protection.inumbo.net>)
- id 1n1QQf-0001iH-Rh
- for xen-devel@lists.xenproject.org; Sun, 26 Dec 2021 10:07:02 +0000
-Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
- [2a00:1450:4864:20::141])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8fe1b60f-6633-11ec-9e60-abaf8a552007;
- Sun, 26 Dec 2021 11:07:00 +0100 (CET)
-Received: by mail-lf1-x141.google.com with SMTP id bq20so28434944lfb.4
- for <xen-devel@lists.xenproject.org>; Sun, 26 Dec 2021 02:06:58 -0800 (PST)
+	id 1n1Qg9-000498-OP; Sun, 26 Dec 2021 10:23:01 +0000
+Received: by outflank-mailman (input) for mailman id 251848;
+ Sun, 26 Dec 2021 10:23:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1n1Qg8-00048y-7R; Sun, 26 Dec 2021 10:23:00 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1n1Qg8-0005Dm-4V; Sun, 26 Dec 2021 10:23:00 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1n1Qg7-0007Ag-Pt; Sun, 26 Dec 2021 10:22:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1n1Qg7-0002SZ-PV; Sun, 26 Dec 2021 10:22:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,269 +42,332 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8fe1b60f-6633-11ec-9e60-abaf8a552007
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=IbpO5BHDLj63Oyo5xP5NJt5Um1JFeAZFXNeWCYYJRYU=;
-        b=Y5mbvQfhUNwv1q64FRNOIExPTXvyK6p2MjrLQ/j4vUcfwojeKsALvIJfi3Oxk9b4TN
-         HCuPkWLx+0Z2uUS32DtxrdjM18AL/kMnW0VSQoZMCrKR0iTLG8cThvBhf5fa9rVhS1vP
-         cA66ofx9wDLsBKWOE9BU8iH8jSzOgfLYuS074CiNy9CnXya2CTAIyn9knjZbfaV6Dvrx
-         yRh3I3wW/2+jG52HOc7lG6rWtJB1NjC83QlsqVWpfIVnbZ6fzxO6hoBKHOCTXyVpy4Pl
-         xq7yulz/K5nLTLt8s4kwggzCX/VU5LINRLSD72JBrJ+25YlAJ848Oa1Cl7fR81Sto5Qq
-         6fUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=IbpO5BHDLj63Oyo5xP5NJt5Um1JFeAZFXNeWCYYJRYU=;
-        b=AVDD5xrUaD6FK4eFgiD1D5ib232/Ur/On8+6FS1QI8WCX2zYqYrG1Laa5wD+fuz39F
-         HD9si3xSZsQH6lsXZKgaKxY217b03r8YjFChug5oKbL+cCFeXIx/0cXgKnx8WWCfkvxh
-         LuAridhCnXm7Msb52a+rhzwDDYgtvwJGaXA7cxc2y9MsNBOO90M12z8I5aeX0e5examg
-         yl5l6xPkBWR/x6Om0Qif9QO7+dtTVAHbNgdQcjE96/OiXMfxhl8oHDdi5KMakofB44V3
-         22z5kpxMhxNM3YDJa9utxRWAT7vKQ4+Om3NsfuQ4WD2rJcVH32LoFwvuIuP4Bnf/I27w
-         NBwg==
-X-Gm-Message-State: AOAM531KB/k2Z+BUhCCRvp20jWCxx4pESe/88sSqT9laD5/joNq5Hcpy
-	Hmg6HSR863kL/RkvdYjsTLDIC0TQTrIRrq/RAWo=
-X-Google-Smtp-Source: ABdhPJwVTUlQodlCjg8Fd0JAMmKjjxwN9OYagkodZlbvv9snlCyXwyvmAnzUEov/fc9n7YwqHz7y5av4aG3P19BtITs=
-X-Received: by 2002:ac2:4bc1:: with SMTP id o1mr11466084lfq.525.1640513218004;
- Sun, 26 Dec 2021 02:06:58 -0800 (PST)
-MIME-Version: 1.0
-References: <20211224122451.1210382-1-gengdongjiu1@gmail.com>
- <22172c85-b024-a28a-e351-82038cf0efa1@xen.org> <CABSBigQjy2jvW6czAXHMvVc9DmHRED5HWz-5At6FN9gPLnzsng@mail.gmail.com>
- <9a1edb02-ad32-4229-6baf-dbe69d7e718b@xen.org>
-In-Reply-To: <9a1edb02-ad32-4229-6baf-dbe69d7e718b@xen.org>
-From: Dongjiu Geng <gengdongjiu1@gmail.com>
-Date: Sun, 26 Dec 2021 18:06:46 +0800
-Message-ID: <CABSBigTZ--z_ZCGd6-VQEvfyu+166WA2C_Ns7qFiWPay9A=hUA@mail.gmail.com>
-Subject: Re: [PATCH v2] xen/arm: fix the build error for GIC on ARM64 QEMU Platform
-To: Julien Grall <julien@xen.org>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=2aoovwZs/iZjDYAOxygJHce+/pbH1XiNpgSzk1mpHFY=; b=jS14QeJsWERl191ijJWEncmMrp
+	njvr4kU1yAnlJ58QNUUUcpDJ/8IDTie4nW4vrW80F4aBENk6wgohTpZ/zOmL6Jg3q6qGgvxUzeDsI
+	Qj+gq49nwM69JcSAOyBhb5OpMHAvUMYAg4Mh4hjT80AxdAvE0RdqtVWltuBmERjI7DJg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-167542-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 167542: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=81971f1de73d502e11f75008c4edd7d3f8914d18
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 26 Dec 2021 10:22:59 +0000
 
-Julien Grall <julien@xen.org> =E4=BA=8E2021=E5=B9=B412=E6=9C=8824=E6=97=A5=
-=E5=91=A8=E4=BA=94 22:21=E5=86=99=E9=81=93=EF=BC=9A
->
-> Hi,
->
-> I am not sure why you dropped the others. I have added them back.
+flight 167542 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167542/
 
-sorry, it is my mistake
+Regressions :-(
 
->
-> On 24/12/2021 14:36, Dongjiu Geng wrote:
-> > Julien Grall <julien@xen.org> =E4=BA=8E2021=E5=B9=B412=E6=9C=8824=E6=97=
-=A5=E5=91=A8=E4=BA=94 21:25=E5=86=99=E9=81=93=EF=BC=9A
-> >>
-> >> Hi,
-> >>
-> >> On 24/12/2021 13:24, Dongjiu Geng wrote:
-> >>> when enable CONFIG_NEW_VGIC in ARM64 QEMU Platform, it will build fai=
-led.
-> >>> so fix it and make it can select GICV2.
-> >>
-> >> As I said in v1, last time I checked QEMU was only able to support
-> >> virtualization with GICv3. This is why we added a depends on.
-> >
-> > I enabled CONFIG_NEW_VGIC, then it will use GICv2. In my check, it
-> > does not report an error.
-> > My QEMU emulator version is 4.0.0.  What is the QEMU version that you u=
-sed?
->
-> I am using a more recent QEMU. However, I have always only used GICv3
-> becuase it was IIRC there first.
->
-> >
-> >>
-> >> If you want to remove it, then I think you ought to explain in the
-> >> commit message why this is fine. A pointer to the commit or a QEMU
-> >> version used would be useful.
-> >
-> > OK=EF=BC=8Cthanks. Can you check if QEMU 4.0.0 is workable with GICv2 o=
-n your side?
->
-> I don't have direct access to my QEMU setup at the moment. However,
-> looking at the history.
->
-> So I would suggest the following commit message:
->
-> "
-> xen/arm: Allow QEMU platform to be built with GICv2
->
-> Trying to select PLATFORM_QEMU with NEW_VGIC will result to Kconfig
-> complain about unmet dependencies:
->
-> tools/kconfig/conf  --syncconfig Kconfig
->
-> WARNING: unmet direct dependencies detected for GICV3
->    Depends on [n]: ARM_64 [=3Dy] && !NEW_VGIC [=3Dy]
->    Selected by [y]:
->    - QEMU [=3Dy] && <choice> && ARM_64 [=3Dy]
->
-> WARNING: unmet direct dependencies detected for GICV3
->    Depends on [n]: ARM_64 [=3Dy] && !NEW_VGIC [=3Dy]
->    Selected by [y]:
->    - QEMU [=3Dy] && <choice> && ARM_64 [=3Dy]
->
-> WARNING: unmet direct dependencies detected for GICV3
->    Depends on [n]: ARM_64 [=3Dy] && !NEW_VGIC [=3Dy]
->    Selected by [y]:
->    - QEMU [=3Dy] && <choice> && ARM_64 [=3Dy]
->
->
-> It turns out that QEMU has been supporting GICv2 virtualization since
-> v3.1.0. So an easy way to solve the issue and allow more custom support
-> is to remove the dependencies on GICv3.
-> "
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
 
-Ok, thanks very much for your suggestion.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
 
->
-> > It is workable on my side.
-> >
-> >
-> >>
-> >>>
-> >>> Signed-off-by: Dongjiu Geng <gengdongjiu1@gmail.com>
-> >>> ---
-> >>> $ make dist-xen XEN_TARGET_ARCH=3Darm64 CROSS_COMPILE=3Daarch64-linux=
--gnu- -j10
-> >>> make -C xen install
-> >>> make[1]: Entering directory '/home/workspace/gengdongjiu/old_machine/=
-XEN/xen/xen'
-> >>> make -f /home/workspace/gengdongjiu/old_machine/XEN/xen/xen/tools/kco=
-nfig/Makefile.kconfig ARCH=3Darm64 SRCARCH=3Darm HOSTCC=3D"gcc" HOSTCXX=3D"=
-g++" syncconfig
-> >>> make[2]: Entering directory '/home/workspace/gengdongjiu/old_machine/=
-XEN/xen/xen'
-> >>> gcc -Wp,-MD,tools/kconfig/.conf.o.d      -c -o tools/kconfig/conf.o t=
-ools/kconfig/conf.c
-> >>> gcc -Wp,-MD,tools/kconfig/.confdata.o.d      -c -o tools/kconfig/conf=
-data.o tools/kconfig/confdata.c
-> >>> gcc -Wp,-MD,tools/kconfig/.expr.o.d      -c -o tools/kconfig/expr.o t=
-ools/kconfig/expr.c
-> >>> flex -otools/kconfig/lexer.lex.c -L tools/kconfig/lexer.l
-> >>> bison -o tools/kconfig/parser.tab.c --defines=3Dtools/kconfig/parser.=
-tab.h -t -l tools/kconfig/parser.y
-> >>> gcc -Wp,-MD,tools/kconfig/.preprocess.o.d      -c -o tools/kconfig/pr=
-eprocess.o tools/kconfig/preprocess.c
-> >>> gcc -Wp,-MD,tools/kconfig/.symbol.o.d      -c -o tools/kconfig/symbol=
-.o tools/kconfig/symbol.c
-> >>> gcc -Wp,-MD,tools/kconfig/.lexer.lex.o.d     -I /home/workspace/gengd=
-ongjiu/old_machine/XEN/xen/xen/tools/kconfig -c -o tools/kconfig/lexer.lex.=
-o tools/kconfig/lexer.lex.c
-> >>> gcc -Wp,-MD,tools/kconfig/.parser.tab.o.d     -I /home/workspace/geng=
-dongjiu/old_machine/XEN/xen/xen/tools/kconfig -c -o tools/kconfig/parser.ta=
-b.o tools/kconfig/parser.tab.c
-> >>> gcc  -o tools/kconfig/conf tools/kconfig/conf.o tools/kconfig/confdat=
-a.o tools/kconfig/expr.o tools/kconfig/lexer.lex.o tools/kconfig/parser.tab=
-.o tools/kconfig/preprocess.o tools/kconfig/symbol.o
-> >>> tools/kconfig/conf  --syncconfig Kconfig
-> >>>
-> >>> WARNING: unmet direct dependencies detected for GICV3
-> >>>     Depends on [n]: ARM_64 [=3Dy] && !NEW_VGIC [=3Dy]
-> >>>     Selected by [y]:
-> >>>     - QEMU [=3Dy] && <choice> && ARM_64 [=3Dy]
-> >>>
-> >>> WARNING: unmet direct dependencies detected for GICV3
-> >>>     Depends on [n]: ARM_64 [=3Dy] && !NEW_VGIC [=3Dy]
-> >>>     Selected by [y]:
-> >>>     - QEMU [=3Dy] && <choice> && ARM_64 [=3Dy]
-> >>>
-> >>> WARNING: unmet direct dependencies detected for GICV3
-> >>>     Depends on [n]: ARM_64 [=3Dy] && !NEW_VGIC [=3Dy]
-> >>>     Selected by [y]:
-> >>>     - QEMU [=3Dy] && <choice> && ARM_64 [=3Dy]
-> >>> make[2]: Leaving directory '/home/workspace/gengdongjiu/old_machine/X=
-EN/xen/xen'
-> >>> make -f Rules.mk _install
-> >>> make[2]: Entering directory '/home/workspace/gengdongjiu/old_machine/=
-XEN/xen/xen'
-> >>> ---
-> >>>    xen/arch/arm/Kconfig           | 5 +++--
-> >>>    xen/arch/arm/platforms/Kconfig | 1 -
-> >>>    2 files changed, 3 insertions(+), 3 deletions(-)
-> >>>
-> >>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> >>> index ecfa6822e4..373c698018 100644
-> >>> --- a/xen/arch/arm/Kconfig
-> >>> +++ b/xen/arch/arm/Kconfig
-> >>
-> >> The change in arch/arm/Kconfig is not really related to this patch.
-> >> Technically the part in platforms/Kconfig is sufficient. I still think
-> >> the change is good to have but it should be in a separate patch.
-> >
-> > sure
-> >
-> >>
-> >>> @@ -35,7 +35,7 @@ config ACPI
-> >>>
-> >>>    config GICV3
-> >>>        bool "GICv3 driver"
-> >>> -     depends on ARM_64 && !NEW_VGIC
-> >>> +     depends on ARM_64
-> >>>        default y
-> >>>        ---help---
-> >>>
-> >>> @@ -44,13 +44,14 @@ config GICV3
-> >>>
-> >>>    config HAS_ITS
-> >>>            bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if U=
-NSUPPORTED
-> >>> -        depends on GICV3 && !NEW_VGIC
-> >>> +        depends on GICV3
-> >>>
-> >>>    config HVM
-> >>>            def_bool y
-> >>>
-> >>>    config NEW_VGIC
-> >>>        bool "Use new VGIC implementation"
-> >>> +     depends on !GICV3
-> >>>        ---help---
-> >>>
-> >>>        This is an alternative implementation of the ARM GIC interrupt
-> >>> diff --git a/xen/arch/arm/platforms/Kconfig b/xen/arch/arm/platforms/=
-Kconfig
-> >>> index c93a6b2756..6d3ee99456 100644
-> >>> --- a/xen/arch/arm/platforms/Kconfig
-> >>> +++ b/xen/arch/arm/platforms/Kconfig
-> >>> @@ -15,7 +15,6 @@ config ALL_PLAT
-> >>>    config QEMU
-> >>>        bool "QEMU aarch virt machine support"
-> >>>        depends on ARM_64
-> >>> -     select GICV3
-> >>>        select HAS_PL011
-> >>>        ---help---
-> >>>        Enable all the required drivers for QEMU aarch64 virt emulated
->
-> While writing a proposal for the commit message, I remembered that the
-> goal of CONFIG_QEMU was to select all the required drivers to be able to
-> boot Xen on QEMU.
->
-> AFAICT, if you start from tiny64_defconfig, you would not have GICv3
-> selected. So we would technically break users of QEMU with GICv3.
+version targeted for testing:
+ libvirt              81971f1de73d502e11f75008c4edd7d3f8914d18
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
 
-I think I can add CONFIG_GICV3=3Dy in arch/arm/configs/tiny64_defconfig
-to this patch, if it must to use GICV3.
+Last test of basis   151777  2020-07-10 04:19:19 Z  534 days
+Failing since        151818  2020-07-11 04:18:52 Z  533 days  515 attempts
+Testing same since   167538  2021-12-25 04:18:56 Z    1 days    2 attempts
 
->
-> I am not entirely sure how to approach it. I can think of 2 options:
->
->   1) Use 'select GICv3 if !NEW_VGIC'
->   2) Add a specific platform for QEMU new vGIC
->
-> I have the feeling that 1) will result to same unmet dependency issue.
-> Stefano any opinions?
+------------------------------------------------------------
+People who touched revisions under test:
+    Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Ani Sinha <ani@anisinha.ca>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastian Germann <bastiangermann@fishpost.de>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Kirbach <christian.kirbach@gmail.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Didik Supriadi <didiksupriadi41@gmail.com>
+  dinglimin <dinglimin@cmss.chinamobile.com>
+  Dmitrii Shcherbakov <dmitrii.shcherbakov@canonical.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fabiano Fidêncio <fabiano@fidencio.org>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Franck Ridel <fridel@protonmail.com>
+  Gavi Teitz <gavi@nvidia.com>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Hiroki Narukawa <hnarukaw@yahoo-corp.jp>
+  Hyman Huang(黄勇) <huangy81@chinatelecom.cn>
+  Ian Wienand <iwienand@redhat.com>
+  Ioanna Alifieraki <ioanna-maria.alifieraki@canonical.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  jason lee <ppark5237@gmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jia Zhou <zhou.jia2@zte.com.cn>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jinsheng Zhang <zhangjl02@inspur.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Joachim Falk <joachim.falk@gmx.de>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Justin Gatzen <justin.gatzen@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Koichi Murase <myoga.murase@gmail.com>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee Yarwood <lyarwood@redhat.com>
+  Lei Yang <yanglei209@huawei.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Liu Yiding <liuyd.fnst@fujitsu.com>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matej Cepl <mcepl@cepl.eu>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Nathan <nathan95@live.it>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Chevsky <nchevsky@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Or Ozeri <oro@il.ibm.com>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Praveen K Paladugu <prapal@linux.microsoft.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Robin Lee <cheeselee@fedoraproject.org>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Chopin <chopin.simon@gmail.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Simon Rowe <simon.rowe@nutanix.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@gmail.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tuguoyi <tu.guoyi@h3c.com>
+  Vasiliy Ulyanov <vulyanov@suse.de>
+  Victor Toso <victortoso@redhat.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Vinayak Kale <vkale@nvidia.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Wei Liu <liuwe@microsoft.com>
+  Wei Liu <wei.liu@kernel.org>
+  Wei-Chen Chen <weicche@microsoft.com>
+  William Douglas <william.douglas@intel.com>
+  Xu Chao <xu.chao6@zte.com.cn>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Fei <yangfei85@huawei.com>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yasuhiko Kamata <belphegor@belbel.or.jp>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
+  zhangjl02 <zhangjl02@inspur.com>
+  zhanglei <zhanglei@smartx.com>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Ye <yezhenyu2@huawei.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+  Zhenzhong Duan <zhenzhong.duan@intel.com>
+  Дамјан Георгиевски <gdamjan@gmail.com>
 
-Stefano?
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
->
-> Cheers,
->
-> --
-> Julien Grall
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 90353 lines long.)
 
