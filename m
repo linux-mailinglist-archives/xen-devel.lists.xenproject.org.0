@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1123348091C
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Dec 2021 13:31:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.252237.433226 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25D69480980
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Dec 2021 14:19:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.252243.433239 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n2Bch-0004Ns-M5; Tue, 28 Dec 2021 12:30:35 +0000
+	id 1n2CNO-0000Ee-DK; Tue, 28 Dec 2021 13:18:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 252237.433226; Tue, 28 Dec 2021 12:30:35 +0000
+Received: by outflank-mailman (output) from mailman id 252243.433239; Tue, 28 Dec 2021 13:18:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n2Bch-0004Ky-J6; Tue, 28 Dec 2021 12:30:35 +0000
-Received: by outflank-mailman (input) for mailman id 252237;
- Tue, 28 Dec 2021 12:30:33 +0000
+	id 1n2CNO-0000B3-9d; Tue, 28 Dec 2021 13:18:50 +0000
+Received: by outflank-mailman (input) for mailman id 252243;
+ Tue, 28 Dec 2021 13:18:48 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8vDp=RN=gmail.com=julien.grall.oss@srs-se1.protection.inumbo.net>)
- id 1n2Bcf-0004Ks-F3
- for xen-devel@lists.xenproject.org; Tue, 28 Dec 2021 12:30:33 +0000
+ <SRS0=twCP=RN=gmail.com=ayan.halder.arm@srs-se1.protection.inumbo.net>)
+ id 1n2CNM-0000Av-B0
+ for xen-devel@lists.xenproject.org; Tue, 28 Dec 2021 13:18:48 +0000
 Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
  [2a00:1450:4864:20::431])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f1312f9e-67d9-11ec-bb0b-79c175774b5d;
- Tue, 28 Dec 2021 13:30:32 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id q16so38097360wrg.7
- for <xen-devel@lists.xenproject.org>; Tue, 28 Dec 2021 04:30:29 -0800 (PST)
+ id b0387da0-67e0-11ec-bb0b-79c175774b5d;
+ Tue, 28 Dec 2021 14:18:47 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id w20so29351960wra.9
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Dec 2021 05:18:47 -0800 (PST)
+Received: from [192.168.1.75] (40.230.9.51.dyn.plus.net. [51.9.230.40])
+ by smtp.gmail.com with ESMTPSA id az15sm17394124wmb.47.2021.12.28.05.18.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Dec 2021 05:18:45 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,76 +43,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1312f9e-67d9-11ec-bb0b-79c175774b5d
+X-Inumbo-ID: b0387da0-67e0-11ec-bb0b-79c175774b5d
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc:content-transfer-encoding;
-        bh=E6MgPsTD0ZQ4tFjPuV9PYpjgE8Fs/AOENSo7Xqx1e+E=;
-        b=aot/prwM5mlDVnUuE39ZXtTIWMGfmXPyC/fCFHBBVohU30Vm9tKSvDBO0v+bqlUHC7
-         f718N5R9bGoICgECmlu4XkXMtD5U0NydwODfMVaGk9v3nw1b2G9g9RhTgn7AGS84iWEs
-         G8vK6lAc+WF5E3ScMf1X9O+DqCwhSiWoYBb5hLonP5B6YxXMs2w7PrEhuL9eKKjaEa8M
-         GAhgGxHRaGztIxJS3zQLaJvmwjG2AWkwjWPSEypb79vyaDcc/B7LUNQonXF+tIrCzCeH
-         8RzX/AgF3jcBiWYK80Q4LNqIJxOrn/sU8mmoPp39P4q2bh2jGgoQHHtxwh8Bc/kcbvt2
-         PqgA==
+        h=from:subject:to:cc:message-id:date:user-agent:mime-version
+         :content-transfer-encoding:content-language;
+        bh=Xi5AJGQaDpl0p63FzDAP4rk1vajquACxcaZRSyZwl4c=;
+        b=fASZXD1x0Lmh22w9PJ5lALlbmlUk6eAd6eMk6mMxoyI66fExRBMVmJ54o/qdTTMMQs
+         +C4FT/GJlbC0BHIwYkDkaacFvXMHcBi8QnaKI7EpdqfhxRfflQEXYxec80zUsceLbT0Z
+         ztx+Y8KyacxkoLclrnJZ/0bOJmPzAPDm3QZNQ8G20UCpI/FWzJwnmwynmROR4i3in8BP
+         mxL22xxdEgqYVqqhbWadgVck5Otz5OMYMFW/xR3V6Iy74WTeBQQqBN9pgj+iJgXGQOGd
+         Kb1T/qH6iP0DsWWOE2hqayGvKIXAZh9B3jHJrpEeb92wUGMtukeMFtSTMvd2SyNe/zh0
+         Y77g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc:content-transfer-encoding;
-        bh=E6MgPsTD0ZQ4tFjPuV9PYpjgE8Fs/AOENSo7Xqx1e+E=;
-        b=rtY5aJB50BLJQaGDZi93qHW3djLxLRGLMDYSNjh7LgaKfvcdLeTiKXZt8JtzhY2Ou+
-         UKXrbsVYjJIHBG/3JgoClbolE7t2eOuUI78zwKRA0JHw04Y+7wj9UOc8rJr+VAqMTyNM
-         uR4eWAIdQuhKTtOcDYWO2cKMnJ7qz36Kl8kq/Gzqbqh/71Uh6WfofM7Oi1lLh/HFFnjO
-         tLZt35W61Ww69j/xXVhqGbacavCkIPrxPpN4JedksUa1c77qrtAoz24PLfEBtgkjB5Mj
-         CAVcpxu2Egi33e4zMSGPgBaRAYTve+0EKfA7tt82gH8O3CaCiEEeY+pivpQUF8V/n1b2
-         R8DQ==
-X-Gm-Message-State: AOAM531ZB2gMrP/CyKumGNNDzPe1SOkRl0jogCUlvquCZZZY8lTKYOXS
-	WmfCq+b0FTzYXhFHuUhX6ottco9qZp+siV06h1M=
-X-Google-Smtp-Source: ABdhPJzkdzVGxlWyn6EpHP03q/IYpbW383CpfT2hGUFQYOiqkcBfzUO4F79bBVAsJQWedr8TzVnuvfMiDpCMmtVSEKQ=
-X-Received: by 2002:a05:6000:1869:: with SMTP id d9mr15988528wri.231.1640694629145;
- Tue, 28 Dec 2021 04:30:29 -0800 (PST)
+        h=x-gm-message-state:from:subject:to:cc:message-id:date:user-agent
+         :mime-version:content-transfer-encoding:content-language;
+        bh=Xi5AJGQaDpl0p63FzDAP4rk1vajquACxcaZRSyZwl4c=;
+        b=WC+z1YD2fDJjxuzyjvzeYGQMShpDi0C+T8UVTAqEVJDqfIK1TlY0oNuklZQZMYKLql
+         8gT1GRdvtKjO1ySgBv1/BCAKaPe0LzW9p4sZnORhytu0ZxRgwOee95aPQOdZ3W1oSprj
+         NCzxZrRi5MJwlygrVkpCCK4v5/5GfN6x0Sx9NpP5KMASCCmScV92Y/p2oIJbwj5JnzuG
+         UKV9Zy1EA1K/N7jcV8oQmi65nRPvKBGyi8Oiiqq5iBDi7iJaXeEqIQ67+QeU3S5fb0ZS
+         D+zJpNgvfscACR9Ptb0tR+FxgZQedAUoo4B9LJmma5d4ULbTseKy6003X6GIyDRU12Ow
+         8+Qw==
+X-Gm-Message-State: AOAM533Vn1CbocSc76pHnut1EZIi3zD+PWyn3jbCXTkcugM7mDqWb8xN
+	UJsMysIYaSiL5AkzafEcDcKJ/nnVyl331TKr
+X-Google-Smtp-Source: ABdhPJxgvjF0GMcyGpn8zikPRmysVjLKXR1lADcfVlTviHTf7pMVdY0MiXa4e0fKZYQGv+PXYBCicg==
+X-Received: by 2002:adf:f8cb:: with SMTP id f11mr16184846wrq.700.1640697526238;
+        Tue, 28 Dec 2021 05:18:46 -0800 (PST)
+From: Ayan Kumar Halder <ayan.halder.arm@gmail.com>
+Subject: Trying to boot xen on Raspberry-pi 3 B+
+To: julien.grall.oss@gmail.com, bertrand.marquis@arm.com,
+ Volodymyr_Babchuk@epam.com, sstabellini@kernel.org
+Cc: xen-devel@lists.xenproject.org
+Message-ID: <ed00e7a6-ed75-5101-0dd1-a5f156aeb68f@gmail.com>
+Date: Tue, 28 Dec 2021 13:18:43 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.14.0
 MIME-Version: 1.0
-References: <20211224122451.1210382-1-gengdongjiu1@gmail.com>
- <22172c85-b024-a28a-e351-82038cf0efa1@xen.org> <CABSBigQjy2jvW6czAXHMvVc9DmHRED5HWz-5At6FN9gPLnzsng@mail.gmail.com>
- <9a1edb02-ad32-4229-6baf-dbe69d7e718b@xen.org> <CABSBigTZ--z_ZCGd6-VQEvfyu+166WA2C_Ns7qFiWPay9A=hUA@mail.gmail.com>
- <CAJ=z9a1o_-3A3=NKkbBT-s2EGM+WKJPiwxSt3q45PWs_9udcdw@mail.gmail.com> <CABSBigTyZ46OjvANi23e3sgL8+AKk73=3AOQnfvwhWcXhM-pgQ@mail.gmail.com>
-In-Reply-To: <CABSBigTyZ46OjvANi23e3sgL8+AKk73=3AOQnfvwhWcXhM-pgQ@mail.gmail.com>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Tue, 28 Dec 2021 13:30:18 +0100
-Message-ID: <CAJ=z9a0dNOBHh3Gw5Q+JeHMRYqRqTrtDzk4p2MWDq2CaTFW4Dw@mail.gmail.com>
-Subject: Re: [PATCH v2] xen/arm: fix the build error for GIC on ARM64 QEMU Platform
-To: Dongjiu Geng <gengdongjiu1@gmail.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 
 Hi,
 
-On Tue, 28 Dec 2021 at 12:37, Dongjiu Geng <gengdongjiu1@gmail.com> wrote:
-> > Please don't update tiny64_defconfig. The goal of tiny64_defconfig is t=
-o
-> > have a config with only the bare-minimum. If add CONFIG_GICV3=3Dy, then=
- it will
-> > be enabled when it is not necessary.
->
-> Ok=EF=BC=8Cwe can let the user configure the CONFIG_GICV3 in tiny64_defco=
-nfig
-> according his neccesary.
-> So I think my modification does not affect the tiny64_defconfig.
+I am trying to boot xen on Raspberry-pi 3 B+ as my hobby project to 
+learn about Xen.
 
-But you modified tiny64_defconfig. Anything you add in it means it is
-going to be enabled by default.
+I used the latest version of xen 
+(f1e268b9fd13647e1f69c8ce0ae7be401d319fc8).  I tried using 
+tiny64_defconfig and built xen-4.17-unstable. Also I enabled printk and 
+set 0x7e215040 as the early printk physical base address (0x7e215040).
 
-> what
-> is your concern about it?
+Then, I just tried to load xen and dtb (the same which has worked fine 
+for linux). However, there is no prints after "Starting kernel ...".
 
-As I wrote before, the goal of tiny64_defconfig is to enable the strict
-minimum. I don't consider GICv3 to be part of this.
+1. Do you know if there is something I am missing ? I am expecting to 
+see the Xen earlyprintk logs.
 
-Instead, we should let each user decide whether they want to include it
-depending on the platform they are targeting.
+2. Is raspberry 3 B+ expected to work with Xen ? I was reading 
+https://www.linux.com/featured/xen-on-raspberry-pi-4-adventures/ and is 
+my understanding correct that only Pi 4 is supported ?
 
-Cheers,
+Kind regards,
+
+Ayan
+
 
