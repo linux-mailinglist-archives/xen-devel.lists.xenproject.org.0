@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27D9B480E64
+	by mail.lfdr.de (Postfix) with ESMTPS id 20078480E63
 	for <lists+xen-devel@lfdr.de>; Wed, 29 Dec 2021 01:55:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.252271.433259 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.252272.433265 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n2NE8-0006Bb-CR; Wed, 29 Dec 2021 00:54:00 +0000
+	id 1n2NE8-0006Hk-Lu; Wed, 29 Dec 2021 00:54:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 252271.433259; Wed, 29 Dec 2021 00:54:00 +0000
+Received: by outflank-mailman (output) from mailman id 252272.433265; Wed, 29 Dec 2021 00:54:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n2NE8-000693-7V; Wed, 29 Dec 2021 00:54:00 +0000
-Received: by outflank-mailman (input) for mailman id 252271;
+	id 1n2NE8-0006Bt-HY; Wed, 29 Dec 2021 00:54:00 +0000
+Received: by outflank-mailman (input) for mailman id 252272;
  Wed, 29 Dec 2021 00:53:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wrt3=RO=renesas.com=yoshihiro.shimoda.uh@srs-se1.protection.inumbo.net>)
- id 1n2NE6-00068s-Ex
- for xen-devel@lists.xenproject.org; Wed, 29 Dec 2021 00:53:58 +0000
+ id 1n2NE7-00068s-Dh
+ for xen-devel@lists.xenproject.org; Wed, 29 Dec 2021 00:53:59 +0000
 Received: from JPN01-OS0-obe.outbound.protection.outlook.com
  (mail-os0jpn01on20700.outbound.protection.outlook.com
  [2a01:111:f403:700c::700])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c928e284-6841-11ec-9e60-abaf8a552007;
- Wed, 29 Dec 2021 01:53:54 +0100 (CET)
+ id cdd1e6bb-6841-11ec-9e60-abaf8a552007;
+ Wed, 29 Dec 2021 01:53:58 +0100 (CET)
 Received: from TYBPR01MB5341.jpnprd01.prod.outlook.com
  (2603:1096:404:8028::13) by TYAPR01MB5054.jpnprd01.prod.outlook.com
  (2603:1096:404:12c::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4823.18; Wed, 29 Dec
- 2021 00:53:47 +0000
+ 2021 00:53:49 +0000
 Received: from TYBPR01MB5341.jpnprd01.prod.outlook.com
  ([fe80::f167:7435:432c:ebdc]) by TYBPR01MB5341.jpnprd01.prod.outlook.com
  ([fe80::f167:7435:432c:ebdc%5]) with mapi id 15.20.4844.014; Wed, 29 Dec 2021
- 00:53:47 +0000
+ 00:53:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,41 +47,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c928e284-6841-11ec-9e60-abaf8a552007
+X-Inumbo-ID: cdd1e6bb-6841-11ec-9e60-abaf8a552007
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HjUcBrgqNZxFAXn2A1eS5org1APEztmZmxPYxxXDkUsB5Ibx+syVVRjSz2ILAqru+gS33TvVaKW/nTa1KIvNqxiVVjuZ8ofNALVYRchv2vQNxWavVFdFqfVhgMdvQzm/joZFKcNhzeJxVPJoVui8LxJoeRNyMRQP4MPoVsmGL3DXQn6NwuwLAWvdJ41bZOBzHypNuI9c6F+qrjXyiTmxBKzMJDPo/6s+QmCDNpj1Fcw2RxtC8hxC2em55Ix6UXtXWh0TryKFOJQSH2H3hexC5/sDZEzULjBbwEI4Uj4GDVfNiW7ss4bNA2BQdIrQ6y9wRNOtENGxXnPiJ53ChMGbcg==
+ b=PdruakidrOctkT2exasEObhPQs511WJuqs526dGnm9SqqBlXreVJY0Ay4Q94BYAUbwpwmuS0Qhw9utnqm04AegIH16uXBfBxkUPQxzAoClp0NaThNBU3rNd84N3i0q1cfNZ803HnKkyBSj3nZNBVC9nq1N0MfxvzX3ylunCAU4asxzpWJ92H4RFFe1MW78RBR5kiIrJ6AC5IlYLwFcenYEM8iYr4KNAIAWVeT9JuM7Zz0tz2ljUvP9VG81VPQMgPOI7XT9KHnXpV0NTFgMwGPXsXHWJONRHnv81HOZiPry3LByVIeQ8JLIcwozDZtikWmDpo3VmS4HwbLUlvEdArOw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U5BQyVqZN7sskrEGvzrguzybhnnr/gy2/aW5PDNK1lg=;
- b=n4bCht83b78i1iwJ8JM/SVnj8DsDkAfobFSB6O1cYkxvYf0/HCye2VZ/mLALomb0B43REi9laHMSH8/GbLSoxmWchn7r/T6hGDaBlveDReBECpgaEd8mqiCbzgLxn+7z60qKmC/MQCan8sMiXwLFFW1ZVognurlcjAZPWh65nfZbaeq7dJBIItQS5nluydhDJJLUvM6ruz3QaBmgXNYOVf6Z7NJ/ZCnOvt9gAhvObiAYbKS/Y6kjUa1j9v6iD/7TS6FKmesDYdYRjJDKQ3KxFoBJNw/VWVT0bb3N1G99UXnrlWmE+ZTICP2nYKiBGsYfEGulnwuw3O/pez9QOD1gMw==
+ bh=XrfrB+mDR3uFUa6BePj1CUc7Wk6nDrhXphJwlhBTGRY=;
+ b=PhmKq1EehsrNUBghs7IPqkl3wCciQIvRxldiamoz7eCwh9AtGfA1qankNa3CCrn8tnYuES0nda81pGyfpQqNaNBLK3wRHUnvyRqM9apqoC1QZSfeNN4g6FTrhK5aB7hNHyf4h4L8KFYUWt/ldxLnbdTpBK7Q0jrbEy2l0wBcaDNXxo3SGQDxc9tGPTgSkRaU72nzuPlwuOjbZTXslrnY6CwIEUkSD5Bx8E/2KzlW72k/MaT3ApBcEfr9ATwdYDd6EsRIkyOxV+Q9luT7wLJYyqeOEgF1EOspEU9XBMtkLlsRWvw5PeeC8+XFT3uwctG7BIAh5XK8RCuS4doZiEGWpw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
  dkim=pass header.d=renesas.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U5BQyVqZN7sskrEGvzrguzybhnnr/gy2/aW5PDNK1lg=;
- b=MTHXYL1OMJ/lAn8wd8DSdC06ZzHMchVdYwS757TvzdMEq6B++HqSQzT1mhRF2lFRI1ghLzWJJijSDtQvTpN2guECRwjFSVkIz7isy0/ASU4d0ut8ZlOBUGVAfjjBCnwK0p8r1w7Wylj16DSniMshfXZw862hWF5lCdYAhkJ8fVI=
+ bh=XrfrB+mDR3uFUa6BePj1CUc7Wk6nDrhXphJwlhBTGRY=;
+ b=G7izcctGQHtvLp3Q+XUJutHumPOlkKIDQq8Ll3isKOaJ4+t/fDLna2SioyfhgclcKkWlkkizFhrNmV8UOGlHvjItHB1XX827g6EN371hmvHr958hq5+qgj1tTsPazPWGwGePOSXjzVR8qDvR5yRNZ0sEyiAz52UmZ90F7c5xZgE=
 From: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
 To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
 	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Jan Beulich
-	<jbeulich@suse.com>, Paul Durrant <paul@xen.org>, Stefano Stabellini
+CC: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Stefano Stabellini
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: RE: [PATCH V2 07/10] iommu/ipmmu-vmsa: Add Renesas R8A779F0 (R-Car
- S4) support
-Thread-Topic: [PATCH V2 07/10] iommu/ipmmu-vmsa: Add Renesas R8A779F0 (R-Car
- S4) support
-Thread-Index: AQHX9ebXat4RyGuQs0+nEBbexUv6B6xIrxzg
-Date: Wed, 29 Dec 2021 00:53:47 +0000
+Subject: RE: [PATCH V2 08/10] iommu/ipmmu-vmsa: Set IPMMU bit
+ IMSCTLR_USE_SECGRP to 0
+Thread-Topic: [PATCH V2 08/10] iommu/ipmmu-vmsa: Set IPMMU bit
+ IMSCTLR_USE_SECGRP to 0
+Thread-Index: AQHX9ebXgjGZd0iLi0ieVXpWLYB8sqxIsLUg
+Date: Wed, 29 Dec 2021 00:53:49 +0000
 Message-ID:
- <TYBPR01MB53417B6CD4E3B6A575891A5FD8449@TYBPR01MB5341.jpnprd01.prod.outlook.com>
+ <TYBPR01MB53418CEF0A1ABE1D7EC09F21D8449@TYBPR01MB5341.jpnprd01.prod.outlook.com>
 References: <1640034957-19764-1-git-send-email-olekstysh@gmail.com>
- <1640034957-19764-8-git-send-email-olekstysh@gmail.com>
-In-Reply-To: <1640034957-19764-8-git-send-email-olekstysh@gmail.com>
+ <1640034957-19764-9-git-send-email-olekstysh@gmail.com>
+In-Reply-To: <1640034957-19764-9-git-send-email-olekstysh@gmail.com>
 Accept-Language: ja-JP, en-US
 Content-Language: ja-JP
 X-MS-Has-Attach:
@@ -89,63 +88,63 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=renesas.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 3f613c14-43f1-4ef3-bcad-08d9ca65abc2
+x-ms-office365-filtering-correlation-id: 90df181b-6ba8-4db2-f493-08d9ca65ad2f
 x-ms-traffictypediagnostic: TYAPR01MB5054:EE_
 x-microsoft-antispam-prvs:
- <TYAPR01MB5054E0FB356188B54DBD123CD8449@TYAPR01MB5054.jpnprd01.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1122;
+ <TYAPR01MB505450A09D3DE0A359CA52C5D8449@TYAPR01MB5054.jpnprd01.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- Jf+PAlvizeF+1+Funj27suNTW9ARTsWxPM8X45W+NquEzXayTItedaYn/383poGIXNgVxkwU1169pJ8bwwzw6Ny5C+yMi5x2fO7YY0J0h6nBNiz5XWB7+pT3Cku8OFmz8kXzVCydy/3+q4B4SdlPw9FNFaupqayxsElvnBxWGruH+bNKiX58xPYWXeeA/qmn98f1BkvX1e9Oz7uKq7gACH1Aaba+SFdlYv1ngh+z2KfzRXe/bxTJmTN6q07ovZ4y+FnEMe1FHK4OrqVQDHXcQF5nWBwMt/4hTa21VGrUmIgQ00+HWMuzRThQJF6eM/rhPKm0ylvQ7flFmf1oEVMmrR2oIpvsI3BBqB3aiPu7xLuvtkAIcKZxnXM6uOWD6esHkSxO85cQsTfZvHA5MEOnk+zCz1Ovz6gCF4LcpcWt2orZAQVr3BfqsIMaiHc+odfVS/fpXoH1afUxrSmtyvFLyWsYetnPmy9mbSM0meTYozLVUt5miodJPaHF/o+jX+AydyS0b2BHHj4E8kjOurn2butKhHJkgH7kpFpYP0GcSfIOu673aQZ33nRKNpI+owE0m1fd23TQE/EFmFfHATGo7F6IA5YHNDG66Tm/1XRDPajYEM9SlhCAcljad7Fkhv/wOqMtiEgWb2zThAGbBhBZLXpeG+CFEkvKKDVcsvJwi2vUv6zHuPchzGFZ92aZkiYAYXuiRLmT3bAsCkf7RoASnIdSB+kSNck8K/1EHZmqrF5rIrj77vUD5HKWgTCK4ylua9Fws8Wqn9MgKY9uMtQUBWZVWDVLMVs3vlSAWis17/0=
+ ek00mJLukQ35nR5D1uFenaa+0i9TPpx4HekAklrcNtskdpDn6sZNP1SYgdTcGqqTJkbA9ohUl1vEeFuPKcSNEMWiD/QCXBQf37YXzzhDJ+oDQeJB8Okac6HYGBGOqM5b1uqeXNzWch5Z9oYX+RRJuorIaRRvI3aY+fIq6XubwFmccHDgN4DvGOxDedCo3bDiOk8CVMRB1eZprqqHJSJ0sH/hY0YNmTL/G5GpJDtBStIHcChT+Vl9Ls79/7DymksvZ3V/CclYbqiWugTJqfAsaii1Xi0DLEzSwDqJozqQnX5IKRvuNu0eTF6VDLD+PR0LspPZl8A33dwpMs+GtBO8MD4daZRPbXQJFQvNL5q1heEl3n/icHiK/wT/SxxZLVTRTTVoeeTv5rk7zqVkJYgt91sWfIxcgOcYMw+KcnGB0pRQob5T2L3YBoLPGKZG/WPLPzD64Dq/1XGamQAG7U24I0dpAUrVPcUdG0gx6N1hVxUXnKgtmMHsxZF/QA34LZwXF3FKPJjqPCozaYVzxz3B4ZGEyTSfOHMoMbXADNPdWTC8VO3KU6kKuXW9AvewvOzSMl93FVWqJr7hnTfL8LHxGx6MBCDxEnDGZFmQ7EefuFalEglKekX7htGua/2awJZG+exzJF9xGN2QdQqBK2A965jwDv39CPd56GN4qL1RiFE1s5d9lWBH3ioM8PBlB2Ua6/jzS0hWxo+kn25SH5IQEg==
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYBPR01MB5341.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(38100700002)(110136005)(9686003)(966005)(508600001)(2906002)(55016003)(33656002)(5660300002)(8936002)(52536014)(7696005)(38070700005)(8676002)(186003)(54906003)(86362001)(66556008)(6506007)(4326008)(316002)(7416002)(45080400002)(122000001)(83380400001)(64756008)(76116006)(71200400001)(66476007)(66446008)(66946007);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYBPR01MB5341.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(38100700002)(110136005)(9686003)(508600001)(2906002)(55016003)(33656002)(5660300002)(8936002)(52536014)(7696005)(38070700005)(8676002)(186003)(54906003)(86362001)(66556008)(6506007)(4326008)(316002)(122000001)(83380400001)(64756008)(76116006)(71200400001)(66476007)(66446008)(66946007);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?nCyLPxeURCllxdFYygfzkOZV+NB1z+jihmYkxzmhrhCS1Ws7YdmEceg0hHdr?=
- =?us-ascii?Q?N9lNEgRsmVjkBZ+VaufG3qQMDe/mZ09XZP4BqwFf7C6o9y1GIGmzM+jA0PEL?=
- =?us-ascii?Q?6sWsWS2SPTXA2r2q1AeeuOKXfPgjJgnN2y4fV40/4Y+cAGYoaOYErINXvBCJ?=
- =?us-ascii?Q?UdKj/o1BvACATELYAavWF20ofD1n8Vc9DT7TctWEMXvWlnDIjqZBfx8EEcyX?=
- =?us-ascii?Q?2Nysx+42sl7cZNRvrQmr4XlnETsgWGEM25Q9mqs3yqe08hq81WzSL5g65bxA?=
- =?us-ascii?Q?E71ffjRkq1VmmIXz8ZuQ/RWd+EarsZy87O8ChfEnH6sY1q5wB/jDeRIWfYeo?=
- =?us-ascii?Q?Sbg8B12IJADWHjsEqvGMB9c2S1CIbR+pav5y93c0y2NWMavUx2mbp+1VdZ52?=
- =?us-ascii?Q?DXdk7IuHLftHlizZ6WAB7X0eG0xqO12EFc8+Dxkt6yYeKQK+m0SwAS2E39j9?=
- =?us-ascii?Q?yEjXHypWrGttqeV8t0OGBt+r0uZ+WzpwRb4UQ2g2Nv2rmjlgia08mdDZke6h?=
- =?us-ascii?Q?jnm/X0+PQ7SjKHIagldSbFfUxsn19oMoTJs0mYQhEeyoJjXqdiudto6EXivV?=
- =?us-ascii?Q?a6iVI3hpE5TNp3v+SlcHPbsuV7C7RqZ//9UNN8N7bOeAUOUKNH8f2/OIluP6?=
- =?us-ascii?Q?a3SLYZeTdsaZclMJ3qHz3+lini/YGKNMOOJQIakEOwbtqBEsVx75lZhkw45Q?=
- =?us-ascii?Q?Evm7xNRAgMqJ4HuFdFAYUfkT6VzGczNpx5ATPZjV2ZHL7PYKR/wD56UGXgPm?=
- =?us-ascii?Q?XvFCGf7UsBnNFaBQpibyc74M3JYazGj99ZTZBaqWVX4Ruh9VN/Yy6oUgg1aN?=
- =?us-ascii?Q?R880l8m8YFcyGiC3j4PkAbM8mrc2gtJ1vlNxwdkKGu1/KnrBo2nS2PnPRAOn?=
- =?us-ascii?Q?Kf8SxHTFeYp1dC/zD3/b+DVhDECAGqZRpFsEJQCUsRDaBADskjhnnlJAo6Ga?=
- =?us-ascii?Q?HaDNEDUisN8TqGV1lfDOzFjnoCR5ULeGCocOh2cqkGs7PaiZhbupG0LZl5L/?=
- =?us-ascii?Q?yUTNLtL2kOu8MvarpzwAk2mekub1egKOKVK5hKJ6NsvweQKGh2/GeFei+P0G?=
- =?us-ascii?Q?2lX3L7lrP7byu7ab6lthD1hvtgJtTDf6LEasn2Ih0TBf4OwRH6lsAOiSGRFM?=
- =?us-ascii?Q?xIQEcp+Ba8APFTidVFPZSV5JeA43YW4oJWkj6VmRtwWiJNLs8ooIXjCwTwNK?=
- =?us-ascii?Q?qjeWWIk5JBj+UuUopLvXq4VsWifov1L1I7E8CKAQ2zeMLacd1mzf9aYAgkHZ?=
- =?us-ascii?Q?9eLEXUmhFZ6osVuDY9ZOtNLpzBq4io1V5+9QBIT+lUwRDyHUsSDMsY3ghgsc?=
- =?us-ascii?Q?k3c5JlO3NmTDrBeH8XieQLAaflY7pDBtt9KFHdxvLOVYSiwAweZovKaCcO41?=
- =?us-ascii?Q?NxISiZU9C5gqp0qlxRsLN1lExi3edaTxqMvZAuyHB18Ib29asAZ0BvNAlIlU?=
- =?us-ascii?Q?/NscFgr25wx6V5Ll0AYhPXGQLa9QJEWo4Fi0jCjTw+sf2PlcLtgfFoXPDwAj?=
- =?us-ascii?Q?Hrc1kvE1g3xGybwvndNrVrmwo4iNCvoyb+hMNnTnUW3Knq73coNQhuxulOGf?=
- =?us-ascii?Q?ccg9x6E/J8npXc+lXbI44zpQPIgEsSKw3GBiwfod1DXBOSbM3eWVKSVLWxkE?=
- =?us-ascii?Q?djfSCbE0Et7j12AVPDxWg1HiE4pvDsl4c4xv7fGagVdjr70UBs/So7ZhLLt/?=
- =?us-ascii?Q?+i91/lEMC94E5JltVMd2o76oXh2KLjxrzYgzfNwZW6+dkUG0/bUQw2XEvDx0?=
- =?us-ascii?Q?ZQVYDvFzV3/A+49XtDfy6fpZdbPqFmIaSOoIckzaVwbKzmEb5Can?=
+ =?us-ascii?Q?BMqBggItQ9WAihhFKjuQ0KGADFXh8baL8V77VCjzl93hr7jNmOJmE9tjcVQG?=
+ =?us-ascii?Q?Cu3sDZueeAmkY8GLXLP2KBNAwA1MSL8ktddr5v1i3NuDKXm1BRuOu8GH0a2u?=
+ =?us-ascii?Q?ZJXAFW4dO0BfLUHsttKNKRU74a0Y6ezcWmug4WN4nySSqJCGt+rYsfGAKnTI?=
+ =?us-ascii?Q?ZXUpa+KJS7dPRAw056G77In/BIdy6cG4SegX+J9bzGtyxvA46Ad2bgUypKfn?=
+ =?us-ascii?Q?gaK7RQknTuvjlL7lIawbbi0vDf8jP5+NzxptoFP/tNiskHuTI+dpHiG+HJvm?=
+ =?us-ascii?Q?vXeQIhMtxZheXlV2QTLRrCzJ3P/L2iDugEY/tVSvwgoTA0nfioo7mzUK2viG?=
+ =?us-ascii?Q?eoJobanUhVXpHOLaO8xQZd+TOgXA0HR4M3bBhTP/WTyh9HyJmZtAm9humIVT?=
+ =?us-ascii?Q?VRUHLxQ2BU0ILMsdlxH5cZJJ16GvEEBtxIgggkYFu2XJ8NbkT3xht5PLYOW0?=
+ =?us-ascii?Q?+hUM6di7brHc5j1sUcUU8IIOby+NOG4hRZrDR2zPkTNJ7lRdu8O2hSuBwSas?=
+ =?us-ascii?Q?FSeVbinHO0WBFrmF9hUDDVftFOFVOwqoUhP1wakf91yuno5nPigdQHFO7m+4?=
+ =?us-ascii?Q?KEcvgZkXwrPgnKMeBnZJnoyW+4FbGzc2d01mjkTavnCePV6WnrAvWRdqypig?=
+ =?us-ascii?Q?kwTPRAfaj+d79AkQjh7BszEJvntTo3U5y06oyRC/zeuD1rBYjYbbiFuRGi2f?=
+ =?us-ascii?Q?RGGSbc6DoPv76ruV2bMTX98/LtV4+Vz74/+Hx7Mo4zUPZYxdwr8I0EgS7v/l?=
+ =?us-ascii?Q?Lh5TDgH1oztEmc3HruJioQd6iesIhM0KqCviN5412SN8USAOHWnohU/QfQ5U?=
+ =?us-ascii?Q?7g5k0K+Zu4Q9SKFtbBi+lg9arOoWXdhwPA9PEIGOV+J2/F7lQ2o+trW4Y2BI?=
+ =?us-ascii?Q?BrVLAngfsEG4YmdIMQ89bwr+gYQ9fpgTI66JDevMSim3K2T8yCkSRxeb8a5l?=
+ =?us-ascii?Q?ROVLubinx6sJzOwNHLsJF99Mzb78bAvne3G4rGkzVUBFe6pXAdjYVkMqcr5a?=
+ =?us-ascii?Q?555A4h61iZ55BJy47xaV6OM+rGtJAOIcJMgGXZxEU641JbswCDRaOX1DQEvG?=
+ =?us-ascii?Q?M5aA+ZHs6YzWGwACDbUYKroB3tp6mVj0AyfSbOJuHp2AKrgggJ0K6cbtgfrX?=
+ =?us-ascii?Q?+Vf26/zPbcUhtnr/Fi/tNntOOcbP7VvXiskprLoq/tFIRnAlp55pL7VyGnKT?=
+ =?us-ascii?Q?ZTZ8csM7/lAO0JYV8taX1LlyU55os63twnSYRFAskgyP2If485bjfwj1mWpq?=
+ =?us-ascii?Q?Z/bxUhcwzkfWGiuH1I5CQ3cBZG2kD4s9YLUq2ONOiO7WgK4zR5rS2akevqFJ?=
+ =?us-ascii?Q?2wGK+nwzJJQnQLfR5KmvKWHSayEgdacbv257N7dpa61+bW3CRQWGTQuuoXAz?=
+ =?us-ascii?Q?Pq+4+6cZc8ckQ1xkQ+RDe2vYl/dKfUCCSeSi3UrMvzrMeAld7GhZMgd9shhI?=
+ =?us-ascii?Q?zwWeS2q6iy996XVCP71lq0cohHQodK/fzZ6VGs95gMbsuUdFKmiY0R1i+FW5?=
+ =?us-ascii?Q?PXfJdfWzZWuVTAkgzZdJLKXd0qVnwWzH0d42xqhx6YDWDB0W7CI21DPv3U2y?=
+ =?us-ascii?Q?6Q6EiOu1/5A6OnGhBnL0Zk+yqgX6cSEhqLYbOzMzOG/+DdTBsG0B2EjyAdLq?=
+ =?us-ascii?Q?zoFOBxOb2qlq9/sIBV3Ceo0zkUQDbHi5ioWRtPTn1KbT9OFjnYboyr3O93Fj?=
+ =?us-ascii?Q?n79xgOpEV5aayaaMlwFcZkT0YBkdu+u9830Ax2KpVfeSL51jRWjzx1RFcS7i?=
+ =?us-ascii?Q?sFVhXAF/G3736zHF3DRWaQBYA9jUBSN79BLQL7X7YCcPCrP5M+Qp?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: renesas.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: TYBPR01MB5341.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f613c14-43f1-4ef3-bcad-08d9ca65abc2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Dec 2021 00:53:47.0983
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90df181b-6ba8-4db2-f493-08d9ca65ad2f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Dec 2021 00:53:49.4360
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: E3SnZl9Ak/T/Q8oGTbjiGfmCepEpsBQ063xurf028HpWEsDZRlCu3LFduQ5dpcIq294YDb0SvYH0hNtSUnkUSa66YXerYMWqJs0RD1kEXRgqMcj6FsTlFRfLScPlF0xP
+X-MS-Exchange-CrossTenant-userprincipalname: 5YZT5EvVFfRqXvx1fSHSMCt16YXobWuSLzLiMWyp+t3ztKZ1wJsvZdRtuuxknIMkDDCfhWHvrszVl2A/9feMVgV9ajQUxra2+zmsT71yIWkuGoQmn5IQlpk8cOo9sINk
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYAPR01MB5054
 
 Hello Oleksandr-san,
@@ -154,60 +153,59 @@ Hello Oleksandr-san,
 >=20
 > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 >=20
-> Based on the following Linux upsteam commit:
-> 7a62ced8ebd0e1b692c9dc4781a8d4ddb0f74792
+> Based on the following commits from the Renesas BSP:
+> 8fba83d97cca709a05139c38e29408e81ed4cf62
+> a8d93bc07da89a7fcf4d85f34d119a030310efa5
+> located at:
+<snip>
 >=20
-> Original commit message:
->  commit 7a62ced8ebd0e1b692c9dc4781a8d4ddb0f74792
->  Author: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
->  Date:   Tue Sep 7 17:30:20 2021 +0900
+> Original commit messages:
+>  commit 8fba83d97cca709a05139c38e29408e81ed4cf62
+>  Author: Nam Nguyen <nam.nguyen.yh@renesas.com>
+>  Date:   Wed Apr 28 18:54:44 2021 +0700
 >=20
->   iommu/ipmmu-vmsa: Add support for r8a779a0
+>   iommu/ipmmu-vmsa: Set IPMMU bit IMSCTLR_USE_SECGRP to 0
 >=20
->   Add support for r8a779a0 (R-Car V3U). The IPMMU hardware design
->   of this SoC differs than others. So, add a new ipmmu_features for it.
+>   Need to set bit IMSCTLR_USE_SECGRP to 0
+>   because H/W initial value is unknown, without this
+>   dma-transfer cannot be done due to address translation doesn't work.
 >=20
->   Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
->   Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
->   Link:
-> https://jpn01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flore.=
-kernel.org%2Fr%2F20210907083020.907648-3-yosh
-> ihiro.shimoda.uh%40renesas.com&amp;data=3D04%7C01%7Cyoshihiro.shimoda.uh%=
-40renesas.com%7C995a1c66b6d841ccc79a08d9c3fdf
-> 90a%7C53d82571da1947e49cb4625a166a4a2a%7C0%7C0%7C637756317833053012%7CUnk=
-nown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQ
-> IjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=3DTirhJToNqy3=
-3Fzt0tSpukl9YFOj4iHgd3M1lX8W%2Bxlo%3D&amp;res
-> erved=3D0
->   Signed-off-by: Joerg Roedel <jroedel@suse.de>
+>   Signed-off-by: Nam Nguyen <nam.nguyen.yh@renesas.com>
+>=20
+>  commit a8d93bc07da89a7fcf4d85f34d119a030310efa5
+>  Author: Nam Nguyen <nam.nguyen.yh@renesas.com>
+>  Date:   Tue Sep 7 14:46:12 2021 +0700
+>=20
+>   iommu/ipmmu-vmsa: Update IMSCTLR register offset address for R-Car S4
+>=20
+>   Update IMSCTLR register offset address to align with R-Car S4 H/W UM.
+>=20
+>   Signed-off-by: Nam Nguyen <nam.nguyen.yh@renesas.com>
 >=20
 > **********
 >=20
-> The R-Car S4 is an automotive System-on-Chip (SoC) for Car
-> Server/Communication Gateway and is one of the first products
-> in Renesas' 4th-generation R-Car Family.
+> It is still a question whether this really needs to be done in Xen,
+> rather in firmware, but better to be on the safe side. After all,
+> if firmware already takes care of clearing this bit, nothing bad
+> will happen.
 >=20
-> The integrated IOMMU HW is also VMSA-compatible and supports
-> stage 2 translation table format, therefore can be used with
-> current driver with slight modifications (thanks to the prereq
-> work).
->=20
-> In the context of Xen driver the main differences between Gen3
-> and Gen4 are the following:
-> - HW capacity was enlarged to support up to 16 IPMMU contexts
->   (sets of page table) and up to 64 micro-TLBs per IPMMU device
-> - the memory mapped registers have different bases and offsets
->=20
-> Please note that Linux upstream doesn't support R-Car S4 SoC
-> yet unlike Renesas BSP [1], but it was decided to reuse upstream
-> patch for R-Car V3U anyway as the IPMMU HW settings are similar.
->=20
-> [1]
-> 7003b9f732cf iommu/ipmmu-vmsa: Add Renesas R8A779F0 (R-Car S4) support
-<snip>
+> Please note the following:
+> 1. I decided to squash both commits since the first commit adds clearing
+> code and only the second one makes it functional on S4. Moreover, this is
+> not a direct port. So it would be better to introduce complete solution
+> by a single patch.
+> 2. Although patch indeed does what it claims in the subject,
+> the implementation is different in comparison with original changes.
+> On Linux the clearing is done at runtime in ipmmu_domain_setup_context().
+> On Xen the clearing is done at boot time in ipmmu_probe().
+> The IMSCTLR is not a MMU "context" register at all, so I think there is
+> no point in performing the clearing each time we initialize the context,
+> instead perform the clearing at once during initialization. Also do not
+> abuse ctx_offset_stride_adj field for the register's offset calculation,
+> instead use recently added control_offset_base field.
 >=20
 > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> Reviewed-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
 Thank you for the patch!
 
