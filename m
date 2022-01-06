@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0403E48671D
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Jan 2022 16:55:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.254129.435682 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 843EF48671F
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Jan 2022 16:55:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.254130.435693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n5V69-0006YJ-Qk; Thu, 06 Jan 2022 15:54:41 +0000
+	id 1n5V6P-0006us-3d; Thu, 06 Jan 2022 15:54:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 254129.435682; Thu, 06 Jan 2022 15:54:41 +0000
+Received: by outflank-mailman (output) from mailman id 254130.435693; Thu, 06 Jan 2022 15:54:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n5V69-0006Vl-ND; Thu, 06 Jan 2022 15:54:41 +0000
-Received: by outflank-mailman (input) for mailman id 254129;
- Thu, 06 Jan 2022 15:54:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1n5V6O-0006sp-Vx; Thu, 06 Jan 2022 15:54:56 +0000
+Received: by outflank-mailman (input) for mailman id 254130;
+ Thu, 06 Jan 2022 15:54:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZpKN=RW=gmail.com=d.vrabel.98@srs-se1.protection.inumbo.net>)
- id 1n5V68-0006Vf-8c
- for xen-devel@lists.xenproject.org; Thu, 06 Jan 2022 15:54:40 +0000
-Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
- [2a00:1450:4864:20::432])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f3f5650e-6f08-11ec-9ce5-af14b9085ebd;
- Thu, 06 Jan 2022 16:54:38 +0100 (CET)
-Received: by mail-wr1-x432.google.com with SMTP id a5so1685335wrh.5
- for <xen-devel@lists.xenproject.org>; Thu, 06 Jan 2022 07:54:38 -0800 (PST)
+ id 1n5V6N-0006pY-N8
+ for xen-devel@lists.xenproject.org; Thu, 06 Jan 2022 15:54:55 +0000
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [2a00:1450:4864:20::42a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fd2b9a6a-6f08-11ec-81c0-a30af7de8005;
+ Thu, 06 Jan 2022 16:54:54 +0100 (CET)
+Received: by mail-wr1-x42a.google.com with SMTP id s1so5647303wra.6
+ for <xen-devel@lists.xenproject.org>; Thu, 06 Jan 2022 07:54:54 -0800 (PST)
 Received: from banana.davidvrabel.org.uk (banana.davidvrabel.org.uk.
  [82.70.146.42])
- by smtp.googlemail.com with ESMTPSA id m10sm2083608wms.25.2022.01.06.07.54.37
+ by smtp.googlemail.com with ESMTPSA id v1sm2774524wru.45.2022.01.06.07.54.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Jan 2022 07:54:37 -0800 (PST)
+ Thu, 06 Jan 2022 07:54:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,102 +43,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: f3f5650e-6f08-11ec-9ce5-af14b9085ebd
+X-Inumbo-ID: fd2b9a6a-6f08-11ec-81c0-a30af7de8005
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=sender:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=AffgayRFGxfGG5c5Zpyu4eMtV7zqoLa5C0p4l3Kktzw=;
-        b=TFulrUcHuiwlbTJGamVzss6Z7Q+Fo8f1FyEi0WEA/fA4T/dQZIzbYi4rMRhzkE2HnL
-         WojIcaQUTKhpVxtfV9CZPUPeB4fTRfJ7wUN7VWHYvW1NnJjNZt7bvoTOiK6MQnpdTyH2
-         MzajXkdCMsZI8IQh8J3JXXKBxSAxqPZPyjVuO2bx+JH1zKT+nYtJQHvaz4ErY/Iohw2z
-         EUihaBPweHGtv6XJjGrsOja2zCZ6rIOQXqP0UsCpxWPb9xpWs2Jz0ayoJ5O4cEogkMfK
-         3b5vLHknrSO9rYbhJRNEbUn4npnVxgz2hBCAhcggKmfXTJdLuqA4EkZtLTybViNok0CR
-         vBcw==
+        bh=y1AW0BkZyzFhqk7ZQ0mbG8t/G0BRb4GlhbFQWQ0tl5w=;
+        b=cqcKsDPBgXFnYf1kDMAsmJa7bD7RWidSMLCUCHO2+EvKOih+qt+XxLBXyBjfqYy34h
+         5rMYwp6PLrZ3sT9vzBgRBM6RAukjJ+IsqRNm2Vu1d+EKkMzbdFhxzP7tr84zp4bRlsAu
+         DvtwQW9TUPM7Ie2k+VOOiStR56kvZgOkNziBLQhhQHCY0plbKIuSg447dyXZhrvgIh9Y
+         j67GTVGCagKp9rFWeJw1+utN2a9+RGWyiPgTzMZ9te7Rx3dj4Rlf9aCDYsgj+Yojl+Jo
+         Ob6JHYawZdD2b2XLfOZIWg3FQqjzGu/YK5h27oEJwhDzcRU8qGIuCoAFoP5O6JJyxoXM
+         oblw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
          :mime-version:content-transfer-encoding;
-        bh=AffgayRFGxfGG5c5Zpyu4eMtV7zqoLa5C0p4l3Kktzw=;
-        b=mFlE//UAUoCKe5OJbXsukOiiN9aTltsUC5HMv6CY7pktzNVpYBMBaFTAsAAloneH1f
-         CRWBf0/Ainakvv8wSB7VxCW74TDA0yBRqx0LsoMzIn1DnIVGkVNaVBOeTS/QS3uuIqNb
-         z1N/HdD/g9CI0o0own3Rz0iyrhoC3a6U46MZSHixglbmrPpmONk2CnFChbk4Et0/L/C7
-         aMU6K632/dtfTyt3Wca9uCvzMg2Z4yroNUJePPoTcOC1rf41TyHskY5gO67ef92HDNtx
-         NC6RVZVgNJaxSKMWa/MVxtVK8YKuuYSCEHluUk4XSJI4UNAevQqBlZH/ezAzH/2hlLp0
-         ztVw==
-X-Gm-Message-State: AOAM532rn5bBtXj+nZnkqlXbj2w54mGplmQZw9oui5qOfDsizYYwRmjv
-	5bnScOYHjd5AZxRwEgMmrGhctYd7IE7HGQ==
-X-Google-Smtp-Source: ABdhPJywC4KH/+j/gJvn2kUt5bOO8i1b8n1oTe2CUGBT6RCry/lQQ/CLz/M0rgWGaMyu7vwEaE0Udg==
-X-Received: by 2002:a5d:64aa:: with SMTP id m10mr52981257wrp.500.1641484478315;
-        Thu, 06 Jan 2022 07:54:38 -0800 (PST)
+        bh=y1AW0BkZyzFhqk7ZQ0mbG8t/G0BRb4GlhbFQWQ0tl5w=;
+        b=lfzhxhaK28IGnd/N/Oqq13aQ6UQmcxMPKIDspXqC9vaTYqqSiZDiC7KNHizI8KmNej
+         +BtLC5453S2fR4+mUit1TjME+vk4EylVa6f/u/yPDOwcViWFZelKqUZPKuBY2p8BJY0Q
+         NORXX+YFexXf84sRhwMz5x7nR87gjIbJ7yCE3ZaXWyJg5YOa8+zKe25vwslW9qAZ4vhr
+         N0fTLQ1NPQqcO2GJ400TS/f9dDIhSySdKNyAmUOfjis958VPm3rwsyfUzlno0MZEaoHb
+         VRa2WRcqVdXk+YhQkS7jy1G89Ugz4Z/QlAD9IqWCYjv1VfvnSyPyyT/aYf2hixCI9Iwh
+         EDrw==
+X-Gm-Message-State: AOAM530tFQN2nSqtVkIixzRegBQQMHcZ1XWbE2tRFyewDhJHurQ58qWo
+	iZUEfFy7OCGUI/etSG8v4+6meKeyKfGyCA==
+X-Google-Smtp-Source: ABdhPJyUkplSOvtSJcQtPcVLuZMvW2US/LY03x54luf3G8JxzeScmUp2AVbO8pVnsQVHBy8tBs4VuA==
+X-Received: by 2002:a5d:4690:: with SMTP id u16mr53266077wrq.321.1641484493683;
+        Thu, 06 Jan 2022 07:54:53 -0800 (PST)
 Sender: David Vrabel <d.vrabel.98@gmail.com>
 From: David Vrabel <dvrabel@cantab.net>
 X-Google-Original-From: David Vrabel <dvrabel@amazon.co.uk>
 To: xen-devel@lists.xenproject.org
 Cc: David Vrabel <dvrabel@amazon.co.uk>
-Subject: [PATCH] x86/hvm: add more callback/upcall info to 'I' debug key
-Date: Thu,  6 Jan 2022 15:46:47 +0000
-Message-Id: <20220106154647.159625-1-dvrabel@amazon.co.uk>
+Subject: [PATCH] x86/hvm: save/restore per-VCPU event channel upcall vector
+Date: Thu,  6 Jan 2022 15:54:42 +0000
+Message-Id: <20220106155442.160258-1-dvrabel@amazon.co.uk>
 X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Include the type of the callback via and the per-VCPU upcall vector.
+The Windows XENBUS driver sets the per-VCPU LAPIC vector for event
+channel interrupts using the HVMOP_set_evtchn_upcall_vector hypercall
+(rather than using a vector-type callback in the CALLBACK_IRQ HVM
+parameter since the vectors might be different for different VCPUs).
+
+This state needs to be saved/restored or a restored guest may not be
+able to get an event channel interrupts.
+
+Note that the Windows XENBUS driver workarounds this by reissuing the
+hypercall when resuming after a migration, but this workaround would
+not be possible in an guest transparent live migration or a live
+update.
 
 Signed-off-by: David Vrabel <dvrabel@amazon.co.uk>
 ---
- xen/arch/x86/hvm/irq.c | 31 +++++++++++++++++++++++++++----
- 1 file changed, 27 insertions(+), 4 deletions(-)
+ xen/arch/x86/hvm/hvm.c                 | 50 ++++++++++++++++++++++++--
+ xen/include/public/arch-x86/hvm/save.h | 12 ++++++-
+ 2 files changed, 58 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
-index 52aae4565f..6a1edb99f2 100644
---- a/xen/arch/x86/hvm/irq.c
-+++ b/xen/arch/x86/hvm/irq.c
-@@ -598,7 +598,9 @@ int hvm_local_events_need_delivery(struct vcpu *v)
- static void irq_dump(struct domain *d)
- {
-     struct hvm_irq *hvm_irq = hvm_domain_irq(d);
--    int i; 
-+    int i;
-+    struct vcpu *v;
-+
-     printk("Domain %d:\n", d->domain_id);
-     printk("PCI 0x%16.16"PRIx64"%16.16"PRIx64
-            " ISA 0x%8.8"PRIx32" ROUTE %u %u %u %u\n",
-@@ -630,9 +632,30 @@ static void irq_dump(struct domain *d)
-            hvm_irq->pci_link_assert_count[1],
-            hvm_irq->pci_link_assert_count[2],
-            hvm_irq->pci_link_assert_count[3]);
--    printk("Callback via %i:%#"PRIx32",%s asserted\n",
--           hvm_irq->callback_via_type, hvm_irq->callback_via.gsi, 
--           hvm_irq->callback_via_asserted ? "" : " not");
-+    for_each_vcpu( d, v )
-+    {
-+        if ( v->arch.hvm.evtchn_upcall_vector )
-+            printk("%pv: upcall vector: %u\n",
-+                   v, v->arch.hvm.evtchn_upcall_vector);
-+    }
-+    switch( hvm_irq->callback_via_type )
-+    {
-+    case HVMIRQ_callback_none:
-+        printk("Callback via none\n");
-+        break;
-+    case HVMIRQ_callback_gsi:
-+        printk("Callback via GSI %u\n", hvm_irq->callback_via.gsi);
-+        break;
-+    case HVMIRQ_callback_pci_intx:
-+        printk("Callback via PCI dev %u INTx %u\n",
-+               hvm_irq->callback_via.pci.dev,
-+               hvm_irq->callback_via.pci.intx);
-+        break;
-+    case HVMIRQ_callback_vector:
-+        printk("Callback via vector %u\n", hvm_irq->callback_via.vector);
-+        break;
-+    }
-+    printk("  %s asserted\n", hvm_irq->callback_via_asserted ? "" : " not");
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index 350dc396e3..be2e676c4a 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -4071,6 +4071,52 @@ static int hvmop_flush_tlb_all(void)
+     return paging_flush_tlb(NULL) ? 0 : -ERESTART;
  }
  
- static void dump_irq_info(unsigned char key)
++static void hvm_set_evtchn_upcall_vector(struct vcpu *v, uint8_t vector)
++{
++    printk(XENLOG_G_INFO "%pv: upcall vector %02x\n", v, vector);
++
++    v->arch.hvm.evtchn_upcall_vector = vector;
++    hvm_assert_evtchn_irq(v);
++}
++
++static int hvm_save_evtchn_upcall_vector(
++    struct vcpu *v, hvm_domain_context_t *h)
++{
++    struct hvm_evtchn_upcall_vector upcall;
++
++    /* Skip record if VCPU is down or the upcall vector is not used. */
++    if ( test_bit(_VPF_down, &v->pause_flags) )
++        return 0;
++    if ( v->arch.hvm.evtchn_upcall_vector == 0 )
++        return 0;
++
++    upcall.vector = v->arch.hvm.evtchn_upcall_vector;
++
++    return hvm_save_entry(EVTCHN_UPCALL_VECTOR, v->vcpu_id, h, &upcall);
++}
++
++static int hvm_load_evtchn_upcall_vector(
++    struct domain *d, hvm_domain_context_t *h)
++{
++    unsigned int vcpuid;
++    struct vcpu *v;
++    struct hvm_evtchn_upcall_vector upcall;
++
++    vcpuid = hvm_load_instance(h);
++    if ( (v = domain_vcpu(d, vcpuid)) == NULL )
++        return -EINVAL;
++
++    if ( hvm_load_entry(EVTCHN_UPCALL_VECTOR, h, &upcall) != 0 )
++        return -EINVAL;
++
++    hvm_set_evtchn_upcall_vector(v, upcall.vector);
++
++    return 0;
++}
++
++HVM_REGISTER_SAVE_RESTORE(EVTCHN_UPCALL_VECTOR, hvm_save_evtchn_upcall_vector,
++                          hvm_load_evtchn_upcall_vector, 1, HVMSR_PER_VCPU);
++
+ static int hvmop_set_evtchn_upcall_vector(
+     XEN_GUEST_HANDLE_PARAM(xen_hvm_evtchn_upcall_vector_t) uop)
+ {
+@@ -4090,10 +4136,8 @@ static int hvmop_set_evtchn_upcall_vector(
+     if ( (v = domain_vcpu(d, op.vcpu)) == NULL )
+         return -ENOENT;
+ 
+-    printk(XENLOG_G_INFO "%pv: upcall vector %02x\n", v, op.vector);
++    hvm_set_evtchn_upcall_vector(v, op.vector);
+ 
+-    v->arch.hvm.evtchn_upcall_vector = op.vector;
+-    hvm_assert_evtchn_irq(v);
+     return 0;
+ }
+ 
+diff --git a/xen/include/public/arch-x86/hvm/save.h b/xen/include/public/arch-x86/hvm/save.h
+index 773a380bc2..177cb09150 100644
+--- a/xen/include/public/arch-x86/hvm/save.h
++++ b/xen/include/public/arch-x86/hvm/save.h
+@@ -641,12 +641,22 @@ struct hvm_msr {
+ 
+ #define CPU_MSR_CODE  20
+ 
++/**
++ * Per-VCPU event channel upcall vector as set by
++ * HVMOP_set_evtchn_upcall_vector hypercall.
++ */
++struct hvm_evtchn_upcall_vector {
++    uint8_t vector;
++};
++
++DECLARE_HVM_SAVE_TYPE(EVTCHN_UPCALL_VECTOR, 21, struct hvm_evtchn_upcall_vector);
++
+ /* Range 22 - 34 (inclusive) reserved for Amazon */
+ 
+ /*
+  * Largest type-code in use
+  */
+-#define HVM_SAVE_CODE_MAX 20
++#define HVM_SAVE_CODE_MAX 21
+ 
+ #endif /* __XEN_PUBLIC_HVM_SAVE_X86_H__ */
+ 
 -- 
 2.30.2
 
