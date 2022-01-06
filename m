@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71773486B9A
-	for <lists+xen-devel@lfdr.de>; Thu,  6 Jan 2022 22:06:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.254202.435813 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F083486BC2
+	for <lists+xen-devel@lfdr.de>; Thu,  6 Jan 2022 22:16:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.254207.435825 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n5Zwd-0008SY-RJ; Thu, 06 Jan 2022 21:05:11 +0000
+	id 1n5a6z-0001Vh-Rn; Thu, 06 Jan 2022 21:15:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 254202.435813; Thu, 06 Jan 2022 21:05:11 +0000
+Received: by outflank-mailman (output) from mailman id 254207.435825; Thu, 06 Jan 2022 21:15:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n5Zwd-0008Q7-O5; Thu, 06 Jan 2022 21:05:11 +0000
-Received: by outflank-mailman (input) for mailman id 254202;
- Thu, 06 Jan 2022 21:05:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=J4l4=RW=gmail.com=highlimner@srs-se1.protection.inumbo.net>)
- id 1n5Zwc-0008Q1-5d
- for xen-devel@lists.xenproject.org; Thu, 06 Jan 2022 21:05:10 +0000
-Received: from mail-ua1-x933.google.com (mail-ua1-x933.google.com
- [2607:f8b0:4864:20::933])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 53fc74db-6f34-11ec-9ce5-af14b9085ebd;
- Thu, 06 Jan 2022 22:05:08 +0100 (CET)
-Received: by mail-ua1-x933.google.com with SMTP id v12so6727764uar.7
- for <xen-devel@lists.xenproject.org>; Thu, 06 Jan 2022 13:05:08 -0800 (PST)
+	id 1n5a6z-0001TF-Oi; Thu, 06 Jan 2022 21:15:53 +0000
+Received: by outflank-mailman (input) for mailman id 254207;
+ Thu, 06 Jan 2022 21:15:52 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1n5a6y-0001T2-9s; Thu, 06 Jan 2022 21:15:52 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1n5a6y-0005Nf-6v; Thu, 06 Jan 2022 21:15:52 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1n5a6x-0000EP-Qp; Thu, 06 Jan 2022 21:15:51 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1n5a6x-0007jb-QL; Thu, 06 Jan 2022 21:15:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,186 +42,293 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53fc74db-6f34-11ec-9ce5-af14b9085ebd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=xj/++dpfvQtxhLef1zLyrPPbbMaJ1KQQqACCUa6jBV0=;
-        b=SWOuoczxDPpq5IpyQElGXmpT3eK2AcFUBIrLN6vWU1K6VZSABChG5PXuwe7t2AfIar
-         AsMIcoVVASdhtKz0M01UcaK80FGhbhqqcWAY+vPt1CQXCn4p9DhrVyHpe/y9jKkZS0yC
-         YxVdX/sum650rZipVHxt1FLBxQaQELZBHD0IgYF5HFDlmhxblajj8UQp8exYm6xK0r0Q
-         vh/wIIXOrJlUrN/vyLHFcdgGSedbwdRamD7iPJmbenzdeYCIGj5L/pbrjonJ4lISYQum
-         zpIXLrQgoah4s7KIY6ddmQiXFyDd5VA/0O++3b3XeYJsv321NK6Sw7ygs2y1OarSaeFf
-         mDGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=xj/++dpfvQtxhLef1zLyrPPbbMaJ1KQQqACCUa6jBV0=;
-        b=CNclu1wfnE68IcYbph/LYG7CheT9sFTMSkdGRFaM0lbMOcmIV606xhXK+Ri3btqcP2
-         zXQHj7LBxMoMeoFlVaJpf+MKW/XA2nqK4dPybFchl4/iZfOxmJfM3MMyn4Y31B6OAlrl
-         troJY+1j+bd5ZUi60kyPO/XqxM4DGKKuD0lKYkO3Fn9cG22MTmRIgB1cuf7MulTePT3k
-         d6kQY6tFSl7mSsrHwr6/LhVeBsfONoC+B0tGZ+vIIo2C3RXM1zXs2hJ6mkS/2mlyOoud
-         v7e18uKLkXHi8ZvFDN81HOKjhh3v/yDZGaCKrXg6sB5yRNYfQq6Eiprrf3B4u2KvZkD7
-         wLKw==
-X-Gm-Message-State: AOAM532AY8tVMrTsCiEQxx8Cpj7Nc8iqBFx0EuE/zawJ8miVJEcAbDIT
-	Gq8QbBlIta4myeMuh/sehUJpcU0yOzuIsph0haQmuiPMdBx6ddgsmVU=
-X-Google-Smtp-Source: ABdhPJyc6JAMDVApwzAKn6Lue5Le0Uu+Y1F+VwuJzpVzN0wqmd/JmfWqfUkk85m1EYSXMoa6CHi+0zaNFFkoExngECo=
-X-Received: by 2002:a05:6102:3ed2:: with SMTP id n18mr38590vsv.72.1641503107379;
- Thu, 06 Jan 2022 13:05:07 -0800 (PST)
-MIME-Version: 1.0
-References: <CAN2gxUQmsa=ONQqj0-3PZ2oxp-QVMgsm0BQ+q=-LWwmWTqwMZg@mail.gmail.com>
- <CAFLBxZazbQUF5bXw=yxM7+48KVVz_rJoi8UWrH83Ln-j40u9PA@mail.gmail.com>
- <CAN2gxUQ_h79Sy006NBcRkFzj9PDAjn8JA3UjQo4L81xo7ShgbA@mail.gmail.com> <CAFLBxZZX9escoCP92dLMCqQGv1-CHaEOzX7NAzvHs_heXYxfhg@mail.gmail.com>
-In-Reply-To: <CAFLBxZZX9escoCP92dLMCqQGv1-CHaEOzX7NAzvHs_heXYxfhg@mail.gmail.com>
-From: amir masoud noohi <highlimner@gmail.com>
-Date: Fri, 7 Jan 2022 00:34:29 +0330
-Message-ID: <CAN2gxUSL8f=osqSn89CGfMgdwcoosj9Cwk=rQjycOt_z95S_Mg@mail.gmail.com>
-Subject: Re: scheduler credit capture
-To: George Dunlap <dunlapg@umich.edu>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="0000000000009cf61305d4f03903"
-
---0000000000009cf61305d4f03903
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=cdlcvIC+ZP1jh7fC6ovXRMjvZ5twQd8Rt5qJ0T8c3m8=; b=Fj7z43gCzI0ecF4tbKUGAZ7D62
+	oJU+vwk33N9+0uN4lrjrEuXhYpbOrjIXIrCexx+VU/QHbnw8KrDPUkMF+VRg+57OO4VsMepvgQ8Ns
+	6AAq+8bJzYGCkDx4/YeSeRCx+tGY2oBIPgRsSR37VGjTsA75wG628r+L7IjCR3RaPQY8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-167619-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 167619: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=75acfdb6fd922598a408a0d864486aeb167c1a97
+X-Osstest-Versions-That:
+    linux=49ef78e59b0749814d79eed156dcfc175fbd2f74
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 06 Jan 2022 21:15:51 +0000
 
->
-> It looks like you can get the info you want for credit2
+flight 167619 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167619/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 167614
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 167614
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 167614
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 167614
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 167614
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 167614
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 167614
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 167614
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ linux                75acfdb6fd922598a408a0d864486aeb167c1a97
+baseline version:
+ linux                49ef78e59b0749814d79eed156dcfc175fbd2f74
+
+Last test of basis   167614  2022-01-05 20:42:34 Z    1 days
+Testing same since   167619  2022-01-06 09:10:01 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Aaron Ma <aaron.ma@canonical.com>
+  Alexander Aring <aahringo@redhat.com>
+  Andrew Lunn <andrew@lunn.ch>
+  Arthur Kiyanovski <akiyano@amazon.com>
+  Ashwin Vijayavel <ashwin.vijayavel@intel.com>
+  Christoph Hellwig <hch@lst.de>
+  Colin Ian King <colin.i.king@gmail.com>
+  Daniel Borkmann <daniel@iogearbox.net>
+  David Ahern <dsahern@kernel.org>
+  David S. Miller <davem@davemloft.net>
+  Di Zhu <zhudi2@huawei.com>
+  Eric Dumazet <edumazet@google.com>
+  Florian Fainelli <f.fainelli@gmail.com>
+  Gagan Kumar <gagan1kumar.cs@gmail.com>
+  Grzegorz Szczurek <grzegorzx.szczurek@intel.com>
+  Gurucharan G <gurucharanx.g@intel.com>
+  Haimin Zhang <tcs_kernel@tencent.com>
+  Jakub Kicinski <kuba@kernel.org>
+  Jedrzej Jagielski <jedrzej.jagielski@intel.com>
+  Jianguo Wu <wujianguo@chinatelecom.cn>
+  Johannes Berg <johannes.berg@intel.com>
+  Jon Maloy <jmaloy@redhat.com>
+  Karen Sornek <karen.sornek@intel.com>
+  Konrad Jankowski <konrad0.jankowski@intel.com>
+  Linus Lüssing <linus.luessing@c0d3.blue>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Lukasz Cieplicki <lukaszx.cieplicki@intel.com>
+  Magnus Karlsson <magnus.karlsson@intel.com>
+  Markus Koch <markus@notsyncing.net>
+  Martin Habets <habetsm.xilinx@gmail.com>
+  Mateusz Palczewski <mateusz.palczewski@intel.com>
+  Nicolas Dichtel <nicolas.dichtel@6wind.com>
+  Pavel Skripkin <paskripkin@gmail.com>
+  Rui Zhang <zhangrui182@huawei.com>
+  Shay Agroskin <shayagr@amazon.com>
+  Simon Wunderlich <sw@simonwunderlich.de>
+  Stefan Schmidt <stefan@datenfreihafen.org>
+  Sven Eckelmann <sven@narfation.org>
+  Taehee Yoo <ap420073@gmail.com>
+  Thomas Toye <thomas@toye.io>
+  Tom Rix <trix@redhat.com>
+  Tony Brelinski <tony.brelinski@intel.com>
+  Tony Nguyen <anthony.l.nguyen@intel.com>
+  Xin Long <lucien.xin@gmail.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
 
 
-How?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Thu, Jan 6, 2022 at 6:12 PM George Dunlap <dunlapg@umich.edu> wrote:
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> [Adding back in xen-devel to the cc' list]
->
-> On Thu, Jan 6, 2022 at 1:41 PM amir masoud noohi <highlimner@gmail.com>
-> wrote:
->
->> yes exactly, I want to see the changes of a credit for each vCPU
->>
->
-> (FYI we respond in-line on the Xen mailing lists rather than top posting.)
->
-> Your best bet is to look into xentrace & xenalyze, and the trace or TRACE
-> calls found in xen.git/xen/common/sched/credit[2].c.  It looks like you can
-> get the info you want for credit2, but not for credit1 unless you add some
-> trace points in.
->
-> You can find a video introduction to Xen tracing here:
-> https://vimeo.com/33655967
->
-> It's a bit old but that system hasn't changed much.
->
->  -George
->
->
->>
->> On Thu, Jan 6, 2022 at 2:32 PM George Dunlap <dunlapg@umich.edu> wrote:
->>
->>>
->>>
->>> On Wed, Jan 5, 2022 at 2:45 PM amir masoud noohi <highlimner@gmail.com>
->>> wrote:
->>>
->>>> Hi Everyone,
->>>>
->>>> Today I'm looking for capturing vCPU credit for both credit1 and
->>>> credit2.
->>>> How can I do that?
->>>>
->>>
->>> Can you explain what you mean by "capture vCPU credit"?  Do you mean you
->>> want to log or sample changes to it?
->>>
->>>  -George
->>>
->>
->>
->> --
->> *Regards*
->> *Noohi*
->> *noohi.org <https://noohi.org>*
->>
->
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
--- 
-*Regards*
-*Noohi*
-*noohi.org <https://noohi.org>*
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
---0000000000009cf61305d4f03903
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><blockquote style=3D"margin:0px 0px 0px 0.8ex;border-left:=
-1px solid rgb(204,204,204);padding-left:1ex" class=3D"gmail_quote"><span st=
-yle=3D"color:rgb(51,51,51);font-family:Arial,sans-serif;font-size:12px;back=
-ground-color:rgb(233,234,234)">It looks like you can get the info you want =
-for credit2</span></blockquote><div><br></div><div class=3D"gmail_default" =
-style=3D"font-family:&quot;trebuchet ms&quot;,sans-serif">How?</div></div><=
-br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu,=
- Jan 6, 2022 at 6:12 PM George Dunlap &lt;<a href=3D"mailto:dunlapg@umich.e=
-du">dunlapg@umich.edu</a>&gt; wrote:<br></div><blockquote class=3D"gmail_qu=
-ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
-4);padding-left:1ex"><div dir=3D"ltr"><div>[Adding back in xen-devel to the=
- cc&#39; list]<br></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" cla=
-ss=3D"gmail_attr">On Thu, Jan 6, 2022 at 1:41 PM amir masoud noohi &lt;<a h=
-ref=3D"mailto:highlimner@gmail.com" target=3D"_blank">highlimner@gmail.com<=
-/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><=
-div dir=3D"ltr"><div style=3D"font-family:&quot;trebuchet ms&quot;,sans-ser=
-if">yes exactly, I want to see the changes of a credit for each vCPU</div><=
-/div></blockquote><div><br></div><div><div class=3D"gmail_quote"><div>(FYI =
-we respond in-line on the Xen mailing lists rather than top posting.)<br></=
-div><div><br></div>Your
- best bet is to look into xentrace &amp; xenalyze, and the trace or=20
-TRACE calls found in xen.git/xen/common/sched/credit[2].c.=C2=A0 It looks=
-=20
-like you can get the info you want for credit2, but not for credit1=20
-unless you add some trace points in.</div><div class=3D"gmail_quote"><br></=
-div><div class=3D"gmail_quote">You can find a video introduction to Xen tra=
-cing here: <a href=3D"https://vimeo.com/33655967" target=3D"_blank">https:/=
-/vimeo.com/33655967</a></div><div class=3D"gmail_quote"><br></div><div clas=
-s=3D"gmail_quote">It&#39;s a bit old but that system hasn&#39;t changed muc=
-h.<br></div><div class=3D"gmail_quote"><br></div><div class=3D"gmail_quote"=
->=C2=A0-George</div></div><div>=C2=A0</div><blockquote class=3D"gmail_quote=
-" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
-padding-left:1ex"><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"=
-gmail_attr">On Thu, Jan 6, 2022 at 2:32 PM George Dunlap &lt;<a href=3D"mai=
-lto:dunlapg@umich.edu" target=3D"_blank">dunlapg@umich.edu</a>&gt; wrote:<b=
-r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr">=
-<div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Wed, Jan 5, 2022 at 2:45 PM amir masoud noohi &lt;<=
-a href=3D"mailto:highlimner@gmail.com" target=3D"_blank">highlimner@gmail.c=
-om</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex=
-"><div dir=3D"ltr"><div style=3D"font-family:&quot;trebuchet ms&quot;,sans-=
-serif">Hi Everyone,</div><div style=3D"font-family:&quot;trebuchet ms&quot;=
-,sans-serif"><br></div><div style=3D"font-family:&quot;trebuchet ms&quot;,s=
-ans-serif">Today I&#39;m looking for capturing vCPU credit for both credit1=
- and credit2.=C2=A0</div><div style=3D"font-family:&quot;trebuchet ms&quot;=
-,sans-serif">How can I do that?=C2=A0</div></div></blockquote><div><br></di=
-v><div>Can you explain what you mean by &quot;capture vCPU credit&quot;?=C2=
-=A0 Do you mean you want to log or sample changes to it?<br></div><div><br>=
-</div><div>=C2=A0-George<br></div></div></div>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
-><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=
-=3D"ltr"><div><div dir=3D"ltr"><div dir=3D"ltr"><b><font color=3D"#999999">=
-Regards</font></b></div><div dir=3D"ltr"><font color=3D"#999999"><b>Noohi</=
-b></font></div><div dir=3D"ltr"><b><a href=3D"https://noohi.org" target=3D"=
-_blank"><font color=3D"#999999">noohi.org</font></a></b></div></div></div><=
-/div></div></div></div></div></div></div></div>
-</blockquote></div></div>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div=
- dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><div dir=3D"ltr"><=
-b><font color=3D"#999999">Regards</font></b></div><div dir=3D"ltr"><font co=
-lor=3D"#999999"><b>Noohi</b></font></div><div dir=3D"ltr"><b><a href=3D"htt=
-ps://noohi.org" target=3D"_blank"><font color=3D"#999999">noohi.org</font><=
-/a></b></div></div></div></div></div></div></div></div></div></div></div>
+Pushing revision :
 
---0000000000009cf61305d4f03903--
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   49ef78e59b07..75acfdb6fd92  75acfdb6fd922598a408a0d864486aeb167c1a97 -> tested/linux-linus
 
