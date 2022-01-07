@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C2B04878D7
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jan 2022 15:23:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.254472.436328 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6C4E4879A7
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jan 2022 16:22:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.254478.436339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n5q8N-00016h-7l; Fri, 07 Jan 2022 14:22:23 +0000
+	id 1n5r3I-000758-QS; Fri, 07 Jan 2022 15:21:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 254472.436328; Fri, 07 Jan 2022 14:22:23 +0000
+Received: by outflank-mailman (output) from mailman id 254478.436339; Fri, 07 Jan 2022 15:21:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n5q8N-00013u-3n; Fri, 07 Jan 2022 14:22:23 +0000
-Received: by outflank-mailman (input) for mailman id 254472;
- Fri, 07 Jan 2022 14:22:21 +0000
+	id 1n5r3I-000737-MX; Fri, 07 Jan 2022 15:21:12 +0000
+Received: by outflank-mailman (input) for mailman id 254478;
+ Fri, 07 Jan 2022 15:21:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=X4Ee=RX=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1n5q8L-00013o-OB
- for xen-devel@lists.xenproject.org; Fri, 07 Jan 2022 14:22:21 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 39386fab-6fc5-11ec-9ce5-af14b9085ebd;
- Fri, 07 Jan 2022 15:22:20 +0100 (CET)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2110.outbound.protection.outlook.com [104.47.17.110]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-32-1wbnhbRHNHaKQgZr5RdbGQ-1; Fri, 07 Jan 2022 15:22:18 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB3774.eurprd04.prod.outlook.com (2603:10a6:803:1f::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.10; Fri, 7 Jan
- 2022 14:22:17 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4844.017; Fri, 7 Jan 2022
- 14:22:17 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=AuXA=RX=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1n5r3H-000731-Fw
+ for xen-devel@lists.xenproject.org; Fri, 07 Jan 2022 15:21:11 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6d10c61e-6fcd-11ec-9ce5-af14b9085ebd;
+ Fri, 07 Jan 2022 16:21:05 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,166 +36,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39386fab-6fc5-11ec-9ce5-af14b9085ebd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1641565340;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W0aR9RyLcm2HgSb0SEQ4dUaDAcdv7xx4z6fzykrqqvc=;
-	b=DsOLROE7RsBOP/l/AOzzZbqP8eUmEgwELMeVR/qtFS/CjtrDo90407YWw9Ga7GUKxr1h6k
-	IHOQMHDkILbGi9oysrFD/VBdXYppvJe/4agY1yrJBS8VDEZKyEJzZLvpDrr7zqE3qnX7Un
-	9yPQWTNaili0mS0HZkqjTkVBz8YicfA=
-X-MC-Unique: 1wbnhbRHNHaKQgZr5RdbGQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W2mm27whvtyte3fzv642DmHH5vrHygsGu49L6jVT1uZAqmsiAmrwYmcylLYSFhl//4QsIeztiHkrv4BCqKW/0bWCYHpx8z1OvnCDR5RYCkiA9wHhG/q09/So7Hzgbkiqmfxo/GzG09GYcshZ1qN/QKH55s6XNT44NEJuo74VwgaOyIAHDX8elN21ntdBlNtzgPjtU8jDDqpu1ahwvkID+tL/hQ73iqSTjVj97yzGLWDndE45vQEdzTkkyQRjxZSqzTlxvYEhyf6AFg9vXYJN+Y4ETHLzrsTKK2bOUVnu2+xRa/GlG6w9qBTAoXFp5x49ETCCYr5SvWVkHohv9oTOHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W0aR9RyLcm2HgSb0SEQ4dUaDAcdv7xx4z6fzykrqqvc=;
- b=SSrvf76vTBE7+EZUJVjoHOp7hTOc05FbWZ8x+8m1PSoQqzJBvL1dh8nP62OyfMbgo8E42vVwXlzPimPfLBuTuzBNiCbDIUslP9uw875p4RpP64WerPD1vNl0yUFT9khajVa4hJG0DcXApS2wUl5hSD/+LCODccC8Q6gd665ucsWZt5068ivLzDuCa0doLE5gxhMrafSHyQb3cFczA8UHp+FxchJMtDGGXgOXLGzJi9sIyuo2ILU1T0Pr+hMgbTlZNhCOlE3Y4YxvYwDFB9ybVgmghEbFZ+9Hk4/+C1HG5Udsp9cVA3k2YLFzhHrg3Igw5Y2LkQKfvSuNI7i0WfrMxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <e13c5289-f32b-dea8-f9c2-a0a6a98413a4@suse.com>
-Date: Fri, 7 Jan 2022 15:22:15 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Subject: Re: [PATCH v4 02/11] xen: introduce CDF_directmap
-Content-Language: en-US
-To: Penny Zheng <penny.zheng@arm.com>
-Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com,
- xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org
-References: <20211220052123.969876-1-penny.zheng@arm.com>
- <20211220052123.969876-3-penny.zheng@arm.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20211220052123.969876-3-penny.zheng@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR10CA0078.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:209:8c::19) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 6d10c61e-6fcd-11ec-9ce5-af14b9085ebd
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1641568865;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=o36T0wcnM+HiJPViT2i5aKqbFL2oovc7zM+AbasLxi8=;
+  b=LkRjKh9xzhMkxtCFQOXpIP35KIo/o0TMMuu06IIySpGmr4ji4eHe7OfK
+   75fAlTWLRQRy1Y+EDPI5v22LkNIs+5h3ksM6HUkW1d8NsksHc97FGqH83
+   VfZaRTcBfNGJ+DnRNmYGzHBPlBS6XqYDiwZdbJMEhVJbeTLHzQxOinb5T
+   w=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: isXv0f1SLxNnKvekwcZag8JoK6zACcvcuafRtgpmuR4af5TfXCByHR1SNJjySI6xpYKIJGDm0H
+ 0rwvfd3ZQFtdrg4ZALg2PEDEURegTnEbbPtA/9M1Kcevp/YTYIBc+PVCGE2j5qosmfYWI20OiE
+ tv4c00in8kG6Kmi/y9xANBJEbbyFxgOLQSg3wlcIq7rYE9vy7pZebmM+eVlHX9ADJ2/4Q3h3ps
+ 0ph8d1sWOA9SFwa/bhorD4ypSVeY4DeR+HBP145Lklh6T9tod0kcFHVFlTykzKayQH6jx1uGLb
+ JOJLbhtZxa3iGxzCuU0PfQTy
+X-SBRS: 5.1
+X-MesageID: 61527020
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:BqWfh6rhOZyzlTNXJ2GMi/nXn1NeBmKMYhIvgKrLsJaIsI4StFCzt
+ garIBmFPv+CamLzKNB+Ptu280wBvcLQytVkHAA6qi88H35Do5uZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlZT4vE2xbuKU5NTsY0idfic5Dndx4f5fs7Rh2NQw2IDmW1nlV
+ e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
+ 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
+ DlCncOVUicuArTXorgMcitgUBt/Bq5Y5KCSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
+ 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFIoZpnFnyyCfFfs8SIrPa67L+cVZzHE7gcUm8fP2O
+ ZNEM2U3NkyojxtnNlMWAowlheSRg3T9VixIsViEl7AU2j2GpOB2+Oe0a4eEEjCQfu1XkVyfv
+ Xnu5HniD1cRM9n34SKM73aEluLJ2yThV+o6D6G1+Pdsh3WI2mUZBRkSVF265/+0liaWRNZ3O
+ 0ESvC00osAa9kamU938VB2Qu2Ofs1gXXN84O+8z7g2X27fXywmcD2kACDVGbbQOpMIwADAny
+ FKNt9foHiB09q2YT2qH8bWZpi/0PjIaRVLufgddE1FDuYO65thu0FSfFb6PDZJZkPWqPCrQx
+ AyTtxJilpQhtY0x1p6440zY1mfESofyciY54QDeX2SA5wx/ZZK4a4HA1WU3/cqsP67CEADf4
+ SFsd9y2qblXUMrTzHDlrPAlQenB2hqTDNHLbbeD9bEF/i/lxXOsdJs4DNpWdBYwaZZsldMEj
+ SbuVeJtCH17YCrCgUxfOdvZ5yEWIU7IToiNuhf8NIYmX3SJXFXblByCnGbJt4wXrGAikLskJ
+ bCQetu2AHARBMxPlWTqHrtMjeFwl3Flmgs/oKwXKTz8jdJyg1bPFN843KamNLhlvMtoXi2Im
+ zqgCyd640oGC7CvCsUm2YUSMUoLPRAG6WPe8KRqmhq4ClM+QgkJUqaJqZt4ItANt/kFx4/go
+ yDmMmcFmQWXuJEyAVjTApyVQOi0BsgXQLNSFXFEAGtELFB/O9vyt/lGKMNsFVTlncQ6pcNJo
+ zA+U53oKpxypv7voVzxtLHx895vcgqFnwWLM3b3aTQzZcc4FQfI5sXlbk3k8yxXVni7ss43o
+ ruB0ALHQMVcG1Q+XZiOMP//nUmsuXU9mf5pWxeaKNdkZ0ixopNhLDb8j6FrLphUewnD3DaTy
+ y2fHQwc+bvWu4Yw/dSQ3fKEoo6lHvFQBE1fG2WHv7+6OTODpjiowJNaUfbOdjfYDTum9KKnb
+ ORT7vf9LPxYwwoa79siS+5mlPts6cHuqrlWyhVfME/KN1n7WKl9JnSm3NVUsvEfzLFupgbrC
+ FmE/cNXOOvVNZq9QkIRPgcscs+KyeoQxmvJ9f0wLUj3uH138b6AXRkANhWAknUAfr58MYdjy
+ uY9os8GrQe4j0NyYNqBiylV8UWKL2ABDPp75s1LXtezh1p50ExGbLzdFjTyscOGZNh7O0U3J
+ iOZ2fjZjLNGy0ueK3c+GBAhBwaGaUjibPyS8GI/Gg==
+IronPort-HdrOrdr: A9a23:HGAqLqxrjQoVw0FVIN3bKrPwKL1zdoMgy1knxilNoHtuA6ulfq
+ GV7ZAmPHrP4wr5N0tNpTntAsa9qBDnlaKdg7N+AV7KZmCP0gaVxepZjLfK8nnNHDD/6/4Y9Y
+ oISdkaNDQoNykYsS8t2njbL+od
+X-IronPort-AV: E=Sophos;i="5.88,270,1635220800"; 
+   d="scan'208";a="61527020"
+Date: Fri, 7 Jan 2022 15:20:57 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Jason Andryuk <jandryuk@gmail.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross
+	<jgross@suse.com>, Paul Durrant <paul@xen.org>, Stefano Stabellini
+	<stefano@stabellini.net>
+Subject: Re: [PATCH] libxl/PCI: defer backend wait upon attaching to PV guest
+Message-ID: <YdhaWaxFaC9rZTF5@perard>
+References: <5114ae87-bc0e-3d58-e16e-6d9d2fee0801@suse.com>
+ <CAKf6xpt6+ZkXK5uXyp15UyA1J2AhtZWipW04M1xD1Yx4nx3jOw@mail.gmail.com>
+ <18a2487b-f754-d971-2e89-93e54b7b951b@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8aa6d1e1-a7b9-4c2e-3a93-08d9d1e91bde
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3774:EE_
-X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB37740828F5D457425CA7BC78B34D9@VI1PR0402MB3774.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	xFgffru9hYNJxXxYNV7G2UkWhwZ9JJBEEh4iwrzcVy5XAysRoT28JXfyRCijslEc71UuQcN5oAuJoWTiflXO88bm8z9zPhDOctqV73stThOR3vSktLZzmmhuuiE+KhPxCjVn7D2LnZlzvoiMGuroI/VWUYT1iPO0PsKZllxceFI5IKtiLrWSwyBOboOLLJ4qIVwIO+dbXic3c3NJ3/NN/17Eyj9bz+0Ch/YPTi8r3QZWwXn9DKiPticU+otHMUNSL8Ux4RsJlkeIodf5O0J8u31lpp/AEMIGuyJUx65Lvd1PsOsHOAW54CLzd0bZ4zQF7nwlzuXF3Mt/i8itElJ4Avg3C+zqIG7PoRgRzZTBCFr2qxOBKbaQl9FcunXUJvEG+5CPdGBmMwHFXA8gc/cR/3hh/WYHZAYf3tXMXPi5JJJtJShVNtNiGnqP/LKcWP5N9QgQPofCEo9XbT05QDe1vIv97zkKg1W8zznibpxEg1bh8yUUNcpgNXyOTmusklMMCzUXEBDzNzz6o2jnmpM1FovIoCGEEkWefITHUI1kpw/PfymEhzWVRG0KsqUVuSG5S2kyQvCb9vR0c+WAbBFNi76ELyyDVklQEUVf8/IgEZ4t+wUs0FILpEPGdtFxouzzkT9j9XGZzRats3YCc1x1u39HLTJHlbtOw/Hur3X8AVxPcm7nfX+2NHFebfpl5+P9StKaCr3XP4sWyZVWNZoGx0Ig4m5Q/nWZdOvVNlMN0ZnNwsC0bq6mjCaKkBhEwhJ5
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(316002)(38100700002)(4326008)(2906002)(31696002)(6512007)(508600001)(186003)(8936002)(26005)(53546011)(6916009)(6486002)(31686004)(66476007)(2616005)(66556008)(66946007)(5660300002)(36756003)(86362001)(8676002)(6506007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NVg0OHFsS01PWk5Wd2c4aHBFdHNDUjZQbUV4bEI3bnN2VGtUc0tvQ21SVHBP?=
- =?utf-8?B?alpIeXhEYy9VdWEvRitRQmN3WW1rVCtDNGRSWmpJNDVYYmpIcWRrOUVkOHNx?=
- =?utf-8?B?V21LM2tDd0lmYjVkUU5NSHhNNEJUSlEyS2NHdWIxNFR4ZGM1OXZoRFE5SW5h?=
- =?utf-8?B?czRZOHlYNkdSRkhwQzkyZXFFd0lJaTJoQi9WbDhGUFVFOWhSVGRhZ01oTHJ1?=
- =?utf-8?B?S2tFQ3FWTkFVd2V3UzR3b2RJR3MyZXZrZkZjUG9lV0NQdXdPN29ET2FZMkRo?=
- =?utf-8?B?M0w5K0NEU0JoRUhSVEljTkpYQVJvb2IrOHZRZVJvQlc2ZTNvQVJTbVNkaXY3?=
- =?utf-8?B?QWVHSm01Mmc5S2ZIckNLcFVnVHBaTmxqQmtaUDFsS0l0SXVCK3dZS01nNmdH?=
- =?utf-8?B?TnNWbzB6bUJpS1Y3d0toMGk0TFBZYy82UTMyUWQ2R1RLUVVTam9vbWRoL2tu?=
- =?utf-8?B?YVNwTGhkMG1oaVdHb3hkUDhmcXJMU2VuVC9COEZLaFFGK0VzdW1OaURET21Q?=
- =?utf-8?B?eFplRTB5ejVkYkFuOXF0a2RlVFVIZnFCOThnVkZUVGd5aWhuMm5tellMOU85?=
- =?utf-8?B?RllSaGtScXdBSWUwczF0RWc3aWFqREJHeEgxcXpPOXVVSDhaZnd6aGprRVRP?=
- =?utf-8?B?OEtVdnIvOFhSdFcrcndzWldpZmlraDI2djdiZW02dkwxK2xCbUExK3EwdzdV?=
- =?utf-8?B?cW54SVZWbytsa2NEa3dKODR1T0hCRzdlZU10WXA5aWdxcE9UQ1BKZWlhTnNh?=
- =?utf-8?B?YzIzMnNDc2JwaUJyMWhUR1hxZUJPM1M4bDNJU0IvQit4Q1JtMVFOdVdHOXht?=
- =?utf-8?B?QnpSRFd1WVJESzcrTVRobS9mazd5eXpJamJlQUFIdHg5MzZCem5UdlM4M29B?=
- =?utf-8?B?ZExoZ0hKYWRtQ0kxazJkNzdGT3ZKeHk3YXllR3BEZEMybm00M1hhSnp4L2Qv?=
- =?utf-8?B?amVJZlgrU0tVeUVrZ256MzU3Z0RlOUYrSXV4aS9SS0lmZ0k2L0xXdzZtY1E3?=
- =?utf-8?B?TGpDRkdId2lQTjlFUGdKSVMzOTBLWm1SaG5KN0FrQ3BsMStPNnJvK2NtUnVv?=
- =?utf-8?B?WVR6OEhFaUgwL0tsb0FzK2ZubFBRQlREenl5eFdyVk9yelVBbGNJQnkxNU5K?=
- =?utf-8?B?U3dxMy8ySkR2SytPMHc5dUFpWTBkNWszdEJqcTVxSW1HOWNRbFNoOWUwangy?=
- =?utf-8?B?VG44UW1jVUhPVVIxNVFwb1o0NVVCNGV4VTdWUVVXbmhaZDNLaWVaM0x5V1cx?=
- =?utf-8?B?SzhSSXZNaFJGRVcxWUFFOTc3ZittWXNYRXllQzZwK1BuSWFsL0p5NFJRSWgw?=
- =?utf-8?B?OEJYaXZkd2twNWVhUndGUnMxc3pVSUhiQ2ZPUGljTVVrTmE2bjVqVys2Tnkz?=
- =?utf-8?B?b3lqUlVLMit2KzZsbTA0NTJRc3B1NXhwR3lXSElGV2xmeHVYWEo0VXdnOVV1?=
- =?utf-8?B?QzJQKy9BK3ZPL2lqWERuZ1lBNmpFa0dBY284WExnOVZiM29rd05DSjNPTWhM?=
- =?utf-8?B?bmhCbnlDM1I3ZW1yeUFidzJ4aVc5VWpYelAwWFBMQmU5Z3A1RlpVUFY1ZTZ6?=
- =?utf-8?B?Njg0ME45bnFtMEw4eWhTU0s5SngrUmNrakFtS2c2cFFiOG5LN3hHRmt4SDMw?=
- =?utf-8?B?cGFFOW5UQ2Mrdko4bXI1WFdQMG9hSkNLUzRuaTdhd0JqUG1PR3RIZVIxY1Fj?=
- =?utf-8?B?L3JoVjhUQ3Z6NzQ2MlJxNk5ycUM0a01OQjJVZitRZnpFZmV5a20ycEhITkFk?=
- =?utf-8?B?eGtscG5XUG9FbUQ4RkN4bzQ2YWxpVmtWY0ZmaFRJNGRESGVLMmE1cDAwZ29P?=
- =?utf-8?B?VHkvSHQ0WURDOFJDWVpOMU9jNGViTUw0RmFuUVRsZmZBN1h6TEg3UmQzWE9x?=
- =?utf-8?B?MzZBY2RNVzZ5WnpiQ1h1YTFuME9zeU1sL1FPQkFkTlE2OGpuNHU2bmtyMDVx?=
- =?utf-8?B?ZjBkTVBqV1FaQ01JVmdxRmQ0VjdpcU43ZUphQWZyZWtkZ0xWaTU4bVk2eGVi?=
- =?utf-8?B?aWpsQURwUk9WWnJoNGVNV2VZOXFRd3VrTVIyUEdXemRuMDZJelRVb0szMjZJ?=
- =?utf-8?B?MjlRUlBKOTBydHpZRzA1VWRRVHNmVFdxNlFHNGhvN21MNDRzc2tFTU5RSVBk?=
- =?utf-8?B?MGdXN0Q5dnp6Q0lxVUZkTmtKVDZ2c2dzVWNtd0JaNC91dzFoUkpLVUtGeW82?=
- =?utf-8?Q?pR+LGJ7mTE9nInUHSHFcXlM=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8aa6d1e1-a7b9-4c2e-3a93-08d9d1e91bde
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jan 2022 14:22:17.6438
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qaIUarcEUz5iiailK753J4TLv118v47+hTMa4j15GUDjVMlBMPp3GzVkXJy+Fg54Zd8oVtqf4GfJx2vffNb0MQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3774
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <18a2487b-f754-d971-2e89-93e54b7b951b@suse.com>
 
-On 20.12.2021 06:21, Penny Zheng wrote:
-> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+On Tue, Dec 14, 2021 at 02:52:43PM +0100, Jan Beulich wrote:
+> On 14.12.2021 14:34, Jason Andryuk wrote:
+> > On Tue, Dec 14, 2021 at 2:50 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >>
+> >> Attempting to wait when the backend hasn't been created yet can't work:
+> >> the function will complain "Backend ... does not exist". Move the
+> >> waiting past the creation of the backend (and that of other related
+> >> nodes), hoping that there are no other dependencies that would now be
+> >> broken.
+> >>
+> >> Fixes: 0fdb48ffe7a1 ("libxl: Make sure devices added by pci-attach are reflected in the config")
+> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> >> ---
+> >> Just to make it explicit: I have no idea why the waiting is needed in
+> >> the first place. It's been there from the very introduction of PCI
+> >> passthrough support (commit b0a1af61678b). I therefore can't exclude
+> >> that an even better fix would be to simply omit the 2nd hunk here.
+> > 
+> > The first time a device is attached, the backend does not exist, and
+> > the wait is not needed.  However, when a second device is attached,
+> > the backend does exist.  Since pciback goes through Reconfiguring and
+> > Reconfigured, I believe the wait exists to let the frontend/backend
+> > settle back to Connected before modifying the xenstore entries to add
+> > the additional device.  I could be wrong, but that is my best answer
+> > for why someone went to the trouble of adding a wait in the first
+> > place.
 > 
-> This commit introduces a new arm-specific flag CDF_directmap to specify
-> that a domain should have its memory direct-map(guest physical address
-> == physical address) at domain creation.
+> If things are as you describe them, then the change here is wrong: The
+> waiting gets moved from before the creation of the new device's nodes
+> to immediately after. Yet then I also can't see how else I should
+> address the issue at hand, so I'd have to defer to someone else; this
+> may involve undoing / redoing some of what the commit referenced by
+> the Fixes: tag did.
 > 
-> Also, add a directmap flag under struct arch_domain and use it to
-> reimplement is_domain_direct_mapped.
-> 
-> For now, direct-map is only available when statically allocated memory is
-> used for the domain, that is, "xen,static-mem" must be also defined in the
-> domain configuration.
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> However, since all new nodes get added in a single transaction, I
+> can't see why waiting for the completion of a prior reconfigure would
+> be necessary: That'll either notice (and process) the new nodes, or
+> it won't. If it does, the next reconfigure would simply be a no-op.
 
-Non-Arm parts
-Acked-by: Jan Beulich <jbeulich@suse.com>
-However, ...
+Well, the current code is checking that the backend is in a known state:
+"Connected". Without this, the backend could be in any state like
+"Closing" or other error, not just reconfiguring. We probably want to
+keep checking that the backend can expect more devices.
 
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -3029,10 +3029,20 @@ void __init create_domUs(void)
->              .max_maptrack_frames = -1,
->              .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
->          };
-> +        unsigned int flags = 0U;
+Looking at Linux PCI PV backend implementation, I think linux reads
+"num_devs", takes time to do configuration of new devs, then set "state"
+to "reconfigured". So if libxl set's "num_devs" and "states" while
+Linux takes time to config new devs, Linux will never check "num_devs"
+again and ignore new added devices. So I guess it doesn't matter if we
+wait before or after to read "state"=="connected".
 
-Nit: No real need for a U suffix here.
+There is no real documentation on this PV PCI passthrough, so it is hard
+to tell what libxl can do. The pci backend xenstore path isn't even in
+"xenstore-paths.pandoc".
 
->          if ( !dt_device_is_compatible(node, "xen,domain") )
->              continue;
->  
-> +        if ( dt_property_read_bool(node, "direct-map") )
-> +        {
-> +            if ( !IS_ENABLED(CONFIG_STATIC_MEMORY) )
+But overall, maybe Jason's proposed change would be better, that is to
+wait on the backend before adding a new device but only when there's
+already a device which mean the backend would exist. (It would be better
+to me as it doesn't change when the waiting is done.)
 
-Isn't this too lax a check? I didn't find any other check of this
-property, so the use of static memory must be keyed to something
-else. Hence it's not sufficient that static memory support is
-enabled in the build.
+Thanks,
 
-> @@ -65,7 +67,8 @@ int map_vcpu_info(struct vcpu *v, unsigned long gfn, unsigned offset);
->  void unmap_vcpu_info(struct vcpu *v);
->  
->  int arch_domain_create(struct domain *d,
-> -                       struct xen_domctl_createdomain *config);
-> +                       struct xen_domctl_createdomain *config,
-> +                       const unsigned int flags);
-
-Same comment as for the earlier patch regarding the const here.
-
-Jan
-
+-- 
+Anthony PERARD
 
