@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E83B6487689
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jan 2022 12:31:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.254378.436180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDA28487697
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jan 2022 12:34:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.254387.436197 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n5nT4-00034y-DU; Fri, 07 Jan 2022 11:31:34 +0000
+	id 1n5nVU-0003xX-2l; Fri, 07 Jan 2022 11:34:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 254378.436180; Fri, 07 Jan 2022 11:31:34 +0000
+Received: by outflank-mailman (output) from mailman id 254387.436197; Fri, 07 Jan 2022 11:34:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n5nT4-000321-A6; Fri, 07 Jan 2022 11:31:34 +0000
-Received: by outflank-mailman (input) for mailman id 254378;
- Fri, 07 Jan 2022 11:31:32 +0000
+	id 1n5nVT-0003u2-VH; Fri, 07 Jan 2022 11:34:03 +0000
+Received: by outflank-mailman (input) for mailman id 254387;
+ Fri, 07 Jan 2022 11:34:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=kqIQ=RX=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1n5nT2-00020S-C5
- for xen-devel@lists.xenproject.org; Fri, 07 Jan 2022 11:31:32 +0000
+ id 1n5nVR-0003rv-IY
+ for xen-devel@lists.xenproject.org; Fri, 07 Jan 2022 11:34:01 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5c8c8ea8-6fad-11ec-9ce5-af14b9085ebd;
- Fri, 07 Jan 2022 12:31:31 +0100 (CET)
+ id b4e3f78c-6fad-11ec-9ce5-af14b9085ebd;
+ Fri, 07 Jan 2022 12:33:59 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5A132210E7;
- Fri,  7 Jan 2022 11:31:31 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 91833210E7;
+ Fri,  7 Jan 2022 11:33:59 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CA4AF13CCC;
- Fri,  7 Jan 2022 11:31:30 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6072913350;
+ Fri,  7 Jan 2022 11:33:59 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id nFSoL5Ik2GH4JAAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 07 Jan 2022 11:31:30 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id F2ThFCcl2GHhJQAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 07 Jan 2022 11:33:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,162 +51,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c8c8ea8-6fad-11ec-9ce5-af14b9085ebd
+X-Inumbo-ID: b4e3f78c-6fad-11ec-9ce5-af14b9085ebd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1641555091; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1641555239; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=6ZjHiAsPPaO++z4L8pxYEGbs90oQXthjx6sCL5hyEBU=;
-	b=b2wMNFDsMFnPwCDeJRTXZL7riiTGsB41hyCGyThb+AuKE8jzQGLN60JL00WYQxCWqninc5
-	g5Z4q/VYuHQo06q3vf8Awm392uzUhai4hOHD8k7EOonAk9pXx5R8bRBljPME7xaGSEATDW
-	o7v/R7X0q0x3H3hIIsMLwAWeRIZ5/yI=
-Subject: Re: [PATCH V4 0/6] xen: Add support of extended regions (safe ranges)
- on Arm
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
- xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Henry Wang <Henry.Wang@arm.com>, Kaly Xin <Kaly.Xin@arm.com>,
- Jiamei Xie <Jiamei.Xie@arm.com>
-References: <1639080336-26573-1-git-send-email-olekstysh@gmail.com>
+	bh=BrbFkh1H8DHh7FDlFrfzhtDMyAhtAlvzZh0lP0nE4xg=;
+	b=nIeQF6Fsk9r+u15dhoqlzgZEfStwX6rj4s/IaqlnmyG686ln+tGcYU5nFvjM3MLkiZG3XC
+	M553vMPIHkreLOCEPbhRhQ9MDxVfKzDbiKNeLGjC3Ix/aOvXGfv31mmnk4mXzIOthv/Wnl
+	eNgCCBz84XVEvqQrX/w3hWZBJ7rGo8o=
+Subject: Re: [PATCH 0/2] mini-os: remove device specific struct file members
+To: Andrew Cooper <amc96@srcf.net>, minios-devel@lists.xenproject.org,
+ xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org, wl@xen.org
+References: <20220107104706.9859-1-jgross@suse.com>
+ <f1579294-4cc7-a685-0326-967444b69b86@srcf.net>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <d594a183-c7be-5fff-da7a-e4c1e707b83c@suse.com>
-Date: Fri, 7 Jan 2022 12:31:30 +0100
+Message-ID: <e28981dd-239a-1213-dd2d-e4cfd7ad2a29@suse.com>
+Date: Fri, 7 Jan 2022 12:33:58 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <1639080336-26573-1-git-send-email-olekstysh@gmail.com>
+In-Reply-To: <f1579294-4cc7-a685-0326-967444b69b86@srcf.net>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="zxl7OBpx57u7dBEPjP24KfQ9qSnYGWYGc"
+ boundary="9dYvUsw6tZypt2UwYJ8xv8xbgTRutNLjs"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---zxl7OBpx57u7dBEPjP24KfQ9qSnYGWYGc
-Content-Type: multipart/mixed; boundary="bYQWwZXVskXxny1ZB8gcdtLP4a0dOoygv";
+--9dYvUsw6tZypt2UwYJ8xv8xbgTRutNLjs
+Content-Type: multipart/mixed; boundary="gA28VGGQ8NzkrjvVxtrVSrwNlUkQmuhOQ";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
- xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Julien Grall <julien@xen.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Henry Wang <Henry.Wang@arm.com>, Kaly Xin <Kaly.Xin@arm.com>,
- Jiamei Xie <Jiamei.Xie@arm.com>
-Message-ID: <d594a183-c7be-5fff-da7a-e4c1e707b83c@suse.com>
-Subject: Re: [PATCH V4 0/6] xen: Add support of extended regions (safe ranges)
- on Arm
-References: <1639080336-26573-1-git-send-email-olekstysh@gmail.com>
-In-Reply-To: <1639080336-26573-1-git-send-email-olekstysh@gmail.com>
+To: Andrew Cooper <amc96@srcf.net>, minios-devel@lists.xenproject.org,
+ xen-devel@lists.xenproject.org
+Cc: samuel.thibault@ens-lyon.org, wl@xen.org
+Message-ID: <e28981dd-239a-1213-dd2d-e4cfd7ad2a29@suse.com>
+Subject: Re: [PATCH 0/2] mini-os: remove device specific struct file members
+References: <20220107104706.9859-1-jgross@suse.com>
+ <f1579294-4cc7-a685-0326-967444b69b86@srcf.net>
+In-Reply-To: <f1579294-4cc7-a685-0326-967444b69b86@srcf.net>
 
---bYQWwZXVskXxny1ZB8gcdtLP4a0dOoygv
+--gA28VGGQ8NzkrjvVxtrVSrwNlUkQmuhOQ
 Content-Type: multipart/mixed;
- boundary="------------FE9D85ECD2D104C4DCB635EC"
+ boundary="------------AFF4EF5B9E1792DE884A90B3"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------FE9D85ECD2D104C4DCB635EC
+--------------AFF4EF5B9E1792DE884A90B3
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 09.12.21 21:05, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+On 07.01.22 12:30, Andrew Cooper wrote:
+> On 07/01/2022 10:47, Juergen Gross wrote:
+>> This small series is a followup to the series sent recently:
+>>
+>> https://lists.xen.org/archives/html/xen-devel/2022-01/threads.html#001=
+10
+>>
+>> It contains the last cleanups related to struct file and can only be
+>> applied after the Xen libraries have stopped using the related union
+>> members.
+>>
+>> Juergen Gross (2):
+>>    mini-os: remove event channel specific struct file member
+>>    mini-os: remove gnttab specific member from struct file
+>>
+>>   include/lib.h | 13 -------------
+>>   1 file changed, 13 deletions(-)
+>>
 >=20
-> Hello all.
->=20
-> You can find the RFC-V3 patch series at [1],[2] and [3].
->=20
-> The corresponding Xen support (for both Dom0 and DomU) is already commi=
-tted and
-> is available in mainline Xen since the following commit:
-> 57f87857dc2de452a796d6bad4f476510efd2aba libxl/arm: Add handling of ext=
-ended regions for DomU
->=20
-> The extended region (safe range) is a region of guest physical address =
-space
-> which is unused and could be safely used to create grant/foreign mappin=
-gs instead
-> of ballooning out real RAM pages to obtain a physical address space for=
- creating
-> these mappings (which simply results in wasting domain memory and shatt=
-ering super
-> pages in P2M table).
->=20
-> The problem is that we cannot follow Linux advise which memory ranges a=
-re unused
-> on Arm as there might be some identity mappings in P2M table (stage 2) =
-the guest is not
-> aware of or not all device I/O regions might be known (registered) by t=
-he time the guest
-> starts creating grant/foreign mappings. This is why we need some hints =
-from the hypervisor
-> which knows all details in advance to be able to choose extended region=
-s (which won't
-> clash with other resources).
->=20
-> The extended regions are chosen at the domain creation time and adverti=
-sed to it via
-> "reg" property under hypervisor node in the guest device-tree [4]. As r=
-egion 0 is reserved
-> for grant table space (always present), the indexes for extended region=
-s are 1...N.
-> No device tree bindings update is needed, guest infers the presence of =
-extended regions
-> from the number of regions in "reg" property.
->=20
-> Please note the following:
-> - The ACPI case is not covered for now
-> - patch series was created in a way to retain existing behavior on x86
->=20
-> The patch series is based on v5.16-rc3 and also available at [5], it wa=
-s fully
-> tested on Arm64 and only compile tested on x86.
->=20
-> [1] https://lore.kernel.org/all/1627490656-1267-1-git-send-email-olekst=
-ysh@gmail.com/
->      https://lore.kernel.org/all/1627490656-1267-2-git-send-email-oleks=
-tysh@gmail.com/
-> [2] https://lore.kernel.org/all/1635264312-3796-1-git-send-email-olekst=
-ysh@gmail.com/
-> [3] https://lore.kernel.org/all/1637787223-21129-1-git-send-email-oleks=
-tysh@gmail.com/
-> [4] https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dblob_plain;f=3Ddocs=
-/misc/arm/device-tree/guest.txt;hb=3Drefs/heads/master
-> [5] https://github.com/otyshchenko1/linux/commits/map_opt_ml7
->=20
-> Oleksandr Tyshchenko (6):
->    xen/unpopulated-alloc: Drop check for virt_addr_valid() in fill_list=
-()
->    arm/xen: Switch to use gnttab_setup_auto_xlat_frames() for DT
->    xen/balloon: Bring alloc(free)_xenballooned_pages helpers back
->    xen/unpopulated-alloc: Add mechanism to use Xen resource
->    arm/xen: Read extended regions from DT and init Xen resource
->    dt-bindings: xen: Clarify "reg" purpose
->=20
->   Documentation/devicetree/bindings/arm/xen.txt |  14 +--
->   arch/arm/xen/enlighten.c                      | 132 +++++++++++++++++=
-+++++++--
->   drivers/xen/Kconfig                           |   2 +-
->   drivers/xen/balloon.c                         |  20 ++--
->   drivers/xen/unpopulated-alloc.c               |  87 ++++++++++++++++-=
+> This all looks fine.=C2=A0 Even if we don't want to hide struct file,
+> shouldn't we at least make the files[] array private to the MiniOS
+> core?=C2=A0 It's another implementation detail which external users mus=
+tn't
+> rely on.
 
->   include/xen/balloon.h                         |   3 +
->   include/xen/xen.h                             |  16 ++++
->   7 files changed, 245 insertions(+), 29 deletions(-)
->=20
+In theory yes.
 
-Series pushed to xen/tip.git for-linus-5.17
+This will need some more work either by splitting headers or by
+using get_file_from_fd() everywhere in Mini-OS.
 
 
 Juergen
 
---------------FE9D85ECD2D104C4DCB635EC
+--------------AFF4EF5B9E1792DE884A90B3
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -298,25 +226,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------FE9D85ECD2D104C4DCB635EC--
+--------------AFF4EF5B9E1792DE884A90B3--
 
---bYQWwZXVskXxny1ZB8gcdtLP4a0dOoygv--
+--gA28VGGQ8NzkrjvVxtrVSrwNlUkQmuhOQ--
 
---zxl7OBpx57u7dBEPjP24KfQ9qSnYGWYGc
+--9dYvUsw6tZypt2UwYJ8xv8xbgTRutNLjs
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHYJJIFAwAAAAAACgkQsN6d1ii/Ey/B
-fggAguLLO4r4bqWIPJQiFCMQLiM8URWp6RPvi7mzKA5PhOFxx7xnRJT9ocXuoUt+p/PS200k6HuH
-OZFN+KDehNmtXK8PtJE+P3/fmCe72Lfl65WOmDtw47JfCgjkUmp4v2aiFL6J0dGxSA8m4NiJkPRt
-In/e1ziRq0R318pQm+xzR9S+MLt+Pv749iKSK6ZGS/arXiqFlQ1+iDzcxT2WWS9pwt9aGiHebej1
-c2Ybn6RyScqC8ObSU5JotE2llvexMQIm5EmABVskoIj/gT8KQNrhIlQxGqOXtOomi2dn4gyPUjdL
-fRBjD83ay8OW+7b6cNtAN2T+jb9w3S0tcCPNkeTs1A==
-=OH9o
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHYJSYFAwAAAAAACgkQsN6d1ii/Ey/U
+AQf/Qzqroj+LwcLr2Jut24qe8VvDl041f6sGYTsmDtF+kFu3h8X5EACMDx4qyvCPbZE5hba21dIB
+9O3rN/l+PwCmjRW7wy+zwBN3ejsiv7FKieYqF1JqBL/iTV+PpHpkr9ztz08cdfDXZrWaK7q1EhI2
+VBk60onJzTUCLpNUQwxP4kbPQi4FUG39k44qdDDvlWtKi0AJGHjdIfVFBep8v6q/nxrnAnjB/9i+
+anx2pgJ1xcTmzEOSo6mp4bwdfDcj/iSgLWC76s5FCGIvHB973JgSDtW2MrXAQ3DuI6vEwVHDp1t8
+OROHZsXLVnPtU0NDu9apAk1Bzc7r5LnNMVMiDjMKVA==
+=m0FI
 -----END PGP SIGNATURE-----
 
---zxl7OBpx57u7dBEPjP24KfQ9qSnYGWYGc--
+--9dYvUsw6tZypt2UwYJ8xv8xbgTRutNLjs--
 
