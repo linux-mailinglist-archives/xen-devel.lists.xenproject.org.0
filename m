@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6611D48800D
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Jan 2022 01:50:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.254714.436540 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F53C488007
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Jan 2022 01:49:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.254711.436520 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n5zv8-0007Xw-Ly; Sat, 08 Jan 2022 00:49:22 +0000
+	id 1n5zv7-0007B4-5W; Sat, 08 Jan 2022 00:49:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 254714.436540; Sat, 08 Jan 2022 00:49:22 +0000
+Received: by outflank-mailman (output) from mailman id 254711.436520; Sat, 08 Jan 2022 00:49:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n5zv8-0007Nl-Ap; Sat, 08 Jan 2022 00:49:22 +0000
-Received: by outflank-mailman (input) for mailman id 254714;
- Sat, 08 Jan 2022 00:49:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1n5zv6-000795-WA; Sat, 08 Jan 2022 00:49:20 +0000
+Received: by outflank-mailman (input) for mailman id 254711;
+ Sat, 08 Jan 2022 00:49:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CE0l=RY=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1n5zv6-000706-1v
- for xen-devel@lists.xenproject.org; Sat, 08 Jan 2022 00:49:20 +0000
+ id 1n5zv4-0006ZD-Mm
+ for xen-devel@lists.xenproject.org; Sat, 08 Jan 2022 00:49:18 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ce8f032a-701c-11ec-81c1-a30af7de8005;
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cea63d42-701c-11ec-9ce5-af14b9085ebd;
  Sat, 08 Jan 2022 01:49:17 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3C23DB827C0;
+ by ams.source.kernel.org (Postfix) with ESMTPS id BBC23B827C3;
  Sat,  8 Jan 2022 00:49:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82219C36AEF;
- Sat,  8 Jan 2022 00:49:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 260ABC36AF2;
+ Sat,  8 Jan 2022 00:49:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,17 +43,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ce8f032a-701c-11ec-81c1-a30af7de8005
+X-Inumbo-ID: cea63d42-701c-11ec-9ce5-af14b9085ebd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1641602955;
-	bh=5gqnkAJOfXnqVGXZ1qlNwhP+taPqzRbwoAe4Pxn2FBM=;
+	bh=CDrrsjp15mArIctwhofaLq+GzkkGMG31l1XpyQakdzM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=OyHNvkvda/IppfmN5ffOApPiggGKdA6fHkKcxGtbEGfmCurNqL9cCKuEdWr40fJDA
-	 4oC9SKxj8Ik2xh0JVoU3jItm0cwkfAtmPxE94JyN5/hR0INnezaoHoSj44UoDiCxBa
-	 ilacuOy5whBIAbd1PbBP6MByN/c+Bvg92LcxBKpwsYxfDoHmi8TUgrKar2wKndw+Mm
-	 eaI2MT5baBcnxq/rxkOJhS60EZMOs1kK4sHnwdWzOZ6CQw+HXjnXmAYfwYPTQle30n
-	 bU8I4dUnMqpKdqLfhIckxGT4nfCCw6HZTiZK0TomvlNBzq7MgsZjCG1nLLFIU1oZNa
-	 wxR6k7hYry/Vw==
+	b=s74qh4wvO/RR5LKh2IfvYR0fI8rZcLCQBUPotG3Wn3UDmMsFW0QCH5MHCj429aRAh
+	 aIhbDeAwPiR6i5MQ1ZDd+alEHNMTgPj99tsWXRKY+cl+IHOMwlbBVPu4DmgALRqhiP
+	 DalkoftRyp5urKCOIXjdbcYtFyu0KQqf5fows7xgQj5L0DIHfm/gi+vj5OzSL1T++I
+	 QLe2N9bV+VFuUdwtWngQndeKQqXV1/OcSrfxNAwAUMATToEOO6NtBUbKil5Qaxq9uI
+	 wPdqgmIof2B4iM03YbxZBjt5Ad4f/dfOXDum/h/zVGa/5psoz74oOvFoY7Ek8UPbde
+	 Gi1USrNk+/U3A==
 From: Stefano Stabellini <sstabellini@kernel.org>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -61,15 +61,13 @@ Cc: sstabellini@kernel.org,
 	Bertrand.Marquis@arm.com,
 	Luca Miccio <lucmiccio@gmail.com>,
 	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>
-Subject: [XEN PATCH 2/7] xen: introduce _evtchn_alloc_unbound
-Date: Fri,  7 Jan 2022 16:49:07 -0800
-Message-Id: <20220108004912.3820176-2-sstabellini@kernel.org>
+	wl@xen.org,
+	anthony.perard@citrix.com,
+	jgross@suse.com,
+	marmarek@invisiblethingslab.com
+Subject: [XEN PATCH 3/7] tools: add a late_init argument to xs_introduce_domain
+Date: Fri,  7 Jan 2022 16:49:08 -0800
+Message-Id: <20220108004912.3820176-3-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <alpine.DEB.2.22.394.2201071614090.2060010@ubuntu-linux-20-04-desktop>
 References: <alpine.DEB.2.22.394.2201071614090.2060010@ubuntu-linux-20-04-desktop>
@@ -78,127 +76,100 @@ Content-Transfer-Encoding: 8bit
 
 From: Luca Miccio <lucmiccio@gmail.com>
 
-The xenstore event channel will be allocated for dom0less domains. It is
-necessary to have access to the evtchn_alloc_unbound function to do
-that.
+Add a late_init argument to xs_introduce_domain to handle dom0less
+guests whose xenstore interfaces are initialized after boot.
 
-Factor out the part that actually allocates the event channel from
-evtchn_alloc_unbound and introduce this new function as
-_evtchn_alloc_unbound. (xsm_evtchn_unbound wouldn't work for a call
-originated from Xen.)
+This patch mechanically adds the new parameter; it doesn't change
+behaviors.
 
 Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: George Dunlap <george.dunlap@citrix.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Wei Liu <wl@xen.org>
+CC: wl@xen.org
+CC: anthony.perard@citrix.com
+CC: jgross@suse.com
+CC: marmarek@invisiblethingslab.com
 ---
- xen/common/event_channel.c | 49 +++++++++++++++++++++++++-------------
- xen/include/xen/event.h    |  3 +++
- 2 files changed, 36 insertions(+), 16 deletions(-)
+ tools/include/xenstore.h          | 3 ++-
+ tools/libs/light/libxl_dom.c      | 3 ++-
+ tools/libs/store/xs.c             | 8 ++++++--
+ tools/python/xen/lowlevel/xs/xs.c | 2 +-
+ 4 files changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
-index da88ad141a..8a19bbf7ae 100644
---- a/xen/common/event_channel.c
-+++ b/xen/common/event_channel.c
-@@ -18,6 +18,7 @@
+diff --git a/tools/include/xenstore.h b/tools/include/xenstore.h
+index 2b3f69fb61..1a302b5ff9 100644
+--- a/tools/include/xenstore.h
++++ b/tools/include/xenstore.h
+@@ -226,7 +226,8 @@ bool xs_transaction_end(struct xs_handle *h, xs_transaction_t t,
+ bool xs_introduce_domain(struct xs_handle *h,
+ 			 unsigned int domid,
+ 			 unsigned long mfn,
+-                         unsigned int eventchn); 
++			 unsigned int eventchn,
++			 bool late_init);
  
- #include <xen/init.h>
- #include <xen/lib.h>
-+#include <xen/err.h>
- #include <xen/errno.h>
- #include <xen/sched.h>
- #include <xen/irq.h>
-@@ -284,11 +285,32 @@ void evtchn_free(struct domain *d, struct evtchn *chn)
-     xsm_evtchn_close_post(chn);
+ /* Set the target of a domain
+  * This tells the store daemon that a domain is targetting another one, so
+diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
+index 2abaab439c..bacfdfa9df 100644
+--- a/tools/libs/light/libxl_dom.c
++++ b/tools/libs/light/libxl_dom.c
+@@ -497,7 +497,8 @@ retry_transaction:
+     if (!xs_transaction_end(ctx->xsh, t, 0))
+         if (errno == EAGAIN)
+             goto retry_transaction;
+-    xs_introduce_domain(ctx->xsh, domid, state->store_mfn, state->store_port);
++    xs_introduce_domain(ctx->xsh, domid, state->store_mfn, state->store_port,
++                        false);
+     free(vm_path);
+     return 0;
  }
- 
--static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
-+struct evtchn *_evtchn_alloc_unbound(struct domain *d, domid_t remote_dom)
+diff --git a/tools/libs/store/xs.c b/tools/libs/store/xs.c
+index 7a9a8b1656..dd47d607fd 100644
+--- a/tools/libs/store/xs.c
++++ b/tools/libs/store/xs.c
+@@ -1089,16 +1089,18 @@ bool xs_transaction_end(struct xs_handle *h, xs_transaction_t t,
+  */
+ bool xs_introduce_domain(struct xs_handle *h,
+ 			 unsigned int domid, unsigned long mfn,
+-			 unsigned int eventchn)
++			 unsigned int eventchn, bool late_init)
  {
-     struct evtchn *chn;
-+    int port;
-+
-+    if ( (port = get_free_port(d)) < 0 )
-+        return ERR_PTR(port);
-+    chn = evtchn_from_port(d, port);
-+
-+    evtchn_write_lock(chn);
-+
-+    chn->state = ECS_UNBOUND;
-+    if ( (chn->u.unbound.remote_domid = remote_dom) == DOMID_SELF )
-+        chn->u.unbound.remote_domid = current->domain->domain_id;
-+    evtchn_port_init(d, chn);
-+
-+    evtchn_write_unlock(chn);
-+
-+    return chn;
-+}
-+
-+static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
-+{
-+    struct evtchn *chn = NULL;
-     struct domain *d;
--    int            port, rc;
-+    int            rc;
-     domid_t        dom = alloc->dom;
+ 	char domid_str[MAX_STRLEN(domid)];
+ 	char mfn_str[MAX_STRLEN(mfn)];
+ 	char eventchn_str[MAX_STRLEN(eventchn)];
+-	struct iovec iov[3];
++	char late_init_str[MAX_STRLEN(late_init)];
++	struct iovec iov[4];
  
-     d = rcu_lock_domain_by_any_id(dom);
-@@ -297,27 +319,22 @@ static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
+ 	snprintf(domid_str, sizeof(domid_str), "%u", domid);
+ 	snprintf(mfn_str, sizeof(mfn_str), "%lu", mfn);
+ 	snprintf(eventchn_str, sizeof(eventchn_str), "%u", eventchn);
++	snprintf(late_init_str, sizeof(late_init_str), "%u", late_init);
  
-     spin_lock(&d->event_lock);
+ 	iov[0].iov_base = domid_str;
+ 	iov[0].iov_len = strlen(domid_str) + 1;
+@@ -1106,6 +1108,8 @@ bool xs_introduce_domain(struct xs_handle *h,
+ 	iov[1].iov_len = strlen(mfn_str) + 1;
+ 	iov[2].iov_base = eventchn_str;
+ 	iov[2].iov_len = strlen(eventchn_str) + 1;
++	iov[3].iov_base = late_init_str;
++	iov[3].iov_len = strlen(late_init_str) + 1;
  
--    if ( (port = get_free_port(d)) < 0 )
--        ERROR_EXIT_DOM(port, d);
--    chn = evtchn_from_port(d, port);
-+    chn = _evtchn_alloc_unbound(d, alloc->remote_dom);
-+    if ( IS_ERR(chn) )
-+    {
-+        rc = PTR_ERR(chn);
-+        ERROR_EXIT_DOM(rc, d);
-+    }
+ 	return xs_bool(xs_talkv(h, XBT_NULL, XS_INTRODUCE, iov,
+ 				ARRAY_SIZE(iov), NULL));
+diff --git a/tools/python/xen/lowlevel/xs/xs.c b/tools/python/xen/lowlevel/xs/xs.c
+index 0dad7fa5f2..dc667fb231 100644
+--- a/tools/python/xen/lowlevel/xs/xs.c
++++ b/tools/python/xen/lowlevel/xs/xs.c
+@@ -678,7 +678,7 @@ static PyObject *xspy_introduce_domain(XsHandle *self, PyObject *args)
+         return NULL;
  
-     rc = xsm_evtchn_unbound(XSM_TARGET, d, chn, alloc->remote_dom);
-     if ( rc )
-         goto out;
+     Py_BEGIN_ALLOW_THREADS
+-    result = xs_introduce_domain(xh, dom, page, port);
++    result = xs_introduce_domain(xh, dom, page, port, false);
+     Py_END_ALLOW_THREADS
  
--    evtchn_write_lock(chn);
--
--    chn->state = ECS_UNBOUND;
--    if ( (chn->u.unbound.remote_domid = alloc->remote_dom) == DOMID_SELF )
--        chn->u.unbound.remote_domid = current->domain->domain_id;
--    evtchn_port_init(d, chn);
--
--    evtchn_write_unlock(chn);
--
--    alloc->port = port;
-+    alloc->port = chn->port;
- 
-  out:
--    check_free_port(d, port);
-+    if ( chn != NULL )
-+        check_free_port(d, chn->port);
-     spin_unlock(&d->event_lock);
-     rcu_unlock_domain(d);
- 
-diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
-index 21c95e14fd..6aedbccbf1 100644
---- a/xen/include/xen/event.h
-+++ b/xen/include/xen/event.h
-@@ -68,6 +68,9 @@ int evtchn_close(struct domain *d1, int port1, bool guest);
- /* Free an event channel. */
- void evtchn_free(struct domain *d, struct evtchn *chn);
- 
-+/* Create a new event channel port */
-+struct evtchn *_evtchn_alloc_unbound(struct domain *d, domid_t remote_dom);
-+
- /* Allocate a specific event channel port. */
- int evtchn_allocate_port(struct domain *d, unsigned int port);
- 
+     return none(result);
 -- 
 2.25.1
 
