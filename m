@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07D88488144
-	for <lists+xen-devel@lfdr.de>; Sat,  8 Jan 2022 05:03:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.254803.436696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D81D04881A6
+	for <lists+xen-devel@lfdr.de>; Sat,  8 Jan 2022 06:28:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.254808.436707 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n62wF-0003t9-66; Sat, 08 Jan 2022 04:02:43 +0000
+	id 1n64GC-0003f3-DI; Sat, 08 Jan 2022 05:27:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 254803.436696; Sat, 08 Jan 2022 04:02:43 +0000
+Received: by outflank-mailman (output) from mailman id 254808.436707; Sat, 08 Jan 2022 05:27:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n62wF-0003qW-36; Sat, 08 Jan 2022 04:02:43 +0000
-Received: by outflank-mailman (input) for mailman id 254803;
- Sat, 08 Jan 2022 04:02:42 +0000
+	id 1n64GC-0003cH-AE; Sat, 08 Jan 2022 05:27:24 +0000
+Received: by outflank-mailman (input) for mailman id 254808;
+ Sat, 08 Jan 2022 05:27:23 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1n62wD-0003qQ-Tj
- for xen-devel@lists.xenproject.org; Sat, 08 Jan 2022 04:02:41 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1n64GA-0003c7-Ts; Sat, 08 Jan 2022 05:27:22 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1n62wC-000320-P0; Sat, 08 Jan 2022 04:02:40 +0000
-Received: from [5.195.40.20] (helo=[10.235.48.67])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1n62wC-00067n-C4; Sat, 08 Jan 2022 04:02:40 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1n64GA-0004rj-Qb; Sat, 08 Jan 2022 05:27:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1n64GA-000243-Fg; Sat, 08 Jan 2022 05:27:22 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1n64GA-00028x-FE; Sat, 08 Jan 2022 05:27:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,271 +42,272 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=NkXqpWc2NU0k6G1sSWXUyM8nVSowUpkdUp7aalfeor8=; b=j3ENTKbnMS19k5FzRqOaHhL/Or
-	A9PQsfX+lf1UN9Rna4+nyNw9SWrNwGw1gULxdlIkOI+S0Ebsxj0LBY7P37hny8IxzZOMVjqrLNNz3
-	50aA7ZJf0syWlQNhjt6Pj0hbo/O9n2olcZIDkCjLfYrXIULZgGJHBPIYJxJ4+BRdnVDw=;
-Message-ID: <47834af4-6c87-afd5-f8a0-c4086a938fb4@xen.org>
-Date: Sat, 8 Jan 2022 08:02:35 +0400
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=s3ZyB+lI2OaaSTBJk4kg7czZNgujmj0RGDt0BhQGZ0s=; b=bMwf2Tly0d3aA8Xm7q2f0cBJrl
+	LudjAoNhLmfpp/tT0/IcJHap6LpAXZa4Vjfcv7oOUY1mOOMV3/TyDN70fOAzbtkcO5m9iZ9aQVWmU
+	n1CHW44T9zoXu1ZeC78JTh0YXc+1WNH8JTuxgl1zCtIFwjRR8xMwKMJ1aeXlbjypa+5Q=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-167633-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.4.1
-Subject: Re: [XEN PATCH 7/7] tools: add example application to initialize
- dom0less PV drivers
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-Cc: Bertrand.Marquis@arm.com, Luca Miccio <lucmiccio@gmail.com>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
-References: <alpine.DEB.2.22.394.2201071614090.2060010@ubuntu-linux-20-04-desktop>
- <20220108004912.3820176-7-sstabellini@kernel.org>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220108004912.3820176-7-sstabellini@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [qemu-mainline test] 167633: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=c87507a8cfb5b11bf1773c0214ee76ba9382179c
+X-Osstest-Versions-That:
+    qemuu=41fb4c14ee500125dc0ce6fb573cf84b8db29ed0
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 08 Jan 2022 05:27:22 +0000
 
-Hi Stefano,
+flight 167633 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167633/
 
-On 08/01/2022 00:49, Stefano Stabellini wrote:
-> From: Luca Miccio <lucmiccio@gmail.com>
-> 
-> Add an example application that can be run in dom0 to complete the
-> dom0less domains initialization so that they can get access to xenstore
-> and use PV drivers.
-> 
-> Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Anthony PERARD <anthony.perard@citrix.com>
-> CC: Juergen Gross <jgross@suse.com>
-> ---
->   tools/helpers/Makefile        |  13 ++
->   tools/helpers/init-dom0less.c | 263 ++++++++++++++++++++++++++++++++++
->   2 files changed, 276 insertions(+)
->   create mode 100644 tools/helpers/init-dom0less.c
-> 
-> diff --git a/tools/helpers/Makefile b/tools/helpers/Makefile
-> index 7f6c422440..8e42997052 100644
-> --- a/tools/helpers/Makefile
-> +++ b/tools/helpers/Makefile
-> @@ -10,6 +10,9 @@ ifeq ($(CONFIG_Linux),y)
->   ifeq ($(CONFIG_X86),y)
->   PROGS += init-xenstore-domain
->   endif
-> +ifeq ($(CONFIG_ARM),y)
-> +PROGS += init-dom0less
-> +endif
->   endif
->   
->   XEN_INIT_DOM0_OBJS = xen-init-dom0.o init-dom-json.o
-> @@ -26,6 +29,13 @@ $(INIT_XENSTORE_DOMAIN_OBJS): CFLAGS += $(CFLAGS_libxenstore)
->   $(INIT_XENSTORE_DOMAIN_OBJS): CFLAGS += $(CFLAGS_libxenlight)
->   $(INIT_XENSTORE_DOMAIN_OBJS): CFLAGS += -include $(XEN_ROOT)/tools/config.h
->   
-> +INIT_DOM0LESS_OBJS = init-dom0less.o init-dom-json.o
-> +$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxentoollog)
-> +$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenstore)
-> +$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenlight)
-> +$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenctrl)
-> +$(INIT_DOM0LESS_OBJS): CFLAGS += $(CFLAGS_libxenevtchn)
-> +
->   .PHONY: all
->   all: $(PROGS)
->   
-> @@ -35,6 +45,9 @@ xen-init-dom0: $(XEN_INIT_DOM0_OBJS)
->   init-xenstore-domain: $(INIT_XENSTORE_DOMAIN_OBJS)
->   	$(CC) $(LDFLAGS) -o $@ $(INIT_XENSTORE_DOMAIN_OBJS) $(LDLIBS_libxentoollog) $(LDLIBS_libxenstore) $(LDLIBS_libxenctrl) $(LDLIBS_libxenguest) $(LDLIBS_libxenlight) $(APPEND_LDFLAGS)
->   
-> +init-dom0less: $(INIT_DOM0LESS_OBJS)
-> +	$(CC) $(LDFLAGS) -o $@ $(INIT_DOM0LESS_OBJS) $(LDLIBS_libxenctrl) $(LDLIBS_libxenevtchn) $(LDLIBS_libxentoollog) $(LDLIBS_libxenstore) $(LDLIBS_libxenlight) $(LDLIBS_libxenguest)  $(APPEND_LDFLAGS)
-> +
->   .PHONY: install
->   install: all
->   	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
-> diff --git a/tools/helpers/init-dom0less.c b/tools/helpers/init-dom0less.c
-> new file mode 100644
-> index 0000000000..055bf76cf5
-> --- /dev/null
-> +++ b/tools/helpers/init-dom0less.c
-> @@ -0,0 +1,263 @@
-> +#include <stdbool.h>
-> +#include <syslog.h>
-> +#include <stdio.h>
-> +#include <err.h>
-> +#include <stdlib.h>
-> +#include <xenstore.h>
-> +#include <xenctrl.h>
-> +#include <xenguest.h>
-> +#include <libxl.h>
-> +#include <xenevtchn.h>
-> +
-> +#include "init-dom-json.h"
-> +
-> +#define NR_MAGIC_PAGES 4
-> +#define CONSOLE_PFN_OFFSET 0
-> +#define XENSTORE_PFN_OFFSET 1
-> +#define STR_MAX_LENGTH 64
-> +
-> +static int alloc_magic_pages(struct xc_dom_image *dom)
-> +{
-> +    int rc, i;
-> +    const xen_pfn_t base = GUEST_MAGIC_BASE >> XC_PAGE_SHIFT;
-> +    xen_pfn_t p2m[NR_MAGIC_PAGES];
-> +
-> +    for (i = 0; i < NR_MAGIC_PAGES; i++)
-> +        p2m[i] = base + i;
-> +
-> +    rc = xc_domain_populate_physmap_exact(dom->xch, dom->guest_domid,
-> +                                          NR_MAGIC_PAGES, 0, 0, p2m);
-> +    if (rc < 0)
-> +        return rc;
-> +
-> +    dom->xenstore_pfn = base + XENSTORE_PFN_OFFSET;
-> +
-> +    xc_clear_domain_page(dom->xch, dom->guest_domid, dom->xenstore_pfn);
-> +
-> +    xc_hvm_param_set(dom->xch, dom->guest_domid, HVM_PARAM_STORE_PFN,
-> +                     dom->xenstore_pfn);
+Failures :-/ but no regressions.
 
-I think it would be best if the page is initialized in Xen. This would 
-allow to use the fields in the interface to propage the connection state 
-(see my comment in patch #1).
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 167623
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 167623
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 167623
+ test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 167623
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 167623
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 167623
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 167623
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 167623
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 167623
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-> +    xc_hvm_param_set(dom->xch, dom->guest_domid, HVM_PARAM_STORE_EVTCHN,
-> +                     dom->xenstore_evtchn);
+version targeted for testing:
+ qemuu                c87507a8cfb5b11bf1773c0214ee76ba9382179c
+baseline version:
+ qemuu                41fb4c14ee500125dc0ce6fb573cf84b8db29ed0
 
-On patch #1, you wrote the domain will have to wait on the event 
-channel. So shouldn't the event channel be initialized before the domain 
-is created? Otherwise, how would the domain knows when it is set?
+Last test of basis   167623  2022-01-06 21:39:31 Z    1 days
+Testing same since   167633  2022-01-07 21:39:29 Z    0 days    1 attempts
 
-> +    return 0;
-> +}
-> +
-> +static void do_xs_write(struct xs_handle *xsh, xs_transaction_t t,
-> +                        char *path, char *val)
-> +{
-> +    if (!xs_write(xsh, t, path, val, strlen(val)))
-> +        fprintf(stderr, "writing %s to xenstore failed.\n", path);
-> +}
-> +
-> +static void do_xs_write_dom(struct xs_handle *xsh, xs_transaction_t t,
-> +                            domid_t domid, char *path, char *val)
-> +{
-> +    char full_path[STR_MAX_LENGTH];
-> +
-> +    snprintf(full_path, STR_MAX_LENGTH,
-> +             "/local/domain/%d/%s", domid, path);
-> +    do_xs_write(xsh, t, full_path, val);
-> +}
-> +
-> +static void do_xs_write_libxl(struct xs_handle *xsh, xs_transaction_t t,
-> +                              domid_t domid, char *path, char *val)
-> +{
-> +    char full_path[STR_MAX_LENGTH];
-> +
-> +    snprintf(full_path, STR_MAX_LENGTH,
-> +             "/libxl/%d/%s", domid, path);
-> +    do_xs_write(xsh, t, full_path, val);
-> +}
-> +
-> +static void do_xs_write_vm(struct xs_handle *xsh, xs_transaction_t t,
-> +                           libxl_uuid uuid, char *path, char *val)
-> +{
-> +    char full_path[STR_MAX_LENGTH];
-> +
-> +    snprintf(full_path, STR_MAX_LENGTH,
-> +             "/vm/" LIBXL_UUID_FMT "/%s", LIBXL_UUID_BYTES(uuid), path);
-> +    do_xs_write(xsh, t, full_path, val);
-> +}
-> +
-> +static int restore_xenstore(struct xs_handle *xsh,
+------------------------------------------------------------
+People who touched revisions under test:
+  Chris Rauer <crauer@google.com>
+  Idan Horowitz <idan.horowitz@gmail.com>
+  Patrick Venture <venture@google.com>
+  Peter Maydell <peter.maydell@linaro.org>
+  Richard Henderson <richard.henderson@linaro.org>
+  Shengtan Mao <stmao@google.com>
+  Troy Lee <troy_lee@aspeedtech.com>
 
-I think "restore" is misleading because the domain was never in 
-Xenstore. So how about "create"?
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
-> +                            libxl_dominfo *info, libxl_uuid uuid,
-> +                            evtchn_port_t xenstore_port)
-> +{
-> +    domid_t domid;
-> +    int i;
-> +    char uuid_str[STR_MAX_LENGTH];
-> +    char dom_name_str[STR_MAX_LENGTH];
-> +    char vm_val_str[STR_MAX_LENGTH];
-> +    char id_str[STR_MAX_LENGTH];
-> +    char max_memkb_str[STR_MAX_LENGTH];
-> +    char cpu_str[STR_MAX_LENGTH];
-> +    char xenstore_port_str[STR_MAX_LENGTH];
-> +    char ring_ref_str[STR_MAX_LENGTH];
-> +    xs_transaction_t t;
-> +
-> +    domid = info->domid;
-> +    snprintf(id_str, STR_MAX_LENGTH, "%d", domid);
-> +    snprintf(dom_name_str, STR_MAX_LENGTH, "dom0less-%d", domid);
-> +    snprintf(uuid_str, STR_MAX_LENGTH, LIBXL_UUID_FMT, LIBXL_UUID_BYTES(uuid));
-> +    snprintf(vm_val_str, STR_MAX_LENGTH,
-> +             "vm/" LIBXL_UUID_FMT, LIBXL_UUID_BYTES(uuid));
-> +    snprintf(max_memkb_str, STR_MAX_LENGTH, "%lu", info->max_memkb);
-> +    snprintf(ring_ref_str, STR_MAX_LENGTH, "%lld",
-> +             (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) + XENSTORE_PFN_OFFSET);
-> +    snprintf(xenstore_port_str, STR_MAX_LENGTH, "%d", xenstore_port);
-> +
-> +retry_transaction:
-> +    t = xs_transaction_start(xsh);
-> +    if (t == XBT_NULL)
-> +        return errno;
-> +
-> +    /* /vm */
-> +    do_xs_write_vm(xsh, t, uuid, "name", dom_name_str);
-> +    do_xs_write_vm(xsh, t, uuid, "uuid", uuid_str);
-> +    do_xs_write_vm(xsh, t, uuid, "start_time", "0");
-> +
-> +    /* /domain */
-> +    do_xs_write_dom(xsh, t, domid, "vm", vm_val_str);
-> +    do_xs_write_dom(xsh, t, domid, "name", dom_name_str);
-> +    do_xs_write_dom(xsh, t, domid, "cpu", "");
-> +    for (i = 0; i < info->vcpu_max_id; i++) {
-> +        snprintf(cpu_str, STR_MAX_LENGTH, "cpu/%d/availability/", i);
-> +        do_xs_write_dom(xsh, t, domid, cpu_str,
-> +                        (info->cpupool & (1 << i)) ? "online" : "offline");
-> +    }
-> +    do_xs_write_dom(xsh, t, domid, "cpu/0", "");
-> +    do_xs_write_dom(xsh, t, domid, "cpu/availability", "online");
-> +
-> +    do_xs_write_dom(xsh, t, domid, "memory", "");
-> +    do_xs_write_dom(xsh, t, domid, "memory/static-max", max_memkb_str);
-> +    do_xs_write_dom(xsh, t, domid, "memory/videoram", "-1");
-> +
-> +    do_xs_write_dom(xsh, t, domid, "device", "");
-> +    do_xs_write_dom(xsh, t, domid, "device/suspend", "");
-> +    do_xs_write_dom(xsh, t, domid, "device/suspend/event-channel", "");
-> +
-> +    do_xs_write_dom(xsh, t, domid, "control", "");
-> +    do_xs_write_dom(xsh, t, domid, "control/shutdown", "");
-> +    do_xs_write_dom(xsh, t, domid, "control/feature-poweroff", "1");
-> +    do_xs_write_dom(xsh, t, domid, "control/feature-reboot", "1");
-> +    do_xs_write_dom(xsh, t, domid, "control/feature-suspend", "");
-> +    do_xs_write_dom(xsh, t, domid, "control/sysrq", "");
-> +    do_xs_write_dom(xsh, t, domid, "control/platform-feature-multiprocessor-suspend", "1");
-> +    do_xs_write_dom(xsh, t, domid, "control", "platform-feature-xs_reset_watches");
-> +
-> +    do_xs_write_dom(xsh, t, domid, "domid", id_str);
-> +    do_xs_write_dom(xsh, t, domid, "data", "");
-> +    do_xs_write_dom(xsh, t, domid, "drivers", "");
-> +    do_xs_write_dom(xsh, t, domid, "feature", "");
-> +    do_xs_write_dom(xsh, t, domid, "attr", "");
-> +
-> +    do_xs_write_dom(xsh, t, domid, "store/port", xenstore_port_str);
-> +    do_xs_write_dom(xsh, t, domid, "store/ring-ref", ring_ref_str);
-> +
-> +    do_xs_write_libxl(xsh, t, domid, "type", "pvh");
-> +    do_xs_write_libxl(xsh, t, domid, "dm-version", "qemu_xen");
 
-Can you outline how you decided which nodes need to be created?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Cheers,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
--- 
-Julien Grall
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/qemu-xen.git
+   41fb4c14ee..c87507a8cf  c87507a8cfb5b11bf1773c0214ee76ba9382179c -> upstream-tested
 
