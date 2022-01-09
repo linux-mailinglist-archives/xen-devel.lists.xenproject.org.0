@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83D8C488830
-	for <lists+xen-devel@lfdr.de>; Sun,  9 Jan 2022 07:13:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.255059.437118 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99A76488832
+	for <lists+xen-devel@lfdr.de>; Sun,  9 Jan 2022 07:17:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.255066.437136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n6RRX-0004sW-Bj; Sun, 09 Jan 2022 06:12:39 +0000
+	id 1n6RWA-0005cm-0Z; Sun, 09 Jan 2022 06:17:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 255059.437118; Sun, 09 Jan 2022 06:12:39 +0000
+Received: by outflank-mailman (output) from mailman id 255066.437136; Sun, 09 Jan 2022 06:17:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n6RRX-0004pn-64; Sun, 09 Jan 2022 06:12:39 +0000
-Received: by outflank-mailman (input) for mailman id 255059;
- Sun, 09 Jan 2022 06:12:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1n6RW9-0005a0-Re; Sun, 09 Jan 2022 06:17:25 +0000
+Received: by outflank-mailman (input) for mailman id 255066;
+ Sun, 09 Jan 2022 06:17:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uXRL=RZ=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1n6RRV-0004pc-5J
- for xen-devel@lists.xenproject.org; Sun, 09 Jan 2022 06:12:37 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 224ccd7d-7113-11ec-81c1-a30af7de8005;
- Sun, 09 Jan 2022 07:12:33 +0100 (CET)
+ id 1n6RW7-0005Xi-SN
+ for xen-devel@lists.xenproject.org; Sun, 09 Jan 2022 06:17:23 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cdc8962a-7113-11ec-9ce5-af14b9085ebd;
+ Sun, 09 Jan 2022 07:17:21 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A57DB210F5;
- Sun,  9 Jan 2022 06:12:33 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 1F9E31F382;
+ Sun,  9 Jan 2022 06:17:21 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 827FA1323E;
- Sun,  9 Jan 2022 06:12:33 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E361E1323E;
+ Sun,  9 Jan 2022 06:17:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id w6x5HtF82mHCAgAAMHmgww
- (envelope-from <jgross@suse.com>); Sun, 09 Jan 2022 06:12:33 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id BjjTNfB92mH4AwAAMHmgww
+ (envelope-from <jgross@suse.com>); Sun, 09 Jan 2022 06:17:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,81 +51,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 224ccd7d-7113-11ec-81c1-a30af7de8005
+X-Inumbo-ID: cdc8962a-7113-11ec-9ce5-af14b9085ebd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1641708753; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	t=1641709041; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2NEZWzPh5lRyG3jS2xnF4imOt3KxOxtziXli0WcVzAQ=;
-	b=YANISiT/wi2/S9CofJGi+QX/rRiATlxD3+jnRoGpbTiy1OLYrXdTcUWw2h8YkIE7lzdZ8e
-	fJwiZk8gQEmInbJwOHXQw1MkQlCm2QjTT/MdhayLUOoRzZafad7u9r12nCiv8GMY8fiUfz
-	6DPUsBbPn2HkWp/dx1Bf05xA9aS3b6w=
-Subject: Re: [PATCH 02/15] mini-os: makes file.read bool and move it ahead of
- device specific part
+	bh=JQvgevWvobT9sZOfI/2lM7ceVgGrP0PQ53Ah8wWQ+Gs=;
+	b=HEh4J70Kh2sX7Qtc9b1Ao0xx/JE3PzelXsoI8fAZ6o0QV+cr0Br0pQYOuTk2mYnZc3rdbi
+	SY1YjropN2pnWhO7Bo/y3KXPbDQBz/kJ4EwDjNn7G8a9hJL+Ai83xpIwb0vzd9ImSbrlRn
+	B0Xsx2L03lN8yD13yJjYq0bLfezuh0g=
+Subject: Re: [PATCH 0/2] mini-os: remove device specific struct file members
 To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
  minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, wl@xen.org
-References: <20220106115741.3219-1-jgross@suse.com>
- <20220106115741.3219-3-jgross@suse.com>
- <20220109011844.ztd7uwre6kb3dzwv@begin>
- <20220109012100.tpv42y3efylqgrhr@begin>
+References: <20220107104706.9859-1-jgross@suse.com>
+ <20220109011603.bymferaebanvvmud@begin>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <4b989643-9a9f-7bba-d729-d3248db49499@suse.com>
-Date: Sun, 9 Jan 2022 07:12:32 +0100
+Message-ID: <b1341eb8-cd80-db17-d69c-ed0781a8ea74@suse.com>
+Date: Sun, 9 Jan 2022 07:17:20 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <20220109012100.tpv42y3efylqgrhr@begin>
+In-Reply-To: <20220109011603.bymferaebanvvmud@begin>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="8DA3GSwe4AyWz92cpZ4rQCYNdfNu2Hbm3"
+ boundary="EorJ2WnWwLhDno7OhVFNeyKsTYJRBykzc"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---8DA3GSwe4AyWz92cpZ4rQCYNdfNu2Hbm3
-Content-Type: multipart/mixed; boundary="Z602Mw8QTB5loTPygdsDUDC35Z5JxK0fW";
+--EorJ2WnWwLhDno7OhVFNeyKsTYJRBykzc
+Content-Type: multipart/mixed; boundary="Psy6U8Xi5KhEHr6AJK7WJkxElTf8Q9ZeN";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
  minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, wl@xen.org
-Message-ID: <4b989643-9a9f-7bba-d729-d3248db49499@suse.com>
-Subject: Re: [PATCH 02/15] mini-os: makes file.read bool and move it ahead of
- device specific part
-References: <20220106115741.3219-1-jgross@suse.com>
- <20220106115741.3219-3-jgross@suse.com>
- <20220109011844.ztd7uwre6kb3dzwv@begin>
- <20220109012100.tpv42y3efylqgrhr@begin>
-In-Reply-To: <20220109012100.tpv42y3efylqgrhr@begin>
+Message-ID: <b1341eb8-cd80-db17-d69c-ed0781a8ea74@suse.com>
+Subject: Re: [PATCH 0/2] mini-os: remove device specific struct file members
+References: <20220107104706.9859-1-jgross@suse.com>
+ <20220109011603.bymferaebanvvmud@begin>
+In-Reply-To: <20220109011603.bymferaebanvvmud@begin>
 
---Z602Mw8QTB5loTPygdsDUDC35Z5JxK0fW
+--Psy6U8Xi5KhEHr6AJK7WJkxElTf8Q9ZeN
 Content-Type: multipart/mixed;
- boundary="------------A8BC179E04DBA680FFE9E233"
+ boundary="------------82B1C12707A7F8D2FE966FE2"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------A8BC179E04DBA680FFE9E233
+--------------82B1C12707A7F8D2FE966FE2
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 09.01.22 02:21, Samuel Thibault wrote:
-> Samuel Thibault, le dim. 09 janv. 2022 02:18:44 +0100, a ecrit:
->> Juergen Gross, le jeu. 06 janv. 2022 12:57:28 +0100, a ecrit:
->>> The read member of struct file should be bool.
->>>
->>> In order to have the device specific part at the end of the structure=
-
->>> move "read" ahead of that.
->>>
->>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>
->> Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+On 09.01.22 02:16, Samuel Thibault wrote:
+> Juergen Gross, le ven. 07 janv. 2022 11:47:04 +0100, a ecrit:
+>> can only be applied after the Xen libraries have stopped using the
+>> related union members.
 >=20
-> Mmm, but tools/libs/evtchn/minios.c needs updating, doesn't it?
+> Ah, ok :) Was that submitted somewhere?
 
-It will be, but assigning 1 to a bool is just fine.
+I've sent the patches, but they can be applied only after the first
+Mini-OS series has been applied and the Xen build is using the
+updated Mini-OS tree.
+
+Meanwhile I've found a way to decouple Mini-OS and the Xen libs even
+further. So this series and the Xen one will be updated.
+
+In the end the libs will use dynamic hooks and Mini-OS will no longer
+need to have a config knob for supporting the libs (other than having
+libc enabled).
 
 
 Juergen
 
---------------A8BC179E04DBA680FFE9E233
+--------------82B1C12707A7F8D2FE966FE2
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -217,25 +212,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------A8BC179E04DBA680FFE9E233--
+--------------82B1C12707A7F8D2FE966FE2--
 
---Z602Mw8QTB5loTPygdsDUDC35Z5JxK0fW--
+--Psy6U8Xi5KhEHr6AJK7WJkxElTf8Q9ZeN--
 
---8DA3GSwe4AyWz92cpZ4rQCYNdfNu2Hbm3
+--EorJ2WnWwLhDno7OhVFNeyKsTYJRBykzc
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHafNAFAwAAAAAACgkQsN6d1ii/Ey8A
-4Qf/ahmMqH+bFa9eRLYPf5dFGBg+ZXPcUIuQTgPFgJ0TcndIyaqLWoXvk6VS7jFk0Vme1a8j2RYM
-/X8JwuusFTRp3pIm2vaml06SkTIJiFVAP1M9AV7+XyzKqPsK/c6dtPS368hc1a8VwuC5SBuRxYKl
-hw41ikhNM4eGUs9zgIkk8bsoCYTVorpXZwWERwwJdsJh8d/+ENv1LIQPo0nFHuOOa+sCj/p9A2cq
-zefD8dvrT0VdXB8xH2CETk4ZAAQRCoRIJfDdAdWWJKGfg0EaFQJGdRSULSRt6s0Ev2P8X3Op7RpP
-IHSqtMryqgo/QQAo8ajH2M2f/kwXteBXGXmWS30ylg==
-=pWYc
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHaffAFAwAAAAAACgkQsN6d1ii/Ey84
+Pgf/e6yKopYElSi/OHj5OhdNshjGSD2f97ea4yjdyPKtvi4kv+xLxB1s59vVJbhStMkDXCi1zpW/
+Toa1wPFtEKlpIcMjI/0Qvop8RNRdhPQbsI+bMUCvlj91cs25oU+fgwdakDHzFvIH1aVWLaARDpad
+chv3eTL4lJiIh9mrswopQ0JTh7I3nQV86JCLQMqHUBZhHBcdU/Wk+3FYtN4dW0e7voxlDkxfI26E
+s2IPt38sf7qOlCc5U/rhg2TV5robDN4fhm8bhmkXdHYIihah1w6SUD0RBB/89/OmQHK4w12zeak2
+sVG4bsotPH0ob6eCbx0IP0caljfym4Q5v5/Wy6BpjA==
+=tQu8
 -----END PGP SIGNATURE-----
 
---8DA3GSwe4AyWz92cpZ4rQCYNdfNu2Hbm3--
+--EorJ2WnWwLhDno7OhVFNeyKsTYJRBykzc--
 
