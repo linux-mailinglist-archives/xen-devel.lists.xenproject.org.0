@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FCCA488745
-	for <lists+xen-devel@lfdr.de>; Sun,  9 Jan 2022 02:30:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.255015.437039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79023488746
+	for <lists+xen-devel@lfdr.de>; Sun,  9 Jan 2022 02:31:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.255018.437054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n6N2i-0000Sy-LM; Sun, 09 Jan 2022 01:30:44 +0000
+	id 1n6N36-00015T-2w; Sun, 09 Jan 2022 01:31:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 255015.437039; Sun, 09 Jan 2022 01:30:44 +0000
+Received: by outflank-mailman (output) from mailman id 255018.437054; Sun, 09 Jan 2022 01:31:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n6N2i-0000R6-H1; Sun, 09 Jan 2022 01:30:44 +0000
-Received: by outflank-mailman (input) for mailman id 255015;
- Sun, 09 Jan 2022 01:30:43 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1n6N35-000147-TY; Sun, 09 Jan 2022 01:31:07 +0000
+Received: by outflank-mailman (input) for mailman id 255018;
+ Sun, 09 Jan 2022 01:31:06 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4WZq=RZ=ens-lyon.org=samuel.thibault@srs-se1.protection.inumbo.net>)
- id 1n6N2h-000094-Jc
- for xen-devel@lists.xenproject.org; Sun, 09 Jan 2022 01:30:43 +0000
+ id 1n6N34-0007T5-N2
+ for xen-devel@lists.xenproject.org; Sun, 09 Jan 2022 01:31:06 +0000
 Received: from hera.aquilenet.fr (hera.aquilenet.fr [2a0c:e300::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c1e083d3-70eb-11ec-9ce5-af14b9085ebd;
- Sun, 09 Jan 2022 02:30:41 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cfc4a04f-70eb-11ec-81c1-a30af7de8005;
+ Sun, 09 Jan 2022 02:31:05 +0100 (CET)
 Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id 3E5DD346;
- Sun,  9 Jan 2022 02:30:41 +0100 (CET)
+ by hera.aquilenet.fr (Postfix) with ESMTP id 8F725346;
+ Sun,  9 Jan 2022 02:31:04 +0100 (CET)
 Received: from hera.aquilenet.fr ([127.0.0.1])
  by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id JPv3Ogv4G6aF; Sun,  9 Jan 2022 02:30:40 +0100 (CET)
+ with ESMTP id 2cH_o0_ByF5S; Sun,  9 Jan 2022 02:31:04 +0100 (CET)
 Received: from begin.home (unknown
  [IPv6:2a01:cb19:956:1b00:de41:a9ff:fe47:ec49])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id C59D064;
- Sun,  9 Jan 2022 02:30:40 +0100 (CET)
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id B03C564;
+ Sun,  9 Jan 2022 02:31:03 +0100 (CET)
 Received: from samy by begin.home with local (Exim 4.95)
- (envelope-from <samuel.thibault@ens-lyon.org>) id 1n6N2e-006iTC-3h;
- Sun, 09 Jan 2022 02:30:40 +0100
+ (envelope-from <samuel.thibault@ens-lyon.org>) id 1n6N31-006iTg-8O;
+ Sun, 09 Jan 2022 02:31:03 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,32 +49,32 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1e083d3-70eb-11ec-9ce5-af14b9085ebd
+X-Inumbo-ID: cfc4a04f-70eb-11ec-81c1-a30af7de8005
 X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Date: Sun, 9 Jan 2022 02:30:40 +0100
+Date: Sun, 9 Jan 2022 02:31:03 +0100
 From: Samuel Thibault <samuel.thibault@ens-lyon.org>
 To: Juergen Gross <jgross@suse.com>
 Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
 	wl@xen.org
-Subject: Re: [PATCH 12/15] mini-os: eliminate tpmfront union member in struct
+Subject: Re: [PATCH 13/15] mini-os: eliminate tpmtis union member in struct
  file
-Message-ID: <20220109013040.rhljjzid44opt2fn@begin>
+Message-ID: <20220109013103.gapt7g7jw353c4md@begin>
 Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
 	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org, wl@xen.org
 References: <20220106115741.3219-1-jgross@suse.com>
- <20220106115741.3219-13-jgross@suse.com>
+ <20220106115741.3219-14-jgross@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20220106115741.3219-13-jgross@suse.com>
+In-Reply-To: <20220106115741.3219-14-jgross@suse.com>
 Organization: I am not organized
 User-Agent: NeoMutt/20170609 (1.8.3)
 X-Spamd-Bar: /
 Authentication-Results: hera.aquilenet.fr;
 	none
 X-Rspamd-Server: hera
-X-Rspamd-Queue-Id: 3E5DD346
+X-Rspamd-Queue-Id: 8F725346
 X-Spamd-Result: default: False [0.40 / 15.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -90,8 +90,8 @@ X-Spamd-Result: default: False [0.40 / 15.00];
 	 RCVD_TLS_LAST(0.00)[];
 	 MID_RHS_NOT_FQDN(0.50)[]
 
-Juergen Gross, le jeu. 06 janv. 2022 12:57:38 +0100, a ecrit:
-> Replace the tpmfront specific union member in struct file with the
+Juergen Gross, le jeu. 06 janv. 2022 12:57:39 +0100, a ecrit:
+> Replace the tpmtis specific union member in struct file with the
 > common dev pointer.
 > 
 > Signed-off-by: Juergen Gross <jgross@suse.com>
@@ -101,85 +101,84 @@ Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 > ---
 >  include/lib.h | 5 -----
 >  lib/sys.c     | 2 +-
->  tpmfront.c    | 8 ++++----
+>  tpm_tis.c     | 8 ++++----
 >  3 files changed, 5 insertions(+), 10 deletions(-)
 > 
 > diff --git a/include/lib.h b/include/lib.h
-> index d740065..2ddc076 100644
+> index 2ddc076..d6a29ba 100644
 > --- a/include/lib.h
 > +++ b/include/lib.h
 > @@ -193,11 +193,6 @@ struct file {
 >  	    struct evtchn_port_list ports;
 >  	} evtchn;
 >  	struct gntmap gntmap;
-> -#ifdef CONFIG_TPMFRONT
+> -#ifdef CONFIG_TPM_TIS
 > -	struct {
-> -	   struct tpmfront_dev *dev;
-> -	} tpmfront;
+> -	   struct tpm_chip *dev;
+> -	} tpm_tis;
 > -#endif
->  #ifdef CONFIG_TPM_TIS
->  	struct {
->  	   struct tpm_chip *dev;
+>  #ifdef CONFIG_XENBUS
+>          struct {
+>              /* To each xenbus FD is associated a queue of watch events for this
 > diff --git a/lib/sys.c b/lib/sys.c
-> index b35e433..b042bf5 100644
+> index b042bf5..96fc769 100644
 > --- a/lib/sys.c
 > +++ b/lib/sys.c
-> @@ -462,7 +462,7 @@ int close(int fd)
+> @@ -468,7 +468,7 @@ int close(int fd)
 >  #endif
->  #ifdef CONFIG_TPMFRONT
->  	case FTYPE_TPMFRONT:
-> -            shutdown_tpmfront(files[fd].tpmfront.dev);
-> +            shutdown_tpmfront(files[fd].dev);
+>  #ifdef CONFIG_TPM_TIS
+>  	case FTYPE_TPM_TIS:
+> -            shutdown_tpm_tis(files[fd].tpm_tis.dev);
+> +            shutdown_tpm_tis(files[fd].dev);
 >  	    files[fd].type = FTYPE_NONE;
 >  	    return 0;
 >  #endif
-> diff --git a/tpmfront.c b/tpmfront.c
-> index be671c2..0a2fefc 100644
-> --- a/tpmfront.c
-> +++ b/tpmfront.c
-> @@ -538,7 +538,7 @@ int tpmfront_open(struct tpmfront_dev* dev)
+> diff --git a/tpm_tis.c b/tpm_tis.c
+> index 4127118..477f555 100644
+> --- a/tpm_tis.c
+> +++ b/tpm_tis.c
+> @@ -1288,14 +1288,14 @@ int tpm_tis_open(struct tpm_chip* tpm)
 >  
->     dev->fd = alloc_fd(FTYPE_TPMFRONT);
->     printk("tpmfront_open(%s) -> %d\n", dev->nodename, dev->fd);
-> -   files[dev->fd].tpmfront.dev = dev;
-> +   files[dev->fd].dev = dev;
->     dev->respgot = false;
->     return dev->fd;
+>     tpm->fd = alloc_fd(FTYPE_TPM_TIS);
+>     printk("tpm_tis_open() -> %d\n", tpm->fd);
+> -   files[tpm->fd].tpm_tis.dev = tpm;
+> +   files[tpm->fd].dev = tpm;
+>     return tpm->fd;
 >  }
-> @@ -547,7 +547,7 @@ int tpmfront_posix_write(int fd, const uint8_t* buf, size_t count)
+>  
+>  int tpm_tis_posix_write(int fd, const uint8_t* buf, size_t count)
+>  {
+>     struct tpm_chip* tpm;
+> -   tpm = files[fd].tpm_tis.dev;
+> +   tpm = files[fd].dev;
+>  
+>     if(tpm->locality < 0) {
+>        printk("tpm_tis_posix_write() failed! locality not set!\n");
+> @@ -1323,7 +1323,7 @@ int tpm_tis_posix_read(int fd, uint8_t* buf, size_t count)
 >  {
 >     int rc;
->     struct tpmfront_dev* dev;
-> -   dev = files[fd].tpmfront.dev;
-> +   dev = files[fd].dev;
+>     struct tpm_chip* tpm;
+> -   tpm = files[fd].tpm_tis.dev;
+> +   tpm = files[fd].dev;
 >  
 >     if(count == 0) {
 >        return 0;
-> @@ -573,7 +573,7 @@ int tpmfront_posix_read(int fd, uint8_t* buf, size_t count)
->     size_t dummysz;
->     struct tpmfront_dev* dev;
+> @@ -1350,7 +1350,7 @@ int tpm_tis_posix_read(int fd, uint8_t* buf, size_t count)
+>  int tpm_tis_posix_fstat(int fd, struct stat* buf)
+>  {
+>     struct tpm_chip* tpm;
+> -   tpm = files[fd].tpm_tis.dev;
+> +   tpm = files[fd].dev;
 >  
-> -   dev = files[fd].tpmfront.dev;
-> +   dev = files[fd].dev;
->  
->     if(count == 0) {
->        return 0;
-> @@ -606,7 +606,7 @@ int tpmfront_posix_fstat(int fd, struct stat* buf)
->     uint8_t* dummybuf;
->     size_t dummysz;
->     int rc;
-> -   struct tpmfront_dev* dev = files[fd].tpmfront.dev;
-> +   struct tpmfront_dev* dev = files[fd].dev;
->  
->     /* If we have a response waiting, then read it now from the backend
->      * so we can get its length*/
+>     buf->st_mode = O_RDWR;
+>     buf->st_uid = 0;
 > -- 
 > 2.26.2
 > 
 
 -- 
 Samuel
-/* Halley */
-
-	(Halley's comment.)
+<r> make
+<r> oops
+<m> make clean
 
