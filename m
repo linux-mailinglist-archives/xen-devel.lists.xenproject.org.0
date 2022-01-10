@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12CDD489D81
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jan 2022 17:27:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.255416.437673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9681489D84
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jan 2022 17:27:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.255419.437683 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n6xVr-0005Oi-LV; Mon, 10 Jan 2022 16:27:15 +0000
+	id 1n6xWK-0005tj-VB; Mon, 10 Jan 2022 16:27:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 255416.437673; Mon, 10 Jan 2022 16:27:15 +0000
+Received: by outflank-mailman (output) from mailman id 255419.437683; Mon, 10 Jan 2022 16:27:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n6xVr-0005Lg-IK; Mon, 10 Jan 2022 16:27:15 +0000
-Received: by outflank-mailman (input) for mailman id 255416;
- Mon, 10 Jan 2022 16:27:14 +0000
+	id 1n6xWK-0005qw-Rf; Mon, 10 Jan 2022 16:27:44 +0000
+Received: by outflank-mailman (input) for mailman id 255419;
+ Mon, 10 Jan 2022 16:27:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/GSA=R2=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1n6xVq-0005LN-F3
- for xen-devel@lists.xenproject.org; Mon, 10 Jan 2022 16:27:14 +0000
+ id 1n6xWJ-0005LN-MX
+ for xen-devel@lists.xenproject.org; Mon, 10 Jan 2022 16:27:43 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2aab90ab-7232-11ec-81c1-a30af7de8005;
- Mon, 10 Jan 2022 17:27:13 +0100 (CET)
+ id 3c4f73cd-7232-11ec-81c1-a30af7de8005;
+ Mon, 10 Jan 2022 17:27:42 +0100 (CET)
 Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2109.outbound.protection.outlook.com [104.47.17.109]) by
+ (mail-db8eur05lp2108.outbound.protection.outlook.com [104.47.17.108]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-11-KsipVrdYN5OnIj23Hu017w-1; Mon, 10 Jan 2022 17:27:12 +0100
+ de-mta-20-b74EuAIoNwSR-9eoBflEuQ-1; Mon, 10 Jan 2022 17:27:41 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
  by VI1PR0402MB3392.eurprd04.prod.outlook.com (2603:10a6:803:7::26)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7; Mon, 10 Jan
- 2022 16:27:10 +0000
+ 2022 16:27:40 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4867.011; Mon, 10 Jan 2022
- 16:27:10 +0000
+ 16:27:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,247 +51,238 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2aab90ab-7232-11ec-81c1-a30af7de8005
+X-Inumbo-ID: 3c4f73cd-7232-11ec-81c1-a30af7de8005
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1641832033;
+	t=1641832062;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JwetSJ0M7Wio+bMzCuujR1FuZNxp0KLup95F+RGEi+c=;
-	b=l3PqmKiAjKrf5b4f/Nt/e5V+ihHBqU/MUaHcsXaM/RNwtwReciJNpF4Ggj3uj+moJArCrV
-	s+0Z7j28oskE5XnnHlOX/P6d128eWUEchbi2ta8U7Nx6+jySTW7D2zccNOcHylwqFPPgSj
-	FvWNRgAtBPsT5089mcgEnZUi00bqFxU=
-X-MC-Unique: KsipVrdYN5OnIj23Hu017w-1
+	bh=4Ci6FYr5vgpsddeQQwvwG0AliVo/oTZ9JlrqAuexlIw=;
+	b=SZF/aNXqj6NJBdSZ4qh80TpE0i0lJ1RQf/fDSsuanWnCVohSGDZktJytRmzXrfcIBLqR/x
+	D7uWt1XTCaSwCGVwusMZsB3mM48GuMz/iCwfX7WD8HSdmInK1OGiG2fU7CgP+jXokbQzD5
+	u1E63MDV9MPDXKKeRIkxvO2BYOJzj/A=
+X-MC-Unique: b74EuAIoNwSR-9eoBflEuQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZHkxe4raQQHYNkkbP6mpKAF6Y6WxkxMoaAAUwM/ecqdwSYKxY49GWPO+bWPTB817c9QQ28/uG6C1X1JdWO07wmKIPXuhr5DshmGDP7RACNqgjBayWkGv9cz7H8J/JQNr44xidNA/vWNcCZBv6nw8jYXqPwfRRgsrSwR6RmE4CC2qJ0BvabYGDmTKihUeNOjLR1TBXvIurkPZ8jpqmDbMNAtfwkEmK5c2yGZ7vP64Nhz4N3tAhif/Gbb+cJE/YJFdBCTUSLuLSmtAsbuAG+vL79vWHSuPmbc52dl7+DjBmCcsjz3+rCN1NkH9wzK+gSvFtorHRH2aHB0thHJAL6r0yA==
+ b=oXe3FErESdwWK/tVqWDUYncUiGknfHvuriFH0ty0fpW4RZnNwhcCFtACO/qcQylUXmKFonbiVZ6RGSBiJLMSWYhWnncZ87gl/Lxmtr/o8U4u8hFeBnLn9FPxYMjyYZebl3KmtlmT1DccFdcq7/BzwqSxGQVtd2wzcH1D8h/n0kZX/zcA89krCm8k14VDInjg49nSkr4gOPxHyFK+suO3t4DMqw903/hcOwFC+LNXNkVg0Vxi/Cf7833A7LYIs9jykhg4xfRA+SbO60i/4MGfFcxbY7lf7zaHazSxKGxFzSUliICYr4ZWj98BIRLXeXSBEc2pxqwWd/R/ZvSpSQ+ePg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UAjov/cXqo60hlOx+eo/Ja7avwnbn58K8duw+tDk3co=;
- b=oVUipnc4o0f+wJgRgy7UQGpIY7YHgshObXQBnLHyb8tg+oDlLHe+QHJRAkQSB4oMsCwDSHDNizURdJ87S7d2br44jDijLDz/3lv7+IC9PfhBlXV6waZ34VWUhIRgbX2DS9HHP08tx17pv1iQWygt+f588W+VBFn3+/AxQOYjln+z1uJGKluFsnz6/6ooZ/iK6pAkKMOKMk+jdv1Wn9MzozcHquysMBroKbzdcQoKWaSIUHeN4Sfbe4Y81UQzDCGOtvhCt3kXTr8yXuGEXcwo+KoAbQwVLsH/x3SwmaLr9ea9pUWKKHKooXDoaB1tZ+xcq+TzhcXxC6oKOa6iq/+B6A==
+ bh=4Ci6FYr5vgpsddeQQwvwG0AliVo/oTZ9JlrqAuexlIw=;
+ b=N1GZOzsz9A9oPgAYorYKQuEeGisKYaZdQCRQOj3zDZ6C9dtyv4pbgCBGDjVL3abD+fQDzO0aSq1X8N17E9wmf7XlPLcuGfHUBdOxgEEDywum+rDY3Z790zcDubGPwyz4rPPXAf4E9BhM5C17SeyjQ5BvQlKEmxt6m+ChhZeLrTiG/8DgP4NfXvm3kYNpvhiZvGhSTPB3eNAgVHFy1iYXQRBpngwLTgRkYV+5nH56rqPbrJgLrH1kRzyWuTxOyWD5nz0H9Lx1uUmCprsu0hd1N1h+yeDVjaR6xCzH1j84JKMpw+wbDC2tK97ZFE3liPU2/vrqDN/YZ69UAcVDoMI6BQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <f31e2963-b795-b65e-3401-22c1fd88a4b8@suse.com>
-Date: Mon, 10 Jan 2022 17:27:08 +0100
+Message-ID: <ca78dac2-98d8-0fcb-4aea-31aac8e94309@suse.com>
+Date: Mon, 10 Jan 2022 17:27:38 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.4.1
-Subject: [PATCH v3 06/23] IOMMU: add order parameter to ->{,un}map_page()
- hooks
+Subject: [PATCH v3 07/23] IOMMU: have iommu_{,un}map() split requests into
+ largest possible chunks
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Kevin Tian <kevin.tian@intel.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <76cb9f26-e316-98a2-b1ba-e51e3d20f335@suse.com>
 In-Reply-To: <76cb9f26-e316-98a2-b1ba-e51e3d20f335@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM5PR0301CA0020.eurprd03.prod.outlook.com
- (2603:10a6:206:14::33) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM5PR0301CA0030.eurprd03.prod.outlook.com
+ (2603:10a6:206:14::43) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1b018de0-b4a3-492f-495f-08d9d4560d25
+X-MS-Office365-Filtering-Correlation-Id: 76fa2955-1683-4df7-8fef-08d9d4561efc
 X-MS-TrafficTypeDiagnostic: VI1PR0402MB3392:EE_
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB3392FC7FAA6FDFA37389AE96B3509@VI1PR0402MB3392.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+	<VI1PR0402MB339201B31758DE0CCC9CB578B3509@VI1PR0402MB3392.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1468;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	3jyaBEu72/Ct2G5LBSPiF+wZdcHIrrT6XxeNHhYGanDpcVgnGZ5xTo/01j2QJjNsCgxdi6RndWW6IFTpyquKOO4SdL5SkHUpZlSA4Rp8P2uQ1eO6TUFMEV6EIp1xsmOu7NkMr/sCCYKy+yrsGNQFxiBcPif5ATSs1YLIvoEG/1UWtKAnUI3KDGM1KlTlSplrtKKWmuyVwcdhkpLpKf/NaI8BbMWBbOZCtfMiV0dtnw0IMubyw1ir3pEgzFnIfmVBnu7m1vYlwAdJSYOZIVvc0WDFFZcuiPqHT+OS88X8Q7cHGKmEPc/kuVV88WUsXXTFm8NU4S0pxPhNlkgYK323H1I7qWwb2OsLAdYtZ20GBVvcesNAS5o1faQWjimUgpULIzSYI9066njOVoNYl0E8weC7JTD7+kF0eeAe+wyAN8JungcLwX70xdhMQUVrz+9ifg2U7T87S7wiYbaEBiW9s/iwT6UEhP/2PF0Ss1ilJjQGAN5u4Pq6QbcBv4xQ172u9uV8aDVYfEg0ISr0S24frLkx8HvXrZsf8UOuH4j4ABrsXHKaysg5ULMAQuAIJE3WUvlO2Xvdi2j3IkEcFHaRhDpbL4lNek8tJI5w+RBBFD8W4yFgvdIlHFJOFo+pLj1D/f00rNMEMrltts1BEymEE1XsQEWh4Inm7+xAVQfq7nLiAo1rGIjKa9Uw9eRVZ+D6/RnI0NidtLVTVPlIc5aYiSOr6LtumS5D816Uj8x+WlJNuJ08B2uqdCL9GzFNA+r6
+	raB7xktxxd0Gs1P9zrH+PqCt4PoNG39gAcJ21lW15J/BPfr4ThcLvUYmmUFfdjdWk/wuuVxrcLQKa2IqClWaK18FVR5zIG0nhkLzEhdxMs3I13sd4ptiOLKchXoRRWJE/kjUoz9PaQZpG7y+jgBFcG1PlhJFu9u9BV6Dt9CfTNztHbfeXqM1C//U7PEE+/4K8W3Fz5wVrpjq4TOfpjG0khbsivZn615RrE26vpC0azPSXweabAxOVIxpGmfYLlfG9yarC19KpopkL2y3v9Uddh9H0FJm6jcWSCRBWeyJmDYqjv4H+S1qHN+oE+DL88yeie/IG20zsSHMAaGYj38/iRl59JgO0WiFs1gSmFgLvJdpcI46/I54UDYxcKHOPvL7IYkrIWgJnfz4PTjYA4cWUZpD/R1brt5ZRRzlRnKqGrQUi93CvfwdFXRWSZwgB7UjmYP+v2UkMct90ALeG3tDWsEHov7/aHiIdojsIs4Zm259SdbJwhwhTvEEkdp8UGyorr7xZ3abKkrXum9+431PhjHdolgKfj0fZUrPWxbhJYyloZxJd/FcZWn1ir9VV3EHs68rxwwYfwLrR6uCv1BntxALaGPFSaUOo0rJhuxVjEjNgYSkdjM3zClLywtDAr1N28iqA2TRZE7IlHhfMlM4I/0PN6f/OLzWehmFdsB8yucC0O5LuB9yuxHrvOuoZCyF1f1iuk8rSgPYOsTeLd16F33Ue1ocdlq6ed+xOc0c1tU=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(83380400001)(6512007)(66476007)(66556008)(66946007)(86362001)(8936002)(2616005)(316002)(5660300002)(508600001)(31686004)(26005)(31696002)(186003)(6916009)(38100700002)(36756003)(6506007)(8676002)(6486002)(2906002)(4326008)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?fw6k4MO6Hjk9xgpUVW/TPpsR0oFv5NkQglml6N4I1ODikudejXLYLiz4fe/x?=
- =?us-ascii?Q?JO7aUZwfmWc4tg2oX3710a3ccdszECpKVkLDGDrLxxU6IZUtx/3B3FVI5Hy+?=
- =?us-ascii?Q?hHIZLl2f6HSyqVrGTZOludsUNm0sbIPRHthnQVjoWiK4LfXDL2KSshx5JSEj?=
- =?us-ascii?Q?qpyqCN2W98JZMdzQbfcUwp9MQIWiX6GjIW8dI+aVXPpUNjgR9fmqklJ51jtB?=
- =?us-ascii?Q?8PVVFmHDsMD9NQ0u/+DBRxhp1ZXCr3/P3R2S6pmZb/WE3ZjGlzmue8xeJm/I?=
- =?us-ascii?Q?XQsgJNFJpH86Mw4/Ay/O7S7EAufPZSIHoy0rVqvu9e0/GKx7AxuPEvqWvpvm?=
- =?us-ascii?Q?z7DoANk/zgBvEMYjtEdyR3jr6rXgle/XGAp7IbwZnL+kbIm0fSzhNny2N8Qh?=
- =?us-ascii?Q?LQFdAl+jU3OTKEjJUyWdTqzPvdNodIQ8cFxPgl7SvtYxio/AxQOhBfOV7s5J?=
- =?us-ascii?Q?iKbHf7Fg+Axx9Zkl7pUQ4KSCPw0tv6w/KLwPhUWcoxlS62sn2Rx/c9odNREq?=
- =?us-ascii?Q?CWbi+KTkCA3fPJqeAcS4PEq63hDMC8ntdjQr8zt9Hazjg4rx8oaVxvgawiNP?=
- =?us-ascii?Q?jyiHC2HjTEKBxQuXkowLyPH2ljz0VfJjpps0UXOItFcgG8YhtA4KirK6I1F4?=
- =?us-ascii?Q?cJWkx5Cfzk4rBDDhSOe55nCKiUIdR/GSjb4aKepUZohCZIFjLL++G+6xpGsO?=
- =?us-ascii?Q?rcV0yiVxrHxcITnlHNPLgHyxPwBD9kwDhRYFd7crD7eGn9yb5BqGG2w3+w0k?=
- =?us-ascii?Q?JFO2tKWQQb/GxuTq9HSaDDmqdjwYSkgjgt4Mgj6Zl3zbKwM66H6/wzGnJOyr?=
- =?us-ascii?Q?D7RiAu4eB8Bg0FlrGB055xDoxjVDiTIzOYOudGofiTwKCQskWHnEm7QUqhGu?=
- =?us-ascii?Q?l2bJwRwPcNdLXhM+pjsvYQfJi0duI/myMCXl+9anK4Msa/wVGeOMWTn1PbQ6?=
- =?us-ascii?Q?NYFjBZcr732fEG68GGfBX0qh6JJAsRFC/T62fla7gJzUuZ+oR6k2aS9Bxmja?=
- =?us-ascii?Q?DlwuLBl5eyLVHQw4ApsiKxeULuN/uyM8nknVcIKsCH+eCcrIAcYNNYIywVNE?=
- =?us-ascii?Q?GOsZJmMT13KstmO533jT8MC8PsBvW7gy0RE34419NVmDIkrPt1bzwyKIGWOh?=
- =?us-ascii?Q?zCvOk9TB2K70Z2oWFUBOoRdFo7ug43urTT/AmzfL1NdERxGNT3YhMdMtscZT?=
- =?us-ascii?Q?CrTLqdoO572uVWvmRB2yESsX4mWtx9FHAZEZutXgAPqe1t+nOll8wa+IBt4Q?=
- =?us-ascii?Q?j3D81CAzJNCO2IMoZnkt6VHzlQl70gt2KYyn1BPeCnTMFhJ6gJv5I1aZ+mYd?=
- =?us-ascii?Q?WSHiQTyQG795Sdfu4ss+w6wWLJBGP5M1vKiqo7uWTP9wwLFw1qTQ0cNS5vHh?=
- =?us-ascii?Q?YN8N/NB1b+aMqk/YEZeQXSK4V6ZXRZTIeR2HdBXFDhl1c2QuUbGu5DEBmMua?=
- =?us-ascii?Q?lE9rOZSWCgd/Pvk1WjQIpwDMYFr6Nllnw9a0Y5r15tKMxzW1MKr5awIRvgyL?=
- =?us-ascii?Q?zT9Nmyp4UFByHd2CgF8pTssQvWPo7FatnCHYDpYZa1eMryWht2FcqClXc1Q6?=
- =?us-ascii?Q?wbId/cMQMPVLDDBdnuIz1efrbNwfaE1u7UvrDx1NFsCI+HAr//5Z0tpwPied?=
- =?us-ascii?Q?Sk2XCAXL5oJ+wQwOdcO62/8=3D?=
+	=?utf-8?B?cHdVVmV1eEkyMXhSaG84NjJZdEJ2TGNQTTFYOE84MmZTRVc5bG1xbVQxaUNp?=
+ =?utf-8?B?S1lrZEFKRmhXKytkWEdYelFROUNqSWVpZUJLRCt6RXNQcW9qTEFmVjFjUGRm?=
+ =?utf-8?B?WTRzcUZnVDA5THlIMEcrbEh2ZHlJYnZQRkNyanVGUnpmcHZLczcxZ1JsMHRF?=
+ =?utf-8?B?TDUxQi9nc05Tai9neHVQZENZU3BNcVJnYUEybnNMdG9leUxMbUFVNW9hTmdw?=
+ =?utf-8?B?TGRaU2paL3dkY1NhNTZyTmwzbkRTQ1NWRVY1aXBDZncxSjU1Q2lzeWVHZW5C?=
+ =?utf-8?B?OXZrelg1SWo0SWg2a1hqaDVuZ3BvUnlGQkVJOTZaaW1WMmJ3WjRqQmE4am05?=
+ =?utf-8?B?WE42YXpMK3hZSXJBZ0VEb3JsNVVtUm9TbXQwNy9JalM3bU40U0VqSllkMzNw?=
+ =?utf-8?B?eUFHN1k0WFJoQWFCbE5uUTk3eTVmbGRkWSt2SU9wdzZzUWJ3a3lUTEwrZE1K?=
+ =?utf-8?B?VzJmMzVmckU2TTM0RmhuOHpXc2VvZmUrNk94ZE95cjlseG5YOEJoNCtXcFZP?=
+ =?utf-8?B?WVYxVldHZWxUOXowb2ZFZEhBWlM4bSt3OFl1UytZQ2VPL2Z0cTJQOU50eHpy?=
+ =?utf-8?B?c1A3UDcvOGd1TU0yTmxIZXhzSTNrTDdNSjY5N3NabGdoZ3ZTWWR0NW9UVlI3?=
+ =?utf-8?B?N2Iwdm94V1RUK2FGbkh4WUpSc2RoMlYvM3FaYTN6RjlXNC9iOUlpV2tneVJF?=
+ =?utf-8?B?T0k0UDJtS2VzSWFPcmJpck82UkNVc1RPU3pJZW0vSDh4T0FjNGxGQkVITDdD?=
+ =?utf-8?B?VDJhN0tIS0dpRTFUNVVWY2JqMHZ4bWdhTU1hMjVhK1ovR2JyRDZIRFRTRkdF?=
+ =?utf-8?B?M1hVUHQrRVZFL2lQczVWNzY2QTNnZi9jUVo2U0dtL2orNnZtZTEwNzFIOUxm?=
+ =?utf-8?B?OVY5eFJEZUNvT1FRbU82L01vNytVU2VhZTIxUjU4VmY4RFVPZHRsdGVNNFlq?=
+ =?utf-8?B?dU1yQ1hqYmhNY3IzU3huVHV3WVdOSi9ZQThlNVp0SGQyajMwbm5JMFU5dXRm?=
+ =?utf-8?B?ZkNTTGlWbUZlTVZsdWVIQnFHQVIydS8xNmpwc1ZRMTFJdjhCck0rb1lCQndh?=
+ =?utf-8?B?YlpFUlM4YW41YlJqVWxtMm4vVGhwOGFwcHBpQ21ZajBlUEVpYTY4dnlUcXJj?=
+ =?utf-8?B?Zk5MVFl4ZTVtZzB1dEVNNll1cWtTNXJXL3lrdVlnYVV1a0Z4blZhN2JpTFEv?=
+ =?utf-8?B?YTZMNmFsMUZhbEk0NGNkM2pKUE9pRlBMNUxEWFE1Wit5WW9nZmNOakxYUXVR?=
+ =?utf-8?B?dVpoRWUyOGJKVTJDT3RUQnhCdmNWY3VxMVE3MzEwaDhnNWRNQ3FCTk9rNDQ0?=
+ =?utf-8?B?VHZwMVVaWTlOaEpicVYzMkhiRlJta3F4VDVxQncvbGZaZktGekE4bERmUGdI?=
+ =?utf-8?B?UWpteDhOVXlndnZPUmpYWWg5a21KUTlmSjZLQy9vMm1OYmsyQlBWUEI2a2No?=
+ =?utf-8?B?aGozUXF3c2pNQnJaREYwdUJ2MmVJb3N3ZFQ1UWlGMGs1M3Q5dDN4VkRhRmJr?=
+ =?utf-8?B?WEhVTlFqOVdiOERXNnJ3NTkyTXkvQktIYzNpUGM5YnFKTG5uK1NmUEt3dmRm?=
+ =?utf-8?B?Nm5FU1BrZ1BWbG9yUGZ0RjhobkVQTC9LMU10eFJlUHhlWllEVHlxdDk5UnBP?=
+ =?utf-8?B?KzRJRFlHYnNlL1dLMkNxRk5melZuQ2cwY1kwQVhxd0VEMWtMT1BYUHFEd2FL?=
+ =?utf-8?B?YlhKQWxSTU5tNk1Vb2FZTzlXZXJyemFzSUZ1Y01PSlV6YXVrNytLSncvYW9T?=
+ =?utf-8?B?dGloMENGUjBucEVUbzVxbkRjMzBkQnpSQVVFcGVzUUI5V0VxK29nbDYvYVI4?=
+ =?utf-8?B?QjJjVmNwVlFNTFNPY2k2REJyV2VONGk1TjBaWGVQdFNnNEMwYllReWZTM2M5?=
+ =?utf-8?B?OTZkM3FMRW5LeHFIbWxjTTBEY24xQnJ4VlB4SzFzclZWbzVGN1dFNHRueHdu?=
+ =?utf-8?B?VDlVVENTSGVweVRKbllseTVtUVdlVW1nSlluak8zT0xWbXB0ZHdjWWxZOFZj?=
+ =?utf-8?B?QXBmdnBhU2w1eGdHN3NtMkk3LzE5cTNmUmtDNGh3OUdVdXJYejVXZk1PUjBB?=
+ =?utf-8?B?RU1BOTFJK25qQitza3BLUSsxUFpVb0ZjaGg5cnluRW0rNFJKVGl4ckFwUWNm?=
+ =?utf-8?B?clpzWnkxekxaa1paeUFjeURCZjJUSW05TGZCbHBidm5od3d0OXhta2tNWVVz?=
+ =?utf-8?Q?ktixdKHK9Y6hAWSh8voM1G8=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b018de0-b4a3-492f-495f-08d9d4560d25
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76fa2955-1683-4df7-8fef-08d9d4561efc
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2022 16:27:10.3498
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2022 16:27:40.2619
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jCJsEQ1jUyCLAncFRl88etKY3INtNwyvyFpn41MmRNvbVwQipKM8LdDtiSqfIAbTkEJKh8SMHZ1nOXFmXIXnFw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: niSfhnqbCFklJOUP9DIxn+G055ylzYnAqBQm5Su01XOvqnDsEvxx1cfD4tj2qj7WIQ1pOw2Uc9j4+PwzeNuzAA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3392
 
-Or really, in the case of ->map_page(), accommodate it in the existing
-"flags" parameter. All call sites will pass 0 for now.
+Introduce a helper function to determine the largest possible mapping
+that allows covering a request (or the next part of it that is left to
+be processed).
+
+In order to not add yet more recurring dfn_add() / mfn_add() to the two
+callers of the new helper, also introduce local variables holding the
+values presently operated on.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-[Arm]
-Acked-by: Julien Grall <jgrall@amazon.com>
 ---
 v3: Re-base over new earlier patch.
-v2: Re-base over change earlier in the series.
 
---- a/xen/drivers/passthrough/amd/iommu.h
-+++ b/xen/drivers/passthrough/amd/iommu.h
-@@ -243,6 +243,7 @@ int __must_check amd_iommu_map_page(stru
-                                     mfn_t mfn, unsigned int flags,
-                                     unsigned int *flush_flags);
- int __must_check amd_iommu_unmap_page(struct domain *d, dfn_t dfn,
-+                                      unsigned int order,
-                                       unsigned int *flush_flags);
- int __must_check amd_iommu_alloc_root(struct domain *d);
- int amd_iommu_reserve_domain_unity_map(struct domain *domain,
---- a/xen/drivers/passthrough/amd/iommu_map.c
-+++ b/xen/drivers/passthrough/amd/iommu_map.c
-@@ -331,7 +331,7 @@ int amd_iommu_map_page(struct domain *d,
-     return 0;
- }
-=20
--int amd_iommu_unmap_page(struct domain *d, dfn_t dfn,
-+int amd_iommu_unmap_page(struct domain *d, dfn_t dfn, unsigned int order,
-                          unsigned int *flush_flags)
- {
-     unsigned long pt_mfn =3D 0;
---- a/xen/drivers/passthrough/arm/iommu_helpers.c
-+++ b/xen/drivers/passthrough/arm/iommu_helpers.c
-@@ -57,11 +57,13 @@ int __must_check arm_iommu_map_page(stru
-      * The function guest_physmap_add_entry replaces the current mapping
-      * if there is already one...
-      */
--    return guest_physmap_add_entry(d, _gfn(dfn_x(dfn)), _mfn(dfn_x(dfn)), =
-0, t);
-+    return guest_physmap_add_entry(d, _gfn(dfn_x(dfn)), _mfn(dfn_x(dfn)),
-+                                   IOMMUF_order(flags), t);
- }
-=20
- /* Should only be used if P2M Table is shared between the CPU and the IOMM=
-U. */
- int __must_check arm_iommu_unmap_page(struct domain *d, dfn_t dfn,
-+                                      unsigned int order,
-                                       unsigned int *flush_flags)
- {
-     /*
-@@ -71,7 +73,8 @@ int __must_check arm_iommu_unmap_page(st
-     if ( !is_domain_direct_mapped(d) )
-         return -EINVAL;
-=20
--    return guest_physmap_remove_page(d, _gfn(dfn_x(dfn)), _mfn(dfn_x(dfn))=
-, 0);
-+    return guest_physmap_remove_page(d, _gfn(dfn_x(dfn)), _mfn(dfn_x(dfn))=
-,
-+                                     order);
- }
-=20
- /*
 --- a/xen/drivers/passthrough/iommu.c
 +++ b/xen/drivers/passthrough/iommu.c
-@@ -271,6 +271,8 @@ int iommu_map(struct domain *d, dfn_t df
+@@ -260,12 +260,38 @@ void iommu_domain_destroy(struct domain
+     arch_iommu_domain_destroy(d);
+ }
+ 
+-int iommu_map(struct domain *d, dfn_t dfn, mfn_t mfn,
++static unsigned int mapping_order(const struct domain_iommu *hd,
++                                  dfn_t dfn, mfn_t mfn, unsigned long nr)
++{
++    unsigned long res = dfn_x(dfn) | mfn_x(mfn);
++    unsigned long sizes = hd->platform_ops->page_sizes;
++    unsigned int bit = find_first_set_bit(sizes), order = 0;
++
++    ASSERT(bit == PAGE_SHIFT);
++
++    while ( (sizes = (sizes >> bit) & ~1) )
++    {
++        unsigned long mask;
++
++        bit = find_first_set_bit(sizes);
++        mask = (1UL << bit) - 1;
++        if ( nr <= mask || (res & mask) )
++            break;
++        order += bit;
++        nr >>= bit;
++        res >>= bit;
++    }
++
++    return order;
++}
++
++int iommu_map(struct domain *d, dfn_t dfn0, mfn_t mfn0,
+               unsigned long page_count, unsigned int flags,
+               unsigned int *flush_flags)
+ {
+     const struct domain_iommu *hd = dom_iommu(d);
+     unsigned long i;
++    unsigned int order;
+     int rc = 0;
+ 
+     if ( !is_iommu_enabled(d) )
+@@ -273,10 +299,15 @@ int iommu_map(struct domain *d, dfn_t df
+ 
+     ASSERT(!IOMMUF_order(flags));
+ 
+-    for ( i = 0; i < page_count; i++ )
++    for ( i = 0; i < page_count; i += 1UL << order )
+     {
+-        rc = iommu_call(hd->platform_ops, map_page, d, dfn_add(dfn, i),
+-                        mfn_add(mfn, i), flags, flush_flags);
++        dfn_t dfn = dfn_add(dfn0, i);
++        mfn_t mfn = mfn_add(mfn0, i);
++
++        order = mapping_order(hd, dfn, mfn, page_count - i);
++
++        rc = iommu_call(hd->platform_ops, map_page, d, dfn, mfn,
++                        flags | IOMMUF_order(order), flush_flags);
+ 
+         if ( likely(!rc) )
+             continue;
+@@ -284,11 +315,10 @@ int iommu_map(struct domain *d, dfn_t df
+         if ( !d->is_shutting_down && printk_ratelimit() )
+             printk(XENLOG_ERR
+                    "d%d: IOMMU mapping dfn %"PRI_dfn" to mfn %"PRI_mfn" failed: %d\n",
+-                   d->domain_id, dfn_x(dfn_add(dfn, i)),
+-                   mfn_x(mfn_add(mfn, i)), rc);
++                   d->domain_id, dfn_x(dfn), mfn_x(mfn), rc);
+ 
+         /* while statement to satisfy __must_check */
+-        while ( iommu_unmap(d, dfn, i, flush_flags) )
++        while ( iommu_unmap(d, dfn0, i, flush_flags) )
+             break;
+ 
+         if ( !is_hardware_domain(d) )
+@@ -320,20 +350,25 @@ int iommu_legacy_map(struct domain *d, d
+     return rc;
+ }
+ 
+-int iommu_unmap(struct domain *d, dfn_t dfn, unsigned long page_count,
++int iommu_unmap(struct domain *d, dfn_t dfn0, unsigned long page_count,
+                 unsigned int *flush_flags)
+ {
+     const struct domain_iommu *hd = dom_iommu(d);
+     unsigned long i;
++    unsigned int order;
+     int rc = 0;
+ 
      if ( !is_iommu_enabled(d) )
          return 0;
-=20
-+    ASSERT(!IOMMUF_order(flags));
+ 
+-    for ( i = 0; i < page_count; i++ )
++    for ( i = 0; i < page_count; i += 1UL << order )
+     {
+-        int err = iommu_call(hd->platform_ops, unmap_page, d, dfn_add(dfn, i),
+-                             0, flush_flags);
++        dfn_t dfn = dfn_add(dfn0, i);
++        int err;
 +
-     for ( i =3D 0; i < page_count; i++ )
-     {
-         rc =3D iommu_call(hd->platform_ops, map_page, d, dfn_add(dfn, i),
-@@ -331,7 +333,7 @@ int iommu_unmap(struct domain *d, dfn_t
-     for ( i =3D 0; i < page_count; i++ )
-     {
-         int err =3D iommu_call(hd->platform_ops, unmap_page, d, dfn_add(df=
-n, i),
--                             flush_flags);
-+                             0, flush_flags);
-=20
++        order = mapping_order(hd, dfn, _mfn(0), page_count - i);
++        err = iommu_call(hd->platform_ops, unmap_page, d, dfn,
++                         order, flush_flags);
+ 
          if ( likely(!err) )
              continue;
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -2018,6 +2018,7 @@ static int __must_check intel_iommu_map_
- }
-=20
- static int __must_check intel_iommu_unmap_page(struct domain *d, dfn_t dfn=
-,
-+                                               unsigned int order,
-                                                unsigned int *flush_flags)
- {
-     /* Do nothing if VT-d shares EPT page table */
-@@ -2028,7 +2029,7 @@ static int __must_check intel_iommu_unma
-     if ( iommu_hwdom_passthrough && is_hardware_domain(d) )
-         return 0;
-=20
--    return dma_pte_clear_one(d, dfn_to_daddr(dfn), 0, flush_flags);
-+    return dma_pte_clear_one(d, dfn_to_daddr(dfn), order, flush_flags);
- }
-=20
- static int intel_iommu_lookup_page(struct domain *d, dfn_t dfn, mfn_t *mfn=
-,
---- a/xen/arch/arm/include/asm/iommu.h
-+++ b/xen/arch/arm/include/asm/iommu.h
-@@ -31,6 +31,7 @@ int __must_check arm_iommu_map_page(stru
-                                     unsigned int flags,
-                                     unsigned int *flush_flags);
- int __must_check arm_iommu_unmap_page(struct domain *d, dfn_t dfn,
-+                                      unsigned int order,
-                                       unsigned int *flush_flags);
-=20
- #endif /* __ARCH_ARM_IOMMU_H__ */
---- a/xen/include/xen/iommu.h
-+++ b/xen/include/xen/iommu.h
-@@ -127,9 +127,10 @@ void arch_iommu_hwdom_init(struct domain
-  * The following flags are passed to map operations and passed by lookup
-  * operations.
-  */
--#define _IOMMUF_readable 0
-+#define IOMMUF_order(n)  ((n) & 0x3f)
-+#define _IOMMUF_readable 6
- #define IOMMUF_readable  (1u<<_IOMMUF_readable)
--#define _IOMMUF_writable 1
-+#define _IOMMUF_writable 7
- #define IOMMUF_writable  (1u<<_IOMMUF_writable)
-=20
- /*
-@@ -255,6 +256,7 @@ struct iommu_ops {
-                                  unsigned int flags,
-                                  unsigned int *flush_flags);
-     int __must_check (*unmap_page)(struct domain *d, dfn_t dfn,
-+                                   unsigned int order,
-                                    unsigned int *flush_flags);
-     int __must_check (*lookup_page)(struct domain *d, dfn_t dfn, mfn_t *mf=
-n,
-                                     unsigned int *flags);
+@@ -341,7 +376,7 @@ int iommu_unmap(struct domain *d, dfn_t
+         if ( !d->is_shutting_down && printk_ratelimit() )
+             printk(XENLOG_ERR
+                    "d%d: IOMMU unmapping dfn %"PRI_dfn" failed: %d\n",
+-                   d->domain_id, dfn_x(dfn_add(dfn, i)), err);
++                   d->domain_id, dfn_x(dfn), err);
+ 
+         if ( !rc )
+             rc = err;
 
 
