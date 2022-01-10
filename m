@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC9E1489EEE
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jan 2022 19:15:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.255527.437896 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C557489FA0
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jan 2022 19:52:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.255535.437907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n6zCS-0002Q1-76; Mon, 10 Jan 2022 18:15:20 +0000
+	id 1n6zlC-0006co-Qm; Mon, 10 Jan 2022 18:51:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 255527.437896; Mon, 10 Jan 2022 18:15:20 +0000
+Received: by outflank-mailman (output) from mailman id 255535.437907; Mon, 10 Jan 2022 18:51:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n6zCS-0002NP-3F; Mon, 10 Jan 2022 18:15:20 +0000
-Received: by outflank-mailman (input) for mailman id 255527;
- Mon, 10 Jan 2022 18:15:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1n6zlC-0006aw-NU; Mon, 10 Jan 2022 18:51:14 +0000
+Received: by outflank-mailman (input) for mailman id 255535;
+ Mon, 10 Jan 2022 18:51:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=g7Nb=R2=alien8.de=bp@srs-se1.protection.inumbo.net>)
- id 1n6zCG-0002N9-FP
- for xen-devel@lists.xenproject.org; Mon, 10 Jan 2022 18:15:18 +0000
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c9dd3dd-7241-11ec-9ce5-af14b9085ebd;
- Mon, 10 Jan 2022 19:15:06 +0100 (CET)
-Received: from zn.tnic (dslb-088-067-202-008.088.067.pools.vodafone-ip.de
- [88.67.202.8])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C94C31EC0588;
- Mon, 10 Jan 2022 19:15:00 +0100 (CET)
+ (envelope-from <SRS0=RiBW=R2=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1n6zlB-0006aq-6q
+ for xen-devel@lists.xenproject.org; Mon, 10 Jan 2022 18:51:13 +0000
+Received: from ppsw-43.csi.cam.ac.uk (ppsw-43.csi.cam.ac.uk [131.111.8.143])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 47120db5-7246-11ec-81c1-a30af7de8005;
+ Mon, 10 Jan 2022 19:51:11 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:50462)
+ by ppsw-43.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1n6zl8-000kzx-nm (Exim 4.95) (return-path <amc96@srcf.net>);
+ Mon, 10 Jan 2022 18:51:10 +0000
+Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 3E9D81FBFC;
+ Mon, 10 Jan 2022 18:51:10 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +45,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c9dd3dd-7241-11ec-9ce5-af14b9085ebd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=dkim;
-	t=1641838501;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:in-reply-to:in-reply-to:  references:references;
-	bh=yJijyw2InAbx08UK5J76GgYEEJY5KfsyCm4JE5m3fms=;
-	b=XNy8DlnSFy5+pvHFn1Uae4lUG0DSZMGU0faYz8w+Fv7gpg6JAo9zXBqKieOd8I7vD58WvZ
-	Mx4VozLANk7ONAXZcUc6pDwdBR8Ge12nIcRlXQHzQAsDV8Ir7IWhmVTLfOCEzMRx6QGAIl
-	SSSYTY/xkGLIfNjTCjZvCI60KIoezZE=
-Date: Mon, 10 Jan 2022 19:15:03 +0100
-From: Borislav Petkov <bp@alien8.de>
-To: Thomas Gleixner <tglx@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>,
-	Marc Zygnier <maz@kernel.org>,
-	Alex Williamson <alex.williamson@redhat.com>,
-	Kevin Tian <kevin.tian@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
-	Megha Dey <megha.dey@intel.com>, Ashok Raj <ashok.raj@intel.com>,
-	linux-pci@vger.kernel.org, Cedric Le Goater <clg@kaod.org>,
-	xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Niklas Schnelle <schnelle@linux.ibm.com>,
-	linux-s390@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@de.ibm.com>,
-	Logan Gunthorpe <logang@deltatee.com>, Jon Mason <jdmason@kudzu.us>,
-	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
-	linux-ntb@googlegroups.com
-Subject: Re: [patch] genirq/msi: Populate sysfs entry only once
-Message-ID: <Ydx3p35NW6Y9tDvO@zn.tnic>
-References: <20211206210600.123171746@linutronix.de>
- <20211206210749.224917330@linutronix.de>
- <87leznqx2a.ffs@tglx>
+X-Inumbo-ID: 47120db5-7246-11ec-81c1-a30af7de8005
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <6df1ee3f-c14c-8016-397e-0ed12b9e3a82@srcf.net>
+Date: Mon, 10 Jan 2022 18:51:09 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <87leznqx2a.ffs@tglx>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20220107103544.9271-1-jgross@suse.com>
+ <20220107103544.9271-2-jgross@suse.com>
+ <06bcb18f-5e85-0fc1-86e8-857cb296645f@srcf.net>
+ <afa9ce9e-e85d-3886-98db-1e99203c9c89@suse.com>
+From: Andrew Cooper <amc96@srcf.net>
+Subject: Re: [PATCH 1/2] tools/libs/evtchn: decouple more from mini-os
+In-Reply-To: <afa9ce9e-e85d-3886-98db-1e99203c9c89@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jan 10, 2022 at 07:12:45PM +0100, Thomas Gleixner wrote:
-> The MSI entries for multi-MSI are populated en bloc for the MSI descriptor,
-> but the current code invokes the population inside the per interrupt loop
-> which triggers a warning in the sysfs code and causes the interrupt
-> allocation to fail.
-> 
-> Move it outside of the loop so it works correctly for single and multi-MSI.
-> 
-> Fixes: bf5e758f02fc ("genirq/msi: Simplify sysfs handling")
-> Reported-by: Borislav Petkov <bp@alien8.de>
-> Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-> ---
->  kernel/irq/msi.c |   11 +++++------
->  1 file changed, 5 insertions(+), 6 deletions(-)
-> 
-> --- a/kernel/irq/msi.c
-> +++ b/kernel/irq/msi.c
-> @@ -887,12 +887,11 @@ int __msi_domain_alloc_irqs(struct irq_d
->  			ret = msi_init_virq(domain, virq + i, vflags);
->  			if (ret)
->  				return ret;
-> -
-> -			if (info->flags & MSI_FLAG_DEV_SYSFS) {
-> -				ret = msi_sysfs_populate_desc(dev, desc);
-> -				if (ret)
-> -					return ret;
-> -			}
-> +		}
-> +		if (info->flags & MSI_FLAG_DEV_SYSFS) {
-> +			ret = msi_sysfs_populate_desc(dev, desc);
-> +			if (ret)
-> +				return ret;
->  		}
->  		allocated++;
->  	}
+On 10/01/2022 12:49, Juergen Gross wrote:
+> On 10.01.22 13:25, Andrew Cooper wrote:
+>> On 07/01/2022 10:35, Juergen Gross wrote:
+>>> @@ -75,12 +86,25 @@ static void port_dealloc(struct evtchn_port_info
+>>> *port_info)
+>>>    */
+>>>   int osdep_evtchn_open(xenevtchn_handle *xce, unsigned int flags)
+>>>   {
+>>> -    int fd = alloc_fd(FTYPE_EVTCHN);
+>>> +    int fd;
+>>> +    struct file *file;
+>>> +    struct port_list *list;
+>>> +
+>>> +    list = malloc(sizeof(*list));
+>>> +    if ( !list )
+>>> +        return -1;
+>>> +
+>>> +    fd = alloc_fd(FTYPE_EVTCHN);
+>>> +    file = get_file_from_fd(fd);
+>>>   -    if ( fd == -1 )
+>>> +    if ( !file )
+>>> +    {
+>>> +        free(list);
+>>>           return -1;
+>>> +    }
+>>
+>> This wants rearranging to keep alloc_fd() ahead of malloc().  With that,
+>> there is no need for free(list) in this error path.
+>
+> Yeah, but the error path of malloc() having failed is quite nasty then.
 
-Yap, works.
+Oh yeah.  This is ugly, but I guess it is better this way around.
 
-Tested-by: Borislav Petkov <bp@suse.de>
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+~Andrew
 
