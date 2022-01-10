@@ -2,33 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1126B48A09E
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jan 2022 21:03:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.255543.437929 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CB9848A32F
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jan 2022 23:49:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.255560.437948 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n70sI-0005vl-5K; Mon, 10 Jan 2022 20:02:38 +0000
+	id 1n73SV-0004kr-Bw; Mon, 10 Jan 2022 22:48:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 255543.437929; Mon, 10 Jan 2022 20:02:38 +0000
+Received: by outflank-mailman (output) from mailman id 255560.437948; Mon, 10 Jan 2022 22:48:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n70sI-0005su-1B; Mon, 10 Jan 2022 20:02:38 +0000
-Received: by outflank-mailman (input) for mailman id 255543;
- Mon, 10 Jan 2022 20:02:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1n73SV-0004iO-7p; Mon, 10 Jan 2022 22:48:11 +0000
+Received: by outflank-mailman (input) for mailman id 255560;
+ Mon, 10 Jan 2022 22:48:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=A8Yb=R2=linuxfoundation.org=aweltz@srs-se1.protection.inumbo.net>)
- id 1n70sG-0005so-HQ
- for xen-devel@lists.xenproject.org; Mon, 10 Jan 2022 20:02:36 +0000
-Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
- [2607:f8b0:4864:20::1030])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3fc275c5-7250-11ec-9ce5-af14b9085ebd;
- Mon, 10 Jan 2022 21:02:35 +0100 (CET)
-Received: by mail-pj1-x1030.google.com with SMTP id
- rj2-20020a17090b3e8200b001b1944bad25so1594216pjb.5
- for <xen-devel@lists.xenproject.org>; Mon, 10 Jan 2022 12:02:35 -0800 (PST)
+ <SRS0=O59d=R2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1n73ST-0004iI-5m
+ for xen-devel@lists.xenproject.org; Mon, 10 Jan 2022 22:48:09 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5fb11bf7-7267-11ec-81c1-a30af7de8005;
+ Mon, 10 Jan 2022 23:48:06 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 36D6D6143D;
+ Mon, 10 Jan 2022 22:48:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3EFC36AE9;
+ Mon, 10 Jan 2022 22:48:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,110 +43,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fc275c5-7250-11ec-9ce5-af14b9085ebd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxfoundation.org; s=google;
-        h=mime-version:from:date:message-id:subject:to:cc;
-        bh=ef68FBAzAo6XfTycvc4YICmAVZyLVbPPKdcgVXIOcws=;
-        b=Z3ou1Tzz90u6YexjN/wqhj7ll0Jo9LhJcfpZR6pbVu3iW3gcxkzgwqI0OmoEotPODS
-         w7QIT+chJIlVUTxC+xrWNLYmy3AL9chrrKNpRqDNOdY0QIdC3y+87eRxL15uZ9wtyoa7
-         MEtOgmn1+jNbZcU8paGxctblWu3ZkZkpQhqzM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-        bh=ef68FBAzAo6XfTycvc4YICmAVZyLVbPPKdcgVXIOcws=;
-        b=YY/A+vsR0uJgdzqTCW1iNmFBIdevQhS+vu0j6TT/Pt0eDBXrsaC/ux10TlU42IINya
-         BEhnFCvC6xN1JKfQ1yHbMe83KybJIbMzuT6QL9SkphzdMtHEXm2edUtQI9cusWeekGDB
-         U/laHu/lTB7jEmVZfXf57umiF55y1jgN0OLOgn4GhMHvBgrky9YWhDgtGzuxkpGv+gBL
-         Ae9TnaN8jEhtd4pndicfbGdoglGlaTAWbNKUwhmaQHhEhmXav7fpFx3D73Fq7VX3nF6I
-         xkIGjffJnGo6YmhCl3sD9YasFuNb31cV55bTn8Y9BP4ZLJUkIrhnyUPC+NbrhSsu0rE7
-         yY8w==
-X-Gm-Message-State: AOAM532I4J/drguq+nFcXzZx4BR2BN7Einbzsa0yVKPJlqK4lMl3k0LL
-	Ul2JioQCv3g+t2Td1QkFmgnjN6as6EuCtFHKxCQ/iw==
-X-Google-Smtp-Source: ABdhPJwLlqPh6TANWBz9U01jExNdA/mkEVBySEldiCbvaRILW0ikUCrSavz/5NQenz/aUEFZO2t3ET6hPQ9/jN0MmMc=
-X-Received: by 2002:a17:903:2341:b0:14a:5184:3ea7 with SMTP id
- c1-20020a170903234100b0014a51843ea7mr477599plh.107.1641844952731; Mon, 10 Jan
- 2022 12:02:32 -0800 (PST)
+X-Inumbo-ID: 5fb11bf7-7267-11ec-81c1-a30af7de8005
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1641854884;
+	bh=8Zg+lf1qfqSTVk4gnxv28YH0Na43cYYknZnFeZjNVdE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=QLeCIZRwsej/RVZgMOqEDUaRdl7YRRkVp6yjkvnq8VeRWhB4VQUJWwY9yTV7mHu5e
+	 zjbHaQs8BWMpQIhSg8ceXyeOAxNywlIyCImHaz6l/hMR/9r4zWTg8S9Qe5PQmbxXQb
+	 Q1AO3wfjVe8jzyq2nbxGz4QeAcMZJJ8/skbhLjFOpOX6mxYl1UJjFs0GQWarYQOQDs
+	 37kt+WLwj70OMpq9jcz3ojSo7Rs/DquKs+vXIf71Xt0YxD+82Dfp1pf0/Kf3aMGjpI
+	 TvBxDrLy/E6Fi8wi4MFl+hYg2epZ5neo9oKEBiLwUK6vYc2TUYhxU8b4vhS6RK70qd
+	 uDiGrNfxPC2XQ==
+Date: Mon, 10 Jan 2022 14:48:02 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, Bertrand.Marquis@arm.com, 
+    Luca Miccio <lucmiccio@gmail.com>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, wl@xen.org, 
+    Anthony PERARD <anthony.perard@citrix.com>, 
+    Juergen Gross <jgross@suse.com>
+Subject: Re: [XEN PATCH 6/7] xenstored: do_introduce: handle the late_init
+ case
+In-Reply-To: <3c2bb1e9-16d7-0329-9396-db7705f84ae6@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2201101444250.2060010@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2201071614090.2060010@ubuntu-linux-20-04-desktop> <20220108004912.3820176-6-sstabellini@kernel.org> <3c2bb1e9-16d7-0329-9396-db7705f84ae6@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-From: Ashley Weltz <aweltz@linuxfoundation.org>
-Date: Mon, 10 Jan 2022 15:02:17 -0500
-Message-ID: <CADT4067imrLqdrO=mS8KrcdDRhtxHS3+ytgS=c8MO3WApYSaaQ@mail.gmail.com>
-Subject: Call for agenda items for January 11 Community Call
-To: amit@infradead.org, andrew.cooper3@citrix.com, Artem_Mygaiev@epam.com, 
-	ash.j.wilding@gmail.com, ben@exotanium.io, bobby.eshleman@gmail.com, 
-	brendank310@gmail.com, brian.woods@xilinx.com, cardoe@cardoe.com, 
-	christopher.w.clark@gmail.com, Corey Minyard <cminyard@mvista.com>, 
-	daniel.kiper@oracle.com, deepthi.m@ltts.com, dpsmith@apertussolutions.com, 
-	dwmw@amazon.co.uk, edgar.iglesias@xilinx.com, Ian.Jackson@citrix.com, 
-	insurgo@riseup.net, intel-xen@intel.com, Jarvis.Roach@dornerworks.com, 
-	Jeff.Kubascik@dornerworks.com, jgross@suse.com, john.ji@intel.com, 
-	julien@xen.org, kevin.pearson@ortmanconsulting.com, Matt.Spencer@arm.com, 
-	mirela.simonovic@aggios.com, oleksandr_andrushchenko@epam.com, 
-	oleksandr_tyshchenko@epam.com, olivier.lambert@vates.fr, pdurrant@amazon.com, 
-	persaur@gmail.com, piotr.krol@3mdeb.com, Rahul.Singh@arm.com, 
-	rianquinn@gmail.com, rob.townley@gmail.com, robin.randhawa@arm.com, 
-	roger.pau@citrix.com, scottwd@gmail.com, sergey.dyasli@citrix.com, 
-	sstabellini@kernel.org, Stewart.Hildebrand@dornerworks.com, 
-	tamas.k.lengyel@gmail.com, varadgautam@gmail.com, volodymyr_babchuk@epam.com, 
-	wl@xen.org
-Cc: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000002f331005d53fd149"
+Content-Type: text/plain; charset=US-ASCII
 
---0000000000002f331005d53fd149
-Content-Type: text/plain; charset="UTF-8"
+On Sat, 8 Jan 2022, Julien Grall wrote:
+> Hi Stefano,
+> 
+> On 08/01/2022 00:49, Stefano Stabellini wrote:
+> > From: Luca Miccio <lucmiccio@gmail.com>
+> > 
+> > If the function is called with late_init set then also notify the domain
+> > using the xenstore event channel.
+> > 
+> > Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > CC: wl@xen.org
+> > CC: Anthony PERARD <anthony.perard@citrix.com>
+> > CC: Juergen Gross <jgross@suse.com>
+> > CC: julien@xen.org
+> > ---
+> >   tools/xenstore/xenstored_domain.c | 15 ++++++++++-----
+> 
+> All the changes to the protocol should be reflected in docs/misc/xenstore.txt.
+> However...
+> 
+> >   1 file changed, 10 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/tools/xenstore/xenstored_domain.c
+> > b/tools/xenstore/xenstored_domain.c
+> > index d03c7d93a9..17b8021ca8 100644
+> > --- a/tools/xenstore/xenstored_domain.c
+> > +++ b/tools/xenstore/xenstored_domain.c
+> > @@ -429,7 +429,7 @@ static void domain_conn_reset(struct domain *domain)
+> >     static struct domain *introduce_domain(const void *ctx,
+> >   				       unsigned int domid,
+> > -				       evtchn_port_t port, bool restore)
+> > +				       evtchn_port_t port, bool restore, bool
+> > late_init)
+> >   {
+> >   	struct domain *domain;
+> >   	int rc;
+> > @@ -461,6 +461,9 @@ static struct domain *introduce_domain(const void *ctx,
+> >   		/* Now domain belongs to its connection. */
+> >   		talloc_steal(domain->conn, domain);
+> >   +		if (late_init)
+> > +			xenevtchn_notify(xce_handle, domain->port);
+> 
+> ... I am not convinced the parameter late_init is necessary. I believe it
+> would be safe to always raise an event channel because a domain should be
+> resilient (event channel are just to say "Please check the status", there are
+> no data carried).
 
-Hi everyone,
+This is a fantastic idea. I gave it a quick try and it seems to work
+fine. If everything checks out I'll make the change in the next version
+and drop late_init (the new parameter to xs_introduce_domain) completely.
 
-Happy New Year! I hope you all enjoyed a lovely holiday.
 
-Our next meeting is tomorrow, January 11th at 4pm UTC.
-
-The proposed agenda is in
-https://cryptpad.fr/pad/#/2/pad/edit/xoyB4pnwFfULo6K+O7mi0c10/ Please add
-or edit any items to this agenda. Alternatively, please feel free to email
-me directly with agenda items.
-
-Please put your name beside any items if you edit the document.
-
-We will plan to start the meeting 5 minutes past the hour.
-
-* If you want to be CC'ed please add or remove yourself from the
-sign-up-sheet at
-https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/
-
-Again, please let me know if you have any questions. See you on Tuesday!
-
-Cheers,
-Ashley
-
--- 
-Ashley Weltz, Project Coordinator
-The Linux Foundation
-aweltz@linuxfoundation.org
-
---0000000000002f331005d53fd149
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi everyone,<div><br></div><div>Happy New Year! I hope you=
- all enjoyed a lovely holiday.=C2=A0<br><div><br></div><div><div>Our next m=
-eeting is tomorrow, January 11th at 4pm UTC.=C2=A0</div><div><br></div><div=
->The proposed agenda is in=C2=A0<a href=3D"https://cryptpad.fr/pad/#/2/pad/=
-edit/xoyB4pnwFfULo6K+O7mi0c10/">https://cryptpad.fr/pad/#/2/pad/edit/xoyB4p=
-nwFfULo6K+O7mi0c10/</a> Please add or edit any items to this agenda. Altern=
-atively, please feel free to email me directly with agenda items.=C2=A0</di=
-v><div><br>Please put your name beside any items if you edit the document.<=
-br><br>We will plan to start the meeting 5 minutes past the hour.=C2=A0<br>=
-<br>* If you want to be CC&#39;ed please add or remove yourself from the si=
-gn-up-sheet at=C2=A0<a href=3D"https://cryptpad.fr/pad/#/2/pad/edit/D9vGzih=
-PxxAOe6RFPz0sRCf+/" rel=3D"noreferrer" target=3D"_blank">https://cryptpad.f=
-r/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/</a></div><div><br></div><div>A=
-gain, please let me know if you have any questions. See you on Tuesday!</di=
-v><div><br></div><div>Cheers,</div><div>Ashley</div></div><div><br></div>--=
- <br><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_sig=
-nature"><div dir=3D"ltr">Ashley Weltz, Project Coordinator=C2=A0<div>The Li=
-nux Foundation</div><div><a href=3D"mailto:aweltz@linuxfoundation.org" targ=
-et=3D"_blank">aweltz@linuxfoundation.org</a></div></div></div></div></div>
-
---0000000000002f331005d53fd149--
+> If you really need late_init, then it should be made optional to avoid
+> breaking existing user of Xenstore (IHMO the protocol is stable and should be
+> backward compatible).
 
