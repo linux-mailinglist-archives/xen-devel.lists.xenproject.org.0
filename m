@@ -2,29 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9E6C48ACE3
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jan 2022 12:46:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.255705.438242 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1542248ACF8
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jan 2022 12:50:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.255710.438253 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7FbE-0003ld-9k; Tue, 11 Jan 2022 11:46:00 +0000
+	id 1n7Ffg-0005Da-Ua; Tue, 11 Jan 2022 11:50:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 255705.438242; Tue, 11 Jan 2022 11:46:00 +0000
+Received: by outflank-mailman (output) from mailman id 255710.438253; Tue, 11 Jan 2022 11:50:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7FbE-0003im-5f; Tue, 11 Jan 2022 11:46:00 +0000
-Received: by outflank-mailman (input) for mailman id 255705;
- Tue, 11 Jan 2022 11:45:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1n7Ffg-0005B4-Qr; Tue, 11 Jan 2022 11:50:36 +0000
+Received: by outflank-mailman (input) for mailman id 255710;
+ Tue, 11 Jan 2022 11:50:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1Jw/=R3=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1n7FbD-0003ie-7Z
- for xen-devel@lists.xenproject.org; Tue, 11 Jan 2022 11:45:59 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0840d934-72d4-11ec-81c1-a30af7de8005;
- Tue, 11 Jan 2022 12:45:55 +0100 (CET)
+ <SRS0=Wgp4=R3=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1n7Fff-0005Ay-2g
+ for xen-devel@lists.xenproject.org; Tue, 11 Jan 2022 11:50:35 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id aee92124-72d4-11ec-9ce5-af14b9085ebd;
+ Tue, 11 Jan 2022 12:50:33 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id
+ p1-20020a1c7401000000b00345c2d068bdso1255510wmc.3
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Jan 2022 03:50:33 -0800 (PST)
+Received: from ?IPV6:2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec?
+ ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
+ by smtp.gmail.com with ESMTPSA id v5sm7510208wrq.80.2022.01.11.03.50.32
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Jan 2022 03:50:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,174 +46,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0840d934-72d4-11ec-81c1-a30af7de8005
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1641901557;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=zQLombefq8WBuZusJs270nFXQ9dXIg9hibuZtnbfBtY=;
-  b=aBr5kOXP8jFNPST77tqxyvzj0mIv5jywn9pYJZTcwLCd7FydIWY1jKBs
-   7uRL/OGO0AqyPZm3iQH78FwDQcM501ONvAJHfFCxWQrJTARyP8V5Yzrte
-   664OEK4H8K+mGBQxSwu/kmqdICYUur7PFLm+jlUD/W0rpzytW/qE7IHXq
-   8=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: rNc5iZC2jVIIVwxiVIeteXI3+OnS49YBt4d8o9+3YKGSnz6bN8DMKijv17DvMlJbGrvX2aBfff
- Azbr3CmGqJgXS6q4G9ssuMNjGMTyzyL4r1wIbTsJKOV2sMkfn/jESu1QzMomAUdjPBTa0ZE16l
- dPpeyXmL+l9yxPFB8CiQaF0P88gmjdvVzi4mTBRjHYNh6cE00xlPnozsFP+WHnI8LdozzSolto
- ekASvlfziu+p5wFTXvwJSsHCWATiW7cY++ZXATfX01EyPrKgyvGk8u/8APi2yVXC2nN/bSBKiE
- bLIgLtK/dqUbDDB14G+cSsmx
-X-SBRS: 5.2
-X-MesageID: 61729341
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:eUfU6qNp4b+6hynvrR0okMFynXyQoLVcMsEvi/4bfWQNrUok0WMGz
- mEfX2rQbquPNDT9co9+YNiw801Q6sOEmNc3SAto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En150Es6w7RRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYo2qGrcB62
- MRCjqHzCg4ABaOQhsAsaRYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YvNrick5atHiIasUu216zCGfBvEjKXzGa/uTuoUJh2tp7ixINa7yY
- pE6Th5LVkvdfUxPOnpLVYwdgPj90xETdBUH8QnI9MLb+VP7zgNr16P2GMHIYdHMTsJQ9m6Iq
- 2SD82nnDxUyMN2E1SHD4n+qnvXIny7wRMQVDrLQ3uFuqE2ewCoUEhJ+fVmxrOS9i0W+c8lCM
- EFS8S0rxYAz606DXtT7Rwe/onOPolgbQdU4LgEhwFjTkOyOuV/fXzVaCG4aADA7iCMobWMl5
- E+Cj8LmPgEs87S8cnzB6JOllzznbED5MlQ+TSMDSAIE5fzqr4cykg/DQ75fLUKlsjHmMWqum
- m7X9UDSk51W1JdWjPvjoTgrlhrx/sChc+Ij2unAsotJBCtdbZXtWYGn4EOzAR1ofNfAFQnpU
- JTpdqGjAAEy4XOlyXTlrAYlRujBCxO53Nv02wUH834JrWXFxpJbVdoMiAyS3W8wWir+RRfnY
- VXIpSRa74JJMX2hYMdfOtztUpR2lfGxTY+4Dpg4i+aihLArL2drGwk0NCatM53FyhBwwcnTx
- 7/GGSpTMZrqIfs+l2fnLwvs+bQq2jo/1QvuqWPTlHyaPU6lTCfNE98taQLWBshgtf/siFiLr
- 753apXboz0CALyWSnSGquY7cAFVRUXX8Lir8aS7gMbZfFo/cIzgYteMqY4cl3tNxPUKxryWr
- yDkCie1CjPX3BX6FOlDUVg6AJvHVpdjt3MreysqOFejwX84ZoizqqwYcvMKkXMPrYSPFNZ4E
- KsIfduuGPNKRmiV8jgRd8Cl/odjaA6qlUSFOC/8OGozeJtpRgro/N74f1SwqHlSX3Tv7cZu8
- ae90g77QIYYQ1gwBsjhd//ynUi6umIQmbwuUhKQcMVTYkjl7KNjNzf10q0sO8gJJBianmma2
- g+aDA02v+7Ip4NpotDFibrd99WiEvdkH1ocFG7etO7kOS7f92ul4IlBTOfXImyNCDKqoP2vP
- LwHwev9PfsLmEdxn7B9S7s7n7gj49bPpqNBylg2Fnv8cFn2WKhrJWOL3JcTu/QVlKNZowa/R
- mmG5sJeZeeSIMrgHVMceFglY+CE2a1GkzXe961ockDz5Ssx97ubS0RCeRKLjXUFfrdyNYokx
- 8YnudIXtFPj2kZ7bI7eg3AG7XmII1wBT74j58MTD4LcgwY2zk1PPM7HASjs7ZDTM9hBPyHG+
- NNPaHYuU1iE+nf/Tg==
-IronPort-HdrOrdr: A9a23:hDZCbKNeuCM2xsBcTyP155DYdb4zR+YMi2TDiHofdfUFSKClfp
- 6V8cjztSWUtN4QMEtQ/uxoHJPwO080lKQFmrX5WI3NYOCIghrLEGgP1/qG/9SkIVyCygc/79
- YfT0EdMqyIMbESt6+Ti2PZYrUdKZu8gdiVbI/lvghQpGpRGsddBmlCe2Km+hocfng7OXN1Lu
- vV2uN34x6bPVgHZMWyAXcIG8DFut3wjZrjJToLHQQu5gWihS6hrOeSKWnT4j4uFxd0hZsy+2
- nMlAL0oo2lrvGA0xfZk0ve9Y5fltfNwsZKQOaMls8WADPxjRvAXvUrZ5Sy+BQO5M2/4lcjl9
- fB5z8mIsRI8nvUOlq4pBP8sjOQpwoG2jvH8xu1kHHjqcv2SHYREMxan79UdRPf9g4JoMx8+L
- gj5RPXi7NnSTf72Ajt7dnBUB9n0mCup2A5rOIVh3tDFaMDdb5qq5AF9k89KuZNIMvD0vFnLA
- BSNrCd2B4PGmnqLEwx/1MfjeBEZ05DUCtvGSM5y46oOzs/pgEM86JX/r1bop46zuNMd3Bz3Z
- WwDk1ZrsA+ciYoV9MPOA4ge7rANoWfe2OEDIqtSW6XZp3vfUi976LK3A==
-X-IronPort-AV: E=Sophos;i="5.88,279,1635220800"; 
-   d="scan'208";a="61729341"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Da7tNfpN3Oc44pyyIOe3/36RscLsTcRPcF0vUgAem9W5vCf/l3ZV8CyeBKtlHBYoDfBClSk+AleJuAEFqUGXMj6kPRhzyo+uWTcFTdkc4Ujsw3GE6/x6HTaa68VWGJe9gFVl34kSscyUgv/oa+B/qUeERkqYIaIxVLxRX7W6znYD4lXT6zMsXxMYXXHgRASVdXAXZ1nvfs09V7z1bs9nq9zbbVbrw4KgEDiMKh7cjxtfZuSGjA3bL5wITkVH6Tf49Ym3d5OIeGO9wQF8ey/jCDzxlEp3aq7Ht9kTTa1kPwUHWBkCKc6/Nl20ehI/6YOw10+OQqpc1j2IfWCagAfTxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=P6P822Vxo5HdzqJSK86yHAzW8bg9tOrpVCq1Cd8R/f4=;
- b=GiN9vksrasRlP3cjGulluBofMqRnGntQgdjKFDXGJBxkQTZ2r5X7HlwW5M6blgJlR9pAT1a/4WgkaUYhdachgNneZhP4Dha5fdYJru8Qeljwwdv+OpycjDhEzedcTn6syg8vDLDQnO5WOiaFEl9G+/+K/o0+2mQooKRi1MLQwS6c8hH1rcDPM7eKw3JbQYywwSWcVQyPRxq/hL/19nurrLcR/47YLMaiKkVq2Skq/wCFJZ9kxnR4PoeE8P2kan0lWYNBiz0dtqPJ13V6YESs5GSj3t8xKxAv1bTJgA1R9rVc+l0xYXD0lkWQEKMSXTtjxDkdp8naJQNygEeNPOxeIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: aee92124-72d4-11ec-9ce5-af14b9085ebd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P6P822Vxo5HdzqJSK86yHAzW8bg9tOrpVCq1Cd8R/f4=;
- b=XuTZld+BcMj+XiSZiWVQIS8o+nCTdOc2peUb83XPv9apImcvPuhMetAt8xjIHzDC8zl7vI/EXwV56opNoPtmS1fZLdcZm4jgF3UoxBBrGhOWlX3nBQxp8IOniRZHplI4gx8PyGVwR8RYmV/02IzSgeBJYWNbXn1MuIJudDVUWps=
-Date: Tue, 11 Jan 2022 12:45:49 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Ian Jackson <iwj@xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross
-	<jgross@suse.com>, <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v5 05/12] libs/guest: allow fetching a specific MSR entry
- from a cpu policy
-Message-ID: <Yd1t7Uhem/233ckk@Air-de-Roger>
-References: <20211129153355.60338-1-roger.pau@citrix.com>
- <20211129153355.60338-6-roger.pau@citrix.com>
- <f7c427b9-2564-dc0a-d03d-411df83ba9c8@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <f7c427b9-2564-dc0a-d03d-411df83ba9c8@suse.com>
-X-ClientProxiedBy: MR2P264CA0189.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501::28)
- To DS7PR03MB5608.namprd03.prod.outlook.com (2603:10b6:5:2c9::18)
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:reply-to:subject
+         :content-language:to:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=3mjT8uOUaXwZAM7qHYhSjQcF0WApQ0VfQpUdQMCTHNY=;
+        b=PUuH9JUfrtKJPZovJfBszrTCuqXEqKzhgcNcSMeOh8MhjiK1abWBj3EzDwxWvIpFXT
+         jdqcfICz1GEW1x0AKS1Rp0jnsSLln3IYuUMAnnwdsUUnZxd+d0SUNe4bhMBXPOOfb7C5
+         4hMrhV7sC27kqoDkfECHoKU9sX/r/j/O+34H2+rFFBLrxDMDJHl1uN0fhvqTCuN6lTRA
+         NisA8EuRazVCqKtMnwXeyVTXCNCClg1dloNmcCh0/jNjKsP8wBA2gEwj43MytFifj2P/
+         sn1KuIOiH81+3X/uKi/hYkOmYBmQ+10j9waAaVhspMpnsQxnq2G1xn0hsaa8Bv56TLKa
+         Hx2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
+         :subject:content-language:to:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=3mjT8uOUaXwZAM7qHYhSjQcF0WApQ0VfQpUdQMCTHNY=;
+        b=H7F6qaGhbyxBYfa4XCNmr+xL+Ckbu/WobznKKvX22A75otP5Sgb4And8U44ObW6Hqs
+         i5jXPMKb+7UAZGFiXAGn/se6T6pdJLNpmaBnqsCg2kV4XvFs5YgzwWfzbtvHPWFqVT5R
+         pgTT84HvHsQvgYy2tz2hVlTw3FAxW6k3/QaTKtyZC6xrnC09eX8wj3W6zZLk5ebJVW2O
+         ACuSi8hD9HIPQR9j9qyIRjwiYCUruzE5lUymLxATUrA4PODSxlgNmu19P94DycxKyMWd
+         87nfsHMO2RcrSQqXAQ9KrxrmM8vgflMzDDGMjsQElFZveno3ayrsshVzUHIhInFLBUqd
+         ut0Q==
+X-Gm-Message-State: AOAM530ayjEN+Abz6JmADpQVmQKOtKzFWeAhTQFCKJoEDdz2SZTxgHwz
+	izSY/Ze5ddeVbaroFdTOCleqWuikq0o=
+X-Google-Smtp-Source: ABdhPJyD/2zeNgJt0jUfqazXg0GzaHvKCe28hFdg85vdGdSuE+F64C/13sPRq66uGMpKfUmKhtWQYw==
+X-Received: by 2002:a1c:6a05:: with SMTP id f5mr2162571wmc.178.1641901833442;
+        Tue, 11 Jan 2022 03:50:33 -0800 (PST)
+Message-ID: <74977663-c229-60c7-fae3-d13ff4a8d558@gmail.com>
+Date: Tue, 11 Jan 2022 11:50:32 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 917f5000-b73f-4b62-d3f3-08d9d4f7ec5c
-X-MS-TrafficTypeDiagnostic: DM6PR03MB4476:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR03MB44769DC26FDA5010E99C5A1D8F519@DM6PR03MB4476.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: q0cNLLBkU+aEQXiAsxomUiBknbh97qHaIX4zQ2DEFxnXubMdNlExhlQfm7KZZhUB2FVPMlOyLnNTqeJbU9nMhd6zOPnl+vIUmUSGc0LKGaPr0eHYbaDn9J3audKstz9e21QaleVaZ7pMsyK96Z+sGEUV2yymsjgc9yAwJ1NdIWW6N4oPfqfTzE0CQhB4URwXrsKbT4Dzl9pMPaYMJxkkBdGfNYevyB71yMSPl/KFqzjz833uZUA11BX0a2flKTXH8YDocubqlPgsh+LYzFubbV1/Y4MhtfNJiLZn5EOr2u+EMZCkCx3jpVevzSEKX38QZW1ooL2EoYJUDEuRdb0RhoJ7YzqPVVlUgHXmN09vWILqSt9/BTGNa7tpOD0p9QcgoEeF3BZ7dGBkHIeN5N/NpiZZ5fOe0ygX3abFrPQfnU+WMZeDuQ/ik79l6ECptw22ZOTY2ahKX59E4DBhCZ4ZChKo5WrzmmW/zGiyW+zBfE6ah7LnmB9EMAYFCjTl6U4obQLrxw4VI5og4OmgIfqCS9q5qdtSZ65alsHeGnJcdxkW58FPueaJPY1GgaGjDklk9fhkR29ae0tupfZUZQVCUW4cmoNxFJMakZxBih7a17lJrEvksXE3KGaerl8IaIfcVwIg//paID1LooPtQANGBg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(6916009)(85182001)(38100700002)(82960400001)(86362001)(33716001)(508600001)(66946007)(6506007)(54906003)(8676002)(5660300002)(53546011)(66556008)(4744005)(66476007)(26005)(316002)(6512007)(4326008)(9686003)(186003)(6666004)(6486002)(2906002)(8936002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0JmMFVKYTU5QzFETnkyaEpDRWJOVFlNc1hQRFM2WWdCOUZ4Qmk2ODAwM1Bl?=
- =?utf-8?B?RlZCOWY0Q05PNjczUHlvRFJnZEp0a0VCZzNOTzVhZWtWbzg1aHpOVFh3S2hC?=
- =?utf-8?B?SDFvRDh0T28vZFVyZ1h6dDBXRzZ6anNUa1dkakorM2pLcWlWQ25CSmJKcG81?=
- =?utf-8?B?R3BCcGV4ZS9TSCtnblAzUDhVUEs0cVVkMkRKU05PWTVWUzlqMmx1NFZWWFdR?=
- =?utf-8?B?MlRRUHcrZ09FemxLTW5LOFRtVzNQVjFRQlpvSEkxVE1RMjhRNEYzSCtPSkgw?=
- =?utf-8?B?a1FOTDZnaEo2ZU9jQjRncURqT1NGMTRtWG56QndUTWJ2dURFb2lyNjAySURi?=
- =?utf-8?B?WUNwOG9JekJuUzNYODhMK0FWbUNwb0xQUDUyMDM3c1RWS01BczFLM1ZKTkta?=
- =?utf-8?B?RkNRVjJKZnBOTVpXVGxYRWhXd1dwYS9OcldyR3kxdnVJNWhUUitKdC9PL0Fj?=
- =?utf-8?B?cFQwYUhUVHdTYnFmNkFXcEZESzR1cjgzWUJWYW5uZzd1S3hIaU4yUXNncWFE?=
- =?utf-8?B?aWNVT3NFYnBEcGk0dUhYZm9QbW9tdU40V2lCRm9wVDIrTDhPRFYvWEowL2Yr?=
- =?utf-8?B?OTByRlo1VjZ2QzZ4SHdvdFp1RTFrenVCWERVanNMNVlrd0dNTXpuemk5K0xD?=
- =?utf-8?B?L3JCd2VqR3U3M3pJWi9mK3lEaWV1Z1VRSDBGK1FOTnlja2R4UEpjTCswbzA5?=
- =?utf-8?B?SGNmMTVaa3ZVY2Y3bTVETHpvSnRjN01xVEljTHZUUTNHNStpTXMxZjE1NVRW?=
- =?utf-8?B?b1cyRE5aZ1d5bDhzQllaOU82TldYVDhZSVI2VWFMUW5rWm9zVGdHZlRLRCtx?=
- =?utf-8?B?N3BmWlI5UXdyZVcyQW1VRHNzeDVNU0NyYkVlRngzTElMaEl1eW5YNE1jc3gx?=
- =?utf-8?B?bFpDUDBXUlprQ1h6Q3NPYlp3cjJjdDJJV3JMeUNEUkN0MytiYlJVRnpWQkY5?=
- =?utf-8?B?d3pXQ3FETXlBNGJrZko2QUtTT0s2Ryt6UjFCOU4yWWlnQThxZEhpdFlTVG9G?=
- =?utf-8?B?bXhMUi9yd1RIb000OThoKzFUcXR3dDB6YnI4U0l3b2VybC8xVHlDT2dIY1dI?=
- =?utf-8?B?Z092Z0l5LzRhanExVzhmYy8ydmpsQnhDTm5USlpJKzJwT0NrTmQveGlQZDR0?=
- =?utf-8?B?a3UrdTJZRW1IcVZ0WWt4VWprdWNJV0JVQUE4QnBoV0F1SzNXaUxHTEQ3NG9V?=
- =?utf-8?B?b0twUUllQU1KUUFHOEhiSTQzQlpFS0I4ZUZxSGFBbUFkNjBmWVNCdXpMdkdF?=
- =?utf-8?B?RVZmOHFqUUZRejNXNGphRjcxT2J2M29WUTREYjV0ZXZOdURNQnN0Q3BNZEdC?=
- =?utf-8?B?OERTQ29hdno1dVhmTlMzOTFuRnMvRlc2Z01IOUtUejRIcERTNkhzQzBuVVZq?=
- =?utf-8?B?bHdyeHFZdzJNQTJpaFVCVTRjWVdGN3hlVXZuOGVjcmRJWlFaM1NtTXlJWVc1?=
- =?utf-8?B?VVA5TU8za1pMS0VWU2F4YzFkNFNTN2dXdWQ3VFpDVWthVlpNMFVDN0RYUHE2?=
- =?utf-8?B?bHVrQTc3czRsczlWNGQwaGJVNm5BQnM4M01LejlKSE1BV1MyZDRsbi9TNkhz?=
- =?utf-8?B?b1VOWmxvREozMyt2dUZDWEc4bUh6MFhBRnQyL3dLQWNsSGN6bjMyYVRERlBB?=
- =?utf-8?B?bzdlVzhJVlZ0ZXRoZWwxWmZ4M0JhQnJyL3VkaEpxc0NXZi8rT3F3cnhaWnpw?=
- =?utf-8?B?NWttd0EweG9nVGZsdjR6Ym1yR04rNkJuZkdQQ2hqc1VGMVRpd01pVmlMZjg3?=
- =?utf-8?B?d0NnQ2gvdlNtQk1lZmR5a2J6WjM5NjJyMGdxWUhtbUZmWWJqbmdRNTdna1FT?=
- =?utf-8?B?RzZmUFJyN1IxUW1zczlNbGg3bjRMR1RzSjJQMm9MbzArdGtkV3hpKy8rK2pH?=
- =?utf-8?B?eXJjcVlGZXFYdW1DTVE3Z1R5TFJFa2lTSlVwUE5ROW9jRXlVOUh6Y3RaVDA1?=
- =?utf-8?B?VHhCTjJ3eEpYWmp0TjFOS2VJYm9GdUtpaTdsV1U0bUlUd1JEaE5ReW5LNE4r?=
- =?utf-8?B?NkVQUzVIcjZUWlhmY3ZXNU80WE5aSXY5OHpYUThUOGtRYnZ5alhwSklmWVlX?=
- =?utf-8?B?RElVMlR6MHc2QU5xSnhZQkFpN1p1YWxaY1FuSmFWS25ja0dzMUprcHJ4Wm41?=
- =?utf-8?B?WHNpQ2VQVU5yYkNVMUkzRWMzS0ZUWnhYeHhlaFNhZ0tNOENuclczTjg5dlF0?=
- =?utf-8?Q?OcgjM+rGfKgCq2G4o4e0rjU=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 917f5000-b73f-4b62-d3f3-08d9d4f7ec5c
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2022 11:45:53.8090
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pgik42k4XgfDAIp/ZodLirll1AeLnpQRUWyjcjjb187/1R+QV+rUeO+yEMF50MSkPpAK3OFhoGVmTsZlHsuOwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4476
-X-OriginatorOrg: citrix.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Reply-To: paul@xen.org
+Subject: Re: [PATCH] xen, blkback: fix persistent grants negotiation
+Content-Language: en-US
+To: xen-devel@lists.xenproject.org
+References: <20220106091013.126076-1-mheyne@amazon.de>
+ <Yd1l01jTPwx5oBuo@Air-de-Roger>
+From: "Durrant, Paul" <xadimgnik@gmail.com>
+In-Reply-To: <Yd1l01jTPwx5oBuo@Air-de-Roger>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Dec 06, 2021 at 04:27:25PM +0100, Jan Beulich wrote:
-> On 29.11.2021 16:33, Roger Pau Monne wrote:
-> > --- a/tools/libs/guest/xg_cpuid_x86.c
-> > +++ b/tools/libs/guest/xg_cpuid_x86.c
-> > @@ -878,6 +878,26 @@ int xc_cpu_policy_get_cpuid(xc_interface *xch, const xc_cpu_policy_t *policy,
-> >      return 0;
-> >  }
-> >  
-> > +int xc_cpu_policy_get_msr(xc_interface *xch, const xc_cpu_policy_t *policy,
-> > +                          uint32_t msr, xen_msr_entry_t *out)
-> > +{
-> > +    const uint64_t *val;
-> > +
-> > +    *out = (xen_msr_entry_t){};
+On 11/01/2022 11:11, Roger Pau Monné wrote:
+> On Thu, Jan 06, 2022 at 09:10:13AM +0000, Maximilian Heyne wrote:
+>> Given dom0 supports persistent grants but the guest does not.
+>> Then, when attaching a block device during runtime of the guest, dom0
+>> will enable persistent grants for this newly attached block device:
+>>
+>>    $ xenstore-ls -f | grep 20674 | grep persistent
+>>    /local/domain/0/backend/vbd/20674/768/feature-persistent = "0"
+>>    /local/domain/0/backend/vbd/20674/51792/feature-persistent = "1"
 > 
-> Unless there's a specific reason for the divergence, this just-in-
-> case initialization should imo be consistently there (or absent)
-> in both the MSR and the CPUID function.
+> The mechanism that we use to advertise persistent grants support is
+> wrong. 'feature-persistent' should always be set if the backend
+> supports persistent grant (like it's done for other features in
+> xen_blkbk_probe). The usage of the feature depends on whether both
+> parties support persistent grants, and the xenstore entry printed by
+> blkback shouldn't reflect whether persistent grants are in use, but
+> rather whether blkback supports the feature.
+> 
+>>
+>> Here disk 768 was attached during guest creation while 51792 was
+>> attached at runtime. If the guest would have advertised the persistent
+>> grant feature, there would be a xenstore entry like:
+>>
+>>    /local/domain/20674/device/vbd/51792/feature-persistent = "1"
+>>
+>> Persistent grants are also used when the guest tries to access the disk
+>> which can be seen when enabling log stats:
+>>
+>>    $ echo 1 > /sys/module/xen_blkback/parameters/log_stats
+>>    $ dmesg
+>>    xen-blkback: (20674.xvdf-0): oo   0  |  rd    0  |  wr    0  |  f    0 |  ds    0 | pg:    1/1056
+>>
+>> The "pg: 1/1056" shows that one persistent grant is used.
+>>
+>> Before commit aac8a70db24b ("xen-blkback: add a parameter for disabling
+>> of persistent grants") vbd->feature_gnt_persistent was set in
+>> connect_ring. After the commit it was intended to be initialized in
+>> xen_vbd_create and then set according to the guest feature availability
+>> in connect_ring. However, with a running guest, connect_ring might be
+>> called before xen_vbd_create and vbd->feature_gnt_persistent will be
+>> incorrectly initialized. xen_vbd_create will overwrite it with the value
+>> of feature_persistent regardless whether the guest actually supports
+>> persistent grants.
+>>
+>> With this commit, vbd->feature_gnt_persistent is set only in
+>> connect_ring and this is the only use of the module parameter
+>> feature_persistent. This avoids races when the module parameter changes
+>> during the block attachment process.
+>>
+>> Note that vbd->feature_gnt_persistent doesn't need to be initialized in
+>> xen_vbd_create. It's next use is in connect which can only be called
+>> once connect_ring has initialized the rings. xen_update_blkif_status is
+>> checking for this.
+>>
+>> Fixes: aac8a70db24b ("xen-blkback: add a parameter for disabling of persistent grants")
+>> Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
+>> ---
+>>   drivers/block/xen-blkback/xenbus.c | 9 +++------
+>>   1 file changed, 3 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
+>> index 914587aabca0c..51b6ec0380ca4 100644
+>> --- a/drivers/block/xen-blkback/xenbus.c
+>> +++ b/drivers/block/xen-blkback/xenbus.c
+>> @@ -522,8 +522,6 @@ static int xen_vbd_create(struct xen_blkif *blkif, blkif_vdev_t handle,
+>>   	if (q && blk_queue_secure_erase(q))
+>>   		vbd->discard_secure = true;
+>>   
+>> -	vbd->feature_gnt_persistent = feature_persistent;
+>> -
+>>   	pr_debug("Successful creation of handle=%04x (dom=%u)\n",
+>>   		handle, blkif->domid);
+>>   	return 0;
+>> @@ -1090,10 +1088,9 @@ static int connect_ring(struct backend_info *be)
+>>   		xenbus_dev_fatal(dev, err, "unknown fe protocol %s", protocol);
+>>   		return -ENOSYS;
+>>   	}
+>> -	if (blkif->vbd.feature_gnt_persistent)
+>> -		blkif->vbd.feature_gnt_persistent =
+>> -			xenbus_read_unsigned(dev->otherend,
+>> -					"feature-persistent", 0);
+>> +
+>> +	blkif->vbd.feature_gnt_persistent = feature_persistent &&
+>> +		xenbus_read_unsigned(dev->otherend, "feature-persistent", 0);
+> 
+> I'm not sure it's correct to potentially read feature_persistent
+> multiple times like it's done here.
+> 
+> A device can be disconnected and re-attached multiple times, and that
+> implies multiple calls to connect_ring which could make the state of
+> feature_gnt_persistent change across reconnections if the value of
+> feature_persistent is changed. I think that would be unexpected.
+> 
 
-Right - will add the initialization to the CPUID function.
+Would that not be legitimate though? What happens if blkfront is 
+upgraded (or downgraded)? Each connection should be 'groundhog day' for 
+the backend IMO.
 
-Thanks, Roger.
+   Paul
+
+> There are also similar issues with
+> xenblk_max_queues/xen_blkif_max_ring_order changing after
+> xen_blkbk_probe has been executed. We likely need to stash all those
+> parameters so what's on xenbus is consistent with the limits enforced
+> in blkback.
+> 
+> Thanks, Roger.
+> 
+
 
