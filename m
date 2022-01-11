@@ -2,41 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5967C48B7D8
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jan 2022 21:06:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.256055.439196 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A667F48B7D9
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jan 2022 21:08:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.256060.439211 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7NPQ-0001Zp-8L; Tue, 11 Jan 2022 20:06:20 +0000
+	id 1n7NRM-0002O2-M6; Tue, 11 Jan 2022 20:08:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 256055.439196; Tue, 11 Jan 2022 20:06:20 +0000
+Received: by outflank-mailman (output) from mailman id 256060.439211; Tue, 11 Jan 2022 20:08:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7NPQ-0001XN-4c; Tue, 11 Jan 2022 20:06:20 +0000
-Received: by outflank-mailman (input) for mailman id 256055;
- Tue, 11 Jan 2022 20:06:19 +0000
+	id 1n7NRM-0002LD-Io; Tue, 11 Jan 2022 20:08:20 +0000
+Received: by outflank-mailman (input) for mailman id 256060;
+ Tue, 11 Jan 2022 20:08:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ZoZL=R3=ens-lyon.org=samuel.thibault@srs-se1.protection.inumbo.net>)
- id 1n7NPP-0001Vz-Ax
- for xen-devel@lists.xenproject.org; Tue, 11 Jan 2022 20:06:19 +0000
-Received: from hera.aquilenet.fr (hera.aquilenet.fr [185.233.100.1])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JwWh=R3=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1n7NRL-0002L5-C0
+ for xen-devel@lists.xenproject.org; Tue, 11 Jan 2022 20:08:19 +0000
+Received: from ppsw-43.csi.cam.ac.uk (ppsw-43.csi.cam.ac.uk [131.111.8.143])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eff36a36-7319-11ec-9ce5-af14b9085ebd;
- Tue, 11 Jan 2022 21:06:18 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id AE365796;
- Tue, 11 Jan 2022 21:06:17 +0100 (CET)
-Received: from hera.aquilenet.fr ([127.0.0.1])
- by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id PWIs8wVpdH8S; Tue, 11 Jan 2022 21:06:16 +0100 (CET)
-Received: from begin (unknown [IPv6:2a01:cb19:956:1b00:de41:a9ff:fe47:ec49])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id 50F3D746;
- Tue, 11 Jan 2022 21:06:16 +0100 (CET)
-Received: from samy by begin with local (Exim 4.95)
- (envelope-from <samuel.thibault@ens-lyon.org>) id 1n7NPL-00FFND-Rq;
- Tue, 11 Jan 2022 21:06:15 +0100
+ id 375bb04a-731a-11ec-9ce5-af14b9085ebd;
+ Tue, 11 Jan 2022 21:08:18 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:50732)
+ by ppsw-43.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1n7NRJ-0001so-nV (Exim 4.95) (return-path <amc96@srcf.net>);
+ Tue, 11 Jan 2022 20:08:17 +0000
+Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 2A65C1FDB6;
+ Tue, 11 Jan 2022 20:08:17 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,240 +45,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eff36a36-7319-11ec-9ce5-af14b9085ebd
-X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Date: Tue, 11 Jan 2022 21:06:15 +0100
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
-	wl@xen.org
-Subject: Re: [PATCH v2 03/12] mini-os: use alloc_file_type() and
- get_file_from_fd() in xs
-Message-ID: <20220111200615.b5tpi4faz3cak2ft@begin>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org, wl@xen.org
-References: <20220111151215.22955-1-jgross@suse.com>
- <20220111151215.22955-4-jgross@suse.com>
+X-Inumbo-ID: 375bb04a-731a-11ec-9ce5-af14b9085ebd
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <b0dec08d-2b94-efbb-cbc8-d67e3529fcc1@srcf.net>
+Date: Tue, 11 Jan 2022 20:08:16 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.0
+Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20220111150318.22570-1-jgross@suse.com>
+ <20220111150318.22570-3-jgross@suse.com>
+From: Andrew Cooper <amc96@srcf.net>
+Subject: Re: [PATCH v2 2/3] tools/libs/gnttab: decouple more from mini-os
+In-Reply-To: <20220111150318.22570-3-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220111151215.22955-4-jgross@suse.com>
-Organization: I am not organized
-User-Agent: NeoMutt/20170609 (1.8.3)
-X-Spamd-Bar: /
-Authentication-Results: hera.aquilenet.fr;
-	none
-X-Rspamd-Server: hera
-X-Rspamd-Queue-Id: AE365796
-X-Spamd-Result: default: False [0.40 / 15.00];
-	 ARC_NA(0.00)[];
-	 RCVD_VIA_SMTP_AUTH(0.00)[];
-	 FROM_HAS_DN(0.00)[];
-	 RCPT_COUNT_THREE(0.00)[4];
-	 TO_DN_SOME(0.00)[];
-	 TO_MATCH_ENVRCPT_ALL(0.00)[];
-	 MIME_GOOD(-0.10)[text/plain];
-	 HAS_ORG_HEADER(0.00)[];
-	 RCVD_COUNT_THREE(0.00)[3];
-	 FROM_EQ_ENVFROM(0.00)[];
-	 MIME_TRACE(0.00)[0:+];
-	 RCVD_TLS_LAST(0.00)[];
-	 MID_RHS_NOT_FQDN(0.50)[]
 
-Juergen Gross, le mar. 11 janv. 2022 16:12:06 +0100, a ecrit:
-> Allocate the needed file type via alloc_file_type().
-> 
-> Instead of directly accessing the files[] array use get_file_from_fd().
-> 
+On 11/01/2022 15:03, Juergen Gross wrote:
+> libgnttab is using implementation details of Mini-OS. Change that by
+> letting libgnttab use the new alloc_file_type() and get_file_from_fd()
+> functions and the generic dev pointer of struct file from Mini-OS.
+>
 > Signed-off-by: Juergen Gross <jgross@suse.com>
-
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-
 > ---
->  include/lib.h   |  3 +--
->  lib/sys.c       | 18 --------------
->  lib/xs.c        | 64 +++++++++++++++++++++++++++++++++++++------------
->  xenbus/xenbus.c |  1 +
->  4 files changed, 51 insertions(+), 35 deletions(-)
-> 
-> diff --git a/include/lib.h b/include/lib.h
-> index 283abb8..05c7de5 100644
-> --- a/include/lib.h
-> +++ b/include/lib.h
-> @@ -167,8 +167,7 @@ void sanity_check(void);
->  #define FTYPE_BLK        9
->  #define FTYPE_TPMFRONT  10
->  #define FTYPE_TPM_TIS   11
-> -#define FTYPE_XENBUS    12
-> -#define FTYPE_N         13
-> +#define FTYPE_N         12
->  #define FTYPE_SPARE     16
+> V2:
+> - add alloc_file_type() support
+> ---
+>  tools/libs/gnttab/minios.c | 68 +++++++++++++++++++++++++++-----------
+>  1 file changed, 48 insertions(+), 20 deletions(-)
+>
+> diff --git a/tools/libs/gnttab/minios.c b/tools/libs/gnttab/minios.c
+> index f78caadd30..c19f339c8c 100644
+> --- a/tools/libs/gnttab/minios.c
+> +++ b/tools/libs/gnttab/minios.c
+> @@ -28,18 +28,53 @@
+>  #include <sys/mman.h>
 >  
->  typedef int file_read_func(int fd, void *buf, size_t nbytes);
-> diff --git a/lib/sys.c b/lib/sys.c
-> index 9540410..d213ae5 100644
-> --- a/lib/sys.c
-> +++ b/lib/sys.c
-> @@ -495,11 +495,6 @@ int close(int fd)
->      switch (files[fd].type) {
->          default:
->              break;
-> -#ifdef CONFIG_XENBUS
-> -	case FTYPE_XENBUS:
-> -            xs_daemon_close((void*)(intptr_t) fd);
-> -            break;
-> -#endif
->  #ifdef HAVE_LWIP
->  	case FTYPE_SOCKET:
->  	    res = lwip_close(files[fd].fd);
-> @@ -712,7 +707,6 @@ int closedir(DIR *dir)
->  static const char *file_types[] = {
->      [FTYPE_NONE]    = "none",
->      [FTYPE_CONSOLE] = "console",
-> -    [FTYPE_XENBUS]  = "xenbus",
->      [FTYPE_SOCKET]  = "socket",
->      [FTYPE_TAP]     = "net",
->      [FTYPE_BLK]     = "blk",
-> @@ -892,18 +886,6 @@ static int select_poll(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exce
->                  n++;
->  	    FD_CLR(i, exceptfds);
->  	    break;
-> -#ifdef CONFIG_XENBUS
-> -	case FTYPE_XENBUS:
-> -	    if (FD_ISSET(i, readfds)) {
-> -                if (files[i].dev)
-> -		    n++;
-> -		else
-> -		    FD_CLR(i, readfds);
-> -	    }
-> -	    FD_CLR(i, writefds);
-> -	    FD_CLR(i, exceptfds);
-> -	    break;
-> -#endif
->  	case FTYPE_TAP:
->  	case FTYPE_BLK:
->  	case FTYPE_KBD:
-> diff --git a/lib/xs.c b/lib/xs.c
-> index 4af0f96..ac830d2 100644
-> --- a/lib/xs.c
-> +++ b/lib/xs.c
-> @@ -18,23 +18,55 @@ static inline int _xs_fileno(struct xs_handle *h) {
->      return (intptr_t) h;
->  }
+>  #include <errno.h>
+> +#include <malloc.h>
+>  #include <unistd.h>
 >  
-> +static int xs_close_fd(int fd)
+>  #include "private.h"
+>  
+> -void minios_gnttab_close_fd(int fd);
+> +int minios_gnttab_close_fd(int fd);
+
+Again, like evtchn, no need to forward declare.
+
+
+However, I've only just realised...
+
+> +
+> +int minios_gnttab_close_fd(int fd)
 > +{
-> +    struct xenbus_event *event, *next;
 > +    struct file *file = get_file_from_fd(fd);
 > +
-> +    for (event = file->dev; event; event = next)
-> +    {
-> +        next = event->next;
-> +        free(event);
-> +    }
+> +    gntmap_fini(file->dev);
+> +    free(file->dev);
 > +
 > +    return 0;
 > +}
-> +
-> +static bool xs_can_read(int fd)
-> +{
-> +    struct file *file = get_file_from_fd(fd);
-> +
-> +    return file && file->dev;
-> +}
-> +
-> +static struct file_ops xenbus_ops = {
-> +    .name = "xenbus",
-> +    .close = xs_close_fd,
-> +    .select_rd = xs_can_read,
-> +};
-> +
->  struct xs_handle *xs_daemon_open()
->  {
-> -    int fd = alloc_fd(FTYPE_XENBUS);
-> -    files[fd].dev = NULL;
-> -    printk("xs_daemon_open -> %d, %p\n", fd, &files[fd].dev);
-> +    int fd;
-> +    struct file *file;
-> +    static unsigned int ftype_xenbus;
-> +
-> +    if ( !ftype_xenbus )
-> +        ftype_xenbus = alloc_file_type(&xenbus_ops);
-> +
-> +    fd = alloc_fd(ftype_xenbus);
-> +    file = get_file_from_fd(fd);
-> +    if ( !file )
-> +        return NULL;
-> +
-> +    file->dev = NULL;
-> +    printk("xs_daemon_open -> %d, %p\n", fd, &file->dev);
->      return (void*)(intptr_t) fd;
->  }
->  
->  void xs_daemon_close(struct xs_handle *h)
->  {
-> -    int fd = _xs_fileno(h);
-> -    struct xenbus_event *event, *next;
-> -    for (event = files[fd].dev; event; event = next)
-> -    {
-> -        next = event->next;
-> -        free(event);
-> -    }
-> +    close(_xs_fileno(h));
->  }
->  
->  int xs_fileno(struct xs_handle *h)
-> @@ -169,18 +201,20 @@ char **xs_directory(struct xs_handle *h, xs_transaction_t t,
->  
->  bool xs_watch(struct xs_handle *h, const char *path, const char *token)
->  {
-> -    int fd = _xs_fileno(h);
-> +    struct file *file = get_file_from_fd(_xs_fileno(h));
-> +
->      printk("xs_watch(%s, %s)\n", path, token);
->      return xs_bool(xenbus_watch_path_token(XBT_NULL, path, token,
-> -                   (xenbus_event_queue *)&files[fd].dev));
-> +                   (xenbus_event_queue *)&file->dev));
->  }
->  
->  char **xs_read_watch(struct xs_handle *h, unsigned int *num)
->  {
-> -    int fd = _xs_fileno(h);
->      struct xenbus_event *event;
-> -    event = files[fd].dev;
-> -    files[fd].dev = event->next;
-> +    struct file *file = get_file_from_fd(_xs_fileno(h));
-> +
-> +    event = file->dev;
-> +    file->dev = event->next;
->      printk("xs_read_watch() -> %s %s\n", event->path, event->token);
->      *num = 2;
->      return (char **) &event->path;
-> diff --git a/xenbus/xenbus.c b/xenbus/xenbus.c
-> index b687678..785389f 100644
-> --- a/xenbus/xenbus.c
-> +++ b/xenbus/xenbus.c
-> @@ -393,6 +393,7 @@ static int allocate_xenbus_id(void)
->  void init_xenbus(void)
->  {
->      int err;
-> +
->      DEBUG("init_xenbus called.\n");
->      create_thread("xenstore", xenbus_thread_func, NULL);
->      DEBUG("buf at %p.\n", xenstore_buf);
-> -- 
-> 2.26.2
-> 
 
--- 
-Samuel
-<y> muhahaha...
-<y> ya un train qui part de Perrache à 14h57
-<y> qui passe à Part-Dieu à 15h10
-<y> si je le prends à Perrache, je suis en zone bleue
-<y> si je le prends à Part-Dieu, je suis en zone blanche
-<y> donc je vais le prendre à Perrache *mais* à Part-Dieu ;-)
- -+- #ens-mim - vive la SNCF -+-
+The only reason this doesn't break the build is because the declaration
+is not in a header.  After this change, you've got the function
+returning int here, but declared as returning void as far as MiniOS is
+concerned.
+
+Furthermore, we cannot fix this mess atomically now that minios has
+moved into a separate repo.  It's tolerable from an ABI point of view on
+x86, but I don't know for certain on other architectures.
+
+The least bad way I can think of doing this would be to leave void
+minios_gnttab_close_fd(int fd) exactly as it was, and instead of
+converting it's use here, use a separate static function straight away
+for the file ops.  (Will be necessary anyway if you like my suggestion
+of passing file too).  Then in the whole function in "tools/libs: final
+cleanup making mini-os callbacks static", rather than just making it static.
+
+~Andrew
 
