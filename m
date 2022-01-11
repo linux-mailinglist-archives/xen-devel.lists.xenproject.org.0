@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2C8E48B006
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jan 2022 15:59:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.255768.438411 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C612B48B007
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jan 2022 15:59:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.255772.438441 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7IbU-00031m-1o; Tue, 11 Jan 2022 14:58:28 +0000
+	id 1n7IbX-0003iu-8C; Tue, 11 Jan 2022 14:58:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 255768.438411; Tue, 11 Jan 2022 14:58:28 +0000
+Received: by outflank-mailman (output) from mailman id 255772.438441; Tue, 11 Jan 2022 14:58:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7IbT-0002xY-TO; Tue, 11 Jan 2022 14:58:27 +0000
-Received: by outflank-mailman (input) for mailman id 255768;
- Tue, 11 Jan 2022 14:58:26 +0000
+	id 1n7IbX-0003gs-1s; Tue, 11 Jan 2022 14:58:31 +0000
+Received: by outflank-mailman (input) for mailman id 255772;
+ Tue, 11 Jan 2022 14:58:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zHlr=R3=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1n7IbS-0002OZ-Ci
- for xen-devel@lists.xenproject.org; Tue, 11 Jan 2022 14:58:26 +0000
+ id 1n7IbU-0002OZ-Cx
+ for xen-devel@lists.xenproject.org; Tue, 11 Jan 2022 14:58:28 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eb74dc4e-72ee-11ec-81c1-a30af7de8005;
+ id eb953028-72ee-11ec-81c1-a30af7de8005;
  Tue, 11 Jan 2022 15:58:22 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E9B53212CA;
- Tue, 11 Jan 2022 14:58:21 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 242F7212CB;
+ Tue, 11 Jan 2022 14:58:22 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BFE8913DDD;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EF06413DDD;
  Tue, 11 Jan 2022 14:58:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SM+DLQ2b3WH9eQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id gEULOQ2b3WH9eQAAMHmgww
  (envelope-from <jgross@suse.com>); Tue, 11 Jan 2022 14:58:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,100 +51,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb74dc4e-72ee-11ec-81c1-a30af7de8005
+X-Inumbo-ID: eb953028-72ee-11ec-81c1-a30af7de8005
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1641913101; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1641913102; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=TREXG7+5/igcPNPrnaoW0C+ol3WOPsTOJ1n+uetqVIM=;
-	b=RMzEluR0R4fgFdGUYZlpRN9kcrLAm9FKaQhlsOwmr0NuaXYDlXIX2d9602zbkd5n3DldVS
-	FWh6iw030rnPWCiK37hb+Kqi0mle91w9GKtHPMavCQJZCK0fT2kygkIPsxpMysR9NYHfHS
-	vvB0GFH/b9YGFFmP7w1jRCSg3WT26KE=
+	bh=Kc8vjPoaiZBPWJd7bC9/lWlsrU4qpi/hgSPUhZ8Wm48=;
+	b=LQxJ7OH+F7Zw7qdHdMyNJ2UZp9vmF7os301Zp+Ys8Ek/bMu0+EImR1SRe2hGXSSHeMo/QX
+	xQUrY5LeQ8sRz0L1Ngdk93hAUn4RUUO17NZL8C36p2AKFBD8060iTmEiJtqjFrJOoZ/txp
+	JkeH5ZgZyrLtps8OYkxDA+zWq5ReSdI=
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org,
 	wl@xen.org,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2 10/18] mini-os: eliminate netfront union member in struct file
-Date: Tue, 11 Jan 2022 15:58:09 +0100
-Message-Id: <20220111145817.22170-11-jgross@suse.com>
+Subject: [PATCH v2 11/18] mini-os: move tpm respgot member of struct file to device specific data
+Date: Tue, 11 Jan 2022 15:58:10 +0100
+Message-Id: <20220111145817.22170-12-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20220111145817.22170-1-jgross@suse.com>
 References: <20220111145817.22170-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace the netfront specific union member in struct file with the
-common dev pointer.
+Tpmfront has a "respgot" flag in struct file, which can be moved to the
+device specific data. While at it make it a bool.
+
+The respgot flag of the tpm_tis member of struct file can be removed,
+as it is never read.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 ---
- include/lib.h | 3 ---
- lib/sys.c     | 6 +++---
- netfront.c    | 2 +-
- 3 files changed, 4 insertions(+), 7 deletions(-)
+ include/lib.h      |  2 --
+ include/tpmfront.h |  2 ++
+ tpm_tis.c          |  2 --
+ tpmfront.c         | 10 +++++-----
+ 4 files changed, 7 insertions(+), 9 deletions(-)
 
 diff --git a/include/lib.h b/include/lib.h
-index 5201ed7..f2a124e 100644
+index f2a124e..d740065 100644
 --- a/include/lib.h
 +++ b/include/lib.h
-@@ -193,9 +193,6 @@ struct file {
- 	    struct evtchn_port_list ports;
- 	} evtchn;
- 	struct gntmap gntmap;
--	struct {
--	    struct netfront_dev *dev;
--	} tap;
+@@ -196,13 +196,11 @@ struct file {
  #ifdef CONFIG_TPMFRONT
  	struct {
  	   struct tpmfront_dev *dev;
-diff --git a/lib/sys.c b/lib/sys.c
-index 8c7ea3c..b35e433 100644
---- a/lib/sys.c
-+++ b/lib/sys.c
-@@ -263,7 +263,7 @@ int read(int fd, void *buf, size_t nbytes)
- #ifdef CONFIG_NETFRONT
- 	case FTYPE_TAP: {
- 	    ssize_t ret;
--	    ret = netfront_receive(files[fd].tap.dev, buf, nbytes);
-+	    ret = netfront_receive(files[fd].dev, buf, nbytes);
- 	    if (ret <= 0) {
- 		errno = EAGAIN;
- 		return -1;
-@@ -339,7 +339,7 @@ int write(int fd, const void *buf, size_t nbytes)
+-	   int respgot;
+ 	} tpmfront;
  #endif
- #ifdef CONFIG_NETFRONT
- 	case FTYPE_TAP:
--	    netfront_xmit(files[fd].tap.dev, (void*) buf, nbytes);
-+	    netfront_xmit(files[fd].dev, (void*) buf, nbytes);
- 	    return nbytes;
+ #ifdef CONFIG_TPM_TIS
+ 	struct {
+ 	   struct tpm_chip *dev;
+-	   int respgot;
+ 	} tpm_tis;
  #endif
- #ifdef CONFIG_BLKFRONT
-@@ -450,7 +450,7 @@ int close(int fd)
+ #ifdef CONFIG_XENBUS
+diff --git a/include/tpmfront.h b/include/tpmfront.h
+index c489fae..b7da50e 100644
+--- a/include/tpmfront.h
++++ b/include/tpmfront.h
+@@ -25,6 +25,7 @@
+ #ifndef TPMFRONT_H
+ #define TPMFRONT_H
+ 
++#include <stdbool.h>
+ #include <mini-os/types.h>
+ #include <mini-os/os.h>
+ #include <mini-os/events.h>
+@@ -53,6 +54,7 @@ struct tpmfront_dev {
+ 
+ #ifdef HAVE_LIBC
+    int fd;
++   bool respgot;
  #endif
- #ifdef CONFIG_NETFRONT
- 	case FTYPE_TAP:
--	    shutdown_netfront(files[fd].tap.dev);
-+	    shutdown_netfront(files[fd].dev);
- 	    files[fd].type = FTYPE_NONE;
- 	    return 0;
+ 
+ };
+diff --git a/tpm_tis.c b/tpm_tis.c
+index 8a632b1..4127118 100644
+--- a/tpm_tis.c
++++ b/tpm_tis.c
+@@ -846,7 +846,6 @@ int tpm_tis_send(struct tpm_chip* tpm, uint8_t* buf, size_t len) {
+ #ifdef HAVE_LIBC
+    if(tpm->fd >= 0) {
+       files[tpm->fd].read = false;
+-      files[tpm->fd].tpm_tis.respgot = 0;
+       files[tpm->fd].offset = 0;
+    }
  #endif
-diff --git a/netfront.c b/netfront.c
-index a566e34..7696451 100644
---- a/netfront.c
-+++ b/netfront.c
-@@ -576,7 +576,7 @@ int netfront_tap_open(char *nodename) {
-     }
-     dev->fd = alloc_fd(FTYPE_TAP);
-     printk("tap_open(%s) -> %d\n", nodename, dev->fd);
--    files[dev->fd].tap.dev = dev;
-+    files[dev->fd].dev = dev;
-     return dev->fd;
+@@ -1290,7 +1289,6 @@ int tpm_tis_open(struct tpm_chip* tpm)
+    tpm->fd = alloc_fd(FTYPE_TPM_TIS);
+    printk("tpm_tis_open() -> %d\n", tpm->fd);
+    files[tpm->fd].tpm_tis.dev = tpm;
+-   files[tpm->fd].tpm_tis.respgot = 0;
+    return tpm->fd;
  }
+ 
+diff --git a/tpmfront.c b/tpmfront.c
+index 8b2a910..be671c2 100644
+--- a/tpmfront.c
++++ b/tpmfront.c
+@@ -439,8 +439,8 @@ int tpmfront_send(struct tpmfront_dev* dev, const uint8_t* msg, size_t length)
+ #ifdef HAVE_LIBC
+    if(dev->fd >= 0) {
+       files[dev->fd].read = false;
+-      files[dev->fd].tpmfront.respgot = 0;
+       files[dev->fd].offset = 0;
++      dev->respgot = false;
+    }
  #endif
+    wmb();
+@@ -499,7 +499,7 @@ int i;
+ #endif
+ #ifdef HAVE_LIBC
+    if(dev->fd >= 0) {
+-      files[dev->fd].tpmfront.respgot = 1;
++      dev->respgot = true;
+    }
+ #endif
+ quit:
+@@ -539,7 +539,7 @@ int tpmfront_open(struct tpmfront_dev* dev)
+    dev->fd = alloc_fd(FTYPE_TPMFRONT);
+    printk("tpmfront_open(%s) -> %d\n", dev->nodename, dev->fd);
+    files[dev->fd].tpmfront.dev = dev;
+-   files[dev->fd].tpmfront.respgot = 0;
++   dev->respgot = false;
+    return dev->fd;
+ }
+ 
+@@ -580,7 +580,7 @@ int tpmfront_posix_read(int fd, uint8_t* buf, size_t count)
+    }
+ 
+    /* get the response if we haven't already */
+-   if(files[dev->fd].tpmfront.respgot == 0) {
++   if (!dev->respgot) {
+       if ((rc = tpmfront_recv(dev, &dummybuf, &dummysz)) != 0) {
+ 	 errno = EIO;
+ 	 return -1;
+@@ -610,7 +610,7 @@ int tpmfront_posix_fstat(int fd, struct stat* buf)
+ 
+    /* If we have a response waiting, then read it now from the backend
+     * so we can get its length*/
+-   if(dev->waiting || (files[dev->fd].read && !files[dev->fd].tpmfront.respgot)) {
++   if(dev->waiting || (files[dev->fd].read && !dev->respgot)) {
+       if ((rc = tpmfront_recv(dev, &dummybuf, &dummysz)) != 0) {
+ 	 errno = EIO;
+ 	 return -1;
 -- 
 2.26.2
 
