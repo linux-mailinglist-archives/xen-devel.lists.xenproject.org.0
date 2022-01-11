@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC43548ADF0
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jan 2022 13:53:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.255725.438297 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAA2048AE83
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jan 2022 14:35:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.255729.438307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7Gdb-0004Rx-Br; Tue, 11 Jan 2022 12:52:31 +0000
+	id 1n7HII-0000Aj-Gn; Tue, 11 Jan 2022 13:34:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 255725.438297; Tue, 11 Jan 2022 12:52:31 +0000
+Received: by outflank-mailman (output) from mailman id 255729.438307; Tue, 11 Jan 2022 13:34:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7Gdb-0004Q6-7m; Tue, 11 Jan 2022 12:52:31 +0000
-Received: by outflank-mailman (input) for mailman id 255725;
- Tue, 11 Jan 2022 12:52:29 +0000
+	id 1n7HII-000088-Dj; Tue, 11 Jan 2022 13:34:34 +0000
+Received: by outflank-mailman (input) for mailman id 255729;
+ Tue, 11 Jan 2022 13:34:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kSBO=R3=arm.com=andre.przywara@srs-se1.protection.inumbo.net>)
- id 1n7GdZ-0004Q0-T1
- for xen-devel@lists.xenproject.org; Tue, 11 Jan 2022 12:52:29 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 5456d94a-72dd-11ec-9ce5-af14b9085ebd;
- Tue, 11 Jan 2022 13:52:28 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9469D1FB;
- Tue, 11 Jan 2022 04:52:26 -0800 (PST)
-Received: from donnerap.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
- [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 416873F774;
- Tue, 11 Jan 2022 04:52:25 -0800 (PST)
+ <SRS0=WMrX=R3=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1n7HIH-000082-1W
+ for xen-devel@lists.xenproject.org; Tue, 11 Jan 2022 13:34:33 +0000
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [2a00:1450:4864:20::12e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 35031930-72e3-11ec-9ce5-af14b9085ebd;
+ Tue, 11 Jan 2022 14:34:31 +0100 (CET)
+Received: by mail-lf1-x12e.google.com with SMTP id u13so56233852lff.12
+ for <xen-devel@lists.xenproject.org>; Tue, 11 Jan 2022 05:34:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,265 +39,177 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5456d94a-72dd-11ec-9ce5-af14b9085ebd
-Date: Tue, 11 Jan 2022 12:52:22 +0000
-From: Andre Przywara <andre.przywara@arm.com>
-To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-Cc: Julien Grall <julien@xen.org>, Bertrand Marquis
- <Bertrand.Marquis@arm.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>, "sstabellini@kernel.org"
- <sstabellini@kernel.org>, "stefanos@xilinx.com" <stefanos@xilinx.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
- "jbeulich@suse.com" <jbeulich@suse.com>, <beata.michalska@linaro.org>,
- <richard.henderson@linaro.org>
-Subject: Re: [XEN v2] xen/arm64: io: Decode 32-bit ldr/str post-indexing
- instructions
-Message-ID: <20220111125222.6e2af49b@donnerap.cambridge.arm.com>
-In-Reply-To: <2978437f-c7ad-e874-5355-5bdfa2185f1c@xilinx.com>
-References: <20211129191638.19877-1-ayankuma@xilinx.com>
-	<20211130094950.1bf368d6@donnerap.cambridge.arm.com>
-	<a69d41f1-7b57-c127-ae73-2de5a581dddd@xilinx.com>
-	<D8811539-65F2-4D40-BFEF-CE72EA8E902A@arm.com>
-	<4315f3f8-4431-3257-dc95-a3089532237b@xen.org>
-	<20211208120048.63fbf49b@donnerap.cambridge.arm.com>
-	<0f6e058a-bc23-2a77-6797-39bfacb7db79@xilinx.com>
-	<20220106153327.6ebb2be1@donnerap.cambridge.arm.com>
-	<2978437f-c7ad-e874-5355-5bdfa2185f1c@xilinx.com>
-Organization: ARM
-X-Mailer: Claws Mail 3.17.5 (GTK+ 2.24.32; aarch64-unknown-linux-gnu)
+X-Inumbo-ID: 35031930-72e3-11ec-9ce5-af14b9085ebd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=XrDAom7H8/BgHjxioCEdiqbAtMaOUx3qoD8k8GLwEW4=;
+        b=bLcPlaUbugOH/J+Ywj+IzUy4u3pBk1dp+MM/4vD+RhO6F76d7/cI6u/+wXtXFKZ2d+
+         kbe8YazyTTBcl+bP4v9COe2iRwL0CGOtTCWHchrE5G0av8ADsEA5FJzqV42GRiS7te1h
+         8ineTnUEF3iIGZ05Zs8Ni/t4bBPand/65+Nd8qlKzn6F/hqSxv1htc7iV6mahvPT7pY0
+         2I5+iu0bEMg3eB5SAdzRnMil0z8YUgHh8/1ndN/tB2jcTsp0SWLjcilJd/DBQaE8tGqx
+         K7xoY9cIKO7JloJBo1vCLLqo1RbiQ8i1qQrooiUxld/bSfMIxndXN9ESGjcTOES4uPrN
+         YuJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=XrDAom7H8/BgHjxioCEdiqbAtMaOUx3qoD8k8GLwEW4=;
+        b=Tp6WBDr10bi3FP40ZuqmGLGVcM8yRBwybp734B5n2JnVgzYcUA3FzL7IJoyJavyuP3
+         wX4huO73e4gycPzi8gWW9f9Nv2uLm3kuHSfYa7aOUObNrpHNyG0DKlLH5RWGuj06rZHf
+         kgpdxLpQGN4JHUgBx50Lm3eV9SzK8m6iDHbmZ9HWEKLsMv+a9SBFyUedAjw4Ov0o5Qyf
+         2MamXo1wIbolDPtGWvFhJisIGliX/DcamllKef4PjSt7c0U7RFblHvREaj7rvcNgUlaO
+         QmjUrM1IgNijhb3cOKvyBeJQH51hYliQzMFxHaLmJn5qv4ldAD+tV6GrjHRTNy/oq8t3
+         aygw==
+X-Gm-Message-State: AOAM5312aWsgZ4QP9Y2FuROTMk0Tmqfm8W/82WtqqUE2amPMiKNcwsjR
+	GeQJiCBKM2zl4YGsImDJdEOWJejN11q5x2RXecU=
+X-Google-Smtp-Source: ABdhPJxAAPiX2BayI7ph3fkLvEDlgDKsCGGMPHaywqAdlpy4vb8s2PBSphDHyOum2cSAmpykueMjWElxqs6R4DyJtGQ=
+X-Received: by 2002:a2e:9bd8:: with SMTP id w24mr2916482ljj.19.1641908070817;
+ Tue, 11 Jan 2022 05:34:30 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20220109180436.4112-1-jandryuk@gmail.com> <e6176548-2d32-05c5-1132-6a658c9e313a@suse.com>
+In-Reply-To: <e6176548-2d32-05c5-1132-6a658c9e313a@suse.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 11 Jan 2022 08:34:19 -0500
+Message-ID: <CAKf6xpuO1T_P5N67puHmxpTfXQqSVeJ6wXNosJTWm=kM-zQ+fg@mail.gmail.com>
+Subject: Re: [PATCH v3] libxl/PCI: Fix PV hotplug & stubdom coldplug
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, 
+	Juergen Gross <jgross@suse.com>, xen-devel <xen-devel@lists.xenproject.org>, 
+	Paul Durrant <paul@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 10 Jan 2022 14:33:11 +0000
-Ayan Kumar Halder <ayan.kumar.halder@xilinx.com> wrote:
+On Mon, Jan 10, 2022 at 4:09 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> (also Cc-ing Paul)
 
-Hi Ayan,
+Thanks.
 
-> Many thanks for your inputs. It is making better sense now. Much 
-> appreciated.
-> 
-> A few questions/clarifications :-
-> 
-> On 06/01/2022 15:33, Andre Przywara wrote:
-> > On Wed, 5 Jan 2022 16:55:11 +0000
-> > Ayan Kumar Halder<ayan.kumar.halder@xilinx.com>  wrote:
+> On 09.01.2022 19:04, Jason Andryuk wrote:
+> > commit 0fdb48ffe7a1 "libxl: Make sure devices added by pci-attach are
+> > reflected in the config" broken PCI hotplug (xl pci-attach) for PV
+> > domains when it moved libxl__create_pci_backend() later in the function.
 > >
-> > Hi,
-> >  
-> >> Thank you so much for your feedback.
-> >>
-> >> I need a couple of clarifications before I can start with the v3 patch.
-> >>
-> >> On 08/12/2021 12:00, Andre Przywara wrote:  
-> >>> On Mon, 6 Dec 2021 19:31:06 +0000
-> >>> Julien Grall<julien@xen.org>  wrote:
-> >>>
-> >>> Hi,
-> >>>     
-> >>>> On 01/12/2021 08:41, Bertrand Marquis wrote:  
-> >>>>> Hi Ayan,
-> >>>>>         
-> >>>>>> On 30 Nov 2021, at 19:13, Ayan Kumar Halder<ayan.kumar.halder@xilinx.com>  wrote:
-> >>>>>>
-> >>>>>> Hi Andre,
-> >>>>>>
-> >>>>>> Thanks for your comments. They are useful.
-> >>>>>>
-> >>>>>> On 30/11/2021 09:49, Andre Przywara wrote:  
-> >>>>>>> On Mon, 29 Nov 2021 19:16:38 +0000
-> >>>>>>> Ayan Kumar Halder<ayan.kumar.halder@xilinx.com>  wrote:
-> >>>>>>> Hi,  
-> >>>>>>>> At the moment, Xen is only handling data abort with valid syndrome (i.e.
-> >>>>>>>> ISV=0). Unfortunately, this doesn't cover all the instructions a domain
-> >>>>>>>> could use to access MMIO regions.
-> >>>>>>>>
-> >>>>>>>> For instance, Xilinx baremetal OS will use:
-> >>>>>>>>
-> >>>>>>>>            volatile u32 *LocalAddr = (volatile u32 *)Addr;
-> >>>>>>>>            *LocalAddr = Value;
-> >>>>>>>>
-> >>>>>>>> This leave the compiler to decide which store instructions to use.  
-> >>>>>>> As mentioned in the other email, this is wrong, if this points to MMIO:
-> >>>>>>> don't let the compiler do MMIO accesses. If a stage 2 fault isn't in
-> >>>>>>> an MMIO area, you should not see traps that you cannot handle already.
-> >>>>>>> So I don't think it's a good idea to use that as an example. And since
-> >>>>>>> this patch only seems to address this use case, I would doubt its
-> >>>>>>> usefulness in general.  
-> >>>>>> Yes, I should have fixed the comment.
-> >>>>>>
-> >>>>>> Currently, I am testing with baremetal app which uses inline assembly code with post indexing instructions, to access the MMIO.
-> >>>>>>
-> >>>>>> ATM, I am testing with 32 bit MMIO only.
-> >>>>>>
-> >>>>>> On the usefulness, I am kind of torn as it is legitimate for post indexing instructions to be used in an inline-assembly code for accessing MMIO. However, that may not be something commonly seen.
-> >>>>>>
-> >>>>>> @Stefano/Bertrand/Julien/Volodymyr :- As you are the Arm mantainers, can you comment if we should have decoding logic or not ?  
-> >>>>> Andre gave you the official statement from Arm and there is nothing more I can say.  
-> >>>> I think this would be handy for other hypervisor and OS developper to
-> >>>> know what they can expect when running in a virtualized environment. So
-> >>>> would it be possible to update the Arm Arm reflecting this statement?  
-> >>> I don't think it's within the scope of the ARM ARM to say that. It just
-> >>> says that "there is no syndrome information", and your mileage may vary in
-> >>> working around that.
-> >>>
-> >>> Personally I would say that if you expect your software to work nicely
-> >>> under a hypervisor, then just avoid those instructions. The Linux kernel
-> >>> certainly did so.
-> >>>
-> >>> You can try to do instruction emulation, but doing this right can get
-> >>> tricky quickly: think about I$/D$ coherency, MMU on or off, etc.  
-> >> I am trying to get all the restrictions that need to be checked. I have
-> >> referred
-> >> https://developer.arm.com/documentation/dui0802/a/A64-General-Instructions/Register-restrictions-for-A64-instructions?lang=en  
-> >> and "Arm A64 Instruction Set Architecture - DDI 0596" - LDR (immediate).
-> >>
-> >> So far I only see the following restrictions:-
-> >>
-> >> Rn -ne Rt
-> >>
-> >> Rt -ne SP
-> >>
-> >> You had mentioned the following cases :-
-> >>
-> >> 1. XZR vs SP - I see that both these refer to register no 31. Xen gets
-> >> the register number (for Rn/Rt) only, so I am not sure what is to be
-> >> done here.  
-> > But the emulation code in Xen needs to know whether number 31 refers to the
-> > stack pointer or to the zero register. This depends on the context of the
-> > instruction. It's nothing magical about it, you just need to figure out
-> > which it is in your case and make sure that the code uses the right
-> > value. In the LDR case n==31 means SP, but t==31 means XZR. The emulation
-> > would need to consider this.  
-> 
-> I see what you mean. I had a look at 
-> xen/tools/qemu-xen-dir-remote/target/arm/cpu.h, CPUARMState {}. I don't 
-> see anywhere we need to refer register by its name. IIUC, the 
-> instruction decoding logic needs to know the register number only.
+> > This also broke HVM + stubdom PCI passthrough coldplug.  For that, the
+> > PCI devices are hotplugged to a running PV stubdom, and then the QEMU
+> > QMP device_add commands are made to QEMU inside the stubdom.
+> >
+> > Are running PV domain calls libxl__wait_for_backend().
+>
+> I could only make sense of this when replacing "Are" by "A", but then
+> I'm not sure that's what you've meant.
 
-But there is of course still a difference between them: they refer to two
-separate registers, they just share the encoding of x31 in the instruction.
-Each instruction then *knows* what register it needs to go to when it sees
-number 31.
-By its very nature, you don't need to save XZR, so GPR[31] is typically
-the SP, if you have an array holding register values, and you
-probably handle the XZR case in code.
+Yes, "A".
 
-> In fact, Xen would only read CPUARMState->xregs[31] for SP/XZR in 
-> Aarch64 context. Let me know what I might be missing here.
-> 
-> Beata/Richard - I see you have committed most recently on the file. 
-> Please feel free to add your inputs.
-> 
-> >  
-> >> 2. MMU on or off - As I see in try_handle_mmio(), one gets the physical
-> >> address in gpa. So I am not sure what is to be done here.  
-> > You *might* be fine, if Xen takes care of that, I don't know.
-> > But it needs to explicitly consider those two cases - and also make
-> > sure that caching effects are cared for.
-> >  
-> >> 3. I/D coherency - I don't understand how this affects instruction decoding.  
-> > In the ARM architecture the I cache and D cache are not necessarily
-> > coherent. So whatever the CPU reads via the data bus does not need to be
-> > the same data that the instruction fetcher read a while ago. And while
-> > there is a well-known sequence to make the current data side visible to
-> > the instruction side, there is nothing architectural for the other way
-> > around.
-> > For example the CPU fetches a bunch of instructions into the I cache, then
-> > consumes it from there. Now some code changes those instruction words in
-> > "memory". Without explicit D-cache-clean-to-the-PoU and
-> > I-cache-invalidate+ISB the CPU might still execute the old instructions.  
-> 
-> This makes sense. Referring 
-> https://developer.arm.com/documentation/den0024/a/Caches/Cache-maintenance, 
-> I assume that the following instructions need to be executed before the 
-> instruction is decoded.
-> 
-> Xn <--- contains the address of the instruction to be decoded.
-> 
-> STR Wt, [Xn]
-> DC CVAU, Xn // Clean datacache by VA to point of unification (PoU)
-> DSB ISH // Ensure visibility of the datacleaned from cache
-> IC IVAU, Xn // Invalidate instruction cache by VA to PoU
-> DSB ISH // Ensure completion of the invalidations
-> ISB // Synchronize the fetched instruction stream
+> >  With the current
+> > placement of libxl__create_pci_backend(), the path does not exist and
+> > the call immediately fails:
+> > libxl: error: libxl_device.c:1388:libxl__wait_for_backend: Backend /local/domain/0/backend/pci/43/0 does not exist
+> > libxl: error: libxl_pci.c:1764:device_pci_add_done: Domain 42:libxl__device_pci_add failed for PCI device 0:2:0.0 (rc -3)
+> > libxl: error: libxl_create.c:1857:domcreate_attach_devices: Domain 42:unable to add pci devices
+> >
+> > The wait is only relevant when the backend is already present.  num_devs
+> > is already used to determine if the backend needs to be created.  Re-use
+> > num_devs to determine if the backend wait is necessary.  The wait is
+> > necessary to avoid racing with another PCI attachment reconfiguring the
+> > front/back or changing to some other state like closing. If we are
+> > creating the backend, then we don't have to worry about the state since
+> > it is being created.
+>
+> While I follow all of this, what I'm missing here is some form of proof
+> why the wait is _not_ needed for a newly created backend.  Isn't it
+> necessary for the backend to reach Connected also when putting in place
+> the first device, in order for the guest to be able to actually use the
+> device?
 
-That is what I sketched above: the typical sequence to make sure the
-instruction fetcher reads the right instructions, after you updated them.
-BUT this is not what we need here, we need to other way around: read the
-instruction that the CPU executed, but via the data bus, from memory. And
-I wouldn't know of a neat architectural way to ensure this.
+The backend creation is now done as part of the xenstore transaction,
+see "This is the first device, so create the backend" in
+libxl__device_pci_add_xenstore().  That is part of Paul's change in
+0fdb48ffe7a1.  Before that, it created the backend and waited.
 
-> > But if your emulation code tries to read the instruction from memory, it
-> > fetches the data-visible side of it - which is not what the CPU executed,
-> > so end up emulating the wrong thing.  
-> 
-> I am guessing that this should not be a very unusual case. Isn't this 
-> similar to a host processor loading and modifying a firmware in the 
-> memory. The firmware can then be executed by a different 
-> micro-controller or some programmable engine. I mean the data pipeline 
-> or instruction pipeline should read the same contents from memory.
+> Is it perhaps assumed that the frontend driver would wait for
+> the backend reaching Connected (emphasizing the difference to HVM,
+> where no frontend driver exists)? Whatever the answer, it may be
+> worthwhile to also add that (in suitably abbreviated form) to the newly
+> added code comment.
 
-... if they are coherent. Otherwise you need explicit maintenance, see
-above. I mean it's the same situation with an external processor: this
-core reads instructions from memory and is probably buffering/caching them
-(crucial for performance). Now you need to tell if that buffer might
-contain stale data, and if the data in memory has changed meanwhile.
+I think my starting vs. !starting comment below will clarify this.
 
-> > Please also keep in mind that the architecture does not *guarantee*
-> > coherency, but in reality it might actually be coherent - either because
-> > of the particular silicon implementation, or because of side effects in
-> > the system (data cache line being evicted, ISB executed). So seeing the
-> > effects of coherency in your testing does not mean you are safe, it might
-> > just happen by chance.  
-> 
-> Is there some good way to test this to ensure the best possible 
-> reliability ?
+> > Fixes: 0fdb48ffe7a1 ("libxl: Make sure devices added by pci-attach are
+> > reflected in the config")
+> >
+> > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+> > ---
+> > Alternative to Jan's patch:
+> > https://lore.kernel.org/xen-devel/5114ae87-bc0e-3d58-e16e-6d9d2fee0801@suse.com/
+>
+> This answers the question raised in reply to Anthony's comment on my
+> patch.
+>
+> > --- a/tools/libs/light/libxl_pci.c
+> > +++ b/tools/libs/light/libxl_pci.c
+> > @@ -157,8 +157,10 @@ static int libxl__device_pci_add_xenstore(libxl__gc *gc,
+> >      if (domtype == LIBXL_DOMAIN_TYPE_INVALID)
+> >          return ERROR_FAIL;
+> >
+> > -    if (!starting && domtype == LIBXL_DOMAIN_TYPE_PV) {
+> > -        if (libxl__wait_for_backend(gc, be_path, GCSPRINTF("%d", XenbusStateConnected)) < 0)
+> > +    /* wait is only needed if the backend already exists (num_devs != NULL) */
+> > +    if (num_devs && !starting && domtype == LIBXL_DOMAIN_TYPE_PV) {
+> > +        if (libxl__wait_for_backend(gc, be_path,
+> > +                                    GCSPRINTF("%d", XenbusStateConnected)) < 0)
+> >              return ERROR_FAIL;
+> >      }
+> >
+>
+> In how far is the !starting part of the condition then still needed? I
+> have to admit that I've been wondering about the applicability of this
+> condition anyway, and your patch description actually seems to further
+> support my suspicion about this not being quite right (which is
+> connected to the fact that devices get added one by one instead of all
+> in one go, which would avoid the need for the backend to reconfigure
+> at all during domain creation).
 
-That's the problem, I think: You can reason on the basis of the
-architecture as described in the ARM ARM, but this brings you to the
-problems above. You can now try to hand wave away the problems, by stating
-that this will never happen in practice, but you then leave the steady
-ground the architecture gives you. That's why I was asking before if this
-is really necessary code to have, or if you would just be better off
-fixing the guests.
+In the starting case, libxl can write all the xenstore entries without
+waiting.  The frontend is not running, so this function is called
+multiple times and the additional subdevices are written.
 
-Cheers,
-Andre
+But you have a point that the backend is running and will see the
+xenstores entries.  However, Reconfiguring is only set when !starting.
+And since the frontend is not running when starting, then the backend
+cannot have transitioned to Connected.  Looking at xen-pciback, it
+waits for the frontend to go to Initialized (From Initializing) before
+transitioning to Connected.  So the multiple independent xenstore
+writes accumulate for the starting case.
 
-> >> Please help me to understand further.
-> >>
-> >> - Ayan
-> >>  
-> >>>     
-> >>>>> I will leave this decision to Stefano and Julien.  
-> >>>> I have had a chat on IRC with Stefano about this. I think the main
-> >>>> sticking point is the Arm Arm doesn't clearly state those instructions
-> >>>> should not be used by a virtualized OS on MMIO regions.  
-> >>> I don't understand why the ARM ARM would need to say that. Certainly you
-> >>> realise that immediately when trying to use them, and apparently it was not
-> >>> a problem in the last 8ish years of Xen/ARM's existence.
-> >>>
-> >>> So it's your decision on having the emulation, I personally would only do
-> >>> it when there is a *good* use case.
-> >>> And please apply the demanded scrutiny on the review - including all the
-> >>> corner cases like Rn=Rt, XZR vs. SP (as Jan said) and possibly MMU status.
-> >>>
-> >>> Cheers,
-> >>> Andre
-> >>>     
-> >>>> To me, this topic looks similar to the set/way instruction dilemma. They
-> >>>> are a pain to virtualize (and the Arm Arm clearly hint it) but we had to
-> >>>> do it because some OSes relied on them.
-> >>>>
-> >>>> I think the main difference is the Arm Arm doesn't hint they should not
-> >>>> be used (it only says a valid syndrome is not provided) and the
-> >>>> implementation should hopefully be smaller and self-contained.
-> >>>>
-> >>>> So I would be inclined to allow Xen to decode post-indexing instructions
-> >>>> (pending the review).
-> >>>>
-> >>>> Cheers,
-> >>>>     
+In the !starting (running) case, the code adds subdevices one at a
+time and waits for each reconfiguration to complete prior to modifying
+the xenstore state.
 
+You previously mentioned wanting all the devices at written at once.
+libxl is written to handle 1 device at a time.  That works fine for
+most PV devices, but PCI with subdevices doesn't fit that paradigm.
+While the PV xenstore writes could be done as a single transaction,
+HVM still requires individual QMP device_add commands per device.  It
+could be made to work, but it seemed like more work than it is worth
+and doesn't seem to mesh well with the rest of libxl.
+
+> Two nits:
+>
+> With tools/libs/light/CODING_STYLE not saying anything about comment
+> style, imo ./CODING_STYLE applies, which demands comments to start with
+> a capital letter.
+
+Yes, this sounds good.
+
+> Plus, while I'm not sure what the conventions in libxl are, touching this
+> code would seem like a great opportunity to me to fold the two if()-s.
+
+I prefer them separate.  There are two logical conditions - "do we
+need to wait?" and "did the wait succeed?".  Keeping them separate
+maintains that distinction, and it is more readable IMO.
+
+Regards,
+Jason
 
