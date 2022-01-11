@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAD1D48A797
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jan 2022 07:09:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.255605.438036 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBFDA48A798
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jan 2022 07:10:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.255608.438046 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7ALI-0003A8-O3; Tue, 11 Jan 2022 06:09:12 +0000
+	id 1n7AMC-0004Q8-0f; Tue, 11 Jan 2022 06:10:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 255605.438036; Tue, 11 Jan 2022 06:09:12 +0000
+Received: by outflank-mailman (output) from mailman id 255608.438046; Tue, 11 Jan 2022 06:10:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7ALI-000379-KQ; Tue, 11 Jan 2022 06:09:12 +0000
-Received: by outflank-mailman (input) for mailman id 255605;
- Tue, 11 Jan 2022 06:09:12 +0000
+	id 1n7AMB-0004Nh-Tv; Tue, 11 Jan 2022 06:10:07 +0000
+Received: by outflank-mailman (input) for mailman id 255608;
+ Tue, 11 Jan 2022 06:10:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zHlr=R3=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1n7ALH-000373-VG
- for xen-devel@lists.xenproject.org; Tue, 11 Jan 2022 06:09:11 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1n7AMA-000373-7u
+ for xen-devel@lists.xenproject.org; Tue, 11 Jan 2022 06:10:06 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fde9932a-72a4-11ec-9ce5-af14b9085ebd;
- Tue, 11 Jan 2022 07:09:10 +0100 (CET)
+ id 1eca4842-72a5-11ec-9ce5-af14b9085ebd;
+ Tue, 11 Jan 2022 07:10:05 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id DAFC421119;
- Tue, 11 Jan 2022 06:09:09 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 462CE1F3B1;
+ Tue, 11 Jan 2022 06:10:05 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B804313A42;
- Tue, 11 Jan 2022 06:09:09 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 24E7713A42;
+ Tue, 11 Jan 2022 06:10:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id bP96KwUf3WFxWgAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 11 Jan 2022 06:09:09 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id amrLBz0f3WHDWgAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 11 Jan 2022 06:10:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,110 +51,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fde9932a-72a4-11ec-9ce5-af14b9085ebd
+X-Inumbo-ID: 1eca4842-72a5-11ec-9ce5-af14b9085ebd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1641881349; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1641881405; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2v6txgZcVQz/rHaqrvBny9JYlM1CC7PomD7hUvKuLnI=;
-	b=a1kjwjYA6MVZRT0UDAkh9aVfhhkZGnjHUpl5pbiyZKw+1uVr93Qjl/uw2LHCquqLDCyxj7
-	CYzpzmr9XyXLn5QtOL49L2p5xHs4GZQbFCwSX9O2IH1w1vnlG9TjTA572j4xiRv8Lw4HCe
-	wZejFxBDiJj7Cfehq1l/xZyRaBz4Zuo=
+	bh=/7h/fQbr+GKJlJJFoAvSc7WkULnEg8B2Wq1FuO0pu3k=;
+	b=VVWP8Otr7yqrt3mLLQY5LJiAqy3Zm1ogtDNsoWsukidMlgMYQiLXbWwLsJONe7T8ULi8Vc
+	mrt6FW3IwZzA0tLYtyvduGusRlcNz7Cl5elMSwpsYX1xlu2QRzc0hUQjFd7cyaoz39Demw
+	T8kI+fQyJWTmR1bE+bNfiGi7Yf/L+Ws=
+Subject: Re: [PATCH 2/2] tools/libs/gnttab: decouple more from mini-os
 To: Andrew Cooper <amc96@srcf.net>, xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
 References: <20220107103544.9271-1-jgross@suse.com>
- <20220107103544.9271-2-jgross@suse.com>
- <06bcb18f-5e85-0fc1-86e8-857cb296645f@srcf.net>
- <afa9ce9e-e85d-3886-98db-1e99203c9c89@suse.com>
- <6df1ee3f-c14c-8016-397e-0ed12b9e3a82@srcf.net>
+ <20220107103544.9271-3-jgross@suse.com>
+ <b7534fde-b132-9822-fc3d-b3dfc28f9b04@srcf.net>
 From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH 1/2] tools/libs/evtchn: decouple more from mini-os
-Message-ID: <b07c6b84-53c8-0556-413c-dba3a8d3941b@suse.com>
-Date: Tue, 11 Jan 2022 07:09:09 +0100
+Message-ID: <e7c51c71-fcd3-eaef-a692-08cb6c06b293@suse.com>
+Date: Tue, 11 Jan 2022 07:10:04 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <6df1ee3f-c14c-8016-397e-0ed12b9e3a82@srcf.net>
+In-Reply-To: <b7534fde-b132-9822-fc3d-b3dfc28f9b04@srcf.net>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="nh1buaIk0zd5H3RkViUvCMD6LCazJZfFk"
+ boundary="VFYEUJoqbO3XEfiwa9JDtSSHBOa1UUZUh"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---nh1buaIk0zd5H3RkViUvCMD6LCazJZfFk
-Content-Type: multipart/mixed; boundary="dT1hx8HK6jUmkpIelu6l4sp5y4BsDeHWL";
+--VFYEUJoqbO3XEfiwa9JDtSSHBOa1UUZUh
+Content-Type: multipart/mixed; boundary="Vdz5P8yzjAWhYM3w0AFbajcenr2JpXk9T";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Andrew Cooper <amc96@srcf.net>, xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <b07c6b84-53c8-0556-413c-dba3a8d3941b@suse.com>
-Subject: Re: [PATCH 1/2] tools/libs/evtchn: decouple more from mini-os
+Message-ID: <e7c51c71-fcd3-eaef-a692-08cb6c06b293@suse.com>
+Subject: Re: [PATCH 2/2] tools/libs/gnttab: decouple more from mini-os
 References: <20220107103544.9271-1-jgross@suse.com>
- <20220107103544.9271-2-jgross@suse.com>
- <06bcb18f-5e85-0fc1-86e8-857cb296645f@srcf.net>
- <afa9ce9e-e85d-3886-98db-1e99203c9c89@suse.com>
- <6df1ee3f-c14c-8016-397e-0ed12b9e3a82@srcf.net>
-In-Reply-To: <6df1ee3f-c14c-8016-397e-0ed12b9e3a82@srcf.net>
+ <20220107103544.9271-3-jgross@suse.com>
+ <b7534fde-b132-9822-fc3d-b3dfc28f9b04@srcf.net>
+In-Reply-To: <b7534fde-b132-9822-fc3d-b3dfc28f9b04@srcf.net>
 
---dT1hx8HK6jUmkpIelu6l4sp5y4BsDeHWL
+--Vdz5P8yzjAWhYM3w0AFbajcenr2JpXk9T
 Content-Type: multipart/mixed;
- boundary="------------08844A3C5D0BA4E4CF648DE4"
+ boundary="------------45467B4A18930CA20B4A52E3"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------08844A3C5D0BA4E4CF648DE4
+--------------45467B4A18930CA20B4A52E3
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 10.01.22 19:51, Andrew Cooper wrote:
-> On 10/01/2022 12:49, Juergen Gross wrote:
->> On 10.01.22 13:25, Andrew Cooper wrote:
->>> On 07/01/2022 10:35, Juergen Gross wrote:
->>>> @@ -75,12 +86,25 @@ static void port_dealloc(struct evtchn_port_info=
-
->>>> *port_info)
->>>>  =C2=A0=C2=A0 */
->>>>  =C2=A0 int osdep_evtchn_open(xenevtchn_handle *xce, unsigned int fl=
-ags)
->>>>  =C2=A0 {
->>>> -=C2=A0=C2=A0=C2=A0 int fd =3D alloc_fd(FTYPE_EVTCHN);
->>>> +=C2=A0=C2=A0=C2=A0 int fd;
->>>> +=C2=A0=C2=A0=C2=A0 struct file *file;
->>>> +=C2=A0=C2=A0=C2=A0 struct port_list *list;
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0 list =3D malloc(sizeof(*list));
->>>> +=C2=A0=C2=A0=C2=A0 if ( !list )
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -1;
->>>> +
->>>> +=C2=A0=C2=A0=C2=A0 fd =3D alloc_fd(FTYPE_EVTCHN);
->>>> +=C2=A0=C2=A0=C2=A0 file =3D get_file_from_fd(fd);
->>>>  =C2=A0 -=C2=A0=C2=A0=C2=A0 if ( fd =3D=3D -1 )
->>>> +=C2=A0=C2=A0=C2=A0 if ( !file )
->>>> +=C2=A0=C2=A0=C2=A0 {
->>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 free(list);
->>>>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return -1;
->>>> +=C2=A0=C2=A0=C2=A0 }
->>>
->>> This wants rearranging to keep alloc_fd() ahead of malloc().=C2=A0 Wi=
-th that,
->>> there is no need for free(list) in this error path.
->>
->> Yeah, but the error path of malloc() having failed is quite nasty then=
-=2E
+On 10.01.22 19:56, Andrew Cooper wrote:
+> On 07/01/2022 10:35, Juergen Gross wrote:
+>> @@ -54,8 +70,11 @@ int osdep_gnttab_close(xengnttab_handle *xgt)
+>>  =20
+>>   void minios_gnttab_close_fd(int fd)
+>>   {
+>> -    gntmap_fini(&files[fd].gntmap);
+>> -    files[fd].type =3D FTYPE_NONE;
+>> +    struct file *file =3D get_file_from_fd(fd);
+>> +
+>> +    gntmap_fini(file->dev);
+>> +    free(file->dev);
 >=20
-> Oh yeah.=C2=A0 This is ugly, but I guess it is better this way around.
+> file->dev =3D NULL ?
+>=20
+> Particularly as this is a pointer in a global files[] array.
 
-Please define "this way around". Do you mean like it is in my patch, or
-with the malloc() after alloc_fd()?
-
-With your suggestion I'm basically having an error path with close() in
-it, while with my variant I'm having one with free() in it. I'd rather
-have a local handling doing free(), than to use another external call to
-close() for a half opened file.
+I'll reset all the struct file contents in close() for all file types.
 
 
 Juergen
 
---------------08844A3C5D0BA4E4CF648DE4
+--------------45467B4A18930CA20B4A52E3
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -246,25 +215,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------08844A3C5D0BA4E4CF648DE4--
+--------------45467B4A18930CA20B4A52E3--
 
---dT1hx8HK6jUmkpIelu6l4sp5y4BsDeHWL--
+--Vdz5P8yzjAWhYM3w0AFbajcenr2JpXk9T--
 
---nh1buaIk0zd5H3RkViUvCMD6LCazJZfFk
+--VFYEUJoqbO3XEfiwa9JDtSSHBOa1UUZUh
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHdHwUFAwAAAAAACgkQsN6d1ii/Ey//
-nQf/Sk/DsNdF5DRJ2iu+OIAGVwW6s0G7ccqzfbxg/HM8sDftYqUkqRuhargU5nMXwiJDy78WNFu3
-OqVGo9pOE9aBVZ1X3t05feZpzLuW5ME2a6CZxkJa9NBy+p2vhr/3bmPEtCuFGvwySDUvKQyp0URP
-ny7dLMW4GdXWgTqlSXVpOPbJmxC3mlDGa/QriPArAjxUG0BD2VvSVdMxj8wb1QPHEkP+nuJ/ujoq
-61FrbK6ApNr4iXVJw/3wi7rhlXWlUfLzBHm99czOqidwYnKTWmQ8kAeRNb63WVGuLKb1BKhSEY8C
-Gwoffh+dtgbhoSyCyfNn74bG5DOrYdNV3A+CixPESw==
-=F828
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHdHzwFAwAAAAAACgkQsN6d1ii/Ey9y
+2Qf+MHuosn889wxvKtJZXfNXI4BeoOw8APVqQl+HrTg5KRHaukHeivsa5Ngxln8RyKuoLGecfIAX
+ZtNs0g/c7etKWEC5rXhNzE4dnDOa6EORhjV1QQhou4UjNQ5L3SqtXJ34a4pnBtfm69SxBeMtwxLa
+GoA/VDsXrYGRgKSm5RZx2z40tG+PtFflcyMOdQAAlDy8MPjVBnsvU2kZ4+XVsdaqvUJjn/msSVAr
+rlrZhr77sbLeRNew6TZl/OdM988KttXQg1ouC2qjeZFBJ3J+V+u+b88gcQcg8vrxzkQSJ/HIdfzT
+Iv3t/7JokH3bF3XX9jLE98ODuKBy7Bsa0pd9yJkRug==
+=IHfn
 -----END PGP SIGNATURE-----
 
---nh1buaIk0zd5H3RkViUvCMD6LCazJZfFk--
+--VFYEUJoqbO3XEfiwa9JDtSSHBOa1UUZUh--
 
