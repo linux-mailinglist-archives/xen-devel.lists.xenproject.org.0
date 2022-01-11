@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D02ED48B001
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jan 2022 15:59:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.255781.438498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2470748B002
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jan 2022 15:59:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.255776.438468 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7Ibd-0004yN-Fk; Tue, 11 Jan 2022 14:58:37 +0000
+	id 1n7Iba-0004FD-4E; Tue, 11 Jan 2022 14:58:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 255781.438498; Tue, 11 Jan 2022 14:58:37 +0000
+Received: by outflank-mailman (output) from mailman id 255776.438468; Tue, 11 Jan 2022 14:58:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7Ibd-0004qm-5z; Tue, 11 Jan 2022 14:58:37 +0000
-Received: by outflank-mailman (input) for mailman id 255781;
- Tue, 11 Jan 2022 14:58:32 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1n7IbZ-00042H-Oe; Tue, 11 Jan 2022 14:58:33 +0000
+Received: by outflank-mailman (input) for mailman id 255776;
+ Tue, 11 Jan 2022 14:58:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zHlr=R3=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1n7IbY-0002Oa-DR
- for xen-devel@lists.xenproject.org; Tue, 11 Jan 2022 14:58:32 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eaa6c309-72ee-11ec-9ce5-af14b9085ebd;
+ id 1n7IbW-0002OZ-DN
+ for xen-devel@lists.xenproject.org; Tue, 11 Jan 2022 14:58:30 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eabddecc-72ee-11ec-81c1-a30af7de8005;
  Tue, 11 Jan 2022 15:58:22 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 8B1AB212C5;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B8B941F3BA;
  Tue, 11 Jan 2022 14:58:20 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 63AD313DDD;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 90B4913DDD;
  Tue, 11 Jan 2022 14:58:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mNItFwyb3WH9eQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id YLshIgyb3WH9eQAAMHmgww
  (envelope-from <jgross@suse.com>); Tue, 11 Jan 2022 14:58:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,263 +51,175 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eaa6c309-72ee-11ec-9ce5-af14b9085ebd
+X-Inumbo-ID: eabddecc-72ee-11ec-81c1-a30af7de8005
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
 	t=1641913100; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=B1qIgvUq07hNrHG3qYVz9ZnwoNPkdqDFYkWrq9AIUhQ=;
-	b=Hm+0JCHE/qFCO0PSAk6d7BkNGhNjVFHbFcBonMcRxLYHDPJf9AuEnTDIGW4d+8Glr7g2hn
-	FH4Z2mIWkoOvxwp8LcedDRrPQeaej4OqKw+A/bVxTpdFbfenwQqcizECq/SLYRMGHXyC19
-	lFAXftWBn3Ac8Cic1GjyT3P3igyPKVk=
+	bh=DMMBPYWRjtz4/x5ruR8HIV8cwX5HYWaCHB+pYDCnRVA=;
+	b=JzdJyIpda3v4DRJ6dS3sevj+AMPFI4kl5bVC6hqBjKmi/wVNJD011RpzoX3nC6Wow99h/x
+	abJGpEd/063Sn404YSrpDDbM34VQl0OcQOOvrZrKpVyM5NMvV9IkhKmt972sFvCU31b+Ce
+	tIjGmAXz8jLlE4wy673TLMcZqma+nX8=
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org,
 	wl@xen.org,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2 03/18] mini-os: make offset a common struct file member for all types
-Date: Tue, 11 Jan 2022 15:58:02 +0100
-Message-Id: <20220111145817.22170-4-jgross@suse.com>
+Subject: [PATCH v2 04/18] mini-os: replace multiple fd elements in struct file by common one
+Date: Tue, 11 Jan 2022 15:58:03 +0100
+Message-Id: <20220111145817.22170-5-jgross@suse.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20220111145817.22170-1-jgross@suse.com>
 References: <20220111145817.22170-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently 4 file types have an offset member in their private struct
-file part. Make offset a common struct member shared by all file types.
+The type specific union in struct files contains two instances of
+"int fd". Replace them by a common one.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 ---
- blkfront.c    |  5 ++---
- include/lib.h |  5 +----
- lib/sys.c     | 14 +++++---------
- tpm_tis.c     | 11 +++++------
- tpmfront.c    | 11 +++++------
- 5 files changed, 18 insertions(+), 28 deletions(-)
+ include/lib.h |  9 +--------
+ lib/sys.c     | 28 ++++++++++++++--------------
+ 2 files changed, 15 insertions(+), 22 deletions(-)
 
-diff --git a/blkfront.c b/blkfront.c
-index 7c8eb74..8137106 100644
---- a/blkfront.c
-+++ b/blkfront.c
-@@ -563,14 +563,13 @@ int blkfront_open(struct blkfront_dev *dev)
-     dev->fd = alloc_fd(FTYPE_BLK);
-     printk("blk_open(%s) -> %d\n", dev->nodename, dev->fd);
-     files[dev->fd].blk.dev = dev;
--    files[dev->fd].blk.offset = 0;
-     return dev->fd;
- }
- 
- int blkfront_posix_rwop(int fd, uint8_t* buf, size_t count, int write)
- {
-    struct blkfront_dev* dev = files[fd].blk.dev;
--   off_t offset = files[fd].blk.offset;
-+   off_t offset = files[fd].offset;
-    struct blkfront_aiocb aiocb;
-    unsigned long long disksize = dev->info.sectors * dev->info.sector_size;
-    unsigned int blocksize = dev->info.sector_size;
-@@ -712,7 +711,7 @@ int blkfront_posix_rwop(int fd, uint8_t* buf, size_t count, int write)
-    }
- 
-    free(copybuf);
--   files[fd].blk.offset += rc;
-+   files[fd].offset += rc;
-    return rc;
- 
- }
 diff --git a/include/lib.h b/include/lib.h
-index df2de9e..4d9b14b 100644
+index 4d9b14b..dc56f52 100644
 --- a/include/lib.h
 +++ b/include/lib.h
-@@ -185,6 +185,7 @@ struct evtchn_port_info {
- struct file {
-     enum fd_type type;
+@@ -187,14 +187,7 @@ struct file {
      bool read;	/* maybe available for read */
-+    off_t offset;
+     off_t offset;
      union {
- 	struct {
-             /* lwIP fd */
-@@ -193,7 +194,6 @@ struct file {
- 	struct {
-             /* FS import fd */
- 	    int fd;
--	    off_t offset;
- 	} file;
+-	struct {
+-            /* lwIP fd */
+-	    int fd;
+-	} socket;
+-	struct {
+-            /* FS import fd */
+-	    int fd;
+-	} file;
++        int fd; /* Any fd from an upper layer. */
  	struct {
  	    struct evtchn_port_list ports;
-@@ -204,7 +204,6 @@ struct file {
- 	} tap;
- 	struct {
- 	    struct blkfront_dev *dev;
--            off_t offset;
- 	} blk;
- 	struct {
- 	    struct kbdfront_dev *dev;
-@@ -219,14 +218,12 @@ struct file {
- 	struct {
- 	   struct tpmfront_dev *dev;
- 	   int respgot;
--	   off_t offset;
- 	} tpmfront;
- #endif
- #ifdef CONFIG_TPM_TIS
- 	struct {
- 	   struct tpm_chip *dev;
- 	   int respgot;
--	   off_t offset;
- 	} tpm_tis;
- #endif
- #ifdef CONFIG_XENBUS
+ 	} evtchn;
 diff --git a/lib/sys.c b/lib/sys.c
-index e8d5eb2..e1cea70 100644
+index e1cea70..1da7401 100644
 --- a/lib/sys.c
 +++ b/lib/sys.c
-@@ -107,6 +107,7 @@ int alloc_fd(enum fd_type type)
-     for (i=0; i<NOFILE; i++) {
- 	if (files[i].type == FTYPE_NONE) {
- 	    files[i].type = type;
-+            files[i].offset = 0;
- 	    pthread_mutex_unlock(&fd_lock);
- 	    return i;
+@@ -258,7 +258,7 @@ int read(int fd, void *buf, size_t nbytes)
+         }
+ #ifdef HAVE_LWIP
+ 	case FTYPE_SOCKET:
+-	    return lwip_read(files[fd].socket.fd, buf, nbytes);
++	    return lwip_read(files[fd].fd, buf, nbytes);
+ #endif
+ #ifdef CONFIG_NETFRONT
+ 	case FTYPE_TAP: {
+@@ -335,7 +335,7 @@ int write(int fd, const void *buf, size_t nbytes)
+ 	    return nbytes;
+ #ifdef HAVE_LWIP
+ 	case FTYPE_SOCKET:
+-	    return lwip_write(files[fd].socket.fd, (void*) buf, nbytes);
++	    return lwip_write(files[fd].fd, (void*) buf, nbytes);
+ #endif
+ #ifdef CONFIG_NETFRONT
+ 	case FTYPE_TAP:
+@@ -428,7 +428,7 @@ int close(int fd)
+ #endif
+ #ifdef HAVE_LWIP
+ 	case FTYPE_SOCKET: {
+-	    int res = lwip_close(files[fd].socket.fd);
++	    int res = lwip_close(files[fd].fd);
+ 	    files[fd].type = FTYPE_NONE;
+ 	    return res;
  	}
-@@ -363,25 +364,20 @@ int write(int fd, const void *buf, size_t nbytes)
+@@ -594,7 +594,7 @@ int fcntl(int fd, int cmd, ...)
+ 	    if (files[fd].type == FTYPE_SOCKET && !(arg & ~O_NONBLOCK)) {
+ 		/* Only flag supported: non-blocking mode */
+ 		uint32_t nblock = !!(arg & O_NONBLOCK);
+-		return lwip_ioctl(files[fd].socket.fd, FIONBIO, &nblock);
++		return lwip_ioctl(files[fd].fd, FIONBIO, &nblock);
+ 	    }
+ 	    /* Fallthrough */
+ #endif
+@@ -732,15 +732,15 @@ static int select_poll(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exce
+     for (i = 0; i < nfds; i++) {
+ 	if (files[i].type == FTYPE_SOCKET) {
+ 	    if (FD_ISSET(i, readfds)) {
+-		FD_SET(files[i].socket.fd, &sock_readfds);
++		FD_SET(files[i].fd, &sock_readfds);
+ 		sock_nfds = i+1;
+ 	    }
+ 	    if (FD_ISSET(i, writefds)) {
+-		FD_SET(files[i].socket.fd, &sock_writefds);
++		FD_SET(files[i].fd, &sock_writefds);
+ 		sock_nfds = i+1;
+ 	    }
+ 	    if (FD_ISSET(i, exceptfds)) {
+-		FD_SET(files[i].socket.fd, &sock_exceptfds);
++		FD_SET(files[i].fd, &sock_exceptfds);
+ 		sock_nfds = i+1;
+ 	    }
+ 	}
+@@ -803,19 +803,19 @@ static int select_poll(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exce
+ 	case FTYPE_SOCKET:
+ 	    if (FD_ISSET(i, readfds)) {
+ 	        /* Optimize no-network-packet case.  */
+-		if (sock_n && FD_ISSET(files[i].socket.fd, &sock_readfds))
++		if (sock_n && FD_ISSET(files[i].fd, &sock_readfds))
+ 		    n++;
+ 		else
+ 		    FD_CLR(i, readfds);
+ 	    }
+             if (FD_ISSET(i, writefds)) {
+-		if (sock_n && FD_ISSET(files[i].socket.fd, &sock_writefds))
++		if (sock_n && FD_ISSET(files[i].fd, &sock_writefds))
+ 		    n++;
+ 		else
+ 		    FD_CLR(i, writefds);
+             }
+             if (FD_ISSET(i, exceptfds)) {
+-		if (sock_n && FD_ISSET(files[i].socket.fd, &sock_exceptfds))
++		if (sock_n && FD_ISSET(files[i].fd, &sock_exceptfds))
+ 		    n++;
+ 		else
+ 		    FD_CLR(i, exceptfds);
+@@ -1112,7 +1112,7 @@ int socket(int domain, int type, int protocol)
+ 	return -1;
+     res = alloc_fd(FTYPE_SOCKET);
+     printk("socket -> %d\n", res);
+-    files[res].socket.fd = fd;
++    files[res].fd = fd;
+     return res;
+ }
  
- off_t lseek(int fd, off_t offset, int whence)
- {
--    off_t* target = NULL;
-     switch(files[fd].type) {
- #ifdef CONFIG_BLKFRONT
-        case FTYPE_BLK:
--          target = &files[fd].blk.offset;
-           break;
- #endif
- #ifdef CONFIG_TPMFRONT
-        case FTYPE_TPMFRONT:
--          target = &files[fd].tpmfront.offset;
-           break;
- #endif
- #ifdef CONFIG_TPM_TIS
-        case FTYPE_TPM_TIS:
--          target = &files[fd].tpm_tis.offset;
-           break;
- #endif
-        case FTYPE_FILE:
--          target = &files[fd].file.offset;
-           break;
-        default:
-           /* Not implemented for this filetype */
-@@ -391,10 +387,10 @@ off_t lseek(int fd, off_t offset, int whence)
- 
-     switch (whence) {
-        case SEEK_SET:
--          *target = offset;
-+          files[fd].offset = offset;
-           break;
-        case SEEK_CUR:
--          *target += offset;
-+          files[fd].offset += offset;
-           break;
-        case SEEK_END:
-           {
-@@ -403,14 +399,14 @@ off_t lseek(int fd, off_t offset, int whence)
-              ret = fstat(fd, &st);
-              if (ret)
-                 return -1;
--             *target = st.st_size + offset;
-+             files[fd].offset = st.st_size + offset;
-              break;
-           }
-        default:
-           errno = EINVAL;
-           return -1;
+@@ -1124,11 +1124,11 @@ int accept(int s, struct sockaddr *addr, socklen_t *addrlen)
+ 	errno = EBADF;
+ 	return -1;
      }
--    return *target;
-+    return files[fd].offset;
+-    fd = lwip_accept(files[s].socket.fd, addr, addrlen);
++    fd = lwip_accept(files[s].fd, addr, addrlen);
+     if (fd < 0)
+ 	return -1;
+     res = alloc_fd(FTYPE_SOCKET);
+-    files[res].socket.fd = fd;
++    files[res].fd = fd;
+     printk("accepted on %d -> %d\n", s, res);
+     return res;
+ }
+@@ -1141,7 +1141,7 @@ ret name proto \
+ 	errno = EBADF; \
+ 	return -1; \
+     } \
+-    s = files[s].socket.fd; \
++    s = files[s].fd; \
+     return lwip_##name args; \
  }
  
- int fsync(int fd) {
-diff --git a/tpm_tis.c b/tpm_tis.c
-index 4a51027..8a632b1 100644
---- a/tpm_tis.c
-+++ b/tpm_tis.c
-@@ -847,7 +847,7 @@ int tpm_tis_send(struct tpm_chip* tpm, uint8_t* buf, size_t len) {
-    if(tpm->fd >= 0) {
-       files[tpm->fd].read = false;
-       files[tpm->fd].tpm_tis.respgot = 0;
--      files[tpm->fd].tpm_tis.offset = 0;
-+      files[tpm->fd].offset = 0;
-    }
- #endif
-    return len;
-@@ -1290,7 +1290,6 @@ int tpm_tis_open(struct tpm_chip* tpm)
-    tpm->fd = alloc_fd(FTYPE_TPM_TIS);
-    printk("tpm_tis_open() -> %d\n", tpm->fd);
-    files[tpm->fd].tpm_tis.dev = tpm;
--   files[tpm->fd].tpm_tis.offset = 0;
-    files[tpm->fd].tpm_tis.respgot = 0;
-    return tpm->fd;
- }
-@@ -1340,13 +1339,13 @@ int tpm_tis_posix_read(int fd, uint8_t* buf, size_t count)
- 
- 
-    /* Handle EOF case */
--   if(files[fd].tpm_tis.offset >= tpm->data_len) {
-+   if(files[fd].offset >= tpm->data_len) {
-       rc = 0;
-    } else {
--      rc = min(tpm->data_len - files[fd].tpm_tis.offset, count);
--      memcpy(buf, tpm->data_buffer + files[fd].tpm_tis.offset, rc);
-+      rc = min(tpm->data_len - files[fd].offset, count);
-+      memcpy(buf, tpm->data_buffer + files[fd].offset, rc);
-    }
--   files[fd].tpm_tis.offset += rc;
-+   files[fd].offset += rc;
-    /* Reset the data pending flag */
-    return rc;
- }
-diff --git a/tpmfront.c b/tpmfront.c
-index d825b49..8b2a910 100644
---- a/tpmfront.c
-+++ b/tpmfront.c
-@@ -440,7 +440,7 @@ int tpmfront_send(struct tpmfront_dev* dev, const uint8_t* msg, size_t length)
-    if(dev->fd >= 0) {
-       files[dev->fd].read = false;
-       files[dev->fd].tpmfront.respgot = 0;
--      files[dev->fd].tpmfront.offset = 0;
-+      files[dev->fd].offset = 0;
-    }
- #endif
-    wmb();
-@@ -539,7 +539,6 @@ int tpmfront_open(struct tpmfront_dev* dev)
-    dev->fd = alloc_fd(FTYPE_TPMFRONT);
-    printk("tpmfront_open(%s) -> %d\n", dev->nodename, dev->fd);
-    files[dev->fd].tpmfront.dev = dev;
--   files[dev->fd].tpmfront.offset = 0;
-    files[dev->fd].tpmfront.respgot = 0;
-    return dev->fd;
- }
-@@ -589,14 +588,14 @@ int tpmfront_posix_read(int fd, uint8_t* buf, size_t count)
-    }
- 
-    /* handle EOF case */
--   if(files[dev->fd].tpmfront.offset >= dev->resplen) {
-+   if(files[dev->fd].offset >= dev->resplen) {
-       return 0;
-    }
- 
-    /* Compute the number of bytes and do the copy operation */
--   if((rc = min(count, dev->resplen - files[dev->fd].tpmfront.offset)) != 0) {
--      memcpy(buf, dev->respbuf + files[dev->fd].tpmfront.offset, rc);
--      files[dev->fd].tpmfront.offset += rc;
-+   if((rc = min(count, dev->resplen - files[dev->fd].offset)) != 0) {
-+      memcpy(buf, dev->respbuf + files[dev->fd].offset, rc);
-+      files[dev->fd].offset += rc;
-    }
- 
-    return rc;
 -- 
 2.26.2
 
