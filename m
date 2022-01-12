@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C62348C0DA
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 10:17:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.256410.439976 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E93D48C0EA
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 10:23:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.256414.439987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7Zl0-0003E6-Ly; Wed, 12 Jan 2022 09:17:26 +0000
+	id 1n7ZqT-0004bf-BQ; Wed, 12 Jan 2022 09:23:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 256410.439976; Wed, 12 Jan 2022 09:17:26 +0000
+Received: by outflank-mailman (output) from mailman id 256414.439987; Wed, 12 Jan 2022 09:23:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7Zl0-0003BV-Io; Wed, 12 Jan 2022 09:17:26 +0000
-Received: by outflank-mailman (input) for mailman id 256410;
- Wed, 12 Jan 2022 09:17:24 +0000
+	id 1n7ZqT-0004Yi-7u; Wed, 12 Jan 2022 09:23:05 +0000
+Received: by outflank-mailman (input) for mailman id 256414;
+ Wed, 12 Jan 2022 09:23:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BEGY=R4=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1n7Zky-0003B6-Th
- for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 09:17:24 +0000
-Received: from ppsw-33.csi.cam.ac.uk (ppsw-33.csi.cam.ac.uk [131.111.8.133])
+ id 1n7ZqR-0004Yb-Ue
+ for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 09:23:03 +0000
+Received: from ppsw-42.csi.cam.ac.uk (ppsw-42.csi.cam.ac.uk [131.111.8.142])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 72711b45-7388-11ec-9ce5-af14b9085ebd;
- Wed, 12 Jan 2022 10:17:22 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:47682)
- by ppsw-33.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.137]:25)
+ id 3ce9f228-7389-11ec-9ce5-af14b9085ebd;
+ Wed, 12 Jan 2022 10:23:03 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:47142)
+ by ppsw-42.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.138]:25)
  with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1n7Zku-000JHz-gl (Exim 4.95) (return-path <amc96@srcf.net>);
- Wed, 12 Jan 2022 09:17:20 +0000
+ id 1n7ZqO-000QjG-6l (Exim 4.95) (return-path <amc96@srcf.net>);
+ Wed, 12 Jan 2022 09:23:00 +0000
 Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
  (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 1177B1FB3A;
- Wed, 12 Jan 2022 09:17:20 +0000 (GMT)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id A7F4A1FD4A;
+ Wed, 12 Jan 2022 09:22:59 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,11 +45,11 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 72711b45-7388-11ec-9ce5-af14b9085ebd
+X-Inumbo-ID: 3ce9f228-7389-11ec-9ce5-af14b9085ebd
 X-Cam-AntiVirus: no malware found
 X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <30213d2c-37b4-43a1-b0a2-a596988e4c1b@srcf.net>
-Date: Wed, 12 Jan 2022 09:17:19 +0000
+Message-ID: <a5af3a6a-da51-2624-622e-2566c8db7dce@srcf.net>
+Date: Wed, 12 Jan 2022 09:22:59 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.4.0
@@ -58,58 +58,42 @@ To: Jan Beulich <jbeulich@suse.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <87997f62-a6e2-1812-ccf5-d7d2e65fd50e@suse.com>
+References: <01baee92-9d7f-5a2c-d63f-1de390bc10e2@suse.com>
 From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH] x86/time: switch platform timer hooks to altcall
-In-Reply-To: <87997f62-a6e2-1812-ccf5-d7d2e65fd50e@suse.com>
+Subject: Re: [PATCH] x86: replace a few do_div() uses
+In-Reply-To: <01baee92-9d7f-5a2c-d63f-1de390bc10e2@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 12/01/2022 08:58, Jan Beulich wrote:
-> Except in the "clocksource=tsc" case we can replace the indirect calls
-> involved in accessing the platform timers by direct ones, as they get
-> established once and never changed.
+On 12/01/2022 09:00, Jan Beulich wrote:
+> When the macro's "return value" is not used, the macro use can be
+> replaced by a simply division, avoiding some obfuscation.
+>
+> According to my observations, no change to generated code.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> Sort of RFC, for both the whether and the how aspects.
->
-> TBD: Overriding X86_FEATURE_ALWAYS is somewhat dangerous; there's only
->      no issue with e.g. hvm_set_tsc_offset() used later in time.c
->      because that's an inline function which did already "latch" the
->      usual value of the macro. But the alternative of introducing an
->      alternative_call() variant allowing to specify the controlling
->      feature also doesn't look overly nice to me either. Then again the
->      .resume hook invocation could be patched unconditionally, as the
->      TSC clocksource leaves this hook set to NULL.
->
-> --- a/xen/arch/x86/alternative.c
-> +++ b/xen/arch/x86/alternative.c
-> @@ -268,8 +268,7 @@ static void init_or_livepatch _apply_alt
->               * point the branch destination is still NULL, insert "UD2; UD0"
->               * (for ease of recognition) instead of CALL/JMP.
->               */
-> -            if ( a->cpuid == X86_FEATURE_ALWAYS &&
-> -                 *(int32_t *)(buf + 1) == -5 &&
-> +            if ( *(int32_t *)(buf + 1) == -5 &&
 
-I'm afraid that this must not become conditional.
+I like this change in principle, but see below.
 
-One of the reasons I was hesitant towards the mechanics of altcall in
-the first place was that it intentionally broke Spectre v2 protections
-by manually writing out a non-retpoline'd indirect call.
+do_div() needs to be deleted, because it's far too easy screw up.  At a
+bare minimum, it should be replaced with a static inline that takes it's
+first parameter by pointer, because then at least every callsite reads
+correctly in terms of the C language.
 
-This is made safe in practice because all altcall sites either get
-converted to a direct call, or rewritten to be a UD2.
+> --- a/xen/arch/x86/time.c
+> +++ b/xen/arch/x86/time.c
+> @@ -610,8 +610,7 @@ static uint64_t xen_timer_cpu_frequency(
+>      struct vcpu_time_info *info = &this_cpu(vcpu_info)->time;
+>      uint64_t freq;
+>  
+> -    freq = 1000000000ULL << 32;
+> -    do_div(freq, info->tsc_to_system_mul);
+> +    freq = (1000000000ULL << 32) / info->tsc_to_system_mul;
+>      if ( info->tsc_shift < 0 )
+>          freq <<= -info->tsc_shift;
 
-
-If you want to make altcalls conversions conditional, then the code gen
-must be rearranged to use INDIRECT_CALL first, but that comes with
-overheads too because then call callsites would load the function
-pointer into a register, just to not use it in the patched case.
-
-I suspect it will be easier to figure out how to make the TSC case also
-invariant after boot.
+do_div()'s output is consumed here.  I don't think this hunk is safe to
+convert.
 
 ~Andrew
 
