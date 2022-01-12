@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F28648BF0B
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 08:36:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.256266.439679 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0B9848BF0E
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 08:37:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.256281.439694 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7YBA-0004Nz-A6; Wed, 12 Jan 2022 07:36:20 +0000
+	id 1n7YC2-0005R7-P1; Wed, 12 Jan 2022 07:37:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 256266.439679; Wed, 12 Jan 2022 07:36:20 +0000
+Received: by outflank-mailman (output) from mailman id 256281.439694; Wed, 12 Jan 2022 07:37:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7YBA-0004Jn-6G; Wed, 12 Jan 2022 07:36:20 +0000
-Received: by outflank-mailman (input) for mailman id 256266;
- Wed, 12 Jan 2022 07:36:18 +0000
+	id 1n7YC2-0005Nc-Kl; Wed, 12 Jan 2022 07:37:14 +0000
+Received: by outflank-mailman (input) for mailman id 256281;
+ Wed, 12 Jan 2022 07:37:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSVc=R4=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1n7YB8-000372-KC
- for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 07:36:18 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1n7YC0-0005Ks-Vc
+ for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 07:37:13 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 53f04cee-737a-11ec-81c1-a30af7de8005;
- Wed, 12 Jan 2022 08:36:17 +0100 (CET)
+ id 7407e7d4-737a-11ec-81c1-a30af7de8005;
+ Wed, 12 Jan 2022 08:37:11 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 33762212CC;
- Wed, 12 Jan 2022 07:36:17 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0CD6F1F3BB;
+ Wed, 12 Jan 2022 07:37:11 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0FB4413B32;
- Wed, 12 Jan 2022 07:36:17 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CB0E413B32;
+ Wed, 12 Jan 2022 07:37:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4wylAvGE3mHmDwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 12 Jan 2022 07:36:17 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id o8xQMCaF3mE0EAAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 12 Jan 2022 07:37:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,83 +51,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53f04cee-737a-11ec-81c1-a30af7de8005
+X-Inumbo-ID: 7407e7d4-737a-11ec-81c1-a30af7de8005
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1641972977; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1641973031; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ulXMt8x7Uwbak5tjeuvflHEVHVFWHqwTlNORuYJXtAA=;
-	b=qI9hoXUUaL6D3P0cS2usHBEhu0DQYDJBDYfqQBZA6C9+MsZDWHsCwQ1itftVtuYcpFNWZL
-	fRxNL50jXLjrEGL/FeCSi+54BFWt05ZRFoR0YG+8SdlccLzZ3eC2zVBWE1zAwOgvYEf1a9
-	vAy8slt63VvX/L0xtZ2/gdMOV2CQvOA=
-Subject: Re: [PATCH v2 15/18] mini-os: introduce get_file_from_fd()
+	bh=AhGm1iTp4PnvvRVRnI49cIwTFpCdvA8mwMFo4R2iAH8=;
+	b=Q8hhdGskyXyAVYBxdnF5drWuQooU8WvROafcG2HBm+FNVAg3ELxsBZMZCa9hFkUYznYHC7
+	i+iZNyxLqu0oZFt7tPkz0ufvWghzNbN5XWvDygvKVOv2m5b+4QcakK5enWuTi2AbvVOLfj
+	Q8lON1HA4QHEGCvAnFd7bhH9w0mTEeg=
+Subject: Re: [PATCH v2 18/18] mini-os: remove file type FTYPE_XC
 To: Andrew Cooper <amc96@srcf.net>, minios-devel@lists.xenproject.org,
  xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org, wl@xen.org
 References: <20220111145817.22170-1-jgross@suse.com>
- <20220111145817.22170-16-jgross@suse.com>
- <3bfba2a9-7951-3234-86c8-3be116c640b6@srcf.net>
+ <20220111145817.22170-19-jgross@suse.com>
+ <b6526d7d-4086-30b3-181a-1a34c44137e3@srcf.net>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <eabbbdc3-f705-fef6-11b6-55f4b64b3160@suse.com>
-Date: Wed, 12 Jan 2022 08:36:16 +0100
+Message-ID: <317509d0-bd6f-333f-4c29-25bd3b31f764@suse.com>
+Date: Wed, 12 Jan 2022 08:37:10 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <3bfba2a9-7951-3234-86c8-3be116c640b6@srcf.net>
+In-Reply-To: <b6526d7d-4086-30b3-181a-1a34c44137e3@srcf.net>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="il78nH3fPeBZscCwsGPUCLmhVOckZ93iE"
+ boundary="3dw0I1xgDWDoonn4xROTzerOo6GT0Ziyp"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---il78nH3fPeBZscCwsGPUCLmhVOckZ93iE
-Content-Type: multipart/mixed; boundary="OhrgsaZxtdZVX7bsf5urRlF8S4AbWLADQ";
+--3dw0I1xgDWDoonn4xROTzerOo6GT0Ziyp
+Content-Type: multipart/mixed; boundary="7X9nbhgQzbCGpalpRJ59wWSu2k0u0rNra";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Andrew Cooper <amc96@srcf.net>, minios-devel@lists.xenproject.org,
  xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org, wl@xen.org
-Message-ID: <eabbbdc3-f705-fef6-11b6-55f4b64b3160@suse.com>
-Subject: Re: [PATCH v2 15/18] mini-os: introduce get_file_from_fd()
+Message-ID: <317509d0-bd6f-333f-4c29-25bd3b31f764@suse.com>
+Subject: Re: [PATCH v2 18/18] mini-os: remove file type FTYPE_XC
 References: <20220111145817.22170-1-jgross@suse.com>
- <20220111145817.22170-16-jgross@suse.com>
- <3bfba2a9-7951-3234-86c8-3be116c640b6@srcf.net>
-In-Reply-To: <3bfba2a9-7951-3234-86c8-3be116c640b6@srcf.net>
+ <20220111145817.22170-19-jgross@suse.com>
+ <b6526d7d-4086-30b3-181a-1a34c44137e3@srcf.net>
+In-Reply-To: <b6526d7d-4086-30b3-181a-1a34c44137e3@srcf.net>
 
---OhrgsaZxtdZVX7bsf5urRlF8S4AbWLADQ
+--7X9nbhgQzbCGpalpRJ59wWSu2k0u0rNra
 Content-Type: multipart/mixed;
- boundary="------------2451132C3111B4069AC52F7B"
+ boundary="------------825673C6E0AF38904F885F74"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------2451132C3111B4069AC52F7B
+--------------825673C6E0AF38904F885F74
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 11.01.22 19:17, Andrew Cooper wrote:
+On 11.01.22 19:19, Andrew Cooper wrote:
 > On 11/01/2022 14:58, Juergen Gross wrote:
->> diff --git a/lib/sys.c b/lib/sys.c
->> index 6f2b026..0e6fe5d 100644
->> --- a/lib/sys.c
->> +++ b/lib/sys.c
->> @@ -98,6 +98,14 @@ struct file files[NOFILE] =3D {
->>       { .type =3D FTYPE_CONSOLE }, /* stderr */
->>   };
->>  =20
->> +struct file *get_file_from_fd(int fd)
->> +{
->> +    if ( fd < 0 || fd >=3D NOFILE )
+>> The only reason for the file type FTYPE_XC has been gone long time
+>> ago: it was needed for xc_map_foreign_bulk(), which has been switched
+>> to use libxenforeignmemory and doesn't need this special file any
+>> more.
+>>
+>> So remove everything related to FTYPE_XC.
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
 >=20
-> fd >=3D ARRAY_SIZE(files)=C2=A0 ?
->=20
-> Generates slightly safer code in the event that `struct file
-> files[NOFILE]` gets refactored.
+> You'd have less churn in the series if this came ahead of patch 17.
+> There are at least 3 hunks below that you've already converted once, an=
+d
+> one of those hunks already needs a hard tabs fixup.
 
-Fine with me.
+Okay.
 
 
 Juergen
 
---------------2451132C3111B4069AC52F7B
+--------------825673C6E0AF38904F885F74
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -219,25 +216,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------2451132C3111B4069AC52F7B--
+--------------825673C6E0AF38904F885F74--
 
---OhrgsaZxtdZVX7bsf5urRlF8S4AbWLADQ--
+--7X9nbhgQzbCGpalpRJ59wWSu2k0u0rNra--
 
---il78nH3fPeBZscCwsGPUCLmhVOckZ93iE
+--3dw0I1xgDWDoonn4xROTzerOo6GT0Ziyp
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHehPAFAwAAAAAACgkQsN6d1ii/Ey/t
-Hwf/QnmIuL+t0zZ3120Zvwe8eMKw9UhuEcfZX9I5I0CfgBZkT1dGvHP6FtMJNO+AdB8pMJAzvVFb
-U+bU9lDEK/UqGA8beOBUEYUBlAlhmOi6Qs5TZkngRiV+X0C4DJs8cE533g+/QSXpcvY+UTgjbBuP
-sTvmd2c6blfrM1lEvXgfomJnXlr8xlFLCJxXp+cgO/2zK/mFqz89hzbOZL5A8VnCtJNkZ4av0yA4
-82WuAz77NDdgYO7rZMcZGLAic/XYIMgMBEewMANkOaQdHQNzE2ZgoTg6Og/Kl9Qk2GM1AeZOOz+L
-Pc5FSNLILlZffjIpkuhaHWzfrG6gqnN+y0Db3MA7qQ==
-=gur3
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHehSYFAwAAAAAACgkQsN6d1ii/Ey+6
+HQgAnZ9eZIsER/rKG6rwL7rrQuTTFPlMiucGTYmZsYv6WB+4CX0BYvnVnmr8yRnDtadzWIgPTKSQ
+G0g5O3I7zLmxHyGt9/GbELAVorJwxpTpHHIo/iNhh4WrOjhFwU/0/yCX2v6xuX5z/ABhpOKmB/lv
++P8BLxSTY6tePDOsULTDx4LsqEjsSZIx8BhgpiKQ/UNysqlA1wBCQ4AuPhaXSwzuBTUL6rvWYwOr
+bP+mClj3tE9bFluPf7jEbYwJPNLm2ZjhZky8ncZfW/HMXAe71cEv0E0vKAYtngvZjX3kBenEJsUW
+oqK9nktgFJRoRkimcw448A4b+5ICxNpzzSgVjZ3qnw==
+=0IGA
 -----END PGP SIGNATURE-----
 
---il78nH3fPeBZscCwsGPUCLmhVOckZ93iE--
+--3dw0I1xgDWDoonn4xROTzerOo6GT0Ziyp--
 
