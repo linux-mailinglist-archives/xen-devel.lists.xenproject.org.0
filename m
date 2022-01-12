@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51A0C48BF13
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 08:39:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.256293.439704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C130648BF25
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 08:40:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.256300.439724 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7YE6-0006Jj-Ax; Wed, 12 Jan 2022 07:39:22 +0000
+	id 1n7YFB-0007ko-Ng; Wed, 12 Jan 2022 07:40:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 256293.439704; Wed, 12 Jan 2022 07:39:22 +0000
+Received: by outflank-mailman (output) from mailman id 256300.439724; Wed, 12 Jan 2022 07:40:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7YE6-0006Gw-7g; Wed, 12 Jan 2022 07:39:22 +0000
-Received: by outflank-mailman (input) for mailman id 256293;
- Wed, 12 Jan 2022 07:39:20 +0000
+	id 1n7YFB-0007i1-KK; Wed, 12 Jan 2022 07:40:29 +0000
+Received: by outflank-mailman (input) for mailman id 256300;
+ Wed, 12 Jan 2022 07:40:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSVc=R4=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1n7YE4-0006Gh-8D
- for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 07:39:20 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ id 1n7YF9-0007fl-Oc
+ for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 07:40:27 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c05eaf36-737a-11ec-81c1-a30af7de8005;
- Wed, 12 Jan 2022 08:39:19 +0100 (CET)
+ id e817d1c4-737a-11ec-81c1-a30af7de8005;
+ Wed, 12 Jan 2022 08:40:26 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 206F71F3BB;
- Wed, 12 Jan 2022 07:39:19 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A8BDB212CC;
+ Wed, 12 Jan 2022 07:40:25 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DFAFF13B32;
- Wed, 12 Jan 2022 07:39:18 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7AD0013B32;
+ Wed, 12 Jan 2022 07:40:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Llo2NKaF3mH8EAAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 12 Jan 2022 07:39:18 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id KlBlHOmF3mGpEQAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 12 Jan 2022 07:40:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,88 +51,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c05eaf36-737a-11ec-81c1-a30af7de8005
+X-Inumbo-ID: e817d1c4-737a-11ec-81c1-a30af7de8005
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1641973159; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1641973225; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=cXgN85yjDjoEng8Zh0FXXkam8JMxFoemBgYurn7Uk3o=;
-	b=CwyiyZshCl5dCfkfuNwZVNp6LguYyM8hVUdCz8OD4VfD05jU3o51CrPcQ0M+IFJhM68PhJ
-	PrhzX7OQfIAthogUVb3W34chYmngBCMMCqoFein0rqvjJYMjVucAoobCBkOLRBMFYLRtv5
-	W+rxX8/doNFHVrblwhsL+1MeZea8STg=
-Subject: Re: [PATCH v2 16/18] mini-os: reset file type in close() in one place
- only
+	bh=cwYESox3BauhwWxUxfezZENxaOMczJo28EhkGWYVvbM=;
+	b=erTftiXvNtDrlAFzmeJy56K2ksTN2xwTl/lTGtDizUG86wJpsJcOt+rVudjBjxvIjeKRQf
+	YlYTcqZDNEsHA84aJWQ+n3AecWRrL3PQ2tBOP+2lMimU+8B8WmbYJGsk4CSzvNm5jqDZJ7
+	iux4shhjWLxp/sl6O4ALJd5oOqQNWLo=
+Subject: Re: [PATCH v2 00/18] mini-os: remove struct file dependency on config
 To: Andrew Cooper <amc96@srcf.net>, minios-devel@lists.xenproject.org,
  xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org, wl@xen.org
 References: <20220111145817.22170-1-jgross@suse.com>
- <20220111145817.22170-17-jgross@suse.com>
- <e4956df7-d7ca-cb5f-0f0e-7f3eba5d1a50@srcf.net>
+ <da22a929-0226-c3e5-2c04-92b412613219@srcf.net>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <dc654411-824c-4b88-1f9a-bb418c24f174@suse.com>
-Date: Wed, 12 Jan 2022 08:39:18 +0100
+Message-ID: <857627d8-2b06-7c44-5dc7-ceb80042f1d2@suse.com>
+Date: Wed, 12 Jan 2022 08:40:24 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <e4956df7-d7ca-cb5f-0f0e-7f3eba5d1a50@srcf.net>
+In-Reply-To: <da22a929-0226-c3e5-2c04-92b412613219@srcf.net>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="dDWfXdCtDRarrdxRMw92aTNO7tuwzdDiJ"
+ boundary="fpb3LSdG6SfWGRit2GgvT489RMhyDgViM"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---dDWfXdCtDRarrdxRMw92aTNO7tuwzdDiJ
-Content-Type: multipart/mixed; boundary="O5h4rbKKvF32fnnLYMuRduY9xpSE4ALHg";
+--fpb3LSdG6SfWGRit2GgvT489RMhyDgViM
+Content-Type: multipart/mixed; boundary="I0qGaXaJNaXua9S3wZpkzgVDCoJBu7iu1";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Andrew Cooper <amc96@srcf.net>, minios-devel@lists.xenproject.org,
  xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org, wl@xen.org
-Message-ID: <dc654411-824c-4b88-1f9a-bb418c24f174@suse.com>
-Subject: Re: [PATCH v2 16/18] mini-os: reset file type in close() in one place
- only
+Message-ID: <857627d8-2b06-7c44-5dc7-ceb80042f1d2@suse.com>
+Subject: Re: [PATCH v2 00/18] mini-os: remove struct file dependency on config
 References: <20220111145817.22170-1-jgross@suse.com>
- <20220111145817.22170-17-jgross@suse.com>
- <e4956df7-d7ca-cb5f-0f0e-7f3eba5d1a50@srcf.net>
-In-Reply-To: <e4956df7-d7ca-cb5f-0f0e-7f3eba5d1a50@srcf.net>
+ <da22a929-0226-c3e5-2c04-92b412613219@srcf.net>
+In-Reply-To: <da22a929-0226-c3e5-2c04-92b412613219@srcf.net>
 
---O5h4rbKKvF32fnnLYMuRduY9xpSE4ALHg
+--I0qGaXaJNaXua9S3wZpkzgVDCoJBu7iu1
 Content-Type: multipart/mixed;
- boundary="------------AEDA13017DDAE3689B2AB865"
+ boundary="------------6BEA4F9CF6D5DCD00C40A89B"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------AEDA13017DDAE3689B2AB865
+--------------6BEA4F9CF6D5DCD00C40A89B
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 11.01.22 20:14, Andrew Cooper wrote:
-> On 11/01/2022 14:58, Juergen Gross wrote:
->> diff --git a/lib/sys.c b/lib/sys.c
->> index 0e6fe5d..323a7cd 100644
->> --- a/lib/sys.c
->> +++ b/lib/sys.c
->> @@ -424,87 +424,82 @@ int fsync(int fd) {
->>  =20
->>   int close(int fd)
->>   {
->> +    int res =3D 0;
->> +
->>       printk("close(%d)\n", fd);
->>       switch (files[fd].type) {
->=20
-> I know this bug is pre-existing, but the libc close() really ought to
-> sanity check fd before blindly indexing files[] with it.
->=20
-> I'd tentatively suggest that you want one extra goto from here, into
-> wherever the EBADF logic ends up, and it's probably worth including in
-> this patch.
+On 11.01.22 20:42, Andrew Cooper wrote:
+> On 11/01/2022 14:57, Juergen Gross wrote:
+>> Today the layout of struct file is depending on the Mini-OS
+>> configuration. This is especially bad as the layout is exported to
+>> external users like the Xen libraries built for Mini-OS, and those
+>> are being built only once for multiple stubdom configurations.
+>>
+>> Today there is no direct problem resulting from this, as the main
+>> difference between struct file layouts is a large union containing all=
 
-Will do that.
+>> the device specific data for the different file types. The largest
+>> union member is not configuration dependant, so the build is currently=
+
+>> not broken.
+>>
+>> In order to avoid any future problems this patch series is eliminating=
+
+>> the configuration dependency by replacing most of the device specific
+>> union members by a single pointer.
+>>
+>> The two union members used by Xen libraries can't be replaced yet, as
+>> those need to be switched to use the generic pointer first.
+>>
+>> In order to hide the Mini-OS internal implementation of the files
+>> array, patches 15-17 are introducing a common framework to access a
+>> struct file via its file descriptor, and to allocate new file types
+>> dynamically instead of having them all pre-defined. The file type
+>> specific operations are supplied via a function vector in order to
+>> remove the dependency of lib/sys.c on all the various file types.
+>=20
+> Patches 1 thru 15 seem fine and ready to go.=C2=A0 Would it help to get=
+ those
+> committed now?
+
+With the one remark you had for patch 15 I think patches 1-14 could go
+in now.
 
 
 Juergen
 
---------------AEDA13017DDAE3689B2AB865
+--------------6BEA4F9CF6D5DCD00C40A89B
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -224,25 +233,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------AEDA13017DDAE3689B2AB865--
+--------------6BEA4F9CF6D5DCD00C40A89B--
 
---O5h4rbKKvF32fnnLYMuRduY9xpSE4ALHg--
+--I0qGaXaJNaXua9S3wZpkzgVDCoJBu7iu1--
 
---dDWfXdCtDRarrdxRMw92aTNO7tuwzdDiJ
+--fpb3LSdG6SfWGRit2GgvT489RMhyDgViM
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHehaYFAwAAAAAACgkQsN6d1ii/Ey+9
-cAgAmomz8Wrjncjsq347VgrGRh9FaKpkkBM5KM3cOhDoLRIcywuGj1JhX9Nmx97+JfA3e0C2btFq
-FKf78QGliFeSEaZG3z06g/ZoP/rm4rhmwrAVwdlcA88g6NqAplMwS0+6PO2fllYHEMrrA1+ghlzc
-Qcay7Mbfp7nZovsfArhGVsPT6gpzWgdJEIvlPY/u6ifo8gFJFa+Sjs0mO1Zndso3XKzbYZY3enrR
-mXe7RJD2E0UA/2pi739BMSghoJ9tLxGf8vrDpVZB6SAWD4XeZuxpA/zr+QDE9PcvtI99IgTCHsrr
-QVqTJJ2dbTteqn2VyVNIep4fvlnafFu+abTDfOcCJg==
-=EjON
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHehegFAwAAAAAACgkQsN6d1ii/Ey8C
+Nwf9HIp/pNUN4EwBpjUa5f4SZ9sInJj6wlzf/aQq9EaaJzSGGlKwWNOxpTy/nSaOY2nIXLz5yE1f
+lq/O/hxIm9/XhltXpkF6fAIAy0RTYW2N2bJIBUQEX8XsAc3c6MN/nf6KPFmc764brfKCGatrF5oU
+RQdnUX9Xf7G2wmotVDrryLQhQI3jLQyN7tRpUPn8zOYWOZJMr2zmyNCvAbOzWS74oe+FLmvo3F/t
+mVIAB6+YlgS5DuFO0FND/KY//AusQYEKAIt++2OVCeCGFbuxoElsG0N13DIJD9IVl/jsfu2tP8g3
+gZU7xCJl1iRrMbjhSbWmW02zPYU8i77lAvZ8IvbHRA==
+=DorM
 -----END PGP SIGNATURE-----
 
---dDWfXdCtDRarrdxRMw92aTNO7tuwzdDiJ--
+--fpb3LSdG6SfWGRit2GgvT489RMhyDgViM--
 
