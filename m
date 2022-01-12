@@ -2,29 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3898848C417
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 13:36:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.256618.440537 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BA1E48C458
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 14:03:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.256623.440547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7cqi-0005SN-JH; Wed, 12 Jan 2022 12:35:32 +0000
+	id 1n7dHX-0000Jm-RT; Wed, 12 Jan 2022 13:03:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 256618.440537; Wed, 12 Jan 2022 12:35:32 +0000
+Received: by outflank-mailman (output) from mailman id 256623.440547; Wed, 12 Jan 2022 13:03:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7cqi-0005Q2-CB; Wed, 12 Jan 2022 12:35:32 +0000
-Received: by outflank-mailman (input) for mailman id 256618;
- Wed, 12 Jan 2022 12:35:30 +0000
+	id 1n7dHX-0000HU-O7; Wed, 12 Jan 2022 13:03:15 +0000
+Received: by outflank-mailman (input) for mailman id 256623;
+ Wed, 12 Jan 2022 13:03:15 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dBVB=R4=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1n7cqg-0005Pw-J8
- for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 12:35:30 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1e04d8ac-73a4-11ec-9c70-5536b2d1e4e1;
- Wed, 12 Jan 2022 13:35:27 +0100 (CET)
+ <SRS0=x4a/=R4=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1n7dHW-0000HO-TM
+ for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 13:03:15 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on0613.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::613])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ff45c5bb-73a7-11ec-9c70-5536b2d1e4e1;
+ Wed, 12 Jan 2022 14:03:12 +0100 (CET)
+Received: from AM7PR04CA0012.eurprd04.prod.outlook.com (2603:10a6:20b:110::22)
+ by VE1PR08MB4799.eurprd08.prod.outlook.com (2603:10a6:802:ad::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Wed, 12 Jan
+ 2022 13:03:02 +0000
+Received: from AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:110:cafe::fc) by AM7PR04CA0012.outlook.office365.com
+ (2603:10a6:20b:110::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10 via Frontend
+ Transport; Wed, 12 Jan 2022 13:03:02 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM5EUR03FT047.mail.protection.outlook.com (10.152.16.197) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4888.9 via Frontend Transport; Wed, 12 Jan 2022 13:03:01 +0000
+Received: ("Tessian outbound f493ab4f1fb8:v110");
+ Wed, 12 Jan 2022 13:03:01 +0000
+Received: from ae1af0c725a9.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 66236E55-6AAA-48CD-AC74-EEF3EE844AF8.1; 
+ Wed, 12 Jan 2022 13:02:55 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id ae1af0c725a9.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 12 Jan 2022 13:02:55 +0000
+Received: from VI1PR0801MB2125.eurprd08.prod.outlook.com
+ (2603:10a6:800:5b::23) by VI1PR08MB4446.eurprd08.prod.outlook.com
+ (2603:10a6:803:fa::15) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Wed, 12 Jan
+ 2022 13:02:46 +0000
+Received: from VI1PR0801MB2125.eurprd08.prod.outlook.com
+ ([fe80::cf1:97d5:63ff:e9b0]) by VI1PR0801MB2125.eurprd08.prod.outlook.com
+ ([fe80::cf1:97d5:63ff:e9b0%12]) with mapi id 15.20.4867.012; Wed, 12 Jan 2022
+ 13:02:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,368 +72,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e04d8ac-73a4-11ec-9c70-5536b2d1e4e1
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1641990927;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=VDMJ1zIcyHUHen2rOo8eLLLmdZbh7PPh/o9r3Pi6CNw=;
-  b=aF8HnjUInPhzLRKIaiZl8msCB3jjlc9/4UxdHRiZQwU6MPyqrigIc3ZF
-   Qt7EkhTYO8uiZ87HY9hwyu3T1RQ27UB7D1nL/k1KdYBFzFT1s/uPV6LUS
-   GI+3vTTIk6GcMlut3P33VapS2lk5pXFusNsnG++CDzeRX2OUj1t1Tdsg3
-   M=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: /1JR4a2TC0pDSYZaSVn2+Mgmpfs3yG0go8p1H4QU6LBKhnNDIHOFuYwp6+l6Q2NXoxa7PvkvHZ
- 9ydAQXyBTTJUQ94ZhYVqJp1aBaoGl39I+DpQnXfGnsb06EiEde8OPDX6J/diZ3KPYvuhjz9JlN
- /OReVj/2/OQktGdGgaDJxLF8Gw3GuheJkZxmryHwBif7hck+XVgAScos30CRy7qz+z/GjcBz4H
- AooF4cL+wVph1NG8nKO4CgUdO+ZgYkzO4p0KCIx+HEnWdN49eOt0gkEawz44StqyrYoM1B+5j2
- m7Hty47iQeS5sK1QFpFbv5mL
-X-SBRS: 5.2
-X-MesageID: 61308182
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23: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
- vE=
-IronPort-HdrOrdr: A9a23:61Ev0a5p3TRvv1jaTgPXwSyBI+orL9Y04lQ7vn2ZFiY6TiXIra
- +TdaoguSMc6AxwZJkh8erwXpVoZUmsiKKdgLNhR4tKOTOGhILGFvAG0WKP+UyFJ8S6zJ8g6U
- 4CSdkONDSTNykDsS+S2mDReLxMsbr3kpxAx92utEuFJTsaFZ2IhD0JczpzfHcGIzWvUvECZe
- WhD4d81nGdUEVSSv7+KmgOXuDFqdGOvJX6YSQeDxpizAWVlzun5JPzDhDdh34lIn5y6IZn1V
- KAvx3y562lvf3+4hjA11XL55ATvNf60NNMCOGFl8BQADTxjQSDYphnRtS5zXoIidDqzGxvvM
- jHoh8mMcg2w3TNflutqR+o4AXk2CZG0Q6V9XaoxV/Y5eDpTjMzDMRMwahDdAHC1kYmtNZglI
- pWwmOwrfNsfF39tRW4w+KNewBhl0Kyr3Znu/UUlWZjXYwXb6IUhZAD/XlSDIwLEEvBmc8a+d
- FVfYHhDcttABCnhyizhBgs/DXsZAV+Iv6+eDlChiTPuAIm2UyQzCMjtbsidzk7hdYAoqJ/lp
- f525JT5cVzp/8tHNJA7dg6MLmK40z2MFvx2TGpUBza/J9uAQO5l3ew2sRz2N2X
-X-IronPort-AV: E=Sophos;i="5.88,282,1635220800"; 
-   d="scan'208";a="61308182"
+X-Inumbo-ID: ff45c5bb-73a7-11ec-9c70-5536b2d1e4e1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yiD12yVF33hhP7D1rCSvvT0DjxYWVb7mbS/tTEXBKhI=;
+ b=ZsaYDGflsv+MXXOOXnLvha6amkPwIn5zc2mMyb17R1Ll49UCwT5cTwuGwRQkxf+JNJQ0VAWJp1KI1I9L8KNgqxYHrO+V11DACjchUlSZxIJd2SEBW1DAzphXEtnC18s3FKRZyQ6s3i5egGrQr6cPDZL5y46Gj77D39t5doUeBLU=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: d682ceb7db7a3bd2
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UvzNR6MeB/eRU/ETRTtKEVvnbSTF3Ci56kunfiS2JweTub8NuqLYPeVTUaAOvwgqGAADFei8dCItqK1NX1PQKlMNuBRPf81RM/grQkVma2eHRbwgAUCYl7Fc6QWVlYd4TIwp7mkZv6DC3i+eG3499kXUD8hflLJo+ZKROssabYnptZj1tt3YfwN5AI3GiCRhMPIVTF8C1zebJ9PPRcF6fFCN0gIq2y+e62zNULudozv7cZI6IUZPYZsEbTeggP7VOVORbOJhshqvMaEx1sYb6IbuXCn9WatI250bfjG3cCmz5TXaFwLP+C1sTtZ08tOh1oNLx6dD2lnwTZNj/zFIJg==
+ b=m+dVneeoXZC0nQkHW5SDJ3pXJS1At+VwQqda4JV/5M7NNTeKr0RO0vXI88owkwIDxVAl1Y0oPtYq1Pw/BY3GyMvMewgbX0fN1VzQIBeAaZ1uaFm5im9U39kQu9ieSL3ZdozZUfch4EbCl7zNQDkegND8/scDBV708vclgaGnETb1YyyTuXvIqK5tR61wTVAHBGesIPU4G1Af+NK/V+kFtBq/iYFAuIfrysfeU4GVk+638rQZlPgY/gdLsouqDq5oztHviFx1myEFqHA5aHMwTS8jyCyQJZNA7lZNQ3fDH8bt+bf6BrpsVFc6Hy559HpUJkim2l4YCGKiBj/E2kP1jA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/l0qq5D6M3CGfGZF/3xXMitwhOP01cIvv/ii/v/70fs=;
- b=CEDC4FF81BW6W9oYQ6/VWAISVMpS0wQKyx4dosVn85Nf3x8nFjWmXhIMQb+GDBSSBQhvTNoSLfnOSnkrmEgVlNXxvGShPRSDWbfWXzXzyakuX3nradjLBVLCvokqwmr7OE1Pszx5WVMbXXTqX6nvADbQH+lBdJRImpy6+33Ippqc+8l/jEqQuHjis9UzVAnZC1hl5IbgZp4Buv/E7wAhhA2HyiZUekb160YO8kZUoAkx8B0303NY9bJA7d/yJPfiobcTNscDLfgEE6Dijb8bB3VMWFuXXPReTcJ/XItbQxhoVHlyqZ4bhNfJ61q6ShNMDb9Uobx2z2HMEuDwTyaQLQ==
+ bh=yiD12yVF33hhP7D1rCSvvT0DjxYWVb7mbS/tTEXBKhI=;
+ b=aBqryKQoTZT1hAbYqlXv/YnvQUM9nst3MoXmFbxyzCh8ecZLHXiSIbMsHt5fVWQXGCPCUNPOfeD85F0dzFCNruQtnEnoJ/5JeWRT3YCY6bfs44UgapF6l/28gDYrDkAXJA4y/EWTD8y/ma+TULtUoHubiqxMn3T0RcPmKsT8GifCa+gHooAxvDLSaZLFTWnM9VVA9AGZ063xVK+mowL3HY7lmasnsrCSzogfVLxZcmm9ZvCiwK9u/yL23+NAMPjrfIA+EE9mNaF2RwwZAdElLdb5rXAuKmdqKeAcYdc96l9wUycJ9tOEst98kXev9ciLHsU/tv9lukBDfnyjJl3/gQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/l0qq5D6M3CGfGZF/3xXMitwhOP01cIvv/ii/v/70fs=;
- b=C3ciZn9YU8U23YsIzVFpG9KgJMu6ohi+qwgdkBJqhl1mQXZKu7PZQOtBxc0qLs+CD6JsUy4zhSCCA2yP67yzZhL3AGcWiutSdaSFoIRJS2UvZqBzePYdyI264B8FU6OClr/I+zI7ZabWoTIqi5U3fA/GPtGoCnmlyREWBmo9ZjM=
-Date: Wed, 12 Jan 2022 13:35:07 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Oleksandr Andrushchenko <andr2000@gmail.com>
-CC: <xen-devel@lists.xenproject.org>, <julien@xen.org>,
-	<sstabellini@kernel.org>, <oleksandr_tyshchenko@epam.com>,
-	<volodymyr_babchuk@epam.com>, <Artem_Mygaiev@epam.com>, <jbeulich@suse.com>,
-	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <paul@xen.org>,
-	<bertrand.marquis@arm.com>, <rahul.singh@arm.com>, Oleksandr Andrushchenko
-	<oleksandr_andrushchenko@epam.com>
-Subject: Re: [PATCH v5 06/14] vpci/header: implement guest BAR register
- handlers
-Message-ID: <Yd7K+9fvnBz+WTXA@Air-de-Roger>
-References: <20211125110251.2877218-1-andr2000@gmail.com>
- <20211125110251.2877218-7-andr2000@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20211125110251.2877218-7-andr2000@gmail.com>
-X-ClientProxiedBy: MRXP264CA0035.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:14::23) To SA0PR03MB5610.namprd03.prod.outlook.com
- (2603:10b6:806:b2::9)
+ bh=yiD12yVF33hhP7D1rCSvvT0DjxYWVb7mbS/tTEXBKhI=;
+ b=ZsaYDGflsv+MXXOOXnLvha6amkPwIn5zc2mMyb17R1Ll49UCwT5cTwuGwRQkxf+JNJQ0VAWJp1KI1I9L8KNgqxYHrO+V11DACjchUlSZxIJd2SEBW1DAzphXEtnC18s3FKRZyQ6s3i5egGrQr6cPDZL5y46Gj77D39t5doUeBLU=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Content-Type: text/plain;
+	charset=utf-8
+Subject: Re: [PATCH v4] EFI: always map EfiRuntimeServices{Code,Data}
+From: Luca Fancellu <luca.fancellu@arm.com>
+In-Reply-To: <89d182f6-95e8-674a-2297-6e98435385f8@suse.com>
+Date: Wed, 12 Jan 2022 13:02:43 +0000
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <A458D77D-BA41-41A4-9A75-1F2C54BC807F@arm.com>
+References: <89d182f6-95e8-674a-2297-6e98435385f8@suse.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ Sergey Temerkhanov <s.temerkhanov@gmail.com>
+X-Mailer: Apple Mail (2.3693.20.0.1.32)
+X-ClientProxiedBy: LO4P123CA0130.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:193::9) To VI1PR0801MB2125.eurprd08.prod.outlook.com
+ (2603:10a6:800:5b::23)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9c04acef-583f-4191-573e-08d9d5c7fc03
-X-MS-TrafficTypeDiagnostic: SN6PR03MB3759:EE_
-X-Microsoft-Antispam-PRVS: <SN6PR03MB3759E3C13FB6626A5DAC0F868F529@SN6PR03MB3759.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Office365-Filtering-Correlation-Id: 9597625a-3475-4f38-94e3-08d9d5cbdd50
+X-MS-TrafficTypeDiagnostic:
+	VI1PR08MB4446:EE_|AM5EUR03FT047:EE_|VE1PR08MB4799:EE_
+X-Microsoft-Antispam-PRVS:
+	<VE1PR08MB47994DDD8033D53FBDA23AEAE4529@VE1PR08MB4799.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:431;OLM:431;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 25n0uWIPEsdvAr+E6J6bs55FB/0oKf517zIhueXS0kEbZbbW2YVfM6hbmYzdoq5wrDS2wWzDuwRSki3PinjmZ8etlPrkF2wKkW1xbVC48I5+BSBEWzw/lW+rtn1swPS0ezCb25XCqtD51d+evV+GMN5X00GcS6wQlmB9q62XgSofKKw5oMhAa/JRcZCAnysFRzB1GlHB9ak4IF65LbIzhCrQt+kGCfTin2VQalAMtlY0hav4ulvJ57vF+7qGmk4XCFJ8LBNYZuV+yVahTYOAFDJfCEgPB7TcB1VO6bbXxCc5/1jVeJCyLMgDNw1qvVYLiDWr8IGMX5we82351NkhXlOcMK/eT1jJpK92j8jhDZZF808NRjaRjs2fu1IZmm5Ha9w/v6TnGj3HzB4Ic5ny4CQ1muAyzgl2okg8NVnwtEJqcrl/3v4kpVQ/NHI9HppW93FUgtsb+cbk1HmyaP3UYnChsMVfUVadv/5WjgFlPBBzIvmH5u77y71fjzCnmIUjSOEz9bNAo/fYCWrqJyRWzFntMGHOSbcANj7bvsUjp0TR1vL0IRaZ49juhb4ILTginP0NJvIcx+iiUDRti2wdWqmu/BvttSwpsgyIl1MJAYbSTisUNc159IdvJadBPlPv8RxTEeSHrZGsHn/05pf7VshaW1Vs8Mncbq30vIFPu6g6YF2HlActNu9K79f9OHcO0an6vfYCUjmD5RCONs8ZsuDR5MAc7XZWGGtDfzhKeqA=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR0801MB2125.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(66476007)(6666004)(38100700002)(66556008)(316002)(36756003)(6506007)(66946007)(2616005)(52116002)(8676002)(53546011)(86362001)(83380400001)(4326008)(33656002)(26005)(5660300002)(110136005)(6486002)(38350700002)(508600001)(44832011)(2906002)(6512007)(186003)(8936002)(54906003)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4446
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	73838ef0-5b8a-4746-1b80-08d9d5cbd3cf
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OWED1qCCbJxvckwf4nDramIYCc6euQyRvKAmYR2A+N5bjh1DOUclyaC+eUeFNJQ3rh4uI3/h/YRF6o4BSqhj+cf6BhYOhhslanKTlUvG8bXOlFSvgzdt3gEMWVmN9lfkccILTbGHykUVPeMHxOtLcjZ8r6DNIPf28SEvcT0s5gk9E6xWKZojCh/vwp2ZbILWLaLZ5FUJYeQ3q6wB7wJiUqsXOtsiamj1+VI6Wh9Xc9StvLZNJ60B7wLbq6gYeFy/yiKxt2MnGzH6Iz9TPJu0vp4PCfSmKhzpBfGxQimNdkTnNdktcrYSE9GBHChzpHJkIdHXJ4g7un8ClVETppnBPL5rm41/WJ6qR0HTHQ8Lp9p9oVzKjFQJsgXGh/HlmRfEyrh0kuAFMtuyifC02vkg/LYhnpM5QRN5EeJ9IwF0kErTXl5uy96vOGN+XHcX4o9j96AEdyIt3WPdZxpyjLbOsF7nlWAnmSPMypq6hJXBxglA6+yIvGcqq4iKSAUYTScFIAFt7VnaySUyvykrUHn9Zx66JWQ6jdumM+LCwK4OsayrqnARvhMPDtPohJ+XncLgCCq0Edh6AEiz0eeysPMJP71lDdEyPFKITxHT61ZxJ0TnhS1pW59PHgQLQn7UZqEOrKfdnFMhW69zbDjCZyn9tw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR03MB5610.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(66476007)(8936002)(33716001)(2906002)(26005)(7416002)(6666004)(6916009)(66556008)(86362001)(508600001)(8676002)(9686003)(6512007)(6486002)(83380400001)(6506007)(66946007)(316002)(4326008)(85182001)(5660300002)(38100700002)(186003)(82960400001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MldiM3lPRjlOYTh6R0F0VW80T0Z2RmRHUE1TUUJOWlFGd2UyRGp2QnR1Y1g2?=
- =?utf-8?B?NWtKOGV4eVRtQmUxQUM4QUdKVHN3UnZaOUV5VU1JUHpicVNWYzVGenN3b3Mx?=
- =?utf-8?B?SlVPeWhGTDE0ZFFpQ3dlSlFxa0o0ZUZqbTlvZERNZjQ5V1crSURqZzk0djBS?=
- =?utf-8?B?ZTl6bmlEdzhQOU1VT0p4V2g5ZlJ2MmJMZ0hLeHN1a3FCcks0SElKS0Y3T3hB?=
- =?utf-8?B?RFZCdCtMOUM1SDBJRDFvRWRjL1YvZ0FWOTNsc1I4ZXFNZGt3VzE5TnZ4WldL?=
- =?utf-8?B?U0E3V2xxbFBENWYxK2QySVJPRm91a3JOL0RKWkNlVlorTjZzQjAyN3JhVTE4?=
- =?utf-8?B?dFZsTDdBcjFLZHpDb2ZpK3Q4M21Uak5PeGRMYllyMWRpUEsxK2k3YXV3NlBZ?=
- =?utf-8?B?NTdLTm5lZ3pYZ1EyOFprUkdzMGNpUjFXa0pRckhHZE4xQWdlRks3Q3dxNng4?=
- =?utf-8?B?RnFCdzdMTXB1aEN1SFJXK08vTXdDMzQ2TGdTQ0tjN1M2S1BuSm0ra0RJUmY5?=
- =?utf-8?B?bFZmK21sejE0YzV2NXJTSXhCdU9tTUt1VVFUSllYZ21UcE50ek80S0Z1NWdt?=
- =?utf-8?B?azdZNGZraGVYSTZJOVh6YVhGcWtWRlV2UDhxQXRjekZRd0E5U3IyZzhlLzhB?=
- =?utf-8?B?NmpRUW9nSzJBVjJMTWZNNHhsYWUyMEt0Y1IyUERrWklFOVB5VDg1RDFIcUtt?=
- =?utf-8?B?MUF2T2lWME9BN2hIamN6VWZHdllYUTZEaWVmb1Y1R3R2Ujgxb3lUNE9LR3Zy?=
- =?utf-8?B?OEliQXJFL2ZyQ3cyd3BSZUtzZGNOU1RjSWJqQVNRY0JNY3FWSCt4Tnc4NjFm?=
- =?utf-8?B?eFRpRmJ1WlVRY0VscHl3TWU1WUtwYld6UzBqRVV1N2Q4c0dqbGFQZHc5Z05r?=
- =?utf-8?B?Vy91ZWovVHZ0TlAyeFBLRjV3OC9mNjdCU04vYmxBWjBZNkRDa3RkdFRmWXJk?=
- =?utf-8?B?REV6aU9OMXoweG1ZZXg2RnljSjRTV3VxRjRkTFlsZ0MyVU1qaWx4T3FEN0JK?=
- =?utf-8?B?dlJUQXRoczl2OHpwOU5ldU1vQ09VcjJpbGhrajBhN05KOEJ2OVpTV2lvSjUx?=
- =?utf-8?B?WUR4Q2Z5TUduaFpFRjBVQjZYcXNkbFBmNEtMTzdGanV5ekJkZ3ZZQjBzTHBy?=
- =?utf-8?B?b015WFhkeE1mL3RDY2FaUE9tK3lSQ2FiQUNRUHVPa3o5dy85Q2ptd2poMnlm?=
- =?utf-8?B?THY4R3BqL0FHeGlGcFZkK09tU216NnFwcndBKzIrM0k5WWVIVG9sZkhaaFFy?=
- =?utf-8?B?THF3ZDhwVXY4MjNtdFNiWHk5MTVwVTVPbDlnTkhwRm9kZ0V4NVRUZnZJKzAy?=
- =?utf-8?B?RS9MbSt0MmxPdENaTVRSNDd3WkpKNnBSUG5Hc3ZMd3NoMEtLaXJkbi95WFJF?=
- =?utf-8?B?RXRJRG5yTHlTcTIrcFZ4V1BxMG85eW40U3pza2ZUeTJNWnVOUm1LbHFuS3JD?=
- =?utf-8?B?eGxnZVR5bVFtRTIrZ1JlbnN2OWRSWEtiQk45bHhta2JXWGVkZm52TjFaa1B0?=
- =?utf-8?B?UWF5NTl6SG9lYmVKWWtMRWYvZmhvU1RxNUlrNjZLV2hXV0U2VzRabk5NQml6?=
- =?utf-8?B?dnVqb1ZYbHEyN2czaVc5SzhSRmoyVENrTmFvRzlSeDNUT0VtYVRuV1k5ZEdI?=
- =?utf-8?B?MDdMUVF2SjFWdmh0SHhIWWlSUUlicFlUWGtZQ3d2T0tqMXlraUhLeEwwTTQy?=
- =?utf-8?B?RFlFSDJERktHWHpXeWQvaGJjQTY0OE9XL3RIeEx6dFdXUytuZG9JSHJFQlJ4?=
- =?utf-8?B?MWpnbE4wSnU1T0dNNG92Y2RZajNBT01nKzdyQTg5cXNqWlg4L0lPbW9GamFT?=
- =?utf-8?B?MDhBUmUrbVpWd3FJd3NHWlFFQ0dIM2xOdFJ3aHdVUWp4VWdzSkhlRnlrRU9l?=
- =?utf-8?B?Z0xmWUZBMFhuUFNXMWpRQUttbTJUR3phQWJlYUZ1a2hPZnkxTmJFQWlMUmVh?=
- =?utf-8?B?RkV3ckZnK1NGSHhzZmJUMSt6TWNIS2kzLzI0OFJwRlhONTJWS01OWFhnTnFh?=
- =?utf-8?B?SkpGZlJnV1hDanpsaVdEWmRtRVlWVjc5TnU5cG9TNU1UazByU1g2eHFPSG5U?=
- =?utf-8?B?RENrazBsaWNaN1pNZnRKUVdQZTF4NG4rKzhTenBsU2l5aVJwTmFoT0RvckJZ?=
- =?utf-8?B?dkRUbUdLcmFrK0dGV1QyczVMZVJ3MkEyZFBxWVdEL0hUUGpJZ2pMU0I2ME9Q?=
- =?utf-8?Q?hOda1srcB7hHcqAuCOvbSl0=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c04acef-583f-4191-573e-08d9d5c7fc03
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR03MB5610.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2022 12:35:15.5108
+X-Microsoft-Antispam-Message-Info:
+	m5AakMvRDGeJSox2Im9Hr6ieOxfdWPNeWHjc7dHm+923QPGhdlvddkBSESCtop8wOG8/2iTyXvWywQ963l1n5xaqP4Aast+JG4SGubORTxL7lWR6AiSLuz5qvM4Mh9dHDkKuVB16XWxHe21vytJtIuO4tW7sjkorNI6xI/wbalkmz6nw7wcu3ZSWkUyn5qT1TLI27UUvYapFBHn0LUp1Zj8pOT5kHdAGaQmpA1RDdEchRkkk0aFjRG5t+YuJC9ltjUym2BcIt0+osxsgHzE82Wj1S55A/FJo/786n89ysm12OOik/BHEzVMkcKRPErIJu32LSa0ZRMLGIClKG3Z8DeEuBmsB/sWGJeBO+O3l0jAZ6zTvKotQv7+kHxMGLvd+BTWHthfr4p1RRrQgbCkIm4pEjJavYn5+uSjyJJ+o3cOrkgeYlDt9B8QnEMbr+Wm+zqhZiLPZzshHOgTpJwqMwPmqCZxyfw4cBUkxgq59m25a4An1TV41LatpSa7Nmj5B0sw720HILQKlh8fZG9x6Ny8F/ScWAd1MI9AScBeT2uOv9wysann5duBTSSJXZdKdnX4FTV0T8+9cnopDXjaX4THtwX9H+Zr7tzfgckfvJe6l/YtlmI1odyVf5Y1hT1YOoJCu/AC2tsSR50LZwQO4DQ0BOhZBRlCJlSfAeaFAYsxQzY/36HEzikSTixbtwmwvgsCGcAaZNuBtybXXuOuh0w==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(6512007)(33656002)(6666004)(53546011)(36860700001)(8936002)(8676002)(83380400001)(508600001)(47076005)(36756003)(336012)(110136005)(86362001)(4326008)(6506007)(2906002)(316002)(356005)(81166007)(2616005)(6486002)(5660300002)(70206006)(82310400004)(44832011)(186003)(26005)(70586007)(54906003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2022 13:03:01.7133
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: I/Geb3AcR2kwqgWJBXTuOgvlEj8HMOba48tSNeuGwywnKjzF9vmcaVurMEGcVVosYaCcOq+aAK/dAG/4P6eHCg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR03MB3759
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9597625a-3475-4f38-94e3-08d9d5cbdd50
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB4799
 
-On Thu, Nov 25, 2021 at 01:02:43PM +0200, Oleksandr Andrushchenko wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> Add relevant vpci register handlers when assigning PCI device to a domain
-> and remove those when de-assigning. This allows having different
-> handlers for different domains, e.g. hwdom and other guests.
-> 
-> Emulate guest BAR register values: this allows creating a guest view
-> of the registers and emulates size and properties probe as it is done
-> during PCI device enumeration by the guest.
-> 
-> ROM BAR is only handled for the hardware domain and for guest domains
-> there is a stub: at the moment PCI expansion ROM handling is supported
-> for x86 only and it might not be used by other architectures without
-> emulating x86. Other use-cases may include using that expansion ROM before
-> Xen boots, hence no emulation is needed in Xen itself. Or when a guest
-> wants to use the ROM code which seems to be rare.
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+
+
+> On 12 Jan 2022, at 08:45, Jan Beulich <jbeulich@suse.com> wrote:
+>=20
+> From: Sergey Temerkhanov <s.temerkhanov@gmail.com>
+>=20
+> This helps overcome problems observed with some UEFI implementations
+> which don't set the Attributes field in memery descriptors properly.
+>=20
+> Signed-off-by: Sergey Temerkhanov <s.temerkhanov@gmail.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+
+Hi,
+
+I=E2=80=99ve tested this patch on an arm machine with UEFI boot and it work=
+s fine.
+
+Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+Tested-by: Luca Fancellu <luca.fancellu@arm.com>
+
+Cheers,
+Luca
+
 > ---
-> Since v4:
-> - updated commit message
-> - s/guest_addr/guest_reg
-> Since v3:
-> - squashed two patches: dynamic add/remove handlers and guest BAR
->   handler implementation
-> - fix guest BAR read of the high part of a 64bit BAR (Roger)
-> - add error handling to vpci_assign_device
-> - s/dom%pd/%pd
-> - blank line before return
-> Since v2:
-> - remove unneeded ifdefs for CONFIG_HAS_VPCI_GUEST_SUPPORT as more code
->   has been eliminated from being built on x86
-> Since v1:
->  - constify struct pci_dev where possible
->  - do not open code is_system_domain()
->  - simplify some code3. simplify
->  - use gdprintk + error code instead of gprintk
->  - gate vpci_bar_{add|remove}_handlers with CONFIG_HAS_VPCI_GUEST_SUPPORT,
->    so these do not get compiled for x86
->  - removed unneeded is_system_domain check
->  - re-work guest read/write to be much simpler and do more work on write
->    than read which is expected to be called more frequently
->  - removed one too obvious comment
+> v4: Drop EFI_MEMORY_CACHEABILITY_MASK. Fold with pre-existing if() (into
+>    switch()). Style.
 > ---
->  xen/drivers/vpci/header.c | 72 +++++++++++++++++++++++++++++++++++----
->  xen/include/xen/vpci.h    |  3 ++
->  2 files changed, 69 insertions(+), 6 deletions(-)
-> 
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index ba333fb2f9b0..8880d34ebf8e 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -433,6 +433,48 @@ static void bar_write(const struct pci_dev *pdev, unsigned int reg,
->      pci_conf_write32(pdev->sbdf, reg, val);
->  }
->  
-> +static void guest_bar_write(const struct pci_dev *pdev, unsigned int reg,
-> +                            uint32_t val, void *data)
-> +{
-> +    struct vpci_bar *bar = data;
-> +    bool hi = false;
+> I guess "map_bs" would also want honoring in efi_exit_boot(), but that's
+> yet another patch then I suppose.
+>=20
+> --- a/xen/common/efi/boot.c
+> +++ b/xen/common/efi/boot.c
+> @@ -1094,7 +1094,13 @@ static void __init efi_exit_boot(EFI_HAN
+>     {
+>         EFI_MEMORY_DESCRIPTOR *desc =3D efi_memmap + i;
+>=20
+> -        if ( desc->Attribute & EFI_MEMORY_RUNTIME )
+> +        /*
+> +         * Runtime services regions are always mapped here.
+> +         * Attributes may be adjusted in efi_init_memory().
+> +         */
+> +        if ( (desc->Attribute & EFI_MEMORY_RUNTIME) ||
+> +             desc->Type =3D=3D EfiRuntimeServicesCode ||
+> +             desc->Type =3D=3D EfiRuntimeServicesData )
+>             desc->VirtualStart =3D desc->PhysicalStart;
+>         else
+>             desc->VirtualStart =3D INVALID_VIRTUAL_ADDRESS;
+> @@ -1545,13 +1551,36 @@ void __init efi_init_memory(void)
+>                     ROUNDUP(desc->PhysicalStart + len, PAGE_SIZE));
+>         }
+>=20
+> -        if ( !efi_enabled(EFI_RS) ||
+> -             (!(desc->Attribute & EFI_MEMORY_RUNTIME) &&
+> -              (!map_bs ||
+> -               (desc->Type !=3D EfiBootServicesCode &&
+> -                desc->Type !=3D EfiBootServicesData))) )
+> +        if ( !efi_enabled(EFI_RS) )
+>             continue;
+>=20
+> +        if ( !(desc->Attribute & EFI_MEMORY_RUNTIME) )
+> +        {
+> +            switch ( desc->Type )
+> +            {
+> +            default:
+> +                continue;
 > +
-> +    if ( bar->type == VPCI_BAR_MEM64_HI )
-> +    {
-> +        ASSERT(reg > PCI_BASE_ADDRESS_0);
-> +        bar--;
-> +        hi = true;
-> +    }
-> +    else
-> +    {
-> +        val &= PCI_BASE_ADDRESS_MEM_MASK;
-> +        val |= bar->type == VPCI_BAR_MEM32 ? PCI_BASE_ADDRESS_MEM_TYPE_32
-> +                                           : PCI_BASE_ADDRESS_MEM_TYPE_64;
-> +        val |= bar->prefetchable ? PCI_BASE_ADDRESS_MEM_PREFETCH : 0;
-> +    }
+> +            /*
+> +             * Adjust runtime services regions. Keep in sync with
+> +             * efi_exit_boot().
+> +             */
+> +            case EfiRuntimeServicesCode:
+> +            case EfiRuntimeServicesData:
+> +                printk(XENLOG_WARNING
+> +                       "Setting RUNTIME attribute for %013" PRIx64 "-%01=
+3" PRIx64 "\n",
+> +                       desc->PhysicalStart, desc->PhysicalStart + len - =
+1);
+> +                desc->Attribute |=3D EFI_MEMORY_RUNTIME;
+> +                break;
 > +
-> +    bar->guest_reg &= ~(0xffffffffull << (hi ? 32 : 0));
-> +    bar->guest_reg |= (uint64_t)val << (hi ? 32 : 0);
+> +            case EfiBootServicesCode:
+> +            case EfiBootServicesData:
+> +                if ( !map_bs )
+> +                    continue;
+> +                break;
+> +            }
+> +        }
 > +
-> +    bar->guest_reg &= ~(bar->size - 1) | ~PCI_BASE_ADDRESS_MEM_MASK;
-> +}
-> +
-> +static uint32_t guest_bar_read(const struct pci_dev *pdev, unsigned int reg,
-> +                               void *data)
-> +{
-> +    const struct vpci_bar *bar = data;
-> +    bool hi = false;
-> +
-> +    if ( bar->type == VPCI_BAR_MEM64_HI )
-> +    {
-> +        ASSERT(reg > PCI_BASE_ADDRESS_0);
-> +        bar--;
-> +        hi = true;
-> +    }
-> +
-> +    return bar->guest_reg >> (hi ? 32 : 0);
-> +}
-> +
->  static void rom_write(const struct pci_dev *pdev, unsigned int reg,
->                        uint32_t val, void *data)
->  {
-> @@ -481,6 +523,17 @@ static void rom_write(const struct pci_dev *pdev, unsigned int reg,
->          rom->addr = val & PCI_ROM_ADDRESS_MASK;
->  }
->  
-> +static void guest_rom_write(const struct pci_dev *pdev, unsigned int reg,
-> +                            uint32_t val, void *data)
-> +{
-> +}
-> +
-> +static uint32_t guest_rom_read(const struct pci_dev *pdev, unsigned int reg,
-> +                               void *data)
-> +{
-> +    return 0xffffffff;
-> +}
+>         desc->VirtualStart =3D INVALID_VIRTUAL_ADDRESS;
+>=20
+>         smfn =3D PFN_DOWN(desc->PhysicalStart);
+>=20
+>=20
 
-There should be no need for those handlers. As said elsewhere: for
-guests registers not explicitly handled should return ~0 for reads and
-drop writes, which is what you are proposing here.
-
-> +
->  static int init_bars(struct pci_dev *pdev)
->  {
->      uint16_t cmd;
-> @@ -489,6 +542,7 @@ static int init_bars(struct pci_dev *pdev)
->      struct vpci_header *header = &pdev->vpci->header;
->      struct vpci_bar *bars = header->bars;
->      int rc;
-> +    bool is_hwdom = is_hardware_domain(pdev->domain);
->  
->      switch ( pci_conf_read8(pdev->sbdf, PCI_HEADER_TYPE) & 0x7f )
->      {
-> @@ -528,8 +582,10 @@ static int init_bars(struct pci_dev *pdev)
->          if ( i && bars[i - 1].type == VPCI_BAR_MEM64_LO )
->          {
->              bars[i].type = VPCI_BAR_MEM64_HI;
-> -            rc = vpci_add_register(pdev->vpci, vpci_hw_read32, bar_write, reg,
-> -                                   4, &bars[i]);
-> +            rc = vpci_add_register(pdev->vpci,
-> +                                   is_hwdom ? vpci_hw_read32 : guest_bar_read,
-> +                                   is_hwdom ? bar_write : guest_bar_write,
-> +                                   reg, 4, &bars[i]);
->              if ( rc )
->              {
->                  pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
-> @@ -569,8 +625,10 @@ static int init_bars(struct pci_dev *pdev)
->          bars[i].size = size;
->          bars[i].prefetchable = val & PCI_BASE_ADDRESS_MEM_PREFETCH;
->  
-> -        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, bar_write, reg, 4,
-> -                               &bars[i]);
-> +        rc = vpci_add_register(pdev->vpci,
-> +                               is_hwdom ? vpci_hw_read32 : guest_bar_read,
-> +                               is_hwdom ? bar_write : guest_bar_write,
-> +                               reg, 4, &bars[i]);
->          if ( rc )
->          {
->              pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
-> @@ -590,8 +648,10 @@ static int init_bars(struct pci_dev *pdev)
->          header->rom_enabled = pci_conf_read32(pdev->sbdf, rom_reg) &
->                                PCI_ROM_ADDRESS_ENABLE;
->  
-> -        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rom_write, rom_reg,
-> -                               4, rom);
-> +        rc = vpci_add_register(pdev->vpci,
-> +                               is_hwdom ? vpci_hw_read32 : guest_rom_read,
-> +                               is_hwdom ? rom_write : guest_rom_write,
-> +                               rom_reg, 4, rom);
-
-This whole call should be made conditional to is_hwdom, as said above
-there's no need for the guest_rom handlers.
-
-Likewise I assume you expect IO BARs to simply return ~0 and drop
-writes, as there's no explicit handler added for those?
-
->          if ( rc )
->              rom->type = VPCI_BAR_EMPTY;
->      }
-> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-> index ed127a08a953..0a73b14a92dc 100644
-> --- a/xen/include/xen/vpci.h
-> +++ b/xen/include/xen/vpci.h
-> @@ -68,7 +68,10 @@ struct vpci {
->      struct vpci_header {
->          /* Information about the PCI BARs of this device. */
->          struct vpci_bar {
-> +            /* Physical view of the BAR. */
-
-No, that's not the physical view, it's the physical (host) address.
-
->              uint64_t addr;
-> +            /* Guest view of the BAR: address and lower bits. */
-> +            uint64_t guest_reg;
-
-I continue to think it would be clearer if you store the guest address
-here (gaddr, without the low bits) and add those in guest_bar_read
-based on bar->{type,prefetchable}. Then it would be equivalent to the
-existing 'addr' field.
-
-I wonder whether we need to protect the added code with
-CONFIG_HAS_VPCI_GUEST_SUPPORT, this would effectively be dead code
-otherwise. Long term I don't think we wish to differentiate between
-dom0 and domU vPCI support at build time, so I'm unsure whether it's
-helpful to pollute the code with CONFIG_HAS_VPCI_GUEST_SUPPORT when
-the plan is to remove those long term.
-
-Thanks, Roger.
 
