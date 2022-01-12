@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BABB448BEF6
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 08:22:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.256245.439604 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B1B248BEFC
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 08:27:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.256249.439616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7Xxy-0000Qb-HE; Wed, 12 Jan 2022 07:22:42 +0000
+	id 1n7Y2E-00014f-2t; Wed, 12 Jan 2022 07:27:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 256245.439604; Wed, 12 Jan 2022 07:22:42 +0000
+Received: by outflank-mailman (output) from mailman id 256249.439616; Wed, 12 Jan 2022 07:27:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7Xxy-0000Nx-E3; Wed, 12 Jan 2022 07:22:42 +0000
-Received: by outflank-mailman (input) for mailman id 256245;
- Wed, 12 Jan 2022 07:22:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1n7Y2D-00012W-Vl; Wed, 12 Jan 2022 07:27:05 +0000
+Received: by outflank-mailman (input) for mailman id 256249;
+ Wed, 12 Jan 2022 07:27:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSVc=R4=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1n7Xxw-0000Nr-TS
- for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 07:22:40 +0000
+ id 1n7Y2C-00012Q-DU
+ for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 07:27:04 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6bfaf912-7378-11ec-9ce5-af14b9085ebd;
- Wed, 12 Jan 2022 08:22:39 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 09b68764-7379-11ec-81c1-a30af7de8005;
+ Wed, 12 Jan 2022 08:27:03 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 44ED9212C9;
- Wed, 12 Jan 2022 07:22:38 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 22F88212CC;
+ Wed, 12 Jan 2022 07:27:03 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 18B2013B32;
- Wed, 12 Jan 2022 07:22:38 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EF22913B32;
+ Wed, 12 Jan 2022 07:27:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +3RVBL6B3mHRCQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 12 Jan 2022 07:22:38 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id /mpSOMaC3mHUCwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 12 Jan 2022 07:27:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,204 +51,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bfaf912-7378-11ec-9ce5-af14b9085ebd
+X-Inumbo-ID: 09b68764-7379-11ec-81c1-a30af7de8005
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1641972158; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1641972423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pr15ENFrPkHQEzNUZZLhSTiQ56HcSSAL+FkUKEftUSU=;
-	b=opsytZL088kjwiF0VMglZ6JEWTBhHvELXuiTkbxfamahordfleQl34PBthV0kbJh9AinEc
-	ELGx6Z3Jdiaix+aLvNlCqQB3AbrfRT5bAcGvxFssoYL6LKr19U3jvuAqX1Rxjeq5CwqZXJ
-	Y0efURr7RYG04OVz4iRuxZPCICGQ9MA=
+	bh=ECF8hIJ+7WRKFX24XULzJQ51kqrKUoj4GzpiF1a/BNY=;
+	b=dBaD+WtCgbjsCK9cJUBJ12fEVx3h+2LVIl3Yg6yeAlHLFqCHg5Nya5Bljakd5I8ujoTbyf
+	738NtDKt2ip+lzGiLADqNGxxpQbh8v83Ff04MzoAWH34JJuJS41zPfy6aGWfqFNM6PRYUT
+	PyOySCWaBltxG1PutYTsLR+GPIGc8hI=
+Subject: Re: [PATCH v2 2/3] tools/libs/gnttab: decouple more from mini-os
 To: Andrew Cooper <amc96@srcf.net>, xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
 References: <20220111150318.22570-1-jgross@suse.com>
- <20220111150318.22570-2-jgross@suse.com>
- <a73bd0c2-44ee-c984-9c72-15d36afc8aa5@srcf.net>
+ <20220111150318.22570-3-jgross@suse.com>
+ <b0dec08d-2b94-efbb-cbc8-d67e3529fcc1@srcf.net>
 From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v2 1/3] tools/libs/evtchn: decouple more from mini-os
-Message-ID: <152c1627-e8e1-4f98-abe6-ee45a2fdebe0@suse.com>
-Date: Wed, 12 Jan 2022 08:22:37 +0100
+Message-ID: <6e7dbf91-8c0e-900a-dacc-5afa36b6261d@suse.com>
+Date: Wed, 12 Jan 2022 08:27:02 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <a73bd0c2-44ee-c984-9c72-15d36afc8aa5@srcf.net>
+In-Reply-To: <b0dec08d-2b94-efbb-cbc8-d67e3529fcc1@srcf.net>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="1FLIRTKkFocVjw4bH2R0znb9sVBjklTPu"
+ boundary="VmQqsnHyfJ80wO4GAMZ4adAmBRumrSshc"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---1FLIRTKkFocVjw4bH2R0znb9sVBjklTPu
-Content-Type: multipart/mixed; boundary="925mLoogs0xtUNuTzGrUwSLRDNLX9DAmS";
+--VmQqsnHyfJ80wO4GAMZ4adAmBRumrSshc
+Content-Type: multipart/mixed; boundary="YE3MXxshzAWYh9bEsND7Z5WhbkGgAWMOX";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Andrew Cooper <amc96@srcf.net>, xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <152c1627-e8e1-4f98-abe6-ee45a2fdebe0@suse.com>
-Subject: Re: [PATCH v2 1/3] tools/libs/evtchn: decouple more from mini-os
+Message-ID: <6e7dbf91-8c0e-900a-dacc-5afa36b6261d@suse.com>
+Subject: Re: [PATCH v2 2/3] tools/libs/gnttab: decouple more from mini-os
 References: <20220111150318.22570-1-jgross@suse.com>
- <20220111150318.22570-2-jgross@suse.com>
- <a73bd0c2-44ee-c984-9c72-15d36afc8aa5@srcf.net>
-In-Reply-To: <a73bd0c2-44ee-c984-9c72-15d36afc8aa5@srcf.net>
+ <20220111150318.22570-3-jgross@suse.com>
+ <b0dec08d-2b94-efbb-cbc8-d67e3529fcc1@srcf.net>
+In-Reply-To: <b0dec08d-2b94-efbb-cbc8-d67e3529fcc1@srcf.net>
 
---925mLoogs0xtUNuTzGrUwSLRDNLX9DAmS
+--YE3MXxshzAWYh9bEsND7Z5WhbkGgAWMOX
 Content-Type: multipart/mixed;
- boundary="------------D34776A65E72BC8C4FC31F41"
+ boundary="------------D61CEED232C22BCE52E81D13"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------D34776A65E72BC8C4FC31F41
+--------------D61CEED232C22BCE52E81D13
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 11.01.22 20:56, Andrew Cooper wrote:
+On 11.01.22 21:08, Andrew Cooper wrote:
 > On 11/01/2022 15:03, Juergen Gross wrote:
->> diff --git a/tools/libs/evtchn/minios.c b/tools/libs/evtchn/minios.c
->> index e5dfdc5ef5..c3a5ce3b98 100644
->> --- a/tools/libs/evtchn/minios.c
->> +++ b/tools/libs/evtchn/minios.c
->> @@ -38,29 +38,40 @@
+>> libgnttab is using implementation details of Mini-OS. Change that by
+>> letting libgnttab use the new alloc_file_type() and get_file_from_fd()=
+
+>> functions and the generic dev pointer of struct file from Mini-OS.
+>>
+>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>> ---
+>> V2:
+>> - add alloc_file_type() support
+>> ---
+>>   tools/libs/gnttab/minios.c | 68 +++++++++++++++++++++++++++---------=
+--
+>>   1 file changed, 48 insertions(+), 20 deletions(-)
+>>
+>> diff --git a/tools/libs/gnttab/minios.c b/tools/libs/gnttab/minios.c
+>> index f78caadd30..c19f339c8c 100644
+>> --- a/tools/libs/gnttab/minios.c
+>> +++ b/tools/libs/gnttab/minios.c
+>> @@ -28,18 +28,53 @@
+>>   #include <sys/mman.h>
+>>  =20
+>>   #include <errno.h>
+>> +#include <malloc.h>
+>>   #include <unistd.h>
 >>  =20
 >>   #include "private.h"
 >>  =20
->> -extern void minios_evtchn_close_fd(int fd);
->> +LIST_HEAD(port_list, port_info);
+>> -void minios_gnttab_close_fd(int fd);
+>> +int minios_gnttab_close_fd(int fd);
+>=20
+> Again, like evtchn, no need to forward declare.
+>=20
+>=20
+> However, I've only just realised...
+>=20
 >> +
->> +struct port_info {
->> +    LIST_ENTRY(port_info) list;
->> +    evtchn_port_t port;
->> +    bool pending;
->> +    bool bound;
->> +};
->>  =20
->>   extern struct wait_queue_head event_queue;
->=20
-> Yuck.=C2=A0 This should come from minios's evtchn header, rather than b=
-eing
-> extern'd like this, but lets consider that future cleanup work.
-
-I think I should do that rather sooner than later.
-
->=20
->> +int minios_evtchn_close_fd(int fd);
->=20
-> You don't need this forward declaration, because nothing in this file
-> calls minios_evtchn_close_fd().=C2=A0 The extern should simply be delet=
-ed,
-> and it removes a hunk from your later xen.git series.
-
-Without it I get a build error due to no prototype defined.
-
->=20
->> @@ -69,18 +80,54 @@ static void port_dealloc(struct evtchn_port_info *=
-port_info)
->>       free(port_info);
->>   }
->>  =20
->> +int minios_evtchn_close_fd(int fd)
+>> +int minios_gnttab_close_fd(int fd)
 >> +{
->> +    struct port_info *port_info, *tmp;
 >> +    struct file *file =3D get_file_from_fd(fd);
->> +    struct port_list *port_list =3D file->dev;
->=20
-> Looking at this, the file_ops don't need to have the C ABI.
->=20
-> The single caller already needs access to the file structure, so could
-> pass both file and fd in to the ops->close() function.=C2=A0 Thoughts?
-
-If we do this for close(), we should do it for all callbacks. I think we
-don't need fd at all in the callbacks, so switching to file seems to be
-the way to go.
-
->=20
 >> +
->> +    LIST_FOREACH_SAFE(port_info, port_list, list, tmp)
->> +        port_dealloc(port_info);
->> +    free(port_list);
+>> +    gntmap_fini(file->dev);
+>> +    free(file->dev);
 >> +
 >> +    return 0;
 >> +}
->> +
->> +static struct file_ops evtchn_ops =3D {
 >=20
-> This wants to become const, when alloc_file_type() has been
-> appropriately const'd.
+> The only reason this doesn't break the build is because the declaration=
 
-Yes.
+> is not in a header.=C2=A0 After this change, you've got the function
+> returning int here, but declared as returning void as far as MiniOS is
+> concerned.
+>=20
+> Furthermore, we cannot fix this mess atomically now that minios has
+> moved into a separate repo.=C2=A0 It's tolerable from an ABI point of v=
+iew on
+> x86, but I don't know for certain on other architectures.
 
->=20
->> +    .name =3D "evtchn",
->> +    .close =3D minios_evtchn_close_fd,
->> +    .select_rd =3D select_read_flag,
->> +};
->> +
->>   /*
->>    * XENEVTCHN_NO_CLOEXEC is being ignored, as there is no exec() call=
- supported
->>    * in Mini-OS.
->>    */
->>   int osdep_evtchn_open(xenevtchn_handle *xce, unsigned int flags)
->>   {
->> -    int fd =3D alloc_fd(FTYPE_EVTCHN);
->> +    int fd;
->> +    struct file *file;
->> +    struct port_list *list;
->> +    static unsigned int ftype_evtchn;
->>  =20
->> -    if ( fd =3D=3D -1 )
->> +    if ( !ftype_evtchn )
->> +        ftype_evtchn =3D alloc_file_type(&evtchn_ops);
->=20
-> Hmm.=C2=A0 MiniOS doesn't appear to support __attribute__((constructor)=
-) but
-> this would be an ideal candidate.
->=20
-> It would remove a non-threadsafe singleton from a (largely unrelated)
-> codepath.
->=20
-> Should be very simple to add to MiniOS.=C2=A0 See Xen's init_constructo=
-rs(),
-> and add CONSTRUCTORS to the linker file.
+Mini-OS is x86 only right now (well, it has some Arm parts in it, but
+it is not in a state to be usable on Arm).
 
-I'll look into this.
+> The least bad way I can think of doing this would be to leave void
+> minios_gnttab_close_fd(int fd) exactly as it was, and instead of
+> converting it's use here, use a separate static function straight away
+> for the file ops.=C2=A0 (Will be necessary anyway if you like my sugges=
+tion
+> of passing file too).=C2=A0 Then in the whole function in "tools/libs: =
+final
+> cleanup making mini-os callbacks static", rather than just making it st=
+atic.
 
->=20
->> @@ -134,42 +171,43 @@ int xenevtchn_notify(xenevtchn_handle *xce, evtc=
-hn_port_t port)
->>  =20
->>   static void evtchn_handler(evtchn_port_t port, struct pt_regs *regs,=
- void *data)
->>   {
->> -    int fd =3D (int)(intptr_t)data;
->> -    struct evtchn_port_info *port_info;
->> +    xenevtchn_handle *xce =3D data;
->> +    struct file *file =3D get_file_from_fd(xce->fd);
->> +    struct port_info *port_info;
->> +    struct port_list *port_list;
->>  =20
->> -    assert(files[fd].type =3D=3D FTYPE_EVTCHN);
->> +    assert(file);
->> +    port_list =3D file->dev;
->>       mask_evtchn(port);
->> -    LIST_FOREACH(port_info, &files[fd].evtchn.ports, list)
->> +    LIST_FOREACH(port_info, port_list, list)
->>       {
->>           if ( port_info->port =3D=3D port )
->>               goto found;
->>       }
->>  =20
->> -    printk("Unknown port for handle %d\n", fd);
->> +    printk("Unknown port for handle %d\n", xce->fd);
->=20
-> As you're editing this line anyway, it really wants to become "Unknown
-> port %d for handle %d\n".
-
-Okay.
+I can change it if you really want.
 
 
 Juergen
 
---------------D34776A65E72BC8C4FC31F41
+--------------D61CEED232C22BCE52E81D13
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -340,25 +270,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------D34776A65E72BC8C4FC31F41--
+--------------D61CEED232C22BCE52E81D13--
 
---925mLoogs0xtUNuTzGrUwSLRDNLX9DAmS--
+--YE3MXxshzAWYh9bEsND7Z5WhbkGgAWMOX--
 
---1FLIRTKkFocVjw4bH2R0znb9sVBjklTPu
+--VmQqsnHyfJ80wO4GAMZ4adAmBRumrSshc
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHegb0FAwAAAAAACgkQsN6d1ii/Ey86
-dgf/aHJqb8STJT5vTnb1Fq9bHSwGACBhvkTdPct1oKOgwDb7H24U1A8VpV51DpwLe5+kEUwmC5kC
-cPcytm8ny4VHiUPaWgwpSRFCCd7plfigMCzx6CGOTN09Bkm9dYH877XOm0z8SgsGyCVhnAHJn3Sy
-UVsKWZ+5hDaJETEBG+8+qZP8wp4YC8Qh9BnGCLra0IjzgdRRfbxVJr6Ae0clRYHk6h9AGbO7B66E
-U8MPA3rGQOlXcSqEmB/oiBMWLKeUwtovHFAaK3hC5wXjcWhlVqKr3CoyurFcNgU7KjboE0tAvcQ5
-wuoPKtnvLC80odstZnbYgpyn5PxypF8AS//w5onMnw==
-=Obvl
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHegsYFAwAAAAAACgkQsN6d1ii/Ey+I
+Vgf/bwZoRbesJPHFfIeNnc07ImoBhqEdJgcYEMs/fv2LmEhSZ4+smlukKOxs5+gJ53Xw/2VTd0PG
+d6mzBJzxox0QdZyMDD3jrqrg80l9d4Gr/Kv6rjRPjIYOUOUCL9CBMN7n/3uBwW19On+9ezZoKZTp
+cb7acjbyoxDlfkOCQgz4wITUrOpH426dxPEHosusXQFnG2A991gfxG9bHu3oTbJo7/6Mvd7GXj/j
+N269I9CX1oB+P8s16oOaDi0p3xuwGepNgCvBUuAQtqwV7tmVq3R1nD41xtVn3missnm9jsESk2bn
+3Jwt4dsS+H170W3hlfVPlb7Hv1/qab1FykNDfhxdmw==
+=7/OJ
 -----END PGP SIGNATURE-----
 
---1FLIRTKkFocVjw4bH2R0znb9sVBjklTPu--
+--VmQqsnHyfJ80wO4GAMZ4adAmBRumrSshc--
 
