@@ -2,65 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BA1E48C458
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 14:03:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.256623.440547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE90348C4B6
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 14:22:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.256627.440559 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7dHX-0000Jm-RT; Wed, 12 Jan 2022 13:03:15 +0000
+	id 1n7dZC-0002c4-D0; Wed, 12 Jan 2022 13:21:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 256623.440547; Wed, 12 Jan 2022 13:03:15 +0000
+Received: by outflank-mailman (output) from mailman id 256627.440559; Wed, 12 Jan 2022 13:21:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7dHX-0000HU-O7; Wed, 12 Jan 2022 13:03:15 +0000
-Received: by outflank-mailman (input) for mailman id 256623;
- Wed, 12 Jan 2022 13:03:15 +0000
+	id 1n7dZC-0002aC-9u; Wed, 12 Jan 2022 13:21:30 +0000
+Received: by outflank-mailman (input) for mailman id 256627;
+ Wed, 12 Jan 2022 13:21:28 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=x4a/=R4=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1n7dHW-0000HO-TM
- for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 13:03:15 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on0613.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::613])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=zSVc=R4=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1n7dZA-0002a6-MW
+ for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 13:21:28 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff45c5bb-73a7-11ec-9c70-5536b2d1e4e1;
- Wed, 12 Jan 2022 14:03:12 +0100 (CET)
-Received: from AM7PR04CA0012.eurprd04.prod.outlook.com (2603:10a6:20b:110::22)
- by VE1PR08MB4799.eurprd08.prod.outlook.com (2603:10a6:802:ad::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Wed, 12 Jan
- 2022 13:03:02 +0000
-Received: from AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:110:cafe::fc) by AM7PR04CA0012.outlook.office365.com
- (2603:10a6:20b:110::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10 via Frontend
- Transport; Wed, 12 Jan 2022 13:03:02 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT047.mail.protection.outlook.com (10.152.16.197) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4888.9 via Frontend Transport; Wed, 12 Jan 2022 13:03:01 +0000
-Received: ("Tessian outbound f493ab4f1fb8:v110");
- Wed, 12 Jan 2022 13:03:01 +0000
-Received: from ae1af0c725a9.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 66236E55-6AAA-48CD-AC74-EEF3EE844AF8.1; 
- Wed, 12 Jan 2022 13:02:55 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id ae1af0c725a9.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 12 Jan 2022 13:02:55 +0000
-Received: from VI1PR0801MB2125.eurprd08.prod.outlook.com
- (2603:10a6:800:5b::23) by VI1PR08MB4446.eurprd08.prod.outlook.com
- (2603:10a6:803:fa::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.11; Wed, 12 Jan
- 2022 13:02:46 +0000
-Received: from VI1PR0801MB2125.eurprd08.prod.outlook.com
- ([fe80::cf1:97d5:63ff:e9b0]) by VI1PR0801MB2125.eurprd08.prod.outlook.com
- ([fe80::cf1:97d5:63ff:e9b0%12]) with mapi id 15.20.4867.012; Wed, 12 Jan 2022
- 13:02:46 +0000
+ id 8c0c81d2-73aa-11ec-9c70-5536b2d1e4e1;
+ Wed, 12 Jan 2022 14:21:27 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E1B101F3C2;
+ Wed, 12 Jan 2022 13:21:26 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B3A0D13B64;
+ Wed, 12 Jan 2022 13:21:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id B6dTKtbV3mGHVQAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 12 Jan 2022 13:21:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,193 +51,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff45c5bb-73a7-11ec-9c70-5536b2d1e4e1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yiD12yVF33hhP7D1rCSvvT0DjxYWVb7mbS/tTEXBKhI=;
- b=ZsaYDGflsv+MXXOOXnLvha6amkPwIn5zc2mMyb17R1Ll49UCwT5cTwuGwRQkxf+JNJQ0VAWJp1KI1I9L8KNgqxYHrO+V11DACjchUlSZxIJd2SEBW1DAzphXEtnC18s3FKRZyQ6s3i5egGrQr6cPDZL5y46Gj77D39t5doUeBLU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: d682ceb7db7a3bd2
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=m+dVneeoXZC0nQkHW5SDJ3pXJS1At+VwQqda4JV/5M7NNTeKr0RO0vXI88owkwIDxVAl1Y0oPtYq1Pw/BY3GyMvMewgbX0fN1VzQIBeAaZ1uaFm5im9U39kQu9ieSL3ZdozZUfch4EbCl7zNQDkegND8/scDBV708vclgaGnETb1YyyTuXvIqK5tR61wTVAHBGesIPU4G1Af+NK/V+kFtBq/iYFAuIfrysfeU4GVk+638rQZlPgY/gdLsouqDq5oztHviFx1myEFqHA5aHMwTS8jyCyQJZNA7lZNQ3fDH8bt+bf6BrpsVFc6Hy559HpUJkim2l4YCGKiBj/E2kP1jA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yiD12yVF33hhP7D1rCSvvT0DjxYWVb7mbS/tTEXBKhI=;
- b=aBqryKQoTZT1hAbYqlXv/YnvQUM9nst3MoXmFbxyzCh8ecZLHXiSIbMsHt5fVWQXGCPCUNPOfeD85F0dzFCNruQtnEnoJ/5JeWRT3YCY6bfs44UgapF6l/28gDYrDkAXJA4y/EWTD8y/ma+TULtUoHubiqxMn3T0RcPmKsT8GifCa+gHooAxvDLSaZLFTWnM9VVA9AGZ063xVK+mowL3HY7lmasnsrCSzogfVLxZcmm9ZvCiwK9u/yL23+NAMPjrfIA+EE9mNaF2RwwZAdElLdb5rXAuKmdqKeAcYdc96l9wUycJ9tOEst98kXev9ciLHsU/tv9lukBDfnyjJl3/gQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yiD12yVF33hhP7D1rCSvvT0DjxYWVb7mbS/tTEXBKhI=;
- b=ZsaYDGflsv+MXXOOXnLvha6amkPwIn5zc2mMyb17R1Ll49UCwT5cTwuGwRQkxf+JNJQ0VAWJp1KI1I9L8KNgqxYHrO+V11DACjchUlSZxIJd2SEBW1DAzphXEtnC18s3FKRZyQ6s3i5egGrQr6cPDZL5y46Gj77D39t5doUeBLU=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Content-Type: text/plain;
-	charset=utf-8
-Subject: Re: [PATCH v4] EFI: always map EfiRuntimeServices{Code,Data}
-From: Luca Fancellu <luca.fancellu@arm.com>
-In-Reply-To: <89d182f6-95e8-674a-2297-6e98435385f8@suse.com>
-Date: Wed, 12 Jan 2022 13:02:43 +0000
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <A458D77D-BA41-41A4-9A75-1F2C54BC807F@arm.com>
-References: <89d182f6-95e8-674a-2297-6e98435385f8@suse.com>
-To: Jan Beulich <jbeulich@suse.com>,
- Sergey Temerkhanov <s.temerkhanov@gmail.com>
-X-Mailer: Apple Mail (2.3693.20.0.1.32)
-X-ClientProxiedBy: LO4P123CA0130.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:193::9) To VI1PR0801MB2125.eurprd08.prod.outlook.com
- (2603:10a6:800:5b::23)
+X-Inumbo-ID: 8c0c81d2-73aa-11ec-9c70-5536b2d1e4e1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1641993686; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mHAZ8qm5OrpRzWCW4YIqbzRNW+DTcH4TrZFdh9mFnl4=;
+	b=V22N936/aBiAJ0gPJVObi52cVp2h1VuXN4WnPrCV7U7YI5jTQ8JPxXLNO70fMrDA0p93GL
+	vbWVAIlkNV/gn6MY3s+SYvl1FDlLdl048juRq6V40c9/ffjB02Ozawf+br6IjHiC6MKmIe
+	RYPEB4vICCIFz+riCQqm67C+ZSFFfJQ=
+From: Juergen Gross <jgross@suse.com>
+To: Andrew Cooper <amc96@srcf.net>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20220111150318.22570-1-jgross@suse.com>
+ <20220111150318.22570-2-jgross@suse.com>
+ <a73bd0c2-44ee-c984-9c72-15d36afc8aa5@srcf.net>
+ <152c1627-e8e1-4f98-abe6-ee45a2fdebe0@suse.com>
+Subject: Re: [PATCH v2 1/3] tools/libs/evtchn: decouple more from mini-os
+Message-ID: <5c790a9c-14d0-f353-d5de-d0d70487f181@suse.com>
+Date: Wed, 12 Jan 2022 14:21:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.12.0
 MIME-Version: 1.0
-X-MS-Office365-Filtering-Correlation-Id: 9597625a-3475-4f38-94e3-08d9d5cbdd50
-X-MS-TrafficTypeDiagnostic:
-	VI1PR08MB4446:EE_|AM5EUR03FT047:EE_|VE1PR08MB4799:EE_
-X-Microsoft-Antispam-PRVS:
-	<VE1PR08MB47994DDD8033D53FBDA23AEAE4529@VE1PR08MB4799.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:431;OLM:431;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- 25n0uWIPEsdvAr+E6J6bs55FB/0oKf517zIhueXS0kEbZbbW2YVfM6hbmYzdoq5wrDS2wWzDuwRSki3PinjmZ8etlPrkF2wKkW1xbVC48I5+BSBEWzw/lW+rtn1swPS0ezCb25XCqtD51d+evV+GMN5X00GcS6wQlmB9q62XgSofKKw5oMhAa/JRcZCAnysFRzB1GlHB9ak4IF65LbIzhCrQt+kGCfTin2VQalAMtlY0hav4ulvJ57vF+7qGmk4XCFJ8LBNYZuV+yVahTYOAFDJfCEgPB7TcB1VO6bbXxCc5/1jVeJCyLMgDNw1qvVYLiDWr8IGMX5we82351NkhXlOcMK/eT1jJpK92j8jhDZZF808NRjaRjs2fu1IZmm5Ha9w/v6TnGj3HzB4Ic5ny4CQ1muAyzgl2okg8NVnwtEJqcrl/3v4kpVQ/NHI9HppW93FUgtsb+cbk1HmyaP3UYnChsMVfUVadv/5WjgFlPBBzIvmH5u77y71fjzCnmIUjSOEz9bNAo/fYCWrqJyRWzFntMGHOSbcANj7bvsUjp0TR1vL0IRaZ49juhb4ILTginP0NJvIcx+iiUDRti2wdWqmu/BvttSwpsgyIl1MJAYbSTisUNc159IdvJadBPlPv8RxTEeSHrZGsHn/05pf7VshaW1Vs8Mncbq30vIFPu6g6YF2HlActNu9K79f9OHcO0an6vfYCUjmD5RCONs8ZsuDR5MAc7XZWGGtDfzhKeqA=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR0801MB2125.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(66476007)(6666004)(38100700002)(66556008)(316002)(36756003)(6506007)(66946007)(2616005)(52116002)(8676002)(53546011)(86362001)(83380400001)(4326008)(33656002)(26005)(5660300002)(110136005)(6486002)(38350700002)(508600001)(44832011)(2906002)(6512007)(186003)(8936002)(54906003)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4446
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	73838ef0-5b8a-4746-1b80-08d9d5cbd3cf
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	m5AakMvRDGeJSox2Im9Hr6ieOxfdWPNeWHjc7dHm+923QPGhdlvddkBSESCtop8wOG8/2iTyXvWywQ963l1n5xaqP4Aast+JG4SGubORTxL7lWR6AiSLuz5qvM4Mh9dHDkKuVB16XWxHe21vytJtIuO4tW7sjkorNI6xI/wbalkmz6nw7wcu3ZSWkUyn5qT1TLI27UUvYapFBHn0LUp1Zj8pOT5kHdAGaQmpA1RDdEchRkkk0aFjRG5t+YuJC9ltjUym2BcIt0+osxsgHzE82Wj1S55A/FJo/786n89ysm12OOik/BHEzVMkcKRPErIJu32LSa0ZRMLGIClKG3Z8DeEuBmsB/sWGJeBO+O3l0jAZ6zTvKotQv7+kHxMGLvd+BTWHthfr4p1RRrQgbCkIm4pEjJavYn5+uSjyJJ+o3cOrkgeYlDt9B8QnEMbr+Wm+zqhZiLPZzshHOgTpJwqMwPmqCZxyfw4cBUkxgq59m25a4An1TV41LatpSa7Nmj5B0sw720HILQKlh8fZG9x6Ny8F/ScWAd1MI9AScBeT2uOv9wysann5duBTSSJXZdKdnX4FTV0T8+9cnopDXjaX4THtwX9H+Zr7tzfgckfvJe6l/YtlmI1odyVf5Y1hT1YOoJCu/AC2tsSR50LZwQO4DQ0BOhZBRlCJlSfAeaFAYsxQzY/36HEzikSTixbtwmwvgsCGcAaZNuBtybXXuOuh0w==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(6512007)(33656002)(6666004)(53546011)(36860700001)(8936002)(8676002)(83380400001)(508600001)(47076005)(36756003)(336012)(110136005)(86362001)(4326008)(6506007)(2906002)(316002)(356005)(81166007)(2616005)(6486002)(5660300002)(70206006)(82310400004)(44832011)(186003)(26005)(70586007)(54906003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2022 13:03:01.7133
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9597625a-3475-4f38-94e3-08d9d5cbdd50
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM5EUR03FT047.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB4799
+In-Reply-To: <152c1627-e8e1-4f98-abe6-ee45a2fdebe0@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="i4193qLPPsCaNFLTrhY4uzxbAHbJIGLey"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--i4193qLPPsCaNFLTrhY4uzxbAHbJIGLey
+Content-Type: multipart/mixed; boundary="TUVpNIJDQZM4VYecScC3huJfrvMryf4Bf";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Andrew Cooper <amc96@srcf.net>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <5c790a9c-14d0-f353-d5de-d0d70487f181@suse.com>
+Subject: Re: [PATCH v2 1/3] tools/libs/evtchn: decouple more from mini-os
+References: <20220111150318.22570-1-jgross@suse.com>
+ <20220111150318.22570-2-jgross@suse.com>
+ <a73bd0c2-44ee-c984-9c72-15d36afc8aa5@srcf.net>
+ <152c1627-e8e1-4f98-abe6-ee45a2fdebe0@suse.com>
+In-Reply-To: <152c1627-e8e1-4f98-abe6-ee45a2fdebe0@suse.com>
+
+--TUVpNIJDQZM4VYecScC3huJfrvMryf4Bf
+Content-Type: multipart/mixed;
+ boundary="------------4F612B4FCF0A1EE5BEFDD73D"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------4F612B4FCF0A1EE5BEFDD73D
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+On 12.01.22 08:22, Juergen Gross wrote:
+> On 11.01.22 20:56, Andrew Cooper wrote:
+>> On 11/01/2022 15:03, Juergen Gross wrote:
+>>> diff --git a/tools/libs/evtchn/minios.c b/tools/libs/evtchn/minios.c
+>>> index e5dfdc5ef5..c3a5ce3b98 100644
+>>> --- a/tools/libs/evtchn/minios.c
+>>> +++ b/tools/libs/evtchn/minios.c
+>>> =C2=A0 int osdep_evtchn_open(xenevtchn_handle *xce, unsigned int flag=
+s)
+>>> =C2=A0 {
+>>> -=C2=A0=C2=A0=C2=A0 int fd =3D alloc_fd(FTYPE_EVTCHN);
+>>> +=C2=A0=C2=A0=C2=A0 int fd;
+>>> +=C2=A0=C2=A0=C2=A0 struct file *file;
+>>> +=C2=A0=C2=A0=C2=A0 struct port_list *list;
+>>> +=C2=A0=C2=A0=C2=A0 static unsigned int ftype_evtchn;
+>>> -=C2=A0=C2=A0=C2=A0 if ( fd =3D=3D -1 )
+>>> +=C2=A0=C2=A0=C2=A0 if ( !ftype_evtchn )
+>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ftype_evtchn =3D alloc_fi=
+le_type(&evtchn_ops);
+>>
+>> Hmm.=C2=A0 MiniOS doesn't appear to support __attribute__((constructor=
+)) but
+>> this would be an ideal candidate.
+>>
+>> It would remove a non-threadsafe singleton from a (largely unrelated)
+>> codepath.
+>>
+>> Should be very simple to add to MiniOS.=C2=A0 See Xen's init_construct=
+ors(),
+>> and add CONSTRUCTORS to the linker file.
+>=20
+> I'll look into this.
+
+Turns out that I can't use __attribute__((constructor)), as this is
+supported through newlib already (the linker script contains everything
+needed, but the activation is outside of Mini-OS).
+
+I'll use something like initcall() instead.
 
 
+Juergen
 
-> On 12 Jan 2022, at 08:45, Jan Beulich <jbeulich@suse.com> wrote:
->=20
-> From: Sergey Temerkhanov <s.temerkhanov@gmail.com>
->=20
-> This helps overcome problems observed with some UEFI implementations
-> which don't set the Attributes field in memery descriptors properly.
->=20
-> Signed-off-by: Sergey Temerkhanov <s.temerkhanov@gmail.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+--------------4F612B4FCF0A1EE5BEFDD73D
+Content-Type: application/pgp-keys;
+ name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Transfer-Encoding: quoted-printable
+Content-Description: OpenPGP public key
+Content-Disposition: attachment;
+ filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 
-Hi,
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-I=E2=80=99ve tested this patch on an arm machine with UEFI boot and it work=
-s fine.
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOBy=
+cWx
+w3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJvedYm8O=
+f8Z
+d621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y=
+9bf
+IhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xq=
+G7/
+377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR=
+3Jv
+c3MgPGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsEFgIDA=
+QIe
+AQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4FUGNQH2lvWAUy+dnyT=
+hpw
+dtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3TyevpB0CA3dbBQp0OW0fgCetToGIQrg0=
+MbD
+1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbv=
+oPH
+Z8SlM4KWm8rG+lIkGurqqu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v=
+5QL
++qHI3EIPtyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVyZ=
+2Vu
+IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJCAcDAgEGFQgCC=
+QoL
+BBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4RF7HoZhPVPogNVbC4YA6lW7Dr=
+Wf0
+teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz78X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC=
+/nu
+AFVGy+67q2DH8As3KPu0344TBDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0Lh=
+ITT
+d9jLzdDad1pQSToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLm=
+XBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkMnQfvUewRz=
+80h
+SnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMBAgAjBQJTjHDXAhsDBwsJC=
+AcD
+AgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJn=
+FOX
+gMLdBQgBlVPO3/D9R8LtF9DBAFPNhlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1=
+jnD
+kfJZr6jrbjgyoZHiw/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0=
+N51
+N5JfVRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwPOoE+l=
+otu
+fe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK/1xMI3/+8jbO0tsn1=
+tqS
+EUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuZGU+wsB5BBMBAgAjBQJTjHDrA=
+hsD
+BwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3=
+g3O
+ZUEBmDHVVbqMtzwlmNC4k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5=
+dM7
+wRqzgJpJwK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu5=
+D+j
+LRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzBTNh30FVKK1Evm=
+V2x
+AKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37IoN1EblHI//x/e2AaIHpzK5h88N=
+Eaw
+QsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpW=
+nHI
+s98ndPUDpnoxWQugJ6MpMncr0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZR=
+wgn
+BC5mVM6JjQ5xDk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNV=
+bVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mmwe0icXKLk=
+pEd
+IXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0Iv3OOImwTEe4co3c1mwARA=
+QAB
+wsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMvQ/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEw=
+Tbe
+8YFsw2V/Buv6Z4Mysln3nQK5ZadD534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1=
+vJz
+Q1fOU8lYFpZXTXIHb+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8=
+VGi
+wXvTyJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqcsuylW=
+svi
+uGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5BjR/i1DG86lem3iBDX=
+zXs
+ZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
-Tested-by: Luca Fancellu <luca.fancellu@arm.com>
+--------------4F612B4FCF0A1EE5BEFDD73D--
 
-Cheers,
-Luca
+--TUVpNIJDQZM4VYecScC3huJfrvMryf4Bf--
 
-> ---
-> v4: Drop EFI_MEMORY_CACHEABILITY_MASK. Fold with pre-existing if() (into
->    switch()). Style.
-> ---
-> I guess "map_bs" would also want honoring in efi_exit_boot(), but that's
-> yet another patch then I suppose.
->=20
-> --- a/xen/common/efi/boot.c
-> +++ b/xen/common/efi/boot.c
-> @@ -1094,7 +1094,13 @@ static void __init efi_exit_boot(EFI_HAN
->     {
->         EFI_MEMORY_DESCRIPTOR *desc =3D efi_memmap + i;
->=20
-> -        if ( desc->Attribute & EFI_MEMORY_RUNTIME )
-> +        /*
-> +         * Runtime services regions are always mapped here.
-> +         * Attributes may be adjusted in efi_init_memory().
-> +         */
-> +        if ( (desc->Attribute & EFI_MEMORY_RUNTIME) ||
-> +             desc->Type =3D=3D EfiRuntimeServicesCode ||
-> +             desc->Type =3D=3D EfiRuntimeServicesData )
->             desc->VirtualStart =3D desc->PhysicalStart;
->         else
->             desc->VirtualStart =3D INVALID_VIRTUAL_ADDRESS;
-> @@ -1545,13 +1551,36 @@ void __init efi_init_memory(void)
->                     ROUNDUP(desc->PhysicalStart + len, PAGE_SIZE));
->         }
->=20
-> -        if ( !efi_enabled(EFI_RS) ||
-> -             (!(desc->Attribute & EFI_MEMORY_RUNTIME) &&
-> -              (!map_bs ||
-> -               (desc->Type !=3D EfiBootServicesCode &&
-> -                desc->Type !=3D EfiBootServicesData))) )
-> +        if ( !efi_enabled(EFI_RS) )
->             continue;
->=20
-> +        if ( !(desc->Attribute & EFI_MEMORY_RUNTIME) )
-> +        {
-> +            switch ( desc->Type )
-> +            {
-> +            default:
-> +                continue;
-> +
-> +            /*
-> +             * Adjust runtime services regions. Keep in sync with
-> +             * efi_exit_boot().
-> +             */
-> +            case EfiRuntimeServicesCode:
-> +            case EfiRuntimeServicesData:
-> +                printk(XENLOG_WARNING
-> +                       "Setting RUNTIME attribute for %013" PRIx64 "-%01=
-3" PRIx64 "\n",
-> +                       desc->PhysicalStart, desc->PhysicalStart + len - =
-1);
-> +                desc->Attribute |=3D EFI_MEMORY_RUNTIME;
-> +                break;
-> +
-> +            case EfiBootServicesCode:
-> +            case EfiBootServicesData:
-> +                if ( !map_bs )
-> +                    continue;
-> +                break;
-> +            }
-> +        }
-> +
->         desc->VirtualStart =3D INVALID_VIRTUAL_ADDRESS;
->=20
->         smfn =3D PFN_DOWN(desc->PhysicalStart);
->=20
->=20
+--i4193qLPPsCaNFLTrhY4uzxbAHbJIGLey
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHe1dYFAwAAAAAACgkQsN6d1ii/Ey9V
+DAf8C8QMBO0WmcRXQCWGMze4R5u1wa1/hvC09OOC8PG9gn763+eqh0kkkqBYb1RcSJdfYjWKD2So
+6w3RBiRz3zISaIENzKPdUx+mvNauan0S+SDbTerkBZgx43ZAc2FZksndVem2zYU1TT4a9X+D8hfF
+K+ApJQoNmI1CAzDCyapVIuhfcz4ObK51WZ1DcaAss+Elr7WXN+Vb1Q6BXXDSCCAp2i7fhrw1cWoe
+yPQQ1WGtHx4VETGlASz8NHO/g8dTiwWV9tDhY/AOj0EW1woYJ2mRuaMPt0ROE7hN7HuYktF/1ZBO
+BRKgjQo+v2dc83yOek5O7s9Iql7Vn2g2tslAiS0Z0A==
+=AvXy
+-----END PGP SIGNATURE-----
+
+--i4193qLPPsCaNFLTrhY4uzxbAHbJIGLey--
 
