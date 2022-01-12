@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A28B48BF4F
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 08:55:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.256332.439810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BDEE48BF5C
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jan 2022 08:57:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.256338.439824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7YT2-00049d-Ne; Wed, 12 Jan 2022 07:54:48 +0000
+	id 1n7YVN-0004v0-AO; Wed, 12 Jan 2022 07:57:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 256332.439810; Wed, 12 Jan 2022 07:54:48 +0000
+Received: by outflank-mailman (output) from mailman id 256338.439824; Wed, 12 Jan 2022 07:57:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7YT2-000466-Jh; Wed, 12 Jan 2022 07:54:48 +0000
-Received: by outflank-mailman (input) for mailman id 256332;
- Wed, 12 Jan 2022 07:54:47 +0000
+	id 1n7YVN-0004sw-7I; Wed, 12 Jan 2022 07:57:13 +0000
+Received: by outflank-mailman (input) for mailman id 256338;
+ Wed, 12 Jan 2022 07:57:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=zSVc=R4=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1n7YT1-00045Y-EC
- for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 07:54:47 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ id 1n7YVL-0004qf-6D
+ for xen-devel@lists.xenproject.org; Wed, 12 Jan 2022 07:57:11 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e85964f5-737c-11ec-9ce5-af14b9085ebd;
- Wed, 12 Jan 2022 08:54:45 +0100 (CET)
+ id 3e337b6e-737d-11ec-9ce5-af14b9085ebd;
+ Wed, 12 Jan 2022 08:57:09 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3EAE01F3BB;
- Wed, 12 Jan 2022 07:54:45 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 23B9C21123;
+ Wed, 12 Jan 2022 07:57:09 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0FED613B2D;
- Wed, 12 Jan 2022 07:54:45 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 018CF13E10;
+ Wed, 12 Jan 2022 07:57:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id G62NAkWJ3mHyFwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 12 Jan 2022 07:54:45 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id hm8SOtSJ3mEIGQAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 12 Jan 2022 07:57:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,123 +51,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e85964f5-737c-11ec-9ce5-af14b9085ebd
+X-Inumbo-ID: 3e337b6e-737d-11ec-9ce5-af14b9085ebd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1641974085; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1641974229; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=SRiBEagExziOY6AGzH3ykhtfCA+oYAzxbQdZEWcOKgk=;
-	b=tQpqo6oaBI0tWjQSbRb6O7yp2JkrNMe4xIIjE2PMD0SLSvrZ6HTD4XPd82AUVNMsYrZyWr
-	a+eoevh/XuSETM+HY0xNJFU4qOm1JYplEm/EM6q11/a+sDTn+nkUKtPQFynXP7+93LgeOV
-	re8OdX8SU9P0rVrZBClA89qGyKA/JdE=
-Subject: Re: [PATCH v2 04/12] mini-os: use alloc_file_type() and
- get_file_from_fd() in tpm_tis
-To: Andrew Cooper <amc96@srcf.net>, minios-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org, wl@xen.org,
- Jason Andryuk <jandryuk@gmail.com>,
- Daniel Smith <dpsmith@apertussolutions.com>
+	bh=DoxsaNjgHsTESg7pJau2nkw4GFuS687AqbBCr4DynRM=;
+	b=Z8+yFintsw0+tq8SiWnAVE5FgwH7N9GQuxip/gv64vNwCT7RHrADS/ocRdT5VVYizDr48z
+	i/1LC6vNm22HnhGKVt1esEQMvdq2lHS9fzKVqp1zQfbe9wzryPQxe+t2XEYf401AZzAy8W
+	oMxiZ1BmWIjmvfSWRm7+wLFcQEzSmPs=
+Subject: Re: [PATCH v2 09/12] mini-os: use file_ops and get_file_from_fd() for
+ console
+To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, wl@xen.org
 References: <20220111151215.22955-1-jgross@suse.com>
- <20220111151215.22955-5-jgross@suse.com>
- <95614df8-c22d-3e1e-b976-84bbed1b30be@srcf.net>
+ <20220111151215.22955-10-jgross@suse.com>
+ <20220111203501.tywfn4czhwavhgrf@begin>
 From: Juergen Gross <jgross@suse.com>
-Message-ID: <5dba49ab-e901-3ee2-daee-5758eccdd474@suse.com>
-Date: Wed, 12 Jan 2022 08:54:44 +0100
+Message-ID: <bb7d4313-2500-3e60-8a51-93e909739c90@suse.com>
+Date: Wed, 12 Jan 2022 08:57:07 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <95614df8-c22d-3e1e-b976-84bbed1b30be@srcf.net>
+In-Reply-To: <20220111203501.tywfn4czhwavhgrf@begin>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="ZQFXopqQNJMKD1MOjysciLQ1rGKvqhrEl"
+ boundary="PLvpBkRijSY4uPCJ9lGjFLYi4wXmC9nb6"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ZQFXopqQNJMKD1MOjysciLQ1rGKvqhrEl
-Content-Type: multipart/mixed; boundary="aXhJojt8iFn7yoAcRreqoTKFyybsYvxik";
+--PLvpBkRijSY4uPCJ9lGjFLYi4wXmC9nb6
+Content-Type: multipart/mixed; boundary="0W2V7LbSkIGyKqt9FNI0Fx5UhfeFO4NjS";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Andrew Cooper <amc96@srcf.net>, minios-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org
-Cc: samuel.thibault@ens-lyon.org, wl@xen.org,
- Jason Andryuk <jandryuk@gmail.com>,
- Daniel Smith <dpsmith@apertussolutions.com>
-Message-ID: <5dba49ab-e901-3ee2-daee-5758eccdd474@suse.com>
-Subject: Re: [PATCH v2 04/12] mini-os: use alloc_file_type() and
- get_file_from_fd() in tpm_tis
+To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, wl@xen.org
+Message-ID: <bb7d4313-2500-3e60-8a51-93e909739c90@suse.com>
+Subject: Re: [PATCH v2 09/12] mini-os: use file_ops and get_file_from_fd() for
+ console
 References: <20220111151215.22955-1-jgross@suse.com>
- <20220111151215.22955-5-jgross@suse.com>
- <95614df8-c22d-3e1e-b976-84bbed1b30be@srcf.net>
-In-Reply-To: <95614df8-c22d-3e1e-b976-84bbed1b30be@srcf.net>
+ <20220111151215.22955-10-jgross@suse.com>
+ <20220111203501.tywfn4czhwavhgrf@begin>
+In-Reply-To: <20220111203501.tywfn4czhwavhgrf@begin>
 
---aXhJojt8iFn7yoAcRreqoTKFyybsYvxik
+--0W2V7LbSkIGyKqt9FNI0Fx5UhfeFO4NjS
 Content-Type: multipart/mixed;
- boundary="------------D1D33A2092A6A1CA84D4F5D7"
+ boundary="------------3F6770108827E3580B54194D"
 Content-Language: en-US
 
 This is a multi-part message in MIME format.
---------------D1D33A2092A6A1CA84D4F5D7
+--------------3F6770108827E3580B54194D
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
 
-On 11.01.22 21:29, Andrew Cooper wrote:
-> On 11/01/2022 15:12, Juergen Gross wrote:
->> diff --git a/tpm_tis.c b/tpm_tis.c
->> index 477f555..abea7a1 100644
->> --- a/tpm_tis.c
->> +++ b/tpm_tis.c
->> @@ -1093,6 +1097,23 @@ ssize_t tpm_getcap(struct tpm_chip *chip, uint3=
-2_t subcap_id, cap_t *cap,
->>           return rc;
->>   }
->>  =20
->> +static void shutdown_tpm_tis(struct tpm_chip* tpm){
->=20
-> Style, as you're moving it.=C2=A0 Also in the function.
->=20
->> @@ -1360,6 +1369,35 @@ int tpm_tis_posix_fstat(int fd, struct stat* bu=
-f)
->>      return 0;
->>   }
->>  =20
->> +static struct file_ops tpm_tis_ops =3D {
->> +    .name =3D "tpm_tis",
->> +    .read =3D tpm_tis_posix_read,
->> +    .write =3D tpm_tis_posix_write,
->> +    .lseek =3D lseek_default,
->> +    .close =3D tpm_tis_close,
->> +    .fstat =3D tpm_tis_posix_fstat,
->> +};
->> +
->> +int tpm_tis_open(struct tpm_chip* tpm)
->=20
-> Style.
-
-Ah, yes I should have corrected this while moving the function.
-
->=20
+On 11.01.22 21:35, Samuel Thibault wrote:
+> Juergen Gross, le mar. 11 janv. 2022 16:12:12 +0100, a ecrit:
+>> +static int consfront_fstat(int fd, struct stat *buf)
 >> +{
->> +   struct file *file;
->> +   static unsigned int ftype_tis;
+>> +    struct file *file =3D get_file_from_fd(fd);
 >> +
->> +   /* Silently prevent multiple opens */
->> +   if(tpm->fd !=3D -1) {
->> +      return tpm->fd;
->> +   }
->=20
-> Another WTF moment.=C2=A0 We silently swallow multiple open()s, but don=
-'t
-> refcout close()s ?
->=20
-> This cannot be correct, or sensible, behaviour.
->=20
-> Jason/Daniel - thoughts?
+>> +    buf->st_mode =3D S_IRUSR | S_IWUSR;
+>> +    buf->st_mode |=3D (file->type =3D=3D FTYPE_CONSOLE) ? S_IFCHR : S=
+_IFREG;
+>> +    buf->st_atime =3D buf->st_mtime =3D buf->st_ctime =3D time(NULL);=
 
-I just moved the function, but I can change this, of course.
+>> +
+>> +    return 0;
+>> +}
+>=20
+> This seems to be missing filling st_uid, st_gid, etc.?
+
+Not really. Those are set to zero via the call of init_stat()
+in fstat().
 
 
 Juergen
 
---------------D1D33A2092A6A1CA84D4F5D7
+--------------3F6770108827E3580B54194D
 Content-Type: application/pgp-keys;
  name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Transfer-Encoding: quoted-printable
@@ -259,25 +218,25 @@ ZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------D1D33A2092A6A1CA84D4F5D7--
+--------------3F6770108827E3580B54194D--
 
---aXhJojt8iFn7yoAcRreqoTKFyybsYvxik--
+--0W2V7LbSkIGyKqt9FNI0Fx5UhfeFO4NjS--
 
---ZQFXopqQNJMKD1MOjysciLQ1rGKvqhrEl
+--PLvpBkRijSY4uPCJ9lGjFLYi4wXmC9nb6
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHeiUQFAwAAAAAACgkQsN6d1ii/Ey/p
-oggAnZkFKpvDP7SDKPNwET5ol194uwLJSMsKmC0mTvl5FptiwWTzcVqoRxGv1rOBueTZA2c57JXi
-a66vdN/pnUWoGw7byCKt6edGGeasvfwMYjTxgnaThT9KEHU1XUxz9VpcsMqDlQ5+qygMpjOfNEkV
-GSBANAcHnYNKQNjSkN64rlEVLtvVEqFkXW7WVgEl1z6AIjd5Tl0xHQ9GCSarilPnBTxBusUxWSrY
-pkaaRYpMEJPxMYo/eCBUcdVu5Itwqvjo+38a8NHnuAxRU3AytNx6c3Pm6bTkjXkzWfnaL1nZasXl
-Wpc84sF/+SWYIxZ+P92L9IpttH7kyIR1ZedYC0ClpA==
-=Oxid
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmHeidMFAwAAAAAACgkQsN6d1ii/Ey8C
+Lwf+PYUVsUVFwvyJ8uBpkwccVOCnT/OuRV2iS6p7iaQ0rCUi/4joHE97NCYmE16z6oCiFLECOqLD
+ne8ehDaFI2UYK+9OeHX7oCK9a+XKosJwiG7P24RwP2grFiwGGOx96y8cejKMmlrNEsbww4ZWJX4I
+avkh9s789Qk6Nci3mQPwvB9f840myFsNfD/Re+WPzA64355nfeRyY01ioGd7MI5rr0u+R4FLq2h3
+Yeub6/NqZlePDzwcUTYd5G8JKvwYsTnfiVxHBAbTMvFXE8ENN+iD0pibjALRKaE5bD+rdiQmxlgu
+cwPsQi7e3l82RDevt5cCWForkKFIvauWUtrP7+1CnQ==
+=2X8o
 -----END PGP SIGNATURE-----
 
---ZQFXopqQNJMKD1MOjysciLQ1rGKvqhrEl--
+--PLvpBkRijSY4uPCJ9lGjFLYi4wXmC9nb6--
 
