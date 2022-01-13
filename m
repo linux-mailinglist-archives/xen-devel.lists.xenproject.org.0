@@ -2,29 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43E1948D590
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jan 2022 11:22:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.257054.441478 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3955C48D5C5
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jan 2022 11:31:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.257058.441490 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7xFc-0003n0-9S; Thu, 13 Jan 2022 10:22:36 +0000
+	id 1n7xNK-0005HX-5G; Thu, 13 Jan 2022 10:30:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 257054.441478; Thu, 13 Jan 2022 10:22:36 +0000
+Received: by outflank-mailman (output) from mailman id 257058.441490; Thu, 13 Jan 2022 10:30:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7xFc-0003l8-6C; Thu, 13 Jan 2022 10:22:36 +0000
-Received: by outflank-mailman (input) for mailman id 257054;
- Thu, 13 Jan 2022 10:22:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1n7xNK-0005Ej-0d; Thu, 13 Jan 2022 10:30:34 +0000
+Received: by outflank-mailman (input) for mailman id 257058;
+ Thu, 13 Jan 2022 10:30:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=64pG=R5=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1n7xFb-0003l2-3C
- for xen-devel@lists.xenproject.org; Thu, 13 Jan 2022 10:22:35 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6a1cffb-745a-11ec-a563-1748fde96b53;
- Thu, 13 Jan 2022 11:22:32 +0100 (CET)
+ <SRS0=/WE3=R5=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1n7xNI-0005Ed-2V
+ for xen-devel@lists.xenproject.org; Thu, 13 Jan 2022 10:30:32 +0000
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur03on0607.outbound.protection.outlook.com
+ [2a01:111:f400:fe09::607])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d50ae02b-745b-11ec-bcf3-e9554a921baa;
+ Thu, 13 Jan 2022 11:30:31 +0100 (CET)
+Received: from AS9PR07CA0008.eurprd07.prod.outlook.com (2603:10a6:20b:46c::6)
+ by VI1PR08MB3805.eurprd08.prod.outlook.com (2603:10a6:803:ba::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Thu, 13 Jan
+ 2022 10:30:19 +0000
+Received: from VE1EUR03FT008.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:46c:cafe::b3) by AS9PR07CA0008.outlook.office365.com
+ (2603:10a6:20b:46c::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.2 via Frontend
+ Transport; Thu, 13 Jan 2022 10:30:19 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT008.mail.protection.outlook.com (10.152.18.75) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4888.9 via Frontend Transport; Thu, 13 Jan 2022 10:30:18 +0000
+Received: ("Tessian outbound a33f292be81b:v110");
+ Thu, 13 Jan 2022 10:30:18 +0000
+Received: from 882655aae735.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 742A6D4B-FEA9-4F46-B395-0EE3FC11EF03.1; 
+ Thu, 13 Jan 2022 10:30:11 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 882655aae735.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Thu, 13 Jan 2022 10:30:11 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by DB7PR08MB3564.eurprd08.prod.outlook.com (2603:10a6:10:4f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10; Thu, 13 Jan
+ 2022 10:30:09 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::c0c1:d43a:acf3:a59d]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::c0c1:d43a:acf3:a59d%4]) with mapi id 15.20.4844.019; Thu, 13 Jan 2022
+ 10:30:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,261 +72,485 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6a1cffb-745a-11ec-a563-1748fde96b53
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1642069352;
-  h=date:from:to:cc:subject:message-id:references:
-   in-reply-to:mime-version;
-  bh=jk6+BjB+9ucEjAqXToPydTbHE8W5DVPyM9IHyjxVhBs=;
-  b=OMkQjGSUZXbC+CdaZ1siz6wXTUu4Vf3mlEb8oC+79zEdn4vcy+MbjSWr
-   vSPBlflrIjROD7scPE0y/Ktxz4Q6nB09vUeq14SF76gIY6enXpACBqfO3
-   MBO4VB4HlZZW2ZihrSQ/RINottN3PYqSJkIjdjgBP76/VfHzEvXLHoOHY
-   o=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: mq9R4FaZzdTbEtnsE3P+89x0bjuBafmuqxdHkh/B+P9AYHeNuXNAC5x2IWFNlD1rLVrggbWhrU
- 4HHnilt/MHwZyHsVgMwDSsHTrbHrRHVb6t7xnou/f8EcH4TpFuE8ZUGy8o1qI/yuZCMASYfL4w
- hVJuBVzwrQuQ8NkIBlf121RotjTtbI89mDSu4/JL0trLExnIanZiekTDyG+t/TuIQHJBtVWbvx
- YXsYo6ESGk4llfRFpjrml41ryMJrWbkXn+EGqfOqvj3rj6R9OMInMc41gr42kbs2jbiMyK1eJM
- wxcf37tom42gMTFUiZ22ntyY
-X-SBRS: 5.2
-X-MesageID: 61908854
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:VjBsS6PJKx9HKlXvrR1lkcFynXyQoLVcMsEvi/4bfWQNrUoh0TJWn
- GUdDDuBMvzeN2akfd5ybovk/BsCv5DSmtdkSwto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En150Es4w7dRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYoz6zx8Jxw
- /xcicePElsiP4P2o+0iXwYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YvNrick5atHiIasUu216zCGfBvEjKXzGa/uTtIcIjGps7ixINdrxe
- ZcmNDpvVTn/eBNuNkkpU4xlvej90xETdBUH8QnI9MLb+VP71AVs1JD9PdyTfcaFLe1XlEuFo
- mPN/0ziHwoXcteYzFKt22iwi+r4uDL0UYMfCpW17vdvxlaUwwQ7DxkbVkCyp/WjvUe4V8hCM
- Ewf+icorq8a+VSiS5/2WBjQiGSNvgMYHcFRFeI6wAiXz+zf5APxLmIJVCJbYdoq8so/XyU31
- 0ShlsnsQzdotdW9S2+Z97qShSO/P24SN2BqTT8JS04J7sfupKk3jwnTVZBzHaitlNr3FDrsh
- TeQo0AWjrMfl5RTj/2T8lXOgjbqrZ/MJiYr4QHQUnOg/xlOboevbIy16nDW9f9Fao2eSzGpu
- 3wJmNOX6uwUOo2cjyyGQOgLH7aB6u6MNXvXhlsHN4I66z2n9nqnfIZRyDJzPkFkNoADYzCBX
- aPIkVoPvtkJZiLsNPIpJdLqYyg38UT+Pd/fDuLUZfNfXsNOL1OM/Q9UXkev03+4xSDAjpoDE
- ZucdM+tC1MTBqJm0Ce6So8h7FM7+swt7TiNHM6mlnxLxZLbPSfIEuldbDNie8hktPvsnenDz
- zpI2yJmIT17Wfa2XCTY+JV7wbsifSliXsCeRyC6m4e+zuta9IMJV665LVAJIdUNc0FpegHgp
- CHVtqhwkguXuJE/AV/WAk2PkZu2NXqFkVo1PDY3IXGj0GU5bICk4c83LsVrJ+F+r7Q9ka4vF
- ZHpnvls5NwVGlwrHBxHPPHAQHFKLkz31WpiwQL4CNTAQ3KQb1OQoYK1Fuce3CIPEjC2paMDT
- 06IjWvmrW44b106Vq7+Mav3p3vo5CR1sL8sAyPgf4cCEG2xoNkCA3Gg1ZcffpBTQSgvMxPHj
- W569z9C+7mUy2L0mfGU7Z25Q3CBSLohThEETjiCvd5b90DypwKe/GOJa87RFRj1X2Lo4qSyI
- +JTyvD3Kvocm1hW9YF7Ft5WIWgWvrMDfpdWkVZpGmvldVOuBu8yK3WKx5AX5KZM2qVYqU29X
- UfWootWPrCAOcXEFl8NJVV6MrTfhK9MwjSCv+4oJEja5TNs+ObVW0tlIBTR2jdWK6F4Md15z
- L556tIW8QG2ljEjLs2C0nJP722JI3FZC/cnu5gWDZXFkA0uzl0eM5XQBjWvuMOEaslWM1lsK
- TiR3fKQi7NZz0vEUnwyCXmSgrYN2cVQ4EhHlQZQKU6Il9zJgu4M8CdQqTlnHB5Iyhhn0v5oP
- jQ5PUNCOqjTrSxjg9JOXj7wFlgZVgGZ4EH413AAiHbdExuzTmXIIWAwZbSN8UQe/z4OdzRX5
- ujFmmPsUDKsd8DtxCoiH0VirqW7H9B28wTDnuGhHtiEQMZmMWa03Pf2aDpasQbjDOMwmFbD9
- Ltj8+tHYKHmMTId/v8gAI6A2LVMEB2JKQSumx26EH/lyY0ERAyP5A==
-IronPort-HdrOrdr: A9a23:ds1z7agS1QWb2zb8kpq1NYjGcXBQXt4ji2hC6mlwRA09TyX+rb
- HIoB17726RtN91YhodcL+7VJVoLUmyyXcX2+ks1NWZMjUO0VHAROsO0WKI+VzdMhy72ulB1b
- pxN4hSYeeAaGSSVPyKgzVQxexQouW6zA==
-X-IronPort-AV: E=Sophos;i="5.88,284,1635220800"; 
-   d="scan'208";a="61908854"
+X-Inumbo-ID: d50ae02b-745b-11ec-bcf3-e9554a921baa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4Cqy/lieNL/BjiNGxjS4lI35j/gHcJGeKNhFI80+JUE=;
+ b=G9d+03opiC3TvTuTWYuOQ0M9+TkANdR9RPBYICgkbvVKgdIY0CkK87mcwHq70n2ZSe4vvfRbXNDToE+DSflFm0YUz9jvQrsTso2GEmuAjl0hpm79W8iWLxMpSfyfzkfgkACD9Qd1SMNj5RXIlQNKK9Wm5cunGqggIG0rOHiJZLg=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: dccd68b742805310
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gVJGJHH71dJZntvuPRAyCm4YLeJ5LI8hXLEyknB2WuO6W1G1iHErQz93/o88+ao9epc6HlakPQP0ZIembun5rRSU7VGZ2bR7RIVR6DD6uWg12NWzeg35wInzNohPJYCT+7WH09rqyFVEM8n6EjEBjWKC+ZWO8t0pAn4YzSmWfs2YBGToPL1b0J+NmnPfWtlTN1o/2RWCW9Xf1yKAdKoNjMPnUzOd+l+TXb670GhZvFqKOZjrzLeEcqMvhSQUirIseLRTiRk6uNAfNF37sNEGNGSUQ3Fiu/cgjTHsiiIyOJnYy9c6x4oyXqyiA45CmACYSDi3cgeNN4yOvI/dQPoyBg==
+ b=PRGOb/AcrE3EEKaN6xzfDW5TuqXHtrZrmSRTZsvCTXMDkJMDftg2RnyH3G0n47YNTJLSfgxm/oXsItZEE/crNpA43nXMLTPhplDL1VIF03VTufjFDODSp3BJCX69FlCUDTOIzA/N4K0ZESg/Ah7oYNh6G5CS0vLfthnfQLcBmAOzOsq+RBxuY/7xuBJqedZIVUHWN+bMFxH29vpZ+N9mRidOLv6b/NyZldfAqB2PjzdChs1bSi04mkUxO2qtbsZeT9lpel/qXuspYawssvpx/p8Oi2U/oOdKaE5vwLZem8Nv8VoRY6jGo4tJZdH6AVO/QgbxkiAIagBdhlveGOJVYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=swU79RKhpKmTDx2UQp8knIDGCmys2YDniE22Z0GmeRs=;
- b=LRVwuyCdBWP2Q3YdsJzuyIDaPy0k4VXOeFM0iSl3NJPF2lIA0r2FsOpf5R55eGRVyNNjzlKRuoG3mTzexRw3C9rEJbEuD7/LFnWfQ9s+/hBvSuntmPdvqrsfiYNHgZzUg9Hey6XOpsP8QYdGloq0UMIS2HyNFFcXV0nnEgBynu8SITvlBqEOZuilmacllXmzrz5QCvYoG94W7oqpg6d2EQdwpP1I1OOW6Owad9fWCDEz0cabCnY+6ZUmtf1NDfuDT0TwQxVEIQlCVmfAoqJFHFfyCsHKM5Rey8S/lVUGTdFJt8XkXB8jYoTxxFqLRYgFEqTyBLdpU1Y/4gwhmMynBA==
+ bh=4Cqy/lieNL/BjiNGxjS4lI35j/gHcJGeKNhFI80+JUE=;
+ b=K+pZw2aIprcGGUHW6/jfXWw/zCkSbn3tK3SIwdfO4EZvOJZCLfm6eIVzUrYXDTZiOAYkV/sZazSE+jeKBC/6QnskWqrZ99wSArAD5SqfhBoz4Jslpf31KBd/TEf7NwRvvY3t8WNSstVJJ7mcCo6N5e36Fde/fYnsDXsZfdebKaf4HvrPbJDiEl+tZEFhNSCeBVnIGilFQt1RC7B2TrOc18xwse3XnlqZB3A1nd7u90mB/ZqBsLpobQVuFJAmx4i+ZdeR7X7WpfU2ptbo178by8dNWsuIdNshjpU6w0NN416lbCAJG2CvY8lO3BuinwPbtuyHkdqepa01aNl2FPKwBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=swU79RKhpKmTDx2UQp8knIDGCmys2YDniE22Z0GmeRs=;
- b=A/O3I8xGmxbhlLoZSeEQuotHxDJ4AX/MqyXZyfyaC0ch8DhMetM2OYV0sHD1jPkNm2eBmJnbu7eAHpOXl5zcJX8hfxJJaYexRUbfv0XypFhiHK6zEIxQ+9mMHRscwPbYQt4Pis5TvBrXq7s50+Rn6nk0bhyVm5zxQPwHOY7xxDA=
-Date: Thu, 13 Jan 2022 11:22:19 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Oleksandr Andrushchenko <andr2000@gmail.com>
-CC: <xen-devel@lists.xenproject.org>, <julien@xen.org>,
-	<sstabellini@kernel.org>, <oleksandr_tyshchenko@epam.com>,
-	<volodymyr_babchuk@epam.com>, <Artem_Mygaiev@epam.com>, <jbeulich@suse.com>,
-	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <paul@xen.org>,
-	<bertrand.marquis@arm.com>, <rahul.singh@arm.com>, Oleksandr Andrushchenko
-	<oleksandr_andrushchenko@epam.com>
-Subject: Re: [PATCH v5 08/14] vpci/header: program p2m with guest BAR view
-Message-ID: <Yd/9W7GFO51GE0ch@Air-de-Roger>
-References: <20211125110251.2877218-1-andr2000@gmail.com>
- <20211125110251.2877218-9-andr2000@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20211125110251.2877218-9-andr2000@gmail.com>
-X-ClientProxiedBy: MR2P264CA0106.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:500:33::22) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 518c31da-fb4c-4561-4706-08d9d67e97c8
-X-MS-TrafficTypeDiagnostic: BLAPR03MB5410:EE_
-X-Microsoft-Antispam-PRVS: <BLAPR03MB54104D642B38AA716486EBDA8F539@BLAPR03MB5410.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+ bh=4Cqy/lieNL/BjiNGxjS4lI35j/gHcJGeKNhFI80+JUE=;
+ b=G9d+03opiC3TvTuTWYuOQ0M9+TkANdR9RPBYICgkbvVKgdIY0CkK87mcwHq70n2ZSe4vvfRbXNDToE+DSflFm0YUz9jvQrsTso2GEmuAjl0hpm79W8iWLxMpSfyfzkfgkACD9Qd1SMNj5RXIlQNKK9Wm5cunGqggIG0rOHiJZLg=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, "jgross@suse.com"
+	<jgross@suse.com>, "julien@xen.org" <julien@xen.org>,
+	"Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>, Luca Miccio
+	<lucmiccio@gmail.com>, Stefano Stabellini <stefano.stabellini@xilinx.com>,
+	Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [XEN PATCH v2 5/5] tools: add example application to initialize
+ dom0less PV drivers
+Thread-Topic: [XEN PATCH v2 5/5] tools: add example application to initialize
+ dom0less PV drivers
+Thread-Index: AQHYCBjF7lyxWOD3fkSp4ukaTbOKnKxgwOAA
+Date: Thu, 13 Jan 2022 10:30:09 +0000
+Message-ID: <31200AC7-8FCA-4314-BF42-A6E054858937@arm.com>
+References:
+ <alpine.DEB.2.22.394.2201121646290.19362@ubuntu-linux-20-04-desktop>
+ <20220113005855.1180101-5-sstabellini@kernel.org>
+In-Reply-To: <20220113005855.1180101-5-sstabellini@kernel.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3654.120.0.1.13)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 944ded6d-f835-433f-198a-08d9d67fb20d
+x-ms-traffictypediagnostic:
+	DB7PR08MB3564:EE_|VE1EUR03FT008:EE_|VI1PR08MB3805:EE_
+X-Microsoft-Antispam-PRVS:
+	<VI1PR08MB380529F45700234CA78D45A19D539@VI1PR08MB3805.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:1468;OLM:1468;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 91Wz3flL/NaAOJiI1uoIw20ZK3K7AlNwHiY2iAOxPHe/DTfJASfMCg8B83cU4/HDtqkbwWzOXDJ21DCykbwoBPG/x/6Tl4qlMO62c1rD3gM5KrXOpljjU04NbFGOKUkwWvrNWHfXwM0eItfVF6jp0PCBNMYIFRwqf7GvRy9P6/RvStKoNWB2jQOQqVMu9KXjfyjGZshp1Y0iSk3XNVRuQamnSdmCdM94XSyE9TEioUaZkINNfCiXSh3haKc6izuuDa7zuitZFF6p/wY+ARr8LMaOFntx3yrdu045k3zys9rX6F0xYoQgYXFGbh8LQxXVpcanc4HsAN0wGD3sO54rLSsA7Ha3NUH4KDOE8RLe0QILxpmjTGHlQ3V1puzQpy+DkhpPggvtyHgIUoPGUPvQYOZgKXseEHviUi0NFkYl6TDy5oy9GFvdFE3idX5M6tJn1wkeoREOBzeAu2xx2BjNIHHPcHux9cPbbjAVzFL/XmjXqsqGh0rWkEYV8Jo+FndVmWcSpT0REaexYEZ/vztb7zwiDIPi6d0MpIiFUkQMj46WxQr5sMn7V5wIE97jW0azNPlAXOjl6PI+MpJFWyfW4Pzk3DldIjEMsza2kfh9DSNnznZeCXYAO83YO/W4jLA8VRv1AcuZJ8E3yCsCM2Tro1PyP0P7JwcNO2Qh/abGHPMRmU9+y7bQtGkAtihlQ70eXDiljszE/UIXw8X6zlGfATK3HL5ikFCzw3citprBAImGasM7MFJ6O8T1iuVCBvbIPfOWbxxCM4ev17QiAYpYzA==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(86362001)(91956017)(508600001)(122000001)(6512007)(5660300002)(38100700002)(2616005)(6486002)(66446008)(33656002)(6506007)(2906002)(64756008)(76116006)(66556008)(66476007)(71200400001)(66946007)(6916009)(186003)(83380400001)(53546011)(4326008)(8676002)(26005)(316002)(54906003)(8936002)(38070700005)(30864003)(36756003)(32563001)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <06BA7179B2A7EF40A963A8BA3429D195@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3564
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT008.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	b9d78143-d95b-487e-1ecc-08d9d67fac64
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8oQeSJ0EttQB4u5ZxeM1SuALX/Zcgr+YWr5ZDWjDUH4YGU89JlEFViweQNZjP1AXCYUlc+uiYf7/0cGYgJAJju9V+kUH1NlOu17E19ywkpM0b+J9kGRQPrVjsWDC6wYWhTswn4vQj0YJeR5ZxH2o3yDDohjxQUC+S7L10Y/mKQ7pkOEb9quUR74Mlb9JXFhyO+sBeadbWwYqZw6aqVWQkcA5EOAQhxXeXkYmRbiqWxzG/ZyFy5N3f9Mg8dKdXVPyIR9aG9FxArb60nt6u6Keo/mPirS5qM5rM7UM1XuqpWsuvRPGP0d4h8N663k/kbHAPBplCRUUn38vGYEMaETSjTq1/ooLPjuoVPTkl1zMwFyB7msXupToMT4RGOGvk9GLwjFUsF/Tz+3sOyPJe0GDOm9b/hkcOsy5IhrST4zv9tkqmNDK3g+8RUaerIxI/Do/HkuzsWcq+Vv5x37X5SJ719IjuOXr3PY0qaIcXh0yOwbCfSoJjRrhGAp88XeM52HZFGKXdoX/ZZ/n4SII4dWscghr6nIkmAr47tWc4FXiRz9lHSI2IVfQ6Ve8KkCMVFUraFsUiAo164il9x6towSIB9YtFChdeHj7fT5IszHIoRtbySERkFg2LRgzdNiPFJMjCvtnzZBY+5x1H78Kp7qjnQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(82960400001)(38100700002)(4326008)(6666004)(85182001)(66946007)(66556008)(66476007)(316002)(8676002)(6486002)(6506007)(6916009)(83380400001)(33716001)(6512007)(9686003)(2906002)(7416002)(26005)(508600001)(86362001)(186003)(5660300002)(8936002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cUZIcE0rTnV6WUJuVVJsV2wrQzk5R0RCMmpSaDBxT0IzYWVHaE10MHhla1NR?=
- =?utf-8?B?RW9NdXhLUHRrVEpma2tRdXlISjljTWlZd0IxSXlVQVBLVkVnWGs5dnJ5eDMr?=
- =?utf-8?B?clNnZERTb29BRWdZMG5USjJoS202eFg2Znpta1ZKOFByOXk5ZUJCK2dQc25D?=
- =?utf-8?B?dW02V2p0UzNPNktJZVVrQytTTFNJU2cwYWZvcDJxUlVkSzd0b3R0RFEzQk1U?=
- =?utf-8?B?d1ZJVi91SW5YU0ZwbHBCR25jNmI1cjZwSzNpQnowelh4aFVMVEd6Zit2UXZX?=
- =?utf-8?B?SXpMOWlWbFhaRnhRdS9TTGgybFprSDdBQlFyUmo2dXR4blh6UFBic1JkNGpN?=
- =?utf-8?B?dFNyRUVOMWJ5ejdjcTZ5STlFUWJLMUNYZUR5dVB1eXlReXB4eFNJUURBVlhy?=
- =?utf-8?B?c3R5bm1UdjlERjlnMHlnbnNhQmZDRW5Mc0tObER0YVFwVEZ3ckNncmhPTmp4?=
- =?utf-8?B?Z1VoWktjdElITHl4T1VNVC9NQUkzdkFLWUVMU3gxbkhEUm8xSDRuREFzSzRW?=
- =?utf-8?B?VzFHRC9DU2F1Y0dOeU1qRXZoN3FNdjhHUkhnK09wQndOVUFKenBSczlDazFt?=
- =?utf-8?B?YXBRRDZkV0dFQUZ3K0JaeUwxSUZTNW5TS2NSeWx4LytYckJYbWtISVl6TFkx?=
- =?utf-8?B?ZmNId1Z3cytHczlNMitFWmxMZko1bElEZWFGOXRmNURFd29UTDRlNEpscExC?=
- =?utf-8?B?Z3VXcVB5SmVVc1ZJREN0aTJqOTI0TythNjF5TTR3MkQydjM3MDA2NkRZVjds?=
- =?utf-8?B?QWZlZ0pXV3RKZ05WOGwzVXVWejRnYXFvTVFCd2I0S3BldUsyOVV2Y1dkMVE4?=
- =?utf-8?B?WCs2aHdkMEx3aGlVYS9OVU8vVjNLUXZ4VFFmTHFxUk9XcytIZkprSmkyRFFE?=
- =?utf-8?B?VW1GU1lCUDBpb3IzdjhvSEF3VUUzcUk4TmZaVjlBeW9RYk0zelJ2OEI5N2tu?=
- =?utf-8?B?VFZjRmJtQjdSNVZaRCs2SzlYL09VYytySElmb2grbEtjcXJPK3FpbkYrV0Ri?=
- =?utf-8?B?ZnovYnFTdlVtR0pObXIyaXhNVGk2VDdHbWRkVFBkblpxN1phcXNua3dTZmZM?=
- =?utf-8?B?bTVPelpRUjE2Z0pDR0laRnBkb1JsdlluNkFCMVdrWlpPRmdUVjBTai82Q29X?=
- =?utf-8?B?M1BJREZqem4rYjZTVG82WlN6bG4wenpSc05qVFM0OU9iOE96NDdjdU9Lc1JD?=
- =?utf-8?B?WTgvTUZ4TEtrTGZoQWRuWGNVd1k2YlFHcHlrZ05TTk1DM3J3T1hCUHJzNlZ5?=
- =?utf-8?B?ZzM5MW1sRjlEbzhNaG5ULzUyS05mVThhUktPVXlMV21SMzlZVTBnTjZCY2xV?=
- =?utf-8?B?Z3V3TXRtZnhWL0M4NUNoUDc5eWt5Q2dBNzdkM05rSXNzTEp4NE1lTkNuUjFH?=
- =?utf-8?B?OFY0WFdKSzZzUlU2R0JMcDloYlhnTy9Td090N0FhQUtNRldTbDU3NmhkSzFO?=
- =?utf-8?B?U1JkSTcveGt6UUtIYXZ2RzZ2U0tqYnp3YXJsUnRxMVdwU2RHcEhOZzB5TFJ0?=
- =?utf-8?B?UVZmUzdSNDM4N1QzWmVON05udlMxbTRQVWZmT01yK2lMajVyUU9OYUFNN0ZB?=
- =?utf-8?B?ZDlwKzdoa1RyNjV3RkljRlczTVh5ZFVIN3RYL3A3WXBoNjg2d2tFUTg4RE5n?=
- =?utf-8?B?TkNJSDlvQ0pHL25wSkZxZ1kvanZnQ24xVHRRL1IyVU1EaUZuUlpTaW4wOU9i?=
- =?utf-8?B?S1RpZXU3NkszVVNlYU51eWJnM3pxVllOczh2b3VGKzh4K3ErZ1JTTDZBYUxx?=
- =?utf-8?B?LzNOS2w5STgyREswZ0FUSmRLVlFmdHVuN29lUkEvaEJ0ZXZobXo2dGZDTVcz?=
- =?utf-8?B?NVRrYzQ3TVZzblFJTUNxVFB5UUlZcTl6LzZZSkJRcHl1MTYzNllhZDNLK1Mv?=
- =?utf-8?B?MmpCUjlQR1FzVC9laDlYZTdUeXZiWm56THRsd1pTcmdkNTg0S0QvcHhKNW9O?=
- =?utf-8?B?b2FsV3ExS0R4c2dWUTBQRDVjNXFKTFppRXhsK0Qrb045ajg5bW9JTFN1L0Ni?=
- =?utf-8?B?b05hcnJJT1RMeWx6VHdUNFJ2NWk3UHZrSFpLbUJyT2M2WHpRMlpWS2lJcHpE?=
- =?utf-8?B?WEI4T1VpMWdJWFQxcHdIYWJkcGxicDIyWHBuQ1JLQStWSThLekkwakoxbzRx?=
- =?utf-8?B?SlhMT203NkkycmlGbEtGQW1naHREd05zRTRmd2dGYVdXZUUrY0FYaE9razBU?=
- =?utf-8?Q?8gHXDA89mzeuErBOMFnHNig=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 518c31da-fb4c-4561-4706-08d9d67e97c8
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2022 10:22:25.1919
+X-Microsoft-Antispam-Message-Info:
+	9nQ5zV9JxrofPQcaCAZAkEOE1IHwF485YPVx68tME/jyC9otw4PCHxzLsPtEx+yx2istcUilvUzm3/0sZSzByYHXfUgiURnraIvrcekhZ0POXX+JAgvri7BTAYiOUHs2Cu6FVFFHeMH9fQZ9kqfUwXsP5sXbSy6yuloKd56LVHWbdOzN6+iy3VyUznzFxdErpowMbgqpMU9L/3endwBOofNoqvXIihYIPsSv3rruOg32NA0jWLg4Y5jO0B+jllkof0JLd+txvTpxXesBl+L91+e++JmO4Xatfd+mO1BY6uLqVkDKyLqZhPCVYUQZgLTVAFx801HjZBlEQCc8jyHibMTeRihuxE5fA6PrlKSmzvpGpwmIEPFosl1jjfQOEwg9kO47aqYuI4x97sNyYUje659PK3EcJ0L0v3Tr4gstzq/iHe4bK8zLjImuzk81m9GOC8t2GDizolSLwo4ZAaLNnfoLi6uAYMlOsRqc6P5vstedTFGpxFKG5yE/UQe1GsoucBl4mKCSAmQ2GEuE60drISbzEvsUjMVPmT7Yo0Gk/V8hYkXrc4Y9cqNE87ECeGg6Xe/7iaJ1no79ca2/UJ4+dEodkEIPhKNUkFukX7rQXv3vUKYsU9VPhivF6qPuYketbebLm3pRXb/tMDwf4Km0xMF2gcnSiXyucU7PZ/FDdKWgm5K5LoWTLIa0SUlzJiUC/n+DKoxEBijPAn6WxjZjzLrtc50CWTbkVrwmEVDclI1HMue+zOK4zsamnkBHoonPPWVtvHQU8kxD61SJBDpBwdHaNidRXrich1DRLyt/0WY=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(40470700002)(36840700001)(6512007)(36860700001)(47076005)(6486002)(70206006)(70586007)(508600001)(2616005)(2906002)(8936002)(4326008)(30864003)(54906003)(356005)(316002)(107886003)(26005)(5660300002)(186003)(336012)(53546011)(6506007)(83380400001)(82310400004)(36756003)(6862004)(86362001)(40460700001)(81166007)(33656002)(8676002)(32563001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2022 10:30:18.4606
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 68laJ7MeyZ70meMq7bo85wyfIpRrR9QgUa9bN9PGhPunLQAgmy624SpnNPueb0TF0DbE4PPyrqQUEXc40T/HeA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR03MB5410
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 944ded6d-f835-433f-198a-08d9d67fb20d
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT008.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3805
 
-On Thu, Nov 25, 2021 at 01:02:45PM +0200, Oleksandr Andrushchenko wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> Take into account guest's BAR view and program its p2m accordingly:
-> gfn is guest's view of the BAR and mfn is the physical BAR value as set
-> up by the PCI bus driver in the hardware domain.
-> This way hardware domain sees physical BAR values and guest sees
-> emulated ones.
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> ---
-> Since v4:
-> - moved start_{gfn|mfn} calculation into map_range
-> - pass vpci_bar in the map_data instead of start_{gfn|mfn}
-> - s/guest_addr/guest_reg
-> Since v3:
-> - updated comment (Roger)
-> - removed gfn_add(map->start_gfn, rc); which is wrong
-> - use v->domain instead of v->vpci.pdev->domain
-> - removed odd e.g. in comment
-> - s/d%d/%pd in altered code
-> - use gdprintk for map/unmap logs
-> Since v2:
-> - improve readability for data.start_gfn and restructure ?: construct
-> Since v1:
->  - s/MSI/MSI-X in comments
-> 
-> ---
-> ---
->  xen/drivers/vpci/header.c | 30 ++++++++++++++++++++++++++----
->  1 file changed, 26 insertions(+), 4 deletions(-)
-> 
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index cc49aa68886f..b0499d32c5d8 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -30,6 +30,7 @@
->  
->  struct map_data {
->      struct domain *d;
-> +    const struct vpci_bar *bar;
->      bool map;
->  };
->  
-> @@ -41,8 +42,25 @@ static int map_range(unsigned long s, unsigned long e, void *data,
->  
->      for ( ; ; )
->      {
-> +        /* Start address of the BAR as seen by the guest. */
-> +        gfn_t start_gfn = _gfn(PFN_DOWN(is_hardware_domain(map->d)
-> +                                        ? map->bar->addr
-> +                                        : map->bar->guest_reg));
-> +        /* Physical start address of the BAR. */
-> +        mfn_t start_mfn = _mfn(PFN_DOWN(map->bar->addr));
->          unsigned long size = e - s + 1;
->  
-> +        /*
-> +         * Ranges to be mapped don't always start at the BAR start address, as
-> +         * there can be holes or partially consumed ranges. Account for the
-> +         * offset of the current address from the BAR start.
-> +         */
-> +        start_gfn = gfn_add(start_gfn, s - mfn_x(start_mfn));
+Hi Stefano,
 
-When doing guests mappings the rangeset should represent the guest
-physical memory space, not the host one. So that collisions in the
-guest p2m can be avoided. Also a guest should be allowed to map the
-same mfn into multiple gfn. For example multiple BARs could share the
-same physical page on the host and the guest might like to map them at
-different pages in it's physmap.
-
+> On 13 Jan 2022, at 00:58, Stefano Stabellini <sstabellini@kernel.org> wro=
+te:
+>=20
+> From: Luca Miccio <lucmiccio@gmail.com>
+>=20
+> Add an example application that can be run in dom0 to complete the
+> dom0less domains initialization so that they can get access to xenstore
+> and use PV drivers.
+>=20
+> Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Anthony PERARD <anthony.perard@citrix.com>
+> CC: Juergen Gross <jgross@suse.com>
+> ---
+> Changes in v2:
+> - do not set HVM_PARAM_STORE_EVTCHN twice
+> - rename restore_xenstore to create_xenstore
+> - increase maxmem
+> ---
+> tools/helpers/Makefile        |  13 ++
+> tools/helpers/init-dom0less.c | 266 ++++++++++++++++++++++++++++++++++
+> 2 files changed, 279 insertions(+)
+> create mode 100644 tools/helpers/init-dom0less.c
+>=20
+> diff --git a/tools/helpers/Makefile b/tools/helpers/Makefile
+> index 7f6c422440..8e42997052 100644
+> --- a/tools/helpers/Makefile
+> +++ b/tools/helpers/Makefile
+> @@ -10,6 +10,9 @@ ifeq ($(CONFIG_Linux),y)
+> ifeq ($(CONFIG_X86),y)
+> PROGS +=3D init-xenstore-domain
+> endif
+> +ifeq ($(CONFIG_ARM),y)
+> +PROGS +=3D init-dom0less
+> +endif
+> endif
+>=20
+> XEN_INIT_DOM0_OBJS =3D xen-init-dom0.o init-dom-json.o
+> @@ -26,6 +29,13 @@ $(INIT_XENSTORE_DOMAIN_OBJS): CFLAGS +=3D $(CFLAGS_lib=
+xenstore)
+> $(INIT_XENSTORE_DOMAIN_OBJS): CFLAGS +=3D $(CFLAGS_libxenlight)
+> $(INIT_XENSTORE_DOMAIN_OBJS): CFLAGS +=3D -include $(XEN_ROOT)/tools/conf=
+ig.h
+>=20
+> +INIT_DOM0LESS_OBJS =3D init-dom0less.o init-dom-json.o
+> +$(INIT_DOM0LESS_OBJS): CFLAGS +=3D $(CFLAGS_libxentoollog)
+> +$(INIT_DOM0LESS_OBJS): CFLAGS +=3D $(CFLAGS_libxenstore)
+> +$(INIT_DOM0LESS_OBJS): CFLAGS +=3D $(CFLAGS_libxenlight)
+> +$(INIT_DOM0LESS_OBJS): CFLAGS +=3D $(CFLAGS_libxenctrl)
+> +$(INIT_DOM0LESS_OBJS): CFLAGS +=3D $(CFLAGS_libxenevtchn)
 > +
-> +        gdprintk(XENLOG_G_DEBUG,
-> +                 "%smap [%lx, %lx] -> %#"PRI_gfn" for %pd\n",
-> +                 map->map ? "" : "un", s, e, gfn_x(start_gfn),
-> +                 map->d);
+> .PHONY: all
+> all: $(PROGS)
+>=20
+> @@ -35,6 +45,9 @@ xen-init-dom0: $(XEN_INIT_DOM0_OBJS)
+> init-xenstore-domain: $(INIT_XENSTORE_DOMAIN_OBJS)
+> 	$(CC) $(LDFLAGS) -o $@ $(INIT_XENSTORE_DOMAIN_OBJS) $(LDLIBS_libxentooll=
+og) $(LDLIBS_libxenstore) $(LDLIBS_libxenctrl) $(LDLIBS_libxenguest) $(LDLI=
+BS_libxenlight) $(APPEND_LDFLAGS)
+>=20
+> +init-dom0less: $(INIT_DOM0LESS_OBJS)
+> +	$(CC) $(LDFLAGS) -o $@ $(INIT_DOM0LESS_OBJS) $(LDLIBS_libxenctrl) $(LDL=
+IBS_libxenevtchn) $(LDLIBS_libxentoollog) $(LDLIBS_libxenstore) $(LDLIBS_li=
+bxenlight) $(LDLIBS_libxenguest)  $(APPEND_LDFLAGS)
+> +
+> .PHONY: install
+> install: all
+> 	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
+> diff --git a/tools/helpers/init-dom0less.c b/tools/helpers/init-dom0less.=
+c
+> new file mode 100644
+> index 0000000000..0434ca064f
+> --- /dev/null
+> +++ b/tools/helpers/init-dom0less.c
+> @@ -0,0 +1,266 @@
+> +#include <stdbool.h>
+> +#include <syslog.h>
+> +#include <stdio.h>
+> +#include <err.h>
+> +#include <stdlib.h>
+> +#include <xenstore.h>
+> +#include <xenctrl.h>
+> +#include <xenguest.h>
+> +#include <libxl.h>
+> +#include <xenevtchn.h>
+> +
+> +#include "init-dom-json.h"
+> +
+> +#define NR_MAGIC_PAGES 4
+> +#define CONSOLE_PFN_OFFSET 0
+> +#define XENSTORE_PFN_OFFSET 1
+> +#define STR_MAX_LENGTH 64
+> +
+> +static int alloc_magic_pages(libxl_dominfo *info, struct xc_dom_image *d=
+om)
+> +{
+> +    int rc, i;
+> +    const xen_pfn_t base =3D GUEST_MAGIC_BASE >> XC_PAGE_SHIFT;
+> +    xen_pfn_t p2m[NR_MAGIC_PAGES];
+> +
+> +    rc =3D xc_domain_setmaxmem(dom->xch, dom->guest_domid,
+> +                             info->max_memkb + NR_MAGIC_PAGES * 4);
+> +    if (rc < 0)
+> +        return rc;
+> +
+> +    for (i =3D 0; i < NR_MAGIC_PAGES; i++)
+> +        p2m[i] =3D base + i;
+> +
+> +    rc =3D xc_domain_populate_physmap_exact(dom->xch, dom->guest_domid,
+> +                                          NR_MAGIC_PAGES, 0, 0, p2m);
+> +    if (rc < 0)
+> +        return rc;
+> +
+> +    dom->xenstore_pfn =3D base + XENSTORE_PFN_OFFSET;
+> +
+> +    xc_clear_domain_page(dom->xch, dom->guest_domid, dom->xenstore_pfn);
+> +
+> +    xc_hvm_param_set(dom->xch, dom->guest_domid, HVM_PARAM_STORE_PFN,
+> +                     dom->xenstore_pfn);
+> +    return 0;
+> +}
+> +
+> +static void do_xs_write(struct xs_handle *xsh, xs_transaction_t t,
+> +                        char *path, char *val)
+> +{
+> +    if (!xs_write(xsh, t, path, val, strlen(val)))
+> +        fprintf(stderr, "writing %s to xenstore failed.\n", path);
 
-That's too chatty IMO, I could be fine with printing something along
-this lines from modify_bars, but not here because that function can be
-preempted and called multiple times.
+Error here is ignored, do we really want that ?
 
->          /*
->           * ARM TODOs:
->           * - On ARM whether the memory is prefetchable or not should be passed
-> @@ -52,8 +70,10 @@ static int map_range(unsigned long s, unsigned long e, void *data,
->           * - {un}map_mmio_regions doesn't support preemption.
->           */
->  
-> -        rc = map->map ? map_mmio_regions(map->d, _gfn(s), size, _mfn(s))
-> -                      : unmap_mmio_regions(map->d, _gfn(s), size, _mfn(s));
-> +        rc = map->map ? map_mmio_regions(map->d, start_gfn,
-> +                                         size, _mfn(s))
-> +                      : unmap_mmio_regions(map->d, start_gfn,
-> +                                           size, _mfn(s));
->          if ( rc == 0 )
->          {
->              *c += size;
-> @@ -62,8 +82,8 @@ static int map_range(unsigned long s, unsigned long e, void *data,
->          if ( rc < 0 )
->          {
->              printk(XENLOG_G_WARNING
-> -                   "Failed to identity %smap [%lx, %lx] for d%d: %d\n",
-> -                   map->map ? "" : "un", s, e, map->d->domain_id, rc);
-> +                   "Failed to identity %smap [%lx, %lx] for %pd: %d\n",
-> +                   map->map ? "" : "un", s, e, map->d, rc);
+> +}
+> +
+> +static void do_xs_write_dom(struct xs_handle *xsh, xs_transaction_t t,
+> +                            domid_t domid, char *path, char *val)
+> +{
+> +    char full_path[STR_MAX_LENGTH];
+> +
+> +    snprintf(full_path, STR_MAX_LENGTH,
+> +             "/local/domain/%d/%s", domid, path);
+> +    do_xs_write(xsh, t, full_path, val);
+> +}
+> +
+> +static void do_xs_write_libxl(struct xs_handle *xsh, xs_transaction_t t,
+> +                              domid_t domid, char *path, char *val)
+> +{
+> +    char full_path[STR_MAX_LENGTH];
+> +
+> +    snprintf(full_path, STR_MAX_LENGTH,
+> +             "/libxl/%d/%s", domid, path);
+> +    do_xs_write(xsh, t, full_path, val);
+> +}
+> +
+> +static void do_xs_write_vm(struct xs_handle *xsh, xs_transaction_t t,
+> +                           libxl_uuid uuid, char *path, char *val)
+> +{
+> +    char full_path[STR_MAX_LENGTH];
+> +
+> +    snprintf(full_path, STR_MAX_LENGTH,
+> +             "/vm/" LIBXL_UUID_FMT "/%s", LIBXL_UUID_BYTES(uuid), path);
+> +    do_xs_write(xsh, t, full_path, val);
+> +}
+> +
+> +static int restore_xenstore(struct xs_handle *xsh,
+> +                            libxl_dominfo *info, libxl_uuid uuid,
+> +                            evtchn_port_t xenstore_port)
+> +{
+> +    domid_t domid;
+> +    int i;
+> +    char uuid_str[STR_MAX_LENGTH];
+> +    char dom_name_str[STR_MAX_LENGTH];
+> +    char vm_val_str[STR_MAX_LENGTH];
+> +    char id_str[STR_MAX_LENGTH];
+> +    char max_memkb_str[STR_MAX_LENGTH];
+> +    char cpu_str[STR_MAX_LENGTH];
+> +    char xenstore_port_str[STR_MAX_LENGTH];
+> +    char ring_ref_str[STR_MAX_LENGTH];
+> +    xs_transaction_t t;
+> +
+> +    domid =3D info->domid;
+> +    snprintf(id_str, STR_MAX_LENGTH, "%d", domid);
+> +    snprintf(dom_name_str, STR_MAX_LENGTH, "dom0less-%d", domid);
+> +    snprintf(uuid_str, STR_MAX_LENGTH, LIBXL_UUID_FMT, LIBXL_UUID_BYTES(=
+uuid));
+> +    snprintf(vm_val_str, STR_MAX_LENGTH,
+> +             "vm/" LIBXL_UUID_FMT, LIBXL_UUID_BYTES(uuid));
+> +    snprintf(max_memkb_str, STR_MAX_LENGTH, "%lu", info->max_memkb);
+> +    snprintf(ring_ref_str, STR_MAX_LENGTH, "%lld",
+> +             (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) + XENSTORE_PFN_OFFSET);
+> +    snprintf(xenstore_port_str, STR_MAX_LENGTH, "%d", xenstore_port);
+> +
+> +retry_transaction:
+> +    t =3D xs_transaction_start(xsh);
+> +    if (t =3D=3D XBT_NULL)
+> +        return errno;
+> +
 
-You need to adjust the message here, as this is no longer an identity
-map for domUs.
+All the following is very static and for a dummy reviewer (like me) kind of=
+ magic.
+Could you add a comment on top of this explaining how this list of entries =
+was
+created so that someone updating/reviewing this code can make sure it is ri=
+ght ?
 
-Thanks, Roger.
+> +    /* /vm */
+> +    do_xs_write_vm(xsh, t, uuid, "name", dom_name_str);
+> +    do_xs_write_vm(xsh, t, uuid, "uuid", uuid_str);
+> +    do_xs_write_vm(xsh, t, uuid, "start_time", "0");
+> +
+> +    /* /domain */
+> +    do_xs_write_dom(xsh, t, domid, "vm", vm_val_str);
+> +    do_xs_write_dom(xsh, t, domid, "name", dom_name_str);
+> +    do_xs_write_dom(xsh, t, domid, "cpu", "");
+> +    for (i =3D 0; i < info->vcpu_max_id; i++) {
+> +        snprintf(cpu_str, STR_MAX_LENGTH, "cpu/%d/availability/", i);
+> +        do_xs_write_dom(xsh, t, domid, cpu_str,
+> +                        (info->cpupool & (1 << i)) ? "online" : "offline=
+");
+> +    }
+> +    do_xs_write_dom(xsh, t, domid, "cpu/0", "");
+> +    do_xs_write_dom(xsh, t, domid, "cpu/availability", "online");
+> +
+> +    do_xs_write_dom(xsh, t, domid, "memory", "");
+> +    do_xs_write_dom(xsh, t, domid, "memory/static-max", max_memkb_str);
+> +    do_xs_write_dom(xsh, t, domid, "memory/videoram", "-1");
+> +
+> +    do_xs_write_dom(xsh, t, domid, "device", "");
+> +    do_xs_write_dom(xsh, t, domid, "device/suspend", "");
+> +    do_xs_write_dom(xsh, t, domid, "device/suspend/event-channel", "");
+> +
+> +    do_xs_write_dom(xsh, t, domid, "control", "");
+> +    do_xs_write_dom(xsh, t, domid, "control/shutdown", "");
+> +    do_xs_write_dom(xsh, t, domid, "control/feature-poweroff", "1");
+> +    do_xs_write_dom(xsh, t, domid, "control/feature-reboot", "1");
+> +    do_xs_write_dom(xsh, t, domid, "control/feature-suspend", "");
+> +    do_xs_write_dom(xsh, t, domid, "control/sysrq", "");
+> +    do_xs_write_dom(xsh, t, domid, "control/platform-feature-multiproces=
+sor-suspend", "1");
+> +    do_xs_write_dom(xsh, t, domid, "control", "platform-feature-xs_reset=
+_watches");
+> +
+> +    do_xs_write_dom(xsh, t, domid, "domid", id_str);
+> +    do_xs_write_dom(xsh, t, domid, "data", "");
+> +    do_xs_write_dom(xsh, t, domid, "drivers", "");
+> +    do_xs_write_dom(xsh, t, domid, "feature", "");
+> +    do_xs_write_dom(xsh, t, domid, "attr", "");
+> +
+> +    do_xs_write_dom(xsh, t, domid, "store/port", xenstore_port_str);
+> +    do_xs_write_dom(xsh, t, domid, "store/ring-ref", ring_ref_str);
+> +
+> +    do_xs_write_libxl(xsh, t, domid, "type", "pvh");
+> +    do_xs_write_libxl(xsh, t, domid, "dm-version", "qemu_xen");
+> +
+> +    if (!xs_transaction_end(xsh, t, false))
+> +        if (errno =3D=3D EAGAIN)
+> +            goto retry_transaction;
+> +
+> +    return 0;
+> +}
+> +
+> +static int init_domain(struct xs_handle *xsh, libxl_dominfo *info)
+> +{
+> +    struct xc_dom_image dom;
+> +    libxl_uuid uuid;
+> +    uint64_t v;
+> +    int rc;
+> +
+> +    printf("#### Init dom0less domain: %d ####\n", info->domid);
+> +    dom.guest_domid =3D info->domid;
+> +    dom.xenstore_domid =3D 0;
+> +    dom.xch =3D xc_interface_open(0, 0, 0);
+> +
+> +    rc =3D xc_hvm_param_get(dom.xch, info->domid, HVM_PARAM_STORE_EVTCHN=
+, &v);
+> +    if (rc !=3D 0) {
+> +        printf("Failed to get HVM_PARAM_STORE_EVTCHN\n");
+> +        return 1;
+> +    }
+> +    dom.xenstore_evtchn =3D v;
+> +
+> +    /* Console won't be initialized but set its data for completeness */
+> +    dom.console_domid =3D 0;
+> +
+> +    /* Alloc magic pages */
+> +    printf("Allocating magic pages\n");
+> +    if (alloc_magic_pages(info, &dom) !=3D 0) {
+> +        printf("Error on alloc magic pages\n");
+> +        return 1;
+> +    }
+> +
+> +    printf("Setup Grant Tables\n");
+> +    xc_dom_gnttab_init(&dom);
+> +
+> +    printf("Setup UUID\n");
+> +    libxl_uuid_generate(&uuid);
+> +    xc_domain_sethandle(dom.xch, info->domid, libxl_uuid_bytearray(&uuid=
+));
+> +
+> +    printf("Creating JSON\n");
+> +    rc =3D gen_stub_json_config(info->domid, &uuid);
+> +    if (rc)
+> +        err(1, "gen_stub_json_config");
+> +
+> +    printf("Restoring Xenstore values\n");
+> +    restore_xenstore(xsh, info, uuid, dom.xenstore_evtchn);
+> +
+> +    printf("Introducing domain\n");
+> +    xs_introduce_domain(xsh, info->domid,
+> +            (GUEST_MAGIC_BASE >> XC_PAGE_SHIFT) + XENSTORE_PFN_OFFSET,
+> +            dom.xenstore_evtchn);
+
+This is really verbose and you have no option to make this a bit more quiet=
+.
+Do we really need all those prints ? Could end up being a lot if you have 5=
+ or 6 domains.
+
+> +    return 0;
+> +}
+> +
+> +/* Check if domain has been configured in XS */
+> +static bool domain_exists(struct xs_handle *xsh, int domid)
+> +{
+> +    return xs_is_domain_introduced(xsh, domid);
+> +}
+> +
+> +int main(int argc, char **argv)
+> +{
+> +    libxl_dominfo *info;
+> +    libxl_ctx *ctx;
+> +    int nb_vm, i;
+> +    struct xs_handle *xsh;
+> +
+> +    xsh =3D xs_daemon_open();
+> +    if (xsh =3D=3D NULL) {
+> +        fprintf(stderr, "Could not contact XenStore");
+> +        exit(1);
+> +    }
+> +
+> +    if (libxl_ctx_alloc(&ctx, LIBXL_VERSION, 0, NULL)) {
+> +        fprintf(stderr, "cannot init xl context\n");
+
+You might want to close xsh to be clean here
+
+> +        exit(1);
+> +    }
+> +
+> +    info =3D libxl_list_domain(ctx, &nb_vm);
+> +    if (!info) {
+> +        fprintf(stderr, "libxl_list_vm failed.\n");
+
+You might want to close xsh to be clean here
+
+> +        exit(EXIT_FAILURE);
+
+Why using EXIT_FAILURE here but 1 on the exit before ?
+
+> +    }
+> +
+> +    for (i =3D 0; i < nb_vm; i++) {
+> +        domid_t domid =3D info[i].domid;
+> +
+> +        /* Don't need to check for Dom0 */
+> +        if (!domid)
+> +            continue;
+> +
+> +        printf("Checking domid: %u\n", domid);
+> +        if (!domain_exists(xsh, domid))
+> +            init_domain(xsh, &info[i]);
+> +        else
+> +            printf("Domain %d has already been initialized\n", domid);
+> +    }
+> +    libxl_dominfo_list_free(info, nb_vm);
+> +    xs_close(xsh);
+> +    return 0;
+> +}
+> --=20
+> 2.25.1
+>=20
+
 
