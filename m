@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80D3548E0AC
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jan 2022 23:55:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.257436.442301 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF9D648E0B9
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Jan 2022 00:02:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.257441.442312 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n890O-0005ql-L7; Thu, 13 Jan 2022 22:55:40 +0000
+	id 1n896e-0007PO-8a; Thu, 13 Jan 2022 23:02:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 257436.442301; Thu, 13 Jan 2022 22:55:40 +0000
+Received: by outflank-mailman (output) from mailman id 257441.442312; Thu, 13 Jan 2022 23:02:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n890O-0005ob-H4; Thu, 13 Jan 2022 22:55:40 +0000
-Received: by outflank-mailman (input) for mailman id 257436;
- Thu, 13 Jan 2022 22:55:39 +0000
+	id 1n896e-0007NG-4f; Thu, 13 Jan 2022 23:02:08 +0000
+Received: by outflank-mailman (input) for mailman id 257441;
+ Thu, 13 Jan 2022 23:02:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4cYr=R5=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1n890N-0005oQ-4W
- for xen-devel@lists.xenproject.org; Thu, 13 Jan 2022 22:55:39 +0000
+ id 1n896d-0007NA-BH
+ for xen-devel@lists.xenproject.org; Thu, 13 Jan 2022 23:02:07 +0000
 Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ebf33d56-74c3-11ec-a563-1748fde96b53;
- Thu, 13 Jan 2022 23:55:37 +0100 (CET)
+ id d3703ea5-74c4-11ec-a563-1748fde96b53;
+ Fri, 14 Jan 2022 00:02:05 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 545D861CB0;
- Thu, 13 Jan 2022 22:55:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79625C36AEA;
- Thu, 13 Jan 2022 22:55:35 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A7AB361CB0;
+ Thu, 13 Jan 2022 23:02:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE067C36AEA;
+ Thu, 13 Jan 2022 23:02:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,165 +43,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ebf33d56-74c3-11ec-a563-1748fde96b53
+X-Inumbo-ID: d3703ea5-74c4-11ec-a563-1748fde96b53
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1642114535;
-	bh=Ot0SoWptL7kHsMAlvinJq9R2DRypMwicor7Cw+2akCo=;
+	s=k20201202; t=1642114924;
+	bh=pIn/nxbNCm7QHmhvPrf1o5yCVQz54kQSHoiTG2MkYuU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=DqAPnJ2jc3pmJXXtxOvl2DN4M6R1i1xB3t2Ye/UNvvMTkVeqVvNkRPyHBjCp5fmox
-	 +YuqEeEct/7UxEEEMOjjf0vKFZrZXzKWiQbNX0RDVr1LJ0EcleEScFMhZQb3EnQo2l
-	 T/L0FY7aWMlOzTQPjN8fJueVmqBqfL//Vez95lUhjyxzg36sigc56/PKEfg3H9ru1F
-	 wzTgZrBLa4uHfPRRmJdSUJRiTR/1l34u77R5+a+uZQH8OsvBWf/I76yO0bnkHAjlBo
-	 lJZBU5rOsRxIK5dZlzGCB4pTzRYDjsCWMl/bd9o3Hr/7WhP1/V1qlI+oGlShHWM7if
-	 +zsG6saEGcEEA==
-Date: Thu, 13 Jan 2022 14:55:34 -0800 (PST)
+	b=uXinYRj45/T5fwLulcJ3SEcQMAj58al1pJkkLGWeyWmBpoK51l9vMmJ74A3Dgxpre
+	 OgW+QB/Xfr4h5d2zdGu4RH1FJLt9SuxHIzuN6Glv8pAhrqWTPLeNNSw01zO03rtZyv
+	 Fqw/rgU/AjvwAnNyL9/66C6RgQwGedzj3lek0JCrV7HKq4KoKjZoJ1fzxvpVpaSULe
+	 riAI8SvyfPTMjmcSSzI/9zMyPsMWBCtl2AgMw97RarA1ZEAMGaH8SxtKVH7Usz8IYs
+	 OMDUn1a5ggzxJsbW+YEixD1pEvE4tYUGfyuK5lOM5HSb34H+ovrj1S+bbtQn9MfaLa
+	 hIhKf60YqT8xw==
+Date: Thu, 13 Jan 2022 15:02:03 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Penny Zheng <penny.zheng@arm.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org, 
-    Bertrand.Marquis@arm.com, Wei.Chen@arm.com
-Subject: Re: [PATCH v4 00/11] direct-map memory map
-In-Reply-To: <20211220052123.969876-1-penny.zheng@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2201131454410.19362@ubuntu-linux-20-04-desktop>
-References: <20211220052123.969876-1-penny.zheng@arm.com>
+To: Luca Fancellu <luca.fancellu@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, 
+    Juergen Gross <jgross@suse.com>, Bertrand.Marquis@arm.com, julien@xen.org, 
+    Volodymyr_Babchuk@epam.com, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>
+Subject: Re: [XEN PATCH v2 1/5] xen: introduce xen,enhanced dom0less
+ property
+In-Reply-To: <C435312C-1697-4D7D-8F7A-E7BFFA8AED38@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2201131456530.19362@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2201121646290.19362@ubuntu-linux-20-04-desktop> <20220113005855.1180101-1-sstabellini@kernel.org> <C435312C-1697-4D7D-8F7A-E7BFFA8AED38@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; boundary="8323329-1653450377-1642114923=:19362"
 
-Hi Penny,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Thanks for the update. I tested the series in a couple of different
-configurations and it works great!
+--8323329-1653450377-1642114923=:19362
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-You can add my Tested-by to all patches
+On Thu, 13 Jan 2022, Luca Fancellu wrote:
+> > On 13 Jan 2022, at 00:58, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > 
+> > From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > 
+> > Introduce a new "xen,enhanced" dom0less property to enable/disable PV
+> > driver interfaces for dom0less guests. Currently only "enabled" and
+> > "disabled" are supported property values (and empty). Leave the option
+> > open to implement further possible values in the future (e.g.
+> > "xenstore" to enable only xenstore.)
+> > 
+> > This patch only parses the property. Next patches will make use of it.
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > CC: Julien Grall <julien@xen.org>
+> > CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> > CC: Bertrand Marquis <bertrand.marquis@arm.com>
+> 
+> Hi Stefano,
+> 
+> Subject to Bertrand’s comment on commit message:
+> 
+> Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+> 
+> Just a small curiosity, why we use the prefix “xen,” for the property? I thought since the node uses
+> a “xen,domain" compatible we could use just “enhanced” just like the other properties “vpl011”, “nr_spis”, ...
+
+Julien was the one to suggest the naming but I actually like it.
+
+Yes, if we wanted we could use "enhanced" but I think it is a better
+idea to call this property "xen,enhanced" because that way it is easily
+distinguishable from properties that could be hypervisor-neutral.
+
+Imagine one day we have a device tree spec for a generic hypervisor
+domain. It could have things like memory and even vpl011. However, for
+sure it is not going to have "Xen PV drivers enabled". From a device
+tree perspective it is better to align properties as much as possible
+between similar nodes of different vendors, so ideally "memory" is going
+ot be called "memory" for all hypervisor vendors. So it makes sense for
+this property to have the "xen," prefix as it is different from the ones
+that are more neutral.
 
 
-On Mon, 20 Dec 2021, Penny Zheng wrote:
-> Cases where domU needs direct-map memory map:
->   * IOMMU not present in the system.
->   * IOMMU disabled if it doesn't cover a specific device and all the guests
-> are trusted. Thinking a mixed scenario, where a few devices with IOMMU and
-> a few without, then guest DMA security still could not be totally guaranteed.
-> So users may want to disable the IOMMU, to at least gain some performance
-> improvement from IOMMU disabled.
->   * IOMMU disabled as a workaround when it doesn't have enough bandwidth.
-> To be specific, in a few extreme situation, when multiple devices do DMA
-> concurrently, these requests may exceed IOMMU's transmission capacity.
->   * IOMMU disabled when it adds too much latency on DMA. For example,
-> TLB may be missing in some IOMMU hardware, which may bring latency in DMA
-> progress, so users may want to disable it in some realtime scenario.
->   * Guest OS relies on the host memory layout
+> > ---
+> > Changes in v2:
+> > - rename kinfo.enhanced to kinfo.dom0less_enhanced
+> > - set kinfo.dom0less_enhanced to true for dom0
+> > - handle -ENODATA in addition to -EILSEQ
+> > ---
+> > docs/misc/arm/device-tree/booting.txt | 18 ++++++++++++++++++
+> > xen/arch/arm/domain_build.c           |  8 ++++++++
+> > xen/arch/arm/include/asm/kernel.h     |  3 +++
+> > 3 files changed, 29 insertions(+)
+> > 
+> > diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> > index 71895663a4..38c29fb3d8 100644
+> > --- a/docs/misc/arm/device-tree/booting.txt
+> > +++ b/docs/misc/arm/device-tree/booting.txt
+> > @@ -169,6 +169,24 @@ with the following properties:
+> >     Please note that the SPI used for the virtual pl011 could clash with the
+> >     physical SPI of a physical device assigned to the guest.
+> > 
+> > +- xen,enhanced
+> > +
+> > +    A string property. Possible property values are:
+> > +
+> > +    - "enabled" (or missing property value)
+> > +    Xen PV interfaces, including grant-table and xenstore, will be
+> > +    enabled for the VM.
+> > +
+> > +    - "disabled"
+> > +    Xen PV interfaces are disabled.
+> > +
+> > +    If the xen,enhanced property is present with no value, it defaults
+> > +    to "enabled". If the xen,enhanced property is not present, PV
+> > +    interfaces are disabled.
+> > +
+> > +    In the future other possible property values might be added to
+> > +    enable only selected interfaces.
+> > +
+> > - nr_spis
+> > 
+> >     Optional. A 32-bit integer specifying the number of SPIs (Shared
+> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> > index 6931c022a2..9144d6c0b6 100644
+> > --- a/xen/arch/arm/domain_build.c
+> > +++ b/xen/arch/arm/domain_build.c
+> > @@ -2963,6 +2963,7 @@ static int __init construct_domU(struct domain *d,
+> >                                  const struct dt_device_node *node)
+> > {
+> >     struct kernel_info kinfo = {};
+> > +    const char *dom0less_enhanced;
+> >     int rc;
+> >     u64 mem;
+> > 
+> > @@ -2978,6 +2979,12 @@ static int __init construct_domU(struct domain *d,
+> > 
+> >     kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
+> > 
+> > +    rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
+> > +    if ( rc == -EILSEQ ||
+> > +         rc == -ENODATA ||
+> > +         (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
+> > +        kinfo.dom0less_enhanced = true;
+> > +
+> >     if ( vcpu_create(d, 0) == NULL )
+> >         return -ENOMEM;
+> > 
+> > @@ -3095,6 +3102,7 @@ static int __init construct_dom0(struct domain *d)
+> > 
+> >     kinfo.unassigned_mem = dom0_mem;
+> >     kinfo.d = d;
+> > +    kinfo.dom0less_enhanced = true;
+> > 
+> >     rc = kernel_probe(&kinfo, NULL);
+> >     if ( rc < 0 )
+> > diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+> > index 874aa108a7..c4dc039b54 100644
+> > --- a/xen/arch/arm/include/asm/kernel.h
+> > +++ b/xen/arch/arm/include/asm/kernel.h
+> > @@ -36,6 +36,9 @@ struct kernel_info {
+> >     /* Enable pl011 emulation */
+> >     bool vpl011;
+> > 
+> > +    /* Enable PV drivers */
+> > +    bool dom0less_enhanced;
+> > +
+> >     /* GIC phandle */
+> >     uint32_t phandle_gic;
+> > 
+> > -- 
+> > 2.25.1
+> > 
+> > 
 > 
-> "direct-map" property shall be added under the appropriate domain node,
-> when users requesting direct-map memory mapping for the domain.
-> 
-> Right now, direct-map is only supported when domain on Static Allocation,
-> that is, "xen,static-mem" is also necessary in the domain configuration.
-> 
-> Looking into related [design link](
-> https://lists.xenproject.org/archives/html/xen-devel/2021-05/msg00882.html)
-> for more details.
-> 
-> The whole design is about Static Allocation and direct-map, and this
-> Patch Serie only covers parts of it, which are direct-map memory map.
-> Other features will be delievered through different patch series.
-> 
-> See https://lists.xenproject.org/archives/html/xen-devel/2021-09/msg00855.html
-> for Domain on Static Allocation.
-> 
-> This patch serie is based on
-> https://lists.xenproject.org/archives/html/xen-devel/2021-10/msg00822.html\
-> ---
-> v4 changes:
-> - introduce internal const CDF_xxx flags for domain creation
-> - introduce internal flag CDF_privileged
-> - introduce new internal flag CDF_directmap
-> - add a directmap flag under struct arch_domain and use it to
-> reimplement is_domain_direct_mapped.
-> - expand arch_domain_create/domain_create to include internal-only parameter
-> "const unsigned int flags"
-> - use mfn_eq() instead, because it is the only value used to indicate
-> there is an error and this is more lightweight than mfn_valid()
-> - rename function allocate_static_memory_11() to assign_static_memory_11()
-> to make clear there is actually no allocation done. Instead we are only
-> mapping pre-defined host regions to pre-defined guest regions.
-> - remove tot_size to directly substract psize from kinfo->unassigned_mem
-> - check kinfo->unassigned_mem doesn't underflow or overflow
-> - remove nested if/else
-> - remove ASSERT_UNREACHABLE() to avoid breaking compilation on prod build with
-> CONFIG_GICV3=n
-> - comment and commit message refinement
-> ---
-> v3 changes:
-> - move flag XEN_DOMCTL_CDF_INTERNAL_directmap back to xen/include/xen/domain.h,
-> to let it be only available for domain created by XEN.
-> - name it with extra "INTERNAL" and add comments to warn developers not
-> to accidently use its bitfield when introducing new XEN_DOMCTL_CDF_xxx flag.
-> - reject this flag in x86'es arch_sanitise_domain_config()
-> - add ASSERT_UNREACHABLE to catch any misuse in allocate_static_memory()
-> and allocate_static_memory_11()
-> - add another check of validating flag XEN_DOMCTL_CDF_INTERNAL_directmap only
-> when CONFIG_STATIC_MEMORY is set.
-> - simply map the CPU interface at the GPA vgic_v2_hw.cbase
-> - drop 'cells += (GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS)'
-> - rename 'is_domain_use_host_layout()' to 'domain_use_host_layout()'
-> ---
-> v2 changes:
-> - remove the introduce of internal flag
-> - Refine is_domain_direct_mapped to check whether the flag
-> XEN_DOMCTL_CDF_directmap is set
-> - reword "1:1 direct-map" to just "direct-map"
-> - split the common codes into two helpers: parse_static_mem_prop and
-> acquire_static_memory_bank to deduce complexity.
-> - introduce a new helper allocate_static_memory_11 for allocating static
-> memory for direct-map guests
-> - remove panic action since it is fine to assign a non-DMA capable device when
-> IOMMU and direct-map both off
-> - remove redistributor accessor
-> - introduce new helper "is_domain_use_host_layout()"
-> - explain why vpl011 initialization before creating its device tree node
-> - error out if the domain is direct-mapped and the IRQ is not found
-> - harden the code and add a check/comment when the hardware UART region
-> is smaller than CUEST_VPL011_SIZE.
-> Penny Zheng (4):
->   xen/arm: introduce new helper parse_static_mem_prop and
->     acquire_static_memory_bank
->   xen/arm: introduce direct-map for domUs
->   xen/arm: add ASSERT_UNREACHABLE in allocate_static_memory
->   xen/arm: gate make_gicv3_domU_node with CONFIG_GICV3
-> 
-> Stefano Stabellini (7):
->   xen: introduce internal CDF_xxx flags for domain creation
->   xen: introduce CDF_directmap
->   xen/arm: avoid setting XEN_DOMCTL_CDF_iommu when IOMMU off
->   xen/arm: if direct-map domain use native addresses for GICv2
->   xen/arm: if direct-map domain use native addresses for GICv3
->   xen/arm: if direct-map domain use native UART address and IRQ number
->     for vPL011
->   xen/docs: Document how to do passthrough without IOMMU
-> 
->  docs/misc/arm/device-tree/booting.txt |   6 +
->  docs/misc/arm/passthrough-noiommu.txt |  52 +++++
->  xen/arch/arm/domain.c                 |   5 +-
->  xen/arch/arm/domain_build.c           | 308 +++++++++++++++++++++-----
->  xen/arch/arm/include/asm/domain.h     |  19 +-
->  xen/arch/arm/include/asm/new_vgic.h   |  10 +
->  xen/arch/arm/include/asm/vgic.h       |  11 +
->  xen/arch/arm/include/asm/vpl011.h     |   2 +
->  xen/arch/arm/vgic-v2.c                |  34 ++-
->  xen/arch/arm/vgic-v3.c                |  26 ++-
->  xen/arch/arm/vgic/vgic-v2.c           |  34 ++-
->  xen/arch/arm/vpl011.c                 |  60 ++++-
->  xen/arch/x86/domain.c                 |   3 +-
->  xen/arch/x86/setup.c                  |   2 +-
->  xen/common/domain.c                   |  12 +-
->  xen/common/sched/core.c               |   2 +-
->  xen/include/xen/domain.h              |   9 +-
->  xen/include/xen/sched.h               |   2 +-
->  18 files changed, 490 insertions(+), 107 deletions(-)
->  create mode 100644 docs/misc/arm/passthrough-noiommu.txt
-> 
-> -- 
-> 2.25.1
-> 
+--8323329-1653450377-1642114923=:19362--
 
