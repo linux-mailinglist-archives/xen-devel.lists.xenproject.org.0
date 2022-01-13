@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDE9648D6BD
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jan 2022 12:36:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.257104.441637 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E098C48D6C6
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jan 2022 12:41:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.257140.441770 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7yOd-0007Qz-J8; Thu, 13 Jan 2022 11:35:59 +0000
+	id 1n7yTb-0001uO-Ku; Thu, 13 Jan 2022 11:41:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 257104.441637; Thu, 13 Jan 2022 11:35:59 +0000
+Received: by outflank-mailman (output) from mailman id 257140.441770; Thu, 13 Jan 2022 11:41:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n7yOd-0007Ne-DJ; Thu, 13 Jan 2022 11:35:59 +0000
-Received: by outflank-mailman (input) for mailman id 257104;
- Thu, 13 Jan 2022 11:35:57 +0000
+	id 1n7yTb-0001sH-Hc; Thu, 13 Jan 2022 11:41:07 +0000
+Received: by outflank-mailman (input) for mailman id 257140;
+ Thu, 13 Jan 2022 11:41:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=64pG=R5=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1n7yOa-0007NK-Vb
- for xen-devel@lists.xenproject.org; Thu, 13 Jan 2022 11:35:57 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f6c1a9f8-7464-11ec-a563-1748fde96b53;
- Thu, 13 Jan 2022 12:35:54 +0100 (CET)
+ id 1n7yTa-0001s1-JR
+ for xen-devel@lists.xenproject.org; Thu, 13 Jan 2022 11:41:06 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ae771231-7465-11ec-a563-1748fde96b53;
+ Thu, 13 Jan 2022 12:41:02 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,81 +36,81 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6c1a9f8-7464-11ec-a563-1748fde96b53
+X-Inumbo-ID: ae771231-7465-11ec-a563-1748fde96b53
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1642073754;
+  d=citrix.com; s=securemail; t=1642074062;
   h=date:from:to:cc:subject:message-id:references:
    in-reply-to:mime-version;
-  bh=lMzAsvI6SgmBvQiHzqtwiyAJsvU8BY8M3uvCQgWQzcE=;
-  b=X5OG8PRA1E7e4nz0IBSwN52iLjtMOSFZOq8EO6xxxZPBsq+6Fq5YPAb4
-   04chIiIXPVji0FDA0MQG+CYCoIkfQDSFTezlu8ohWxQx0maOZv22sxWiF
-   gi/sQo8qfYT+Lmrt57VVzhun0Bw473D8MdBXNUqt6zQZZZbZ6uMHsMgug
-   c=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: Hq+BAdRuB6fkMmxGZGnQU0JzUEACrv04UeANnMCNeGB2MYALu+mZ/DzRYMXdHA77dGCJHWuN2d
- keng7Bd14bC00c30epL6UXLrhWCBw2IsVMT3fbvX8gKUO1mGm17K9wspq2a7a1hSL+DZkEtbsL
- XxwTd5nSZ4mhMQKq0DvX5EIWx+5Q+cNSCUQ1p8B1MOcB7X5z+Aot40ZMnmFH+15cM4LQKcbvtK
- WVLnf6lOqnPKM3lznYBwrg9LUkSN3PB6o27CkY/g9QtRcGU7rmFETr3ErCeqS4tASTNpPeX/YB
- 66p3HiOaqk/oF9/qkWwtliBu
+  bh=OQkvPVfHtC9itFzEKwiWYcXmq7frihiq4T1pHAYvacw=;
+  b=VNlXHYRZMyCBZsxQaDZ1wrH3okNDTsr7Cuactcj7fA8WX8mSM7AyecPq
+   nw5IRXqjPezM0nj40Yz/MHUkpaKCRxQl8q9PIRoeZW1AFkYfauXp+rWth
+   IAHHfc49O+F/reuHaa4aeRhiT/c59GcrbR+Qzlv7bO+zeffWth4H8sNAV
+   4=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 3H7nXsMPztkyviVA3Zmx/BUhvXGoB2r8JnCc7uMbt0YuMZgE600tiWK1ZraMaoeqdfz3LzTrAC
+ RJF+QUrnhPrjGVipZy5hNJ9da5bNoTypbVxJPHS1BYbU2IPNvpvNd84100iyoCPD/nM7rZd0OB
+ Xqo2PnGsRM3mYKqkqDTCCgNW0euD0Gwz0j5E+UD6/6VqGJqIcyY82FRTx9aP9csr44jCJVi+7m
+ LyHAzXyNgFkk6T+W0gyBZVtYETKQyzkkLPAbmUUgV8S7Y9hasG/vxT+9aQGsu3C7Pbw8Uqdqvj
+ YrFD6/bCGIp9fkd5xXw8WYVE
 X-SBRS: 5.2
-X-MesageID: 62315187
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 61911924
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:Unz7I6wIwmyPuj0+Wa96t+f3wCrEfRIJ4+MujC+fZmUNrF6WrkUFy
- GBJD2+PPfqJN2D1c9h+bo6//RgAuZ7Xy9NhHlRk+SAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAhLeNYYH1500g7wrdi2tcAbeWRWGthh
- /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
- wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt9Zo8
- M4Oh7utdRYkJKjziuUAcklgCAgraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
- 6ZBbmlQMFbT3Ipaw5riIgVort4kI8TxepsWp1lrzC3DDOZgSpfGK0nPzYECh25t35ARdRrYT
- 9oSZSBCMhSaWT9wNW9KGJ1nht6mq1CqJlW0r3rK/PFqsgA/1jdZyLHwNPLFd9rMQt9a9m6ar
- G/b+2XyAjkBKceSjzGC9xqEr/XTkCbMfZMdHby16NZnmFSWgGcUDXU+Ul+2ouKwjEKkbNtZJ
- 1YJ4SolraU090uDQ8H0Wluzp3vslgQVW8dUVfY77g6N4qPO5kCSAW1sZjRMcsA8vck6Azkjz
- EaUnsjBDCZq9raSTBq19KqQrD60ETgYKykFfyBsZRsI5ZzvrZ8+ijrLT81/C+ilg9vtAzbyz
- juW6i8kiN07hMgHzf/jpQjvjDelp5yPRQkwji3JWWai4hJ8dZSSbYWi4ljG7t5NNI+cCFKGu
- RAsnMyT7/sHC52XozCcW+UGHLyv5PGtPSXVhBhkGJxJ3y+253epcIRU4Td/DERkKMAJfXnue
- kC7hO9KzMYNZj3wN/YxOt/vTZRxpUT9KTj7fvbNVsENUL9sSB6K5iRRd0+N/jDVi2F5xMnTJ
- qynWcqrCH8bD4Fuwzy3W/oR3NcX+8wu+Y/Abcullkr6iNJycFbQEO5YawXWMojV+YvZ+F29z
- jpJCyedJ/yzusXaazKfz4McJEtiwZMTVcGv8Jw/mgJuz2Nb9IAd5x35neJJl29Nxf09egL0E
- peVAB8wJL3X3yyvFOlyQio/AI4DpL4mxZ7BAQQiPEyzx18oapu14aEUevMfJOd7rrQ6lqYqE
- 6leIa1s58ijrBydq1zxirGn/eRfmOmD31rSb0JJnhBiF3Kfe+A50oC9JVa+nMX/JiG2qdE/s
- 9WdOvDzGvI+q/BZJJ+OMpqHlgrp1VBEwb4adxaWfrF7JRu9mKA3e32ZpqJmeKkkdEScrgZ2I
- i7LW3/0U8GX/d9smDQI7IjZx7qU/xxWRRsFTzKFvOfvZUE3PAOLmOd9bQpBRhiEPEvc86S+f
- +RFifb6NfwMhlFRtIRgVb1syMoDCxHH+Ne2FyxoQyfGaUqFELRlLiXU1MVDrPQVlLRYpRG3S
- gSE/dwDYeeFP8bsEVgwIgs5b7vciaFIy2eKtfllcl/n4CJX/aacVRkANRe7lyEAfqB+N5kow
- Ll9tZdOuRC/kBcjLv2PkjtQqzaXNnUFXqh+7sMaDYbnhxAF0FZHZZCAWCb67IvWM4dHM1UwI
- y/Sj63H3uwOyk3Hens1NH7MwesC2she5EEUlAcPfg3blMDEi/k72Axq3Q42FgkFnA9a1+9TO
- 3RwMxEnL6u54Do11tNIWHqhGl8dCUTBqFDx0VYAiEbQU1KsCj7WNGQ4NOuAoBIZ/mZbcmQJ9
- b2U0j+4AzPjfcW31SouQ0917ffkSIUppAHFncmmGeWDHoU7PmW50vP/OzJQpku1G941iW3Gu
- fJurbR5ZqDMPCINp7E2VtuB3rMKRRHYfGFPTJmNJk/S8b0wrN1q5QWzFg==
-IronPort-HdrOrdr: A9a23:8cAeva+BZeWzkYfHIbduk+E8db1zdoMgy1knxilNoENuHPBwxv
- rAoB1E73PJYVYqOE3Jmbi7Sc+9qFfnhONICOgqTM2ftWzd2VdAQ7sSiLcKrweQfxEWs9QtqZ
- uIEJIOeeEYb2IK9foSiTPQe71LrajlgcKVbKXlvgxQpGlRGt9dBmxCe3+m+yNNNW577c1TLu
- vi2iMLnUvqRV0nKuCAQlUVVenKoNPG0LrgfB49HhYirC2Dlymh5rLWGwWRmk52aUID/Z4StU
- z+1yDp7KSqtP+2jjfaym/o9pxT3P/s0MFKCsCggtUcbh/slgGrToJ8XKDqhkF+nMifrHIR1P
- XcqRYpOMp+r1vXY2GOuBPonzLt1T4/gkWSv2OwsD/Gm4jUVTg6A81OicZyaR3C8Xctu9l6ze
- Ziw3+Zn4A/N2KPoA3No/zzEz16nEu9pnQv1cQJiWZEbIcYYLhN6aQC4UJuFosaFi6S0vFpLA
- BXNrCd2B9qSyLYU5iA1VMfguBEH05DUitue3Jy+/B8iFNt7TVEJ0hx/r1pop5PzuN4d3B+3Z
- W2Dk1frsA7ciYnV9MMOA4/e7rENoXse2OEDIvAGyWuKEk4U0i93qIfpo9Fo92XRA==
+IronPort-Data: A9a23:Fd7ZAqCyMJTSmxVW/+nlw5YqxClBgxIJ4kV8jS/XYbTApDgl1TxSz
+ GccWj3VaavcNmX1c40nbYyzox8O6pfVyNdmQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WL6s1hxZH1c+En940Ek7wobVv6Yz6TSHK1LV0
+ T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
+ Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/lyyluPN1j
+ /53iKOOFlgYeYiXhr03XEwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
+ KFGbmBWBvyAr7veLLaTUO5ji95lNMD2FIgepmth3XfSCvNOrZXrHfybvIYJhmtYasZmAq/Ud
+ ZMpNhlVaFfZZhpiFFgvJMIitbL97pX4W2IB8w/EzUYt2EDLxRF1+KjgNpzSYNPibcdfk1ucp
+ 2nG13/kGRxcP9uaoRKs6G6hg9jqjCzyWY8MPLCg//ssi1qWrkQUDBAVTlK9reOOg0iyQc9EK
+ 0cU9ywtqoA/7EWuCNL6WnWQuneEoxpaQNtWHO0S4RuIjKHT5m6xDGUeUiRIbtBgscYsXCErz
+ XeAhdavDjtq2JWXVHac+7G8vT60fy8PIgcqdSICCAcI/dTniIUylQ7UCMZuFravid/4Ei22x
+ CqFxAA3gbkJ15ZTj420+FnGh3SnoZ2hZhAy4gLbT2e09DRzbYSuZ5GrwVXD5PMGJ4GcJnGGu
+ HUHgMGY4Po5EYCWlCeNTeMOG5mk//+AdjbbhDZHBII9/j6g/3qie4F44zxkIkptdMEedlfUj
+ FT74F0LosUJZT3zMPExM9nZ59kWIbbICc3JcdPQKfF0X6dPK1C2uwQ1exe60DW4+KQzqp0XN
+ ZCeeMeqKH8VD6V70Ta7L9sgPa8XKjMWnj2KG82ip/iz+f/HPSPOF+9ZWLebRr1htMu5TBPpH
+ 8Gz3idg4zFWS6XAbybe6ub/xnhafCFgVfgaRyG6H9NvwzaK+kl9Wpc9Ipt7IuSJepi5cM+Sr
+ hlRvWcCmTLCaYXvc1niV5yaQOqHsWxDhXw6JzcwGl2jxmIuZ42ihI9GKcdtJeB8rLI/naUuJ
+ xXgRylmKq4fItgg025MBaQRUaQ4LEj77e5wF3fNjMcDk25IGFWSp46MkvrH/ygSFCun3fbSU
+ JX7vj43taErHlw4ZO6PMarH5wro4RA1xbwuN2OVfIg7UBi8oeBCdn2q5tdqcp5kFPk27mbAv
+ +pgKU1G9bClTk5c2IShuJ1oWK/yQrQuRRQLTjCLhVt0XAGDlleeLUZ7eL/gVRjWVX/u+bXkY
+ uNQzvrmN+YAkkoMuI15e4uHB4pnjzc2j7MFnAliAlvRaFGnVuFpLnWchJEdvaxR3L5J/wCxX
+ xvXqNVdPLyIPuLjEUIQe1V5PrjSi6lMl2mA9+kxLWX7+DRzoOiNX3JNMkTekydaNrZ0bt8om
+ L9zpM4M5gWjoRM2KdLa3DtM/mGBIyVYAaUqv50XGqHxjQ8vxg0QaJDQEHauspqOd89NIg8hJ
+ TrN3PjOgLFVx0zjdXsvFCeSgboB1MpW4B0TlQ0MPVWEnNbBl8Qb5hwJ/GRlVBlRwzVGz/l3Z
+ jphOXpqKPjc5DxvnsVCATyhQlkTGB2D90Xt4FIVj2mFHVKwX2nAIWBha+aA+EcVrzBVcjRBp
+ ezKzW/kVXDhfd3r3zt0Uklg8qSxQdt0/wzEucamA8XaQMVqPWu72vejNTgSth/qIcItn0mW9
+ +Bl8dF5ZbD/KSNN8bYwDJOX1OhIRR2JTICYrSqNIE/d8bngRQyP
+IronPort-HdrOrdr: A9a23:Y3DpFahX2RoP3qsVOmbeFOUH13BQXzh13DAbv31ZSRFFG/FwyP
+ rAoB1L73PJYWgqNU3I+ergBEGBKUmskqKdxbNhR4tKPTOWw1dASbsN0WKM+UyDJ8STzJ856U
+ 4kSdkCNDSSNykFsS+Z2njALz9I+rDum8rJ9ITjJjVWPHlXgslbnnhE422gYytLrWd9dP4E/M
+ 323Ls6m9PsQwVeUu2LQl0+G8TTrdzCk5zrJTYAGh4c8QGLyRel8qTzHRS01goXF2on+8ZpzU
+ H11yjCoomzufCyzRHRk0fV8pRtgdPkjv9OHtaFhMQ5IijlziyoeINicbufuy1dmpDl1H8a1P
+ 335zswNcV67H3cOkmzvBvWwgHllA0j7nfzoGXo9kfLkIjcfnYXGsBBjYVWfl/y8Ew7puxx16
+ pNwiawq4dXJQmoplWz2/H4EzVR0makq3srluAey1ZFV5EFVbNXpYsDuGtIDZY7Gj7g4oxPKp
+ gjMCjl3ocWTbqmVQGYgoE2q+bcHUjbXy32D3Tqg/blnQS/xxtCvgklLM92pAZ1yHtycegA2w
+ 3+CNUZqFh5dL5iUUtMPpZxfSKJMB2/ffvtChPlHb21LtBPB5ryw6SHkondotvaPKA18A==
 X-IronPort-AV: E=Sophos;i="5.88,284,1635220800"; 
-   d="scan'208";a="62315187"
+   d="scan'208";a="61911924"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aTGzW8+IRhA7Xa1sTA0hqkNiJTJjvFSnLArWuf4gxngcOKM+BNJi9JUvtiEgpNwfHLQNnYqq+x5F7f16RfRuM9aMZVIovpl9cD1u1cWGUkp8EBv1huy6lvqHOvU5mtgGb7mo3G3OYCIEW/o6rNsquwSGGA65t8J6cRHi08GUrj0o9fHXqR2W7175X3MK2J22UMEGybQBjwtWpPgEBu4DMQaaDLi320XvgzWg59Ba1FL32n7dk6aEs4pp7nppToafeoaLZHTytl2M9qAhi9v7TZ76nL/X6KMrINRs3f+udg9QZyY133hV/2iRUOiwRT03ay7cyrpXgVmfeJHRqPZl4A==
+ b=PwwKK8Kx/pOmaohb4HeR+Zy4CHtVXhIjoa1EDS+Vl89JY/HjnlBTs0kUl0L9H0WKHT9f2IM0sdBvhsDBudNEZ3UnZJnmaGQv+QSwgfQliju4Ok2Act16okSzOPkbWYEyX57D4VSzwPX7NqRyuPR8SgBeAlMw3dnZUX0YXTNpdmu+4aTWtYLQPhdRcdO9R4s0hw0NU/y2AOyXdUHTlM/XIIx21wt+AOp/5Wc+GHl5PaodOD4KX/FuR3BFZjDl4Y1pXr6q3dULQCGV19GN2RoPUyo1RScvagmmODaSENdwsvVuJ2rklBHg1k3PHOg3GSODBPpD/iveaM4kjaG5Q/WXJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4KMvU8XdiVKuVXBKPWPYetNs0Q+6GRrLYoAXAy5/bqA=;
- b=OMvCEI2PltDVyvtcKYFz/siwjPLneuQyN6o9v10BSPSqLy+p/r0OOUyK7qmEZ6sUBFEocfy5OwbIxQoxC8t0kB5xArcgfcV18hE+Qf3Fmfv5RDC+kdUnJuvD04ieVHnVm53LYNyxKhcbOwoEjTLUwmMf+9obetLxqtntXxpIhzNudTIRy+folveRXnkIkZTQuEBRNWjv22fIt+ulavfEf/kRsGZYfy9nlndJliVyfGktXiBpn5AuILX+MRct5eQ87nApSK0fYOmBCRAgfGsPSanKIMP7yamdPO4aKlpiE6hRz+h+8ML1SX3uyFkYfupR7t7ccAUxWd+vKFgFWfMUlw==
+ bh=Whnu4s4Kz3TznB2fQ1mDh5SGxRBCi6ctjNEfiolaOGo=;
+ b=g15iX11cIb6BcMy3c1LHi/f0AVi1aqQHFOhq9rrrlWDOPE2HpDuX3SH5hRbwU0+oruGYkiIiorQDfMJJrzlHKZGTrnVosbI0I27Sbax1Ujxolcv9wjFyk7uY754ZGYbNiiOmL6eDL/3bZoQgViXhjnbsitNIFtn9QbkazYDPifeR74loQlDkU1njQ2xMZ2MZqdRuN/uRlXymThjOOczbeBX/NmC69f5n5+LFOHdM/YaAt0GRjzs6MJXQVBlw8H8gKmdIZpwjRA4WkTITH0BaQXgHcCWHRLCegbixDw6OmDWTTNHuPAfAvdlRTWtH2fUYR6mlQZtDxZLfHcwyzt8FMw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4KMvU8XdiVKuVXBKPWPYetNs0Q+6GRrLYoAXAy5/bqA=;
- b=th8BZa7Sb86ovoZbYrqlvhhKtNWRpzAGMDjwFf3KThIVdl7eKM1LjWiyhQ/0pbfNvzMFMfs+AfO4DlBIUfPYZliSGzBtEdP9JAJr0R48cN35GsjbtFMwpmkTIZMbSVk/jgtShtLAF/hsMMQVAIoEA21FdLamy7S9ETqDZiyRjmQ=
-Date: Thu, 13 Jan 2022 12:35:34 +0100
+ bh=Whnu4s4Kz3TznB2fQ1mDh5SGxRBCi6ctjNEfiolaOGo=;
+ b=NCa/b3SSkD+udykav9SDyqrANRDE573getIsyWuPEb2PJ9AUNCGlTlR4491s/iWbkDB34VHAELtSxrQysuakmyTfOenNCOa61Fz1frY70wqrgXmu5SFvKmW6q2WoJ7VPa+rvJ57Wypu86dWSM5aHK+jMY5m4l4tRtYPF1Cmm+zQ=
+Date: Thu, 13 Jan 2022 12:40:52 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Oleksandr Andrushchenko <andr2000@gmail.com>
 CC: <xen-devel@lists.xenproject.org>, <julien@xen.org>,
@@ -119,268 +119,119 @@ CC: <xen-devel@lists.xenproject.org>, <julien@xen.org>,
 	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <paul@xen.org>,
 	<bertrand.marquis@arm.com>, <rahul.singh@arm.com>, Oleksandr Andrushchenko
 	<oleksandr_andrushchenko@epam.com>
-Subject: Re: [PATCH v5 11/14] vpci: add initial support for virtual PCI bus
- topology
-Message-ID: <YeAOhksC1rRuYl4x@Air-de-Roger>
+Subject: Re: [PATCH v5 05/14] vpci: add hooks for PCI device assign/de-assign
+Message-ID: <YeAPxA8gZZ/xBYdA@Air-de-Roger>
 References: <20211125110251.2877218-1-andr2000@gmail.com>
- <20211125110251.2877218-12-andr2000@gmail.com>
+ <20211125110251.2877218-6-andr2000@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20211125110251.2877218-12-andr2000@gmail.com>
-X-ClientProxiedBy: MR2P264CA0148.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:1::11) To DS7PR03MB5608.namprd03.prod.outlook.com
+In-Reply-To: <20211125110251.2877218-6-andr2000@gmail.com>
+X-ClientProxiedBy: MRXP264CA0032.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:14::20) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6623a1ee-ccee-43bf-d1ec-08d9d688d33c
-X-MS-TrafficTypeDiagnostic: SN6PR03MB3997:EE_
-X-Microsoft-Antispam-PRVS: <SN6PR03MB399784CF008A5912BEF181808F539@SN6PR03MB3997.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Office365-Filtering-Correlation-Id: 17ba4a4f-3f9b-4f74-2b84-08d9d68990a7
+X-MS-TrafficTypeDiagnostic: BL1PR03MB5973:EE_
+X-Microsoft-Antispam-PRVS: <BL1PR03MB5973FB507C58CBE3B3397C1A8F539@BL1PR03MB5973.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: G8C1pa9JwC4TmpiqhGXYAgeQXP0n44s2VaSfk3PuQEpI0cKsqjtZQxwhAY31ip1j6yjyhBbJ4vCwWM7aSLMrcun7OKBvyjlm8yUISobuuZ5glRvkYruM7VUPGWEDoHgayCDW0CaKKd7eop5weI5NUqzWMr7QCJDo8bszYwW0XtFzigDE4mxhdiQ9mq39LagmNHMMc0XqyFqCMdLdbIKOo0QfgJrduL+RAgOZDqiXDhSybx05lkKe8SN+OrNkUbc0ygcUnU5mhSqUIC8/A9pXbnMbN9yk5krTYMxouSYqr6Z41xn8/DIp2s9UEJDOQYlTOjnydZBOJwQHB7vA78q8ZNiCJvZE0g1M6oTeNS3bXPNp48qqUXVsMrDmiJzL9GXHY6zO6r8rVbt+hXoozHbfvjuyvKwLmn7kG7QpmUO73FlvvdGbdeERRrVaJvynOOf/bxAISHJTdOF2ZA+PSoWUMHBxDYhK2wMlKWhaHUQHyxSHAG6NHC1+Qg39CVX7AYUr2hxGnGgmfSu9Gaw0ZKpKZptYUy1DIAJ7yCklmERD1j8am4eQmfeUFim6BbkNZIym1im7pqPkBxtkCg0hPxu6q3T6yNKwqyFJwDq5Lg3zy6RQ9l+MEFWfjacNsEEQ8zSW4ue1VQfwaSrKgE7bXY+y+Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(7916004)(366004)(66476007)(66556008)(186003)(2906002)(26005)(6506007)(38100700002)(6916009)(316002)(83380400001)(7416002)(6666004)(6512007)(85182001)(33716001)(8936002)(86362001)(4326008)(6486002)(5660300002)(508600001)(9686003)(8676002)(82960400001)(66946007);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: t5DiQrX23sgCBZGiM6GUBqzXMq8kcU26JHCDrNKkvJqHt1o3vrxgXFN0xAW/6cDa77GfMh4w9Wm0Clc9+tBA1RX1NtvaLKV4hzDxn77QID8c2vHhRsRjYuT7G7GwMudoD3nAA9mCWJ8vLzsYPNVBtYcvYdDrXNV8CQrhcSBf1jcyVZUMRcwV8AIS/upajAS3OMV7rpE8opMbESo2FuemI3nxsYcFQKXhQAR3BLbL/nkJ1fHXIpTXldis3PcTOy8iZNxjahNn2vJdH3rqUYX9yJJ0RgTTN2oqeHb2JkjoRlGVvxqY9LCioaPPaWbeIp3wh95X3IDA6XHtUBRLIASSkZRA1x5kdLGtglZkx6famM09z8r8nvlYgZiK6ZPeDMBd+iBd5jcArWysnBtCh/PzI3dC/ZTcTv7Oj4A5taUmycWvp3Bp3R5apYrnnT29b7so0aB2qRm0DonRok7Bwq8pu+kW1io9SIBC0F82uibdNHE4LFCso+erLdp/p/azdoVwKOBstC0bR5pgO1q5U9Inn+z78KIAAFvS7O0DtrVWm2kfnPKB/tdkafq/zYMxRgtCheqI+9HEnAELxgs3GidlPhAFQ0J31Hp2lAxEjuQDbaSpGcaAOYiDb7UYEqrEidl5SBM10tbhxFVyANjy9fieTg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(2906002)(9686003)(6506007)(8936002)(6512007)(4326008)(38100700002)(508600001)(316002)(8676002)(66946007)(66476007)(66556008)(26005)(82960400001)(6916009)(6666004)(5660300002)(85182001)(86362001)(7416002)(6486002)(186003)(83380400001)(33716001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VzU2Wng5WXptWW40dE5PS2laSktCS0lQRTAvK0k1L1d1eVZudVI5MUhzbmtE?=
- =?utf-8?B?UzBmbUNmenRpMXZqOW5LaHJhc2RzWjlxS2NoaDNBaVNmMkNhdENGYm1ZaXNY?=
- =?utf-8?B?UG5NWkZBWkxzc0tXWElmUkNMYkpPUFdCajI1S0IzLzU5QXpBOWhsOUFCemlY?=
- =?utf-8?B?WEJmTGFiT3F4aXdaK1BSM0Q0OXhzZk1SL0lCaHpZOTU5RFpTdE9ZZUpFMmxE?=
- =?utf-8?B?S05yNkFwdlM1dFZUTWNncGx6bnVQVnIvWFpsd0x4YS9YekZvM1RkNHkzNVFF?=
- =?utf-8?B?ZlY3blpmSjkvQ3VwbDRyamtSR2N3WEpRV2E0ME5vMVJoNDJxRnN3aXRHTGlo?=
- =?utf-8?B?UExMRzJRMitaVHBUdlRCL3VIT2NRUnZnWmxiSkJsUHhXeFFSejE4VlR4MXRq?=
- =?utf-8?B?L3FXenUrZm5ZY3lxaGJkTzhIYmkyNGRLTk92RitDbm1sdTFzUi9SRnB6SWJT?=
- =?utf-8?B?MWhaRGdXWkhOS2tZdVBrczdSOEJ5RVgvSVhxcE1OZzVNbTlzN2R6aHdsNE5W?=
- =?utf-8?B?NmdxRjMzM1lId09Zbjg3bEFxamxoYzdIMUpxZkZSN2EvdjlvczNZRzNkU3Uz?=
- =?utf-8?B?amlJVVhGRnpmR3lLSlpvc2pWSGRLVmhIcWtmY0E4UnRESkJja01pSkxaRXZQ?=
- =?utf-8?B?dkFycFR1N1RXWEk3VEVUZm5YR0hzOFIvTDdLTVhXUHBvSmcwV0VZbG05Rk82?=
- =?utf-8?B?RFVwS0xFNkhSbmV1MXl6K2J3clIyRW9WMXc2WFFqdHZTTkVUY1pFeHMxd1d2?=
- =?utf-8?B?aFVuK3RJd09xWXprbllleVBNSFJrREN5a0FKUzRoU2QwZjdjS0Y4UUcxaHFv?=
- =?utf-8?B?MW40bFBIc0FibzZoaGxhUW91RWFBRkdMcTRnUVl4QiszZVJuWU8rODFzdGw3?=
- =?utf-8?B?SWJLWjErdXloaTNTbGZpWlZsUk5mWlhDOGxYaEhERzdvblFETEtDMUVXMFJK?=
- =?utf-8?B?K1dMTyt1NEJHOWphOFd5YXVkT3dxa2FidjJaWTVGZ3ExeFg3aW9nVUtLUHJC?=
- =?utf-8?B?ZU05Q3JOZnhmVXJiUHlkMXVqZ3dkL1ZMWEozUTc5RUY4R1JqcEtkTUR1eXhm?=
- =?utf-8?B?TlJ0dFFUZzcwK3ZmVk9BYTBFcEwxdzIrclJoUjBCVTdiWFBCMjM4ZWFBWkpN?=
- =?utf-8?B?djhSS3RDWU9vUTJwS0xubWJWMXJVUnN0YTg0clhCUmtSNkErUXExY1BuQXB6?=
- =?utf-8?B?M0ozYlc1Z0RNVyt0Y2ZoTU55eFRsUjI3RjdITnYrQ0JPT1hQV1ZzTWZWUFda?=
- =?utf-8?B?VHZQYkZicFR2WDNTMXg2ekczdHFzU3RXendLc0xwdzBOVnEyTDNrTzMvaWdL?=
- =?utf-8?B?TGZCbXFidjA1VDhLN0ZpZjREVnliVVBGOGE0ZUNTV2FCWDBoNS80MVdWWjZV?=
- =?utf-8?B?YVNzNi9QN2prTVJ6Uit1Yjc4clJoeXRwV3lUQzdGVG40UDNUUitRdmRxK2JD?=
- =?utf-8?B?NHliYWlaaHdZWEx4aXdGWTRESzZYRmlnR0Q1QXh2Sm0vdEhkL3FlN0pxSDRY?=
- =?utf-8?B?SXc1dm1nMWs0dUtXNWRhK3VycndUdE1MckpKN2k4R21VRldMSHZRVFEyeFhX?=
- =?utf-8?B?SHhCYzBiZWxTcE1PRmNGbnoycEJHenVGWmhVMjdFYnJLKzhyMFgzVkNDQUJS?=
- =?utf-8?B?dU5HeXZNcktIVTVjQXdSS1VPYklXTUpnNUJLQlUweXhnYzlqVjBFODNHa05U?=
- =?utf-8?B?cUtGdy9pTjFWTVVWZEUzaEpCNWQ0NjkrNnVNYWhSRllaWWdkRXBnM05kRVBm?=
- =?utf-8?B?NnVNVXpuelp0aW9qTmN5c2M0dVd2akpUZUFEazFYTzVqUVRiL29hL04vWTBm?=
- =?utf-8?B?QStYYi9pRXRKRTFOeG02eWEzRXFrSmtPTlNjamE0eXZKSDFkQUttSm9hdkti?=
- =?utf-8?B?UHNqdzR4T3NtMkdpWlRVT2NRa1ZvM0NWTnFTSWx6QnQzVCsvdjl5cXFrbjBS?=
- =?utf-8?B?MTU4YXczb2YxbDdLaEtyYWc5czFqRVZTMFRMZ2YySVdESEl4UEdUcFQ3Wi80?=
- =?utf-8?B?dHNWSW9tRm5wRVI5NjdnUzhqMlQ4YXBQaHM1bkJMVjFyVWxHVWk3SXNha3Nu?=
- =?utf-8?B?VTJSSElDYnFxdC83RlJPZlV1UC9EU0MwT0cwdUJIQ2tSYmc2a2NsTFk4bGNQ?=
- =?utf-8?B?STV3blNKcVBMTWtqakdKMWpRTXRob0c4VkJ3ZzVnd3NVUDVDSko5Rzk5Unc0?=
- =?utf-8?Q?qMebn96mYicKC1qJmtbf/JI=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6623a1ee-ccee-43bf-d1ec-08d9d688d33c
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OGpZU0RXdWFYcFN4OUllUTFFSEtXdkNpam9NMW04U3dwV2FueVJ5TS9Za1ZS?=
+ =?utf-8?B?TE9NNnpjUUxBbVNOY0VjS29HV3RvcDlHdUdkbEczTmV1Ri80aFV0THorMFc2?=
+ =?utf-8?B?L2MxUUc1RGlpb1ovYTlyRFdXbktqRnZ1cjFJNlRMNW9nMVM0b3ozQzEwVTgx?=
+ =?utf-8?B?bWxyRGxhd3BRek9teUN4MVBsVUdicEQ4YmpHc01CeXdrZ0tTQmpPRlRYRk9I?=
+ =?utf-8?B?M2p1d1ZURW1LVTk5anBYVm5JS1hkWlpmWlFnWTJpUFVwaUVIckxUbXZvV0F5?=
+ =?utf-8?B?UFFONkpnekpJTnUzcEFZVDUvQko1Qm55cEJxcWVhdHBWL2ZTZElnQzZkd3hV?=
+ =?utf-8?B?Si8zd0xEZ25xODlDclIvN1IvQ2xCd3ZLWDRJZk8ybkRGVG53OUp2NEthUXJo?=
+ =?utf-8?B?andBNHZ0cWJXR2pESU0wY3hwaWl2czFvaHNDQXNrdlU1ZDZ2eGl2US9seWF5?=
+ =?utf-8?B?UDdxazV6OUIvR0J6VGd2bFZnc3dJb3d1Mlp6amorWm5ZOGszMC9FTlY3TVB0?=
+ =?utf-8?B?dXpsWmM2dmRUS05mN3hmc01aNExSL0o4VWJaVm1rd3RRSHRhdGpwNllGZk5M?=
+ =?utf-8?B?T1hpcGFPTFBIeEdqSU50Y05YTWJIWndHcTNIUGQ5bEpHd0xUdDVIZVZrdGJS?=
+ =?utf-8?B?ZFlTcmR6VlpBa1p2bml0WWFQNHpJTzVqblBvSDg5cFZGbExscVZwZnRjeDEx?=
+ =?utf-8?B?NnVHSms1WTFpQk1DbnVPMUdoV2REc2xSUSsxQjIzUGNkMDEyWTVVcmxDSWpE?=
+ =?utf-8?B?a3IxZDZhMit4OFdvUDdkUFJLUC9ZTXBiVE9MeXZCNU43U0Y0Z1RvWlhyUWh2?=
+ =?utf-8?B?VTZRU0wzcUpxeVE1VWZqNnMvZ2tsSnJUQk44azNlcTNISlBIQXl0RmEwbXBJ?=
+ =?utf-8?B?VVIveGNHZHRpVUd0WWNwS1hXVC9ZdDJvZGlpZkZoNC9INGl5OERGeTczekg1?=
+ =?utf-8?B?R2tQbDR2NGxGQlF3amlnSVJPZWJOd2hCRkVXV1BCb3lJZGJuekdIaXBLdXUx?=
+ =?utf-8?B?NTRFeE1PeEVwWWlqeExrZ3JmUzZlRjNIbE9NOC9XYllXNURFdXNYUWF4Nmpp?=
+ =?utf-8?B?Skw2ei9HS1pXbjJtdVd1b2o0MFZXazMvaWF3NGl3QnRhUER6UlZXMEljU3Uw?=
+ =?utf-8?B?RlJqMzlpVG9mT1E5OEtPZ3pNVXJpTUtjRGlSZEtodm9hK0FRTmNaQjZ1bS9N?=
+ =?utf-8?B?RTZSOGZtdFRSVGxmTEVadFBpSWR0aloyRHJObTNndi96SDFSZGc0eVlDdDRX?=
+ =?utf-8?B?UFdtV0phOURBSFlZL2RnaEJhdFlsZERrVkZlV25HMVFBSFQ4Rk9ka0lLblYx?=
+ =?utf-8?B?WFA3REJMeUJ2a0htVmMxOEZTVmhaZHZUSkVWS2V2UFJ2M0JXNDVPd01QS2JK?=
+ =?utf-8?B?K2k1QXhLT3pIMFpuc1NvQmpPREVIRzY3SFUyQWxKSjczNEw5bG9ObUs1MVht?=
+ =?utf-8?B?R3BOMzVIdFRRY0VOS1RuR0o2M1ZLTHJTanBoMEkrcjNzeWNBTHJRUHJUQ0dz?=
+ =?utf-8?B?Wm1tWGlqTERpYm1TUWRUbDFkeHpGTkova1Y3UVNHcm93MDRxenlmbyt5eWJG?=
+ =?utf-8?B?Z3BpSVZnTWhuaFkrR3RJS015bFpTdk1VUnZjREJmcnNrcmkraFpTZUMwUVV0?=
+ =?utf-8?B?dUJQN3FUYXQ2YWpHSEdxUHBUZ09RaGliRDBnUnJNMmIwM0F0akFnTmdNNGhL?=
+ =?utf-8?B?ZEQyTEdGbVdEOHZLQ3BCeit2TzhnUldsY1BjK0Mxd3NKakxwOCtFam5sdG5G?=
+ =?utf-8?B?N0pzTnY5Z0xnZ1ZDM2lld0ZpV1M1cnRLbjBwZ0lIUTJxeVBLQUV0R0hvaUgv?=
+ =?utf-8?B?VDBDWVpWcHRZWlEvd1JFK2ZsaVY2LzRFSE5hVGhmRzV0TWdxWGpKVk13czJU?=
+ =?utf-8?B?Qk5zNWc4L0FXd1RnUUFVRnhFMjJ0d2pVTU8zazR0RU0xcnVScWNuYmpvei9M?=
+ =?utf-8?B?YzE3UjdlYTF4QzA5VzNZcUNyeCtBQmVLQ3d4RmxCSkdRbHdMbXJ1MUd3b25n?=
+ =?utf-8?B?VDhKTTZBT0puUVJ4cnZ1S0UzRktYN3RKOWJzNkM0KzV3UC9yNXBFUnIxZjRP?=
+ =?utf-8?B?Q0FQaEorU1M3blNnMUhpRDBzYTdzR1hQRS9EZHgwQlp1TkJtSHQ0S3hWakhF?=
+ =?utf-8?B?aEs1TmgrU3V5SzVxWm5LMnZkRDFjc2tQZWNncG9TUXQ5VzMrRVkyR0tDRE5B?=
+ =?utf-8?Q?tOd6nGdIVrltr/AyVMbJXCs=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17ba4a4f-3f9b-4f74-2b84-08d9d68990a7
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2022 11:35:39.9697
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2022 11:40:57.8030
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f7pWb+ptBD4C6Cl/rvOnmAiJ2eopbcwe9yaoTOWELJ534LHZwiILYOa02ZtUXHJh6R85rUS469UYFrfI38d76A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR03MB3997
+X-MS-Exchange-CrossTenant-UserPrincipalName: FJ8VjH7gLhN+Hj0Qp7tt+M//AdflZk1KdHCu5xldvbYSkKcwtjvfW099jJWjx3jBzppSSxiyJbxVETsvAuJtew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR03MB5973
 X-OriginatorOrg: citrix.com
 
-On Thu, Nov 25, 2021 at 01:02:48PM +0200, Oleksandr Andrushchenko wrote:
+On Thu, Nov 25, 2021 at 01:02:42PM +0200, Oleksandr Andrushchenko wrote:
 > From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> Assign SBDF to the PCI devices being passed through with bus 0.
-> The resulting topology is where PCIe devices reside on the bus 0 of the
-> root complex itself (embedded endpoints).
-> This implementation is limited to 32 devices which are allowed on
-> a single PCI bus.
-> 
-> Please note, that at the moment only function 0 of a multifunction
-> device can be passed through.
-> 
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> ---
-> Since v4:
-> - moved and re-worked guest sbdf initializers
-> - s/set_bit/__set_bit
-> - s/clear_bit/__clear_bit
-> - minor comment fix s/Virtual/Guest/
-> - added VPCI_MAX_VIRT_DEV constant (PCI_SLOT(~0) + 1) which will be used
->   later for counting the number of MMIO handlers required for a guest
->   (Julien)
-> Since v3:
->  - make use of VPCI_INIT
->  - moved all new code to vpci.c which belongs to it
->  - changed open-coded 31 to PCI_SLOT(~0)
->  - added comments and code to reject multifunction devices with
->    functions other than 0
->  - updated comment about vpci_dev_next and made it unsigned int
->  - implement roll back in case of error while assigning/deassigning devices
->  - s/dom%pd/%pd
-> Since v2:
->  - remove casts that are (a) malformed and (b) unnecessary
->  - add new line for better readability
->  - remove CONFIG_HAS_VPCI_GUEST_SUPPORT ifdef's as the relevant vPCI
->     functions are now completely gated with this config
->  - gate common code with CONFIG_HAS_VPCI_GUEST_SUPPORT
-> New in v2
-> ---
->  xen/drivers/vpci/vpci.c | 51 +++++++++++++++++++++++++++++++++++++++++
->  xen/include/xen/sched.h |  8 +++++++
->  xen/include/xen/vpci.h  | 11 +++++++++
->  3 files changed, 70 insertions(+)
-> 
-> diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-> index 98b12a61be6f..c2fb4d4db233 100644
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -114,6 +114,9 @@ int vpci_add_handlers(struct pci_dev *pdev)
->      spin_lock(&pdev->vpci_lock);
->      pdev->vpci = vpci;
->      INIT_LIST_HEAD(&pdev->vpci->handlers);
 > +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-> +    pdev->vpci->guest_sbdf.sbdf = ~0;
-> +#endif
->  
->      header = &pdev->vpci->header;
->      for ( i = 0; i < ARRAY_SIZE(header->bars); i++ )
-> @@ -145,6 +148,53 @@ int vpci_add_handlers(struct pci_dev *pdev)
->  }
->  
->  #ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-> +int vpci_add_virtual_device(struct pci_dev *pdev)
+> +/* Notify vPCI that device is assigned to guest. */
+> +int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
 > +{
-> +    struct domain *d = pdev->domain;
-> +    pci_sbdf_t sbdf = { 0 };
-> +    unsigned long new_dev_number;
-
-I think this needs to be limited to non-hardware domains?
-
-Or else you will report failures for the hardware domain even if it's
-not using the virtual topology at all.
-
-> +    /*
-> +     * Each PCI bus supports 32 devices/slots at max or up to 256 when
-> +     * there are multi-function ones which are not yet supported.
-> +     */
-> +    if ( pdev->info.is_extfn )
-> +    {
-> +        gdprintk(XENLOG_ERR, "%pp: only function 0 passthrough supported\n",
-> +                 &pdev->sbdf);
-> +        return -EOPNOTSUPP;
-> +    }
+> +    int rc;
 > +
-> +    new_dev_number = find_first_zero_bit(&d->vpci_dev_assigned_map,
-> +                                         VPCI_MAX_VIRT_DEV);
-> +    if ( new_dev_number >= VPCI_MAX_VIRT_DEV )
-> +        return -ENOSPC;
+> +    /* It only makes sense to assign for hwdom or guest domain. */
+> +    if ( is_system_domain(d) || !has_vpci(d) )
+> +        return 0;
 > +
-> +    __set_bit(new_dev_number, &d->vpci_dev_assigned_map);
+> +    spin_lock(&pdev->vpci_lock);
+> +    rc = run_vpci_init(pdev);
 
-How is vpci_dev_assigned_map protected from concurrent accesses? Does
-it rely on the pcidevs lock being held while accessing it?
+Following my comment below, this will likely need to call
+vpci_add_handlers in order to allocate the pdev->vpci field.
 
-If so it needs spelling out (and likely an assert added).
+It's not OK to carry the contents of pdev->vpci across domain
+assignations, as the device should be reset, and thus the content of
+pdev->vpci would be stale.
 
-> +    /*
-> +     * Both segment and bus number are 0:
-> +     *  - we emulate a single host bridge for the guest, e.g. segment 0
-> +     *  - with bus 0 the virtual devices are seen as embedded
-> +     *    endpoints behind the root complex
-> +     *
-> +     * TODO: add support for multi-function devices.
-> +     */
-> +    sbdf.devfn = PCI_DEVFN(new_dev_number, 0);
-> +    pdev->vpci->guest_sbdf = sbdf;
+> +    spin_unlock(&pdev->vpci_lock);
+> +    if ( rc )
+> +        vpci_deassign_device(d, pdev);
 > +
-> +    return 0;
-> +
-> +}
-> +REGISTER_VPCI_INIT(vpci_add_virtual_device, VPCI_PRIORITY_MIDDLE);
-
-I'm unsure this is the right place to do virtual SBDF assignment, my
-plan was to use REGISTER_VPCI_INIT exclusively with PCI capabilities.
-
-I think it would be better to do the virtual SBDF assignment from
-vpci_assign_device.
-
-> +
-> +static void vpci_remove_virtual_device(struct domain *d,
-> +                                       const struct pci_dev *pdev)
-> +{
-> +    __clear_bit(pdev->vpci->guest_sbdf.dev, &d->vpci_dev_assigned_map);
-> +    pdev->vpci->guest_sbdf.sbdf = ~0;
+> +    return rc;
 > +}
 > +
->  /* Notify vPCI that device is assigned to guest. */
->  int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
->  {
-> @@ -171,6 +221,7 @@ int vpci_deassign_device(struct domain *d, struct pci_dev *pdev)
->          return 0;
->  
->      spin_lock(&pdev->vpci_lock);
-> +    vpci_remove_virtual_device(d, pdev);
->      vpci_remove_device_handlers_locked(pdev);
->      spin_unlock(&pdev->vpci_lock);
->  
-> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> index 28146ee404e6..10bff103317c 100644
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -444,6 +444,14 @@ struct domain
->  
->  #ifdef CONFIG_HAS_PCI
->      struct list_head pdev_list;
-> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-> +    /*
-> +     * The bitmap which shows which device numbers are already used by the
-> +     * virtual PCI bus topology and is used to assign a unique SBDF to the
-> +     * next passed through virtual PCI device.
-> +     */
-> +    unsigned long vpci_dev_assigned_map;
-
-Please use DECLARE_BITMAP with the maximum number of supported
-devices as parameter.
-
-> +#endif
->  #endif
->  
->  #ifdef CONFIG_HAS_PASSTHROUGH
-> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-> index 18319fc329f9..e5258bd7ce90 100644
-> --- a/xen/include/xen/vpci.h
-> +++ b/xen/include/xen/vpci.h
-> @@ -21,6 +21,13 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
->  
->  #define VPCI_ECAM_BDF(addr)     (((addr) & 0x0ffff000) >> 12)
->  
-> +/*
-> + * Maximum number of devices supported by the virtual bus topology:
-> + * each PCI bus supports 32 devices/slots at max or up to 256 when
-> + * there are multi-function ones which are not yet supported.
-> + */
-> +#define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
+> +/* Notify vPCI that device is de-assigned from guest. */
+> +int vpci_deassign_device(struct domain *d, struct pci_dev *pdev)
+> +{
+> +    /* It only makes sense to de-assign from hwdom or guest domain. */
+> +    if ( is_system_domain(d) || !has_vpci(d) )
+> +        return 0;
 > +
->  #define REGISTER_VPCI_INIT(x, p)                \
->    static vpci_register_init_t *const x##_entry  \
->                 __used_section(".data.vpci." p) = x
-> @@ -143,6 +150,10 @@ struct vpci {
->              struct vpci_arch_msix_entry arch;
->          } entries[];
->      } *msix;
-> +#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-> +    /* Guest SBDF of the device. */
-> +    pci_sbdf_t guest_sbdf;
-> +#endif
->  #endif
->  };
->  
-> -- 
-> 2.25.1
-> 
+> +    spin_lock(&pdev->vpci_lock);
+> +    vpci_remove_device_handlers_locked(pdev);
+
+You need to free the pdev->vpci structure on deassign. I would expect
+the device to be reset on deassign, so keeping the pdev->vpci contents
+would be wrong.
+
+Thanks, Roger.
 
