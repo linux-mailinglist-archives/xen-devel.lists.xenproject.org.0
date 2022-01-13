@@ -2,28 +2,28 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AACCB48DBFE
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jan 2022 17:39:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.257288.442101 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC6A948DBFF
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jan 2022 17:39:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.257286.442089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n837m-0001vy-KN; Thu, 13 Jan 2022 16:38:54 +0000
+	id 1n837l-0001kz-Ss; Thu, 13 Jan 2022 16:38:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 257288.442101; Thu, 13 Jan 2022 16:38:54 +0000
+Received: by outflank-mailman (output) from mailman id 257286.442089; Thu, 13 Jan 2022 16:38:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n837m-0001mp-C5; Thu, 13 Jan 2022 16:38:54 +0000
-Received: by outflank-mailman (input) for mailman id 257288;
- Thu, 13 Jan 2022 16:38:52 +0000
+	id 1n837l-0001ht-O3; Thu, 13 Jan 2022 16:38:53 +0000
+Received: by outflank-mailman (input) for mailman id 257286;
+ Thu, 13 Jan 2022 16:38:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4514=R5=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1n837k-0001gG-Gi
- for xen-devel@lists.xenproject.org; Thu, 13 Jan 2022 16:38:52 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4883d5b0-748f-11ec-bcf3-e9554a921baa;
+ id 1n837j-0001gG-Mk
+ for xen-devel@lists.xenproject.org; Thu, 13 Jan 2022 16:38:51 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4862c5d8-748f-11ec-bcf3-e9554a921baa;
  Thu, 13 Jan 2022 17:38:50 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -36,63 +36,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4883d5b0-748f-11ec-bcf3-e9554a921baa
+X-Inumbo-ID: 4862c5d8-748f-11ec-bcf3-e9554a921baa
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=citrix.com; s=securemail; t=1642091930;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=sxj8Ni05lVGFYuLB7GuSzaAjISrCd3y2GU6H36Yb4z4=;
-  b=QES6lAfQV0foPPUPFsOfHAVFkCfC3tR+ZOo8KH4nwnyFhhf74XLVMgET
-   6yc8nR2pBEqCLaVKyQPLB0V52EJHfXWhrw6PxHu0a2NLYz5CCN93U0i/7
-   J2baAx4Ahi0EI/pgoC8N9d0qM8QCAL2gM52G0DY9PXVRjDVDp+Q653dGW
-   E=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: mpWKD6XAyW/dzNRWG4EIp2Bhp6P2gCPuy+yOy1khUf49HY5RqavOU8Esw5McwD1dSF8zOAg/aF
- EU+iv83gegNPl7GuesOKlqqNH2pOoxZvyXcO6hExHvDx78iDUHOWZqad886CDJJ4aQMphd2zul
- 7BodWjqHNo3pYCg4Zp/dHryyowO1TtSShPYiu81abL5fbPCGtLjHAcVCLr8lIMd++kS+DQzxKs
- Qk4LNkdT5KlXMpodJVUeTRRYYP+UmjJqJptQ2pciaZS8LxVWLVpecdVZzymHEFJntNqpmLo32M
- wEZkq4M23/ZHi+jxhJVG5auV
+  bh=tsZqCwP/9e30gFHgjSlmMePARuttaiZ9/gTqptDuKYQ=;
+  b=bNl0Yy7giZpd+MsVTLhPOS5h9vO+JcA/3TeHifQT6E7OiCOi/SCXt1tR
+   nDSsT1V/MXUWqzSvjGNPAmwSfUD9259RvLlWe1/ZolcPEYmaE4TZgJR7i
+   CBccs4ToexZR0cid2OKE8F04OFhO3+RNBKwAS/7eFOhR57bonplZ4HXO0
+   g=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: YM7XPkVGIo6D+Bx1k+vpFCmlqh1HFHaqi2ijNLGCIKfZJsf7H4GlvtM68h/enzq1JJVzHjfqNf
+ WomRlwuNISemojJXghp/YNBWUMs7j/XOQzlAGEj65amylmBSxXkWsqejfvk9JZC0XovI0pq/Fa
+ Ge6aZ6bYpn5nvuLKrPR7n/3o6iHvpIkaP1B6bs5tffM1KDj8ECKQkvSM0bmQAX6R6Q6eMaTUoS
+ iJ451hVY2ll0y48zfWwk8cIRWqPLp5S7C+8d3vfJtTJ2ezlIuYLI+HL0zr+wkXx2ptk5DMKx1k
+ EG4Ggh4d4TTBMnoG4NjsG4ii
 X-SBRS: 5.2
-X-MesageID: 62341821
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 61937667
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:RNm+3a7eqdtIP00KwcYx+QxRtOzAchMFZxGqfqrLsTDasY5as4F+v
- mNLUD/TP/iIamH2LdFzbIu2/RlU6seBm9VnSVFlpSAyHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FV8MpBsJ00o5wbZg29Uw27BVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zy
- uVzuZ2vEl8QM5L93+8vURJGKQJaMvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALBc/nJo4A/FpnyinUF60OSpHfWaTao9Rf2V/cg+gQR62CP
- ppDMFKDajzrPzxJamYUNakUs9+jiSbRQwR3+G+a8P9fD2/7k1UqjemF3MDuUsOObdVYmACfv
- G2u10bTDwweNdef4SGY6X/qjejK9QvrVYRXGLCm+/pChFyI2ndVGBAQTUG8o/Sylgi5Qd03F
- qAP0nNw9+5orhXtF4SjGU3jyJKZgvICc9hgLeE791rV86fr0kGSNGoPUARiTNNz4afaWgcW/
- lOOmtroAxlmv7uUVW+R+9+okN+iBcQGBTRcPHFZFGPp9/Gm+dhu1UyXEr6PBYbo1oWdJN3m/
- 9ydQMHSbZ03hNVD6ai09Euvb9mE9smQFV5dCuk6swuYAuJFiGyNO93ABbvzt68owGOlor+p5
- ihsdy+2trFmMH11vHbRKNjh5Znwjxp/DBXSgER0A74q/Cm39niocOh4uW8ifh8waZ5aJW+yO
- ic/XD+9ArcJbBNGioctMuqM5zkCl/C8RbwJqNiJBjaxXnSBXFDep3w/DaJh92vsjFItgckC1
- WSzKq6R4YIhIf0/llKeHr5FuZdyn3xW7T6NGfjTkkr2uZLDNC/9YepUazOmM7FmhJ5oVS2Iq
- b6zwePQlUUGOAA/CwGKmbMuwacidilkVcuo+p0OJoZu4GNOQQkcNhMY+pt5E6QNokifvr2gE
- qiVVhAKxVzhq2fALAnWOHlvZKm2BcR0rG4hPDxqNlGtgiBxbYGq5aYZVp02Ybh4q7Azka8qF
- 6EIK5eaH/BCajXb4DBBP5Pzm5NvKUawjgWUMiv7PDVmJ8x8RxbE88PPdxf08HVcFTK+sMYz+
- uXy1g7STZcZaR5lCcLaNKCmw1+r5CBPk+NuRUrYZNJUfRy0ooRtLiXwiN4xIt0NdkqflmfLi
- V7ODE5B9+fXooIz/N3Yvoy+rt+kQ7lkA05XP2jH9rLqZyPUyXWunN1bW+GScDGDCG6toPe+Z
- f9Yxu3XOeEcmAoYqJJ1FrtmwP5s59broLMGnA1oEG+SMgauA7JkZHKHwdNOputGwboA4Vm6X
- UeG+997P7SVOZy6TA5NdVR9NunTh+sJnjTy7OguJBSo7SB6y7OLTEFOMkTekydaNrZ0bNsoz
- OpJVBT6MOBjZs7G6uq7sx0=
-IronPort-HdrOrdr: A9a23:vbGmha5VsjoDo7gKTQPXwPLXdLJyesId70hD6qhwISY1TiX+rb
- HXoB17726MtN9/YgBCpTntAsa9qDbnhPpICOoqTNGftWvdyQmVxehZhOOIqVCNJ8S9zJ876U
- 4JSdkENDSaNzhHZKjBjjVQa+xQpeW6zA==
+IronPort-Data: A9a23:ApJpAq+LuP0MzLQ8ycV4DrUDenmTJUtcMsCJ2f8bNWPcYEJGY0x3x
+ jQXC2rXOPiDZTanLYtxbIi+pxkE65TTmNJnHQFt+X08E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhFWeIdA970Ug5w7dg2dYy6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhox
+ vdxqZ63azsFO42LuOdeXQdDIRtXaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguwKKsXxMZxZkXZn1TzDVt4tQIzZQrWM7thdtNs1rp4XTK2BO
+ ZRGAdZpRATAbCBEAVAJNLxk26SPvVfAd2Vjgk3A8MLb5ECMlVcsgdABKuH9eMGMA8NcnU+ap
+ 2fP12X/HhwecteYzFKt8X+yh+mJgSLyXqoTEqG18rhhh1j77nMXIA0bUx28u/bRol6zXZdTJ
+ lIZ/gIqrLMu7wq7Q9/lRRq6rXWY+BkGVLJ4Mcc39QWMwar8+BuCCy4PSTspVTA9nJZoH3pwj
+ AbPxo63Q2w02FGIdZ6D3q6ajw+uOy83EUMHRWgkTkgL/cLRmqhm23ojUe1fOKKyi9T0HxT5z
+ DaLsDUyit0vsCIb60mo1QuZ2mzx//AlWiZwv1yKBTz9smuVcab4P9TA1LTN0RpXwG91pHGlt
+ WNMpcWR5ftm4XqlxH3UG7Vl8F1ECp+43NzgbbxHQ8hJG9eFoSfLkWVsDNdWfhcB3iEsI26BX
+ aMrkVkNjKK/xVPzBUONX6q/Ct4x0Y/rHsn/W/bfY7JmO8YtLlfep3kwOR7LhQgBdXTAd4lla
+ f93lu72XB4n5VlPlmLqF4/xL5d2rszB+Y8jbc+ilEn2uVZvTHWUVa0EIDOzghMRt8u5TPHu2
+ 48HbaOikkwHOMWnO3W/2dNNcTgicCZqbbir+50/XrPSeWJORTB+Y8I9NJt8IeSJaYwPyLeRl
+ px8M2cFoGfCaYrvclTVOis9OeK2Df6SbxsTZEQRALph4FB7Ca7H0UvVX8FfkWAP+LMxwPhqY
+ eMCfsncUP1DRi6eo2YWbIXnrZwkfxOu3FrcMy2gaTk5XphhWw2WpYO0IlqxrHEDXnitqM8zg
+ 7y8zQeHE5ANcBtvUZTNY/W1wlLv4XVEwLBuX1HFK8V4cVn39NQ4MDT4i/I6epleKRjKyjaA+
+ RyRBBMU+bvEr4MvqYGbjqGYtYa5VeB5GxMCTWXc6L+3Mwjc/3aintAcALrZI2iFWTqtqqu4Z
+ OhTw/XtC9E9nQ5H49hmDrJm7aMi/N+z9bVU+RtpQSfQZFOxB7I+fnTfhZtTtrdAz6NysBetX
+ h7d4cFTPLiENZ+3EFMVIwZ5PO2P2etNx2vX5PUxZk77+DV27PyMVkALZ0uAjylULb1UNoI5w
+ Lh+5J5KulLn0hd6YMybii109niXKi1SWqoqgZgWHYv3h1d50VpFe5HdVnf77Zznhw+g6aX2z
+ ut4XJb/uok=
+IronPort-HdrOrdr: A9a23:t7fHo6w0a6hoOs87rFdiKrPwFr1zdoMgy1knxilNoRw8SK2lfq
+ eV7YwmPH7P+U8ssR4b6LO90cW7Lk80sKQFhbX5Xo3SOjUO2lHYTr2KhLGKq1aLdkHDH6xmpM
+ BdmsBFeabN5DNB7foSjjPXLz9Z+qjjzJyV
 X-IronPort-AV: E=Sophos;i="5.88,286,1635220800"; 
-   d="scan'208";a="62341821"
+   d="scan'208";a="61937667"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 1/3] x86/msr: Split MSR_SPEC_CTRL handling
-Date: Thu, 13 Jan 2022 16:38:31 +0000
-Message-ID: <20220113163833.3831-2-andrew.cooper3@citrix.com>
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Jun Nakajima
+	<jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
+Subject: [PATCH 2/3] x86/spec-ctrl: Drop SPEC_CTRL_{ENTRY_FROM,EXIT_TO}_HVM
+Date: Thu, 13 Jan 2022 16:38:32 +0000
+Message-ID: <20220113163833.3831-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220113163833.3831-1-andrew.cooper3@citrix.com>
 References: <20220113163833.3831-1-andrew.cooper3@citrix.com>
@@ -100,160 +102,128 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-In order to fix a VT-x bug, and support MSR_SPEC_CTRL on AMD, there will need
-to be three different access methods for where the guest's value lives.
-However, it would be better not to duplicate the #GP checking logic.
+These were written before Spectre/Meltdown went public, and there was large
+uncertainty in how the protections would evolve.  As it turns out, they're
+very specific to Intel hardware, and not very suitable for AMD.
 
-guest_{rd,wr}msr() are always called first in the PV and HVM MSR paths, so we
-can repurpose X86EMUL_UNHANDLEABLE slightly for this.  This is going to be a
-common pattern for other MSRs too in the future.
+Expand and drop the macros.  No change at all for VT-x.
 
-Duplicate the msrs->spec_ctrl.raw accesses in the PV and VT-x paths for now.
-The SVM path is currently unreachable because of the CPUID policy.
+For AMD, the only relevant piece of functionality is DO_OVERWRITE_RSB,
+although we will soon be adding (different) logic to handle MSR_SPEC_CTRL.
 
-No functional change.
+This has a marginal improvement of removing an unconditional pile of long-nops
+from the vmentry/exit path.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
+CC: Jun Nakajima <jun.nakajima@intel.com>
+CC: Kevin Tian <kevin.tian@intel.com>
 ---
- xen/arch/x86/hvm/vmx/vmx.c     | 10 ++++++++++
- xen/arch/x86/include/asm/msr.h | 11 +++++++----
- xen/arch/x86/msr.c             |  6 ++----
- xen/arch/x86/pv/emul-priv-op.c | 10 ++++++++++
- 4 files changed, 29 insertions(+), 8 deletions(-)
+ xen/arch/x86/hvm/svm/entry.S             |  5 +++--
+ xen/arch/x86/hvm/vmx/entry.S             |  8 ++++++--
+ xen/arch/x86/include/asm/spec_ctrl_asm.h | 17 ++---------------
+ 3 files changed, 11 insertions(+), 19 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index a7a0d662342a..28ee6393f11e 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -3128,12 +3128,17 @@ static int is_last_branch_msr(u32 ecx)
- static int vmx_msr_read_intercept(unsigned int msr, uint64_t *msr_content)
- {
-     struct vcpu *curr = current;
-+    const struct vcpu_msrs *msrs = curr->arch.msrs;
-     uint64_t tmp;
+diff --git a/xen/arch/x86/hvm/svm/entry.S b/xen/arch/x86/hvm/svm/entry.S
+index e208a4b32ae7..276215d36aff 100644
+--- a/xen/arch/x86/hvm/svm/entry.S
++++ b/xen/arch/x86/hvm/svm/entry.S
+@@ -59,7 +59,7 @@ __UNLIKELY_END(nsvm_hap)
+         mov VCPUMSR_spec_ctrl_raw(%rax), %eax
  
-     HVM_DBG_LOG(DBG_LEVEL_MSR, "ecx=%#x", msr);
+         /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
+-        SPEC_CTRL_EXIT_TO_HVM   /* Req: a=spec_ctrl %rsp=regs/cpuinfo, Clob: cd */
++        /* SPEC_CTRL_EXIT_TO_SVM   (nothing currently) */
  
-     switch ( msr )
-     {
-+    case MSR_SPEC_CTRL: /* guest_rdmsr() has already performed #GP checks. */
-+        *msr_content = msrs->spec_ctrl.raw;
-+        break;
-+
-     case MSR_IA32_SYSENTER_CS:
-         __vmread(GUEST_SYSENTER_CS, msr_content);
-         break;
-@@ -3331,6 +3336,7 @@ void vmx_vlapic_msr_changed(struct vcpu *v)
- static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content)
- {
-     struct vcpu *v = current;
-+    struct vcpu_msrs *msrs = v->arch.msrs;
-     const struct cpuid_policy *cp = v->domain->arch.cpuid;
+         pop  %r15
+         pop  %r14
+@@ -86,7 +86,8 @@ __UNLIKELY_END(nsvm_hap)
  
-     HVM_DBG_LOG(DBG_LEVEL_MSR, "ecx=%#x, msr_value=%#"PRIx64, msr, msr_content);
-@@ -3339,6 +3345,10 @@ static int vmx_msr_write_intercept(unsigned int msr, uint64_t msr_content)
-     {
-         uint64_t rsvd, tmp;
+         GET_CURRENT(bx)
  
-+    case MSR_SPEC_CTRL: /* guest_wrmsr() has already performed #GP checks. */
-+        msrs->spec_ctrl.raw = msr_content;
-+        return X86EMUL_OKAY;
-+
-     case MSR_IA32_SYSENTER_CS:
-         __vmwrite(GUEST_SYSENTER_CS, msr_content);
-         break;
-diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
-index 1d3eca9063a2..0b2176a9bc53 100644
---- a/xen/arch/x86/include/asm/msr.h
-+++ b/xen/arch/x86/include/asm/msr.h
-@@ -367,10 +367,13 @@ int init_domain_msr_policy(struct domain *d);
- int init_vcpu_msr_policy(struct vcpu *v);
+-        SPEC_CTRL_ENTRY_FROM_HVM    /* Req: b=curr %rsp=regs/cpuinfo, Clob: acd */
++        /* SPEC_CTRL_ENTRY_FROM_SVM    Req: b=curr %rsp=regs/cpuinfo, Clob: ac  */
++        ALTERNATIVE "", DO_OVERWRITE_RSB, X86_FEATURE_SC_RSB_HVM
+         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
  
- /*
-- * Below functions can return X86EMUL_UNHANDLEABLE which means that MSR is
-- * not (yet) handled by it and must be processed by legacy handlers. Such
-- * behaviour is needed for transition period until all rd/wrmsr are handled
-- * by the new MSR infrastructure.
-+ * The below functions return X86EMUL_*.  Callers are responsible for
-+ * converting X86EMUL_EXCEPTION into #GP[0].
-+ *
-+ * X86EMUL_UNHANDLEABLE means "not everything complete".  It could be that:
-+ *   1) Common #GP checks have been done, but val access needs delegating to the
-+ *      per-VM-type handlers.
-+ *   2) The MSR is not handled at all by common logic.
+         stgi
+diff --git a/xen/arch/x86/hvm/vmx/entry.S b/xen/arch/x86/hvm/vmx/entry.S
+index 27c8c5ca4943..30139ae58e9d 100644
+--- a/xen/arch/x86/hvm/vmx/entry.S
++++ b/xen/arch/x86/hvm/vmx/entry.S
+@@ -33,7 +33,9 @@ ENTRY(vmx_asm_vmexit_handler)
+         movb $1,VCPU_vmx_launched(%rbx)
+         mov  %rax,VCPU_hvm_guest_cr2(%rbx)
+ 
+-        SPEC_CTRL_ENTRY_FROM_HVM    /* Req: b=curr %rsp=regs/cpuinfo, Clob: acd */
++        /* SPEC_CTRL_ENTRY_FROM_VMX    Req: b=curr %rsp=regs/cpuinfo, Clob: acd */
++        ALTERNATIVE "", DO_OVERWRITE_RSB, X86_FEATURE_SC_RSB_HVM
++        ALTERNATIVE "", DO_SPEC_CTRL_ENTRY_FROM_HVM, X86_FEATURE_SC_MSR_HVM
+         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
+ 
+         /* Hardware clears MSR_DEBUGCTL on VMExit.  Reinstate it if debugging Xen. */
+@@ -80,7 +82,9 @@ UNLIKELY_END(realmode)
+         mov VCPUMSR_spec_ctrl_raw(%rax), %eax
+ 
+         /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
+-        SPEC_CTRL_EXIT_TO_HVM   /* Req: a=spec_ctrl %rsp=regs/cpuinfo, Clob: cd */
++        /* SPEC_CTRL_EXIT_TO_VMX   Req: a=spec_ctrl %rsp=regs/cpuinfo, Clob: cd */
++        ALTERNATIVE "", DO_SPEC_CTRL_EXIT_TO_GUEST, X86_FEATURE_SC_MSR_HVM
++        ALTERNATIVE "", __stringify(verw CPUINFO_verw_sel(%rsp)), X86_FEATURE_SC_VERW_HVM
+ 
+         mov  VCPU_hvm_guest_cr2(%rbx),%rax
+ 
+diff --git a/xen/arch/x86/include/asm/spec_ctrl_asm.h b/xen/arch/x86/include/asm/spec_ctrl_asm.h
+index cb34299a865b..18ecfcd70375 100644
+--- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
++++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
+@@ -68,14 +68,14 @@
   *
-  * These functions are also used by the migration logic, so need to cope with
-  * being used outside of v's context.
-diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-index b834456c7b02..3549630d6699 100644
---- a/xen/arch/x86/msr.c
-+++ b/xen/arch/x86/msr.c
-@@ -265,8 +265,7 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
-     case MSR_SPEC_CTRL:
-         if ( !cp->feat.ibrsb )
-             goto gp_fault;
--        *val = msrs->spec_ctrl.raw;
--        break;
-+        return X86EMUL_UNHANDLEABLE; /* Delegate value to per-VM-type logic. */
+  * The following ASM fragments implement this algorithm.  See their local
+  * comments for further details.
+- *  - SPEC_CTRL_ENTRY_FROM_HVM
++ *  - SPEC_CTRL_ENTRY_FROM_{SVM,VMX} (See appropriate entry.S files)
+  *  - SPEC_CTRL_ENTRY_FROM_PV
+  *  - SPEC_CTRL_ENTRY_FROM_INTR
+  *  - SPEC_CTRL_ENTRY_FROM_INTR_IST
+  *  - SPEC_CTRL_EXIT_TO_XEN_IST
+  *  - SPEC_CTRL_EXIT_TO_XEN
+  *  - SPEC_CTRL_EXIT_TO_PV
+- *  - SPEC_CTRL_EXIT_TO_HVM
++ *  - SPEC_CTRL_EXIT_TO_{SVM,VMX}
+  */
  
-     case MSR_INTEL_PLATFORM_INFO:
-         *val = mp->platform_info.raw;
-@@ -514,8 +513,7 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-         if ( val & rsvd )
-             goto gp_fault; /* Rsvd bit set? */
+ .macro DO_OVERWRITE_RSB tmp=rax
+@@ -225,12 +225,6 @@
+     wrmsr
+ .endm
  
--        msrs->spec_ctrl.raw = val;
--        break;
-+        return X86EMUL_UNHANDLEABLE; /* Delegate value to per-VM-type logic. */
+-/* Use after a VMEXIT from an HVM guest. */
+-#define SPEC_CTRL_ENTRY_FROM_HVM                                        \
+-    ALTERNATIVE "", DO_OVERWRITE_RSB, X86_FEATURE_SC_RSB_HVM;           \
+-    ALTERNATIVE "", DO_SPEC_CTRL_ENTRY_FROM_HVM,                        \
+-        X86_FEATURE_SC_MSR_HVM
+-
+ /* Use after an entry from PV context (syscall/sysenter/int80/int82/etc). */
+ #define SPEC_CTRL_ENTRY_FROM_PV                                         \
+     ALTERNATIVE "", DO_OVERWRITE_RSB, X86_FEATURE_SC_RSB_PV;            \
+@@ -255,13 +249,6 @@
+     ALTERNATIVE "", __stringify(verw CPUINFO_verw_sel(%rsp)),           \
+         X86_FEATURE_SC_VERW_PV
  
-     case MSR_PRED_CMD:
-         if ( !cp->feat.ibrsb && !cp->extd.ibpb )
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index c78be6d92b21..6644e739209c 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -875,6 +875,7 @@ static int read_msr(unsigned int reg, uint64_t *val,
-                     struct x86_emulate_ctxt *ctxt)
- {
-     struct vcpu *curr = current;
-+    const struct vcpu_msrs *msrs = curr->arch.msrs;
-     const struct domain *currd = curr->domain;
-     const struct cpuid_policy *cp = currd->arch.cpuid;
-     bool vpmu_msr = false, warn = false;
-@@ -898,6 +899,10 @@ static int read_msr(unsigned int reg, uint64_t *val,
-             *val |= APIC_BASE_BSP;
-         return X86EMUL_OKAY;
- 
-+    case MSR_SPEC_CTRL: /* guest_rdmsr() has already performed #GP checks. */
-+        *val = msrs->spec_ctrl.raw;
-+        return X86EMUL_OKAY;
-+
-     case MSR_FS_BASE:
-         if ( !cp->extd.lm )
-             break;
-@@ -1024,6 +1029,7 @@ static int write_msr(unsigned int reg, uint64_t val,
-                      struct x86_emulate_ctxt *ctxt)
- {
-     struct vcpu *curr = current;
-+    struct vcpu_msrs *msrs = curr->arch.msrs;
-     const struct domain *currd = curr->domain;
-     const struct cpuid_policy *cp = currd->arch.cpuid;
-     bool vpmu_msr = false;
-@@ -1041,6 +1047,10 @@ static int write_msr(unsigned int reg, uint64_t val,
-     {
-         uint64_t temp;
- 
-+    case MSR_SPEC_CTRL: /* guest_wrmsr() has already performed #GP checks. */
-+        msrs->spec_ctrl.raw = val;
-+        return X86EMUL_OKAY;
-+
-     case MSR_FS_BASE:
-     case MSR_GS_BASE:
-     case MSR_SHADOW_GS_BASE:
+-/* Use when exiting to HVM guest context. */
+-#define SPEC_CTRL_EXIT_TO_HVM                                           \
+-    ALTERNATIVE "",                                                     \
+-        DO_SPEC_CTRL_EXIT_TO_GUEST, X86_FEATURE_SC_MSR_HVM;             \
+-    ALTERNATIVE "", __stringify(verw CPUINFO_verw_sel(%rsp)),           \
+-        X86_FEATURE_SC_VERW_HVM
+-
+ /*
+  * Use in IST interrupt/exception context.  May interrupt Xen or PV context.
+  * Fine grain control of SCF_ist_wrmsr is needed for safety in the S3 resume
 -- 
 2.11.0
 
