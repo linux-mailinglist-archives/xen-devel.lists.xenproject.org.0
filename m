@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF97548DB9F
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jan 2022 17:22:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.257263.442049 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 504B048DBFD
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jan 2022 17:39:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.257285.442077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n82r8-0007Gn-L2; Thu, 13 Jan 2022 16:21:42 +0000
+	id 1n837i-0001UF-DM; Thu, 13 Jan 2022 16:38:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 257263.442049; Thu, 13 Jan 2022 16:21:42 +0000
+Received: by outflank-mailman (output) from mailman id 257285.442077; Thu, 13 Jan 2022 16:38:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n82r8-0007Dr-Gw; Thu, 13 Jan 2022 16:21:42 +0000
-Received: by outflank-mailman (input) for mailman id 257263;
- Thu, 13 Jan 2022 16:21:41 +0000
+	id 1n837i-0001RN-AG; Thu, 13 Jan 2022 16:38:50 +0000
+Received: by outflank-mailman (input) for mailman id 257285;
+ Thu, 13 Jan 2022 16:38:49 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GUHC=R5=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1n82r7-0007Dl-6v
- for xen-devel@lists.xenproject.org; Thu, 13 Jan 2022 16:21:41 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e205c3b8-748c-11ec-a563-1748fde96b53;
- Thu, 13 Jan 2022 17:21:39 +0100 (CET)
+ <SRS0=4514=R5=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1n837h-0001RD-Ci
+ for xen-devel@lists.xenproject.org; Thu, 13 Jan 2022 16:38:49 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 46e049d1-748f-11ec-a563-1748fde96b53;
+ Thu, 13 Jan 2022 17:38:47 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,116 +36,80 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e205c3b8-748c-11ec-a563-1748fde96b53
+X-Inumbo-ID: 46e049d1-748f-11ec-a563-1748fde96b53
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1642090899;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=niekpDJPFAUiBhVZYFMbcA5D19wfW+devHqcGvetZSU=;
-  b=H+kqVKQ66UDLGZMnus9giw25Ye7A3uM+vAETl4IX9CAxIsXa+mD/2qAh
-   deKTeruOfyV4VFU0A6L75lPP+qPeXq+TPefLLIDAoMP1ooPtlnPmWcziu
-   ZZw3ol2K7+QOviwLJvavOg8OpOPD/ymtLwLLFMzdntkHWft3wex/i6/4w
-   E=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: m5eiGda4zK/R4ngeSH4zUF+mx93SnCNJ2fYUBdo3FhSuPOQameTfKuUaL9MhjOIgf1pr71vmL3
- cLP6SzELTMpoVcgFGncs089lnbvUAiP6jpGh5qwFt5CEYNh8wlQ9UhCQet93QaYa1gQT5PNpeQ
- kezoDVTol//6M4FqRpe7t6WV5z6cVeJS0svxN/rD/xeB9aLXk5tXltYmAK+d8KGLnBUQqFUVqn
- yJqPkYCUqycYcb+W8Em9QZjoFKA6xndWjR2OtH4kD/bVF9/OqLlbC/Wm5C+i+usT2HSLCosVDA
- on3As5/zWoAJn5N8VCB8xGN8
+  d=citrix.com; s=securemail; t=1642091927;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=ARuOGzG8JXuNZ5nPn4f165i7Ruf4s1YklHYGlpdLP8I=;
+  b=dojJZOg/Vy6YBkY3k2owGjTO3xgLu6v7avTE/Tr6NU7/CML41A+oE9be
+   1PX9tjvZB6rhvGsQeXrptTmjOaCROTFyAtGZrqHyxecd0QncIIKHbdimW
+   hvLfK6P0X0yy9gMk+bHy2Of+4ym5Uc/C/etoOqbfpHA4paxrT28Fq5oSZ
+   M=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: NJi55lD6wuLBNX8Mmi7lJgBdaAysFW0iZDbns3WiUZBz2AoAw2qeVOzshp8fdprNY+N9Ij/dLE
+ R7Pc2HsBha3j6MDJNk3oAGvo4qmLIXzxfrMdbZXMennOdc76eXdaiTXf0v68G4vquyZ5B7HM/I
+ o6WadOgYwTmXOjYxxkhHV2lgAQuPMNfs5r4jZP1y5cCMa6rS3DHQVPfIybvwTUaaL0dS89GA/u
+ qYonr0UrGv5XICOH7LMMFaKThWht/zjRvkHFCH1H91eJHGEwGrl47negf2osVi863J6gEKBf+W
+ Pl9cq57sZMhr3Yg5dlENJb+k
 X-SBRS: 5.2
-X-MesageID: 61935975
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 61856446
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:bUb3Wa0AxHg2d/2oNvbD5S92kn2cJEfYwER7XKvMYLTBsI5bp2EPy
- WUWUT2Oa6mDajbxeIh1Pd639UgEvJHczocxTwU5pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCanAZqTNMEn9700o6wrVh2OaEvPDia++zk
- YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
- 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhmNFr9
- dFtpMeLRVl0fYnHpcAMVAMDKnQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
- 6VecW1TKEDY7w616OvTpu1Ej8I/LM7tLcUHt2tp1z3xBvc6W5HTBa7N4Le02R9u35EVQKeBO
- qL1bxJxPCb/OiV0BGwSL5UbwO73uEP9KBFH/Qf9Sa0fvDGIkV0ZPKLWGMHOZtWASMFRn0CZj
- mHL5WL0BlcdLtP34SWB2mKhgKnIhyyTcIAPELy18NZ6jVvVwXYcYDUUX1ampfiyimalRslSb
- UcT/0IGvaU0sUCmUNT5dxm5u2Kf+A4RXcJKFO834x3LzbDbizt1HUBdEGQHMoZ/8pZrG3p6j
- Tdlgu8FGxRosaeoTVKMrYyY827xHSMoCX4Ff3Q9GF5tD8bYnKk/iRfGT9BGGaGzj8HoFTyY/
- w1mvBTSlJ1I05dVivzTEUTvxmv1+8OXFlJdChD/Azr9hj6VcrJJcGBBBbLzyf9bZLiUQVCa1
- JTvs5jPtbteZX1hecHkfQnsIF1Lz6rUWNE/qQQ2d3XEy9hL0yTzFWy3yGsvTHqFyu5eJVfUj
- Lb74Gu9HqN7MnqwdrNQaImsEcksxqWIPY27CqqMN4EWPMQhL1XvEMRSiai4hTCFfK8Ey/BXB
- HtmWZz0USZy5VpPkVJauNvxIZd0n3tjlAs/tLjwzgi90Kr2WZJmYextDbd6VchgtPnsiFyMq
- 753bpLWoz0CDrGWSnSJoOY7cABbRVBmVMueg5EGKYa+zv9ORTtJ5wn5m+1xIuSIXs19y4/1w
- 51KchQJlwqk2yyWcFXih7IKQOqHYKuTZEkTZUQEVWtEEVB4CWp2xKtAJZYxY5c98+lvkax9Q
- /UfIp3SCfVTUDXXvT8aaMCl/oBlcR2qgyOIPjakP2djL8IxGVSR94+2ZBbr+QkPEjGz6Zk0r
- Yq/216JWpEEXQljUprbMar901OrsHEBs+tuRE+UcMJLcUDh/dEyeSz8h/M6Oe8WLhDHymfI3
- gqaG05A9+LMv5U04J/CgqXd99WlFO53H0x7GWjH7OnpaXmGrzT7mYIZCbSGZzHQUm/w6Z6OX
- +QNwqGuKuADkXZLr5F4T+Rhw5Uh6oa9vLRd1AllQinGNgz5FrN6L3Ca9sBTrakRlKRBsA67V
- 0/TqNlXPbKFZJHsHFILfVd3a+2C0bcfmyXI7ORzK0L/vXcl8L2CWERUHh+NlC0Cc+clbNJ7m
- b8s6JwM9giyqhs2KdLX3Clb+lOFImEET6h65IoRB5Xmi1Zzx1xPCXAG5vQaPH1bhw1wD3QX
-IronPort-HdrOrdr: A9a23:bGeObagv0FChCL/GQO87bsa503BQXtoji2hC6mlwRA09TySZ//
- rBoB0+726RtN9xYgBEpTnuAsS9qB/nmaKdpLNhWotKPzOW2ldATrsD0WKK+VSJcEfDH6xmpM
- RdmsBFebvN5DNB7PoSjjPWL+od
+IronPort-Data: A9a23:2y3YJqtncpXnf5DQx+KY2uCih+fnVGFZMUV32f8akzHdYApBsoF/q
+ tZmKWjTPffeZDegLthwaozjpxwGvZ+HzoRmQQFv+HowESwb+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHdJZS5LwbZj2NYx2IPhWWthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ NplrZyaWS0RY5bwtukkQkYfVC5vYo5X9+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6AP
+ ppEN2YzMnwsZTUVeWVPF5Qbm92kl1v9VzEEkkrEj/Uetj27IAtZj+G2bYu9lsaxbdVYmAOUq
+ 3zL+0z9AwoGL5qPxDyd6HWui+TT2yThV+ov+KaQr6AwxgfJnypKVUNQBQDTTeSFZlCWQ9J1O
+ 2YspxESg6UL5RPsCdbsAD6pryvR1vIDYOZ4H+o/4QCL76Pb5QeFG2QJJgJ8hMwaWNweHmJzi
+ ALQ9z/9LXk26eDOFyrBnluBhW7qYUAowXk+iTjopOfvy/3qu8kNgx3GVb6P+4bl34SuSVkcL
+ 91nxRXSZon/b+ZXhs1XHnid2lpAQ6QlqCZvtm07uUr/v2tEiHaNPdDA1LQixa8owHylZleAp
+ mMYvMOV8foDC5qA/ATUHrlXROjyv6jZYGaG6bKKI3XH3279k5JEVdoBiAyS2W8zappUEdMXS
+ BK7VfxtCG97YyLxMP4fj3OZAMU216nwfekJpdiPBueilqNZLVfdlAk3PBb49zm0zCAEzP9jU
+ b/GL5fEJStKWMxPkWvtL89AgOBD+8zL7T6JLXwN5075geP2ib/8YeptDWZimchivfzU+1uEo
+ o8PXyZIoj0GONDDjuDs2dZ7BTg3wbITXPgacuRbKbyOJBRIAmYkB6ODyL8tYdU9za9Uiv3J7
+ je2XUoBkAjzgnjOKAOrbHF/aeywAcYj/CxjZSF8b0y133UDYJq06PtNfZUAYrR6pvdoyuR5T
+ qdZdpzYUOhPUDnO5x8UcYL58N55bB2uiA/XZ3ilbTEzcoROXQvM/tO4LALj+DNXVni8tNcko
+ q3m3QTeGMJRSwNnBcfQSfSu01Lu4iRNxLMsBxPFe4ABdl/t/Y5mLz3KosU2e8xcew/ewja61
+ hqNBUtKr+f6vIJoosLCgrqJrtn1HrImTFZaBWTS8Z2/KTLeoji42YZFXeuFIWLdWWfz9Pnwb
+ OlZ1aihYvgOnVIMuItgCbd7i6k54oK39bNdyw1lGlTNbkiqVew8ciXXg5EXu/0f3KJdtCu3R
+ lmLq4tTNri+Mc/4FEIceVg+ZeOZ2PBIwjTf4JzZ+qkhCPObKFZfbXhvAg==
+IronPort-HdrOrdr: A9a23:SZ4HWapAgWU7fe9W6VvXtOsaV5oneYIsimQD101hICG8cqSj+f
+ xG+85rsiMc6QxhPE3I9urhBEDtex/hHP1OkOws1NWZLWrbUQKTRekIh+bfKlXbakvDH4VmtJ
+ uIHZIQNDSJNykZsfrH
 X-IronPort-AV: E=Sophos;i="5.88,286,1635220800"; 
-   d="scan'208";a="61935975"
-Date: Thu, 13 Jan 2022 16:21:33 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] build: adjust include/xen/compile.h generation
-Message-ID: <YeBRjeV9dnnKgeHr@perard>
-References: <4f0766b2-cabd-cf5e-ed84-cc2b773bf5f8@suse.com>
- <YeALhTgXh7g2QdbB@perard>
- <726353b9-0093-31de-bcfe-35f9ee68c61f@suse.com>
+   d="scan'208";a="61856446"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH 0/3] x86/spec-ctrl: Fix NMI race condition
+Date: Thu, 13 Jan 2022 16:38:30 +0000
+Message-ID: <20220113163833.3831-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <726353b9-0093-31de-bcfe-35f9ee68c61f@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jan 13, 2022 at 01:11:41PM +0100, Jan Beulich wrote:
-> On 13.01.2022 12:22, Anthony PERARD wrote:
-> > On Tue, Jan 11, 2022 at 03:16:17PM +0100, Jan Beulich wrote:
-> >> Prior to 19427e439e01 ("build: generate "include/xen/compile.h" with
-> >> if_changed") running "make install-xen" as root would not have printed
-> >> the banner under normal circumstances. Its printing would instead have
-> >> indicated that something was wrong (or during a normal build the lack
-> >> of printing would do so).
-> > 
-> > So, having several line of logs with one generating "compile.h", and
-> > several object rebuild plus the re-linking of xen isn't enough has to
-> > indicate that something is wrong?
-> 
-> Well, for warnings and errors to be easy to spot (and until your rework
-> to make our build more Linux-like is in place) passing -s to make is a
-> must, imo.
+Andrew Cooper (3):
+  x86/msr: Split MSR_SPEC_CTRL handling
+  x86/spec-ctrl: Drop SPEC_CTRL_{ENTRY_FROM,EXIT_TO}_HVM
+  x86/spec-ctrl: Fix NMI race condition with VT-x MSR_SPEC_CTRL handling
 
-I see, I guess keeping that behavior is kind of useful (banner been
-printed when compile.h is regenerated).
-
-> >> +	$(if $(filter-out FORCE,$?),rm -fv $@)
-> > 
-> > Is there a reason for -v? Do we care if the file existed?
-> 
-> That's meant to be an indication of the file getting updated during
-> "install-xen" as root. I thought it might be nice to have this extra
-> indicator, but I wouldn't mind dropping it if that helps acceptance
-> of the change. Can you let me know how important this aspect is to
-> you?
-
-I guess it is fine to keep the '-v'. It isn't like it is something that
-will happen very often.
-
-> > Do we want to log "rm -f compile.h" ? Or could you just prefix the line
-> > with $(Q)?
-> 
-> I'll add $(Q). As said, I always build with "make -s" (except when
-> debugging weird build issues), so this is nothing I would have noticed.
-
-With $(Q) added:
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-
-Thanks,
+ xen/arch/x86/hvm/svm/entry.S             |  5 ++--
+ xen/arch/x86/hvm/vmx/entry.S             | 23 ++++++++++-----
+ xen/arch/x86/hvm/vmx/vmx.c               | 38 ++++++++++++++++++++++++-
+ xen/arch/x86/include/asm/msr.h           | 21 ++++++++++----
+ xen/arch/x86/include/asm/spec_ctrl_asm.h | 49 ++++----------------------------
+ xen/arch/x86/msr.c                       |  6 ++--
+ xen/arch/x86/pv/emul-priv-op.c           | 10 +++++++
+ 7 files changed, 90 insertions(+), 62 deletions(-)
 
 -- 
-Anthony PERARD
+2.11.0
+
 
