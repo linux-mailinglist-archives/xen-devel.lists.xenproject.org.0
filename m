@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28E3648E21C
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Jan 2022 02:21:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.257518.442569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44A6448E283
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Jan 2022 03:27:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.257524.442578 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n8BHV-00029o-Dr; Fri, 14 Jan 2022 01:21:29 +0000
+	id 1n8CHm-0000A4-5x; Fri, 14 Jan 2022 02:25:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 257518.442569; Fri, 14 Jan 2022 01:21:29 +0000
+Received: by outflank-mailman (output) from mailman id 257524.442578; Fri, 14 Jan 2022 02:25:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n8BHV-00026A-9k; Fri, 14 Jan 2022 01:21:29 +0000
-Received: by outflank-mailman (input) for mailman id 257518;
- Fri, 14 Jan 2022 01:21:28 +0000
+	id 1n8CHm-00008p-2E; Fri, 14 Jan 2022 02:25:50 +0000
+Received: by outflank-mailman (input) for mailman id 257524;
+ Fri, 14 Jan 2022 02:25:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=chGx=R6=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1n8BHT-0001ZI-Ve
- for xen-devel@lists.xenproject.org; Fri, 14 Jan 2022 01:21:28 +0000
+ id 1n8CHk-00008j-Dq
+ for xen-devel@lists.xenproject.org; Fri, 14 Jan 2022 02:25:48 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org
  [2604:1380:4601:e00::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4b40c9db-74d8-11ec-bcf3-e9554a921baa;
- Fri, 14 Jan 2022 02:21:27 +0100 (CET)
+ id 46efe52d-74e1-11ec-bcf3-e9554a921baa;
+ Fri, 14 Jan 2022 03:25:46 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 64DE2B823E0;
- Fri, 14 Jan 2022 01:21:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEDDAC36AEA;
- Fri, 14 Jan 2022 01:21:24 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 89E36B82358;
+ Fri, 14 Jan 2022 02:25:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFFA5C36AEA;
+ Fri, 14 Jan 2022 02:25:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,159 +44,267 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4b40c9db-74d8-11ec-bcf3-e9554a921baa
+X-Inumbo-ID: 46efe52d-74e1-11ec-bcf3-e9554a921baa
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1642123285;
-	bh=l2PvEwCyVeWB2hKrqYTRU13dQIFXmY2Q5OOVe208SMA=;
+	s=k20201202; t=1642127143;
+	bh=h2CI4MFj40SZYji614qdWM8/KjZ54LMSAPRImoP/AMI=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=RPeQWnyawDoF6J/ZNsfv6VcEI3bAw20r8dJXxc1CLyaK81q0lnxRnyZZ1AHAhRrhK
-	 BIYblEdPM+BWIZGwIOW3uXtFnnP3mnILc4QArtbO2KmbFC6NJc4KaQ+5VCKCBGJUDd
-	 9U23o/jAYFCk729KjiHAPE9WB5uWzL+iql3hSlS3xfhEJuLrD08IMVH9eEXOWcIrdH
-	 PrN2i3dXuP8mjU31ZGpMS0umlqlbOQO+3ZFwoK0wQJNSw2SEaxDVcMOgOWfAnbm2Ua
-	 +EXzzd4/FZQEvQCVYyjCAI4+OjiUm3fOA3Vd8f9dcmx83NlXoJ9puWrYFCpGZOd1eK
-	 CuKYAPUCEiX2A==
-Date: Thu, 13 Jan 2022 17:21:24 -0800 (PST)
+	b=laVOzjWHOFOzNZv5wOJ84ol3/n4HkAAUK5qD43I6Q3XrygecetcrW4rrsdQsgAtss
+	 brKERV+P3eZrZiCf9eCKoOnqKiBTfA7ymst/7nBq+xZAIYn3p1bBzIF/QRynYo6u+s
+	 MYNF/I5160sDQM2C7nlNiDqR6gdNvkdh63B841gwgeb4V0SocobQPkYxZ3hZ76UzHi
+	 eHzAv4+0E+/m91Aefww0zFva1UatW9LG5ugTs5eHPiiwQ6QNx/yLcNPTaNYNrPQuKY
+	 NoDvyee9KJ8mU/LWo8gUS25engZIVFjdXdiACBe2JTFIFssAxGmvXG0OfrpXkgQ0HY
+	 W0yb6xlquA0LA==
+Date: Thu, 13 Jan 2022 18:25:41 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    "jgross@suse.com" <jgross@suse.com>, "julien@xen.org" <julien@xen.org>, 
-    "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>, 
+To: Juergen Gross <jgross@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, boris.ostrovsky@oracle.com, 
+    xen-devel@lists.xenproject.org, Luca Miccio <lucmiccio@gmail.com>, 
     Stefano Stabellini <stefano.stabellini@xilinx.com>
-Subject: Re: [XEN PATCH v2 1/5] xen: introduce xen,enhanced dom0less
- property
-In-Reply-To: <77925E54-B875-4D00-846C-BB957D70BF79@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2201131721100.19362@ubuntu-linux-20-04-desktop>
-References: <alpine.DEB.2.22.394.2201121646290.19362@ubuntu-linux-20-04-desktop> <20220113005855.1180101-1-sstabellini@kernel.org> <77925E54-B875-4D00-846C-BB957D70BF79@arm.com>
+Subject: Re: [LINUX PATCH v2 1/1] xen: add support for initializing xenstore
+ later as HVM domain
+In-Reply-To: <aa934840-0862-7246-4318-a049aedcf0c3@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2201131723420.19362@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2201121647460.19362@ubuntu-linux-20-04-desktop> <20220113010002.1180463-1-sstabellini@kernel.org> <aa934840-0862-7246-4318-a049aedcf0c3@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 13 Jan 2022, Bertrand Marquis wrote:
-> Hi Stefano,
+On Thu, 13 Jan 2022, Juergen Gross wrote:
+> > @@ -907,6 +921,20 @@ static struct notifier_block xenbus_resume_nb = {
+> >   	.notifier_call = xenbus_resume_cb,
+> >   };
+> >   +static irqreturn_t xenbus_late_init(int irq, void *unused)
+> > +{
+> > +	int err = 0;
+> > +	uint64_t v = 0;
+> > +
+> > +	err = hvm_get_parameter(HVM_PARAM_STORE_PFN, &v);
+> > +	if (err || !v || !~v)
+> > +		return IRQ_HANDLED;
+> > +	xen_store_gfn = (unsigned long)v;
+> > +
+> > +	wake_up(&xb_waitq);
+> > +	return IRQ_HANDLED;
+> > +}
+> > +
 > 
-> > On 13 Jan 2022, at 00:58, Stefano Stabellini <sstabellini@kernel.org> wrote:
-> > 
-> > From: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > 
-> > Introduce a new "xen,enhanced" dom0less property to enable/disable PV
-> > driver interfaces for dom0less guests. Currently only "enabled" and
-> > "disabled" are supported property values (and empty). Leave the option
-> > open to implement further possible values in the future (e.g.
-> > "xenstore" to enable only xenstore.)
-> 
-> You should also say here that you set this option to true in the code for dom0
-> and that the option is only for DomUs.
+> Hmm, wouldn't it be easier to use a static key in the already existing
+> irq handler instead of switching the handler?
 
-Good point!
+I did some prototyping and it is certainly not going to be "easier" :-)
+
+- xenbus_irq is setup by xb_init_comms, but xb_init_comms cannot be
+  re-used as-is because it assumes xen_store_interface to be != NULL
+- also, it is too early to start xenbus_thread at that point
+
+So it looks like we shouldn't call xb_init_comms from xenbus_init
+because it would increase the number of "if" statements in xb_init_comms
+quiet a bit. 
+
+An alternative would be to leave xb_init_comms unmodified, but reuse the
+same interrupt handler (wake_waiting) and xenbus_irq. However, that
+doesn't work either because rebind_evtchn_irq fails when it is called
+later on from xb_init_comms. (I haven't investigated why.) Also,
+xenbus_irq could be allocated as zero, so the existing check in
+xb_init_comms also fails. 
+
+To give you a concrete idea, after several tries I managed to get a
+dirty patch that works but I don't think the changes to xb_init_comms
+are actually correct.
+
+In conclusion I think it is best to keep the current approach.
+
+
+
+diff --git a/drivers/xen/xenbus/xenbus_comms.c b/drivers/xen/xenbus/xenbus_comms.c
+index e5fda0256feb..bad87c3a9f72 100644
+--- a/drivers/xen/xenbus/xenbus_comms.c
++++ b/drivers/xen/xenbus/xenbus_comms.c
+@@ -54,15 +54,9 @@ DEFINE_MUTEX(xb_write_mutex);
+ /* Protect xenbus reader thread against save/restore. */
+ DEFINE_MUTEX(xs_response_mutex);
  
-
-> > This patch only parses the property. Next patches will make use of it.
-> > 
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> > CC: Julien Grall <julien@xen.org>
-> > CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> > CC: Bertrand Marquis <bertrand.marquis@arm.com>
-> 
-> With the previous added in commit message:
-> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-
-Thank you!
-
-
-> Cheers
-> Bertrand
-> 
-> > ---
-> > Changes in v2:
-> > - rename kinfo.enhanced to kinfo.dom0less_enhanced
-> > - set kinfo.dom0less_enhanced to true for dom0
-> > - handle -ENODATA in addition to -EILSEQ
-> > ---
-> > docs/misc/arm/device-tree/booting.txt | 18 ++++++++++++++++++
-> > xen/arch/arm/domain_build.c           |  8 ++++++++
-> > xen/arch/arm/include/asm/kernel.h     |  3 +++
-> > 3 files changed, 29 insertions(+)
-> > 
-> > diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-> > index 71895663a4..38c29fb3d8 100644
-> > --- a/docs/misc/arm/device-tree/booting.txt
-> > +++ b/docs/misc/arm/device-tree/booting.txt
-> > @@ -169,6 +169,24 @@ with the following properties:
-> >     Please note that the SPI used for the virtual pl011 could clash with the
-> >     physical SPI of a physical device assigned to the guest.
-> > 
-> > +- xen,enhanced
-> > +
-> > +    A string property. Possible property values are:
-> > +
-> > +    - "enabled" (or missing property value)
-> > +    Xen PV interfaces, including grant-table and xenstore, will be
-> > +    enabled for the VM.
-> > +
-> > +    - "disabled"
-> > +    Xen PV interfaces are disabled.
-> > +
-> > +    If the xen,enhanced property is present with no value, it defaults
-> > +    to "enabled". If the xen,enhanced property is not present, PV
-> > +    interfaces are disabled.
-> > +
-> > +    In the future other possible property values might be added to
-> > +    enable only selected interfaces.
-> > +
-> > - nr_spis
-> > 
-> >     Optional. A 32-bit integer specifying the number of SPIs (Shared
-> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> > index 6931c022a2..9144d6c0b6 100644
-> > --- a/xen/arch/arm/domain_build.c
-> > +++ b/xen/arch/arm/domain_build.c
-> > @@ -2963,6 +2963,7 @@ static int __init construct_domU(struct domain *d,
-> >                                  const struct dt_device_node *node)
-> > {
-> >     struct kernel_info kinfo = {};
-> > +    const char *dom0less_enhanced;
-> >     int rc;
-> >     u64 mem;
-> > 
-> > @@ -2978,6 +2979,12 @@ static int __init construct_domU(struct domain *d,
-> > 
-> >     kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
-> > 
-> > +    rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
-> > +    if ( rc == -EILSEQ ||
-> > +         rc == -ENODATA ||
-> > +         (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
-> > +        kinfo.dom0less_enhanced = true;
-> > +
-> >     if ( vcpu_create(d, 0) == NULL )
-> >         return -ENOMEM;
-> > 
-> > @@ -3095,6 +3102,7 @@ static int __init construct_dom0(struct domain *d)
-> > 
-> >     kinfo.unassigned_mem = dom0_mem;
-> >     kinfo.d = d;
-> > +    kinfo.dom0less_enhanced = true;
-> > 
-> >     rc = kernel_probe(&kinfo, NULL);
-> >     if ( rc < 0 )
-> > diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
-> > index 874aa108a7..c4dc039b54 100644
-> > --- a/xen/arch/arm/include/asm/kernel.h
-> > +++ b/xen/arch/arm/include/asm/kernel.h
-> > @@ -36,6 +36,9 @@ struct kernel_info {
-> >     /* Enable pl011 emulation */
-> >     bool vpl011;
-> > 
-> > +    /* Enable PV drivers */
-> > +    bool dom0less_enhanced;
-> > +
-> >     /* GIC phandle */
-> >     uint32_t phandle_gic;
-> > 
-> > -- 
-> > 2.25.1
-> > 
-> 
+-static int xenbus_irq;
++int xenbus_irq = -1;
+ static struct task_struct *xenbus_task;
+ 
+-static irqreturn_t wake_waiting(int irq, void *unused)
+-{
+-	wake_up(&xb_waitq);
+-	return IRQ_HANDLED;
+-}
+-
+ static int check_indexes(XENSTORE_RING_IDX cons, XENSTORE_RING_IDX prod)
+ {
+ 	return ((prod - cons) <= XENSTORE_RING_SIZE);
+@@ -435,6 +429,7 @@ static int xenbus_thread(void *unused)
+ /**
+  * xb_init_comms - Set up interrupt handler off store event channel.
+  */
++extern irqreturn_t wake_waiting(int irq, void *unused);
+ int xb_init_comms(void)
+ {
+ 	struct xenstore_domain_interface *intf = xen_store_interface;
+@@ -451,10 +446,10 @@ int xb_init_comms(void)
+ 			intf->rsp_cons = intf->rsp_prod;
+ 	}
+ 
+-	if (xenbus_irq) {
++	if (xenbus_irq > 0) {
+ 		/* Already have an irq; assume we're resuming */
+ 		rebind_evtchn_irq(xen_store_evtchn, xenbus_irq);
+-	} else {
++	} else if (xenbus_irq < 0) {
+ 		int err;
+ 
+ 		err = bind_evtchn_to_irqhandler(xen_store_evtchn, wake_waiting,
+@@ -465,13 +460,13 @@ int xb_init_comms(void)
+ 		}
+ 
+ 		xenbus_irq = err;
++	}
+ 
+-		if (!xenbus_task) {
+-			xenbus_task = kthread_run(xenbus_thread, NULL,
+-						  "xenbus");
+-			if (IS_ERR(xenbus_task))
+-				return PTR_ERR(xenbus_task);
+-		}
++	if (!xenbus_task) {
++		xenbus_task = kthread_run(xenbus_thread, NULL,
++				"xenbus");
++		if (IS_ERR(xenbus_task))
++			return PTR_ERR(xenbus_task);
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/xen/xenbus/xenbus_probe.c b/drivers/xen/xenbus/xenbus_probe.c
+index fe360c33ce71..ad8d640b75d2 100644
+--- a/drivers/xen/xenbus/xenbus_probe.c
++++ b/drivers/xen/xenbus/xenbus_probe.c
+@@ -65,6 +65,7 @@
+ #include "xenbus.h"
+ 
+ 
++extern int xenbus_irq;
+ int xen_store_evtchn;
+ EXPORT_SYMBOL_GPL(xen_store_evtchn);
+ 
+@@ -750,6 +751,11 @@ static void xenbus_probe(void)
+ {
+ 	xenstored_ready = 1;
+ 
++	if (!xen_store_interface) {
++		xen_store_interface = xen_remap(xen_store_gfn << XEN_PAGE_SHIFT,
++						XEN_PAGE_SIZE);
++	}
++
+ 	/*
+ 	 * In the HVM case, xenbus_init() deferred its call to
+ 	 * xs_init() in case callbacks were not operational yet.
+@@ -798,20 +804,22 @@ static int __init xenbus_probe_initcall(void)
+ {
+ 	/*
+ 	 * Probe XenBus here in the XS_PV case, and also XS_HVM unless we
+-	 * need to wait for the platform PCI device to come up.
++	 * need to wait for the platform PCI device to come up or
++	 * xen_store_interface is not ready.
+ 	 */
+ 	if (xen_store_domain_type == XS_PV ||
+ 	    (xen_store_domain_type == XS_HVM &&
+-	     !xs_hvm_defer_init_for_callback()))
++	     !xs_hvm_defer_init_for_callback() &&
++	     xen_store_interface != NULL))
+ 		xenbus_probe();
+ 
+ 	/*
+-	 * For XS_LOCAL, spawn a thread which will wait for xenstored
+-	 * or a xenstore-stubdom to be started, then probe. It will be
+-	 * triggered when communication starts happening, by waiting
+-	 * on xb_waitq.
++	 * For XS_LOCAL or when xen_store_interface is not ready, spawn a
++	 * thread which will wait for xenstored or a xenstore-stubdom to be
++	 * started, then probe.  It will be triggered when communication
++	 * starts happening, by waiting on xb_waitq.
+ 	 */
+-	if (xen_store_domain_type == XS_LOCAL) {
++	if (xen_store_domain_type == XS_LOCAL || xen_store_interface == NULL) {
+ 		struct task_struct *probe_task;
+ 
+ 		probe_task = kthread_run(xenbus_probe_thread, NULL,
+@@ -907,6 +915,22 @@ static struct notifier_block xenbus_resume_nb = {
+ 	.notifier_call = xenbus_resume_cb,
+ };
+ 
++irqreturn_t wake_waiting(int irq, void *unused)
++{
++	int err = 0;
++	uint64_t v = 0;
++
++	if (!xen_store_gfn) {
++		err = hvm_get_parameter(HVM_PARAM_STORE_PFN, &v);
++		if (err || !v || !~v)
++			return IRQ_HANDLED;
++		xen_store_gfn = (unsigned long)v;
++	}
++
++	wake_up(&xb_waitq);
++	return IRQ_HANDLED;
++}
++
+ static int __init xenbus_init(void)
+ {
+ 	int err;
+@@ -959,23 +983,37 @@ static int __init xenbus_init(void)
+ 		 *
+ 		 * Also recognize all bits set as an invalid value.
+ 		 */
+-		if (!v || !~v) {
++		if (!v) {
+ 			err = -ENOENT;
+ 			goto out_error;
+ 		}
+-		/* Avoid truncation on 32-bit. */
++		if (v == ~0ULL) {
++			err = bind_evtchn_to_irqhandler(xen_store_evtchn,
++							wake_waiting,
++							0, "xenbus",
++							&xb_waitq);
++			if (err < 0) {
++				pr_err("xenstore_late_init couldn't bind irq err=%d\n",
++				       err);
++				return err;
++			}
++
++			xenbus_irq = err;
++		} else {
++			/* Avoid truncation on 32-bit. */
+ #if BITS_PER_LONG == 32
+-		if (v > ULONG_MAX) {
+-			pr_err("%s: cannot handle HVM_PARAM_STORE_PFN=%llx > ULONG_MAX\n",
+-			       __func__, v);
+-			err = -EINVAL;
+-			goto out_error;
+-		}
++			if (v > ULONG_MAX) {
++				pr_err("%s: cannot handle HVM_PARAM_STORE_PFN=%llx > ULONG_MAX\n",
++						__func__, v);
++				err = -EINVAL;
++				goto out_error;
++			}
+ #endif
+-		xen_store_gfn = (unsigned long)v;
+-		xen_store_interface =
+-			xen_remap(xen_store_gfn << XEN_PAGE_SHIFT,
+-				  XEN_PAGE_SIZE);
++			xen_store_gfn = (unsigned long)v;
++			xen_store_interface =
++				xen_remap(xen_store_gfn << XEN_PAGE_SHIFT,
++					  XEN_PAGE_SIZE);
++		}
+ 		break;
+ 	default:
+ 		pr_warn("Xenstore state unknown\n");
 
