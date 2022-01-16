@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83B3F48FEF5
-	for <lists+xen-devel@lfdr.de>; Sun, 16 Jan 2022 22:02:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.257983.443764 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63F1848FEF6
+	for <lists+xen-devel@lfdr.de>; Sun, 16 Jan 2022 22:03:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.257986.443779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9Cf4-0008S1-5O; Sun, 16 Jan 2022 21:02:02 +0000
+	id 1n9Cg2-0000h9-IJ; Sun, 16 Jan 2022 21:03:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 257983.443764; Sun, 16 Jan 2022 21:02:02 +0000
+Received: by outflank-mailman (output) from mailman id 257986.443779; Sun, 16 Jan 2022 21:03:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9Cf4-0008Q5-0c; Sun, 16 Jan 2022 21:02:02 +0000
-Received: by outflank-mailman (input) for mailman id 257983;
- Sun, 16 Jan 2022 21:02:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1n9Cg2-0000eI-CZ; Sun, 16 Jan 2022 21:03:02 +0000
+Received: by outflank-mailman (input) for mailman id 257986;
+ Sun, 16 Jan 2022 21:03:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=g2po=SA=ens-lyon.org=samuel.thibault@srs-se1.protection.inumbo.net>)
- id 1n9Cf2-0008Ne-4j
- for xen-devel@lists.xenproject.org; Sun, 16 Jan 2022 21:02:00 +0000
+ id 1n9Cg0-0000bW-7v
+ for xen-devel@lists.xenproject.org; Sun, 16 Jan 2022 21:03:00 +0000
 Received: from hera.aquilenet.fr (hera.aquilenet.fr [2a0c:e300::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8ab2e3c8-770f-11ec-a115-11989b9578b4;
- Sun, 16 Jan 2022 22:01:58 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ad62e8af-770f-11ec-9bbc-9dff3e4ee8c5;
+ Sun, 16 Jan 2022 22:02:58 +0100 (CET)
 Received: from localhost (localhost [127.0.0.1])
- by hera.aquilenet.fr (Postfix) with ESMTP id 7EE9D2BC;
- Sun, 16 Jan 2022 22:01:57 +0100 (CET)
+ by hera.aquilenet.fr (Postfix) with ESMTP id 9B3499E;
+ Sun, 16 Jan 2022 22:02:55 +0100 (CET)
 Received: from hera.aquilenet.fr ([127.0.0.1])
  by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 63LiGb4pADcA; Sun, 16 Jan 2022 22:01:56 +0100 (CET)
+ with ESMTP id kWsA_aW_kQ2u; Sun, 16 Jan 2022 22:02:54 +0100 (CET)
 Received: from begin (unknown [IPv6:2a01:cb19:956:1b00:de41:a9ff:fe47:ec49])
- by hera.aquilenet.fr (Postfix) with ESMTPSA id A804818A;
- Sun, 16 Jan 2022 22:01:55 +0100 (CET)
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id 562A818A;
+ Sun, 16 Jan 2022 22:02:54 +0100 (CET)
 Received: from samy by begin with local (Exim 4.95)
- (envelope-from <samuel.thibault@ens-lyon.org>) id 1n9Cew-005ugU-VA;
- Sun, 16 Jan 2022 22:01:54 +0100
+ (envelope-from <samuel.thibault@ens-lyon.org>) id 1n9Cft-005ugm-Mo;
+ Sun, 16 Jan 2022 22:02:53 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,33 +48,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ab2e3c8-770f-11ec-a115-11989b9578b4
+X-Inumbo-ID: ad62e8af-770f-11ec-9bbc-9dff3e4ee8c5
 X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
-Date: Sun, 16 Jan 2022 22:01:54 +0100
+Date: Sun, 16 Jan 2022 22:02:53 +0100
 From: Samuel Thibault <samuel.thibault@ens-lyon.org>
 To: Juergen Gross <jgross@suse.com>
 Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
 	wl@xen.org
-Subject: Re: [MINIOS PATCH v3 09/12] use file_ops and get_file_from_fd() for
- console
-Message-ID: <20220116210154.atobr2ikhljyiaah@begin>
+Subject: Re: [MINIOS PATCH v3 10/12] add struct file_ops for file type socket
+Message-ID: <20220116210253.7yze4z7uqma4pk33@begin>
 Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
 	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org, wl@xen.org
 References: <20220116083328.26524-1-jgross@suse.com>
- <20220116083328.26524-10-jgross@suse.com>
+ <20220116083328.26524-11-jgross@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220116083328.26524-10-jgross@suse.com>
+In-Reply-To: <20220116083328.26524-11-jgross@suse.com>
 Organization: I am not organized
 User-Agent: NeoMutt/20170609 (1.8.3)
 X-Spamd-Bar: /
 Authentication-Results: hera.aquilenet.fr;
 	none
 X-Rspamd-Server: hera
-X-Rspamd-Queue-Id: 7EE9D2BC
+X-Rspamd-Queue-Id: 9B3499E
 X-Spamd-Result: default: False [0.40 / 15.00];
 	 ARC_NA(0.00)[];
 	 RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -90,17 +88,14 @@ X-Spamd-Result: default: False [0.40 / 15.00];
 	 RCVD_TLS_LAST(0.00)[];
 	 MID_RHS_NOT_FQDN(0.50)[]
 
-Juergen Gross, le dim. 16 janv. 2022 09:33:25 +0100, a ecrit:
-> Add struct file_ops for the console related file types (FTYPE_CONSOLE
-> and savefile). FTYPE_CONSOLE remains statically defined, as it is used
-> to statically init stdin, stdout and stderr.
+Juergen Gross, le dim. 16 janv. 2022 09:33:26 +0100, a ecrit:
+> Even with some special handling needed in select_poll(), add a struct
+> file_ops for FTYPE_SOCKET. Due to the need of the special handling it
+> isn't possible to use a dynamically allocated file type.
 > 
-> Instead of directly accessing the files[] array use get_file_from_fd().
-> 
-> With CONSOLE now handled via file_ops the bogus file descriptor case in
-> select_poll() now needs to be handled more explicit instead of dropping
-> into console handling, assuming that this case was basically meant to
-> cover SAVEFILE.
+> Most functions calling the file_ops methods can be simplified a lot now
+> that no file type specific handling is left. Same applies to the file
+> type name printing in debug/verbose mode.
 > 
 > Signed-off-by: Juergen Gross <jgross@suse.com>
 
@@ -109,384 +104,251 @@ Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 > ---
 > V3:
 > - switch to struct file * parameter for callbacks
-> - use __attribute__((constructor))
-> - make console_print() take a const pointer (Andrew Cooper)
 > ---
->  console/console.c      |   2 +-
->  console/xenbus.c       | 112 +++++++++++++++++++++++++++++++++++++++++
->  console/xencons_ring.c |   6 +--
->  include/console.h      |   7 ++-
->  include/lib.h          |   3 +-
->  lib/sys.c              |  87 ++++++++------------------------
->  6 files changed, 144 insertions(+), 73 deletions(-)
+>  lib/sys.c | 148 +++++++++++++++++++++++-------------------------------
+>  1 file changed, 64 insertions(+), 84 deletions(-)
 > 
-> diff --git a/console/console.c b/console/console.c
-> index af1a6dd3..68c8435e 100644
-> --- a/console/console.c
-> +++ b/console/console.c
-> @@ -76,7 +76,7 @@ void xencons_tx(void)
->  #endif
+> diff --git a/lib/sys.c b/lib/sys.c
+> index 74c82b2a..538d6e7b 100644
+> --- a/lib/sys.c
+> +++ b/lib/sys.c
+> @@ -99,11 +99,67 @@ static const struct file_ops file_ops_none = {
+>      .name = "none",
+>  };
 >  
->  
-> -void console_print(struct consfront_dev *dev, char *data, int length)
-> +void console_print(struct consfront_dev *dev, const char *data, int length)
->  {
->      char *curr_char, saved_char;
->      char copied_str[length+1];
-> diff --git a/console/xenbus.c b/console/xenbus.c
-> index 05fc31c0..d8950454 100644
-> --- a/console/xenbus.c
-> +++ b/console/xenbus.c
-> @@ -192,3 +192,115 @@ void fini_consfront(struct consfront_dev *dev)
->  {
->      if (dev) free_consfront(dev);
->  }
-> +
-> +#ifdef HAVE_LIBC
-> +static int consfront_read(struct file *file, void *buf, size_t nbytes)
+> +#ifdef HAVE_LWIP
+> +static int socket_read(struct file *file, void *buf, size_t nbytes)
 > +{
-> +    int ret;
-> +    DEFINE_WAIT(w);
-> +
-> +    while ( 1 )
-> +    {
-> +        add_waiter(w, console_queue);
-> +        ret = xencons_ring_recv(file->dev, buf, nbytes);
-> +        if ( ret )
-> +            break;
-> +        schedule();
-> +    }
-> +
-> +    remove_waiter(w, console_queue);
-> +
-> +    return ret;
+> +    return lwip_read(file->fd, buf, nbytes);
 > +}
 > +
-> +static int savefile_write(struct file *file, const void *buf, size_t nbytes)
+> +static int socket_write(struct file *file, const void *buf, size_t nbytes)
 > +{
-> +    int ret = 0, tot = nbytes;
-> +
-> +    while ( nbytes > 0 )
-> +    {
-> +        ret = xencons_ring_send(file->dev, buf, nbytes);
-> +        nbytes -= ret;
-> +        buf = (char *)buf + ret;
-> +    }
-> +
-> +    return tot - nbytes;
+> +    return lwip_write(file->fd, buf, nbytes);
 > +}
 > +
-> +static int console_write(struct file *file, const void *buf, size_t nbytes)
+> +static int close_socket_fd(struct file *file)
 > +{
-> +    console_print(file->dev, buf, nbytes);
-> +
-> +    return nbytes;
+> +    return lwip_close(file->fd);
 > +}
 > +
-> +static int consfront_close_fd(struct file *file)
+> +static int socket_fstat(struct file *file, struct stat *buf)
 > +{
-> +    fini_consfront(file->dev);
-> +
-> +    return 0;
-> +}
-> +
-> +static int consfront_fstat(struct file *file, struct stat *buf)
-> +{
-> +    buf->st_mode = S_IRUSR | S_IWUSR;
-> +    buf->st_mode |= (file->type == FTYPE_CONSOLE) ? S_IFCHR : S_IFREG;
+> +    buf->st_mode = S_IFSOCK | S_IRUSR | S_IWUSR;
 > +    buf->st_atime = buf->st_mtime = buf->st_ctime = time(NULL);
 > +
 > +    return 0;
 > +}
 > +
-> +static bool consfront_select_rd(struct file *file)
+> +static int socket_fcntl(struct file *file, int cmd, va_list args)
 > +{
-> +    return xencons_ring_avail(file->dev);
-> +}
+> +    long arg;
 > +
-> +static const struct file_ops savefile_ops = {
-> +    .name = "savefile",
-> +    .read = consfront_read,
-> +    .write = savefile_write,
-> +    .close = consfront_close_fd,
-> +    .fstat = consfront_fstat,
-> +    .select_rd = consfront_select_rd,
-> +    .select_wr = select_yes,
-> +};
+> +    arg = va_arg(args, long);
 > +
-> +const struct file_ops console_ops = {
-> +    .name = "console",
-> +    .read = consfront_read,
-> +    .write = console_write,
-> +    .close = consfront_close_fd,
-> +    .fstat = consfront_fstat,
-> +    .select_rd = consfront_select_rd,
-> +    .select_wr = select_yes,
-> +};
-> +
-> +static unsigned int ftype_savefile;
-> +
-> +__attribute__((constructor))
-> +static void consfront_initialize(void)
-> +{
-> +    ftype_savefile = alloc_file_type(&savefile_ops);
-> +}
-> +
-> +int open_consfront(char *nodename)
-> +{
-> +    struct consfront_dev *dev;
-> +    struct file *file;
-> +
-> +    dev = init_consfront(nodename);
-> +    if ( !dev )
-> +        return -1;
-> +
-> +    dev->fd = alloc_fd(nodename ? ftype_savefile : FTYPE_CONSOLE);
-> +    file = get_file_from_fd(dev->fd);
-> +    if ( !file )
+> +    if ( cmd == F_SETFL && !(arg & ~O_NONBLOCK) )
 > +    {
-> +        fini_consfront(dev);
-> +        return -1;
-> +    }
-> +    file->dev = dev;
+> +        /* Only flag supported: non-blocking mode */
+> +        uint32_t nblock = !!(arg & O_NONBLOCK);
 > +
-> +    return dev->fd;
+> +        return lwip_ioctl(file->fd, FIONBIO, &nblock);
+> +    }
+> +
+> +    printk("socket fcntl(fd, %d, %lx/%lo)\n", cmd, arg, arg);
+> +    errno = ENOSYS;
+> +    return -1;
 > +}
+> +
+> +static const struct file_ops socket_ops = {
+> +    .name = "socket",
+> +    .read = socket_read,
+> +    .write = socket_write,
+> +    .close = close_socket_fd,
+> +    .fstat = socket_fstat,
+> +    .fcntl = socket_fcntl,
+> +};
 > +#endif
-> diff --git a/console/xencons_ring.c b/console/xencons_ring.c
-> index c348f3ce..efedf46b 100644
-> --- a/console/xencons_ring.c
-> +++ b/console/xencons_ring.c
-> @@ -99,10 +99,10 @@ void console_handle_input(evtchn_port_t port, struct pt_regs *regs, void *data)
->  {
->  	struct consfront_dev *dev = (struct consfront_dev *) data;
->  #ifdef HAVE_LIBC
-> -        int fd = dev ? dev->fd : -1;
-> +        struct file *file = dev ? get_file_from_fd(dev->fd) : NULL;
->  
-> -        if (fd != -1)
-> -            files[fd].read = true;
-> +        if ( file )
-> +            file->read = true;
->  
->          wake_up(&console_queue);
->  #else
-> diff --git a/include/console.h b/include/console.h
-> index 0d7bf077..e76e4234 100644
-> --- a/include/console.h
-> +++ b/include/console.h
-> @@ -39,6 +39,7 @@
->  #include <mini-os/os.h>
->  #include <mini-os/traps.h>
->  #include <mini-os/types.h>
-> +#include <mini-os/lib.h>
->  #include <xen/grant_table.h>
->  #include <xenbus.h>
->  #include <xen/io/console.h>
-> @@ -77,7 +78,7 @@ void xencons_tx(void);
->  
->  void get_console(void *p);
->  void init_console(void);
-> -void console_print(struct consfront_dev *dev, char *data, int length);
-> +void console_print(struct consfront_dev *dev, const char *data, int length);
->  void fini_consfront(struct consfront_dev *dev);
->  void suspend_console(void);
->  void resume_console(void);
-> @@ -93,5 +94,9 @@ int xencons_ring_send_no_notify(struct consfront_dev *dev, const char *data, uns
->  int xencons_ring_avail(struct consfront_dev *dev);
->  int xencons_ring_recv(struct consfront_dev *dev, char *data, unsigned len);
->  void free_consfront(struct consfront_dev *dev);
-> +#ifdef HAVE_LIBC
-> +extern const struct file_ops console_ops;
-> +int open_consfront(char *nodename);
-> +#endif
->  
->  #endif /* _LIB_CONSOLE_H_ */
-> diff --git a/include/lib.h b/include/lib.h
-> index b1beeed3..e815e0a3 100644
-> --- a/include/lib.h
-> +++ b/include/lib.h
-> @@ -162,8 +162,7 @@ extern struct wait_queue_head event_queue;
->  #define FTYPE_FILE       2
->  #define FTYPE_SOCKET     3
->  #define FTYPE_MEM        4
-> -#define FTYPE_SAVEFILE   5
-> -#define FTYPE_N          6
-> +#define FTYPE_N          5
->  #define FTYPE_SPARE     16
->  
->  struct file {
-> diff --git a/lib/sys.c b/lib/sys.c
-> index db26fd2d..74c82b2a 100644
-> --- a/lib/sys.c
-> +++ b/lib/sys.c
-> @@ -101,6 +101,9 @@ static const struct file_ops file_ops_none = {
->  
+> +
 >  static const struct file_ops *file_ops[FTYPE_N + FTYPE_SPARE] = {
 >      [FTYPE_NONE] = &file_ops_none,
-> +#ifdef CONFIG_CONSFRONT
-> +    [FTYPE_CONSOLE] = &console_ops,
+>  #ifdef CONFIG_CONSFRONT
+>      [FTYPE_CONSOLE] = &console_ops,
+>  #endif
+> +#ifdef HAVE_LWIP
+> +    [FTYPE_SOCKET] = &socket_ops,
 > +#endif
 >  };
 >  
 >  unsigned int alloc_file_type(const struct file_ops *ops)
-> @@ -212,31 +215,26 @@ int mkdir(const char *pathname, mode_t mode)
->  #ifdef CONFIG_CONSFRONT
->  int posix_openpt(int flags)
->  {
-> -    struct consfront_dev *dev;
-> +    int fd;
->  
->      /* Ignore flags */
-> +    fd = open_consfront(NULL);
-> +    printk("fd(%d) = posix_openpt\n", fd);
->  
-> -    dev = init_consfront(NULL);
-> -    dev->fd = alloc_fd(FTYPE_CONSOLE);
-> -    files[dev->fd].dev = dev;
-> -
-> -    printk("fd(%d) = posix_openpt\n", dev->fd);
-> -    return(dev->fd);
-> +    return fd;
->  }
->  
->  int open_savefile(const char *path, int save)
->  {
-> -    struct consfront_dev *dev;
-> +    int fd;
->      char nodename[64];
->  
->      snprintf(nodename, sizeof(nodename), "device/console/%d", save ? SAVE_CONSOLE : RESTORE_CONSOLE);
->  
-> -    dev = init_consfront(nodename);
-> -    dev->fd = alloc_fd(FTYPE_SAVEFILE);
-> -    files[dev->fd].dev = dev;
-> +    fd = open_consfront(nodename);
-> +    printk("fd(%d) = open_savefile\n", fd);
->  
-> -    printk("fd(%d) = open_savefile\n", dev->fd);
-> -    return(dev->fd);
-> +    return fd;
->  }
->  #else
->  int posix_openpt(int flags)
-> @@ -291,20 +289,6 @@ int read(int fd, void *buf, size_t nbytes)
+> @@ -288,15 +344,6 @@ int read(int fd, void *buf, size_t nbytes)
+>      if ( ops->read )
 >          return ops->read(file, buf, nbytes);
 >  
->      switch (file->type) {
-> -        case FTYPE_SAVEFILE:
-> -	case FTYPE_CONSOLE: {
-> -	    int ret;
-> -            DEFINE_WAIT(w);
-> -            while(1) {
-> -                add_waiter(w, console_queue);
-> -                ret = xencons_ring_recv(files[fd].dev, buf, nbytes);
-> -                if (ret)
-> -                    break;
-> -                schedule();
-> -            }
-> -            remove_waiter(w, console_queue);
-> -            return ret;
-> -        }
->  #ifdef HAVE_LWIP
->          case FTYPE_SOCKET:
->  	    return lwip_read(files[fd].fd, buf, nbytes);
-> @@ -332,18 +316,6 @@ int write(int fd, const void *buf, size_t nbytes)
+> -    switch (file->type) {
+> -#ifdef HAVE_LWIP
+> -        case FTYPE_SOCKET:
+> -	    return lwip_read(files[fd].fd, buf, nbytes);
+> -#endif
+> -	default:
+> -	    break;
+> -    }
+> -
+>   error:
+>      printk("read(%d): Bad descriptor\n", fd);
+>      errno = EBADF;
+> @@ -315,15 +362,6 @@ int write(int fd, const void *buf, size_t nbytes)
+>      if ( ops->write )
 >          return ops->write(file, buf, nbytes);
 >  
->      switch (file->type) {
-> -        case FTYPE_SAVEFILE: {
-> -                int ret = 0, tot = nbytes;
-> -                while (nbytes > 0) {
-> -                    ret = xencons_ring_send(files[fd].dev, (char *)buf, nbytes);
-> -                    nbytes -= ret;
-> -                    buf = (char *)buf + ret;
-> -                }
-> -                return tot - nbytes;
-> -            }
-> -	case FTYPE_CONSOLE:
-> -	    console_print(files[fd].dev, (char *)buf, nbytes);
-> -	    return nbytes;
->  #ifdef HAVE_LWIP
->  	case FTYPE_SOCKET:
->  	    return lwip_write(files[fd].fd, (void*) buf, nbytes);
-> @@ -446,12 +418,6 @@ int close(int fd)
->  	case FTYPE_SOCKET:
->              res = lwip_close(files[fd].fd);
->              break;
+> -    switch (file->type) {
+> -#ifdef HAVE_LWIP
+> -	case FTYPE_SOCKET:
+> -	    return lwip_write(files[fd].fd, (void*) buf, nbytes);
 > -#endif
-> -#ifdef CONFIG_CONSFRONT
-> -        case FTYPE_SAVEFILE:
-> -        case FTYPE_CONSOLE:
-> -            fini_consfront(files[fd].dev);
+> -	default:
+> -	    break;
+> -    }
+> -
+>   error:
+>      printk("write(%d): Bad descriptor\n", fd);
+>      errno = EBADF;
+> @@ -406,24 +444,10 @@ int close(int fd)
+>      ops = get_file_ops(file->type);
+>      printk("close(%d)\n", fd);
+>      if ( ops->close )
+> -    {
+>          res = ops->close(file);
+> -        goto out;
+> -    }
+> -
+> -    switch (file->type) {
+> -        default:
 > -            break;
->  #endif
->  	case FTYPE_NONE:
->              goto error;
-> @@ -501,15 +467,8 @@ int fstat(int fd, struct stat *buf)
+> -#ifdef HAVE_LWIP
+> -	case FTYPE_SOCKET:
+> -            res = lwip_close(files[fd].fd);
+> -            break;
+> -#endif
+> -	case FTYPE_NONE:
+> -            goto error;
+> -    }
+> +    else if ( file->type == FTYPE_NONE )
+> +        goto error;
+>  
+> - out:
+>      memset(files + fd, 0, sizeof(struct file));
+>      BUILD_BUG_ON(FTYPE_NONE != 0);
+>  
+> @@ -466,21 +490,6 @@ int fstat(int fd, struct stat *buf)
+>      if ( ops->fstat )
 >          return ops->fstat(file, buf);
 >  
->      switch (file->type) {
-> -	case FTYPE_SAVEFILE:
-> -	case FTYPE_CONSOLE:
->  	case FTYPE_SOCKET: {
-> -            if (files[fd].type == FTYPE_CONSOLE)
-> -                buf->st_mode = S_IFCHR|S_IRUSR|S_IWUSR;
-> -            else if (files[fd].type == FTYPE_SOCKET)
-> -                buf->st_mode = S_IFSOCK|S_IRUSR|S_IWUSR;
-> -            else if (files[fd].type == FTYPE_SAVEFILE)
-> -                buf->st_mode = S_IFREG|S_IRUSR|S_IWUSR;
-> +            buf->st_mode = S_IFSOCK|S_IRUSR|S_IWUSR;
->  	    buf->st_uid = 0;
->  	    buf->st_gid = 0;
->  	    buf->st_size = 0;
-> @@ -630,7 +589,6 @@ int closedir(DIR *dir)
->  #if defined(LIBC_DEBUG) || defined(LIBC_VERBOSE)
->  static const char *const file_types[] = {
->      [FTYPE_NONE]    = "none",
-> -    [FTYPE_CONSOLE] = "console",
->      [FTYPE_SOCKET]  = "socket",
->  };
->  
-> @@ -799,21 +757,18 @@ static int select_poll(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exce
->              }
->  
->  	    if (FD_ISSET(i, readfds) || FD_ISSET(i, writefds) || FD_ISSET(i, exceptfds))
-> +            {
->  		printk("bogus fd %d in select\n", i);
-> -	    /* Fallthrough.  */
-> -        }
+> -    switch (file->type) {
+> -	case FTYPE_SOCKET: {
+> -            buf->st_mode = S_IFSOCK|S_IRUSR|S_IWUSR;
+> -	    buf->st_uid = 0;
+> -	    buf->st_gid = 0;
+> -	    buf->st_size = 0;
+> -	    buf->st_atime = 
+> -	    buf->st_mtime = 
+> -	    buf->st_ctime = time(NULL);
+> -	    return 0;
+> -	}
+> -	default:
+> -	    break;
+> -    }
 > -
-> -	case FTYPE_CONSOLE:
-> -	    if (FD_ISSET(i, readfds)) {
-> -                if (xencons_ring_avail(files[i].dev))
-> -		    n++;
-> -		else
-> -		    FD_CLR(i, readfds);
-> +                if ( FD_ISSET(i, readfds) )
-> +                    FD_CLR(i, readfds);
-> +                if ( FD_ISSET(i, writefds) )
-> +                    FD_CLR(i, writefds);
-> +                if ( FD_ISSET(i, exceptfds) )
-> +                    FD_CLR(i, exceptfds);
->              }
-> -	    if (FD_ISSET(i, writefds))
-> -                n++;
-> -	    FD_CLR(i, exceptfds);
->  	    break;
-> +        }
-> +
->  #ifdef HAVE_LWIP
->  	case FTYPE_SOCKET:
->  	    if (FD_ISSET(i, readfds)) {
+>   error:
+>      printk("statf(%d): Bad descriptor\n", fd);
+>      errno = EBADF;
+> @@ -538,21 +547,9 @@ int fcntl(int fd, int cmd, ...)
+>      arg = va_arg(ap, long);
+>      va_end(ap);
+>  
+> -    switch (cmd) {
+> -#ifdef HAVE_LWIP
+> -	case F_SETFL:
+> -	    if (files[fd].type == FTYPE_SOCKET && !(arg & ~O_NONBLOCK)) {
+> -		/* Only flag supported: non-blocking mode */
+> -		uint32_t nblock = !!(arg & O_NONBLOCK);
+> -		return lwip_ioctl(files[fd].fd, FIONBIO, &nblock);
+> -	    }
+> -	    /* Fallthrough */
+> -#endif
+> -	default:
+> -	    printk("fcntl(%d, %d, %lx/%lo)\n", fd, cmd, arg, arg);
+> -	    errno = ENOSYS;
+> -	    return -1;
+> -    }
+> +    printk("fcntl(%d, %d, %lx/%lo)\n", fd, cmd, arg, arg);
+> +    errno = ENOSYS;
+> +    return -1;
+>  }
+>  
+>  DIR *opendir(const char *name)
+> @@ -586,23 +583,6 @@ int closedir(DIR *dir)
+>  
+>  /* We assume that only the main thread calls select(). */
+>  
+> -#if defined(LIBC_DEBUG) || defined(LIBC_VERBOSE)
+> -static const char *const file_types[] = {
+> -    [FTYPE_NONE]    = "none",
+> -    [FTYPE_SOCKET]  = "socket",
+> -};
+> -
+> -static const char *get_type_name(unsigned int type)
+> -{
+> -    if ( type < ARRAY_SIZE(file_ops) && file_ops[type] )
+> -        return file_ops[type]->name;
+> -
+> -    if ( type < ARRAY_SIZE(file_types) && file_types[type] )
+> -        return file_types[type];
+> -
+> -    return "none";
+> -}
+> -#endif
+>  #ifdef LIBC_DEBUG
+>  static void dump_set(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout)
+>  {
+> @@ -613,7 +593,7 @@ static void dump_set(int nfds, fd_set *readfds, fd_set *writefds, fd_set *except
+>  	if (FD_ISSET(i, set)) { \
+>  	    if (comma) \
+>  		printk(", "); \
+> -            printk("%d(%s)", i, get_type_name(files[i].type)); \
+> +            printk("%d(%s)", i, get_file_ops(files[i].type)->name); \
+>  	    comma = 1; \
+>  	} \
+>      } \
+> @@ -647,7 +627,7 @@ static void dump_pollfds(struct pollfd *pfd, int nfds, int timeout)
+>          fd = pfd[i].fd;
+>          if (comma)
+>              printk(", ");
+> -        printk("%d(%s)/%02x", fd, get_type_name(files[fd].type),
+> +        printk("%d(%s)/%02x", fd, get_file_ops(files[fd].type)->name,
+>              pfd[i].events);
+>              comma = 1;
+>      }
+> @@ -809,7 +789,7 @@ static int select_poll(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exce
+>  	printk("%d(%d): ", nb, sock_n);
+>  	for (i = 0; i < nfds; i++) {
+>  	    if (nbread[i] || nbwrite[i] || nbexcept[i])
+> -                printk(" %d(%c):", i, get_type_name(files[i].type));
+> +                printk(" %d(%c):", i, get_file_ops(files[i].type)->name);
+>  	    if (nbread[i])
+>  	    	printk(" %dR", nbread[i]);
+>  	    if (nbwrite[i])
 > -- 
 > 2.26.2
 > 
 
 -- 
 Samuel
-<N> (* If you have a precise idea of the intended use of the following code, please
-<N>    write to Eduardo.Gimenez@inria.fr and ask for the prize :-)
-<N>    -- Eduardo (11/8/97) *)
- -+- N sur #ens-mim - et c'était un des développeurs -+-
+*** s has joined channel #ens-mim
+<N> re 
+<s> pfff 
+<s> mare de la pfp. 
+<s> pas commencer et j'en ai deja marre. 
+<s> bon ct juste un cou de gueule ++ 
+*** s has left channel #ens-mim (s)
+ -+- #ens-mim et la peufeupeu -+-
 
