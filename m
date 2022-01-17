@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0977D49056C
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jan 2022 10:49:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258041.443922 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51D41490569
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jan 2022 10:49:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258043.443933 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9OdY-0003JW-U1; Mon, 17 Jan 2022 09:49:16 +0000
+	id 1n9Ode-0003gU-8J; Mon, 17 Jan 2022 09:49:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258041.443922; Mon, 17 Jan 2022 09:49:16 +0000
+Received: by outflank-mailman (output) from mailman id 258043.443933; Mon, 17 Jan 2022 09:49:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9OdY-0003Gu-PH; Mon, 17 Jan 2022 09:49:16 +0000
-Received: by outflank-mailman (input) for mailman id 258041;
- Mon, 17 Jan 2022 09:49:14 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1n9Ode-0003eV-4p; Mon, 17 Jan 2022 09:49:22 +0000
+Received: by outflank-mailman (input) for mailman id 258043;
+ Mon, 17 Jan 2022 09:49:20 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TAtW=SB=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1n9OdW-0002gi-Ik
- for xen-devel@lists.xenproject.org; Mon, 17 Jan 2022 09:49:14 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b8925665-777a-11ec-9bbc-9dff3e4ee8c5;
- Mon, 17 Jan 2022 10:49:12 +0100 (CET)
+ id 1n9Odc-0003a5-Ia
+ for xen-devel@lists.xenproject.org; Mon, 17 Jan 2022 09:49:20 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id bb8f65b2-777a-11ec-a115-11989b9578b4;
+ Mon, 17 Jan 2022 10:49:17 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,452 +36,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b8925665-777a-11ec-9bbc-9dff3e4ee8c5
+X-Inumbo-ID: bb8f65b2-777a-11ec-a115-11989b9578b4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1642412953;
+  d=citrix.com; s=securemail; t=1642412957;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:content-transfer-encoding:mime-version;
-  bh=W5pxdwQqMysZPVE+sPNorSRWEA6/ol2TOm/u2VyLMiM=;
-  b=Np9kP/aJQ49aHGYfid91nwt/UupFaA/dIzEJKItqR+sFXvM8PdJaN2el
-   CP2KOipow1ufmSYr2iKBXfHHIy2sgGZAR4B5UALn7tUdduwEXTTSbE4Am
-   VsH3xIb61Q/s3oYG/ohQ2zPdj7VgkGxuoAWuCoUWjcqAC0kYc7OWQTC2K
-   c=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: qTlKfe1ZZ+AmLjb52rVQcOL0KTM852hOEC6EjY2odKymqeqOO41uHWEe/ZUEucL48bcDPEUZRw
- j+35wGL9ir49ia2Au4/hJmHrssuV4ir5p8OI3eYtH/SGDl9BIcrKyal3zEVWJ3eC+yyouKCj7n
- RvM7ALtT+cWkR3vEWSfZGTqZvF4l84Zx+HIkvUInDwLiPr+u/ooOMEi6zJQiuMMscQHd+1Vcvr
- bnJKi99rDA6GKbcQt8jChwX6BW7gG6rBgZDJ9TQPk+elTVEjLKl9leRKF/wpJlXCieAT6eQ57Q
- W5TUP+WXC5FPen7Do8RvEhcP
+  bh=A+Od6Bh7qsx7u4DTHy3nwSt/ug52iTXLpb6kGpq0i0I=;
+  b=BbRf6ifAS68pK/sjlUfcbb/6DpVjZhFqL05Ey6J2BoGLB9Fl4B4Mk510
+   3DMKkb/kT5apZen83/AexSGq7Bw7MRhzWcJ5aMfSzt3Zr28s18P1YHyIH
+   Ikh6FwVMYeaVS3kWh/30CgBNWfz+PXOUj1whBu/o8G/Jw9JNcx2LeJ3/8
+   M=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: vwd4nTW/xkcN7l6O6dhjK0P8Qiyd/rSZqNM7ztjEyiVzFGjzIG3oMXJX5aAUztNiotrRmESirR
+ T0e68OrjoSOUGKXvDXBX3RzJegufO3mUuLzPy9dAvj1JhvjN+pMgQPxVIUOyS7WX13iSHfj38M
+ TBkNuE8cxf+0oCdCovLd/BJ9GDtCKTbAnC9dko0yAy98UKUxr4tV/Z5mXqxhwjZQ6rSm5doY2r
+ 809UYRmmFiaZjqksaEHAK5GWfnhm8pwxU9S4unAR/dUPx4VSEomSMh5lr31EVGcTmpoRBViTOm
+ a/Mb/KdivlunER18BI8tzmD7
 X-SBRS: 5.2
-X-MesageID: 62053269
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 62138819
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:H9oTDahkED1EycWIKtLdjsPIX161iBcKZh0ujC45NGQN5FlHY01je
- htvXTzQPfnfYWr2ct12btm2oxkE7JTRzoJrSgVkrykxRiob9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0GE/NtTo5w7Rj2tcx3oDga++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /10iaDuFlwRDJbrlelHfRZlSRAvYodZreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
- KJCbmpXN1ba2rzwkOnTpupE36zPKOHxO4wSoDd4xCzxBvc6W5HTBa7N4Le02R9u3JgTRqyAN
- qL1bxJCZRf+cjJTO2wSM74Fpdypm0vNWT5H/Qf9Sa0fvDGIkV0ZPKLWGMXRUsyHQ4NShEnwj
- mDM8nn9AxoaHMeC0jfD+XWp7sffkCW+VI8MGbmQ8v9xnEbV1mEVEAcRV1awvb++kEHWZj5EA
- xVKoGx09/F0rRH1CImmN/GlnJKalicgZ4QPSNUI0yaAx/D67DvDNzlbZCEUPbTKq/QKbTAt0
- 1aImfbgCjpurKCZRBqhy1uEkd+hEXNLdDFfPEfoWSNAuoC++99r0nojW/46SPbt5uAZDw0c1
- NxjQMIWo7wIxfAG2Kyglbwsq2L9/8OZJuLZC+i+Y45E0u+bTNP/D2BLwQKChRqlEGp/ZgPb1
- JTjs5LPhN3i9bnXyESwrB8xNL+o/e2ZFzbXnERiGZIsnxz0pSL5Jt0Au2EieBk5WirhRdMPS
- BWO0e+2zMUCVEZGkIctO97hYyjU5fWI+SvZugD8MYMVP8kZmP6v9yByf0+At10BY2B3+ZzTz
- ayzKJ72ZV5DUPwP5GPvG481jOF3rghjmzK7bc2rnnyPjOvFDFbIGOhtDbd7Rr1jhIuevh7v+
- spSX+PTjU03vBvWOHeHqOb+7DkicBAGOHwBg5cGKb7YfFs3QTFJ5j246epJRrGJVp99z4/g1
- nq8RlVZ2Bz4g3jGIh+NcXdtdPXkWpMXkJ7xFXdE0Y+A1ydxbICxwr0YcpdrL7Ar+PY6lax/T
- uUfetXGCfNKE2yV9zMYZJj7jYpjaBX02l7eY3v7OGAyL8x6WgjE2t74ZQ+zpiMAOTW66Jklq
- Lq62wKFHZdaH1Z+DNzbYe6Exk+quSRPg/p7WkbFe4EBeEjl/IVwBTb2i/s7f5MFJRnZn2PI3
- AeKGxYI4+LKptZtotXOgKmFqaavEvd/QRUGTzWKs+7uOHCDrGS5wIJGXOKZRhznVTv5qPe4e
- OFY7/DgK/lbzlxEhJVxTuRwxqUk6tqx+7IDllZ4HG/GZkiAA697JiXUxtFGs6BAy+MLuQayX
- U7TqNBWNa/QZZHgGV8VYgEkcv6CxbcfnTyLtaY5J0Dz5SlW+rubUBoNY0nQ2XIFdLYlYpk4x
- eoBudIN713tgxUnBd+KkyRI+jneNXcHSagm6skXDYKDZtDHEb2ejUgw0hPL3aw=
-IronPort-HdrOrdr: A9a23:jDc7aKuYXn2UWEX54HGTQA0y7skC7oMji2hC6mlwRA09TyXGra
- +TdaUguSMc1gx9ZJhBo7G90KnpewK5yXcT2/hsAV7CZniahILMFu9fBOTZslvd8kHFh4xgPO
- JbAtND4b7LfClHZKTBkXCF+r8bqbHtmsDY5ts2jU0dNz2CA5sQkTuRYTzrdXGeKjM2YKbQQ/
- Gnl7V6TnebCD8qR/X+IkNAc/nIptXNmp6jSRkaByQ/4A3LqT+z8rb1HzWRwx9bClp0sPof2F
- mAtza8yrSosvm9xBOZ/2jP765OkN+k7tdYHsSDhuUcNz2poAe1Y4ZKXaGEoVkO0auSwWdvtO
- OJjwYrPsx15X+UVmapoSH10w2l6zoq42+K8y7vvVLT5ejCAB4qActIgoxUNjHD7VA7gd162K
- VXm0qEqpt+F3r77WrAzumNcysvulu/oHIkn+JWpWdYS5EiZLhYqpFa1F9JEa0HADnx5OkcYa
- ZT5fnnlbZrmG6hHjPkVjEF+q3vYp1zJGbLfqE6gL3V79AM90oJinfxx6Qk7wA9HdwGOt15Dt
- //Q9dVfYd1P7srhJJGdZc8qPSMex7wqGr3QRqvyHTcZeg60iH22tbKCItc3pDeRHVP9up0pK
- j8
+IronPort-Data: A9a23:JE/FralCdVQuy5Fj/KsrGbzo5gxmIURdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIaWjyHaPbeYGr8KYh2OYvj9EpQ7JeAn95qT1A++yoxRSMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA180IMsdoUg7wbRh29c32YHR7z6l4
+ rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
+ s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
+ PhQrpbvaxxxB5yPlOcgaRoAI3tzZpQTrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
+ 6ZecmpUKEne2aTmm9pXScE17ignBNPsM44F/Glp0BnSDOo8QICFSKLPjTNd9Glq35seTa+PD
+ yYfQT5lKyTlQRRRA3U0As4clcWylHjkfBQN/Tp5ooJoujOOnWSdyoPFMtXPfceRbd5IhUver
+ WXDl0zmBjkKOdrZziCKmlq8i+mKkS7lVYY6ELyj6uUskFCV3nYUChAdSR28u/bRt6Klc4sBc
+ QpOoHNo9PVsshzwJjXgY/GmiFOZpRRDecEIKtx55AKw8KmM01yUXVFRG1atd+canMMxQDUr0
+ HqAkNXoGSFjvdWpdJ6NyluHhWjsYHZIdAfucQdBFFJYuIe7/OnfmzqWFo47eJNZmOEZDt0ZL
+ 9qiiCElz4segscQv0lQ1QCW2mn8znQlo+Nc2+k2Yo5Hxl4jDGJGT9bxgbQ+0RqmBNzDJrVml
+ CJV8/VyFMhUUfmweNWlGY3h5o2B6fefKyH7ilVyBZQn/DnF0yf9IdoLvWEldBs1bJZsldrVj
+ Kn74145CHh7ZirCUEOKS9jpV5RCIVbISLwJqcw4nvIRO8MsJWdrDQllZFKK3nCFraTfufpXB
+ HtvSu71VSxyIf0+lFKeHr5BuZd2mHxW7T6NFPjTkkT2uZLDNSX9YepUbzOzghURsfnsTPP9q
+ YgPbqNnCnx3DYXDX8Ug2dVCcgBRcylqXMCeRg4+XrfrHzeK0VoJUpf56bggZ5Zkj+JSkOLJ9
+ Wu6QUhW1Bz0gnivFOlAQikLhGrHUcktoHQlEzYrOFr0iXEvbZz2tPUUdoctfKlh/+tmlKYmQ
+ /4AcsSGI/JOVjWYpGhNMcij9NRvJEaxmAaDHyu5ezxjLZRucBPEp43/dQz1+ShQUifu7Zkio
+ 6et3x/wSIYYQ1gwF97fbf+ilgvjvXUUlO9ocVHPJ91fJBfl/IRwcnSjhf4rOcAcbx7Ew2LCh
+ QqRBB4Zo8jLopM0r4aV1fzV8d/xHrInTERAHmTd4bKnDgXg/zKukd1aTeKFXTHBT2eoqq+sU
+ vpYkqPnO/odkVcU74clS+R3zbgz7sfErqNBylg2B23CalmmB+8yInSC2sUT5KRByqUA5FmzU
+ 0OLvNJbJa+IKIXuF1tIfFgpaeGK1Pc1nDjO7KtqfBWmtXEvpLfXA19POxSsiTBGKOonOYwo9
+ u4tpcoK5lHtkREtKNuH0nhZ+mnkwqbsiEn7WkX22LPWtzc=
+IronPort-HdrOrdr: A9a23:Jx8vaKqbtQOV6Z+zanlh480aV5uzL9V00zEX/kB9WHVpm5Oj+P
+ xGzc526farslsssREb+OxpOMG7MBfhHPlOkPUs1NaZLXTbUQ6TQr2KgrGSpQEIdxeOlNK1kJ
+ 0QCJSWa+eAfGSS7/yKmTVQeuxIqLLskNHKuQ6d9QYWcegDUdAf0+4TMHf9LqQZfngiOXJvf6
+ Dsmfav6gDQMkg/X4CePD0oTuLDr9rEmNbPZgMHPQcu7E2rgSmz4LD3PhCE1lNGOgk/jIsKwC
+ zgqUjU96+ju/a0xlv10HLS1Y1fnJ/ExsFYDMKBp8AJInHHixquZq5mR7qe1QpF6t2H2RIPqp
+ 3hsh0gN8N85zf4eXy0mwLk303a3DMn+xbZuCmlqEqmhfa8aCMxCsJHi44cWADe8VAcsNZ117
+ 8O936FtrJMZCmw0hjV1pztbVVHh0C0qX0tnao4lHpES7YTb7dXsMg24F5VKpEdByj3gbpXX9
+ WGNPuspMq+TGnqLEww5gJUsZ6RtzUIb1u7q3E5y42oO2M8pgE986MarPZv6UvouqhND6Ws3N
+ 60QZiAoos+OvP+XZgNdNvpfvHHeFAlOSi8SF56AW6XXZ3vaEi946Ie3t0OlZSXkdozvdwPpK
+ g=
 X-IronPort-AV: E=Sophos;i="5.88,295,1635220800"; 
-   d="scan'208";a="62053269"
+   d="scan'208";a="62138819"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=h4KPoWSOqJBCB/kkZi1NdQtkXoWgZ8vuSuNf16r93kuT3XAvxd1YmeKQOUzEsYEEBWQE0Mw+Q9tckjoRW64qyBtcEDPk2ASUHJe4zN6f8rlpwcMboAJm9GVneGoBFTiAOkKNV6aXg3kps+7RQH965NdqlaxPjZDzhuykWuZrOtl2LAEyz4gJFDkDmk8BCpINDg3AjQ9S+bZUD2KBtBk/yYB4yEPqntvi6cfpO1GpBCAn8DNR9fSPWf4Ti9Fyk6YbjfJjGxg3qDqS58Q30kjlNVVxoH9tAQTbdi5ra4I/a00wB1Fx8OqpUzScIy+Cja0woSzYW2hgS2WYGW9KIm7SMg==
+ b=ZYsFJuqmSgbx7pNgIk1rnnw+P9/3yUA1KvXKDgt5o2RMR3ZpvOWQHcDcrqN9aMBBSNyJetI5GpwPKFurpmN8Y7cXDxErI1Eyjk4oVzRkf155bw+21MH+vUEcBvWhkREDotfhizukjPjfhBqFgybSHno5dyVViZGLlcVbUrxQ2mFTjdULRWlb16IWJy4TC+PX9x21oQGnJ8+7R3yGt5m2MGsgvCjYWoU2XhWbeNliquOkZuNuz4N0KVRx1+zxWWxQLz6EjPGGHPplwUVf4rXwVUDS6vOza2W9B1ROC8iVNSL4FFgu3npv1ByrgporIkjSpKz5Slm2gXmGt7a+mpvzKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c9+702mCtiIIBJRcU6EH6oz52cs5/19MUClB4O9/ed4=;
- b=bxrEowCZoRYxAsqJwDSy68I3MvImUG1MKmV0ArGwtfJHWHHNT4Q3LjW9pEUMCpqq1alIlBE9PRjLQ00S56yOLJrvl90ZwPsXuODJmhqSx/l8GQ15JJ5BOblCytC0uuSXuq8JNtjIs5Movkxg8tpny/dwbjMbMumC3MQodMOKgkkuUzeFgGuDHeJA7BKBHflyq5589nDidWmQlvd2+d3ePgC2ZT8IUUu9u+owcwRFbqhtmI2dpjH0RYf6gF1WD4sGdutcwXrTLCb9GuPK/tp0KI/j0DPK6dNmvKUGoMO8E30NaAiFW1P6KxF/0CQEEHC67z1aG8rl1Cenj+liHKjYnw==
+ bh=Ojngcjt1M2iDhn21AvZ+LOY3mmuCciu47e9GG4lJRbs=;
+ b=C6oslnz5WWa5S/V2dagsREk/hlvqBB4+TQ/iZRHHZjykRB49vaJf35+0zZO5Pi1T6E03u7W8+jgUQMmMe4WeCUihAmTWvf8xPCV87/+9mA2smq7Hl5knvqwm8CjeeMNeGk0ss+QmRyTeGwXTKWGRs7FgMkF7icLkD87SqNMeIYqf9uIY3JYOMFck75EsZ+we37RnaXU0KqeRz/L1sEG4Ra4Bx4N5JuVrUtQo4b1JEhAPz50PUXCjn+fQgFgY/HfoHhoCjSw3l+VSaxBFJzoOGi/pkT3iF0mdMz/WnxMlK0acFbMlbdf1DYrijHg0f/Cq2D/82iTXOQjCWHl06/5ELQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c9+702mCtiIIBJRcU6EH6oz52cs5/19MUClB4O9/ed4=;
- b=V0To2AxthW6jvBr56Zs12RZsse6CR67bBESZbrY22Ltex0vh/2YLbuJKbkJxnpazOWFL8W061vKCbJUFMqN5OZGfBoDG5H+a2wGMhY/GBTBwOecBDAvxQKjCBhhkZ2PwaqRAf0C91tLaCo4DSGrHH7EgOISa5yIsADJhMtOdV+g=
+ bh=Ojngcjt1M2iDhn21AvZ+LOY3mmuCciu47e9GG4lJRbs=;
+ b=Sftm+SavJd3M38DAGUKyfQMj6abKOuZPUSVGBgBpU0AJ+G9PojIo5F1EGoJ8WsvbqwX7rRNs496q6FRzmDbAHVbPT/oic/GfgD+J/sB7DvcCO/ZG9Q9stWmLg9XUVgff+KXLRxjcwBjNkW5P0eAb3ywQ4ZY451EFR8DgqE1qekc=
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, "Anthony
- PERARD" <anthony.perard@citrix.com>
-Subject: [PATCH v6 02/12] libx86: introduce helper to fetch cpuid leaf
-Date: Mon, 17 Jan 2022 10:48:17 +0100
-Message-ID: <20220117094827.16756-3-roger.pau@citrix.com>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Anthony
+ PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
+Subject: [PATCH v6 03/12] libs/guest: allow fetching a specific CPUID leaf from a cpu policy
+Date: Mon, 17 Jan 2022 10:48:18 +0100
+Message-ID: <20220117094827.16756-4-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220117094827.16756-1-roger.pau@citrix.com>
 References: <20220117094827.16756-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MR1P264CA0054.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:3e::7) To DS7PR03MB5608.namprd03.prod.outlook.com
+X-ClientProxiedBy: MR2P264CA0065.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:500:31::29) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6c189451-aa07-4286-bd65-08d9d99e9b14
+X-MS-Office365-Filtering-Correlation-Id: 7a7ca300-544c-43ae-002d-08d9d99e9e3b
 X-MS-TrafficTypeDiagnostic: DM6PR03MB4059:EE_
-X-Microsoft-Antispam-PRVS: <DM6PR03MB4059D96331C0FE956830697C8F579@DM6PR03MB4059.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:530;
+X-Microsoft-Antispam-PRVS: <DM6PR03MB405933432AF838FD18E10CB08F579@DM6PR03MB4059.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1UJpmelXSNOopWx+o8MFio6VT2w92DyRyJ0Q9VUqOU9ue92edtHFF1KEYzu2gLcNTBKyM5C73vMZZf7ynR3xPUce1DPg+agrNwd967+O9BxgMbfLFIZ1kxFBc2ZpYc7eESf5BwEvkFtjtRwINC7NPTHypuej87cd9wOd2eTnT6VUwczL7+CzRsUj8JykWG5kFcg7DHCPImxR4zA6HrshS/Hl3AUVdDNzjsyrp7MBXv+DtzoDJSrNuKxuG8V7qSTAMvVOlWP9pAbOOaZkE2ewq+jxoUPb6QrVSGjc8b1hnQ+eMzaGdbpN1Qu/CJK5rAwLHOIS4Ry1lSlmIhfHt10iDJYyoxScWKMazPwYC3oqqSRz4dOs3udja86MnQM6G4kri5HvdVRRGE1k0A9o8gaUbuNnPIQt6yTOuSfoCO8auALkf7bRv9+Bs0CisY/ZbG6gEGKzv0ASFuVMcVGWE3yV3+sIp1j9wnVt+0vomi9FzACDmvqxs8VkwGluGiy5lMsN152mfeO13AcFaDDm+HX/fORZ55pQ2HNkPA+a9HhTkmAADHTsg8Gmjyq4lNc0/FF5pjKxvhnuBJYHRWYsCraLIPUY/moI3L3PPImTIi5qwsmzwm65j6inAUNhfAVkvuuZB5XaNgkup+w2xRDzzAcC4Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(4326008)(107886003)(6512007)(8936002)(186003)(36756003)(6506007)(316002)(83380400001)(38100700002)(6486002)(26005)(6916009)(86362001)(6666004)(8676002)(54906003)(2616005)(82960400001)(2906002)(5660300002)(66946007)(66556008)(66476007)(1076003)(508600001);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: M5fSwRpv7bxINY5RwbR8IPOpKzu5ob9ZFk+prqfgCGabSCmKVBX5l0rA3sxBe73lP7+5e56evczOZosGxtYRrzrJ3MZ+pyQJ43KKETVCbxc9lxio16+ashU/4a3VPgWO65evjW6flXjtPCjAuwP4U8afwNn+RKnN4GiuI1L0awFIJILLRTxHG49HaEmfELzMbAKhHVd7uzyKCoKsmw15muVk/txAXCy147I9PamclVZrzugk0OJ+4zV8L7nXaXFqGl0OcUw/9BMzC1Dm9Mqvs6ZucpwiBLP3Z+3cFePjoir36iBWI6QqivzXqElzNqQi0DMGB1u8doJoEAcT9UKPnH4LIxJ0Pms2yJy3pOxLK4pEMtI+6EZMo9zz1xF22MfQC+9StFo1FdkXr5NcZIQPZ8roUocsJL43QDCw8LH/eFTe86M1ekZ1tv5p4643zd5y5E+tFDy3kHf7vF2YHBS1J13pIt+AKudysywi6xOKrqtjGOngB1acAv+5wbtYOQpZ0TjSG+7Fjh9/7tNCPvBLqnpop578cDu/ejtEdol3NoD4l2BqBEhqIoXLoZcYP+BcHynRZ9VuPas5ny0kOEeaNt7OHwfQZ9ZwKNavNF6xuAOJueDhc1gMoilW0nADq9P2jEPADXjGJKA+cGpDdD06DA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(4326008)(6512007)(8936002)(186003)(36756003)(6506007)(316002)(83380400001)(38100700002)(6486002)(26005)(6916009)(86362001)(8676002)(54906003)(2616005)(82960400001)(2906002)(5660300002)(66946007)(66556008)(66476007)(1076003)(508600001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OWF5Q0FPd2M1M3F2cTZwZlJYWjNCMTZKd2psL1hka1JweXlNWStOby9MR0FX?=
- =?utf-8?B?ZXJNM1NheHdmWmhhMkh5disyUnF1a2RIaFBINmNvbjFHNkZjRXlBL0kxdmVH?=
- =?utf-8?B?RUhCdkFLMDBYQ29td2ZhcGpQL2RJR3hGMWZXZVlycjBjdmd1YVRBSEVvaFdK?=
- =?utf-8?B?V3JSZUtYdkg2WW1HSm9Ec1MwbkhTRnVuS2FlNW1LUkNETjUzYzYzajhiZVJP?=
- =?utf-8?B?VDYzSU9UNWErck81TkRpTXpTYU5vZ2k0NTBhRWlCWmhiNjV5VmR3VFYraDQx?=
- =?utf-8?B?V0IzNG1XdHBKNitJeVl3TTJMRjk5bWFGNTdCS1YvTXhyYTByZWQ4ZW45ZFll?=
- =?utf-8?B?Z0JCVHRNOFhLVTQ0cWRUUi9JVUpYMVUwajVUNGlhQkJ5TUswU0RCYS9zRUNK?=
- =?utf-8?B?NzVxbUNhbWNGUXY3TWl3U29rQ2JmKzlGaXQ5bWpmcFRHNWxFSlA2ZW50Ny85?=
- =?utf-8?B?SG9UZFdPYmRQOUY0aXdJdFVFNXhxenppdWFNVFZKR3plSGpnazVTLzZlTGM1?=
- =?utf-8?B?VFA1WXVrc1JrNVl1N0lCVVVIdElzdzFhK2NMd1pRYnF5Uk0vcVo3WjVHQ2pJ?=
- =?utf-8?B?aVdxWU1sVFU5THY0dFNjSkRhTzkyNW9jRU5mVllmNGhJbHEyQnBMV1o3aVNY?=
- =?utf-8?B?bzNBV2IrNEI4N0JHd1RUN0FsVjZQRmdHUGc0NE5IUVZXSDBMeGFCZnZqcjJH?=
- =?utf-8?B?cHl4eng0ZDJsTVBPeFhtSlgwTmdsRW9NajlWTktXWm43Nnp1TXBUU1g0VXhB?=
- =?utf-8?B?OGFoYk1CRVZKMTYzam1tTjBTejkzYWNXTFJOOVRWSkMzT0szaG1xeFRScExD?=
- =?utf-8?B?d01EUlJUOWo1SUZJNCttWk9Va0d2dG5YQjFsM0MvNmRaQTRpS2xoRkg5NDli?=
- =?utf-8?B?aVhnRDZFRmdoaVlXb0ZJd284YjNzQlhwd1EycUN2d1VSRG44TG5Ia3E5eXM4?=
- =?utf-8?B?VEdnU05WN2NtZFRBditOTFdqdGt3Q2ZkN0lEVFVod1FhMVQzekZTZTdkNFJD?=
- =?utf-8?B?YUx2bXZ4Q01SNFFxbFcrUHI5M2dGbTRZZFRiaHFnRmVlMVFTMFpReUdEQS9G?=
- =?utf-8?B?dDBrOFZmczdiWlJlMW5YQ0c5YnhsUjk1QXhyVnQ2c0JrSjBNeXZkdzhFMVZF?=
- =?utf-8?B?TmxYZVJZZGtFTmQ2VlhSQi9odys0YnlJSllTdVM0SFl6bFpoNEpwaU9jRkNF?=
- =?utf-8?B?OHhGSWVUOElydDJlT3BBZDNIM01Pc0t6RjBvdU9Ga0xQTExsWVdpOTBVd2Z5?=
- =?utf-8?B?WDZaT09jbHNsSjlTZWRxNmpZRzRTR1gxUEdjMGtBNlJwNHNRRmsrNS9UUi94?=
- =?utf-8?B?QnVpaDhiWElLK2xub0xQU0xJUEZ1YjFyZHc4cVpGK3pNeHVSTitJNGJPdnVC?=
- =?utf-8?B?NWoyNVFqT2hvbDFRM2s5TVNSUnNpQ0NlV0RSdUhWOVFncVV5ajJ0Rnl4Vk5F?=
- =?utf-8?B?bEhYeHBSYmp1MXI5YnFhOFVCQTBCS3BtOStLWVRITVZOcG1iNjRydlovMXZ4?=
- =?utf-8?B?eXpveXVxL2RvcVU1TS9VazE1SC8rc1dmTUlNeVp0RCtEcGV1cUE4VmZabCt3?=
- =?utf-8?B?WFZwSlFBSjRXQVNIcmpVUG93VEFTQ25MWEJVTHRSZzJmVHgyYW9INThRakpN?=
- =?utf-8?B?OGkrcS9zRUNIVHU4YXQzMDFocmRhalVQTmRQSElqTnR0bUM3OVZtUGhsWHh6?=
- =?utf-8?B?VVllbzVKQk1vYmZrdEVLREorM296KzU3cThXUDFNeUg0NkFpTW9SUVE0QXU5?=
- =?utf-8?B?eVNJb1d2Ny9FMk5IWCsxQkRnWXByb3kyR1d3UVM5KzBCc1pYWk5BM2FhUnpO?=
- =?utf-8?B?WHpVWDVacUVWM2hmczdNeEVLUG0vUVFNS3FTeVpreEQ3RkVlek9nUnFUczhI?=
- =?utf-8?B?VDNYUHlaaTR1dWxFcmgxM3NueDROQlZmQWppbWl5SlMrYS81QXNNbW5zd2F3?=
- =?utf-8?B?OU84RE5SNU42NzFTb0d6akhkOUYxazRpRVhmYldXdkhVcGloNy9iSkozbEpJ?=
- =?utf-8?B?RE42b3J0SmxEdzZhOE54bUdMMU9CM0hSSmMzZTJwSXNJNU5HUGR2NjFlckVs?=
- =?utf-8?B?K0VOeUlSRXV2a1NnUU5ycTE5M0g3TDhwRXl6Qnp6UnQ5d3hyZzRMUm92enB3?=
- =?utf-8?B?UTdjaVgxYWdWTm51YkhuY2srWTRWRWx0cnZJRTVWRzZMN1VrMGlvZkJ6QVVV?=
- =?utf-8?Q?0L5qs7VXYidln6x7bO9EZbY=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c189451-aa07-4286-bd65-08d9d99e9b14
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SCs4YmpwMnN4ZDBsNGVLTXFab0Y0TTU0amd5MWFYTG5OWUM4OUo2ZzExVm4y?=
+ =?utf-8?B?MnRLOHUzVlR5c2pmRytoM2l0STB1U0czMmJ2QzZ0L3lVcnJQdjhRK200U20x?=
+ =?utf-8?B?N1hVRzFVTUFKdXpjQnEwdEJIQWZ4YW9paEo4cllCNjloRUNWd1h0cUEvUHBs?=
+ =?utf-8?B?N2V4MWN1Yk9PYW9rSkRqMGs2MWZFeWkxeDlQbjJQd29aSTdPTTBRZVh3NEhC?=
+ =?utf-8?B?Wi9SdVZPaWI4R0ovVWpONWdkWXdUUU03bG1LL3BkQnpGT3QzanFLdEJaNHYy?=
+ =?utf-8?B?SjVLZU11YUo0SDZxUi9vSXR3blQzZlczdVVNVExMNHQ5ejlBTTVoWVEzb0N5?=
+ =?utf-8?B?TVZxR3Y1cGFXY3VRdUFmeVNVclF5Ny92RldrcDhaeXRudHBMb2h2OVhQWDh0?=
+ =?utf-8?B?SlV3QmFXckVkSS9ScThJcWh5cjNKQW1naDc2YUNIKzNDdmlWaWxObURXZFU1?=
+ =?utf-8?B?R0Jua1hNVWRtaWRpcjl6RlpCaFdFUGdYNU1pcUNlOTRHWjdaTlo4MFNwOHFQ?=
+ =?utf-8?B?VWdaUzZvNHZTNTlXL2lmYm11VTB0cDkzTTlja0F0R3c4TEdOUW5BeU5GQ0Ju?=
+ =?utf-8?B?eFdzNE80QVlNZzlQUkVQK0VaY0pDaWQwRzBXMW9YKzlqVXNoY2l4eTh3MlU1?=
+ =?utf-8?B?WjErbElCendFR3pxV1JCSXpVU25mTGk5WVdMOWsrSm9iTjFTYVI2N2Q0NjdE?=
+ =?utf-8?B?MEp5RHhJT0pZMG02Yk5zbmtxaFZGK0hXb1VRUGhJZzY5KzF3aFVxUW4zY20y?=
+ =?utf-8?B?aERMd0xNSjJGSGJmUlBVYmZ2ZVpSbDY1UGUxcVpMeng3RWZDVjJWVVUwRmtP?=
+ =?utf-8?B?ZXNFbzBOd3hOZk9ET056VWVHZURUYU94TzR1YzdXR2lZby9VRUs0VWpIRVds?=
+ =?utf-8?B?enVhQ2Z5KzYvOWVJZEoxTzVRcmlyYjZGNHFrU3FDUDV4WTZwRGhMNWRFMUZ6?=
+ =?utf-8?B?c3M4Q2laNVdhR05oL2lPdXBYeEpxSWVYcUROK04yaFRkOVo5MVd5bXBhcDAz?=
+ =?utf-8?B?QVpJMVByOHVaUTZ5R1hDd1hGNlN1Q0cxeklvT1BobXRjZzdxSDVkVDhYc3pk?=
+ =?utf-8?B?MC9YdlRtZlYrSVViZnZhRDFyTG50R1JLelpTZkNlY0JUSlBqU1J2VTVDMUpz?=
+ =?utf-8?B?ZHRaN0FucHlrcXU4azFXbW4xeFkyenhQY3AvSEc2MWNSbjJnWExmYWVZYnlC?=
+ =?utf-8?B?RmJTKzFteXVQL2pDY3hRN0lvZWpBTHVITEVxTjREaHhnZnRZTG5yTGVjWFJT?=
+ =?utf-8?B?YkpYY3Q1VWVhY3JFWktudFRjb2tZcCtDeWZOZ0ZHcXJ3VTRSSXVqL2tBcHZJ?=
+ =?utf-8?B?OEZsTkdleUtXeUJHOGw0Tk5Nd0ZEdVhTVnlWS0t6eGEzalI1RG1QZ2EzOFMz?=
+ =?utf-8?B?WkhXaEIrUWhjWFUxTDVwa3RqZ2JIVnk1WDdUMkRFYWMwUTZtamlib2FZYmUy?=
+ =?utf-8?B?MmwrUUNZc0ZwRUliWTZCWmVoZ1pDU1dQNytoVGZYSTU5L2NJV3Y3WDgxVWs0?=
+ =?utf-8?B?K3NpdEtvV253QVliK2NFQmFCUGZISjV3Z2VjK1FIOU5xUjZIWSswT2Q0T1Vj?=
+ =?utf-8?B?M3lpSzAyZVpNR3FPSUVUMElycHB0cEdadm5oQWtuOUsyUUdWUEE3Y1p0V2Jr?=
+ =?utf-8?B?K2JDMUJ6Q0xTVnhwZHFSNjJqVlhvNTlzNDM0QjRlZFdrRVpaNG4wdTJJR1dJ?=
+ =?utf-8?B?K1c0QlFpZXR6Mmw2dnd2dVhqQ2RTbjg2eWJtZ1hnWmhoK1pxN2ZNaUtDcDVy?=
+ =?utf-8?B?eWdKQzdqcGxhZ1hTWkp5RzRWR3d2NEJqK1ZCU2VqQXR3Mzk2T1FRcHZEYk5D?=
+ =?utf-8?B?WDQrblFFY0h1Rk1DRjFQUy93STZGYUlwd1NRUmdXUEZ6UDF6VDlrUVhhSzZR?=
+ =?utf-8?B?MUNyNUozQ0JOd0tLM2xwMzR4WWs0LzU3NFYvcFRXZmN5eW00QjlKNmxkRVJi?=
+ =?utf-8?B?L3M1bFlQRldCaDhMQlEwM2dGOFhFMitXTWFEck5SM25YZys1MHM0aTdia0F5?=
+ =?utf-8?B?bndyaXJEbGZGaHF5QUJSbVNLK2xTbzU2SDNEV0NBbEJUYkg0Y0RISlphQzZO?=
+ =?utf-8?B?elc3M3FieFhKMklsQnVaVi9uRzBqK2VKcWJ1ejMvNmJKNXo3b1NkOXI0dlNu?=
+ =?utf-8?B?WjZmNW95QW8yN2NvSy96SWgxcThiQkErMzZJaVRDd2ZOaHNlcGdpcndDTGhR?=
+ =?utf-8?Q?NeCitfXRHaVT553bDmk1fwg=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a7ca300-544c-43ae-002d-08d9d99e9e3b
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2022 09:49:08.0474
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2022 09:49:13.3143
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RmBtm/ciOMLALYZPD9xuCrAtQcwwktzCUxoKpHiGMAtVX7mZlXPpthxnpZTnm1cSrxwWWhH83JHdBAGQX3322A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: t1+gboB2oGuf3WQDEqcDho8u28YTiWtMnGr7tvM3qqsStvB3jvotyCOdZKmHMijEj2AMOmkO7W89kbw6AWUYiA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB4059
 X-OriginatorOrg: citrix.com
 
-Introduce a helper based on the current Xen guest_cpuid code in order
-to fetch a cpuid leaf from a policy. The newly introduced function in
-cpuid.c should not be directly called and instead the provided
-x86_cpuid_get_leaf macro should be used that will properly deal with
-const and non-const inputs.
+Introduce an interface that returns a specific leaf/subleaf from a cpu
+policy in xen_cpuid_leaf_t format.
 
-Also add a test to check that the introduced helper doesn't go over
-the bounds of the policy.
+This is useful to callers can peek data from the opaque
+xc_cpu_policy_t type.
 
-Note the code in x86_cpuid_copy_from_buffer is not switched to use the
-new function because of the boundary checks against the max fields of
-the policy, which might not be properly set at the point where
-x86_cpuid_copy_from_buffer get called, for example when filling an
-empty policy from scratch.
+No caller of the interface introduced on this patch.
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-Changes since v4:
- - Rename _x86_cpuid_get_leaf to x86_cpuid_get_leaf_const.
+Changes since v5:
+ - Zero out parameter.
 
 Changes since v3:
- - New in this version.
----
-Regarding safety of the usage of array_access_nospec to obtain a
-pointer to an element of an array, there are already other instances
-of this usage, for example in viridian_time_wrmsr, so I would assume
-this is fine.
----
- tools/tests/cpu-policy/test-cpu-policy.c | 75 ++++++++++++++++++++++++
- xen/arch/x86/cpuid.c                     | 55 +++--------------
- xen/include/xen/lib/x86/cpuid.h          | 19 ++++++
- xen/lib/x86/cpuid.c                      | 52 ++++++++++++++++
- 4 files changed, 153 insertions(+), 48 deletions(-)
+ - Use x86_cpuid_get_leaf.
 
-diff --git a/tools/tests/cpu-policy/test-cpu-policy.c b/tools/tests/cpu-policy/test-cpu-policy.c
-index ed450a0997..3f777fc1fc 100644
---- a/tools/tests/cpu-policy/test-cpu-policy.c
-+++ b/tools/tests/cpu-policy/test-cpu-policy.c
-@@ -570,6 +570,80 @@ static void test_cpuid_out_of_range_clearing(void)
-     }
+Changes since v1:
+ - Use find leaf.
+---
+ tools/include/xenguest.h        |  3 +++
+ tools/libs/guest/xg_cpuid_x86.c | 25 +++++++++++++++++++++++++
+ 2 files changed, 28 insertions(+)
+
+diff --git a/tools/include/xenguest.h b/tools/include/xenguest.h
+index e01f494b77..0a6fd99306 100644
+--- a/tools/include/xenguest.h
++++ b/tools/include/xenguest.h
+@@ -807,6 +807,9 @@ int xc_cpu_policy_update_cpuid(xc_interface *xch, xc_cpu_policy_t *policy,
+                                uint32_t nr);
+ int xc_cpu_policy_update_msrs(xc_interface *xch, xc_cpu_policy_t *policy,
+                               const xen_msr_entry_t *msrs, uint32_t nr);
++int xc_cpu_policy_get_cpuid(xc_interface *xch, const xc_cpu_policy_t *policy,
++                            uint32_t leaf, uint32_t subleaf,
++                            xen_cpuid_leaf_t *out);
+ 
+ /* Compatibility calculations. */
+ bool xc_cpu_policy_is_compatible(xc_interface *xch, xc_cpu_policy_t *host,
+diff --git a/tools/libs/guest/xg_cpuid_x86.c b/tools/libs/guest/xg_cpuid_x86.c
+index b9e827ce7e..aff4efe78d 100644
+--- a/tools/libs/guest/xg_cpuid_x86.c
++++ b/tools/libs/guest/xg_cpuid_x86.c
+@@ -855,6 +855,31 @@ int xc_cpu_policy_update_msrs(xc_interface *xch, xc_cpu_policy_t *policy,
+     return rc;
  }
  
-+static void test_cpuid_get_leaf_failure(void)
++int xc_cpu_policy_get_cpuid(xc_interface *xch, const xc_cpu_policy_t *policy,
++                            uint32_t leaf, uint32_t subleaf,
++                            xen_cpuid_leaf_t *out)
 +{
-+    static const struct test {
-+        struct cpuid_policy p;
-+        const char *name;
-+        uint32_t leaf, subleaf;
-+    } tests[] = {
-+        /* Bound checking logic. */
-+        {
-+            .name = "Basic max leaf >= array size",
-+            .p = {
-+                .basic.max_leaf = CPUID_GUEST_NR_BASIC,
-+            },
-+        },
-+        {
-+            .name = "Feature max leaf >= array size",
-+            .p = {
-+                .basic.max_leaf = CPUID_GUEST_NR_BASIC - 1,
-+                .feat.max_subleaf = CPUID_GUEST_NR_FEAT,
-+            },
-+            .leaf = 0x00000007,
-+        },
-+        {
-+            .name = "Extended max leaf >= array size",
-+            .p = {
-+                .extd.max_leaf = 0x80000000 + CPUID_GUEST_NR_EXTD,
-+            },
-+            .leaf = 0x80000000,
-+        },
++    const struct cpuid_leaf *tmp;
 +
-+        {
-+            .name = "Basic leaf >= max leaf",
-+            .p = {
-+                .basic.max_leaf = CPUID_GUEST_NR_BASIC - 1,
-+            },
-+            .leaf = CPUID_GUEST_NR_BASIC,
-+        },
-+        {
-+            .name = "Feature leaf >= max leaf",
-+            .p = {
-+                .basic.max_leaf = CPUID_GUEST_NR_BASIC - 1,
-+                .feat.max_subleaf = CPUID_GUEST_NR_FEAT - 1,
-+            },
-+            .leaf = 0x00000007,
-+            .subleaf = CPUID_GUEST_NR_FEAT,
-+        },
-+        {
-+            .name = "Extended leaf >= max leaf",
-+            .p = {
-+                .extd.max_leaf = 0x80000000 + CPUID_GUEST_NR_EXTD - 1,
-+            },
-+            .leaf = 0x80000000 + CPUID_GUEST_NR_EXTD,
-+        },
-+    };
-+    const struct cpuid_policy pc;
-+    const struct cpuid_leaf *lc;
-+    struct cpuid_policy p;
-+    struct cpuid_leaf *l;
++    *out = (xen_cpuid_leaf_t){};
 +
-+    /* Constness build test. */
-+    lc = x86_cpuid_get_leaf(&pc, 0, 0);
-+    l = x86_cpuid_get_leaf(&p, 0, 0);
-+
-+    printf("Testing CPUID get leaf bound checking:\n");
-+
-+    for ( size_t i = 0; i < ARRAY_SIZE(tests); ++i )
++    tmp = x86_cpuid_get_leaf(&policy->cpuid, leaf, subleaf);
++    if ( !tmp )
 +    {
-+        const struct test *t = &tests[i];
-+
-+        if ( x86_cpuid_get_leaf(&t->p, t->leaf, t->subleaf) )
-+            fail("  Test %s get leaf fail\n", t->name);
++        /* Unable to find a matching leaf. */
++        errno = ENOENT;
++        return -1;
 +    }
++
++    out->leaf = leaf;
++    out->subleaf = subleaf;
++    out->a = tmp->a;
++    out->b = tmp->b;
++    out->c = tmp->c;
++    out->d = tmp->d;
++    return 0;
 +}
 +
- static void test_is_compatible_success(void)
+ bool xc_cpu_policy_is_compatible(xc_interface *xch, xc_cpu_policy_t *host,
+                                  xc_cpu_policy_t *guest)
  {
-     static struct test {
-@@ -685,6 +759,7 @@ int main(int argc, char **argv)
-     test_cpuid_serialise_success();
-     test_cpuid_deserialise_failure();
-     test_cpuid_out_of_range_clearing();
-+    test_cpuid_get_leaf_failure();
- 
-     test_msr_serialise_success();
-     test_msr_deserialise_failure();
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index b5af48324a..0407a54626 100644
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -825,48 +825,16 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
-     switch ( leaf )
-     {
-     case 0 ... CPUID_GUEST_NR_BASIC - 1:
--        ASSERT(p->basic.max_leaf < ARRAY_SIZE(p->basic.raw));
--        if ( leaf > min_t(uint32_t, p->basic.max_leaf,
--                          ARRAY_SIZE(p->basic.raw) - 1) )
--            return;
--
--        switch ( leaf )
--        {
--        case 0x4:
--            if ( subleaf >= ARRAY_SIZE(p->cache.raw) )
--                return;
--
--            *res = array_access_nospec(p->cache.raw, subleaf);
--            break;
--
--        case 0x7:
--            ASSERT(p->feat.max_subleaf < ARRAY_SIZE(p->feat.raw));
--            if ( subleaf > min_t(uint32_t, p->feat.max_subleaf,
--                                 ARRAY_SIZE(p->feat.raw) - 1) )
--                return;
--
--            *res = array_access_nospec(p->feat.raw, subleaf);
--            break;
--
--        case 0xb:
--            if ( subleaf >= ARRAY_SIZE(p->topo.raw) )
--                return;
--
--            *res = array_access_nospec(p->topo.raw, subleaf);
--            break;
--
--        case XSTATE_CPUID:
--            if ( !p->basic.xsave || subleaf >= ARRAY_SIZE(p->xstate.raw) )
--                return;
-+    case 0x80000000 ... 0x80000000 + CPUID_GUEST_NR_EXTD - 1:
-+    {
-+        const struct cpuid_leaf *tmp = x86_cpuid_get_leaf(p, leaf, subleaf);
- 
--            *res = array_access_nospec(p->xstate.raw, subleaf);
--            break;
-+        if ( !tmp )
-+            return;
- 
--        default:
--            *res = array_access_nospec(p->basic.raw, leaf);
--            break;
--        }
-+        *res = *tmp;
-         break;
-+    }
- 
-     case 0x40000000 ... 0x400000ff:
-         if ( is_viridian_domain(d) )
-@@ -881,15 +849,6 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
-     case 0x40000100 ... 0x400001ff:
-         return cpuid_hypervisor_leaves(v, leaf, subleaf, res);
- 
--    case 0x80000000 ... 0x80000000 + CPUID_GUEST_NR_EXTD - 1:
--        ASSERT((p->extd.max_leaf & 0xffff) < ARRAY_SIZE(p->extd.raw));
--        if ( (leaf & 0xffff) > min_t(uint32_t, p->extd.max_leaf & 0xffff,
--                                     ARRAY_SIZE(p->extd.raw) - 1) )
--            return;
--
--        *res = array_access_nospec(p->extd.raw, leaf & 0xffff);
--        break;
--
-     default:
-         return;
-     }
-diff --git a/xen/include/xen/lib/x86/cpuid.h b/xen/include/xen/lib/x86/cpuid.h
-index a4d254ea96..050cd4f9d1 100644
---- a/xen/include/xen/lib/x86/cpuid.h
-+++ b/xen/include/xen/lib/x86/cpuid.h
-@@ -431,6 +431,25 @@ int x86_cpuid_copy_from_buffer(struct cpuid_policy *policy,
-                                uint32_t nr_entries, uint32_t *err_leaf,
-                                uint32_t *err_subleaf);
- 
-+/**
-+ * Get a cpuid leaf from a policy object.
-+ *
-+ * @param policy      The cpuid_policy object.
-+ * @param leaf        The leaf index.
-+ * @param subleaf     The subleaf index.
-+ * @returns a pointer to the requested leaf or NULL in case of error.
-+ *
-+ * The function will perform out of bound checks. Do not call this function
-+ * directly and instead use x86_cpuid_get_leaf that will deal with both const
-+ * and non-const policies returning a pointer with constness matching that of
-+ * the input.
-+ */
-+const struct cpuid_leaf *x86_cpuid_get_leaf_const(const struct cpuid_policy *p,
-+                                                  uint32_t leaf,
-+                                                  uint32_t subleaf);
-+#define x86_cpuid_get_leaf(p, l, s) \
-+    ((__typeof__(&(p)->basic.raw[0]))x86_cpuid_get_leaf_const(p, l, s))
-+
- #endif /* !XEN_LIB_X86_CPUID_H */
- 
- /*
-diff --git a/xen/lib/x86/cpuid.c b/xen/lib/x86/cpuid.c
-index 8eb88314f5..924f882fc4 100644
---- a/xen/lib/x86/cpuid.c
-+++ b/xen/lib/x86/cpuid.c
-@@ -493,6 +493,58 @@ int x86_cpuid_copy_from_buffer(struct cpuid_policy *p,
-     return -ERANGE;
- }
- 
-+const struct cpuid_leaf *x86_cpuid_get_leaf_const(const struct cpuid_policy *p,
-+                                                  uint32_t leaf,
-+                                                  uint32_t subleaf)
-+{
-+    switch ( leaf )
-+    {
-+    case 0 ... CPUID_GUEST_NR_BASIC - 1:
-+        if ( p->basic.max_leaf >= ARRAY_SIZE(p->basic.raw) ||
-+             leaf > p->basic.max_leaf )
-+            return NULL;
-+
-+        switch ( leaf )
-+        {
-+        case 0x4:
-+            if ( subleaf >= ARRAY_SIZE(p->cache.raw) )
-+                return NULL;
-+
-+            return &array_access_nospec(p->cache.raw, subleaf);
-+
-+        case 0x7:
-+            if ( p->feat.max_subleaf >= ARRAY_SIZE(p->feat.raw) ||
-+                 subleaf > p->feat.max_subleaf )
-+                return NULL;
-+
-+            return &array_access_nospec(p->feat.raw, subleaf);
-+
-+        case 0xb:
-+            if ( subleaf >= ARRAY_SIZE(p->topo.raw) )
-+                return NULL;
-+
-+            return &array_access_nospec(p->topo.raw, subleaf);
-+
-+        case 0xd:
-+            if ( !p->basic.xsave || subleaf >= ARRAY_SIZE(p->xstate.raw) )
-+                return NULL;
-+
-+            return &array_access_nospec(p->xstate.raw, subleaf);
-+        }
-+
-+        return &array_access_nospec(p->basic.raw, leaf);
-+
-+    case 0x80000000 ... 0x80000000 + CPUID_GUEST_NR_EXTD - 1:
-+        if ( (p->extd.max_leaf & 0xffff) >= ARRAY_SIZE(p->extd.raw) ||
-+             leaf > p->extd.max_leaf )
-+            return NULL;
-+
-+        return &array_access_nospec(p->extd.raw, leaf & 0xffff);
-+    }
-+
-+    return NULL;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
 -- 
 2.34.1
 
