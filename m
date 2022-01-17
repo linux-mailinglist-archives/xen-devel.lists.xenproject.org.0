@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7AC64909E2
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jan 2022 15:01:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258179.444351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCEA3490A23
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jan 2022 15:16:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258186.444363 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9SYy-0008KD-8t; Mon, 17 Jan 2022 14:00:48 +0000
+	id 1n9Snj-0001TC-HZ; Mon, 17 Jan 2022 14:16:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258179.444351; Mon, 17 Jan 2022 14:00:48 +0000
+Received: by outflank-mailman (output) from mailman id 258186.444363; Mon, 17 Jan 2022 14:16:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9SYy-0008Hg-5s; Mon, 17 Jan 2022 14:00:48 +0000
-Received: by outflank-mailman (input) for mailman id 258179;
- Mon, 17 Jan 2022 14:00:46 +0000
+	id 1n9Snj-0001RM-E6; Mon, 17 Jan 2022 14:16:03 +0000
+Received: by outflank-mailman (input) for mailman id 258186;
+ Mon, 17 Jan 2022 14:16:02 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1n9SYw-0008HW-Tr; Mon, 17 Jan 2022 14:00:46 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1n9Sni-0001RG-EV
+ for xen-devel@lists.xenproject.org; Mon, 17 Jan 2022 14:16:02 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1n9SYw-0004zi-Ri; Mon, 17 Jan 2022 14:00:46 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1n9SYw-0001m4-LM; Mon, 17 Jan 2022 14:00:46 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1n9SYw-0002dN-Kx; Mon, 17 Jan 2022 14:00:46 +0000
+ (envelope-from <julien@xen.org>)
+ id 1n9Sng-0005Ec-5b; Mon, 17 Jan 2022 14:16:00 +0000
+Received: from [202.153.81.7] (helo=[192.168.175.62])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1n9Snf-00044k-In; Mon, 17 Jan 2022 14:16:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,135 +39,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=F5fblpja85gMxgTqy4N9HhKzgvX3z+mNQxJbEpGxriI=; b=XuLfJ3z5mVLHfHjHsdC2vch4LC
-	IcXmXt4A4IxHcNDNiPa73fneJc8vru5CvDt3spX1lOELrZ3hXXJjlNJwQKsuOQILZgW/S1/8/Y/8e
-	fQb0m+9xNdcaJGMhPf/nwYVvP8CQ9eLF+7MchhBLMREVEDlxUy+4vtLxOGttRH9N81qw=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-167723-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:To:Subject:MIME-Version:Date:Message-ID;
+	bh=3uNZUHo9f86iIDSTgNlg44jVZ3jVx/Z5w5iXWJKkRj4=; b=o4fa7nmGwFFdGTrkFBf1ben6Sz
+	ao9VJVydHntdUezHETp6p34y45r9luH7R+y2+7dew37P6q/ikdK0NrGX5BgIZL1J0ECvslUrXaGgG
+	FcxnNW/ahdBzgSL5qVfxbgARuFh/G9GR/LSF/2g3fTIf+Bxda48oc3z7CqjMni8hs724=;
+Message-ID: <2a1a0dd5-b8a7-8072-2961-b1fbe9ec746a@xen.org>
+Date: Mon, 17 Jan 2022 18:15:53 +0400
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 167723: trouble: broken/pass
-X-Osstest-Failures:
-    xen-unstable-smoke:test-armhf-armhf-xl:<job status>:broken:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:host-install(5):broken:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=27a63cdac3880c918848430eb25181437d5795e9
-X-Osstest-Versions-That:
-    xen=9ce0a5e207f3968e65d0af33a15bee5bdf5c8a7f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 17 Jan 2022 14:00:46 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.4.1
+Subject: Re: [PATCH v4] xen/arm: Allow QEMU platform to be built with GICv2
+To: Dongjiu Geng <gengdongjiu1@gmail.com>, sstabellini@kernel.org,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
+ xen-devel@lists.xenproject.org
+References: <20220117064003.3367188-1-gengdongjiu1@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220117064003.3367188-1-gengdongjiu1@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 167723 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/167723/
+Hi,
 
-Failures and problems with tests :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl             <job status>                 broken
- test-armhf-armhf-xl           5 host-install(5)        broken REGR. vs. 167690
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  27a63cdac3880c918848430eb25181437d5795e9
-baseline version:
- xen                  9ce0a5e207f3968e65d0af33a15bee5bdf5c8a7f
-
-Last test of basis   167690  2022-01-13 17:00:27 Z    3 days
-Testing same since   167723  2022-01-17 09:03:00 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          broken  
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+On 17/01/2022 10:40, Dongjiu Geng wrote:
+> It turns out that QEMU has been supporting GICv2 virtualization since
+> v3.1.0. So remove the dependencies on GICv3.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Technically, the current form of CONFIG_QEMU allows the same binary to 
+boot on QEMU with GICv2 or GICv3.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> If we want to use GICv3,
+> we can select the QEMU_LEGACY configuration.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+AFAIK, GICv3 is not a legacy feature... So it feels a bit odd to name it 
+like that (see more below).
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> 
+> Signed-off-by: Dongjiu Geng <gengdongjiu1@gmail.com>
+> ---
+>   xen/arch/arm/platforms/Kconfig | 10 +++++++++-
+>   1 file changed, 9 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/platforms/Kconfig b/xen/arch/arm/platforms/Kconfig
+> index c93a6b2756..41e82a42ee 100644
+> --- a/xen/arch/arm/platforms/Kconfig
+> +++ b/xen/arch/arm/platforms/Kconfig
+> @@ -13,7 +13,15 @@ config ALL_PLAT
+>   	automatically select any of the related drivers.
+>   
+>   config QEMU
+> -	bool "QEMU aarch virt machine support"
+> +	bool "QEMU aarch virt machine support >= v3.1.0"
 
-broken-job test-armhf-armhf-xl broken
-broken-step test-armhf-armhf-xl host-install(5)
+This is a bit misleading. A user may select this thinking that this will 
+select GICv3. However, this will not.
 
-Not pushing.
+This also raises the question of what is the default GIC version in QEMU 
+(i.e. if you don't pass anything on the command line)? If this is GICv3, 
+then I am afraid that this patch would be a no-go for me.
 
-------------------------------------------------------------
-commit 27a63cdac3880c918848430eb25181437d5795e9
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Mon Jan 17 09:45:04 2022 +0100
+Looking at overall discussion, you seem to push the patch only to allow 
+building a tiny Xen for QEMU and the new vGIC.
 
-    x86/HVM: convert remaining hvm_funcs hook invocations to alt-call
-    
-    The aim being to have as few indirect calls as possible (see [1]),
-    whereas during initial conversion performance was the main aspect and
-    hence rarely used hooks didn't get converted. Apparently one use of
-    get_interrupt_shadow() was missed at the time.
-    
-    While doing this, drop NULL checks ahead of CPU management and .nhvm_*()
-    calls when the hook is always present. Also convert the
-    .nhvm_vcpu_reset() call to alternative_vcall(), as the return value is
-    unused and the caller has currently no way of propagating it.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Tamas K Lengyel <tamas@tklengyel.com>
-    
-    [1] https://lists.xen.org/archives/html/xen-devel/2021-11/msg01822.html
+The default Xen (i.e. make defconfig) will also work on QEMU. Given that 
+the new vGIC is a still in development, I am seriously considering to 
+say that if you want to try it then you have to use the default 
+configuration.
 
-commit 299deb9dd93e5aae2f3b24ec001214458077a185
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Fri Jan 14 11:03:03 2022 +0100
+@Dongjiu, is there any reason why you want to use the tiny QEMU config 
+rather than the default configuration?
 
-    build: adjust include/xen/compile.h generation
-    
-    Prior to 19427e439e01 ("build: generate "include/xen/compile.h" with
-    if_changed") running "make install-xen" as root would not have printed
-    the banner under normal circumstances. Its printing would instead have
-    indicated that something was wrong (or during a normal build the lack
-    of printing would do so).
-    
-    Further aforementioned change had another undesirable effect, which I
-    didn't notice during review: Originally compile.h would have been
-    re-generated (and final binaries re-linked) when its dependencies were
-    updated after an earlier build. This is no longer the case now, which
-    means that if some other file also was updated, then the re-build done
-    during "make install-xen" would happen with a stale compile.h (as its
-    updating is suppressed in this case).
-    
-    Restore the earlier behavior for both aspects.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-(qemu changes not included)
+@Bertrand, @Stefano, what do you think?
+
+Cheers,
+
+-- 
+Julien Grall
 
