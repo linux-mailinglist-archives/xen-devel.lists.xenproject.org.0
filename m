@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A5A3490C34
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jan 2022 17:11:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258199.444406 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08F65490C68
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jan 2022 17:22:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258202.444417 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9Uaq-0006Xk-LJ; Mon, 17 Jan 2022 16:10:52 +0000
+	id 1n9Ula-00081k-NP; Mon, 17 Jan 2022 16:21:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258199.444406; Mon, 17 Jan 2022 16:10:52 +0000
+Received: by outflank-mailman (output) from mailman id 258202.444417; Mon, 17 Jan 2022 16:21:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9Uaq-0006Vs-ID; Mon, 17 Jan 2022 16:10:52 +0000
-Received: by outflank-mailman (input) for mailman id 258199;
- Mon, 17 Jan 2022 16:10:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1n9Ula-0007zu-Ji; Mon, 17 Jan 2022 16:21:58 +0000
+Received: by outflank-mailman (input) for mailman id 258202;
+ Mon, 17 Jan 2022 16:21:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ZUQe=SB=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1n9Uap-0006Vm-T5
- for xen-devel@lists.xenproject.org; Mon, 17 Jan 2022 16:10:51 +0000
+ id 1n9UlZ-0007zo-B2
+ for xen-devel@lists.xenproject.org; Mon, 17 Jan 2022 16:21:57 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 09b38788-77b0-11ec-9bbc-9dff3e4ee8c5;
- Mon, 17 Jan 2022 17:10:50 +0100 (CET)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2059.outbound.protection.outlook.com [104.47.12.59]) by
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 96858118-77b1-11ec-a115-11989b9578b4;
+ Mon, 17 Jan 2022 17:21:56 +0100 (CET)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2108.outbound.protection.outlook.com [104.47.17.108]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-41-SfwTZ9wlNVmC6PY6cT1YCw-1; Mon, 17 Jan 2022 17:10:48 +0100
+ de-mta-40-OKFmIB_BMYeNEmZ4IlyMow-1; Mon, 17 Jan 2022 17:21:54 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by DB3PR0402MB3868.eurprd04.prod.outlook.com (2603:10a6:8:f::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.12; Mon, 17 Jan
- 2022 16:10:46 +0000
+ by VI1PR04MB6127.eurprd04.prod.outlook.com (2603:10a6:803:fa::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Mon, 17 Jan
+ 2022 16:21:53 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4888.013; Mon, 17 Jan 2022
- 16:10:46 +0000
+ 16:21:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,187 +51,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 09b38788-77b0-11ec-9bbc-9dff3e4ee8c5
+X-Inumbo-ID: 96858118-77b1-11ec-a115-11989b9578b4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1642435850;
+	t=1642436515;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=u1amZc2Q3D4e8l4yc7etdJ/t6PaP+XFOxFFp4mWKjl4=;
-	b=Z9/G+QSRK5OWqnhr5VjV5YyRN0FjQ0ossa+7koZhN9qvTJc+n31ndL7YO1x9v85rZFHGn1
-	e30gxOP213sxNfHDAEbCk3W5tS/c3bweqTPp5AfCFpOVJ4ToNMWO2Dz4mRxQQOAIpof9Im
-	tXHX7Y1r2QQUrPiPEvKg3cXjLxBgXC0=
-X-MC-Unique: SfwTZ9wlNVmC6PY6cT1YCw-1
+	bh=bhIMUPvNMzJgnMwNtQ3ko7XekrpLYE2XNZmdfyEV5rA=;
+	b=VGOBdez1YtbddAWiigybPCfCUhih4DI76iLNSp3GuHV0DWqPRs4/PSgoxWXZVqhQiDWvZo
+	wA5D+fYPjITynLr5p0NqMOFTgYD7LLFawEgjF1WLxUrwjJGQpf1b0WVFuQJ69VCcLEmtCb
+	caCEIg1YwoPK9jAGPL74W3WfCj4bBW0=
+X-MC-Unique: OKFmIB_BMYeNEmZ4IlyMow-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Yabpt0KQoleTKRjd1VOMCfpXctx0v2SNIF+6ENtw1P56DaTpewsgtvhoQNk7Gq1ZnnDhQ744mnyhlSVJITUlHf8cIJQHVRGxcn+LH5ypfEShPcSUJJSLr4UB3SBI0tUBbW6uB05U3ay1Xv4cfMoujFM5WasKdogH3QdkQz4RF4C5QGoW25th8jew0MFWkMFJFTBy1xqtCeF0jHo4MmyQBVCeUVX+RqdkQ4vBoTCAZetGuAqmeoyEG7ao7/Kh665ngmgOZLlSxgioVEFShHKirk517f7FAWZaSYLoTLu1tMkzBcsj39MB7W7q4Anw/NEHsXU5aI7ZK+zlRup7nAz4TA==
+ b=biXr5pHEY/pNNX4kSmelV+YFi+ggw1Rr8WGEJnDikYSw/g2aM/85Gq4Hdzcy3XP+HCbo3nuJw820EQUArQgPc0ugBAnNWwAdq6PnOUVBmxs/Rn+6lRPxkRbeo8Fi1P4/c2xJudd4lJUz+DIDErbrMAb0eqK75+XQxCFZh+oVG3sDrsRm4ePGI/3O9CWGLbvhET6DOMIIqJukLpzXXj2G1kexDUkfO8Su6YHsm/yDR0MiWFHzVv7mVFm5PxYdz1TBC+dsEBccYJ0fytpAjTNUBsnQf3qgsEXP8lYVrEA2cb17KxzU22st5yZ+SFPbAKR6Zpqf+XQx51sl0Pr3ABupRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u1amZc2Q3D4e8l4yc7etdJ/t6PaP+XFOxFFp4mWKjl4=;
- b=ZxmJxo/k+JowZ0GXGl/8MKvORKJM05iez8wzS0FxD337+B8CbeFl6sljx/cFHmb9MM/2V8Jik4SK+X8rIwFEePOChLhU0d0vUT1a82YkdXyA0S0MJO/brvugTDZfVAOzrCpl4RuBgK3AkET2BLIB5C2RbABl2B0AmzoNSxh7NJChDMlhB+fM0o6vzD3tsgDAfYFPPGpJZ8gUkhWLqYstrVARVfPeBPpFoVJGCbFVTNJRUYL6HtIpKHt+xxKkTYXQeYz5IfM1U5XP4E+AqG0Y0YjrPZaFVM7nF0Bys+lu+FYXzgiM5S81EtMpkPDScaH9qmPrdG8UzuPvdVd4Mtofkg==
+ bh=5Nx9XvAAsBuKMWe7wk0Gu6J6rItL5YmUsIVjL67O07g=;
+ b=E0ELpAUse6fqrlQqmllRlH5tDenanzMLwehkT+4haYQR4d896J/5wePwCDXNtP/Q7oPnxDZxn6ej4PHqzdI9S6M3KRBi7ykLYAItGbHOKhai40nDL1HOrIOsx5vNXvUggiM+anPnNgAXHBagjDcjWxJq/ZPcgHEI7uwdItMOhELbDgtmGBZSIAYsqkXb9WaEUMe3Il42PBrp+qbJIfcLrR2c5JpWPPdoAZmaO6XQosu+8ZUobmZJFoH5dGXjCO+OxZKU8pHcPZ+gbuoABWxMQAaxZJ93mFadvRI4Bff1Ll7QUEaRgabkLVq9OCJTJuKzZSRG/nkgPyIa/3Cj975K7g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <345944c4-78dd-8009-6f64-f9c7901a5497@suse.com>
-Date: Mon, 17 Jan 2022 17:10:43 +0100
+Message-ID: <18b1921e-44f9-3e4d-eafc-47ff88009b13@suse.com>
+Date: Mon, 17 Jan 2022 17:21:51 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH 04/37] xen: introduce an arch helper for default dma zone
- status
+Subject: Re: [PATCH 19/37] xen/x86: promote VIRTUAL_BUG_ON to ASSERT in
 Content-Language: en-US
 To: Wei Chen <wei.chen@arm.com>
-Cc: Bertrand.Marquis@arm.com, xen-devel@lists.xenproject.org,
+CC: Bertrand.Marquis@arm.com, xen-devel@lists.xenproject.org,
  sstabellini@kernel.org, julien@xen.org
 References: <20210923120236.3692135-1-wei.chen@arm.com>
- <20210923120236.3692135-5-wei.chen@arm.com>
+ <20210923120236.3692135-20-wei.chen@arm.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20210923120236.3692135-5-wei.chen@arm.com>
+In-Reply-To: <20210923120236.3692135-20-wei.chen@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR06CA0417.eurprd06.prod.outlook.com
- (2603:10a6:20b:461::21) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AS9PR06CA0117.eurprd06.prod.outlook.com
+ (2603:10a6:20b:465::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4fe36c93-0d3a-4ae8-1e10-08d9d9d3eb3d
-X-MS-TrafficTypeDiagnostic: DB3PR0402MB3868:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1373bf14-9435-437d-308d-08d9d9d578d1
+X-MS-TrafficTypeDiagnostic: VI1PR04MB6127:EE_
 X-Microsoft-Antispam-PRVS:
-	<DB3PR0402MB38683B70E324C8D190A16F30B3579@DB3PR0402MB3868.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+	<VI1PR04MB61275B2B3EDD09E2DB9C3193B3579@VI1PR04MB6127.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	yFUF8m59m+YmCf7xo1cFLsH4o3/I69fejEQNIM9gAlJ1tFzFf42yhswhGCCuaFl7gAksPjBNPhcgtc+b9ZAlh4NHSNP59/z+tZ4faV6n8NWjIleUN2LWdslBWkrNzsARKE8XWMoLPTavi3NT+Ho1tQ5x6IJsSIibpcl1ZgcvIyJmgQl57XtV5pS68/aQsg8t+Yi5BFDukHEg3Hw3bSF8+m4RzPL4qC5tkqLPIrIwM6cA81QxFG2euNs9sypwRNtHft3qUN2uFiEYVYnhbBbes1n4XaG33ZnycNn0jTQkkDyyAhLD2Sl6GKLLHSoAghw5tAyj71tsxhOHnTeJtH1a0RxypSGfwf9EnYgKp2rUNkTlDG3Yib97WET7UkMvbESJgsSyEG737qoXl+JqNvchdioebkpEoMrqeaW6ejOpUMt8pWMWEF2mvBEfTnQSKIPNLGEHMXjki7kLan9TsDoRe3psBcFAgatrv17Ghzo/tQqZ+xTHmOaK/Q8q5xAODGOinyQLfGf8WS0F0kTOHMMvGIoBpHz24dY1k0ZyFsjcqDNdfkFz9sRJpHFriqXHDTZ6o+k5e1QelzmDjp8qFH5aFLyPNnvln5UuXZJgkNlElbhTt90c4Strl0aR5+iL2BVuKgbSGHhrBKvLiJ9lykqzlOZvd1BwgnzjFr1gUvXMsdoq8p+tCnz6pVxtD8usca08ZGMjH/7IMduAJ0+/pHYWaP+3YbdaS3dUT4ttzTQMNOloWKqhvix/DIz5A9mHfis2
+	UeMpYpDKLbb85C9VkXf+xeaeojBbIfzTWvkFyQSTzsnIGpQ+qcCANdK5d46NFjYJRXmv1j2pDRrIxmpZoypPaA9aBrsfVJqqNYcm6W42xYkdqNO84mt9wX5JcPvmAMONu4Z7RdMGMFbSPkFnbkjJC7mPlKLS9rU/u5ZD35WhYtR/tQoqg4qpns3N1qAgkZ5Db65P3jVOKGYWvwU0QK2LSDWJtbbxJLyrxE8j6it5OVswsX8GJrZ4Cl3NX6iLQBIFG1UIuvTKU8eZzP9itZZEkIbBKmS1IPFXUmaww5UeLfyn0pvWpy1mj7fBp28AFmc4YEqyiPa61YBBJQmNDH96jklmgvO+ajZMqhQZE5OACO/n9URPjyrzP7IsBbb9W36PE+Flp/ofO4mJVnxrpDiIIkJQLjsiBAYHV0RBEj4MXk7AF9Ybd52YEo6ApO87b/jFtOaM6NoVbLdo6ut2GQwI8rOMuvn8ovypZ6dVuvmBYzPWfmNeAClFDL8ZawyGWlObSKzL8dviuQQIZ+un2gb2B9UK4JfFnePcTjU5l9vfM3a1pgukDucFQAdvumOQ6p+39q3jKKWMj8nH1NT5KYcgtCR/31Ejyeb/G02tSV6q0FkAt2U6gk7oghZWgQGls92ye/sE4sfxwV/KmTaCvjt9bcbkjZz64l0UDZOgDx6/OPhJsZkCzldYu4w1l8iQITqhyzrjZRu8+0YnxETmM5GDNlbqxElINA2hV4laA+vmTFSKSMJ/htFkIkzmzeYnm8BH
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(66946007)(5660300002)(66556008)(31686004)(186003)(38100700002)(26005)(86362001)(508600001)(6486002)(8676002)(8936002)(31696002)(36756003)(66476007)(4326008)(6506007)(6512007)(2616005)(2906002)(6916009)(83380400001)(6666004)(53546011)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6506007)(38100700002)(66556008)(66946007)(31696002)(86362001)(6916009)(2616005)(186003)(6486002)(4326008)(53546011)(36756003)(31686004)(2906002)(8936002)(26005)(508600001)(6512007)(5660300002)(66476007)(8676002)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eFkwejdKYkNKSU1aU2tjejVsbkVRRktUeUJkWGdEZTk0SS9SYjVkZjhwN0pY?=
- =?utf-8?B?STdnWk1tNXZjVUJqa0NMY3c4TWlGVWdMWGltcEhURHQwTXJhcmlIdXRvU20z?=
- =?utf-8?B?NkZUMmlqWE9MR2oyQ1lUNy9ZNng3RlBEckdnaEdKRUxRZlhDSDZBb2p0dGR6?=
- =?utf-8?B?TURxUnJuanZLbE5BajV4VlROYXJwajZXNVdUUEN0VHF4Q1hvNUl0SWVUU0ZH?=
- =?utf-8?B?bU5UZ0tRd3RDam9uM0NRZ3JvM0dxMlJ6Mitld2hLbk9zS1ZLdlY5dW5XcHJH?=
- =?utf-8?B?aDZmN2lkaEJkYTlVQWRLTDBHU1dDRVRaazA4Y3NNeFp1QTU1NVgrTGcvcHFh?=
- =?utf-8?B?VUp2ejRlRHhqOWhzbDZkMVJHZll0YzRaaWRaTmVUU3Q4QVBHVFVTbmx2SHYv?=
- =?utf-8?B?Sm1YbXYwK1dxS1lkdWNJVjFRZGpmQlNSV2JLMDZQcVNTcWtCSS9lYXlidSs5?=
- =?utf-8?B?OVhjeVhhVEdxVzRlamN6bUZqaS9WTE1aU3VFZ3ZuOGJyL0ZqM3RaaGh0TmVU?=
- =?utf-8?B?Wk1JRERxQjU2eFlVNU43UGFQN1FZVWZKWFpGYzB6Rm54ZnNnMFJDaXgxSklY?=
- =?utf-8?B?WGxZa2dyVEtEK1ZmVWp5WmtxMDd2Qy9oK2ZvVGY5S3N3Uk4vRWFPU1J5NmM1?=
- =?utf-8?B?TU9ZRk1VdlJIc0VkMDRpNjh0aVJIRlRBNzNaOWFNLzU0R0lCSjN2V1lyUUt2?=
- =?utf-8?B?dlpMbHA2TjZkQXNUbXZDQzFpa2J6WkdRVDlQbHd1RmZhZTJ3NXFjaEZSTllG?=
- =?utf-8?B?YjlLV1dNRGNZcCtTSFlaMEo1NEVSNnFmQ2Z2L2QwNGtWZjhjQVVycXhzcjEz?=
- =?utf-8?B?TEhvSXNML21yS1BLL0dCRGJNNmI3SmxUWDRUWEsvMXhOREFTTXIzQkNGWTdL?=
- =?utf-8?B?QTBEYjFRY1BCK3EvbWgvM0xKL0FHUTJhWlZhaTdML1ptbVhXcHZuOGtzWUJa?=
- =?utf-8?B?cWtrbzJYT1Rpd1orVGhReWtlUDBFQUsySjZrODlKSndiZjFjb21WM3hJcFFN?=
- =?utf-8?B?L1dRQmVid0VidEtTcWl6bWIySG9XQk5LZ0R6cGxyOHV6dElGYStoUDdpZjdl?=
- =?utf-8?B?QStreTRDT1JLRkVuM2NQaElWdEthYVNycmlDKytMaDlIckx1dytQYkZKSFVh?=
- =?utf-8?B?NHJ0YmhISTZCSE5mSEtJN2NhSkg5cHFnWllpN3V0emZSTXI4T3NJRUo2WkFO?=
- =?utf-8?B?dHlJNkdIRUJTVERabHVSOEhlVDJsS0tVbnNjcjR6cDJKdkZRWlptZ0FORlBh?=
- =?utf-8?B?VzB4OWY4b2NLRnNLdHVaRlBuLzNwVHhWQlRzK1pZYkNGV2tkU2dMSWNvU0hU?=
- =?utf-8?B?V2FmM040S1hUOXFyVitmelRYOURKMHc2Sm9tU25MK0hwUGpBUTBiVGFINlh1?=
- =?utf-8?B?MnhMZEFQcVUyK2wxc3lPdVFXR2VkRnlvemtqMi91QndvVmFyQlZ6Zzd0TVI1?=
- =?utf-8?B?ek9OUkYrYnVXVytHMnJSMDZOWitUSlVaMUk1WU55Q25MNnBZdXhaUS9nTnFP?=
- =?utf-8?B?YU91U3ExQzBqdGU1d2NvTlhPRWVyVVhSeEtDdmEzVlAxWWY5TmJOWFVYZGFJ?=
- =?utf-8?B?WDFHb20vajg4U1l6WE1HMGgrUjBBSU9WK2Q4ZDRCN0Fuem1CbnRlU2o2NFly?=
- =?utf-8?B?VnA0WGRtdVExWnpjdTB2L3pSL0ZrNS9HRm9oNks1R2lIR3k0UXI2Ui80aHNy?=
- =?utf-8?B?SFYwUjRwMzBwZU1haURHV0h4ak1WOVE4NkZXa1hYK2wwSzIvazNjdng4cUtF?=
- =?utf-8?B?SGZxTkZ1VmZDRm9oRWViOHhpMklVcHRIS0xYYUg3bE1IeG9oQzhRckNTNXZv?=
- =?utf-8?B?UURJYWFjSUVLK3dFMnJIUjMxOWx6UkM3TVJ5V1ZXRDFrWGw0eTNVckJwL3E4?=
- =?utf-8?B?NFdNU1doQWF1bkVIWkRXUnM4ZHZMaDhXbmlLb09odmFXYjZVU1FrdXF4MUNS?=
- =?utf-8?B?L2l3RlV6bHhFNllDS21GbEZNWGZQZVB2NllZODlLQnRjSldiZHZUampGTnRr?=
- =?utf-8?B?YmI1eHdGV054QkcvaWp5Tm5vdzVRUU9nWXNmeWN3bGUyUmY4WFcyVDBQQWFt?=
- =?utf-8?B?VldjUlZiYmJiblhEYTNCRWlEV05tNkFWaTE0aUt2ZEdmNWFqRGFTOTdCYnU2?=
- =?utf-8?B?MFA5TXk1amlEKzdKQ1ZGN1kzREZWOEZEYmFmL2Y5UkVBdG4yR2Q2WDdjcTJ2?=
- =?utf-8?Q?ilTYhUv39fDJrK6ix5UnkJ0=3D?=
+	=?us-ascii?Q?3nYdUF8Jdi256lPOPxsAofHhw5nbH5bhY9o+fMVETq5LvwAtDqNvcnDTpxYG?=
+ =?us-ascii?Q?ADo2ctjgujrKJDMGe9Pl8KMpc/MnAruqLZBcBAVA9vShxjBwcu4C7qBuWaxg?=
+ =?us-ascii?Q?wZZIMvxgWKHilQC7O0FR6K/dZNYKc0tqV4B3kkIvFWZxO7CiNrv9Uh4Iu95m?=
+ =?us-ascii?Q?urpyQmstb6O31VP6SJr9zLA++LejSNLplYgxLS1XTlTcx8GG3xNZDyTCbF2v?=
+ =?us-ascii?Q?bF5Sm7v5nwici5kxfclQxs+v2RRLqCJuEH2RCK49EL07cWmXPFlg23Fjdo6L?=
+ =?us-ascii?Q?T7655TNBSOvBdjSlw6oJFMiCgfQ0EVQ6yyIJTPU2fo8tF6rd8KlS9THsNHoH?=
+ =?us-ascii?Q?JJXBlBFyJKvDwTBXYEibWmU8Yd90Th3LvmDsGkn/RLO1n6ya61Nab1MWWhc3?=
+ =?us-ascii?Q?aZfjl74hZfGwoovLm3gOXkLsH3rNctZLVheoirS8QguiJdhHFOKMP1JkvQHe?=
+ =?us-ascii?Q?jwwd0hWj7wn/xltpnrBjKSmpl3ctMV4wdSfV6LG0Hse2mHvlZygx+z3dZdV7?=
+ =?us-ascii?Q?t+gXo3mlQjBvbC4tj/FF7Gg05l24UKN86ofO/UstpCubGcE36h8hPGzvsdhv?=
+ =?us-ascii?Q?3i0Xv08GtL8v7dHLqI7uf3D8CZmVSFuM4yHGAlR1rYxbx3dcocgmkCkeC7C1?=
+ =?us-ascii?Q?V9zR61x54bPJwN+6HQKSgbhnLicOgY8vGPciSVLNZ8kM/+0eN/ECBZqBuA4Y?=
+ =?us-ascii?Q?+9btIuhx+0/vZb4WJq57hAacytGcq0MtjzOKDjGBsGVcEisCuGMr1aTk82Hn?=
+ =?us-ascii?Q?0RxNMcU9zklvKZqbmQUBnxl8dB4hkUe5n01mdfSaPIz3wRUmt7uOkt7KCeLd?=
+ =?us-ascii?Q?BKaeSAr+BSuGF0d+O0UJm65I7jBiIkukOGrURhNKPPxPvKzODNbdVI5Gvaic?=
+ =?us-ascii?Q?1+ubnF0d0W8XsBIHx+P/3hYky7M2sleQB8rCc3pJSVHMqHtQxFZQ+GEfdaHC?=
+ =?us-ascii?Q?m6hT79Kzophy3uh18hVdNH0iuqGNcwIIDcvR/4hX4DDFmS4jGcem6b5DcXfx?=
+ =?us-ascii?Q?xtQdXyE/nKT9FuJlCd4dESYZn21HiQVCU5Te5E3Hq1cy25d+OaUJEJAy3ALf?=
+ =?us-ascii?Q?5cIrGhYumCdwEywqJqdjNu1F4pAd6ORB0Jyj2QdEO0VuLkKOSYTIyBTYdBmU?=
+ =?us-ascii?Q?kQxqFdJ4mIKGGYse0CU6MxxxRFt6aLe5SNtVRE8zKAXK7oRzcySjaRAoe4tA?=
+ =?us-ascii?Q?KkETej8s0u+E0Yjwq7JK5BsaOuWwH4y+mmQv7vKA723h4x452/vzFwmwp5Fr?=
+ =?us-ascii?Q?XsfOEH5HUW4gL/LrZdM54BnB9UK6D5AozXGqMLC4ZnbZ29J1h+seOfZnRl89?=
+ =?us-ascii?Q?3DOXwJnNotAKscbC0EqgeLUNtBRGtJXZq1L8rY5vGtS5C5hYqsCgU/XxPaev?=
+ =?us-ascii?Q?AfsogST8oDrDSLF1mEM8DSz7ZJoecfJScalon+kEZQVPwRmreWkbAolTPwGs?=
+ =?us-ascii?Q?1YtX4ueC7XRAXzPHfE1cnm4Fu19yMaWTZxOb2ab9bErjRpjq8xL/iOCwwC8Q?=
+ =?us-ascii?Q?2SjFJmh9M55Nuxn9xcUm8YMuvxY51iF+NonVwiuA+3xZFlhJaBmVQIoKSJGs?=
+ =?us-ascii?Q?YLX16z8Mnoq/NcdtR5dcNGztBzd84nGUc1ZxxeBqQhUH/K3rnGyTR6hZ8n64?=
+ =?us-ascii?Q?DEKbvo3tHcivlEUOPUaDXSc=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fe36c93-0d3a-4ae8-1e10-08d9d9d3eb3d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1373bf14-9435-437d-308d-08d9d9d578d1
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2022 16:10:45.9262
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2022 16:21:53.0041
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: f9OYRM6M+sXnBennHk/0SmHKyOx3CLmtWh1RXYVPBYz50X7K5iRTk24xuMrA1dOtmdoGYVr7muLDE4oDuxYgJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR0402MB3868
-
-I realize this series has been pending for a long time, but I don't
-recall any indication that it would have been dropped. Hence as a
-first try, a few comments on this relatively simple change. I'm
-sorry it to have taken so long to get to it.
+X-MS-Exchange-CrossTenant-UserPrincipalName: dEJbR9Rxra/p/FPkhGslWRZEOnJLf53rhWKsiMjNRlhe5liehwAo+NHdctngZCvbpppcnk3xSUzrf6zxU2rKmQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6127
 
 On 23.09.2021 14:02, Wei Chen wrote:
-> In current code, when Xen is running in a multiple nodes NUMA
-> system, it will set dma_bitsize in end_boot_allocator to reserve
-> some low address memory for DMA.
-> 
-> There are some x86 implications in current implementation. Becuase
-> on x86, memory starts from 0. On a multiple nodes NUMA system, if
-> a single node contains the majority or all of the DMA memory. x86
-> prefer to give out memory from non-local allocations rather than
-> exhausting the DMA memory ranges. Hence x86 use dma_bitsize to set
-> aside some largely arbitrary amount memory for DMA memory ranges.
-> The allocations from these memory ranges would happen only after
-> exhausting all other nodes' memory.
-> 
-> But the implications are not shared across all architectures. For
-> example, Arm doesn't have these implications. So in this patch, we
-> introduce an arch_have_default_dmazone helper for arch to determine
-> that it need to set dma_bitsize for reserve DMA allocations or not.
+> VIRTUAL_BUG_ON that is using in phys_to_nid is an empty macro. This
+> results in two lines of error-checking code in phys_to_nid are not
+> actually working. It also covers up two compilation errors:
+> 1. error: =E2=80=98MAX_NUMNODES=E2=80=99 undeclared (first use in this fu=
+nction).
+>    This is because MAX_NUMNODES is defined in xen/numa.h.
+>    But asm/numa.h is a dependent file of xen/numa.h, we can't
+>    include xen/numa.h in asm/numa.h. This error has been fixed
+>    after we move phys_to_nid to xen/numa.h.
 
-How would Arm guarantee availability of memory below a certain
-boundary for limited-capability devices? Or is there no need
-because there's an assumption that I/O for such devices would
-always pass through an IOMMU, lifting address size restrictions?
-(I guess in a !PV build on x86 we could also get rid of such a
-reservation.)
+This could easily be taken care of by move MAX_NUMNODES up ahead of
+the asm/numa.h inclusion point. And then the change here would become
+independent of the rest of the series (and could hence go in early).
 
-> --- a/xen/arch/x86/numa.c
-> +++ b/xen/arch/x86/numa.c
-> @@ -371,6 +371,11 @@ unsigned int __init arch_get_dma_bitsize(void)
->                   + PAGE_SHIFT, 32);
->  }
->  
-> +unsigned int arch_have_default_dmazone(void)
-> +{
-> +    return ( num_online_nodes() > 1 ) ? 1 : 0;
-> +}
+> 2. error: wrong type argument to unary exclamation mark.
+>    This is becuase, the error-checking code contains !node_data[nid].
+>    But node_data is a data structure variable, it's not a pointer.
+>=20
+> So, in this patch, we use ASSERT in VIRTUAL_BUG_ON to enable the two
+> lines of error-checking code.
 
-According to the expression and ...
-
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -1889,7 +1889,7 @@ void __init end_boot_allocator(void)
->      }
->      nr_bootmem_regions = 0;
->  
-> -    if ( !dma_bitsize && (num_online_nodes() > 1) )
-> +    if ( !dma_bitsize && arch_have_default_dmazone() )
->          dma_bitsize = arch_get_dma_bitsize();
-
-... the use site, you mean the function to return boolean. Please
-indicate so by making it have a return type of "bool". Independent
-of that you don't need a conditional expression above, nor
-(malformed) use of parentheses. I further wonder whether ...
-
-> --- a/xen/include/asm-arm/numa.h
-> +++ b/xen/include/asm-arm/numa.h
-> @@ -25,6 +25,11 @@ extern mfn_t first_valid_mfn;
->  #define node_start_pfn(nid) (mfn_x(first_valid_mfn))
->  #define __node_distance(a, b) (20)
->  
-> +static inline unsigned int arch_have_default_dmazone(void)
-> +{
-> +    return 0;
-> +}
-
-... like this one, x86'es couldn't be inline as well. If indeed
-it can't be, making it a macro may still be better (and avoid a
-further comment regarding the lack of __init).
+May I suggest to drop VIRTUAL_BUG_ON() and instead use ASSERT()
+directly?
 
 Jan
 
