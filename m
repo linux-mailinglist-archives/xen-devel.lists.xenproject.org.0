@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E50A649135C
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 02:24:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258304.444588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 394DC491EC4
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 06:07:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258240.444599 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9dEJ-0007v2-Qa; Tue, 18 Jan 2022 01:24:11 +0000
+	id 1n9ggw-0003P3-1V; Tue, 18 Jan 2022 05:05:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258304.444588; Tue, 18 Jan 2022 01:24:11 +0000
+Received: by outflank-mailman (output) from mailman id 258240.444599; Tue, 18 Jan 2022 05:05:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9dEJ-0007sc-Nj; Tue, 18 Jan 2022 01:24:11 +0000
-Received: by outflank-mailman (input) for mailman id 258304;
- Tue, 18 Jan 2022 01:24:10 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1n9ggv-0003NG-Sy; Tue, 18 Jan 2022 05:05:57 +0000
+Received: by outflank-mailman (input) for mailman id 258240;
+ Mon, 17 Jan 2022 19:30:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1n9dEI-0007sS-AN; Tue, 18 Jan 2022 01:24:10 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1n9dEI-0002qn-12; Tue, 18 Jan 2022 01:24:10 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1n9dEH-0001qK-Nx; Tue, 18 Jan 2022 01:24:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1n9dEH-0003YL-NU; Tue, 18 Jan 2022 01:24:09 +0000
+ (envelope-from <SRS0=eBGH=SB=gmail.com=oddh879@srs-se1.protection.inumbo.net>)
+ id 1n9XiK-000581-3W
+ for xen-devel@lists.xenproject.org; Mon, 17 Jan 2022 19:30:48 +0000
+Received: from mail-io1-xd2f.google.com (mail-io1-xd2f.google.com
+ [2607:f8b0:4864:20::d2f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f7f90131-77cb-11ec-9bbc-9dff3e4ee8c5;
+ Mon, 17 Jan 2022 20:30:47 +0100 (CET)
+Received: by mail-io1-xd2f.google.com with SMTP id a12so17928533iod.9
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jan 2022 11:30:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +39,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=gE8qA6P6BrhNs5QOiHq9a0acTe3bORWDmNJyXviEGJs=; b=Y4fhiYV0ZRymTqHhYd3sW/mlki
-	ChHBSEb7Hh11cdfJPDLK2HnZiFj9znvWSz9YkPPqiSdQzDRV9KDg5haw7Jb6hOiXOB3YetLGBB1DC
-	XAhlKn1DWsk7JFRHj38WJ+DW1J6Vmv+7fiYV/LeLniYKFhad0jZQrBCCU7NmAAotuInI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-167729-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f7f90131-77cb-11ec-9bbc-9dff3e4ee8c5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+        bh=tyY1WJ+7yRPNL+WSjEtITtzSqdJZTKCq1loUCelNbv4=;
+        b=nvBryLkKxpFZF/v82Ljm+xZWMExtiTPH/9zpxFEFdlrKQ74x779SDF+7VzdyI3PONz
+         DSWFhx5+VxJrtDnCpsWJutnkrLbFWP7GcegSQ8GyJP4MRKXduFWY/wxGcXc0Avsg3ksi
+         8LrZUValAVtRbTBLSbnjmZGC1S5Cls3oxHHAYnLp+gCjlp6ygHNYU0hqltTyogfrY8Rr
+         /TzmronQDAWlx3ibvOiE9sLcppP0Q9Nai4GlEIJKq+R3N/JYZhMcUgfOe1LgkZ02o52w
+         QPeh7nQ6wgdbBOEH/DLUr6RpfXuyTRsXRTeDVxJjv9k9KHIOKwh+Sq6hMa3AeOW5i0W2
+         QSUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to;
+        bh=tyY1WJ+7yRPNL+WSjEtITtzSqdJZTKCq1loUCelNbv4=;
+        b=K8P2o+Pd2kA3s20jk9vF5zQduXtUTn1V3HMtLZJ2RFou22QweZsLIKrEX0Hm3XKayQ
+         nnJhzX1Df2bMPGGA6EUdJ9N3SCY9It2iHie5ug9fZz4xY3BLnNlkxRUGH+165j9rcdyx
+         iLE2L/eifZIs365AnT073b958culC26vxJmRu3h57hUpz3NisKRYGbEvPkmsuB4aoQDO
+         zZfWGY50bQvEwV3soAzW/5X3B/VaqBQZprWqYW0fDOEtYQuIIc8feC5U1I/wM18KUqwM
+         7FHu+tBJmLfO1Y6wfnpugniMQR015dsHxv15ikSvkqSU1CJpU7o0qBvSMNXXiQBcI8BB
+         iJqA==
+X-Gm-Message-State: AOAM533/M0fLuPKJVNXP66++qiH3tdLIEJ0xuR5cd9KxUgYJz4IRtF/G
+	pt6ziU60zBsehlfJUakJ7ElK6S1kMEwwQU0ej9vUovKR
+X-Google-Smtp-Source: ABdhPJxeFaLG6unTYIZnNSuuX0rABQV1B4AKmHIG7J3QWh2rVxHlWqvoGx+bm/hhe/NFSRjzHHjFdeSVIX/9tW2vJoQ=
+X-Received: by 2002:a02:5dc5:: with SMTP id w188mr9343387jaa.158.1642447845883;
+ Mon, 17 Jan 2022 11:30:45 -0800 (PST)
 MIME-Version: 1.0
-Subject: [ovmf test] 167729: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=5801910013757bd626f67ed77eea6c16a176eebf
-X-Osstest-Versions-That:
-    ovmf=59c48c9314111e41550cac7875c5e9235809c3ef
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 18 Jan 2022 01:24:09 +0000
+References: <CAATqfqB5=mTtbnm1+mXR2U=G0pjjtX7z-brNCE_4us3LzNEojg@mail.gmail.com>
+ <E658EC8C-3C13-4EFE-B5C9-6E91D30ED2F4@citrix.com>
+In-Reply-To: <E658EC8C-3C13-4EFE-B5C9-6E91D30ED2F4@citrix.com>
+From: The Person <oddh879@gmail.com>
+Date: Mon, 17 Jan 2022 14:30:35 -0500
+Message-ID: <CAATqfqD70LtuCUMVAcAG7yeZNU99P7a_3y007d-M+q3i0p1VPQ@mail.gmail.com>
+Subject: Fwd: Reboot hangs on blank screen
+To: xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="0000000000006a847405d5cc3056"
 
-flight 167729 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/167729/
+--0000000000006a847405d5cc3056
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 5801910013757bd626f67ed77eea6c16a176eebf
-baseline version:
- ovmf                 59c48c9314111e41550cac7875c5e9235809c3ef
-
-Last test of basis   167727  2022-01-17 18:40:25 Z    0 days
-Testing same since   167729  2022-01-17 22:40:27 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Liu, Zhiguang <Zhiguang.Liu@intel.com>
-  Zhiguang Liu <zhiguang.liu@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+---------- Forwarded message ---------
+From: George Dunlap <George.Dunlap@citrix.com>
+Date: Mon, Jan 17, 2022, 6:32 AM
+Subject: Re: Reboot hangs on blank screen
+To: The Person <oddh879@gmail.com>
+Cc: community.manager@xenproject.org <community.manager@xenproject.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> On Nov 29, 2021, at 6:51 PM, The Person <oddh879@gmail.com> wrote:
+>
+> I am using Qubes 4.1rc1 and i have a dell 7520 mobile workstation with a
+xeon processor. The Qubes team believes that this reboot problem is
+upstream with Xen. I would like to know whether the Xen development team is
+aware of this issue and how it can be fixed. Qubes is the ONLY linux os
+that won't gracefully reboot. I never had the problem with fedora
+workstation or ubuntu. Is there a way to edit the boot file?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Hello,
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Sorry for not responding to this earlier; I=E2=80=99ve just gotten back fro=
+m
+parental leave.
 
+If you=E2=80=99re still having issues, please submit this report to
+xen-devel@lists.xenproject.org .
 
-Pushing revision :
+Thanks,
+ -George
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   59c48c9314..5801910013  5801910013757bd626f67ed77eea6c16a176eebf -> xen-tested-master
+--0000000000006a847405d5cc3056
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" cla=
+ss=3D"gmail_attr">---------- Forwarded message ---------<br>From: <strong c=
+lass=3D"gmail_sendername" dir=3D"auto">George Dunlap</strong> <span dir=3D"=
+auto">&lt;<a href=3D"mailto:George.Dunlap@citrix.com">George.Dunlap@citrix.=
+com</a>&gt;</span><br>Date: Mon, Jan 17, 2022, 6:32 AM<br>Subject: Re: Rebo=
+ot hangs on blank screen<br>To: The Person &lt;<a href=3D"mailto:oddh879@gm=
+ail.com">oddh879@gmail.com</a>&gt;<br>Cc: <a href=3D"mailto:community.manag=
+er@xenproject.org">community.manager@xenproject.org</a> &lt;<a href=3D"mail=
+to:community.manager@xenproject.org">community.manager@xenproject.org</a>&g=
+t;<br></div><br><br><br>
+&gt; On Nov 29, 2021, at 6:51 PM, The Person &lt;<a href=3D"mailto:oddh879@=
+gmail.com" target=3D"_blank" rel=3D"noreferrer">oddh879@gmail.com</a>&gt; w=
+rote:<br>
+&gt; <br>
+&gt; I am using Qubes 4.1rc1 and i have a dell 7520 mobile workstation with=
+ a xeon processor. The Qubes team believes that this reboot problem is upst=
+ream with Xen. I would like to know whether the Xen development team is awa=
+re of this issue and how it can be fixed. Qubes is the ONLY linux os that w=
+on&#39;t gracefully reboot. I never had the problem with fedora workstation=
+ or ubuntu. Is there a way to edit the boot file?<br>
+<br>
+Hello,<br>
+<br>
+Sorry for not responding to this earlier; I=E2=80=99ve just gotten back fro=
+m parental leave.<br>
+<br>
+If you=E2=80=99re still having issues, please submit this report to <a href=
+=3D"mailto:xen-devel@lists.xenproject.org" target=3D"_blank" rel=3D"norefer=
+rer">xen-devel@lists.xenproject.org</a> .<br>
+<br>
+Thanks,<br>
+=C2=A0-George</div>
+
+--0000000000006a847405d5cc3056--
 
