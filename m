@@ -2,43 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B27D4908E6
-	for <lists+xen-devel@lfdr.de>; Mon, 17 Jan 2022 13:43:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258171.444329 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32C304908C2
+	for <lists+xen-devel@lfdr.de>; Mon, 17 Jan 2022 13:36:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258166.444296 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9RM4-0007mX-GP; Mon, 17 Jan 2022 12:43:24 +0000
+	id 1n9REc-0005pK-Va; Mon, 17 Jan 2022 12:35:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258171.444329; Mon, 17 Jan 2022 12:43:24 +0000
+Received: by outflank-mailman (output) from mailman id 258166.444296; Mon, 17 Jan 2022 12:35:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9RM4-0007kO-Cu; Mon, 17 Jan 2022 12:43:24 +0000
-Received: by outflank-mailman (input) for mailman id 258171;
- Mon, 17 Jan 2022 12:43:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1n9REc-0005me-SO; Mon, 17 Jan 2022 12:35:42 +0000
+Received: by outflank-mailman (input) for mailman id 258166;
+ Mon, 17 Jan 2022 12:35:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6dQ8=SB=darkstar.site=sakib@srs-se1.protection.inumbo.net>)
- id 1n9RM2-0007E9-57
- for xen-devel@lists.xenproject.org; Mon, 17 Jan 2022 12:43:22 +0000
-Received: from pb-smtp1.pobox.com (pb-smtp1.pobox.com [64.147.108.70])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0d18e35f-7793-11ec-a115-11989b9578b4;
- Mon, 17 Jan 2022 13:43:21 +0100 (CET)
-Received: from pb-smtp1.pobox.com (unknown [127.0.0.1])
- by pb-smtp1.pobox.com (Postfix) with ESMTP id 24B6710CFB5;
- Mon, 17 Jan 2022 07:43:20 -0500 (EST)
- (envelope-from sakib@darkstar.site)
-Received: from pb-smtp1.nyi.icgroup.com (unknown [127.0.0.1])
- by pb-smtp1.pobox.com (Postfix) with ESMTP id 1DA1210CFB4;
- Mon, 17 Jan 2022 07:43:20 -0500 (EST)
- (envelope-from sakib@darkstar.site)
-Received: from localhost (unknown [95.67.114.216])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by pb-smtp1.pobox.com (Postfix) with ESMTPSA id 8609810CFB3;
- Mon, 17 Jan 2022 07:43:19 -0500 (EST)
- (envelope-from sakib@darkstar.site)
+ <SRS0=wP1e=SB=gmail.com=wei.liu.xen@srs-se1.protection.inumbo.net>)
+ id 1n9REb-0005mY-68
+ for xen-devel@lists.xenproject.org; Mon, 17 Jan 2022 12:35:41 +0000
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fa7fd987-7791-11ec-9bbc-9dff3e4ee8c5;
+ Mon, 17 Jan 2022 13:35:40 +0100 (CET)
+Received: by mail-wm1-f51.google.com with SMTP id
+ o7-20020a05600c510700b00347e10f66d1so7956506wms.0
+ for <xen-devel@lists.xenproject.org>; Mon, 17 Jan 2022 04:35:40 -0800 (PST)
+Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
+ by smtp.gmail.com with ESMTPSA id l25sm13042297wmh.18.2022.01.17.04.35.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 17 Jan 2022 04:35:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,119 +43,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d18e35f-7793-11ec-a115-11989b9578b4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=pobox.com; h=from:to:cc
-	:subject:date:message-id:in-reply-to:references:mime-version
-	:content-transfer-encoding; s=sasl; bh=1Y9jeSy+H7oeySABufDfja5st
-	9AviOj1ziyeeSJthVY=; b=VWyMejs5a88+TkTlBowB84FC9rpPD/V5BTX3fnLdx
-	qqqCrHy/SmTMi9aUkUQkmSbcH5wSklQswbRrkq0umtxv6b4ixYShUzHXOYeY82CS
-	CJmiseBGMr34WtpO5oTYs3qFiKO0HSeF+1ZzBtdAi/5QXfm5XZB3OwzuBeFFyW5x
-	Bc=
-From: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
-To: xen-devel@lists.xenproject.org
-Cc: Sergiy Kibrik <Sergiy_Kibrik@epam.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v3 2/2] arm/xen: don't use xen DMA ops when the device is protected by an IOMMU
-Date: Mon, 17 Jan 2022 12:32:51 +0000
-Message-Id: <20220117123251.140867-3-Sergiy_Kibrik@epam.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220117123251.140867-1-Sergiy_Kibrik@epam.com>
-References: <20220117123251.140867-1-Sergiy_Kibrik@epam.com>
+X-Inumbo-ID: fa7fd987-7791-11ec-9bbc-9dff3e4ee8c5
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=RV944q9qNTRUozn2SpcJn/8J4Zu/QpZpYR8MQlWa96w=;
+        b=PeZEt73mIGDlsvCREJpML3w+zxbwqUSTpa/VM5fIt16Slo3za71Z/f+XU6OUW/SeiO
+         f7JN9HvcfC7fcAeV/6mGj7WCWJkTBFqaheLUDrWY2l7TY6JFvs4MElU7Wo7HBoT00eFr
+         Z91KosK4khrsaAHbThIfd8Z2W+J1NKxjNbm3octHoUjrPE7gTAH7t7vKkuHN+2Tz500b
+         vvCMfHD+P8aad4E/E7JzKgjRPxzlQzUrq9YA+G7iURuhiBZ+0B451D910jPx1DxbuoPP
+         WSqJY/kz3M2FL72UlF4zNGFTlV7t7fKTcj5xZydCXwQFnU60VX7Szia2q3caGXcV2/1y
+         wDoA==
+X-Gm-Message-State: AOAM530D05lUK06ONxzrrFuZqj4urdFxNBAR5bitB+gIUDfhOwFgFdK5
+	QkJbWBUxMbvUABdlmsaluxk=
+X-Google-Smtp-Source: ABdhPJxhEy1oce1tH7PUh5zOeqRy+eklR12RSqA8QBSP82Aonsz81baPSTIj19rANrn0/TTL0RFZuQ==
+X-Received: by 2002:a05:6000:50b:: with SMTP id a11mr18922252wrf.387.1642422939448;
+        Mon, 17 Jan 2022 04:35:39 -0800 (PST)
+Date: Mon, 17 Jan 2022 12:35:37 +0000
+From: Wei Liu <wl@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [PATCH] x86/APIC: mark wait_tick_pvh() __init
+Message-ID: <20220117123537.odchl4syrw5n2oh2@liuwe-devbox-debian-v2>
+References: <476e1c65-8883-16a2-996e-53d7c42638ed@suse.com>
 MIME-Version: 1.0
-X-Pobox-Relay-ID:
- 0C8633E6-7793-11EC-8825-5E84C8D8090B-90055647!pb-smtp1.pobox.com
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <476e1c65-8883-16a2-996e-53d7c42638ed@suse.com>
 
-Only Xen is able to know if a device can safely avoid to use xen-swiotlb.
-However since Xen links FDT nodes of protected devices to special dummy
-xen-iommu node we can use that information to decide whether
-xen-swiotlb is needed.
+On Mon, Jan 17, 2022 at 11:34:20AM +0100, Jan Beulich wrote:
+> It should have been that way right from its introduction by 02e0de011555
+> ("x86: APIC timer calibration when running as a guest").
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Signed-off-by: Sergiy Kibrik <Sergiy_Kibrik@epam.com>
----
-Changelog:
+Reviewed-by: Wei Liu <wl@xen.org>
 
-v3: rebased over master & documented DT binding
-    https://lists.xenproject.org/archives/html/xen-devel/2021-12/msg01755=
-.html
-
-v2: re-use common iommu dt bindings to let guests know which devices are =
-protected:
-    https://lists.xenproject.org/archives/html/xen-devel/2021-10/msg00073=
-.html
-
- arch/arm/mm/dma-mapping.c   | 2 +-
- arch/arm/xen/enlighten.c    | 9 +++++++++
- arch/arm64/mm/dma-mapping.c | 2 +-
- include/xen/swiotlb-xen.h   | 1 +
- 4 files changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
-index 4b61541853ea..73495f0b0a4d 100644
---- a/arch/arm/mm/dma-mapping.c
-+++ b/arch/arm/mm/dma-mapping.c
-@@ -2286,7 +2286,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma=
-_base, u64 size,
- 	set_dma_ops(dev, dma_ops);
-=20
- #ifdef CONFIG_XEN
--	if (xen_initial_domain())
-+	if (xen_initial_domain() && !xen_is_protected_device(dev))
- 		dev->dma_ops =3D &xen_swiotlb_dma_ops;
- #endif
- 	dev->archdata.dma_ops_setup =3D true;
-diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
-index 7619fbffcea2..0c2f0b77c8b9 100644
---- a/arch/arm/xen/enlighten.c
-+++ b/arch/arm/xen/enlighten.c
-@@ -63,6 +63,15 @@ static __read_mostly unsigned int xen_events_irq;
- uint32_t xen_start_flags;
- EXPORT_SYMBOL(xen_start_flags);
-=20
-+bool xen_is_protected_device(struct device *dev)
-+{
-+	struct fwnode_handle *fwnode =3D
-+		fwnode_find_reference(dev_fwnode(dev), "iommus", 0) ;
-+	if (IS_ERR(fwnode))
-+		return false;
-+	return of_device_is_compatible(to_of_node(fwnode), "xen,iommu-el2-v1");
-+}
-+
- int xen_unmap_domain_gfn_range(struct vm_area_struct *vma,
- 			       int nr, struct page **pages)
- {
-diff --git a/arch/arm64/mm/dma-mapping.c b/arch/arm64/mm/dma-mapping.c
-index 6719f9efea09..2f2b5921bf68 100644
---- a/arch/arm64/mm/dma-mapping.c
-+++ b/arch/arm64/mm/dma-mapping.c
-@@ -53,7 +53,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_bas=
-e, u64 size,
- 		iommu_setup_dma_ops(dev, dma_base, dma_base + size - 1);
-=20
- #ifdef CONFIG_XEN
--	if (xen_swiotlb_detect())
-+	if (xen_swiotlb_detect() && !xen_is_protected_device(dev))
- 		dev->dma_ops =3D &xen_swiotlb_dma_ops;
- #endif
- }
-diff --git a/include/xen/swiotlb-xen.h b/include/xen/swiotlb-xen.h
-index b3e647f86e3e..f3d805f2246f 100644
---- a/include/xen/swiotlb-xen.h
-+++ b/include/xen/swiotlb-xen.h
-@@ -9,6 +9,7 @@ void xen_dma_sync_for_cpu(struct device *dev, dma_addr_t =
-handle,
- 			  size_t size, enum dma_data_direction dir);
- void xen_dma_sync_for_device(struct device *dev, dma_addr_t handle,
- 			     size_t size, enum dma_data_direction dir);
-+bool xen_is_protected_device(struct device *dev);
-=20
- int xen_swiotlb_init(void);
- void __init xen_swiotlb_init_early(void);
---=20
-2.25.1
-
+> 
+> --- a/xen/arch/x86/apic.c
+> +++ b/xen/arch/x86/apic.c
+> @@ -1190,7 +1190,7 @@ static void __init check_deadline_errata
+>             "please update microcode to version %#x (or later)\n", rev);
+>  }
+>  
+> -static void wait_tick_pvh(void)
+> +static void __init wait_tick_pvh(void)
+>  {
+>      u64 lapse_ns = 1000000000ULL / HZ;
+>      s_time_t start, curr_time;
+> 
 
