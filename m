@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D6F849241E
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 11:50:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258439.445062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4839049241F
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 11:51:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258440.445073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9m4a-0001AA-BE; Tue, 18 Jan 2022 10:50:44 +0000
+	id 1n9m4j-0001Vv-Mt; Tue, 18 Jan 2022 10:50:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258439.445062; Tue, 18 Jan 2022 10:50:44 +0000
+Received: by outflank-mailman (output) from mailman id 258440.445073; Tue, 18 Jan 2022 10:50:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9m4a-00017U-5k; Tue, 18 Jan 2022 10:50:44 +0000
-Received: by outflank-mailman (input) for mailman id 258439;
- Tue, 18 Jan 2022 10:50:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1n9m4j-0001SW-Iy; Tue, 18 Jan 2022 10:50:53 +0000
+Received: by outflank-mailman (input) for mailman id 258440;
+ Tue, 18 Jan 2022 10:50:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pp88=SC=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1n9m4Y-00017M-Qd
- for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 10:50:42 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 79a9fc76-784c-11ec-a115-11989b9578b4;
- Tue, 18 Jan 2022 11:50:41 +0100 (CET)
+ <SRS0=4BW1=SC=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1n9m4i-0001Rc-DC
+ for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 10:50:52 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7f916900-784c-11ec-9bbc-9dff3e4ee8c5;
+ Tue, 18 Jan 2022 11:50:51 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,180 +36,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 79a9fc76-784c-11ec-a115-11989b9578b4
+X-Inumbo-ID: 7f916900-784c-11ec-9bbc-9dff3e4ee8c5
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1642503041;
+  d=citrix.com; s=securemail; t=1642503050;
   h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=2rd0dRxurMeCld1piTRTkR3LaNJjUeBSUgGst226drw=;
-  b=XEmjW+2JPm2qhLSl5yBnFV+ZrovglKmIGWaRPr6hUtRTMwqFEKEAj+jy
-   4lgxWV3/if5OhuOkyO6gcoD34XKfBEGHx0nVQh5Nqm00iZnuQKtIqYVIb
-   RVCE/PmHBffcFA2IdcDk3uATR/fnh6RlaYidoEer+WSenirYHlL6ATFV3
-   Q=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: MCm9ZsqU8SHhHK7lzyT6SMCONDk11yi2eQx6hD4HRgb7UT/Cbl1In5k4or3Mb7AGlWFNOVbMa2
- 0u5TJeLPwziUG29fIiF+zKWvpblBkEb1++aXsTr+MOViDzHcOYhoXy50zYEQZelakO+sww7tO0
- vYceI5/3Pk9Yn3C7oEc1Wjb1NlTALQzm5VbGsmxjb/m1UlOQapKpjxAFKeg7j8B/YzC+m3LkBj
- Y06lCvyzWizjjeKmfMzEz9XgLDeVew8Wn+qiBlSV35NPknkSLfSFBhByq6WhplHl5Bs5iMts7P
- u4aS4IcBl5hYoxdI6krBplmS
+   mime-version:in-reply-to;
+  bh=PrW11ZQqHwXAoWym8+utnWzmgPtCkPoTIZxVSj4yQN0=;
+  b=DOhgNknHrmERIJPNXqFA4JOrZdZLcFF9iVlZAwYzC9t5vF4CfazfxDmB
+   Or9areHoXf6TUTpb31VSLDzt7ai5FS54RUs9eAt3YxyDBbElAVP33XGct
+   MkCQEmI2JdZb1Kf+XoOUAYyt+EPd/GxCBQFiwfYrffshnRLhjvgnzDqg+
+   E=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: FgI9JUDwQA8yZL3NL4Of1gR0+TkMe+Ij9TlxF5LeLQVQdKem03+YrNfMfXOp3qJel0WwUSWMc9
+ 2oLv2vrMbt6xtuiEZQdPxHOJ9Rfv/e1gjcajD5h860bvXmAakSVhMlIvpPh3uga9qRCspoHoIT
+ GijxHxW64UbsSQfMzNnNWvmps8SEss4DPt84K21oJKaObXZbQxcO6EkPmzpiUxqnD2zogghbRF
+ yvHJM4gfhB7uMDkPHCi8F8dxoTUvzUGL/7/v2jUXpcYgjlHNLZSYG4Od8fdOpnDDioTvgZGjo1
+ 06sHGLhLdmieHX2+lsQPLi+Y
 X-SBRS: 5.2
-X-MesageID: 62201888
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 62209229
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:7z0ZG6pHvGGd6pRrOKvZ1H9JXGBeBmLoYhIvgKrLsJaIsI4StFCzt
- garIBmGO6veMWTzKtslYNnn80IG68SDzNNhQQFp/n1jFHtD9puZCYyVIHmrMnLJJKUvbq7GA
- +byyDXkBJppJpMJjk71atANlZT4vE2xbuKU5NTsY0idfic5Dndx4f5fs7Rh2NQw2IHpW1rlV
- e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
- 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
- DlCnaSNUTgNH4Hzo/QQSVpCIgRQPrJt2paSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
- 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFJkYtXx6iynQEN4tQIzZQrWM7thdtNs1rp4UR66HN
- 5pJAdZpRDffYyBoKHsUMo0nobuzuVXHdBQDi13A8MLb5ECMlVcsgdABKuH9eNOQQt5Otl2Fv
- W+A9GP8ajkYPtGCzTuO8lq3m/TC2yj8Xeo6BLC+s/JnnlCX7mgSEwENE0u2p+GjjUyzUM4ZL
- FYbkgIxqYAi+UrtScPyNyBUu1bd4ERaAYAJVbRntkfdkcI4/jp1GEA8cyZ+TP0Ki/QmSCZpz
- G6ssdD2Lh5G5ej9pW2myp+Yqja7OC4wJGAEZDMZQQZt3+QPsL3fnTqUEI89TffdYsndXGipn
- mvU9HRWa6A71JZTj82GEUb7byVAT3QjZio8/U3pU22s9WuVj6b1NtXzuTA3ARutRbt1r2VtX
- lBZw6ByD8hUVPlhcRBhps1XQ9lFAN7fYVXhbaZHRcVJythU0yfLkXpsyD9/Plx1Fc0PZCXkZ
- kTe0SsIusMJYCf2PPErONjsYyjP8UQGPY66PhwzRoAfCqWdiSfdpH0+DaJu9z2FfLcQfVEXZ
- s7ALJfE4YcyAqV71jumL9rxIpdwrh3SMVj7HMihpzz+iOL2TCfMFd8tbQXSBshksvLsiFiFo
- r53aprRoz0CAbKWX8Ui2dNJRbz8BSJlVcmeRg0+XrPrHzeK70l6WqCBmu1wKtU190mX/8+Rl
- kyAtoZj4AOXrVXMKBmQa2Alb7XqXJ1lqmk8MzBqNlGts0XPq672hEvGX5doL7Qh6sJ5yvt4E
- 6sMd8maW6wdQTXb4TUNK5L6qdU6JhisgAuPOQujYSQ+IME8F1CYpIe8c1u97jQKAwq2qdA6/
- ++q2DTETMdRXA9lFsvXNq6ilgvjoXgHletudELUOd0PKl70+Y1nJnWp3P86Ks0BMzvZwT6e2
- 1rECBsUv7CV8YQ07MPIleaPqILwS7lyGU9THm/667eqNHaFojr/kNEYCOvRJGLTTmL5/qmmd
- N559fCkPa1VhktOvqp9D61vkfA06ezwquII1Q9jBnjKMQimU+syPnmc0MBTnaRR3bsF6xCuU
- 0eC99QGa7WEPMTpTAwYKAY/N7nR0PgVnn/Z7OgvIVW87yhypeLVXUJXNhiKqSpcMLoqb991n
- bZ/4JYbu16llx4nEtealSQFpW2DI0sJX7gjqpxHUpTgjRAmyw0abJHRYsMsDEpjtzmY3pEWH
- wKp
-IronPort-HdrOrdr: A9a23:2bW7Ca6YllSDz2yVpAPXwVCBI+orL9Y04lQ7vn2ZFiY7TiXIra
- yTdaoguCMc6AxxZJkh8erwX5VoZUmsj6KdhrNhQItKPTOWw1dASbsN0WKM+UyDJ8STzJ856U
- 4kSdkDNDSSNykKsS+Z2njALz9I+rDum8rJ9ITjJjVWPHlXgslbnnlE422gYytLrWd9dP4E/M
- 323Ls5m9PsQwVdUu2LQl0+G8TTrdzCk5zrJTYAGh4c8QGLyRel8qTzHRS01goXF2on+8ZuzU
- H11yjCoomzufCyzRHRk0fV8pRtgdPkjv9OHtaFhMQ5IijlziyoeINicbufuy1dmpDk1H8a1P
- 335zswNcV67H3cOkmzvBvWwgHllA0j7nfzoGXo90fLkIjcfnYXGsBBjYVWfl/y8Ew7puxx16
- pNwiawq4dXJQmoplWy2/H4EzVR0makq3srluAey1ZFV5EFVbNXpYsDuGtIDZY7Gj7g4oxPKp
- ggMCjl3ocXTbqmVQGbgoE2q+bcHEjbXy32DnTqg/blkgS/xxtCvg4lLM92pAZ2yHtycegB2w
- 3+CNUaqFh5dL5jUUtMPpZwfSKJMB2+ffvtChPaHb21LtBOB5ryw6SHlYndotvaP6A18A==
+IronPort-Data: A9a23:exDtb6NpYe8Gy/7vrR0ukMFynXyQoLVcMsEvi/4bfWQNrUol0DAFm
+ 2IbUWyEbqrcNzT0fIp+aYS/oEMEuZfWmNVqGQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En150Eszw7dRbrNA2rBVPSvc4
+ bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
+ 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYoz61settk
+ cgRiZq1Wz0lL5fQl+8nSxYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
+ 6VFdnZdNXhvhMrvqF6/YuBqmsQkKtitJI4Fs2ts5TrYEewnUdbIRKCiCdpwgm1q3pEUR6e2i
+ 8wxWHlqMk3pWDN1PVZQM7I0lb35vnrxfGgNwL6SjfVuuDWCpOBr65D2K8bccNGOQcRTn26bq
+ 3jA8mC/BQsVXPSAzRKV/3TqgfXA9QvrVYRXGLCm+/pChFyI2ndVGBAQTUG8o/Sylgi5Qd03A
+ 04e9zcqrKMy3Fe2VdS7VBq9yFaFoRw0S9dWC/c96gyG1uzT+QnxLmoZSj9MbvQ2uclwQiYlv
+ mJlhPuwW2Yp6ufMDyvAqPHE9lteJBT5M0cJWQE/UVIYv+XlpZMJggP1UtloKra624id9S7L/
+ xiGqy03hrM2hMEN1rmm8V2vvw9AtqQlXSZuuFyJAzvNAhdRIdf8Otf2sQSzAeNodd7BFjG8U
+ G44d99yBQzkJbWEj2SzTeoEB9lFDN7VYWSH0TaD83TMnglBGkJPn6gNuFmSx28za67onAMFh
+ meJ5mu9A7cJbROXgVdfOd7ZNijT5fGI+S7Zfv7VdMFSRZN6aRWK+ipjDWbJgTy3zBRwwP9jY
+ s3GGSpJMZr8If44pNZRb71MuYLHOwhknT+DLXwF50nPPUWiiI69Fu5ebQrmghER56KYugTFm
+ +uzxOPRoyizpNbWO3GNmaZKdAhiBSFiWfje9pILHsbefFsOMDxxWpf5nOJ6E6Q4zvs9qws91
+ iznMqOu4ACh1SSvxMTjQi0LVY4Dqr4k/C1rZnJ9bA/4s5XhCK72hJoim1IMVeFP3IReITRcF
+ JHpou2MXaZCTCrp4TMYYcWvpYBubk3z1wmPIzCkcH40eJs5H17F/drtfw3O8igSD3Xo6Zti8
+ uP4jg6LE4AeQwlCDdrNbK79xV2GonVAyvl5WFHFI4cPdRy0opRqMSH4ktQ+P9oIdUfY3jKf2
+ gvPWUUYqODBrpUb6t7MgazY/Y6lH/EnRhhRHnXB7KbwPi7fpzLxzYhFWeeOXDbcSGKrp/nyO
+ bQLl6nxaaRVkkxLvoxwF6dQ4Zg/v9a/9aVHyglEHWnQawj5AL1XPXTbj9JEsbdAx+EFtFLuC
+ F6P4NRTJZ6AJNjhTAwKPAMgY+mOiaMUlz3V4ahnKUn2/nYqrr+OUEEUNBiQki1NarByNdp9k
+ +smvccX7S25iwYrbYna3nwFqTzUIyxSSbgju7EbHJTv21gixVx1aJDBDjP7vcOUYNJWP0h2e
+ jKZicIuXViHKpYup5brKUXw4A==
+IronPort-HdrOrdr: A9a23:51/wvq4Sd1s5A9UGHAPXwMjXdLJyesId70hD6qhwISY6TiW9rb
+ HLoB17726QtN9/YhwdcLy7VJVoBEmskqKdgrNhX4tKPjOHhILAFugLhuHfKn/bak7DH4ZmpM
+ FdmsNFaeEYY2IUsfrH
 X-IronPort-AV: E=Sophos;i="5.88,297,1635220800"; 
-   d="scan'208";a="62201888"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BayoOyWnJA+mfx3SlFv4XR24D9ch5FQHR1+AJpUNaAulOQIAPkQI/RAP0nkwPTtjgXUtHsst5egAyCWpAgjkPng6dpNoy1lpfyfr9bH0/FxqvIvr8naMoBiNPVEw3LMXdBKWFgrXqOfh0/2YcONQ1oTA6BtgMfT31s+1+Pt785G2kUW0C/yNaXfRVsBxjdzvwKQzdq8lpn25eZowasjWr4l/OsFY7plqwqm4yz4KFljjuKxhVRRmSQxH92NOrPg0Iuw1E5+Vwmk6EUUcdjQb9R6IpghqEtVBEGmzlY0zh01lQVXmJ0mlUvXc+BqH5Z7bK2BBFZmaScDhfdrOqWL16A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SfHRzazomr6Mxwdfj8yoJaVfINXi330K/rGVj2005Co=;
- b=UcOwrQskcYVfZ4zLTJLMMZFtjAtosOoizFBBSH/34izijib9Ue11KH/8vM7Yyrjmit8eCGaetG3/63IM3flwARDmsBm4KzdALPyR3nCgoYo1tVlnv3fNLXe/Ypu3ooQ2PglvTL2csFVVYpv3XZ7z7FWwizqlg9Ri8HbidxuRe+dv/maqL9+V+wahzjGnNZlkbGEu58Arm2ahLZ+bh5fzKZXSjZgOPYoPkT99TA5p4oQ+L2kHKf8RijNcWuvnK+ZpIe4DJzb86wRn8FuRkvTzSNnjYAW5rdFeH1eb5H6k2HRCU8iXlW58VEk92kKl9wPMR9Hw/VVPy73KdUp7O1VOyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SfHRzazomr6Mxwdfj8yoJaVfINXi330K/rGVj2005Co=;
- b=RjvzhqelomtfKHhjLCaaF0pOKg/m5IznjwUv/e2FuaKLJ1m6AhHUH5cOPmG5pPs6kPjCnX5oA0PsuSoGva/VADx8Kn9UPkIm9pN0Vl3ceT4WQgqQuAdRpf4H7a98P/vBIrGN2DzWX03CBhLstwXIq9/aPptNc/2M3O9fg0MPJTk=
-Date: Tue, 18 Jan 2022 11:50:31 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross
-	<jgross@suse.com>, Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>
-Subject: Re: [PATCH v6 01/12] libs/guest: move cpu policy related prototypes
- to xenguest.h
-Message-ID: <Yeabd8eme6UOIA4J@Air-de-Roger>
-References: <20220117094827.16756-1-roger.pau@citrix.com>
- <20220117094827.16756-2-roger.pau@citrix.com> <YeaOoQ1ELpJpL/cg@perard>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <YeaOoQ1ELpJpL/cg@perard>
-X-ClientProxiedBy: MR2P264CA0159.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:1::22) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+   d="scan'208";a="62209229"
+Date: Tue, 18 Jan 2022 10:50:44 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>, Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v8 26/47] build,x86: remove the need for build32.mk
+Message-ID: <YeabhMhQe/+Pfll4@perard>
+References: <20211125134006.1076646-1-anthony.perard@citrix.com>
+ <20211125134006.1076646-27-anthony.perard@citrix.com>
+ <8d7694a4-d7aa-200e-d29a-f055909a13ea@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c7990411-b894-47f3-b9f4-08d9da705baa
-X-MS-TrafficTypeDiagnostic: PH0PR03MB6445:EE_
-X-Microsoft-Antispam-PRVS: <PH0PR03MB6445082BAF84FDBD5A7886F48F589@PH0PR03MB6445.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: w/rFVXF7kFkHNvIru3wJRDLYZGvJ7vSSt3lSe3aPnMk4kbjk90afUtRQ3hHq+Mwcyg2y06t3JTCzmMHEpxxEDqg3v2kFM9bY/EPh52BhhBlGl8fjnioCi9TW5/lnYPStu4P0EWlaNyZvppb2vpbssFupaxp+Y5b3CfTAQsX7/h4OtSUxcNNiWXYYmyckIMwr6hyuzVQQYV/dcESxXL9SJ5vT7+zf23/ixIjXjFx4ip893NuGPZYKUrsgmyzP5bOZcXMkTjcv3lZUoeXVc+8CYy1UTctFLyP0b8zCyym3mKnkx4xCcpA8PdazArGdGuBsPL36AbevOUTTimawun9MKyFJxCxjWo3Rd7FZ74UT9RKWdPCbZIhKdjBoSqjBdR60CNnjHgnHbbNuICIWcPUxx+CWDGcuMAgJuX9w7XlJDDbf5GDtwTbIWcJuhewUsxLCCvaI4pKufAzLA5XZzwn9VZndzFjqpBL4o2hju3K6GdpfC5DjxOUe+uoS9+vZri+PDAqSI7zZu/toRi9tGzXS1Q69JEQv3zQJY8a8TeKbmm7HHTiAhiHRJY+2NYtqFrnsxiTj8Wh6zBSSxK2IdDo0abjJwVwP3YeMspsd3KjknP7jv9JRdDk/OH7pe4XrZr1FlAdyIEm+RlOkteuNHoROoA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(4326008)(8676002)(8936002)(6666004)(508600001)(107886003)(33716001)(6506007)(54906003)(85182001)(186003)(6862004)(316002)(26005)(66946007)(2906002)(6512007)(82960400001)(9686003)(6486002)(66556008)(6636002)(86362001)(5660300002)(66476007)(38100700002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ak01NDk5UllXVU11aTcyUmhtT3hmSGpPbERoWlhROHdlZ3ZKUVRXSitqb1Nu?=
- =?utf-8?B?akFjZWluNmZNRVkwa2tBdzN0S096NFNZRjN6UGVMOFE3c2JwREFFUS91b1Q5?=
- =?utf-8?B?Q0ZxZFRibEkvNnFmMFVwaGY4c3JzS0lZYWQxNURGWjZydHE3d0Y3LzZIUTZR?=
- =?utf-8?B?Y2lQajFkbk9rNm8zWHZxbXdhWHozbHE3S05GZjcwOUMxamZrek1zbXh6a3cv?=
- =?utf-8?B?dm82clVrY2JuNVFNd1kvdFZzalFicFNMck5na0tsUkxKTFFMRjArV2h3T05Q?=
- =?utf-8?B?bkZSWHA1RkZKU1BuTmxjcjVla1poVlpZUnhDOURiYXpKZmhSdGVGQjJONW02?=
- =?utf-8?B?YlRBV2Y4cjdubk5lQmRmOHJHc1FCOEwrL1hOc0U5NjFNOGtpN1dqanl6QVJL?=
- =?utf-8?B?S2ZOazluT3ZZMXl6TVB2V1dvNjRqN1ptV0h6YmNadWNlKy96WlM3aWNWNXBp?=
- =?utf-8?B?WmdNYWg2bTArYjlyQ1lJdkYrNHRDRHpIWVVKcERaeUZVYlJBNVp4ODFwazFS?=
- =?utf-8?B?ZVBXZEd6Y1VUY1ptUVBtcGhkNVEyQTdVSUJZbkZ1SEhnZS9lTHQ0UU9ZWkQx?=
- =?utf-8?B?a2ZPc2lIeVNkMlArVmhBckZLVzlzc0F5ZlVVMlEyMXI1bSszZmlUVjltcG5B?=
- =?utf-8?B?bTFaNzFHczA0eS9QZWhqaFRmV1E0cjRSS2xqVXd5blVQYXQzVVVwRkl3c0d5?=
- =?utf-8?B?aUdQdTk5cXBCd283UXJzK3Y0VnRJT2tqZXVsQ3pvTC8rVWo1OHRwTWhaS2Rh?=
- =?utf-8?B?RVBhOVhpaUhUblhGUkhBUUZLZG5JMmtRZHovb205OW0wSXUvanBlTjlhWWFu?=
- =?utf-8?B?eEQraEtKSnZDZE5aSTZtOXlQN2o2NmpBaFBKL1AzUXdmeHIvZno2RzhpWHZo?=
- =?utf-8?B?cHJzenJhc2NmMkNpYWhKdEROZ3IvYnFXQlcxOHd3V3RyVlVIZVV6ZE1QdEdh?=
- =?utf-8?B?RFFTMzZMWjV2SXd5bG9WU2tkcGY3QS8rTDliS3BhSTdWRGRoOUQvWTB4c0Q1?=
- =?utf-8?B?MWFZZE9CQWg0OWh6TFM0RFpaUWJEb2lZdU1LN3hYdWNFUE1KQkZxaExleTJo?=
- =?utf-8?B?dEpicEtaQ3hxbkhvc3lEUjFqQi9NaGZDMzk2bmFwT1lhQmt0RjRORXcvc09w?=
- =?utf-8?B?RHlLYWxUb24yU01vQmhyVEZNYzFSNUVTclJzOUplK3JidWVOZmZ0L0FRUkFw?=
- =?utf-8?B?YTMzZXdSVnlOTlZBc21SeTFsU3ErZTZJc2F1cnhmcC9XQ201ZkxRZVdRbVEz?=
- =?utf-8?B?Z01aNHZmMndCOHFVbG4vWU1aNUNoWFg0SHBuYlVTQjBKckJrNnpGZElWVWhK?=
- =?utf-8?B?R1VNQjk0VHlMTFVXVUVlNWlCUmJKRUhKd2x6UnJ0UXF6NHVnUVoyU3piMzQ2?=
- =?utf-8?B?cFVLL1NkWUF4VzdrNThkM0M0TEEwMnlJaE12WTFNRG9KemJwM2d3Y3hlM1Rs?=
- =?utf-8?B?L1RHcEI2aDhqME5JdnNlOTRFRU93dFRaTHk2MThwdXBwTi94T1Q3RSs4NjdY?=
- =?utf-8?B?UlZzbXZFcDhDT2paa2NkUGtucm1MNG5aSmxRR1crRFVBdXhHOE1kZysrZnRr?=
- =?utf-8?B?bmhoUEpiWFBSRW1MVmk4bkNubURMUWtabU5XUnV4Y1Y3NU9SdnhFQnEvWFo0?=
- =?utf-8?B?SHVWWS9lcmtOM3ZUeVdSRGJVcFd5emczaVBLV3M4UVNodTFQY00yaDBYMXRw?=
- =?utf-8?B?NW9GSFJmYlV1TzVqU1ZzMEhmNjNKeTZWSEpGbjRmb3NTYVppenZtazJzZUlO?=
- =?utf-8?B?amowT0RmbEtXUWljYWFEVXBFR2dCb0RtaVpJbnA5Yks3TGNudGx2MGZYc2NM?=
- =?utf-8?B?aEhCeDc2VjFtK1VibE1Fa3pkYjl1Q1hxTDNMaXNrQWFCR0hRaHdGdzhsVWJn?=
- =?utf-8?B?NTVHS21ZNy8wMWZrTDluakZIWHpLSG8wcE5seGUyU1M5UTlaMWd2MFRFTldj?=
- =?utf-8?B?amJrbnQ5elM0TFdFU05kallpK21IK3RmRHpOWEwxb3ZLanpLWUR4S2l4S0k5?=
- =?utf-8?B?VjFscVlsTjVIWVhMU01pMjJYcHNuVnlFN1RmL2ZXTGtoVDFNSjA5NTlZU2l2?=
- =?utf-8?B?UXZSQlM4ai9zY1NxUStlTVIwa1VkS1g0OU1OeEtvUjJiOTJMSk9QUzhha1RJ?=
- =?utf-8?B?dFBaQ3BpOHFheEY1UFhHM1Rpa0tiTTFtZmJXR0lETXlXWmkrOWJyM2Y3MjVB?=
- =?utf-8?Q?dSvZWF9I94YRmJIcWWsYXhc=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7990411-b894-47f3-b9f4-08d9da705baa
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2022 10:50:36.0617
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eLdetkZ7NPL5VVcPkqezi2pltvZ7LNnxYkYrJXWYl5MJum8aPx6gqr6ME609LjVksMq7eB9YX/wTJUoAL2Xj7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6445
-X-OriginatorOrg: citrix.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <8d7694a4-d7aa-200e-d29a-f055909a13ea@suse.com>
 
-On Tue, Jan 18, 2022 at 09:55:45AM +0000, Anthony PERARD wrote:
-> On Mon, Jan 17, 2022 at 10:48:16AM +0100, Roger Pau Monne wrote:
-> > Do this before adding any more stuff to xg_cpuid_x86.c.
-> > 
-> > The placement in xenctrl.h is wrong, as they are implemented by the
-> > xenguest library. Note that xg_cpuid_x86.c needs to include
-> > xg_private.h, and in turn also fix xg_private.h to include
-> > xc_bitops.h. The bitops definition of BITS_PER_LONG needs to be
-> > changed to not be an expression, so that xxhash.h can use it in a
-> > preprocessor if directive.
-> > 
-> > As a result also modify xen-cpuid and the ocaml stubs to include
-> > xenguest.h.
+On Tue, Dec 21, 2021 at 02:33:18PM +0100, Jan Beulich wrote:
+> On 25.11.2021 14:39, Anthony PERARD wrote:
+> > --- a/xen/Makefile
+> > +++ b/xen/Makefile
+> > @@ -171,6 +171,10 @@ export LEX = $(if $(FLEX),$(FLEX),flex)
+> >  # Default file for 'make defconfig'.
+> >  export KBUILD_DEFCONFIG := $(ARCH)_defconfig
+> >  
+> > +# Copy CFLAGS generated by "Config.mk" so they can be reused later without
+> > +# reparsing Config.mk by e.g. arch/x86/boot/.
+> > +export XEN_COMMON_CFLAGS := $(CFLAGS)
 > 
-> Adding xenguest.h to ocaml stub has been done so it isn't part of this
-> patch anymore ;-).
+> For my own understanding (it's hard to check being half way through the
+> series): At this point there are no further adjustments expected to
+> CFLAGS?
 
-I assume it was removed on rebase and I didn't even realize.
+I'm not sure what you mean. The comment should be explicit.
 
-> > Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+CFLAGS is going to be adjusted after the copy, for the benefit of all
+the 64bit code (when building x86_64). The "renamed" to XEN_CFLAGS to be
+useable by the rest of the tree.
+
+The name "XEN_COMMON_CFLAGS" might not be the right one, it is only
+common to everything in xen.git, so same flags that the toolstack would
+work with.
+
+> > --- a/xen/arch/x86/boot/Makefile
+> > +++ b/xen/arch/x86/boot/Makefile
+> > @@ -1,25 +1,45 @@
+> >  obj-bin-y += head.o
+> > +head-objs := cmdline.S reloc.S
 > 
-> Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+> Is "-objs" really a suitable part of the name for a list of *.S?
 
-Thanks.
+Maybe not. I think this "x-objs" naming is used in Linux to build
+modules with more than one object. But I guess here we have an object
+with more than one source. Maybe "head-srcs" is better, even if it's
+compiled code made ready to include into a .S source file.
+
+> > -DEFS_H_DEPS = $(abs_srctree)/$(src)/defs.h $(abs_srctree)/include/xen/stdbool.h
+> > +nocov-y += $(head-objs:.S=.o)
+> > +noubsan-y += $(head-objs:.S=.o)
+> > +targets += $(head-objs:.S=.o)
+> >  
+> > -CMDLINE_DEPS = $(DEFS_H_DEPS) $(abs_srctree)/$(src)/video.h \
+> > -	       $(BASEDIR)/include/xen/kconfig.h \
+> > -	       $(BASEDIR)/include/generated/autoconf.h
+> > +head-objs := $(addprefix $(obj)/, $(head-objs))
+> >  
+> > -RELOC_DEPS = $(DEFS_H_DEPS) \
+> > -	     $(BASEDIR)/include/generated/autoconf.h \
+> > -	     $(BASEDIR)/include/xen/kconfig.h \
+> > -	     $(BASEDIR)/include/xen/multiboot.h \
+> > -	     $(BASEDIR)/include/xen/multiboot2.h \
+> > -	     $(BASEDIR)/include/xen/const.h \
+> > -	     $(BASEDIR)/include/public/arch-x86/hvm/start_info.h
+> > +$(obj)/head.o: $(head-objs)
+> >  
+> > -$(obj)/head.o: $(obj)/cmdline.S $(obj)/reloc.S
+> > +$(head-objs:.S=.lnk): LDFLAGS_DIRECT := $(subst x86_64,i386,$(LDFLAGS_DIRECT))
+> 
+> Considering there's just a single use of LDFLAGS_DIRECT below, wouldn't
+> it make sense to avoid overriding the variable and doing the $(subst ...)
+> right at the use site instead?
+
+Yes, that might be ok to do.
+
+> > -$(obj)/cmdline.S: $(src)/cmdline.c $(CMDLINE_DEPS) $(src)/build32.lds
+> > -	$(MAKE) -f $(abs_srctree)/$(src)/build32.mk -C $(obj) $(@F) CMDLINE_DEPS="$(CMDLINE_DEPS)"
+> > +CFLAGS_x86_32 := $(subst -m64,-m32 -march=i686,$(XEN_COMMON_CFLAGS))
+> 
+> I can't seem to be able to spot -march=i686 in the old code. Or wait -
+> Is this duplicating what config/x86_32.mk has?
+
+Yes.
+
+> > +$(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
+> > +CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float
+> 
+> You did inherit -Werror and -fno-builtin from $(XEN_COMMON_CFLAGS)
+> already, so I don't think you need to specify these again?
+
+No, because I didn't want to change the CFLAGS used to build the 32bits
+binaries in this patch. So XEN_COMMON_CFLAGS just hold the CFLAGS
+produced by "Config.mk" for the x86_32 arch. So XEN_COMMON_CFLAGS is
+different from XEN_CFLAGS.
+
+If we want to use the same CFLAGS to build head.o, then I think it would
+be better to do in it's own patch. I can probably do it before or after
+this patch as XEN_CFLAGS is already available.
+
+Thanks,
+
+-- 
+Anthony PERARD
 
