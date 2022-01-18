@@ -2,44 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7501F492107
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 09:16:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258390.444897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D67F492141
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 09:33:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258394.444908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9jf4-0003Ln-Ns; Tue, 18 Jan 2022 08:16:14 +0000
+	id 1n9juv-0005hU-7s; Tue, 18 Jan 2022 08:32:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258390.444897; Tue, 18 Jan 2022 08:16:14 +0000
+Received: by outflank-mailman (output) from mailman id 258394.444908; Tue, 18 Jan 2022 08:32:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9jf4-0003JG-K8; Tue, 18 Jan 2022 08:16:14 +0000
-Received: by outflank-mailman (input) for mailman id 258390;
- Tue, 18 Jan 2022 08:16:13 +0000
+	id 1n9juv-0005fX-4d; Tue, 18 Jan 2022 08:32:37 +0000
+Received: by outflank-mailman (input) for mailman id 258394;
+ Tue, 18 Jan 2022 08:32:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=aElt=SC=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1n9jf3-0003JA-Jr
- for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 08:16:13 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2vFr=SC=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1n9jut-0005fQ-MX
+ for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 08:32:35 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20607.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::607])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e5d9fc87-7836-11ec-a115-11989b9578b4;
- Tue, 18 Jan 2022 09:16:12 +0100 (CET)
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur03lp2058.outbound.protection.outlook.com [104.47.9.58]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-26-v7JG6QZrO1-3MjvLkXTbVg-1; Tue, 18 Jan 2022 09:16:11 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by AM6PR04MB4742.eurprd04.prod.outlook.com (2603:10a6:20b:4::26) with
- Microsoft SMTP Server (version=TLS1_2,
+ id 2d80cda9-7839-11ec-a115-11989b9578b4;
+ Tue, 18 Jan 2022 09:32:32 +0100 (CET)
+Received: from DB8PR04CA0003.eurprd04.prod.outlook.com (2603:10a6:10:110::13)
+ by VE1PR08MB5165.eurprd08.prod.outlook.com (2603:10a6:803:10b::32)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.12; Tue, 18 Jan
- 2022 08:16:09 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4888.014; Tue, 18 Jan 2022
- 08:16:09 +0000
+ 2022 08:32:28 +0000
+Received: from DB5EUR03FT058.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:110:cafe::ac) by DB8PR04CA0003.outlook.office365.com
+ (2603:10a6:10:110::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10 via Frontend
+ Transport; Tue, 18 Jan 2022 08:32:27 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT058.mail.protection.outlook.com (10.152.20.255) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4888.9 via Frontend Transport; Tue, 18 Jan 2022 08:32:27 +0000
+Received: ("Tessian outbound c61f076cbd30:v110");
+ Tue, 18 Jan 2022 08:32:27 +0000
+Received: from 7c2de0889281.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 8340A0BA-2D47-4844-A21C-2B7C0E9C8D28.1; 
+ Tue, 18 Jan 2022 08:32:21 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 7c2de0889281.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 18 Jan 2022 08:32:21 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by VI1PR0802MB2288.eurprd08.prod.outlook.com (2603:10a6:800:a6::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Tue, 18 Jan
+ 2022 08:32:19 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::c0c1:d43a:acf3:a59d]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::c0c1:d43a:acf3:a59d%4]) with mapi id 15.20.4888.013; Tue, 18 Jan 2022
+ 08:32:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,200 +72,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5d9fc87-7836-11ec-a115-11989b9578b4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1642493772;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0OiYb9wV1ry7Z284wPCB52iavL8ljanLW1tBfyVkkB4=;
-	b=NV/R7or0RjXyyoC2Tc3W+uVBVIJ7Q3spS5VGyS4geuZcm2kBFL2Go9aYIHJ3xksxUZIYXO
-	qIBLEBsrvsYxeYwbN02fRPxYV/DDdpOib9S2+T1Xt9Q6GK/hDi8f1yEFcaHXSJF8nWmi21
-	7zxMr8+GQ+0Nro3cjHhhSruA0drfTfY=
-X-MC-Unique: v7JG6QZrO1-3MjvLkXTbVg-1
+X-Inumbo-ID: 2d80cda9-7839-11ec-a115-11989b9578b4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zui3mzrWowvP2UVkbklwW9uySkuwdYf62gqZKhMTkWU=;
+ b=PSAdQ8Sk/cJ9HnxZcr46xC8RItylQ1DgvNMKjW61eZQo82FySL22ZLn/LL5MeouVvat4AIdvh1IwLwf5CI91lBL/qfsA7IbcMFkI2uL5tyfzbA9zk3Xs/pQfCpZ1Ps43zel/IKGiRyyQYcKn7+KxNuK6zJ6i5PevtXtv3fDXrhM=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 8c5bc42530f3efc0
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LiJVgXSP37GpEX7c994rpnTZqtrBn3it8g/1zTRSMFEY0a0sW1H09FyHfozmzwshoMOAAsi8PJNpEGsHt2K04EG+uFDgzMi6x1uGVm9oTfjZ/D6E8eWMd06G9aSybxsEM0YyXGP9Bod3s0MMbfVimO9ji2twIFairbWB0WcK4UxTaOkH/7vJiJ3HePTVaBDzSyokYI3f7jGPnGX/2MPrV7YVcn1CK7YMiR9qoXviaP1TRjbVEIQqlnxCrPJNYfl0MoBsSTCwg7DiBbBfx2xpHrpKV/NzF8OyMMz5Ipf2AdXPUwGviwS0QbBVeviNOKlUo09RkOFXq+XJH2c5o55eXA==
+ b=JMTZ6wS+3k4y32fbYIDx00ycp4cMpaa2npJca28TahnS8ZLeRmvlXB17Z5K1e5J0ZhjcKT3wO0VfJli0g34EIEibMY5M8Bg4B+XwdY5Cx5dqZOkP4Pjx/mVPvHpK/UrgrQBK1y6L4xiVwg4TVXxlNJ/dntHpYI718TJTpjChaR6xnSXp/fZP5pc7o4YgNm3qxK9yWbHQK8HRZtaymfIMXrbzaIETX1edbBkY+iRePAQsgHzHsgZtF/VPNX7a1brVvYpnSVihCe2T/C1MONcINx5tZ81XL3v6deyVXE2W2KDm/WkTTu73MTfBSvpTNoz6q3lc3PWmmpHeppSnnXli/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gS5BkIRrIqGVc2dfwZpVVXgS/zG8ipuBjlUp7oRQ+DM=;
- b=EHGIbQ8cXovshGGU/zoKyitcwpJfmYwYTNPrllvnGiVUtfd5YNuDlQ2ls+KEdZnwfXS+4Z6q1uM7cTtu3YmFEq5c3GihcatLw3zsb2Ix4/TPxLwXaCNoZKCixGfDYHBoT+lQ39YFZMKfRkKdp5P2jpzqg/DtJIMlgHyWkHdJYbhdrcqK64LAC8OF8Eu7NBmluI66HrM2bdgk6Pw6zbDJSzL6SuHe0eU7sA2NZOPJqaIHGB00+A09BprNnl2W4EgqdhXjuccIfJfwpdxztlSdyHBnt0jXrJCuxGhBN6AKSdt2PerDL583p1suOm25BG8J9TP3jmMqcQpkJ3z+XutJWw==
+ bh=zui3mzrWowvP2UVkbklwW9uySkuwdYf62gqZKhMTkWU=;
+ b=U4HUGQBc3Hs1LeFMe9YYMPltigb/h9rWzL/D4H+a0GidDqUlGyHoV/LFEQNXFFM+iwcXl1wlFGmgcsGUB3j775baKxN/mZXgI2MesyB8OkWKuj0reBY5DJRDmkwDiD+AXsR1F2ZXqQNqOoiGZe5gbvFKGKrg9sF66VE4DYfnNzHEnAS3fnQfRcRmzMLMnG408ZRRAD+uNcv87vUDwGzryknXEW/tNdJW3DXOH/C9nLCTNi396QshSCvFDXmeOhF2O3IR7MQnWGa2joXVq1TDoBzeHLixLEvyXwTlmqt+fN73QPrG9H74AOZA6xDXgTHLEaNPnJVczogWgd52D9Uufw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <378fcc9b-abfe-28f2-ee67-f5510e99436c@suse.com>
-Date: Tue, 18 Jan 2022 09:16:08 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 04/37] xen: introduce an arch helper for default dma zone
- status
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zui3mzrWowvP2UVkbklwW9uySkuwdYf62gqZKhMTkWU=;
+ b=PSAdQ8Sk/cJ9HnxZcr46xC8RItylQ1DgvNMKjW61eZQo82FySL22ZLn/LL5MeouVvat4AIdvh1IwLwf5CI91lBL/qfsA7IbcMFkI2uL5tyfzbA9zk3Xs/pQfCpZ1Ps43zel/IKGiRyyQYcKn7+KxNuK6zJ6i5PevtXtv3fDXrhM=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Julien Grall <julien@xen.org>
+CC: Dongjiu Geng <gengdongjiu1@gmail.com>, "sstabellini@kernel.org"
+	<sstabellini@kernel.org>, "Volodymyr_Babchuk@epam.com"
+	<Volodymyr_Babchuk@epam.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v4] xen/arm: Allow QEMU platform to be built with GICv2
+Thread-Topic: [PATCH v4] xen/arm: Allow QEMU platform to be built with GICv2
+Thread-Index: AQHYC20k2h7y374id02KJynAohV9hqxnQp6AgAEyVgA=
+Date: Tue, 18 Jan 2022 08:32:19 +0000
+Message-ID: <C744D1DD-9AF1-4CBA-96F1-1338A44F7C53@arm.com>
+References: <20220117064003.3367188-1-gengdongjiu1@gmail.com>
+ <2a1a0dd5-b8a7-8072-2961-b1fbe9ec746a@xen.org>
+In-Reply-To: <2a1a0dd5-b8a7-8072-2961-b1fbe9ec746a@xen.org>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-To: Wei Chen <Wei.Chen@arm.com>
-CC: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "julien@xen.org" <julien@xen.org>
-References: <20210923120236.3692135-1-wei.chen@arm.com>
- <20210923120236.3692135-5-wei.chen@arm.com>
- <345944c4-78dd-8009-6f64-f9c7901a5497@suse.com>
- <PAXPR08MB7420CD3B7CFB4D2D81019F479E589@PAXPR08MB7420.eurprd08.prod.outlook.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <PAXPR08MB7420CD3B7CFB4D2D81019F479E589@PAXPR08MB7420.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: FR2P281CA0005.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c2772c62-1a1d-4930-301e-08d9da5ac871
-X-MS-TrafficTypeDiagnostic: AM6PR04MB4742:EE_
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3654.120.0.1.13)
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: ee3b017a-d0c7-43bc-82ae-08d9da5d0f7b
+x-ms-traffictypediagnostic:
+	VI1PR0802MB2288:EE_|DB5EUR03FT058:EE_|VE1PR08MB5165:EE_
 X-Microsoft-Antispam-PRVS:
-	<AM6PR04MB4742DF22E1994FA99F3DBCD4B3589@AM6PR04MB4742.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+	<VE1PR08MB51657CC49272A466D90F734E9D589@VE1PR08MB5165.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ mZF7K1Jjjpx60uuvZW4zcZIlDHJfmuNBz+x2sTnSOmkkGV4W7nfm5VYmmaN+VBlNoSkttslJtMwSc7aHEI7+EuuaGdkVNIuIZIrEFRHMcWnXg3jR0QvvmE+qb04oNJU9AgwamU+KrPOC44iJ9RbfxqJnqlHAdA1EBt3rvQXOFT7kVnr4I0uBl6MoyuV85X7w0CL15LdFPdwFWfQ4BYXC1QteGVz7JcJaavO0l0s4qgD6Z35VAWeStuRXVXedqfw+/N3oDH+kZM+1QWrDOasULlzL+rbC6HQro0xYThcW4or6U/EYZha9Yd3kN7m5iyoLi5xu2OkZzbga+ZmPiaAk6e9J77CJC+XLDirmVhEJSSGe+vUSkBNNvAbFkfy0O+i/p4SrWAdYDy7yBmEnRHsO6rLd4eQP76W8JT1556nVxWKqeunttQS+ZZvGgEUuWoyvFZ7BXrYTdGzalctSUmCxe1G3hUkW6b45Yl8qOqjApyrkXADJwO78YIW+I3bjiopZncen3+rXqiJ2gqsNBU5dQay6Ez5+t54xCV4wjxbAcZ3TTXug7g1IMYkzThJfVNl07co/38CIMl6MqN2GKgFiXQMZLNrYHI0HSQoBcOLY9PVxUAD8hY8L2Q2cZHCEH5LNlFWQdEv9vi5YEd8owsk2xPUcNoNA+h6Wg3X/9yv9rD9uyAcm7tPRRxaJPBpYwQcSviO649148wB3tA71qFaXbjboYsn4EFqJkCoeb2d8UMDsKIkxPcoRjrzOMD67ye9U
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(6512007)(38070700005)(2616005)(5660300002)(66946007)(71200400001)(64756008)(66476007)(54906003)(8936002)(8676002)(6486002)(66556008)(76116006)(4326008)(66446008)(508600001)(6506007)(186003)(91956017)(33656002)(6916009)(38100700002)(122000001)(53546011)(316002)(26005)(86362001)(2906002)(83380400001)(36756003)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <56950A15704955458C3BAEC55B540D57@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0802MB2288
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5EUR03FT058.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	c9e48c4e-9912-4cfa-7244-08d9da5d0a89
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	rQPeN6QY5t3ZJV8Xs6FTY/WlMufPTQaoKivGjXqImU09XTBJJCU7xeFsCosU3h6T1FFoZINeFLuP+OzFbW1xpGx6qoMR9lxNHfUtDS0Nn3Tnw3emdZX4fvaH3pGwVMLpjcU+p+g0S9bbPlqrOF2AUpHLQXpSKahVEqWLPex63+XV+7wEPto3W9rwD3z6iHUGgdu/lNRt9D2xOlpBxVeqXeTpxCueqN30kTGCiAM1yJAOdjlRejbUDNqQh1L+AairZ2E0uHJxaAhTENVEpStBsWCuhtStZ6muNE9kVrcUKi+tdGxr2bonkMPWrbUvDCNPXenmvXDIIZft26XphxkzrPHPeOgKoQkbG7yL1NlCw0B9kVa8qu6IEoU26XmYDkfaSnW46Vj4b0/RFffweZT4PNF9BWtkADJylJFmf1/PybiLCSW/ryHTa66OkCeEHOK0G5IziXNmMSjQdW5b7cgRRz/kvvT5MZJSfoVIBq90w905TVb+w7dZzbTJD4LQ43ZpVNp14i1O23pm0Hvz3kTTekDrkRGRHJO5P8wjq+FLTmJRDHn/C2pOUPILr7ew1/agUzMp6lmGvSwD8p80wmh09X99g4HDjRM/1+hvQVd6HY8oXEIR3su+JvkaTC6EfWsQXEl2FCNE3/nQcH658xiqolQcUyVCk8xJPwenWA5xTx5Dmr9G/BYt27GWbjjhF6ykyLiVaNQE8cIyGkDqT/OBK5obbN2KPw0brGfiZGwlpLpM2FOsQCfXLEuXjIARVwTRghmQwpHGkjTY1WVPTn/0tp7zPPSXruSR2HN+2ziJIXdL3inArSdu3/AS/Zx/UQcSOQwwuQmZ/dF23T8zPQ3j/g==
+	Vrl7ppOiR0dCcqM3NpV9q/W/0lBL5F7EJxyHivisFav7mAJBYFJwFi6B3UNPDEhBpb6Bw8cIrAG3BpkWg1g8mqDwkRNM82aagzi5n52NAdHfuIaLq003CSOIXt8jPxrOUuM8BWpMayUlKQAZa2cOBsBX87Df385zFC3g2GPpXiU6Hu0y57wm7yJWgIcZAN/Pts1mxsAB7vnkVkQu3pZucdmqrNR4ur8UNWlypq7dBMc7t2C34NMOAf3V97+Wp86eUZjxtaBPZHvklRfLz9g9vELkpMC0WesPw15yuG7sRVX/Lqwly1nS+O0vZvZRpZF+rAP5TW93qw6gHVnUPd5accREjYnA4SDgBtRoiQlq7KQnyq20fUg1/cagIsrA2iP1ShEPBIYaty4zwMOTRI15GtODjMu19MhPuVQJzrUFrBFjC3CB5fvjQVoPJs1nJfXTR28zB4CEXtieAE6O2Q+YEm0vzwRFbmnmH1stVCLqLAlR9NG0w8rN5aYKS9t+F+WnNuJwB5RYH64K3ACzVaANLx7nFU44sYsgLcq3XirufnnJs12DFWDyhz9W3NVGeCSzZwbwp/WkFdFSkhaSrqatF0K1x8WnwM6kQS/fuxbs+RiXnijuFYZwkeX1kUWNLZaGYgjJxWbPHNQWjdAXCLE4X3HiQxu41QvtEMWET0YapFLZWGyH56tI4lVNaFUJUi6Q1rthJY6rLjkfRDBK100yBw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6506007)(53546011)(54906003)(316002)(31686004)(36756003)(966005)(26005)(4326008)(2616005)(86362001)(83380400001)(5660300002)(66946007)(6512007)(38100700002)(8676002)(6486002)(2906002)(186003)(31696002)(6916009)(508600001)(8936002)(66476007)(66556008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?DDsY/pF4nU4UBqOUQ2beUBHU69SYLI4BoVGkwVbvFQwrI5gaS3mUHDEBznWt?=
- =?us-ascii?Q?gbpFLlhPUrO2B2pi/9pTrX+L+tb1/W09Hra01ODxbivCmyzTnJwkyym442k/?=
- =?us-ascii?Q?z8iq+rEk3sVojE1OM7bRiqGDiQRw1O4jOF1hNDpq/eKCcc3bukXpWAEX4Z6h?=
- =?us-ascii?Q?0gCUEfbbUwOeai+Y+iNMrYnxxz2LJ1tNalD7FrqVir6FhnYlow2RUiNUkj4R?=
- =?us-ascii?Q?w8+VI3pkZDk0Wz36oOqj95X9g+Qpt8HK1BH5iGmSsV2W55BtqjPZYzkLJwht?=
- =?us-ascii?Q?wqMLmdtp5hFSTg78dyMTpkDI5HIIu/2IZWTzbYSIKFB7mJERXCJStUGOOSD3?=
- =?us-ascii?Q?BN+7RyQahx516eg/K2PFiVR98LgUJnffRTQibLbqqye/f7t2BF4r9Z04dWgY?=
- =?us-ascii?Q?gj4i8/IMA8aWh1Xjt8k7eDgqLLcvFTi/t8uB7O6ySniU+QfnVb/GqIR3xNJD?=
- =?us-ascii?Q?U2XXNsDTF/n2dUQjhr+tLWE4QrcNWNc4+jWYPA7ZR5FpZO8NNy2WXQkG99BN?=
- =?us-ascii?Q?ETluMW+F6UIxbcas7+2ra7j7RdRWIFPkZf2Mnt2H2yzocdvo0i3fNTYF3RoE?=
- =?us-ascii?Q?LUTUbcqn4T9S0V3GQXSurXuMMYag6QOtUpc/c8P2fnuaJHStZZAdUCY2yb0M?=
- =?us-ascii?Q?QrmVkgnLPSNNTAH34Bb5vvFmlvORehLofrDRKuZjW80WdR09dB5T6DrkCTtI?=
- =?us-ascii?Q?REq95pOQ9CH1l9Hgct9wa4CekDiYxI7X7+anKYg1Nov1Wc5YS58U8Wc8NRbU?=
- =?us-ascii?Q?WkvkGYisvRl1cm4rkoxyxh6n1rPhpRcLO7qwRNSYL/F7zKbb9AvAB380NGSs?=
- =?us-ascii?Q?bbbXM/WXgONxP7g5sT+P1wv0HCztpDz44k7I+3N/oSYEEWxTpTXVSbXCFkl9?=
- =?us-ascii?Q?D99wo9CZQniKuydeJLHiW/014YzqFI9y9LFAThwF0fElbBKZ8DRDECu6UAGx?=
- =?us-ascii?Q?aAhAnSjYnOaSHjDeLzLiUZuLwBx//UwpTjoTbQ9fa23lsrlA2aXPq223RF7V?=
- =?us-ascii?Q?Ib8/h8mfIb8RBopyBau0F7iFu69UoMf6RUd3NoEFCuWtfKuHoAkDTi5mUKVB?=
- =?us-ascii?Q?kKrqmrVTggIhvywmfaJmRyaqKkg/MxrklVPqvOiWdBKsBiVLlPpyjQiA+4tf?=
- =?us-ascii?Q?0RlfGmqmBKx/6tVuWluo8w95xCsuxNIagYoaPK6zhkiD1XwvRpI2CzVrLVE+?=
- =?us-ascii?Q?Qk8xEewLoQ6W6p7YPqqKEP6pWOKLQ+ZLcOJxvoAFjXe1GnX9kXHqqhOA9acK?=
- =?us-ascii?Q?Msjxf3x+LAsg+/++NlICegSdWfpqNT8SsvnPUhAvKV6X3lcZb7PxL92HFtWV?=
- =?us-ascii?Q?vNrleHdCHUSCa8NR5xrKwQyzp3ndf5qMeBKAV56ft2HxScJjdc1FMbrXbyC6?=
- =?us-ascii?Q?xiLCFBQqHzCVpp7P7njJhsp+iJieiB8Lv3o9OzrZmH3iXMKIYdipOyCh0QmC?=
- =?us-ascii?Q?KcuJoPDkgLOEfZPueC9nqPK30Vhopdeq//xZch0Oy67Fryji+1/uk/9Fe196?=
- =?us-ascii?Q?xrM38/ymphL7QBJO6vp5QTiZGi1R0PAhBUqNnQ0Qzc5VIHzdINqnpsHn8hHr?=
- =?us-ascii?Q?/hHH1momzZNy1VrS+zWUeyWvNz5aJ089oCYb0NyZ0/2DtcwxpGIvw52XJP3t?=
- =?us-ascii?Q?Xs4sKGVDUDSsqLZ/0rO4y18=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c2772c62-1a1d-4930-301e-08d9da5ac871
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2022 08:16:09.5787
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(47076005)(186003)(82310400004)(356005)(36860700001)(5660300002)(26005)(336012)(6862004)(2906002)(4326008)(83380400001)(70206006)(70586007)(81166007)(33656002)(86362001)(36756003)(8676002)(6512007)(8936002)(6506007)(53546011)(2616005)(54906003)(6486002)(316002)(508600001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2022 08:32:27.6045
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QfE0IOogsT1VcQ+wGoQ7Zj0SeW7OrlDFeOpTMrWbjPrPl2bZJMgbaLoS/ihN4v73T0BKYkzm9tSqJZjrxGcaFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB4742
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee3b017a-d0c7-43bc-82ae-08d9da5d0f7b
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5EUR03FT058.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5165
 
-On 18.01.2022 08:51, Wei Chen wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: 2022=E5=B9=B41=E6=9C=8818=E6=97=A5 0:11
->> On 23.09.2021 14:02, Wei Chen wrote:
->>> In current code, when Xen is running in a multiple nodes NUMA
->>> system, it will set dma_bitsize in end_boot_allocator to reserve
->>> some low address memory for DMA.
->>>
->>> There are some x86 implications in current implementation. Becuase
->>> on x86, memory starts from 0. On a multiple nodes NUMA system, if
->>> a single node contains the majority or all of the DMA memory. x86
->>> prefer to give out memory from non-local allocations rather than
->>> exhausting the DMA memory ranges. Hence x86 use dma_bitsize to set
->>> aside some largely arbitrary amount memory for DMA memory ranges.
->>> The allocations from these memory ranges would happen only after
->>> exhausting all other nodes' memory.
->>>
->>> But the implications are not shared across all architectures. For
->>> example, Arm doesn't have these implications. So in this patch, we
->>> introduce an arch_have_default_dmazone helper for arch to determine
->>> that it need to set dma_bitsize for reserve DMA allocations or not.
->>
->> How would Arm guarantee availability of memory below a certain
->> boundary for limited-capability devices? Or is there no need
->> because there's an assumption that I/O for such devices would
->> always pass through an IOMMU, lifting address size restrictions?
->> (I guess in a !PV build on x86 we could also get rid of such a
->> reservation.)
+Hi,
+
+> On 17 Jan 2022, at 14:15, Julien Grall <julien@xen.org> wrote:
 >=20
-> On Arm, we still can have some devices with limited DMA capability.
-> And we also don't force all such devices to use IOMMU. This devices
-> will affect the dma_bitsize. Like RPi platform, it sets its dma_bitsize
-> to 30. But in multiple NUMA nodes system, Arm doesn't have a default
-> DMA zone. Multiple nodes is not a constraint on dma_bitsize. And some
-> previous discussions are placed here [1].
-
-I'm afraid that doesn't give me more clues. For example, in the mail
-being replied to there I find "That means, only first 4GB memory can
-be used for DMA." Yet that's not an implication from setting
-dma_bitsize. DMA is fine to occur to any address. The special address
-range is being held back in case in particular Dom0 is in need of such
-a range to perform I/O to _some_ devices.
-
->>> --- a/xen/arch/x86/numa.c
->>> +++ b/xen/arch/x86/numa.c
->>> @@ -371,6 +371,11 @@ unsigned int __init arch_get_dma_bitsize(void)
->>>                   + PAGE_SHIFT, 32);
->>>  }
->>>
->>> +unsigned int arch_have_default_dmazone(void)
->>> +{
->>> +    return ( num_online_nodes() > 1 ) ? 1 : 0;
->>> +}
->>
->> According to the expression and ...
->>
->>> --- a/xen/common/page_alloc.c
->>> +++ b/xen/common/page_alloc.c
->>> @@ -1889,7 +1889,7 @@ void __init end_boot_allocator(void)
->>>      }
->>>      nr_bootmem_regions =3D 0;
->>>
->>> -    if ( !dma_bitsize && (num_online_nodes() > 1) )
->>> +    if ( !dma_bitsize && arch_have_default_dmazone() )
->>>          dma_bitsize =3D arch_get_dma_bitsize();
->>
->> ... the use site, you mean the function to return boolean. Please
->> indicate so by making it have a return type of "bool". Independent
->> of that you don't need a conditional expression above, nor
->> (malformed) use of parentheses. I further wonder whether ...
->>
+> Hi,
 >=20
-> I will fix them in next version. But I am not very clear about
-> this comment "of that you don't need a conditional expression above",
-> The "above" indicates this line:
-> "return ( num_online_nodes() > 1 ) ? 1 : 0;"?
-
-Yes. Even without the use of bool such an expression is a more
-complicated form of
-
-    return num_online_nodes() > 1;
-
-where we'd prefer to use the simpler variant for being easier to
-read / follow.
-
-Jan
-
-> [1] https://lists.xenproject.org/archives/html/xen-devel/2021-08/msg00772=
-.html
+> On 17/01/2022 10:40, Dongjiu Geng wrote:
+>> It turns out that QEMU has been supporting GICv2 virtualization since
+>> v3.1.0. So remove the dependencies on GICv3.
 >=20
 >=20
+> Technically, the current form of CONFIG_QEMU allows the same binary to bo=
+ot on QEMU with GICv2 or GICv3.
+>=20
+>> If we want to use GICv3,
+>> we can select the QEMU_LEGACY configuration.
+>=20
+> AFAIK, GICv3 is not a legacy feature... So it feels a bit odd to name it =
+like that (see more below).
+>=20
+>> Signed-off-by: Dongjiu Geng <gengdongjiu1@gmail.com>
+>> ---
+>>  xen/arch/arm/platforms/Kconfig | 10 +++++++++-
+>>  1 file changed, 9 insertions(+), 1 deletion(-)
+>> diff --git a/xen/arch/arm/platforms/Kconfig b/xen/arch/arm/platforms/Kco=
+nfig
+>> index c93a6b2756..41e82a42ee 100644
+>> --- a/xen/arch/arm/platforms/Kconfig
+>> +++ b/xen/arch/arm/platforms/Kconfig
+>> @@ -13,7 +13,15 @@ config ALL_PLAT
+>>  	automatically select any of the related drivers.
+>>    config QEMU
+>> -	bool "QEMU aarch virt machine support"
+>> +	bool "QEMU aarch virt machine support >=3D v3.1.0"
+>=20
+> This is a bit misleading. A user may select this thinking that this will =
+select GICv3. However, this will not.
+>=20
+> This also raises the question of what is the default GIC version in QEMU =
+(i.e. if you don't pass anything on the command line)? If this is GICv3, th=
+en I am afraid that this patch would be a no-go for me.
+>=20
+> Looking at overall discussion, you seem to push the patch only to allow b=
+uilding a tiny Xen for QEMU and the new vGIC.
+>=20
+> The default Xen (i.e. make defconfig) will also work on QEMU. Given that =
+the new vGIC is a still in development, I am seriously considering to say t=
+hat if you want to try it then you have to use the default configuration.
+>=20
+> @Dongjiu, is there any reason why you want to use the tiny QEMU config ra=
+ther than the default configuration?
+>=20
+> @Bertrand, @Stefano, what do you think?
+
+I do think that the new Legacy option is very misleading and users will ten=
+d to select Qemu instead of the legacy one where having GICv3 makes more se=
+nse.
+Using the new VGIC which is unsupported is not a standard use case so maybe=
+ it would make more sense to create a specific Qemu entry for GICv2 using n=
+ew VGIC instead and keep the default as is.
+To sum up I am no in favour of a solution changing the existing QEMU. A sol=
+ution creating a new one for the wanted use case would be better for me.
+
+Cheers
+Bertrand
+
+>=20
+> Cheers,
+>=20
+> --=20
+> Julien Grall
 
 
