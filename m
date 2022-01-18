@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEC20492F57
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 21:30:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258640.445685 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E1CA49305C
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 23:11:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258643.445695 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9v5y-00062c-HU; Tue, 18 Jan 2022 20:28:46 +0000
+	id 1n9wgN-0007jG-TA; Tue, 18 Jan 2022 22:10:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258640.445685; Tue, 18 Jan 2022 20:28:46 +0000
+Received: by outflank-mailman (output) from mailman id 258643.445695; Tue, 18 Jan 2022 22:10:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9v5y-0005zm-Cw; Tue, 18 Jan 2022 20:28:46 +0000
-Received: by outflank-mailman (input) for mailman id 258640;
- Tue, 18 Jan 2022 20:28:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1rGk=SC=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1n9v5w-0005zg-Vl
- for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 20:28:44 +0000
-Received: from ppsw-42.csi.cam.ac.uk (ppsw-42.csi.cam.ac.uk [131.111.8.142])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 39ee75dd-789d-11ec-9bbc-9dff3e4ee8c5;
- Tue, 18 Jan 2022 21:28:43 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:48518)
- by ppsw-42.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.138]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1n9v5t-000Le4-8F (Exim 4.95) (return-path <amc96@srcf.net>);
- Tue, 18 Jan 2022 20:28:41 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 4EDC21FA12;
- Tue, 18 Jan 2022 20:28:41 +0000 (GMT)
+	id 1n9wgN-0007ge-Pg; Tue, 18 Jan 2022 22:10:27 +0000
+Received: by outflank-mailman (input) for mailman id 258643;
+ Tue, 18 Jan 2022 22:10:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=9ZWs=SC=nvidia.com=chaitanyak@srs-se1.protection.inumbo.net>)
+ id 1n9wgL-0007gY-Oq
+ for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 22:10:26 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on20608.outbound.protection.outlook.com
+ [2a01:111:f400:7eab::608])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6cc837dd-78ab-11ec-a115-11989b9578b4;
+ Tue, 18 Jan 2022 23:10:22 +0100 (CET)
+Received: from MW2PR12MB4667.namprd12.prod.outlook.com (2603:10b6:302:12::28)
+ by MW2PR12MB2379.namprd12.prod.outlook.com (2603:10b6:907:9::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Tue, 18 Jan
+ 2022 22:10:17 +0000
+Received: from MW2PR12MB4667.namprd12.prod.outlook.com
+ ([fe80::75e8:6970:bbc9:df6f]) by MW2PR12MB4667.namprd12.prod.outlook.com
+ ([fe80::75e8:6970:bbc9:df6f%6]) with mapi id 15.20.4909.007; Tue, 18 Jan 2022
+ 22:10:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,37 +47,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 39ee75dd-789d-11ec-9bbc-9dff3e4ee8c5
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <e076f39f-7364-b9a2-ba0c-fd84e7f19ab0@srcf.net>
-Date: Tue, 18 Jan 2022 20:28:40 +0000
+X-Inumbo-ID: 6cc837dd-78ab-11ec-a115-11989b9578b4
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=fTxRABRUhmS/yBeBy4NYJORHrHnnNss0PH+mgSJ0hAlIVWp7Htbu20cXjIy2RjretjHTMhHwXofgSKJ1EUUr7xk+Nn/2ZUYcYZtfIGjCUrAKczG/K6R0z5n8TIRkc/K8ifs1XJdejW9sEgx9bZ2SsXynBOAIZw/8JHo8AghaT38rDztmqKOa1VbSZe0uaRM3I4SHJqTSeeXqV72M7mxa5sAm9IyWSkvba38sj+2aRS5i98a/MYVTAz/Xtssw3a79JMwW98ZYnyFXtTf/VywwbnLAQ56XHoN55blee/Jd2NyoBUUzxcXIMzQ7VjF3P+0v0LOVYMblLItRsm+aSHSgeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=10TAAnZvOSR4S0y2NuqUH4W60yc9IevVM3hnAGv74bc=;
+ b=oAc1oucyUMt7e/0jx2XtEhXIV3/yPfGQ4pSOT1YfIyDV+6nFi+tvCJ7eSK78fcTx1eK98GRubjoPsbg11Ia433gLG1PNUrsLWnoyu+nJjvZjrZpmRpxWd6E3qeoYVhrECRuMQg4WZdGS7FRE5YWMDkI8fIYU+QRKkGJNBBuY8PQ5BGTYRDnKtkNUCu0Svo2vK79rlphbG+38sa7JDUNARihIiLazNvGhoF+ap+UouYGecBJQb7V8oVWsCDuiSWsgGSHwV1VRFmoerthZplu3MZTSsgY2j/L8ENfi+1kYG97lYJr2noug3P+Wqo11X61BGoq+ztJTin7KsGEecivvtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=10TAAnZvOSR4S0y2NuqUH4W60yc9IevVM3hnAGv74bc=;
+ b=FhXV9Xl012EiGpClBUVVB8qPdyvxDkKnr5exmZ2iEUFQt7zImZmW9VVJDXZcagdYqGYNJxzP0jHifQ5OSrksjNkg/czJQX91qU/TKVvDdpAYnYo+MuRHqVUGKixBRXKG8Y+c/j5H4VUkVjhvkRnjkTGV1/qDOPvYx2EmfMXppiGSNA7A/DXelI29lqc3sUzj4Cey6XJoHRVAvahqcV+GxQ6sQ8fdkJfakpeeti/rmQuUw+cMgCiaR+FtrhVQi8ebUUeYCgklDblHrRLRKhunNSV9HsJtOM2D/4ovfTSaNQ+DmnuRWYSHqIobASY3dXsnA+0JvbgIc2Q4q1ETfu58+w==
+From: Chaitanya Kulkarni <chaitanyak@nvidia.com>
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+CC: Pavel Begunkov <asml.silence@gmail.com>, Mike Snitzer
+	<snitzer@redhat.com>, Ryusuke Konishi <konishi.ryusuke@gmail.com>, Konstantin
+ Komarov <almaz.alexandrovich@paragon-software.com>, Andrew Morton
+	<akpm@linux-foundation.org>, "Md . Haris Iqbal" <haris.iqbal@ionos.com>, Jack
+ Wang <jinpu.wang@ionos.com>, =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?=
+	<roger.pau@citrix.co>, Philipp Reisner <philipp.reisner@linbit.com>, Lars
+ Ellenberg <lars.ellenberg@linbit.com>, "linux-block@vger.kernel.org"
+	<linux-block@vger.kernel.org>, "dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
+	"linux-nfs@vger.kernel.org" <linux-nfs@vger.kernel.org>,
+	"linux-nilfs@vger.kernel.org" <linux-nilfs@vger.kernel.org>,
+	"ntfs3@lists.linux.dev" <ntfs3@lists.linux.dev>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"drbd-dev@lists.linbit.com" <drbd-dev@lists.linbit.com>
+Subject: Re: [PATCH 13/19] block: move blk_next_bio to bio.c
+Thread-Topic: [PATCH 13/19] block: move blk_next_bio to bio.c
+Thread-Index: AQHYDDwIi23zfbZWP02cbOp5v0GjmqxpV+AA
+Date: Tue, 18 Jan 2022 22:10:17 +0000
+Message-ID: <898045a2-19a4-15ba-a352-ce1767f17cac@nvidia.com>
+References: <20220118071952.1243143-1-hch@lst.de>
+ <20220118071952.1243143-14-hch@lst.de>
+In-Reply-To: <20220118071952.1243143-14-hch@lst.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 3621004d-42ef-40d2-624d-08d9dacf4f4e
+x-ms-traffictypediagnostic: MW2PR12MB2379:EE_
+x-microsoft-antispam-prvs:
+ <MW2PR12MB237997490FA666B9FF821D5FA3589@MW2PR12MB2379.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:949;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ s02X2IWbX4rKx8KySN+biMpWmkIFrCBJBvbfdvBsF2wiHI8e/5CB5IcNgwc6amdCF73sviR5k5KMr5Z4ll36fqJXTZU0hQfniPWiPeJfPbUgJdSJjJljUVThr74/33qayKtzM9+PGtJILtW+BdTvO4LamCTArcZVsBX0We3rJHMdN9QAyYxr0NUquqlgQq3a2M8e/kWZ9DFGMrtlHZ/Mgiroqb2XS4Z3E62A0OyL73LPNMqfX8HX5UaT7t+nBjBqJ0RLeAoueglXtTwNx9NDUR9tDSMo2j+aNwZjGWblJmD4GhCvWSDcoST19IcyvTRqppgaPX+LIu0X4NVJTk/4FkFhfd6s4eXt6lpfioAyjapjwAyuCZ3YulUfmFVsDxBkUq4GACtJUZyz2soaPKPSdB7yx6gLRFel/IUa16h3tztRHZlRf2uCsVRqIjr9qYipvuNKA4vd88L4013HJIBT66SIhQ/3uFuntGqtSIraDJkOownNEfXzd/G4WQ01byRy5KThFSqsW3ePI2hQ2MONg2RE82RfI0IodeyQeBt3SDxb6+43DVAHZ4IMH62eSWkwyF/RgBii/4drf+CQOhohzGsv6uYT+alaTO4prvKQewa0+DX9qFazy4NpWgajuuYuKxrI/4JVDMS/xyZhgBIYO0azX8tp9dq3JlDMy23Z/wzQhLVPR7zTyg1NCwBL4cHWyOXpH1jqGXYDPehWmsKMva7i65WuVcYCey8vtnqToQzTulI1kEIgocmmp2s+Faa/sM9z+8rolOUFWd0mwWOnLg==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW2PR12MB4667.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(122000001)(38100700002)(558084003)(36756003)(54906003)(8936002)(91956017)(71200400001)(8676002)(66446008)(64756008)(66556008)(66476007)(76116006)(66946007)(31686004)(316002)(186003)(86362001)(53546011)(6506007)(4326008)(6486002)(110136005)(2906002)(5660300002)(2616005)(38070700005)(7416002)(31696002)(6512007)(508600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?VUZ6YmhENUNEd0hLU3BzWlhWYmJlVm5YamdCNDBrNDNJcUlyZ3hDMnlRcUJN?=
+ =?utf-8?B?bEZtMEZqMlduNy9VUVJHKzBLa3Y3dlN0QXFJTFl0VUtrZURQZWJ5OHNHMlg4?=
+ =?utf-8?B?b1lsVnBVQVczTG8wT2pYUVhzOXdxeUphNnZEZGpZVFcxY2lZN08zR05UMmlV?=
+ =?utf-8?B?ZTFjV2x1eEc3QnJVcDlsSWhQYnhkTis0T1EzWTgxc2hkWFBxSUtFV2F2MzZr?=
+ =?utf-8?B?aTFWbm52NmNmZ05SRUh2RXQ4clZiemFObnVQTW9Td290ZElsVDNraThOSE1r?=
+ =?utf-8?B?TW5PM1FtYklna29GTENDcjJYdDFuNWlNNXJuU241TFdFNWpMMCsxRE5FZklm?=
+ =?utf-8?B?ZncxaDRkankwWFhnT2N3ZC85VlNqN29HM3pwZElvQyszV3UxTFVTKytncVA3?=
+ =?utf-8?B?Q24vaFVQa3RkOUx2TmxBUXJVa3Z0bVVLKzNUSzJOUmpPUS9WTlQzUHRDYUdL?=
+ =?utf-8?B?OFZmTnJGM1pIRjQxZS9yY2g4djNiYlBuRWZ2elVZeWxLdElGU1o4ZER3c0ZP?=
+ =?utf-8?B?b1ViM0ltWkFRaHRtR3FEWkNTdGFpQ3JBRW9FdDkwcXN6R1ZGK01XdWs2S0Ra?=
+ =?utf-8?B?OWFXNWw2bDBkNG93ZlpwWVJlNjY2WWxlUXFnWFhXUDRaRDNNUzVpbmdMd2Zy?=
+ =?utf-8?B?RGlZc2ZHSjJGRDltVldJY2Z5WVc5VmJTd0FSbTVEM3Nnd3BaWVR0TDN4YXFy?=
+ =?utf-8?B?OEgzY0Q2aGthUk5LMDBlelM4UlBHNytpOE9ya21NZFhicmFiZjdqRUxqSi9o?=
+ =?utf-8?B?S0k5clg4QUhSZTg2STY5VmZUUVhFTXFNTHIyYytJMU1mZ05yc1M2VlBldXY5?=
+ =?utf-8?B?ald3cHpqYy9id29UWkQvOGpmbDJMWXlSU2dyYWwvK0F0NENaQTlScnZtNnRq?=
+ =?utf-8?B?REMybHNSUTQrYnZzRDVocjdjWGVUY0NVTlNKYXFJYTVXMHFlRGVjai9XV1B1?=
+ =?utf-8?B?K3ppWTNpS2J4WlRNZWxDd2VRQTZKNDRBQmRlOWUwR25WNUorQ1BRSDZiNE5a?=
+ =?utf-8?B?cVFaM2gyRE5iODE0djU5bVlVUEo1c3k1eHVES1VsdzJ1b0h0d3dlSlBUWmVB?=
+ =?utf-8?B?M2lnbjh4UEJsRFhXQXJqdW5mbjA5YWsxQkhsNGlLNlQ4RTk2dXp6VjNQTC9K?=
+ =?utf-8?B?Umo5OEo1cHpRWENKc2YrU0hOYzdibFZyQ0g3N1d2bFNPTkNVamZDUFl5K1VJ?=
+ =?utf-8?B?MzluSGlxR0h1SkhBUEVCaDd3OWovajQxUWJFYXJidWtONTl2V1lLaTZUaFdn?=
+ =?utf-8?B?QVpXU3lQSDZHc1BycEh3MmFUSGhXTllGeXJteTRtUEpocWhCYlVEK0grQmxs?=
+ =?utf-8?B?ZmtMS3EyL3BtZEE2UG9FOTg2NzhqbTdtNHpyTW5zYmM4QjM5Ym1Gdjg4MUFE?=
+ =?utf-8?B?cHBiY0grRkZaWXlDa0l1cFFGMmtzS0FRT3hQendVV3p4Y1Q2Z09XVExvcklG?=
+ =?utf-8?B?VEZiajJjdkpEcUh2S3V4cW8wRFZMaU0zNkt3RGNna0tSQnNWNVpmZDZ4UjQ5?=
+ =?utf-8?B?UHpiZk5Id2Q4cGV3WXo1NHVURWNidzIydUQ3Rm1kaUR0YkdPRnlKTUszK3Bs?=
+ =?utf-8?B?YmlsQTI0YVB3Sy9kYjNKc3Erb2wzVEZ3RkFYTXRpQ2Z4ZjdNVXFORjU2R2NT?=
+ =?utf-8?B?Mnhtc3duYjBxTHlpZ1ArYVQ0NWpBMnEydmYzSUZaSVNoUVBkQVZVbWMxOUhE?=
+ =?utf-8?B?WDh1bTRyYThHSnozUGxLT0c1ZVFJTU9ZcHZ1QU5WWEx1SWJ2VzZIUDNPb1g2?=
+ =?utf-8?B?cFRjK2V3Zk5jMFQrRXc4N3gzc3dFWkFXeThKMUJFZ1laenFWTWpiczRtNi9B?=
+ =?utf-8?B?U3N4YlBmb09CTkcvRjUxTVRGSnJ3Yk5NaEhSRG9zZk5NMFh4VjVnY01qbGdu?=
+ =?utf-8?B?MldrZUxrTWxGQjNTTmw3bnpJNFBDOEp5Y1NUQTJpOWFmd0dLZGJEWnBFWFl1?=
+ =?utf-8?B?SG1WRWRoVDJQUXV6QmhUazFybCs2bERQa0NsTzZnK1BtOFdDUzRpc2cyMWVu?=
+ =?utf-8?B?bGlPejg3SmxpMlJWQXluN3NBQmZSUCtWY1hHdlRGRllFT3ZBWklNOU12M2Jn?=
+ =?utf-8?B?TnhlMDRlbG9Vb0FlZDlPSEpTYXltUzlnVmM1TGZ3K3U1WXNMOHlBMjlHcGx4?=
+ =?utf-8?B?QzRETlRVWnpBQnprTnZ6V21GT1NXWnVuZFpieFk5ZVVDOFZiWVFaNFdJTlZv?=
+ =?utf-8?Q?iCDaB4IKaPjMnFjoRwrMGDEO3HjW+GEP0SrMW/NArikj?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <B517DE78369F2A41BFFA7CE0A7153DC7@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH] x86/Intel: use CPUID bit to determine PPIN availability
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <239d8868-0c8a-b512-a2bf-3e91689a8218@suse.com>
-From: Andrew Cooper <amc96@srcf.net>
-In-Reply-To: <239d8868-0c8a-b512-a2bf-3e91689a8218@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB4667.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3621004d-42ef-40d2-624d-08d9dacf4f4e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Jan 2022 22:10:17.2320
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Zj5k0blmXFkwJkXgnsmSuImlrYYFcoQQK20MteejdX9QG8EDrKYlnMCCxPbP8Ay7cdDtxYWYd2jyIv9ntTJBfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2379
 
-On 17/01/2022 15:30, Jan Beulich wrote:
-> As of SDM revision 076 there is a CPUID bit for this functionality. Use
-> it to amend the existing model-based logic.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
-https://lore.kernel.org/lkml/20220107225442.1690165-1-tony.luck@intel.com/T/#u
-suggests that Sapphire Rapids also needs the model specific treatment.
-
-I agree with the "only-expose-on-error" observation, so perhaps we ought
-to make these details available to the hardware domain in a suitable form.
-
-~Andrew
+T24gMS8xNy8yMiAxMToxOSBQTSwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6DQo+IEtlZXAgYmxr
+X25leHRfYmlvIG5leHQgdG8gdGhlIGNvcmUgYmlvIGluZnJhc3RydWN0dXJlLg0KPiANCj4gU2ln
+bmVkLW9mZi1ieTogQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBsc3QuZGU+DQoNCg0KTG9va3MgZ29v
+ZC4NCg0KUmV2aWV3ZWQtYnk6IENoYWl0YW55YSBLdWxrYXJuaSA8a2NoQG52aWRpYS5jb20+DQoN
+Cg0K
 
