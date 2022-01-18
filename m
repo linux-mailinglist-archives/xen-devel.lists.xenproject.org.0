@@ -2,33 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA56349204B
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 08:27:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258359.444820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E0F749208E
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 08:52:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258370.444853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9iu4-0002FU-3D; Tue, 18 Jan 2022 07:27:40 +0000
+	id 1n9jH6-00072z-Ru; Tue, 18 Jan 2022 07:51:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258359.444820; Tue, 18 Jan 2022 07:27:40 +0000
+Received: by outflank-mailman (output) from mailman id 258370.444853; Tue, 18 Jan 2022 07:51:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9iu3-0002Cs-V0; Tue, 18 Jan 2022 07:27:39 +0000
-Received: by outflank-mailman (input) for mailman id 258359;
- Tue, 18 Jan 2022 07:27:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=lOsy=SC=bombadil.srs.infradead.org=BATV+4fe6c3c60fc7db690b35+6722+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1n9ind-0000in-P5
- for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 07:21:01 +0000
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [2607:7c80:54:e::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2f682136-782f-11ec-9bbc-9dff3e4ee8c5;
- Tue, 18 Jan 2022 08:21:00 +0100 (CET)
-Received: from [2001:4bb8:184:72a4:a4a9:19c0:5242:7768] (helo=localhost)
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1n9inQ-000Zlb-97; Tue, 18 Jan 2022 07:20:48 +0000
+	id 1n9jH6-0006zd-OT; Tue, 18 Jan 2022 07:51:28 +0000
+Received: by outflank-mailman (input) for mailman id 258370;
+ Tue, 18 Jan 2022 07:51:27 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=K2lf=SC=arm.com=Wei.Chen@srs-se1.protection.inumbo.net>)
+ id 1n9jH4-0006zX-Qw
+ for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 07:51:27 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on062b.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6f30000a-7833-11ec-a115-11989b9578b4;
+ Tue, 18 Jan 2022 08:51:25 +0100 (CET)
+Received: from AS9PR06CA0061.eurprd06.prod.outlook.com (2603:10a6:20b:464::35)
+ by VI1PR08MB3678.eurprd08.prod.outlook.com (2603:10a6:803:89::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Tue, 18 Jan
+ 2022 07:51:21 +0000
+Received: from VE1EUR03FT035.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:464:cafe::7a) by AS9PR06CA0061.outlook.office365.com
+ (2603:10a6:20b:464::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.10 via Frontend
+ Transport; Tue, 18 Jan 2022 07:51:21 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ VE1EUR03FT035.mail.protection.outlook.com (10.152.18.110) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4888.9 via Frontend Transport; Tue, 18 Jan 2022 07:51:21 +0000
+Received: ("Tessian outbound 157533e214a9:v110");
+ Tue, 18 Jan 2022 07:51:20 +0000
+Received: from b2ee4554d203.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ C6850EAC-B0BF-48D0-9011-E36760215C18.1; 
+ Tue, 18 Jan 2022 07:51:10 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id b2ee4554d203.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 18 Jan 2022 07:51:10 +0000
+Received: from PAXPR08MB7420.eurprd08.prod.outlook.com (2603:10a6:102:2b9::9)
+ by PAXPR08MB7185.eurprd08.prod.outlook.com (2603:10a6:102:207::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4867.7; Tue, 18 Jan
+ 2022 07:51:09 +0000
+Received: from PAXPR08MB7420.eurprd08.prod.outlook.com
+ ([fe80::4463:2795:6645:5dd0]) by PAXPR08MB7420.eurprd08.prod.outlook.com
+ ([fe80::4463:2795:6645:5dd0%6]) with mapi id 15.20.4888.013; Tue, 18 Jan 2022
+ 07:51:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,403 +72,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2f682136-782f-11ec-9bbc-9dff3e4ee8c5
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=uW2mc9iWaFckCAcp0+ZfendEWrcDkE662kty754dA0k=; b=tZb6X2SFk3AoLZl4MFFNrJNAVh
-	18JZLt1KWqP3DAtfpomGX0IflVAXcruOAEh1YiU+9I8odpyf6+No3+TjObDON1RWjxVy/IGtNnG8E
-	LvCQEm/YAFQpwN8mA83LMBjnUK9UJkaTlVQqgASznI94zbmjmbVNclg+N9/qXCNccrg6ElamC+FFk
-	/kIiDwhlzSLMtTWTB+8fCoB3lLJ0HOe6/hR7/3f4flFFFNA1IDQvQeoCvdgSp019KSjaRpMBSbvvJ
-	Mu02rz/w0rXlf++ocMqZKX0syk1fzhMYadUObkhG8P65d51v9r9RXk76lBvqvNVrKN+/uZhqSSrfQ
-	l9mMFOCg==;
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: Pavel Begunkov <asml.silence@gmail.com>,
-	Mike Snitzer <snitzer@redhat.com>,
-	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	"Md . Haris Iqbal " <haris.iqbal@ionos.com>,
-	Jack Wang <jinpu.wang@ionos.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.co>,
-	Philipp Reisner <philipp.reisner@linbit.com>,
-	Lars Ellenberg <lars.ellenberg@linbit.com>,
-	linux-block@vger.kernel.org,
-	dm-devel@redhat.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-nilfs@vger.kernel.org,
-	ntfs3@lists.linux.dev,
-	xen-devel@lists.xenproject.org,
-	drbd-dev@lists.linbit.com
-Subject: [PATCH 19/19] block: pass a block_device and opf to bio_reset
-Date: Tue, 18 Jan 2022 08:19:52 +0100
-Message-Id: <20220118071952.1243143-20-hch@lst.de>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20220118071952.1243143-1-hch@lst.de>
-References: <20220118071952.1243143-1-hch@lst.de>
+X-Inumbo-ID: 6f30000a-7833-11ec-a115-11989b9578b4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mICl6khP2BfVYkr4LeNqE1HhE/4I6l1fCFrCf0qZ4MI=;
+ b=wAi35VbZdiXXIQXoRXRNtZuBd1s+jIBm2e33QdOcJRVQFYYcTAYQ/zqkTAJ3Y00S5FW25CazTucU2wFCsk4rJ5Q/3UHj3LCykafqJ655Qyqi93BPgM3areqLBIPTrPP2PzP6EtEt14LUcnzSlxGo24Y/L1VH49PpRyaODm6VTFg=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=I47DiDbUX7t/q9wWaaJyfWuuwvUzLm+08LfHlMckizvegRk7x4NtqtqQbrbxkZzwxBV6Z/oaAqrJ2bmmUGRoLUxBVchk5VkRrS8fz+CE6i4Qh53QgBpfyCxJtUe3IN5ekEjecRERJOl3jGDGvdnMXzuk58dsdAnzv3CCq79RmnhKqs021kOO+yKs/zZHGidwlT1fsqclDbSyc6QXpgH8pYP+wCMvR9xO4xA6PKRbvaChvj/wqN80XLhkFVwfkfQ5/+7lGgfNJvTfRp3QqCdANSJuK7rHZemVonAaL/EpaMNUlWY0vqRelKnNyAaLFZaSdzzbM+dOiVPVospBix9ENg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mICl6khP2BfVYkr4LeNqE1HhE/4I6l1fCFrCf0qZ4MI=;
+ b=QPMXqvutuR7Rkk5+qAZ8Sy0PrZF8O8ov7i6h2Y/R9SnEdN9alf4ucHMQq4gqnvTuNojtadfXDkAxxQnISjXjVHo4qHm6TX25ADRHyND9fegukx/KeZlmMiBCS5eBhetJs0mJogYQCQxkXcVX5LQD89CCNAgb0OCI8of7DGAZmTfT1EMZp9rCGmyD9Oe7iB+3sXegywrI+tfyuNcbOpCj1CIOlwfWabwB1zHg1aSzGaFcx9iJAfLXHwE5tcpC2ao4dRlBFEv16U4h7Zz+D1GcdkARTOjXeF2jPmvHDAcC2eVHIgKNNkvUwrqg/nvYQa9HAFHNn4Z56lmXkigBD7DV9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mICl6khP2BfVYkr4LeNqE1HhE/4I6l1fCFrCf0qZ4MI=;
+ b=wAi35VbZdiXXIQXoRXRNtZuBd1s+jIBm2e33QdOcJRVQFYYcTAYQ/zqkTAJ3Y00S5FW25CazTucU2wFCsk4rJ5Q/3UHj3LCykafqJ655Qyqi93BPgM3areqLBIPTrPP2PzP6EtEt14LUcnzSlxGo24Y/L1VH49PpRyaODm6VTFg=
+From: Wei Chen <Wei.Chen@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	"sstabellini@kernel.org" <sstabellini@kernel.org>, "julien@xen.org"
+	<julien@xen.org>
+Subject: RE: [PATCH 04/37] xen: introduce an arch helper for default dma zone
+ status
+Thread-Topic: [PATCH 04/37] xen: introduce an arch helper for default dma zone
+ status
+Thread-Index: AQHXsHMGx8xGhif/FUCDSa9NS/fSLqxoGKiAgAD49HA=
+Date: Tue, 18 Jan 2022 07:51:08 +0000
+Message-ID:
+ <PAXPR08MB7420CD3B7CFB4D2D81019F479E589@PAXPR08MB7420.eurprd08.prod.outlook.com>
+References: <20210923120236.3692135-1-wei.chen@arm.com>
+ <20210923120236.3692135-5-wei.chen@arm.com>
+ <345944c4-78dd-8009-6f64-f9c7901a5497@suse.com>
+In-Reply-To: <345944c4-78dd-8009-6f64-f9c7901a5497@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: 2865EEDF098CA2409B9E848F555144EC.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-MS-Office365-Filtering-Correlation-Id: 7a18d88d-f88d-487e-6b83-08d9da57515a
+x-ms-traffictypediagnostic:
+	PAXPR08MB7185:EE_|VE1EUR03FT035:EE_|VI1PR08MB3678:EE_
+X-Microsoft-Antispam-PRVS:
+	<VI1PR08MB367884D1B414D26B343A904B9E589@VI1PR08MB3678.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+nodisclaimer: true
+x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ Ci/N20RXzuDnkcmlimV9ywmbMA/vDkmnLMkLkwHbkTxzayiQAiGB1NHHGaV8VdtwQnWJdxpNcoGaXzTJ7GxA86kMV4NaS6EWmYPLDdneB/j7WPUP+rv2Km+oz7w/7BN/JoOw+2J7so61x6xWe6rT0ZbQ49ZDPaoMvnTpom/20P6J7y/7eJnJcvfrnDQdWZjnDmj/8saNid/Bv8IMyLTDwUDYQm0DCbEIInJrtmi28isijqXMQFB6950xiyJiEv7bIc6FEWI/t/Y429GFzPJnRBrvqYNbiLgQEYDcbnO4rE/yBO0ew/fxyzirPfb7qDLLLpVZYsfQ9TWGxukNOFZora0GMhYlrk7ErzXNmofWSDSsZDq46sKiXKhS8xLsg2VU6U50wLb/W87jgskvvFZehgqjSLBRAvRovY4OCykixWhP+cQJtRmnNETIUJea5eAcLuAb1Ys2yo2FdgWAxWUwe7Mg3dYETk40xWRR/CfPG4OztBzLc6lNrjH6Af+lq9PqZqJXRQkc9qdRBkX7Q4qHLp8UPg3DrLCJWEQtYN/d3Du0V/Duvrtxw9F9EQ28y1R8nrtrLcFQAO+95cqqFs14q0j0boVyOc33CNvvubDXhWp6xbgeLPn5rf5BSJxIuhnzvVnXMgIARenhjuB8nMA8bnWPS52QlzGXW4JU6vGrn3McB/cu1O+zlWO+QkmsA7M1ZLO0MTVTWmG0WR8PYEeNCHRcuIfRa3+BHaiB8em/XWOiDjUqzw1VQUa6zV53E6k/FgpwJ4iqRWQP6/U3gXde/MaasJGQwFlEA9SjR1bWrIw=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB7420.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(64756008)(6506007)(26005)(66476007)(2906002)(76116006)(66556008)(86362001)(38100700002)(66446008)(316002)(71200400001)(6916009)(5660300002)(33656002)(8936002)(508600001)(9686003)(55016003)(122000001)(54906003)(186003)(53546011)(7696005)(38070700005)(52536014)(4326008)(966005)(83380400001)(8676002)(66946007);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR08MB7185
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ VE1EUR03FT035.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	1980e29b-e1bf-497f-6fca-08d9da574a0a
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	k6otgLqftYZXhK25uVA9z8cpVNkM1lV4uvDTlayBIu1BUSgyfDiAtLksX/t80vrjYc8GCWrQZzPZCIE6jmGnrIS+NJaTRxyDpoutWIseOOb4rOGFRlvF1TDzdVHwmGISJVpwEBLzTrangdtV8MJjt2NQRpv/TedwX4ywgLJ5fP7tmkdwBuBIz378R9OMU/WOysPAz68bKSLV2o8tPLTu9Je4gqwZgVBUeXyAHbdqf/gt7d+CDMgmCCqjgvkVLWD5QFzItD0g33w7CjmqaYHXE2m4Gu5O1FZL4x72NF7GOiKuGzjtzA5uiGkJmtJy1MHeOWcamf5MyfIOyP0tY+CoAfGTdLMkqKtHcvaLWpU5dYJfuWPCfrj5y0oSwt74U4zwSpxKwJCsq10d6XoBuNtVzpigA7erg1IoUB7psgNd3um4vATPD4eIiZQE14U4nS8bZOHkOy29krPWW/cCc1F9zxsikKf9ELKbSvfIetcyuMd9z4uBAamhlOg2zp8q+i59/fIKIYRGPe/fxEKTb7jXgaljBmUgeaVrUxUI68KEMfYQ+OcyEvQ3+KMpMRuMdttK6RPxiD8X527hZmfmmwLICuzZ/wZ0qelVYNOQR/f94c+Zz5P+3xlRAOodHJkgxRGymUTVKtit6lgw7LYiPKWCS7tU1xbySwRc7VH6E/ye/K23uK2cOyYsaa1OquuCSzi8g0VtIp0evazSWEjDjJblAQvOyMZ20zwq629I2dcsqw6DsAnJqfF9ZPz0+rmkWoNgPJVsSv0xpXVOW2hZrylcnxcZ3m8QPFmVCh14dIf72W8=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(8936002)(47076005)(83380400001)(6506007)(53546011)(86362001)(966005)(7696005)(508600001)(4326008)(26005)(33656002)(36860700001)(70586007)(2906002)(186003)(55016003)(54906003)(336012)(70206006)(356005)(8676002)(6862004)(81166007)(5660300002)(9686003)(82310400004)(316002)(52536014);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2022 07:51:21.0119
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a18d88d-f88d-487e-6b83-08d9da57515a
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	VE1EUR03FT035.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB3678
 
-Pass the block_device that we plan to use this bio for and the
-operation to bio_reset to optimize the assigment.  A NULL block_device
-can be passed, both for the passthrough case on a raw request_queue and
-to temporarily avoid refactoring some nasty code.
-
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- block/bio.c                 |  6 +++++-
- drivers/block/pktcdvd.c     |  8 ++------
- drivers/md/bcache/journal.c | 12 ++++--------
- drivers/md/bcache/request.c |  4 ++--
- drivers/md/raid1.c          |  5 ++---
- drivers/md/raid10.c         |  8 +++-----
- drivers/md/raid5-cache.c    |  9 +++------
- drivers/md/raid5.c          |  8 ++++----
- fs/btrfs/disk-io.c          |  4 +---
- fs/crypto/bio.c             |  8 ++------
- include/linux/bio.h         |  9 +--------
- 11 files changed, 29 insertions(+), 52 deletions(-)
-
-diff --git a/block/bio.c b/block/bio.c
-index 2480f80296eac..9050b0cc1e43e 100644
---- a/block/bio.c
-+++ b/block/bio.c
-@@ -295,6 +295,8 @@ EXPORT_SYMBOL(bio_init);
- /**
-  * bio_reset - reinitialize a bio
-  * @bio:	bio to reset
-+ * @bdev:	block device to use the bio for
-+ * @opf:	operation and flags for bio
-  *
-  * Description:
-  *   After calling bio_reset(), @bio will be in the same state as a freshly
-@@ -302,11 +304,13 @@ EXPORT_SYMBOL(bio_init);
-  *   preserved are the ones that are initialized by bio_alloc_bioset(). See
-  *   comment in struct bio.
-  */
--void bio_reset(struct bio *bio)
-+void bio_reset(struct bio *bio, struct block_device *bdev, unsigned int opf)
- {
- 	bio_uninit(bio);
- 	memset(bio, 0, BIO_RESET_BYTES);
- 	atomic_set(&bio->__bi_remaining, 1);
-+	bio->bi_bdev = bdev;
-+	bio->bi_opf = opf;
- }
- EXPORT_SYMBOL(bio_reset);
- 
-diff --git a/drivers/block/pktcdvd.c b/drivers/block/pktcdvd.c
-index 2b6b70a39e760..3aa5954429462 100644
---- a/drivers/block/pktcdvd.c
-+++ b/drivers/block/pktcdvd.c
-@@ -1020,9 +1020,8 @@ static void pkt_gather_data(struct pktcdvd_device *pd, struct packet_data *pkt)
- 			continue;
- 
- 		bio = pkt->r_bios[f];
--		bio_reset(bio);
-+		bio_reset(bio, pd->bdev, REQ_OP_READ);
- 		bio->bi_iter.bi_sector = pkt->sector + f * (CD_FRAMESIZE >> 9);
--		bio_set_dev(bio, pd->bdev);
- 		bio->bi_end_io = pkt_end_io_read;
- 		bio->bi_private = pkt;
- 
-@@ -1034,7 +1033,6 @@ static void pkt_gather_data(struct pktcdvd_device *pd, struct packet_data *pkt)
- 			BUG();
- 
- 		atomic_inc(&pkt->io_wait);
--		bio_set_op_attrs(bio, REQ_OP_READ, 0);
- 		pkt_queue_bio(pd, bio);
- 		frames_read++;
- 	}
-@@ -1235,9 +1233,8 @@ static void pkt_start_write(struct pktcdvd_device *pd, struct packet_data *pkt)
- {
- 	int f;
- 
--	bio_reset(pkt->w_bio);
-+	bio_reset(pkt->w_bio, pd->bdev, REQ_OP_WRITE);
- 	pkt->w_bio->bi_iter.bi_sector = pkt->sector;
--	bio_set_dev(pkt->w_bio, pd->bdev);
- 	pkt->w_bio->bi_end_io = pkt_end_io_packet_write;
- 	pkt->w_bio->bi_private = pkt;
- 
-@@ -1270,7 +1267,6 @@ static void pkt_start_write(struct pktcdvd_device *pd, struct packet_data *pkt)
- 
- 	/* Start the write request */
- 	atomic_set(&pkt->io_wait, 1);
--	bio_set_op_attrs(pkt->w_bio, REQ_OP_WRITE, 0);
- 	pkt_queue_bio(pd, pkt->w_bio);
- }
- 
-diff --git a/drivers/md/bcache/journal.c b/drivers/md/bcache/journal.c
-index 6d26c5b06e2b6..7c2ca52ca3e43 100644
---- a/drivers/md/bcache/journal.c
-+++ b/drivers/md/bcache/journal.c
-@@ -53,14 +53,12 @@ static int journal_read_bucket(struct cache *ca, struct list_head *list,
- reread:		left = ca->sb.bucket_size - offset;
- 		len = min_t(unsigned int, left, PAGE_SECTORS << JSET_BITS);
- 
--		bio_reset(bio);
-+		bio_reset(bio, ca->bdev, REQ_OP_READ);
- 		bio->bi_iter.bi_sector	= bucket + offset;
--		bio_set_dev(bio, ca->bdev);
- 		bio->bi_iter.bi_size	= len << 9;
- 
- 		bio->bi_end_io	= journal_read_endio;
- 		bio->bi_private = &cl;
--		bio_set_op_attrs(bio, REQ_OP_READ, 0);
- 		bch_bio_map(bio, data);
- 
- 		closure_bio_submit(ca->set, bio, &cl);
-@@ -771,16 +769,14 @@ static void journal_write_unlocked(struct closure *cl)
- 
- 		atomic_long_add(sectors, &ca->meta_sectors_written);
- 
--		bio_reset(bio);
-+		bio_reset(bio, ca->bdev, REQ_OP_WRITE | 
-+			  REQ_SYNC | REQ_META | REQ_PREFLUSH | REQ_FUA);
-+		bch_bio_map(bio, w->data);
- 		bio->bi_iter.bi_sector	= PTR_OFFSET(k, i);
--		bio_set_dev(bio, ca->bdev);
- 		bio->bi_iter.bi_size = sectors << 9;
- 
- 		bio->bi_end_io	= journal_write_endio;
- 		bio->bi_private = w;
--		bio_set_op_attrs(bio, REQ_OP_WRITE,
--				 REQ_SYNC|REQ_META|REQ_PREFLUSH|REQ_FUA);
--		bch_bio_map(bio, w->data);
- 
- 		trace_bcache_journal_write(bio, w->data->keys);
- 		bio_list_add(&list, bio);
-diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
-index d4b98ebffd948..7ba59d08ed870 100644
---- a/drivers/md/bcache/request.c
-+++ b/drivers/md/bcache/request.c
-@@ -831,11 +831,11 @@ static void cached_dev_read_done(struct closure *cl)
- 	 */
- 
- 	if (s->iop.bio) {
--		bio_reset(s->iop.bio);
-+		bio_reset(s->iop.bio, s->cache_miss->bi_bdev, REQ_OP_READ);
- 		s->iop.bio->bi_iter.bi_sector =
- 			s->cache_miss->bi_iter.bi_sector;
--		bio_copy_dev(s->iop.bio, s->cache_miss);
- 		s->iop.bio->bi_iter.bi_size = s->insert_bio_sectors << 9;
-+		bio_clone_blkg_association(s->iop.bio, s->cache_miss);
- 		bch_bio_map(s->iop.bio, NULL);
- 
- 		bio_copy_data(s->cache_miss, s->iop.bio);
-diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
-index 43276f8fdc815..e7710fb5befb4 100644
---- a/drivers/md/raid1.c
-+++ b/drivers/md/raid1.c
-@@ -2166,11 +2166,10 @@ static void process_checks(struct r1bio *r1_bio)
- 			continue;
- 		/* fixup the bio for reuse, but preserve errno */
- 		status = b->bi_status;
--		bio_reset(b);
-+		bio_reset(b, conf->mirrors[i].rdev->bdev, REQ_OP_READ);
- 		b->bi_status = status;
- 		b->bi_iter.bi_sector = r1_bio->sector +
- 			conf->mirrors[i].rdev->data_offset;
--		bio_set_dev(b, conf->mirrors[i].rdev->bdev);
- 		b->bi_end_io = end_sync_read;
- 		rp->raid_bio = r1_bio;
- 		b->bi_private = rp;
-@@ -2651,7 +2650,7 @@ static struct r1bio *raid1_alloc_init_r1buf(struct r1conf *conf)
- 	for (i = conf->poolinfo->raid_disks; i--; ) {
- 		bio = r1bio->bios[i];
- 		rps = bio->bi_private;
--		bio_reset(bio);
-+		bio_reset(bio, NULL, 0);
- 		bio->bi_private = rps;
- 	}
- 	r1bio->master_bio = NULL;
-diff --git a/drivers/md/raid10.c b/drivers/md/raid10.c
-index cb7c58050708e..da07bcbc06d08 100644
---- a/drivers/md/raid10.c
-+++ b/drivers/md/raid10.c
-@@ -2422,7 +2422,7 @@ static void sync_request_write(struct mddev *mddev, struct r10bio *r10_bio)
- 		 * bi_vecs, as the read request might have corrupted these
- 		 */
- 		rp = get_resync_pages(tbio);
--		bio_reset(tbio);
-+		bio_reset(tbio, conf->mirrors[d].rdev->bdev, REQ_OP_WRITE);
- 
- 		md_bio_reset_resync_pages(tbio, rp, fbio->bi_iter.bi_size);
- 
-@@ -2430,7 +2430,6 @@ static void sync_request_write(struct mddev *mddev, struct r10bio *r10_bio)
- 		tbio->bi_private = rp;
- 		tbio->bi_iter.bi_sector = r10_bio->devs[i].addr;
- 		tbio->bi_end_io = end_sync_write;
--		bio_set_op_attrs(tbio, REQ_OP_WRITE, 0);
- 
- 		bio_copy_data(tbio, fbio);
- 
-@@ -2441,7 +2440,6 @@ static void sync_request_write(struct mddev *mddev, struct r10bio *r10_bio)
- 		if (test_bit(FailFast, &conf->mirrors[d].rdev->flags))
- 			tbio->bi_opf |= MD_FAILFAST;
- 		tbio->bi_iter.bi_sector += conf->mirrors[d].rdev->data_offset;
--		bio_set_dev(tbio, conf->mirrors[d].rdev->bdev);
- 		submit_bio_noacct(tbio);
- 	}
- 
-@@ -3160,12 +3158,12 @@ static struct r10bio *raid10_alloc_init_r10buf(struct r10conf *conf)
- 	for (i = 0; i < nalloc; i++) {
- 		bio = r10bio->devs[i].bio;
- 		rp = bio->bi_private;
--		bio_reset(bio);
-+		bio_reset(bio, NULL, 0);
- 		bio->bi_private = rp;
- 		bio = r10bio->devs[i].repl_bio;
- 		if (bio) {
- 			rp = bio->bi_private;
--			bio_reset(bio);
-+			bio_reset(bio, NULL, 0);
- 			bio->bi_private = rp;
- 		}
- 	}
-diff --git a/drivers/md/raid5-cache.c b/drivers/md/raid5-cache.c
-index 98b9ca11c28d8..86e2bb89d9c7b 100644
---- a/drivers/md/raid5-cache.c
-+++ b/drivers/md/raid5-cache.c
-@@ -1301,10 +1301,9 @@ void r5l_flush_stripe_to_raid(struct r5l_log *log)
- 
- 	if (!do_flush)
- 		return;
--	bio_reset(&log->flush_bio);
--	bio_set_dev(&log->flush_bio, log->rdev->bdev);
-+	bio_reset(&log->flush_bio, log->rdev->bdev,
-+		  REQ_OP_WRITE | REQ_PREFLUSH);
- 	log->flush_bio.bi_end_io = r5l_log_flush_endio;
--	log->flush_bio.bi_opf = REQ_OP_WRITE | REQ_PREFLUSH;
- 	submit_bio(&log->flush_bio);
- }
- 
-@@ -1678,9 +1677,7 @@ static int r5l_recovery_fetch_ra_pool(struct r5l_log *log,
- 				      struct r5l_recovery_ctx *ctx,
- 				      sector_t offset)
- {
--	bio_reset(ctx->ra_bio);
--	bio_set_dev(ctx->ra_bio, log->rdev->bdev);
--	bio_set_op_attrs(ctx->ra_bio, REQ_OP_READ, 0);
-+	bio_reset(ctx->ra_bio, log->rdev->bdev, REQ_OP_READ);
- 	ctx->ra_bio->bi_iter.bi_sector = log->rdev->data_offset + offset;
- 
- 	ctx->valid_pages = 0;
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index a9dcc5bc9c329..7c119208a2143 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -2677,7 +2677,7 @@ static void raid5_end_read_request(struct bio * bi)
- 		(unsigned long long)sh->sector, i, atomic_read(&sh->count),
- 		bi->bi_status);
- 	if (i == disks) {
--		bio_reset(bi);
-+		bio_reset(bi, NULL, 0);
- 		BUG();
- 		return;
- 	}
-@@ -2785,7 +2785,7 @@ static void raid5_end_read_request(struct bio * bi)
- 		}
- 	}
- 	rdev_dec_pending(rdev, conf->mddev);
--	bio_reset(bi);
-+	bio_reset(bi, NULL, 0);
- 	clear_bit(R5_LOCKED, &sh->dev[i].flags);
- 	set_bit(STRIPE_HANDLE, &sh->state);
- 	raid5_release_stripe(sh);
-@@ -2823,7 +2823,7 @@ static void raid5_end_write_request(struct bio *bi)
- 		(unsigned long long)sh->sector, i, atomic_read(&sh->count),
- 		bi->bi_status);
- 	if (i == disks) {
--		bio_reset(bi);
-+		bio_reset(bi, NULL, 0);
- 		BUG();
- 		return;
- 	}
-@@ -2860,7 +2860,7 @@ static void raid5_end_write_request(struct bio *bi)
- 	if (sh->batch_head && bi->bi_status && !replacement)
- 		set_bit(STRIPE_BATCH_ERR, &sh->batch_head->state);
- 
--	bio_reset(bi);
-+	bio_reset(bi, NULL, 0);
- 	if (!test_and_clear_bit(R5_DOUBLE_LOCKED, &sh->dev[i].flags))
- 		clear_bit(R5_LOCKED, &sh->dev[i].flags);
- 	set_bit(STRIPE_HANDLE, &sh->state);
-diff --git a/fs/btrfs/disk-io.c b/fs/btrfs/disk-io.c
-index f45aa506f9a6f..505ba21230b1f 100644
---- a/fs/btrfs/disk-io.c
-+++ b/fs/btrfs/disk-io.c
-@@ -4154,10 +4154,8 @@ static void write_dev_flush(struct btrfs_device *device)
- 		return;
- #endif
- 
--	bio_reset(bio);
-+	bio_reset(bio, device->bdev, REQ_OP_WRITE | REQ_SYNC | REQ_PREFLUSH);
- 	bio->bi_end_io = btrfs_end_empty_barrier;
--	bio_set_dev(bio, device->bdev);
--	bio->bi_opf = REQ_OP_WRITE | REQ_SYNC | REQ_PREFLUSH;
- 	init_completion(&device->flush_wait);
- 	bio->bi_private = &device->flush_wait;
- 
-diff --git a/fs/crypto/bio.c b/fs/crypto/bio.c
-index 755e985a42e0b..2217fe5ece6f9 100644
---- a/fs/crypto/bio.c
-+++ b/fs/crypto/bio.c
-@@ -80,9 +80,7 @@ static int fscrypt_zeroout_range_inline_crypt(const struct inode *inode,
- 			err = submit_bio_wait(bio);
- 			if (err)
- 				goto out;
--			bio_reset(bio);
--			bio_set_dev(bio, inode->i_sb->s_bdev);
--			bio->bi_opf = REQ_OP_WRITE;
-+			bio_reset(bio, inode->i_sb->s_bdev, REQ_OP_WRITE);
- 			num_pages = 0;
- 		}
- 	}
-@@ -181,9 +179,7 @@ int fscrypt_zeroout_range(const struct inode *inode, pgoff_t lblk,
- 		err = submit_bio_wait(bio);
- 		if (err)
- 			goto out;
--		bio_reset(bio);
--		bio_set_dev(bio, inode->i_sb->s_bdev);
--		bio->bi_opf = REQ_OP_WRITE;
-+		bio_reset(bio, inode->i_sb->s_bdev, REQ_OP_WRITE);
- 	} while (len != 0);
- 	err = 0;
- out:
-diff --git a/include/linux/bio.h b/include/linux/bio.h
-index 41bedf727f59c..18cfe5bb41ea8 100644
---- a/include/linux/bio.h
-+++ b/include/linux/bio.h
-@@ -459,7 +459,7 @@ extern int submit_bio_wait(struct bio *bio);
- void bio_init(struct bio *bio, struct block_device *bdev, struct bio_vec *table,
- 	      unsigned short max_vecs, unsigned int opf);
- extern void bio_uninit(struct bio *);
--extern void bio_reset(struct bio *);
-+void bio_reset(struct bio *bio, struct block_device *bdev, unsigned int opf);
- void bio_chain(struct bio *, struct bio *);
- 
- int bio_add_page(struct bio *, struct page *, unsigned len, unsigned off);
-@@ -517,13 +517,6 @@ static inline void bio_set_dev(struct bio *bio, struct block_device *bdev)
- 	bio_associate_blkg(bio);
- }
- 
--static inline void bio_copy_dev(struct bio *dst, struct bio *src)
--{
--	bio_clear_flag(dst, BIO_REMAPPED);
--	dst->bi_bdev = src->bi_bdev;
--	bio_clone_blkg_association(dst, src);
--}
--
- /*
-  * BIO list management for use by remapping drivers (e.g. DM or MD) and loop.
-  *
--- 
-2.30.2
-
+SGkgSmFuLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEphbiBCZXVs
+aWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCj4gU2VudDogMjAyMuW5tDHmnIgxOOaXpSAwOjExDQo+
+IFRvOiBXZWkgQ2hlbiA8V2VpLkNoZW5AYXJtLmNvbT4NCj4gQ2M6IEJlcnRyYW5kIE1hcnF1aXMg
+PEJlcnRyYW5kLk1hcnF1aXNAYXJtLmNvbT47IHhlbi0NCj4gZGV2ZWxAbGlzdHMueGVucHJvamVj
+dC5vcmc7IHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc7IGp1bGllbkB4ZW4ub3JnDQo+IFN1YmplY3Q6
+IFJlOiBbUEFUQ0ggMDQvMzddIHhlbjogaW50cm9kdWNlIGFuIGFyY2ggaGVscGVyIGZvciBkZWZh
+dWx0IGRtYQ0KPiB6b25lIHN0YXR1cw0KPiANCj4gSSByZWFsaXplIHRoaXMgc2VyaWVzIGhhcyBi
+ZWVuIHBlbmRpbmcgZm9yIGEgbG9uZyB0aW1lLCBidXQgSSBkb24ndA0KPiByZWNhbGwgYW55IGlu
+ZGljYXRpb24gdGhhdCBpdCB3b3VsZCBoYXZlIGJlZW4gZHJvcHBlZC4gSGVuY2UgYXMgYQ0KPiBm
+aXJzdCB0cnksIGEgZmV3IGNvbW1lbnRzIG9uIHRoaXMgcmVsYXRpdmVseSBzaW1wbGUgY2hhbmdl
+LiBJJ20NCj4gc29ycnkgaXQgdG8gaGF2ZSB0YWtlbiBzbyBsb25nIHRvIGdldCB0byBpdC4NCj4g
+DQoNClRoYW5rcyBmb3IgcmV2aWV3aW5nIHRoaXMgc2VyaWVzIGFuZCBsaWZ0IGl0IHVwLiBXZSBh
+cmUgc3RpbGwNCndvcmtpbmcgb24gdGhpcyBzZXJpZXMgYW5kIHdpbGwgc2VuZCBhIG5ldyB2ZXJz
+aW9uIHNvb24uDQoNCj4gT24gMjMuMDkuMjAyMSAxNDowMiwgV2VpIENoZW4gd3JvdGU6DQo+ID4g
+SW4gY3VycmVudCBjb2RlLCB3aGVuIFhlbiBpcyBydW5uaW5nIGluIGEgbXVsdGlwbGUgbm9kZXMg
+TlVNQQ0KPiA+IHN5c3RlbSwgaXQgd2lsbCBzZXQgZG1hX2JpdHNpemUgaW4gZW5kX2Jvb3RfYWxs
+b2NhdG9yIHRvIHJlc2VydmUNCj4gPiBzb21lIGxvdyBhZGRyZXNzIG1lbW9yeSBmb3IgRE1BLg0K
+PiA+DQo+ID4gVGhlcmUgYXJlIHNvbWUgeDg2IGltcGxpY2F0aW9ucyBpbiBjdXJyZW50IGltcGxl
+bWVudGF0aW9uLiBCZWN1YXNlDQo+ID4gb24geDg2LCBtZW1vcnkgc3RhcnRzIGZyb20gMC4gT24g
+YSBtdWx0aXBsZSBub2RlcyBOVU1BIHN5c3RlbSwgaWYNCj4gPiBhIHNpbmdsZSBub2RlIGNvbnRh
+aW5zIHRoZSBtYWpvcml0eSBvciBhbGwgb2YgdGhlIERNQSBtZW1vcnkuIHg4Ng0KPiA+IHByZWZl
+ciB0byBnaXZlIG91dCBtZW1vcnkgZnJvbSBub24tbG9jYWwgYWxsb2NhdGlvbnMgcmF0aGVyIHRo
+YW4NCj4gPiBleGhhdXN0aW5nIHRoZSBETUEgbWVtb3J5IHJhbmdlcy4gSGVuY2UgeDg2IHVzZSBk
+bWFfYml0c2l6ZSB0byBzZXQNCj4gPiBhc2lkZSBzb21lIGxhcmdlbHkgYXJiaXRyYXJ5IGFtb3Vu
+dCBtZW1vcnkgZm9yIERNQSBtZW1vcnkgcmFuZ2VzLg0KPiA+IFRoZSBhbGxvY2F0aW9ucyBmcm9t
+IHRoZXNlIG1lbW9yeSByYW5nZXMgd291bGQgaGFwcGVuIG9ubHkgYWZ0ZXINCj4gPiBleGhhdXN0
+aW5nIGFsbCBvdGhlciBub2RlcycgbWVtb3J5Lg0KPiA+DQo+ID4gQnV0IHRoZSBpbXBsaWNhdGlv
+bnMgYXJlIG5vdCBzaGFyZWQgYWNyb3NzIGFsbCBhcmNoaXRlY3R1cmVzLiBGb3INCj4gPiBleGFt
+cGxlLCBBcm0gZG9lc24ndCBoYXZlIHRoZXNlIGltcGxpY2F0aW9ucy4gU28gaW4gdGhpcyBwYXRj
+aCwgd2UNCj4gPiBpbnRyb2R1Y2UgYW4gYXJjaF9oYXZlX2RlZmF1bHRfZG1hem9uZSBoZWxwZXIg
+Zm9yIGFyY2ggdG8gZGV0ZXJtaW5lDQo+ID4gdGhhdCBpdCBuZWVkIHRvIHNldCBkbWFfYml0c2l6
+ZSBmb3IgcmVzZXJ2ZSBETUEgYWxsb2NhdGlvbnMgb3Igbm90Lg0KPiANCj4gSG93IHdvdWxkIEFy
+bSBndWFyYW50ZWUgYXZhaWxhYmlsaXR5IG9mIG1lbW9yeSBiZWxvdyBhIGNlcnRhaW4NCj4gYm91
+bmRhcnkgZm9yIGxpbWl0ZWQtY2FwYWJpbGl0eSBkZXZpY2VzPyBPciBpcyB0aGVyZSBubyBuZWVk
+DQo+IGJlY2F1c2UgdGhlcmUncyBhbiBhc3N1bXB0aW9uIHRoYXQgSS9PIGZvciBzdWNoIGRldmlj
+ZXMgd291bGQNCj4gYWx3YXlzIHBhc3MgdGhyb3VnaCBhbiBJT01NVSwgbGlmdGluZyBhZGRyZXNz
+IHNpemUgcmVzdHJpY3Rpb25zPw0KPiAoSSBndWVzcyBpbiBhICFQViBidWlsZCBvbiB4ODYgd2Ug
+Y291bGQgYWxzbyBnZXQgcmlkIG9mIHN1Y2ggYQ0KPiByZXNlcnZhdGlvbi4pDQoNCk9uIEFybSwg
+d2Ugc3RpbGwgY2FuIGhhdmUgc29tZSBkZXZpY2VzIHdpdGggbGltaXRlZCBETUEgY2FwYWJpbGl0
+eS4NCkFuZCB3ZSBhbHNvIGRvbid0IGZvcmNlIGFsbCBzdWNoIGRldmljZXMgdG8gdXNlIElPTU1V
+LiBUaGlzIGRldmljZXMNCndpbGwgYWZmZWN0IHRoZSBkbWFfYml0c2l6ZS4gTGlrZSBSUGkgcGxh
+dGZvcm0sIGl0IHNldHMgaXRzIGRtYV9iaXRzaXplDQp0byAzMC4gQnV0IGluIG11bHRpcGxlIE5V
+TUEgbm9kZXMgc3lzdGVtLCBBcm0gZG9lc24ndCBoYXZlIGEgZGVmYXVsdA0KRE1BIHpvbmUuIE11
+bHRpcGxlIG5vZGVzIGlzIG5vdCBhIGNvbnN0cmFpbnQgb24gZG1hX2JpdHNpemUuIEFuZCBzb21l
+DQpwcmV2aW91cyBkaXNjdXNzaW9ucyBhcmUgcGxhY2VkIGhlcmUgWzFdLg0KDQo+IA0KPiA+IC0t
+LSBhL3hlbi9hcmNoL3g4Ni9udW1hLmMNCj4gPiArKysgYi94ZW4vYXJjaC94ODYvbnVtYS5jDQo+
+ID4gQEAgLTM3MSw2ICszNzEsMTEgQEAgdW5zaWduZWQgaW50IF9faW5pdCBhcmNoX2dldF9kbWFf
+Yml0c2l6ZSh2b2lkKQ0KPiA+ICAgICAgICAgICAgICAgICAgICsgUEFHRV9TSElGVCwgMzIpOw0K
+PiA+ICB9DQo+ID4NCj4gPiArdW5zaWduZWQgaW50IGFyY2hfaGF2ZV9kZWZhdWx0X2RtYXpvbmUo
+dm9pZCkNCj4gPiArew0KPiA+ICsgICAgcmV0dXJuICggbnVtX29ubGluZV9ub2RlcygpID4gMSAp
+ID8gMSA6IDA7DQo+ID4gK30NCj4gDQo+IEFjY29yZGluZyB0byB0aGUgZXhwcmVzc2lvbiBhbmQg
+Li4uDQo+IA0KPiA+IC0tLSBhL3hlbi9jb21tb24vcGFnZV9hbGxvYy5jDQo+ID4gKysrIGIveGVu
+L2NvbW1vbi9wYWdlX2FsbG9jLmMNCj4gPiBAQCAtMTg4OSw3ICsxODg5LDcgQEAgdm9pZCBfX2lu
+aXQgZW5kX2Jvb3RfYWxsb2NhdG9yKHZvaWQpDQo+ID4gICAgICB9DQo+ID4gICAgICBucl9ib290
+bWVtX3JlZ2lvbnMgPSAwOw0KPiA+DQo+ID4gLSAgICBpZiAoICFkbWFfYml0c2l6ZSAmJiAobnVt
+X29ubGluZV9ub2RlcygpID4gMSkgKQ0KPiA+ICsgICAgaWYgKCAhZG1hX2JpdHNpemUgJiYgYXJj
+aF9oYXZlX2RlZmF1bHRfZG1hem9uZSgpICkNCj4gPiAgICAgICAgICBkbWFfYml0c2l6ZSA9IGFy
+Y2hfZ2V0X2RtYV9iaXRzaXplKCk7DQo+IA0KPiAuLi4gdGhlIHVzZSBzaXRlLCB5b3UgbWVhbiB0
+aGUgZnVuY3Rpb24gdG8gcmV0dXJuIGJvb2xlYW4uIFBsZWFzZQ0KPiBpbmRpY2F0ZSBzbyBieSBt
+YWtpbmcgaXQgaGF2ZSBhIHJldHVybiB0eXBlIG9mICJib29sIi4gSW5kZXBlbmRlbnQNCj4gb2Yg
+dGhhdCB5b3UgZG9uJ3QgbmVlZCBhIGNvbmRpdGlvbmFsIGV4cHJlc3Npb24gYWJvdmUsIG5vcg0K
+PiAobWFsZm9ybWVkKSB1c2Ugb2YgcGFyZW50aGVzZXMuIEkgZnVydGhlciB3b25kZXIgd2hldGhl
+ciAuLi4NCj4gDQoNCkkgd2lsbCBmaXggdGhlbSBpbiBuZXh0IHZlcnNpb24uIEJ1dCBJIGFtIG5v
+dCB2ZXJ5IGNsZWFyIGFib3V0DQp0aGlzIGNvbW1lbnQgIm9mIHRoYXQgeW91IGRvbid0IG5lZWQg
+YSBjb25kaXRpb25hbCBleHByZXNzaW9uIGFib3ZlIiwNClRoZSAiYWJvdmUiIGluZGljYXRlcyB0
+aGlzIGxpbmU6DQoicmV0dXJuICggbnVtX29ubGluZV9ub2RlcygpID4gMSApID8gMSA6IDA7Ij8N
+Cg0KPiA+IC0tLSBhL3hlbi9pbmNsdWRlL2FzbS1hcm0vbnVtYS5oDQo+ID4gKysrIGIveGVuL2lu
+Y2x1ZGUvYXNtLWFybS9udW1hLmgNCj4gPiBAQCAtMjUsNiArMjUsMTEgQEAgZXh0ZXJuIG1mbl90
+IGZpcnN0X3ZhbGlkX21mbjsNCj4gPiAgI2RlZmluZSBub2RlX3N0YXJ0X3BmbihuaWQpIChtZm5f
+eChmaXJzdF92YWxpZF9tZm4pKQ0KPiA+ICAjZGVmaW5lIF9fbm9kZV9kaXN0YW5jZShhLCBiKSAo
+MjApDQo+ID4NCj4gPiArc3RhdGljIGlubGluZSB1bnNpZ25lZCBpbnQgYXJjaF9oYXZlX2RlZmF1
+bHRfZG1hem9uZSh2b2lkKQ0KPiA+ICt7DQo+ID4gKyAgICByZXR1cm4gMDsNCj4gPiArfQ0KPiAN
+Cj4gLi4uIGxpa2UgdGhpcyBvbmUsIHg4NidlcyBjb3VsZG4ndCBiZSBpbmxpbmUgYXMgd2VsbC4g
+SWYgaW5kZWVkDQo+IGl0IGNhbid0IGJlLCBtYWtpbmcgaXQgYSBtYWNybyBtYXkgc3RpbGwgYmUg
+YmV0dGVyIChhbmQgYXZvaWQgYQ0KPiBmdXJ0aGVyIGNvbW1lbnQgcmVnYXJkaW5nIHRoZSBsYWNr
+IG9mIF9faW5pdCkuDQoNCk9rLCB0aGF0IHdvdWxkIGJlIGJldHRlciwgSSB3aWxsIGRvIGl0IGlu
+IG5leHQgdmVyc2lvbi4NCg0KPiANCj4gSmFuDQoNClsxXSBodHRwczovL2xpc3RzLnhlbnByb2pl
+Y3Qub3JnL2FyY2hpdmVzL2h0bWwveGVuLWRldmVsLzIwMjEtMDgvbXNnMDA3NzIuaHRtbA0KDQoN
+Cg==
 
