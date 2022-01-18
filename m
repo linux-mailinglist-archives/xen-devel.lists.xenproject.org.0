@@ -2,29 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBBD5492B86
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 17:50:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258610.445588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4A06492CA6
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 18:50:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258613.445598 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9rfw-0000oL-6b; Tue, 18 Jan 2022 16:49:40 +0000
+	id 1n9sbe-0006ke-HS; Tue, 18 Jan 2022 17:49:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258610.445588; Tue, 18 Jan 2022 16:49:40 +0000
+Received: by outflank-mailman (output) from mailman id 258613.445598; Tue, 18 Jan 2022 17:49:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9rfw-0000mV-3N; Tue, 18 Jan 2022 16:49:40 +0000
-Received: by outflank-mailman (input) for mailman id 258610;
- Tue, 18 Jan 2022 16:49:38 +0000
+	id 1n9sbe-0006i1-EV; Tue, 18 Jan 2022 17:49:18 +0000
+Received: by outflank-mailman (input) for mailman id 258613;
+ Tue, 18 Jan 2022 17:49:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4BW1=SC=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1n9rfu-0000mP-7p
- for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 16:49:38 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d899385-787e-11ec-9bbc-9dff3e4ee8c5;
- Tue, 18 Jan 2022 17:49:36 +0100 (CET)
+ <SRS0=gQbF=SC=suse.com=dfaggioli@srs-se1.protection.inumbo.net>)
+ id 1n9sbc-0006hv-Ug
+ for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 17:49:17 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f387ab7b-7886-11ec-9bbc-9dff3e4ee8c5;
+ Tue, 18 Jan 2022 18:49:15 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 8CF34212BC;
+ Tue, 18 Jan 2022 17:49:14 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0700113DC8;
+ Tue, 18 Jan 2022 17:49:13 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Psh2Opn95mHrLAAAMHmgww
+ (envelope-from <dfaggioli@suse.com>); Tue, 18 Jan 2022 17:49:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,113 +51,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d899385-787e-11ec-9bbc-9dff3e4ee8c5
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1642524576;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=B7AYMVvBmFRDqWJCIIkgTsVN7bI045gCoVOFgBPjw+0=;
-  b=CZyRJbWC9wbZPN8NoPXOLN6U5Y9HDmVdVdrOXZftfsM46Dm11+YOmLYh
-   oiN7ie1DTkHAA5n7SrqzuJMyw3PZ3OIrKv31fzNsE0Yg/jPMrDhdAULPj
-   McjHEF5N7swOewwnhWJF3FrA1dBF0g1mUszl8jnVDhubNZOF0t/qxcNFr
-   4=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: P36h00nDnj/631sx2cXE7KFAKE1rCXI5WuCg921nMGWCkYfeCBK+7DrXSdA3aym83Q9r9mUSot
- eGiCu9ckyg53CT/xgLJzecqLAZDgdafrqS2eQS+2xasW4M+BdYbyCdc1emF+D7fjJUDNK4Wzso
- DKj2T7XoOfU90i1A96WVxN4gXIs7IggFWEYJs4jjWMSHVMWXFER6jh74mmHz6heYqBGAdONVvv
- mp1dqqI7UZ4uZH+WDzNV25eYF1XBzpnV5gmIeT25eiNcHbEO/bIFUSiFOTI7o269q3HJb16DuV
- ylMPIDXXDbdjWCQ7qs4qff2m
-X-SBRS: 5.2
-X-MesageID: 64377955
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:AOBKBauyDN0yIi1vfxYkqTxasefnVBdYMUV32f8akzHdYApBsoF/q
- tZmKTuEOfmJZTakfdwjatvioEwH7cTXz9U2T1Bqqy1mFyMV+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHdJZS5LwbZj2NYx2IjhWmthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- NpliMa/VQoXfa33n7oWdT16GAEkEIdX5+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DNYUDunZm3HfBAOwvW5zrSKTW/95Imjw3g6iiGN6AO
- 5FGNmsyMXwsZTVyKEgVDps/rdu2xSXAWRdG8lLI/oQ4tj27IAtZj+G2bYu9lsaxbftSmkGUt
- 2fX5VPTCxsRNMGc4Ted+3fqjejK9QvkXKoCGbv+8eRl6HWDy2pWBBAIWF+TpfiillX4S99ZM
- 1YT+Cclse417kPDZtPwRQGiqXiI+BsVQcNNEvYS4RuIjKHT5m6xB3cGZi5MbsQ8s807TiBs0
- UWG9/vrDzFytLyeSVqG66yZ6zi1PEA9NnQebCUJSQ8E5djLo4wpiB/LCNF5H8adjMDxGDz26
- yCHqm45nbp7sCIQ//zlpxad2Wvq/8WXCF5ujunKYo67xj4ja5KoWc+o0l+F5tBkDo25FHSrr
- WdRzqBy89syJZ2KkSWMRsAEE7eo++uJPVXgvLJ/I3Uy32/zoiD+JOi89Bk7fR40aZhcJVcFd
- WeK4VsJjKK/KkdGekOej2iZL80xhZbtGt3+Phw/RoofO8MhHONrEcwHWKJx44wPuBV0+U3cE
- c3CGSpJMZr8If44pNZRb71MuYLHPghkmQvuqWnTlnxLK4a2an+PUqsiO1CTdO0/567siFyLr
- 4wDa5fblUkECrCWjszrHWg7dw9iwZ8TX8GeliCqXrTbfloO9J8JVpc9Po/Ni6Q6xv8Ix48kD
- 1m2W1NCyUqXuJE0AV7iV5yXU5u2BcwXhStiZUQEZA/0s1B+P9rHxPpBJvMfIOl2nMQ+nKUcZ
- 6RUJK297gFnF26vF8I1N8et9eSPtX2D2GqzAsZSSGNuIM47GV2Yo4+Mk8mG3HBmMxdbfPAW+
- 9WIvj43i7JaL+i7JMqJOv+p0X2run0RxLB7U0fSe4EBc0Tw6ol6bSf2i6Zvcc0LLBzCwBqc1
- hqXXkhE9bWc/ddt/Ymbn72AoqeoD/B6QhhQEV7E4OvkLiLd5Gein9NNCb7aYTDHWWro06y+f
- uEJnerkOfgKkQ8S4YpxGrpm14wk4N7rq+MIxwhoBiyTPV+qFqlhMj+N2swW7v9BwbpQuA2XX
- EOT+4YFZeXVaZ29SFNIfVgrdOWO0/0QiwL+1/VtLRWo/jJz8ZqGTV5WY0uGhhtCIeYnK4gi2
- +og5pIbslTtlhowP9+apSlI7GDQfGcYWqAqu5xGUo/mjg0nlgNLbZDGU3Kk5ZiOb5NHM1UwI
- y/Sj63H3uwOyk3Hens1NH7MwesC2she5EEUlAcPdwaTh97Ipv4rxxkAoz04QzNcwghDz+8ua
- HNgMFd4JPnW8jpl7CSZs7tAx+2V6MWlx3HM
-IronPort-HdrOrdr: A9a23:YuJ4RKyFk+TZTk9NiFQiKrPwLL1zdoMgy1knxilNoRw8SKKlfu
- SV7ZAmPH7P+VMssR4b9OxoVJPtfZqYz+8T3WBzB8bBYOCFgguVxehZhOOIqQEIWReOldK1vZ
- 0QFZSWY+eQMbEVt6nH3DU=
-X-IronPort-AV: E=Sophos;i="5.88,297,1635220800"; 
-   d="scan'208";a="64377955"
-Date: Tue, 18 Jan 2022 16:49:29 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, Roger Pau =?iso-8859-1?Q?Monn=E9?=
-	<roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v8 27/47] build: grab common EFI source files in arch
- specific dir
-Message-ID: <Yebvmf1MZHla0Z6S@perard>
-References: <20211125134006.1076646-1-anthony.perard@citrix.com>
- <20211125134006.1076646-28-anthony.perard@citrix.com>
- <57f03aed-c260-1c80-c604-0223d4603b4a@suse.com>
- <YeafMh0du+5K8YDD@perard>
- <c947e8b1-7319-2c88-da05-3c0cc2d7822f@suse.com>
+X-Inumbo-ID: f387ab7b-7886-11ec-9bbc-9dff3e4ee8c5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1642528154; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5EYQbuSQS57q+0J/ylkYt0w+G1ZK6xicD017oib6dvs=;
+	b=el7THgtJhJcp+Nj76iHHl98TQllFCSYyo88jhM29jbDC+pKjxfchwRWB+ijl6Wop+m5DmR
+	ylupbIeK3R+kGadaMXQsUOScDPPHcX2LfwvstSz72HupLUQ5wNVS6TqxXzwY6iiZLMh/dr
+	ltWhiJf9UiiJGLHNiWoVxeiQsKjeDtw=
+Message-ID: <8bae88c3e3ddd777537ed942943b0a871cd65f36.camel@suse.com>
+Subject: Re: sched=null vwfi=native and call_rcu()
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Juergen Gross <jgross@suse.com>, George Dunlap
+ <George.Dunlap@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>
+Cc: "julien@xen.org" <julien@xen.org>, Jan Beulich <JBeulich@suse.com>, 
+ "bertrand.marquis@arm.com" <bertrand.marquis@arm.com>, Roger Pau Monne
+ <roger.pau@citrix.com>,  "Volodymyr_Babchuk@epam.com"
+ <Volodymyr_Babchuk@epam.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>
+Date: Tue, 18 Jan 2022 18:49:12 +0100
+In-Reply-To: <619e264e-9d4e-f97b-227d-7917ade0bbe8@suse.com>
+References: 
+	<alpine.DEB.2.22.394.2201051615060.2060010@ubuntu-linux-20-04-desktop>
+	 <20fbb361-b416-6965-614d-a6283a7e7550@xen.org>
+	 <alpine.DEB.2.22.394.2201061747140.2060010@ubuntu-linux-20-04-desktop>
+	 <0cb5a1ceff3afc6c6d4319c9f6dd06a06a93a294.camel@suse.com>
+	 <alpine.DEB.2.22.394.2201141253080.19362@ubuntu-linux-20-04-desktop>
+	 <B9187426-3A8D-4687-A00B-487A6B4EF1D7@citrix.com>
+	 <619e264e-9d4e-f97b-227d-7917ade0bbe8@suse.com>
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-T/tAcri0S1JrRXMlwOXy"
+User-Agent: Evolution 3.42.3 (flatpak git) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <c947e8b1-7319-2c88-da05-3c0cc2d7822f@suse.com>
 
-On Tue, Jan 18, 2022 at 02:49:37PM +0100, Jan Beulich wrote:
-> On 18.01.2022 12:06, Anthony PERARD wrote:
-> > On Tue, Dec 21, 2021 at 02:53:49PM +0100, Jan Beulich wrote:
-> >> On 25.11.2021 14:39, Anthony PERARD wrote:
-> >>> Rather than preparing the efi source file, we will make the symbolic
-> >>> link as needed from the build location.
-> >>>
-> >>> The `ln` command is run every time to allow to update the link in case
-> >>> the source tree change location.
-> >>
-> >> Btw, since symlinks aren't being liked, would there be a way to make
-> >> things work using vpath?
-> > 
-> > No, that's not possible. With "vpath = /build/xen/common/efi", make
-> > would look at path "/build/xen/common/efi/arch/x86/efi/runtime.c" to
-> > build "arch/x86/efi/runtime.o".
-> 
-> But /build/xen/common/efi/arch/x86/efi/runtime.c doesn't exist (and
-> never will afaict), so wouldn't make go on finding the file elsewhere?
 
-If we have the implicit rule
-    %.o: %.c
+--=-T/tAcri0S1JrRXMlwOXy
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-and vpath set.
-When trying to build the target "arch/x86/efi/runtime.o", make will try
-our above rule and look for "arch/x86/efi/runtime.c" as make will not
-remove the directory part from the path. If that prerequisite isn't
-found, make will also try to prepend $(VPATH) to it.
+On Mon, 2022-01-17 at 12:13 +0100, Juergen Gross wrote:
+> On 17.01.22 12:05, George Dunlap wrote:
+> >=20
+> > An x86 equivalent of vwfi=3Dnative could be implemented easily, but
+> > AFAIK nobody has asked for it yet.=C2=A0 I agree that we need to fix if
+> > for ARM, and so in the absence of someone with the time to fix up
+> > the x86 side, I think fixing ARM-only is the way to go.
+> >=20
+> > It would be good if we could add appropriate comments warning
+> > anyone who implements `hlt=3Dnative` on x86 the problems they=E2=80=99l=
+l face
+> > and how to fix them.=C2=A0 Not sure the best place to do that; in the
+> > VMX / SVM code that sets the exit for HLT &c?
+>=20
+> But wouldn't a guest in a busy loop on x86 with NULL scheduler suffer
+> from the same problem?
+>=20
+Right, and even more 'idle=3Dpoll' as a _guest_ kernel command line
+parameter, IMO.
 
-I don't think it's not possible to tell make to substitute a directory
-for vpath, in a target or prerequisite.
+That does not change what happens when the guest issue an HLT, but it
+drastically reduces the frequency of it doing so (or at least, it did
+the last time I tried it).
 
-Cheers,
+So it's not exactly like wfi=3Dnative on ARM, but on the other hand, it
+can be under the guest's control.
 
--- 
-Anthony PERARD
+> And wouldn't that be a problem for PV guests, too?
+>=20
+Yeah, that's one of the things that makes it tricky
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+--=-T/tAcri0S1JrRXMlwOXy
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmHm/ZkACgkQFkJ4iaW4
+c+6LQBAA59mduTzrLvBqfABMoKcjgIVML+GxuVZvgZZAWPLvwE8uK0drx9Z68AZ2
+IpuADH6TB0lE8Tza4gZj63+TVensijINYC3j008GVcsR3pDmBTvvkw1ddPEAPf9Q
+41XHnjiuk9fAEt8gIFdOXs/yEi76qs3rS3uOnxg/B3QpHKYII1VLDA1FeVFMOAnI
+MDZrJFYVQWYQx4mOgukCfC8+a4Ocee8Q7lFoytJzDPFPTXApSGCrgORTb3Cim9jp
+ImGLToEj3TUYFEwVL8v2UfL4ln1lod78ejecAW0MOEf62SYRMCR769z4CPO41cYg
++gRkFWYHibZdDVZYVZA5peD6Emr/9czPffANt2wRqvx0vv7IKGWaYVa1dJ+FCjKH
+zwGeO3vgbfowIiYOCYNvyGvuA0f3MI3DscRDnUWVeq1Feayk+LHyKp0PImTidoGO
+GWBpIzW+QE3Ebq0Gp6+OSaEKFD+y7r+5paU1GvEsTwccEpEr1pMlf9iag4frEhEm
+5rAqhp3ksYsSmg/5HJ8zuYYmBDG0kdHnq0Q04UHiAf8mWJypXzgmldh8Q/8SUzFs
+kqaNEKdv3Vgm3+XC8DDjOV7JJpt6wtExDuObHBLBvtBQIv7Ghbl0lrQOuKc/gT+R
+XpfgMKmF8WqoI1YHFVMb+WuZlsxWJC3y0v80SxS8p1ZUKl7fdqM=
+=AgFr
+-----END PGP SIGNATURE-----
+
+--=-T/tAcri0S1JrRXMlwOXy--
 
