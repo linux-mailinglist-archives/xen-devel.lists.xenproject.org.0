@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A598491FF1
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 08:21:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258333.444671 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3321A491FEE
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 08:21:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258329.444633 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9in1-0001dr-Nw; Tue, 18 Jan 2022 07:20:23 +0000
+	id 1n9imv-0000lj-CB; Tue, 18 Jan 2022 07:20:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258333.444671; Tue, 18 Jan 2022 07:20:23 +0000
+Received: by outflank-mailman (output) from mailman id 258329.444633; Tue, 18 Jan 2022 07:20:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9in1-0001YT-HK; Tue, 18 Jan 2022 07:20:23 +0000
-Received: by outflank-mailman (input) for mailman id 258333;
- Tue, 18 Jan 2022 07:20:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1n9imv-0000iz-8B; Tue, 18 Jan 2022 07:20:17 +0000
+Received: by outflank-mailman (input) for mailman id 258329;
+ Tue, 18 Jan 2022 07:20:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lOsy=SC=bombadil.srs.infradead.org=BATV+4fe6c3c60fc7db690b35+6722+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1n9imz-0000yV-KR
- for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 07:20:21 +0000
+ id 1n9imt-0000in-J2
+ for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 07:20:16 +0000
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [2607:7c80:54:e::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 12273454-782f-11ec-a115-11989b9578b4;
- Tue, 18 Jan 2022 08:20:16 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 12198dee-782f-11ec-9bbc-9dff3e4ee8c5;
+ Tue, 18 Jan 2022 08:20:12 +0100 (CET)
 Received: from [2001:4bb8:184:72a4:a4a9:19c0:5242:7768] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1n9imY-000ZMt-Pw; Tue, 18 Jan 2022 07:19:55 +0000
+ id 1n9imb-000ZN9-IU; Tue, 18 Jan 2022 07:19:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,17 +40,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12273454-782f-11ec-a115-11989b9578b4
+X-Inumbo-ID: 12198dee-782f-11ec-9bbc-9dff3e4ee8c5
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=ScaZLB316TNMvWwlnv9wxx+Nw6Jl5Gr2bEFrm1gsbik=; b=BupyQ2oy6Mma4oohnbl5wchvqn
-	3INPpJTxm/BBRl/t9RkPSLYcWQ6Tvy9mp7Gzpm+0XfdyXm9hy+6uiWuICZ0q1Htk22k/y8teJsmRy
-	nw8Hc+t8NG4FQ9e2WfSH1NeRblFTaCCb+c/YF/d96imGOThenihSDQYboiaLfULXj4JsMClr6UIC2
-	s11FIUZL0uM0O8ZekMG/XIa8RcIHxEdXx1AN/Gr2+nctRFbtEvw5nrOcHvfJbu44bXeZ4pqAcEen2
-	6t9X9ewQ0wSnc8nb+GPTsZ14BMHsGKj3UtRC/RIttaD3ZIJbgV3w5SGL7zPOcrWkOSQ9ru5hPGHW9
-	ILp/Ph/Q==;
+	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-Type:Content-ID:Content-Description;
+	bh=YxQPbVqFWlutwQ2g8QVoc6P1c2MdSC28Qzk+anwg+hU=; b=Aj57TSt044wK2CCPLfgXb0ZAwk
+	9mWJT/5UNCkKd3f1yXIMAN9xyDLJUu3QU7reZqN8AlrNxLUkACdZGVqWAyrPW2DXx4b56mN360ajs
+	tnrM1tSyMJMrxuGoWL7slxfWQQoTCNIGc+Rce+QIvDGRGudY75/w9mNMqH7INE3qjcSL6PPIQSpar
+	izSBzVi51KHPBDpVwknJRkLmOKFNYTbqx6opFFMC7PlZQEtbU/zkFVQ4suZAA2E9o65JtfCHUoPjI
+	mvtq0z4UUf/AABSsCrJejqHjARkD7w5ZiIc7BbCbrPrVs9JefbbyVyP6CMS+regjgEJQy9onPqeWH
+	P5XYqC+Q==;
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Pavel Begunkov <asml.silence@gmail.com>,
@@ -71,104 +71,95 @@ Cc: Pavel Begunkov <asml.silence@gmail.com>,
 	ntfs3@lists.linux.dev,
 	xen-devel@lists.xenproject.org,
 	drbd-dev@lists.linbit.com
-Subject: improve the bio allocation interface
-Date: Tue, 18 Jan 2022 08:19:33 +0100
-Message-Id: <20220118071952.1243143-1-hch@lst.de>
+Subject: [PATCH 01/19] fs: remove mpage_alloc
+Date: Tue, 18 Jan 2022 08:19:34 +0100
+Message-Id: <20220118071952.1243143-2-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20220118071952.1243143-1-hch@lst.de>
+References: <20220118071952.1243143-1-hch@lst.de>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-Hi Jens,
+open code mpage_alloc in it's two callers and simplify the results
+because of the context:
 
-this series is posted early because it has wide-ranging changes and could use some
-early ACKs before -rc1.
+ - __mpage_writepage always passes GFP_NOFS and can thus always sleep and
+    will never get a NULL return from bio_alloc at all.
+ - do_mpage_readpage can only get a non-sleeping context for readahead
+   which never sets PF_MEMALLOC and thus doesn't need the retry loop
+   either.
 
-It changes the interface to the bio allocators to always pass a block_device and
-the operation, which is information needed for every bio submitted through
-bio_submit.  This means the fields can be directly initialized in bio_init instead
-of first being zeroed and thus should help to micro-optimize even better than the
-__bio_set_dev that Pavel proposed while also cleaning up code.
+Both cases will never have __GFP_HIGH set.
 
-I have a follow on series to also deal with the bio cloning interfaces that need
-even more love, and additional cleanups for the callers which might be material
-for the next merge window.
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ fs/mpage.c | 35 ++++++-----------------------------
+ 1 file changed, 6 insertions(+), 29 deletions(-)
 
-Diffstat:
- block/bio.c                         |   73 ++++++++++++++++++++++++------------
- block/blk-flush.c                   |    4 -
- block/blk-lib.c                     |   32 ++-------------
- block/blk-zoned.c                   |   14 +-----
- block/blk.h                         |    2 
- block/bounce.c                      |    6 --
- block/fops.c                        |   35 +++++++----------
- drivers/block/drbd/drbd_actlog.c    |    5 --
- drivers/block/drbd/drbd_bitmap.c    |    7 +--
- drivers/block/drbd/drbd_receiver.c  |   31 +++------------
- drivers/block/floppy.c              |    4 -
- drivers/block/pktcdvd.c             |    8 ---
- drivers/block/rnbd/rnbd-srv-dev.c   |   61 ------------------------------
- drivers/block/rnbd/rnbd-srv-dev.h   |   18 --------
- drivers/block/rnbd/rnbd-srv.c       |   45 ++++++++--------------
- drivers/block/rnbd/rnbd-srv.h       |    1 
- drivers/block/xen-blkback/blkback.c |   25 ++----------
- drivers/block/zram/zram_drv.c       |   16 ++-----
- drivers/md/bcache/io.c              |    3 -
- drivers/md/bcache/journal.c         |   16 ++-----
- drivers/md/bcache/movinggc.c        |    4 -
- drivers/md/bcache/request.c         |   18 +++-----
- drivers/md/bcache/super.c           |    8 +--
- drivers/md/bcache/writeback.c       |    4 -
- drivers/md/dm-crypt.c               |   27 ++++---------
- drivers/md/dm-io.c                  |    5 --
- drivers/md/dm-log-writes.c          |   39 +++----------------
- drivers/md/dm-snap.c                |   21 ----------
- drivers/md/dm-thin.c                |   41 +++++---------------
- drivers/md/dm-writecache.c          |    7 +--
- drivers/md/dm-zoned-metadata.c      |   26 ++----------
- drivers/md/dm.c                     |   12 ++---
- drivers/md/md-multipath.c           |    2 
- drivers/md/md.c                     |   24 +++++------
- drivers/md/raid1.c                  |    8 +--
- drivers/md/raid10.c                 |   14 ++----
- drivers/md/raid5-cache.c            |   19 +++------
- drivers/md/raid5-ppl.c              |   13 ++----
- drivers/md/raid5.c                  |   12 ++---
- drivers/nvdimm/nd_virtio.c          |    6 +-
- drivers/nvme/target/io-cmd-bdev.c   |   18 +++-----
- drivers/nvme/target/passthru.c      |    7 +--
- drivers/nvme/target/zns.c           |   14 +++---
- drivers/scsi/ufs/ufshpb.c           |    4 -
- drivers/target/target_core_iblock.c |   11 +----
- fs/btrfs/disk-io.c                  |   10 +---
- fs/btrfs/extent_io.c                |    2 
- fs/buffer.c                         |   14 ++----
- fs/crypto/bio.c                     |   13 ++----
- fs/direct-io.c                      |    5 --
- fs/erofs/zdata.c                    |    5 --
- fs/ext4/page-io.c                   |    3 -
- fs/ext4/readpage.c                  |    8 +--
- fs/f2fs/data.c                      |    7 +--
- fs/gfs2/lops.c                      |    8 +--
- fs/gfs2/meta_io.c                   |    4 -
- fs/gfs2/ops_fstype.c                |    4 -
- fs/hfsplus/wrapper.c                |    4 -
- fs/iomap/buffered-io.c              |   26 +++++-------
- fs/iomap/direct-io.c                |    8 ---
- fs/jfs/jfs_logmgr.c                 |   11 -----
- fs/jfs/jfs_metapage.c               |    9 +---
- fs/mpage.c                          |   34 ++--------------
- fs/nfs/blocklayout/blocklayout.c    |   26 +-----------
- fs/nilfs2/segbuf.c                  |   31 +--------------
- fs/ntfs3/fsntfs.c                   |   27 -------------
- fs/ocfs2/cluster/heartbeat.c        |    4 -
- fs/squashfs/block.c                 |   11 ++---
- fs/xfs/xfs_bio_io.c                 |   14 ++----
- fs/xfs/xfs_buf.c                    |    4 -
- fs/xfs/xfs_log.c                    |   14 +++---
- fs/zonefs/super.c                   |    9 +---
- include/linux/bio.h                 |   30 ++++++--------
- kernel/power/swap.c                 |    5 --
- mm/page_io.c                        |   10 +---
- 75 files changed, 372 insertions(+), 758 deletions(-)
+diff --git a/fs/mpage.c b/fs/mpage.c
+index 334e7d09aa652..c5817699b369b 100644
+--- a/fs/mpage.c
++++ b/fs/mpage.c
+@@ -67,29 +67,6 @@ static struct bio *mpage_bio_submit(int op, int op_flags, struct bio *bio)
+ 	return NULL;
+ }
+ 
+-static struct bio *
+-mpage_alloc(struct block_device *bdev,
+-		sector_t first_sector, int nr_vecs,
+-		gfp_t gfp_flags)
+-{
+-	struct bio *bio;
+-
+-	/* Restrict the given (page cache) mask for slab allocations */
+-	gfp_flags &= GFP_KERNEL;
+-	bio = bio_alloc(gfp_flags, nr_vecs);
+-
+-	if (bio == NULL && (current->flags & PF_MEMALLOC)) {
+-		while (!bio && (nr_vecs /= 2))
+-			bio = bio_alloc(gfp_flags, nr_vecs);
+-	}
+-
+-	if (bio) {
+-		bio_set_dev(bio, bdev);
+-		bio->bi_iter.bi_sector = first_sector;
+-	}
+-	return bio;
+-}
+-
+ /*
+  * support function for mpage_readahead.  The fs supplied get_block might
+  * return an up to date buffer.  This is used to map that buffer into
+@@ -303,10 +280,11 @@ static struct bio *do_mpage_readpage(struct mpage_readpage_args *args)
+ 								page))
+ 				goto out;
+ 		}
+-		args->bio = mpage_alloc(bdev, blocks[0] << (blkbits - 9),
+-					bio_max_segs(args->nr_pages), gfp);
++		args->bio = bio_alloc(gfp, bio_max_segs(args->nr_pages));
+ 		if (args->bio == NULL)
+ 			goto confused;
++		bio_set_dev(args->bio, bdev);
++		args->bio->bi_iter.bi_sector = blocks[0] << (blkbits - 9);
+ 	}
+ 
+ 	length = first_hole << blkbits;
+@@ -615,10 +593,9 @@ static int __mpage_writepage(struct page *page, struct writeback_control *wbc,
+ 								page, wbc))
+ 				goto out;
+ 		}
+-		bio = mpage_alloc(bdev, blocks[0] << (blkbits - 9),
+-				BIO_MAX_VECS, GFP_NOFS|__GFP_HIGH);
+-		if (bio == NULL)
+-			goto confused;
++		bio = bio_alloc(GFP_NOFS, BIO_MAX_VECS);
++		bio_set_dev(bio, bdev);
++		bio->bi_iter.bi_sector = blocks[0] << (blkbits - 9);
+ 
+ 		wbc_init_bio(wbc, bio);
+ 		bio->bi_write_hint = inode->i_write_hint;
+-- 
+2.30.2
+
 
