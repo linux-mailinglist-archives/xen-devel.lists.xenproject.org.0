@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F99B492593
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 13:18:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258469.445149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22EF94925AF
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 13:26:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258472.445160 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9nRP-0004z1-4D; Tue, 18 Jan 2022 12:18:23 +0000
+	id 1n9nZ8-0006Oi-Th; Tue, 18 Jan 2022 12:26:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258469.445149; Tue, 18 Jan 2022 12:18:23 +0000
+Received: by outflank-mailman (output) from mailman id 258472.445160; Tue, 18 Jan 2022 12:26:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9nRP-0004x6-0p; Tue, 18 Jan 2022 12:18:23 +0000
-Received: by outflank-mailman (input) for mailman id 258469;
- Tue, 18 Jan 2022 12:18:21 +0000
+	id 1n9nZ8-0006Ms-QY; Tue, 18 Jan 2022 12:26:22 +0000
+Received: by outflank-mailman (input) for mailman id 258472;
+ Tue, 18 Jan 2022 12:26:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1rGk=SC=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1n9nRN-0004wz-CF
- for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 12:18:21 +0000
-Received: from ppsw-32.csi.cam.ac.uk (ppsw-32.csi.cam.ac.uk [131.111.8.132])
+ id 1n9nZ6-0006Mm-Lt
+ for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 12:26:20 +0000
+Received: from ppsw-43.csi.cam.ac.uk (ppsw-43.csi.cam.ac.uk [131.111.8.143])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b89e0756-7858-11ec-a115-11989b9578b4;
- Tue, 18 Jan 2022 13:18:19 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:49474)
- by ppsw-32.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.136]:25)
+ id d67b18bc-7859-11ec-a115-11989b9578b4;
+ Tue, 18 Jan 2022 13:26:19 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:52094)
+ by ppsw-43.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
  with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1n9nRJ-000Ntf-2d (Exim 4.95) (return-path <amc96@srcf.net>);
- Tue, 18 Jan 2022 12:18:17 +0000
+ id 1n9nZ4-000xjD-o7 (Exim 4.95) (return-path <amc96@srcf.net>);
+ Tue, 18 Jan 2022 12:26:18 +0000
 Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
  (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 75D981FCF5;
- Tue, 18 Jan 2022 12:18:17 +0000 (GMT)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 3EA7D1FC87;
+ Tue, 18 Jan 2022 12:26:18 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,141 +45,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b89e0756-7858-11ec-a115-11989b9578b4
+X-Inumbo-ID: d67b18bc-7859-11ec-a115-11989b9578b4
 X-Cam-AntiVirus: no malware found
 X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Content-Type: multipart/alternative;
- boundary="------------H50j0bhPslycXtbAYE7C9vgd"
-Message-ID: <5fa523ca-0a14-862b-94f4-3e7a78319496@srcf.net>
-Date: Tue, 18 Jan 2022 12:18:17 +0000
+Message-ID: <5a9c0bdc-e996-436d-0b08-b7422f47f694@srcf.net>
+Date: Tue, 18 Jan 2022 12:26:18 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
 Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <239d8868-0c8a-b512-a2bf-3e91689a8218@suse.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+References: <20220117094827.16756-1-roger.pau@citrix.com>
+ <20220117094827.16756-3-roger.pau@citrix.com>
 From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH] x86/Intel: use CPUID bit to determine PPIN availability
-In-Reply-To: <239d8868-0c8a-b512-a2bf-3e91689a8218@suse.com>
-
-This is a multi-part message in MIME format.
---------------H50j0bhPslycXtbAYE7C9vgd
+Subject: Re: [PATCH v6 02/12] libx86: introduce helper to fetch cpuid leaf
+In-Reply-To: <20220117094827.16756-3-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 17/01/2022 15:30, Jan Beulich wrote:
-> As of SDM revision 076 there is a CPUID bit for this functionality. Use
-> it to amend the existing model-based logic.
+On 17/01/2022 09:48, Roger Pau Monne wrote:
+> Introduce a helper based on the current Xen guest_cpuid code in order
+> to fetch a cpuid leaf from a policy. The newly introduced function in
+> cpuid.c should not be directly called and instead the provided
+> x86_cpuid_get_leaf macro should be used that will properly deal with
+> const and non-const inputs.
 >
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Also add a test to check that the introduced helper doesn't go over
+> the bounds of the policy.
+>
+> Note the code in x86_cpuid_copy_from_buffer is not switched to use the
+> new function because of the boundary checks against the max fields of
+> the policy, which might not be properly set at the point where
+> x86_cpuid_copy_from_buffer get called, for example when filling an
+> empty policy from scratch.
+
+Filling an empty policy from scratch will be fine, because we always
+ascend through leaves.  This also matches the chronology of how CPUID
+developed.
+
+The most likely case to go wrong is enabling an optional feature above
+max_leaf, and getting the bump to max_leaf out of order.  That said, I
+suspect such logic would be working on an object, rather than a list.
+
+The important point is that x86_cpuid_copy_from_buffer() is deliberately
+invariant to the order of entries for compatibility reasons, even if we
+don't expect it to matter in practice.
+
+>
+> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> In xen-cpuid.c I wasn't sure whether it's better to put the 7b1 table
-> next to the 7a1 one, or whether tables should continue to be placed by
-> feature set ABI identifier.
+> Changes since v4:
+>  - Rename _x86_cpuid_get_leaf to x86_cpuid_get_leaf_const.
+>
+> Changes since v3:
+>  - New in this version.
+> ---
+> Regarding safety of the usage of array_access_nospec to obtain a
+> pointer to an element of an array, there are already other instances
+> of this usage, for example in viridian_time_wrmsr, so I would assume
+> this is fine.
 
-They're in FEATURESET_* order, which is also chronological order. 
-str_7b1 wants to be after str_e21a.
+It's a bit of a weird construct, and both GCC and Clang could generate
+better code, but it does look to be safe.
 
-> --- a/tools/misc/xen-cpuid.c
-> +++ b/tools/misc/xen-cpuid.c
-> @@ -156,7 +156,7 @@ static const char *const str_e8b[32] =
->      [18] = "ibrs-fast",        [19] = "ibrs-same-mode",
+> ---
+>  tools/tests/cpu-policy/test-cpu-policy.c | 75 ++++++++++++++++++++++++
+>  xen/arch/x86/cpuid.c                     | 55 +++--------------
+>  xen/include/xen/lib/x86/cpuid.h          | 19 ++++++
+>  xen/lib/x86/cpuid.c                      | 52 ++++++++++++++++
+>  4 files changed, 153 insertions(+), 48 deletions(-)
+>
+> diff --git a/tools/tests/cpu-policy/test-cpu-policy.c b/tools/tests/cpu-policy/test-cpu-policy.c
+> index ed450a0997..3f777fc1fc 100644
+> --- a/tools/tests/cpu-policy/test-cpu-policy.c
+> +++ b/tools/tests/cpu-policy/test-cpu-policy.c
+> @@ -570,6 +570,80 @@ static void test_cpuid_out_of_range_clearing(void)
+>      }
+>  }
 >  
->      [20] = "no-lmsl",
-> -    /* [22] */                 [23] = "ppin",
-> +    /* [22] */                 [23] = "amd-ppin",
+> +static void test_cpuid_get_leaf_failure(void)
+> +{
+> +    static const struct test {
+> +        struct cpuid_policy p;
+> +        const char *name;
+> +        uint32_t leaf, subleaf;
+> +    } tests[] = {
+> +        /* Bound checking logic. */
+> +        {
+> +            .name = "Basic max leaf >= array size",
+> +            .p = {
+> +                .basic.max_leaf = CPUID_GUEST_NR_BASIC,
+> +            },
+> +        },
+> +        {
+> +            .name = "Feature max leaf >= array size",
+> +            .p = {
+> +                .basic.max_leaf = CPUID_GUEST_NR_BASIC - 1,
+> +                .feat.max_subleaf = CPUID_GUEST_NR_FEAT,
+> +            },
+> +            .leaf = 0x00000007,
+> +        },
+> +        {
+> +            .name = "Extended max leaf >= array size",
+> +            .p = {
+> +                .extd.max_leaf = 0x80000000 + CPUID_GUEST_NR_EXTD,
+> +            },
+> +            .leaf = 0x80000000,
+> +        },
+> +
+> +        {
+> +            .name = "Basic leaf >= max leaf",
+> +            .p = {
+> +                .basic.max_leaf = CPUID_GUEST_NR_BASIC - 1,
+> +            },
+> +            .leaf = CPUID_GUEST_NR_BASIC,
+> +        },
+> +        {
+> +            .name = "Feature leaf >= max leaf",
+> +            .p = {
+> +                .basic.max_leaf = CPUID_GUEST_NR_BASIC - 1,
+> +                .feat.max_subleaf = CPUID_GUEST_NR_FEAT - 1,
+> +            },
+> +            .leaf = 0x00000007,
+> +            .subleaf = CPUID_GUEST_NR_FEAT,
+> +        },
+> +        {
+> +            .name = "Extended leaf >= max leaf",
+> +            .p = {
+> +                .extd.max_leaf = 0x80000000 + CPUID_GUEST_NR_EXTD - 1,
+> +            },
+> +            .leaf = 0x80000000 + CPUID_GUEST_NR_EXTD,
+> +        },
+> +    };
+> +    const struct cpuid_policy pc;
+> +    const struct cpuid_leaf *lc;
+> +    struct cpuid_policy p;
+> +    struct cpuid_leaf *l;
+> +
+> +    /* Constness build test. */
+> +    lc = x86_cpuid_get_leaf(&pc, 0, 0);
+> +    l = x86_cpuid_get_leaf(&p, 0, 0);
+> +
+> +    printf("Testing CPUID get leaf bound checking:\n");
+> +
+> +    for ( size_t i = 0; i < ARRAY_SIZE(tests); ++i )
+> +    {
+> +        const struct test *t = &tests[i];
 
-We don't retrofit names like this.  If we did, loads of the speculation
-bits would need to change.
+memdup().  It is important for tests which potentially reach out of
+bounds, so ASAN can work.
 
-The Intel vs AMD split is clear from the leaf index, and the only reason
-we have the distinction is to fit the two bits into the same namespace.
 
-Please leave this as was, to match its name in the source code.
+That said, you're only testing half of the boundary cases.  Perhaps more
+important important is the case where max_leaf is really out of legal
+bounds.  Further, it is also important to check the non-NULL cases too.
 
-> --- a/xen/arch/x86/cpu/mcheck/mce_intel.c
-> +++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
-> @@ -865,6 +865,13 @@ static void intel_init_ppin(const struct
->      {
->          uint64_t val;
+It would probably be better to have a single cpuid_policy object, and a
+list of pointers (perhaps offsets) to interesting max_leaf fields, along
+with their relevant compile time bounds.  That way, you can try all the
+interesting max_leaf values (0, limit-1, limit, ~0) and check
+NULL/non-NULLness of the answer with a simple min() calculation.
+
+> diff --git a/xen/include/xen/lib/x86/cpuid.h b/xen/include/xen/lib/x86/cpuid.h
+> index a4d254ea96..050cd4f9d1 100644
+> --- a/xen/include/xen/lib/x86/cpuid.h
+> +++ b/xen/include/xen/lib/x86/cpuid.h
+> @@ -431,6 +431,25 @@ int x86_cpuid_copy_from_buffer(struct cpuid_policy *policy,
+>                                 uint32_t nr_entries, uint32_t *err_leaf,
+>                                 uint32_t *err_subleaf);
 >  
-> +    default:
+> +/**
+> + * Get a cpuid leaf from a policy object.
+> + *
+> + * @param policy      The cpuid_policy object.
+> + * @param leaf        The leaf index.
+> + * @param subleaf     The subleaf index.
+> + * @returns a pointer to the requested leaf or NULL in case of error.
+> + *
+> + * The function will perform out of bound checks. Do not call this function
+> + * directly and instead use x86_cpuid_get_leaf that will deal with both const
+> + * and non-const policies returning a pointer with constness matching that of
+> + * the input.
+> + */
+> +const struct cpuid_leaf *x86_cpuid_get_leaf_const(const struct cpuid_policy *p,
+> +                                                  uint32_t leaf,
+> +                                                  uint32_t subleaf);
 
-Considering the comment above this switch statement, which you haven't
-edited at all, this wants a note saying that a CPUID bit was added in
-Sapphire Rapids, but older CPUs still require model-specific enumeration.
+Examples like this demonstrate obviously why
+
+const struct cpuid_leaf *x86_cpuid_get_leaf_const(
+    const struct cpuid_policy *p, uint32_t leaf, uint32_t subleaf);
+
+is a better layout.
+
+> +#define x86_cpuid_get_leaf(p, l, s) \
+> +    ((__typeof__(&(p)->basic.raw[0]))x86_cpuid_get_leaf_const(p, l, s))
+
+You can drop the outermost brackets.
 
 ~Andrew
---------------H50j0bhPslycXtbAYE7C9vgd
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 17/01/2022 15:30, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:239d8868-0c8a-b512-a2bf-3e91689a8218@suse.com">
-      <pre class="moz-quote-pre" wrap="">As of SDM revision 076 there is a CPUID bit for this functionality. Use
-it to amend the existing model-based logic.
-
-Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
----
-In xen-cpuid.c I wasn't sure whether it's better to put the 7b1 table
-next to the 7a1 one, or whether tables should continue to be placed by
-feature set ABI identifier.</pre>
-    </blockquote>
-    <br>
-    They're in FEATURESET_* order, which is also chronological order. 
-    str_7b1 wants to be after str_e21a.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:239d8868-0c8a-b512-a2bf-3e91689a8218@suse.com">
-      <pre class="moz-quote-pre" wrap="">--- a/tools/misc/xen-cpuid.c
-+++ b/tools/misc/xen-cpuid.c
-@@ -156,7 +156,7 @@ static const char *const str_e8b[32] =
-     [18] = "ibrs-fast",        [19] = "ibrs-same-mode",
- 
-     [20] = "no-lmsl",
--    /* [22] */                 [23] = "ppin",
-+    /* [22] */                 [23] = "amd-ppin",</pre>
-    </blockquote>
-    <br>
-    We don't retrofit names like this.  If we did, loads of the
-    speculation bits would need to change.<br>
-    <br>
-    The Intel vs AMD split is clear from the leaf index, and the only
-    reason we have the distinction is to fit the two bits into the same
-    namespace.<br>
-    <br>
-    Please leave this as was, to match its name in the source code<font
-      size="4">.</font><br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:239d8868-0c8a-b512-a2bf-3e91689a8218@suse.com">
-      <pre class="moz-quote-pre" wrap="">--- a/xen/arch/x86/cpu/mcheck/mce_intel.c
-+++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
-@@ -865,6 +865,13 @@ static void intel_init_ppin(const struct
-     {
-         uint64_t val;
- 
-+    default:</pre>
-    </blockquote>
-    <br>
-    Considering the comment above this switch statement, which you
-    haven't edited at all, this wants a note saying that a CPUID bit was
-    added in Sapphire Rapids, but older CPUs still require
-    model-specific enumeration.<br>
-    <br>
-    ~Andrew<br>
-  </body>
-</html>
-
---------------H50j0bhPslycXtbAYE7C9vgd--
 
