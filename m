@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96B3F491FE7
+	by mail.lfdr.de (Postfix) with ESMTPS id 97FD4491FE8
 	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 08:20:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258331.444655 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.258332.444666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9imz-0001J8-Vb; Tue, 18 Jan 2022 07:20:21 +0000
+	id 1n9in1-0001YU-BN; Tue, 18 Jan 2022 07:20:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258331.444655; Tue, 18 Jan 2022 07:20:21 +0000
+Received: by outflank-mailman (output) from mailman id 258332.444666; Tue, 18 Jan 2022 07:20:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9imz-0001FI-RQ; Tue, 18 Jan 2022 07:20:21 +0000
-Received: by outflank-mailman (input) for mailman id 258331;
- Tue, 18 Jan 2022 07:20:19 +0000
+	id 1n9in1-0001WG-5d; Tue, 18 Jan 2022 07:20:23 +0000
+Received: by outflank-mailman (input) for mailman id 258332;
+ Tue, 18 Jan 2022 07:20:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lOsy=SC=bombadil.srs.infradead.org=BATV+4fe6c3c60fc7db690b35+6722+infradead.org+hch@srs-se1.protection.inumbo.net>)
- id 1n9imx-0000yV-Pk
- for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 07:20:19 +0000
+ id 1n9imy-0000yV-Ko
+ for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 07:20:20 +0000
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [2607:7c80:54:e::133])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 12eb9183-782f-11ec-a115-11989b9578b4;
- Tue, 18 Jan 2022 08:20:16 +0100 (CET)
+ id 15b5f1cb-782f-11ec-a115-11989b9578b4;
+ Tue, 18 Jan 2022 08:20:17 +0100 (CET)
 Received: from [2001:4bb8:184:72a4:a4a9:19c0:5242:7768] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1n9ime-000ZNW-EE; Tue, 18 Jan 2022 07:20:01 +0000
+ id 1n9imh-000ZOH-7s; Tue, 18 Jan 2022 07:20:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,17 +40,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12eb9183-782f-11ec-a115-11989b9578b4
+X-Inumbo-ID: 15b5f1cb-782f-11ec-a115-11989b9578b4
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
 	MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
 	:Reply-To:Content-Type:Content-ID:Content-Description;
-	bh=7QPyuzOR2N2LqXuXA08GkKhJ7fsHc2fxZXqTeovi8aQ=; b=mwLo7/0/BOPnfEnPa3xkh1wtp3
-	15wY0VF1l5wgNEmlmFx9qahgWnFhyJl6myyHdYnnzRUVdOqVBkw7UQ2s8GiXprR+T/gsvB/2g/F5v
-	UCaXHspI+nVqVsB58mvQw0HRJkvSn89DW90IDAfE05lkscu3Lf/H7fIN1bqOWBihdD4Tp5Ut6juFU
-	WNJ1skjZ7Xkx6wUi1wozYtRk77Q0Gy2FFrBE57k2vN/cSiZKuWEEa/FwDkaLAeAptVbMHq6BGRtqX
-	s60rfzBqA3qtv2QplYalZU7PGOtQaONd/6YhcyxH1JxZ9Vqhkoc/TOJtrX45PcQTGjUSplXja4jev
-	6N8KX46Q==;
+	bh=pMAOIxwEWgivE8T/8jAutxBqi67ojpc7aSJ9Dfvp1Nk=; b=kFKC1f6LHbffT6qzEiLaEuNO4Z
+	y5Wa6DZ64ihxEa532MbgjcReTwtC60BjPLQEj05bs6YuEeVI3sM977SdQzX4xmobJdlgPZVs2xWyC
+	EMJ38PRJqUFy7XNiizvMrGIgprvIHQUp93bgTey3sz0jg7eZMOPncNFBYMmaEZWsV/sf41kUB2N71
+	F5CwruEap8s8xzf4gj6k+YJ16+23/Z0Hl+DOqrPk1VXeoCpYu2IIRMb8Gs68ph2j0gtiX2+uWw4CJ
+	twPIBYTRWRfw9YLbtir6ZkrrfCdWs9qy8EIvSFTnNOFAOKv/ZGihXdRGCZZictQuPhGrpOtQoXsyI
+	Sb9DHpsQ==;
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
 Cc: Pavel Begunkov <asml.silence@gmail.com>,
@@ -71,9 +71,9 @@ Cc: Pavel Begunkov <asml.silence@gmail.com>,
 	ntfs3@lists.linux.dev,
 	xen-devel@lists.xenproject.org,
 	drbd-dev@lists.linbit.com
-Subject: [PATCH 02/19] nilfs2: remove nilfs_alloc_seg_bio
-Date: Tue, 18 Jan 2022 08:19:35 +0100
-Message-Id: <20220118071952.1243143-3-hch@lst.de>
+Subject: [PATCH 03/19] nfs/blocklayout: remove bl_alloc_init_bio
+Date: Tue, 18 Jan 2022 08:19:36 +0100
+Message-Id: <20220118071952.1243143-4-hch@lst.de>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20220118071952.1243143-1-hch@lst.de>
 References: <20220118071952.1243143-1-hch@lst.de>
@@ -82,62 +82,57 @@ Content-Transfer-Encoding: 8bit
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
 bio_alloc will never fail when it can sleep.  Remove the now simple
-nilfs_alloc_seg_bio helper and open code it in the only caller.
+bl_alloc_init_bio helper and open code it in the only caller.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- fs/nilfs2/segbuf.c | 31 ++++---------------------------
- 1 file changed, 4 insertions(+), 27 deletions(-)
+ fs/nfs/blocklayout/blocklayout.c | 26 +++++---------------------
+ 1 file changed, 5 insertions(+), 21 deletions(-)
 
-diff --git a/fs/nilfs2/segbuf.c b/fs/nilfs2/segbuf.c
-index 43287b0d3e9b6..53b7c6d21cdd8 100644
---- a/fs/nilfs2/segbuf.c
-+++ b/fs/nilfs2/segbuf.c
-@@ -371,29 +371,6 @@ static int nilfs_segbuf_submit_bio(struct nilfs_segment_buffer *segbuf,
- 	return err;
+diff --git a/fs/nfs/blocklayout/blocklayout.c b/fs/nfs/blocklayout/blocklayout.c
+index fe860c5387476..38e063af7e98a 100644
+--- a/fs/nfs/blocklayout/blocklayout.c
++++ b/fs/nfs/blocklayout/blocklayout.c
+@@ -115,23 +115,6 @@ bl_submit_bio(struct bio *bio)
+ 	return NULL;
  }
  
--/**
-- * nilfs_alloc_seg_bio - allocate a new bio for writing log
-- * @nilfs: nilfs object
-- * @start: start block number of the bio
-- * @nr_vecs: request size of page vector.
-- *
-- * Return Value: On success, pointer to the struct bio is returned.
-- * On error, NULL is returned.
-- */
--static struct bio *nilfs_alloc_seg_bio(struct the_nilfs *nilfs, sector_t start,
--				       int nr_vecs)
+-static struct bio *bl_alloc_init_bio(unsigned int npg,
+-		struct block_device *bdev, sector_t disk_sector,
+-		bio_end_io_t end_io, struct parallel_io *par)
 -{
 -	struct bio *bio;
 -
--	bio = bio_alloc(GFP_NOIO, nr_vecs);
--	if (likely(bio)) {
--		bio_set_dev(bio, nilfs->ns_bdev);
--		bio->bi_iter.bi_sector =
--			start << (nilfs->ns_blocksize_bits - 9);
+-	npg = bio_max_segs(npg);
+-	bio = bio_alloc(GFP_NOIO, npg);
+-	if (bio) {
+-		bio->bi_iter.bi_sector = disk_sector;
+-		bio_set_dev(bio, bdev);
+-		bio->bi_end_io = end_io;
+-		bio->bi_private = par;
 -	}
 -	return bio;
 -}
 -
- static void nilfs_segbuf_prepare_write(struct nilfs_segment_buffer *segbuf,
- 				       struct nilfs_write_info *wi)
+ static bool offset_in_map(u64 offset, struct pnfs_block_dev_map *map)
  {
-@@ -414,10 +391,10 @@ static int nilfs_segbuf_submit_bh(struct nilfs_segment_buffer *segbuf,
- 	BUG_ON(wi->nr_vecs <= 0);
-  repeat:
- 	if (!wi->bio) {
--		wi->bio = nilfs_alloc_seg_bio(wi->nilfs, wi->blocknr + wi->end,
--					      wi->nr_vecs);
--		if (unlikely(!wi->bio))
--			return -ENOMEM;
-+		wi->bio = bio_alloc(GFP_NOIO, wi->nr_vecs);
-+		bio_set_dev(wi->bio, wi->nilfs->ns_bdev);
-+		wi->bio->bi_iter.bi_sector = (wi->blocknr + wi->end) <<
-+			(wi->nilfs->ns_blocksize_bits - 9);
- 	}
+ 	return offset >= map->start && offset < map->start + map->len;
+@@ -171,10 +154,11 @@ do_add_page_to_bio(struct bio *bio, int npg, int rw, sector_t isect,
  
- 	len = bio_add_page(wi->bio, bh->b_page, bh->b_size, bh_offset(bh));
+ retry:
+ 	if (!bio) {
+-		bio = bl_alloc_init_bio(npg, map->bdev,
+-				disk_addr >> SECTOR_SHIFT, end_io, par);
+-		if (!bio)
+-			return ERR_PTR(-ENOMEM);
++		bio = bio_alloc(GFP_NOIO, bio_max_segs(npg));
++		bio->bi_iter.bi_sector = disk_addr >> SECTOR_SHIFT;
++		bio_set_dev(bio, map->bdev);
++		bio->bi_end_io = end_io;
++		bio->bi_private = par;
+ 		bio_set_op_attrs(bio, rw, 0);
+ 	}
+ 	if (bio_add_page(bio, page, *len, offset) < *len) {
 -- 
 2.30.2
 
