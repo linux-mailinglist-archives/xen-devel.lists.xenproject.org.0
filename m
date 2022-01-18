@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8D67492589
-	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 13:16:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258466.445139 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F99B492593
+	for <lists+xen-devel@lfdr.de>; Tue, 18 Jan 2022 13:18:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258469.445149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9nOH-0004LW-M4; Tue, 18 Jan 2022 12:15:09 +0000
+	id 1n9nRP-0004z1-4D; Tue, 18 Jan 2022 12:18:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258466.445139; Tue, 18 Jan 2022 12:15:09 +0000
+Received: by outflank-mailman (output) from mailman id 258469.445149; Tue, 18 Jan 2022 12:18:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1n9nOH-0004Iz-I2; Tue, 18 Jan 2022 12:15:09 +0000
-Received: by outflank-mailman (input) for mailman id 258466;
- Tue, 18 Jan 2022 12:15:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4BW1=SC=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1n9nOG-0004It-8g
- for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 12:15:08 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 44c4fa5e-7858-11ec-9bbc-9dff3e4ee8c5;
- Tue, 18 Jan 2022 13:15:06 +0100 (CET)
+	id 1n9nRP-0004x6-0p; Tue, 18 Jan 2022 12:18:23 +0000
+Received: by outflank-mailman (input) for mailman id 258469;
+ Tue, 18 Jan 2022 12:18:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=1rGk=SC=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1n9nRN-0004wz-CF
+ for xen-devel@lists.xenproject.org; Tue, 18 Jan 2022 12:18:21 +0000
+Received: from ppsw-32.csi.cam.ac.uk (ppsw-32.csi.cam.ac.uk [131.111.8.132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b89e0756-7858-11ec-a115-11989b9578b4;
+ Tue, 18 Jan 2022 13:18:19 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:49474)
+ by ppsw-32.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.136]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1n9nRJ-000Ntf-2d (Exim 4.95) (return-path <amc96@srcf.net>);
+ Tue, 18 Jan 2022 12:18:17 +0000
+Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 75D981FCF5;
+ Tue, 18 Jan 2022 12:18:17 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,118 +45,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44c4fa5e-7858-11ec-9bbc-9dff3e4ee8c5
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1642508106;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=OCBpBS1RS9kF2/KyjcHxkiDJe6gxmB9kFBdnfVPdVfQ=;
-  b=QEBo7mHmQV54tRPbaNxfz/iRWkcb91FhydVJOfO5O9ShPlKr8KHRZsTl
-   W5W+zZB0buFvkc9ytL82WPSopVbVl03GW+sWk4btfChcngnYrf74F7B+c
-   kfFveF6B0XgXta7NAZx7CsBc/VKDzG44Ffg94CXR3peab8pvV6UaBRgAc
-   s=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: C1cXWPd3E0f8AL5RvYKrrsn30z8pGBeF9ZE5+D1ysIeH+cEJ/2JmBwGbTVpByC/tMmhqzvMEY3
- rBl9KwbNPuzfbSHeryA3htloNtUtoUEI9y0QksXW948bcwfD5x1G93oWgrultdvWNkxhgT+bZK
- B6oZmPZ6GUH6iduphZTynFOClweCPcyYM7RsoTVCEyc43kmP3Yp9+rom5BKCBSpI8ww7rhWwZu
- dqcgV+yMaKVgowdkXhlsIcx/9G02+b4kKOK32eQcEjqgm948YcHlfjtiddDO+8KBGGQCfL67gm
- HJfGJU1OgGpAYayCDkbPh+EB
-X-SBRS: 5.2
-X-MesageID: 64347479
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:taE2WaMm9QMsA3zvrR0ukMFynXyQoLVcMsEvi/4bfWQNrUog1z0Ay
- zdOCm/QaPyKNGf3fNB0YNzg9R8Bu5TdzdNgQQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En150Eszw7dRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYo22bgtpg8
- I5ij4SPeCsvZfH3v/Q7AjANRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YuBqmsQkKtitJI4Fs2ts5TrYEewnUdbIRKCiCdpwgmtr2p8SQqe2i
- 8wxOR9rK0iRYwx2J15HLYMMv8KIjSj6SmgNwL6SjfVuuDWCpOBr65D2K8bccNGOQcRTn26bq
- 3jA8mC/BQsVXPSAzRKV/3TqgfXA9QvrVYRXGLCm+/pChFyI2ndVGBAQTUG8o/Sylgi5Qd03A
- 04e9zcqrKMy3Fe2VdS7VBq9yFaFoRw0S9dWC/c96gyG1uzT+QnxLmoZSj9MbvQ2uclwQiYlv
- mJlhPuwW2Yp6ufMDyvAqPHE9lteJBT5M0dadzIOXDNezOP7n7AfiEmTdfFzNv+c24id9S7L/
- xiGqy03hrM2hMEN1rmm8V2vvw9AtqQlXSZuuFyJAzvNAhdRIdf8Otf2sQSzAeNodd7BFjG8U
- G44d99yBQzkJbWEj2SzTeoEB9lFDN7VYWSH0TaD83TMnglBGkJPn6gNuFmSx28za67onAMFh
- meJ5mu9A7cJbROXgVdfOd7ZNijT5fGI+S7Zfv7VdMFSRZN6aRWK+ipjDWbJgTy3zBRwwP9jY
- s3GGSpJMZr8If44pNZRb71MuYLHOwhknT+DLXwF50nPPUWiiI69Fu5ebQrmghER56KYugTFm
- +uzxOPRoyizpNbWO3GNmaZKdAhiBSFiWfje9pILHsbefFsOMDxxWpf5nOJ6E6Q4zvs9qws91
- iznMqOu4ACh1SSvxMTjQi0LVY4Dqr4k/C1rZnJ9bA/4s5XhCK72hJoim1IMVeFP3IReITRcF
- pHpou2MXaZCTCrp4TMYYcWvpYBubk3z1wmPIzCkcH40eJs5H17F/drtfw3O8igSD3Xo6Zti8
- uP4jg6LE4AeQwlCDdrNbK79xV2GonVAyvl5WFHFI4cPdRy0opRqMSH4ktQ+P9oIdUfY3jKf2
- gvPWUUYqODBrpUb6t7MgazY/Y6lH/EnRhhRHnXB7KbwPi7fpzLxzYhFWeeOXDbcSGKrp/nyO
- bQLl6nxaaRVkkxLvoxwF6dQ4Zg/v9a/9aVHyglEHWnQawj5AL1XPXTbj9JEsbdAx+EFtFLuC
- F6P4NRTJZ6AJNjhTAwKPAMgY+mOiaMUlz3V4ahnKUn2/nYqrr+OUEEUNBiQki1NarByNdp9k
- +smvccX7S25iwYrbYna3nwFqTzUIyxSSbgju7EbHJTv21gixVx1aJDBDjP7vcOUYNJWP0h2e
- jKZicIuXViHKpYup5brKUXw4A==
-IronPort-HdrOrdr: A9a23:yHVYxK19ThJ4wtZ/vCi2RQqjBLwkLtp133Aq2lEZdPU1SKClfq
- WV98jzuiWatN98Yh8dcLK7WJVoMEm8yXcd2+B4V9qftWLdyQiVxe9ZnO7f6gylNyri9vNMkY
- dMGpIObOEY1GIK7/rH3A==
-X-IronPort-AV: E=Sophos;i="5.88,297,1635220800"; 
-   d="scan'208";a="64347479"
-Date: Tue, 18 Jan 2022 12:14:59 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH v8 31/47] build: specify source tree in include/ for
- prerequisite
-Message-ID: <YeavQyhA9VdKEpuh@perard>
-References: <20211125134006.1076646-1-anthony.perard@citrix.com>
- <20211125134006.1076646-32-anthony.perard@citrix.com>
- <a8045db2-a647-fc5b-0c98-890edce10dc8@suse.com>
+X-Inumbo-ID: b89e0756-7858-11ec-a115-11989b9578b4
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Content-Type: multipart/alternative;
+ boundary="------------H50j0bhPslycXtbAYE7C9vgd"
+Message-ID: <5fa523ca-0a14-862b-94f4-3e7a78319496@srcf.net>
+Date: Tue, 18 Jan 2022 12:18:17 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <a8045db2-a647-fc5b-0c98-890edce10dc8@suse.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <239d8868-0c8a-b512-a2bf-3e91689a8218@suse.com>
+From: Andrew Cooper <amc96@srcf.net>
+Subject: Re: [PATCH] x86/Intel: use CPUID bit to determine PPIN availability
+In-Reply-To: <239d8868-0c8a-b512-a2bf-3e91689a8218@suse.com>
 
-On Tue, Dec 21, 2021 at 03:16:25PM +0100, Jan Beulich wrote:
-> On 25.11.2021 14:39, Anthony PERARD wrote:
-> > When doing an out-of-tree build, and thus setting VPATH,
-> > GNU Make 3.81 on Ubuntu Trusty complains about Circular dependency of
-> > include/Makefile and include/xlat.lst and drop them. The build fails
-> > later due to headers malformed.
-> 
-> A circular dependency would mean that besides the expected dependency
-> there is also one of include/Makefile on include/xlat.lst. Where is
-> that? I'm not aware of anything include/Makefile depends on. Is there
-> any dependency being introduced in this series, perhaps by way of new
-> (generated) dependency files? It would be good to have a clear
-> understanding of the issue - as you describe it, it could as well be
-> a make flaw.
+This is a multi-part message in MIME format.
+--------------H50j0bhPslycXtbAYE7C9vgd
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-I've got a bunch of:
-make[2]: Circular include/compat/arch-x86_32.i <- include/Makefile dependency dropped.
+On 17/01/2022 15:30, Jan Beulich wrote:
+> As of SDM revision 076 there is a CPUID bit for this functionality. Use
+> it to amend the existing model-based logic.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> In xen-cpuid.c I wasn't sure whether it's better to put the 7b1 table
+> next to the 7a1 one, or whether tables should continue to be placed by
+> feature set ABI identifier.
 
+They're in FEATURESET_* order, which is also chronological order. 
+str_7b1 wants to be after str_e21a.
 
-Maybe the issue is with:
-    make[2]: Circular include/compat/.xlat/arch-x86/pmu.lst <- include/xlat.lst dependency dropped.
-    make[2]: Circular include/compat/.xlat/arch-x86/pmu.lst <- include/Makefile dependency dropped.
+> --- a/tools/misc/xen-cpuid.c
+> +++ b/tools/misc/xen-cpuid.c
+> @@ -156,7 +156,7 @@ static const char *const str_e8b[32] =
+>      [18] = "ibrs-fast",        [19] = "ibrs-same-mode",
+>  
+>      [20] = "no-lmsl",
+> -    /* [22] */                 [23] = "ppin",
+> +    /* [22] */                 [23] = "amd-ppin",
 
-with rule
-     $(obj)/compat/.xlat/%.lst:  $(src)/xlat.lst $(src)/Makefile
+We don't retrofit names like this.  If we did, loads of the speculation
+bits would need to change.
 
-at that mean %.lst have no prerequisite left, so $< is empty in
-"grep pattern $<" so there's nothing to grep.
+The Intel vs AMD split is clear from the leaf index, and the only reason
+we have the distinction is to fit the two bits into the same namespace.
 
-But that doesn't happen every time.
+Please leave this as was, to match its name in the source code.
 
-I can't think of anything or find anything which would introduce a
-prerequisite for "xlat.lst".
+> --- a/xen/arch/x86/cpu/mcheck/mce_intel.c
+> +++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
+> @@ -865,6 +865,13 @@ static void intel_init_ppin(const struct
+>      {
+>          uint64_t val;
+>  
+> +    default:
 
-The build seems to work if I only change this rule, to avoid make
-looking into VPATH to find $(src)/xlat.lst. Changing this to
-"$(srcdir)/xlat.lst" works. But of course, make still complain about
-circular dependencies on include/Makefile.
+Considering the comment above this switch statement, which you haven't
+edited at all, this wants a note saying that a CPUID bit was added in
+Sapphire Rapids, but older CPUs still require model-specific enumeration.
 
-I think I've look for this issue online at the time, but I probably
-found the workaround rather than a bug report.
+~Andrew
+--------------H50j0bhPslycXtbAYE7C9vgd
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Cheers,
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">On 17/01/2022 15:30, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:239d8868-0c8a-b512-a2bf-3e91689a8218@suse.com">
+      <pre class="moz-quote-pre" wrap="">As of SDM revision 076 there is a CPUID bit for this functionality. Use
+it to amend the existing model-based logic.
 
--- 
-Anthony PERARD
+Signed-off-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a>
+---
+In xen-cpuid.c I wasn't sure whether it's better to put the 7b1 table
+next to the 7a1 one, or whether tables should continue to be placed by
+feature set ABI identifier.</pre>
+    </blockquote>
+    <br>
+    They're in FEATURESET_* order, which is also chronological order. 
+    str_7b1 wants to be after str_e21a.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:239d8868-0c8a-b512-a2bf-3e91689a8218@suse.com">
+      <pre class="moz-quote-pre" wrap="">--- a/tools/misc/xen-cpuid.c
++++ b/tools/misc/xen-cpuid.c
+@@ -156,7 +156,7 @@ static const char *const str_e8b[32] =
+     [18] = "ibrs-fast",        [19] = "ibrs-same-mode",
+ 
+     [20] = "no-lmsl",
+-    /* [22] */                 [23] = "ppin",
++    /* [22] */                 [23] = "amd-ppin",</pre>
+    </blockquote>
+    <br>
+    We don't retrofit names like this.  If we did, loads of the
+    speculation bits would need to change.<br>
+    <br>
+    The Intel vs AMD split is clear from the leaf index, and the only
+    reason we have the distinction is to fit the two bits into the same
+    namespace.<br>
+    <br>
+    Please leave this as was, to match its name in the source code<font
+      size="4">.</font><br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:239d8868-0c8a-b512-a2bf-3e91689a8218@suse.com">
+      <pre class="moz-quote-pre" wrap="">--- a/xen/arch/x86/cpu/mcheck/mce_intel.c
++++ b/xen/arch/x86/cpu/mcheck/mce_intel.c
+@@ -865,6 +865,13 @@ static void intel_init_ppin(const struct
+     {
+         uint64_t val;
+ 
++    default:</pre>
+    </blockquote>
+    <br>
+    Considering the comment above this switch statement, which you
+    haven't edited at all, this wants a note saying that a CPUID bit was
+    added in Sapphire Rapids, but older CPUs still require
+    model-specific enumeration.<br>
+    <br>
+    ~Andrew<br>
+  </body>
+</html>
+
+--------------H50j0bhPslycXtbAYE7C9vgd--
 
