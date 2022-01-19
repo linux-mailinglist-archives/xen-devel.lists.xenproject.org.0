@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 726B2493F77
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jan 2022 19:01:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258903.446402 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACF14493FDE
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jan 2022 19:27:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258906.446413 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAFFs-0002Iz-RD; Wed, 19 Jan 2022 18:00:20 +0000
+	id 1nAFfi-0004jC-N0; Wed, 19 Jan 2022 18:27:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258903.446402; Wed, 19 Jan 2022 18:00:20 +0000
+Received: by outflank-mailman (output) from mailman id 258906.446413; Wed, 19 Jan 2022 18:27:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAFFs-0002G0-NT; Wed, 19 Jan 2022 18:00:20 +0000
-Received: by outflank-mailman (input) for mailman id 258903;
- Wed, 19 Jan 2022 18:00:18 +0000
+	id 1nAFfi-0004hM-Jv; Wed, 19 Jan 2022 18:27:02 +0000
+Received: by outflank-mailman (input) for mailman id 258906;
+ Wed, 19 Jan 2022 18:27:01 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=VeFE=SD=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1nAFFq-0002Fu-PP
- for xen-devel@lists.xenproject.org; Wed, 19 Jan 2022 18:00:18 +0000
-Received: from ppsw-43.csi.cam.ac.uk (ppsw-43.csi.cam.ac.uk [131.111.8.143])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zsuW=SD=eikelenboom.it=linux@srs-se1.protection.inumbo.net>)
+ id 1nAFfg-0004hG-L6
+ for xen-devel@lists.xenproject.org; Wed, 19 Jan 2022 18:27:01 +0000
+Received: from server.eikelenboom.it (server.eikelenboom.it [91.121.65.215])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a653c8c1-7951-11ec-bc18-3156f6d857e4;
- Wed, 19 Jan 2022 19:00:15 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:52462)
- by ppsw-43.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1nAFFg-000SwA-pL (Exim 4.95) (return-path <amc96@srcf.net>);
- Wed, 19 Jan 2022 18:00:08 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 9BBE11FA77;
- Wed, 19 Jan 2022 18:00:08 +0000 (GMT)
+ id 63118e73-7955-11ec-bc18-3156f6d857e4;
+ Wed, 19 Jan 2022 19:26:59 +0100 (CET)
+Received: from 76-24-144-85.ftth.glasoperator.nl ([85.144.24.76]:34506
+ helo=[172.16.1.50])
+ by server.eikelenboom.it with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
+ (envelope-from <linux@eikelenboom.it>)
+ id 1nAFgN-00010r-Fc; Wed, 19 Jan 2022 19:27:43 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,133 +42,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a653c8c1-7951-11ec-bc18-3156f6d857e4
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <fe416bfa-9f10-229f-1786-10c95cbcd05c@srcf.net>
-Date: Wed, 19 Jan 2022 18:00:08 +0000
+X-Inumbo-ID: 63118e73-7955-11ec-bc18-3156f6d857e4
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=eikelenboom.it; s=20180706; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:MIME-Version:Date:Message-ID:References:Cc:To:From:Subject:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=EaSTjipOuBT861aSRDtUI1rpXsQTwxohUEiwfdgy3zU=; b=DSahA0sdBDJK0Q2y07AWF0C4Em
+	ErjIZC/iG03/fH/9IEcfgmQMUFZLtjeqIK5HeNpesKIJYay9FvtJipyWGJ/dEAazAnze3NGYDHOuf
+	yzDSwWlBex1u949oQOaW7fRmINbAn/8TzCRwXyLv1leuN9aVA+YwLv2FQoKMIVqlkvt0=;
+Subject: Re: Regression booting Linux kernel 5.16.1 under Xen: Failed to
+ update kernel mapping for mfn=6930582 pfn=524288
+From: Sander Eikelenboom <linux@eikelenboom.it>
+To: Juergen Gross <jgross@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <d3ba970c-3930-fb4e-4fd2-4246700fd11e@eikelenboom.it>
+ <39794058-78ce-994c-c854-cea206ff938e@suse.com>
+ <ef7f62cf-82a7-22f7-2cf6-2ffb584ea5da@eikelenboom.it>
+Message-ID: <666c2522-e0b2-3a9c-0a0c-9c492f0ac00c@eikelenboom.it>
+Date: Wed, 19 Jan 2022 19:26:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20220117183415.11150-1-andrew.cooper3@citrix.com>
- <20220117183415.11150-2-andrew.cooper3@citrix.com>
- <752485db-deec-1011-f65a-d277fc3e404a@suse.com>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH v2 1/4] x86/guest: Introduce {get,set}_reg()
- infrastructure
-In-Reply-To: <752485db-deec-1011-f65a-d277fc3e404a@suse.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <ef7f62cf-82a7-22f7-2cf6-2ffb584ea5da@eikelenboom.it>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: nl-NL
 Content-Transfer-Encoding: 8bit
 
-On 19/01/2022 13:28, Jan Beulich wrote:
-> On 17.01.2022 19:34, Andrew Cooper wrote:
->> --- a/xen/arch/x86/hvm/hvm.c
->> +++ b/xen/arch/x86/hvm/hvm.c
->> @@ -3744,6 +3744,28 @@ int hvm_msr_write_intercept(unsigned int msr, uint64_t msr_content,
->>      return X86EMUL_EXCEPTION;
->>  }
->>  
->> +uint64_t hvm_get_reg(struct vcpu *v, unsigned int reg)
->> +{
->> +    ASSERT(v == current || !vcpu_runnable(v));
->> +
->> +    switch ( reg )
->> +    {
->> +    default:
->> +        return alternative_call(hvm_funcs.get_reg, v, reg);
->> +    }
->> +}
->> +
->> +void hvm_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
->> +{
->> +    ASSERT(v == current || !vcpu_runnable(v));
->> +
->> +    switch ( reg )
->> +    {
->> +    default:
->> +        return alternative_vcall(hvm_funcs.set_reg, v, reg, val);
-> I'm inclined to ask to drop "return" from here.
+On 18/01/2022 14:55, Sander Eikelenboom wrote:
+> On 18/01/2022 12:13, Juergen Gross wrote:
+>> On 18.01.22 11:53, Sander Eikelenboom wrote:
+>>> L.S.,
+>>>
+>>> Both Linux kernel 5.16.0 and 5.16.1 fail to boot as Dom0 under
+>>> xen-unstable and crash early in boot on my hardware.
+>>> With Linux 5.15.13 it boots fine. Serial log is below.
+>> ...
+>>
+>>> (XEN) [0000001b1ffedeb8] Command line: dom0_mem=2048M,max:2048M
+>>> loglvl=all guest_loglvl=all console_timestamps=datems
+>>> vga=gfx-1280x1024x32 no-cpuidle com1=38400,8n1 console=vga,com1
+>>> ivrs_ioapic[6]=00:14.0 iommu=on,verbose,debug conring_size=128k
+>>> ucode=scan sched=credit2 gnttab_max_frames=64 reboot=a
+>> ...
+>>
+>>> mapping kernel into physical memory
+>>> about to get started...
+>>> [    0.000000] Linux version 5.16.1-20220118-doflr-mac80211debug+
+>>> (root@serveerstertje) (gcc (Debian 8.3.0-6) 8.3.0, GNU ld (GNU Binutils
+>>> for Debian) 2.31.1) #1 SMP PREEMPT Tue Jan 18 10:49:09 CET 2022
+>>> [    0.000000] Command line: root=/dev/mapper/serveerstertje_ssd-root ro
+>>> verbose earlyprintk=xen mem=2048M console=hvc0 scsi_mod.use_blk_mq=1
+>>> console=tty0 acpi_enforce_resources=lax max_loop=30 loop_max_part=10
+>>> r8169.use_dac=1 loglevel=10 nomodeset net.ifnames=0 biosdevname=0
+>>> xen-pciback.hide=(00:14.2)(04:00.*)(08:00.0)(09:00.*)(0a:00.0)(0d:00.0)
+>> ...
+>>
+>>> [    0.135670] ------------[ cut here ]------------
+>>> [    0.135690] Failed to update kernel mapping for mfn=6930582 pfn=524288
+>>> [    0.135701] WARNING: CPU: 0 PID: 0 at arch/x86/xen/setup.c:312
+>>> xen_remap_memory+0x191/0x26c
+>> There seems to be a problem with rearranging the dom0 memory layout
+>> to match that of the host. Especially it is going sideways when trying
+>> to remap a memory frame to PFN 524288 (0x80000).
+>>
+>> You are limiting dom0 memory to 2 GB via Xen command line, but in
+>> addition to that you specify "mem=2048M" for the dom0 kernel, too. This
+>> should cap memory from PFN 0x80000 onwards, hence the failure when dom0
+>> tries to remap a frame into this area.
+>>
+>> Can you please try removing the "mem=2048M" from the dom0 parameters?
+>>
+>> I think there has been a kernel commit fixing the correct handling of
+>> the "mem=" parameter in 5.16, which might be the reason why you are
+>> seeing the crash only now.
+>>
+>>
+>> Juergen
+>>
+> Ah that sounds plausible, will test tomorrow and report back.
+> Thanks once again !
+> 
+> --
+> Sander
 
-It's a tossup between this, and a following break.  I was guestimating
-based on the subsequent patches, because there is isn't a plausible use
-for common logic following the switch statement.
+Hi Juergen,
 
-> Also, for both functions, without it being clear for what kind of
-> registers beyond MSRs this may want using down the road, I wonder
-> whether uint64_t is actually wide enough.
+Just tested without "mem=2048M" and with that the machine boots fine.
+Thanks for the help and sorry for the noise !
 
-The tsc scaling/offset registers will probably be the easiest to move,
-because they're driven almost exclusively from common code. 
-nhvm_vcpu_p2m_base() too, because it is only read, and is trivial.
+--
+Sander
 
-cr2 would be easy example, except it's probably not useful to split out
-of the general cr paths.
-
-Another MSR example which is simple to move (and drop hooks) is
-get_shadow_gs_base().
-
-
-The segment registers are the only obvious examples which don't fit into
-uint64_t.
-
-As a tangent, code generation for get/set_sreg() would probably be far
-better if get() returned by value, and set() took by value.  struct
-segment_register is only a pair of registers, and the optimiser can
-probably keep most callsites from spilling to the stack.
-
->> --- a/xen/arch/x86/hvm/svm/svm.c
->> +++ b/xen/arch/x86/hvm/svm/svm.c
->> @@ -2469,6 +2469,33 @@ static bool svm_get_pending_event(struct vcpu *v, struct x86_event *info)
->>      return true;
->>  }
->>  
->> +static uint64_t svm_get_reg(struct vcpu *v, unsigned int reg)
->> +{
->> +    struct domain *d = v->domain;
->> +
->> +    switch ( reg )
->> +    {
->> +    default:
->> +        printk(XENLOG_G_ERR "%s(%pv, 0x%08x) Bad register\n",
->> +               __func__, v, reg);
-> Is __func__ actually of much use here and in similar further places?
-
-Yes.  Admittedly moreso before I added the domain_crash(), but it is
-information not printed.
-
-It is specifically useful because nothing in the domain_crash() path
-distinguishes PV and HVM guests, meaning that the output is ambiguous at
-a glance when investigating customer logs.  VTx vs SVM is less ambiguous
-at a glance because Intel vs AMD information is plentiful in dmesg, but
-there's no harm making it clearer.
-
->> @@ -852,6 +867,15 @@ static inline int hvm_vmtrace_get_option(
->>      return -EOPNOTSUPP;
->>  }
->>  
->> +static inline uint64_t pv_get_reg(struct vcpu *v, unsigned int reg)
->> +{
->> +    ASSERT_UNREACHABLE();
->> +}
->> +static inline void pv_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
->> +{
->> +    ASSERT_UNREACHABLE();
->> +}
-> Were these meant to have hvm_ prefixes?
-
-Oops yes.  I'm not entirely sure if the stubs are necessary, given our
-usual DCE rule.  I'll try some !PV and !HVM builds and see whether I can
-drop them entirely.
-
-> With at least this last aspect addressed
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Thanks.
-
-~Andrew
 
