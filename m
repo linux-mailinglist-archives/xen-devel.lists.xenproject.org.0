@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 087EA493D40
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jan 2022 16:34:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258881.446355 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B51D493DEE
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jan 2022 17:05:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.258887.446366 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nACxW-0002uY-C2; Wed, 19 Jan 2022 15:33:14 +0000
+	id 1nADRg-0006ou-US; Wed, 19 Jan 2022 16:04:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258881.446355; Wed, 19 Jan 2022 15:33:14 +0000
+Received: by outflank-mailman (output) from mailman id 258887.446366; Wed, 19 Jan 2022 16:04:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nACxW-0002sL-7l; Wed, 19 Jan 2022 15:33:14 +0000
-Received: by outflank-mailman (input) for mailman id 258881;
- Wed, 19 Jan 2022 15:33:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qd5e=SD=ionos.com=jinpu.wang@srs-se1.protection.inumbo.net>)
- id 1nACxU-0002sF-To
- for xen-devel@lists.xenproject.org; Wed, 19 Jan 2022 15:33:12 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1b8f90c0-793d-11ec-bc18-3156f6d857e4;
- Wed, 19 Jan 2022 16:33:11 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id p12so13780498edq.9
- for <xen-devel@lists.xenproject.org>; Wed, 19 Jan 2022 07:33:10 -0800 (PST)
+	id 1nADRg-0006mK-RL; Wed, 19 Jan 2022 16:04:24 +0000
+Received: by outflank-mailman (input) for mailman id 258887;
+ Wed, 19 Jan 2022 16:04:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nADRf-0006mA-Ba; Wed, 19 Jan 2022 16:04:23 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nADRf-0008Qr-9g; Wed, 19 Jan 2022 16:04:23 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nADRf-0004dg-0B; Wed, 19 Jan 2022 16:04:23 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nADRe-0005GY-Vv; Wed, 19 Jan 2022 16:04:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,229 +42,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b8f90c0-793d-11ec-bc18-3156f6d857e4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=4ls4oJs6fjZ2al5mHDHmAP430pKGIHTChze7QOzvid0=;
-        b=RkLog8m2MYBMRLjnz/lmwOPkWvyatJOpnc2C+SFqCB8A5+CgOtZNqgIcBiMLkIoMyh
-         gEr8s1UGmpgpAGNwUfZNYyRI9qEflB+nBcS9X+xsueK5rC4Ez4sCexRGgPhN4+3TFriB
-         ojHLQx/So9q0DEpS6wCB+RQONR2hQN+ZDAFsafTmgU6TGyrFxA/6lV1xY4IJet52lmjl
-         bSyn079RsjIcJeBi+nhFSujNuqtCPXIfKFb/dYwAiTdrCxy5wjkDmXd+/ZabmuFSO4A1
-         5WQvp91C0WXDM8k7HDlkHelCzGm9OlpjE9UBZJN4WZKlgYFI7B59vtkfpfd/tSS650gp
-         aHmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=4ls4oJs6fjZ2al5mHDHmAP430pKGIHTChze7QOzvid0=;
-        b=x2iOIzhaTgVhLpYHnSK4u8S0tabiH+6TDtM33gx080Iw8DwmF2SkQRJdXFIEHXnAux
-         N1/C5ruYvgiWb/BLkb1cNmCqOM5caC764L1Q8LKorhxJT2ZQ0+yvDlWm8ZUoypAkPk8a
-         pe+kP5+MERbyV1t3LYFAwkrhMsJwtP5u6yNYfZToO5TZYzdJdcspSfutVXbQtsVCwbNb
-         Hq/su9A/YO5hxjlfEK9XCZvuIAgWj3OfqdamuiS7Bo+suH/0C9cWsGdySO0YCNgcEKet
-         IEiTouyAut7NX36E5p8UTIOJYAx459vtZ9fmDcq1YxbDluA5ZpvtQMVKTaVsfu6G3Mxw
-         MmfQ==
-X-Gm-Message-State: AOAM530MVwJCOGs5JM+p9B0gXutJ9i7Wow5xQ508Xcmo4pa6UhHPBEN5
-	lKLQcr/Mi7FBi0UIhsdMW3tv8+jIwV0+8Y0dHPr+qQ==
-X-Google-Smtp-Source: ABdhPJxQu27Nzc9iLtmZju+JlEp2t2xBOVP/vALHsIADO5/2M/D93HCsSqLZHtj0tHiYz0k26Hu4vZztU4HAIUpxob0=
-X-Received: by 2002:a05:6402:195:: with SMTP id r21mr30344219edv.174.1642606389887;
- Wed, 19 Jan 2022 07:33:09 -0800 (PST)
-MIME-Version: 1.0
-References: <20220118071952.1243143-1-hch@lst.de> <20220118071952.1243143-12-hch@lst.de>
-In-Reply-To: <20220118071952.1243143-12-hch@lst.de>
-From: Jinpu Wang <jinpu.wang@ionos.com>
-Date: Wed, 19 Jan 2022 16:32:58 +0100
-Message-ID: <CAMGffE=gbN_oxdvzBdX66CaEPKQr6oc1TS1mf8GVz39e5Jme7Q@mail.gmail.com>
-Subject: Re: [PATCH 11/19] rnbd-src: remove struct rnbd_dev_blk_io
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Pavel Begunkov <asml.silence@gmail.com>, 
-	Mike Snitzer <snitzer@redhat.com>, Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Md . Haris Iqbal" <haris.iqbal@ionos.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.co>, 
-	Philipp Reisner <philipp.reisner@linbit.com>, Lars Ellenberg <lars.ellenberg@linbit.com>, 
-	linux-block@vger.kernel.org, dm-devel@redhat.com, 
-	linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	linux-nilfs@vger.kernel.org, ntfs3@lists.linux.dev, 
-	xen-devel@lists.xenproject.org, drbd-dev@lists.linbit.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=LlDeh7vPAaYzKzEDgS97sS4zCny05v3TMw31QWMf9Vw=; b=sm4I0Y4EH+IuCwDrTPfHfpVVTe
+	4KSP/wBbudOVZH1odkr0tiDVmdwYF9zucaymVbe6Gg10jGQOhZOpKASZCuaCuID/bB7YZSAZZw0ya
+	WYFTllXeDn0IXX4Rx91A85hi02dbNLymVN0NdSkK6HopyMdP8YtAWJPkBuUf7asIDVLE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-167748-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 167748: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=2fc98a9587704b3cdedfe3ae2a6104e7d9e251bd
+X-Osstest-Versions-That:
+    xen=444597436d08ccae6d210a2b1b877fef636796ea
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 19 Jan 2022 16:04:22 +0000
 
-On Tue, Jan 18, 2022 at 8:20 AM Christoph Hellwig <hch@lst.de> wrote:
->
-> Only the priv field of rnbd_dev_blk_io is used, so store the value of
-> that in bio->bi_private directly and remove the entire bio_set overhead.
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-there is one typo in the subject line, should be rnbd-srv.
-> ---
->  drivers/block/rnbd/rnbd-srv-dev.c |  4 +---
->  drivers/block/rnbd/rnbd-srv-dev.h | 13 ++-----------
->  drivers/block/rnbd/rnbd-srv.c     | 30 +++++-------------------------
->  drivers/block/rnbd/rnbd-srv.h     |  1 -
->  4 files changed, 8 insertions(+), 40 deletions(-)
->
-> diff --git a/drivers/block/rnbd/rnbd-srv-dev.c b/drivers/block/rnbd/rnbd-srv-dev.c
-> index 98d3e591a0885..c5d0a03911659 100644
-> --- a/drivers/block/rnbd/rnbd-srv-dev.c
-> +++ b/drivers/block/rnbd/rnbd-srv-dev.c
-> @@ -12,8 +12,7 @@
->  #include "rnbd-srv-dev.h"
->  #include "rnbd-log.h"
->
-> -struct rnbd_dev *rnbd_dev_open(const char *path, fmode_t flags,
-> -                              struct bio_set *bs)
-> +struct rnbd_dev *rnbd_dev_open(const char *path, fmode_t flags)
->  {
->         struct rnbd_dev *dev;
->         int ret;
-> @@ -30,7 +29,6 @@ struct rnbd_dev *rnbd_dev_open(const char *path, fmode_t flags,
->
->         dev->blk_open_flags = flags;
->         bdevname(dev->bdev, dev->name);
-> -       dev->ibd_bio_set = bs;
->
->         return dev;
->
-> diff --git a/drivers/block/rnbd/rnbd-srv-dev.h b/drivers/block/rnbd/rnbd-srv-dev.h
-> index 1a14ece0be726..2c3df02b5e8ec 100644
-> --- a/drivers/block/rnbd/rnbd-srv-dev.h
-> +++ b/drivers/block/rnbd/rnbd-srv-dev.h
-> @@ -14,25 +14,16 @@
->
->  struct rnbd_dev {
->         struct block_device     *bdev;
-> -       struct bio_set          *ibd_bio_set;
->         fmode_t                 blk_open_flags;
->         char                    name[BDEVNAME_SIZE];
->  };
->
-> -struct rnbd_dev_blk_io {
-> -       struct rnbd_dev *dev;
-> -       void             *priv;
-> -       /* have to be last member for front_pad usage of bioset_init */
-> -       struct bio      bio;
-> -};
-> -
->  /**
->   * rnbd_dev_open() - Open a device
-> + * @path:      path to open
->   * @flags:     open flags
-> - * @bs:                bio_set to use during block io,
->   */
-> -struct rnbd_dev *rnbd_dev_open(const char *path, fmode_t flags,
-> -                              struct bio_set *bs);
-> +struct rnbd_dev *rnbd_dev_open(const char *path, fmode_t flags);
->
->  /**
->   * rnbd_dev_close() - Close a device
-> diff --git a/drivers/block/rnbd/rnbd-srv.c b/drivers/block/rnbd/rnbd-srv.c
-> index 65c670e96075b..b1ac1414b56d5 100644
-> --- a/drivers/block/rnbd/rnbd-srv.c
-> +++ b/drivers/block/rnbd/rnbd-srv.c
-> @@ -116,9 +116,7 @@ rnbd_get_sess_dev(int dev_id, struct rnbd_srv_session *srv_sess)
->
->  static void rnbd_dev_bi_end_io(struct bio *bio)
->  {
-> -       struct rnbd_dev_blk_io *io = bio->bi_private;
-> -
-> -       rnbd_endio(io->priv, blk_status_to_errno(bio->bi_status));
-> +       rnbd_endio(bio->bi_private, blk_status_to_errno(bio->bi_status));
->         bio_put(bio);
->  }
->
-> @@ -131,7 +129,6 @@ static int process_rdma(struct rnbd_srv_session *srv_sess,
->         struct rnbd_srv_sess_dev *sess_dev;
->         u32 dev_id;
->         int err;
-> -       struct rnbd_dev_blk_io *io;
->         struct bio *bio;
->         short prio;
->
-> @@ -152,20 +149,16 @@ static int process_rdma(struct rnbd_srv_session *srv_sess,
->         priv->sess_dev = sess_dev;
->         priv->id = id;
->
-> -       bio = bio_alloc_bioset(GFP_KERNEL, 1, sess_dev->rnbd_dev->ibd_bio_set);
-> +       bio = bio_alloc(GFP_KERNEL, 1);
->         if (bio_add_page(bio, virt_to_page(data), datalen,
->                         offset_in_page(data))) {
->                 rnbd_srv_err(sess_dev, "Failed to map data to bio\n");
->                 err = -EINVAL;
-> -               goto sess_dev_put;
-> +               goto bio_put;
-ok, bio_put is used here, I think it's better the move to patch 10.
->         }
->
-> -       io = container_of(bio, struct rnbd_dev_blk_io, bio);
-> -       io->dev = sess_dev->rnbd_dev;
-> -       io->priv = priv;
-> -
->         bio->bi_end_io = rnbd_dev_bi_end_io;
-> -       bio->bi_private = io;
-> +       bio->bi_private = priv;
->         bio->bi_opf = rnbd_to_bio_flags(le32_to_cpu(msg->rw));
->         bio->bi_iter.bi_sector = le64_to_cpu(msg->sector);
->         bio->bi_iter.bi_size = le32_to_cpu(msg->bi_size);
-> @@ -180,7 +173,6 @@ static int process_rdma(struct rnbd_srv_session *srv_sess,
->
->  bio_put:
->         bio_put(bio);
-> -sess_dev_put:
->         rnbd_put_sess_dev(sess_dev);
->  err:
->         kfree(priv);
-> @@ -261,7 +253,6 @@ static void destroy_sess(struct rnbd_srv_session *srv_sess)
->
->  out:
->         xa_destroy(&srv_sess->index_idr);
-> -       bioset_exit(&srv_sess->sess_bio_set);
->
->         pr_info("RTRS Session %s disconnected\n", srv_sess->sessname);
->
-> @@ -290,16 +281,6 @@ static int create_sess(struct rtrs_srv_sess *rtrs)
->                 return -ENOMEM;
->
->         srv_sess->queue_depth = rtrs_srv_get_queue_depth(rtrs);
-> -       err = bioset_init(&srv_sess->sess_bio_set, srv_sess->queue_depth,
-> -                         offsetof(struct rnbd_dev_blk_io, bio),
-> -                         BIOSET_NEED_BVECS);
-> -       if (err) {
-> -               pr_err("Allocating srv_session for path %s failed\n",
-> -                      pathname);
-> -               kfree(srv_sess);
-> -               return err;
-> -       }
-> -
->         xa_init_flags(&srv_sess->index_idr, XA_FLAGS_ALLOC);
->         INIT_LIST_HEAD(&srv_sess->sess_dev_list);
->         mutex_init(&srv_sess->lock);
-> @@ -748,8 +729,7 @@ static int process_msg_open(struct rnbd_srv_session *srv_sess,
->                 goto reject;
->         }
->
-> -       rnbd_dev = rnbd_dev_open(full_path, open_flags,
-> -                                &srv_sess->sess_bio_set);
-> +       rnbd_dev = rnbd_dev_open(full_path, open_flags);
->         if (IS_ERR(rnbd_dev)) {
->                 pr_err("Opening device '%s' on session %s failed, failed to open the block device, err: %ld\n",
->                        full_path, srv_sess->sessname, PTR_ERR(rnbd_dev));
-> diff --git a/drivers/block/rnbd/rnbd-srv.h b/drivers/block/rnbd/rnbd-srv.h
-> index e5604bce123ab..be2ae486d407e 100644
-> --- a/drivers/block/rnbd/rnbd-srv.h
-> +++ b/drivers/block/rnbd/rnbd-srv.h
-> @@ -23,7 +23,6 @@ struct rnbd_srv_session {
->         struct rtrs_srv_sess    *rtrs;
->         char                    sessname[NAME_MAX];
->         int                     queue_depth;
-> -       struct bio_set          sess_bio_set;
->
->         struct xarray           index_idr;
->         /* List of struct rnbd_srv_sess_dev */
-> --
-> 2.30.2
->
-with it fixed,  the patch looks good to me.
+flight 167748 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167748/
 
-Thanks!
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  2fc98a9587704b3cdedfe3ae2a6104e7d9e251bd
+baseline version:
+ xen                  444597436d08ccae6d210a2b1b877fef636796ea
+
+Last test of basis   167740  2022-01-18 18:01:37 Z    0 days
+Testing same since   167748  2022-01-19 13:00:35 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Alexander Monakov <amonakov@ispras.ru>
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
+  Chen Yu <yu.c.chen@intel.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Zhang Rui <rui.zhang@intel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   444597436d..2fc98a9587  2fc98a9587704b3cdedfe3ae2a6104e7d9e251bd -> smoke
 
