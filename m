@@ -2,29 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3245493A06
+	by mail.lfdr.de (Postfix) with ESMTPS id C3F3B493A07
 	for <lists+xen-devel@lfdr.de>; Wed, 19 Jan 2022 13:04:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.258812.446156 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.258814.446167 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nA9gn-0000Wn-QE; Wed, 19 Jan 2022 12:03:45 +0000
+	id 1nA9hJ-0000wO-4u; Wed, 19 Jan 2022 12:04:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 258812.446156; Wed, 19 Jan 2022 12:03:45 +0000
+Received: by outflank-mailman (output) from mailman id 258814.446167; Wed, 19 Jan 2022 12:04:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nA9gn-0000UV-M7; Wed, 19 Jan 2022 12:03:45 +0000
-Received: by outflank-mailman (input) for mailman id 258812;
- Wed, 19 Jan 2022 12:03:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nA9hI-0000uT-VM; Wed, 19 Jan 2022 12:04:16 +0000
+Received: by outflank-mailman (input) for mailman id 258814;
+ Wed, 19 Jan 2022 12:04:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SXRn=SD=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nA9gl-0000UP-QF
- for xen-devel@lists.xenproject.org; Wed, 19 Jan 2022 12:03:44 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d63f5756-791f-11ec-a115-11989b9578b4;
- Wed, 19 Jan 2022 13:03:40 +0100 (CET)
+ <SRS0=yAwr=SD=epam.com=prvs=30181e5aeb=oleksii_moisieiev@srs-se1.protection.inumbo.net>)
+ id 1nA9hH-0000uF-4P
+ for xen-devel@lists.xenproject.org; Wed, 19 Jan 2022 12:04:15 +0000
+Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
+ [148.163.137.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e8f08e9c-791f-11ec-9bbc-9dff3e4ee8c5;
+ Wed, 19 Jan 2022 13:04:11 +0100 (CET)
+Received: from pps.filterd (m0174680.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20JBrLdN029653;
+ Wed, 19 Jan 2022 12:04:06 GMT
+Received: from eur05-vi1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2175.outbound.protection.outlook.com [104.47.17.175])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3dpe4grxwb-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 19 Jan 2022 12:04:06 +0000
+Received: from PA4PR03MB7136.eurprd03.prod.outlook.com (2603:10a6:102:ea::23)
+ by PA4PR03MB7200.eurprd03.prod.outlook.com (2603:10a6:102:100::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8; Wed, 19 Jan
+ 2022 12:04:02 +0000
+Received: from PA4PR03MB7136.eurprd03.prod.outlook.com
+ ([fe80::85d2:c8aa:2196:21c6]) by PA4PR03MB7136.eurprd03.prod.outlook.com
+ ([fe80::85d2:c8aa:2196:21c6%9]) with mapi id 15.20.4888.014; Wed, 19 Jan 2022
+ 12:04:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,203 +53,558 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d63f5756-791f-11ec-a115-11989b9578b4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1642593820;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=+hcRZpUw+8LijXGFDaP+uVYDP0lImUfOoE8UOQdWdRU=;
-  b=eBCxwdhZxYCoojD8ULl8Nrc4N8OmXpzoic+Du+WxiEtmjtjpx3kgn6Wc
-   WIQW23fmgAIU9haAbjrX1KJuOaoi9S4LStLgU0hQqweUzqH7N41wqgAgi
-   FhkD6y9nFM2FmM5xkXQrjjT1JVloidubUIjUd0/tjWpDvGynzn4VJVxFL
-   k=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: jvMCmv4cHK5Z4uALZ3Lq0A3C9oVmsCdRtKKlybDhQjFXM2/ICjLdHwIHrM3RwJ2y54oNU6bN7X
- DLeM+LP8Xj0d2aT6c6Tr/7CFbkk6g4hO+c4kZAe4ojtA86dFVM+yETp6FYqeeODBBpCa+Z/MTh
- bs8rGm85PrKBxva3/fFPcTwZvE+9UHSJyzaq/aFtCDfnzkncCMfQjX0aFaUGERCP2VpREDt5Ym
- z4AY/+1+QI/DBgEYsDRlEC6/jvQNVSMK5gsMBW6NEXd9P1AFoFszpLBmzJojWdw6mIFLlvPAWy
- Xv304our2pwglbyqxwXUQTTI
-X-SBRS: 5.2
-X-MesageID: 62708775
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:BCdBYqNKUZvTSR/vrR1EkMFynXyQoLVcMsEvi/4bfWQNrUp3gzQHz
- mIZUWCOPPaOZGPxetwlYN7loBxUv8SHzdUyTAto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En150Esyw7dRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYoyuuo/Qyx
- /xPjqCfDhkWAvPcmcobYiANRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YvNrick5atHiIasUu216zCGfBvEjKXzGa/uQuocIg2ht7ixINfbgY
- o0GYyUwUE3BRz8SMXQ8NYkTsvj90xETdBUH8QnI9MLb+VP70whZwLXrdt3PdbSiVchT20qVu
- G/C12D4GQ0BcsySzyKf9XChjfOJmjn0MKoQHrCl8v9hgHWI23ceThYRUDOGTeKR0xDkHYgFc
- gpNp3Ro/fNaGFGXosfVQTqEhD2LlxwnZ/UXDdIGthGM5Kzl2lPMboQbdQJpZNsjvc4wYDUl0
- F6Vgt/kbQBSXK2ppWG1renN827rUcQBBSpbPHJfE1NZizX2iNhr1kqnczp1LEKiYjQZ8xnUy
- ivCkiUxjq57YSUjh/TipgCvb95BS/H0ou8JCuf/AjPNAuBRPtfNi2mUBb7zt6YowGGxFAjpg
- ZT8s5LChN3i9LnU/MB3fM0DHauy+9GOOyDGjFhkEvEJrmrxoSP4JNwKv28kfS+F1/ronxezM
- Cc/XisLtfdu0IaCN/crM+pd9ex3pUQfKTgVfq+NNYcfCnSAXASG4DtvdSatM5PFyyARfVUEE
- c7DK66EVC9CYYw+lWbeb7pDjdcDm35vrUuOFcGT50n2itK2OS/KIYrpxXPTNIjVGove/lWMm
- zueXuPXoyhivBrWOXiIodVNfAFTfRDWx/ne8qRqSwJKGSI/cEkJAP7N27IxPYtjmqVejODT+
- X+hHERfzTLCabfvcG1ms1hvN+HiW4hRt3U+MXB+NFqkwSF7M42u8L0eZ908erx+rL5vyvt9T
- v8kfcScA6sQFmSbqmpFNZSt/pZ/cBmLhB6VO3b3ajYIYJM9FRfC/cXpf1Wz+XBWXDa3r8Y3v
- 5apyhjfHcgYXw1nAcuPMKCvwlq9sGIzguV3W0eUcNBfdF+1qNphKjDrj+9xKMYJcE2Ryjyf3
- geQIBEZueiS/NNlrIiX3fiJ9t77HfF/E0xWG3jgwYy3bSSKrHC+xYJgUfqTeWyPXm3D56j/N
- /5eyOvxMaNbkQ8S4ZZ8Cbti0Yk3+8Dr++1B1g1hEXjGMwarB7dnLiXU1MVDrPQQlLpQuA/wU
- UOT4NhKf76OPZq9QlIWIQMkaMWF1O0VxWaOvahkfh2i6X8l5qeDXGVTIwKI2X5UI7ZCOY84x
- fss5ZwN4Aulhxt2atuLg0i4LYhXwqDsh0n/iqwnPQ==
-IronPort-HdrOrdr: A9a23:Y2pRu6xvt0yg3Mhc/yhMKrPw871zdoMgy1knxilNoHtuA6ilfq
- GV7ZEmPHrP4gr5N0tOpTntAse9qBDnhPxICOsqXYtKNTOO0ADEQL2KhrGSoAEIdReeysdtkZ
- 56da5wEdvxCkU/o/rbzWCDYrEd6ejCybuvg+jGyXdrUEVNUIFPqylEKivzKDwReOFhbaBJbK
- Z0IvA33gadRQ==
-X-IronPort-AV: E=Sophos;i="5.88,299,1635220800"; 
-   d="scan'208";a="62708775"
+X-Inumbo-ID: e8f08e9c-791f-11ec-9bbc-9dff3e4ee8c5
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bsHNGjmSgwc9jB50b6CugQ6v6hOedaQV1KGkCMi2jwNpKQw3wkG4RiPkhf1m5scIB2F7Tl1fK2E53hnTevGX/Gudo0Q8I4Npms/72FtTSbAvYuKQ6UvqhNFtIxjET8ZWn9nRH738pbm1/NVvLiMz6VU5j5Lu2my9jhlq5F4rdgchImot/RY6U8CJb/c7JCW326DhzUaxXTyPc7RcIt2ciT87UQABvUCJbb/iP3x86RlidMDhXCetBIZFWVTg9r4czXGn618UgwWr6YX9tpjzG33FUi93xYp40LzGS2o9rFPLFMOn7zyPRbNcXiE+p3L0FUGNNczwmNlr9WFY5Pw2dQ==
+ b=OOFVdQlbA5vwQBc06qLhD4oNlX3VYmw9EDp+VpykRVtoqEGfaLL/X6wHQryBchaUhTTO49CMCUrfhFjpyA4++887JexGaYA8tkDttKgSYqgcTKl8mIWJW81OiMXSaFRPjLF5QL/s1hI3s9Mqt4JH5Gqo7Qkxxf8NVsEXRWVmjWLKQS0Z4WYtlRw2u9LY1FuFpXfvPlsCwS3l4w2E1iEYFTUZixCjpx3oX43gUFPzcC0WKS+sxi8xLHqKtrCdy7eZJUqW5s4XKrOIrG6rHav1tzDEbf4Vweu8UvF5yUNWHJHsJQogOqSNHB3/pK0pnY4eVJS8fOI+L8FsKbMclGdG8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JLDoJGqeyVOqoYGF1B9eA2OtkKsDK5I4ihKh3wUrkw4=;
- b=O14oxO59KqoApPo55h3nQRypJNdW/WXfpNEX5BkJprDIpS3SUK1AgNfwDQ+rRUNaLl9At4iU/LRHTrM4JHqaX0uEklUVgeTjQnyLUWW8ahdaLc38lrIFMHpNBlpHyv1S/STMvuCSFZ3uS+d2EdZgtSeCa+AcEkeS6jSTd9ICXHTvNZWHhglv/fjC9EDdvJcsUw3dI0V73YcvPdv+HI7NFlx+FquudtR1vngVsl5ys7WBXvRxA7KpLpjPA9ejl/s885UuwQLJ+DsLTpeW6+qYnGPO1yvWB1XboJCI312iocSyb8pr5k1flJBE2QoAVJYXlIKhh0kVQRW5pP0c2dC27w==
+ bh=7XuaHi1boNJTDz8+F86As4AaBFPlt73xVG1JuUX7TdE=;
+ b=nayS+0o2/eOObcDPtCHF37pZQ/TUe39+rerSZxPFKapP0sN+YNnIkwKoKV9NjFyKjYHRJ2WaeKihPOyYvzC9YuOwHD8Uo4I8kshHXJ+ISvfpR3fiWYXBT77Uoq0ZmFlmR8DoYWvXVT89CXjwrb77zC+iDQCvjG3lBucwlS4HA816VPwPt0tRfQLIW0PzfErhCvbOHDnYEoaqXtfICBszznd2QI3tihDCMq9LzhHUj1Cea7zMD/0OAY6ppqiQ7U5s01b5rOwyWMnQ06CRU06zssFEJhM2KUyrJoGFaoFB8IsXKBUAMInlbKC6tti1+vVlWrdF22wxCIaJLCOxgFIIRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JLDoJGqeyVOqoYGF1B9eA2OtkKsDK5I4ihKh3wUrkw4=;
- b=dikk668ULbYEOpsvscMeOkDG6Uan2u6do0j9fOUMiWE9DaJxmUorA9LAVgY/8DFtbXo6Ta4D0fMueXB8/J6BHcTaayykfwpePwt9wNYJ8mwiGdc0I9D0J9Gc1VTV/A0R2KqkhQ+Lz3uQGRnk/DExXMKRWLyzBjxH9OH7oWnycpM=
-Date: Wed, 19 Jan 2022 13:03:22 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 2/5] x86/mwait-idle: add SnowRidge C-state table
-Message-ID: <Yef+ClTpFgXSzfuL@Air-de-Roger>
-References: <e16ff1ad-b1c5-f4e0-9336-716eceb93a9f@suse.com>
- <b21c106b-b852-b4f0-efa9-fb5c465bfdac@suse.com>
- <YeaTqyt3ZoFTx/Ee@Air-de-Roger>
- <3bdf57ab-d658-f26f-6ef3-23e08aaf5aa4@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <3bdf57ab-d658-f26f-6ef3-23e08aaf5aa4@suse.com>
-X-ClientProxiedBy: MR1P264CA0117.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:50::10) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+ bh=7XuaHi1boNJTDz8+F86As4AaBFPlt73xVG1JuUX7TdE=;
+ b=I+ImqF3g8f/Isc3Jsstb380Hyt/TygZkjjg25eLeIJCpniz/nMTZ+hid9VHPvLkpBWckr5MUvrmYabFvcflawTIval4c44cyC6R8G3E6DwBK/Fp4RGXpJpZiSLxthsjNJWxbHFs5CGksUVhzW2dvuT+YmeWt3dMTRmgtfxnH2CISjNhWnpIFtv8KjLNeO/+BFZKCjK54EO6GtFH76p5gnQdmXE8Rwp1IFR3XmD1LeHtxef0JwsaS5yDPwTHkzeew49fxjQn4AP+gbWsQ0MAbtgg3BmuQxQOgiuEh71QKWV/4Cenre6MRIZFc05QKJqWmWidba6UKRDKs6hE1c2gXdQ==
+From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Julien
+ Grall <julien@xen.org>,
+        Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+        Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
+Thread-Topic: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
+Thread-Index: 
+ AQHX8M3JF7Ng56/tV0+8/7pODiaWfKw3iHyAgAQwJICAAG+xgIABQZuAgAAWSACAAOV/AIABANAAgCsRKgA=
+Date: Wed, 19 Jan 2022 12:04:01 +0000
+Message-ID: <20220119120400.GA3779126@EPUAKYIW015D>
+References: <cover.1639472078.git.oleksii_moisieiev@epam.com>
+ <e9dadd96aa5b64b9232e10a083ce393af620adde.1639472078.git.oleksii_moisieiev@epam.com>
+ <alpine.DEB.2.22.394.2112171709140.2060010@ubuntu-linux-20-04-desktop>
+ <20211220181215.GA1702335@EPUAKYIW015D>
+ <alpine.DEB.2.22.394.2112201613210.2060010@ubuntu-linux-20-04-desktop>
+ <20211221200305.GA2460476@EPUAKYIW015D>
+ <alpine.DEB.2.22.394.2112211310000.2060010@ubuntu-linux-20-04-desktop>
+ <20211222110414.GA2883815@EPUAKYIW015D>
+ <alpine.DEB.2.22.394.2112221627190.2060010@ubuntu-linux-20-04-desktop>
+In-Reply-To: 
+ <alpine.DEB.2.22.394.2112221627190.2060010@ubuntu-linux-20-04-desktop>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: b3a59415-1162-4e3b-b784-08d9db43c871
+x-ms-traffictypediagnostic: PA4PR03MB7200:EE_
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-microsoft-antispam-prvs: 
+ <PA4PR03MB72009BA9D5E1B71F438A69D5E3599@PA4PR03MB7200.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ Lw5s6wEPUub/G7B5FHO7t/CCw8jl6q/Dgua+82/q5jgDrEA8zHubveOEuGmNnl7ywnU5Ar4aButZiXyW92r2m+kYT2m3Kwg/oyOy5Jo+vQJoEE+IKU/72z4r2iTl+O95O7nXhds4+uW4imvav6pMIHUT5BJgU7n+dL9GgHpJqF2udKl4MCzkjmrkaD96L+R5FmFWgWdLKDe5dpJ38pILC5EBrJyeMvCyUs6ahZlGP4qxFXu102Nhbh7f/z6PimIiKSipS7JsKxoZtIVaWoyGMY5dOqQy3WmFFFfiAFPiXkDaQ0Em45Y7XLlTBve5GiLTCs4b86zTXDKPt5WI9OPet8cW4e2O3Gms/OyUaGmRHk9PLaO5WrynDnDDbXsv4fnNIuYz2mQ2v8Zz3ffa5b4ykHULRjVzx8BQlnL6OIdatfqNHrnJHsSK7wIsDAWe+C7OKbWF86oGWqTlRM1Xxg+smaAVWqIGzHe8NZUK95rxIjV6Z/VAWRXYCF1eCUyKReXBjiJcnfYSEeO4i2jyLohMrN64E0zKhXfaakjxsdys7a9dUCkytkYqhO/nIyyVJdmpXFySilI7XoAUo5uQaamEtzEg3+1qf6BWYUbvDtXmpUB73xbDZhi4Y1fxN7sf2j2dVPXYyDmum8MC+jwiZo/vRpMjZvzB4QMOhdkodjCdGSTDxw3JY5bG3Xd+5oDop9Cc9S9WRsZ4t/sxVijQ15z532Sf7A+zM6Jtu+/GP3nqVwWHyq0hRv+MyQRVrRwMUdLgnhYvGfr6mIRydW8kEWP/XT+qwje4Erw9dC+/OKHgEyHV0IJpWj09bxl1PNqEDf00
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7136.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(84040400005)(8676002)(6486002)(66946007)(71200400001)(64756008)(66446008)(66476007)(66556008)(8936002)(91956017)(76116006)(1076003)(2906002)(5660300002)(4326008)(33656002)(186003)(316002)(6512007)(9686003)(30864003)(54906003)(33716001)(86362001)(26005)(38070700005)(122000001)(508600001)(6916009)(966005)(38100700002)(6506007)(83380400001)(2004002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?AvQhS9BkyzFF2rjSSg5AHfWSzpp5Ue/yTagC+UFPf+lpXg95ek7HfE7YYYxl?=
+ =?us-ascii?Q?C5JeZkm0BenvfWTg2kvvp5YutzB8XuZNltR7SQ6Wq//bMs6mBs5z/4A1mQ1F?=
+ =?us-ascii?Q?vPSPBVGWj8jnO7HzQoDNq588NulNJUPdzh+Qs6OhrC0tQuvIi63JS/t8w7wN?=
+ =?us-ascii?Q?jQfR63hBN+JcQI4u7pQuq/mC9nGIpKtGltNLIijJWz5LlB2iXoc5XggDsJco?=
+ =?us-ascii?Q?E5hkhJcckmHYh6jLZmJq+0BDdA26gjj/TwwObRSnlKiPHi9XlSGUAPyBjbZq?=
+ =?us-ascii?Q?Xsd9actPr7GAOgJUS5SVdGMMpoG++zbyr2+d1QlTwBONUDc5JFacrI0E0VOn?=
+ =?us-ascii?Q?lbGIYWCstbw5TYMnTrEKhTeIG7oZxkeJd+5AUcCelFmIkHYOx454k5c6YjCf?=
+ =?us-ascii?Q?+Fz54uMYO/aytRlQVGZ2wUiogPKuRyIG4hkRjCd8ceMmB73L1zN9YN5jceDY?=
+ =?us-ascii?Q?6MNBqssnw0HsHUiOURcnhbmOZrF8M8g0GwKwSBF2IO+IUP0Wrnu5xouFrSo9?=
+ =?us-ascii?Q?I64+siEkJbtEUXF6SgeqCHnaNI87C5AAbQhe/GJdW6fHrSObQWRDkZ6d1uak?=
+ =?us-ascii?Q?EZ28GIbdDmbaw57gbQuBib0sFKZ2Fip2TlCVUdRbLGjQtO+GbbG3BUKicwDz?=
+ =?us-ascii?Q?CuioQWNVVJCvyv1cLhneZvfxMz5YPGaUk+qCNhoX5xZVFKpt23mImMke+my+?=
+ =?us-ascii?Q?bLYpkIZC1OlFHF67P9izbUOo50uD2Z7mUUSfg5N0/QCdYhLSR5lhkpknMvzT?=
+ =?us-ascii?Q?QwzQua7mn11G+31mOcVuLPikYfTENuVW8B/Cuza0S/8PgFI3ecpQMAc/Mrlm?=
+ =?us-ascii?Q?54AeE8bHzWjBXf9+ZZdyXhHuu/oJET4DrOxtPLSmbMHlTl81k5GF8mXSCSnd?=
+ =?us-ascii?Q?rY29YEeKG1SJ5DznZTgVLEvAK0CZLrpxpQ1w3TmVYXj02pmYcX3BVC/tShnf?=
+ =?us-ascii?Q?DoVkcqBc53W1fmvFygqxPQ6B7wKEpAdSdgzKfgkfZsZWTG3vkOAtrORwHjSW?=
+ =?us-ascii?Q?FzO7Fz/U5WsBSXEi0pBzDCnPv4Jm+l8bfnUMKl7pf1PMh8tsKfGGTrkVzNTM?=
+ =?us-ascii?Q?LVP14al1NfIs0LdoUyw2bP/AGaEepd+1UJaCbiH6lkv8EWxVZBeJE9+/9Ihs?=
+ =?us-ascii?Q?6MBCfHAIDBZNqUv+9z72/kEj21z66YngEZLGF5WT5IcHTFp0SoCYUZ5qc+vk?=
+ =?us-ascii?Q?WVjEXoXcbL33V+GpONXjKT/G+RYafmnPz/vU6gN/7vTZtbpOWfL22KvT5FJ7?=
+ =?us-ascii?Q?OsUV193f9YcJGPSdYhsb4ko3aksw0A1ego39Eblt9TloGKW5+5AMS/jfGST5?=
+ =?us-ascii?Q?VKwbuvS/PENmlU/a5tr8MdMuH00fzveM7nNBKIq9JfrfKa1aZiOdzg1XkjOq?=
+ =?us-ascii?Q?u+jmqbc1p7CYkm7YBeL/SriXD6gl7AV+OEPVA50b+78icE10DtQ8vwCbwYNA?=
+ =?us-ascii?Q?3ddcZ7QX1/xuxlcosWA9KSWSTTLE46qo7HpP381TWIWPiB+KNw0k9lqgfHPe?=
+ =?us-ascii?Q?v+OQ+UVavmJ7+tbPW+TJO7k2fwCpUQVyF/nuZNQuHacabHFd9MRzsB7oPod0?=
+ =?us-ascii?Q?cxm0z2Ksl6yX5F3D0cwS2T+x/ElX3a4Rx/fMhuFMeO0otlTHc3pO7K4yEmui?=
+ =?us-ascii?Q?xFZUJSG4NObPfjCXlCEYkGRsQ62y/JfYUGN+FlwvF7N6oco8FWo6h40+isJk?=
+ =?us-ascii?Q?6uzr+7YR5z0wUKah2lJvaxDPuAM=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <60116B4AD751DB4FB934386D5C544C7F@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e41e1770-fabe-457e-0e38-08d9db43b48a
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6256:EE_
-X-Microsoft-Antispam-PRVS: <SJ0PR03MB625663C61032B312E99A5EB08F599@SJ0PR03MB6256.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TPtmG0cEGsf1mp8ZpE6qUHeSmEismumGyhjT3bSMiKkJ1UOyoWMTnEg93o0UW4mzfaGTIqO/FC/r/mfHbS+hrQbsl5UnoK9UNA5EUu3uqmhKxsXBjWb6WS7XipAHrwrpv8CyEFi76qVKD8nwADap9gGBKdPTwrAQHr1VGaEdD0pJR8RsF3JatFZk27CM9hgsKphWdvCz/LilK+cPbGVGRLZa9HD5GUfnaOxcY5SLHl1aNw60M1tiCqMxvzYupgipCwOsyrpCBMnQE58cLvdcnF/8DNYmFQRax/l5yzZTnqLccHbahCV1u5luB/GfW4VKrc75UkOo53uWEbQjZCRpgOA+mGbww2l5k7cBR81b9GOWwhaxj4kMx89EInv831itIdfPLINGb8AT8iwxprSRdaVfo7FQzXVTkotCmK1sHM+v8nm+IcRXj1l0MsHTQIu/BbR34UfZYnnBYiGxRdMrp2tA/jR/o9EmNQCfE6bhjJwI/twbYWoIs72hH5KsV/tJg1eG+Ns/JxqqjSGPD7w0AUdcws0s2qmFlEWMy0k2yQQye6YhCimKcZDNPoPXSpU+N2pYbc95mrx7HPU1vvt0iWCVlhQ98FLAClGr2WEsDajcwB0dVYGeVrYXro/26NY2GWnRZTZJQ8JVxI+o3jUeTuvHetDtBUF6G+hgLrgOL11sA8xbgY+L/kbh6fRoqXB5Guwe7d0Fem94CD6wtTBcRQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(7916004)(4636009)(366004)(8936002)(6916009)(186003)(508600001)(6486002)(2906002)(38100700002)(82960400001)(26005)(4326008)(66476007)(85182001)(86362001)(6666004)(33716001)(66946007)(8676002)(5660300002)(66556008)(6512007)(9686003)(54906003)(53546011)(316002)(6506007)(67856001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cHY0N2dIbGlGTjVINkZIYzgrd2hwQjdkYm4wYTRMSXprMVVSYTBoT1l5bC8w?=
- =?utf-8?B?UzF2ODdkVDV0NCtqR09ZUUpUajQrSVZta0lKS3ZDUXM4dHJ4blFiVDlKRzND?=
- =?utf-8?B?TjlaK2hjcmEvcU13UnQzN2RiZnhwTkkwby9WbldIZDRkOG1hbTdycDZVbUpK?=
- =?utf-8?B?VmVWbFJOc3h1aHkwNDdKNmhrWldnMnV5OFB0Q3BlUTlnY2tTVkRlUTkzbEQ0?=
- =?utf-8?B?VVVHUHhLV0xiSEJRNkw0a0pIMnlzdGgza2s1ZHgzSHBZL1gwN1hXSlBoUVZ4?=
- =?utf-8?B?OEdkUnVweFVKQ0doTkljTldKbDVnOUdhNlhyNWpYa0tKbUUxb1NacC94Y1ln?=
- =?utf-8?B?K1hXVWpTcXlOMGZ0QkJyRlpuZTFSM1J1MzNvVEJickY4ZDNGa3djd3RZOHJj?=
- =?utf-8?B?Y0hqZ010VFJrSkludzA4MVlwRTJzdmt2eDFOZ1FNNFQzTk56My91Y0M5LzJE?=
- =?utf-8?B?Z205bU50M3hBYit4QTVza2VpaDZnSi91OThrdEVTc3NKYkluK1YyVE44K3Vs?=
- =?utf-8?B?dmp0RVFyUUdVRW9tTXpFcWd5Mml3cHNCWFlDZ2dDSCtPMmlEb3ZyYllkS0tT?=
- =?utf-8?B?ckFUNllKZ1RxV0J4ZTUyTGFNeFE0elFoVHVYRjk4NDBYMzYvZGVyVVhpWEMv?=
- =?utf-8?B?d1Q2VUc3TmRQRXhrQWlSdzJPdWgzV3F2QnI3eUk5bkNMRGZmdGhqWmlvYTlv?=
- =?utf-8?B?N3dpcDk0VVVNUVVrSlUyeUFZcHd5UG1jeVZ2NE9IUHp6eW55OCtHbVRzODJL?=
- =?utf-8?B?ZEliRS9HcWJPeUhyMDJ4WGNLeTA0SlE1N21NWDlzV1hQejhLbEd6M2VLaFVM?=
- =?utf-8?B?NlFVc0Z6Zkd6RGFJZGpGMytzNWJwOUpKN0o1anRzc2pTZWxaZzArRUx6Y3Js?=
- =?utf-8?B?TFlYbk8ycHJNZnNjTGZyVWtMTjN2L21mU1JLaTFLc1RvenV2M2p3dnhwK2s1?=
- =?utf-8?B?QU8rN0V6ckNEbVl4bHNORyt2OGdSQlJoSkk0OGlkdmErRVhrMEt6UTA0cHYv?=
- =?utf-8?B?ckIrU1ZBMlNyaGlEK25SbUFuY1MyZFBSejM0a0JuWktPV1VyVmprQUd5VkJT?=
- =?utf-8?B?bUlMallUTXNqNWFhb3NjcG5vOStZMFh5QUtaR0lRWlJDa2hPNys1T3RYS2Mv?=
- =?utf-8?B?bm1PRXRoTno0NUQyc1ZvMTN6KzNRSkpoZ1NCTjVFQWNFTW9FUUhaTVdVRDNq?=
- =?utf-8?B?WUY2RnVNU2tTNkMzNFdsWDFLRDYvakovRlFVY3BnZksxa1NhVkdVNDBFTGJY?=
- =?utf-8?B?N0hxd093R3drUG93VzE2MFQvRm9IMDJPNWlub1R3d2xhMnVpbVhnakk1bHNU?=
- =?utf-8?B?UWhtMS94cFJMdGdkNUVZVVZ4Sk5iUTZQU2JiSVNUa05uYkt1UC9lUW1Ecjlq?=
- =?utf-8?B?RHZEdkYyek5oTEFSaGVnYnI4cGl5VTRUU3c3SUQ1Zkh0b0JQZmFySEZTKzdy?=
- =?utf-8?B?MElmUHJIT0FIRW9ST0Zjc2plTyt0Z3dPUXVYclNDTWhvUzdSM2hDTTBGVXZk?=
- =?utf-8?B?Vk1rOWN4T3RUZlpwSS9wdjMzTHFkTEZGYUgvbm4zeGZoN2t6MjAzV3VLN0JD?=
- =?utf-8?B?UEFzb3JQUmQvY0daWnNZNk55ZmNyS0c4QlZ3bjJPeWxMSGV4MWxaUnNKcG5V?=
- =?utf-8?B?QytYcXRJQjdnYlRxR2hMYVNERDBuMERwc1pOdnZmN0xYcXhyMStMMVBselpS?=
- =?utf-8?B?cm5aZUdvNGJXcmdaZXRYK1BKOUtlUUZ3ZWZGNlZ4emVxOGFTeDQ5NFo0SHpD?=
- =?utf-8?B?dVZVWlM4SmQwdnloc1o2WGNNSGsrRVBRMEZ4WGJjZWlxaHYycFkyc2MyWTFB?=
- =?utf-8?B?SmU4T0luY1FqWTFUdmFmYlBveVZVYVdxTWRMTGs5L1dTZXQvSHZoOGcxNE5j?=
- =?utf-8?B?SVdNTEkxZW5GZUV3aHJ5aUx4dUx0NVk2eVBQTWZBT1VJd2ppdjRyREM2V1hN?=
- =?utf-8?B?bU9IN0ZKRHJtaHpSVU5aWCtsbHhYQlFnSmVDL0M0VjVYZDBRMTVXVFh5aktv?=
- =?utf-8?B?VjZ4Ym5JSWNLQndUZk4vM1BsdGt6SkxRa3RYTjdlQnZLbTcwZWI3VWR0aGxZ?=
- =?utf-8?B?MlI2UTR3d0FxL3RZUkJnRTFTeHBodTBpVUV0bUgzWEwvR09LdzR0eFJ2MWw2?=
- =?utf-8?B?clJqcTJYdmhWdGpISXlZSXBCeDU4dSt2d0N0bGYrRm13c3E4UWMxazdTM1k5?=
- =?utf-8?Q?A3e1l9c4X3sMWeNdal2Nwws=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: e41e1770-fabe-457e-0e38-08d9db43b48a
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2022 12:03:28.9904
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7136.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3a59415-1162-4e3b-b784-08d9db43c871
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jan 2022 12:04:02.0886
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lE5WAw0pEevvzXd5MBXe4h2NCITXqA9pptWi2kjTHkgZpjZx74mIoP6D3HvhE9Lk5d1loOZ7Tk82ub72DUU1vw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6256
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 5By454Kdp9jBBudbXUODm5/5Ve5vQj6fUD+mOTOp9T0gmeqSRMILw3YLdgMqoTdUGhiynos6/IIB2T20RQYqvrLdn4DmAEc5YhQIHHalDTY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR03MB7200
+X-Proofpoint-GUID: t2vGQbv43QaPcbF-24VTDr45RM6NctK4
+X-Proofpoint-ORIG-GUID: t2vGQbv43QaPcbF-24VTDr45RM6NctK4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-19_07,2022-01-19_01,2021-12-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 priorityscore=1501
+ lowpriorityscore=0 malwarescore=0 mlxscore=0 adultscore=0 clxscore=1015
+ impostorscore=0 spamscore=0 bulkscore=0 suspectscore=0 mlxlogscore=999
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2110150000 definitions=main-2201190070
 
-On Tue, Jan 18, 2022 at 03:05:54PM +0100, Jan Beulich wrote:
-> On 18.01.2022 11:17, Roger Pau Monné wrote:
-> > On Mon, Sep 06, 2021 at 03:00:46PM +0200, Jan Beulich wrote:
-> >> --- a/xen/arch/x86/cpu/mwait-idle.c
-> >> +++ b/xen/arch/x86/cpu/mwait-idle.c
-> >> @@ -742,6 +742,32 @@ static const struct cpuidle_state dnv_cs
-> >>  	{}
-> >>  };
-> >>  
-> >> +/*
-> >> + * Note, depending on HW and FW revision, SnowRidge SoC may or may not support
-> >> + * C6, and this is indicated in the CPUID mwait leaf.
-> >> + */
-> >> +static const struct cpuidle_state snr_cstates[] = {
-> >> +	{
-> >> +		.name = "C1",
-> > 
-> > We usually use names like "C1-SNR" or similar in other cpuidle_state
-> > structs. Is using plain "C1" intentional here?
-> 
-> I don't know. We're simply following the Linux side change. If we're
-> unhappy with their naming (it indeed looks inconsistent), then we
-> ought to make a separate patch on top (and maybe submit that also to
-> Linux).
+On Wed, Dec 22, 2021 at 06:23:24PM -0800, Stefano Stabellini wrote:
+> On Wed, 22 Dec 2021, Oleksii Moisieiev wrote:
+> > On Tue, Dec 21, 2021 at 01:22:50PM -0800, Stefano Stabellini wrote:
+> > > On Tue, 21 Dec 2021, Oleksii Moisieiev wrote:
+> > > > Hi Stefano,
+> > > >=20
+> > > > On Mon, Dec 20, 2021 at 04:52:01PM -0800, Stefano Stabellini wrote:
+> > > > > On Mon, 20 Dec 2021, Oleksii Moisieiev wrote:
+> > > > > > Hi Stefano,
+> > > > > >=20
+> > > > > > On Fri, Dec 17, 2021 at 06:14:55PM -0800, Stefano Stabellini wr=
+ote:
+> > > > > > > On Tue, 14 Dec 2021, Oleksii Moisieiev wrote:
+> > > > > > > > This is the implementation of SCI interface, called SCMI-SM=
+C driver,
+> > > > > > > > which works as the mediator between XEN Domains and Firmwar=
+e (SCP, ATF etc).
+> > > > > > > > This allows devices from the Domains to work with clocks, r=
+esets and
+> > > > > > > > power-domains without access to CPG.
+> > > > > > > >=20
+> > > > > > > > The following features are implemented:
+> > > > > > > > - request SCMI channels from ATF and pass channels to Domai=
+ns;
+> > > > > > > > - set device permissions for Domains based on the Domain pa=
+rtial
+> > > > > > > > device-tree. Devices with permissions are able to work with=
+ clocks,
+> > > > > > > > resets and power-domains via SCMI;
+> > > > > > > > - redirect scmi messages from Domains to ATF.
+> > > > > > > >=20
+> > > > > > > > Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.co=
+m>
+> > > > > > > > ---
+> > > > > > > >  xen/arch/arm/Kconfig          |   2 +
+> > > > > > > >  xen/arch/arm/sci/Kconfig      |  10 +
+> > > > > > > >  xen/arch/arm/sci/Makefile     |   1 +
+> > > > > > > >  xen/arch/arm/sci/scmi_smc.c   | 795 ++++++++++++++++++++++=
+++++++++++++
+> > > > > > > >  xen/include/public/arch-arm.h |   1 +
+> > > > > > > >  5 files changed, 809 insertions(+)
+> > > > > > > >  create mode 100644 xen/arch/arm/sci/Kconfig
+> > > > > > > >  create mode 100644 xen/arch/arm/sci/scmi_smc.c
+> > > > > > > >=20
+> > > > > > > > diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> > > > > > > > index 186e1db389..02d96c6cfc 100644
+> > > > > > > > --- a/xen/arch/arm/Kconfig
+> > > > > > > > +++ b/xen/arch/arm/Kconfig
+> > > > > > > > @@ -114,6 +114,8 @@ config SCI
+> > > > > > > >  	  support. It allows guests to control system resourcess =
+via one of
+> > > > > > > >  	  SCI mediators implemented in XEN.
+> > > > > > > > =20
+> > > > > > > > +source "arch/arm/sci/Kconfig"
+> > > > > > > > +
+> > > > > > > >  endmenu
+> > > > > > > > =20
+> > > > > > > >  menu "ARM errata workaround via the alternative framework"
+> > > > > > > > diff --git a/xen/arch/arm/sci/Kconfig b/xen/arch/arm/sci/Kc=
+onfig
+> > > > > > > > new file mode 100644
+> > > > > > > > index 0000000000..9563067ddc
+> > > > > > > > --- /dev/null
+> > > > > > > > +++ b/xen/arch/arm/sci/Kconfig
+> > > > > > > > @@ -0,0 +1,10 @@
+> > > > > > > > +config SCMI_SMC
+> > > > > > > > +	bool "Enable SCMI-SMC mediator driver"
+> > > > > > > > +	default n
+> > > > > > > > +	depends on SCI
+> > > > > > > > +	---help---
+> > > > > > > > +
+> > > > > > > > +	Enables mediator in XEN to pass SCMI requests from Domain=
+s to ATF.
+> > > > > > > > +	This feature allows drivers from Domains to work with Sys=
+tem
+> > > > > > > > +	Controllers (such as power,resets,clock etc.). SCP is use=
+d as transport
+> > > > > > > > +	for communication.
+> > > > > > > > diff --git a/xen/arch/arm/sci/Makefile b/xen/arch/arm/sci/M=
+akefile
+> > > > > > > > index 837dc7492b..67f2611872 100644
+> > > > > > > > --- a/xen/arch/arm/sci/Makefile
+> > > > > > > > +++ b/xen/arch/arm/sci/Makefile
+> > > > > > > > @@ -1 +1,2 @@
+> > > > > > > >  obj-y +=3D sci.o
+> > > > > > > > +obj-$(CONFIG_SCMI_SMC) +=3D scmi_smc.o
+> > > > > > > > diff --git a/xen/arch/arm/sci/scmi_smc.c b/xen/arch/arm/sci=
+/scmi_smc.c
+> > > > > > > > new file mode 100644
+> > > > > > > > index 0000000000..2eb01ea82d
+> > > > > > > > --- /dev/null
+> > > > > > > > +++ b/xen/arch/arm/sci/scmi_smc.c
+> > > > > > > > @@ -0,0 +1,795 @@
+> > > > > > > > +/*
+> > > > > > > > + * xen/arch/arm/sci/scmi_smc.c
+> > > > > > > > + *
+> > > > > > > > + * SCMI mediator driver, using SCP as transport.
+> > > > > > > > + *
+> > > > > > > > + * Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> > > > > > > > + * Copyright (C) 2021, EPAM Systems.
+> > > > > > > > + *
+> > > > > > > > + * This program is free software; you can redistribute it =
+and/or modify
+> > > > > > > > + * it under the terms of the GNU General Public License as=
+ published by
+> > > > > > > > + * the Free Software Foundation; either version 2 of the L=
+icense, or
+> > > > > > > > + * (at your option) any later version.
+> > > > > > > > + *
+> > > > > > > > + * This program is distributed in the hope that it will be=
+ useful,
+> > > > > > > > + * but WITHOUT ANY WARRANTY; without even the implied warr=
+anty of
+> > > > > > > > + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  S=
+ee the
+> > > > > > > > + * GNU General Public License for more details.
+> > > > > > > > + */
+> > > > > > > > +
+> > > > > > > > +#include <asm/sci/sci.h>
+> > > > > > > > +#include <asm/smccc.h>
+> > > > > > > > +#include <asm/io.h>
+> > > > > > > > +#include <xen/bitops.h>
+> > > > > > > > +#include <xen/config.h>
+> > > > > > > > +#include <xen/sched.h>
+> > > > > > > > +#include <xen/device_tree.h>
+> > > > > > > > +#include <xen/iocap.h>
+> > > > > > > > +#include <xen/init.h>
+> > > > > > > > +#include <xen/err.h>
+> > > > > > > > +#include <xen/lib.h>
+> > > > > > > > +#include <xen/list.h>
+> > > > > > > > +#include <xen/mm.h>
+> > > > > > > > +#include <xen/string.h>
+> > > > > > > > +#include <xen/time.h>
+> > > > > > > > +#include <xen/vmap.h>
+> > > > > > > > +
+> > > > > > > > +#define SCMI_BASE_PROTOCOL                  0x10
+> > > > > > > > +#define SCMI_BASE_PROTOCOL_ATTIBUTES        0x1
+> > > > > > > > +#define SCMI_BASE_SET_DEVICE_PERMISSIONS    0x9
+> > > > > > > > +#define SCMI_BASE_RESET_AGENT_CONFIGURATION 0xB
+> > > > > > > > +#define SCMI_BASE_DISCOVER_AGENT            0x7
+> > > > > > > > +
+> > > > > > > > +/* SCMI return codes. See section 4.1.4 of SCMI spec (DEN0=
+056C) */
+> > > > > > > > +#define SCMI_SUCCESS              0
+> > > > > > > > +#define SCMI_NOT_SUPPORTED      (-1)
+> > > > > > > > +#define SCMI_INVALID_PARAMETERS (-2)
+> > > > > > > > +#define SCMI_DENIED             (-3)
+> > > > > > > > +#define SCMI_NOT_FOUND          (-4)
+> > > > > > > > +#define SCMI_OUT_OF_RANGE       (-5)
+> > > > > > > > +#define SCMI_BUSY               (-6)
+> > > > > > > > +#define SCMI_COMMS_ERROR        (-7)
+> > > > > > > > +#define SCMI_GENERIC_ERROR      (-8)
+> > > > > > > > +#define SCMI_HARDWARE_ERROR     (-9)
+> > > > > > > > +#define SCMI_PROTOCOL_ERROR     (-10)
+> > > > > > > > +
+> > > > > > > > +#define DT_MATCH_SCMI_SMC DT_MATCH_COMPATIBLE("arm,scmi-sm=
+c")
+> > > > > > > > +
+> > > > > > > > +#define SCMI_SMC_ID                        "arm,smc-id"
+> > > > > > > > +#define SCMI_SHARED_MEMORY                 "linux,scmi_mem=
+"
+> > > > > > >=20
+> > > > > > > I could find the following SCMI binding in Linux, which descr=
+ibes
+> > > > > > > the arm,scmi-smc compatible and the arm,smc-id property:
+> > > > > > >=20
+> > > > > > > Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+> > > > > > >=20
+> > > > > > > However, linux,scmi_mem is not described. Aren't you supposed=
+ to read
+> > > > > > > the "shmem" property instead? And the compatible string used =
+for this
+> > > > > > > seems to be "arm,scmi-shmem".
+> > > > > > >=20
+> > > > > >=20
+> > > > > > We use linux,scmi_mem node to reserve memory, needed for all
+> > > > > > channels:
+> > > > > >=20
+> > > > > > reserved-memory {
+> > > > > >     /* reserved region for scmi channels*/
+> > > > > >     scmi_memory: linux,scmi_mem@53FF0000 {
+> > > > > >         no-map;
+> > > > > >         reg =3D <0x0 0x53FF0000 0x0 0x10000>;
+> > > > > >     };
+> > > > > > };
+> > > > > >=20
+> > > > > > arm,scmi-shmem node used in shmem property defines only 1 page =
+needed to
+> > > > > > the current scmi channel:
+> > > > > >=20
+> > > > > > cpu_scp_shm: scp-shmem@0x53FF0000 {
+> > > > > >     compatible =3D "arm,scmi-shmem";
+> > > > > >     reg =3D <0x0 0x53FF0000 0x0 0x1000>;
+> > > > > > };
+> > > > > >=20
+> > > > > > For each Domain reg points to unigue page from linux,scmi_mem r=
+egion,
+> > > > > > assigned to this agent.
+> > > > >=20
+> > > > > If we were to use "linux,scmi_mem" we would have to introduce it =
+as a
+> > > > > compatible string, not as a node name, and it would need to be de=
+scribed
+> > > > > in Documentation/devicetree/bindings/firmware/arm,scmi.yaml.
+> > > > >=20
+> > > > > But from your description I don't think it is necessary. We can j=
+ust use
+> > > > > "arm,scmi-shmem" to describe all the required regions:
+> > > > >=20
+> > > > > reserved-memory {
+> > > > >     scp-shmem@0x53FF0000 {
+> > > > >         compatible =3D "arm,scmi-shmem";
+> > > > >         reg =3D <0x0 0x53FF0000 0x0 0x1000>;
+> > > > >     };
+> > > > >     scp-shmem@0x53FF1000 {
+> > > > >         compatible =3D "arm,scmi-shmem";
+> > > > >         reg =3D <0x0 0x53FF1000 0x0 0x1000>;
+> > > > >     };
+> > > > >     scp-shmem@0x53FF2000 {
+> > > > >         compatible =3D "arm,scmi-shmem";
+> > > > >         reg =3D <0x0 0x53FF2000 0x0 0x1000>;
+> > > > >     };
+> > > > >     ...
+> > > > >=20
+> > > > > In other words, if all the individual channel pages are described=
+ as
+> > > > > "arm,scmi-shmem", why do we also need a single larger region as
+> > > > > "linux,scmi_mem"?
+> > > > >=20
+> > > >=20
+> > > > That was my first implementation. But I've met a problem with
+> > > > scmi driver in kernel. I don't remember the exact place, but I reme=
+mber
+> > > > there were some if, checking if memory weren't reserved.
+> > > > That's why I ended up splitting nodes reserved memory region and ac=
+tual
+> > > > shmem page.
+> > > > For linux,scmi_mem node I took format from /reserved-memory/linux,l=
+ossy_decompress@54000000,
+> > > > which has no compatible string and provides no-map property.
+> > > > linux,scmi_shmem node is needed to prevent xen from allocating this
+> > > > space for the domain.
+> > > >=20
+> > > > Very interesting question about should I introduce linux,scmi_mem n=
+ode
+> > > > and scmi_devid property to the
+> > > > Documentation/devicetree/bindings/firmware/arm,scmi.yaml?
+> > > > Those node and property are needed only for Xen and useless for
+> > > > non-virtualized systems. I can add this node and property descripti=
+on to
+> > > > arm,scmi.yaml, but leave a note that this is Xen specific params.
+> > > > What do you think about it?
+> > >=20
+> > > Reply below
+> > >=20
+> > > [...]
+> > > =20
+> > >=20
+> > > > > In general we can't use properties that are not part of the devic=
+e tree
+> > > > > spec, either https://urldefense.com/v3/__https://www.devicetree.o=
+rg/specifications/__;!!GF_29dbcQIUBPA!kNodtgmOQBc1iO76_6vTK-O1SoLxee_ChowYQ=
+iQYC595rMOsrnmof2zmk7BnhXCSnJPN$ [devicetree[.]org] or
+> > > > > https://urldefense.com/v3/__https://git.kernel.org/pub/scm/linux/=
+kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings__;!!GF=
+_29dbcQIUBPA!kNodtgmOQBc1iO76_6vTK-O1SoLxee_ChowYQiQYC595rMOsrnmof2zmk7BnhX=
+loYUaj$ [git[.]kernel[.]org]
+> > > > >=20
+> > > > > "linux,scmi_mem" is currently absent. Are you aware of any upstre=
+aming
+> > > > > activities to get "linux,scmi_mem" upstream under
+> > > > > Documentation/devicetree/bindings in Linux?
+> > > > >=20
+> > > > > If "linux,scmi_mem" is going upstream in Linux, then we could use=
+ it.
+> > > > > Otherwise, first "linux,scmi_mem" needs to be added somewhere und=
+er
+> > > > > Documentation/devicetree/bindings (probably
+> > > > > Documentation/devicetree/bindings/firmware/arm,scmi.yaml), then w=
+e can
+> > > > > work on the Xen code that makes use of it.
+> > > > >=20
+> > > > > Does it make sense?
+> > > > >=20
+> > > >=20
+> > > > Yes I agree. I think linux,scmi_mem and scmi_devid should be upstre=
+amed.
+> > > > I will add those properties to arm,scmi.yaml, mark them as related =
+to XEN and send patch.
+> > >=20
+> > > I didn't realize that linux,scmi_mem and scmi_devid are supposed to b=
+e
+> > > Xen specific. In general, it would be best not to introduce Xen speci=
+fic
+> > > properties into generic bindings. It is a problem both from a
+> > > specification perspective (because it has hard to handle Xen specific
+> > > cases in fully generic bindings, especially as those bindings are
+> > > maintained as part of the Linux kernel) and from a user perspective
+> > > (because now the user has to deal with a Xen-specific dtb, or has to
+> > > modify the host dtb to add Xen-specific information by hand.)
+> > >=20
+> > >=20
+> > > Let me start from scmi_devid.  Why would scmi_devid be Xen-specific? =
+It
+> > > looks like a generic property that should be needed for the Linux SCM=
+I
+> > > driver too. Why the Linux driver doesn't need it?
+> > >=20
+> >=20
+> > scmi_devid used during domain build. It passed as input parameter for S=
+CMI_BASE_SET_DEVICE_PERMISSIONS message.
+> > On non-virtualized systems - there is no need of this call, because OS
+> > is the only one entity, running on the system.
+>=20
+> OK. Even if it is only required for virtualized systems, I think that
+> scmi_devid is important enough that should be part of the upstream
+> binding. I think it is worth starting an email thread on the LKML with
+> Rob Herring and the SCMI maintainers to discuss the addition of
+> scmi_devid to the binding.
+>=20
+>=20
+> > I've chatted with Volodymyr_Babchuk and he gave a great idea to add a
+> > list of device_ids to dom.cfg, such as:
+> > sci_devs =3D [ 0, 1, 15, 35 ];
+> >=20
+> > Using this approach, we can remove scmi_devid from the device tree and
+> > just pass a list of scmi_devids to XEN using additional hypercall.
+> > We can probably make hypercall taking devid list as input parameter.
+> > This will take only 1 hypercall to setup sci permissions.
+>=20
+> But how would a user know which are the right SCMI IDs to add to the
+> sci_devs list? Would the user have to go and read the reference manual
+> of the platform to find the SCMI IDs and then write sci_devs by hand?
+> If that is the case, then I think that it would be better to add
+> scmi_devid to device tree.
+>=20
+> In general, I think this configuration should happen automatically
+> without user intervention. The user should just specify "enable SCMI"
+> and it should work.
+>=20
+>=20
+> > > In regards to linux,scmi_mem, I think it would be best to do without =
+it
+> > > and fix the Linux SCMI driver if we need to do so. Xen should be able=
+ to
+> > > parse the native "arm,scmi-shmem" nodes and Linux (dom0 or domU) shou=
+ld
+> > > be able to parse the "arm,scmi-shmem" nodes generated by Xen. Either
+> > > way, I don't think we should need linux,scmi_mem.
+> >=20
+> > This requires further investigation. I will try to make implementation
+> > without linux,scmi_mem, using only arm,scmi-shmem nodes and share
+> > reuslts with you.
+>=20
+> OK, thanks.
 
-Looks like at some point Linux dropped the '-SNR' and similar suffixes
-from the state names, so we should likely import that patch as a
-pre-req for consistency? It's commit:
+Hi Stefano,
 
-de09cdd09fa1 intel_idle: stop exposing platform acronyms in sysfs
+As I did some investigation about using reserved-memory area
+linux,scmi_mem and now I need your advice.
 
-> 
-> >> @@ -954,6 +980,11 @@ static const struct idle_cpu idle_cpu_dn
-> >>  	.disable_promotion_to_c1e = 1,
-> >>  };
-> >>  
-> >> +static const struct idle_cpu idle_cpu_snr = {
-> >> +	.state_table = snr_cstates,
-> >> +	.disable_promotion_to_c1e = true,
-> > 
-> > This likely wants to be 1 because the type is bool_t.
-> 
-> bool_t is just an alias of bool, so "true" ought to be fine. We may
-> want to follow Linux in switching to bool altogether - iirc we didn't
-> have bool yet at the time the driver (or the first commit needing it)
-> was ported. I guess I'll make a patch ...
+I see 2 possible implementations for now:
+1) Add memory-region parameter to cpu_scp_shm node which points to the
+reserved memory region.
+So device-tree will look like this:
 
-OK, thanks!
+	reserved-memory {
+		/* reserved region for scmi channels*/
+		scmi_memory: region@53FF0000{
+			no-map;
+			reg =3D <0x0 0x53FF0000 0x0 0x10000>;
+		};
+	};
+	cpu_scp_shm: scp-shmem@0x53FF0000 {
+		compatible =3D "arm,scmi-shmem";
+		reg =3D <0x0 0x53FF0000 0x0 0x1000>;
+		memory-region =3D <&scmi_memory>;
+	};
 
-I guess for the patch itself then:
+So cpu_scp_shm node has a reference to scmi_memory region. This mean
+that xen can find reserved memory region without adding additional names
+to the device-tree bindings.
+memory-region parameter as a reference to reserved memory and region
+creation described in:
+https://github.com/torvalds/linux/blob/v5.15/Documentation/devicetree/bindi=
+ngs/reserved-memory/reserved-memory.txt
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+This approach I've implemented already and it works.
 
-Would be nice to get those things fixed for consistency.
+2) The second approach is the format you suggested:
+> > > > > reserved-memory {
+> > > > >     scp-shmem@0x53FF0000 {
+> > > > >         compatible =3D "arm,scmi-shmem";
+> > > > >         reg =3D <0x0 0x53FF0000 0x0 0x1000>;
+> > > > >     };
+> > > > >     scp-shmem@0x53FF1000 {
+> > > > >         compatible =3D "arm,scmi-shmem";
+> > > > >         reg =3D <0x0 0x53FF1000 0x0 0x1000>;
+> > > > >     };
+> > > > >     scp-shmem@0x53FF2000 {
+> > > > >         compatible =3D "arm,scmi-shmem";
+> > > > >         reg =3D <0x0 0x53FF2000 0x0 0x1000>;
+> > > > >     };
+> > > > >     ...
 
-Roger.
+This approach has an advantage that xen ARM_SCI driver do not know about
+how channels are placed in the reserved memory, but introduces some
+disadvantages:
+a) We provide extra 14 (in our case) arm,scmi-shmem nodes which are not use=
+d
+in the device-tree. In current implementation I have separate scmi.dtsi
+file which introduces scmi support for both XEN-based and
+non-virtualized systems. Having 14 extra channels in the device-tree may
+be confusing.
+b) In case if we have all 15 channels, described in partial device-tree,
+we should not copy any node to the domain device-tree. I think it will
+be better to generate arm,scmi-shmem node in the Domain device-tree. The
+problem is that arm,scmi-smc node, which is using arm,scmi-shmem node
+can't be generated. I prefer it to be copied from the partial
+device-tree because it includes some platform specific configuration,
+such as func-id and list of the protocols (for example different
+platforms may require different list of the protocols). So in this case
+we will have 1 node copied and 1 node generated.
+
+I think even for dom0less we should use arm,scmi-smc node from the
+device-tree because protocol configuration and funcid is related to the
+platform.
+
+I prefer the second approach and will try to make it if it's OK to copy
+arm,scmi-smc node from partial Device-tree and generate arm,scmi-shmem
+node.
+
+What do you think about that?
+
+Also I wanted to mention that I'm not planning to make ARM_SCI support for
+dom0less in terms of this patch series bacause I can't test
+dom0less configuration for now. So let me know if some of my
+functionality breaks dom0less.
+--
+Best regards
+Oleksii.
 
