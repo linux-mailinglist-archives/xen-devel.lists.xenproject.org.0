@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64D57494FC0
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jan 2022 15:03:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259074.446826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 860BA494FC8
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jan 2022 15:04:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259076.446838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAY1d-0006vi-RE; Thu, 20 Jan 2022 14:02:53 +0000
+	id 1nAY3S-0007cL-7r; Thu, 20 Jan 2022 14:04:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259074.446826; Thu, 20 Jan 2022 14:02:53 +0000
+Received: by outflank-mailman (output) from mailman id 259076.446838; Thu, 20 Jan 2022 14:04:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAY1d-0006sv-O2; Thu, 20 Jan 2022 14:02:53 +0000
-Received: by outflank-mailman (input) for mailman id 259074;
- Thu, 20 Jan 2022 14:02:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nAY3S-0007aN-3i; Thu, 20 Jan 2022 14:04:46 +0000
+Received: by outflank-mailman (input) for mailman id 259076;
+ Thu, 20 Jan 2022 14:04:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=YGoM=SE=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nAY1c-0006sb-Sn
- for xen-devel@lists.xenproject.org; Thu, 20 Jan 2022 14:02:52 +0000
+ id 1nAY3R-0007aF-2R
+ for xen-devel@lists.xenproject.org; Thu, 20 Jan 2022 14:04:45 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a83948a9-79f9-11ec-bc18-3156f6d857e4;
- Thu, 20 Jan 2022 15:02:51 +0100 (CET)
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id eaff67e9-79f9-11ec-8fa7-f31e035a9116;
+ Thu, 20 Jan 2022 15:04:44 +0100 (CET)
 Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur02lp2059.outbound.protection.outlook.com [104.47.5.59]) by
+ (mail-he1eur02lp2055.outbound.protection.outlook.com [104.47.5.55]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-8-qm3J6sdGM0y_EV224iY3CQ-1; Thu, 20 Jan 2022 15:02:50 +0100
+ de-mta-41-se1l-fHKO_mJLS3QJopwKA-1; Thu, 20 Jan 2022 15:04:42 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
  by DBBPR04MB7643.eurprd04.prod.outlook.com (2603:10a6:10:203::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.11; Thu, 20 Jan
- 2022 14:02:48 +0000
+ 2022 14:04:41 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4909.010; Thu, 20 Jan 2022
- 14:02:48 +0000
+ 14:04:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,192 +51,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a83948a9-79f9-11ec-bc18-3156f6d857e4
+X-Inumbo-ID: eaff67e9-79f9-11ec-8fa7-f31e035a9116
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1642687371;
+	t=1642687483;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nv7AY2ipZylSfprvqAq1EN3qHGjDUPWKZzBPAIOB3I8=;
-	b=V2bI0FlLwCY8HPOxR6x2KmqO5j46BPnOfBNQiFE7xffU9h0GBg1ei9AgIRv6lGrF+8fldH
-	lnEcyMPwHqolyFmsEs7XRJN1cl5RacmU6+iG0lqnsXglV2HReZQGTTWVubgM80O2L9dqVQ
-	/w4LWvmX8wTeHL+QAONK7xmuUA1z140=
-X-MC-Unique: qm3J6sdGM0y_EV224iY3CQ-1
+	bh=7m7Y7Upa0+r0a+ciUd8pwYsa/PeoFa1xWQvHddn56eY=;
+	b=JYpM0vyvV6atxHfdMidOI+3MZDVDKjB+ZLrwzmluhly3GYxUh2GV8aXjpwOMSF07dSomOp
+	rDeTQoVEnIEMNgLTWY6v3WRaHBYWejAyQM96H5463KozciQ3HFAvWn1efw1Z8cHIIepDPh
+	tkOvAp3lh5MaQ0kkmYsE8Ft+8cn4Puk=
+X-MC-Unique: se1l-fHKO_mJLS3QJopwKA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Mkysnr5Js6PCWKd2z2YvxKt4eRn3J3fOpIBERZUhJE+71+yUD0hirGfR/qFF+j62VBspFJwtMukXm+d+Anfa45YB9/Xu/LdM+MAAt8n9QZya8Uk3Mj2pWwbksVM7R+75davFmxgqO75j8TT2SRqaXkBLDeHmuHv9/rOEcjuRDN1laPvnhCe3eqrxtFZRQ+fVvstysslPfOwc4ZodzM3E5/KEhBMFJurgmbKh0QnVwN0CwwLYNiG8V/gO/MBntysw8SBkvgLNqHRciaWg7E6DgRS73y+j0hpckxCG198ubRXY+CbPRk4PGZyQXz0s9dUbwo/Ui6InM7rQGnv3/fkixw==
+ b=crEg0xyhA0n3UCTVJOOtb/U6gw8b2h+l5x83vWhOYpZgChiWCmB5ZD7cc7FiP1mx6VZor7SXiJ+CTvJUAh51/iC95TzQeve+nRCOLgZ8O7fq1qNxQDAMZBzNaa7cNOr158zUwHcS8ZptAQihExT49vqB5wWrflvWZQyRWO1sLXFVavVyPjqF7A42eEwhqzIpl2JDSlyZlOQlPkjbsjxS5gN4kczpeJFr48mW9Uy1juLsOzhnvEujDgsPz8EMPrrKLic7q4SxP2Bvqs5GPS0+U+Xp5sLsbDdsOWpIam72K21x+jjhMZuSMDLgPQXDUCiNUNCkvj4Ux8EbNnaZaz7w9g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f4Wc9t+1vhwqA/dFF3ORfoGoLxLZ4aHX6+/gI+XOdLE=;
- b=E3YyI2S2SaxUtK67tX7kroeS1FSbFb4g9e1hsWOeC/uK3vFFoQluyB0Dl6/mZdWwgVjZgSyngQlfW6iaMdtfNzk89VtnShBuCWIyzElJE09wquMICsUWc4Zc439Xr6GZX4JPwOT/nEfabg+M8VJ6kzXbcPqZnQLg7ErQgY2ahdmGAI9bva+gZTemV44QcqPWZ3MhDNJER597Sxic+WC8hVHSMy+jFrm6Q6YNIR4fDq++fBBhthZGSn7iFi2HxfCoebDXhbHIgLDYpS97Yn+BRKXyzUEA2c7EwtOs+DFkDytPQqZrfuYzKUbksFoqNj5XVvDgUScCsbEb2Xhny0t2+A==
+ bh=7m7Y7Upa0+r0a+ciUd8pwYsa/PeoFa1xWQvHddn56eY=;
+ b=Z6N3unE3L3XNp6WhMcpmSk6D1SUp+YvkTzGA8Hc1ENACnhip0t7ghtDLkVLvqVkl4ITg5WjWJ5hy/WLslN99lBSLrexmaS9IhIi8uQZhrRwpNKzSfZXG/ULfmgVX3cH29ecJd7vhQT2GrUUG6JlQwiESQfskYsJpOWnrdSzcGy42XRuSN3RI3cp0W4oFs/JOeDQ6hCl/z4CFzdbUZr5+/0t922OeGpKDvuHxALmWFpejpf/LUJRspctTWAwKCkyfKb1WT5xXbYxMU4WIU8MZG8dL9uv7+Ki9d7QisDTXlqXo77P97QoJa2sFJlyJatl9HfiEVqfeFL5LpVWzGk+/SQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <d2391797-deb4-e6c6-58af-aef7ca47c3f0@suse.com>
-Date: Thu, 20 Jan 2022 15:02:47 +0100
+Message-ID: <a0b3c3f6-2abc-353b-92f9-367fa57af8ef@suse.com>
+Date: Thu, 20 Jan 2022 15:04:39 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: [PATCH v2 3/5] x86/mwait-idle: add SnowRidge C-state table
+Subject: [PATCH RFC v2 4/5] x86/mwait-idle: enable interrupts before C1 on
+ Xeons
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <568cb6dc-127a-9c8f-0073-2df173d4677b@suse.com>
 In-Reply-To: <568cb6dc-127a-9c8f-0073-2df173d4677b@suse.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM5PR1001CA0036.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:206:2::49) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM6PR10CA0070.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:209:80::47) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8ebb1a70-b48f-44e1-b91b-08d9dc1d8a7d
+X-MS-Office365-Filtering-Correlation-Id: aebfd843-7d0c-4d50-89ae-08d9dc1dcd66
 X-MS-TrafficTypeDiagnostic: DBBPR04MB7643:EE_
 X-Microsoft-Antispam-PRVS:
-	<DBBPR04MB764374CD02D18AF39A6DF65CB35A9@DBBPR04MB7643.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+	<DBBPR04MB76434D7E25D0386A90BF98E4B35A9@DBBPR04MB7643.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Qa1meuUfO3vodwYUKCoUKSsjF2JkOGIFbdkrR9VjOEu+gH9PEwNDJvJqdK0ZqvGB5u+LpdtlMGdvOvFMSBUqKKrd3kdZb/lqeAWDtfqQNlEvA3l6tFtZIa0BnSx4pFG6jcvCb+SRZgA0KvTp/ZwmaEnPkCjH7idPq0v5AmdoFPUZ92nt2KfPlwha3xEICsWcRphUygeFPBYGzaIESk2q6aNrqaU/+uqJ4/Vxm51B95UFACjFVzSlTAw/mMCFH3540qGcl/eLVyx3e/3824uboGkD5KjtuNDulf7W2oikuVgJyzQxeayGP5JiNmdHlfzxIM5Y49VqBf2NDhqqlcc4n35Hqw4MqzWz9HCHCTA0D35v2ONUXSArsr9MI80yjAskAKLekdglw8Eq1R+gosLikoFDKdGs8alDbqNXVEip8cbRr/cMS9h0gW99APRbriz1yaXnMLu3vbarScDmoIIrLnm3BPgFQ7Q0su10qDZwUt+vGPhIKRI2lUzrd5+f+bg8whyeAr7Z9lblzuFVTwGRPbJ83iQ32NRw5D9IfzbZFX35+4kobiBUkOS97rpwjZa9eqW5ReuJWE2Bzt0hZiYSI4cgLAVVVPn3YgchV+Y88W/WKXfCEYXPvIhKT75vKIZnx+YcKOewJYBa3MvAlTmIrj89/UrAikJvRON1nE9fD16s9m5yFBlJh2pnzl0j3TGnKy+SXm4J/bmckdXyVYl1pS9iq05h/ySURlBXDGmkM/B5hvvT/jBftesG5ITV3TK1
+	a2bGEuN0gz7d0hWgyVJh2RxFx5OLVYMDInTyc1MCeOzhiKqO9il63aFEpHt4xgoN1Z9XlUczOAv4uiCW23ZSOJrht0p7dcqcDwtBIpDRfwAjJni82lgH4kIxarGmoKIgToclb1WOr+J8DzvZvg0fYiKaG63thISPn160hVEJloEB7tFD6gNhvSUpCb90a2HvjZWiUUPI4cim0U4KYEc92u2N6EcWEccSZ5ZlFd0SjLtkqm2yrEyEqSYmkSA28ArF1LBiH54tAWNCsHVvLgRsbltgVKNROBMHUi/b8+jboLxbAv9hyV8FZhvfUykQU2qOqJle6d/9ZFzCY7Gw0TsBJAwAtdZBLNpKmoDNGA/flh+88bmdMsJPAGqzfXJ7RZZW40Qr7wzl2LeIu6aBJD8aFscv61DFSXDCvn58FOt7WbB2L0tyVZYk/5heZuzLTljaUEdszGKVigelDw6ZaBds5JwaTA7VDypsXdxyT2YxKo8H50fgVk2q6oOy4KCQ1d9krsvnMIhhsTne7lqd4/gbpV5M9Pa4ApV2Y2dIowFsmj7V3AYFwV0f8MReOmf6KhELqhJxLgvsmU0y3JWsvNPdUpJWEd45ZPYuUtGU4IpP559Lf8MGmvrFxDCK7nCq8EV5In4G8ypdXtWq3M0BBfWiyBFv38fQcoTpCCPErs5I79Y0TF+kreHTn6mbU7kzzwnHXXTcsk00o6VFAdpNKVjbbrB5jptVuOr7c92bQ6C6S0h73B4+0uHRpbz/As+FLegn
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6506007)(31686004)(36756003)(66476007)(508600001)(8676002)(31696002)(8936002)(38100700002)(6486002)(86362001)(186003)(2616005)(6916009)(66556008)(66946007)(316002)(2906002)(5660300002)(26005)(6512007)(54906003)(4326008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(6506007)(31686004)(36756003)(66476007)(508600001)(8676002)(31696002)(8936002)(38100700002)(6486002)(86362001)(186003)(2616005)(83380400001)(6916009)(66556008)(66946007)(316002)(2906002)(5660300002)(26005)(6512007)(54906003)(4326008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?1hDG/Lid7PYDtZYTC7FwSN7AVmLqyURoV6IOxPxTRku7Ph5OtHL8PEt6XzUa?=
- =?us-ascii?Q?d/D1OAgIlWrM9/IveTOT3GNtej+cKWPQTay+ZERt/8EEfgE5pmIA0eIHZIrR?=
- =?us-ascii?Q?hoE+VaHavxkctgn7h+KEz75Wnf/sWKCfhHDd0SaZsq7MwDDoYSg9A5myBKsn?=
- =?us-ascii?Q?cC428HOhsLkCkqndiFWLEpOZy6mrfhqqGO+na6fUtH+7KEzZkZAt1U+oQOw+?=
- =?us-ascii?Q?lb0v7NjmfjGBlBZ9KssBMGF7nqZ1VhUsME1yCnQnD4vWYOJaWRwO/1cJoUp7?=
- =?us-ascii?Q?LU9yPtxWC6AJgRFdZrsOUtPsWZmkZR+1J8LtE+9G4rhfX6+ELHkyO7u1XUcm?=
- =?us-ascii?Q?M5yPee8qZboGVZ7wIdpSt5LP4WZE2FJ1+QNpCmWHwszhcjKeIYCY6eLtaX+I?=
- =?us-ascii?Q?mMmtxzD6OYCWT252aHDSp/ra6Iygaa8443IMDH/TAsg8iE2gxW3zLMGMyL+5?=
- =?us-ascii?Q?rT4WX5KF1ZlS4O9ULVWrM7O2yK26ALjSD9NwOwCl/Diqmpg1hFUD/89QBJGQ?=
- =?us-ascii?Q?xnsFSFqa20ceMA+DuVO3jMwyQBkI8D/lebVpxAGreUm2LVjzIjx/OwOVJj/F?=
- =?us-ascii?Q?JxE2AzhmZgCliirTWmUDq7WggodZL2GDa2nJ3YQdQn/wfUxZF4Gv0NaXKN9v?=
- =?us-ascii?Q?5Y+84salCiJYaS8kIOocrJwbY3oii8IdtFAI3zWyFQG8gD933QOjh3BDLu+D?=
- =?us-ascii?Q?yzZb/l0aLsub/KO6A8EVYGgkyB96STpJh4loM0E6Ggmn4Ob1ON65HgFlB8m2?=
- =?us-ascii?Q?PMQ6X3RSGZwc/e4u3jWTfD8TA3m7cnpqHacdWwrvA+RfJjClp90g4I13nxpN?=
- =?us-ascii?Q?maQ5cNz9y4M9k7hQZh+cOBOtd2cDckifzLDzeHaJryPKkj/F40tOgNXZ0uft?=
- =?us-ascii?Q?RikfswmPU+VaSilCvdKqJCXRV6EcTaiCyeDBkl7pUDXYJ/YHvCwG/XlPoU+5?=
- =?us-ascii?Q?ZkE7ha3QR9ymJMjg0lTL5U3ou4ZXzhBRr9ZDJFWgSFdqKV1HGNXgLcv5f6p0?=
- =?us-ascii?Q?BswazDDo1/iitWu3LmZfEw9viAvex8wcZrOtFaew5zsI52EGtT+76ej/i+mR?=
- =?us-ascii?Q?pKdXQ0+S6HbGOjmHPvWZJ3yZwcQSA2xBhNShUEm4ih235NfWxtHBhVRMRKEi?=
- =?us-ascii?Q?B5DSau0l61Rl3vqNL0zXVM7W+Y8HKJZX/CswrGFde4+a098luReurtaKE262?=
- =?us-ascii?Q?KfMBthTRQKLMyonsYmGiId+YrYyBArIQN7TN/JK+LyLI7xz84188Mxm1GhIe?=
- =?us-ascii?Q?aswmrBfjvnHStBUvYgvzFlXTdSoUy4znGcGnCM4pFbsafOG7h4OotIU5PopN?=
- =?us-ascii?Q?Sq5DErmbZgYiH49GCQeGN0wt1JFynWxWgd98os6Kzj59xBCORW3LdVTfFuQq?=
- =?us-ascii?Q?WQEK4MwHL8fLZdMvZ1IWVfuBtscA+EUmPDHWyq822k7/ShOdcT13DY7WeuvY?=
- =?us-ascii?Q?ZWSO05QRsVD0qruZE9UuSr+7Nj1vs8ejm2hHUZPKf2Tx3xlLN6Yd9rHChxyN?=
- =?us-ascii?Q?wq64JfLsUh76GgHjkWpNttwcQTfhJMKMyGWUmandu42HSv6FkoL9BowyD8gP?=
- =?us-ascii?Q?w2aSIxnMg76H25xdTaMoDb2dWjOr1ewkFO0p8L2EocqbAeGSvZBJiiyoGAun?=
- =?us-ascii?Q?Ts2ZCtR3oLFrZVrAKWW0XEI=3D?=
+	=?utf-8?B?ZTB2VWxJcEUyVThoRXdsNnFrOWdHMlhRYzB0UDVJbVdEbG5BakVPa0Z2Vk5F?=
+ =?utf-8?B?RVQ0TzBHVVRORDNkZkFTZXB0TmF3OVBXV2cyQTdheXlRZmtmYUZnbE9pQU4x?=
+ =?utf-8?B?YnkvaExwL29MdU1jOUtNODM4TXJLM2tyL09nSVdMZlFQbnRZOWtieW54Q0tz?=
+ =?utf-8?B?RnBHdnRUazZ6K1JCMVN4VkpNbmVLdHJIMDF5ZTZsbGwxRFkwUjFKbEd5QXNv?=
+ =?utf-8?B?NkgveUs0T2VoYnpqVll5UW1nVVhYTTdYK3NzR2NsNGNkRnBUUzAxRFJEMXR1?=
+ =?utf-8?B?SGsvWU9Kb3cvWmR2R0Z3WkFPRERuV1ZrOUZxNzJ1UzRRZGt1dmxQbEJnVHFF?=
+ =?utf-8?B?L2M2V1hiWlVKajNiWjA1Y1lMcEV0R1JxWDlFeTAzNzV5S1pRM3hhWWtkRVhy?=
+ =?utf-8?B?Z0VZdlJEeG4vKzlBVmlnSkFyR3l0UXVvT3RFY1NKRXh2RkFPcG4rQzRzUDE4?=
+ =?utf-8?B?RE1vZDQ2Z3BhM0Zvd2FRRFZZUkN5bjdKZWg2a3dtRyt2UVZ5THRKa0VFWlFn?=
+ =?utf-8?B?YUI3a3NJMDZyNjhJbEpVQzFkNE9vUUhRS1RXTGlDVWl5b1AyRUVGMWQ4N3VG?=
+ =?utf-8?B?cUJwU0RQVlhWNEZSWUp3OHpxVzlYeStuRTVjbFpCSzFQbk1sWnkxNjd5OFYy?=
+ =?utf-8?B?VFdJdzlDNFhtV3pIblVhUTVvVGF3ai9ER1BxUXQ5dFc1Sm1Ba3dNUVQ4dXhH?=
+ =?utf-8?B?YmI4OWZBSThQbTJFZEYvZTdXZUQydVlJV2VWcGhNbnBuQlhyWWR2NHhMWHFq?=
+ =?utf-8?B?cUNIWmh4ZkxmTzBtV0tyL0dqRVY0bHd5c0xqekdGdHZMMUl4YWFHQVNjRUxj?=
+ =?utf-8?B?emZZaEV3am5xY0NXUkp6cFNCc0NDVjc3ekpJZDVVU2U3elQ4eWV3cFpkNnA0?=
+ =?utf-8?B?SlJqNEhqREN0dXB2a1hCRHdvYk9lWjV3Y0I5RkpUbmtWb1h3WUtPNTAvN2F1?=
+ =?utf-8?B?QSt6Z0tqUmVQdVBjVlpNclVzU3pEU1ptaWl0TWdkWnltS3BDN1BNZ3FSbVBV?=
+ =?utf-8?B?NmtiaDV3SEFSbWgraktrcmxIbDF2UEpNd1hDWmZiSTJ4a3ZHSHFqRk5rcVNh?=
+ =?utf-8?B?cUcyNU9SVmJOcGVNL3FpWTNOMm9oMytITWs5TFJZb2Z4dkZtZzdrMUhTVmZw?=
+ =?utf-8?B?Vk5mNFF2MjZGb1B0bHI2ZXFPd0FkM1FLOU1xc25iaVBIeTRhNHp1NkNxZ0xy?=
+ =?utf-8?B?WUd6OGI4cDdSbUJIcno1Ylg5T2JtTUdkdU8vS3k2ZjV1N0dlZThKdkhXbStw?=
+ =?utf-8?B?NG1MVGxUckE2bDhJcmtWQlFGZkMvT0RyL2JoL1FPcFVTV0JlOXRraUNEV0N0?=
+ =?utf-8?B?aThsem9ETVhxZFMvM2VBWmVCNnFoOXFQdFNKTmFJbUFXL00xU1hDN0QzVkc5?=
+ =?utf-8?B?R1JaMzFJNEZVcFEvRmgzL0J4M1dubmJneVhxczRsU0RHTDVhdVB3aFdrWVN0?=
+ =?utf-8?B?Y0hxSlpER3pkMXRnTm5KTXA4R0FLTklZZm9rVnpSajcyODV4ejFDa0lHeXJy?=
+ =?utf-8?B?YjB3MFVOM2tmMGRTRW9Ed0phSE9KVGFRQVRPcjlGNHB5elVrakhEVHJtS3B1?=
+ =?utf-8?B?OXNrQ0laSTNKREZUNnp0Ri9KYlR5dU5Vdm1yVDRHNFh6VVFiakZscFZ5R0RY?=
+ =?utf-8?B?WnVKcjcyNnVvUEllK2VOckprRHVwVlNGWGtqMnlMcDFOVVZvZHVKTTlUK0sw?=
+ =?utf-8?B?OHRmbG14UlI1bFpvV1k2eVJobDNZQkNIVjROSFNzM0NnRk5ock43eElpNDNR?=
+ =?utf-8?B?cUZnUHpBV0ZQZnpraXFualc5dXBCclhpQ2pCVng2RUhIUUNUUVR0ZTI1LzJT?=
+ =?utf-8?B?aVduZjZ3aDJkRU1FTFBZajQzTjRUaVVqSmMwbWUxR1Ezb0hvYW84NVdUaTd0?=
+ =?utf-8?B?c0p0Umw0djE3VEVKcEFlbUFNak4vay9ydWhMUXZoN0JVdTR0K001bnloNVg4?=
+ =?utf-8?B?bndjelNEZXJTU09WOWF1cTRxRk15b1Q4UWtNeEpOeVQyYUU1MWw2WFI3Nnlu?=
+ =?utf-8?B?VEp3Q3NTWEVxdzZMZEp3YmY1dlMvamZYb1JZZ2NzNkJuVjZaOFNZazhiQ2wr?=
+ =?utf-8?B?aTByc01VWTVuWHZKZ1hMSHVDeVh6U1pNOVlSZ3c0ZHBrSjM1V2NMd09YZ0Rm?=
+ =?utf-8?B?Qy84NXViSkhtZnRvam5yejZMclo3UVRCT29sSXVNbVN1N1IxbStQVWNieU04?=
+ =?utf-8?Q?HmXTLp2MIXqY9/orIou7UDU=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ebb1a70-b48f-44e1-b91b-08d9dc1d8a7d
+X-MS-Exchange-CrossTenant-Network-Message-Id: aebfd843-7d0c-4d50-89ae-08d9dc1dcd66
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 14:02:48.6612
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 14:04:40.9616
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1JRZhf2yy62qZ+I9XzKXK3vZP1RDS8fQJpBMoGKRXBt0kuMLU2humFQlS02l5fPq1tjR/KMSBgk/vkw2sTIk0w==
+X-MS-Exchange-CrossTenant-UserPrincipalName: JFR3eqvSV4ZDIu1hmy/w42SVMrFV9SrQnH0g+cbhCfqVcDwDufYChi+0c751g58SEG2fNzfV2ztYDmDy7HDGqg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7643
 
 From: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
 
-Add C-state table for the SnowRidge SoC which is found on Intel Jacobsville
-platforms.
+Enable local interrupts before requesting C1 on the last two generations
+of Intel Xeon platforms: Sky Lake, Cascade Lake, Cooper Lake, Ice Lake.
+This decreases average C1 interrupt latency by about 5-10%, as measured
+with the 'wult' tool.
 
-The following has been changed.
+The '->enter()' function of the driver enters C-states with local
+interrupts disabled by executing the 'monitor' and 'mwait' pair of
+instructions. If an interrupt happens, the CPU exits the C-state and
+continues executing instructions after 'mwait'. It does not jump to
+the interrupt handler, because local interrupts are disabled. The
+cpuidle subsystem enables interrupts a bit later, after doing some
+housekeeping.
 
- 1. C1E latency changed from 10us to 15us. It was measured using the
-    open source "wult" tool (the "nic" method, 15us is the 99.99th
-    percentile).
+With this patch, we enable local interrupts before requesting C1. In
+this case, if the CPU wakes up because of an interrupt, it will jump
+to the interrupt handler right away. The cpuidle housekeeping will be
+done after the pending interrupt(s) are handled.
 
- 2. C1E power break even changed from 20us to 25us, which may result
-    in less C1E residency in some workloads.
+Enabling interrupts before entering a C-state has measurable impact
+for faster C-states, like C1. Deeper, but slower C-states like C6 do
+not really benefit from this sort of change, because their latency is
+a lot higher comparing to the delay added by cpuidle housekeeping.
 
- 3. C6 latency changed from 50us to 130us. Measured the same way as C1E.
+This change was also tested with cyclictest and dbench. In case of Ice
+Lake, the average cyclictest latency decreased by 5.1%, and the average
+'dbench' throughput increased by about 0.8%. Both tests were run for 4
+hours with only C1 enabled (all other idle states, including 'POLL',
+were disabled). CPU frequency was pinned to HFM, and uncore frequency
+was pinned to the maximum value. The other platforms had similar
+single-digit percentage improvements.
 
-The C6 C-state is supported only by some SnowRidge revisions, so add a C-st=
-ate
-table commentary about this.
+It is worth noting that this patch affects 'cpuidle' statistics a tiny
+bit.  Before this patch, C1 residency did not include the interrupt
+handling time, but with this patch, it will include it. This is similar
+to what happens in case of the 'POLL' state, which also runs with
+interrupts enabled.
 
-On SnowRidge, C6 support is enumerated via the usual mechanism: "mwait" lea=
-f of
-the "cpuid" instruction. The 'intel_idle' driver does check this leaf, so e=
-ven
-though C6 is present in the table, the driver will only use it if the CPU d=
-oes
-support it.
-
+Suggested-by: Len Brown <len.brown@intel.com>
 Signed-off-by: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-[Linux commit: 9cf93f056f783f986c19f40d5304d1bcffa0fc0d]
+[Linux commit: c227233ad64c77e57db738ab0e46439db71822a3]
+
+We don't have a pointer into cpuidle_state_table[] readily available.
+To compensate, make use of the new flag only appearing for C1 and hence
+only in the first table entry.
+
+Unlike Linux we want to disable IRQs again after MWAITing, as
+subsequently invoked functions assume so.
+
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Acked-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+---
+RFC: I'm not entirely certain that we want to take this, i.e. whether
+     we're as much worried about interrupt latency.
+RFC: I was going back and forth between putting the local_irq_enable()
+     ahead of or after cpu_is_haltable().
+---
+v2: New.
 
 --- a/xen/arch/x86/cpu/mwait-idle.c
 +++ b/xen/arch/x86/cpu/mwait-idle.c
-@@ -742,6 +742,32 @@ static const struct cpuidle_state dnv_cs
- 	{}
- };
-=20
-+/*
-+ * Note, depending on HW and FW revision, SnowRidge SoC may or may not sup=
-port
-+ * C6, and this is indicated in the CPUID mwait leaf.
+@@ -108,6 +108,11 @@ static const struct cpuidle_state {
+ 
+ #define CPUIDLE_FLAG_DISABLED		0x1
+ /*
++ * Enable interrupts before entering the C-state. On some platforms and for
++ * some C-states, this may measurably decrease interrupt latency.
 + */
-+static const struct cpuidle_state snr_cstates[] =3D {
-+	{
-+		.name =3D "C1",
-+		.flags =3D MWAIT2flg(0x00),
-+		.exit_latency =3D 2,
-+		.target_residency =3D 2,
-+	},
-+	{
-+		.name =3D "C1E",
-+		.flags =3D MWAIT2flg(0x01),
-+		.exit_latency =3D 15,
-+		.target_residency =3D 25,
-+	},
-+	{
-+		.name =3D "C6",
-+		.flags =3D MWAIT2flg(0x20) | CPUIDLE_FLAG_TLB_FLUSHED,
-+		.exit_latency =3D 130,
-+		.target_residency =3D 500,
-+	},
-+	{}
-+};
++#define CPUIDLE_FLAG_IRQ_ENABLE		0x8000
++/*
+  * Set this flag for states where the HW flushes the TLB for us
+  * and so we don't need cross-calls to keep it consistent.
+  * If this flag is set, SW flushes the TLB, so even if the
+@@ -539,7 +544,7 @@ static struct cpuidle_state __read_mostl
+ static struct cpuidle_state __read_mostly skx_cstates[] = {
+ 	{
+ 		.name = "C1",
+-		.flags = MWAIT2flg(0x00),
++		.flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_IRQ_ENABLE,
+ 		.exit_latency = 2,
+ 		.target_residency = 2,
+ 	},
+@@ -561,7 +566,7 @@ static struct cpuidle_state __read_mostl
+ static const struct cpuidle_state icx_cstates[] = {
+        {
+                .name = "C1",
+-               .flags = MWAIT2flg(0x00),
++               .flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_IRQ_ENABLE,
+                .exit_latency = 1,
+                .target_residency = 1,
+        },
+@@ -776,6 +781,7 @@ static void mwait_idle(void)
+ 	unsigned int next_state;
+ 	u64 before, after;
+ 	u32 exp = 0, pred = 0, irq_traced[4] = { 0 };
++	bool irq_enable_early = false;
+ 
+ 	if (max_cstate > 0 && power &&
+ 	    (next_state = cpuidle_current_governor->select(power)) > 0) {
+@@ -806,6 +812,12 @@ static void mwait_idle(void)
+ 		return;
+ 	}
+ 
++	if (cx->idx == 1 && cx->type == ACPI_STATE_C1 &&
++	    (cpuidle_state_table[0].flags & CPUIDLE_FLAG_IRQ_ENABLE)) {
++		ASSERT(cx->address == flg2MWAIT(cpuidle_state_table[0].flags));
++		irq_enable_early = true;
++	}
 +
- static void mwait_idle(void)
- {
- 	unsigned int cpu =3D smp_processor_id();
-@@ -954,6 +980,11 @@ static const struct idle_cpu idle_cpu_dn
- 	.disable_promotion_to_c1e =3D true,
- };
-=20
-+static const struct idle_cpu idle_cpu_snr =3D {
-+	.state_table =3D snr_cstates,
-+	.disable_promotion_to_c1e =3D true,
-+};
+ 	cpufreq_dbs_timer_suspend();
+ 
+ 	rcu_idle_enter(cpu);
+@@ -842,9 +854,15 @@ static void mwait_idle(void)
+ 
+ 	update_last_cx_stat(power, cx, before);
+ 
+-	if (cpu_is_haltable(cpu))
++	if (cpu_is_haltable(cpu)) {
++		if (irq_enable_early)
++			local_irq_enable();
 +
- #define ICPU(model, cpu) \
- 	{ X86_VENDOR_INTEL, 6, model, X86_FEATURE_ALWAYS, &idle_cpu_##cpu}
-=20
-@@ -996,7 +1027,7 @@ static const struct x86_cpu_id intel_idl
- 	ICPU(0x5c, bxt),
- 	ICPU(0x7a, bxt),
- 	ICPU(0x5f, dnv),
--	ICPU(0x86, dnv),
-+	ICPU(0x86, snr),
- 	{}
- };
-=20
+ 		mwait_idle_with_hints(cx->address, MWAIT_ECX_INTERRUPT_BREAK);
+ 
++		local_irq_disable();
++	}
++
+ 	after = alternative_call(cpuidle_get_tick);
+ 
+ 	cstate_restore_tsc();
 
 
