@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F109A49515E
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jan 2022 16:25:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259099.446937 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBC1B49515C
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jan 2022 16:25:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259100.446949 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAZIi-0002g7-Mn; Thu, 20 Jan 2022 15:24:36 +0000
+	id 1nAZIm-00031H-3e; Thu, 20 Jan 2022 15:24:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259099.446937; Thu, 20 Jan 2022 15:24:36 +0000
+Received: by outflank-mailman (output) from mailman id 259100.446949; Thu, 20 Jan 2022 15:24:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAZIi-0002dG-I6; Thu, 20 Jan 2022 15:24:36 +0000
-Received: by outflank-mailman (input) for mailman id 259099;
- Thu, 20 Jan 2022 15:24:35 +0000
+	id 1nAZIl-0002xS-W3; Thu, 20 Jan 2022 15:24:39 +0000
+Received: by outflank-mailman (input) for mailman id 259100;
+ Thu, 20 Jan 2022 15:24:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=zWAP=SE=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nAZIh-0002If-5F
- for xen-devel@lists.xenproject.org; Thu, 20 Jan 2022 15:24:35 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 111ae513-7a05-11ec-bc18-3156f6d857e4;
- Thu, 20 Jan 2022 16:24:33 +0100 (CET)
+ id 1nAZIk-0002If-DH
+ for xen-devel@lists.xenproject.org; Thu, 20 Jan 2022 15:24:38 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1310879e-7a05-11ec-bc18-3156f6d857e4;
+ Thu, 20 Jan 2022 16:24:37 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,369 +36,269 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 111ae513-7a05-11ec-bc18-3156f6d857e4
+X-Inumbo-ID: 1310879e-7a05-11ec-bc18-3156f6d857e4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1642692273;
+  d=citrix.com; s=securemail; t=1642692277;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:content-transfer-encoding:mime-version;
-  bh=pdxlQzLLLdqMBmYIq21jztzs3Sm4F2L99O2dYBy1tGo=;
-  b=Hns3Yv4Rk+S8beXVoUTfbmfX0jeEoerhq60k3Q6ZdfnIDFTE9JgL0JnJ
-   jHJkKb32vHPfGPpEPu62cxe8IWUlwlSDsU98dzYKsPORyG9cWyI+rRBSU
-   9vVXgGsKmF8aaShs3ZhHW6oANDaSOKX8urb/GC6fKdVT0ypIatzoSW/F0
-   Y=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: GsDhXFmZr69eVszDg7x+v1nEvaUn6bhScPyfOd/mkKJy5u543Hgp/I4Bd7PWoerUnUTMj2lMRU
- XqPg6zGjwUYFuC141pbtskOEa9SqPit+DFO0vrmPnP3jbQR7vsDEE4JV4ywcAwuUVNisPo3U5x
- NnTwDZ99Akbm6iMMrCJPMMLVyZM78LGFl+wdKmNV/6+cSaIngUsRCNA2D4hDdQhSlKfWPZeBKX
- kyjhvLBOrwynYyNpuPfdf19yt5/f6sEb9DbSg/VK3LG0+/R89MXNxc54p72ObSmXZnqtFlg7bB
- bt4HLCwkme0wO5Mqrycwr+aL
+  bh=m2MqR2DhtFMiEHrt+YuWBuOssJ0Pw1+H41fXQNlG5gw=;
+  b=fAx0v8G/XKa9vZ/KTve3k2IcQF9e1R/6Gh3nB7Ho+wAqy8D0PCVZo+C7
+   mrAHuiLCCEuJipXcawTg92nn9oRirfk2mRpStNDBGvdCCdZUgDDsOnFeZ
+   nDaTZQfyk3/aWQ1EZ6TSCcQhatvbvlxlVc7BJMCdoSS3d59XHR7Gl9Mac
+   w=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: N9XddzcHgt/QmCskYWkQuzs662NBi30PHrU1coqx5L7XoUUh+1Lp2IMQK1oXtKkKRF0AHmZsBt
+ sDUnH5dXfZLKoENJz5g1ZhaAUl/OHjZ0NaeZPjZRVEFOEYH8I7Hy6lq6Nk2WppU+WSNVgqrO3y
+ Yn3QPDyTIszwHNq/O8EsPiwoNtrFeD3gXweV0C9l186DFz9GmdtwNr32eBZnqbVnS55KRjKvFo
+ i15HlKYQ1Jy0mIabSqBQoKDgp4Mlx5SEozrP1fKCJE1D1IWwat96QH1N5xINgDbQsDbaQEowwx
+ tNpitsnNOE0sJZ+JuPjrFW+H
 X-SBRS: 5.2
-X-MesageID: 62819047
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 62414611
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:D/CauqLVxQv7plCqFE+RTpIlxSXFcZb7ZxGr2PjKsXjdYENS3z1Sy
- zEXXWnSafyJZGPzcogkPo62phgC7MDWytBkSgdlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUakideSc+EH170Us5w7Zj6mJVqYPR7z2l6
- IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
- QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2pmsxD5
- Pp/6aCfQD8YMb3Rw/4GDCVhRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
- LpBdW5LPkvra+GemdpXTsF2gcsuNo/zNZ43sXB81zDJS/0hRPgvRo2Uv48BjW9s2aiiG97ne
- pFCVwZlbi7rIDRvHAcZKYwmsd6R0yyXnzpw9wvO+PtfD3Lo5A5s1LngNvLFd9rMQt9a9m6Dv
- X7P9Wn9BhAcNfScxCCD/3bqgfXA9QvjUZ8WPK218LhtmlL77nweDlgaWEW2pdG9i1WiQJRPJ
- koM4C0soKMuskuxQbHVXRe1vXqFtR40QMdLHqsx7wTl4rXQyxaUAC4DVDEpVTA9nJZoH3pwj
- AbPxo63Q2w02FGIdZ6D3peRsQGeFhpJEUALXR4LXRZe+cK8nLhm23ojUe1fOKKyi9T0HxT5z
- DaLsDUyit0vsCIb60mo1QuZ2mzx//AlWiZwv1yKBTz9smuVcab8P9TwgWU3+8qsO2pworOpm
- HEf0/aT4+kVZX1mvHzcGb5ddF1FChvsDdE9vbKNN8Vwn9hO0yT6FWy13N2YDB01WirjUWW4C
- HI/QSsLuPdu0IKCNMebmb6ZBcUw1rTHHt/4TP3SZdcmSsEvKFXZpX4+ORDMhjCFfK0QfUcXY
- 8vznSGEVi5yNEia5GDuG7d1PUEDm0jSOl8/tbiklk/6gNJylVaeSKsfMUvmUwzKxPjsnekhy
- P4Gb5Hi40wGCIXWO3CLmaZOcwxiBSVlVPje9pwGHsbec1EOMDxwVJfsLUYJJtYNc1J9zLmYp
- xlQmyZwlTLCuJEwAVzaMy84MOK2A88XQLBSFXVEAGtEEkMLOO6HxKwea4E2bf8g8ulixuRzV
- P4LZ4OLBfEnd9gN02p1gUDVoNMweRK1qxiJOib5MjEzc4Q5H17C+8P+fxup/y4LV3Llucw7q
- rym9wXaXZtcGFgyUJeIMKqinwGroHwQuONuRE+UcNNdT1rhrdpxICvrg/5pf8xVcUffxiGX3
- hq9CAsDobWfuJc89dTE3PjWr4qgH+ZkMFBdGm3XseS/OSXApzLxyo5cSueYOzvaUTqsqqmlY
- OxUydD6MeEGwwkW49YtTe4zwPtntdX1prJcwgB1J1nxbgymWuF6P32L/chTrakRlLVXjhS7B
- xCU8d5ANLTXZM68SAwNJBAoZ/io3O0PnmWA9uw8JUj36XMl/LeDVkkObRCAhDYEcelwOYIhh
- +wgpNQX+0q0jR9zaoSKiSVd9mKtKH0cUvp46sFGUdGz0gd7mEtfZZH8CzPt5MDdYtpBBUAmP
- zuIifeQnL9b3EfDLyI+GHWlMTCxXnjSVMSmFGM/Gmk=
-IronPort-HdrOrdr: A9a23:AAMgsawrqdq7ekTpSHQoKrPxtuskLtp133Aq2lEZdPULSKKlfp
- GV88jziyWZtN9wYhEdcdDpAtjmfZq6z+8L3WBxB8bfYOCCggqVxe5ZnPLfKlHbakjDH6tmpN
- 1dmstFea3N5DpB/L7HCWCDer5KqrT3k9HLuQ6d9QYRcegDUdAQ0+4TMHf8LqQZfngjOXJvf6
- DsmPav6gDQM0g/X4CePD0oTuLDr9rEmNbPZgMHPQcu7E2rgSmz4LD3PhCE1lNGOgk/jYsKwC
- zgqUjU96+ju/a0xlv10HLS1Y1fnJ/ExsFYDMKBp8AJInHHixquZq5mR7qe1QpF7d2H2RIPqp
- 3hsh0gN8N85zf4eXy0mwLk303a3DMn+xbZuBalqEqmhfa8aCMxCsJHi44cWADe8VAcsNZ117
- 8O936FtrJMZCmw3RjV1pztbVVHh0C0qX0tnao4lHpES7YTb7dXsMg24F5VKpEdByj3gbpXXt
- WGNPusp8q+TGnqLUww5gJUsZmRtzUIb1i7q3E5y4yoO2M8pgE886MarPZv6EvouqhNDKWs3N
- 60QJiAoos+OfP+XZgNd9vpfvHHf1AlOSi8S156AW6XXJ3vaEi94KIe3t0OlZWXkdozvd0PpK
- g=
+IronPort-Data: A9a23:h/u3x6DqE0x5SRVW/8jkw5YqxClBgxIJ4kV8jS/XYbTApD8i32NUy
+ DFJUTzTP6vcNDPwKt0jOoq38UgH65bXndIyQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WL6s1hxZH1c+En9400o7wYbVv6Yz6TSHK1LV0
+ T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
+ Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/tRCjvtQp9
+ et2lY2IUVktOe6WtctFakwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
+ KFGbmBWBvyAr7veLLaTUO5ji95lNMD2FIgepmth3XfSCvNOrZXrHf+WvIMGhW5YasZmB8/xW
+ o0QUBZUQxmdeQxwGl0XJ7Ajg7L97pX4W2IB8w/EzUYt2EDMyCRh3b6rN8DaEvSIT8hImkeTp
+ krd4n/0RBodMbS32TeDt36hmOLLtSf6Q54JUq218OZwh1+ezXBVDwcZPWZXutHg1BT4AYgGb
+ RVJpGx+9sDe6XBHUPHDejeZpCa5gCU8SuJITek9q1ug5fLttlPx6nc/chZNb9kvtckTTDMs1
+ 0OUk96BOQGDoIF5WlrGqO7K8Gra1Tw9aDZbOHRaFVdtD8zL+dlr1nryosBf/LlZZzEfMRX52
+ Hi0oSc3nN3/ZuZbhvzgrTgrb99Bz6UlrzLZBC2LDwpJDSsjPeZJgrBED3CBsZ6sy67DHzG8U
+ IAswZT20Qz3JcjleNaxaOsMBqq1wP2OLSfRh1Vid7F4qWj3pSf8LdwOvGguTKuMDiriUWW1C
+ KM0kVgJjKK/wVPwNfMnC25PI5lCIVfc+STNCamPM4smjmlZfw6b5iB+DXN8LEi2+HXAZZoXY
+ M/BGe71VC5yIf0+kFKeGrlBuZd2mHFW7T6DFPjTkkX8uZLDNSH9dFvwGAbUBgzPxPna8Fy9H
+ hc2H5bi9iizp8WnMnCIqtZCdA5TRZX5bLivw/Fqmie4ClMOMEkqCuPLwKNnfIpgnq9PkfzP8
+ G37UUhdoGcTT1WeQelTQnw8Or7pQ7hlqnc3YX4lMVqygiBxaoez9qYPMZAweOB/puBkyPd1S
+ dgDetmBXasTGmiWpWxFYMmvtpFmeTSqmRmKY3ivbg8gcsMyXAfO4NLlIFfirXFcEiqtuMIii
+ LS8zQeHE4EbTgFvAZ+OOvKixl+8p1YHn+d2UxeaK9VfYhy0ooNrNzbwnrk8JMRVcUfPwT6T1
+ gC3BxYEpLaS/99poYeR3a3d9tWnCepzGEZeDlL317fuOHmI5HenzK9BTP2MIWLXWlTr9fjwf
+ u5S1fz9bqEKxQ4Yr4pmHr935qsi/N+z9aRCxwFpEXiXPVSmDrRsfiuP0cVV7/Afw7ZYvU29W
+ 16V+8kcMrKMYZu3HFkULQsjT+KCyfBLxWWCsaVreB33tH1t4b6KcUROJB3d2iVSIYx8PJ4h3
+ ep86tUd7Bayi0ZyP9uL5syOG79g8pDUv30bi6wn
+IronPort-HdrOrdr: A9a23:znjMIqt+J2lty3M8cgjdScSW7skC7IMji2hC6mlwRA09TyXGra
+ 6TdaUguiMc1gx8ZJhBo7C90KnpewK6yXcT2/hsAV7CZniYhILMFuBfBOTZskTd8kHFh4tgPO
+ JbAtJD4b7LfChHZKTBkXGF+r8bqbHtms3Y5pa9854ud3AWV0gJ1XYJNu/xKDwReOApP+tcKH
+ LKjfA32QZINE5nJPiTNz0gZazuttfLnJXpbVovAAMm0hCHiXeN5KThGxaV8x8CW3cXqI1SvV
+ Ttokjc3OGOovu7whjT2yv66IlXosLozp9mCNaXgsYYBz3wgkKDZZhnWZeFoDcpydvfpWoCoZ
+ 3pmVMNLs5z43TeciWcpgbs4RDp1HIU53rr2Taj8DLeiP28YAh/J9tKhIpffBecwVEnpstA3K
+ VC2H/cn4ZLDDvb9R6NpuTgZlVPrA6ZsHAimekcgzh0So0FcoJcqoQZ4Qd8DIoAJiTn84oqed
+ MeQv003MwmMm9yUkqp/FWGmLeXLzEO91a9Mwc/U/WuonhrdCsT9Tpd+CQd9k1wgq7VBaM0oN
+ gsCZ4Y5o2mePVmGp6VNN1xMvdfNVa9NC4kSFjiWmgPNJt3c04l+KSHq4nc2omRCeg1Jd0J6d
+ L8bG8=
 X-IronPort-AV: E=Sophos;i="5.88,302,1635220800"; 
-   d="scan'208";a="62819047"
+   d="scan'208";a="62414611"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fkvYEg2hSMrh/6MtfyT5eY8SZB5WXFJRosoiM3JUs0r3yvXQg1XQeUdyh3LaUAn1e0fnSxqDJQgp4Q0d/+pWDya8NqmtkxxprOC7gEcV4+xI30+lOTHKfNI2Gyg8XTbp6k8EyWDb1y46yRJcOnR4rW2Lzo5AH/5D7UyqMibMT2DBRd+6iXJYNUh7Q09R2myB8XvCcBsI1FYr+veyegZf02UwrdosfWcstUUn0xWEfmOAPtZb8qGikb3gvePhUfl+u4V+VAx2YjfzbgI3RyauSx9A1IyuyiRTgGEDZu5Fg9Dl7kTlfraaT6Aj3C+Bf11g28WC+FOEpMEpciiYWve1dA==
+ b=fAA6/hyJe/xMcKlts8mf4I9Zr6c7j31+iNZbjTOO1Nd3J584XqsDgsFrcMqgrWxtWDtCkk9Nky8BYPQHjCV/kFPiECsH+r7MFflU/rU+Dg0DsJoTFKR0aNYkW8gGQOt3TF7ZPqJhWmZX8jeori9iyphpoHh5Ixfz21D3Onx87Xk6crqE+3KkGD66CbdX9jHAyQt1drafFfnhznmmA1R9N6iuPyhTENRhZQTWfEb0rMiF3Hi5mVCWudXRd61q5Sf491XrFdb2YxPgcgvpNNxNllA7v5gUsVk44KdVtyQ2NZsr0twa1CHV8hNmkOXNM/d4+41y9EgxtAIstoUYH217tA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HoF6XYV9k/waGwdbkp6UIajlOGJSYD9wsXW9TkdA094=;
- b=Y7oKeoS8KEkC7zk9P6bz4TntTAi0jIfEfCL53HKyfgFd2Eb2byVuO9XOvMhg4oRnOMMiYxYqeEm2pKN/9mdr4U30zdKkAeSK8IJslcGp9DcNki/7GWptWSHWnRmf/MU0zLdQ1LscRCL7w0xMNsznjCs4FyMToj2z3bj/T7954nyxe//urPncgr6uSM1HNpuxm6cbqWhfRU0MDjhfOyUjLFPmGn5AkmS/JJ7UTy1G8zkrkNTX+dQReFWEYV6NRqGzPe6prb8K4aOFRtDauM6Sg8t86Y0o8UuhqM7u4+WQsH4isU0KMJXwO5uWTuo2KVsYRIWRUfbLgGaE3EGAwyMMpQ==
+ bh=ABP7/Br+owApC9qj4NTH4SDtKCbcra77tGh7FujuLWU=;
+ b=k5vV/Oh8bg3Twm6g9FwI/ZqsDCY4+bB34ckDh/iyv2Vnc/R3mqiyoOAyUmIBsDq+UQha05QHw6Doqnp69WGLcE8Qw4Fkl1N/lL1u904eB4chK1IprbkquSYZNbXKGmR2s0gxfystrha6yL6vGBUPGDP2H3clMlWLpiO3bnkAFlMM1N3X8jkNQTCrEXsm9sPtGYeobZVCzS028v9SJHIhry/rSa0EH1LcM0CQlvzqtVaD0WuiN1/Vzvkj8yNv4APpY3WZ2BDCdkHI9AOpAZpywpLr2IGn5Q9mCqo6Yd7MLTu/5opSJs22yyNniIvJMa0J6Dmfzh5UFM8l3tPv1j4JXQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HoF6XYV9k/waGwdbkp6UIajlOGJSYD9wsXW9TkdA094=;
- b=hoV2dqfZUa+qPHYsyzFe+4Zy31T3e2CYIvqTsIOMFS5fskA4PzAhcfTDqkYSBsxNFBmPqGGk+NkuEQ+7jj/1s7gs0AY2re+LjnwnpJZJ5pe2y+ctPXfarOW5W33XoZtmwkG1xMFD6HZuQeYP938iK56lhwiqyd00NA6RfncQKc0=
+ bh=ABP7/Br+owApC9qj4NTH4SDtKCbcra77tGh7FujuLWU=;
+ b=Mzra39GQKtdruqOD4NPH4ug9HsaIuwSXoHmwFYAL4/9/n2P/l+FA4uvMQfXxI9cJku8nvxysVd7OBeunkplRXF/TsIIID+0nW+z2MUE8fpEVX+gW3mpoRffnfX95OGy6IdmXzrV33+Ie/AShDKC/DmBAPPjiKtrtieh1mVZOz2Q=
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, "George
- Dunlap" <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>
-Subject: [PATCH 2/3] x86/vmsi: add support for extended destination ID in address field
-Date: Thu, 20 Jan 2022 16:23:18 +0100
-Message-ID: <20220120152319.7448-3-roger.pau@citrix.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH 3/3] HACK: allow adding an offset to the x2APIC ID
+Date: Thu, 20 Jan 2022 16:23:19 +0100
+Message-ID: <20220120152319.7448-4-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220120152319.7448-1-roger.pau@citrix.com>
 References: <20220120152319.7448-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0013.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::18) To DS7PR03MB5608.namprd03.prod.outlook.com
+Content-Type: text/plain
+X-ClientProxiedBy: FR0P281CA0074.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::20) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eb106a66-8c60-4d32-0ca6-08d9dc28f224
+X-MS-Office365-Filtering-Correlation-Id: 3da4c9b4-487d-45a9-f12f-08d9dc28f4a7
 X-MS-TrafficTypeDiagnostic: BN7PR03MB3681:EE_
-X-Microsoft-Antispam-PRVS: <BN7PR03MB3681136CAE152967F8390E298F5A9@BN7PR03MB3681.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Microsoft-Antispam-PRVS: <BN7PR03MB36810BC40C3818669061A41E8F5A9@BN7PR03MB3681.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: agARpoKQ+TSIVO96JM3GsGSYuJI0xuXEsD/SlgajnJDpXOUf6Ru/VeU3Xgjh3sbWF8CHavbuo66NIIvtqtppnUdsKbwuUlHyxKsvll6AroBRCdQpm0b2/bus4FiIntXToJ7bJKpNwNy+kdGDRtteAfueC28fQc/Wf2z+7LpOm9o0f7u1ooECcLspX64E8xC2/qlZhh6ymLGYJd/7eVMi6CJGPz1ORt5zwZoi05SPdaweL76tpXQU/dorzVFQV574QMBaAxjn0P/Q/XoCwsqGMnMnVJk0jg4kkZs60iq7cKHTB6iumF6RDWAS9y8Z8WhPbpMuImtTuni14elaoJ8Ll2ApLiTSIv9Xiq90YvMBpDujeip355h+HWWwuoS4HiYXbQMuw4AVUNqsDQt69SAq6k2lFxOCHRD7G5Ut3Ze44CuTtq+AXpJe/5LWOAqB7t58MretekJAMJ6nWeGJNnIi8OWHV8Amx4Wu5GT2Oqz6vYd1+2p6ii5tHwbmvWBbfHxM1OZjxvW7UFT+/36ptJuheZCalCsEKmL4gHh+yQ58CCWXFaw79rVYrAfLAzlXqdeCJpWX/0GsR2A4Z34OcPaOV1ozP35b8qegiTc5f1KSmeTBkzBlD1jQ0jk5PDZ4yCb+KacSGhRGtSKhDDJ8EhAaGA==
+X-Microsoft-Antispam-Message-Info: xxURhUScCdN0F98Y1jiB3ibxYPl3QV58mURM+b4vD1ZGyoL5jzE8zS5CLZU9tEkGplOZktyAaud/0TVLQjbg9D10jAr60gYz8aTiSgtd/nM/jN69q4gIY0OrWMjrq8pJNe9iKHePHxmlLvGL+uHoYe93bfgUuvANY1oi7KUrLjOs8wJVdA2PC8qPlbqL3EfWAeHr/d9SlQw/ac+z2G07fWIipN7PqfWD7d/eCRFs/hHTLHuiben8EAayeCBxm0OX0MSHej1CROGRHIa1pOpn4ukO2/QOMW200RPCil6wk+IEh1jAK/MfauYYSU60SiT8bsqElF1769rC1j2IZyWDaRib+ekyN4GD688+xZ9lEGVBvlbaGOuR3D+79bFRBCVJLRuLR0YMkQS8znJYaYzLja1TT66xx5n9hiQ+FOej8LJvyL5KlQo9kKC+sQKyyigwhs+VI/Ew1ns1ioBoE4WD3HrvWigqhoha+qFqbUkDNnCI9m30d5NxC1wolZYza+xyB7QMVepgE7R6eg17jqsO2WD4Dyg8Nq7FEN6cZbgt4o7lNcYvejaVrcR+IJrUZ7i/ZOUbwcRHxUMpsLBOg4ExPZ0h5j9j82gUILYBPj1g/cQs3m0Hvrhf4+rpqPBUkusmlPbOHcWamLr0CDlRjdzQ0Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(4636009)(366004)(66946007)(8676002)(6666004)(1076003)(508600001)(66476007)(54906003)(66556008)(2906002)(6512007)(82960400001)(8936002)(38100700002)(83380400001)(5660300002)(36756003)(26005)(6916009)(186003)(316002)(6506007)(6486002)(86362001)(4326008)(2616005);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c3ZmSXdmY01wWUpNbGJwUHRJb29STkZrMEFKeWNJOHlrQlAzOE9wcXVEbmh6?=
- =?utf-8?B?VmxtOERueEN6cGRFMWh0dWF5TGVsS082UzNzUlNUMURKTTVRRHNDM3JDSEpJ?=
- =?utf-8?B?NTYrQU9PdHZJTmJ6eWNYc0M5K2VoK2YvYm9yd2RNL2YyTFZJa3d0Y1lUYTRr?=
- =?utf-8?B?dHptamxHNjRVcUo1Z3ZuYWNHM3Y3c1ZDdllGSGxCb1N4ZktnWTVqTGJFcExW?=
- =?utf-8?B?RWhUT3ZCRlhSY3d4dHU2YjFqYUtuUHFVV1RvelEwaEFrNk9MOUNOK1hMVVIy?=
- =?utf-8?B?VTQ2RTlDZVNnWk5zUjRVRlAwS1BpZFQxWGsyeE01TzFVclhJaWh0MHdSSm1k?=
- =?utf-8?B?SnY0VWtsVDNzeVJoa0l6SXJqc0FST0lKUTNNYXZ0ZkV0QmFlbURITkgrTTNP?=
- =?utf-8?B?NEFsTHVhdDU3K0lNV1A1RGt3SDhrVGdPdzdlcWo1QXB0U1N0ZEpmVVR6WEJO?=
- =?utf-8?B?b0dDRTEwK3Z6N3BidGRpeG5mb1djNDlMaWVLMC8vcWlVZTdlcFBaOEtodmRC?=
- =?utf-8?B?c1ZGdlU3K29rSUxuS0lPbmRQOW1RbFBZZ240aXV3cXVJbjNyYk0xOStPa2Yz?=
- =?utf-8?B?RkJtdEUvSlpucyszMWlIU1phN1F3MzY2SGE5aWRaMFdvN3c0TDE5OFJWK2NW?=
- =?utf-8?B?Nnk4WldUa0lzeXZJSG9qdjRDb2hyNW5OdFVNOW9lUEZsYVdzZnNQUFdrVmth?=
- =?utf-8?B?TTE5bU9MS2JyOUlUaUZEWVdhVUNIRGJqNUQ5czlxNFdkQkNJbGdGZkNWWlB2?=
- =?utf-8?B?RzhYcEJJWGgxaHQxWkdKd1B0ZFVIaWN6UWp3SHBnNzh0VWpFbXpENVIvcWM2?=
- =?utf-8?B?MG00QkJ0eUh1U1ZmT1JHRHRxeXpmcmpwazNEcytGa2VYQ2c2UzlwQ0lGNk9W?=
- =?utf-8?B?VHJUVUlHTGx3Z0RmUk1UeUtteCtIR29LNEhFeVZwVytWK2xyMndqdDVsUUlH?=
- =?utf-8?B?Z1FNMUMvL1BBdEE4c0FxelczSVNUek84QkFsYjFyV0l0bVhjNXNUcURPK0Z0?=
- =?utf-8?B?SEN2UkN4bFY4aFQ3dGdiQ3RyZkU0VVBQQlFmYzYvRFhGMWFPQWJUQVFtcHF0?=
- =?utf-8?B?dlk0VGZjbTBFNTBRcmcyT1JLQlhVenRGeDV5SW1Pb01aQWZPNnQ1Vk9zZTlK?=
- =?utf-8?B?RndsdjRxS0ordmVkQS8zY3BTb0I3bm1ZNzZjZ2djckZ3eVo0K0w3MHkvRjRx?=
- =?utf-8?B?QnZ5TzJMMXgzRWR0enYwb3lLZ09lcXMyaXJPRkkzV0pYRk81WHFFajkvdmZT?=
- =?utf-8?B?aEg2aUFQT2xoMU01L0J2LzFUMlFwa1VMVS9zemVQaWZKRHBMYXlDVVhZNnJ5?=
- =?utf-8?B?a3lCSm9LeXIvWmYvb0FwSytFbUZaZHlHMThrVDFZMTQzUWlmZVJKRkthTUVZ?=
- =?utf-8?B?M1JWRUJpL0ZUOUcxd2xBaXBtKzNMUG4wRGc5d0hGNG5RK3BheDJyVkt6M0gx?=
- =?utf-8?B?N3NhdHhQM0xkT05FYzFhRTFTVW0xZzRUSzJab0p5amkyeFJBRDNNdlljalAv?=
- =?utf-8?B?N2FpTXhEaEJXZnBEb0ZMM0F1eWJPSCtvQUgwdFJPbkRaYjRmS2pTQVRxRlVp?=
- =?utf-8?B?QlREaDk3eWlOTW5KTDUyNDFNN24yYnN0clAzN1kwY0orSE00bmI3N0pPSStE?=
- =?utf-8?B?TXFNclJ1VGpONDhjUCtsRkp3bDRLWFMzaGtLR3RIRkEvTVNNenhQalNCejJh?=
- =?utf-8?B?cE1pc1M2YnVWL1dOSWVtV1YrR3BFV0UyVC91ZE9yb3JEM1Q4cHVtTkROM0hK?=
- =?utf-8?B?VmlNdUlGemd1Qk1pZENlL0k3QjFuWmpPRThZWjVtZlAvem9jMlE3Zm9KQ3Vo?=
- =?utf-8?B?SjNLSW5LLzhQcEFQZTFyUy9yNGFsRmtLRVBnM1dJcVZpY2d2U3gydXd6UW11?=
- =?utf-8?B?MmxvYmRGWUZtOTh2T0t5TkNidWtjS0hrcUxKenlUOFRFSW1pZCtDZGF3WHVt?=
- =?utf-8?B?MTB3RURyM2dhYUl4VnRiMHh0VHBGaUVnYkdYaUc0M0kvOW5Bejd0V2ZSSUxo?=
- =?utf-8?B?bzM3WnZjQmtiOFdiLzRHd015U3lhTkEzell2Rm9QVHJxUWMwZ0ttWFBPL0JI?=
- =?utf-8?B?WngzcURzRVpVS0tJNFNTalpWUHdpNE85OXRaNkJEQ3dFQTlKQkEvZG92azBV?=
- =?utf-8?B?NE9sakNYQXZhWmdockJDYmxMcEN1Q011cXZ0RGpPQ2ZRb0J5a3k2S3pOdkVN?=
- =?utf-8?Q?i6nIbeAEg3sY1sn12ayTiE4=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb106a66-8c60-4d32-0ca6-08d9dc28f224
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?O3UAM1EA45Ndo11H0cOGq3hsmTKotJ4h/SddcmxxesvINuUavS/cuKubU3TO?=
+ =?us-ascii?Q?NryAsNG5XDjpgqKQmSCOM/sUbOQUxO0XVEPRD1FLV0qMCwUKGemKl+vhZiue?=
+ =?us-ascii?Q?ov3C2t8StasGHdxw20I/VyuuZ4xz212vzAwT1OluRxtVY1qagelVgw3Uj86j?=
+ =?us-ascii?Q?zVbZ8Zj4/mXAqQXjEVJT7n75jgpMfjd1zh85rr2gAsUWmFrjwKj0cHPbO4mB?=
+ =?us-ascii?Q?pLNS3LEM/nZRYIXjCcS421vL+03iLE4CYLj+apcFSa10T7K3INpyrALueouf?=
+ =?us-ascii?Q?oYKedpbvl9PpkTFH2xxFeyYxa5l+46MwB4fGDgK8HC1XAUUllSDQ0qkuEclx?=
+ =?us-ascii?Q?XaU3IH/VP7RmbERf8CaGb8NION5ZECm7+SThTDcgOOr6gDaUFSzKQNn/1Arx?=
+ =?us-ascii?Q?T5wAN2hkq0gnHrpieuEtTGh2UIsdWRBa/LV/amnqQMUbhJDL1jnDV+FrIt0q?=
+ =?us-ascii?Q?6aDaZOwZ5O5qPcP00UKy2Jowa4PJYIZwvcEv+GrKKDYtY+X4ekVVmfplkuFR?=
+ =?us-ascii?Q?tnqBixtbHRVmyqWLcst2rLo5yxTf0wC/UXXRKGYsrW/CrY7FwQw2hoz65oJS?=
+ =?us-ascii?Q?DHRcmqDzDta3GhTO6udbgwW+jhF9GMTIkqXOKjRjl8z1pjzR3csJmQ1I9QDt?=
+ =?us-ascii?Q?hs0q0/VWHTuShmuKNzFT3ci2X34G1m8GFOWSjqbzeX5UKR7wxgQFjSSqhl6t?=
+ =?us-ascii?Q?73OJuB0ah8SKa/va1TDmkXmfZwl3DKgwJqmMiC6we+tyzU+N1ExjqYFT/GKZ?=
+ =?us-ascii?Q?+LNcnW348tfGVjNRgz1BeZho+WHY/BbW5bmF0YKDeL4tYqeWRaWdIkYhDWmE?=
+ =?us-ascii?Q?msP4X3DAwTSAyVKfsRobKA9j7jBv/4+QCuU706ob5iPN4KAAvGzmxdYAY9GC?=
+ =?us-ascii?Q?l1ngGbbgY8MI+jSZGYaeb5ZkWKbWdvRaPiAYf0R/mnlavP2Xf7SLgSrotH2G?=
+ =?us-ascii?Q?l5ONw09Oxz7tNUA2Xdt+Ept5aOJlg2NoEK8yHT/beLtiKqzQQpJK5NJCwzr0?=
+ =?us-ascii?Q?zji2n64dUgAIc5RT4oYE54Pv7mJNGUX84bn5srye893FMgJI1mTYVvGeNFjd?=
+ =?us-ascii?Q?Ry/upi7Z+UXys2DlimusMBsHDZjeH8D7Sfw1N0sJkuDCIzZWluHXRUKHNnQm?=
+ =?us-ascii?Q?jhpcUtSwDOHDzNOx3c9/6pJn3iu3396IDHnfl0XJR2HT4Iz+2On/UPnzPdx5?=
+ =?us-ascii?Q?MqrxalXz/SL3o2lgDRMhIUc6eft9cgX1jOSaK0ibmfxGaGExMhsy544Lwwz1?=
+ =?us-ascii?Q?s/9FFDMGU2DdMAkJVpLThQ6fj6lOPs/o9vsMQ7SkoIla+DfmIwd/MquEyXdF?=
+ =?us-ascii?Q?EyNlXSu9Y8Eefg14dQbvUMFqVF1qhEBhnQ6/KZjypSZGig1szLsIbNPDpSis?=
+ =?us-ascii?Q?wb1HZBaRhbLqc4nmhBzx1ZKdaP/JybFvT5GVXA/w8fgg2yufNXlmhmhx/d0S?=
+ =?us-ascii?Q?8zbq0CE0x1JFMKs17zkLd7zJ+CsAgD5EWAC0MzlZDM6pkilK4gGivEKvuQvw?=
+ =?us-ascii?Q?nyrbQUZe3XHcGiKDUm23oGmtzai2iC5JRVNZyRdn7ZSKzPIyyGCAL5AjMBsD?=
+ =?us-ascii?Q?h7EBIBstb0BmTfj9YstYQlN/FMbKZEriUHg+42RA/K7t1TwJUhjW+ooOR7oc?=
+ =?us-ascii?Q?YFXsiaQTi1CT2a/cZSHWQTU=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3da4c9b4-487d-45a9-f12f-08d9dc28f4a7
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 15:24:27.0449
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 15:24:31.2318
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: j0axAw5kI8i6o96GL9ahRrB7vVBrRJNDcm5rjbWDuM4kc5sL8URALLKAfY5p0Rb2eXW/uRnh0RU4CnVB4R7RRA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: ++DY6MbWyAPo5KmYvYRcOpkYQfQqJwMUPV017N84GDPzG8GSaYj94mYC79pKXooDppJD4em9zpz68xwvzdjc/A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR03MB3681
 X-OriginatorOrg: citrix.com
 
-Both QEMU/KVM and HyperV support using bits 11:5 from the MSI address
-field in order to store the high part of the target APIC ID. This
-allows expanding the maximum APID ID usable without interrupt
-remapping support from 255 to 32768.
-
-Note the interface used by QEMU for emulated devices (via the
-XEN_DMOP_inject_msi hypercall) already passes both the address and
-data fields into Xen for processing, so there's no need for any change
-to QEMU there.
-
-However for PCI passthrough devices QEMU uses the
-XEN_DOMCTL_bind_pt_irq hypercall which does need an addition to the
-gflags field in order to pass the high bits of the APIC destination
-ID.
-
-Introduce a new CPUID flag to signal the support for the feature. The
-introduced flag covers both the support for extended ID for the
-IO-APIC RTE and the MSI address registers. Such flag is currently only
-exposed when the domain is using vPCI (ie: a PVH dom0).
-
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+In order to test external interrupts using a destination ID > 255.
+Also start vCPUs with the APIC in x2APIC mode.
 ---
- xen/arch/x86/hvm/irq.c              |  3 ++-
- xen/arch/x86/hvm/vmsi.c             | 13 ++++++++++---
- xen/arch/x86/include/asm/hvm/hvm.h  |  5 +++--
- xen/arch/x86/include/asm/msi.h      |  1 +
- xen/arch/x86/traps.c                |  3 +++
- xen/drivers/passthrough/x86/hvm.c   | 10 +++++++---
- xen/include/public/arch-x86/cpuid.h |  6 ++++++
- xen/include/public/domctl.h         |  1 +
- 8 files changed, 33 insertions(+), 9 deletions(-)
+ xen/arch/x86/cpuid.c                  | 12 +++++++++++-
+ xen/arch/x86/hvm/dom0_build.c         |  3 ++-
+ xen/arch/x86/hvm/vlapic.c             | 14 ++++++++++++--
+ xen/arch/x86/include/asm/hvm/vlapic.h |  2 ++
+ 4 files changed, 27 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
-index 52aae4565f..b9b5182369 100644
---- a/xen/arch/x86/hvm/irq.c
-+++ b/xen/arch/x86/hvm/irq.c
-@@ -383,7 +383,8 @@ int hvm_set_pci_link_route(struct domain *d, u8 link, u8 isa_irq)
- int hvm_inject_msi(struct domain *d, uint64_t addr, uint32_t data)
- {
-     uint32_t tmp = (uint32_t) addr;
--    uint8_t  dest = (tmp & MSI_ADDR_DEST_ID_MASK) >> MSI_ADDR_DEST_ID_SHIFT;
-+    unsigned int dest = (MASK_EXTR(tmp, MSI_ADDR_EXT_DEST_ID_MASK) << 8) |
-+                        MASK_EXTR(tmp, MSI_ADDR_DEST_ID_MASK);
-     uint8_t  dest_mode = !!(tmp & MSI_ADDR_DESTMODE_MASK);
-     uint8_t  delivery_mode = (data & MSI_DATA_DELIVERY_MODE_MASK)
-         >> MSI_DATA_DELIVERY_MODE_SHIFT;
-diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
-index 13e2a190b4..ec0f3bc13f 100644
---- a/xen/arch/x86/hvm/vmsi.c
-+++ b/xen/arch/x86/hvm/vmsi.c
-@@ -66,7 +66,7 @@ static void vmsi_inj_irq(
- 
- int vmsi_deliver(
-     struct domain *d, int vector,
--    uint8_t dest, uint8_t dest_mode,
-+    unsigned int dest, unsigned int dest_mode,
-     uint8_t delivery_mode, uint8_t trig_mode)
- {
-     struct vlapic *target;
-@@ -107,7 +107,9 @@ void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci)
- {
-     uint32_t flags = pirq_dpci->gmsi.gflags;
-     int vector = pirq_dpci->gmsi.gvec;
--    uint8_t dest = (uint8_t)flags;
-+    unsigned int dest = MASK_EXTR(flags, XEN_DOMCTL_VMSI_X86_DEST_ID_MASK) |
-+                        (MASK_EXTR(flags,
-+                                   XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK) << 8);
-     bool dest_mode = flags & XEN_DOMCTL_VMSI_X86_DM_MASK;
-     uint8_t delivery_mode = MASK_EXTR(flags, XEN_DOMCTL_VMSI_X86_DELIV_MASK);
-     bool trig_mode = flags & XEN_DOMCTL_VMSI_X86_TRIG_MASK;
-@@ -123,7 +125,8 @@ void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci)
- }
- 
- /* Return value, -1 : multi-dests, non-negative value: dest_vcpu_id */
--int hvm_girq_dest_2_vcpu_id(struct domain *d, uint8_t dest, uint8_t dest_mode)
-+int hvm_girq_dest_2_vcpu_id(struct domain *d, unsigned int dest,
-+                            unsigned int dest_mode)
- {
-     int dest_vcpu_id = -1, w = 0;
-     struct vcpu *v;
-@@ -645,6 +648,8 @@ static unsigned int msi_gflags(uint16_t data, uint64_t addr, bool masked)
-      */
-     return MASK_INSR(MASK_EXTR(addr, MSI_ADDR_DEST_ID_MASK),
-                      XEN_DOMCTL_VMSI_X86_DEST_ID_MASK) |
-+           MASK_INSR(MASK_EXTR(addr, MSI_ADDR_EXT_DEST_ID_MASK),
-+                     XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK) |
-            MASK_INSR(MASK_EXTR(addr, MSI_ADDR_REDIRECTION_MASK),
-                      XEN_DOMCTL_VMSI_X86_RH_MASK) |
-            MASK_INSR(MASK_EXTR(addr, MSI_ADDR_DESTMODE_MASK),
-@@ -835,6 +840,7 @@ void vpci_msi_arch_print(const struct vpci_msi *msi)
-            msi->data & MSI_DATA_LEVEL_ASSERT ? "" : "de",
-            msi->address & MSI_ADDR_DESTMODE_LOGIC ? "log" : "phys",
-            msi->address & MSI_ADDR_REDIRECTION_LOWPRI ? "lowest" : "fixed",
-+           (MASK_EXTR(msi->address, MSI_ADDR_EXT_DEST_ID_MASK) << 8) |
-            MASK_EXTR(msi->address, MSI_ADDR_DEST_ID_MASK),
-            msi->arch.pirq);
- }
-@@ -904,6 +910,7 @@ int vpci_msix_arch_print(const struct vpci_msix *msix)
-                entry->data & MSI_DATA_LEVEL_ASSERT ? "" : "de",
-                entry->addr & MSI_ADDR_DESTMODE_LOGIC ? "log" : "phys",
-                entry->addr & MSI_ADDR_REDIRECTION_LOWPRI ? "lowest" : "fixed",
-+               (MASK_EXTR(entry->addr, MSI_ADDR_EXT_DEST_ID_MASK) << 8) |
-                MASK_EXTR(entry->addr, MSI_ADDR_DEST_ID_MASK),
-                entry->masked, entry->arch.pirq);
-         if ( i && !(i % 64) )
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index b26302d9e7..f001b43a21 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -270,11 +270,12 @@ uint64_t hvm_get_guest_time_fixed(const struct vcpu *v, uint64_t at_tsc);
- 
- int vmsi_deliver(
-     struct domain *d, int vector,
--    uint8_t dest, uint8_t dest_mode,
-+    unsigned int dest, unsigned int dest_mode,
-     uint8_t delivery_mode, uint8_t trig_mode);
- struct hvm_pirq_dpci;
- void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *);
--int hvm_girq_dest_2_vcpu_id(struct domain *d, uint8_t dest, uint8_t dest_mode);
-+int hvm_girq_dest_2_vcpu_id(struct domain *d, unsigned int dest,
-+                            unsigned int dest_mode);
- 
- enum hvm_intblk
- hvm_interrupt_blocked(struct vcpu *v, struct hvm_intack intack);
-diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
-index e228b0f3f3..531b860e42 100644
---- a/xen/arch/x86/include/asm/msi.h
-+++ b/xen/arch/x86/include/asm/msi.h
-@@ -54,6 +54,7 @@
- #define MSI_ADDR_DEST_ID_SHIFT		12
- #define	 MSI_ADDR_DEST_ID_MASK		0x00ff000
- #define  MSI_ADDR_DEST_ID(dest)		(((dest) << MSI_ADDR_DEST_ID_SHIFT) & MSI_ADDR_DEST_ID_MASK)
-+#define	 MSI_ADDR_EXT_DEST_ID_MASK	0x0000fe0
- 
- /* MAX fixed pages reserved for mapping MSIX tables. */
- #define FIX_MSIX_MAX_PAGES              512
-diff --git a/xen/arch/x86/traps.c b/xen/arch/x86/traps.c
-index 485bd66971..3d2d75978c 100644
---- a/xen/arch/x86/traps.c
-+++ b/xen/arch/x86/traps.c
-@@ -1150,6 +1150,9 @@ void cpuid_hypervisor_leaves(const struct vcpu *v, uint32_t leaf,
-         res->a |= XEN_HVM_CPUID_DOMID_PRESENT;
-         res->c = d->domain_id;
- 
-+        if ( has_vpci(d) )
-+            res->a |= XEN_HVM_CPUID_EXT_DEST_ID;
+diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+index 0407a54626..01dcd474e8 100644
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -8,6 +8,7 @@
+ #include <asm/hvm/nestedhvm.h>
+ #include <asm/hvm/svm/svm.h>
+ #include <asm/hvm/viridian.h>
++#include <asm/hvm/vlapic.h>
+ #include <asm/hvm/vmx/vmcs.h>
+ #include <asm/paging.h>
+ #include <asm/processor.h>
+@@ -876,7 +877,14 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+         /* TODO: Rework topology logic. */
+         res->b &= 0x00ffffffu;
+         if ( is_hvm_domain(d) )
+-            res->b |= (v->vcpu_id * 2) << 24;
++        {
++            unsigned int id = v->vcpu_id * 2;
 +
++            if ( id )
++                id += opt_x2apic_id_offset;
++
++            res->b |= id << 24;
++        }
+ 
+         /* TODO: Rework vPMU control in terms of toolstack choices. */
+         if ( vpmu_available(v) &&
+@@ -1058,6 +1066,8 @@ void guest_cpuid(const struct vcpu *v, uint32_t leaf,
+ 
+             /* Fix the x2APIC identifier. */
+             res->d = v->vcpu_id * 2;
++            if ( res->d )
++                res->d += opt_x2apic_id_offset;
+         }
          break;
  
-     case 5: /* PV-specific parameters */
-diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x86/hvm.c
-index 351daafdc9..666c4b7757 100644
---- a/xen/drivers/passthrough/x86/hvm.c
-+++ b/xen/drivers/passthrough/x86/hvm.c
-@@ -269,7 +269,7 @@ int pt_irq_create_bind(
-     {
-     case PT_IRQ_TYPE_MSI:
-     {
--        uint8_t dest, delivery_mode;
-+        unsigned int dest, delivery_mode;
-         bool dest_mode;
-         int dest_vcpu_id;
-         const struct vcpu *vcpu;
-@@ -345,7 +345,9 @@ int pt_irq_create_bind(
-         }
-         /* Calculate dest_vcpu_id for MSI-type pirq migration. */
-         dest = MASK_EXTR(pirq_dpci->gmsi.gflags,
--                         XEN_DOMCTL_VMSI_X86_DEST_ID_MASK);
-+                         XEN_DOMCTL_VMSI_X86_DEST_ID_MASK) |
-+               (MASK_EXTR(pirq_dpci->gmsi.gflags,
-+                         XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK) << 8);
-         dest_mode = pirq_dpci->gmsi.gflags & XEN_DOMCTL_VMSI_X86_DM_MASK;
-         delivery_mode = MASK_EXTR(pirq_dpci->gmsi.gflags,
-                                   XEN_DOMCTL_VMSI_X86_DELIV_MASK);
-@@ -782,7 +784,9 @@ static int _hvm_dpci_msi_eoi(struct domain *d,
-          (pirq_dpci->gmsi.gvec == vector) )
-     {
-         unsigned int dest = MASK_EXTR(pirq_dpci->gmsi.gflags,
--                                      XEN_DOMCTL_VMSI_X86_DEST_ID_MASK);
-+                                      XEN_DOMCTL_VMSI_X86_DEST_ID_MASK) |
-+                            (MASK_EXTR(pirq_dpci->gmsi.gflags,
-+                                XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK) << 8);
-         bool dest_mode = pirq_dpci->gmsi.gflags & XEN_DOMCTL_VMSI_X86_DM_MASK;
+diff --git a/xen/arch/x86/hvm/dom0_build.c b/xen/arch/x86/hvm/dom0_build.c
+index 43e1bf1248..b00e45885c 100644
+--- a/xen/arch/x86/hvm/dom0_build.c
++++ b/xen/arch/x86/hvm/dom0_build.c
+@@ -30,6 +30,7 @@
+ #include <asm/bzimage.h>
+ #include <asm/dom0_build.h>
+ #include <asm/hvm/support.h>
++#include <asm/hvm/vlapic.h>
+ #include <asm/io_apic.h>
+ #include <asm/p2m.h>
+ #include <asm/paging.h>
+@@ -845,7 +846,7 @@ static int __init pvh_setup_acpi_madt(struct domain *d, paddr_t *addr)
+         x2apic->header.type = ACPI_MADT_TYPE_LOCAL_X2APIC;
+         x2apic->header.length = sizeof(*x2apic);
+         x2apic->uid = i;
+-        x2apic->local_apic_id = i * 2;
++        x2apic->local_apic_id = i * 2 + (i ? opt_x2apic_id_offset : 0);
+         x2apic->lapic_flags = ACPI_MADT_ENABLED;
+         x2apic++;
+     }
+diff --git a/xen/arch/x86/hvm/vlapic.c b/xen/arch/x86/hvm/vlapic.c
+index b8c84458ff..34209d5378 100644
+--- a/xen/arch/x86/hvm/vlapic.c
++++ b/xen/arch/x86/hvm/vlapic.c
+@@ -24,6 +24,7 @@
+ #include <xen/domain_page.h>
+ #include <xen/event.h>
+ #include <xen/nospec.h>
++#include <xen/param.h>
+ #include <xen/trace.h>
+ #include <xen/lib.h>
+ #include <xen/sched.h>
+@@ -53,6 +54,9 @@
+     (LVT_MASK | APIC_MODE_MASK | APIC_INPUT_POLARITY |\
+     APIC_LVT_REMOTE_IRR | APIC_LVT_LEVEL_TRIGGER)
  
-         if ( vlapic_match_dest(vcpu_vlapic(current), NULL, 0, dest,
-diff --git a/xen/include/public/arch-x86/cpuid.h b/xen/include/public/arch-x86/cpuid.h
-index ce46305bee..49bcc93b6b 100644
---- a/xen/include/public/arch-x86/cpuid.h
-+++ b/xen/include/public/arch-x86/cpuid.h
-@@ -102,6 +102,12 @@
- #define XEN_HVM_CPUID_IOMMU_MAPPINGS   (1u << 2)
- #define XEN_HVM_CPUID_VCPU_ID_PRESENT  (1u << 3) /* vcpu id is present in EBX */
- #define XEN_HVM_CPUID_DOMID_PRESENT    (1u << 4) /* domid is present in ECX */
-+/*
-+ * Bits 55:49 from the IO-APIC RTE and bits 11:5 from the MSI address can be
-+ * used to store high bits for the Destination ID. This expands the Destination
-+ * ID field from 8 to 15 bits, allowing to target APIC IDs up 32768.
-+ */
-+#define XEN_HVM_CPUID_EXT_DEST_ID      (1u << 5)
++unsigned int opt_x2apic_id_offset;
++integer_param("x2apic_id_offset", opt_x2apic_id_offset);
++
+ static const unsigned int vlapic_lvt_mask[VLAPIC_LVT_NUM] =
+ {
+      /* LVTT */
+@@ -1073,7 +1077,7 @@ static void set_x2apic_id(struct vlapic *vlapic)
+     u32 id = vlapic_vcpu(vlapic)->vcpu_id;
+     u32 ldr = ((id & ~0xf) << 12) | (1 << (id & 0xf));
  
- /*
-  * Leaf 6 (0x40000x05)
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index b85e6170b0..17ac7ef82b 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -588,6 +588,7 @@ struct xen_domctl_bind_pt_irq {
- #define XEN_DOMCTL_VMSI_X86_DELIV_MASK   0x007000
- #define XEN_DOMCTL_VMSI_X86_TRIG_MASK    0x008000
- #define XEN_DOMCTL_VMSI_X86_UNMASKED     0x010000
-+#define XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK 0xfe0000
+-    vlapic_set_reg(vlapic, APIC_ID, id * 2);
++    vlapic_set_reg(vlapic, APIC_ID, id * 2 + (id ? opt_x2apic_id_offset : 0));
+     vlapic_set_reg(vlapic, APIC_LDR, ldr);
+ }
  
-             uint64_aligned_t gtable;
-         } msi;
+@@ -1443,7 +1447,13 @@ void vlapic_reset(struct vlapic *vlapic)
+     if ( v->vcpu_id == 0 )
+         vlapic->hw.apic_base_msr |= APIC_BASE_BSP;
+ 
+-    vlapic_set_reg(vlapic, APIC_ID, (v->vcpu_id * 2) << 24);
++    /* start in x2APIC mode. */
++    vlapic->hw.apic_base_msr |= APIC_BASE_EXTD;
++    set_x2apic_id(vlapic);
++#if 0
++    vlapic_set_reg(vlapic, APIC_ID, id << 24);
++#endif
++
+     vlapic_do_init(vlapic);
+ }
+ 
+diff --git a/xen/arch/x86/include/asm/hvm/vlapic.h b/xen/arch/x86/include/asm/hvm/vlapic.h
+index 8f908928c3..6e837cb5bf 100644
+--- a/xen/arch/x86/include/asm/hvm/vlapic.h
++++ b/xen/arch/x86/include/asm/hvm/vlapic.h
+@@ -91,6 +91,8 @@ struct vlapic {
+     } init_sipi;
+ };
+ 
++extern unsigned int opt_x2apic_id_offset;
++
+ /* vlapic's frequence is 100 MHz */
+ #define APIC_BUS_CYCLE_NS               10
+ 
 -- 
 2.34.1
 
