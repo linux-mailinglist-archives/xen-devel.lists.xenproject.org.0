@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93FFF49562B
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jan 2022 22:57:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259180.447166 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9379495634
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jan 2022 23:02:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259183.447176 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAfPH-0007oD-A0; Thu, 20 Jan 2022 21:55:47 +0000
+	id 1nAfVD-0000oO-01; Thu, 20 Jan 2022 22:01:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259180.447166; Thu, 20 Jan 2022 21:55:47 +0000
+Received: by outflank-mailman (output) from mailman id 259183.447176; Thu, 20 Jan 2022 22:01:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAfPH-0007kz-6J; Thu, 20 Jan 2022 21:55:47 +0000
-Received: by outflank-mailman (input) for mailman id 259180;
- Thu, 20 Jan 2022 21:55:46 +0000
+	id 1nAfVC-0000mU-Sw; Thu, 20 Jan 2022 22:01:54 +0000
+Received: by outflank-mailman (input) for mailman id 259183;
+ Thu, 20 Jan 2022 22:01:53 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=lajj=SE=xilinx.com=ayankuma@srs-se1.protection.inumbo.net>)
- id 1nAfPG-0007kt-0q
- for xen-devel@lists.xenproject.org; Thu, 20 Jan 2022 21:55:46 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2060f.outbound.protection.outlook.com
- [2a01:111:f400:7ea9::60f])
+ id 1nAfVB-0000mO-Eu
+ for xen-devel@lists.xenproject.org; Thu, 20 Jan 2022 22:01:53 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2062b.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b4fdf69e-7a3b-11ec-bc18-3156f6d857e4;
- Thu, 20 Jan 2022 22:55:41 +0100 (CET)
-Received: from DM6PR10CA0032.namprd10.prod.outlook.com (2603:10b6:5:60::45) by
- CO6PR02MB8820.namprd02.prod.outlook.com (2603:10b6:303:144::11) with
+ id 91880385-7a3c-11ec-bc18-3156f6d857e4;
+ Thu, 20 Jan 2022 23:01:51 +0100 (CET)
+Received: from SA9PR11CA0007.namprd11.prod.outlook.com (2603:10b6:806:6e::12)
+ by DM5PR02MB3324.namprd02.prod.outlook.com (2603:10b6:4:66::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.9; Thu, 20 Jan
- 2022 21:55:38 +0000
-Received: from DM3NAM02FT027.eop-nam02.prod.protection.outlook.com
- (2603:10b6:5:60:cafe::91) by DM6PR10CA0032.outlook.office365.com
- (2603:10b6:5:60::45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.12; Thu, 20 Jan
+ 2022 22:01:47 +0000
+Received: from SN1NAM02FT0029.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:806:6e:cafe::39) by SA9PR11CA0007.outlook.office365.com
+ (2603:10b6:806:6e::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8 via Frontend
- Transport; Thu, 20 Jan 2022 21:55:38 +0000
-Received: from xir-pvapexch02.xlnx.xilinx.com (149.199.80.198) by
- DM3NAM02FT027.mail.protection.outlook.com (10.13.5.130) with Microsoft SMTP
+ Transport; Thu, 20 Jan 2022 22:01:46 +0000
+Received: from xir-pvapexch01.xlnx.xilinx.com (149.199.80.198) by
+ SN1NAM02FT0029.mail.protection.outlook.com (10.97.4.175) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4909.8 via Frontend Transport; Thu, 20 Jan 2022 21:55:37 +0000
-Received: from xir-pvapexch01.xlnx.xilinx.com (172.21.17.15) by
- xir-pvapexch02.xlnx.xilinx.com (172.21.17.17) with Microsoft SMTP Server
+ 15.20.4909.8 via Frontend Transport; Thu, 20 Jan 2022 22:01:46 +0000
+Received: from xir-pvapexch02.xlnx.xilinx.com (172.21.17.17) by
+ xir-pvapexch01.xlnx.xilinx.com (172.21.17.15) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.14; Thu, 20 Jan 2022 21:55:36 +0000
-Received: from smtp.xilinx.com (172.21.105.197) by
- xir-pvapexch01.xlnx.xilinx.com (172.21.17.15) with Microsoft SMTP Server id
- 15.1.2176.14 via Frontend Transport; Thu, 20 Jan 2022 21:55:36 +0000
-Received: from [10.108.8.223] (port=27503 helo=xcbayankuma41x.xilinx.com)
+ 15.1.2176.14; Thu, 20 Jan 2022 22:01:45 +0000
+Received: from smtp.xilinx.com (172.21.105.198) by
+ xir-pvapexch02.xlnx.xilinx.com (172.21.17.17) with Microsoft SMTP Server id
+ 15.1.2176.14 via Frontend Transport; Thu, 20 Jan 2022 22:01:45 +0000
+Received: from [10.71.117.147] (port=56629)
  by smtp.xilinx.com with esmtp (Exim 4.90)
  (envelope-from <ayan.kumar.halder@xilinx.com>)
- id 1nAfP5-0005Xs-HG; Thu, 20 Jan 2022 21:55:36 +0000
+ id 1nAfV2-0006bg-61; Thu, 20 Jan 2022 22:01:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,395 +63,319 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4fdf69e-7a3b-11ec-bc18-3156f6d857e4
+X-Inumbo-ID: 91880385-7a3c-11ec-bc18-3156f6d857e4
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bkA9Vk2KDr6z7UnWY/+BMghoKP6AN8s+pf0A2aLC4iq2Nhpv3MtlYkPtzBunSdbF/pzvlLgIZ/9fk4LMRVc8CcHjzSv+I74nLpiXH5eKQUL37Jk6OtvNi8fvusgM5BlKPJoZRp4ZnmqKwHr/h9ecBbfAI0ZfGPXR82VtRos9MxidPkkjRMBLhi06E8stHY2JwI33YpJSYwedB9NG+4lEHF1m8Qs9FobrrkrtRRHopMDjYOr6NNoQ16og/IhW2p3ZJRcRTY7WkBO7/9ffeSuz5eGRr7YBJjkYrHCyoKTbhl+MPofPwb+vjDIzOsXOdigrSEtvQF5iGrCkEtUuZCLbzg==
+ b=C6v/3tRD8oBPkP1XVWHL1WFBnrgTTZbuEHyBl9yFz2gn2LCz/QKQqneKN+jmQMey8i4esYLgO1CAHdso3yTqYuLtOg9CeXzHqNv1dW162KpWY2qc1zF/oPn82BBEq/sFWJ1a8StJZmeF0dFoV3PdDXf/02HWIlGAttIOITSPy8ncWy2xjXSsRiK9zaBaalOn1pqXBAGd9F7B1UsaUuFn04+pTDQ+nguSwT+xO/50fBDd12dM5wirN9QzzXDKDFlKmz0uTZgCSSkR5jjAuh0o4A585u5RF4CEQe41PBF9YsFx7/6BajUn0jLz4qcExZBONQdyBhmbjIqSkT/wlZt4Kw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kmM8bRgExVP0UZZoasHUt/y4YJ1u3xNqvHORmd9LNLA=;
- b=kZR+5HuZekpIPpgn6bbSSGiDBF+UmIfEJKPCfaAdVQ6iKwmjzADkP6ooYjRJcd0YIAeQas12384lkJusu6z95ejFIhxxEZiAQJDeZRgGANNtA4wmgAAo8dOT1g7mHSaelUSWqeqoQ+VOFZPUfVEs6AvbgPAvEmPv16JFQ33+QDSXXyRWpPyiMw/8jjrkYHvSl9g9vFvQWBBgUpA84BpqaH5nrtWICNAECuFHAl4pxbKp27gslcBIN+QFt/963nj9Rs8ADI4unLT6TrmSDfe8wvv25521cFilngM9oavIo2LsDNda0OA4JXld+zdyFkdtHMpkE7320ZZSCvgwrFpYCQ==
+ bh=DwnwUsc1evMIhNKHmggVHmmXE0pgezlpBI6F6356l98=;
+ b=Mwq7CvBlCenBMQWyhUMjY+cOPT8hvLyQoe5JIDdqCVuxFNLZZqJ+vULdHO9za0CQPc7PwXj1lqe+TREsn3kApDDBWNg7wbVBE6M/laaAbA86rVk4f8+mp/YH3b3E/HbuJbbVXiFNV3lHwmwq2Qmlz6SlzqRWbMfCt6/pwcB+mw9JpiuJvKRNuaF1NaSrJNNNXYAsoVEhw2BSqZpxpfSGZvAssXdaqR5KmPeaQL3LlmcDjESNd5re4BdgR3l3OUmWLK2aKg4lAdTrluBDwMFcVQqt7cb5weecy1BTCuyqdX8Mgl23LvMzV6uvHFPyF+vQYifqSM+2yqqtSI/qpqkkyw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 149.199.80.198) smtp.rcpttodomain=lists.xenproject.org
- smtp.mailfrom=xilinx.com; dmarc=pass (p=none sp=none pct=100) action=none
- header.from=xilinx.com; dkim=none (message not signed); arc=none
+ 149.199.80.198) smtp.rcpttodomain=arm.com smtp.mailfrom=xilinx.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=xilinx.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kmM8bRgExVP0UZZoasHUt/y4YJ1u3xNqvHORmd9LNLA=;
- b=HzInxZSPex3UU9Fnvpo48MDtHVwN/UG3pzUMgSlJ1dPqfTcnFA1b/dZZtIEAjd3VnFWykq6OYDHA+kn9BcZoxA2wShzOgSM0IKK73CJo79tRoVQgeexp+9DjZnOKs+gLKtcd7mrSJWWcCqdE4oVOz9bkhQQ+BXR4gkCFhxgBE2w=
+ bh=DwnwUsc1evMIhNKHmggVHmmXE0pgezlpBI6F6356l98=;
+ b=GNLu+rbiBo8w3hTK+iRJrondb5DjFAwZOk4kEme3SuDRKji4VApaz/s8MsBt+9V11n7zjjCUD0LtaZ4X/kdOxAdSyejNNHfbiG9CsO37cI+NwZBBgNnNyRFHH0NLGULiU5KfG18mCM4COjZ9uHoeiAkf8uhF7vAscynnW9gLUeo=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.80.198)
  smtp.mailfrom=xilinx.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=xilinx.com;
 Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
  149.199.80.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=149.199.80.198; helo=xir-pvapexch02.xlnx.xilinx.com;
-From: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
-	<andre.przywara@arm.com>, <jbeulich@suse.com>, <wei.chen@arm.com>, "Ayan
- Kumar Halder" <ayankuma@xilinx.com>
-Subject: [XEN v3] xen/arm64: io: Decode ldr/str post-indexing instructions
-Date: Thu, 20 Jan 2022 21:55:27 +0000
-Message-ID: <20220120215527.28138-1-ayankuma@xilinx.com>
-X-Mailer: git-send-email 2.17.1
+ client-ip=149.199.80.198; helo=xir-pvapexch01.xlnx.xilinx.com;
+Message-ID: <88bca474-c0cf-b5aa-bbcd-33e587d673a9@xilinx.com>
+Date: Thu, 20 Jan 2022 22:01:43 +0000
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.4.1
+Subject: Re: [XEN v2] xen/arm64: io: Decode 32-bit ldr/str post-indexing
+ instructions
+To: Andre Przywara <andre.przywara@arm.com>, Ayan Kumar Halder
+	<ayan.kumar.halder@xilinx.com>
+CC: Julien Grall <julien@xen.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "sstabellini@kernel.org"
+	<sstabellini@kernel.org>, "stefanos@xilinx.com" <stefanos@xilinx.com>,
+	"Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
+	"jbeulich@suse.com" <jbeulich@suse.com>, <beata.michalska@linaro.org>,
+	<richard.henderson@linaro.org>
+References: <20211129191638.19877-1-ayankuma@xilinx.com>
+ <20211130094950.1bf368d6@donnerap.cambridge.arm.com>
+ <a69d41f1-7b57-c127-ae73-2de5a581dddd@xilinx.com>
+ <D8811539-65F2-4D40-BFEF-CE72EA8E902A@arm.com>
+ <4315f3f8-4431-3257-dc95-a3089532237b@xen.org>
+ <20211208120048.63fbf49b@donnerap.cambridge.arm.com>
+ <0f6e058a-bc23-2a77-6797-39bfacb7db79@xilinx.com>
+ <20220106153327.6ebb2be1@donnerap.cambridge.arm.com>
+ <2978437f-c7ad-e874-5355-5bdfa2185f1c@xilinx.com>
+ <20220111125222.6e2af49b@donnerap.cambridge.arm.com>
+From: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+In-Reply-To: <20220111125222.6e2af49b@donnerap.cambridge.arm.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 29d8353d-22dd-4abc-3d30-08d9dc5f97d5
-X-MS-TrafficTypeDiagnostic: CO6PR02MB8820:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc8c0a31-50e6-4b93-2e16-08d9dc6073cf
+X-MS-TrafficTypeDiagnostic: DM5PR02MB3324:EE_
 X-Microsoft-Antispam-PRVS:
-	<CO6PR02MB882052B6716C6F6FC158B085B25A9@CO6PR02MB8820.namprd02.prod.outlook.com>
+	<DM5PR02MB3324BA8427CB73B004349B21B25A9@DM5PR02MB3324.namprd02.prod.outlook.com>
 X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	BheGQWmeefeIopGz3xmde/ww5DC4a/apJWFELGyWIqyyYYIKeGEPmJFU01lppfD1iOcFR/D+ZGrLEhfNU7iu+s1kgR6173T8PzWyOsvmeoGu3pnODoiyhkywq8J/m+szsqA1iQjO5OwtlfSP2BCjg2ztEm/1scH8lMCrk+gVKG/jtiXC0EpthsakOIXYHL0+zTV7sXt968n71YlOCsT1kSBd9SePhaDWiQJ/5b26ssJm3I3gxejKZC4dfSjW9azBy4V1ChJGTQVAJUBthNDdWIjUHM3ZezkqN2IXBkokVZ2BkPJiD6xCeNy36XcV+tmGqhfHHmE8+0aLrkhOwCb7WNg318/OAJQ4k5crT1AmhXC7zTioxUCrT17jreM2kEXU+fhAPp0ZPWPXZhpCljPOjC0kKbXZzru6q2IL1sZd2mIa49I1HxuIOVRr/UQnzB7FDmFJliDuH65LGK0U25wll5fBloeGGQuPCSC2sAg55T4jLpybGaTR4qAg9+NZ9oz2MkdwwKEjdoW4lj4/Y0HbYRcI+KhTJzDv+vNPhZIBse6v404Ved1olVxKd5FmOQ45MibaLnF1OIW5r1gvULaAXlVVc6F/HFn/xTuRAk17zU6HNphTjuUxOU1pgIYH5xo+DAnciyBQfIJyiHv1O5dbkdpL8QJ/9a6xcLN/eILfgnVX6mFrnC9HiwYik/MT5dwlkK+VHyLsmiK9LY9PeSAcaB8i+OKgHESNGX7P1R5Lro+Ct/yQU/ZQ7kdV7rSQ/FrOW7f4XZMI5MhetwvrL2eWng6JxUMHj1UPYNQd5edr+e0bU9KwNiJDYZlcfmZRn3L+LPVAz+b8rF+xtBcjT25YIXFEiOGgI3aKe37kl37lHCA=
+	nAvjmIHmoNXC87HnpAflbi6vtXvk5Yqc0FSVzbVIOMS+8R/FlgBafsiZ3lRQFr4uFhcHd/ywIzY3vdNKV1jSUq5lpKcBTr3cKpeIzMNtPSZcHgxSXrLGXVPikp8NXC1w9T9wu4yhAQ6qGH9lraKLA1ZZp2hd1HGnvxl0uO0a9Dv5CCi0bbgRuXm8pN7kNMrKrrHZnrKpyagQUzShknevZTvwFeBdq/IOMn1YH5HnkTILVqsEqqzbt+NoRl9a6vKDixyibOR7slJSqsjeK3JcogLd0F5/MAvzwnsERViy0+lJ0NlIhmTwIv3iT5zu6E9lcln+IB4zyW5y9i2lzLk0bbn/3IaL0PHhivNT2OhW/5SMU7MschLEdEIfXBk1r+ayq5up0+K3QDgUbIddI3SVWXD0+Bjk4AnFvAUf7RXXTG0sSciebOLi/LsC/1ecaV0Yxw68KnuDJVNTu9JwUuxZPMYl3qvE7ME/UWfcv2BHa4aQCPQBC50E9ka623oHnkstONf1kANGVc31jaoRwUIQQwMs/3sqc0ZIFslWUfkkElz0u8PG8FM23YftquXUui0tSGdGOh4ckY6mJ/nWo8HvppokeGyybCH/vwl5UUWtboxRi8d+NozhI0qjNfUzKhKXOwKcsMxGPb8iVoJnNIISWf04YZ/EX+qoQ8ASsuhEfWdv9U+GXn0B3FlxFhBdJbNbJbcyvsAxxEi1gloeSIlt62+G1t4/RlMKBGTEiY8tCRGTSdMoqhBJPvPE23yWmVnNuIJrGJYh5SjgH1VfQslPAF4eQD1elO/uS3sgnFIjHi/nM0jMSuWjN2IagxEpEKYPl2HxdtgG77ArvGScN4BFC/CtCye8s0hs5RMZ2d3GmZlm1ZElwtbtVTknRbrStnkY
 X-Forefront-Antispam-Report:
-	CIP:149.199.80.198;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:xir-pvapexch02.xlnx.xilinx.com;PTR:unknown-80-198.xilinx.com;CAT:NONE;SFS:(4636009)(36840700001)(46966006)(6916009)(26005)(8936002)(107886003)(7696005)(9786002)(70206006)(508600001)(336012)(5660300002)(6666004)(966005)(186003)(2616005)(4326008)(7636003)(82310400004)(2906002)(356005)(36756003)(8676002)(316002)(1076003)(54906003)(36860700001)(70586007)(47076005)(83380400001)(426003)(102446001);DIR:OUT;SFP:1101;
+	CIP:149.199.80.198;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:xir-pvapexch01.xlnx.xilinx.com;PTR:unknown-80-198.xilinx.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(31686004)(7636003)(82310400004)(83380400001)(47076005)(186003)(9786002)(336012)(356005)(2906002)(53546011)(30864003)(31696002)(426003)(5660300002)(36756003)(110136005)(26005)(508600001)(316002)(8676002)(966005)(8936002)(36860700001)(70206006)(70586007)(2616005)(54906003)(4326008)(50156003)(43740500002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: xilinx.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 21:55:37.4943
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2022 22:01:46.4908
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29d8353d-22dd-4abc-3d30-08d9dc5f97d5
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc8c0a31-50e6-4b93-2e16-08d9dc6073cf
 X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.80.198];Helo=[xir-pvapexch02.xlnx.xilinx.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.80.198];Helo=[xir-pvapexch01.xlnx.xilinx.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM3NAM02FT027.eop-nam02.prod.protection.outlook.com
+	SN1NAM02FT0029.eop-nam02.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR02MB8820
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR02MB3324
 
-At the moment, Xen is only handling data abort with valid syndrome (i.e.
-ISV=0). Unfortunately, this doesn't cover all the instructions a domain
-could use to access MMIO regions.
+Hi Andre/All,
 
-For instance, a baremetal OS can use any of the following instructions, where
-x1 contains the address of the MMIO region:
+Many thanks for your feedback.
 
-1.      ldr     x2,    [x1],    #4
-2.      ldr     w2,    [x1],    #-4
-3.      ldr     x2,    [x1],    #-8
-4.      ldr     w2,    [x1],    #4
-5.      ldrh    w2,    [x1],    #8
-6.      ldrb    w2,    [x1],    #16
-7.      str     x2,    [x1],    #4
-8.      str     w2,    [x1],    #-4
-9.      strh    w2,    [x1],    #8
-10.     strb    w2,    [x1],    #16
+On 11/01/2022 12:52, Andre Przywara wrote:
+> On Mon, 10 Jan 2022 14:33:11 +0000
+> Ayan Kumar Halder <ayan.kumar.halder@xilinx.com> wrote:
+>
+> Hi Ayan,
+>
+>> Many thanks for your inputs. It is making better sense now. Much
+>> appreciated.
+>>
+>> A few questions/clarifications :-
+>>
+>> On 06/01/2022 15:33, Andre Przywara wrote:
+>>> On Wed, 5 Jan 2022 16:55:11 +0000
+>>> Ayan Kumar Halder<ayan.kumar.halder@xilinx.com>  wrote:
+>>>
+>>> Hi,
+>>>   
+>>>> Thank you so much for your feedback.
+>>>>
+>>>> I need a couple of clarifications before I can start with the v3 patch.
+>>>>
+>>>> On 08/12/2021 12:00, Andre Przywara wrote:
+>>>>> On Mon, 6 Dec 2021 19:31:06 +0000
+>>>>> Julien Grall<julien@xen.org>  wrote:
+>>>>>
+>>>>> Hi,
+>>>>>      
+>>>>>> On 01/12/2021 08:41, Bertrand Marquis wrote:
+>>>>>>> Hi Ayan,
+>>>>>>>          
+>>>>>>>> On 30 Nov 2021, at 19:13, Ayan Kumar Halder<ayan.kumar.halder@xilinx.com>  wrote:
+>>>>>>>>
+>>>>>>>> Hi Andre,
+>>>>>>>>
+>>>>>>>> Thanks for your comments. They are useful.
+>>>>>>>>
+>>>>>>>> On 30/11/2021 09:49, Andre Przywara wrote:
+>>>>>>>>> On Mon, 29 Nov 2021 19:16:38 +0000
+>>>>>>>>> Ayan Kumar Halder<ayan.kumar.halder@xilinx.com>  wrote:
+>>>>>>>>> Hi,
+>>>>>>>>>> At the moment, Xen is only handling data abort with valid syndrome (i.e.
+>>>>>>>>>> ISV=0). Unfortunately, this doesn't cover all the instructions a domain
+>>>>>>>>>> could use to access MMIO regions.
+>>>>>>>>>>
+>>>>>>>>>> For instance, Xilinx baremetal OS will use:
+>>>>>>>>>>
+>>>>>>>>>>             volatile u32 *LocalAddr = (volatile u32 *)Addr;
+>>>>>>>>>>             *LocalAddr = Value;
+>>>>>>>>>>
+>>>>>>>>>> This leave the compiler to decide which store instructions to use.
+>>>>>>>>> As mentioned in the other email, this is wrong, if this points to MMIO:
+>>>>>>>>> don't let the compiler do MMIO accesses. If a stage 2 fault isn't in
+>>>>>>>>> an MMIO area, you should not see traps that you cannot handle already.
+>>>>>>>>> So I don't think it's a good idea to use that as an example. And since
+>>>>>>>>> this patch only seems to address this use case, I would doubt its
+>>>>>>>>> usefulness in general.
+>>>>>>>> Yes, I should have fixed the comment.
+>>>>>>>>
+>>>>>>>> Currently, I am testing with baremetal app which uses inline assembly code with post indexing instructions, to access the MMIO.
+>>>>>>>>
+>>>>>>>> ATM, I am testing with 32 bit MMIO only.
+>>>>>>>>
+>>>>>>>> On the usefulness, I am kind of torn as it is legitimate for post indexing instructions to be used in an inline-assembly code for accessing MMIO. However, that may not be something commonly seen.
+>>>>>>>>
+>>>>>>>> @Stefano/Bertrand/Julien/Volodymyr :- As you are the Arm mantainers, can you comment if we should have decoding logic or not ?
+>>>>>>> Andre gave you the official statement from Arm and there is nothing more I can say.
+>>>>>> I think this would be handy for other hypervisor and OS developper to
+>>>>>> know what they can expect when running in a virtualized environment. So
+>>>>>> would it be possible to update the Arm Arm reflecting this statement?
+>>>>> I don't think it's within the scope of the ARM ARM to say that. It just
+>>>>> says that "there is no syndrome information", and your mileage may vary in
+>>>>> working around that.
+>>>>>
+>>>>> Personally I would say that if you expect your software to work nicely
+>>>>> under a hypervisor, then just avoid those instructions. The Linux kernel
+>>>>> certainly did so.
+>>>>>
+>>>>> You can try to do instruction emulation, but doing this right can get
+>>>>> tricky quickly: think about I$/D$ coherency, MMU on or off, etc.
+>>>> I am trying to get all the restrictions that need to be checked. I have
+>>>> referred
+>>>> https://developer.arm.com/documentation/dui0802/a/A64-General-Instructions/Register-restrictions-for-A64-instructions?lang=en
+>>>> and "Arm A64 Instruction Set Architecture - DDI 0596" - LDR (immediate).
+>>>>
+>>>> So far I only see the following restrictions:-
+>>>>
+>>>> Rn -ne Rt
+>>>>
+>>>> Rt -ne SP
+>>>>
+>>>> You had mentioned the following cases :-
+>>>>
+>>>> 1. XZR vs SP - I see that both these refer to register no 31. Xen gets
+>>>> the register number (for Rn/Rt) only, so I am not sure what is to be
+>>>> done here.
+>>> But the emulation code in Xen needs to know whether number 31 refers to the
+>>> stack pointer or to the zero register. This depends on the context of the
+>>> instruction. It's nothing magical about it, you just need to figure out
+>>> which it is in your case and make sure that the code uses the right
+>>> value. In the LDR case n==31 means SP, but t==31 means XZR. The emulation
+>>> would need to consider this.
+>> I see what you mean. I had a look at
+>> xen/tools/qemu-xen-dir-remote/target/arm/cpu.h, CPUARMState {}. I don't
+>> see anywhere we need to refer register by its name. IIUC, the
+>> instruction decoding logic needs to know the register number only.
+> But there is of course still a difference between them: they refer to two
+> separate registers, they just share the encoding of x31 in the instruction.
+> Each instruction then *knows* what register it needs to go to when it sees
+> number 31.
+> By its very nature, you don't need to save XZR, so GPR[31] is typically
+> the SP, if you have an array holding register values, and you
+> probably handle the XZR case in code.
+>
+>> In fact, Xen would only read CPUARMState->xregs[31] for SP/XZR in
+>> Aarch64 context. Let me know what I might be missing here.
+>>
+>> Beata/Richard - I see you have committed most recently on the file.
+>> Please feel free to add your inputs.
+>>
+>>>   
+>>>> 2. MMU on or off - As I see in try_handle_mmio(), one gets the physical
+>>>> address in gpa. So I am not sure what is to be done here.
+>>> You *might* be fine, if Xen takes care of that, I don't know.
+>>> But it needs to explicitly consider those two cases - and also make
+>>> sure that caching effects are cared for.
+>>>   
+>>>> 3. I/D coherency - I don't understand how this affects instruction decoding.
+>>> In the ARM architecture the I cache and D cache are not necessarily
+>>> coherent. So whatever the CPU reads via the data bus does not need to be
+>>> the same data that the instruction fetcher read a while ago. And while
+>>> there is a well-known sequence to make the current data side visible to
+>>> the instruction side, there is nothing architectural for the other way
+>>> around.
+>>> For example the CPU fetches a bunch of instructions into the I cache, then
+>>> consumes it from there. Now some code changes those instruction words in
+>>> "memory". Without explicit D-cache-clean-to-the-PoU and
+>>> I-cache-invalidate+ISB the CPU might still execute the old instructions.
+>> This makes sense. Referring
+>> https://developer.arm.com/documentation/den0024/a/Caches/Cache-maintenance,
+>> I assume that the following instructions need to be executed before the
+>> instruction is decoded.
+>>
+>> Xn <--- contains the address of the instruction to be decoded.
+>>
+>> STR Wt, [Xn]
+>> DC CVAU, Xn // Clean datacache by VA to point of unification (PoU)
+>> DSB ISH // Ensure visibility of the datacleaned from cache
+>> IC IVAU, Xn // Invalidate instruction cache by VA to PoU
+>> DSB ISH // Ensure completion of the invalidations
+>> ISB // Synchronize the fetched instruction stream
+> That is what I sketched above: the typical sequence to make sure the
+> instruction fetcher reads the right instructions, after you updated them.
+> BUT this is not what we need here, we need to other way around: read the
+> instruction that the CPU executed, but via the data bus, from memory. And
+> I wouldn't know of a neat architectural way to ensure this.
+>
+>>> But if your emulation code tries to read the instruction from memory, it
+>>> fetches the data-visible side of it - which is not what the CPU executed,
+>>> so end up emulating the wrong thing.
+>> I am guessing that this should not be a very unusual case. Isn't this
+>> similar to a host processor loading and modifying a firmware in the
+>> memory. The firmware can then be executed by a different
+>> micro-controller or some programmable engine. I mean the data pipeline
+>> or instruction pipeline should read the same contents from memory.
+> ... if they are coherent. Otherwise you need explicit maintenance, see
+> above. I mean it's the same situation with an external processor: this
+> core reads instructions from memory and is probably buffering/caching them
+> (crucial for performance). Now you need to tell if that buffer might
+> contain stale data, and if the data in memory has changed meanwhile.
+>
+>>> Please also keep in mind that the architecture does not *guarantee*
+>>> coherency, but in reality it might actually be coherent - either because
+>>> of the particular silicon implementation, or because of side effects in
+>>> the system (data cache line being evicted, ISB executed). So seeing the
+>>> effects of coherency in your testing does not mean you are safe, it might
+>>> just happen by chance.
+>> Is there some good way to test this to ensure the best possible
+>> reliability ?
+> That's the problem, I think: You can reason on the basis of the
+> architecture as described in the ARM ARM, but this brings you to the
+> problems above. You can now try to hand wave away the problems, by stating
+> that this will never happen in practice, but you then leave the steady
+> ground the architecture gives you. That's why I was asking before if this
+> is really necessary code to have, or if you would just be better off
+> fixing the guests.
+>
+> Cheers,
+> Andre
+>
+>>>> Please help me to understand further.
+>>>>
+>>>> - Ayan
+>>>>   
+>>>>>      
+>>>>>>> I will leave this decision to Stefano and Julien.
+>>>>>> I have had a chat on IRC with Stefano about this. I think the main
+>>>>>> sticking point is the Arm Arm doesn't clearly state those instructions
+>>>>>> should not be used by a virtualized OS on MMIO regions.
+>>>>> I don't understand why the ARM ARM would need to say that. Certainly you
+>>>>> realise that immediately when trying to use them, and apparently it was not
+>>>>> a problem in the last 8ish years of Xen/ARM's existence.
+>>>>>
+>>>>> So it's your decision on having the emulation, I personally would only do
+>>>>> it when there is a *good* use case.
+>>>>> And please apply the demanded scrutiny on the review - including all the
+>>>>> corner cases like Rn=Rt, XZR vs. SP (as Jan said) and possibly MMU status.
 
-In the following two instructions, sp contains the address of the MMIO region:-
-11.     ldrb    w2,    [sp],    #16
-12.     ldrb    wzr,   [sp],    #16
+I have submitted a v3 patch for this addressing most of the comments.
 
-In order to handle post-indexing store/load instructions (like those mentioned
-above), Xen will need to fetch and decode the instruction.
+"[XEN v3] xen/arm64: io: Decode ldr/str post-indexing instructions". 
+Please have a look.
 
-This patch only cover post-index store/load instructions from AArch64 mode.
-For now, this is left unimplemented for trap from AArch32 mode.
+- Ayan
 
-Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
----
-
-Changelog :-
-v2 - 1. Updated the rn register after reading from it. (Pointed by Julien,
-        Stefano)
-     2. Used a union to represent the instruction opcode (Suggestd by Bertrand)
-     3. Fixed coding style issues (Pointed by Julien)
-     4. In the previous patch, I was updating dabt->sign based on the signedness
-        of imm9. This was incorrect. As mentioned in ARMv8 ARM  DDI 0487G.b,
-        Page 3221, SSE indicates the signedness of the data item loaded. In our
-        case, the data item loaded is always unsigned.
-
-v3- 1. Handled all the variants of ldr/str (ie 64, 32, 16, 8 bit variants).
-       Thus, I have removed the check for "instr->code.opc == 0" (Suggested by
-       Andre)
-    2. Handled the scenario when rn = SP, rt = XZR (Suggested by Jan, Andre)
-    3. Added restriction for "rt != rn" (Suggested by Andre)
-    4. Moved union ldr_str_instr_class {} to decode.h. This is the header included
-       by io.c and decode.c (where the union is referred). (Suggested by Jan)
-    5. Indentation and typo fixes (Suggested by Jan)
-
-Changes suggested but could not be considered due to reasons :-
-    1. Using accessor macros instead of bitfields for "ldr_str_instr_class". (Andre)
-       Reason - I could not find a simple way to represent 9 bit signed integer
-       (ie imm9) without using bitfields. If I use accessor macros, then I need
-       to manually calculate two's complement to obtain the value when signed
-       bit is present.
-
-    2. I/D cache cohenerncy (Andre)
-       Reason :- I could not see any instruction to flush the I cache.
-       Refer https://developer.arm.com/documentation/ddi0596/2021-12/Base-Instructions/IC--Instruction-Cache-operation--an-alias-of-SYS-?lang=en#sa_ic_op
-       So, this patch assumes that the I/D caches are coherent.
-
- xen/arch/arm/decode.c | 78 ++++++++++++++++++++++++++++++++++++++++++-
- xen/arch/arm/decode.h | 29 +++++++++++++++-
- xen/arch/arm/io.c     | 66 ++++++++++++++++++++++++++++++++----
- 3 files changed, 165 insertions(+), 8 deletions(-)
-
-diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
-index 792c2e92a7..f1c59ddd1a 100644
---- a/xen/arch/arm/decode.c
-+++ b/xen/arch/arm/decode.c
-@@ -84,6 +84,76 @@ bad_thumb2:
-     return 1;
- }
- 
-+static int decode_loadstore_postindexing(register_t pc,
-+                                         struct hsr_dabt *dabt,
-+                                         union ldr_str_instr_class *instr)
-+{
-+    if ( raw_copy_from_guest(&instr->value, (void * __user)pc, sizeof (instr)) )
-+        return -EFAULT;
-+
-+    /*
-+     * Rn -ne Rt for ldr/str instruction.
-+     * Check https://developer.arm.com/documentation/dui0802/a/CIHGJHED
-+     * (Register restrictions)
-+     *
-+     * The only exception for this is when rn = 31. It denotes SP ("Use of SP")
-+     *
-+     * And when rt = 31, it denotes wzr/xzr. (Refer
-+     * https://developer.arm.com/documentation/den0024/a/ARMv8-Registers/AArch64-special-registers
-+     * "There is no register called X31 or W31. Many instructions are encoded
-+     * such that the number 31 represents the zero register, ZR (WZR/XZR)."
-+     */
-+    if ( (instr->code.rn == instr->code.rt) && (instr->code.rn != 31) )
-+        return -EINVAL;
-+
-+    /* First, let's check for the fixed values */
-+    if ( !((instr->code.fixed1 == 1) && (instr->code.fixed2 == 0) &&
-+         (instr->code.fixed3 == 0) && (instr->code.fixed4 == 7)) )
-+    {
-+        gprintk(XENLOG_ERR, "Cannot decode instruction 0x%x",instr->value);
-+        gprintk(XENLOG_ERR, "Decoding not supported for instructions other than"
-+            " ldr/str post indexing\n");
-+        goto bad_32bit_loadstore;
-+    }
-+
-+    if ( instr->code.v != 0 )
-+    {
-+        gprintk(XENLOG_ERR,
-+            "ldr/str post indexing for vector types are not supported\n");
-+        goto bad_32bit_loadstore;
-+    }
-+
-+    /* Check for STR (immediate) - 32 bit variant */
-+    if ( instr->code.opc == 0 )
-+    {
-+        dabt->write = 1;
-+    }
-+    /* Check for LDR (immediate) - 32 bit variant */
-+    else if ( instr->code.opc == 1 )
-+    {
-+        dabt->write = 0;
-+    }
-+    else
-+    {
-+        gprintk(XENLOG_ERR,
-+            "Decoding ldr/str post indexing is not supported for this variant\n");
-+        goto bad_32bit_loadstore;
-+    }
-+
-+    gprintk(XENLOG_INFO,
-+        "instr->code.rt = 0x%x, instr->code.size = 0x%x, instr->code.imm9 = %d\n",
-+        instr->code.rt, instr->code.size, instr->code.imm9);
-+
-+    update_dabt(dabt, instr->code.rt, instr->code.size, false);
-+    dabt->valid = 1;
-+
-+    return 0;
-+
-+ bad_32bit_loadstore:
-+    gprintk(XENLOG_ERR, "unhandled 32bit Arm instruction 0x%x\n", instr->value);
-+    return 1;
-+}
-+
- static int decode_thumb(register_t pc, struct hsr_dabt *dabt)
- {
-     uint16_t instr;
-@@ -150,11 +220,17 @@ bad_thumb:
-     return 1;
- }
- 
--int decode_instruction(const struct cpu_user_regs *regs, struct hsr_dabt *dabt)
-+int decode_instruction(const struct cpu_user_regs *regs, struct hsr_dabt *dabt,
-+                       union ldr_str_instr_class *instr)
- {
-     if ( is_32bit_domain(current->domain) && regs->cpsr & PSR_THUMB )
-         return decode_thumb(regs->pc, dabt);
- 
-+    if ( (is_64bit_domain(current->domain) && !psr_mode_is_32bit(regs)) )
-+    {
-+        return decode_loadstore_postindexing(regs->pc, dabt, instr);
-+    }
-+
-     /* TODO: Handle ARM instruction */
-     gprintk(XENLOG_ERR, "unhandled ARM instruction\n");
- 
-diff --git a/xen/arch/arm/decode.h b/xen/arch/arm/decode.h
-index 4613763bdb..5c918c9bed 100644
---- a/xen/arch/arm/decode.h
-+++ b/xen/arch/arm/decode.h
-@@ -23,6 +23,32 @@
- #include <asm/regs.h>
- #include <asm/processor.h>
- 
-+/*
-+ * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Stores
-+ * Page 318 specifies the following bit pattern for
-+ * "load/store register (immediate post-indexed)".
-+ *
-+ * 31 30 29  27 26 25  23   21 20              11   9         4       0
-+ * ___________________________________________________________________
-+ * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt   |
-+ * |____|______|__|____|____|__|_______________|____|_________|_______|
-+ */
-+union ldr_str_instr_class {
-+    uint32_t value;
-+    struct ldr_str {
-+        unsigned int rt:5;     /* Rt register */
-+        unsigned int rn:5;     /* Rn register */
-+        unsigned int fixed1:2; /* value == 01b */
-+        signed int imm9:9;            /* imm9 */
-+        unsigned int fixed2:1; /* value == 0b */
-+        unsigned int opc:2;    /* opc */
-+        unsigned int fixed3:2; /* value == 00b */
-+        unsigned int v:1;      /* vector */
-+        unsigned int fixed4:3; /* value == 111b */
-+        unsigned int size:2;   /* size */
-+    } code;
-+};
-+
- /**
-  * Decode an instruction from pc
-  * /!\ This function is not intended to fully decode an instruction. It
-@@ -35,7 +61,8 @@
-  */
- 
- int decode_instruction(const struct cpu_user_regs *regs,
--                       struct hsr_dabt *dabt);
-+                       struct hsr_dabt *dabt,
-+                       union ldr_str_instr_class *instr);
- 
- #endif /* __ARCH_ARM_DECODE_H_ */
- 
-diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-index 729287e37c..acb483f235 100644
---- a/xen/arch/arm/io.c
-+++ b/xen/arch/arm/io.c
-@@ -65,6 +65,39 @@ static enum io_state handle_write(const struct mmio_handler *handler,
-     return ret ? IO_HANDLED : IO_ABORT;
- }
- 
-+static void post_increment_register(union ldr_str_instr_class *instr)
-+{
-+    struct cpu_user_regs *regs = guest_cpu_user_regs();
-+    unsigned int val;
-+
-+    /* handle when rn = SP */
-+    if ( instr->code.rn == 31 )
-+    {
-+        if ( (regs->cpsr & PSR_MODE_MASK) == PSR_MODE_EL1h )
-+        {
-+            val = regs->sp_el1;
-+        }
-+        else
-+        {
-+            BUG();
-+        }
-+    }
-+    else
-+    {
-+        val = get_user_reg(regs, instr->code.rn);
-+    }
-+    val += instr->code.imm9;
-+
-+    if ( instr->code.rn == 31 )
-+    {
-+        regs->sp_el1 = val;
-+    }
-+    else
-+    {
-+        set_user_reg(regs, instr->code.rn, val);
-+    }
-+}
-+
- /* This function assumes that mmio regions are not overlapped */
- static int cmp_mmio_handler(const void *key, const void *elem)
- {
-@@ -106,14 +139,29 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
-         .gpa = gpa,
-         .dabt = dabt
-     };
-+    int rc;
-+    union ldr_str_instr_class instr = {0};
- 
-     ASSERT(hsr.ec == HSR_EC_DATA_ABORT_LOWER_EL);
- 
-+    /*
-+     * Armv8 processor does not provide a valid syndrome for post-indexing
-+     * ldr/str instructions. So in order to process these instructions,
-+     * Xen must decode them.
-+     */
-+    if ( !info.dabt.valid )
-+    {
-+        rc = decode_instruction(regs, &info.dabt, &instr);
-+        if ( rc )
-+        {
-+            gprintk(XENLOG_DEBUG, "Unable to decode instruction\n");
-+            return IO_ABORT;
-+        }
-+    }
-+
-     handler = find_mmio_handler(v->domain, info.gpa);
-     if ( !handler )
-     {
--        int rc;
--
-         rc = try_fwd_ioserv(regs, v, &info);
-         if ( rc == IO_HANDLED )
-             return handle_ioserv(regs, v);
-@@ -122,7 +170,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
-     }
- 
-     /* All the instructions used on emulated MMIO region should be valid */
--    if ( !dabt.valid )
-+    if ( !info.dabt.valid )
-         return IO_ABORT;
- 
-     /*
-@@ -134,7 +182,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
-     {
-         int rc;
- 
--        rc = decode_instruction(regs, &info.dabt);
-+        rc = decode_instruction(regs, &info.dabt, NULL);
-         if ( rc )
-         {
-             gprintk(XENLOG_DEBUG, "Unable to decode instruction\n");
-@@ -143,9 +191,15 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
-     }
- 
-     if ( info.dabt.write )
--        return handle_write(handler, v, &info);
-+        rc = handle_write(handler, v, &info);
-     else
--        return handle_read(handler, v, &info);
-+        rc = handle_read(handler, v, &info);
-+
-+    if ( instr.value != 0 )
-+    {
-+        post_increment_register(&instr);
-+    }
-+    return rc;
- }
- 
- void register_mmio_handler(struct domain *d,
--- 
-2.17.1
-
+>>>>>
+>>>>> Cheers,
+>>>>> Andre
+>>>>>      
+>>>>>> To me, this topic looks similar to the set/way instruction dilemma. They
+>>>>>> are a pain to virtualize (and the Arm Arm clearly hint it) but we had to
+>>>>>> do it because some OSes relied on them.
+>>>>>>
+>>>>>> I think the main difference is the Arm Arm doesn't hint they should not
+>>>>>> be used (it only says a valid syndrome is not provided) and the
+>>>>>> implementation should hopefully be smaller and self-contained.
+>>>>>>
+>>>>>> So I would be inclined to allow Xen to decode post-indexing instructions
+>>>>>> (pending the review).
+>>>>>>
+>>>>>> Cheers,
+>>>>>>      
 
