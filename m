@@ -2,53 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48A4A496659
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jan 2022 21:31:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259441.447813 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 991A949669E
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jan 2022 21:50:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259446.447824 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nB0YN-0003tq-1v; Fri, 21 Jan 2022 20:30:35 +0000
+	id 1nB0rE-00060T-TG; Fri, 21 Jan 2022 20:50:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259441.447813; Fri, 21 Jan 2022 20:30:35 +0000
+Received: by outflank-mailman (output) from mailman id 259446.447824; Fri, 21 Jan 2022 20:50:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nB0YM-0003rn-Ut; Fri, 21 Jan 2022 20:30:34 +0000
-Received: by outflank-mailman (input) for mailman id 259441;
- Fri, 21 Jan 2022 20:30:33 +0000
+	id 1nB0rE-0005vg-PU; Fri, 21 Jan 2022 20:50:04 +0000
+Received: by outflank-mailman (input) for mailman id 259446;
+ Fri, 21 Jan 2022 20:50:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kUv0=SF=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
- id 1nB0YK-0003rg-V6
- for xen-devel@lists.xenproject.org; Fri, 21 Jan 2022 20:30:33 +0000
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f9070875-7af8-11ec-bc18-3156f6d857e4;
- Fri, 21 Jan 2022 21:30:30 +0100 (CET)
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20LKQjbJ006864; 
- Fri, 21 Jan 2022 20:30:17 GMT
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by mx0b-00069f02.pphosted.com with ESMTP id 3dqhybah5v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 21 Jan 2022 20:30:17 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 20LKGjPx135544;
- Fri, 21 Jan 2022 20:30:16 GMT
-Received: from nam10-bn7-obe.outbound.protection.outlook.com
- (mail-bn7nam10lp2103.outbound.protection.outlook.com [104.47.70.103])
- by userp3030.oracle.com with ESMTP id 3dqj0wfby5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 21 Jan 2022 20:30:15 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by SN6PR10MB2798.namprd10.prod.outlook.com (2603:10b6:805:d3::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4888.12; Fri, 21 Jan
- 2022 20:30:13 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::d914:c494:66ac:a5b1]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::d914:c494:66ac:a5b1%8]) with mapi id 15.20.4909.011; Fri, 21 Jan 2022
- 20:30:13 +0000
+ <SRS0=9Ra3=SF=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nB0rC-0005eT-VT
+ for xen-devel@lists.xenproject.org; Fri, 21 Jan 2022 20:50:03 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b1918695-7afb-11ec-bc18-3156f6d857e4;
+ Fri, 21 Jan 2022 21:49:59 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 03C626179A;
+ Fri, 21 Jan 2022 20:49:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE434C340E1;
+ Fri, 21 Jan 2022 20:49:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,137 +43,799 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9070875-7af8-11ec-bc18-3156f6d857e4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=GK2U+f7Rak4OEWs4JPIMfYxvZn6ErrJjPCqN3zuRB3M=;
- b=x2o7CPUk21GzJZUJyfvcs9+1TcIZvCNw7oIKnnDCxQgWxuHHB8Y73DSJeeCa0/U5GjLl
- QYUTntf9ad19mFvWGsnswaLKgHQYhToEHorpaE8O6NpyyaYKVfvNQbhbb6gCxtOd7fY4
- AwNyNCpu1o3ZhJeVz+z4AFtaQkNwjIvBP/wy5LfPFjkDpKBjHoEP4u5zqXR/l8SwE8C+
- 220vhyQaZwE+Z6k8xISkqhLNgI1pnN8ixEMdyl78jXu+CnUnV24eZI1ZyJNTOYFGSrGq
- h/aibuFWx+ka5XU5vrOeYdbefawuW/ficN8wmzBn9MA+ARtnZ/AOPcVykwkc4RRZ0ayj dQ== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YRCKA4iqQgI6n77wAMoEkmhm3qr2owIjgElUoX09H0dfE+6tRq6MfIUoeH9JlJYvXknRs32oLjMXkvM3sAWZyiwUNCRqLuZykVePed8VMt2NGgIi7vw9fbIIzMEIGPv+bOXEVKJDiOT9t8N9g/ga9C46Knej1qSTXLajg/de8NVl7FcpqtuyfXbusnfuxN/Mpi21n+PnwY0bfV/KG6SMu8pT0aNWiWfIINOA1lBVN3/IsxCyCN+ay0Q0a7ZjtpAT3GEtzmwp38ZJH73ZPq5PxRLKv6sdq8RLoGekIuBfAg7T2wpOXDYmlCPmGp9RxYqGGiBzJ3njFo0NlhzROjDwlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GK2U+f7Rak4OEWs4JPIMfYxvZn6ErrJjPCqN3zuRB3M=;
- b=lALVBVoKFg5+b76b3y4SoCZVOFJ9VQpmLKYfRSBCVjULCs8UG3d0gdrTMi3AvqdwDOimukWuNMZDJkh8e4YQS0Z/rHuLKnIr++j+tZrtO8+K2gglV3Evcggb9EB4s/jGrd3Qt/8KLZjXNJkDOD71BNVG8n4kypaCAwhSR2f/8eOxrzm7zPu1lMi800vYOpB4Vch9bJB4Wj17M32CanThExtTUQgP/x9jQAUqQJNqYEF2l1kMBR8FAK2n6Yme3Sy1gTsg09sxXpAMr4hgcK95gJV7hWqZbzOkcmchHaeDHd848E1isBwS6+kyJ288m315g0CQLx7hIwtzxl2HjSuN5w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GK2U+f7Rak4OEWs4JPIMfYxvZn6ErrJjPCqN3zuRB3M=;
- b=VYYh6D3iSsSTWrgOmRur6feDDBrABk4qWRejLpl5358vDOO+aRmptixj4JqgmntlYztXZiwFhNynukSw4Ft+PjPAhWrU8TUA19Exj2+Fi+o/B7rLxIfMiDM4nS0sc0w20wtYmEuQPC33WX5rKIcaOLfQtwxyaX9mXher2GV5WxU=
-Message-ID: <533df35d-fc61-e196-f01f-01da5294440f@oracle.com>
-Date: Fri, 21 Jan 2022 15:30:07 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.5.0
-Subject: Re: [PATCH] xen/x2apic: enable x2apic mode when supported for HVM
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org
-References: <a34aff19-4530-7f44-c849-4b3eb2aa3d00@oracle.com>
- <20220121090146.13697-1-roger.pau@citrix.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <20220121090146.13697-1-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA0PR11CA0096.namprd11.prod.outlook.com
- (2603:10b6:806:d1::11) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
+X-Inumbo-ID: b1918695-7afb-11ec-bc18-3156f6d857e4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1642798196;
+	bh=P7kdhal7zagk2fBHShUn1fWmWPyYhME/I5/lWGxB2vM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=XHy6XilNlAVjTai7evm5Zq1+iI4HWcMt+4m14TVmqZTO45zhFdD3FLEQh7jrHAFwO
+	 C8kcAz9v6xCnDMlvnkv2mLj0X50dFJp3eKLUQLQpRgZ4kfJhnyep8hhcEhCnHacC/i
+	 /udr/GJlaWEUkR73CDh8GqeD8MzdfZjimMftAyuYhIMdFSl7jIdV3Vhf21WbGbsNLh
+	 VAINqLkNfT8UU5DH+m3XYEWM602mjOGKf0RM51uREEGqatDWDf+hjL2ggU3sFKVh9t
+	 p3KkQweaYBxaJqd6F7HOgDRVfqO0v7PBOXJ0nwTzV1b3JRE/tAu1ihDRsjmYYRF75M
+	 j4nuPR5UBn5iQ==
+Date: Fri, 21 Jan 2022 12:49:55 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
+In-Reply-To: <20220121150753.GA898010@EPUAKYIW015D>
+Message-ID: <alpine.DEB.2.22.394.2201211236060.27308@ubuntu-linux-20-04-desktop>
+References: <20211220181215.GA1702335@EPUAKYIW015D> <alpine.DEB.2.22.394.2112201613210.2060010@ubuntu-linux-20-04-desktop> <20211221200305.GA2460476@EPUAKYIW015D> <alpine.DEB.2.22.394.2112211310000.2060010@ubuntu-linux-20-04-desktop> <20211222110414.GA2883815@EPUAKYIW015D>
+ <alpine.DEB.2.22.394.2112221627190.2060010@ubuntu-linux-20-04-desktop> <20220119120400.GA3779126@EPUAKYIW015D> <alpine.DEB.2.22.394.2201191644400.19362@ubuntu-linux-20-04-desktop> <20220120102147.GA4153317@EPUAKYIW015D> <alpine.DEB.2.22.394.2201201230480.27308@ubuntu-linux-20-04-desktop>
+ <20220121150753.GA898010@EPUAKYIW015D>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5371b998-cfa6-4b57-8cff-08d9dd1cd3d7
-X-MS-TrafficTypeDiagnostic: SN6PR10MB2798:EE_
-X-Microsoft-Antispam-PRVS: 
-	<SN6PR10MB2798DC75CE0A74F1B8CF1BE58A5B9@SN6PR10MB2798.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:901;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	MJpVM4mC9YLsSoIZOwkmzxUBJ7g0O7XTJMq+lGUfZT+93GIsNJEBZFh84ai4Eizx6J466d7W87EVIzg/p3GhhzMND6JIdgq/etPK3X/seftDul/dxmm0GwSDmg2wiFa/UlyS7k9DRSF/X5IunIVdm+oDTzGPoIuEXkfVoXg5KPXTTmwFPY0WQYNxRTfm75wZSb0SxDx4Kirw0KOqAMGBsP2TL9PVeSD3zZ1sCljY0t4YEluQM0eWk8pTBBrH/4aCHQDoFwLe+2n7vEIxPQiitdqwU8mTiBKVmVU3jlZ2m5h17h2Mpi/YZhtgexd6dpr+EKN8qpV8V2IOd/n1C1mz+s0MtjKemzlZy/5cXG5qGNvko++JrcNpaLrYvLvOWeGrohh1iz36KSpCmC9d4+uj610DH+ByYtrasBgjjY/vwLKxhWu8WoJUqh4iBGPDFWx2EVXhJ4w4mW+L20clKCWBjIYGyIFxx4M92F4nIWEhRqUYn8U3jfhDpmsGZXoLkJqfL4npLT71kS6E5vbUIIR/1CcAwOeZzILp+LgBwu5yhmg2rdbD42eM6fwBIfTeTl4fRbmm93ogadmc5ubHSXTLP2J5ts0eEhqvTJkQOX/u9nxmodt+l9ktGii3IoSmpqxjBdpuyAJyCXtWVh/SCAuSnFSuFSV0gB+PvOLacRRCtt0v87YbzE9W+blQVbn/WmHJIL7XCUbo01NPRWSDk3hUO66pMWdIEekVwP/zqH/Nc9WGYwfW3domyRFhkI+HrLUr
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(7416002)(186003)(508600001)(86362001)(6506007)(53546011)(38100700002)(83380400001)(6512007)(26005)(4744005)(54906003)(2906002)(6486002)(2616005)(8676002)(44832011)(316002)(5660300002)(8936002)(4326008)(6666004)(66946007)(31696002)(66476007)(66556008)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?UW9tZVVxNjd6eVRnT2xPb29wTWxWSmdRWDRvZm5KZVNBSHk5M1RSZEg0SzJa?=
- =?utf-8?B?L3FNQW1TU2gwaThqVkVVVDJWcnluN1RHWlQvcWNYOSt0SW02dHFRbFRDcnFZ?=
- =?utf-8?B?bmRCM2ZEY3hUVitxNXRTMGFPSHo3U1dMelVuaUpUT1A1ZEczaThmaW5jckdv?=
- =?utf-8?B?Qk5PTUFpMFpMRGFjbTFSem1wL0xkT1hDUnZDTE5uMlF3emUwejFENEFNMkpZ?=
- =?utf-8?B?T25MWXZ3N1IxcjVtNHRZM1hrNlVMVUhUVzJpc3poZXdsTEM0aXBLdUo1U25T?=
- =?utf-8?B?OS9CenZNZmY1K0RmaUFqRThRSjU1TGdtNjQ0WmF2QVN4bFI1SjZFYnQ3RlJm?=
- =?utf-8?B?Y0VOUWRlUWwxejVtZndsdTY3cUZzdTZXWGFObmkrblJkcTBjSTkvZkMxSUl4?=
- =?utf-8?B?WVVZaytXYTdjNG55K1RmSjcvMnpxUEJham0yUlVqUFpRYkw1SFVHMURjMVNW?=
- =?utf-8?B?bkpUYmlBZ01pcFd2RDVIYkxyZWNOclNpMElxTTUveWZsQ2VObERLUE5GTlVj?=
- =?utf-8?B?eENOQnl5ODdoT1ROWnU0Y1NDK0ZzRjVoYmsvTXlqaWd0MDV2c25HMlJqd1M5?=
- =?utf-8?B?dFBaWGRCT3Z3MUxRdHRxMjFJWDR1ZHFDd21MY2NNZktFRHRUd09pNUVPbXlo?=
- =?utf-8?B?YVMrbFFlUWFEMnA2UmM2VHJVWnh2eXNRK05rbWdPbHFRY0tsbjgwa3JlZTRi?=
- =?utf-8?B?bG5lVFFlZFlrTFV1bERIZzNXNjBaMkNTWUxLL0dVMjc5VnRGYzU0ZnV4WWls?=
- =?utf-8?B?akQ0YU5FbXV1M3ZSVit2eHZOS0pWa2l1bFdOSnMrZmZjaTZRSTk5VkRkRUtW?=
- =?utf-8?B?YmJnZEFkYTBCcFN3SXV5UHZCNzAyR3F6VFZCMTFpc1pQbTZCVmdMN1haOFVh?=
- =?utf-8?B?RzJvR3dmTktZT05idUJGYXBDYkhXQThGUjFHa1dsbzNMSzRFTytYSGdrNHJ5?=
- =?utf-8?B?Rjg4YlJDTzUvZ3lneUhaZHgrK0JLUDFPSW0zYWliTEUrak1Td2k2SHBNNXBC?=
- =?utf-8?B?Tm9rN2c4eHJrcUZQR0pKTkwzRVZZVXlUT2ZwUnR5Uy9SN1lRWm5IcStZK2dI?=
- =?utf-8?B?K0xvYllURFhxcHp4ajZtM0lrbGxRU2UxeVFTdGVMeTk2QnhyaGx4SmhrYXRt?=
- =?utf-8?B?em0zdUZ5NjRSS1BIQWEvTUNpelJnWXhkVENnUS9BU28xYmI4dFRaQnl1ZU80?=
- =?utf-8?B?cmptV0MyWUxNQnE5LzBEWXl3N3h1OFM5SXhLdHdDNE00ZWZ3bEtiQURMRGNs?=
- =?utf-8?B?aytWMDFISm9JandxRS9RZ2twSUxtUXZXOTkyelRzNWdxZkpPY2xWcXRTMTZS?=
- =?utf-8?B?QzlVMU10MXIyd0tLa0Zuemw3WmhtOXROQko5L1l0RmIxVmU4T1pOdlZreEgx?=
- =?utf-8?B?QzQ4ajd1RFlXaW5vOHFQTVEveTJHU2hndjlRMnVFK0V4aWZQd3o0bWJtNVpI?=
- =?utf-8?B?NUlVVDdaZXpsSjdoRkZzOW5jNjEwOG5GSWJlWEJKbUxwTUppR1RxREtURkd1?=
- =?utf-8?B?aStqMUJqN3F6Qk9rdS9HSXZ5bVJyNHFzSXlBZWZpS1NsZ1pMR0FTUVlJblpR?=
- =?utf-8?B?V2VhdUlDSjFXeXNEdFRuTFAvZ0ZBd1lQV0NYSnhkMHpDVGlkdnJoOXE1OUox?=
- =?utf-8?B?TklvcStwbHFSN1d5MHBwSUdJZTZkT1IydUhtU1dITDlocHVPamhtS3JtaThF?=
- =?utf-8?B?SUJPeU1XZm5wZnNrdzJCT1lBeUlNVVJVTDhpWE45akMzYUliTDhxZDhwdjkx?=
- =?utf-8?B?OTZHVklYTTcyRjcrL0JQYlJpKzdBSk5GNk52bU9WRXNaVUhBRy9IckNPcHVi?=
- =?utf-8?B?Ui9mOXlpdTVrL0N3bytTbkhkZHNwcVFCRXdPM0R1QVRLaFRkT2V6VDE1QWxN?=
- =?utf-8?B?ZW81ZU5Cb1VINXl2SENwRnRDSWM0bm42TllQN3RRRmZzYzJXUkQwc0xpaGJH?=
- =?utf-8?B?TURlR1lwK2FTV3BaMTFaMDdJNDVXWGgxTXdYTUdTbUJvZ2pRUzJNYXdaM1ph?=
- =?utf-8?B?V2R5citqZHR3ekg2Q3MyejFLREFnRGhwRGdqTFFxdExpZ0dVckNMY1ZITDVy?=
- =?utf-8?B?Z3hoeEk4VE5LU1pPWXdIc3JhZ2drVVR4M2FoaWZaKzRDNStlYmoyTXpDN2Q0?=
- =?utf-8?B?VHp0NDJBY1hmMnY1OEZIM1ZoaVZqZE5sdTNNMlAyTW5ucFRMVXFXUngwRzBn?=
- =?utf-8?B?NEhwZ01UZ0oxTnVsTmlEVTAxV0VBNEovb1F6OGNhMHNVRVZXb2pHMXNkanhj?=
- =?utf-8?Q?32HsPwHW0ckmgxEzJp3VOB4WRSzaqbipwPPzX1cZzE=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5371b998-cfa6-4b57-8cff-08d9dd1cd3d7
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2022 20:30:13.4295
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W1F9UGYnpxegQR8NHJO7PK9wy2x1mZHexkpA+56Y1ITT2Vfu9baFIVF2azUYPuzkYo2uuhK8t38dbt5/7hozfl4CrQyVvBEdB/w8UUx93HM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR10MB2798
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10234 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0 mlxscore=0 suspectscore=0
- spamscore=0 mlxlogscore=999 bulkscore=0 malwarescore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2201110000
- definitions=main-2201210129
-X-Proofpoint-ORIG-GUID: D_uzoI0Oo47GmcuTfH0RO8ugxOSaEMBf
-X-Proofpoint-GUID: D_uzoI0Oo47GmcuTfH0RO8ugxOSaEMBf
+Content-Type: text/plain; charset=US-ASCII
+
+On Fri, 21 Jan 2022, Oleksii Moisieiev wrote:
+> On Thu, Jan 20, 2022 at 02:29:41PM -0800, Stefano Stabellini wrote:
+> > On Thu, 20 Jan 2022, Oleksii Moisieiev wrote:
+> > > On Wed, Jan 19, 2022 at 05:28:21PM -0800, Stefano Stabellini wrote:
+> > > > On Wed, 19 Jan 2022, Oleksii Moisieiev wrote:
+> > > > > On Wed, Dec 22, 2021 at 06:23:24PM -0800, Stefano Stabellini wrote:
+> > > > > > On Wed, 22 Dec 2021, Oleksii Moisieiev wrote:
+> > > > > > > On Tue, Dec 21, 2021 at 01:22:50PM -0800, Stefano Stabellini wrote:
+> > > > > > > > On Tue, 21 Dec 2021, Oleksii Moisieiev wrote:
+> > > > > > > > > Hi Stefano,
+> > > > > > > > >
+> > > > > > > > > On Mon, Dec 20, 2021 at 04:52:01PM -0800, Stefano Stabellini wrote:
+> > > > > > > > > > On Mon, 20 Dec 2021, Oleksii Moisieiev wrote:
+> > > > > > > > > > > Hi Stefano,
+> > > > > > > > > > >
+> > > > > > > > > > > On Fri, Dec 17, 2021 at 06:14:55PM -0800, Stefano Stabellini wrote:
+> > > > > > > > > > > > On Tue, 14 Dec 2021, Oleksii Moisieiev wrote:
+> > > > > > > > > > > > > This is the implementation of SCI interface, called SCMI-SMC driver,
+> > > > > > > > > > > > > which works as the mediator between XEN Domains and Firmware (SCP, ATF etc).
+> > > > > > > > > > > > > This allows devices from the Domains to work with clocks, resets and
+> > > > > > > > > > > > > power-domains without access to CPG.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > The following features are implemented:
+> > > > > > > > > > > > > - request SCMI channels from ATF and pass channels to Domains;
+> > > > > > > > > > > > > - set device permissions for Domains based on the Domain partial
+> > > > > > > > > > > > > device-tree. Devices with permissions are able to work with clocks,
+> > > > > > > > > > > > > resets and power-domains via SCMI;
+> > > > > > > > > > > > > - redirect scmi messages from Domains to ATF.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> > > > > > > > > > > > > ---
+> > > > > > > > > > > > >  xen/arch/arm/Kconfig          |   2 +
+> > > > > > > > > > > > >  xen/arch/arm/sci/Kconfig      |  10 +
+> > > > > > > > > > > > >  xen/arch/arm/sci/Makefile     |   1 +
+> > > > > > > > > > > > >  xen/arch/arm/sci/scmi_smc.c   | 795 ++++++++++++++++++++++++++++++++++
+> > > > > > > > > > > > >  xen/include/public/arch-arm.h |   1 +
+> > > > > > > > > > > > >  5 files changed, 809 insertions(+)
+> > > > > > > > > > > > >  create mode 100644 xen/arch/arm/sci/Kconfig
+> > > > > > > > > > > > >  create mode 100644 xen/arch/arm/sci/scmi_smc.c
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> > > > > > > > > > > > > index 186e1db389..02d96c6cfc 100644
+> > > > > > > > > > > > > --- a/xen/arch/arm/Kconfig
+> > > > > > > > > > > > > +++ b/xen/arch/arm/Kconfig
+> > > > > > > > > > > > > @@ -114,6 +114,8 @@ config SCI
+> > > > > > > > > > > > >  	  support. It allows guests to control system resourcess via one of
+> > > > > > > > > > > > >  	  SCI mediators implemented in XEN.
+> > > > > > > > > > > > >
+> > > > > > > > > > > > > +source "arch/arm/sci/Kconfig"
+> > > > > > > > > > > > > +
+> > > > > > > > > > > > >  endmenu
+> > > > > > > > > > > > >
+> > > > > > > > > > > > >  menu "ARM errata workaround via the alternative framework"
+> > > > > > > > > > > > > diff --git a/xen/arch/arm/sci/Kconfig b/xen/arch/arm/sci/Kconfig
+> > > > > > > > > > > > > new file mode 100644
+> > > > > > > > > > > > > index 0000000000..9563067ddc
+> > > > > > > > > > > > > --- /dev/null
+> > > > > > > > > > > > > +++ b/xen/arch/arm/sci/Kconfig
+> > > > > > > > > > > > > @@ -0,0 +1,10 @@
+> > > > > > > > > > > > > +config SCMI_SMC
+> > > > > > > > > > > > > +	bool "Enable SCMI-SMC mediator driver"
+> > > > > > > > > > > > > +	default n
+> > > > > > > > > > > > > +	depends on SCI
+> > > > > > > > > > > > > +	---help---
+> > > > > > > > > > > > > +
+> > > > > > > > > > > > > +	Enables mediator in XEN to pass SCMI requests from Domains to ATF.
+> > > > > > > > > > > > > +	This feature allows drivers from Domains to work with System
+> > > > > > > > > > > > > +	Controllers (such as power,resets,clock etc.). SCP is used as transport
+> > > > > > > > > > > > > +	for communication.
+> > > > > > > > > > > > > diff --git a/xen/arch/arm/sci/Makefile b/xen/arch/arm/sci/Makefile
+> > > > > > > > > > > > > index 837dc7492b..67f2611872 100644
+> > > > > > > > > > > > > --- a/xen/arch/arm/sci/Makefile
+> > > > > > > > > > > > > +++ b/xen/arch/arm/sci/Makefile
+> > > > > > > > > > > > > @@ -1 +1,2 @@
+> > > > > > > > > > > > >  obj-y += sci.o
+> > > > > > > > > > > > > +obj-$(CONFIG_SCMI_SMC) += scmi_smc.o
+> > > > > > > > > > > > > diff --git a/xen/arch/arm/sci/scmi_smc.c b/xen/arch/arm/sci/scmi_smc.c
+> > > > > > > > > > > > > new file mode 100644
+> > > > > > > > > > > > > index 0000000000..2eb01ea82d
+> > > > > > > > > > > > > --- /dev/null
+> > > > > > > > > > > > > +++ b/xen/arch/arm/sci/scmi_smc.c
+> > > > > > > > > > > > > @@ -0,0 +1,795 @@
+> > > > > > > > > > > > > +/*
+> > > > > > > > > > > > > + * xen/arch/arm/sci/scmi_smc.c
+> > > > > > > > > > > > > + *
+> > > > > > > > > > > > > + * SCMI mediator driver, using SCP as transport.
+> > > > > > > > > > > > > + *
+> > > > > > > > > > > > > + * Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> > > > > > > > > > > > > + * Copyright (C) 2021, EPAM Systems.
+> > > > > > > > > > > > > + *
+> > > > > > > > > > > > > + * This program is free software; you can redistribute it and/or modify
+> > > > > > > > > > > > > + * it under the terms of the GNU General Public License as published by
+> > > > > > > > > > > > > + * the Free Software Foundation; either version 2 of the License, or
+> > > > > > > > > > > > > + * (at your option) any later version.
+> > > > > > > > > > > > > + *
+> > > > > > > > > > > > > + * This program is distributed in the hope that it will be useful,
+> > > > > > > > > > > > > + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> > > > > > > > > > > > > + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> > > > > > > > > > > > > + * GNU General Public License for more details.
+> > > > > > > > > > > > > + */
+> > > > > > > > > > > > > +
+> > > > > > > > > > > > > +#include <asm/sci/sci.h>
+> > > > > > > > > > > > > +#include <asm/smccc.h>
+> > > > > > > > > > > > > +#include <asm/io.h>
+> > > > > > > > > > > > > +#include <xen/bitops.h>
+> > > > > > > > > > > > > +#include <xen/config.h>
+> > > > > > > > > > > > > +#include <xen/sched.h>
+> > > > > > > > > > > > > +#include <xen/device_tree.h>
+> > > > > > > > > > > > > +#include <xen/iocap.h>
+> > > > > > > > > > > > > +#include <xen/init.h>
+> > > > > > > > > > > > > +#include <xen/err.h>
+> > > > > > > > > > > > > +#include <xen/lib.h>
+> > > > > > > > > > > > > +#include <xen/list.h>
+> > > > > > > > > > > > > +#include <xen/mm.h>
+> > > > > > > > > > > > > +#include <xen/string.h>
+> > > > > > > > > > > > > +#include <xen/time.h>
+> > > > > > > > > > > > > +#include <xen/vmap.h>
+> > > > > > > > > > > > > +
+> > > > > > > > > > > > > +#define SCMI_BASE_PROTOCOL                  0x10
+> > > > > > > > > > > > > +#define SCMI_BASE_PROTOCOL_ATTIBUTES        0x1
+> > > > > > > > > > > > > +#define SCMI_BASE_SET_DEVICE_PERMISSIONS    0x9
+> > > > > > > > > > > > > +#define SCMI_BASE_RESET_AGENT_CONFIGURATION 0xB
+> > > > > > > > > > > > > +#define SCMI_BASE_DISCOVER_AGENT            0x7
+> > > > > > > > > > > > > +
+> > > > > > > > > > > > > +/* SCMI return codes. See section 4.1.4 of SCMI spec (DEN0056C) */
+> > > > > > > > > > > > > +#define SCMI_SUCCESS              0
+> > > > > > > > > > > > > +#define SCMI_NOT_SUPPORTED      (-1)
+> > > > > > > > > > > > > +#define SCMI_INVALID_PARAMETERS (-2)
+> > > > > > > > > > > > > +#define SCMI_DENIED             (-3)
+> > > > > > > > > > > > > +#define SCMI_NOT_FOUND          (-4)
+> > > > > > > > > > > > > +#define SCMI_OUT_OF_RANGE       (-5)
+> > > > > > > > > > > > > +#define SCMI_BUSY               (-6)
+> > > > > > > > > > > > > +#define SCMI_COMMS_ERROR        (-7)
+> > > > > > > > > > > > > +#define SCMI_GENERIC_ERROR      (-8)
+> > > > > > > > > > > > > +#define SCMI_HARDWARE_ERROR     (-9)
+> > > > > > > > > > > > > +#define SCMI_PROTOCOL_ERROR     (-10)
+> > > > > > > > > > > > > +
+> > > > > > > > > > > > > +#define DT_MATCH_SCMI_SMC DT_MATCH_COMPATIBLE("arm,scmi-smc")
+> > > > > > > > > > > > > +
+> > > > > > > > > > > > > +#define SCMI_SMC_ID                        "arm,smc-id"
+> > > > > > > > > > > > > +#define SCMI_SHARED_MEMORY                 "linux,scmi_mem"
+> > > > > > > > > > > >
+> > > > > > > > > > > > I could find the following SCMI binding in Linux, which describes
+> > > > > > > > > > > > the arm,scmi-smc compatible and the arm,smc-id property:
+> > > > > > > > > > > >
+> > > > > > > > > > > > Documentation/devicetree/bindings/firmware/arm,scmi.yaml
+> > > > > > > > > > > >
+> > > > > > > > > > > > However, linux,scmi_mem is not described. Aren't you supposed to read
+> > > > > > > > > > > > the "shmem" property instead? And the compatible string used for this
+> > > > > > > > > > > > seems to be "arm,scmi-shmem".
+> > > > > > > > > > > >
+> > > > > > > > > > >
+> > > > > > > > > > > We use linux,scmi_mem node to reserve memory, needed for all
+> > > > > > > > > > > channels:
+> > > > > > > > > > >
+> > > > > > > > > > > reserved-memory {
+> > > > > > > > > > >     /* reserved region for scmi channels*/
+> > > > > > > > > > >     scmi_memory: linux,scmi_mem@53FF0000 {
+> > > > > > > > > > >         no-map;
+> > > > > > > > > > >         reg = <0x0 0x53FF0000 0x0 0x10000>;
+> > > > > > > > > > >     };
+> > > > > > > > > > > };
+> > > > > > > > > > >
+> > > > > > > > > > > arm,scmi-shmem node used in shmem property defines only 1 page needed to
+> > > > > > > > > > > the current scmi channel:
+> > > > > > > > > > >
+> > > > > > > > > > > cpu_scp_shm: scp-shmem@0x53FF0000 {
+> > > > > > > > > > >     compatible = "arm,scmi-shmem";
+> > > > > > > > > > >     reg = <0x0 0x53FF0000 0x0 0x1000>;
+> > > > > > > > > > > };
+> > > > > > > > > > >
+> > > > > > > > > > > For each Domain reg points to unigue page from linux,scmi_mem region,
+> > > > > > > > > > > assigned to this agent.
+> > > > > > > > > >
+> > > > > > > > > > If we were to use "linux,scmi_mem" we would have to introduce it as a
+> > > > > > > > > > compatible string, not as a node name, and it would need to be described
+> > > > > > > > > > in Documentation/devicetree/bindings/firmware/arm,scmi.yaml.
+> > > > > > > > > >
+> > > > > > > > > > But from your description I don't think it is necessary. We can just use
+> > > > > > > > > > "arm,scmi-shmem" to describe all the required regions:
+> > > > > > > > > >
+> > > > > > > > > > reserved-memory {
+> > > > > > > > > >     scp-shmem@0x53FF0000 {
+> > > > > > > > > >         compatible = "arm,scmi-shmem";
+> > > > > > > > > >         reg = <0x0 0x53FF0000 0x0 0x1000>;
+> > > > > > > > > >     };
+> > > > > > > > > >     scp-shmem@0x53FF1000 {
+> > > > > > > > > >         compatible = "arm,scmi-shmem";
+> > > > > > > > > >         reg = <0x0 0x53FF1000 0x0 0x1000>;
+> > > > > > > > > >     };
+> > > > > > > > > >     scp-shmem@0x53FF2000 {
+> > > > > > > > > >         compatible = "arm,scmi-shmem";
+> > > > > > > > > >         reg = <0x0 0x53FF2000 0x0 0x1000>;
+> > > > > > > > > >     };
+> > > > > > > > > >     ...
+> > > > > > > > > >
+> > > > > > > > > > In other words, if all the individual channel pages are described as
+> > > > > > > > > > "arm,scmi-shmem", why do we also need a single larger region as
+> > > > > > > > > > "linux,scmi_mem"?
+> > > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > That was my first implementation. But I've met a problem with
+> > > > > > > > > scmi driver in kernel. I don't remember the exact place, but I remember
+> > > > > > > > > there were some if, checking if memory weren't reserved.
+> > > > > > > > > That's why I ended up splitting nodes reserved memory region and actual
+> > > > > > > > > shmem page.
+> > > > > > > > > For linux,scmi_mem node I took format from /reserved-memory/linux,lossy_decompress@54000000,
+> > > > > > > > > which has no compatible string and provides no-map property.
+> > > > > > > > > linux,scmi_shmem node is needed to prevent xen from allocating this
+> > > > > > > > > space for the domain.
+> > > > > > > > >
+> > > > > > > > > Very interesting question about should I introduce linux,scmi_mem node
+> > > > > > > > > and scmi_devid property to the
+> > > > > > > > > Documentation/devicetree/bindings/firmware/arm,scmi.yaml?
+> > > > > > > > > Those node and property are needed only for Xen and useless for
+> > > > > > > > > non-virtualized systems. I can add this node and property description to
+> > > > > > > > > arm,scmi.yaml, but leave a note that this is Xen specific params.
+> > > > > > > > > What do you think about it?
+> > > > > > > >
+> > > > > > > > Reply below
+> > > > > > > >
+> > > > > > > > [...]
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > > > In general we can't use properties that are not part of the device tree
+> > > > > > > > > > spec, either https://urldefense.com/v3/__https://www.devicetree.org/specifications/__;!!GF_29dbcQIUBPA!kNodtgmOQBc1iO76_6vTK-O1SoLxee_ChowYQiQYC595rMOsrnmof2zmk7BnhXCSnJPN$ [devicetree[.]org] or
+> > > > > > > > > > https://urldefense.com/v3/__https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings__;!!GF_29dbcQIUBPA!kNodtgmOQBc1iO76_6vTK-O1SoLxee_ChowYQiQYC595rMOsrnmof2zmk7BnhXloYUaj$ [git[.]kernel[.]org]
+> > > > > > > > > >
+> > > > > > > > > > "linux,scmi_mem" is currently absent. Are you aware of any upstreaming
+> > > > > > > > > > activities to get "linux,scmi_mem" upstream under
+> > > > > > > > > > Documentation/devicetree/bindings in Linux?
+> > > > > > > > > >
+> > > > > > > > > > If "linux,scmi_mem" is going upstream in Linux, then we could use it.
+> > > > > > > > > > Otherwise, first "linux,scmi_mem" needs to be added somewhere under
+> > > > > > > > > > Documentation/devicetree/bindings (probably
+> > > > > > > > > > Documentation/devicetree/bindings/firmware/arm,scmi.yaml), then we can
+> > > > > > > > > > work on the Xen code that makes use of it.
+> > > > > > > > > >
+> > > > > > > > > > Does it make sense?
+> > > > > > > > > >
+> > > > > > > > >
+> > > > > > > > > Yes I agree. I think linux,scmi_mem and scmi_devid should be upstreamed.
+> > > > > > > > > I will add those properties to arm,scmi.yaml, mark them as related to XEN and send patch.
+> > > > > > > >
+> > > > > > > > I didn't realize that linux,scmi_mem and scmi_devid are supposed to be
+> > > > > > > > Xen specific. In general, it would be best not to introduce Xen specific
+> > > > > > > > properties into generic bindings. It is a problem both from a
+> > > > > > > > specification perspective (because it has hard to handle Xen specific
+> > > > > > > > cases in fully generic bindings, especially as those bindings are
+> > > > > > > > maintained as part of the Linux kernel) and from a user perspective
+> > > > > > > > (because now the user has to deal with a Xen-specific dtb, or has to
+> > > > > > > > modify the host dtb to add Xen-specific information by hand.)
+> > > > > > > >
+> > > > > > > >
+> > > > > > > > Let me start from scmi_devid.  Why would scmi_devid be Xen-specific? It
+> > > > > > > > looks like a generic property that should be needed for the Linux SCMI
+> > > > > > > > driver too. Why the Linux driver doesn't need it?
+> > > > > > > >
+> > > > > > >
+> > > > > > > scmi_devid used during domain build. It passed as input parameter for SCMI_BASE_SET_DEVICE_PERMISSIONS message.
+> > > > > > > On non-virtualized systems - there is no need of this call, because OS
+> > > > > > > is the only one entity, running on the system.
+> > > > > >
+> > > > > > OK. Even if it is only required for virtualized systems, I think that
+> > > > > > scmi_devid is important enough that should be part of the upstream
+> > > > > > binding. I think it is worth starting an email thread on the LKML with
+> > > > > > Rob Herring and the SCMI maintainers to discuss the addition of
+> > > > > > scmi_devid to the binding.
+> > > > > >
+> > > > > >
+> > > > > > > I've chatted with Volodymyr_Babchuk and he gave a great idea to add a
+> > > > > > > list of device_ids to dom.cfg, such as:
+> > > > > > > sci_devs = [ 0, 1, 15, 35 ];
+> > > > > > >
+> > > > > > > Using this approach, we can remove scmi_devid from the device tree and
+> > > > > > > just pass a list of scmi_devids to XEN using additional hypercall.
+> > > > > > > We can probably make hypercall taking devid list as input parameter.
+> > > > > > > This will take only 1 hypercall to setup sci permissions.
+> > > > > >
+> > > > > > But how would a user know which are the right SCMI IDs to add to the
+> > > > > > sci_devs list? Would the user have to go and read the reference manual
+> > > > > > of the platform to find the SCMI IDs and then write sci_devs by hand?
+> > > > > > If that is the case, then I think that it would be better to add
+> > > > > > scmi_devid to device tree.
+> > > > > >
+> > > > > > In general, I think this configuration should happen automatically
+> > > > > > without user intervention. The user should just specify "enable SCMI"
+> > > > > > and it should work.
+> > > > > >
+> > > > > >
+> > > > > > > > In regards to linux,scmi_mem, I think it would be best to do without it
+> > > > > > > > and fix the Linux SCMI driver if we need to do so. Xen should be able to
+> > > > > > > > parse the native "arm,scmi-shmem" nodes and Linux (dom0 or domU) should
+> > > > > > > > be able to parse the "arm,scmi-shmem" nodes generated by Xen. Either
+> > > > > > > > way, I don't think we should need linux,scmi_mem.
+> > > > > > >
+> > > > > > > This requires further investigation. I will try to make implementation
+> > > > > > > without linux,scmi_mem, using only arm,scmi-shmem nodes and share
+> > > > > > > reuslts with you.
+> > > > > >
+> > > > > > OK, thanks.
+> > > > >
+> > > > > Hi Stefano,
+> > > > >
+> > > > > As I did some investigation about using reserved-memory area
+> > > > > linux,scmi_mem and now I need your advice.
+> > > > >
+> > > > > I see 2 possible implementations for now:
+> > > > > 1) Add memory-region parameter to cpu_scp_shm node which points to the
+> > > > > reserved memory region.
+> > > > > So device-tree will look like this:
+> > > > >
+> > > > > 	reserved-memory {
+> > > > > 		/* reserved region for scmi channels*/
+> > > > > 		scmi_memory: region@53FF0000{
+> > > > > 			no-map;
+> > > > > 			reg = <0x0 0x53FF0000 0x0 0x10000>;
+> > > > > 		};
+> > > > > 	};
+> > > > > 	cpu_scp_shm: scp-shmem@0x53FF0000 {
+> > > > > 		compatible = "arm,scmi-shmem";
+> > > > > 		reg = <0x0 0x53FF0000 0x0 0x1000>;
+> > > > > 		memory-region = <&scmi_memory>;
+> > > > > 	};
+> > > > >
+> > > > > So cpu_scp_shm node has a reference to scmi_memory region. This mean
+> > > > > that xen can find reserved memory region without adding additional names
+> > > > > to the device-tree bindings.
+> > > > > memory-region parameter as a reference to reserved memory and region
+> > > > > creation described in:
+> > > > > https://urldefense.com/v3/__https://github.com/torvalds/linux/blob/v5.15/Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt__;!!GF_29dbcQIUBPA!k6x19x1gYF1CPlgAZj7std3ifqhq-9DXvuF0nwonNPUwMzZpYHYbrRJziJrgdFIOjyan$ [github[.]com]
+> > > > >
+> > > > > This approach I've implemented already and it works.
+> > > >
+> > > > This approach would require a discussion with the upstream device tree
+> > > > maintainers. Likely, we would need to add a note about the usage of the
+> > > > "memory-region" property to arm,scmi.yaml.
+> > > >
+> > > > Also, I have the feeling that they would ask to add the "memory-region"
+> > > > property directly to the "arm,scmi-smc" node, as an alternative (or
+> > > > in addition) to the existing "shmem" property.
+> > > >
+> > > > That said, from my point of view this approach is also a viable option.
+> > > > I don't see any major problems.
+> > > >
+> > > > The main question (after reading everything else that you wrote below)
+> > > > is whether the "arm,scmi-smc" node in this case could be automatically
+> > > > generated.
+> > > >
+> > > 
+> > > arm,scmi-smc node can be generated in both cases. I think I'd leave it
+> > > as backup in case if the second approach will not work.
+> > > 
+> > > >
+> > > > > 2) The second approach is the format you suggested:
+> > > > > > > > > > reserved-memory {
+> > > > > > > > > >     scp-shmem@0x53FF0000 {
+> > > > > > > > > >         compatible = "arm,scmi-shmem";
+> > > > > > > > > >         reg = <0x0 0x53FF0000 0x0 0x1000>;
+> > > > > > > > > >     };
+> > > > > > > > > >     scp-shmem@0x53FF1000 {
+> > > > > > > > > >         compatible = "arm,scmi-shmem";
+> > > > > > > > > >         reg = <0x0 0x53FF1000 0x0 0x1000>;
+> > > > > > > > > >     };
+> > > > > > > > > >     scp-shmem@0x53FF2000 {
+> > > > > > > > > >         compatible = "arm,scmi-shmem";
+> > > > > > > > > >         reg = <0x0 0x53FF2000 0x0 0x1000>;
+> > > > > > > > > >     };
+> > > > > > > > > >     ...
+> > > > >
+> > > > > This approach has an advantage that xen ARM_SCI driver do not know about
+> > > > > how channels are placed in the reserved memory, but introduces some
+> > > > > disadvantages:
+> > > > > a) We provide extra 14 (in our case) arm,scmi-shmem nodes which are not used
+> > > > > in the device-tree. In current implementation I have separate scmi.dtsi
+> > > > > file which introduces scmi support for both XEN-based and
+> > > > > non-virtualized systems. Having 14 extra channels in the device-tree may
+> > > > > be confusing.
+> > > >
+> > > > I can see that while it would be ideal for Xen to see all 14+1 channels
+> > > > in device tree (on the host device tree), we wouldn't want to expose all
+> > > > of them to the domains, not even to dom0.
+> > > >
+> > > > How many channels do we want dom0 to see by the way? For this
+> > > > discussion, I'll just assume for now that dom0 only sees 1 channel like
+> > > > the domUs.
+> > > 
+> > > For dom0 we need only one channel.
+> > > 
+> > > >
+> > > > Now we have a problem: how do we go about "filtering" the
+> > > > "arm,scmi-shmem" device tree nodes? Which is also what you are asking
+> > > > below in point b).
+> > > >
+> > > 
+> > > Xen will not need to filter "arm,scmi-shmem" node. It will just
+> > > create shmem node in Domain device-tree. I don't see any problem for xen
+> > > configuration here.
+> > > What bothers me here is that I set scmi configuration for platform dts,
+> > > not for xen or domu dts files.
+> > > So for example I have the following structure of the dts files for my
+> > > platform (r8a77961-salvator-xs):
+> > >  * r8a77961-scmi.dtsi - this file includes all scmi related nodes and set
+> > > scmi_devid for the devices, that should use scmi.
+> > >  * r8a77961-salvator-xs.dts - dts file which generates dtb for the platform.
+> > > It includes r8a77961-scmi.dtsi so I populate scmi to platform dtb, which
+> > > is used for system with no hypervisor.
+> > >  * r8a77961-salvator-xs-xen.dts - dts file for xen which includes
+> > > r8a77961-salvator-xs.dts and inherits scmi configuration from it.
+> > >  * r8a77961-salvator-xs-domu.dts - dts file for DomU which includes
+> > > r8a77961-salvator-xs.dts and inherits scmi configuration from it.
+> > > 
+> > > In this case r8a77961-salvator-xs.dtb r8a77961-salvator-xs-xen.dtb
+> > > r8a77961-salvator-xs-domu.dtb files will inherit 14+1 channel.
+> > > 
+> > > I can give you a link to Merge request with this changes if you need it.
+> > > 
+> > > For xen and domu dtb it is not a problem because all "arm,scmi-shmem"
+> > > nodes will be omitted and new will be generated for the domains.
+> > > 
+> > > What bothers me is that r8a77961-salvator-xs.dtb will have 14 unused channels.
+> > > 
+> > > Just got an idea while writing this: I can create only one
+> > > "arm,scmi-shmem" node in r8a77961-scmi.dtsi and add 14 more nodes,
+> > > needed for xen explicitly in r8a77961-salvator-xs-xen.dts.
+> > > 
+> > > Then we will have valid configurations for all cases.
+> > > This can be a solution. What do you think?
+> > 
+> > It is good that you brought this up because it helps me explain what I
+> > mean. And of course it is up to you where you place the nodes in the
+> > various dts files at your disposal. Either way it would work but I think
+> > they should belong to r8a77961-salvator-xs.dts.
+> > 
+> > Generally the platform vendor (e.g. Xilinx) provides a device tree
+> > description of the platform to use including all the available resources
+> > and firmware interfaces. In your case it would be r8a77961-scmi.dtsi +
+> > r8a77961-salvator-xs.dts. This is what I call the "host device tree"
+> > below. Users should be able to boot a fully functional system using the
+> > host device tree pretty much "as is" to run Xen, Linux or any other
+> > software.
+> > 
+> > Certainly the SCMI device tree description should be part of the host
+> > device tree, so in your case it would be r8a77961-salvator-xs.dts. And
+> > the description should include all 14+1 channels because this is the
+> > generic platform description -- we cannot know for sure how the users
+> > are going to use the system.
+> > 
+> > This is why r8a77961-salvator-xs-xen.dts should be as small as possible
+> > or ideally inexistent. There shouldn't be a need for a special device
+> > tree modification to allow Xen to run. In reality, even at Xilinx we
+> > have something like r8a77961-salvator-xs-xen.dts, although it is really
+> > small.
+> > 
+> > But I see that r8a77961-salvator-xs-xen.dts could be viewed as the
+> > device tree additions to run hypervisors and from that point of view it
+> > is more acceptable to place the 14 channels there.
+> > 
+> > The biggest problem is r8a77961-salvator-xs-domu.dts: who is going to
+> > write it? And how? It wouldn't be provided by the platform vendor, so it
+> > is the user the one that has to find a way to write it.
+> > 
+> > I know the user already has to write a partial DTB for device
+> > assignment, but any time the process is more complex than "copy the host
+> > device tree node for device XXX to the partial DTB" it is a problem.
+> > Errors are made and the system doesn't work.
+> > 
+> > I think we don't want to make it even more difficult by having to
+> > manually produce the SCMI domU description too. The SCMI description for
+> > domU could be automatically generated by Xen, or libxl/xl. If that's an
+> > issue, then the SCMI description could be automatically generated by an
+> > external tool but I think it would make things more complex and harder
+> > to maintain.
+> > 
+> > In short my point of view is:
+> > - r8a77961-scmi.dtsi + r8a77961-salvator-xs.dts should be as generic as
+> >   possible so the SCMI nodes should have 14+1 channels
+> > - but putting the 14 channels in r8a77961-salvator-xs-xen.dts is still
+> >   OKish
+> > - it is important that r8a77961-salvator-xs-domu.dts is automatically
+> >   generated by Xen or libxl or another software tool
+> > 
+> 
+> Thank you for the detailed response. I'll put all 14+1 channels to
+> r8a77961-salvator-xs.dts then.
+> I've described my thoughts about generation of the arm,scmi-smc node below.
+> 
+> > 
+> > > > > b) In case if we have all 15 channels, described in partial device-tree,
+> > > >
+> > > > I think you meant "described in the host device tree", right?
+> > > >
+> > > Yeah that's what I've meant.
+> > > >
+> > > > > we should not copy any node to the domain device-tree. I think it will
+> > > > > be better to generate arm,scmi-shmem node in the Domain device-tree.
+> > > >
+> > > > Yes, I think it makes sense for Xen to generate the "arm,scmi-shmem"
+> > > > device tree description for the DomU/Dom0 based on the channels
+> > > > allocated to the domain.
+> > > >
+> > > >
+> > > > > The problem is that arm,scmi-smc node, which is using arm,scmi-shmem
+> > > > > node can't be generated. I prefer it to be copied from the partial
+> > > > > device-tree because it includes some platform specific configuration,
+> > > > > such as func-id and list of the protocols (for example different
+> > > > > platforms may require different list of the protocols). So in this
+> > > > > case we will have 1 node copied and 1 node generated.
+> > > > >
+> > > > > I think even for dom0less we should use arm,scmi-smc node from the
+> > > > > device-tree because protocol configuration and funcid is related to the
+> > > > > platform.
+> > > >
+> > > > I am not sure I understood what you wrote. You are saying that the
+> > > > "arm,scmi-smc" node includes some platform specific configurations so
+> > > > it cannot be automatically generated by Xen (or by the tools) and
+> > > > instead it needs to be manually provided as part of the partial dtb for
+> > > > the domU. Is that correct?
+> > > >
+> > > > If so, I would like to understand the reasons behind it. Manual
+> > > > device tree editing is problematic.
+> > > >
+> > > > I looked for "func-id" in
+> > > > Documentation/devicetree/bindings/firmware/arm,scmi.yaml but couldn't
+> > > > find any results. Do you have an example of the platform specific
+> > > > configuration or protocol configuration that would make it difficult to
+> > > > automatically generate the "arm,scmi-smc" node for the domains?
+> > > 
+> > > Sorry, I used wrong term (used term from the specification), arm,smc-id
+> > > of cause.
+> > > 
+> > > >
+> > > > Also, is this a problem just for approach #2 or also for approach #1?
+> > > > If it is a problem only for approach #2, then let's just go with
+> > > > approach #1.
+> > > >
+> > > 
+> > > We can't copy "arm,scmi-smc" in both approaches. The difference is that
+> > > in the first approach we can copy both "arm,scmi-smc" and
+> > > "arm,scmi-shmem" nodes while in the second approach we should copy
+> > > "arm,scmi-smc", but we have to generate "arm,scmi-shmem" node.
+> > > 
+> > > arm,scmi-smc node can't be generated because it includes properties and
+> > > configurations that depends from platform and should be get from the
+> > > device tree.
+> > > Here is "arm,scmi-smc" node expample:
+> > > firmware {
+> > >     scmi {
+> > >         compatible = "arm,scmi-smc"
+> > >         arm,smc-id = <0x82000002>;
+> > >         shmem = <&cpu_scp_shm>;
+> > >         #address-cells = <1>;
+> > >         #size-cells = <0>;
+> > >         scmi_power: protocol@11 {
+> > >             reg = <0x11>;
+> > >             #power-domain-cells = <1>;
+> > >         };
+> > > 
+> > >         scmi_clock: protocol@14 {
+> > >             ...
+> > >         };
+> > > 
+> > >         scmi_reset: protocol@16 {
+> > >             ...
+> > >         };
+> > >         ...
+> > >     };
+> > > };
+> > > 
+> > > It has 3 configurable options:
+> > >  * arm,smc-id parameter, setting func_id for scmi protocol. This id can be
+> > > different for different platforms.
+> > > For example stm32mp1 architecture use different scm-id for different
+> > > agents:
+> > > https://urldefense.com/v3/__https://github.com/ARM-software/arm-trusted-firmware/blob/0586c41b3f2d52aae847b7212e7b0c7e19197ea2/plat/st/stm32mp1/include/stm32mp1_smc.h*L39__;Iw!!GF_29dbcQIUBPA!mTRUjtSg19iVaYo3Cgjop5ckPWqKsHVo1EZCEA1zCbod9KpNSXX291A8vAuNdTCr46MA$ [github[.]com]
+> > > 
+> > >  * shmem which includes phandle to arm,scmi-shmem node. But this is not
+> > > a problem and can be updated.
+> > > 
+> > >  * list of the protocol subnodes. This is also configurable parameter,
+> > > not regs or names, but the number of the protocols. For example onle
+> > > platform can use power-domains/clock/resets via scmi, when another will
+> > > require volage-control and sensor-management to be added.
+> > > 
+> > > Xen should know this parameters to be able to generate "arm,scmi-smc" node.
+> > > 
+> > > Also we're currently discussing new scmi protocol with ARM: Pinctrl over
+> > > SCMI.
+> > > 
+> > > It should allow domains to access pinctrl subsystem, placed in Firmware
+> > > through SCMI protocol.
+> > > scmi_pinctrl node will look like this:
+> > > 
+> > > 	firmware {
+> > > 		scmi {
+> > > 			...
+> > > 			scmi_pinctrl: protocol@18 {
+> > > 				reg = <0x18>;
+> > > 				#pinctrl-cells = <0>;
+> > > 
+> > > 				i2c2_pins: i2c2 {
+> > > 					groups = <74>; /* i2c2_a */
+> > > 					function = <15>; /* i2c2 */
+> > > 				};
+> > > 
+> > > 				irq0_pins: irq0 {
+> > > 					groups = <81>; /* intc_ex_irq0 */
+> > > 					function = <19>; /* intc_ex */
+> > > 				};
+> > > 
+> > > 				avb_pins: avb {
+> > > 					mux {
+> > > 						/* avb_link, avb_mdio, avb_mii */
+> > > 						groups = <17>, <21>, <22>;
+> > > 						function = <1>; /* avb */
+> > > 					};
+> > > 
+> > > 					pins_mdio {
+> > > 						groups = <21>; /* avb_mdio */
+> > > 						drive-strength = <24>;
+> > > 					};
+> > > 
+> > > 					pins_mii_tx {
+> > > 						/* PIN_AVB_TX_CTL, PIN_AVB_TXC, PIN_AVB_TD0,
+> > > 						       PIN_AVB_TD1, PIN_AVB_TD2, PIN_AVB_TD3 */
+> > > 						pins = <242>, <240>, <236>, <237>, <238>, <239>;
+> > > 						drive-strength = <12>;
+> > > 					};
+> > > 				};
+> > > 				...
+> > > 			};
+> > > 		};
+> > > 	};
+> > > 
+> > > So "arm,scmi-smc" node will have even more platform specific settings.
+> > > 
+> > > >
+> > > > > I prefer the second approach and will try to make it if it's OK to copy
+> > > > > arm,scmi-smc node from partial Device-tree and generate arm,scmi-shmem
+> > > > > node.
+> > > > >
+> > > > > What do you think about that?
+> > > >
+> > > > From a device tree specification perspective, I think both approaches
+> > > > are OK (with a minor comment on the first approach as I wrote above.)
+> > > >
+> > > > But from a Xen perspective I think it is important that we don't require
+> > > > the user to manually provide the SCMI configuration in the partial DTB.
+> > > > It would be better if we could generate it automatically from Xen or the
+> > > > tools (or even an independent script). Or copy the "arm,scmi-smc" node
+> > > > from the host device tree to the domU device tree without modifications.
+> > > 
+> > > I think copy "arm,scmi-smc" node is the only option we have.
+> > > I'm not sure what do you mean under "host device tree" if you mean Xen
+> > > device-tree - then I think it will not cover the case with stm32mp1 I've
+> > > mentioned above. I think it will be better to copy "arm,scmi-smc" node
+> > > from Domu partial Device-tree to Domu device-tree.
+> > > So AGENT0 smc-id will be set in xen device-tree and copied to dom0 and
+> > > AGENT1 scm-is set in domu device-tree and copied to dom-u.
+> > > 
+> > > Do you agree with my points?
+> > 
+> > I think we are saying similar things, but we are getting mixed up with
+> > the terminology. Let's start from the basics :-)
+> > 
+> > # Host device tree
+> > The device tree given to Xen at boot time. This is the device tree that
+> > Xen parses to discover what's available on the platform. In your case,
+> > it seems to include r8a77961-salvator-xs-xen.dts.
+> > 
+> > # Partial DTB
+> > (Ignoring Dom0less) this is the small DTB that gets passed to xl with
+> > the "device_tree" option in the xl config file. It is copied verbatim
+> > to the domU device tree by xl/libxl.
+> > 
+> > # Copy the "arm,scmi-smc" node from host device tree
+> > This means that the domU "arm,scmi-smc" node is an exact copy of the
+> > host device tree SCMI node. I don't think this is actually possible in
+> > most cases because the domU description is typically a bit different
+> > from the host description. For instance, the host description could
+> > include 14+1 channels while the domU description should only include 1
+> > channel.
+> > 
+> > # Copy the "arm,scmi-smc" node from the partial DTB
+> > This implies that somebody or something create an "arm,scmi-smc" node
+> > for the domU and placed it into the partial DTB. Then, Xen and/or
+> > xl/libxl will copy the node from the partial DTB to the DomU device
+> > tree. The main question in this case is: who is going to write the
+> > partial DTB? We dont want the user (i.e. a person) to have to manually
+> > write the SCMI description for the domU. It should be an automated tools
+> > that does it. At that point, it is easier if it is Xen or xl/libxl.
+> > Alternativaly, we could think of an external tool but I think it would
+> > make things more difficult to maintain.
+> > 
+> > # Generate the "arm,scmi-smc" node for domUs
+> > When I write "generate the arm,scmi-smc node", I mean that Xen and
+> > libxl/xl will generate the "arm,scmi-smc" node for the domU. Thus, the
+> > node will not be copied from the partial DTB or from the device tree,
+> > instead, it should be created directly by Xen and/or libxl/xl.
+> > 
+> > However, the domU "arm,scmi-smc" node could still be derived from the
+> > host device tree "arm,scmi-smc" node. In other words, Xen or xl/libxl
+> > would look at the host device tree "arm,scmi-smc" node, copy it to the
+> > domU device tree while making as many changes as necessary.
+> > 
+> > The DomU "arm,scmi-smc" node doesn't have to be entirely fake and
+> > static. It could be dynamically created to match the host device tree
+> > description. I think this is the best option.
+> > 
+> > 
+> > # Conclusion
+> > I am suggesting that Xen and/or libxl automatically produce the
+> > "arm,scmi-smc" node for domUs based on the host device tree description
+> > and based on the channel mapped to the domU. This way, the user (a
+> > person) doesn't have to go and manually edit the domU partial DTB.
+> > 
+> 
+> That sounds reasonable. The problem is that arm,scmi-smc node can be
+> copmlicated and include a lot of configuration. Also for different
+> mediators this node can be different.
+> As I inderstand, there is no mechanism for xl to access host device-tree
+> right now. Correct me if I'm wrong.
+
+Yes, you are right. And the lack of a mechanism for xl to access the
+host device tree is a problem.
 
 
-On 1/21/22 4:01 AM, Roger Pau Monne wrote:
-> There's no point in disabling x2APIC mode when running as a Xen HVM
-> guest, just enable it when available.
->
-> Remove some unneeded wrapping around the detection functions, and
-> simply provide a xen_x2apic_available helper that's a wrapper around
-> x2apic_supported.
->
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> I see the following way we can generate arm,scmi-smc node for DomU:
+> We say that if scmi-smc mediator is enabled - then Dom0 is configured to
+> use SCMI. This means that Dom0 device-tree will have arm,scmi-smc node
+> and it can be reached from the userspace.
+
+So far so good
 
 
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+> In this case xl can use infromation from /proc/device-tree/firmware/scmi
+> to generate arm,scmi-smc node for DomU. But in this case xl should know
+> the exact path of scmi node.
+> 
+> Or we can generate some special node, called "shared" in Dom0 device-tree
+> which will include copy of the arm,scmi-smc node, which can be used for domains.
+> In this case xl can scan /proc/device-tree/shared node and find
+> arm,scmi-smc copatible node and use it to generate arm,scmi-smc node for
+> DomU.
+> Also this can be used for another features in future.
+> 
+> What do you think about this?
 
+Basing the domU SCMI node generation on the dom0 SCMI node is not great,
+because it should be based on the host device tree rather than dom0 and
+the dom0 SCMI description will be different.
+
+Instead of copying just the host SCMI node somewhere in the dom0 device
+tree so that xl/libxl can access it via /proc/device-tree, I think it
+would be better to make the full host DTB available to xl/libxl.
+
+There are probably many ways to do this, but there are a couple I can
+think of on top of my head:
+
+- introduce a new hypercall to get the full host dtb from Xen
+The hypercall would pass an address and a size in guest physical memory
+and Xen would copy the host DTB to it.
+
+- introduce something like /proc/device-tree to hypfs
+See xen/common/hypfs.c
 
