@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26560495EF7
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jan 2022 13:25:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259327.447521 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69F29495F4C
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jan 2022 13:53:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259335.447532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAsy0-0004CP-NH; Fri, 21 Jan 2022 12:24:32 +0000
+	id 1nAtPx-0007P4-2A; Fri, 21 Jan 2022 12:53:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259327.447521; Fri, 21 Jan 2022 12:24:32 +0000
+Received: by outflank-mailman (output) from mailman id 259335.447532; Fri, 21 Jan 2022 12:53:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAsy0-00049m-Jz; Fri, 21 Jan 2022 12:24:32 +0000
-Received: by outflank-mailman (input) for mailman id 259327;
- Fri, 21 Jan 2022 12:24:31 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nAtPw-0007N8-VM; Fri, 21 Jan 2022 12:53:24 +0000
+Received: by outflank-mailman (input) for mailman id 259335;
+ Fri, 21 Jan 2022 12:53:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nAsxz-00049c-JC; Fri, 21 Jan 2022 12:24:31 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nAsxz-00042E-G5; Fri, 21 Jan 2022 12:24:31 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nAsxz-0004dK-64; Fri, 21 Jan 2022 12:24:31 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nAsxz-0001IU-5c; Fri, 21 Jan 2022 12:24:31 +0000
+ (envelope-from <SRS0=l1/X=SF=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1nAtPv-0007N2-P2
+ for xen-devel@lists.xenproject.org; Fri, 21 Jan 2022 12:53:23 +0000
+Received: from ppsw-32.csi.cam.ac.uk (ppsw-32.csi.cam.ac.uk [131.111.8.132])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1cc153ac-7ab9-11ec-bc18-3156f6d857e4;
+ Fri, 21 Jan 2022 13:53:22 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:50402)
+ by ppsw-32.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.136]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1nAtPs-000oJk-2q (Exim 4.95) (return-path <amc96@srcf.net>);
+ Fri, 21 Jan 2022 12:53:20 +0000
+Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id A95CD1FC25;
+ Fri, 21 Jan 2022 12:53:20 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +45,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=vtXpQLCovnYP3SNTc3VuDm/ZSMmbmHVFLWpliUBPguY=; b=FCvN1EIY+qWddCx8J7X/kiUhQE
-	Rl21qybpEQ9s0DXHDAPRAKFjE5Ob7Eq9RVOJwJFu+B4VDtxzpGhY3q+4FuRkkckrOfuTNJaVROu6W
-	GotvSGTS2PL2q1XKsxBPaF5XYC3zM0rf0+rkJW+KVmdYq81LiVBQudM4hkC5b1RVaqdA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-167775-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1cc153ac-7ab9-11ec-bc18-3156f6d857e4
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <eca3cd2c-b58d-3e00-659a-d970f5166e91@srcf.net>
+Date: Fri, 21 Jan 2022 12:53:20 +0000
 MIME-Version: 1.0
-Subject: [ovmf test] 167775: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=21320ef66989f8af5a9e9b57df73d20a70bea85f
-X-Osstest-Versions-That:
-    ovmf=7709988dd8f9a69eea456869f468120f1f0fc7cb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 21 Jan 2022 12:24:31 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20220121104901.22702-1-andrew.cooper3@citrix.com>
+ <0e3a51eb-a04a-f471-201b-8aa27aca4224@suse.com>
+From: Andrew Cooper <amc96@srcf.net>
+Subject: Re: [PATCH] x86: Fix build with the get/set_reg() infrastructure
+In-Reply-To: <0e3a51eb-a04a-f471-201b-8aa27aca4224@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 167775 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/167775/
+On 21/01/2022 11:03, Jan Beulich wrote:
+> On 21.01.2022 11:49, Andrew Cooper wrote:
+>> I clearly messed up concluding that the stubs were safe to drop.
+>>
+>> The is_{pv,hvm}_domain() predicates are not symmetrical with both CONFIG_PV
+>> and CONFIG_HVM.  As a result logic of the form `if ( pv/hvm ) ... else ...`
+>> will always have one side which can't be DCE'd.
+>>
+>> While technically only the hvm stubs are needed, due to the use of the
+>> is_pv_domain() predicate in guest_{rd,wr}msr(), sort out the pv stubs too to
+>> avoid leaving a bear trap for future users.
+> Well, as said on irc - only the PV stubs ought to be needed if the
+> conditionals always used "if ( is_hvm_...() )" / "if ( !is_hvm_...() )".
+> Despite us making use of this property elsewhere, you appear to dislike
+> that though ...
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 21320ef66989f8af5a9e9b57df73d20a70bea85f
-baseline version:
- ovmf                 7709988dd8f9a69eea456869f468120f1f0fc7cb
+Yes - I consider that an accident at best, and not something which
+people can reasonably be expected to know or use.
 
-Last test of basis   167760  2022-01-20 13:43:03 Z    0 days
-Testing same since   167775  2022-01-21 02:42:11 Z    0 days    1 attempts
+If nothing else, the pv form is the more useful one to use, given a
+potential pvh-dom0 future where CONFIG_PV might credibly be dropped by
+downstreams.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Sunny Wang <sunny.wang@arm.com>
+>
+> Hence / nevertheless:
+>
+>> Fixes: 88d3ff7ab15d ("x86/guest: Introduce {get,set}_reg() infrastructure")
+>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Thanks, but CI still says no.
 
+Some compilers don't tolerate the lack of a return value in a non-void
+function, despite the ASSERT_UNREACHABLE().  It might be down to the
+absence of __builtin_unreahcable().
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+I've folded "return 0;" into the two get stubs, and will see how that
+fairs, but given how trivial it is, I don't intend to post a v2 before
+committing.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   7709988dd8..21320ef669  21320ef66989f8af5a9e9b57df73d20a70bea85f -> xen-tested-master
+~Andrew
 
