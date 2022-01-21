@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E4D64958E5
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jan 2022 05:20:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259240.447305 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22372495A41
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jan 2022 08:01:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259248.447316 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAlPM-0007z9-LL; Fri, 21 Jan 2022 04:20:16 +0000
+	id 1nAntp-0005bc-TZ; Fri, 21 Jan 2022 06:59:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259240.447305; Fri, 21 Jan 2022 04:20:16 +0000
+Received: by outflank-mailman (output) from mailman id 259248.447316; Fri, 21 Jan 2022 06:59:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAlPM-0007x4-IA; Fri, 21 Jan 2022 04:20:16 +0000
-Received: by outflank-mailman (input) for mailman id 259240;
- Fri, 21 Jan 2022 04:20:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1nAntp-0005Za-QI; Fri, 21 Jan 2022 06:59:53 +0000
+Received: by outflank-mailman (input) for mailman id 259248;
+ Fri, 21 Jan 2022 06:59:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nAlPL-0007wo-4N; Fri, 21 Jan 2022 04:20:15 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nAlPL-000311-1c; Fri, 21 Jan 2022 04:20:15 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nAlPK-0006Xb-NH; Fri, 21 Jan 2022 04:20:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nAlPK-00027C-Mq; Fri, 21 Jan 2022 04:20:14 +0000
+ (envelope-from <SRS0=57ha=SF=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nAnto-0005ZU-2d
+ for xen-devel@lists.xenproject.org; Fri, 21 Jan 2022 06:59:52 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b98d507c-7a87-11ec-8fa7-f31e035a9116;
+ Fri, 21 Jan 2022 07:59:49 +0100 (CET)
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur03lp2058.outbound.protection.outlook.com [104.47.9.58]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-37-X-CqJ3ooPfGVmV6crym6Pw-1; Fri, 21 Jan 2022 07:59:47 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by DB8PR04MB5641.eurprd04.prod.outlook.com (2603:10a6:10:a9::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10; Fri, 21 Jan
+ 2022 06:59:45 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::5951:a489:1cf0:19fe]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::5951:a489:1cf0:19fe%6]) with mapi id 15.20.4909.010; Fri, 21 Jan 2022
+ 06:59:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,216 +51,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=VbRNclISey5vVbOPslYsmpAU+tVYcbul0LHUc5TTwtY=; b=Hae3nhitTfnayGC2oR1+h0S3sk
-	OAgvgAk2BmNOSfLqHiqNWhsqe3VYvdV8rmjZBS6uirO+FizHxiFsYQ3kdWJJb9qEk3nt2zQ+5AWk2
-	rhmsyLtCuJKGyHMhYyEascA0xHwtVrzBlf2J6HnRzO5DfTqHOTEErsAssS7IM2114/i8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-167769-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b98d507c-7a87-11ec-8fa7-f31e035a9116
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1642748389;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Vhq1t2aynVzCs7E4CzYWMaJv6mh8jIHrvd6KQZRCDBo=;
+	b=MGtQ7yekhtIiyv3GBUFIlQC0VwTTR3sVj/8Ie3yXbPULs2ZmSAToVHYe+NIekWt7VcnWJk
+	Lf++DmwNvfW/gA0KHyWOzZYz2blE17K3S9N0KYYzMjlqxS7jCgXLEMIyRJWI5PaGLpYQJv
+	mfha55U/GFsa1JHAAS84IZbS+eXSXNQ=
+X-MC-Unique: X-CqJ3ooPfGVmV6crym6Pw-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mFWmX1XtScApEvKIcZK8c9tkGT2nv4GgOUVB0bmyGRaXsfkCUN+nZ8yUTlDYlPZlNyuoSsOS0ycySyBBCq4ZoAmsVF9LtdyqhdEZ3KBNNg9t/66iuMYqojpJXMfMm8g5wWilfx8B7n0tiFWvM1sJi0uwg5weVpD+RdSN0ik41EsirdUBRg+eos5aLnsRlDchrdJVVKlwdiF3HrnWYihn60lFvk+aCSe9tct+xiNZAi678eiSjq/dfv9HG32h0U4ECXaoH45I7gFFBjh4L965n5Am+dKcgTetzOL+xN7Zuyj56P4/gwhMOID+SUHe3UJjoq7eFmaZFFPi3CjwR31t5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Vhq1t2aynVzCs7E4CzYWMaJv6mh8jIHrvd6KQZRCDBo=;
+ b=dfwPCkMsgsYGP1sTERWzLdy4INHSCBcP4pLotHt0Z1B31Mflpmdm3AGJZMeqeAALllyjKCjfPBMaD/vGtATU3WA3Use4w2Nb3Fk1PaNvGliyw2VoWWzBI8KAqf69Upny7uug2VjggtQ4B4cXBXOmCxdnBh3pHDbEGd/dx5xMCSU/3T7k47w4HvgBnX3YG7s8uasZJ46HQc5UkLYBoJfjsmzR1LxAUQllF2k6SDeqbs/AWuBtG0jWrkg73b27HzVmka8BdPlt2gDfm1Nvb37cqNzotlZVAj5ekZ2h/g0xaKyW4y30lF+FDGK1zL3mfUHSo9s0610IK8HpFJLBSdoZ1A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <86033c13-c444-aac1-6043-73ed12c78240@suse.com>
+Date: Fri, 21 Jan 2022 07:59:40 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [XEN PATCH v8 00/47] xen: Build system improvements, now with
+ out-of-tree build!
+Content-Language: en-US
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Kevin Tian <kevin.tian@intel.com>, Connor Davis <connojdavis@gmail.com>,
+ Doug Goldstein <cardoe@cardoe.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>, Paul Durrant <paul@xen.org>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+References: <20211125134006.1076646-1-anthony.perard@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20211125134006.1076646-1-anthony.perard@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0039.eurprd06.prod.outlook.com
+ (2603:10a6:20b:463::31) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 167769: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=0626219dcc6a4376c1a4b04209d6c15d06e23875
-X-Osstest-Versions-That:
-    xen=4e1df69cc9f51b2e017af1da3ed5b45917642115
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 21 Jan 2022 04:20:14 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 292e95d7-c62a-46eb-4e69-08d9dcab9b1d
+X-MS-TrafficTypeDiagnostic: DB8PR04MB5641:EE_
+X-Microsoft-Antispam-PRVS:
+	<DB8PR04MB5641FAEA4A77113FD522FAEDB35B9@DB8PR04MB5641.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	M/xcsTaDlsUpA1PXiatLrG4dnJfRQkVi/O2qPVVgsEcLOThfz6sihIKeKUI7xvqTRnaP9bDngQXzGJ4BU4s9IC50bgKxkaYH9UMw4+e9lNXim9czX9c+why+83F8xXLBFu61MjmVUjhy7VWABvzT2wj0nNL0XBZ9gpJNzPT1eor48VsJYKu8kyj4zU61DqCfi//5X3X+It4WG3PTyjaLcJP6CqrjgjxfjDAJijuwBpJb6p2b8lHkHfkCnc4O7CvLf30t6kQXDLthapECOkLiaKO1B4DdMKg6/aKPIkMxQ99qhxowu9z8E0Tv1qWwY2Kw7i0tPm9W0xzCIGnHoDVm50RpiLeAGthT1kp+F7Zt8of62mCTDiJrMSMkVMnDVigzgbf7BJGN9RvrQ66eu8zVAPeG6By4WiU2PaJ8nRCuclPLtMD2A/UKzdyDhPrRBvmx5NZSFcQO5fm7aUpWa/QQ6abY3sUijTZ55kkhYGXtMbJOED+cxbNFlCIP3svrPebVQ99oOnaQo5RozhakDml5FXQyM8URDJaBJAN8v/OikE39ryNs0O8X3nMR/JIP6tGDgJzw9OsS29nHmWtJ7iNNqFn1jisymwlUDxUlA+Lbqpc5XuADjmJ80ztbiNFea4BspS5kZfRMYCtx8oaiFky/NZMT85mHuhYwd9fzPe1TcVji5fhu+rw3VsSRccDOG6VixuiIZhN7z4aXPlxJ6OzXBxPhBoQDDwADNOrwFykjHxg+E9XyYOHrkE6RcVfX3isiwtqkSioDN8weeT0nuv+dXvpUYcWdwirFBncE3sXQwn1L3NA7P6LKWMWCOZhYG1F1
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(38100700002)(31686004)(6916009)(2616005)(4744005)(86362001)(54906003)(8676002)(36756003)(26005)(316002)(66946007)(6512007)(7416002)(6506007)(53546011)(83380400001)(66556008)(66476007)(5660300002)(8936002)(186003)(31696002)(6486002)(508600001)(6666004)(966005)(2906002)(4326008)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Lzc3aTM4VWhwa00zZW1mU2puNkFXSkYwYmtEYjhNQm5nTENMKzhpZzFMZ2pq?=
+ =?utf-8?B?cTArQmlMc054bC81cU5ZZDQ1amwzUTNqSWZrMlIrRk4zblFmUU9Bb1BNVGhv?=
+ =?utf-8?B?WW9HbGlBOW9PdGJ2ak52aEJBUlRYWUpyb21SMnN6ZStFQUZ0RXVtdDdRVytm?=
+ =?utf-8?B?bkxuamJQYnpLSFROTDFza0IwWmxpSDJmalZOQlpWREVETjRpbFpYbVNwYUhp?=
+ =?utf-8?B?WTVPSk9qbUpLZTNkRTB6U05OTWFsd0ZtZUJxMkNrRFU5R0UvcldLeXp2c2Vh?=
+ =?utf-8?B?dWhnTXRaZUZ0N3NCUkRqN09LTDFpU1ZQcUtQQ3RlTi9JRFB6TFFiZFBYb2xK?=
+ =?utf-8?B?ZTJ1aHNBeVFDMnphd09yT25rc1g4bjd3MkVob2Frd0gvdk0zbU1jeHFSa2NU?=
+ =?utf-8?B?U0ZZWWdCVHNRTjRYQzJuZlBEM2tqR21FTlRzUVNTUnBnUWJ6T0VpMjRYcS9O?=
+ =?utf-8?B?WjFWbzRzbUJUdnlkM3FRR1NQSW5SV0JTNGZ5MnVvN3NtVGFoaFVJUmc1MlBm?=
+ =?utf-8?B?bVV4RVEvTEN1Ykd0QnlUQzhXaXBSL1pIa3ByTXVlaU1KYzR1dkJKU3J5S0Rx?=
+ =?utf-8?B?L1FPMFVIOUlMYXF5bjQxNGNxSkFpekFET1c3SU9zUWdpckZPMnF0RmhIREMx?=
+ =?utf-8?B?a25kZTQwUFJIUzhxZjMxV3NZLzdTSm1lVjVaWkc1bDlFSWd2ZW95SjFENzJJ?=
+ =?utf-8?B?a3ArODBZVU52VHhvL200TU5XYjZiY3ZKVmE5VnRFZVJqcmZRMml4eEdMYXR5?=
+ =?utf-8?B?aGlFVzNRMHdHUTJ5TzdBZ2JISWZFcFBXanRHL3JYUDJsTzhNclhtN0pPS3Z6?=
+ =?utf-8?B?WFRHTW9ra2hyVDBSYi9GcGNFNmFzckd5WFowSEZTZFdWbHZuMUZ2a3oxR3hs?=
+ =?utf-8?B?YkxkSXNRL2tKWENMcERWbHE4dUNRR3VnQjd2STVBUkFjTXliNE9jeEZkZTgx?=
+ =?utf-8?B?R2xtdjFiMjBqaGF0cWs0NFNiUzVPdW56WXRzVDI3a211aUVsY25xZVFEaUJm?=
+ =?utf-8?B?WklXd1hralBIcGh6OGtGSmJSUVQ5VjdQMXo5U1d4ZDUvM2Z0K1dZRnlJQ0cx?=
+ =?utf-8?B?Z09MSUhKNHJZdDMvZXhsSE0xdE1wZ2NaM3BxWUs4VzdxUjExMFVaUHZ3VEFx?=
+ =?utf-8?B?dW9ZQnlTK2M5Sko2ZzNlUUNGMG9OUWM3RUkrcy9ua2FkRDJQOC9VSkViVWhy?=
+ =?utf-8?B?V3BBeHdyaTZ3OGQ3aWVyV3k4ejhzaHNlTTRXV2EwOHRud2pCbXhuOEVIZ1hs?=
+ =?utf-8?B?cm5ldTl4NU9hcVVjTkhoZTZMQTBVMmZEaXhoM1Q2eW1MaE9PeTNkUkJjN2Q1?=
+ =?utf-8?B?b3BvazJEcVVMUzNoVHE1N0hjem03Y3VlRXlZRlFoOVJDZitLUytaSGNSUUxS?=
+ =?utf-8?B?UVZqbW1LT3o1SHdYQkJ2eUFBdVplb3IvV01wRFo0azFBVndlbUdscUl1Vm5m?=
+ =?utf-8?B?YnNFUXBmUm5WN0NDeElRNnNnd25vTzRnZktLRnZxN3FwZ01sd01zZmg5TmFH?=
+ =?utf-8?B?SCtZUzFsODNRYmNnQmZRK1VIZWFzeXN1THZJZlNZWGdGNUxjcGJNQXN5dDhy?=
+ =?utf-8?B?dEVINGcrVUt3ejAybUJ0V3haQ3VRek9SbWN1eDZpaTFQWHZCSDAybG1TUk43?=
+ =?utf-8?B?aysxVDJyQ1FQODRGbEJXenNWeDQ1RlVIdGlhaG5DU2hSNHJQTHc3WW9UUWVR?=
+ =?utf-8?B?NDcrSFJHUm52NzlWVUpvUTBtMG91Q051QUlleFBTN01Wak5Nc0Q1NHB4eURo?=
+ =?utf-8?B?MXBQMTNlVktDV0FEd3RYeDdLaHQ1cUVkK0JvTjRTREVibkExRnY1WFNhZEJN?=
+ =?utf-8?B?SS9IZHpyWm5DR0pBMTg2NjZ0NkRvdGdEV3Y3YmtvZ0Z2RzAreUV6S3daMEd6?=
+ =?utf-8?B?Y3pJS1AzTUFheHBRSUkrZlZRWjJCRDVOaEF0MVZmazc4TFpRMHB2OFdHcm1L?=
+ =?utf-8?B?U2VqbldXeFFLNFFNenBRdnRPalU4UjJhZStnTGtqV2dHRElROVNWeGswR1Nq?=
+ =?utf-8?B?S1NBWmhZNGp5ZkxIcWhIMWpTc1lrOVBySW9pYWx4ZXB1ZWlXVjBtRXdmMjFX?=
+ =?utf-8?B?bEh4TlhtelhzZWhpOThDVkZkdGVpNGZ1R3BwYjk5elRJY1hYWE1PUU1IV0J1?=
+ =?utf-8?B?QWdKaFJXM25QemhZQ09BSHlzRkI4NDNBY3VpMHlJaWVGYkxYcGROalVNTVRk?=
+ =?utf-8?Q?Ig0n1rSy7QmAssVAXiafd8c=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 292e95d7-c62a-46eb-4e69-08d9dcab9b1d
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2022 06:59:45.3451
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EYQdKrjBIK0UL6hZ5RfvDUIAD3yCrSb68EChjQYO0JYButnQxj+WmLW9PCdAYtnZDGOo+OnzGyOIMHlYh2aDAw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB5641
 
-flight 167769 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/167769/
+On 25.11.2021 14:39, Anthony PERARD wrote:
+> Patch series available in this git branch:
+> https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.build-system-xen-v8
+> 
+> v8:
+>     Mostly rework of v7. With many patch already applied.
+>     Some detail changes that are spread through many patches:
+>     - `make cloc` recipe should now work throughout the series, update of it is
+>       done in 3 patches.
+>     - new patch "build: fix enforce unique symbols for recent clang version"
+>       to fix an issue with clang.
+>     - introducing $(srctree) and $(objtree) earlier
+>     - introducing $(srcdir) as shortcut for $(srctree)/$(src)
+>     - introduce usage of -iquote instead of -I in some cases
 
-Regressions :-(
+One more question: With an out-of-tree build, where do I put the
+(build flavor specific) ./.config (not xen/.config)? I'm using this
+extensively for cross builds and to override tool chain components
+(to avoid having to remember to always specify the right combination
+for a certain flavor on the command line).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 167761
+Jan
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  0626219dcc6a4376c1a4b04209d6c15d06e23875
-baseline version:
- xen                  4e1df69cc9f51b2e017af1da3ed5b45917642115
-
-Last test of basis   167761  2022-01-20 14:00:29 Z    0 days
-Testing same since   167764  2022-01-20 20:01:37 Z    0 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 0626219dcc6a4376c1a4b04209d6c15d06e23875
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon Jan 17 18:40:50 2022 +0000
-
-    x86/hvm: Drop hvm_{get,set}_guest_bndcfgs() and use {get,set}_regs() instead
-    
-    hvm_{get,set}_guest_bndcfgs() are thin wrappers around accessing MSR_BNDCFGS.
-    
-    MPX was implemented on Skylake uarch CPUs and dropped in subsequent CPUs, and
-    is disabled by default in Xen VMs.
-    
-    It would be nice to move all the logic into vmx_msr_{read,write}_intercept(),
-    but the common HVM migration code uses guest_{rd,wr}msr().  Therefore, use
-    {get,set}_regs() to reduce the quantity of "common" HVM code.
-    
-    In lieu of having hvm_set_guest_bndcfgs() split out, use some #ifdef
-    CONFIG_HVM in guest_wrmsr().  In vmx_{get,set}_regs(), split the switch
-    statements into two depending on whether the require remote VMCS acquisition
-    or not.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 81f0eaadf84d273a6ff8df3660b874a02d0e7677
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Jan 12 15:47:27 2022 +0000
-
-    x86/spec-ctrl: Fix NMI race condition with VT-x MSR_SPEC_CTRL handling
-    
-    The logic was based on a mistaken understanding of how NMI blocking on vmexit
-    works.  NMIs are only blocked for EXIT_REASON_NMI, and not for general exits.
-    Therefore, an NMI can in general hit early in the vmx_asm_vmexit_handler path,
-    and the guest's value will be clobbered before it is saved.
-    
-    Switch to using MSR load/save lists.  This causes the guest value to be saved
-    atomically with respect to NMIs/MCEs/etc.
-    
-    First, update vmx_cpuid_policy_changed() to configure the load/save lists at
-    the same time as configuring the intercepts.  This function is always used in
-    remote context, so extend the vmx_vmcs_{enter,exit}() block to cover the whole
-    function, rather than having multiple remote acquisitions of the same VMCS.
-    
-    Both of vmx_{add,del}_guest_msr() can fail.  The -ESRCH delete case is fine,
-    but all others are fatal to the running of the VM, so handle them using
-    domain_crash() - this path is only used during domain construction anyway.
-    
-    Second, update vmx_{get,set}_reg() to use the MSR load/save lists rather than
-    vcpu_msrs, and update the vcpu_msrs comment to describe the new state
-    location.
-    
-    Finally, adjust the entry/exit asm.
-    
-    Because the guest value is saved and loaded atomically, we do not need to
-    manually load the guest value, nor do we need to enable SCF_use_shadow.  This
-    lets us remove the use of DO_SPEC_CTRL_EXIT_TO_GUEST.  Additionally,
-    SPEC_CTRL_ENTRY_FROM_PV gets removed too, because on an early entry failure,
-    we're no longer in the guest MSR_SPEC_CTRL context needing to switch back to
-    Xen's context.
-    
-    The only action remaining is to load Xen's MSR_SPEC_CTRL value on vmexit.  We
-    could in principle use the host msr list, but is expected to complicated
-    future work.  Delete DO_SPEC_CTRL_ENTRY_FROM_HVM entirely, and use a shorter
-    code sequence to simply reload Xen's setting from the top-of-stack block.
-    
-    Adjust the comment at the top of spec_ctrl_asm.h in light of this bugfix.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 95b13fa43e0753b7514bef13abe28253e8614f62
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Jan 12 16:36:29 2022 +0000
-
-    x86/spec-ctrl: Drop SPEC_CTRL_{ENTRY_FROM,EXIT_TO}_HVM
-    
-    These were written before Spectre/Meltdown went public, and there was large
-    uncertainty in how the protections would evolve.  As it turns out, they're
-    very specific to Intel hardware, and not very suitable for AMD.
-    
-    Drop the macros, opencoding the relevant subset of functionality, and leaving
-    grep-fodder to locate the logic.  No change at all for VT-x.
-    
-    For AMD, the only relevant piece of functionality is DO_OVERWRITE_RSB,
-    although we will soon be adding (different) logic to handle MSR_SPEC_CTRL.
-    
-    This has a marginal improvement of removing an unconditional pile of long-nops
-    from the vmentry/exit path.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-
-commit 6536688439dbca1d08fd6db5be29c39e3917fb2f
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Wed Jan 12 13:52:47 2022 +0000
-
-    x86/msr: Split MSR_SPEC_CTRL handling
-    
-    In order to fix a VT-x bug, and support MSR_SPEC_CTRL on AMD, move
-    MSR_SPEC_CTRL handling into the new {pv,hvm}_{get,set}_reg() infrastructure.
-    
-    Duplicate the msrs->spec_ctrl.raw accesses in the PV and VT-x paths for now.
-    The SVM path is currently unreachable because of the CPUID policy.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 88d3ff7ab15da277a85b39735797293fb541c718
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon Jan 17 12:28:39 2022 +0000
-
-    x86/guest: Introduce {get,set}_reg() infrastructure
-    
-    Various registers have per-guest-type or per-vendor locations or access
-    requirements.  To support their use from common code, provide accessors which
-    allow for per-guest-type behaviour.
-    
-    For now, just infrastructure handling default cases and expectations.
-    Subsequent patches will start handling registers using this infrastructure.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
 
