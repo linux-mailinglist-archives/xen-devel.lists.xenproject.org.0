@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA16E495896
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jan 2022 04:40:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259233.447293 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E4D64958E5
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jan 2022 05:20:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259240.447305 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAklP-00030V-B8; Fri, 21 Jan 2022 03:38:59 +0000
+	id 1nAlPM-0007z9-LL; Fri, 21 Jan 2022 04:20:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259233.447293; Fri, 21 Jan 2022 03:38:59 +0000
+Received: by outflank-mailman (output) from mailman id 259240.447305; Fri, 21 Jan 2022 04:20:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAklP-0002xk-7F; Fri, 21 Jan 2022 03:38:59 +0000
-Received: by outflank-mailman (input) for mailman id 259233;
- Fri, 21 Jan 2022 03:38:58 +0000
+	id 1nAlPM-0007x4-IA; Fri, 21 Jan 2022 04:20:16 +0000
+Received: by outflank-mailman (input) for mailman id 259240;
+ Fri, 21 Jan 2022 04:20:15 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1nAklO-0002xY-G7; Fri, 21 Jan 2022 03:38:58 +0000
+ id 1nAlPL-0007wo-4N; Fri, 21 Jan 2022 04:20:15 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1nAklO-0002EI-Ct; Fri, 21 Jan 2022 03:38:58 +0000
+ id 1nAlPL-000311-1c; Fri, 21 Jan 2022 04:20:15 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1nAklO-0004Uh-3i; Fri, 21 Jan 2022 03:38:58 +0000
+ id 1nAlPK-0006Xb-NH; Fri, 21 Jan 2022 04:20:14 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nAklO-0000wM-3M; Fri, 21 Jan 2022 03:38:58 +0000
+ id 1nAlPK-00027C-Mq; Fri, 21 Jan 2022 04:20:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,138 +43,72 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=aFxlimYUiYOO9Cnm+LmL5UhdsLc2B0rzI0GpLAj/hVg=; b=2wY827XTwpzFjdu17o1ReabFaj
-	ayE2olAf0ce4s6Q1nEWLRJ+WAjxaEnYUbHuoQoGhZG6Iqo+38e0Fv5FMkjWf2B+EelT+U9Z6TxkT2
-	JvZEDmB7eYWrZCO53FAAWRBuaqI+oVrXUWW5SuM7zgVaAIB8qNGzk1zVVv5eMPXkgKsU=;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=VbRNclISey5vVbOPslYsmpAU+tVYcbul0LHUc5TTwtY=; b=Hae3nhitTfnayGC2oR1+h0S3sk
+	OAgvgAk2BmNOSfLqHiqNWhsqe3VYvdV8rmjZBS6uirO+FizHxiFsYQ3kdWJJb9qEk3nt2zQ+5AWk2
+	rhmsyLtCuJKGyHMhYyEascA0xHwtVrzBlf2J6HnRzO5DfTqHOTEErsAssS7IM2114/i8=;
 To: xen-devel@lists.xenproject.org
-Subject: [xen-unstable-smoke bisection] complete build-amd64
-Message-Id: <E1nAklO-0000wM-3M@osstest.test-lab.xenproject.org>
+Message-ID: <osstest-167769-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 167769: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=0626219dcc6a4376c1a4b04209d6c15d06e23875
+X-Osstest-Versions-That:
+    xen=4e1df69cc9f51b2e017af1da3ed5b45917642115
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 21 Jan 2022 03:38:58 +0000
+Date: Fri, 21 Jan 2022 04:20:14 +0000
 
-branch xen-unstable-smoke
-xenbranch xen-unstable-smoke
-job build-amd64
-testid xen-build
+flight 167769 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167769/
 
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
+Regressions :-(
 
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  6536688439dbca1d08fd6db5be29c39e3917fb2f
-  Bug not present: 88d3ff7ab15da277a85b39735797293fb541c718
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/167778/
-
-
-  commit 6536688439dbca1d08fd6db5be29c39e3917fb2f
-  Author: Andrew Cooper <andrew.cooper3@citrix.com>
-  Date:   Wed Jan 12 13:52:47 2022 +0000
-  
-      x86/msr: Split MSR_SPEC_CTRL handling
-      
-      In order to fix a VT-x bug, and support MSR_SPEC_CTRL on AMD, move
-      MSR_SPEC_CTRL handling into the new {pv,hvm}_{get,set}_reg() infrastructure.
-      
-      Duplicate the msrs->spec_ctrl.raw accesses in the PV and VT-x paths for now.
-      The SVM path is currently unreachable because of the CPUID policy.
-      
-      No functional change.
-      
-      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-      Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/build-amd64.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build --summary-out=tmp/167778.bisection-summary --basis-template=167761 --blessings=real,real-bisect,real-retry xen-unstable-smoke build-amd64 xen-build
-Searching for failure / basis pass:
- 167764 fail [host=himrod2] / 167761 ok.
-Failure / basis pass flights: 167764 / 167761
-(tree with no url: minios)
-(tree with no url: ovmf)
-(tree with no url: seabios)
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 0626219dcc6a4376c1a4b04209d6c15d06e23875
-Basis pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 4e1df69cc9f51b2e017af1da3ed5b45917642115
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42-a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 git://xenbits.xen.org/xen.git#4e1df69cc9f51b2e017af1da3ed5b45917642115-0626219dcc6a4376c1a4b04209d6c15d06e23875
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 167761 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 4e1df69cc9f51b2e017af1da3ed5b45917642115
- 167764 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 0626219dcc6a4376c1a4b04209d6c15d06e23875
- 167768 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 4e1df69cc9f51b2e017af1da3ed5b45917642115
- 167770 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 0626219dcc6a4376c1a4b04209d6c15d06e23875
- 167771 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 6536688439dbca1d08fd6db5be29c39e3917fb2f
- 167772 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 88d3ff7ab15da277a85b39735797293fb541c718
- 167773 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 6536688439dbca1d08fd6db5be29c39e3917fb2f
- 167774 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 88d3ff7ab15da277a85b39735797293fb541c718
- 167776 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 6536688439dbca1d08fd6db5be29c39e3917fb2f
- 167777 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 88d3ff7ab15da277a85b39735797293fb541c718
- 167778 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 6536688439dbca1d08fd6db5be29c39e3917fb2f
-Searching for interesting versions
- Result found: flight 167761 (pass), for basis pass
- For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 88d3ff7ab15da277a85b39735797293fb541c718, results HASH(0x5577149a3678) HASH(0x5577149a76b0) HASH(0x5577149ab240) For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 4e1df69cc9f51b2e017af1da3ed5b45917642115, results HASH(0x5577149985a8) HASH(0x55771499cd38) Result found: flight 167764 (fail), for \
- basis failure (at ancestor ~9)
- Repro found: flight 167768 (pass), for basis pass
- Repro found: flight 167770 (fail), for basis failure
- 0 revisions at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 88d3ff7ab15da277a85b39735797293fb541c718
-No revisions left to test, checking graph state.
- Result found: flight 167772 (pass), for last pass
- Result found: flight 167773 (fail), for first failure
- Repro found: flight 167774 (pass), for last pass
- Repro found: flight 167776 (fail), for first failure
- Repro found: flight 167777 (pass), for last pass
- Repro found: flight 167778 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  6536688439dbca1d08fd6db5be29c39e3917fb2f
-  Bug not present: 88d3ff7ab15da277a85b39735797293fb541c718
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/167778/
-
-
-  commit 6536688439dbca1d08fd6db5be29c39e3917fb2f
-  Author: Andrew Cooper <andrew.cooper3@citrix.com>
-  Date:   Wed Jan 12 13:52:47 2022 +0000
-  
-      x86/msr: Split MSR_SPEC_CTRL handling
-      
-      In order to fix a VT-x bug, and support MSR_SPEC_CTRL on AMD, move
-      MSR_SPEC_CTRL handling into the new {pv,hvm}_{get,set}_reg() infrastructure.
-      
-      Duplicate the msrs->spec_ctrl.raw accesses in the PV and VT-x paths for now.
-      The SVM path is currently unreachable because of the CPUID policy.
-      
-      No functional change.
-      
-      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-      Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-167778: tolerable ALL FAIL
-
-flight 167778 xen-unstable-smoke real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/167778/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
+Tests which did not succeed and are blocking,
 including tests which could not be run:
- build-amd64                   6 xen-build               fail baseline untested
+ build-amd64                   6 xen-build                fail REGR. vs. 167761
 
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  0626219dcc6a4376c1a4b04209d6c15d06e23875
+baseline version:
+ xen                  4e1df69cc9f51b2e017af1da3ed5b45917642115
+
+Last test of basis   167761  2022-01-20 14:00:29 Z    0 days
+Testing same since   167764  2022-01-20 20:01:37 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
 
 jobs:
+ build-arm64-xsm                                              pass    
  build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
 ------------------------------------------------------------
@@ -192,4 +126,132 @@ Explanation of these reports, and of osstest in general, is at
 Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Not pushing.
+
+------------------------------------------------------------
+commit 0626219dcc6a4376c1a4b04209d6c15d06e23875
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jan 17 18:40:50 2022 +0000
+
+    x86/hvm: Drop hvm_{get,set}_guest_bndcfgs() and use {get,set}_regs() instead
+    
+    hvm_{get,set}_guest_bndcfgs() are thin wrappers around accessing MSR_BNDCFGS.
+    
+    MPX was implemented on Skylake uarch CPUs and dropped in subsequent CPUs, and
+    is disabled by default in Xen VMs.
+    
+    It would be nice to move all the logic into vmx_msr_{read,write}_intercept(),
+    but the common HVM migration code uses guest_{rd,wr}msr().  Therefore, use
+    {get,set}_regs() to reduce the quantity of "common" HVM code.
+    
+    In lieu of having hvm_set_guest_bndcfgs() split out, use some #ifdef
+    CONFIG_HVM in guest_wrmsr().  In vmx_{get,set}_regs(), split the switch
+    statements into two depending on whether the require remote VMCS acquisition
+    or not.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 81f0eaadf84d273a6ff8df3660b874a02d0e7677
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Jan 12 15:47:27 2022 +0000
+
+    x86/spec-ctrl: Fix NMI race condition with VT-x MSR_SPEC_CTRL handling
+    
+    The logic was based on a mistaken understanding of how NMI blocking on vmexit
+    works.  NMIs are only blocked for EXIT_REASON_NMI, and not for general exits.
+    Therefore, an NMI can in general hit early in the vmx_asm_vmexit_handler path,
+    and the guest's value will be clobbered before it is saved.
+    
+    Switch to using MSR load/save lists.  This causes the guest value to be saved
+    atomically with respect to NMIs/MCEs/etc.
+    
+    First, update vmx_cpuid_policy_changed() to configure the load/save lists at
+    the same time as configuring the intercepts.  This function is always used in
+    remote context, so extend the vmx_vmcs_{enter,exit}() block to cover the whole
+    function, rather than having multiple remote acquisitions of the same VMCS.
+    
+    Both of vmx_{add,del}_guest_msr() can fail.  The -ESRCH delete case is fine,
+    but all others are fatal to the running of the VM, so handle them using
+    domain_crash() - this path is only used during domain construction anyway.
+    
+    Second, update vmx_{get,set}_reg() to use the MSR load/save lists rather than
+    vcpu_msrs, and update the vcpu_msrs comment to describe the new state
+    location.
+    
+    Finally, adjust the entry/exit asm.
+    
+    Because the guest value is saved and loaded atomically, we do not need to
+    manually load the guest value, nor do we need to enable SCF_use_shadow.  This
+    lets us remove the use of DO_SPEC_CTRL_EXIT_TO_GUEST.  Additionally,
+    SPEC_CTRL_ENTRY_FROM_PV gets removed too, because on an early entry failure,
+    we're no longer in the guest MSR_SPEC_CTRL context needing to switch back to
+    Xen's context.
+    
+    The only action remaining is to load Xen's MSR_SPEC_CTRL value on vmexit.  We
+    could in principle use the host msr list, but is expected to complicated
+    future work.  Delete DO_SPEC_CTRL_ENTRY_FROM_HVM entirely, and use a shorter
+    code sequence to simply reload Xen's setting from the top-of-stack block.
+    
+    Adjust the comment at the top of spec_ctrl_asm.h in light of this bugfix.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 95b13fa43e0753b7514bef13abe28253e8614f62
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Jan 12 16:36:29 2022 +0000
+
+    x86/spec-ctrl: Drop SPEC_CTRL_{ENTRY_FROM,EXIT_TO}_HVM
+    
+    These were written before Spectre/Meltdown went public, and there was large
+    uncertainty in how the protections would evolve.  As it turns out, they're
+    very specific to Intel hardware, and not very suitable for AMD.
+    
+    Drop the macros, opencoding the relevant subset of functionality, and leaving
+    grep-fodder to locate the logic.  No change at all for VT-x.
+    
+    For AMD, the only relevant piece of functionality is DO_OVERWRITE_RSB,
+    although we will soon be adding (different) logic to handle MSR_SPEC_CTRL.
+    
+    This has a marginal improvement of removing an unconditional pile of long-nops
+    from the vmentry/exit path.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit 6536688439dbca1d08fd6db5be29c39e3917fb2f
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Jan 12 13:52:47 2022 +0000
+
+    x86/msr: Split MSR_SPEC_CTRL handling
+    
+    In order to fix a VT-x bug, and support MSR_SPEC_CTRL on AMD, move
+    MSR_SPEC_CTRL handling into the new {pv,hvm}_{get,set}_reg() infrastructure.
+    
+    Duplicate the msrs->spec_ctrl.raw accesses in the PV and VT-x paths for now.
+    The SVM path is currently unreachable because of the CPUID policy.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 88d3ff7ab15da277a85b39735797293fb541c718
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jan 17 12:28:39 2022 +0000
+
+    x86/guest: Introduce {get,set}_reg() infrastructure
+    
+    Various registers have per-guest-type or per-vendor locations or access
+    requirements.  To support their use from common code, provide accessors which
+    allow for per-guest-type behaviour.
+    
+    For now, just infrastructure handling default cases and expectations.
+    Subsequent patches will start handling registers using this infrastructure.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
