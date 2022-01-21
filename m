@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C535B4963FF
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jan 2022 18:35:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259419.447780 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A57A0496570
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jan 2022 20:04:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259423.447793 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAxnb-0002xP-DP; Fri, 21 Jan 2022 17:34:07 +0000
+	id 1nAzBm-0003B9-6i; Fri, 21 Jan 2022 19:03:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259419.447780; Fri, 21 Jan 2022 17:34:07 +0000
+Received: by outflank-mailman (output) from mailman id 259423.447793; Fri, 21 Jan 2022 19:03:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAxnb-0002us-9l; Fri, 21 Jan 2022 17:34:07 +0000
-Received: by outflank-mailman (input) for mailman id 259419;
- Fri, 21 Jan 2022 17:34:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VSV1=SF=citrix.com=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1nAxnZ-0002um-Gs
- for xen-devel@lists.xenproject.org; Fri, 21 Jan 2022 17:34:05 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 51b7c256-7ae0-11ec-bc18-3156f6d857e4;
- Fri, 21 Jan 2022 18:34:03 +0100 (CET)
+	id 1nAzBm-00038X-1Z; Fri, 21 Jan 2022 19:03:10 +0000
+Received: by outflank-mailman (input) for mailman id 259423;
+ Fri, 21 Jan 2022 19:03:08 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nAzBk-00038N-C4; Fri, 21 Jan 2022 19:03:08 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nAzBk-0003JJ-9d; Fri, 21 Jan 2022 19:03:08 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nAzBk-0001GB-0E; Fri, 21 Jan 2022 19:03:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nAzBj-00030p-W5; Fri, 21 Jan 2022 19:03:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,115 +42,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51b7c256-7ae0-11ec-bc18-3156f6d857e4
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1642786443;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=VK65MgBu7gmYcHaFkcDzpB2RbWKXetKgRtqoFIU1Xuw=;
-  b=f9/FtKwdj52PlPPtlU1XLIorQE+b42q7tFEfJwlUmbLxU0hUOOCn6ySu
-   +SO8BPMISiV0lvPJ8Lv9DchTOv+To0gjmrD8eRUKZGmMHNxFYdjeNRmHJ
-   9fBjm03M3/Rc5X5asyPu0Am65oYZL5eRsqai0iKY3M6XmDJJGPTbp1xZR
-   k=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: ZdUT1Vt8SDVBdm94CQgH4nqp5IN/JiNbkDS23hYvWvzbKOvrdVcQMo7fbmgemrt1WjIKLSLBHo
- s2HWUKF/awO+vj1o+MYhA7iObF0bBcIlSzMg3+m/88uVtTBRWkd1ErpdUZh9yDB9zh5zQMh9yH
- SvhWpVT0kACtnz0Lh1ueS7E0UKnftTWqfO0rfYMKxRwJM2YyzW4R9HmLts4hc7iGMJRnszkCsH
- s+Q9OaW9Ds4ay1P9F2JAlITuSQ+8tHowtkxcUbQ43Sf+ms/TgiYHeZooMx1dKAASwhnraWCSI3
- FEPW93dbalg/LwzrxDS18sPf
-X-SBRS: 5.2
-X-MesageID: 62429039
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:WKMM3qPe7UBLZ2HvrR3EkcFynXyQoLVcMsEvi/4bfWQNrUp2gTZVz
- GoaD22BO/fYYjHxKd9ybd6/80xT65aDmNdgQAto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En150Eg6w7VRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYowi5rvRN7
- tBIjrKLVT1xJ/Hcg8sCdBYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YvNrnd9lKMDkMZkAs3Vk5TrYEewnUdbIRKCiCdpwgm1s3JEWRqe2i
- 8wxYis+dxfSOU10HHA0EpgbsMXrr13kSmgNwL6SjfVuuDWCpOBr65DoOcDed9jMTN1bk0KSr
- 3/D12v8CxAecteYzFKt92mwrvXCkSPyRMQZE7jQ3udnhUDWymENBRk+U1y9rv+kzEmkVLp3O
- 0ESvyYjs6U23EiqVcXmGQ21pmaeuRwRUMYWFPc1gCmVwK3S8QefB0AeQzJBYcBgv8gzLRQy3
- 0KNt8PkA3poqrL9YWmG6r6eoDe2OC4UBWwPfykJSU0C+daLiIw/kxvVQtFLEKe/jdruBXf2z
- izihDI/jLUal8JN16i98V3dmDWqjpzISAcv4UPQRG3N0+9iTNf7PcryswGdtKseatbCJrWcg
- JQas/Wu3cQyK5SIrwK2XN9VBe25/NmaFzKJ1DaDAKId3ziq/neie6VZ7zd/OFplP644RNP5X
- KPAkVgPvcEOZRNGeYcyOtvsUJpykcAMAPy8DqiMBueidKSdY+NuEMtGQUeLl17gn0E3+U3UE
- cfKKJ38ZZr25EkO8dZXewv/+eJzrszd7TmKLXwe8/hB+eDPDJJyYe1UWGZilshjsMu5TPz9q
- r6zzfeixRRFS/HZaSLK64MVJl1iBSFlWcqp85cGJ7fffFIO9IQd5xn5mutJl2tNxPw9qws11
- ivlBh8wJKTX2BUr1jlmmlg8MeiyDP6TXFowPDA2PEbA5pTQSd3H0UvrTLNuJeNP3LU6lZZcF
- qBZE+3dXKgnYmmZqlw1MMmsxKQ/JU/DrV/fYEKYjM0XIsQIq/rhoIG0J2MCNUAmU0KKiCfJi
- +Twj1yAGctaGV0K4QS/QKvH8m5ddEM1wIpaN3Yk6PEKEKk12IQ1eSH3kNEtJMQAdUfKyjeAj
- l7EChYEv+jd5YQy9YCR16yDqo6oFcp4H1ZbQDaHverna3GC8zrx25JEXcaJYSvZCDH+9pK9a
- LgH1Pr7KvAGwgpH6tIuD7ZxwKsizNLzvLsGnB98FXDGYg3zWLNtK3WLx+dVsahJyuMLsAe6Q
- BvXqNJbJa+IKIXuF1tIfFgpaeGK1Pc1nDjO7KtqfBWmtXEvpLfeCBdcJRiBjiBZPYBZCoJ9z
- LdzotMS5iy+lgEuboSMgBdL+jneNXcHSagm6M0XWde5lgoxx1heSpXAESuqsoqXYtBBP0R2c
- D+ZgK3O2+ZVykbYKidhEHHM2axWhIgUuQAMx1gHfgzblt3Aj/4x/RtQ7TVoEVgFkkQZi7p+a
- jpxKkl4BaSS5DM51sFMUlelFxxFGBDEqFf6zEEElTGBQkSlPoAXwLbR5QpZEJglzl9h
-IronPort-HdrOrdr: A9a23:GeJ3dqhqPSrGz1Ny24JPKQjF+3BQXtYji2hC6mlwRA09TySZ//
- rBoB19726RtN9xYgBHpTnuAsm9qB/nmaKdgrNhWItKPjOW21dARbsKheCJrgEIcxeOkdK1vp
- 0AT0ERMrLN5CBB/KTH3DU=
-X-IronPort-AV: E=Sophos;i="5.88,306,1635220800"; 
-   d="scan'208";a="62429039"
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, Anthony Perard
-	<anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>
-CC: Ross Lagerwall <ross.lagerwall@citrix.com>, Igor Druzhinin
-	<igor.druzhinin@citrix.com>, Paolo Bonzini <pbonzini@redhat.com>, "Richard
- Henderson" <richard.henderson@linaro.org>, Eduardo Habkost
-	<eduardo@habkost.net>, "Michael S. Tsirkin" <mst@redhat.com>, "Marcel
- Apfelbaum" <marcel.apfelbaum@gmail.com>, <xen-devel@lists.xenproject.org>,
-	<qemu-devel@nongnu.org>
-Subject: [PATCH] xen-mapcache: Avoid entry->lock overflow
-Date: Fri, 21 Jan 2022 17:33:29 +0000
-Message-ID: <20220121173329.904412-1-ross.lagerwall@citrix.com>
-X-Mailer: git-send-email 2.27.0
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Dwh/gyXb03kgeaU01qap3/wXUiJvau1P/dtyoyFj25Q=; b=cXsSykDap/xCG3DTZyqFKnfNKE
+	HQBN9N7Dsne+1gS8XMRvR+3AjGlF502izmc6QlXMg/Gfr3/EWnQNx1kjCKaYFyEGkl7JnFtWZGZyd
+	+ULIQX0CKkKmxpvFCkc3RBjJcbWTwKtcKGzlTD5oICk0p/jQDiMr6Gpz0ziuGIRJzXWE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-167785-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 167785: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=0626219dcc6a4376c1a4b04209d6c15d06e23875
+X-Osstest-Versions-That:
+    xen=4e1df69cc9f51b2e017af1da3ed5b45917642115
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 21 Jan 2022 19:03:07 +0000
 
-In some cases, a particular mapcache entry may be mapped 256 times
-causing the lock field to wrap to 0. For example, this may happen when
-using emulated NVME and the guest submits a large scatter-gather write.
-At this point, the entry map be remapped causing QEMU to write the wrong
-data or crash (since remap is not atomic).
+flight 167785 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167785/
 
-Avoid this overflow by increasing the lock field to a uint16_t and also
-detect it and abort rather than continuing regardless.
+Regressions :-(
 
-Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
----
- hw/i386/xen/xen-mapcache.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 167761
 
-diff --git a/hw/i386/xen/xen-mapcache.c b/hw/i386/xen/xen-mapcache.c
-index bd47c3d672..82dc495a60 100644
---- a/hw/i386/xen/xen-mapcache.c
-+++ b/hw/i386/xen/xen-mapcache.c
-@@ -52,7 +52,7 @@ typedef struct MapCacheEntry {
-     hwaddr paddr_index;
-     uint8_t *vaddr_base;
-     unsigned long *valid_mapping;
--    uint8_t lock;
-+    uint16_t lock;
- #define XEN_MAPCACHE_ENTRY_DUMMY (1 << 0)
-     uint8_t flags;
-     hwaddr size;
-@@ -355,6 +355,12 @@ tryagain:
-     if (lock) {
-         MapCacheRev *reventry = g_malloc0(sizeof(MapCacheRev));
-         entry->lock++;
-+        if (entry->lock == 0) {
-+            fprintf(stderr,
-+                    "mapcache entry lock overflow: "TARGET_FMT_plx" -> %p\n",
-+                    entry->paddr_index, entry->vaddr_base);
-+            abort();
-+        }
-         reventry->dma = dma;
-         reventry->vaddr_req = mapcache->last_entry->vaddr_base + address_offset;
-         reventry->paddr_index = mapcache->last_entry->paddr_index;
--- 
-2.27.0
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
+version targeted for testing:
+ xen                  0626219dcc6a4376c1a4b04209d6c15d06e23875
+baseline version:
+ xen                  4e1df69cc9f51b2e017af1da3ed5b45917642115
+
+Last test of basis   167761  2022-01-20 14:00:29 Z    1 days
+Testing same since   167764  2022-01-20 20:01:37 Z    0 days    5 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 0626219dcc6a4376c1a4b04209d6c15d06e23875
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jan 17 18:40:50 2022 +0000
+
+    x86/hvm: Drop hvm_{get,set}_guest_bndcfgs() and use {get,set}_regs() instead
+    
+    hvm_{get,set}_guest_bndcfgs() are thin wrappers around accessing MSR_BNDCFGS.
+    
+    MPX was implemented on Skylake uarch CPUs and dropped in subsequent CPUs, and
+    is disabled by default in Xen VMs.
+    
+    It would be nice to move all the logic into vmx_msr_{read,write}_intercept(),
+    but the common HVM migration code uses guest_{rd,wr}msr().  Therefore, use
+    {get,set}_regs() to reduce the quantity of "common" HVM code.
+    
+    In lieu of having hvm_set_guest_bndcfgs() split out, use some #ifdef
+    CONFIG_HVM in guest_wrmsr().  In vmx_{get,set}_regs(), split the switch
+    statements into two depending on whether the require remote VMCS acquisition
+    or not.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 81f0eaadf84d273a6ff8df3660b874a02d0e7677
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Jan 12 15:47:27 2022 +0000
+
+    x86/spec-ctrl: Fix NMI race condition with VT-x MSR_SPEC_CTRL handling
+    
+    The logic was based on a mistaken understanding of how NMI blocking on vmexit
+    works.  NMIs are only blocked for EXIT_REASON_NMI, and not for general exits.
+    Therefore, an NMI can in general hit early in the vmx_asm_vmexit_handler path,
+    and the guest's value will be clobbered before it is saved.
+    
+    Switch to using MSR load/save lists.  This causes the guest value to be saved
+    atomically with respect to NMIs/MCEs/etc.
+    
+    First, update vmx_cpuid_policy_changed() to configure the load/save lists at
+    the same time as configuring the intercepts.  This function is always used in
+    remote context, so extend the vmx_vmcs_{enter,exit}() block to cover the whole
+    function, rather than having multiple remote acquisitions of the same VMCS.
+    
+    Both of vmx_{add,del}_guest_msr() can fail.  The -ESRCH delete case is fine,
+    but all others are fatal to the running of the VM, so handle them using
+    domain_crash() - this path is only used during domain construction anyway.
+    
+    Second, update vmx_{get,set}_reg() to use the MSR load/save lists rather than
+    vcpu_msrs, and update the vcpu_msrs comment to describe the new state
+    location.
+    
+    Finally, adjust the entry/exit asm.
+    
+    Because the guest value is saved and loaded atomically, we do not need to
+    manually load the guest value, nor do we need to enable SCF_use_shadow.  This
+    lets us remove the use of DO_SPEC_CTRL_EXIT_TO_GUEST.  Additionally,
+    SPEC_CTRL_ENTRY_FROM_PV gets removed too, because on an early entry failure,
+    we're no longer in the guest MSR_SPEC_CTRL context needing to switch back to
+    Xen's context.
+    
+    The only action remaining is to load Xen's MSR_SPEC_CTRL value on vmexit.  We
+    could in principle use the host msr list, but is expected to complicated
+    future work.  Delete DO_SPEC_CTRL_ENTRY_FROM_HVM entirely, and use a shorter
+    code sequence to simply reload Xen's setting from the top-of-stack block.
+    
+    Adjust the comment at the top of spec_ctrl_asm.h in light of this bugfix.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 95b13fa43e0753b7514bef13abe28253e8614f62
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Jan 12 16:36:29 2022 +0000
+
+    x86/spec-ctrl: Drop SPEC_CTRL_{ENTRY_FROM,EXIT_TO}_HVM
+    
+    These were written before Spectre/Meltdown went public, and there was large
+    uncertainty in how the protections would evolve.  As it turns out, they're
+    very specific to Intel hardware, and not very suitable for AMD.
+    
+    Drop the macros, opencoding the relevant subset of functionality, and leaving
+    grep-fodder to locate the logic.  No change at all for VT-x.
+    
+    For AMD, the only relevant piece of functionality is DO_OVERWRITE_RSB,
+    although we will soon be adding (different) logic to handle MSR_SPEC_CTRL.
+    
+    This has a marginal improvement of removing an unconditional pile of long-nops
+    from the vmentry/exit path.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+commit 6536688439dbca1d08fd6db5be29c39e3917fb2f
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Wed Jan 12 13:52:47 2022 +0000
+
+    x86/msr: Split MSR_SPEC_CTRL handling
+    
+    In order to fix a VT-x bug, and support MSR_SPEC_CTRL on AMD, move
+    MSR_SPEC_CTRL handling into the new {pv,hvm}_{get,set}_reg() infrastructure.
+    
+    Duplicate the msrs->spec_ctrl.raw accesses in the PV and VT-x paths for now.
+    The SVM path is currently unreachable because of the CPUID policy.
+    
+    No functional change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 88d3ff7ab15da277a85b39735797293fb541c718
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jan 17 12:28:39 2022 +0000
+
+    x86/guest: Introduce {get,set}_reg() infrastructure
+    
+    Various registers have per-guest-type or per-vendor locations or access
+    requirements.  To support their use from common code, provide accessors which
+    allow for per-guest-type behaviour.
+    
+    For now, just infrastructure handling default cases and expectations.
+    Subsequent patches will start handling registers using this infrastructure.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
