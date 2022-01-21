@@ -2,53 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C75C495787
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Jan 2022 02:03:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259216.447240 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA16E495896
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Jan 2022 04:40:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259233.447293 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAiKH-0005Ze-Mh; Fri, 21 Jan 2022 01:02:49 +0000
+	id 1nAklP-00030V-B8; Fri, 21 Jan 2022 03:38:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259216.447240; Fri, 21 Jan 2022 01:02:49 +0000
+Received: by outflank-mailman (output) from mailman id 259233.447293; Fri, 21 Jan 2022 03:38:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nAiKH-0005Wk-JI; Fri, 21 Jan 2022 01:02:49 +0000
-Received: by outflank-mailman (input) for mailman id 259216;
- Fri, 21 Jan 2022 01:02:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kUv0=SF=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
- id 1nAiKG-0005We-8c
- for xen-devel@lists.xenproject.org; Fri, 21 Jan 2022 01:02:48 +0000
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d7ad2aa0-7a55-11ec-bc18-3156f6d857e4;
- Fri, 21 Jan 2022 02:02:46 +0100 (CET)
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 20L04GMG016444; 
- Fri, 21 Jan 2022 01:02:07 GMT
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by mx0b-00069f02.pphosted.com with ESMTP id 3dqhydr2dh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 21 Jan 2022 01:02:07 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 20L111CL030221;
- Fri, 21 Jan 2022 01:02:06 GMT
-Received: from nam02-dm3-obe.outbound.protection.outlook.com
- (mail-dm3nam07lp2041.outbound.protection.outlook.com [104.47.56.41])
- by aserp3030.oracle.com with ESMTP id 3dqj059yan-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 21 Jan 2022 01:02:05 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
- by BY5PR10MB3955.namprd10.prod.outlook.com (2603:10b6:a03:1f7::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.7; Fri, 21 Jan
- 2022 01:02:03 +0000
-Received: from BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::d914:c494:66ac:a5b1]) by BLAPR10MB5009.namprd10.prod.outlook.com
- ([fe80::d914:c494:66ac:a5b1%8]) with mapi id 15.20.4909.011; Fri, 21 Jan 2022
- 01:02:03 +0000
+	id 1nAklP-0002xk-7F; Fri, 21 Jan 2022 03:38:59 +0000
+Received: by outflank-mailman (input) for mailman id 259233;
+ Fri, 21 Jan 2022 03:38:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nAklO-0002xY-G7; Fri, 21 Jan 2022 03:38:58 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nAklO-0002EI-Ct; Fri, 21 Jan 2022 03:38:58 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nAklO-0004Uh-3i; Fri, 21 Jan 2022 03:38:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nAklO-0000wM-3M; Fri, 21 Jan 2022 03:38:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -60,176 +42,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d7ad2aa0-7a55-11ec-bc18-3156f6d857e4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
- subject : to : cc : references : from : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=corp-2021-07-09;
- bh=HZjjEopL7LMZvyWoW3TyPmDK/SZ5ppLw/WPOKrvLsq0=;
- b=vT6dFQyxtYQTGQe16jBFZ/ac3gULJ5yqevJo2J8DaKo09T6JWZhsk+xS0ZvnnL13GAHh
- lCieMizLxxa2/UderkGdSo4QqER0LDX2KnkZQKljL9G/9gkt9pFVMNf3j+Og+SGke/iu
- xqjzg8Z0k7/POA/U/0xabRr4TgstpLZgF6YcwH8UKm5cTtJKskwBFdSCqvWMAxSHnVCY
- VzIGZfjloXFyJfvCbkYTdoV1KsVnqKBiviLx7eX5InBOBmAdpZSxd3tnrOmYgudE5Gvj
- p20RAR7wBE4uG3GT3VlB3Ctl8iQQ1EUaaRuUh18G9d+tP60rocE5xKk7Wx1b+9DT2HwO bA== 
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aHIyXUpVl1uwGMwronkJBYdt5P6eUTR2dP3LnUwL+aQ9s/0YcNN/xCqztY92Ub3o8Ef1jn1DHNErkk7JqwsrS31P7iDRUuiNul1SrCv3CV+GBVf9q2S3ShGVm/Xy4I63OSesN50YBEcaL/hI26JEUZqirmIlnpaKcqLvRdjW9FMy6MVJ7Pzhc5ZuJuOBQk4Pl9q2BK4Aay5v6QFBTlZZYVXtzsYNdjSTtdcsxlR2/GpYH4XU1ROJymaUt55p8mayCvZLhlUpsyhAEcqne5jQfSuMPsK2ywIWQxgzhnFbxfxkokq2I7EVh6kTC+iB1q86fj0tlw0cjFoA0xQ7E3wZew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HZjjEopL7LMZvyWoW3TyPmDK/SZ5ppLw/WPOKrvLsq0=;
- b=PIHUg+1G0pSP1nk8RJw0oJAqhS+X3Uk4zCGGVjC8lzmfKT4boRFlgPq8o2TIqLKiyADR7uCFG6sLo/twL3NkM5mS7kh2YwD3kmNRpeynyqoc6x8Ek3f7uKaBeUKz4VISR71iPEdAQRlTRgsOHF37nNNmL0mxMyRSevyOydbPFG71H/zoARkDqPODaJfXYOi+8yXwQ7WWPMxZaEvaukCyE9F1V9pumRYSVlowrPQu5ucxQO5abukwautVLQQvxz36gPEwLfBzcbnRs7JIdy0IY0nco7c2lWtgHjVpfms0kn0o8D0TaZGy0ZUzFYRAMMVYZGGurd+PYx2IA2W9JiV53w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HZjjEopL7LMZvyWoW3TyPmDK/SZ5ppLw/WPOKrvLsq0=;
- b=dnsxawGlmh5IhXHM23sQOqoWDnCqftd4Xmq/CCeL4GJ57W+ZGk7GQNbf0fv+xBTSNue+FvWLP5PoeKQDuMRjypoCxdBHjzurKqNuRwm/+7dGAcDER6v3MTzlFYWdwSXcfPRU7amSipIKPBeT6s2UFM519ywRano6He6khJHGag4=
-Message-ID: <a34aff19-4530-7f44-c849-4b3eb2aa3d00@oracle.com>
-Date: Thu, 20 Jan 2022 20:01:57 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.5.0
-Subject: Re: [PATCH 1/2] xen/x2apic: enable x2apic mode when supported
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
-Cc: Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org
-References: <20220120152527.7524-1-roger.pau@citrix.com>
- <20220120152527.7524-2-roger.pau@citrix.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <20220120152527.7524-2-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA9PR13CA0005.namprd13.prod.outlook.com
- (2603:10b6:806:21::10) To BLAPR10MB5009.namprd10.prod.outlook.com
- (2603:10b6:208:321::10)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c388b255-6a9e-4bcd-542a-08d9dc79a338
-X-MS-TrafficTypeDiagnostic: BY5PR10MB3955:EE_
-X-Microsoft-Antispam-PRVS: 
-	<BY5PR10MB395505B04D09BB49009B7B438A5B9@BY5PR10MB3955.namprd10.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 
-	2LReU7A7epo4Mx7lqgU6dv6IY0u+NZlC5SkXdMAWYooHZe3u46LD4PH01Z2NMdI8vfVkxffHdJbW+rUQOFNPczUa24z2fKvzD433fGYIlTanp6PuPTtCL0DJl/pu5WiD+YdOiN8v4xxp9cHZRPffhSZy+kxc5qmPv0dW6SN0rFIi59bqmgQ1yMFsKPR+X3O9/UzrtV5TDCBZi7Crisr1ZH49nxspbQGRetfXQMTe2dg1amDeacgtLQTCqPNDN4nHQHKhjy+X2tWjEIQc4ilxnkFBd5WWYfwfTQI4OpoaJ8pjVHrCLWm/X4QkGHizgF5VW2fRwsBabnpfYS/pX9fNrfAVAdOMZa7V/VqbEmmL5OKwxoIW8hRyB0KVxenDJbHq/FFlqpWxQV+jiB8bd+iDw+EdprN3p+Nxn3XlWrGKXh1nCWoRw6pXhD1XMVFG+xKd2oRE7tqQPKtYeJN1lyIXtIaExWKWHrEI4p/KObstHnTIcEkZwLigKeNpZm+dJGj/Xd8TjcixEXbq2QimmKzKp0f+b7v17rc13GQjx+xu8aT/q7u8OAni2hkGLR3Qt79Qbdi1hS8eOjrIETRZ4+XnJ5niawUFAEjwqVgPaIqJI5lyKs9sZAlR1qhAgHrSlwQ/tyO5ZzXHLJZSUC6HGvMArFl0hEsc1p9BG+tGR4lIzFYj8HZu20ssEBSvcZ/ZvTwQH4fBuLHLiw0OYs342DMJ+0bE9/gu0pqOmyVElHdxhox+O8zElhZu+X8Ix1+gC2so
-X-Forefront-Antispam-Report: 
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(366004)(36756003)(44832011)(54906003)(186003)(6486002)(6666004)(31696002)(2906002)(7416002)(38100700002)(508600001)(6506007)(53546011)(5660300002)(2616005)(66556008)(8676002)(4326008)(316002)(86362001)(66946007)(66476007)(83380400001)(31686004)(26005)(8936002)(6512007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 
-	=?utf-8?B?YzRoSlJhNWlxNU95a0V3aXJKL3BTNXRORExDRmlBbUN6VlpwMmtMaFMyaUFh?=
- =?utf-8?B?aWVjNGJhS3VsQjFUWjBBQi8yK3NKaGJicnNwZlBzejBLS2NheTJvVTlFc05L?=
- =?utf-8?B?NG0zUXF6SXJuU3FpQVEzS3I3Zi8vN0UvUzIyL1hXNmI1U0NUZGFIU3VRZnF3?=
- =?utf-8?B?MkhSdzlkaTRBbUpKOURFWk4wdnhZV1B6Z0ZxVXB6ZGpxb3BZQXNTNnYxaXdh?=
- =?utf-8?B?bmU4aFJsODFSaGJ5b3ZqWnpHWGtKUk1ZY3lrd2VRNzhaRWhwV0gwYTFUVHc5?=
- =?utf-8?B?c28wNDNYOWFOWkFJTHBUME13cHYySUxKOTh1WTRDTFQzUGZRMWJtQ29XaEFU?=
- =?utf-8?B?cXBlOWFpaE1maGJiNFVKOU5rZW5aV2xIb2FhTE90Zzkwck1KWGdDVGdMQ0xK?=
- =?utf-8?B?ZnYwOXdKS0VjVU52QnFhbTRhSzRFZUs3OVVNS0laNUprL0E1OHJqSG9mbW9P?=
- =?utf-8?B?TlVmVjNGdEVGTUpjcmUyTVFnS3IreHFuT0Y4bm9XMVpXTzJXZjNLRW1US2Zt?=
- =?utf-8?B?TWcxRWovcEhwZmFrK0RhTTNFNmhzeXNETldDeUhFczJmWUczYTJMaHdqOStj?=
- =?utf-8?B?RXZJS3JUVUJUUkxJSUJLY0xkUTlrTWJsZUU0ZThsZDVnVTFjemc1QkRXcUE0?=
- =?utf-8?B?a2hwR3AvSVNMbk04MGlWQnpLYnhkVEljc2ZUanJPRFlHYlA3YWJlaUs3YW9z?=
- =?utf-8?B?UHJVU2ROYnhRSVFSYnlySG5CRkFBNFAyaUpWeXJUTHUxY0w4dE1HeDJObGxa?=
- =?utf-8?B?emNCUVlTTmZyRlcveHI4bGtYbm96WjMrcEJyOUgwYUNhdVZmVFlKRUhxTlJB?=
- =?utf-8?B?SWV5YjZLenp1NXlZeWgxVElzUVFaay9nTjg0TVlmVHN6THI4V2M2MlJWa0dj?=
- =?utf-8?B?dmV5dGtWQUxqc1U1TlNCWnI1OC9zQ3I2bjMwNkozUVBqQi9KMWlGbVgwYU0y?=
- =?utf-8?B?ZnRvSUdIWGdRQm1qUTBaUWgrVkFrRnZQbXRNS2hXUzB6VmRib0Z6NDlaOXpn?=
- =?utf-8?B?dVBGQTJzWDRDUExMWTQxQzc2WlNDRzg2N1FyUEpoTmJTRHNsdTF4dzh3dWcz?=
- =?utf-8?B?K1VUMVI0NHZLWW4wY2FWL2pzVmpXOE83WU5CYUd3VlZvRHJseWhvd2lZYkwz?=
- =?utf-8?B?b2gxd0x3d1QyMm10VjBobkV6b29VSFVMTkRIdDJPV2pRWTkyUll6Wk0rcEFk?=
- =?utf-8?B?OUNwTXVjMHd1NnJhVWVGb1ZUTi9Ndm1GUklnRDFyWlFLdGlyUFIzRVltUHox?=
- =?utf-8?B?Ym40VkdnYUpiNVIrMXh3VDZubjV2SlJKVXhGb3pQV2JhaHh1WW5PaG1EU3hM?=
- =?utf-8?B?T0VoS2prOUhWMGV6RUhORXVXbXBXak14SFVoUjVhZ25GR3JtVjdHVTIyVkl3?=
- =?utf-8?B?cVppWlhFL1hOM1NCTmo2SjgyZW45YmxyMERMaFhLSTRLSER5M29XRGNmeGtT?=
- =?utf-8?B?bDk3aks5NU1OQ2IyK09tNjF0VktvVEpURVRTWkxxZXI2VFZuYmtBUFlIeGU2?=
- =?utf-8?B?TnhUWm40cXMyWjd1WDlBZS92V0lSSUJ2aWdMVnQ1dzAydTA3MXdVTFEzRzFs?=
- =?utf-8?B?a2pGRW1zMTFlL3dWcWxDYThydEc5YkZCbUFZeGlWeldMREtoelBFWU9Fdk9K?=
- =?utf-8?B?MzRDWDFLODJ5NVYvWGY1SkMrSHI1RE40MlZwVWhiWjRuby9uMG8va2RLSHFT?=
- =?utf-8?B?Z1JHM0tXVG1FWCtiOUxUbFJvbXN3UWZPZWFhU0Frb1ZvRDQreHBSVVh2dVJR?=
- =?utf-8?B?WndCSC81WFQ4Mjk3S0NJYTgzZFd3S2ZDRjdiVDgxd2F0c0JSQk55d0pxM08x?=
- =?utf-8?B?SGpIclhhM1BhSXBQUXZQaWF4V3czVlU4UTltaDhiQk1RVHhGdmU3dE9KbzNw?=
- =?utf-8?B?Z0NiMk9WUDBpNllrc3J0a2JXSkdBdWV4OXJhUlZIeWJOOHphVzdkWEI5L2dZ?=
- =?utf-8?B?VHpjdkNLbGU3ZS95a2NvSlJESTI3Q1Uyajk3cHVJc0t6dm1nS2NoQnJMYmxT?=
- =?utf-8?B?cDUwbWduWHlTV282T1VJRTlkenRsZnZlbU1TOEJuczFSSStyWDlQUVloOU1a?=
- =?utf-8?B?UlB0UGEvL29hV1J3VHlQVHRGZnJONzNyVmtuNnNMN1NmZlhFK0RySzNRcTVQ?=
- =?utf-8?B?Tyt2SGVPRVNzM0hyZGV1bzNtMTBEc1B1dmoraFI2NjAzcnhKaEJhL3dWY3dZ?=
- =?utf-8?B?bWEzNnFabmZBYU81N1VjZVZNSUZSbzJDV29KMkYwT3N6a09wU2VaTnhSZlV4?=
- =?utf-8?B?RVZrRm1QeFBCOTBuNWdHVURoN2FRPT0=?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c388b255-6a9e-4bcd-542a-08d9dc79a338
-X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2022 01:02:03.8104
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zuIda0lIDMSmVkvJykZpqkz5HHg/S/7LWajs/5QGFXSN/SvLilDTegyQEihWHtlhVT/tlOTbbh02syRzhtNMnQJISzcA6822562bUOfDANo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR10MB3955
-X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10233 signatures=668683
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0 spamscore=0 mlxlogscore=999
- malwarescore=0 adultscore=0 suspectscore=0 mlxscore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2201110000
- definitions=main-2201210005
-X-Proofpoint-GUID: WmDM26DaljLu4PaiTRlQoC7Al4i5fFyp
-X-Proofpoint-ORIG-GUID: WmDM26DaljLu4PaiTRlQoC7Al4i5fFyp
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=aFxlimYUiYOO9Cnm+LmL5UhdsLc2B0rzI0GpLAj/hVg=; b=2wY827XTwpzFjdu17o1ReabFaj
+	ayE2olAf0ce4s6Q1nEWLRJ+WAjxaEnYUbHuoQoGhZG6Iqo+38e0Fv5FMkjWf2B+EelT+U9Z6TxkT2
+	JvZEDmB7eYWrZCO53FAAWRBuaqI+oVrXUWW5SuM7zgVaAIB8qNGzk1zVVv5eMPXkgKsU=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-unstable-smoke bisection] complete build-amd64
+Message-Id: <E1nAklO-0000wM-3M@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 21 Jan 2022 03:38:58 +0000
+
+branch xen-unstable-smoke
+xenbranch xen-unstable-smoke
+job build-amd64
+testid xen-build
+
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  6536688439dbca1d08fd6db5be29c39e3917fb2f
+  Bug not present: 88d3ff7ab15da277a85b39735797293fb541c718
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/167778/
 
 
-
-On 1/20/22 10:25 AM, Roger Pau Monne wrote:
-> There's no point in disabling x2APIC mode when running as a Xen HVM
-> guest, just enable it when available.
-> 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-> Cc: Juergen Gross <jgross@suse.com>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Thomas Gleixner <tglx@linutronix.de>
-> Cc: Ingo Molnar <mingo@redhat.com>
-> Cc: Borislav Petkov <bp@alien8.de>
-> Cc: Dave Hansen <dave.hansen@linux.intel.com>
-> Cc: x86@kernel.org
-> Cc: "H. Peter Anvin" <hpa@zytor.com>
-> Cc: xen-devel@lists.xenproject.org
-> ---
->   arch/x86/xen/enlighten_hvm.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/xen/enlighten_hvm.c b/arch/x86/xen/enlighten_hvm.c
-> index 42300941ec29..ab8171cbee23 100644
-> --- a/arch/x86/xen/enlighten_hvm.c
-> +++ b/arch/x86/xen/enlighten_hvm.c
-> @@ -9,6 +9,7 @@
->   #include <xen/events.h>
->   #include <xen/interface/memory.h>
->   
-> +#include <asm/apic.h>
->   #include <asm/cpu.h>
->   #include <asm/smp.h>
->   #include <asm/io_apic.h>
-> @@ -248,7 +249,7 @@ bool __init xen_hvm_need_lapic(void)
->   		return false;
->   	if (!xen_hvm_domain())
->   		return false;
-> -	if (xen_feature(XENFEAT_hvm_pirqs) && xen_have_vector_callback)
-> +	if (!x2apic_supported())
->   		return false;
->   	return true;
->   }
+  commit 6536688439dbca1d08fd6db5be29c39e3917fb2f
+  Author: Andrew Cooper <andrew.cooper3@citrix.com>
+  Date:   Wed Jan 12 13:52:47 2022 +0000
+  
+      x86/msr: Split MSR_SPEC_CTRL handling
+      
+      In order to fix a VT-x bug, and support MSR_SPEC_CTRL on AMD, move
+      MSR_SPEC_CTRL handling into the new {pv,hvm}_{get,set}_reg() infrastructure.
+      
+      Duplicate the msrs->spec_ctrl.raw accesses in the PV and VT-x paths for now.
+      The SVM path is currently unreachable because of the CPUID policy.
+      
+      No functional change.
+      
+      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 
-Then it seems this whole routine can be reduced to just
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/build-amd64.xen-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
 
-	return x2apic_supported();
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build --summary-out=tmp/167778.bisection-summary --basis-template=167761 --blessings=real,real-bisect,real-retry xen-unstable-smoke build-amd64 xen-build
+Searching for failure / basis pass:
+ 167764 fail [host=himrod2] / 167761 ok.
+Failure / basis pass flights: 167764 / 167761
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 0626219dcc6a4376c1a4b04209d6c15d06e23875
+Basis pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 4e1df69cc9f51b2e017af1da3ed5b45917642115
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42-a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 git://xenbits.xen.org/xen.git#4e1df69cc9f51b2e017af1da3ed5b45917642115-0626219dcc6a4376c1a4b04209d6c15d06e23875
+Loaded 5001 nodes in revision graph
+Searching for test results:
+ 167761 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 4e1df69cc9f51b2e017af1da3ed5b45917642115
+ 167764 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 0626219dcc6a4376c1a4b04209d6c15d06e23875
+ 167768 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 4e1df69cc9f51b2e017af1da3ed5b45917642115
+ 167770 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 0626219dcc6a4376c1a4b04209d6c15d06e23875
+ 167771 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 6536688439dbca1d08fd6db5be29c39e3917fb2f
+ 167772 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 88d3ff7ab15da277a85b39735797293fb541c718
+ 167773 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 6536688439dbca1d08fd6db5be29c39e3917fb2f
+ 167774 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 88d3ff7ab15da277a85b39735797293fb541c718
+ 167776 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 6536688439dbca1d08fd6db5be29c39e3917fb2f
+ 167777 pass 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 88d3ff7ab15da277a85b39735797293fb541c718
+ 167778 fail 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 6536688439dbca1d08fd6db5be29c39e3917fb2f
+Searching for interesting versions
+ Result found: flight 167761 (pass), for basis pass
+ For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 88d3ff7ab15da277a85b39735797293fb541c718, results HASH(0x5577149a3678) HASH(0x5577149a76b0) HASH(0x5577149ab240) For basis failure, parent search stopping at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 4e1df69cc9f51b2e017af1da3ed5b45917642115, results HASH(0x5577149985a8) HASH(0x55771499cd38) Result found: flight 167764 (fail), for \
+ basis failure (at ancestor ~9)
+ Repro found: flight 167768 (pass), for basis pass
+ Repro found: flight 167770 (fail), for basis failure
+ 0 revisions at 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 a68d6d311c2d1fd9d2fa9a0768ea2353e8a79b42 88d3ff7ab15da277a85b39735797293fb541c718
+No revisions left to test, checking graph state.
+ Result found: flight 167772 (pass), for last pass
+ Result found: flight 167773 (fail), for first failure
+ Repro found: flight 167774 (pass), for last pass
+ Repro found: flight 167776 (fail), for first failure
+ Repro found: flight 167777 (pass), for last pass
+ Repro found: flight 167778 (fail), for first failure
 
-and then dropped altogether and x2apic_supported() moved to xen_x2apic_para_available(). Domain type checks here are not really needed since this can only be called on HVM guests.
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  6536688439dbca1d08fd6db5be29c39e3917fb2f
+  Bug not present: 88d3ff7ab15da277a85b39735797293fb541c718
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/167778/
 
 
--boris
+  commit 6536688439dbca1d08fd6db5be29c39e3917fb2f
+  Author: Andrew Cooper <andrew.cooper3@citrix.com>
+  Date:   Wed Jan 12 13:52:47 2022 +0000
+  
+      x86/msr: Split MSR_SPEC_CTRL handling
+      
+      In order to fix a VT-x bug, and support MSR_SPEC_CTRL on AMD, move
+      MSR_SPEC_CTRL handling into the new {pv,hvm}_{get,set}_reg() infrastructure.
+      
+      Duplicate the msrs->spec_ctrl.raw accesses in the PV and VT-x paths for now.
+      The SVM path is currently unreachable because of the CPUID policy.
+      
+      No functional change.
+      
+      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build.{dot,ps,png,html,svg}.
+----------------------------------------
+167778: tolerable ALL FAIL
+
+flight 167778 xen-unstable-smoke real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167778/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ build-amd64                   6 xen-build               fail baseline untested
+
+
+jobs:
+ build-amd64                                                  fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
