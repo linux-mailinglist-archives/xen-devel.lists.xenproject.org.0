@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75CCA4970F1
-	for <lists+xen-devel@lfdr.de>; Sun, 23 Jan 2022 11:33:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259662.448111 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31C604970FA
+	for <lists+xen-devel@lfdr.de>; Sun, 23 Jan 2022 11:43:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259669.448122 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nBaBn-0001jD-2a; Sun, 23 Jan 2022 10:33:39 +0000
+	id 1nBaKl-0003Br-0J; Sun, 23 Jan 2022 10:42:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259662.448111; Sun, 23 Jan 2022 10:33:39 +0000
+Received: by outflank-mailman (output) from mailman id 259669.448122; Sun, 23 Jan 2022 10:42:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nBaBm-0001g9-Up; Sun, 23 Jan 2022 10:33:38 +0000
-Received: by outflank-mailman (input) for mailman id 259662;
- Sun, 23 Jan 2022 10:33:37 +0000
+	id 1nBaKk-00039J-SZ; Sun, 23 Jan 2022 10:42:54 +0000
+Received: by outflank-mailman (input) for mailman id 259669;
+ Sun, 23 Jan 2022 10:42:52 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nBaBl-0001fz-Se; Sun, 23 Jan 2022 10:33:37 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1nBaKi-00039D-R5
+ for xen-devel@lists.xenproject.org; Sun, 23 Jan 2022 10:42:52 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nBaBl-00026R-Q5; Sun, 23 Jan 2022 10:33:37 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nBaBl-0002Jz-Aw; Sun, 23 Jan 2022 10:33:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nBaBl-0001wn-9x; Sun, 23 Jan 2022 10:33:37 +0000
+ (envelope-from <julien@xen.org>)
+ id 1nBaKf-0002Fy-Gl; Sun, 23 Jan 2022 10:42:49 +0000
+Received: from [54.239.6.188] (helo=[192.168.0.182])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nBaKf-0000He-7Z; Sun, 23 Jan 2022 10:42:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +39,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=yrKLEoYV3lzWlFLKhZIH4TdaUV0KRhxBJH54VJ01Qo8=; b=3o3GLHip+CUkoHlC9QFpS0Aa0d
-	sSU3+R+TaLlz5N1XBQR8xfM06bxF3h4KbNOD4/q6KQi45Hi7iNT/c5x6M2jWkUPRcHYoMiYLUVVvx
-	4OzzQAedwmnT45z6k1HvnAXoNK0+yoDMH3FuAgJHKY7q/RK2F+c1pOex8EqPjoX1diKU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-167798-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=M6Ht5nPYCrcUkhD1ne1wihEym/zwqkcYVFjTKV8lJwg=; b=lOzUUnrKHbw86oq7OSt5mK0NGY
+	np3SxPqRGAVpmm+EM34VxokaHE66QSqNhMAJMqOF/Yg//Vja5GMKL8IEUPm7Sgbq86zQ7A8e/zQr5
+	lfwlIsb8y3T/gO1IFllfudY9SK6oBenFwzWBeSVchOGqKZBKnKWNmL4rQE/9++0m9pMw=;
+Message-ID: <f016c6cb-0e57-0a53-94a9-47f0a89b1d77@xen.org>
+Date: Sun, 23 Jan 2022 14:42:45 +0400
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 167798: all pass - PUSHED
-X-Osstest-Versions-This:
-    xen=fe9be76d880b1d43b9dca471f45af3fd380ecb00
-X-Osstest-Versions-That:
-    xen=444597436d08ccae6d210a2b1b877fef636796ea
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 23 Jan 2022 10:33:37 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.5.0
+Subject: Re: [PATCH v4] xen/arm: Allow QEMU platform to be built with GICv2
+To: Dongjiu Geng <gengdongjiu1@gmail.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+References: <20220117064003.3367188-1-gengdongjiu1@gmail.com>
+ <2a1a0dd5-b8a7-8072-2961-b1fbe9ec746a@xen.org>
+ <CABSBigSOjoXABoYoe+SahQyX0P045YjgK3A=7yyxw_aX8nzTqg@mail.gmail.com>
+ <9A7FAD16-3D4A-4C22-8288-A4719A993CDD@arm.com>
+ <CABSBigSba0ENZ-AvDN7bPGNqS5zQKceL901BxhjR8pkRntgnrw@mail.gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <CABSBigSba0ENZ-AvDN7bPGNqS5zQKceL901BxhjR8pkRntgnrw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 167798 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/167798/
+Hello,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  fe9be76d880b1d43b9dca471f45af3fd380ecb00
-baseline version:
- xen                  444597436d08ccae6d210a2b1b877fef636796ea
+On 18/01/2022 12:58, Dongjiu Geng wrote:
+> Bertrand Marquis <Bertrand.Marquis@arm.com> 于2022年1月18日周二 16:48写道：
+>>
+>> Hi Dongju,
+>>
+>>> On 18 Jan 2022, at 08:45, Dongjiu Geng <gengdongjiu1@gmail.com> wrote:
+>>>
+>>> Julien Grall <julien@xen.org> 于2022年1月17日周一 22:16写道：
+>>>>
+>>>> Hi,
+>>>>
+>>>> On 17/01/2022 10:40, Dongjiu Geng wrote:
+>>>>> It turns out that QEMU has been supporting GICv2 virtualization since
+>>>>> v3.1.0. So remove the dependencies on GICv3.
+>>>>
+>>>>
+>>>> Technically, the current form of CONFIG_QEMU allows the same binary to
+>>>> boot on QEMU with GICv2 or GICv3.
+>>>>
+>>>>> If we want to use GICv3,
+>>>>> we can select the QEMU_LEGACY configuration.
+>>>>
+>>>> AFAIK, GICv3 is not a legacy feature... So it feels a bit odd to name it
+>>>> like that (see more below).
+>>>
+>>> Legacy means QEMU platform only supports GICV3, now it can support
+>>> both GICv2 and GICv3. The scope of support has been expanded
+>>> Not mean GICv3 is a legacy feature.
+>>
+>> You might be misleading a bit here.
+>> In the current configuration, Xen support GICv2, GICv3 and vgic.
+>> The only thing not supported is actually the new VGIC but this is an unsupported feature not fully functional which shall be used with caution.
+>>
+>> What issue exactly do you have in Qemu configured for gicv2 when you use the default configuration ?
+> 
+> I want to use NEW_VGIC with GICv2, but QEMU only select GICV3,  when
+> GICv3 is select, the NEW_VGIC can not be used.   I try the NEW_VGIC
+> with GICv2, not found issue. so I want to remove this limitation.
+> If  you think we should not support NEW_VGIC feature,  we can ignore
+> this patch.  thanks!
 
-Last test of basis   167746  2022-01-19 09:19:44 Z    4 days
-Testing same since   167798  2022-01-23 09:19:41 Z    0 days    1 attempts
+I would love to get the NEW_VGIC supported. But I think this is 
+orthogonal to whether we want to allow CONFIG_QEMU to select it.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Alexander Monakov <amonakov@ispras.ru>
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
-  Chen Yu <yu.c.chen@intel.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-  Roger Pau Monne <roger.pau@citrix.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Wei Liu <wl@xen.org>
-  Zhang Rui <rui.zhang@intel.com>
+If we fully support the new vGIC (i.e vGICv3 is implemented) then it 
+would be possible to select it with CONFIG_QEMU as the restriction 
+(!GICV3) would not be present.
 
-jobs:
- coverity-amd64                                               pass    
+So I view the change here as temporary. The proposed change will have an 
+impact on the existing users (i.e. CONFIG_QEMU will not work out of the 
+box anymore when QEMU is configured with GICv3). In addition to that, 
+the end solution doesn't look simple. So I think this is not a patch I 
+am willing to see temporarily.
 
+One possibility would be to create a new CONFIG for allowing to select 
+NEW_VGIC. That said, I don't much like it. So I would say if you want to 
+select NEW_VGIC then you want to use defconfig (which should contain 
+enough to boot on QEMU with DT).
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Cheers,
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   444597436d..fe9be76d88  fe9be76d880b1d43b9dca471f45af3fd380ecb00 -> coverity-tested/smoke
+-- 
+Julien Grall
 
