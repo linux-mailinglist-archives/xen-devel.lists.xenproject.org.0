@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8649498762
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jan 2022 18:59:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259947.448788 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06DBC4987B1
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jan 2022 19:05:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259952.448799 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nC3cJ-0006ja-UT; Mon, 24 Jan 2022 17:58:59 +0000
+	id 1nC3hW-0008GT-Oo; Mon, 24 Jan 2022 18:04:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259947.448788; Mon, 24 Jan 2022 17:58:59 +0000
+Received: by outflank-mailman (output) from mailman id 259952.448799; Mon, 24 Jan 2022 18:04:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nC3cJ-0006hg-QM; Mon, 24 Jan 2022 17:58:59 +0000
-Received: by outflank-mailman (input) for mailman id 259947;
- Mon, 24 Jan 2022 17:58:58 +0000
+	id 1nC3hW-0008Dk-LD; Mon, 24 Jan 2022 18:04:22 +0000
+Received: by outflank-mailman (input) for mailman id 259952;
+ Mon, 24 Jan 2022 18:04:22 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nC3cI-0006ha-J2
- for xen-devel@lists.xenproject.org; Mon, 24 Jan 2022 17:58:58 +0000
+ (envelope-from <julien@xen.org>) id 1nC3hW-0008De-4P
+ for xen-devel@lists.xenproject.org; Mon, 24 Jan 2022 18:04:22 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1nC3cI-0006u6-5W; Mon, 24 Jan 2022 17:58:58 +0000
+ id 1nC3hV-00076G-MW; Mon, 24 Jan 2022 18:04:21 +0000
 Received: from 54-240-197-235.amazon.com ([54.240.197.235] helo=[10.85.42.33])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1nC3cH-0007VQ-VB; Mon, 24 Jan 2022 17:58:58 +0000
+ id 1nC3hV-000830-G0; Mon, 24 Jan 2022 18:04:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,17 +42,17 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=J7SNXqjou4UgQI6acXBIJNYaW5J/Obp9KxjZ3tjfxIM=; b=EUX2S0nwCWH2OD2w/5SwxvzJcb
-	HTSd006T5/Gqm0jiWgKYVWml2m/KZGheF4Bfh7wLXo/KlLKboxbnTztKmRMKsF80D5Sy2XTC9XYWJ
-	nERrIvQq6eaJuoLRtBbLV9QrNzcrD0DwK4bBrA1qsZpx9NQW/QpQPKiIiZGcySRBuZAk=;
-Message-ID: <9609102e-8d58-8378-29b8-4e1190eb1e3c@xen.org>
-Date: Mon, 24 Jan 2022 17:58:55 +0000
+	bh=uH0jmKagEZKRL4OGGrh2waJeyr2z6OP3LpT7kaBFla0=; b=s9sy+NB0o1U0/7vTKwjJ6G9n+w
+	bNk3BdqzTWlVWjCmAz83aoeZkztFg7W6LEnvLpSUNa6ZsOv7j+yb8WVyO8pnK1MRjb34kJhvhVgCa
+	s8Qqh4f6GVlpB+eZBuRFxefJRvvs1+5i5kJH3QbsKpJtnhKdVWchBMA6eyJF/Z01jp84=;
+Message-ID: <70037233-a579-b73f-6590-d38a6d4da379@xen.org>
+Date: Mon, 24 Jan 2022 18:04:19 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.5.0
 Subject: Re: [XEN v3] xen/arm64: io: Decode ldr/str post-indexing instructions
-To: Andre Przywara <andre.przywara@arm.com>,
- Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>,
+ Andre Przywara <andre.przywara@arm.com>
 Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
  stefanos@xilinx.com, Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
  jbeulich@suse.com, wei.chen@arm.com
@@ -60,33 +60,171 @@ References: <20220120215527.28138-1-ayankuma@xilinx.com>
  <20220122013046.6a786d3f@slackpad.fritz.box>
  <18e715ae-111d-58e6-55f9-a48a521e99b3@xilinx.com>
  <20220124143601.3e2ac6ac@donnerap.cambridge.arm.com>
+ <bae9a35f-be42-2ebe-5ce0-30e08001ae97@xilinx.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220124143601.3e2ac6ac@donnerap.cambridge.arm.com>
+In-Reply-To: <bae9a35f-be42-2ebe-5ce0-30e08001ae97@xilinx.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Andre,
+Hi,
 
-On 24/01/2022 14:36, Andre Przywara wrote:
-> On Mon, 24 Jan 2022 12:07:42 +0000
->> Also, if an instruction is being modified by the guest (after it has
->> been loaded in the I cache), and if the guest does not invalidate the I
->> cache + ISB, then this is a malicious behavior by the guest. Is my
->> understanding correct ?
+On 24/01/2022 17:27, Ayan Kumar Halder wrote:
+> Thanks forn your comments.
 > 
-> I wouldn't say malicious per se, there might be legitimate reasons to do
-> so, but in the Xen context this is mostly irrelevant, since we don't trust
-> the guest anyway. So whether it's malicious or accidental, the hypervisor
-> might be mislead.
+> On 24/01/2022 14:36, Andre Przywara wrote:
+>> On Mon, 24 Jan 2022 12:07:42 +0000
+>> Ayan Kumar Halder <ayan.kumar.halder@xilinx.com> wrote:
+>>
+>> Hi Ayan,
+>>
+>>> Many thanks for your feedback. I have one clarification :-
+>>>
+>>> On 22/01/2022 01:30, Andre Przywara wrote:
+>>>> On Thu, 20 Jan 2022 21:55:27 +0000
+>>>> Ayan Kumar Halder <ayan.kumar.halder@xilinx.com> wrote:
+>>>>
+>>>> Hi,
+>>>>> At the moment, Xen is only handling data abort with valid syndrome 
+>>>>> (i.e.
+>>>>> ISV=0). Unfortunately, this doesn't cover all the instructions a 
+>>>>> domain
+>>>>> could use to access MMIO regions.
+>>>>>
+>>>>> For instance, a baremetal OS can use any of the following 
+>>>>> instructions, where
+>>>>> x1 contains the address of the MMIO region:
+>>>>>
+>>>>> 1.      ldr     x2,    [x1],    #4
+>>>> That looks dodgy, since is misaligns the pointer afterwards. MMIO
+>>>> access typically go to device memory, which must be naturally aligned.
+>>>> Just don't give a bad example here and change that to a multiple of 8.
+>>>>> 2.      ldr     w2,    [x1],    #-4
+>>>> (this one is fine, btw, because it's a 32-bit read)
+>>>>> 3.      ldr     x2,    [x1],    #-8
+>>>>> 4.      ldr     w2,    [x1],    #4
+>>>>> 5.      ldrh    w2,    [x1],    #8
+>>>>> 6.      ldrb    w2,    [x1],    #16
+>>>> More naturally I'd use the data size of the postindex value ...
+>>>> ldr  x2 ... #-8
+>>>> ldr  w2 ... #4
+>>>> ldrh w2 ... #2
+>>>> ldrb w2 ... #1
+>>>>> 7.      str     x2,    [x1],    #4
+>>>> This is a again problematic, because x1 is not 8-byte aligned anymore
+>>>> after that.
+>>>>> 8.      str     w2,    [x1],    #-4
+>>>>> 9.      strh    w2,    [x1],    #8
+>>>>> 10.     strb    w2,    [x1],    #16
+>>>>>
+>>>>> In the following two instructions, sp contains the address of the 
+>>>>> MMIO region:-
+>>>> Really? I don't think you should give people funny ideas, just mention
+>>>> that the Rn register could theoretically be the stack pointer.
+>>>>> 11.     ldrb    w2,    [sp],    #16
+>>>>> 12.     ldrb    wzr,   [sp],    #16
+>>>>>
+>>>>> In order to handle post-indexing store/load instructions (like 
+>>>>> those mentioned
+>>>>> above), Xen will need to fetch and decode the instruction.
+>>>>>
+>>>>> This patch only cover post-index store/load instructions from 
+>>>>> AArch64 mode.
+>>>>> For now, this is left unimplemented for trap from AArch32 mode.
+>>>>>
+>>>>> Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
+>>>>> ---
+>>>>>
+>>>>> Changelog :-
+>>>>> v2 - 1. Updated the rn register after reading from it. (Pointed by 
+>>>>> Julien,
+>>>>>           Stefano)
+>>>>>        2. Used a union to represent the instruction opcode 
+>>>>> (Suggestd by Bertrand)
+>>>>>        3. Fixed coding style issues (Pointed by Julien)
+>>>>>        4. In the previous patch, I was updating dabt->sign based on 
+>>>>> the signedness
+>>>>>           of imm9. This was incorrect. As mentioned in ARMv8 ARM  
+>>>>> DDI 0487G.b,
+>>>>>           Page 3221, SSE indicates the signedness of the data item 
+>>>>> loaded. In our
+>>>>>           case, the data item loaded is always unsigned.
+>>>>>
+>>>>> v3- 1. Handled all the variants of ldr/str (ie 64, 32, 16, 8 bit 
+>>>>> variants).
+>>>>>          Thus, I have removed the check for "instr->code.opc == 0" 
+>>>>> (Suggested by
+>>>>>          Andre)
+>>>>>       2. Handled the scenario when rn = SP, rt = XZR (Suggested by 
+>>>>> Jan, Andre)
+>>>>>       3. Added restriction for "rt != rn" (Suggested by Andre)
+>>>>>       4. Moved union ldr_str_instr_class {} to decode.h. This is 
+>>>>> the header included
+>>>>>          by io.c and decode.c (where the union is referred). 
+>>>>> (Suggested by Jan)
+>>>>>       5. Indentation and typo fixes (Suggested by Jan)
+>>>>>
+>>>>> Changes suggested but could not be considered due to reasons :-
+>>>>>       1. Using accessor macros instead of bitfields for 
+>>>>> "ldr_str_instr_class". (Andre)
+>>>>>          Reason - I could not find a simple way to represent 9 bit 
+>>>>> signed integer
+>>>>>          (ie imm9) without using bitfields. If I use accessor 
+>>>>> macros, then I need
+>>>>>          to manually calculate two's complement to obtain the value 
+>>>>> when signed
+>>>>>          bit is present.
+>>>>>
+>>>>>       2. I/D cache cohenerncy (Andre)
+>>>>>          Reason :- I could not see any instruction to flush the I 
+>>>>> cache.
+>>>> First, please try to avoid the term "flush", because it is somewhat
+>>>> overloaded. The architecture speaks of "clean" and "invalidate", which
+>>>> are more precise.
+>>>> Assuming you mean "clean" here: conceptually there is no such thing for
+>>>> the I cache, because it's always clean. The I$ will only be read from
+>>>> the CPU side - from the instruction fetcher - there is nothing written
+>>>> back through it. Every store goes through the data path - always.
+>>>> That is the problem that I tried to sketch you previously: you don't
+>>>> have a guarantee that the instruction you read from memory is the same
+>>>> that the CPU executed. The guest could have changed the instruction
+>>>> after the I$ fetched that. So the CPU will execute (and trap) on
+>>>> instruction X, but you will read Y. I leave it up to your imagination
+>>>> if that could be exploited.
+>>> I see what you mean.
+>>>
+>>> Refer Armv8 Arm DDI 0487G.b Page D1-2476, it says that (for instr/data
+>>> abort) the faulting virtual address and IPA is saved in FAR_ELx and
+>>> HPFAR_EL2 respectively. But, I do not see if the faulting instruction is
+>>> saved in any special register. Is there something I am missing ?
+>> No, indeed there is no such thing. You get the address, but not the
+>> faulting instruction. It would indeed be nice to have from a software
+>> developer's point of view, but the architecture does not support it.
+>> One reason might be that it's potentially hard to implement, because it
+>> could be tricky to reconstruct the original instruction, when it has been
+>> broken down to something different in the actual pipelines.
+> 
+> Is it possible for Arm to implement such a register which will hold the 
+> instruction that caused the exception, in the future architecture 
+> revision ? This would be useful given that the faulting address (PC) can 
+> not be trusted to get to the original faulting instruction (as it can be 
+> changed after being loaded in I cache). I could imagine this being 
+> useful in any scenario when the user wants to know which instruction 
+> caused the fault.
+> 
+> Stefano/Julien/Bertrand/Volodymyr :- I would love to hear your inputs on 
+> this as well.
 
-I agree the hypervisor will be mislead to execute the wrong instruction. 
-But, in reality, I don't see how this is a massive problem as this 
-thread seems to imply. At best the guest will shoot itself in the foot.
+I have replied on Andre's email. I don't view this issue raised as a 
+critical issue (see my answer on Andre's email for more details).
 
-IOW, for now, I think it is fine to assume that the guest will have 
-invalidated the cache instruction before executing any instruction that 
-may fault with ISV=0. This could be revisted if we have use-cases where 
-we really need to know what the guest executed.
+
+> 
+> As for the patch, I will mention this issue (as a comment in the code) 
+> where we are loading the instruction from PC. 
+> Stefano/Julien/Bertrand/Volodymyr:- Does it look fine with you ?
+
+I will queue the patch for review. I can wait the next version if you 
+plan to respin it.
 
 Cheers,
 
