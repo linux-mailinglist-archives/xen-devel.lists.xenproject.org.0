@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0900149951A
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jan 2022 22:08:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259986.448893 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 792F1499D15
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jan 2022 23:16:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259992.448904 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nC6Yy-0002ks-3V; Mon, 24 Jan 2022 21:07:44 +0000
+	id 1nC7bx-0000yy-AC; Mon, 24 Jan 2022 22:14:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259986.448893; Mon, 24 Jan 2022 21:07:44 +0000
+Received: by outflank-mailman (output) from mailman id 259992.448904; Mon, 24 Jan 2022 22:14:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nC6Yx-0002he-Va; Mon, 24 Jan 2022 21:07:43 +0000
-Received: by outflank-mailman (input) for mailman id 259986;
- Mon, 24 Jan 2022 21:07:42 +0000
+	id 1nC7bx-0000wz-6n; Mon, 24 Jan 2022 22:14:53 +0000
+Received: by outflank-mailman (input) for mailman id 259992;
+ Mon, 24 Jan 2022 22:14:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=97vV=SI=ionos.com=jinpu.wang@srs-se1.protection.inumbo.net>)
- id 1nC6Yw-0002hY-7z
- for xen-devel@lists.xenproject.org; Mon, 24 Jan 2022 21:07:42 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ <SRS0=4ZXe=SI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nC7bv-0000wt-I3
+ for xen-devel@lists.xenproject.org; Mon, 24 Jan 2022 22:14:51 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a916061c-7d59-11ec-bc18-3156f6d857e4;
- Mon, 24 Jan 2022 22:07:40 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id a8so24906153ejc.8
- for <xen-devel@lists.xenproject.org>; Mon, 24 Jan 2022 13:07:38 -0800 (PST)
+ id 0b1fc54c-7d63-11ec-bc18-3156f6d857e4;
+ Mon, 24 Jan 2022 23:14:49 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E83BC611EA;
+ Mon, 24 Jan 2022 22:14:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EDC5C340E7;
+ Mon, 24 Jan 2022 22:14:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,217 +44,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a916061c-7d59-11ec-bc18-3156f6d857e4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=ePWzg4KksjRUDSjqr+o9tEK0DbR7L8NzVM+5lIUlDPo=;
-        b=UryOzKtTd2BAlxPDRNgCwCESf13lD5IW6bNOSpBDepFbuH7r9fjbsT6cE5x5Ghft6m
-         mvPNVWtkz01mVJrSqeC/gB7JTH8T6qFvFS/VnIIFZHW5/gP/sOhhcnNoyYhFzrPdUaVF
-         FvDL8M4vNuURIqj/n/AdjkvXl39lYlpRohMIl+wO54x442N5Kx3ijGlQ972NHhWQkaPM
-         2PB2Ht3BymPWofX9NOCMsDhYcC+73YD1E+ldRp1Zbpzgc9ITLFFrLh5PDvAi6v8hFREw
-         ZBIZaScnPoiVR8zI3lCx6RkrB7DD23Vmu/ZR3nC2SK8GmSX6IQ39leUg3dHZiL44CE+y
-         QY2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=ePWzg4KksjRUDSjqr+o9tEK0DbR7L8NzVM+5lIUlDPo=;
-        b=19MaSm+TYqDi7zSnb84t3QupfjbHvZs1ANvkG2t3fcdTdpc7Fyw5Vt5t+kTKVq4rlg
-         LMEXInPmfNURuGOHMM0KxnTOwhTtaIKT/SmhptMklo0OXVRvcsGVO8plx4rN/XkEzQUZ
-         GYbK0jv5lDhk0mPNjiKXW7mxScVrItHO03tl26MEYECAx1MC8TmUzSMUlgv8Ng2rc6fB
-         gIUthLirk1sIP63KBAlpIraloiex6LTA6y/7+P0UCVQffRhETCGJVS9SPETFm20mf+BI
-         +SL9IsJsnFtvLTz9bCLj15Z70rtvZY8Rmf4yNYBaLAHJeTSAwPM7eCJBsVxRlD2TVvaw
-         0c3g==
-X-Gm-Message-State: AOAM531R+wMXFccMV08Y2Gq+6AKARYILmFT0S5mExDqqEikd7hROuhcB
-	KcoxpGSHaiETZYnCuvuy/4FPn0PSO1MowPLKWb0y4w==
-X-Google-Smtp-Source: ABdhPJxclIDTBsv4yYQkMf2IKJZoaAKnmKikCbThIVE5NKI9QkHybFZsTLU/0wfsssiMKHH11b6mrHEUsG/59h5Yi1w=
-X-Received: by 2002:a17:907:1c23:: with SMTP id nc35mr11335786ejc.624.1643058458017;
- Mon, 24 Jan 2022 13:07:38 -0800 (PST)
+X-Inumbo-ID: 0b1fc54c-7d63-11ec-bc18-3156f6d857e4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1643062484;
+	bh=a0De33ItmRHJeTZtQjS5RWputpBKXe2dW2jQY9vNaxM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Y6A6AU9P86koA8MMfwiZPU+/YYjQcQG+XFR7ELahVr1m3p/yakr6pfjysMG/8OU/4
+	 DwSDdfJxNy1uhskjNwMA2Zwd0G/DGdRQUKnQo/4MnOoK1t975CUneB+QvAvqOEFsoT
+	 Pnhegbss20CDzImFlEWqydREbEANnOJ/SY1DdwQ2Tz6WaK/SMWCaPjUNnM5JWkhxkD
+	 r9u+JESfp98VGbsqnXmfNk3K/Ejpju6uFtzZlkvWAEacQEkO3pIfsiBzqmwB2EY2Dw
+	 4nbdbc1OkKMN/qcJtu6ApkHXN3p/M/xDlPznu4iSu+uYmYw8mYDLQecWMZLqbLvP+Y
+	 iMluRLlPvpxXA==
+Date: Mon, 24 Jan 2022 14:14:43 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
+In-Reply-To: <d5c84296-79a6-5698-802d-4d9ba60dbf24@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2201241403240.27308@ubuntu-linux-20-04-desktop>
+References: <20211221200305.GA2460476@EPUAKYIW015D> <alpine.DEB.2.22.394.2112211310000.2060010@ubuntu-linux-20-04-desktop> <20211222110414.GA2883815@EPUAKYIW015D> <alpine.DEB.2.22.394.2112221627190.2060010@ubuntu-linux-20-04-desktop> <20220119120400.GA3779126@EPUAKYIW015D>
+ <alpine.DEB.2.22.394.2201191644400.19362@ubuntu-linux-20-04-desktop> <20220120102147.GA4153317@EPUAKYIW015D> <alpine.DEB.2.22.394.2201201230480.27308@ubuntu-linux-20-04-desktop> <20220121150753.GA898010@EPUAKYIW015D> <alpine.DEB.2.22.394.2201211236060.27308@ubuntu-linux-20-04-desktop>
+ <20220124182249.GA2485483@EPUAKYIW015D> <alpine.DEB.2.22.394.2201241056290.27308@ubuntu-linux-20-04-desktop> <d5c84296-79a6-5698-802d-4d9ba60dbf24@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-References: <20220124091107.642561-1-hch@lst.de> <20220124091107.642561-12-hch@lst.de>
-In-Reply-To: <20220124091107.642561-12-hch@lst.de>
-From: Jinpu Wang <jinpu.wang@ionos.com>
-Date: Mon, 24 Jan 2022 22:07:26 +0100
-Message-ID: <CAMGffEknV3j8nm__Bc_q7QUra+MV2kj-CMcq8O2ZdEK+B3om_Q@mail.gmail.com>
-Subject: Re: [PATCH 11/19] rnbd-srv: remove struct rnbd_dev_blk_io
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Pavel Begunkov <asml.silence@gmail.com>, 
-	Mike Snitzer <snitzer@redhat.com>, Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Md . Haris Iqbal" <haris.iqbal@ionos.com>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.co>, 
-	Philipp Reisner <philipp.reisner@linbit.com>, Lars Ellenberg <lars.ellenberg@linbit.com>, 
-	linux-block@vger.kernel.org, dm-devel@redhat.com, 
-	linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	linux-nilfs@vger.kernel.org, ntfs3@lists.linux.dev, 
-	xen-devel@lists.xenproject.org, drbd-dev@lists.linbit.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Jan 24, 2022 at 10:11 AM Christoph Hellwig <hch@lst.de> wrote:
->
-> Only the priv field of rnbd_dev_blk_io is used, so store the value of
-> that in bio->bi_private directly and remove the entire bio_set overhead.
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Jack Wang <jinpu.wang@ionos.com>
-Thanks!
-> ---
->  drivers/block/rnbd/rnbd-srv-dev.c |  4 +---
->  drivers/block/rnbd/rnbd-srv-dev.h | 13 ++-----------
->  drivers/block/rnbd/rnbd-srv.c     | 27 ++++-----------------------
->  drivers/block/rnbd/rnbd-srv.h     |  1 -
->  4 files changed, 7 insertions(+), 38 deletions(-)
->
-> diff --git a/drivers/block/rnbd/rnbd-srv-dev.c b/drivers/block/rnbd/rnbd-srv-dev.c
-> index 98d3e591a0885..c5d0a03911659 100644
-> --- a/drivers/block/rnbd/rnbd-srv-dev.c
-> +++ b/drivers/block/rnbd/rnbd-srv-dev.c
-> @@ -12,8 +12,7 @@
->  #include "rnbd-srv-dev.h"
->  #include "rnbd-log.h"
->
-> -struct rnbd_dev *rnbd_dev_open(const char *path, fmode_t flags,
-> -                              struct bio_set *bs)
-> +struct rnbd_dev *rnbd_dev_open(const char *path, fmode_t flags)
->  {
->         struct rnbd_dev *dev;
->         int ret;
-> @@ -30,7 +29,6 @@ struct rnbd_dev *rnbd_dev_open(const char *path, fmode_t flags,
->
->         dev->blk_open_flags = flags;
->         bdevname(dev->bdev, dev->name);
-> -       dev->ibd_bio_set = bs;
->
->         return dev;
->
-> diff --git a/drivers/block/rnbd/rnbd-srv-dev.h b/drivers/block/rnbd/rnbd-srv-dev.h
-> index 1a14ece0be726..2c3df02b5e8ec 100644
-> --- a/drivers/block/rnbd/rnbd-srv-dev.h
-> +++ b/drivers/block/rnbd/rnbd-srv-dev.h
-> @@ -14,25 +14,16 @@
->
->  struct rnbd_dev {
->         struct block_device     *bdev;
-> -       struct bio_set          *ibd_bio_set;
->         fmode_t                 blk_open_flags;
->         char                    name[BDEVNAME_SIZE];
->  };
->
-> -struct rnbd_dev_blk_io {
-> -       struct rnbd_dev *dev;
-> -       void             *priv;
-> -       /* have to be last member for front_pad usage of bioset_init */
-> -       struct bio      bio;
-> -};
-> -
->  /**
->   * rnbd_dev_open() - Open a device
-> + * @path:      path to open
->   * @flags:     open flags
-> - * @bs:                bio_set to use during block io,
->   */
-> -struct rnbd_dev *rnbd_dev_open(const char *path, fmode_t flags,
-> -                              struct bio_set *bs);
-> +struct rnbd_dev *rnbd_dev_open(const char *path, fmode_t flags);
->
->  /**
->   * rnbd_dev_close() - Close a device
-> diff --git a/drivers/block/rnbd/rnbd-srv.c b/drivers/block/rnbd/rnbd-srv.c
-> index 6d228af1dcc35..ff9b389976078 100644
-> --- a/drivers/block/rnbd/rnbd-srv.c
-> +++ b/drivers/block/rnbd/rnbd-srv.c
-> @@ -116,9 +116,7 @@ rnbd_get_sess_dev(int dev_id, struct rnbd_srv_session *srv_sess)
->
->  static void rnbd_dev_bi_end_io(struct bio *bio)
->  {
-> -       struct rnbd_dev_blk_io *io = bio->bi_private;
-> -
-> -       rnbd_endio(io->priv, blk_status_to_errno(bio->bi_status));
-> +       rnbd_endio(bio->bi_private, blk_status_to_errno(bio->bi_status));
->         bio_put(bio);
->  }
->
-> @@ -131,7 +129,6 @@ static int process_rdma(struct rnbd_srv_session *srv_sess,
->         struct rnbd_srv_sess_dev *sess_dev;
->         u32 dev_id;
->         int err;
-> -       struct rnbd_dev_blk_io *io;
->         struct bio *bio;
->         short prio;
->
-> @@ -152,7 +149,7 @@ static int process_rdma(struct rnbd_srv_session *srv_sess,
->         priv->sess_dev = sess_dev;
->         priv->id = id;
->
-> -       bio = bio_alloc_bioset(GFP_KERNEL, 1, sess_dev->rnbd_dev->ibd_bio_set);
-> +       bio = bio_alloc(GFP_KERNEL, 1);
->         if (bio_add_page(bio, virt_to_page(data), datalen,
->                         offset_in_page(data)) != datalen) {
->                 rnbd_srv_err(sess_dev, "Failed to map data to bio\n");
-> @@ -160,12 +157,8 @@ static int process_rdma(struct rnbd_srv_session *srv_sess,
->                 goto bio_put;
->         }
->
-> -       io = container_of(bio, struct rnbd_dev_blk_io, bio);
-> -       io->dev = sess_dev->rnbd_dev;
-> -       io->priv = priv;
-> -
->         bio->bi_end_io = rnbd_dev_bi_end_io;
-> -       bio->bi_private = io;
-> +       bio->bi_private = priv;
->         bio->bi_opf = rnbd_to_bio_flags(le32_to_cpu(msg->rw));
->         bio->bi_iter.bi_sector = le64_to_cpu(msg->sector);
->         bio->bi_iter.bi_size = le32_to_cpu(msg->bi_size);
-> @@ -260,7 +253,6 @@ static void destroy_sess(struct rnbd_srv_session *srv_sess)
->
->  out:
->         xa_destroy(&srv_sess->index_idr);
-> -       bioset_exit(&srv_sess->sess_bio_set);
->
->         pr_info("RTRS Session %s disconnected\n", srv_sess->sessname);
->
-> @@ -289,16 +281,6 @@ static int create_sess(struct rtrs_srv_sess *rtrs)
->                 return -ENOMEM;
->
->         srv_sess->queue_depth = rtrs_srv_get_queue_depth(rtrs);
-> -       err = bioset_init(&srv_sess->sess_bio_set, srv_sess->queue_depth,
-> -                         offsetof(struct rnbd_dev_blk_io, bio),
-> -                         BIOSET_NEED_BVECS);
-> -       if (err) {
-> -               pr_err("Allocating srv_session for path %s failed\n",
-> -                      pathname);
-> -               kfree(srv_sess);
-> -               return err;
-> -       }
-> -
->         xa_init_flags(&srv_sess->index_idr, XA_FLAGS_ALLOC);
->         INIT_LIST_HEAD(&srv_sess->sess_dev_list);
->         mutex_init(&srv_sess->lock);
-> @@ -747,8 +729,7 @@ static int process_msg_open(struct rnbd_srv_session *srv_sess,
->                 goto reject;
->         }
->
-> -       rnbd_dev = rnbd_dev_open(full_path, open_flags,
-> -                                &srv_sess->sess_bio_set);
-> +       rnbd_dev = rnbd_dev_open(full_path, open_flags);
->         if (IS_ERR(rnbd_dev)) {
->                 pr_err("Opening device '%s' on session %s failed, failed to open the block device, err: %ld\n",
->                        full_path, srv_sess->sessname, PTR_ERR(rnbd_dev));
-> diff --git a/drivers/block/rnbd/rnbd-srv.h b/drivers/block/rnbd/rnbd-srv.h
-> index e5604bce123ab..be2ae486d407e 100644
-> --- a/drivers/block/rnbd/rnbd-srv.h
-> +++ b/drivers/block/rnbd/rnbd-srv.h
-> @@ -23,7 +23,6 @@ struct rnbd_srv_session {
->         struct rtrs_srv_sess    *rtrs;
->         char                    sessname[NAME_MAX];
->         int                     queue_depth;
-> -       struct bio_set          sess_bio_set;
->
->         struct xarray           index_idr;
->         /* List of struct rnbd_srv_sess_dev */
-> --
-> 2.30.2
->
+On Mon, 24 Jan 2022, Julien Grall wrote:
+> On 24/01/2022 19:06, Stefano Stabellini wrote:
+> > It looks like XEN_DOMCTL_host_node_by_path and
+> > XEN_DOMCTL_find_host_compatible_node would also solve the problem but I
+> > think that a single hypercall that retrieves the entire host DTB would
+> > be easier to implement
+> 
+> DOMCTL should only be used to handle per-domain information. If we want to
+> create a new sub-hypercall of either __HYPERVISOR_platform_op or
+> __HYPERVISOR_sysctl_op (not sure which one).
+> 
+> AFAICT, both are versioned.
+> 
+> > and more robust in the long term. >
+> > hypfs has the advantage that it would create an interface more similar
+> > to the one people are already used to on Linux systems
+> > (/proc/device-tree). xl/libxl would have to scan the whole hypfs tree,
+> > which intuitively I think it would be slower.
+> 
+> Even if you have the binary blob, you would still have to scan the
+> device-tree. That said, it is probably going to be potentially a bit faster
+> because you have less hypercall.
+> 
+> However, here this is a trade-off between memory use and speed. If you want
+> speed, then you may have to transfer up to 2MB every time. So the question is
+> do we care more about speed or memory usage?
+> 
+> > Also the feature might be
+> > harder to implement but I am not sure.
+> > 
+> > I don't have a strong preference and this is not a stable interface (we
+> > don't have to be extra paranoid about forward and backward
+> > compatibility). So I am fine either way. Let's see what the others think
+> > as well.
+> 
+> My preference would be to use hypfs as this is cleaner than exposing a blob.
+
+That's also fine by me. Probably the hypfs implementation shouldn't be
+much more difficult than something like
+XEN_DOMCTL_host_node_by_path/XEN_DOMCTL_find_host_compatible_node.
+
+
+> However, are we sure we can simply copy the content of the host Device-Tree to
+> the guest Device-Tree for SCMI? For instance, I know that for device
+> passthrough there are some property that needs to be altered for some devices.
+> Hence, why it is not present. Although, I vaguely recalled to have written a
+> PoC, not sure if it was posted on the ML.
+
+The SCMI node cannot be copied "as is" from host to guest. It needs a
+couple of changes but they seem feasible as they are limited to the
+channels exposed to the guest. (The generic device passthrough case is a
+lot more difficult.)
 
