@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 540B549B56E
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 14:56:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260369.449725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37AFA49B590
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 15:02:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260377.449752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCMI9-0002Vd-FW; Tue, 25 Jan 2022 13:55:25 +0000
+	id 1nCMOq-0004NL-Dp; Tue, 25 Jan 2022 14:02:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260369.449725; Tue, 25 Jan 2022 13:55:25 +0000
+Received: by outflank-mailman (output) from mailman id 260377.449752; Tue, 25 Jan 2022 14:02:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCMI9-0002SH-B6; Tue, 25 Jan 2022 13:55:25 +0000
-Received: by outflank-mailman (input) for mailman id 260369;
- Tue, 25 Jan 2022 13:55:24 +0000
+	id 1nCMOq-0004LE-AS; Tue, 25 Jan 2022 14:02:20 +0000
+Received: by outflank-mailman (input) for mailman id 260377;
+ Tue, 25 Jan 2022 14:02:18 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YAYL=SJ=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1nCMI8-0002Rb-3E
- for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 13:55:24 +0000
-Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
- [2a00:1450:4864:20::334])
+ id 1nCMOo-0004L8-Su
+ for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 14:02:18 +0000
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [2a00:1450:4864:20::332])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 70a85d17-7de6-11ec-8fa7-f31e035a9116;
- Tue, 25 Jan 2022 14:55:23 +0100 (CET)
-Received: by mail-wm1-x334.google.com with SMTP id v123so25422723wme.2
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jan 2022 05:55:23 -0800 (PST)
+ id 67efcc77-7de7-11ec-8fa7-f31e035a9116;
+ Tue, 25 Jan 2022 15:02:17 +0100 (CET)
+Received: by mail-wm1-x332.google.com with SMTP id
+ r2-20020a1c2b02000000b0034f7b261169so1919781wmr.2
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Jan 2022 06:02:17 -0800 (PST)
 Received: from ?IPV6:2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec?
  ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
- by smtp.gmail.com with ESMTPSA id p17sm16319687wrf.112.2022.01.25.05.55.19
+ by smtp.gmail.com with ESMTPSA id 9sm22356144wrb.77.2022.01.25.06.02.16
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Jan 2022 05:55:22 -0800 (PST)
+ Tue, 25 Jan 2022 06:02:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,105 +45,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70a85d17-7de6-11ec-8fa7-f31e035a9116
+X-Inumbo-ID: 67efcc77-7de7-11ec-8fa7-f31e035a9116
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=message-id:date:mime-version:user-agent:reply-to:subject
          :content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding;
-        bh=6EJNmViF+HBybLCJxBBkQKt7yPxgwq5NZNFhjZnZK3I=;
-        b=qKq04QsqZXmb9epEdgKocCid6isDpmZdZHvrngDN3zu12YRVRrxasClgp3c0im4JNz
-         NRovbe1Zqpx+9esQJvQ15J3I8dRkdLnkiV5o2oK8KDnqL8ROhI/Af7yE1gtrt37h0Tlv
-         DRu935UXPyZyVFtTHKyZR85p1BJ4vUJQgU1LZdJC4sQM8waYePLmmqFuj8IdUa6mSl2Y
-         e5xGABibr078we5nQjLbxKzq7R5Qp/sbwHVAYLph2HRjoB5V2C8tZtIscBtSJaigqCDz
-         KyIrTmQdDH5t/Rfpl3dHuFd6REAsA0c72hwlnjZZjBTxsq7EcUrwdWmwcnxgcKQ4z2UG
-         HJMQ==
+        bh=GvV+xNRtZLIMNEQnG51h8ZugFDkjuKP1UVK/mYBRxII=;
+        b=MV7J+7T6Mk5zsK3Wf9ewuOCyZkutph2SgAC3Kzaa2jv6UeEX1iVCWR8Wfgc9Msh7xT
+         T2Jr9kKxCaZAdiXYS107Hp17pMiM4WtLfxL91zD/RJFCP0mmAUUcqMc0XM21ddiHLzab
+         rAkGTBGo/kqy6JllBcVWdFedjXOiUDXerkWdMYg1v/41z1AoW456dy/finc2nGxghsiV
+         5QBUHl38DT2/Qq6e5MBUe/YUCj6i8O+fVBk8yPQjHd2dz65C0iHHW1ZD+Xwwqw7oVh7+
+         HGFmGm5PaSGx75LUEOYnIVIPf5JtryYzg3PcYxvZDjqIFBbqeX+256dAiRLlseHtFD+k
+         n8Qg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
          :subject:content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding;
-        bh=6EJNmViF+HBybLCJxBBkQKt7yPxgwq5NZNFhjZnZK3I=;
-        b=HDOi2+PHAefo/1gaY2OL/ZLxpZKhmLd21ebhv48sOBnrh6TUmIHIKiNZ+RMWZKwE8k
-         dUOZ35hw6hwCpSGE2Hi8IERxu3VkPLxRJEwgtkr729b+tigIMeNlV6f9MG/WYZhZdwe/
-         GyPqiVY1BUBMBux2C8l9qHYe/iuQQsG3umXuDlnP56mqGiMGjgVSXOT5XBX2U2uHFeWS
-         5vxKFCx5KpPldkKQ5sY6FCMeFIK+QJCGjHQcHR+WOkJ7s10uW/nNr5T5vmtYdspZG0d7
-         HXmAKeS/UsY2w8ZIcPN0FmgyWVLOeXcRSXjwRR7hvzfhnamf6aLAqOuXN0upKosTT+L6
-         IHnA==
-X-Gm-Message-State: AOAM531vjdAfbmp2O4r7xFTzS1EJ2/NAQRi/enn+6QSR0kpfQ3mAb36j
-	bYxNScn68rS2fsJOcTMR5o0=
-X-Google-Smtp-Source: ABdhPJwPRU8u3j94OQtF7wTRh9feVaxTmZqsL3D4HbIxOPsEKNx0H0A5j/+TEbClEDLoBMTWKvTDsA==
-X-Received: by 2002:a05:600c:3641:: with SMTP id y1mr3103373wmq.44.1643118922489;
-        Tue, 25 Jan 2022 05:55:22 -0800 (PST)
-Message-ID: <2da0075f-4a6f-b196-6ae7-73c0df66e437@gmail.com>
-Date: Tue, 25 Jan 2022 13:55:19 +0000
+        bh=GvV+xNRtZLIMNEQnG51h8ZugFDkjuKP1UVK/mYBRxII=;
+        b=whhb7IrqarUzrb2cW06FV69iENWuxmojS1H6393uBVhXJYuT2co/es5tJDFwDuCuhJ
+         d3iRFccoTHrrQ9MK1oz26LKRppUye2sIZL2dLm7eRDBl9D15n9kYFVw970yW6bYGCcor
+         XY3A8gicLV2zcW89RtebH1+Nx/0qbeQaup4CgEmm2oow3xg3n1TGtjzJTbHS9/bwyu0F
+         2zvMnS8njlEGzDw/wLuNoUn0VrR+4lN6YxI8c/9GSMs277Z4bBnfvzA4gdLEeaHJGvyP
+         G2QMyZzh6yDTJbiCHuUyKGJ6cNKBQKbk6U5ak0fDH1/TZEHVxyIbGcl+y5LtyKM6k36K
+         eOMA==
+X-Gm-Message-State: AOAM5308e3N6iE+sUKRHLUpaLJm05Zry+jKSZwieaChXv8jHPtjx3QAs
+	vpoev1nXzhrCi0Nx4LDZ8Vo=
+X-Google-Smtp-Source: ABdhPJynkoPCTEsiUAwniYVIygV6cGBsSd0Ivg84wu+znpwtfdaALDpzyTy83oqPGQsHx1Si8iGd4Q==
+X-Received: by 2002:a05:600c:1c87:: with SMTP id k7mr3214155wms.60.1643119337439;
+        Tue, 25 Jan 2022 06:02:17 -0800 (PST)
+Message-ID: <73294d6f-265a-ebb9-acd2-6b8dd786c29c@gmail.com>
+Date: Tue, 25 Jan 2022 14:02:15 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
 Reply-To: paul@xen.org
-Subject: Re: [PATCH v2] xen-mapcache: Avoid entry->lock overflow
+Subject: Re: [PATCH] libxl: force netback to wait for hotplug execution before
+ connecting
 Content-Language: en-US
-To: Ross Lagerwall <ross.lagerwall@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>
-Cc: Igor Druzhinin <igor.druzhinin@citrix.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>, "Michael S. Tsirkin"
- <mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- xen-devel@lists.xenproject.org, qemu-devel@nongnu.org
-References: <20220124104450.152481-1-ross.lagerwall@citrix.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, James Dingwall <james-xen@dingwall.me.uk>,
+ Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>
+References: <20220124160248.37861-1-roger.pau@citrix.com>
 From: "Durrant, Paul" <xadimgnik@gmail.com>
-In-Reply-To: <20220124104450.152481-1-ross.lagerwall@citrix.com>
+In-Reply-To: <20220124160248.37861-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24/01/2022 10:44, Ross Lagerwall wrote:
-> In some cases, a particular mapcache entry may be mapped 256 times
-> causing the lock field to wrap to 0. For example, this may happen when
-> using emulated NVME and the guest submits a large scatter-gather write.
-> At this point, the entry map be remapped causing QEMU to write the wrong
-> data or crash (since remap is not atomic).
+On 24/01/2022 16:02, Roger Pau Monne wrote:
+> By writing an empty "hotplug-status" xenstore node in the backend path
+> libxl can force Linux netback to wait for hotplug script execution
+> before proceeding to the 'connected' state.
 > 
-> Avoid this overflow by increasing the lock field to a uint32_t and also
-> detect it and abort rather than continuing regardless.
+> This is required so that netback doesn't skip state 2 (InitWait) and
+> thus blocks libxl waiting for such state in order to launch the
+> hotplug script (see libxl__wait_device_connection).
 > 
-> Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
+> Reported-by: James Dingwall <james-xen@dingwall.me.uk>
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Tested-by: James Dingwall <james-xen@dingwall.me.uk>
+> ---
+> Cc: Wei Liu <wei.liu@kernel.org>
+> Cc: Paul Durrant <paul@xen.org>
 
 Reviewed-by: Paul Durrant <paul@xen.org>
 
 > ---
-> Changes in v2: Change type to uint32_t since there is a hole there
-> anyway. The struct size remains at 48 bytes on x86_64.
+>   tools/libs/light/libxl_nic.c | 7 +++++++
+>   1 file changed, 7 insertions(+)
 > 
->   hw/i386/xen/xen-mapcache.c | 8 +++++++-
->   1 file changed, 7 insertions(+), 1 deletion(-)
-> 
-> diff --git a/hw/i386/xen/xen-mapcache.c b/hw/i386/xen/xen-mapcache.c
-> index bd47c3d672..f2ef977963 100644
-> --- a/hw/i386/xen/xen-mapcache.c
-> +++ b/hw/i386/xen/xen-mapcache.c
-> @@ -52,7 +52,7 @@ typedef struct MapCacheEntry {
->       hwaddr paddr_index;
->       uint8_t *vaddr_base;
->       unsigned long *valid_mapping;
-> -    uint8_t lock;
-> +    uint32_t lock;
->   #define XEN_MAPCACHE_ENTRY_DUMMY (1 << 0)
->       uint8_t flags;
->       hwaddr size;
-> @@ -355,6 +355,12 @@ tryagain:
->       if (lock) {
->           MapCacheRev *reventry = g_malloc0(sizeof(MapCacheRev));
->           entry->lock++;
-> +        if (entry->lock == 0) {
-> +            fprintf(stderr,
-> +                    "mapcache entry lock overflow: "TARGET_FMT_plx" -> %p\n",
-> +                    entry->paddr_index, entry->vaddr_base);
-> +            abort();
-> +        }
->           reventry->dma = dma;
->           reventry->vaddr_req = mapcache->last_entry->vaddr_base + address_offset;
->           reventry->paddr_index = mapcache->last_entry->paddr_index;
+> diff --git a/tools/libs/light/libxl_nic.c b/tools/libs/light/libxl_nic.c
+> index 0b45469dca..0b9e70c9d1 100644
+> --- a/tools/libs/light/libxl_nic.c
+> +++ b/tools/libs/light/libxl_nic.c
+> @@ -248,6 +248,13 @@ static int libxl__set_xenstore_nic(libxl__gc *gc, uint32_t domid,
+>       flexarray_append(ro_front, "mtu");
+>       flexarray_append(ro_front, GCSPRINTF("%u", nic->mtu));
+>   
+> +    /*
+> +     * Force backend to wait for hotplug script execution before switching to
+> +     * connected state.
+> +     */
+> +    flexarray_append(back, "hotplug-status");
+> +    flexarray_append(back, "");
+> +
+>       return 0;
+>   }
+>   
 
 
