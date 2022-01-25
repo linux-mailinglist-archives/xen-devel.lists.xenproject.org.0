@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C121E49B2A1
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 12:07:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260099.449291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B84E049B2A2
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 12:07:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260098.449285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCJfm-0007rE-M7; Tue, 25 Jan 2022 11:07:38 +0000
+	id 1nCJfl-0007hf-NQ; Tue, 25 Jan 2022 11:07:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260099.449291; Tue, 25 Jan 2022 11:07:38 +0000
+Received: by outflank-mailman (output) from mailman id 260098.449285; Tue, 25 Jan 2022 11:07:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCJfm-0007hZ-B5; Tue, 25 Jan 2022 11:07:38 +0000
-Received: by outflank-mailman (input) for mailman id 260099;
- Tue, 25 Jan 2022 11:07:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nCJfl-0007eU-EL; Tue, 25 Jan 2022 11:07:37 +0000
+Received: by outflank-mailman (input) for mailman id 260098;
+ Tue, 25 Jan 2022 11:07:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rP4T=SJ=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nCJaV-0006t5-9x
- for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 11:02:11 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3d1fe641-7dce-11ec-bc18-3156f6d857e4;
- Tue, 25 Jan 2022 12:02:09 +0100 (CET)
+ id 1nCJb2-0006Mn-C6
+ for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 11:02:44 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 50fcf369-7dce-11ec-8fa7-f31e035a9116;
+ Tue, 25 Jan 2022 12:02:43 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,66 +36,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d1fe641-7dce-11ec-bc18-3156f6d857e4
+X-Inumbo-ID: 50fcf369-7dce-11ec-8fa7-f31e035a9116
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643108530;
+  d=citrix.com; s=securemail; t=1643108563;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=/rio6ojrA2h1MkFyzp9Ib8BoAtp1CgaQstP8lKsEqLA=;
-  b=JZWTYEF+CUxQdePmw67cqngKjFvt7EkM0WG99FQIErxsUWAA1CNSn/eL
-   STCmD9zwsA1xcwm3abnLrBGEriKe8sE6g0lURayz6HZantqvUHm8NaN1Q
-   /13v3l5J77NMNjyY4ltUgGiHmZaWKah2mCxsR2vhxBLYYXt4ATFfdKI/c
-   M=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: NqWw4dGl0ToM3jK/1c0bwqcMMJkGcFVGrpQFDcj3XdPbqwNfVrEf7mirbhvlmbWjg0uLAYDPei
- sx16LYWTsOzSKJ7jbyDyJ9Q3dSrAzwLO164MSj/Zs+OFjM9g9Mh5yErVKx6ASskILUKLMSJGyu
- myo8pUDoGVZKA8Czz+bAjyt8/1tqYxd4ajlZNsNkYVkqoqelKyXcTJRItQPtxUUrRN+D38v2nZ
- sn3iP4Mnjr4F5S2rmCvazriZN2/GC11NZ2/KA8qc6OfHjT31+AZ62vEPcXCZBkmNOUbCZTsRTN
- JI/+L+226JW7DYx4zjJ6fgyH
+  bh=Pf+rJf+H7YlDDio2xF1w7jWKbBY30COaMLlH5VZa/KI=;
+  b=iFzJw3PsRk4noNEXijIaafFzmvEO/NiimQbpLZ/Cg7aAJhjdcqVQT6om
+   xvQ8HdeJVWCjvhGz1vocwrVGVm2pe66qaHqeimfkLZmmeeheEtdY8NNuD
+   L1XTmAA62tTvA5rZ3C5xesnDScLiM1gVWkO0nRWPn338HJQpwY70SQxeY
+   o=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 12IceQB92gtkZlJSurxvXcagHZefC0URpMS6/gEGskjPQGxzaLkOW+rIOFqxvLDAe6sR65klEo
+ WUoHqhM/WTzB/wlN9888maMq+MMPndHQ1aR1J9dv/tmjxT97M2BT7Ogho9JLeecyEQ+aRgXBb/
+ +HW9w6ReOz27hWbskyjDF8UEmvToflArWwboIbZrIXObU9KqDiDp2qIRz/gRr5JYLzMoCrT/eF
+ PoLHP3nur2zEhHaISArTToybOjtOmWXgdYNKWMF0wtSxturXbI6WfhhaEQuHib5s9rK+cwUY21
+ vDmUPvkJHtP0SISK8j82JXTu
 X-SBRS: 5.2
-X-MesageID: 62618991
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 63107014
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:i0lCVagB7TVaTG402X+e71P5X1615xcKZh0ujC45NGQN5FlHY01je
- htvXmGFO/mCYGD8edgjaNjn8UJTu5fTy9ExQQVl+SFhRSgb9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0GE/NtTo5w7Rj2tcy3IDga++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /1ImM2zZiUAYZadlbxAcEIDPnh0BIB/reqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
- KJCbmpXN1ba2rzwkOnTpupE36zPKOHiOp8fvXdxiynUF/88TbjIQrnQ5M8e1zA17ixLNaiEO
- ZNJOGs2BPjGSzxuHX4bK60Cpsy1ll7lehNXj1aqgKVitgA/yyQuieOwYbI5YOeiXt5Jl0yVo
- mbH+WXRARwAMtGbjz2f/RqEmevnjS79HoUIG9WQ9ONugVCV7nweDlsRT1TTiem0jAuyVsxSL
- 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0WdBdDuk74wGl0bfP7kCSAW1sc9JaQIV47olsH2Vsj
- wLX2YOybdByjFGLYXewp7S7jxrtAnkYdTIhPnQpFAE8zuC29enfkSnzZtpkFae0iPj8Fjfx3
- y2GoUACulkDsSIY//7lpA6a2lpAsrCMF1dovVuPAgpJ+yskPNbNWmC+1bTMAR+sxq69R0LJg
- nULktP2AAsmXcDUz3zlrAng8diUCxe53N/03AYH83oJrW3FF5ufkWZ4um0WyKBBaZ5sRNMRS
- BWP0T69HqN7MnqwdrNQaImsEcksxqWIPY27CquMMosRPcYgJVfvEMRSiai4hTyFfK8EyvlXB
- HtmWZz0USZy5VpPklJauNvxIZd0n3tjlAs/tLjwzgi90Kr2WZJmYextDbd6VchgtPnsiFyMq
- 753bpLWoz0CDrGWSnSJoOY7cABbRVBmVMueg5EGKYa+zv9ORTtJI+XP2okoZ4ENt/0Tzo8kC
- FnnBB8BoLc+7FWaQTi3hodLMeO2As0n/CtlZETB/z+AghAeXGpm149HH7NfQFXt3LELISdcQ
- 6ZXdsOeLO5ITzibqT0RYYOk9N5pdQixhBLINC2gOWBtc5llTg3P29nlYgqwq3VeUnvp7ZMz8
- ++6ywfWYZsfXAA+XszYX+2ikgGqtn8HleMsA0aReotPeF/h+ZRBIjDqiqNlONkFLBjOn2PI1
- wufDRoCi/PKpos5rIvAiaye9t/7GOpiBEtKWWLc6O/uZyXd+2Oix65GUfqJIm+BBD+lpv36a
- LwMnf/mMfABkFJbiKZGEu5mnfAk+t/ih75G1QA4Tn/FWEumV+F7KX6c0MgR6qAUnu1FuRG7U
- 16k88VBPenbI9vsFVMcKVZ3bumH0v1IyDDe4e5sfRf/7S5zurGGTV9TL1+HjykEdOl5N4Ysw
- OEAvs8K6lPg1kp2Y4je1i0EpX6RKnEgUrk8ssBICYDmvQMn11VebMGOESTx+pyON41BP0RCz
- uV4X0Yea2CwHnb/Tkc=
-IronPort-HdrOrdr: A9a23:VxNa761OrKnpBDh5C0dwZAqjBI4kLtp133Aq2lEZdPUzSL39qy
- nOpoV/6faaskdzZJhNo7G90cq7L080l6QFhrX5VI3KNGOKhILBFvAF0WKI+UyDJ8SRzI5gPI
- 5bAtFD4IKaNzNHZLzBjzVQuexQuOVvi5rFudvj
+IronPort-Data: A9a23:5quTuK2a5FfN48CHhfbD5Xl2kn2cJEfYwER7XKvMYLTBsI5bpzIAm
+ DdJUW2APKmNYGCgf9Egb97k9UhXucPTytUxT1NopC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
+ Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCanAZqTNMEn9700o6wbNh2+aEvPDia++zk
+ YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
+ 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhpdAo5
+ 8tt6aGKVAIqYKrlnuUbURB7HHQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
+ 6VecW1TKEDY7w616OvTpu1Ej8I/LM7tLcUHt2tp1z3xBvc6W5HTBa7N4Le02R9u3ZkWQq6HO
+ 6L1bxJsayvtZB12ZG0cFZJkusrwhCTCfw1H/Qf9Sa0fvDGIkV0ZPKLWGMXRUsyHQ4NShEnwj
+ lzB+2P1ExQLLuu1wDCO8m+vruLXlCa9U4UXfJWy++R2mlSVyioWAQcPSFqgifCjjwi1XNc3A
+ 1cP5iMkoKw29UqqZtrwRRu1pDiDpBF0c8pdFag25R+AzoLQ4h2FHS4UQzhZctskucQqAzsw2
+ TehndnkGDhuu729Um+G+/GfqjbaESoIKW4PYwcUQA1D5MPsyLzflTqWEIwlSvTsyISoR3egm
+ FhmsRTSmZ0pjZckyYXnwGrahjHyobHPTwg37ybYCzfNAhxCWKapYImh6F7+5PlGLZqEQlTpg
+ EXoi/Ry/8hVU8jTyXXlrPElWejwuq3baGG0bUtHQsF5nwlB7UJPamy5DNtWAE5yevgJdjbyC
+ KM4kVMAvcQDVJdGgEIeXm5QNyjI5fW4fTgGfqqNBjarXnSXXFXblM2JTRXIt10BaGB2zckC1
+ W6zKK5A90oyB6V91yaRTOwAy7ItzS1W7TqNGcujk0X4juTPNSb9pVI53L2mNLxRAESs+129z
+ jqiH5HSl0U3vBPWPEE7DrL/3XhVdCNmVPgaWuRcd/KZIxoOJY3SI6S5/F/VQKQ8x/49vr6Rp
+ hmVAxYEoHKi2yGvAVjUOxhLNeO+Nb4i/ClTFXF9Yj6VN40LPNzHAFE3LcVnJNHKNYVLkJZJc
+ hXyU5zQW6sUEmWepW11gFuUhNUKSSlHTDmmZ0KNCAXTtbY8L+AQ0tO7LAbp6gcUCS+76Zk3r
+ 7G6j1uJSpsfXQVySs3Rbav3nV+2uHEcnsN0XlfJfYYPKBm9rtAyJnyjlOIzLuENNQ7HmmmQ2
+ TGJDEpKvuLKuYI0roXE3PjWs4ezHuJiNUNGBG2Hv62uPCzX8zP7k49NWeqFZx7HU2bw9Pnwb
+ OlZ1aikYvYGgExLo8x3FLMylfAy4N7mprl7yAV4HSqUMwT3W+04enTfhJtBrKxAwLNdqDCaY
+ EPX94kII6iNNePkDEUVeFgvYNOc2KxGgTLV9/k0fhn3vXcl4LqdXExOFBCQkygBfqBtOYYoz
+ Op96s4b7wuz1kgjPtqc130G8m2NKjoLUrk9t4FcC4ju01J5xlZHaJ3aKyn3/JDQNIkcbhh0e
+ meZ1PjYmrBR5kveaH5iR3HC0N1UiYkKpB0XnkQJIE6Em4adi/I6tPGLHe/bkuiBIs177t9O
+IronPort-HdrOrdr: A9a23:PaBtvq69H5kKpOthnwPXwM7XdLJyesId70hD6qhwISY7TiX+rb
+ HIoB17726MtN9/YhAdcLy7VZVoBEmsl6KdgrNhWYtKPjOHhILAFugLhuHfKn/bakjDH4ZmpM
+ FdmsNFZuEYY2IXsS+D2njaL+od
 X-IronPort-AV: E=Sophos;i="5.88,314,1635220800"; 
-   d="scan'208";a="62618991"
+   d="scan'208";a="63107014"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
 	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
  Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [XEN PATCH v9 23/30] build,x86: remove the need for build32.mk
-Date: Tue, 25 Jan 2022 11:00:56 +0000
-Message-ID: <20220125110103.3527686-24-anthony.perard@citrix.com>
+Subject: [XEN PATCH v9 24/30] build: grab common EFI source files in arch specific dir
+Date: Tue, 25 Jan 2022 11:00:57 +0000
+Message-ID: <20220125110103.3527686-25-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220125110103.3527686-1-anthony.perard@citrix.com>
 References: <20220125110103.3527686-1-anthony.perard@citrix.com>
@@ -103,174 +104,128 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-Rework "arch/x86/boot/Makefile" to allow it to build both file
-"cmdline.S" and "reloc.S" without "build32.mk".
+Rather than preparing the efi source file, we will make the symbolic
+link as needed from the build location.
 
-These will now use the main rules for "%.o: %.c", and thus generate a
-dependency file. (We will not need to track the dependency manually
-anymore.)
+The `ln` command is run every time to allow to update the link in case
+the source tree change location.
 
-But for that, we need to override the main CFLAGS to do a 32bit build.
-We introduce XEN_TREEWIDE_CFLAGS which can be reused in boot/Makefile,
-and avoid the need to reparse Config.mk with a different value for
-XEN_TARGET_ARCH. From this new $(XEN_TREEWIDE_CFLAGS), we only need to
-change -m64 to have the 32bit flags. Then those are applied only to
-"cmdline.o" and "reloc.o".
+This patch also introduce "efi-common.mk" which allow to reuse the
+common make instructions without having to duplicate them into each
+arch.
 
-Specifically apply the rule "%.S: %.bin" to both cmdline.S and reloc.S
-to avoid make trying to regenerate other %.S files with it.
-
-There is no change expected to the resulting "cmdline.S" and
-"reloc.S", only the *.o file changes as their symbol for FILE goes
-from "cmdline.c" to "arch/x86//cmdline.c". (No idea why "boot" is
-missing from the string.) (I've only check with GCC, not clang.)
+And now that we have a list of common source file, we can start to
+remove the links to the source files on clean.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
 
 Notes:
     v9:
-    - rename XEN_COMMON_CFLAGS to XEN_TREEWIDE_CFLAGS
-    - rename $(head-objs) to $(head-srcs)
-    - substitute LDFLAGS_DIRECT in %.lnk rule, rather than changing the value
-      of it.
+    - rename efi_common.mk to efi-common.mk
+    - generalize comment about cleaning "efi" and "boot" subdir in x86.
+    - add a space after the other comma of $(patsubst )
+    - create a relative symlink instead of an absolute one
+    - with the above, we don't need to use $(abs_srctree) anymore in the
+      prerequisite of the link to the efi source file, use $(srctree).
     
     v8:
-    - avoid the need to list CFLAGS from Config.mk a second time by
-      introducing XEN_COMMON_CFLAGS, and using it in boot/
-    - improve LDFLAGS_DIRECT, by just substitute x64 to i368 from x86
-      LDFLAGS_DIRECT. And thus avoid copying the logic from Config.mk.
+    - use symbolic link instead of making a copy of the source
+    - introduce efi_common.mk
+    - remove links to source file on clean
+    - use -iquote for "efi.h" headers in common/efi
 
- xen/Makefile                 |  4 +++
- xen/arch/x86/boot/Makefile   | 49 ++++++++++++++++++++++++------------
- xen/arch/x86/boot/build32.mk | 40 -----------------------------
- 3 files changed, 37 insertions(+), 56 deletions(-)
- delete mode 100644 xen/arch/x86/boot/build32.mk
+ xen/Makefile                 |  5 -----
+ xen/arch/arm/efi/Makefile    |  4 ++--
+ xen/arch/x86/Makefile        |  3 ++-
+ xen/arch/x86/efi/Makefile    |  5 +----
+ xen/common/efi/efi-common.mk | 15 +++++++++++++++
+ 5 files changed, 20 insertions(+), 12 deletions(-)
+ create mode 100644 xen/common/efi/efi-common.mk
 
 diff --git a/xen/Makefile b/xen/Makefile
-index dc25fa443b82..8baa260b93a7 100644
+index 8baa260b93a7..443784dfce80 100644
 --- a/xen/Makefile
 +++ b/xen/Makefile
-@@ -171,6 +171,10 @@ export LEX = $(if $(FLEX),$(FLEX),flex)
- # Default file for 'make defconfig'.
- export KBUILD_DEFCONFIG := $(ARCH)_defconfig
+@@ -444,11 +444,6 @@ $(TARGET).gz: $(TARGET)
+ $(TARGET): FORCE
+ 	$(Q)$(MAKE) $(build)=tools
+ 	$(Q)$(MAKE) $(build)=. include/xen/compile.h
+-	[ -e arch/$(TARGET_ARCH)/efi ] && for f in $$(cd common/efi; echo *.[ch]); \
+-		do test -r arch/$(TARGET_ARCH)/efi/$$f || \
+-		   ln -nsf ../../../common/efi/$$f arch/$(TARGET_ARCH)/efi/; \
+-		done; \
+-		true
+ 	$(Q)$(MAKE) $(build)=include all
+ 	$(Q)$(MAKE) $(build)=arch/$(TARGET_ARCH) include
+ 	$(Q)$(MAKE) $(build)=. arch/$(TARGET_ARCH)/include/asm/asm-offsets.h
+diff --git a/xen/arch/arm/efi/Makefile b/xen/arch/arm/efi/Makefile
+index 1b1ed06feddc..4313c390665f 100644
+--- a/xen/arch/arm/efi/Makefile
++++ b/xen/arch/arm/efi/Makefile
+@@ -1,4 +1,4 @@
+-CFLAGS-y += -fshort-wchar
++include $(srctree)/common/efi/efi-common.mk
  
-+# Copy CFLAGS generated by "Config.mk" so they can be reused later without
-+# reparsing Config.mk by e.g. arch/x86/boot/.
-+export XEN_TREEWIDE_CFLAGS := $(CFLAGS)
+-obj-y += boot.init.o pe.init.o ebmalloc.o runtime.o
++obj-y += $(EFIOBJ-y)
+ obj-$(CONFIG_ACPI) +=  efi-dom0.init.o
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index c94b4092d4c1..a847c989ff92 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -77,8 +77,9 @@ obj-$(CONFIG_COMPAT) += x86_64/platform_hypercall.o
+ obj-y += sysctl.o
+ endif
+ 
+-# Allows "clean" to descend into boot/
++# Allows "clean" to descend
+ subdir- += boot
++subdir- += efi
+ 
+ extra-y += asm-macros.i
+ extra-y += xen.lds
+diff --git a/xen/arch/x86/efi/Makefile b/xen/arch/x86/efi/Makefile
+index e08b4d8e4808..034ec87895df 100644
+--- a/xen/arch/x86/efi/Makefile
++++ b/xen/arch/x86/efi/Makefile
+@@ -1,4 +1,4 @@
+-CFLAGS-y += -fshort-wchar
++include $(srctree)/common/efi/efi-common.mk
+ 
+ quiet_cmd_objcopy_o_ihex = OBJCOPY $@
+ cmd_objcopy_o_ihex = $(OBJCOPY) -I ihex -O binary $< $@
+@@ -8,9 +8,6 @@ $(obj)/%.o: $(src)/%.ihex FORCE
+ 
+ $(obj)/boot.init.o: $(obj)/buildid.o
+ 
+-EFIOBJ-y := boot.init.o pe.init.o ebmalloc.o runtime.o
+-EFIOBJ-$(CONFIG_COMPAT) += compat.o
+-
+ $(call cc-option-add,cflags-stack-boundary,CC,-mpreferred-stack-boundary=4)
+ $(addprefix $(obj)/,$(EFIOBJ-y)): CFLAGS_stack_boundary := $(cflags-stack-boundary)
+ 
+diff --git a/xen/common/efi/efi-common.mk b/xen/common/efi/efi-common.mk
+new file mode 100644
+index 000000000000..ad3c6f2569c3
+--- /dev/null
++++ b/xen/common/efi/efi-common.mk
+@@ -0,0 +1,15 @@
++EFIOBJ-y := boot.init.o pe.init.o ebmalloc.o runtime.o
++EFIOBJ-$(CONFIG_COMPAT) += compat.o
 +
- # CLANG_FLAGS needs to be calculated before calling Kconfig
- ifneq ($(shell $(CC) --version 2>&1 | head -n 1 | grep clang),)
- CLANG_FLAGS :=
-diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
-index 1ac8cb435e0e..ca8001c72b23 100644
---- a/xen/arch/x86/boot/Makefile
-+++ b/xen/arch/x86/boot/Makefile
-@@ -1,25 +1,42 @@
- obj-bin-y += head.o
-+head-srcs := cmdline.S reloc.S
- 
--DEFS_H_DEPS = $(abs_srctree)/$(src)/defs.h $(abs_srctree)/include/xen/stdbool.h
-+nocov-y += $(head-srcs:.S=.o)
-+noubsan-y += $(head-srcs:.S=.o)
-+targets += $(head-srcs:.S=.o)
- 
--CMDLINE_DEPS = $(DEFS_H_DEPS) $(abs_srctree)/$(src)/video.h \
--	       $(BASEDIR)/include/xen/kconfig.h \
--	       $(BASEDIR)/include/generated/autoconf.h
-+head-srcs := $(addprefix $(obj)/, $(head-srcs))
- 
--RELOC_DEPS = $(DEFS_H_DEPS) \
--	     $(BASEDIR)/include/generated/autoconf.h \
--	     $(BASEDIR)/include/xen/kconfig.h \
--	     $(BASEDIR)/include/xen/multiboot.h \
--	     $(BASEDIR)/include/xen/multiboot2.h \
--	     $(BASEDIR)/include/xen/const.h \
--	     $(BASEDIR)/include/public/arch-x86/hvm/start_info.h
-+$(obj)/head.o: $(head-srcs)
- 
--$(obj)/head.o: $(obj)/cmdline.S $(obj)/reloc.S
-+CFLAGS_x86_32 := $(subst -m64,-m32 -march=i686,$(XEN_TREEWIDE_CFLAGS))
-+$(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
-+CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float
-+CFLAGS_x86_32 += -I$(srctree)/include
- 
--$(obj)/cmdline.S: $(src)/cmdline.c $(CMDLINE_DEPS) $(src)/build32.lds
--	$(MAKE) -f $(abs_srctree)/$(src)/build32.mk -C $(obj) $(@F) CMDLINE_DEPS="$(CMDLINE_DEPS)"
-+# override for 32bit binaries
-+$(head-srcs:.S=.o): CFLAGS_stack_boundary :=
-+$(head-srcs:.S=.o): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
- 
--$(obj)/reloc.S: $(src)/reloc.c $(RELOC_DEPS) $(src)/build32.lds
--	$(MAKE) -f $(abs_srctree)/$(src)/build32.mk -C $(obj) $(@F) RELOC_DEPS="$(RELOC_DEPS)"
-+$(head-srcs): %.S: %.bin
-+	(od -v -t x $< | tr -s ' ' | awk 'NR > 1 {print s} {s=$$0}' | \
-+	sed 's/ /,0x/g' | sed 's/,0x$$//' | sed 's/^[0-9]*,/ .long /') >$@
++CFLAGS-y += -fshort-wchar
++CFLAGS-y += -iquote $(srctree)/common/efi
 +
-+# Drop .got.plt during conversion to plain binary format.
-+# Please check build32.lds for more details.
-+%.bin: %.lnk
-+	$(OBJDUMP) -h $< | sed -n '/[0-9]/{s,00*,0,g;p;}' | \
-+		while read idx name sz rest; do \
-+			case "$$name" in \
-+			.got.plt) \
-+				test $$sz != 0c || continue; \
-+				echo "Error: non-empty $$name: 0x$$sz" >&2; \
-+				exit $$(expr $$idx + 1);; \
-+			esac; \
-+		done
-+	$(OBJCOPY) -O binary -R .got.plt $< $@
++# Part of the command line transforms $(obj) in to a relative reverted path.
++# e.g.: It transforms "dir/foo/bar" into successively
++#       "dir foo bar", ".. .. ..", "../../.."
++$(obj)/%.c: $(srctree)/common/efi/%.c FORCE
++	$(Q)ln -nfs $(subst $(space),/,$(patsubst %,..,$(subst /, ,$(obj))))/common/efi/$(<F) $@
 +
-+%.lnk: %.o $(src)/build32.lds
-+	$(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT)) -N -T $(filter %.lds,$^) -o $@ $<
- 
- clean-files := cmdline.S reloc.S *.lnk *.bin
-diff --git a/xen/arch/x86/boot/build32.mk b/xen/arch/x86/boot/build32.mk
-deleted file mode 100644
-index e90680cd9f52..000000000000
---- a/xen/arch/x86/boot/build32.mk
-+++ /dev/null
-@@ -1,40 +0,0 @@
--override XEN_TARGET_ARCH=x86_32
--CFLAGS =
--include $(XEN_ROOT)/Config.mk
--
--$(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
--
--CFLAGS += -Werror -fno-builtin -g0 -msoft-float
--CFLAGS += -I$(BASEDIR)/include
--CFLAGS := $(filter-out -flto,$(CFLAGS)) 
--
--# NB. awk invocation is a portable alternative to 'head -n -1'
--%.S: %.bin
--	(od -v -t x $< | tr -s ' ' | awk 'NR > 1 {print s} {s=$$0}' | \
--	sed 's/ /,0x/g' | sed 's/,0x$$//' | sed 's/^[0-9]*,/ .long /') >$@
--
--# Drop .got.plt during conversion to plain binary format.
--# Please check build32.lds for more details.
--%.bin: %.lnk
--	$(OBJDUMP) -h $< | sed -n '/[0-9]/{s,00*,0,g;p;}' | \
--		while read idx name sz rest; do \
--			case "$$name" in \
--			.got.plt) \
--				test $$sz != 0c || continue; \
--				echo "Error: non-empty $$name: 0x$$sz" >&2; \
--				exit $$(expr $$idx + 1);; \
--			esac; \
--		done
--	$(OBJCOPY) -O binary -R .got.plt $< $@
--
--%.lnk: %.o build32.lds
--	$(LD) $(LDFLAGS_DIRECT) -N -T build32.lds -o $@ $<
--
--%.o: %.c
--	$(CC) $(CFLAGS) -c -fpic $< -o $@
--
--cmdline.o: cmdline.c $(CMDLINE_DEPS)
--
--reloc.o: reloc.c $(RELOC_DEPS)
--
--.PRECIOUS: %.bin %.lnk
++clean-files += $(patsubst %.o, %.c, $(EFIOBJ-y:.init.o=.o) $(EFIOBJ-))
++
++.PRECIOUS: $(obj)/%.c
 -- 
 Anthony PERARD
 
