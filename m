@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0609149BE05
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 22:54:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260579.450313 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A408049BF1B
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 23:50:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260587.450337 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCTlD-0003WZ-35; Tue, 25 Jan 2022 21:53:55 +0000
+	id 1nCUct-0000ig-AL; Tue, 25 Jan 2022 22:49:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260579.450313; Tue, 25 Jan 2022 21:53:55 +0000
+Received: by outflank-mailman (output) from mailman id 260587.450337; Tue, 25 Jan 2022 22:49:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCTlC-0003U5-Vy; Tue, 25 Jan 2022 21:53:54 +0000
-Received: by outflank-mailman (input) for mailman id 260579;
- Tue, 25 Jan 2022 21:53:53 +0000
+	id 1nCUct-0000gp-5z; Tue, 25 Jan 2022 22:49:23 +0000
+Received: by outflank-mailman (input) for mailman id 260587;
+ Tue, 25 Jan 2022 22:49:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=npsv=SJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nCTlB-0003Tz-CU
- for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 21:53:53 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ id 1nCUcr-0000gj-DS
+ for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 22:49:21 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 483df681-7e29-11ec-8eb8-a37418f5ba1a;
- Tue, 25 Jan 2022 22:53:51 +0100 (CET)
+ id 072c2624-7e31-11ec-8eb8-a37418f5ba1a;
+ Tue, 25 Jan 2022 23:49:19 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 61952B81AC6;
- Tue, 25 Jan 2022 21:53:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9576BC340E0;
- Tue, 25 Jan 2022 21:53:48 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7E11E60AD3;
+ Tue, 25 Jan 2022 22:49:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DC3DC340E0;
+ Tue, 25 Jan 2022 22:49:16 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,410 +43,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 483df681-7e29-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 072c2624-7e31-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1643147629;
-	bh=sxfR+Go7NqLe3FB30WaZANN9mzWKHbuGXKlZIi/gPoY=;
+	s=k20201202; t=1643150956;
+	bh=d44nehQTqCPgrUzOzIW/RDuXWxHEFXEdg1GwSo0/SLo=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=YcbxGH3/HGl8t8X2SnkjNlXWde0J7XupTGD9qKngOSfISUgL4Nnf8afXwHslq1f4n
-	 LDBAX+Dwmd0nQGg5JGQscSXBFIKSLRaTFam2TO9vbEl+hDdnZw7fmlVBZVIK21di77
-	 bZtWu1MYXavojtQrUFlXr8DociFsLVU047cgZlnUO+7RmxwtQcoCe72MpUbxwJurCj
-	 lJYkvAgWtkn4x3ejfRyR/B/T9rECDHGV/tYu3rz7vBVPkRt3Osl01/cyIijbgRmAnD
-	 /1qJqg7kxsXAtEeFbTdteFsrVcbkpysvKWdspoF0OVjrjEb0wdbEOhxcUWWQERTqI/
-	 ugw6jGtyo6+ig==
-Date: Tue, 25 Jan 2022 13:53:47 -0800 (PST)
+	b=gACh1s3gRmp0OnOr2DXCIIIInq5qQs0gOcwdBO2mnDTkGzT8s4jhf+9+m9yqz7X9x
+	 lqvqWqGJEaWgw7B5JD/VApsJy1cS3+0jTYCF609mRkniN0SucNSt9EPzidANLYfVvu
+	 dB7zNVySev5FavyL7j9URNp5kRTmDMdRiOqbNqwCzHqvnL6TdsTpATUM9i9teE9Ve8
+	 5j8h5KKsGytGvalBGFtvA9QME6jxohDMRzC4yTH56xmepTaQ/TtUQqB3O+n1CLA7wx
+	 x26v5gbUQ+zWC7oJkh0dKa4pUqBM+e+b7sqAcExVsRtH2EH4NkC3prA/cPiC6oTNQg
+	 OgouHlrLJnA2w==
+Date: Tue, 25 Jan 2022 14:49:15 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    stefanos@xilinx.com, julien@xen.org, Volodymyr_Babchuk@epam.com, 
-    bertrand.marquis@arm.com, andre.przywara@arm.com, jbeulich@suse.com, 
-    wei.chen@arm.com, Ayan Kumar Halder <ayankuma@xilinx.com>
-Subject: Re: [XEN v4] xen/arm64: io: Decode ldr/str post-indexing
- instructions
-In-Reply-To: <20220125211808.23810-1-ayankuma@xilinx.com>
-Message-ID: <alpine.DEB.2.22.394.2201251340000.27308@ubuntu-linux-20-04-desktop>
-References: <20220125211808.23810-1-ayankuma@xilinx.com>
+To: Jan Beulich <jbeulich@suse.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    xen-devel@lists.xenproject.org, jgross@suse.com, Bertrand.Marquis@arm.com, 
+    Volodymyr_Babchuk@epam.com, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <julien@xen.org>
+Subject: Re: [XEN PATCH v2 2/5] xen: export get_free_port
+In-Reply-To: <14af544d-0d20-9b58-4d70-5f5086ece032@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2201251435030.27308@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2201121646290.19362@ubuntu-linux-20-04-desktop> <20220113005855.1180101-2-sstabellini@kernel.org> <f3b2ae98-c7af-d8c0-b0a4-52e622517c34@xen.org> <alpine.DEB.2.22.394.2201241652330.27308@ubuntu-linux-20-04-desktop>
+ <14af544d-0d20-9b58-4d70-5f5086ece032@suse.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 25 Jan 2022, Ayan Kumar Halder wrote:
-> At the moment, Xen is only handling data abort with valid syndrome (i.e.
-> ISV=0). Unfortunately, this doesn't cover all the instructions a domain
-> could use to access MMIO regions.
+On Tue, 25 Jan 2022, Jan Beulich wrote:
+> On 25.01.2022 02:10, Stefano Stabellini wrote:
+> > On Sun, 23 Jan 2022, Julien Grall wrote:
+> >>> diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+> >>> index da88ad141a..5b0bcaaad4 100644
+> >>> --- a/xen/common/event_channel.c
+> >>> +++ b/xen/common/event_channel.c
+> >>> @@ -232,7 +232,7 @@ int evtchn_allocate_port(struct domain *d, evtchn_port_t
+> >>> port)
+> >>>       return 0;
+> >>>   }
+> >>>   -static int get_free_port(struct domain *d)
+> >>> +int get_free_port(struct domain *d)
+> >>
+> >> I dislike the idea to expose get_free_port() (or whichever name we decide)
+> >> because this can be easily misused.
+> >>
+> >> In fact looking at your next patch (#3), you are misusing it as it is meant to
+> >> be called with d->event_lock. I know this doesn't much matter
+> >> in your situation because this is done at boot with no other domains running
+> >> (or potentially any event channel allocation). However, I still think we
+> >> should get the API right.
+> >>
+> >> I am also not entirely happy of open-coding the allocation in domain_build.c.
+> >> Instead, I would prefer if we provide a new helper to allocate an unbound
+> >> event channel. This would be similar to your v1 (I still need to review the
+> >> patch though).
+> > 
+> > I am happy to go back to v1 and address feedback on that patch. However,
+> > I am having difficulties with the implementation. Jan pointed out:
+> > 
+> > 
+> >>> -
+> >>> -    chn->state = ECS_UNBOUND;
+> >>
+> >> This cannot be pulled ahead of the XSM check (or in general anything
+> >> potentially resulting in an error), as check_free_port() relies on
+> >> ->state remaining ECS_FREE until it is known that the calling function
+> >> can't fail anymore.
+> > 
+> > This makes it difficult to reuse _evtchn_alloc_unbound for the
+> > implementation of evtchn_alloc_unbound. In fact, I couldn't find a way
+> > to do it.
+> > 
+> > Instead, I just create a new public function called
+> > "evtchn_alloc_unbound" and renamed the existing funtion to
+> > "_evtchn_alloc_unbound" (this to addresses Jan's feedback that the
+> > static function should be the one starting with "_"). So the function
+> > names are inverted compared to v1.
+> > 
+> > Please let me know if you have any better suggestions.
+> > 
+> > 
+> > diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+> > index da88ad141a..c6b7dd7fbd 100644
+> > --- a/xen/common/event_channel.c
+> > +++ b/xen/common/event_channel.c
+> > @@ -18,6 +18,7 @@
+> >  
+> >  #include <xen/init.h>
+> >  #include <xen/lib.h>
+> > +#include <xen/err.h>
+> >  #include <xen/errno.h>
+> >  #include <xen/sched.h>
+> >  #include <xen/irq.h>
+> > @@ -284,7 +285,27 @@ void evtchn_free(struct domain *d, struct evtchn *chn)
+> >      xsm_evtchn_close_post(chn);
+> >  }
+> >  
+> > -static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
+> > +struct evtchn *evtchn_alloc_unbound(struct domain *d, domid_t remote_dom)
+> > +{
+> > +    struct evtchn *chn;
+> > +    int port;
+> > +
+> > +    if ( (port = get_free_port(d)) < 0 )
+> > +        return ERR_PTR(port);
+> > +    chn = evtchn_from_port(d, port);
+> > +
+> > +    evtchn_write_lock(chn);
+> > +
+> > +    chn->state = ECS_UNBOUND;
+> > +    chn->u.unbound.remote_domid = remote_dom;
+> > +    evtchn_port_init(d, chn);
+> > +
+> > +    evtchn_write_unlock(chn);
+> > +
+> > +    return chn;
+> > +}
+> > +
+> > +static int _evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
+> >  {
+> >      struct evtchn *chn;
+> >      struct domain *d;
 > 
-> For instance, a baremetal OS can use any of the following instructions, where
-> x1 contains the address of the MMIO region:
-> 
-> 1.      ldr     x2,    [x1],    #8
-> 2.      ldr     w2,    [x1],    #-4
-> 3.      ldr     x2,    [x1],    #-8
-> 4.      ldr     w2,    [x1],    #4
-> 5.      ldrh    w2,    [x1],    #2
-> 6.      ldrb    w2,    [x1],    #1
-> 7.      str     x2,    [x1],    #8
-> 8.      str     w2,    [x1],    #-4
-> 9.      strh    w2,    [x1],    #2
-> 10.     strb    w2,    [x1],    #1
-> 
-> In the following two instructions, Rn could theoretically be stack pointer which
-> might contain the address of the MMIO region:-
-> 11.     ldrb    w2,    [Rn],    #1
-> 12.     ldrb    wzr,   [Rn],    #1
-> 
-> In order to handle post-indexing store/load instructions (like those mentioned
-> above), Xen will need to fetch and decode the instruction.
-> 
-> This patch only cover post-index store/load instructions from AArch64 mode.
-> For now, this is left unimplemented for trap from AArch32 mode.
+> Instead of introducing a clone of this function (with, btw, still
+> insufficient locking), did you consider simply using the existing
+> evtchn_alloc_unbound() as-is, i.e. with the caller passing
+> evtchn_alloc_unbound_t *?
 
-NIT: "For now, AArch32 mode is left unimplemented."
-
-
-> Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
-> ---
-> 
-> Changelog :-
-> v2 - 1. Updated the rn register after reading from it. (Pointed by Julien,
->         Stefano)
->      2. Used a union to represent the instruction opcode (Suggestd by Bertrand)
->      3. Fixed coding style issues (Pointed by Julien)
->      4. In the previous patch, I was updating dabt->sign based on the signedness
->         of imm9. This was incorrect. As mentioned in ARMv8 ARM  DDI 0487G.b,
->         Page 3221, SSE indicates the signedness of the data item loaded. In our
->         case, the data item loaded is always unsigned.
-> 
-> v3- 1. Handled all the variants of ldr/str (ie 64, 32, 16, 8 bit variants).
->        Thus, I have removed the check for "instr->code.opc == 0" (Suggested by
->        Andre)
->     2. Handled the scenario when rn = SP, rt = XZR (Suggested by Jan, Andre)
->     3. Added restriction for "rt != rn" (Suggested by Andre)
->     4. Moved union ldr_str_instr_class {} to decode.h. This is the header included
->        by io.c and decode.c (where the union is referred). (Suggested by Jan)
->     5. Indentation and typo fixes (Suggested by Jan)
-> 
-> v4- 1. Fixed the patch as per Stefano's comments on v3. They are as follows :-
->         1.1 Use macros to determine the fixed values in the instruction opcode
->         1.2 Checked if instr != NULL
->         1.3 Changed some data types and added #define ARM_64 for AArch64 specific
->             code 
->         1.4 Moved post_increment_register() to decode.c so that the decoding
->             logic is confined to a single file.
->         1.5 Moved some checks from post_increment_register() to
->             decode_loadstore_postindexing()
->         1.6 Removed a duplicate check
->     2. Updated the commit message as per Andre's comments.
->     3. Changed the names of a label and some comments. *32bit* was erroneously
->        mentioned in a label and comments in decode_loadstore_postindexing()
->        although the function handled all variants of ldr/str post indexing.
-> 
->  xen/arch/arm/decode.c | 124 +++++++++++++++++++++++++++++++++++++++++-
->  xen/arch/arm/decode.h |  41 +++++++++++++-
->  xen/arch/arm/io.c     |  41 +++++++++++---
->  3 files changed, 195 insertions(+), 11 deletions(-)
-> 
-> diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
-> index 792c2e92a7..0c12af7afa 100644
-> --- a/xen/arch/arm/decode.c
-> +++ b/xen/arch/arm/decode.c
-> @@ -84,6 +84,101 @@ bad_thumb2:
->      return 1;
->  }
->  
-> +static int decode_loadstore_postindexing(register_t pc,
-> +                                         struct hsr_dabt *dabt,
-> +                                         union ldr_str_instr_class *instr)
-> +{
-> +    struct cpu_user_regs *regs = guest_cpu_user_regs();
-> +
-> +    if ( instr == NULL )
-> +    {
-> +        gprintk(XENLOG_ERR, "instr should not be NULL\n");
-> +        return -EINVAL;
-> +    }
-> +
-> +    if ( raw_copy_from_guest(&instr->value, (void * __user)pc, sizeof (instr)) )
-> +    {
-> +        gprintk(XENLOG_ERR, "Could not copy the instruction from PC\n");
-> +        return -EFAULT;
-> +    }
-> +
-> +    /*
-> +     * Rn -ne Rt for ldr/str instruction.
-> +     * Check https://developer.arm.com/documentation/dui0802/a/CIHGJHED
-> +     * (Register restrictions)
-> +     *
-> +     * The only exception for this is when rn = 31. It denotes SP ("Use of SP")
-> +     *
-> +     * And when rt = 31, it denotes wzr/xzr. (Refer
-> +     * https://developer.arm.com/documentation/den0024/a/ARMv8-Registers/AArch64-special-registers
-> +     * "There is no register called X31 or W31. Many instructions are encoded
-> +     * such that the number 31 represents the zero register, ZR (WZR/XZR)."
-> +     */
-> +    if ( (instr->code.rn == instr->code.rt) && (instr->code.rn != 31) )
-> +    {
-> +        gprintk(XENLOG_ERR, "Rn should not be equal to Rt except for r31\n");
-> +        return -EINVAL;
-> +    }
-> +
-> +    /* First, let's check for the fixed values */
-> +    if ( (instr->value & POST_INDEX_FIXED_MASK) != POST_INDEX_FIXED_VALUE )
-> +    {
-> +        gprintk(XENLOG_ERR, "Cannot decode instruction 0x%x",instr->value);
-> +        gprintk(XENLOG_ERR, "Decoding not supported for instructions other than"
-> +            " ldr/str post indexing\n");
-> +        goto bad_loadstore;
-> +    }
-> +
-> +    /*
-> +     * Handle when rn = SP
-> +     * Refer ArmV8 ARM DDI 0487G.b, Page - D1-2463 "Stack pointer register selection"
-> +     * As we are interested in handling exceptions only from EL1 in AArch64 state,
-> +     * thus M[3:0] == EL1h (Page - C5-480 "When exception taken from AArch64 state:")
-> +     */
-> +    if ( (instr->code.rn == 31) && ((regs->cpsr & PSR_MODE_MASK) != PSR_MODE_EL1h) )
-> +    {
-> +        gprintk(XENLOG_ERR, "SP is valid only for EL1h\n");
-> +        goto bad_loadstore;
-> +    }
-> +
-> +    if ( instr->code.v != 0 )
-> +    {
-> +        gprintk(XENLOG_ERR,
-> +            "ldr/str post indexing for vector types are not supported\n");
-> +        goto bad_loadstore;
-> +    }
-> +
-> +    /* Check for STR (immediate) */
-> +    if ( instr->code.opc == 0 )
-> +    {
-> +        dabt->write = 1;
-> +    }
-> +    /* Check for LDR (immediate) */
-> +    else if ( instr->code.opc == 1 )
-> +    {
-> +        dabt->write = 0;
-> +    }
-> +    else
-> +    {
-> +        gprintk(XENLOG_ERR,
-> +            "Decoding ldr/str post indexing is not supported for this variant\n");
-> +        goto bad_loadstore;
-> +    }
-> +
-> +    gprintk(XENLOG_INFO,
-> +        "instr->code.rt = 0x%x, instr->code.size = 0x%x, instr->code.imm9 = %d\n",
-> +        instr->code.rt, instr->code.size, instr->code.imm9);
-> +
-> +    update_dabt(dabt, instr->code.rt, instr->code.size, false);
-> +    dabt->valid = 1;
-> +
-> +    return 0;
-> +
-> + bad_loadstore:
-> +    gprintk(XENLOG_ERR, "unhandled Arm instruction 0x%x\n", instr->value);
-> +    return 1;
-> +}
-> +
->  static int decode_thumb(register_t pc, struct hsr_dabt *dabt)
->  {
->      uint16_t instr;
-> @@ -150,17 +245,44 @@ bad_thumb:
->      return 1;
->  }
->  
-> -int decode_instruction(const struct cpu_user_regs *regs, struct hsr_dabt *dabt)
-> +int decode_instruction(const struct cpu_user_regs *regs, struct hsr_dabt *dabt,
-> +                       union ldr_str_instr_class *instr)
->  {
->      if ( is_32bit_domain(current->domain) && regs->cpsr & PSR_THUMB )
->          return decode_thumb(regs->pc, dabt);
->  
-> +    if ( (is_64bit_domain(current->domain) && !psr_mode_is_32bit(regs)) )
-> +    {
-> +        return decode_loadstore_postindexing(regs->pc, dabt, instr);
-> +    }
-> +
->      /* TODO: Handle ARM instruction */
->      gprintk(XENLOG_ERR, "unhandled ARM instruction\n");
->  
->      return 1;
->  }
->  
-> +#if CONFIG_ARM_64
-> +void post_increment_register(union ldr_str_instr_class *instr)
-> +{
-> +    struct cpu_user_regs *regs = guest_cpu_user_regs();
-> +    register_t val;
-> +
-> +    /* handle when rn = SP */
-> +    if ( instr->code.rn == 31 )
-> +        val = regs->sp_el1;
-> +    else
-> +        val = get_user_reg(regs, instr->code.rn);
-> +
-> +    val += instr->code.imm9;
-> +
-> +    if ( instr->code.rn == 31 )
-> +        regs->sp_el1 = val;
-> +    else
-> +        set_user_reg(regs, instr->code.rn, val);
-> +}
-> +#endif
-> +
->  /*
->   * Local variables:
->   * mode: C
-> diff --git a/xen/arch/arm/decode.h b/xen/arch/arm/decode.h
-> index 4613763bdb..511cd4a05f 100644
-> --- a/xen/arch/arm/decode.h
-> +++ b/xen/arch/arm/decode.h
-> @@ -23,6 +23,35 @@
->  #include <asm/regs.h>
->  #include <asm/processor.h>
->  
-> +/*
-> + * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Stores
-> + * Page 318 specifies the following bit pattern for
-> + * "load/store register (immediate post-indexed)".
-> + *
-> + * 31 30 29  27 26 25  23   21 20              11   9         4       0
-> + * ___________________________________________________________________
-> + * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt   |
-> + * |____|______|__|____|____|__|_______________|____|_________|_______|
-> + */
-> +union ldr_str_instr_class {
-> +    uint32_t value;
-> +    struct ldr_str {
-> +        unsigned int rt:5;     /* Rt register */
-> +        unsigned int rn:5;     /* Rn register */
-> +        unsigned int fixed1:2; /* value == 01b */
-> +        signed int imm9:9;            /* imm9 */
-> +        unsigned int fixed2:1; /* value == 0b */
-> +        unsigned int opc:2;    /* opc */
-> +        unsigned int fixed3:2; /* value == 00b */
-> +        unsigned int v:1;      /* vector */
-> +        unsigned int fixed4:3; /* value == 111b */
-> +        unsigned int size:2;   /* size */
-> +    } code;
-> +};
-> +
-> +#define POST_INDEX_FIXED_MASK   0x3B200C00
-> +#define POST_INDEX_FIXED_VALUE  0x38000400
-> +
->  /**
->   * Decode an instruction from pc
->   * /!\ This function is not intended to fully decode an instruction. It
-> @@ -35,8 +64,18 @@
->   */
->  
->  int decode_instruction(const struct cpu_user_regs *regs,
-> -                       struct hsr_dabt *dabt);
-> +                       struct hsr_dabt *dabt,
-> +                       union ldr_str_instr_class *instr);
->  
-> +/**
-
-NIT: the Xen coding style only has /*, not /**
-
-In any case aside from these two minor NITs that can be fixed on commit:
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Yes, we tried that first. Unfortunately the (dummy) XSM check cannot
+work. This is how we would want to call the function:
 
 
-> + * Update the register value for Rn
-> + * /!\ This function is used to update the register value for Rn when a
-> + * post indexing ldr/str instruction is decoded.
-> + *
-> + * This function will get:
-> + * - The post indexing ldr/str instruction opcode
-> + */
-> +void post_increment_register(union ldr_str_instr_class *instr);
->  #endif /* __ARCH_ARM_DECODE_H_ */
->  
->  /*
-> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
-> index 729287e37c..b9c15e1fe7 100644
-> --- a/xen/arch/arm/io.c
-> +++ b/xen/arch/arm/io.c
-> @@ -106,14 +106,29 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
->          .gpa = gpa,
->          .dabt = dabt
->      };
-> +    int rc;
-> +    union ldr_str_instr_class instr = {0};
->  
->      ASSERT(hsr.ec == HSR_EC_DATA_ABORT_LOWER_EL);
->  
-> +    /*
-> +     * Armv8 processor does not provide a valid syndrome for post-indexing
-> +     * ldr/str instructions. So in order to process these instructions,
-> +     * Xen must decode them.
-> +     */
-> +    if ( !info.dabt.valid )
-> +    {
-> +        rc = decode_instruction(regs, &info.dabt, &instr);
-> +        if ( rc )
-> +        {
-> +            gprintk(XENLOG_DEBUG, "Unable to decode instruction\n");
-> +            return IO_ABORT;
-> +        }
-> +    }
-> +
->      handler = find_mmio_handler(v->domain, info.gpa);
->      if ( !handler )
->      {
-> -        int rc;
-> -
->          rc = try_fwd_ioserv(regs, v, &info);
->          if ( rc == IO_HANDLED )
->              return handle_ioserv(regs, v);
-> @@ -121,10 +136,6 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
->          return rc;
->      }
->  
-> -    /* All the instructions used on emulated MMIO region should be valid */
-> -    if ( !dabt.valid )
-> -        return IO_ABORT;
-> -
->      /*
->       * Erratum 766422: Thumb store translation fault to Hypervisor may
->       * not have correct HSR Rt value.
-> @@ -134,7 +145,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
->      {
->          int rc;
->  
-> -        rc = decode_instruction(regs, &info.dabt);
-> +        rc = decode_instruction(regs, &info.dabt, NULL);
->          if ( rc )
->          {
->              gprintk(XENLOG_DEBUG, "Unable to decode instruction\n");
-> @@ -143,9 +154,21 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
->      }
->  
->      if ( info.dabt.write )
-> -        return handle_write(handler, v, &info);
-> +        rc = handle_write(handler, v, &info);
->      else
-> -        return handle_read(handler, v, &info);
-> +        rc = handle_read(handler, v, &info);
-> +
-> +#if CONFIG_ARM_64
-> +    if ( (is_64bit_domain(current->domain) && !psr_mode_is_32bit(regs)) )
-> +    {
-> +        if ( instr.value != 0 )
-> +        {
-> +            post_increment_register(&instr);
-> +        }
-> +    }
-> +#endif
-> +
-> +    return rc;
->  }
->  
->  void register_mmio_handler(struct domain *d,
-> -- 
-> 2.17.1
-> 
+    alloc.dom = d->domain_id;
+    alloc.remote_dom = hardware_domain->domain_id;
+    rc = evtchn_alloc_unbound(&alloc);
+
+
+This is the implementation of the XSM check:
+
+static XSM_INLINE int xsm_evtchn_unbound(
+    XSM_DEFAULT_ARG struct domain *d, struct evtchn *chn, domid_t id2)
+{
+    XSM_ASSERT_ACTION(XSM_TARGET);
+    return xsm_default_action(action, current->domain, d);
+}
+
+
+Note the usage of current->domain. If you have any suggestions on how to
+fix it please let me know.
 
