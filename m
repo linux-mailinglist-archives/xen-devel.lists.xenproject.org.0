@@ -2,36 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AC7049BDCD
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 22:20:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260560.450266 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4269C49BDD1
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 22:21:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260564.450276 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCTEG-0006J3-Kc; Tue, 25 Jan 2022 21:19:52 +0000
+	id 1nCTFW-0007hP-0Q; Tue, 25 Jan 2022 21:21:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260560.450266; Tue, 25 Jan 2022 21:19:52 +0000
+Received: by outflank-mailman (output) from mailman id 260564.450276; Tue, 25 Jan 2022 21:21:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCTEG-0006Gt-FP; Tue, 25 Jan 2022 21:19:52 +0000
-Received: by outflank-mailman (input) for mailman id 260560;
- Tue, 25 Jan 2022 21:19:51 +0000
+	id 1nCTFV-0007fZ-TV; Tue, 25 Jan 2022 21:21:09 +0000
+Received: by outflank-mailman (input) for mailman id 260564;
+ Tue, 25 Jan 2022 21:21:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=npsv=SJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nCTEF-0006Gd-6e
- for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 21:19:51 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ <SRS0=B39K=SJ=xilinx.com=ayankuma@srs-se1.protection.inumbo.net>)
+ id 1nCTFU-0007fP-HO
+ for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 21:21:08 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2061e.outbound.protection.outlook.com
+ [2a01:111:f400:fe5a::61e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8695bbe3-7e24-11ec-8eb8-a37418f5ba1a;
- Tue, 25 Jan 2022 22:19:49 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F1C07617D2;
- Tue, 25 Jan 2022 21:19:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1830BC340E0;
- Tue, 25 Jan 2022 21:19:47 +0000 (UTC)
+ id b46ca1d6-7e24-11ec-8eb8-a37418f5ba1a;
+ Tue, 25 Jan 2022 22:21:07 +0100 (CET)
+Received: from SN7PR04CA0238.namprd04.prod.outlook.com (2603:10b6:806:127::33)
+ by SJ0PR02MB8483.namprd02.prod.outlook.com (2603:10b6:a03:3fc::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.8; Tue, 25 Jan
+ 2022 21:21:02 +0000
+Received: from SN1NAM02FT0055.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:806:127:cafe::1) by SN7PR04CA0238.outlook.office365.com
+ (2603:10b6:806:127::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10 via Frontend
+ Transport; Tue, 25 Jan 2022 21:21:02 +0000
+Received: from xir-pvapexch01.xlnx.xilinx.com (149.199.80.198) by
+ SN1NAM02FT0055.mail.protection.outlook.com (10.97.5.78) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4930.15 via Frontend Transport; Tue, 25 Jan 2022 21:21:02 +0000
+Received: from xir-pvapexch01.xlnx.xilinx.com (172.21.17.15) by
+ xir-pvapexch01.xlnx.xilinx.com (172.21.17.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.14; Tue, 25 Jan 2022 21:21:00 +0000
+Received: from smtp.xilinx.com (172.21.105.198) by
+ xir-pvapexch01.xlnx.xilinx.com (172.21.17.15) with Microsoft SMTP Server id
+ 15.1.2176.14 via Frontend Transport; Tue, 25 Jan 2022 21:21:00 +0000
+Received: from [10.71.118.159] (port=56131)
+ by smtp.xilinx.com with esmtp (Exim 4.90)
+ (envelope-from <ayan.kumar.halder@xilinx.com>)
+ id 1nCTFM-0004zT-0p; Tue, 25 Jan 2022 21:21:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,222 +63,473 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8695bbe3-7e24-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1643145587;
-	bh=dztc3U9v7Wfr4w0oLqPEkDx3cbgBIHJ3oEdNcV5Sdxk=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=NvbbxYPrTTsMwXY5CVbrq8VkHzV01FmKd7JxM4P0I+rXloNE+eN+eS02ouWZaUsKr
-	 2exSEGi/KJ8J0JJKRFydVs84RFQCqQgbn40tTKhRH6PwCFrmhs/2TZP9xbNhXtWKZi
-	 nVMnMjPTSUUzCqxpRY2mylyijHwhRGRXJgz7btQL1TvxFK86Asxi4OyX/wmUUHenkA
-	 7z4nvYbKsYgmbqBO7QgyNO7VjsL6sRcuD2KnHbClDwffyWOJknb1TOTBNhW2AutAFe
-	 e+BByGE2tjkeCdsAWYmRsFatAxd6mYWqY4kuYC0PohuzGE5d8fbHM3EyZIDsDfLWhH
-	 Rw4VUW8Kk9XTQ==
-Date: Tue, 25 Jan 2022 13:19:46 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
-In-Reply-To: <20220125143515.GA2803662@EPUAKYIW015D>
-Message-ID: <alpine.DEB.2.22.394.2201251245120.27308@ubuntu-linux-20-04-desktop>
-References: <20220119120400.GA3779126@EPUAKYIW015D> <alpine.DEB.2.22.394.2201191644400.19362@ubuntu-linux-20-04-desktop> <20220120102147.GA4153317@EPUAKYIW015D> <alpine.DEB.2.22.394.2201201230480.27308@ubuntu-linux-20-04-desktop> <20220121150753.GA898010@EPUAKYIW015D>
- <alpine.DEB.2.22.394.2201211236060.27308@ubuntu-linux-20-04-desktop> <20220124182249.GA2485483@EPUAKYIW015D> <alpine.DEB.2.22.394.2201241056290.27308@ubuntu-linux-20-04-desktop> <d5c84296-79a6-5698-802d-4d9ba60dbf24@xen.org>
- <alpine.DEB.2.22.394.2201241403240.27308@ubuntu-linux-20-04-desktop> <20220125143515.GA2803662@EPUAKYIW015D>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: b46ca1d6-7e24-11ec-8eb8-a37418f5ba1a
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ChgSb4NfgPhqYpiZYvMBjjeQ0o7TDrEdDXzb5yGenkZ0wR8YawSZ6UOzJ/TfxedSlWmMaJeyJ4EunGuZHLpmxTHbOYskoGWeMJ8Rye6ijX0+FB7N/tXMehis9i6u5/w9h419eeCa60PjYxB0tSsU2+QeH3GlW3AtpECod4gP0xoZLSxLfyBxEXxrgLFzWgK1bSdvzc9cZJAHkP9+vl6i8AG1g9YBdn4/AeS/omXX0S8o+XoqjePjjYyuVUHhhX4KLYg+bpVNfguZKNbtWN1oqcMCwV0faOwoVPrS4Hbques07sbagy5rNnAGz8PYOTk+89+ZE9WuaYL/W1ew8OIePA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8lyvjPoGGiPi/2bBwL6YmCw0FFmV5osqfLeBhomSjAY=;
+ b=XiMp098/Cy+LuSBkHfuMbeXcICZ5mcWF1RYnviUeS1PTj//1TlNVAYUp1RA2WTO2vagjQc3mKMxODESVz8+rF388bwTq5QVaO+LA7TiAB+3djIP9jstX1BTKJj0q4CDAPYIbko+lcOJTLzDmI+weN+dcAN7YDDtuyPcYUm9J899HB2aWi+pg8qg2OQt5+6vrtp0hVoLnxIyHmNNqTka91qglFl1+uQSWzImv2qqdGMoZIIr/CzMklDivRet/H8bSoGRLcpJogj7xAgD7z9Onu4YQwVy2AzguB+ib7vWPTcEuCmEipl84yiBv5fRr6R1pBj+54rsqVcRMLyOOLyp37w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 149.199.80.198) smtp.rcpttodomain=kernel.org smtp.mailfrom=xilinx.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=xilinx.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8lyvjPoGGiPi/2bBwL6YmCw0FFmV5osqfLeBhomSjAY=;
+ b=j0HkgL2d9DyfnUAEIQunV5xBJV9ZNCKn5zwZKsWEmafQFPk/i7vdt1NuJu9WeFOe+tgs9nJynm8VAtKReF4emdsNmoHQ88Snlf6mlXxQFadegts/Q1dPjyFs3abkHUMxrGaUAXsYEJ9zmCL2d6Q+y49YaYCye2RHfgFOku0z05M=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.80.198)
+ smtp.mailfrom=xilinx.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=xilinx.com;
+Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
+ 149.199.80.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=149.199.80.198; helo=xir-pvapexch01.xlnx.xilinx.com;
+Message-ID: <9adffa0d-8370-939a-1ba1-fba7082d05b0@xilinx.com>
+Date: Tue, 25 Jan 2022 21:20:59 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.5.0
+Subject: Re: [XEN v3] xen/arm64: io: Decode ldr/str post-indexing instructions
+To: Stefano Stabellini <sstabellini@kernel.org>, Ayan Kumar Halder
+	<ayan.kumar.halder@xilinx.com>
+CC: <xen-devel@lists.xenproject.org>, <stefanos@xilinx.com>, <julien@xen.org>,
+	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
+	<andre.przywara@arm.com>, <jbeulich@suse.com>, <wei.chen@arm.com>
+References: <20220120215527.28138-1-ayankuma@xilinx.com>
+ <alpine.DEB.2.22.394.2201211613530.27308@ubuntu-linux-20-04-desktop>
+From: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+In-Reply-To: <alpine.DEB.2.22.394.2201211613530.27308@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b3468bd8-6627-4afb-7e0c-08d9e04896ef
+X-MS-TrafficTypeDiagnostic: SJ0PR02MB8483:EE_
+X-Microsoft-Antispam-PRVS:
+	<SJ0PR02MB8483272FC9E58A8FE7E1C947B25F9@SJ0PR02MB8483.namprd02.prod.outlook.com>
+X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	PaKmIpdzQGujimoECfk1wAnwz+5FogwevVtlmm2Proa59iw+iCfMZPXrmwHBMPod0PiSDlWiTWsskT4CdnN9wA1EYOn/WO2xlIiAu6cG8JEVMy6HZ/ixqd9/6+XqvhGW5wVCQWtEBuu3gda+Updu5Y9gLv7767wtDvIxUWvr5DCjkwCPKBAstU/znZ6b3+2WkeZxY8D4n1bpaZiEqpyPJd9WKqq6Vic3rDstqL78A8v2JJFVFxY7zrBjaIGAbb7g25c/5Xzjtks0CiKGRdNUiF67EN5FiyEVS8N7osQhmWqJx+CIeuildGrVApUIS7n8JpNyJtgCCvD3G0lNvu9VRveq9kvL2W37J5uhYlNsiJvonLHH5ZrH7AFMx+H7MVfkC+BmILMfxZ4rDnjRgkWyOwV9AxFSuAJlZVZsBTOJ7XDnjB9Citcu6BcPrA/j3luIB5595e7nUhcmLWCtyzrhxBXbeT1/4QuFs+yrbDytma6stR2ReCTw8hr+A63ZPdnoflvCE4Y4XUfHfHtScX2y5vB60AnuZVCvYn6uxIfGZtq9mr6Y7sJy3ySprOqQIhHYCFdRu9/NuiwithXlLN00YaMMtAZDo8N0fD4ZOk/Dnua0al1o7apPd60/eJDC0E3cu+oSYlaYZNKlrrC1rPrcfNDNgJjwUqMQN97jnzkxXBBkhPxh7eKqoyJfBe/J7MBemo6hkNESChaz2A941u1GnNWB9j7WmTLNjyIs1jRIBcEvnvQT8Ww2iAJwYR2hu29R5R8RnHsEgWQJY9yx4NXbxEGIbJONVaZahrGUf5vHuXlQrLsMnVGA+njsljOorIfjSkEzRu0qasxGz8jNmqlazgy2+iANJcCzDGupQ1QDQjsD5JR68xJ6vl6o0bPD+WJKAjQknc5fboDGGhZOo7j0wr13HHQJdmmo4jlLCpGhWNnKzz8A9K4ZraUhVWiUuM5l
+X-Forefront-Antispam-Report:
+	CIP:149.199.80.198;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:xir-pvapexch01.xlnx.xilinx.com;PTR:unknown-80-198.xilinx.com;CAT:NONE;SFS:(4636009)(46966006)(40470700004)(36840700001)(30864003)(110136005)(9786002)(186003)(36860700001)(83380400001)(8676002)(31686004)(26005)(8936002)(40460700003)(36756003)(82310400004)(54906003)(5660300002)(426003)(508600001)(70206006)(70586007)(966005)(7636003)(356005)(47076005)(2906002)(31696002)(336012)(4326008)(316002)(53546011)(2616005)(50156003)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: xilinx.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2022 21:21:02.1524
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3468bd8-6627-4afb-7e0c-08d9e04896ef
+X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.80.198];Helo=[xir-pvapexch01.xlnx.xilinx.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1NAM02FT0055.eop-nam02.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR02MB8483
 
-On Tue, 25 Jan 2022, Oleksii Moisieiev wrote:
-> On Mon, Jan 24, 2022 at 02:14:43PM -0800, Stefano Stabellini wrote:
-> > On Mon, 24 Jan 2022, Julien Grall wrote:
-> > > On 24/01/2022 19:06, Stefano Stabellini wrote:
-> > > > It looks like XEN_DOMCTL_host_node_by_path and
-> > > > XEN_DOMCTL_find_host_compatible_node would also solve the problem but I
-> > > > think that a single hypercall that retrieves the entire host DTB would
-> > > > be easier to implement
-> > > 
-> > > DOMCTL should only be used to handle per-domain information. If we want to
-> > > create a new sub-hypercall of either __HYPERVISOR_platform_op or
-> > > __HYPERVISOR_sysctl_op (not sure which one).
-> > > 
-> > > AFAICT, both are versioned.
-> > > 
-> > > > and more robust in the long term. >
-> > > > hypfs has the advantage that it would create an interface more similar
-> > > > to the one people are already used to on Linux systems
-> > > > (/proc/device-tree). xl/libxl would have to scan the whole hypfs tree,
-> > > > which intuitively I think it would be slower.
-> > > 
-> > > Even if you have the binary blob, you would still have to scan the
-> > > device-tree. That said, it is probably going to be potentially a bit faster
-> > > because you have less hypercall.
-> > > 
-> > > However, here this is a trade-off between memory use and speed. If you want
-> > > speed, then you may have to transfer up to 2MB every time. So the question is
-> > > do we care more about speed or memory usage?
-> > > 
-> > > > Also the feature might be
-> > > > harder to implement but I am not sure.
-> > > > 
-> > > > I don't have a strong preference and this is not a stable interface (we
-> > > > don't have to be extra paranoid about forward and backward
-> > > > compatibility). So I am fine either way. Let's see what the others think
-> > > > as well.
-> > > 
-> > > My preference would be to use hypfs as this is cleaner than exposing a blob.
-> > 
-> > That's also fine by me. Probably the hypfs implementation shouldn't be
-> > much more difficult than something like
-> > XEN_DOMCTL_host_node_by_path/XEN_DOMCTL_find_host_compatible_node.
-> > 
-> > 
-> > > However, are we sure we can simply copy the content of the host Device-Tree to
-> > > the guest Device-Tree for SCMI? For instance, I know that for device
-> > > passthrough there are some property that needs to be altered for some devices.
-> > > Hence, why it is not present. Although, I vaguely recalled to have written a
-> > > PoC, not sure if it was posted on the ML.
-> > 
-> > The SCMI node cannot be copied "as is" from host to guest. It needs a
-> > couple of changes but they seem feasible as they are limited to the
-> > channels exposed to the guest. (The generic device passthrough case is a
-> > lot more difficult.)
-> 
-> 
-> Hi Stefano,
-> 
-> What I'm thinking about is do we actually need to create SCMI node in DomU device-tree?
-> I have this question is because we don't need SCMI node to be present in DomU 
-> device-tree if it has no passed-through devices, which are using scmi. 
-> So if we don't have passed-through devices or do not provide DomU partial device-tree 
-> in config, then there is no need to create SCMI node.
-> 
-> For now I see the following possible domu configurations:
-> 1) If DomU has a lot of passed-through devices and it's easier to inherit 
-> host device-tree and disable not passed-through devices.
-> Partial device tree will looks like this:
-> 
-> #include "r8a77961-salvator-xs.dts" //include host device tree
-> 
-> /
+Hi Stefano/Andre/All,
+
+Thanks for the feedback.
+
+On 22/01/2022 01:04, Stefano Stabellini wrote:
+> On Thu, 20 Jan 2022, Ayan Kumar Halder wrote:
+>> At the moment, Xen is only handling data abort with valid syndrome (i.e.
+>> ISV=0). Unfortunately, this doesn't cover all the instructions a domain
+>> could use to access MMIO regions.
+>>
+>> For instance, a baremetal OS can use any of the following instructions, where
+>> x1 contains the address of the MMIO region:
+>>
+>> 1.      ldr     x2,    [x1],    #4
+>> 2.      ldr     w2,    [x1],    #-4
+>> 3.      ldr     x2,    [x1],    #-8
+>> 4.      ldr     w2,    [x1],    #4
+>> 5.      ldrh    w2,    [x1],    #8
+>> 6.      ldrb    w2,    [x1],    #16
+>> 7.      str     x2,    [x1],    #4
+>> 8.      str     w2,    [x1],    #-4
+>> 9.      strh    w2,    [x1],    #8
+>> 10.     strb    w2,    [x1],    #16
+>>
+>> In the following two instructions, sp contains the address of the MMIO region:-
+>> 11.     ldrb    w2,    [sp],    #16
+>> 12.     ldrb    wzr,   [sp],    #16
+>>
+>> In order to handle post-indexing store/load instructions (like those mentioned
+>> above), Xen will need to fetch and decode the instruction.
+>>
+>> This patch only cover post-index store/load instructions from AArch64 mode.
+>> For now, this is left unimplemented for trap from AArch32 mode.
+>>
+>> Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
+> This is a lot better, thanks!
+>
+>
+>> ---
+>>
+>> Changelog :-
+>> v2 - 1. Updated the rn register after reading from it. (Pointed by Julien,
+>>          Stefano)
+>>       2. Used a union to represent the instruction opcode (Suggestd by Bertrand)
+>>       3. Fixed coding style issues (Pointed by Julien)
+>>       4. In the previous patch, I was updating dabt->sign based on the signedness
+>>          of imm9. This was incorrect. As mentioned in ARMv8 ARM  DDI 0487G.b,
+>>          Page 3221, SSE indicates the signedness of the data item loaded. In our
+>>          case, the data item loaded is always unsigned.
+>>
+>> v3- 1. Handled all the variants of ldr/str (ie 64, 32, 16, 8 bit variants).
+>>         Thus, I have removed the check for "instr->code.opc == 0" (Suggested by
+>>         Andre)
+>>      2. Handled the scenario when rn = SP, rt = XZR (Suggested by Jan, Andre)
+>>      3. Added restriction for "rt != rn" (Suggested by Andre)
+>>      4. Moved union ldr_str_instr_class {} to decode.h. This is the header included
+>>         by io.c and decode.c (where the union is referred). (Suggested by Jan)
+>>      5. Indentation and typo fixes (Suggested by Jan)
+>>
+>> Changes suggested but could not be considered due to reasons :-
+>>      1. Using accessor macros instead of bitfields for "ldr_str_instr_class". (Andre)
+>>         Reason - I could not find a simple way to represent 9 bit signed integer
+>>         (ie imm9) without using bitfields. If I use accessor macros, then I need
+>>         to manually calculate two's complement to obtain the value when signed
+>>         bit is present.
+>>
+>>      2. I/D cache cohenerncy (Andre)
+>>         Reason :- I could not see any instruction to flush the I cache.
+>>         Refer https://developer.arm.com/documentation/ddi0596/2021-12/Base-Instructions/IC--Instruction-Cache-operation--an-alias-of-SYS-?lang=en#sa_ic_op
+>>         So, this patch assumes that the I/D caches are coherent.
+>>
+>>   xen/arch/arm/decode.c | 78 ++++++++++++++++++++++++++++++++++++++++++-
+>>   xen/arch/arm/decode.h | 29 +++++++++++++++-
+>>   xen/arch/arm/io.c     | 66 ++++++++++++++++++++++++++++++++----
+>>   3 files changed, 165 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
+>> index 792c2e92a7..f1c59ddd1a 100644
+>> --- a/xen/arch/arm/decode.c
+>> +++ b/xen/arch/arm/decode.c
+>> @@ -84,6 +84,76 @@ bad_thumb2:
+>>       return 1;
+>>   }
+>>   
+>> +static int decode_loadstore_postindexing(register_t pc,
+>> +                                         struct hsr_dabt *dabt,
+>> +                                         union ldr_str_instr_class *instr)
+>> +{
+>> +    if ( raw_copy_from_guest(&instr->value, (void * __user)pc, sizeof (instr)) )
+>> +        return -EFAULT;
+>> +
+>> +    /*
+>> +     * Rn -ne Rt for ldr/str instruction.
+>> +     * Check https://developer.arm.com/documentation/dui0802/a/CIHGJHED
+>> +     * (Register restrictions)
+>> +     *
+>> +     * The only exception for this is when rn = 31. It denotes SP ("Use of SP")
+>> +     *
+>> +     * And when rt = 31, it denotes wzr/xzr. (Refer
+>> +     * https://developer.arm.com/documentation/den0024/a/ARMv8-Registers/AArch64-special-registers
+>> +     * "There is no register called X31 or W31. Many instructions are encoded
+>> +     * such that the number 31 represents the zero register, ZR (WZR/XZR)."
+>> +     */
+>> +    if ( (instr->code.rn == instr->code.rt) && (instr->code.rn != 31) )
+>> +        return -EINVAL;
+>>
+>> +    /* First, let's check for the fixed values */
+>> +    if ( !((instr->code.fixed1 == 1) && (instr->code.fixed2 == 0) &&
+>> +         (instr->code.fixed3 == 0) && (instr->code.fixed4 == 7)) )
+>> +    {
+>> +        gprintk(XENLOG_ERR, "Cannot decode instruction 0x%x",instr->value);
+>> +        gprintk(XENLOG_ERR, "Decoding not supported for instructions other than"
+>> +            " ldr/str post indexing\n");
+>> +        goto bad_32bit_loadstore;
+>> +    }
+> Maybe this is a useless optimization but I would write this using masks
+> and bitwise opts:
+>
+> #define POST_INDX_FIXED_MASK  0x38200c00
+
+Good suggestion. This should be 0x3B200c00
+
+> #define POST_INDX_FIXED_VALUE 0x38000400
+>
+> if ( (instr->value & POST_INDX_FIXED_MASK) != POST_INDX_FIXED_VALUE )
+>      goto bad_32bit_loadstore;
+
+Done in v4.
+
+>
+>
+>
+>> +    if ( instr->code.v != 0 )
+>> +    {
+>> +        gprintk(XENLOG_ERR,
+>> +            "ldr/str post indexing for vector types are not supported\n");
+>> +        goto bad_32bit_loadstore;
+>> +    }
+>> +
+>> +    /* Check for STR (immediate) - 32 bit variant */
+>> +    if ( instr->code.opc == 0 )
+>> +    {
+>> +        dabt->write = 1;
+>> +    }
+>> +    /* Check for LDR (immediate) - 32 bit variant */
+>> +    else if ( instr->code.opc == 1 )
+>> +    {
+>> +        dabt->write = 0;
+>> +    }
+>> +    else
+>> +    {
+>> +        gprintk(XENLOG_ERR,
+>> +            "Decoding ldr/str post indexing is not supported for this variant\n");
+>> +        goto bad_32bit_loadstore;
+>> +    }
+>> +
+>> +    gprintk(XENLOG_INFO,
+>> +        "instr->code.rt = 0x%x, instr->code.size = 0x%x, instr->code.imm9 = %d\n",
+>> +        instr->code.rt, instr->code.size, instr->code.imm9);
+>> +
+>> +    update_dabt(dabt, instr->code.rt, instr->code.size, false);
+>> +    dabt->valid = 1;
+>> +
+>> +    return 0;
+>> +
+>> + bad_32bit_loadstore:
+>> +    gprintk(XENLOG_ERR, "unhandled 32bit Arm instruction 0x%x\n", instr->value);
+>> +    return 1;
+>> +}
+>> +
+>>   static int decode_thumb(register_t pc, struct hsr_dabt *dabt)
+>>   {
+>>       uint16_t instr;
+>> @@ -150,11 +220,17 @@ bad_thumb:
+>>       return 1;
+>>   }
+>>   
+>> -int decode_instruction(const struct cpu_user_regs *regs, struct hsr_dabt *dabt)
+>> +int decode_instruction(const struct cpu_user_regs *regs, struct hsr_dabt *dabt,
+>> +                       union ldr_str_instr_class *instr)
+>>   {
+>>       if ( is_32bit_domain(current->domain) && regs->cpsr & PSR_THUMB )
+>>           return decode_thumb(regs->pc, dabt);
+>>   
+>> +    if ( (is_64bit_domain(current->domain) && !psr_mode_is_32bit(regs)) )
+>> +    {
+> We should also check that instr != NULL either here or at the beginning
+> of decode_loadstore_postindexing
+
+Done at the beginning of decode_loadstore_postindexing()
+
+>
+>
+>> +        return decode_loadstore_postindexing(regs->pc, dabt, instr);
+>> +    }
+>> +
+>>       /* TODO: Handle ARM instruction */
+>>       gprintk(XENLOG_ERR, "unhandled ARM instruction\n");
+>>   
+>> diff --git a/xen/arch/arm/decode.h b/xen/arch/arm/decode.h
+>> index 4613763bdb..5c918c9bed 100644
+>> --- a/xen/arch/arm/decode.h
+>> +++ b/xen/arch/arm/decode.h
+>> @@ -23,6 +23,32 @@
+>>   #include <asm/regs.h>
+>>   #include <asm/processor.h>
+>>   
+>> +/*
+>> + * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Stores
+>> + * Page 318 specifies the following bit pattern for
+>> + * "load/store register (immediate post-indexed)".
+>> + *
+>> + * 31 30 29  27 26 25  23   21 20              11   9         4       0
+>> + * ___________________________________________________________________
+>> + * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt   |
+>> + * |____|______|__|____|____|__|_______________|____|_________|_______|
+>> + */
+>> +union ldr_str_instr_class {
+>> +    uint32_t value;
+>> +    struct ldr_str {
+>> +        unsigned int rt:5;     /* Rt register */
+>> +        unsigned int rn:5;     /* Rn register */
+>> +        unsigned int fixed1:2; /* value == 01b */
+>> +        signed int imm9:9;            /* imm9 */
+>> +        unsigned int fixed2:1; /* value == 0b */
+>> +        unsigned int opc:2;    /* opc */
+>> +        unsigned int fixed3:2; /* value == 00b */
+>> +        unsigned int v:1;      /* vector */
+>> +        unsigned int fixed4:3; /* value == 111b */
+>> +        unsigned int size:2;   /* size */
+>> +    } code;
+>> +};
+>> +
+>>   /**
+>>    * Decode an instruction from pc
+>>    * /!\ This function is not intended to fully decode an instruction. It
+>> @@ -35,7 +61,8 @@
+>>    */
+>>   
+>>   int decode_instruction(const struct cpu_user_regs *regs,
+>> -                       struct hsr_dabt *dabt);
+>> +                       struct hsr_dabt *dabt,
+>> +                       union ldr_str_instr_class *instr);
+>>   
+>>   #endif /* __ARCH_ARM_DECODE_H_ */
+>>   
+>> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
+>> index 729287e37c..acb483f235 100644
+>> --- a/xen/arch/arm/io.c
+>> +++ b/xen/arch/arm/io.c
+>> @@ -65,6 +65,39 @@ static enum io_state handle_write(const struct mmio_handler *handler,
+>>       return ret ? IO_HANDLED : IO_ABORT;
+>>   }
+>>   
+>> +static void post_increment_register(union ldr_str_instr_class *instr)
+>> +{
+>> +    struct cpu_user_regs *regs = guest_cpu_user_regs();
+>> +    unsigned int val;
+> register_t val
+
+Done
+
+>
+>
+>> +    /* handle when rn = SP */
+>> +    if ( instr->code.rn == 31 )
+>> +    {
+>> +        if ( (regs->cpsr & PSR_MODE_MASK) == PSR_MODE_EL1h )
+>> +        {
+>> +            val = regs->sp_el1;
+> I think you need to #ifdef ARM64 the entire function because sp_el1 is
+> aarch64 only. Also, it might be better to move post_increment_register
+> to decode.c to keep is closer to the other half of the relevant code. I
+> don't feel strongly about it though, if other reviewers prefer to keep
+> it here, it is only fine by me.
+
+Makes sense as this is a part of the decoding logic. I haved moved this to decode.c as well.
+
+>
+>
+>> +        }
+>> +        else
+>> +        {
+>> +            BUG();
+> BUG is not a good idea in this code path because it might allow a guest
+> to cause a hypervisor crash. Instead you could print an error and
+> call:
+>
+>      domain_crash(current->domain);
+>
+> But I think it would be even better to add a check:
+>
+> if ( (regs->cpsr & PSR_MODE_MASK) != PSR_MODE_EL1h )
 > {
-> 	soc {
-> 		...
-> 	}
-> 
-> };
-> 
-> // Disable non passed-through devices
-> &hscif {
-> 	status = "disabled";
-> };
-> 
-> In this case DomU partial device-tree will inherit arm,scmi-smc and 
-> arm,scmi-shmem nodes and all clock/reset/power-domains which are using scmi. 
-> All this nodes can be copied to DomU device-tree from partial device-tree.
+>      goto bad_32bit_loadstore;
+> }
+>
+> in decode_loadstore_postindexing or in decode_instruction so that if get
+> here we are sure that we can handle the post-indexing instruction
+> completely.
 
-This is an almost dom0 configuration. For this kind of use-cases, I
-think it is enough to handle dom0 automatically correctly. I wouldn't
-ask for anything more than that.
+That is a good suggestion. I will move the check to decode_loadstore_postindexing
+(). Yes, Xen should not crash because of the guest.
 
+>
+>> +        }
+>> +    }
+>> +    else
+>> +    {
+>> +        val = get_user_reg(regs, instr->code.rn);
+>> +    }
+>> +    val += instr->code.imm9;
+>> +    if ( instr->code.rn == 31 )
+>> +    {
+>> +        regs->sp_el1 = val;
+>> +    }
+>> +    else
+>> +    {
+>> +        set_user_reg(regs, instr->code.rn, val);
+>> +    }
+>> +}
+>> +
+>>   /* This function assumes that mmio regions are not overlapped */
+>>   static int cmp_mmio_handler(const void *key, const void *elem)
+>>   {
+>> @@ -106,14 +139,29 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
+>>           .gpa = gpa,
+>>           .dabt = dabt
+>>       };
+>> +    int rc;
+>> +    union ldr_str_instr_class instr = {0};
+>>   
+>>       ASSERT(hsr.ec == HSR_EC_DATA_ABORT_LOWER_EL);
+>>   
+>> +    /*
+>> +     * Armv8 processor does not provide a valid syndrome for post-indexing
+>> +     * ldr/str instructions. So in order to process these instructions,
+>> +     * Xen must decode them.
+>> +     */
+>> +    if ( !info.dabt.valid )
+>> +    {
+>> +        rc = decode_instruction(regs, &info.dabt, &instr);
+>> +        if ( rc )
+>> +        {
+>> +            gprintk(XENLOG_DEBUG, "Unable to decode instruction\n");
+>> +            return IO_ABORT;
+>> +        }
+>> +    }
+>> +
+>>       handler = find_mmio_handler(v->domain, info.gpa);
+>>       if ( !handler )
+>>       {
+>> -        int rc;
+>> -
+>>           rc = try_fwd_ioserv(regs, v, &info);
+>>           if ( rc == IO_HANDLED )
+>>               return handle_ioserv(regs, v);
+>> @@ -122,7 +170,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
+>>       }
+>>   
+>>       /* All the instructions used on emulated MMIO region should be valid */
+>> -    if ( !dabt.valid )
+>> +    if ( !info.dabt.valid )
+>>           return IO_ABORT;
+> Is this check still necessary given the new info.dabt.valid check above?
 
-> 2) DomU has few passed-through devices, so it's easier to add the device nodes 
-> to the passthrough node of DomU partial device-tree.
-> DomU partial device-tree will look like this:
-> {
-> 	scmi_shmem: scp-shmem@0x53FF0000 {
-> 		compatible = "arm,scmi-shmem";
-> 		reg = <0x0 0x53FF0000 0x0 0x10000>;  
-> 	};
-> 	scmi {
-> 		arm,smc-id = <....>;
-> 		compatible = "arm,scmi-smc"; 
-> 		shmem = <&scmi_shmem>;
-> 		scmi_clock: protocol@14 {
-> 			...
-> 		};
-> 		scmi_reset: protocol@16 {
-> 			...
-> 		};
-> 	}; 
-> 	passthrough {
-> 		hscif0: serial@e6540000 { 
-> 			compatible = "renesas,hscif-r8a77961";
-> 			scmi_devid = <5>;
-> 			clocks = <&scmi_clock 5>;
-> 			resets = <&scmi_reset 5>;
->  			...
-> 		};
-> 	};
-> };
-> 
-> As you can see in this case we have to manually copy arm,scmi-shmem and 
-> arm,scmi-smc nodes with hscif0 node or the device-tree compilation will fail.
-> We can use 0x53FF0000, provided in arm,scmi-shmem node and map domain channel 
-> to this address and copy scmi related nodes to the DomU device-tree.
-> This is useful when we need to expose only certain protocols to the DomU. 
-> Also it's easy to modify DomU scmi node, as we need for stm32mp1 for example 
-> when different smc-id should be set for DomU.
+Yes, this check is redundant. I will remove this.
+I have sent out a v4 patch with all these fixes.
+Please review "[XEN v4] xen/arm64: io: Decode ldr/str post-indexing instructions"
 
-I think this is the most interesting case that should be automated and
-not require manual intervention. Let me explain why.
+- Ayan
 
-Currently we require partial device trees to be manually written because
-there is no easy way to automatically generate them. (I have some ideas
-on how to automatically generate partial device trees but that is a
-separate discussion.)
-
-Unfortunately, it has become increasingly clear that it is too difficult
-for users (even advanced users!) to come up with the appropriate partial
-device trees. Thus, I am reluctant to introduce more things that rely on
-the user having to manually specify partial device tree information.
-This is why I would like the SCMI nodes to be automatically added for
-domUs.
-
-Of course, if a user provides the scmi and scmi_shmem nodes in the
-partial device tree we could just use them. But ideally we should also
-be able to automatically generated them based on the host device tree
-nodes, so that the user only needs to provide serial@e6540000 (in your
-example, scmi_devid would need to be populated too) and the rest would
-be done automatically as we do today for the gic and vuart nodes.
-
-At the same time I don't want to scope-creep this patch series too much
-and I don't mean to ask you to add a huge new infrastructure to Xen and
-the Xen tools just to get SCMI support in. I would rather have a
-not-great automatic generation of the domU SCMI nodes than nothing (e.g.
-using your suggested XEN_DOMCTL_host_node_by_path and
-XEN_DOMCTL_find_host_compatible_node hypercalls althought they would
-need to be platform_op as Julien suggested).
-
-It looks like the generation of scmi_shmem and scmi should be easy
-enough that could be handled without difficulty in xl/libxl. But if that
-turns out to be too difficult, we could have a small independent
-bash/python script that from the host device tree generates the partial
-device tree with the SCMI nodes. From Xen point of view we are would
-still be using the partial device tree, but the partial device tree
-itself would be generated instead of manually written. As this workflow
-requires a separate tool I think it is a worse option than the one
-above. Still better than nothing though.
-
-
-> 3) DomU doesn't have any passthrough nodes, which are using scmi.
-> In this case we don't want SCMI nodes to be in the DomU device-tree.
-> 
-> I see only one use-case when we may need scmi nodes to be generated by xl in 
-> DomU device-tree:
-> Xen generates psci node to handle cpu_on and cpu_off. 
-> According to the Section 4.3.2.5 of the DEN0056C [1]:
-> > For these power domains, this protocol can be used to implement PSCI CPU_SUSPEND, CPU_ON, CPU_FREEZE, CPU_DEFAULT_SUSPEND and CPU_OFF functions.
-> 
-> So in theory psci node can use scmi to control cpu state. But this is not our 
-> use-case because we don't want to give DomU ability to stop physical CPU. 
-> Xen can't intercept and handle CPU_ON and CPU_OFF requests when mailbox transport 
-> is used for SCMI communication.
-> 
-> [1] "SCMI Specification DEN0056C," [Online]. Available: https://developer.arm.com/documentation/den0056/latest 
-
-I agree with you on this one; I am not worried about this case.
+>
+>
+>>       /*
+>> @@ -134,7 +182,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
+>>       {
+>>           int rc;
+>>   
+>> -        rc = decode_instruction(regs, &info.dabt);
+>> +        rc = decode_instruction(regs, &info.dabt, NULL);
+>>           if ( rc )
+>>           {
+>>               gprintk(XENLOG_DEBUG, "Unable to decode instruction\n");
+>> @@ -143,9 +191,15 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
+>>       }
+>>   
+>>       if ( info.dabt.write )
+>> -        return handle_write(handler, v, &info);
+>> +        rc = handle_write(handler, v, &info);
+>>       else
+>> -        return handle_read(handler, v, &info);
+>> +        rc = handle_read(handler, v, &info);
+>> +
+>> +    if ( instr.value != 0 )
+>> +    {
+>> +        post_increment_register(&instr);
+>> +    }
+>> +    return rc;
+>>   }
+>>   
+>>   void register_mmio_handler(struct domain *d,
 
