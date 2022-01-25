@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC73D49BC94
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 21:00:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260537.450203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27E0949BD70
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 21:49:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260546.450232 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCRyL-00054s-UZ; Tue, 25 Jan 2022 19:59:21 +0000
+	id 1nCSkK-0002DN-S4; Tue, 25 Jan 2022 20:48:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260537.450203; Tue, 25 Jan 2022 19:59:21 +0000
+Received: by outflank-mailman (output) from mailman id 260546.450232; Tue, 25 Jan 2022 20:48:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCRyL-00052z-QW; Tue, 25 Jan 2022 19:59:21 +0000
-Received: by outflank-mailman (input) for mailman id 260537;
- Tue, 25 Jan 2022 19:59:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BISm=SJ=gmail.com=wei.liu.linux@srs-se1.protection.inumbo.net>)
- id 1nCRyK-00052t-9q
- for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 19:59:20 +0000
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47810fb4-7e19-11ec-8eb8-a37418f5ba1a;
- Tue, 25 Jan 2022 20:59:18 +0100 (CET)
-Received: by mail-wm1-f49.google.com with SMTP id
- r82-20020a1c4455000000b0034e043aaac7so1960355wma.5
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jan 2022 11:59:18 -0800 (PST)
-Received: from liuwe-devbox-debian-v2 ([51.145.34.42])
- by smtp.gmail.com with ESMTPSA id v3sm10122822wru.15.2022.01.25.11.59.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Jan 2022 11:59:17 -0800 (PST)
+	id 1nCSkK-0002BV-OX; Tue, 25 Jan 2022 20:48:56 +0000
+Received: by outflank-mailman (input) for mailman id 260546;
+ Tue, 25 Jan 2022 20:48:56 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nCSkJ-0002BL-VM; Tue, 25 Jan 2022 20:48:55 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nCSkJ-0006f6-Ru; Tue, 25 Jan 2022 20:48:55 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nCSkJ-0007RK-LP; Tue, 25 Jan 2022 20:48:55 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nCSkJ-0005Ec-Ky; Tue, 25 Jan 2022 20:48:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,54 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47810fb4-7e19-11ec-8eb8-a37418f5ba1a
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:content-transfer-encoding
-         :in-reply-to;
-        bh=yw/RdWg67hPN+jsg223JzR9KLoHDhEwfDc5ApJlN6ow=;
-        b=QZCHuvCCjNaZpnDRT9zLcwYvK8N2nLXWqM9ce6r7NhR6oMOLJ7ZIAk5Iq6HjH++P2G
-         A76dQRVEoxz2ltaiVOFRDG/TR8acw0zOkYO0vPI0NJczruY+uQLV+kOdDmJG+gNyKyMZ
-         dKfcsPLmCtLL2h9Pvad7g336et7nwfm5L8bVcOmn5lX4OSTuybPMkUsOgVm5grHY71AE
-         IO7l4izxRn90tWcZUlnApUlNgpRGxKPDDLrmcA5gERwflGCPJcCX84hW1cUCDVIPKrzG
-         ghhQVQbtvw492aD4D9mbBE/QO1w6JaIgW02qVuCrLov/98JLz+cw0SENMNtYoQ69dXdk
-         Lbww==
-X-Gm-Message-State: AOAM532djdu2yBPaW21HySL7JS8vpR+W8BT8YovjLbtBBAEYd96/d46M
-	cxlvTpIHQmgf3IOJIOhgv0Y=
-X-Google-Smtp-Source: ABdhPJwnqimcjjv6skwfOqCCN0Bma3tFxm4VBzZ5EGOZfxayXl/ksMkWwXdU7Nt+ZEYpsoZJrYMlLw==
-X-Received: by 2002:a1c:6a14:: with SMTP id f20mr4219776wmc.123.1643140757761;
-        Tue, 25 Jan 2022 11:59:17 -0800 (PST)
-Date: Tue, 25 Jan 2022 19:59:15 +0000
-From: Wei Liu <wei.liu@kernel.org>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	James Dingwall <james-xen@dingwall.me.uk>,
-	Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH] libxl: force netback to wait for hotplug execution
- before connecting
-Message-ID: <20220125195915.5hmkgmo6fl7ogvyg@liuwe-devbox-debian-v2>
-References: <20220124160248.37861-1-roger.pau@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=muv1GAlzKpB9CTcVAlW4DTxLVMTMdeCoo5/faCki+Eg=; b=m52ZBgo+Yhn6BAHlrL/k+920je
+	p5dqH4BH+YF1BllLE23vqRSWkD1SZzeEQ42NXynGQr9djBjb2514ysVKckWODs3s1t/l4bLW+kGYI
+	VWmVg1QAhgTNZ1OE2Tmeaog9GXaYJEB6G2cqoj43rzMTODUDn0Yevi+vDwPqXT6VrOyk=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-167819-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220124160248.37861-1-roger.pau@citrix.com>
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 167819: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=9480a1a519cf016623f657dc544cb372a82b5708
+X-Osstest-Versions-That:
+    xen=329b7bed80032fd52904af6a0cac7dd3716d27cf
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 25 Jan 2022 20:48:55 +0000
 
-On Mon, Jan 24, 2022 at 05:02:48PM +0100, Roger Pau Monne wrote:
-> By writing an empty "hotplug-status" xenstore node in the backend path
-> libxl can force Linux netback to wait for hotplug script execution
-> before proceeding to the 'connected' state.
-> 
-> This is required so that netback doesn't skip state 2 (InitWait) and
-> thus blocks libxl waiting for such state in order to launch the
-> hotplug script (see libxl__wait_device_connection).
-> 
-> Reported-by: James Dingwall <james-xen@dingwall.me.uk>
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> Tested-by: James Dingwall <james-xen@dingwall.me.uk>
+flight 167819 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167819/
 
-Reviewed-by: Wei Liu <wei.liu@kernel.org>
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  9480a1a519cf016623f657dc544cb372a82b5708
+baseline version:
+ xen                  329b7bed80032fd52904af6a0cac7dd3716d27cf
+
+Last test of basis   167811  2022-01-25 11:02:54 Z    0 days
+Testing same since   167819  2022-01-25 16:00:27 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   329b7bed80..9480a1a519  9480a1a519cf016623f657dc544cb372a82b5708 -> smoke
 
