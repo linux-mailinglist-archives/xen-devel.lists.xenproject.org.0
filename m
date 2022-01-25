@@ -2,56 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CE8C49B268
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 11:57:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260056.449058 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E669449B27A
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 12:01:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260061.449077 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCJVZ-0004uk-Ng; Tue, 25 Jan 2022 10:57:05 +0000
+	id 1nCJZb-0006Pf-C2; Tue, 25 Jan 2022 11:01:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260056.449058; Tue, 25 Jan 2022 10:57:05 +0000
+Received: by outflank-mailman (output) from mailman id 260061.449077; Tue, 25 Jan 2022 11:01:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCJVZ-0004s9-KA; Tue, 25 Jan 2022 10:57:05 +0000
-Received: by outflank-mailman (input) for mailman id 260056;
- Tue, 25 Jan 2022 10:57:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nCJZb-0006My-80; Tue, 25 Jan 2022 11:01:15 +0000
+Received: by outflank-mailman (input) for mailman id 260061;
+ Tue, 25 Jan 2022 11:01:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B39K=SJ=xilinx.com=ayankuma@srs-se1.protection.inumbo.net>)
- id 1nCJVX-0004s3-RN
- for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 10:57:04 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2062d.outbound.protection.outlook.com
- [2a01:111:f400:7eab::62d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 856ef957-7dcd-11ec-bc18-3156f6d857e4;
- Tue, 25 Jan 2022 11:57:00 +0100 (CET)
-Received: from DM5PR07CA0050.namprd07.prod.outlook.com (2603:10b6:4:ad::15) by
- PH0PR02MB8520.namprd02.prod.outlook.com (2603:10b6:510:10d::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4909.10; Tue, 25 Jan 2022 10:56:57 +0000
-Received: from DM3NAM02FT027.eop-nam02.prod.protection.outlook.com
- (2603:10b6:4:ad:cafe::8a) by DM5PR07CA0050.outlook.office365.com
- (2603:10b6:4:ad::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.10 via Frontend
- Transport; Tue, 25 Jan 2022 10:56:56 +0000
-Received: from xir-pvapexch02.xlnx.xilinx.com (149.199.80.198) by
- DM3NAM02FT027.mail.protection.outlook.com (10.13.5.130) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4909.8 via Frontend Transport; Tue, 25 Jan 2022 10:56:56 +0000
-Received: from xir-pvapexch02.xlnx.xilinx.com (172.21.17.17) by
- xir-pvapexch02.xlnx.xilinx.com (172.21.17.17) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.14; Tue, 25 Jan 2022 10:56:55 +0000
-Received: from smtp.xilinx.com (172.21.105.198) by
- xir-pvapexch02.xlnx.xilinx.com (172.21.17.17) with Microsoft SMTP Server id
- 15.1.2176.14 via Frontend Transport; Tue, 25 Jan 2022 10:56:55 +0000
-Received: from [10.71.118.123] (port=51814)
- by smtp.xilinx.com with esmtp (Exim 4.90)
- (envelope-from <ayan.kumar.halder@xilinx.com>)
- id 1nCJVN-00054N-Vs; Tue, 25 Jan 2022 10:56:54 +0000
+ <SRS0=rP4T=SJ=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nCJZY-0006Mn-T8
+ for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 11:01:13 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1a18469e-7dce-11ec-8fa7-f31e035a9116;
+ Tue, 25 Jan 2022 12:01:11 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,158 +36,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 856ef957-7dcd-11ec-bc18-3156f6d857e4
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RbTincjohojwxS6r+PX5GBvrNQKmnesizKbK9jY8q7jDWHUNl6MgANcoy0YK0odKGi6gWAP3PQVGaQ2ze2avjuFBEN66QCVPCsdBJ/hEmjKUF2zF44UvrWTYsEFfkRUsGT/mWvJ61hiyiYVJrOWLGnswHx3RpTUVIglN5QXVasbw1rX5WrUB9C61pqXGr0JOp3qmUTnv9bwFh5MGzRdCcullSPTgDIW4mp2S3LrZdxvxuNpXjGwEKoB9A4d5vTCzR2A7YnmS4eHnP0E3tJTIhu8RmbbNQUsTous5qhi0FWLmVDHfitWfBwP5j/KD8wvy0Y4vgilLndBhr4MPgKre6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=icF+imYJpg5Gvlb+9QtQvCSbOGEJRz5Z67Vwa0rdAwg=;
- b=P0c1koHZfHGNH8tg7t/g7LKRRZS9B9eMy4KiTMET3PU0KC2j1m7Bf035JtqM68rh66N2L9yGRMKA+NAdw7SPCnY8j5r7kjuNETVtZvnpXGb6Cp9HfZiFkWKuAVHHIqPoRk8a/yqhPm08rpMpIhnRZTfKJiRm/3/0JWfZd7JFRZ/x/FimGsZ6v0rVEsua0BVfaqYyYU6M02jwuUyVUjKqQJdH0WB41qQdr5FLmW4QK9+VfmKZXDunmEvYmG0Hhe4BZ5Y8dit0BhmS4dC5c0NgWzJbR5d6EweMDo8Kv0Yti3iGuSpIzSYJRT3PwkZWxzOyQnV06DD25ywz4GYdpIZzsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 149.199.80.198) smtp.rcpttodomain=suse.com smtp.mailfrom=xilinx.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=xilinx.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=icF+imYJpg5Gvlb+9QtQvCSbOGEJRz5Z67Vwa0rdAwg=;
- b=FQMPaesUdCVF8nprWVN/tN3XXKfxgMtTOLFoIDzOZ87jf44CfDpvJCMCCTZM0rzXGl4GLds+aX5qp4hSr1lTc767HtTqfFr8h/9bQU4XD3OFpsAAiLOeGXhiY99VRN8yZLadfxuaQBPVQKCVIYKXfQUMcY/sd1EUq6Qe3O78CrU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.80.198)
- smtp.mailfrom=xilinx.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=xilinx.com;
-Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
- 149.199.80.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=149.199.80.198; helo=xir-pvapexch02.xlnx.xilinx.com;
-Message-ID: <dd186204-250a-bc40-29cc-242a613e340b@xilinx.com>
-Date: Tue, 25 Jan 2022 10:56:53 +0000
+X-Inumbo-ID: 1a18469e-7dce-11ec-8fa7-f31e035a9116
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1643108471;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=RbnF+cUWX/zeCYIhklqiVJ9S062lPHa4CENE7SUhk2w=;
+  b=T4cFU2pZytaOeY+ibUT8NemjZszeIHB0q7BR7Esng0bkGCpMDHXEUffv
+   HX3PXuOOr8UUSCWfQUp35w4H0nzXRHTuknKMX/eQ1lP1YQty4vslKcqaF
+   CbIsK6whLQIf1B5GhdGDq8DxtSzzMIx+Iq0TbNdYAgO6Fch5xSTPyiaac
+   g=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: ItJ1qdoxRsJcMVJ0a/HsVGxrNdJgESRKpGah2K9CTzILSQ1Eep5IDTL24jzWuHWjHyhoeSuE9V
+ HI+NwxOE9R0wKsSx6ga9CkgRrZQRpXj/xDNWrZYNzJSfnw8gL3Qob/K9pU4naJ/hMLQKzwpXFs
+ q5pVZUaGuESTEnTJ1bbOqHGyvyw87HED4njsOOjX6oCE/ATjgSwlMNQyXVlBgxRKUkzUR2IklL
+ mjxwGzUjo3j5svrrzlarQWIfFNx0RFf4Du98/QJfam7b9AipbFaT93UsGJZldBCDDGlZLX4S7Z
+ Fcx0FEocSdQEnxBDOlXsgDob
+X-SBRS: 5.2
+X-MesageID: 62699827
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23: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
+ /BTG/8=
+IronPort-HdrOrdr: A9a23:qTRIEquV53bFjPosuvZR9zJM7skDfNV00zEX/kB9WHVpmszxra
+ +TdZMgpHrJYVcqKRYdcL+7WZVoLUmwyXcX2/hyAV7BZmnbUQKTRekIh7cKqweQfxEWndQy6U
+ 4PScRD4aXLfDtHsfo=
+X-IronPort-AV: E=Sophos;i="5.88,314,1635220800"; 
+   d="scan'208";a="62699827"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jan Beulich <jbeulich@suse.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Wei Liu <wl@xen.org>, Ross Lagerwall <ross.lagerwall@citrix.com>, "George
+ Dunlap" <george.dunlap@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, "Doug
+ Goldstein" <cardoe@cardoe.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Konrad Rzeszutek Wilk
+	<konrad.wilk@oracle.com>, Bob Eshleman <bobbyeshleman@gmail.com>, "Connor
+ Davis" <connojdavis@gmail.com>, Alistair Francis <alistair.francis@wdc.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>
+Subject: [XEN PATCH v9 00/30] xen: Build system improvements, now with out-of-tree build!
+Date: Tue, 25 Jan 2022 11:00:33 +0000
+Message-ID: <20220125110103.3527686-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.5.0
-Subject: Re: [XEN v3] xen/arm64: io: Decode ldr/str post-indexing instructions
-To: Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-CC: Andre Przywara <andre.przywara@arm.com>, <xen-devel@lists.xenproject.org>,
-	<stefanos@xilinx.com>, <julien@xen.org>, <Volodymyr_Babchuk@epam.com>,
-	<bertrand.marquis@arm.com>, <wei.chen@arm.com>, Ayan Kumar Halder
-	<ayan.kumar.halder@xilinx.com>
-References: <20220120215527.28138-1-ayankuma@xilinx.com>
- <20220122013046.6a786d3f@slackpad.fritz.box>
- <18e715ae-111d-58e6-55f9-a48a521e99b3@xilinx.com>
- <20220124143601.3e2ac6ac@donnerap.cambridge.arm.com>
- <bae9a35f-be42-2ebe-5ce0-30e08001ae97@xilinx.com>
- <alpine.DEB.2.22.394.2201240941310.27308@ubuntu-linux-20-04-desktop>
- <e6c217ba-2723-45ca-bb60-1c181359d261@suse.com>
-From: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
-In-Reply-To: <e6c217ba-2723-45ca-bb60-1c181359d261@suse.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e3ffac53-4e46-4d40-f887-08d9dff16794
-X-MS-TrafficTypeDiagnostic: PH0PR02MB8520:EE_
-X-Microsoft-Antispam-PRVS:
-	<PH0PR02MB8520F0CB7337ED9AA53D333AB25F9@PH0PR02MB8520.namprd02.prod.outlook.com>
-X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	WVFFEZ2y3iFIcQk8Dn/cOQNVfw/FM94pvBtaFsidh9cYyouSoncBJcgycwAnORrRJIWWJxHvLfmyFbWU/cMyhfo55Bh7JE4SztW/082INoj6qkusQem7xp4CsrTMbwxaKhahCh88ClI02LOineyNcI3dJyqBrKEyX5QALie7Fbut3JrWvWOK6hdsKvj4yqw7t2uVKQS+14EtZnRnxP6VQz5PMlM6RHKwaEI5PZyF1BG1eyVSANs99qlpKE/yx7bqPr/krICujGPfNLOBvty302Z9IpPNU4cAJ6yrZdFuU61hxs5C0VP6bivBeNvyeZLJh+pZr3c+DXCy9n9TdQYDOMw4zFspsOH7gPBPeCRzKt7CjPhxMbBlM0sSfXN4PR7u30jNrtL8nweiLQywxcMf+D0Z9tLPH3Ykpe6UU0+BPdoT74nWzE0hp+TDDaDKEbjlugvektB2ZCyq0lEJhoTW47wf5Ar4ZgrJaytb1bcTpQJ7YejgKImrjif9GggZXDDB1aIjLN9UHN/T5n/cTezgRkKqCo20LWOBlKMvs7vMyAz5p0g+ke/YZWuQ6LgrRW5pkeZKYSv+cuOHI2wZLW3EMsnTpnAjWWjjkW8NDjZCrZblV7gWcw076rhzd1m7aXVHUYpj6SHMCARVN8Zb4SrXooXWlmkqP/Mgh1GubLKFtLcxkRlWBc18rZMkPgQ0+nBDnzlzHPI/+pryfvJdbgaoMqXxGbPm/9hHEBAF4eV5EZ1dt+QaPbuUqFocr+wLCr2uBIt6mC3O39yqPmHwzuz2+RwH514yuZVzpMrVs/nS8X7mIYextLBnbAPoz95LmbeEZL8EX37O05jaWduCscPAgQ==
-X-Forefront-Antispam-Report:
-	CIP:149.199.80.198;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:xir-pvapexch02.xlnx.xilinx.com;PTR:unknown-80-198.xilinx.com;CAT:NONE;SFS:(4636009)(46966006)(36840700001)(40470700004)(107886003)(26005)(9786002)(316002)(8936002)(356005)(426003)(53546011)(36756003)(47076005)(2616005)(82310400004)(40460700003)(36860700001)(31696002)(336012)(70206006)(2906002)(508600001)(110136005)(54906003)(83380400001)(5660300002)(4326008)(186003)(7636003)(70586007)(31686004)(8676002)(50156003)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: xilinx.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2022 10:56:56.5377
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e3ffac53-4e46-4d40-f887-08d9dff16794
-X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.80.198];Helo=[xir-pvapexch02.xlnx.xilinx.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM3NAM02FT027.eop-nam02.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR02MB8520
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi Jan/All,
+Patch series available in this git branch:
+https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.build-system-xen-v9
 
-On 25/01/2022 08:55, Jan Beulich wrote:
-> On 24.01.2022 19:41, Stefano Stabellini wrote:
->> On Mon, 24 Jan 2022, Ayan Kumar Halder wrote:
->>> As for the patch, I will mention this issue (as a comment in the code) where
->>> we are loading the instruction from PC. Stefano/Julien/Bertrand/Volodymyr:-
->>> Does it look fine with you ?
->> As this issue could happen on any architecture (the guest could change
->> the instruction from another vcpu while the other is trapping in Xen)
->> and given that we do quite a bit of emulation on x86 I asked Jan on IRC
->> how do we handle this kind of things on x86 today. He had a good answer:
->> "By not making any assumptions on what we're going to find."
->>
->> In other words, don't assume you are going to find a store or a load
->> instruction at the memory location pointed by the PC. You could find
->> total garbage (because it was changed in between). Make sure to check
->> everything is as expected before taking any actions.
->>
->> And I think you are already doing that in decode_loadstore_postindexing.
->>
->> These are the fields:
->>
->> + * 31 30 29  27 26 25  23   21 20              11   9         4       0
->> + * ___________________________________________________________________
->> + * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt   |
->> + * |____|______|__|____|____|__|_______________|____|_________|_______|
->> + */
->> +union ldr_str_instr_class {
->> +    uint32_t value;
->> +    struct ldr_str {
->> +        unsigned int rt:5;     /* Rt register */
->> +        unsigned int rn:5;     /* Rn register */
->> +        unsigned int fixed1:2; /* value == 01b */
->> +        signed int imm9:9;            /* imm9 */
->> +        unsigned int fixed2:1; /* value == 0b */
->> +        unsigned int opc:2;    /* opc */
->> +        unsigned int fixed3:2; /* value == 00b */
->> +        unsigned int v:1;      /* vector */
->> +        unsigned int fixed4:3; /* value == 111b */
->> +        unsigned int size:2;   /* size */
->> +    } code;
->> +};
->>
->>
->> This patch already checks for:
->> - the fixed values
->> - v
->> - opc
->> - some special rt and rn values
->>
->> Considering that:
->> - size is fine either way
->> - as rt and rn are 5 bits wide, all values are acceptable (x0->x31)
->>
->> It doesn't look like we are missing anything, unless imm9 is restricted
->> to some ranges only.
-> Beyond decoding there's at least one further assumption one may
-> mistakenly make: The address may not be suitably aligned and it may
-> not reference MMIO (or, should that matter, not the specific region
-> of MMIO that other trap-provided info my hint at).
+v9:
+    One new patch (patch 3).
+    Otherwise, detailed change logs in patches.
 
-As I see, Xen will read/write to the MMIO address provided either by 
-gva_to_ipa_pa() or HPFAR_EL2.
+    Removed the rfc part about doing out-of-tree build without setting VPATH
+    (which would have allowed mixed in-tree / out-of-tree builds).
 
-However, (you are correct), that the address pointed by Rn might not 
-point to the same address (assuming that the instruction was changed 
-after being loaded in I cache). In any case, Xen will simply increment 
-(or decrement) Rn. The guest will find this new value of Rn (and that 
-should be fine it was the guest who had changed the instruction).
+v8:
+    Mostly rework of v7. With many patch already applied.
+    Some detail changes that are spread through many patches:
+    - `make cloc` recipe should now work throughout the series, update of it is
+      done in 3 patches.
+    - new patch "build: fix enforce unique symbols for recent clang version"
+      to fix an issue with clang.
+    - introducing $(srctree) and $(objtree) earlier
+    - introducing $(srcdir) as shortcut for $(srctree)/$(src)
+    - introduce usage of -iquote instead of -I in some cases
+    More detail change log can be found in patches notes.
 
-In any case, I don't see Xen doing something erroneous.
+    Also this v8 present a work-in-progress of the ability to do out-of-tree
+    build without setting VPATH. This is presented as an alternative to force
+    use of out-of-tree build. As the last patch show, it allows to build the
+    xen-shim without the linkfarm and we don't need to make any other changes
+    to any thing that build xen (osstest, distribution packages, xen.git, ...,
+    and developers finger macros). The patches are only there as WIP / RFC as
+    they were some concern about the usefulness and extra changes needed.
+    We can decide whether those changes are good or if this is too much and we
+    should force out-of-tree build for the hypervisor.
 
-I will send out a v4 patch addressing the issues pointed by Stefano and 
-Andre (commit message).
+v7:
+    Out-of-tree build!
 
-- Ayan
+    This mean many more patches. Everything after patch 27 is new.
 
->
-> Jan
->
+    There's a few new patch before that, but otherwise are rework of v6.
+
+Hi,
+
+I have work toward building Xen (the hypervisor) with Linux's build system,
+Kbuild.
+
+The main reason for that is to be able to have out-of-tree build. It's annoying
+when a build fail because of the pvshim. Other benefit is a much faster
+rebuild, and `make clean` doesn't take ages, and better dependencies to figure
+out what needs to be rebuild.
+
+Cheers,
+
+Anthony PERARD (30):
+  build: set XEN_BUILD_EFI earlier
+  build: avoid re-executing the main Makefile by introducing build.mk
+  build: fix exported variable name CFLAGS_stack_boundary
+  build: set ALL_OBJS in main Makefile; move prelink.o to main Makefile
+  build: prepare to always invoke $(MAKE) from xen/, use $(obj)
+  build: rework test/livepatch/Makefile
+  build: rework cloc recipe
+  build: fix enforce unique symbols for recent clang version
+  build: build everything from the root dir, use obj=$subdir
+  build: introduce if_changed_deps
+  build: rename __LINKER__ to LINKER_SCRIPT
+  build: hook kconfig into xen build system
+  xen/tools/kconfig: fix build with -Wdeclaration-after-statement
+  build: remove KBUILD_ specific from Makefile.host
+  build: handle always-y and hostprogs-always-y
+  build: start building the tools with the main makefiles
+  build: add headers path to CFLAGS once for all archs
+  build: generate x86's asm-macros.h with filechk
+  build: clean-up "clean" rules of duplication
+  build: rework "clean" to clean from the root dir
+  build: use main rune to build host binary x86's mkelf32 and mkreloc
+  build: rework coverage and ubsan CFLAGS handling
+  build,x86: remove the need for build32.mk
+  build: grab common EFI source files in arch specific dir
+  build: replace $(BASEDIR) by $(objtree)
+  build: replace $(BASEDIR) and use $(srctree)
+  build: rework "headers*.chk" prerequisite in include/
+  build: specify source tree in include/ for prerequisite
+  build: shuffle main Makefile
+  build: adding out-of-tree support to the xen build
+
+ .gitignore                                   |   2 +
+ xen/Kconfig                                  |   4 +-
+ xen/Makefile                                 | 367 ++++++++++-------
+ xen/Rules.mk                                 | 227 +++++++----
+ xen/arch/arm/Makefile                        |  53 +--
+ xen/arch/arm/arch.mk                         |   5 +-
+ xen/arch/arm/efi/Makefile                    |   4 +-
+ xen/arch/arm/include/asm/config.h            |   2 +-
+ xen/arch/riscv/arch.mk                       |   2 -
+ xen/arch/x86/Makefile                        | 204 ++++------
+ xen/arch/x86/Rules.mk                        |   8 +-
+ xen/arch/x86/arch.mk                         |  59 ++-
+ xen/arch/x86/boot/Makefile                   |  57 ++-
+ xen/arch/x86/boot/build32.mk                 |  40 --
+ xen/arch/x86/efi/Makefile                    |  11 +-
+ xen/build.mk                                 |  90 +++++
+ xen/common/Makefile                          |  13 +-
+ xen/common/efi/efi-common.mk                 |  16 +
+ xen/common/libelf/Makefile                   |   4 +-
+ xen/common/libfdt/Makefile                   |   8 +-
+ xen/include/Makefile                         |  76 ++--
+ xen/scripts/Kbuild.include                   |  69 +++-
+ xen/scripts/Kconfig.include                  |   2 +-
+ xen/scripts/Makefile.clean                   |  32 +-
+ xen/{tools/kconfig => scripts}/Makefile.host |  37 +-
+ xen/test/Makefile                            |   7 +-
+ xen/test/livepatch/Makefile                  | 213 ++++------
+ xen/tools/Makefile                           |  14 +-
+ xen/tools/fixdep.c                           | 404 +++++++++++++++++++
+ xen/tools/kconfig/Makefile                   |   3 +
+ xen/tools/kconfig/Makefile.kconfig           | 106 -----
+ xen/tools/kconfig/confdata.c                 |   2 +-
+ xen/xsm/flask/Makefile                       |  43 +-
+ xen/xsm/flask/policy/mkaccess_vector.sh      |   7 +-
+ xen/xsm/flask/ss/Makefile                    |   3 +-
+ 35 files changed, 1371 insertions(+), 823 deletions(-)
+ delete mode 100644 xen/arch/x86/boot/build32.mk
+ create mode 100644 xen/build.mk
+ create mode 100644 xen/common/efi/efi-common.mk
+ rename xen/{tools/kconfig => scripts}/Makefile.host (85%)
+ create mode 100644 xen/tools/fixdep.c
+ delete mode 100644 xen/tools/kconfig/Makefile.kconfig
+
+-- 
+Anthony PERARD
+
 
