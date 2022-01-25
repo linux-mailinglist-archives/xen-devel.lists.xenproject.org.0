@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07F5149B278
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 12:01:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260072.449154 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3453449B280
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 12:01:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260073.449159 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCJZu-0000Zr-BU; Tue, 25 Jan 2022 11:01:34 +0000
+	id 1nCJZv-0000hp-3D; Tue, 25 Jan 2022 11:01:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260072.449154; Tue, 25 Jan 2022 11:01:34 +0000
+Received: by outflank-mailman (output) from mailman id 260073.449159; Tue, 25 Jan 2022 11:01:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCJZu-0000VF-3n; Tue, 25 Jan 2022 11:01:34 +0000
-Received: by outflank-mailman (input) for mailman id 260072;
+	id 1nCJZu-0000aH-LN; Tue, 25 Jan 2022 11:01:34 +0000
+Received: by outflank-mailman (input) for mailman id 260073;
  Tue, 25 Jan 2022 11:01:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rP4T=SJ=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nCJZs-0006t5-3D
+ id 1nCJZs-0006t5-PB
  for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 11:01:32 +0000
 Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
  [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 26917dcc-7dce-11ec-bc18-3156f6d857e4;
- Tue, 25 Jan 2022 12:01:30 +0100 (CET)
+ id 26246b71-7dce-11ec-bc18-3156f6d857e4;
+ Tue, 25 Jan 2022 12:01:31 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,65 +36,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 26917dcc-7dce-11ec-bc18-3156f6d857e4
+X-Inumbo-ID: 26246b71-7dce-11ec-bc18-3156f6d857e4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=citrix.com; s=securemail; t=1643108491;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=tjCJsGpTJwkX9QPSIkgzC8qbhSpsXT5gJ2Q/ukX+uwo=;
-  b=h2H21DcbcpZ0zTjanvqe6xSPyECwQ4c8sapGLQ8th06kCP9o0eQWrBYQ
-   dM8BMNj/k5kYUrYIRFm9JfiKUfgO7cA04fUfjPDJfXUmaEjNKEEyvIUeE
-   cy17Lx5ibC1RYT2B5dVNI3pVIltvTPjXDA3J86kXc4ZtUq4MVvkIbSAh4
-   Q=;
+  bh=TsXcnBKYbccVmeII/8T5tHLE3sOCUvbLSaaju2n5u0A=;
+  b=a2GW1CTlR+dBuuI/Vd31T0+0/AQ44p3fzDiYULtsNMBUONYySY9HEqpg
+   XO+ENyZte8QlO10hWb36r+1PWPtrGfILEItmi/ii/R/Zbuj8KYuLyPK1E
+   loNzBEuaSdnpLiKvxZ0nxNf2z6UvHvjcY3E/RudBFmreHh9w+H0ge8/Xg
+   w=;
 Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: NtsLjjrdj9hPcGsdnFY8PJKFM2i5xELmVlA0+3s0vj3JFOnztbnpPRgBNwZrw8ebzViEt0DDdR
- SPyTdw4Sb/pHBl0/SrpGjKU0H0HHRAeHnDoctYyEXiaUbfAPr7ZlPvmsO2zJH7jCV4AA5LNtHY
- j1NNxZmKVvgp/zXBvBzu/5SEz9oqDid/m5IDf+mxQ1D3gYV/pMgNLeN7IVvni4Zu39z1jTSmCB
- +eAOxXFrohnDAGMs02yDRqap9+I/lkOBtd+Iuy18kGJI6M3lryzLty1UVz6ThECSqrc8BOcMyQ
- Yllp7LZfcaS/x5M8RrwH46a8
+IronPort-SDR: zZ3H5sbzZ05nXNIp5JqaX6rziwDlaETU/PX2Nve0EbsaGzzRJ/UAewF8tgWWpKV8yB69rlrEdH
+ KWwie0BeHWxIvazj0jDQY0vHkD1pzym7sV9DcSQsuv2AZx4PnZtxWSKzbBt74F1bV30A572mJg
+ rJ8gSTLmRlr3UPxOpfSOEgZLxs5MEVg8z/meNaCBfAiWrothYqvmyMmh7bCaQDtXYXAMsc5yG+
+ WUlkatkvZfhwiOywa8Gtj7l55XMGGhzI+y+mvlYpt6axXiIPvKXT5J9GzMJENKhUhQLcI/7Bzo
+ c6d6xsn7uOnd1Er3tzjETIAl
 X-SBRS: 5.2
-X-MesageID: 64860826
+X-MesageID: 64860828
 X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:+pfh7aibXfA2Km5e4+tRgMcqX161nBcKZh0ujC45NGQN5FlHY01je
- htvDG6PbPfcNGLxc9xxbYvkoU8PvJCEydMySARtriA9Eigb9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0GE/NtTo5w7Rj2tcy3IDga++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /1rm8TvbjUlJpTSs7wNAkRJNQxfY4l/reqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
- KJCbmpXN1ba2rzwkOnTpupE36zPKOHiOp8fvXdxiynUF/88TbjIQrnQ5M8e1zA17ixLNaiCN
- 5RBOWAxBPjGSyBIF1QrIaMkpcCho1TgcyZXrFKKpZNitgA/yyQuieOwYbI5YOeiXt5Jl0yVo
- mbH+WXRARwAMtGbjz2f/RqEmevnjS79HoUIG9WQ9ONugVCV7nweDlsRT1TTiem0jAuyVsxSL
- 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0WdBdDuk74wGl0bfP7kCSAW1sc9JaQIV47olsH2Vsj
- wLX2YOybdByjFGLYVSzruiznz+qADY+dX9TOD4iYCpbx+C29enfkSnzZtpkFae0iPj8Fjfx3
- y2GoUACulkDsSIY//7lpA6a2lpAsrCMF1dovVuPAgpJ+yskPNbNWmC+1bTMAR+sxq69R0LJg
- nULktP2AAsmXcDUz3zlrAng8diUCxe53N/03AYH83oJrW3FF5ufkWZ4um0WyKBBaZ5sRNMRS
- BWP0T69HbcKVJdQUYd5YpiqF+MhxrX6GNLuW5j8N4QSOcAtJVDYonA/PSZ8OlwBdmB2zcnT3
- r/AKa6R4YsyU/w7nFJauc9DuVPU+szO7TyKHs2qp/hW+bGfeGSUWd843KimNYgEAFe/iFyNq
- b53bpLSoz0GCbGWSnSJreY7cA5bRVBmVcGeg5EGLYarf1s5cFzN/teMm9vNjaQ/wfQM/goJl
- 1ngMnJlJK3X3C2edl7SOyk9MdsCn/9X9BoGAMDlBn7ws1BLXGplxP13m0IfceZ1+ep94+RzS
- vVZKcyMDu4WEmbM+igHbIm7p4tnLUz5iQWLNiujQT4+Y58/GFCZpo66JlPipHsUEy66lcoiu
- Ln8hAnVdoUOGlZ5B8HMZfPxk17o5SoBmPh/VlfjK8VIfBm+65BjLiH816dlI8wFJRjZ6CGd0
- gKaXUURqeXX+tdn+9jVn6GU6YyuFrImTEZdGmDa65ewNDXboTX/kdMRDr7QcGmEBm3u+aika
- eFE9N3GMaUKzARQro5xM7d31qZitdHhkKBXk1Z/F3LRYlX1Vr45eiua3dNCv7Fmz6NCvVfkQ
- VqG/9RXNOnbOM7hF1JNdgMpYv7aiKMRkzjWq/80PF/79Gl8+7/eCRdeOByFiSp8KrppMdx6n
- bd96ZBOswHv2AA3NtumjzxP8zXeJ3MNZKwrq5UGDdK5kQEs0FxDPcTRByKeDEtjsDmQ3p3G+
- gOpuZc=
-IronPort-HdrOrdr: A9a23:9mA72KwJNG/62/QqW6hKKrPwJr1zdoMgy1knxilNoRw8SKOlfq
- eV7ZEmPH7P+VEssR4b+OxoVJPsfZq+z+8W3WByB9eftWDd0QPCRr2KhbGSpwEIcBeRygcy78
- tdmtBFeb7NMWQ=
+IronPort-Data: A9a23:WJz17a+AXpnmPdaGGK75DrUDfHmTJUtcMsCJ2f8bNWPcYEJGY0x3y
+ GofCzyDPfrYazbxLdojao+woUMDuJDVz4cyQVY6+Hw8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhFWeIdA970Ug5w7dj39Yx6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhKl
+ 9VqtLKwQD0JBYvnp8UfUQVlAixXaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguwqKtXrO4UO/Glt1zjDAd4tQIzZQrWM7thdtNs1rp4STaiGN
+ 5BJAdZpRA//ekYeY15GMsgdhOGOrUHmS2ZjqnvA8MLb5ECMlVcsgdABKuH9YceWTM9YmkKZo
+ GPu/GnjBBwectuFxlKt7XaEluLJ2yThV+o6FqC89/NsqE2ewCoUEhJ+fUu2p7y1h1CzX/pbK
+ lcI4Ww+oK4q7kupQ9LhGRqirxasvBQRRt5RGO0S8xyWx+zf5APxO4QfZmcfMpp87pZwHGF0k
+ A/S9z/0OdBxmIbKSVWc2LedlxOJHwMqDG0AeRIVQCJQtrEPv7oPph7IS99iFou8gdv0BSz8z
+ li2kcQuu1kApZVVjvvmpDgrlxrp/8GUFVBtum07S0r4tlsRWWKzW2C/BbE3B95kJZ3RcFSOt
+ WNsdyO2vLFXVsHleMBgrYww8FCVCxStbWW0bb1HRcBJG9GRF5iLJ9w4DNZWfx8BDyr8UWW1C
+ HI/QCsIjHOpAFOkbLVsf6W6ANkwwK7rGLzND66INYISM8cuKl7WpEmCgHJ8OUi3zCDAdolkY
+ f+mnTuEVy5GWcyLMhLoLwvi7VPb7n9nnj6CLXwK5x+mzaCfdBaopUQtazOzghQCxPrc+m39q
+ o8HX+PTkkk3eLCgPkH/rNBCRXhXfSlTLc2n8KR/K7/cSjeK7Ul8UZc9N5t7Jdw890mU/8+Vl
+ kyAtrhwkQqm2iafeFzUMxiOqtrHBP5CkJ7yBgR0VX7A5pTpSd/HAH43e8RlcL852vZkyPIoH
+ fAJd9/ZWqZESyjd+iRbZp749dQweBOujAOIHiykfDlgIMIwG12XoofpLln16S0DLiurrs9i8
+ beu4RzWHMgYTAN4AceINP/2lwGtvWIQkf5ZVlfTJoUBY13l9YVncnSjjvI+L8wWBw/Ewz+Wi
+ 1SfDRsC/LGfqI4p6tjZw6uDqt7xQed5G0NbGUjd7Kq3anaGrjbyn9cYXb/RLz7HVW7y9KGzX
+ slvzqnxYK8dgVJHk4tgCLI3n6gw0MTi+u1BxQN+EXSVM1nyUuF8ImOL1NVkv7FWwuMLohO/X
+ 0+C94UIObiNP8+5QlcdKBB8M7aG3PAQ3DLT8e40MAPx4youpOiLVkBbPh+tji1BLeQqbNN5k
+ Ll54MNGuRaijhcKM8qdinEG/muBGXUMTqE7u8xIG4TskAcqlglPbJG05vUaO31ThwGg6nUXH
+ wI=
+IronPort-HdrOrdr: A9a23:V8h3maODYRWuWsBcTv2jsMiBIKoaSvp037BN7TEUdfU1SL38qy
+ nApoV56faZslcssRIb9+xoWpPwJk80nKQdieN9AV7LZniBhILCFvAB0WKN+V3d8gTFh5dgPf
+ gKScND4afLYmSSJ/yKmDVQaOxN/OW6
 X-IronPort-AV: E=Sophos;i="5.88,314,1635220800"; 
-   d="scan'208";a="64860826"
+   d="scan'208";a="64860828"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v9 07/30] build: rework cloc recipe
-Date: Tue, 25 Jan 2022 11:00:40 +0000
-Message-ID: <20220125110103.3527686-8-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [XEN PATCH v9 08/30] build: fix enforce unique symbols for recent clang version
+Date: Tue, 25 Jan 2022 11:00:41 +0000
+Message-ID: <20220125110103.3527686-9-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220125110103.3527686-1-anthony.perard@citrix.com>
 References: <20220125110103.3527686-1-anthony.perard@citrix.com>
@@ -102,58 +102,65 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-We are going to make other modifications to the cloc recipe, so this
-patch prepare make those modification easier.
+clang 6.0 and newer behave like gcc in regards for the FILE symbol, so
+only the filename rather than the full path to the source file.
 
-We replace the Makefile meta programming by just a shell script which
-should be easier to read and is actually faster to execute.
+clang 3.8.1-24 (in our debian:stretch container) and 3.5.0-10
+(in our debian:jessie container) do store the full path to the source
+file in the FILE symbol.
 
-Instead of looking for files in "$(BASEDIR)", we use "." which is give
-the same result overall. We also avoid the need for a temporary file
-as cloc can read the list of files from stdin.
+Also, based on commit 81ecb38b83 ("build: provide option to
+disambiguate symbol names"), which were using clang 5, the change of
+behavior likely happened in clang 6.0.
 
-No change intended to the output of `cloc`.
+This means that we also need to check clang version to figure out
+which command we need to use to redefine symbol.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
+---
+
+"enforce unique symbols" works by chance with recent clang version.
+The few object built from source in subdir don't pose an issue.
 ---
 
 Notes:
     v9:
-    - acked
+    - checking for clang 6 instead of clang 4, based on 81ecb38b83, and
+      update commit message.
     
     v8:
-    - rework cloc patch, move it ahead of problematic changes
-      this is only a convertion to shell script with a single other change.
+    - new patch, extracted from "build: build everything from the root dir, use obj=$subdir"
 
- xen/Makefile | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+ xen/Rules.mk               | 2 +-
+ xen/scripts/Kbuild.include | 2 ++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/xen/Makefile b/xen/Makefile
-index d953dc50ac6a..ec24856a5d46 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -473,14 +473,12 @@ _MAP:
+diff --git a/xen/Rules.mk b/xen/Rules.mk
+index 60d1d6c4f583..1e7f47a3d8a8 100644
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -166,7 +166,7 @@ SRCPATH := $(patsubst $(BASEDIR)/%,%,$(CURDIR))
+ quiet_cmd_cc_o_c = CC      $@
+ ifeq ($(CONFIG_ENFORCE_UNIQUE_SYMBOLS),y)
+     cmd_cc_o_c = $(CC) $(c_flags) -c $< -o $(dot-target).tmp -MQ $@
+-    ifeq ($(CONFIG_CC_IS_CLANG),y)
++    ifeq ($(CONFIG_CC_IS_CLANG)$(call clang-ifversion,-lt,600,y),yy)
+         cmd_objcopy_fix_sym = $(OBJCOPY) --redefine-sym $<=$(SRCPATH)/$< $(dot-target).tmp $@
+     else
+         cmd_objcopy_fix_sym = $(OBJCOPY) --redefine-sym $(<F)=$(SRCPATH)/$< $(dot-target).tmp $@
+diff --git a/xen/scripts/Kbuild.include b/xen/scripts/Kbuild.include
+index 73caf238d42c..4875bb28c282 100644
+--- a/xen/scripts/Kbuild.include
++++ b/xen/scripts/Kbuild.include
+@@ -59,6 +59,8 @@ ld-option = $(call success,$(LD) -v $(1))
+ # Usage:  EXTRA_CFLAGS += $(call cc-ifversion, -lt, 0402, -O1)
+ cc-ifversion = $(shell [ $(CONFIG_GCC_VERSION)0 $(1) $(2)000 ] && echo $(3) || echo $(4))
  
- .PHONY: cloc
- cloc:
--	$(eval tmpfile := $(shell mktemp))
--	$(foreach f, $(shell find $(BASEDIR) -name *.o.d), \
--		$(eval path := $(dir $(f))) \
--		$(eval names := $(shell grep -o "[a-zA-Z0-9_/-]*\.[cS]" $(f))) \
--		$(foreach sf, $(names), \
--			$(shell if test -f $(path)/$(sf) ; then echo $(path)/$(sf) >> $(tmpfile); fi;)))
--	cloc --list-file=$(tmpfile)
--	rm $(tmpfile)
-+	find . -name '*.o.d' | while read f; do \
-+	    for sf in $$(grep -o "[a-zA-Z0-9_/-]*\.[cS]" $$f); do \
-+		sf="$$(dirname $$f)/$$sf"; \
-+		test -f "$$sf" && echo "$$sf"; \
-+	    done; \
-+	done | cloc --list-file=-
- 
- endif #config-build
- 
++clang-ifversion = $(shell [ $(CONFIG_CLANG_VERSION)0 $(1) $(2)000 ] && echo $(3) || echo $(4))
++
+ # Shorthand for $(MAKE) clean
+ # Usage:
+ # $(MAKE) $(clean) dir
 -- 
 Anthony PERARD
 
