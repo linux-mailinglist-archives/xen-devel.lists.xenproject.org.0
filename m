@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E82049BDD3
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 22:23:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260568.450290 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0609149BE05
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 22:54:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260579.450313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCTHI-0008Lo-Dn; Tue, 25 Jan 2022 21:23:00 +0000
+	id 1nCTlD-0003WZ-35; Tue, 25 Jan 2022 21:53:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260568.450290; Tue, 25 Jan 2022 21:23:00 +0000
+Received: by outflank-mailman (output) from mailman id 260579.450313; Tue, 25 Jan 2022 21:53:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCTHI-0008Jl-9u; Tue, 25 Jan 2022 21:23:00 +0000
-Received: by outflank-mailman (input) for mailman id 260568;
- Tue, 25 Jan 2022 21:22:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nCTHH-0008JX-Es; Tue, 25 Jan 2022 21:22:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nCTHH-0007Hq-Bk; Tue, 25 Jan 2022 21:22:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nCTHH-0001N7-4A; Tue, 25 Jan 2022 21:22:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nCTHH-0002wX-3i; Tue, 25 Jan 2022 21:22:59 +0000
+	id 1nCTlC-0003U5-Vy; Tue, 25 Jan 2022 21:53:54 +0000
+Received: by outflank-mailman (input) for mailman id 260579;
+ Tue, 25 Jan 2022 21:53:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=npsv=SJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nCTlB-0003Tz-CU
+ for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 21:53:53 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 483df681-7e29-11ec-8eb8-a37418f5ba1a;
+ Tue, 25 Jan 2022 22:53:51 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 61952B81AC6;
+ Tue, 25 Jan 2022 21:53:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9576BC340E0;
+ Tue, 25 Jan 2022 21:53:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,722 +44,410 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=MhWvQGNtMleGTscMthNNoFB6syZItctS9OrHAOx8NsQ=; b=LfLv2OaQjpsirPQ/QQFAvC/ve8
-	byt6cCnttE3ioK2WdW7oDmxqK2Fl6lM1XGlMROiO45+3FCZn33+Xpjeh3bqpSvjHct3L1eO3gdAFf
-	OMyGydEKUHpal8HcLY/nWd6QO7TCWatBmsFoJVciDW2ictgOinWDNhmqjwxWid8N/5ao=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-167813-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 483df681-7e29-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1643147629;
+	bh=sxfR+Go7NqLe3FB30WaZANN9mzWKHbuGXKlZIi/gPoY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=YcbxGH3/HGl8t8X2SnkjNlXWde0J7XupTGD9qKngOSfISUgL4Nnf8afXwHslq1f4n
+	 LDBAX+Dwmd0nQGg5JGQscSXBFIKSLRaTFam2TO9vbEl+hDdnZw7fmlVBZVIK21di77
+	 bZtWu1MYXavojtQrUFlXr8DociFsLVU047cgZlnUO+7RmxwtQcoCe72MpUbxwJurCj
+	 lJYkvAgWtkn4x3ejfRyR/B/T9rECDHGV/tYu3rz7vBVPkRt3Osl01/cyIijbgRmAnD
+	 /1qJqg7kxsXAtEeFbTdteFsrVcbkpysvKWdspoF0OVjrjEb0wdbEOhxcUWWQERTqI/
+	 ugw6jGtyo6+ig==
+Date: Tue, 25 Jan 2022 13:53:47 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    stefanos@xilinx.com, julien@xen.org, Volodymyr_Babchuk@epam.com, 
+    bertrand.marquis@arm.com, andre.przywara@arm.com, jbeulich@suse.com, 
+    wei.chen@arm.com, Ayan Kumar Halder <ayankuma@xilinx.com>
+Subject: Re: [XEN v4] xen/arm64: io: Decode ldr/str post-indexing
+ instructions
+In-Reply-To: <20220125211808.23810-1-ayankuma@xilinx.com>
+Message-ID: <alpine.DEB.2.22.394.2201251340000.27308@ubuntu-linux-20-04-desktop>
+References: <20220125211808.23810-1-ayankuma@xilinx.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-4.15-testing test] 167813: regressions - FAIL
-X-Osstest-Failures:
-    xen-4.15-testing:build-amd64-xsm:xen-build:fail:regression
-    xen-4.15-testing:build-amd64:xen-build:fail:regression
-    xen-4.15-testing:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:allowable
-    xen-4.15-testing:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-vhd:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-xsm:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-coresched-amd64-xl:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-dom0pvh-xl-amd:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-dom0pvh-xl-intel:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-livepatch:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-migrupgrade:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-qemuu-freebsd11-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-amd64-qemuu-freebsd12-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-coresched-i386-xl:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-livepatch:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-migrupgrade:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-pair:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-qemut-rhel6hvm-amd:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-amd64-i386-qemut-rhel6hvm-intel:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-xtf-amd64-amd64-1:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-xtf-amd64-amd64-2:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-xtf-amd64-amd64-3:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-xtf-amd64-amd64-4:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-xtf-amd64-amd64-5:build-check(1):blocked:nonblocking
-    xen-4.15-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-4.15-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=bd20d6c87619a6b825478cd5ae0387f9fdaabea0
-X-Osstest-Versions-That:
-    xen=a763f8f158e81158bdf2470dbc3d98353f2322e2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 25 Jan 2022 21:22:59 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 167813 xen-4.15-testing real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/167813/
+On Tue, 25 Jan 2022, Ayan Kumar Halder wrote:
+> At the moment, Xen is only handling data abort with valid syndrome (i.e.
+> ISV=0). Unfortunately, this doesn't cover all the instructions a domain
+> could use to access MMIO regions.
+> 
+> For instance, a baremetal OS can use any of the following instructions, where
+> x1 contains the address of the MMIO region:
+> 
+> 1.      ldr     x2,    [x1],    #8
+> 2.      ldr     w2,    [x1],    #-4
+> 3.      ldr     x2,    [x1],    #-8
+> 4.      ldr     w2,    [x1],    #4
+> 5.      ldrh    w2,    [x1],    #2
+> 6.      ldrb    w2,    [x1],    #1
+> 7.      str     x2,    [x1],    #8
+> 8.      str     w2,    [x1],    #-4
+> 9.      strh    w2,    [x1],    #2
+> 10.     strb    w2,    [x1],    #1
+> 
+> In the following two instructions, Rn could theoretically be stack pointer which
+> might contain the address of the MMIO region:-
+> 11.     ldrb    w2,    [Rn],    #1
+> 12.     ldrb    wzr,   [Rn],    #1
+> 
+> In order to handle post-indexing store/load instructions (like those mentioned
+> above), Xen will need to fetch and decode the instruction.
+> 
+> This patch only cover post-index store/load instructions from AArch64 mode.
+> For now, this is left unimplemented for trap from AArch32 mode.
 
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 167628
- build-amd64                   6 xen-build                fail REGR. vs. 167628
-
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds    18 guest-start/debian.repeat fail REGR. vs. 167628
-
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
- test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
- test-amd64-i386-xl            1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-qemut-debianhvm-amd64  1 build-check(1)         blocked n/a
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-xl-qemut-win7-amd64  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-qemut-ws16-amd64  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
- test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-shadow     1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-vhd        1 build-check(1)               blocked  n/a
- test-amd64-i386-xl-xsm        1 build-check(1)               blocked  n/a
- test-amd64-coresched-amd64-xl  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-xsm       1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-shadow    1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-rtds      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-amd64-amd64-xl-qemut-ws16-amd64  1 build-check(1)             blocked n/a
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemut-win7-amd64  1 build-check(1)             blocked n/a
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
- test-amd64-amd64-xl-qemut-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-amd64-amd64-xl-qcow2     1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvshim    1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvhv2-intel  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-pvhv2-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-multivcpu  1 build-check(1)               blocked  n/a
- test-amd64-amd64-dom0pvh-xl-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-dom0pvh-xl-intel  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-credit2   1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-credit1   1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-livepatch    1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
- test-amd64-amd64-migrupgrade  1 build-check(1)               blocked  n/a
- test-amd64-amd64-pair         1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-pygrub       1 build-check(1)               blocked  n/a
- test-amd64-amd64-qemuu-freebsd11-amd64  1 build-check(1)           blocked n/a
- test-amd64-amd64-qemuu-freebsd12-amd64  1 build-check(1)           blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
- test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
- test-amd64-coresched-i386-xl  1 build-check(1)               blocked  n/a
- test-amd64-i386-freebsd10-amd64  1 build-check(1)               blocked  n/a
- test-amd64-i386-freebsd10-i386  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-amd64-i386-livepatch     1 build-check(1)               blocked  n/a
- test-amd64-i386-migrupgrade   1 build-check(1)               blocked  n/a
- test-amd64-i386-pair          1 build-check(1)               blocked  n/a
- test-amd64-i386-qemut-rhel6hvm-amd  1 build-check(1)               blocked n/a
- test-amd64-i386-qemut-rhel6hvm-intel  1 build-check(1)             blocked n/a
- test-xtf-amd64-amd64-1        1 build-check(1)               blocked  n/a
- test-xtf-amd64-amd64-2        1 build-check(1)               blocked  n/a
- test-xtf-amd64-amd64-3        1 build-check(1)               blocked  n/a
- test-xtf-amd64-amd64-4        1 build-check(1)               blocked  n/a
- test-xtf-amd64-amd64-5        1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 167628
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 167628
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 167628
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- xen                  bd20d6c87619a6b825478cd5ae0387f9fdaabea0
-baseline version:
- xen                  a763f8f158e81158bdf2470dbc3d98353f2322e2
-
-Last test of basis   167628  2022-01-07 07:36:33 Z   18 days
-Testing same since   167813  2022-01-25 13:06:39 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Julien Grall <jgrall@amazon.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  fail    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          blocked 
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       blocked 
- test-xtf-amd64-amd64-2                                       blocked 
- test-xtf-amd64-amd64-3                                       blocked 
- test-xtf-amd64-amd64-4                                       blocked 
- test-xtf-amd64-amd64-5                                       blocked 
- test-amd64-amd64-xl                                          blocked 
- test-amd64-coresched-amd64-xl                                blocked 
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           blocked 
- test-amd64-coresched-i386-xl                                 blocked 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        blocked 
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         blocked 
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 blocked 
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-xl-xsm                                      blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       blocked 
- test-amd64-amd64-qemuu-nested-amd                            blocked 
- test-amd64-amd64-xl-pvhv2-amd                                blocked 
- test-amd64-i386-qemut-rhel6hvm-amd                           blocked 
- test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
- test-amd64-amd64-dom0pvh-xl-amd                              blocked 
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    blocked 
- test-amd64-i386-xl-qemut-debianhvm-amd64                     blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
- test-amd64-i386-freebsd10-amd64                              blocked 
- test-amd64-amd64-qemuu-freebsd11-amd64                       blocked 
- test-amd64-amd64-qemuu-freebsd12-amd64                       blocked 
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
- test-amd64-amd64-xl-qemut-win7-amd64                         blocked 
- test-amd64-i386-xl-qemut-win7-amd64                          blocked 
- test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
- test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
- test-amd64-amd64-xl-qemut-ws16-amd64                         blocked 
- test-amd64-i386-xl-qemut-ws16-amd64                          blocked 
- test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  blocked 
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  blocked 
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
- test-amd64-i386-freebsd10-i386                               blocked 
- test-amd64-amd64-qemuu-nested-intel                          blocked 
- test-amd64-amd64-xl-pvhv2-intel                              blocked 
- test-amd64-i386-qemut-rhel6hvm-intel                         blocked 
- test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
- test-amd64-amd64-dom0pvh-xl-intel                            blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-livepatch                                   blocked 
- test-amd64-i386-livepatch                                    blocked 
- test-amd64-amd64-migrupgrade                                 blocked 
- test-amd64-i386-migrupgrade                                  blocked 
- test-amd64-amd64-xl-multivcpu                                blocked 
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        blocked 
- test-amd64-i386-pair                                         blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-amd64-amd64-xl-pvshim                                   blocked 
- test-amd64-i386-xl-pvshim                                    blocked 
- test-amd64-amd64-pygrub                                      blocked 
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    blocked 
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  blocked 
- test-amd64-amd64-xl-rtds                                     blocked 
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
- test-amd64-amd64-xl-shadow                                   blocked 
- test-amd64-i386-xl-shadow                                    blocked 
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 blocked 
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       blocked 
+NIT: "For now, AArch32 mode is left unimplemented."
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> Signed-off-by: Ayan Kumar Halder <ayankuma@xilinx.com>
+> ---
+> 
+> Changelog :-
+> v2 - 1. Updated the rn register after reading from it. (Pointed by Julien,
+>         Stefano)
+>      2. Used a union to represent the instruction opcode (Suggestd by Bertrand)
+>      3. Fixed coding style issues (Pointed by Julien)
+>      4. In the previous patch, I was updating dabt->sign based on the signedness
+>         of imm9. This was incorrect. As mentioned in ARMv8 ARM  DDI 0487G.b,
+>         Page 3221, SSE indicates the signedness of the data item loaded. In our
+>         case, the data item loaded is always unsigned.
+> 
+> v3- 1. Handled all the variants of ldr/str (ie 64, 32, 16, 8 bit variants).
+>        Thus, I have removed the check for "instr->code.opc == 0" (Suggested by
+>        Andre)
+>     2. Handled the scenario when rn = SP, rt = XZR (Suggested by Jan, Andre)
+>     3. Added restriction for "rt != rn" (Suggested by Andre)
+>     4. Moved union ldr_str_instr_class {} to decode.h. This is the header included
+>        by io.c and decode.c (where the union is referred). (Suggested by Jan)
+>     5. Indentation and typo fixes (Suggested by Jan)
+> 
+> v4- 1. Fixed the patch as per Stefano's comments on v3. They are as follows :-
+>         1.1 Use macros to determine the fixed values in the instruction opcode
+>         1.2 Checked if instr != NULL
+>         1.3 Changed some data types and added #define ARM_64 for AArch64 specific
+>             code 
+>         1.4 Moved post_increment_register() to decode.c so that the decoding
+>             logic is confined to a single file.
+>         1.5 Moved some checks from post_increment_register() to
+>             decode_loadstore_postindexing()
+>         1.6 Removed a duplicate check
+>     2. Updated the commit message as per Andre's comments.
+>     3. Changed the names of a label and some comments. *32bit* was erroneously
+>        mentioned in a label and comments in decode_loadstore_postindexing()
+>        although the function handled all variants of ldr/str post indexing.
+> 
+>  xen/arch/arm/decode.c | 124 +++++++++++++++++++++++++++++++++++++++++-
+>  xen/arch/arm/decode.h |  41 +++++++++++++-
+>  xen/arch/arm/io.c     |  41 +++++++++++---
+>  3 files changed, 195 insertions(+), 11 deletions(-)
+> 
+> diff --git a/xen/arch/arm/decode.c b/xen/arch/arm/decode.c
+> index 792c2e92a7..0c12af7afa 100644
+> --- a/xen/arch/arm/decode.c
+> +++ b/xen/arch/arm/decode.c
+> @@ -84,6 +84,101 @@ bad_thumb2:
+>      return 1;
+>  }
+>  
+> +static int decode_loadstore_postindexing(register_t pc,
+> +                                         struct hsr_dabt *dabt,
+> +                                         union ldr_str_instr_class *instr)
+> +{
+> +    struct cpu_user_regs *regs = guest_cpu_user_regs();
+> +
+> +    if ( instr == NULL )
+> +    {
+> +        gprintk(XENLOG_ERR, "instr should not be NULL\n");
+> +        return -EINVAL;
+> +    }
+> +
+> +    if ( raw_copy_from_guest(&instr->value, (void * __user)pc, sizeof (instr)) )
+> +    {
+> +        gprintk(XENLOG_ERR, "Could not copy the instruction from PC\n");
+> +        return -EFAULT;
+> +    }
+> +
+> +    /*
+> +     * Rn -ne Rt for ldr/str instruction.
+> +     * Check https://developer.arm.com/documentation/dui0802/a/CIHGJHED
+> +     * (Register restrictions)
+> +     *
+> +     * The only exception for this is when rn = 31. It denotes SP ("Use of SP")
+> +     *
+> +     * And when rt = 31, it denotes wzr/xzr. (Refer
+> +     * https://developer.arm.com/documentation/den0024/a/ARMv8-Registers/AArch64-special-registers
+> +     * "There is no register called X31 or W31. Many instructions are encoded
+> +     * such that the number 31 represents the zero register, ZR (WZR/XZR)."
+> +     */
+> +    if ( (instr->code.rn == instr->code.rt) && (instr->code.rn != 31) )
+> +    {
+> +        gprintk(XENLOG_ERR, "Rn should not be equal to Rt except for r31\n");
+> +        return -EINVAL;
+> +    }
+> +
+> +    /* First, let's check for the fixed values */
+> +    if ( (instr->value & POST_INDEX_FIXED_MASK) != POST_INDEX_FIXED_VALUE )
+> +    {
+> +        gprintk(XENLOG_ERR, "Cannot decode instruction 0x%x",instr->value);
+> +        gprintk(XENLOG_ERR, "Decoding not supported for instructions other than"
+> +            " ldr/str post indexing\n");
+> +        goto bad_loadstore;
+> +    }
+> +
+> +    /*
+> +     * Handle when rn = SP
+> +     * Refer ArmV8 ARM DDI 0487G.b, Page - D1-2463 "Stack pointer register selection"
+> +     * As we are interested in handling exceptions only from EL1 in AArch64 state,
+> +     * thus M[3:0] == EL1h (Page - C5-480 "When exception taken from AArch64 state:")
+> +     */
+> +    if ( (instr->code.rn == 31) && ((regs->cpsr & PSR_MODE_MASK) != PSR_MODE_EL1h) )
+> +    {
+> +        gprintk(XENLOG_ERR, "SP is valid only for EL1h\n");
+> +        goto bad_loadstore;
+> +    }
+> +
+> +    if ( instr->code.v != 0 )
+> +    {
+> +        gprintk(XENLOG_ERR,
+> +            "ldr/str post indexing for vector types are not supported\n");
+> +        goto bad_loadstore;
+> +    }
+> +
+> +    /* Check for STR (immediate) */
+> +    if ( instr->code.opc == 0 )
+> +    {
+> +        dabt->write = 1;
+> +    }
+> +    /* Check for LDR (immediate) */
+> +    else if ( instr->code.opc == 1 )
+> +    {
+> +        dabt->write = 0;
+> +    }
+> +    else
+> +    {
+> +        gprintk(XENLOG_ERR,
+> +            "Decoding ldr/str post indexing is not supported for this variant\n");
+> +        goto bad_loadstore;
+> +    }
+> +
+> +    gprintk(XENLOG_INFO,
+> +        "instr->code.rt = 0x%x, instr->code.size = 0x%x, instr->code.imm9 = %d\n",
+> +        instr->code.rt, instr->code.size, instr->code.imm9);
+> +
+> +    update_dabt(dabt, instr->code.rt, instr->code.size, false);
+> +    dabt->valid = 1;
+> +
+> +    return 0;
+> +
+> + bad_loadstore:
+> +    gprintk(XENLOG_ERR, "unhandled Arm instruction 0x%x\n", instr->value);
+> +    return 1;
+> +}
+> +
+>  static int decode_thumb(register_t pc, struct hsr_dabt *dabt)
+>  {
+>      uint16_t instr;
+> @@ -150,17 +245,44 @@ bad_thumb:
+>      return 1;
+>  }
+>  
+> -int decode_instruction(const struct cpu_user_regs *regs, struct hsr_dabt *dabt)
+> +int decode_instruction(const struct cpu_user_regs *regs, struct hsr_dabt *dabt,
+> +                       union ldr_str_instr_class *instr)
+>  {
+>      if ( is_32bit_domain(current->domain) && regs->cpsr & PSR_THUMB )
+>          return decode_thumb(regs->pc, dabt);
+>  
+> +    if ( (is_64bit_domain(current->domain) && !psr_mode_is_32bit(regs)) )
+> +    {
+> +        return decode_loadstore_postindexing(regs->pc, dabt, instr);
+> +    }
+> +
+>      /* TODO: Handle ARM instruction */
+>      gprintk(XENLOG_ERR, "unhandled ARM instruction\n");
+>  
+>      return 1;
+>  }
+>  
+> +#if CONFIG_ARM_64
+> +void post_increment_register(union ldr_str_instr_class *instr)
+> +{
+> +    struct cpu_user_regs *regs = guest_cpu_user_regs();
+> +    register_t val;
+> +
+> +    /* handle when rn = SP */
+> +    if ( instr->code.rn == 31 )
+> +        val = regs->sp_el1;
+> +    else
+> +        val = get_user_reg(regs, instr->code.rn);
+> +
+> +    val += instr->code.imm9;
+> +
+> +    if ( instr->code.rn == 31 )
+> +        regs->sp_el1 = val;
+> +    else
+> +        set_user_reg(regs, instr->code.rn, val);
+> +}
+> +#endif
+> +
+>  /*
+>   * Local variables:
+>   * mode: C
+> diff --git a/xen/arch/arm/decode.h b/xen/arch/arm/decode.h
+> index 4613763bdb..511cd4a05f 100644
+> --- a/xen/arch/arm/decode.h
+> +++ b/xen/arch/arm/decode.h
+> @@ -23,6 +23,35 @@
+>  #include <asm/regs.h>
+>  #include <asm/processor.h>
+>  
+> +/*
+> + * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Stores
+> + * Page 318 specifies the following bit pattern for
+> + * "load/store register (immediate post-indexed)".
+> + *
+> + * 31 30 29  27 26 25  23   21 20              11   9         4       0
+> + * ___________________________________________________________________
+> + * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt   |
+> + * |____|______|__|____|____|__|_______________|____|_________|_______|
+> + */
+> +union ldr_str_instr_class {
+> +    uint32_t value;
+> +    struct ldr_str {
+> +        unsigned int rt:5;     /* Rt register */
+> +        unsigned int rn:5;     /* Rn register */
+> +        unsigned int fixed1:2; /* value == 01b */
+> +        signed int imm9:9;            /* imm9 */
+> +        unsigned int fixed2:1; /* value == 0b */
+> +        unsigned int opc:2;    /* opc */
+> +        unsigned int fixed3:2; /* value == 00b */
+> +        unsigned int v:1;      /* vector */
+> +        unsigned int fixed4:3; /* value == 111b */
+> +        unsigned int size:2;   /* size */
+> +    } code;
+> +};
+> +
+> +#define POST_INDEX_FIXED_MASK   0x3B200C00
+> +#define POST_INDEX_FIXED_VALUE  0x38000400
+> +
+>  /**
+>   * Decode an instruction from pc
+>   * /!\ This function is not intended to fully decode an instruction. It
+> @@ -35,8 +64,18 @@
+>   */
+>  
+>  int decode_instruction(const struct cpu_user_regs *regs,
+> -                       struct hsr_dabt *dabt);
+> +                       struct hsr_dabt *dabt,
+> +                       union ldr_str_instr_class *instr);
+>  
+> +/**
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+NIT: the Xen coding style only has /*, not /**
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+In any case aside from these two minor NITs that can be fixed on commit:
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-Not pushing.
-
-------------------------------------------------------------
-commit bd20d6c87619a6b825478cd5ae0387f9fdaabea0
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jan 25 13:46:28 2022 +0100
-
-    x86/spec-ctrl: Fix NMI race condition with VT-x MSR_SPEC_CTRL handling
-    
-    The logic was based on a mistaken understanding of how NMI blocking on vmexit
-    works.  NMIs are only blocked for EXIT_REASON_NMI, and not for general exits.
-    Therefore, an NMI can in general hit early in the vmx_asm_vmexit_handler path,
-    and the guest's value will be clobbered before it is saved.
-    
-    Switch to using MSR load/save lists.  This causes the guest value to be saved
-    atomically with respect to NMIs/MCEs/etc.
-    
-    First, update vmx_cpuid_policy_changed() to configure the load/save lists at
-    the same time as configuring the intercepts.  This function is always used in
-    remote context, so extend the vmx_vmcs_{enter,exit}() block to cover the whole
-    function, rather than having multiple remote acquisitions of the same VMCS.
-    
-    Both of vmx_{add,del}_guest_msr() can fail.  The -ESRCH delete case is fine,
-    but all others are fatal to the running of the VM, so handle them using
-    domain_crash() - this path is only used during domain construction anyway.
-    
-    Second, update vmx_{get,set}_reg() to use the MSR load/save lists rather than
-    vcpu_msrs, and update the vcpu_msrs comment to describe the new state
-    location.
-    
-    Finally, adjust the entry/exit asm.
-    
-    Because the guest value is saved and loaded atomically, we do not need to
-    manually load the guest value, nor do we need to enable SCF_use_shadow.  This
-    lets us remove the use of DO_SPEC_CTRL_EXIT_TO_GUEST.  Additionally,
-    SPEC_CTRL_ENTRY_FROM_PV gets removed too, because on an early entry failure,
-    we're no longer in the guest MSR_SPEC_CTRL context needing to switch back to
-    Xen's context.
-    
-    The only action remaining is to load Xen's MSR_SPEC_CTRL value on vmexit.  We
-    could in principle use the host msr list, but is expected to complicated
-    future work.  Delete DO_SPEC_CTRL_ENTRY_FROM_HVM entirely, and use a shorter
-    code sequence to simply reload Xen's setting from the top-of-stack block.
-    
-    Adjust the comment at the top of spec_ctrl_asm.h in light of this bugfix.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    master commit: 81f0eaadf84d273a6ff8df3660b874a02d0e7677
-    master date: 2022-01-20 16:32:11 +0000
-
-commit bffdcc0dc454838e1c75a1e9d98ab140d7aff421
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jan 25 13:46:14 2022 +0100
-
-    x86/spec-ctrl: Drop SPEC_CTRL_{ENTRY_FROM,EXIT_TO}_HVM
-    
-    These were written before Spectre/Meltdown went public, and there was large
-    uncertainty in how the protections would evolve.  As it turns out, they're
-    very specific to Intel hardware, and not very suitable for AMD.
-    
-    Drop the macros, opencoding the relevant subset of functionality, and leaving
-    grep-fodder to locate the logic.  No change at all for VT-x.
-    
-    For AMD, the only relevant piece of functionality is DO_OVERWRITE_RSB,
-    although we will soon be adding (different) logic to handle MSR_SPEC_CTRL.
-    
-    This has a marginal improvement of removing an unconditional pile of long-nops
-    from the vmentry/exit path.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-    master commit: 95b13fa43e0753b7514bef13abe28253e8614f62
-    master date: 2022-01-20 16:32:11 +0000
-
-commit 2e4507eb358b580378b0a7aaa6d357401abbca88
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jan 25 13:45:58 2022 +0100
-
-    x86/msr: Split MSR_SPEC_CTRL handling
-    
-    In order to fix a VT-x bug, and support MSR_SPEC_CTRL on AMD, move
-    MSR_SPEC_CTRL handling into the new {pv,hvm}_{get,set}_reg() infrastructure.
-    
-    Duplicate the msrs->spec_ctrl.raw accesses in the PV and VT-x paths for now.
-    The SVM path is currently unreachable because of the CPUID policy.
-    
-    No functional change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    master commit: 6536688439dbca1d08fd6db5be29c39e3917fb2f
-    master date: 2022-01-20 16:32:11 +0000
-
-commit ff2ce108699b2e1c49bdadc0fecb8e77cf8b34ae
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jan 25 13:45:33 2022 +0100
-
-    x86/guest: Introduce {get,set}_reg() infrastructure
-    
-    Various registers have per-guest-type or per-vendor locations or access
-    requirements.  To support their use from common code, provide accessors which
-    allow for per-guest-type behaviour.
-    
-    For now, just infrastructure handling default cases and expectations.
-    Subsequent patches will start handling registers using this infrastructure.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    master commit: 88d3ff7ab15da277a85b39735797293fb541c718
-    master date: 2022-01-20 16:32:11 +0000
-
-commit 7ca8706ad53d5967fd15fa94c2dd5ada8d42d812
-Author: Jason Andryuk <jandryuk@gmail.com>
-Date:   Tue Jan 25 13:45:09 2022 +0100
-
-    libxl/PCI: Fix PV hotplug & stubdom coldplug
-    
-    commit 0fdb48ffe7a1 "libxl: Make sure devices added by pci-attach are
-    reflected in the config" broken PCI hotplug (xl pci-attach) for PV
-    domains when it moved libxl__create_pci_backend() later in the function.
-    
-    This also broke HVM + stubdom PCI passthrough coldplug.  For that, the
-    PCI devices are hotplugged to a running PV stubdom, and then the QEMU
-    QMP device_add commands are made to QEMU inside the stubdom.
-    
-    A running PV domain calls libxl__wait_for_backend().  With the current
-    placement of libxl__create_pci_backend(), the path does not exist and
-    the call immediately fails:
-    libxl: error: libxl_device.c:1388:libxl__wait_for_backend: Backend /local/domain/0/backend/pci/43/0 does not exist
-    libxl: error: libxl_pci.c:1764:device_pci_add_done: Domain 42:libxl__device_pci_add failed for PCI device 0:2:0.0 (rc -3)
-    libxl: error: libxl_create.c:1857:domcreate_attach_devices: Domain 42:unable to add pci devices
-    
-    The wait is only relevant when:
-    1) The domain is PV
-    2) The domain is running
-    3) The backend is already present
-    
-    This is because:
-    
-    1) xen-pcifront is only used for PV.  It does not load for HVM domains
-       where QEMU is used.
-    
-    2) If the domain is not running (starting), then the frontend state will
-       be Initialising.  xen-pciback waits for the frontend to transition to
-       at Initialised before attempting to connect.  So a wait for a
-       non-running domain is not applicable as the backend will not
-       transition to Connected.
-    
-    3) For presence, num_devs is already used to determine if the backend
-       needs to be created.  Re-use num_devs to determine if the backend
-       wait is necessary.  The wait is necessary to avoid racing with
-       another PCI attachment reconfiguring the front/back or changing to
-       some other state like closing.  If we are creating the backend, then
-       we don't have to worry about the state since it is being created.
-    
-    Fixes: 0fdb48ffe7a1 ("libxl: Make sure devices added by pci-attach are
-    reflected in the config")
-    
-    Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-    Reviewed-by: Paul Durrant <paul@xen.org>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-    master commit: 73ee2795aaef2cb086ac078bffe1c6b33c0ea91b
-    master date: 2022-01-13 14:33:16 +0100
-
-commit ac71fdd9ec8a54240cc09827203197674353a722
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Tue Jan 25 13:44:55 2022 +0100
-
-    x86/time: improve TSC / CPU freq calibration accuracy
-    
-    While the problem report was for extreme errors, even smaller ones would
-    better be avoided: The calculated period to run calibration loops over
-    can (and usually will) be shorter than the actual time elapsed between
-    first and last platform timer and TSC reads. Adjust values returned from
-    the init functions accordingly.
-    
-    On a Skylake system I've tested this on accuracy (using HPET) went from
-    detecting in some cases more than 220kHz too high a value to about
-    ±2kHz. On other systems (or on this system, but with PMTMR) the original
-    error range was much smaller, with less (in some cases only very little)
-    improvement.
-    
-    Reported-by: James Dingwall <james-xen@dingwall.me.uk>
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-    master commit: a5c9a80af34eefcd6e31d0ed2b083f452cd9076d
-    master date: 2022-01-13 14:31:52 +0100
-
-commit 793d5ca89fdd9e2cdcb05e88c6cd8446e475b15a
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Tue Jan 25 13:44:42 2022 +0100
-
-    x86/time: use relative counts in calibration loops
-    
-    Looping until reaching/exceeding a certain value is error prone: If the
-    target value is close enough to the wrapping point, the loop may not
-    terminate at all. Switch to using delta values, which then allows to
-    fold the two loops each into just one.
-    
-    Fixes: 93340297802b ("x86/time: calibrate TSC against platform timer")
-    Reported-by: Roger Pau Monné <roger.pau@citrix.com>
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-    master commit: 467191641d2a2fd2e43b3ae7b80399f89d339980
-    master date: 2022-01-13 14:30:18 +0100
-
-commit 13e7fe4c938f92933c6aa89e416e3085b13a22c7
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Tue Jan 25 13:42:53 2022 +0100
-
-    passthrough/x86: stop pirq iteration immediately in case of error
-    
-    pt_pirq_iterate() will iterate in batch over all the PIRQs. The outer
-    loop will bail out if 'rc' is non-zero but the inner loop will continue.
-    
-    This means 'rc' will get clobbered and we may miss any errors (such as
-    -ERESTART in the case of the callback pci_clean_dpci_irq()).
-    
-    This is CVE-2022-23035 / XSA-395.
-    
-    Fixes: c24536b636f2 ("replace d->nr_pirqs sized arrays with radix tree")
-    Fixes: f6dd295381f4 ("dpci: replace tasklet with softirq")
-    Signed-off-by: Julien Grall <jgrall@amazon.com>
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-    master commit: 9480a1a519cf016623f657dc544cb372a82b5708
-    master date: 2022-01-25 13:27:02 +0100
-
-commit 2700abffa5e42cf04dc1c6eba73faaba670c99df
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Tue Jan 25 13:42:21 2022 +0100
-
-    xen/grant-table: Only decrement the refcounter when grant is fully unmapped
-    
-    The grant unmapping hypercall (GNTTABOP_unmap_grant_ref) is not a
-    simple revert of the changes done by the grant mapping hypercall
-    (GNTTABOP_map_grant_ref).
-    
-    Instead, it is possible to partially (or even not) clear some flags.
-    This will leave the grant is mapped until a future call where all
-    the flags would be cleared.
-    
-    XSA-380 introduced a refcounting that is meant to only be dropped
-    when the grant is fully unmapped. Unfortunately, unmap_common() will
-    decrement the refcount for every successful call.
-    
-    A consequence is a domain would be able to underflow the refcount
-    and trigger a BUG().
-    
-    Looking at the code, it is not clear to me why a domain would
-    want to partially clear some flags in the grant-table. But as
-    this is part of the ABI, it is better to not change the behavior
-    for now.
-    
-    Fix it by checking if the maptrack handle has been released before
-    decrementing the refcounting.
-    
-    This is CVE-2022-23034 / XSA-394.
-    
-    Fixes: 9781b51efde2 ("gnttab: replace mapkind()")
-    Signed-off-by: Julien Grall <jgrall@amazon.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    master commit: 975a8fb45ca186b3476e5656c6ad5dad1122dbfd
-    master date: 2022-01-25 13:25:49 +0100
-
-commit 53220c4f9db70331284424ff5ff5f286dd3fbc16
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Tue Jan 25 13:41:59 2022 +0100
-
-    xen/arm: p2m: Always clear the P2M entry when the mapping is removed
-    
-    Commit 2148a125b73b ("xen/arm: Track page accessed between batch of
-    Set/Way operations") allowed an entry to be invalid from the CPU PoV
-    (lpae_is_valid()) but valid for Xen (p2m_is_valid()). This is useful
-    to track which page is accessed and only perform an action on them
-    (e.g. clean & invalidate the cache after a set/way instruction).
-    
-    Unfortunately, __p2m_set_entry() is only zeroing the P2M entry when
-    lpae_is_valid() returns true. This means the entry will not be zeroed
-    if the entry was valid from Xen PoV but invalid from the CPU PoV for
-    tracking purpose.
-    
-    As a consequence, this will allow a domain to continue to access the
-    page after it was removed.
-    
-    Resolve the issue by always zeroing the entry if it the LPAE bit is
-    set or the entry is about to be removed.
-    
-    This is CVE-2022-23033 / XSA-393.
-    
-    Reported-by: Dmytro Firsov <Dmytro_Firsov@epam.com>
-    Fixes: 2148a125b73b ("xen/arm: Track page accessed between batch of Set/Way operations")
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-    Signed-off-by: Julien Grall <jgrall@amazon.com>
-    master commit: a428b913a002eb2b7425b48029c20a52eeee1b5a
-    master date: 2022-01-25 13:25:01 +0100
-(qemu changes not included)
+> + * Update the register value for Rn
+> + * /!\ This function is used to update the register value for Rn when a
+> + * post indexing ldr/str instruction is decoded.
+> + *
+> + * This function will get:
+> + * - The post indexing ldr/str instruction opcode
+> + */
+> +void post_increment_register(union ldr_str_instr_class *instr);
+>  #endif /* __ARCH_ARM_DECODE_H_ */
+>  
+>  /*
+> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
+> index 729287e37c..b9c15e1fe7 100644
+> --- a/xen/arch/arm/io.c
+> +++ b/xen/arch/arm/io.c
+> @@ -106,14 +106,29 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
+>          .gpa = gpa,
+>          .dabt = dabt
+>      };
+> +    int rc;
+> +    union ldr_str_instr_class instr = {0};
+>  
+>      ASSERT(hsr.ec == HSR_EC_DATA_ABORT_LOWER_EL);
+>  
+> +    /*
+> +     * Armv8 processor does not provide a valid syndrome for post-indexing
+> +     * ldr/str instructions. So in order to process these instructions,
+> +     * Xen must decode them.
+> +     */
+> +    if ( !info.dabt.valid )
+> +    {
+> +        rc = decode_instruction(regs, &info.dabt, &instr);
+> +        if ( rc )
+> +        {
+> +            gprintk(XENLOG_DEBUG, "Unable to decode instruction\n");
+> +            return IO_ABORT;
+> +        }
+> +    }
+> +
+>      handler = find_mmio_handler(v->domain, info.gpa);
+>      if ( !handler )
+>      {
+> -        int rc;
+> -
+>          rc = try_fwd_ioserv(regs, v, &info);
+>          if ( rc == IO_HANDLED )
+>              return handle_ioserv(regs, v);
+> @@ -121,10 +136,6 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
+>          return rc;
+>      }
+>  
+> -    /* All the instructions used on emulated MMIO region should be valid */
+> -    if ( !dabt.valid )
+> -        return IO_ABORT;
+> -
+>      /*
+>       * Erratum 766422: Thumb store translation fault to Hypervisor may
+>       * not have correct HSR Rt value.
+> @@ -134,7 +145,7 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
+>      {
+>          int rc;
+>  
+> -        rc = decode_instruction(regs, &info.dabt);
+> +        rc = decode_instruction(regs, &info.dabt, NULL);
+>          if ( rc )
+>          {
+>              gprintk(XENLOG_DEBUG, "Unable to decode instruction\n");
+> @@ -143,9 +154,21 @@ enum io_state try_handle_mmio(struct cpu_user_regs *regs,
+>      }
+>  
+>      if ( info.dabt.write )
+> -        return handle_write(handler, v, &info);
+> +        rc = handle_write(handler, v, &info);
+>      else
+> -        return handle_read(handler, v, &info);
+> +        rc = handle_read(handler, v, &info);
+> +
+> +#if CONFIG_ARM_64
+> +    if ( (is_64bit_domain(current->domain) && !psr_mode_is_32bit(regs)) )
+> +    {
+> +        if ( instr.value != 0 )
+> +        {
+> +            post_increment_register(&instr);
+> +        }
+> +    }
+> +#endif
+> +
+> +    return rc;
+>  }
+>  
+>  void register_mmio_handler(struct domain *d,
+> -- 
+> 2.17.1
+> 
 
