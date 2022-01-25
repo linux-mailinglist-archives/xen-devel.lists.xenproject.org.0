@@ -2,37 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7758249B7BC
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 16:37:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260484.450037 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B4CA49B842
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 17:09:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260493.450058 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCNsn-0003qv-H9; Tue, 25 Jan 2022 15:37:21 +0000
+	id 1nCONF-0008MU-An; Tue, 25 Jan 2022 16:08:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260484.450037; Tue, 25 Jan 2022 15:37:21 +0000
+Received: by outflank-mailman (output) from mailman id 260493.450058; Tue, 25 Jan 2022 16:08:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCNsn-0003o1-Dw; Tue, 25 Jan 2022 15:37:21 +0000
-Received: by outflank-mailman (input) for mailman id 260484;
- Tue, 25 Jan 2022 15:37:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nCONF-0008Jt-7Q; Tue, 25 Jan 2022 16:08:49 +0000
+Received: by outflank-mailman (input) for mailman id 260493;
+ Tue, 25 Jan 2022 16:08:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YAYL=SJ=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1nCNsm-0003nv-8b
- for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 15:37:20 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ae4e0cda-7df4-11ec-8fa7-f31e035a9116;
- Tue, 25 Jan 2022 16:37:19 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id s18so20616797wrv.7
- for <xen-devel@lists.xenproject.org>; Tue, 25 Jan 2022 07:37:19 -0800 (PST)
-Received: from ?IPV6:2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec?
- ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
- by smtp.gmail.com with ESMTPSA id b1sm757740wrd.12.2022.01.25.07.37.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 25 Jan 2022 07:37:18 -0800 (PST)
+ <SRS0=oOP7=SJ=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1nCOND-0008Jd-00
+ for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 16:08:47 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1162ce28-7df9-11ec-bc18-3156f6d857e4;
+ Tue, 25 Jan 2022 17:08:45 +0100 (CET)
+Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1643126915011486.55772157056833;
+ Tue, 25 Jan 2022 08:08:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,172 +40,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ae4e0cda-7df4-11ec-8fa7-f31e035a9116
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:reply-to:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=+gf6bRB0UAAAOcg6ABVdFBIGghqpevaVgIhZPECDmfs=;
-        b=ZGcNSBeX3ob/+Lz2stfqOkY3/v7yqU9+hQ8lRvcsiZ+31m+JMT8PxpxnfpH9WjxPO2
-         zVXUzNH+pBHubLqd6NYnIfbDdCVrl6InrmjdKco5RIeuUMbzb3Ek40nCAnbvYI5+45/J
-         eLLc3S16gEWOFCl4SJ9CDJTxQi9IP5urxBEwwiArdXaiHoBMfJUuwEw0e43BOd1XqfW5
-         nSzmNbOkrtgbfaIzwWVJILyglLwBJVPQpEEQM9JvyGDvneWBJ5EtDWckcIx1j4vz6kUL
-         jpdg++nea9JaNjYnBgtjKmyIkvF5rppys1CeRc8gZxRjZD/cuf76cyZc9xGvAhZuC2hT
-         bBVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
-         :subject:content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=+gf6bRB0UAAAOcg6ABVdFBIGghqpevaVgIhZPECDmfs=;
-        b=BCXeFMrlgChr2tlWEGPp8JzLMKaq2YCRdK8InlYojNaNhZJIrqRGmJP4mxYKqSY8Pd
-         HtkElWUuib6EohO/i03oGQpJ8cu9Mv7cypgUMysAK+cfdGSIyh0Ew8sKsUcbtnOHn7JW
-         A+FmQeVl9Onzt1xYFDq7qswL52Zc+sCmhxQkOxzB2T2FJKRrw80WCXui0Y23A7c1GApz
-         Act44Y79tbZWTJvGddp8ibODe4nXRg6RCZdZ8Ug2uEt7ZyFNmxioHZ35MT+/KqR3A9l9
-         H7/LRvB21vOUVU/JSGWKM1t7lrOhIvgpT65BEcQSZna2AfRW1oohdZ/8m/c/FSAKSYuI
-         lAjg==
-X-Gm-Message-State: AOAM533wl6ln73dJxM+kgN7Y6ojp+DdmSgXD1u6WTFWyga4WRyFS88/m
-	OnfxCF1vW8n7jC2gpvYGrfU=
-X-Google-Smtp-Source: ABdhPJwNxkT43F+t57qqDtqfyKZvEOVOadtSbT83tfoPq6v+hG1jMwL5Y11iTVKgSwB0NlI4xw7pvA==
-X-Received: by 2002:a5d:61c6:: with SMTP id q6mr11712739wrv.667.1643125038666;
-        Tue, 25 Jan 2022 07:37:18 -0800 (PST)
-Message-ID: <85cc1048-3b81-d08a-de24-5ea841271727@gmail.com>
-Date: Tue, 25 Jan 2022 15:37:17 +0000
+X-Inumbo-ID: 1162ce28-7df9-11ec-bc18-3156f6d857e4
+ARC-Seal: i=1; a=rsa-sha256; t=1643126918; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=IXeBYZAEWhLY3coZyNZ0QvqW/kwF9Byz/bclz+pM4+mzpuapctzwKACtv10CG2XochnUVm/nx3zLJAe8gF47N50FdEzo2Xz1oV/oRvw7/MALwfkfG8jpK03lx8HOXH5aHj/B5sSJ5EeuR2FU50qJdg6ybtV3fXVw5d2v8sULlkM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1643126918; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=94fqOvepo5IyQQXC/srzO3iqvJ3EM8wAwRgEsi+4mcQ=; 
+	b=kh2jvWCjzE7Xp5T35RUQyp0DHjlLDPhU+B8WeQ17yrBiYu0fv80Utd5X8z4i8js7IGqovnApJwhrf8ZZJ4c7WxeXymsy8CK9Mf0G0+tc0qeaiR4pV/FiIEYiC0l1uiqUZgCdyjA6Wfzqf/RehSX69FPlH2FIAR8/LTOQ/dZAykA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1643126918;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=94fqOvepo5IyQQXC/srzO3iqvJ3EM8wAwRgEsi+4mcQ=;
+	b=L1X3j43+4RMfMwlOHocol2VhESpQF1/+gSR1OkCy4uZ8tEyko5DddyYJMdieSeBN
+	baG/JpKcZzRPmuc19Bp574Ob9BKYHrGMPPOe7PUIRKrtMvvXdxI5hqkPXVXBpI1zDwd
+	j+VOShAqo4kOmCfH5AJ/Ra3FJdHbbnNm5E1Jie9M=
+Message-ID: <ab1e3770-f682-5103-88fc-2d2be2975701@apertussolutions.com>
+Date: Tue, 25 Jan 2022 11:06:55 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Reply-To: paul@xen.org
-Subject: Re: [PATCH] x86emul: recognize CLDEMOTE
+Subject: Re: [XEN PATCH v9 05/30] build: prepare to always invoke $(MAKE) from
+ xen/, use $(obj)
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>
-References: <5812dc8e-d77d-f9de-4f37-b0ef094c5c09@suse.com>
- <d8a339f7-b875-492a-8697-1195aeffd8db@suse.com>
-From: "Durrant, Paul" <xadimgnik@gmail.com>
-In-Reply-To: <d8a339f7-b875-492a-8697-1195aeffd8db@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>
+References: <20220125110103.3527686-1-anthony.perard@citrix.com>
+ <20220125110103.3527686-6-anthony.perard@citrix.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <20220125110103.3527686-6-anthony.perard@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-On 25/01/2022 15:08, Jan Beulich wrote:
-> On 25.01.2022 15:22, Jan Beulich wrote:
->> We claim to support the insn, but so far the emulator has been handling
->> it as a NOP.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 1/25/22 06:00, Anthony PERARD wrote:
+> In a future patch, when building a subdirectory, we will set
+> "obj=$subdir" rather than change directory.
 > 
-> I'm sorry, I should have Cc-ed Paul here as well.
+> Before that, we add "$(obj)" and "$(src)" in as many places as
+> possible where we will need to know which subdirectory is been built.
+> "$(obj)" is for files been generated during the build, and "$(src)" is
+> for files present in the source tree.
 > 
-
-Acked-by: Paul Durrant <paul@xen.org>
-
-> Jan
+> For now, we set both to "." in Rules.mk and Makefile.clean.
 > 
->> ---
->> While handling x86emul_cldemote separately in hvmemul_cache_op() means
->> to carry some redundant code, folding it with CLFLUSH{,OPT} / CLWB
->> didn't seem very attractive either.
->>
->> --- a/xen/arch/x86/arch.mk
->> +++ b/xen/arch/x86/arch.mk
->> @@ -23,6 +23,7 @@ $(call as-option-add,CFLAGS,CC,"xsaveopt
->>   $(call as-option-add,CFLAGS,CC,"rdseed %eax",-DHAVE_AS_RDSEED)
->>   $(call as-option-add,CFLAGS,CC,"clac",-DHAVE_AS_CLAC_STAC)
->>   $(call as-option-add,CFLAGS,CC,"clwb (%rax)",-DHAVE_AS_CLWB)
->> +$(call as-option-add,CFLAGS,CC,"cldemote (%rax)",-DHAVE_AS_CLDEMOTE)
->>   $(call as-option-add,CFLAGS,CC,".equ \"x\"$$(comma)1",-DHAVE_AS_QUOTED_SYM)
->>   $(call as-option-add,CFLAGS,CC,"invpcid (%rax)$$(comma)%rax",-DHAVE_AS_INVPCID)
->>   $(call as-option-add,CFLAGS,CC,"movdiri %rax$$(comma)(%rax)",-DHAVE_AS_MOVDIR)
->> --- a/xen/arch/x86/hvm/emulate.c
->> +++ b/xen/arch/x86/hvm/emulate.c
->> @@ -2351,6 +2351,28 @@ static int hvmemul_cache_op(
->>            * to be sensibly used is in (virtualization unaware) firmware.
->>            */
->>           break;
->> +
->> +    case x86emul_cldemote:
->> +        ASSERT(!is_x86_system_segment(seg));
->> +
->> +        if ( !boot_cpu_has(X86_FEATURE_CLDEMOTE) ||
->> +             hvmemul_virtual_to_linear(seg, offset, 0, NULL, hvm_access_none,
->> +                                       hvmemul_ctxt, &addr) != X86EMUL_OKAY )
->> +            break;
->> +
->> +        if ( hvmemul_ctxt->seg_reg[x86_seg_ss].dpl == 3 )
->> +            pfec |= PFEC_user_mode;
->> +
->> +        mapping = hvmemul_map_linear_addr(addr, 0, pfec, hvmemul_ctxt);
->> +        if ( mapping == ERR_PTR(~X86EMUL_EXCEPTION) )
->> +            x86_emul_reset_event(&hvmemul_ctxt->ctxt);
->> +        if ( IS_ERR_OR_NULL(mapping) )
->> +            break;
->> +
->> +        cldemote(mapping);
->> +
->> +        hvmemul_unmap_linear_addr(mapping, addr, 0, hvmemul_ctxt);
->> +        break;
->>       }
->>   
->>       return X86EMUL_OKAY;
->> --- a/xen/arch/x86/include/asm/system.h
->> +++ b/xen/arch/x86/include/asm/system.h
->> @@ -37,6 +37,16 @@ static inline void clwb(const void *p)
->>   #endif
->>   }
->>   
->> +static inline void cldemote(const void *p)
->> +{
->> +#if defined(HAVE_AS_CLDEMOTE)
->> +    asm volatile ( "cldemote %0" :: "m" (*(const char *)p) );
->> +#else
->> +    asm volatile ( ".byte 0x0f, 0x1c, 0x02"
->> +                   :: "d" (p), "m" (*(const char *)p) );
->> +#endif
->> +}
->> +
->>   #define xchg(ptr,v) \
->>       ((__typeof__(*(ptr)))__xchg((unsigned long)(v),(ptr),sizeof(*(ptr))))
->>   
->> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
->> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
->> @@ -6290,7 +6290,8 @@ x86_emulate(
->>   
->>       case X86EMUL_OPC(0x0f, 0x0d): /* GrpP (prefetch) */
->>       case X86EMUL_OPC(0x0f, 0x18): /* Grp16 (prefetch/nop) */
->> -    case X86EMUL_OPC(0x0f, 0x19) ... X86EMUL_OPC(0x0f, 0x1f): /* nop */
->> +    case X86EMUL_OPC(0x0f, 0x19) ... X86EMUL_OPC(0x0f, 0x1b): /* nop */
->> +    case X86EMUL_OPC(0x0f, 0x1d) ... X86EMUL_OPC(0x0f, 0x1f): /* nop */
->>           break;
->>   
->>   #ifndef X86EMUL_NO_MMX
->> @@ -6627,6 +6628,12 @@ x86_emulate(
->>   
->>   #endif /* !X86EMUL_NO_SIMD */
->>   
->> +    case X86EMUL_OPC(0x0f, 0x1c): /* cldemote / nop */
->> +        if ( ctxt->cpuid->feat.cldemote && !vex.pfx && !modrm_reg &&
->> +             ops->cache_op )
->> +            ops->cache_op(x86emul_cldemote, ea.mem.seg, ea.mem.off, ctxt);
->> +        break;
->> +
->>       case X86EMUL_OPC(0x0f, 0x20): /* mov cr,reg */
->>       case X86EMUL_OPC(0x0f, 0x21): /* mov dr,reg */
->>       case X86EMUL_OPC(0x0f, 0x22): /* mov reg,cr */
->> --- a/xen/arch/x86/x86_emulate/x86_emulate.h
->> +++ b/xen/arch/x86/x86_emulate/x86_emulate.h
->> @@ -177,6 +177,7 @@ enum x86_emulate_fpu_type {
->>   };
->>   
->>   enum x86emul_cache_op {
->> +    x86emul_cldemote,
->>       x86emul_clflush,
->>       x86emul_clflushopt,
->>       x86emul_clwb,
->>
->>
+> A few places don't tolerate the addition of "./", this is because make
+> remove the leading "./" in targets and dependencies in rules, so these
+> will be change later.
+> 
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> Acked-by: Julien Grall <jgrall@amazon.com>
+> ---
+> 
+> Notes:
+>     v8:
+>     - acked
+>     - rebased
+> 
+>  xen/Rules.mk                            |  5 ++-
+>  xen/arch/arm/Makefile                   | 14 ++++----
+>  xen/arch/x86/Makefile                   | 48 ++++++++++++-------------
+>  xen/arch/x86/boot/Makefile              | 14 ++++----
+>  xen/arch/x86/efi/Makefile               |  6 ++--
+>  xen/common/Makefile                     |  8 ++---
+>  xen/common/libelf/Makefile              |  4 +--
+>  xen/common/libfdt/Makefile              |  6 ++--
+>  xen/include/Makefile                    | 44 +++++++++++------------
+>  xen/scripts/Makefile.clean              |  5 ++-
+>  xen/xsm/flask/Makefile                  | 36 +++++++++----------
+>  xen/xsm/flask/policy/mkaccess_vector.sh |  7 ++--
+>  12 files changed, 103 insertions(+), 94 deletions(-)
 > 
 
+<snip/>
+
+> diff --git a/xen/xsm/flask/Makefile b/xen/xsm/flask/Makefile
+> index 11c530dcf458..51fd37f6c4d5 100644
+> --- a/xen/xsm/flask/Makefile
+> +++ b/xen/xsm/flask/Makefile
+> @@ -4,46 +4,46 @@ obj-y += flask_op.o
+>  
+>  obj-y += ss/
+>  
+> -CFLAGS-y += -I./include
+> +CFLAGS-y += -I$(obj)/include
+>  
+>  AWK = awk
+>  
+> -FLASK_H_DEPEND = policy/security_classes policy/initial_sids
+> -AV_H_DEPEND = policy/access_vectors
+> +FLASK_H_DEPEND := $(addprefix $(src)/policy/,security_classes initial_sids)
+> +AV_H_DEPEND = $(src)/policy/access_vectors
+>  
+> -FLASK_H_FILES = include/flask.h include/class_to_string.h include/initial_sid_to_string.h
+> -AV_H_FILES = include/av_perm_to_string.h include/av_permissions.h
+> -ALL_H_FILES = $(FLASK_H_FILES) $(AV_H_FILES)
+> +FLASK_H_FILES := flask.h class_to_string.h initial_sid_to_string.h
+> +AV_H_FILES := av_perm_to_string.h av_permissions.h
+> +ALL_H_FILES := $(addprefix include/,$(FLASK_H_FILES) $(AV_H_FILES))
+>  
+> -$(obj-y) ss/built_in.o: $(ALL_H_FILES)
+> +$(addprefix $(obj)/,$(obj-y)) $(obj)/ss/built_in.o: $(addprefix $(obj)/,$(ALL_H_FILES))
+>  extra-y += $(ALL_H_FILES)
+>  
+> -mkflask := policy/mkflask.sh
+> +mkflask := $(src)/policy/mkflask.sh
+>  quiet_cmd_mkflask = MKFLASK $@
+> -cmd_mkflask = $(SHELL) $(mkflask) $(AWK) include $(FLASK_H_DEPEND)
+> +cmd_mkflask = $(SHELL) $(mkflask) $(AWK) $(obj)/include $(FLASK_H_DEPEND)
+>  
+> -$(subst include/,%/,$(FLASK_H_FILES)): $(FLASK_H_DEPEND) $(mkflask) FORCE
+> +$(addprefix $(obj)/%/,$(FLASK_H_FILES)): $(FLASK_H_DEPEND) $(mkflask) FORCE
+>  	$(call if_changed,mkflask)
+>  
+> -mkaccess := policy/mkaccess_vector.sh
+> +mkaccess := $(src)/policy/mkaccess_vector.sh
+>  quiet_cmd_mkaccess = MKACCESS VECTOR $@
+> -cmd_mkaccess = $(SHELL) $(mkaccess) $(AWK) $(AV_H_DEPEND)
+> +cmd_mkaccess = $(SHELL) $(mkaccess) $(AWK) $(obj)/include $(AV_H_DEPEND)
+>  
+> -$(subst include/,%/,$(AV_H_FILES)): $(AV_H_DEPEND) $(mkaccess) FORCE
+> +$(addprefix $(obj)/%/,$(AV_H_FILES)): $(AV_H_DEPEND) $(mkaccess) FORCE
+>  	$(call if_changed,mkaccess)
+>  
+>  obj-bin-$(CONFIG_XSM_FLASK_POLICY) += flask-policy.o
+> -flask-policy.o: policy.bin
+> +$(obj)/flask-policy.o: $(obj)/policy.bin
+>  
+> -flask-policy.S: BINFILE_FLAGS := -i
+> -flask-policy.S: $(BASEDIR)/tools/binfile FORCE
+> -	$(call if_changed,binfile,policy.bin xsm_flask_init_policy)
+> +$(obj)/flask-policy.S: BINFILE_FLAGS := -i
+> +$(obj)/flask-policy.S: $(BASEDIR)/tools/binfile FORCE
+> +	$(call if_changed,binfile,$(obj)/policy.bin xsm_flask_init_policy)
+>  targets += flask-policy.S
+>  
+>  FLASK_BUILD_DIR := $(CURDIR)
+>  POLICY_SRC := $(FLASK_BUILD_DIR)/xenpolicy-$(XEN_FULLVERSION)
+>  
+> -policy.bin: FORCE
+> +$(obj)/policy.bin: FORCE
+>  	$(MAKE) -f $(XEN_ROOT)/tools/flask/policy/Makefile.common \
+>  	        -C $(XEN_ROOT)/tools/flask/policy \
+>  	        FLASK_BUILD_DIR=$(FLASK_BUILD_DIR) POLICY_FILENAME=$(POLICY_SRC)
+> diff --git a/xen/xsm/flask/policy/mkaccess_vector.sh b/xen/xsm/flask/policy/mkaccess_vector.sh
+> index 942ede4713f1..ad9772193bff 100755
+> --- a/xen/xsm/flask/policy/mkaccess_vector.sh
+> +++ b/xen/xsm/flask/policy/mkaccess_vector.sh
+> @@ -8,9 +8,12 @@ set -e
+>  awk=$1
+>  shift
+>  
+> +output_dir=$1
+> +shift
+> +
+>  # output files
+> -av_permissions="include/av_permissions.h"
+> -av_perm_to_string="include/av_perm_to_string.h"
+> +av_permissions="$output_dir/av_permissions.h"
+> +av_perm_to_string="$output_dir/av_perm_to_string.h"
+>  
+>  cat $* | $awk "
+>  BEGIN	{
+
+Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+
+V/r,
+Daniel P. Smith
+Apertus Solutions, LLC
 
