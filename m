@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7ACA349B284
+	by mail.lfdr.de (Postfix) with ESMTPS id C5C6349B285
 	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 12:02:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260079.449176 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.260080.449186 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCJaD-0002hq-Ez; Tue, 25 Jan 2022 11:01:53 +0000
+	id 1nCJaG-00037p-Pf; Tue, 25 Jan 2022 11:01:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260079.449176; Tue, 25 Jan 2022 11:01:53 +0000
+Received: by outflank-mailman (output) from mailman id 260080.449186; Tue, 25 Jan 2022 11:01:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCJaD-0002ec-Ag; Tue, 25 Jan 2022 11:01:53 +0000
-Received: by outflank-mailman (input) for mailman id 260079;
- Tue, 25 Jan 2022 11:01:51 +0000
+	id 1nCJaG-00033W-MH; Tue, 25 Jan 2022 11:01:56 +0000
+Received: by outflank-mailman (input) for mailman id 260080;
+ Tue, 25 Jan 2022 11:01:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rP4T=SJ=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nCJaB-0006t5-Hu
- for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 11:01:51 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 30f482df-7dce-11ec-bc18-3156f6d857e4;
- Tue, 25 Jan 2022 12:01:49 +0100 (CET)
+ id 1nCJaE-0006t5-9Y
+ for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 11:01:54 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 330f2d7b-7dce-11ec-bc18-3156f6d857e4;
+ Tue, 25 Jan 2022 12:01:52 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,64 +36,72 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 30f482df-7dce-11ec-bc18-3156f6d857e4
+X-Inumbo-ID: 330f2d7b-7dce-11ec-bc18-3156f6d857e4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643108510;
+  d=citrix.com; s=securemail; t=1643108513;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=6NtyguigdmpAVy3XmyEpSxkAyUQ0/bDb28AGSy6cQQs=;
-  b=JvTjE/0IwYqE5EIfXVWYzPg12xTa+rf2IhU/9lhSEVN81iA0Ksk1Eu/+
-   g32jH+IFuqYkK6SAiZfLuAVH4fHTSv+32dQF72yKlP9m+7HxxqZ4QZAk+
-   fOspcXapEScgJI7l8dx7kkF/5Mn8IB43RaQzofE6QWs/J34iaTiLCwvTo
-   o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: fK67t9pUKJNe4MPgUuNFLf1GRs8bkX/wBbrV3zhDmsB89o2CyptNOR2FpRiilanhc9/l4fNAVq
- iHN3FIoXHiZ71o3G84ixspgRrpDDIr7PaN4lC17ei8yuIMvdiw1CNcCtQIgC2S8Iw6Vz/tseRI
- 8or+7vqTx/2ewYRtreITHsTh0e2k51QLN7bRr/52NyhIKcFYXy1L+OpAlC+qz3KFf/vKyQ7Cd0
- A+L3r2BeAxRV/xljPWPj9hTLzUOmv5QdXlnWXRD6nhyjKAIoJXFsQwKga6ufcuouiaTRu6mkRf
- z4Xana1YIbKqOTsOOE2c2P/x
+  bh=UTtvWGWnsc4Kfk8uqbFvH6lyw4/Lc7jsKNMziS1Unkw=;
+  b=Pw4XOPmqNx0g5Tx4JaDBtCEMYxEVxv1j4c9pSiSlGfZsKiX0jNe4Mz/g
+   o0TmibnBzItdnhHFxnz/SzCSaNi+xXV5+8yzIpGbNNrJbiejnIpQU/K39
+   xhreuSfeuXCWZtz/bZcb6JHPX0jVwBWHtqenzGyBm3OhYCQdVIZxhD+Dr
+   8=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: fnPv028Dv8hxYFLvrtDw7flu2U67JvA+YF9uzrD8YmhIvPRreOqdNY5nfqPV6gOaM7kGusQTuU
+ cZt4fTObB4XtYlCNMNb1PdwDB6oaKqDFkOHli6HAOrDg/U6nHCzSON5Ow0YW7AEc9MGofiLjbl
+ CwhQlUj/8KB45ZBsFec4Q3+vRIlBzIct8NyGnzNe+BmTk+DoTdzgn7aC44A7sV960eAIsFhnb5
+ zeR2tuDDaHKf8bvsyUaKlqi5+BBusVdzfL5WlW4zSQ0AAPoSkhYheSMsEUzH2fHh/wW67ocrTX
+ /Cy0U7Tk7X430j6Kr4nf8h/a
 X-SBRS: 5.2
-X-MesageID: 62699880
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 64860857
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:RaKMg6NgHTGdfgPvrR1ZkMFynXyQoLVcMsEvi/4bfWQNrUolgT0Cz
- WJKXmGCMvyMNGf1fth/bN/npx4O7MDdx4BrTQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En150Eg+w7dRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYo2Wojctry
- oVcjpafdSF1FIfiuckwVyANRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YuBqmsQkKtitJI4Fs2ts5TrYEewnUdbIRKCiCdpwgm1u15EeTa62i
- 8wxVBZibzHYPEZ0JVpULJwzzcSD2kn+SmgNwL6SjfVuuDWCpOBr65D2K8bccNGOQcRTn26bq
- 3jA8mC/BQsVXPSAzRKV/3TqgfXA9Qv5RYYTGbuQ5vNsxlqJyQQ7GBAQEFe2v/S9okq/QM5Eb
- VwZ/DI0qqo//1DtScPyNzW6qnOZuh8XW/JLDvY3rgqKz8LpDx2xXzZeCGQbMZp/6ZFwFWdCO
- kK1c83BVR19q6eXGWOm/Jioi2+YEwY0AEIGXHpRJeca2OXLrIY2hxPJa99sFq+pk9H4cQ3NL
- yC2QDsW3OtK05NSv0mv1RWe2m/3+MCVJuIgzliPBgqYAhVFiJlJjmBCwXzS9r5+IYmQVTFtV
- 1BUypHFvIji4Xxg/RFhodnh/pn0v55p0xWG2DaD+qXNERz3pxZPmqgLuFlDyL9BaJpsRNMQS
- Ba7VfltzJFSJmC2SqR8fpi8Dc8npYC5S4i+DqyFMYUQM8kpHONiwM2ITRTMt4wKuBN0+ZzTx
- L/BKZr8ZZrkIfoPIMWKqxc1juZwm3FWKZL7TpHn1RW3uYdyl1bOIYrpxGCmN7hjhIvd+V292
- 48Ga6OilksDOMWjPHi/2dNDfDgicClgbbir+pM/SwJ2Clc8cI3XI6WPkepJlk0Mt/k9q9okC
- VnkChYHkwKu3COeQehIA1g6AI7SsV9EhSpTFUQR0ZyAghDPuK6js/UScYUZZ74i+LAxxPJ4V
- aBdKc6BHu5OWnLM/DFENcvxq4lrdRKKgwOSPnX6PGhjLsA4HwGZqMX5egbP9TUVCnblv8UJv
- LD9hBjQRoAORlo+AZ+OOu6v1V64oVMUhPl2AxnTOtBWdUi1qNpqJiX9g+UZOcYJLRmflDKW2
- xzPWUUTpPXXop9z+97M3PjWo4CsGup4P0xbA2iEsurmaXiEpjKumNYSXvyJcDbRUHLP1J+jP
- egFnevhNPAnnUpRt9YuGbhc0q9jtcDkoKVXz1o4ESyTPUirEL5pPlKPwdJL6v9W3rZctAa7B
- hCP991dNenbMc/pCgdMdg8sb+DF3vAIgDjCq/8yJRyitiNw+bOGV2RUPgWN13MBfOckbtt9z
- LdzotMS5iy+lgEuY4SPgS1j/miRKmANDvc8vZYADY630gcmxzmuu3AH5vMaNH1XV+hxDw==
-IronPort-HdrOrdr: A9a23:tjaQ3KuCMc8jM2n10E+HCm867skDStV00zEX/kB9WHVpm6uj5q
- STdZUgpHrJYVkqKRIdcLy7WZVoIkmzyXcW2/h3AV7KZmCP0gaVxelZnO3fKlbbak/DH4BmtZ
- uIWpIOceEZUjNB5voSmjPWLz+L+qj+zEnSv4vj80s=
+IronPort-Data: A9a23:Q3iuzaw5/N4AiDkvpQF6t+c+wCrEfRIJ4+MujC+fZmUNrF6WrkVTy
+ WIYXmuDMqvfNjHwfY90YdjkoR9TscWBmNVhTANrrCAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAhLeNYYH1500g7wrRk2tcAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt+5By
+ fUStZWBcCIKGoGLo78tAz9+AggraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVors0lMMnsOpJZonx6xCvVJf0nXYrCU+PB4towMDIY2JweQ66OO
+ pVxhTxHcz3GeDREIXUtOb0vg9uE3mf2VThppwfAzUYwyzeKl1EguFT3C/Lfd8aWX8xTkgCdr
+ 3jf4mXiKhgAMZqUzj/t2kyrgujDjCbqQrU4Hbez9uNpqFCLz2lVAxoTPXOxpvOzm0OlW9ZSL
+ kUS0iUrpKk2skesS7HVVBq+pnmGshcCWsF4HOgz6QXLwa3Riy6QAmkfUjdAcpoorsYwTj0x/
+ kCFlJXiAjkHmKKRYWKQ8PGTtzzaESofIHIGZCQEZRAY+NSlq4Y25jrfQ9AmHKOrg9ndHTDr3
+ yvMvCU4n68Uj8MAy+O851+vqzCjvJHNSiY84wzFWWTj5QR8DKa+fJCh41Xf6fdGLa6aQ0OHs
+ XxCnNKRhMgMEJWMmSqlUOgLWraz6J643Cb02AA1WcN7rnL0piDlLds4DCxCyFlBDPYFWWDpa
+ X7qnCB1yNhoZ0v6S4lmStfkYyg19pTIGdPgX/HSS9NBZJltaQOKlB1TiV6sM3PFyxZ1z/xmU
+ XuPWYP1VCtBV/w7pNajb7pFidcWKjYCKXQ/rHwR5zCuyvKgaXGcUt/p23PeP7livMtoTOg4m
+ uuz1vdmKT0CCIUSgQGNqOb/yGzmy1BhWfgaTOQMLoa+zvJOQj1JNhMo6epJl3ZZt6pUjPzU2
+ Xq2R1VVzlHy7VWed1nRMiwyN+yxDMcnxZ7eAcDKFQz0s5TESd33hJrzirNtJeV3nACd5aAco
+ wY5lzWoXa0UF2WvF8U1Zpjhto1yHClHdirVVxdJlAMXJsY6LySQo4eMVlK2qEEmU3Tr3eNj/
+ ezI/l6LEPIrGlU5ZO6LOa3H8r9ElSVH8A6EdxGWcoA7lYSF2NUCFhEdedduc5hTck2Sn2XDv
+ +tUaD9BzdTwT0YO2IGhrci5Q02BSIOSx2JWQDvW66iYLy7f8jbxyINMSr/QLzvcSHn16OOpY
+ uAMl6PwN/gOnVBrtYtgEuk0kfJitoW3/7IKnB55GHjrbkiwDu8yKHexwsQS5LZGwaVUuFXqV
+ xvXqMVaI7iAJOjsDEUVeFg+du2G2PxNwmvS4P05LV/U/ihy+LbbA0xeMwPV0H5WLadvMZNjy
+ uAk4ZZE5wu6gxssE9CHkiELqDjcci1eC/0q78hIDpXqhwwnzkB5TabdUiKmsouSb9hsM1UxJ
+ mPGjqT1mLkBlFHJdGA+FCaR0LMF14gOoh1D0HQLO0+NxojenvYy0RBcrWY3QwBSwkkV2u5/I
+ DE2ZUh8JKHI9DZ0nslTGWurHlgZVhGe/0XwzXoPlXHYEBb0BjCccjVlNLbf5l0d/kJdYiNfr
+ eORx2vSWDr3eN38g3kpUkl/pv2/FdF8+2UuQix88xhpy3XiXQfYvw==
+IronPort-HdrOrdr: A9a23:GRDRuqvO9fbScbBbzpG153FT7skDcNV00zEX/kB9WHVpmszxra
+ +TdZMgpHjJYVcqKQgdcL+7WZVoLUmwyXcx2/hyAV7AZniDhILLFuFfBOLZqlWKcREWtNQtsJ
+ uIG5IObuEYZmIVsS+V2mWF+q4bsbq6zJw=
 X-IronPort-AV: E=Sophos;i="5.88,314,1635220800"; 
-   d="scan'208";a="62699880"
+   d="scan'208";a="64860857"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v9 16/30] build: start building the tools with the main makefiles
-Date: Tue, 25 Jan 2022 11:00:49 +0000
-Message-ID: <20220125110103.3527686-17-anthony.perard@citrix.com>
+	<jbeulich@suse.com>, Julien Grall <jgrall@amazon.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	"Julien Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	"Bertrand Marquis" <bertrand.marquis@arm.com>, Bob Eshleman
+	<bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>
+Subject: [XEN PATCH v9 17/30] build: add headers path to CFLAGS once for all archs
+Date: Tue, 25 Jan 2022 11:00:50 +0000
+Message-ID: <20220125110103.3527686-18-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220125110103.3527686-1-anthony.perard@citrix.com>
 References: <20220125110103.3527686-1-anthony.perard@citrix.com>
@@ -101,82 +109,69 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-This will make out-of-tree build easier.
+This just remove duplication.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Julien Grall <jgrall@amazon.com>
 ---
-
-Notes:
-    v8:
-    - add some $(Q)
-
- xen/Makefile       |  8 ++++----
- xen/tools/Makefile | 17 ++---------------
- 2 files changed, 6 insertions(+), 19 deletions(-)
+ xen/Makefile           | 3 +++
+ xen/arch/arm/arch.mk   | 3 ---
+ xen/arch/riscv/arch.mk | 2 --
+ xen/arch/x86/arch.mk   | 2 --
+ 4 files changed, 3 insertions(+), 7 deletions(-)
 
 diff --git a/xen/Makefile b/xen/Makefile
-index 0705e67a9e7d..6c5c69d2e19b 100644
+index 6c5c69d2e19b..65b09c20a599 100644
 --- a/xen/Makefile
 +++ b/xen/Makefile
-@@ -209,7 +209,7 @@ endif # root-make-done
+@@ -312,6 +312,9 @@ CFLAGS += -flto
+ LDFLAGS-$(CONFIG_CC_IS_CLANG) += -plugin LLVMgold.so
+ endif
  
- PHONY += tools_fixdep
- tools_fixdep:
--	$(MAKE) -C tools fixdep
-+	$(Q)$(MAKE) $(build)=tools tools/fixdep
++CFLAGS += -I$(srctree)/include
++CFLAGS += -I$(srctree)/arch/$(TARGET_ARCH)/include
++
+ # Note that link order matters!
+ ALL_OBJS-y                := common/built_in.o
+ ALL_OBJS-y                += drivers/built_in.o
+diff --git a/xen/arch/arm/arch.mk b/xen/arch/arm/arch.mk
+index 4e3f7014305e..094b67072304 100644
+--- a/xen/arch/arm/arch.mk
++++ b/xen/arch/arm/arch.mk
+@@ -1,9 +1,6 @@
+ ########################################
+ # arm-specific definitions
  
- ifeq ($(config-build),y)
- # ===========================================================================
-@@ -247,7 +247,7 @@ ifeq ($(need-config),y)
- # "tools_fixdep" which is a .PHONY target and would force make to call
- # "defconfig" again to update $(KCONFIG_CONFIG).
- tools/fixdep:
--	$(MAKE) -C tools fixdep
-+	$(Q)$(MAKE) $(build)=tools tools/fixdep
+-CFLAGS += -I$(srctree)/include
+-CFLAGS += -I$(srctree)/arch/$(TARGET_ARCH)/include
+-
+ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+ $(call cc-option-add,CFLAGS,CC,-Wnested-externs)
  
- # Allow people to just run `make` as before and not force them to configure
- $(KCONFIG_CONFIG): tools/fixdep
-@@ -406,7 +406,7 @@ _debug:
+diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+index 694ba053ceab..ae8fe9dec730 100644
+--- a/xen/arch/riscv/arch.mk
++++ b/xen/arch/riscv/arch.mk
+@@ -11,5 +11,3 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       := $(riscv-march-y)c
+ # -mcmodel=medlow would force Xen into the lower half.
  
- .PHONY: _clean
- _clean:
--	$(MAKE) -C tools clean
-+	$(MAKE) $(clean) tools
- 	$(MAKE) $(clean) include
- 	$(MAKE) $(clean) common
- 	$(MAKE) $(clean) drivers
-@@ -435,7 +435,7 @@ $(TARGET).gz: $(TARGET)
- 	mv $@.new $@
+ CFLAGS += -march=$(riscv-march-y) -mstrict-align -mcmodel=medany
+-CFLAGS += -I$(srctree)/include
+-CFLAGS += -I$(srctree)/arch/$(TARGET_ARCH)/include
+diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
+index e39fa15be7e3..8bc0e01ceb2b 100644
+--- a/xen/arch/x86/arch.mk
++++ b/xen/arch/x86/arch.mk
+@@ -3,8 +3,6 @@
  
- $(TARGET): FORCE
--	$(MAKE) -C tools
-+	$(Q)$(MAKE) $(build)=tools
- 	$(Q)$(MAKE) $(build)=. include/xen/compile.h
- 	[ -e arch/$(TARGET_ARCH)/efi ] && for f in $$(cd common/efi; echo *.[ch]); \
- 		do test -r arch/$(TARGET_ARCH)/efi/$$f || \
-diff --git a/xen/tools/Makefile b/xen/tools/Makefile
-index 722f3664549d..a5078b7cb8de 100644
---- a/xen/tools/Makefile
-+++ b/xen/tools/Makefile
-@@ -1,15 +1,2 @@
--
--include $(XEN_ROOT)/Config.mk
--
--.PHONY: default
--default: symbols fixdep
--
--.PHONY: clean
--clean:
--	rm -f *.o symbols fixdep
--
--symbols: symbols.c
--	$(HOSTCC) $(HOSTCFLAGS) -o $@ $<
--
--fixdep: fixdep.c
--	$(HOSTCC) $(HOSTCFLAGS) -o $@ $<
-+hostprogs-always-y += symbols
-+hostprogs-always-y += fixdep
+ export XEN_IMG_OFFSET := 0x200000
+ 
+-CFLAGS += -I$(srctree)/include
+-CFLAGS += -I$(srctree)/arch/$(TARGET_ARCH)/include
+ CFLAGS += -I$(srctree)/arch/x86/include/asm/mach-generic
+ CFLAGS += -I$(srctree)/arch/x86/include/asm/mach-default
+ CFLAGS += -DXEN_IMG_OFFSET=$(XEN_IMG_OFFSET)
 -- 
 Anthony PERARD
 
