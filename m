@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4625049BF6E
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jan 2022 00:14:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260596.450364 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 971AC49BF71
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jan 2022 00:15:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260599.450376 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCV0o-0004jV-M2; Tue, 25 Jan 2022 23:14:06 +0000
+	id 1nCV1Y-0005Gp-0t; Tue, 25 Jan 2022 23:14:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260596.450364; Tue, 25 Jan 2022 23:14:06 +0000
+Received: by outflank-mailman (output) from mailman id 260599.450376; Tue, 25 Jan 2022 23:14:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCV0o-0004gm-Iv; Tue, 25 Jan 2022 23:14:06 +0000
-Received: by outflank-mailman (input) for mailman id 260596;
- Tue, 25 Jan 2022 23:14:05 +0000
+	id 1nCV1X-0005Dh-SG; Tue, 25 Jan 2022 23:14:51 +0000
+Received: by outflank-mailman (input) for mailman id 260599;
+ Tue, 25 Jan 2022 23:14:50 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nCV0n-0004gQ-EB
- for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 23:14:05 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nCV1W-0005DX-7Y; Tue, 25 Jan 2022 23:14:50 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nCV0m-0000lB-S4; Tue, 25 Jan 2022 23:14:04 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=[192.168.30.43]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nCV0m-0004Eb-IG; Tue, 25 Jan 2022 23:14:04 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nCV1W-0000ll-5D; Tue, 25 Jan 2022 23:14:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nCV1V-0000l5-Ac; Tue, 25 Jan 2022 23:14:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nCV1V-0004YQ-AA; Tue, 25 Jan 2022 23:14:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,173 +42,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=9/U1eLyTfR/V372XRkvuy/CVkY5+R1UaZ+sEH8I/1W0=; b=Hky3SlAN6HuWd43Q/XbwmHCMZg
-	1OhNLXpGkPH9kUAjJJj6McImYHH6pzShqLcKT100/g0StbVYpefSYXWRXZn2qp6rgV4ZcAlwezK8F
-	PHquAX3qh2obGIXQGBlTG5qgSWi3qfOKCn1tuIoSRmFc21zwLWyVOm2+LPo5t21Htwn4=;
-Message-ID: <a992cf74-a75a-43d0-f83a-cd9549f586a8@xen.org>
-Date: Tue, 25 Jan 2022 23:14:02 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.5.1
-Subject: Re: [XEN PATCH v2 2/5] xen: export get_free_port
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, jgross@suse.com,
- Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <alpine.DEB.2.22.394.2201121646290.19362@ubuntu-linux-20-04-desktop>
- <20220113005855.1180101-2-sstabellini@kernel.org>
- <f3b2ae98-c7af-d8c0-b0a4-52e622517c34@xen.org>
- <alpine.DEB.2.22.394.2201241652330.27308@ubuntu-linux-20-04-desktop>
- <14af544d-0d20-9b58-4d70-5f5086ece032@suse.com>
- <alpine.DEB.2.22.394.2201251435030.27308@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2201251435030.27308@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=pVxSUajK3FzXc1XniNVT+PZ3qxItrJe/kJX20BNl6ms=; b=STpSeDKkMrBNcn6etRXR7BEm5W
+	VMwi8oAiT4QhJv+tjUcmd/fiyuyGlgNulUbmvY5KUJKJMRm/NNMJ4RYg5KpQta3Uhaepg/wDDIIb1
+	WRU0zVrPYTInRSjVEYzrUxSk+qOdvpZn1dqVrUyFjQ+AJSHTJNTfBZOcgXKWAZXm+GcA=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-4.14-testing bisection] complete build-amd64
+Message-Id: <E1nCV1V-0004YQ-AA@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 25 Jan 2022 23:14:49 +0000
 
-Hi Stefano,
+branch xen-4.14-testing
+xenbranch xen-4.14-testing
+job build-amd64
+testid xen-build
 
-On 25/01/2022 22:49, Stefano Stabellini wrote:
-> On Tue, 25 Jan 2022, Jan Beulich wrote:
->> On 25.01.2022 02:10, Stefano Stabellini wrote:
->>> On Sun, 23 Jan 2022, Julien Grall wrote:
->>>>> diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
->>>>> index da88ad141a..5b0bcaaad4 100644
->>>>> --- a/xen/common/event_channel.c
->>>>> +++ b/xen/common/event_channel.c
->>>>> @@ -232,7 +232,7 @@ int evtchn_allocate_port(struct domain *d, evtchn_port_t
->>>>> port)
->>>>>        return 0;
->>>>>    }
->>>>>    -static int get_free_port(struct domain *d)
->>>>> +int get_free_port(struct domain *d)
->>>>
->>>> I dislike the idea to expose get_free_port() (or whichever name we decide)
->>>> because this can be easily misused.
->>>>
->>>> In fact looking at your next patch (#3), you are misusing it as it is meant to
->>>> be called with d->event_lock. I know this doesn't much matter
->>>> in your situation because this is done at boot with no other domains running
->>>> (or potentially any event channel allocation). However, I still think we
->>>> should get the API right.
->>>>
->>>> I am also not entirely happy of open-coding the allocation in domain_build.c.
->>>> Instead, I would prefer if we provide a new helper to allocate an unbound
->>>> event channel. This would be similar to your v1 (I still need to review the
->>>> patch though).
->>>
->>> I am happy to go back to v1 and address feedback on that patch. However,
->>> I am having difficulties with the implementation. Jan pointed out:
->>>
->>>
->>>>> -
->>>>> -    chn->state = ECS_UNBOUND;
->>>>
->>>> This cannot be pulled ahead of the XSM check (or in general anything
->>>> potentially resulting in an error), as check_free_port() relies on
->>>> ->state remaining ECS_FREE until it is known that the calling function
->>>> can't fail anymore.
->>>
->>> This makes it difficult to reuse _evtchn_alloc_unbound for the
->>> implementation of evtchn_alloc_unbound. In fact, I couldn't find a way
->>> to do it.
->>>
->>> Instead, I just create a new public function called
->>> "evtchn_alloc_unbound" and renamed the existing funtion to
->>> "_evtchn_alloc_unbound" (this to addresses Jan's feedback that the
->>> static function should be the one starting with "_"). So the function
->>> names are inverted compared to v1.
->>>
->>> Please let me know if you have any better suggestions.
->>>
->>>
->>> diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
->>> index da88ad141a..c6b7dd7fbd 100644
->>> --- a/xen/common/event_channel.c
->>> +++ b/xen/common/event_channel.c
->>> @@ -18,6 +18,7 @@
->>>   
->>>   #include <xen/init.h>
->>>   #include <xen/lib.h>
->>> +#include <xen/err.h>
->>>   #include <xen/errno.h>
->>>   #include <xen/sched.h>
->>>   #include <xen/irq.h>
->>> @@ -284,7 +285,27 @@ void evtchn_free(struct domain *d, struct evtchn *chn)
->>>       xsm_evtchn_close_post(chn);
->>>   }
->>>   
->>> -static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
->>> +struct evtchn *evtchn_alloc_unbound(struct domain *d, domid_t remote_dom)
->>> +{
->>> +    struct evtchn *chn;
->>> +    int port;
->>> +
->>> +    if ( (port = get_free_port(d)) < 0 )
->>> +        return ERR_PTR(port);
->>> +    chn = evtchn_from_port(d, port);
->>> +
->>> +    evtchn_write_lock(chn);
->>> +
->>> +    chn->state = ECS_UNBOUND;
->>> +    chn->u.unbound.remote_domid = remote_dom;
->>> +    evtchn_port_init(d, chn);
->>> +
->>> +    evtchn_write_unlock(chn);
->>> +
->>> +    return chn;
->>> +}
->>> +
->>> +static int _evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
->>>   {
->>>       struct evtchn *chn;
->>>       struct domain *d;
->>
->> Instead of introducing a clone of this function (with, btw, still
->> insufficient locking), did you consider simply using the existing
->> evtchn_alloc_unbound() as-is, i.e. with the caller passing
->> evtchn_alloc_unbound_t *?
-> 
-> Yes, we tried that first. Unfortunately the (dummy) XSM check cannot
-> work. This is how we would want to call the function:
-> 
-> 
->      alloc.dom = d->domain_id;
->      alloc.remote_dom = hardware_domain->domain_id;
->      rc = evtchn_alloc_unbound(&alloc);
-> 
-> 
-> This is the implementation of the XSM check:
-> 
-> static XSM_INLINE int xsm_evtchn_unbound(
->      XSM_DEFAULT_ARG struct domain *d, struct evtchn *chn, domid_t id2)
-> {
->      XSM_ASSERT_ACTION(XSM_TARGET);
->      return xsm_default_action(action, current->domain, d);
-> }
-> 
-> 
-> Note the usage of current->domain. If you have any suggestions on how to
-> fix it please let me know.
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
 
-If I am not mistaken, current should still point to a domain (in this 
-case idle).
+*** Found and reproduced problem changeset ***
 
-So one alternative would be to ignore XSM if current->domain == idle and 
-the system is booting (this could be part of xsm_default_action())
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  4e25a788d000e57c4d04fdd33c209d7173420580
+  Bug not present: c45c2c2e09295ef3008a79d78673af0819ff4e4f
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/167837/
 
-Another alternative would be to switch current to another domain. 'dom0' 
-wouldn't be a solution because it doesn't exist for "true" dom0less. So 
-a possibility would be to use dom_xen or create a fake build domain to 
-be used for XSM check during boot.
 
-Cheers,
+  commit 4e25a788d000e57c4d04fdd33c209d7173420580
+  Author: Andrew Cooper <andrew.cooper3@citrix.com>
+  Date:   Tue Jan 25 13:52:30 2022 +0100
+  
+      x86/msr: Split MSR_SPEC_CTRL handling
+      
+      In order to fix a VT-x bug, and support MSR_SPEC_CTRL on AMD, move
+      MSR_SPEC_CTRL handling into the new {pv,hvm}_{get,set}_reg() infrastructure.
+      
+      Duplicate the msrs->spec_ctrl.raw accesses in the PV and VT-x paths for now.
+      The SVM path is currently unreachable because of the CPUID policy.
+      
+      No functional change.
+      
+      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
+      master commit: 6536688439dbca1d08fd6db5be29c39e3917fb2f
+      master date: 2022-01-20 16:32:11 +0000
 
--- 
-Julien Grall
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-4.14-testing/build-amd64.xen-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-4.14-testing/build-amd64.xen-build --summary-out=tmp/167837.bisection-summary --basis-template=167629 --blessings=real,real-bisect,real-retry xen-4.14-testing build-amd64 xen-build
+Searching for failure / basis pass:
+ 167812 fail [host=himrod1] / 167629 [host=fiano1] 167415 [host=godello0] 167216 ok.
+Failure / basis pass flights: 167812 / 167216
+(tree with no url: minios)
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e 50935b88b4cd7f9cefe9eb2ffc5150d06c501d05
+Basis pass dfafa8e45382939fb5dc78e9d37b97b500a43613 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c 2dd4b9b3f84019668719344b40dba79d681be41c c4cf5388652e8434652e30c73aa79635b4253675
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/osstest/ovmf.git#dfafa8e45382939fb5dc78e9d37b97b500a43613-7e5c603cba0823fd97456984f4cfc21c4c831b52 git://xenbits.xen.org/qemu-xen-traditional.git#3c659044118e34603161457db9934a34f816d78b-3c659044118e34603161457db9934a34f816d78b git://xenbits.xen.org/qemu-xen.git#d7d6a60e73ee21e82f0bac2036153ccccf996e6c-d7d6a60e73ee21e82f0bac2036153ccccf996e6c git://xenbits.xen.org/osstest/seabios.git#2dd4b9b3f84019668719344b40dba79d681be\
+ 41c-e4f02c12518c0fe8154950b2e34c56a92721626e git://xenbits.xen.org/xen.git#c4cf5388652e8434652e30c73aa79635b4253675-50935b88b4cd7f9cefe9eb2ffc5150d06c501d05
+Loaded 12639 nodes in revision graph
+Searching for test results:
+ 167216 pass dfafa8e45382939fb5dc78e9d37b97b500a43613 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c 2dd4b9b3f84019668719344b40dba79d681be41c c4cf5388652e8434652e30c73aa79635b4253675
+ 167415 [host=godello0]
+ 167629 [host=fiano1]
+ 167812 fail 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e 50935b88b4cd7f9cefe9eb2ffc5150d06c501d05
+ 167821 pass dfafa8e45382939fb5dc78e9d37b97b500a43613 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c 2dd4b9b3f84019668719344b40dba79d681be41c c4cf5388652e8434652e30c73aa79635b4253675
+ 167823 fail 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e 50935b88b4cd7f9cefe9eb2ffc5150d06c501d05
+ 167824 pass 04eacd39439d55bb1a5cbd366c19b1c03d5c7846 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c 2dd4b9b3f84019668719344b40dba79d681be41c c4cf5388652e8434652e30c73aa79635b4253675
+ 167825 pass ee1f8262b83dd88b30091e6e81221ff299796099 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c 34c3fce6e7361c2e38f22a3d973d72b994285313 cbadf67bcab4e29c883410db393f4f5ef34df04a
+ 167826 pass 9dd14fc91c174eae87fd122c7ac70073a363527f 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c 6a62e0cb0dfe9cd28b70547dbea5caf76847c3a9 d8cf50574bd307f5f8a82ab3ee8e0fdab14cd09f
+ 167827 pass e73d1bf96a059d81c537108f532624a7b53a428f 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c 6a62e0cb0dfe9cd28b70547dbea5caf76847c3a9 45299b3cc83d3d19c24d74f7e28dcc83e8fa0c2e
+ 167828 pass 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e 45299b3cc83d3d19c24d74f7e28dcc83e8fa0c2e
+ 167829 pass 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e 6b776749ff7e45c30696235dbb4ecd2b53401cff
+ 167830 pass 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e c45c2c2e09295ef3008a79d78673af0819ff4e4f
+ 167832 fail 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e 4e25a788d000e57c4d04fdd33c209d7173420580
+ 167834 pass 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e c45c2c2e09295ef3008a79d78673af0819ff4e4f
+ 167835 fail 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e 4e25a788d000e57c4d04fdd33c209d7173420580
+ 167836 pass 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e c45c2c2e09295ef3008a79d78673af0819ff4e4f
+ 167837 fail 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e 4e25a788d000e57c4d04fdd33c209d7173420580
+Searching for interesting versions
+ Result found: flight 167216 (pass), for basis pass
+ For basis failure, parent search stopping at 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e c45c2c2e09295ef3008a79d78673af0819ff4e4f, results HASH(0x55712d6856f8) HASH(0x55712bc85a78) HASH(0x55712d677788) For basis failure, parent search stopping at 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c125\
+ 18c0fe8154950b2e34c56a92721626e 6b776749ff7e45c30696235dbb4ecd2b53401cff, results HASH(0x55712d6819e8) For basis failure, parent search stopping at 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e 45299b3cc83d3d19c24d74f7e28dcc83e8fa0c2e, results HASH(0x55712d67c6c0) For basis failure, parent search stopping at e73d1bf96a059d81c537108f532624a7b53a428f 3c659044118e34603161457db9934a3\
+ 4f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c 6a62e0cb0dfe9cd28b70547dbea5caf76847c3a9 45299b3cc83d3d19c24d74f7e28dcc83e8fa0c2e, results HASH(0x55712d679790) For basis failure, parent search stopping at 9dd14fc91c174eae87fd122c7ac70073a363527f 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c 6a62e0cb0dfe9cd28b70547dbea5caf76847c3a9 d8cf50574bd307f5f8a82ab3ee8e0fdab14cd09f, results HASH(0x55712d675d80) For basis failure, parent search stopping at ee1f8262b83d\
+ d88b30091e6e81221ff299796099 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c 34c3fce6e7361c2e38f22a3d973d72b994285313 cbadf67bcab4e29c883410db393f4f5ef34df04a, results HASH(0x55712d672b50) For basis failure, parent search stopping at 04eacd39439d55bb1a5cbd366c19b1c03d5c7846 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c 2dd4b9b3f84019668719344b40dba79d681be41c c4cf5388652e8434652e30c73aa79635b4253675, results HASH(0x55712d66eb4\
+ 0) For basis failure, parent search stopping at dfafa8e45382939fb5dc78e9d37b97b500a43613 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c 2dd4b9b3f84019668719344b40dba79d681be41c c4cf5388652e8434652e30c73aa79635b4253675, results HASH(0x55712d65bb80) HASH(0x55712d64c5f8) Result found: flight 167812 (fail), for basis failure (at ancestor ~662)
+ Repro found: flight 167821 (pass), for basis pass
+ Repro found: flight 167823 (fail), for basis failure
+ 0 revisions at 7e5c603cba0823fd97456984f4cfc21c4c831b52 3c659044118e34603161457db9934a34f816d78b d7d6a60e73ee21e82f0bac2036153ccccf996e6c e4f02c12518c0fe8154950b2e34c56a92721626e c45c2c2e09295ef3008a79d78673af0819ff4e4f
+No revisions left to test, checking graph state.
+ Result found: flight 167830 (pass), for last pass
+ Result found: flight 167832 (fail), for first failure
+ Repro found: flight 167834 (pass), for last pass
+ Repro found: flight 167835 (fail), for first failure
+ Repro found: flight 167836 (pass), for last pass
+ Repro found: flight 167837 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  4e25a788d000e57c4d04fdd33c209d7173420580
+  Bug not present: c45c2c2e09295ef3008a79d78673af0819ff4e4f
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/167837/
+
+
+  commit 4e25a788d000e57c4d04fdd33c209d7173420580
+  Author: Andrew Cooper <andrew.cooper3@citrix.com>
+  Date:   Tue Jan 25 13:52:30 2022 +0100
+  
+      x86/msr: Split MSR_SPEC_CTRL handling
+      
+      In order to fix a VT-x bug, and support MSR_SPEC_CTRL on AMD, move
+      MSR_SPEC_CTRL handling into the new {pv,hvm}_{get,set}_reg() infrastructure.
+      
+      Duplicate the msrs->spec_ctrl.raw accesses in the PV and VT-x paths for now.
+      The SVM path is currently unreachable because of the CPUID policy.
+      
+      No functional change.
+      
+      Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+      Reviewed-by: Jan Beulich <jbeulich@suse.com>
+      master commit: 6536688439dbca1d08fd6db5be29c39e3917fb2f
+      master date: 2022-01-20 16:32:11 +0000
+
+pnmtopng: 141 colors found
+Revision graph left in /home/logs/results/bisect/xen-4.14-testing/build-amd64.xen-build.{dot,ps,png,html,svg}.
+----------------------------------------
+167837: tolerable ALL FAIL
+
+flight 167837 xen-4.14-testing real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167837/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ build-amd64                   6 xen-build               fail baseline untested
+
+
+jobs:
+ build-amd64                                                  fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
