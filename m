@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0F1649B298
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 12:07:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260085.449208 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C121E49B2A1
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 12:07:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260099.449291 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCJf9-0004wj-Lh; Tue, 25 Jan 2022 11:06:59 +0000
+	id 1nCJfm-0007rE-M7; Tue, 25 Jan 2022 11:07:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260085.449208; Tue, 25 Jan 2022 11:06:59 +0000
+Received: by outflank-mailman (output) from mailman id 260099.449291; Tue, 25 Jan 2022 11:07:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCJf9-0004ut-Hr; Tue, 25 Jan 2022 11:06:59 +0000
-Received: by outflank-mailman (input) for mailman id 260085;
- Tue, 25 Jan 2022 11:06:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nCJfm-0007hZ-B5; Tue, 25 Jan 2022 11:07:38 +0000
+Received: by outflank-mailman (input) for mailman id 260099;
+ Tue, 25 Jan 2022 11:07:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=rP4T=SJ=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nCJaS-0006Mn-7O
- for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 11:02:08 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3b8c4e4f-7dce-11ec-8fa7-f31e035a9116;
- Tue, 25 Jan 2022 12:02:07 +0100 (CET)
+ id 1nCJaV-0006t5-9x
+ for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 11:02:11 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3d1fe641-7dce-11ec-bc18-3156f6d857e4;
+ Tue, 25 Jan 2022 12:02:09 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,64 +36,66 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3b8c4e4f-7dce-11ec-8fa7-f31e035a9116
+X-Inumbo-ID: 3d1fe641-7dce-11ec-bc18-3156f6d857e4
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643108527;
+  d=citrix.com; s=securemail; t=1643108530;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=JPbHo9Jo8aOfD2/lllmxqNTLME6igV4FyqbCCTnSPrY=;
-  b=C9SKhZlRNGdRKrIf2rLfHEP43Jah2yddpri85dYJn5W+MdZJHR3+Bz5P
-   dy+UKgE0dWdTBEYTt/f7yDnURHV2UQnUPvlrdZKMJZ58rIXiw1jJ5CpCn
-   5+IrH68Jm1anKYY663RnLLit/XXjsZ5X6bdN6Tz9HvbiWIW73oj+zXetm
-   g=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: QWUz9YK1cap7V4Zd2e7r/gMgMbdEYXpIYHj+3ypl/iTdiOBv93LahrLDbp7riKnu69FijRq9W4
- ZuW9kwh4vKMZYKw9OqtNFyrfUA5AwmXrB4iEKq/1WjDT9gIl89NL9ZhLIoM4j2yZzGWAEAElC2
- e0Oy7VqcfZabkNB720an1yfBBNr1KrySHqPnVMEzMfk63WOjYc8XW7iF8WH/2Ug6HKOVpsfVzl
- lcAZ5x04DmnF5yimbojQBeq0dcD2sI1pLN14MYniSRhtfWiZeNVcLdAmtIzGZGr0I3aofV1iGd
- B7X/H34N4+G9sbsIuTHUehFy
+  bh=/rio6ojrA2h1MkFyzp9Ib8BoAtp1CgaQstP8lKsEqLA=;
+  b=JZWTYEF+CUxQdePmw67cqngKjFvt7EkM0WG99FQIErxsUWAA1CNSn/eL
+   STCmD9zwsA1xcwm3abnLrBGEriKe8sE6g0lURayz6HZantqvUHm8NaN1Q
+   /13v3l5J77NMNjyY4ltUgGiHmZaWKah2mCxsR2vhxBLYYXt4ATFfdKI/c
+   M=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: NqWw4dGl0ToM3jK/1c0bwqcMMJkGcFVGrpQFDcj3XdPbqwNfVrEf7mirbhvlmbWjg0uLAYDPei
+ sx16LYWTsOzSKJ7jbyDyJ9Q3dSrAzwLO164MSj/Zs+OFjM9g9Mh5yErVKx6ASskILUKLMSJGyu
+ myo8pUDoGVZKA8Czz+bAjyt8/1tqYxd4ajlZNsNkYVkqoqelKyXcTJRItQPtxUUrRN+D38v2nZ
+ sn3iP4Mnjr4F5S2rmCvazriZN2/GC11NZ2/KA8qc6OfHjT31+AZ62vEPcXCZBkmNOUbCZTsRTN
+ JI/+L+226JW7DYx4zjJ6fgyH
 X-SBRS: 5.2
-X-MesageID: 62170391
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 62618991
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:cWLiyq3XWSWLQNEXyPbD5S92kn2cJEfYwER7XKvMYLTBsI5bp2YDm
- zAdWmCBOaqPMzbzLtx+a4u/8RgFsJfQy9UxSAc6pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCanAZqTNMEn9700o6wbNh2+aEvPDia++zk
- YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
- 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhh9Ug1
- 4VvrY2LTiAUB5Odsd4tcShDOnQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
- 6VecW1TKEDY7w616OvTpu1Ej8I/LM7tLcUHt2tp1z3xBvc6W5HTBa7N4Le02R9u3JkRRa2PP
- qL1bxIoVBXySE1RZW0vJ440lrvwhlDtXgxX/Qf9Sa0fvDGIkV0ZPKLWGMHOZtWASMFRn0CZj
- mHL5WL0BlcdLtP34SWB2mKhgKnIhyyTcIAPELy18NZ6jVvVwXYcYDUGWF3+rfSnh0qWX9NEN
- 1dS6icotbI19kGgUp/6RRLQiHyOswMYWtFQO/Yn8wzLwa3Rizt1HUBdEGQHMoZ/8pZrG3p6j
- Tdlgu8FGxR3teyKGVCF54yTig6LB3k8F18gVDQtGF5tD8bYnKk/iRfGT9BGGaGzj8HoFTyY/
- w1mvBTSlJ1I05dVivzTEUTvxmv1+8OXFlJdChD/Azr9hj6VcrJJcGBBBbLzyf9bZLiUQVCa1
- JTvs5jPtbteZX1hecHkfQnsIF1Lz6vdWNE/qQQ2d3XEy9hL0yT/FWy3yGomTHqFyu5eJVfUj
- Lb74Gu9HqN7MnqwdrNQaImsEcksxqWIPY27CquMMosRPcYgJVfvEMRSiai4hTyFfK8EyvlXB
+IronPort-Data: A9a23:i0lCVagB7TVaTG402X+e71P5X1615xcKZh0ujC45NGQN5FlHY01je
+ htvXmGFO/mCYGD8edgjaNjn8UJTu5fTy9ExQQVl+SFhRSgb9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0GE/NtTo5w7Rj2tcy3IDga++wk
+ YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
+ 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
+ /1ImM2zZiUAYZadlbxAcEIDPnh0BIB/reqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
+ KJCbmpXN1ba2rzwkOnTpupE36zPKOHiOp8fvXdxiynUF/88TbjIQrnQ5M8e1zA17ixLNaiEO
+ ZNJOGs2BPjGSzxuHX4bK60Cpsy1ll7lehNXj1aqgKVitgA/yyQuieOwYbI5YOeiXt5Jl0yVo
+ mbH+WXRARwAMtGbjz2f/RqEmevnjS79HoUIG9WQ9ONugVCV7nweDlsRT1TTiem0jAuyVsxSL
+ 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0WdBdDuk74wGl0bfP7kCSAW1sc9JaQIV47olsH2Vsj
+ wLX2YOybdByjFGLYXewp7S7jxrtAnkYdTIhPnQpFAE8zuC29enfkSnzZtpkFae0iPj8Fjfx3
+ y2GoUACulkDsSIY//7lpA6a2lpAsrCMF1dovVuPAgpJ+yskPNbNWmC+1bTMAR+sxq69R0LJg
+ nULktP2AAsmXcDUz3zlrAng8diUCxe53N/03AYH83oJrW3FF5ufkWZ4um0WyKBBaZ5sRNMRS
+ BWP0T69HqN7MnqwdrNQaImsEcksxqWIPY27CquMMosRPcYgJVfvEMRSiai4hTyFfK8EyvlXB
  HtmWZz0USZy5VpPklJauNvxIZd0n3tjlAs/tLjwzgi90Kr2WZJmYextDbd6VchgtPnsiFyMq
- 753bpLWoz0CDrGWSnSJoOY7cABbRVBmVMueg5EGKYa+zv9ORTtJ5wn5m+1xIuSIXs19y4/1w
- 51KchYIkQWk3Syed1zih7IKQOqHYKuTZEkTZUQEVWtEEVB6CWp2xKtAJZYxY5c98+lvkax9Q
- /UfIp3SCfVTUDXXvT8aaMCl/oBlcR2qgyOIPjakP2djL8IxGVSR94+2ZBbr+QkPEjGz6Zk0r
- Yq/216JWpEEXQljUprbMar901OrsHEBs+tuRE+UcMJLcUDh/dEyeSz8h/M6Oe8WLhDHymfI3
- gqaG05A9+LMv5U04J/CgqXd99WlFO53H0x7GWjH7OnpaXmGrzT7mYIZCbSGZzHQUm/w6Z6OX
- +QNwqGuKuADkXZLr5F4T+Rhw5Uh6oa9vLRd1AllQinGNgz5FrN6L3Ca9sBTrakRlKRBsA67V
- 0/TqNlXPbKFZJHsHFILfVd3a+2C0bcfmyXI7ORzK0L/vXcl8L2CWERUHh+NlC0Cc+clbNJ7m
- b8s6JwM9giyqhs2KdLX3Clb+lOFImEET6h65IoRB5Xmi1Zzx1xPCXAG5vQaPH1bhw1wD3QX
-IronPort-HdrOrdr: A9a23:Ll6cZaGeAc3uC1BppLqE7seALOsnbusQ8zAXP0AYc3Nom6uj5q
- eTdZUgpGbJYVkqOU3I9ersBEDEewK/yXcX2/h0AV7BZmnbUQKTRekIh7cKgQeQfhEWntQts5
- uIGJIRNDSfNzRHZL7BkWqFL+o=
+ 753bpLWoz0CDrGWSnSJoOY7cABbRVBmVMueg5EGKYa+zv9ORTtJI+XP2okoZ4ENt/0Tzo8kC
+ FnnBB8BoLc+7FWaQTi3hodLMeO2As0n/CtlZETB/z+AghAeXGpm149HH7NfQFXt3LELISdcQ
+ 6ZXdsOeLO5ITzibqT0RYYOk9N5pdQixhBLINC2gOWBtc5llTg3P29nlYgqwq3VeUnvp7ZMz8
+ ++6ywfWYZsfXAA+XszYX+2ikgGqtn8HleMsA0aReotPeF/h+ZRBIjDqiqNlONkFLBjOn2PI1
+ wufDRoCi/PKpos5rIvAiaye9t/7GOpiBEtKWWLc6O/uZyXd+2Oix65GUfqJIm+BBD+lpv36a
+ LwMnf/mMfABkFJbiKZGEu5mnfAk+t/ih75G1QA4Tn/FWEumV+F7KX6c0MgR6qAUnu1FuRG7U
+ 16k88VBPenbI9vsFVMcKVZ3bumH0v1IyDDe4e5sfRf/7S5zurGGTV9TL1+HjykEdOl5N4Ysw
+ OEAvs8K6lPg1kp2Y4je1i0EpX6RKnEgUrk8ssBICYDmvQMn11VebMGOESTx+pyON41BP0RCz
+ uV4X0Yea2CwHnb/Tkc=
+IronPort-HdrOrdr: A9a23:VxNa761OrKnpBDh5C0dwZAqjBI4kLtp133Aq2lEZdPUzSL39qy
+ nOpoV/6faaskdzZJhNo7G90cq7L080l6QFhrX5VI3KNGOKhILBFvAF0WKI+UyDJ8SRzI5gPI
+ 5bAtFD4IKaNzNHZLzBjzVQuexQuOVvi5rFudvj
 X-IronPort-AV: E=Sophos;i="5.88,314,1635220800"; 
-   d="scan'208";a="62170391"
+   d="scan'208";a="62618991"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v9 22/30] build: rework coverage and ubsan CFLAGS handling
-Date: Tue, 25 Jan 2022 11:00:55 +0000
-Message-ID: <20220125110103.3527686-23-anthony.perard@citrix.com>
+CC: Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [XEN PATCH v9 23/30] build,x86: remove the need for build32.mk
+Date: Tue, 25 Jan 2022 11:00:56 +0000
+Message-ID: <20220125110103.3527686-24-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220125110103.3527686-1-anthony.perard@citrix.com>
 References: <20220125110103.3527686-1-anthony.perard@citrix.com>
@@ -101,75 +103,174 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-When assigning a value a target-specific variable, that also affect
-prerequisite of the target. This is mostly fine, but there is one case
-where we will not want the COV_FLAGS added to the CFLAGS.
+Rework "arch/x86/boot/Makefile" to allow it to build both file
+"cmdline.S" and "reloc.S" without "build32.mk".
 
-In arch/x86/boot, we have "head.o" with "cmdline.S" as prerequisite
-and ultimately "cmdline.o", we don't want COV_FLAGS to that last one.
+These will now use the main rules for "%.o: %.c", and thus generate a
+dependency file. (We will not need to track the dependency manually
+anymore.)
+
+But for that, we need to override the main CFLAGS to do a 32bit build.
+We introduce XEN_TREEWIDE_CFLAGS which can be reused in boot/Makefile,
+and avoid the need to reparse Config.mk with a different value for
+XEN_TARGET_ARCH. From this new $(XEN_TREEWIDE_CFLAGS), we only need to
+change -m64 to have the 32bit flags. Then those are applied only to
+"cmdline.o" and "reloc.o".
+
+Specifically apply the rule "%.S: %.bin" to both cmdline.S and reloc.S
+to avoid make trying to regenerate other %.S files with it.
+
+There is no change expected to the resulting "cmdline.S" and
+"reloc.S", only the *.o file changes as their symbol for FILE goes
+from "cmdline.c" to "arch/x86//cmdline.c". (No idea why "boot" is
+missing from the string.) (I've only check with GCC, not clang.)
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 
 Notes:
+    v9:
+    - rename XEN_COMMON_CFLAGS to XEN_TREEWIDE_CFLAGS
+    - rename $(head-objs) to $(head-srcs)
+    - substitute LDFLAGS_DIRECT in %.lnk rule, rather than changing the value
+      of it.
+    
     v8:
-    - reorder target-specific assignments
-    - fix typo in comment
-    - reviewed
+    - avoid the need to list CFLAGS from Config.mk a second time by
+      introducing XEN_COMMON_CFLAGS, and using it in boot/
+    - improve LDFLAGS_DIRECT, by just substitute x64 to i368 from x86
+      LDFLAGS_DIRECT. And thus avoid copying the logic from Config.mk.
 
- xen/Rules.mk | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ xen/Makefile                 |  4 +++
+ xen/arch/x86/boot/Makefile   | 49 ++++++++++++++++++++++++------------
+ xen/arch/x86/boot/build32.mk | 40 -----------------------------
+ 3 files changed, 37 insertions(+), 56 deletions(-)
+ delete mode 100644 xen/arch/x86/boot/build32.mk
 
-diff --git a/xen/Rules.mk b/xen/Rules.mk
-index 5f2368805b36..abeba1ab7494 100644
---- a/xen/Rules.mk
-+++ b/xen/Rules.mk
-@@ -126,19 +126,31 @@ targets += $(targets-for-builtin)
+diff --git a/xen/Makefile b/xen/Makefile
+index dc25fa443b82..8baa260b93a7 100644
+--- a/xen/Makefile
++++ b/xen/Makefile
+@@ -171,6 +171,10 @@ export LEX = $(if $(FLEX),$(FLEX),flex)
+ # Default file for 'make defconfig'.
+ export KBUILD_DEFCONFIG := $(ARCH)_defconfig
  
- $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): CFLAGS-y += -DINIT_SECTIONS_ONLY
- 
-+non-init-objects = $(filter-out %.init.o, $(obj-y) $(obj-bin-y) $(extra-y))
++# Copy CFLAGS generated by "Config.mk" so they can be reused later without
++# reparsing Config.mk by e.g. arch/x86/boot/.
++export XEN_TREEWIDE_CFLAGS := $(CFLAGS)
 +
- ifeq ($(CONFIG_COVERAGE),y)
- ifeq ($(CONFIG_CC_IS_CLANG),y)
-     COV_FLAGS := -fprofile-instr-generate -fcoverage-mapping
- else
-     COV_FLAGS := -fprofile-arcs -ftest-coverage
- endif
--$(filter-out %.init.o $(nocov-y),$(obj-y) $(obj-bin-y) $(extra-y)): CFLAGS-y += $(COV_FLAGS)
-+
-+# Reset COV_FLAGS in cases where an objects has another one as prerequisite
-+$(nocov-y) $(filter %.init.o, $(obj-y) $(obj-bin-y) $(extra-y)): \
-+    COV_FLAGS :=
-+
-+$(non-init-objects): _c_flags += $(COV_FLAGS)
- endif
+ # CLANG_FLAGS needs to be calculated before calling Kconfig
+ ifneq ($(shell $(CC) --version 2>&1 | head -n 1 | grep clang),)
+ CLANG_FLAGS :=
+diff --git a/xen/arch/x86/boot/Makefile b/xen/arch/x86/boot/Makefile
+index 1ac8cb435e0e..ca8001c72b23 100644
+--- a/xen/arch/x86/boot/Makefile
++++ b/xen/arch/x86/boot/Makefile
+@@ -1,25 +1,42 @@
+ obj-bin-y += head.o
++head-srcs := cmdline.S reloc.S
  
- ifeq ($(CONFIG_UBSAN),y)
- # Any -fno-sanitize= options need to come after any -fsanitize= options
--$(filter-out %.init.o $(noubsan-y),$(obj-y) $(obj-bin-y) $(extra-y)): \
--CFLAGS-y += $(filter-out -fno-%,$(CFLAGS_UBSAN)) $(filter -fno-%,$(CFLAGS_UBSAN))
-+UBSAN_FLAGS := $(filter-out -fno-%,$(CFLAGS_UBSAN)) $(filter -fno-%,$(CFLAGS_UBSAN))
+-DEFS_H_DEPS = $(abs_srctree)/$(src)/defs.h $(abs_srctree)/include/xen/stdbool.h
++nocov-y += $(head-srcs:.S=.o)
++noubsan-y += $(head-srcs:.S=.o)
++targets += $(head-srcs:.S=.o)
+ 
+-CMDLINE_DEPS = $(DEFS_H_DEPS) $(abs_srctree)/$(src)/video.h \
+-	       $(BASEDIR)/include/xen/kconfig.h \
+-	       $(BASEDIR)/include/generated/autoconf.h
++head-srcs := $(addprefix $(obj)/, $(head-srcs))
+ 
+-RELOC_DEPS = $(DEFS_H_DEPS) \
+-	     $(BASEDIR)/include/generated/autoconf.h \
+-	     $(BASEDIR)/include/xen/kconfig.h \
+-	     $(BASEDIR)/include/xen/multiboot.h \
+-	     $(BASEDIR)/include/xen/multiboot2.h \
+-	     $(BASEDIR)/include/xen/const.h \
+-	     $(BASEDIR)/include/public/arch-x86/hvm/start_info.h
++$(obj)/head.o: $(head-srcs)
+ 
+-$(obj)/head.o: $(obj)/cmdline.S $(obj)/reloc.S
++CFLAGS_x86_32 := $(subst -m64,-m32 -march=i686,$(XEN_TREEWIDE_CFLAGS))
++$(call cc-options-add,CFLAGS_x86_32,CC,$(EMBEDDED_EXTRA_CFLAGS))
++CFLAGS_x86_32 += -Werror -fno-builtin -g0 -msoft-float
++CFLAGS_x86_32 += -I$(srctree)/include
+ 
+-$(obj)/cmdline.S: $(src)/cmdline.c $(CMDLINE_DEPS) $(src)/build32.lds
+-	$(MAKE) -f $(abs_srctree)/$(src)/build32.mk -C $(obj) $(@F) CMDLINE_DEPS="$(CMDLINE_DEPS)"
++# override for 32bit binaries
++$(head-srcs:.S=.o): CFLAGS_stack_boundary :=
++$(head-srcs:.S=.o): XEN_CFLAGS := $(CFLAGS_x86_32) -fpic
+ 
+-$(obj)/reloc.S: $(src)/reloc.c $(RELOC_DEPS) $(src)/build32.lds
+-	$(MAKE) -f $(abs_srctree)/$(src)/build32.mk -C $(obj) $(@F) RELOC_DEPS="$(RELOC_DEPS)"
++$(head-srcs): %.S: %.bin
++	(od -v -t x $< | tr -s ' ' | awk 'NR > 1 {print s} {s=$$0}' | \
++	sed 's/ /,0x/g' | sed 's/,0x$$//' | sed 's/^[0-9]*,/ .long /') >$@
 +
-+# Reset UBSAN_FLAGS in cases where an objects has another one as prerequisite
-+$(noubsan-y) $(filter %.init.o, $(obj-y) $(obj-bin-y) $(extra-y)): \
-+    UBSAN_FLAGS :=
++# Drop .got.plt during conversion to plain binary format.
++# Please check build32.lds for more details.
++%.bin: %.lnk
++	$(OBJDUMP) -h $< | sed -n '/[0-9]/{s,00*,0,g;p;}' | \
++		while read idx name sz rest; do \
++			case "$$name" in \
++			.got.plt) \
++				test $$sz != 0c || continue; \
++				echo "Error: non-empty $$name: 0x$$sz" >&2; \
++				exit $$(expr $$idx + 1);; \
++			esac; \
++		done
++	$(OBJCOPY) -O binary -R .got.plt $< $@
 +
-+$(non-init-objects): _c_flags += $(UBSAN_FLAGS)
- endif
++%.lnk: %.o $(src)/build32.lds
++	$(LD) $(subst x86_64,i386,$(LDFLAGS_DIRECT)) -N -T $(filter %.lds,$^) -o $@ $<
  
- ifeq ($(CONFIG_LTO),y)
-@@ -167,6 +179,9 @@ a_flags = -MMD -MP -MF $(depfile) $(XEN_AFLAGS)
- 
- include $(BASEDIR)/arch/$(TARGET_ARCH)/Rules.mk
- 
-+c_flags += $(_c_flags)
-+a_flags += $(_c_flags)
-+
- c_flags += $(CFLAGS-y)
- a_flags += $(CFLAGS-y) $(AFLAGS-y)
- 
+ clean-files := cmdline.S reloc.S *.lnk *.bin
+diff --git a/xen/arch/x86/boot/build32.mk b/xen/arch/x86/boot/build32.mk
+deleted file mode 100644
+index e90680cd9f52..000000000000
+--- a/xen/arch/x86/boot/build32.mk
++++ /dev/null
+@@ -1,40 +0,0 @@
+-override XEN_TARGET_ARCH=x86_32
+-CFLAGS =
+-include $(XEN_ROOT)/Config.mk
+-
+-$(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+-
+-CFLAGS += -Werror -fno-builtin -g0 -msoft-float
+-CFLAGS += -I$(BASEDIR)/include
+-CFLAGS := $(filter-out -flto,$(CFLAGS)) 
+-
+-# NB. awk invocation is a portable alternative to 'head -n -1'
+-%.S: %.bin
+-	(od -v -t x $< | tr -s ' ' | awk 'NR > 1 {print s} {s=$$0}' | \
+-	sed 's/ /,0x/g' | sed 's/,0x$$//' | sed 's/^[0-9]*,/ .long /') >$@
+-
+-# Drop .got.plt during conversion to plain binary format.
+-# Please check build32.lds for more details.
+-%.bin: %.lnk
+-	$(OBJDUMP) -h $< | sed -n '/[0-9]/{s,00*,0,g;p;}' | \
+-		while read idx name sz rest; do \
+-			case "$$name" in \
+-			.got.plt) \
+-				test $$sz != 0c || continue; \
+-				echo "Error: non-empty $$name: 0x$$sz" >&2; \
+-				exit $$(expr $$idx + 1);; \
+-			esac; \
+-		done
+-	$(OBJCOPY) -O binary -R .got.plt $< $@
+-
+-%.lnk: %.o build32.lds
+-	$(LD) $(LDFLAGS_DIRECT) -N -T build32.lds -o $@ $<
+-
+-%.o: %.c
+-	$(CC) $(CFLAGS) -c -fpic $< -o $@
+-
+-cmdline.o: cmdline.c $(CMDLINE_DEPS)
+-
+-reloc.o: reloc.c $(RELOC_DEPS)
+-
+-.PRECIOUS: %.bin %.lnk
 -- 
 Anthony PERARD
 
