@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 792F1499D15
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jan 2022 23:16:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.259992.448904 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9C9D49A1E4
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Jan 2022 02:12:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.259997.448914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nC7bx-0000yy-AC; Mon, 24 Jan 2022 22:14:53 +0000
+	id 1nCAME-0002vg-CA; Tue, 25 Jan 2022 01:10:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 259992.448904; Mon, 24 Jan 2022 22:14:53 +0000
+Received: by outflank-mailman (output) from mailman id 259997.448914; Tue, 25 Jan 2022 01:10:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nC7bx-0000wz-6n; Mon, 24 Jan 2022 22:14:53 +0000
-Received: by outflank-mailman (input) for mailman id 259992;
- Mon, 24 Jan 2022 22:14:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nCAME-0002ta-5H; Tue, 25 Jan 2022 01:10:50 +0000
+Received: by outflank-mailman (input) for mailman id 259997;
+ Tue, 25 Jan 2022 01:10:49 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4ZXe=SI=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nC7bv-0000wt-I3
- for xen-devel@lists.xenproject.org; Mon, 24 Jan 2022 22:14:51 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b1fc54c-7d63-11ec-bc18-3156f6d857e4;
- Mon, 24 Jan 2022 23:14:49 +0100 (CET)
+ <SRS0=npsv=SJ=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nCAMC-0002tU-UJ
+ for xen-devel@lists.xenproject.org; Tue, 25 Jan 2022 01:10:49 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9fc1fc9f-7d7b-11ec-8fa7-f31e035a9116;
+ Tue, 25 Jan 2022 02:10:46 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E83BC611EA;
- Mon, 24 Jan 2022 22:14:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EDC5C340E7;
- Mon, 24 Jan 2022 22:14:44 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 32B81B810A8;
+ Tue, 25 Jan 2022 01:10:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77F2AC340E7;
+ Tue, 25 Jan 2022 01:10:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,86 +43,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b1fc54c-7d63-11ec-bc18-3156f6d857e4
+X-Inumbo-ID: 9fc1fc9f-7d7b-11ec-8fa7-f31e035a9116
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1643062484;
-	bh=a0De33ItmRHJeTZtQjS5RWputpBKXe2dW2jQY9vNaxM=;
+	s=k20201202; t=1643073043;
+	bh=D07unP5JvFJh6EMHwybRTsjO2bPn46z37sTvXX1HWVc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Y6A6AU9P86koA8MMfwiZPU+/YYjQcQG+XFR7ELahVr1m3p/yakr6pfjysMG/8OU/4
-	 DwSDdfJxNy1uhskjNwMA2Zwd0G/DGdRQUKnQo/4MnOoK1t975CUneB+QvAvqOEFsoT
-	 Pnhegbss20CDzImFlEWqydREbEANnOJ/SY1DdwQ2Tz6WaK/SMWCaPjUNnM5JWkhxkD
-	 r9u+JESfp98VGbsqnXmfNk3K/Ejpju6uFtzZlkvWAEacQEkO3pIfsiBzqmwB2EY2Dw
-	 4nbdbc1OkKMN/qcJtu6ApkHXN3p/M/xDlPznu4iSu+uYmYw8mYDLQecWMZLqbLvP+Y
-	 iMluRLlPvpxXA==
-Date: Mon, 24 Jan 2022 14:14:43 -0800 (PST)
+	b=GEPTDupF7sKIP18DMiIxFhMyhBYwxbpVxt5O4PXe/9yug9jZyrjY9Kxc3TpabHYkx
+	 vA54kpLQEPotDKTs+OhanF0gNUYcy5CsOH27YsVG3emvUTK69694bZe07ruO1IDWUF
+	 AxcGCc1U8ZcCkBXIHEKoBKJfVJ7eFnQOnjfnlhTboV3MtVvr3S5xUQZsqBVJLERAnv
+	 QduCgPGbF2JwjqLaZOlU6SWOMfksukQjplz5IsJjtEYvmGkRpZ89ogjgi9R1qCUV06
+	 vp3yI5t4rm1RPbmF1nn1LMlP2mtNqcUk3KJKltlhKWiT18XTiKO9x682B8drq7+BdM
+	 YMgRjbhh1ZYEQ==
+Date: Mon, 24 Jan 2022 17:10:42 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
 cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: Re: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
-In-Reply-To: <d5c84296-79a6-5698-802d-4d9ba60dbf24@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2201241403240.27308@ubuntu-linux-20-04-desktop>
-References: <20211221200305.GA2460476@EPUAKYIW015D> <alpine.DEB.2.22.394.2112211310000.2060010@ubuntu-linux-20-04-desktop> <20211222110414.GA2883815@EPUAKYIW015D> <alpine.DEB.2.22.394.2112221627190.2060010@ubuntu-linux-20-04-desktop> <20220119120400.GA3779126@EPUAKYIW015D>
- <alpine.DEB.2.22.394.2201191644400.19362@ubuntu-linux-20-04-desktop> <20220120102147.GA4153317@EPUAKYIW015D> <alpine.DEB.2.22.394.2201201230480.27308@ubuntu-linux-20-04-desktop> <20220121150753.GA898010@EPUAKYIW015D> <alpine.DEB.2.22.394.2201211236060.27308@ubuntu-linux-20-04-desktop>
- <20220124182249.GA2485483@EPUAKYIW015D> <alpine.DEB.2.22.394.2201241056290.27308@ubuntu-linux-20-04-desktop> <d5c84296-79a6-5698-802d-4d9ba60dbf24@xen.org>
+    xen-devel@lists.xenproject.org, jgross@suse.com, Bertrand.Marquis@arm.com, 
+    Volodymyr_Babchuk@epam.com, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [XEN PATCH v2 2/5] xen: export get_free_port
+In-Reply-To: <f3b2ae98-c7af-d8c0-b0a4-52e622517c34@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2201241652330.27308@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2201121646290.19362@ubuntu-linux-20-04-desktop> <20220113005855.1180101-2-sstabellini@kernel.org> <f3b2ae98-c7af-d8c0-b0a4-52e622517c34@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 24 Jan 2022, Julien Grall wrote:
-> On 24/01/2022 19:06, Stefano Stabellini wrote:
-> > It looks like XEN_DOMCTL_host_node_by_path and
-> > XEN_DOMCTL_find_host_compatible_node would also solve the problem but I
-> > think that a single hypercall that retrieves the entire host DTB would
-> > be easier to implement
+On Sun, 23 Jan 2022, Julien Grall wrote:
+> > diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+> > index da88ad141a..5b0bcaaad4 100644
+> > --- a/xen/common/event_channel.c
+> > +++ b/xen/common/event_channel.c
+> > @@ -232,7 +232,7 @@ int evtchn_allocate_port(struct domain *d, evtchn_port_t
+> > port)
+> >       return 0;
+> >   }
+> >   -static int get_free_port(struct domain *d)
+> > +int get_free_port(struct domain *d)
 > 
-> DOMCTL should only be used to handle per-domain information. If we want to
-> create a new sub-hypercall of either __HYPERVISOR_platform_op or
-> __HYPERVISOR_sysctl_op (not sure which one).
+> I dislike the idea to expose get_free_port() (or whichever name we decide)
+> because this can be easily misused.
 > 
-> AFAICT, both are versioned.
+> In fact looking at your next patch (#3), you are misusing it as it is meant to
+> be called with d->event_lock. I know this doesn't much matter
+> in your situation because this is done at boot with no other domains running
+> (or potentially any event channel allocation). However, I still think we
+> should get the API right.
 > 
-> > and more robust in the long term. >
-> > hypfs has the advantage that it would create an interface more similar
-> > to the one people are already used to on Linux systems
-> > (/proc/device-tree). xl/libxl would have to scan the whole hypfs tree,
-> > which intuitively I think it would be slower.
-> 
-> Even if you have the binary blob, you would still have to scan the
-> device-tree. That said, it is probably going to be potentially a bit faster
-> because you have less hypercall.
-> 
-> However, here this is a trade-off between memory use and speed. If you want
-> speed, then you may have to transfer up to 2MB every time. So the question is
-> do we care more about speed or memory usage?
-> 
-> > Also the feature might be
-> > harder to implement but I am not sure.
-> > 
-> > I don't have a strong preference and this is not a stable interface (we
-> > don't have to be extra paranoid about forward and backward
-> > compatibility). So I am fine either way. Let's see what the others think
-> > as well.
-> 
-> My preference would be to use hypfs as this is cleaner than exposing a blob.
+> I am also not entirely happy of open-coding the allocation in domain_build.c.
+> Instead, I would prefer if we provide a new helper to allocate an unbound
+> event channel. This would be similar to your v1 (I still need to review the
+> patch though).
 
-That's also fine by me. Probably the hypfs implementation shouldn't be
-much more difficult than something like
-XEN_DOMCTL_host_node_by_path/XEN_DOMCTL_find_host_compatible_node.
+I am happy to go back to v1 and address feedback on that patch. However,
+I am having difficulties with the implementation. Jan pointed out:
 
 
-> However, are we sure we can simply copy the content of the host Device-Tree to
-> the guest Device-Tree for SCMI? For instance, I know that for device
-> passthrough there are some property that needs to be altered for some devices.
-> Hence, why it is not present. Although, I vaguely recalled to have written a
-> PoC, not sure if it was posted on the ML.
+> > -
+> > -    chn->state = ECS_UNBOUND;
+> 
+> This cannot be pulled ahead of the XSM check (or in general anything
+> potentially resulting in an error), as check_free_port() relies on
+> ->state remaining ECS_FREE until it is known that the calling function
+> can't fail anymore.
 
-The SCMI node cannot be copied "as is" from host to guest. It needs a
-couple of changes but they seem feasible as they are limited to the
-channels exposed to the guest. (The generic device passthrough case is a
-lot more difficult.)
+This makes it difficult to reuse _evtchn_alloc_unbound for the
+implementation of evtchn_alloc_unbound. In fact, I couldn't find a way
+to do it.
+
+Instead, I just create a new public function called
+"evtchn_alloc_unbound" and renamed the existing funtion to
+"_evtchn_alloc_unbound" (this to addresses Jan's feedback that the
+static function should be the one starting with "_"). So the function
+names are inverted compared to v1.
+
+Please let me know if you have any better suggestions.
+
+
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+index da88ad141a..c6b7dd7fbd 100644
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -18,6 +18,7 @@
+ 
+ #include <xen/init.h>
+ #include <xen/lib.h>
++#include <xen/err.h>
+ #include <xen/errno.h>
+ #include <xen/sched.h>
+ #include <xen/irq.h>
+@@ -284,7 +285,27 @@ void evtchn_free(struct domain *d, struct evtchn *chn)
+     xsm_evtchn_close_post(chn);
+ }
+ 
+-static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
++struct evtchn *evtchn_alloc_unbound(struct domain *d, domid_t remote_dom)
++{
++    struct evtchn *chn;
++    int port;
++
++    if ( (port = get_free_port(d)) < 0 )
++        return ERR_PTR(port);
++    chn = evtchn_from_port(d, port);
++
++    evtchn_write_lock(chn);
++
++    chn->state = ECS_UNBOUND;
++    chn->u.unbound.remote_domid = remote_dom;
++    evtchn_port_init(d, chn);
++
++    evtchn_write_unlock(chn);
++
++    return chn;
++}
++
++static int _evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
+ {
+     struct evtchn *chn;
+     struct domain *d;
+@@ -1195,7 +1216,7 @@ long do_event_channel_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+         struct evtchn_alloc_unbound alloc_unbound;
+         if ( copy_from_guest(&alloc_unbound, arg, 1) != 0 )
+             return -EFAULT;
+-        rc = evtchn_alloc_unbound(&alloc_unbound);
++        rc = _evtchn_alloc_unbound(&alloc_unbound);
+         if ( !rc && __copy_to_guest(arg, &alloc_unbound, 1) )
+             rc = -EFAULT; /* Cleaning up here would be a mess! */
+         break;
+diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
+index 21c95e14fd..85dcf1d0c4 100644
+--- a/xen/include/xen/event.h
++++ b/xen/include/xen/event.h
+@@ -68,6 +68,9 @@ int evtchn_close(struct domain *d1, int port1, bool guest);
+ /* Free an event channel. */
+ void evtchn_free(struct domain *d, struct evtchn *chn);
+ 
++/* Create a new event channel port */
++struct evtchn *evtchn_alloc_unbound(struct domain *d, domid_t remote_dom);
++
+ /* Allocate a specific event channel port. */
+ int evtchn_allocate_port(struct domain *d, unsigned int port);
+ 
 
