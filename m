@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8AB349CB65
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jan 2022 14:53:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260923.451207 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE55E49CB77
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jan 2022 14:54:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260926.451218 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCija-0002sb-CO; Wed, 26 Jan 2022 13:53:14 +0000
+	id 1nCiks-0003RQ-QP; Wed, 26 Jan 2022 13:54:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260923.451207; Wed, 26 Jan 2022 13:53:14 +0000
+Received: by outflank-mailman (output) from mailman id 260926.451218; Wed, 26 Jan 2022 13:54:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCija-0002od-9F; Wed, 26 Jan 2022 13:53:14 +0000
-Received: by outflank-mailman (input) for mailman id 260923;
- Wed, 26 Jan 2022 13:53:13 +0000
+	id 1nCiks-0003OJ-Kf; Wed, 26 Jan 2022 13:54:34 +0000
+Received: by outflank-mailman (input) for mailman id 260926;
+ Wed, 26 Jan 2022 13:54:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nWl3=SK=bombadil.srs.infradead.org=BATV+677f07704d1834417a80+6730+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1nCijY-0002oX-Qh
- for xen-devel@lists.xenproject.org; Wed, 26 Jan 2022 13:53:13 +0000
+ id 1nCikr-0003OB-05
+ for xen-devel@lists.xenproject.org; Wed, 26 Jan 2022 13:54:33 +0000
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [2607:7c80:54:e::133])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 495cca76-7eaf-11ec-8eb8-a37418f5ba1a;
- Wed, 26 Jan 2022 14:53:09 +0100 (CET)
+ id 7c3a075c-7eaf-11ec-8eb8-a37418f5ba1a;
+ Wed, 26 Jan 2022 14:54:32 +0100 (CET)
 Received: from [2001:8b0:10b:1:4a2a:e3ff:fe14:8625]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nCijN-00Bv25-QD; Wed, 26 Jan 2022 13:53:02 +0000
+ id 1nCikn-00BvJQ-7R; Wed, 26 Jan 2022 13:54:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,119 +41,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 495cca76-7eaf-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 7c3a075c-7eaf-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=kXCbQWon8MuJ7VB4cuHu+KXLYozYNLBvFHbRnKG24O4=; b=ZFG/dokWSWZ3Y1oAJLAfgODWsl
-	rKFoBaqUp7h/VBfsLVKLTYoKvujMl18buL5+rPlWU9+H4EstZw/Q3pQT4RnO/VTq/4//F5O1rixcz
-	kujvpTeHmP50muoVMwQRo1GJowdWBepniQ3P6Jj5bf9mxkz/22nReqzbwA6cUey892RH8FCohi1WW
-	NgqjEV5WkjvCNTkCEyELxkTPd4iz06ADmPvjYqXJv/VLMn7UZxZagsrFci2YQqzr/Eo3KCCViXJtm
-	h2womo7SCdglZikJFBp1NnSQmZ/8XVFhgES3Got+P7i30AwOez5hMArfAl8oNr3oYQKQSyR7EKwnI
-	PDOMKJYA==;
-Message-ID: <a984ffd4bbadb1cf550e7a980f81db250b3b69c1.camel@infradead.org>
-Subject: Re: [PATCH 1/3] xen/vioapic: add support for the extended
- destination ID field
+	bh=0kGz1uxwG+NjmsHNHW3w9LKhbF/72BttGp1QfltuxsQ=; b=xpzogaqwoe0Ub+Q/WVfGuAADMk
+	g0NfTAqAZR3ZE9rODtL5hLWR/ULgDyP/BnwAx6pct8RtU99Z49N+8B/sGrkKiF6guQOXZArv/jupw
+	zl+v6g0hhr/pXGbU4B/LJkIA07u+uhuyW0PqmIAlOlC7Lpmt31ggweV3/e62UcW/hbFe9D8GshvSk
+	j9WCXVhsNczAZn1hh1mcDXOJoXq9++Laj1HDmyn/MwkUu6v3Ta6y2OB0qIpQRMbJQrIehGcAWqEBf
+	TfP87evwx5so1BjBgeC8cSCWPp8WTk5jUscOSnfbe6rL8Bc5wLdO7HTwxGdOGJLAeeZT/3qj5rMzP
+	0IVX2+kQ==;
+Message-ID: <4377595bf97c1e317b89411af31528d8f84b2b06.camel@infradead.org>
+Subject: Re: [PATCH 2/3] x86/vmsi: add support for extended destination ID
+ in address field
 From: David Woodhouse <dwmw2@infradead.org>
-To: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Jan Beulich
-	 <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
-	xen-devel@lists.xenproject.org
-Date: Wed, 26 Jan 2022 13:52:59 +0000
-In-Reply-To: <YfATkz+nse45Vg3C@Air-de-Roger>
+To: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George
+ Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>, 
+ xen-devel@lists.xenproject.org
+Date: Wed, 26 Jan 2022 13:54:26 +0000
+In-Reply-To: <2e96bf2e-a31e-da9b-2f08-adfa0928e5b9@suse.com>
 References: <20220120152319.7448-1-roger.pau@citrix.com>
-	 <20220120152319.7448-2-roger.pau@citrix.com>
-	 <5f8d332d-1bc3-af71-27ba-a4ff7b6e9514@suse.com>
-	 <YfATkz+nse45Vg3C@Air-de-Roger>
+	 <20220120152319.7448-3-roger.pau@citrix.com>
+	 <2e96bf2e-a31e-da9b-2f08-adfa0928e5b9@suse.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-IaYcQAPuYM423gK5a0V9"
+	boundary="=-HN25Z4ZHyqur4Uak5VQO"
 User-Agent: Evolution 3.36.5-0ubuntu1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-IaYcQAPuYM423gK5a0V9
+--=-HN25Z4ZHyqur4Uak5VQO
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2022-01-25 at 16:13 +0100, Roger Pau Monn=C3=A9 wrote:
-> On Mon, Jan 24, 2022 at 02:20:47PM +0100, Jan Beulich wrote:
-> > On 20.01.2022 16:23, Roger Pau Monne wrote:
-> > > Such field uses bits 55:48, but for the purposes the register will be
-> > > used use bits 55:49 instead. Bit 48 is used to signal an RTE entry is
-> > > in remappable format which is not supported by the vIO-APIC.
-> >=20
-> > Neither here nor in the cover letter you point at a formal specificatio=
-n
-> > of this mode of operation.
->=20
-> I'm not aware of any formal specification of this mode, apart from the
-> work done to introduce support in Linux and QEMU:
->=20
-> https://lore.kernel.org/all/20201009104616.1314746-1-dwmw2@infradead.org/
->=20
-> https://git.qemu.org/?p=3Dqemu.git;a=3Dcommitdiff;h=3Dc1bb5418e
->=20
->=20
-> Adding David in case there's some kind of specification somewhere I'm
-> not aware of.
+On Mon, 2022-01-24 at 14:47 +0100, Jan Beulich wrote:
+> Because of also covering the IO-APIC side, I think the CPUID aspect of
+> this really wants splitting into a 3rd patch. That way the MSI and
+> IO-APIC parts could in principle go in independently, and only the
+> CPUID one needs to remain at the tail.
 
-Indeed there is no formal specification that I am aware of, although
-it's vaguely possible that Microsoft wrote something up when they added
-it to Hyper-V.
-
-https://lore.kernel.org/all/20201103011136.59108-1-decui@microsoft.com/
-
-I had an internal doc which.... looks like I can clean it up a tiny bit
-and then share at http://david.woodhou.se/15-bit-msi.pdf if that helps?
-
-> > What I'm aware of are vague indications of
-> > this mode's existence in some of Intel's chipset data sheets. Yet that
-> > leaves open, for example, whether indeed bit 48 cannot be used here.
->=20
-> Bit 48 cannot be used because it's already used to signal an RTE is in
-> remappable format. We still want to differentiate an RTE entry in
-> remappable format, as it should be possible to expose both the
-> extended ID support and an emulated IOMMU.
-
-Right. I chose not to use the low bit of the existing Extended
-Destination ID because that's the one Intel used to indicate Remappable
-Format. This means we can still expose an IOMMU to guests and easily
-distinguish between Compatibility Format and Remappable Format MSIs
-just as real hardware does.
-
-> > > --- a/xen/arch/x86/hvm/vioapic.c
-> > > +++ b/xen/arch/x86/hvm/vioapic.c
-> > > @@ -412,7 +412,8 @@ static void ioapic_inj_irq(
-> > > =20
-> > >  static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned in=
-t pin)
-> > >  {
-> > > -    uint16_t dest =3D vioapic->redirtbl[pin].fields.dest_id;
-> > > +    uint16_t dest =3D vioapic->redirtbl[pin].fields.dest_id |
-> > > +                    (vioapic->redirtbl[pin].fields.ext_dest_id << 8)=
-;
-> >=20
-> > What if an existing guest has been writing non-zero in these bits? Can
-> > you really use them here without any further indication by the guest?
->=20
-> Those bits where reserved previously, so no OS should have used them.
-> There are hypervisors already in the field (QEMU/KVM and HyperV) using
-> this mode.
->=20
-> We could add a per-domain option to disable extended ID mode if we are
-> really worried about OSes having used those bits for some reason.
-
-Note that I didn't even have to touch this part in qemu; the swizzling
-of those 8 'Extended Destination ID' bits from the RTE into the
-corresponding bits of the MSI message was already being done =E2=80=94 with=
-out
-which, IRQ remapping wouldn't have worked anyway.
+HPET can generate MSIs directly too.
 
 
-
---=-IaYcQAPuYM423gK5a0V9
+--=-HN25Z4ZHyqur4Uak5VQO
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -245,26 +178,26 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjIwMTI2MTM1MjU5WjAvBgkqhkiG9w0BCQQxIgQgCCZ5nf8f
-fl/PkCuBrJU+02WbNynk1357rclNF1mHKCYwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjIwMTI2MTM1NDI2WjAvBgkqhkiG9w0BCQQxIgQgSn9Xs/oX
+QVLQ9ugqj5KPHbnnKuiM8lfZWD6GVLAASj0wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCkwzmtZBZtrPfR6BuoYRO5hLPCpa6kQagO
-CojfekLrksGNgGBHp6NmBypYFXTnmjJOZxY2bpPHHitzrMvz65T5San0Ar/Ua0Hp45HC8NvLD0ix
-P+J0aptCiLHhkFqzkuSrIOPENgHyP5zfI//chfu1QAHll1Dbm/oUMJyHpL7KLZgMLAvJCJV04KVc
-Bku0FHRVpUJORgFmyqGr06wEY3I1BhzGD33K7XC9whfKtwLNDZobqFb/oAW64bWzaH6GNSd6NZsj
-/Lohsj7bmH4niBRKS8hHfvZENTvU5KoFRcmDd8LtgXHz1YXFJbC5s44Ll0AEd4BFB1yk+zQLsdCq
-FcWoQo7Qo/oOuYHzK0DjbM6E4TmyQaAbPLRQnSEA4c4Q03Mxlz8jcTf0gCqLPbDkE7b+FU5roisj
-qxtzXfq2LxKP/cP0Jro/nWBny7Ws4lCYdVfUdDepYnVYch1av9jEbdj0iY2lwctxUo/AI0V7fM7q
-2xn9CAzReOT7c94mtqUggS9iKhx5fQ+CWp9Tj+El5+vV6VHMPju6SA6mrO/cWSfu53CFRoxDW20W
-kEIrILwzYnTRhaZC5kV8Xwxso6mnEOU51IF9R8D5hAif7YKE70SUhPupLd9+cH727JDkj2m/YuFY
-Dqny2hr5k4g+ejpW7A+c8DzMdJBmWH9Q73NizyW4cgAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgA99Z4fOWfrT9x96kBVci6Q8tpzVJkWj9O1
+MmihFPnKdp+gwXlWuf5cdJ8cRAkZDtsRLVWBP4xtC1iRmjKGjKpLccxQ7jVOzUiwf6YLICrRf8NL
+TyLqqhvTXb0RbV8TBMN1p1k06MlLEUw6HK6PUxnbF49XKe+LUk+Xz8GkgcowAmr6TDCmeq8B5reQ
+pUAGu3+10NWv2PI1qnEl8cBTGMPdPNJ4w9qRFpXs1rk68pBv3sMPH4FPXYjYot2BAqyHxi+NNQ7N
+foPsr+awlhX0fq29YpQFzyrcnlAI13LlTRyeXpJZvTKZyUait6Z/X7n8SZ7BDzQzNFK2P75oCjLP
+TeZG3wn4clIhna3iubQelkqmHmtdjoSemsdVU3dTG3u3fIDLZ17gNRLJ73yUGUhWtt2I9nsYFZPK
+FLI4ga6rB0CtUN+fcUR6UbRR+GP5jE4M26NAAyRsAbvGZoufXtvALf1vd6iifG4ebjIcJEx9ADTx
+s8Aqc8J+jXbf1yxo8vZvkMETfEEXCJQc6Opc29o2SBy4I84CkJLmpaso9vW4VzfaD78E8hV7r9Vw
+UnfW/oVtz1ZQCnc3bXfWi+aD4Z403SpQGwMASvpMiw1KkhRg8MUwcKozylvXMMLSvvb/VqUchOHS
+PTAXwQvr+ywKCt0imwgKrmhT0Wgo37Bgq/Qky3v90QAAAAAAAA==
 
 
---=-IaYcQAPuYM423gK5a0V9--
+--=-HN25Z4ZHyqur4Uak5VQO--
 
 
