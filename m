@@ -2,34 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE55E49CB77
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jan 2022 14:54:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260926.451218 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D7A249CBBF
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jan 2022 15:03:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260930.451228 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCiks-0003RQ-QP; Wed, 26 Jan 2022 13:54:34 +0000
+	id 1nCitO-0005Ac-Ny; Wed, 26 Jan 2022 14:03:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260926.451218; Wed, 26 Jan 2022 13:54:34 +0000
+Received: by outflank-mailman (output) from mailman id 260930.451228; Wed, 26 Jan 2022 14:03:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCiks-0003OJ-Kf; Wed, 26 Jan 2022 13:54:34 +0000
-Received: by outflank-mailman (input) for mailman id 260926;
- Wed, 26 Jan 2022 13:54:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nCitO-00058k-Kx; Wed, 26 Jan 2022 14:03:22 +0000
+Received: by outflank-mailman (input) for mailman id 260930;
+ Wed, 26 Jan 2022 14:03:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nWl3=SK=bombadil.srs.infradead.org=BATV+677f07704d1834417a80+6730+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1nCikr-0003OB-05
- for xen-devel@lists.xenproject.org; Wed, 26 Jan 2022 13:54:33 +0000
+ id 1nCitM-00058d-Jm
+ for xen-devel@lists.xenproject.org; Wed, 26 Jan 2022 14:03:20 +0000
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [2607:7c80:54:e::133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7c3a075c-7eaf-11ec-8eb8-a37418f5ba1a;
- Wed, 26 Jan 2022 14:54:32 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b5fc5388-7eb0-11ec-8f75-fffcc8bd4f1a;
+ Wed, 26 Jan 2022 15:03:18 +0100 (CET)
 Received: from [2001:8b0:10b:1:4a2a:e3ff:fe14:8625]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nCikn-00BvJQ-7R; Wed, 26 Jan 2022 13:54:29 +0000
+ id 1nCitI-00BwcE-FW; Wed, 26 Jan 2022 14:03:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,52 +41,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c3a075c-7eaf-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: b5fc5388-7eb0-11ec-8f75-fffcc8bd4f1a
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=infradead.org; s=bombadil.20210309; h=MIME-Version:Content-Type:References:
 	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
 	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=0kGz1uxwG+NjmsHNHW3w9LKhbF/72BttGp1QfltuxsQ=; b=xpzogaqwoe0Ub+Q/WVfGuAADMk
-	g0NfTAqAZR3ZE9rODtL5hLWR/ULgDyP/BnwAx6pct8RtU99Z49N+8B/sGrkKiF6guQOXZArv/jupw
-	zl+v6g0hhr/pXGbU4B/LJkIA07u+uhuyW0PqmIAlOlC7Lpmt31ggweV3/e62UcW/hbFe9D8GshvSk
-	j9WCXVhsNczAZn1hh1mcDXOJoXq9++Laj1HDmyn/MwkUu6v3Ta6y2OB0qIpQRMbJQrIehGcAWqEBf
-	TfP87evwx5so1BjBgeC8cSCWPp8WTk5jUscOSnfbe6rL8Bc5wLdO7HTwxGdOGJLAeeZT/3qj5rMzP
-	0IVX2+kQ==;
-Message-ID: <4377595bf97c1e317b89411af31528d8f84b2b06.camel@infradead.org>
-Subject: Re: [PATCH 2/3] x86/vmsi: add support for extended destination ID
- in address field
+	bh=14LCAQR6g2sfAYPQ3Ts+seEcbooD5wNlTVYc4dop3jk=; b=ZPEyurtMtAVNmdBJLQryxApvKZ
+	fURrNoSbg5uiU99mAsBjaDTlxOHAnVggIVArtOKd59gkUCG8D4bZOI3pM69nZ/kX7iXu/2qVLSXsO
+	vQjWUau+0kKeBTOGArmWDJ9f9Q6QN4KsGVfBIyF+fGvFD6Vay9sELvNN32E+bPQJOzasm3zZQlodU
+	hT4nCKNTaiTbHUCbcGcabPEiNd8RMY0vG6bmGv3HUyRqyjSE/1GU1+SfIjGmOLXlt4XlLap4U3Zkh
+	bOVXupzpPIFiqh/ZEzObk4esNAXU+I/ohO4FQua48zpau32dvVXVzMCmBQAiiNNUSpqjHMhqirCFR
+	pegOS9og==;
+Message-ID: <fa654e41d5a40437cccd985157ebd453523df196.camel@infradead.org>
+Subject: Re: [PATCH 3/3] HACK: allow adding an offset to the x2APIC ID
 From: David Woodhouse <dwmw2@infradead.org>
-To: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George
- Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>, 
- xen-devel@lists.xenproject.org
-Date: Wed, 26 Jan 2022 13:54:26 +0000
-In-Reply-To: <2e96bf2e-a31e-da9b-2f08-adfa0928e5b9@suse.com>
+To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>,  Wei Liu <wl@xen.org>
+Date: Wed, 26 Jan 2022 14:03:14 +0000
+In-Reply-To: <20220120152319.7448-4-roger.pau@citrix.com>
 References: <20220120152319.7448-1-roger.pau@citrix.com>
-	 <20220120152319.7448-3-roger.pau@citrix.com>
-	 <2e96bf2e-a31e-da9b-2f08-adfa0928e5b9@suse.com>
+	 <20220120152319.7448-4-roger.pau@citrix.com>
 Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-HN25Z4ZHyqur4Uak5VQO"
+	boundary="=-lmecigeGvMTN2vOP/iY4"
 User-Agent: Evolution 3.36.5-0ubuntu1 
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
 
---=-HN25Z4ZHyqur4Uak5VQO
+--=-lmecigeGvMTN2vOP/iY4
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2022-01-24 at 14:47 +0100, Jan Beulich wrote:
-> Because of also covering the IO-APIC side, I think the CPUID aspect of
-> this really wants splitting into a 3rd patch. That way the MSI and
-> IO-APIC parts could in principle go in independently, and only the
-> CPUID one needs to remain at the tail.
+On Thu, 2022-01-20 at 16:23 +0100, Roger Pau Monne wrote:
+> In order to test external interrupts using a destination ID > 255.
+> Also start vCPUs with the APIC in x2APIC mode.
 
-HPET can generate MSIs directly too.
+Do also test APIC ID =3D=3D 255 too, not just > 255. That one is
+particularly interesting since it was *broadcast* in XAPIC mode.
+It broke at least once in the qemu/KVM setup with X2APIC.
 
-
---=-HN25Z4ZHyqur4Uak5VQO
+--=-lmecigeGvMTN2vOP/iY4
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -178,26 +173,26 @@ IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
 dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
 NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
 xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjIwMTI2MTM1NDI2WjAvBgkqhkiG9w0BCQQxIgQgSn9Xs/oX
-QVLQ9ugqj5KPHbnnKuiM8lfZWD6GVLAASj0wgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
+DQEHATAcBgkqhkiG9w0BCQUxDxcNMjIwMTI2MTQwMzE0WjAvBgkqhkiG9w0BCQQxIgQg17FpUMpq
+JfMPliN5f03laIdpZj4k+LdNCw24XdumX9Ewgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
 A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
 dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
 DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
 MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
 Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgA99Z4fOWfrT9x96kBVci6Q8tpzVJkWj9O1
-MmihFPnKdp+gwXlWuf5cdJ8cRAkZDtsRLVWBP4xtC1iRmjKGjKpLccxQ7jVOzUiwf6YLICrRf8NL
-TyLqqhvTXb0RbV8TBMN1p1k06MlLEUw6HK6PUxnbF49XKe+LUk+Xz8GkgcowAmr6TDCmeq8B5reQ
-pUAGu3+10NWv2PI1qnEl8cBTGMPdPNJ4w9qRFpXs1rk68pBv3sMPH4FPXYjYot2BAqyHxi+NNQ7N
-foPsr+awlhX0fq29YpQFzyrcnlAI13LlTRyeXpJZvTKZyUait6Z/X7n8SZ7BDzQzNFK2P75oCjLP
-TeZG3wn4clIhna3iubQelkqmHmtdjoSemsdVU3dTG3u3fIDLZ17gNRLJ73yUGUhWtt2I9nsYFZPK
-FLI4ga6rB0CtUN+fcUR6UbRR+GP5jE4M26NAAyRsAbvGZoufXtvALf1vd6iifG4ebjIcJEx9ADTx
-s8Aqc8J+jXbf1yxo8vZvkMETfEEXCJQc6Opc29o2SBy4I84CkJLmpaso9vW4VzfaD78E8hV7r9Vw
-UnfW/oVtz1ZQCnc3bXfWi+aD4Z403SpQGwMASvpMiw1KkhRg8MUwcKozylvXMMLSvvb/VqUchOHS
-PTAXwQvr+ywKCt0imwgKrmhT0Wgo37Bgq/Qky3v90QAAAAAAAA==
+lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgBp6nUrLo9OT7tjCyOv9pw40GH60TLuMYGU
+Gai/Zg2Ht1xWfkJqLmFh4WnLH2deVURhcJ3pFKfoZxc3Ghq8Nq6/r9dRxso5jkUoORcmyfH2XEnb
+HxcHrn7QpqC+vVpYqQIllnerpFgHSPpBCsYCkxh7/roBQNvFi1YZDhZsVZSJbEPC5b5W4qURYn8J
+iRcbvqJlXSvhom3kYrHGs+Eo7SikNejy6MteYzBzKUkT/OYedbL0vzq0jktXiGCwvYZ6WbiTmcdq
+sxwEEJo/9UKWnzLYJwxQVd8FgH5SZfWoRTDULFDgz79ScD7aPVeF5zLmciyPLJx5VpFsjIp/T7au
+cWi1KFxmSu9l0MHIlrtWaghaBfRnL24cUP2qvPNAMvI0uDvIkZZbKeMXQXIM5P+hZCZgLG4hNsIv
+hOM/O86N2bgfpSXG6dGVK+E+/c6ebyOjsrJ3BKg2/hGjzAf0YaauqijoMJ9yZ57cOlgmDg5rMHbp
+tAYzks3svkibT/YR0J0o1LThwFLrgIfHHvYljCNNJa3kPyH8qONTsIY4R0p8QKTf1Q0OOQ/cwO23
+++DMMhQkGpRsR0LPRZ5Ue44iWB04q8x9gCROsHR8Wiangi0W6aulKHXYZMz2IWTPZmnAoBaKEzIe
+dJVkPZodgTEGCmo6PJhYVcnBgBS1jndGZ5VV2spw2wAAAAAAAA==
 
 
---=-HN25Z4ZHyqur4Uak5VQO--
+--=-lmecigeGvMTN2vOP/iY4--
 
 
