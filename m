@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B3F649C034
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jan 2022 01:37:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260622.450426 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78EF649C06A
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jan 2022 02:03:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260627.450443 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCWJf-0007FB-8h; Wed, 26 Jan 2022 00:37:39 +0000
+	id 1nCWiC-00049z-BU; Wed, 26 Jan 2022 01:03:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260622.450426; Wed, 26 Jan 2022 00:37:39 +0000
+Received: by outflank-mailman (output) from mailman id 260627.450443; Wed, 26 Jan 2022 01:03:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCWJf-0007D8-5N; Wed, 26 Jan 2022 00:37:39 +0000
-Received: by outflank-mailman (input) for mailman id 260622;
- Wed, 26 Jan 2022 00:37:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hAYL=SK=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1nCWJd-0007D2-Vl
- for xen-devel@lists.xenproject.org; Wed, 26 Jan 2022 00:37:37 +0000
-Received: from ppsw-33.csi.cam.ac.uk (ppsw-33.csi.cam.ac.uk [131.111.8.133])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 27d8a5dc-7e40-11ec-8eb8-a37418f5ba1a;
- Wed, 26 Jan 2022 01:37:36 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:50972)
- by ppsw-33.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.137]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1nCWJU-000sWE-hR (Exim 4.95) (return-path <amc96@srcf.net>);
- Wed, 26 Jan 2022 00:37:28 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 370101FBD8;
- Wed, 26 Jan 2022 00:37:28 +0000 (GMT)
+	id 1nCWiC-000489-8F; Wed, 26 Jan 2022 01:03:00 +0000
+Received: by outflank-mailman (input) for mailman id 260627;
+ Wed, 26 Jan 2022 01:02:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pz6t=SK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nCWiA-000483-LO
+ for xen-devel@lists.xenproject.org; Wed, 26 Jan 2022 01:02:58 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b23d1c40-7e43-11ec-8f75-fffcc8bd4f1a;
+ Wed, 26 Jan 2022 02:02:56 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 7E41561511;
+ Wed, 26 Jan 2022 01:02:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88EB7C340E0;
+ Wed, 26 Jan 2022 01:02:54 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,41 +43,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 27d8a5dc-7e40-11ec-8eb8-a37418f5ba1a
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <724c92c3-46cb-fb67-f194-5b36b2fceaa5@srcf.net>
-Date: Wed, 26 Jan 2022 00:37:27 +0000
+X-Inumbo-ID: b23d1c40-7e43-11ec-8f75-fffcc8bd4f1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1643158974;
+	bh=rA0hWKMmMrB+gFtIdVMu0r46MpGhkpm2ydmZjiFt7Sc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=jucYhFUSa7E3Ky3NBWuWSeOHfrhOPkq1GL+/t+nPqLI5uvUDxTWNJORsCpupl/Trf
+	 TMfcIZQ3BS8wbrQ/TULNi4ice30huGHHnK9h4+MprefbIbHjk/p4NOMcITPvlRt/BE
+	 eQu83I6tGDSZkVBh1OQiahkq7WeX7X2tSBMxtDlYk74wF1LyJw1uWp9UIwGW7OfnbU
+	 TPZga7UpWSW317ubb3OhzwT/foz6ZcgnDZxW3oTDnY3u4MAxvc4VS6N0yv09dG9+iZ
+	 oMdlqbmYcQ4ouDO1tfMU28GWtcWsmxKQuYFpkI6gHlvH9Oy8qP8BDEWfcIOT85ziaE
+	 FHwPLEcAvNvhQ==
+Date: Tue, 25 Jan 2022 17:02:53 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, 
+    Juergen Gross <jgross@suse.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Luca Miccio <lucmiccio@gmail.com>, 
+    Stefano Stabellini <stefano.stabellini@xilinx.com>, 
+    Penny Zheng <Penny.Zheng@arm.com>
+Subject: Re: [XEN PATCH v2 3/5] xen/arm: configure dom0less domain for enabling
+ xenstore after boot
+In-Reply-To: <62b2ebe5-5b15-ab0e-97ee-c1a6f5a2c2c1@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2201251659550.27308@ubuntu-linux-20-04-desktop>
+References: <alpine.DEB.2.22.394.2201121646290.19362@ubuntu-linux-20-04-desktop> <20220113005855.1180101-3-sstabellini@kernel.org> <B458F1F7-4DF0-4919-8E16-11E889A9ABB2@arm.com> <62b2ebe5-5b15-ab0e-97ee-c1a6f5a2c2c1@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: automation: remove python-dev from unstable-arm64v8.dockerfile
-Content-Language: en-GB
-To: Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org
-Cc: cardoe@cardoe.com, anthony.perard@citrix.com, andrew.cooper3@citrix.com,
- wl@xen.org
-References: <alpine.DEB.2.22.394.2201251629430.27308@ubuntu-linux-20-04-desktop>
-From: Andrew Cooper <amc96@srcf.net>
-In-Reply-To: <alpine.DEB.2.22.394.2201251629430.27308@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 26/01/2022 00:31, Stefano Stabellini wrote:
-> Debian unstable doesn't have the legacy python-dev package anymore.
->
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+On Sun, 23 Jan 2022, Julien Grall wrote:
+> On 13/01/2022 14:15, Bertrand Marquis wrote:
+> > Hi Stefano,
+> > 
+> > + Penny in CC for the question.
+> > 
+> > > On 13 Jan 2022, at 00:58, Stefano Stabellini <sstabellini@kernel.org>
+> > > wrote:
+> > > 
+> > > From: Luca Miccio <lucmiccio@gmail.com>
+> > > 
+> > > If "xen,enhanced" is enabled, then add to dom0less domains:
+> > > 
+> > > - the hypervisor node in device tree
+> > > - the xenstore event channel
+> > > 
+> > > The xenstore event channel is also used for the first notification to
+> > > let the guest know that xenstore has become available.
+> > > 
+> > > Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
+> > > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > > CC: Julien Grall <julien@xen.org>
+> > > CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> > > CC: Bertrand Marquis <bertrand.marquis@arm.com>
+> > 
+> > Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> > 
+> > Just one question: GUEST_GNTTAB_BASE is fixed but could it be a problem for
+> > a direct map guest in the future ?
+> It will be an issue. I think we can re-use the same method as we do in dom0
+> (see find_gnttab_region()).
 
-That's fine, but:
-
-$ git grep python-dev -- automation/build/debian/unstable*
-automation/build/debian/unstable-arm64v8.dockerfile:18:        python-dev \
-automation/build/debian/unstable-i386.dockerfile:20:        python-dev \
-automation/build/debian/unstable.dockerfile:18:        python-dev \
-
-All 3 want editing together, even if we don't have a reason to rebuild
-the x86 containers yet.
-
-With that done, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com> to
-save a trivial repost.
+Good idea. I prototyped it and it works fine.  I am not going to add the
+patch to this series because it needs Penny's but I can easily provide a
+patch to her for it.
 
