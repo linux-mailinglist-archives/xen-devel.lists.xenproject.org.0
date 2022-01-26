@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 118AB49C57A
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jan 2022 09:45:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260721.450737 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0E4549C6C2
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jan 2022 10:45:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260754.450789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCdvd-0002Cy-4f; Wed, 26 Jan 2022 08:45:21 +0000
+	id 1nCer5-0003Fq-WD; Wed, 26 Jan 2022 09:44:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260721.450737; Wed, 26 Jan 2022 08:45:20 +0000
+Received: by outflank-mailman (output) from mailman id 260754.450789; Wed, 26 Jan 2022 09:44:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCdvc-00025r-JY; Wed, 26 Jan 2022 08:45:20 +0000
-Received: by outflank-mailman (input) for mailman id 260721;
- Wed, 26 Jan 2022 08:45:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DU/T=SK=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nCdvZ-000088-BG
- for xen-devel@lists.xenproject.org; Wed, 26 Jan 2022 08:45:17 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 47079ba9-7e84-11ec-8eb8-a37418f5ba1a;
- Wed, 26 Jan 2022 09:45:15 +0100 (CET)
+	id 1nCer5-0003DK-T5; Wed, 26 Jan 2022 09:44:43 +0000
+Received: by outflank-mailman (input) for mailman id 260754;
+ Wed, 26 Jan 2022 09:44:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1nCer4-0003DE-Hn
+ for xen-devel@lists.xenproject.org; Wed, 26 Jan 2022 09:44:42 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nCer4-00074r-2u; Wed, 26 Jan 2022 09:44:42 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224] helo=[10.95.98.192])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nCer3-0007lR-T9; Wed, 26 Jan 2022 09:44:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,187 +39,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 47079ba9-7e84-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643186715;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=a0Fglvy67xpQkp55jOY0hwXLJAWEyKSc9I0P5NSH1Gg=;
-  b=MiDEGdMiSm69EHxI/5uqfAybdhoq+h5m31NK7T2cH3JFVga8fFCEWNrs
-   xFQZLm93jivBv/kP+vDbme1uBvlkFJdcUeSAdg1z6Dvd1Qdm1Fxee2+cW
-   nLoRgX3ZTQzH2NyGrvEY8q54qLrXsi8S5Ui+J2igf5S5dmUJXJ1SYMQAD
-   w=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: MJqODNEkvyfIXTBXrx+8YsdhBhbrtmynfikPZc8PZB1bPzf5VIotscMwrVN4zJx329A90fWNsz
- cIBnCK1uGLu+RSifgiQ1/WOeOEwGW45exdk4IJTq3ytZrdn0gRsDpjZagOPKwjk+0zGqK6VKMj
- qqP9NkqrtARUy535/x2vXwhpODd9K6UMlhnT5d9zIt6LslgegTpWCxapJRl3sHvnVmV1NDiiRg
- VLYoziFp0PdZ6qNvbluMVfmC9v2DI6efvRgkws+6NyG7gI44RKTxnf7gN26FQ6wJyz5xayUVCE
- 1+2Fc/4sM7jFLCX7Hs7ezwMw
-X-SBRS: 5.2
-X-MesageID: 63189687
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:gMS+5aMLOp0Tk+fvrR1xkMFynXyQoLVcMsEvi/4bfWQNrUol0jcGx
- mEaXm3TPvzZZWWheYxyadu+/EIA6JOAmNBnHQto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
- ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En150Eg9w7dRbrNA2rBVPSvc4
- bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
- 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYo3aJkdxU0
- tphj8ShZCwAYLTQ2+8lfgYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
- 6VFdnZdNXhvhMrvqF6/YsBqit4uM4/AO4QHt2s75TrYEewnUdbIRKCiCdpwgmxp1pEQTam2i
- 8wxOCtwTDPCeBdzJWgwENEbkMyTj36vfGgNwL6SjfVuuDWCpOBr65DyNPLFd9rMQt9a9m66j
- G/b+2XyAjkBKceSjzGC9xqEluLJ2C/2Ro8WPLm57eJxxk2ewHQJDx8bXkf9puO24nNSQPoGd
- RZSoHB36/Fvqgr7FbERQiFUvlbHvhAQfsBfP9di+Sym4/TN/0WSPkUbG2sphMMdiOc6Qjkj1
- 1msltzvBCByvLD9dU9x5ot4vhvpZ3FLcDZqiTssCFJcvoK9+N1bYgfnE447eJNZmOEZDt0ZL
- 9qiiCElz4segscQv0lQ1QCW2mn8znQlo+Nc2+k2Yo5Hxl8oDGJGT9bxgbQ+0RqmBNzIJrVml
- CNc8/VyFMhUUfmweNWlGY3h5o2B6fefKyH7ilVyBZQn/DnF0yf9IdsJu2wgeBs0YplsldrVj
- Kn741I5CHh7ZyPCUEOKS9jpV5RCIVbISLwJqcw4nvIRO8MsJWdrDQllZFKK3nCFraTfufpXB
- HtvSu71VSxyIf0+lFKeHr5BuZd2mHxW7T6NFPjTkkT2uZLDNSX9YepUbzOzghURsfnsTPP9q
- YgPbqNnCnx3DYXDX8Ug2ddDdA9RdSliW8meRg4+XrfrHzeK0VoJU5f5qY7NsaQ/90iMvuuXr
- Hy7RGFCz1/z2S/OJQmQMygxY7LzR5dv63k8OHV0b1qv3nEiZ6ep7bseKMRrLeV2qrQ7wK4mV
- eQBduWBHu9LFmbN9QMCYMSvt4dlbhmq216DZnL3fDglcpd8bAXV4du4LBD3/SwDA3Pv58szq
- rGtzC3BRp8HS1gwBcracqv3nViwoWIciKR5WE6Reotff0Dl8Y5LLS3tj6Bof5FQeEubnjbDj
- lSYGxYVo+XJsrQZytiRiPDWtZqtHst/AlFeQzvR44GpOHSI5WGk24JBDrqFJGiPSGPu9ay+T
- uxJ1PWgYuYflVNHvocgQbZmyaUyu4nmq7NAl1k2GXzKaxKgC696I2nA1s5K7/UfyrhcsAqwe
- 0SO5tgFZunZZJK7SAYcdFg/c+CO9fAIgT2Dv/06LXLz6DJz4LfaA15ZOAOBiXAFIbZ4WG//L
- TzNZCLCB9SDtycX
-IronPort-HdrOrdr: A9a23:UjvXPquNl1N0tKkqP9KLD+eN7skDTNV00zEX/kB9WHVpmszxra
- GTdZMgpGfJYVcqKQgdcL+7Scq9qB/nmqKdpLNhWYtKPzOW3ldATrsSj7cKqgeIc0aVm4JgPO
- VbAs9D4bXLfCNHZK3BgDVQfexP/DD+ytHMudvj
-X-IronPort-AV: E=Sophos;i="5.88,317,1635220800"; 
-   d="scan'208";a="63189687"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 8/8] x86/cpuid: Enable MSR_SPEC_CTRL in SVM guests by default
-Date: Wed, 26 Jan 2022 08:44:52 +0000
-Message-ID: <20220126084452.28975-9-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20220126084452.28975-1-andrew.cooper3@citrix.com>
-References: <20220126084452.28975-1-andrew.cooper3@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=/1k0ls0duDmH7JNtDh/Pp5kADAmxetgGMMjYePbknc4=; b=b6GeXGnZl9xJ4jiH6LnlG4vYw5
+	Sn7amNhAz9iaxQahd7+XqWaD2GfJmGkj/RR8jkX+98Jvn4o3Jb8EyVJlDjYKVSBSB4NAneTUjC/WA
+	tF1GFMao8S0F3d8I7rPs5AriBscxbhsSAEwyXeEaJixhRynPkH7THPoc5TyBHTRjnGQI=;
+Message-ID: <b28ca89c-290d-2c56-1bf7-a5be3dacc55a@xen.org>
+Date: Wed, 26 Jan 2022 09:44:39 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.5.1
+Subject: Re: [XEN v4] xen/arm64: io: Decode ldr/str post-indexing instructions
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>,
+ xen-devel@lists.xenproject.org, stefanos@xilinx.com,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
+ andre.przywara@arm.com, jbeulich@suse.com, wei.chen@arm.com,
+ Ayan Kumar Halder <ayankuma@xilinx.com>
+References: <20220125211808.23810-1-ayankuma@xilinx.com>
+ <8eb4949c-aa9f-38fd-682e-7620b5f9e03c@xen.org>
+ <alpine.DEB.2.22.394.2201251519120.27308@ubuntu-linux-20-04-desktop>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <alpine.DEB.2.22.394.2201251519120.27308@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-With all other pieces in place, MSR_SPEC_CTRL is fully working for HVM guests.
+Hi,
 
-Update the CPUID derivation logic (both PV and HVM to avoid losing subtle
-changes), and explicitly enable the CPUID bits for HVM guests.
+On 26/01/2022 01:45, Stefano Stabellini wrote:
+> On Tue, 25 Jan 2022, Julien Grall wrote:
+>>> +
+>>>        /* TODO: Handle ARM instruction */
+>>>        gprintk(XENLOG_ERR, "unhandled ARM instruction\n");
+>>>          return 1;
+>>>    }
+>>>    +#if CONFIG_ARM_64
+>>> +void post_increment_register(union ldr_str_instr_class *instr)
+>>
+>> instr should not be modified, so please use const. Also, it would be
+>> preferrable to pass the regs in parameter. So the none of the decoding code
+>> relies on the current regs.
+>>
+>> Furthermore, decode.c should only contain code to update the syndrome and in
+>> theory Arm could decide to provide an valid syndrome in future revision. So I
+>> would move this code in io.c (or maybe traps.c).
+> 
+> I was the one to suggest moving it to decode.c to keep it closer to the
+> decoding function it is related to, and also because it felt a bit out
+> of place in io.c.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
+How about traps.c? This is where we also take care of incrementing pc 
+after we handle a MMIO trap.
 
-Given the adjustment to calculate_pv_max_policy(), we could use 'A' rather
-than 'S' which would avoid a second same-sized diff to cpufeatureset.h, but
-it's also a bit misleading to say 'A' when the PV side won't engage at all
-yet.
----
- xen/arch/x86/cpuid.c                        | 16 ++++++++++++----
- xen/include/public/arch-x86/cpufeatureset.h | 18 +++++++++---------
- xen/tools/gen-cpuid.py                      |  5 +++++
- 3 files changed, 26 insertions(+), 13 deletions(-)
+>>> +{
+>>> +    struct cpu_user_regs *regs = guest_cpu_user_regs();
+>>> +    register_t val;
+>>> +
+>>> +    /* handle when rn = SP */
+>>> +    if ( instr->code.rn == 31 )
+>>> +        val = regs->sp_el1;
+>>> +    else
+>>> +        val = get_user_reg(regs, instr->code.rn);
+>>> +
+>>> +    val += instr->code.imm9;
+>>> +
+>>> +    if ( instr->code.rn == 31 )
+>>> +        regs->sp_el1 = val;
+>>> +    else
+>>> +        set_user_reg(regs, instr->code.rn, val);
+>>> +}
+>>> +#endif
+>>> +
+>>>    /*
+>>>     * Local variables:
+>>>     * mode: C
+>>> diff --git a/xen/arch/arm/decode.h b/xen/arch/arm/decode.h
+>>> index 4613763bdb..511cd4a05f 100644
+>>> --- a/xen/arch/arm/decode.h
+>>> +++ b/xen/arch/arm/decode.h
+>>> @@ -23,6 +23,35 @@
+>>>    #include <asm/regs.h>
+>>>    #include <asm/processor.h>
+>>>    +/*
+>>> + * Refer to the ARMv8 ARM (DDI 0487G.b), Section C4.1.4 Loads and Stores
+>>> + * Page 318 specifies the following bit pattern for
+>>> + * "load/store register (immediate post-indexed)".
+>>> + *
+>>> + * 31 30 29  27 26 25  23   21 20              11   9         4       0
+>>> + * ___________________________________________________________________
+>>> + * |size|1 1 1 |V |0 0 |opc |0 |      imm9     |0 1 |  Rn     |  Rt   |
+>>> + * |____|______|__|____|____|__|_______________|____|_________|_______|
+>>> + */
+>>> +union ldr_str_instr_class {
+>>> +    uint32_t value;
+>>> +    struct ldr_str {
 
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
-index b5af48324aef..64570148c165 100644
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -433,6 +433,8 @@ static void __init guest_common_feature_adjustments(uint32_t *fs)
-      */
-     if ( test_bit(X86_FEATURE_IBRSB, fs) )
-         __set_bit(X86_FEATURE_STIBP, fs);
-+    if ( test_bit(X86_FEATURE_IBRS, fs) )
-+        __set_bit(X86_FEATURE_AMD_STIBP, fs);
- 
-     /*
-      * On hardware which supports IBRS/IBPB, we can offer IBPB independently
-@@ -456,11 +458,14 @@ static void __init calculate_pv_max_policy(void)
-         pv_featureset[i] &= pv_max_featuremask[i];
- 
-     /*
--     * If Xen isn't virtualising MSR_SPEC_CTRL for PV guests because of
--     * administrator choice, hide the feature.
-+     * If Xen isn't virtualising MSR_SPEC_CTRL for HVM guests (functional
-+     * availability, or admin choice), hide the feature.
-      */
-     if ( !boot_cpu_has(X86_FEATURE_SC_MSR_PV) )
-+    {
-         __clear_bit(X86_FEATURE_IBRSB, pv_featureset);
-+        __clear_bit(X86_FEATURE_IBRS, pv_featureset);
-+    }
- 
-     guest_common_feature_adjustments(pv_featureset);
- 
-@@ -530,11 +535,14 @@ static void __init calculate_hvm_max_policy(void)
-         __set_bit(X86_FEATURE_SEP, hvm_featureset);
- 
-     /*
--     * If Xen isn't virtualising MSR_SPEC_CTRL for HVM guests because of
--     * administrator choice, hide the feature.
-+     * If Xen isn't virtualising MSR_SPEC_CTRL for HVM guests (functional
-+     * availability, or admin choice), hide the feature.
-      */
-     if ( !boot_cpu_has(X86_FEATURE_SC_MSR_HVM) )
-+    {
-         __clear_bit(X86_FEATURE_IBRSB, hvm_featureset);
-+        __clear_bit(X86_FEATURE_IBRS, hvm_featureset);
-+    }
- 
-     /*
-      * With VT-x, some features are only supported by Xen if dedicated
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index 0b399375566f..dfbf25b9acb3 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -256,18 +256,18 @@ XEN_CPUFEATURE(CLZERO,        8*32+ 0) /*A  CLZERO instruction */
- XEN_CPUFEATURE(RSTR_FP_ERR_PTRS, 8*32+ 2) /*A  (F)X{SAVE,RSTOR} always saves/restores FPU Error pointers */
- XEN_CPUFEATURE(WBNOINVD,      8*32+ 9) /*   WBNOINVD instruction */
- XEN_CPUFEATURE(IBPB,          8*32+12) /*A  IBPB support only (no IBRS, used by AMD) */
--XEN_CPUFEATURE(IBRS,          8*32+14) /*   MSR_SPEC_CTRL.IBRS */
--XEN_CPUFEATURE(AMD_STIBP,     8*32+15) /*   MSR_SPEC_CTRL.STIBP */
--XEN_CPUFEATURE(IBRS_ALWAYS,   8*32+16) /*   IBRS preferred always on */
--XEN_CPUFEATURE(STIBP_ALWAYS,  8*32+17) /*   STIBP preferred always on */
--XEN_CPUFEATURE(IBRS_FAST,     8*32+18) /*   IBRS preferred over software options */
--XEN_CPUFEATURE(IBRS_SAME_MODE, 8*32+19) /*   IBRS provides same-mode protection */
-+XEN_CPUFEATURE(IBRS,          8*32+14) /*S  MSR_SPEC_CTRL.IBRS */
-+XEN_CPUFEATURE(AMD_STIBP,     8*32+15) /*S  MSR_SPEC_CTRL.STIBP */
-+XEN_CPUFEATURE(IBRS_ALWAYS,   8*32+16) /*S  IBRS preferred always on */
-+XEN_CPUFEATURE(STIBP_ALWAYS,  8*32+17) /*S  STIBP preferred always on */
-+XEN_CPUFEATURE(IBRS_FAST,     8*32+18) /*S  IBRS preferred over software options */
-+XEN_CPUFEATURE(IBRS_SAME_MODE, 8*32+19) /*S  IBRS provides same-mode protection */
- XEN_CPUFEATURE(NO_LMSL,       8*32+20) /*S  EFER.LMSLE no longer supported. */
- XEN_CPUFEATURE(AMD_PPIN,      8*32+23) /*   Protected Processor Inventory Number */
--XEN_CPUFEATURE(AMD_SSBD,      8*32+24) /*   MSR_SPEC_CTRL.SSBD available */
-+XEN_CPUFEATURE(AMD_SSBD,      8*32+24) /*S  MSR_SPEC_CTRL.SSBD available */
- XEN_CPUFEATURE(VIRT_SSBD,     8*32+25) /*   MSR_VIRT_SPEC_CTRL.SSBD */
--XEN_CPUFEATURE(SSB_NO,        8*32+26) /*   Hardware not vulnerable to SSB */
--XEN_CPUFEATURE(PSFD,          8*32+28) /*   MSR_SPEC_CTRL.PSFD */
-+XEN_CPUFEATURE(SSB_NO,        8*32+26) /*S  Hardware not vulnerable to SSB */
-+XEN_CPUFEATURE(PSFD,          8*32+28) /*S  MSR_SPEC_CTRL.PSFD */
- 
- /* Intel-defined CPU features, CPUID level 0x00000007:0.edx, word 9 */
- XEN_CPUFEATURE(AVX512_4VNNIW, 9*32+ 2) /*A  AVX512 Neural Network Instructions */
-diff --git a/xen/tools/gen-cpuid.py b/xen/tools/gen-cpuid.py
-index b953648b6572..e4915b5961aa 100755
---- a/xen/tools/gen-cpuid.py
-+++ b/xen/tools/gen-cpuid.py
-@@ -290,6 +290,11 @@ def crunch_numbers(state):
- 
-         # In principle the TSXLDTRK insns could also be considered independent.
-         RTM: [TSXLDTRK],
-+
-+        # AMD speculative controls
-+        IBRS: [AMD_STIBP, AMD_SSBD, PSFD,
-+               IBRS_ALWAYS, IBRS_FAST, IBRS_SAME_MODE],
-+        AMD_STIBP: [STIBP_ALWAYS],
-     }
- 
-     deep_features = tuple(sorted(deps.keys()))
+No need to name the struct here.
+
+>>> +        unsigned int rt:5;     /* Rt register */
+>>> +        unsigned int rn:5;     /* Rn register */
+>>> +        unsigned int fixed1:2; /* value == 01b */
+>>> +        signed int imm9:9;            /* imm9 */
+>>> +        unsigned int fixed2:1; /* value == 0b */
+>>> +        unsigned int opc:2;    /* opc */
+>>> +        unsigned int fixed3:2; /* value == 00b */
+>>> +        unsigned int v:1;      /* vector */
+>>> +        unsigned int fixed4:3; /* value == 111b */
+>>> +        unsigned int size:2;   /* size */
+>>> +    } code;
+
+It would be best to name it ldr_str so this can be easily extended (e.g. 
+no renaming) for other instructions in the future.
+
+>>> +};
+>>
+>> Looking at the code, post_increment_register() only care about 'rn' and
+>> 'imm9'. So rather than exposing the full instruction, could we instead provide
+>> the strict minimum? I.e something like:
+>>
+>> struct
+>> {
+>>       enum instr_type; /* Unknown, ldr/str post increment */
+>>       union
+>>       {
+>>           struct
+>>           {
+>>             register; /* Register to increment */
+>>             imm;      /* Immediate to add */
+>>           } ldr_str;
+>>       }
+>>       uint64_t register;
+>> }
+>   
+> The full description helped a lot during review. I would prefer to keep
+> it if you don't feel strongly about it.
+
+I haven't suggested to drop the union. Instead, I am suggesting to keep 
+it internally to decode.c and expose something different to the external 
+the user. The idea is the caller doesn't care about the full 
+instruction, it only cares about what action to do.
+
+Basically, what I am asking is an augmented dabt. So all the information 
+are in one place rather than having to carry two structure (struct 
+hsr_dabt and union ldr_str_instr_class) which contain mostly redundant 
+information.
+
+Cheers,
+
 -- 
-2.11.0
-
+Julien Grall
 
