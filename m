@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 865EA49C029
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jan 2022 01:32:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.260619.450415 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B3F649C034
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jan 2022 01:37:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.260622.450426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCWDv-0006Sr-JR; Wed, 26 Jan 2022 00:31:43 +0000
+	id 1nCWJf-0007FB-8h; Wed, 26 Jan 2022 00:37:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 260619.450415; Wed, 26 Jan 2022 00:31:43 +0000
+Received: by outflank-mailman (output) from mailman id 260622.450426; Wed, 26 Jan 2022 00:37:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCWDv-0006R1-GJ; Wed, 26 Jan 2022 00:31:43 +0000
-Received: by outflank-mailman (input) for mailman id 260619;
- Wed, 26 Jan 2022 00:31:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=pz6t=SK=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nCWDu-0006Qv-UO
- for xen-devel@lists.xenproject.org; Wed, 26 Jan 2022 00:31:42 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 53ff2914-7e3f-11ec-8f75-fffcc8bd4f1a;
- Wed, 26 Jan 2022 01:31:40 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6FBCA614B7;
- Wed, 26 Jan 2022 00:31:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D068C340E0;
- Wed, 26 Jan 2022 00:31:38 +0000 (UTC)
+	id 1nCWJf-0007D8-5N; Wed, 26 Jan 2022 00:37:39 +0000
+Received: by outflank-mailman (input) for mailman id 260622;
+ Wed, 26 Jan 2022 00:37:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=hAYL=SK=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1nCWJd-0007D2-Vl
+ for xen-devel@lists.xenproject.org; Wed, 26 Jan 2022 00:37:37 +0000
+Received: from ppsw-33.csi.cam.ac.uk (ppsw-33.csi.cam.ac.uk [131.111.8.133])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 27d8a5dc-7e40-11ec-8eb8-a37418f5ba1a;
+ Wed, 26 Jan 2022 01:37:36 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:50972)
+ by ppsw-33.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.137]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1nCWJU-000sWE-hR (Exim 4.95) (return-path <amc96@srcf.net>);
+ Wed, 26 Jan 2022 00:37:28 +0000
+Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 370101FBD8;
+ Wed, 26 Jan 2022 00:37:28 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,43 +45,41 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53ff2914-7e3f-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1643157098;
-	bh=aGYf0SYL39xCNKZLO3G8tWZmf9aqLIQk1+Fmix7xf+4=;
-	h=Date:From:To:cc:Subject:From;
-	b=M4bTQU4k7OOhzwbM5rAE0mNfJvCL/FPPQ97SMVDKKLr2iHQctGkL8VNb1odpfHld/
-	 ax3QjAwExxmyeXGqGG1wuqrYpOZIvgqRUCDDqytUJqBuhN6Fpnu73xOuno1eh08qA5
-	 G6wsRrv6JUeduu8p5Y8UWv2e05+YUO5abpkB5JrJ6yH3nQvBytxuk3GMW0UzRyMlWh
-	 Tm08VTPtRjh8t0UqPkJSdUY10wrfkqlq1405fUFP2ggGH0Us2syWkwrpF+dKzuiDpO
-	 7i7PotC+DDc56PD/c7OAUpieZD5eTUwUQItoOiEcLSl0KZbQZ3VhqkPsCVP/dGpnJR
-	 WMrMQMK5Pmq2w==
-Date: Tue, 25 Jan 2022 16:31:38 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: xen-devel@lists.xenproject.org
-cc: sstabellini@kernel.org, cardoe@cardoe.com, anthony.perard@citrix.com, 
-    andrew.cooper3@citrix.com, wl@xen.org
-Subject: automation: remove python-dev from unstable-arm64v8.dockerfile
-Message-ID: <alpine.DEB.2.22.394.2201251629430.27308@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 27d8a5dc-7e40-11ec-8eb8-a37418f5ba1a
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <724c92c3-46cb-fb67-f194-5b36b2fceaa5@srcf.net>
+Date: Wed, 26 Jan 2022 00:37:27 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: automation: remove python-dev from unstable-arm64v8.dockerfile
+Content-Language: en-GB
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Cc: cardoe@cardoe.com, anthony.perard@citrix.com, andrew.cooper3@citrix.com,
+ wl@xen.org
+References: <alpine.DEB.2.22.394.2201251629430.27308@ubuntu-linux-20-04-desktop>
+From: Andrew Cooper <amc96@srcf.net>
+In-Reply-To: <alpine.DEB.2.22.394.2201251629430.27308@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Debian unstable doesn't have the legacy python-dev package anymore.
+On 26/01/2022 00:31, Stefano Stabellini wrote:
+> Debian unstable doesn't have the legacy python-dev package anymore.
+>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+That's fine, but:
 
-diff --git a/automation/build/debian/unstable-arm64v8.dockerfile b/automation/build/debian/unstable-arm64v8.dockerfile
-index 4409f596e1..5c73458d9d 100644
---- a/automation/build/debian/unstable-arm64v8.dockerfile
-+++ b/automation/build/debian/unstable-arm64v8.dockerfile
-@@ -15,7 +15,6 @@ RUN apt-get update && \
-         zlib1g-dev \
-         libncurses5-dev \
-         libssl-dev \
--        python-dev \
-         python3-dev \
-         xorg-dev \
-         uuid-dev \
+$ git grep python-dev -- automation/build/debian/unstable*
+automation/build/debian/unstable-arm64v8.dockerfile:18:        python-dev \
+automation/build/debian/unstable-i386.dockerfile:20:        python-dev \
+automation/build/debian/unstable.dockerfile:18:        python-dev \
+
+All 3 want editing together, even if we don't have a reason to rebuild
+the x86 containers yet.
+
+With that done, Acked-by: Andrew Cooper <andrew.cooper3@citrix.com> to
+save a trivial repost.
 
