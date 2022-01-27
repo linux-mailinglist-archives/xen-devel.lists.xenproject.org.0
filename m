@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9C4E49E562
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jan 2022 16:04:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.261539.452953 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7055249E566
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jan 2022 16:04:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.261542.452964 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nD6Jp-0002H4-0T; Thu, 27 Jan 2022 15:04:13 +0000
+	id 1nD6KM-0002vg-AZ; Thu, 27 Jan 2022 15:04:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 261539.452953; Thu, 27 Jan 2022 15:04:12 +0000
+Received: by outflank-mailman (output) from mailman id 261542.452964; Thu, 27 Jan 2022 15:04:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nD6Jo-0002FD-TW; Thu, 27 Jan 2022 15:04:12 +0000
-Received: by outflank-mailman (input) for mailman id 261539;
- Thu, 27 Jan 2022 15:04:10 +0000
+	id 1nD6KM-0002sv-6i; Thu, 27 Jan 2022 15:04:46 +0000
+Received: by outflank-mailman (input) for mailman id 261542;
+ Thu, 27 Jan 2022 15:04:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=V/tf=SL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nD6Jm-000262-CO
- for xen-devel@lists.xenproject.org; Thu, 27 Jan 2022 15:04:10 +0000
+ id 1nD6KK-000262-Ry
+ for xen-devel@lists.xenproject.org; Thu, 27 Jan 2022 15:04:44 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 611e96a5-7f82-11ec-8f75-fffcc8bd4f1a;
- Thu, 27 Jan 2022 16:04:09 +0100 (CET)
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur03lp2057.outbound.protection.outlook.com [104.47.8.57]) by
+ id 75bb873a-7f82-11ec-8f75-fffcc8bd4f1a;
+ Thu, 27 Jan 2022 16:04:44 +0100 (CET)
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01lp2051.outbound.protection.outlook.com [104.47.0.51]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-31-ITSv14fwOvCZ_IueZgcWUA-1; Thu, 27 Jan 2022 16:04:08 +0100
+ de-mta-25-qPoW3n7KNzijFQPk-zE5QQ-1; Thu, 27 Jan 2022 16:04:42 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by AM6PR04MB6759.eurprd04.prod.outlook.com (2603:10a6:20b:d8::27)
+ by AM9PR04MB8353.eurprd04.prod.outlook.com (2603:10a6:20b:3ef::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17; Thu, 27 Jan
- 2022 15:04:05 +0000
+ 2022 15:04:41 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::a1a4:21a6:8390:b5d5]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::a1a4:21a6:8390:b5d5%5]) with mapi id 15.20.4930.017; Thu, 27 Jan 2022
- 15:04:05 +0000
+ 15:04:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,190 +51,182 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 611e96a5-7f82-11ec-8f75-fffcc8bd4f1a
+X-Inumbo-ID: 75bb873a-7f82-11ec-8f75-fffcc8bd4f1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1643295849;
+	t=1643295883;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=1/eJQ7ucRYOgu4tEr/tg4FmbXpCLdpuA78wG+MCPCTI=;
-	b=A2ZfYie6TGYwEE0yZ4n0I8QSTWk2gcFvPpmQQ+FBTwk5yLXcvcuw6+PDjTz+MzkAoqrKXA
-	ul92MOV3oU1SYOTO54fdgjM93nzz9Wu4EIZ31eWmFb9OrsJiu9dd2k/oRNGq0lNTmlUw3X
-	ADxWSdZUFSB5F8LUR6PECtldCGyqwZg=
-X-MC-Unique: ITSv14fwOvCZ_IueZgcWUA-1
+	bh=MQ1jObtNsVt0Gb/q4hYMDZAGb5jCrEKaEVTZn5oVjeo=;
+	b=juUp472jRiLxmS6f31PVXUYbxYuzx0TdTU9tht19oW0vEULtKkyqD/LCyVDQtQLs6lifjV
+	PAdUQCDbDV7lEpFGq9wKQYWkZi6Fw71CQD0OD+2QBv9WAwSWu5Wm56cYU1tQzUYWSn/HDf
+	HVfbJxPrnZWZ13AH9dby4HByQCNUZx4=
+X-MC-Unique: qPoW3n7KNzijFQPk-zE5QQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eveOxcK4q2qzBsxmfbPv33ucXLQPFOZuwTOpWNLFrlYilyumi0Gryd9sjicfAFfSNhV7yFJ0gElLzyhGhv+sED1JlyoHghzRc6v/vIUDxdVxKq/AJxfTr3AzqoHCVo/KhK4hxCcrUq08jnhdYqpfFI04LLBm+jNBXa8crDDU/D7wjiTCrEhPjL0p7kXjN26vjKh3gVeoW3mn/d7zMAOXhRVuEXQrR/LzCjE3GZwWH6tg0smgMgcKF+9XE9R5TcsID8fHNf5OBa5mo1IJmwas1IbQ1sTFgS7JEK7sp7ELaSaPuiAb9bRQjMVEsjWFe1ORE0sB5T/ESe/IGQHVEFtKFg==
+ b=c44QG9IeMcWPC1C67MadY8EzN8pbuAwogt34yY9/5YF/3GQrZEPfcz3VVD5gxgtXXW1vsYR5M80zAMMb2pihqruHeytiXkb32uyTOkbwlywXZJ+S9rEC5gNJjgroh6cbX/XvP1JYbcqrVOR04dlOeqBHEmMJUKxwp+WyzSA1aCf6Z9+XPRZ5pn1h3v5vEbGzTK0uKC1QXVkX/uEeHlH6zq3ch4w5cLoax7LyUbZUM88mPuXRdlz8y18ohoRGXAciAuASbhYHiRJ9zA58i5Fcb580eo5CIpV7QhHe+R181Idkuo23kZ7FzejkWysaA2oKZhMo6YWP1IU0sZQV1fqEmQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1/eJQ7ucRYOgu4tEr/tg4FmbXpCLdpuA78wG+MCPCTI=;
- b=iiIGRHzSmNccKiecPoE22Vy/wCKySgmTR3ZAenBn61dzGTkSWRdfVdftMbTyl/PXMVKLfYOJPKEpNIbW/K4+B0cuDe/ODMMX9JetYB4070SinO4h5r/73Mqw2Oxho1RNEJsQcRPV97Ni1DH0OlCwBf+wwWlr/+F1UPMghHFf9bv7PLv8mCBKwxWFZpM8bnjwXKKuq32ld89TEt+RNAK77awgHOpOWVLGvUxUhidmLtW8fIwUMi1h7/66F2cVRVqhSBbsg89m8WQ9BaZdGK6gJEkMBYSyU9ZTI5jCZ3b8bN3P1DhQPHOJL/urEYalTI7X7IsJU3bfHgC0gNlnfCRnTQ==
+ bh=MQ1jObtNsVt0Gb/q4hYMDZAGb5jCrEKaEVTZn5oVjeo=;
+ b=G8GTfpoiHFDdxpD8XduH8FRWXP5/v/VsijT/H7L20aTic6F0XEWn+M1onTCJ5s1XScKLP1hjk3ueXFN57AwKoy5hHqCS1+/+u4qTTqokIsy/PSa/JhHxZGpvXUP87jrtbjSDOzyosKmWnqickNUoTS4E94G582Pbe/rX+polZ8E2NcA84d7/szrbNYelQiSQAHUJDqHPElBJVVpTLs+QxWOknJWsmQ22ehi/pXZUs+C7OOfj21obRyTeakXeywt7yXghS5x+8jW3YVRV2c789+725aLTbASSvRFjvG7gkPdaBEoXgIMO/iPriglgF1YN+VSBNxchp1uX8B5lISNNVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <d60d879b-faa8-415e-cffa-c7e05da2814a@suse.com>
-Date: Thu, 27 Jan 2022 16:04:04 +0100
+Message-ID: <b3a79f29-e3ec-6b3f-e569-5d2679a5edef@suse.com>
+Date: Thu, 27 Jan 2022 16:04:40 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Ping: [PATCH v2 1/3] x86/PoD: simplify / improve p2m_pod_cache_add()
+Subject: Ping: [PATCH v2] x86/PoD: move increment of entry count
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
  <roger.pau@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <e9257e96-ede9-2809-9a77-fd4dc206badc@suse.com>
- <0c61e460-122c-6486-00b7-22a9a24ee1fc@suse.com>
-In-Reply-To: <0c61e460-122c-6486-00b7-22a9a24ee1fc@suse.com>
+References: <ac46f25b-e669-f309-b36e-c4760e10479e@suse.com>
+ <5b3f46f3-3c9f-57fb-00a5-94128f41e34a@suse.com>
+In-Reply-To: <5b3f46f3-3c9f-57fb-00a5-94128f41e34a@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM5PR0201CA0001.eurprd02.prod.outlook.com
- (2603:10a6:203:3d::11) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM6P192CA0072.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:209:82::49) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a0d03e8e-b91d-4cca-c313-08d9e1a642e7
-X-MS-TrafficTypeDiagnostic: AM6PR04MB6759:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4f4dd5b-039b-4b86-0a4d-08d9e1a65872
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8353:EE_
 X-Microsoft-Antispam-PRVS:
-	<AM6PR04MB6759D6A9A4F46A0BDB1D189CB3219@AM6PR04MB6759.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:619;
+	<AM9PR04MB83538AB27F17898BD9FC8B9EB3219@AM9PR04MB8353.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	NlTZacNzYPQcJf9qgNMWw+9Rd+2joRq1iif4h3A9Dug9eH+84e1QniO7B6B8eydnRLXH7/PAP5b0WGuMLywoZIWtsQp9bgiYBUdnPj5sgBjcKsXmhTapAovzydHbJ/Hx8jXvas78BYY1DOK+qBKaBTvxlsWCtBnUEL4jIqjxpuGA1Vxbkq5WWnjPNzWWUP4hItVsPB50TsvO8mu/LmERyIEubDtFP+H8oEtrGjNuVpISQNG+0NfVNbOo3Wwda/86YpLJb17jm6tYuFFbqnWSsbdAJjb4cHL9OzDq0LcKCJhgf9qOmputn06hHVLOZNJ2e9yKb/pMblxws6KXc2YjAMmayLbeaCQEJpZ0yOsHvioQCl4aR1ZJqVBZ1NItOX2QdoCgxx7B7+hUjHm9PeMSyvlH6FxFAeAW33mQNzkDrASm28AWd3rCAsxFjse9LlXgYbvjCDdiFAm9d3kGVjN+LCQ3MjUBB3/sd/GGvs2bHaWTV7TttWbcnczDHnbrI2cZRJmM8D0qcFFu4in/48+AvJJjxtG314MYtMy/cSqUl+VXLUGqCi5eVWchIcrgJB+lk3S0pgveNLwiBVoFjQGXQPsVez85do4O4OUeFpTGHRGzaKNWYRLpWOOYIjWudJg525wVGO70fGVaPkhWb624rIpiCqxBpqrQfXuOPzFz9JoAIOvd5vcy2jBO4g66OydC14NDwgO0JkhbdANPiHNWL71ltVc07iFFcvRVFMLwITgdA6Nu86GRKlLaTuM+340z
+	tImdUWJb6yM70FngTztL+TX/oE5l5M2Pju+qMBsbB+LacupK+OUErsgxu4oaqYLfBYx3LTy4gdhLC3fMvTH8m5H9E1kRYrxlc0AfzErDE/v0DR1KdCcFvNpihK2ub05ijW0QWTWlI7/ZLBkBy9BE/KzTNVVWmnzUPHEVqRy6HlYPbZicm7svnLVAC/qDGbPU/80wZ8QPnqmBJETnZqtE8BrSssxNW8bDwgnhqS9WshWxwopy/MyDnayj1KdjYgqsmFr5fzH/bLk1pWCoadkq8UJj1KjnbvyHBuDOn9L24BxpYuSFf99Zzt9o7F9DxFVhaRN1m46JvRKNx/ufUq8EVnFEc4m1wWYkOZRC4VSKVd7S1eTW0prwAjDphO6xiBtTlEgMok2iISkk5ZgOifshfEO1YNl/nxKkzRkFMkhw0+0HMyU2a2AspF8wf4lM4l0lcQctjv+7Ba/VQ3V1Kwziel3jMxXDjM2Wq1nj4PxJLF9FwJhEqpWjr7GjvaPl3L3RrjjWBXLXuRS/n2lTC7D3JuN2sQZpb8jrzZYvu2KDmxqQHewVLRKA0WCvZ+lWjGcx1UDfWOoXvGZ9HMRhvnLLmZCW3WiHB9bbhwQvDOfCgx+LHgxxMihNUZ7xQmaImKRDwz9aoZK3gAtxsdLj5bc0MuVk2hLfXufNRd5Xu5aXD5PmP7uInsdP3Y/vsyofDJQ0lrUOSqE2KED/Pi8NDL87WRj0utS958xHUs5LNgR4XsyJFVqhcNP1H3TVYvWbreYb
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(54906003)(6486002)(86362001)(6916009)(31686004)(2616005)(36756003)(38100700002)(186003)(26005)(6512007)(31696002)(498600001)(4326008)(8676002)(5660300002)(66476007)(66556008)(66946007)(8936002)(2906002)(6506007)(83380400001)(53546011)(43740500002)(45980500001)(20210929001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66946007)(66556008)(8936002)(66476007)(8676002)(36756003)(5660300002)(38100700002)(54906003)(2906002)(6916009)(316002)(4326008)(86362001)(6486002)(6506007)(31686004)(2616005)(6512007)(83380400001)(508600001)(53546011)(31696002)(186003)(26005)(43740500002)(45980500001)(20210929001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UnVlSW0rd1VRaDJwQmo0TU1McUZkVnBVNlZ6T0tnbFd6VGhkc3dPajZVcFk4?=
- =?utf-8?B?UWlpU0o4VVFSd0tZVGh2LzIzMFl3ckREWFV0NGdBazFMVlE3VjFOWklLSHc3?=
- =?utf-8?B?YTM3d3g1V0pRWW5tUjBZZkEvS1R6a2VWeDdLMTRzSGJ4MFFpcFJ1ZTg3bzNG?=
- =?utf-8?B?Q1oxNmRzOTN6Vkc0b2hsTzRQaE8wdURpWU5lUWpQYjV2M0JvR1l4TFJ6K1dV?=
- =?utf-8?B?QllyeEhKWWJwZS9lRjJLQVpoZzZWaTllVHAzNS9wdU54eko5a2ZiamtFKzM2?=
- =?utf-8?B?akFGOWtsclUzU0VkUFpYRndZQnNCOTZyTGZyc2pmYThZbXlxdTJRNmxxT0xh?=
- =?utf-8?B?WFNNa1FMRmxQajlBSDdKaGgweTZ2bC8zVFZMS3ZJRlMvM2hTL0Y0aFBLVTYy?=
- =?utf-8?B?Z084ekxSbFVaSnloV3BFZW5KQWlXcUp0eWJidXo0V012ZElYWGg4cXVVTnNQ?=
- =?utf-8?B?aVkyT2RvZzRPWmFVMzNCK2JvekpNQ3Z4S2lDakFiU21LUkluQlRYbnlUTTRY?=
- =?utf-8?B?NXlrUFYrZHdVUUhpSlBDYjdTL05rT0dLbGdBZjY5WXVCdi9aK0lxYmtJZDFi?=
- =?utf-8?B?VnBhamdwNzdmdms1d2NKMld2Q2xCcTRqbkNWQkV4OWdzNVJpcUhVR0MwMU5O?=
- =?utf-8?B?VVEva2o0S2ZvU2M3Mm0wSm5LTHErQlYzQW1LeHZwT0ZqaTRrTzkyUDUzbXpi?=
- =?utf-8?B?ck5MeGFKQ1ErZGJNTERsQzg2NFBQcGhOTzBkcmh0b29pZWQrVGVGNHYrQVZs?=
- =?utf-8?B?UUpSbXVFVFlLYzlYeHQ0LytsMWJLakkvL0xNTERSV2NHdVpFeGpvN0tjbFNY?=
- =?utf-8?B?RFFVTEsrTUlHdnpiWEJSMGxDME9jNW9wUW9SaHpMVndMTUZSM2RlRlVIT3pw?=
- =?utf-8?B?a0ljTzhBWnZLeStoSVlGN1Nad0VUSThGTWttSDZoQkptZGlycDRnaVF0blU4?=
- =?utf-8?B?Wm80S1pvYVBRVnlLbDFvdnEwcDBCT0dyeG1mdWFQZ2FkTk5zVDZVOHhrS0c0?=
- =?utf-8?B?L2tzU1FqcnFCR0Y5eFhwWVA0QjgwM29rVitEY012NmVRN1drNGcxd3hUZGU4?=
- =?utf-8?B?UjZ6dXFGcGw2eDB2YzMvUkF6d0h3OVVlYlJuQS8rUnFLNnNPWjRaYjZ5ejhu?=
- =?utf-8?B?VHNSZmVISldYbUQ1MVRnb2Q2WkxXaklxQlN6a3FiZEorak80SXl6ZTRRN3ls?=
- =?utf-8?B?RlNMR01yRmJMTVZSckNtQmVjdk5CeURmSkVna1FRVEhoOHNnZ2tZM3BObXRM?=
- =?utf-8?B?bW1BZi8zZjNxeXZ5RDFTcy9ZQ3g4cmNvQkJhVGM0cE51QzRESnRzVkc3dEpS?=
- =?utf-8?B?K0JjdklvaWFqZUliOFgzQjVzN0t5ZU1HTjBnNGh0Rkx2ZWN6Z3hTaEFUay9J?=
- =?utf-8?B?LzUrQzdKd0xlbG9uWGxoUXR3cE8xdjFUc1ZoWGJaVGZMdjcrMVZzOHNDc1Zp?=
- =?utf-8?B?Zk1IcEZVVTZFWTkrQ2hCSzdLY3FBYk1MQzB0YXJhY0tYUnkwVTRtQzBobzJ2?=
- =?utf-8?B?OU9nRnVKUi9tSnNGTHhoY25wRlZVK1puQ3hxU0x4RThkRnVMWXNYMkZZT0JY?=
- =?utf-8?B?VXRsZkFmN3NvSWtqb01oRGtMdzhOR0lGbjJXR25hQ3ZuSWFHbTVlRGZlSExu?=
- =?utf-8?B?c0NBT2JzazBFM2xaTXQ3QWFLck5nK3Nyd3BubENmRFVwL0o0bkk3dTlia2xC?=
- =?utf-8?B?WDJLbkpKT2VtNkJacjJkTkRPdkpIM3VsMGNVWlVoK1haMzdaQ1RqY2NGR0lO?=
- =?utf-8?B?NjVaLzRMeGdRTDZYVlliS2kzQ0VVSVJzZTk1NnF5M0JvWC9LanNRcnY1N000?=
- =?utf-8?B?a0VGQmIvNjJIbFBOVm9zTGR3Y0srZXJud0lYOGtoU2xVVmZKbUJTaXNlSFEv?=
- =?utf-8?B?VWVlaDlaRHd3QUVtaTJad2liV0k1cDg3Zy91bGFkUVI1TndTSm03MC91WGll?=
- =?utf-8?B?allzMC92RXBUdllHUERIL2ptUnlCd0NGMG80czQvYWI4NE9lemJ2TlpvSVJa?=
- =?utf-8?B?QXk1K3d5VkljbG9pejlQM3BHQTlTcGwzeWI3bnM3VnVjTW12TnI2eUo1UnBH?=
- =?utf-8?B?b1J5YVh4cFk2N2VXUkV5ejBjRWlsQUxDL1JpMjl1aG0yWFZiby9LRmprb0xv?=
- =?utf-8?B?cTZwbGFZNTNPdHhMMlFOVDE4Rm8zYWIzYndYMmRSZWdveURhVjlKWWJJKzAx?=
- =?utf-8?Q?E5C3JyWyZeDknubPvDP9M8Y=3D?=
+	=?utf-8?B?VmxjTHZQbVZ3blJib0NiWEt3dHVLRmxvNWtaS2RmQVduNndEUE5oeHhqWFFK?=
+ =?utf-8?B?UEFoNXkvR1MxdnpOMFBBeHdKbG9SL3pJZzRiSU9HMzdDakVxVGFodDFvT05F?=
+ =?utf-8?B?NlNCOWdvaFUzMVdSUVM5aUE0VWZ5b28yVE00dGsrODA0clRsc00yYnJUdGVm?=
+ =?utf-8?B?UFEzeDFpc0U3ZjNML2Z0Zm1DTHo2eXhHSGdqWlkxZEI1RGFZK0xkUm5URlZv?=
+ =?utf-8?B?VXBsZTZBQ1MxM2p1bFhzMlh6TnZoSDY1WitYcVZrckoxMnV4M3hzSS84dVV5?=
+ =?utf-8?B?LzdHakNwVTRSODhIOHA5NytYWUx5V3FTcG44VVNZVmxtR1k3U2tQU0ttekZZ?=
+ =?utf-8?B?RlBwbUtlTHpEaldycTVQL0RzT05pZ2l4S21zMm1GNXBDMldjRW04OEN3SlRP?=
+ =?utf-8?B?c0RuN3RKNWhmQjVLY1NGTlI1RmRoTGVFbytUeS9zWHgyWEJTUnRPSkNSd3cr?=
+ =?utf-8?B?UU9CUDM2WWF6UWY2MkhCYmxkS1FQZWdLSkdJN2E0QWIxNS9ZNTRFZWY4eWRS?=
+ =?utf-8?B?MS9wV00rOWNORUlNWDJIV0o5UTM5WkNRVkhIaktsSnl4cnIrY3RjbnJmVDJl?=
+ =?utf-8?B?ejZWK3kwaHhibkk3TklsZ0lCQ2Z3VVFsUjNrRUcySTlLdjUya296ZzYrQmhs?=
+ =?utf-8?B?YmJMeHQ2OUphSjZocVpnK2QrdmdwVEhITFArOHF6bXl4VEpkOC9OM0s4OFda?=
+ =?utf-8?B?MS9BTnhHaytpNWNHcHdWWS9ueU5UUGpvdzQ2alE3SWJYZ0tPd0pmam5vZUcr?=
+ =?utf-8?B?a2VpOEZhWU9FY25kUmppQVRBdU16UkUwdGwrdnFwTFlBUE90YjN6STVlR1pV?=
+ =?utf-8?B?OUdFOHZScWxIa0dBak5wYkUvUGpJbFBhMGd5QjF1Rmowdy90SE1sZWlLRXRn?=
+ =?utf-8?B?cUwzVWZ1UDdDb2x1Y2xKQnNWa1JadUNCRS94V2NkV28xQzI2TzNqYksxbmdk?=
+ =?utf-8?B?T1hSY1U0NE1WMklBMkRQbDRXc2JETTlQSFVVT0k0cWV6bERaeHRQZC9qNlc3?=
+ =?utf-8?B?Y3prdlpwSkltMExnV0FFU1JuNFhPOE1lYWZEWlVmSUZtK3pDNDRDNXplL2pO?=
+ =?utf-8?B?RldiSnl0SzVGc3lXT2RhRmpQKytvbEhXWFZsb0RFS1FaL3RDeGN2VkhBeGdE?=
+ =?utf-8?B?bUxPNXNYZjVkazQvOTVjcmdEMldXZHVIOC8zTTZEZUZNV3FkSm1HMHh2Q0Mx?=
+ =?utf-8?B?RlFzelFyWFJNOURoeTFDVmFhK09PY0JHaVZJdFBaMzd2UzVBc2RUU2lYNjBa?=
+ =?utf-8?B?UVR1UWNOYVpZK3FoVm9iZWxKS1IyTmVEYWVkWTVoTTljRitVK0dtR2k4NER0?=
+ =?utf-8?B?ZktKYUN5V0RERkdrRzB3UTlrakxqUEZvOEhkZlVWUXdIM3REYmVpSWIrSUNv?=
+ =?utf-8?B?VmE5eGpJMElYNFRnNXNvcncvbTZDY0taZlkxSXZxM1Z4RUxHTU9kQlM0VWpB?=
+ =?utf-8?B?YU5GWmhPRmNOZitiTmhDNFFPNkNYOTBCZEptdTVpYkJLZ3RRMnlEdEJZMDJT?=
+ =?utf-8?B?d251RW8wcDRMem9OODhmQnUvNktHS0JKSFQ1dDV2NzFZQ0dtdkVnc295WnZh?=
+ =?utf-8?B?RHVaSFQ4SnFuR3k3YVFST1VmT2FwUDBCOTFTeGhybE9XU3J6c0d6Ni9VOVJI?=
+ =?utf-8?B?dEhMa3J6cXBOMEQ3RXR5N0NVRlU1VXdpK3dSb212RXlzZjhuQjJpKy9yQlRL?=
+ =?utf-8?B?Uyt1SjhNdUEzSE54VDVCeUpUcjN2cVNwMWtNMkNhMXNVaW00OVY4bnNOby91?=
+ =?utf-8?B?MkFsd3VsdXVUUHhmN2JmMzZLVEZHTjRrdEE1ZkxrRGlTYkhXN1hVZzZoMW1F?=
+ =?utf-8?B?d3NjcjM2dURhL0tjaHpJcEhKcjUvdDBodmx6VTJTVHJRTm1KY2tPQlJlb1Uy?=
+ =?utf-8?B?Zm5CWWxCc3c0dTlBSGJxVHNNaVRNNnhCOTVpQUZYZTQ3WDZZOERJemx3aXY1?=
+ =?utf-8?B?N2UvSGE4SERJOTNWN0dOL1FKMnlsLzl4bHEwQUVjUmF5VXNpbkhYM3pZU21q?=
+ =?utf-8?B?MENFMENMN2FrWlFUeHVZMTN5RE11SWNVeEhYMW1EbVJLOEwxQnRUVGdLZTNW?=
+ =?utf-8?B?Zjd6ZVd1SFdtbzE3SEpjOWJ4dnNYUkthTFJwWFVnSy9qb0R3MTd6VFcrTDhm?=
+ =?utf-8?B?V2RVMUZlN1lkZ3ZmVGFBTUw4eDU3ZEZrMkQySzg2azBFTUxZWTMvUGlvSjIz?=
+ =?utf-8?Q?v7HzoQLL6mZoVGcmUA/YyLM=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a0d03e8e-b91d-4cca-c313-08d9e1a642e7
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4f4dd5b-039b-4b86-0a4d-08d9e1a65872
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2022 15:04:05.4660
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2022 15:04:41.5575
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3Cgcjfk3Klm+cSbZFFxLzPcNVdKbrAudhJPuS3TXTfrdXwMSDNeONbGtBTU4OWqfFT1zZFOxYGJUBJDThLk1fw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB6759
+X-MS-Exchange-CrossTenant-UserPrincipalName: DecYn7yJqypCnNifyszmuyIt/H4t0S3bmgRdOEK9F4qelkeWToG1juuFzmArXkvC+JosVBa4k531sCF4KGQZwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8353
 
-On 04.01.2022 10:48, Jan Beulich wrote:
-> Avoid recurring MFN -> page or page -> MFN translations. Drop the pretty
-> pointless local variable "p". Make sure the MFN logged in a debugging
-> error message is actually the offending one. Return negative errno
-> values rather than -1 (presently no caller really cares, but imo this
-> should change). Adjust style.
+On 04.01.2022 11:57, Jan Beulich wrote:
+> When not holding the PoD lock across the entire region covering P2M
+> update and stats update, the entry count should indicate too large a
+> value in preference to a too small one, to avoid functions bailing early
+> when they find the count is zero. Hence increments should happen ahead
+> of P2M updates, while decrements should happen only after. Deal with the
+> one place where this hasn't been the case yet.
 > 
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> v2: Return -errno. Drop exclamation mark from log message.
+> v2: Add comments.
 
 Ping?
 
+Jan
+
+> ---
+> While it might be possible to hold the PoD lock over the entire
+> operation, I didn't want to chance introducing a lock order violation on
+> a perhaps rarely taken code path.
+> 
 > --- a/xen/arch/x86/mm/p2m-pod.c
 > +++ b/xen/arch/x86/mm/p2m-pod.c
-> @@ -58,34 +58,27 @@ p2m_pod_cache_add(struct p2m_domain *p2m
->                    unsigned int order)
->  {
->      unsigned long i;
-> -    struct page_info *p;
->      struct domain *d = p2m->domain;
-> +    mfn_t mfn = page_to_mfn(page);
->  
->  #ifndef NDEBUG
-> -    mfn_t mfn;
-> -
-> -    mfn = page_to_mfn(page);
-> -
->      /* Check to make sure this is a contiguous region */
->      if ( mfn_x(mfn) & ((1UL << order) - 1) )
->      {
->          printk("%s: mfn %lx not aligned order %u! (mask %lx)\n",
->                 __func__, mfn_x(mfn), order, ((1UL << order) - 1));
-> -        return -1;
-> +        return -EINVAL;
->      }
->  
-> -    for ( i = 0; i < 1UL << order ; i++)
-> +    for ( i = 0; i < (1UL << order); i++)
->      {
-> -        struct domain * od;
-> +        const struct domain *od = page_get_owner(page + i);
->  
-> -        p = mfn_to_page(mfn_add(mfn, i));
-> -        od = page_get_owner(p);
->          if ( od != d )
->          {
-> -            printk("%s: mfn %lx expected owner d%d, got owner d%d!\n",
-> -                   __func__, mfn_x(mfn), d->domain_id,
-> -                   od ? od->domain_id : -1);
-> -            return -1;
-> +            printk("%s: mfn %lx owner: expected %pd, got %pd\n",
-> +                   __func__, mfn_x(mfn) + i, d, od);
-> +            return -EACCES;
+> @@ -1342,19 +1342,22 @@ mark_populate_on_demand(struct domain *d
 >          }
 >      }
->  #endif
-> @@ -98,16 +91,12 @@ p2m_pod_cache_add(struct p2m_domain *p2m
->       * promise to provide zero pages. So we scrub pages before using.
->       */
->      for ( i = 0; i < (1UL << order); i++ )
-> -        clear_domain_page(mfn_add(page_to_mfn(page), i));
-> +        clear_domain_page(mfn_add(mfn, i));
 >  
->      /* First, take all pages off the domain list */
->      lock_page_alloc(p2m);
-> -    for ( i = 0; i < 1UL << order ; i++ )
+> +    /*
+> +     * Without holding the PoD lock across the entire operation, bump the
+> +     * entry count up front assuming success of p2m_set_entry(), undoing the
+> +     * bump as necessary upon failure.  Bumping only upon success would risk
+> +     * code elsewhere observing entry count being zero despite there actually
+> +     * still being PoD entries.
+> +     */
+> +    pod_lock(p2m);
+> +    p2m->pod.entry_count += (1UL << order) - pod_count;
+> +    pod_unlock(p2m);
+> +
+>      /* Now, actually do the two-way mapping */
+>      rc = p2m_set_entry(p2m, gfn, INVALID_MFN, order,
+>                         p2m_populate_on_demand, p2m->default_access);
+>      if ( rc == 0 )
 > -    {
-> -        p = page + i;
-> -        page_list_del(p, &d->page_list);
-> -    }
+> -        pod_lock(p2m);
+> -        p2m->pod.entry_count += 1UL << order;
+> -        p2m->pod.entry_count -= pod_count;
+> -        BUG_ON(p2m->pod.entry_count < 0);
+> -        pod_unlock(p2m);
 > -
-> +    for ( i = 0; i < (1UL << order); i++ )
-> +        page_list_del(page + i, &d->page_list);
->      unlock_page_alloc(p2m);
+>          ioreq_request_mapcache_invalidate(d);
+> -    }
+>      else if ( order )
+>      {
+>          /*
+> @@ -1366,6 +1369,14 @@ mark_populate_on_demand(struct domain *d
+>                 d, gfn_l, order, rc);
+>          domain_crash(d);
+>      }
+> +    else if ( !pod_count )
+> +    {
+> +        /* Undo earlier increment; see comment above. */
+> +        pod_lock(p2m);
+> +        BUG_ON(!p2m->pod.entry_count);
+> +        --p2m->pod.entry_count;
+> +        pod_unlock(p2m);
+> +    }
 >  
->      /* Then add to the appropriate populate-on-demand list. */
+>  out:
+>      gfn_unlock(p2m, gfn, order);
 > 
 > 
 
