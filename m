@@ -2,81 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A1F049DBEA
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jan 2022 08:51:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.261214.452039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DC5549DBED
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jan 2022 08:51:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.261216.452062 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCzYK-0000E3-JZ; Thu, 27 Jan 2022 07:50:44 +0000
+	id 1nCzYU-0000uS-C7; Thu, 27 Jan 2022 07:50:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 261214.452039; Thu, 27 Jan 2022 07:50:44 +0000
+Received: by outflank-mailman (output) from mailman id 261216.452062; Thu, 27 Jan 2022 07:50:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nCzYK-0000C7-GN; Thu, 27 Jan 2022 07:50:44 +0000
-Received: by outflank-mailman (input) for mailman id 261214;
- Thu, 27 Jan 2022 07:50:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nCzYU-0000s7-7S; Thu, 27 Jan 2022 07:50:54 +0000
+Received: by outflank-mailman (input) for mailman id 261216;
+ Thu, 27 Jan 2022 07:50:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=h4dm=SL=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1nCzYI-0008Mi-Th
- for xen-devel@lists.xenproject.org; Thu, 27 Jan 2022 07:50:43 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on060d.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::60d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d3197f61-7f45-11ec-8f75-fffcc8bd4f1a;
- Thu, 27 Jan 2022 08:50:42 +0100 (CET)
-Received: from DB6P18901CA0013.EURP189.PROD.OUTLOOK.COM (2603:10a6:4:16::23)
- by DB8PR08MB5130.eurprd08.prod.outlook.com (2603:10a6:10:e9::25) with
- Microsoft SMTP Server (version=TLS1_2,
+ id 1nCzYR-0000Xj-VT
+ for xen-devel@lists.xenproject.org; Thu, 27 Jan 2022 07:50:52 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20625.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::625])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d8bb539b-7f45-11ec-8eb8-a37418f5ba1a;
+ Thu, 27 Jan 2022 08:50:50 +0100 (CET)
+Received: from DB6PR0301CA0075.eurprd03.prod.outlook.com (2603:10a6:6:30::22)
+ by AM9PR08MB6820.eurprd08.prod.outlook.com (2603:10a6:20b:30f::8)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17; Thu, 27 Jan
- 2022 07:50:39 +0000
-Received: from DB5EUR03FT044.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:16:cafe::f0) by DB6P18901CA0013.outlook.office365.com
- (2603:10a6:4:16::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15 via Frontend
- Transport; Thu, 27 Jan 2022 07:50:39 +0000
+ 2022 07:50:41 +0000
+Received: from DB5EUR03FT016.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:6:30:cafe::a6) by DB6PR0301CA0075.outlook.office365.com
+ (2603:10a6:6:30::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4909.17 via Frontend
+ Transport; Thu, 27 Jan 2022 07:50:41 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT044.mail.protection.outlook.com (10.152.21.167) with
+ DB5EUR03FT016.mail.protection.outlook.com (10.152.20.141) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4930.15 via Frontend Transport; Thu, 27 Jan 2022 07:50:38 +0000
-Received: ("Tessian outbound 63bb5eb69ee8:v113");
- Thu, 27 Jan 2022 07:50:38 +0000
-Received: from c780f9168eb1.1
+ 15.20.4930.15 via Frontend Transport; Thu, 27 Jan 2022 07:50:41 +0000
+Received: ("Tessian outbound 18e50a6f0513:v113");
+ Thu, 27 Jan 2022 07:50:41 +0000
+Received: from 47971b1d2ff1.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- CB5BDB13-C668-40B6-A27A-DEF6F3187B7E.1; 
- Thu, 27 Jan 2022 07:50:30 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id c780f9168eb1.1
+ CEEA1370-56B6-42BE-9901-F134C1CDAB0D.1; 
+ Thu, 27 Jan 2022 07:50:34 +0000
+Received: from EUR02-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 47971b1d2ff1.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Thu, 27 Jan 2022 07:50:30 +0000
-Received: from AS9PR06CA0210.eurprd06.prod.outlook.com (2603:10a6:20b:45d::28)
- by VE1PR08MB4877.eurprd08.prod.outlook.com (2603:10a6:802:a4::18)
+ Thu, 27 Jan 2022 07:50:34 +0000
+Received: from AS8PR04CA0106.eurprd04.prod.outlook.com (2603:10a6:20b:31e::21)
+ by AM0PR08MB4961.eurprd08.prod.outlook.com (2603:10a6:208:161::29)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Thu, 27 Jan
- 2022 07:50:28 +0000
-Received: from AM5EUR03FT046.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:20b:45d:cafe::ca) by AS9PR06CA0210.outlook.office365.com
- (2603:10a6:20b:45d::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15 via Frontend
- Transport; Thu, 27 Jan 2022 07:50:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17; Thu, 27 Jan
+ 2022 07:50:31 +0000
+Received: from AM5EUR03FT032.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:31e:cafe::55) by AS8PR04CA0106.outlook.office365.com
+ (2603:10a6:20b:31e::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17 via Frontend
+ Transport; Thu, 27 Jan 2022 07:50:31 +0000
 Received: from nebula.arm.com (40.67.248.234) by
- AM5EUR03FT046.mail.protection.outlook.com (10.152.16.164) with Microsoft SMTP
+ AM5EUR03FT032.mail.protection.outlook.com (10.152.16.84) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4930.15 via Frontend Transport; Thu, 27 Jan 2022 07:50:28 +0000
-Received: from AZ-NEU-EX01.Emea.Arm.com (10.251.26.4) by AZ-NEU-EX03.Arm.com
+ 15.20.4930.15 via Frontend Transport; Thu, 27 Jan 2022 07:50:31 +0000
+Received: from AZ-NEU-EX03.Arm.com (10.251.24.31) by AZ-NEU-EX03.Arm.com
  (10.251.24.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.2308.20; Thu, 27 Jan
- 2022 07:50:27 +0000
-Received: from AZ-NEU-EX03.Arm.com (10.251.24.31) by AZ-NEU-EX01.Emea.Arm.com
- (10.251.26.4) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.2308.20; Thu, 27
- Jan 2022 07:50:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.20; Thu, 27 Jan
+ 2022 07:50:29 +0000
 Received: from penny.shanghai.arm.com (10.169.188.91) by mail.arm.com
  (10.251.24.31) with Microsoft SMTP Server id 15.1.2308.20 via Frontend
- Transport; Thu, 27 Jan 2022 07:50:25 +0000
+ Transport; Thu, 27 Jan 2022 07:50:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -88,12 +84,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d3197f61-7f45-11ec-8f75-fffcc8bd4f1a
+X-Inumbo-ID: d8bb539b-7f45-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rSh3L/AFX1kwUWbUN803XD5qISN//S+9dF22OnqF/Ss=;
- b=lPPyoz94FwlEGHmUOII9wMO8lhVidDeQOajv7kcMUtK9QPNsX8EnMarfB9mnxQiLrWPoRuvHpapr9yW0aLDnUTJgrMflzcCyQiknO2FkPHxatDpGI5bZ5AUc9EhMeaEePc/GqXAtxnHm6+lJxVlZfxwNS0N7llTuEJU0BwLrYiw=
+ bh=qJY+Z8v2F+OrilDf0c+mywrBc7V7NbAWQsU/sTzRiWQ=;
+ b=YOWaLxK2hRMsjcThyNKtsOXrILT4Gu3QkZrllp7XvKCBYQgatpTiAV/dKOT2Igbm3BkQKYYjtKr6lPWJtok7y6JpM0GqYp1FJIlQPlaZEAthvQ5e0J5IzC5Jh+rDzlk/Aqg6eD24p7u0f0a8ztwIIWPsY9zxUjZu3oI24EMRewM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
@@ -101,15 +97,15 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: a0e7a4546c4c73d0
+X-CR-MTA-CID: e9646bc275f6d35e
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AQ6eHOKhVvbZrMVMNTxbEEBiC2J8Sw+Bas6vEk9Sqs0LSV4tanBU0KJQ6bPHLbRJQiWUsQWFKGU7lGklbNE1963zmsBQypRql1KRiuwETVqZOo9WtIZmJjmjvSq+y90e6NolHKe0iL3j2cSbZr0rATRhp4W5RxcLLcmgKBH0W38CbBoOsdQg4OvcsFXKcKveL6KGBfbZvTUdrmAjeFBdrBw0s+wD1hJapw5eTYIVU5N5kyxobFZyTHna8m0n5T6EvdBFk49o4NObTxpL2+njTO2lv0DPgceJSgC6O1p6fUuKIUaiJVnkJS8AnWDwPGLcRl01JUuvN2MH4tzTNChSzg==
+ b=C2JVR5LaimGOCi2GUq7jN8EW7Q4qMPrcVvb+Kha9qlw4JLBUyN/HvL1H/XgtQafi5cUdpbtXBC0fE6dXYDpLegCO18kja416hUrhLMD3XULATn9Mm7DSQucqayNNAdXo2Fap+W+/dnBormPm/GvP83vs6H4sN4+GF0HEPWf9JWefj5BaXDDpjiEyKook6HLIPz+Qlfoyyyc+3XU62kx4kpiUwPIIDp5rawJXUg9pt+PpA2xdDghkUWNTT1r4Lh2GRhG2EFb2LagLXM0l4BH+j8MM7UE96Kaei7F4hEN4+djHBekvUaEWSNA8fYwdaOPTImfDhVon1pUr1QdVx4phhA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rSh3L/AFX1kwUWbUN803XD5qISN//S+9dF22OnqF/Ss=;
- b=Z/UqlXJ5LpH2G/yL+BQlvggij6/yxlD6hoHyRxagsEiZKAcraH00ldXJ7rbpJYGmBh+Kijw3nKxBggUlrCkvB82HqpbT3VuijcWNE9hjAiflN9UsGym6ZZhaKhs6h4sOtNDxaogXWwdKoaU/B+gGvvaKuJq3fwfhAjtfI1EwLlcrdLVXPMEREOmDO18cFaPRyQ1wnV2OhiyOAl56gLwliF77TDbBfXBx+SZnvjEHgE3g9Jfz5CKAet/BEwb+y94egEzTdG9/o2Uwk+D5jYTt5LRaRBr4bZHzgfa+uu4Wg7QrbogAWekgjbRQeepplAOj7xCwEB/UdHnlsc0nsyZqtg==
+ bh=qJY+Z8v2F+OrilDf0c+mywrBc7V7NbAWQsU/sTzRiWQ=;
+ b=P2oxIwm9La25o3IPrp2gu7NVmOig1zBDJCUvZ8/GU5FJ6z/llktjJO38z1lFCUv0OhmXkMZHmr8Uu/9HuoLvVSBlkBlcqhSzFtdAvRiNfoM6AL+zA3L5TP3OSdDdODjJyJ0ViA9xAtdHe1A0OjyMjmYNRq4hwScPqLRoRzxg2b0FE0Q8Xj4CfWx/bnBYXs4SN7XAYDcFRSk/qpQ1n5jcRYBgrpzPkrzv3vY0uhezxmS0nLxDxHsZpMpdF1w3CUdew1b3r7ufRqZfzrLjrXVBSyCZRb3D/jT+TilyYvLdQDoqUuZZuAEfrENU6JwV3M9DTS4wrUcki1b2FTcoq1Rv3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  40.67.248.234) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -117,8 +113,8 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rSh3L/AFX1kwUWbUN803XD5qISN//S+9dF22OnqF/Ss=;
- b=lPPyoz94FwlEGHmUOII9wMO8lhVidDeQOajv7kcMUtK9QPNsX8EnMarfB9mnxQiLrWPoRuvHpapr9yW0aLDnUTJgrMflzcCyQiknO2FkPHxatDpGI5bZ5AUc9EhMeaEePc/GqXAtxnHm6+lJxVlZfxwNS0N7llTuEJU0BwLrYiw=
+ bh=qJY+Z8v2F+OrilDf0c+mywrBc7V7NbAWQsU/sTzRiWQ=;
+ b=YOWaLxK2hRMsjcThyNKtsOXrILT4Gu3QkZrllp7XvKCBYQgatpTiAV/dKOT2Igbm3BkQKYYjtKr6lPWJtok7y6JpM0GqYp1FJIlQPlaZEAthvQ5e0J5IzC5Jh+rDzlk/Aqg6eD24p7u0f0a8ztwIIWPsY9zxUjZu3oI24EMRewM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
  smtp.mailfrom=arm.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=arm.com;
@@ -129,213 +125,269 @@ From: Penny Zheng <penny.zheng@arm.com>
 To: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
 	<julien@xen.org>
 CC: <Bertrand.Marquis@arm.com>, <Wei.Chen@arm.com>
-Subject: [PATCH v5 01/11] xen: introduce internal CDF_xxx flags for domain creation
-Date: Thu, 27 Jan 2022 07:49:19 +0000
-Message-ID: <20220127074929.502885-2-penny.zheng@arm.com>
+Subject: [PATCH v5 02/11] xen: introduce CDF_directmap
+Date: Thu, 27 Jan 2022 07:49:20 +0000
+Message-ID: <20220127074929.502885-3-penny.zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220127074929.502885-1-penny.zheng@arm.com>
 References: <20220127074929.502885-1-penny.zheng@arm.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-EOPAttributedMessage: 1
-X-MS-Office365-Filtering-Correlation-Id: 297eebb0-cc8e-41cd-ce0f-08d9e169b5f3
+X-MS-Office365-Filtering-Correlation-Id: 2034215e-60a6-408e-8712-08d9e169b72c
 X-MS-TrafficTypeDiagnostic:
-	VE1PR08MB4877:EE_|DB5EUR03FT044:EE_|DB8PR08MB5130:EE_
+	AM0PR08MB4961:EE_|DB5EUR03FT016:EE_|AM9PR08MB6820:EE_
 X-Microsoft-Antispam-PRVS:
-	<DB8PR08MB513049D72B46A2BE64701815F7219@DB8PR08MB5130.eurprd08.prod.outlook.com>
+	<AM9PR08MB6820BD49DEED433E0B032978F7219@AM9PR08MB6820.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:1051;OLM:1051;
+X-MS-Oob-TLC-OOBClassifiers: OLM:213;OLM:213;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- KSGpiICiUrydWxOKs8WR34Rt4t6PUOE2R7pix5PnOADzVLDAAL2BJwV+9AKMNR6EfuChvAp1MK/Uqu8RS2qhz/KDpEbXVzifsMFdpnRSxj/84HeZR/TeTR/r8CjJKmMmWVeDzibTQlJnHu8/B15rp9krE68QX82PDTNrPWOqhOoT36t050QGYuNq1QNUQrmOMTAyTePoShVvQVABBo+ofFhcaKIVgZxiBoScRl1SV6MLifwIOoZBchOC9lQYrT40wmMosM3Phjg3u6QE2JIP2fgz5xox+BPDyON8ljlA0jwioexAfZQmmzJZOAg48aDX9DKM1x/py3oKkW8E22n2J0FQuUFCTqVK1oqBJytHzl8/6Ergy9Sp1/qo2wbVaNeFn3k9pK3MrrASf9zOS9mfUlHKTiDeI++S6ObFbY/r0Du6XVKK6Crvk0W8CwT5TYF209mrIGg7k/D1V2yv6E++uNakCUHgs0zPucE4dTeZ/xrnWwwHbM7tS5HguBDgHaSSCap42+Q9cGQZyes33J15oYuEC4V/oI7mzZLMHAhDEcmr8b81WV3nSlY0yg9HzCoVR8RVPWkr+mM+m3ooUVXsolOBisvxGYCtxQ92DGdz4H1I99WZaSwfA05EKGhl3aPlC6uigx6ckeEtSbZdeYOq48xC4mCLT3BSMeikrwRLHdjdXgLKtzeVJ9xsUbGGj9Bzl8xKcUjzkxRPSG4U+HyYY9qQCzCKHgVgNC9KZIgm0cU=
+ S6ty7VA1WgAomn9VI6LOvP5W71fC7dsKo5l/EfKkbNHg3xoI6xd/PVrB0UlfZKmLRoSv5hoX9Elzp21YE85Bg1OwtXtzCLgBLHGG5bwGFeA/BHaZ63W3h/xUQB9+ZBXagoGa+Q5ywTf1JKsSOBf2nRpO0s3ephuAS1vle9/OrCUWPqFTeV1c3Muq6CrsK6c1hj8hXrXakCy5jupynevU4Dnz8nZJZ8Lo3dAG9i47S8YeL/JJwz/b+HQj2H5IaOij+llUHY8d77dEKAHsLZEa+9dssgLHKpSOT+ttJ+cFUrkwRmSG4moVyNTiwY2ylkxFQk/bqf6LqGBBjxSTIrzmHK7YkXljluW6PsDKXEGgM38OdUfvqH6CN1SCtZloXkXSO3dE4FBRse2CY6ptyuiZnyDSS+nJ9x9dWaqt/vjHkojrSEzeSNIe8YDGr8tLoHUHam5H1amtpNrNMd5mVwNyQV7W41ks0vqrMYsBSZA3qfWEUsVJ79KeSy0dS7Q94BWvDU+TfhZnUXc0qAatw+VdYKvPqyHxCX8rf5V0oKEeB4W9+YxEoafTftgyUU3b/W9FbJHQn3TcRIbbdMZLHJ4F2njaq9azluURPaDFLn17sFlwlVw/FvfFWJ6kd4ejLqZ67fCYAupWaEpirdrvKWrRGTSF2xVHpNP6QktawcOtDuapl9cIWgqsori1Cp8r1L1WYR7besOi9bVvt16qDE3Sw81iLh2WYagD4achjasU7rI=
 X-Forefront-Antispam-Report-Untrusted:
- CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(186003)(36756003)(1076003)(81166007)(36860700001)(26005)(40460700003)(356005)(47076005)(7696005)(44832011)(2616005)(6666004)(2906002)(82310400004)(83380400001)(336012)(70206006)(70586007)(4326008)(508600001)(8676002)(426003)(8936002)(54906003)(110136005)(5660300002)(86362001)(316002)(21314003)(36900700001)(20210929001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB4877
+ CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(46966006)(40470700004)(36756003)(6666004)(336012)(426003)(70586007)(70206006)(8676002)(4326008)(8936002)(5660300002)(7696005)(508600001)(110136005)(86362001)(316002)(54906003)(40460700003)(81166007)(44832011)(356005)(2906002)(2616005)(26005)(47076005)(1076003)(186003)(82310400004)(83380400001)(36860700001)(21314003)(36900700001)(20210929001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB4961
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT044.eop-EUR03.prod.protection.outlook.com
+ DB5EUR03FT016.eop-EUR03.prod.protection.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	1fc58dbc-a7ff-42b5-0f87-08d9e169afa8
+	c93fe7fd-476d-4415-fedb-08d9e169b14c
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	8qp8svwKDWe3TRJosiRBO34prpAV/MqZqxKgAvDJHXyU1qOPrwLoOkoPeMXaT2zgTO1YE4+IxLqzb/BIvkq4rYAH1UrPCfTdtzBXmFuyvgz4JQRdV9r5rSeMmjfjaZN6EuBPWWiKgoh3qwYHf8ljuDhHCBVtSeT8e/6kbYq0E3ZLSdP6VjU5P/WeOewQUVtzO0oE0tnCj0juLgrLrNBd4/VYEgkyGyfJGXcnsL7eaYAR3Dmkdtg+1ZpT2Tucp0//cbKqd7hmy+FAyS9avksaax5b5oWbwNLfQ/OEhFho2QS0GjH2GOtpStyjpLDCNgD7ELaliIHGXXbauj/KHQqtsMC7uLLNSvhiha/AggW9i7sO3VsSmAnupJwNPYxrAuMopSXm5I3wMraumZUkDoKo9lVRsoIZ0QZTY1P6eQG9y94bzOvD6GJKY9nb783pFTHUm7fWty87TvyivngAbIBK6et+gIhvY3I2svH5RS5kVM7cgwomfP0HYsQOZJq9IGVqaT6mB/uubiqNTE3l0OaGYWacELEW8ZG/SxtS/K6hwzFWQnnPaGTxnkjBBFFZPfHD9cx1cUvSbsFQO5mTLVFHph+YJ91G86BAL4M0IMlCBOJIwhuEVONzQDmruz/h2MUMxjLg5mGI0NvEcCBdwYw0Kl3+Se7bNmesfkBlkUaYJA295AjCz9QjIObtq1NxxBhG2WfRFIw6CefKn1Pa9LBucg==
+	QsrKD67OpbVVNwqUmpgToM95YkJIxhUNlatGnbUqWkFCl0IM0cMhiuMDU8yRFIu0MiQyOkotdKSRk7MjzhoES1dzsDSTtmFU8rqa/NfXu7Qc3sg6mPXLwh6Xh4/dKZrVNavfp7I4b+j5DOFEl5pUWyvABMWBPF9me2XT8cpqpr8kfxrapTVFZqiBR5hl3CWg6nsGGTk4IUPDbq5sqZvYMUnrhlVH3QUZ7dHYAR5S1j0rhhXJLpQy6O5EY379RzZXOQ7DpIcDL+KhK5oa26gHpF8JgJFV7tMdbJVDW/bKANTIKnNxz/Fhde+GTphCwWSlw6Sm6hRSAYkXUofFutU89n39gWqYbxhD2J5PlTrUc/WdY/XaX5S+1BNvOmv4UC93aQG2yrF7u7XF1sYPAAIRIjc2QyaTf4snBsMZucIXbRFX6UZdlZEq6hgQLEGkCukqcNkrdR9ClU337UKFiXH2P2f6IzlcXNczaLM2KZWwqLxPdJIeSVwM6fs7O+cdrlRaAupvB6KIYRGU8s/CJ5jTdKrgxhTqrnn/Qc+O4CwrZfdeL9p87DsKRzzs3o5cglUIvoqJD86W0U4FCOUAtcqP7qu6yE9GJamrguPtNPq3Rb6RNsrmx+0FCgatN5zrCJlQafU61z4PKs+LNwwXJYd8lDWvHNSwLVKeEK2pGJE/rTiHNCpYGouRAsm83tLrnuBN5tFO3UjiJUfxIkqCLA2bPA==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(36840700001)(46966006)(2616005)(44832011)(81166007)(2906002)(36860700001)(83380400001)(1076003)(47076005)(82310400004)(186003)(26005)(70586007)(5660300002)(508600001)(426003)(336012)(4326008)(8936002)(8676002)(6666004)(36756003)(70206006)(316002)(86362001)(40460700003)(54906003)(7696005)(110136005)(21314003)(20210929001);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(40470700004)(46966006)(36840700001)(83380400001)(86362001)(426003)(5660300002)(2906002)(36756003)(6666004)(47076005)(336012)(54906003)(110136005)(7696005)(40460700003)(8936002)(26005)(316002)(36860700001)(508600001)(1076003)(4326008)(8676002)(186003)(44832011)(70206006)(81166007)(2616005)(82310400004)(70586007)(21314003)(20210929001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2022 07:50:38.9949
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2022 07:50:41.0600
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 297eebb0-cc8e-41cd-ce0f-08d9e169b5f3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2034215e-60a6-408e-8712-08d9e169b72c
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT044.eop-EUR03.prod.protection.outlook.com
+	DB5EUR03FT016.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR08MB5130
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB6820
 
 From: Stefano Stabellini <sstabellini@kernel.org>
 
-We are passing an internal-only boolean flag at domain creation to
-specify whether we want the domain to be privileged (i.e. dom0) or
-not. Another flag will be introduced later in this series.
+This commit introduces a new arm-specific flag CDF_directmap to specify
+that a domain should have its memory direct-map(guest physical address
+== physical address) at domain creation.
 
-This commit extends original "boolean" to an "unsigned int" covering both
-the existing "is_priv" and our new "directmap", which will be introduced later.
+Also, add a directmap flag under struct arch_domain and use it to
+reimplement is_domain_direct_mapped.
 
-To make visible the relationship, we name the respective constants CDF_xxx
-(with no XEN_DOMCTL_ prefix) to represent the difference with the public
-constants XEN_DOMCTL_CDF_xxx.
-
-Allocate bit 0 as CDF_privileged: whether a domain is privileged or not.
+For now, direct-map is only available when statically allocated memory is
+used for the domain, that is, "xen,static-mem" must be also defined in the
+domain configuration.
 
 Signed-off-by: Stefano Stabellini <sstabellini@kernel.org>
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Jan Beulich <jbeulich@suse.com>
 Tested-by: Stefano Stabellini <sstabellini@kernel.org>
 ---
-v4 changes:
-- new commit
+CC: andrew.cooper3@citrix.com
+CC: jbeulich@suse.com
+CC: George Dunlap <George.Dunlap@eu.citrix.com>
+CC: Ian Jackson <ian.jackson@eu.citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: "Roger Pau Monné" <roger.pau@citrix.com>
+---
+v2 changes
+- remove the introduce of internal flag
+- remove flag direct_map since we already store this flag in d->options
+- Refine is_domain_direct_mapped to check whether the flag
+XEN_DOMCTL_CDF_directmap is set
+- reword "1:1 direct-map" to just "direct-map"
+---
+v3 changes
+- move flag back to xen/include/xen/domain.h, to let it be only available for
+domain created by XEN.
+- name it with extra "INTERNAL" and add comments to warn developers not
+to accidently use its bitfield when introducing new XEN_DOMCTL_CDF_xxx flag.
+- reject this flag in x86'es arch_sanitise_domain_config()
+---
+v4 changes
+- introduce new internal flag CDF_directmap
+- add a directmap flag under struct arch_domain and use it to
+reimplement is_domain_direct_mapped.
+- expand arch_domain_create to include internal-only parameter "const unsigned
+int flags"
 ---
 v5 changes
 - remove const constraint
+- strict "static allocation" check
 ---
- xen/arch/arm/domain_build.c |  4 ++--
- xen/arch/x86/setup.c        |  2 +-
- xen/common/domain.c         | 10 +++++-----
- xen/common/sched/core.c     |  2 +-
- xen/include/xen/domain.h    |  4 ++++
- xen/include/xen/sched.h     |  2 +-
- 6 files changed, 14 insertions(+), 10 deletions(-)
+ docs/misc/arm/device-tree/booting.txt |  6 ++++++
+ xen/arch/arm/domain.c                 |  5 ++++-
+ xen/arch/arm/domain_build.c           | 14 ++++++++++++--
+ xen/arch/arm/include/asm/domain.h     |  5 +++--
+ xen/arch/x86/domain.c                 |  3 ++-
+ xen/common/domain.c                   |  2 +-
+ xen/include/xen/domain.h              |  5 ++++-
+ 7 files changed, 32 insertions(+), 8 deletions(-)
 
+diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+index 71895663a4..a94125394e 100644
+--- a/docs/misc/arm/device-tree/booting.txt
++++ b/docs/misc/arm/device-tree/booting.txt
+@@ -182,6 +182,12 @@ with the following properties:
+     Both #address-cells and #size-cells need to be specified because
+     both sub-nodes (described shortly) have reg properties.
+ 
++- direct-map
++
++    Only available when statically allocated memory is used for the domain.
++    An empty property to request the memory of the domain to be
++    direct-map (guest physical address == physical address).
++
+ Under the "xen,domain" compatible node, one or more sub-nodes are present
+ for the DomU kernel and ramdisk.
+ 
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index 92a6c509e5..8110c1df86 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -692,7 +692,8 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+ }
+ 
+ int arch_domain_create(struct domain *d,
+-                       struct xen_domctl_createdomain *config)
++                       struct xen_domctl_createdomain *config,
++                       unsigned int flags)
+ {
+     int rc, count = 0;
+ 
+@@ -708,6 +709,8 @@ int arch_domain_create(struct domain *d,
+     ioreq_domain_init(d);
+ #endif
+ 
++    d->arch.directmap = flags & CDF_directmap;
++
+     /* p2m_init relies on some value initialized by the IOMMU subsystem */
+     if ( (rc = iommu_domain_init(d, config->iommu_opts)) != 0 )
+         goto fail;
 diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 6931c022a2..0fab8604de 100644
+index 0fab8604de..6467e8ee32 100644
 --- a/xen/arch/arm/domain_build.c
 +++ b/xen/arch/arm/domain_build.c
-@@ -3058,7 +3058,7 @@ void __init create_domUs(void)
+@@ -3029,10 +3029,20 @@ void __init create_domUs(void)
+             .max_maptrack_frames = -1,
+             .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
+         };
++        unsigned int flags = 0U;
+ 
+         if ( !dt_device_is_compatible(node, "xen,domain") )
+             continue;
+ 
++        if ( dt_property_read_bool(node, "direct-map") )
++        {
++            if ( !IS_ENABLED(CONFIG_STATIC_MEMORY) || !dt_find_property(node, "xen,static-mem", NULL) )
++                panic("direct-map is not valid for domain %s without static allocation.\n",
++                      dt_node_name(node));
++
++            flags |= CDF_directmap;
++        }
++
+         if ( !dt_property_read_u32(node, "cpus", &d_cfg.max_vcpus) )
+             panic("Missing property 'cpus' for domain %s\n",
+                   dt_node_name(node));
+@@ -3058,7 +3068,7 @@ void __init create_domUs(void)
           * very important to use the pre-increment operator to call
           * domain_create() with a domid > 0. (domid == 0 is reserved for Dom0)
           */
--        d = domain_create(++max_init_domid, &d_cfg, false);
-+        d = domain_create(++max_init_domid, &d_cfg, 0);
+-        d = domain_create(++max_init_domid, &d_cfg, 0);
++        d = domain_create(++max_init_domid, &d_cfg, flags);
          if ( IS_ERR(d) )
              panic("Error creating domain %s\n", dt_node_name(node));
  
-@@ -3160,7 +3160,7 @@ void __init create_dom0(void)
+@@ -3160,7 +3170,7 @@ void __init create_dom0(void)
      if ( iommu_enabled )
          dom0_cfg.flags |= XEN_DOMCTL_CDF_iommu;
  
--    dom0 = domain_create(0, &dom0_cfg, true);
-+    dom0 = domain_create(0, &dom0_cfg, CDF_privileged);
+-    dom0 = domain_create(0, &dom0_cfg, CDF_privileged);
++    dom0 = domain_create(0, &dom0_cfg, CDF_privileged | CDF_directmap);
      if ( IS_ERR(dom0) || (alloc_dom0_vcpu0(dom0) == NULL) )
          panic("Error creating domain 0\n");
  
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index e716005145..a14271488c 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -789,7 +789,7 @@ static struct domain *__init create_dom0(const module_t *image,
+diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
+index 9b3647587a..cb37ce89ec 100644
+--- a/xen/arch/arm/include/asm/domain.h
++++ b/xen/arch/arm/include/asm/domain.h
+@@ -29,8 +29,7 @@ enum domain_type {
+ #define is_64bit_domain(d) (0)
+ #endif
  
-     /* Create initial domain.  Not d0 for pvshim. */
-     domid = get_initial_domain_id();
--    d = domain_create(domid, &dom0_cfg, !pv_shim);
-+    d = domain_create(domid, &dom0_cfg, pv_shim ? 0 : CDF_privileged);
-     if ( IS_ERR(d) )
-         panic("Error creating d%u: %ld\n", domid, PTR_ERR(d));
+-/* The hardware domain has always its memory direct mapped. */
+-#define is_domain_direct_mapped(d) is_hardware_domain(d)
++#define is_domain_direct_mapped(d) (d->arch.directmap)
  
+ struct vtimer {
+     struct vcpu *v;
+@@ -89,6 +88,8 @@ struct arch_domain
+ #ifdef CONFIG_TEE
+     void *tee;
+ #endif
++
++    bool directmap;
+ }  __cacheline_aligned;
+ 
+ struct arch_vcpu
+diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+index ef1812dc14..9835f90ea0 100644
+--- a/xen/arch/x86/domain.c
++++ b/xen/arch/x86/domain.c
+@@ -722,7 +722,8 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
+ }
+ 
+ int arch_domain_create(struct domain *d,
+-                       struct xen_domctl_createdomain *config)
++                       struct xen_domctl_createdomain *config,
++                       unsigned int flags)
+ {
+     bool paging_initialised = false;
+     uint32_t emflags;
 diff --git a/xen/common/domain.c b/xen/common/domain.c
-index 2048ebad86..a79103e04a 100644
+index a79103e04a..3742322d22 100644
 --- a/xen/common/domain.c
 +++ b/xen/common/domain.c
-@@ -552,7 +552,7 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
- 
- struct domain *domain_create(domid_t domid,
-                              struct xen_domctl_createdomain *config,
--                             bool is_priv)
-+                             unsigned int flags)
- {
-     struct domain *d, **pd, *old_hwdom = NULL;
-     enum { INIT_watchdog = 1u<<1,
-@@ -578,7 +578,7 @@ struct domain *domain_create(domid_t domid,
+@@ -659,7 +659,7 @@ struct domain *domain_create(domid_t domid,
+         radix_tree_init(&d->pirq_tree);
      }
  
-     /* Sort out our idea of is_control_domain(). */
--    d->is_privileged = is_priv;
-+    d->is_privileged = flags & CDF_privileged;
+-    if ( (err = arch_domain_create(d, config)) != 0 )
++    if ( (err = arch_domain_create(d, config, flags)) != 0 )
+         goto fail;
+     init_status |= INIT_arch;
  
-     /* Sort out our idea of is_hardware_domain(). */
-     if ( domid == 0 || domid == hardware_domid )
-@@ -772,7 +772,7 @@ void __init setup_system_domains(void)
-      * Hidden PCI devices will also be associated with this domain
-      * (but be [partly] controlled by Dom0 nevertheless).
-      */
--    dom_xen = domain_create(DOMID_XEN, NULL, false);
-+    dom_xen = domain_create(DOMID_XEN, NULL, 0);
-     if ( IS_ERR(dom_xen) )
-         panic("Failed to create d[XEN]: %ld\n", PTR_ERR(dom_xen));
- 
-@@ -782,7 +782,7 @@ void __init setup_system_domains(void)
-      * array. Mappings occur at the priv of the caller.
-      * Quarantined PCI devices will be associated with this domain.
-      */
--    dom_io = domain_create(DOMID_IO, NULL, false);
-+    dom_io = domain_create(DOMID_IO, NULL, 0);
-     if ( IS_ERR(dom_io) )
-         panic("Failed to create d[IO]: %ld\n", PTR_ERR(dom_io));
- 
-@@ -791,7 +791,7 @@ void __init setup_system_domains(void)
-      * Initialise our COW domain.
-      * This domain owns sharable pages.
-      */
--    dom_cow = domain_create(DOMID_COW, NULL, false);
-+    dom_cow = domain_create(DOMID_COW, NULL, 0);
-     if ( IS_ERR(dom_cow) )
-         panic("Failed to create d[COW]: %ld\n", PTR_ERR(dom_cow));
- #endif
-diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-index 8f4b1ca10d..f5c819349b 100644
---- a/xen/common/sched/core.c
-+++ b/xen/common/sched/core.c
-@@ -3021,7 +3021,7 @@ void __init scheduler_init(void)
-         sched_ratelimit_us = SCHED_DEFAULT_RATELIMIT_US;
-     }
- 
--    idle_domain = domain_create(DOMID_IDLE, NULL, false);
-+    idle_domain = domain_create(DOMID_IDLE, NULL, 0);
-     BUG_ON(IS_ERR(idle_domain));
-     BUG_ON(nr_cpu_ids > ARRAY_SIZE(idle_vcpu));
-     idle_domain->vcpu = idle_vcpu;
 diff --git a/xen/include/xen/domain.h b/xen/include/xen/domain.h
-index 160c8dbdab..cfb0b47f13 100644
+index cfb0b47f13..3a2371d715 100644
 --- a/xen/include/xen/domain.h
 +++ b/xen/include/xen/domain.h
-@@ -28,6 +28,10 @@ void getdomaininfo(struct domain *d, struct xen_domctl_getdomaininfo *info);
- void arch_get_domain_info(const struct domain *d,
-                           struct xen_domctl_getdomaininfo *info);
+@@ -31,6 +31,8 @@ void arch_get_domain_info(const struct domain *d,
+ /* CDF_* constant. Internal flags for domain creation. */
+ /* Is this a privileged domain? */
+ #define CDF_privileged           (1U << 0)
++/* Should domain memory be directly mapped? */
++#define CDF_directmap            (1U << 1)
  
-+/* CDF_* constant. Internal flags for domain creation. */
-+/* Is this a privileged domain? */
-+#define CDF_privileged           (1U << 0)
-+
  /*
   * Arch-specifics.
-  */
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 37f78cc4c4..24a9a87f83 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -665,7 +665,7 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config);
-  */
- struct domain *domain_create(domid_t domid,
-                              struct xen_domctl_createdomain *config,
--                             bool is_priv);
-+                             unsigned int flags);
+@@ -65,7 +67,8 @@ int map_vcpu_info(struct vcpu *v, unsigned long gfn, unsigned offset);
+ void unmap_vcpu_info(struct vcpu *v);
  
- /*
-  * rcu_lock_domain_by_id() is more efficient than get_domain_by_id().
+ int arch_domain_create(struct domain *d,
+-                       struct xen_domctl_createdomain *config);
++                       struct xen_domctl_createdomain *config,
++                       unsigned int flags);
+ 
+ void arch_domain_destroy(struct domain *d);
+ 
 -- 
 2.25.1
 
