@@ -2,29 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E096649E925
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jan 2022 18:36:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.261683.453294 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E762349EA2A
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jan 2022 19:12:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.261688.453304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nD8gZ-00026w-Vf; Thu, 27 Jan 2022 17:35:51 +0000
+	id 1nD9FN-0006hX-23; Thu, 27 Jan 2022 18:11:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 261683.453294; Thu, 27 Jan 2022 17:35:51 +0000
+Received: by outflank-mailman (output) from mailman id 261688.453304; Thu, 27 Jan 2022 18:11:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nD8gZ-00024X-S1; Thu, 27 Jan 2022 17:35:51 +0000
-Received: by outflank-mailman (input) for mailman id 261683;
- Thu, 27 Jan 2022 17:35:49 +0000
+	id 1nD9FM-0006f1-V7; Thu, 27 Jan 2022 18:11:48 +0000
+Received: by outflank-mailman (input) for mailman id 261688;
+ Thu, 27 Jan 2022 18:11:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P5DO=SL=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nD8gX-00024R-Sy
- for xen-devel@lists.xenproject.org; Thu, 27 Jan 2022 17:35:49 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f458e23-7f97-11ec-8eb8-a37418f5ba1a;
- Thu, 27 Jan 2022 18:35:48 +0100 (CET)
+ <SRS0=OqAq=SL=epam.com=prvs=3026f1f2df=oleksii_moisieiev@srs-se1.protection.inumbo.net>)
+ id 1nD9FL-0006eu-0f
+ for xen-devel@lists.xenproject.org; Thu, 27 Jan 2022 18:11:47 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 952bf4db-7f9c-11ec-8eb8-a37418f5ba1a;
+ Thu, 27 Jan 2022 19:11:44 +0100 (CET)
+Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 20RGjMxw024158;
+ Thu, 27 Jan 2022 18:11:41 GMT
+Received: from eur05-am6-obe.outbound.protection.outlook.com
+ (mail-am6eur05lp2104.outbound.protection.outlook.com [104.47.18.104])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3duy6n0adh-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 27 Jan 2022 18:11:41 +0000
+Received: from PA4PR03MB7136.eurprd03.prod.outlook.com (2603:10a6:102:ea::23)
+ by AM0PR03MB5057.eurprd03.prod.outlook.com (2603:10a6:208:108::29)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17; Thu, 27 Jan
+ 2022 18:11:35 +0000
+Received: from PA4PR03MB7136.eurprd03.prod.outlook.com
+ ([fe80::711f:a15e:91c1:6d43]) by PA4PR03MB7136.eurprd03.prod.outlook.com
+ ([fe80::711f:a15e:91c1:6d43%4]) with mapi id 15.20.4930.015; Thu, 27 Jan 2022
+ 18:11:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,167 +53,362 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f458e23-7f97-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643304948;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=SWVPtmGpUBxhB4f4tqSue2NIRoANcsSL8Cp5qV69uQQ=;
-  b=VUh0awcYMiC7wwEPnYUpldqLcg8dj6NNaf9pOInpdsi5UOpoWf7TyUpo
-   QNvuY+MANa95Tb4OJ8sCVyYng7cJomnBAgDp1G1hQkx1xPOzr5B6sAGS4
-   d/pjph3beN78Ds6Iq+XEKePT9d5rtNbDR/K9KeFxCpIxgTPXHNSbYEEKe
-   o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: 4/OlRQuFodIXadi+GhhjzkhEj/3EfgcWYIkrnje/E866eXWIdUnivWiXf1wKq5VbP6KMhJWQbp
- oLltORLmqlJ3eJe7hkuefMZkhVnNycReRKMVgbJbns9Eze2CDDugdjHtrQH3rlwAdENPgHwTjq
- tIxnOaTuaVa/Y/xD5LLKON/T4vGv74ysrOiGkBz8NjFe8lyEyl5lkP+Z+pKZT9g0MKuMTi6A8r
- VgFKtNSP9TvL4w6cBMnnNkUjv5Kkm3en85xqlkj89r+wylN8iQRAl6Ci2o3p2rr/OjSWvNMn+c
- 7C1XyGH8ND5Z4hCxgL5y3dh1
-X-SBRS: 5.2
-X-MesageID: 62916624
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:ml5mY6907Y53aJWm63/iDrUDbXmTJUtcMsCJ2f8bNWPcYEJGY0x3z
- WROCjrUaamJZjD8eowjYY/noUwO7ZTcyNVmSQVl/y08E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
- +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhFWeIdA970Ug5w7dj3dYy6TSEK1jlV
- e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
- I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPh7x
- Ptou5n3Vz03O5fesv5NDxh9NwhhaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
- 6ZCcXZUM07F17neLLGTE4GAguwKKsXxMZxZkXZn1TzDVt4tQIzZQrWM7thdtNs1rp4UTK+AO
- ZBFAdZpRC/+WV5hA0cXMrgFg9yNmHq8WGNe8k3A8MLb5ECMlVcsgdABKuH9atGMAMlYgEucj
- mbH5HjiRAEXMsSFzjiI+W7qgfXA9QvkXKoCGbv+8eRl6HWRzGEODBwdVXOgvOK0zEW5Xrpix
- 1c8o3R06/JorQryE4e7D0bQTGO4UgA0UdZ+NuM/rx+31K/u8SyDVjQFaxpod4lz3CMpfgAC2
- liMltLvIDVgtryJVH6QnoupQSOO1Ts9djFbO3JdJecRy5y6+dxo0EqTJjp2OPPt1rXI9SfML
- ydmRcTUr5EaloY12qqy5jgraBr898GSHmbZCug6N19JDz+Vhqb4P+RECnCBtJ6sybp1qHHb4
- RDofODFtIgz4WmlznDlfQn0NOjBCwy5GDPdm0VzOJIq6i6g/XWuFagJvm0lfhwxaZhZIWK4C
- KM2he+3zMUNVJdNRfQvC79d9uxwlfSwfTgbfq68giVyjmhZK1bcoXAGib+41GHxikk8+ZzTy
- r/AGftA+U0yUPw9pBLvHr91+eZymkgWmD2PLbimkUXP+efONRa9FOZeWHPTP79R0U9xiFiPm
- zqpH5HUm0w3vSyXSnS/zLP/2nhTfSFkXsin8pIOHgNBSyI/cFwc5zbq6epJU6RunrhPl/eO+
- Xe4W0RCz0H4i2GBIgKPAk2PopuyNXqmhX5kbyEqI3iy3H0vPdSm4KsFLsNldrg77u1zi/VzS
- qBdKcmHB/1OTBXB+igcMsah/NAzKkzziFLcJTehbRg+Y4VkG17D9Oj7c1a97yIJFCe265cz+
- uXyygPBTJMfbA1+F8KKOum3xla8sCFFyuJ/VkfFOPdJf0Do/NQ4IiD9lKZvccoNNQ/C1n2R0
- APPWUUUouzEookU9tjVhP/b89f1QrUmRkcDRjvV97e7MyXe71GP+44YXbbaZy3ZWUP15L6mO
- bdfwcbjPaBVh11NqYd9TepmlPps+9v1qrZG5Q14B3GXPU+zA7ZtL3Taj8lCsqpBmu1QtQesA
- x/d/9BbPfOCOd//EU5XLw0gN7zR2fYRkzjUzPI0PESlu3MnoOvZCR1fb0uWlShQDLppK4d0k
- +4utfkf5xG7lhd3YM2NiTpZ9jjUI3ENO0n9Wkr23GM/ZtIX92x/
-IronPort-HdrOrdr: A9a23:35C0+aD0eG1Bp0HlHegIsceALOsnbusQ8zAXPh9KJiC9I/b1qy
- nxppkmPEfP+UsssHFJo6HkBEEZKUmsu6KdkrNhQYtKOzOW+VdATbsSorcKpgePJ8SQzJ8l6U
- 4NSdkcNDS0NykBsS+Y2nj5Lz9D+qj+zEnAv463pB0NLT2CKZsQlDuRYjzrSHGeLzM2YabRYa
- DsgPav0ADQHkj/AP7LZEUtbqzmnZnmhZjmaRkJC1oM8w+Vlw6l77b8Dlyxwgoeeykn+8ZgzU
- H11yjCoomzufCyzRHRk0XJ6Y5NpdfnwtxfQOSRl8kuLCn2gArAXvUiZ1TChkFxnAic0idsrD
- D+mWZnAy210QKJQoiBm2qo5+An6kd315at8y7CvZKpm72HeNtzMbs+uWseSGqF16NohqAN7E
- oAtVjpxqZ/HFfOmj/w6MPPUAwvnk2ooWA6mepWlHBHV5ACAYUh57D30XklWKvoJhiKo7zP0d
- MeeP309bJTaxeXfnrZtm5gzJilWWkyBA6PRgwHttaO2zZbkXhlxw9ArfZv0kso5dY4Ud1J9u
- 7EOqNnmPVHSdIXd7t0AKMETdGsAmLATBrQOCaZIEjhFqsAJ3XRwqSHrYkd9aWvYtgF3ZEykJ
- POXBdRsnMzYVvnDYmU0JhC4nn2MSyAtPTWu7djDrRCy8/BrYvQQFq+oQoV4ridSt0kc7jmZ8
- o=
-X-IronPort-AV: E=Sophos;i="5.88,321,1635220800"; 
-   d="scan'208";a="62916624"
+X-Inumbo-ID: 952bf4db-7f9c-11ec-8eb8-a37418f5ba1a
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lDEiH61Go5JBKfIfkS6WzM/tmMCiALIaD6qYuHzc9T1gcux/AYjPigvZhi4WAhjoIKaS1e62qc8om2XVhrYtFa2Fs3VEOyWs6hl/CcO8jPt7upAlSRnZASF+UQf8C8bX1P51LefRs0gJa6qEaqTIXJ8HwvHRkrnoln2PZWyx2W3hfkRV7TCRrr9XD1jYbJfkqYu/RRAxKSnW7joEdCxqUfSl1zCqi+LLvzBu1A3HtwmkpZuLXHQylhD0wAooa5Vhm1fnVC+SYABtMMT3xRvL1PK9m4X410DK8U2vdlfubNxhWL6e6tH7PiWCXT9mR+sMc9vdTLmgPkZZpzU6MMJ99g==
+ b=YgGewTgBgKSpRFGow3/7MvlFiVkk3jKIflnG7F7s/qXhYD3ZAxAG5KEVk0ulQjJxrvoEuT8egzz6MS2BNyNe4cYK+d2yLmI4vRTNS+xh/ij3XYK+orI8Vlv/VnyQ9PFbneq6EUOSEmM9v2mb9LCsQhkGEAjinAzIOxRyxAdvuwb4GMmz/PUzHOAc94J8vBaYdcECCf5Ww9TT1ZTTtm8sCXgPfH8OaMM1WD063F4TLOddM53RI1BMITP0NCmG7ukWHGOi98eYv95wxfcsVoPUi+dukAIbxD50KkVyQC312DTTWrV4Svo7zfCguez7SuUHFUF5oTs3euHj6F2a/q1Ckg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SWVPtmGpUBxhB4f4tqSue2NIRoANcsSL8Cp5qV69uQQ=;
- b=MpSH4AHONVv44pppqM2Pl145vAH+2Unq0/4KMW11+eW5JK3X5vz5zPAEiHrcWZBc/RRUlIjP/oDTj9apXXXsXAXHHbZWlN0v47eNO5sbYcquHF17XdxzxJMVUspm3kbeE/mlR4tRquC78Gcz2zYTMRaMGC2bv/qrE0LSg/pJyUbxaLPAXnuPOn7ESrWTlwCYlFlRDy5c1bbt/cKDJiEGLDnEoOuVeNbzNm56IC0aig+lrOM3YKT4BsUUBf7e/kjbhNCNFXsaDgCds94A4UHK05Op/YrOZgm0QwS83LFMcUICgiZyMloTktGLchHTpNWhiqqcx3n65gTO4oqqilE55w==
+ bh=EDJsrAySHBWKqPNTbFsG4+WCaf3I2MPm8vprHWNjg/o=;
+ b=X1LmD6aslwkj9WyjK0b6GAQp4+5eAbRsl9MEkhY/F0eOITNItm8pt62yzKVYVGGznz8i0sR6wz/ak37VTg7DG4VXCA0aBKlzT7Ikl0qHBThOoqARMYckpdksmwwqFJZYrPjlMVrz9olTgcgzEBXC8E+V6S23sZ8TMS2nIwKjz1ptMZxdfYhoSSPm30ID799X3hR+Ptr7O1qInUxBqaFFsQgn59EyE2VSPojaaKskwWpRnBAL3ERAaaF3UzqH1qhA+uxMUEkPErx/MPR+jjlypDbgyRrKLaBVDXLEVP0D4iozl6uCfZe5YSsrnKl7yWO8+bm4vujqd9Q1RjyQs5wTCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SWVPtmGpUBxhB4f4tqSue2NIRoANcsSL8Cp5qV69uQQ=;
- b=phT/1fu+2hQfB3HHMeccHlfOrpObbFUHJSniqOYAvRF8lwBf+/HQAzj0RYodRHuMW6P2YQjHHvj+bxogoyAhsgj3ANK+P8iAlySaVLbjr5WXQhAl1BMRHdd01b1MbEPX1bVGVFqe80621AFCNBjrEH4y0TNW+yEmVF7Yx7fbfGI=
-From: Andrew Cooper <Andrew.Cooper3@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Xen-devel
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH 2/3] x86/cpuid: Infrastructure for leaf 0x00000007:1.ebx
-Thread-Topic: [PATCH 2/3] x86/cpuid: Infrastructure for leaf 0x00000007:1.ebx
-Thread-Index: AQHYE5huD7pVCoL/d0KskraI0R0Urax3Ej+AgAAPHYA=
-Date: Thu, 27 Jan 2022 17:35:29 +0000
-Message-ID: <ccb7bfb0-20a4-e80b-62ad-aabe41e358c1@citrix.com>
-References: <20220127160940.19469-1-andrew.cooper3@citrix.com>
- <20220127160940.19469-3-andrew.cooper3@citrix.com>
- <d2405bc8-64be-206d-7d79-b06e2fdb6ae9@suse.com>
-In-Reply-To: <d2405bc8-64be-206d-7d79-b06e2fdb6ae9@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
+ bh=EDJsrAySHBWKqPNTbFsG4+WCaf3I2MPm8vprHWNjg/o=;
+ b=QeOGFtCcgZcSeucivGSJv8r2b6sPdBaFDzOv5Bf4AGKRbGhoDhr+23XPaXVnyRHyy2z86n8rKkCLg9hP9U+YDU7BpJAr1t7FjbbVLvrBG2ZabseFeuqOTHXWilPnrEs+bcUDcixdjN4jkbywxHhha90ShxayjK2WoBm7cVDcOmJzKzrNX+NNoNB36BqIGQA9UhDIQB50mkHTko9DtSi7InRSVEyMCSLfj/DQNs6lgX9SgdXdZHuDuRDieF0IKJuwtz2YVMKFyvo+CROqYSLb37uei2xFuz5z3fPZ/NrivxDp+CidOiH+cfD4s0H1BNyjucdtV3L659tDHpkbWsLAPw==
+From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>,
+        "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>,
+        Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>,
+        Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: Re: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
+Thread-Topic: [RFC v1 3/5] xen/arm: introduce SCMI-SMC mediator driver
+Thread-Index: 
+ AQHX8M3JF7Ng56/tV0+8/7pODiaWfKw3iHyAgAQwJICAAG+xgIABQZuAgAAWSACAAOV/AIABANAAgCsRKgCAAOC8gIAAlQqAgADLX4CAARblgIAAX5CAgASN5YCAAAwYAIAABamAgAAvCoCAARH1gIAAcQYAgALwEgA=
+Date: Thu, 27 Jan 2022 18:11:33 +0000
+Message-ID: <20220127181132.GA149448@EPUAKYIW015D>
+References: <20220120102147.GA4153317@EPUAKYIW015D>
+ <alpine.DEB.2.22.394.2201201230480.27308@ubuntu-linux-20-04-desktop>
+ <20220121150753.GA898010@EPUAKYIW015D>
+ <alpine.DEB.2.22.394.2201211236060.27308@ubuntu-linux-20-04-desktop>
+ <20220124182249.GA2485483@EPUAKYIW015D>
+ <alpine.DEB.2.22.394.2201241056290.27308@ubuntu-linux-20-04-desktop>
+ <d5c84296-79a6-5698-802d-4d9ba60dbf24@xen.org>
+ <alpine.DEB.2.22.394.2201241403240.27308@ubuntu-linux-20-04-desktop>
+ <20220125143515.GA2803662@EPUAKYIW015D>
+ <alpine.DEB.2.22.394.2201251245120.27308@ubuntu-linux-20-04-desktop>
+In-Reply-To: 
+ <alpine.DEB.2.22.394.2201251245120.27308@ubuntu-linux-20-04-desktop>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: e8ea79c0-2bf8-4369-e6a1-08d9e1bb6991
-x-ms-traffictypediagnostic: DM5PR03MB2841:EE_
-x-microsoft-antispam-prvs: <DM5PR03MB284176C7C676FE3A602B1571BA219@DM5PR03MB2841.namprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1091;
+x-ms-office365-filtering-correlation-id: c66e833c-04d6-401b-22d0-08d9e1c07355
+x-ms-traffictypediagnostic: AM0PR03MB5057:EE_
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-microsoft-antispam-prvs: 
+ <AM0PR03MB505795145CD25E6A65160064E3219@AM0PR03MB5057.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: l7nFVxIKBdjinTYVny3uLMw6gkX8DZt/20Kji8n23sopqXvmBY/LO6zYf4WUdodqbjREYGPWfUHs1aaYqeleer5qeLCJB6eZOoiPLrBenfOmbXjcPX4MYpeanPAE1d39M3Oh2PIi2V3CX8c3mBUUX1SGFNFpeeKG+XLHhF2N7UXv9771Di2PnssVr8w+5/U9l7c99aVcp50tb5bZsxeA7YUC8pl1zMNlDt9zWXX260l23HhsFuPdbij+j+yJUC29mHivfOoDzF0dI2/TQj6QE3zYXIdxjKG14BlAT0o3qvaZUYuCCLupjVBOHzpyEWh6Cl/T0QzkrtL3tGR7fCjvT3Um8prVZURr+5hWFFnMuuYGTkzmzhUrUSaUXRLm0hIk4WvSXZIagpVP0f+y+PIhQJNTJi/XYSA34QFg/f8Hr1xOP697i5jGhxWjbyyrU7s1YM2esF5PfT0q/kNjKnDTKuaL8Sth8zAtoviHk/yaPZOgdWXJARgIG5yCEMRj3DmiprbhD80mUucaUCA7vXXa52FRN5i8enN/5pX32I2Rg7Pgzn12BsBqYsGePmp8XNY6HVbgfiN+S8mALmbUykVbgq4gISNu2KSOhfTAIxPat//PkYBZVV+Fkf3wK1sl1dNbMDDx6uDDkzXx+zoLfyUF4XFDn6DKvyEU7/3PgweAsrlgN+AjnaFq0vZiYHEI0WZ/a64NnFpgONb9NiXEq4B1FmvjU/jrJGk7B24RQxIF/QQgUigb6wo8wks9yFv6ey0hAt0I4bytnFcncKQdMFURaw==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(508600001)(6916009)(54906003)(316002)(6486002)(86362001)(6512007)(186003)(76116006)(66476007)(5660300002)(4326008)(8676002)(8936002)(66446008)(66556008)(64756008)(66946007)(82960400001)(31696002)(36756003)(2616005)(31686004)(6506007)(91956017)(53546011)(38070700005)(71200400001)(38100700002)(26005)(4744005)(2906002)(122000001)(45980500001)(43740500002)(20210929001);DIR:OUT;SFP:1101;
+x-microsoft-antispam-message-info: 
+ RaEOAUOfFa5PpRRpl4Z0A6z1bhNeEhSsUjZEEvwLb686l1QQyS0kqM3Me04SuxTeupW6MteCBjU8H3AikSRbPdsLC+o3ysuxcVWijg+1YTN+WcInJDF2swNMZwCWkPy/hpGZ5cGqHSJNg/WDHULQk5CKzdthyUV1LbjeTKh9nzFFgb3GL0/wJ5NjqnMEP/45L1xZNrERBgKmrukowoRIZ8AmcmBycpSv2R1Uf6z6PQ1oMU/05N9HB3uIZ51K0ue1Nc/rC5h2jGeBm9u3+hboCSIERKjusI5cyBBBeyagsdArY01nCBC2v1+TBpSEfa/v69eNpl5T4rHWzPR6ycceROJzIMd1ib0ZwOOg/+Lp5aXbWIYTQUr7ZTLfRJSLpnR7QkVJPzucKe2rrzCmALy53AWA3PrYHmFhnAtSBtJ6ScRqyHx926Bo9a6BFfhjnWfel0cVqZmHtea7CYBCT12IvhOS76tlDftZCHNREU9C3U4GNmmcaFRnfHNN3uYlrRWR8BaxzU+vAvnIVczNRQVqB+sI2exPy6EUNpBaH9tF4dBKkbzMaD9H+i2oQ9Adu0i1BVHjUT/l447ld90KtCiA4dBJboYt65fPxEgdUeqA47D73XpqHFih/vmFDnSI6rEyGhzzjioX7hdimokcQawxDMrnMEjGYKcCTgp6OER1ByyIT4srU2o4t+oO/oQxgbICravwjcwhdU2Fj46nDDDnAUlNxuq6HmAQgHGMGJFm7RRWFfv24G6kbSFJHIgh1XBsclDh8AMcJCeQI+Io2fAIS1J0uRMpYx7tk0PUJe8tYXk=
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7136.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(66946007)(76116006)(66556008)(64756008)(66446008)(66476007)(8936002)(8676002)(5660300002)(54906003)(38100700002)(33656002)(4326008)(71200400001)(122000001)(2906002)(91956017)(316002)(6916009)(9686003)(6486002)(33716001)(6512007)(6506007)(83380400001)(186003)(508600001)(1076003)(38070700005)(26005)(53546011)(966005)(86362001)(20210929001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZXh0N2JCbDliWEhMV091aEt1emxHN1hESXNjYWVPRkpwTmxyVFp2anNmcllR?=
- =?utf-8?B?ZWZCTTJvdGFQbWsxeW5wVVQ4UlR2YVU3bENkdFRpS256dzBRU1lIY2lyVGww?=
- =?utf-8?B?bTRVdmZrNkN5N3R1N0xwY2d4ZWtqdkNhZlBDL0hEM0s3RGpnZEZWRlNOUjVi?=
- =?utf-8?B?TDZhRGFoV1lOeWhiY1BNVzVISGRseWc5YmJsbGFhd1JKMHpFSTNrNE84RDJY?=
- =?utf-8?B?SXk2aVZub1pNdWErVWZEdjE1U29SUzMxRjROZXVWMHo0T1hkY3NBWGJuK0dE?=
- =?utf-8?B?dG1EVFREWVQ5enZoUXNHWWNGbGRKZFpmYmhjS2RMUC9CRWZ3bWIyN3NBUGNO?=
- =?utf-8?B?aGRrdDQwTjNSWFN5dWYvVUM1dmxXcFFZdUhTdkFtQW91MUNJd0VmUm1mdWtN?=
- =?utf-8?B?VTZtQ0tpeTd1SmhrZ1JaVE1qU05FbVVMbEMrUUhobWdhaTVuYTFNSFhuOFdO?=
- =?utf-8?B?M0N0YlVyZ1FCSk80Qi91UGI2UHJqVE5kQVVQbVlzNnVDZTlxb3hxRDJKVGNX?=
- =?utf-8?B?MDA3UU9YUDBDditRekppZUhxelR2L3FwWE0xb2txc1FMR053S3lRdUVFU2I2?=
- =?utf-8?B?ZTU3KzE5dW9QMzJMRWc0RzZOTUh5TDhOdWRqbnVqTFY0TElQUEdndkVUYkR3?=
- =?utf-8?B?V0NtaTMxMVdrZ0d6NTBieWFXbGxVKytZY0VxUTNDalRTYUc2c1czb0JpYkIy?=
- =?utf-8?B?WCtPUTEwcEtFNCtucWxMdTFPS2M4S21MaFdaWDAybGIzWTIyVyt6QTMzZHpo?=
- =?utf-8?B?Tm1xWHJOWERpK0VhM3FUdDZHaHBIN1hCaCtsRzhkREt4QVVBUkorZFJzTSty?=
- =?utf-8?B?MFYxeXNHeWVWdVZQeVE1TCtqNDVZSTk5RmlXeUhPRmQwRTBwMkpRQXRrbHdC?=
- =?utf-8?B?MU5lV0NrUUJyTWMwWVNXanpobEVyMTk0TEs0S3pSbTR6RGpOVlVUaWZNREo2?=
- =?utf-8?B?d0Z6STFjbU9yTkZucXdaWWd4UnE2V0pLRXZNZW9YaHBSazRreVZOamVKT3Bj?=
- =?utf-8?B?QXhPek9SWEdwQS9TM25pYlE0MDBEb0VPNk9veWpGenVUZ0x4cU1GYUFodHZI?=
- =?utf-8?B?bTJjT1hlV0FQa0wrV2hHbno5T01jRUJPUW5BMHNyRVlsWk9rTE5LejV1TlZl?=
- =?utf-8?B?bWoyRGZKSUgwM2JUbUdhbkhLdmI3Smg4UnNCdXphb0p1WlpKWEk1Ti81RHFk?=
- =?utf-8?B?cHJJVzRCSTlZNElyQ3VvU3BrUHJsYlJiaWpoeEdJZmhieFQvVDRQNG1ERHRv?=
- =?utf-8?B?eExxbWhkVGlPdlZFZkdwOTJxZ3hYNU9lcVk3V0hGVHU5eTkwWDJtZUZyQ0R1?=
- =?utf-8?B?R2lnUDg5MmpLRE9HK3BIN1laOTl6emdaRjJzZXlPS3poUURSaklVNm1vbDJN?=
- =?utf-8?B?ejJKVTA5WTVsb0VoVlFYSmhkSmMyU1RMQTkzWjhkOW9TcUE4VlhmV3ROSnU5?=
- =?utf-8?B?cjl2elYrOXRRY0FWNlFlWE43bEZXNEVEc3lOMXp1QVFDeWt5L1ZtVlFMZGR0?=
- =?utf-8?B?L21SOUdTUFRienJOb29Gc0Fqak5EU2dxQWpQOEZwUDRlaW1vNU9uRXBMUUdJ?=
- =?utf-8?B?MURoRlFFNzJKdUJtcStVU281dUZRbHpKMVJyNklGMVplUy9HV2djMGNYeGp3?=
- =?utf-8?B?U3BaZDR3aUxZK3dSamQvSFRDNFB5YndBL3lwdGdrWkliN1Y5eXZ0NTZsUm94?=
- =?utf-8?B?amZwUGFMWlVRYnk2Y0YrRWtnUGFBdFZWSmpKVkd3Ujd2eHFaeFl5MVhqN3N6?=
- =?utf-8?B?T0JwR1h0eGJpbjdUMkVjbWg3U3MwdkFkWm1za3d0TUFnYnFvSlV5YVQwKzg5?=
- =?utf-8?B?c2h0VUt1M2Q2eXBPdzU2SndxSU9qZ1JpalQwRWFOelpmZXlCM0xXQTZSYVBp?=
- =?utf-8?B?MlBjTUxyM3VHVkp0N2luUFBGNHA5QkZmaURiclM5dnd6VTNXR0hCS2ZGNUFv?=
- =?utf-8?B?cUc4S2ZBemp4RVZqcVA3OElGVkovL0R5ekFXTHh6RUE5WHdPejhlbEtmZWtI?=
- =?utf-8?B?MFZoZy95d2xzeGVKWklPNWc1VDZtajNBZmtZMkp5RStKREZtOWN6b1FFc0RP?=
- =?utf-8?B?WGZGVHY3QUl2VVVZRTEyK0RkelpWM2ZGcmQ3K3kyNHh4aUlFd294WjFvaEN5?=
- =?utf-8?B?b1Q0MEFzaDNHUmRGbFEvcUtibFI1ekI5ZzJlRTN6TzJTOU5kVG1NZ2RudDQw?=
- =?utf-8?B?NS9ub1FoZFJOYVpscDhyWitnL3NwMkRlb1FSLy9rOGZFUXl4dnBwKzhROVY0?=
- =?utf-8?B?dUlCM2hzalVHTGFDVFhZdm5UaStRPT0=?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <11873813DC81C3428DC02A81AB4C1E42@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?iRd+UOgtQABxK5ssrwU2Io1Rc4oSTty8MrPDCCwfVpt57qXiXVJHEQETpC+Q?=
+ =?us-ascii?Q?I+O1Yb/fCymdqhuPL3pUgrZpnjcVNDhY3yKuVgtFpyo1j8cuDFC+hzKJRkr1?=
+ =?us-ascii?Q?KTNtOkFl0yx3pnsdI1vu8ZmiHywEZQgNuozqcoWYXTbDliRS4hhNcgJQg5Ca?=
+ =?us-ascii?Q?XtFKeoKJh6rkBUJH7ryONLOnnwqtlaGnHe4gHWur3ZdK/mexR1drGYkFl6zM?=
+ =?us-ascii?Q?FfbtR+xoxAFBVM55oRoZgMd/HhPw5JnAPi4lFJh5XzyzFlgLejBh1jV8KmgW?=
+ =?us-ascii?Q?OhP3+6NLtbFEXtLdq6FpcTzyoGYU7ykkWP0LSaCiCD9ML1X1p70VweG6GywK?=
+ =?us-ascii?Q?8ZMqqnErKip4hq7FlsQddwSd3++vO+xIe7iCnktzTsuFVVT2uHHXWn9jRbFW?=
+ =?us-ascii?Q?Tv2k++0wpHTUFGpYp+eRRZvY1k1d6NLwp9Ahg6btIl9stD9zmxWF2i0e+Fu7?=
+ =?us-ascii?Q?uA5LfZdKOgIp+/FJKaskaYxWmamYKLVo7HzjQf53+DoGUgUAa8nr37rPYQzW?=
+ =?us-ascii?Q?nPPvzdbaWLc6Oo01x/I5gi73WNeK8O+zwAFPBwWzf5JbiP3qONgcHtSSinIJ?=
+ =?us-ascii?Q?zCaknCewyYHm1HfQUAVlZapt2CHl5MW2wufeV+JEe8wMzrjjCVvu3gz7hCLe?=
+ =?us-ascii?Q?9ojPXmbML6BxAG1h27LBCPGL96q9Y2eCK6Dfxr6FsJBFSpUgSXCENxpjNtp8?=
+ =?us-ascii?Q?yxhYDJTdzkT+gkoSObqsqED2+kzbubASLdGRySxHgBpslB/dP5XrZmSET/Ji?=
+ =?us-ascii?Q?/XKP+jMeWmVlZGBwttK5rbh/RW0zgUmgyhWFUSWMlaod/xNG9tpjgNijjdwR?=
+ =?us-ascii?Q?sjduobVPpBi9az89bj7AfQjp6NEf1c7gaupBdi4K8NOm9pQUly3gBNdnl1Tg?=
+ =?us-ascii?Q?JU4QAyFQAzRZqRJXXfqEYra0k9mJ06Vnj6bVr5x4/2jGX5yMHTdI8yT68m6K?=
+ =?us-ascii?Q?2bJ9I5NeQ5ahDFWSTBct2OOnLgpjoyofe8bXN7rLh1Tg8Bn+jOCk6h8aBP36?=
+ =?us-ascii?Q?D10tHdV7+OVwFH0+U02K9oZ43N9pzJTHJsZEiXCXs+1WGe4eAHW8L3s/8zvA?=
+ =?us-ascii?Q?L3+RMeM90s7sZVp+vBtr7O/wN1hPU4gwovnmLolzSJWg9Fci9ONBHQ7rXnfa?=
+ =?us-ascii?Q?tYJA+sdsvee9yfIbIwcZ1OOuupLYnNwAWVFWMjIiwl/yQHN6Im5yAJgPva/k?=
+ =?us-ascii?Q?tCM3sZEe0thvPDd7hVikl5PLTgMhkxTdF92UsTfxzwVoRfIT0yI/uNiaGjsp?=
+ =?us-ascii?Q?pFuj0vL6tIn5wDcV0Emh9AeDjxCZjoyfRaknyiyka/mGID2ktkEL8gDqu6NH?=
+ =?us-ascii?Q?HaZJRZmU1b+5GXouijCNjLsBu0ViKtrMD5QnP1JYYHapN/CZ7W0ScBFOjIw/?=
+ =?us-ascii?Q?ag70rlwtPmElhT6EAC7q5FsyTv41ZYTOTvLTQiqtUDI8A8MxSMsMQimwn1JI?=
+ =?us-ascii?Q?sM22qxomIDbQlSSE8nm7ElJroXy2QVp9o20YVl6U/jQ6mETo6jo84/+plz62?=
+ =?us-ascii?Q?vfUTxDa29n5HFobkfQ6wDC/fKFVvx8ceq5X0zTdXtydvJVKHyU5XBHxVCViq?=
+ =?us-ascii?Q?+laSWBETKmp2/7jgCpl4mCZLfhbTTZ7uFQ253d+OOweTMfBP1YbNTcsZLdeC?=
+ =?us-ascii?Q?IoOhsQGO5g5WVyEzwDUBL9K5FThGjxYghDJdr6GalkGDBskrxO4Htx5hL2Rc?=
+ =?us-ascii?Q?UUmRJz3tZwQXj2QNG9/737W9Lt8=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <C26942C880AC7A48B26D034D5C37A3F8@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
+X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8ea79c0-2bf8-4369-e6a1-08d9e1bb6991
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jan 2022 17:35:29.5001
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7136.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c66e833c-04d6-401b-22d0-08d9e1c07355
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jan 2022 18:11:33.3784
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Tj7DIbwVecW7o5BsdTLDFrPQVsoUFehs/4xKsLvu7m3xEHRgq1hZUMh7qaCC8SjV+NbSKEVmW5qNQM5QB7YLnIaWHMiIJgQp9Yk4x2pSGDk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2841
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-userprincipalname: 6v+A8Fm4xjvJzA/d0N/VuZtJLCCSU4kHArrahzPZr2GrZQ2Eh8zzB0I0SmAZfip1LCMlgevMvdQ3KXHyNzs/uT+Cv2IezIiyj6mFDebgJwI=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB5057
+X-Proofpoint-ORIG-GUID: MqJApzUtF7ZFnWq6qfE60B5EFiKdKsfY
+X-Proofpoint-GUID: MqJApzUtF7ZFnWq6qfE60B5EFiKdKsfY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-01-27_03,2022-01-27_01,2021-12-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 bulkscore=0 clxscore=1015
+ mlxlogscore=788 impostorscore=0 lowpriorityscore=0 mlxscore=0
+ malwarescore=0 adultscore=0 spamscore=0 priorityscore=1501 phishscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2201110000 definitions=main-2201270105
 
-T24gMjcvMDEvMjAyMiAxNjo0MSwgSmFuIEJldWxpY2ggd3JvdGU6DQo+IE9uIDI3LjAxLjIwMjIg
-MTc6MDksIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+PiBGcm9tOiBKYW4gQmV1bGljaCA8amJldWxp
-Y2hAc3VzZS5jb20+DQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNo
-QHN1c2UuY29tPg0KPj4gU2lnbmVkLW9mZi1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3Bl
-cjNAY2l0cml4LmNvbT4NCj4gQ29uc2lkZXJpbmcgd2hhdCBwYXRjaCAxIGRvZXMgdG8gdGhlIGNv
-ZGUsIHdvdWxkIHlvdSBtaW5kIGRyb3BwaW5nDQo+IHRoZSAweDAwMDAwMDAgbnVtYmVyIHByZWZp
-eCBmcm9tIHRoZSBzdWJqZWN0Pw0KDQpPb3BzLCB5ZXMuwqAgRG9uZS4NCg0KfkFuZHJldw0K
+On Tue, Jan 25, 2022 at 01:19:46PM -0800, Stefano Stabellini wrote:
+> On Tue, 25 Jan 2022, Oleksii Moisieiev wrote:
+> > On Mon, Jan 24, 2022 at 02:14:43PM -0800, Stefano Stabellini wrote:
+> > > On Mon, 24 Jan 2022, Julien Grall wrote:
+> > > > On 24/01/2022 19:06, Stefano Stabellini wrote:
+> > > > > It looks like XEN_DOMCTL_host_node_by_path and
+> > > > > XEN_DOMCTL_find_host_compatible_node would also solve the problem=
+ but I
+> > > > > think that a single hypercall that retrieves the entire host DTB =
+would
+> > > > > be easier to implement
+> > > >=20
+> > > > DOMCTL should only be used to handle per-domain information. If we =
+want to
+> > > > create a new sub-hypercall of either __HYPERVISOR_platform_op or
+> > > > __HYPERVISOR_sysctl_op (not sure which one).
+> > > >=20
+> > > > AFAICT, both are versioned.
+> > > >=20
+> > > > > and more robust in the long term. >
+> > > > > hypfs has the advantage that it would create an interface more si=
+milar
+> > > > > to the one people are already used to on Linux systems
+> > > > > (/proc/device-tree). xl/libxl would have to scan the whole hypfs =
+tree,
+> > > > > which intuitively I think it would be slower.
+> > > >=20
+> > > > Even if you have the binary blob, you would still have to scan the
+> > > > device-tree. That said, it is probably going to be potentially a bi=
+t faster
+> > > > because you have less hypercall.
+> > > >=20
+> > > > However, here this is a trade-off between memory use and speed. If =
+you want
+> > > > speed, then you may have to transfer up to 2MB every time. So the q=
+uestion is
+> > > > do we care more about speed or memory usage?
+> > > >=20
+> > > > > Also the feature might be
+> > > > > harder to implement but I am not sure.
+> > > > >=20
+> > > > > I don't have a strong preference and this is not a stable interfa=
+ce (we
+> > > > > don't have to be extra paranoid about forward and backward
+> > > > > compatibility). So I am fine either way. Let's see what the other=
+s think
+> > > > > as well.
+> > > >=20
+> > > > My preference would be to use hypfs as this is cleaner than exposin=
+g a blob.
+> > >=20
+> > > That's also fine by me. Probably the hypfs implementation shouldn't b=
+e
+> > > much more difficult than something like
+> > > XEN_DOMCTL_host_node_by_path/XEN_DOMCTL_find_host_compatible_node.
+> > >=20
+> > >=20
+> > > > However, are we sure we can simply copy the content of the host Dev=
+ice-Tree to
+> > > > the guest Device-Tree for SCMI? For instance, I know that for devic=
+e
+> > > > passthrough there are some property that needs to be altered for so=
+me devices.
+> > > > Hence, why it is not present. Although, I vaguely recalled to have =
+written a
+> > > > PoC, not sure if it was posted on the ML.
+> > >=20
+> > > The SCMI node cannot be copied "as is" from host to guest. It needs a
+> > > couple of changes but they seem feasible as they are limited to the
+> > > channels exposed to the guest. (The generic device passthrough case i=
+s a
+> > > lot more difficult.)
+> >=20
+> >=20
+> > Hi Stefano,
+> >=20
+> > What I'm thinking about is do we actually need to create SCMI node in D=
+omU device-tree?
+> > I have this question is because we don't need SCMI node to be present i=
+n DomU=20
+> > device-tree if it has no passed-through devices, which are using scmi.=
+=20
+> > So if we don't have passed-through devices or do not provide DomU parti=
+al device-tree=20
+> > in config, then there is no need to create SCMI node.
+> >=20
+> > For now I see the following possible domu configurations:
+> > 1) If DomU has a lot of passed-through devices and it's easier to inher=
+it=20
+> > host device-tree and disable not passed-through devices.
+> > Partial device tree will looks like this:
+> >=20
+> > #include "r8a77961-salvator-xs.dts" //include host device tree
+> >=20
+> > /
+> > {
+> > 	soc {
+> > 		...
+> > 	}
+> >=20
+> > };
+> >=20
+> > // Disable non passed-through devices
+> > &hscif {
+> > 	status =3D "disabled";
+> > };
+> >=20
+> > In this case DomU partial device-tree will inherit arm,scmi-smc and=20
+> > arm,scmi-shmem nodes and all clock/reset/power-domains which are using =
+scmi.=20
+> > All this nodes can be copied to DomU device-tree from partial device-tr=
+ee.
+>=20
+> This is an almost dom0 configuration. For this kind of use-cases, I
+> think it is enough to handle dom0 automatically correctly. I wouldn't
+> ask for anything more than that.
+>=20
+>=20
+> > 2) DomU has few passed-through devices, so it's easier to add the devic=
+e nodes=20
+> > to the passthrough node of DomU partial device-tree.
+> > DomU partial device-tree will look like this:
+> > {
+> > 	scmi_shmem: scp-shmem@0x53FF0000 {
+> > 		compatible =3D "arm,scmi-shmem";
+> > 		reg =3D <0x0 0x53FF0000 0x0 0x10000>; =20
+> > 	};
+> > 	scmi {
+> > 		arm,smc-id =3D <....>;
+> > 		compatible =3D "arm,scmi-smc";=20
+> > 		shmem =3D <&scmi_shmem>;
+> > 		scmi_clock: protocol@14 {
+> > 			...
+> > 		};
+> > 		scmi_reset: protocol@16 {
+> > 			...
+> > 		};
+> > 	};=20
+> > 	passthrough {
+> > 		hscif0: serial@e6540000 {=20
+> > 			compatible =3D "renesas,hscif-r8a77961";
+> > 			scmi_devid =3D <5>;
+> > 			clocks =3D <&scmi_clock 5>;
+> > 			resets =3D <&scmi_reset 5>;
+> >  			...
+> > 		};
+> > 	};
+> > };
+> >=20
+> > As you can see in this case we have to manually copy arm,scmi-shmem and=
+=20
+> > arm,scmi-smc nodes with hscif0 node or the device-tree compilation will=
+ fail.
+> > We can use 0x53FF0000, provided in arm,scmi-shmem node and map domain c=
+hannel=20
+> > to this address and copy scmi related nodes to the DomU device-tree.
+> > This is useful when we need to expose only certain protocols to the Dom=
+U.=20
+> > Also it's easy to modify DomU scmi node, as we need for stm32mp1 for ex=
+ample=20
+> > when different smc-id should be set for DomU.
+>=20
+> I think this is the most interesting case that should be automated and
+> not require manual intervention. Let me explain why.
+>=20
+> Currently we require partial device trees to be manually written because
+> there is no easy way to automatically generate them. (I have some ideas
+> on how to automatically generate partial device trees but that is a
+> separate discussion.)
+>=20
+> Unfortunately, it has become increasingly clear that it is too difficult
+> for users (even advanced users!) to come up with the appropriate partial
+> device trees. Thus, I am reluctant to introduce more things that rely on
+> the user having to manually specify partial device tree information.
+> This is why I would like the SCMI nodes to be automatically added for
+> domUs.
+>=20
+> Of course, if a user provides the scmi and scmi_shmem nodes in the
+> partial device tree we could just use them. But ideally we should also
+> be able to automatically generated them based on the host device tree
+> nodes, so that the user only needs to provide serial@e6540000 (in your
+> example, scmi_devid would need to be populated too) and the rest would
+> be done automatically as we do today for the gic and vuart nodes.
+>=20
+> At the same time I don't want to scope-creep this patch series too much
+> and I don't mean to ask you to add a huge new infrastructure to Xen and
+> the Xen tools just to get SCMI support in. I would rather have a
+> not-great automatic generation of the domU SCMI nodes than nothing (e.g.
+> using your suggested XEN_DOMCTL_host_node_by_path and
+> XEN_DOMCTL_find_host_compatible_node hypercalls althought they would
+> need to be platform_op as Julien suggested).
+>=20
+> It looks like the generation of scmi_shmem and scmi should be easy
+> enough that could be handled without difficulty in xl/libxl. But if that
+> turns out to be too difficult, we could have a small independent
+> bash/python script that from the host device tree generates the partial
+> device tree with the SCMI nodes. From Xen point of view we are would
+> still be using the partial device tree, but the partial device tree
+> itself would be generated instead of manually written. As this workflow
+> requires a separate tool I think it is a worse option than the one
+> above. Still better than nothing though.
+>=20
+Hi Stefano,
+
+Thank you for the detail answer. I went through hypfs and will try to
+export host device_tree. Then xl will be able to use hypfs data to
+generate arm,scmi-smc node if arm,scmi-smc node was not provided in
+DomU partial device-tree. Unfortunately, some changes should be done
+to hypfs because it seems not ready to handle nested dynamic dirs.
+
+I'll see if I can update hypfs without breaking the original
+functionality. If not, I will have to create all hypfs dir structure on
+start. For now I'm working on making dynamically created hypfs tree
+structure, based on host device-tree.
+
+Best regards,
+Oleksii.
+>=20
+> > 3) DomU doesn't have any passthrough nodes, which are using scmi.
+> > In this case we don't want SCMI nodes to be in the DomU device-tree.
+> >=20
+> > I see only one use-case when we may need scmi nodes to be generated by =
+xl in=20
+> > DomU device-tree:
+> > Xen generates psci node to handle cpu_on and cpu_off.=20
+> > According to the Section 4.3.2.5 of the DEN0056C [1]:
+> > > For these power domains, this protocol can be used to implement PSCI =
+CPU_SUSPEND, CPU_ON, CPU_FREEZE, CPU_DEFAULT_SUSPEND and CPU_OFF functions.
+> >=20
+> > So in theory psci node can use scmi to control cpu state. But this is n=
+ot our=20
+> > use-case because we don't want to give DomU ability to stop physical CP=
+U.=20
+> > Xen can't intercept and handle CPU_ON and CPU_OFF requests when mailbox=
+ transport=20
+> > is used for SCMI communication.
+> >=20
+> > [1] "SCMI Specification DEN0056C," [Online]. Available: https://urldefe=
+nse.com/v3/__https://developer.arm.com/documentation/den0056/latest__;!!GF_=
+29dbcQIUBPA!k5oB4BpbIN-hU5jrWvNy9FLXi3Kavu3qTr5lESjK8NnlS261E0Nuqg2_pUQWxb2=
+hDdLa$ [developer[.]arm[.]com]=20
+>=20
+> I agree with you on this one; I am not worried about this case.=
 
