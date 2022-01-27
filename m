@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33F5349DDA2
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jan 2022 10:17:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.261348.452409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEA1249DDD0
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jan 2022 10:22:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.261352.452419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nD0ta-0003UP-Dp; Thu, 27 Jan 2022 09:16:46 +0000
+	id 1nD0zF-00051I-5Q; Thu, 27 Jan 2022 09:22:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 261348.452409; Thu, 27 Jan 2022 09:16:46 +0000
+Received: by outflank-mailman (output) from mailman id 261352.452419; Thu, 27 Jan 2022 09:22:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nD0ta-0003Rd-9i; Thu, 27 Jan 2022 09:16:46 +0000
-Received: by outflank-mailman (input) for mailman id 261348;
- Thu, 27 Jan 2022 09:16:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nD0zF-0004z8-2F; Thu, 27 Jan 2022 09:22:37 +0000
+Received: by outflank-mailman (input) for mailman id 261352;
+ Thu, 27 Jan 2022 09:22:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=V/tf=SL=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nD0tY-0003RX-JO
- for xen-devel@lists.xenproject.org; Thu, 27 Jan 2022 09:16:44 +0000
+ id 1nD0zD-0004z2-DH
+ for xen-devel@lists.xenproject.org; Thu, 27 Jan 2022 09:22:35 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d73703d1-7f51-11ec-8f75-fffcc8bd4f1a;
- Thu, 27 Jan 2022 10:16:42 +0100 (CET)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2176.outbound.protection.outlook.com [104.47.17.176]) by
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a8dc62c8-7f52-11ec-8eb8-a37418f5ba1a;
+ Thu, 27 Jan 2022 10:22:34 +0100 (CET)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2050.outbound.protection.outlook.com [104.47.13.50]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-27-lCACdx73MJyv1i7cZ5gN2Q-1; Thu, 27 Jan 2022 10:16:40 +0100
+ de-mta-27-jYylFniuPHGcfatyGuVfpw-1; Thu, 27 Jan 2022 10:22:32 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by VI1PR0402MB2912.eurprd04.prod.outlook.com (2603:10a6:800:b7::14)
+ by AM6PR04MB5365.eurprd04.prod.outlook.com (2603:10a6:20b:99::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17; Thu, 27 Jan
- 2022 09:16:39 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.15; Thu, 27 Jan
+ 2022 09:22:30 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::a1a4:21a6:8390:b5d5]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::a1a4:21a6:8390:b5d5%5]) with mapi id 15.20.4930.017; Thu, 27 Jan 2022
- 09:16:39 +0000
+ 09:22:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,35 +51,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d73703d1-7f51-11ec-8f75-fffcc8bd4f1a
+X-Inumbo-ID: a8dc62c8-7f52-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1643275002;
+	t=1643275353;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+YxU0OcgU/lGGLwYGOCF7NNqFHithPfLCBja9kZHNPM=;
-	b=LZ6fQ9vf3A7c/0EPK8HUQdbxCzhgQ4y1vzYJT7xTG3+5jukG1STnQljJ0UVjFTZcigaqeX
-	3/Ek/JK16/7gtXaygsx/BNCfmzPWe08kf0J8l85c8KV4sTXFOz/PeWCch0v7eZKL7xQQUS
-	iqabWGU+pyO8MDdQPHNa38S2eLPpKuo=
-X-MC-Unique: lCACdx73MJyv1i7cZ5gN2Q-1
+	bh=TLFqD99FARL9XQMsZCRocnSm6uQAvJwUGxFnWi+Rhb0=;
+	b=LtfjP32ditZWMJNEyBay1o2gCO343djwWr7QYVfz/MyWK088+VtJXn0mkMx0c3gPHtUsuy
+	ZoXpgpdHNgbY12UaMbAsTiZBEY9gVwbYPJQG9VvB+pmaS7/hfIkiddLXVqRn4R//gvt4I+
+	PjaWBOxf/RDUemEPD42D+ssHd5ecyYw=
+X-MC-Unique: jYylFniuPHGcfatyGuVfpw-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oSddCkKhbMns9zWmqaSrcPUFrin5r57xTA+Uk9VJRHuhqaGhhRuybpKdz1rXAaW0jgzYRutq8drUOFhykjsFCbZG5y7ae4rcc/tWC/s5Su/QaTtXC6jYaqEJ8djuMkgQpR/sDN3jMNc98Gg0p2WyHd2lRnKL+tNAjMROVzBiRiVKmjEHH3rSrkwRQCX+1swZkAdX6PNN/RxxzRuvjBTn74PEO+WDw8HJ2NgmI3wu3XSBKJ1d4oLw5a7VWPdjPi+LlamBSF6VFV4tLEuIa32Ili2HbAYKHKubBkAwH1MylFVS7aUUvfTNyLvdSf+CZhs3WBoKkGr4r3umLTJna98c4Q==
+ b=AIgo/tF/2BrYg9ywiyLvnEAHDIQ8cET+g54vKDN0jhWXUuMgGUUskxK73MOjC158mJNWj+VpG7wZ5omvrXM4FjM5eNoU/nqRVU60LayRVYGy65GzoFDBY64YrdrIBdc14pIDkHegrqyrnX6UyNOIgBXZU6YXJslyRkOJ8LxYKgQuHOUW+TOyzfbGAHtGOWraPf5QQgVWyzFKpmX6/V+r8VeryzxZAO3vl+qC8ATUC5056KLSURCeX8z+C6GU03GsB8YWjIKmKQG4QKdh7q231OyYw0KNR+V8UbMTLJJ1vP0KZzXUnSA5r2KuqJjMBfJ6B4Axv8QZdk3t8ys5jCGu+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QgMJcaqGP+p1yHBFYVmlw1ktTEcpgcZXxS6jIjG8JEU=;
- b=PonTF3eUBq6YHGCiX2Q6Q0VTcJCuOlHtXvMhWWMmiMlS2QYhiaGAryksidjluYLdYqdkByZc7Ak3EiYRJSjZO5/4FxgGvHP7Qbednf8MAZtu3S8RmQRFJ7OlZmSjyogbX7+MTup5Lj5xBTfySOhvd6oV6H0BoMYnE+1s9tHLO2TBHI5d93PxDmbi2j3l2TGMq8640K4W3RQtmDltXONlYRgaj4m/PN2LI7U/6kxhN56BXpfKcp+7cyHjuzQVmGN7EB7M+gJRgBifTg96yX0CSmuV4CXgEuKmwT5jeA+4+RS13XV7mJNykPTtWYbZJ+C05olF1oqa36PUHZEV9R/DDQ==
+ bh=roLsfW5BYtLkyJsUdQFvcHZ6aAyOjF7GMt7sZWiTRZA=;
+ b=mJbyFg/Tf5HSgXP6QKvmVnz9Skklmm/aG3KI+Vi7+DJWItBtHgej2ZnsC3tGtHL+seae9Ywi1Bc1wUHVXInrB2TsBmiNIHvcP46I8o6NFgfrz0612fqRTqi4CdC0oqvwSfNZgQOZaWh9hKTIVq9r/6VrJKPF7LmgDfH91L7TD8/MzGjk4w5o+o0KSJ23BdUdYjpmV1MnbDBm5lBdDliLjeWnBnfVkNYloeonq+FrhFKI3OKvA9isAw0OiiY1H1ssBqtpNpthslkEMefvyTXaD55l2+NOmhw+iii0oRkNwjesebQMyOOj4sZVRN0KZN8oxzPejp7zsrUs7Pjibj3/zg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b274899d-55f5-1851-82e6-69898d53e726@suse.com>
-Date: Thu, 27 Jan 2022 10:16:38 +0100
+Message-ID: <9ed21543-c299-12fc-a445-ed146fb59412@suse.com>
+Date: Thu, 27 Jan 2022 10:22:29 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH 20/37] xen: introduce CONFIG_EFI to stub API for non-EFI
- architecture
+Subject: Re: [PATCH 12/37] xen/x86: decouple nodes_cover_memory from E820 map
 Content-Language: en-US
 To: Wei Chen <Wei.Chen@arm.com>
 CC: Bertrand Marquis <Bertrand.Marquis@arm.com>,
@@ -87,171 +86,111 @@ CC: Bertrand Marquis <Bertrand.Marquis@arm.com>,
  "sstabellini@kernel.org" <sstabellini@kernel.org>,
  "julien@xen.org" <julien@xen.org>
 References: <20210923120236.3692135-1-wei.chen@arm.com>
- <20210923120236.3692135-21-wei.chen@arm.com>
- <d80da027-93ac-4819-ef7a-f3fd8592e443@suse.com>
- <PAXPR08MB7420AC9A05A6118642F544BD9E219@PAXPR08MB7420.eurprd08.prod.outlook.com>
- <PAXPR08MB7420252BFA15D032BDDF2F4A9E219@PAXPR08MB7420.eurprd08.prod.outlook.com>
- <e135adab-8b21-8dc0-2518-e505a59feb9f@suse.com>
- <PAXPR08MB7420EF1360C2E1D63D278A1B9E219@PAXPR08MB7420.eurprd08.prod.outlook.com>
+ <20210923120236.3692135-13-wei.chen@arm.com>
+ <b6c16f31-b233-1493-aebb-716e087f5ca1@suse.com>
+ <PAXPR08MB74209CAE2D594D22DFF14DDA9E219@PAXPR08MB7420.eurprd08.prod.outlook.com>
+ <d4bb30f9-92a4-47ef-05bd-0ae1dacb3642@suse.com>
+ <PAXPR08MB7420131F1D61587D251C05239E219@PAXPR08MB7420.eurprd08.prod.outlook.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <PAXPR08MB7420EF1360C2E1D63D278A1B9E219@PAXPR08MB7420.eurprd08.prod.outlook.com>
+In-Reply-To: <PAXPR08MB7420131F1D61587D251C05239E219@PAXPR08MB7420.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6P195CA0097.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:209:86::38) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS8P250CA0029.EURP250.PROD.OUTLOOK.COM
+ (2603:10a6:20b:330::34) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 66bf6be1-bc80-46b3-2c16-08d9e175ba04
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB2912:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbabc2f3-71c8-4dbf-7210-08d9e1768ad5
+X-MS-TrafficTypeDiagnostic: AM6PR04MB5365:EE_
 X-Microsoft-Antispam-PRVS:
-	<VI1PR0402MB29129240F87FD8A4FCC9BE02B3219@VI1PR0402MB2912.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+	<AM6PR04MB5365EDA9BCE4DA9E6B7C0B34B3219@AM6PR04MB5365.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	ENHQhhhWP6T+DlqtbYXEAtwokPd/MYpz78kXnNuyLY7Wxd3ewHTOTNfnica5Sg3SbR8lImKZ/IPedphX/5hAIXvO3gf/aUl6ETI9KAjqbC+aQwNebKQ960UzYwITXmRMPlOeIs0cjH/MusruthAtnrR9JTu6Oxc/nKCkCFqSDpRHDwMlLpyzSVnudn31lMtIQUnaCz7hv7xg4VVFcPu9TCwOrX6AMMARxcHm1jcCDKmVu3+qhvVMxa6rFykQLnFP0ABOQPIra803lyLej5xkPHXse/bqSLbq3C9NE0ncFMKFf0GXfpnZsaB/JLHshP9xjs2y0iKt2WyqtMqn0xAyMlJX/ZOl7qwCmPmDGgHhKrj8l6hoCP2Gd/Ex3Qew2MKyBuYbCcHH96A9CxbfRR/POuGNmo9neGpqxxeVlgx5uCI04xEYcOF8hSjcFRDqj2Ka17PqcKbBFVqKQnflIIR7HNNGRhM4Puv+MrmeEQ2EigOdYnmLyAYdn6weEfrk6WaYZFpE3PjLb3nl3sgnH6v8G1XNPo+2dHh0CRLCG4JK+AASbpzJxNFVYuwEiFuduFrdyYbNsEnst5H161tBdn3l0gs4O8CpdrP/lc4h+W/v06QKZ8mH9PX3BBNCUhsvrsEVqJ+LxYq9aa80Z28xS/cbS+FAyz/kMF7k9MZXvUwe8pFtKvTMjWtZABG0GzdD1Zm2H0Q4nHclrWfkmNohnzCTJDuKVB1Y2yPqEJXfzX3XpUHMw0o8GU99AzZVhSoNAhm4
+	Je8zUBx6jn1fawXH6CNO5le36kM6eSmW5ZjlT3c8xOIvlN2Sy64OnqpzaogdzIPNaLyYr+7zEPC6y2adavnvkc5bqV/g9btSl6solQjXcTfzcxeWQ4CjI7RrGy13BWJ66BoQq97LnxFtR7WZQn2ZLPOZdSJ5b6aZjDM4IeVlqQ88srHAD9gQ/UImWyYoe3xq/86r1TpDM0wJ2Fv00qCban/aDDaUFHP9bCtDHnuoWxJ/9DXwcm6TUkDgFX07Tsi6fj5IAGJdptULPZE6F1lZUUZHMSP8nTuOPJKxMfxu4BXt7zQrhHc1eudia2zN9FZ24SW5+Cz4B437G/9ubjO/P0pNjCZZKj5ChFsGLiGYXjk5wecL98dYhfVTiFFzxO2WrfBONN+xL0KT6XGspro0VM0uwJd06/SpMcHn27Pc/BnnaMEG144iQ4AURSZVlKWkoXhPBoEvCMxZkoa53jYwQD2vglykRqPm1NPdQ8NYI4AgJYipCHAxMCeEaFaN7vrKZCj+BIp6ssG6bKYLxfvEDhWTRIp1jR0FildjRMrRrppmBdFgr4eG5FIzm29SihaUiuI4ZUgt2nknzK6I026PeA3UVXd1V5kivwGBrhClp+bv3Iqxtjx/c+GR9dbKJYgG+i83f3ZTG5OoEHkorvzwNlHtBTMD4EfvE7ixdJHL8MpBnuCZ9qewfn++UKwhq/FSb+V1scAWWHWbL/SUNMC7x5oRuW6OEzyyfk3NNihme/QEkED4uuzKPb78KJv/kxcm
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66476007)(66556008)(5660300002)(8936002)(8676002)(31686004)(86362001)(508600001)(36756003)(6486002)(54906003)(316002)(6916009)(83380400001)(38100700002)(53546011)(6512007)(6506007)(2906002)(26005)(31696002)(66946007)(2616005)(186003)(4326008)(43740500002)(45980500001)(20210929001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66946007)(6512007)(5660300002)(2616005)(6486002)(53546011)(2906002)(36756003)(508600001)(6506007)(66556008)(31686004)(83380400001)(54906003)(66476007)(26005)(316002)(6916009)(4326008)(8936002)(8676002)(38100700002)(186003)(31696002)(86362001)(45980500001)(43740500002)(20210929001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ifSc9WJVsJMn+UHr1ifeLr9rHeO96Cjt5IBolU8y0lwjs1sTAU079jwBnSmb?=
- =?us-ascii?Q?1tlXRp+WClgGmPk+aZ11UjSlC1T5rlAnTRS7d2LDRAMKadpP0lsg7Z/aiwC0?=
- =?us-ascii?Q?4zAgG5PccMIzK5pt72/hDANqkC0q5Ibs05pxli1S4jtwKv+0PXA7BXrlJyC4?=
- =?us-ascii?Q?Nv+EJIZw1V2c+dDNMGEAhTzQo9cRZRmnKcUdUkGSHjSrz/ODOXN+P7t8PrIB?=
- =?us-ascii?Q?aPrLGeZbNm01qg7q68OiL3YixI9Fkcq/tEbSmXLdwooFYmzDwqz2e6Okvfxx?=
- =?us-ascii?Q?DTJGjZBFDHmRq1H98gPbKObm0r7mQsFuDf/7KUueZjFZk2ha1j7f/6mUcdkZ?=
- =?us-ascii?Q?2ATYn4E4rl+c/36rbxvu9ETZljUt56tlxocjzka0qMvuncqA5cClxwcL7d5r?=
- =?us-ascii?Q?F9cMrusddZOLNPNmMrOS1XD34XawnB3wuYH5tpCiXR33Q1QXz95+haufwFxN?=
- =?us-ascii?Q?3zjicjyx4deqhCzt1GLvHW9TWSV74MsXstZb52pVGZdJvu9l6QD2J1nmvvm+?=
- =?us-ascii?Q?+u18PtP1NiYZ8ptS2QL1RT0XjIJOUXvCJpyVfIuOARVn+dEnhNI1/hMfm+ec?=
- =?us-ascii?Q?lxv5G7XeOYG9vRTdc0Uo5ajB4+YtBQEeY1ZA9p8+26E/zLgTyX5wvQCUhmvL?=
- =?us-ascii?Q?Eb/IrlcWMcT9wex0jYRzCOommywonSj7GMaYnattvaI+huF30YG/kX1RP7ba?=
- =?us-ascii?Q?f+tY2AALLwzPWz43rgheHS9YVEAgtaHQHPofQCQGfjdeOOlyc2EmGKrycFkq?=
- =?us-ascii?Q?mAemOveS18rSic6rfoou+VONcp+EZlW3A32Bbx3KDpm/Vvlice1wMGrJwNuF?=
- =?us-ascii?Q?DunzFwp0WngN8l44lW3OccCA4MPdoX6wlVdbtg6+odRwaQwoHHKpY1L7F7UK?=
- =?us-ascii?Q?jtxVk/FtpDhtYBVyvaleLhCi+BTN3TzHYBaF4kegt/8aq1rIufYM3hfL2Zln?=
- =?us-ascii?Q?DrzOpqs9hv0SsYciCPG+HistvOwdQYZP5WRsNZcGa8I91V0ZlRd/M/yydh3p?=
- =?us-ascii?Q?0YKWVfJO17xYE2ewnrDbbOcPOjRtEPRtfB5KeCk+jw/QibBa3GZld60Ys3/d?=
- =?us-ascii?Q?wkRkyRqGSbjZyeYsu+8yV+v8doc762bbjkZTx0V9expgpdNa9nM0pS95PGK3?=
- =?us-ascii?Q?2Rakaa1DnLcTGFhnzSZyV6RTtNZWUyucc4AgGwOSIeXOzpc8lhbXlqsW8WUa?=
- =?us-ascii?Q?uA9siIVR0hlnAGP9svVjp5jUmcyoZvG+HhBM5chimdywQyWeLwBW7pf+joV0?=
- =?us-ascii?Q?lVa3ouJvJYOS/17wbawIgwusCMLelL/9pvPQjupIG/cc86gB91iJ62x5xtas?=
- =?us-ascii?Q?7wmXYz4B8QDryN+xXgYW3K+geQzLS80hc8bPPZJ7fFHsVy090Wfc0NhjZdQX?=
- =?us-ascii?Q?Dj/Hsk2Dn1+Lr5Jn5lnv6w1bl8ccyu5Ss5YKzvbzFasGc4th5KUaMVg3EN9L?=
- =?us-ascii?Q?iZvpDa4APSLfZzE/N6U7zNcdKfarN4KZ2M6aJT2m6N9Qu2ZVuLCdaCsl7lfB?=
- =?us-ascii?Q?sfaxeYgcFCfWrMY8uNEj04S0csiRVrCTc6pu7U77iRpzVmPadOc7fMtHtVA4?=
- =?us-ascii?Q?cFAAmZ6MijY2RWvJPSBZbj06x4jy3vlyPuQl6rHy3VygAHaXAaJWuPoV8yKy?=
- =?us-ascii?Q?Cr3b4kD2DCAX+bCmM8CZC7Y=3D?=
+	=?us-ascii?Q?RMOT54ka+XlNYhXXO+tQyPb2pqN6sZ4qa3JXxQDe/E1826U29svLVvKQ6GZL?=
+ =?us-ascii?Q?jYw/oyaWdNl+J9m9Ixy8MCv7vEhlpaVdNd1AgnE90lcpf4s87dxezzfVUOiE?=
+ =?us-ascii?Q?snR8GsOmRUNJKJ12RzedQSdQ7GvqvtufiYp7lesaAvZHOFbLnLRZQ9NTu10U?=
+ =?us-ascii?Q?8+9ICpCHQN3pgpIxUu9YyDmN1AdqlcTnNK+WNFEKQApAIhO2hvYSlWYBCZht?=
+ =?us-ascii?Q?NfFTnQKraip0PdjgHrUwK8Q2E1khZ+mZcEJw+aGNkYIziaCSAWaBjRNdqvr7?=
+ =?us-ascii?Q?OPQJVvfAKe133SdzvhfwR4QHrcWUHuPu9bPXXNLpiEuVu2N7rV/mPGbDCsA+?=
+ =?us-ascii?Q?XlLQqURx6WFPhfEfxm4FKqTDfaS6HOun1JBJLvEKEHClHPFuHfL1m0fUi5pM?=
+ =?us-ascii?Q?O0tZmkVhjVH3ufCyEQXZi4reMsSt8Q4+ffetg9aPCxQ17IGceIltrPaB9lvT?=
+ =?us-ascii?Q?LJbA+OG7Bw0B5bafanYcjnj/z/SsbMvFFt9hX4xi4gHJa3CNn3NoFMnR8a56?=
+ =?us-ascii?Q?tcDSuT/b4p7ytWovJxgrAZAz1ohSuSj707UZ7XDXtH20B7AGDn5uCoxL5kIN?=
+ =?us-ascii?Q?UAWFc40slybrLgSqdqdSJCfZq7KxKU7WRucgcm/8SdcGN1TxLPvuOUoBQkE4?=
+ =?us-ascii?Q?gNn1iV7/W1ETA/5GVNKDnFZQKaSJFzRg11x2e2gDyHUc8+PiG7ZoNIG+vGr1?=
+ =?us-ascii?Q?z0PC2F2/jXUPIl7gggyhaFxOMDOh8c9xtHWL42y5yV3jO5ltptIdsPou7gp7?=
+ =?us-ascii?Q?4ohgzlvVOxiLSKkSuklcR2tPLh+3FRYVSKxRT/24nRFbqMR8WqkJO/kRmnrm?=
+ =?us-ascii?Q?mYpDo/yGafwSUw7SgL3/tW4WzL1Ou2YNMPPMItf2/4fgs1UbWeY5WLafGmpo?=
+ =?us-ascii?Q?1g9GmGKAlybTVJ93DdUsaRpT+luR3CYqkM9z4MjFw0PyQK53UwdBOJ8AsZeB?=
+ =?us-ascii?Q?GP7Koad4uAeea0JmRdzluVw9gBApejX5Td9fx3bwyjXNk6l9+K2ZToC21Bde?=
+ =?us-ascii?Q?WMDHudjfTI26YTR+VS85A3YY1Vcbjbm0yvx4rNNExZ3MMnt423dTET9inonk?=
+ =?us-ascii?Q?e/Ti0/NE8zcIa+s9cXT6Ile7kIalaEXV4trsgNHE8NfMCrucCt4AHveaFVQU?=
+ =?us-ascii?Q?eLgUObiyzjNJAB7tf4JhQR7sVsIxUEgzHvaDn14gzMP051/U8eXV7S38ajpc?=
+ =?us-ascii?Q?1wZf/XgeRRjjRepHBP0EXwUY41Nn/K11cETE4ttT9pBnWsf1JjZMOHh6B7lp?=
+ =?us-ascii?Q?SqsMCy6J8q/aS8K0CR0PQJh72SqU1UTuu1PEVvz1tCVGEYJv8PK9AzH9AxNG?=
+ =?us-ascii?Q?qfw1Es/QjPWkClKozCpyjReP0vjnXXIMxeWmSkQ4SSuTggBE8/5DEaID1d73?=
+ =?us-ascii?Q?nsF7OztPhPNNDmf0NcFSdzSJYlLOsZgGaXyGqA7n2vlho0kHXcSCVid0AodC?=
+ =?us-ascii?Q?Mzt2GPn1Ss5oT5Dtc4HbIcjeuDjCt/jZOl8RZz1a1Atos/476dLAhRpaPzQt?=
+ =?us-ascii?Q?wFuJtLj0NUeIKAKOglsASNP+RlYm9Km/b9ZqsnLU52JuzK8zAmOavraYgMLw?=
+ =?us-ascii?Q?T6PlKz2c/A6KwmDlfB4axtJ+5/M/tEft+EREoup6fzv9RPGar7/84Hj+DTUD?=
+ =?us-ascii?Q?2WzTjZB68e1RVo70JV0M/kc=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 66bf6be1-bc80-46b3-2c16-08d9e175ba04
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbabc2f3-71c8-4dbf-7210-08d9e1768ad5
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2022 09:16:39.9144
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2022 09:22:30.2989
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nRmLYO9KGzgItvgvYgRr1fxWPPkmCAf+YvvB+znpdZBhD60uGit4pm2cMk6xq2ksq8YFHmwPJgJG62ALyPHEJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB2912
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9JdVa8tvlmhoRAWryw7ZACFWraqydTQxret7fH14E70Hznhq/2bbWzW3wR04FrljMyVAYNaMKgivZToohkkdeg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB5365
 
-On 27.01.2022 10:09, Wei Chen wrote:
+On 27.01.2022 10:03, Wei Chen wrote:
 >> From: Jan Beulich <jbeulich@suse.com>
->> Sent: 2022=E5=B9=B41=E6=9C=8827=E6=97=A5 17:00
+>> Sent: 2022=E5=B9=B41=E6=9C=8827=E6=97=A5 16:09
 >>
->> On 27.01.2022 09:51, Wei Chen wrote:
->>>> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
->> Wei
->>>> Chen
->>>> Sent: 2022=E5=B9=B41=E6=9C=8827=E6=97=A5 16:45
+>> On 27.01.2022 09:03, Wei Chen wrote:
+>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>> Sent: 2022=E5=B9=B41=E6=9C=8825=E6=97=A5 0:59
 >>>>
->>>>> From: Jan Beulich <jbeulich@suse.com>
->>>>> Sent: 2022=E5=B9=B41=E6=9C=8825=E6=97=A5 18:35
->>>>>
->>>>> On 23.09.2021 14:02, Wei Chen wrote:
->>>>>> --- a/xen/common/Kconfig
->>>>>> +++ b/xen/common/Kconfig
->>>>>> @@ -11,6 +11,16 @@ config COMPAT
->>>>>>  config CORE_PARKING
->>>>>>  	bool
->>>>>>
->>>>>> +config EFI
->>>>>> +	bool
->>>>>> +	---help---
->>>>>> +      This option provides support for runtime services provided
->>>>>> +      by UEFI firmware (such as non-volatile variables, realtime
->>>>>> +      clock, and platform reset). A UEFI stub is also provided to
->>>>>> +      allow the kernel to be booted as an EFI application. This
->>>>>> +      is only useful for kernels that may run on systems that have
->>>>>> +      UEFI firmware.
->>>>>
->>>>> The way enabling of (full) EFI support works on x86, I consider it
->>>>> wrong / misleading to put the option in common code. At the very leas=
-t
->>>>> the help text would need to call out the extra dependencies. Plus the
->>>>> help text of course then needs to be generic (i.e. applicable to both
->>>>> Arm and x86). That's notwithstanding the fact that without a prompt
->>>>> the help text won't ever be seen while configuring Xen.
->>>>>
->>>>> Also (nit): Indentation. And please don't use ---help--- anymore in
->>>>> new code.
->>>>>
+>>>> On 23.09.2021 14:02, Wei Chen wrote:
+>>>>> We will reuse nodes_cover_memory for Arm to check its bootmem
+>>>>> info. So we introduce two arch helpers to get memory map's
+>>>>> entry number and specified entry's range:
+>>>>>     arch_get_memory_bank_number
+>>>>>     arch_get_memory_bank_range
 >>>>
->>>> I have used CONFIG_ARM_EFI to replace this common EFI config in my
->>>> latest version. This Kconfig option has been removed.
->>>> And thanks, I will not use --help-- anymore.
->>>>
->>>>>> --- a/xen/include/xen/efi.h
->>>>>> +++ b/xen/include/xen/efi.h
->>>>>> @@ -25,6 +25,8 @@ extern struct efi efi;
->>>>>>
->>>>>>  #ifndef __ASSEMBLY__
->>>>>>
->>>>>> +#ifdef CONFIG_EFI
->>>>>> +
->>>>>>  union xenpf_efi_info;
->>>>>>  union compat_pf_efi_info;
->>>>>>
->>>>>> @@ -45,6 +47,8 @@ int efi_runtime_call(struct xenpf_efi_runtime_call
->>>> *);
->>>>>>  int efi_compat_get_info(uint32_t idx, union compat_pf_efi_info *);
->>>>>>  int efi_compat_runtime_call(struct compat_pf_efi_runtime_call *);
->>>>>>
->>>>>> +#endif /* CONFIG_EFI*/
->>>>>
->>>>> I can see that in the later patch, when introducing inline stubs,
->>>>> you would need conditionals here, but I don't think you need them
->>>>> right here (or you may want to introduce the stubs right away).
->>>>>
->>>>> Also (nit): Missing blank in the comment.
+>>>> I'm sorry, but personally I see no way for you to introduce the term
+>>>> "memory bank" into x86 code.
 >>>
->>> I am sorry, I had missed this comment. In my latest changes,
->>> I have introduced a stub file for non-EFI architectures.
->>> The reason why we don't use a macro to stub the helpers
->>> in efi.h is that, some architectures have implemented stub
->>> helpers in their stub.c. If we define stub helpers in
->>> efi.h, this will cause function redefinition error. We need
->>> to fix this error for all architectures. And some helpers
->>> is not easy to implement as a inline function in efi.h.
->>> So we use stub file instead of stubing in efi.h
+>>> In my latest changes, I have updated these two helpers to:
+>>> uint32_t __init arch_meminfo_get_nr_bank(void)
+>>> __init arch_meminfo_get_ram_bank_range(...)
+>>> I am sorry, I forgot to change the commit log accordingly.
+>>> I will update it in next version.
 >>
->> But you realize we already have such a stub file on x86?
->>
+>> I'm sorry for the ambiguity of my earlier reply, but my objection was
+>> against "bank", not "memory". As an aside, you also don't want the
 >=20
-> Yes, we found the redefinition errors that are caused by x86 stub file
-> and new macros in stub.h. We had tries to add:
-> ifeq ($(XEN_BUILD_EFI),y)
-> CFLAGS-y +=3D -DXEN_BUILD_EFI
-> XEN_CFLAGS +=3D -DXEN_BUILD_EFI
-> endif
-> x86/Makefile to gate these new macros, but it seems that we may need
-> to change EFI build logic for x86. It will cause more risks for me.
-> So I want to introduce a similar stub.c in arch/arm.
+> How about arch_meminfo_get_nr_map/ arch_meminfo_get_map_range?
+> I am sorry, I am not very familiar with e820 map, could you
+> give me some suggestions?
 
-While that's perhaps fine, ideally common bits would be common. Iirc
-already back at the time I was wondering why stub.c had to be x86-
-only.
+First of all I don't think you need a "get_nr" function at all, which
+eliminates the need to find a good name for it. The "get_range" function
+can easily provide back a unique indicator when the passed in index is
+beyond the number of regions. For this function's name, how about
+arch_get_memory_map() or arch_get_memory_map_block() or
+arch_get_memory_map_range() (in order of my personal preference)?
 
 Jan
 
