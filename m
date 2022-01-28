@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1767649FAAF
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 14:30:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.262004.454051 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE51249FAB1
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 14:30:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.262000.454015 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDRKI-0005oO-6V; Fri, 28 Jan 2022 13:30:06 +0000
+	id 1nDRKD-0004nZ-Uh; Fri, 28 Jan 2022 13:30:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 262004.454051; Fri, 28 Jan 2022 13:30:06 +0000
+Received: by outflank-mailman (output) from mailman id 262000.454015; Fri, 28 Jan 2022 13:30:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDRKH-0005Zt-Qd; Fri, 28 Jan 2022 13:30:05 +0000
-Received: by outflank-mailman (input) for mailman id 262004;
- Fri, 28 Jan 2022 13:30:03 +0000
+	id 1nDRKD-0004lQ-OD; Fri, 28 Jan 2022 13:30:01 +0000
+Received: by outflank-mailman (input) for mailman id 262000;
+ Fri, 28 Jan 2022 13:30:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5Vxm=SM=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nDRKF-0003aP-1i
- for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 13:30:03 +0000
+ id 1nDRKC-0003aP-1E
+ for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 13:30:00 +0000
 Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
  [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 64c5d369-803e-11ec-8f75-fffcc8bd4f1a;
- Fri, 28 Jan 2022 14:30:01 +0100 (CET)
+ id 626e1aed-803e-11ec-8f75-fffcc8bd4f1a;
+ Fri, 28 Jan 2022 14:29:58 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,110 +36,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64c5d369-803e-11ec-8f75-fffcc8bd4f1a
+X-Inumbo-ID: 626e1aed-803e-11ec-8f75-fffcc8bd4f1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643376601;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=6XFzfWwACy8HBslJifmIBor59KoqvIUElcwNprhZhXM=;
-  b=Ov72tRGdsNQHi6wO9MKxt0gDyB4g70nYcf2kKqBxJZV9Ona61w3gk9zY
-   Z0h5oWHak2iCZ6MhZWJz/ntwIf0eH10ImHr4TGiJWfozhlGdaeTzzur45
-   9mHy7h/T4GiX71PSTMoZhGAndoMQ8IRtcpgez6RBRR9H3Kn0wOlS1gg4T
-   o=;
+  d=citrix.com; s=securemail; t=1643376598;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=5YvOYeOH1AT6H56DS+3LvoaEf/dTfXY53J18WV3bFhA=;
+  b=U/qXnclNj9bFxe3lWtbU/vwMfKCfypzWh5eTLWZ9IEEZlCuplqgLlzfa
+   ww3EIAlFSAW7HBWHkpCTuQPTh4AssRnmw7fs5Xwv0zSO4fZ3wDNXEvHLu
+   sMoMMcghxFx9y0grSCP84JkiEPSC8Q3MATZRlKJq6cIo9c7PIYFdgpNLQ
+   c=;
 Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: piDLzOU5VEiQ3+JIHjzXHS/8OU/Vg2LGWyleCFplUSAavkOdDdXOG1mKvwBI/Zve0YorWJWkyw
- 39Xxr9U02x0D9XoWC+cFLQO0LATY2XtLesgnDeP4i0/F7LIOpT8PHMpOJnLXVczgUJQmsZH6IA
- uxA4YfwmJdHwA8wnnWGK7WTgMkoxVHwwKRfxSL5z7//VYfkdpegV/6jUJG3u/ad5QX7B+cp9x7
- 2wQhAmri11SITSsHB1N0hsEySLfpCtEY76oWMKGHxEyBkAcjeGoUKVgShdRXStzhF7EWr5+t47
- dUVRqtEzowHwXJEjlOs7cqsy
+IronPort-SDR: OE0NEHdV6XFmtCNIyXSLHgb0VDfVWzkQ0F/hoL6RGToglNaPHPU2CoWp1cyaard6Y7tgLbNkml
+ O+IHN1ep9IWg3e0QCEvMSLjeSVXBCRLvpcUYivSMYssdoXMGrTM5y9Ff89N6xeU7rS50lUdpri
+ q6RhedqeSDjRc/K1Fn59nPEPV1X1Cg2SUo4ADkOcsbOxSzEp5WaSNddWl5x06onWSc9zPRXObI
+ W39RKjsr9ybUN0UTVeBDyyCl1kMMZ+Thvp50bFIzgb4UcRNCbN1d5T71KfNyBJfnnHF3N1VTaN
+ FLJpH7NLZC03T6gM8gGf9djU
 X-SBRS: 5.2
-X-MesageID: 62981613
+X-MesageID: 62981610
 X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:btyenKKJMayEXwgMFE+RBZIlxSXFcZb7ZxGr2PjKsXjdYENSgjICn
- zQeUGmAaPyCa2r1ft4kPY7g8UtS68XUztRnSQJlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUakideSc+EH170Us5y7Zl6mJVqYPR7z2l6
- IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
- QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB25nOAqz
- egOvqbpRA4NYKPotu0tdzhhRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
- LpBdW5LPkvra+GemdpXTsFFgMg5IdatF4QYonx6lhnSDOo8QICFSKLPjTNd9Glq15AXQ6+FD
- yYfQSNCZk/PbhFPAHw4T4s1lfuJxV3gTTIN/Tp5ooJoujOOnWSdyoPFL979atGMA8JPkS6wh
- EjL4mD4CREyL8GExHyO9XfErv/Cm2b3VZwfEJW89+V2mxuDy2oLEhoUWFCn5/6jhSaDt8l3c
- hJOvHB09O5rqRLtHoKVswCETGCsjh0sAN9tUOYAsQyE7vTaxyiQNkwld2sUADA5j/MeSTsv3
- 16PutrmAz1zrbGYIU6gGqeoQSCaYnZMczJbDcMQZU5cuoS4/tlv5v7aZos7SMaIYsvJ9SYcK
- txghAw3nP0tgMECzM1XFniX0mv39vAlouPYjzg7v15JDCskPOZJhKTysDA3CMqsyq7DEzFtW
- 1Bfw6CjABgmV83lqcB0aLxl8EuVz/iEKibAplVkAoMs8T+gk1b6I9wLumomfxk0aptVEdMMX
- KM1kVkPjHO0FCDyBZKbnqrrU5h6pUQePYqNug/ogipmPcEqKV7vENBGbk+MxWH9+HXAYolkU
- ap3hf2EVC5AYYw+lWLeb75EjdcDm35irUuOG8GT50n3gNK2OS/OIZ9YYQTmUwzMxP7eyOkj2
- 4wBZ5LiJtQ2eLCWXxQ7BqZKfQlVdiBqXM6vwyGVH8baSjdb9KgaI6e56dscl0ZNxsy5T8/Eo
- SOwXFF20l36iSGVIAmGcCk7OrjuQYx+vTQwOil1ZQSk3H0qYICO6qYDdsRoIel7pbI7lfMkH
- eMYf8igA+hUTmiV8ToqcpSg/pdpcw6mhFzSMnP9MiQ/ZZNpWyfA5sTgIln07CALAyfu7Zk+r
- rSs2xn1W50GQwg+Xs/aZOj2lwG6vGQHmfI0VEzNe4EBdELp+YlsCirwkv5ofJ1cdUSdnmOXj
- l/EDw0ZqO/Bp54O3OPI3a3U/Z20F+ZeH1ZBGzWJ57iBKiSHrHGoxpVNUbjUcGmFBn/04qire
- c5c0+r4bK8chF9PvodxT+RrwKY564e9rrNW1F05TnDCblDtAbJ8OHiWm8JIs/QVlLNevAK3X
- GOJ+8VbZurVaJ+0TgZJKVp3dPmH2NEVhiLWvKY8L0jN7SNq+KaKDBdJNB6WhS0BdLZ4PevJG
- wv6VBL6P+BnticXDw==
-IronPort-HdrOrdr: A9a23:BOMmJKDd9ms45MzlHejhsseALOsnbusQ8zAXPh9KJiC9I/b1qy
- nxppkmPEfP+UwssQIb6K290ci7MDnhHPtOj7X5Uo3SOjUO1FHYT72KqLGSuAEIeBeOu9K1t5
- 0QCpSWYeeYZTMR7KbHCUuDYq4dKbK8gcWVbJLlvhBQpHZRGsVdBmlCe2SmO3wzYDMDKYsyFZ
- Ka6MYCjSGnY24rYsOyAWRAd/TfpvXQ/aiWLiIuNloC0k2jnDmo4Ln1H1yzxREFSQ5Cxr8k7C
- zsjxH53KO+qPu2oyWsmVM7rq4m2ecJ+OEzR/BkufJlaAkETTzYIbiJbofy/AzdZtvfrGrC3u
- O85CvIdP4Dl085NlvF3icFnTOQnAoG2jva0lmfjmLkocvlABwHK+cpv/MeTjLpr3M6utdyya
- RK2H/ckaF2I1fvoATRjuK4Di2DsCKP0CEfeCoo/iRieJpbZ7lLoYMF+kRJVJ8GASLh8YgiVP
- JjFcfG+Z9tABqnhl3izx5SKeaXLwIO99a9Mzs/k93Q1yITkGFyzkMeysBalnAc9IglQ50B4+
- jfKKxnmLxHU8dTNMtGdaw8aNryDnaITQPHMWqUL1iiHKYbO2jVo5qy5Lku/umldJEB0ZN3kp
- XcV1FTs3I0ZivVeIWz9YwO9gqITHS2XDzrxM0b759luqfkTL6uKiGHQEBGqbrVnxzeOLyvZx
- +eAuMmPxbTFxqdJW8S5XyBZ3B7EwhvbPEo
+IronPort-Data: A9a23:gEd7UKAn7Sd/jBVW//3kw5YqxClBgxIJ4kV8jS/XYbTApDMkhmRRm
+ zEaD2+EOvqPZTH8e98lPYrip0sPuZLWnNVnQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WL6s1hxZH1c+En9400I7x4bVv6Yz6TSHK1LV0
+ T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
+ Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/uza5xNVMi
+ 9537JG5bVknGoPFqMA8akwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
+ KFGbmBWBvyAr7veLLaTY+9gnMk8auLsO5sSoCpIxjDFF/c2B5vERs0m4PcGhmZg354XRZ4yY
+ eI5MTR+SwrvZiFlZHoyErgVkPmp3GbWJmgwRFW9+vNsvjm7IBZK+KfpGMrYfJqNX8o9tmSyq
+ 3/C/m/5KgoHL9HZwj2Amlq8i+mKkS7lVYY6ELyj6uUskFCV3nYUChAdSR28u/bRt6Klc4sBc
+ QpOoHNo9PVsshzwJjXgY/GmiE6HjkUZZplbKbQ34SXTxI766ja9J1FRG1atd+canMMxQDUr0
+ HqAkNXoGSFjvdWpdJ6NyluHhWjsYHZIdAfucQdBFFJYuIe7/OnfmzqSFo4LLUKjsjHi9dgcK
+ RiupTN2ubgchNVjO06TrQGe2GLESnQko2cICuTrsoCNs1sRiG2NPdXABb3nARBodtvxor6p5
+ yBspiRmxLpSZaxhbQTUKAn3IJmn5uyeLBrXikN1Ep8q+lyFoiD/JtoLuGogeR80Y67onAMFh
+ meJ52u9A7cIZBOXgVJfOdrtW6zGM4C+fTgaahwkRoUXOcUgHON21CpveVSRzwjQfLsEyskC1
+ WOgWZ/0Vx4yUP0/pBLvHrt1+eJ1mkgWmD2CLbimn0XP+efPPxa9FOZaWGZim8hktstoVi2Pr
+ YYGXyZLoj0CONDDjt7/qN5KcgtSfCFlXPgbaaV/L4a+H+avI0l5Y9e5/F/rU9UNc319mria8
+ 3ejdFVfzVaj13TLJR/TMiJoaa/1XIY5pnU+ZHR+MVGt0nklQICu8KZAKMdnIeh5rLRunaxuU
+ v0IW8ScGfATGD7JzCsQMMvmp4t4eRX12Q/XZ3i5YCIydoJLThDS/oO2ZRPm8SQDV3LltcY3r
+ 7C6+BncRJ4PG1ZrAMrMMar9xFKtp3kN3ul1WhKQcNVUfUzt9qlsKjDw0aBrc51dd02by2LDh
+ QiMABoeqe3cmKMP8YHE1fKesoOkM+piBU4GTWPV2qm7aHvB9W25zI4eDOvRJWLBVHn58bmJb
+ PlOy62uK+UOmVtHvtYuE7tvyq5itdLjq6UDk1ZhFXTPKV+qFqlhMj+N2swW7v9BwbpQuA2XX
+ EOT+4YFZeXVaZ29SFNBdhA4aumj1O0PnmiA5Ps4F0z2+Str8efVSk5VJRSN1HRQIbYd3FnJG
+ gv9VBr6MzCCtyc=
+IronPort-HdrOrdr: A9a23:ln8le6O7WMNRScBcT4z255DYdb4zR+YMi2TDiHofdfUFSKClfp
+ 6V8cjzjSWE8gr5K0tQ5OxoWZPwC080kKQa3WB/B8bFYOCLghrKEGgm1/qY/9SCIVyyygc+79
+ YYT0EWMrSZZjIa7foSojPIa+rIq+P3lZxA8N2uqEuFOjsaD52IgT0JaDqzIwlTfk1rFJA5HJ
+ 2T6o5svDy7Y0kaacy9Gz0sQ/XDj8ejruOoXTc2QzocrCWehzKh77D3VzKC2A0Fbj9JybA+tU
+ DYjg3C4Lm5uf3T8G6T64aT1eUWpDLS8KoBOCW+sLlWFtwqsHfsWG1VYczDgNnympDq1L9lqq
+ iKn/5qBbUO15qYRBDLnfKq4Xit7B8er0b4z1mWmH3iptG8ag4bJqN69MRkWyqc0lEnut5k1q
+ JNwia+jLp4ST39vAmV3amQa/lN/nDE+kbKVdRj10B3QM8QbqRcopcY+14QGJAcHDji4IRiC+
+ V2CtrAjcwmOG9yQkqpyVWH+ubcKEjb3y32MXQqq4iQyXxbjXp5x0wXyIgWmWoB7os0T91B6/
+ 7fOqplmblSRotOBJgNT9spUI+yECjAUBjMOGWdLRDuE7wGIWvEr9ry7K8u7O+ndZQUxN85mY
+ jHUllfqWkuEnieQfGmzdlO6FTAUW+9VTPixoVX4IV4oKT1QP7xPSiKWDkV4r+dSjUkc7jmst
+ qISeNr6s7YXBnT8NxyrnPDsrFpWAkjbPE=
 X-IronPort-AV: E=Sophos;i="5.88,324,1635220800"; 
-   d="scan'208";a="62981613"
+   d="scan'208";a="62981610"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 0/9] x86: MSR_SPEC_CTRL support for SVM guests
-Date: Fri, 28 Jan 2022 13:29:18 +0000
-Message-ID: <20220128132927.14997-1-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 1/9] x86/cpuid: Advertise SSB_NO to guests by default
+Date: Fri, 28 Jan 2022 13:29:19 +0000
+Message-ID: <20220128132927.14997-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20220128132927.14997-1-andrew.cooper3@citrix.com>
+References: <20220128132927.14997-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Fixes/extensions to allow HVM guests to use AMD hardware MSR_SPEC_CTRL
-facilities.
+This is a statement of hardware behaviour, and not related to controls for the
+guest kernel to use.  Pass it straight through from hardware.
 
-No PV support yet - that will require some substantially more careful
-unpicking of the PV entry/exit asm.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 
-Andrew Cooper (9):
-  x86/cpuid: Advertise SSB_NO to guests by default
-  x86/spec-ctrl: Drop use_spec_ctrl boolean
-  x86/spec-ctrl: Introduce new has_spec_ctrl boolean
-  x86/spec-ctrl: Don't use spec_ctrl_{enter,exit}_idle() for S3
-  x86/spec-ctrl: Record the last write to MSR_SPEC_CTRL
-  x86/spec-ctrl: Use common MSR_SPEC_CTRL logic for AMD
-  x86/svm: VMEntry/Exit logic for MSR_SPEC_CTRL
-  x86/msr: AMD MSR_SPEC_CTRL infrastructure
-  x86/cpuid: Enable MSR_SPEC_CTRL in SVM guests by default
+Not currently enumerated by any CPU I'm aware of.
 
- xen/arch/x86/acpi/power.c                   |  8 +++-
- xen/arch/x86/cpu/amd.c                      |  2 +-
- xen/arch/x86/cpuid.c                        | 16 +++++--
- xen/arch/x86/hvm/svm/entry.S                | 12 +++---
- xen/arch/x86/hvm/svm/svm.c                  | 40 +++++++++++++++++
- xen/arch/x86/include/asm/current.h          |  2 +-
- xen/arch/x86/include/asm/hvm/svm/svm.h      |  3 ++
- xen/arch/x86/include/asm/msr.h              |  9 ++++
- xen/arch/x86/include/asm/spec_ctrl_asm.h    |  7 +++
- xen/arch/x86/msr.c                          |  8 ++--
- xen/arch/x86/setup.c                        |  5 ++-
- xen/arch/x86/smpboot.c                      |  7 ++-
- xen/arch/x86/spec_ctrl.c                    | 66 ++++++++++++++++++++---------
- xen/include/public/arch-x86/cpufeatureset.h | 18 ++++----
- xen/tools/gen-cpuid.py                      | 14 +++---
- 15 files changed, 166 insertions(+), 51 deletions(-)
+v2:
+ * New
+---
+ xen/include/public/arch-x86/cpufeatureset.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
+index 6e44148a0901..fd8ab2572304 100644
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -266,7 +266,7 @@ XEN_CPUFEATURE(NO_LMSL,       8*32+20) /*S  EFER.LMSLE no longer supported. */
+ XEN_CPUFEATURE(AMD_PPIN,      8*32+23) /*   Protected Processor Inventory Number */
+ XEN_CPUFEATURE(AMD_SSBD,      8*32+24) /*   MSR_SPEC_CTRL.SSBD available */
+ XEN_CPUFEATURE(VIRT_SSBD,     8*32+25) /*   MSR_VIRT_SPEC_CTRL.SSBD */
+-XEN_CPUFEATURE(SSB_NO,        8*32+26) /*   Hardware not vulnerable to SSB */
++XEN_CPUFEATURE(SSB_NO,        8*32+26) /*A  Hardware not vulnerable to SSB */
+ XEN_CPUFEATURE(PSFD,          8*32+28) /*   MSR_SPEC_CTRL.PSFD */
+ 
+ /* Intel-defined CPU features, CPUID level 0x00000007:0.edx, word 9 */
 -- 
 2.11.0
 
