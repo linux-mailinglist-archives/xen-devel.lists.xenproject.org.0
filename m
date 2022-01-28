@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C962749F872
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 12:42:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.261970.453906 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DA5849F8DC
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 13:04:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.261975.453917 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDPdT-0006XF-Vv; Fri, 28 Jan 2022 11:41:47 +0000
+	id 1nDPyu-0000rm-0V; Fri, 28 Jan 2022 12:03:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 261970.453906; Fri, 28 Jan 2022 11:41:47 +0000
+Received: by outflank-mailman (output) from mailman id 261975.453917; Fri, 28 Jan 2022 12:03:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDPdT-0006VP-Ri; Fri, 28 Jan 2022 11:41:47 +0000
-Received: by outflank-mailman (input) for mailman id 261970;
- Fri, 28 Jan 2022 11:41:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=B5aJ=SM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nDPdS-0006Uz-60
- for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 11:41:46 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 44c18a75-802f-11ec-8f75-fffcc8bd4f1a;
- Fri, 28 Jan 2022 12:41:44 +0100 (CET)
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur02lp2054.outbound.protection.outlook.com [104.47.5.54]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-24-SOm1B_QlOFafBNT5KCp64A-1; Fri, 28 Jan 2022 12:41:43 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by DB9PR04MB8172.eurprd04.prod.outlook.com (2603:10a6:10:249::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.19; Fri, 28 Jan
- 2022 11:41:41 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::a1a4:21a6:8390:b5d5]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::a1a4:21a6:8390:b5d5%5]) with mapi id 15.20.4930.017; Fri, 28 Jan 2022
- 11:41:40 +0000
+	id 1nDPyt-0000oJ-Sw; Fri, 28 Jan 2022 12:03:55 +0000
+Received: by outflank-mailman (input) for mailman id 261975;
+ Fri, 28 Jan 2022 12:03:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=i1b2=SM=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nDPys-0000oD-Ac
+ for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 12:03:54 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5b2dfb2e-8032-11ec-8eb8-a37418f5ba1a;
+ Fri, 28 Jan 2022 13:03:52 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,150 +36,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44c18a75-802f-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1643370104;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ng4cWlIouCpGvfbfFpdMWlqZ7oGFx6uPQrKT4270Aco=;
-	b=FMF12FYfptT4chIERqo1Wi+a72KCPkyC6GImZOxevgpcQPhb7f0axWir/CLD4Zm9snqEYt
-	6zrVsJo5lyXmsLx4DAHueyfkFbJ79dK5cN+uMSsV+AAFAJB5qsFUQDiEVDXTlN8PuByMjQ
-	cqrR8kUoSvW4zgnTnuE9hYh6ij/X+KU=
-X-MC-Unique: SOm1B_QlOFafBNT5KCp64A-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UJVUsxHLk3X64jNJre5xPQHvrPtwl4By+OTjI+IO9zYL9g02Kz4vsq7F/1qZawnOZsoZ64BWXa9vBA1agv5AJmCtjYKJtYy/kGmtgo6RBkeHDjiEV+hoaAfL1rkZnQJABo2/rDuhTJW/zZUNBqGiYEviBBcm1UAvKuS+NMUVfi/GbFHOwjpUVx1VNjOxPLJ80xw3mAi1sCSlUS/xPkJwzxFdJvU4SEwflyn+ddKdxCrDWy3X5/I9UgwsryTveA3FT6+y4gBnRqJs9oE7nY9vEGVRNWJ3KME+0rLJkr+FM9sapFEbFF+KsXSqHnFuHkKnZgtf617sNRyfatm+0Jp8qg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ng4cWlIouCpGvfbfFpdMWlqZ7oGFx6uPQrKT4270Aco=;
- b=RAU674MzRR3KHcfk03iM9LKvlMzrOCkqHF4n9gukKY2W0ml1uCEaL3tc4K07pjhMt3bCIao5HES1W9iWAb0M+tsBB2pUf9U/tR1Pwffn10VG9vMCNU0KRS+sJifedM6T7dO/SsUqYR1sc6WWziJpzu2jWs15EtJWpzulNXK8k17V+x2cc5R5tJHostgchRfS6B/QGkoWn/zWzbT4UTfcRqBwh7NTV3Mur+oN84mZKVE2rvGkj5xHRI+dTQVIHd1H3kWIQeL36WKw1yvOhyIP7fmCUo6oLf7AthUyJBRnMsTM1kfyrsm/QooLDHxrs7f+anpoQtUA3DnVAn1hnY6CjA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <4c757048-bf9f-5743-a2e7-cbf5a7fd97d5@suse.com>
-Date: Fri, 28 Jan 2022 12:41:38 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [XEN PATCH v9 04/30] build: set ALL_OBJS in main Makefile; move
- prelink.o to main Makefile
-Content-Language: en-US
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+X-Inumbo-ID: 5b2dfb2e-8032-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1643371434;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=l9D27HB3iS86PR7VXPjkscybmEWCe5w+FcA33s/NxP8=;
+  b=hhy0BP771KeRGoIC+0i+YK3wlZNoYeYtN7FyB2tGFzALw3qlGm0E+lhg
+   NFadP6WcJFGUP8ihw/TkE9F7FOtuj4KuqFmhDPmEpyeLH4Cca+R7JNy1H
+   2a/mCBn8Bdi7d0iDVh1ho9DjAoieQwBNpBXdMkueilukYkzTWjvJn0pM1
+   0=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: msM6PLL2W6fMGoHBzACf4Fli1CyUaUWt2X5zqcbqjEEbzq9Yxtjn18Gkb5iMFkA+ijEA81zQBP
+ lbXd6b5aLdNrAEotppmw2HgDwG5yQ7j+x9UaYXnyc2X5Gy1TRYBT7zjedRcOrNLbDDFefupGXc
+ YSBeAApQdTT3cmp3IgrtsqU3K5HQSHzCdboHAw8NKz2RmDPTEzzhori3NqzistcVU7lQf9nlNS
+ AEaEqH6oErWX9nTsMbJ6TuR+x/seFc+QWCCzoxDelDOVMJ3ziAC6TEDCgA9FZLyl7sCYBPusoz
+ IEQdSSwuPMCVhacbv33mnYPd
+X-SBRS: 5.2
+X-MesageID: 62894888
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:G1l4fagOV7v4fSYmeqEBiZ6LX161nBcKZh0ujC45NGQN5FlHY01je
+ htvCzqEO/2IMGOjfd4ia9nkoBhXusKAnIAxQABtrC8wFngb9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0GE/NtTo5w7Rj2tcy0YDia++wk
+ YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
+ 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
+ /1uibuRWFd5A5TCv85HcBdILQ5QMqdvreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
+ KJCbmpXN1ba2rzwkOnTpupE36zPKOHiOp8fvXdxiynUF/88TbjIQrnQ5M8e1zA17ixLNaiEN
+ 5tFOWo/BPjGSzhdZQ49Cqggp+2xjGSuaC9zqBXEnpNitgA/yyQuieOwYbI5YOeiWsF9jkue4
+ GXc8AzREhwccdCS1zeB2natnfPU2zP2XpoIE7+1/eIsh0ecrkQIEwEfX1a/pfi/i2a9VshZJ
+ khS/TAhxYAw/kG2Stj2XzWjvWWJ+BUbXrJ4EfA+6QyL4rrZ5UCeHGdsc9JaQIV47olsH2Vsj
+ wLX2YOybdByjFGLYVGh0ZaF/WOPACYyBzUhaz86YiUK6fC29enfkSnzZtpkFae0iPj8Fjfx3
+ y2GoUACulkDsSIY//7lpA6a2lpAsrCMF1dovVuPAgpJ+yskPNbNWmC+1bTMAR+sxq69R0LJg
+ nULktP2AAsmXcDUz3zlrAng8diUCxe53N/03AYH83oJrW3FF5ufkWZ4umwWyKBBaZ5sRNMRS
+ BWP0T69HbcKVJdQUYd5YpiqF+MhxrX6GNLuW5j8N4QSOcIqLFTZoXkzNCZ8OlwBdmB2z8nT3
+ r/AKa6R4YsyU/w7nFJauc9DuVPU+szO7TyKHs2qp/hW+bGfeGSUWd843KimNYgEAFe/iFyNq
+ b53bpLSoz0GCbGWSnSJreY7cA5bRVBmVcGeg5EGLYarf1s5cFzN/teMm9vNjaQ/wfQM/goJl
+ 1ngMnJlJK3X3C2edl7SOyk9MdsCn/9X9BoGAMDlBn7ws1BLXGplxP53m0IfceZ1+ep94+RzS
+ vVZKcyMDu4WEmbM+igHbIm7p4tnLUz5iQWLNiujQT4+Y58/GFCZpo66JlPipHsUEy66lcoiu
+ Ln8hAnVdoUOGlZ5B8HMZfPxk17o5SoBmPh/VlfjK8VIfBm+65BjLiH816dlI8wFJRjZ6CGd0
+ gKaXUURqeXX+tdn+9jVn6GU6YyuFrImTEZdGmDa65ewNDXboTX/kdMRDr7QcGmEBm3u+aika
+ eFE9N3GMaUKzARQro5xM7d31qZitdHhkKBXk1Z/F3LRYlX1Vr45eiua3dNCv7Fmz6NCvVfkQ
+ VqG/9RXNOnbOM7hF1JNdgMpYv7aiKMRkzjWq/80PF/79Gl8+7/eCRdeOByFiSp8KrppMdx6n
+ bd96ZBOswHv2AA3NtumjzxP8zXeJ3MNZKwrq5UGDdK5kQEs0FxDPcTRByKeDEtjsDmQ3p3G+
+ gOpuZc=
+IronPort-HdrOrdr: A9a23:BA4dXqEmgJTVDGeDpLqE6seALOsnbusQ8zAXP0AYc31om+ij5q
+ eTdZUgpHvJYVkqNE3I9eruBEDEewK7yXcX2/h1AV7BZniEhILAFugLhuGO/9SjIVydygc079
+ YYT0EUMr3N5DZB4/rH3A==
+X-IronPort-AV: E=Sophos;i="5.88,323,1635220800"; 
+   d="scan'208";a="62894888"
+Date: Fri, 28 Jan 2022 12:03:41 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	"Julien Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>, <xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH v9 08/30] build: fix enforce unique symbols for
+ recent clang version
+Message-ID: <YfPbndiBeViN0heB@perard>
 References: <20220125110103.3527686-1-anthony.perard@citrix.com>
- <20220125110103.3527686-5-anthony.perard@citrix.com>
- <9bd4d8e6-d426-97be-f1d4-429a793f888c@suse.com> <YfPUP6iAatz9JPaS@perard>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <YfPUP6iAatz9JPaS@perard>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6P193CA0059.EURP193.PROD.OUTLOOK.COM
- (2603:10a6:209:8e::36) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+ <20220125110103.3527686-9-anthony.perard@citrix.com>
+ <708a1723-7b01-e82b-f2c2-d031a33ae55e@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8d516091-1b97-4447-62f5-08d9e2532666
-X-MS-TrafficTypeDiagnostic: DB9PR04MB8172:EE_
-X-Microsoft-Antispam-PRVS:
-	<DB9PR04MB81727953EFFB924AE19193E3B3229@DB9PR04MB8172.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	+RqOMRM0KLBg7GDnfmEwlRzXam0QnOfzBI29tSb6iGrzsd64svF3AVnse3Jw+eMvUhlFhj9LYmFaDEMPLJvM+dQ55eoJ4gpoWlw9CGAat2gfZl0YzcGgweIKnfCWF0sIX4PW6uBgpIin/khZPmSYzGJDTgLB0cQhfE1Yu6Evu8P4Aa2irHpsRha7EPcCQBU5QoJUMb+WHkQJ1lLBsfJe6M0y/YkqxVnEU1qdAHusNn6WDZPkkUYZNovwgmzG5uUE4LNPTr/y7gGxXnrkIpihORGFVISKXyAH/X7rcUQtE8Tspz0dym6bT8pLKKOLAD6cxQP9l6hPhJLynjFWl8WQC409Cui1vjtK7BK3Ipvobj5P5VRsKxY/7NdflGWloHJVou1dMVNZS+3XnMrHtOxWbiiNknPoA63AZ04jJLBKPuMGkmX1aEtwf2Q1LORjgNHmRAzYwXaFDdN/lRXAVfbPnYEFxcuq298x7bIvOvrOzHN3axIZIy8q69M/zzKRtn4BnlgxoemFOBWUplRmy9GcxRJLbD9lH7sXa0RgTHhog/HTMec42FZOVG0veDIQ1nhCJyFORvw5zogu8ZfOo7b5J/UNDPHqmxOvehr24cMhgiUHU2hYn0Qu+oBY9as+oHUgEDUHFZ4y+MCi5k9dgGX9BI+zr/9reYSwQ9+B5IE9FQNtFienXFvof0pnedsrhJNqkmdves9wGq/fr5sWrKrYAwUmaEex3gV5NDEnUqJ6hrijaNnCkWOpzWfsjf1Uekn5/7TkMyV4LZlSCEcS3oY2XA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(5660300002)(7416002)(508600001)(54906003)(26005)(316002)(38100700002)(6916009)(2906002)(6486002)(86362001)(186003)(66556008)(2616005)(31696002)(83380400001)(66946007)(66476007)(4326008)(31686004)(8676002)(8936002)(53546011)(36756003)(6506007)(6512007)(87944003)(45980500001)(43740500002)(20210929001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z0dtWjl3dVBGdUVZWmVteFZZTDY5NUtBTTVBcFFFSk16RVhUNnRySWxuRVpE?=
- =?utf-8?B?RktjZlRzaEp2cEJLRmVnU1RvUitKNTF2SnpJdnJBU3QyTjBqcGJ4NHdwM2tj?=
- =?utf-8?B?TzYrSk9WVk85Ujh6b3l6Z0hxMTFJeitrZnhZVk5iM0VjR2lXYUhyR2F4dWxB?=
- =?utf-8?B?eXFjZ3BDdTlmSUVkNkZ0U1doL1YxaDZOVlNIeUlGTTNOeEZxRk0zU1VtT3hN?=
- =?utf-8?B?TG8vLzlLb1BoTkovQlVTWnB4SnptVVU5d0hqMVMyak11N0d3a0ZJc0xkSll5?=
- =?utf-8?B?VGxpWVBwcW1pTzcwcnFNL2NtaFhiaUJEamJhdk9LVmhTbXBiWk1wUGhuQlpQ?=
- =?utf-8?B?RlptaEJIVjJqTWJZTlZOLzJ3aTBSYksxYnBHdlJ1ekp3MzhzQTVkMitIRU4w?=
- =?utf-8?B?RTRaSXFZTjVGSkJyeGhtQUVwanVBK0hzNXI3N24rV3IvMlEyM0VYNmIxS0No?=
- =?utf-8?B?b2tsVVViNGtHa3FJMHpWMDJEcHJVcndRZnU1R2lDcTJZbWRNYk9ESlBEZmxH?=
- =?utf-8?B?eUoxaHlJcXVIMWhJaDhFZGxIMEpZeEFiZXEyV1drdkpSWWRpeTR1OGpIbno5?=
- =?utf-8?B?c1owN2V5by91Tkk4SFQ0Q3p3UTBuM3Z4V20rbTUvT09hUlRaUFJ3Z1R4SzB2?=
- =?utf-8?B?cFloWUNqZHVQS1VBSjBwYnJuUFVqRk91Vlh6RE5FTmw0OTJyc1IyVGVUcXpn?=
- =?utf-8?B?VDFaWTdYNGRyeThXdHVTdEFsa241R0hoQkVpNGUyU29UaDdqR3ZBeGluUEJp?=
- =?utf-8?B?NVpyRjNBSzBFd2liMklJTVhYYUJVNGxOenNkVDdTTmk0aGl5djFobkh6WVM5?=
- =?utf-8?B?TVlZVldBdVdCVThYRnZXVm1SUVczWDNDZVJ4T3hFQWFBblF5bjJXb1F1cVZh?=
- =?utf-8?B?MkMvc1RQaG5nV0RHZFpBTy8vOGJCSGg5ejF4K2FQVjM1dmQrM0pJRjdJR1pK?=
- =?utf-8?B?bFIrOGFjNzJlZ0VEUks0WTQxSEtHQnplUXRBa2VkOU40MTluREEvdGYxZzBk?=
- =?utf-8?B?WitOQ0h6VHlJWGF4YXpWWXFsRWtMcEZ6TFVMaFA3Tms1a28wMVJ3b1MxRzdJ?=
- =?utf-8?B?bGJvTytIZ2hIWG9ETk1tZjJ5MklucVFETmhzSEZ1WTQwSGdUNVhtQUUzQnBt?=
- =?utf-8?B?eWZiTmhIR0tZVWdYRXVCVmNmeFkvSCtXWE5OQWNiVVg1NEcwNjVnOFZQbk9P?=
- =?utf-8?B?U05xcytjMzFrYVU0T3gxTFhCMTVCNVdQQWZrUFRBRlppRVF2T1lzTmhYU3Bx?=
- =?utf-8?B?Y0hWZ1d4bHFFc3p4OEl4SlZrNUtPc1ZDS29idXNwOVlwU3F0UlVCWWNYV2h5?=
- =?utf-8?B?Yi8yOGpNbTdxeVJZOWwya2JDSXJTZ0kzS1NoNlcvY0YxZmR1SXhFRm5qeGlG?=
- =?utf-8?B?SHIyMlBteUlWaGxJR2U4Rm95RXJBRFMxMTB2ZFVxNWxhdWFQRDFmMTdjeFpG?=
- =?utf-8?B?cW9NMC9pbkJES1FuaFE3Sm0zWmpobWt6SHVrUXFTK0tCZzRnZ3BHTWlhL29t?=
- =?utf-8?B?Vm5jNzJmOU9vUnVZUTNTczFoQUpSVXdSbWZJbUkydk91cWNKMHVFYm1FV0VI?=
- =?utf-8?B?M1B2enNVNmdyZWplOHNWa1FYUEcrSEhIYUh5UjY1N0xRcGZ5cnNSRnNHMzNP?=
- =?utf-8?B?ZjJja1BHbllqYStsNE5MTU14NjNDS3lzRFNJbm9FbW1MNFdBb203MUlEZnFB?=
- =?utf-8?B?di85elRjYjFpelBrSWtOQ0NITHVlVDl2Z1VMUGFEbjE5a3ZMUmdZT2NQaGNK?=
- =?utf-8?B?MXlZekl2alU4VmxNbG5uT2U5SHUwVWFhaXU3ZW1uZHJteEVPc0k1blVtMnY5?=
- =?utf-8?B?VWFQTHlraDBMSmdVQUdMcTE0MlNEdjc5dnp6Y09Uc1dCRmMyVGM1b3E2WEtv?=
- =?utf-8?B?a3hBaEFpQXdsS0dYNUVKK3NJZ2RHZWdqbXlaWWN1bVNONWd2QzhTNlZYMTdS?=
- =?utf-8?B?aEp1NHY3WTMzTm5YbDJUNFg4Z2JQcVg3OWtLdzhSMFpySnhiem1KNGdYeXBK?=
- =?utf-8?B?cUlJYlk5M0VkVWRhelFvQ1dRVGxnaGdDL3luTkE5MWxGY2tFMklmVHdiQ1hz?=
- =?utf-8?B?UkRCY1RBMFYweHh2dVViTzc2L1lIVjYwZmZPUTBZTlJIbW5LWkRVZ1huOHR4?=
- =?utf-8?B?ekRBb3JEMC9qK3N3cFErV1ArMW9od2M0Y3pLYmcxaFNsS2lLMUg4Vm1lMlQz?=
- =?utf-8?Q?pSfIeKAGqdGZbj5iuiuZu3g=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d516091-1b97-4447-62f5-08d9e2532666
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 11:41:40.7949
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R6kcfXzJHH3u6rx62nBshr3UFcasZQc/Dyomltqu5Kx7/Nyqc7vfu3IJYt7bODsdFuX0i4VgNKMS09NTApBC6g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8172
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <708a1723-7b01-e82b-f2c2-d031a33ae55e@suse.com>
 
-On 28.01.2022 12:32, Anthony PERARD wrote:
-> On Thu, Jan 27, 2022 at 04:50:32PM +0100, Jan Beulich wrote:
->> On 25.01.2022 12:00, Anthony PERARD wrote:
->>> --- a/xen/Makefile
->>> +++ b/xen/Makefile
->>> @@ -285,6 +285,16 @@ CFLAGS += -flto
->>>  LDFLAGS-$(CONFIG_CC_IS_CLANG) += -plugin LLVMgold.so
->>>  endif
->>>  
->>> +# Note that link order matters!
->>
->> Merely as a remark: I wonder how applicable that comment is anymore.
->> If anything I'd expect it to be relevant to $(TARGET_SUBARCH)/head.o
->> (Arm) and boot/built_in.o (x86), neither of which get named here.
+On Thu, Jan 27, 2022 at 04:57:20PM +0100, Jan Beulich wrote:
+> On 25.01.2022 12:00, Anthony PERARD wrote:
+> > clang 6.0 and newer behave like gcc in regards for the FILE symbol, so
+> > only the filename rather than the full path to the source file.
+> > 
+> > clang 3.8.1-24 (in our debian:stretch container) and 3.5.0-10
+> > (in our debian:jessie container) do store the full path to the source
+> > file in the FILE symbol.
+> > 
+> > Also, based on commit 81ecb38b83 ("build: provide option to
+> > disambiguate symbol names"), which were using clang 5, the change of
+> > behavior likely happened in clang 6.0.
+> > 
+> > This means that we also need to check clang version to figure out
+> > which command we need to use to redefine symbol.
+> > 
+> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 > 
-> Indeed, the order here probably doesn't matter. I tried to build on x86
-> with the list reversed (so still leaving boot/ first) and the build
-> works. I didn't try to boot it.
+> The "likely" in the description still worries me some. Roger, would
+> you happen to know, or know of a way to find out for sure ("sure"
+> not meaning to exclude the usual risk associated with version
+> number checks)?
 
-It's quite unlikely for the order to matter at build time. Being able
-to boot the result is the minimum. Even then you can't be sure you
-merely avoided the problematic piece of code on the particular
-hardware you did the test on. Perhaps the most fragile parts are
-sections holding pointers which get processed in the order the linker
-put them. E.g. unexpected interdependencies between initcalls.
+I found f5040b9685a7 ("Make .file directive to have basename only") as
+part of LLVM's "release/6.x" branch (and "llvmorg-6.0.0" tag), but not
+in "release/5.x".
 
-> Maybe it's time to retire the comment?
+https://github.com/llvm/llvm-project/commit/f5040b9685a760e584c576e9185295e54635d51e
 
-Probably, but Arm folks would want to confirm that's fine on their side
-as well.
+This patch would seems to be the one changing the behavior. This still
+suggest clang 6.0.
 
-Jan
+Cheers,
 
+-- 
+Anthony PERARD
 
