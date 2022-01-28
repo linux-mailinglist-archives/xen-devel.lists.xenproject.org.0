@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A37B849FAA8
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 14:30:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.262001.454021 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75D5C49FAAB
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 14:30:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.261999.454004 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDRKE-0004wO-KF; Fri, 28 Jan 2022 13:30:02 +0000
+	id 1nDRKB-0004Qw-Em; Fri, 28 Jan 2022 13:29:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 262001.454021; Fri, 28 Jan 2022 13:30:02 +0000
+Received: by outflank-mailman (output) from mailman id 261999.454004; Fri, 28 Jan 2022 13:29:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDRKE-0004nH-8a; Fri, 28 Jan 2022 13:30:02 +0000
-Received: by outflank-mailman (input) for mailman id 262001;
- Fri, 28 Jan 2022 13:30:00 +0000
+	id 1nDRKB-0004NO-BJ; Fri, 28 Jan 2022 13:29:59 +0000
+Received: by outflank-mailman (input) for mailman id 261999;
+ Fri, 28 Jan 2022 13:29:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=5Vxm=SM=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nDRKC-0003aP-Ie
- for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 13:30:00 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6283387f-803e-11ec-8f75-fffcc8bd4f1a;
- Fri, 28 Jan 2022 14:29:59 +0100 (CET)
+ id 1nDRK9-0003aP-Vq
+ for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 13:29:58 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6219c91d-803e-11ec-8f75-fffcc8bd4f1a;
+ Fri, 28 Jan 2022 14:29:56 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,63 +36,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6283387f-803e-11ec-8f75-fffcc8bd4f1a
+X-Inumbo-ID: 6219c91d-803e-11ec-8f75-fffcc8bd4f1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643376599;
+  d=citrix.com; s=securemail; t=1643376596;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=V5QZW2Bs84NfBUe+2j/Budm0/aQ7grq2jkQ+o08Coys=;
-  b=J3QdAb26kqT0SMn/G+8k7DuPS+hotXUiBm8HvJIXjyusUG+n91+lM3sY
-   qMaBrl4ODLsgqbkLcIuFS1Zkkr4yeiJR5w4Dr2rfeV5cpm2JEd9MYu5pZ
-   pXozMuPelGx3V36qXhUnUqVSS1JLGmftG6MMep5ubpSl7Snr0GrwokjL+
-   s=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: HgZBql8NadecAkZRh9kU3dOiFqljkeok9L6c0uF+PbwOJ902ssS3Moyl2CwDT8rgTQbVgE57ex
- twrqFha3FQ0kWvbYb0l2OICDxk0vr9p+ESA09HX6CHh/lCcMa0GljxSR/kBo/PZMtRwwbx1ykc
- /NvcloUOugS15XvwrB2eSESa9j4b7UrdxV5M3Zab+00HM3Ow5MO4ICwwxroMlvI2m4vLc7aYEv
- kKHiq+c09csIC2uf07UTcyDXQ4l9+95a1u8tm4OSZlrqu+XZLZ+7uB9joaJJii03qG5WpB3Juz
- VbARZSYpu18XTrL7Bwn86aZl
+  bh=hm+gxomiwqPtSbO++1a7+fTXxiF/vy04zpwJNsO/xyU=;
+  b=iiHMWh8x+fZ++mhQgNKWIN1JvF1UFQgOhfO9ccZKnhZ6LLwVJqFGhX3A
+   qZz1b+tuRBcJFWDP6Csob4LhGQb6uUCfOedzWcDZ1OTTvoNCYcBh6zhP1
+   NDcDa5pJDXzIyxWn/gA9TxVrgw7k+Tbl2uuigLYD90esCo2NX2w2SiQs8
+   Y=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: jPGUa2TrV17ggrERpM+dg0CCxN0dhruUtmk/lgIakaUxAW4C1PEEEzVOPTbIbomG3sbreaCWPy
+ tQ6rkwBpNPicB1F0eBRR/jIg5MWjvXIP3zdUzwYiCILjmSpj+CjkvVkWfaz+Vuw4Mqykq5Sb21
+ PWPlWR+RIQ6ErPg6xsTICgMh8rm17tW/oW8PDVNw+KnwlUx/TlG6To6Of4BcYE9tCeeftVSGyk
+ 6EGgTdZYNU+C14vBjkmIDOLANlM7gIY9tv1DF1MUQ3N7wsP+WbJEBiuDxnq0aQnx+2bfbgsykd
+ +9NPqUkAIkFgCRHu663NFSHw
 X-SBRS: 5.2
-X-MesageID: 65159875
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 63388633
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:oBcQtquucxObIzWasP7sRiDEz+fnVIJZMUV32f8akzHdYApBsoF/q
- tZmKTqBaKqCNzShKdl/ao23/RgEvZPXyIUwSANoqnwyQX4b+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHdJZS5LwbZj2NYx24jhX2thh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- NplicbsWVsrbpb2teEUY0l1Fy1nB45D0eqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6AO
- pNEOGowMXwsZTVEIHMJM8olmd7wmyn9dS9X9HCzvLEOtj27IAtZj+G2bYu9lsaxbdpRtlaVo
- CTB5WuRKjMwOcGbyDGF2mmxneKJliT+MKoCGbv9+vN0jVm7wm0IFAZQRVa9ueO+iEO1R5RYM
- UN8x8Y1hfFsrgrxFIC7BkDm5i7f1vIBZzZOO9FgtBHRyPrv2SucD1hUYzpNceYFseZjEFTGy
- WS1t9/uADVutpicRnSc6qqYoFuOBMQFEYMRTXRaFFVYurEPtKl210uSFYg7TMZZm/WoQWmY/
- tyckMQpa1z/Z+Yv3r7zw13IiinESnPhHl9svVW/so5IA2pEiG+Zi26AtACzARVodt/xory9U
- J4swZX2AAcmVsnlqcB1aL9RdIxFHt7cWNEmvXZhHoM66xOm8GO5cIZb7VlWfRk1aZxfIWS3P
- ReO6Gu9AaO/2lPwM8ebhKrqU6wXIVXIT4y5Bpg4kPIQCnSOSON31H43PhPBt4wcuEMtjbs+K
- f+mnTWEVh4n5VBc5GPuHY81iOZzrghnnD+7bc2lk3yPjOTPDFbIGeZtGAbfNYgRsfLbyDg5B
- v4CbaNmPT0FDr2nCsQWmKZORW03wY8TXMCv9JcPJ7fde2KL2ggJUpfs/F/oQKQ994w9qwsC1
- ijVtpZwxAWtiHvZBx+Nb3w/OrrjUYwm9SAwPDA2PEbu0H8mON794KAafpoxXL8m6O08kqIkE
- 6hbI52NUqZVVzDK2zUBdp2h/oZsQwum2FCVNC2/bTlhI5M5H17V+sXpdxfE/TUVCnblrtM3p
- rCtj1uJQZcKSwl4ItzRbfajkwG4sXQHwbogVErUONhDPk7r9dEyeSD2i/Y2JeAKKAnCmWTGh
- 1rHX09AqLCU8YEv8dTPiaSVlKuTErNzThhAAm3WzbeqLi2GrGCt9pBNDbSTdjfHWWKqpKj7P
- bdJz+vxOeEslUpRt9YuCK5iyK8z6oe9p7JeyQg4TnzHY07yV+FlK3iCm8JOqrdM1vlSvg7vA
- hCD/dxTOLOoPsL5EQFOeFp5P7rbjfxEyCPP6fkVIVnh4H4l9bWKZkxeIh2QhXEPN7ByKo4kn
- b8stcN+B9ZTUfb23gJqVhxpylk=
-IronPort-HdrOrdr: A9a23:Rni1867f/WSA/Pdi0gPXwPDXdLJyesId70hD6qhwISY6TiX+rb
- HWoB17726TtN9/YhEdcLy7VJVoBEmskKKdgrNhWotKPjOW21dARbsKheCJrgEIWReOktK1vZ
- 0QC5SWY+eQMbEVt6nHCXGDYrQd/OU=
+IronPort-Data: A9a23:h7wr9KBO96052hVW//3kw5YqxClBgxIJ4kV8jS/XYbTApD0k0DwHy
+ jQZDzjUbviNa2H2LdF/YIzl80pS7ZODnN5rQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WL6s1hxZH1c+En9400I7x4bVv6Yz6TSHK1LV0
+ T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
+ Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/jhGYmIBDz
+ tt09rvqUjcPI6PsmuNBTEwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
+ KFGbmBWBvyAr7veLLaTY+9gnMk8auLsO5sSoCpIxjDFF/c2B5vERs0m4PcGh2xg1p4VRp4yY
+ eJHMR5vMyrwPSdBO3EHOoxgrfu3uHjgJmgwRFW9+vNsvjm7IBZK+KfpGMrYfJqNX8o9tmSyq
+ 3/C/m/5KgoHL9HZwj2Amlq8i+mKkS7lVYY6ELyj6uUskFCV3nYUChAdSR28u/bRt6Klc4sBc
+ QpOoHNo9PVsshzwJjXgY/GmiHugrxlMadxeKq4dshq97LfawwSeWndRG1atd+canMMxQDUr0
+ HqAkNXoGSFjvdWpdJ6NyluHhWjsYHZIdAfucQdBFFJYuIe7/OnfmzqSFo4LLUKjsjHi9dgcK
+ RiupTN2ubgchNVjO06TrQGe2GLESnQko2cICuTrsoCNs1sRiG2NPdXABb3nARBodtvxor6p5
+ yBspiRmxLpSZaxhbQTUKAn3IJmn5uyeLBrXikN1Ep8q+lyFoiD/JtoLuGogeR80Y67onAMFh
+ meJ52u9A7cIZBOXgVJfOdrtW6zGM4C+fTgaahwkRoUXOcUgHON21CpveVSRzwjQfLsEyskC1
+ WOgWZ/0Vx4yUP0/pBLvHrt1+eJ1mkgWmD2CLbimn0XP+efPPxa9FOZaWGZim8hktstoVi2Pr
+ YYGXyZLoj0CONDDjt7/qN5KcgtSfCFlXPgbaaV/L4a+H+avI0l5Y9e5/F/rU9UNc319mria8
+ 3ejdFVfzVaj13TLJR/TMiJoaa/1XIY5pnU+ZHR+MVGt0nklQICu8KZAKMdnIeh5rLRunaxuU
+ v0IW8ScGfATGD7JzCsQMMvmp4t4eRX12Q/XZ3i5YCIydoJLThDS/oO2ZRPm8SQDV3LltcY3r
+ 7C6+BncRJ4PG1ZrAMrMMar9xFKtp3kN3ul1WhKQcNVUfUzt9qlsKjDw0aBrc51dd02by2LDh
+ QiMABoeqe3cmKMP8YHE1fKesoOkM+piBU4GTWPV2qm7aHvB9W25zI4eDOvRJWLBVHn58bmJb
+ PlOy62uK+UOmVtHvtYuE7tvyq5itdLjq6UDk1ZhFXTPKV+qFqlhMj+N2swW7v9BwbpQuA2XX
+ EOT+4YFZeXVaZ29SFNBdhA4aumj1O0PnmiA5Ps4F0z2+Str8efVSk5VJRSN1HRQIbYd3FnJG
+ gv9VBr6MzCCtyc=
+IronPort-HdrOrdr: A9a23:lZsfS6sogAMf7DAH0JSoAQYi7skCO4Aji2hC6mlwRA09TyXGra
+ +TdaUguSMc1gx9ZJh5o6H7BEDyewKgyXcV2/haAV7GZmfbUQSTXedfBOfZsl7d8mjFh5VgPM
+ RbAuVD4b/LfCFHZK/BiWHSebdB/DDEytHRuQ609QYJcegeUdAG0+4PMHf+LqQZfnglObMJUL
+ 6nouZXrTupfnoaKu6hAGMeYuTFr9rX0Lr7fB8vHXccmUazpALtzIS/PwmT3x8YXT8K66wl63
+ L5nwvw4bjmm+2nyyXby3TY4/1t6ZXcI5p4dY2xY/ouW3bRYzWTFcZcsnq5zXUISdSUmRYXeR
+ /30lMd1opImjTslyqO0GfQMkHboUkTAjnZuBOlqEqmmNf+Qj0iDcpHmMZ2Tjv1gnBQ+u1U4e
+ ZzxGSeuINQDRTc2ALHx/aNeS1LuyOP0CMfech6tQ0FbWLbUs4IkaUPuExSC5sOByT89cQuF/
+ RvFtjV4LJMfUqddG2xhBgn/DWAZAVFIv69eDl1hiVV6UkkoFlpi08DgMAPlHYJ85wwD5FC+u
+ TfK6xt0LVDVNUfY65xDPoIBZLfMB2HfTvcdGaJZVj3HqAOPHzA75bx/bUu/emvPJgF1oE7lp
+ jNWE5R8WQyZ0XtA8uT24AjyGGEfEytGTD2js1O7ZlwvbPxALLtLC2YUVgr19Ctpv0Oa/erL8
+ pb+KgmdsMLAVGeaLqh7jeOKaW6c0NuLvH9kuxLK26zng==
 X-IronPort-AV: E=Sophos;i="5.88,324,1635220800"; 
-   d="scan'208";a="65159875"
+   d="scan'208";a="63388633"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 5/9] x86/spec-ctrl: Record the last write to MSR_SPEC_CTRL
-Date: Fri, 28 Jan 2022 13:29:23 +0000
-Message-ID: <20220128132927.14997-6-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 6/9] x86/spec-ctrl: Use common MSR_SPEC_CTRL logic for AMD
+Date: Fri, 28 Jan 2022 13:29:24 +0000
+Message-ID: <20220128132927.14997-7-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220128132927.14997-1-andrew.cooper3@citrix.com>
 References: <20220128132927.14997-1-andrew.cooper3@citrix.com>
@@ -100,15 +108,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-In some cases, writes to MSR_SPEC_CTRL do not have interesting side effects,
-and we should implement lazy context switching like we do with other MSRs.
+Currently, amd_init_ssbd() works by being the only write to MSR_SPEC_CTRL in
+the system.  This ceases to be true when using the common logic.
 
-In the short term, this will be used by the SVM infrastructure, but I expect
-to extend it to other contexts in due course.
+Include AMD MSR_SPEC_CTRL in has_spec_ctrl to activate the common paths, and
+introduce an AMD specific block to control alternatives.  Also update the
+boot/resume paths to configure default_xen_spec_ctrl.
 
-Introduce cpu_info.last_spec_ctrl for the purpose, and cache writes made from
-the boot/resume paths.  The value can't live in regular per-cpu data when it
-is eventually used for PV guests when XPTI might be active.
+svm.h needs an adjustment to remove a dependency on include order.
+
+For now, only active alternatives for HVM - PV will require more work.  No
+functional change, as no alternatives are defined yet for HVM yet.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -117,142 +127,127 @@ CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 
 v2:
- * New
+ * Fix build in some PV Shim configurations
+ * Adjust boot/resume paths too
+ * Adjust commit message after rearranging in the series
+ * Fix typo in comment
 ---
- xen/arch/x86/acpi/power.c                |  3 +++
- xen/arch/x86/include/asm/current.h       |  2 +-
- xen/arch/x86/include/asm/spec_ctrl_asm.h |  4 ++++
- xen/arch/x86/setup.c                     |  5 ++++-
- xen/arch/x86/smpboot.c                   |  5 +++++
- xen/arch/x86/spec_ctrl.c                 | 10 +++++++---
- 6 files changed, 24 insertions(+), 5 deletions(-)
+ xen/arch/x86/acpi/power.c              |  2 +-
+ xen/arch/x86/cpu/amd.c                 |  2 +-
+ xen/arch/x86/include/asm/hvm/svm/svm.h |  3 +++
+ xen/arch/x86/smpboot.c                 |  2 +-
+ xen/arch/x86/spec_ctrl.c               | 26 ++++++++++++++++++++++++--
+ 5 files changed, 30 insertions(+), 5 deletions(-)
 
 diff --git a/xen/arch/x86/acpi/power.c b/xen/arch/x86/acpi/power.c
-index ea2bd8bbfe93..5f2ec74f744a 100644
+index 5f2ec74f744a..0eae29b5687a 100644
 --- a/xen/arch/x86/acpi/power.c
 +++ b/xen/arch/x86/acpi/power.c
-@@ -296,7 +296,10 @@ static int enter_state(u32 state)
+@@ -295,7 +295,7 @@ static int enter_state(u32 state)
+     /* Re-enabled default NMI/#MC use of MSR_SPEC_CTRL. */
      ci->spec_ctrl_flags |= (default_spec_ctrl_flags & SCF_ist_wrmsr);
  
-     if ( boot_cpu_has(X86_FEATURE_IBRSB) )
-+    {
-         wrmsrl(MSR_SPEC_CTRL, default_xen_mcu_opt_ctrl);
-+        ci->last_spec_ctrl = default_xen_mcu_opt_ctrl;
-+    }
- 
-     if ( boot_cpu_has(X86_FEATURE_SRBDS_CTRL) )
-         wrmsrl(MSR_MCU_OPT_CTRL, default_xen_mcu_opt_ctrl);
-diff --git a/xen/arch/x86/include/asm/current.h b/xen/arch/x86/include/asm/current.h
-index cfbedc31983f..dc0edd9ed07d 100644
---- a/xen/arch/x86/include/asm/current.h
-+++ b/xen/arch/x86/include/asm/current.h
-@@ -56,6 +56,7 @@ struct cpu_info {
-     /* See asm/spec_ctrl_asm.h for usage. */
-     unsigned int shadow_spec_ctrl;
-     uint8_t      xen_spec_ctrl;
-+    uint8_t      last_spec_ctrl;
-     uint8_t      spec_ctrl_flags;
- 
-     /*
-@@ -73,7 +74,6 @@ struct cpu_info {
-      */
-     bool         use_pv_cr3;
- 
--    unsigned long __pad;
-     /* get_stack_bottom() must be 16-byte aligned */
- };
- 
-diff --git a/xen/arch/x86/include/asm/spec_ctrl_asm.h b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-index bf82528a12ae..9c0c7622c41f 100644
---- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
-+++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-@@ -67,6 +67,10 @@
-  * steps 2 and 6 will restore the shadow value rather than leaving Xen's value
-  * loaded and corrupting the value used in guest context.
-  *
-+ * Additionally, in some cases it is safe to skip writes to MSR_SPEC_CTRL when
-+ * we don't require any of the side effects of an identical write.  Maintain a
-+ * per-cpu last_spec_ctrl value for this purpose.
-+ *
-  * The following ASM fragments implement this algorithm.  See their local
-  * comments for further details.
-  *  - SPEC_CTRL_ENTRY_FROM_PV
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index e716005145d3..115f8f651734 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1930,9 +1930,12 @@ void __init noreturn __start_xen(unsigned long mbi_p)
- 
-     if ( bsp_delay_spec_ctrl )
+-    if ( boot_cpu_has(X86_FEATURE_IBRSB) )
++    if ( boot_cpu_has(X86_FEATURE_IBRSB) || boot_cpu_has(X86_FEATURE_IBRS) )
      {
--        get_cpu_info()->spec_ctrl_flags &= ~SCF_use_shadow;
-+        struct cpu_info *info = get_cpu_info();
-+
-+        info->spec_ctrl_flags &= ~SCF_use_shadow;
-         barrier();
-         wrmsrl(MSR_SPEC_CTRL, default_xen_spec_ctrl);
-+        info->last_spec_ctrl = default_xen_spec_ctrl;
-     }
+         wrmsrl(MSR_SPEC_CTRL, default_xen_mcu_opt_ctrl);
+         ci->last_spec_ctrl = default_xen_mcu_opt_ctrl;
+diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
+index f87484b7ce61..a8e37dbb1f5c 100644
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -693,7 +693,7 @@ void amd_init_ssbd(const struct cpuinfo_x86 *c)
+ 		return;
  
-     /* Jump to the 1:1 virtual mappings of cpu0_stack. */
+ 	if (cpu_has_amd_ssbd) {
+-		wrmsrl(MSR_SPEC_CTRL, opt_ssbd ? SPEC_CTRL_SSBD : 0);
++		/* Handled by common MSR_SPEC_CTRL logic */
+ 		return;
+ 	}
+ 
+diff --git a/xen/arch/x86/include/asm/hvm/svm/svm.h b/xen/arch/x86/include/asm/hvm/svm/svm.h
+index 05e968502694..09c32044ec8a 100644
+--- a/xen/arch/x86/include/asm/hvm/svm/svm.h
++++ b/xen/arch/x86/include/asm/hvm/svm/svm.h
+@@ -45,6 +45,9 @@ static inline void svm_invlpga(unsigned long linear, uint32_t asid)
+         "a" (linear), "c" (asid));
+ }
+ 
++struct cpu_user_regs;
++struct vcpu;
++
+ unsigned long *svm_msrbit(unsigned long *msr_bitmap, uint32_t msr);
+ void __update_guest_eip(struct cpu_user_regs *regs, unsigned int inst_len);
+ void svm_update_guest_cr(struct vcpu *, unsigned int cr, unsigned int flags);
 diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index 08c0f2d9df04..1cfdf96207d4 100644
+index 1cfdf96207d4..22ae4c1b2de9 100644
 --- a/xen/arch/x86/smpboot.c
 +++ b/xen/arch/x86/smpboot.c
-@@ -323,6 +323,8 @@ static void set_cpu_sibling_map(unsigned int cpu)
- 
- void start_secondary(void *unused)
- {
-+    struct cpu_info *info = get_cpu_info();
-+
-     /*
-      * Dont put anything before smp_callin(), SMP booting is so fragile that we
-      * want to limit the things done here to the most necessary things.
-@@ -379,7 +381,10 @@ void start_secondary(void *unused)
+@@ -380,7 +380,7 @@ void start_secondary(void *unused)
+      * settings.  Note: These MSRs may only become available after loading
       * microcode.
       */
-     if ( boot_cpu_has(X86_FEATURE_IBRSB) )
-+    {
+-    if ( boot_cpu_has(X86_FEATURE_IBRSB) )
++    if ( boot_cpu_has(X86_FEATURE_IBRSB) || boot_cpu_has(X86_FEATURE_IBRS) )
+     {
          wrmsrl(MSR_SPEC_CTRL, default_xen_spec_ctrl);
-+        info->last_spec_ctrl = default_xen_spec_ctrl;
-+    }
-     if ( boot_cpu_has(X86_FEATURE_SRBDS_CTRL) )
-         wrmsrl(MSR_MCU_OPT_CTRL, default_xen_mcu_opt_ctrl);
- 
+         info->last_spec_ctrl = default_xen_spec_ctrl;
 diff --git a/xen/arch/x86/spec_ctrl.c b/xen/arch/x86/spec_ctrl.c
-index 2072daf66245..b2fd86ebe587 100644
+index b2fd86ebe587..c210bb662f84 100644
 --- a/xen/arch/x86/spec_ctrl.c
 +++ b/xen/arch/x86/spec_ctrl.c
-@@ -1270,6 +1270,9 @@ void __init init_speculation_mitigations(void)
-      */
-     if ( has_spec_ctrl )
-     {
-+        struct cpu_info *info = get_cpu_info();
-+        unsigned int val;
-+
-         bsp_delay_spec_ctrl = !cpu_has_hypervisor && default_xen_spec_ctrl;
+@@ -22,6 +22,7 @@
+ #include <xen/param.h>
+ #include <xen/warning.h>
  
-         /*
-@@ -1278,15 +1281,16 @@ void __init init_speculation_mitigations(void)
-          */
-         if ( bsp_delay_spec_ctrl )
-         {
--            struct cpu_info *info = get_cpu_info();
--
-             info->shadow_spec_ctrl = 0;
-             barrier();
-             info->spec_ctrl_flags |= SCF_use_shadow;
-             barrier();
++#include <asm/hvm/svm/svm.h>
+ #include <asm/microcode.h>
+ #include <asm/msr.h>
+ #include <asm/pv/domain.h>
+@@ -936,7 +937,8 @@ void __init init_speculation_mitigations(void)
+ 
+     hw_smt_enabled = check_smt_enabled();
+ 
+-    has_spec_ctrl = boot_cpu_has(X86_FEATURE_IBRSB);
++    has_spec_ctrl = (boot_cpu_has(X86_FEATURE_IBRSB) ||
++                     boot_cpu_has(X86_FEATURE_IBRS));
+ 
+     /*
+      * First, disable the use of retpolines if Xen is using shadow stacks, as
+@@ -1031,12 +1033,32 @@ void __init init_speculation_mitigations(void)
          }
- 
--        wrmsrl(MSR_SPEC_CTRL, bsp_delay_spec_ctrl ? 0 : default_xen_spec_ctrl);
-+        val = bsp_delay_spec_ctrl ? 0 : default_xen_spec_ctrl;
-+
-+        wrmsrl(MSR_SPEC_CTRL, val);
-+        info->last_spec_ctrl = val;
      }
  
-     if ( boot_cpu_has(X86_FEATURE_SRBDS_CTRL) )
++    /* AMD hardware: MSR_SPEC_CTRL alternatives setup. */
++    if ( boot_cpu_has(X86_FEATURE_IBRS) )
++    {
++        /*
++         * Virtualising MSR_SPEC_CTRL for guests depends on SVM support, which
++         * on real hardware matches the availability of MSR_SPEC_CTRL in the
++         * first place.
++         *
++         * No need for SCF_ist_wrmsr because Xen's value is restored
++         * atomically WRT NMIs in the VMExit path.
++         *
++         * TODO Adjust cpu_has_svm_spec_ctrl to be configured earlier on boot.
++         */
++        if ( opt_msr_sc_hvm &&
++             (boot_cpu_data.extended_cpuid_level >= 0x8000000a) &&
++             (cpuid_edx(0x8000000a) & (1u << SVM_FEATURE_SPEC_CTRL)) )
++            setup_force_cpu_cap(X86_FEATURE_SC_MSR_HVM);
++    }
++
+     /* If we have IBRS available, see whether we should use it. */
+     if ( has_spec_ctrl && ibrs )
+         default_xen_spec_ctrl |= SPEC_CTRL_IBRS;
+ 
+     /* If we have SSBD available, see whether we should use it. */
+-    if ( boot_cpu_has(X86_FEATURE_SSBD) && opt_ssbd )
++    if ( opt_ssbd && (boot_cpu_has(X86_FEATURE_SSBD) ||
++                      boot_cpu_has(X86_FEATURE_AMD_SSBD)) )
+         default_xen_spec_ctrl |= SPEC_CTRL_SSBD;
+ 
+     /*
 -- 
 2.11.0
 
