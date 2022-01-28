@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E573D49FE63
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 17:51:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.262101.454192 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0F8949FE9D
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 18:05:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.262105.454203 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDUSQ-0003ap-Kb; Fri, 28 Jan 2022 16:50:42 +0000
+	id 1nDUg8-0005GA-Ox; Fri, 28 Jan 2022 17:04:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 262101.454192; Fri, 28 Jan 2022 16:50:42 +0000
+Received: by outflank-mailman (output) from mailman id 262105.454203; Fri, 28 Jan 2022 17:04:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDUSQ-0003Xp-Go; Fri, 28 Jan 2022 16:50:42 +0000
-Received: by outflank-mailman (input) for mailman id 262101;
- Fri, 28 Jan 2022 16:50:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nDUg8-0005DU-Kw; Fri, 28 Jan 2022 17:04:52 +0000
+Received: by outflank-mailman (input) for mailman id 262105;
+ Fri, 28 Jan 2022 17:04:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BgXU=SM=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1nDUSO-0003Xj-Ol
- for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 16:50:40 +0000
-Received: from MTA-13-4.privateemail.com (mta-13-4.privateemail.com
- [198.54.127.109]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69fc1891-805a-11ec-8eb8-a37418f5ba1a;
- Fri, 28 Jan 2022 17:50:39 +0100 (CET)
-Received: from mta-13.privateemail.com (localhost [127.0.0.1])
- by mta-13.privateemail.com (Postfix) with ESMTP id C81F018000A3
- for <xen-devel@lists.xenproject.org>; Fri, 28 Jan 2022 11:50:34 -0500 (EST)
-Received: from mail-yb1-f175.google.com (unknown [10.20.151.178])
- by mta-13.privateemail.com (Postfix) with ESMTPA id 9E9AC18000A8
- for <xen-devel@lists.xenproject.org>; Fri, 28 Jan 2022 11:50:34 -0500 (EST)
-Received: by mail-yb1-f175.google.com with SMTP id 23so20206269ybf.7
- for <xen-devel@lists.xenproject.org>; Fri, 28 Jan 2022 08:50:34 -0800 (PST)
+ <SRS0=i1b2=SM=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nDUg6-0005D7-ST
+ for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 17:04:51 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6531e45b-805c-11ec-8f75-fffcc8bd4f1a;
+ Fri, 28 Jan 2022 18:04:48 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,109 +36,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69fc1891-805a-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
-	s=default; t=1643388634;
-	bh=2gOTaKu5OJW0q3pN4afbReMvy9fxCsLuFD6TdYYeVEc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=ZS8csAY0j4SgUkJ9gCA1pp0MFb6dYSWERWH+PwQInQIL77eMCkG6nYdBT6PUPgvC6
-	 CGiKWFK2Igm9gNyJc1z9SS17EtnT4du/IlH1BilKqkpzE2333MmO6yKrHnwnTmVnxa
-	 aGzK1GC+j3Cmg81ZLubdWECZCQCc1YjJeZANKV6UEjG+RDStHir3zr6MNA7tpVmGU8
-	 gaFkXPRtHHP8W8c84qfnz+OM2hPbJB/u74cpcSiOLmlCYm+itpCeBdjv7Emvls8hWu
-	 huDK9dWOsvLqu+f8/74Vld7nSju/IVyFQ+xjrXqDJ3ifhBajMROnycAT5DHYcxI1wL
-	 atLz/JQB4ce9g==
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
-	s=default; t=1643388634;
-	bh=2gOTaKu5OJW0q3pN4afbReMvy9fxCsLuFD6TdYYeVEc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=ZS8csAY0j4SgUkJ9gCA1pp0MFb6dYSWERWH+PwQInQIL77eMCkG6nYdBT6PUPgvC6
-	 CGiKWFK2Igm9gNyJc1z9SS17EtnT4du/IlH1BilKqkpzE2333MmO6yKrHnwnTmVnxa
-	 aGzK1GC+j3Cmg81ZLubdWECZCQCc1YjJeZANKV6UEjG+RDStHir3zr6MNA7tpVmGU8
-	 gaFkXPRtHHP8W8c84qfnz+OM2hPbJB/u74cpcSiOLmlCYm+itpCeBdjv7Emvls8hWu
-	 huDK9dWOsvLqu+f8/74Vld7nSju/IVyFQ+xjrXqDJ3ifhBajMROnycAT5DHYcxI1wL
-	 atLz/JQB4ce9g==
-X-Gm-Message-State: AOAM533HKomO5MMcKTlO2vyD84wJKQ175gFQZDz/KVDlNQepV7zVO/PH
-	X0sYjELDA5Y7p9I6Dlk8Y+rfDvMttMvOVazv+CU=
-X-Google-Smtp-Source: ABdhPJxbyU2ABOdpmmUvetiK33osOv5PkI39+hac/yMtnQr9B7lWlFfc9MaTyRq5e6rK7OPGFcF+RSO8qhBqjFDJ6y8=
-X-Received: by 2002:a5b:2ce:: with SMTP id h14mr11860232ybp.572.1643388633788;
- Fri, 28 Jan 2022 08:50:33 -0800 (PST)
+X-Inumbo-ID: 6531e45b-805c-11ec-8f75-fffcc8bd4f1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1643389489;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5H0JcPSfrpDUuApqPHSiDE05M25uq2O3xA3RqucXv/s=;
+  b=GuZa8NS2W7M9kx6WSEuzZuAuTqxwWY1BhVjzforaFFM3kDbQfzOacn63
+   3DspSiRHWCahjwRKXzrlD3eCH4UB519yAJTJLe2bv1iaAmf7hkfuAg2wt
+   EehXqcVLHq5bVb97L2n1anAvdHieUNo2BxR8VlD3YnrUSDNp7q4OLSTsi
+   Y=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: E/vmO0mbzqlUL2oLX6XdwFLIcrdzET61SMqEthP68i9w1gEenzzGRuhQGw+66pLOPxbefPL2VD
+ FaLCZ9e7exCwUeIHcZdvqa8KAyR9kAUXpyFYRwKl/8aJ5vf+XXVnJk2qV8DGJjYPuOiMekdpUc
+ uMwOqlDUuaQr52PnwfUz2Kq0WBopxppaeO7JaX4rTWXm5w+2ITDnKYL14cxL4ZxgHGknGB1lpx
+ E93YDQafylkV0S32nryjRl9ZIiNDjgDmZFcfR2QJPt6GJjvjQHXJsgY2+ZQpqJmzD9fJgb29jl
+ SUFXssY/BapBEwH/pjSOqwFt
+X-SBRS: 5.2
+X-MesageID: 63000957
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:WJdH+64qim+Gouw0utR2xwxRtFPBchMFZxGqfqrLsTDasY5as4F+v
+ jcbDzzSOveNZGHyfdtzPYy+9x4HuJSDx9BkHQBp+CkzHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FV8MpBsJ00o5wbZg2N4w3bBVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zi
+ +UQ9s2bFx8TJvOLmPZNAz90HTtSIvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALJc/3PIQZqzd4wCvQF/oOSpHfWaTao9Rf2V/cg+gQRq6GP
+ 5tENlKDajz4SiV3OUZKNKgXmcKCgnvBQSUHoXe88P9fD2/7k1UqjemF3MDuUuKNQcJZj0OJv
+ FXs9m7yAgwZHNGHwD/D+XWp7sfUhj/yUo8WELy+99ZpjUeVy2hVDwcZPXOxrOOlkEe4V5RaI
+ lYN5ys1haEo8QqgSdyVdx61vn+C+AIdUtx4Eusm5QXLwa3Riy6bG25CSDdCYd4nscYeRDo22
+ 1vPlNTsbRRwtJWFRHTb8a2bxRuiNC5QIWIcaCssSQoe/8KlsIw1lgjITNtoDOiylNKdMTP/2
+ TeRtwAlmq4ey8UM0s2T/03Dgj+qjojESEgy/Aq/dmCv4x59ZYWlT5e18lWd5vFFRLt1VXHY4
+ iJCwZLHqrlTU9fdz0RhXdnhApnq16vGYRaCmWR3Qd4h5WT93VKtZ6xPtWQWyFhSDu4IfjrgY
+ Un2sAxX5YNOMHbCUZKbc75dGOxxk/G+SI2NuuT8K4MXP8MvLFPvEDRGOBbIt10BhnTAhk3W1
+ X2zVc+3RUgXBq18pNZdb7dMiOR7rszSKI66eHwa8/hF+efGDJJ2Ye1cWLdrUgzfxPnZyOky2
+ 40HX/ZmMz0FDIXDjtD/qOb/12wiI3khHozRoMdKbOOFKQcOMDh/V6SLmut6JdE9wvU9egL0E
+ peVABEwJL3X3iWvFOl3Qio7NOOHsWhX8xrXwhDAzX73giN+MO5DHY8UdoctfKlPyQCQ5aUcc
+ hXxQO3ZWq4nYm2eo1w1NMChxKQ/KkjDrV/QbkKNPWhuF7Y9Fleh0oK1IWPSGNwmU3DfWT0W+
+ ePwj2s2gPMrGmxfMSohQKvxlwvv5SRMx7MasomhCoA7RXgAObNCc0TZ5sLb6elVQfka7jfFh
+ QuQHzkCouzB/908/NXT3PjWpIa1CepuWEFdGjCDv7qxMCDb+EulwJNBD7nULWyMCjus9fXwf
+ /hRwtH9LOYDwARAvb1jHus51qk5/dbu+eNXl1w2AHXRYl23Ibp8OX3aj9JXv6hAy+YB6wu7U
+ 06C4PdAPrCNNJ+3GVIdPlN9PO+CyesVin/Z6vFseBf24yp+/bymV0ROPkbT1HwBfeUtaI58m
+ LUvos8b7QC7myEGCNfeg3AG7XmII1wBT74j6sMQDrj0h1d50VpFe5HdVHP7ucndd9VWP0A2C
+ TaIn66e1a9Ez0/PfndvR3jA2e1R2cYHtBxQlQJQIl2InpzOh+Mt3Q0X+jMyF1wHwhJC2uN1G
+ 25qK0wqevneo2Y23JBODzK2BgVMJByF4UigmVIGmVrQQ1SsSmGQfnY2PvyA/RxB/m9RFtSBE
+ Gp0FIoxve7WQfzM
+IronPort-HdrOrdr: A9a23:NggfmqgtN1aHVlP/m2GwjOE6KHBQXt4ji2hC6mlwRA09TyX+rb
+ HIoB17726RtN91YhodcL+7VJVoLUmyyXcX2+ks1NWZMjUO0VHAROsO0WKI+VzdMhy72ulB1b
+ pxN4hSYeeAaGSSVPyKgzVQxexQouW6zA==
+X-IronPort-AV: E=Sophos;i="5.88,324,1635220800"; 
+   d="scan'208";a="63000957"
+Date: Fri, 28 Jan 2022 17:04:35 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jane Malalane <jane.malalane@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, "Juergen
+ Gross" <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, "George
+ Dunlap" <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian
+	<kevin.tian@intel.com>, Roger Pau =?iso-8859-1?Q?Monn=E9?=
+	<roger.pau@citrix.com>
+Subject: Re: [PATCH 1/2] xen+tools: Report Interrupt Controller
+ Virtualization capabilities on x86
+Message-ID: <YfQiIzxNMVDAGz7p@perard>
+References: <20220127160133.11608-1-jane.malalane@citrix.com>
+ <20220127160133.11608-2-jane.malalane@citrix.com>
 MIME-Version: 1.0
-References: <2c421077-81c2-a45e-f7c3-9827d3cb1abf@suse.com>
-In-Reply-To: <2c421077-81c2-a45e-f7c3-9827d3cb1abf@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Fri, 28 Jan 2022 11:49:58 -0500
-X-Gmail-Original-Message-ID: <CABfawhk0qDnOdO9DOKLPPNW=FtpGSJvJQAzmKRxxdkwjfeGSYA@mail.gmail.com>
-Message-ID: <CABfawhk0qDnOdO9DOKLPPNW=FtpGSJvJQAzmKRxxdkwjfeGSYA@mail.gmail.com>
-Subject: Re: [PATCH v3] x86/altp2m: p2m_altp2m_propagate_change() should honor
- present page order
-To: Jan Beulich <JBeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
-	Alexandru Isaila <aisaila@bitdefender.com>, George Dunlap <george.dunlap@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220127160133.11608-2-jane.malalane@citrix.com>
 
-On Thu, Jan 27, 2022 at 10:07 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> For higher order mappings the comparison against p2m->min_remapped_gfn
-> needs to take the upper bound of the covered GFN range into account, not
-> just the base GFN. Otherwise, i.e. when dropping a mapping overlapping
-> the remapped range but the base GFN outside of that range, an altp2m may
-> wrongly not get reset.
->
-> Note that there's no need to call get_gfn_type_access() ahead of the
-> check against the remapped range boundaries: None of its outputs are
-> needed earlier, and p2m_reset_altp2m() doesn't require the lock to be
-> held. In fact this avoids a latent lock order violation: With per-GFN
-> locking p2m_reset_altp2m() not only doesn't require the GFN lock to be
-> held, but holding such a lock would actually not be allowed, as the
-> function acquires a P2M lock.
->
-> Local variables are moved into the more narrow scope (one is deleted
-> altogether) to help see their actual life ranges.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On Thu, Jan 27, 2022 at 04:01:32PM +0000, Jane Malalane wrote:
+> Add XEN_SYSCTL_PHYSCAP_ARCH_ASSISTED_xapic and
+> XEN_SYSCTL_PHYSCAP_ARCH_ASSISTED_x2apic to report accelerated xapic
+> and x2apic, on x86 hardware.
+> No such features are currently implemented on AMD hardware.
+> 
+> For that purpose, also add an arch-specific "capabilities" parameter
+> to struct xen_sysctl_physinfo.
+> 
+> Signed-off-by: Jane Malalane <jane.malalane@citrix.com>
+> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > ---
-> Note that this addresses only half of the problem: get_gfn_type_access()
-> would also need invoking for all of the involved GFNs, not just the 1st
-> one.
-> ---
-> v3: Don't pass the minimum of both orders to p2m_set_entry() (as was the
->     case in the original code). Restore get_gfn_type_access() return
->     value checking.
->
-> --- a/xen/arch/x86/mm/p2m.c
-> +++ b/xen/arch/x86/mm/p2m.c
-> @@ -2534,9 +2534,6 @@ int p2m_altp2m_propagate_change(struct d
->                                  p2m_type_t p2mt, p2m_access_t p2ma)
->  {
->      struct p2m_domain *p2m;
-> -    p2m_access_t a;
-> -    p2m_type_t t;
-> -    mfn_t m;
->      unsigned int i;
->      unsigned int reset_count = 0;
->      unsigned int last_reset_idx = ~0;
-> @@ -2549,15 +2546,16 @@ int p2m_altp2m_propagate_change(struct d
->
->      for ( i = 0; i < MAX_ALTP2M; i++ )
->      {
-> +        p2m_type_t t;
-> +        p2m_access_t a;
-> +
->          if ( d->arch.altp2m_eptp[i] == mfn_x(INVALID_MFN) )
->              continue;
->
->          p2m = d->arch.altp2m_p2m[i];
-> -        m = get_gfn_type_access(p2m, gfn_x(gfn), &t, &a, 0, NULL);
->
->          /* Check for a dropped page that may impact this altp2m */
-> -        if ( mfn_eq(mfn, INVALID_MFN) &&
-> -             gfn_x(gfn) >= p2m->min_remapped_gfn &&
-> +        if ( gfn_x(gfn) + (1UL << page_order) > p2m->min_remapped_gfn &&
->               gfn_x(gfn) <= p2m->max_remapped_gfn )
+>  tools/golang/xenlight/helpers.gen.go |  4 ++++
+>  tools/golang/xenlight/types.gen.go   |  6 ++++++
 
-Why are you dropping the mfn_eq(mfn, INVALID_MFN) check here?
+Note for committers: Please regenerate the go bindings, there are
+out-of-sync with libxl_types.idl at the moment.
 
-Tamas
+> diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
+> index 1feadebb18..33da51fe89 100644
+> --- a/tools/libs/light/libxl_x86.c
+> +++ b/tools/libs/light/libxl_x86.c
+> @@ -866,6 +866,17 @@ int libxl__arch_passthrough_mode_setdefault(libxl__gc *gc,
+>      return rc;
+>  }
+>  
+> +void libxl__arch_get_physinfo(libxl_physinfo *physinfo,
+> +                              xc_physinfo_t xcphysinfo)
+
+It might be better to pass "xcphysinfo" as a pointer, otherwise I think
+a copy of the whole struct is made when calling this function.
+
+
+In any case, the tool part of the patch looks good:
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+
+Thanks,
+
+-- 
+Anthony PERARD
 
