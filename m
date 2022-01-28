@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D68F49F2C8
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 06:15:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.261756.453615 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C543549F318
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 06:43:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.261840.453626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDJbP-0004PY-FB; Fri, 28 Jan 2022 05:15:15 +0000
+	id 1nDK1g-0007rb-Mp; Fri, 28 Jan 2022 05:42:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 261756.453615; Fri, 28 Jan 2022 05:15:15 +0000
+Received: by outflank-mailman (output) from mailman id 261840.453626; Fri, 28 Jan 2022 05:42:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDJbP-0004Mc-C2; Fri, 28 Jan 2022 05:15:15 +0000
-Received: by outflank-mailman (input) for mailman id 261756;
- Thu, 27 Jan 2022 21:38:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mi6w=SL=gmail.com=konishi.ryusuke@srs-se1.protection.inumbo.net>)
- id 1nDCTD-00083P-M5
- for xen-devel@lists.xenproject.org; Thu, 27 Jan 2022 21:38:19 +0000
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [2a00:1450:4864:20::12a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7120faee-7fb9-11ec-8f75-fffcc8bd4f1a;
- Thu, 27 Jan 2022 22:38:18 +0100 (CET)
-Received: by mail-lf1-x12a.google.com with SMTP id b9so7889197lfq.6
- for <xen-devel@lists.xenproject.org>; Thu, 27 Jan 2022 13:38:18 -0800 (PST)
+	id 1nDK1g-0007oy-IT; Fri, 28 Jan 2022 05:42:24 +0000
+Received: by outflank-mailman (input) for mailman id 261840;
+ Fri, 28 Jan 2022 05:42:23 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nDK1f-0007oo-1R; Fri, 28 Jan 2022 05:42:23 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nDK1e-00050d-V8; Fri, 28 Jan 2022 05:42:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nDK1e-0008Gm-Jc; Fri, 28 Jan 2022 05:42:22 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nDK1e-0005kp-It; Fri, 28 Jan 2022 05:42:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,67 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7120faee-7fb9-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=z+U+izVFukrEKq10kL5qCCsiT3qJmeLAo+mnNrOVCPU=;
-        b=DwtRea8LCCOg/PGJHjd1bTltmn0bHa2clILkAwGYtZppoAY25qIBMTxyD6B5uMLit6
-         7wk+d+sZiWX35l8wQaAoyrJ9H5CizW30SYci3NU1ojzD14qB67btK2MGpyfbQ3U8Fswu
-         zxqpCDGkYCIAg/NDZ5r6/eIuacbMkuvBlqu9ammCZDYbuScyx0/VXZFI/czsoS4aCdCY
-         RzPo3aqhubsJoGDCZLj5SmdkiGyLla36RWFVNiU5MVGZ7MrbcY5xEOS4+eUv/n2M8qYN
-         MVuY5Y428ZMyJxOjYYJ1BtbtHPjLQ+HBbJ/bfmBPwl0UHF3vKl1N9F7XDbteSxFshMZ6
-         OfIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=z+U+izVFukrEKq10kL5qCCsiT3qJmeLAo+mnNrOVCPU=;
-        b=wngYF+42Xvjt3euV9Yf7vclKE70OwRw/M73t0sczfW0MRWmsUtOAuiZlNPqFfSNi78
-         wK+pqMdxYyQXWYhhckI8UgqDEe/pkuZhvmqdI/mpsMNR0rSXQLW+U7I4QG7bwmelDFai
-         S2gYkHuAvLA2rjLwn7erTlA1wbp/wGuLCINGmI47BIlX4pM30va611QkQOFwldb4X2u0
-         DK9Yys4LsHm0rqvkvZEh6XTAuokXAm4ka7WP/sk7rtJf1xgaVt1KgN/47loWbuvd/Us7
-         pI5SuyUAZf2xDo2972Mt9hTsCvDmrXq7YQi2+9WCnFB0qSqEXgUjnlopgE5QpoT5ZH/w
-         xnwA==
-X-Gm-Message-State: AOAM533cgxTEA5snDxrk8mgywg8vN7fcxgCLVdaPDADu6UChFdXoxBy3
-	E6/wybSQukOaNWGqaPK59KmLJo9Fgwc3kvxlLJ4=
-X-Google-Smtp-Source: ABdhPJxaVoQ4SfBVmSOjFCGrgluhZGplrFWaRNqk5pMVob8JHRQWRWEKNtxwMeMPmpBWjy5SR70YaIdo0zrC/X/8wRA=
-X-Received: by 2002:ac2:58f7:: with SMTP id v23mr4043478lfo.390.1643319497799;
- Thu, 27 Jan 2022 13:38:17 -0800 (PST)
-MIME-Version: 1.0
-References: <20220124091107.642561-1-hch@lst.de> <20220124091107.642561-3-hch@lst.de>
-In-Reply-To: <20220124091107.642561-3-hch@lst.de>
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Fri, 28 Jan 2022 06:38:05 +0900
-Message-ID: <CAKFNMomoLqbbOwg5d6aBHCyGT5v+NF=N2Rm3QwYk8NDXsoJHtA@mail.gmail.com>
-Subject: Re: [PATCH 02/19] nilfs2: remove nilfs_alloc_seg_bio
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Pavel Begunkov <asml.silence@gmail.com>, 
-	Mike Snitzer <snitzer@redhat.com>, 
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Md . Haris Iqbal" <haris.iqbal@ionos.com>, 
-	Jack Wang <jinpu.wang@ionos.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.co>, 
-	Philipp Reisner <philipp.reisner@linbit.com>, Lars Ellenberg <lars.ellenberg@linbit.com>, 
-	linux-block@vger.kernel.org, device-mapper development <dm-devel@redhat.com>, 
-	linux-fsdevel@vger.kernel.org, linux-nfs@vger.kernel.org, 
-	linux-nilfs <linux-nilfs@vger.kernel.org>, ntfs3@lists.linux.dev, 
-	xen-devel@lists.xenproject.org, drbd-dev@lists.linbit.com
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=/A1Dt/OVGDOL1wsiBGuzqfUba/9ibcxhmIC/qmy1sHE=; b=aX2sPGmvKieJZHE2+71KIEGYoR
+	8+u68hxcBI/0XpfsyKLEd0dn1v8vpEM3Hs9OsVYELoY7SrhX8EWMZzYGx0IVxX/AHcYt+vKY8pn60
+	4i2eAqLj28tKpyER4OTqmPxnGkso+CRvSjcpAxNa3r8MO8y8nUc3KXLZ3T7dBn2O+vf0=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-167928-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 167928: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=2a565f9b40db981a860574be26d86a8665e71c38
+X-Osstest-Versions-That:
+    xen=969a57f73f6b011b2ebf4c0ab1715efc65837335
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 28 Jan 2022 05:42:22 +0000
 
-On Mon, Jan 24, 2022 at 6:11 PM Christoph Hellwig <hch@lst.de> wrote:
->
-> bio_alloc will never fail when it can sleep.  Remove the now simple
-> nilfs_alloc_seg_bio helper and open code it in the only caller.
->
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  fs/nilfs2/segbuf.c | 31 ++++---------------------------
->  1 file changed, 4 insertions(+), 27 deletions(-)
+flight 167928 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167928/
 
-Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Failures :-/ but no regressions.
 
-Thanks!
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-Ryusuke Konishi
+version targeted for testing:
+ xen                  2a565f9b40db981a860574be26d86a8665e71c38
+baseline version:
+ xen                  969a57f73f6b011b2ebf4c0ab1715efc65837335
+
+Last test of basis   167924  2022-01-27 21:02:57 Z    0 days
+Testing same since   167928  2022-01-28 02:00:32 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Stefano Stabellini <stefano.stabellini@xilinx.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   969a57f73f..2a565f9b40  2a565f9b40db981a860574be26d86a8665e71c38 -> smoke
 
