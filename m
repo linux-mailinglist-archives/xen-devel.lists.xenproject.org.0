@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B7B749FDA2
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 17:08:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.262095.454180 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E573D49FE63
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 17:51:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.262101.454192 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDTmp-0006Zb-4x; Fri, 28 Jan 2022 16:07:43 +0000
+	id 1nDUSQ-0003ap-Kb; Fri, 28 Jan 2022 16:50:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 262095.454180; Fri, 28 Jan 2022 16:07:43 +0000
+Received: by outflank-mailman (output) from mailman id 262101.454192; Fri, 28 Jan 2022 16:50:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDTmp-0006Xb-1k; Fri, 28 Jan 2022 16:07:43 +0000
-Received: by outflank-mailman (input) for mailman id 262095;
- Fri, 28 Jan 2022 16:07:42 +0000
+	id 1nDUSQ-0003Xp-Go; Fri, 28 Jan 2022 16:50:42 +0000
+Received: by outflank-mailman (input) for mailman id 262101;
+ Fri, 28 Jan 2022 16:50:41 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i1b2=SM=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nDTmo-0006XV-Er
- for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 16:07:42 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69fa331e-8054-11ec-8eb8-a37418f5ba1a;
- Fri, 28 Jan 2022 17:07:40 +0100 (CET)
+ <SRS0=BgXU=SM=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
+ id 1nDUSO-0003Xj-Ol
+ for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 16:50:40 +0000
+Received: from MTA-13-4.privateemail.com (mta-13-4.privateemail.com
+ [198.54.127.109]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 69fc1891-805a-11ec-8eb8-a37418f5ba1a;
+ Fri, 28 Jan 2022 17:50:39 +0100 (CET)
+Received: from mta-13.privateemail.com (localhost [127.0.0.1])
+ by mta-13.privateemail.com (Postfix) with ESMTP id C81F018000A3
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Jan 2022 11:50:34 -0500 (EST)
+Received: from mail-yb1-f175.google.com (unknown [10.20.151.178])
+ by mta-13.privateemail.com (Postfix) with ESMTPA id 9E9AC18000A8
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Jan 2022 11:50:34 -0500 (EST)
+Received: by mail-yb1-f175.google.com with SMTP id 23so20206269ybf.7
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Jan 2022 08:50:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,98 +44,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69fa331e-8054-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643386060;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=S1nhx64OKYyVQEv92E+rfDdVEL60qDliMuqhbZ7LC00=;
-  b=Kvx78nkJKQsauJX4uPfdDK55AirTqBLo96Wztvo8bN1RVeQ0FD3EYSL6
-   WoqVdjDldRU9FkgicYf7exPvenx6li0Sjgfm+T25XU9EVHZ1QTA7QrbGr
-   LG5JO2ayW89tBwVnCPzA630HjiPYqkhcIQFHadZDR1i7Qge63L/IwP8R9
-   0=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: o8VY+dRwdqg3H2T9qp94o1LwbDKI7gP3W+HobQv3CXR+ak+42Ukb0drpy3hRYraG7HEx1tQteC
- VMpI2Y25QEoHgQymhQQOT4a0nTkWb4N4iyBPrp4r2VBTlEm8psRG9/KC0E1y2uY+PG8Lt8kBAd
- LhLMhoIyjWW7+5MIYDq643YkTW9KfLO3TUTTrXs+ZSzW7zbSdQUi8f/pWAf2AnvHX+KgqqJQIq
- 3WSP3q1YzYS2TXAa/qaiqG4Su7XlLDwmV3nSP7Ivx9pYF1uBRv+BIOQNZuCTYWHbzmFOSGf9qg
- tjYJkhALTLOXhbUH6RWjhrxF
-X-SBRS: 5.2
-X-MesageID: 65175340
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:SHuNgqx/dzBAA8wR0h56t+ebwSrEfRIJ4+MujC+fZmUNrF6WrkUCz
- TBKDzzVOf/eYzfyL9x2YN/i/B9T6MLSx9VnHgY+rCAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAhLeNYYH1500g7wrRp2tIAbeWRWGthh
- /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
- wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt9VI7
- dthmp6ccj44I5KdisAtfhsBTj4raMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
- 6ZBbmlQMFbT3Ipaw5riIgVors0lMMnsOpJZonx6xCvVJf0nXYrCU+PB4towMDIY2J0XQquFO
- 5JxhTxHUjPuUgFNF28sD8w1pMy6nFDedWdgtwfAzUYwyzeKl1EguFT3C/LJc9mDXu1JnUKVo
- G3X8mC/CRYfXPSH0Tuf+Xuoj+XStSn6RI4fGrC++vNwxlaUwwQ7ARwNXFq/qNGzi1KyVtxSL
- UAZ4Gwlqq1a3FSiU93VTxC+5nmesXY0WdBdDuk74wGl0bfP7kCSAW1sZi5MbpkqudE7QRQu1
- 0SVhJX5CDp3qrqXRHmBsLCOoluaJiw9PWIEIygeQmM4D8LL+d9pyEiVF5A6TfDz3oad9SzML
- y6iqREbiZk8j+Iw7rSmwgHVpwKBpMGUUVtgjunIZV6N4gR8bY+jQoWn71nH8PpNRLqkokm9U
- GsswJbHsr1XZX2ZvGnUGbhWQun1jxqQGGCE2TZS848dGyNBEpJJVaRZ+3lAKUhgKa7okhe5M
- RaI6Wu9CHK+VUZGjJObgarsU6zGLoC6TLwJs8w4iPIUP/CdkyfcpElTiba4hTyFraTVufhX1
- W2nWcitF20GLq9s0SC7QewQuZdymHxlnziLHs6ml0n2uVZ7WJJzYe1bWLdpRrthhJ5oXS2Pq
- 4oPXyd040s3vBLCjtn/rtdIcAFiwYkTDpHqsc1HHtNv0SI9cFzN/8T5mOt7E6Q8xvw9vr6Ro
- hmVBxEEoHKi2yyvAVjaOxhLNeK0Nb4i/C1TAMDZFQvys5TVSdzxvP53mlpeVeRPydGPOtYtE
- aFdJZ3cU6seItkFkhxEBaTAQEVZXEzDrWqz0+CNOlDTprZsGF7E/MHKZAzq+HVcBya7r5Jm8
- bahyhnaUdwIQAE7VJTab/emzlWQu3kBmb0tAxuUc4cLIEi8opJ3LyHRj+MsJ51eIxv02TbHh
- R2dBg0VpLeRrtZtosXJn62Ns6ygD/B6QhhBB2De4LvvbXva82OvzJVuSuGNeTyBBmr49L/7P
- bdezu3mMe1Bl1FP6tIuH7FuxKM4xt3uu74FkVg0QCSVNwymU+oyLGOH0M9Dsrx26oVY4QbmC
- FiS/tR6OKmSPJ+3GlAmOwd4PP+I0usZm2eO4K1tcln6/iJ+4JGOTV5WY0uXkCVYIbZ4bNElz
- OMmtJJE4gCzkEN3YNOPjyQS/GWQNH0QFa4gs8hCUoPsjwMqzHBEYIDdVXCqsM3eNY0UPxl4O
- CKQiYrDm69YlxjLfHcEHHTQ2fZQ2MYVsxdQwV5ef1mEl7IpXBPsMMG9Jdjvcjlo8w==
-IronPort-HdrOrdr: A9a23:EvbWzKEVPbKB5RBqpLqE6seALOsnbusQ8zAXP0AYc31om+ij5q
- eTdZUgpHvJYVkqNE3I9eruBEDEewK7yXcX2/h1AV7BZniEhILAFugLhuGO/9SjIVydygc079
- YYT0EUMr3N5DZB4/rH3A==
-X-IronPort-AV: E=Sophos;i="5.88,324,1635220800"; 
-   d="scan'208";a="65175340"
-Date: Fri, 28 Jan 2022 16:07:33 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Andrew
- Cooper" <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Roger Pau
- =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Paul Durrant <paul@xen.org>, Tamas K Lengyel
-	<tamas@tklengyel.com>, Petre Pircalabu <ppircalabu@bitdefender.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>
-Subject: Re: [PATCH v3 1/2] IOMMU/x86: disallow device assignment to PoD
- guests
-Message-ID: <YfQUxVUEEPuQzewP@perard>
-References: <6fe7b036-2bdb-b391-4e6c-1b5d7e05a119@suse.com>
- <b0a77526-17f2-a5ab-6f7f-1b3caeb4a59b@suse.com>
+X-Inumbo-ID: 69fc1891-805a-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
+	s=default; t=1643388634;
+	bh=2gOTaKu5OJW0q3pN4afbReMvy9fxCsLuFD6TdYYeVEc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=ZS8csAY0j4SgUkJ9gCA1pp0MFb6dYSWERWH+PwQInQIL77eMCkG6nYdBT6PUPgvC6
+	 CGiKWFK2Igm9gNyJc1z9SS17EtnT4du/IlH1BilKqkpzE2333MmO6yKrHnwnTmVnxa
+	 aGzK1GC+j3Cmg81ZLubdWECZCQCc1YjJeZANKV6UEjG+RDStHir3zr6MNA7tpVmGU8
+	 gaFkXPRtHHP8W8c84qfnz+OM2hPbJB/u74cpcSiOLmlCYm+itpCeBdjv7Emvls8hWu
+	 huDK9dWOsvLqu+f8/74Vld7nSju/IVyFQ+xjrXqDJ3ifhBajMROnycAT5DHYcxI1wL
+	 atLz/JQB4ce9g==
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
+	s=default; t=1643388634;
+	bh=2gOTaKu5OJW0q3pN4afbReMvy9fxCsLuFD6TdYYeVEc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=ZS8csAY0j4SgUkJ9gCA1pp0MFb6dYSWERWH+PwQInQIL77eMCkG6nYdBT6PUPgvC6
+	 CGiKWFK2Igm9gNyJc1z9SS17EtnT4du/IlH1BilKqkpzE2333MmO6yKrHnwnTmVnxa
+	 aGzK1GC+j3Cmg81ZLubdWECZCQCc1YjJeZANKV6UEjG+RDStHir3zr6MNA7tpVmGU8
+	 gaFkXPRtHHP8W8c84qfnz+OM2hPbJB/u74cpcSiOLmlCYm+itpCeBdjv7Emvls8hWu
+	 huDK9dWOsvLqu+f8/74Vld7nSju/IVyFQ+xjrXqDJ3ifhBajMROnycAT5DHYcxI1wL
+	 atLz/JQB4ce9g==
+X-Gm-Message-State: AOAM533HKomO5MMcKTlO2vyD84wJKQ175gFQZDz/KVDlNQepV7zVO/PH
+	X0sYjELDA5Y7p9I6Dlk8Y+rfDvMttMvOVazv+CU=
+X-Google-Smtp-Source: ABdhPJxbyU2ABOdpmmUvetiK33osOv5PkI39+hac/yMtnQr9B7lWlFfc9MaTyRq5e6rK7OPGFcF+RSO8qhBqjFDJ6y8=
+X-Received: by 2002:a5b:2ce:: with SMTP id h14mr11860232ybp.572.1643388633788;
+ Fri, 28 Jan 2022 08:50:33 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <b0a77526-17f2-a5ab-6f7f-1b3caeb4a59b@suse.com>
+References: <2c421077-81c2-a45e-f7c3-9827d3cb1abf@suse.com>
+In-Reply-To: <2c421077-81c2-a45e-f7c3-9827d3cb1abf@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Fri, 28 Jan 2022 11:49:58 -0500
+X-Gmail-Original-Message-ID: <CABfawhk0qDnOdO9DOKLPPNW=FtpGSJvJQAzmKRxxdkwjfeGSYA@mail.gmail.com>
+Message-ID: <CABfawhk0qDnOdO9DOKLPPNW=FtpGSJvJQAzmKRxxdkwjfeGSYA@mail.gmail.com>
+Subject: Re: [PATCH v3] x86/altp2m: p2m_altp2m_propagate_change() should honor
+ present page order
+To: Jan Beulich <JBeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Petre Pircalabu <ppircalabu@bitdefender.com>, 
+	Alexandru Isaila <aisaila@bitdefender.com>, George Dunlap <george.dunlap@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Tue, Jan 04, 2022 at 10:41:32AM +0100, Jan Beulich wrote:
-> While it is okay for IOMMU page tables to get set up for guests starting
-> in PoD mode, actual device assignment may only occur once all PoD
-> entries have been removed from the P2M. So far this was enforced only
-> for boot-time assignment, and only in the tool stack.
-> 
-> Also use the new function to replace p2m_pod_entry_count(): Its unlocked
-> access to p2m->pod.entry_count wasn't really okay (irrespective of the
-> result being stale by the time the caller gets to see it).
-> 
-> To allow the tool stack to see a consistent snapshot of PoD state, move
-> the tail of XENMEM_{get,set}_pod_target handling into a function, adding
-> proper locking there.
-> 
-> In libxl take the liberty to use the new local variable r also for a
-> pre-existing call into libxc.
-> 
+On Thu, Jan 27, 2022 at 10:07 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> For higher order mappings the comparison against p2m->min_remapped_gfn
+> needs to take the upper bound of the covered GFN range into account, not
+> just the base GFN. Otherwise, i.e. when dropping a mapping overlapping
+> the remapped range but the base GFN outside of that range, an altp2m may
+> wrongly not get reset.
+>
+> Note that there's no need to call get_gfn_type_access() ahead of the
+> check against the remapped range boundaries: None of its outputs are
+> needed earlier, and p2m_reset_altp2m() doesn't require the lock to be
+> held. In fact this avoids a latent lock order violation: With per-GFN
+> locking p2m_reset_altp2m() not only doesn't require the GFN lock to be
+> held, but holding such a lock would actually not be allowed, as the
+> function acquires a P2M lock.
+>
+> Local variables are moved into the more narrow scope (one is deleted
+> altogether) to help see their actual life ranges.
+>
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Note that this addresses only half of the problem: get_gfn_type_access()
+> would also need invoking for all of the involved GFNs, not just the 1st
+> one.
+> ---
+> v3: Don't pass the minimum of both orders to p2m_set_entry() (as was the
+>     case in the original code). Restore get_gfn_type_access() return
+>     value checking.
+>
+> --- a/xen/arch/x86/mm/p2m.c
+> +++ b/xen/arch/x86/mm/p2m.c
+> @@ -2534,9 +2534,6 @@ int p2m_altp2m_propagate_change(struct d
+>                                  p2m_type_t p2mt, p2m_access_t p2ma)
+>  {
+>      struct p2m_domain *p2m;
+> -    p2m_access_t a;
+> -    p2m_type_t t;
+> -    mfn_t m;
+>      unsigned int i;
+>      unsigned int reset_count = 0;
+>      unsigned int last_reset_idx = ~0;
+> @@ -2549,15 +2546,16 @@ int p2m_altp2m_propagate_change(struct d
+>
+>      for ( i = 0; i < MAX_ALTP2M; i++ )
+>      {
+> +        p2m_type_t t;
+> +        p2m_access_t a;
+> +
+>          if ( d->arch.altp2m_eptp[i] == mfn_x(INVALID_MFN) )
+>              continue;
+>
+>          p2m = d->arch.altp2m_p2m[i];
+> -        m = get_gfn_type_access(p2m, gfn_x(gfn), &t, &a, 0, NULL);
+>
+>          /* Check for a dropped page that may impact this altp2m */
+> -        if ( mfn_eq(mfn, INVALID_MFN) &&
+> -             gfn_x(gfn) >= p2m->min_remapped_gfn &&
+> +        if ( gfn_x(gfn) + (1UL << page_order) > p2m->min_remapped_gfn &&
+>               gfn_x(gfn) <= p2m->max_remapped_gfn )
 
-Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+Why are you dropping the mfn_eq(mfn, INVALID_MFN) check here?
 
-Thanks,
-
--- 
-Anthony PERARD
+Tamas
 
