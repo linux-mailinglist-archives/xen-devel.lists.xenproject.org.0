@@ -2,29 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5649749F802
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 12:13:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.261949.453862 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA4E549F805
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 12:15:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.261953.453872 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDPBQ-0001D5-Nx; Fri, 28 Jan 2022 11:12:48 +0000
+	id 1nDPDf-0001ny-54; Fri, 28 Jan 2022 11:15:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 261949.453862; Fri, 28 Jan 2022 11:12:48 +0000
+Received: by outflank-mailman (output) from mailman id 261953.453872; Fri, 28 Jan 2022 11:15:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDPBQ-0001Au-Kv; Fri, 28 Jan 2022 11:12:48 +0000
-Received: by outflank-mailman (input) for mailman id 261949;
- Fri, 28 Jan 2022 11:12:47 +0000
+	id 1nDPDf-0001l3-1E; Fri, 28 Jan 2022 11:15:07 +0000
+Received: by outflank-mailman (input) for mailman id 261953;
+ Fri, 28 Jan 2022 11:15:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=i1b2=SM=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nDPBP-0001Ao-IL
- for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 11:12:47 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 32abf890-802b-11ec-8eb8-a37418f5ba1a;
- Fri, 28 Jan 2022 12:12:45 +0100 (CET)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=B5aJ=SM=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nDPDd-0001kv-8V
+ for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 11:15:05 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8a7fa558-802b-11ec-8eb8-a37418f5ba1a;
+ Fri, 28 Jan 2022 12:15:04 +0100 (CET)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2105.outbound.protection.outlook.com [104.47.17.105]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-23-mmcoWYxFOjWWqjNrdkbFzA-1; Fri, 28 Jan 2022 12:15:02 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by DB7PR04MB5146.eurprd04.prod.outlook.com (2603:10a6:10:23::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.17; Fri, 28 Jan
+ 2022 11:15:00 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::a1a4:21a6:8390:b5d5]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::a1a4:21a6:8390:b5d5%5]) with mapi id 15.20.4930.017; Fri, 28 Jan 2022
+ 11:15:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,116 +51,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 32abf890-802b-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643368365;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Hi0X0gqQtp0aUUIkI7+NkQoHa6l3pTPoLgVoG5UVM1c=;
-  b=bXeCqogoAEqzMiShG344/yBjPp0Fd+2a1/88h/SR05Nn27mJv1eNsG2E
-   SXpuc3YJgEaOH63N9pTnDvNqwlvH/8uflf169AnaShEJcIm3pW94abTnx
-   Pgne/iUQf7NuYdloTOhZieb/bYm9lkPit8nTdGtJknkD0zK1vurOtFVhc
-   g=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: XcUHZ6w6WhlnFR6mIDe/aRXhtJl2m3EhNhUHJtgYYlcZx5InAFZzrDiSelWIFIwg4LNG4ceDhl
- bqGgThoj8ezwtdna3boEpGx33hTEWsSQY1DamXNeDvARQVOF8oXmzCO8dIPF8ZoN3PmU302nL/
- BP52/tAAHFhh961DLna7KlKFjQRBtJjNl9exbwXxYVlCI5mhOkLw8bEUrtQA95ifNb/AquDWvE
- U2qNXiG0JHoZvBhEZr0ymV5tJAlZBmK68qgVvUcdpN2JXKrRaoazF3q9y+NEk8r7URpDWuQFY/
- ArEcqecaXJQhM3nMwzfk9GHL
-X-SBRS: 5.2
-X-MesageID: 63381032
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:8jCpSKtWEIYeNV8qlsW2jOkusufnVKVZMUV32f8akzHdYApBsoF/q
- tZmKT2Ga/nfNmT1LtwjYNvg9RtQvcWDn4RiHVNl/ChnQX9H+JbJXdiXEBz9bniYRiHhoOOLz
- Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHdJZS5LwbZj2NYx24jhWGthh
- PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
- gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- Npl6IeoZyIxF/X1h9teaRRyOj5xZoRp0eqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
- aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DNYUDunZm3HfBAOwvW5zrSKTW/95Imjw3g6iiGN6AP
- JFJMGI0NnwsZTVdIVUaDoI9kN2h3EvzUQx3sHySi5Iotj27IAtZj+G2bYu9lsaxbdpRtlaVo
- CTB5WuRKhMVLtuE0hKe72mhwOTImEvTWowfFLm5+dZxnUaegGcUDXU+WVWyrva4jUq/c8lCM
- EFS8S0rxYAi+UruQtTjUhmQpH+fogVaS9dWC/c96gyG1uzT+QnxO4QfZmcfMpp87pZwHGF0k
- A/S9z/0OdBxmOCOUVy47p7MlCyNehIYB0YdanQtYiJQtrEPv7oPph7IS99iFou8gdv0BSz8z
- li2kcQuu1kApZVVjvvmpDgrlxrp/8GUFVBtum07S0r4tlsRWWKzW2C/BbE3B95kJZ3RcFSOt
- WNsdyO2vLFXVsHleMBgrYww8FCVCxStbWW0bb1HRcBJG9GRF5iLJ904DNZWfx8BDyr8UWW1C
- HI/QCsIjHOpAFOkbLVsf6W6ANkwwK7rGLzND66INYAVOsMvKVfarUmCgHJ8OUi3ziDAdolkY
- f+mnTuEVy5GWcyLMhLoLwvi7VPb7n9nnj6CLXwK5x+mzaCfdBaopUQtazOzghQCxPrc+m39q
- o8HX+PTkkk3eLCgPkH/rNBCRXhXfSlTLc2n8KR/K7/cSjeK7Ul8UZc9N5t7Jdw890mU/8+Vl
- kyAtrhwkQqm2iafeFzUMxiOqtrHBP5CkJ7yBgR0VX7A5pTpSdz2hEvGX5doL7Qh6sJ5yvt4E
- 6sMd8maW6wdQTXb4TUNK5L6qdU6JhisgAuPOQujYSQ+IME8F1CYpIe8c1u97jQKAwq2qdA6/
- ++q2DTETMdRXA9lFsvXNq6ilgvjoXgHletudELUOd0PKl70+Y1nJnWp3P86Ks0BMzvZwT6e2
- 1rECBsUv7CV8YQ07MPIleaPqILwS7lyGU9THm/667eqNHaFojr/kNEYCOvRJGLTTmL5/qmmd
- N559fCkPa1VhktOvqp9D61vkfA06ezwquII1Q9jBnjKMQimU+syPnmc0MBTnaRR3bsF6xCuU
- 0eC99QGa7WEPMTpTAwYKAY/N7nR0PgVnn/Z7OgvIVW87yhypeLVXUJXNhiKqSpcMLoqb991n
- bZ/4JYbu16llx4nEtealSQFpW2DI0sJX7gjqpxHUpTgjRAmyw0abJHRYsMsDEpjtzmY3pEWH
- wKp
-IronPort-HdrOrdr: A9a23:MS89R6P50KPhacBcTsOjsMiBIKoaSvp037Eqv3oRdfVwSL3+qy
- nOpoV+6faaslossR0b9uxofZPwJ080lqQFhLX5X43SPzUO0VHAROoJgLcKgQeQeREWntQtrJ
- uIGJIfNDSfNzZHsfo=
-X-IronPort-AV: E=Sophos;i="5.88,323,1635220800"; 
-   d="scan'208";a="63381032"
-Date: Fri, 28 Jan 2022 11:12:14 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Dario Faggioli <dfaggioli@suse.com>
-CC: <xen-devel@lists.xenproject.org>, James Fehlig <jfehlig@suse.com>, Wei Liu
-	<wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v2] tools/libs/light: don't touch nr_vcpus_out if listing
- vcpus and returning NULL
-Message-ID: <YfPPjkfPK/VpZcQW@perard>
-References: <164335968477.24662.7673734521447971250.stgit@work>
+X-Inumbo-ID: 8a7fa558-802b-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1643368503;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XmIHgUr8HiWv1bY0ay18YAn1MnrOKIQ/iHnjgU61aDA=;
+	b=YjxQeTKn/Q6IiGRig9a7ZZOsb6Ox/rBI5HxDYMzu+GVjDthcy/MYxKVTsOK5n7i2AJDWim
+	xK8Ac7Euao6Ah+V3EW8sLcBC9WaYTp0EiFL0RA+rZuOyV0Fw7NGIncLUkC1HqjLvbHEKf1
+	7IPeih0uMMlZsdSDNHppK+fUqIBytpM=
+X-MC-Unique: mmcoWYxFOjWWqjNrdkbFzA-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TS0J+I7X6xntXtIlC3GVM4Yu4k4lvcFNtD4Hr/CFGT0m4eJSO7MPWNRID8B1H5gywCkmFwQ67LPcQEHlu6HZDQjUbwqFzgBiXsBWxtM0LDGnTV1KWxXW/JhZ1AEsbIjEH41l+aNMxa2TNWN0E2Ej8QGVCRRIv6UknTmgRZ0nXZN/KoJGN3zxDC9rjZnGtFSjWJfTUV4D3amshC2qX+IH0WF2GF/yh+QKEzMozmerCKxX7CuOrO5oJa+fRduMgc0o5MkXhyqXs228IUnNzTjLCif0y+y7FFF8vVpQr1qATS4ohSop5ZPR1khEjk+IkNb/XkWDdPbnyKBPqS/Vusa9Lg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XmIHgUr8HiWv1bY0ay18YAn1MnrOKIQ/iHnjgU61aDA=;
+ b=C9fC6lSKlkHRl+I/PbtfbVo5VyLaBI0ykGFBLtuBuNEbq9k0BL5gQ8fSgVjXueE91daCOn4B65CqMqRruQsLN9uCQkP3KwckP2mKqYZjShsVdBkJEXxNe3QnnggnGmJrHD2Y9L0DpDUsBN4dd/Abe68/+LqCx3rvCT1oFkZiNja9Wp4rkL0i+piOn3r0U3m0YeBqb4W+Vye/9x3DcRml+vKcA+rKwxnxXyhgHfT02aHFYLmKdCRo9eATdht95WvGBe8/5ruSFJW2Zbdgc6J9qL9Nx7I+NDQtHTUmvQIQm/28YVYG7nkD+vBpHRgKG/DKucc4is3Zom6qjr15HBESQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <d729f897-6319-e82d-f953-c8411fde1e07@suse.com>
+Date: Fri, 28 Jan 2022 12:14:58 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [XEN PATCH v9 03/30] build: fix exported variable name
+ CFLAGS_stack_boundary
+Content-Language: en-US
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <20220125110103.3527686-1-anthony.perard@citrix.com>
+ <20220125110103.3527686-4-anthony.perard@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220125110103.3527686-4-anthony.perard@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM6PR08CA0013.eurprd08.prod.outlook.com
+ (2603:10a6:20b:b2::25) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <164335968477.24662.7673734521447971250.stgit@work>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: fb568cc2-a05e-4bd9-23ef-08d9e24f6c67
+X-MS-TrafficTypeDiagnostic: DB7PR04MB5146:EE_
+X-Microsoft-Antispam-PRVS:
+	<DB7PR04MB51463F5764E3CE65AF47A872B3229@DB7PR04MB5146.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	7ISgl40oUt5r28hVB7lpLaZnRd8WAxXAenl4JkxGGWsZsxRCUXzMn3PkyzXm48/TmkffQePF1g49q2hB9YK2UZ2nOjZNWZgEhvAWvBXOQcdvV2N6K04X+u4p0f3Kx6KFKnFbZ0/5wAoA4HrEk8jePIpRw5RO9YMh3fm2uIaN9YLNlFa0prKi1wOOpRGZPleRyv9ntACtdKvDhTlzy/d+uBXfjE0C2vmi8secdYRe6hpPAgjUa/Vcf9EaAy7EcbwK9dbuPHoPhqIXq1WW3KdmIV5jq22LXsAekokxrz9uwpPnUapYOUnX3PsGvxl9p64Xxx5mjILgPvU06gHFrmo3kqUY8WwrU8XAaIqF3pByF6fNJzNO50+IoZKcITLJukE+SNyXFfKa/m8AMmJvV7cVCl+zknRNwI+1DziWIr6Y9sM5WhGiSfIuq1zQbeTIZ1iy1fhuOPkXWCyVtCMwo3fWx9TPqZJ1kpgUSeqFr811yC+M4hRcp2fEw/ZuSeFkZpABI+XBi/0BfoJfih37KZQ+GJ7XfhZCuODiGPdKvSqubg81PXsYClKRXcCENGfp7ym+IE9B+2WKPT+BM1M55fonRdkplEO+DVC4bAJYTKyfRMG4qXGbSaxhb47XSzOxbe0vlExLIDeOaN2nB+tU7iHAyKEBfLIF2llmbCaGkwDpg5yqxqk3ut3Hlqd8W/aRc37BOAmNlU8jHZ8anh330reITxpHMEdq6drguT4DvoKJncA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(4744005)(53546011)(26005)(6506007)(2906002)(186003)(66476007)(38100700002)(66556008)(6512007)(2616005)(66946007)(6916009)(31696002)(4326008)(8936002)(5660300002)(31686004)(316002)(86362001)(508600001)(6486002)(54906003)(36756003)(8676002)(43740500002)(45980500001)(20210929001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UElFSVRRRU1keTBWdGY2MmlhQmlVTW1RSWhIa29qVzdDR1lJeXZXbHRISFZQ?=
+ =?utf-8?B?VlNiRU9PZkNrU3JQYWwxcmhVY0cwS3IyOHVWOUl6UjZ1RXdFRTMwcE8weHY2?=
+ =?utf-8?B?L01YRjRyTUszSWMwM3hxczZwa2l3TnROaFhMdnF6VXFHWWg2U1VkYVE3VU4y?=
+ =?utf-8?B?bG5VUGVxY3BjajZHaktvM3dkYVArTmhoRjFmTnZDcG03ei9ZZWpPZldhbmJj?=
+ =?utf-8?B?a2h3OE01YzBzU3NzQlhTVnBhdlBVVE10bEgyREpQWllLK2M5RktnTkxNRDhr?=
+ =?utf-8?B?V01EeldNL3FIVWlVVTBOS0dVaE1IZXc4ZWl5SElxdnU3ZmxrZTNXOW9yRUUr?=
+ =?utf-8?B?c21QUy82bEV0ZkdYOTdsNlhVd2Vjd2xLZVJPZ3lGVjByNHVBMXRuU2JXSTFW?=
+ =?utf-8?B?Uzg0VVRudWszUzJWMEZ0cTJ1MFZQSDBhRnJMeG1LRGJYVStzM3RIWmpoWWcw?=
+ =?utf-8?B?ZVBkcVp0cUZOWjhLRTJDOFIzZEFuK1daUkJMblNSdTgyL2VOdjdoSkV1aGsy?=
+ =?utf-8?B?TVZRcTFhWmprRm1yOTJxVzRyK0NXdVFiL3hEb250WWgzMVBzdVhxdnhtaHg2?=
+ =?utf-8?B?VHE3QXAzSXRBS3NVcTA4RkUvZDVKbWJKdW5pYmVMV2tsRHFjdkdNM05sbVBx?=
+ =?utf-8?B?Ym1XemorQ2RYRitId1dkNkRBUWJMMlVtenRMdlU2MW1OWHcxZFlGdTVpVTk1?=
+ =?utf-8?B?WHRlZlM2RElwcmpVQ25jSlhvZzdYU2pKeVUvYWVxVlRzRjI2aUlVYnZZVHBW?=
+ =?utf-8?B?M1VjUHdIUi9qY3VLZmx3RXpwSlFzOGRQUXVUdUYrVjNJOFV5QUpkYkFjR1Zu?=
+ =?utf-8?B?WHRVOE9sc09HeWc0MkRFemtBbllXYk92ZnJ6OTdRUExBTnJjQUpKcUx5cmU2?=
+ =?utf-8?B?blVEYVVPb2liMjE2emlnUHpKVWJ6ZU5tZHdmZ1dQajN0Vjl1SjBSZktITGdh?=
+ =?utf-8?B?Vi9QV1gyZ1Y4dFlFd0xYZkljYUQ4U29va1c1NkVSMGZ2SXdKb3ZpV3lEUFNs?=
+ =?utf-8?B?eXUrWnJOWGx3Q1ZKdkd5NS95WlRuWHFnNm5KQ3JwOHpOdGg4bWR5MFhML09u?=
+ =?utf-8?B?bGZqSTE4TUFCcVdpWFA0ejlXQkQ4Yk1jNXNTL2JNejlIbWpwbnVPUnR0bFQw?=
+ =?utf-8?B?bnV1aWVHam41bHlOMEJVNjVUVWUzajBWMGo4WjZ3eTNPRFVETzZQNGJ2UUt1?=
+ =?utf-8?B?QkhFcDhvU2hzZnNWT280eXRFVmcybTBONmtlRis2VDAxeFFrbUk3dUVyQUp5?=
+ =?utf-8?B?dVpYOTlmU1BwN2Rpd0pnbllJaFBhUE55TWsvYmhDMUEvY0szV2Y0TGZPakhn?=
+ =?utf-8?B?czhtNm9UbGdkOW1MSmVaMjRaNnY4KzFnZXpPdE5CWTRLS1FkbXdZRFVNTXVz?=
+ =?utf-8?B?QzhYM0YwRWZQbFp1ZkQ4V1VROWE4UW5PV2YyUnRXeitEK0Nyd2x5Z3p3OEJT?=
+ =?utf-8?B?OUMxWWhjeVYzV2Y0Mm1janpLWjBMdDZRWWFFeDNENGh2WHdZeStQMUlvcTBl?=
+ =?utf-8?B?T1ZXdkFkeFJONGUrZGR2Q093c0c4NTR0VFUyZFU5Zmp0b3dhS0dKSjJ5ZU9J?=
+ =?utf-8?B?eER3T1BqTWNrbUNHSzZOVnZsTHFObHQzRlpWNmpDaVlwMXZvVWNiMXd0Wnc3?=
+ =?utf-8?B?eVFWT1loK2tPRzZ4Q0pTSkpHSGJYM2xZRlp0OHdnRGx3bE1xVW9WWExNMEVO?=
+ =?utf-8?B?dmxlUFg1U1pTK2Vkb285aTJMZGgxOWRkT3djNDdtczdwQVFUd0R1ZUtYcHh3?=
+ =?utf-8?B?QmZVYnZZZHVPYnNzU0F5dEhVWDRGcjZuY2tlVmczT3JHa2RPa2hzOEpZU0Jk?=
+ =?utf-8?B?ZENYb1BJWVVmaS95cy84NHNMR1dKOGV6YzMwQXZ4VjZ6elNIdHhQZlUyYURV?=
+ =?utf-8?B?RWZ6dk5Da2xDZVZPKzVvR3NhMWQ1VVQ5Nm95Qkt6b2pKcTlUVW5PQVhDc1k4?=
+ =?utf-8?B?Y25JdUVVNENIcU5leXdVSm9OR0Y5OXI0WE4xUklaNjJ1dW9teG1hU3kzMzNh?=
+ =?utf-8?B?emltYkZ4YitEQ3RmUjlwL2pLR3FjSnB5ejl5TUFCZlF1dkZEaFF0elJnWGgz?=
+ =?utf-8?B?aTBqMGFRK3pzcU1QVUtMeXVxKzQvamMzRDNHVExzOUFtUjNjb0YraGxSTmk5?=
+ =?utf-8?B?QWpDSjRWUUJSK3grQU1ILzVIaGhPMSsyQjUrSjhlNGtTNEkrZG5HNlZyOW83?=
+ =?utf-8?Q?CFNubUiuaxquqmGYE9fiTGg=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb568cc2-a05e-4bd9-23ef-08d9e24f6c67
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2022 11:15:00.0971
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: joQg+h0ZI3XgwXM/aGCGz0Y9r7k/J1Xrx3G0IoQZq/3gpM3cdfDkjL9JDnLuuUOTLHQh0uO277Wqt+FgPxwGzg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB5146
 
-On Fri, Jan 28, 2022 at 09:48:05AM +0100, Dario Faggioli wrote:
-> If we are in libxl_list_vcpu() and we are returning NULL, let's avoid
-> touching the output parameter *nr_vcpus_out, which the caller should
-> have initialized to 0.
+On 25.01.2022 12:00, Anthony PERARD wrote:
+> Exporting a variable with a dash doesn't work reliably, they may be
+> striped from the environment when calling a sub-make or sub-shell.
 > 
-> The current behavior could be problematic if are creating a domain and,
-> in the meantime, an existing one is destroyed when we have already done
-> some steps of the loop. At which point, we'd return a NULL list of vcpus
-> but with something different than 0 as the number of vcpus in that list.
-> And this can cause troubles in the callers (e.g., nr_vcpus_on_nodes()),
-> when they do a libxl_vcpuinfo_list_free().
+> CFLAGS-stack-boundary start to be removed from env in patch "build:
+> set ALL_OBJS in main Makefile; move prelink.o to main Makefile" when
+> running `make "ALL_OBJS=.."` due to the addition of the quote. At
+> least in my empirical tests.
 > 
-> Crashes due to this are rare and difficult to reproduce, but have been
-> observed, with stack traces looking like this one:
-> 
-> #0  libxl_bitmap_dispose (map=map@entry=0x50) at libxl_utils.c:626
-> #1  0x00007fe72c993a32 in libxl_vcpuinfo_dispose (p=p@entry=0x38) at _libxl_types.c:692
-> #2  0x00007fe72c94e3c4 in libxl_vcpuinfo_list_free (list=0x0, nr=<optimized out>) at libxl_utils.c:1059
-> #3  0x00007fe72c9528bf in nr_vcpus_on_nodes (vcpus_on_node=0x7fe71000eb60, suitable_cpumap=0x7fe721df0d38, tinfo_elements=48, tinfo=0x7fe7101b3900, gc=0x7fe7101bbfa0) at libxl_numa.c:258
-> #4  libxl__get_numa_candidate (gc=gc@entry=0x7fe7100033a0, min_free_memkb=4233216, min_cpus=4, min_nodes=min_nodes@entry=0, max_nodes=max_nodes@entry=0, suitable_cpumap=suitable_cpumap@entry=0x7fe721df0d38, numa_cmpf=0x7fe72c940110 <numa_cmpf>, cndt_out=0x7fe721df0cf0, cndt_found=0x7fe721df0cb4) at libxl_numa.c:394
-> #5  0x00007fe72c94152b in numa_place_domain (d_config=0x7fe721df11b0, domid=975, gc=0x7fe7100033a0) at libxl_dom.c:209
-> #6  libxl__build_pre (gc=gc@entry=0x7fe7100033a0, domid=domid@entry=975, d_config=d_config@entry=0x7fe721df11b0, state=state@entry=0x7fe710077700) at libxl_dom.c:436
-> #7  0x00007fe72c92c4a5 in libxl__domain_build (gc=0x7fe7100033a0, d_config=d_config@entry=0x7fe721df11b0, domid=975, state=0x7fe710077700) at libxl_create.c:444
-> #8  0x00007fe72c92de8b in domcreate_bootloader_done (egc=0x7fe721df0f60, bl=0x7fe7100778c0, rc=<optimized out>) at libxl_create.c:1222
-> #9  0x00007fe72c980425 in libxl__bootloader_run (egc=egc@entry=0x7fe721df0f60, bl=bl@entry=0x7fe7100778c0) at libxl_bootloader.c:403
-> #10 0x00007fe72c92f281 in initiate_domain_create (egc=egc@entry=0x7fe721df0f60, dcs=dcs@entry=0x7fe7100771b0) at libxl_create.c:1159
-> #11 0x00007fe72c92f456 in do_domain_create (ctx=ctx@entry=0x7fe71001c840, d_config=d_config@entry=0x7fe721df11b0, domid=domid@entry=0x7fe721df10a8, restore_fd=restore_fd@entry=-1, send_back_fd=send_back_fd@entry=-1, params=params@entry=0x0, ao_how=0x0, aop_console_how=0x7fe721df10f0) at libxl_create.c:1856
-> #12 0x00007fe72c92f776 in libxl_domain_create_new (ctx=0x7fe71001c840, d_config=d_config@entry=0x7fe721df11b0, domid=domid@entry=0x7fe721df10a8, ao_how=ao_how@entry=0x0, aop_console_how=aop_console_how@entry=0x7fe721df10f0) at libxl_create.c:2075
-> 
-> Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
-> Tested-by: James Fehlig <jfehlig@suse.com>
-> ---
-> This change should be backported to all supported branches.
-> ---
-> Changes from v1:
-> - dropped patch 1; this one is enough of a fix
-> - removed an assert() deemed non necessary
-> - kept GC_FREE just before return in libxl_list_vcpu()
-> - nr_vcpus is now unsigned
-> - fix some typos
-> ---
+> Fixes: 2740d96efd ("xen/build: have the root Makefile generates the CFLAGS")
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+While I did commit this, I'm still somewhat confused. How would quoting
+of elements on a make command line make a difference to which variables
+get exported?
 
-Thanks,
+In any event I understand the description that prior to the subsequent
+change there's not actually any issue. Hence I'm not going to queue
+this for backporting despite the Fixes: tag. Unless of course I'm told
+otherwise (with justification).
 
--- 
-Anthony PERARD
+Jan
+
 
