@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5F5B4A02DF
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 22:33:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.262146.454292 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC1114A02DD
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 22:33:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.262148.454307 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDYrr-0001gO-CV; Fri, 28 Jan 2022 21:33:15 +0000
+	id 1nDYrs-0001xC-E3; Fri, 28 Jan 2022 21:33:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 262146.454292; Fri, 28 Jan 2022 21:33:15 +0000
+Received: by outflank-mailman (output) from mailman id 262148.454307; Fri, 28 Jan 2022 21:33:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDYrr-0001e9-8w; Fri, 28 Jan 2022 21:33:15 +0000
-Received: by outflank-mailman (input) for mailman id 262146;
- Fri, 28 Jan 2022 21:33:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nDYrs-0001oM-7C; Fri, 28 Jan 2022 21:33:16 +0000
+Received: by outflank-mailman (input) for mailman id 262148;
+ Fri, 28 Jan 2022 21:33:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wh6+=SM=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1nDYrp-0001cx-ME
- for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 21:33:13 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e45ac956-8081-11ec-8eb8-a37418f5ba1a;
- Fri, 28 Jan 2022 22:33:12 +0100 (CET)
+ id 1nDYrq-0001M8-RU
+ for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 21:33:14 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e579ac03-8081-11ec-8f75-fffcc8bd4f1a;
+ Fri, 28 Jan 2022 22:33:14 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D0C6961EA2;
- Fri, 28 Jan 2022 21:33:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48118C340E7;
+ by ams.source.kernel.org (Postfix) with ESMTPS id 89CCCB82697;
+ Fri, 28 Jan 2022 21:33:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD8F4C340EC;
  Fri, 28 Jan 2022 21:33:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -43,17 +44,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e45ac956-8081-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: e579ac03-8081-11ec-8f75-fffcc8bd4f1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1643405590;
-	bh=YK3fmTEfi9K2Ficig+PWAtwXSeRhCCBhmIzpGhNdTvY=;
+	s=k20201202; t=1643405591;
+	bh=7u5+Xn46ET2Kq+hchW4hiMSc7HY0HUOJ2bLjmmIyZt8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=kALIBh445OYoredSX29fwx2QMuUsON3Ykd9WBMP0xTv1jPh3BzHc4tnLGjAOOx35z
-	 6KAEEMhg2+lYywXJpZZeI0kty2+R6Qaq6JpLNnrOZ87oTeRhCR8mWmWUzQ3pvG2rGb
-	 UAIc4jiqOz9HHjqkj9WSeQegqi6JUOkqArsdXAiJlujQxFrKITAjMwUENaF1MQ1kR9
-	 bnMn/Rw71iHRJJBknYr30eJYYn4XuejGTrKUlO/aQxMlbHjYMxTs3JC8B3yLhvitji
-	 a0Z46GLIOM3Au1C0XKjIyXNa03IHHQwIdXeLldTyoMNiVOuvFf/Vq4jPy9ABJutkuc
-	 UzfgDxHz+DyCg==
+	b=l4nD26LstxRti4Jvl8qKqfGLBIdjuVDo0UkmTz6mTyCa/PFnxmnJmsGCHz94YKyd2
+	 5ZRJaPrHAnrrdYC+etQB8+qmMmwTNz5StdQzP9gldgF1xfqqLMPt6/3GnUtIi2Y3gs
+	 lh4OUyf+WB3Fu9ZbyfYG0L7BZLOLduX9BFbdgEVen9kV5i170q7cyTzWSUfqpEIPQC
+	 Vjq1aV5JprTAYs/chDfIsT0VeD4MddnLPv55KD49XLgpahwiYIsnMfCxxUFAP9PzcR
+	 CuCrKz14k4DyC9TaHNdmOfullJx/Qtyqi0QiyqpfY4TptdB2mc7a9QRomuIlRs6cn1
+	 f/vW1KKEKZ+gw==
 From: Stefano Stabellini <sstabellini@kernel.org>
 To: xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org,
@@ -61,124 +62,100 @@ Cc: sstabellini@kernel.org,
 	Bertrand.Marquis@arm.com,
 	julien@xen.org,
 	Volodymyr_Babchuk@epam.com,
+	Luca Miccio <lucmiccio@gmail.com>,
 	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [PATCH v3 1/5] xen: introduce xen,enhanced dom0less property
-Date: Fri, 28 Jan 2022 13:33:02 -0800
-Message-Id: <20220128213307.2822078-1-sstabellini@kernel.org>
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v3 2/5] xen: make evtchn_alloc_unbound public
+Date: Fri, 28 Jan 2022 13:33:03 -0800
+Message-Id: <20220128213307.2822078-2-sstabellini@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <alpine.DEB.2.22.394.2201281330520.27308@ubuntu-linux-20-04-desktop>
 References: <alpine.DEB.2.22.394.2201281330520.27308@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+From: Luca Miccio <lucmiccio@gmail.com>
 
-Introduce a new "xen,enhanced" dom0less property to enable/disable PV
-driver interfaces for dom0less guests. Currently only "enabled" and
-"disabled" are supported property values (and empty). Leave the option
-open to implement further possible values in the future (e.g.
-"xenstore" to enable only xenstore.)
+The xenstore event channel will be allocated for dom0less domains. It is
+necessary to have access to the evtchn_alloc_unbound function to do
+that, so make evtchn_alloc_unbound public.
 
-The configurable option is for domUs only. For dom0 we always set the
-corresponding property in the Xen code to true (PV interfaces enabled.)
+Add a skip_xsm parameter to allow disabling the XSM check in
+evtchn_alloc_unbound (xsm_evtchn_unbound wouldn't work for a call
+originated from Xen before running any domains.)
 
-This patch only parses the property. Next patches will make use of it.
-
+Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
 Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
 CC: Julien Grall <julien@xen.org>
 CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 CC: Bertrand Marquis <bertrand.marquis@arm.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: George Dunlap <george.dunlap@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
 ---
-Changes in v3:
-- improve commit message
-
-Changes in v2:
-- rename kinfo.enhanced to kinfo.dom0less_enhanced
-- set kinfo.dom0less_enhanced to true for dom0
-- handle -ENODATA in addition to -EILSEQ
+Changes v3:
+- expose evtchn_alloc_unbound, assing a skip_xsm parameter
 ---
- docs/misc/arm/device-tree/booting.txt | 18 ++++++++++++++++++
- xen/arch/arm/domain_build.c           |  8 ++++++++
- xen/arch/arm/include/asm/kernel.h     |  3 +++
- 3 files changed, 29 insertions(+)
+ xen/common/event_channel.c | 13 ++++++++-----
+ xen/include/xen/event.h    |  3 +++
+ 2 files changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
-index 71895663a4..38c29fb3d8 100644
---- a/docs/misc/arm/device-tree/booting.txt
-+++ b/docs/misc/arm/device-tree/booting.txt
-@@ -169,6 +169,24 @@ with the following properties:
-     Please note that the SPI used for the virtual pl011 could clash with the
-     physical SPI of a physical device assigned to the guest.
+diff --git a/xen/common/event_channel.c b/xen/common/event_channel.c
+index da88ad141a..be57d00a15 100644
+--- a/xen/common/event_channel.c
++++ b/xen/common/event_channel.c
+@@ -284,7 +284,7 @@ void evtchn_free(struct domain *d, struct evtchn *chn)
+     xsm_evtchn_close_post(chn);
+ }
  
-+- xen,enhanced
-+
-+    A string property. Possible property values are:
-+
-+    - "enabled" (or missing property value)
-+    Xen PV interfaces, including grant-table and xenstore, will be
-+    enabled for the VM.
-+
-+    - "disabled"
-+    Xen PV interfaces are disabled.
-+
-+    If the xen,enhanced property is present with no value, it defaults
-+    to "enabled". If the xen,enhanced property is not present, PV
-+    interfaces are disabled.
-+
-+    In the future other possible property values might be added to
-+    enable only selected interfaces.
-+
- - nr_spis
- 
-     Optional. A 32-bit integer specifying the number of SPIs (Shared
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 6931c022a2..9144d6c0b6 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -2963,6 +2963,7 @@ static int __init construct_domU(struct domain *d,
-                                  const struct dt_device_node *node)
+-static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
++int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc, bool skip_xsm)
  {
-     struct kernel_info kinfo = {};
-+    const char *dom0less_enhanced;
-     int rc;
-     u64 mem;
+     struct evtchn *chn;
+     struct domain *d;
+@@ -301,9 +301,12 @@ static int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc)
+         ERROR_EXIT_DOM(port, d);
+     chn = evtchn_from_port(d, port);
  
-@@ -2978,6 +2979,12 @@ static int __init construct_domU(struct domain *d,
+-    rc = xsm_evtchn_unbound(XSM_TARGET, d, chn, alloc->remote_dom);
+-    if ( rc )
+-        goto out;
++    if ( !skip_xsm )
++    {
++        rc = xsm_evtchn_unbound(XSM_TARGET, d, chn, alloc->remote_dom);
++        if ( rc )
++            goto out;
++    }
  
-     kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
+     evtchn_write_lock(chn);
  
-+    rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
-+    if ( rc == -EILSEQ ||
-+         rc == -ENODATA ||
-+         (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
-+        kinfo.dom0less_enhanced = true;
+@@ -1195,7 +1198,7 @@ long do_event_channel_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+         struct evtchn_alloc_unbound alloc_unbound;
+         if ( copy_from_guest(&alloc_unbound, arg, 1) != 0 )
+             return -EFAULT;
+-        rc = evtchn_alloc_unbound(&alloc_unbound);
++        rc = evtchn_alloc_unbound(&alloc_unbound, false);
+         if ( !rc && __copy_to_guest(arg, &alloc_unbound, 1) )
+             rc = -EFAULT; /* Cleaning up here would be a mess! */
+         break;
+diff --git a/xen/include/xen/event.h b/xen/include/xen/event.h
+index 21c95e14fd..0a2cdedf7d 100644
+--- a/xen/include/xen/event.h
++++ b/xen/include/xen/event.h
+@@ -68,6 +68,9 @@ int evtchn_close(struct domain *d1, int port1, bool guest);
+ /* Free an event channel. */
+ void evtchn_free(struct domain *d, struct evtchn *chn);
+ 
++/* Create a new event channel port */
++int evtchn_alloc_unbound(evtchn_alloc_unbound_t *alloc, bool skip_xsm);
 +
-     if ( vcpu_create(d, 0) == NULL )
-         return -ENOMEM;
- 
-@@ -3095,6 +3102,7 @@ static int __init construct_dom0(struct domain *d)
- 
-     kinfo.unassigned_mem = dom0_mem;
-     kinfo.d = d;
-+    kinfo.dom0less_enhanced = true;
- 
-     rc = kernel_probe(&kinfo, NULL);
-     if ( rc < 0 )
-diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
-index 874aa108a7..c4dc039b54 100644
---- a/xen/arch/arm/include/asm/kernel.h
-+++ b/xen/arch/arm/include/asm/kernel.h
-@@ -36,6 +36,9 @@ struct kernel_info {
-     /* Enable pl011 emulation */
-     bool vpl011;
- 
-+    /* Enable PV drivers */
-+    bool dom0less_enhanced;
-+
-     /* GIC phandle */
-     uint32_t phandle_gic;
+ /* Allocate a specific event channel port. */
+ int evtchn_allocate_port(struct domain *d, unsigned int port);
  
 -- 
 2.25.1
