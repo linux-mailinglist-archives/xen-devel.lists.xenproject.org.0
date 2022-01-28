@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC78D49F598
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 09:49:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.261890.453725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B76F649F651
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jan 2022 10:28:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.261894.453736 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDMvW-0004mj-Ub; Fri, 28 Jan 2022 08:48:14 +0000
+	id 1nDNY6-0000tw-1M; Fri, 28 Jan 2022 09:28:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 261890.453725; Fri, 28 Jan 2022 08:48:14 +0000
+Received: by outflank-mailman (output) from mailman id 261894.453736; Fri, 28 Jan 2022 09:28:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDMvW-0004jo-Qd; Fri, 28 Jan 2022 08:48:14 +0000
-Received: by outflank-mailman (input) for mailman id 261890;
- Fri, 28 Jan 2022 08:48:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nDNY5-0000qm-UL; Fri, 28 Jan 2022 09:28:05 +0000
+Received: by outflank-mailman (input) for mailman id 261894;
+ Fri, 28 Jan 2022 09:28:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=STMZ=SM=suse.com=dfaggioli@srs-se1.protection.inumbo.net>)
- id 1nDMvV-0004ji-B7
- for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 08:48:13 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 062842b3-8017-11ec-8eb8-a37418f5ba1a;
- Fri, 28 Jan 2022 09:48:12 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9012D21709;
- Fri, 28 Jan 2022 08:48:11 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B743D13A66;
- Fri, 28 Jan 2022 08:48:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id PXH6Icmt82G6ZQAAMHmgww
- (envelope-from <dfaggioli@suse.com>); Fri, 28 Jan 2022 08:48:09 +0000
+ <SRS0=NLE7=SM=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1nDNY4-0000qf-7l
+ for xen-devel@lists.xenproject.org; Fri, 28 Jan 2022 09:28:04 +0000
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [2a00:1450:4864:20::433])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 97230064-801c-11ec-8f75-fffcc8bd4f1a;
+ Fri, 28 Jan 2022 10:28:02 +0100 (CET)
+Received: by mail-wr1-x433.google.com with SMTP id c23so9672374wrb.5
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Jan 2022 01:28:02 -0800 (PST)
+Received: from ?IPV6:2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec?
+ ([2a00:23c5:5785:9a01:ad9a:ab78:5748:a7ec])
+ by smtp.gmail.com with ESMTPSA id i13sm1352067wrf.3.2022.01.28.01.28.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 28 Jan 2022 01:28:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,128 +44,269 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 062842b3-8017-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1643359691; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=JbbeLP0aFndZrYa+qtOS16mpujA3WDSJHYYzVCvj+vA=;
-	b=DFKMOqyMPM3pkMeBGEeBlvySivcjkS/OXYKwTgf14Uc0DnKwZ/o9rdP/C0FNIY/9dVG2gH
-	W0vvZPvUxnps+NQjdLZvIgE7XtBunJwyi9mgCwXzzLRNG5rs+d9gWewnwpiq+mASAUtN0/
-	uUnTpJVgQo8N4BBZ+Q/i3+WLu7zKKL8=
-Subject: [PATCH v2] tools/libs/light: don't touch nr_vcpus_out if listing
- vcpus and returning NULL
-From: Dario Faggioli <dfaggioli@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: James Fehlig <jfehlig@suse.com>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>
-Date: Fri, 28 Jan 2022 09:48:05 +0100
-Message-ID: <164335968477.24662.7673734521447971250.stgit@work>
-User-Agent: StGit/0.23
+X-Inumbo-ID: 97230064-801c-11ec-8f75-fffcc8bd4f1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=message-id:date:mime-version:user-agent:reply-to:subject
+         :content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=RCTNxTMrhZWWZEvNRrN69ioKirAxESZ6gzc0RPn7GsE=;
+        b=SyWRLKblVIXDs7QPjT7YN+9DOZpCj0uD7aO990szh2wszb1v4ktzzucx5217Uadgsg
+         /KKAQrnh7Yjni+u3onTFtITElwmjkXHrjm363YGKWKG8fAxQNHFVndUxyVN9OL73TZwP
+         gMJG0PuU2ajZPxSWV5Xw0dfRp/c8oYVa8zn9Jl7+SFARnlTgWnVFC+xqsOw4ALKrGCuA
+         AWZ/FzMvygWcIk30Ov+b83EuLMPBgMqz9ctEQEZeOhRpCt/n1EIlJjsG4II02h+6SPTz
+         64QMj4xQx9HizDVeILi5h24SKVV4/2ftEmiRermrhzBlr8MDOp+7OZr3M9MEOj+MLwfA
+         lVNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:reply-to
+         :subject:content-language:to:cc:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=RCTNxTMrhZWWZEvNRrN69ioKirAxESZ6gzc0RPn7GsE=;
+        b=ZyTI6LyJrpYcsMrlvl/H/+U2fRjKcZeGGFxGm0uch9HljZ0Blp9+QrDcZ5XzE2UDy2
+         DqE5NV16+ERJFn8ihOIpdJVDMhWWkq476FXRLZko6miT3l2h48kVTruZLx+kCA95umUm
+         sIImk8Ye0CKl+gRhTbc4hb013qvyhk10UWuQ/71e88JqazrUCyV1ZXL5/puWa1gEUbD1
+         HXn2zJyP50k6GMPCpA3dIKH0U/QxcOKja2YVkaQB5Jfb5mGP8ZQYd2uVFRpL+kgpk8nX
+         P4YSMRU0W6fil7uWtVDRDs0opkknXN7B1Hv13nWCZMQao63DzlVI7KnN0bdksO4hjPx2
+         Pn/Q==
+X-Gm-Message-State: AOAM5323EpxP/Tkxd+9XAPGDW/rBl1Zh07TG40zp0raD4taaJjp+fqRy
+	J/axNq80E/bF8ayTWIlamUM14SPSiHo=
+X-Google-Smtp-Source: ABdhPJx6x1WauUPSQXijq6mHmfrkQPZRNeg6TR/590p0SMI164jZlEU40nbu2WQWQ7tbO50VaVhCsQ==
+X-Received: by 2002:a05:6000:1203:: with SMTP id e3mr6275846wrx.221.1643362082246;
+        Fri, 28 Jan 2022 01:28:02 -0800 (PST)
+Message-ID: <d5734fe5-4743-8034-57e8-afbc2ce2c624@gmail.com>
+Date: Fri, 28 Jan 2022 09:28:00 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Reply-To: paul@xen.org
+Subject: Re: [PATCH v2 1/4] IOMMU/x86: switch to alternatives-call patching in
+ further instances
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <4b7db7ae-eb84-7ecc-4334-fe5f0f7ef46b@suse.com>
+ <9f6e1b13-d53f-05d3-0f88-a05bd0da03f9@suse.com>
+From: "Durrant, Paul" <xadimgnik@gmail.com>
+In-Reply-To: <9f6e1b13-d53f-05d3-0f88-a05bd0da03f9@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-If we are in libxl_list_vcpu() and we are returning NULL, let's avoid
-touching the output parameter *nr_vcpus_out, which the caller should
-have initialized to 0.
+On 27/01/2022 14:47, Jan Beulich wrote:
+> This is, once again, to limit the number of indirect calls as much as
+> possible. The only hook invocation which isn't sensible to convert is
+> setup(). And of course Arm-only use sites are left alone as well.
+> 
+> Note regarding the introduction / use of local variables in pci.c:
+> struct pci_dev's involved fields are const. This const propagates, via
+> typeof(), to the local helper variables in the altcall macros. These
+> helper variables are, however, used as outputs (and hence can't be
+> const). In iommu_get_device_group() make use of the new local variables
+> to also simplify some adjacent code.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> --- a/xen/drivers/passthrough/iommu.c
+> +++ b/xen/drivers/passthrough/iommu.c
+> @@ -198,7 +198,7 @@ int iommu_domain_init(struct domain *d,
+>           return ret;
+>   
+>       hd->platform_ops = iommu_get_ops();
+> -    ret = hd->platform_ops->init(d);
+> +    ret = iommu_call(hd->platform_ops, init, d);
+>       if ( ret || is_system_domain(d) )
+>           return ret;
+>   
+> @@ -233,7 +233,7 @@ void __hwdom_init iommu_hwdom_init(struc
+>   
+>       register_keyhandler('o', &iommu_dump_page_tables, "dump iommu page tables", 0);
+>   
+> -    hd->platform_ops->hwdom_init(d);
+> +    iommu_vcall(hd->platform_ops, hwdom_init, d);
+>   }
+>   
+>   static void iommu_teardown(struct domain *d)
+> @@ -576,7 +576,7 @@ int iommu_get_reserved_device_memory(iom
+>       if ( !ops->get_reserved_device_memory )
+>           return 0;
+>   
+> -    return ops->get_reserved_device_memory(func, ctxt);
+> +    return iommu_call(ops, get_reserved_device_memory, func, ctxt);
+>   }
+>   
+>   bool_t iommu_has_feature(struct domain *d, enum iommu_feature feature)
+> @@ -603,7 +603,7 @@ static void iommu_dump_page_tables(unsig
+>               continue;
+>           }
+>   
+> -        dom_iommu(d)->platform_ops->dump_page_tables(d);
+> +        iommu_vcall(dom_iommu(d)->platform_ops, dump_page_tables, d);
+>       }
+>   
+>       rcu_read_unlock(&domlist_read_lock);
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -861,15 +861,15 @@ static int deassign_device(struct domain
+>           devfn += pdev->phantom_stride;
+>           if ( PCI_SLOT(devfn) != PCI_SLOT(pdev->devfn) )
+>               break;
+> -        ret = hd->platform_ops->reassign_device(d, target, devfn,
+> -                                                pci_to_dev(pdev));
+> +        ret = iommu_call(hd->platform_ops, reassign_device, d, target, devfn,
+> +                         pci_to_dev(pdev));
+>           if ( ret )
+>               goto out;
+>       }
+>   
+>       devfn = pdev->devfn;
+> -    ret = hd->platform_ops->reassign_device(d, target, devfn,
+> -                                            pci_to_dev(pdev));
+> +    ret = iommu_call(hd->platform_ops, reassign_device, d, target, devfn,
+> +                     pci_to_dev(pdev));
+>       if ( ret )
+>           goto out;
+>   
+> @@ -1300,7 +1300,7 @@ static int iommu_add_device(struct pci_d
+>   {
+>       const struct domain_iommu *hd;
+>       int rc;
+> -    u8 devfn;
+> +    unsigned int devfn = pdev->devfn;
+>   
+>       if ( !pdev->domain )
+>           return -EINVAL;
+> @@ -1311,16 +1311,16 @@ static int iommu_add_device(struct pci_d
+>       if ( !is_iommu_enabled(pdev->domain) )
+>           return 0;
+>   
+> -    rc = hd->platform_ops->add_device(pdev->devfn, pci_to_dev(pdev));
+> +    rc = iommu_call(hd->platform_ops, add_device, devfn, pci_to_dev(pdev));
+>       if ( rc || !pdev->phantom_stride )
+>           return rc;
+>   
+> -    for ( devfn = pdev->devfn ; ; )
+> +    for ( ; ; )
+>       {
+>           devfn += pdev->phantom_stride;
+>           if ( PCI_SLOT(devfn) != PCI_SLOT(pdev->devfn) )
+>               return 0;
+> -        rc = hd->platform_ops->add_device(devfn, pci_to_dev(pdev));
+> +        rc = iommu_call(hd->platform_ops, add_device, devfn, pci_to_dev(pdev));
+>           if ( rc )
+>               printk(XENLOG_WARNING "IOMMU: add %pp failed (%d)\n",
+>                      &pdev->sbdf, rc);
+> @@ -1341,7 +1341,7 @@ static int iommu_enable_device(struct pc
+>            !hd->platform_ops->enable_device )
+>           return 0;
+>   
+> -    return hd->platform_ops->enable_device(pci_to_dev(pdev));
+> +    return iommu_call(hd->platform_ops, enable_device, pci_to_dev(pdev));
+>   }
+>   
+>   static int iommu_remove_device(struct pci_dev *pdev)
+> @@ -1363,7 +1363,8 @@ static int iommu_remove_device(struct pc
+>           devfn += pdev->phantom_stride;
+>           if ( PCI_SLOT(devfn) != PCI_SLOT(pdev->devfn) )
+>               break;
+> -        rc = hd->platform_ops->remove_device(devfn, pci_to_dev(pdev));
+> +        rc = iommu_call(hd->platform_ops, remove_device, devfn,
+> +                        pci_to_dev(pdev));
+>           if ( !rc )
+>               continue;
+>   
+> @@ -1371,7 +1372,9 @@ static int iommu_remove_device(struct pc
+>           return rc;
+>       }
+>   
+> -    return hd->platform_ops->remove_device(pdev->devfn, pci_to_dev(pdev));
+> +    devfn = pdev->devfn;
+> +
+> +    return iommu_call(hd->platform_ops, remove_device, devfn, pci_to_dev(pdev));
+>   }
+>   
+>   static int device_assigned(u16 seg, u8 bus, u8 devfn)
+> @@ -1421,7 +1424,8 @@ static int assign_device(struct domain *
+>   
+>       pdev->fault.count = 0;
+>   
+> -    if ( (rc = hd->platform_ops->assign_device(d, devfn, pci_to_dev(pdev), flag)) )
+> +    if ( (rc = iommu_call(hd->platform_ops, assign_device, d, devfn,
+> +                          pci_to_dev(pdev), flag)) )
+>           goto done;
+>   
+>       for ( ; pdev->phantom_stride; rc = 0 )
+> @@ -1429,7 +1433,8 @@ static int assign_device(struct domain *
+>           devfn += pdev->phantom_stride;
+>           if ( PCI_SLOT(devfn) != PCI_SLOT(pdev->devfn) )
+>               break;
+> -        rc = hd->platform_ops->assign_device(d, devfn, pci_to_dev(pdev), flag);
+> +        rc = iommu_call(hd->platform_ops, assign_device, d, devfn,
+> +                        pci_to_dev(pdev), flag);
+>       }
+>   
+>    done:
+> @@ -1457,24 +1462,24 @@ static int iommu_get_device_group(
+>       if ( !is_iommu_enabled(d) || !ops->get_device_group_id )
+>           return 0;
+>   
+> -    group_id = ops->get_device_group_id(seg, bus, devfn);
+> +    group_id = iommu_call(ops, get_device_group_id, seg, bus, devfn);
+>   
+>       pcidevs_lock();
+>       for_each_pdev( d, pdev )
+>       {
+> -        if ( (pdev->seg != seg) ||
+> -             ((pdev->bus == bus) && (pdev->devfn == devfn)) )
+> +        unsigned int b = pdev->bus;
+> +        unsigned int df = pdev->devfn;
+> +
+> +        if ( (pdev->seg != seg) || ((b == bus) && (df == devfn)) )
+>               continue;
+>   
+> -        if ( xsm_get_device_group(XSM_HOOK, (seg << 16) | (pdev->bus << 8) | pdev->devfn) )
+> +        if ( xsm_get_device_group(XSM_HOOK, (seg << 16) | (b << 8) | df) )
+>               continue;
+>   
+> -        sdev_id = ops->get_device_group_id(seg, pdev->bus, pdev->devfn);
+> +        sdev_id = iommu_call(ops, get_device_group_id, seg, b, df);
+>           if ( (sdev_id == group_id) && (i < max_sdevs) )
+>           {
+> -            bdf = 0;
+> -            bdf |= (pdev->bus & 0xff) << 16;
+> -            bdf |= (pdev->devfn & 0xff) << 8;
+> +            bdf = (b << 16) | (df << 8);
 
-The current behavior could be problematic if are creating a domain and,
-in the meantime, an existing one is destroyed when we have already done
-some steps of the loop. At which point, we'd return a NULL list of vcpus
-but with something different than 0 as the number of vcpus in that list.
-And this can cause troubles in the callers (e.g., nr_vcpus_on_nodes()),
-when they do a libxl_vcpuinfo_list_free().
+Don't we have a macro for this now? Probably best to start using it 
+whilst modifying the code.
 
-Crashes due to this are rare and difficult to reproduce, but have been
-observed, with stack traces looking like this one:
+Anyway...
 
-#0  libxl_bitmap_dispose (map=map@entry=0x50) at libxl_utils.c:626
-#1  0x00007fe72c993a32 in libxl_vcpuinfo_dispose (p=p@entry=0x38) at _libxl_types.c:692
-#2  0x00007fe72c94e3c4 in libxl_vcpuinfo_list_free (list=0x0, nr=<optimized out>) at libxl_utils.c:1059
-#3  0x00007fe72c9528bf in nr_vcpus_on_nodes (vcpus_on_node=0x7fe71000eb60, suitable_cpumap=0x7fe721df0d38, tinfo_elements=48, tinfo=0x7fe7101b3900, gc=0x7fe7101bbfa0) at libxl_numa.c:258
-#4  libxl__get_numa_candidate (gc=gc@entry=0x7fe7100033a0, min_free_memkb=4233216, min_cpus=4, min_nodes=min_nodes@entry=0, max_nodes=max_nodes@entry=0, suitable_cpumap=suitable_cpumap@entry=0x7fe721df0d38, numa_cmpf=0x7fe72c940110 <numa_cmpf>, cndt_out=0x7fe721df0cf0, cndt_found=0x7fe721df0cb4) at libxl_numa.c:394
-#5  0x00007fe72c94152b in numa_place_domain (d_config=0x7fe721df11b0, domid=975, gc=0x7fe7100033a0) at libxl_dom.c:209
-#6  libxl__build_pre (gc=gc@entry=0x7fe7100033a0, domid=domid@entry=975, d_config=d_config@entry=0x7fe721df11b0, state=state@entry=0x7fe710077700) at libxl_dom.c:436
-#7  0x00007fe72c92c4a5 in libxl__domain_build (gc=0x7fe7100033a0, d_config=d_config@entry=0x7fe721df11b0, domid=975, state=0x7fe710077700) at libxl_create.c:444
-#8  0x00007fe72c92de8b in domcreate_bootloader_done (egc=0x7fe721df0f60, bl=0x7fe7100778c0, rc=<optimized out>) at libxl_create.c:1222
-#9  0x00007fe72c980425 in libxl__bootloader_run (egc=egc@entry=0x7fe721df0f60, bl=bl@entry=0x7fe7100778c0) at libxl_bootloader.c:403
-#10 0x00007fe72c92f281 in initiate_domain_create (egc=egc@entry=0x7fe721df0f60, dcs=dcs@entry=0x7fe7100771b0) at libxl_create.c:1159
-#11 0x00007fe72c92f456 in do_domain_create (ctx=ctx@entry=0x7fe71001c840, d_config=d_config@entry=0x7fe721df11b0, domid=domid@entry=0x7fe721df10a8, restore_fd=restore_fd@entry=-1, send_back_fd=send_back_fd@entry=-1, params=params@entry=0x0, ao_how=0x0, aop_console_how=0x7fe721df10f0) at libxl_create.c:1856
-#12 0x00007fe72c92f776 in libxl_domain_create_new (ctx=0x7fe71001c840, d_config=d_config@entry=0x7fe721df11b0, domid=domid@entry=0x7fe721df10a8, ao_how=ao_how@entry=0x0, aop_console_how=aop_console_how@entry=0x7fe721df10f0) at libxl_create.c:2075
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
-Tested-by: James Fehlig <jfehlig@suse.com>
----
-Cc: Wei Liu <wl@xen.org>
-Cc: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Juergen Gross <jgross@suse.com>
----
-This change should be backported to all supported branches.
----
-Changes from v1:
-- dropped patch 1; this one is enough of a fix
-- removed an assert() deemed non necessary
-- kept GC_FREE just before return in libxl_list_vcpu()
-- nr_vcpus is now unsigned
-- fix some typos
----
- tools/libs/light/libxl_domain.c |   14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/tools/libs/light/libxl_domain.c b/tools/libs/light/libxl_domain.c
-index 544a9bf59d..d438232117 100644
---- a/tools/libs/light/libxl_domain.c
-+++ b/tools/libs/light/libxl_domain.c
-@@ -1661,6 +1661,7 @@ libxl_vcpuinfo *libxl_list_vcpu(libxl_ctx *ctx, uint32_t domid,
-     libxl_vcpuinfo *ptr, *ret;
-     xc_domaininfo_t domaininfo;
-     xc_vcpuinfo_t vcpuinfo;
-+    unsigned int nr_vcpus;
- 
-     if (xc_domain_getinfolist(ctx->xch, domid, 1, &domaininfo) != 1) {
-         LOGED(ERROR, domid, "Getting infolist");
-@@ -1677,33 +1678,34 @@ libxl_vcpuinfo *libxl_list_vcpu(libxl_ctx *ctx, uint32_t domid,
-     ret = ptr = libxl__calloc(NOGC, domaininfo.max_vcpu_id + 1,
-                               sizeof(libxl_vcpuinfo));
- 
--    for (*nr_vcpus_out = 0;
--         *nr_vcpus_out <= domaininfo.max_vcpu_id;
--         ++*nr_vcpus_out, ++ptr) {
-+    for (nr_vcpus = 0;
-+         nr_vcpus <= domaininfo.max_vcpu_id;
-+         ++nr_vcpus, ++ptr) {
-         libxl_bitmap_init(&ptr->cpumap);
-         if (libxl_cpu_bitmap_alloc(ctx, &ptr->cpumap, 0))
-             goto err;
-         libxl_bitmap_init(&ptr->cpumap_soft);
-         if (libxl_cpu_bitmap_alloc(ctx, &ptr->cpumap_soft, 0))
-             goto err;
--        if (xc_vcpu_getinfo(ctx->xch, domid, *nr_vcpus_out, &vcpuinfo) == -1) {
-+        if (xc_vcpu_getinfo(ctx->xch, domid, nr_vcpus, &vcpuinfo) == -1) {
-             LOGED(ERROR, domid, "Getting vcpu info");
-             goto err;
-         }
- 
--        if (xc_vcpu_getaffinity(ctx->xch, domid, *nr_vcpus_out,
-+        if (xc_vcpu_getaffinity(ctx->xch, domid, nr_vcpus,
-                                 ptr->cpumap.map, ptr->cpumap_soft.map,
-                                 XEN_VCPUAFFINITY_SOFT|XEN_VCPUAFFINITY_HARD) == -1) {
-             LOGED(ERROR, domid, "Getting vcpu affinity");
-             goto err;
-         }
--        ptr->vcpuid = *nr_vcpus_out;
-+        ptr->vcpuid = nr_vcpus;
-         ptr->cpu = vcpuinfo.cpu;
-         ptr->online = !!vcpuinfo.online;
-         ptr->blocked = !!vcpuinfo.blocked;
-         ptr->running = !!vcpuinfo.running;
-         ptr->vcpu_time = vcpuinfo.cpu_time;
-     }
-+    *nr_vcpus_out = nr_vcpus;
-     GC_FREE;
-     return ret;
- 
-
+>   
+>               if ( unlikely(copy_to_guest_offset(buf, i, &bdf, 1)) )
+>               {
+> --- a/xen/drivers/passthrough/x86/iommu.c
+> +++ b/xen/drivers/passthrough/x86/iommu.c
+> @@ -145,7 +145,7 @@ unsigned int iommu_read_apic_from_ire(un
+>   int __init iommu_setup_hpet_msi(struct msi_desc *msi)
+>   {
+>       const struct iommu_ops *ops = iommu_get_ops();
+> -    return ops->setup_hpet_msi ? ops->setup_hpet_msi(msi) : -ENODEV;
+> +    return ops->setup_hpet_msi ? iommu_call(ops, setup_hpet_msi, msi) : -ENODEV;
+>   }
+>   
+>   void __hwdom_init arch_iommu_check_autotranslated_hwdom(struct domain *d)
+> @@ -406,7 +406,7 @@ int iommu_free_pgtables(struct domain *d
+>        * Pages will be moved to the free list below. So we want to
+>        * clear the root page-table to avoid any potential use after-free.
+>        */
+> -    hd->platform_ops->clear_root_pgtable(d);
+> +    iommu_vcall(hd->platform_ops, clear_root_pgtable, d);
+>   
+>       while ( (pg = page_list_remove_head(&hd->arch.pgtables.list)) )
+>       {
+> 
 
 
