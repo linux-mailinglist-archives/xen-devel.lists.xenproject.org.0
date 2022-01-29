@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28D154A310E
-	for <lists+xen-devel@lfdr.de>; Sat, 29 Jan 2022 18:40:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.262277.454451 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE5B24A3141
+	for <lists+xen-devel@lfdr.de>; Sat, 29 Jan 2022 18:59:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.262284.454463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDri0-0005Hj-54; Sat, 29 Jan 2022 17:40:20 +0000
+	id 1nDrzo-0006z2-R0; Sat, 29 Jan 2022 17:58:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 262277.454451; Sat, 29 Jan 2022 17:40:20 +0000
+Received: by outflank-mailman (output) from mailman id 262284.454463; Sat, 29 Jan 2022 17:58:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nDri0-0005Fv-1k; Sat, 29 Jan 2022 17:40:20 +0000
-Received: by outflank-mailman (input) for mailman id 262277;
- Sat, 29 Jan 2022 17:40:18 +0000
+	id 1nDrzo-0006w2-NF; Sat, 29 Jan 2022 17:58:44 +0000
+Received: by outflank-mailman (input) for mailman id 262284;
+ Sat, 29 Jan 2022 17:58:42 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nDrhy-0005Fp-FC
- for xen-devel@lists.xenproject.org; Sat, 29 Jan 2022 17:40:18 +0000
+ (envelope-from <julien@xen.org>) id 1nDrzm-0006vv-MZ
+ for xen-devel@lists.xenproject.org; Sat, 29 Jan 2022 17:58:42 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1nDrhx-0006mE-NG; Sat, 29 Jan 2022 17:40:17 +0000
+ id 1nDrzm-00076c-1J; Sat, 29 Jan 2022 17:58:42 +0000
 Received: from 54-240-197-239.amazon.com ([54.240.197.239]
  helo=[192.168.0.221]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1nDrhx-0002lU-Hg; Sat, 29 Jan 2022 17:40:17 +0000
+ id 1nDrzl-0003te-Qx; Sat, 29 Jan 2022 17:58:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,127 +42,158 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=bvTsnuIhSNjvzKAVxRTIZ7LGs3OGHfDa4vBzFFj34wU=; b=BzkZby8lDIWvc4jfyV/e3p56SC
-	/0cdA9zFabcJ1iEtXSwUjadMzoJub3D+urHZu/K9k5b5ZfFJtJKcdLNjhKO8hLMcZ3s12Vn6hbH50
-	ByNf6VzmCQE7Ja3duumayVJWWMFrpfRbA38QDz3iKQhQhcHBbLqQcecy2f6m9Js95ubU=;
-Message-ID: <4d5a9e02-47ee-ef04-5c8f-602ad4bb9e81@xen.org>
-Date: Sat, 29 Jan 2022 17:40:15 +0000
+	bh=n6P/mQrSqC2/4lSsLdSczpRfHwIcz5mqvEMc3OuQWbo=; b=de7i7ERDBbO3NRlvXoL8Wm98NK
+	0KN8oYOwfKdM8s3JP5AOTGswbJ6tBsAytavZVcPhpzmy95613exF9FUFztvPGE6ScJvleOT0hXwBq
+	w3Pl67y8rM6naqJGXWieYLfW0Nx3/8QSBuTxoBSXsuVME/NUrQ4TYEFs1XkZ8aDGRWzg=;
+Message-ID: <3a00dff8-c213-616e-48b0-6e2b6f30dbce@xen.org>
+Date: Sat, 29 Jan 2022 17:58:39 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
  Gecko/20100101 Thunderbird/91.5.1
-Subject: Re: [XEN v1] xen/arm: io: Check ESR_EL2.ISV != 0 before searching for
- a MMIO handler
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Julien Grall <julien.grall.oss@gmail.com>,
- Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>,
- xen-devel <xen-devel@lists.xenproject.org>, stefanos@xilinx.com,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <20220126165827.61168-1-ayankuma@xilinx.com>
- <CAJ=z9a1KjOAeR4vpRQGA_sYSvx1h331NKim2bgG8jyru94Beow@mail.gmail.com>
- <eeedbb72-d881-363d-c862-234b705eaec7@xilinx.com>
- <CAJ=z9a0VEqr_ODQZvdsO82PiOpHt5-TVc4JWE5pJCeNYPh+XHg@mail.gmail.com>
- <bee7ea7a-6d3d-bf3c-4b5f-d40deb601867@xilinx.com>
- <2064878e-4ef1-f0a3-1476-7175c2c8d29e@xen.org>
- <bcd28a18-80ea-0987-6867-5c6fc634a8a5@xilinx.com>
- <f6853134-8b65-5ffb-b39a-62ed26b3f499@xen.org>
- <alpine.DEB.2.22.394.2201271327430.27308@ubuntu-linux-20-04-desktop>
- <CAJ=z9a2Sp6w0b21p96YHx4w_m0jAbYJ4v=cVar-1nPeL7SotZw@mail.gmail.com>
- <CAJ=z9a1HML30aGn52GY34g-QbvLPHep7j=H-UDxsH1+B0CEb3Q@mail.gmail.com>
- <alpine.DEB.2.22.394.2201271513330.27308@ubuntu-linux-20-04-desktop>
- <9880cf7c-962f-8a32-483c-2bf5889d3273@xen.org>
- <alpine.DEB.2.22.394.2201281216130.27308@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v3 1/5] xen: introduce xen,enhanced dom0less property
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Cc: jgross@suse.com, Bertrand.Marquis@arm.com, Volodymyr_Babchuk@epam.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+References: <alpine.DEB.2.22.394.2201281330520.27308@ubuntu-linux-20-04-desktop>
+ <20220128213307.2822078-1-sstabellini@kernel.org>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2201281216130.27308@ubuntu-linux-20-04-desktop>
+In-Reply-To: <20220128213307.2822078-1-sstabellini@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi Stefano,
 
-On 28/01/2022 20:23, Stefano Stabellini wrote:
-> On Fri, 28 Jan 2022, Julien Grall wrote:
->> On 28/01/2022 01:20, Stefano Stabellini wrote:
->>> On Thu, 27 Jan 2022, Julien Grall wrote:
->>>> On Thu, 27 Jan 2022 at 23:05, Julien Grall <julien.grall.oss@gmail.com>
->>>> wrote:
->>>>>
->>>>> On Thu, 27 Jan 2022 at 22:40, Stefano Stabellini
->>>>> <sstabellini@kernel.org> wrote:
->>>>>> I am with you on both points.
->>>>>>
->>>>>> One thing I noticed is that the code today is not able to deal with
->>>>>> IO_UNHANDLED for MMIO regions handled by IOREQ servers or Xen MMIO
->>>>>> emulator handlers. p2m_resolve_translation_fault and try_map_mmio are
->>>>>> called after try_handle_mmio returns IO_UNHANDLED but try_handle_mmio
->>>>>> is
->>>>>> not called a second time (or am I mistaken?)
->>>>>
->>>>> Why would you need it? If try_mmio_fault() doesn't work the first time,
->>>>> then
->>>>
->>>> Sorry I meant try_handle_mmio().
->>>>
->>>>> it will not work the second it.
->>>
->>> I think I explained myself badly, I'll try again below.
->>>
->>>
->>>>>> Another thing I noticed is that currently find_mmio_handler and
->>>>>> try_fwd_ioserv expect dabt to be already populated and valid so it
->>>>>> would
->>>>>> be better if we could get there only when dabt.valid.
->>>>>>
->>>>>> With these two things in mind, I think maybe the best thing to do is
->>>>>> to
->>>>>> change the code in do_trap_stage2_abort_guest slightly so that
->>>>>> p2m_resolve_translation_fault and try_map_mmio are called first when
->>>>>> !dabt.valid.
->>>>>
->>>>> An abort will mostly likely happen because of emulated I/O. If we call
->>>>> p2m_resolve_translation_fault() and try_map_mmio() first, then it means
->>>>> the processing will take longer than necessary for the common case.
->>>>>
->>>>> So I think we want to keep the order as it is. I.e first trying the MMIO
->>>>> and then falling back to the less likely reason for a trap.
->>>
->>> Yeah I thought about it as well. The idea would be that if dabt.valid is
->>> set then we leave things as they are (we call try_handle_mmio first) but
->>> if dabt.valid is not set (it is not valid) then we skip the
->>> try_handle_mmio() call because it wouldn't succeed anyway and go
->>> directly to p2m_resolve_translation_fault() and try_map_mmio().
->>>
->>> If either of them work (also reading what you wrote about it) then we
->>> return immediately.
->>
->> Ok. So the assumption is data abort with invalid syndrome would mostly likely
->> be because of a fault handled by p2m_resolve_translation_fault().
->>
->> I think this makes sense. However, I am not convinced we can currently safely
->> call try_map_mmio() before try_handle_mmio(). This is because the logic in
->> try_map_mmio() is quite fragile and we may mistakenly map an emulated region.
->>
->> Similarly, we can't call try_map_mmio() before p2m_resolve_translation_fault()
->> because a transient fault may be
->> misinterpreted.
->>
->> I think we may be able to harden try_map_mmio() by checking if the I/O region
->> is emulated. But this will need to be fully thought through first.
+On 28/01/2022 21:33, Stefano Stabellini wrote:
+> From: Stefano Stabellini <stefano.stabellini@xilinx.com>
 > 
-> That's a good point. I wonder if it could be as simple as making sure
-> that iomem_access_permitted returns false for all emulated regions?
+> Introduce a new "xen,enhanced" dom0less property to enable/disable PV
+> driver interfaces for dom0less guests. Currently only "enabled" and
+> "disabled" are supported property values (and empty). Leave the option
+> open to implement further possible values in the future (e.g.
+> "xenstore" to enable only xenstore.)
+> 
+> The configurable option is for domUs only. For dom0 we always set the
+> corresponding property in the Xen code to true (PV interfaces enabled.)
+> 
+> This patch only parses the property. Next patches will make use of it.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> CC: Julien Grall <julien@xen.org>
+> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+> ---
+> Changes in v3:
+> - improve commit message
+> 
+> Changes in v2:
+> - rename kinfo.enhanced to kinfo.dom0less_enhanced
+> - set kinfo.dom0less_enhanced to true for dom0
+> - handle -ENODATA in addition to -EILSEQ
+> ---
+>   docs/misc/arm/device-tree/booting.txt | 18 ++++++++++++++++++
+>   xen/arch/arm/domain_build.c           |  8 ++++++++
+>   xen/arch/arm/include/asm/kernel.h     |  3 +++
+>   3 files changed, 29 insertions(+)
+> 
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index 71895663a4..38c29fb3d8 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -169,6 +169,24 @@ with the following properties:
+>       Please note that the SPI used for the virtual pl011 could clash with the
+>       physical SPI of a physical device assigned to the guest.
+>   
+> +- xen,enhanced
 
-I have replied to that in the other thread. The short answer is no and...
+NIT: I find a bit strange this is added in the middle of the property. 
+Can you either sort the property alphabtically or move this one to the end?
 
-> Looking at the code, it looks like it is already the case today. Is that
-> right?
+> +
+> +    A string property. Possible property values are:
+> +
+> +    - "enabled" (or missing property value)
+> +    Xen PV interfaces, including grant-table and xenstore, will be
+> +    enabled for the VM.
+> +
+> +    - "disabled"
+> +    Xen PV interfaces are disabled.
+> +
+> +    If the xen,enhanced property is present with no value, it defaults
+> +    to "enabled". If the xen,enhanced property is not present, PV
+> +    interfaces are disabled.
+> +
+> +    In the future other possible property values might be added to
+> +    enable only selected interfaces.
+> +
+>   - nr_spis
+>   
+>       Optional. A 32-bit integer specifying the number of SPIs (Shared
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 6931c022a2..9144d6c0b6 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -2963,6 +2963,7 @@ static int __init construct_domU(struct domain *d,
+>                                    const struct dt_device_node *node)
+>   {
+>       struct kernel_info kinfo = {};
+> +    const char *dom0less_enhanced;
+>       int rc;
+>       u64 mem;
+>   
+> @@ -2978,6 +2979,12 @@ static int __init construct_domU(struct domain *d,
+>   
+>       kinfo.vpl011 = dt_property_read_bool(node, "vpl011");
+>   
+> +    rc = dt_property_read_string(node, "xen,enhanced", &dom0less_enhanced);
+> +    if ( rc == -EILSEQ ||
 
-not 100%. The thing is iomem_access_permitted() is telling you which 
-*host* physical address is accessible. Not which *guest* physical 
-address is emulated.
+I think the use an -EILSEQ wants an explanation. In a previous version, 
+you wrote that the value would be returned when:
 
-We could possibly take some short cut at the risk of bitting back in the 
-future if we end up to emulate non-existing region in the host physical 
-address.
+fdt set /chosen/domU0 xen,enhanced
+
+But it is not clear why. Can you print pp->value, pp->length, 
+strnlen(..) when this happens?
+
+
+> +         rc == -ENODATA ||
+> +         (rc == 0 && !strcmp(dom0less_enhanced, "enabled")) )
+> +        kinfo.dom0less_enhanced = true;
+> +
+>       if ( vcpu_create(d, 0) == NULL )
+>           return -ENOMEM;
+>   
+> @@ -3095,6 +3102,7 @@ static int __init construct_dom0(struct domain *d)
+>   
+>       kinfo.unassigned_mem = dom0_mem;
+>       kinfo.d = d;
+> +    kinfo.dom0less_enhanced = true;
+
+This is a bit odd. The name suggests that this is a dom0less specific 
+option. But then you are setting it to dom0.
+
+Given that this variable is about enable PV drivers, I think this should 
+be false for dom0.
+
+>   
+>       rc = kernel_probe(&kinfo, NULL);
+>       if ( rc < 0 )
+> diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+> index 874aa108a7..c4dc039b54 100644
+> --- a/xen/arch/arm/include/asm/kernel.h
+> +++ b/xen/arch/arm/include/asm/kernel.h
+> @@ -36,6 +36,9 @@ struct kernel_info {
+>       /* Enable pl011 emulation */
+>       bool vpl011;
+>   
+> +    /* Enable PV drivers */
+> +    bool dom0less_enhanced;
+> +
+>       /* GIC phandle */
+>       uint32_t phandle_gic;
+>   
 
 Cheers,
 
