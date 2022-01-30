@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DE914A3BE8
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jan 2022 00:47:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.262624.454980 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1855E4A3BED
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jan 2022 00:49:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.262676.455034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEJuQ-0005so-E1; Sun, 30 Jan 2022 23:47:02 +0000
+	id 1nEJwG-0000C1-SZ; Sun, 30 Jan 2022 23:48:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 262624.454980; Sun, 30 Jan 2022 23:47:02 +0000
+Received: by outflank-mailman (output) from mailman id 262676.455034; Sun, 30 Jan 2022 23:48:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEJuQ-0005qx-9l; Sun, 30 Jan 2022 23:47:02 +0000
-Received: by outflank-mailman (input) for mailman id 262624;
- Sun, 30 Jan 2022 23:47:00 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nEJwG-00009G-PB; Sun, 30 Jan 2022 23:48:56 +0000
+Received: by outflank-mailman (input) for mailman id 262676;
+ Sun, 30 Jan 2022 23:48:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=imrt=SO=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1nEJlg-0003l1-40
+ id 1nEJlg-0003lI-R7
  for xen-devel@lists.xenproject.org; Sun, 30 Jan 2022 23:38:00 +0000
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [2a00:1450:4864:20::134])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a7ccc007-8225-11ec-8f75-fffcc8bd4f1a;
- Mon, 31 Jan 2022 00:37:58 +0100 (CET)
-Received: by mail-lf1-x134.google.com with SMTP id x23so23420527lfc.0
- for <xen-devel@lists.xenproject.org>; Sun, 30 Jan 2022 15:37:58 -0800 (PST)
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a8e75404-8225-11ec-8eb8-a37418f5ba1a;
+ Mon, 31 Jan 2022 00:38:00 +0100 (CET)
+Received: by mail-lj1-x229.google.com with SMTP id e9so17133354ljq.1
+ for <xen-devel@lists.xenproject.org>; Sun, 30 Jan 2022 15:38:00 -0800 (PST)
 Received: from localhost.localdomain (109-252-138-126.dynamic.spd-mgts.ru.
  [109.252.138.126])
- by smtp.gmail.com with ESMTPSA id a24sm1262950ljp.112.2022.01.30.15.37.56
+ by smtp.gmail.com with ESMTPSA id a24sm1262950ljp.112.2022.01.30.15.37.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 30 Jan 2022 15:37:57 -0800 (PST)
+ Sun, 30 Jan 2022 15:37:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,34 +44,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a7ccc007-8225-11ec-8f75-fffcc8bd4f1a
+X-Inumbo-ID: a8e75404-8225-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=6m8P3WoXpjmgm4wPv3Z7h5cBjPxfBSCYucbGZeGzChw=;
-        b=pw0lvBk+dTz3ObiHx+Tziue58w6zUuZQVNJvU9S7GB+pTzwAHhgcj/iJlwXXxw2erP
-         SjJaIXCKqSP4ZUdeywJtZKFLRYiUBBH6flK45216wEu+kAKbGqsUiHPKIi82YM1bz/wq
-         bMKu0rK0969KEuxg/PSMaDE+zRgG2hxtPkS3M1mFIZPAgYW4ktfU2t1MzGq6fvtQ0WCp
-         Y+7PFXh6gcLp4xF5Q6p6cFH24zY5vWjbmW+bewwmKwBTNzJ37xEIcDLIFgNsMgKiVVBl
-         Kl81Cxsay4XTPckhsJ1WeXkyEjcWdoSjNX8wa8Lm2Ykdw2ly2wOfBD20u+sG0elmdIGM
-         o1xg==
+        bh=Fjun7H7HFd6eJVLuHg+U86J15PDVhx/hGCMSiPgf2P0=;
+        b=dd2fzDC5TDl8KpWUh0gU7+/JjGrL9a19MSGIOALm5z7fXs5VXHit+rqxXTBnz43EEy
+         6bAuu4TW+sayWblmW8KdfTygyhCSzYvoS93Z1gI42rqbvA3DwMo07+1y2fEK2Sdi+dYK
+         sDP0y+AYT+lJyA1SE0LAK8MGBAbFccq0iNsI8MFwHrM4VDudz2gSr9hVrcXqatHOdkrN
+         1PfcjftqYULiK+vhkvAQxqJqQERFYAQADXPAeAOnfrVl+/hqqAaB3aFTvjRxQxWLKkrn
+         UW62fbZN1kM7Fr/Abhtj4Byx5IJSmwGLhZ3+a2bcHkPKFWrQslOrFdx+rzve0FEyiDp5
+         +e8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=6m8P3WoXpjmgm4wPv3Z7h5cBjPxfBSCYucbGZeGzChw=;
-        b=jkEs2njEW84gNVPpCYG8+2LP1CDUpWpwSgeBeIGL+pDZ4iPRxVKQRKJHXuCfzlI3+2
-         GFYyttjKRIx6JYAEJc7wiz7pOwkMyVfFCQxKPJd5ipYthx1apxBNnHyN42hkuL/JU+S9
-         fyUzF37g0cdJmzOKAeB+Ca8GamqCl33+LdAqljEL6nPtwS35Mw1vayMgz+G1p1J3rmDP
-         pTRMzWHVy8vja6KUZI9UK3GYGgZRNZrJ6ua5SM6cMRfwPb3x7Oz9YAzgGnbkTDiGo5wK
-         XsFw/tnNrqdIOtSZtZetjmHV/7+77zv/UM6MVlrdMampmidoasR+DmfcFHlxUZM1xB99
-         Bd+g==
-X-Gm-Message-State: AOAM532tSX1ZFWBJbT3vDiSbHQ+FTQqcqa72AgrpQV7yq3wFOXnuJnea
-	rjmohBJLHgDlrXi2dgrXfvk=
-X-Google-Smtp-Source: ABdhPJym+9e+qz3b9Eox6rk6EROG58IYAq1gwBJQdx3IJq9mRqA6OUoE67/3HvdiOb6Vb5OIHzS4jw==
-X-Received: by 2002:a05:6512:10c4:: with SMTP id k4mr13546209lfg.63.1643585878009;
-        Sun, 30 Jan 2022 15:37:58 -0800 (PST)
+        bh=Fjun7H7HFd6eJVLuHg+U86J15PDVhx/hGCMSiPgf2P0=;
+        b=GzyF+MHAylz6aPfYbVmKWtuNmCE0h/Y7/v3E56fKSuABNZ4Kpo4Wj3+XA+RD52ONxM
+         4Bzna1pXvv307e3w5fQYvoMaHIg8miMcxko+bE4H0JJpo32Ui5l6YgxDSlb64l38uACX
+         jin/BjQeVLPUp+sbcFTH8hX55ZbRy/nqtGkjY936X+FmPNGcvXvxVBVOt4/uIN+lr+8l
+         PhWzkJfGzZ3DHXqLTxPJlzbzDmz8r5k/ja3DX6/Ohy/lX2dJ226/AOc1BLJo52+79Vvy
+         vt+PP47LTalXSo1nXtIdODKTBMpp2J2KBfHG86e1cR6cnIakbMhhrzvw1KMKl2VJL9Xn
+         dVlw==
+X-Gm-Message-State: AOAM532tFW15SX0HEV8YfH4Va5IsmBmQsUYWCmOHNTHD6uIQdwhtU7tx
+	3ZoifyvYzrplg6l+b+VZ+ic=
+X-Google-Smtp-Source: ABdhPJztEpqDu7c0duU4BlEMnF97NCTUImWX4xTUQenIAQJSUD2GpIv4OSVa9Xt8JSMsGNu6LN6TTQ==
+X-Received: by 2002:a2e:5858:: with SMTP id x24mr11923571ljd.519.1643585879834;
+        Sun, 30 Jan 2022 15:37:59 -0800 (PST)
 From: Dmitry Osipenko <digetx@gmail.com>
 To: Thierry Reding <thierry.reding@gmail.com>,
 	Jonathan Hunter <jonathanh@nvidia.com>,
@@ -135,36 +135,96 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-acpi@vger.kernel.org,
 	linux-pm@vger.kernel.org,
 	linux-tegra@vger.kernel.org
-Subject: [PATCH v6 18/21] memory: emif: Use kernel_can_power_off()
-Date: Mon, 31 Jan 2022 02:37:15 +0300
-Message-Id: <20220130233718.21544-19-digetx@gmail.com>
+Subject: [PATCH v6 19/21] ACPI: power: Switch to sys-off handler API
+Date: Mon, 31 Jan 2022 02:37:16 +0300
+Message-Id: <20220130233718.21544-20-digetx@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220130233718.21544-1-digetx@gmail.com>
 References: <20220130233718.21544-1-digetx@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace legacy pm_power_off with kernel_can_power_off() helper that
-is aware about chained power-off handlers.
+Switch to sys-off API that replaces legacy pm_power_off callbacks.
 
 Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
 ---
- drivers/memory/emif.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/acpi/sleep.c | 25 +++++++++++--------------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/memory/emif.c b/drivers/memory/emif.c
-index 762d0c0f0716..cab10d5274a0 100644
---- a/drivers/memory/emif.c
-+++ b/drivers/memory/emif.c
-@@ -630,7 +630,7 @@ static irqreturn_t emif_threaded_isr(int irq, void *dev_id)
- 		dev_emerg(emif->dev, "SDRAM temperature exceeds operating limit.. Needs shut down!!!\n");
+diff --git a/drivers/acpi/sleep.c b/drivers/acpi/sleep.c
+index a60ff5dfed3a..e27ac5b4645b 100644
+--- a/drivers/acpi/sleep.c
++++ b/drivers/acpi/sleep.c
+@@ -47,19 +47,11 @@ static void acpi_sleep_tts_switch(u32 acpi_state)
+ 	}
+ }
  
- 		/* If we have Power OFF ability, use it, else try restarting */
--		if (pm_power_off) {
-+		if (kernel_can_power_off()) {
- 			kernel_power_off();
- 		} else {
- 			WARN(1, "FIXME: NO pm_power_off!!! trying restart\n");
+-static int tts_notify_reboot(struct notifier_block *this,
+-			unsigned long code, void *x)
++static void tts_reboot_prepare(struct reboot_prep_data *data)
+ {
+ 	acpi_sleep_tts_switch(ACPI_STATE_S5);
+-	return NOTIFY_DONE;
+ }
+ 
+-static struct notifier_block tts_notifier = {
+-	.notifier_call	= tts_notify_reboot,
+-	.next		= NULL,
+-	.priority	= 0,
+-};
+-
+ static int acpi_sleep_prepare(u32 acpi_state)
+ {
+ #ifdef CONFIG_ACPI_SLEEP
+@@ -1031,7 +1023,7 @@ static void acpi_sleep_hibernate_setup(void)
+ static inline void acpi_sleep_hibernate_setup(void) {}
+ #endif /* !CONFIG_HIBERNATION */
+ 
+-static void acpi_power_off_prepare(void)
++static void acpi_power_off_prepare(struct power_off_prep_data *data)
+ {
+ 	/* Prepare to power off the system */
+ 	acpi_sleep_prepare(ACPI_STATE_S5);
+@@ -1039,7 +1031,7 @@ static void acpi_power_off_prepare(void)
+ 	acpi_os_wait_events_complete();
+ }
+ 
+-static void acpi_power_off(void)
++static void acpi_power_off(struct power_off_data *data)
+ {
+ 	/* acpi_sleep_prepare(ACPI_STATE_S5) should have already been called */
+ 	pr_debug("%s called\n", __func__);
+@@ -1047,6 +1039,11 @@ static void acpi_power_off(void)
+ 	acpi_enter_sleep_state(ACPI_STATE_S5);
+ }
+ 
++static struct sys_off_handler acpi_sys_off_handler = {
++	.power_off_priority = POWEROFF_PRIO_FIRMWARE,
++	.reboot_prepare_cb = tts_reboot_prepare,
++};
++
+ int __init acpi_sleep_init(void)
+ {
+ 	char supported[ACPI_S_STATE_COUNT * 3 + 1];
+@@ -1063,8 +1060,8 @@ int __init acpi_sleep_init(void)
+ 
+ 	if (acpi_sleep_state_supported(ACPI_STATE_S5)) {
+ 		sleep_states[ACPI_STATE_S5] = 1;
+-		pm_power_off_prepare = acpi_power_off_prepare;
+-		pm_power_off = acpi_power_off;
++		acpi_sys_off_handler.power_off_cb = acpi_power_off;
++		acpi_sys_off_handler.power_off_prepare_cb = acpi_power_off_prepare;
+ 	} else {
+ 		acpi_no_s5 = true;
+ 	}
+@@ -1080,6 +1077,6 @@ int __init acpi_sleep_init(void)
+ 	 * Register the tts_notifier to reboot notifier list so that the _TTS
+ 	 * object can also be evaluated when the system enters S5.
+ 	 */
+-	register_reboot_notifier(&tts_notifier);
++	register_sys_off_handler(&acpi_sys_off_handler);
+ 	return 0;
+ }
 -- 
 2.34.1
 
