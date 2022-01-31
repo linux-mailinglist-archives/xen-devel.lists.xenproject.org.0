@@ -2,29 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EAB54A4AB6
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jan 2022 16:37:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.263162.455774 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 705074A4AFA
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jan 2022 16:51:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.263170.455785 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEYjh-0004Z9-Oh; Mon, 31 Jan 2022 15:36:57 +0000
+	id 1nEYwz-0006mb-Vv; Mon, 31 Jan 2022 15:50:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 263162.455774; Mon, 31 Jan 2022 15:36:57 +0000
+Received: by outflank-mailman (output) from mailman id 263170.455785; Mon, 31 Jan 2022 15:50:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEYjh-0004Wm-L4; Mon, 31 Jan 2022 15:36:57 +0000
-Received: by outflank-mailman (input) for mailman id 263162;
- Mon, 31 Jan 2022 15:36:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9KqZ=SP=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nEYjf-0004Vo-Qt
- for xen-devel@lists.xenproject.org; Mon, 31 Jan 2022 15:36:55 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c024911-82ab-11ec-8f75-fffcc8bd4f1a;
- Mon, 31 Jan 2022 16:36:52 +0100 (CET)
+	id 1nEYwz-0006kV-Sv; Mon, 31 Jan 2022 15:50:41 +0000
+Received: by outflank-mailman (input) for mailman id 263170;
+ Mon, 31 Jan 2022 15:50:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=5Fky=SP=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nEYwy-0006kP-SW
+ for xen-devel@lists.xenproject.org; Mon, 31 Jan 2022 15:50:40 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 897ac1e2-82ad-11ec-8eb8-a37418f5ba1a;
+ Mon, 31 Jan 2022 16:50:39 +0100 (CET)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2107.outbound.protection.outlook.com [104.47.17.107]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-32-EzanL8GEPUGSz-mBWQtnQA-1; Mon, 31 Jan 2022 16:50:37 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by DB9PR04MB8250.eurprd04.prod.outlook.com (2603:10a6:10:245::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.18; Mon, 31 Jan
+ 2022 15:50:36 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::7cc2:78a3:4d40:9d45]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::7cc2:78a3:4d40:9d45%6]) with mapi id 15.20.4930.021; Mon, 31 Jan 2022
+ 15:50:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,204 +51,154 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c024911-82ab-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643643412;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=5QdX11X1ReVJwn4hm33e8QUp/Ma5ql215YdyrwvYP2M=;
-  b=TuQnvD3EL9x7mgUXxU51KJsd5Hf/X9TZBIcy8/RZvBDsRtFxGqn4jia+
-   /VhdqsMIuKocZNGZ5zaR2hv4LeaOr1TS5PizHBrrhWOg7FTzwJIYkI/J3
-   N7Tqjh4vPC2Gk3X8fUXjXAooggwxKvt354fhyBi1QYUHanVV4nieMnipU
-   s=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: SWV0vNnR5vgKOU8axEmI6RWbzsxRY4mtNk+P97Ao6d34URic0QZ7mNKguqvr7FVajsEhiOOaCM
- WM29q+u6bWd5iz/lfI6y0GeTc+ZWa3Xzyn8j14LXnBfGopL6j0iP69KZ+8a74/F9TFsFw+G08U
- 1c1D/cVYitl1wGWTQdkXLu5zO3B5jEoeD5qlOYTDhurHED+wAvpQZNwBn7cPK2gI0UN+CgsY3R
- nD/Nfho4G8/OCXlrGIbkP2y13P6vIV/2ORRPLTSOQr6/TgkLpG0hCyGfNtpHd7/X2jUvfnPIfJ
- 6bLfrsYKX3C3pjeExy5QW5bD
-X-SBRS: 5.2
-X-MesageID: 63133548
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:Zas2967eFol4VlROEOOAcwxRtOzAchMFZxGqfqrLsTDasY5as4F+v
- jQZCG6HP6neZTShKt13atjipEJTuMTcm4M1G1Q/qXo8Hi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FV8MpBsJ00o5wbZg2dcw27BVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z8
- e9V7ceXSx8TEu7+iOtedghFNChxFPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALBc/nJo4A/FpnyinUF60OSpHfWaTao9Rf2V/cg+gQRq+FP
- JdFOVKDajyROkFvAUs4Aq4agdykr1yvdWJGmnuK8P9fD2/7k1UqjemF3MDuUsOObdVYmACfv
- G2u10bTDwweNdef4SGY6X/qjejK9QvrVYRXGLCm+/pChFyI2ndVGBAQTUG8o/Sylgi5Qd03F
- qAP0nNw9+5orhXtF4SjGU3jyJKZgvICc+NqC7VhzwOV8IaX0RaWRU0VUxlIZ/Vz4afaWgcW/
- lOOmtroAxlmv7uUVW+R+9+okN+iBcQGBTRcPHFZFGPp9/Gm+dhu1UyXEr6PBYbo1oWdJN3m/
- 9ydQMHSbZ03hNVD6ai09Euvb9mE9smQFV5dCuk6swuYAuJFiGyNOtbABbvzt68owGOlor+p5
- iJsdy+2t7hmMH11vHbRKNjh5Znwjxp/DBXSgER0A74q/Cm39niocOh4uW8ifxo5bZ5UJ261M
- Sc/XD+9ArcJZhNGiocsO+qM5zkCl/C8RbwJqNiJBjaxXnSBXFDep3w/DaJh92vsjFItgckC1
- WSzKq6R4YIhIf0/llKeHr5FuZdyn3xW7T6NGfjTkkr2uZLDNC/9YepUazOmM7FmhJ5oVS2Iq
- b6zwePQlUUGOAA/CwGKmbMuwacidCZjXc6u950IJ4Zu4GNOQQkcNhMY+pt5E6QNokifvr6gE
- qiVVhAKxVzhq2fALAnWOHlvZKm2BcR0rG4hPDxqNlGtgiBxbYGq5aYZVp02Ybh4q7Azka8qF
- 6EIK5eaH/BCajXb4DBBP5Pzm5NvKUawjgWUMiv7PDVmJ8x8RxbE88PPdxf08HVcFTK+sMYz+
- uXy1g7STZcZaR5lCcLaNKCmw1+r5CBPk+NuRUrYZNJUfRy0ooRtLiXwiN4xIt0NdkqflmfLi
- V7ODE5B9+fXooIz/N3Yvoy+rt+kQ7lkA05XP2jH9rLqZyPUyXWunN1bW+GScDGDCG6toPe+Z
- f9Yxu3XOeEcmAoYqJJ1FrtmwP5s59broLMGnA1oEG+SMgauA7JkZHKHwdNOputGwboA4Vm6X
- UeG+997P7SVOZy6TA5NdVR9NunTh+sJnjTy7OguJBSo7SB6y7OLTEFOMkTekydaNrZ0bNsoz
- OpJVBT6MOBjZs7G6uq7sx0=
-IronPort-HdrOrdr: A9a23:/mojnqNBL9GX2cBcTvujsMiBIKoaSvp037Eqv3oRdfUzSL3hqy
- nOpoVj6faaskdzZJhNo7+90ey7MBfhHP1OkO8s1NWZLWvbUQKTRekIh+aP/9SjIVyYygc079
- YaT0EUMr3N5DZB4/oSmDPIduod/A==
-X-IronPort-AV: E=Sophos;i="5.88,331,1635220800"; 
-   d="scan'208";a="63133548"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v3 7/9] x86/svm: VMEntry/Exit logic for MSR_SPEC_CTRL
-Date: Mon, 31 Jan 2022 15:36:21 +0000
-Message-ID: <20220131153621.8863-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20220128132927.14997-8-andrew.cooper3@citrix.com>
-References: <20220128132927.14997-8-andrew.cooper3@citrix.com>
+X-Inumbo-ID: 897ac1e2-82ad-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1643644238;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Qx6/YJRo4itrxy555f4/dNExjdDK3eyjdPvG4r1aV10=;
+	b=dkJAIffiu2Ywv6eIYFYh1kVt1wXhMHqAng/afm14cLlQFoKTpFamNrrtvRoxtxBHs0pnrg
+	sv9Jl62oVMk0kEHw6m+/jANSprejEbQNgddVSrzyef0Ax8NkkBeEFp6oI1jf2n0tJP3IGq
+	pZ1fqr6Oht+19ZcvrTCLifeIqL7GcO8=
+X-MC-Unique: EzanL8GEPUGSz-mBWQtnQA-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=OnpzM2kAw4ws9z5QPuzuPVesDELp36oBO6S0XGo01k7T8tvxw/9V4KebF188NPCl5K5A8qhSQeclSgiRzVynVJa5Ts0d+xofEaRXA7atQtYkTpDScLbzqVDlDTJzN8M87iUmQdzNVRDDD8hz2LsEmiCOjNEbP2ARp3PfOcEz29UFtacztHm+bam0ItiTvqOfE7QmmuGJWWywFkrAlIc3G4N2CjfhFidI4TlfRqkcsMQodQF0CaDPxeQycqXRHvb3fzpN2oOVz479xFJQ5qVVwH8IZmwrw6xEZ5cRgKAqM7lRQBl1KHy2cRgTv2gDRR08SNHozsI8xgLannghJ7QOkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qx6/YJRo4itrxy555f4/dNExjdDK3eyjdPvG4r1aV10=;
+ b=Kc8cVwH/Ja4Ykm+OA9x+aS8mDxz33Fu2BVo4zW485zKzS0lJMAFZKOGAu62Vy0qBnnhBDGizv7dkhmUf3hTgFghxtw/3b/cnlHPlpHKEiNzbFyu4R3S8CNGHMNuMsEL12CE1L9RnHPpaG2udFQyPYkeDlUnafUAnvBLLBRiEry7iocGygX53I9VjCK3yUjr9ZqDbaQ65hq8TDPmHfsO2f0jAr+hronMFCPpN6Rh10Cw+cAYmahXYHeVuR6xum5dbvQwFbFHHj/dupRvVN32i9T+LNfXOityuz4QA1+o8/K+PH6oK8cyI3OqdkZua3Z8IhT46SKL670zXy15xsvzp6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <df36767b-e04f-aa29-82af-87e8624bd29c@suse.com>
+Date: Mon, 31 Jan 2022 16:50:33 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH v5 06/14] vpci/header: implement guest BAR register
+ handlers
+Content-Language: en-US
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "julien@xen.org" <julien@xen.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
+ "paul@xen.org" <paul@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Rahul Singh <rahul.singh@arm.com>
+References: <20211125110251.2877218-1-andr2000@gmail.com>
+ <20211125110251.2877218-7-andr2000@gmail.com> <Yd7K+9fvnBz+WTXA@Air-de-Roger>
+ <082ca110-2ab7-60ff-e705-032d2d472547@epam.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <082ca110-2ab7-60ff-e705-032d2d472547@epam.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0306.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45b::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8ffc8439-a528-4ec2-c347-08d9e4d16bd8
+X-MS-TrafficTypeDiagnostic: DB9PR04MB8250:EE_
+X-Microsoft-Antispam-PRVS:
+	<DB9PR04MB825097B55B7393043E2885A2B3259@DB9PR04MB8250.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	sOOo4o/EpMJtkf7kcJq9doLAs4pBV7xmI7ZRbp8ncP1m+deC8eyMX26hXaIg1IiBvTkrKohDBkhSBnH3BFs6b1IwGSWAR0fvzd47jivD+1bYvY+8GZny3ei7lA4HprGzoUSVU/neX/Tj2nKf3y8HT1u+7E5B+z1QsNG0ug1tz5OpFpDjxQyQQ1t2NokjGwXNatlLIBNkHgX+6Z3+w6HWKB8Ym/YD+hoqFT4HcvdyYd86ztRrrbuyucJYNnoCsbDRGXspZGHvxGoKlJTUOC/rWMPfUkhoUpSQofhdqn7WHMWo0bpzVP+EzG/wdbBObM4jK9TMwcAe8Mv65R3jGpUd3SwedFBUp4KeSDSVsTHrZpj9rwHwNtTcvfknXUHDPdJl9+JX7id9ZzhIVZSDAYx6Hh2qm5zsytms6nVFgPG+CJ8k6UwrskBZO82J1hKu+HnbdinjjrQKbMnuD1/Js90ep33iNMuxwZnlF1A5x7Gxj4PlgO3yVivwToIICrepK/8U30TbZQCnGm7CmC5kNxfqMG1WyYYbYGVQnzSueBHsSc7E5KWOVfjSM6hHCZZz89+D/lNyVc3pHIN6U12wh8yWx3Nj402fpB6UNDSwSLGJzwKQg24NX8009Wu2PyX0keWUapSYiEivE2Zpjol8jywzZcOn47ya9LnDr+pLWd4nAEWeCwZgBA/K1ufTqX9gqlZjUEvkykoXOnTsF1Oiau9rHe+3tEQXp1ZwEA50K6ACFRc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(83380400001)(53546011)(31686004)(6666004)(6512007)(186003)(2616005)(36756003)(6506007)(26005)(6486002)(66476007)(66556008)(5660300002)(31696002)(38100700002)(7416002)(316002)(4326008)(110136005)(508600001)(8936002)(54906003)(8676002)(2906002)(86362001)(66946007)(43740500002)(45980500001)(20210929001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cGJPUDMyTVBrZTlBdW11dGJoYVl3VXN2bHBHM21ZRXBGSlltdkNDWmMyUUVD?=
+ =?utf-8?B?dzdiK1M4NG9xdlp6b3Njdk5tOWpicDJKTVljZ1V4NXQyTmVPZ0VDb2UvUTF5?=
+ =?utf-8?B?M1ZxaldNOFlKQ2hlUVZtR3V4bkxycW5TcWlWUW1ndjlpVS80Y0dWK0RZNko5?=
+ =?utf-8?B?TGliZUlIcWNZZXZLR2g2OUlHMDlpUjFYZHJrVzFTeXR3T09QNElycGx2N21S?=
+ =?utf-8?B?L1c5bVFrMDBKV3NEd0ZoZGxiN2hRL0kvVVBEa3EwbUpieFRtL1lOc3hGKzZz?=
+ =?utf-8?B?a0VlM0dLOGpROFp1SlZJeTEyUmF3OUJlSFRtZnRRSUswejdZTVJkcEZzbnF4?=
+ =?utf-8?B?RmUrMkdpclRwSXk0c3A4Vzc0dEdOVUF0YWRSc2xsNjE4MDRVeUh1RS83Y0Fa?=
+ =?utf-8?B?djZpSGJSWlp1TjNUK0dkTVdObU9HeFFDODRkMExXK2EyOWl4UFNEOFBiUzAw?=
+ =?utf-8?B?bXRkY0xrM0dsSjBETUpiYVQ5bmhBVDl5QkNFeFJFYTVObFNwL3FQMDMzMXVp?=
+ =?utf-8?B?aXd1dWo3cFQ3a3ZweDl1S0psOHFHN3FtUXQvRXhGb1FKb3VRQ1hIZitmZmg2?=
+ =?utf-8?B?dzhYaC9lZEt3Rmd0VVo3bjRIWTFwRkFia2hhSCs2ZjFtY1BtRzVvLzF0U1Fk?=
+ =?utf-8?B?cGhVWkJrNkhaclU4T280bE54dC9UMkYxNzkrSGgyeWptT0tiV0N1N3JXakhm?=
+ =?utf-8?B?dlJ6OUNraElKaE1Qb2NJVGhFT05LRHluNkV6VzhJa1RaSkxYeVR2YlJLb2tk?=
+ =?utf-8?B?L0N0U3poWjNXcGw5Z1krcmZxV2NaQmFob2d6V2MxRmRucDVYUlM1ektxdmFQ?=
+ =?utf-8?B?NytHSDdQZk5IZzJRM1BQK3pUb2Y2cVMybXRWRHFVZVNRMmRlNjhMenZwVUZB?=
+ =?utf-8?B?TXhkT2lhY2NETGFtNS9XMmd1cTdzbWovNXlNZm9jSW5IQmV2ZTVTNUhtajJi?=
+ =?utf-8?B?WlVrNTBTQmpBcDMxaGt2UEVXeXQ0ZnJDSHZBYjQxd0VUNFZQZU4xTDAxWU0r?=
+ =?utf-8?B?YXlvT0xieDZ0dFc2NVNNMnUwWDR3MCs4SEN5eXQ4VndlOE1PVFpMUk1DbjVa?=
+ =?utf-8?B?eG1INFk0eDVEZlRTVjBJMVBVZWQyRTAvMXVtM295aEJWc093MWFGVUFObmJy?=
+ =?utf-8?B?WmxHYWNxYmRDcXI5N1F5Zit3OUdLNFcxTFpZaEZJREVDcjBobWpQTmNVbVBz?=
+ =?utf-8?B?cnd6emVKM2FBUWc1bnNUQS9oeTZ1dUZwVy9pK3ZFQ2VmWU9RRm1pcVRPRE1y?=
+ =?utf-8?B?SHNnN1d4Ymd0WW02cjlkbTZ1cERmb1VFVXBXSlg1cVE5aVp6ZnNxK1QrQ0FM?=
+ =?utf-8?B?NWtjMHF0dlNmeEJPR0JBU1pXeStCU2VCa2tNc0p3Q0ZNZTB4Zm9EM0NhV3pn?=
+ =?utf-8?B?cmhnR2NnL0FqR3FCNTdCcFlJYWg1SW4ySnYwTk02UXNvUklZajNtVmZQSXY2?=
+ =?utf-8?B?ZE8zZWVLME05K3VsYTR2Ym4vT3o5aHVOYSs4WlBhTEUvWWdaaGFISXE1ME5n?=
+ =?utf-8?B?dnVTbVFPM1NraTJ1elhOZm45aExNMEFKYVhzWk9FUlVWTEwxWFJSSlkyQmRJ?=
+ =?utf-8?B?NFRjZ3k2YmdTSnZBYzJTUU1LZmVIRUpOVHY0enB6R3ZJV1hEZFZpZmNoT2hK?=
+ =?utf-8?B?bWNtNnZTV2d0V253QzkzVlVtYi9iem1DaG43Tno5VDVpdjIzbHByaFVOaFcz?=
+ =?utf-8?B?Qk53bngrQW9uamRqaWFmVC94SXNoY1YzUjBjV0R6UlNrWHlrUEV1L3pjTGda?=
+ =?utf-8?B?MktLV0l1Rm9BbmdVTVlteGg5Q2ZnUnZmZDZWTlBlV2p2bDVaOXFZdU8rYzNX?=
+ =?utf-8?B?dVYyNGtVKzA4aEU4YkVNaHo4WHFicndGa1RNbWltWW5VeitvS2dRU0FFVVJz?=
+ =?utf-8?B?RCtvYWoxYU1VUFJHTmd1TWRnK1JOWTJvaG9jMXpXRXZ3ZXNsZk96T3JBS3A0?=
+ =?utf-8?B?YmpGQjRlWEorNkVDSmV6MjFQUmhQODUvYTdjY3h5Mzd3UlBaYUg2WThtWFZL?=
+ =?utf-8?B?MW9raWZRZEsvNE5KdGxycHJ6ZTM0eGY2UWhlSDF2TldZRE92bDdOZ1N1Qjht?=
+ =?utf-8?B?VUVMM21oQWpnQ1VTOFF0Q0liaTRZaDlpNU9xNDBLSmh2eUtEUWlwR3BmbjV2?=
+ =?utf-8?B?WG5pK0tUZk00U3QwcXgvdUFkMXJ2aWV3RUg1elozNnlVTCtJMzdLa0dVeDRx?=
+ =?utf-8?Q?l1L5pBftzMfeBdapiRkukYc=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ffc8439-a528-4ec2-c347-08d9e4d16bd8
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2022 15:50:35.9863
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HPG18xlyWc/8lCKVvfR4iuMys6j9FJvzDUn5CKR0edcHe2xLZxwCr7B7/f260Pr/0cvL0TB47dkQKIAQNqDvRA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8250
 
-Hardware maintains both host and guest versions of MSR_SPEC_CTRL, but guests
-run with the logical OR of both values.  Therefore, in principle we want to
-clear Xen's value before entering the guest.  However, for migration
-compatibility, and for performance reasons with SEV-SNP guests, we want the
-ability to use a nonzero value behind the guest's back.  Use vcpu_msrs to hold
-this value, with the guest value in the VMCB.
+On 31.01.2022 16:06, Oleksandr Andrushchenko wrote:
+> Hi, Roger!
+>>>               rom->type = VPCI_BAR_EMPTY;
+>>>       }
+>>> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+>>> index ed127a08a953..0a73b14a92dc 100644
+>>> --- a/xen/include/xen/vpci.h
+>>> +++ b/xen/include/xen/vpci.h
+>>> @@ -68,7 +68,10 @@ struct vpci {
+>>>       struct vpci_header {
+>>>           /* Information about the PCI BARs of this device. */
+>>>           struct vpci_bar {
+>>> +            /* Physical view of the BAR. */
+>> No, that's not the physical view, it's the physical (host) address.
+>>
+>>>               uint64_t addr;
+>>> +            /* Guest view of the BAR: address and lower bits. */
+>>> +            uint64_t guest_reg;
+>> I continue to think it would be clearer if you store the guest address
+>> here (gaddr, without the low bits) and add those in guest_bar_read
+>> based on bar->{type,prefetchable}. Then it would be equivalent to the
+>> existing 'addr' field.
+>>
+> I agreed first to do such a change, but then recalled our discussion with Jan [1].
+> And then we decided that in order for it to be efficient it is better if we setup all the
+> things during the write phase (rare), rather then during the write phase (more often).
 
-On the VMEntry path, adjusting MSR_SPEC_CTRL must be done after CLGI so as to
-be atomic with respect to NMIs/etc.
+Small correction: The 2nd "write" was likely meant to be "read". But
+please recall that Roger is the maintainer of the code, so he gets
+the final say.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-
-v3:
- * Implement in asm
----
- xen/arch/x86/hvm/svm/entry.S             | 34 +++++++++++++++++++++++++++-----
- xen/arch/x86/include/asm/msr.h           |  9 +++++++++
- xen/arch/x86/include/asm/spec_ctrl_asm.h |  3 +++
- xen/arch/x86/x86_64/asm-offsets.c        |  1 +
- 4 files changed, 42 insertions(+), 5 deletions(-)
-
-diff --git a/xen/arch/x86/hvm/svm/entry.S b/xen/arch/x86/hvm/svm/entry.S
-index 276215d36aff..16b642c9e2de 100644
---- a/xen/arch/x86/hvm/svm/entry.S
-+++ b/xen/arch/x86/hvm/svm/entry.S
-@@ -55,11 +55,23 @@ __UNLIKELY_END(nsvm_hap)
-         mov  %rsp, %rdi
-         call svm_vmenter_helper
- 
--        mov VCPU_arch_msrs(%rbx), %rax
--        mov VCPUMSR_spec_ctrl_raw(%rax), %eax
-+        clgi
- 
-         /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
--        /* SPEC_CTRL_EXIT_TO_SVM   (nothing currently) */
-+        /* SPEC_CTRL_EXIT_TO_SVM       Req: b=curr %rsp=regs/cpuinfo, Clob: acd */
-+        .macro svm_vmentry_spec_ctrl
-+            mov    VCPU_arch_msrs(%rbx), %rax
-+            movzbl CPUINFO_last_spec_ctrl(%rsp), %edx
-+            mov    VCPUMSR_spec_ctrl_raw(%rax), %eax
-+            cmp    %edx, %eax
-+            je 1f  /* Skip write if value is correct. */
-+            mov    $MSR_SPEC_CTRL, %ecx
-+            xor    %edx, %edx
-+            wrmsr
-+            mov    %al, CPUINFO_last_spec_ctrl(%rsp)
-+1:          /* No Spectre v1 concerns.  Execution will hit VMRUN imminently. */
-+        .endm
-+        ALTERNATIVE "", svm_vmentry_spec_ctrl, X86_FEATURE_SC_MSR_HVM
- 
-         pop  %r15
-         pop  %r14
-@@ -78,7 +90,6 @@ __UNLIKELY_END(nsvm_hap)
-         pop  %rsi
-         pop  %rdi
- 
--        clgi
-         sti
-         vmrun
- 
-@@ -86,8 +97,21 @@ __UNLIKELY_END(nsvm_hap)
- 
-         GET_CURRENT(bx)
- 
--        /* SPEC_CTRL_ENTRY_FROM_SVM    Req: b=curr %rsp=regs/cpuinfo, Clob: ac  */
-+        /* SPEC_CTRL_ENTRY_FROM_SVM    Req: %rsp=regs/cpuinfo         Clob: acd */
-         ALTERNATIVE "", DO_OVERWRITE_RSB, X86_FEATURE_SC_RSB_HVM
-+
-+        .macro svm_vmexit_spec_ctrl
-+            /*
-+             * Write to MSR_SPEC_CTRL unconditionally, for the RAS[:32]
-+             * flushing side effect.
-+             */
-+            mov    $MSR_SPEC_CTRL, %ecx
-+            movzbl CPUINFO_xen_spec_ctrl(%rsp), %eax
-+            xor    %edx, %edx
-+            wrmsr
-+            mov    %al, CPUINFO_last_spec_ctrl(%rsp)
-+        .endm
-+        ALTERNATIVE "", svm_vmexit_spec_ctrl, X86_FEATURE_SC_MSR_HVM
-         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
- 
-         stgi
-diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
-index 657a3295613d..ce4fe51afe54 100644
---- a/xen/arch/x86/include/asm/msr.h
-+++ b/xen/arch/x86/include/asm/msr.h
-@@ -297,6 +297,15 @@ struct vcpu_msrs
-      *
-      * For VT-x guests, the guest value is held in the MSR guest load/save
-      * list.
-+     *
-+     * For SVM, the guest value lives in the VMCB, and hardware saves/restores
-+     * the host value automatically.  However, guests run with the OR of the
-+     * host and guest value, which allows Xen to set protections behind the
-+     * guest's back.
-+     *
-+     * We must clear/restore Xen's value before/after VMRUN to avoid unduly
-+     * influencing the guest.  In order to support "behind the guest's back"
-+     * protections, we load this value (commonly 0) before VMRUN.
-      */
-     struct {
-         uint32_t raw;
-diff --git a/xen/arch/x86/include/asm/spec_ctrl_asm.h b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-index 9c0c7622c41f..02b3b18ce69f 100644
---- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
-+++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-@@ -46,6 +46,9 @@
-  *   - On VMX by using MSR load/save lists to have vmentry/exit atomically
-  *     load/save the guest value.  Xen's value is loaded in regular code, and
-  *     there is no need to use the shadow logic (below).
-+ *   - On SVM by altering MSR_SPEC_CTRL inside the CLGI/STGI region.  This
-+ *     makes the changes atomic with respect to NMIs/etc, so no need for
-+ *     shadowing logic.
-  *
-  * Factor 2 is harder.  We maintain a shadow_spec_ctrl value, and a use_shadow
-  * boolean in the per cpu spec_ctrl_flags.  The synchronous use is:
-diff --git a/xen/arch/x86/x86_64/asm-offsets.c b/xen/arch/x86/x86_64/asm-offsets.c
-index 649892643fe9..287dac101ad4 100644
---- a/xen/arch/x86/x86_64/asm-offsets.c
-+++ b/xen/arch/x86/x86_64/asm-offsets.c
-@@ -126,6 +126,7 @@ void __dummy__(void)
-     OFFSET(CPUINFO_pv_cr3, struct cpu_info, pv_cr3);
-     OFFSET(CPUINFO_shadow_spec_ctrl, struct cpu_info, shadow_spec_ctrl);
-     OFFSET(CPUINFO_xen_spec_ctrl, struct cpu_info, xen_spec_ctrl);
-+    OFFSET(CPUINFO_last_spec_ctrl, struct cpu_info, last_spec_ctrl);
-     OFFSET(CPUINFO_spec_ctrl_flags, struct cpu_info, spec_ctrl_flags);
-     OFFSET(CPUINFO_root_pgt_changed, struct cpu_info, root_pgt_changed);
-     OFFSET(CPUINFO_use_pv_cr3, struct cpu_info, use_pv_cr3);
--- 
-2.11.0
+Jan
 
 
