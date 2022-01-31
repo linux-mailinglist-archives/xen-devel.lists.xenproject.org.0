@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE3A44A3D2C
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Jan 2022 06:07:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.262518.455067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 237854A3DC9
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Jan 2022 07:43:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.262725.455078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEOtJ-0001YJ-Dv; Mon, 31 Jan 2022 05:06:13 +0000
+	id 1nEQOL-0002zI-82; Mon, 31 Jan 2022 06:42:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 262518.455067; Mon, 31 Jan 2022 05:06:13 +0000
+Received: by outflank-mailman (output) from mailman id 262725.455078; Mon, 31 Jan 2022 06:42:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEOtJ-0001WT-Al; Mon, 31 Jan 2022 05:06:13 +0000
-Received: by outflank-mailman (input) for mailman id 262518;
- Sun, 30 Jan 2022 18:35:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=P0lM=SO=gmail.com=demiobenour@srs-se1.protection.inumbo.net>)
- id 1nEF35-0007oS-NT
- for xen-devel@lists.xenproject.org; Sun, 30 Jan 2022 18:35:39 +0000
-Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
- [2607:f8b0:4864:20::729])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a398490-81fb-11ec-8f75-fffcc8bd4f1a;
- Sun, 30 Jan 2022 19:35:36 +0100 (CET)
-Received: by mail-qk1-x729.google.com with SMTP id b35so9635776qkp.6
- for <xen-devel@lists.xenproject.org>; Sun, 30 Jan 2022 10:35:36 -0800 (PST)
-Received: from [10.139.255.254] ([89.187.171.240])
- by smtp.gmail.com with ESMTPSA id w4sm7649260qko.123.2022.01.30.10.35.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 30 Jan 2022 10:35:34 -0800 (PST)
+	id 1nEQOL-0002wq-4l; Mon, 31 Jan 2022 06:42:21 +0000
+Received: by outflank-mailman (input) for mailman id 262725;
+ Mon, 31 Jan 2022 06:42:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FCUt=SP=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nEQOJ-0002wk-KT
+ for xen-devel@lists.xenproject.org; Mon, 31 Jan 2022 06:42:19 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ee8eed43-8260-11ec-8eb8-a37418f5ba1a;
+ Mon, 31 Jan 2022 07:42:17 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id E0CC5212BE;
+ Mon, 31 Jan 2022 06:42:16 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B0DCA13A91;
+ Mon, 31 Jan 2022 06:42:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Y+hIKciE92EINgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 31 Jan 2022 06:42:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,211 +51,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a398490-81fb-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:from:subject:to:cc
-         :content-language;
-        bh=2QZaKEKOX73FhHQGC0MdXbWrYGotSIe9lUIuwquuvdg=;
-        b=VuuicGXcK7e3bhqkWRp1BZXQasNvelaoZavpbmazHxSNEkQnV465APqewQygLvnS5q
-         yBfSt3/j7NNQlL/4IB3fK8ZiFtkqeCtF8axY+7uQszt/NGRjOA8Qb7ZjBy2RcfuIenYU
-         bGlPA2Uoh/434oyQOHR31He3N+g0LMvtdpWSvjFxRkZeTOJUa6vemNUSehA9abMhW8Hx
-         Zf3GY2ZnGacAJGHzqBKIjPgXRj8Sddj7odJV/vCd4cDfbcC7D4KxBnichq1obSiHCZ6D
-         fzF4y9j5zRuaSPedvLzL18PTQpxlc9Zz5ZjBt6OWHhpr0YFnFslvppATM9oo+GL9DNHM
-         k82A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:from
-         :subject:to:cc:content-language;
-        bh=2QZaKEKOX73FhHQGC0MdXbWrYGotSIe9lUIuwquuvdg=;
-        b=m8A9iECzgQiGNrNa3h41R4I4q2iAyu7rXXLy1CzIJPlh2gDSraY8Jqnph4SGnVTpts
-         XKUlSB2XVJM7nfxoRX9qcKBEBMrDafuaFZmRcDnlEWBF+oLCOnJwmf10ajSJBqNuyqPz
-         EYvSsu9D9aCWWPr37h2/f95HLgA0hC04jmDQ6JRpdE8y3sH3kuuX//Og/2VcYPlDANhJ
-         5EgcMum5Cxx7gRDMb3m596ADigANXHoXn+hXLN5RSMcxVKFebaGOF5mv1TOcG+EnBdhA
-         ei4MA5kc5i9LWSEvs2f1o8ygRSDUbaavznobH2NplnqzFwV5hlOhgmyMZATtDpl6kFX7
-         0j7w==
-X-Gm-Message-State: AOAM533GAWhkA5NJhYktE1Co66Cic+Z2MbnyHZlfHGROWh3cDs3vUKsT
-	/PMJRJh/mg27D2UyWIJezK0=
-X-Google-Smtp-Source: ABdhPJxCXOvShMpoTA2HOSQ8oL5vrMNvIQ/6Ci43XAxm7+RD+rnjlG+9iAEBypoDIALroEYvpyuiIQ==
-X-Received: by 2002:a05:620a:849:: with SMTP id u9mr10850044qku.408.1643567735598;
-        Sun, 30 Jan 2022 10:35:35 -0800 (PST)
-Message-ID: <68f3303d-f035-ffdf-c786-9c826e66bd0b@gmail.com>
-Date: Sun, 30 Jan 2022 13:35:12 -0500
+X-Inumbo-ID: ee8eed43-8260-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1643611336; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Knl5eql1MNKIO02Lh9ot4t04zTLtCICNa6Mw5TVo3YY=;
+	b=MhYsbUUvHu/43ZEVwmur05PawnR8SThcCySqn6uU3oO5Wl4/PhbPyKD/XvnmqrDfVoJhAy
+	EtHgW7T5XOJAvgc6iK0uBHu1L9b/Z9ByRXWolCbox/4oLoQ0+uej5g3bRaxKhnyzpsQjOC
+	vG85vb3mT3mWYijwh+E5rEYecKho6ok=
+Message-ID: <337b7168-b1c0-cdba-2ae0-482bb16ab2ec@suse.com>
+Date: Mon, 31 Jan 2022 07:42:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-From: Demi Marie Obenour <demiobenour@gmail.com>
-Subject: [PATCH] Improve docs for IOCTL_GNTDEV_MAP_GRANT_REF
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>
-Cc: Demi Marie Obenour <demiobenour@gmail.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+ Thunderbird/91.4.1
+Subject: Re: [PATCH] Improve docs for IOCTL_GNTDEV_MAP_GRANT_REF
 Content-Language: en-US
+To: Demi Marie Obenour <demiobenour@gmail.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <68f3303d-f035-ffdf-c786-9c826e66bd0b@gmail.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <68f3303d-f035-ffdf-c786-9c826e66bd0b@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------Bx4Iu0sxzRIO7AumyduLJADG"
+ boundary="------------sLxdBSi77MGQaNCkedzvCcIu"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Bx4Iu0sxzRIO7AumyduLJADG
-Content-Type: multipart/mixed; boundary="------------Svb035ThpoP0VwkRoIWu0Nkf";
+--------------sLxdBSi77MGQaNCkedzvCcIu
+Content-Type: multipart/mixed; boundary="------------mO6eTlaXpYYJSGZIjTJXCbK0";
  protected-headers="v1"
-From: Demi Marie Obenour <demiobenour@gmail.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>
-Cc: Demi Marie Obenour <demiobenour@gmail.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Message-ID: <68f3303d-f035-ffdf-c786-9c826e66bd0b@gmail.com>
-Subject: [PATCH] Improve docs for IOCTL_GNTDEV_MAP_GRANT_REF
+From: Juergen Gross <jgross@suse.com>
+To: Demi Marie Obenour <demiobenour@gmail.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Message-ID: <337b7168-b1c0-cdba-2ae0-482bb16ab2ec@suse.com>
+Subject: Re: [PATCH] Improve docs for IOCTL_GNTDEV_MAP_GRANT_REF
+References: <68f3303d-f035-ffdf-c786-9c826e66bd0b@gmail.com>
+In-Reply-To: <68f3303d-f035-ffdf-c786-9c826e66bd0b@gmail.com>
 
---------------Svb035ThpoP0VwkRoIWu0Nkf
-Content-Type: multipart/mixed; boundary="------------PzX56KGQ0dWoGgjBEpLZHBZR"
+--------------mO6eTlaXpYYJSGZIjTJXCbK0
+Content-Type: multipart/mixed; boundary="------------F04sNxcbqALEMUEh7XnVr4wS"
 
---------------PzX56KGQ0dWoGgjBEpLZHBZR
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+--------------F04sNxcbqALEMUEh7XnVr4wS
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-The current implementation of gntdev guarantees that the first call to
-IOCTL_GNTDEV_MAP_GRANT_REF will set @index to 0.  This is required to
-use gntdev for Wayland, which is a future desire of Qubes OS.
-Additionally, requesting zero grants results in an error, but this was
-not documented either.  Document both of these.
----
- include/uapi/xen/gntdev.h | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/include/uapi/xen/gntdev.h b/include/uapi/xen/gntdev.h
-index 9ac5515b9bc2..7a7145395c09 100644
---- a/include/uapi/xen/gntdev.h
-+++ b/include/uapi/xen/gntdev.h
-@@ -47,7 +47,13 @@ struct ioctl_gntdev_grant_ref {
- /*
-  * Inserts the grant references into the mapping table of an instance
-  * of gntdev. N.B. This does not perform the mapping, which is deferred
-- * until mmap() is called with @index as the offset.
-+ * until mmap() is called with @index as the offset. @index should be
-+ * considered opaque to userspace, with one exception: if no grant
-+ * references have ever been inserted into the mapping table of this
-+ * instance, @index will be set to 0. This is necessary to use gntdev
-+ * with userspace APIs that expect a file descriptor that can be
-+ * mmap()'d at offset 0, such as Wayland. If @count is set to 0, this
-+ * ioctl will fail.
-  */
- #define IOCTL_GNTDEV_MAP_GRANT_REF \
- _IOC(_IOC_NONE, 'G', 0, sizeof(struct ioctl_gntdev_map_grant_ref))
---=20
-Sincerely,
-Demi Marie Obenour
-she/her/hers
---------------PzX56KGQ0dWoGgjBEpLZHBZR
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
+T24gMzAuMDEuMjIgMTk6MzUsIERlbWkgTWFyaWUgT2Jlbm91ciB3cm90ZToNCj4gVGhlIGN1
+cnJlbnQgaW1wbGVtZW50YXRpb24gb2YgZ250ZGV2IGd1YXJhbnRlZXMgdGhhdCB0aGUgZmly
+c3QgY2FsbCB0bw0KPiBJT0NUTF9HTlRERVZfTUFQX0dSQU5UX1JFRiB3aWxsIHNldCBAaW5k
+ZXggdG8gMC4gIFRoaXMgaXMgcmVxdWlyZWQgdG8NCj4gdXNlIGdudGRldiBmb3IgV2F5bGFu
+ZCwgd2hpY2ggaXMgYSBmdXR1cmUgZGVzaXJlIG9mIFF1YmVzIE9TLg0KPiBBZGRpdGlvbmFs
+bHksIHJlcXVlc3RpbmcgemVybyBncmFudHMgcmVzdWx0cyBpbiBhbiBlcnJvciwgYnV0IHRo
+aXMgd2FzDQo+IG5vdCBkb2N1bWVudGVkIGVpdGhlci4gIERvY3VtZW50IGJvdGggb2YgdGhl
+c2UuDQoNClBsZWFzZSBhZGQgYSAiU2lnbmVkLW9mZi1ieToiIHRhZyB0byB5b3VyIGNvbW1p
+dCBtZXNzYWdlLg0KDQpTZWUgRG9jdW1lbnRhdGlvbi9wcm9jZXNzL3N1Ym1pdHRpbmctcGF0
+Y2hlcy5yc3QgaW4gdGhlIGtlcm5lbCBzb3VyY2UNCnRyZWUsIGxvb2sgZm9yICJTaWduIHlv
+dXIgd29yayAtIHRoZSBEZXZlbG9wZXIncyBDZXJ0aWZpY2F0ZSBvZiBPcmlnaW4iLg0KDQoN
+Ckp1ZXJnZW4NCg==
+--------------F04sNxcbqALEMUEh7XnVr4wS
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
 
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
-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
-=3Dx+Ro
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------PzX56KGQ0dWoGgjBEpLZHBZR--
+--------------F04sNxcbqALEMUEh7XnVr4wS--
 
---------------Svb035ThpoP0VwkRoIWu0Nkf--
+--------------mO6eTlaXpYYJSGZIjTJXCbK0--
 
---------------Bx4Iu0sxzRIO7AumyduLJADG
+--------------sLxdBSi77MGQaNCkedzvCcIu
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmH22nQACgkQsoi1X/+c
-IsGRyw/+IBzFvJPuAMi/kE7b4wFJfC57OlA6Zxg7YXMEY62oe2ONMdXYuE0oGntQ
-scsntd7KHD8qt6gopW4I0uPTdSVeVrXPJderP/fyBZ2xT/VBon62vwh3wWuGVlgQ
-FCK83b5NRJWu2gPYJbD5a+4qOjlACVjRFHXLYPHEyN5gE6vW5dxyOh2PmlbQZyLa
-2+cZwaGDcKOpt3uu0gjjUdmMLqvJZJpwQqKlno9M2ZtvYNb7rFCgp6Phb2hzu39P
-wvyyypw18JQI8edTlrmS/8xUaM1czPYC2i2nbCvPryxmO4n1RNJMIkl/uWobMXDS
-AMffQKH/NjE+0LEuxoGQFSC4vkW/LTVFypiq2MJElJq/iXfA5StFfkmxvJkS+wpd
-NCFPGUZyYNXEx+D6FvG1neMQbcAUDakSnLj5FfW/d1QZAFTZnqo4tvh6tYuOLWJk
-m6tB5v8cG+baUzwZCVxkCEC1Mpc8tydbbz5z+suIU4DQeytNY/Eqk6WzfWETMk35
-k/VEZgwgO5llAZVor9NdJciTpmQR+/FNyyqcohsH+/wxBzt29EFF6Fx1F/Yj7Mb8
-3tucpcTn3vVLLYoYLLobm5vCyY1BeyXDP1C2GHUQGeaX2X1zMqaSyIlVYyS6HyPj
-JydLWv4UkeVaVxuXC4LzyVxxQC83Mqq9GmG1f9Zk5a6zRccu7QE=
-=JNNI
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmH3hMgFAwAAAAAACgkQsN6d1ii/Ey/y
+4wf9FbFxYuIdjwoAcOYaJz7hozERQHsJl7KdtjVLfMq7Xhoje5tuv06gQoya5GXnXKsfyqZ96ed+
+ntpqP2+G4B38GH3ALLxtvFtTtVz+VuaRuQCEmAk7YZ8YeP2wYMQC2xm3NTsfRXC3Ap+CkFvDvPgX
+hxrFXCXnvaDEXISDNl6gtAzAq747RCTDd1PGXKy9c03NQA2VmCMpM5LHDlWiHvHfPKpncolld/sB
+lCxa9DcqTkfraqI1Xb5N78LsDquKB/OoNLBSQoOFIj7Id4t89tOuQ9ODAlWAIhf5WCvBWANjI7ap
+uUqc/NMAazm3hVpt8et+/PhxqVA1tMAYCmt2YBzboQ==
+=/1Zq
 -----END PGP SIGNATURE-----
 
---------------Bx4Iu0sxzRIO7AumyduLJADG--
+--------------sLxdBSi77MGQaNCkedzvCcIu--
 
