@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A45F94A64BE
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Feb 2022 20:14:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.263764.456612 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 797E14A66E7
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Feb 2022 22:20:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.263773.456624 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEyb5-0005Yl-Sd; Tue, 01 Feb 2022 19:13:47 +0000
+	id 1nF0YH-0008SW-7E; Tue, 01 Feb 2022 21:19:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 263764.456612; Tue, 01 Feb 2022 19:13:47 +0000
+Received: by outflank-mailman (output) from mailman id 263773.456624; Tue, 01 Feb 2022 21:19:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEyb5-0005WP-PZ; Tue, 01 Feb 2022 19:13:47 +0000
-Received: by outflank-mailman (input) for mailman id 263764;
- Tue, 01 Feb 2022 19:13:45 +0000
+	id 1nF0YH-0008PC-3U; Tue, 01 Feb 2022 21:19:01 +0000
+Received: by outflank-mailman (input) for mailman id 263773;
+ Tue, 01 Feb 2022 21:18:59 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nEyb3-0005WJ-OE
- for xen-devel@lists.xenproject.org; Tue, 01 Feb 2022 19:13:45 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nF0YF-0008P2-KI; Tue, 01 Feb 2022 21:18:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nEyb3-0002N1-9H; Tue, 01 Feb 2022 19:13:45 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232] helo=[10.95.141.48])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nEyb3-00073v-3F; Tue, 01 Feb 2022 19:13:45 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nF0YF-0004bf-IS; Tue, 01 Feb 2022 21:18:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nF0YF-0007ZY-5G; Tue, 01 Feb 2022 21:18:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nF0YF-0000cz-4d; Tue, 01 Feb 2022 21:18:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,71 +42,84 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=NjJkq9wLlhYxpB/gsVbbyWQ5Brt4xDzzbjoROOJzpgw=; b=i+QqQmW9b/skl1VJ6/aMaFIOrM
-	tWbTo7QBFFoWBmJr1YZLaAXmxa0g3y1gCvMR9ldXuho9YvzFZ2ieZL+1bTXTypFzWrSNOhAqlxEza
-	BB6Q1im5mXgSePJfALuvXfE7VMxD17Bp6FVmABd1/UJ5amcvEam1JKpAJA6Id/FWXFfE=;
-Message-ID: <4551a66f-7de6-6230-d5f9-460d5d62ccdc@xen.org>
-Date: Tue, 1 Feb 2022 19:13:43 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Vdidew0LvqA3l5MrtpDLXTpZ+56XNFYAqmug5QeW89U=; b=6HOQpnzo5v2gRN1l1PVJiiqIDU
+	sKR3CKTp7ktEaQw7cGDNFeINUWpnPcLM/wnZa72G0UmyCeMtZx1UZgB8IZtwuR53LAnQoo7Xh4y3S
+	AWN5KCPseMm800wr6eiifvfi6oAYORvXRnIz+/EOFUPrYX49KrSDXoFtP5CQLUCQmMvA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-167977-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.5.1
-Subject: Re: [XEN v5] xen/arm64: io: Decode ldr/str post-indexing instructions
-To: Ayan Kumar Halder <ayan.kumar.halder@xilinx.com>,
- xen-devel@lists.xenproject.org, stefanos@xilinx.com
-Cc: sstabellini@kernel.org, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com
-References: <20220131193728.2980-1-ayankuma@xilinx.com>
- <e07068aa-91b8-ebdf-db17-7173f417ad33@xen.org>
- <33bda050-9b9f-5840-282b-6f591988a09f@xilinx.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <33bda050-9b9f-5840-282b-6f591988a09f@xilinx.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 167977: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=9ce3ef20b4f085a7dc8ee41b0fec6fdeced3773e
+X-Osstest-Versions-That:
+    xen=a7e7c7260cde78a148810db5320cbf39686c3e09
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 01 Feb 2022 21:18:59 +0000
 
-Hi,
+flight 167977 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/167977/
 
-On 01/02/2022 19:06, Ayan Kumar Halder wrote:
->> As you pointed out previously, the field SAS (Syndrome Access Size) is 
->> invalid when the ISV=0. So the decoding needs to be done *before* we 
->> select the IOREQ server.
->>
->> But as I said, this would result to decode the instruciton when this 
->> is not necessary. This is where Stefano's suggestion in [1] is useful.
->>
->> For ISV=0, it will be a lot more common to trap because of a P2M 
->> translation fault (of the MMIO is not mapped). So we should call that 
->> first and then, if it still not resolved, try to decode the instruction.
->>
->> With that in place, you are avoiding the issue in try_fwd_ioserv().
->>
->> Can you please coordinate with Stefano?
-> 
-> Can you let me know which suggestion Julien is referring here ?
-> 
-> [1] does not point to a valid url.
+Failures :-/ but no regressions.
 
-This is a message-id. They are unique, so you can easily find the 
-message on public archives (e.g. lore.kernel.org) or in your inbox.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-I tend to use lore.kernel.org for the archives. The URL looks like:
+version targeted for testing:
+ xen                  9ce3ef20b4f085a7dc8ee41b0fec6fdeced3773e
+baseline version:
+ xen                  a7e7c7260cde78a148810db5320cbf39686c3e09
 
-https://lore.kernel.org/<ml>/<message-id>
+Last test of basis   167973  2022-02-01 14:01:49 Z    0 days
+Testing same since   167977  2022-02-01 18:00:26 Z    0 days    1 attempts
 
-In your case, <ml> would be xen-devel (they also archives may other MLs) 
-and the <message-id> would be the one I put in [1].
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
 
-The message-id can be really useful if you use it in combination of 
-tools like b4 [1]. With a single ID, it allows you to pull a series, 
-fetch tags and then you can apply with 'git am'.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-Cheers,
 
-[1] 
-https://people.kernel.org/monsieuricon/introducing-b4-and-patch-attestation
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
--- 
-Julien Grall
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   a7e7c7260c..9ce3ef20b4  9ce3ef20b4f085a7dc8ee41b0fec6fdeced3773e -> smoke
 
