@@ -2,29 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21FB24A5C6F
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Feb 2022 13:43:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.263574.456320 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB9D74A5C88
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Feb 2022 13:46:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.263583.456332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEsUl-0006BH-Dh; Tue, 01 Feb 2022 12:42:51 +0000
+	id 1nEsXd-0006s2-2Q; Tue, 01 Feb 2022 12:45:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 263574.456320; Tue, 01 Feb 2022 12:42:51 +0000
+Received: by outflank-mailman (output) from mailman id 263583.456332; Tue, 01 Feb 2022 12:45:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEsUl-00068s-9t; Tue, 01 Feb 2022 12:42:51 +0000
-Received: by outflank-mailman (input) for mailman id 263574;
- Tue, 01 Feb 2022 12:42:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JAuK=SQ=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nEsUk-00068k-4d
- for xen-devel@lists.xenproject.org; Tue, 01 Feb 2022 12:42:50 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 75122642-835c-11ec-8f75-fffcc8bd4f1a;
- Tue, 01 Feb 2022 13:42:48 +0100 (CET)
+	id 1nEsXc-0006oZ-To; Tue, 01 Feb 2022 12:45:48 +0000
+Received: by outflank-mailman (input) for mailman id 263583;
+ Tue, 01 Feb 2022 12:45:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0oSv=SQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nEsXb-0006oT-2c
+ for xen-devel@lists.xenproject.org; Tue, 01 Feb 2022 12:45:47 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id dfe21553-835c-11ec-8eb8-a37418f5ba1a;
+ Tue, 01 Feb 2022 13:45:46 +0100 (CET)
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01lp2056.outbound.protection.outlook.com [104.47.0.56]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-33-ly0RBg74OzS2w5TFB3Cq_w-1; Tue, 01 Feb 2022 13:45:43 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by AM0PR04MB5282.eurprd04.prod.outlook.com (2603:10a6:208:d0::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4930.22; Tue, 1 Feb
+ 2022 12:45:42 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::7cc2:78a3:4d40:9d45]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::7cc2:78a3:4d40:9d45%6]) with mapi id 15.20.4930.022; Tue, 1 Feb 2022
+ 12:45:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,227 +51,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75122642-835c-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643719368;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=EKXA/zXgLXV9z0qkxZpEKH8SfDyWGKeMVqnvCkPibeU=;
-  b=cHvqjxhi3vJFB398/oYZ6jzP2HMePtu3gpdPGur8Ox8DMMD9C27IKAfA
-   L0ur6ZzO3PJbl4d3ZMBt5LGs5WL/ciJezUh9jpsDwGM79lIl/j6cLti7X
-   zuIFmsVuSi92dG8tQTriX5mU1AHynk425dHqXFn/MzI98LD1U1Z6oyfMp
-   c=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: pjyNzUDOy2I6UTixsbdiVhblYN7hD7YO4Dmi0BOZiPkxgCza4Sp3IrsvOUmdaYZ0sEpy8o/UzK
- zQ5uG9N5W8Cvx6tIe77x1l9DmfND1myRgly3SsZtyon7x7I3b1zNPRYfPx7YXpqR07PONkOaQt
- njacv4P/K3as6CO0IqSlNGsTU8zrZo1t6MBtgSCJ7WTFtczn7LT7TgmDTFzut+Tn16b2+EpAk0
- M/2iM6k60mQBhu+iIKKw4RlwoI0lbe/z8m9uFJouIgicnd3SchrFMx3xzYsZdxFyRJIvFoazv+
- qI6kLGZRP61WK4rPZFcGTP2j
-X-SBRS: 5.2
-X-MesageID: 63126644
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:6UQOVK5ixP8et4Bz4KrHsAxRtN7AchMFZxGqfqrLsTDasY5as4F+v
- jEcUWmEb/2DNGryKotzbdi2pxsBvZ6ByN5iSVRk+y80Hi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FV8MpBsJ00o5wbZj2tcw2LBVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z6
- OhgmKH3GCwTYKjspM4xTSgfSTxXIvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALNs7kMZlZonh95TrYEewnUdbIRKCiCdpwgmxp3J4QQaq2i
- 8wxcQpLMzbGPkF0P0YpVrZlpuLyrGvdfGgNwL6SjfVuuDWCpOBr65DyNPLFd9rMQt9a9m6Iq
- 2SD82nnDxUyMN2E1SHD4n+qnvXIny7wRMQVDrLQ3vxgjUCXx2cTIAYLTlb9qv684nNSQPoGd
- RZSoHB36/Fvqgr7FbERQiFUvlakgzMxZp0BONdk7SGx4IbK0kHDG0EbG2sphMMdiOc6Qjkj1
- 1msltzvBCByvLD9dU9x5ot4vhvpZ3FLcDZqiTssCFJcvoK9+N1bYgfnE447eJNZmOEZDt0ZL
- 9qiiCElz4segscQv0lQ1QCW2mn8znQlo+Nc2+k2Yo5Hxl4jDGJGT9bxgbQ+0RqmBNzDJrVml
- CNc8/VyFMhUUfmweNWlGY3h5o2B6fefKyH7ilVyBZQn/DnF0yf9IdsNsG4mdBk4bpdsldrVj
- Kn741k5CHh7ZyPCUEOKS9jpV5RCIVbISLwJqcw4nvIRO8MsJWdrDQllZFKK3nCFraTfufpXB
- HtvSu71VSxyIf0+lFKeHr5BuZd2mHxW7T6NFPjTkkT2uZLDNSX9YepUbzOzghURsfnsTPP9q
- YgPbqNnCnx3DYXDX8Ug2dVCcAlXfSVnXs2eRg4+XrfrHzeK0VoJUpf56bggZ5Zkj+JSkOLJ9
- Wu6QUhW1Bz0gnivFOlAQikLhGrHUcktoHQlEzYrOFr0iXEvbZz2tPUUdoctfKlh/+tmlKYmQ
- /4AcsSGI/JOVjWYpGhNMcij9NRvJEaxmAaDHyu5ezxjLZRucBPEp43/dQz1+ShQUifu7Zkio
- 6et3x/wSIYYQ1gwF97fbf+ilgvjvXUUlO9ocVHPJ91fJBfl/IRwcnSjhf4rOcAcbx7Ew2LCh
- QqRBB4Zo8jLopM0r4aV1fzV8d/xHrInTERAHmTd4bKnDgXg/zKukd1aTeKFXTHBT2eoqq+sU
- vpYkqPnO/odkVcU74clS+R3zbgz7sfErqNBylg2B23CalmmB+8yInSC2sUT5KRByqUA5FmzU
- 0OLvNJbJa+IKIXuF1tIfFgpaeGK1Pc1nDjO7KtqfBWmtXEvpLfXA19POxSsiTBGKOonOYwo9
- u4tpcoK5lHtkREtKNuH0nhZ+mnkwqbsiEn7WkX22LPWtzc=
-IronPort-HdrOrdr: A9a23:4uotnqp7xJFXkEP/JsLnJuIaV5uzL9V00zEX/kB9WHVpm5Oj+P
- xGzc526farslsssREb+OxpOMG7MBThHLpOkPMs1NCZLXTbUQqTXfpfBO7ZrQEIdBeOlNK1uZ
- 0QFpSWTeeAcWSS7vyKkTVQcexQueVvmZrA7Yy1rwYPcegpUdAZ0+4QMHfkLqQcfnghOXNWLu
- v52iIRzADQBkj/I/7LTUUtbqzmnZnmhZjmaRkJC1oO7xSPtyqh7PrfHwKD1hkTfjtTyfN6mF
- K13jDR1+GGibWW2xXc32jc49B/n8bg8MJKAIiphtIOIjvhpw60bMBKWqGEvhoyvOazgWxa2u
- XkklMFBYBe+nnRdma6rV/E3BTh6i8n7zvYxVqRkRLY0LrEbQN/L/AEqZNScxPf5UZllsp7yr
- h302WQsIcSJQ/cnQzmjuK4GS1Cpw6Rmz4PgOQTh3tQXc81c7lKt7ES+0tTDdMpAD/60oY6C+
- NjZfusq8q+SWnqL0wxg1Mfg+BFBh8Ib1W7qwk5y4CoOgFt7TFEJxBy/r1bop8CnKhNPKWsqd
- 60dpiAr4s+PfP+W5gNcNvpcfHHelAlfii8Ql56AW6XXZ3vaEi946Ie3t0OlZSXkdozvdwPpK
- g=
-X-IronPort-AV: E=Sophos;i="5.88,333,1635220800"; 
-   d="scan'208";a="63126644"
+X-Inumbo-ID: dfe21553-835c-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1643719545;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VgCSJWhP5AbkvFJXUdUqd4BGuTf70dTzqNd8fgF6Kzc=;
+	b=IyupGeH2C8ZtJMWz3vJ6aHGv/p0ZZHLM6BgEaw1dKt9bcqqkQEU4kEUqPVdXToTxT5d0da
+	hmAFdWGHkKgooIPM4AQWSSGOHbYo0l5IrFStSMelTbWlLk96xciwsXidzldNH3J5aC76XM
+	fQcnpV3TqaQ5S4a4wThJtQKqkOd7R30=
+X-MC-Unique: ly0RBg74OzS2w5TFB3Cq_w-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V+r6wUL3KqI4GWB919uZrSodm+now+L9U8G/hwoDnY/PPVfE/T8G+8DFxQ2bcUQGVMvS5f3oy3FpNTdAX8JxutMR2iJURmBPRovIB3lK12sjyvFu57UEi5Dr5CbgN7BX+jqB4ILz/REMFkrHChIGufZrz1tPd9mJsPSSAL+f9lDP93Vn56w1/t2+STdzDuevyNBskgJ+qhPQmGkucsAnQTnF3jXUcFNjuKpgbbYnv1WKkduZgDaax+CmZ/ShcuWPSJ2L+09S4z39LAivAUsrfOcRyix2gdzzBFwHrsNCTAx12tMVbtiESqlOmaFi94t0u2axa3pVf6m1svK8+e7C9A==
+ b=n8IIROI257uPdoo9B39Zot2v3If09AZSKZILx2PTOAKpwS7mvXh7ZYd/OTW0dB6iVYjWvuu4RcBsjFVXaPTUkgLHslTYaCgtWKU43OrdxIYj63pZa2j98dIDwdAOp4BoaCsbbi/KKH4vu7bMs4s1kiLcMTBWp0Aq4dsiSRBz3/Mst0e2Gf8awm93Eh9/6MOwr8uJldIKYtfAoaWBt2pWmk4v7LY8YYRd5qVAVNALtW+XZH3bPRhXj0ro+TsUvTaGeZazfLMKmu7FWDqk64BMfUmE3uOEYUc53hiGNWLG9xd0ArZhAYNmY2prlvoHwNMuBekOU7xl8TQMUQQOKPpXCg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MveKamJP1IIkhybTRw7omUmM7WLAurbY3BVisEryNS4=;
- b=CW4xmc6SbE62UJJ+rf0eZLhWjuvdaKwq1JO6blB5qtlJQaN6Etb3+x8SK5V4ekeAckte3tW6unrhmHJ9z8nIxTiSVTFghaMOshsWvddDjT4l9dWrGAZdAr0ANvVXcuelpcMeivdY5RsJVFYOPJ7NKQxRPS2DUz0iDU6V3AJvI3bARyiVT2/BzNLirLKOZR1OW1BdJqSFjtlHRr4s5B/iSqPiHOXxz5mi95QCaVFvMlBizxV1pIILADlEBYkFFgkmZQ87wVaIV2qc6Y8/K+wKb6g65YDXnr7rJtDAcji0REUj/2KtJxaYcG0EI9fEoKA7IXd8n67wNpMescJgjSKvng==
+ bh=lzWQu8Yey2mGbU6hFumi3h2Cej8BlfX6CCzHEdk10pA=;
+ b=LiNtpV8JMoeoVeBXZL5cDTGQHuEtfGRW0gAWlwlYeFPKqEm9HyZEyH6t0+CegA6OsIIdUWTZal33j3elt0uIOf/d/ZOzrtPtUcjs3bWkYPKN1RAm+TCpnn+7uSlPOVDatfb/XrAAGc8CsodlFLYdafDWB+yFdBZuCFTXmDyfWkS6FvFXx+PoQiDbGVkX6a3Emkw9KL6XuJQj3wgpZawokqlkLPFITv9kaY+BC65yTA9OS+UFY/kov6Jeba9uHBIgtHi4LXTDMhDXY2eTTVAQKTD2o5K5WH0llPRTndsIUROgw1wHDq2WyGcBYl6pd86hW1NpRKIeYJvBAKXr9VpDzA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MveKamJP1IIkhybTRw7omUmM7WLAurbY3BVisEryNS4=;
- b=Ndv0IW8ohzX/JC17C3PZJxcsueTDAXIg5yS9012xbaoJWGsCAmyPXBOHkT3LozcTG6DczH5FgqpSmFSfb2xDTmB45lMGGhPxYeasUXFjEBOztVMWFM9X4P+hKRuq9Doug2TSiLRUX/J8HHbg0Utb7/PF0UBYNZTkF8P3Tlhcm7k=
-Date: Tue, 1 Feb 2022 13:42:37 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <482fa978-d5d2-a069-ecdd-23a212bae57e@suse.com>
+Date: Tue, 1 Feb 2022 13:45:40 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
 Subject: Re: [PATCH v3 2/2] x86/mwait-idle: squash stats update when not
  actually entering C-state
-Message-ID: <YfkqvddlvAELr0ng@Air-de-Roger>
+Content-Language: en-US
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
 References: <faff6a1e-9f00-e924-9766-deda8f0b38c1@suse.com>
  <6a9152e5-1a7d-c569-3483-66f022027597@suse.com>
  <YfkTt1k4XLnZtaJj@Air-de-Roger>
  <2c6129b8-87ed-a3fa-f819-6318909bf2e1@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <2c6129b8-87ed-a3fa-f819-6318909bf2e1@suse.com>
-X-ClientProxiedBy: LO2P265CA0474.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a2::30) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+ <YfkqvddlvAELr0ng@Air-de-Roger>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <YfkqvddlvAELr0ng@Air-de-Roger>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM5P194CA0020.EURP194.PROD.OUTLOOK.COM
+ (2603:10a6:203:8f::30) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 4dda22cf-0f95-4754-f9d4-08d9e580573d
-X-MS-TrafficTypeDiagnostic: SA0PR03MB5467:EE_
-X-Microsoft-Antispam-PRVS: <SA0PR03MB54675F7017A656B269B548E28F269@SA0PR03MB5467.namprd03.prod.outlook.com>
+X-MS-Office365-Filtering-Correlation-Id: feb505f1-8d6d-4b3a-5c59-08d9e580c1cf
+X-MS-TrafficTypeDiagnostic: AM0PR04MB5282:EE_
+X-Microsoft-Antispam-PRVS:
+	<AM0PR04MB52826343241EAA85FFF72383B3269@AM0PR04MB5282.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2BkRFonu3VAf4JlFWW2ETenSi949Aq00FUayvIJUVqsM0c8aDB/0TcerF0iBo0CjFUkzuy2tVd7OIrlSxW/2rhT3yDlAbcjFO0UZN1IkleQMFsNBfyaIoPQ5cl3RCyYBf34qiS8xW8q3bbO2vIK2YVGJnvrBc+j3ooAJc0NNfCISj7ppApaajIGua1xitbOOGzaDU3kjrNtOVJXjnhNuJ0yxFaWswkslNkDYdIrMIXN71KmC7hxm51WSTXE1U3STEY9zpbvWSMPXk4BLu/ADo3hzh9C9+zkQKlwWU11Axc5IUAU6pK0MJ6o7GTtYobgpeMdkqNPC/HG0fpuWq3ic7jvefGXw6MBLihGBM5DOrGYASuyR8DDeIeJS+eL3w7sVqvFPb5aDDAe5ivcmDZC38r6NVeAQJrDkamIORT/it+LI88TIRGDbkprVTYBX2y4o/xqg7grjBkB+wo3uZ7QWO+DWbJ4euTly1fVxU11bMMCDWu3gCylehVhV6Pqo7JTuB1Ay18tMYitn/sJSC3j7ybncqRIUM0euXaXl8CblKIHGIWrF5jra3y3sZHbt9fip7icAp5e0cTgOdJzJP3otPZrkGyUbv7FErGTXY9uAQ+va5CMVaG4dqSh2aTVTSrGsIQ3aqdQ3vz/anniZ/KOknQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(15650500001)(2906002)(5660300002)(6916009)(54906003)(33716001)(6486002)(6666004)(316002)(8936002)(38100700002)(66476007)(26005)(82960400001)(186003)(86362001)(53546011)(6512007)(9686003)(4326008)(6506007)(508600001)(66946007)(83380400001)(66556008)(85182001)(8676002)(20210929001);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info:
+	bNIvzYCGDOckeaD6lFzuIU6h3pTwL6p/0kbCs8NzDIra4hfAuOHYFRx2PMy+smNkgTJW5u18ha9Hscaq2okH04FPyhE1BN02k9p4oMb+5PM2TzaqQU71qQMt0dSFLAjzOJih0m4LlMKXYPohKbAbnfOWtnrHNkgNPGquRxJCbFkQMELV1PMAiU2WuRlUdZVEmj9D/fShn/Jf8T9v8/n6rwAIFz1aEsVZHXe1SaO/0JclXUgBE7+9i/N8eMSNha9n6Thf14VYANINpMRLq/GboAJEqRFBx6iuaHpFOIJS/T3bAdTpUHsAYP4kbaUvLsuvLdmaOGe8jb4fmPytacpHaNs88vGIjV185YEbIqkgJgIpFCd+WhPXN0WbRcLXnk9zQl88CusW2ZKydcDfHaC43hq+U2SErpPX/UQ+pBzqT2vz0hTEbjej2GkNc48h9Qj8eB6wwmkAwLm4fzodJSmdzF1F0VKsTsYEiob260dH1FzQwpZ6wurxuphxg5wFLrjMeItnwOmgUEIfE/R+i9VH2HSE2RV1tMK95aIW2wUMmQKZZICu1NHoLT1svwKw0ABvvG26gfGTmcJsdiw7gAfjjEAWtVvamCcKt/quF20PFp2XDgUSijvmIE3DgJzjequrbjCfts5pF499l8chaFQ85ep1OUXiRhxi+5U3E2I1QxgmspVSzkaFpuCt138J3c3t1odWW02Hui3yCm+kggjU3JLwI4RoNv6GWNxeRHiU9MVAzMv1jXQeS5o9OyOAAppn
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6506007)(2616005)(86362001)(31686004)(6916009)(54906003)(26005)(31696002)(36756003)(38100700002)(186003)(316002)(8676002)(66476007)(83380400001)(6512007)(66946007)(6486002)(4326008)(66556008)(2906002)(508600001)(5660300002)(8936002)(15650500001)(53546011)(43740500002)(45980500001)(20210929001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K01jay9HcmtmaWV3S0dUZTlVTU1sS0pjV1pZOFM3Yk9FZ1VZYlcwNWFxb1U5?=
- =?utf-8?B?UDIrNDJvR0IwT1V6U1U2OXpnUzQ4b2Z2TlZZSWpWazh3SUJxUlRBdVRQMWxp?=
- =?utf-8?B?NmVHSWRVZWdiSnNRRWNzb1EyUkxEdDlxcnFiQnpiM2cxWE9EM2dtU0RGNGV4?=
- =?utf-8?B?bUZtajMvMVBjTW9ZSlUrQ3JvbmxmRHJtRFI1UEI4VnZKL3lzTXhEZmdFUC9Q?=
- =?utf-8?B?b0hLNWhZV0pacVlKa3FlaGl5R2NvK0JQNWdqU2NqTUtyT1dwOVZGTVRNVnZH?=
- =?utf-8?B?ekQ3cE0xQUhmMnlCQ3l2cXZGV3dxb09nekhIMHdoOUZRM25lVU9MNlh2S3hw?=
- =?utf-8?B?YUZXRzM5ekhEMEVpSVl4VEMzZ3ZYa0dKK2FCc25DbTVXTnpyMGZLR0JtSmhN?=
- =?utf-8?B?cVkvMnhEY1phTW5wYzVwR3FHOVN2TUE4TFVxQk4xRUlRTnJwbEl6VVViYjRy?=
- =?utf-8?B?cHA0WGd1SXhqSmhJcUN4TmViS2tyUnRtUG4yZmt4QkxoWVlDcnNWZTFNdEts?=
- =?utf-8?B?bDBCdEhSNjk0b2V1eGZoblMxemdTamF3MU5MaG51NVNMZWh6UlVrMkdIdzRU?=
- =?utf-8?B?b240bkJuYUdlN29QZVFUbTJ6MXl4NGhkZWVRcFZPellkZnRVeHMwT0ttcW5H?=
- =?utf-8?B?TnhNcFRJL2tyN0k4RjM5MUZ3TW41VzZxWitwWUtwNTFqRFRnN0NHZ29qWm5G?=
- =?utf-8?B?TEJZZ09IcUlTUDk2eW1qcDkycmVYenlMS0hpcGRUMndMNFMxMHdnZ0JYMDFC?=
- =?utf-8?B?MEtmM1Nta0hRODhuNUZ3L09JMnU1SElvWTNIeUJiVkVSRnp2Uy9paTNiZW9P?=
- =?utf-8?B?cUw1Z3dpSS9OVHYzMlJQNUNIMVJPeU0rRmV2SHBwaXo0Qm5VQzBiSTFIOGFn?=
- =?utf-8?B?eUZ4aFZWRnl3WHhvZmRyV3Q3WmpJVjdkL21QanpPOVRuVzN2dXUvRnBYcUMy?=
- =?utf-8?B?VWdsYkExVVVFZVVsVXp6cjZtQjRRa2FRZTVMNEp5WmdxTmhzZFhrK09nSHpQ?=
- =?utf-8?B?YzB2YnhJT1JWSHBBU0NrRDltSGZlcElJTGhSUndFa3FIaE9zanBQVVp3TW5o?=
- =?utf-8?B?YkIxVTFiTXlTdURzVFczM0NEekJ2bUE2alZkcVV5dlNtTFhIVnFRKys4MXNJ?=
- =?utf-8?B?MmUzUUM3M01pNnVNdUU5L0NlalVFTDBnRURGRXZWRzZLSXJxS2RHL0xmL0lJ?=
- =?utf-8?B?QXpiMXRkUFRHNnlOTno0NjduenNOWVNNK2JNa1BYQlpDdFBFMWFocm9TNEdr?=
- =?utf-8?B?Z3pya3pJcFFFVzBtckY2TjlFRlpjMHNja3JvejJ0ZW9jMWxqc2RCb0picVJ2?=
- =?utf-8?B?L1JwbGUwN1NJa050OXZHTXcxTWNFRkUwMlBsY3lHL2Rmd3hTYm5KdDR2aFFR?=
- =?utf-8?B?R242ZnVNWm15cldxM3A2aTFTS09ZOFJMTnZnMjBJRHhsUGR4ZVk0UGxFWXRQ?=
- =?utf-8?B?U1hEZ2lqY3pEM3JYQ0s3NWlWbHMzWVBLSFJSUEhLWFRFVHlhZDRVVjlNNXVK?=
- =?utf-8?B?Z1NZR1B0TXNNNDNETllYQjNWaktFSjlsU3puV2ZYVStoU1JXSWEvMk4yc1JR?=
- =?utf-8?B?Ry9hN3FPcHVQTWlOQlRLd3NQYVZrSzM1YWtvbURJQzBkQklHNmJYWkpYVjgw?=
- =?utf-8?B?cTZORjJIejZKUGJRTHRsSVNsME13ZkYvTmVQN21RZXBNbkk1Z3ROcnlkQ1dr?=
- =?utf-8?B?cldHZ0ErUDlTSkNzQVYzemNGaTUvVG1KOFdHUjh1enkrelBjSDFacENKM1Iv?=
- =?utf-8?B?bGZYYTY4TTNLN3puOTdPYmZNZXJVQTEvVW5Rd3dWRHlGRys2Z3N5NzhEQ002?=
- =?utf-8?B?L1ZSM0VRR3hUTHl2NjZYbUNXa1N3Mm5ybFJSWHA3QjFucVdYZUthVzhORENr?=
- =?utf-8?B?dXc3RTRwTzg4bEx4U29JcVBGNnpic1g3MGlRSkQ3QVBNTHdhZFpKNjNrMVFu?=
- =?utf-8?B?YUh4YUZiNDdaVHlQelhuQjBuWjQyVFcweVNDbjB6d2g0cEN3eHdienpQTmx0?=
- =?utf-8?B?VHZOSDJUOE1YOUxvVXp4ZTFzay9WalBkUFVkNHFZejJmYXJjZ1pwWTMyWDVH?=
- =?utf-8?B?bDBEZzhZbWFtaXdXVlFVY3NDcFhGK0F2T1ZYNUp3RHc4TTVuV0NOTnZaZllC?=
- =?utf-8?B?WnZ4Y3BUT3RXcXpHQldnVUdLUndNcUUyeTJCTG4ySkVXbUJnMFV5aytDTmJW?=
- =?utf-8?Q?E14g7uDm6JTgwkSbVnYHMk8=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4dda22cf-0f95-4754-f9d4-08d9e580573d
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?anmngWsknCRnE8KUyZ2a255g35IFiXicAM5smlLkq/XJNdso+MsYfFydi5P+?=
+ =?us-ascii?Q?TNdJfrEnbwCpyAaNHxkrnopt9MeG5slYfmCqUkvqvs6TG6BZvDhN/Rl/aiqq?=
+ =?us-ascii?Q?pQkxRYmP/FvhSStcxh3LPZuVrPLQYcimia2knhdtUcfTYGi1Ix6jk+cyiDdj?=
+ =?us-ascii?Q?hIVX2YSG4qxD/Up/IbY8Tg0vRy9Gh674HUtBZXJnTBO6XQvccPrN36m9Dz0f?=
+ =?us-ascii?Q?UUhx8nhwE30hTE5B4DFNC+mA5iKSM8SB50qQ/7tCy56c7cOlHUfk3Ed7PyKY?=
+ =?us-ascii?Q?U64vbnzHU8DOOhKINHy/mrsxCDYLtSyO+1sfKackxvZjdowRKUZA3AgYrBz+?=
+ =?us-ascii?Q?98L3QZ9SQeUkanHfyEqjY7QuP63/pgpkyoikTPo/6xx/PYa2Nz0MiEKprSJB?=
+ =?us-ascii?Q?Qliy+b3IBmDJit+nOH5X+y0jZspA5DG+FG23kwCqqDGWF5YeTV3bAHpUADh5?=
+ =?us-ascii?Q?i4sDeb+wP9WQuH+0HektD2MKrD2LQ5qVmQacDZakAzrbD9BmlVpyFqwYLsWS?=
+ =?us-ascii?Q?RPLi/cCg4vxUR5ESEsAsPkdA/2VcsrYYVJYLrKQA53KStuPjuUBgHo+Gr82Y?=
+ =?us-ascii?Q?AL9j3ZZYZiUVfm9PNTNsoXVlsYOHSVDnv403A1+JvFPwK3Fms2xHd5DAwk25?=
+ =?us-ascii?Q?zktDyYIkkmazMCuJUJph38wkSP6ONYOaz8HIJc/0rc93drG7LIOY7+2sOBxY?=
+ =?us-ascii?Q?7izP9QqL+MZKLBlRyrlMYMVbfyDqicqlWfNX5ArmhBSduLiZOBQCtCZFzOIs?=
+ =?us-ascii?Q?pDf/8utBQJcaLetK9SlkVbVvYKOL+gNa1lCik8aG3OGIDhvQCPh6aFBVyukg?=
+ =?us-ascii?Q?bHtnW8VlKEdNo+zQPLC7RuC7sAbFAl1UBeCkRa+6qiLDWqV+Eqw2ohUN2POf?=
+ =?us-ascii?Q?a30l9SXRgVaUAir4xkgJw0yTLDyGO5ocFYz3fOt0oWeCDM/gsI0dnswWr1qs?=
+ =?us-ascii?Q?sTX2o9qsMyQqui4IS1eMKpYAZq6TzpbnRoEtWhJU+J1GLj/sLOT9GIuV0lSS?=
+ =?us-ascii?Q?P1jW83mydOmxxxh9bG4zlzeg/t1LqgUwC7jukMWg+sj2cfNBBnuuN6SPwPHL?=
+ =?us-ascii?Q?1+XQVf3ePItvByWDpKeYC/y5Tsnk7SRkOuoHm3HkJINFCCj8CyFKN0AlHRZ8?=
+ =?us-ascii?Q?oFLvG1WZz7OzsTk7VU5+sIMew9tjg+WuRYLynb6+bX99KNQCkMR78w60BwXg?=
+ =?us-ascii?Q?Kqa0FJvEYWAq8Q2G1j3oUDiTLcJRgXIvi+NvsQjEIxfGprgBNMsOHl2k6/fg?=
+ =?us-ascii?Q?WXuaSAkRfrBeaz+eOSYAwIp5pVf+8xszkhIntQczcj8ABwuoF6VOODbB9D8M?=
+ =?us-ascii?Q?IDyRJx2l8sjN+pydi4fQUIrhcN+nJ9ssh+A0svKONg528e9FWoybNlil8ZpM?=
+ =?us-ascii?Q?84hrrmT/jQJpGCkoMRbgKRWbRtRIc0vLr//kZbFEZxIw+MZ4yeT+WUlvgPtd?=
+ =?us-ascii?Q?CK5yNH1TiJlUzHTt6IGc1qX9+gvkSkVpuTPQsvRYmkrkrMyDaUQSv9tWZiFx?=
+ =?us-ascii?Q?N8JWTaC4APRBL3GsebT6/3Dyq4KNhoeQPh/+/CClQkxoI/SosXjjGJXnl2O/?=
+ =?us-ascii?Q?EOys47/vT2XTOX9w8Bog58ACcAsACtoM422N4wfirDnweLvRXeD0J26Hl/Jg?=
+ =?us-ascii?Q?+uMpbl1jPnfKGVr6VOsRPY0=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: feb505f1-8d6d-4b3a-5c59-08d9e580c1cf
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2022 12:42:43.3139
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2022 12:45:42.0740
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lisoYtclH9KlK6Jy6XlYAUlxBexIlzJ4fsJuKWnm2Me7IKws63pkRR7HmSjwa102DMdWzk39TXJLAmvGR1d9+Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR03MB5467
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: azTkfmoKFWwukpduvzUcRpZRFhDKAmhG2Tx6LUviOhZHTvZOLlnzc9NahQmwgiYarp2i84pqerLOQKv4C6kfzg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB5282
 
-On Tue, Feb 01, 2022 at 12:37:27PM +0100, Jan Beulich wrote:
-> On 01.02.2022 12:04, Roger Pau Monné wrote:
-> > On Thu, Jan 27, 2022 at 04:13:47PM +0100, Jan Beulich wrote:
-> >> While we don't want to skip calling update_idle_stats(), arrange for it
-> >> to not increment the overall time spent in the state we didn't really
-> >> enter.
-> >>
-> >> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> >> ---
-> >> RFC: If we wanted to also move the tracing, then I think the part ahead
-> >>      of the if() also would need moving. At that point we could as well
-> >>      move update_last_cx_stat(), too, which afaict would allow skipping
-> >>      update_idle_stats() on the "else" path (which therefore would go
-> >>      away). Yet then, with the setting of power->safe_state moved up a
-> >>      little (which imo it should have been anyway) the two
-> >>      cpu_is_haltable() invocations would only have the lapic_timer_off()
-> >>      invocation left in between. This would then seem to call for simply
-> >>      ditching the 2nd one - acpi-idle also doesn't have a 2nd instance.
-> > 
-> > It's possible for lapic_timer_off to take a non-trivial amount of time
-> > when virtualized, but it's likely we won't be using mwait in that
-> > case, so not sure it matter much to have the two cpu_is_haltable calls
-> > if there's just a lapic_timer_off between them.
-> > 
-> >> TBD: For the tracing I wonder if that really needs to come ahead of the
-> >>      local_irq_enable(). Maybe trace_exit_reason() needs to, but quite
-> >>      certainly TRACE_6D() doesn't.
-> > 
-> > Would be good if it could be moved after the local_irq_enable call, as
-> > it's not as trivial as I've expected, and will just add latency to any
-> > pending interrupt waiting to be serviced. FWIW, I haven't spotted a
-> > need to call it with interrupt disabled.
-> 
-> Okay, I guess I'll to the larger rework then.
-> 
-> >> --- a/xen/arch/x86/cpu/mwait-idle.c
-> >> +++ b/xen/arch/x86/cpu/mwait-idle.c
-> >> @@ -854,17 +854,23 @@ static void mwait_idle(void)
-> >>  		mwait_idle_with_hints(cx->address, MWAIT_ECX_INTERRUPT_BREAK);
-> >>  
-> >>  		local_irq_disable();
-> >> -	}
-> >>  
-> >> -	after = alternative_call(cpuidle_get_tick);
-> >> +		after = alternative_call(cpuidle_get_tick);
-> >> +
-> >> +		cstate_restore_tsc();
-> >> +
-> >> +		/* Now back in C0. */
-> >> +		update_idle_stats(power, cx, before, after);
-> >> +	} else {
-> >> +		/* Never left C0. */
-> >> +		after = alternative_call(cpuidle_get_tick);
-> >> +		update_idle_stats(power, cx, after, after);
-> > 
-> > While adjusting this, could you also modify update_idle_stats to avoid
-> > increasing cx->usage if before == after (or !sleep_ticks). I don't
-> > think it's fine to increase the state counter if we never actually
-> > entered it.
-> 
-> I did consider it but then decided against. Even leaving this aspect
-> aside the counter only counts _attempts_ to enter a certain state;
-> the CPU may find reasons to never actually enter it. And what we have
-> when before == after is still an attempt, albeit an unsuccessful one.
+On 01.02.2022 13:42, Roger Pau Monn=C3=A9 wrote:
+> On Tue, Feb 01, 2022 at 12:37:27PM +0100, Jan Beulich wrote:
+>> On 01.02.2022 12:04, Roger Pau Monn=C3=A9 wrote:
+>>> On Thu, Jan 27, 2022 at 04:13:47PM +0100, Jan Beulich wrote:
+>>>> While we don't want to skip calling update_idle_stats(), arrange for i=
+t
+>>>> to not increment the overall time spent in the state we didn't really
+>>>> enter.
+>>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> RFC: If we wanted to also move the tracing, then I think the part ahea=
+d
+>>>>      of the if() also would need moving. At that point we could as wel=
+l
+>>>>      move update_last_cx_stat(), too, which afaict would allow skippin=
+g
+>>>>      update_idle_stats() on the "else" path (which therefore would go
+>>>>      away). Yet then, with the setting of power->safe_state moved up a
+>>>>      little (which imo it should have been anyway) the two
+>>>>      cpu_is_haltable() invocations would only have the lapic_timer_off=
+()
+>>>>      invocation left in between. This would then seem to call for simp=
+ly
+>>>>      ditching the 2nd one - acpi-idle also doesn't have a 2nd instance=
+.
+>>>
+>>> It's possible for lapic_timer_off to take a non-trivial amount of time
+>>> when virtualized, but it's likely we won't be using mwait in that
+>>> case, so not sure it matter much to have the two cpu_is_haltable calls
+>>> if there's just a lapic_timer_off between them.
+>>>
+>>>> TBD: For the tracing I wonder if that really needs to come ahead of th=
+e
+>>>>      local_irq_enable(). Maybe trace_exit_reason() needs to, but quite
+>>>>      certainly TRACE_6D() doesn't.
+>>>
+>>> Would be good if it could be moved after the local_irq_enable call, as
+>>> it's not as trivial as I've expected, and will just add latency to any
+>>> pending interrupt waiting to be serviced. FWIW, I haven't spotted a
+>>> need to call it with interrupt disabled.
+>>
+>> Okay, I guess I'll to the larger rework then.
+>>
+>>>> --- a/xen/arch/x86/cpu/mwait-idle.c
+>>>> +++ b/xen/arch/x86/cpu/mwait-idle.c
+>>>> @@ -854,17 +854,23 @@ static void mwait_idle(void)
+>>>>  		mwait_idle_with_hints(cx->address, MWAIT_ECX_INTERRUPT_BREAK);
+>>>> =20
+>>>>  		local_irq_disable();
+>>>> -	}
+>>>> =20
+>>>> -	after =3D alternative_call(cpuidle_get_tick);
+>>>> +		after =3D alternative_call(cpuidle_get_tick);
+>>>> +
+>>>> +		cstate_restore_tsc();
+>>>> +
+>>>> +		/* Now back in C0. */
+>>>> +		update_idle_stats(power, cx, before, after);
+>>>> +	} else {
+>>>> +		/* Never left C0. */
+>>>> +		after =3D alternative_call(cpuidle_get_tick);
+>>>> +		update_idle_stats(power, cx, after, after);
+>>>
+>>> While adjusting this, could you also modify update_idle_stats to avoid
+>>> increasing cx->usage if before =3D=3D after (or !sleep_ticks). I don't
+>>> think it's fine to increase the state counter if we never actually
+>>> entered it.
+>>
+>> I did consider it but then decided against. Even leaving this aspect
+>> aside the counter only counts _attempts_ to enter a certain state;
+>> the CPU may find reasons to never actually enter it. And what we have
+>> when before =3D=3D after is still an attempt, albeit an unsuccessful one=
+.
+>=20
+> Right, in which case:
+>=20
+> Acked-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-Right, in which case:
+Thanks, but ...
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+> Not sure whether you would like to commit this now and do the lager
+> rework as a followup patch. That would be fine by me.
 
-Not sure whether you would like to commit this now and do the lager
-rework as a followup patch. That would be fine by me.
+... no, I'd rather do this in a single step. In its current shape the
+patch is actually moving us in the opposite direction.
 
-Thanks, Roger.
+Jan
+
 
