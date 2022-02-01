@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E3D44A614F
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Feb 2022 17:25:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.263635.456471 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2DF14A6191
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Feb 2022 17:48:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.263672.456513 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEvy5-0006UZ-N5; Tue, 01 Feb 2022 16:25:21 +0000
+	id 1nEwJq-0002qe-Oy; Tue, 01 Feb 2022 16:47:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 263635.456471; Tue, 01 Feb 2022 16:25:21 +0000
+Received: by outflank-mailman (output) from mailman id 263672.456513; Tue, 01 Feb 2022 16:47:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEvy5-0006QQ-Ij; Tue, 01 Feb 2022 16:25:21 +0000
-Received: by outflank-mailman (input) for mailman id 263635;
- Tue, 01 Feb 2022 16:25:19 +0000
+	id 1nEwJq-0002oW-LB; Tue, 01 Feb 2022 16:47:50 +0000
+Received: by outflank-mailman (input) for mailman id 263672;
+ Tue, 01 Feb 2022 16:47:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=scQ7=SQ=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1nEvy3-0005Ky-6T
- for xen-devel@lists.xenproject.org; Tue, 01 Feb 2022 16:25:19 +0000
-Received: from mail-lf1-x129.google.com (mail-lf1-x129.google.com
- [2a00:1450:4864:20::129])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b204a2c-837b-11ec-8eb8-a37418f5ba1a;
- Tue, 01 Feb 2022 17:25:18 +0100 (CET)
-Received: by mail-lf1-x129.google.com with SMTP id z19so34876964lfq.13
- for <xen-devel@lists.xenproject.org>; Tue, 01 Feb 2022 08:25:18 -0800 (PST)
-Received: from a2klaptop.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id z20sm2037887ljn.92.2022.02.01.08.25.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Feb 2022 08:25:16 -0800 (PST)
+ <SRS0=JAuK=SQ=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nEwJp-0001jp-EM
+ for xen-devel@lists.xenproject.org; Tue, 01 Feb 2022 16:47:49 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ae893b9a-837e-11ec-8eb8-a37418f5ba1a;
+ Tue, 01 Feb 2022 17:47:47 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,535 +36,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b204a2c-837b-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: ae893b9a-837e-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1643734067;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=iQ8aKLKi+QRqm0WFp5cY9I2IT2KtztKgt4ISNOrHVJo=;
+  b=CnepMP1HNjytUTBCDPC5hdKLWqzSlqRFuLIda0T26xP3pwBJr3uzu0lD
+   rpr1EBpE42sSWW2IyF13rgc8RfuWBV6ZBb7NhVAEV9fj0JxHNDUTALAUE
+   EEZhCUK9b4v4oPpiu4VcJsM3RBISkVIbj/SjAcSgLE695Ukr8lcKbUaJL
+   g=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: rBm4U5mhg7EzJd67m+tOSkD1koJKCPx5b6mkyO5J4Hk32Mvk8mCEo1gp+JaYXLndmlnK/WKAoo
+ 1IrDWcqdKO+UMUD3vtG0mtsluzZdA7iw1pKsDfP6LlJxXXuXPCDc3CuAD7HSh7vklsIE6HGcGW
+ hnJALZOvI7qNpQVpZqK4FLtk7HZzjNMoyP2TqN67bVxPsLH+/HIICuJcr456/4rxCNOAq5l1A+
+ 5Azl0LsorCbpYTlbYggjtnzAbvUx4e4ZT09TuhKWYHxiZ5QEXKoZGXMoEgGGv2GOv/T+G2cuWE
+ k9kSrRwiCab53pWQjHHCsMkq
+X-SBRS: 5.2
+X-MesageID: 63644287
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:g2qAoaxIveAvFIEdeIp6t+e+wSrEfRIJ4+MujC+fZmUNrF6WrkUEz
+ GAaCj+GOfnfNDHyctglb4m19k4FuZXSnYA1QVNs/iAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAhLeNYYH1500g7wbZg2tQAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt95O1
+ vdkiZe/cgECOb/xqP5AAjgfHj4raMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVort4kI8TxepsWp1lrzC3DDOZgSpfGK0nPzYEDgmts3JARdRrYT
+ 9UrNzFtXhfHWixSO3MoJIMHzMCF3WaqJlW0r3rK/PFqsgA/1jdZy6PxOdDYftiLQ8R9nUuCo
+ G/CuWPjDXkyK9i32TeDtHW2iYfnnz7/WY8UPK218LhtmlL77nweDlgaWEW2pdG9i1WiQJRPJ
+ koM4C0soKMuskuxQbHVXRe1vXqFtR40QMdLHqsx7wTl90bPy1/HXC5eFGcHMYF48p9tLdA36
+ rOXt93WGx5GjLaacnS28aWpnSnvaAlSIHBXMEfoUjA5y9XkpYgyiDfGQdBiDLO5g7XJJN3g/
+ 9yZhHNg3utO1Kbnw43+pAma2Gz0+vAlWyZovl2/Y46z0u9uiGdJjaSM4EOT0/tPJZ3xorKp7
+ CldwJj2AAzj4PiweM2xrAclQevBCxWtamS0bbtT838JrW7FF5mLJtg43d2GDB01WvvogBewC
+ KMphStf5YVIIFyhZrJtboS6BqwClPa8Tom1CaiEMIsSM/CdkTNrGgk0PyZ8OEi2yCARfVwXY
+ 8/HIa5A815HYUiY8NZGb7hEiuJ6rszP7WjSWYr633yaPUm2PxaopUM+GALWNIgRtfrcyC2Mq
+ oo3H5bUl313DbOvCgGKod97BQ1bdhATWMGpw/G7g8beeGKK7kl7Va+IqV7gEqQ495loehDgp
+ SDgAxIIlQak2BUq62yiMxheVV8mZr4mxVoTNi0wJ1e4nX8lZIek9qAEcJUrO7Ig8YReITRcF
+ altlxyoDqsdRzLZ1S4aaJWh/oVueA7y3VCFPja/YSh5dJllHlSb9tjhdwrp1S8PEivo6pdu/
+ +z+jlvWEcgZWgBvLMfKc/bznVm/imcQxbBpVEzSL9gNJEi1qNp2Kzb8h+McKt0XLUmR3SOT0
+ gubWE9KpeTEr4Iv3sPOgKSI89WgH+dkRxIIFGjH97emcyLd+zP7k4NHVe+JexHbVX/1p/r+N
+ bkEkamkPaRezlhQsod6H7J69o4E5oPi9+1A0wBpPHTXdFD3WLluFWaLgJtUvapXy74H5QbvA
+ hCT+sNXMKmiMd/+FAJDPxIsa+mO2K1GmjTW6vhpckz26DUuoeiCWERWeRKNlDZcPP1+N4Z8m
+ bUtv8sf6gqejBs2M4nZ0nAIpjrUdnFQAb86spw6AZPwjlt5w15PVpXQFyvq7czdcN5LKEQrf
+ meZiaeqa26wHaYen67fzUTw4Nc=
+IronPort-HdrOrdr: A9a23:Io519K/3Bij5WvpnrtRuk+E2db1zdoMgy1knxilNoENuHPBwxv
+ rAoB1E73PJYVYqOE3Jmbi7Sc69qBTnhONICOgqTM2ftWzd2VdAQ7sSlLcKrweQfhEWldQtq5
+ uIEZIOcOEYZGIS5a2RjXjaYrQdKbG8gd+VbIzlvhFQpG9RGsVdB1ATMHfmLqQ6fngPObMJUL
+ 6nouZXrTupfnoaKuy9G3k+RuDG4/nGjojvbxIqDwMurFDmt0Lj1JfKVzyjmjsOWTJGxrkvtU
+ DDjgzC/62m99W20AXV2WP/54lf3PHh1txALsqRjdV9EESmti+YIKBaH5GStjE8p++irH4sjd
+ n3uh8le/9+7nvAF1vF1ifF6k3F6nID+nXiwViXjT/IusriXg83DMJHmMZwbgbZw1BIhqAy7I
+ t7m0ai87ZHBxLJmyrwo/LSUQtxq0ayqX0+1cYOkn1kV5cEYrM5l/1SwKpsKuZAIMvG0vFmLA
+ E3Z/usp8q+MGnqIkwxh1MfjuBFBR8Ib1W7qktrgL3g79EZpgE986Ii/r1uop43zuNJd3B13Z
+ W0Dk1WrsA8ciZvV9MHOA4ge7rANoWfe2OEDIqtSW6XZp3vfUi976LK3A==
+X-IronPort-AV: E=Sophos;i="5.88,334,1635220800"; 
+   d="scan'208";a="63644287"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nVZn64yVMjR/KyHngXzqdOmfNdtDKiqRqnOWqDJ4Bd/0IDq382Ygi6jYnktIR3WAM1Pfk1acmaTkKKvW1p7Oe5Q7R7rLZRmRiFlYKfuEVM6H8PelONuqtH+rhq5jC4laNGz2X3UOhjP8z1XV5+3E0ZUfvehK+tHocBm80UP4WGSzKAibdScsDmq6nYAzzCqRQmMShLsrKwzy8yzDCTaPh6/T1vxTf0fQcoWR8CiAcwr4cN59pCrG7cFl6xeoIJ4/9l69PSDVDwkYkoj2h62SzFs1TpJozh16jMYJmJXpVAnh578T2e8W7KXOuDHaC2U30kmDz7jJev27VW/4zRHkQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hGPY1jN8DxvfaKtqXBqMnzr4TdR32OJ/pPgeJPgLEX4=;
+ b=kaxYvJmUBtk4jxsSkM6zeVqOWKPTXk8clMYZ0GSmDVnBTFibFHsXHKcHrL92TWcFQCoXJxDPqFr8NOWg4NiSQDMaNyV9IJpQMpDEQ8FtvVZC6xSunsfSlK4QBARJkY8EBfpcNtjtTjHTWuI3MPCq/7pjzYO0Nl+Cr0LnNKJj3FmW5yv8QvH061EdlcmeKsHGIWD6STiCiAC7VXla3v8/1JeTTlUTWl9EL/hqrk68DvlQT9KSfXcwcj7hHFXrlcK4lE+Vh5z0z8XwV0OweYSFhly3+zZY45VBbtAY15z6iECVaFoDppLBuQWCOYeiiJhs31IH+c9znKe/SiFpP5pTKg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=OjkZoTR61B7utfXrmaTSlHnNCI9PmHivrLzjF3WsrhI=;
-        b=YV1tZL4y3q4k8OZTWZxcehM3mB8NFp7Q3Cb8iwqbd7AtzGNfCHVOmBbNr838OjoBdG
-         DBH18KUzRWRoE/iCN39IIX3Ez9YF3uLFVnb9cXQ/L4t+2zjdlGCfcW2xfo54nA6gDqyj
-         1uYmrndCRqmOxtNqNEbM/dPG7b/PFrJVj3i8aH7CKDl3+xT26Oce3tH8tRE2l60Y/MJr
-         a4i40raUGshW+tycYqVZvjYweVMqhL4o9Y2zTvTAYU1RjtWU/lEyd/3KU8II/Gj8uKJ7
-         ePIXUN9xFPOWLBzCad4OwO/D86Bkj4q3ZMc/8NDhYyjruXc95IEOdmSw3Q6i1uLH7D5U
-         qKFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=OjkZoTR61B7utfXrmaTSlHnNCI9PmHivrLzjF3WsrhI=;
-        b=2ZBNotwJ3yTjanq/5LpvjNRDu5mWtPx0PCxRlBkQQTnmfvdcMLPtQfeK/arWJaj7ZV
-         M9Re557GsjS0j84IDcFZJ4K597Vcg7DdLNM2kuNsqahsuPv+EO559OkSUdM7lea0CIiC
-         dc1s/Y+qA/L5HrJteJco5OBZG5XRdF5ELXwf64YADfQYaozefBhe+664BRIBYaCtxQ4Q
-         NAWR9a8JADTeMkD42hlSlblFMqLt3fC1DPVhiKM1Lvs13zaporXN+kXerhfjHYgn44mL
-         DPP4a3RCeztkZttdlnW6v7IplEAIkEkEGfIIeJYnSY+TCOVlJ3CggfPS8UA7Mw4HYZPJ
-         Eg6g==
-X-Gm-Message-State: AOAM533IE2IIDQ19QtWFLQBuVXYVc6IeBGk4F61gWjVwL0V7coruWBBP
-	Afd63Wd06L8RxPY9Z3Kvrnfa0ILuxJQ=
-X-Google-Smtp-Source: ABdhPJy4UCne6+TAN6DIconeVQuh4TMk8c/BIMlhpIaYC++3e55rF3rhZFj5G0/OtbhmUrakakPNaQ==
-X-Received: by 2002:a05:6512:32ca:: with SMTP id f10mr15292400lfg.329.1643732717478;
-        Tue, 01 Feb 2022 08:25:17 -0800 (PST)
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: julien@xen.org,
-	sstabellini@kernel.org,
-	oleksandr_tyshchenko@epam.com,
-	volodymyr_babchuk@epam.com,
-	Artem_Mygaiev@epam.com,
-	roger.pau@citrix.com,
-	jbeulich@suse.com,
-	andrew.cooper3@citrix.com,
-	george.dunlap@citrix.com,
-	paul@xen.org,
-	bertrand.marquis@arm.com,
-	rahul.singh@arm.com,
-	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH 4/4] vpci: move lock outside of struct vpci
-Date: Tue,  1 Feb 2022 18:25:08 +0200
-Message-Id: <20220201162508.417008-5-andr2000@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20220201162508.417008-1-andr2000@gmail.com>
-References: <20220201162508.417008-1-andr2000@gmail.com>
-MIME-Version: 1.0
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hGPY1jN8DxvfaKtqXBqMnzr4TdR32OJ/pPgeJPgLEX4=;
+ b=PoMM35FnbA8FyTbfKoJr8K9XKz4Il8FXKmbcy8GJN2m1D5G9FG/qjoutbar88+jPxTSqijcph/LuaJtlMfYE+h8M20G2IeWKnAU7S2qr2wjXK504Wy56EX4PT1TwPJWTjGWJUrQMdHZAFrkoPh7ArVnscTjTKBDjC7eGcA8T6IE=
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: [PATCH 0/3] amd/msr: implement MSR_VIRT_SPEC_CTRL for HVM guests
+Date: Tue,  1 Feb 2022 17:46:48 +0100
+Message-ID: <20220201164651.6369-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.34.1
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0009.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ad::12) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 67e59fdb-8660-444c-61c3-08d9e5a280ec
+X-MS-TrafficTypeDiagnostic: SN6PR03MB3565:EE_
+X-Microsoft-Antispam-PRVS: <SN6PR03MB3565335419097738D6A28FAB8F269@SN6PR03MB3565.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: eGxltsL0f/Za4UVeC5LQRhhNOe7mv+QfrtlZhjmBxpctJvYYIlZsCPGcVPsN3x4OVE5q40uk9Mt4UVRuY9piI2M1WcZf67VyDCmjP7xvvJQUie5/PLR/N+28fI2rBy0U8vBm7HNP2+SzLGyw2ivQuQO2lcdR1b6lMf4nx8i+g8qarfCvwSHfwo4V/e6GZL0LkDTtISd4vOI0ZL4niB8QzI4yqXzUGlc+FfM+jm/ktK7Ln74sUJkqA1aJjAW7PFO/LgmwevS3ZEAsuOVcHz+L0p98ChvgDNsuaqoYBXXGi+oJMqRylVf5fitlN5wxV+xvdJycM9hNElZ+GmWyM7xSqW7e0aguKeqPoTYiIO6fCkQjKjA80ZGzONfbGQwMX9hQRCs8mRWblJSU1XniUGnIlpu4M+rcrl5SFXqnWvU+ErFNeby6j3IhPCHY5aRKfIFOu2luslE3H2Eju+9u5oo+Z3tPr+KtJKer0ZmXVd/wLADRubJBzpEP3bW2k93p60tqsuJYMd4R1HXmAcfQ3q8HFCVAfkuTz5ie364mNLwwvL+/28WdMB0jYZ8WiPRtJd0i9WglBlh2MfAJYVgURQcmZ18saAKKy5ilEuLbdeAc9Ay3um6X2o1efIK8VbdF0KsUBx0Tkkf34E4iWOyybPTNVQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(6666004)(66476007)(66946007)(8936002)(4326008)(8676002)(508600001)(5660300002)(66556008)(6486002)(38100700002)(83380400001)(6506007)(36756003)(6916009)(82960400001)(6512007)(26005)(86362001)(1076003)(186003)(2616005)(2906002)(54906003)(316002)(20210929001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SFpPUFZRTDM4RzdPNHBncFY0M2ZDaWoyMTFyNHF5QnhLMEhPSHdoclA5Z1Fm?=
+ =?utf-8?B?QlRhcWVnMHdwMy96Tjl6TnE5K3FQQWNmZHlKZVdqcDlkM1lYQWtpcDZCbzBB?=
+ =?utf-8?B?RDdiRmd2M3p1NG10TU9wcGpQTmwyV3JuMml3SURycnNpTVpmbFhHTzN2U2RE?=
+ =?utf-8?B?MHEwWWU0Z1NiWGM2R0puSk5uaXY4dVZSdmpINlQvcG52bFNSZXhpVDZpOHY4?=
+ =?utf-8?B?Y20zSVVIMW1NOXNkaDRnbGcyWVAzVXJ2aEd6Y3JReTZwWEt4bTQwK1JrWGY5?=
+ =?utf-8?B?eXZkT21HRStIVG5oY0ZyVVJaTmNKTWxNMGt1bWN5VDlmbHFSY3Z1VmtNT2Jh?=
+ =?utf-8?B?MnhKYTNzaUp4cTdZaDFhOXp1WnNKWXJzVFVGek9wVWF0UVF2NndaejJYZUxB?=
+ =?utf-8?B?UDZKQUhUVFRmU2J0UmkrTjlVc3lFa0ptaFV5dzRLWThrZ3RBUE1wSmU0aUp3?=
+ =?utf-8?B?QjM5V1lMQU4vU2E1M0c4emZ2ZDlMNFM5R1djbTdQcmlzUnJTREtpSzUrL0V3?=
+ =?utf-8?B?RkVjNkZ6bStQcmtQMGpFRkZpQlpHdFVPTnZlcmhuaFRXS0JIMjZoUWMwTmNj?=
+ =?utf-8?B?dEsxNFRyV3JrZmZtUUttMm01eHNJcTVpOUdBbjU0UnlqbmkxTDVrS0ZtdlQz?=
+ =?utf-8?B?eWltN2toRlhZcFBNb29LUnpEcTRWSVVmQ3Bsd291YTlEcnFveUlCT3FIdkgz?=
+ =?utf-8?B?Q2tsNnhJNmNlQWNDM1lmbWhhSUl0bjBjbS85RzlaVUYyWGVRY3grT2pZcGxO?=
+ =?utf-8?B?SW1UU0ZpekxJZmFVMi9Dd2VjS3I5ajdHcUMrcHBQMmxxREdQN2UxL2E4TW9U?=
+ =?utf-8?B?Ykh5dFRjSjVWNkxTdWhCOWo4MXFObUhrTExkZDdmSldTUkpYelFOOFAxc2JI?=
+ =?utf-8?B?blY1ODhJNW4vZHhaOG5OMVc3K3MxWHUxNkxkL25WeTJoaE1hK3M1MkJpWVJk?=
+ =?utf-8?B?Z05xTW16amtNL0ZSVmtEYkhmcVQ0YWpsRVVkQmUxQkFqRkZrRGs0UVZLbUll?=
+ =?utf-8?B?ZGhtTXBIZll3ZG1iN285dGxJM2JWZ0RHRXJtWGZOV3FGUlBwT0ZiRWtQdEJE?=
+ =?utf-8?B?NGV1UHdkc0tGZnJLNlVxNUhqcmJmMXZJWlBTZVFQT1dXWHJsd29KVXVDTGlP?=
+ =?utf-8?B?TTZIT2RzRTIxdTZvY1B0YXVIcXRjRXlFSm10L1RMTVVSOVdJOEtHWi9kTS8v?=
+ =?utf-8?B?WlUvRHR3UjBMTjB5WkMyWGJKaUZuVXpMZzdJUHozRkdLbC9VK2dydXNjUG1s?=
+ =?utf-8?B?VDhraXF2b1loaVArcGw3UjNMZGp0TFllTVZiVXgxVmZvSDRxKzlxQ2FFRktx?=
+ =?utf-8?B?TkJ6UHA2RndhcERQWldSODVDbitXVW43NUh4d2ZDMVZiekFRNE05UnRwZHlt?=
+ =?utf-8?B?d091UUxkanU5ZnRaTFJCTjlUdGIrWDh0K2I2YkV5aXUzaFNLTTVvN3J2TUpB?=
+ =?utf-8?B?RVVlbndVaXVYekdsT29yOEFTMmVoNVZXVHpXZ1NZU040Nno2eS91QXhWRnpn?=
+ =?utf-8?B?aTlUbW96MHRsNkwzQytxcDUyZ05vdFVTMHRLOHV3QUtlN0FtMjlreGVGZzdF?=
+ =?utf-8?B?STFYNXZnS2tLR1BlNzl1QVYxa3czMEppbTV4eEFmbVB5WDcwZ1VpNHMwcXJu?=
+ =?utf-8?B?QXlBUjhZUWlvZ3Q0Z1h3Wk1nWVVwcytsd0pmUVlEZko4QVpGb3JLU251eDlh?=
+ =?utf-8?B?L2crVi85OWxqZXA1NTYwTGZoYzRGY0hOUjhYVnMzUWZUTmlnNFdDVmZhVUIv?=
+ =?utf-8?B?QnBuK1o2T1BBU0MySDhhY2s5OHR0ZzR4dXVINEROTHZNelVWV0ZTOG50Z0ht?=
+ =?utf-8?B?STZ4U2o5LzhTL3pmQkMyMzh1ZEphU1dLV0hkNDlIZU4xS2w0TTJvOTNyZmJQ?=
+ =?utf-8?B?U1BsUUNVblNkbmJwSXdQY0VVS05xd25nNVBrZ2lnV2Q0c2VJeXZRZDJUZlFz?=
+ =?utf-8?B?R0lLY0hpcWVwcklWSUUwSGRFVUh1Qk9RbmlEYnQ4TnZCbGdKdndTbWZrRllr?=
+ =?utf-8?B?QmtGSXd1R2FvbzY4REFXb285NDJzdnNqaktzakRnM0JuUmQ1QU9nMGxmRnpJ?=
+ =?utf-8?B?VVNYK0FvRmtlZWM1MDIxMHlpeXM5K2c3N29pbnN4SEl3UU9iUHQ5TDJad1U2?=
+ =?utf-8?B?NnV6ZFdnMHpKQlBkbjc1UEIwZXlpYnUxSXRYTmozUnlJSUE5K0g4YU9DS0Jz?=
+ =?utf-8?Q?zjLxDMKO0bBF8hpc8clz7Tc=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67e59fdb-8660-444c-61c3-08d9e5a280ec
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2022 16:47:16.1960
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uGcJfQOzqHlEU7tVt7ky2yj5IO7me2txUJ29ntI6JZRSGzyOipS1PXblHX006fwd5vEfnXDEmdAHgAM31pW1tA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR03MB3565
+X-OriginatorOrg: citrix.com
 
-From: Roger Pau Monne <roger.pau@citrix.com>
+Hello,
 
-This way the lock can be used to check whether vpci is present, and
-removal can be performed while holding the lock, in order to make
-sure there are no accesses to the contents of the vpci struct.
-Previously removal could race with vpci_read for example, since the
-lock was dropped prior to freeing pdev->vpci.
+The following series implements support for MSR_VIRT_SPEC_CTRL on
+different AMD CPU families.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
----
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
----
-New in v5 of this series: this is an updated version of the patch published at
-https://lore.kernel.org/xen-devel/20180717094830.54806-2-roger.pau@citrix.com/
+Note that the support is added backwards, starting with the newer CPUs
+that support MSR_SPEC_CTRL and moving to the older ones either using
+MSR_VIRT_SPEC_CTRL or the SSBD bit in LS_CFG.
 
-Changes since v5:
- - do not split code into vpci_remove_device_handlers_locked yet
- - move INIT_LIST_HEAD outside the locked region (Jan)
- - stripped out locking optimizations for vpci_{read|write} into a
-   dedicated patch
-Changes since v2:
- - fixed pdev->vpci = xzalloc(struct vpci); under spin_lock (Jan)
-Changes since v1:
- - Assert that vpci_lock is locked in vpci_remove_device_locked.
- - Remove double newline.
- - Shrink critical section in vpci_{read/write}.
----
- tools/tests/vpci/emul.h       |  5 ++-
- tools/tests/vpci/main.c       |  4 +--
- xen/arch/x86/hvm/vmsi.c       |  8 ++---
- xen/drivers/passthrough/pci.c |  1 +
- xen/drivers/vpci/header.c     | 21 ++++++++----
- xen/drivers/vpci/msi.c        | 11 ++++--
- xen/drivers/vpci/msix.c       |  8 ++---
- xen/drivers/vpci/vpci.c       | 63 ++++++++++++++++++++++-------------
- xen/include/xen/pci.h         |  1 +
- xen/include/xen/vpci.h        |  3 +-
- 10 files changed, 78 insertions(+), 47 deletions(-)
+First patch is quite clean, as it uses the shadow SPEC_CTRL in order to
+set the SSBD bit and have it context switched by Xen using the existing
+logic recently added.
 
-diff --git a/tools/tests/vpci/emul.h b/tools/tests/vpci/emul.h
-index 2e1d3057c9d8..d018fb5eef21 100644
---- a/tools/tests/vpci/emul.h
-+++ b/tools/tests/vpci/emul.h
-@@ -44,6 +44,7 @@ struct domain {
- };
- 
- struct pci_dev {
-+    bool vpci_lock;
-     struct vpci *vpci;
- };
- 
-@@ -53,10 +54,8 @@ struct vcpu
- };
- 
- extern const struct vcpu *current;
--extern const struct pci_dev test_pdev;
-+extern struct pci_dev test_pdev;
- 
--typedef bool spinlock_t;
--#define spin_lock_init(l) (*(l) = false)
- #define spin_lock(l) (*(l) = true)
- #define spin_unlock(l) (*(l) = false)
- 
-diff --git a/tools/tests/vpci/main.c b/tools/tests/vpci/main.c
-index b9a0a6006bb9..26c95b08b6b1 100644
---- a/tools/tests/vpci/main.c
-+++ b/tools/tests/vpci/main.c
-@@ -23,7 +23,8 @@ static struct vpci vpci;
- 
- const static struct domain d;
- 
--const struct pci_dev test_pdev = {
-+struct pci_dev test_pdev = {
-+    .vpci_lock = false,
-     .vpci = &vpci,
- };
- 
-@@ -158,7 +159,6 @@ main(int argc, char **argv)
-     int rc;
- 
-     INIT_LIST_HEAD(&vpci.handlers);
--    spin_lock_init(&vpci.lock);
- 
-     VPCI_ADD_REG(vpci_read32, vpci_write32, 0, 4, r0);
-     VPCI_READ_CHECK(0, 4, r0);
-diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
-index 13e2a190b439..1f7a37f78264 100644
---- a/xen/arch/x86/hvm/vmsi.c
-+++ b/xen/arch/x86/hvm/vmsi.c
-@@ -910,14 +910,14 @@ int vpci_msix_arch_print(const struct vpci_msix *msix)
-         {
-             struct pci_dev *pdev = msix->pdev;
- 
--            spin_unlock(&msix->pdev->vpci->lock);
-+            spin_unlock(&msix->pdev->vpci_lock);
-             process_pending_softirqs();
-             /* NB: we assume that pdev cannot go away for an alive domain. */
--            if ( !pdev->vpci || !spin_trylock(&pdev->vpci->lock) )
-+            if ( !spin_trylock(&pdev->vpci_lock) )
-                 return -EBUSY;
--            if ( pdev->vpci->msix != msix )
-+            if ( !pdev->vpci || pdev->vpci->msix != msix )
-             {
--                spin_unlock(&pdev->vpci->lock);
-+                spin_unlock(&pdev->vpci_lock);
-                 return -EAGAIN;
-             }
-         }
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index 1fad80362f0e..af648c6a19b5 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -328,6 +328,7 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
-     *((u8*) &pdev->bus) = bus;
-     *((u8*) &pdev->devfn) = devfn;
-     pdev->domain = NULL;
-+    spin_lock_init(&pdev->vpci_lock);
- 
-     arch_pci_init_pdev(pdev);
- 
-diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-index 40ff79c33f8f..bd23c0274d48 100644
---- a/xen/drivers/vpci/header.c
-+++ b/xen/drivers/vpci/header.c
-@@ -142,12 +142,13 @@ bool vpci_process_pending(struct vcpu *v)
-         if ( rc == -ERESTART )
-             return true;
- 
--        spin_lock(&v->vpci.pdev->vpci->lock);
--        /* Disable memory decoding unconditionally on failure. */
--        modify_decoding(v->vpci.pdev,
--                        rc ? v->vpci.cmd & ~PCI_COMMAND_MEMORY : v->vpci.cmd,
--                        !rc && v->vpci.rom_only);
--        spin_unlock(&v->vpci.pdev->vpci->lock);
-+        spin_lock(&v->vpci.pdev->vpci_lock);
-+        if ( v->vpci.pdev->vpci )
-+            /* Disable memory decoding unconditionally on failure. */
-+            modify_decoding(v->vpci.pdev,
-+                            rc ? v->vpci.cmd & ~PCI_COMMAND_MEMORY : v->vpci.cmd,
-+                            !rc && v->vpci.rom_only);
-+        spin_unlock(&v->vpci.pdev->vpci_lock);
- 
-         rangeset_destroy(v->vpci.mem);
-         v->vpci.mem = NULL;
-@@ -285,6 +286,12 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
-                 continue;
-         }
- 
-+        spin_lock(&tmp->vpci_lock);
-+        if ( !tmp->vpci )
-+        {
-+            spin_unlock(&tmp->vpci_lock);
-+            continue;
-+        }
-         for ( i = 0; i < ARRAY_SIZE(tmp->vpci->header.bars); i++ )
-         {
-             const struct vpci_bar *bar = &tmp->vpci->header.bars[i];
-@@ -303,12 +310,14 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
-             rc = rangeset_remove_range(mem, start, end);
-             if ( rc )
-             {
-+                spin_unlock(&tmp->vpci_lock);
-                 printk(XENLOG_G_WARNING "Failed to remove [%lx, %lx]: %d\n",
-                        start, end, rc);
-                 rangeset_destroy(mem);
-                 return rc;
-             }
-         }
-+        spin_unlock(&tmp->vpci_lock);
-     }
- 
-     ASSERT(dev);
-diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
-index 5757a7aed20f..e3ce46869dad 100644
---- a/xen/drivers/vpci/msi.c
-+++ b/xen/drivers/vpci/msi.c
-@@ -270,7 +270,7 @@ void vpci_dump_msi(void)
-     rcu_read_lock(&domlist_read_lock);
-     for_each_domain ( d )
-     {
--        const struct pci_dev *pdev;
-+        struct pci_dev *pdev;
- 
-         if ( !has_vpci(d) )
-             continue;
-@@ -282,8 +282,13 @@ void vpci_dump_msi(void)
-             const struct vpci_msi *msi;
-             const struct vpci_msix *msix;
- 
--            if ( !pdev->vpci || !spin_trylock(&pdev->vpci->lock) )
-+            if ( !spin_trylock(&pdev->vpci_lock) )
-                 continue;
-+            if ( !pdev->vpci )
-+            {
-+                spin_unlock(&pdev->vpci_lock);
-+                continue;
-+            }
- 
-             msi = pdev->vpci->msi;
-             if ( msi && msi->enabled )
-@@ -323,7 +328,7 @@ void vpci_dump_msi(void)
-                 }
-             }
- 
--            spin_unlock(&pdev->vpci->lock);
-+            spin_unlock(&pdev->vpci_lock);
-             process_pending_softirqs();
-         }
-     }
-diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-index 846f1b8d7038..5310cc3ff520 100644
---- a/xen/drivers/vpci/msix.c
-+++ b/xen/drivers/vpci/msix.c
-@@ -225,7 +225,7 @@ static int msix_read(struct vcpu *v, unsigned long addr, unsigned int len,
-         return X86EMUL_OKAY;
-     }
- 
--    spin_lock(&msix->pdev->vpci->lock);
-+    spin_lock(&msix->pdev->vpci_lock);
-     entry = get_entry(msix, addr);
-     offset = addr & (PCI_MSIX_ENTRY_SIZE - 1);
- 
-@@ -254,7 +254,7 @@ static int msix_read(struct vcpu *v, unsigned long addr, unsigned int len,
-         ASSERT_UNREACHABLE();
-         break;
-     }
--    spin_unlock(&msix->pdev->vpci->lock);
-+    spin_unlock(&msix->pdev->vpci_lock);
- 
-     return X86EMUL_OKAY;
- }
-@@ -297,7 +297,7 @@ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
-         return X86EMUL_OKAY;
-     }
- 
--    spin_lock(&msix->pdev->vpci->lock);
-+    spin_lock(&msix->pdev->vpci_lock);
-     entry = get_entry(msix, addr);
-     offset = addr & (PCI_MSIX_ENTRY_SIZE - 1);
- 
-@@ -370,7 +370,7 @@ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
-         ASSERT_UNREACHABLE();
-         break;
-     }
--    spin_unlock(&msix->pdev->vpci->lock);
-+    spin_unlock(&msix->pdev->vpci_lock);
- 
-     return X86EMUL_OKAY;
- }
-diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index fb0947179b79..c015a4d77540 100644
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -35,12 +35,10 @@ extern vpci_register_init_t *const __start_vpci_array[];
- extern vpci_register_init_t *const __end_vpci_array[];
- #define NUM_VPCI_INIT (__end_vpci_array - __start_vpci_array)
- 
--void vpci_remove_device(struct pci_dev *pdev)
-+static void vpci_remove_device_locked(struct pci_dev *pdev)
- {
--    if ( !has_vpci(pdev->domain) )
--        return;
-+    ASSERT(spin_is_locked(&pdev->vpci_lock));
- 
--    spin_lock(&pdev->vpci->lock);
-     while ( !list_empty(&pdev->vpci->handlers) )
-     {
-         struct vpci_register *r = list_first_entry(&pdev->vpci->handlers,
-@@ -50,15 +48,26 @@ void vpci_remove_device(struct pci_dev *pdev)
-         list_del(&r->node);
-         xfree(r);
-     }
--    spin_unlock(&pdev->vpci->lock);
-     xfree(pdev->vpci->msix);
-     xfree(pdev->vpci->msi);
-     xfree(pdev->vpci);
-     pdev->vpci = NULL;
- }
- 
-+void vpci_remove_device(struct pci_dev *pdev)
-+{
-+    if ( !has_vpci(pdev->domain) )
-+        return;
-+
-+    spin_lock(&pdev->vpci_lock);
-+    if ( pdev->vpci )
-+        vpci_remove_device_locked(pdev);
-+    spin_unlock(&pdev->vpci_lock);
-+}
-+
- int vpci_add_handlers(struct pci_dev *pdev)
- {
-+    struct vpci *vpci;
-     unsigned int i;
-     int rc = 0;
- 
-@@ -68,12 +77,14 @@ int vpci_add_handlers(struct pci_dev *pdev)
-     /* We should not get here twice for the same device. */
-     ASSERT(!pdev->vpci);
- 
--    pdev->vpci = xzalloc(struct vpci);
--    if ( !pdev->vpci )
-+    vpci = xzalloc(struct vpci);
-+    if ( !vpci )
-         return -ENOMEM;
- 
--    INIT_LIST_HEAD(&pdev->vpci->handlers);
--    spin_lock_init(&pdev->vpci->lock);
-+    INIT_LIST_HEAD(&vpci->handlers);
-+
-+    spin_lock(&pdev->vpci_lock);
-+    pdev->vpci = vpci;
- 
-     for ( i = 0; i < NUM_VPCI_INIT; i++ )
-     {
-@@ -83,7 +94,8 @@ int vpci_add_handlers(struct pci_dev *pdev)
-     }
- 
-     if ( rc )
--        vpci_remove_device(pdev);
-+        vpci_remove_device_locked(pdev);
-+    spin_unlock(&pdev->vpci_lock);
- 
-     return rc;
- }
-@@ -152,8 +164,6 @@ int vpci_add_register(struct vpci *vpci, vpci_read_t *read_handler,
-     r->offset = offset;
-     r->private = data;
- 
--    spin_lock(&vpci->lock);
--
-     /* The list of handlers must be kept sorted at all times. */
-     list_for_each ( prev, &vpci->handlers )
-     {
-@@ -165,14 +175,12 @@ int vpci_add_register(struct vpci *vpci, vpci_read_t *read_handler,
-             break;
-         if ( cmp == 0 )
-         {
--            spin_unlock(&vpci->lock);
-             xfree(r);
-             return -EEXIST;
-         }
-     }
- 
-     list_add_tail(&r->node, prev);
--    spin_unlock(&vpci->lock);
- 
-     return 0;
- }
-@@ -183,7 +191,6 @@ int vpci_remove_register(struct vpci *vpci, unsigned int offset,
-     const struct vpci_register r = { .offset = offset, .size = size };
-     struct vpci_register *rm;
- 
--    spin_lock(&vpci->lock);
-     list_for_each_entry ( rm, &vpci->handlers, node )
-     {
-         int cmp = vpci_register_cmp(&r, rm);
-@@ -195,14 +202,12 @@ int vpci_remove_register(struct vpci *vpci, unsigned int offset,
-         if ( !cmp && rm->offset == offset && rm->size == size )
-         {
-             list_del(&rm->node);
--            spin_unlock(&vpci->lock);
-             xfree(rm);
-             return 0;
-         }
-         if ( cmp <= 0 )
-             break;
-     }
--    spin_unlock(&vpci->lock);
- 
-     return -ENOENT;
- }
-@@ -311,7 +316,7 @@ static uint32_t merge_result(uint32_t data, uint32_t new, unsigned int size,
- uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
- {
-     const struct domain *d = current->domain;
--    const struct pci_dev *pdev;
-+    struct pci_dev *pdev;
-     const struct vpci_register *r;
-     unsigned int data_offset = 0;
-     uint32_t data = ~(uint32_t)0;
-@@ -327,7 +332,12 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
-     if ( !pdev )
-         return vpci_read_hw(sbdf, reg, size);
- 
--    spin_lock(&pdev->vpci->lock);
-+    spin_lock(&pdev->vpci_lock);
-+    if ( !pdev->vpci )
-+    {
-+        spin_unlock(&pdev->vpci_lock);
-+        return vpci_read_hw(sbdf, reg, size);
-+    }
- 
-     /* Read from the hardware or the emulated register handlers. */
-     list_for_each_entry ( r, &pdev->vpci->handlers, node )
-@@ -370,7 +380,7 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
-             break;
-         ASSERT(data_offset < size);
-     }
--    spin_unlock(&pdev->vpci->lock);
-+    spin_unlock(&pdev->vpci_lock);
- 
-     if ( data_offset < size )
-     {
-@@ -414,7 +424,7 @@ void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
-                 uint32_t data)
- {
-     const struct domain *d = current->domain;
--    const struct pci_dev *pdev;
-+    struct pci_dev *pdev;
-     const struct vpci_register *r;
-     unsigned int data_offset = 0;
-     const unsigned long *ro_map = pci_get_ro_map(sbdf.seg);
-@@ -440,7 +450,14 @@ void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
-         return;
-     }
- 
--    spin_lock(&pdev->vpci->lock);
-+    spin_lock(&pdev->vpci_lock);
-+    if ( !pdev->vpci )
-+    {
-+        spin_unlock(&pdev->vpci_lock);
-+        vpci_write_hw(sbdf, reg, size, data);
-+        return;
-+    }
-+
- 
-     /* Write the value to the hardware or emulated registers. */
-     list_for_each_entry ( r, &pdev->vpci->handlers, node )
-@@ -475,7 +492,7 @@ void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
-             break;
-         ASSERT(data_offset < size);
-     }
--    spin_unlock(&pdev->vpci->lock);
-+    spin_unlock(&pdev->vpci_lock);
- 
-     if ( data_offset < size )
-         /* Tailing gap, write the remaining. */
-diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
-index b6d7e454f814..3f60d6c6c6dd 100644
---- a/xen/include/xen/pci.h
-+++ b/xen/include/xen/pci.h
-@@ -134,6 +134,7 @@ struct pci_dev {
-     u64 vf_rlen[6];
- 
-     /* Data for vPCI. */
-+    spinlock_t vpci_lock;
-     struct vpci *vpci;
- };
- 
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 3f32de9d7eb3..d06efc3cea46 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -31,7 +31,7 @@ int __must_check vpci_add_handlers(struct pci_dev *dev);
- /* Remove all handlers and free vpci related structures. */
- void vpci_remove_device(struct pci_dev *pdev);
- 
--/* Add/remove a register handler. */
-+/* Add/remove a register handler. Must be called holding the vpci_lock. */
- int __must_check vpci_add_register(struct vpci *vpci,
-                                    vpci_read_t *read_handler,
-                                    vpci_write_t *write_handler,
-@@ -60,7 +60,6 @@ bool __must_check vpci_process_pending(struct vcpu *v);
- struct vpci {
-     /* List of vPCI handlers for a device. */
-     struct list_head handlers;
--    spinlock_t lock;
- 
- #ifdef __XEN__
-     /* Hide the rest of the vpci struct from the user-space test harness. */
+The next two patches introduce a different way to context switch SSBD
+either depending on the underlying SSBD support, so it's either using
+VIRT_SPEC_CTRL or the LS_CFG MSR. They also kind of overload the usage of
+several spec_ctrl variables in the hypervisor in order to store the
+status of SSBD even when not using MSR_SPEC_CTRL itself. I've tried to
+document those in the commit messages, but it could be controversial.
+
+Thanks, Roger.
+
+Roger Pau Monne (3):
+  amd/msr: implement VIRT_SPEC_CTRL for HVM guests on top of SPEC_CTRL
+  amd/msr: allow passthrough of VIRT_SPEC_CTRL for HVM guests
+  amd/msr: implement VIRT_SPEC_CTRL for HVM guests using legacy SSBD
+
+ docs/misc/xen-command-line.pandoc           |   5 +-
+ xen/arch/x86/cpu/amd.c                      | 116 +++++++++++++++++---
+ xen/arch/x86/cpuid.c                        |  18 +++
+ xen/arch/x86/hvm/hvm.c                      |   1 +
+ xen/arch/x86/hvm/svm/entry.S                |   8 +-
+ xen/arch/x86/hvm/svm/svm.c                  |  67 +++++++++++
+ xen/arch/x86/include/asm/amd.h              |   3 +
+ xen/arch/x86/include/asm/cpufeatures.h      |   2 +
+ xen/arch/x86/include/asm/msr.h              |   6 +-
+ xen/arch/x86/msr.c                          |  15 +++
+ xen/arch/x86/spec_ctrl.c                    |  11 +-
+ xen/include/public/arch-x86/cpufeatureset.h |   2 +-
+ 12 files changed, 230 insertions(+), 24 deletions(-)
+
 -- 
-2.25.1
+2.34.1
 
 
