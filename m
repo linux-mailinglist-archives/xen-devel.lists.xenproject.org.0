@@ -2,38 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E460D4A5C89
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Feb 2022 13:46:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.263588.456341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 964E14A5D95
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Feb 2022 14:42:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.263615.456400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEsYR-0007OZ-AY; Tue, 01 Feb 2022 12:46:39 +0000
+	id 1nEtPi-00060d-43; Tue, 01 Feb 2022 13:41:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 263588.456341; Tue, 01 Feb 2022 12:46:39 +0000
+Received: by outflank-mailman (output) from mailman id 263615.456400; Tue, 01 Feb 2022 13:41:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEsYR-0007M3-7a; Tue, 01 Feb 2022 12:46:39 +0000
-Received: by outflank-mailman (input) for mailman id 263588;
- Tue, 01 Feb 2022 12:46:38 +0000
+	id 1nEtPi-0005yo-0y; Tue, 01 Feb 2022 13:41:42 +0000
+Received: by outflank-mailman (input) for mailman id 263615;
+ Tue, 01 Feb 2022 13:41:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+T3c=SQ=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1nEsYQ-0006oT-OF
- for xen-devel@lists.xenproject.org; Tue, 01 Feb 2022 12:46:38 +0000
-Received: from ppsw-43.csi.cam.ac.uk (ppsw-43.csi.cam.ac.uk [131.111.8.143])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fdf73758-835c-11ec-8eb8-a37418f5ba1a;
- Tue, 01 Feb 2022 13:46:37 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:55342)
- by ppsw-43.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1nEsYO-000rPq-mX (Exim 4.95) (return-path <amc96@srcf.net>);
- Tue, 01 Feb 2022 12:46:36 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id C7F731FA79;
- Tue,  1 Feb 2022 12:46:35 +0000 (GMT)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2F7S=SQ=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1nEtPg-0005yf-Lf
+ for xen-devel@lists.xenproject.org; Tue, 01 Feb 2022 13:41:40 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ac734252-8364-11ec-8eb8-a37418f5ba1a;
+ Tue, 01 Feb 2022 14:41:37 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,63 +36,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fdf73758-835c-11ec-8eb8-a37418f5ba1a
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <012e4f44-aa1a-6bce-3d4c-21f234bc3fee@srcf.net>
-Date: Tue, 1 Feb 2022 12:46:35 +0000
+X-Inumbo-ID: ac734252-8364-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1643722897;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=U4K0UzhU4SL7kU1zwxwXEVqUA/udmCQXDwLvLu5FZ2s=;
+  b=gwM8z0XHXOfbvcINVH1MnUXNUFLT8HTgnnUoSodN/8Oirx1Ap0odKGh4
+   Zm8/ZxqfAiNySNpUhVLlJnOgw25lk/vfBB1QvUPLshPz5XCtt6kjl7CBE
+   pMTezpny4M93n7KldXL+npQp0esqhlHjM82MzJ0SEqX7uAUfP/ZF1QwYz
+   g=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: EJVsNa/GkbRPp+4juWBuXGIIAzGxfC2Ixs/W5tVpttSxKx7477QRf1AC8t24lGtWF8f2xISCql
+ 5QGexvJ2Dr1VyxTxDvVLGlbd5XJ2hwiDqBQQs8TkX/5rVkGS/ziG8uGAgePbYdxi1fCLvBMWuu
+ s6SbTyy30FO+GkiBMhUuWvcZhbqW9RfIhqqf3AuCQ1luNhM8WIt0bCXAaJF5FkYwMCGp6uH2BQ
+ kUbgFegiuxtoZPwSUoQj42JpYtcA3wCw+jTC7bHmbQ1uKimNarUYNa/9hpCSsbJAo0BiwjRuMR
+ dXLQL1K4z9R/1cDZP+2E9QCd
+X-SBRS: 5.2
+X-MesageID: 62681000
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:ah3Clqh9Be7B0gOvjEumkQfTX161mhcKZh0ujC45NGQN5FlHY01je
+ htvCGqOOviDNzfyKd0ladyx9E8B65+BnYcxSQs+ri89QXgb9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0GE/NtTo5w7Rj2tQw2IDja++wk
+ YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
+ 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
+ /1fp7XzTTYHL5bc26MgFCN0QgJHEIdZreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
+ KJCbmpXN1ba2rzwkOnTpupE36zPKOHCOo8Ft24m5jbeFfs8GrjIQrnQ5M8e1zA17ixLNaiEO
+ ZpAMWI3BPjGSx92EHU6Os0Zp+y53FjtfgZA8l6s/bVitgA/yyQuieOwYbI5YOeiR9hT2ECRp
+ WvE/mHwKhAcKNGbjzGC9xqEheLRnCW9RIMbEpW58OJnhBuYwWl7IAISfUu2p7++kEHWc8JSL
+ QkY9zQjqYA29Ve3VZ/tUhugunmGsxUAHd1KHIUSyiuA167V6AaxHXUfQ3hKb9lOiSMtbWV0j
+ BnTxYqvXGEx9u3OIZ6AyluKhSGgEGsRHEETXj9HCjZC2fWyg7gepA2aG76PD5WJptHyHDjxx
+ RWDoy4/m6gfgKY36kmrwbzUq2ny/8aUF2bZ8i2SBzv4tV0hOOZJcqT1sQCz0BpWEGqOorBtV
+ lAgktPW0u0BBIrleMelELRUR+HBCxpo3VThbb9T83sJqm7FF52LJ9k4DNRCyKFBaJxsldjBO
+ xe7hO+pzMUPVEZGlIcuC25LN+wkzLL7CfPuXe3OY9xFb/BZLVHbp3w+OhbAgTGxwSDAdJ3T3
+ 7/BK65A6l5BUcxaIMeeHb9BgdfHOAhjrY8seXwL50v+iufPDJJkYbwELEGPfogEAFCs+23oH
+ yJkH5LSkX13CbSmCgGOqNJ7BQ1UcRATWM6nw+QKJr/rClc3QwkJVq6OqY7NjqQ4xcy5YM+So
+ CHkMqKZoXKi7UD6xfKiMSE+Me6/AMok8BrW/0UEZD6V5pTqWq73hI93Snf9VeBPGDVLwaEmQ
+ v8bVd+HB/gTGD3L9y5ENcv2rZB4dQTtjgWLZnL3bD86dp9mZgrI5t67IVe/qHhQVnK65Zkkv
+ rmt9gLHWp5fFQ5sO9nbNaC0xFSrsHlDxO8rBxnUIsNecVnH+ZRxL3Cjlec+JswBcE2RxjaT2
+ wuMLw0foO3B/908/NXT3PjWpIa1CepuWEFdGjCDv7qxMCDb+EulwJNBD7nULWyMCjus9fz7N
+ +tPzvz6PPkWp3pwstJxQ+Rx0KYzx9rzvLsGnA5qK2rGMgawAbR6L3jYgcQW7v9RxqVUsBedU
+ 16U/oUIIq2APc7oHQJDJAchaejfh/gYliOLsKYwKUT+oiR24KCGQQNZOBzV0H5RK758MYUEx
+ +Y9uZFJt1zj20RyatvW3DpJ82msL2AbV/R1v54XN4bnlw43xwwQepfbECL3vMmCZtgk3pPG+
+ dNIaH4uX4hh+3c=
+IronPort-HdrOrdr: A9a23:HkjOXKP3JaVNdMBcTs2jsMiBIKoaSvp037Eqv3oedfUzSL3+qy
+ nOpoV+6faaslYssR0b9exoW5PwJE80l6QFgrX5VI3KNGKN1VdARLsSi7cKqAeAJ8SRzIFgPN
+ 9bAspDNOE=
+X-IronPort-AV: E=Sophos;i="5.88,334,1635220800"; 
+   d="scan'208";a="62681000"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Jun Nakajima
+	<jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
+Subject: [PATCH] x86/vmx: Drop spec_ctrl load in VMEntry path
+Date: Tue, 1 Feb 2022 13:41:17 +0000
+Message-ID: <20220201134117.13612-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Subject: Re: [PATCH v3 7/9] x86/svm: VMEntry/Exit logic for MSR_SPEC_CTRL
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20220128132927.14997-8-andrew.cooper3@citrix.com>
- <20220131153621.8863-1-andrew.cooper3@citrix.com>
- <00aa1f8a-9f2a-96f1-b088-e34c9ec76f3c@suse.com>
- <e48536c0-14c1-1d41-0a9e-4fc0f0aa9c36@citrix.com>
- <52587ee4-56a3-3824-75cd-667c35e3109f@suse.com>
-From: Andrew Cooper <amc96@srcf.net>
-In-Reply-To: <52587ee4-56a3-3824-75cd-667c35e3109f@suse.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-On 01/02/2022 12:40, Jan Beulich wrote:
-> On 01.02.2022 13:28, Andrew Cooper wrote:
->> On 01/02/2022 11:47, Jan Beulich wrote:
->>> On 31.01.2022 16:36, Andrew Cooper wrote:
->>>> Hardware maintains both host and guest versions of MSR_SPEC_CTRL, but guests
->>>> run with the logical OR of both values.  Therefore, in principle we want to
->>>> clear Xen's value before entering the guest.  However, for migration
->>>> compatibility,
->>> I think you've explained this to me before, but I can't seem to put
->>> all of it together already now. Could expand on how a non-zero value
->>> behind a guest's back can help with migration compatibility? At the
->>> first glance I would be inclined to say only what the guest actually
->>> gets to see and use can affect its migration.
->> For VMs which see VIRT_SPEC_CTRL (compatibility with Fam15 thru Zen1),
->> writes of VIRT_SPEC_CTRL.SSBD (probably) need to use
->> SSBD-behind-the-guest's back.  I say probably, because I think this is
->> the least bad implementation option, but until we have working support,
->> it's still a guess.
-> So this is future work (and mentioning just this in the description
-> would be enough to address my comment)
+This is not needed now that the VMEntry path is not responsible for loading
+the guest's MSR_SPEC_CTRL value.
 
-Near future, but yes.
+Fixes: 81f0eaadf84d ("x86/spec-ctrl: Fix NMI race condition with VT-x MSR_SPEC_CTRL handling")
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Jun Nakajima <jun.nakajima@intel.com>
+CC: Kevin Tian <kevin.tian@intel.com>
+---
+ xen/arch/x86/hvm/vmx/entry.S | 3 ---
+ 1 file changed, 3 deletions(-)
 
-> , but ...
->
->> For the ultra paranoid, a VM migrating in which can't see PSFD (e.g. for
->> compatibility with Zen2) should have PSFD set behind it's back.
-> ... this is something we should be doing right away then?
+diff --git a/xen/arch/x86/hvm/vmx/entry.S b/xen/arch/x86/hvm/vmx/entry.S
+index 7ee3382fd0ab..49651f3c435a 100644
+--- a/xen/arch/x86/hvm/vmx/entry.S
++++ b/xen/arch/x86/hvm/vmx/entry.S
+@@ -85,9 +85,6 @@ UNLIKELY_END(realmode)
+         test %al, %al
+         jz .Lvmx_vmentry_restart
+ 
+-        mov VCPU_arch_msrs(%rbx), %rax
+-        mov VCPUMSR_spec_ctrl_raw(%rax), %eax
+-
+         /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
+         /* SPEC_CTRL_EXIT_TO_VMX   Req: %rsp=regs/cpuinfo              Clob:    */
+         ALTERNATIVE "", __stringify(verw CPUINFO_verw_sel(%rsp)), X86_FEATURE_SC_VERW_HVM
+-- 
+2.11.0
 
-Except for the second half of this paragraph which was an argument as to
-why not.
-
-What OSes expose to userspace for "I need speculative safety" works
-whether the kernel can see PSFD or not.
-
-~Andrew
 
