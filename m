@@ -2,29 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AF404A5A73
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Feb 2022 11:47:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.263499.456212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29F6E4A5ABE
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Feb 2022 11:57:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.263511.456223 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEqgV-0006j7-6e; Tue, 01 Feb 2022 10:46:51 +0000
+	id 1nEqqi-0008MQ-BR; Tue, 01 Feb 2022 10:57:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 263499.456212; Tue, 01 Feb 2022 10:46:51 +0000
+Received: by outflank-mailman (output) from mailman id 263511.456223; Tue, 01 Feb 2022 10:57:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nEqgV-0006h5-3B; Tue, 01 Feb 2022 10:46:51 +0000
-Received: by outflank-mailman (input) for mailman id 263499;
- Tue, 01 Feb 2022 10:46:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JAuK=SQ=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nEqgT-0006gp-NW
- for xen-devel@lists.xenproject.org; Tue, 01 Feb 2022 10:46:49 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 40925db0-834c-11ec-8f75-fffcc8bd4f1a;
- Tue, 01 Feb 2022 11:46:48 +0100 (CET)
+	id 1nEqqi-0008Jx-8G; Tue, 01 Feb 2022 10:57:24 +0000
+Received: by outflank-mailman (input) for mailman id 263511;
+ Tue, 01 Feb 2022 10:57:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0oSv=SQ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nEqqg-0008Jr-NV
+ for xen-devel@lists.xenproject.org; Tue, 01 Feb 2022 10:57:22 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bab23a05-834d-11ec-8eb8-a37418f5ba1a;
+ Tue, 01 Feb 2022 11:57:21 +0100 (CET)
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur02lp2059.outbound.protection.outlook.com [104.47.6.59]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-18-ROVeqREKPG26qUe__Kf3CQ-1; Tue, 01 Feb 2022 11:57:19 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by PAXPR04MB8096.eurprd04.prod.outlook.com (2603:10a6:102:1c7::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.11; Tue, 1 Feb
+ 2022 10:57:18 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::7cc2:78a3:4d40:9d45]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::7cc2:78a3:4d40:9d45%6]) with mapi id 15.20.4930.022; Tue, 1 Feb 2022
+ 10:57:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,296 +51,192 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40925db0-834c-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643712408;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=UvKDuktzkK+C7c0DPsXKu5pFcyBMKdkkryjYz8rOEgc=;
-  b=O5Hoknpp1hK0AtddRA8lfriUs0EbrxrzxkCszPib5RIUK+5Hm/Yp69jX
-   jEtQI973z4EH46x9KbO63pMaTPEvXlgjY4vj9XfgKlK8U1RhaOYerKeEL
-   B1/2Qk3HnL/y+K6ZRz8u5zzSQ8nsFJTUEPWzDl/+/JdDfJrlEyE7ftoXu
-   s=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: xN3ZPd38sdnIDHmbhj/rJeJKXEAVbslWYhp6FZLjNJk3PHDetUAgPKXbtm6OwcgqMgeu/ud9A0
- PGh+AHRcXSNICS9wjHmWANawvVKqvQoMEUSSz/xqkGfc1nJwESgrwGP8/Vwacti9dgOWK//RiD
- U+zFadt3HEslYCDU4fvY9ZIPrVIAoQjeDFgAluu302GISMfnIYjkexxw4MvKwT/qZMDOux/3Ki
- EFuxbCxoxM3ip/LFnf7K3mKSKRc7rs3xPGn+etws1yOg3cPOKh6b/yPJN3DXvcFBealG7XfnnQ
- kP6oPpDIZ4pPjveI/cpset1/
-X-SBRS: 5.2
-X-MesageID: 63206331
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:e/M4U60c+6XumFjcovbD5TV2kn2cJEfYwER7XKvMYLTBsI5bpzIFm
- DQeCmjVa/2PZWr0etF1O4S1p04E7JHUzIJjTwQ5pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCanAZqTNMEn9700o5w7dh2+aEvPDia++zk
- YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
- 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhp41A5
- tl8io2MUw5yJYn3ybxDQkVKDHQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
- 6VecW1TKEDY7w616OvTpu1EnMMsIdOtJIoCknph0SvYHbAtRpWrr6Diu4QChGlr3Zkm8fD2S
- +wpWWdrTjH6SDp9JQlJVZZ9nrzvmSyqG9FfgA3M/vdmi4TJ9yRu1JD9PdyTfcaFLe1Fk0Ddq
- m/Y8mDRBhABKMfZ2TeD6mirhOLEgWX8Qo16PL+y++NugVaT7ncOExBQXly+ycRVkWbnBYgZc
- RZNvHNz8+5iryRHU+URQTWA/U+qsi8jSuZKGrYhzDrckvTFvxSGUz1soiF6VPQqs8o/RDoP3
- 1CPns/0CTEHjIB5WU5x5Z/P82rsZHF9wXsqIHZdEFBbu4WLTJQb00qXJuuPBpJZmTEc9dvY5
- zmR5BYziLwI5SLg//XqpAuX695AS3Wgc+LU2uk1dj//hu+aTNT8D2BN1bQ9xawaRGp+ZgLZ1
- EXoY+DEsIgz4WilzURhutklErCz/OqiOzbBm1NpFJRJ323zpyX+Ld8IsG8veBYB3iM4ldnBO
- hW7VeR5v8c7AZdXRfUvP9LZ5zoCkMAM6ugJptiLN4ETM/CdhSeM/T10ZF744oweuBNErE3LA
- r/CKZzEJS9DUcxPlWPqL89Aj+ND7n1glAv7GMCqpzz6gOH2TCPEFt843K6mM7pRAFWs+luFq
- r6y9qKiln1ibQEJSnCJqdZNdQxbcilT6FKfg5U/S9Nv6zFOQQkJI/TQ3akga8pimaFUnf3P5
- XazRglTz1+XuJENAV/ihqlLZOy9UJBhg2g8OCBwb1+k12J6OdSk7bsFdotxdr4irbQxwflxR
- vgDWsOBHvUQFWiXp2VDNcHw/N54aRCmpQOSJC75MjIxSIFtGl7S8dj+cwqxqCRXVnirtdEzq
- qGL3x/ARcZRXBxrCcvbMar9z164sXUHtvh1Wk/EfotadEn2qdA4IC3tlP4nZcoLLEyblDed0
- g+XBzYepPXM/NBpoIWY2/jcot7wQeVkH0dcE23K1pqMNHHXrji53ItNcOeUZjSBBmn6z7qvO
- LdOxPbmPfxZwFsT69hgE6xmxL4V7sf0o+MI1RxtGXjGYgj5Cr5kJXXaj8BDurcUm+1csAqyH
- EmO5sNbKfOCP8a8SAwdIw8sb+Ki0/AIm2aNsaRpcRuivCInrqCaVUhyPgWXjH0PJbR4B4op3
- OM9tZNE8Ae4kBcrbo6Lgy08G75g9ZDcv3HLbq0nPbI=
-IronPort-HdrOrdr: A9a23:U9adMKqaWYiSk1EcigSfKFsaV5uzL9V00zEX/kB9WHVpm5Oj+P
- xGzc526farslsssREb+OxpOMG7MBThHLpOkPMs1NCZLXTbUQqTXfpfBO7ZrQEIdBeOlNK1uZ
- 0QFpSWTeeAcWSS7vyKkTVQcexQueVvmZrA7Yy1rwYPcegpUdAZ0+4QMHfkLqQcfnghOXNWLu
- v52iIRzADQBkj/I/7LTUUtbqzmnZnmhZjmaRkJC1oO7xSPtyqh7PrfHwKD1hkTfjtTyfN6mF
- K13jDR1+GGibWW2xXc32jc49B/n8bg8MJKAIiphtIOIjvhpw60bMBKWqGEvhoyvOazgWxa2u
- XkklMFBYBe+nnRdma6rV/E3BTh6i8n7zvYxVqRkRLY0LrEbQN/L/AEqZNScxPf5UZllsp7yr
- h302WQsIcSJQ/cnQzmjuK4GS1Cpw6Rmz4PgOQTh3tQXc81c7lKt7ES+0tTDdMpAD/60oY6C+
- NjZfusq8q+SWnqL0wxg1Mfg+BFBh8Ib1W7qwk5y4CoOgFt7TFEJxBy/r1bop8CnKhNPKWsqd
- 60dpiAr4s+PfP+W5gNcNvpcfHHelAlfii8Ql56AW6XXZ3vaEi946Ie3t0OlZSXkdozvdwPpK
- g=
-X-IronPort-AV: E=Sophos;i="5.88,333,1635220800"; 
-   d="scan'208";a="63206331"
+X-Inumbo-ID: bab23a05-834d-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1643713040;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=pY8BM5zZYdZJ+CGLGhbRBx4Ul0yoDcBNt29Q1qqtf54=;
+	b=cp9ZvcFsSuuorNapAKA9c3zuO27jZAFR2AD76xV8ks4LnTZ+B5dKyuf2BWkqjPCgTcTLBy
+	ZBlfyraE033PC6B5fsSCbTyeurmUIvAhBZ5p+M/bbITmeJjzS3fAV/hBXyIW284gnBF4m2
+	+RGWmIzZ29iFCtetKn7yrcVzeWo3yB4=
+X-MC-Unique: ROVeqREKPG26qUe__Kf3CQ-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FUpk3FUha+gNtug8o3BdG++LhOsKphvCGgBHc8TBdsXifib2tLZeQCKt+R2OwMkLdUQHBmk/0VjK/oEWq/Zj9W9XumBaPE0wdRqxKBwPOUjAj+tQHs2seedLa9jNF/u5XkOnSdXiW+Kgro+b8Md4Lbhj2VR5TzWv+R5Bw0QHx/bVAi5rmvg6KKlJdmEXw8OXElZaztlYFsIBWT/aP/kJwfL1Ofdz2jNfNlj/JKp5p7SrBQve1GBGCyKviC3Ip/DBBKoUFbKgKLUKpasHqSNf3OWvm3iYm0sNn0mAWV9QkRN/KGbiWVbC/U/Z/Dk1VmgcPMd/Rgbs0eIrOpBZ3go+8A==
+ b=FJJrymzbkByTFbQi7oShfGULSsSWs7h+3bxq0VUCNSSSpTTcRw/HGaIyE72TRtjI3zBwLKAAFX0xWGVTqSocDFwhRR0rOr9Rz23/WOEHcKTgbYXIRsBvf0W8DuyA77P0sLj/bTV2hu+vtxQ0gkNlkY1s5kG8X+mP3ZOpV2Fb0kd4XBd/8wRJVLFjJdjmt3x5u2MIusV2itn3WBEWVwLs9xe5N60YErq2DcZY1Wp33888RxV4ZYMyU3OWeVTgL6F6Msj7RImIbPhbvRnrJ7EHx+AJnWYgUmQzAlmEFbPZgILwJwJaE6UNzFKA73f1uaK/kLCUYlMWeUSp/qllfLZJSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e+WMN5BOS0K+xYHBVO/0BL8FhkxwhPDMV5eBp038iCM=;
- b=DbG/6ZpA/9RPaiEUWltINJlHOxUkuMbmuNw7C7jb9nUzh2gkduMDYSbG87hT6vp92g/wuEqoZlbGp2gn/G8amhRWSnyEQ1lKnAcQaR09nIFn5NEFP76gNpy8h5cBlcVHwaz9L1+6djNKVKjnx8vRf9jqM5SZYBDXoK/z9hsoRu0LP2IILnM9xath27hxAmYkUlgvgEai10RK6dZuTivPlCp5cxSXdiLtjRiXIwJypHKtQiMcHrOhLr5ijLfw12WnK+ssSMxJBuDPpKUyXu61AOoAFAdi+XMB3qLBZl4Gh16grRNukgAH4ITCQHyutNxLltvmfI+V5qrSkSqAkDPbfg==
+ bh=pY8BM5zZYdZJ+CGLGhbRBx4Ul0yoDcBNt29Q1qqtf54=;
+ b=Y24cK6Ic0mAo3+eqh4RppKxJUHWl8mvF1IX1Fe/rKFhZjIDFuL6DACG/MYZsCMRQFlQkqgn1w6CHQLYrImozlyelIJgq+e06/Fl93Uu37cSI5ZarcPsRpdBmk5ox0zq6oeeLj8RFSc47JY2yYX0hGPi4Azg6TkPUSZORVcJ551CWRtZYw9NCgguHZARqDDJ/sqvffhhxb5MBB0cgv3HR4QiTaYCJWynzZ1QshaMgqzKemwzEgq0mO831SGehSiSHEv4f+Bbek9shdYS3yWn2597k3pQJcAJ/F9wJmyA6KcLGVHNNcPV33/93UuHZPO1DbZRZuhqrgQMsmEg/aMfiDw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e+WMN5BOS0K+xYHBVO/0BL8FhkxwhPDMV5eBp038iCM=;
- b=plQjLbBm4nDwRhNrL6mREWUMPSbXWi6qdw8e+I/zH4p0S0GC4wKPUkjg+9t1OALPyFyiMA5T9PdLZRi9SDiEqFPQi9Wn7SgaRrTXTDTLc2OWB+3BHC551ja/qYDWs93VBy3wuomu5iqou7gFI0mo45A37a31CXhTzNeOXyTq/NU=
-Date: Tue, 1 Feb 2022 11:46:10 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v3 1/2] x86/mwait-idle: enable interrupts before C1 on
- Xeons
-Message-ID: <YfkPcm3GFI3MNoH3@Air-de-Roger>
-References: <faff6a1e-9f00-e924-9766-deda8f0b38c1@suse.com>
- <379483c7-fe7d-16ee-454f-8f8dd001dc48@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <379483c7-fe7d-16ee-454f-8f8dd001dc48@suse.com>
-X-ClientProxiedBy: LO2P265CA0111.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:c::27) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <2dbd5f0a-9859-ca2d-085e-a02f7166c610@suse.com>
+Date: Tue, 1 Feb 2022 11:57:16 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/Xen: streamline (and fix) PV CPU enumeration
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS8PR04CA0081.eurprd04.prod.outlook.com
+ (2603:10a6:20b:313::26) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 692806a6-3456-49ec-684d-08d9e5701249
-X-MS-TrafficTypeDiagnostic: BN6PR03MB2706:EE_
-X-Microsoft-Antispam-PRVS: <BN6PR03MB2706583D2CB59F28E1B9382F8F269@BN6PR03MB2706.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: 8a9a8dd0-5f8f-4b9b-93f0-08d9e5719d0c
+X-MS-TrafficTypeDiagnostic: PAXPR04MB8096:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-Microsoft-Antispam-PRVS:
+	<PAXPR04MB8096ADDD5E49C7588FA0A04EB3269@PAXPR04MB8096.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mp8W+jHiq6nGWF6WRVWrS0ZsTZtqHZvN+V9mpldCy4Wyr3a37MWK+cib67IrkVkg/pnSELL1TVr2UG3eKDD86Nf7JBSTadIKjp1tdNhP6wOMXPrAh2E4X/FuKCcGYDlTaelEIAhi/F2tsEjHVd77H0tddQt2YmftzBgquSVPEPD8vgztBwJGi7NEupyoevkKqAnrJFzaapUaZl2reKQ5GAdX8ILGh5n8BIu81lxQ152SHA2TQSYTKEb5Gh9Spl9h5KgAXAcAiTJxHFJsS2mQ1vQit6SCajHpXMZ0Gvlk7fOfqIr7GxAKSHLLG9o7lh418s4pzuAlSDZRTTDzozRc/VxKUXYAoQuksYGEyKE23bUS9bqiuXNQAPgkS8s+XmFDL8seuCBWHb8RGV2SihHGJ/JjP1JB6W+H+OXFFL0VDmDG5Me8R5iZhjc9vwCDBuIlsHw+zYhT4ET/fnZWtcnajqH6m8U0t3W1iSTBvZ9x5lkw1OjBugRG90jKqPqrK8ZjnnQdoPNF+37Gck4pcbigVU3AiqH22WZvYIIbRVFT2btxAfugQyU1HensYUWbPabFvllqL5Qp/TFr9ZPvDvYGeHzWjERdS3wQsz+TwoICNznwDDLUcPOIr6bbIVlXb+yn/wZzQ8ZcuA++B5YeZmdUm+gM4h6zhYmLbLhrS8Ng6NPLtgwW1WTE0XeWyFQbNzqr4kdcAtQ9RNWR5vPP8Tjasg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(38100700002)(508600001)(33716001)(82960400001)(66476007)(8936002)(86362001)(66556008)(66946007)(6666004)(8676002)(9686003)(6512007)(4326008)(5660300002)(6506007)(83380400001)(54906003)(6916009)(316002)(6486002)(2906002)(186003)(26005)(85182001)(21314003)(20210929001);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info:
+	WWrlZ2a/yvDFoUiPtRrIrHpsySGnngHB89l0lB/z1ylRuNXunhA79EUO4NWFtnpclXSQEYNSRuMjf4i+HUK/D7VVBAoy/gDwHuqRR4VqS3C6MS6Tt5DGy+uS+PXeU557c7Me1hJpTE++n1MO6t+LnyiqFyw6FW+IEsqiW69q/taoeM6m3PaBrSEawMbCCMhqlHZoH8S/Ug3vyPpF9DrM/PaBu9jcOzbGFrMjVOC4Ck09Vk8iMwnoLfxEPpxWZ7cOBwhsrk+8rX8Iltvnu3EMPbM3shIj1l58kf0N5F6FD2TO9E/GLwwHbBVYY8wm4g9Lgb6NXnE38JVz0TZomUTJUSOMOYlelY6UAKBQ3yd0K48h47n/mzBC3glRxy56iIDMSfGoFSb9SCKtqds+8NnT0QCBN5U8MBLBzXeVwBFeF3h+iSkXsu9wBddd+TI7h1z3bTKuNmh8NVli2YCFNSrveb1N6Y2Gh5f8pT1cxBha6Kd2hGn9JX+IEgMbHk8ulnb5zn08ViH+tkQwP+n0IVSuMTf+ZP3lkfePlHqaOSXyZpJIGXmI+qJ0LeR42wGX6s6a4VjYTxftzAlmSCVTYHzXpyYQop2g4wgsX08G9EMPxr3L56JltCSLOrJsXpEFSSHAY/tFQvkEmhtBbfm0+sCb3ePv4560tbPV54FMDw/fctkXbUTEZFU4hHcRXTpUdxlcBQUQqM84U35MtjfSetZE6v0Yv7CwK3VPBbX6UE83kqk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(110136005)(38100700002)(316002)(31696002)(186003)(6512007)(6506007)(26005)(66476007)(2616005)(36756003)(83380400001)(508600001)(6486002)(2906002)(8936002)(8676002)(31686004)(4326008)(5660300002)(66946007)(66556008)(86362001)(43740500002)(45980500001)(20210929001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SXEyYXhzRjR3aHpJZmlFOXVpeG1aa0NRdkk5bXpCY2VnSUd6c3hUc0pITlln?=
- =?utf-8?B?Rkw2SDN4TGZSSU9qbFRjR3hWMmRldVJJbGdvaDJ4VVppdnlKWHd1Vm14cFhu?=
- =?utf-8?B?dGYrK0VKOVJ3Vi9hS3hWSzd0VUMrZWZ6QzJjeE9aYVZaeTR4N0I3SHY5TUhI?=
- =?utf-8?B?NzdCVEpCZjdiSEl6R2NiR1pDL0piQmZ6cHNndXErdDRXaEdRN1V3UEJnSlht?=
- =?utf-8?B?NlVxR0dyTnE2RTFzMk1kTWovSzdXb0U3eGQ5V1dtR3dWYW0vNEJaMnZDeHVE?=
- =?utf-8?B?NzJWNmczUHJvckd1bGxCNEtCR3VVdTRVTzh4c2J0ait6NjZVdEx2Y0hsRWo1?=
- =?utf-8?B?MlArRE1qVnVBNEpCUWUwZUF3bFVadzNISnVocENsTURPTmZlSVNCUmF4L0NF?=
- =?utf-8?B?aE5hV2pGQ3VPRy9YSjJOSW5hQlJJQU9KYm94Snk2TWtmaWYyT1lYN1ZoQkpX?=
- =?utf-8?B?SGZ5RW1odFZSZGJjUi85bVcwRVlVdDZTQ0ZoVjdCa0dUV2Y2TllDSmM2Y3pq?=
- =?utf-8?B?SURuamp0dENtelE5bnd2UHl2Y055ZnBRTVJRak10NlZKTCtqOW8wblkwenFx?=
- =?utf-8?B?QmlJN3FTRVlpcStlaGRDenM4dlpwSHpha3NtZzBHQ3g3cjg4STRJRy8wSjM5?=
- =?utf-8?B?U3dtU1RCcnRUTGFsSjZoRVF4ZGpaRHdDSzRiZXY2UXN1ZUprcG85TWwxMlZj?=
- =?utf-8?B?VE9YSUtYWVlydnA4UUcrL2U1a21HV1E3Qi9jcW5HQU5Vb0tpbEhlWGwxdlZ2?=
- =?utf-8?B?VmJTTVU0VFhXYmo0WEcrSjJVR2FkRkR6bzR3bTFFbUVpa1BPeUZOQ08xaFoz?=
- =?utf-8?B?cG1LTUVIQjA2WSs0aDJIYzZ5M0hZMDFkMUJTcDQySEl3SjBsK1pwd01kWHdr?=
- =?utf-8?B?aEZTUkt4aGJuTVpXcGRqZkpoVjBIVm91WTY1NVh4UCttLzZ6MTd3YjY1UWdC?=
- =?utf-8?B?bUhkS0Q4M1BKeno2MDcyS2QxUGlzbkxxUkRlb2NYYkJrbC9nTkhPeGk2SjBn?=
- =?utf-8?B?ZkZYMGhoLzliQjVmYkZuQit2MEhEMXJoWFlaOFdoNTRrelc2N1grZW0vUnhB?=
- =?utf-8?B?OWNETmNTOU5VNUI4UkFGNEYyYTMwemRQKzBuVFpyeGFwanVTMnVKSVBsdDlP?=
- =?utf-8?B?bW1FVWR2cjRhUHBIK1N3L2FJdVFEdTgrL0NYY3JyQWZWeHdYTUxTbE1mRDQv?=
- =?utf-8?B?SXRLcWlKQmN0K09IZzlIbnJ4M2hCejhYYm1laCtNRlVSTlM1a0FlSWk0bEtG?=
- =?utf-8?B?Vk53RzgrUGc2ZEw5QjVZTHBYZnhFN1RPZnRiVXJWMUVHbzZwZVRJZlJkRVVO?=
- =?utf-8?B?YjhkcVZNYmFYUnJCR2FqeHBBZWxHblJ3RjVDanVyMkpKWUk2dWRVeVlLQTMy?=
- =?utf-8?B?K0xRS2NZcHlYVGpjbjBrR2RYZHdSeElMdnRYM0JJM2hocVJvRnlFMzl6a2Fs?=
- =?utf-8?B?cFlDeDFjckc0TGRIQ0RkOXpUUEIyamFlRVRHcGhkTWNHWGllU05pbzN6bm1T?=
- =?utf-8?B?L2hBUEdpOTZYZEpTa0p6OXRXRlVtWmZLWWVjZlpsOURtMnZkSzBvMlg4clg4?=
- =?utf-8?B?T0N5MjlkWnFrUm5HQ2J0UWMxZk00MFM2WFF4TWszbG9RUFIyNytRSjgySUE1?=
- =?utf-8?B?TDJkMDVkbDFhYXpRRnU5TkVYUXkzU1ZTUnJYNmNGR01GMWNYc1JyRDRweWEr?=
- =?utf-8?B?elVnR3dDenFHUXpKMWFDVk5Tb0duU1ZzbXJmYlhiUWJGR0tZTERkM25lZllM?=
- =?utf-8?B?Z1lUNE1OdHhlaCtRQithb1VDNjF2cS81NEhwOUtKa0FxYTJiY0w4bmpLOTlz?=
- =?utf-8?B?bFBsaHdOcTZROHM3L0xCMVNTeTI3bG05RndPQ2RxZDFVaU16MG9hVDNXZzVN?=
- =?utf-8?B?OHZHcWlYdURBa1pIdWhENnJOMDU1WUUvWmxSRGwwcDdsZ2VwUWQ1QktMWjhs?=
- =?utf-8?B?TkFqQ2RycHRONzdOZzlvTlZzclZYRFRoRlFLOVhtOURDWXJ5YTNjOGRLUU1o?=
- =?utf-8?B?SVdwcmJwR3ZWVjR5azFNYThiY21ZMVlyMVQ2VVVneVBDNUkwTjYyY2ZQa2kz?=
- =?utf-8?B?SU9vSGgya2RObVFZdzVhVHZ2NmJ6dDVXNnlCUGZybDB0ZEVOVm1MRWxjNXJW?=
- =?utf-8?B?ZmlGZUp2aWN2ZzM4ZEorRkYvUGgxeVhyZEdXUmNwdVJQeEdWcEMybFRwRXhn?=
- =?utf-8?Q?uN+z0mWjhUVAQ+bEOlkmOG0=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 692806a6-3456-49ec-684d-08d9e5701249
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VXRKd2tPczFoMDE0bEtCc01jczR3eERWWGswdndpcHVxS3lrTmFNQit4M0Zj?=
+ =?utf-8?B?b3FrTWhhdktMZTJ5Sys5RUNUMHVBWGIrUjdaS3hKTk9uUXh2WlVKRTI4QUMx?=
+ =?utf-8?B?OUxZQzJlSXhFZ0ovYU5jQTkyaWJGVEpZYTgvMStnbDZjQ2xibWt5TWphNFR3?=
+ =?utf-8?B?V3ZZTDJENTZKVTh4WStLR3Q0bXhFdXZPMytKQ1hKcEt2NXg5aTRxTk03QzJa?=
+ =?utf-8?B?aFU2WWIwbDlHRVdTTlY0bHJzQmtJZytYWDNJS25LTVFjTHFncThsQ00vdkhE?=
+ =?utf-8?B?NGt6cW4yTmtHOTJTMWxUNEl4T3dkK2o5VThLM25waE9pMmU1amZhajBKODV5?=
+ =?utf-8?B?L3NGS2dteGdZQ2FoYXROeHRpbHIwN3IzMWNtbitwOVRkUTVXblBsSFJyVkZV?=
+ =?utf-8?B?S2dqQ1phZC9wNzFRUmxtT09vaW9tS0ljYmFJak1Rb3RsWEtOblRwMU5JVXZj?=
+ =?utf-8?B?ekVDQUZqNzd2OWpSaWhJT2liTmhOM0l5L3d0Ym1BZ2FDa1NjRFl1QWFaVHN5?=
+ =?utf-8?B?SVpUanJYZUNSaUtBaC9tdkdXSG4vUUlFbjNRUjNUUnJwSXFMNG5QZjI5cnpV?=
+ =?utf-8?B?SEVqWmlubkpBVERsRXI3LzNxUHlyMVRDVFRzQUdEeUhSVHgvbWFSdTl5RDRI?=
+ =?utf-8?B?S0xJVWFrQ1FhQUllZ1FGVkxid1N2UTUzYm9oYXNSaCtMMUFPdFhDM0dYQ3U3?=
+ =?utf-8?B?L1dxay9la1dVWXVDM0FqQ1hGYjF5bEFFU0xuZEV4Tk91elpSNWR1NGUrNUc3?=
+ =?utf-8?B?dWR0QithVC9GeThxR2I2bko5ZXkzWnd3bllaSDM5a1dnZVNvQ3dJOFNySnNz?=
+ =?utf-8?B?b05MQit0NFQvd1JyNHJBMFVVbElBd1RKaW9wRDF0YlA5MWswdkNYZFlINnk1?=
+ =?utf-8?B?ZmRlMlNhNTU2ckZoRFhINjg2RGorbHR2YVVjQmFMYzdPR3RHdjRDN2x3amN6?=
+ =?utf-8?B?aUtkempNVFZTMXZBUldUZXhoU2ZrdVowMFFVcERTS3lHQm9MMGhmMi9uclpD?=
+ =?utf-8?B?STNlTkpieVZBRlBrME96N1dVMjlOWUJuV3pUREp5eGVLb1pOdnFnMTQzRlBD?=
+ =?utf-8?B?Qit5M3Q5dHlZOHlaTlk5MndTRGZXbXF2L1RCUDZIZ3JUSzhwd3pFQ0F0Ukl0?=
+ =?utf-8?B?czlOWUtWUUdjb2RMV3BWdlhHWFBaTDdsYUFBQXp2MExwdldGb3J1S2tqSmpV?=
+ =?utf-8?B?UjU0cjlIaElvNXFjNHBJQjR0M3pTRzJBVkZxWjcxRUVHMlJqY2JUQjJudFlV?=
+ =?utf-8?B?OXk1aGs0MGpBcE5TQ3lPd0txUHQvS0VrWmtvL3p5bjdEZWw1N3ppbE9FcUM2?=
+ =?utf-8?B?bFJNOU1YNUJpbE5FeEF6Y1d5dEZ1NHkrNVc1R25VSk5WOEwzM2lYdk13b3Vh?=
+ =?utf-8?B?aDBzaHljREJ0R1Q5M0VQVCtla3Z3Y0JkcFFDbldOa0tCb1Q5bnU5UmVzdGVH?=
+ =?utf-8?B?ZnprNStiK2VlVjk4MzZoMVBlUjdqcDIzZUNOK1k5bHRvalBOaklCS09wRFBE?=
+ =?utf-8?B?cUVJYjVsdFZWc0ZuNEtZOFdaa2RQOHYxenVwYktrMFRhemZsT1dYdGxkbFlI?=
+ =?utf-8?B?eTVBOHM0Z2JKc29xQTV4UTN3dFc3UXJkQjdKZlNZNDBzUVFQdXNjbjIxMUYw?=
+ =?utf-8?B?Z2ZOdTZEcXBHdk1pdnh4WExXS0d1K0QwVjFUSVNGVU9pcnBFamhBVFErNGpq?=
+ =?utf-8?B?NE1yaDFlZ0k2clFKOFl6RTRXM3hHZDc3NXUvVml6NTJBL2Jia1RBYyt0NFJp?=
+ =?utf-8?B?NWEvaWZOVkcxUGlGcGh1Tm9sR3FmWlRLTXdIUy9GYzBSNXNXMllNTWtuNHFX?=
+ =?utf-8?B?emxaSERQbXUxKzZFS2NtSW5DM1hWYndLUHM2Tldady9YTFVQMHNXMnJkSFZz?=
+ =?utf-8?B?bldwaHFIUFlHY0pIWk8rK3FQai9ocUd2WmpuOVBJcTE1cUlUa3I4R3ViVHU5?=
+ =?utf-8?B?WHFqeE1lQ2syZlJla1RDUFZjdzJ1ODk1clF6R0Zjc1I5YjJkS1FXWFlnSFkx?=
+ =?utf-8?B?a3BKZDgrZFBXVVZCelFRQWFFZ0kvUEhyQnFWYjgxZDFTV3ovK3d6MU5Gd2RH?=
+ =?utf-8?B?dXhidiswc2hjdkRNU2tXRk92NWhIVStiRDhhK1Q1Y2F0TmVjK1dKcFpyQlRC?=
+ =?utf-8?B?OGZiSm5WbEZMV0Y1S2REVUZKQy9qbThYaWFHdCtDUHNoWWFDK2RySFdoM3B0?=
+ =?utf-8?Q?ia2JlHlrDIdjj7tb7OeLP6Y=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a9a8dd0-5f8f-4b9b-93f0-08d9e5719d0c
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2022 10:46:15.6641
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2022 10:57:17.9798
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ReLBKocUj++bNuVS3bj9nanPaXyfjhCdX3c7pbmbU7i6Ieeh8BkEN0XDht71Q0y1BWPECewtX5X2E4ECRFb2NQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR03MB2706
-X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: U6FCIUPcctzQi9463EiVy0IWOHX8xXTJJ+4CZlK/qLiZiX4ZZClJsnPtHbgs06+D7QbyQHwob6uDsI3QD45fzA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8096
 
-On Thu, Jan 27, 2022 at 04:13:21PM +0100, Jan Beulich wrote:
-> From: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
-> 
-> Enable local interrupts before requesting C1 on the last two generations
-> of Intel Xeon platforms: Sky Lake, Cascade Lake, Cooper Lake, Ice Lake.
-> This decreases average C1 interrupt latency by about 5-10%, as measured
-> with the 'wult' tool.
-> 
-> The '->enter()' function of the driver enters C-states with local
-> interrupts disabled by executing the 'monitor' and 'mwait' pair of
-> instructions. If an interrupt happens, the CPU exits the C-state and
-> continues executing instructions after 'mwait'. It does not jump to
-> the interrupt handler, because local interrupts are disabled. The
-> cpuidle subsystem enables interrupts a bit later, after doing some
-> housekeeping.
-> 
-> With this patch, we enable local interrupts before requesting C1. In
-> this case, if the CPU wakes up because of an interrupt, it will jump
-> to the interrupt handler right away. The cpuidle housekeeping will be
-> done after the pending interrupt(s) are handled.
-> 
-> Enabling interrupts before entering a C-state has measurable impact
-> for faster C-states, like C1. Deeper, but slower C-states like C6 do
-> not really benefit from this sort of change, because their latency is
-> a lot higher comparing to the delay added by cpuidle housekeeping.
-> 
-> This change was also tested with cyclictest and dbench. In case of Ice
-> Lake, the average cyclictest latency decreased by 5.1%, and the average
-> 'dbench' throughput increased by about 0.8%. Both tests were run for 4
-> hours with only C1 enabled (all other idle states, including 'POLL',
-> were disabled). CPU frequency was pinned to HFM, and uncore frequency
-> was pinned to the maximum value. The other platforms had similar
-> single-digit percentage improvements.
-> 
-> It is worth noting that this patch affects 'cpuidle' statistics a tiny
-> bit.  Before this patch, C1 residency did not include the interrupt
-> handling time, but with this patch, it will include it. This is similar
-> to what happens in case of the 'POLL' state, which also runs with
-> interrupts enabled.
-> 
-> Suggested-by: Len Brown <len.brown@intel.com>
-> Signed-off-by: Artem Bityutskiy <artem.bityutskiy@linux.intel.com>
-> [Linux commit: c227233ad64c77e57db738ab0e46439db71822a3]
-> 
-> We don't have a pointer into cpuidle_state_table[] readily available.
-> To compensate, propagate the flag into struct acpi_processor_cx.
-> 
-> Unlike Linux we want to
-> - disable IRQs again after MWAITing, as subsequently invoked functions
->   assume so,
-> - avoid enabling IRQs if cstate_restore_tsc() is not a no-op, to avoid
->   interfering with, in particular, the time rendezvous.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+This started out with me noticing that "dom0_max_vcpus=<N>" with <N>
+larger than the number of physical CPUs reported through ACPI tables
+would not bring up the "excess" vCPU-s. Addressing this is the primary
+purpose of the change; CPU maps handling is being tidied only as far as
+is necessary for the change here (with the effect of also avoiding the
+setting up of too much per-CPU infrastructure, i.e. for CPUs which can
+never come online).
 
-Acked-by: Roger Pau Monné <roger.pau@citrix.com>
+Noticing that xen_fill_possible_map() is called way too early, whereas
+xen_filter_cpu_maps() is called too late (after per-CPU areas were
+already set up), and further observing that each of the functions serves
+only one of Dom0 or DomU, it looked like it was better to simplify this.
+Use the .get_smp_config hook instead, uniformly for Dom0 and DomU.
+xen_fill_possible_map() can be dropped altogether, while
+xen_filter_cpu_maps() is re-purposed but not otherwise changed.
 
-> ---
-> RFC: I'm not entirely certain that we want to take this, i.e. whether
->      we're as much worried about interrupt latency.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v2: Extend description.
 
-I would assume taking this would make it easier for you to pick
-further patches.
+--- a/arch/x86/xen/enlighten_pv.c
++++ b/arch/x86/xen/enlighten_pv.c
+@@ -1341,10 +1341,6 @@ asmlinkage __visible void __init xen_sta
+ 
+ 		xen_acpi_sleep_register();
+ 
+-		/* Avoid searching for BIOS MP tables */
+-		x86_init.mpparse.find_smp_config = x86_init_noop;
+-		x86_init.mpparse.get_smp_config = x86_init_uint_noop;
+-
+ 		xen_boot_params_init_edd();
+ 
+ #ifdef CONFIG_ACPI
+--- a/arch/x86/xen/smp_pv.c
++++ b/arch/x86/xen/smp_pv.c
+@@ -148,28 +148,12 @@ int xen_smp_intr_init_pv(unsigned int cp
+ 	return rc;
+ }
+ 
+-static void __init xen_fill_possible_map(void)
+-{
+-	int i, rc;
+-
+-	if (xen_initial_domain())
+-		return;
+-
+-	for (i = 0; i < nr_cpu_ids; i++) {
+-		rc = HYPERVISOR_vcpu_op(VCPUOP_is_up, i, NULL);
+-		if (rc >= 0) {
+-			num_processors++;
+-			set_cpu_possible(i, true);
+-		}
+-	}
+-}
+-
+-static void __init xen_filter_cpu_maps(void)
++static void __init _get_smp_config(unsigned int early)
+ {
+ 	int i, rc;
+ 	unsigned int subtract = 0;
+ 
+-	if (!xen_initial_domain())
++	if (early)
+ 		return;
+ 
+ 	num_processors = 0;
+@@ -210,7 +194,6 @@ static void __init xen_pv_smp_prepare_bo
+ 		 * sure the old memory can be recycled. */
+ 		make_lowmem_page_readwrite(xen_initial_gdt);
+ 
+-	xen_filter_cpu_maps();
+ 	xen_setup_vcpu_info_placement();
+ 
+ 	/*
+@@ -476,5 +459,8 @@ static const struct smp_ops xen_smp_ops
+ void __init xen_smp_init(void)
+ {
+ 	smp_ops = xen_smp_ops;
+-	xen_fill_possible_map();
++
++	/* Avoid searching for BIOS MP tables */
++	x86_init.mpparse.find_smp_config = x86_init_noop;
++	x86_init.mpparse.get_smp_config = _get_smp_config;
+ }
 
-> RFC: I was going back and forth between putting the local_irq_enable()
->      ahead of or after cpu_is_haltable().
-> ---
-> v3: Propagate flag to struct acpi_processor_cx. Don't set flag when TSC
->     may stop whild in a C-state.
-> v2: New.
-> 
-> --- a/xen/arch/x86/cpu/mwait-idle.c
-> +++ b/xen/arch/x86/cpu/mwait-idle.c
-> @@ -108,6 +108,11 @@ static const struct cpuidle_state {
->  
->  #define CPUIDLE_FLAG_DISABLED		0x1
->  /*
-> + * Enable interrupts before entering the C-state. On some platforms and for
-> + * some C-states, this may measurably decrease interrupt latency.
-> + */
-> +#define CPUIDLE_FLAG_IRQ_ENABLE		0x8000
-> +/*
->   * Set this flag for states where the HW flushes the TLB for us
->   * and so we don't need cross-calls to keep it consistent.
->   * If this flag is set, SW flushes the TLB, so even if the
-> @@ -539,7 +544,7 @@ static struct cpuidle_state __read_mostl
->  static struct cpuidle_state __read_mostly skx_cstates[] = {
->  	{
->  		.name = "C1",
-> -		.flags = MWAIT2flg(0x00),
-> +		.flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_IRQ_ENABLE,
->  		.exit_latency = 2,
->  		.target_residency = 2,
->  	},
-> @@ -561,7 +566,7 @@ static struct cpuidle_state __read_mostl
->  static const struct cpuidle_state icx_cstates[] = {
->         {
->                 .name = "C1",
-> -               .flags = MWAIT2flg(0x00),
-> +               .flags = MWAIT2flg(0x00) | CPUIDLE_FLAG_IRQ_ENABLE,
->                 .exit_latency = 1,
->                 .target_residency = 1,
->         },
-> @@ -842,9 +847,15 @@ static void mwait_idle(void)
->  
->  	update_last_cx_stat(power, cx, before);
->  
-> -	if (cpu_is_haltable(cpu))
-> +	if (cpu_is_haltable(cpu)) {
-> +		if (cx->irq_enable_early)
-> +			local_irq_enable();
-> +
->  		mwait_idle_with_hints(cx->address, MWAIT_ECX_INTERRUPT_BREAK);
->  
-> +		local_irq_disable();
-> +	}
-> +
->  	after = alternative_call(cpuidle_get_tick);
->  
->  	cstate_restore_tsc();
-> @@ -1335,6 +1346,11 @@ static int mwait_idle_cpu_init(struct no
->  		cx->latency = cpuidle_state_table[cstate].exit_latency;
->  		cx->target_residency =
->  			cpuidle_state_table[cstate].target_residency;
-> +		if ((cpuidle_state_table[cstate].flags &
-> +		     CPUIDLE_FLAG_IRQ_ENABLE) &&
-> +		    /* cstate_restore_tsc() needs to be a no-op */
-> +		    boot_cpu_has(X86_FEATURE_NONSTOP_TSC))
-> +			cx->irq_enable_early = true;
->  
->  		dev->count++;
->  	}
-> --- a/xen/include/xen/cpuidle.h
-> +++ b/xen/include/xen/cpuidle.h
-> @@ -42,6 +42,7 @@ struct acpi_processor_cx
->      u8 idx;
->      u8 type;         /* ACPI_STATE_Cn */
->      u8 entry_method; /* ACPI_CSTATE_EM_xxx */
-> +    bool irq_enable_early;
-
-Should you use a bit field here and limit the field to :1 in
-expectation of maybe adding more flags at a later point?
-
-Thanks, Roger.
 
