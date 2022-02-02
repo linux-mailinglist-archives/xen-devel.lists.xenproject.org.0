@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 220314A7595
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Feb 2022 17:14:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.264346.457420 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5C514A75B0
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Feb 2022 17:22:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.264354.457431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFIGD-0005b8-IC; Wed, 02 Feb 2022 16:13:33 +0000
+	id 1nFION-00076Q-HA; Wed, 02 Feb 2022 16:21:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 264346.457420; Wed, 02 Feb 2022 16:13:33 +0000
+Received: by outflank-mailman (output) from mailman id 264354.457431; Wed, 02 Feb 2022 16:21:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFIGD-0005Yt-E0; Wed, 02 Feb 2022 16:13:33 +0000
-Received: by outflank-mailman (input) for mailman id 264346;
- Wed, 02 Feb 2022 16:13:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nFION-00073m-DQ; Wed, 02 Feb 2022 16:21:59 +0000
+Received: by outflank-mailman (input) for mailman id 264354;
+ Wed, 02 Feb 2022 16:21:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HAZh=SR=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nFIGB-0005Yk-BS
- for xen-devel@lists.xenproject.org; Wed, 02 Feb 2022 16:13:31 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0dd6e8ca-8443-11ec-8f75-fffcc8bd4f1a;
- Wed, 02 Feb 2022 17:13:28 +0100 (CET)
+ id 1nFIOL-00073g-JK
+ for xen-devel@lists.xenproject.org; Wed, 02 Feb 2022 16:21:57 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3b1f5cac-8444-11ec-8eb8-a37418f5ba1a;
+ Wed, 02 Feb 2022 17:21:55 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,366 +36,262 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0dd6e8ca-8443-11ec-8f75-fffcc8bd4f1a
+X-Inumbo-ID: 3b1f5cac-8444-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1643818408;
+  d=citrix.com; s=securemail; t=1643818915;
   h=date:from:to:cc:subject:message-id:references:
    content-transfer-encoding:in-reply-to:mime-version;
-  bh=sq4c3yben27DwdS4YR4p3uZnSL++3geId4sKdu5V/34=;
-  b=a5+PdnOx5/zc289mJNMbQns7158FUFiqCOSoXqQdyjSarR6meQgP826u
-   iwOTVw7/L0Dd9aaTeOvpRIFwP5rcWYd3uKnxyZH+vkVx7JiToPD7DNt91
-   jzZETJxXuZLzra2l8fyn9UjPTcEzSaaT2i/R8WNN0uCaXm2pC607y+8VN
-   E=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: wBIQR5nyzNMDc+p6JVKXU9CGFc/LH1xrLFzdk9Ca3gEtutfErZL5cljCCO2rCibV3JdrJvG7lj
- tJfbRYYckcoR3mHgFxfp6w5YQFm9XNLx0RP1vm7Yl+cnP798+KX3V2kqfr7DELU+nhPxPQe2Gj
- sUGy2l/OjrQHhToLPd/kqmTwuXOb9VgoRovmkWaUMTDbncoYN5YWCTCSMahj/I/rTGzjWFZw74
- ArcAyCoiPQx5q6BNWe/RgP/BM6s/ZoXbE3L4RUeBnRLUydDUzW2gZXQNDwavRjnAse2ECnY66t
- iqMSbk4Wpsm/1SsmJoH6kQ82
+  bh=NuQHegXm7Ik4y7VVZynrjLwz4N8D5X/RJeOs54iO/6M=;
+  b=FpFLwSTgxLFoc7KN7wWU6srqv2jxCEQJi2AJ2nd5mrmZndJK5A5MJM8o
+   hm3qG3oS8iigCqVc7uG7fm16ZYVRdbUWJPH1Kp/vxL1XPSUtt+SoYBOX3
+   eV9txgNIaZlncsXDdGRo7xhjMjLHSXS0Xi3ifGhwUP5W90Cz/V+9wIm2G
+   4=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: ANsPVcZJiRCn47DXYyUQQ1W6NMHmhKTb7WQdUXLBvd8pcQGBDucRxMFOLSCQnB1/z/XKah1hZh
+ CQUgauqG9i8MDeGqU3ugPyA03h7bCfNzS3pQCF3zsHuHs+LzqbE55j0vZFczjF65N6l7cGlkwJ
+ /NXdAQ288rTl0qaHjQomBNaHhf38J+9xuv6sWSgXf0DNoCMqmBtFqWBspTCpgm2FOKUj2AssK3
+ bVnbNFSU/nvd+4fOB2d3qM4V0mrTG90YZittA6/weA+pdksh3LGAmztCmmpZIbBa99opa7YavC
+ KP488YNQilTx30S6r/8xy+QH
 X-SBRS: 5.2
-X-MesageID: 62799540
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 63336349
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:8kUUHKzqS6oH3DFZLr56t+eCwSrEfRIJ4+MujC+fZmUNrF6WrkUGn
- DQeWWGPP/yCZzH8coonPN7l/R8EucSHyYcyHldu/iAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAhLeNYYH1500g7wbZj2tQAbeWRWGthh
- /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
- wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt817m
- MQWkoWJcgYWPbXrof4ZXxhyLggraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
- 6ZBbmlQMFbT3Ipaw5riIgVort4kI8TxepsWp1lrzC3DDOZgSpfGK0nPzYECg2Zh25wWdRrYT
- 9ETaQU+fC/eWTtOHggVMq1ug9X03ECqJlW0r3rK/PFqsgA/1jdZzLHoOcH9Zt+OSMNaj0uc4
- GnB+gzRGgkbLteWzTOP71qmh/PDkC32Xo4fDvuz8fsCqFSS3WUSDBQ+X1qnrfS3h0iyVsgZI
- EsRkgI2pLU23FymSJ/6RRLQiHyOswMYWtFQO/Yn8wzLwa3Riy6JC25BQjNfZdgOsM4tWSdsx
- lKPh8nuBzFkrPuSU3313qiQhSO/P24SN2BqWMMfZVJbuZ+5+th110+RCIY4eEKosjHrMSz6k
- yHRizEHvLQsjtYs7r+/8VHtvhv58/AlUTUJzgnQW2uk6CZwa4ike5Gk5DDn0BpQEGqKZgLf5
- SZZwqBy+MhLVMjQz3LVHI3hCZn0v67tDdHKvbJ483DNHRyJ8mXrQ41f6SoWyKxBYpddIm+Bj
- KM+VGpsCH5v0JmCMf4fj2GZUZ1CIU3c+TPNDai8Uza2SsItHDJrBQk3DaJq40jjkVI3jYY0M
- oqBfMCnAB4yUPo7l2XqHrZMjOZ1lkjSIF8/origl3yaPUe2PibJGd/pznPSBgzG0E90iFqMq
- IsOXyd74x5eTPf/ckHqHX07djg3wYwALcmu8aR/L7fbSiI/QT1JI6KPndsJJtI094wIxrag1
- izsASdwlQug7UAr3C3XMBiPnpu1A8YmxZ/6VARxVWuVN48LOtfytfpPKsdsINHKNoVLlJZJc
- hXMQO3ZatxnQTXb4TUNK577qY1pbhOwggySeSGiZVACk1RIHVWhFgbMclS9+S8QIDCwsMdi8
- bSs2hmCGcgIRhh4DdaQY/WqlgvjsX8YkeN0fk3JPtgMJxm8rNk0c3T83q0tPsUBCRTf3T/Gh
- QyYNggV+LvWqIgv/diX2a3d99W1E/FzF1ZxFnXA6erkLjHT+2eumNcSUOuBcT3Hennz/aGuO
- bdcw/3maaVVl1dWqYtsVb1syPtmtdfoorZbyCViHWnKMAv3Wu8xfCHe0JAW5KNXx7JftQ+nY
- W61+4FXaeeTJcfoMF8NPw55PO6N4u4Zx2vJ5vMvLUSkuCIupOibUV9fNgWngTBGKOcnK5ssx
- OostZJE6wG7jRZ2YN+KgjoNqjaJJ30EFa4mqosbEMngjQ9ykgNOZpnVCynX5pCTaooTbhl2c
- 2HM3KeS1a5BwkficmYoESmf1OVQsp0CpRRWwQJQPF+OgNfE2qc60RA5He7bleiJIsGrC95OB
- 1U=
-IronPort-HdrOrdr: A9a23:n90JJq/Ei7nYLXYaiIpuk+FAdb1zdoMgy1knxilNoENuHfBwxv
- rDoB1E73LJYVYqOU3Jmbi7Sc69qFfnhORICO4qTMqftWjdyRCVxeRZg7cKrAeQeREWmtQtsJ
- uINpIOdOEYbmIK/PoSgjPIaurIqePvmMvD5Za8854ud3ATV0gJ1XYGNu/xKDwReOApP+tcKH
- LKjfA32AZINE5nJfiTNz0gZazuttfLnJXpbVovAAMm0hCHiXeN5KThGxaV8x8CW3cXqI1SvF
- Ttokjc3OGOovu7whjT2yv66IlXosLozp9mCNaXgsYYBz3wgkKDZZhnWZeFoDcpydvfomoCoZ
- 3pmVMNLs5z43TeciWcpgbs4RDp1HIU53rr2Taj8A3eiP28YAh/J9tKhIpffBecwVEnpstA3K
- VC2H/cn4ZLDDvb9R6NqeTgZlVPrA6ZsHAimekcgzh0So0FcoJcqoQZ4Qd8DIoAJiTn84oqed
- MeQ/003MwmMW9yUkqp/VWGmLeXLzYO91a9MwQ/U/WuonlrdCsT9Tpc+CQd9k1wg67VBaM0o9
- gsCZ4Y542mePVmGZ6VNN1xMfdfNVa9My4kEFjiaGgPR5t3c04klfbMkcAIDaeRCds18Kc=
+IronPort-Data: A9a23:xTDdAaMKnnXClLTvrR0dkMFynXyQoLVcMsEvi/4bfWQNrUpxhDIEn
+ GQaC22Ha6neZWT9f4sjPIvipx4GusDVmII1Twto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En1500o5w7RRbrNA2rBVPSvc4
+ bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
+ 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYoyiZkd8t8
+ /4XjJW5TV4ZbpfHn/wwCDANRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
+ 6VFdnZdNXhvhMrvqF6/YvNrick5atHiIasUu216zCGfBvEjKXzGa/uRvoQGh2th7ixINfnMb
+ OcWZHlGUEyDYURMP1o+Eb07vPj90xETdBUH8QnI9MLb+VP71xdt2bLgNN7UfN2iRshPmEuc4
+ GXc8AzRAAweNdGZ4SqI9DSrnOCntR38XIUeBbip7MlAiVeYxnEQIBAOXF79qv684mayUsxSA
+ 1YZ8S0vqe417kPDZsb5dw21pjiDpBF0c8pdFag25R+AzoLQ4h2FHS4UQzhZctskucQqAzsw2
+ TehndnkGDhuu729Um+G+/GfqjbaESoaN2gZfgcfUBAIpdLkpekOYgnnF4g5VvTv15usRG+2k
+ 2viQDUCa6s7kN4F2PmA1gr+ijuo/6iZdAUy/iiMdzfwhu9mX7KNa4ut4FndyP9PKoeFU1WM1
+ EQ5d9iiAPMmVs/UynHUKAkZNPTwvqvebmWA6bJ6N8R5r1yQF2ifkZe8Cd2UDGNgKY46dDDge
+ yc/UisBtcYIbBNGgUKaCr9d6vjGL4C8RLwJtdiON7Kih6SdkyfcpElTiba4hTyFraTVufhX1
+ W2nWcitF20GLq9s0SC7QewQuZdymHxlmj+KFMGmlkr3uVZ7WJJyYexdWGZik8hjtP/UyOkr2
+ 4o32zS2J+V3D7SlP3i/HX87JlEWN3krba0aWOQMHtNv1jFOQTl7Y9eImOtJU9U8w8x9y7mUl
+ lngBB4w4Aev1BXvdFTRAlg+OeyHYHqKhS9hVcDaFQz2iyFLjEfGxPp3SqbbipF8pbE6kK4pE
+ 6JYEyhCa9wWIgn6F/0mRcCVhKRpdQixhBLIOCygYTMleIVnSRCP8djhFjYDPgFTZsZuncdh8
+ bCmyC3BRp8PG1ZrAMrMMar9xFKtp3kN3ul1WhKQcNVUfUzt9qlsKjDw0aBrc51dd02by2vIz
+ RuSDDcZufLJ/90//u7WiP3WtIyuCeZ/QBZXRjGJ8basOCDG1WO/2oscAv2QdDXQWTqsqqWvb
+ OlY1d/mN/gDkAoYuoZwCe8zn6k/+8Hut/lRyQE9RCfHaFGiC7VBJHia3JYQ6v0Rl+EB4QbvA
+ xCB4NhXP7mNKfjJKl9JKVp3dPmH2NEVhiLWsaY/LnLl6XIl57GAS0hTYUWB0XQPMLtvPYo56
+ u49o8pKuRengx8nP9va3CBZ82OAci4JX6k978xIBYbqjkwgy01YYIyaASjzucndZ9JJO0gsA
+ zmVmKud2OgMmhucKyI+RSrXwO5QpZUSoxQbnlYNKmOAlsfBmvJqjgZa9i46T1gNwxhKuw6p1
+ rOH66GhyX2ywgpV
+IronPort-HdrOrdr: A9a23:C8Zfeqyvt/HOkozXvp5nKrPxtOskLtp133Aq2lEZdPULSKOlfp
+ GV8MjziyWYtN9wYhAdcdDpAtjmfZr5z+8O3WB3B8beYOCGghrSEGgG1+XfKlLbak/DH4JmpM
+ Jdmu1FeaHN5DtB/LfHCWuDYq8dKbC8mcjC74eurEuFDzsaE52Ihz0JdDpzeXcGIjWua6BJcK
+ Z1saF81kWdkDksH4+GL0hAe9KGi8zAlZrgbxJDLxk76DOWhTftzLLhCRCX0joXTjsKmN4ZgC
+ X4uj28wp/mn+Cwyxfa2WOWx5NKmOH5wt8GIMCXkMAaJhjllw7tToV8XL+puiwzvYiUmRwXue
+ iJhy1lE9V46nvXcG3wiRzx2zP42DJr0HPmwU/wuwqUneXJABYBT+ZRj4NQdRXUr2A6ustn7a
+ 5N12WF87JKEBLphk3Glpb1fiAvsnDxjWspkOYVgXAae5AZcqVtoYsW+14QOIscHRj99JssHI
+ BVfY7hDc5tABOnhk3izypSKITGZAVwIv7GeDlPhiWt6UkWoJgjpHFogfD2nR87heUAotd/lq
+ D5259T5cJzp/ktHNZA7dc6MLuK41P2MGDx2UKpUB3a/fI8SjrwQ6Ce2sRB2AjtQu1O8KcP
 X-IronPort-AV: E=Sophos;i="5.88,337,1635220800"; 
-   d="scan'208";a="62799540"
+   d="scan'208";a="63336349"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nPUzUjBfe5PtrgZpf1ME/IVffgNvoPNY2BM8Zd2lYl1abwrmYyHlkm9Ji2JvFkVP56vJUb57o8+E7QPy7G7ZxO2HzzoQxTsdsY4lTL/EC7t41ciNvM5wW1xojujYIZ6t2OuWsVgBscKf5797bUF6MEMK4h1Wm5RzNlbKsJguvHqw3uqPEpsc7ZL/32LvqYARgWFqhRzfLAi1hgGHP8WiA9awvtaJvLPVHoFZdqAtuzYpVoJNS2ea6NDnItBp7Dz8BGDxdZPFDq3yvDrB3Y0ljLovx2EOjrWQtq2mSLZbd6paN+ahMJcvIcR8QzJrXioAyS8gNkacGuo7cJD0PtmFLg==
+ b=U8PHBfuGW3FT7deHRf+chzbWa/6TDM0DH1mNPyCC/JEoeuwOXFnlCT+XHsomQ8+cROcPKXFYmM12q91COhuh+zARcF/gl029IToOAxMiB//1lYAG+VmOSIhVxpvahOar1n5bf/Y7JHnj4m6Fu5ewBqXDgEZQXBhUPTwOq/XTWVangmPsUfR44ZlwZsTq9UwAqbrRqE7sLx/ad/vyxKK/43lWZimqcdIwAT36HUfTrsgpz0yJqh9gINeCKIGgcCr0Y24mkJTu1TTflKerF6hdCmjEBCz2ZuGjKAyvhmsdYOI4U83b73Y8sTiyYrsTab51Nz8BFe8bhSFTBFtA+MIc0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wI/5xrT1lExdJ0pV+JJXv2YQ/AZnziy2JyXWmQQBDF4=;
- b=CJlosZLmUjVioBJxZbzpGMDPkO0U4aoTp99Q4jd/HtwmBUj3lVHJkdwcOVclbPKqJgxP8tazbvNLPGF/bm4DavkBYpsPFh/GBrQKC2kuMvE/Z3l85fdt7s/nFJLTIdEAost1Z4MZqQ7/r66IU+U+erh1JtvvxI8v3jv0c+vuW9dUOtwj44zcoHbiJx8yv4pOOQ8Z9O027OJySLbRrCXmFiDEvmhZg+d7BqiwQW8fOvdrpCAnuM7qIDWzaAFMn157lctUaARA1WffKWlbYoZ5En2YSYOnp1rtcIzlk6M9t3jhgVqHZiibGBTW9QodL4ZavpbD9Jmf+W/OBJ6XVtIOfw==
+ bh=oX2XUgQZLdvJTKeETKdvaH3bGnwRKUNefaD29Rt6NWc=;
+ b=CJKwiQTPScSfNmi9fA5E9VckzONDKfK2CTv9f4k8dZYXz+uQGGs61cCfXzTnt6FvrgD1ZTNbEAK6cjFlkJK8QTH7ABWaAtFNnVzh+R/GxpCgLdUV614g5ipQio4y6iNG6b4oPy39YtXZ8eFaa8ajuhiZS5+ayrPC224BLeBKwvO8fuLZsAxtqAf9i4lPRjcIcn1O7rKjP+OTu20MowTc6A4LJMrktqHV9OshdxfXxQEzTaGUXaGfiiTqzCBb8TarnD32lqZYwC5VSeqtKHXs57iEZG9jwacAyEJnIpmWLcz4/bKBRtcgVVKSX+Jvlzkt36bxtFrtWtC+xKhx8dAYUA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wI/5xrT1lExdJ0pV+JJXv2YQ/AZnziy2JyXWmQQBDF4=;
- b=Bp4xyZ53TZQlK64Lt88JTTvJC51VNYRb5w2Wto30Sv1PbGIGMIAdRXplhv2mPVlXNuWQI2lqBhSx18rsfCSkYQXOUjAr9m8o3JQ3iL+X78PigzzjoonhsKEx/7P0mtkdK3hS6L47d22iRV6LDHdLs9LzakV20m3asGMLFUyOZ5M=
-Date: Wed, 2 Feb 2022 17:13:09 +0100
+ bh=oX2XUgQZLdvJTKeETKdvaH3bGnwRKUNefaD29Rt6NWc=;
+ b=KUhmD3UTKxyZDIrKtiOQVwB6gRCQXc6vPlloPlh98iTMtsKclyer4OLA+4vViXjdXqeak+tIMyxkNu1bfJqVtMUe0V3IYFL2D9M4OXnamPjKNOwjiL1lofuy6lXjaQgu+Hc6G4SU+xivpg0HxqJjN65r7mZQSL2KRcIwCc+pxzQ=
+Date: Wed, 2 Feb 2022 17:21:22 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<george.dunlap@citrix.com>, Paul Durrant <paul@xen.org>, Tamas K Lengyel
-	<tamas@tklengyel.com>, Petre Pircalabu <ppircalabu@bitdefender.com>,
-	Alexandru Isaila <aisaila@bitdefender.com>
-Subject: Re: [PATCH v3 1/2] IOMMU/x86: disallow device assignment to PoD
- guests
-Message-ID: <YfqtlZMAKd/HXsgf@Air-de-Roger>
-References: <6fe7b036-2bdb-b391-4e6c-1b5d7e05a119@suse.com>
- <b0a77526-17f2-a5ab-6f7f-1b3caeb4a59b@suse.com>
+To: Jane Malalane <Jane.Malalane@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, Anthony
+ Perard <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, Andrew
+ Cooper <Andrew.Cooper3@citrix.com>, George Dunlap <George.Dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Christian Lindig
+	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH 2/2] x86/xen: Allow per-domain usage of hardware
+ virtualized APIC
+Message-ID: <YfqvgvnKvkLCuupA@Air-de-Roger>
+References: <20220127160133.11608-1-jane.malalane@citrix.com>
+ <20220127160133.11608-3-jane.malalane@citrix.com>
+ <YfkFJTYXa/7DSTaI@Air-de-Roger>
+ <1364444e-aeed-7e0c-dc81-67365324350b@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <b0a77526-17f2-a5ab-6f7f-1b3caeb4a59b@suse.com>
-X-ClientProxiedBy: LO4P123CA0204.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a5::11) To DS7PR03MB5608.namprd03.prod.outlook.com
+In-Reply-To: <1364444e-aeed-7e0c-dc81-67365324350b@citrix.com>
+X-ClientProxiedBy: LO4P123CA0405.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:189::14) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dc815b8b-6157-4bc3-25cc-08d9e666ea8b
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3957:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR03MB39571CEB8A1EF8496612E74A8F279@BYAPR03MB3957.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-Correlation-Id: 09d1b435-3dac-4062-0f2e-08d9e6680f29
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6389:EE_
+X-Microsoft-Antispam-PRVS: <SJ0PR03MB63897F26018971B2964D29D08F279@SJ0PR03MB6389.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TygixpSyqK8+uSOeXBCJUYfSbpskw1s8fV2YsKv00/koeVOjjgEe+VaewtR6EXCvCWGvrFKZp1AREiujEcXmjfXCDI2Nj/0qc/YOCj2wNxPn+Ji8OkpNhndGePriXWhtu5EE8ykeobTW7fejLZeiMhyapD30N1dxqPvhb1xbTExqhmLPMCvEnwJylqig7NVha9NmoGSVXi/zWmDFHL3gi58NVDUCwaRz6xyrwQ6ydQHLRELSwuiI0pyNOzKg+97xysm4TtUY3Bb++0tTDNkgbdcS60i+sZAkSmrO2xlqlddhXENmeAKKukkX7CnIO4hbgqdc8ygmUTGsX0QfKclZjkEBReKqihNrh+sR1QKuaUh9vD4uQpyego013WtHRkNTwcThfQvkj6lzseOd5VZd19ut+97QNXoiNgxZhIWYC81aytOOFRZOEfS50a6aOlOyzR2TjXWV+AQDYK5DwEaRD5VltWJf+aR1+7KN3QU4hb2hxXfiqgGsXVw1PwMq7VDTjiNaterLMmdJ2Jm2W7KB9E7ldQ7rsxBRNkmNjhJy6bdhMgCrJzNttEWbMGBI27/WN9tYA3GvgjR0c9p4gzntf0JmMSkDdUfU40N3W8CvxEBFkD9voU0dHx6nsIvcIjJgCmFIeh/d0crKrbhz/fP88w==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(6486002)(5660300002)(186003)(83380400001)(2906002)(6666004)(9686003)(85182001)(6506007)(6512007)(26005)(508600001)(33716001)(66946007)(38100700002)(6916009)(82960400001)(8936002)(8676002)(66476007)(4326008)(54906003)(316002)(86362001)(66556008);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: ZtzRv1ZCFHKiKhgFeP8cfvu1T0GEGoXvKuPVHJko4xXhF1HU1FTT4nU9Y6hDrTJ8oyxnPoIPASAzW+tWQAiXy9pYz4ZMudPDiBvph84FKBIup4vva7oW0153TvU/bOcBKc+/VfMkbIQdT1d1ZvxuZCoHtDulqEAmEeDYvU5HF65x5n+SEvvGBweQZP9ra2XQa1pd7MGKHOeWK+yFX45+KfXZoXO9uj7uwzIECuaIMZ7p6G0iTk0Q4ePPPcahS2OPTKJnCg+h0J4RNaXlaMEKSJV5VU6nYO7UjeQJ5Tu0yH4pfOH3zdjVMzkjVTiyRii1OIL5b5YNY0niyjhvxT4K8xpiEkBeUfHFBI04R5DTrbGO9IWAvIsevzebiEMiJmI4Hy2qfoZ05FBXhQdeShdBHldIjq2aMrKgeD9+uLWydYjeAPg5Qf9JcWtkhi2EhdaIxLeBeAZeIK0CsBEDKf5kGHSKrHwtpZ0Xis14xbEm7mXgYffPqp1ndnscQ+95UTypQOkoflv3Yhu8t/MSku57CpSKN4iWanvn17uvadJyFsKRLaKiy/PjR/1C2YqWpXOnvzpJw2C0vsOUcCfXJkudpA9O3qTEoeRDO4zyotiGZ4wbh90f6Ri969B4EpYIdKY2yClC2ZxB1QbN+JB2+5opTg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(86362001)(33716001)(38100700002)(82960400001)(53546011)(6506007)(5660300002)(4326008)(66946007)(66556008)(54906003)(85182001)(66476007)(508600001)(6862004)(8676002)(8936002)(6666004)(6636002)(9686003)(6512007)(316002)(186003)(26005)(83380400001)(2906002)(6486002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VlJ2bHRDVllONFZyaTFqMlRyNGVyUm5Dd1N1Q2cxZW14V0Y5NGFtT2xOV1Zv?=
- =?utf-8?B?VlRQV3hnKytlQk1EcXh6eWQxdlNidG5nRjdLNE9TS2QzUGhQaXpiczJDR2kx?=
- =?utf-8?B?NXpLVW5qalNDam5ZT3hrN3M0dkp1Uk5ENHlIcFF2V3IyUWJ2d0tFa3JzOXpP?=
- =?utf-8?B?OUtmWktSUzRqRFE1T1NSa3RQcU9VZHcwM01qZGlVNHY4OUxWZmxHdW9jblNn?=
- =?utf-8?B?NkVUbDlxVDZZeU9zdHhCNEVjUjk1YldUTVMxNEk3NldXVHlsTUo0dVFjdVpr?=
- =?utf-8?B?dzZpTG5zRWREWEY5NjdxQ1FvVTBSVnl3UVUyU1pQaFNMc09iRFlXYVo0cGRn?=
- =?utf-8?B?cDRsU01zMTBncW1CTWpOQ00yVzNUSzV0dE42YjY5L3FDWFhqN1BHM1FsUEFu?=
- =?utf-8?B?aUZ0UTQydU4rdlhBRmpkYzl4OE9aZjdlRlpHaVFWS0JHdTQyaFhRSG1WRmxp?=
- =?utf-8?B?ZVNrbGRqK3hib2xyM2NMSGUwTVl3RU0wNVk2VGpSNDJRNEFQUjJIRkNySmFh?=
- =?utf-8?B?WnRlb0QzM1pqZFdFMDlTQ1AzVVR6bkpaQ1ZzczJ4V2tBWmVuK2xNdEZGWVQr?=
- =?utf-8?B?UlVEUnVncklQSWVocGQ0WVVzN2F0SEJaUlhlcEtWb2hQZDlvcUZ1MFlGWEZ6?=
- =?utf-8?B?TnpBaU96cW9KaGJGME8vSXk2N3lrSUUzSzFLenNBNWxmaGpyZVJVcE85a1Yw?=
- =?utf-8?B?OUcrbmkvTVdrdzM3MGVSNVdyU1RkOEN1ZFlIZC9CWU5zZk9BVXFwWCtqV1Jw?=
- =?utf-8?B?Y0ljUmdUQlBQeCtzS0xnOFdheVVFS214azRkQkNVckN4SytnMitQWklySHNp?=
- =?utf-8?B?SllySThxR2hqdE9XNTBiSjJ2RFR0MGE4dVVPNW1WbkR0S3MvWDlEeGNaaGdI?=
- =?utf-8?B?emNIa0lWZGcwcjNZekRkSlo2WFoxeU9QaFdjOFlUNkNYdXJHeEgvQWY1Z1Y1?=
- =?utf-8?B?ZGdJTkNpQkFOWDZJWnNTWGxQOUVBWm5PbWYzclJZM2l3WWtjVlRCODYzdzFR?=
- =?utf-8?B?Nkc0aWNGZzhRZHRPWHBWQTBNWUZITjdxa0NqOWZmTWlTZFpLYkMrTExBYmx0?=
- =?utf-8?B?OERTcTh1aFp0aXlrb1dpamNPYjNodmtjVzl0WXhITVEvc0xOUE02cU9yTXVM?=
- =?utf-8?B?WmhtYVhRS2FLMlBNWTFWdUpDc3NSaUxTQ1FnaTVHVnpPWWhCRXUycHh3Qk8w?=
- =?utf-8?B?S0F4RkxkeFB0NUtzOEIrRUt0TFdvRE9tb2dBWkU3cFR6ZWhWTW55YWdaelZM?=
- =?utf-8?B?MzBYcjBJeDh3TmtHZjdDODl2N3lVbmlRbjA4WnREbmtjZXpsdVlJdWZBNERp?=
- =?utf-8?B?V2FEdFU3eUhUL2RVWmVTaFBvWGRXWjVBcytHb2JwSDNFVERiRVhSbnQyWUI2?=
- =?utf-8?B?cFluM3pGMEVmRjJpTi9RQUZDZ3crSFpDY2QyWGtUYlVuc1grYWQ5aG0yaG1X?=
- =?utf-8?B?THQvRnI1ZDhELzFUemZQMlJwSXRhTmpXQUxIU29pMi9FY3RTV0hsaWQ1Tk9k?=
- =?utf-8?B?UC9MVCtrZ2hpUlRrbVJlUnFuVStGNzE5OEpFeVc5Mjl2dFFlcDRvb0E2RTBu?=
- =?utf-8?B?STBKOG1OMzJRL3Zuc2VSdVBjZHdZaDNYR2tWcXZGRVlHUENvK0RaM1puOWtS?=
- =?utf-8?B?TEtPemlLd0luTGhtMzJObVFsNFdIR0hkbWNBdE53YkxCeVEvWW1mVVp2U3Fz?=
- =?utf-8?B?WnhpOE90YnpNVm1DbTFhSUxPdXVtenJXT21OSEpSbkFFVjM4RmpuWER6ZUdC?=
- =?utf-8?B?Z09nNGsyWjZ2NmRtYXA0TWI2Zkpwb1h2bFJjZUlYU1kyU05ScU1YditheGFq?=
- =?utf-8?B?WkZJR3NKbTF5ei9VdEIwYjNsaS9pcHF6eDVCOVlhcDVGOERwOUJuY085aUdo?=
- =?utf-8?B?MVdYSTYvY1MzbWZESnQ3a2cza2h4ZTJJYlZDTHRsekVkYWVxc3ZJNHRrQmww?=
- =?utf-8?B?U05ncUdEVWxDNi9yZGRPZ2UvTkhRcVh2SFdXUWRoWWVWbXFMSkpWU2xjbWhC?=
- =?utf-8?B?Sm5WT1lKY1oxTTlqb1NOdEptM1ZzOEFYQk5ZM3ExME01bGFtLzBqR3ZwTnBz?=
- =?utf-8?B?REF1RDRMckw0cmNDcHhNT1l6YjN6Sm9vdXZWZ1hhU2RwdmhIanJ3UHhUWk9S?=
- =?utf-8?B?TWZkUDhHN3hnRHpDQk5xOVBiTEVjUnc1dFhKMGwyTy9kMklLVjhaTDVGWFly?=
- =?utf-8?Q?pkQEyf6jxsrn1XYm5k2GwXE=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc815b8b-6157-4bc3-25cc-08d9e666ea8b
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Qzlyek41bnpjcnJ2MDBuWDdnNDBKOWoxRHc5WlQxU2tBOUdYWVRlMFlXa0pB?=
+ =?utf-8?B?YldnZ0Z0YTVmcVd0VnFsN2NPYnl2UEFOL3pBU1hKcGNLYXNwMEJJNklheG5Z?=
+ =?utf-8?B?b25jb2hFNk1yU25pR0VBV0pQbE95OUtLRWxYL29lcXZjeFN5c3ZqMnF0cUd3?=
+ =?utf-8?B?SzlReVA1NXJScjcxRGozT1RZb2w1TWRXUjRoSzNBNFFuR0ZJVitTWFdob3p6?=
+ =?utf-8?B?YklKZ3lySmJtbkw3WXppSjg4eGZreWl6UzY3aVNJcUF5d08yZzdoNjBBNzJH?=
+ =?utf-8?B?bTVOQmxkZVRUT1Z1MzhCTE44OEZ0dFB2RVJhcmp2RnNxUUNOc2VWdTBlTThl?=
+ =?utf-8?B?UGpaMitwZnhqbUZmZU0rUEk1M1RBbUFQU2pheXdWWTk5UnpheDNiVkZNR2xv?=
+ =?utf-8?B?eFhGWit6ZE5UQnBMOVBMQmphRnVwc3habEl1NXhsc2R4TlJGMmpEOExTUmtH?=
+ =?utf-8?B?bzNldFBPVmZadGw1L2t1NjNHOTZuWTIzQ0pwSkJ5all6RndYaWxaMXdSVERr?=
+ =?utf-8?B?Ym1sM3lXeG9MeXYyTS9ZRVdKYUFCK210TWQ3RkdpYW5mQkdRSFpjQkU0Nmxn?=
+ =?utf-8?B?L25zWG5TUzhaSmxzeEtoZDYySThtTmJYaU1xSU1UaGlRTVVwQUdPM2c5TUM5?=
+ =?utf-8?B?TTE2TlJGWmpINTIyRjV4UGEyMnhuVFdkd01QTzlwQWlOb1VvczY4MUNDeXQ2?=
+ =?utf-8?B?aG0zY003TitrMStTelo5UzVBUXlNVTd6Rlh4b1NmTENSVTdONm5xVDUwMlRu?=
+ =?utf-8?B?Y3JWRmNMbkFsVmVOOGF3TlBudlA0M3E0Y3RpWTFIdGVFQzlnM2VKYVZ0RTJS?=
+ =?utf-8?B?WTQra3l5aFlnOWdEZFdydUswM2k5a1Y2MGxkZ1haNlNRYmRhTHlJYWRMbDNN?=
+ =?utf-8?B?bStNSWwrc0NnRlRNZCtZMDB4UnRTTi9FUk9BQ1RudDgyR25ZRTdkMVI2VHNk?=
+ =?utf-8?B?anNnNDRadXNHUkdjUHpGOE1jQ2hUNjJLbVVsenNTRkRqUVNGRE00WnlMYjdp?=
+ =?utf-8?B?ejJDRmZNemQxZkQwQnd6U2MzdnU2d1BjSnNNOGw1K3lTK09ZOEJxQnl1T1RW?=
+ =?utf-8?B?NllaTVM1bVVFbUZlR1VQNXRrcE5jNk9nMFFVK1p0WWtkMmwvb2tQTUFFNlNm?=
+ =?utf-8?B?NFF6SjBDUjZBMnB6Y3lWdkJWNlR2VUpQSmNkMXBQUTNseGZ5RFkxaXlQYWdj?=
+ =?utf-8?B?TmJtQTdUdDY3bmdIUmhZdDlTWGNCc1Nud3JxMXppNGZjOERyaU1qMFQ3c1RN?=
+ =?utf-8?B?NEkzdFVTdTBPeUFSb2tXbFJDRTJGWWhnbXEzOVI1OStsRlM2cUNndUYvOSsv?=
+ =?utf-8?B?VXVyWGhqcXBtZzF4ZGFTUTVwbVJvTktVdlN0RDZhSTAzUFpqRXRyaWNtQWp1?=
+ =?utf-8?B?NEJGNmtMMHNvRTdGWExscDJPY29IYkwyakFpUGlOMmlzaS9vdUpvQnFwUnZr?=
+ =?utf-8?B?TlVlZ0doanExaEVmVzFHQk9lSWxodDlEQWthTElWSGx2UEhtRitHYzZzZWlV?=
+ =?utf-8?B?VFpKU3YxRHBHNDA2dGZBTVU4VG9VSzlnTmsydlY4TGt0MzVVcElKcXlhRk9E?=
+ =?utf-8?B?RG1hQVI2cVk5VjUvRHhOazdFSzRUKzVFUEVtS1RCeFpLcHltK01kWlp4UjMv?=
+ =?utf-8?B?bUM5Y3pDZW5ZckFuTWUyenVNYlRUMW5Qc0VsVFY1VkZoOFh4MW5tUFZKQXUy?=
+ =?utf-8?B?RDh2VU95K3NhOXhTQzlhcHl0WnVnbFhaZk83SVVoMUNIcDMyM3JRbkJ1QWJ1?=
+ =?utf-8?B?TjJHZW8vMnpnUDdpL3BBU3ZCZGx1NUFaQXNmQ0xvMUF4MVpJb0plRVN5Z3dl?=
+ =?utf-8?B?WEQ0SHptZnY4UVkydDB2c0N1cEU5enNVQ2laVGZiMUpNdUkybzdURUkwS3Rv?=
+ =?utf-8?B?L0JXeTBBckh2Sjl2TTJPSEF6UnZydEpnRDB6U3JZQUlIUGQvOHpmZmM5bEk1?=
+ =?utf-8?B?NzZOZTBMZ3BCdHl1YnAzWGZiSVpQZkJ4U2I2NjcvQytOczM3Sm1ZeFY0UTA5?=
+ =?utf-8?B?aUJYaGpoRUppYVg1WTl1SG5KUVJnanVybEpnS2ZWY2dVSm9NOWR0UDA1MCs1?=
+ =?utf-8?B?KytqemhBV09HNytGbzI2TjBCZHZBSUNBOWZYQ1Q0YkRXZGNTVWcxQ0pZM2hW?=
+ =?utf-8?B?OFNDZ01keGJ0TTNkY1h2QmpSZjZBb3dHMFY4TzRNU2NZK2ZpL3dIblNROFZF?=
+ =?utf-8?Q?kKNHCGhhf4jzrt2/euvCMOE=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09d1b435-3dac-4062-0f2e-08d9e6680f29
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2022 16:13:14.8019
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2022 16:21:25.7159
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vYzLPCxijTda5mxFZ66BGGKJWuta/vJFuF5zKt8Ks7WbYJX+XSSqGjxsAfbMiDbsxYMIyiss0+OhRz5a7qbrCg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB3957
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4mH6pm45+gLbGE90mR5Hea82C3E+cTDWAEByt6UEWmLqyqXR0/gX2igs3b4SZKRcCH8aMQoJTjKXZZmddBFnwg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6389
 X-OriginatorOrg: citrix.com
 
-On Tue, Jan 04, 2022 at 10:41:32AM +0100, Jan Beulich wrote:
-> While it is okay for IOMMU page tables to get set up for guests starting
-> in PoD mode, actual device assignment may only occur once all PoD
-> entries have been removed from the P2M. So far this was enforced only
-> for boot-time assignment, and only in the tool stack.
+On Wed, Feb 02, 2022 at 03:19:13PM +0000, Jane Malalane wrote:
+> On 01/02/2022 10:02, Roger Pau Monné wrote:
+> > On Thu, Jan 27, 2022 at 04:01:33PM +0000, Jane Malalane wrote:
+> >> diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+> >> index 42ac6c357b..db5eb0a0b3 100644
+> >> --- a/tools/libs/light/libxl_types.idl
+> >> +++ b/tools/libs/light/libxl_types.idl
+> >> @@ -819,11 +825,44 @@ void libxl__arch_domain_create_info_setdefault(libxl__gc *gc,
+> >>   {
+> >>   }
+> >>   
+> >> -void libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
+> >> -                                              libxl_domain_build_info *b_info)
+> >> +int libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
+> >> +                                             libxl_domain_build_info *b_info,
+> >> +                                             const libxl_physinfo *physinfo)
+> >>   {
+> >> +    int rc;
+> >> +    bool assisted_xapic;
+> >> +    bool assisted_x2apic;
+> >> +
+> >>       libxl_defbool_setdefault(&b_info->acpi, true);
+> >>       libxl_defbool_setdefault(&b_info->arch_x86.msr_relaxed, false);
+> >> +
+> >> +    libxl_defbool_setdefault(&b_info->arch_x86.assisted_xapic, false);
+> >> +    libxl_defbool_setdefault(&b_info->arch_x86.assisted_x2apic, false);
+> >> +
+> >> +    assisted_xapic = libxl_defbool_val(b_info->arch_x86.assisted_xapic);
+> >> +    assisted_x2apic = libxl_defbool_val(b_info->arch_x86.assisted_x2apic);
+> >> +
+> >> +    if ((assisted_xapic || assisted_x2apic) &&
+> >> +        b_info->type == LIBXL_DOMAIN_TYPE_PV)
+> >> +    {
+> >> +        LOG(ERROR, "Interrupt Controller Virtualization not supported for PV");
+> >> +        rc = ERROR_INVAL;
+> >> +        goto out;
+> >> +    }
+> >> +
+> >> +    if ((assisted_xapic && !physinfo->cap_assisted_xapic) ||
+> >> +         (assisted_x2apic && !physinfo->cap_assisted_x2apic))
+> >> +    {
+> >> +        LOG(ERROR, "x%sAPIC hardware supported emulation not available",
+> >> +            assisted_xapic && !physinfo->cap_assisted_xapic ? "" : "2");
+> >> +        rc =  ERROR_INVAL;
+> >> +        goto out;
+> >> +    }
+> > 
+> > I think the logic here is slightly wrong, as you are setting the
+> > default value of assisted_x{2}apic to false, and we would instead like
+> > to set it to the current value supported by the hardware in order to
+> > keep current behavior.
+> > 
+> > Also the options are HVM/PVH only, so having them set for PV should
+> > result in an error regardless of the set value, ie:
+> > 
+> > if (b_info->type == LIBXL_DOMAIN_TYPE_PV &&
+> >      (!libxl_defbool_is_default(&b_info->arch_x86.assisted_xapic) ||
+> >       !libxl_defbool_is_default(&b_info->arch_x86.assisted_x2apic)))
+> >       ERROR
+> > 
+> > libxl_defbool_setdefault(&b_info->arch_x86.assisted_xapic,
+> >                           physinfo->cap_assisted_xapic);
+> > libxl_defbool_setdefault(&b_info->arch_x86.assisted_x2apic,
+> >                           physinfo->cap_assisted_x2apic);
+> > 
+> > I don't think you need the local assisted_x{2}apic variables.
 > 
-> Also use the new function to replace p2m_pod_entry_count(): Its unlocked
-> access to p2m->pod.entry_count wasn't really okay (irrespective of the
-> result being stale by the time the caller gets to see it).
+> Makes sense. In that case, could I instead just have this?
 > 
-> To allow the tool stack to see a consistent snapshot of PoD state, move
-> the tail of XENMEM_{get,set}_pod_target handling into a function, adding
-> proper locking there.
-> 
-> In libxl take the liberty to use the new local variable r also for a
-> pre-existing call into libxc.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> If p2m->pod.entry_count == p2m->pod.count it is in principle possible to
-> permit device assignment by actively resolving all remaining PoD entries.
-> 
-> Initially I thought this was introduced by f89f555827a6 ("remove late
-> (on-demand) construction of IOMMU page tables"), but without
-> arch_iommu_use_permitted() checking for PoD I think the issue has been
-> there before that.
-> ---
-> v3: In p2m_pod_set_mem_target() move check down.
-> v2: New.
-> 
-> --- a/tools/libs/light/libxl_pci.c
-> +++ b/tools/libs/light/libxl_pci.c
-> @@ -1619,8 +1619,13 @@ void libxl__device_pci_add(libxl__egc *e
->      pas->callback = device_pci_add_stubdom_done;
->  
->      if (libxl__domain_type(gc, domid) == LIBXL_DOMAIN_TYPE_HVM) {
-> -        rc = xc_test_assign_device(ctx->xch, domid, pci_encode_bdf(pci));
-> -        if (rc) {
-> +        int r;
-> +        uint64_t cache, ents;
-> +
-> +        rc = ERROR_FAIL;
-> +
-> +        r = xc_test_assign_device(ctx->xch, domid, pci_encode_bdf(pci));
-> +        if (r) {
->              LOGD(ERROR, domid,
->                   "PCI device %04x:%02x:%02x.%u %s?",
->                   pci->domain, pci->bus, pci->dev, pci->func,
-> @@ -1628,6 +1633,22 @@ void libxl__device_pci_add(libxl__egc *e
->                   : "already assigned to a different guest");
->              goto out;
->          }
-> +
-> +        r = xc_domain_get_pod_target(ctx->xch, domid, NULL, &cache, &ents);
-> +        if (r) {
-> +            LOGED(ERROR, domid, "Cannot determine PoD status");
-> +            goto out;
-> +        }
-> +        /*
-> +         * In principle it is sufficient for the domain to have ballooned down
-> +         * enough such that ents <= cache.  But any remaining entries would
-> +         * need resolving first.  Until such time when this gets effected,
-> +         * refuse assignment as long as any entries are left.
-> +         */
-> +        if (ents /* > cache */) {
-> +            LOGD(ERROR, domid, "Cannot assign device with PoD still active");
-> +            goto out;
-> +        }
->      }
->  
->      rc = libxl__device_pci_setdefault(gc, domid, pci, !starting);
-> --- a/xen/arch/x86/mm/p2m-pod.c
-> +++ b/xen/arch/x86/mm/p2m-pod.c
-> @@ -20,6 +20,7 @@
->   */
->  
->  #include <xen/event.h>
-> +#include <xen/iocap.h>
->  #include <xen/ioreq.h>
->  #include <xen/mm.h>
->  #include <xen/sched.h>
-> @@ -359,7 +360,10 @@ p2m_pod_set_mem_target(struct domain *d,
->  
->      ASSERT( pod_target >= p2m->pod.count );
->  
-> -    ret = p2m_pod_set_cache_target(p2m, pod_target, 1/*preemptible*/);
-> +    if ( has_arch_pdevs(d) || cache_flush_permitted(d) )
+> if (b_info->type != LIBXL_DOMAIN_TYPE_PV)
+> {
+>      if (physinfo->cap_assisted_xapic)
+>          libxl_defbool_setdefault(&b_info->arch_x86.assisted_xapic, true);
+>      if (physinfo->cap_assisted_x2apic)
+>          libxl_defbool_setdefault(&b_info->arch_x86.assisted_x2apic, true);
 
-Is it possible to have cache flush allowed without any PCI device
-assigned? AFAICT the iomem/ioport_caps would only get setup when there
-are device passed through?
+I think you actively need to set assisted_x{2}apic if they are using
+default values, or else a later call to libxl_defbool_val will cause
+an assert to trigger.
 
-TBH I would be fine if we just say that PoD cannot be used in
-conjunction with an IOMMU, and just check for is_iommu_enable(d) here.
+libxl_defbool_setdefault(&b_info->arch_x86.assisted_xapic,
+                         physinfo->cap_assisted_xapic);
 
-I understand it's technically possible for PoD to be used together
-with a domain that will later get a device passed through once PoD is
-no longer in use, but I doubt there's much value in supporting that
-use case, and I fear we might be introducing corner cases that could
-create issues in the future. Overall I think it would be safer to just
-disable PoD in conjunction with an IOMMU.
 
-> +        ret = -ENOTEMPTY;
-> +    else
-> +        ret = p2m_pod_set_cache_target(p2m, pod_target, 1/*preemptible*/);
->  
->  out:
->      pod_unlock(p2m);
-> @@ -367,6 +371,23 @@ out:
->      return ret;
->  }
->  
-> +void p2m_pod_get_mem_target(const struct domain *d, xen_pod_target_t *target)
-> +{
-> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> +
-> +    ASSERT(is_hvm_domain(d));
-> +
-> +    pod_lock(p2m);
-> +    lock_page_alloc(p2m);
-> +
-> +    target->tot_pages       = domain_tot_pages(d);
-> +    target->pod_cache_pages = p2m->pod.count;
-> +    target->pod_entries     = p2m->pod.entry_count;
-> +
-> +    unlock_page_alloc(p2m);
-> +    pod_unlock(p2m);
-> +}
-> +
->  int p2m_pod_empty_cache(struct domain *d)
->  {
->      struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> @@ -1384,6 +1405,9 @@ guest_physmap_mark_populate_on_demand(st
->      if ( !paging_mode_translate(d) )
->          return -EINVAL;
->  
-> +    if ( has_arch_pdevs(d) || cache_flush_permitted(d) )
-> +        return -ENOTEMPTY;
-> +
->      do {
->          rc = mark_populate_on_demand(d, gfn, chunk_order);
->  
-> @@ -1405,3 +1429,20 @@ void p2m_pod_init(struct p2m_domain *p2m
->      for ( i = 0; i < ARRAY_SIZE(p2m->pod.mrp.list); ++i )
->          p2m->pod.mrp.list[i] = gfn_x(INVALID_GFN);
->  }
-> +
-> +bool p2m_pod_active(const struct domain *d)
-> +{
-> +    struct p2m_domain *p2m;
-> +    bool res;
-> +
-> +    if ( !is_hvm_domain(d) )
-> +        return false;
-> +
-> +    p2m = p2m_get_hostp2m(d);
-> +
-> +    pod_lock(p2m);
-> +    res = p2m->pod.entry_count | p2m->pod.count;
-> +    pod_unlock(p2m);
-> +
-> +    return res;
-> +}
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -4778,7 +4778,6 @@ long arch_memory_op(unsigned long cmd, X
->      {
->          xen_pod_target_t target;
->          struct domain *d;
-> -        struct p2m_domain *p2m;
->  
->          if ( copy_from_guest(&target, arg, 1) )
->              return -EFAULT;
-> @@ -4787,7 +4786,9 @@ long arch_memory_op(unsigned long cmd, X
->          if ( d == NULL )
->              return -ESRCH;
->  
-> -        if ( cmd == XENMEM_set_pod_target )
-> +        if ( !is_hvm_domain(d) )
-> +            rc = -EINVAL;
-> +        else if ( cmd == XENMEM_set_pod_target )
->              rc = xsm_set_pod_target(XSM_PRIV, d);
->          else
->              rc = xsm_get_pod_target(XSM_PRIV, d);
-> @@ -4813,10 +4814,7 @@ long arch_memory_op(unsigned long cmd, X
->          }
->          else if ( rc >= 0 )
->          {
-> -            p2m = p2m_get_hostp2m(d);
-> -            target.tot_pages       = domain_tot_pages(d);
-> -            target.pod_cache_pages = p2m->pod.count;
-> -            target.pod_entries     = p2m->pod.entry_count;
-> +            p2m_pod_get_mem_target(d, &target);
->  
->              if ( __copy_to_guest(arg, &target, 1) )
->              {
-> --- a/xen/common/vm_event.c
-> +++ b/xen/common/vm_event.c
-> @@ -639,7 +639,7 @@ int vm_event_domctl(struct domain *d, st
->  
->              rc = -EXDEV;
->              /* Disallow paging in a PoD guest */
-> -            if ( p2m_pod_entry_count(p2m_get_hostp2m(d)) )
-> +            if ( p2m_pod_active(d) )
+assisted_x{2}apic need to either resolve to true or false past this
+point, but must not be left using it's default (uninitialized) value.
 
-Isn't it fine to just check for entry_count like you suggest in the
-change to libxl? This is what p2m_pod_entry_count actually does
-(rather than entry_count | count).
+> }
+> 
+> Or do i still need to also check that assisted_x{2}apic hasn't been set 
+> elsewhere for PV domains, in which case, I'm happy to add the code you 
+> proposed above with this code I have here too.
+
+I would prefer if we actively rejected options that don't make
+sense.
+
+It's wrong to try to set assisted_x{2}apic for PV because there's no
+APIC at all in that case. I will defer to the maintainer, but I would
+prefer if an error was reported in that case. I know we are not
+consistent in that regard, so I'm not going to block what you propose.
 
 Thanks, Roger.
 
