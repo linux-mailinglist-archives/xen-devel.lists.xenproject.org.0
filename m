@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C55A64A8212
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Feb 2022 11:09:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.264586.457725 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CB544A823F
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Feb 2022 11:20:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.264594.457736 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFZ27-00024k-FE; Thu, 03 Feb 2022 10:08:07 +0000
+	id 1nFZE1-0004NC-N5; Thu, 03 Feb 2022 10:20:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 264586.457725; Thu, 03 Feb 2022 10:08:07 +0000
+Received: by outflank-mailman (output) from mailman id 264594.457736; Thu, 03 Feb 2022 10:20:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFZ27-00022w-Bg; Thu, 03 Feb 2022 10:08:07 +0000
-Received: by outflank-mailman (input) for mailman id 264586;
- Thu, 03 Feb 2022 10:08:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nFZE1-0004LD-JD; Thu, 03 Feb 2022 10:20:25 +0000
+Received: by outflank-mailman (input) for mailman id 264594;
+ Thu, 03 Feb 2022 10:20:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=OTfZ=SS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nFZ26-00022q-Fi
- for xen-devel@lists.xenproject.org; Thu, 03 Feb 2022 10:08:06 +0000
+ id 1nFZE0-0004L7-Dh
+ for xen-devel@lists.xenproject.org; Thu, 03 Feb 2022 10:20:24 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2d267748-84d9-11ec-8eb8-a37418f5ba1a;
- Thu, 03 Feb 2022 11:08:04 +0100 (CET)
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01lp2050.outbound.protection.outlook.com [104.47.1.50]) by
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e5481721-84da-11ec-8f75-fffcc8bd4f1a;
+ Thu, 03 Feb 2022 11:20:22 +0100 (CET)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2055.outbound.protection.outlook.com [104.47.14.55]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-4-ueIPvqyhM9CwzGkbIdaU8Q-1; Thu, 03 Feb 2022 11:08:03 +0100
+ de-mta-36-JQsTC6oMPqeJrqtITfAGdA-1; Thu, 03 Feb 2022 11:20:21 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by DB6PR0402MB2933.eurprd04.prod.outlook.com (2603:10a6:4:9c::17)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DBBPR04MB6314.eurprd04.prod.outlook.com (2603:10a6:10:c3::20) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Thu, 3 Feb
- 2022 10:08:00 +0000
+ 2022 10:20:20 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5160:9fd7:9627:cb11]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5160:9fd7:9627:cb11%5]) with mapi id 15.20.4951.012; Thu, 3 Feb 2022
- 10:08:00 +0000
+ 10:20:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,302 +51,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d267748-84d9-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: e5481721-84da-11ec-8f75-fffcc8bd4f1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1643882884;
+	t=1643883622;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=JxVgD5J3f611iLcCd4U9QBkLVFGWKsoTzez8mxiPSHM=;
-	b=ZN9lq86EacezUuInwmKi+cf6I7win/jgfkNx3fU3I5ov9VuKiAg2/NJz0teDOKW5cB5j6e
-	0cGIAd3ICJ5e4BZkOjm6VZzAaUMfB37tMFIj5bVhV8YX+kyDUURIuNTgqqv+NTzuYvW48L
-	WKVFOncYSi5uD5VF+bzREmZQFb5dUWk=
-X-MC-Unique: ueIPvqyhM9CwzGkbIdaU8Q-1
+	bh=l9YYpd3DEdqXW/HSUagkh2HwS10lejt3JIfsjk9tLEQ=;
+	b=ZNsrz4mD8ppsEYX4nNkoZ8ObOGZhiz//RziD7tFA+2iWmRk52GSWZbUCZKapGWWZGVGluS
+	9kcBTXJ5U2T5f1+B7hqNAJkkizXOwXz7pg6nwZlMftByh/o2Ve71r5itZWIESw3Dvquk6o
+	peJkPJxDrryIyOMJg52vqNXTI+Zzs0I=
+X-MC-Unique: JQsTC6oMPqeJrqtITfAGdA-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jCDpysO7XhlnHeqy8VvvVckiltJmWtTE1lZ4T0ETSAlYfGrZRtJCXpf6/k4iI4QddbmSK1ID2jyAMl8EevovoVzPDOnDxmcbOpkPnbQEq83IM1bWPQOQdTR6LIKi998juSXdgy2kVA/NQVk8GgQUvawbIqtCjxWGx1KdAbXxLcXFFuGgEke4XTEwY3Rxxpj3ey4/fxrffMp7nCjX3lpXQZoluCO0+hf9sBdGNqUvhtbip9zLjv+/39aYAT4VnXadreHa9khXc86jv/HDM3KDX4cpqiWcYBcKsqlzYvC1tE8JiO/ay4upq8UZp53HoRbzKaW+ea9+PTVRmebTE3/Xaw==
+ b=RrnpmzOx5R27XyX1viaR4NyqVv4O7BbJV9ThH2gPRa0vpSJtIXYS7Gm+nv6Vg/M9Z4yx3J9OXlFMkHTOWvrmDK38ujkOhoQoOfPR6AZVin8fKlTXaORFUoReOnCx7yNInRbOnGCH6uEwl2gJuGoboHqkmHg5MpCmcuwALsNTOAUEaV+PSaWG/yjndbBHUZwsQyMZqB6WfeSk0R7/3ynIiwCsRb+BgN4OQ/XCZ+iIM00/Q/QJ9oGQYW82qWaFdBbhD/nU2vM4TtbSNlTAb+BwyyaKMFqDeASCZ77nlriq4i8Rdi/ZRdmT6WOhToSUhrnoqy+2XC1lAhmy6PLmbLupEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JxVgD5J3f611iLcCd4U9QBkLVFGWKsoTzez8mxiPSHM=;
- b=E81fpwMpGgEpFU0i28PoQvSb8RPvtS87v5yRHD+u4kC0wpOFMpzJCP7x0lswca2bjV2S0cRrwqRPT7DSpTEm+YasOlMIIfF2/vfoa9UPTvU7zTuSXvE5cg7eSnyV8cuHugJGvE02Xv+bO1q3ZG/CI23rx/Yta1mnRxgUy+YGKfftmI+R19LouYnxVGKO2j3/RsimeNxyrdB3IF6D+JQXpFBFpp8gZ6jluVMcMmfFsHCdxIZAxO1zndN99j7AOq4UgnZhfcsnc54QtZvW1SmgZAsp5yvAjkWgHCLqZ+n0Y2+ZHOHKWEpDhvXWTDZw171zQtwHlAIP7DzFwcTtuhS0KA==
+ bh=KryuYmF3kKXLUrAMriz9WqzzwxBTtYVk+FxcG7V2/Eg=;
+ b=RAT2Jr6NLoctkO6KODAMlgNrShH6bs5zj1usKvBvxavVk9GZMU4h/1u1qxuQRCUgDXiv38FOcNF3NGETQOgcP/+lhaQs2uiVCAPGxZ3U/XvPq5e+cpdY2ry0kUvtr5L8JvucZdyDIEj8GgnNFSA3/VVhZEtTFBQ5nnG95+FSpmMy/Yy/yGxv4qfsjc9y8A7IoRT3oY7S3AerYJ6xRvZb7ZKkOTb14NlTnLxfp4Ip+nv+Glreyxoyb//Yt8KdDaKyFarcDSIvxeb/0ldfc7dE9SuQ5nGPH+qg8jLBgMrS1Fx/mdt+qb+DB6PJdAL080B1Z/XQ1JgGtRv1yglNj6o+Nw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <efe591ea-36c9-0ead-727f-600ae3c5ed05@suse.com>
-Date: Thu, 3 Feb 2022 11:07:58 +0100
+Message-ID: <6e835c3a-c22a-dd6b-b6f8-e6c22404b814@suse.com>
+Date: Thu, 3 Feb 2022 11:20:15 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH] docs: document patch rules
+Subject: Re: [PATCH v3 1/2] IOMMU/x86: disallow device assignment to PoD
+ guests
 Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20220202114448.8608-1-jgross@suse.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Paul Durrant <paul@xen.org>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ Petre Pircalabu <ppircalabu@bitdefender.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>
+References: <6fe7b036-2bdb-b391-4e6c-1b5d7e05a119@suse.com>
+ <b0a77526-17f2-a5ab-6f7f-1b3caeb4a59b@suse.com>
+ <YfqtlZMAKd/HXsgf@Air-de-Roger>
+ <2cd051c8-dac0-998c-cced-401c504ad439@suse.com>
+ <Yfuahx0ntHJ2BQ6x@Air-de-Roger>
+ <7c315902-e618-bba6-054d-86b0aa685370@suse.com>
+ <Yful4oPqwzw3lsjp@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220202114448.8608-1-jgross@suse.com>
+In-Reply-To: <Yful4oPqwzw3lsjp@Air-de-Roger>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR04CA0076.eurprd04.prod.outlook.com
- (2603:10a6:20b:313::21) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM7PR03CA0030.eurprd03.prod.outlook.com
+ (2603:10a6:20b:130::40) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: b584c427-51a7-4122-8f89-08d9e6fd0f19
-X-MS-TrafficTypeDiagnostic: DB6PR0402MB2933:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Office365-Filtering-Correlation-Id: 37f7aa05-61b8-4b5e-c034-08d9e6fec79d
+X-MS-TrafficTypeDiagnostic: DBBPR04MB6314:EE_
 X-Microsoft-Antispam-PRVS:
-	<DB6PR0402MB29336675ACE25BD36EF37C83B3289@DB6PR0402MB2933.eurprd04.prod.outlook.com>
+	<DBBPR04MB6314CE39556EE29F4CBC6DC8B3289@DBBPR04MB6314.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	oS/ula1cyGDAqMR62cpTM6Q2Goc+WICKR9s8wd8n6AxqpgHLDEJnus5Nj2w8MESXKwgUnGQduJFwC1w8pHJDl1l7r6FykfFwST51tE4c2fS7AEL6o87sO+jeb6pemBLNb+tQm1e9GjRSgwblruegL1GGQtOvN6x2yHwdh5RPCHEKBh83GM2j50PfUVgb8a7YG6QM0P1OFEejKYnEuKubgoiIGGl3QeCnMJR9EYzZpbovK9TQWw12OfDcZPfILZGyHTKTz7h4gn2z/Nxz2ovQHSKIVgz9JaMzanvl4wxfGh6DhvSZUxgFt1xEop/vhKKIzCluLYdz1NPHMQiBLI9iGr3Hx0DwxWiFn7NnwJ/d3ZCjV893FH7b9wBEYeWw7THLXKZoIURwGY3Xp/fjfMYkpXLt1I5pinKAvccQwQZEh0K5yqg9zNxQoiMcPG62cnYyt5wHIknq5ZrNDwkdqmRcMIWQNWXf/Vz18CGk2mnMrqkw9TTEBLXSZO4N5vv8eqYq737WnbpgNJIWsiPjDJXAfZBRQ4hyHLNQxDfzQPT2H2LZOUh6sQF0FmpQv+bzbQZpFE1Nbgy/ss8wFvewf/nHRX2B4qbMrzqAaghxGf9o3WcAUAVrV+L2qkuG6qFtC6gXGccGyjHOj7hmKRWEPKBpByzjlran8+GtnDWab9ctShqy02KUJvZjEhzV3e8EafFqqIKLo3t8TgoVrz0CjM10wxbT+fR08sH9HBvOtxrjl5QjY4Oqp+e204EzKcFJUS4H7g/qTgydj/62mIVq24LqPqzhaKtZ/UHV5G0OqSOmQfA+uJvghwejvcHS3x1mcdps
+	4mQj80ThclEku/OxRbg7f3wuRoOnztca7/zEU4Z351wBS4LBaWULJy9yz8Qa/0Ip3gi0fQjxKK4CCbPzMkAkrXOTi9wbGbWLbZkPSd2qTaEGLKfOIxRwfKV/Ov91JWnQw7ZasLberTtOxeWzB8qATOAaO50Xhti+fJPrIf7zQvfpbBOXQv/zw0XfoEdOnmOj3EtyTAHpcrSrumxUT3YXIzd8tOwuFraxIsMLg3YDgojcOrcIqTQ3BGIABiVRcxKTjkGydBzspFnL66PWJZr7XBCgS6CC8pqzm4QkAsJ6fplKkHrNLPYE+UC1GRfN6ChgH0MPXKpfHsrFCTJkYbvOUWD0VvksNLwSbz7QjOi9d2Z3z7eLfEpGS7LC2BJ4GIVvY0ocXTA6vLMhYNFJjTJwQCTnemz0JTeEX4M9dXgMKyhIOksj7tlOXZQwgX8snVbOyXm0Iwi0D1vJtPFD/k8/0y7NEt363RwjRpWLntm+BJVX1nL04InrmodKdbtpjukQaw6UGEu7vjS7NUC3+XPrzfJ5pCXXn26LADEJBNffwe+2KoEWDx/EkMroD58mvZd2hw6Mu7xcpL1XwosFliJTwsMSmEVoAz1QWUaix0YYLUQp8ClRQKQSwO+JfAkiRNZl8MvxGKbe/RGjjruslz83bp3v/XvAwCCLBTzzdcMPy25Cj/pz1adP/QxWdafcFP9s+reQscwAkVVALcccV8emsYT3uBEzrl41xx61ObFTeUYMNc9qxM1MMG/onwBNeR4OTSXZL9lzx6VqsGLFeRNiGE4gwFmdSn0EHFvqXjIltGU=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66476007)(83380400001)(66946007)(2616005)(66556008)(6512007)(6506007)(186003)(53546011)(38100700002)(86362001)(31696002)(26005)(6862004)(36756003)(8936002)(5660300002)(8676002)(4326008)(6486002)(37006003)(31686004)(508600001)(316002)(6636002)(54906003)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66946007)(316002)(2906002)(6666004)(8676002)(6916009)(8936002)(66556008)(86362001)(53546011)(4326008)(66476007)(2616005)(26005)(186003)(6506007)(6512007)(31696002)(36756003)(508600001)(6486002)(54906003)(38100700002)(83380400001)(31686004)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dU93STRWTFZGeTNZZEFHMGI2K3BHTG8vTm1scDI1T3R5SHp4bTJ5eS9QSHNZ?=
- =?utf-8?B?ajFFWFZqRFRCNFhzZWNwWXZpUlZrQTcyeC81STVZZm9GUDZvbU5HU043cm41?=
- =?utf-8?B?VzIrN2ZVdVp0dFg3R3VxQWQ1SmZEaWoyNFo1SVdLeDRORnhQY2l4NUxPQVlQ?=
- =?utf-8?B?Y2dqOHFKNDZYUUdyb1NQbVRuekVZVmtTNng1UFNGOXVFaHpPUDNUdkNpV0Jq?=
- =?utf-8?B?Wit6VzJLeUNvRlo4bHh6NndNY01tRWhORnRzNDBwYVRCVCtGdkpRU0xLaEhz?=
- =?utf-8?B?RUZvcGxJZTB1N2dXZXExR2ZkVDFobHNQbmVQeDJ1N2Fhd0t5cmp1YTdPcVht?=
- =?utf-8?B?ZHhjUmdSczJSZ2FqNHVweDhuakJTdEtPNHhlK0pnNmQ2eG1TdWJTMUY4bHlV?=
- =?utf-8?B?K1d6amppRmRJY0dqbXNuc3F2ZktNV0V2TysrWUNBeHhoZVhuUXJVSmtDdHc0?=
- =?utf-8?B?L3orL0dBMXFUVVNtaXgzbklzZ2NVZUZwMGtFd3pBUk1uS2hkRmQ4Vi9ZaWo5?=
- =?utf-8?B?aFp6M3QvZjBkNHpaR1MyQitnNkhqQ3FEK3VHMmpERjMxV0lDTndDdm9RYW5R?=
- =?utf-8?B?NGhLT1ZXU0VzcFI3Yit4UlZUQnpKTmpxeHkvZmpCUVMyTjN4blc5akQySHNU?=
- =?utf-8?B?Q0dma1d4SFY1QkpLczhkUUFiK28yRlByS0lPZitwbGUyR1NhZ09DaDdQd3FF?=
- =?utf-8?B?eDhpcUw3TUp6YnREVk1GVzJzaVdBTkQ2dFV6aWpkV3BzazBVekNNREdtRStZ?=
- =?utf-8?B?dE9GL0hlUU0yR1ozSkJjdzl4c1FOUmxNbFlqbFNScHoyYXpXN0ZXMWlzNzRl?=
- =?utf-8?B?R0pWWXZFeFUwaVBpdEhLc3NFZnhwVlZCdnBkemhZQVNEdjJseDBTcitXQ0tH?=
- =?utf-8?B?L3VwUmtITVF3UDh1b09MUmZwRm44bGswYitIcjJ1bG93VTllOVpjbXdINThK?=
- =?utf-8?B?U3FXZUw0MTBoZTd2VmhHOElTUGVDb1VRRmFEMWJUeTNVeFRCZ0trU1pTWjVU?=
- =?utf-8?B?czJLblk1L1JhMHNmLzVkTnNNYUZwN2Z2T0RGZkFOS3FzM0JmV3dSbDF6K1ZX?=
- =?utf-8?B?bzloQUFLNDdUZ1hKajBYc0hydUh2ZVFiZExjZHhvamNNc1lFRm1mVHdmKy9T?=
- =?utf-8?B?eVBTTFMyRXlVSGNjaHo2TzZ0SkJZcFovdE1hNDFkbWZkTmpxd0kzeXBlQmlv?=
- =?utf-8?B?aEpqTHNCVkxCcXQwT0dMSWpxazhTZ0xSTWRQQmloVXhDSzNESEFvRXd5R2hZ?=
- =?utf-8?B?blRvY2VMeWpta1FaaWpqeENicmNPTlVNSElCYXFnK0xZVHIwNWRoN0taNWdD?=
- =?utf-8?B?MGwrVytyaEt6VnZINUJwcHRWbWxRV2VJZExtMnE5bUZVa1lla0JLZjdyM3R3?=
- =?utf-8?B?akVQRFp1alpkL0VXVm9IQWdrQ2VsTHFHcUFXMjNKODdnM0xKYjI1WjNnWW54?=
- =?utf-8?B?WFR2L25DWUUzNFRiVE03eC9VZjdiNEF0djFGODYzSFJFYkZlYTY3Ly9ORDRM?=
- =?utf-8?B?V1VIYmVGK1NDVzAzUHpvb3hSVEcxL2tvWCtHUTB4dWx6d3BQVWdCb1BsWDFU?=
- =?utf-8?B?cHFPdHV3NTdtbTVzUi9sOGNjRWF5c2ZOYVRrclNZb3ZZemNlYXI2bEZETGM4?=
- =?utf-8?B?a0RPSUdMZGhWY2QvZ2JaaGNGUUdoVGNMcTVyd0g4L3hvc3h3R1I3TStPTUtX?=
- =?utf-8?B?bkNZQmVXbHlDdDNsOUlmZ2VQR3NzTmlXNTJYekdXZnY4cE5NbUFBWFJ5K2Np?=
- =?utf-8?B?UWJDempaZzlCd2N6bnpHdzhpWldHZEo0bFpBY0U3VG91UHpoYmhKTU5DdnJl?=
- =?utf-8?B?WGpPUFRkNVNWTmFtMWVYQWV1cjJuUndTbG1nT2U5dWNScjJSMXByK2dpMDli?=
- =?utf-8?B?OEdiZndza29jOHhELzlKL2dpQkZTUWdJMHVkNmZVeWlKZDdrY1JGbHA1eW1s?=
- =?utf-8?B?aGRqSS9SR1E1K1k1aWgweW1OU1hTRTYyQndoWTVuRGsweGFpZ2hRMkxQVGho?=
- =?utf-8?B?Z0RVcEt4ZENoYUVZOFpjWWtoU25QQytrQWVRL1FpcWpNamZoaXdIYkIxd1pm?=
- =?utf-8?B?eklReG83T0F0RG5vWXNPNFR6NnJjZTV2YUR1aS81cGlpZDlwQmsyY1AyMXh6?=
- =?utf-8?B?d3ppOVhkSlNTQndaZ0Q2cmtmdTAwd0x3ZzlKV0d6SlpDeXFSOXVibWNTd3Qy?=
- =?utf-8?Q?G1bHRGI1Ya3TAx/baqK7HRM=3D?=
+	=?us-ascii?Q?3bkbmLZwxNhJXToBeJRUfcAn0DOoqItRjC+GtgGpMuD69Tf+ohavi8UtypDW?=
+ =?us-ascii?Q?O5Qsu4dfHUnHIpBedxiA9Rp25OxBkAP8AW8G2hV7sSEsqQWEKmqd3RLdN2hR?=
+ =?us-ascii?Q?rr2mtWyG3snA++oNOyn1ti+esvvBeXdNvNpurRx6NU9nUONfrKYVDheAxfT6?=
+ =?us-ascii?Q?4W59eBJ7iJQ2hHl6HMDrK1XATYZ8dvvpUWJVmeylD23xQyIbA0SIzTpCU0Om?=
+ =?us-ascii?Q?gINMMREmbfXugObGGeaImXyve43zEaFqkSBsY5jtYScvm7OXNNJTFqY1vUyy?=
+ =?us-ascii?Q?p4SaHmJGBJek48jfYWgyg1neyaZ3voPz8CjLmceeHWRJ6bwob6DBff8hrdEW?=
+ =?us-ascii?Q?jKTkqbUQRIlWSTsGVlTYEzdvj4bdYl9vkkhuPCRRNQkOOyFlr4t2mU0q0COQ?=
+ =?us-ascii?Q?qWMNysrwWyK1++bmVyWpM74/RF57VmCwHBxlz+z1t5xIses6XzcraDC1itn5?=
+ =?us-ascii?Q?rWo+si0Qw/aFCmZrIEYEYf+znQSasA0CVc4LzvJhxUGZ2yLiWsvZpTsJIWfi?=
+ =?us-ascii?Q?7i/SaOd/l7kz7yqeR3lvptoylJnYGiP9W4ikVlDrn2DzU6MwPhaWDFAdOHAh?=
+ =?us-ascii?Q?SL0r+JomsKdEFEFh7kOw7xIMXL2hUELMP08QpcR2jCW/3QirCmaOzImz21Ai?=
+ =?us-ascii?Q?dZGoH+X3AnImpZn+fO7TrcCL1S/TQzB7r+mU+UnYWDIRERb/kDCZLiJohYEa?=
+ =?us-ascii?Q?5DCmGkgsIH9R2woaPx9qNHkcw6TUAJeH27FaAhmwWOZJeEPOT6+9b1iWjX/3?=
+ =?us-ascii?Q?KNx90nJHe4MGXWil4kLOGJvZHfvnfA+NemBu8KpSD9CQNOP1rCxoe/HxpUnV?=
+ =?us-ascii?Q?/vJrLZb+jLUgptEUGPlp0pTx9tTOGFrxOGC6SGiJH0joRD0pb14YKdfqWP1i?=
+ =?us-ascii?Q?2YTKyKdnm104Osk2Ohli5qeKC/DR1ZCM18fNap1zPpAKo7HCervntrM6NEQH?=
+ =?us-ascii?Q?t5aRFKRFxJ4fuGBg/9ZIDTWcjrriGvtROHrV1E0qh9GyHj3waClAmfZ0hxLv?=
+ =?us-ascii?Q?L5c0AXwsJw1MhShtBBa3zCa2TyxwR05iBtfTtb2Nbmg6Sy/SK4l1wzTfTbNu?=
+ =?us-ascii?Q?KPptR/aDhD0Nh0gSeqmci5d6j6PunkkrQMAdZNDaSsXTfx0aeyokl9ue+5yK?=
+ =?us-ascii?Q?RPM89im9rt1oz6pxNdo6sb9gUaLH5rlI5wIkbs+BGDRhDbQVrRGbt/KlRl/W?=
+ =?us-ascii?Q?TGf8zakGwINurchCsb3iLo/NVtqX7hfiaBDOYYutJhxdCX0UlEtguBZQ7dRR?=
+ =?us-ascii?Q?EWoiGRl3/UVOwk0sLn7gaXBAgq18dHQHv214Dxb5E5/mL07X68vetfh7LeTG?=
+ =?us-ascii?Q?iOWUj6DgDsoGqzs6WLw5blDB27hpLIsIDmvwHcusnPUO6LF3/gd/UBns1xz3?=
+ =?us-ascii?Q?8Lgn54nbVBAKYPwZ2pb0IDYXlJ02tAbTmfdSguco6fZQsqUxM7sJu7B6FwJT?=
+ =?us-ascii?Q?89ZXKzEHZJhonn+CHKfsHelTOVRpVS2Iu1UM7MjhLNj+4H1nDbnfptA/uURN?=
+ =?us-ascii?Q?/aFWt9J/yim3asm53aAhQkfls9aBz314VbKAJd+JJVb7DavrBOPX0LFnKhr4?=
+ =?us-ascii?Q?3MdOMtUKAgBEAQ9z0n9lfUe22+Wn6/r/XOoomRculPKdzhjBYM+j1u3dlrQ5?=
+ =?us-ascii?Q?76VplVwwe1YhNKYc6CaBaPM=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b584c427-51a7-4122-8f89-08d9e6fd0f19
+X-MS-Exchange-CrossTenant-Network-Message-Id: 37f7aa05-61b8-4b5e-c034-08d9e6fec79d
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 10:08:00.6427
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 10:20:19.6128
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Fif41imNLREFcivWyJZl/0yIYgCsVMzdu8JW5goU3lLNDFrcMsIUplhntk5ayVn1BxaEcK+cJ9AXDc4I0ECP7Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0402MB2933
+X-MS-Exchange-CrossTenant-UserPrincipalName: c2sPpWFGHI+LV25v1z61udcDkL3nXHbUTHPg2YO3EFXCgCkYAd0IWeymHz8f3YaGD0zKVNeHjGuV7QpiH6x0LA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB6314
 
-On 02.02.2022 12:44, Juergen Gross wrote:
-> --- /dev/null
-> +++ b/docs/process/sending-patches.pandoc
-> @@ -0,0 +1,284 @@
-> +# How a proper patch should look like
-> +
-> +This is a brief description how a proper patch for the Xen project should
-> +look like. Examples and tooling tips are not part of this document, those
-> +can be found in the
-> +[Xen Wiki](https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches).
-> +
-> +## The patch subject
-> +
-> +The first line at the top of the patch should contain a short description of
-> +what the patch does, and hints as to what code it touches. This line is used
-> +as the **Subject** line of the mail when sending the patch.
-> +
-> +The hint which code is touched us usually in form of a relative path inside
+On 03.02.2022 10:52, Roger Pau Monn=C3=A9 wrote:
+> On Thu, Feb 03, 2022 at 10:21:54AM +0100, Jan Beulich wrote:
+>> On 03.02.2022 10:04, Roger Pau Monn=C3=A9 wrote:
+>>> On Thu, Feb 03, 2022 at 09:31:03AM +0100, Jan Beulich wrote:
+>>>> On 02.02.2022 17:13, Roger Pau Monn=C3=A9 wrote:
+>>>>> On Tue, Jan 04, 2022 at 10:41:32AM +0100, Jan Beulich wrote:
+>>>>>> @@ -359,7 +360,10 @@ p2m_pod_set_mem_target(struct domain *d,
+>>>>>> =20
+>>>>>>      ASSERT( pod_target >=3D p2m->pod.count );
+>>>>>> =20
+>>>>>> -    ret =3D p2m_pod_set_cache_target(p2m, pod_target, 1/*preemptibl=
+e*/);
+>>>>>> +    if ( has_arch_pdevs(d) || cache_flush_permitted(d) )
+>>>>>
+>>>>> Is it possible to have cache flush allowed without any PCI device
+>>>>> assigned? AFAICT the iomem/ioport_caps would only get setup when ther=
+e
+>>>>> are device passed through?
+>>>>
+>>>> One can assign MMIO or ports to a guest the raw way. That's not
+>>>> secure, but functionally explicitly permitted.
+>>>>
+>>>>> TBH I would be fine if we just say that PoD cannot be used in
+>>>>> conjunction with an IOMMU, and just check for is_iommu_enable(d) here=
+.
+>>>>>
+>>>>> I understand it's technically possible for PoD to be used together
+>>>>> with a domain that will later get a device passed through once PoD is
+>>>>> no longer in use, but I doubt there's much value in supporting that
+>>>>> use case, and I fear we might be introducing corner cases that could
+>>>>> create issues in the future. Overall I think it would be safer to jus=
+t
+>>>>> disable PoD in conjunction with an IOMMU.
+>>>>
+>>>> I consider it wrong to put in place such a restriction, but I could
+>>>> perhaps accept you and Andrew thinking this way if this was the only
+>>>> aspect playing into here. However, this would then want an equivalent
+>>>> tools side check, and while hunting down where to make the change as
+>>>> done here, I wasn't able to figure out where that alternative
+>>>> adjustment would need doing. Hence I would possibly(!) buy into this
+>>>> only if someone else took care of doing so properly in the tool stack
+>>>> (including the emission of a sensible error message).
+>>>
+>>> What about the (completely untested) chunk below:
+>>>
+>>> diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_c=
+reate.c
+>>> index d7a40d7550..e585ef4c5c 100644
+>>> --- a/tools/libs/light/libxl_create.c
+>>> +++ b/tools/libs/light/libxl_create.c
+>>> @@ -1160,17 +1160,16 @@ int libxl__domain_config_setdefault(libxl__gc *=
+gc,
+>>>      pod_enabled =3D (d_config->c_info.type !=3D LIBXL_DOMAIN_TYPE_PV) =
+&&
+>>>          (d_config->b_info.target_memkb < d_config->b_info.max_memkb);
+>>> =20
+>>> -    /* We cannot have PoD and PCI device assignment at the same time
+>>> +    /* We cannot have PoD and an active IOMMU at the same time
+>>>       * for HVM guest. It was reported that IOMMU cannot work with PoD
+>>>       * enabled because it needs to populated entire page table for
+>>> -     * guest. To stay on the safe side, we disable PCI device
+>>> -     * assignment when PoD is enabled.
+>>> +     * guest.
+>>>       */
+>>>      if (d_config->c_info.type !=3D LIBXL_DOMAIN_TYPE_PV &&
+>>> -        d_config->num_pcidevs && pod_enabled) {
+>>> +        d_config->c_info.passthrough !=3D LIBXL_PASSTHROUGH_DISABLED &=
+&
+>>> +        pod_enabled) {
+>>>          ret =3D ERROR_INVAL;
+>>> -        LOGD(ERROR, domid,
+>>> -             "PCI device assignment for HVM guest failed due to PoD en=
+abled");
+>>> +        LOGD(ERROR, domid, "IOMMU cannot be enabled together with PoD"=
+);
+>>>          goto error_out;
+>>>      }
+>>
+>> Perhaps. Seeing this I actually recall coming across this check during
+>> my investigation. Not changing it along the lines of what you do was
+>> then really more because of me not being convinced of the extra
+>> restriction; I clearly misremembered when writing the earlier reply.
+>> If we were to do what you suggest, I'd like to ask that the comment be
+>> changed differently, though: "We cannot ..." then isn't really true
+>> anymore. We choose not to permit this mode; "cannot" only applies to
+>> actual device assignment (and of course only as long as there aren't
+>> restartable IOMMU faults).
+>=20
+> I'm fine with an adjusted wording here. This was mostly a placement
+> suggestion, but I didn't gave much thought to the error message.
 
-Nit: s/ us / is /
-
-> +the Xen git repository, where obvious directories can be omitted or replaced
-> +by abbreviations, or it can be a single word describing the topic:
-> +
-> +    <path>: <description>
-> +
-> +E.g.:
-> +
-> +    xen/arm: increase memory banks number define value
-> +    tools/libs/evtchn: Deduplicate xenevtchn_fd()
-> +    MAINTAINERS: update my email address
-> +    build: correct usage comments in Kbuild.include
-
-I realize there's "usually" in the wording, but I'm still uncertain in how
-far we want to suggest paths here. I have to admit that I never really
-liked overly long prefixes like the "tools/libs/evtchn:" you give as
-example. The prefix should be sufficiently unambiguous, yes, but in this
-particular case "libs/evtchn:" or "libxenevtchn:" would be enough to
-achieve that.
-
-I'd prefer if the tag was described as specifying a (sub-)component (or
-other abstract entity, like is the case for your "build:" example).
-
-> +The description should give a rough hint *what* is done in the patch.
-> +
-> +The subject line should in general not exceed 80 characters. It must be
-> +followed by a blank line.
-> +
-> +## The commit message
-> +
-> +The commit message is free text describing *why* the patch is done and
-> +*how* the goal of the patch is achieved. A good commit message will describe
-> +the current situation, the desired goal, and the way this goal is being
-> +achieved. Parts of that can be omitted in obvious cases.
-> +
-> +In case additional changes are done in the patch (like e.g. cleanups), those
-> +should be mentioned.
-> +
-> +When referencing other patches (e.g. `patch xy introduced a bug ...`) those
-> +patches should be referenced via their commit id (at least 12 digits) and the
-> +patch subject:
-> +
-> +    Commit 67d01cdb5518 ("x86: infrastructure to allow converting certain
-> +    indirect calls to direct ones") introduced a bug ...
-
-I think this should have a reference to the Fixes: tag, as generally it
-makes the text less convoluted if it references such a tag rather than
-spelling out hash and title a 2nd time.
-
-> +## Tags
-> +
-> +Tags are entries in the form
-> +
-> +    Tag: something
-> +
-> +In general tags are added in chronological order. So a `Reviewed-by:` tag
-> +should be added **after** the `Signed-off-by:` tag, as the review happened
-> +after the patch was written.
-> +
-> +Do not split a tag across multiple lines, tags are exempt from the
-> +"wrap at 75 columns" rule in order to simplify parsing scripts.
-> +
-> +### Taken-from:
-> +
-> +Xen has inherited some source files from other open source projects. In case
-> +a patch modifying such an inherited file is taken from that project (maybe in
-> +modified form), the `Taken-from:` tag specifies the source of the patch:
-> +
-> +    Taken-from: <repository-URL> <commit-id>
-> +
-> +E.g.:
-> +
-> +    Taken-from: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git f093b08c47b3
-> +
-> +All tags **above** the `Taken-from:` tag are from the original patch (which
-> +should all be kept), while tags **after** `Taken-from:` are related to the
-> +normal Xen patch process as described here.
-
-While I don't mind it becoming "Taken-from:", I'd like to put up for
-consideration the (slightly shorter) alternative of "Origin:".
-
-> +### Reported-by:
-> +
-> +This optional tag can be used to give credit to someone reporting an issue.
-> +It is in the format:
-> +
-> +    Reported-by: name <email@domain>
-> +
-> +E.g.:
-> +
-> +    Reported-by: Jane Doe <jane.doe@example.org>
-> +
-> +As the email address will be made public via git, the reporter of an issue
-> +should be asked whether he/she is fine with being mentioned in the patch.
-> +
-> +### Suggested-by:
-> +
-> +This optional tag can be used to give credit to someone having suggested the
-> +solution the patch is implementing. It is in the format:
-> +
-> +    Suggested-by: name <email@domain>
-> +
-> +E.g.:
-> +
-> +    Suggested-by: Jane Doe <jane.doe@example.org>
-> +
-> +As the email address will be made public via git, the reporter of an issue
-> +should be asked whether he/she is fine with being mentioned in the patch.
-
-Besides these two we've also been using Requested-by:, which I think in
-some cases conveys information more precisely than Suggested-by: (e.g.
-when some result was to be achieved without a solution or path there
-having been given).
-
-> +### Reviewed-by:
-> +
-> +A `Reviewed-by:` tag can only be given by a reviewer of the patch. With
-> +responding to a sent patch adding the `Reviewed-by:` tag the reviewer
-> +(which can be anybody) confirms to have looked thoroughly at the patch and
-> +didn't find any issue (being it technical, legal or formal ones). If the
-> +review is covering only some parts of the patch, those parts can optionally
-> +be specified (multiple areas can be covered with multiple `Reviewed-by:`
-> +tags).
-
-I'd prefer if the comma separated form was also explicitly mentioned
-(and hence permitted) here. I'd even go as far as suggesting that this
-should be the preferred form as long as line length constraints permit.
-
-> It is in the format:
-> +
-> +    Reviewed-by: name <email@domain> [# area]
-> +
-> +E.g.:
-> +
-> +    Reviewed-by: Jane Doe <jane.doe@example.org>
-> +    Reviewed-by: Jane Doe <jane.doe@example.org> # xen/x86
-> +
-> +In case a patch is being resent an already given `Reviewed-by:` tag can and
-> +should be included, if the patch didn't change the portions of the patch
-> +covered by the tag,
-
-May I suggest to insert "meaningfully" or some such here?
-
-> or if the reviewer already made clear it would be fine
-> +to make specific changes and no *other* changes have been made.
-> +
-> +### Acked-by:
-> +
-> +Similar to `Reviewed-by:` the `Acked-by:` tag is given by someone having looked
-> +at the patch. The `Acked-by:` tag can only be given by a **maintainer** of the
-> +modified code, and it only covers the code the maintainer is responsible for.
-> +For this reason there is no optional area possible.
-
-I'd like this to say "normally" or alike. Maintainers may choose to
-restrict their ack to less than what they're listed for, requiring
-remaining areas to gain another maintainer's ack.
-
-> +## Recipients of the patch
-> +
-> +A patch should always be sent **to** the xen-devel mailing list <xen-devel@lists.xenproject.org> and all maintainers of all touched code areas should get a
-
-Nit: Split this line?
-
-> +copy of the mail via **Cc**. In case some other recipients are known to be
-> +interested in the patch, they can be added via **Cc**, too.
-
-Prior to or alongside "interested" parties, I think we will want to mention
-dedicated reviewers.
+FTAOD: Are you going to transform this into a proper patch then? While
+I wouldn't object to such a behavioral change, I also wouldn't want to
+put my name under it. But if it went in, I think I might be able to
+then drop the libxl adjustment from my patch.
 
 Jan
 
