@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BA5C4A8425
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Feb 2022 13:54:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.264712.457917 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59CAD4A8426
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Feb 2022 13:55:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.264716.457928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFbdL-0001pF-61; Thu, 03 Feb 2022 12:54:43 +0000
+	id 1nFbdi-0002R1-JW; Thu, 03 Feb 2022 12:55:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 264712.457917; Thu, 03 Feb 2022 12:54:43 +0000
+Received: by outflank-mailman (output) from mailman id 264716.457928; Thu, 03 Feb 2022 12:55:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFbdL-0001mP-2c; Thu, 03 Feb 2022 12:54:43 +0000
-Received: by outflank-mailman (input) for mailman id 264712;
- Thu, 03 Feb 2022 12:54:41 +0000
+	id 1nFbdi-0002Ng-Fz; Thu, 03 Feb 2022 12:55:06 +0000
+Received: by outflank-mailman (input) for mailman id 264716;
+ Thu, 03 Feb 2022 12:55:04 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nHU3=SS=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nFbdJ-0001mF-N8
- for xen-devel@lists.xenproject.org; Thu, 03 Feb 2022 12:54:41 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ (envelope-from <SRS0=OTfZ=SS=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nFbdg-0001mF-DK
+ for xen-devel@lists.xenproject.org; Thu, 03 Feb 2022 12:55:04 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 731a97a5-84f0-11ec-8eb8-a37418f5ba1a;
- Thu, 03 Feb 2022 13:54:40 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C76A41F3AF;
- Thu,  3 Feb 2022 12:54:39 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 88BEE13BC0;
- Thu,  3 Feb 2022 12:54:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mG0WII/Q+2HZJwAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 03 Feb 2022 12:54:39 +0000
+ id 80e6d4b4-84f0-11ec-8eb8-a37418f5ba1a;
+ Thu, 03 Feb 2022 13:55:03 +0100 (CET)
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01lp2054.outbound.protection.outlook.com [104.47.2.54]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-5-XApct5dwPimfIYBbFmthRQ-1; Thu, 03 Feb 2022 13:55:01 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by AM7PR04MB7047.eurprd04.prod.outlook.com (2603:10a6:20b:11b::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Thu, 3 Feb
+ 2022 12:54:59 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::5160:9fd7:9627:cb11]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::5160:9fd7:9627:cb11%5]) with mapi id 15.20.4951.012; Thu, 3 Feb 2022
+ 12:54:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,426 +51,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 731a97a5-84f0-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1643892879; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=7iSunMqBl0r2TYN6qk5DOh7j2XaRG5LJCFhaoFwS36Y=;
-	b=fXLmwOSHW9TAlAuxjDA85N43mCXieeEFShWSoY0rYqHZgpx+98J6Igwc/lPkc6aiho0MZm
-	TCb9vgxFmmphcGSassRXAhdq2juWzkiiUAzVkhMXF7O9n70Zx+NbCv7ZKVguDA2/WGzTzh
-	V6Q8mW6i72wsktAVeLI35xbnG7a1Rj0=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Juergen Gross <jgross@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH v2] docs: document patch rules
-Date: Thu,  3 Feb 2022 13:54:38 +0100
-Message-Id: <20220203125438.21807-1-jgross@suse.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
+X-Inumbo-ID: 80e6d4b4-84f0-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1643892903;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3GwTO6yhPVlHp/fqFnzYc7/0Mvu4gA14nx8f03cFGD4=;
+	b=aLISX6mAHaBVReUhelUD0pJihgmXXT1PlFP9NK5k6+48bv9SNn7vukGnBDBUWjmZ+/xCS+
+	tEOIGgwzjctDpSCMJ7h0E5nBgWhXXGwh4EyOcSSGp1EmAWWGoIw2mK5uyoZvSVgCYYoesU
+	pUfIXHkkDyTK+fI2J0TvO+NaqcBZoX0=
+X-MC-Unique: XApct5dwPimfIYBbFmthRQ-1
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MnYjliUxFYN87tYwxj4d5Ep9q24yegAuvojKnwRgc6+k10wxXeXlgwz8u4Rth6s3tetj8+BSuNcRFcYP0avfxBEVcDR6chQfbHwk7fQfsUF2IEN96V3rr0Oe11UJMCKDGWm57Pl/qSa+zJtw+bIXWngH4MJxf/gjD2auZVFIh+W8ZuQY0rkeZavbRvGp7FAInkc2GIA5KvxsvPlckgf3mCEQXdhcBgzFIk5FPlVtjSibTLC4uh3IPO4HWPmgkAhUlxZAVNJ97QDZEje0WDfmpXHPT5dQ6I16rHUFTC75Ie1sccxmo8BbqBBp276nTOwm/CoAIZSiApPY2LzuvmF4rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YboevU3sS+1yg/iJml4Svbv970lgeDaTwRe6bx8AyEY=;
+ b=PkDnBBkY0ZrUffciVTpAs/nzCwANqomBAJjo08wC49B/Hhmd7ep7XFQtM+Za6SDpM6YPqxWPaVeSeFM8Q7wTJvLzFCNuhVG2KlogIWMB3F2gniAamwZbH8QU6+0uNRWkQiDeJyZhXhxn8wYEyEM0UQ0Q/OUs2oE6Xb8dE8oJ/Z6fa4toJ4nFtEKCZJOLwQ8KP6bc6LbyHnUqOXfTf0OGyPlOogS12xuXxVvS2YMDigQByLyHpKFNcuDgadL6H2Yhqm67fVUY75us9WYkVARvdmHrcehHoXy2sXpeauoC/xVawWCWRNiXL5P25PDUuasfF+2PcEMZPGlj0/nIYEmPig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <9c1f376a-0df3-67eb-7fd1-bb75ae130e77@suse.com>
+Date: Thu, 3 Feb 2022 13:54:56 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Subject: Re: [PATCH v5 06/14] vpci/header: implement guest BAR register
+ handlers
+Content-Language: en-US
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "julien@xen.org" <julien@xen.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
+ "paul@xen.org" <paul@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Rahul Singh <rahul.singh@arm.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <20211125110251.2877218-1-andr2000@gmail.com>
+ <20211125110251.2877218-7-andr2000@gmail.com> <Yd8RJfpEalnfl+CC@Air-de-Roger>
+ <d493b022-3c78-1721-e668-48f4553056a9@epam.com>
+ <df98cdbd-36fe-0386-c068-2a1540f10188@epam.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <df98cdbd-36fe-0386-c068-2a1540f10188@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AS9PR06CA0254.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45f::29) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 752f4cb9-f807-4baa-9635-08d9e7146305
+X-MS-TrafficTypeDiagnostic: AM7PR04MB7047:EE_
+X-Microsoft-Antispam-PRVS:
+	<AM7PR04MB7047DC68409D814BC16941F1B3289@AM7PR04MB7047.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	BadbHsau4BfH6r38qEpagXylW+GcYZ/enNyy8KPw1M2ZK00mR+1bNPIOZZeAF/l6CLo6RpPChf/8oWHPYsA/Q8GYAoyMDYXqXFdzolH4Xm7QL1Y80o0hx5GXoVxSZXaGoA0xpl0cbKVjYB2gbAmTJzYnnm649VdpblvNtDsATpsk50rabGQxxRPwUAygaw2hFWJhSwP+QF8OmXGUjx3ETXzaZLS6QI2Lr+H+eJVaFcXymFf2ScnBfsfKuRBygeCLywTDwvbKnJZwk69OpANdii+Y3z259J2NCHZOwfGQYJNPSAuCAC/zWMPadEqiFxENxL9H++o8rQqWEr6SwajcxlhLZxpNOIzGWJgBL+xHSFbA6jmN0IwBneidUbfLNuNsmVhEmaCOUu0MDWwcHJ4NqyJGTU4putMIpUnXBG2AO2dUSzjrvNGQrI7Vv2f9+/66LQm8SvO96pItjrnlkz69+XmlZm7Mijmjrt+Xx/CpNqUiMsW3D404w5YcvXk58ZEdDhw301BaJFHSeT/PXF/Alm+fUiMAPUqtDOev8fiCPV1V0743Efdv0JPeOtb53qDdZGvSO+pIDUYkkeMmvLgOo5urbX/8aYJalukgt8z9+/Th7Lqls0IReOQ+Q3xKwh5nPhc7IfWn0h8OmHPzgFlab4AJYAvsqyyxws6wTeOPSwouvW7KLLDQYtlnJ91Mv90xdw9M2ky2xPtW3FOoaC4jJEDajrV9XCiJrohPXCbrQvU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6666004)(66946007)(66556008)(83380400001)(2906002)(66476007)(8936002)(2616005)(8676002)(4326008)(6512007)(6506007)(26005)(508600001)(7416002)(186003)(86362001)(36756003)(316002)(6916009)(31696002)(38100700002)(54906003)(5660300002)(53546011)(31686004)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?1sBOgn0OjUSHx2xc/S/c3Jfeh7B4s74fsoGq2zWgEEDxowF/VAnrKpxt4S/a?=
+ =?us-ascii?Q?L85DyczzEu7WUMd3z6ZmZFxCXPsKH6Qn+VDlJbwdQiuKp1InlJugzAOD6Elz?=
+ =?us-ascii?Q?lAmmZ8w2yYBk9NNV9IRRkgF0rmHDyC63sbsR8Wop4LsV7XuPn8D2gRxKbFlH?=
+ =?us-ascii?Q?yt5StjVQjtv4zyUwISaU5OfbVtxe589Oa+AHZ3TfzgZNYgioc1ORhZ1KT4C4?=
+ =?us-ascii?Q?iQOZxZMKxD66MDiPm9R55XFWvA7j6X6k44Jl9c92WgHrmwtAlasMnhnAxfSY?=
+ =?us-ascii?Q?WU7nXy5NHJqQgU7Xps3pVKulnhXCOK3OohjRaLLGrEHnVAC5sJguKhPhhWUk?=
+ =?us-ascii?Q?hlEK1RNUd6axU4FJDxx23se/GLuUWkqr/v0Ghixlf+fF4OgJWA/U+qcRiSZa?=
+ =?us-ascii?Q?BCUEM+gKnNTr/UPfJbrHwM4QFVY12o71dx8ZUrPdP9jib34qyHlomSbx4EoV?=
+ =?us-ascii?Q?q6bII+8IZknqdQ4Vnt3fVf99XcowIS5YgAJQsL9hPPO6gP+n9a21NMI/rHx7?=
+ =?us-ascii?Q?yLcynOUL+UJlmIki3mYGwMEdz0BX9ReWE5z19FTgywMjqjy6pZN04D5L2io+?=
+ =?us-ascii?Q?bk3zoMZRf62zE0qbunFvlRmiMbOfzMUfyDpmL1VwEYaPy2ukNF61U60d8NKs?=
+ =?us-ascii?Q?yGym1aDraexRYrr4oFyLEGda2IhTlW4ndHl95uuoJegGqjcrwsOLUw3xgKcH?=
+ =?us-ascii?Q?ARwOpXnySem1SjbYQSpCCkU2QB31SvqDUTHuOenr14fMhe7Pip2qz7SSL7wV?=
+ =?us-ascii?Q?hD8FPJHLorc0Kl/5UR0MjT8D6B++E/ZnSIJQtI7/Cu3VOk8AV6pWR7ueK05z?=
+ =?us-ascii?Q?6BTDBe1jDhIq8yyqKlcpBLLg8+j45SY1nnGMmtRejGz+TaMxDJKN2B4JUi/9?=
+ =?us-ascii?Q?a/IOkvXIJPOlaM2b6TyNv05AfhVdn2xER/XRJgIezvME12WZc16nL4Qg/FEY?=
+ =?us-ascii?Q?JcgU4beROzTtBz0Wa3AuGKDHp1FN9mGZ5+TaU14AqQQZzQV1er6iYJDSul8A?=
+ =?us-ascii?Q?+cPNDYF2/tVBgHzuoRzNIIuGJCrZ6SNU00/zu0gAJEJ4N/0pPwWOlv9BU5BV?=
+ =?us-ascii?Q?6IZoT44tOPN22IhI/19NK6ibFfmWMDbchI/M3f26v0XiYtUdpwRjUeYXoBow?=
+ =?us-ascii?Q?ep+KrdkH/ejyTndQj5Wq+9euq98KEpr1EipggwUzVTM4FjOHSlODokESsFWF?=
+ =?us-ascii?Q?E4RyEZqrDH0BqfLdJhWNvaozzeZ+Vpyq6lUruowc6pK+JkMNktQLUszCUXJi?=
+ =?us-ascii?Q?v2oxiE4VM1h01s24/4xyJHuDtkS809+cLhTn6Qj/AgpeClSbnwJeZNER7DUN?=
+ =?us-ascii?Q?Y9z327WfiTIuaX5exJ9pJy+IesMmDh781VP3qpTxHYuJ35zTiEsW9fDBlxMX?=
+ =?us-ascii?Q?/oIjWcm7jCnju6l0L3EMc37IiC0AwhddAcpTbSZwlr56M3JLyzdbqRKhhvf3?=
+ =?us-ascii?Q?X84LSwxptuU1tPwm+UNB9Xh1BLsh7FLt3JRB10fp4JeHWld1iRc4nKurM+Kt?=
+ =?us-ascii?Q?dbpDt4/6yjZGNrZzkmVRcukhF7KjFZhTbgnpwMQzqCNXah62V1g8+EQuB4YT?=
+ =?us-ascii?Q?m1tXwUlbENGKw3iFLQsrFsoY9HJOKnaC5A0/UqbfnZdJhzeC2b0mF7iKerd4?=
+ =?us-ascii?Q?3kG23pFoEAjftZ8tg4x+ueE=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 752f4cb9-f807-4baa-9635-08d9e7146305
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2022 12:54:59.7714
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wMxeGCYmdld29QDBzjH/8XiJ9GrDDz18+saBCYxystrNeIpzKhegRDG7+jL/1tYsX8bfHXfRohV8VrRLg8VF/w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7047
 
-Add a document to describe the rules for sending a proper patch.
+On 03.02.2022 13:45, Oleksandr Andrushchenko wrote:
+>>> Also memory decoding needs to be initially disabled when used by
+>>> guests, in order to prevent the BAR being placed on top of a RAM
+>>> region. The guest physmap will be different from the host one, so it's
+>>> possible for BARs to end up placed on top of RAM regions initially
+>>> until the firmware or OS places them at a suitable address.
+>> Agree, memory decoding must be disabled
+> Isn't it already achieved by the toolstack resetting the PCI device
+> while assigning=C2=A0 it to a guest?
 
-As it contains all the information already being present in
-docs/process/tags.pandoc remove that file.
+Iirc the tool stack would reset a device only after getting it back from
+a DomU. When coming straight from Dom0 or DomIO, no reset would be
+performed. Furthermore, (again iirc) there are cases where there's no
+known (standard) way to reset a device. Assigning such to a guest when
+it previously was owned by another one is risky (and hence needs an
+admin knowing what they're doing), but may be acceptable in particular
+when e.g. simply rebooting a guest.
 
-The "Reviewed-by:" and "Acked-by:" tags are expanded to allow an
-optional restriction of the tag.
+IOW - I don't think you can rely on the bit being in a particular state.
 
-A new tag "Origin:" is added to tag patches taken from another project.
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-v2:
-- expanded commit message (Roger Pau Monné)
-- some rewordings (Roger Pau Monné, Jan Beulich)
-- add "Requested-by:" description (Jan Beulich)
-- rename "Taken-from:" to "Origin:" (Jan Beulich)
-- add reviewers as recipients of patch (Jan Beulich)
-- style fixes (Roger Pau Monné, Jan Beulich)
-
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- docs/process/sending-patches.pandoc | 298 ++++++++++++++++++++++++++++
- docs/process/tags.pandoc            |  55 -----
- 2 files changed, 298 insertions(+), 55 deletions(-)
- create mode 100644 docs/process/sending-patches.pandoc
- delete mode 100644 docs/process/tags.pandoc
-
-diff --git a/docs/process/sending-patches.pandoc b/docs/process/sending-patches.pandoc
-new file mode 100644
-index 0000000000..2091037901
---- /dev/null
-+++ b/docs/process/sending-patches.pandoc
-@@ -0,0 +1,298 @@
-+# How a proper patch should look like
-+
-+This is a brief description how a proper patch for the Xen project should
-+look like. Examples and tooling tips are not part of this document, those
-+can be found in the
-+[Xen Wiki](https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches).
-+
-+## The patch subject
-+
-+The first line at the top of the patch should contain a short description of
-+what the patch does, and hints as to what code it touches. This line is used
-+as the **Subject** line of the mail when sending the patch.
-+
-+The hint which code is touched is usually in form of an abstract entity
-+(like e.g. `build` for the build system), or a component (like `tools` or
-+`iommu`). Further specification is possible via adding a sub-component with
-+a slash (e.g. `tools/xenstore`):
-+
-+    <component>: <description>
-+
-+E.g.:
-+
-+    xen/arm: increase memory banks number define value
-+    tools/libxenevtchn: deduplicate xenevtchn_fd()
-+    MAINTAINERS: update my email address
-+    build: correct usage comments in Kbuild.include
-+
-+The description should give a rough hint *what* is done in the patch.
-+
-+The subject line should in general not exceed 80 characters. It must be
-+followed by a blank line.
-+
-+## The commit message
-+
-+The commit message is free text describing *why* the patch is done and
-+*how* the goal of the patch is achieved. A good commit message will describe
-+the current situation, the desired goal, and the way this goal is being
-+achieved. Parts of that can be omitted in obvious cases.
-+
-+In case additional changes are done in the patch (like e.g. cleanups), those
-+should be mentioned.
-+
-+When referencing other patches (e.g. `similar to patch xy ...`) those
-+patches should be referenced via their commit id (at least 12 digits)
-+and the patch subject, if the very same patch isn't referenced by the
-+`Fixes:` tag, too:
-+
-+    Similar to commit 67d01cdb5518 ("x86: infrastructure to allow converting
-+    certain indirect calls to direct ones") add ...
-+
-+The following ``git config`` settings can be used to add a pretty format for
-+outputting the above style in the ``git log`` or ``git show`` commands:
-+
-+        [core]
-+                abbrev = 12
-+        [pretty]
-+                fixes = Fixes: %h (\"%s\")
-+
-+Lines in the commit message should not exceed 75 characters, except when
-+copying error output directly into the commit message.
-+
-+## Tags
-+
-+Tags are entries in the form
-+
-+    Tag: something
-+
-+In general tags are added in chronological order. So a `Reviewed-by:` tag
-+should be added **after** the `Signed-off-by:` tag, as the review happened
-+after the patch was written.
-+
-+Do not split a tag across multiple lines, tags are exempt from the
-+"wrap at 75 columns" rule in order to simplify parsing scripts.
-+
-+### Origin:
-+
-+Xen has inherited some source files from other open source projects. In case
-+a patch modifying such an inherited file is taken from that project (maybe in
-+modified form), the `Origin:` tag specifies the source of the patch:
-+
-+    Origin: <repository-URL> <commit-id>
-+
-+E.g.:
-+
-+    Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git f093b08c47b3
-+
-+All tags **above** the `Origin:` tag are from the original patch (which
-+should all be kept), while tags **after** `Origin:` are related to the
-+normal Xen patch process as described here.
-+
-+### Fixes:
-+
-+If your patch fixes a bug in a specific commit, e.g. you found an issue using
-+``git bisect``, please use the `Fixes:` tag with the first 12 characters of
-+the commit id, and the one line summary.
-+
-+    Fixes: <commit-id> ("<patch-subject>")
-+
-+E.g.:
-+
-+    Fixes: 67d01cdb5518 ("x86: infrastructure to allow converting certain indirect calls to direct ones")
-+
-+### Backport:
-+
-+A backport tag is an optional tag in the commit message to request a
-+given commit to be backported to the released trees:
-+
-+    Backport: <version> [# <comment>]
-+
-+E.g.:
-+
-+    Backport: 4.9+
-+
-+It marks a commit for being a candidate for backports to all released
-+trees from 4.9 onward.
-+
-+The backport requester is expected to specify which currently supported
-+releases need the backport; but encouraged to specify a release as far
-+back as possible which applies. If the requester doesn't know the oldest
-+affected tree, they are encouraged to append a comment like the
-+following:
-+
-+    Backport: 4.9+ # maybe older
-+
-+Maintainers request the Backport tag to be added on commit. Contributors
-+are welcome to mark their patches with the Backport tag when they deem
-+appropriate. Maintainers will request for it to be removed when that is
-+not the case.
-+
-+Please note that the Backport tag is a **request** for backport, which
-+will still need to be evaluated by the maintainers. Maintainers might
-+ask the requester to help with the backporting work if it is not
-+trivial.
-+
-+### Reported-by:
-+
-+This optional tag can be used to give credit to someone reporting an issue.
-+It is in the format:
-+
-+    Reported-by: name <email@domain>
-+
-+E.g.:
-+
-+    Reported-by: Jane Doe <jane.doe@example.org>
-+
-+As the email address will be made public via git, the reporter of an issue
-+should be asked whether he/she is fine with being mentioned in the patch.
-+
-+### Suggested-by:
-+
-+This optional tag can be used to give credit to someone having suggested the
-+solution the patch is implementing. It is in the format:
-+
-+    Suggested-by: name <email@domain>
-+
-+E.g.:
-+
-+    Suggested-by: Jane Doe <jane.doe@example.org>
-+
-+As the email address will be made public via git, the reporter of an issue
-+should be asked whether he/she is fine with being mentioned in the patch.
-+
-+### Requested-by:
-+
-+This tag is very similar to the `Suggested-by:` tag, but it refers to an
-+explicit request to add the patch. It is in the format:
-+
-+    Requested-by: name <email@domain>
-+
-+E.g.:
-+
-+    Requested-by: Jane Doe <jane.doe@example.org>
-+
-+### Signed-off-by:
-+
-+This mandatory tag specifies the author(s) of a patch (for each author a
-+separate `Signed-off-by:` tag is needed). It is in the format:
-+
-+    Signed-off-by: name <email@domain>
-+
-+E.g.:
-+
-+    Signed-off-by: Jane Doe <jane.doe@example.org>
-+
-+The author must be a natural person (not a team or just a company) and the
-+`Signed-off-by:` tag must include the real name of the author (no pseudonym).
-+
-+By signing the patch with her/his name the author explicitly confirms to have
-+made the contribution conforming to the `Developer's Certificate of Origin`:
-+
-+    Developer's Certificate of Origin 1.1
-+    
-+    By making a contribution to this project, I certify that:
-+    
-+    (a) The contribution was created in whole or in part by me and I
-+        have the right to submit it under the open source license
-+        indicated in the file; or
-+    
-+    (b) The contribution is based upon previous work that, to the best
-+        of my knowledge, is covered under an appropriate open source
-+        license and I have the right under that license to submit that
-+        work with modifications, whether created in whole or in part
-+        by me, under the same open source license (unless I am
-+        permitted to submit under a different license), as indicated
-+        in the file; or
-+    
-+    (c) The contribution was provided directly to me by some other
-+        person who certified (a), (b) or (c) and I have not modified
-+        it.
-+    
-+    (d) I understand and agree that this project and the contribution
-+        are public and that a record of the contribution (including all
-+        personal information I submit with it, including my sign-off) is
-+        maintained indefinitely and may be redistributed consistent with
-+        this project or the open source license(s) involved.
-+
-+### Reviewed-by:
-+
-+A `Reviewed-by:` tag can only be given by a reviewer of the patch. With
-+responding to a sent patch adding the `Reviewed-by:` tag the reviewer
-+(which can be anybody) confirms to have looked thoroughly at the patch and
-+didn't find any issue (being it technical, legal or formal ones). If the
-+review is covering only some parts of the patch, those parts can optionally
-+be specified (multiple areas can be either separated by commas, or be covered
-+with multiple `Reviewed-by:` tags). It is in the format:
-+
-+    Reviewed-by: name <email@domain> [# area[, area]]
-+
-+E.g.:
-+
-+    Reviewed-by: Jane Doe <jane.doe@example.org>
-+    Reviewed-by: Jane Doe <jane.doe@example.org> # xen/x86
-+
-+In case a patch is being resent an already given `Reviewed-by:` tag can and
-+should be included, if the patch didn't meaningfully change the portions of the
-+patch covered by the tag, or if the reviewer already made clear it would be
-+fine to make specific changes and no *other* changes have been made.
-+
-+### Acked-by:
-+
-+Similar to `Reviewed-by:` the `Acked-by:` tag is given by someone having looked
-+at the patch. The `Acked-by:` tag can only be given by a **maintainer** of the
-+modified code, and it only covers the code the maintainer is responsible for.
-+With the `Acked-by:` tag the maintainer states, that he/she is fine with the
-+changes in principle, but didn't do a thorough review. The format is:
-+
-+    Acked-by: name <email@domain> [# area[, area]]
-+
-+E.g.:
-+
-+    Acked-by: Jane Doe <jane.doe@example.org>
-+
-+Including the `Acked-by:` tag in a patch is done under the same rules as for
-+the `Reviewed-by:` tag, with the implied code area the maintainer who gave the
-+`Acked-by:` tag is responsible for (if no area was specified with the tag).
-+
-+### Tested-by:
-+
-+The `Tested-by:` tag is another tag given by someone else. The one giving it
-+confirms to have tested the patch without finding any functional issues. The
-+format is:
-+
-+    Tested-by: name <email@domain>
-+
-+E.g.:
-+
-+    Tested-by: Jane Doe <jane.doe@example.org>
-+
-+Including the `Tested-by:` tag in a patch is done under the same rules as for
-+the `Reviewed-by:` tag, now limited to the patch not having been modified
-+regarding code logic (having changed only coding style, comments, or message
-+texts is fine).
-+
-+## Patch version history (change log), further comments
-+
-+When sending revised versions of a patch it is good practice to include a
-+change log after a line containing only `---` (this line will result in the
-+following text not being included in the commit message). This change log
-+will help reviewers to spot which parts of the patch have changed. Attributing
-+changes due to reviewer comments will help the reviewer even more, e.g.:
-+
-+    ---
-+    Changes in v2:
-+    - changed function foo() as requested by Jane Doe
-+    - code style fixed
-+
-+In some cases it might be desirable to add some more information for readers
-+of the patch, like potential enhancements, other possible solutions, etc.,
-+which should not be part of the commit message. This information can be
-+added after the `---` line, too.
-+
-+## Recipients of the patch
-+
-+A patch should always be sent **to** the xen-devel mailing list
-+<xen-devel@lists.xenproject.org> and all maintainers and designated reviewers
-+of all touched code areas should get a copy of the mail via **Cc**. In case
-+some other recipients are known to be interested in the patch, they can be
-+added via **Cc**, too.
-diff --git a/docs/process/tags.pandoc b/docs/process/tags.pandoc
-deleted file mode 100644
-index 1841cb87a8..0000000000
---- a/docs/process/tags.pandoc
-+++ /dev/null
-@@ -1,55 +0,0 @@
--Tags: No line splitting
-------------------------
--Do not split a tag across multiple lines, tags are exempt from the
--"wrap at 75 columns" rule in order to simplify parsing scripts.  For
--example:
--
--        Fixes: 67d01cdb5518 ("x86: infrastructure to allow converting certain indirect calls to direct ones")
--
--
--Fixes Tag
-----------
--
--If your patch fixes a bug in a specific commit, e.g. you found an issue using
--``git bisect``, please use the 'Fixes:' tag with the first 12 characters of
--the SHA-1 ID, and the one line summary.
--
--The following ``git config`` settings can be used to add a pretty format for
--outputting the above style in the ``git log`` or ``git show`` commands:
--
--        [core]
--                abbrev = 12
--        [pretty]
--                fixes = Fixes: %h (\"%s\")
--
--
--Backport Tag
--------------
--
--A backport tag is an optional tag in the commit message to request a
--given commit to be backported to the released trees:
--
--    Backport: 4.9+
--
--It marks a commit for being a candidate for backports to all released
--trees from 4.9 onward.
--
--The backport requester is expected to specify which currently supported
--releases need the backport; but encouraged to specify a release as far
--back as possible which applies. If the requester doesn't know the oldest
--affected tree, they are encouraged to append a comment like the
--following:
--
--    Backport: 4.9+ # maybe older
--
--Maintainers request the Backport tag to be added on commit. Contributors
--are welcome to mark their patches with the Backport tag when they deem
--appropriate. Maintainers will request for it to be removed when that is
--not the case.
--
--Please note that the Backport tag is a **request** for backport, which
--will still need to be evaluated by the maintainers. Maintainers might
--ask the requester to help with the backporting work if it is not
--trivial.
--
--When possible, please use the Fixes tag instead (or in addition).
--- 
-2.34.1
+Jan
 
 
