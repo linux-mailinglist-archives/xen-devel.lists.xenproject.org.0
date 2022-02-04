@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4792B4A9AB8
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 15:10:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.265588.458997 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 951674A9AB9
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 15:10:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.265592.459009 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFzHt-0006lM-5d; Fri, 04 Feb 2022 14:10:09 +0000
+	id 1nFzIF-0007Cz-Ez; Fri, 04 Feb 2022 14:10:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 265588.458997; Fri, 04 Feb 2022 14:10:09 +0000
+Received: by outflank-mailman (output) from mailman id 265592.459009; Fri, 04 Feb 2022 14:10:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFzHt-0006jS-2Q; Fri, 04 Feb 2022 14:10:09 +0000
-Received: by outflank-mailman (input) for mailman id 265588;
- Fri, 04 Feb 2022 14:10:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nFzIF-0007B7-Am; Fri, 04 Feb 2022 14:10:31 +0000
+Received: by outflank-mailman (input) for mailman id 265592;
+ Fri, 04 Feb 2022 14:10:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=98b4=ST=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1nFzHr-0006jM-NW
- for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 14:10:07 +0000
-Received: from ppsw-32.csi.cam.ac.uk (ppsw-32.csi.cam.ac.uk [131.111.8.132])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2715d097-85c4-11ec-8f75-fffcc8bd4f1a;
- Fri, 04 Feb 2022 15:10:06 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:53484)
- by ppsw-32.csi.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.136]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1nFzHo-000tMw-1L (Exim 4.95) (return-path <amc96@srcf.net>);
- Fri, 04 Feb 2022 14:10:04 +0000
-Received: from [192.168.1.10] (host-92-12-61-86.as13285.net [92.12.61.86])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 23FD01FBCB;
- Fri,  4 Feb 2022 14:10:04 +0000 (GMT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nFzID-0007Ak-UY; Fri, 04 Feb 2022 14:10:29 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nFzID-0002DM-TV; Fri, 04 Feb 2022 14:10:29 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nFzID-0000LP-I0; Fri, 04 Feb 2022 14:10:29 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nFzID-00057N-HX; Fri, 04 Feb 2022 14:10:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,79 +42,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2715d097-85c4-11ec-8f75-fffcc8bd4f1a
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <1905e626-da65-0541-802e-34e5d06bc1dc@srcf.net>
-Date: Fri, 4 Feb 2022 14:10:03 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.1
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>,
- Roger Pau Monne <roger.pau@citrix.com>
-References: <20220203181023.1554-1-andrew.cooper3@citrix.com>
- <53b98995-8cef-48b4-7728-3bfbc236af5f@suse.com>
- <f2ce80ee-f30c-dc6f-e4b7-5d8eddb5b3d5@citrix.com>
- <1333696d-d3c2-15a8-1dd5-7cb0a17ef023@suse.com>
- <a28ff9e8-c022-6384-ee04-c21b69a4fdd2@citrix.com>
- <eb818153-3ada-ac46-fb14-da975a61574f@suse.com>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH] tools/guest: Fix comment regarding CPUID compatibility
-In-Reply-To: <eb818153-3ada-ac46-fb14-da975a61574f@suse.com>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ZvdbFbOkLefJlq+gilA6D7E4cFhfj8cv8Fm+wY12iH8=; b=3s1JKAKpHSqoYiewXdYqFfK78j
+	q5/1Bw/AritzitoRKn1Hv5Av1w4vJ0Ops3XD+i3Wptqb+BjooxHGjBMh7ykVK8geoMRqEMQtTP06n
+	Lyg/41pLz5NDyV+AX6B+C2bEU0zwcg/mG5uBs07HEOj1L5fMcwLKVa3bXHa+0ZVbTBxI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168003-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [seabios test] 168003: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    seabios:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
+    seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    seabios=829b0f1a7cda1bccdf44a379fb3a96e519a7e8cd
+X-Osstest-Versions-That:
+    seabios=dc776a2d9ca9e1b857e880ff682668871369b4c3
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 04 Feb 2022 14:10:29 +0000
 
-On 04/02/2022 13:46, Jan Beulich wrote:
-> On 04.02.2022 14:34, Andrew Cooper wrote:
->> On 04/02/2022 13:09, Jan Beulich wrote:
->>> On 04.02.2022 13:12, Andrew Cooper wrote:
->>>> On 04/02/2022 08:31, Jan Beulich wrote:
->>>>> On 03.02.2022 19:10, Andrew Cooper wrote:
->>>>>> It was Xen 4.14 where CPUID data was added to the migration stream, and 4.13
->>>>>> that we need to worry about with regards to compatibility.  Xen 4.12 isn't
->>>>>> relevant.
->>>>>>
->>>>>> Expand and correct the commentary.
->>>>>>
->>>>>> Fixes: 111c8c33a8a1 ("x86/cpuid: do not expand max leaves on restore")
->>>>> But doesn't this commit amend 685e922d6f30 ("tools/libxc: Rework
->>>>> xc_cpuid_apply_policy() to use {get,set}_cpu_policy()"), which is
->>>>> where DEF_MAX_* disappeared?
->>>> No. All that happened in that change was that we switched to using
->>>>
->>>> cpuid.h:89:#define CPUID_GUEST_NR_EXTD_AMD
->>>>
->>>> instead, which remained the same size until Xen 4.15 when e9b4fe26364
->>>> bumped it.
->>> Oh, right. I did try to look for a replacement, but managed to miss
->>> this. But then, as much as 4.12 isn't relevant, isn't it the case
->>> that the fact that CPUID data was added to the stream in 4.14 isn't
->>> relevant here either, and it's instead the bumping in 4.15 which is?
->> The fact that the bump happened is relevant, by virtue of the fact there
->> logic added to cope.  The fact it was in 4.15 is not relevant - this
->> isn't a list of every ABI-relevant change.
->>
->> CPUID data being added to the stream is critically important, because
->> that's the point after which we never enter this compatibility path.
-> If the bump happened before CPUID data was added to the stream, logic to
-> cope with migrating-in guests would have been required too, wouldn't it.
+flight 168003 seabios real [real]
+flight 168009 seabios real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168003/
+http://logs.test-lab.xenproject.org/osstest/logs/168009/
 
-Yes, it would have been.
+Failures :-/ but no regressions.
 
-It wasn't an accident that none of the max leaves changed while doing
-the Xen CPUID work.
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 168009-retest
 
-We're unfortunately a long way behind on Intel CPUID leaves, but all(?)
-of the new leaves need more complicated migration safely logic than the
-toolstack currently knows how to do.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 167920
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 167920
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 167920
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 167920
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 167920
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
 
-> But anyway, just to be done with this:
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+version targeted for testing:
+ seabios              829b0f1a7cda1bccdf44a379fb3a96e519a7e8cd
+baseline version:
+ seabios              dc776a2d9ca9e1b857e880ff682668871369b4c3
 
-Thanks.
+Last test of basis   167920  2022-01-27 16:42:48 Z    7 days
+Testing same since   168003  2022-02-03 23:10:24 Z    0 days    1 attempts
 
-~Andrew
+------------------------------------------------------------
+People who touched revisions under test:
+  Florian Larysch <fl@n621.de>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/seabios.git
+   dc776a2..829b0f1  829b0f1a7cda1bccdf44a379fb3a96e519a7e8cd -> xen-tested-master
 
