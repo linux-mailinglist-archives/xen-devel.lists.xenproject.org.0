@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18D3B4A963A
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 10:24:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.265244.458582 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E08334A964A
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 10:24:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.265256.458594 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFupE-0007Ui-JF; Fri, 04 Feb 2022 09:24:16 +0000
+	id 1nFuph-0008K7-Tw; Fri, 04 Feb 2022 09:24:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 265244.458582; Fri, 04 Feb 2022 09:24:16 +0000
+Received: by outflank-mailman (output) from mailman id 265256.458594; Fri, 04 Feb 2022 09:24:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFupE-0007RB-DX; Fri, 04 Feb 2022 09:24:16 +0000
-Received: by outflank-mailman (input) for mailman id 265244;
- Fri, 04 Feb 2022 09:24:15 +0000
+	id 1nFuph-0008Hk-QI; Fri, 04 Feb 2022 09:24:45 +0000
+Received: by outflank-mailman (input) for mailman id 265256;
+ Fri, 04 Feb 2022 09:24:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wIUc=ST=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nFupD-0006TE-1B
- for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 09:24:15 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1nFupg-0006TE-4j
+ for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 09:24:44 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 37f79e56-859c-11ec-8eb8-a37418f5ba1a;
- Fri, 04 Feb 2022 10:24:14 +0100 (CET)
+ id 494da17e-859c-11ec-8eb8-a37418f5ba1a;
+ Fri, 04 Feb 2022 10:24:43 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 211F0218F0;
- Fri,  4 Feb 2022 09:24:14 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3A8391F44E;
+ Fri,  4 Feb 2022 09:24:43 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id EAB4013322;
- Fri,  4 Feb 2022 09:24:13 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1A0BB13322;
+ Fri,  4 Feb 2022 09:24:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oy3ON73w/GEMeQAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 04 Feb 2022 09:24:13 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id obCkBNvw/GE8eQAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 04 Feb 2022 09:24:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,65 +51,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 37f79e56-859c-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 494da17e-859c-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1643966654; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1643966683; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8cDBknFJRIpxf5l9AdOZUIo0+FnYIcgRzSzamZqBACo=;
-	b=gyCozaF0GvUFq5S0NlfbfbHKvuxPf62o/USaPhpLav/RBPVy4Nr0Bk1+fgGQgJBBV05yi9
-	QZyhBkHtXcNpy0ehgel1ozmfdJra4Ag9a2khtpiKNnmGi1ma2A7SGfCSvLmalFvOQa+pct
-	absX5Rsz6cck3tpMHMwWSp2M1NF/XxA=
-Message-ID: <1af6c334-4c5c-66da-7fea-0dfd0339e665@suse.com>
-Date: Fri, 4 Feb 2022 10:24:13 +0100
+	bh=DqdA+DBRa90BxqXlpLNlJ+Ze+BNHIBaKbH8YkKc6bwY=;
+	b=mIoHGcrlxPMh8V8FNHV09dweAwlxMFd3Ztd9zaPXm0JLU3W+nO3jL15LM0dsHLp6uVAoZm
+	bXzINg1hr53CmYZHX0tOHod1IlYg/2aNDXMrxXfbbtUEpYvnoiq7fze5it3vMuKWlREV2V
+	8m9Y8L8r6MW+ca2QkuANLUDqpNFXaas=
+Message-ID: <c522051d-41c9-cbe8-68bd-0d10b5bef2ab@suse.com>
+Date: Fri, 4 Feb 2022 10:24:42 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.4.1
-Subject: Re: [PATCH v2] Improve docs for IOCTL_GNTDEV_MAP_GRANT_REF
+Subject: Re: [PATCH] x86/Xen: streamline (and fix) PV CPU enumeration
 Content-Language: en-US
-To: Demi Marie Obenour <demiobenour@gmail.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-References: <f66c5a4e-2034-00b5-a635-6983bd999c07@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <2dbd5f0a-9859-ca2d-085e-a02f7166c610@suse.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <f66c5a4e-2034-00b5-a635-6983bd999c07@gmail.com>
+In-Reply-To: <2dbd5f0a-9859-ca2d-085e-a02f7166c610@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------Eg4rG6ujboyviXGmG1PlN7iq"
+ boundary="------------jy0qU0Z4HDMvLq5kabIuetKE"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Eg4rG6ujboyviXGmG1PlN7iq
-Content-Type: multipart/mixed; boundary="------------sgWeOpdNgNKChkm3psCKSe9q";
+--------------jy0qU0Z4HDMvLq5kabIuetKE
+Content-Type: multipart/mixed; boundary="------------HKl3OGvg2lKkHce4tyNUhLKo";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Demi Marie Obenour <demiobenour@gmail.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Message-ID: <1af6c334-4c5c-66da-7fea-0dfd0339e665@suse.com>
-Subject: Re: [PATCH v2] Improve docs for IOCTL_GNTDEV_MAP_GRANT_REF
-References: <f66c5a4e-2034-00b5-a635-6983bd999c07@gmail.com>
-In-Reply-To: <f66c5a4e-2034-00b5-a635-6983bd999c07@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <c522051d-41c9-cbe8-68bd-0d10b5bef2ab@suse.com>
+Subject: Re: [PATCH] x86/Xen: streamline (and fix) PV CPU enumeration
+References: <2dbd5f0a-9859-ca2d-085e-a02f7166c610@suse.com>
+In-Reply-To: <2dbd5f0a-9859-ca2d-085e-a02f7166c610@suse.com>
 
---------------sgWeOpdNgNKChkm3psCKSe9q
-Content-Type: multipart/mixed; boundary="------------We0Qqb4jVkRXwDCuJewzkpGp"
+--------------HKl3OGvg2lKkHce4tyNUhLKo
+Content-Type: multipart/mixed; boundary="------------xDKk03bowPY1c0pJSn9zYuQ6"
 
---------------We0Qqb4jVkRXwDCuJewzkpGp
+--------------xDKk03bowPY1c0pJSn9zYuQ6
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMzEuMDEuMjIgMTg6MjMsIERlbWkgTWFyaWUgT2Jlbm91ciB3cm90ZToNCj4gVGhlIGN1
-cnJlbnQgaW1wbGVtZW50YXRpb24gb2YgZ250ZGV2IGd1YXJhbnRlZXMgdGhhdCB0aGUgZmly
-c3QgY2FsbCB0bw0KPiBJT0NUTF9HTlRERVZfTUFQX0dSQU5UX1JFRiB3aWxsIHNldCBAaW5k
-ZXggdG8gMC4gIFRoaXMgaXMgcmVxdWlyZWQgdG8NCj4gdXNlIGdudGRldiBmb3IgV2F5bGFu
-ZCwgd2hpY2ggaXMgYSBmdXR1cmUgZGVzaXJlIG9mIFF1YmVzIE9TLg0KPiBBZGRpdGlvbmFs
-bHksIHJlcXVlc3RpbmcgemVybyBncmFudHMgcmVzdWx0cyBpbiBhbiBlcnJvciwgYnV0IHRo
-aXMgd2FzDQo+IG5vdCBkb2N1bWVudGVkIGVpdGhlci4gIERvY3VtZW50IGJvdGggb2YgdGhl
-c2UuDQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBEZW1pIE1hcmllIE9iZW5vdXIgPGRlbWlvYmVu
-b3VyQGdtYWlsLmNvbT4NCg0KUHVzaGVkIHRvIHhlbi90aXAuZ2l0IGZvci1saW51cy01LjE3
-YQ0KDQoNCkp1ZXJnZW4NCg==
---------------We0Qqb4jVkRXwDCuJewzkpGp
+T24gMDEuMDIuMjIgMTE6NTcsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBUaGlzIHN0YXJ0ZWQg
+b3V0IHdpdGggbWUgbm90aWNpbmcgdGhhdCAiZG9tMF9tYXhfdmNwdXM9PE4+IiB3aXRoIDxO
+Pg0KPiBsYXJnZXIgdGhhbiB0aGUgbnVtYmVyIG9mIHBoeXNpY2FsIENQVXMgcmVwb3J0ZWQg
+dGhyb3VnaCBBQ1BJIHRhYmxlcw0KPiB3b3VsZCBub3QgYnJpbmcgdXAgdGhlICJleGNlc3Mi
+IHZDUFUtcy4gQWRkcmVzc2luZyB0aGlzIGlzIHRoZSBwcmltYXJ5DQo+IHB1cnBvc2Ugb2Yg
+dGhlIGNoYW5nZTsgQ1BVIG1hcHMgaGFuZGxpbmcgaXMgYmVpbmcgdGlkaWVkIG9ubHkgYXMg
+ZmFyIGFzDQo+IGlzIG5lY2Vzc2FyeSBmb3IgdGhlIGNoYW5nZSBoZXJlICh3aXRoIHRoZSBl
+ZmZlY3Qgb2YgYWxzbyBhdm9pZGluZyB0aGUNCj4gc2V0dGluZyB1cCBvZiB0b28gbXVjaCBw
+ZXItQ1BVIGluZnJhc3RydWN0dXJlLCBpLmUuIGZvciBDUFVzIHdoaWNoIGNhbg0KPiBuZXZl
+ciBjb21lIG9ubGluZSkuDQo+IA0KPiBOb3RpY2luZyB0aGF0IHhlbl9maWxsX3Bvc3NpYmxl
+X21hcCgpIGlzIGNhbGxlZCB3YXkgdG9vIGVhcmx5LCB3aGVyZWFzDQo+IHhlbl9maWx0ZXJf
+Y3B1X21hcHMoKSBpcyBjYWxsZWQgdG9vIGxhdGUgKGFmdGVyIHBlci1DUFUgYXJlYXMgd2Vy
+ZQ0KPiBhbHJlYWR5IHNldCB1cCksIGFuZCBmdXJ0aGVyIG9ic2VydmluZyB0aGF0IGVhY2gg
+b2YgdGhlIGZ1bmN0aW9ucyBzZXJ2ZXMNCj4gb25seSBvbmUgb2YgRG9tMCBvciBEb21VLCBp
+dCBsb29rZWQgbGlrZSBpdCB3YXMgYmV0dGVyIHRvIHNpbXBsaWZ5IHRoaXMuDQo+IFVzZSB0
+aGUgLmdldF9zbXBfY29uZmlnIGhvb2sgaW5zdGVhZCwgdW5pZm9ybWx5IGZvciBEb20wIGFu
+ZCBEb21VLg0KPiB4ZW5fZmlsbF9wb3NzaWJsZV9tYXAoKSBjYW4gYmUgZHJvcHBlZCBhbHRv
+Z2V0aGVyLCB3aGlsZQ0KPiB4ZW5fZmlsdGVyX2NwdV9tYXBzKCkgaXMgcmUtcHVycG9zZWQg
+YnV0IG5vdCBvdGhlcndpc2UgY2hhbmdlZC4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IEphbiBC
+ZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCg0KUHVzaGVkIHRvIHhlbi90aXAuZ2l0IGZv
+ci1saW51cy01LjE3YQ0KDQoNCkp1ZXJnZW4NCg==
+--------------xDKk03bowPY1c0pJSn9zYuQ6
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -167,25 +176,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------We0Qqb4jVkRXwDCuJewzkpGp--
+--------------xDKk03bowPY1c0pJSn9zYuQ6--
 
---------------sgWeOpdNgNKChkm3psCKSe9q--
+--------------HKl3OGvg2lKkHce4tyNUhLKo--
 
---------------Eg4rG6ujboyviXGmG1PlN7iq
+--------------jy0qU0Z4HDMvLq5kabIuetKE
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmH88L0FAwAAAAAACgkQsN6d1ii/Ey/j
-WQf/YxiHmXcPdXmmKLO9PoqWdFJfJJn4O4YaSkpUpk7v31m2RRyFhLTRjvlcqHoAj7z2OM1oYV6h
-6khY2LgSF5OyioiowZU+47QNu354PbVPg2uJ2sRS2Av5836QiyNirH3Al7thSfLxtvtdReGE2xnJ
-P9AaeiVxC4s8N/lKjFqIlnqh/vPXBiVanmWzuByQ4Z0F8F+u/KVUoy26C8I3twUWyze7IabD5MIO
-NYMLENNFb3ByCgokQgoksiBuHDE3WBWxY4pLKO0J/V4t/MC6WElMzk4k2GSO6qfsoPrzormxytlW
-hwvyvt5qWnWSFC0Iigka9n7N875aR+0PjtobEGve3A==
-=yOqa
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmH88NoFAwAAAAAACgkQsN6d1ii/Ey9F
+4Af/UGUOzoHkvC9hE+u/irb3LpecWG83u9+plkvKcC2JQb7y2dvUG84ZMblndiLi4WbnmTXe3ydh
+ZfEU+ONtakSq5fqgl7x4fVtNzHYGG7gDkfKhH4FVXi1iqHiQIkq4aWqHgTWC2x+hOzHy8bhPG76j
+5uPUV5r+8PT+X43/FkBH+OR6/Z/65T0MvJF97VxUfO5MfV6pEWWYeEkgQe98erxIlvxiahqhMV1h
+so756Fupl6npLANUROUzelTR6t/j05eROYVhLRLotbjghZuxAlyEpKle0QAQ2gn6i+0yaRDdWp0Q
+goCf+Ijs7O7NkWM0ueUdKcbKuAB6QlRbd2ndNm4QaA==
+=Chy+
 -----END PGP SIGNATURE-----
 
---------------Eg4rG6ujboyviXGmG1PlN7iq--
+--------------jy0qU0Z4HDMvLq5kabIuetKE--
 
