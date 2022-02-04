@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C0424A9405
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 07:35:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.265008.458319 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDE264A9411
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 07:35:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.265009.458332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFsBa-00017J-JL; Fri, 04 Feb 2022 06:35:10 +0000
+	id 1nFsBc-0001PZ-87; Fri, 04 Feb 2022 06:35:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 265008.458319; Fri, 04 Feb 2022 06:35:10 +0000
+Received: by outflank-mailman (output) from mailman id 265009.458332; Fri, 04 Feb 2022 06:35:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFsBa-00011Y-Bz; Fri, 04 Feb 2022 06:35:10 +0000
-Received: by outflank-mailman (input) for mailman id 265008;
- Fri, 04 Feb 2022 06:35:08 +0000
+	id 1nFsBb-0001Lt-Of; Fri, 04 Feb 2022 06:35:11 +0000
+Received: by outflank-mailman (input) for mailman id 265009;
+ Fri, 04 Feb 2022 06:35:09 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Tguk=ST=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1nFsBY-0008DX-5I
- for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 06:35:08 +0000
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [2a00:1450:4864:20::229])
+ id 1nFsBZ-0008DX-Hg
+ for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 06:35:09 +0000
+Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com
+ [2a00:1450:4864:20::22c])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 97f177f4-8584-11ec-8eb8-a37418f5ba1a;
- Fri, 04 Feb 2022 07:35:07 +0100 (CET)
-Received: by mail-lj1-x229.google.com with SMTP id e17so7167528ljk.5
- for <xen-devel@lists.xenproject.org>; Thu, 03 Feb 2022 22:35:07 -0800 (PST)
+ id 98aeb6f8-8584-11ec-8eb8-a37418f5ba1a;
+ Fri, 04 Feb 2022 07:35:08 +0100 (CET)
+Received: by mail-lj1-x22c.google.com with SMTP id e17so7167593ljk.5
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Feb 2022 22:35:08 -0800 (PST)
 Received: from a2klaptop.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id f34sm163027lfv.165.2022.02.03.22.35.05
+ by smtp.gmail.com with ESMTPSA id f34sm163027lfv.165.2022.02.03.22.35.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Feb 2022 22:35:06 -0800 (PST)
+ Thu, 03 Feb 2022 22:35:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,34 +43,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97f177f4-8584-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 98aeb6f8-8584-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=7XW5WI2LKa0+lHLha6LOvz3mRlOFJHaJBN6i9Y4p6WM=;
-        b=dhahBLefv3vqpJIzC/B6ePyfjpDpPIn86QOziEMIKUWSkc+w0iRCBKAJ6dWQdHnocH
-         QKOJqMlHxXYEJ/mxNf/0sVdGb0tW7CAtp4i/oNw6u8Rr28oCjpPNVgP2WCz+nWhJ7Te2
-         NmdZfvJ/QtVeUxx23tOWOcEfvFweXLQw30iJt2sTikUH2ss2SUxGXONdjtD4BZXJ3M4t
-         8j9yN+t5sFF12wbD0Py19VVpXMQwX0RRhg1kPw1G920+tqgtQbA6ZwwwLvDzdKYNVuUX
-         T9nVM7QqK4HsM2wb+uvctYF4gge17KSZ1x0oWs9vA1VcrKsTHR3njYi1Z6r9ZhL+bAxe
-         MXSQ==
+        bh=4b53rA6xzj/VK8mPmETSCKHkM43BtRFV7FZoD/x6CYM=;
+        b=LGFssdbglsHSBRlLC10zAwfwl+lxGwyGLcSEdRXHsHfCtbH4EZFUs1eo+aoLDmBg4S
+         eB6pFpKJGKQyDTv/SUipdDjBH8iXt/3A/eV7ucleaPmF2llLUvbbMFoCgFShlOdgrmE5
+         IivVoOTRjsuUm/VdB7KPtmsXA9ZYwcx9V1RbdqPeDn0jUaaRojQoDRGJ6z4ZWA9TaktG
+         faQlTO2kJ0JfREXc0+N3NSw8kLhL6bnWJC8ppgKvyBEIHgfvSZmsnkZOh72SlUdfD6qm
+         Z26XqIeZu6GCEF9d4lT6hQIpHAwq0pcEgoN+k/wlaH2N9n2lviiCuaq+NvWUEJnQ4+KW
+         CkIA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=7XW5WI2LKa0+lHLha6LOvz3mRlOFJHaJBN6i9Y4p6WM=;
-        b=x2Lrz3Tw9xnAOdSbSY+DdcvxEiF6oicZXECNegNKX67ZDMUeVME41VlwXtPdc/fK7M
-         nhKfYsJ8hl8g1mduv3TvI5VFF1Gtp0i2rieAhhpglyxG+Yz7wGldB2RWRv/Rr5NqtS4f
-         oGd4QQyLqY5iSBM4BF0ZGWTcoeWWDaK8NRTLBLUxeW3MSMM/nK/00yF8BtpaekJ2xxWf
-         bQcxgsym+LU3bsUEp6HUrrD0RENM1hFWQ8AWwefWF5bmQkpRdo73BpBzlBFZXKPDvk3O
-         0PEGMXRIiGCbDcmjH5VtxCxz5w+IH1xrsc6f9gfM5rwsqapZDVAs6QQxiWeLD/yiXf3W
-         yxYA==
-X-Gm-Message-State: AOAM533X/WKQqvXQOiVY89c/ogMHJajirMrQ8m/rCXb6JuV/39l/Ze96
-	rS51qJ354SHfpT90LLT2Ps+m9LuwN2I=
-X-Google-Smtp-Source: ABdhPJx32wzZ5nqhjR3pnLXjGJB/ispCD26olf2AkIY8XmREw8kF2eQaqvbwXb6rvKqnjeQ7HQ+hKQ==
-X-Received: by 2002:a2e:a289:: with SMTP id k9mr907186lja.464.1643956506750;
-        Thu, 03 Feb 2022 22:35:06 -0800 (PST)
+        bh=4b53rA6xzj/VK8mPmETSCKHkM43BtRFV7FZoD/x6CYM=;
+        b=ludS6Bq5lxUDJyLJKJ8L+CWi66r/6ORTsCqx+1w/amxtZDbLTFpSZAfeff8/ruX/rn
+         /9m89XT7xmb59nzqBJwUuB7ELOQyhB2L0Jp4DRcPUdTzt2cgFoa8wR/MJmmlcZUAcQfR
+         22C+aahPb+c8Q5/9AXtNYbKBIyaoX1foBB18uMQPlHJQuNU5LbQCCOAhDCe4ij9bhTSN
+         Iyf+BSWuGAmfN3CTLL00I24nJinXMdU4dreUZj+JI1Rtri0gn7wGmboUOurUS67SIH6h
+         mjGAgzjE+J00TyicWXEZaLhrqIXxEDkzWAzc0VvED7yfd+C+8u+cwa0fAuWYG04AgJVO
+         s1zg==
+X-Gm-Message-State: AOAM530Dyhj/fsnMHHgF4Dto7rPTkZlt94RhiU26H68c0e6j4Zxb7L0o
+	LVWXDDBj29dbr05SjhoEUZaJRAfhzfE=
+X-Google-Smtp-Source: ABdhPJyT9UqVfIhAtTM96uy+/s3bkntSE0jQKHwafHnI3xVxjYIKf9NL0rxmdS5y0dE9VlwJS+zJEg==
+X-Received: by 2002:a2e:95cb:: with SMTP id y11mr937679ljh.129.1643956507945;
+        Thu, 03 Feb 2022 22:35:07 -0800 (PST)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -86,9 +86,9 @@ Cc: julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH v6 05/13] vpci: add hooks for PCI device assign/de-assign
-Date: Fri,  4 Feb 2022 08:34:51 +0200
-Message-Id: <20220204063459.680961-6-andr2000@gmail.com>
+Subject: [PATCH v6 06/13] vpci/header: implement guest BAR register handlers
+Date: Fri,  4 Feb 2022 08:34:52 +0200
+Message-Id: <20220204063459.680961-7-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220204063459.680961-1-andr2000@gmail.com>
 References: <20220204063459.680961-1-andr2000@gmail.com>
@@ -97,152 +97,266 @@ Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-When a PCI device gets assigned/de-assigned some work on vPCI side needs
-to be done for that device. Introduce a pair of hooks so vPCI can handle
-that.
+Add relevant vpci register handlers when assigning PCI device to a domain
+and remove those when de-assigning. This allows having different
+handlers for different domains, e.g. hwdom and other guests.
+
+Emulate guest BAR register values: this allows creating a guest view
+of the registers and emulates size and properties probe as it is done
+during PCI device enumeration by the guest.
+
+All empty, IO and ROM BARs for guests are emulated by returning 0 on
+reads and ignoring writes: this BARs are special with this respect as
+their lower bits have special meaning, so returning default ~0 on read
+may confuse guest OS.
+
+Memory decoding is initially disabled when used by guests in order to
+prevent the BAR being placed on top of a RAM region.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 ---
 Since v5:
-- do not split code into run_vpci_init
-- do not check for is_system_domain in vpci_{de}assign_device
-- do not use vpci_remove_device_handlers_locked and re-allocate
-  pdev->vpci completely
-- make vpci_deassign_device void
+- make sure that the guest set address has the same page offset
+  as the physical address on the host
+- remove guest_rom_{read|write} as those just implement the default
+  behaviour of the registers not being handled
+- adjusted comment for struct vpci.addr field
+- add guest handlers for BARs which are not handled and will otherwise
+  return ~0 on read and ignore writes. The BARs are special with this
+  respect as their lower bits have special meaning, so returning ~0
+  doesn't seem to be right
 Since v4:
- - de-assign vPCI from the previous domain on device assignment
- - do not remove handlers in vpci_assign_device as those must not
-   exist at that point
+- updated commit message
+- s/guest_addr/guest_reg
 Since v3:
- - remove toolstack roll-back description from the commit message
-   as error are to be handled with proper cleanup in Xen itself
- - remove __must_check
- - remove redundant rc check while assigning devices
- - fix redundant CONFIG_HAS_VPCI check for CONFIG_HAS_VPCI_GUEST_SUPPORT
- - use REGISTER_VPCI_INIT machinery to run required steps on device
-   init/assign: add run_vpci_init helper
+- squashed two patches: dynamic add/remove handlers and guest BAR
+  handler implementation
+- fix guest BAR read of the high part of a 64bit BAR (Roger)
+- add error handling to vpci_assign_device
+- s/dom%pd/%pd
+- blank line before return
 Since v2:
-- define CONFIG_HAS_VPCI_GUEST_SUPPORT so dead code is not compiled
-  for x86
+- remove unneeded ifdefs for CONFIG_HAS_VPCI_GUEST_SUPPORT as more code
+  has been eliminated from being built on x86
 Since v1:
  - constify struct pci_dev where possible
  - do not open code is_system_domain()
- - extended the commit message
+ - simplify some code3. simplify
+ - use gdprintk + error code instead of gprintk
+ - gate vpci_bar_{add|remove}_handlers with CONFIG_HAS_VPCI_GUEST_SUPPORT,
+   so these do not get compiled for x86
+ - removed unneeded is_system_domain check
+ - re-work guest read/write to be much simpler and do more work on write
+   than read which is expected to be called more frequently
+ - removed one too obvious comment
 ---
- xen/drivers/Kconfig           |  4 ++++
- xen/drivers/passthrough/pci.c |  6 ++++++
- xen/drivers/vpci/vpci.c       | 27 +++++++++++++++++++++++++++
- xen/include/xen/vpci.h        | 15 +++++++++++++++
- 4 files changed, 52 insertions(+)
+ xen/drivers/vpci/header.c | 131 +++++++++++++++++++++++++++++++++-----
+ xen/include/xen/vpci.h    |   3 +
+ 2 files changed, 118 insertions(+), 16 deletions(-)
 
-diff --git a/xen/drivers/Kconfig b/xen/drivers/Kconfig
-index db94393f47a6..780490cf8e39 100644
---- a/xen/drivers/Kconfig
-+++ b/xen/drivers/Kconfig
-@@ -15,4 +15,8 @@ source "drivers/video/Kconfig"
- config HAS_VPCI
- 	bool
- 
-+config HAS_VPCI_GUEST_SUPPORT
-+	bool
-+	depends on HAS_VPCI
-+
- endmenu
-diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-index 50dec3bb73d0..88836aab6baf 100644
---- a/xen/drivers/passthrough/pci.c
-+++ b/xen/drivers/passthrough/pci.c
-@@ -943,6 +943,8 @@ static int deassign_device(struct domain *d, uint16_t seg, uint8_t bus,
-     if ( ret )
-         goto out;
- 
-+    vpci_deassign_device(d, pdev);
-+
-     if ( pdev->domain == hardware_domain  )
-         pdev->quarantine = false;
- 
-@@ -1488,6 +1490,8 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
-     ASSERT(pdev && (pdev->domain == hardware_domain ||
-                     pdev->domain == dom_io));
- 
-+    vpci_deassign_device(pdev->domain, pdev);
-+
-     rc = pdev_msix_assign(d, pdev);
-     if ( rc )
-         goto done;
-@@ -1507,6 +1511,8 @@ static int assign_device(struct domain *d, u16 seg, u8 bus, u8 devfn, u32 flag)
-                         pci_to_dev(pdev), flag);
-     }
- 
-+    rc = vpci_assign_device(d, pdev);
-+
-  done:
-     if ( rc )
-         printk(XENLOG_G_WARNING "%pd: assign (%pp) failed (%d)\n",
-diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index f8a93e61c08f..4e774875fa04 100644
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -99,6 +99,33 @@ int vpci_add_handlers(struct pci_dev *pdev)
- 
-     return rc;
+diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+index bd23c0274d48..2620a95ff35b 100644
+--- a/xen/drivers/vpci/header.c
++++ b/xen/drivers/vpci/header.c
+@@ -406,6 +406,81 @@ static void bar_write(const struct pci_dev *pdev, unsigned int reg,
+     pci_conf_write32(pdev->sbdf, reg, val);
  }
-+
-+#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-+/* Notify vPCI that device is assigned to guest. */
-+int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
+ 
++static void guest_bar_write(const struct pci_dev *pdev, unsigned int reg,
++                            uint32_t val, void *data)
 +{
-+    int rc;
++    struct vpci_bar *bar = data;
++    bool hi = false;
++    uint64_t guest_reg = bar->guest_reg;
 +
-+    if ( !has_vpci(d) )
-+        return 0;
++    if ( bar->type == VPCI_BAR_MEM64_HI )
++    {
++        ASSERT(reg > PCI_BASE_ADDRESS_0);
++        bar--;
++        hi = true;
++    }
++    else
++    {
++        val &= PCI_BASE_ADDRESS_MEM_MASK;
++        val |= bar->type == VPCI_BAR_MEM32 ? PCI_BASE_ADDRESS_MEM_TYPE_32
++                                           : PCI_BASE_ADDRESS_MEM_TYPE_64;
++        val |= bar->prefetchable ? PCI_BASE_ADDRESS_MEM_PREFETCH : 0;
++    }
 +
-+    rc = vpci_add_handlers(pdev);
-+    if ( rc )
-+        vpci_deassign_device(d, pdev);
++    guest_reg &= ~(0xffffffffull << (hi ? 32 : 0));
++    guest_reg |= (uint64_t)val << (hi ? 32 : 0);
 +
-+    return rc;
-+}
++    guest_reg &= ~(bar->size - 1) | ~PCI_BASE_ADDRESS_MEM_MASK;
 +
-+/* Notify vPCI that device is de-assigned from guest. */
-+void vpci_deassign_device(struct domain *d, struct pci_dev *pdev)
-+{
-+    if ( !has_vpci(d) )
++    /*
++     * Make sure that the guest set address has the same page offset
++     * as the physical address on the host or otherwise things won't work as
++     * expected.
++     */
++    if ( (guest_reg & (~PAGE_MASK & PCI_BASE_ADDRESS_MEM_MASK)) !=
++         (bar->addr & ~PAGE_MASK) )
++    {
++        gprintk(XENLOG_WARNING,
++                "%pp: ignored BAR %zu write with wrong page offset\n",
++                &pdev->sbdf, bar - pdev->vpci->header.bars + hi);
 +        return;
++    }
 +
-+    vpci_remove_device(pdev);
++    bar->guest_reg = guest_reg;
 +}
-+#endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
 +
- #endif /* __XEN__ */
- 
- static int vpci_register_cmp(const struct vpci_register *r1,
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index f2a7d82ce77b..246307e6f5d5 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -251,6 +251,21 @@ static inline bool __must_check vpci_process_pending(struct vcpu *v)
- }
- #endif
- 
-+#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-+/* Notify vPCI that device is assigned/de-assigned to/from guest. */
-+int vpci_assign_device(struct domain *d, struct pci_dev *pdev);
-+void vpci_deassign_device(struct domain *d, struct pci_dev *pdev);
-+#else
-+static inline int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
++static uint32_t guest_bar_read(const struct pci_dev *pdev, unsigned int reg,
++                               void *data)
++{
++    const struct vpci_bar *bar = data;
++    bool hi = false;
++
++    if ( bar->type == VPCI_BAR_MEM64_HI )
++    {
++        ASSERT(reg > PCI_BASE_ADDRESS_0);
++        bar--;
++        hi = true;
++    }
++
++    return bar->guest_reg >> (hi ? 32 : 0);
++}
++
++static uint32_t guest_bar_ignore_read(const struct pci_dev *pdev,
++                                      unsigned int reg, void *data)
 +{
 +    return 0;
-+};
++}
 +
-+static inline void vpci_deassign_device(struct domain *d, struct pci_dev *pdev)
++static int bar_ignore_access(const struct pci_dev *pdev, unsigned int reg,
++                             struct vpci_bar *bar)
 +{
-+};
-+#endif
++    if ( is_hardware_domain(pdev->domain) )
++        return 0;
 +
- #endif
++    return vpci_add_register(pdev->vpci, guest_bar_ignore_read, NULL,
++                             reg, 4, bar);
++}
++
+ static void rom_write(const struct pci_dev *pdev, unsigned int reg,
+                       uint32_t val, void *data)
+ {
+@@ -462,6 +537,7 @@ static int init_bars(struct pci_dev *pdev)
+     struct vpci_header *header = &pdev->vpci->header;
+     struct vpci_bar *bars = header->bars;
+     int rc;
++    bool is_hwdom = is_hardware_domain(pdev->domain);
  
- /*
+     switch ( pci_conf_read8(pdev->sbdf, PCI_HEADER_TYPE) & 0x7f )
+     {
+@@ -501,8 +577,10 @@ static int init_bars(struct pci_dev *pdev)
+         if ( i && bars[i - 1].type == VPCI_BAR_MEM64_LO )
+         {
+             bars[i].type = VPCI_BAR_MEM64_HI;
+-            rc = vpci_add_register(pdev->vpci, vpci_hw_read32, bar_write, reg,
+-                                   4, &bars[i]);
++            rc = vpci_add_register(pdev->vpci,
++                                   is_hwdom ? vpci_hw_read32 : guest_bar_read,
++                                   is_hwdom ? bar_write : guest_bar_write,
++                                   reg, 4, &bars[i]);
+             if ( rc )
+             {
+                 pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
+@@ -516,6 +594,11 @@ static int init_bars(struct pci_dev *pdev)
+         if ( (val & PCI_BASE_ADDRESS_SPACE) == PCI_BASE_ADDRESS_SPACE_IO )
+         {
+             bars[i].type = VPCI_BAR_IO;
++
++            rc = bar_ignore_access(pdev, reg, &bars[i]);
++            if ( rc )
++                return rc;
++
+             continue;
+         }
+         if ( (val & PCI_BASE_ADDRESS_MEM_TYPE_MASK) ==
+@@ -535,6 +618,11 @@ static int init_bars(struct pci_dev *pdev)
+         if ( size == 0 )
+         {
+             bars[i].type = VPCI_BAR_EMPTY;
++
++            rc = bar_ignore_access(pdev, reg, &bars[i]);
++            if ( rc )
++                return rc;
++
+             continue;
+         }
+ 
+@@ -542,8 +630,10 @@ static int init_bars(struct pci_dev *pdev)
+         bars[i].size = size;
+         bars[i].prefetchable = val & PCI_BASE_ADDRESS_MEM_PREFETCH;
+ 
+-        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, bar_write, reg, 4,
+-                               &bars[i]);
++        rc = vpci_add_register(pdev->vpci,
++                               is_hwdom ? vpci_hw_read32 : guest_bar_read,
++                               is_hwdom ? bar_write : guest_bar_write,
++                               reg, 4, &bars[i]);
+         if ( rc )
+         {
+             pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
+@@ -551,22 +641,31 @@ static int init_bars(struct pci_dev *pdev)
+         }
+     }
+ 
+-    /* Check expansion ROM. */
+-    rc = pci_size_mem_bar(pdev->sbdf, rom_reg, &addr, &size, PCI_BAR_ROM);
+-    if ( rc > 0 && size )
++    /* Check expansion ROM: we do not handle ROM for guests. */
++    if ( is_hwdom )
+     {
+-        struct vpci_bar *rom = &header->bars[num_bars];
++        rc = pci_size_mem_bar(pdev->sbdf, rom_reg, &addr, &size, PCI_BAR_ROM);
++        if ( rc > 0 && size )
++        {
++            struct vpci_bar *rom = &header->bars[num_bars];
+ 
+-        rom->type = VPCI_BAR_ROM;
+-        rom->size = size;
+-        rom->addr = addr;
+-        header->rom_enabled = pci_conf_read32(pdev->sbdf, rom_reg) &
+-                              PCI_ROM_ADDRESS_ENABLE;
++            rom->type = VPCI_BAR_ROM;
++            rom->size = size;
++            rom->addr = addr;
++            header->rom_enabled = pci_conf_read32(pdev->sbdf, rom_reg) &
++                                  PCI_ROM_ADDRESS_ENABLE;
+ 
+-        rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rom_write, rom_reg,
+-                               4, rom);
++            rc = vpci_add_register(pdev->vpci, vpci_hw_read32, rom_write,
++                                   rom_reg, 4, rom);
++            if ( rc )
++                rom->type = VPCI_BAR_EMPTY;
++        }
++    }
++    else
++    {
++        rc = bar_ignore_access(pdev, rom_reg, &header->bars[num_bars]);
+         if ( rc )
+-            rom->type = VPCI_BAR_EMPTY;
++            return rc;
+     }
+ 
+     return (cmd & PCI_COMMAND_MEMORY) ? modify_bars(pdev, cmd, false) : 0;
+diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+index 246307e6f5d5..270d22b85653 100644
+--- a/xen/include/xen/vpci.h
++++ b/xen/include/xen/vpci.h
+@@ -66,7 +66,10 @@ struct vpci {
+     struct vpci_header {
+         /* Information about the PCI BARs of this device. */
+         struct vpci_bar {
++            /* Physical (host) address. */
+             uint64_t addr;
++            /* Guest view of the BAR: address and lower bits. */
++            uint64_t guest_reg;
+             uint64_t size;
+             enum {
+                 VPCI_BAR_EMPTY,
 -- 
 2.25.1
 
