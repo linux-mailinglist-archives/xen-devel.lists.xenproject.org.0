@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B7D84A9FFC
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 20:25:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.265778.459319 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8DA24AA12E
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 21:32:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.265787.459330 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nG4Ch-0003pA-MY; Fri, 04 Feb 2022 19:25:07 +0000
+	id 1nG5F6-00028P-Jl; Fri, 04 Feb 2022 20:31:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 265778.459319; Fri, 04 Feb 2022 19:25:07 +0000
+Received: by outflank-mailman (output) from mailman id 265787.459330; Fri, 04 Feb 2022 20:31:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nG4Ch-0003mB-Is; Fri, 04 Feb 2022 19:25:07 +0000
-Received: by outflank-mailman (input) for mailman id 265778;
- Fri, 04 Feb 2022 19:25:06 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nG4Cg-0003m5-DS
- for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 19:25:06 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nG4Cg-000886-2C; Fri, 04 Feb 2022 19:25:06 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=[192.168.2.73])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nG4Cf-0004a2-ST; Fri, 04 Feb 2022 19:25:06 +0000
+	id 1nG5F6-00026A-Fh; Fri, 04 Feb 2022 20:31:40 +0000
+Received: by outflank-mailman (input) for mailman id 265787;
+ Fri, 04 Feb 2022 20:31:39 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=TTBG=ST=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1nG5F5-000264-Bw
+ for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 20:31:39 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 719347c0-85f9-11ec-8eb8-a37418f5ba1a;
+ Fri, 04 Feb 2022 21:31:36 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,106 +36,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=UmYwFKjuZniQ5W8er5h6lo5XNwJ6ZaWyhLALG9Yakdo=; b=QfHyVAhIx8cF1FKh4Ytv/pnEJu
-	yzNaAXgblGuwx1OG9pd59LiSU0xT+/A1hjQ4CElF9Svd8wIBXuBYPsxAVMibRLT+omDcOn7tlWOZ4
-	7qHWliLMPaRFiZG59Paxts/wiVjrLUGmef4qdA7/kZkCSLSAEvNY7xSzj8fNyvRS/oro=;
-Message-ID: <e91bde3e-dc45-c731-7df6-e0e45039d1b2@xen.org>
-Date: Fri, 4 Feb 2022 19:25:03 +0000
+X-Inumbo-ID: 719347c0-85f9-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1644006696;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=082Vz14r1I6zxmaXpv4d2SFEfJ6SAmTaBPQRnb2qKFg=;
+  b=V2S8Qrs3wyVQb7xkon9z6Udd5YonpOlpii2CqsKIRGHjIvd3uF6pTHer
+   3C5NOPU013ORItcrZ4FwIl08s9FcTWWKjxY6P7bPf+sNO7GCATK0/YQIh
+   wWq9u0lkwbWUp+czGFyCLQNCkpqdrOnq5JP+ETcKr+CAyoMJGt1dVjQph
+   A=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 8G6U1+/d5W+/dXI6+OeobctVbrMFSOCzWNsLdRH/r4BHBnxquu3Fl88+wAij+jYXy5xZrI6AR4
+ gFPn0d+L8MjdKsDj0Jb/I+9AyD7yNYa41l990Ki6z55XhesAsX45z8pNMQCIcX4AXNkSC7mbOg
+ JQAboNz1XGKacHo+WoHY5fnpRVvySwqcJoig3ikVDjAtQ9KoH4T6LmCwrPw/r/MTln4sVovgF9
+ 2NI0uGLvhRvMlh/0LGoNueDYiPoxRf10POg60YA4h6TBTpkzT/R5xoZA9Roh8LuPq9+znCIMRs
+ y/1b1iK3PYZqPAky50azGGWc
+X-SBRS: 5.1
+X-MesageID: 63449691
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:jeRGMKLaWjI0vGW4FE+RlJMlxSXFcZb7ZxGr2PjKsXjdYENShWEAx
+ 2IdWG+OOf7cZmKje9AlO4y1pEkDscTVzdZiQAZlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
+ q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUakideSc+EH170Ug7x7Zi6mJVqYPR7z2l6
+ IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
+ QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB3QxOhr2
+ ssQh6W8VC43A/XTs/U8UgdhRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
+ LpBdW5LPkvra+GemdpXTsFFgMg5IdatF4QYonx6lhnSDOo8QICFSKLPjTNd9Glr2pwfQ6eHD
+ yYfQWpuNS7DYjAIBncGCsI5meSi3ljxcxQN/Tp5ooJoujOOnWSdyoPFMsfRe9GMbdVYmACfv
+ G2u13v9KgEXMpqY0zXt2nihnPPVlCX3HocbDqSl9+VCiUeWgGcUDXU+a1y/pvWoj1+kbPhWI
+ UcU5ykGoLA78QqgSdyVdz+SrWOAvxUcc8FNCOB84waIooLE7gDcCmUaQzppbN09qNRwVTEsz
+ kWOnd7iGXpoqrL9YWmG6r6eoDe2OC4UBWwPfykJSU0C+daLiIM8lBXUVf54DbW4yNbyHFnNL
+ yui9XZkwe9J1IhSivv9rQuvby+QSobhF1UN/BfJA1Cc4h5QerP9eKe5yFnF1KMVRGqGdWWps
+ H8BksmYyekBC5CRiSCAKNkw8KGVC+Wta2OF3wM2d3U133H0oiP4I9gMiN1rDBoxaq45lSnVj
+ Fg/UO+7zLtaJzOUYKB+eOpd4Ox6nPG7RbwJuh05B+eig6SdlifapEmChmbKhggBdXTAd4llY
+ v93lu73VR4n5VxPlmbeegvk+eZDKtoC7W3SX4vn6B+szKCTYnWYIZ9cbgfVPrtksv7V+1qOm
+ zq6Cyds408EOAEZSnKPmbP/0HhQdSRrbXwIg5A/mhG/zvpORzh6Vq65LUIJcI15haVF/tokD
+ VnmMnK0PGHX3CWdQS3TMygLQOq2Af5X8CJqVQRxbA3A8yVyPu6HsvxFH7NpJuZPyQCW5aMtJ
+ xXzU57bWaonp/Wu02l1UKQRW6Q7L0Xw3VvVZXL/CNX9FrY5LzH0FhbfVlOH3EEz4uCf7KPSe
+ pWsiVHWR4QtXQNnAJqEYf6j1Qrp73MchPhzTw3DJdwKIBfg941jKirQiP4rIp5TdUWfl2XCj
+ wvGUw0FoeTtopMu9IWbj66zsIr0QfB1GVBXHjeH4O/uZzXa5Geq3aRJTP2MIWLGTGrx9aj7P
+ bdVwvjwPecphlFPt4YgQb9nwbhnv4nkpqNAzxQiF3LONgz5BrRlK3iA/M9OqqwSmeMJ5VroA
+ hqCo4AIN6+INcXpFE8qCDAkNunTh+sJnjTy7OguJBmo7iFA47faA15ZOAOBiXIBIeItYp8l2
+ +oopOUf9xe71kgxKt+Dgy1ZqzaMI3gHX/l1v50WGta22A8iy1UEap3AEC7mppqIbowUYEUtJ
+ zaVgovEhqhdmRWeIyZiSyCV0LoPn4kKtTBL0EQGdgaAldfyj/Mq2AFcrGYsRQNPwxQbi+9+N
+ wCH7aGuyXliK9uwuPV+Yg==
+IronPort-HdrOrdr: A9a23:Gj6SPqxIG5ls4WEMgE1jKrPwIL1zdoMgy1knxilNoRw8SKKlfq
+ eV7ZMmPH7P+VIssR4b+exoVJPtfZq+z+8R3WByB8bAYOCOggLBR+sO0WKL+UyHJ8SUzI9gPM
+ lbHJSWcOeAb2RHsQ==
+X-IronPort-AV: E=Sophos;i="5.88,343,1635220800"; 
+   d="scan'208";a="63449691"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Juergen Gross
+	<jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, "Bertrand
+ Marquis" <bertrand.marquis@arm.com>
+Subject: [PATCH] xen/smp: Speed up on_selected_cpus()
+Date: Fri, 4 Feb 2022 20:31:15 +0000
+Message-ID: <20220204203115.13290-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.5.1
-Subject: Re: [PATCH v2] docs: document patch rules
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <20220203125438.21807-1-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20220203125438.21807-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi,
+cpumask_weight() is a horribly expensive way to find if no bits are set, made
+worse by the fact that the calculation is performed with the global call_lock
+held.
 
-On 03/02/2022 12:54, Juergen Gross wrote:
-> +## The commit message
-> +
-> +The commit message is free text describing *why* the patch is done and
-> +*how* the goal of the patch is achieved. A good commit message will describe
-> +the current situation, the desired goal, and the way this goal is being
-> +achieved. Parts of that can be omitted in obvious cases.
-> +
-> +In case additional changes are done in the patch (like e.g. cleanups), those
-> +should be mentioned.
-> +
-> +When referencing other patches (e.g. `similar to patch xy ...`) those
-> +patches should be referenced via their commit id (at least 12 digits)
-> +and the patch subject, if the very same patch isn't referenced by the
-> +`Fixes:` tag, too:
-> +
-> +    Similar to commit 67d01cdb5518 ("x86: infrastructure to allow converting
-> +    certain indirect calls to direct ones") add ...
-> +
-> +The following ``git config`` settings can be used to add a pretty format for
-> +outputting the above style in the ``git log`` or ``git show`` commands:
-> +
-> +        [core]
-> +                abbrev = 12
-> +        [pretty]
-> +                fixes = Fixes: %h (\"%s\")
-> +
-> +Lines in the commit message should not exceed 75 characters, except when
+Switch to using cpumask_empty() instead, which will short circuit as soon as
+it find any set bit in the cpumask.
 
-I was under the impression that commit message should be wrap to 72 
-characters. This is because tools like "git log" would indent the commit 
-message by 8 characters.
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Juergen Gross <jgross@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+CC: Bertrand Marquis <bertrand.marquis@arm.com>
 
-> +copying error output directly into the commit message.
-> +
-> +## Tags
-> +
-> +Tags are entries in the form
-> +
-> +    Tag: something
-> +
-> +In general tags are added in chronological order. So a `Reviewed-by:` tag
-> +should be added **after** the `Signed-off-by:` tag, as the review happened
-> +after the patch was written.
-> +
-> +Do not split a tag across multiple lines, tags are exempt from the
-> +"wrap at 75 columns" rule in order to simplify parsing scripts.
+I have not done performance testing, but I would be surprised if this cannot
+be measured on a busy or large box.
+---
+ xen/common/smp.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-This would need to be adjusted depending on the answer above.
-
-> +
-> +### Origin:
-> +
-> +Xen has inherited some source files from other open source projects. In case
-> +a patch modifying such an inherited file is taken from that project (maybe in
-> +modified form), the `Origin:` tag specifies the source of the patch:
-> +
-> +    Origin: <repository-URL> <commit-id>
-
-NIT: Likes you did for Fixes tags, can you make clear that the commit id 
-should be the first 12 characters? So the line...
-
-> +
-> +E.g.:
-> +
-> +    Origin: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git f093b08c47b3
-
-... doesn't get horribly long.
-
-> +
-> +All tags **above** the `Origin:` tag are from the original patch (which
-> +should all be kept), while tags **after** `Origin:` are related to the
-> +normal Xen patch process as described here.
-
-Cheers,
-
+diff --git a/xen/common/smp.c b/xen/common/smp.c
+index 781bcf2c246c..a011f541f1ea 100644
+--- a/xen/common/smp.c
++++ b/xen/common/smp.c
+@@ -50,8 +50,6 @@ void on_selected_cpus(
+     void *info,
+     int wait)
+ {
+-    unsigned int nr_cpus;
+-
+     ASSERT(local_irq_is_enabled());
+     ASSERT(cpumask_subset(selected, &cpu_online_map));
+ 
+@@ -59,8 +57,7 @@ void on_selected_cpus(
+ 
+     cpumask_copy(&call_data.selected, selected);
+ 
+-    nr_cpus = cpumask_weight(&call_data.selected);
+-    if ( nr_cpus == 0 )
++    if ( cpumask_empty(&call_data.selected) )
+         goto out;
+ 
+     call_data.func = func;
 -- 
-Julien Grall
+2.11.0
+
 
