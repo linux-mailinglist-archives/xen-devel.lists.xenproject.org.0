@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 764B74A940F
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 07:35:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.265015.458387 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1F744A9404
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 07:35:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.265016.458394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFsBl-00038I-4K; Fri, 04 Feb 2022 06:35:21 +0000
+	id 1nFsBm-0003Qb-DS; Fri, 04 Feb 2022 06:35:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 265015.458387; Fri, 04 Feb 2022 06:35:20 +0000
+Received: by outflank-mailman (output) from mailman id 265016.458394; Fri, 04 Feb 2022 06:35:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFsBj-0002sJ-Q9; Fri, 04 Feb 2022 06:35:19 +0000
-Received: by outflank-mailman (input) for mailman id 265015;
- Fri, 04 Feb 2022 06:35:16 +0000
+	id 1nFsBl-0003BJ-DR; Fri, 04 Feb 2022 06:35:21 +0000
+Received: by outflank-mailman (input) for mailman id 265016;
+ Fri, 04 Feb 2022 06:35:17 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Tguk=ST=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1nFsBg-0008DX-6Q
- for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 06:35:16 +0000
-Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
- [2a00:1450:4864:20::131])
+ id 1nFsBh-0008DX-6q
+ for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 06:35:17 +0000
+Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
+ [2a00:1450:4864:20::229])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9cb91094-8584-11ec-8eb8-a37418f5ba1a;
- Fri, 04 Feb 2022 07:35:15 +0100 (CET)
-Received: by mail-lf1-x131.google.com with SMTP id i34so10811258lfv.2
- for <xen-devel@lists.xenproject.org>; Thu, 03 Feb 2022 22:35:15 -0800 (PST)
+ id 9d5fbd2f-8584-11ec-8eb8-a37418f5ba1a;
+ Fri, 04 Feb 2022 07:35:16 +0100 (CET)
+Received: by mail-lj1-x229.google.com with SMTP id o17so7206043ljp.1
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Feb 2022 22:35:16 -0800 (PST)
 Received: from a2klaptop.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id f34sm163027lfv.165.2022.02.03.22.35.13
+ by smtp.gmail.com with ESMTPSA id f34sm163027lfv.165.2022.02.03.22.35.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Feb 2022 22:35:14 -0800 (PST)
+ Thu, 03 Feb 2022 22:35:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,34 +43,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9cb91094-8584-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 9d5fbd2f-8584-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=hIaF8lkau0N10gIhOfyFkvM+7dDNU2pFNiSNz4Bb4DM=;
-        b=BQx5h1U1XzMedlxkvKRWbAoeeDDDuxCa+NYZCC5EXXKvNVb57WykA7geNU2PwwfOZq
-         9boVsP/FKrdj5QijI5UOmqpiJ/108TlbnER9IZhZmy0RGl5IOE57CosP9uDTvIDuYDbo
-         zHhfShTjr4qt57OIjhKs9SBko9C9BKzPn/3mYPs2jIZxyyICCymb8RGNt8go4CY8Z1Ok
-         zqFmtbBlD3fbVKWSpC72QVUh+9sVJeSCaazwwX1bSLiwuIQHtE6UPH88FeAYFv/JNfLI
-         d2nZcYcEhbTMz7QDE7HkDz/rjBl9F5R4X+98fpvxVKMfjXD2MOxz+NjAY1Zg3+QrrepP
-         mIow==
+        bh=qo4xVV2IOrLU3ayXp+CLSEr+b1lCwCF0zrFQg2DftNA=;
+        b=DW8T5+dKfc/hN9mnCARyk2APUMIqiKK4CcqjIN0Whced814pQ8sYHC/r342zGCp7Gw
+         IBwogyUJD9Ll9XN/ABcSgRxIMazNdqgGYw6lOmF65gWB6mOnkOmc0Xgmhk34CQccPhNo
+         GtIPYj5MTo4WiqPdTXiYUr2UdjamJFF8aitaHwtOtk2vcf/i52oQls8Sya0/R0AaXkAD
+         CG0OaC/BimKmkIEF0RssbmfnB6KDFgkf0q/P4ZQO+yo0tTnJ4zF8wscY/MxfJWeKFx02
+         rbq+wZ/wpS2fq4B4fhEQYjVdTqlPpD0+jelO1aoh1jAhQbiFmzuHbzY9AGUMIDU4O5D+
+         ux1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=hIaF8lkau0N10gIhOfyFkvM+7dDNU2pFNiSNz4Bb4DM=;
-        b=pzyEKVUMrHCayfrEwdRh9Jj5XXF2LSwKvnNWzy8vUVrrEokCJnW1xFL0sBcEkGuFQY
-         WgONp4bO5QS10r49Vu+YLyfaIlsrh3iLpWJjPXnb90qJNOgIeRDwJkhfRGR++Ca2FTHT
-         CqivcHGv3YCoWelvdVK2PhXaqThz5Di1GGCv+IMFWLIPpxkZFFxnVijyovIDG29o93y6
-         yhVI2aHj3LKgPj+urdFcui40mUppNBru9Bfbf6Lu7MimivbzKJkwegXARuI4vqaIXazK
-         27OEJxFme4eZD3UsvAXaJ/8XEuu35Ofk0gV1nI3pWWp/3zVwGRkkfw1sQ6AYZri70h4m
-         h9cg==
-X-Gm-Message-State: AOAM533fIkCFEKVIDhuO6yVSKqE+lPh27A0VD26PBWehTmA7ofEI1ETf
-	YDJRbJ8oO0EMhzV23I81smev6LTNSfw=
-X-Google-Smtp-Source: ABdhPJzInhEwoaUav36B1b6oDvhcMTtbaYic6ktmXAldzUwMXmLO5P4HKZ2/mUC2v+QPU1VKXYIkVw==
-X-Received: by 2002:a05:6512:1697:: with SMTP id bu23mr1338331lfb.392.1643956514817;
-        Thu, 03 Feb 2022 22:35:14 -0800 (PST)
+        bh=qo4xVV2IOrLU3ayXp+CLSEr+b1lCwCF0zrFQg2DftNA=;
+        b=maYQAknmYI3sU1lx/8bDsOmWYL6R0ezSWud7+oY2B3r4w3KJvkACpfyzb9dh8EGptg
+         M3rd+t1mIV1vMUb0Ud1f332jOk4eugoERLoILfQWj8jKQVZptrVIdvGeXbpuegD2Sswn
+         uIRLYRc6QXerWKAE8LEDxMwUIP83o1w9rLvyoC67uO9O8TF9XQ2Lrs3QljIuYzRXVqW0
+         MfTJoyy4kLtK2AKHGPTuuuuO/PBTkfzijiRuZdaJQ5JpGKSJTWTbuwDUSkwpVb7dRFf7
+         Jq3MztAZbU9NSzR7OBS5Erg3oOgg96w97bT+IV4IDaR5G4ZWKuazTGV/6yGkPwbnvZCL
+         XRxw==
+X-Gm-Message-State: AOAM531hlDQUhcnH/lpWWjcPQxvq3UPhZy7CYUKvs3Fj6lg+jiYQ//bi
+	l1wwBXmDBLkjs3tfyH8qoJ19xW0lioI=
+X-Google-Smtp-Source: ABdhPJwWj2gtNHZB0Bqn6McKeBHaWxFGAxFvXVwELlj4nHdWpNKInEIKgGnAdCyCL0new9sD8fO1VA==
+X-Received: by 2002:a2e:82c4:: with SMTP id n4mr893394ljh.163.1643956515947;
+        Thu, 03 Feb 2022 22:35:15 -0800 (PST)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -86,9 +86,9 @@ Cc: julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH v6 12/13] xen/arm: translate virtual PCI bus topology for guests
-Date: Fri,  4 Feb 2022 08:34:58 +0200
-Message-Id: <20220204063459.680961-13-andr2000@gmail.com>
+Subject: [PATCH v6 13/13] xen/arm: account IO handlers for emulated PCI MSI-X
+Date: Fri,  4 Feb 2022 08:34:59 +0200
+Message-Id: <20220204063459.680961-14-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220204063459.680961-1-andr2000@gmail.com>
 References: <20220204063459.680961-1-andr2000@gmail.com>
@@ -97,145 +97,60 @@ Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-There are three  originators for the PCI configuration space access:
-1. The domain that owns physical host bridge: MMIO handlers are
-there so we can update vPCI register handlers with the values
-written by the hardware domain, e.g. physical view of the registers
-vs guest's view on the configuration space.
-2. Guest access to the passed through PCI devices: we need to properly
-map virtual bus topology to the physical one, e.g. pass the configuration
-space access to the corresponding physical devices.
-3. Emulated host PCI bridge access. It doesn't exist in the physical
-topology, e.g. it can't be mapped to some physical host bridge.
-So, all access to the host bridge itself needs to be trapped and
-emulated.
+At the moment, we always allocate an extra 16 slots for IO handlers
+(see MAX_IO_HANDLER). So while adding IO trap handlers for the emulated
+MSI-X registers we need to explicitly tell that we have additional IO
+handlers, so those are accounted.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+
 ---
+Cc: Julien Grall <julien@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+---
+This actually moved here from the part 2 of the prep work for PCI
+passthrough on Arm as it seems to be the proper place for it.
+
 Since v5:
-- add vpci_translate_virtual_device for #ifndef CONFIG_HAS_VPCI_GUEST_SUPPORT
-  case to simplify ifdefery
-- add ASSERT(!is_hardware_domain(d)); to vpci_translate_virtual_device
-- reset output register on failed virtual SBDF translation
-Since v4:
-- indentation fixes
-- constify struct domain
-- updated commit message
-- updates to the new locking scheme (pdev->vpci_lock)
-Since v3:
-- revisit locking
-- move code to vpci.c
-Since v2:
- - pass struct domain instead of struct vcpu
- - constify arguments where possible
- - gate relevant code with CONFIG_HAS_VPCI_GUEST_SUPPORT
-New in v2
+- optimize with IS_ENABLED(CONFIG_HAS_PCI_MSI) since VPCI_MAX_VIRT_DEV is
+  defined unconditionally
+New in v5
 ---
- xen/arch/arm/vpci.c     | 17 +++++++++++++++++
- xen/drivers/vpci/vpci.c | 29 +++++++++++++++++++++++++++++
- xen/include/xen/vpci.h  |  7 +++++++
- 3 files changed, 53 insertions(+)
+ xen/arch/arm/vpci.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
 diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
-index a9fc5817f94e..84b2b068a0fe 100644
+index 84b2b068a0fe..c5902cb9d34d 100644
 --- a/xen/arch/arm/vpci.c
 +++ b/xen/arch/arm/vpci.c
-@@ -41,6 +41,16 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
-     /* data is needed to prevent a pointer cast on 32bit */
-     unsigned long data;
+@@ -131,6 +131,8 @@ static int vpci_get_num_handlers_cb(struct domain *d,
  
-+    /*
-+     * For the passed through devices we need to map their virtual SBDF
-+     * to the physical PCI device being passed through.
-+     */
-+    if ( !bridge && !vpci_translate_virtual_device(v->domain, &sbdf) )
-+    {
-+        *r = ~0ul;
-+        return 1;
-+    }
+ unsigned int domain_vpci_get_num_mmio_handlers(struct domain *d)
+ {
++    unsigned int count;
 +
-     if ( vpci_ecam_read(sbdf, ECAM_REG_OFFSET(info->gpa),
-                         1U << info->dabt.size, &data) )
-     {
-@@ -59,6 +69,13 @@ static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
-     struct pci_host_bridge *bridge = p;
-     pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
+     if ( !has_vpci(d) )
+         return 0;
  
-+    /*
-+     * For the passed through devices we need to map their virtual SBDF
-+     * to the physical PCI device being passed through.
-+     */
-+    if ( !bridge && !vpci_translate_virtual_device(v->domain, &sbdf) )
-+        return 1;
+@@ -151,7 +153,17 @@ unsigned int domain_vpci_get_num_mmio_handlers(struct domain *d)
+      * For guests each host bridge requires one region to cover the
+      * configuration space. At the moment, we only expose a single host bridge.
+      */
+-    return 1;
++    count = 1;
 +
-     return vpci_ecam_write(sbdf, ECAM_REG_OFFSET(info->gpa),
-                            1U << info->dabt.size, r);
- }
-diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index 7d422d11f83d..070db7391391 100644
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -168,6 +168,35 @@ static void vpci_remove_virtual_device(struct domain *d,
-     pdev->vpci->guest_sbdf.sbdf = ~0;
++    /*
++     * There's a single MSI-X MMIO handler that deals with both PBA
++     * and MSI-X tables per each PCI device being passed through.
++     * Maximum number of emulated virtual devices is VPCI_MAX_VIRT_DEV.
++     */
++    if ( IS_ENABLED(CONFIG_HAS_PCI_MSI) )
++        count += VPCI_MAX_VIRT_DEV;
++
++    return count;
  }
  
-+/*
-+ * Find the physical device which is mapped to the virtual device
-+ * and translate virtual SBDF to the physical one.
-+ */
-+bool vpci_translate_virtual_device(const struct domain *d, pci_sbdf_t *sbdf)
-+{
-+    struct pci_dev *pdev;
-+
-+    ASSERT(!is_hardware_domain(d));
-+
-+    for_each_pdev( d, pdev )
-+    {
-+        bool found;
-+
-+        spin_lock(&pdev->vpci_lock);
-+        found = pdev->vpci && (pdev->vpci->guest_sbdf.sbdf == sbdf->sbdf);
-+        spin_unlock(&pdev->vpci_lock);
-+
-+        if ( found )
-+        {
-+            /* Replace guest SBDF with the physical one. */
-+            *sbdf = pdev->sbdf;
-+            return true;
-+        }
-+    }
-+
-+    return false;
-+}
-+
- /* Notify vPCI that device is assigned to guest. */
- int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
- {
-diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 1f04d34a2369..f6eb9f2051af 100644
---- a/xen/include/xen/vpci.h
-+++ b/xen/include/xen/vpci.h
-@@ -271,6 +271,7 @@ static inline bool __must_check vpci_process_pending(struct vcpu *v)
- /* Notify vPCI that device is assigned/de-assigned to/from guest. */
- int vpci_assign_device(struct domain *d, struct pci_dev *pdev);
- void vpci_deassign_device(struct domain *d, struct pci_dev *pdev);
-+bool vpci_translate_virtual_device(const struct domain *d, pci_sbdf_t *sbdf);
- #else
- static inline int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
- {
-@@ -280,6 +281,12 @@ static inline int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
- static inline void vpci_deassign_device(struct domain *d, struct pci_dev *pdev)
- {
- };
-+
-+static inline bool vpci_translate_virtual_device(const struct domain *d,
-+                                                 pci_sbdf_t *sbdf)
-+{
-+    return false;
-+}
- #endif
- 
- #endif
+ /*
 -- 
 2.25.1
 
