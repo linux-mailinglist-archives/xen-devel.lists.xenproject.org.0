@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 269634A999B
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 14:02:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.265503.458888 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 551314A999F
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 14:04:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.265510.458899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFyDl-0002lG-LW; Fri, 04 Feb 2022 13:01:49 +0000
+	id 1nFyFx-0003Md-3A; Fri, 04 Feb 2022 13:04:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 265503.458888; Fri, 04 Feb 2022 13:01:49 +0000
+Received: by outflank-mailman (output) from mailman id 265510.458899; Fri, 04 Feb 2022 13:04:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFyDl-0002iY-IG; Fri, 04 Feb 2022 13:01:49 +0000
-Received: by outflank-mailman (input) for mailman id 265503;
- Fri, 04 Feb 2022 13:01:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nFyFw-0003Kn-Un; Fri, 04 Feb 2022 13:04:04 +0000
+Received: by outflank-mailman (input) for mailman id 265510;
+ Fri, 04 Feb 2022 13:04:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1gJ0=ST=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nFyDk-0002iS-GB
- for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 13:01:48 +0000
+ id 1nFyFv-0003Kh-WA
+ for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 13:04:04 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c253017-85ba-11ec-8f75-fffcc8bd4f1a;
- Fri, 04 Feb 2022 14:01:47 +0100 (CET)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2175.outbound.protection.outlook.com [104.47.17.175]) by
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ec96f9de-85ba-11ec-8eb8-a37418f5ba1a;
+ Fri, 04 Feb 2022 14:04:02 +0100 (CET)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05lp2104.outbound.protection.outlook.com [104.47.17.104]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-15-XTPyIXk1OtadObmG-2dB5g-1; Fri, 04 Feb 2022 14:01:46 +0100
+ de-mta-19-iUA14Y4JNkiYSZiCvQw0SA-2; Fri, 04 Feb 2022 14:04:01 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by AM6PR04MB6440.eurprd04.prod.outlook.com (2603:10a6:20b:f4::25)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DBAPR04MB7301.eurprd04.prod.outlook.com (2603:10a6:10:1a7::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.14; Fri, 4 Feb
- 2022 13:01:44 +0000
+ 2022 13:03:58 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5160:9fd7:9627:cb11]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5160:9fd7:9627:cb11%5]) with mapi id 15.20.4951.014; Fri, 4 Feb 2022
- 13:01:44 +0000
+ 13:03:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,194 +51,277 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c253017-85ba-11ec-8f75-fffcc8bd4f1a
+X-Inumbo-ID: ec96f9de-85ba-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1643979707;
+	t=1643979842;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=CRGoAlHuaCWvQyb6t/g00gRtygicmk7STo9sNL4yrJg=;
-	b=N7kDlTHv6fj8uqmouWNBJRs5zWANex5YgpbUlFFB1yD245cHijoB19h4erovQVkXiexIre
-	W0VGC2AyNZ1g36eRT/7/eCvfWUDAf1LHvvAdPxmLPYQiljhg35tHQiJR4sPQLIS/IzdRBT
-	5Em2GYM2mosbNhppARrLpkrAGfudn/A=
-X-MC-Unique: XTPyIXk1OtadObmG-2dB5g-1
+	bh=F5ZDGJxcxjXISvHmy4Not16q3L5iE6sMWbYjv/EzeYU=;
+	b=WiHwRLKm4bhMumcISuOeuznoMIGvt5hQbvLNi15cuLw+SptrXrokdkmfWW44+P5tJ5E1Fp
+	3bcI4C+StALtvh+ml+VF0yZbBPbSwyidcy1L6BKoLi3GWaNX9WTu2yI1Xg5mq1IxLoJqXG
+	RSkKlAyLlrzc7U5R93FSL+/uoZsF01E=
+X-MC-Unique: iUA14Y4JNkiYSZiCvQw0SA-2
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oDYJza4JlJDiu0JCpSM6/a3G5NKhOeV3E21D/W9OhRRBkQPgKrnaFI70P/xYqrFpjySeXz2lUNf6DwzyIk7+a2vG5I03QxOLs3EirkDCMGJrG+AkIdX7mC486bMIqjvAHkxNirX+Y8XmOHgk15xFvd9CBv+QbwUufebhWoMIFRBF8qSJ7wmfz7kWB1qqjWKv9aewch/9jznH3H9IOpMqGzCefkBA6xUPJE/onZtCEl1OQquLyNFGeyoK86F8Va0XmK96cQDAC+1UC5SiaDVNZghZQsVyurhUebcuvJ1Do0rYWR5kSGdkGGiqlwL4D+8ri3hzMT7S0RHOQdhsWuw04A==
+ b=ldkDsMFVwkuwvGeDqXn19LvBzo2wvoW7T8dTPIBG9jd0PVq/41/LXEpSwexg7t0+433iZobxRdPVwDSUv3VnStfmx4U6zex8hpP4woTAOGH4XQNug2O16PalrYTe3CqZWWRSNjfto5nWAreIUvMg05YBYqGD6g9BMWmbu4261e88uy0HDFZz26ptj/3BR5on6AZO0csM92dW5j8yPyc+kUTDa99DU7U4yXnKgTnkk8eBUP7eKoNIZw8uWGMNMSp5v43xIi7F/W8u/D4zat8kSMNxUy/Uw/fcHcWz8cg42RIYAO5Qv+3R6RuOsvXM12UVTh1uBGYrs0IsAQ37CKr0DA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gZNMo/XRVYgUyoOFEdCXcYZ7ZInSsT2jNi4wIVZ2avw=;
- b=F2Kr78bPjZ9B1Qxty+PIiuDIszMQ/cnKit84lfhWJDSbjw56Y1yiCyYQ7zoa4N7Buaoq0xPlTgxlOSPfXirbfFEfEG5jaPTvHasNuZ60g+y8NEro46VMW5dSEU+Liul/q2WA8oL1iQ2GuqtCL22Lox1T1D8z0iSnwH0+nlY0cMBtw2XBGFepQdxRDzSboSqMLpA9Y7LAu+vswOZHOZRjo9Hj7R7rd4JxG+zaTc9afjipfeDWo+3sN5KoNKLZYImVJYIU20ecSgSWD2bOiYJJE+so2jg6/TURZ9ZQS4JXtRx8MiS8kaNUFA6087Yu4htrYYCs0R9wpdHX/w4niKiqGw==
+ bh=JseKSd140tNutMDTdDkXq+JSWQ6igfvum558lHwn68E=;
+ b=bbFa/6DeAf/D8VXa31IoqBrxCno7g92TiFPEJM0hgoyIMSGN7D5rhA6LD2A1y0Vxur4NUdkx8liFFCsQ4FdA+hDvMz97xeoDbLvvcif4suMyUdfb8eQ03/gkOi+M9wqxIja3ZKilQH9YRa3zHKzXYcQB2LHX+Sv0su9OGZYLDZeB1lJxbI88xg9kHmW1F7Sc2XZeHLBTmBjNoWhzVrVIBgRnX46JuOD8ycPmCE8EvyFjxYc3OTOvxfcVaV7gv9J98HyH/pt/XBNgSmOP8CdPtPcKLFE0ICQNM+ykM6lChGV24mzxIBpCrXPz/CPMvIIMkPLCivC5e3aXC4X/I6Z6GQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <fed06b8e-cba6-447f-0f17-e7a4ff557205@suse.com>
-Date: Fri, 4 Feb 2022 14:01:41 +0100
+Message-ID: <655e491d-2af9-aac1-3ea6-fd0b6f1806a5@suse.com>
+Date: Fri, 4 Feb 2022 14:03:55 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH] xen: Modify domain_crash() to take a print string
+Subject: Re: [PATCH v6 03/13] vpci: move lock outside of struct vpci
 Content-Language: en-US
-To: Andrew Cooper <amc96@srcf.net>, Andrew Cooper <Andrew.Cooper3@citrix.com>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+CC: "julien@xen.org" <julien@xen.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>
-References: <20220203133829.7913-1-andrew.cooper3@citrix.com>
- <c0d82900-64d1-fe16-9283-deb7c324ff8a@xen.org>
- <ad7467d2-1cae-c8ea-1217-69f0924044d4@citrix.com>
- <348f062c-9aed-0275-f0ad-87a0eff8e986@suse.com>
- <8a28b63b-a5f6-db0f-3108-646475912abd@citrix.com>
- <c20b2017-7313-41bd-c854-48029a5df206@suse.com>
- <5d721986-3298-51b1-22f9-58ecf8cb32c2@srcf.net>
+ Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
+ "paul@xen.org" <paul@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Rahul Singh <rahul.singh@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20220204063459.680961-1-andr2000@gmail.com>
+ <20220204063459.680961-4-andr2000@gmail.com>
+ <7209889d-8f17-61cc-72a4-97f6dbc1d54d@suse.com>
+ <2cf022f8-b000-11b7-c6b9-90a56bc6e2ea@epam.com>
+ <04726915-f39f-9019-436e-4399533c9fc3@suse.com>
+ <9ed3f4ac-0a2d-ed45-9872-7c3f356a469e@epam.com>
+ <c3a99712-cf7c-37da-aac1-f2ee00e6d53b@suse.com>
+ <Yf0KcVD8W05A4fbB@Air-de-Roger>
+ <1ed0e342-16cd-2f16-c05c-186667a22762@suse.com>
+ <7e3562b5-fc67-f213-e872-f211450d9e2e@epam.com>
+ <a8fc599c-f620-c4d1-2077-c57068f46a7f@suse.com>
+ <deef8468-d607-e49e-f456-6a8013329ca1@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <5d721986-3298-51b1-22f9-58ecf8cb32c2@srcf.net>
+In-Reply-To: <deef8468-d607-e49e-f456-6a8013329ca1@epam.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6PR10CA0062.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:209:80::39) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9PR06CA0117.eurprd06.prod.outlook.com
+ (2603:10a6:20b:465::32) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fec8a980-bafc-4f8f-cc99-08d9e7de7e7f
-X-MS-TrafficTypeDiagnostic: AM6PR04MB6440:EE_
+X-MS-Office365-Filtering-Correlation-Id: c23e7437-09af-4bd2-5efd-08d9e7dece8f
+X-MS-TrafficTypeDiagnostic: DBAPR04MB7301:EE_
 X-Microsoft-Antispam-PRVS:
-	<AM6PR04MB6440DD595BCED0567885F428B3299@AM6PR04MB6440.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+	<DBAPR04MB7301C7346CB6EDEA118CD035B3299@DBAPR04MB7301.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	9m/kPWtKPLhTRvFl5uKAMIrROOp/efJzeLrQAq64ze1rSTys5ajHm0nlxCPP+6zYPonEGiNeBoDBC0X7pjzZZvUOzxYexqcX9KTe93mTbSrxECT3w/uQF3OQlcKaVKUKx5Nkp3Rk5bFZVHtV5LRPYMoYYlT7pxKJmB9FRfNSPsVB8zufaOCDwGkBsGhBq3KjujMgit69z7sW9C294KfKZz8OJ/wVMRAphzxpiVBDssO6NJV7d1jJyvv1aA1JMELkFNZYGZWVFlhoLqzM6t1v+i+NjrcmP0YxMb/t2oA3/TjaICy5CZrTbs7lASrfyONzTLKEozp1zHydEJBeEyZpu2sGN1It413GPtp8GLt5ma0G9thcSMppMfFrd+TH18Yf2uB+oaDCL4ZnH3gujVtoqCLtjHZsmAgRczSXOWUeEd7n24XjXhlVESqKEHJUWM2KlfhcKqnsXne3J0xGzo1auXeq4LVyGs0VfgGM+LgM0O1JG6E+G38WSGb8xtWkYz2km+FjF99K/endiailg7QJiL5twTbrcF1vrhJtTlWCpESS0MV6/LwZVpXX5U6svt8P3jklMkFUdV7ptiY/Spwe0dQjfnLG1NZUkQE/4OoL8KSqAl0sV44OIAwb9A57FNtZCP99OOmS0YxADlWo7dGie8pWH13Cke6i3+vfVM2gytyU2Q1YL5SZqdFcQKfWgaZVUZfleqiXUadUm7Nq91f/WM9K1f79VVq07sqcMda8tur8yQlSCw99nEplZDXlUcv6
+	9p436t/7XK3cJ7dq0dle75oO9OImJOi3qejc2NLFVEzHsQWW9dsdyTiBfcDJKy2p2G+W0tKrYy+Uh7UmSsdC22c8vTZ/G6wZ+d0PqKTk7cBfaKlPTRSbtiGo2ByY/tChmM0+QhpR67Q55fDpn5xj+6V0I96wyaGeyZP8VhlJs57IA/7NjSYQKRpK6CFqaxIVWe7QYjC0BzdGDUqKBK6X8wNbllmmaUgtXHYoux44mVoc4BwUpjdZXz9e/oRRpkh6AfjaUnoFIotGocso2/tccBilzK9P1U0DiqzhGe/FI42cfv7K1m237XYPcyUGj5cJ2b1Z6EcCJbQF6+1vWdXhwLNz+PLFBeBqKr8AkMypDz3zVT5lVLPzuYEGIfMf/9SxDtl7+26GQoQQBl2OvJR9ZroopjR3CyWF9Mcy5PwbEr+qbfv2WZ3wNnF49K59fNNIyYRoVEQIv7JVmBYVnZ+cJkGWoG0zNe+X9YfM6yNJbxVg+vhv1+V9It/7Sz72BSQLKME/66XBGJJNE/JcJY9L7BqidUGgMBLDVFIXgqfzfpc6E+iFo1G2BAXqHKVA3B/QTmOxF5QdMN7UjjfEbQ3Eey11pVJrQwAIGzokQlfeZe5zQ/XH+J73UKSP3csz2LZLHuDAf7RPCPLRTGxmUG8r2rEivyLeeV1ruoJ0OEpMMB8lGrzwm+Mgx5DCM9njBODmqFkRaDgWfv9bFgh3zGkNd+hCPPvbUkpViuXoEx26aWMK475dj0AWyw7GZHYtRPfB
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(83380400001)(186003)(2616005)(38100700002)(31696002)(26005)(86362001)(31686004)(6506007)(508600001)(6486002)(66556008)(66476007)(4326008)(54906003)(36756003)(8936002)(8676002)(66946007)(110136005)(53546011)(2906002)(6666004)(5660300002)(6512007)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(316002)(6916009)(38100700002)(8676002)(5660300002)(7416002)(66946007)(4326008)(83380400001)(31686004)(54906003)(186003)(8936002)(26005)(86362001)(508600001)(2616005)(6486002)(6512007)(31696002)(66476007)(36756003)(66556008)(6506007)(53546011)(6666004)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UsJ2TDqH1gdasImYF885GmxJFRQ6k0AlzLV9lTVI/hUcwIA+00cEtAsIh2sq?=
- =?us-ascii?Q?KnwP5oGqiL5buhQ/BQuxJ3vGGPQNeIEFQ2mPuUTO1bagalIWH+Tzi2Mgcnl9?=
- =?us-ascii?Q?4v/PdTdxtMPZ+HaGzThXZ4abhlRFXWsba/+1nmtgLP4CpxNbatyTozcfWBOz?=
- =?us-ascii?Q?cxX0qH6GnwxTjFjomz3RAvU14TjbAAWZ0T18c620JbjYKpKJ+POORAjf4t0T?=
- =?us-ascii?Q?cltZjvYWdtcIvImrdklKP5GH78WNvmjVkF4yW8onlY7wMPPKKVjx6qRTvCFi?=
- =?us-ascii?Q?jnbSZEkNnyYdMXYR75BeqifC8tkONOhTHrZfTQPjyzz4/RaQ7CNgy3DDDYjo?=
- =?us-ascii?Q?wvkb33aNcNXGBXt6R2miggu4vpyRAG/3mNPulBccIIBxgeTuX7bW1mS+f4du?=
- =?us-ascii?Q?uZhWmJYEgM8PH+MITd/xfbNBgXRfodZxZqUF9ow03lCeUaKqWDSdh75nAZht?=
- =?us-ascii?Q?DYg3Yp7FCYHU3Uh4Y6poO5Kfi+pfsW1u6WJ/+b+yfB9f1TYUD/vGWriTUiqd?=
- =?us-ascii?Q?z68fueRKhHw36FEdA4rcqAaLOxcQzMQklb7WtlaDRcEXA7yQBvv4LGxYfb5z?=
- =?us-ascii?Q?JhpCnQk0RsjLrFaenix6hhK2e+C52rgXJfVsSWRhLlaGsGyvWPHcvCRDxQ+2?=
- =?us-ascii?Q?2jZFk1egcZ5ncO4Ua5SASF1Op+65pzgUmj7VLgFm1XqCVy7z7rY02amSTQXN?=
- =?us-ascii?Q?BGsZZXM6ZgxBYXNv32IJjeYM+4yiGbP/sSvdgFArhjttHTB9X9+h0Fer+bHB?=
- =?us-ascii?Q?3/8bh31Mpiqzftx6MeZakH3dngym/u56jWIXISsSKlp23SAnciuUO8aGYAG9?=
- =?us-ascii?Q?y/OkdcXnRvVg2F0zG/vwJQrEma/vwe59XwEUlFkuDGFOu0TL24ToFYqXnrvN?=
- =?us-ascii?Q?hLoU0LQye7O3QszBBvWAIHssPzdmjFfe4rgSJ4sHN/PM2QRqxUesHUTJpaFt?=
- =?us-ascii?Q?RThpknawGWz9e2TXdAoHyg27aKbyKmn4p/bGNF2EQ5Xmsx4legmAEQ95pJ9o?=
- =?us-ascii?Q?w9U0pZgwEu8rJZFsOCnCjPHwdMzWUFaPNtgyGf7dZCOQiwnR1uw4Y1Zny3BG?=
- =?us-ascii?Q?RB3pP6tnG/Pv7a7lcuJVacYTQkPwx6vGNyu/0DXaOfYvMhag7dBJUrjFiTKg?=
- =?us-ascii?Q?Mt7OokxJfRKEWopJh+pddjFNVo7QVF0XgcBF4mVKSnFHaVArxSCpxm2aXxxF?=
- =?us-ascii?Q?giXlHo5mPetWgM0krX0Cr5LxpMOlrxC7mTkLL7CPIskeUV0dtJ8RXiozCs04?=
- =?us-ascii?Q?w5+OJXHOrCzqr71Mbl4HfNh7S5lkyaeSIl5zg8fkgaVFNsljQCDu7C+7ArpJ?=
- =?us-ascii?Q?IkE1rzimDuyDO02PpyIXBMK3+HPY4ahyPY8Cjn3GS++NimvD6xGvD69bYckK?=
- =?us-ascii?Q?7pFAxaB0YKGWvTvKB4F0BX2ggm5Ldm+R9HncVlGkTUIrK3KAetCRiOfLEyzA?=
- =?us-ascii?Q?FWwNcg7ni2RuIygsLKeTC+6/kIzqab3KqBoHTbiwvpHCprmMv9vAPqWcj6Rb?=
- =?us-ascii?Q?foI84AUNUU5ak8mr4g0BW6hzDCL2sir29qJbKOIvpEpVmWITeuiOTpINSjXc?=
- =?us-ascii?Q?3g0bKY2syWV7zKIcolAvmIaz743UnspsmLYJydygnF0ckxtlJ8OdBCffW24v?=
- =?us-ascii?Q?OCxU3mpOcB/3XFQFHrZEXxI=3D?=
+	=?us-ascii?Q?OdDG3SYl/3YfuuH184GUN910xHuDwoxMp+Pw7fqZNT4uP2A04tfHjq1UqdHJ?=
+ =?us-ascii?Q?wOFaJPu0RIdwgmJXnHATHL0Nm4PvTnZhmucpCZ49pzhwZ9770baZpn2GqalL?=
+ =?us-ascii?Q?xf0afCX/Krc/1vTC6ExqrIJzDmChn9JZMbyLVZunRxzAbzRTy6mCqtQxgyvv?=
+ =?us-ascii?Q?fxseRUiMy77r/hzoWAKu5j4pafFf65ri7u8qG9jnpjDWi3uwy2HshJwsK+9N?=
+ =?us-ascii?Q?EDsXc84e67XuBuznxu49rk/T1XZnVeUI4eywqFu+rNAC7kZkTirs1JY08J9y?=
+ =?us-ascii?Q?JNcu72XPlQS+cic7i9K6X6zje1pvJBmgLJCOUGjnLLaTvuzLMIceA6D4WN80?=
+ =?us-ascii?Q?7ehw16U9D1d2vb5nWi7sfZOR2KfEwPj2Nm4HkI4OtWlKWw0eg/6a+LwYF1PY?=
+ =?us-ascii?Q?9u4lXz8R5g4izifgYKNPCrhOZ17UL/jSKt+cgUO8CHKXWOCiyJquPa9yEjh5?=
+ =?us-ascii?Q?tAlFNAcdUgkDV1bxdTSFEIZBJtxbPQ9CVlQK+Pdnq3QdxQxBmsnyFRM98F+1?=
+ =?us-ascii?Q?smobehY8rOo53tpjF6+GLdMn25rPPNK5TNE2BXE4+1wyTe8ZKbdJ72oghXh/?=
+ =?us-ascii?Q?qMaCpXV4KalMdwcRCZaa2Gzy2xTJvAh7qZg56eBfeFVe4HULC8TtPIGIw/6c?=
+ =?us-ascii?Q?UERajCajpbqg+DS4b/Ds+I6KPDrniIy6X1Y8VCNUNWe3c2B+Di3Jg2HJOHsa?=
+ =?us-ascii?Q?rskmEUwLKLc3RfTnYP02yWE2hQuOzXJdi9KunUquRASYuPYxoyedZ05mDiEs?=
+ =?us-ascii?Q?cFYyBZ7ypBQSEKrPVsRljV6H7EYCs6ki/+Uah9kMoNnQL/tW7gRQ2WV/EFZU?=
+ =?us-ascii?Q?VY/UUEOmQg2gHxnjMLKtHi0ad/UtuXd+kaxw9oAsHzpMJPVFbFNdZyJL8Ztb?=
+ =?us-ascii?Q?2k5/qyROJ4ZBfXfC1bgS9/20qsWtZAisqU4C6M5oRgMI3CQUJkA/HAtytGq1?=
+ =?us-ascii?Q?w2osqZ8KdenU6j2MaHDJDVdU6FfwkBLqEkrw3wbZ+ic5/3x6xNQKUCyfPpEb?=
+ =?us-ascii?Q?t0pHHxm2yuSu1HdmYMX5YImrjft+T2BbEdN90VKKGLLgCQeoexwP27wjc/ti?=
+ =?us-ascii?Q?3ojOSS9khbHDljQ6Npi2E5aRvs0uvn2BkOD2hjm3o2RiLTb73TuB9jm19nku?=
+ =?us-ascii?Q?KXfbfw3uIBidzszkqap6BDjWg/KxWbSkF5QNa1IQ9MPg0i70sqNJWZZUsOtq?=
+ =?us-ascii?Q?c5L5/mts1UWC1EHJrugvgmJ3Hilwpid6zx/jyJwK7GIoHKRWqxgcmizfbyjm?=
+ =?us-ascii?Q?TrhJK6RS0zhyb6A8TKilB/dkr4HMWJvPFy9+PDpZU5nwiY8pXCfnTiF8m0Rq?=
+ =?us-ascii?Q?Zr+iLGfwLiWO05i/oGOM/0MOQGm2agKDVgFTvS/K/22zWvweSJ/nXo0BMrgx?=
+ =?us-ascii?Q?IP4V8uIY8itRwt8u9XiSLD/KucfSs1gl0vTMhIx32xlumb9iec7iQ0T5ebxg?=
+ =?us-ascii?Q?VnLV+o0KO8Arm2H1Z5g20OiiigfZxuibMlg3X22oB0LPirGjENnSt8Nq1Iio?=
+ =?us-ascii?Q?dY1op03yiqchNHyZBxyYUBaHeHHTl4xB3c3ukURxYsmu28fzsRr1TjAT5qEU?=
+ =?us-ascii?Q?iQHMac+1ary+M46tyLVEZvuu2tBxNiPWyiwVd0RqN2pijBn/mW0vwm6t+Mo5?=
+ =?us-ascii?Q?TSabh8T66s9td8DZISYj108=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fec8a980-bafc-4f8f-cc99-08d9e7de7e7f
+X-MS-Exchange-CrossTenant-Network-Message-Id: c23e7437-09af-4bd2-5efd-08d9e7dece8f
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2022 13:01:44.1633
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2022 13:03:58.5144
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aeCCkX4udrIueCRkxC8C94jZRApI4lb/M+74+n9ppSNARd9cWoCc+HRNR6eMNZEMvu5VjNZMG3yR4qD1OoI42A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB6440
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1CqWHDS8AKFIAjaYzgvZJPyE+KbLv4DsNYencwzC39skX0r6Cgbkz+N+GIO7bQ0wv/7w6hbVMqxtY1+a1n6cTQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7301
 
-On 04.02.2022 12:56, Andrew Cooper wrote:
-> On 03/02/2022 15:06, Jan Beulich wrote:
->> On 03.02.2022 15:41, Andrew Cooper wrote:
->>> On 03/02/2022 14:19, Jan Beulich wrote:
->>>> On 03.02.2022 15:11, Andrew Cooper wrote:
->>>>> On 03/02/2022 13:48, Julien Grall wrote:
->>>>>> On 03/02/2022 13:38, Andrew Cooper wrote:
->>>>>>> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
->>>>>>> index 37f78cc4c4c9..38b390d20371 100644
->>>>>>> --- a/xen/include/xen/sched.h
->>>>>>> +++ b/xen/include/xen/sched.h
->>>>>>> @@ -736,10 +736,15 @@ void vcpu_end_shutdown_deferral(struct vcpu *=
-v);
->>>>>>> =C2=A0=C2=A0 * from any processor.
->>>>>>> =C2=A0=C2=A0 */
->>>>>>> =C2=A0 void __domain_crash(struct domain *d);
->>>>>>> -#define domain_crash(d) do
->>>>>>> {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->>>>>>> -=C2=A0=C2=A0=C2=A0 printk("domain_crash called from %s:%d\n", __FI=
-LE__,
->>>>>>> __LINE__);=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->>>>>>> -=C2=A0=C2=A0=C2=A0
->>>>>>> __domain_crash(d);=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->>>>>>> -} while (0)
->>>>>>> +#define domain_crash(d, ...)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
->>>>>>> +=C2=A0=C2=A0=C2=A0 do {=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 \
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( count_args(__VA_AR=
-GS__) =3D=3D 0 )=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 \
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- printk("domain_crash called from %s:%d\n",=C2=A0 \
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __FILE__, __LINE__);=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 \
->>>>>> I find a bit odd that here you are using a normal printk
->>>>> That's unmodified from before.=C2=A0 Only reformatted.
+On 04.02.2022 13:53, Oleksandr Andrushchenko wrote:
+>=20
+>=20
+> On 04.02.22 14:47, Jan Beulich wrote:
+>> On 04.02.2022 13:37, Oleksandr Andrushchenko wrote:
+>>>
+>>> On 04.02.22 13:37, Jan Beulich wrote:
+>>>> On 04.02.2022 12:13, Roger Pau Monn=C3=A9 wrote:
+>>>>> On Fri, Feb 04, 2022 at 11:49:18AM +0100, Jan Beulich wrote:
+>>>>>> On 04.02.2022 11:12, Oleksandr Andrushchenko wrote:
+>>>>>>> On 04.02.22 11:15, Jan Beulich wrote:
+>>>>>>>> On 04.02.2022 09:58, Oleksandr Andrushchenko wrote:
+>>>>>>>>> On 04.02.22 09:52, Jan Beulich wrote:
+>>>>>>>>>> On 04.02.2022 07:34, Oleksandr Andrushchenko wrote:
+>>>>>>>>>>> @@ -285,6 +286,12 @@ static int modify_bars(const struct pci_de=
+v *pdev, uint16_t cmd, bool rom_only)
+>>>>>>>>>>>                      continue;
+>>>>>>>>>>>              }
+>>>>>>>>>>>     =20
+>>>>>>>>>>> +        spin_lock(&tmp->vpci_lock);
+>>>>>>>>>>> +        if ( !tmp->vpci )
+>>>>>>>>>>> +        {
+>>>>>>>>>>> +            spin_unlock(&tmp->vpci_lock);
+>>>>>>>>>>> +            continue;
+>>>>>>>>>>> +        }
+>>>>>>>>>>>              for ( i =3D 0; i < ARRAY_SIZE(tmp->vpci->header.ba=
+rs); i++ )
+>>>>>>>>>>>              {
+>>>>>>>>>>>                  const struct vpci_bar *bar =3D &tmp->vpci->hea=
+der.bars[i];
+>>>>>>>>>>> @@ -303,12 +310,14 @@ static int modify_bars(const struct pci_d=
+ev *pdev, uint16_t cmd, bool rom_only)
+>>>>>>>>>>>                  rc =3D rangeset_remove_range(mem, start, end);
+>>>>>>>>>>>                  if ( rc )
+>>>>>>>>>>>                  {
+>>>>>>>>>>> +                spin_unlock(&tmp->vpci_lock);
+>>>>>>>>>>>                      printk(XENLOG_G_WARNING "Failed to remove =
+[%lx, %lx]: %d\n",
+>>>>>>>>>>>                             start, end, rc);
+>>>>>>>>>>>                      rangeset_destroy(mem);
+>>>>>>>>>>>                      return rc;
+>>>>>>>>>>>                  }
+>>>>>>>>>>>              }
+>>>>>>>>>>> +        spin_unlock(&tmp->vpci_lock);
+>>>>>>>>>>>          }
+>>>>>>>>>> At the first glance this simply looks like another unjustified (=
+in the
+>>>>>>>>>> description) change, as you're not converting anything here but =
+you
+>>>>>>>>>> actually add locking (and I realize this was there before, so I'=
+m sorry
+>>>>>>>>>> for not pointing this out earlier).
+>>>>>>>>> Well, I thought that the description already has "...the lock can=
+ be
+>>>>>>>>> used (and in a few cases is used right away) to check whether vpc=
+i
+>>>>>>>>> is present" and this is enough for such uses as here.
+>>>>>>>>>>      But then I wonder whether you
+>>>>>>>>>> actually tested this, since I can't help getting the impression =
+that
+>>>>>>>>>> you're introducing a live-lock: The function is called from cmd_=
+write()
+>>>>>>>>>> and rom_write(), which in turn are called out of vpci_write(). Y=
+et that
+>>>>>>>>>> function already holds the lock, and the lock is not (currently)
+>>>>>>>>>> recursive. (For the 3rd caller of the function - init_bars() - o=
+toh
+>>>>>>>>>> the locking looks to be entirely unnecessary.)
+>>>>>>>>> Well, you are correct: if tmp !=3D pdev then it is correct to acq=
+uire
+>>>>>>>>> the lock. But if tmp =3D=3D pdev and rom_only =3D=3D true
+>>>>>>>>> then we'll deadlock.
+>>>>>>>>>
+>>>>>>>>> It seems we need to have the locking conditional, e.g. only lock
+>>>>>>>>> if tmp !=3D pdev
+>>>>>>>> Which will address the live-lock, but introduce ABBA deadlock pote=
+ntial
+>>>>>>>> between the two locks.
+>>>>>>> I am not sure I can suggest a better solution here
+>>>>>>> @Roger, @Jan, could you please help here?
+>>>>>> Well, first of all I'd like to mention that while it may have been o=
+kay to
+>>>>>> not hold pcidevs_lock here for Dom0, it surely needs acquiring when =
+dealing
+>>>>>> with DomU-s' lists of PCI devices. The requirement really applies to=
+ the
+>>>>>> other use of for_each_pdev() as well (in vpci_dump_msi()), except th=
+at
+>>>>>> there it probably wants to be a try-lock.
+>>>>>>
+>>>>>> Next I'd like to point out that here we have the still pending issue=
+ of
+>>>>>> how to deal with hidden devices, which Dom0 can access. See my RFC p=
+atch
+>>>>>> "vPCI: account for hidden devices in modify_bars()". Whatever the so=
+lution
+>>>>>> here, I think it wants to at least account for the extra need there.
+>>>>> Yes, sorry, I should take care of that.
 >>>>>
->>>>>> but...
->>>>>>
->>>>>>
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 else=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 \
->>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- printk(XENLOG_G_ERR __VA_ARGS__);=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 \
->>>>>> here it is XENLOG_G_ERR. In fact, isn't it ratelimited? If so,
->>>>>> wouldn't it be better to only use XENLOG_ERR so they can always be
->>>>>> seen? (A domain shouldn't be able to abuse it).
->>>>> Perhaps.=C2=A0 I suppose it is more important information than pretty=
- much
->>>>> anything else about the guest.
->>>> Indeed, but then - is this really an error in all cases?
->>> Yes.=C2=A0 It is always a fatal event for the VM.
->> Which may or may not be Xen's fault. If the guest put itself in a bad
->> state, I don't see why we shouldn't consider such just a warning.
->=20
-> Log level is the severity of the action, not who's potentially to blame
-> for causing the situation.
->=20
-> Furthermore, almost all callers who do emit appropriate diagnostics
-> before domain_crash() already use ERR.
+>>>>>> Now it is quite clear that pcidevs_lock isn't going to help with avo=
+iding
+>>>>>> the deadlock, as it's imo not an option at all to acquire that lock
+>>>>>> everywhere else you access ->vpci (or else the vpci lock itself woul=
+d be
+>>>>>> pointless). But a per-domain auxiliary r/w lock may help: Other path=
+s
+>>>>>> would acquire it in read mode, and here you'd acquire it in write mo=
+de (in
+>>>>>> the former case around the vpci lock, while in the latter case there=
+ may
+>>>>>> then not be any need to acquire the individual vpci locks at all). F=
+TAOD:
+>>>>>> I haven't fully thought through all implications (and hence whether =
+this is
+>>>>>> viable in the first place); I expect you will, documenting what you'=
+ve
+>>>>>> found in the resulting patch description. Of course the double lock
+>>>>>> acquire/release would then likely want hiding in helper functions.
+>>>>> I've been also thinking about this, and whether it's really worth to
+>>>>> have a per-device lock rather than a per-domain one that protects all
+>>>>> vpci regions of the devices assigned to the domain.
+>>>>>
+>>>>> The OS is likely to serialize accesses to the PCI config space anyway=
+,
+>>>>> and the only place I could see a benefit of having per-device locks i=
+s
+>>>>> in the handling of MSI-X tables, as the handling of the mask bit is
+>>>>> likely very performance sensitive, so adding a per-domain lock there
+>>>>> could be a bottleneck.
+>>>> Hmm, with method 1 accesses serializing globally is basically
+>>>> unavoidable, but with MMCFG I see no reason why OSes may not (move
+>>>> to) permit(ting) parallel accesses, with serialization perhaps done
+>>>> only at device level. See our own pci_config_lock, which applies to
+>>>> only method 1 accesses; we don't look to be serializing MMCFG
+>>>> accesses at all.
+>>>>
+>>>>> We could alternatively do a per-domain rwlock for vpci and special ca=
+se
+>>>>> the MSI-X area to also have a per-device specific lock. At which poin=
+t
+>>>>> it becomes fairly similar to what you propose.
+>>> @Jan, @Roger
+>>>
+>>> 1. d->vpci_lock - rwlock <- this protects vpci
+>>> 2. pdev->vpci->msix_tbl_lock - rwlock <- this protects MSI-X tables
+>>> or should it better be pdev->msix_tbl_lock as MSI-X tables don't
+>>> really depend on vPCI?
+>> If so, perhaps indeed better the latter. But as said in reply to Roger,
+>> I'm not convinced (yet) that doing away with the per-device lock is a
+>> good move. As said there - we're ourselves doing fully parallel MMCFG
+>> accesses, so OSes ought to be fine to do so, too.
+> But with pdev->vpci_lock we face ABBA...
 
-Well, yes, this looks to indeed be the case (albeit frequently with
-gdprintk(), in which case I'm inclined to say the log level isn't
-very relevant in the first place). On this basis I'm willing to give
-in, despite continuing to not being fully convinced.
+I didn't say without per-domain r/w lock, did I? I stand by my earlier
+outline.
 
 Jan
 
