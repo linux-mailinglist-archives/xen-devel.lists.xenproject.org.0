@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 178F94A940B
+	by mail.lfdr.de (Postfix) with ESMTPS id 764B74A940F
 	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 07:35:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.265014.458376 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.265015.458387 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFsBi-0002qQ-Ra; Fri, 04 Feb 2022 06:35:18 +0000
+	id 1nFsBl-00038I-4K; Fri, 04 Feb 2022 06:35:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 265014.458376; Fri, 04 Feb 2022 06:35:18 +0000
+Received: by outflank-mailman (output) from mailman id 265015.458387; Fri, 04 Feb 2022 06:35:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFsBi-0002dg-4p; Fri, 04 Feb 2022 06:35:18 +0000
-Received: by outflank-mailman (input) for mailman id 265014;
- Fri, 04 Feb 2022 06:35:15 +0000
+	id 1nFsBj-0002sJ-Q9; Fri, 04 Feb 2022 06:35:19 +0000
+Received: by outflank-mailman (input) for mailman id 265015;
+ Fri, 04 Feb 2022 06:35:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Tguk=ST=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1nFsBf-0008DX-6C
- for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 06:35:15 +0000
-Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
- [2a00:1450:4864:20::130])
+ id 1nFsBg-0008DX-6Q
+ for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 06:35:16 +0000
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [2a00:1450:4864:20::131])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9c0d2cc9-8584-11ec-8eb8-a37418f5ba1a;
- Fri, 04 Feb 2022 07:35:14 +0100 (CET)
-Received: by mail-lf1-x130.google.com with SMTP id o12so10664148lfg.12
- for <xen-devel@lists.xenproject.org>; Thu, 03 Feb 2022 22:35:14 -0800 (PST)
+ id 9cb91094-8584-11ec-8eb8-a37418f5ba1a;
+ Fri, 04 Feb 2022 07:35:15 +0100 (CET)
+Received: by mail-lf1-x131.google.com with SMTP id i34so10811258lfv.2
+ for <xen-devel@lists.xenproject.org>; Thu, 03 Feb 2022 22:35:15 -0800 (PST)
 Received: from a2klaptop.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id f34sm163027lfv.165.2022.02.03.22.35.12
+ by smtp.gmail.com with ESMTPSA id f34sm163027lfv.165.2022.02.03.22.35.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 03 Feb 2022 22:35:13 -0800 (PST)
+ Thu, 03 Feb 2022 22:35:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,34 +43,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c0d2cc9-8584-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 9cb91094-8584-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=from:to:cc:subject:date:message-id:in-reply-to:references
          :mime-version:content-transfer-encoding;
-        bh=tGFLOQCwkEQFlI9mFVvLvlv0pMnFdRny8N7SLfH9TJA=;
-        b=YlgiD5lGb3evZ6RR1LePZhPhqzkgUVHIPb2Gy3O72gERgeDAmwDTYaB0XUarTQgsD8
-         pmdw7nrr7tOpf/VkdnbF851kb5Y8xpkUCSOphdAW69ua0+sdexi8ht29J6xt3629QdYw
-         8q421az1QnqIpTccWIu2jw9mRqZwIRJJQr9fjZjEvRHqTXgN99wxLu6k7zzlJ+iZexcK
-         j131pVe1Bn0fM1phTaY1dA0B3H4DUjCi07cAHQi7H+H/6xGbYmNtrY/+dguki/2iv26P
-         ps40BdLcc/ktXwgv/LnZ8VTYgZaZEO5Ys52gDX5rQ7GrNIjDR46fhSUVc4ThlvEPF0Vf
-         kRFw==
+        bh=hIaF8lkau0N10gIhOfyFkvM+7dDNU2pFNiSNz4Bb4DM=;
+        b=BQx5h1U1XzMedlxkvKRWbAoeeDDDuxCa+NYZCC5EXXKvNVb57WykA7geNU2PwwfOZq
+         9boVsP/FKrdj5QijI5UOmqpiJ/108TlbnER9IZhZmy0RGl5IOE57CosP9uDTvIDuYDbo
+         zHhfShTjr4qt57OIjhKs9SBko9C9BKzPn/3mYPs2jIZxyyICCymb8RGNt8go4CY8Z1Ok
+         zqFmtbBlD3fbVKWSpC72QVUh+9sVJeSCaazwwX1bSLiwuIQHtE6UPH88FeAYFv/JNfLI
+         d2nZcYcEhbTMz7QDE7HkDz/rjBl9F5R4X+98fpvxVKMfjXD2MOxz+NjAY1Zg3+QrrepP
+         mIow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=tGFLOQCwkEQFlI9mFVvLvlv0pMnFdRny8N7SLfH9TJA=;
-        b=3OSLR+PccHK9fCyIlslFJKh+x68f924fQVGXqIcwpFy68BovlCqqaRP9jKCunkKBna
-         zw7Qok2HaYc3glIJ3iwYzRt+LV8XZwz1waeFrsFvxuD1f+eO0/Kd0EtgDbZmkdT5jkOf
-         RwwWeEnBHB2jRm9qqlsNqB+rBDmYvE1IsODGRTbz+DDFD2/V4iRC+HXnJ6mz+wBXfnWS
-         WzYO822evOxIbpjB2ZlacN44+dYukA0I0b8sWkxxoDhkf8l70WlRyn6j+yApRuMupTIc
-         knl1hqKHhV55AQdpsCP5fHHxNAkLfmA6X/u6pLK1WKvjI5gHoA2PuQ/YN/JEKFndbbRS
-         Ztjw==
-X-Gm-Message-State: AOAM530G2eU6sZ2vjGp6aIC62W9pCotfYBWy9qe2s03BqwTjMU+MqpBB
-	wT3KG0hBdaK9Btd7cNgv+sHlSD17jgo=
-X-Google-Smtp-Source: ABdhPJwPzBAmRPwkr5ocrvbHVI7IaKNMChAL/CL0c1126BAXRRe8+v+tzkGTEQ3jLHc1eLnLZCqIZg==
-X-Received: by 2002:a05:6512:683:: with SMTP id t3mr1289026lfe.61.1643956513698;
-        Thu, 03 Feb 2022 22:35:13 -0800 (PST)
+        bh=hIaF8lkau0N10gIhOfyFkvM+7dDNU2pFNiSNz4Bb4DM=;
+        b=pzyEKVUMrHCayfrEwdRh9Jj5XXF2LSwKvnNWzy8vUVrrEokCJnW1xFL0sBcEkGuFQY
+         WgONp4bO5QS10r49Vu+YLyfaIlsrh3iLpWJjPXnb90qJNOgIeRDwJkhfRGR++Ca2FTHT
+         CqivcHGv3YCoWelvdVK2PhXaqThz5Di1GGCv+IMFWLIPpxkZFFxnVijyovIDG29o93y6
+         yhVI2aHj3LKgPj+urdFcui40mUppNBru9Bfbf6Lu7MimivbzKJkwegXARuI4vqaIXazK
+         27OEJxFme4eZD3UsvAXaJ/8XEuu35Ofk0gV1nI3pWWp/3zVwGRkkfw1sQ6AYZri70h4m
+         h9cg==
+X-Gm-Message-State: AOAM533fIkCFEKVIDhuO6yVSKqE+lPh27A0VD26PBWehTmA7ofEI1ETf
+	YDJRbJ8oO0EMhzV23I81smev6LTNSfw=
+X-Google-Smtp-Source: ABdhPJzInhEwoaUav36B1b6oDvhcMTtbaYic6ktmXAldzUwMXmLO5P4HKZ2/mUC2v+QPU1VKXYIkVw==
+X-Received: by 2002:a05:6512:1697:: with SMTP id bu23mr1338331lfb.392.1643956514817;
+        Thu, 03 Feb 2022 22:35:14 -0800 (PST)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -86,9 +86,9 @@ Cc: julien@xen.org,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH v6 11/13] vpci: add initial support for virtual PCI bus topology
-Date: Fri,  4 Feb 2022 08:34:57 +0200
-Message-Id: <20220204063459.680961-12-andr2000@gmail.com>
+Subject: [PATCH v6 12/13] xen/arm: translate virtual PCI bus topology for guests
+Date: Fri,  4 Feb 2022 08:34:58 +0200
+Message-Id: <20220204063459.680961-13-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20220204063459.680961-1-andr2000@gmail.com>
 References: <20220204063459.680961-1-andr2000@gmail.com>
@@ -97,208 +97,145 @@ Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Assign SBDF to the PCI devices being passed through with bus 0.
-The resulting topology is where PCIe devices reside on the bus 0 of the
-root complex itself (embedded endpoints).
-This implementation is limited to 32 devices which are allowed on
-a single PCI bus.
-
-Please note, that at the moment only function 0 of a multifunction
-device can be passed through.
+There are three  originators for the PCI configuration space access:
+1. The domain that owns physical host bridge: MMIO handlers are
+there so we can update vPCI register handlers with the values
+written by the hardware domain, e.g. physical view of the registers
+vs guest's view on the configuration space.
+2. Guest access to the passed through PCI devices: we need to properly
+map virtual bus topology to the physical one, e.g. pass the configuration
+space access to the corresponding physical devices.
+3. Emulated host PCI bridge access. It doesn't exist in the physical
+topology, e.g. it can't be mapped to some physical host bridge.
+So, all access to the host bridge itself needs to be trapped and
+emulated.
 
 Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 ---
 Since v5:
-- s/vpci_add_virtual_device/add_virtual_device and make it static
-- call add_virtual_device from vpci_assign_device and do not use
-  REGISTER_VPCI_INIT machinery
-- add pcidevs_locked ASSERT
-- use DECLARE_BITMAP for vpci_dev_assigned_map
+- add vpci_translate_virtual_device for #ifndef CONFIG_HAS_VPCI_GUEST_SUPPORT
+  case to simplify ifdefery
+- add ASSERT(!is_hardware_domain(d)); to vpci_translate_virtual_device
+- reset output register on failed virtual SBDF translation
 Since v4:
-- moved and re-worked guest sbdf initializers
-- s/set_bit/__set_bit
-- s/clear_bit/__clear_bit
-- minor comment fix s/Virtual/Guest/
-- added VPCI_MAX_VIRT_DEV constant (PCI_SLOT(~0) + 1) which will be used
-  later for counting the number of MMIO handlers required for a guest
-  (Julien)
+- indentation fixes
+- constify struct domain
+- updated commit message
+- updates to the new locking scheme (pdev->vpci_lock)
 Since v3:
- - make use of VPCI_INIT
- - moved all new code to vpci.c which belongs to it
- - changed open-coded 31 to PCI_SLOT(~0)
- - added comments and code to reject multifunction devices with
-   functions other than 0
- - updated comment about vpci_dev_next and made it unsigned int
- - implement roll back in case of error while assigning/deassigning devices
- - s/dom%pd/%pd
+- revisit locking
+- move code to vpci.c
 Since v2:
- - remove casts that are (a) malformed and (b) unnecessary
- - add new line for better readability
- - remove CONFIG_HAS_VPCI_GUEST_SUPPORT ifdef's as the relevant vPCI
-    functions are now completely gated with this config
- - gate common code with CONFIG_HAS_VPCI_GUEST_SUPPORT
+ - pass struct domain instead of struct vcpu
+ - constify arguments where possible
+ - gate relevant code with CONFIG_HAS_VPCI_GUEST_SUPPORT
 New in v2
 ---
- xen/drivers/vpci/vpci.c | 74 +++++++++++++++++++++++++++++++++++++++--
- xen/include/xen/sched.h |  8 +++++
- xen/include/xen/vpci.h  | 11 ++++++
- 3 files changed, 91 insertions(+), 2 deletions(-)
+ xen/arch/arm/vpci.c     | 17 +++++++++++++++++
+ xen/drivers/vpci/vpci.c | 29 +++++++++++++++++++++++++++++
+ xen/include/xen/vpci.h  |  7 +++++++
+ 3 files changed, 53 insertions(+)
 
-diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
-index 3177f13c1c22..7d422d11f83d 100644
---- a/xen/drivers/vpci/vpci.c
-+++ b/xen/drivers/vpci/vpci.c
-@@ -89,6 +89,9 @@ int vpci_add_handlers(struct pci_dev *pdev)
-         return -ENOMEM;
+diff --git a/xen/arch/arm/vpci.c b/xen/arch/arm/vpci.c
+index a9fc5817f94e..84b2b068a0fe 100644
+--- a/xen/arch/arm/vpci.c
++++ b/xen/arch/arm/vpci.c
+@@ -41,6 +41,16 @@ static int vpci_mmio_read(struct vcpu *v, mmio_info_t *info,
+     /* data is needed to prevent a pointer cast on 32bit */
+     unsigned long data;
  
-     INIT_LIST_HEAD(&vpci->handlers);
-+#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-+    vpci->guest_sbdf.sbdf = ~0;
-+#endif
- 
-     spin_lock(&pdev->vpci_lock);
-     pdev->vpci = vpci;
-@@ -114,6 +117,57 @@ int vpci_add_handlers(struct pci_dev *pdev)
- }
- 
- #ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-+static int add_virtual_device(struct pci_dev *pdev)
-+{
-+    struct domain *d = pdev->domain;
-+    pci_sbdf_t sbdf = { 0 };
-+    unsigned long new_dev_number;
-+
-+    if ( is_hardware_domain(d) )
-+        return 0;
-+
-+    ASSERT(pcidevs_locked());
-+
 +    /*
-+     * Each PCI bus supports 32 devices/slots at max or up to 256 when
-+     * there are multi-function ones which are not yet supported.
++     * For the passed through devices we need to map their virtual SBDF
++     * to the physical PCI device being passed through.
 +     */
-+    if ( pdev->info.is_extfn )
++    if ( !bridge && !vpci_translate_virtual_device(v->domain, &sbdf) )
 +    {
-+        gdprintk(XENLOG_ERR, "%pp: only function 0 passthrough supported\n",
-+                 &pdev->sbdf);
-+        return -EOPNOTSUPP;
++        *r = ~0ul;
++        return 1;
 +    }
 +
-+    new_dev_number = find_first_zero_bit(d->vpci_dev_assigned_map,
-+                                         VPCI_MAX_VIRT_DEV);
-+    if ( new_dev_number >= VPCI_MAX_VIRT_DEV )
-+        return -ENOSPC;
-+
-+    __set_bit(new_dev_number, &d->vpci_dev_assigned_map);
-+
+     if ( vpci_ecam_read(sbdf, ECAM_REG_OFFSET(info->gpa),
+                         1U << info->dabt.size, &data) )
+     {
+@@ -59,6 +69,13 @@ static int vpci_mmio_write(struct vcpu *v, mmio_info_t *info,
+     struct pci_host_bridge *bridge = p;
+     pci_sbdf_t sbdf = vpci_sbdf_from_gpa(bridge, info->gpa);
+ 
 +    /*
-+     * Both segment and bus number are 0:
-+     *  - we emulate a single host bridge for the guest, e.g. segment 0
-+     *  - with bus 0 the virtual devices are seen as embedded
-+     *    endpoints behind the root complex
-+     *
-+     * TODO: add support for multi-function devices.
++     * For the passed through devices we need to map their virtual SBDF
++     * to the physical PCI device being passed through.
 +     */
-+    sbdf.devfn = PCI_DEVFN(new_dev_number, 0);
-+    pdev->vpci->guest_sbdf = sbdf;
++    if ( !bridge && !vpci_translate_virtual_device(v->domain, &sbdf) )
++        return 1;
 +
-+    return 0;
-+
-+}
-+
-+static void vpci_remove_virtual_device(struct domain *d,
-+                                       const struct pci_dev *pdev)
+     return vpci_ecam_write(sbdf, ECAM_REG_OFFSET(info->gpa),
+                            1U << info->dabt.size, r);
+ }
+diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+index 7d422d11f83d..070db7391391 100644
+--- a/xen/drivers/vpci/vpci.c
++++ b/xen/drivers/vpci/vpci.c
+@@ -168,6 +168,35 @@ static void vpci_remove_virtual_device(struct domain *d,
+     pdev->vpci->guest_sbdf.sbdf = ~0;
+ }
+ 
++/*
++ * Find the physical device which is mapped to the virtual device
++ * and translate virtual SBDF to the physical one.
++ */
++bool vpci_translate_virtual_device(const struct domain *d, pci_sbdf_t *sbdf)
 +{
-+    __clear_bit(pdev->vpci->guest_sbdf.dev, &d->vpci_dev_assigned_map);
-+    pdev->vpci->guest_sbdf.sbdf = ~0;
++    struct pci_dev *pdev;
++
++    ASSERT(!is_hardware_domain(d));
++
++    for_each_pdev( d, pdev )
++    {
++        bool found;
++
++        spin_lock(&pdev->vpci_lock);
++        found = pdev->vpci && (pdev->vpci->guest_sbdf.sbdf == sbdf->sbdf);
++        spin_unlock(&pdev->vpci_lock);
++
++        if ( found )
++        {
++            /* Replace guest SBDF with the physical one. */
++            *sbdf = pdev->sbdf;
++            return true;
++        }
++    }
++
++    return false;
 +}
 +
  /* Notify vPCI that device is assigned to guest. */
  int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
  {
-@@ -124,8 +178,16 @@ int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
- 
-     rc = vpci_add_handlers(pdev);
-     if ( rc )
--        vpci_deassign_device(d, pdev);
-+        goto fail;
-+
-+    rc = add_virtual_device(pdev);
-+    if ( rc )
-+        goto fail;
- 
-+    return 0;
-+
-+ fail:
-+    vpci_deassign_device(d, pdev);
-     return rc;
- }
- 
-@@ -135,7 +197,15 @@ void vpci_deassign_device(struct domain *d, struct pci_dev *pdev)
-     if ( !has_vpci(d) )
-         return;
- 
--    vpci_remove_device(pdev);
-+    spin_lock(&pdev->vpci_lock);
-+    if ( !pdev->vpci )
-+        goto done;
-+
-+    vpci_remove_virtual_device(d, pdev);
-+    vpci_remove_device_locked(pdev);
-+
-+ done:
-+    spin_unlock(&pdev->vpci_lock);
- }
- #endif /* CONFIG_HAS_VPCI_GUEST_SUPPORT */
- 
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-index 37f78cc4c4c9..3c25e265eaa8 100644
---- a/xen/include/xen/sched.h
-+++ b/xen/include/xen/sched.h
-@@ -444,6 +444,14 @@ struct domain
- 
- #ifdef CONFIG_HAS_PCI
-     struct list_head pdev_list;
-+#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-+    /*
-+     * The bitmap which shows which device numbers are already used by the
-+     * virtual PCI bus topology and is used to assign a unique SBDF to the
-+     * next passed through virtual PCI device.
-+     */
-+    DECLARE_BITMAP(vpci_dev_assigned_map, VPCI_MAX_VIRT_DEV);
-+#endif
- #endif
- 
- #ifdef CONFIG_HAS_PASSTHROUGH
 diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index f1f49db959c7..1f04d34a2369 100644
+index 1f04d34a2369..f6eb9f2051af 100644
 --- a/xen/include/xen/vpci.h
 +++ b/xen/include/xen/vpci.h
-@@ -21,6 +21,13 @@ typedef int vpci_register_init_t(struct pci_dev *dev);
- 
- #define VPCI_ECAM_BDF(addr)     (((addr) & 0x0ffff000) >> 12)
- 
-+/*
-+ * Maximum number of devices supported by the virtual bus topology:
-+ * each PCI bus supports 32 devices/slots at max or up to 256 when
-+ * there are multi-function ones which are not yet supported.
-+ */
-+#define VPCI_MAX_VIRT_DEV       (PCI_SLOT(~0) + 1)
-+
- #define REGISTER_VPCI_INIT(x, p)                \
-   static vpci_register_init_t *const x##_entry  \
-                __used_section(".data.vpci." p) = x
-@@ -140,6 +147,10 @@ struct vpci {
-             struct vpci_arch_msix_entry arch;
-         } entries[];
-     } *msix;
-+#ifdef CONFIG_HAS_VPCI_GUEST_SUPPORT
-+    /* Guest SBDF of the device. */
-+    pci_sbdf_t guest_sbdf;
-+#endif
- #endif
+@@ -271,6 +271,7 @@ static inline bool __must_check vpci_process_pending(struct vcpu *v)
+ /* Notify vPCI that device is assigned/de-assigned to/from guest. */
+ int vpci_assign_device(struct domain *d, struct pci_dev *pdev);
+ void vpci_deassign_device(struct domain *d, struct pci_dev *pdev);
++bool vpci_translate_virtual_device(const struct domain *d, pci_sbdf_t *sbdf);
+ #else
+ static inline int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
+ {
+@@ -280,6 +281,12 @@ static inline int vpci_assign_device(struct domain *d, struct pci_dev *pdev)
+ static inline void vpci_deassign_device(struct domain *d, struct pci_dev *pdev)
+ {
  };
++
++static inline bool vpci_translate_virtual_device(const struct domain *d,
++                                                 pci_sbdf_t *sbdf)
++{
++    return false;
++}
+ #endif
  
+ #endif
 -- 
 2.25.1
 
