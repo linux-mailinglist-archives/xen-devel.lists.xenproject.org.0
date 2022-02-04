@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D273C4A962D
-	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 10:23:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.265226.458549 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF1474A9633
+	for <lists+xen-devel@lfdr.de>; Fri,  4 Feb 2022 10:24:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.265235.458560 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFuoP-0005ho-M1; Fri, 04 Feb 2022 09:23:25 +0000
+	id 1nFuoq-0006Wa-Ul; Fri, 04 Feb 2022 09:23:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 265226.458549; Fri, 04 Feb 2022 09:23:25 +0000
+Received: by outflank-mailman (output) from mailman id 265235.458560; Fri, 04 Feb 2022 09:23:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nFuoP-0005f8-Io; Fri, 04 Feb 2022 09:23:25 +0000
-Received: by outflank-mailman (input) for mailman id 265226;
- Fri, 04 Feb 2022 09:23:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nFuoq-0006Ug-Rk; Fri, 04 Feb 2022 09:23:52 +0000
+Received: by outflank-mailman (input) for mailman id 265235;
+ Fri, 04 Feb 2022 09:23:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wIUc=ST=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nFuoO-0005e7-7T
- for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 09:23:24 +0000
+ id 1nFuop-0006TE-E4
+ for xen-devel@lists.xenproject.org; Fri, 04 Feb 2022 09:23:51 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0806663f-859c-11ec-8f75-fffcc8bd4f1a;
- Fri, 04 Feb 2022 10:22:54 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 29b90d86-859c-11ec-8eb8-a37418f5ba1a;
+ Fri, 04 Feb 2022 10:23:50 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8350E1F44E;
- Fri,  4 Feb 2022 09:23:22 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3B62D1F44E;
+ Fri,  4 Feb 2022 09:23:50 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 51E9E13322;
- Fri,  4 Feb 2022 09:23:22 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1026413322;
+ Fri,  4 Feb 2022 09:23:50 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id vayYEorw/GG1eAAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 04 Feb 2022 09:23:22 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id C4pcAqbw/GHieAAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 04 Feb 2022 09:23:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,60 +51,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0806663f-859c-11ec-8f75-fffcc8bd4f1a
+X-Inumbo-ID: 29b90d86-859c-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1643966602; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1643966630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=tMfz+vr/zoDM737ejREHv1kOAHk5koJJ0ECWuIe9qdE=;
-	b=WjxH2q0Nm5qAJBmOosqnoXRQ7VfPByeBGK6byVqKlpWZV6EltUpQYdBFYvI9KkuRRtNhR5
-	QwiDm58YSnmAR68CGrkIQpWIjghzlzRFM1EI3vt2fg522ekrCtgeJUW0rcaFS2oQLny28D
-	JR0D4vUztA4c+s6pWfK7wlhriQzjeUE=
-Message-ID: <3c068b89-862d-f65b-6621-47323a0a832c@suse.com>
-Date: Fri, 4 Feb 2022 10:23:21 +0100
+	bh=RRLlynzwQUyu0Ry2iHE9HxszpY1MyDqTOYy3+lP/PUg=;
+	b=euJfpBMKuybHTjC/B50d1QfhxHnksuynJIaBJ8mkUWJwszI2fNw2KAkhRkFYnvLsOfKvn5
+	/ZJ51BmV+A0vcFu/XF6i7VL0Iraqk6UnJEC5GQuZtBN2m4nkgqB77Wikvb1Qv0PWyj48wt
+	/fgg8Ms5qGH2XMiB6SIhZqbp6Qjq/PA=
+Message-ID: <0850fe20-8068-7780-9e19-f3f3c2ef8655@suse.com>
+Date: Fri, 4 Feb 2022 10:23:49 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.4.1
-Subject: Re: [PATCH] xen: xenbus_dev.h: delete incorrect file name
+Subject: Re: [PATCH v2] xen: update missing ioctl magic numers documentation
 Content-Language: en-US
 To: Randy Dunlap <rdunlap@infradead.org>, patches@lists.linux.dev
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20220130191705.24971-1-rdunlap@infradead.org>
+References: <20220131161959.16509-1-rdunlap@infradead.org>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20220130191705.24971-1-rdunlap@infradead.org>
+In-Reply-To: <20220131161959.16509-1-rdunlap@infradead.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------crB4HNfKkBBu73aaZi3Iq1Kh"
+ boundary="------------NNRk0QNS2HKGb7xIyuBOdBx0"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------crB4HNfKkBBu73aaZi3Iq1Kh
-Content-Type: multipart/mixed; boundary="------------UQeZwwBY2y2yVmKzI2OEzpkB";
+--------------NNRk0QNS2HKGb7xIyuBOdBx0
+Content-Type: multipart/mixed; boundary="------------W20FlqUGWyleq74HGU8HW0TC";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Randy Dunlap <rdunlap@infradead.org>, patches@lists.linux.dev
 Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Message-ID: <3c068b89-862d-f65b-6621-47323a0a832c@suse.com>
-Subject: Re: [PATCH] xen: xenbus_dev.h: delete incorrect file name
-References: <20220130191705.24971-1-rdunlap@infradead.org>
-In-Reply-To: <20220130191705.24971-1-rdunlap@infradead.org>
+Message-ID: <0850fe20-8068-7780-9e19-f3f3c2ef8655@suse.com>
+Subject: Re: [PATCH v2] xen: update missing ioctl magic numers documentation
+References: <20220131161959.16509-1-rdunlap@infradead.org>
+In-Reply-To: <20220131161959.16509-1-rdunlap@infradead.org>
 
---------------UQeZwwBY2y2yVmKzI2OEzpkB
-Content-Type: multipart/mixed; boundary="------------7TyyAKiPrloII9pdF0Zvy80u"
+--------------W20FlqUGWyleq74HGU8HW0TC
+Content-Type: multipart/mixed; boundary="------------mUnUayQgEfVjvjLXnoqTkgxO"
 
---------------7TyyAKiPrloII9pdF0Zvy80u
+--------------mUnUayQgEfVjvjLXnoqTkgxO
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMzAuMDEuMjIgMjA6MTcsIFJhbmR5IER1bmxhcCB3cm90ZToNCj4gSXQgaXMgYmV0dGVy
-L3ByZWZlcnJlZCBub3QgdG8gaW5jbHVkZSBmaWxlIG5hbWVzIGluIHNvdXJjZSBmaWxlcw0K
-PiBiZWNhdXNlIChhKSB0aGV5IGFyZSBub3QgbmVlZGVkIGFuZCAoYikgdGhleSBjYW4gYmUg
-aW5jb3JyZWN0LA0KPiBzbyBqdXN0IGRlbGV0ZSB0aGlzIGluY29ycmVjdCBmaWxlIG5hbWUu
-DQo+IA0KPiBTaWduZWQtb2ZmLWJ5OiBSYW5keSBEdW5sYXAgPHJkdW5sYXBAaW5mcmFkZWFk
-Lm9yZz4NCg0KUHVzaGVkIHRvIHhlbi90aXAuZ2l0IGZvci1saW51cy01LjE3YQ0KDQoNCkp1
-ZXJnZW4NCg0K
---------------7TyyAKiPrloII9pdF0Zvy80u
+T24gMzEuMDEuMjIgMTc6MTksIFJhbmR5IER1bmxhcCB3cm90ZToNCj4gQWRkIG1pc3Npbmcg
+aW9jdGwgIm1hZ2ljIG51bWJlcnMiIGZvciB2YXJpb3VzIFhlbiBpbnRlcmZhY2VzDQo+ICh4
+ZW5idXNfZGV2LmgsIGdudGFsbG9jLmgsIGdudGRldi5oLCBhbmQgcHJpdmNtZC5oKS4NCj4g
+DQo+IFNpZ25lZC1vZmYtYnk6IFJhbmR5IER1bmxhcCA8cmR1bmxhcEBpbmZyYWRlYWQub3Jn
+Pg0KDQpQdXNoZWQgdG8geGVuL3RpcC5naXQgZm9yLWxpbnVzLTUuMTdhDQoNCg0KSnVlcmdl
+bg0K
+--------------mUnUayQgEfVjvjLXnoqTkgxO
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -162,25 +161,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------7TyyAKiPrloII9pdF0Zvy80u--
+--------------mUnUayQgEfVjvjLXnoqTkgxO--
 
---------------UQeZwwBY2y2yVmKzI2OEzpkB--
+--------------W20FlqUGWyleq74HGU8HW0TC--
 
---------------crB4HNfKkBBu73aaZi3Iq1Kh
+--------------NNRk0QNS2HKGb7xIyuBOdBx0
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmH88IkFAwAAAAAACgkQsN6d1ii/Ey/3
-Fgf/Zg//UOe0gFtCNCY8fhfB0xFel62hofznU7Hbuwfw4rrnuvKrPBhyx3ClUTtXbcTg988vphcY
-apkv7TYsOzDCUOMFpxd2ed5fWe7wSsSLWkL/RX2wiH4IGBIKBP1ixHxEwvD3oihVCAYa6sJ99vL9
-4vU+tyKlMD6lYGlpMbsWtYMgTxan/o5cG427eiIkVn0yxoxWzoujctU1dZHPD36Bk0osMmZYw2pq
-Fe3eMDOJmDnkJOD96ucR49ulJrTefhv1tvKpCOsf039hIELixsLuFICSwJ3yoG/s1dOXxprwqK4J
-zQOeuN/MOfTc/EWzB75DLrKsW5XT+QrwzPx25cWGog==
-=IMLv
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmH88KUFAwAAAAAACgkQsN6d1ii/Ey/R
+Awf/ax2bWwMPZ29aKpnCJI7JQyJMDXGxbPSa9mEQaNhIA/fkEcZFeHmwvm22+09GGSjS+O7VP9/R
+nW9FDL9YEOMazneMkO8w4sRTIuKWHQn+RGwfMUDueQq06KJMHR2C9hBjMmdJVcFwnY3DNolASyo/
+xE52i+VmIlsi3fEO/IxIVilCL8eZXQ2LQxitMWFp7y6g0oqCBk0hy8zfeC+OerPe/eQfppuBVxn7
+9s5Q3hCnVmbDLATOx3p1bLHG3ORyh0zjBFqWopZiWwdbKZ1HtNhvlEopb8721DLkSi7eHrhPCGH3
+G54lo0nQfgT2CPUuYDJsKF4I2CHwjoC/Mh8+IvOOgQ==
+=ag+7
 -----END PGP SIGNATURE-----
 
---------------crB4HNfKkBBu73aaZi3Iq1Kh--
+--------------NNRk0QNS2HKGb7xIyuBOdBx0--
 
