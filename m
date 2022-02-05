@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91EA54AAB00
-	for <lists+xen-devel@lfdr.de>; Sat,  5 Feb 2022 19:43:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.266075.459751 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF35D4AAB03
+	for <lists+xen-devel@lfdr.de>; Sat,  5 Feb 2022 19:45:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.266082.459762 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nGQ1K-0004to-Iq; Sat, 05 Feb 2022 18:42:50 +0000
+	id 1nGQ41-0005V8-1E; Sat, 05 Feb 2022 18:45:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 266075.459751; Sat, 05 Feb 2022 18:42:50 +0000
+Received: by outflank-mailman (output) from mailman id 266082.459762; Sat, 05 Feb 2022 18:45:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nGQ1K-0004rG-Fx; Sat, 05 Feb 2022 18:42:50 +0000
-Received: by outflank-mailman (input) for mailman id 266075;
- Sat, 05 Feb 2022 18:42:49 +0000
+	id 1nGQ40-0005Su-U6; Sat, 05 Feb 2022 18:45:36 +0000
+Received: by outflank-mailman (input) for mailman id 266082;
+ Sat, 05 Feb 2022 18:45:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=B8c5=SU=linuxfoundation.org=torvalds@srs-se1.protection.inumbo.net>)
- id 1nGQ1J-0004rA-AP
- for xen-devel@lists.xenproject.org; Sat, 05 Feb 2022 18:42:49 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ <SRS0=G0mZ=SU=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
+ id 1nGQ3z-0005Sj-AR
+ for xen-devel@lists.xenproject.org; Sat, 05 Feb 2022 18:45:35 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69984477-86b3-11ec-8eb8-a37418f5ba1a;
- Sat, 05 Feb 2022 19:42:47 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id cz16so2348522edb.8
- for <xen-devel@lists.xenproject.org>; Sat, 05 Feb 2022 10:42:47 -0800 (PST)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com.
- [209.85.128.50])
- by smtp.gmail.com with ESMTPSA id kw5sm1887123ejc.140.2022.02.05.10.42.45
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 05 Feb 2022 10:42:45 -0800 (PST)
-Received: by mail-wm1-f50.google.com with SMTP id
- l123-20020a1c2581000000b0037b9d960079so2892749wml.0
- for <xen-devel@lists.xenproject.org>; Sat, 05 Feb 2022 10:42:45 -0800 (PST)
+ id c8ebf6a2-86b3-11ec-8eb8-a37418f5ba1a;
+ Sat, 05 Feb 2022 19:45:31 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 11985B80CAC;
+ Sat,  5 Feb 2022 18:45:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D61B1C340E8;
+ Sat,  5 Feb 2022 18:45:24 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ C58A2E5D07E; Sat,  5 Feb 2022 18:45:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,65 +48,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69984477-86b3-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=Yedd43eoRIQVyiayOZs+IHIZcg34X3iy8HzQvrX9+vc=;
-        b=hJAo4nCSeYMJ9Z1J9DLNxUS3UWhozfpff6fWvdKoMHKOHVRLCUA9T84HiX8JsPuWD+
-         zlF7puaUJnJzD2sBbcdSHRZKQXScVFP+1RPq1+bhEyQ6TSceYhr3Kc1o0sz0eIcKdXmQ
-         Q09O3kCl53O/XzGFDSeS63WviWTSewwSwtZpw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=Yedd43eoRIQVyiayOZs+IHIZcg34X3iy8HzQvrX9+vc=;
-        b=jyCf/D9a1JbkjaJwZ+KKTBgl9z67cpFPCFz2RDr/NOLLm3Hk6xyIep37utypoWV8Nu
-         wGzASP9osP5lSfHDsIOnl5Isvg2ihKDsME8bZWTExaW52BLpZPx9nT3jdXmgcD4mRnAb
-         rDibqyPoFvUUJgHs9g6CDC/Knh+WjpwglBXWo8cXrqN9TnjyLZkzWsKgXV3qWnW+JAkv
-         DocugYTdZp/nstwlim6Q/5xBwAUulZB5EeNtDn6VRoazWdTLVhbA9opJ85KLIqM96UCe
-         uAdZOrHu6i6Sy2QI4kCcs5UhjETZrufhXpSWHPlnWNACFWr5nzXxhn3SXqBz6Y5wJpKa
-         sCLw==
-X-Gm-Message-State: AOAM530GO2DGssRZA0zM2RD3RimGxijGjKahi+yw2e/FO/AAWTgFe0fK
-	GRJDZ971NQaaYydn++/f97sppjsAwJ0kSKrY
-X-Google-Smtp-Source: ABdhPJz3hkCN8v17i3lb3hTqGAAQdcu9hZU0Jg6DcHU4iDT1z0FRZSmt4BElLPuoSfZjx2M5p2bu5A==
-X-Received: by 2002:a05:6402:5209:: with SMTP id s9mr5770381edd.154.1644086566545;
-        Sat, 05 Feb 2022 10:42:46 -0800 (PST)
-X-Received: by 2002:a05:600c:3846:: with SMTP id s6mr7597505wmr.26.1644086565037;
- Sat, 05 Feb 2022 10:42:45 -0800 (PST)
-MIME-Version: 1.0
-References: <20220205110717.16946-1-jgross@suse.com> <CAHk-=wjp-h4bFWsWSPQ+5o6iuiPwiFNRNxfDSaDjURzVU6Af7A@mail.gmail.com>
-In-Reply-To: <CAHk-=wjp-h4bFWsWSPQ+5o6iuiPwiFNRNxfDSaDjURzVU6Af7A@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sat, 5 Feb 2022 10:42:29 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wj_ObnioAixXdec63_aXXaS8SUEAsMQgfiHwhXNOYMn5Q@mail.gmail.com>
-Message-ID: <CAHk-=wj_ObnioAixXdec63_aXXaS8SUEAsMQgfiHwhXNOYMn5Q@mail.gmail.com>
+X-Inumbo-ID: c8ebf6a2-86b3-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1644086724;
+	bh=fcalSUfcC3f+A4OPK37VCIh9FGFzTW9J646wvOQUfd4=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
+	b=jfrYf5pgoQt/pgjiwYAAWXNH4J5yx7nB2f7MsQqX5d5wXlHvtT2YKxTPrMB0Gqq8t
+	 Wvs539nPCJfCsoRHVDliTaEtkqfg3B/HbTjmikv7H1N8fyPniUaZwHVjlMTR6x4B1a
+	 tOscvPcEiFHVPJ+9a7I2QKnS7gzMA1fZTz42DyzOO6UhY3GmFxtkLE+1F2Yr5R5iaP
+	 MmmnC3rUB16DkUrE6Hw0B8f6POneUnN7tyMmcgwIdhfirx69zgN9x+GIUi0qfNHyTV
+	 kMMCtno6SsaysWYnOSVPTY1kZTsSQY0zI99AmBltiti/hBCuSAZn36W+wrUu5f9Yb0
+	 C1PAWTjyamH+g==
 Subject: Re: [GIT PULL] xen: branch for v5.17-rc3
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20220205110717.16946-1-jgross@suse.com>
+References: <20220205110717.16946-1-jgross@suse.com>
+X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20220205110717.16946-1-jgross@suse.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.17a-rc3-tag
+X-PR-Tracked-Commit-Id: e25a8d959992f61b64a58fc62fb7951dc6f31d1f
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 90c9e950c0def5c354b4a6154a2ddda3e5f214ac
+Message-Id: <164408672480.8633.6221021066979381394.pr-tracker-bot@kernel.org>
+Date: Sat, 05 Feb 2022 18:45:24 +0000
 To: Juergen Gross <jgross@suse.com>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, xen-devel@lists.xenproject.org, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Content-Type: text/plain; charset="UTF-8"
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com
 
-On Sat, Feb 5, 2022 at 9:58 AM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> On Sat, Feb 5, 2022 at 3:07 AM Juergen Gross <jgross@suse.com> wrote:
-> >
-> > Please git pull the following tag:
-> >
-> >  git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.17a-rc3-tag
->
-> Diffstat? Shortlog?
->
-> This is not a valid pull request.
+The pull request you sent on Sat,  5 Feb 2022 12:07:17 +0100:
 
-Oh well. You're likely offline - I ended up just checking your
-description instead.
+> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.17a-rc3-tag
 
-But in general I really do want shortlog and diffstat as a way to
-double-check that the pull contains what you think and claim it does,
-and there are no surprises..
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/90c9e950c0def5c354b4a6154a2ddda3e5f214ac
 
-               Linus
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
