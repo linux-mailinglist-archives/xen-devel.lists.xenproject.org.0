@@ -2,32 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 670E44AAE31
-	for <lists+xen-devel@lfdr.de>; Sun,  6 Feb 2022 07:03:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.266217.459910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D098B4AAE37
+	for <lists+xen-devel@lfdr.de>; Sun,  6 Feb 2022 07:13:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.266225.459920 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nGadA-0001Ek-CT; Sun, 06 Feb 2022 06:02:36 +0000
+	id 1nGanV-0002gp-Ag; Sun, 06 Feb 2022 06:13:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 266217.459910; Sun, 06 Feb 2022 06:02:36 +0000
+Received: by outflank-mailman (output) from mailman id 266225.459920; Sun, 06 Feb 2022 06:13:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nGadA-0001Bl-9R; Sun, 06 Feb 2022 06:02:36 +0000
-Received: by outflank-mailman (input) for mailman id 266217;
- Sun, 06 Feb 2022 06:02:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=thp5=SV=yahoo.com=akm2tosher@srs-se1.protection.inumbo.net>)
- id 1nGad7-0001Bb-Sf
- for xen-devel@lists.xenproject.org; Sun, 06 Feb 2022 06:02:34 +0000
-Received: from sonic313-37.consmr.mail.ne1.yahoo.com
- (sonic313-37.consmr.mail.ne1.yahoo.com [66.163.185.60])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5deab646-8712-11ec-8f75-fffcc8bd4f1a;
- Sun, 06 Feb 2022 07:02:31 +0100 (CET)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic313.consmr.mail.ne1.yahoo.com with HTTP; Sun, 6 Feb 2022 06:02:28 +0000
+	id 1nGanV-0002e2-7f; Sun, 06 Feb 2022 06:13:17 +0000
+Received: by outflank-mailman (input) for mailman id 266225;
+ Sun, 06 Feb 2022 06:13:16 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Bc/j=SV=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nGanT-0002dw-W0
+ for xen-devel@lists.xenproject.org; Sun, 06 Feb 2022 06:13:16 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id de5a32c9-8713-11ec-8eb8-a37418f5ba1a;
+ Sun, 06 Feb 2022 07:13:14 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 566A11F388;
+ Sun,  6 Feb 2022 06:13:14 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 31E09139EF;
+ Sun,  6 Feb 2022 06:13:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id mzC4Cvpm/2HaTgAAMHmgww
+ (envelope-from <jgross@suse.com>); Sun, 06 Feb 2022 06:13:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,61 +51,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5deab646-8712-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1644127348; bh=64dZg5Kq7nmVHL0EFHFGeSk3OvC+bM/+NWLW4wquqS0=; h=Date:From:To:Cc:Subject:References:From:Subject:Reply-To; b=LAJwLxAlePaKGTbFsyfyGOvdM4Z2zbPH42HyiXzSYjDdYJOyM090gSWgdkVxVHKXPqQ7gW62Rzloz6GUy4HeFXM0CXH1b4pLrNT8SLJ3cvbc/FfDKTArr7Qeqj1SJhD0BwZ0Q05zHj0dRmUa02n1vTVIkkJsnpaYhl0pNDYQ1LfjpJTyI7n1D6UTgV5D+6szWgyqqncQHTn71YRBsyKkPMg7c2s0thjPHAEcZvoN8Cgh8IXzTzmvsQUqMf5pmFxHvsom15G6BvLEPLIzebmhByjfUXhgkm8707jkrjXcvQ6R/VyP2yRrMwdqQWPmiiwyFy9aTtdsT5OiSij0dxxqsg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1644127348; bh=KRDHbZZKXr6AZdtF09mjGXD9OTRpvv1aESFUXWSu3RG=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=LLGfamuv2qYQj11G129Y3c9fvGu35x4usPqEGCl3p8iiwhvGPqtwUml6W3I44rf/4nFG2QKeVxLwR5XIF+XS+Rl8huRmyRE9b0obauGJGjzpsGTCjX1xUPFhWT8V9r/c3nzSEonl0tLo5Isq7Azg1JW4CGHXaQdjUcTmS7Dw/CTPmAaXXxiQUSN5wg+4kBAgz+2waYC6JYDEEX14ArSmeG6MoRGFHXNfHFpjSuFF7PRxQbZZFoeeIoOCKRq23csz/2hKBd6aGtDKhby/OBXUSVivsS/eqtJLLv2vl3OluPd43nRKQm6Mbvwp/iy+35PKcY7OZb8Y5f3ReF4/atu92A==
-X-YMail-OSG: l4eypU0VM1k9T2AzUAQWUD6GfOQ1bvHBrXUdnZaLbTToDAwl6617YKtrVLDs3EG
- HX.f.R7IXHs_LGWnteSkMB5EynMAzqDFUxJOzRHLGYw0r6hK9GvWcDJp2qiGKT_DkYqXQQv_XTwH
- Igi4uHeuQ2TGTMTwuO6pz7v4AFLDy9d6ZUX0HtrQjZ1HKvaK22os98roLATK6YW2XCsRw4kpg8dJ
- bwKCG_tn4qOb3NnoUCknwKQe_Wv48Lt6Cc0nBmMZpH7AKQuid2Ei55ofnEM_1p1i2lBbWQln7Afm
- mtcXLI_jr3CHPEkP24gBCMVWqMtaZFcp4SZVn8dGcYGmr4cSr2EOBdNmF7gVCoNBoAHSsVXpuY0h
- LTBaBZbUBnVpTSPfAyTdvZm4PKxYmKcZdFSL_2cg0PgG1PNFPzrH_kkgrFHvBf757Seph1lJQ5ZX
- toyDUnU4K99Xmj0kc8EfA8LigurBTF8TYAPFjN1Eki5FEBAYLyYeVjXKRdvyDuqxURt5XdR9dXF7
- H4VjcSfdAgEqSsKkNToIl1A8rKaDE8E_xdH.KZ.kMsNvqAHPH53xSpoUQ7fXGB_FxRoGvbgrNhap
- k5QQW08W3nQitpTWW_3rj1jF8czUaOmaSYTO7Iuc1qD7w4zRZCGIqY6dsFPnovQdYtfpg4.Xnzm9
- Kk2A4LL.H7DjMlVanvwtr9KEREmWmWHheO_IkT1GA14CFCI1nPPGRQdH8XtSeigNc4c8ryTKnrlw
- _8G6Ce2TF7mqi6UU7rieqZBlc44MoijAmhAjT2TP65LOMlMqBrbvjtcR440yCoXwuvosxH866BVk
- eudzTqSIreucHTrp8F_wL0oGO3LPbVDmoBwaljoJjQjJrIosQvoO2DPVEilsPri6yKWhjgww7Avc
- E3vp.nVGj0Pz38rubmKRsfyU0xuCIbHZ56fQpw.DQzYBJAiZjzXGzKvbbEWrTnz_3.ihZvevm3ga
- nmFbk4PzvJNsJ1sa9hNpdQYTdawp3AYv3c4D7adA0CBgnMeM5vXUed0KBctds20Z1TSR5rIlixly
- koJwVMTi216HTFAl6.Mh.fEGHXjo_VtRHmCZGNnUqQeh1FdsLftWNaOEtnQsX6i_NHfB5H5_payX
- gqCPGJ9Vfr7Nqeb6dHolVLU3PVTldK2ffpegh_ZJR1ECD9yiA89Vd.hVFY02hvVhZGzK.I4HDZFD
- c0XEjlw1RlznxeeX28r2oBo6VVtPp7PyxE6pbBs54qUIdgFF1jA2BUBzu8YunisFLmWuEDWJTOuD
- 2r5yQ2G.P2rCmSNREeNGMpNRB_llW2sKcw6iRqJY4AiWevW7a27.il0E.six56xzfFvR9VUkcfcH
- 32eLr2ek2OtXbbiMWC7jkAl2Vx4fcRjs_h3Fls3GJtVrbxzdLAqVM9ob4xH7tIn5zb1sM9sVAe.U
- z_Lm.iNsUU3GJKUSUAVPKZDhAffxa_gwng7_UR9Mts_FpX28MRybg8BbF4hFRGrC5KKAFlljNAr6
- jGl4ODGTbDEx9nyEDxlh7mcZtBdl9ZWKRIDro4XpAyDjHtgfZrQwQKT_KAB7k.hTIY0LGmOCXdbJ
- sZ_Cg3oGd2Ek98fQ3zRfYL.16yFI0mC7HJp1.yqzIFEfYI8.4sDgFBy65.dL3J6Nb3T4uWhKWhbB
- QQ0MK3UMPOlZVVxDVkwMyWXGLBrkePTDg22mHHT4_svTsIKcIJMbKj89e7Qd0MMGHlO6cd1ZlGUe
- Yv5JWprphpC8WNTk1EFt.9CF58b7C8EuZgz3ajsXZsRlLKpz5vHlEbs.8WdgJBFr2vAqMusFmW3E
- 4wRLpjhpClS_5KpDI5PK_FUmW8jeLzP9rgy8QskThQ7X5RyoQ8MCllpsonL_D.gctdT2odP8BJqw
- u7kZNm8Zsrr2CLLYOP7PR5cWMbe4QCJOj3ce7XnsJIELPz.su3YTD_dfSdNBJhpArLb2HPUFYZOe
- zvroUqMPJ6ziYCoKagTCx7JMhW4kSqdP1C4VY8ao9XgK4nZC5osQlBjawQWjTkipuyc9fBZIQ1aZ
- oDNA6rjNnMnrCARfzJcN5DJ0ySCFh4f0AGBe7oqLhmaoTcP9a7JmGgGGr7oXPp9wJnQ_mGt5RZy5
- yftDTolNSNq24z5H8HnBPBy7246dgLzuukLqoRyBBTKa0OzWuHoAzWChsU..S1Ted_ox6Lw6lBWr
- dQH.RihlTOHV39Bv3Fj8wJ182Q86mPn5j9o84mtG_6rsVHRnuy61mIyse45oNR8JMIkTu5I4ikEF
- _1fDS8ZaX1eDlHtDpSq1f6E_AHRJDdpYaviKOSg--
-X-Sonic-MF: <akm2tosher@yahoo.com>
-Date: Sun, 6 Feb 2022 05:59:57 +0000 (UTC)
-From: tosher 1 <akm2tosher@yahoo.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "roger.pau@citrix.com" <roger.pau@citrix.com>, 
-	"xadimgnik@gmail.com" <xadimgnik@gmail.com>, 
-	"oleksandr_andrushchenko@epam.com" <oleksandr_andrushchenko@epam.com>
-Message-ID: <709142925.628001.1644127197288@mail.yahoo.com>
-Subject: PCI passthrough support for PVH mode
+X-Inumbo-ID: de5a32c9-8713-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1644127994; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=b9j627IG0HosD/OkE7yv/PUGv9f5Phy0U58ez6FidSA=;
+	b=qZuYxtySHuOFdLvYOZGS1P08ZpAk5JDRAKNpQLNKCkAp/N8Id85O7GMCq+zHItGqw634m9
+	Bh75uuZ5KkaUn9M34PDXTA251R284uNygPMTj1pHO4j+JsoJK6NPsgu2ZMTc6Z1JxT4/I5
+	rOmRuNfK8K9mg30mgd2FmSu0vjeUuks=
+Message-ID: <2ad6d8db-9926-4a69-94c9-ae669e24f404@suse.com>
+Date: Sun, 6 Feb 2022 07:13:13 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-References: <709142925.628001.1644127197288.ref@mail.yahoo.com>
-X-Mailer: WebService/1.1.19711 YMailNorrin
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.4.1
+Subject: Re: [GIT PULL] xen: branch for v5.17-rc3
+Content-Language: en-US
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>
+References: <20220205110717.16946-1-jgross@suse.com>
+ <CAHk-=wjp-h4bFWsWSPQ+5o6iuiPwiFNRNxfDSaDjURzVU6Af7A@mail.gmail.com>
+ <CAHk-=wj_ObnioAixXdec63_aXXaS8SUEAsMQgfiHwhXNOYMn5Q@mail.gmail.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <CAHk-=wj_ObnioAixXdec63_aXXaS8SUEAsMQgfiHwhXNOYMn5Q@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------CMKgQ4RDZI8wpr20AGMwomTw"
 
-Hi,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------CMKgQ4RDZI8wpr20AGMwomTw
+Content-Type: multipart/mixed; boundary="------------f0d5uFHCDvNCO6K6U4UOXrXq";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <2ad6d8db-9926-4a69-94c9-ae669e24f404@suse.com>
+Subject: Re: [GIT PULL] xen: branch for v5.17-rc3
+References: <20220205110717.16946-1-jgross@suse.com>
+ <CAHk-=wjp-h4bFWsWSPQ+5o6iuiPwiFNRNxfDSaDjURzVU6Af7A@mail.gmail.com>
+ <CAHk-=wj_ObnioAixXdec63_aXXaS8SUEAsMQgfiHwhXNOYMn5Q@mail.gmail.com>
+In-Reply-To: <CAHk-=wj_ObnioAixXdec63_aXXaS8SUEAsMQgfiHwhXNOYMn5Q@mail.gmail.com>
 
-Back in the year 2020, I was inquiring into the status of PCI passthrough support for PVH guests. At that time, Arm people were working on using vPCI for guest VMs. The expectation was to port that implementation to x86 once ready.
+--------------f0d5uFHCDvNCO6K6U4UOXrXq
+Content-Type: multipart/mixed; boundary="------------zi2i02yO9nq6JwG4192Jh06i"
 
-I was wondering if there is any update on this. Does Xen support PCI passthrough for PVH mode yet? Please let me know.
+--------------zi2i02yO9nq6JwG4192Jh06i
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Thanks,
-Mehrab
+T24gMDUuMDIuMjIgMTk6NDIsIExpbnVzIFRvcnZhbGRzIHdyb3RlOg0KPiBPbiBTYXQsIEZl
+YiA1LCAyMDIyIGF0IDk6NTggQU0gTGludXMgVG9ydmFsZHMNCj4gPHRvcnZhbGRzQGxpbnV4
+LWZvdW5kYXRpb24ub3JnPiB3cm90ZToNCj4+DQo+PiBPbiBTYXQsIEZlYiA1LCAyMDIyIGF0
+IDM6MDcgQU0gSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPiB3cm90ZToNCj4+Pg0K
+Pj4+IFBsZWFzZSBnaXQgcHVsbCB0aGUgZm9sbG93aW5nIHRhZzoNCj4+Pg0KPj4+ICAgZ2l0
+Oi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L3hlbi90aXAuZ2l0
+IGZvci1saW51cy01LjE3YS1yYzMtdGFnDQo+Pg0KPj4gRGlmZnN0YXQ/IFNob3J0bG9nPw0K
+Pj4NCj4+IFRoaXMgaXMgbm90IGEgdmFsaWQgcHVsbCByZXF1ZXN0Lg0KDQpPaCwgSSdtIHNv
+cnJ5IGZvciB0aGF0Lg0KDQpTZWVtcyBhcyBpZiBhIHJlY2VudCBzeXN0ZW0gdXBkYXRlIHB1
+bGxlZCBpbiBhIG5ld2VyIHZlcnNpb24gb2YgZ2l0IHdpdGgNCmNoYW5nZWQgYmVoYXZpb3Is
+IGFuZCBteSBzY3JpcHQgZ2VuZXJhdGluZyB0aGUgcHVsbCByZXF1ZXN0IHNpbGVudGx5DQpp
+Z25vcmVkIHRoZSBlcnJvciB3aGVuIHRyeWluZyB0byBhZGQgdGhlIGRpZmZzdGF0IGFuZCBz
+aG9ydGxvZy4NCg0KSSd2ZSBmaXhlZCBteSBnaXQgY29uZmlnIGFuZCBteSBzY3JpcHQuDQoN
+Cj4gT2ggd2VsbC4gWW91J3JlIGxpa2VseSBvZmZsaW5lIC0gSSBlbmRlZCB1cCBqdXN0IGNo
+ZWNraW5nIHlvdXINCj4gZGVzY3JpcHRpb24gaW5zdGVhZC4NCg0KVGhhbmsgeW91IHZlcnkg
+bXVjaCwNCg0KDQpKdWVyZ2VuDQo=
+--------------zi2i02yO9nq6JwG4192Jh06i
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------zi2i02yO9nq6JwG4192Jh06i--
+
+--------------f0d5uFHCDvNCO6K6U4UOXrXq--
+
+--------------CMKgQ4RDZI8wpr20AGMwomTw
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmH/ZvkFAwAAAAAACgkQsN6d1ii/Ey/2
+eQf+KWt5Kw+RsNxYlOG+m/x2Q5y5B9P/pxgtPxG3Txx1Zp7Dk8HpVCu9NHRdrZOL/1AQ0sL+qrnp
+vb3OB/vsrbdcPqlotTTtUwUwRVORAmKRshB40eMOwTII+PTaQQREYmd7jZqzM9kIXFcjg3JPNkZu
+WAWIwkZ/MYWwTLJxWI4g636LoUPfxHam1gfwSEN5NZE/sXDHY91gdLjFgGrURxUqg0G1bZ6kJOmY
+b5d/OabusR0XTOJoSSDEt7yo5iKzpWWZ8y6H2EtLv/QUSNKCVav2nt/zdstTespM1FJqFfdNMAi7
+oMNdVGHTTnaat8MaxX5HgAiP8ZP07ycNOfpQigffuw==
+=wNJW
+-----END PGP SIGNATURE-----
+
+--------------CMKgQ4RDZI8wpr20AGMwomTw--
 
