@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B49F54AB8D2
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Feb 2022 11:39:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.266678.460383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA0674AB8D3
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Feb 2022 11:39:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.266679.460393 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nH1Pv-0006nR-6f; Mon, 07 Feb 2022 10:38:43 +0000
+	id 1nH1Q3-000761-Ex; Mon, 07 Feb 2022 10:38:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 266678.460383; Mon, 07 Feb 2022 10:38:43 +0000
+Received: by outflank-mailman (output) from mailman id 266679.460393; Mon, 07 Feb 2022 10:38:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nH1Pv-0006kh-2v; Mon, 07 Feb 2022 10:38:43 +0000
-Received: by outflank-mailman (input) for mailman id 266678;
- Mon, 07 Feb 2022 10:38:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nH1Q3-00073j-Bo; Mon, 07 Feb 2022 10:38:51 +0000
+Received: by outflank-mailman (input) for mailman id 266679;
+ Mon, 07 Feb 2022 10:38:50 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ddl1=SW=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nH1Pu-0006kZ-5J
- for xen-devel@lists.xenproject.org; Mon, 07 Feb 2022 10:38:42 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1d72738b-8802-11ec-8f75-fffcc8bd4f1a;
- Mon, 07 Feb 2022 11:38:40 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E92B1210FB;
- Mon,  7 Feb 2022 10:38:40 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 91D9913B92;
- Mon,  7 Feb 2022 10:38:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id WvUeIrD2AGKWQwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 07 Feb 2022 10:38:40 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nH1Q2-00073M-BC; Mon, 07 Feb 2022 10:38:50 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nH1Q2-00006t-80; Mon, 07 Feb 2022 10:38:50 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nH1Q1-0004Nb-PO; Mon, 07 Feb 2022 10:38:49 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nH1Q1-0005zS-Ov; Mon, 07 Feb 2022 10:38:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,142 +42,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d72738b-8802-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1644230320; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=fRg/KrCpHSrUBFXxA9iQ6SfefZdasVbcPfiKOyC6LFI=;
-	b=OD1PYXh8UCh7QewQ4/YGePNXBt+v2QnFCkXYRwH7/iVCTVslzxZIkYVvkNIRSJKDXGLJvR
-	E/D/zlC8kUWFX46d2GfUnrdlJbzyJiyhQ26RVKg4WeTZiflxeqGlBNMvky0M4/G3o1FCpm
-	uXP8RMJnay3eUl0Iv9KwdfKEhoFkVkQ=
-Message-ID: <6b06a133-d39b-46bf-d574-c1afeb92b2b0@suse.com>
-Date: Mon, 7 Feb 2022 11:38:39 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=adTuc0/5BO6tc22yIwHr1PIdFdUbzjx3CCph257Oo1A=; b=M0VI19DWYs9UXcDzcG1VWr8GYn
+	/YtIDFxWPWH3qeoOlw6j3PC2YJoJ3TT3JfhTrr7YG5wOaVWsvdDx5O0QUYc9c1tNLLOqJULL37Y4u
+	aIfK+h6uH1oRIaSXAIIZ1JQishgAtIZB+dtCke/8KZwN4BKWET3SzTkEwb42Gkp2pT/Y=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168042-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
-Subject: Re: [PATCH] xen/x2apic: Fix inconsistent indenting
-Content-Language: en-US
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- boris.ostrovsky@oracle.com
-Cc: sstabellini@kernel.org, tglx@linutronix.de, mingo@redhat.com,
- bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Abaci Robot <abaci@linux.alibaba.com>
-References: <20220207103506.102008-1-jiapeng.chong@linux.alibaba.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20220207103506.102008-1-jiapeng.chong@linux.alibaba.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------zR35Epbl73u6X4Sy41IhP7Md"
+Subject: [ovmf test] 168042: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=f78b937c95ddc4f7a29e41fee98e96076828a108
+X-Osstest-Versions-That:
+    ovmf=6fb09da89f88000a7592171a0ce08cf1feaa0646
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 07 Feb 2022 10:38:49 +0000
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------zR35Epbl73u6X4Sy41IhP7Md
-Content-Type: multipart/mixed; boundary="------------oBn0DW5buLl1Hm6LsSbXJ0eh";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
- boris.ostrovsky@oracle.com
-Cc: sstabellini@kernel.org, tglx@linutronix.de, mingo@redhat.com,
- bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- Abaci Robot <abaci@linux.alibaba.com>
-Message-ID: <6b06a133-d39b-46bf-d574-c1afeb92b2b0@suse.com>
-Subject: Re: [PATCH] xen/x2apic: Fix inconsistent indenting
-References: <20220207103506.102008-1-jiapeng.chong@linux.alibaba.com>
-In-Reply-To: <20220207103506.102008-1-jiapeng.chong@linux.alibaba.com>
+flight 168042 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168042/
 
---------------oBn0DW5buLl1Hm6LsSbXJ0eh
-Content-Type: multipart/mixed; boundary="------------toO60Ntrx6rFcpP7aGO4CUDO"
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 f78b937c95ddc4f7a29e41fee98e96076828a108
+baseline version:
+ ovmf                 6fb09da89f88000a7592171a0ce08cf1feaa0646
 
---------------toO60Ntrx6rFcpP7aGO4CUDO
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Last test of basis   168038  2022-02-07 01:55:23 Z    0 days
+Testing same since   168042  2022-02-07 06:41:36 Z    0 days    1 attempts
 
-T24gMDcuMDIuMjIgMTE6MzUsIEppYXBlbmcgQ2hvbmcgd3JvdGU6DQo+IEVsaW1pbmF0ZSB0
-aGUgZm9sbG93IHNtYXRjaCB3YXJuaW5nOg0KPiANCj4gYXJjaC94ODYveGVuL2VubGlnaHRl
-bl9odm0uYzoxODkgeGVuX2NwdV9kZWFkX2h2bSgpIHdhcm46IGluY29uc2lzdGVudA0KPiBp
-bmRlbnRpbmcuDQo+IA0KPiBSZXBvcnRlZC1ieTogQWJhY2kgUm9ib3QgPGFiYWNpQGxpbnV4
-LmFsaWJhYmEuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBKaWFwZW5nIENob25nIDxqaWFwZW5n
-LmNob25nQGxpbnV4LmFsaWJhYmEuY29tPg0KDQpSZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9z
-cyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg==
---------------toO60Ntrx6rFcpP7aGO4CUDO
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+------------------------------------------------------------
+People who touched revisions under test:
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jake Garver <jake@nvidia.com>
+  Jake Garver via groups.io <jake=nvidia.com@groups.io>
+  Wei6 Xu <wei6.xu@intel.com>
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
 
---------------toO60Ntrx6rFcpP7aGO4CUDO--
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
---------------oBn0DW5buLl1Hm6LsSbXJ0eh--
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
---------------zR35Epbl73u6X4Sy41IhP7Md
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
------BEGIN PGP SIGNATURE-----
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIA9rAFAwAAAAAACgkQsN6d1ii/Ey97
-bAf/RSXbgw75TsvUhawE1zOJM8BYbjzzOKBLRiNG8JaLsJ7mmVXhstO0jpTN5G6YkAZ2lakHuCZL
-rrLDuUacd5qPKU5XHVnEZV0+R1yCB/kPVehodV9ASXaMofoywzMeOkDUMmay+ldh556KJ2VtJ7RJ
-IsxgVdpHuh8rFzn39SAAH1LAPms7Ji44T1fBSpNuBo6uwS6JqXE17dzRP5jYxreMj9TuuIp1rCJA
-3n7C85oYER3+d3yD6ToMksIdeJonlxGWxz4ebmu0ur1GRqDh7pV0iZ/cJ0NjoO6BfLSPjOjb2+SK
-3dftV0LeUJb/p2FXytZIs8dCwk6kvNSMl85JruFr7Q==
-=PtrF
------END PGP SIGNATURE-----
 
---------------zR35Epbl73u6X4Sy41IhP7Md--
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   6fb09da89f..f78b937c95  f78b937c95ddc4f7a29e41fee98e96076828a108 -> xen-tested-master
 
