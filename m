@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B8A14AB6E2
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Feb 2022 09:54:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.266567.460261 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD4984AB6E7
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Feb 2022 09:58:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.266583.460272 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nGzmS-0007wz-Kb; Mon, 07 Feb 2022 08:53:52 +0000
+	id 1nGzqT-0000J1-5f; Mon, 07 Feb 2022 08:58:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 266567.460261; Mon, 07 Feb 2022 08:53:52 +0000
+Received: by outflank-mailman (output) from mailman id 266583.460272; Mon, 07 Feb 2022 08:58:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nGzmS-0007vA-H8; Mon, 07 Feb 2022 08:53:52 +0000
-Received: by outflank-mailman (input) for mailman id 266567;
- Mon, 07 Feb 2022 08:53:51 +0000
+	id 1nGzqT-0000Gf-2X; Mon, 07 Feb 2022 08:58:01 +0000
+Received: by outflank-mailman (input) for mailman id 266583;
+ Mon, 07 Feb 2022 08:58:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=owYM=SW=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nGzmR-0007uy-Nf
- for xen-devel@lists.xenproject.org; Mon, 07 Feb 2022 08:53:51 +0000
+ id 1nGzqS-0000GZ-3v
+ for xen-devel@lists.xenproject.org; Mon, 07 Feb 2022 08:58:00 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 77b205b2-87f3-11ec-8eb8-a37418f5ba1a;
- Mon, 07 Feb 2022 09:53:50 +0100 (CET)
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05lp2107.outbound.protection.outlook.com [104.47.18.107]) by
+ id 0bf63413-87f4-11ec-8eb8-a37418f5ba1a;
+ Mon, 07 Feb 2022 09:57:58 +0100 (CET)
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur02lp2053.outbound.protection.outlook.com [104.47.6.53]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-29-p1sANG96NRaoWJXxRMVpjA-1; Mon, 07 Feb 2022 09:53:48 +0100
+ de-mta-31-vGB2GFO-P3ySKGDXTGJK_Q-1; Mon, 07 Feb 2022 09:57:57 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by AM7PR04MB7063.eurprd04.prod.outlook.com (2603:10a6:20b:11e::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.18; Mon, 7 Feb
- 2022 08:53:47 +0000
+ by DB7PR04MB5483.eurprd04.prod.outlook.com (2603:10a6:10:86::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.19; Mon, 7 Feb
+ 2022 08:57:55 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5160:9fd7:9627:cb11]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::5160:9fd7:9627:cb11%5]) with mapi id 15.20.4951.018; Mon, 7 Feb 2022
- 08:53:47 +0000
+ 08:57:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,35 +51,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77b205b2-87f3-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 0bf63413-87f4-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1644224029;
+	t=1644224278;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=bbajDJNRxGbgxuYUH8E1+csdYq9ygwMnbguqJxXnRUc=;
-	b=Lzr7Unwh8WxFihjJFFb+5XYOrPh2kooGere4IAfokEJEZcgoDd6yB3AnZvBmfguPHuUp8H
-	1S5Q0TS9zCPtxy4/YT2iAjmSvTRHy8gAB0RERnXJyVoydQncq1845eZ8X+RtF8+/2xBkX/
-	6XEwez5uVyJFr4KD+ga94QCvG2vZm3g=
-X-MC-Unique: p1sANG96NRaoWJXxRMVpjA-1
+	bh=9ZYDkpSFsIdm1YfqalckYcs9mzKa546JvAv4YG5D2G4=;
+	b=CkL3sfTTfX1Vf8LQQxfK9JRS7VYs/Gd4xTQRNIVqgHyW+SL3aoNANZxFeiuc3P1O9t/F8r
+	YoVNukG06Y8/YSCZFjmgHR6xKJP8JmYKGJu82CRr37BYvnK9c2tWjM/wCAKgDAqaF/shRm
+	wwl3uu3FqEDK6aIjP+g2WZ5dWk6Lslw=
+X-MC-Unique: vGB2GFO-P3ySKGDXTGJK_Q-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iU5iVbImd7RTHkKaWFP+I3kZqMkA00d4JmSYtFY7aQVc7TgwsspzFgXdNu9E7TFUhC4s6Jg9P8azDozkpE/jqnGQaxihfV67ZSGMmINcd61n56Ax4szQg47JT6gW+3zYkKJ4DYWEV4vud4MilkZl2fY1QiLnaOOm1xT0gskiS6MV6vCpSovvXTNLpoamB9NOPNLrVmmMTDxDZISFPDzV5UroTIpRsBEPvsAx/bMUudG5Q+SX8OYBS/THO3O0x0x4/A8aGbU1StBBaH0QZeaLLhQFCfzlIwBc42xFpypy1MCEP15mZ9ojr9FqcK63DT+nKsYqxsXkkqKiqt3LafsYbw==
+ b=aJzIWNqbOHCHQ/PEPwqC3BxxTuG3/o0D4l0QiqoPWpw26zVGTy9LLv7ItZOFjIlKJLqSIaC7GUNeFiR92nMle68ozTP7mGq1CbPhKjNgHZVRoa6ERNEXuZddCYIZ3exmvHPrAX2EUIvwtTHiA7LAOGpsIlwqjVCuG/IOiYS9pckZ62ktSn6uhtPz7+2OSKK2jI5tpH7qyh2wPjWLtxxk8B8vDEiBkcZK0b8NV5P/aXhdY8AiisnYsgcL+Ac6uvKwQI+r1cT8s7drOUprnFJWLM/KsILBOxdUqAgG63YcD/24UMUNJ+yLm6n1plVGRO2NpzJ3LU8khC+bp/Tw7RI7Vw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bbajDJNRxGbgxuYUH8E1+csdYq9ygwMnbguqJxXnRUc=;
- b=glZqj8e8vkqJFkxQtIwrdiNRBWCBy63oRM09mx8tUUnNxpqlqThvtrZQ+7YN54E0MvAjvlEW8mQ8+o9FJzmswiEE/sWaEgP2913TitZojHA1gwc+Ooq8GSV6UW03tBRbWOQdqqEtYCymvVO6Qluu3utOMe+mh33oWNK9AYCr1cI+wEdi1WZmI8qCaMMf/+AgATgUNyqPz2CGP8OnxQkfnnLHm66j98h5El5x8LhlDtbUEqekPUoXYfFpu1Y0Z79KKcbGpPJfveVwkKTtJBdDc8WRUhdtewHj6ERxQRUEcgLmh391ylsYkWe/FpjKhaqDnxs0XI2VAnYbagi/UR6mUQ==
+ bh=9ZYDkpSFsIdm1YfqalckYcs9mzKa546JvAv4YG5D2G4=;
+ b=LFP3zttaktWzBwAeDOFwHk4ln1Od0m3FIZ1HYrZZJK+P9r7mQG2vmXzCwoDa9s6ojxGGNf/JlMhLU/VcGSFGJcSBnuEG7HYtvvX4fHKuWQvG0nVAS+S0sijlzyL3YQyNJGt4Xu3Djkh0ED1tHrQBIKxrgovCgwoniPROAsy6Y9LQj7PLYM/MeH6duhCJ7OrXRq/8Pw0q3REoTkT7uY4Ry4gzZLNtjDIXXdMedS8Hh/PMinc6ElP8FBHXZzq6ECJP4tVBcUEEtJV4APeoPfpOe61TD0yC5GK8U81wfHwr8qwhhqeTTe+KHkEefVdQX9mxKwnqD0fMHpeHN+RPGKYwDA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <6249db03-01b5-e1bb-75ad-5946e16f639d@suse.com>
-Date: Mon, 7 Feb 2022 09:53:48 +0100
+Message-ID: <4da70949-7d6c-65a4-662a-301bb7075bc0@suse.com>
+Date: Mon, 7 Feb 2022 09:57:55 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.5.0
-Subject: Re: [PATCH RFC 2/3] xen/arm: efi: Introduce and fill the
- vga_console_info
+Subject: Re: [PATCH RFC 3/3] xen: Introduce a platform sub-op to retrieve the
+ VGA information
 Content-Language: en-US
 To: Julien Grall <julien@xen.org>
 Cc: ehem+xen@m5p.com, Julien Grall <jgrall@amazon.com>,
@@ -88,184 +88,123 @@ Cc: ehem+xen@m5p.com, Julien Grall <jgrall@amazon.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- xen-devel@lists.xenproject.org
+ xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
 References: <20220206192839.75711-1-julien@xen.org>
- <20220206192839.75711-3-julien@xen.org>
+ <20220206192839.75711-4-julien@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220206192839.75711-3-julien@xen.org>
+In-Reply-To: <20220206192839.75711-4-julien@xen.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AM6PR10CA0033.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:209:89::46) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AM5PR0701CA0053.eurprd07.prod.outlook.com
+ (2603:10a6:203:2::15) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 3f85f17e-83f6-482b-790f-08d9ea175ab2
-X-MS-TrafficTypeDiagnostic: AM7PR04MB7063:EE_
+X-MS-Office365-Filtering-Correlation-Id: df58d11e-b294-4427-2e5a-08d9ea17ee01
+X-MS-TrafficTypeDiagnostic: DB7PR04MB5483:EE_
 X-Microsoft-Antispam-PRVS:
-	<AM7PR04MB7063B3650583308937EB9C97B32C9@AM7PR04MB7063.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+	<DB7PR04MB5483323BAAAF2BC5039F9BAEB32C9@DB7PR04MB5483.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	fodQGPU8sJ1VW62UqGPvapSBPMU0E89APfb1Vmqsm9X3vMPcgRtQLAxt5qwibW7qHBYJhsthoQ7PJkGAtTUsYm8J7dJ/t00UAL79zAxzx3g1/bXrESLCoAq6HztsyGzLyRH1/pxWuUX2YFQqqV0cs4OhExoBREGKb601maUL0WP1e+P5SvSL+EZVkIH6sNF2AEOlm3taF1g3kUuXcJ4l1rjkTMbqqAV1zD6+uPsags/Tr7dpQt1bcPVF9Wx8SWMXTwZj8iuFTED2vBzflbpDltTg5/UVqz2W2A9qEcvYe3KxWHcz1W4g8AD/kDYTFtSv7mTCE3UQC8RclH7HkcHGy4Ej+O6WUZQl0uOaj8EvCvpt9Kx07zULVcSto+qeLfy0ePHVmYOkoQ1QsFXgDkvJfziC/MCQeuP5D6k3EkkO06VhP1JHK9wyRp8eG5bizGr4s8bxGysxIrn9+0hhNvzdMqtqdljsr09Hmgxf+GqVq2iFvyK3LbYfRMonLfguWJj1N58LYpYq4bE7KNfQ7s4xQe4oMWWf1P8gZnOmvWdxkIpwhlAl4BUn8BJo9Q26dbfsogueu9vLrO/NQ/88ryaAyaQwXQ9+VDDdd1uEgIaWQB4UfTWojy4BDT8/YdCoXCLIYGyi9kvZifWSFvsW8zBkcenzbD7VI8x4rO1HaFAIlRU9DzoCHX2kdbUR2kv+CFP6XSpgadAtIugL23vj4A6lC+BL7q6iUDCBdoWauulkI/0=
+	C91hv5wqNOaSfnPesFBaqccxB0DeOYnoovO8qlE6LcbSOrisPEltZkpuWmF3kEviIVz5hHGnptX9mnra2vQSYYJXsPaTzLafoA4ZfVfGhREQHm6ST2HbOlZhxTJg2UV3zFBtw0fbr/n52tvTbp55jYCJrl7qEqfPiY71PZBuJISrIir4otDL9sDBMONlGB34AG6m+IDmX/VFUm3Nu+3Wat+i5LV9hZkgXu6kMvkLM/ql4v6xFMUZsinf/RULkdwtTG8jXyj3aGju8TcEjOi19Yb0Xw5l4A9t9ACS/tw/gZVaCl30a7W1MuQCx02haoHKc/hSHNTLL4/OfFiYwo9SWe6FEhQ1d6HMdY241tuGKjwyqsQKelRUDzIkldA8TWJAT2QO1npgEo8O9cWet3aYMfjIF2/TaW+IYwa6fHyvEp12klMUi+LUcz7fJjFRquMB+ZqLiAzQMy0VsVZ8P6CWpq6PVzMinOEH0U+aoGCVfhk5N6qh6w0kfrF7OaJBwpVEJBZW/UOcpgLAT1E4wGBVRSne4AQhAZStStVSD40gvNjWbzFyhRyAVvJwMaxiV5EuCxwlNXZkSPj09uCDSYkVVJYIE8HLK2LSQJHT3AXOvyF6qjSBbbMuJYIGMfnknRv62hO8u20RmOkL9k8fL+xzY849sc/zRA7+HQrRyoQhYutsBpp8aQ0p1UqBYh4cXQpFy0xQQah/HnmQqsjBso+/vnvrVIVv2xCjjAKhKsivO0o=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66946007)(31696002)(86362001)(8936002)(4326008)(8676002)(66556008)(66476007)(6486002)(5660300002)(83380400001)(508600001)(7416002)(6512007)(6916009)(36756003)(26005)(186003)(316002)(6506007)(54906003)(31686004)(53546011)(38100700002)(2906002)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6506007)(2616005)(2906002)(316002)(31696002)(36756003)(31686004)(5660300002)(7416002)(38100700002)(53546011)(86362001)(66946007)(508600001)(4326008)(8676002)(8936002)(66476007)(66556008)(6486002)(186003)(26005)(6916009)(54906003)(6512007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SjNWUEdlL0h1ZklSckpYYzFrQWpjU25VNlEvcnlIVTlyd0VYd0lmcHJTdWJ0?=
- =?utf-8?B?WG95YW02VGU5QUk3WmlmQUhJd0l0UEg3dzc5U1VOM0VwZnpXVGtIaHF2SEh4?=
- =?utf-8?B?V3hDdVd3SmVsQ1VsdnljSXhHdSthU05EZ3YrUktZSmc0djJ5Nnp0RWdVdm1q?=
- =?utf-8?B?TTJDT2VhdjdrcFRhSGF3dDBwUjlBdWZEYk5JY1EzQytOT0NySjkxQWpnNFhj?=
- =?utf-8?B?bkJQa3I2SXZIRFY1WHlDTVVHSVIvOWorL1o5cEhHSWVZb3FJM0E1UnpnM3VD?=
- =?utf-8?B?WWdxTWpQei9DQm9JRTBrYi9FVnlHM0wrM0VMRTR2cjlxNzlYclM3eGdJbEEy?=
- =?utf-8?B?bThTRHRVenhoS3VVS09aZk9wZk5CSExuL01PcSsvaHI4Y3p2OTd1bDk0a1cx?=
- =?utf-8?B?dDArbi9EamgxTXBzWWVhNmtJNVdPRktoQ0VLd0VUZjdPQkZEdGd1U2NTeGRF?=
- =?utf-8?B?ZWhpZVQ4QTYrVjM1M1ZPaHZvQ25OamI1ZVVKZWZYNlhsVnpuME1wVFgycHlz?=
- =?utf-8?B?S1BCaDh3Y0NzTHJBQjdKQ3h3KzAxQ1RWUXo2bG8zNnZzQnp0K1daREYydXFN?=
- =?utf-8?B?RkV1VVowTWc5RjhwYm40eDExSUdFYmFMSWJGdWJhTDdOK3cxbFBsazdlNW1l?=
- =?utf-8?B?ZXhGKzBSdDJlYURUZUhnM2pEMngxUGdBdmJLWTN3d3U3NEJsSXRmaVlXd1Bh?=
- =?utf-8?B?SmFCYmhCVU1VNHNiYk1GSHRYdGpnZkhaN0lMcTRXYlU1ZzcrQ2lJYzd6dVhD?=
- =?utf-8?B?QWkrWlNNeEVidmJRZHNvWk9vdFlWbVNvbmZZUjFpNTNnZm9SNE5aaHYxcG1J?=
- =?utf-8?B?U2Vmd2tGMzl4UGtTNDNrRS8wTHVrcitOMEUramNJYzBZZnA0a0VrQis2MWdP?=
- =?utf-8?B?eitkS2NxUnFvenB0SUJMWDJFSTVmdHdsVGRQOHl6SHcrWUFDc2VFUW9JM252?=
- =?utf-8?B?OEZrK09USVp4aXRFdTFaYXVQbklTZWhVc2o1N2djdWpCSFJxM2NiZjZpak5J?=
- =?utf-8?B?NXVmWmlhWEdrMXk1SThHVS82VXB2Zk15MGRjNWU4UUlocWNVNVhRcEo0SjVU?=
- =?utf-8?B?dEtRSUVRVFpLYXJCcVVaMUZpeDJrVkI2S3Z2Tzk3dDZuQUw1VXdEZG9wcWR4?=
- =?utf-8?B?TzQrNW5neWNJb3pMYnVXV3kvUDRKMWFFM1c1WEVkSUU1c1I0OCtEc0JlK3lu?=
- =?utf-8?B?TmpCdEVXakV2M1N3NzJENFlROGxoU281NUxRRjU1Ym0vSkMvYm8zUDVzOTBW?=
- =?utf-8?B?UWNYQ29jQytVbnRqYzVzUktZSHNnZlc5QVp4eTJNMWZwUDZJbTRyYkRkd0FB?=
- =?utf-8?B?TmIvVGVPYTRHWFlvdlFFTUtJNXBMa1BMY3dybHhWMkZEWkhoekNuYjNKZmgz?=
- =?utf-8?B?NmhPUDBwbmVTejdVc2pFM0pkUjRZT0RSSnU2RGFiejRUcnV4OVBJOERqMjkw?=
- =?utf-8?B?NEx0Z2lJSUVESjh1MVJLMG92YTZWS3dGbkRid1diR3RqK043SU9RTE9WcWVM?=
- =?utf-8?B?S3E1d0RlRVZaMWRFdWlGZllGS3JWaEFFcm83RFpYQkRoajRPc3lrR1pTbnEy?=
- =?utf-8?B?NnNsR3l0eHY3c1JIdlkzU3RyOUt0dG1iVmJWSWFxNy9sUE9PZGFJR2hudkZv?=
- =?utf-8?B?Y2xob1VVbmEvWE83Y2kxRGFZY3p6WWc5T3Q0a1d6YVQ5ZjhuQ2REeUhOSUtn?=
- =?utf-8?B?NGdwcmdnUkhFVXVqRnJqNG9MalZmU0lxc0ZGZEQxYzNWcnREdXhWWkl1bDN3?=
- =?utf-8?B?K3FpczVZdE9SRlFNTElpUm12VStjZFVyMGMyOEd1K3c3eUdpdnpYbDVPc2tQ?=
- =?utf-8?B?cmxOaEV1NXJDU2QyRS9Ca1JlZzBTN0pGREkxYk5uby9ablJCVC9aeUtVWXRV?=
- =?utf-8?B?SDc1eEY1ZnFnenB4dlV6UnNjalkvUkxhY3ZjM3BXYXdkS2l5MmFWTmxHeXYz?=
- =?utf-8?B?K0ZEOGNtVDZPVnVwaXRFQVRFQmFhOVlYbklmR1R6SE5kRlZReVZxay84bVZJ?=
- =?utf-8?B?MnB6U21SQ09TSHUwVGpQZDJhMW5wQW92TEVMSzVhbGJ3UlJoSUFLejM1ZDQ5?=
- =?utf-8?B?VDJjb3dmWS9jSWVPYzJObm1PQ2R2YW10ajFEWFR2L2V5dTBMVktibG4vY2tX?=
- =?utf-8?B?SXRXSlNsMmxvN3hLTTZ0RlZtOE5TQ1p5UjdEd1k4Z0o4YTFkT1ZpQVdaZVd4?=
- =?utf-8?Q?iUFWlBEBA4dLrtBfnukuyc4=3D?=
+	=?utf-8?B?UUVPSTE1TnJDeUFrNTA0RzdIZXAwR1ZuSTVqQ0VSYysyRWpKTnd0WkJxWjFp?=
+ =?utf-8?B?WG5yMU9aL3FheklrN0ZWb2hJM0ExNDNkeGdTTnhKQnJIT29GaGVqWUhLMmd1?=
+ =?utf-8?B?K1R6U3FpWkdWQ0lKWFZ1RWxLYzNqV3ZEdjlsVTlFbjQ0V3pnNDFzQ0pNYlhl?=
+ =?utf-8?B?UXMvem1iTXhOMy9RSnFBNEdpRHFPbndNbVdFdHVYNnZibk5UVTJaNEdLckRi?=
+ =?utf-8?B?cmRnL2NjM1NQRUlFRlFZOEc5NnBTajFuYXI2U29RdENHWDR3ZUttdzQrWlF4?=
+ =?utf-8?B?OEk2azFncWVkZVgvVjM3dGJZdTdJeWFBd2N4d0VTUVByNzl0ZnB5VC9Tb3BS?=
+ =?utf-8?B?ZVpqSzMwSzhsbUdhcC9GTHRvcE9kU0xmY2xHNjNBUlgvQ3RwVkNmTHEyckVF?=
+ =?utf-8?B?VkJTY3kzT0taOE1LcUI3dWUvaG1adkxka3l4Qmw0SFYyakhBUTJuNU4rdGhr?=
+ =?utf-8?B?NGhscERvWnpMcTJMRm8wNXF4T1dJa25ZNFlMc3dmcXo4M2kwNjJYVEdTdTNu?=
+ =?utf-8?B?TkVJS3ZYcjZPaWlUc3Z6d1IvQi9KTGx5YkZyZm9LZ1VCM1JDZUJ3TCtNNENk?=
+ =?utf-8?B?QXU5dTQ0ejBnOFdJMzhaMlhFK1M2YVpVb1JNMVFHUGt1R0t0b2RYSk9rSExu?=
+ =?utf-8?B?VTM4KzVhdFIrSEt5TTZXQkRJdjVmNkFVMVJKbFBHckMxcENTVXZFK3RoRzYz?=
+ =?utf-8?B?RnE3VnluRk5lU1J3NDFnVnk1TEtSSzBObE9oT05Vblg4cWZ3UVl6Z290TldG?=
+ =?utf-8?B?cDZOc29xbE1TVThiZExoRHlpbmIvTVNBdTV3U2tvUVVxSXB4L21hekV2S1RH?=
+ =?utf-8?B?Qk9jN1JTdk1ZYzNDcHhEbmZIQ2xEOHJqYnVES200Zi9PTi9nWnoxNWFXY2o1?=
+ =?utf-8?B?QmxyYVZqaVQ2a0NRQkhHSFNZN3U3bDlSY2w0UVNLRTNTMkJtTHYwMU1nSE9k?=
+ =?utf-8?B?K0o4VG4yS0kyWG9tOHp2ZExOL1M3aENQdjArS1VXNnlKT0lBbm10c1dPQjVv?=
+ =?utf-8?B?QXRTajdMUnBLSG0xRkoxODBUQ1IwMkp6dlAzNThpc2dCOTU1a1Vqbm5kRm9C?=
+ =?utf-8?B?ZStXOEpGSjYvczBtRG1CQjJYcDRqUTZzSlNEYkpHVmZSNmNxTjl0cmpQbC9K?=
+ =?utf-8?B?OXhQYkFoOU5yWlFPcHk5QTVtK25wUE5WVUZyNlorOEc5c2U5UjdTZ1lKcFU3?=
+ =?utf-8?B?YlFiL2M3V1lzQysycDNZRlhVdWR6akpWcGVrSGVpMTBVaHM2cVNaZjVjNDdS?=
+ =?utf-8?B?RmsvYWoyTUtEaUVFa2RNQlQ2Tyt2dm5MWCtEdGlQdDBHUll0anlhaEJmQlB3?=
+ =?utf-8?B?N3NNRWttR1JqYjlpNGRZbjdJam9HckdmL0t4WmtGOTlhSjJINlBabmhzek1X?=
+ =?utf-8?B?TkV0TnNSbU80TDZoMy96UExndW8zeGtqNTkwSjNMTVNWSUV1eCs3QWN0V05N?=
+ =?utf-8?B?QmQ1QWJ4djM3SVBwOGxMQTFPb1dPdzluanRac0p3d1ZhblVhaDBDQ2s4bDU1?=
+ =?utf-8?B?aUtwOXlzL2NnN1lhT3dTZ05wQ1d4TC84dmg2Wkg2eEg3dXJWRmJzQ1J2YkRt?=
+ =?utf-8?B?bDIyMDJ6b1BSY2tNR1dPWkdJc2QwOEFPdE1UR3drMHVlbmlsdG96UXVXcFF2?=
+ =?utf-8?B?NGNPUzEwbXRFVkZlMlFqN1Zkb3IvV1MwZUhhaWVoMnlzNW9IUzFJZ1hQNVVP?=
+ =?utf-8?B?ZHJrYVJ5Qmx3ZUoxZ0dkcUZRWGRrdjRjUzM2RkxVTThYVmhMR3FhdFlVemFl?=
+ =?utf-8?B?di84UTVYQTZiQmEwanJ5Z1Z5dStXdEMwSXFlY3B1dlEvZENVQlVBWVVoKzVk?=
+ =?utf-8?B?QTNRa1hEdmJrMTRvekVZUWlsUW9wR2UxalBPU09zQkFMNzJwVVFIdmU4NE5R?=
+ =?utf-8?B?NFhzdWFoTWU1ZTVZN01YK2ZrampZVDQ1ZWVHYTI5b3Z3QTc3RHhyRUEzYXUv?=
+ =?utf-8?B?eVRESnpjZXYwZ2xRcm5PS3ZldUxtQUp4QmxDNlpFSXVlWXo1WWorZWhDN1ZM?=
+ =?utf-8?B?cVJIeGNYcklNaFNPNHd5M3NhYW9VZHpIVlJkYkRGMExScDdyc0dXbVdlQ2xF?=
+ =?utf-8?B?Ty9IZGpjWXlXNWtWVDRaazcrV0oxbXdsZitTNEpxMkduQ1lFOVJ3ck13bzlr?=
+ =?utf-8?B?REo3MXU0aDROVTJ6NFE3d1g2bUd5ZFRRRGIrM3hPQ3gxUStvemRXWmdSZExW?=
+ =?utf-8?Q?pMf2EIwYkD/zuiH2Jj9tytI=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f85f17e-83f6-482b-790f-08d9ea175ab2
+X-MS-Exchange-CrossTenant-Network-Message-Id: df58d11e-b294-4427-2e5a-08d9ea17ee01
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 08:53:47.7678
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 08:57:54.9712
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bdg28+HGF11YwEVUR8UEHReQeeLoKJY1fUfM20BR9mA+Nk4DRBe2HnLFFUK1ruZUMwUBXkWWi1+/ky8l8fEAaw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB7063
+X-MS-Exchange-CrossTenant-UserPrincipalName: EKBjrhWtLMuft2o9t5cfIeJxf1Xd6QVi02lUVzpRbmbi8iL7Z/IDE/dpLgHe9zCG490XF0DAEACLWrJoRfDWeQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB5483
 
 On 06.02.2022 20:28, Julien Grall wrote:
 > From: Julien Grall <jgrall@amazon.com>
 > 
-> In a follow-up patch will we want to add support for EFI framebuffer
-> in dom0. Yet, Xen may not use the framebuffer, so it would be ideal
-> to not have to enable CONFIG_VIDEO/CONFIG_VGA.
+> When using EFI, the VGA information is fetched using the EFI
+> boot services. However, Xen will have exited the boot services.
+> Therefore, we need to find a different way to pass the information
+> to dom0.
 > 
-> Introduce vga_console_info in a hacky way and move the code
-> to fill it up from x86 to common.
+> For PV dom0, they are part of the start_info. But this is not
+> something that exists on Arm. So the best way would to be to
+> use a hypercall.
+> 
+> For now the structure layout is based on dom0_vga_console_info
+> for convenience. I am open on another proposal.
 > 
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
-> ----
-> 
-> This is a bit of a hack. Sent early to gather opinion on whether
-> we should enable allow Dom0 to use the EFI Framebuffer even
-> if Xen is built with CONFIG_VIDEO=n on Arm.
 
-I have no input here; this will need to be settled among you Arm folks.
-I have no objection to the code movement, just one nit:
+Cc-ing Roger as this may want using for PVH Dom0 also on x86; my
+first attempt to propagate this information was rejected.
 
-> @@ -1025,6 +1026,77 @@ static void __init efi_get_apple_properties(void)
->      }
->  }
+> --- a/xen/include/public/platform.h
+> +++ b/xen/include/public/platform.h
+> @@ -244,6 +244,7 @@ DEFINE_XEN_GUEST_HANDLE(xenpf_efi_runtime_call_t);
+>  #define  XEN_FW_EFI_PCI_ROM        5
+>  #define  XEN_FW_EFI_APPLE_PROPERTIES 6
+>  #define XEN_FW_KBD_SHIFT_FLAGS    5
+> +#define XEN_FW_VGA_INFO           6
+
+Perhaps s/VGA/VIDEO/, despite ...
+
+>  struct xenpf_firmware_info {
+>      /* IN variables. */
+>      uint32_t type;
+> @@ -311,6 +312,7 @@ struct xenpf_firmware_info {
 >  
-> +static void __init efi_video_init(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop,
-> +                                  UINTN info_size,
-> +                                  EFI_GRAPHICS_OUTPUT_MODE_INFORMATION *mode_info)
-> +{
-> +#if defined(CONFIG_VIDEO) || defined(CONFIG_ARM)
-> +    int bpp = 0;
-> +
-> +    switch ( mode_info->PixelFormat )
-> +    {
-> +    case PixelRedGreenBlueReserved8BitPerColor:
-> +        vga_console_info.u.vesa_lfb.red_pos = 0;
-> +        vga_console_info.u.vesa_lfb.red_size = 8;
-> +        vga_console_info.u.vesa_lfb.green_pos = 8;
-> +        vga_console_info.u.vesa_lfb.green_size = 8;
-> +        vga_console_info.u.vesa_lfb.blue_pos = 16;
-> +        vga_console_info.u.vesa_lfb.blue_size = 8;
-> +        vga_console_info.u.vesa_lfb.rsvd_pos = 24;
-> +        vga_console_info.u.vesa_lfb.rsvd_size = 8;
-> +        bpp = 32;
-> +        break;
-> +    case PixelBlueGreenRedReserved8BitPerColor:
-> +        vga_console_info.u.vesa_lfb.red_pos = 16;
-> +        vga_console_info.u.vesa_lfb.red_size = 8;
-> +        vga_console_info.u.vesa_lfb.green_pos = 8;
-> +        vga_console_info.u.vesa_lfb.green_size = 8;
-> +        vga_console_info.u.vesa_lfb.blue_pos = 0;
-> +        vga_console_info.u.vesa_lfb.blue_size = 8;
-> +        vga_console_info.u.vesa_lfb.rsvd_pos = 24;
-> +        vga_console_info.u.vesa_lfb.rsvd_size = 8;
-> +        bpp = 32;
-> +        break;
-> +    case PixelBitMask:
-> +        bpp = set_color(mode_info->PixelInformation.RedMask, bpp,
-> +                        &vga_console_info.u.vesa_lfb.red_pos,
-> +                        &vga_console_info.u.vesa_lfb.red_size);
-> +        bpp = set_color(mode_info->PixelInformation.GreenMask, bpp,
-> +                        &vga_console_info.u.vesa_lfb.green_pos,
-> +                        &vga_console_info.u.vesa_lfb.green_size);
-> +        bpp = set_color(mode_info->PixelInformation.BlueMask, bpp,
-> +                        &vga_console_info.u.vesa_lfb.blue_pos,
-> +                        &vga_console_info.u.vesa_lfb.blue_size);
-> +        if ( mode_info->PixelInformation.ReservedMask )
-> +            bpp = set_color(mode_info->PixelInformation.ReservedMask, bpp,
-> +                            &vga_console_info.u.vesa_lfb.rsvd_pos,
-> +                            &vga_console_info.u.vesa_lfb.rsvd_size);
-> +        if ( bpp > 0 )
-> +            break;
-> +        /* fall through */
-> +    default:
-> +        PrintErr(L"Current graphics mode is unsupported!\r\n");
-> +        bpp  = 0;
-> +        break;
-> +    }
-> +    if ( bpp > 0 )
-> +    {
-> +        vga_console_info.video_type = XEN_VGATYPE_EFI_LFB;
-> +        vga_console_info.u.vesa_lfb.gbl_caps = 2; /* possibly non-VGA */
-> +        vga_console_info.u.vesa_lfb.width =
-> +            mode_info->HorizontalResolution;
-> +        vga_console_info.u.vesa_lfb.height = mode_info->VerticalResolution;
-> +        vga_console_info.u.vesa_lfb.bits_per_pixel = bpp;
-> +        vga_console_info.u.vesa_lfb.bytes_per_line =
-> +            (mode_info->PixelsPerScanLine * bpp + 7) >> 3;
-> +        vga_console_info.u.vesa_lfb.lfb_base = gop->Mode->FrameBufferBase;
-> +        vga_console_info.u.vesa_lfb.ext_lfb_base = gop->Mode->FrameBufferBase >> 32;
-> +        vga_console_info.u.vesa_lfb.lfb_size =
-> +            (gop->Mode->FrameBufferSize + 0xffff) >> 16;
-> +    }
-> +#endif
-> +}
+>          /* Int16, Fn02: Get keyboard shift flags. */
+>          uint8_t kbd_shift_flags; /* XEN_FW_KBD_SHIFT_FLAGS */
+> +        struct dom0_vga_console_info vga;
 
-While you move this code, could you please insert blank lines between
-non-fall-through case blocks, and perhaps another one between the switch()
-and the if() blocks? And it looks like
-- the "gop" parameter could also do with becoming pointer-to-const,
-- the expanded #ifdef could do with a comment briefly explaining why Arm
-  needs-special casing.
+... the structure name including "vga" (but if the #define is adjusted,
+the field name would want to become "video" as well).
 
 Jan
 
