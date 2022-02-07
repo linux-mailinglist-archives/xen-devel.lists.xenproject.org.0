@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D4194ABEA4
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Feb 2022 13:47:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.266833.460548 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A34224ABEA6
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Feb 2022 13:48:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.266845.460558 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nH3QL-0001xS-VK; Mon, 07 Feb 2022 12:47:17 +0000
+	id 1nH3Rg-0002h5-Cg; Mon, 07 Feb 2022 12:48:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 266833.460548; Mon, 07 Feb 2022 12:47:17 +0000
+Received: by outflank-mailman (output) from mailman id 266845.460558; Mon, 07 Feb 2022 12:48:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nH3QL-0001vP-Qw; Mon, 07 Feb 2022 12:47:17 +0000
-Received: by outflank-mailman (input) for mailman id 266833;
- Mon, 07 Feb 2022 12:47:16 +0000
+	id 1nH3Rg-0002ec-9a; Mon, 07 Feb 2022 12:48:40 +0000
+Received: by outflank-mailman (input) for mailman id 266845;
+ Mon, 07 Feb 2022 12:48:38 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=hYSm=SW=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nH3QK-0001ru-9s
- for xen-devel@lists.xenproject.org; Mon, 07 Feb 2022 12:47:16 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 11646bd7-8814-11ec-8eb8-a37418f5ba1a;
- Mon, 07 Feb 2022 13:47:13 +0100 (CET)
+ id 1nH3Re-0002eU-R7
+ for xen-devel@lists.xenproject.org; Mon, 07 Feb 2022 12:48:38 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 43c18c5b-8814-11ec-8eb8-a37418f5ba1a;
+ Mon, 07 Feb 2022 13:48:37 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,455 +36,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11646bd7-8814-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 43c18c5b-8814-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1644238033;
+  d=citrix.com; s=securemail; t=1644238117;
   h=date:from:to:cc:subject:message-id:references:
    content-transfer-encoding:in-reply-to:mime-version;
-  bh=fIkhgpoA9HInbkbMdb7M92sMZI4UpmRyJhdzVvkWngs=;
-  b=HbXSh4EenxvGotyDTau04s8Jx8hs5WOIj9tScDs2OyBVgWh/8P+Y/7fb
-   haKc8htGchxezYd9bvkBS09IOh4fDsde2l3zAe1LO2/di/fUaM3oG1ROM
-   cCom50+NHWRxiLES/gSeY+Bj6/WyrNoZ5w1uSMLdo5O5ZZ+gLTHxfbZMJ
-   0=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: C77i+etr9D9s9HzZMGOP5iruX7lF1LAegDo276ZtMBgn+z6hMzDHlEpj3H4VHoyVChg7kKjiDv
- 8KsR1JJiG6MR6oSCzEgCX9mJAFcaX+bJG6Srew7a29qQqZXg8ITp+u7lzqsETvcMa6JTgMsKAi
- jJLFzd4wx0ij8jTI14q+ztI0df7OYKuXHOcWJWL1fgFmoTZtHXJjzTuzgsG9KesHgbwSxMsJgp
- 7Ue1DbTTy0K7CqtauucUkJGK9OPC8q8CQxkreDEC1vwYdym802LY4vXVJTUdtmTficOeTR+faF
- cCQm0DcvFaqrOSudc8Mj0Et0
+  bh=fzA7pERzn3oX+a6qUMCOOOx7IB5bl2eywGcGy+CJuPU=;
+  b=VyHRN9npkPBsBhHlcCffg+Ea0SXx+t4M7U+Ct9pVuGCHwlHTs9U4dWA2
+   /JEZTgHL9EhpS87Qg938OnaMuxKqZKXuBjJOWKjbBYHLMFFxT4JdnXJGB
+   84SQoXIkh3l11T8gz/o1vLHKiRQ9m+KD4hVXaYjEc98PRXxrVb9FB9lkt
+   U=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: hAcr5ycEG9K7NYtsP33Jd+uio//h5vNzVPe5nJMshX1QOnKo/4Mi3sZBsISlO73sQTGp8BaW+K
+ ryUWwZV8gFkSl0bbirMCb3pFVn+mbm8GGinh7ETT2BZWk18U8hVL34hK58P1mbTn1SpLWpZgEg
+ C0Tf4mJM3W+LvKNip1ET5mPAQAClAH3arAyQSvq1XDDP4Qcc+4nHp8bG8+3b1FSmb1McYsZ2oc
+ 3l6Sact8Ko1n4Y0Jpll8D4N56/7hmaYniW55YsmjH01eqeW0rrM1tgeZ6T7hjorMvq781+xTTj
+ 2YAOrWfnhAZPaSzHvGMUJysr
 X-SBRS: 5.1
-X-MesageID: 64044594
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 63550260
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:I78iBa4KV7PUh9byCHx4DgxRtBjBchMFZxGqfqrLsTDasY5as4F+v
- mJJXjqHM6zba2X1L41yOtmyphhUsJ7UyYdrGVRr+Cg9Hi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FV8MpBsJ00o5wbZj2tEw2LBVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z6
- twW5aa9VQISIbCTycYQSyQGIwFTBPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALNs7kMZlZonh95TrYEewnUdbIRKCiCdpwgmto2pwTTKq2i
- 8wxQjFfZwn7RyJ2PkoVMZEymryz3SnUWmgNwL6SjfVuuDWCpOBr65D1OcfRUsyHQ4NShEnwj
- kvc42n8NTQLO9WexCSt/2qlg6nEmiaTcIgfDqGi//hmxlia3HUOCQY+XEG+5/K+jyaWS99Zb
- kAZ5Ccqhawz71CwCMnwWQWip3yJtQJaXMBfe8Ug4QGQzuzP4gCWBkANVDsHY9sj3OcIQjgt2
- k6MjsneLzVlu72ISlqQ7r6R6zi1PEA9L2UPeCsFRgst+MT4rcc4iRenZvFnHa2uh9v5AwbZx
- TyQsTM+jLUei80M/6ij9FWBiDWpzrDLUwo06wP/Tm+jqARja+aNQIil6kPS6/paG7qIVVmKv
- HUCmM+24fgHCNeGkynlaP4WALij6vKBMTvdqV1iBZ8s83Kq4XHLQGxLyGggfgEzaJ9CIGK3J
- h+I0e9M2HNNFFmjNv9Nbp60MNs3kvnCGMzYCMD0Q+MbN/CdazS71C1pYEeR2UXkn04tjbwzN
- P+nTCq8MZoJIf85lWTrHo/xxZdun3ljnj2LGfgX2jz6ieL2WZKDdVsS3LJihMgd5bjMngja+
- s032yCim0QGC72WjsU6HOcuwbE2wZoTWMqeRy9/LLfrzu9a9IYJUa65/F/ZU9Y595m5b8+Rl
- p1HZmdWyUDkmVrMIhiQZ3ZoZdvHBMgj8StqZHVybAzxgBDPhLpDC49FJvMKkUQPrrQ/nZaYs
- dFZEyl/Phi/YmueoGlMBXUMhIdjaA6qlWqz09mNO1ACk2pbb1WRoLfMJ1K3nAFXV3bfnZZu8
- tWIi1KAKbJeFlsKJJiNMpqHkQju1UXxbcovBiMk1PEIIx6ymGWrQgSs5sIKzzYkc0malmDEh
- lrJXX/1Z4Dl+ucIzTUAvojdx6+BGOpiBEtKWW7d6Le9Ly7B+WS/h4RHVY61kfr1DQsYIY2uO
- rdYye/SKvoCkAoYuoZwCe8zn6k/+8Hut/lRyQE9RCfHaFGiC7VBJHia3JYQ6v0Rl+EB4QbmC
- FiS/tR6OKmSPJ+3GlAmOwd4PP+I0usZm2eO4K1tcln6/iJ+4JGOTV5WY0uXkCVYIbYsaNElz
- O4ttdQ48Qu6jhZ2YN+KgjoNrzaHL2AaUrVhvZYfWde5hg0uw1BEQJrdFi6pv83fN4QSahEne
- 2bGirDDirJQwlv5X0AyTXWdj/BAgZkuuQxRyANQLVq+hdeY1OQ82wdc8GprQ10NnAlHye96J
- kNiK1ZxefeV5z5ticVOAzKsFgVGCEHL80D90QJUxmjQTk3uXW3RNmwtf+2K+RlBoW5bezFa+
- pCeyXrkDmm2LJ2ggHNqVB43seHnQPxw6hbGyZKuEMmyFpUnZSbo3/21bm0Sphq7Wc48iSUrf
- wWxEDqcvUEjCRMtng==
-IronPort-HdrOrdr: A9a23:JP4JXalLjuNkONqWlugNqtaxoMHpDfIf3DAbv31ZSRFFG/Fwwf
- re5cjztCWE7Qr4Ohkb8+xoXZPsfZqyz/JICOUqUotKPzOW2ldATrsD0WK4+UyHJ8SWzIc0vp
- uIFZIRNDSaNykYsS+V2miF+3lL+qj+zEgF792uq0uE7GtRGsZd0zs=
+IronPort-Data: A9a23:hNMxvK86cfJjY6LE2E6KDrUDUnmTJUtcMsCJ2f8bNWPcYEJGY0x3n
+ DYWDzqGbquDa2qjetp0Ydu/oU0A7cPVmN43HlE+qig8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhFWeIdA970Ug5w7Rh3dYx6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPg25
+ vQRkqXsTzskJ4DRw9RECghgOgFhaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguw5K8bmJsUHs2xIxjDFF/c2B5vERs0m4PcGh2pt3poQRZ4yY
+ eI2RCVIVwTgZiQfJ0xQApVkt8y3rSLWJmgwRFW9+vNsvjm7IBZK+KjgNp/Zd8KHQe1Rn12Ev
+ STW8mLhGBYYOdeDjz2f/RqEmevnjS79HoUIG9WQ9PRnnVmSzWw7EwANWB2wpvzRt6Klc4sBc
+ QpOoHNo9PVsshzwJjXgY/GmiDmqn0I7YoZWL+AjxRzW+vON8j6wJndRG1atd+canMMxQDUr0
+ HqAkNXoGSFjvdWpdJ6NyluHhWjsYHZIdAfucQdBFFJYuIe7/OnfmzqSFo4LLUKjsjHi9dgcK
+ RiupTN2ubgchNVjO06TrQGe2GLESnQko2cICuTrsoCNs1kRiG2NPdXABb3nARFodtfxc7V5l
+ CJY8/VyFchXZX13qASDQf8WAJai7OufPTvXjDZHRsd9q238oif9LNoJu1mSwXuF1e5eKFfUj
+ LL741sNtPe/wlP2BUOIX25BI5tzlvWxfTgUfvvVcsBPcvBMmPyvp0lTibqr9zm1yiAEyPhnU
+ b/CKJrEJStKWMxPkWvtL89AgOBD7n5lnwv7G8ukpylLJJLDPRZ5v59eawDQBg34hYvZyDjoH
+ yF3bZfTm04BAbGhPkE6M+c7dDg3EJTyPrivw+R/fe+fOAt2XmYnDv7a27Q6fIJ52a9Sk4/1E
+ ruVASe0EXLz2i/KLxukcHdmZO+9VJpztytjbyctIUypyz4oZoP2tPUTcJ4+fL8G8u1/zKErE
+ 6lZKpvYWvkfGC7a/zk9bIXmqNAwfhqcmg/TbTGuZyIyfsA8SlWRqMPkZAbm6AIHEjGz6Zklu
+ 7Sl2w6CGcgDSg1uAdz4cvWqy1/t73ERlPgrBxnDI8VJeVWq+49vcnSjgvgyKsAKCBPC2jrFi
+ FrGXUZG/bHA+tZn/sPIiKaIq5aSP9F/RkcKTXPG6buWNDXB+jbxy4F3T+vVLyvWU3n5+fv+a
+ LwNne38KvAOgH1Dr5F4T+Rw1as76tbi++1awwBjECmZZlinEOo9cHyP3M0JvaxR3L5J/wCxX
+ xvXqNVdPLyIPuLjEUIQe1V5PrjSi6lMl2mA9+kxLWX7+DRzreiOXkhlNhWRjDBQceluO4Q/z
+ OZ94MMb5mRTUPbx3gpqWsyMy1mxEw==
+IronPort-HdrOrdr: A9a23:e7uGEaMmYM2pa8BcT1n155DYdb4zR+YMi2TDiHofdfUFSKClfp
+ 6V8cjztSWUtN4QMEtQ/uxoHJPwO080kqQFnLX5XI3SJzUO3VHHEGgM1/qB/9SNIVyaygcZ79
+ YdT0EcMqyAMbEZt7eC3ODQKb9Jq7PmgcOVbKXlvg9QpGlRGt9dBmxCe2Cm+yNNNW177c1TLu
+ vi2iMLnUvqRV0nKuCAQlUVVenKoNPG0LrgfB49HhYirC2Dlymh5rLWGwWRmk52aUID/Z4StU
+ z+1yDp7KSqtP+2jjfaym/o9pxT3P/s0MFKCsCggtUcbh/slgGrToJ8XKDqhkF+nMifrHIR1P
+ XcqRYpOMp+r1vXY2GOuBPonzLt1T4/gkWSv2OwsD/Gm4jUVTg6A81OicZyaR3C8Xctu9l6ze
+ Ziw3+Zn4A/N2KPoA3No/zzEz16nEu9pnQv1cQJiWZEbIcYYLhN6aQC4UJuFosaFi6S0vFpLA
+ BXNrCd2B9qSyLYU5iA1VMfguBEH05DUitue3Jy+/B8iFNt7TVEJ0hx/r1pop5PzuN4d3B+3Z
+ W2Dk1frsA7ciYnV9MMOA4/e7rENoXse2OEDIvAGyWuKEk4U0i93qIfpo9Fo92XRA==
 X-IronPort-AV: E=Sophos;i="5.88,349,1635220800"; 
-   d="scan'208";a="64044594"
+   d="scan'208";a="63550260"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YfqTni3B5TxJrLGsfm8JtrjtnT/gv+HrrzfG9uO4bN04pJaO1a5tdrGeZO41eMWuAaXhzRJd11wOzvDiGT0iwEyv0jIpd0y7l/UEy1oS+Gf839/huqKmuvSGCEqEfISXoITOvLWt7AO8icm46t3GMzg+MWCd4fnAStezwlvTmQC9kR5UyJ+cWEwnU/MT8FYYCchD5enU17I4IHMhUWBZlFZMmHRcGVwB8zYclgMaWWmp+zvxC0RKr7B20rYZgXC+SR+UTsumTmQjvQxT8KH/PxBdksf7IwniOchtrc1cnf6wCRhXcf0vjKjo23jPMP2nHDVNoRstuSV8j6SNObejjA==
+ b=gn+PlzccHCN8y+ZsNGGUB1RShozU4sqjsz0cZjqScWGbf3bHGJEOfTS4XnbO03fS29OktKJLWAfpAqZA9PShq+lH9G8FfNJBC88VOFqIBnfWawFz2eNALP/65xWFAgzzXw/0WyP9Wqq7DH7QMAk2zA6Rg2vlNI++7+rDJGYPdwB8IJHd86At1SfJn/UrcfXspktfapcmPXG2Sd2QX3v+4CufyiCZjeKVG1VjaIkNWJ7FuDtGxtuK4wBe61+kBJ54RxVJnMUIpep0ktoJx5vD5ZznGe3wNFZNCqvlCSbRULQ4nBz9cUnFpZfxt5mrdodElA2lI7pExnZz8DUt0hhAUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3KuWjwX3k3PvN++BhxGf/KpKmjdqGgmetGnkm6W1AME=;
- b=CIAsvP7/KxtPPM+1Ov6DssQyx1RNVSRBJtZADmdBl7LqNV2K2HPfNdBhDKLTYWuacQKxeE9EAuBtdhG7IEOShSnKXHqGr2p1WmntFb6TQtb9o2Q8ydeOOAJBBtNJMwlhgxDrIlUi1jEdCViYv0gRsIP3Vw6J+tK2PVQoSdlcJKhi9Ogqi7clJWchJOntcUFRQTE54GKyMVSYvciNe1t9zluAFyWgQih8v9noTWswo4MzS9KkDtl/md1FTQXtYfBTsGfQ4IzY86kHKKgigKCLLmIGbBJl1V5PJ0OnQnhGCIMG5Co7CaZO7YEo23kL3IJoKlgSKaD6aOHWlhyHog94JA==
+ bh=3zmQxJViorRrssZzWRe1BalHYhj3cXuzLAVaMQND/0s=;
+ b=Vdno5hXIo0lqMrp7V56KluTV7hY/+0lsI/BkB3pjGTqXGX9hhioG1rYw7Nr+BfLOTlIaz4A3rQuW4Z0G/mmZk4sg3W81iq2YVL1hgbJ3nTALw/a5nk2CcoCD4+uMACOVQnpr6dyvVTeobLu56+W55TYH+58HDo8CsY+Jq5lBEuvZMTmijGWkSG5ojWScNSgXoM0JA3kODsD2WRuEft82ce8K37PDmunvxIszg6hYoqVQ94uNZr/G5TR2XYp1Gi38K7XTRuXL36gBkb0DrcCCA+bDKv3O7284vfoat49PztdYXv6jpZT+uQzYrU1c22GW7fz/h0MB+3x4P23KYdJCgw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3KuWjwX3k3PvN++BhxGf/KpKmjdqGgmetGnkm6W1AME=;
- b=Vj4EUsOkC+pU7J05rCOaf0HGGWOnOKRfnsLVbGEoE6iprAyNO6PYq0Y7AhC/cISTPAcsFoXZ0D0oogvOW9OzWQYT2uBN1VZzlTquFbWExDjQB8+i8IlpH1pniRdJDaDGnLTsrObwqKbW4kdimBDuH495LlTlamOgEDZeLDUVvG8=
-Date: Mon, 7 Feb 2022 13:46:57 +0100
+ bh=3zmQxJViorRrssZzWRe1BalHYhj3cXuzLAVaMQND/0s=;
+ b=E+Khbm7GdWU64QPDINxKS7QTsua+cexx1TwgO48hUbqwfBG8c37kZMs7gIri4GvHk2nEpwycf9ubSpZDjc6ZR7P69k9uZMBUoG/4roDD4yybSmgPyjypjvOAUDnGBqdPD7LLmGnAVc+ZMzQrtcyf4C0w/c1YcEpWYF8NKy9/PpA=
+Date: Mon, 7 Feb 2022 13:48:21 +0100
 From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-CC: Jan Beulich <jbeulich@suse.com>, "julien@xen.org" <julien@xen.org>,
-	"sstabellini@kernel.org" <sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<Oleksandr_Tyshchenko@epam.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Artem Mygaiev <Artem_Mygaiev@epam.com>,
-	"andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
-	"george.dunlap@citrix.com" <george.dunlap@citrix.com>, "paul@xen.org"
-	<paul@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Rahul Singh
-	<rahul.singh@arm.com>, "xen-devel@lists.xenproject.org"
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v6 03/13] vpci: move lock outside of struct vpci
-Message-ID: <YgEUwTxhnWVMGMJK@Air-de-Roger>
-References: <c3a99712-cf7c-37da-aac1-f2ee00e6d53b@suse.com>
- <Yf0KcVD8W05A4fbB@Air-de-Roger>
- <1ed0e342-16cd-2f16-c05c-186667a22762@suse.com>
- <7e3562b5-fc67-f213-e872-f211450d9e2e@epam.com>
- <a8fc599c-f620-c4d1-2077-c57068f46a7f@suse.com>
- <deef8468-d607-e49e-f456-6a8013329ca1@epam.com>
- <Yf0k6aoKK5G3iad1@Air-de-Roger>
- <3ad10a99-c706-b95f-1419-2c0c7cf37d58@epam.com>
- <Yf0+3C9nF8+tewLw@Air-de-Roger>
- <c5fea3bb-834b-eeb7-d7a1-1ee609037a9f@epam.com>
+Subject: Re: [PATCH v2] dom0/pvh: fix processing softirqs during memory map
+ population
+Message-ID: <YgEVFeW5SDtvavyK@Air-de-Roger>
+References: <20220207112008.51085-1-roger.pau@citrix.com>
+ <66b9fd95-bac4-55f7-2f3e-701f8444f37f@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <c5fea3bb-834b-eeb7-d7a1-1ee609037a9f@epam.com>
-X-ClientProxiedBy: LO4P123CA0516.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:272::9) To DS7PR03MB5608.namprd03.prod.outlook.com
+In-Reply-To: <66b9fd95-bac4-55f7-2f3e-701f8444f37f@suse.com>
+X-ClientProxiedBy: LO4P123CA0037.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:152::6) To DS7PR03MB5608.namprd03.prod.outlook.com
  (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8850c97b-ef91-41c7-f7ce-08d9ea37f0cd
-X-MS-TrafficTypeDiagnostic: BN8PR03MB4676:EE_
-X-Microsoft-Antispam-PRVS: <BN8PR03MB46767A840046B7358E312B038F2C9@BN8PR03MB4676.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-MS-Office365-Filtering-Correlation-Id: ec999278-cbde-4f83-8ece-08d9ea3821f4
+X-MS-TrafficTypeDiagnostic: BYAPR03MB4037:EE_
+X-Microsoft-Antispam-PRVS: <BYAPR03MB40374E83D3A687F551A0A4C48F2C9@BYAPR03MB4037.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dh5qAHumA8782pJKL2gM1cU6hGF3oXc8n1Sed3nnqfZyZEoYEHUNCj1ewccRQqhRSencvsMllaXQpvnB/jnajvKGVvkCKNx9WC9D3rdjzue69+FyuyvIQutIpku8X0ZApX1nq9NHorEf7ac/nh32A9Fl3SzpRnBIVmgH2g4hnf7j9atdl97ek1/7Xiz9Dx/4CEsxOuOIXEiUpgd4L24uSO7bMnSvf7teviKPb+nHZFZ4nNI9ycCs5asUQmYCipkK7mFap5ZtYIEgR6xEgw32AvpcMHB/CR8X+J0n3hIDYMka3srkydbhlF44gROOFx1VnogDsf8RXedyU3r/7gNsX6rxQe2ofmSGF3A07ZVWtJEnz4+4kJCFbfRYOpqrVhTKq8zSXiiBOMup/6V6HH1Vrcmaiy4okuuNG7FL74RCLMyIgAhTH+B0gLCEdHs4vcegt1plukAn2OCE/IFPN8U80YUJOUcGFLHhRT+n7PyaozZRUtflWP+g9h9INx7j6SekPpBRH90cX1JAbPiBPGrYt3vPanp/xdwlfbULZJwFyCrAocOdG4+7T/1S2V51YfYsHs/eN2i9T1JigDyb/oe6IzNgQCvPz3KrREthCe0DoYp4hVqqVS0bGd4Tl7XwEOu0vpPDTtO22qRgtOlzqZxatA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(66476007)(30864003)(7416002)(83380400001)(66556008)(5660300002)(66946007)(186003)(26005)(2906002)(38100700002)(85182001)(82960400001)(6486002)(6666004)(9686003)(6506007)(6512007)(6916009)(54906003)(33716001)(4326008)(316002)(86362001)(8676002)(8936002)(53546011)(508600001);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: F8CHPMIPo3TbbZLm0u33jRzgnRX9viYjIeEUtOjo7O5es9QmDgi5BScisQrppS+O6iEHGAWxdzC4Et2iXbplKgiJTVgTUQlVL9eB84bun1gDlWoh3l9HBbarz7cDls+VngScP8Sy9wEoC0oO2HSGmAhUGG8Z2XN5w82Ha26qFKG8uT6By8nNw8QmJ5NAw9MLhlk5lU5AW8e+pac5e4pszAOIffjePeiH9XF1zSUw5ITsJuPsBoA7rcnLFlSM5Rpkh6zed8lOlFlBHJrfoduGy/+FrnWLvWdj+W5CYGwhSj9LADojgomBH+ZrLQYAclAMfYFqa07Ltbgo597txLkniMid/pmU1pJz9rASkrbqPrKgm8bhLlyLAiX6zGbVlN9dEyVy2agvXBWFoEu7WDqKnvqypSmEnUawugmKw0upS71C7+Qz8D+UPOOMOWXoTvsLfonhXx6jlYZa6XSh+JBuYl/0NiMB38qPXuK0EdeAwQCFCVWqFMKoAF7x7rloyVvWv0FK4nzd72Vph+crz0OrGbpdhbP5HCOThUQopCyWBwdEbacafWoaHq/6vKolwZPGjPAJ3M4TWq2gOdaAQ3g1RwVAB3S5s67upeoFAn9yxkd65z7s6fB7Llotq3/hHjg/Vma2gTkMwjuCwJhTZZtPaA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(9686003)(508600001)(186003)(26005)(85182001)(6512007)(6916009)(316002)(6486002)(2906002)(5660300002)(4744005)(33716001)(38100700002)(53546011)(54906003)(8936002)(66946007)(8676002)(66476007)(86362001)(66556008)(6666004)(82960400001)(6506007)(4326008);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T3Q1YmkxV2FQMFM5MU53L244eFhwSW40RFpzdHJIaFk5dktablJPVEVBT1I5?=
- =?utf-8?B?OUxxcUhRSHB1Mm9wbnJJM1orbGNxNlB2UzIrT0JyRFg1MHltc1VpZUFBKzRN?=
- =?utf-8?B?Q2pJYnphQjFNWXZMcklRcVlXQ0toZitwME5Wb3pXaHZpa0ZQaS9MYVNsUmk5?=
- =?utf-8?B?RzlWM1lLMnRlZURLWVlCd0RDQjJKQ0N0M0ZNdEFmcE8ybFFHeStVekRoWlpX?=
- =?utf-8?B?MkpoK2hwVU1XajJDSGhwaFV3RlhyZVAyV29lUzJaeHlDWmJyejVDVlVNRWlr?=
- =?utf-8?B?Zmc4NU5sNWN3TUkwanZBVkRUdDl3Q2hyY0dlT2lmQWY2dFg0Y0ZOTEhoNU1M?=
- =?utf-8?B?d0thUm1EN2NxczZZNCtHN3U5MWVwbjRmQWYxTFR4allzRjgxdHFTSmhxZC9w?=
- =?utf-8?B?eTJLZThMTk00TEFkQlVQTWN6RWhHaUpWVldMRi9FQThNVVNnYm9uMjd6YlM1?=
- =?utf-8?B?VThiaE8zQ3pSTTJLb2QwRDZjUi9HSVJma3doNElHUEgzNGEyN3JDS25JT01S?=
- =?utf-8?B?YjNianlkS2tUTkY3OVkxdHBvU0xhdHFrRGIvNXRWWG5FNXB5WWQ5U1ZNNThI?=
- =?utf-8?B?ZFhaOFZmNXM4SHRjMXN3Nkxodm5JN21UeTEzUlhNa1d1Wm5lMWhPVldPUktT?=
- =?utf-8?B?ZGdYeTVhdlFUbk4vcVFLRk5SMDJPTFhudEZuSHJzL1JaY3RnMTU4TXo1eFh3?=
- =?utf-8?B?UkcrWTcvVVdKTnFpQVY3Yi9QWmJmMysrS1Q0eElNaHRXWEFLdTVTd1VJaFFy?=
- =?utf-8?B?M2Mxc0Z1VXdzM085bWFwWDRjK1UyL3NTM1BUV2RVU0xYZVY2R3IzR2lvWTJl?=
- =?utf-8?B?cVZ1U3c4WEpwOVNCUWxwVk5NOEcrRVRUMktyb3llL3UzTXNkUWxjaGdQSHRB?=
- =?utf-8?B?TkhWVGdxUWpFSTNKenhCUXZPWnBpbjJBdlJpSHhVa3RxWFRXSGFWWE5VMUd6?=
- =?utf-8?B?dEVpTEQ2cytWVEJ3M1NOd3FIcGxOd3AycWJjVmtFb0lUZE9qcG90bEh4R1lz?=
- =?utf-8?B?S2tJc2pGRmk3Z3V0Ly84aFBHR2ZvSE04dTNqeUl6WlRmZ2FIWW0rQi9nZlJk?=
- =?utf-8?B?eStGVDlJUktKZlRtNFZJWVIrdStURjZGaUNBZlZhSlNIczJzT1prL0V4TWUr?=
- =?utf-8?B?NGZTVFdzSW50M09WaFozSWJNMGJ4VTVFMEdDbnpENHhOS2xWNEtJcDZFcnps?=
- =?utf-8?B?NFB6VGIrRVRHaVkvSFUwcXYyaWEvcDgxTCtwcmZnM2tuWFNmbDlCeGF6TXBj?=
- =?utf-8?B?bUUxYmE3elZSUWtOTnF6MkJ4N1AxRG41QmQyWVUreEZHRC9rVFpXQXlhcXZV?=
- =?utf-8?B?RzJiTU1tWHYrTGxIVHhFVmZnVUNydzA1MnE1Q2ZncXNuRFAvcC9sZUo4VkJW?=
- =?utf-8?B?cVFvdEY3KzlWejhqMDcxM1FKTTZvYnpPMHZPYlNiQ24xcjVSalY3TTg5K3pO?=
- =?utf-8?B?NDJMYkJZN1lDKzczdS82NVZQeUk4Y3Y0YWhXV0YrbURjWUpVT3pXZU15SnJU?=
- =?utf-8?B?U2ZSUVdUM2RORVBEdldCckZTaE84a29iVG1Yc3hLMDRBL0ExMFEybzJINmV2?=
- =?utf-8?B?Z2JCemFUNHllemlqdmJreldsSVVaM1JLZTRDbjEyelpuaG03MGs2R09Ud0kw?=
- =?utf-8?B?aVFYc3JSWEk2aUxaVGFobm04LzNad0ZWR3k4U09OSUJlOWtPMmh5ZUlPV09W?=
- =?utf-8?B?NDMwSXJnSHNmdEFROEFSaTFFRlFxZG1udUF0N0FOcnF0WU1kMURycjdlUjdH?=
- =?utf-8?B?c0Qzc2dEclFweG5SOU44NnkyTmpPQzRqamd5KzF5aEk2b2ZaQUFHaHNlOExp?=
- =?utf-8?B?SDQvRHlKa3hCQ0NlcW5uNjgycS9pMFpxb0EwcitvNUM0N0lQbk5aZ0ZqRWhn?=
- =?utf-8?B?Qk4rQUtDRFUzaWczdDkvcGtBdTQ2NlJIeDJpTlBMTWw5alFxdkw5b1l3cVNL?=
- =?utf-8?B?MEs3RHFSemhpNDNkWWVVaVMzL09rcTh4eE81V1VIbWt2TCt4N0JRQnRLWEdM?=
- =?utf-8?B?Zkxyb0o3c2Ewc0prVzFrU2dFc25rSU9YSHdHVlIvUDdKbFcrYUEwSU8zS20x?=
- =?utf-8?B?bTdkNUd5VHFTcEZLUkR3WHRQcDR4V0J3T3hIallhY0RFNXdGSnp1RDJGWCtG?=
- =?utf-8?B?TjA3UEJjMTFBL3VoQytqQ3F5bDluQ1MvWGpjUUxGSUhtYXA2RFdMelZMV0lu?=
- =?utf-8?Q?HZQGpOAdqif2dIO1n6m0y3k=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8850c97b-ef91-41c7-f7ce-08d9ea37f0cd
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0FqRE1YdENoaFNMZGhoTUhwNEw1d1o3MlFUeGV2cHIwdTM2cWFheUdMeEg2?=
+ =?utf-8?B?SnBpK1JxajVRdUltR1U0a0tQa0F2MDlWclFIK1BuN3dnbDdiVmF1TmVBK2ww?=
+ =?utf-8?B?U3VOd1J4cFU5Y0x6YmtkckxsNE9oLy9YK0dFTWg1L0ZFOWcxUk5SZU02VnMv?=
+ =?utf-8?B?R1E1WStuQkVieUI0M0RXUHpUS3k1MTVUT2h2MzJZcS91eGg5OXJCWU5IWWRn?=
+ =?utf-8?B?QzNHTWVnaUJraDFMZHM4d2QyeFA1REtmN21yS1c0cVdvN3E4WUM0akZkMFhZ?=
+ =?utf-8?B?UnljRW84WVh1RkJBcHp0dGRTTzNJU2tKOVpvSXRvazFJaHQ3djlaU2xzcnJG?=
+ =?utf-8?B?UVMyeEJJaDMyeGJUNjVOZDVYdEcwbzRHU3l3NTNqbXRIeXdvTXpjdUFPb01T?=
+ =?utf-8?B?b2xXWUFSNHlQdmdNWU5CMG5QZ1FZdW93WEJVS2MxQnMzeUh4SWR1OGFwY3NL?=
+ =?utf-8?B?NndIQmI3emNIaDY0T0hEZmVvRnRyRUJESWM5VmtENElEWlVSKzFTSEhKeDRY?=
+ =?utf-8?B?bTJva05Ka3Q1RVZzWWhnMnpYQWlTcHRsd3lHdkdoSFhNK1ByMGErYzZ3bys1?=
+ =?utf-8?B?RE5PVndnNmx2TjQxekw4aWgvcnlFMEZDTnVrcHgwMGhJZGJNRWc4bkN0Ri9K?=
+ =?utf-8?B?MmVBbXNNYUs2TTRqeEt3c0tpWC9NTnI0S1d1MkVKNWRaeWh1Q2FwRnhZTGZP?=
+ =?utf-8?B?R0dhTVI2cDNmZkJNNmp3V2k4T3p2ejlNQjZGTmlBWkVxUUZnbWNqTnZUc0NC?=
+ =?utf-8?B?eVJnWHV2TGxxTDhubW9TNTBkUldNMFJ4TEU4QmFjTVZQZkdMci9wL0NLRFF0?=
+ =?utf-8?B?eURZcXFwOWNkamxXcnFlbEdieXQ1THRqMkhISGhGMFJiTDlveDFPYVFRaG53?=
+ =?utf-8?B?WEdua1JHcFN0azVqZ3ZteU1JSTl0Z2xVd1k5Ykdqcnh5SEhOa2VpaUtTRkFx?=
+ =?utf-8?B?S1hIdVVBYmFnMzFUU3B2UEJIQUh2MlV2ZFNkcmJ4dUVoSDZhUmNTY1NGZWZ1?=
+ =?utf-8?B?NnpJZmR0R01oWkpLbTdIUnYyR1dQTXd1M1ZVQW1uUEUxUmlINFNiQStLdVo5?=
+ =?utf-8?B?eERaTkZ1ZFAyOTBkS1FSaUtEZGN4UHZnM2l0Rm9JUHpGbVRMcTRpdUNmSTA4?=
+ =?utf-8?B?U1pRcHJ0T05TLy9VMVVOK1ZpaTAxQW01bGViQUcva2pSbDN0L0JSWUVuRktJ?=
+ =?utf-8?B?cWVrb0FCdTA1OHEvbzV5b3lJdHBvc3dINjUwTTNSdThLbmZNU0UvQStWZ3M5?=
+ =?utf-8?B?OS9Id1VIY3hxSGQrZnNMa3h6dDk1MVhIVWVrM0dhRW5JOCtzRVpNd21sSWc2?=
+ =?utf-8?B?VWp0MVcrU2U2YWlVeVhFcUdmMWg0TmJVWG5Oc3lrUnUvdVo4bzZHYXhDWEVC?=
+ =?utf-8?B?VjEzTXhTWnlHeHJnUklBYkxmdGljWVFwaTNkamJJQ0c0M3NyWSt2M3FiV1VS?=
+ =?utf-8?B?dlhoSXhkZmxESXMyNzZ2R1VtcnhkUWFLZVhGcWFyaFBkQU1nVHNnbERBbmRw?=
+ =?utf-8?B?SDlZbnFZenZXOVpSc1Q2S2xHOE1KblpKZVF3c2lMekE2M01TSi9HS01HTFlW?=
+ =?utf-8?B?L1dRRENsa1BweXJTdjlBcmlTemNzL3N1RzMyNGlYU1h5ODdTeFV3NEF1RERR?=
+ =?utf-8?B?d0hSdDB4bDYvWUZ3UWlLVnNtdk9VSER6OGVsTHRXOXZJVU93ZUdnZm13Yktl?=
+ =?utf-8?B?Vm9mZENNSURtanZQc2FUWldZS2xUTFVVMjBwQWo1L3RDTGMwdVN5Vzc2R20x?=
+ =?utf-8?B?RlB3b25DYnI4WFUvaTF3dGtsRTRRblVtaHp2aFhITUlPTWJpcy9rdExYT0kv?=
+ =?utf-8?B?bFJhY25MckJ2TUhRV1BVMFYxQUVnbnE5cHJOVUp3c2JvSFkyTHRqZnRhemZ2?=
+ =?utf-8?B?dTNHQlFzekpkOVdSRnYyenE3cDdwNndzcXpvQnRaci9Ia2x6b2Fub09ocjUz?=
+ =?utf-8?B?N0pVd29HRklrcXFFQjN0cDhiaXFOVVZCUTB0NllEOGc1WVNxdG80YngxbGdo?=
+ =?utf-8?B?UXdvQWZDWjBrbWE3ZHRJdkZmbHhsMWZ5Uk02T3hkQmlMWUYzWVVEL1NwMGNT?=
+ =?utf-8?B?ODNidzlidDArc2R5ZkRiSitYbE85Sm9EdU95RUZnczlTVDY1M1Q1U3hKUUdp?=
+ =?utf-8?B?NEFxb1IwRU1RLzBlZVF4VzhmcWltcDZZaTd1c014S1lBMkk1bEFxUnMrTGYy?=
+ =?utf-8?Q?qK3Hzj/pEpQRrqryd1wcMOQ=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec999278-cbde-4f83-8ece-08d9ea3821f4
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 12:47:03.5809
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2022 12:48:25.9004
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vaDmwg0uVQkNvFnibg4nw/qPXP775YP2rCXWLoD5DcJRJWZtT5hCcHQWfqxQ/dlKLtcl3WGE3kjVVANTmsdnpQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB4676
+X-MS-Exchange-CrossTenant-UserPrincipalName: jrbJkzAN3I0v7LSPfMHkCGgWN2aVOvOxP6JJoquHqAd0FoiXGyg+v/pSvAnmOS2VsPH57eDgpfURCUpKpbUSNA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4037
 X-OriginatorOrg: citrix.com
 
-On Mon, Feb 07, 2022 at 11:08:39AM +0000, Oleksandr Andrushchenko wrote:
-> Hello,
+On Mon, Feb 07, 2022 at 01:41:38PM +0100, Jan Beulich wrote:
+> On 07.02.2022 12:20, Roger Pau Monne wrote:
+> > Make sure softirqs are processed after every successful call to
+> > guest_physmap_add_page. Even if only a single page is to be added,
+> > it's unknown whether the p2m or the IOMMU will require splitting the
+> > provided page into smaller ones, and thus in case of having to break
+> > a 1G page into 4K entries the amount of time taken by a single of
+> > those additions will be non-trivial. Stay on the safe side an check
+> > for pending softirqs on ever successful loop iteration.
+> > 
+> > Fixes: 5427134eae ('x86: populate PVHv2 Dom0 physical memory map')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> On 04.02.22 16:57, Roger Pau Monné wrote:
-> > On Fri, Feb 04, 2022 at 02:43:07PM +0000, Oleksandr Andrushchenko wrote:
-> >>
-> >> On 04.02.22 15:06, Roger Pau Monné wrote:
-> >>> On Fri, Feb 04, 2022 at 12:53:20PM +0000, Oleksandr Andrushchenko wrote:
-> >>>> On 04.02.22 14:47, Jan Beulich wrote:
-> >>>>> On 04.02.2022 13:37, Oleksandr Andrushchenko wrote:
-> >>>>>> On 04.02.22 13:37, Jan Beulich wrote:
-> >>>>>>> On 04.02.2022 12:13, Roger Pau Monné wrote:
-> >>>>>>>> On Fri, Feb 04, 2022 at 11:49:18AM +0100, Jan Beulich wrote:
-> >>>>>>>>> On 04.02.2022 11:12, Oleksandr Andrushchenko wrote:
-> >>>>>>>>>> On 04.02.22 11:15, Jan Beulich wrote:
-> >>>>>>>>>>> On 04.02.2022 09:58, Oleksandr Andrushchenko wrote:
-> >>>>>>>>>>>> On 04.02.22 09:52, Jan Beulich wrote:
-> >>>>>>>>>>>>> On 04.02.2022 07:34, Oleksandr Andrushchenko wrote:
-> >>>>>>>>>>>>>> @@ -285,6 +286,12 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
-> >>>>>>>>>>>>>>                        continue;
-> >>>>>>>>>>>>>>                }
-> >>>>>>>>>>>>>>        
-> >>>>>>>>>>>>>> +        spin_lock(&tmp->vpci_lock);
-> >>>>>>>>>>>>>> +        if ( !tmp->vpci )
-> >>>>>>>>>>>>>> +        {
-> >>>>>>>>>>>>>> +            spin_unlock(&tmp->vpci_lock);
-> >>>>>>>>>>>>>> +            continue;
-> >>>>>>>>>>>>>> +        }
-> >>>>>>>>>>>>>>                for ( i = 0; i < ARRAY_SIZE(tmp->vpci->header.bars); i++ )
-> >>>>>>>>>>>>>>                {
-> >>>>>>>>>>>>>>                    const struct vpci_bar *bar = &tmp->vpci->header.bars[i];
-> >>>>>>>>>>>>>> @@ -303,12 +310,14 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
-> >>>>>>>>>>>>>>                    rc = rangeset_remove_range(mem, start, end);
-> >>>>>>>>>>>>>>                    if ( rc )
-> >>>>>>>>>>>>>>                    {
-> >>>>>>>>>>>>>> +                spin_unlock(&tmp->vpci_lock);
-> >>>>>>>>>>>>>>                        printk(XENLOG_G_WARNING "Failed to remove [%lx, %lx]: %d\n",
-> >>>>>>>>>>>>>>                               start, end, rc);
-> >>>>>>>>>>>>>>                        rangeset_destroy(mem);
-> >>>>>>>>>>>>>>                        return rc;
-> >>>>>>>>>>>>>>                    }
-> >>>>>>>>>>>>>>                }
-> >>>>>>>>>>>>>> +        spin_unlock(&tmp->vpci_lock);
-> >>>>>>>>>>>>>>            }
-> >>>>>>>>>>>>> At the first glance this simply looks like another unjustified (in the
-> >>>>>>>>>>>>> description) change, as you're not converting anything here but you
-> >>>>>>>>>>>>> actually add locking (and I realize this was there before, so I'm sorry
-> >>>>>>>>>>>>> for not pointing this out earlier).
-> >>>>>>>>>>>> Well, I thought that the description already has "...the lock can be
-> >>>>>>>>>>>> used (and in a few cases is used right away) to check whether vpci
-> >>>>>>>>>>>> is present" and this is enough for such uses as here.
-> >>>>>>>>>>>>>        But then I wonder whether you
-> >>>>>>>>>>>>> actually tested this, since I can't help getting the impression that
-> >>>>>>>>>>>>> you're introducing a live-lock: The function is called from cmd_write()
-> >>>>>>>>>>>>> and rom_write(), which in turn are called out of vpci_write(). Yet that
-> >>>>>>>>>>>>> function already holds the lock, and the lock is not (currently)
-> >>>>>>>>>>>>> recursive. (For the 3rd caller of the function - init_bars() - otoh
-> >>>>>>>>>>>>> the locking looks to be entirely unnecessary.)
-> >>>>>>>>>>>> Well, you are correct: if tmp != pdev then it is correct to acquire
-> >>>>>>>>>>>> the lock. But if tmp == pdev and rom_only == true
-> >>>>>>>>>>>> then we'll deadlock.
-> >>>>>>>>>>>>
-> >>>>>>>>>>>> It seems we need to have the locking conditional, e.g. only lock
-> >>>>>>>>>>>> if tmp != pdev
-> >>>>>>>>>>> Which will address the live-lock, but introduce ABBA deadlock potential
-> >>>>>>>>>>> between the two locks.
-> >>>>>>>>>> I am not sure I can suggest a better solution here
-> >>>>>>>>>> @Roger, @Jan, could you please help here?
-> >>>>>>>>> Well, first of all I'd like to mention that while it may have been okay to
-> >>>>>>>>> not hold pcidevs_lock here for Dom0, it surely needs acquiring when dealing
-> >>>>>>>>> with DomU-s' lists of PCI devices. The requirement really applies to the
-> >>>>>>>>> other use of for_each_pdev() as well (in vpci_dump_msi()), except that
-> >>>>>>>>> there it probably wants to be a try-lock.
-> >>>>>>>>>
-> >>>>>>>>> Next I'd like to point out that here we have the still pending issue of
-> >>>>>>>>> how to deal with hidden devices, which Dom0 can access. See my RFC patch
-> >>>>>>>>> "vPCI: account for hidden devices in modify_bars()". Whatever the solution
-> >>>>>>>>> here, I think it wants to at least account for the extra need there.
-> >>>>>>>> Yes, sorry, I should take care of that.
-> >>>>>>>>
-> >>>>>>>>> Now it is quite clear that pcidevs_lock isn't going to help with avoiding
-> >>>>>>>>> the deadlock, as it's imo not an option at all to acquire that lock
-> >>>>>>>>> everywhere else you access ->vpci (or else the vpci lock itself would be
-> >>>>>>>>> pointless). But a per-domain auxiliary r/w lock may help: Other paths
-> >>>>>>>>> would acquire it in read mode, and here you'd acquire it in write mode (in
-> >>>>>>>>> the former case around the vpci lock, while in the latter case there may
-> >>>>>>>>> then not be any need to acquire the individual vpci locks at all). FTAOD:
-> >>>>>>>>> I haven't fully thought through all implications (and hence whether this is
-> >>>>>>>>> viable in the first place); I expect you will, documenting what you've
-> >>>>>>>>> found in the resulting patch description. Of course the double lock
-> >>>>>>>>> acquire/release would then likely want hiding in helper functions.
-> >>>>>>>> I've been also thinking about this, and whether it's really worth to
-> >>>>>>>> have a per-device lock rather than a per-domain one that protects all
-> >>>>>>>> vpci regions of the devices assigned to the domain.
-> >>>>>>>>
-> >>>>>>>> The OS is likely to serialize accesses to the PCI config space anyway,
-> >>>>>>>> and the only place I could see a benefit of having per-device locks is
-> >>>>>>>> in the handling of MSI-X tables, as the handling of the mask bit is
-> >>>>>>>> likely very performance sensitive, so adding a per-domain lock there
-> >>>>>>>> could be a bottleneck.
-> >>>>>>> Hmm, with method 1 accesses serializing globally is basically
-> >>>>>>> unavoidable, but with MMCFG I see no reason why OSes may not (move
-> >>>>>>> to) permit(ting) parallel accesses, with serialization perhaps done
-> >>>>>>> only at device level. See our own pci_config_lock, which applies to
-> >>>>>>> only method 1 accesses; we don't look to be serializing MMCFG
-> >>>>>>> accesses at all.
-> >>>>>>>
-> >>>>>>>> We could alternatively do a per-domain rwlock for vpci and special case
-> >>>>>>>> the MSI-X area to also have a per-device specific lock. At which point
-> >>>>>>>> it becomes fairly similar to what you propose.
-> >>>>>> @Jan, @Roger
-> >>>>>>
-> >>>>>> 1. d->vpci_lock - rwlock <- this protects vpci
-> >>>>>> 2. pdev->vpci->msix_tbl_lock - rwlock <- this protects MSI-X tables
-> >>>>>> or should it better be pdev->msix_tbl_lock as MSI-X tables don't
-> >>>>>> really depend on vPCI?
-> >>>>> If so, perhaps indeed better the latter. But as said in reply to Roger,
-> >>>>> I'm not convinced (yet) that doing away with the per-device lock is a
-> >>>>> good move. As said there - we're ourselves doing fully parallel MMCFG
-> >>>>> accesses, so OSes ought to be fine to do so, too.
-> >>>> But with pdev->vpci_lock we face ABBA...
-> >>> I think it would be easier to start with a per-domain rwlock that
-> >>> guarantees pdev->vpci cannot be removed under our feet. This would be
-> >>> taken in read mode in vpci_{read,write} and in write mode when
-> >>> removing a device from a domain.
-> >>>
-> >>> Then there are also other issues regarding vPCI locking that need to
-> >>> be fixed, but that lock would likely be a start.
-> >> Or let's see the problem at a different angle: this is the only place
-> >> which breaks the use of pdev->vpci_lock. Because all other places
-> >> do not try to acquire the lock of any two devices at a time.
-> >> So, what if we re-work the offending piece of code instead?
-> >> That way we do not break parallel access and have the lock per-device
-> >> which might also be a plus.
-> >>
-> >> By re-work I mean, that instead of reading already mapped regions
-> >> from tmp we can employ a d->pci_mapped_regions range set which
-> >> will hold all the already mapped ranges. And when it is needed to access
-> >> that range set we use pcidevs_lock which seems to be rare.
-> >> So, modify_bars will rely on pdev->vpci_lock + pcidevs_lock and
-> >> ABBA won't be possible at all.
-> > Sadly that won't replace the usage of the loop in modify_bars. This is
-> > not (exclusively) done in order to prevent mapping the same region
-> > multiple times, but rather to prevent unmapping of regions as long as
-> > there's an enabled BAR that's using it.
-> >
-> > If you wanted to use something like d->pci_mapped_regions it would
-> > have to keep reference counts to regions, in order to know when a
-> > mapping is no longer required by any BAR on the system with memory
-> > decoding enabled.
-> I missed this path, thank you
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 > 
-> I tried to analyze the locking in pci/vpci.
-> 
-> First of all some context to refresh the target we want:
-> the rationale behind moving pdev->vpci->lock outside
-> is to be able dynamically create and destroy pdev->vpci.
-> So, for that reason lock needs to be moved outside of the pdev->vpci.
-> 
-> Some of the callers of the vPCI code and locking used:
-> 
-> ======================================
-> vpci_mmio_read/vpci_mmcfg_read
-> ======================================
->    - vpci_ecam_read
->    - vpci_read
->     !!!!!!!! pdev is acquired, then pdev->vpci_lock is used !!!!!!!!
->     - msix:
->      - control_read
->     - header:
->      - guest_bar_read
->     - msi:
->      - control_read
->      - address_read/address_hi_read
->      - data_read
->      - mask_read
-> 
-> ======================================
-> vpci_mmio_write/vpci_mmcfg_write
-> ======================================
->    - vpci_ecam_write
->    - vpci_write
->     !!!!!!!! pdev is acquired, then pdev->vpci_lock is used !!!!!!!!
->     - msix:
->      - control_write
->     - header:
->      - bar_write/guest_bar_write
->      - cmd_write/guest_cmd_write
->      - rom_write
->       - all write handlers may call modify_bars
->        modify_bars
->     - msi:
->      - control_write
->      - address_write/address_hi_write
->      - data_write
->      - mask_write
-> 
-> ======================================
-> pci_add_device: locked with pcidevs_lock
-> ======================================
->    - vpci_add_handlers
->     ++++++++ pdev->vpci_lock is used ++++++++
-> 
-> ======================================
-> pci_remove_device: locked with pcidevs_lock
-> ======================================
-> - vpci_remove_device
->    ++++++++ pdev->vpci_lock is used ++++++++
-> - pci_cleanup_msi
-> - free_pdev
-> 
-> ======================================
-> XEN_DOMCTL_assign_device: locked with pcidevs_lock
-> ======================================
-> - assign_device
->   - vpci_deassign_device
->   - pdev_msix_assign
->   - vpci_assign_device
->    - vpci_add_handlers
->      ++++++++ pdev->vpci_lock is used ++++++++
-> 
-> ======================================
-> XEN_DOMCTL_deassign_device: locked with pcidevs_lock
-> ======================================
-> - deassign_device
->   - vpci_deassign_device
->     ++++++++ pdev->vpci_lock is used ++++++++
->    - vpci_remove_device
-> 
-> 
-> ======================================
-> modify_bars is a special case: this is the only function which tries to lock
-> two pci_dev devices: it is done to check for overlaps with other BARs which may have been
-> already mapped or unmapped.
-> 
-> So, this is the only case which may deadlock because of pci_dev->vpci_lock.
-> ======================================
-> 
-> Bottom line:
-> ======================================
-> 
-> 1. vpci_{read|write} are not protected with pcidevs_lock and can run in
-> parallel with pci_remove_device which can remove pdev after vpci_{read|write}
-> acquired the pdev pointer. This may lead to a fail due to pdev dereference.
-> 
-> So, to protect pdev dereference vpci_{read|write} must also use pdevs_lock.
+> Nit: I guess it's "and" and "every" in the last sentence. I'd be
+> happy to adjust while committing.
 
-We would like to take the pcidevs_lock only while fetching the device
-(ie: pci_get_pdev_by_domain), afterwards it should be fine to lock the
-device using a vpci specific lock so calls to vpci_{read,write} can be
-partially concurrent across multiple domains.
-
-In fact I think Jan had already pointed out that the pci lock would
-need taking while searching for the device in vpci_{read,write}.
-
-It seems to me that if you implement option 3 below taking the
-per-domain rwlock in read mode in vpci_{read|write} will already
-protect you from the device being removed if the same per-domain lock
-is taken in write mode in vpci_remove_device.
-
-> 2. The only offending place which is in the way of pci_dev->vpci_lock is
-> modify_bars. If it can be re-worked to track already mapped and unmapped
-> regions then we can avoid having a possible deadlock and can use
-> pci_dev->vpci_lock (rangesets won't help here as we also need refcounting be
-> implemented).
-
-I think a refcounting based solution will be very complex to
-implement. I'm however happy to be proven wrong.
-
-> If pcidevs_lock is used for vpci_{read|write} then no deadlock is possible,
-> but modify_bars code must be re-worked not to lock itself (pdev->vpci_lock and
-> tmp->vpci_lock when pdev == tmp, this is minor).
-
-Taking the pcidevs lock (a global lock) is out of the picture IMO, as
-it's going to serialize all calls of vpci_{read|write}, and would
-create too much contention on the pcidevs lock.
-
-> 3. We may think about a per-domain rwlock and pdev->vpci_lock, so this solves
-> modify_bars's two pdevs access. But this doesn't solve possible pdev
-> de-reference in vpci_{read|write} vs pci_remove_device.
-
-pci_remove device will call vpci_remove_device, so as long as
-vpci_remove_device taken the per-domain lock in write (exclusive) mode
-it should be fine.
-
-> @Roger, @Jan, I would like to hear what do you think about the above analysis
-> and how can we proceed with locking re-work?
-
-I think the per-domain rwlock seems like a good option. I would do
-that as a pre-patch.
+Yes please, if you are happy to adjust on commit.
 
 Thanks, Roger.
 
