@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 277494AB51F
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Feb 2022 07:42:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.266409.460111 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99EF54AB522
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Feb 2022 07:42:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.266411.460135 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nGxim-0003WS-Fn; Mon, 07 Feb 2022 06:41:56 +0000
+	id 1nGxip-0004Dh-CX; Mon, 07 Feb 2022 06:41:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 266409.460111; Mon, 07 Feb 2022 06:41:56 +0000
+Received: by outflank-mailman (output) from mailman id 266411.460135; Mon, 07 Feb 2022 06:41:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nGxim-0003NJ-59; Mon, 07 Feb 2022 06:41:56 +0000
-Received: by outflank-mailman (input) for mailman id 266409;
- Mon, 07 Feb 2022 06:41:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nGxip-00047V-1n; Mon, 07 Feb 2022 06:41:59 +0000
+Received: by outflank-mailman (input) for mailman id 266411;
+ Mon, 07 Feb 2022 06:41:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ddl1=SW=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nGxik-0002yP-Kr
- for xen-devel@lists.xenproject.org; Mon, 07 Feb 2022 06:41:54 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 08e550ca-87e1-11ec-8eb8-a37418f5ba1a;
- Mon, 07 Feb 2022 07:41:52 +0100 (CET)
+ id 1nGxim-0002yJ-3R
+ for xen-devel@lists.xenproject.org; Mon, 07 Feb 2022 06:41:56 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 09122631-87e1-11ec-8f75-fffcc8bd4f1a;
+ Mon, 07 Feb 2022 07:41:53 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BE1F21F386;
- Mon,  7 Feb 2022 06:41:52 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 09CBB210F6;
+ Mon,  7 Feb 2022 06:41:53 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 954EC13519;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C99E913519;
  Mon,  7 Feb 2022 06:41:52 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id sB8XIzC/AGLDUgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id gNrALzC/AGLDUgAAMHmgww
  (envelope-from <jgross@suse.com>); Mon, 07 Feb 2022 06:41:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -51,127 +51,1981 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 08e550ca-87e1-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 09122631-87e1-11ec-8f75-fffcc8bd4f1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1644216112; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1644216113; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=O9L5VCHqoZDN85JbspHZhwKfGz0YeeeAr6knmmOSjvM=;
-	b=fqfGbK+AjBnN9kden99G3s2VjnS2aqDvCscd2EKdW332AzAsrEzxGWjWxnRXdYD27mDaaP
-	W6ricm/CcUTP20KgsLhwjIFPssGRNLb3ObT0xJM0DcSCrDociLS4DiOl1QJYPJzlA0W2la
-	KoUZ7LGdapoAitMjLIm30Xh9MHEivSU=
+	bh=9PIRJvROq4WGxqvOvdeBhrJLUoEN4dl0PDZArfMcTVw=;
+	b=PAqFmQxT48Qo/a4tQAIbED9+Znoo55B5wo3zh6AZuHZf5TdPaeZhtiBgt7BWl5jjbrme4z
+	SEtrIxCZuaJ7Dm7TNT2ey0fLy3EsM66EaVhYm7fAhC0iN0waBW7T/gI5b5/wjugt2wsDkO
+	DmhvdYddpz2DaGj8cW6iTOQcamzLuI4=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v2 4/5] tools/libs/evtchn: use _xen_list.h
-Date: Mon,  7 Feb 2022 07:41:46 +0100
-Message-Id: <20220207064147.9585-5-jgross@suse.com>
+Subject: [PATCH v2 5/5] tools/include: remove xen-external directory
+Date: Mon,  7 Feb 2022 07:41:47 +0100
+Message-Id: <20220207064147.9585-6-jgross@suse.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220207064147.9585-1-jgross@suse.com>
 References: <20220207064147.9585-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Instead of including xen-external/bsd-sys-queue.h use the header
-_xen_list.h in minios.c.
+There is no user of tools/include/xen-external/* left. Remove it.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/libs/evtchn/minios.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ tools/include/xen-external/README             |   24 -
+ tools/include/xen-external/bsd-COPYRIGHT      |  126 --
+ tools/include/xen-external/bsd-queue.3        | 1044 -----------------
+ .../xen-external/bsd-sys-queue-h-seddery      |   74 --
+ tools/include/xen-external/bsd-sys-queue.h    |  637 ----------
+ 5 files changed, 1905 deletions(-)
+ delete mode 100644 tools/include/xen-external/README
+ delete mode 100644 tools/include/xen-external/bsd-COPYRIGHT
+ delete mode 100644 tools/include/xen-external/bsd-queue.3
+ delete mode 100755 tools/include/xen-external/bsd-sys-queue-h-seddery
+ delete mode 100644 tools/include/xen-external/bsd-sys-queue.h
 
-diff --git a/tools/libs/evtchn/minios.c b/tools/libs/evtchn/minios.c
-index 30f98bc7e4..65cfccfd09 100644
---- a/tools/libs/evtchn/minios.c
-+++ b/tools/libs/evtchn/minios.c
-@@ -20,7 +20,7 @@
-  * Split off from xc_minios.c
-  */
- 
--#include "xen-external/bsd-sys-queue.h"
-+#include "_xen_list.h"
- #include <mini-os/types.h>
- #include <mini-os/os.h>
- #include <mini-os/lib.h>
-@@ -38,10 +38,10 @@
- 
- #include "private.h"
- 
--LIST_HEAD(port_list, port_info);
-+XEN_LIST_HEAD(port_list, struct port_info);
- 
- struct port_info {
--    LIST_ENTRY(port_info) list;
-+    XEN_LIST_ENTRY(struct port_info) list;
-     evtchn_port_t port;
-     bool pending;
-     bool bound;
-@@ -62,7 +62,7 @@ static struct port_info *port_alloc(xenevtchn_handle *xce)
-     port_info->port = -1;
-     port_info->bound = false;
- 
--    LIST_INSERT_HEAD(port_list, port_info, list);
-+    XEN_LIST_INSERT_HEAD(port_list, port_info, list);
- 
-     return port_info;
- }
-@@ -72,7 +72,7 @@ static void port_dealloc(struct port_info *port_info)
-     if ( port_info->bound )
-         unbind_evtchn(port_info->port);
- 
--    LIST_REMOVE(port_info, list);
-+    XEN_LIST_REMOVE(port_info, list);
-     free(port_info);
- }
- 
-@@ -81,7 +81,7 @@ static int evtchn_close_fd(struct file *file)
-     struct port_info *port_info, *tmp;
-     struct port_list *port_list = file->dev;
- 
--    LIST_FOREACH_SAFE(port_info, port_list, list, tmp)
-+    XEN_LIST_FOREACH_SAFE(port_info, port_list, list, tmp)
-         port_dealloc(port_info);
-     free(port_list);
- 
-@@ -126,7 +126,7 @@ int osdep_evtchn_open(xenevtchn_handle *xce, unsigned int flags)
-     }
- 
-     file->dev = list;
--    LIST_INIT(list);
-+    XEN_LIST_INIT(list);
-     xce->fd = fd;
-     printf("evtchn_open() -> %d\n", fd);
- 
-@@ -173,7 +173,7 @@ static void evtchn_handler(evtchn_port_t port, struct pt_regs *regs, void *data)
-     assert(file);
-     port_list = file->dev;
-     mask_evtchn(port);
--    LIST_FOREACH(port_info, port_list, list)
-+    XEN_LIST_FOREACH(port_info, port_list, list)
-     {
-         if ( port_info->port == port )
-             goto found;
-@@ -257,7 +257,7 @@ int xenevtchn_unbind(xenevtchn_handle *xce, evtchn_port_t port)
-     struct port_info *port_info;
-     struct port_list *port_list = file->dev;
- 
--    LIST_FOREACH(port_info, port_list, list)
-+    XEN_LIST_FOREACH(port_info, port_list, list)
-     {
-         if ( port_info->port == port )
-         {
-@@ -314,7 +314,7 @@ xenevtchn_port_or_error_t xenevtchn_pending(xenevtchn_handle *xce)
- 
-     file->read = false;
- 
--    LIST_FOREACH(port_info, port_list, list)
-+    XEN_LIST_FOREACH(port_info, port_list, list)
-     {
-         if ( port_info->port != -1 && port_info->pending )
-         {
+diff --git a/tools/include/xen-external/README b/tools/include/xen-external/README
+deleted file mode 100644
+index 93c2bc9cd8..0000000000
+--- a/tools/include/xen-external/README
++++ /dev/null
+@@ -1,24 +0,0 @@
+-WARNING - DO NOT EDIT THINGS IN THIS DIRECTORY
+-----------------------------------------------
+-
+-These files were obtained elsewhere and should only be updated by
+-copying new versions from the source location, as documented below:
+-
+-bsd-COPYRIGHT
+-bsd-sys-queue.h
+-bsd-queue.3
+-
+-  Obtained from the FreeBSD SVN using the following commands:
+-    svn co -r 221843 svn://svn.freebsd.org/base/head/sys/sys/
+-    svn co -r 221843 svn://svn.freebsd.org/base/head/share/man/man3
+-    svn cat -r 221843 http://svn.freebsd.org/base/head/COPYRIGHT >tools/libxl/external/bsd-COPYRIGHT
+-
+-Exceptions:
+-
+-README
+-
+-  This file
+-
+-bsd-sys-queue-h-seddery
+-
+-  Script to transform the above into a new namespace.
+diff --git a/tools/include/xen-external/bsd-COPYRIGHT b/tools/include/xen-external/bsd-COPYRIGHT
+deleted file mode 100644
+index 6dc5d16b46..0000000000
+--- a/tools/include/xen-external/bsd-COPYRIGHT
++++ /dev/null
+@@ -1,126 +0,0 @@
+-# $FreeBSD$
+-#	@(#)COPYRIGHT	8.2 (Berkeley) 3/21/94
+-
+-The compilation of software known as FreeBSD is distributed under the
+-following terms:
+-
+-Copyright (c) 1992-2011 The FreeBSD Project. All rights reserved.
+-
+-Redistribution and use in source and binary forms, with or without
+-modification, are permitted provided that the following conditions
+-are met:
+-1. Redistributions of source code must retain the above copyright
+-   notice, this list of conditions and the following disclaimer.
+-2. Redistributions in binary form must reproduce the above copyright
+-   notice, this list of conditions and the following disclaimer in the
+-   documentation and/or other materials provided with the distribution.
+-
+-THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+-ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
+-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+-OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+-HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+-LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+-OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+-SUCH DAMAGE.
+-
+-The 4.4BSD and 4.4BSD-Lite software is distributed under the following
+-terms:
+-
+-All of the documentation and software included in the 4.4BSD and 4.4BSD-Lite
+-Releases is copyrighted by The Regents of the University of California.
+-
+-Copyright 1979, 1980, 1983, 1986, 1988, 1989, 1991, 1992, 1993, 1994
+-	The Regents of the University of California.  All rights reserved.
+-
+-Redistribution and use in source and binary forms, with or without
+-modification, are permitted provided that the following conditions
+-are met:
+-1. Redistributions of source code must retain the above copyright
+-   notice, this list of conditions and the following disclaimer.
+-2. Redistributions in binary form must reproduce the above copyright
+-   notice, this list of conditions and the following disclaimer in the
+-   documentation and/or other materials provided with the distribution.
+-3. All advertising materials mentioning features or use of this software
+-   must display the following acknowledgement:
+-This product includes software developed by the University of
+-California, Berkeley and its contributors.
+-4. Neither the name of the University nor the names of its contributors
+-   may be used to endorse or promote products derived from this software
+-   without specific prior written permission.
+-
+-THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+-ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+-OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+-HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+-LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+-OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+-SUCH DAMAGE.
+-
+-The Institute of Electrical and Electronics Engineers and the American
+-National Standards Committee X3, on Information Processing Systems have
+-given us permission to reprint portions of their documentation.
+-
+-In the following statement, the phrase ``this text'' refers to portions
+-of the system documentation.
+-
+-Portions of this text are reprinted and reproduced in electronic form in
+-the second BSD Networking Software Release, from IEEE Std 1003.1-1988, IEEE
+-Standard Portable Operating System Interface for Computer Environments
+-(POSIX), copyright C 1988 by the Institute of Electrical and Electronics
+-Engineers, Inc.  In the event of any discrepancy between these versions
+-and the original IEEE Standard, the original IEEE Standard is the referee
+-document.
+-
+-In the following statement, the phrase ``This material'' refers to portions
+-of the system documentation.
+-
+-This material is reproduced with permission from American National
+-Standards Committee X3, on Information Processing Systems.  Computer and
+-Business Equipment Manufacturers Association (CBEMA), 311 First St., NW,
+-Suite 500, Washington, DC 20001-2178.  The developmental work of
+-Programming Language C was completed by the X3J11 Technical Committee.
+-
+-The views and conclusions contained in the software and documentation are
+-those of the authors and should not be interpreted as representing official
+-policies, either expressed or implied, of the Regents of the University
+-of California.
+-
+-
+-NOTE: The copyright of UC Berkeley's Berkeley Software Distribution ("BSD")
+-source has been updated.  The copyright addendum may be found at
+-ftp://ftp.cs.berkeley.edu/pub/4bsd/README.Impt.License.Change and is
+-included below.
+-
+-July 22, 1999
+-
+-To All Licensees, Distributors of Any Version of BSD:
+-
+-As you know, certain of the Berkeley Software Distribution ("BSD") source
+-code files require that further distributions of products containing all or
+-portions of the software, acknowledge within their advertising materials
+-that such products contain software developed by UC Berkeley and its
+-contributors.
+-
+-Specifically, the provision reads:
+-
+-"     * 3. All advertising materials mentioning features or use of this software
+-      *    must display the following acknowledgement:
+-      *    This product includes software developed by the University of
+-      *    California, Berkeley and its contributors."
+-
+-Effective immediately, licensees and distributors are no longer required to
+-include the acknowledgement within advertising materials.  Accordingly, the
+-foregoing paragraph of those BSD Unix files containing it is hereby deleted
+-in its entirety.
+-
+-William Hoskins
+-Director, Office of Technology Licensing
+-University of California, Berkeley
+diff --git a/tools/include/xen-external/bsd-queue.3 b/tools/include/xen-external/bsd-queue.3
+deleted file mode 100644
+index 007ca5c629..0000000000
+--- a/tools/include/xen-external/bsd-queue.3
++++ /dev/null
+@@ -1,1044 +0,0 @@
+-.\" Copyright (c) 1993
+-.\"	The Regents of the University of California.  All rights reserved.
+-.\"
+-.\" Redistribution and use in source and binary forms, with or without
+-.\" modification, are permitted provided that the following conditions
+-.\" are met:
+-.\" 1. Redistributions of source code must retain the above copyright
+-.\"    notice, this list of conditions and the following disclaimer.
+-.\" 2. Redistributions in binary form must reproduce the above copyright
+-.\"    notice, this list of conditions and the following disclaimer in the
+-.\"    documentation and/or other materials provided with the distribution.
+-.\" 3. All advertising materials mentioning features or use of this software
+-.\"    must display the following acknowledgement:
+-.\"	This product includes software developed by the University of
+-.\"	California, Berkeley and its contributors.
+-.\" 4. Neither the name of the University nor the names of its contributors
+-.\"    may be used to endorse or promote products derived from this software
+-.\"    without specific prior written permission.
+-.\"
+-.\" THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+-.\" ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+-.\" IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+-.\" ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+-.\" FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+-.\" DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+-.\" OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+-.\" HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+-.\" LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+-.\" OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+-.\" SUCH DAMAGE.
+-.\"
+-.\"	@(#)queue.3	8.2 (Berkeley) 1/24/94
+-.\" $FreeBSD$
+-.\"
+-.Dd May 13, 2011
+-.Dt QUEUE 3
+-.Os
+-.Sh NAME
+-.Nm SLIST_EMPTY ,
+-.Nm SLIST_ENTRY ,
+-.Nm SLIST_FIRST ,
+-.Nm SLIST_FOREACH ,
+-.Nm SLIST_FOREACH_SAFE ,
+-.Nm SLIST_HEAD ,
+-.Nm SLIST_HEAD_INITIALIZER ,
+-.Nm SLIST_INIT ,
+-.Nm SLIST_INSERT_AFTER ,
+-.Nm SLIST_INSERT_HEAD ,
+-.Nm SLIST_NEXT ,
+-.Nm SLIST_REMOVE_AFTER ,
+-.Nm SLIST_REMOVE_HEAD ,
+-.Nm SLIST_REMOVE ,
+-.Nm SLIST_SWAP ,
+-.Nm STAILQ_CONCAT ,
+-.Nm STAILQ_EMPTY ,
+-.Nm STAILQ_ENTRY ,
+-.Nm STAILQ_FIRST ,
+-.Nm STAILQ_FOREACH ,
+-.Nm STAILQ_FOREACH_SAFE ,
+-.Nm STAILQ_HEAD ,
+-.Nm STAILQ_HEAD_INITIALIZER ,
+-.Nm STAILQ_INIT ,
+-.Nm STAILQ_INSERT_AFTER ,
+-.Nm STAILQ_INSERT_HEAD ,
+-.Nm STAILQ_INSERT_TAIL ,
+-.Nm STAILQ_LAST ,
+-.Nm STAILQ_NEXT ,
+-.Nm STAILQ_REMOVE_AFTER ,
+-.Nm STAILQ_REMOVE_HEAD ,
+-.Nm STAILQ_REMOVE ,
+-.Nm STAILQ_SWAP ,
+-.Nm LIST_EMPTY ,
+-.Nm LIST_ENTRY ,
+-.Nm LIST_FIRST ,
+-.Nm LIST_FOREACH ,
+-.Nm LIST_FOREACH_SAFE ,
+-.Nm LIST_HEAD ,
+-.Nm LIST_HEAD_INITIALIZER ,
+-.Nm LIST_INIT ,
+-.Nm LIST_INSERT_AFTER ,
+-.Nm LIST_INSERT_BEFORE ,
+-.Nm LIST_INSERT_HEAD ,
+-.Nm LIST_NEXT ,
+-.Nm LIST_REMOVE ,
+-.Nm LIST_SWAP ,
+-.Nm TAILQ_CONCAT ,
+-.Nm TAILQ_EMPTY ,
+-.Nm TAILQ_ENTRY ,
+-.Nm TAILQ_FIRST ,
+-.Nm TAILQ_FOREACH ,
+-.Nm TAILQ_FOREACH_SAFE ,
+-.Nm TAILQ_FOREACH_REVERSE ,
+-.Nm TAILQ_FOREACH_REVERSE_SAFE ,
+-.Nm TAILQ_HEAD ,
+-.Nm TAILQ_HEAD_INITIALIZER ,
+-.Nm TAILQ_INIT ,
+-.Nm TAILQ_INSERT_AFTER ,
+-.Nm TAILQ_INSERT_BEFORE ,
+-.Nm TAILQ_INSERT_HEAD ,
+-.Nm TAILQ_INSERT_TAIL ,
+-.Nm TAILQ_LAST ,
+-.Nm TAILQ_NEXT ,
+-.Nm TAILQ_PREV ,
+-.Nm TAILQ_REMOVE ,
+-.Nm TAILQ_SWAP
+-.Nd implementations of singly-linked lists, singly-linked tail queues,
+-lists and tail queues
+-.Sh SYNOPSIS
+-.In sys/queue.h
+-.\"
+-.Fn SLIST_EMPTY "SLIST_HEAD *head"
+-.Fn SLIST_ENTRY "TYPE"
+-.Fn SLIST_FIRST "SLIST_HEAD *head"
+-.Fn SLIST_FOREACH "TYPE *var" "SLIST_HEAD *head" "SLIST_ENTRY NAME"
+-.Fn SLIST_FOREACH_SAFE "TYPE *var" "SLIST_HEAD *head" "SLIST_ENTRY NAME" "TYPE *temp_var"
+-.Fn SLIST_HEAD "HEADNAME" "TYPE"
+-.Fn SLIST_HEAD_INITIALIZER "SLIST_HEAD head"
+-.Fn SLIST_INIT "SLIST_HEAD *head"
+-.Fn SLIST_INSERT_AFTER "TYPE *listelm" "TYPE *elm" "SLIST_ENTRY NAME"
+-.Fn SLIST_INSERT_HEAD "SLIST_HEAD *head" "TYPE *elm" "SLIST_ENTRY NAME"
+-.Fn SLIST_NEXT "TYPE *elm" "SLIST_ENTRY NAME"
+-.Fn SLIST_REMOVE_AFTER "TYPE *elm" "SLIST_ENTRY NAME"
+-.Fn SLIST_REMOVE_HEAD "SLIST_HEAD *head" "SLIST_ENTRY NAME"
+-.Fn SLIST_REMOVE "SLIST_HEAD *head" "TYPE *elm" "TYPE" "SLIST_ENTRY NAME"
+-.Fn SLIST_SWAP "SLIST_HEAD *head1" "SLIST_HEAD *head2" "SLIST_ENTRY NAME"
+-.\"
+-.Fn STAILQ_CONCAT "STAILQ_HEAD *head1" "STAILQ_HEAD *head2"
+-.Fn STAILQ_EMPTY "STAILQ_HEAD *head"
+-.Fn STAILQ_ENTRY "TYPE"
+-.Fn STAILQ_FIRST "STAILQ_HEAD *head"
+-.Fn STAILQ_FOREACH "TYPE *var" "STAILQ_HEAD *head" "STAILQ_ENTRY NAME"
+-.Fn STAILQ_FOREACH_SAFE "TYPE *var" "STAILQ_HEAD *head" "STAILQ_ENTRY NAME" "TYPE *temp_var"
+-.Fn STAILQ_HEAD "HEADNAME" "TYPE"
+-.Fn STAILQ_HEAD_INITIALIZER "STAILQ_HEAD head"
+-.Fn STAILQ_INIT "STAILQ_HEAD *head"
+-.Fn STAILQ_INSERT_AFTER "STAILQ_HEAD *head" "TYPE *listelm" "TYPE *elm" "STAILQ_ENTRY NAME"
+-.Fn STAILQ_INSERT_HEAD "STAILQ_HEAD *head" "TYPE *elm" "STAILQ_ENTRY NAME"
+-.Fn STAILQ_INSERT_TAIL "STAILQ_HEAD *head" "TYPE *elm" "STAILQ_ENTRY NAME"
+-.Fn STAILQ_LAST "STAILQ_HEAD *head" "TYPE" "STAILQ_ENTRY NAME"
+-.Fn STAILQ_NEXT "TYPE *elm" "STAILQ_ENTRY NAME"
+-.Fn STAILQ_REMOVE_AFTER "STAILQ_HEAD *head" "TYPE *elm" "STAILQ_ENTRY NAME"
+-.Fn STAILQ_REMOVE_HEAD "STAILQ_HEAD *head" "STAILQ_ENTRY NAME"
+-.Fn STAILQ_REMOVE "STAILQ_HEAD *head" "TYPE *elm" "TYPE" "STAILQ_ENTRY NAME"
+-.Fn STAILQ_SWAP "STAILQ_HEAD *head1" "STAILQ_HEAD *head2" "STAILQ_ENTRY NAME"
+-.\"
+-.Fn LIST_EMPTY "LIST_HEAD *head"
+-.Fn LIST_ENTRY "TYPE"
+-.Fn LIST_FIRST "LIST_HEAD *head"
+-.Fn LIST_FOREACH "TYPE *var" "LIST_HEAD *head" "LIST_ENTRY NAME"
+-.Fn LIST_FOREACH_SAFE "TYPE *var" "LIST_HEAD *head" "LIST_ENTRY NAME" "TYPE *temp_var"
+-.Fn LIST_HEAD "HEADNAME" "TYPE"
+-.Fn LIST_HEAD_INITIALIZER "LIST_HEAD head"
+-.Fn LIST_INIT "LIST_HEAD *head"
+-.Fn LIST_INSERT_AFTER "TYPE *listelm" "TYPE *elm" "LIST_ENTRY NAME"
+-.Fn LIST_INSERT_BEFORE "TYPE *listelm" "TYPE *elm" "LIST_ENTRY NAME"
+-.Fn LIST_INSERT_HEAD "LIST_HEAD *head" "TYPE *elm" "LIST_ENTRY NAME"
+-.Fn LIST_NEXT "TYPE *elm" "LIST_ENTRY NAME"
+-.Fn LIST_REMOVE "TYPE *elm" "LIST_ENTRY NAME"
+-.Fn LIST_SWAP "LIST_HEAD *head1" "LIST_HEAD *head2" "TYPE" "LIST_ENTRY NAME"
+-.\"
+-.Fn TAILQ_CONCAT "TAILQ_HEAD *head1" "TAILQ_HEAD *head2" "TAILQ_ENTRY NAME"
+-.Fn TAILQ_EMPTY "TAILQ_HEAD *head"
+-.Fn TAILQ_ENTRY "TYPE"
+-.Fn TAILQ_FIRST "TAILQ_HEAD *head"
+-.Fn TAILQ_FOREACH "TYPE *var" "TAILQ_HEAD *head" "TAILQ_ENTRY NAME"
+-.Fn TAILQ_FOREACH_SAFE "TYPE *var" "TAILQ_HEAD *head" "TAILQ_ENTRY NAME" "TYPE *temp_var"
+-.Fn TAILQ_FOREACH_REVERSE "TYPE *var" "TAILQ_HEAD *head" "HEADNAME" "TAILQ_ENTRY NAME"
+-.Fn TAILQ_FOREACH_REVERSE_SAFE "TYPE *var" "TAILQ_HEAD *head" "HEADNAME" "TAILQ_ENTRY NAME" "TYPE *temp_var"
+-.Fn TAILQ_HEAD "HEADNAME" "TYPE"
+-.Fn TAILQ_HEAD_INITIALIZER "TAILQ_HEAD head"
+-.Fn TAILQ_INIT "TAILQ_HEAD *head"
+-.Fn TAILQ_INSERT_AFTER "TAILQ_HEAD *head" "TYPE *listelm" "TYPE *elm" "TAILQ_ENTRY NAME"
+-.Fn TAILQ_INSERT_BEFORE "TYPE *listelm" "TYPE *elm" "TAILQ_ENTRY NAME"
+-.Fn TAILQ_INSERT_HEAD "TAILQ_HEAD *head" "TYPE *elm" "TAILQ_ENTRY NAME"
+-.Fn TAILQ_INSERT_TAIL "TAILQ_HEAD *head" "TYPE *elm" "TAILQ_ENTRY NAME"
+-.Fn TAILQ_LAST "TAILQ_HEAD *head" "HEADNAME"
+-.Fn TAILQ_NEXT "TYPE *elm" "TAILQ_ENTRY NAME"
+-.Fn TAILQ_PREV "TYPE *elm" "HEADNAME" "TAILQ_ENTRY NAME"
+-.Fn TAILQ_REMOVE "TAILQ_HEAD *head" "TYPE *elm" "TAILQ_ENTRY NAME"
+-.Fn TAILQ_SWAP "TAILQ_HEAD *head1" "TAILQ_HEAD *head2" "TYPE" "TAILQ_ENTRY NAME"
+-.\"
+-.Sh DESCRIPTION
+-These macros define and operate on four types of data structures:
+-singly-linked lists, singly-linked tail queues, lists, and tail queues.
+-All four structures support the following functionality:
+-.Bl -enum -compact -offset indent
+-.It
+-Insertion of a new entry at the head of the list.
+-.It
+-Insertion of a new entry after any element in the list.
+-.It
+-O(1) removal of an entry from the head of the list.
+-.It
+-Forward traversal through the list.
+-.It
+-Swawpping the contents of two lists.
+-.El
+-.Pp
+-Singly-linked lists are the simplest of the four data structures
+-and support only the above functionality.
+-Singly-linked lists are ideal for applications with large datasets
+-and few or no removals,
+-or for implementing a LIFO queue.
+-Singly-linked lists add the following functionality:
+-.Bl -enum -compact -offset indent
+-.It
+-O(n) removal of any entry in the list.
+-.El
+-.Pp
+-Singly-linked tail queues add the following functionality:
+-.Bl -enum -compact -offset indent
+-.It
+-Entries can be added at the end of a list.
+-.It
+-O(n) removal of any entry in the list.
+-.It
+-They may be concatenated.
+-.El
+-However:
+-.Bl -enum -compact -offset indent
+-.It
+-All list insertions must specify the head of the list.
+-.It
+-Each head entry requires two pointers rather than one.
+-.It
+-Code size is about 15% greater and operations run about 20% slower
+-than singly-linked lists.
+-.El
+-.Pp
+-Singly-linked tailqs are ideal for applications with large datasets and
+-few or no removals,
+-or for implementing a FIFO queue.
+-.Pp
+-All doubly linked types of data structures (lists and tail queues)
+-additionally allow:
+-.Bl -enum -compact -offset indent
+-.It
+-Insertion of a new entry before any element in the list.
+-.It
+-O(1) removal of any entry in the list.
+-.El
+-However:
+-.Bl -enum -compact -offset indent
+-.It
+-Each element requires two pointers rather than one.
+-.It
+-Code size and execution time of operations (except for removal) is about
+-twice that of the singly-linked data-structures.
+-.El
+-.Pp
+-Linked lists are the simplest of the doubly linked data structures and support
+-only the above functionality over singly-linked lists.
+-.Pp
+-Tail queues add the following functionality:
+-.Bl -enum -compact -offset indent
+-.It
+-Entries can be added at the end of a list.
+-.It
+-They may be traversed backwards, from tail to head.
+-.It
+-They may be concatenated.
+-.El
+-However:
+-.Bl -enum -compact -offset indent
+-.It
+-All list insertions and removals must specify the head of the list.
+-.It
+-Each head entry requires two pointers rather than one.
+-.It
+-Code size is about 15% greater and operations run about 20% slower
+-than singly-linked lists.
+-.El
+-.Pp
+-In the macro definitions,
+-.Fa TYPE
+-is the name of a user defined structure,
+-that must contain a field of type
+-.Li SLIST_ENTRY ,
+-.Li STAILQ_ENTRY ,
+-.Li LIST_ENTRY ,
+-or
+-.Li TAILQ_ENTRY ,
+-named
+-.Fa NAME .
+-The argument
+-.Fa HEADNAME
+-is the name of a user defined structure that must be declared
+-using the macros
+-.Li SLIST_HEAD ,
+-.Li STAILQ_HEAD ,
+-.Li LIST_HEAD ,
+-or
+-.Li TAILQ_HEAD .
+-See the examples below for further explanation of how these
+-macros are used.
+-.Sh SINGLY-LINKED LISTS
+-A singly-linked list is headed by a structure defined by the
+-.Nm SLIST_HEAD
+-macro.
+-This structure contains a single pointer to the first element
+-on the list.
+-The elements are singly linked for minimum space and pointer manipulation
+-overhead at the expense of O(n) removal for arbitrary elements.
+-New elements can be added to the list after an existing element or
+-at the head of the list.
+-An
+-.Fa SLIST_HEAD
+-structure is declared as follows:
+-.Bd -literal -offset indent
+-SLIST_HEAD(HEADNAME, TYPE) head;
+-.Ed
+-.Pp
+-where
+-.Fa HEADNAME
+-is the name of the structure to be defined, and
+-.Fa TYPE
+-is the type of the elements to be linked into the list.
+-A pointer to the head of the list can later be declared as:
+-.Bd -literal -offset indent
+-struct HEADNAME *headp;
+-.Ed
+-.Pp
+-(The names
+-.Li head
+-and
+-.Li headp
+-are user selectable.)
+-.Pp
+-The macro
+-.Nm SLIST_HEAD_INITIALIZER
+-evaluates to an initializer for the list
+-.Fa head .
+-.Pp
+-The macro
+-.Nm SLIST_EMPTY
+-evaluates to true if there are no elements in the list.
+-.Pp
+-The macro
+-.Nm SLIST_ENTRY
+-declares a structure that connects the elements in
+-the list.
+-.Pp
+-The macro
+-.Nm SLIST_FIRST
+-returns the first element in the list or NULL if the list is empty.
+-.Pp
+-The macro
+-.Nm SLIST_FOREACH
+-traverses the list referenced by
+-.Fa head
+-in the forward direction, assigning each element in
+-turn to
+-.Fa var .
+-.Pp
+-The macro
+-.Nm SLIST_FOREACH_SAFE
+-traverses the list referenced by
+-.Fa head
+-in the forward direction, assigning each element in
+-turn to
+-.Fa var .
+-However, unlike
+-.Fn SLIST_FOREACH
+-here it is permitted to both remove
+-.Fa var
+-as well as free it from within the loop safely without interfering with the
+-traversal.
+-.Pp
+-The macro
+-.Nm SLIST_INIT
+-initializes the list referenced by
+-.Fa head .
+-.Pp
+-The macro
+-.Nm SLIST_INSERT_HEAD
+-inserts the new element
+-.Fa elm
+-at the head of the list.
+-.Pp
+-The macro
+-.Nm SLIST_INSERT_AFTER
+-inserts the new element
+-.Fa elm
+-after the element
+-.Fa listelm .
+-.Pp
+-The macro
+-.Nm SLIST_NEXT
+-returns the next element in the list.
+-.Pp
+-The macro
+-.Nm SLIST_REMOVE_AFTER
+-removes the element after
+-.Fa elm
+-from the list. Unlike
+-.Fa SLIST_REMOVE ,
+-this macro does not traverse the entire list.
+-.Pp
+-The macro
+-.Nm SLIST_REMOVE_HEAD
+-removes the element
+-.Fa elm
+-from the head of the list.
+-For optimum efficiency,
+-elements being removed from the head of the list should explicitly use
+-this macro instead of the generic
+-.Fa SLIST_REMOVE
+-macro.
+-.Pp
+-The macro
+-.Nm SLIST_REMOVE
+-removes the element
+-.Fa elm
+-from the list.
+-.Pp
+-The macro
+-.Nm SLIST_SWAP
+-swaps the contents of
+-.Fa head1
+-and
+-.Fa head2 .
+-.Sh SINGLY-LINKED LIST EXAMPLE
+-.Bd -literal
+-SLIST_HEAD(slisthead, entry) head =
+-    SLIST_HEAD_INITIALIZER(head);
+-struct slisthead *headp;		/* Singly-linked List head. */
+-struct entry {
+-	...
+-	SLIST_ENTRY(entry) entries;	/* Singly-linked List. */
+-	...
+-} *n1, *n2, *n3, *np;
+-
+-SLIST_INIT(&head);			/* Initialize the list. */
+-
+-n1 = malloc(sizeof(struct entry));	/* Insert at the head. */
+-SLIST_INSERT_HEAD(&head, n1, entries);
+-
+-n2 = malloc(sizeof(struct entry));	/* Insert after. */
+-SLIST_INSERT_AFTER(n1, n2, entries);
+-
+-SLIST_REMOVE(&head, n2, entry, entries);/* Deletion. */
+-free(n2);
+-
+-n3 = SLIST_FIRST(&head);
+-SLIST_REMOVE_HEAD(&head, entries);	/* Deletion from the head. */
+-free(n3);
+-					/* Forward traversal. */
+-SLIST_FOREACH(np, &head, entries)
+-	np-> ...
+-					/* Safe forward traversal. */
+-SLIST_FOREACH_SAFE(np, &head, entries, np_temp) {
+-	np->do_stuff();
+-	...
+-	SLIST_REMOVE(&head, np, entry, entries);
+-	free(np);
+-}
+-
+-while (!SLIST_EMPTY(&head)) {		/* List Deletion. */
+-	n1 = SLIST_FIRST(&head);
+-	SLIST_REMOVE_HEAD(&head, entries);
+-	free(n1);
+-}
+-.Ed
+-.Sh SINGLY-LINKED TAIL QUEUES
+-A singly-linked tail queue is headed by a structure defined by the
+-.Nm STAILQ_HEAD
+-macro.
+-This structure contains a pair of pointers,
+-one to the first element in the tail queue and the other to
+-the last element in the tail queue.
+-The elements are singly linked for minimum space and pointer
+-manipulation overhead at the expense of O(n) removal for arbitrary
+-elements.
+-New elements can be added to the tail queue after an existing element,
+-at the head of the tail queue, or at the end of the tail queue.
+-A
+-.Fa STAILQ_HEAD
+-structure is declared as follows:
+-.Bd -literal -offset indent
+-STAILQ_HEAD(HEADNAME, TYPE) head;
+-.Ed
+-.Pp
+-where
+-.Li HEADNAME
+-is the name of the structure to be defined, and
+-.Li TYPE
+-is the type of the elements to be linked into the tail queue.
+-A pointer to the head of the tail queue can later be declared as:
+-.Bd -literal -offset indent
+-struct HEADNAME *headp;
+-.Ed
+-.Pp
+-(The names
+-.Li head
+-and
+-.Li headp
+-are user selectable.)
+-.Pp
+-The macro
+-.Nm STAILQ_HEAD_INITIALIZER
+-evaluates to an initializer for the tail queue
+-.Fa head .
+-.Pp
+-The macro
+-.Nm STAILQ_CONCAT
+-concatenates the tail queue headed by
+-.Fa head2
+-onto the end of the one headed by
+-.Fa head1
+-removing all entries from the former.
+-.Pp
+-The macro
+-.Nm STAILQ_EMPTY
+-evaluates to true if there are no items on the tail queue.
+-.Pp
+-The macro
+-.Nm STAILQ_ENTRY
+-declares a structure that connects the elements in
+-the tail queue.
+-.Pp
+-The macro
+-.Nm STAILQ_FIRST
+-returns the first item on the tail queue or NULL if the tail queue
+-is empty.
+-.Pp
+-The macro
+-.Nm STAILQ_FOREACH
+-traverses the tail queue referenced by
+-.Fa head
+-in the forward direction, assigning each element
+-in turn to
+-.Fa var .
+-.Pp
+-The macro
+-.Nm STAILQ_FOREACH_SAFE
+-traverses the tail queue referenced by
+-.Fa head
+-in the forward direction, assigning each element
+-in turn to
+-.Fa var .
+-However, unlike
+-.Fn STAILQ_FOREACH
+-here it is permitted to both remove
+-.Fa var
+-as well as free it from within the loop safely without interfering with the
+-traversal.
+-.Pp
+-The macro
+-.Nm STAILQ_INIT
+-initializes the tail queue referenced by
+-.Fa head .
+-.Pp
+-The macro
+-.Nm STAILQ_INSERT_HEAD
+-inserts the new element
+-.Fa elm
+-at the head of the tail queue.
+-.Pp
+-The macro
+-.Nm STAILQ_INSERT_TAIL
+-inserts the new element
+-.Fa elm
+-at the end of the tail queue.
+-.Pp
+-The macro
+-.Nm STAILQ_INSERT_AFTER
+-inserts the new element
+-.Fa elm
+-after the element
+-.Fa listelm .
+-.Pp
+-The macro
+-.Nm STAILQ_LAST
+-returns the last item on the tail queue.
+-If the tail queue is empty the return value is
+-.Dv NULL .
+-.Pp
+-The macro
+-.Nm STAILQ_NEXT
+-returns the next item on the tail queue, or NULL this item is the last.
+-.Pp
+-The macro
+-.Nm STAILQ_REMOVE_AFTER
+-removes the element after
+-.Fa elm
+-from the tail queue. Unlike
+-.Fa STAILQ_REMOVE ,
+-this macro does not traverse the entire tail queue.
+-.Pp
+-The macro
+-.Nm STAILQ_REMOVE_HEAD
+-removes the element at the head of the tail queue.
+-For optimum efficiency,
+-elements being removed from the head of the tail queue should
+-use this macro explicitly rather than the generic
+-.Fa STAILQ_REMOVE
+-macro.
+-.Pp
+-The macro
+-.Nm STAILQ_REMOVE
+-removes the element
+-.Fa elm
+-from the tail queue.
+-.Pp
+-The macro
+-.Nm STAILQ_SWAP
+-swaps the contents of
+-.Fa head1
+-and
+-.Fa head2 .
+-.Sh SINGLY-LINKED TAIL QUEUE EXAMPLE
+-.Bd -literal
+-STAILQ_HEAD(stailhead, entry) head =
+-    STAILQ_HEAD_INITIALIZER(head);
+-struct stailhead *headp;		/* Singly-linked tail queue head. */
+-struct entry {
+-	...
+-	STAILQ_ENTRY(entry) entries;	/* Tail queue. */
+-	...
+-} *n1, *n2, *n3, *np;
+-
+-STAILQ_INIT(&head);			/* Initialize the queue. */
+-
+-n1 = malloc(sizeof(struct entry));	/* Insert at the head. */
+-STAILQ_INSERT_HEAD(&head, n1, entries);
+-
+-n1 = malloc(sizeof(struct entry));	/* Insert at the tail. */
+-STAILQ_INSERT_TAIL(&head, n1, entries);
+-
+-n2 = malloc(sizeof(struct entry));	/* Insert after. */
+-STAILQ_INSERT_AFTER(&head, n1, n2, entries);
+-					/* Deletion. */
+-STAILQ_REMOVE(&head, n2, entry, entries);
+-free(n2);
+-					/* Deletion from the head. */
+-n3 = STAILQ_FIRST(&head);
+-STAILQ_REMOVE_HEAD(&head, entries);
+-free(n3);
+-					/* Forward traversal. */
+-STAILQ_FOREACH(np, &head, entries)
+-	np-> ...
+-					/* Safe forward traversal. */
+-STAILQ_FOREACH_SAFE(np, &head, entries, np_temp) {
+-	np->do_stuff();
+-	...
+-	STAILQ_REMOVE(&head, np, entry, entries);
+-	free(np);
+-}
+-					/* TailQ Deletion. */
+-while (!STAILQ_EMPTY(&head)) {
+-	n1 = STAILQ_FIRST(&head);
+-	STAILQ_REMOVE_HEAD(&head, entries);
+-	free(n1);
+-}
+-					/* Faster TailQ Deletion. */
+-n1 = STAILQ_FIRST(&head);
+-while (n1 != NULL) {
+-	n2 = STAILQ_NEXT(n1, entries);
+-	free(n1);
+-	n1 = n2;
+-}
+-STAILQ_INIT(&head);
+-.Ed
+-.Sh LISTS
+-A list is headed by a structure defined by the
+-.Nm LIST_HEAD
+-macro.
+-This structure contains a single pointer to the first element
+-on the list.
+-The elements are doubly linked so that an arbitrary element can be
+-removed without traversing the list.
+-New elements can be added to the list after an existing element,
+-before an existing element, or at the head of the list.
+-A
+-.Fa LIST_HEAD
+-structure is declared as follows:
+-.Bd -literal -offset indent
+-LIST_HEAD(HEADNAME, TYPE) head;
+-.Ed
+-.Pp
+-where
+-.Fa HEADNAME
+-is the name of the structure to be defined, and
+-.Fa TYPE
+-is the type of the elements to be linked into the list.
+-A pointer to the head of the list can later be declared as:
+-.Bd -literal -offset indent
+-struct HEADNAME *headp;
+-.Ed
+-.Pp
+-(The names
+-.Li head
+-and
+-.Li headp
+-are user selectable.)
+-.Pp
+-The macro
+-.Nm LIST_HEAD_INITIALIZER
+-evaluates to an initializer for the list
+-.Fa head .
+-.Pp
+-The macro
+-.Nm LIST_EMPTY
+-evaluates to true if there are no elements in the list.
+-.Pp
+-The macro
+-.Nm LIST_ENTRY
+-declares a structure that connects the elements in
+-the list.
+-.Pp
+-The macro
+-.Nm LIST_FIRST
+-returns the first element in the list or NULL if the list
+-is empty.
+-.Pp
+-The macro
+-.Nm LIST_FOREACH
+-traverses the list referenced by
+-.Fa head
+-in the forward direction, assigning each element in turn to
+-.Fa var .
+-.Pp
+-The macro
+-.Nm LIST_FOREACH_SAFE
+-traverses the list referenced by
+-.Fa head
+-in the forward direction, assigning each element in turn to
+-.Fa var .
+-However, unlike
+-.Fn LIST_FOREACH
+-here it is permitted to both remove
+-.Fa var
+-as well as free it from within the loop safely without interfering with the
+-traversal.
+-.Pp
+-The macro
+-.Nm LIST_INIT
+-initializes the list referenced by
+-.Fa head .
+-.Pp
+-The macro
+-.Nm LIST_INSERT_HEAD
+-inserts the new element
+-.Fa elm
+-at the head of the list.
+-.Pp
+-The macro
+-.Nm LIST_INSERT_AFTER
+-inserts the new element
+-.Fa elm
+-after the element
+-.Fa listelm .
+-.Pp
+-The macro
+-.Nm LIST_INSERT_BEFORE
+-inserts the new element
+-.Fa elm
+-before the element
+-.Fa listelm .
+-.Pp
+-The macro
+-.Nm LIST_NEXT
+-returns the next element in the list, or NULL if this is the last.
+-.Pp
+-The macro
+-.Nm LIST_REMOVE
+-removes the element
+-.Fa elm
+-from the list.
+-.Pp
+-The macro
+-.Nm LIST_SWAP
+-swaps the contents of
+-.Fa head1
+-and
+-.Fa head2 .
+-.Sh LIST EXAMPLE
+-.Bd -literal
+-LIST_HEAD(listhead, entry) head =
+-    LIST_HEAD_INITIALIZER(head);
+-struct listhead *headp;			/* List head. */
+-struct entry {
+-	...
+-	LIST_ENTRY(entry) entries;	/* List. */
+-	...
+-} *n1, *n2, *n3, *np, *np_temp;
+-
+-LIST_INIT(&head);			/* Initialize the list. */
+-
+-n1 = malloc(sizeof(struct entry));	/* Insert at the head. */
+-LIST_INSERT_HEAD(&head, n1, entries);
+-
+-n2 = malloc(sizeof(struct entry));	/* Insert after. */
+-LIST_INSERT_AFTER(n1, n2, entries);
+-
+-n3 = malloc(sizeof(struct entry));	/* Insert before. */
+-LIST_INSERT_BEFORE(n2, n3, entries);
+-
+-LIST_REMOVE(n2, entries);		/* Deletion. */
+-free(n2);
+-					/* Forward traversal. */
+-LIST_FOREACH(np, &head, entries)
+-	np-> ...
+-
+-					/* Safe forward traversal. */
+-LIST_FOREACH_SAFE(np, &head, entries, np_temp) {
+-	np->do_stuff();
+-	...
+-	LIST_REMOVE(np, entries);
+-	free(np);
+-}
+-
+-while (!LIST_EMPTY(&head)) {		/* List Deletion. */
+-	n1 = LIST_FIRST(&head);
+-	LIST_REMOVE(n1, entries);
+-	free(n1);
+-}
+-
+-n1 = LIST_FIRST(&head);			/* Faster List Deletion. */
+-while (n1 != NULL) {
+-	n2 = LIST_NEXT(n1, entries);
+-	free(n1);
+-	n1 = n2;
+-}
+-LIST_INIT(&head);
+-.Ed
+-.Sh TAIL QUEUES
+-A tail queue is headed by a structure defined by the
+-.Nm TAILQ_HEAD
+-macro.
+-This structure contains a pair of pointers,
+-one to the first element in the tail queue and the other to
+-the last element in the tail queue.
+-The elements are doubly linked so that an arbitrary element can be
+-removed without traversing the tail queue.
+-New elements can be added to the tail queue after an existing element,
+-before an existing element, at the head of the tail queue,
+-or at the end of the tail queue.
+-A
+-.Fa TAILQ_HEAD
+-structure is declared as follows:
+-.Bd -literal -offset indent
+-TAILQ_HEAD(HEADNAME, TYPE) head;
+-.Ed
+-.Pp
+-where
+-.Li HEADNAME
+-is the name of the structure to be defined, and
+-.Li TYPE
+-is the type of the elements to be linked into the tail queue.
+-A pointer to the head of the tail queue can later be declared as:
+-.Bd -literal -offset indent
+-struct HEADNAME *headp;
+-.Ed
+-.Pp
+-(The names
+-.Li head
+-and
+-.Li headp
+-are user selectable.)
+-.Pp
+-The macro
+-.Nm TAILQ_HEAD_INITIALIZER
+-evaluates to an initializer for the tail queue
+-.Fa head .
+-.Pp
+-The macro
+-.Nm TAILQ_CONCAT
+-concatenates the tail queue headed by
+-.Fa head2
+-onto the end of the one headed by
+-.Fa head1
+-removing all entries from the former.
+-.Pp
+-The macro
+-.Nm TAILQ_EMPTY
+-evaluates to true if there are no items on the tail queue.
+-.Pp
+-The macro
+-.Nm TAILQ_ENTRY
+-declares a structure that connects the elements in
+-the tail queue.
+-.Pp
+-The macro
+-.Nm TAILQ_FIRST
+-returns the first item on the tail queue or NULL if the tail queue
+-is empty.
+-.Pp
+-The macro
+-.Nm TAILQ_FOREACH
+-traverses the tail queue referenced by
+-.Fa head
+-in the forward direction, assigning each element in turn to
+-.Fa var .
+-.Fa var
+-is set to
+-.Dv NULL
+-if the loop completes normally, or if there were no elements.
+-.Pp
+-The macro
+-.Nm TAILQ_FOREACH_REVERSE
+-traverses the tail queue referenced by
+-.Fa head
+-in the reverse direction, assigning each element in turn to
+-.Fa var .
+-.Pp
+-The macros
+-.Nm TAILQ_FOREACH_SAFE
+-and
+-.Nm TAILQ_FOREACH_REVERSE_SAFE
+-traverse the list referenced by
+-.Fa head
+-in the forward or reverse direction respectively,
+-assigning each element in turn to
+-.Fa var .
+-However, unlike their unsafe counterparts,
+-.Nm TAILQ_FOREACH
+-and
+-.Nm TAILQ_FOREACH_REVERSE
+-permit to both remove
+-.Fa var
+-as well as free it from within the loop safely without interfering with the
+-traversal.
+-.Pp
+-The macro
+-.Nm TAILQ_INIT
+-initializes the tail queue referenced by
+-.Fa head .
+-.Pp
+-The macro
+-.Nm TAILQ_INSERT_HEAD
+-inserts the new element
+-.Fa elm
+-at the head of the tail queue.
+-.Pp
+-The macro
+-.Nm TAILQ_INSERT_TAIL
+-inserts the new element
+-.Fa elm
+-at the end of the tail queue.
+-.Pp
+-The macro
+-.Nm TAILQ_INSERT_AFTER
+-inserts the new element
+-.Fa elm
+-after the element
+-.Fa listelm .
+-.Pp
+-The macro
+-.Nm TAILQ_INSERT_BEFORE
+-inserts the new element
+-.Fa elm
+-before the element
+-.Fa listelm .
+-.Pp
+-The macro
+-.Nm TAILQ_LAST
+-returns the last item on the tail queue.
+-If the tail queue is empty the return value is
+-.Dv NULL .
+-.Pp
+-The macro
+-.Nm TAILQ_NEXT
+-returns the next item on the tail queue, or NULL if this item is the last.
+-.Pp
+-The macro
+-.Nm TAILQ_PREV
+-returns the previous item on the tail queue, or NULL if this item
+-is the first.
+-.Pp
+-The macro
+-.Nm TAILQ_REMOVE
+-removes the element
+-.Fa elm
+-from the tail queue.
+-.Pp
+-The macro
+-.Nm TAILQ_SWAP
+-swaps the contents of
+-.Fa head1
+-and
+-.Fa head2 .
+-.Sh TAIL QUEUE EXAMPLE
+-.Bd -literal
+-TAILQ_HEAD(tailhead, entry) head =
+-    TAILQ_HEAD_INITIALIZER(head);
+-struct tailhead *headp;			/* Tail queue head. */
+-struct entry {
+-	...
+-	TAILQ_ENTRY(entry) entries;	/* Tail queue. */
+-	...
+-} *n1, *n2, *n3, *np;
+-
+-TAILQ_INIT(&head);			/* Initialize the queue. */
+-
+-n1 = malloc(sizeof(struct entry));	/* Insert at the head. */
+-TAILQ_INSERT_HEAD(&head, n1, entries);
+-
+-n1 = malloc(sizeof(struct entry));	/* Insert at the tail. */
+-TAILQ_INSERT_TAIL(&head, n1, entries);
+-
+-n2 = malloc(sizeof(struct entry));	/* Insert after. */
+-TAILQ_INSERT_AFTER(&head, n1, n2, entries);
+-
+-n3 = malloc(sizeof(struct entry));	/* Insert before. */
+-TAILQ_INSERT_BEFORE(n2, n3, entries);
+-
+-TAILQ_REMOVE(&head, n2, entries);	/* Deletion. */
+-free(n2);
+-					/* Forward traversal. */
+-TAILQ_FOREACH(np, &head, entries)
+-	np-> ...
+-					/* Safe forward traversal. */
+-TAILQ_FOREACH_SAFE(np, &head, entries, np_temp) {
+-	np->do_stuff();
+-	...
+-	TAILQ_REMOVE(&head, np, entries);
+-	free(np);
+-}
+-					/* Reverse traversal. */
+-TAILQ_FOREACH_REVERSE(np, &head, tailhead, entries)
+-	np-> ...
+-					/* TailQ Deletion. */
+-while (!TAILQ_EMPTY(&head)) {
+-	n1 = TAILQ_FIRST(&head);
+-	TAILQ_REMOVE(&head, n1, entries);
+-	free(n1);
+-}
+-					/* Faster TailQ Deletion. */
+-n1 = TAILQ_FIRST(&head);
+-while (n1 != NULL) {
+-	n2 = TAILQ_NEXT(n1, entries);
+-	free(n1);
+-	n1 = n2;
+-}
+-TAILQ_INIT(&head);
+-.Ed
+-.Sh SEE ALSO
+-.Xr tree 3
+-.Sh HISTORY
+-The
+-.Nm queue
+-functions first appeared in
+-.Bx 4.4 .
+diff --git a/tools/include/xen-external/bsd-sys-queue-h-seddery b/tools/include/xen-external/bsd-sys-queue-h-seddery
+deleted file mode 100755
+index 3f8716d9ff..0000000000
+--- a/tools/include/xen-external/bsd-sys-queue-h-seddery
++++ /dev/null
+@@ -1,74 +0,0 @@
+-#!/usr/bin/perl -p
+-#
+-# This script is part of the Xen build system.  It has a very
+-# permissive licence to avoid complicating the licence of the
+-# generated header file and to allow this seddery to be reused by
+-# other projects.
+-#
+-# Permission is hereby granted, free of charge, to any person
+-# obtaining a copy of this individual file (the "Software"), to deal
+-# in the Software without restriction, including without limitation
+-# the rights to use, copy, modify, merge, publish, distribute,
+-# sublicense, and/or sell copies of the Software, and to permit
+-# persons to whom the Software is furnished to do so, subject to the
+-# following conditions:
+-#
+-# The above copyright notice and this permission notice shall be
+-# included in all copies or substantial portions of the Software.
+-#
+-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+-# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+-# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+-# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+-# BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+-# ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+-# CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+-# SOFTWARE.
+-#
+-# Copyright (C) 2011 Citrix Ltd
+-
+-our $namespace, $ucnamespace;
+-
+-BEGIN {
+-    die unless @ARGV;
+-    $namespace = pop @ARGV;
+-    $namespace =~ s/^--prefix=// or die;
+-    $ucnamespace = uc $namespace;
+-
+-    print <<END or die $!;
+-/*
+- * DO NOT EDIT THIS FILE
+- *
+- * Generated automatically by bsd-sys-queue-h-seddery to
+- *  - introduce ${ucnamespace}_ and ${namespace}_ namespace prefixes
+- *  - turn "struct type" into "type" so that type arguments
+- *     to the macros are type names not struct tags
+- *  - remove the reference to sys/cdefs.h, which is not needed
+- *
+- * The purpose of this seddery is to allow the resulting file to be
+- * freely included by software which might also want to include other
+- * list macros; to make it usable when struct tags are not being used
+- * or not known; to make it more portable.
+- */
+-END
+-}
+-
+-s/\b( _SYS_QUEUE |
+-      SLIST | LIST | STAILQ | TAILQ | QUEUE
+-      )/${ucnamespace}_$1/xg;
+-
+-s/\b( TRACEBUF | TRASHIT |
+-      QMD_
+-      )/${ucnamespace}__$1/xg;
+-
+-s/\b(
+-      qm_
+-      )/${namespace}__$1/xg;
+-
+-s/\b struct \s+ type \b/type/xg;
+-
+-s,^\#include.*sys/cdefs.*,/* $& */,xg;
+-
+-s,\b __offsetof \b ,offsetof,xg;
+-
+-s/\b( NULL )/0/xg;
+diff --git a/tools/include/xen-external/bsd-sys-queue.h b/tools/include/xen-external/bsd-sys-queue.h
+deleted file mode 100644
+index 274e636c53..0000000000
+--- a/tools/include/xen-external/bsd-sys-queue.h
++++ /dev/null
+@@ -1,637 +0,0 @@
+-/*-
+- * Copyright (c) 1991, 1993
+- *	The Regents of the University of California.  All rights reserved.
+- *
+- * Redistribution and use in source and binary forms, with or without
+- * modification, are permitted provided that the following conditions
+- * are met:
+- * 1. Redistributions of source code must retain the above copyright
+- *    notice, this list of conditions and the following disclaimer.
+- * 2. Redistributions in binary form must reproduce the above copyright
+- *    notice, this list of conditions and the following disclaimer in the
+- *    documentation and/or other materials provided with the distribution.
+- * 4. Neither the name of the University nor the names of its contributors
+- *    may be used to endorse or promote products derived from this software
+- *    without specific prior written permission.
+- *
+- * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+- * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+- * SUCH DAMAGE.
+- *
+- *	@(#)queue.h	8.5 (Berkeley) 8/20/94
+- * $FreeBSD$
+- */
+-
+-#ifndef _SYS_QUEUE_H_
+-#define	_SYS_QUEUE_H_
+-
+-#include <sys/cdefs.h>
+-
+-/*
+- * This file defines four types of data structures: singly-linked lists,
+- * singly-linked tail queues, lists and tail queues.
+- *
+- * A singly-linked list is headed by a single forward pointer. The elements
+- * are singly linked for minimum space and pointer manipulation overhead at
+- * the expense of O(n) removal for arbitrary elements. New elements can be
+- * added to the list after an existing element or at the head of the list.
+- * Elements being removed from the head of the list should use the explicit
+- * macro for this purpose for optimum efficiency. A singly-linked list may
+- * only be traversed in the forward direction.  Singly-linked lists are ideal
+- * for applications with large datasets and few or no removals or for
+- * implementing a LIFO queue.
+- *
+- * A singly-linked tail queue is headed by a pair of pointers, one to the
+- * head of the list and the other to the tail of the list. The elements are
+- * singly linked for minimum space and pointer manipulation overhead at the
+- * expense of O(n) removal for arbitrary elements. New elements can be added
+- * to the list after an existing element, at the head of the list, or at the
+- * end of the list. Elements being removed from the head of the tail queue
+- * should use the explicit macro for this purpose for optimum efficiency.
+- * A singly-linked tail queue may only be traversed in the forward direction.
+- * Singly-linked tail queues are ideal for applications with large datasets
+- * and few or no removals or for implementing a FIFO queue.
+- *
+- * A list is headed by a single forward pointer (or an array of forward
+- * pointers for a hash table header). The elements are doubly linked
+- * so that an arbitrary element can be removed without a need to
+- * traverse the list. New elements can be added to the list before
+- * or after an existing element or at the head of the list. A list
+- * may only be traversed in the forward direction.
+- *
+- * A tail queue is headed by a pair of pointers, one to the head of the
+- * list and the other to the tail of the list. The elements are doubly
+- * linked so that an arbitrary element can be removed without a need to
+- * traverse the list. New elements can be added to the list before or
+- * after an existing element, at the head of the list, or at the end of
+- * the list. A tail queue may be traversed in either direction.
+- *
+- * For details on the use of these macros, see the queue(3) manual page.
+- *
+- *
+- *				SLIST	LIST	STAILQ	TAILQ
+- * _HEAD			+	+	+	+
+- * _HEAD_INITIALIZER		+	+	+	+
+- * _ENTRY			+	+	+	+
+- * _INIT			+	+	+	+
+- * _EMPTY			+	+	+	+
+- * _FIRST			+	+	+	+
+- * _NEXT			+	+	+	+
+- * _PREV			-	-	-	+
+- * _LAST			-	-	+	+
+- * _FOREACH			+	+	+	+
+- * _FOREACH_SAFE		+	+	+	+
+- * _FOREACH_REVERSE		-	-	-	+
+- * _FOREACH_REVERSE_SAFE	-	-	-	+
+- * _INSERT_HEAD			+	+	+	+
+- * _INSERT_BEFORE		-	+	-	+
+- * _INSERT_AFTER		+	+	+	+
+- * _INSERT_TAIL			-	-	+	+
+- * _CONCAT			-	-	+	+
+- * _REMOVE_AFTER		+	-	+	-
+- * _REMOVE_HEAD			+	-	+	-
+- * _REMOVE			+	+	+	+
+- * _SWAP			+	+	+	+
+- *
+- */
+-#ifdef QUEUE_MACRO_DEBUG
+-/* Store the last 2 places the queue element or head was altered */
+-struct qm_trace {
+-	char * lastfile;
+-	int lastline;
+-	char * prevfile;
+-	int prevline;
+-};
+-
+-#define	TRACEBUF	struct qm_trace trace;
+-#define	TRASHIT(x)	do {(x) = (void *)-1;} while (0)
+-#define	QMD_SAVELINK(name, link)	void **name = (void *)&(link)
+-
+-#define	QMD_TRACE_HEAD(head) do {					\
+-	(head)->trace.prevline = (head)->trace.lastline;		\
+-	(head)->trace.prevfile = (head)->trace.lastfile;		\
+-	(head)->trace.lastline = __LINE__;				\
+-	(head)->trace.lastfile = __FILE__;				\
+-} while (0)
+-
+-#define	QMD_TRACE_ELEM(elem) do {					\
+-	(elem)->trace.prevline = (elem)->trace.lastline;		\
+-	(elem)->trace.prevfile = (elem)->trace.lastfile;		\
+-	(elem)->trace.lastline = __LINE__;				\
+-	(elem)->trace.lastfile = __FILE__;				\
+-} while (0)
+-
+-#else
+-#define	QMD_TRACE_ELEM(elem)
+-#define	QMD_TRACE_HEAD(head)
+-#define	QMD_SAVELINK(name, link)
+-#define	TRACEBUF
+-#define	TRASHIT(x)
+-#endif	/* QUEUE_MACRO_DEBUG */
+-
+-/*
+- * Singly-linked List declarations.
+- */
+-#define	SLIST_HEAD(name, type)						\
+-struct name {								\
+-	struct type *slh_first;	/* first element */			\
+-}
+-
+-#define	SLIST_HEAD_INITIALIZER(head)					\
+-	{ NULL }
+-
+-#define	SLIST_ENTRY(type)						\
+-struct {								\
+-	struct type *sle_next;	/* next element */			\
+-}
+-
+-/*
+- * Singly-linked List functions.
+- */
+-#define	SLIST_EMPTY(head)	((head)->slh_first == NULL)
+-
+-#define	SLIST_FIRST(head)	((head)->slh_first)
+-
+-#define	SLIST_FOREACH(var, head, field)					\
+-	for ((var) = SLIST_FIRST((head));				\
+-	    (var);							\
+-	    (var) = SLIST_NEXT((var), field))
+-
+-#define	SLIST_FOREACH_SAFE(var, head, field, tvar)			\
+-	for ((var) = SLIST_FIRST((head));				\
+-	    (var) && ((tvar) = SLIST_NEXT((var), field), 1);		\
+-	    (var) = (tvar))
+-
+-#define	SLIST_FOREACH_PREVPTR(var, varp, head, field)			\
+-	for ((varp) = &SLIST_FIRST((head));				\
+-	    ((var) = *(varp)) != NULL;					\
+-	    (varp) = &SLIST_NEXT((var), field))
+-
+-#define	SLIST_INIT(head) do {						\
+-	SLIST_FIRST((head)) = NULL;					\
+-} while (0)
+-
+-#define	SLIST_INSERT_AFTER(slistelm, elm, field) do {			\
+-	SLIST_NEXT((elm), field) = SLIST_NEXT((slistelm), field);	\
+-	SLIST_NEXT((slistelm), field) = (elm);				\
+-} while (0)
+-
+-#define	SLIST_INSERT_HEAD(head, elm, field) do {			\
+-	SLIST_NEXT((elm), field) = SLIST_FIRST((head));			\
+-	SLIST_FIRST((head)) = (elm);					\
+-} while (0)
+-
+-#define	SLIST_NEXT(elm, field)	((elm)->field.sle_next)
+-
+-#define	SLIST_REMOVE(head, elm, type, field) do {			\
+-	QMD_SAVELINK(oldnext, (elm)->field.sle_next);			\
+-	if (SLIST_FIRST((head)) == (elm)) {				\
+-		SLIST_REMOVE_HEAD((head), field);			\
+-	}								\
+-	else {								\
+-		struct type *curelm = SLIST_FIRST((head));		\
+-		while (SLIST_NEXT(curelm, field) != (elm))		\
+-			curelm = SLIST_NEXT(curelm, field);		\
+-		SLIST_REMOVE_AFTER(curelm, field);			\
+-	}								\
+-	TRASHIT(*oldnext);						\
+-} while (0)
+-
+-#define SLIST_REMOVE_AFTER(elm, field) do {				\
+-	SLIST_NEXT(elm, field) =					\
+-	    SLIST_NEXT(SLIST_NEXT(elm, field), field);			\
+-} while (0)
+-
+-#define	SLIST_REMOVE_HEAD(head, field) do {				\
+-	SLIST_FIRST((head)) = SLIST_NEXT(SLIST_FIRST((head)), field);	\
+-} while (0)
+-
+-#define SLIST_SWAP(head1, head2, type) do {				\
+-	struct type *swap_first = SLIST_FIRST(head1);			\
+-	SLIST_FIRST(head1) = SLIST_FIRST(head2);			\
+-	SLIST_FIRST(head2) = swap_first;				\
+-} while (0)
+-
+-/*
+- * Singly-linked Tail queue declarations.
+- */
+-#define	STAILQ_HEAD(name, type)						\
+-struct name {								\
+-	struct type *stqh_first;/* first element */			\
+-	struct type **stqh_last;/* addr of last next element */		\
+-}
+-
+-#define	STAILQ_HEAD_INITIALIZER(head)					\
+-	{ NULL, &(head).stqh_first }
+-
+-#define	STAILQ_ENTRY(type)						\
+-struct {								\
+-	struct type *stqe_next;	/* next element */			\
+-}
+-
+-/*
+- * Singly-linked Tail queue functions.
+- */
+-#define	STAILQ_CONCAT(head1, head2) do {				\
+-	if (!STAILQ_EMPTY((head2))) {					\
+-		*(head1)->stqh_last = (head2)->stqh_first;		\
+-		(head1)->stqh_last = (head2)->stqh_last;		\
+-		STAILQ_INIT((head2));					\
+-	}								\
+-} while (0)
+-
+-#define	STAILQ_EMPTY(head)	((head)->stqh_first == NULL)
+-
+-#define	STAILQ_FIRST(head)	((head)->stqh_first)
+-
+-#define	STAILQ_FOREACH(var, head, field)				\
+-	for((var) = STAILQ_FIRST((head));				\
+-	   (var);							\
+-	   (var) = STAILQ_NEXT((var), field))
+-
+-
+-#define	STAILQ_FOREACH_SAFE(var, head, field, tvar)			\
+-	for ((var) = STAILQ_FIRST((head));				\
+-	    (var) && ((tvar) = STAILQ_NEXT((var), field), 1);		\
+-	    (var) = (tvar))
+-
+-#define	STAILQ_INIT(head) do {						\
+-	STAILQ_FIRST((head)) = NULL;					\
+-	(head)->stqh_last = &STAILQ_FIRST((head));			\
+-} while (0)
+-
+-#define	STAILQ_INSERT_AFTER(head, tqelm, elm, field) do {		\
+-	if ((STAILQ_NEXT((elm), field) = STAILQ_NEXT((tqelm), field)) == NULL)\
+-		(head)->stqh_last = &STAILQ_NEXT((elm), field);		\
+-	STAILQ_NEXT((tqelm), field) = (elm);				\
+-} while (0)
+-
+-#define	STAILQ_INSERT_HEAD(head, elm, field) do {			\
+-	if ((STAILQ_NEXT((elm), field) = STAILQ_FIRST((head))) == NULL)	\
+-		(head)->stqh_last = &STAILQ_NEXT((elm), field);		\
+-	STAILQ_FIRST((head)) = (elm);					\
+-} while (0)
+-
+-#define	STAILQ_INSERT_TAIL(head, elm, field) do {			\
+-	STAILQ_NEXT((elm), field) = NULL;				\
+-	*(head)->stqh_last = (elm);					\
+-	(head)->stqh_last = &STAILQ_NEXT((elm), field);			\
+-} while (0)
+-
+-#define	STAILQ_LAST(head, type, field)					\
+-	(STAILQ_EMPTY((head)) ?						\
+-		NULL :							\
+-	        ((struct type *)(void *)				\
+-		((char *)((head)->stqh_last) - __offsetof(struct type, field))))
+-
+-#define	STAILQ_NEXT(elm, field)	((elm)->field.stqe_next)
+-
+-#define	STAILQ_REMOVE(head, elm, type, field) do {			\
+-	QMD_SAVELINK(oldnext, (elm)->field.stqe_next);			\
+-	if (STAILQ_FIRST((head)) == (elm)) {				\
+-		STAILQ_REMOVE_HEAD((head), field);			\
+-	}								\
+-	else {								\
+-		struct type *curelm = STAILQ_FIRST((head));		\
+-		while (STAILQ_NEXT(curelm, field) != (elm))		\
+-			curelm = STAILQ_NEXT(curelm, field);		\
+-		STAILQ_REMOVE_AFTER(head, curelm, field);		\
+-	}								\
+-	TRASHIT(*oldnext);						\
+-} while (0)
+-
+-#define STAILQ_REMOVE_AFTER(head, elm, field) do {			\
+-	if ((STAILQ_NEXT(elm, field) =					\
+-	     STAILQ_NEXT(STAILQ_NEXT(elm, field), field)) == NULL)	\
+-		(head)->stqh_last = &STAILQ_NEXT((elm), field);		\
+-} while (0)
+-
+-#define	STAILQ_REMOVE_HEAD(head, field) do {				\
+-	if ((STAILQ_FIRST((head)) =					\
+-	     STAILQ_NEXT(STAILQ_FIRST((head)), field)) == NULL)		\
+-		(head)->stqh_last = &STAILQ_FIRST((head));		\
+-} while (0)
+-
+-#define STAILQ_SWAP(head1, head2, type) do {				\
+-	struct type *swap_first = STAILQ_FIRST(head1);			\
+-	struct type **swap_last = (head1)->stqh_last;			\
+-	STAILQ_FIRST(head1) = STAILQ_FIRST(head2);			\
+-	(head1)->stqh_last = (head2)->stqh_last;			\
+-	STAILQ_FIRST(head2) = swap_first;				\
+-	(head2)->stqh_last = swap_last;					\
+-	if (STAILQ_EMPTY(head1))					\
+-		(head1)->stqh_last = &STAILQ_FIRST(head1);		\
+-	if (STAILQ_EMPTY(head2))					\
+-		(head2)->stqh_last = &STAILQ_FIRST(head2);		\
+-} while (0)
+-
+-
+-/*
+- * List declarations.
+- */
+-#define	LIST_HEAD(name, type)						\
+-struct name {								\
+-	struct type *lh_first;	/* first element */			\
+-}
+-
+-#define	LIST_HEAD_INITIALIZER(head)					\
+-	{ NULL }
+-
+-#define	LIST_ENTRY(type)						\
+-struct {								\
+-	struct type *le_next;	/* next element */			\
+-	struct type **le_prev;	/* address of previous next element */	\
+-}
+-
+-/*
+- * List functions.
+- */
+-
+-#if (defined(_KERNEL) && defined(INVARIANTS))
+-#define	QMD_LIST_CHECK_HEAD(head, field) do {				\
+-	if (LIST_FIRST((head)) != NULL &&				\
+-	    LIST_FIRST((head))->field.le_prev !=			\
+-	     &LIST_FIRST((head)))					\
+-		panic("Bad list head %p first->prev != head", (head));	\
+-} while (0)
+-
+-#define	QMD_LIST_CHECK_NEXT(elm, field) do {				\
+-	if (LIST_NEXT((elm), field) != NULL &&				\
+-	    LIST_NEXT((elm), field)->field.le_prev !=			\
+-	     &((elm)->field.le_next))					\
+-	     	panic("Bad link elm %p next->prev != elm", (elm));	\
+-} while (0)
+-
+-#define	QMD_LIST_CHECK_PREV(elm, field) do {				\
+-	if (*(elm)->field.le_prev != (elm))				\
+-		panic("Bad link elm %p prev->next != elm", (elm));	\
+-} while (0)
+-#else
+-#define	QMD_LIST_CHECK_HEAD(head, field)
+-#define	QMD_LIST_CHECK_NEXT(elm, field)
+-#define	QMD_LIST_CHECK_PREV(elm, field)
+-#endif /* (_KERNEL && INVARIANTS) */
+-
+-#define	LIST_EMPTY(head)	((head)->lh_first == NULL)
+-
+-#define	LIST_FIRST(head)	((head)->lh_first)
+-
+-#define	LIST_FOREACH(var, head, field)					\
+-	for ((var) = LIST_FIRST((head));				\
+-	    (var);							\
+-	    (var) = LIST_NEXT((var), field))
+-
+-#define	LIST_FOREACH_SAFE(var, head, field, tvar)			\
+-	for ((var) = LIST_FIRST((head));				\
+-	    (var) && ((tvar) = LIST_NEXT((var), field), 1);		\
+-	    (var) = (tvar))
+-
+-#define	LIST_INIT(head) do {						\
+-	LIST_FIRST((head)) = NULL;					\
+-} while (0)
+-
+-#define	LIST_INSERT_AFTER(listelm, elm, field) do {			\
+-	QMD_LIST_CHECK_NEXT(listelm, field);				\
+-	if ((LIST_NEXT((elm), field) = LIST_NEXT((listelm), field)) != NULL)\
+-		LIST_NEXT((listelm), field)->field.le_prev =		\
+-		    &LIST_NEXT((elm), field);				\
+-	LIST_NEXT((listelm), field) = (elm);				\
+-	(elm)->field.le_prev = &LIST_NEXT((listelm), field);		\
+-} while (0)
+-
+-#define	LIST_INSERT_BEFORE(listelm, elm, field) do {			\
+-	QMD_LIST_CHECK_PREV(listelm, field);				\
+-	(elm)->field.le_prev = (listelm)->field.le_prev;		\
+-	LIST_NEXT((elm), field) = (listelm);				\
+-	*(listelm)->field.le_prev = (elm);				\
+-	(listelm)->field.le_prev = &LIST_NEXT((elm), field);		\
+-} while (0)
+-
+-#define	LIST_INSERT_HEAD(head, elm, field) do {				\
+-	QMD_LIST_CHECK_HEAD((head), field);				\
+-	if ((LIST_NEXT((elm), field) = LIST_FIRST((head))) != NULL)	\
+-		LIST_FIRST((head))->field.le_prev = &LIST_NEXT((elm), field);\
+-	LIST_FIRST((head)) = (elm);					\
+-	(elm)->field.le_prev = &LIST_FIRST((head));			\
+-} while (0)
+-
+-#define	LIST_NEXT(elm, field)	((elm)->field.le_next)
+-
+-#define	LIST_REMOVE(elm, field) do {					\
+-	QMD_SAVELINK(oldnext, (elm)->field.le_next);			\
+-	QMD_SAVELINK(oldprev, (elm)->field.le_prev);			\
+-	QMD_LIST_CHECK_NEXT(elm, field);				\
+-	QMD_LIST_CHECK_PREV(elm, field);				\
+-	if (LIST_NEXT((elm), field) != NULL)				\
+-		LIST_NEXT((elm), field)->field.le_prev = 		\
+-		    (elm)->field.le_prev;				\
+-	*(elm)->field.le_prev = LIST_NEXT((elm), field);		\
+-	TRASHIT(*oldnext);						\
+-	TRASHIT(*oldprev);						\
+-} while (0)
+-
+-#define LIST_SWAP(head1, head2, type, field) do {			\
+-	struct type *swap_tmp = LIST_FIRST((head1));			\
+-	LIST_FIRST((head1)) = LIST_FIRST((head2));			\
+-	LIST_FIRST((head2)) = swap_tmp;					\
+-	if ((swap_tmp = LIST_FIRST((head1))) != NULL)			\
+-		swap_tmp->field.le_prev = &LIST_FIRST((head1));		\
+-	if ((swap_tmp = LIST_FIRST((head2))) != NULL)			\
+-		swap_tmp->field.le_prev = &LIST_FIRST((head2));		\
+-} while (0)
+-
+-/*
+- * Tail queue declarations.
+- */
+-#define	TAILQ_HEAD(name, type)						\
+-struct name {								\
+-	struct type *tqh_first;	/* first element */			\
+-	struct type **tqh_last;	/* addr of last next element */		\
+-	TRACEBUF							\
+-}
+-
+-#define	TAILQ_HEAD_INITIALIZER(head)					\
+-	{ NULL, &(head).tqh_first }
+-
+-#define	TAILQ_ENTRY(type)						\
+-struct {								\
+-	struct type *tqe_next;	/* next element */			\
+-	struct type **tqe_prev;	/* address of previous next element */	\
+-	TRACEBUF							\
+-}
+-
+-/*
+- * Tail queue functions.
+- */
+-#if (defined(_KERNEL) && defined(INVARIANTS))
+-#define	QMD_TAILQ_CHECK_HEAD(head, field) do {				\
+-	if (!TAILQ_EMPTY(head) &&					\
+-	    TAILQ_FIRST((head))->field.tqe_prev !=			\
+-	     &TAILQ_FIRST((head)))					\
+-		panic("Bad tailq head %p first->prev != head", (head));	\
+-} while (0)
+-
+-#define	QMD_TAILQ_CHECK_TAIL(head, field) do {				\
+-	if (*(head)->tqh_last != NULL)					\
+-	    	panic("Bad tailq NEXT(%p->tqh_last) != NULL", (head)); 	\
+-} while (0)
+-
+-#define	QMD_TAILQ_CHECK_NEXT(elm, field) do {				\
+-	if (TAILQ_NEXT((elm), field) != NULL &&				\
+-	    TAILQ_NEXT((elm), field)->field.tqe_prev !=			\
+-	     &((elm)->field.tqe_next))					\
+-		panic("Bad link elm %p next->prev != elm", (elm));	\
+-} while (0)
+-
+-#define	QMD_TAILQ_CHECK_PREV(elm, field) do {				\
+-	if (*(elm)->field.tqe_prev != (elm))				\
+-		panic("Bad link elm %p prev->next != elm", (elm));	\
+-} while (0)
+-#else
+-#define	QMD_TAILQ_CHECK_HEAD(head, field)
+-#define	QMD_TAILQ_CHECK_TAIL(head, headname)
+-#define	QMD_TAILQ_CHECK_NEXT(elm, field)
+-#define	QMD_TAILQ_CHECK_PREV(elm, field)
+-#endif /* (_KERNEL && INVARIANTS) */
+-
+-#define	TAILQ_CONCAT(head1, head2, field) do {				\
+-	if (!TAILQ_EMPTY(head2)) {					\
+-		*(head1)->tqh_last = (head2)->tqh_first;		\
+-		(head2)->tqh_first->field.tqe_prev = (head1)->tqh_last;	\
+-		(head1)->tqh_last = (head2)->tqh_last;			\
+-		TAILQ_INIT((head2));					\
+-		QMD_TRACE_HEAD(head1);					\
+-		QMD_TRACE_HEAD(head2);					\
+-	}								\
+-} while (0)
+-
+-#define	TAILQ_EMPTY(head)	((head)->tqh_first == NULL)
+-
+-#define	TAILQ_FIRST(head)	((head)->tqh_first)
+-
+-#define	TAILQ_FOREACH(var, head, field)					\
+-	for ((var) = TAILQ_FIRST((head));				\
+-	    (var);							\
+-	    (var) = TAILQ_NEXT((var), field))
+-
+-#define	TAILQ_FOREACH_SAFE(var, head, field, tvar)			\
+-	for ((var) = TAILQ_FIRST((head));				\
+-	    (var) && ((tvar) = TAILQ_NEXT((var), field), 1);		\
+-	    (var) = (tvar))
+-
+-#define	TAILQ_FOREACH_REVERSE(var, head, headname, field)		\
+-	for ((var) = TAILQ_LAST((head), headname);			\
+-	    (var);							\
+-	    (var) = TAILQ_PREV((var), headname, field))
+-
+-#define	TAILQ_FOREACH_REVERSE_SAFE(var, head, headname, field, tvar)	\
+-	for ((var) = TAILQ_LAST((head), headname);			\
+-	    (var) && ((tvar) = TAILQ_PREV((var), headname, field), 1);	\
+-	    (var) = (tvar))
+-
+-#define	TAILQ_INIT(head) do {						\
+-	TAILQ_FIRST((head)) = NULL;					\
+-	(head)->tqh_last = &TAILQ_FIRST((head));			\
+-	QMD_TRACE_HEAD(head);						\
+-} while (0)
+-
+-#define	TAILQ_INSERT_AFTER(head, listelm, elm, field) do {		\
+-	QMD_TAILQ_CHECK_NEXT(listelm, field);				\
+-	if ((TAILQ_NEXT((elm), field) = TAILQ_NEXT((listelm), field)) != NULL)\
+-		TAILQ_NEXT((elm), field)->field.tqe_prev = 		\
+-		    &TAILQ_NEXT((elm), field);				\
+-	else {								\
+-		(head)->tqh_last = &TAILQ_NEXT((elm), field);		\
+-		QMD_TRACE_HEAD(head);					\
+-	}								\
+-	TAILQ_NEXT((listelm), field) = (elm);				\
+-	(elm)->field.tqe_prev = &TAILQ_NEXT((listelm), field);		\
+-	QMD_TRACE_ELEM(&(elm)->field);					\
+-	QMD_TRACE_ELEM(&listelm->field);				\
+-} while (0)
+-
+-#define	TAILQ_INSERT_BEFORE(listelm, elm, field) do {			\
+-	QMD_TAILQ_CHECK_PREV(listelm, field);				\
+-	(elm)->field.tqe_prev = (listelm)->field.tqe_prev;		\
+-	TAILQ_NEXT((elm), field) = (listelm);				\
+-	*(listelm)->field.tqe_prev = (elm);				\
+-	(listelm)->field.tqe_prev = &TAILQ_NEXT((elm), field);		\
+-	QMD_TRACE_ELEM(&(elm)->field);					\
+-	QMD_TRACE_ELEM(&listelm->field);				\
+-} while (0)
+-
+-#define	TAILQ_INSERT_HEAD(head, elm, field) do {			\
+-	QMD_TAILQ_CHECK_HEAD(head, field);				\
+-	if ((TAILQ_NEXT((elm), field) = TAILQ_FIRST((head))) != NULL)	\
+-		TAILQ_FIRST((head))->field.tqe_prev =			\
+-		    &TAILQ_NEXT((elm), field);				\
+-	else								\
+-		(head)->tqh_last = &TAILQ_NEXT((elm), field);		\
+-	TAILQ_FIRST((head)) = (elm);					\
+-	(elm)->field.tqe_prev = &TAILQ_FIRST((head));			\
+-	QMD_TRACE_HEAD(head);						\
+-	QMD_TRACE_ELEM(&(elm)->field);					\
+-} while (0)
+-
+-#define	TAILQ_INSERT_TAIL(head, elm, field) do {			\
+-	QMD_TAILQ_CHECK_TAIL(head, field);				\
+-	TAILQ_NEXT((elm), field) = NULL;				\
+-	(elm)->field.tqe_prev = (head)->tqh_last;			\
+-	*(head)->tqh_last = (elm);					\
+-	(head)->tqh_last = &TAILQ_NEXT((elm), field);			\
+-	QMD_TRACE_HEAD(head);						\
+-	QMD_TRACE_ELEM(&(elm)->field);					\
+-} while (0)
+-
+-#define	TAILQ_LAST(head, headname)					\
+-	(*(((struct headname *)((head)->tqh_last))->tqh_last))
+-
+-#define	TAILQ_NEXT(elm, field) ((elm)->field.tqe_next)
+-
+-#define	TAILQ_PREV(elm, headname, field)				\
+-	(*(((struct headname *)((elm)->field.tqe_prev))->tqh_last))
+-
+-#define	TAILQ_REMOVE(head, elm, field) do {				\
+-	QMD_SAVELINK(oldnext, (elm)->field.tqe_next);			\
+-	QMD_SAVELINK(oldprev, (elm)->field.tqe_prev);			\
+-	QMD_TAILQ_CHECK_NEXT(elm, field);				\
+-	QMD_TAILQ_CHECK_PREV(elm, field);				\
+-	if ((TAILQ_NEXT((elm), field)) != NULL)				\
+-		TAILQ_NEXT((elm), field)->field.tqe_prev = 		\
+-		    (elm)->field.tqe_prev;				\
+-	else {								\
+-		(head)->tqh_last = (elm)->field.tqe_prev;		\
+-		QMD_TRACE_HEAD(head);					\
+-	}								\
+-	*(elm)->field.tqe_prev = TAILQ_NEXT((elm), field);		\
+-	TRASHIT(*oldnext);						\
+-	TRASHIT(*oldprev);						\
+-	QMD_TRACE_ELEM(&(elm)->field);					\
+-} while (0)
+-
+-#define TAILQ_SWAP(head1, head2, type, field) do {			\
+-	struct type *swap_first = (head1)->tqh_first;			\
+-	struct type **swap_last = (head1)->tqh_last;			\
+-	(head1)->tqh_first = (head2)->tqh_first;			\
+-	(head1)->tqh_last = (head2)->tqh_last;				\
+-	(head2)->tqh_first = swap_first;				\
+-	(head2)->tqh_last = swap_last;					\
+-	if ((swap_first = (head1)->tqh_first) != NULL)			\
+-		swap_first->field.tqe_prev = &(head1)->tqh_first;	\
+-	else								\
+-		(head1)->tqh_last = &(head1)->tqh_first;		\
+-	if ((swap_first = (head2)->tqh_first) != NULL)			\
+-		swap_first->field.tqe_prev = &(head2)->tqh_first;	\
+-	else								\
+-		(head2)->tqh_last = &(head2)->tqh_first;		\
+-} while (0)
+-
+-#endif /* !_SYS_QUEUE_H_ */
 -- 
 2.34.1
 
