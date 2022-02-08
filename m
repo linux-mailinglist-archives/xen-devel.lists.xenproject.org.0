@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2ABEA4AE044
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Feb 2022 19:01:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.268496.462389 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86F2A4AE045
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Feb 2022 19:01:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.268499.462419 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nHUmv-0007XS-QU; Tue, 08 Feb 2022 18:00:25 +0000
+	id 1nHUmz-0008IF-Ku; Tue, 08 Feb 2022 18:00:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 268496.462389; Tue, 08 Feb 2022 18:00:25 +0000
+Received: by outflank-mailman (output) from mailman id 268499.462419; Tue, 08 Feb 2022 18:00:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nHUmv-0007SF-Jq; Tue, 08 Feb 2022 18:00:25 +0000
-Received: by outflank-mailman (input) for mailman id 268496;
- Tue, 08 Feb 2022 18:00:23 +0000
+	id 1nHUmz-00089X-7r; Tue, 08 Feb 2022 18:00:29 +0000
+Received: by outflank-mailman (input) for mailman id 268499;
+ Tue, 08 Feb 2022 18:00:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TsJg=SX=epam.com=prvs=40387f30b1=oleksii_moisieiev@srs-se1.protection.inumbo.net>)
- id 1nHUms-00068L-Uo
- for xen-devel@lists.xenproject.org; Tue, 08 Feb 2022 18:00:23 +0000
+ id 1nHUmw-00068L-7U
+ for xen-devel@lists.xenproject.org; Tue, 08 Feb 2022 18:00:26 +0000
 Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
  [148.163.133.242]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fa8cc221-8908-11ec-8eb8-a37418f5ba1a;
- Tue, 08 Feb 2022 19:00:20 +0100 (CET)
+ id fce3a86e-8908-11ec-8eb8-a37418f5ba1a;
+ Tue, 08 Feb 2022 19:00:24 +0100 (CET)
 Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
- by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 218EgrT9015757;
- Tue, 8 Feb 2022 18:00:17 GMT
+ by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 218EgrTD015757;
+ Tue, 8 Feb 2022 18:00:21 GMT
 Received: from eur02-he1-obe.outbound.protection.outlook.com
  (mail-he1eur02lp2057.outbound.protection.outlook.com [104.47.5.57])
- by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3e3t5xrs6q-8
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3e3t5xrs6q-12
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 08 Feb 2022 18:00:17 +0000
+ Tue, 08 Feb 2022 18:00:21 +0000
 Received: from PA4PR03MB7136.eurprd03.prod.outlook.com (2603:10a6:102:ea::23)
  by VE1PR03MB5613.eurprd03.prod.outlook.com (2603:10a6:803:12a::29)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.19; Tue, 8 Feb
- 2022 18:00:13 +0000
+ 2022 18:00:14 +0000
 Received: from PA4PR03MB7136.eurprd03.prod.outlook.com
  ([fe80::c1c:f98:9dd:86e0]) by PA4PR03MB7136.eurprd03.prod.outlook.com
  ([fe80::c1c:f98:9dd:86e0%6]) with mapi id 15.20.4951.019; Tue, 8 Feb 2022
- 18:00:13 +0000
+ 18:00:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,35 +53,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa8cc221-8908-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: fce3a86e-8908-11ec-8eb8-a37418f5ba1a
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n/yYMu60zNdIqp3sIYHiLLxW1iQ/mMJaFpQBJySVIVjKMjBnhzHxjm54TPOJnd3ZPmFVnNT76N4UT0svt+78YJmj+8RBxO9dJ9iRxFP3rKZIWIwr0uBbAjgGbgQEnd37bVP+WaeJBGSSN9NjjqVDdLwIuGkih7cKK3UIb2by1ffvKgOcdcJvosNLDc6WNkrq+d4GU9R8Stp+3T9fXUTk1FhqENNvfHHK11ns2z7p9ubXN08loLkXw/AuTMw2/pAoOEfpoaI+MSxxAv4xfwfYIMKz/cxjhUypAEgPf5hM2vML8ib/kPl7xvuBIqXaCYOCSVW61zA5lte23YDD64CBYw==
+ b=SYO9MKfe3IgWmXp7lo+Bl4ljmMGi1ae0L+UWUR0qgoRpJaNT7rSRNjgXUvM+ryHMd0aUQ5tSg8M+jTHvnwuWWIdO2It7fMXrYmRMIp60U2nJlHsiruGdC70p2Z8E2WvYgA6iRhpk+gzdPuZsLvFZZTtF8nUiSn4cE54I5NCgH5VwzrmBCvca65BsMp+SuU5/j6Au3YrRv0JfynDFvxk/eh/WjsJ2dG/QvyLZIjsqG3YORnYoxNxDQUAFYEJ/t4R7Vu2RCqMdFNwBoRkmF9EyGRL/3/bItFEGhWiAL/zyWdbIG358Jp9ZozEeg/NuwdGVlse5suyRG581NEIC/f7t5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oz8ls5jYpEH0zZ1iaWsjgXWp+zE0wyLWSst1sUoOmY8=;
- b=kU5YxXUpypTXS2Y6t5ar77Tg26uMcyuIAgFQfI9W8hC5HFQwNyNJB45Em15meaaelKZrG3uVBzqFrRnaHVFkc6JXsrKtjyxe4HyvmO2p0LxqufrAMbjOidziZb2Aemg78/YvogTJOblW6e4F/5IvSs9Qdb8mac8NBm2CT178kM1PKmIQDG12u2QlZJFFhXMTQ3VZ/96m400SbMQ1ixhtC+qEcO9/EAkYuCGqIlAgOfsmfKOFo1Rg6aIyPKi3VCC+oa1pFfBheefWd4shlxO/o7f4moswcqGqJKx20oc5poYPh9y3z2YnjgP//+3nkUgTMVzThvu+IExB9ucFhXKYQA==
+ bh=jayupWuWbjhOz7yWgZER6E30JTnHsZKWIQYO2oKaWWE=;
+ b=bH+qApmhRzaaPMNJqomFxCloTOyKpsTwMCjgekox1CZpv83ogBXgTHBDGWtb0Ld1zZDCaTPZ4AbKW6C87DBxvi9bI84IiwzgZ53o5mit3cjQjYrm7LjQCiQ4Ogg1bp8ZqJi4PMgnEYcOErksjNFQ54I0i1vXbUS07dyxD7bfQBqs7kwOVzKLEj3V6qZq6aWjmBhmiA7YeMe8vkBXb4M4C8wleEWSUR5bi+qQMTHpfT1BZv8ek9fxIsBAWmU6gnwyNYEY50fTOJHS/Shg+Gh0tddW9rClAfJdIeCj1yOuDb5vz18xVIhNrHqXbFvuhrc9bCfBQs4UhBFTBxmPDb25pw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oz8ls5jYpEH0zZ1iaWsjgXWp+zE0wyLWSst1sUoOmY8=;
- b=X+MsHsSczOmM7yw5IvGR0V8nO1anPEWIiCIV7Pk5vJqCuWEb4Paj5n/pSUD9PCEsLr+td6iDfu3/Vqh8STpjLKvrUUuApSGjSkvRxmZNpuFuWJjtiFuTMA+zGwq9vwqzbI1y7epa6PHyxLVrvoNdAYqt5qJ95fFGV2AKfiN9RUdBn1gPojbefyuK+MJr15ZhIzGc6qsBAy0/mK/5CVWMhfOyBR7/jr+Mm+WsdUd+42TZ8UPTkKnmZKv2ZwmtENWrvMkuCGisz2dAn5aCi7+Je62gxalZoamRKuou1qbFqjMF4koZ5eCTJr4Y7PWOlPA28B76lpNYWfF+RWe2ibNHag==
+ bh=jayupWuWbjhOz7yWgZER6E30JTnHsZKWIQYO2oKaWWE=;
+ b=SQ1KDkkWJX3kuq861ElC+WSGwMK7a6K9OsAr9YIq2ojajYWjVRCCD6OTyt4zpGrBGV3pV1Un14Ui5RS6coscRW4zBBjBABw9ddEE/KDqvnt2l/xOOn8/8gpYAELttIHcDzzN03wRGYZ0pGNK6awLhz9BTgYAfRWA1FvUTlyRZBAbKkUOQ87Nf03QPBgipuokh+EmDJ27TKfnmAOLQEgMRsTAM5mp+VyhmGXixwyCJIXhN31Vk+Buke8qCkrNaf/jykHKkubicVgppXgivFKrBDyoZxuZTu5XIm84x3tss9LPewENFhkJT6e7y6/Ki6OQWsgo+fDbcfHAe1pqsOIveA==
 From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>, Wei Liu <wl@xen.org>,
+        Juergen Gross <jgross@suse.com>,
+        Andrew Cooper <andrew.cooper3@citrix.com>,
         George Dunlap <george.dunlap@citrix.com>,
-        Nick Rosbrook
-	<rosbrookn@ainfosec.com>,
+        Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
+        Stefano Stabellini <sstabellini@kernel.org>,
         Anthony PERARD <anthony.perard@citrix.com>,
-        Juergen
- Gross <jgross@suse.com>
-Subject: [RFC v2 7/8] tools/arm: add "arm_sci" option to xl.cfg
-Thread-Topic: [RFC v2 7/8] tools/arm: add "arm_sci" option to xl.cfg
-Thread-Index: AQHYHRW421V3hDnhNU+uBIx9/PfKVg==
-Date: Tue, 8 Feb 2022 18:00:13 +0000
+        Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>,
+        Bertrand Marquis <bertrand.marquis@arm.com>
+Subject: [RFC v2 8/8] xen/arm: add SCI mediator support for DomUs
+Thread-Topic: [RFC v2 8/8] xen/arm: add SCI mediator support for DomUs
+Thread-Index: AQHYHRW5DNy0UeL9wEisMLPQvzYWsg==
+Date: Tue, 8 Feb 2022 18:00:14 +0000
 Message-ID: 
- <e138c3ed5de18e7b2a423254f3b55c1a5f22c572.1644341635.git.oleksii_moisieiev@epam.com>
+ <8aaab52f54841ebcf31a8f5fc6f1f8fd0b778e49.1644341635.git.oleksii_moisieiev@epam.com>
 References: <cover.1644341635.git.oleksii_moisieiev@epam.com>
 In-Reply-To: <cover.1644341635.git.oleksii_moisieiev@epam.com>
 Accept-Language: en-US
@@ -89,66 +92,67 @@ Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7c86fd87-1051-4555-8660-08d9eb2cdb00
+x-ms-office365-filtering-correlation-id: 1d8aa3d6-94a8-4c12-78de-08d9eb2cdbd2
 x-ms-traffictypediagnostic: VE1PR03MB5613:EE_
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
 x-microsoft-antispam-prvs: 
- <VE1PR03MB56130BE078F452D001BC0F4BE32D9@VE1PR03MB5613.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
+ <VE1PR03MB561361DA9A2BF06711B1E0FDE32D9@VE1PR03MB5613.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:538;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- CbIDa937LpIp4Ccm27Vusw4GZKDrT1VrjSsF3RQDM2BjY7MwjS+hTBbgbwW427+OIA8V3T0TLGomFsNhBmOE4gMR+fYmdCO97nan4Lvh/eLS8Pgr7vckkrtlq0M7e17Tr9FI4uqXdMmGrQLhTQmSNlKi3LLrQ9A/t/lvSaY8eq/vu5hCldLpPAU1wXFOsS2LnCl/SdZj/l5vHdC/YJc5K4nOeZ1xVJtvlJIqZod+gLKyqlXh6Oa5VTf3sF92rhFyb9eqFouW7tgxvfD3P38DpSvhTTfYfaaZGKfOQaqkm7IX2oPm9DlhZ1DeDtqYcFZQheS8RfZF65bpLt4VzXJlJYCtNZTB+dbVmmhvQ6xmz4hQM0vmx6HJLShJ7rkxmvhVq6NH91L5XuqERMnrfa/WiFBAz1oUqCTUvuDYP2Cno4DK/b6mJTJWJxJcH176vHXO90za7nN7Lo8/QS/Wvy+J4urPlxFASzs6eALbmvZBmdkwz8F7JS0u0hfsL1BLfCQNCti+jJGAYrIQbEUdQYL3HrNkec1LyBfX1H6/iGHzFQr4IXrnnMSfN4enqnLI42kI5mMHK9+ykUx5b5qvhTtAtAIipaxrAJTF6xDutjsoVbdISpGJ4ohGCILMklzzSx0at3Qn6Ln+w36WWSbpvgSXt3Iqd5yDJjrJ/zl0G5dc4tINb49VV3A+V7Bu0gISPrDQCled6fkQ3iRUOyfF5mZvKQ==
+ rqxqne92tNVg0gXi1RQ1NO7eQOSv0cZvEyQLrHBW9kvSdYIC9sC5usBbMqoaUOMHYXnIChGrP+Z/YOGYqZSnIJTvlhoqtlp8r5QM+af1SG63r5aiCo1xGMTWOmreJsUj/+a/6RaEw8OCAqfhRCNRv2OQSdhrLux3S0K9365kjWktmT8ZbrVLNTfwnU3XGajHMFUV1BEID+Y2pxTRgl9OAmuGOHuBgJqhAJRqogQ7I2gHAmA3ptmhAD+5CgvGh88GWFno+tE7YlImDxEWah1hV0w0Omj3DaDC00JYTYpkDqn6HhzrvokzfwL2t8zrml7yy2DQXGwM3LwxNGe96NIntdifnsdDCCzJ4BERLjjouamm2idzO42yRcx90SPMETs9zFrhGBtMTQKtgoPyMVpCccYuBHPlJxg9ELJqsRcEGsHLG6K25aHXp9BOWDg5QuRzur+E5N5WA329PEpkWwJSo1ZoUJ3xY/uoC4MpCm+oeQDzbuPG3QzDOK0y3s3gdelU8V5tv7gDlptP39BQ4Rz57oQ+Kghg0j6K3q/z3y/5uQ5XPaEkSXz+HxoQz5yjONOt94jkZ3ajIcPAMn4EXfLVjMoSpX6+Sm3xfZRYlhT5QvpLa0Ha8Ag2wf84dDytbT+2DcdENjeTG5I1LZs7V54DDfN6zwY6N5Nq2kOO7cPtWY5kKUjyRZd2iwl5Paj38QmEVzgFliEhzHMHc9poEKV8/Q==
 x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7136.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(38070700005)(71200400001)(6486002)(508600001)(66476007)(64756008)(86362001)(66556008)(316002)(122000001)(6916009)(6506007)(2616005)(5660300002)(6512007)(4326008)(83380400001)(54906003)(2906002)(26005)(186003)(8676002)(76116006)(38100700002)(66446008)(66946007)(8936002)(36756003)(91956017);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7136.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(38070700005)(71200400001)(6486002)(508600001)(66476007)(64756008)(86362001)(66556008)(316002)(122000001)(6916009)(6506007)(2616005)(5660300002)(6512007)(7416002)(4326008)(83380400001)(54906003)(30864003)(2906002)(26005)(186003)(8676002)(76116006)(38100700002)(66446008)(66946007)(8936002)(36756003)(91956017);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?TjbVxtzLqxZNS/MSNWTT5fjduI0TtmR5B4Yx3MNKLMIiNlZQx/wFlV6Z83?=
- =?iso-8859-1?Q?PgzvMb6SS3dZlqTy8UrYuEh44zw91KPmwV9zn2Rqo+uw09rp3WijSC3jjZ?=
- =?iso-8859-1?Q?uBtMyTs2MQ+/dm0QM+K/+K91vuLP2yNzNxkVNiu6Y9RZwnuqiOORqaVQ88?=
- =?iso-8859-1?Q?MpJ0f8ahMikD5FIhThq9uCDOebXFAHb8DHLp6oiEx8jhHY0Ht8Bpvl0Ape?=
- =?iso-8859-1?Q?5i1tNCWRDsbX+mX5M7gfwEkrCyQQ6sXXoKt12o/5qYZ5SNEv2ctMP/p2Od?=
- =?iso-8859-1?Q?v8sntBB+jrRJkazT3Es3jsYJ56fY9rupKFWvSKSClHf9PiWjd4mjX4kXJk?=
- =?iso-8859-1?Q?2fPECHxu9nm1PIQEHr4ELP6iLzJwJfMv3GC1wp2sMFzKO8hGiMUCKttWId?=
- =?iso-8859-1?Q?BByxnE9NoeX06l3YvQ6HRjtxPzq0iJDnaxav4q97xNN5lU8cpVZymExWcp?=
- =?iso-8859-1?Q?QvjfpJ/dwkWRZyG0i7BRX5v24nR36bHLE63anmvsms2yWGb63lji2HyYB4?=
- =?iso-8859-1?Q?W6kyLBLhoQ1Cw0UEMzPNAvN43N58B7ntSCcAjU5q6qyw3sDCjRRIygCzD2?=
- =?iso-8859-1?Q?yK5vkk3IjYrVWbZX5AJmIhESOD4gxji0BHyQOZRsF8AcTLSITdDOJ18jl/?=
- =?iso-8859-1?Q?VTG6C64eLlzict/mxDPUKwJGEAykwrT9lDNtJhsN9J4UnXMlLW/R+0SaO1?=
- =?iso-8859-1?Q?NiwmYY6ZvkAXh/wLQVOaou0wqwIvf+TRKkmvVaCHrKQfOHabYOUIkcmeol?=
- =?iso-8859-1?Q?EEs4IoKK4ZS8QJ1Qnadoyu3HleJXXoPOCMq7ApxxYBuRzpZNjagX2bIs7C?=
- =?iso-8859-1?Q?Vrtvfgo59AfmKH2vs1ky6p9btOxhdtPqLKKAk4cgQK7mFdmlbPUhjX48pA?=
- =?iso-8859-1?Q?ozvcffU761QdfOrOvWGfIbWIwuTTqbZblxtyFXTshaBrVr1uTMUw5O0v5c?=
- =?iso-8859-1?Q?XBFT0J5mN/0CS/y/qcRXQFg1vfdw2bcuK9eSPzq6TjCIRneZOP//SC03IX?=
- =?iso-8859-1?Q?uq7rPAJkaNJzLIMbklJPb6oJu3BrjgkJFJUg8XATuHnDwvDcpMbEoR+4Bg?=
- =?iso-8859-1?Q?Ft5dQIggHPdOSGUhF7sydjV5V7LluD3EmIKQHFH3ZDmJPCwET5cq0qOSNF?=
- =?iso-8859-1?Q?ZVWsJvfbytXRzFsJPN3xw8RUlY4pS9bWrgD8WnZQVephIT6SZulx6w/69t?=
- =?iso-8859-1?Q?4qXYUVnYB2htQk6z6fl8ZY4J6mZDh0UX8X6zslto/XW3JYMYYf68/Vb6OZ?=
- =?iso-8859-1?Q?o3fBceN6ojjRlTm5ZiSOFwCGEo64V4j/yYLNZQzFzCH/mks+vZG8D3K/IH?=
- =?iso-8859-1?Q?/MUBVdeMJk+29XGB9OWyg7WXIUkgDmVrDWKsCg4sASuvUmdF3FhAMQT3ug?=
- =?iso-8859-1?Q?4qX3GUcJPuydvwPUkpZJMKazypFUFBNbF3qFKYI26jNrkKem2TRpf6eDF/?=
- =?iso-8859-1?Q?/auB+FLWG/kj9TjpmtsHrca7zkCdN+x4xTqPbvDX7S2jSa8JomiiNN7ttd?=
- =?iso-8859-1?Q?UIATiRvjtLkuh5j95uwl5eKQ2nL153st4pW2Jg/9qSh2qeOpbWWinm9S4f?=
- =?iso-8859-1?Q?3E9JiDcqM+CC103SxYkE+d1tvYTzjpgX1NMP5duGqZrLv14qUmvAoyWnIe?=
- =?iso-8859-1?Q?HkT7foWOHVhf9z9aEQnToRAvcRW0a3mQbhWcOnqLKW+apnqJsHCwLQku1b?=
- =?iso-8859-1?Q?fWo/HxjkAfizp2bSNd/elUhdrTj7fUAK1G3Jr0NnjWfua3BcHO6YPKkU+U?=
- =?iso-8859-1?Q?sNdpK9AN/dtmzNGm7kL9Kz4nY=3D?=
+ =?iso-8859-1?Q?Bb/o0zHOWJ4lAaakLRPPxROrgldRXBN4eTiPjo7EFECHkHlUv7I2bquMf4?=
+ =?iso-8859-1?Q?RHIj+oA3bvv7OVD6Z/eKzuHwTdmaOaLGdT+G8moFqV/zHH5SbSMr3oEoGP?=
+ =?iso-8859-1?Q?a0qoq+kRYbA+mETGE/MScrGaX3V/KPraHR0cetjYVUQv8t/llDXuUs4hGw?=
+ =?iso-8859-1?Q?JQR4J+ybvPDB/ayJkcONjs1sRRerHcxcdHCWoDrdufIAN5gdoqnovhhMFS?=
+ =?iso-8859-1?Q?xiIAJ8NBu5U9p+zV3CDH9WZwSkt8uaoyNALUsgVTJ9kafXiSEoIveQV6EQ?=
+ =?iso-8859-1?Q?5S3h7UvVC9UsUw1hYOtr71nLQbd1Ri1ZoIXiuxZujZvBDnBTy+z8mtrx7g?=
+ =?iso-8859-1?Q?Vtbnqjvj8V2tZ3KWFpH56xuqxvyPqoK7YZQhCAv4uGLhjNWXebO16pEquZ?=
+ =?iso-8859-1?Q?a/zhfOpYY5hFC3IQsQd2sYoYyiQ2XGSSMBtqRqUL4FTQ4XQy5yhRVZcWbV?=
+ =?iso-8859-1?Q?lrGcaCagkE5GK7R+pDC7LuED6OSXde0xpVAfdKParxIgytJsXpTeL1SQgU?=
+ =?iso-8859-1?Q?c67E+MDAPJRol0v2KU2bsH7vt6pjieS/XXVpvOSY2plf+yRi3H1wd983YB?=
+ =?iso-8859-1?Q?IR1uAxAnIv/hN/AnIdIn1BauRERwnQYSuLCJU45+/ZYB2jvnca5XB4m7o4?=
+ =?iso-8859-1?Q?jfRBTwt/98C14/u0tVZp3nH11fnqdCUZCrHWCfohvPD5NJ9JqDIF535T79?=
+ =?iso-8859-1?Q?ycsAdV38Zu2NfmKxTCCWiT7q/EAQU7FeM2QR+QlBebNhdboXObypNi8X7L?=
+ =?iso-8859-1?Q?d/GoLGXpgT5mdYxFjaQWRWW5WpnQgeHDmZWWooBZunk+beXWoXoSgoZ4qg?=
+ =?iso-8859-1?Q?kwj8U4VKIbA45w5HDU67/v0utBaekfV4W5MkJqik8d7xXMpxw/a9WDxGPR?=
+ =?iso-8859-1?Q?fwvt1cM2ETs7GuFIO0A+qyQQ+wdnzSNUtkQpXYY49ji6C9CGxPthTBXb3t?=
+ =?iso-8859-1?Q?TEnu7UpMygcbyuXJWGdu9dJL5NZBXWZF5uXcpIJkrTSmnNyWWLFH0u/hBt?=
+ =?iso-8859-1?Q?xFg2PFIAM0ftVJSpc2kfbv/y3K2jYZMZJRJitn7FDF8GOD2dWsVm0o9ovJ?=
+ =?iso-8859-1?Q?7zUHjcMFbSf2Gc5pl+t+1dShYxUia4Ja84r3LlUljHx7LzAa1E2AiUEKxW?=
+ =?iso-8859-1?Q?yfVtLj1etsCcD2YhVEuecIaRt0+Ao3aGt49APiSOyYCh8K5EIKJ+h8KO8y?=
+ =?iso-8859-1?Q?tbq3TWy15iKGSO/Swt+z7D0U/ON5t5eCJYHDFkFi4X8BgcIhnYYJXgFNud?=
+ =?iso-8859-1?Q?Wq1vnN9mdhdxFAXshIsZ0L7nrlpbiKn+x2iOnf3GgH3QMbdNdvANQtgnKl?=
+ =?iso-8859-1?Q?+2BZMhiTiWNHfOcL1lod4Gcey1TUEt8EE41g2ORe+SQCEhB3ywL9+ml61Y?=
+ =?iso-8859-1?Q?mfh3O5im86xH+J2DdyXgTMebsxlEyiNDuJYu+64iY9jr6CXVRnHoGeb+KF?=
+ =?iso-8859-1?Q?GDdjBJiFSQJkmuxRnnCaWFEtykHY9Cyn2fbXtvih54jJ4wVWHuiELNIDfT?=
+ =?iso-8859-1?Q?Yrw+4Jlik2wwZsEWR+13TZysjbbuiqSu+A5n4hTDqZtZdlyG+65WrpEEvR?=
+ =?iso-8859-1?Q?GNr+71Rvlvi5m5WWXtDlKZydZip+goQB0EnMGm639cGxRoQJJjqzI0Eexc?=
+ =?iso-8859-1?Q?G3yUkVJerzh5Q1m9UXC48/tuOKRq4uKCRMx89J5W95bx/DHy/coIGQ40+l?=
+ =?iso-8859-1?Q?PZMnFGc3MEfInrpdP6FtmKRPkwS1wIyy62IGwJTP+KqhOSTm6SQ3vN7VvH?=
+ =?iso-8859-1?Q?uLFoSlulh/JzWYEgreF8caZ5k=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7136.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c86fd87-1051-4555-8660-08d9eb2cdb00
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Feb 2022 18:00:13.4188
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d8aa3d6-94a8-4c12-78de-08d9eb2cdbd2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Feb 2022 18:00:14.7791
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SWz4WbBiq1w8dOgLA0CkLEWHTc2hMe5VjUbHhGRJk/6+7HKr8dyrMXgh+RKMYbbF+gnvpHfKnW+Z2dSYO7WbzvT1x3y2Qt2vdpKI3vjaKzA=
+X-MS-Exchange-CrossTenant-userprincipalname: +r2E2QNZzlRK0MqL9DH03hTokkOFLMJtHCnQo2oVW6lsQyVQyOFTMrOHzsqjPm2whFJIbDef/fL2Md+FQIPYWX4VR8MFAYVVVaFZkR3WVyU=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR03MB5613
-X-Proofpoint-GUID: wz6TY2sipT9sV7lH3pXo29mw_x7eIvka
-X-Proofpoint-ORIG-GUID: wz6TY2sipT9sV7lH3pXo29mw_x7eIvka
+X-Proofpoint-GUID: rMgEuywUpIi_Qn8ShMUDtOToY64rSaIr
+X-Proofpoint-ORIG-GUID: rMgEuywUpIi_Qn8ShMUDtOToY64rSaIr
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
  definitions=2022-02-08_06,2022-02-07_02,2021-12-02_01
@@ -158,174 +162,453 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscor
  mlxlogscore=999 bulkscore=0 classifier=spam adjust=0 reason=mlx
  scancount=1 engine=8.12.0-2201110000 definitions=main-2202080106
 
-This enumeration sets SCI type for the domain. Currently there is
-two possible options: either 'none' or 'scmi_smc'.
-
-'none' is the default value and it disables SCI support at all.
-
-'scmi_smc' enables access to the Firmware from the domains using SCMI
-protocol and SMC as transport.
+Integration of the SCMI mediator with xen libs:
+- add hypercalls to aquire SCI channel and set device permissions
+for DomUs;
+- add SCMI_SMC nodes to DomUs device-tree based on partial device-tree;
+- SCI requests redirection from DomUs to Firmware.
 
 Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
 ---
- docs/man/xl.cfg.5.pod.in             | 20 ++++++++++++++++++++
- tools/golang/xenlight/helpers.gen.go |  2 ++
- tools/golang/xenlight/types.gen.go   |  7 +++++++
- tools/include/libxl.h                |  5 +++++
- tools/libs/light/libxl_types.idl     |  6 ++++++
- tools/xl/xl_parse.c                  |  9 +++++++++
- 6 files changed, 49 insertions(+)
+ tools/include/xenctrl.h               |   3 +
+ tools/libs/light/libxl_arm.c          | 214 ++++++++++++++++++++++++--
+ tools/libs/light/libxl_create.c       |  44 +++++-
+ tools/libs/light/libxl_internal.h     |   3 +
+ xen/arch/arm/domctl.c                 |   7 +
+ xen/include/public/device_tree_defs.h |   1 +
+ 6 files changed, 260 insertions(+), 12 deletions(-)
 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index ddf82cb3bc..f960e367c4 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -1614,8 +1614,28 @@ This feature is a B<technology preview>.
+diff --git a/tools/include/xenctrl.h b/tools/include/xenctrl.h
+index 07b96e6671..cdd14f465f 100644
+--- a/tools/include/xenctrl.h
++++ b/tools/include/xenctrl.h
+@@ -1238,6 +1238,9 @@ int xc_domain_getvnuma(xc_interface *xch,
+ int xc_domain_soft_reset(xc_interface *xch,
+                          uint32_t domid);
 =20
- =3Dback
-=20
-+=3Ditem B<arm_sci=3D"STRING">
++int xc_domain_add_sci_device(xc_interface *xch,
++                              uint32_t domid, char *path);
 +
-+B<Arm only> Set ARM_SCI type for the guest. ARM_SCI is System Control Prot=
-ocol
-+allows domain to manage various functions that are provided by HW platform=
-.
-+
- =3Dover 4
-=20
-+=3Ditem B<none>
-+
-+Don't allow guest to use ARM_SCI if present on the platform. This is the
-+default value.
-+
-+=3Ditem B<scmi_smc>
-+
-+Enables SCMI_SMC support for the guest. SCMI is System Control Management
-+Inferface - allows domain to manage various functions that are provided by=
- HW
-+platform, such as clocks, resets and power-domains. Xen will mediate acces=
-s to
-+clocks, power-domains and resets between Domains and ATF. Disabled by defa=
-ult.
-+SCP is used as transport.
-+
-+=3Dback
-+
- =3Ditem B<force_assign_without_iommu=3DBOOLEAN>
-=20
- If set, Xen allows to assign a devices even if it is not behind an IOMMU.
-diff --git a/tools/golang/xenlight/helpers.gen.go b/tools/golang/xenlight/h=
-elpers.gen.go
-index 664933bbb8..6cf7725735 100644
---- a/tools/golang/xenlight/helpers.gen.go
-+++ b/tools/golang/xenlight/helpers.gen.go
-@@ -1091,6 +1091,7 @@ if err :=3D x.DmRestrict.fromC(&xc.dm_restrict);err !=
-=3D nil {
- return fmt.Errorf("converting field DmRestrict: %v", err)
- }
- x.Tee =3D TeeType(xc.tee)
-+x.ArmSci =3D ArmSciType(xc.arm_sci)
-=20
- if err :=3D x.ForceAssignWithoutIommu.fromC(&xc.force_assign_without_iommu=
-);err !=3D nil {
- return fmt.Errorf("converting field ForceAssignWithoutIommu: %v", err)
-@@ -1439,6 +1440,7 @@ if err :=3D x.DmRestrict.toC(&xc.dm_restrict); err !=
-=3D nil {
- return fmt.Errorf("converting field DmRestrict: %v", err)
- }
- xc.tee =3D C.libxl_tee_type(x.Tee)
-+xc.arm_sci =3D C.libxl_arm_sci_type(x.ArmSci)
- xc._type =3D C.libxl_domain_type(x.Type)
- switch x.Type{
- case DomainTypeHvm:
-diff --git a/tools/golang/xenlight/types.gen.go b/tools/golang/xenlight/typ=
-es.gen.go
-index 2f7a088c3b..3b5c959215 100644
---- a/tools/golang/xenlight/types.gen.go
-+++ b/tools/golang/xenlight/types.gen.go
-@@ -443,6 +443,12 @@ TeeTypeNone TeeType =3D 0
- TeeTypeOptee TeeType =3D 1
- )
-=20
-+type ArmSciType int
-+const(
-+ArmSciTypeNone ArmSciType =3D 0
-+ArmSciTypeScmi ArmSciType =3D 1
-+)
-+
- type RdmReserve struct {
- Strategy RdmReserveStrategy
- Policy RdmReservePolicy
-@@ -512,6 +518,7 @@ NestedHvm Defbool
- Apic Defbool
- DmRestrict Defbool
- Tee TeeType
-+ArmSci ArmSciType
- ForceAssignWithoutIommu Defbool
- Type DomainType
- TypeUnion DomainBuildInfoTypeUnion
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index 2bbbd21f0b..30e5aee119 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -278,6 +278,11 @@
-  */
- #define LIBXL_HAVE_BUILDINFO_ARCH_ARM_TEE 1
-=20
-+/*
-+ * libxl_domain_build_info has the arch_arm.sci field.
-+ */
-+#define LIBXL_HAVE_BUILDINFO_ARCH_ARM_SCI 1
-+
+ #if defined(__i386__) || defined(__x86_64__)
  /*
-  * LIBXL_HAVE_SOFT_RESET indicates that libxl supports performing
-  * 'soft reset' for domains and there is 'soft_reset' shutdown reason
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_type=
-s.idl
-index 1080966c33..1878c115c3 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -480,6 +480,11 @@ libxl_tee_type =3D Enumeration("tee_type", [
-     (1, "optee")
-     ], init_val =3D "LIBXL_TEE_TYPE_NONE")
-=20
-+libxl_arm_sci_type =3D Enumeration("arm_sci_type", [
-+    (0, "none"),
-+    (1, "scmi_smc")
-+    ], init_val =3D "LIBXL_ARM_SCI_TYPE_NONE")
+  * PC BIOS standard E820 types and structure.
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index c5090e2b32..106ff33c84 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -7,6 +7,12 @@
+ #include <libfdt.h>
+ #include <assert.h>
+ #include <xen/device_tree_defs.h>
++#include <xenhypfs.h>
 +
- libxl_rdm_reserve =3D Struct("rdm_reserve", [
-     ("strategy",    libxl_rdm_reserve_strategy),
-     ("policy",      libxl_rdm_reserve_policy),
-@@ -564,6 +569,7 @@ libxl_domain_build_info =3D Struct("domain_build_info",=
-[
-     ("apic",             libxl_defbool),
-     ("dm_restrict",      libxl_defbool),
-     ("tee",              libxl_tee_type),
-+    ("arm_sci",          libxl_arm_sci_type),
-     ("force_assign_without_iommu", libxl_defbool),
-     ("u", KeyedUnion(None, libxl_domain_type, "type",
-                 [("hvm", Struct(None, [("firmware",         string),
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 67fa96d949..d53c9b1271 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -2747,6 +2747,15 @@ skip_usbdev:
-         }
++#define SCMI_NODE_PATH         "/firmware/scmi"
++#define SCMI_NODE_COMPATIBLE   "arm,scmi-smc"
++#define SCMI_SHMEM_COMPATIBLE  "arm,scmi-shmem"
++#define HYPFS_DEVICETREE_PATH  "/devicetree"
+=20
+ static const char *gicv_to_string(libxl_gic_version gic_version)
+ {
+@@ -101,6 +107,19 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+         return ERROR_FAIL;
      }
 =20
-+    if (!xlu_cfg_get_string (config, "arm_sci", &buf, 1)) {
-+        e =3D libxl_arm_sci_type_from_string(buf, &b_info->arm_sci);
-+        if (e) {
-+            fprintf(stderr,
-+                    "Unknown arm_sci \"%s\" specified\n", buf);
-+            exit(-ERROR_FAIL);
++    switch (d_config->b_info.arm_sci) {
++    case LIBXL_ARM_SCI_TYPE_NONE:
++        config->arch.arm_sci_type =3D XEN_DOMCTL_CONFIG_ARM_SCI_NONE;
++        break;
++    case LIBXL_ARM_SCI_TYPE_SCMI_SMC:
++        config->arch.arm_sci_type =3D XEN_DOMCTL_CONFIG_ARM_SCI_SCMI_SMC;
++        break;
++    default:
++        LOG(ERROR, "Unknown ARM_SCI type %d",
++            d_config->b_info.arm_sci);
++        return ERROR_FAIL;
++    }
++
+     if (libxl_defbool_val(d_config->b_info.force_assign_without_iommu))
+         config->iommu_opts |=3D XEN_DOMCTL_IOMMU_force_iommu;
+=20
+@@ -125,6 +144,7 @@ int libxl__arch_domain_save_config(libxl__gc *gc,
+     }
+=20
+     state->clock_frequency =3D config->arch.clock_frequency;
++    state->arm_sci_agent_paddr =3D config->arch.arm_sci_agent_paddr;
+=20
+     return 0;
+ }
+@@ -505,9 +525,6 @@ static int make_optee_node(libxl__gc *gc, void *fdt)
+     int res;
+     LOG(DEBUG, "Creating OP-TEE node in dtb");
+=20
+-    res =3D fdt_begin_node(fdt, "firmware");
+-    if (res) return res;
+-
+     res =3D fdt_begin_node(fdt, "optee");
+     if (res) return res;
+=20
+@@ -520,9 +537,6 @@ static int make_optee_node(libxl__gc *gc, void *fdt)
+     res =3D fdt_end_node(fdt);
+     if (res) return res;
+=20
+-    res =3D fdt_end_node(fdt);
+-    if (res) return res;
+-
+     return 0;
+ }
+=20
+@@ -905,10 +919,9 @@ static int copy_node(libxl__gc *gc, void *fdt, void *p=
+fdt,
+     return 0;
+ }
+=20
+-static int copy_node_by_path(libxl__gc *gc, const char *path,
+-                             void *fdt, void *pfdt)
++static int get_path_nodeoff(const char *path, void *pfdt)
+ {
+-    int nodeoff, r;
++    int nodeoff;
+     const char *name =3D strrchr(path, '/');
+=20
+     if (!name)
+@@ -928,12 +941,189 @@ static int copy_node_by_path(libxl__gc *gc, const ch=
+ar *path,
+     if (strcmp(fdt_get_name(pfdt, nodeoff, NULL), name))
+         return -FDT_ERR_NOTFOUND;
+=20
++    return nodeoff;
++}
++
++static int copy_node_by_path(libxl__gc *gc, const char *path,
++                             void *fdt, void *pfdt)
++{
++    int nodeoff, r;
++
++    nodeoff =3D get_path_nodeoff(path, pfdt);
++    if (nodeoff < 0)
++        return nodeoff;
++
+     r =3D copy_node(gc, fdt, pfdt, nodeoff, 0);
+     if (r) return r;
+=20
+     return 0;
+ }
+=20
++static int make_scmi_shmem_node(libxl__gc *gc, void *fdt, void *pfdt)
++{
++    int res;
++    char buf[64];
++
++#ifdef CONFIG_ARM_32
++    snprintf(buf, sizeof(buf), "scp-shmem@%lx",
++             GUEST_SCI_SHMEM_BASE);
++#else
++    snprintf(buf, sizeof(buf), "scp-shmem@%llx",
++             GUEST_SCI_SHMEM_BASE);
++#endif
++
++    res =3D fdt_begin_node(fdt, buf);
++    if (res) return res;
++
++    res =3D fdt_property_compat(gc, fdt, 1, SCMI_SHMEM_COMPATIBLE);
++    if (res) return res;
++
++    res =3D fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
++                    GUEST_ROOT_SIZE_CELLS, 1,
++                    GUEST_SCI_SHMEM_BASE, GUEST_SCI_SHMEM_SIZE);
++    if (res) return res;
++
++    res =3D fdt_property_cell(fdt, "phandle", GUEST_PHANDLE_SCMI);
++    if (res) return res;
++
++    res =3D fdt_end_node(fdt);
++    if (res) return res;
++
++    return 0;
++}
++
++static int create_hypfs_property(struct xenhypfs_handle *hdl, void *fdt,
++                                 char *path, char *name)
++{
++    char *p, *result;
++    int ret =3D 0;
++    struct xenhypfs_dirent *ent;
++
++    if (strcmp(name, "shmem") =3D=3D 0)
++        return fdt_property_cell(fdt, name, GUEST_PHANDLE_SCMI);
++
++    ret =3D asprintf(&p, "%s%s", HYPFS_DEVICETREE_PATH, path);
++    result =3D xenhypfs_read_raw(hdl, p, &ent);
++    free(p);
++    if (!result)
++        return -EINVAL;
++
++    ret =3D fdt_property(fdt, name, result, ent->size);
++    free(result);
++    free(ent);
++
++    return ret;
++}
++static int create_hypfs_subnode(struct xenhypfs_handle *hdl, void *fdt,
++                                const char *path, const char *name)
++{
++    struct xenhypfs_dirent *ent;
++    unsigned int n, i;
++    char *p, *p_sub;
++    int res =3D 0;
++
++    res =3D asprintf(&p, "%s%s", HYPFS_DEVICETREE_PATH, path);
++    if (res < 0)
++        return -ENOMEM;
++
++    ent =3D xenhypfs_readdir(hdl, p, &n);
++    free(p);
++    if (!ent)
++        return -EINVAL;
++
++    res =3D fdt_begin_node(fdt, name);
++    if (res) return res;
++
++    for (i =3D 0; i < n; i++) {
++        res =3D asprintf(&p_sub,"%s/%s", path, ent[i].name);
++        if (res < 0)
++            break;
++
++        if (ent[i].type =3D=3D xenhypfs_type_dir)
++             res =3D create_hypfs_subnode(hdl, fdt, p_sub, ent[i].name);
++        else
++             res =3D create_hypfs_property(hdl, fdt, p_sub, ent[i].name);
++
++        free(p_sub);
++        if (res)
++            break;
++    }
++
++    res =3D fdt_end_node(fdt);
++    free(ent);
++    return res;
++}
++
++static int create_scmi_from_hypfs(void *fdt, const char *path)
++{
++    struct xenhypfs_handle *hdl;
++    int res;
++    hdl =3D xenhypfs_open(NULL, 0);
++    if (!hdl)
++        return -EINVAL;
++
++    res =3D create_hypfs_subnode(hdl, fdt, path, "scmi");
++    xenhypfs_close(hdl);
++
++    return res;
++}
++
++static int set_shmem_phandle(void *fdt, const char *scmi_node_copmat)
++{
++    uint32_t val;
++    int nodeoff =3D fdt_node_offset_by_compatible(fdt, 0, scmi_node_copmat=
+);
++    if (nodeoff < 0)
++        return -EINVAL;
++
++    val =3D cpu_to_fdt32(GUEST_PHANDLE_SCMI);
++    return fdt_setprop_inplace(fdt, nodeoff, "shmem", &val, sizeof(val));
++}
++
++static int make_scmi_node(libxl__gc *gc, void *fdt, void *pfdt)
++{
++    int res =3D 0;
++    int nodeoff =3D
++        fdt_node_offset_by_compatible(pfdt, 0, SCMI_NODE_COMPATIBLE);
++    if (nodeoff > 0) {
++        res =3D copy_node(gc, fdt, pfdt, nodeoff, 0);
++        if (res) return res;
++
++        res =3D set_shmem_phandle(fdt, SCMI_NODE_COMPATIBLE);
++        if (res) return res;
++    }
++    else
++        res =3D create_scmi_from_hypfs(fdt, SCMI_NODE_PATH);
++
++    return res;
++}
++
++static int make_firmware_node(libxl__gc *gc, void *fdt, void *pfdt, int te=
+e,
++                              int sci)
++{
++    int res;
++
++    if ((tee =3D=3D LIBXL_TEE_TYPE_NONE) && (sci =3D=3D LIBXL_ARM_SCI_TYPE=
+_NONE))
++        return 0;
++
++    res =3D fdt_begin_node(fdt, "firmware");
++    if (res) return res;
++
++    if (tee =3D=3D LIBXL_TEE_TYPE_OPTEE) {
++       res =3D make_optee_node(gc, fdt);
++       if (res) return res;
++    }
++
++    if (sci =3D=3D LIBXL_ARM_SCI_TYPE_SCMI_SMC) {
++        res =3D make_scmi_node(gc, fdt, pfdt);
++        if (res) return res;
++    }
++
++    res =3D fdt_end_node(fdt);
++    if (res) return res;
++
++    return 0;
++}
++
+ /*
+  * The partial device tree is not copied entirely. Only the relevant bits =
+are
+  * copied to the guest device tree:
+@@ -1091,8 +1281,10 @@ next_resize:
+         if (info->arch_arm.vuart =3D=3D LIBXL_VUART_TYPE_SBSA_UART)
+             FDT( make_vpl011_uart_node(gc, fdt, ainfo, dom) );
+=20
+-        if (info->tee =3D=3D LIBXL_TEE_TYPE_OPTEE)
+-            FDT( make_optee_node(gc, fdt) );
++        if (info->arm_sci =3D=3D LIBXL_ARM_SCI_TYPE_SCMI_SMC)
++            FDT( make_scmi_shmem_node(gc, fdt, pfdt) );
++
++        FDT( make_firmware_node(gc, fdt, pfdt, info->tee, info->arm_sci) )=
+;
+=20
+         if (d_config->num_pcidevs)
+             FDT( make_vpci_node(gc, fdt, ainfo, dom) );
+diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_creat=
+e.c
+index dcd09d32ba..f1f1e66275 100644
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -596,6 +596,38 @@ out:
+     return ret;
+ }
+=20
++static int map_sci_page(libxl__gc *gc, uint32_t domid, uint64_t paddr,
++                         uint64_t guest_addr)
++{
++    int ret;
++    uint64_t _paddr_pfn =3D paddr >> XC_PAGE_SHIFT;
++    uint64_t _guest_pfn =3D guest_addr >> XC_PAGE_SHIFT;
++
++    assert(paddr && guest_addr);
++    LOG(DEBUG, "iomem %"PRIx64, _paddr_pfn);
++
++    ret =3D xc_domain_iomem_permission(CTX->xch, domid, _paddr_pfn, 1, 1);
++    if (ret < 0) {
++        LOG(ERROR,
++              "failed give domain access to iomem page %"PRIx64,
++             _paddr_pfn);
++        return ret;
++    }
++
++    ret =3D xc_domain_memory_mapping(CTX->xch, domid,
++                                   _guest_pfn, _paddr_pfn,
++                                   1, 1);
++    if (ret < 0) {
++        LOG(ERROR,
++              "failed to map to domain iomem page %"PRIx64
++              " to guest address %"PRIx64,
++              _paddr_pfn, _guest_pfn);
++        return ret;
++    }
++
++    return 0;
++}
++
+ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+                        libxl__domain_build_state *state,
+                        uint32_t *domid, bool soft_reset)
+@@ -762,6 +794,16 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_con=
+fig *d_config,
+         goto out;
+     }
+=20
++    if (d_config->b_info.arm_sci =3D=3D LIBXL_ARM_SCI_TYPE_SCMI_SMC) {
++        ret =3D map_sci_page(gc, *domid, state->arm_sci_agent_paddr,
++                            GUEST_SCI_SHMEM_BASE);
++        if (ret < 0) {
++            LOGED(ERROR, *domid, "map scmi fail");
++            rc =3D ERROR_FAIL;
++            goto out;
 +        }
 +    }
 +
-     xlu_cfg_get_defbool(config, "force_assign_without_iommu",
-                         &b_info->force_assign_without_iommu, 0);
+     dom_path =3D libxl__xs_get_dompath(gc, *domid);
+     if (!dom_path) {
+         rc =3D ERROR_FAIL;
+@@ -1825,7 +1867,7 @@ static void libxl__add_dtdevs(libxl__egc *egc, libxl_=
+_ao *ao, uint32_t domid,
+         LOGD(DEBUG, domid, "Assign device \"%s\" to domain", dtdev->path);
+         rc =3D xc_assign_dt_device(CTX->xch, domid, dtdev->path);
+         if (rc < 0) {
+-            LOGD(ERROR, domid, "xc_assign_dtdevice failed: %d", rc);
++            LOGD(ERROR, domid, "xc_assign_dt_device failed: %d", rc);
+             goto out;
+         }
+     }
+diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_int=
+ernal.h
+index 0b4671318c..79f38b60d4 100644
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -1407,6 +1407,9 @@ typedef struct {
+     /* Whether this domain is being migrated/restored, or booting fresh.  =
+Only
+      * applicable to the primary domain, not support domains (e.g. stub QE=
+MU). */
+     bool restore;
++
++    /* arm_sci channel paddr to be set to device-tree node */
++    uint64_t arm_sci_agent_paddr;
+ } libxl__domain_build_state;
 =20
+ _hidden void libxl__domain_build_state_init(libxl__domain_build_state *s);
+diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
+index 6245af6d0b..23c44f3a13 100644
+--- a/xen/arch/arm/domctl.c
++++ b/xen/arch/arm/domctl.c
+@@ -4,6 +4,7 @@
+  * Copyright (c) 2012, Citrix Systems
+  */
+=20
++#include <asm/sci/sci.h>
+ #include <xen/errno.h>
+ #include <xen/guest_access.h>
+ #include <xen/hypercall.h>
+@@ -182,7 +183,13 @@ long arch_do_domctl(struct xen_domctl *domctl, struct =
+domain *d,
+         rc =3D subarch_do_domctl(domctl, d, u_domctl);
+=20
+         if ( rc =3D=3D -ENOSYS )
++        {
+             rc =3D iommu_do_domctl(domctl, d, u_domctl);
++            if ( (rc) && (rc !=3D -ENOSYS) )
++                return rc;
++
++            rc =3D sci_do_domctl(domctl, d, u_domctl);
++        }
+=20
+         return rc;
+     }
+diff --git a/xen/include/public/device_tree_defs.h b/xen/include/public/dev=
+ice_tree_defs.h
+index 209d43de3f..f57684547b 100644
+--- a/xen/include/public/device_tree_defs.h
++++ b/xen/include/public/device_tree_defs.h
+@@ -7,6 +7,7 @@
+  * onwards. Reserve a high value for the GIC phandle.
+  */
+ #define GUEST_PHANDLE_GIC (65000)
++#define GUEST_PHANDLE_SCMI (67000)
+=20
+ #define GUEST_ROOT_ADDRESS_CELLS 2
+ #define GUEST_ROOT_SIZE_CELLS 2
 --=20
 2.27.0
 
