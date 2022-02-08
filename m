@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 457B74AE03E
+	by mail.lfdr.de (Postfix) with ESMTPS id 309AD4AE03D
 	for <lists+xen-devel@lfdr.de>; Tue,  8 Feb 2022 19:01:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.268494.462364 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.268491.462334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nHUmr-0006oE-Qa; Tue, 08 Feb 2022 18:00:21 +0000
+	id 1nHUmo-0006Az-Ij; Tue, 08 Feb 2022 18:00:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 268494.462364; Tue, 08 Feb 2022 18:00:21 +0000
+Received: by outflank-mailman (output) from mailman id 268491.462334; Tue, 08 Feb 2022 18:00:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nHUmr-0006ga-Ib; Tue, 08 Feb 2022 18:00:21 +0000
-Received: by outflank-mailman (input) for mailman id 268494;
- Tue, 08 Feb 2022 18:00:19 +0000
+	id 1nHUmo-00068W-FN; Tue, 08 Feb 2022 18:00:18 +0000
+Received: by outflank-mailman (input) for mailman id 268491;
+ Tue, 08 Feb 2022 18:00:17 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TsJg=SX=epam.com=prvs=40387f30b1=oleksii_moisieiev@srs-se1.protection.inumbo.net>)
- id 1nHUmp-00068K-Mc
- for xen-devel@lists.xenproject.org; Tue, 08 Feb 2022 18:00:19 +0000
-Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
- [148.163.137.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f92136b3-8908-11ec-8f75-fffcc8bd4f1a;
- Tue, 08 Feb 2022 19:00:18 +0100 (CET)
-Received: from pps.filterd (m0174683.ppops.net [127.0.0.1])
- by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 218EglcD011879;
- Tue, 8 Feb 2022 18:00:11 GMT
-Received: from eur01-he1-obe.outbound.protection.outlook.com
- (mail-he1eur01lp2051.outbound.protection.outlook.com [104.47.0.51])
- by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3e3s7e998g-2
+ id 1nHUmn-00068K-3w
+ for xen-devel@lists.xenproject.org; Tue, 08 Feb 2022 18:00:17 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f67cc8ae-8908-11ec-8f75-fffcc8bd4f1a;
+ Tue, 08 Feb 2022 19:00:14 +0100 (CET)
+Received: from pps.filterd (m0174678.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 218EgrT2015757;
+ Tue, 8 Feb 2022 18:00:12 GMT
+Received: from eur02-he1-obe.outbound.protection.outlook.com
+ (mail-he1eur02lp2057.outbound.protection.outlook.com [104.47.5.57])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3e3t5xrs6q-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 08 Feb 2022 18:00:10 +0000
+ Tue, 08 Feb 2022 18:00:11 +0000
 Received: from PA4PR03MB7136.eurprd03.prod.outlook.com (2603:10a6:102:ea::23)
- by VI1PR0302MB3327.eurprd03.prod.outlook.com (2603:10a6:803:1a::14)
+ by VE1PR03MB5613.eurprd03.prod.outlook.com (2603:10a6:803:12a::29)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.19; Tue, 8 Feb
- 2022 18:00:04 +0000
+ 2022 18:00:06 +0000
 Received: from PA4PR03MB7136.eurprd03.prod.outlook.com
  ([fe80::c1c:f98:9dd:86e0]) by PA4PR03MB7136.eurprd03.prod.outlook.com
  ([fe80::c1c:f98:9dd:86e0%6]) with mapi id 15.20.4951.019; Tue, 8 Feb 2022
- 18:00:04 +0000
+ 18:00:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -53,304 +53,328 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f92136b3-8908-11ec-8f75-fffcc8bd4f1a
+X-Inumbo-ID: f67cc8ae-8908-11ec-8f75-fffcc8bd4f1a
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nAv5KCxoc/1kZCawGU4k0QB5b96DvRujLo46YeRZRZ+I1iAxZ5A4MB5mBw1uaNVamq2FyBhs1MaLfe6w4xU1nutw7fO9q6HQjigZwF8NGISQzpkZFzhB/66TkTHFVLt0JtIv3sF3V+nriluGk0NyhWVDL9/EZvVVCbHtKrsq4iDo7pW+0ue9NKNPU9l6Td/OH5OyxXJGr9pb33qKQJcfPtptrzj0Hy/G/x9XDzftAUJjfo6BfroWFEs0qESyU83h2JSH+M1CrJn3L9U5uPB+gVPPOloBAqyqmPfNXNxH2JcbwJr8SdqBrANXvYuPpn0mjXW/iC8o5f0OGwXYg9xbYA==
+ b=YiwDlP3vRAbBoMjwRE1DEMeNzuy/z4yOtYj+6mxRiCegonEQ01woy2anuIGi+cFAXjJMO4Pg4pF+S4t+6IdDlC3/lSAnJOqa7u9CnlJ61t3dYeNlmCxB8vYc+6kuBb6IsJgMh0QK3yL0moIsm0xypelXrtCZ4nrx0rk/rS1A4a0Uck07r/4VKwXSO398sTnvbTnFOCk4OIP7TGTvkfH70nms7uC8bqTyXhP0D/A6DChg8SETmd4WKiJ/YtyGlDmRKy6CiWRHqpChsceAFjjTuCB+9Ure1ZTkVZQbQjMaykuUralkABpHyWVj7V5qT9/6cx6XA8dEVYHu/wL2Peymaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oQNxKQlk50F/d3RxIUW8GHsZ2EThLBH2CQt8NqqX+8c=;
- b=goMVEES9f5CIlmK2GejrzwQTZV9HqN630Zy8qkxCghDpFqxeVWC3RYOyNwzcu25nQhCVNW6gH7iMXFrj1Ag73zx4fBH3dveIQTaTzghzXHCm/8eLkwsgaXcZS5BbZhSA4eYDa82emza5B3Rx33Z1PI2S7f0UgNjeaxjSeEQFJfXIJg+Q6BPweprlNzU14ku9VM3z1ciaYYcIgvzpOAX3HWuifZFq5UYCj8M5mQV1toRS4XDL2OqHQVfEoygHA0gZtOicKrU10AJ681P1dJR1iqZGlZ+v194NQCFpIimMJRKbSzFdjVpWky7xQ+1HU9Ki6u3TFd62wnEppX1qDUASyg==
+ bh=Zp886fdenazy8I4uy4JOrrugnDLYw+4E5d77d3IGdYU=;
+ b=QUxMC3tOWqSmKH7p+bAsfGvJGbup8DmnObj4KIOwZIF2F+Mtdh0XLM6Zwx0w0RnBgk/1EQAsraDfij8WoGQzkfEH1i7uoNnZPkpWldyfLhcTyYilWdiQEd5c9fgmjP9GGYjpUFEbHiiR3o3jueECbmiLLp3wNorJciPK7AmufAesPXxOwDEiTIs4gSqhihxhCuDkL5cAZWZ7Kmb29WUZCFWrIrGM195PWV1pCu3lw9aLSjNpnG0J99die9vW6XgyoGLNRbFX5iwbN/yg3lY23W4683ctxUQPs5/ReapKsQyTzBtZeU6zsHD7QeuxiDcOW5fh6nlnEukpeFi7KSZkUg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oQNxKQlk50F/d3RxIUW8GHsZ2EThLBH2CQt8NqqX+8c=;
- b=LOnJ9i+2Z6QvMTsxWKz2cTs9nnS6fGIuu+Kbv82B7xtYo9YfeCzwdir0fpcZ/h2cYvXJM+XZJNBITb00Iego0tJQ/WC9XRGqyyr4SeaqjdgGb88itpymohz5GFAnQ30x5PLXxW/SAfYhw7R05V8otJ4n2XsE+AfJQO3rqjrAr7CRNxHWFwXmv+F7Z4+XyjhiQP1uz0aZy69f4imd59zBedr5N4Wtr2ZAjwE9IeN8VmzkIszGowATEkGI5jHC385N13zCts5IeMWRHfh654sjdm8Vm12uqW3PItUaHyAQSEYeYh1gU63RMpoSiI/x0yHMHSopoQ2a0px6HrsvhesRxg==
+ bh=Zp886fdenazy8I4uy4JOrrugnDLYw+4E5d77d3IGdYU=;
+ b=eC+n5fSTp8riCSmttv9a7mw1RZaur//zyuhK2meAE9XVyTLuXMkeQGGDBDpszNmcRA3f5M17PVhKNeYdIv1Zasz6TBKbsS9pcWAcNkxZU6Llx2xO39thw2aufY8hq1JB9j24XPvZ1vYqEQR2lHl3ZiSFardLrUImfQvFIoTpHY9LOHm6ZU8F99uX1kugrJqgy54JteK6JOhJyuYU7cW/Sk9x7IxCkCcdWi9Bz8dRkJPFlRR6bP4/ZQgW6do6ErVF1ov9puWknlEQd83cL01bZeBTEiZ1DRBaDtBfa667pcMKygoqfEwd/rLhAqDuZ3H9UwAzITSg5/Yq48sfSwuWjg==
 From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 CC: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
         Juergen Gross
-	<jgross@suse.com>, Wei Liu <wl@xen.org>,
-        Stefano Stabellini
-	<sstabellini@kernel.org>,
-        Julien Grall <julien@xen.org>,
-        Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>,
-        Bertrand Marquis <bertrand.marquis@arm.com>,
-        Andrew Cooper <andrew.cooper3@citrix.com>,
-        George Dunlap
-	<george.dunlap@citrix.com>,
-        Jan Beulich <jbeulich@suse.com>,
-        Nick Rosbrook
-	<rosbrookn@ainfosec.com>,
-        Anthony PERARD <anthony.perard@citrix.com>,
-        Paul
- Durrant <paul@xen.org>
-Subject: [RFC v2 0/8] Introduce SCI-mediator feature
-Thread-Topic: [RFC v2 0/8] Introduce SCI-mediator feature
-Thread-Index: AQHYHRWziOt6EkRoYUygGUtf3780OQ==
-Date: Tue, 8 Feb 2022 18:00:04 +0000
-Message-ID: <cover.1644341635.git.oleksii_moisieiev@epam.com>
+	<jgross@suse.com>
+Subject: [RFC v2 1/8] xen/hypfs: support fo nested dynamic hypfs nodes
+Thread-Topic: [RFC v2 1/8] xen/hypfs: support fo nested dynamic hypfs nodes
+Thread-Index: AQHYHRW07SkrMxyT/k6/hhSCHW7Rmg==
+Date: Tue, 8 Feb 2022 18:00:06 +0000
+Message-ID: 
+ <8ab7e9ffd5f041c2631f754c7c596874cf6a99c1.1644341635.git.oleksii_moisieiev@epam.com>
+References: <cover.1644341635.git.oleksii_moisieiev@epam.com>
+In-Reply-To: <cover.1644341635.git.oleksii_moisieiev@epam.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ec057eaf-010a-45a1-b78f-08d9eb2cd5a7
-x-ms-traffictypediagnostic: VI1PR0302MB3327:EE_
-x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-ms-office365-filtering-correlation-id: ec53d40c-2a59-49f2-c7b6-08d9eb2cd6e4
+x-ms-traffictypediagnostic: VE1PR03MB5613:EE_
 x-microsoft-antispam-prvs: 
- <VI1PR0302MB33276ECDB30028D4C8061079E32D9@VI1PR0302MB3327.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
+ <VE1PR03MB56137297DA769971DFD61EAEE32D9@VE1PR03MB5613.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4941;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info: 
- dTxjwLwvtwEZyFXRqj8h9NUTWO0Utv5TM0mzTYUEPs7CvBd+lF2/49de4RKvb97KDEokbbZSekdlNMrckOYzFFQS5Jszg1be+pYqaiVnnPEoF0eC5FAGmmW59iPToTIPGOGNdwhK9k0cfFy9svd66E+MlwEUXrUR9owkzOux+ABVkxp11NSuLE/xPMo54oLbIYYkM6rWXR5rn4NY3ynWdhOIR9u0PAOiAV7drrWPShkaqog+ooLp43r6J2XNAboXCPuwIBHsGNXKmR+osaQA3VbbzuP3itVbMFRzIk6s3mbrMb/pPT8MSn+t97avfrW06dkX8aj2+IRdnLRo3RHLwaEDmeuKuMZoX6ImJ3sQGIPEV9kS9s9apzPcrfNBFwz6caSP31MdUIyfEn7P8bHeaR6YI8NBUj8ldGmZlQgmcb8KaztEdZFB0p7+w82hxoKhMqqlaP4R2Wq0gG2Qyo61AmzLNUFFzKvL6SQEnIYZrq2MKJnIrVIm1XeHx/v0M5425AAHyxllLdEEZRGZ9oIudiAeT4oBrScno+PARghU7GBgMQZtcme8bB1I12prOXMdbP9GwWkVDAJfSxPP/7w90U0NBuuXFd869I0jUmPwqsb9X8UaaqZyegdFVbx1NwEUa6lebbkXo/228IK08SM/ULbDYGOiffhlUoZiXPHjD+QMOHO5KInFQ7DOSdmj4dDmyOqOrGorC/RNuj5ZsOvjFw==
+ M925godofpc/lzkYZpjCxO5Z3+hNdtDE0Aeme/XmzDf6pgAQe9GTjMproVG2AhJNtKXKbTwUK+92SQ54Xb9DXbpdd6+nkygZncTMbuzsLn8hBxnI2dXKggeIR6p+Oy9RpS8hX7RWFZo/d6zLJQI4mfAczAxRXzQqh/71a17jHCVRyVG6YP8L7ZEFXhMpupR1l4eTAgqDpg9TVeHgVcYU2RO6fhfrZDnVYn5AP0NHQ071H1UouXsxbCNmcuZ2E3JWi+4EL7vVf8CinOFEsqtpMbIDNCHHNWXDS0Ng/KOb4EagJdnzRvVwghATY/sFJAVm9xSBbm4qb+y2QynfQAbSh/TewpcGIXCCUjPc4kVNs+rPQgexC2g6FtExTpl89wfWLNS3hRezjt6sK7N6BottTQOm0MQ5qtbubqfh53lzsX369HQUEYkoH7U98VcP7iMMMdO6ZSkqM+3ebaTdTqIBTSOWTuxQ1WeuTOtgAhacY2kIU4YSMklFm5H2viWCmfXDcsNq6xVpIuJbbNHLCnc3OTzWczBgf7R2BLop+oNVQF+mfg5gBeK2W4qWiBnOFY75v9g6fcZhDFzNNd7G+6UQfWD4IMZI25KKjXUp1cQANZFS5Mf7MOBKz0n01/9Hj5nhAKcu9yFp5ZTgv8rZ9zBoJYAu6kV5gEkWmejTbd7UnO3AalCtplUcZTQiWjYnidUY4v6ei0AOC2OLMzf3QJCkiA==
 x-forefront-antispam-report: 
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7136.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(38070700005)(71200400001)(6486002)(508600001)(66556008)(66476007)(316002)(86362001)(122000001)(6916009)(6506007)(38100700002)(5660300002)(6512007)(4326008)(83380400001)(54906003)(2906002)(26005)(186003)(8676002)(7416002)(2616005)(76116006)(36756003)(66446008)(8936002)(91956017)(64756008)(66946007);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7136.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(38070700005)(71200400001)(6486002)(508600001)(66476007)(64756008)(86362001)(66556008)(316002)(122000001)(6916009)(6506007)(2616005)(5660300002)(6512007)(4326008)(83380400001)(54906003)(2906002)(26005)(186003)(8676002)(76116006)(38100700002)(66446008)(66946007)(8936002)(36756003)(91956017);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0: 
- =?iso-8859-1?Q?6xdreY4/6ZoOlhm0F0vs1B6PyJGBOUucIF6Jny9kOXh3V67B1CMuXVXUOF?=
- =?iso-8859-1?Q?9F0owIQjVLJkyDZ9L3e46SLqNDhjb6RCs+YVtH4Eo3OSQXfB+Z5jjQngIc?=
- =?iso-8859-1?Q?xvhfpuSeIPQty8r4sUMx8tjpx5h79IyZuSgob9XhlgSIp1DnQjEpjaap64?=
- =?iso-8859-1?Q?wXqfqPgdsY4KfjICFfAttrhn2up3za5Hz68P+bAavCBy1ynHL1NWaAAWFe?=
- =?iso-8859-1?Q?M8XfDqBOoDDigxRdn25zfxW989LuuwmxbaQUbmrMSVmsfuCNZ1tBQUCkhR?=
- =?iso-8859-1?Q?6K5s8zRPxlh+kBmz9a8DXpcNJe1UhG1G15ZhMsA5UoBGJlOaiRGkaa7Xab?=
- =?iso-8859-1?Q?LPAMVdRxuShXLF6BsfRGuCx7zBAuR1MOyeK/YajOoHgB2HjJgJg+Pzk2gg?=
- =?iso-8859-1?Q?OVL0Cy81ZifVAwy/UbYUwH+YtJndc78xiccZ0jX1AoFSfIEBbKPGuX1I3J?=
- =?iso-8859-1?Q?mEo8ZTDEm5pgoezzeg4w+MFB6u8mv68FB50rrUTe2t6l8qJrKkBlb3TQvc?=
- =?iso-8859-1?Q?ANkgiUgC8kPNTh4/6RWmd6XJtCMP0S0oIzi2aAi7d5aTfNuNeB/tKzDhRL?=
- =?iso-8859-1?Q?xu5Dr81ePTjETrrm1zSV5bxamsQhGfkxoExJKpTL5qX3y++oePv5TE4Dk7?=
- =?iso-8859-1?Q?eLwL0xMdSwKRpv+IBBXwEk+T8DkJmQ4E5C0D3UvPx5JGQAmVV0w5QQ6pbj?=
- =?iso-8859-1?Q?cBJZIyadGfLxDHF0LtlU6GYv46a5z/SjiDk0YOm/36W33FcYQP8A16IXR+?=
- =?iso-8859-1?Q?ragc18zoG5mrMMmJVc7cqHijgk6S4sxrkEdvi8D3iV5MKGAQQqBTKWTveT?=
- =?iso-8859-1?Q?Y20Lu5TKqOSJ6RkxOy0eZk16BwmQJrZx/0/wEGvveQwbYXW8ef0mziwgMx?=
- =?iso-8859-1?Q?CB5AwgPsAiMrF6+GdPFSTFE+UToUJo5Pr+x+/nV43+gGfiLr5r5j74cR98?=
- =?iso-8859-1?Q?qKEbpJ9XQGjVfIErK7lsnD8hCliqP2Neaagx6P0QwTwiI/P00/WZ7iNXDU?=
- =?iso-8859-1?Q?OPcx4nky62oHWM1Dd0/M2WQ+MTpNrahau1EMG8hf4xAK6u34YRdmGuCiZm?=
- =?iso-8859-1?Q?vPytBGM3EJ4bAofAd1NXwIvAQyJhaUqPTbTdIwOQKOBGmGI66Q/xNl9eA4?=
- =?iso-8859-1?Q?4+4CcfcCCL+xVWFMhfcApT3f18xT89IkS5IzWKoaXEb081wLqhY1Gn8IEC?=
- =?iso-8859-1?Q?3CRn/fqOPFL7qKIGT2i6R8dEOTwGdhVNkifndoQjj6BWFvhcyIovgs7dVm?=
- =?iso-8859-1?Q?JFuR/rybSZlWQdRKMb21dpDWmxm+VYwFumJNt4uzITWMEFWZydpLfzuzKv?=
- =?iso-8859-1?Q?ZzGlbaD1SKdcmXgnAD7YgXhlkW5VpGmHLAJufwzMsMOmAMAMJY/0s0UylT?=
- =?iso-8859-1?Q?o2N/xGymwdA7XYbmf3YVBMLkqMf/otSyDAgFaR6K+wffUBmLeoOzGldq7N?=
- =?iso-8859-1?Q?Zspn2aGrdCwhUbyoXFilXuLiYKBhOu7I235LW147kyIlsP4xKo2IDtNM7+?=
- =?iso-8859-1?Q?NEqBqjYzYdXKbrQoF650JgEJEdo/nVcwNBtG5FZqDd3HMaZiRhUAB8X4qT?=
- =?iso-8859-1?Q?gRrF1NaQxWwzrEoAvPeTI4mf+v2j9eC6SXnh56PC7fttqvYZ1PgiFUBwWa?=
- =?iso-8859-1?Q?YitKaDvxuOw0qNhZi6Lbmk0DLU3SUrcrFbBH/NKRpyn1UvhXd1/3Tzm2/h?=
- =?iso-8859-1?Q?/EtLgxJ+w9NbL4nGFmOmBRPLauplZffhD6+WRMkq9t8gHkPNF9waWbFIZG?=
- =?iso-8859-1?Q?uihXlgYt7HfewVxaEZ5ZUGnuA=3D?=
+ =?iso-8859-1?Q?xKkU+ob0B1OPUwigD9emPoDS22D1O39Rrg3DSS1fWHxhAr7Y5bEU8WvzIY?=
+ =?iso-8859-1?Q?6JV9Vu9BPWYuTzB58EqKnJdHFFeamOqTMBvHTw4gRaRptlonfOS07/fYBl?=
+ =?iso-8859-1?Q?XduE9KQ43rx7C31uy42IlKFTopeIp9W4naazv4wlpMftuZuA1Ugb8nUpFU?=
+ =?iso-8859-1?Q?nCgwrt3vWeSY1tGOPw4CoiL7Vxpl4wzT1sjZX0AC7p8P1GxJxRdMIZDgvB?=
+ =?iso-8859-1?Q?5nJf1pw9zBlYUArzGRQ70kt4Ol1bUYmD12+hg7GseRojRfiDf3ixylX47e?=
+ =?iso-8859-1?Q?96iRC5x1cNVgMI9W1bDovGT9QV4DjCFTmoww5tkAhWsrUTg7i32POmWDGe?=
+ =?iso-8859-1?Q?Oy0+wX8WkrSUao6AFrQJZtWXrK+da+PwJckxk5M0rStf70sNoraF4Xiplb?=
+ =?iso-8859-1?Q?3RWs8McyG5Pq0O6QWvBs7eUUS4Zg83Mdzs+5or5UXij1BRGg3o5lZi40u2?=
+ =?iso-8859-1?Q?BWcDA9eYuyJP/DGb6gXn2zOnoJArqpHZiWmM1CIJP92tj60yncpK5bVh/f?=
+ =?iso-8859-1?Q?V4QUzF+8ELuDrXvv0DT+hPW/77GzrTjyK/ox4EfbBhOvYDJil3vY9YSGTz?=
+ =?iso-8859-1?Q?OUVHLVb2zb4M+DqlBSJhcotbmFz+F32LcJrGMJdEBL4LbKlAd9/WRnRHqA?=
+ =?iso-8859-1?Q?C+h9r1RTqNIKjao8IDhyEfWu/7TVVNxdGFLvTWdcYLUiKrgsNKdXrsXz82?=
+ =?iso-8859-1?Q?ZSzuOqXlmi6EMnT8ZHTCOiFA4k2bkHJKB4OTJLnOKw4YIj9LibBLZdjpou?=
+ =?iso-8859-1?Q?xe25t8ybXI8AgmCr6Cbcf2KCmwwpDGHwyDHn//wtwXzQRLdQHi6QDASL4Y?=
+ =?iso-8859-1?Q?dCY1iap4wGNMNES0hJT6v4f1PHk9qYVGkzBa6NqJRIj5qfahl+tgyzmTSr?=
+ =?iso-8859-1?Q?kf7zbEsb9XdrieItx7hTDfnt0qhZz4eyjh3u0CyuqUdfHM3ZoQxZFqi4Pk?=
+ =?iso-8859-1?Q?+u719DmVaWS6QDY0wzGZVIqzEVtZEh+xGW9v3Hqk6umg1txClUApWlZV/U?=
+ =?iso-8859-1?Q?Jx7rk6oG9V3n9VoQoQ641Qxj4YIkfC2Rbo65s+uBn/BnxHYKunNeW7FQOT?=
+ =?iso-8859-1?Q?ddoib8eAB7AQ/30VPf00pZ0Om5oCMPq9PGjKmrUzCxRonNjOUF57tjhxjn?=
+ =?iso-8859-1?Q?yXaJumqLFI6b+ztYicmFxwzM5Dt2LvIQSaVqrU2OBDENTSvjin6eLW7K0o?=
+ =?iso-8859-1?Q?C04qvWRzPvH0fRkSSQl9+LGsLx9ZzRmJ7B24SVPjVwv/A5NhCz8u4r5jxw?=
+ =?iso-8859-1?Q?f4YSK9sO2pskpNvdHC+6hcSlaOvgnTgqMn1Jvz9lxS1CzUJxYLJLgJ/nLe?=
+ =?iso-8859-1?Q?AlB1iWB0o5Xzp+2jfXyLVsRosZubEhg53+iC71Yo8rdgpll6+/awQtKsh6?=
+ =?iso-8859-1?Q?04r+a4wzZBmTM75QaUl6vgelYYjsBOQ239Ov1I1x0/2dWnt0MgGaBAtaqk?=
+ =?iso-8859-1?Q?dhNs4xAfyatIVHetWo/wrzlGMIzHKYvTY/AiKZrw/ilIOnxYpj7NSzGG8m?=
+ =?iso-8859-1?Q?9PXtwhvZzLR34GD8ts3edyDzAyW1dUwqu6QDovxltcH0JUYuOr/L2QXUlD?=
+ =?iso-8859-1?Q?1wxKCIRVxbs3/+ruDLDy4xHm8WrCpixfqS2G9SLFvtSHTt7kiQmIb+TV7J?=
+ =?iso-8859-1?Q?DN7/RppWhHk/wxKQFd9d26T2zKRD3fx8bB/3VNcdFWUlZ3VOJOjziM5iAj?=
+ =?iso-8859-1?Q?mZiNaooPznVGIVAPuiyJFZIcOvnHGZC9KGMMNKumBpwl/Q3QuG2oqdXv+s?=
+ =?iso-8859-1?Q?8B+aYYPArPFJKrdmBRyJDP3hc=3D?=
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7136.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec057eaf-010a-45a1-b78f-08d9eb2cd5a7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Feb 2022 18:00:04.4169
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec53d40c-2a59-49f2-c7b6-08d9eb2cd6e4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Feb 2022 18:00:06.5573
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GnUzD1IYqE7Vw+DSZfDrVIPyOFruObbQMvTK9VMmmBnlUK0aQHck+FSPq9Qy34pN2SDmrbGw49wPfjns4h8Ff7VZ3XS/qb92oDx/yEJlz4Q=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0302MB3327
-X-Proofpoint-GUID: Ewj0VzFITWk3pPweORzYM9SHaFNQTaAM
-X-Proofpoint-ORIG-GUID: Ewj0VzFITWk3pPweORzYM9SHaFNQTaAM
+X-MS-Exchange-CrossTenant-userprincipalname: gM2gdTx06HrrtJ3eII21MiAK5rjeTo34Opxb3ACRe6fNYG4RBMTkmvsByH5gx1qItsN1kNDrWrxfPX40aUvAKSnxNWBbXhGIA2CfjSSszks=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR03MB5613
+X-Proofpoint-GUID: xlpRPLEwV6HuY1SOqqNURSozi-PfZpJB
+X-Proofpoint-ORIG-GUID: xlpRPLEwV6HuY1SOqqNURSozi-PfZpJB
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
  definitions=2022-02-08_06,2022-02-07_02,2021-12-02_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 spamscore=0 adultscore=0
- priorityscore=1501 malwarescore=0 suspectscore=0 bulkscore=0
- impostorscore=0 clxscore=1011 phishscore=0 mlxscore=0 mlxlogscore=999
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2201110000 definitions=main-2202080106
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxscore=0 spamscore=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0
+ suspectscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0
+ mlxlogscore=999 bulkscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2201110000 definitions=main-2202080106
 
-Introducing the feature, called SCI mediator.
-It's purpose is to redirect SCMI requests from the domains to firmware
-(SCP, ATF etc), which controls the power/clock/resets etc.
-The idea is to make SCP firmware (or similar, such as AT-F) responsible for
-control power/clock/resets and provide SCMI interface so controls can be sh=
-ared
-between the Domains.
-Originally, we've met a problem, that the devices, shared between different
-Domains, can't have an access to HW registers to work with clocks/resets/po=
-wer
-etc. You have to pass cpg to the Domain, so the devices can access HW direc=
-tly.
-The solution for this is to move HW controls over power/clock/resets to
-SCP firmware and use Linux-kernel SCMI drivers to pass requests to SCP.
-Xen is responsible for permissions setting, so Domain can access only to
-power/clock/resets which are related to this Domain. Also XEN is the mediat=
-or
-which redirects SCMI requests, adding agentID so firmware should know the
-sender.
-SMC is currently used as transport, but this should be configurable.
+Add new api:
+- hypfs_read_dyndir_entry
+- hypfs_gen_dyndir_entry
+which are the extension of the dynamic hypfs nodes support, presented in
+0b3b53be8cf226d947a79c2535a9efbb2dd7bc38.
+This allows nested dynamic nodes to be added. Also input parameter is
+hypfs_entry, so properties can also be generated dynamically.
 
-Here is the high level design:
+Generating mixed list of dirs and properties is also supported.
+Same as to the dynamic hypfs nodes, this is anchored in percpu pointer,
+which can be retriewed on any level of the dynamic entries.
+This handle should be allocated on enter() callback and released on
+exit() callback. When using nested dynamic dirs and properties handle
+should be allocated on the first enter() call and released on the last
+exit() call.
 
-ARM_SCI (System Control Interface) feature can be enabled in xen_config:
-> CONFIG_ARM_SCI=3Dy
-Mediator can be configured:
-> CONFIG_SCMI_SMC=3Dy
+Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+---
+ xen/common/hypfs.c      | 83 +++++++++++++++++++++++++++++++++--------
+ xen/include/xen/hypfs.h | 14 ++++++-
+ 2 files changed, 79 insertions(+), 18 deletions(-)
 
-Currently, only SCMI_SMC mediator is implemented, which using shared memory
-region to communicate with firmware and SMC as transport.
-
-Xen scmi should be configured in the device-tree.
-Format is the following:
-	cpu_scp_shm: scp-shmem@0x53FF0000 {
-		compatible =3D "arm,scmi-shmem";
-		reg =3D <0x0 0x53FF0000 0x0 0x1000>;
-	};
-
-	firmware {
-		scmi {
-			compatible =3D "arm,scmi-smc";
-			arm,smc-id =3D <0x82000002>;
-			shmem =3D <&cpu_scp_shm>;
-			#address-cells =3D <1>;
-			#size-cells =3D <0>;
-
-			scmi_power: protocol@11 {
-				reg =3D <0x11>;
-				#power-domain-cells =3D <1>;
-			};
-
-			scmi_clock: protocol@14 {
-				reg =3D <0x14>;
-				#clock-cells =3D <1>;
-			};
-
-			scmi_reset: protocol@16 {
-				reg =3D <0x16>;
-				#reset-cells =3D <1>;
-			};
-		};
-	};
-
-Where:
-&cpu_scp_shm is the shared memory for scmi buffers;
-0x53FF0000, size 0x1000 is the platform specific free address, which provid=
-e
-space for the communication.
-&scmi node, which should be copied to Dom0 device-tree.
-
-Device configured to use scmi:=20
-&avb {
-	scmi_devid =3D <0>;
-	clocks =3D <&scmi_clock 0>;
-	power-domains =3D <&scmi_power 0>;
-	resets =3D <&scmi_reset 0>;
-};
-
-Where:
-scmi_devid - id from the firmware, which is assigned for AVB.
-
-During initialization, XEN scans probes the first SCI-mediator driver which=
- has
-matching node in the device-tree. If no device-tree was provided, then the
-first registered mediator driver should be probed.
-
-DomX should be configured:
-Device-tree should include the same nodes, described above.
-&cpu_scp_shm should be altered during domain creation. Xen allocates free p=
-age
-from the memory region, provided in &cpu_scp_shm in XEN device-tree, so eac=
-h
-domain should have unique page. Nodes &cpu_scp_shm and /firmware/scmi shoul=
-d be
-copied from partial device-tree to domain device-tree, so kernel can initia=
-lize
-scmi driver.
-
-SCI mediator can be enabled in dom.cfg the following way:
->arm_sci =3D "scmi_smc"
-
-which sets scmi_smc to be used for the domain.
---
-Changes since v1:
-
-- renamed sci to arm_sci
-- updated golang bindings
-- reused XEN_DOMCTL_assign_device logic to add arm_sci devices instead of
-adding new hypercall
-- minor style changes
-- fixed arm32 compilation issues
-- use ioremap_cache instead of vmap to map shared memory for SCMI
-- introduced memcpy_fromio and memcpy_toio fucntions instead of memcpy, mov=
-ed
-from Linux kernel source code
-- use DOMID_XEN for HYP_CHANNEL in channel_list
-- export host device-tree to hypfs so toolstack can access host device-tree=
- nodes
-- create arm,scmi-shmem node from scratch for the domain device-tree
-- create arm,scmi_smc from scratch if it wasn't provided in partial device-=
-tree
-- removed xc_domain_add_sci_device function=20
-- do not use linux,scmi_mem to describe scmi shared memory
-- define static address for the SCMI page in the domU
-- introduced config parameter force_assign_without_iommu =3D 1 to domain co=
-nfig
-- require force_assign_without_iommu parameter to assign non-DMA masters
-present in dtdev
-- unmap memory after sending discover agent on SCMI init stage
---
-Oleksii Moisieiev (8):
-  xen/hypfs: support fo nested dynamic hypfs nodes
-  libs: libxenhypfs - handle blob properties
-  xen/arm: Export host device-tree to hypfs
-  xen/arm: add generic SCI mediator framework
-  xen/arm: introduce SCMI-SMC mediator driver
-  tools/arm: Introduce force_assign_without_iommu option to xl.cfg
-  tools/arm: add "arm_sci" option to xl.cfg
-  xen/arm: add SCI mediator support for DomUs
-
- MAINTAINERS                           |   6 +
- docs/man/xl.cfg.5.pod.in              |  29 +
- tools/golang/xenlight/helpers.gen.go  |   7 +
- tools/golang/xenlight/types.gen.go    |   8 +
- tools/include/libxl.h                 |   5 +
- tools/include/xenctrl.h               |   3 +
- tools/libs/hypfs/core.c               |   2 -
- tools/libs/light/libxl_arm.c          | 217 +++++-
- tools/libs/light/libxl_create.c       |  44 +-
- tools/libs/light/libxl_internal.h     |   3 +
- tools/libs/light/libxl_types.idl      |   7 +
- tools/xl/xl_parse.c                   |  12 +
- xen/arch/arm/Kconfig                  |  19 +
- xen/arch/arm/Makefile                 |   2 +
- xen/arch/arm/domain.c                 |  22 +
- xen/arch/arm/domain_build.c           |  11 +
- xen/arch/arm/domctl.c                 |   7 +
- xen/arch/arm/host_dtb_export.c        | 307 +++++++++
- xen/arch/arm/sci/Kconfig              |  10 +
- xen/arch/arm/sci/Makefile             |   2 +
- xen/arch/arm/sci/sci.c                | 152 ++++
- xen/arch/arm/sci/scmi_smc.c           | 959 ++++++++++++++++++++++++++
- xen/arch/arm/setup.c                  |   1 +
- xen/arch/arm/vsmc.c                   |   5 +-
- xen/arch/arm/xen.lds.S                |   7 +
- xen/common/domain.c                   |   2 +-
- xen/common/hypfs.c                    |  83 ++-
- xen/drivers/passthrough/device_tree.c |  19 +-
- xen/drivers/passthrough/iommu.c       |   5 +-
- xen/include/asm-arm/domain.h          |   4 +
- xen/include/asm-arm/sci/sci.h         | 162 +++++
- xen/include/public/arch-arm.h         |  15 +
- xen/include/public/device_tree_defs.h |   1 +
- xen/include/public/domctl.h           |   5 +-
- xen/include/xen/hypfs.h               |  14 +-
- xen/include/xen/iommu.h               |   3 +
- 36 files changed, 2122 insertions(+), 38 deletions(-)
- create mode 100644 xen/arch/arm/host_dtb_export.c
- create mode 100644 xen/arch/arm/sci/Kconfig
- create mode 100644 xen/arch/arm/sci/Makefile
- create mode 100644 xen/arch/arm/sci/sci.c
- create mode 100644 xen/arch/arm/sci/scmi_smc.c
- create mode 100644 xen/include/asm-arm/sci/sci.h
-
+diff --git a/xen/common/hypfs.c b/xen/common/hypfs.c
+index e71f7df479..6901f5e311 100644
+--- a/xen/common/hypfs.c
++++ b/xen/common/hypfs.c
+@@ -367,28 +367,27 @@ unsigned int hypfs_getsize(const struct hypfs_entry *=
+entry)
+=20
+ /*
+  * Fill the direntry for a dynamically generated entry. Especially the
+- * generated name needs to be kept in sync with hypfs_gen_dyndir_id_entry(=
+).
++ * generated name needs to be kept in sync with hypfs_gen_dyndir_entry().
+  */
+-int hypfs_read_dyndir_id_entry(const struct hypfs_entry_dir *template,
+-                               unsigned int id, bool is_last,
++int hypfs_read_dyndir_entry(const struct hypfs_entry *template,
++                               const char *name, unsigned int namelen,
++                               bool is_last,
+                                XEN_GUEST_HANDLE_PARAM(void) *uaddr)
+ {
+     struct xen_hypfs_dirlistentry direntry;
+-    char name[HYPFS_DYNDIR_ID_NAMELEN];
+-    unsigned int e_namelen, e_len;
++    unsigned int e_len;
+=20
+-    e_namelen =3D snprintf(name, sizeof(name), template->e.name, id);
+-    e_len =3D DIRENTRY_SIZE(e_namelen);
++    e_len =3D DIRENTRY_SIZE(namelen);
+     direntry.e.pad =3D 0;
+-    direntry.e.type =3D template->e.type;
+-    direntry.e.encoding =3D template->e.encoding;
+-    direntry.e.content_len =3D template->e.funcs->getsize(&template->e);
+-    direntry.e.max_write_len =3D template->e.max_size;
++    direntry.e.type =3D template->type;
++    direntry.e.encoding =3D template->encoding;
++    direntry.e.content_len =3D template->funcs->getsize(template);
++    direntry.e.max_write_len =3D template->max_size;
+     direntry.off_next =3D is_last ? 0 : e_len;
+     if ( copy_to_guest(*uaddr, &direntry, 1) )
+         return -EFAULT;
+     if ( copy_to_guest_offset(*uaddr, DIRENTRY_NAME_OFF, name,
+-                              e_namelen + 1) )
++                              namelen + 1) )
+         return -EFAULT;
+=20
+     guest_handle_add_offset(*uaddr, e_len);
+@@ -396,6 +395,22 @@ int hypfs_read_dyndir_id_entry(const struct hypfs_entr=
+y_dir *template,
+     return 0;
+ }
+=20
++/*
++ * Fill the direntry for a dynamically generated entry. Especially the
++ * generated name needs to be kept in sync with hypfs_gen_dyndir_id_entry(=
+).
++ */
++int hypfs_read_dyndir_id_entry(const struct hypfs_entry_dir *template,
++                               unsigned int id, bool is_last,
++                               XEN_GUEST_HANDLE_PARAM(void) *uaddr)
++{
++    char name[HYPFS_DYNDIR_ID_NAMELEN];
++    unsigned int e_namelen;
++
++    e_namelen =3D snprintf(name, sizeof(name), template->e.name, id);
++    return hypfs_read_dyndir_entry(&template->e, name, e_namelen, is_last,=
+ uaddr);
++}
++
++
+ static const struct hypfs_entry *hypfs_dyndir_enter(
+     const struct hypfs_entry *entry)
+ {
+@@ -404,7 +419,7 @@ static const struct hypfs_entry *hypfs_dyndir_enter(
+     data =3D hypfs_get_dyndata();
+=20
+     /* Use template with original enter function. */
+-    return data->template->e.funcs->enter(&data->template->e);
++    return data->template->funcs->enter(data->template);
+ }
+=20
+ static struct hypfs_entry *hypfs_dyndir_findentry(
+@@ -415,7 +430,7 @@ static struct hypfs_entry *hypfs_dyndir_findentry(
+     data =3D hypfs_get_dyndata();
+=20
+     /* Use template with original findentry function. */
+-    return data->template->e.funcs->findentry(data->template, name, name_l=
+en);
++    return data->template->funcs->findentry(&data->dir, name, name_len);
+ }
+=20
+ static int hypfs_read_dyndir(const struct hypfs_entry *entry,
+@@ -426,7 +441,36 @@ static int hypfs_read_dyndir(const struct hypfs_entry =
+*entry,
+     data =3D hypfs_get_dyndata();
+=20
+     /* Use template with original read function. */
+-    return data->template->e.funcs->read(&data->template->e, uaddr);
++    return data->template->funcs->read(data->template, uaddr);
++}
++
++/*
++ * Fill dyndata with a dynamically generated entry based on a template
++ * and a name.
++ * Needs to be kept in sync with hypfs_read_dyndir_entry() regarding the
++ * name generated.
++ */
++struct hypfs_entry *hypfs_gen_dyndir_entry(
++    const struct hypfs_entry *template, const char *name,
++    void *data)
++{
++    struct hypfs_dyndir_id *dyndata;
++
++    dyndata =3D hypfs_get_dyndata();
++
++    dyndata->template =3D template;
++    dyndata->data =3D data;
++    memcpy(dyndata->name, name, strlen(name));
++    dyndata->dir.e =3D *template;
++    dyndata->dir.e.name =3D dyndata->name;
++
++    dyndata->dir.e.funcs =3D &dyndata->funcs;
++    dyndata->funcs =3D *template->funcs;
++    dyndata->funcs.enter =3D hypfs_dyndir_enter;
++    dyndata->funcs.findentry =3D hypfs_dyndir_findentry;
++    dyndata->funcs.read =3D hypfs_read_dyndir;
++
++    return &dyndata->dir.e;
+ }
+=20
+ /*
+@@ -442,12 +486,13 @@ struct hypfs_entry *hypfs_gen_dyndir_id_entry(
+=20
+     dyndata =3D hypfs_get_dyndata();
+=20
+-    dyndata->template =3D template;
++    dyndata->template =3D &template->e;
+     dyndata->id =3D id;
+     dyndata->data =3D data;
+     snprintf(dyndata->name, sizeof(dyndata->name), template->e.name, id);
+     dyndata->dir =3D *template;
+     dyndata->dir.e.name =3D dyndata->name;
++
+     dyndata->dir.e.funcs =3D &dyndata->funcs;
+     dyndata->funcs =3D *template->e.funcs;
+     dyndata->funcs.enter =3D hypfs_dyndir_enter;
+@@ -457,6 +502,12 @@ struct hypfs_entry *hypfs_gen_dyndir_id_entry(
+     return &dyndata->dir.e;
+ }
+=20
++unsigned int hypfs_dyndir_entry_size(const struct hypfs_entry *template,
++                                    const char *name)
++{
++    return DIRENTRY_SIZE(strlen(name));
++}
++
+ unsigned int hypfs_dynid_entry_size(const struct hypfs_entry *template,
+                                     unsigned int id)
+ {
+diff --git a/xen/include/xen/hypfs.h b/xen/include/xen/hypfs.h
+index e9d4c2555b..5d2728b963 100644
+--- a/xen/include/xen/hypfs.h
++++ b/xen/include/xen/hypfs.h
+@@ -79,8 +79,8 @@ struct hypfs_entry_dir {
+ struct hypfs_dyndir_id {
+     struct hypfs_entry_dir dir;             /* Modified copy of template. =
+*/
+     struct hypfs_funcs funcs;               /* Dynamic functions. */
+-    const struct hypfs_entry_dir *template; /* Template used. */
+-#define HYPFS_DYNDIR_ID_NAMELEN 12
++    const struct hypfs_entry *template; /* Template used. */
++#define HYPFS_DYNDIR_ID_NAMELEN 32
+     char name[HYPFS_DYNDIR_ID_NAMELEN];     /* Name of hypfs entry. */
+=20
+     unsigned int id;                        /* Numerical id. */
+@@ -197,13 +197,23 @@ void *hypfs_alloc_dyndata(unsigned long size);
+ #define hypfs_alloc_dyndata(type) ((type *)hypfs_alloc_dyndata(sizeof(type=
+)))
+ void *hypfs_get_dyndata(void);
+ void hypfs_free_dyndata(void);
++int hypfs_read_dyndir_entry(const struct hypfs_entry *template,
++                               const char *name, unsigned int namelen,
++                               bool is_last,
++                               XEN_GUEST_HANDLE_PARAM(void) *uaddr);
+ int hypfs_read_dyndir_id_entry(const struct hypfs_entry_dir *template,
+                                unsigned int id, bool is_last,
+                                XEN_GUEST_HANDLE_PARAM(void) *uaddr);
++struct hypfs_entry *hypfs_gen_dyndir_entry(
++    const struct hypfs_entry *template, const char *name,
++    void *data);
+ struct hypfs_entry *hypfs_gen_dyndir_id_entry(
+     const struct hypfs_entry_dir *template, unsigned int id, void *data);
+ unsigned int hypfs_dynid_entry_size(const struct hypfs_entry *template,
+                                     unsigned int id);
++unsigned int hypfs_dyndir_entry_size(const struct hypfs_entry *template,
++                                    const char *name);
++
+ #endif
+=20
+ #endif /* __XEN_HYPFS_H__ */
 --=20
 2.27.0
 
