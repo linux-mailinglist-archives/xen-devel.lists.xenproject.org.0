@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93FE04AFA8C
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Feb 2022 19:38:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.269417.463503 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8FF14AFAD4
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Feb 2022 19:41:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.269424.463514 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nHrqc-0002Fv-V5; Wed, 09 Feb 2022 18:37:46 +0000
+	id 1nHrtX-0003be-Dp; Wed, 09 Feb 2022 18:40:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 269417.463503; Wed, 09 Feb 2022 18:37:46 +0000
+Received: by outflank-mailman (output) from mailman id 269424.463514; Wed, 09 Feb 2022 18:40:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nHrqc-0002Dq-Re; Wed, 09 Feb 2022 18:37:46 +0000
-Received: by outflank-mailman (input) for mailman id 269417;
- Wed, 09 Feb 2022 18:37:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nHrtX-0003Yy-AY; Wed, 09 Feb 2022 18:40:47 +0000
+Received: by outflank-mailman (input) for mailman id 269424;
+ Wed, 09 Feb 2022 18:40:46 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=mP6M=SY=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1nHrqa-0002Dk-GZ
- for xen-devel@lists.xenproject.org; Wed, 09 Feb 2022 18:37:44 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5d4246bd-89d7-11ec-8f75-fffcc8bd4f1a;
- Wed, 09 Feb 2022 19:37:42 +0100 (CET)
+ id 1nHrtW-0003Ys-3r
+ for xen-devel@lists.xenproject.org; Wed, 09 Feb 2022 18:40:46 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c9cf3c8a-89d7-11ec-8eb8-a37418f5ba1a;
+ Wed, 09 Feb 2022 19:40:44 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2FC4E61C5E;
- Wed,  9 Feb 2022 18:37:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C12E8C340E7;
- Wed,  9 Feb 2022 18:37:39 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 876F660AD9;
+ Wed,  9 Feb 2022 18:40:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E7FCC36AE3;
+ Wed,  9 Feb 2022 18:40:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,17 +43,17 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d4246bd-89d7-11ec-8f75-fffcc8bd4f1a
+X-Inumbo-ID: c9cf3c8a-89d7-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1644431861;
-	bh=fFDyHU/EXMCfwe3bvn0ogCYcjkIKtHPdA+SKnAQmZxs=;
+	s=k20201202; t=1644432043;
+	bh=bVSySelnyAeahJMSw/l2RKJiTmriqOVNBjS17DZ/XGc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=PG46NJNizB03j1SVHFfd32IGvlmhYYe9htV4wzVbBvZRV2oy7uILhBGQRJVHlWGMT
-	 ETb37TcaqhYm1PFm+p/I0L6k/UNCqqznRQgi8AIFMe2HmMvL5IWvi61uHnRB38rHwD
-	 vAkVOh2sIMsAxwA57fKNsUwcd/aviK4LkHaL/T8+0ZUEi4elrU3JL+42vkeiRS1as5
-	 /guSYWltp4Zr3Yeb0mJQgP8EwUOhrLBhcPEwAfK6xU4t+F3FMCoV1aZzFmeIMp3uq/
-	 6nBlhtWcKZg1pydECUvOfGMNAvveMEY7cY5TsIhvqNLW8SFCJ3RzDyZCdRkUbMb7Ce
-	 a7oht9H+ya71A==
+	b=Uqb5F9T5/+Mdnmya0HZdE0DTuPPReuGGKa6ateqjZpQ6NTmCVtlBdJ/+BqAUNq6cJ
+	 6cZq/A9xn9POOo+CtOfgxn3wwJasBqxepc/OqQInVFceBTpLZOypYx93KpJC21uKMt
+	 Q7M+DBPX61VXS+aSIGSlXZuK0wLb1TRBPgSkz8C11S6YyR16cLLSU/dB88PW54xs9k
+	 UsLYPMoMR+wjHIohsTdLdAMDtXKwStUvGFT8+UcN2XPDiCJWybipFZ+3QiHMKNb73U
+	 ICswZiknQ5ryNNZeuXGIwf4Wvk8VWL4ac+F1W9oWR0m/2JSCgM36HA8VqLMBg9ctMh
+	 WzhpfdDepJiPw==
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -68,12 +67,12 @@ Cc: Jan Beulich <jbeulich@suse.com>,
 	dave.hansen@linux.intel.com,
 	x86@kernel.org,
 	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 5.16 39/42] x86/Xen: streamline (and fix) PV CPU enumeration
-Date: Wed,  9 Feb 2022 13:33:11 -0500
-Message-Id: <20220209183335.46545-39-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.15 33/36] x86/Xen: streamline (and fix) PV CPU enumeration
+Date: Wed,  9 Feb 2022 13:37:56 -0500
+Message-Id: <20220209183759.47134-33-sashal@kernel.org>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20220209183335.46545-1-sashal@kernel.org>
-References: <20220209183335.46545-1-sashal@kernel.org>
+In-Reply-To: <20220209183759.47134-1-sashal@kernel.org>
+References: <20220209183759.47134-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -110,10 +109,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 6 insertions(+), 24 deletions(-)
 
 diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 5004feb16783d..d47c3d176ae4b 100644
+index a7b7d674f5005..133ef31639df1 100644
 --- a/arch/x86/xen/enlighten_pv.c
 +++ b/arch/x86/xen/enlighten_pv.c
-@@ -1341,10 +1341,6 @@ asmlinkage __visible void __init xen_start_kernel(void)
+@@ -1364,10 +1364,6 @@ asmlinkage __visible void __init xen_start_kernel(void)
  
  		xen_acpi_sleep_register();
  
@@ -125,7 +124,7 @@ index 5004feb16783d..d47c3d176ae4b 100644
  
  #ifdef CONFIG_ACPI
 diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
-index 6a8f3b53ab834..4a6019238ee7d 100644
+index 7ed56c6075b0c..477c484eb202c 100644
 --- a/arch/x86/xen/smp_pv.c
 +++ b/arch/x86/xen/smp_pv.c
 @@ -148,28 +148,12 @@ int xen_smp_intr_init_pv(unsigned int cpu)
@@ -167,7 +166,7 @@ index 6a8f3b53ab834..4a6019238ee7d 100644
  	xen_setup_vcpu_info_placement();
  
  	/*
-@@ -476,5 +459,8 @@ static const struct smp_ops xen_smp_ops __initconst = {
+@@ -486,5 +469,8 @@ static const struct smp_ops xen_smp_ops __initconst = {
  void __init xen_smp_init(void)
  {
  	smp_ops = xen_smp_ops;
