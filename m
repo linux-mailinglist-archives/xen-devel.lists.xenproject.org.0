@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8E254AF291
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Feb 2022 14:22:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.269148.463153 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CDE04AF2F8
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Feb 2022 14:37:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.269158.463164 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nHmuK-0006oh-63; Wed, 09 Feb 2022 13:21:16 +0000
+	id 1nHn99-0008OB-J2; Wed, 09 Feb 2022 13:36:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 269148.463153; Wed, 09 Feb 2022 13:21:16 +0000
+Received: by outflank-mailman (output) from mailman id 269158.463164; Wed, 09 Feb 2022 13:36:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nHmuK-0006lr-1s; Wed, 09 Feb 2022 13:21:16 +0000
-Received: by outflank-mailman (input) for mailman id 269148;
- Wed, 09 Feb 2022 13:21:14 +0000
+	id 1nHn99-0008MM-Fs; Wed, 09 Feb 2022 13:36:35 +0000
+Received: by outflank-mailman (input) for mailman id 269158;
+ Wed, 09 Feb 2022 13:36:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=XFrC=SY=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nHmuH-0006ll-U4
- for xen-devel@lists.xenproject.org; Wed, 09 Feb 2022 13:21:14 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=yTKH=SY=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
+ id 1nHn97-0008MG-53
+ for xen-devel@lists.xenproject.org; Wed, 09 Feb 2022 13:36:33 +0000
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [2a00:1450:4864:20::135])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 23a59e5b-89ab-11ec-8f75-fffcc8bd4f1a;
- Wed, 09 Feb 2022 14:21:07 +0100 (CET)
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05lp2105.outbound.protection.outlook.com [104.47.17.105]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-28-ctLprG98OjSMGQh0dsGcQg-1; Wed, 09 Feb 2022 14:21:06 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by DBBPR04MB7690.eurprd04.prod.outlook.com (2603:10a6:10:200::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.19; Wed, 9 Feb
- 2022 13:21:05 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5160:9fd7:9627:cb11]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::5160:9fd7:9627:cb11%5]) with mapi id 15.20.4951.018; Wed, 9 Feb 2022
- 13:21:05 +0000
+ id 4a4ead9e-89ad-11ec-8f75-fffcc8bd4f1a;
+ Wed, 09 Feb 2022 14:36:31 +0100 (CET)
+Received: by mail-lf1-x135.google.com with SMTP id z19so4156167lfq.13
+ for <xen-devel@lists.xenproject.org>; Wed, 09 Feb 2022 05:36:31 -0800 (PST)
+Received: from localhost.localdomain (host-176-36-245-220.b024.la.net.ua.
+ [176.36.245.220])
+ by smtp.gmail.com with ESMTPSA id y17sm851199lfk.57.2022.02.09.05.36.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 09 Feb 2022 05:36:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,145 +44,662 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23a59e5b-89ab-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1644412867;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IrQIcCnh+uqnDNwC2NvysJnfMKDvli7VUYxc9MRsG/4=;
-	b=ckxbaGc/QU68/G6vaMLq9hMBO4LalUasQOv7L8jegirxJoJz1E4Rul3Xc1sRYUXMMJt5mJ
-	OT5PFjrE32TIEgtSdUp+yhQs8w9Z14TFZxpqOGbyMAqjux8mj9CQTgnxkHLy74pc4+jtHE
-	vvrvEe5Keq58JJ+X+1lawUeymclk+u0=
-X-MC-Unique: ctLprG98OjSMGQh0dsGcQg-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iFPKg1HOLZ2u+q9BdEdhfr+j2Z/vZfEp9Jh9eGp8QuTB/DuhvqN5js9z/TjQYbsaOoYAJhrUBnqYtsAcFRdF+OMF/jAOJkKgStCmJiSKZr3SgvUETiJt9DpvMqlnw/jYS0ZZWO0uu1hVPbjErTN0apvdEeJ2vqQRVsL3lTXxAWLgQD/5dXegwAJl3291zP9DgQLhtUdGqOCUFhT/YvsGgU5qmohP+1x1S0ItN0ZiKM8nBNUD/hkqWloh7XlW9sIqaV1fmacl4I+sd0GEfpxdpCnvtief1lWYuz6rNOcbfb6K4XDF2RoTZc3fuIkLVvG4KdjxuhFx2S2v3Bv4CWzkgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IrQIcCnh+uqnDNwC2NvysJnfMKDvli7VUYxc9MRsG/4=;
- b=DAFzG5f+e1Eiw2A2IBdHcogMby7Y/PgzanLFsOtrOMLXr1JZVRi+YgmczS6KZrPOA6wxNpEZVliiJ/5TbkjNfkLzbkSycifXF6fnlwdWmp1edtb2pp4E30wzQS6RMpwvUZa5hh3HCElUaWsrHNEcdGTTraQtjE9v4mHMLv2lfZFPrCsJNpHKX+hGuzmQEoTjN41o7izpmDNJ5TNTms62dLMTRvtYLKC5lDklPtDuKUUTftSNk4bmqP95kWRSGHE9BIeOyneZXNdRqP5HzCsJ5C7krHR3UaRJGsRgapcsOWw738m/1BKIut0eEQ1UiyjCPl9LpP/S4D5MOJsekJD4Bg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b9f41055-c7f6-ccdb-5283-53191d025a8c@suse.com>
-Date: Wed, 9 Feb 2022 14:21:02 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Subject: Re: [PATCH v5 02/11] xen: introduce CDF_directmap
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: Bertrand.Marquis@arm.com, Wei.Chen@arm.com,
- Penny Zheng <penny.zheng@arm.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org
-References: <20220127074929.502885-1-penny.zheng@arm.com>
- <20220127074929.502885-3-penny.zheng@arm.com>
- <6d73e9cd-1293-d2cf-5b61-d78246509a03@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <6d73e9cd-1293-d2cf-5b61-d78246509a03@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR06CA0280.eurprd06.prod.outlook.com
- (2603:10a6:20b:45a::17) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 4a4ead9e-89ad-11ec-8f75-fffcc8bd4f1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=sSYB8Uua8dhBxMUDXPZLmZ3DA/dC79AYBt3A+4Vje6E=;
+        b=VvgUt7QFPqt9j5DuBvdUjQn0gYlQbP1BwfJMzJeO9qCSneZlnKVETmo/w7cwsmuHji
+         h5Mofnkg2ChwR1fa6oX+87DoQovK5MKczJD2+fWSZ4QEfQAABAF+tIBwSRSdrx8gfXK3
+         sb2nH1kdXijBQgn1lQCZPRzZ0qrYObuKLZDAZ+dbFiSMTeiQJ3tyj/MPsphDNb2uJLA0
+         h9oq84+zNOGdRG4nq1YWSYqvWQx6qndZnIXRqXUJ3muCzftHNr9qctKMiajSvSzX4cLE
+         FnA+xAZjTbpbxayhLHnPgR1AmFiWaKv5uwHF2zaR0nRqktsLePGEs9LonLbej8rcxz2+
+         xnOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=sSYB8Uua8dhBxMUDXPZLmZ3DA/dC79AYBt3A+4Vje6E=;
+        b=fWriBGb4/+q5M8CDpYIYEfRn2YBy0PWm0tZqyxv0j39rNDkNZG4R8M+oE/8tZ4hBYO
+         LKJ5YKhhac0QeZIfhERZueyPWfl5+iq+1vS9qxCl5rn42H5LsX3/cbDHMLMGheTRv7z4
+         rlAEU3napxW6aVBEUi9qLDyN8KVCm2mLQ2jFXuuGZGvo+/IWrNVcyx3mi7YBsZUe/Ker
+         d6vfb0Izy8Yx5Lf2NJMJd+v2nMPi7Nk3/ZOArnHfAbrsGrWAaAH0dsfO4eYy6EbmltOI
+         ZUajE6bCygBPRyS7LP/0HpfEChymbipMxbXHXvKTFdI239jdAKPkVj+nSuFp4MKcF0n5
+         wRdA==
+X-Gm-Message-State: AOAM531ZqUPoc2yI5J33WMJPSE+XCFt4Ou+si6bgeafcencp1cXsftbb
+	7+XAmBTt3NNw3IFRwO37N0Bmpo5dRkI=
+X-Google-Smtp-Source: ABdhPJzznhZpNNYmrX6FU9ODrsiWwhlNfBlA9abbfZy5PxTohxWJhwieB5LzSGlwOsez5hE49Dxl1Q==
+X-Received: by 2002:a05:6512:3f0f:: with SMTP id y15mr1615416lfa.543.1644413790088;
+        Wed, 09 Feb 2022 05:36:30 -0800 (PST)
+From: Oleksandr Andrushchenko <andr2000@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: roger.pau@citrix.com,
+	jbeulich@suse.com,
+	julien@xen.org,
+	sstabellini@kernel.org,
+	oleksandr_tyshchenko@epam.com,
+	volodymyr_babchuk@epam.com,
+	artem_mygaiev@epam.com,
+	bertrand.marquis@arm.com,
+	rahul.singh@arm.com,
+	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Subject: [PATCH] vpci: introduce per-domain lock to protect vpci structure
+Date: Wed,  9 Feb 2022 15:36:27 +0200
+Message-Id: <20220209133627.959649-1-andr2000@gmail.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0e1a08d6-44b4-439d-98c4-08d9ebcf0682
-X-MS-TrafficTypeDiagnostic: DBBPR04MB7690:EE_
-X-Microsoft-Antispam-PRVS:
-	<DBBPR04MB7690DFC5C565514C488A7FA9B32E9@DBBPR04MB7690.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	5Lrf/LdxHBAyYdPVN06VY4gmsnFwG7P2gma0kwv/sqj5L5KAjsfG/h1PWikTqAnF7AzZj+kWmpC5swU8as1ka1EmJ5bYh20m/hDSmlt5E8mmq5yYbSoxsmeb5WMGa66o9QvsaoXCK1skLvsL2InsjAkKTcVgMs3FtWqfc03ixPKYh+SqwsWp6a5MEK+JxCNO7Ohk6LByCA/g+9Q046a/JczibMSmDXs4/psSGvHo1/ZViIXa1Z98ulG5yb6PTv+QfGVqRQj3xgpdg0eKDzInVgpcyZLj9i/FzGwV3qBiDjyXL0cuiJ0FNc2TMj4501CTX11dVRrgWciDKiUHRumaBp8QAr8MFpnz94s5SCfL1LUqKurdaGR2q4jJwAnqzMkLSw4Ao6IOyNdrxn+xwGyGwPqw/R8GbuTCrxAIFHEfUci/VrTNVqyFRiI0zBtntsD3kPqmLxNpZ7vmujeNV2MMQ2SF3rOuirEm7I43hNc4gO4I2EYkNBwgH1HMVHOW4+spzrW41zCan1zjWWyYytcezwkiuujtenpVca/wEKAm5FuOWMzaDSWyUfNT7wgAUEExaFTmxqyq7Vl1+F+4i1wGJBAFfdbMSDR/kklOjUosoVIn11sSQRRA7dGIgN8H6y58kBu2f07e0mgC5lKXRIsq53jyfiQoWBKl7tgpkk7Gu7nKDokmVRyqk0eyDZcMxKCSWEsWs1jYRJzW4v1euAMf6JRFuKr/LktPsVIAl7EBpw9HbdG2kLS4e7YHJ/S4yvAm
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(36756003)(6666004)(2616005)(6506007)(5660300002)(6512007)(38100700002)(2906002)(31686004)(6916009)(316002)(53546011)(186003)(26005)(31696002)(8936002)(86362001)(66556008)(508600001)(66476007)(6486002)(4326008)(8676002)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NTRvcEliWDdMTHNWUC85OFJTZnpNelVYZEZqMDIyK2E0K0RYZWJJdEU1cmlF?=
- =?utf-8?B?R2c0TnNYeitKcnNOa0Z0WXdmNVdmK1FTS3dqeUgvbkpPS1hyeTV6ZFEwakZ1?=
- =?utf-8?B?aDdHM0lKblNlbFlqSTJaTEozSEhGUVJ2MVJtbmVsZHA3UjUyRTZyUlVLWFU0?=
- =?utf-8?B?MHUyR1RTTWNEQ1c0TzUrQ1VEVUxTTWxHelJUR2lsWXdRdlZRZittakRKRkNi?=
- =?utf-8?B?TWUxblcweFBzS1NidElpVDNoKzJYcHIzT2RQZ1Q5VzVaV1ZkZnZOTXVjOW55?=
- =?utf-8?B?UGQrb2Nlc0dsdC9QN1dJWTJoWnVCREZTRUVpMWVBTGNVYkNQU2F2ajNuVGEx?=
- =?utf-8?B?Y0hodmZsYnc3TzllUmhqck1xU05JejJwc2ZlNForNUhMVUhyOU9rak81aFc0?=
- =?utf-8?B?SklhcEpqSlhKd3ZHU0ZvZFh3dEJzc015M3JxVVdrYk81M2htdFlveS9LUUtG?=
- =?utf-8?B?VTQ5aTd0T0MzMW5FU2ZwOGFrVWhyK3ZWMW51QWRtbURld2phem1kTm1xWmtL?=
- =?utf-8?B?YU5JZVZicVMweVJqUEVuYVJQUUpTZy9RUTU3bkdLVVllWG9FTzVvTmR0U0l0?=
- =?utf-8?B?KzYvOVhzTTgyWDJBZk5DNXJ2NUltYkM0Q0VqdW02SStDMjc2NjJQZWkwRkM3?=
- =?utf-8?B?V3hYZ2pQSXdqaTdaRmdaYWtXaGdKSXhjM3hZTzVCUStSS0VLNldpUVlDNm45?=
- =?utf-8?B?VjUyTklvREFwY1ZzU3pLUG1xSmlqUkxTUENmZ1JzdkZwQzZXNnlYSkk3QUE2?=
- =?utf-8?B?YzhpRkYyc0FTTm1wODBvSzdZK24zRG1lVHV4V0lUWHNseUt1UnVCaDUzeVBp?=
- =?utf-8?B?eGpWbjV0c0oyN3EwSENBUDBkU3ptUVdhZ2NHQUF6OWhONzEycFNEcnhCenRx?=
- =?utf-8?B?aUtHdGdoZlM4cHhHaVhsQi9jbXlGTXFzWEZQbkZKRzFLZi8wcGhmUExqd3g5?=
- =?utf-8?B?a0t6OFRZaFB6bzhPc0ova0ZxenR6NDVJS0lrbVVqSlU2WjA2NFNEUHpiTzIv?=
- =?utf-8?B?UTllM1d3bjgzNkZXdktEamZ6QW9KNU10dGpJNjJzQmNsTnVtekJVZmJ5eXhh?=
- =?utf-8?B?UTJiR3JEdHhySjhyUGhCbm05dStyRGtUOGdsWjdSaEIreDFuVnZSaHV2SmNO?=
- =?utf-8?B?TUNPNHM5OThNTncyK0toeHdUT2RKSE5LQlBWWGoxdE1CM2Z5YVpWYzZ5TUlT?=
- =?utf-8?B?R0dZdGRpcGFQUUtkZmlpcS9oRVhhMjhFVXAyZ0s3SzhYYTBKZmw2L01ocjYy?=
- =?utf-8?B?ZWU0WjRZSjVDb2t4T1Y3Wk42dU8rMzN0a3kvNHAwUndhejQ3U0VvUU1PRStF?=
- =?utf-8?B?bDU4aHozeUZFZXNTalp4Q2FpVUtoYnRZT1BVSFVCQ3VHQ2R0U1h0aHY3QXJ3?=
- =?utf-8?B?VFdpTng2Q3IrOHpDWHhCb1VaMmFEemNUemZ0TU9uMXRYVGphUVRPTTVMT3pn?=
- =?utf-8?B?eTVxdldGTy9FNTQ1dzRVUDJjK1VuekJzOGZQWmhRa2Rxb2lvN0o5em5CU3NX?=
- =?utf-8?B?SUlxelcwa3Rza1pidDFTSGtHT3B3akdNRURXcHNIeTFzak8vL2FDS1JrbjZI?=
- =?utf-8?B?Tmk1dGFhVXhPR2IveGpraHJwMWZBMCtZMVRBRjZ5aFhFeklXbWpYeE5HSXE3?=
- =?utf-8?B?cU5LcW5uYzNIcGt5ZFkyZjhIaTRVKzEvWC9iR25NOUV6eE9UUW0rYUE4WUl5?=
- =?utf-8?B?TTlKZnBQWkk4OVpRRjdzVHJTT2Z5bDkybFN3Q1o4bU1ValNnY1R1dHpiL243?=
- =?utf-8?B?ZFFOS0lQM1BJN3cwZWFtSWZXbkZ6VXAyZkJWcjdONTU2aGxzM1lETjBEbXA2?=
- =?utf-8?B?azEzRDhQVE1BTHVUNy80RGlFeGNWRE1HL3UyZGtaN3JUV1JaZXEyMkNNeHlN?=
- =?utf-8?B?dzU3YWhYU1pxaHk0UEt3dWV3dmFRaTdwR3JCUWFDNEFrOHVNZms3aE1HQTFu?=
- =?utf-8?B?Rzh6MFpMNzFOY0x3aDVCMGx3SUY3T2tXNkk2SGoxMU5lZGIwb2NuQXdVVldB?=
- =?utf-8?B?OFR2M0E3N1QzcitvN0pGZzYrZ3VpZFk4SHdoMzFrUUl6NE9WQlBXNk9PcGlx?=
- =?utf-8?B?KzBWaGZGb2YyNzVXb2R5QkNFOWxLMXhwVVU5MlZ3YTRPbXJwMmM2SVhLZTF3?=
- =?utf-8?B?TUM3bzZ1MDNQQUNHcW1MYzNKalM2T2dPSTczak15N1lzdUpOWkhNS3dkVjFm?=
- =?utf-8?Q?P7EEfOG7c7n2f/lc5bjkA60=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e1a08d6-44b4-439d-98c4-08d9ebcf0682
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2022 13:21:05.1177
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jy31YiSsLFqivopbnfXd5/RyEdUFDJUUIZTD+/5XHfOdP88go+AcgqSFgCRbiZWkVW7fuloka/lOkGQrOrfKhQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7690
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 09.02.2022 13:42, Julien Grall wrote:
-> On 27/01/2022 07:49, Penny Zheng wrote:
->> --- a/xen/arch/x86/domain.c
->> +++ b/xen/arch/x86/domain.c
->> @@ -722,7 +722,8 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
->>   }
->>   
->>   int arch_domain_create(struct domain *d,
->> -                       struct xen_domctl_createdomain *config)
->> +                       struct xen_domctl_createdomain *config,
->> +                       unsigned int flags)
-> 
-> Shouldn't we return an error if the flag CDF_directmap is on x86? The 
-> other alternative is to...
+From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Hmm, maybe rather assert that the flag is not set? But ...
+Introduce a per-domain read/write lock to check whether vpci is present,
+so we are sure there are no accesses to the contents of the vpci struct
+if not. This lock can be used (and in a few cases is used right away)
+so that vpci removal can be performed while holding the lock in write
+mode. Previously such removal could race with vpci_read for example.
 
->> --- a/xen/include/xen/domain.h
->> +++ b/xen/include/xen/domain.h
->> @@ -31,6 +31,8 @@ void arch_get_domain_info(const struct domain *d,
->>   /* CDF_* constant. Internal flags for domain creation. */
->>   /* Is this a privileged domain? */
->>   #define CDF_privileged           (1U << 0)
->> +/* Should domain memory be directly mapped? */
->> +#define CDF_directmap            (1U << 1)
-> 
-> ... protect this with #ifdef CONFIG_ARM.
+1. Per-domain's vpci_rwlock is used to protect pdev->vpci structure
+from being removed.
 
-... I don't mind an #ifdef here, apart from the general concern over
-CONFIG_<arch> uses in common code.
+2. Writing the command register and ROM BAR register may trigger
+modify_bars to run, which in turn may access multiple pdevs while
+checking for the existing BAR's overlap. The overlapping check, if done
+under the read lock, requires vpci->lock to be acquired on both devices
+being compared, which may produce a deadlock. It is not possible to
+upgrade read lock to write lock in such a case. So, in order to prevent
+the deadlock, check which registers are going to be written and acquire
+the lock in the appropriate mode from the beginning.
 
-Jan
+All other code, which doesn't lead to pdev->vpci destruction and does not
+access multiple pdevs at the same time, can still use a combination of the
+read lock and pdev->vpci->lock.
+
+3. Optimize if ROM BAR write lock required detection by caching offset
+of the ROM BAR register in vpci->header->rom_reg which depends on
+header's type.
+
+4. Reduce locked region in vpci_remove_device as it is now possible
+to set pdev->vpci to NULL early right after the write lock is acquired.
+
+5. Reduce locked region in vpci_add_handlers as it is possible to
+initialize many more fields of the struct vpci before assigning it to
+pdev->vpci.
+
+6. vpci_{add|remove}_register are required to be called with the write lock
+held, but it is not feasible to add an assert there as it requires
+struct domain to be passed for that. So, add a comment about this requirement
+to these and other functions with the equivalent constraints.
+
+7. Drop const qualifier where the new rwlock is used and this is appropriate.
+
+8. This is based on the discussion at [1].
+
+[1] https://lore.kernel.org/all/20220204063459.680961-4-andr2000@gmail.com/
+
+Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+
+---
+This was checked on x86: with and without PVH Dom0.
+---
+ xen/arch/x86/hvm/vmsi.c   |   2 +
+ xen/common/domain.c       |   3 +
+ xen/drivers/vpci/header.c |   8 +++
+ xen/drivers/vpci/msi.c    |   8 ++-
+ xen/drivers/vpci/msix.c   |  40 +++++++++++--
+ xen/drivers/vpci/vpci.c   | 114 ++++++++++++++++++++++++++++----------
+ xen/include/xen/sched.h   |   3 +
+ xen/include/xen/vpci.h    |   2 +
+ 8 files changed, 146 insertions(+), 34 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
+index 13e2a190b439..351cb968a423 100644
+--- a/xen/arch/x86/hvm/vmsi.c
++++ b/xen/arch/x86/hvm/vmsi.c
+@@ -893,6 +893,8 @@ int vpci_msix_arch_print(const struct vpci_msix *msix)
+ {
+     unsigned int i;
+ 
++    ASSERT(!!rw_is_locked(&msix->pdev->domain->vpci_rwlock));
++
+     for ( i = 0; i < msix->max_entries; i++ )
+     {
+         const struct vpci_msix_entry *entry = &msix->entries[i];
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index 2048ebad86ff..10558c22285d 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -616,6 +616,9 @@ struct domain *domain_create(domid_t domid,
+ 
+ #ifdef CONFIG_HAS_PCI
+     INIT_LIST_HEAD(&d->pdev_list);
++#ifdef CONFIG_HAS_VPCI
++    rwlock_init(&d->vpci_rwlock);
++#endif
+ #endif
+ 
+     /* All error paths can depend on the above setup. */
+diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
+index 40ff79c33f8f..9e2aeb2055c9 100644
+--- a/xen/drivers/vpci/header.c
++++ b/xen/drivers/vpci/header.c
+@@ -142,12 +142,14 @@ bool vpci_process_pending(struct vcpu *v)
+         if ( rc == -ERESTART )
+             return true;
+ 
++        read_lock(&v->domain->vpci_rwlock);
+         spin_lock(&v->vpci.pdev->vpci->lock);
+         /* Disable memory decoding unconditionally on failure. */
+         modify_decoding(v->vpci.pdev,
+                         rc ? v->vpci.cmd & ~PCI_COMMAND_MEMORY : v->vpci.cmd,
+                         !rc && v->vpci.rom_only);
+         spin_unlock(&v->vpci.pdev->vpci->lock);
++        read_unlock(&v->domain->vpci_rwlock);
+ 
+         rangeset_destroy(v->vpci.mem);
+         v->vpci.mem = NULL;
+@@ -203,6 +205,7 @@ static void defer_map(struct domain *d, struct pci_dev *pdev,
+     raise_softirq(SCHEDULE_SOFTIRQ);
+ }
+ 
++/* This must hold domain's vpci_rwlock in write mode. */
+ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
+ {
+     struct vpci_header *header = &pdev->vpci->header;
+@@ -454,6 +457,8 @@ static int init_bars(struct pci_dev *pdev)
+     struct vpci_bar *bars = header->bars;
+     int rc;
+ 
++    ASSERT(!!rw_is_write_locked(&pdev->domain->vpci_rwlock));
++
+     switch ( pci_conf_read8(pdev->sbdf, PCI_HEADER_TYPE) & 0x7f )
+     {
+     case PCI_HEADER_TYPE_NORMAL:
+@@ -548,6 +553,7 @@ static int init_bars(struct pci_dev *pdev)
+     {
+         struct vpci_bar *rom = &header->bars[num_bars];
+ 
++        header->rom_reg = rom_reg;
+         rom->type = VPCI_BAR_ROM;
+         rom->size = size;
+         rom->addr = addr;
+@@ -559,6 +565,8 @@ static int init_bars(struct pci_dev *pdev)
+         if ( rc )
+             rom->type = VPCI_BAR_EMPTY;
+     }
++    else
++        header->rom_reg = ~(unsigned int)0;
+ 
+     return (cmd & PCI_COMMAND_MEMORY) ? modify_bars(pdev, cmd, false) : 0;
+ }
+diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
+index 5757a7aed20f..5df3dfa8243c 100644
+--- a/xen/drivers/vpci/msi.c
++++ b/xen/drivers/vpci/msi.c
+@@ -190,6 +190,8 @@ static int init_msi(struct pci_dev *pdev)
+     uint16_t control;
+     int ret;
+ 
++    ASSERT(!!rw_is_write_locked(&pdev->domain->vpci_rwlock));
++
+     if ( !pos )
+         return 0;
+ 
+@@ -265,7 +267,7 @@ REGISTER_VPCI_INIT(init_msi, VPCI_PRIORITY_LOW);
+ 
+ void vpci_dump_msi(void)
+ {
+-    const struct domain *d;
++    struct domain *d;
+ 
+     rcu_read_lock(&domlist_read_lock);
+     for_each_domain ( d )
+@@ -277,6 +279,9 @@ void vpci_dump_msi(void)
+ 
+         printk("vPCI MSI/MSI-X d%d\n", d->domain_id);
+ 
++        if ( !read_trylock(&d->vpci_rwlock) )
++            continue;
++
+         for_each_pdev ( d, pdev )
+         {
+             const struct vpci_msi *msi;
+@@ -326,6 +331,7 @@ void vpci_dump_msi(void)
+             spin_unlock(&pdev->vpci->lock);
+             process_pending_softirqs();
+         }
++        read_unlock(&d->vpci_rwlock);
+     }
+     rcu_read_unlock(&domlist_read_lock);
+ }
+diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
+index 846f1b8d7038..5296d6025d8e 100644
+--- a/xen/drivers/vpci/msix.c
++++ b/xen/drivers/vpci/msix.c
+@@ -138,6 +138,7 @@ static void control_write(const struct pci_dev *pdev, unsigned int reg,
+         pci_conf_write16(pdev->sbdf, reg, val);
+ }
+ 
++/* This must hold domain's vpci_rwlock in write mode. */
+ static struct vpci_msix *msix_find(const struct domain *d, unsigned long addr)
+ {
+     struct vpci_msix *msix;
+@@ -158,7 +159,12 @@ static struct vpci_msix *msix_find(const struct domain *d, unsigned long addr)
+ 
+ static int msix_accept(struct vcpu *v, unsigned long addr)
+ {
+-    return !!msix_find(v->domain, addr);
++    int rc;
++
++    read_lock(&v->domain->vpci_rwlock);
++    rc = !!msix_find(v->domain, addr);
++    read_unlock(&v->domain->vpci_rwlock);
++    return rc;
+ }
+ 
+ static bool access_allowed(const struct pci_dev *pdev, unsigned long addr,
+@@ -185,18 +191,27 @@ static struct vpci_msix_entry *get_entry(struct vpci_msix *msix,
+ static int msix_read(struct vcpu *v, unsigned long addr, unsigned int len,
+                      unsigned long *data)
+ {
+-    const struct domain *d = v->domain;
+-    struct vpci_msix *msix = msix_find(d, addr);
++    struct domain *d = v->domain;
++    struct vpci_msix *msix;
+     const struct vpci_msix_entry *entry;
+     unsigned int offset;
+ 
+     *data = ~0ul;
+ 
++    read_lock(&d->vpci_rwlock);
++
++    msix = msix_find(d, addr);
+     if ( !msix )
++    {
++        read_unlock(&d->vpci_rwlock);
+         return X86EMUL_RETRY;
++    }
+ 
+     if ( !access_allowed(msix->pdev, addr, len) )
++    {
++        read_unlock(&d->vpci_rwlock);
+         return X86EMUL_OKAY;
++    }
+ 
+     if ( VMSIX_ADDR_IN_RANGE(addr, msix->pdev->vpci, VPCI_MSIX_PBA) )
+     {
+@@ -222,6 +237,7 @@ static int msix_read(struct vcpu *v, unsigned long addr, unsigned int len,
+             break;
+         }
+ 
++        read_unlock(&d->vpci_rwlock);
+         return X86EMUL_OKAY;
+     }
+ 
+@@ -255,6 +271,7 @@ static int msix_read(struct vcpu *v, unsigned long addr, unsigned int len,
+         break;
+     }
+     spin_unlock(&msix->pdev->vpci->lock);
++    read_unlock(&d->vpci_rwlock);
+ 
+     return X86EMUL_OKAY;
+ }
+@@ -262,16 +279,25 @@ static int msix_read(struct vcpu *v, unsigned long addr, unsigned int len,
+ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
+                       unsigned long data)
+ {
+-    const struct domain *d = v->domain;
+-    struct vpci_msix *msix = msix_find(d, addr);
++    struct domain *d = v->domain;
++    struct vpci_msix *msix;
+     struct vpci_msix_entry *entry;
+     unsigned int offset;
+ 
++    read_lock(&d->vpci_rwlock);
++
++    msix = msix_find(d, addr);
+     if ( !msix )
++    {
++        read_unlock(&d->vpci_rwlock);
+         return X86EMUL_RETRY;
++    }
+ 
+     if ( !access_allowed(msix->pdev, addr, len) )
++    {
++        read_unlock(&d->vpci_rwlock);
+         return X86EMUL_OKAY;
++    }
+ 
+     if ( VMSIX_ADDR_IN_RANGE(addr, msix->pdev->vpci, VPCI_MSIX_PBA) )
+     {
+@@ -294,6 +320,7 @@ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
+             }
+         }
+ 
++        read_unlock(&d->vpci_rwlock);
+         return X86EMUL_OKAY;
+     }
+ 
+@@ -371,6 +398,7 @@ static int msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
+         break;
+     }
+     spin_unlock(&msix->pdev->vpci->lock);
++    read_unlock(&d->vpci_rwlock);
+ 
+     return X86EMUL_OKAY;
+ }
+@@ -437,6 +465,8 @@ static int init_msix(struct pci_dev *pdev)
+     struct vpci_msix *msix;
+     int rc;
+ 
++    ASSERT(!!rw_is_write_locked(&pdev->domain->vpci_rwlock));
++
+     msix_offset = pci_find_cap_offset(pdev->seg, pdev->bus, slot, func,
+                                       PCI_CAP_ID_MSIX);
+     if ( !msix_offset )
+diff --git a/xen/drivers/vpci/vpci.c b/xen/drivers/vpci/vpci.c
+index fb0947179b79..16bb3b832e6a 100644
+--- a/xen/drivers/vpci/vpci.c
++++ b/xen/drivers/vpci/vpci.c
+@@ -37,28 +37,39 @@ extern vpci_register_init_t *const __end_vpci_array[];
+ 
+ void vpci_remove_device(struct pci_dev *pdev)
+ {
++    struct vpci *vpci;
++
+     if ( !has_vpci(pdev->domain) )
+         return;
+ 
+-    spin_lock(&pdev->vpci->lock);
++    write_lock(&pdev->domain->vpci_rwlock);
++    if ( !pdev->vpci )
++    {
++        write_unlock(&pdev->domain->vpci_rwlock);
++        return;
++    }
++
++    vpci = pdev->vpci;
++    pdev->vpci = NULL;
++    write_unlock(&pdev->domain->vpci_rwlock);
++
+     while ( !list_empty(&pdev->vpci->handlers) )
+     {
+-        struct vpci_register *r = list_first_entry(&pdev->vpci->handlers,
++        struct vpci_register *r = list_first_entry(&vpci->handlers,
+                                                    struct vpci_register,
+                                                    node);
+ 
+         list_del(&r->node);
+         xfree(r);
+     }
+-    spin_unlock(&pdev->vpci->lock);
+-    xfree(pdev->vpci->msix);
+-    xfree(pdev->vpci->msi);
+-    xfree(pdev->vpci);
+-    pdev->vpci = NULL;
++    xfree(vpci->msix);
++    xfree(vpci->msi);
++    xfree(vpci);
+ }
+ 
+ int vpci_add_handlers(struct pci_dev *pdev)
+ {
++    struct vpci *vpci;
+     unsigned int i;
+     int rc = 0;
+ 
+@@ -68,12 +79,15 @@ int vpci_add_handlers(struct pci_dev *pdev)
+     /* We should not get here twice for the same device. */
+     ASSERT(!pdev->vpci);
+ 
+-    pdev->vpci = xzalloc(struct vpci);
+-    if ( !pdev->vpci )
++    vpci = xzalloc(struct vpci);
++    if ( !vpci )
+         return -ENOMEM;
+ 
+-    INIT_LIST_HEAD(&pdev->vpci->handlers);
+-    spin_lock_init(&pdev->vpci->lock);
++    INIT_LIST_HEAD(&vpci->handlers);
++    spin_lock_init(&vpci->lock);
++
++    write_lock(&pdev->domain->vpci_rwlock);
++    pdev->vpci = vpci;
+ 
+     for ( i = 0; i < NUM_VPCI_INIT; i++ )
+     {
+@@ -81,6 +95,7 @@ int vpci_add_handlers(struct pci_dev *pdev)
+         if ( rc )
+             break;
+     }
++    write_unlock(&pdev->domain->vpci_rwlock);
+ 
+     if ( rc )
+         vpci_remove_device(pdev);
+@@ -89,22 +104,28 @@ int vpci_add_handlers(struct pci_dev *pdev)
+ }
+ #endif /* __XEN__ */
+ 
+-static int vpci_register_cmp(const struct vpci_register *r1,
+-                             const struct vpci_register *r2)
++static int vpci_offset_cmp(unsigned int r1_offset, unsigned int r1_size,
++                           unsigned int r2_offset, unsigned int r2_size)
+ {
+     /* Return 0 if registers overlap. */
+-    if ( r1->offset < r2->offset + r2->size &&
+-         r2->offset < r1->offset + r1->size )
++    if ( r1_offset < r2_offset + r2_size &&
++         r2_offset < r1_offset + r1_size )
+         return 0;
+-    if ( r1->offset < r2->offset )
++    if ( r1_offset < r2_offset )
+         return -1;
+-    if ( r1->offset > r2->offset )
++    if ( r1_offset > r2_offset )
+         return 1;
+ 
+     ASSERT_UNREACHABLE();
+     return 0;
+ }
+ 
++static int vpci_register_cmp(const struct vpci_register *r1,
++                             const struct vpci_register *r2)
++{
++    return vpci_offset_cmp(r1->offset, r1->size, r2->offset, r2->size);
++}
++
+ /* Dummy hooks, writes are ignored, reads return 1's */
+ static uint32_t vpci_ignored_read(const struct pci_dev *pdev, unsigned int reg,
+                                   void *data)
+@@ -129,6 +150,7 @@ uint32_t vpci_hw_read32(const struct pci_dev *pdev, unsigned int reg,
+     return pci_conf_read32(pdev->sbdf, reg);
+ }
+ 
++/* This must hold domain's vpci_rwlock in write mode. */
+ int vpci_add_register(struct vpci *vpci, vpci_read_t *read_handler,
+                       vpci_write_t *write_handler, unsigned int offset,
+                       unsigned int size, void *data)
+@@ -152,8 +174,6 @@ int vpci_add_register(struct vpci *vpci, vpci_read_t *read_handler,
+     r->offset = offset;
+     r->private = data;
+ 
+-    spin_lock(&vpci->lock);
+-
+     /* The list of handlers must be kept sorted at all times. */
+     list_for_each ( prev, &vpci->handlers )
+     {
+@@ -165,25 +185,23 @@ int vpci_add_register(struct vpci *vpci, vpci_read_t *read_handler,
+             break;
+         if ( cmp == 0 )
+         {
+-            spin_unlock(&vpci->lock);
+             xfree(r);
+             return -EEXIST;
+         }
+     }
+ 
+     list_add_tail(&r->node, prev);
+-    spin_unlock(&vpci->lock);
+ 
+     return 0;
+ }
+ 
++/* This must hold domain's vpci_rwlock in write mode. */
+ int vpci_remove_register(struct vpci *vpci, unsigned int offset,
+                          unsigned int size)
+ {
+     const struct vpci_register r = { .offset = offset, .size = size };
+     struct vpci_register *rm;
+ 
+-    spin_lock(&vpci->lock);
+     list_for_each_entry ( rm, &vpci->handlers, node )
+     {
+         int cmp = vpci_register_cmp(&r, rm);
+@@ -195,14 +213,12 @@ int vpci_remove_register(struct vpci *vpci, unsigned int offset,
+         if ( !cmp && rm->offset == offset && rm->size == size )
+         {
+             list_del(&rm->node);
+-            spin_unlock(&vpci->lock);
+             xfree(rm);
+             return 0;
+         }
+         if ( cmp <= 0 )
+             break;
+     }
+-    spin_unlock(&vpci->lock);
+ 
+     return -ENOENT;
+ }
+@@ -310,7 +326,7 @@ static uint32_t merge_result(uint32_t data, uint32_t new, unsigned int size,
+ 
+ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
+ {
+-    const struct domain *d = current->domain;
++    struct domain *d = current->domain;
+     const struct pci_dev *pdev;
+     const struct vpci_register *r;
+     unsigned int data_offset = 0;
+@@ -327,6 +343,7 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
+     if ( !pdev )
+         return vpci_read_hw(sbdf, reg, size);
+ 
++    read_lock(&d->vpci_rwlock);
+     spin_lock(&pdev->vpci->lock);
+ 
+     /* Read from the hardware or the emulated register handlers. */
+@@ -371,6 +388,7 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
+         ASSERT(data_offset < size);
+     }
+     spin_unlock(&pdev->vpci->lock);
++    read_unlock(&d->vpci_rwlock);
+ 
+     if ( data_offset < size )
+     {
+@@ -410,14 +428,37 @@ static void vpci_write_helper(const struct pci_dev *pdev,
+              r->private);
+ }
+ 
++static bool vpci_header_write_lock(const struct pci_dev *pdev,
++                                   unsigned int start, unsigned int size)
++{
++    /*
++     * Writing the command register and ROM BAR register may trigger
++     * modify_bars to run which in turn may access multiple pdevs while
++     * checking for the existing BAR's overlap. The overlapping check, if done
++     * under the read lock, requires vpci->lock to be acquired on both devices
++     * being compared, which may produce a deadlock. It is not possible to
++     * upgrade read lock to write lock in such a case. So, in order to prevent
++     * the deadlock, check which registers are going to be written and acquire
++     * the lock in the appropriate mode from the beginning.
++     */
++    if ( !vpci_offset_cmp(start, size, PCI_COMMAND, 2) )
++        return true;
++
++    if ( !vpci_offset_cmp(start, size, pdev->vpci->header.rom_reg, 4) )
++        return true;
++
++    return false;
++}
++
+ void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
+                 uint32_t data)
+ {
+-    const struct domain *d = current->domain;
++    struct domain *d = current->domain;
+     const struct pci_dev *pdev;
+     const struct vpci_register *r;
+     unsigned int data_offset = 0;
+     const unsigned long *ro_map = pci_get_ro_map(sbdf.seg);
++    bool write_locked = false;
+ 
+     if ( !size )
+     {
+@@ -440,7 +481,17 @@ void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
+         return;
+     }
+ 
+-    spin_lock(&pdev->vpci->lock);
++    if ( vpci_header_write_lock(pdev, reg, size) )
++    {
++        /* Gain exclusive access to all of the domain pdevs vpci. */
++        write_lock(&d->vpci_rwlock);
++        write_locked = true;
++    }
++    else
++    {
++        read_lock(&d->vpci_rwlock);
++        spin_lock(&pdev->vpci->lock);
++    }
+ 
+     /* Write the value to the hardware or emulated registers. */
+     list_for_each_entry ( r, &pdev->vpci->handlers, node )
+@@ -475,7 +526,14 @@ void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
+             break;
+         ASSERT(data_offset < size);
+     }
+-    spin_unlock(&pdev->vpci->lock);
++
++    if ( write_locked )
++        write_unlock(&d->vpci_rwlock);
++    else
++    {
++        spin_unlock(&pdev->vpci->lock);
++        read_unlock(&d->vpci_rwlock);
++    }
+ 
+     if ( data_offset < size )
+         /* Tailing gap, write the remaining. */
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 37f78cc4c4c9..ecd34481a7af 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -444,6 +444,9 @@ struct domain
+ 
+ #ifdef CONFIG_HAS_PCI
+     struct list_head pdev_list;
++#ifdef CONFIG_HAS_VPCI
++    rwlock_t vpci_rwlock;
++#endif
+ #endif
+ 
+ #ifdef CONFIG_HAS_PASSTHROUGH
+diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+index e8ac1eb39513..e19e462ee5cb 100644
+--- a/xen/include/xen/vpci.h
++++ b/xen/include/xen/vpci.h
+@@ -88,6 +88,8 @@ struct vpci {
+          * is mapped into guest p2m) if there's a ROM BAR on the device.
+          */
+         bool rom_enabled      : 1;
++        /* Offset to the ROM BAR register if any. */
++        unsigned int rom_reg;
+         /* FIXME: currently there's no support for SR-IOV. */
+     } header;
+ 
+-- 
+2.25.1
 
 
