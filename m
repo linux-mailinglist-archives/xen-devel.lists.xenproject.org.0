@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D15D14B1435
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Feb 2022 18:28:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.269941.464095 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00E144B14E8
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Feb 2022 19:05:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.269952.464106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIDE2-0005gk-J2; Thu, 10 Feb 2022 17:27:22 +0000
+	id 1nIDoA-0001WJ-Ls; Thu, 10 Feb 2022 18:04:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 269941.464095; Thu, 10 Feb 2022 17:27:22 +0000
+Received: by outflank-mailman (output) from mailman id 269952.464106; Thu, 10 Feb 2022 18:04:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIDE2-0005es-FT; Thu, 10 Feb 2022 17:27:22 +0000
-Received: by outflank-mailman (input) for mailman id 269941;
- Thu, 10 Feb 2022 17:27:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nIDoA-0001UE-HS; Thu, 10 Feb 2022 18:04:42 +0000
+Received: by outflank-mailman (input) for mailman id 269952;
+ Thu, 10 Feb 2022 18:04:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=kk9V=SZ=gmail.com=this.is.a0lson@srs-se1.protection.inumbo.net>)
- id 1nIDE0-0005em-GW
- for xen-devel@lists.xenproject.org; Thu, 10 Feb 2022 17:27:20 +0000
-Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
- [2607:f8b0:4864:20::82c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b1e030d6-8a96-11ec-8f75-fffcc8bd4f1a;
- Thu, 10 Feb 2022 18:27:18 +0100 (CET)
-Received: by mail-qt1-x82c.google.com with SMTP id k25so6064689qtp.4
- for <xen-devel@lists.xenproject.org>; Thu, 10 Feb 2022 09:27:18 -0800 (PST)
-Received: from development (c-73-166-253-254.hsd1.tx.comcast.net.
- [73.166.253.254])
- by smtp.gmail.com with ESMTPSA id de43sm9781703qkb.4.2022.02.10.09.27.16
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Feb 2022 09:27:16 -0800 (PST)
+ <SRS0=sWaC=SZ=yahoo.com=akm2tosher@srs-se1.protection.inumbo.net>)
+ id 1nIDo9-0001U8-2I
+ for xen-devel@lists.xenproject.org; Thu, 10 Feb 2022 18:04:41 +0000
+Received: from sonic308-36.consmr.mail.ne1.yahoo.com
+ (sonic308-36.consmr.mail.ne1.yahoo.com [66.163.187.59])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e90ec4ea-8a9b-11ec-8eb8-a37418f5ba1a;
+ Thu, 10 Feb 2022 19:04:39 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic308.consmr.mail.ne1.yahoo.com with HTTP; Thu, 10 Feb 2022 18:04:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,109 +39,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b1e030d6-8a96-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:subject:from:to:date:user-agent:mime-version
-         :content-transfer-encoding;
-        bh=Px77cD0FejDu6XuNndK0FPvrCK+eDUGXBcpEO5pgJPI=;
-        b=DlrBbAIeZ0CUD+nbjiaqZ6oYHEee3N47hOmnqKvGv1PkCECOfVqo6KoMAhluN24VbK
-         Fb5scT5xHBDhffaBfpKF16Pgx/7bJuqPfjfF/ehhPsBxZhepelOpTcOFDqYT3dPycT6q
-         exUXOLtiLfg3rA8CmGZIWMZjiXwvmq2YnZs93UmupZfdV3MQBamgzGYdJ7Md3Ihcj7gJ
-         Rpm0prpXjiQXas8iRQ5U5LYSzRb68iFR6QtMKfobyLGK5AXHreMLLhBQD9bKbb/D0TMV
-         SLqpQPvWGL7B9kjRtCGMqCdO5RPTiwnO1WqA+jXqniYJPo1bB7tW+9NduDPil0YexZBN
-         3f8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:subject:from:to:date:user-agent
-         :mime-version:content-transfer-encoding;
-        bh=Px77cD0FejDu6XuNndK0FPvrCK+eDUGXBcpEO5pgJPI=;
-        b=mL6GmtK3zcmfhGt/6pmVH6sBGD1/lqIpzuJWHhjIM84u+0lI1qnYCz7QjGdRqP932/
-         iUyoNd2uxhqPpz9oAKeLlJPryswafU0DQAKSQTx7PVEonaZfmi99FLWKT5AAO/ljdGKs
-         5qbvx/AZC4JJ3OJefV913MgYZXYZcCOFweQ03/QnKdJhl2brr1Rl3TY0rjyUjtNajkzW
-         cy2AlqpOaDRLKbi84CcP+XKpgAEz2EX7Q7O8PytcPgwmoG4DWEMcGIeSZ6dB0Kij0vAO
-         HwZ6e39BomEWDCl1JEpj1MmAg656kF9PkrpRLwOYCcz1m6HxCKAIz9vqNuOfeR8FqKS9
-         Vadw==
-X-Gm-Message-State: AOAM531t1eJWElXbeypBhWP+vp5Z244/fREYDWS+5G8ZSbyvdW5BH6yN
-	cMzEK3Ol4vYEidgv+X3vh04znUf754gMcQ==
-X-Google-Smtp-Source: ABdhPJzcHqnBlz+AlHEqOuJWO+6b4zYfnmMaNfsuC9MoBxFlNJwGBuKKjsksUSa00VKuK6Vq3/1gDg==
-X-Received: by 2002:a05:622a:349:: with SMTP id r9mr5683472qtw.37.1644514036893;
-        Thu, 10 Feb 2022 09:27:16 -0800 (PST)
-Message-ID: <949b4776e23e4607776685a7e2705b9e77f5b717.camel@gmail.com>
-Subject: [RFC] Avoid dom0/HVM performance penalty from MSR access tightening
-From: Alex Olson <this.is.a0lson@gmail.com>
-To: xen-devel@lists.xenproject.org
-Date: Thu, 10 Feb 2022 11:27:15 -0600
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.5-0ubuntu1 
+X-Inumbo-ID: e90ec4ea-8a9b-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1644516276; bh=iXa1Cd+VaT41h3q4J0/wJjNJWQrzjtgamcihiKFWOEY=; h=Date:From:To:Cc:In-Reply-To:References:Subject:From:Subject:Reply-To; b=Wo8XP2YZ4kpxlQf75qACX/IRdxEsXk2mqwml9cAg9pPRE+DvVRu3nI5MSxlXyml12JkP5zqNwp1MJZHGMA21XyBHaZ0SmdhSg5c4whXAScrMd+IodcGmvFRt9hGvHr7qb5zhOb9DRPgx7MUVkSTm+nUkdiYQnpkRQic5MNq+78/7ZlT/nLRw6Pi34BpFExlNfr2x5a7Czhv6dx44Rj/ZO9ytRuHgD7woi+OGONhLKv9TloDlQKTaSTUvv6PycNEg28cwQhm9pTMAOMUlsDWt1LYod7qRnM+BkUSKMzdIdTkGXR5Ofkco0shSXuWkaWkVeR3khFNIBIw/h1CA7xPpDw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1644516276; bh=lXu/O/9TKTtevBpBNF168Z5erX2WgYok7etbnWuiKd3=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=YOc+TTKvM6c6PpuoBCy/X6y1cSNgJe/kdP+ezgw3l8IE674OzYy93OSodPX0DhX+jv4onqY4aFHqQVtXuQ5l9J8CDTQMJ1oIbsKtGPIYc0myG1JC9OFY6dQylrMtbp+lmwpalkBhUJMr5xKpZgb3OQ19K0+lYlRAioq/llARDaWrWqmu2yceOSu38POM9UnSx1F8JT5SpzX1EOUFhbeU0xI11Lh6mFseSt0Ed+ke1wWfbtTELlNpoO+AlHd6R2JVohAHjt4U4PvM7zbzdgQ8xb0Qkr3r1TepSrCMNrve/c4SLa2hCYGTKbIunuhbFubaKErpOHOmIyciVba9Gv9BNw==
+X-YMail-OSG: Syfh58UVM1nods1vOzQMVlgF99MQczZm7A1eCEJgfduY8PmoNYcGDGvomwNDtO1
+ o192pnMizfDrwONRrx_xe9VnK.baCbfFQKG189JfYRtt_oVePF_pqTCRuhjZjfrGFal55SycMrXB
+ CDWj5an.Ih6xiAa0kjl4XRhI.YG342_df74d1r4NHwfLCbhreXk9kDB8530c88BB4Cq9Mf6iVkA1
+ HDGokzkmcUS8HQRAAv2Bh9r0iFVEYetjbocYYLsbRYnsd7Ka85xOUC8VT3UJzUEO7C815ilIoBwu
+ 35ll487bgazw.5x1mOiHDw444T_kOf2cc7SAOUNpRe7TaFNa1wQQedqWEgQfiNJD4UChjnci.uPb
+ TGfvgzntKMoVpYouVs_L8tm3E2zo_n.ZrvoD1OMnQM0dlsfCAZeuzYWyG8QHcBp0sXq5SnabwWIz
+ ..CgngLkxaVGtKLFnYQ.IaQazCKFgkPziiUX9AEGkDj0yNEdWnR46L8EJa5gazp9tMuP2ng8uQkE
+ x_02pewDx4iL552DutJj3fs5ZBWjQKAD.ksevIOtjfqd.uSYUWvL50Flk5hjDyOEQ2hBmwVOWBD3
+ _oG8cbWm.PAsf25hHyelGMAT9FmXC30UFVNY1LtMTl3RT.8OEBEhInb9SxkSdbfn4ILBynk80q9g
+ EEB7vwZAryihfUKvmHt0zJmmGk_naKDYXA7YjarywpJ4mGNwVU.lb7Y510g7CEYeZPiC3eXdt8e6
+ HgZiXJQ1VkYc.UuDVicfT3X4qINFYylCaTNUHfvalJ5RIiBNgnZCVFZrjQMLMAWDRAQAPsyZhDm7
+ 7Ygq3_U7weerLP5sCP1RbiwqCJhDHkIDZK.GsQvHfVHg8KYYrOyFAIby97UqXrzfBmEZ6Kqw_Mco
+ IQowxa_iPh2cp7SiSiz1l1g49Dpo4U1oyVh.H1PtuG2DeDXDBRKdfBLclHQHWb5u4lk9f.Lm2NPn
+ njscmk6_9Zq_rQiDDgUJDAns.28fFAXrag4iA5crohRu44mMN5_0bsSydKB9h4IbfxbHwUJ0OLGE
+ LMxt2sdC9jZInfvHFYp5lNVkWvJUzDQzj2Ss2lC2iyQoW4JFR0ICKi23KhA9tQYMLD9jwRz6DX0u
+ plFgI.M2lnl7Jy.RUo1d07iKGDIRcC7oBInfDNF6A2jfrhlJy33r8SpQMPAdYofzZ_z9gQBlosPW
+ t4M6hV4vK.6N3_0VZA5oxDExURc6jY0WxPx85UvSEx9Ia9UUu1l9jMlazAIuU4k6IqPWN6_ZgE5J
+ YiaST1Ox87xX0LgDHitaOVKbkC34P3PonulWPS91RRQ59WSBfrEbFAB54K5hbz04QCFdegA843ea
+ 8dddYeOskb8mvhcdxr_enKs9rU_aas6ZQwRP18FBsUcAsx4FvnpeFm..VEuQbgokz9lDlVkN3r7J
+ Gk_VxQ9dpF7YVKI2mlWtu8n3AW1GYyN3u2nN54TCdCsEBA_lS9Ta02D7je8KN9ZLwPteNjLn9ysU
+ nbgGs1o5iWXhzDeADJNmcLlnUuKsXgCc3pnVKS7euNxIjtC8Fex6zhmtgI0V69kIkQpm7b6y9m9W
+ 7OZndKfCWBLJqRjxyHFcErsC2fPrm87StbFVsyzil6OIEBjGBp8IgtCr6.EKoARj16eWOFf3hKbb
+ l0SNJazE4ppnajIPfk.9dG80Es9O20ZaiAxWv313xGRVRhe_1i43Y5P5DAEjsiX53eF12atlY.VU
+ a_LykEUT7f4_eazK4B.ETn_t0TUa4MAX1rkteG.jywVECbi7ZNR8KdSd1SF2imfkuYDpBoZwV_qf
+ 2oSn4KPhSlVv3iX_7ULzL1buwENmSHiZ_UpYjfm6nTNt9qb4A3OIjhV1l.GJ6lZUsirYbYOhnilB
+ COTf.vnRoPsktUSCIbjRfuehVVXbnRNgWwv2C4drrj1LW88dUyyCGlFO6e1sSUTd2LYcJs3iEk.2
+ h3v1GT9gg6ELoJMD_58WcT6E9wraYKrOYD77HCOJbpRSVTYYJLmaRBJ4GZZ6PHLhbx1Z9oJyyjyl
+ yRnCTIvKIGf3Ph8Z59L4_hDqgWCBQhn2REH5QRLUmjEYCfXvyvFXFywVkIOPIr1jltmzNqkd30ep
+ j5y5apW8m27M9DOT4d7PjaWnqs8TXZ7aiouvBm2JQ_ZYymA7AN7VhxF1FGBUzJx2efxnaU4nRR0E
+ _uZmQEnh5ey2xHNefl3.njov6.KaX9Z8ar1aFlug7XgjRRtAJ3WoUgYY2i2ur4vD9DInNYFEXuC6
+ It6HRhVB_eUZ.lmDWoJpNxPZNfLQbdo0oJFMTfTyBPA--
+X-Sonic-MF: <akm2tosher@yahoo.com>
+Date: Thu, 10 Feb 2022 18:02:31 +0000 (UTC)
+From: tosher 1 <akm2tosher@yahoo.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+	Jan Beulich <jbeulich@suse.com>
+Cc: "roger.pau@citrix.com" <roger.pau@citrix.com>, 
+	"xadimgnik@gmail.com" <xadimgnik@gmail.com>, 
+	"oleksandr_andrushchenko@epam.com" <oleksandr_andrushchenko@epam.com>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <1240968518.881344.1644516151890@mail.yahoo.com>
+In-Reply-To: <2CDAD7A1-A628-4491-9DE0-1F4D5D9FF1A7@arm.com>
+References: <709142925.628001.1644127197288.ref@mail.yahoo.com> <709142925.628001.1644127197288@mail.yahoo.com> <0e64c52c-1e9c-e89b-abb8-50171d885926@suse.com> <303292590.682317.1644477758255@mail.yahoo.com> <2CDAD7A1-A628-4491-9DE0-1F4D5D9FF1A7@arm.com>
+Subject: Re: PCI passthrough support for PVH mode
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: WebService/1.1.19724 YMailNorrin
 
-I'm seeing strange performance issues under Xen on a Supermicro server with a Xeon D-1541 CPU caused by an MSR-related commit.
+Hi Bertrand and Jan,
 
-Commit 322ec7c89f6640ee2a99d1040b6f786cf04872cf 'x86/pv: disallow access to unknown MSRs'
-surprisingly introduces a severe performance penality where dom0 has about 1/8th
-the normal CPU performance. Even even when 'xenpm' is used to select the
-performance governor and operate the CPU at maximum frequency, actual CPU
-performance is still 1/2 of normal (as well as using "cpufreq=xen,performance").
+I thought PCI passthrough was a WIP only for PVH mode on Arm and x86. Howev=
+er, it seems there are some differences. Thanks for the clarifications.
 
-The patch below fixes it but I don't fully understand why.
-
-Basically, when *reads* of MSR_IA32_THERM_CONTROL are blocked, dom0 and
-guests (pinned to other CPUs) see the performance issues.
-
-For benchmarking purposes, I built a small C program that runs a "for
-loop" 
-4Billion iterations and timed its execution. In dom0, the
-performance issues
-also cause HVM guest startup time to go from 9-10
-seconds to almost 80 seconds.
-
-I assumed Xen was managing CPU frequency and thus blocking related MSR
-access by dom0 (or any other domain). However,  clearly something else
-is happening and I don't understand why.
-
-I initially attempted to copy the same logic as the write MSR case. This
-was effective at fixing the dom0 performance issue, but still left other
-domains running at 1/2 speed. Hence, the change below has no access control.
+Regards,
+Mehrab
 
 
-If anyone has any insight as to what is really happening, I would be all ears
-as I am unsure if the change below is a proper solution.
 
-Thanks
 
--Alex
 
----
----
- xen/arch/x86/pv/emul-priv-op.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
 
-diff --git a/xen/arch/x86/pv/emul-priv-op.c b/xen/arch/x86/pv/emul-priv-op.c
-index 7f4279a051..f254479bda 100644
---- a/xen/arch/x86/pv/emul-priv-op.c
-+++ b/xen/arch/x86/pv/emul-priv-op.c
-@@ -970,6 +970,18 @@ static int read_msr(unsigned int reg, uint64_t *val,
-         *val = 0;
-         return X86EMUL_OKAY;
- 
-+    /* being unable to read MSR_IA32_THERM_CONTROL seems to significantly affect
-+     * dom0 and thus HVM guest startup performance, as well as PVH VMs.
-+     */
-+    case MSR_IA32_THERM_CONTROL:
-+    case MSR_IA32_ENERGY_PERF_BIAS:
-+        *val = 0;
-+        if ( boot_cpu_data.x86_vendor != X86_VENDOR_INTEL )
-+            break;
-+        if ( rdmsr_safe(reg, *val) == 0)
-+            return X86EMUL_OKAY;
-+        break;
-+
-     case MSR_P6_PERFCTR(0) ... MSR_P6_PERFCTR(7):
-     case MSR_P6_EVNTSEL(0) ... MSR_P6_EVNTSEL(3):
-     case MSR_CORE_PERF_FIXED_CTR0 ... MSR_CORE_PERF_FIXED_CTR2:
--- 
-2.30.2
+On Thursday, February 10, 2022, 03:32:19 AM EST, Bertrand Marquis <bertrand=
+.marquis@arm.com> wrote:=20
+
+
+
+
+
+Hi Mihrab,
+
+> On 10 Feb 2022, at 07:22, tosher 1 <akm2tosher@yahoo.com> wrote:
+>=20
+> Hi Jan,
+>=20
+> Thanks for letting me know this status.
+>=20
+> I am wondering if PCI passthrough is at least available in Arm for other =
+virtualization modes like PV, HVM, or PVHVM. For example, is it possible fo=
+r someone to attach a PCI device to a guest domain on an Arm machine and us=
+e that domain as a driver domain, like we can do with the Xen on x86?
+
+On arm there is only one virtualization mode which is equivalent to x86 HVM=
+.
+
+Regarding PCI passthrough on arm, this is currently a work in progress that=
+ is being upstream so it is not available for now.
+Once it will be merged in Xen, it will be possible to assign a PCI device t=
+o a guest so you could then make a =E2=80=9Cdriver domain=E2=80=9D using th=
+e functionality.
+
+Regards
+Bertrand
+
+
+>=20
+> Please let me know.
+>=20
+> Regards,
+> Mehrab
+>=20
+>=20
+>=20
+>=20
+> On Monday, February 7, 2022, 02:57:45 AM EST, Jan Beulich <jbeulich@suse.=
+com> wrote:=20
+>=20
+>=20
+>=20
+>=20
+>=20
+> On 06.02.2022 06:59, tosher 1 wrote:
+>=20
+>> Back in the year 2020, I was inquiring into the status of PCI passthroug=
+h support for PVH guests. At that time, Arm people were working on using vP=
+CI for guest VMs. The expectation was to port that implementation to x86 on=
+ce ready.
+>>=20
+>> I was wondering if there is any update on this. Does Xen support PCI pas=
+sthrough for PVH mode yet? Please let me know.
+>=20
+>=20
+> The Arm work is still WIP, and in how far it's going to be straightforwar=
+d to
+> re-use that code for x86 is still unclear (afaict at least).
+>=20
+> Jan
+>=20
+>=20
+>=20
 
 
