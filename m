@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8AE734B09D3
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Feb 2022 10:47:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.269744.463830 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C78544B0A3A
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Feb 2022 11:04:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.269756.463841 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nI62G-0001e4-Gg; Thu, 10 Feb 2022 09:46:44 +0000
+	id 1nI6Ia-00049h-3r; Thu, 10 Feb 2022 10:03:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 269744.463830; Thu, 10 Feb 2022 09:46:44 +0000
+Received: by outflank-mailman (output) from mailman id 269756.463841; Thu, 10 Feb 2022 10:03:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nI62G-0001b5-Cr; Thu, 10 Feb 2022 09:46:44 +0000
-Received: by outflank-mailman (input) for mailman id 269744;
- Thu, 10 Feb 2022 09:46:43 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nI62F-0001ax-0u
- for xen-devel@lists.xenproject.org; Thu, 10 Feb 2022 09:46:43 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nI62D-000737-NJ; Thu, 10 Feb 2022 09:46:41 +0000
-Received: from 54-240-197-226.amazon.com ([54.240.197.226] helo=[10.7.236.14])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nI62D-0006dK-Gr; Thu, 10 Feb 2022 09:46:41 +0000
+	id 1nI6Ia-00046i-0H; Thu, 10 Feb 2022 10:03:36 +0000
+Received: by outflank-mailman (input) for mailman id 269756;
+ Thu, 10 Feb 2022 10:03:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=T9Dk=SZ=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1nI6IY-00046c-6K
+ for xen-devel@lists.xenproject.org; Thu, 10 Feb 2022 10:03:34 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b2e28578-8a58-11ec-8f75-fffcc8bd4f1a;
+ Thu, 10 Feb 2022 11:03:32 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,250 +36,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=dYhjtJhu5wn3T+7sDZVqBgNk8j7dobj8Z28WoXChp2E=; b=DiBjlfeVx9x7AMsWMUalXJU69T
-	wvXG0r6UYGIi7ouQ8EbF8Hm+cmKM3HSZrJGr9y8rJwNY8Zi0kMehbmIPElqA7S4cVDQgoudNmRiDa
-	aKEscZ9/k6lTvm+HQ5ouuq6GkKVcYVwKFmiBSFn9DH1F+UAOMRm7Avn0k9X5IuRRoIAE=;
-Message-ID: <a104d3ea-170e-8175-ac04-abfcebb4ae29@xen.org>
-Date: Thu, 10 Feb 2022 09:46:38 +0000
+X-Inumbo-ID: b2e28578-8a58-11ec-8f75-fffcc8bd4f1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1644487412;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=LnAdlFNKLDAF450e79nH567TbE1Tcc1vsbzVT7HTvhE=;
+  b=FQWyMNBrRk3g4DDOOalcarIuPn0rI08JlXer/hI9DUfKsK+vuS3PhJMC
+   Jus71xPnnic/Pa+p2jWwW5+swkmkAYoaabafAWP8eHxMWPXFPH7tYIlTy
+   t/OkjgbW10UvegeL2nG3+twLr9JV/jsNydFm+i9a9pIULUKovr9O8gF2h
+   M=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: hrRUobbaazwqW8DbfFa0lawlILxQVgc/DwSF4Pr1wjmljuYURszjZPtthWUkUAP4uuoP1aRfIA
+ hGYZJQoVO8AewsilUPeBO2P33gxDkuSn0upUYk1AsfhaAXFV6PPY9FgfAEEOPE86TA/9AcmVIw
+ BCrTzVwJeVc+FYB1O7G+NtSbmatuYweE0VpXjfGo8oi+NWuUB4pOj67vyGkM+EZfzvcPBk1agU
+ fk1/UOnXcAlma6pMUoe1a7APg2A66HPxQPrKqStFihAg3ffV/5QGHDpH9GjQH4zGU9ZaFCxr6n
+ kt3Fks6Dhpfi5LmPYTAfHIiR
+X-SBRS: 5.1
+X-MesageID: 66130309
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:kxfS8q6bDrTbxtDFQTGuPgxRtEnBchMFZxGqfqrLsTDasY5as4F+v
+ jYZUWjQPqmJYWr8KYogPYiypxsCvZTUmtQ2QQpt+SwzHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FV8MpBsJ00o5wbZj29Yw2LBVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z4
+ tlk7LCNayoVY4aPgqM8fRNEIxNmMvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALNs7kMZlZonh95TrYEewnUdbIRKCiCdpwgmlp3ZgVRae2i
+ 8wxZhxTNRLNUy92O2gwMLYxhdWlqVv4WmgNwL6SjfVuuDWCpOBr65DTN97Sds2PVN9itE+Sr
+ WLb/Ez0GhgfcteYzFKt6Wmwj+XCmSf6XoM6F7Ci8PNuxlqJyQQ7AhAMSUGyp/X/j0ekQs9eM
+ GQd4C9opq83nGSoQ8f8WVukoXeClh8aR9dUVeY97WmlyLfSpQCQBWEGTztIQN0gqMIyAzct0
+ zehgNfBFTFp9rqPRhq15rqS6D+/JyURBWsDfjMfCxsI5cH5p4M+hQ6JScxseIa3gcfyAirY2
+ C2RoW41gLB7pcwW06S2+3jXjjTqoYLGJiY37AjKWmOu7itieZWoIYev7DDmAe1oddjDCAPb5
+ T5dxpbYvLtm4YyxeDKlaukkRZ2Uxdu5bRafmxlOMZM9xwa19Cv2FWxP2w1WKEBsO8cCXDbmZ
+ k7PpA9cjKNu0GuWgbxfONzoVZlzpUT0PZG8D62PMIISCnRkXFLfpElTiVisM3cBeaTGuYU2I
+ t+lfMmlFh724ow3nWPtF4/xPVLGrx3SJF8/p7iml3xLMpLEPRZ5rIvp1nPVN4jVC4ve/m3oH
+ y53bZfi9vmmeLSWjtPr2YASN0sWCnMwGIr7rcdaHsbafFY6RDp7U6eKkexwE2CAo0izvryRl
+ p1achUGoGcTeFWdcVnaApydQO+HsWlDQYITYnV3YAfAN4kLaoez9qYPH6bbjpF8nNGPOcVcF
+ qFfE+3ZW6wnYm2ep1w1MMmsxKQ/JU/DrV/fYEKYjM0XIscIq/rhoYS/IGMCNUAmU0KKiCfJi
+ +P8iF2LG8dfL+mgZe6PAM+SI5qKlSF1sMp5XlfSI8kVf0Pp8YNwLDf2gONxKMYJQSgvDBPAv
+ +pPKRtH9+TLvaEv99zF2fKNo4uzSrMsFUtGBWjLq72xMHCCrGakxIZBVseOfCzcCzyoqPnzO
+ 70NwqGuKuADkXZLr5F4T+Rhw5Uh6oa9vLRd1AllQinGNgz5FrN6L3Ca9sBTrakRlKRBsA67V
+ xvXqNlXMLmEIu3/F1sVKFZ3Z+iPz6hMyDLT8e40MAPx4youpOiLVkBbPh+tji1BLeQqbNN5k
+ Ll54MNPsl6xkBsnNNqCnxt4zWXUIyxSSbgju7EbHJTv1lghxGZdbMGOESTx+pyONYlBaxF4P
+ j+OiaPerL1A3U6eIWErHH3A0OcB15QDvBdGkA0LK1iTw4eXg/Y22Fta8CgtTxQTxRJCirohN
+ m9uPkxzBKOP4zY325QTAzHyQ1lMVE+D50j861oVj2mIHUCnW1vEIHA5JevQrlsS9HhRf2QD8
+ byVoIo/ve0GoC0lMvMOZHNY
+IronPort-HdrOrdr: A9a23:4jWPMam4wQ8xDj8y5H2Xw7G3pn/pDfO1imdD5ihNYBxZY6Wkfp
+ +V88jzhCWZtN9OYhwdcLC7WZVpQRvnhPlICK0qTM2ftWjdyRCVxeRZg7cKrAeQeREWmtQtsJ
+ uINpIOdeEYbmIK8/oSgjPIaurIqePvmMvD5Za8854ud3ATV0gJ1XYHNu/xKDwReOApP+tcKH
+ LKjfA32wZINE5nJfhSQRI+Lpr+juyOsKijTQ8NBhYh5gXLpTS06ITiGxzd+hsFSTtAzZor7G
+ CAymXCl+iemsD+7iWZ+37Y7pxQltek4txfBPaUgsxQDjn3kA6naKloRrXHljEop+OE7kosjb
+ D30l0dFvU2z0mUUnC+oBPr1QWl+DEy60X6wVvdunfnqdyRfkNNN+NxwaZiNjfJ4Uspu99xlI
+ hR2XiCipZRBRTc2Azg+tnhTXhR5wSJiEtntdRWo21UUIMYZrMUh5cY5llpHJAJGz+/wJw7Ed
+ NpENrX6J9tABynhkjizylSKeGXLzcO9k/seDlBhiXV6UkboJlB9TpY+CRF9U1wsa7USPF/lp
+ P52+pT5fVzp/QtHNJA7dE6ML+K41z2MGPx2V2pUCfa/YE8SjvwQs3Mkf0IDN/DQu188HJ1ou
+ WHbG9l
+X-IronPort-AV: E=Sophos;i="5.88,358,1635220800"; 
+   d="scan'208";a="66130309"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BpbE+pjOXBr6uI8fT7vSLh+sOVipxklR4k1k4p2Fc7VnD4A7wfPEA+BQuikoqg6DopsTlAWxE57+o+LJMnO8aCNyMHXTILkklTVEz1OOrGquawCK8xwluquxI3nsQzEZFaGSP2MeAAj8E0UOuGDn2RJdKt/fmb6xNX0LEjnvovgQ+6bvVwuRfb9c1g2nIYvubkCjDrzFbw2DMuFU+h7zWye0I7QjlXyXI2LpZlzRnyX9yy9sbS7OksxIk2szblDY8JlkJKnxfAEGzX7VP8reyzvwF/xl2/MsGhqGWT8VeHZWW/uqyktuFHQBLWhW3CXzEaaNZQpQoFTkiz5bME1aHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NJb1qmxhgZ53HJ1YejXoqaBY8B52fDDlokKmhnzGshU=;
+ b=bHaQQO6vNwX7AT9wmuMXD9HOynJoWlCf9mIBM1xf6wNF/gB8C3YvNW3DuxzrH0RUEM9o6y0Rm6+1iXr8xoRg7ewhx/+FqUp/KjhGJNSOxsg68LXTlEngXE4xDhqD08AA6SAt/0ZZqpSQYFNPEFDG4Xw9JAYCx/gDWpDP/p10Khg0lAL8a/Fvo2TGwb4yveYPs7Tx6r46kDuSCUzzTMYrpfKVfHjcjnm/b2aQaAt2k7A21RnlPunRApcvemdY1RY1J2LhgRTexB6xlviFJQb1vLFD7ePmHU54teQo3VYVQtsYBnwZyjwDQZQZ0+nYl48ySPEYcftLf4HeHpWwJFGc7Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NJb1qmxhgZ53HJ1YejXoqaBY8B52fDDlokKmhnzGshU=;
+ b=WMHxyZ8B6EjcVI1+4xaruYBQ2zCLn0p91VSQc9m48CTegvScM/L99PU3sBgADE3FWSSxxfahpSasunjueVp1+NOIFc8k8A5ZcY5XVHLWzMOGHqsuodJ64B/3Ct9c7W7bJFC6ZjfwUi8HDFg7yhXp6XF6rqzlbvWFr+qXv7vLh/0=
+Date: Thu, 10 Feb 2022 11:03:21 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jane Malalane <jane.malalane@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, Anthony
+ PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
+Subject: Re: [PATCH v2 1/2] xen+tools: Report Interrupt Controller
+ Virtualization capabilities on x86
+Message-ID: <YgTi6bzeojtcu0xL@Air-de-Roger>
+References: <20220207182101.31941-1-jane.malalane@citrix.com>
+ <20220207182101.31941-2-jane.malalane@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20220207182101.31941-2-jane.malalane@citrix.com>
+X-ClientProxiedBy: LO2P265CA0509.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13b::16) To DS7PR03MB5608.namprd03.prod.outlook.com
+ (2603:10b6:5:2c9::18)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.5.1
-Subject: Re: [PATCH V5] xen/gnttab: Store frame GFN in struct page_info on Arm
-To: Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
- Oleksandr Tyshchenko <olekstysh@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>
-References: <1641424268-12968-1-git-send-email-olekstysh@gmail.com>
- <a54213c4-1c68-694e-c130-d95faeef3953@xen.org>
- <78d94e1e-6db4-25c1-adb8-e4bdbfe42774@epam.com>
- <82d8bfe0-cb46-d303-6a60-2324dd76a1f7@xen.org>
- <79fbf83e-d25e-2634-9769-8e07634bfd63@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <79fbf83e-d25e-2634-9769-8e07634bfd63@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2a441809-f4dc-436b-7624-08d9ec7c9490
+X-MS-TrafficTypeDiagnostic: CY4PR03MB2709:EE_
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
+X-Microsoft-Antispam-PRVS: <CY4PR03MB2709F7B1BFD4DFB2940116CE8F2F9@CY4PR03MB2709.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: /P4/fmcVmvIk9E/pJVbPTb8DPWbntl+TV2jgsI+sM1oHuo+cf+unCzc6KXdR5sCGOR1h3Ew0+9+xO5m5Kczhg09iwrs0pAoVyJ3K6xq3DR+jr5UvyJSI8tQ3tDruFtcN34pXytRIsejhEQuw3lq6jjaNlH+yVHyRVO1ORQR0+1iWGW8rpuoAoMsbVyFIZu0FvgEFFVm7yVyfmsNPQojagoMBq2Lc/fYC3j5OiOgxyAt1ECd+RR+Bb6nsH+aZjG9I6orC3HPqim20dN/GVAUIvV1hqHtfyfwX+IBtTNV0n1RbdzVqUdJ6sPhlIF/d2rDCf1iYF8H2WscxPSlwuTb+gj5QSEeRUzIsUtNDE41MlbbZC36aywUmeDB4tvcRM1ur82lzouXpUNsRuspki05ozYdSAsn6cXajVXHvqvYmMbqBPXgrp/Jat+Csw/20h+7eOj+cMrdAOrTQ85rNfPeOdfjFFOotG+pjR/7XpD5HVQhPl1cN92P+z9mWovMcNCnDBdsNPYga77k7DXS3mxJjIujajKngADHw9zwbkPl40V24Wvq48paL2kTW8e37pFu9PlJkOhUZOMg0L7utTigV4vsEm0jHDd5PNaCrK5vYDD9b0L24qTaEBXznol4sldHNjEXvgYI34nUS2F9GL80uHQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(6486002)(508600001)(6506007)(66946007)(66556008)(8676002)(4326008)(6862004)(316002)(82960400001)(54906003)(66476007)(86362001)(38100700002)(9686003)(5660300002)(6512007)(6666004)(6636002)(26005)(33716001)(83380400001)(85182001)(8936002)(2906002)(186003)(7416002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QU92TGVqeWVHZElkbGpSUzQwM0pmMEg5RmttemY5c25CcjJTQWVNR0o4TUxz?=
+ =?utf-8?B?WUkxVjB5cDR3bVYvczVua1ZBUEcwci83a1FYMnE1Y3NYS2drTTBVNWgwRUdl?=
+ =?utf-8?B?MEZKZ0x1WU9JdXlVd2lvVWtvMTBMc1NZYkVYUjZwSXJKVTB5ZTUzSG0rU1NV?=
+ =?utf-8?B?OXNEUW5aQStaajF0OUw1Z2JTNXh3Rk1ZMFNyL08xYko4Q095eFgwYVlXbkVG?=
+ =?utf-8?B?UGZ6VSt3a1ZPZ3d4M2F4YURSTkwxV2p0V1d0ZVZObnVJOHVqSGhGcVJ6S2pj?=
+ =?utf-8?B?KzhHQ1NDaGhhWVh3aStyZ2xPV05Ha3A2eUhVdVVYUFd4MndocVlqL2x5a3BW?=
+ =?utf-8?B?V05QZm00eGNCNlN2djZIRW1FN1RHa3NVSFNpZ3lTZ0liZzdWS3Y2cVY2cjZx?=
+ =?utf-8?B?U2doQ2ZEdFFHOHQwZkU3TzBqMWRXRUZZRmhRTUtaRXdRQTBHczBWWTVwN3Vn?=
+ =?utf-8?B?T1RsQXBNdjVvRWNLT3o4NlhlMnREaDRkK3ptZHM5b2FUU0c3YU9DZWZGQ2xI?=
+ =?utf-8?B?SEIwTEx4V2Yyd1h2VFhqQVVMRWZ3ZU1jNUE4REtjUnVyc3NlT0NHQzByVEhj?=
+ =?utf-8?B?c3pQQ2RpdnQxY3QrSGo2NkZwaHFqR1MveW90TXVLcFF3bVloRm1QM0k3ZE15?=
+ =?utf-8?B?YzVTQUpnUWw4VWFDZU9hNVQ5eEZCbk5zQ1hIeW9uUFNCOEFjLzdkbkpTOTlK?=
+ =?utf-8?B?Y3RMaHk1TEF2c0c5ZGtVWjFlQ1RoM29PZnUrMFpwTEhhR3BXQ0xTUlJ5MEpC?=
+ =?utf-8?B?VmFsUkhhamlnWUp6bVZITlppQURiQnBHeHEwTDhtU3ppRmVnQmRyN0R5M1cw?=
+ =?utf-8?B?UVhQVjJLdnYyekFGc2VTc0ZVWVQ5RlJ4NTZXZndEM2VPby9QQ0xDNktzT0NO?=
+ =?utf-8?B?SkovMnN0VVlpNGthNFVvTXpFME55eHg2VjR5WktKU0NrYjc3K2RxRm1YVVVK?=
+ =?utf-8?B?cEhNNFFEYXZxUUxSdTQ5aVVuNGhIZGkyS3ZpbFJVRzBrc2V5d2lvQnZCVFFS?=
+ =?utf-8?B?VjkrR0VGYWlONkR5cWdYak9wV0luOUVScXBHZmY4OVVCaVpkakwvZGk3RDVu?=
+ =?utf-8?B?dVZOSngxVGFRZk9YSkduYTFYc0NteXY2d3RKOUgvTnNuckdWMDJLWDE0WFo4?=
+ =?utf-8?B?YjdmanV4Z0UvYUtNZi9hMmwyTVFsMlJnOTZrWlkxRmQ5ekNxd0x0amVqVEc5?=
+ =?utf-8?B?bzVZTk5XM2E2aDdlVmg0RHJzMEZDQngvUFZDM29QR3Y2SlFOMUkzQWdNWTBQ?=
+ =?utf-8?B?WHduT2pSOHBXTUZSdVVMeDY1YUJTVFcyNnk2SUlGRUtGcjhsWnlEelBJQ2hm?=
+ =?utf-8?B?YWJuL2toOG5OdnE1RlhTNVNiZVR6YWNlVzV4V1l1QmVTVkYwancwRE1IL0xy?=
+ =?utf-8?B?YVQrM3lWR3BZZHZpL3ByYUY3dklHcVVDQkZKcHNyRnIrNUlhNTZBMHB5UmRL?=
+ =?utf-8?B?bFRveGlxK1AzWGp6RmxMWlMwZFRPQmFSQmo4T3lNWkR1Y09qYk13V3FBVmd2?=
+ =?utf-8?B?ZVRvNW5ZMWM3VnVsbEx3TDJJeEN0T0hPK0F5VDNZajNKQXJwS0Z2YnJ1eXhT?=
+ =?utf-8?B?STNJOVBKVDdvUS9rSElOWXdFd09MNlkvZWR3Qks2NmkvTG51cWl3UG9YbHdW?=
+ =?utf-8?B?a0tkNFc0VGUrb29oQTY4eTRMZk9BNEFmbUk2ZFo0Nkd3YmtsMDZrNHJwSmZQ?=
+ =?utf-8?B?VkFLaGJEODN0SENEd3pPL0x5Y1J3RkNUYXJmTjJmdmtrUVpwam1NNlFocmhu?=
+ =?utf-8?B?WXhjWkJqY2RTcmVUY2JJSTVYM05aa2hPMG16NC91M045dWg3RVVrZG5uN1A0?=
+ =?utf-8?B?WURVeTIyYWF3aU1NcURUU3NsazM4UGo4R0t5OERKd2hpSXF5NWsybG9HbE5I?=
+ =?utf-8?B?ZksxVDhCc0F4a3JnQW9GdmpLY3pueHVpSldNbytKd3lWRTExejBoelV1Zldn?=
+ =?utf-8?B?clppODNTcUdsM0xic3MzdjZCRUdaUktUcjVFcUZjT1RGdFJ4SmM1RlZKMUg0?=
+ =?utf-8?B?bFNXOHh5NFlkK1lUUHhER0xTaHF2czlrMGlMekhINnBRUVdVY0k0WlB5YWpk?=
+ =?utf-8?B?T3FDbHJQcTdURE5sUkNiVmFhTFI1S1lBYzNnT2xXR1NUeVJKQmNGMUJsT3pk?=
+ =?utf-8?B?NHM2U25xSlB5MHo4RWNKNVREVlFXbEJQd1ZYMURIWXNtNVROOTRMRVZXUFFw?=
+ =?utf-8?Q?Gouprbt2bPSaupFV1TMcuWs=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a441809-f4dc-436b-7624-08d9ec7c9490
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2022 10:03:26.4105
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: N8mB0Xe2vjTeue+G6v0/sdCKdrozS8KfGFDI3UlKEwZZ08YNYHtXLYRKBNSw5daRpibBLc22K6/EoZurYi4KrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR03MB2709
+X-OriginatorOrg: citrix.com
 
+On Mon, Feb 07, 2022 at 06:21:00PM +0000, Jane Malalane wrote:
+> diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+> index 7ab15e07a0..4060aef1bd 100644
+> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+> @@ -343,6 +343,15 @@ static int vmx_init_vmcs_config(bool bsp)
+>              MSR_IA32_VMX_PROCBASED_CTLS2, &mismatch);
+>      }
+>  
+> +    /* Check whether hardware supports accelerated xapic and x2apic. */
+> +    if ( bsp )
+> +    {
+> +        assisted_xapic_available = cpu_has_vmx_virtualize_apic_accesses;
+> +        assisted_x2apic_available = (cpu_has_vmx_apic_reg_virt ||
+> +                                     cpu_has_vmx_virtual_intr_delivery) &&
+> +                                    cpu_has_vmx_virtualize_x2apic_mode;
 
+I've been think about this, and it seems kind of asymmetric that for
+xAPIC mode we report hw assisted support only with
+virtualize_apic_accesses available, while for x2APIC we require
+virtualize_x2apic_mode plus either apic_reg_virt or
+virtual_intr_delivery.
 
-On 08/02/2022 19:50, Oleksandr Tyshchenko wrote:
-> 
-> On 08.02.22 13:58, Julien Grall wrote:
->> Hi,
-> 
-> Hi Julien
+I think we likely need to be more consistent here, and report hw
+assisted x2APIC support as long as virtualize_x2apic_mode is
+available.
 
-Hi,
+This will likely have some effect on patch 2 also, as you will have to
+adjust vmx_vlapic_msr_changed.
 
->>
->>
->> (Jan please confirm) If I am not mistaken, on x86, a read to the M2P
->> is not always protected. But they have code within the P2M lock to
->> check any difference (see p2m_remove_page()). I think we would need
->> the same, so we don't end up to introduce a behavior similar to what
->> XSA-387 has fixed on x86.
-> 
-> 
-> ... OK, I assume you are speaking about the check in the loop that was
-> added by the following commit:
-> c65ea16dbcafbe4fe21693b18f8c2a3c5d14600e "x86/p2m: don't assert that the
-> passed in MFN matches for a remove"
-
-Yes, this is the one I Have in mind.
-
-> Also, I assume we need that check in the same place on Arm (with P2M
-> lock held), which, I think, could be p2m_remove_mapping().
-
-I believe so. Can you do some testing to check this would not break 
-other types of mapping? (Booting a guest and using PV device should be 
-enough).
-
-> 
-> I ported the check from x86 code, but this is not a verbatim copy due to
-> the difference in local P2M helpers/macro between arches, also I have
-> skipped a part of that check "|| t == p2m_mmio_direct" which was added
-> by one of the follow-up commit:
-> 753cb68e653002e89fdcd1c80e52905fdbfb78cb "x86/p2m: guard (in particular)
-> identity mapping entries"
-> since I have no idea whether we need the same on Arm.
-
-I am not entirely sure. For now, I would drop it so long the behavior 
-stay the same (i.e. it will go ahead with removing the mappings).t.
-
-> Below the diff I have locally:
-> 
-> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-> index 5646343..90d7563 100644
-> --- a/xen/arch/arm/p2m.c
-> +++ b/xen/arch/arm/p2m.c
-> @@ -1315,11 +1315,32 @@ static inline int p2m_remove_mapping(struct
-> domain *d,
->                                         mfn_t mfn)
->    {
->        struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> +    unsigned long i;
->        int rc;
-> 
->        p2m_write_lock(p2m);
-> +    for ( i = 0; i < nr; )
-> +    {
-> +        unsigned int cur_order;
-> +        bool valid;
-> +        mfn_t mfn_return = p2m_get_entry(p2m, gfn_add(start_gfn, i),
-> NULL, NULL,
-> +                                         &cur_order, &valid); > +
-> +        if ( valid &&
-
-valid is a copy of the LPAE bit valid. This may be 0 if Xen decided to 
-clear it (i.e when emulating set/way). Yet the mapping itself is 
-considered valid from Xen PoV.
-
-So you want to replace with a different check (see below).
-
-> +             (!mfn_valid(mfn) || !mfn_eq(mfn_add(mfn, i), mfn_return)) )
-> +        {
-> +            rc = -EILSEQ;
-> +            goto out;
-> +        }
-> +
-> +        i += (1UL << cur_order) -
-> +             ((gfn_x(start_gfn) + i) & ((1UL << cur_order) - 1));
-> +    }
-> +
->        rc = p2m_set_entry(p2m, start_gfn, nr, INVALID_MFN,
->                           p2m_invalid, p2m_access_rwx);
-> +
-> +out:
->        p2m_write_unlock(p2m);
-> 
->        return rc;
-> 
-> 
-> Could you please clarify, is it close to what you had in mind? If yes, I
-> am wondering, don't we need this check to be only executed for xenheap
-> pages (and, probably, which P2M's entry type in RAM?) rather than for
-> all pages?
-
- From my understanding, for the purpose of this work, we only strictly 
-need to check that for xenheap pages.
-
-But I think it would be a good opportunity to harden the P2M code. At 
-the moment, on Arm, you can remove any mappings you want (even with the 
-wrong helpers). This lead us to a few issues when mapping were overriden 
-silently (in particular when building dom0).
-
-So I would say we should enforce it for every RAM mapping. Stefano, 
-Bertrand, what do you think?
-
-Note that, I would like to see this change in a separate commit. It will 
-be easier to review.
-
-> 
-> 
->>
->>
->> In addition to that, if p2m_get_xenheap_gfn() is going to be called
->> locklessly. Then we need to make sure the update to type_info are
->> atomic. This means:
->>   - p2m_get_xenheap_gfn() should use READ_ONCE().
->>   - p2m_set_xenheap_gfn() should use WRITE_ONCE(). We might even need
->> to use cmpxchg() if there are other update to type_info that are not
->> protected. I will let you have a look.
-> 
-> 
-> ... OK, I didn't find READ_ONCE/WRITE_ONCE in Xen. I am wondering, can
-> we use ACCESS_ONCE instead?
-
-Yes. Sorry, I keep forgetting we don't have READ_ONCE/WRITE_ONCE in Xen.
-
-> 
-> Below the diff I have locally:
-> 
-> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-> index 9e093a6..b18acb7 100644
-> --- a/xen/arch/arm/include/asm/mm.h
-> +++ b/xen/arch/arm/include/asm/mm.h
-> @@ -373,7 +373,7 @@ unsigned int arch_get_dma_bitsize(void);
-> 
->    static inline gfn_t page_get_xenheap_gfn(const struct page_info *p)
->    {
-> -    gfn_t gfn_ = _gfn(p->u.inuse.type_info & PGT_gfn_mask);
-> +    gfn_t gfn_ = _gfn(ACCESS_ONCE(p->u.inuse.type_info) & PGT_gfn_mask);
-> 
->        ASSERT(is_xen_heap_page(p));
-> 
-> @@ -383,11 +383,14 @@ static inline gfn_t page_get_xenheap_gfn(const
-> struct page_info *p)
->    static inline void page_set_xenheap_gfn(struct page_info *p, gfn_t gfn)
->    {
->        gfn_t gfn_ = gfn_eq(gfn, INVALID_GFN) ? PGT_INVALID_XENHEAP_GFN : gfn;
-> +    unsigned long type_info;
-> 
->        ASSERT(is_xen_heap_page(p));
-> 
-> -    p->u.inuse.type_info &= ~PGT_gfn_mask;
-> -    p->u.inuse.type_info |= gfn_x(gfn_);
-> +    type_info = ACCESS_ONCE(p->u.inuse.type_info);
-> +    type_info &= ~PGT_gfn_mask;
-> +    type_info |= gfn_x(gfn_);
-> +    ACCESS_ONCE(p->u.inuse.type_info) = type_info;
->    }
-> 
->    #endif /*  __ARCH_ARM_MM__ */
-> 
-> 
-> It is going to be a non-protected write to GFN portion of type_info.
-
-Well no. You are using a Read-Modify-Write operation on type_info. This 
-is not atomic and will overwrite any change (if any) done on other part 
-of the type_info.
-
-If I am mistaken, there are two other places where type_info is 
-modified. One is...
-
-
-> But, at that time the page is not used yet, so I think this is harmless.
-> 
-> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
-> index 50334a0..97cf0d8 100644
-> --- a/xen/common/page_alloc.c
-> +++ b/xen/common/page_alloc.c
-> @@ -1024,7 +1024,7 @@ static struct page_info *alloc_heap_pages(
->                                     &tlbflush_timestamp);
-> 
->             /* Initialise fields which have other uses for free pages. */
-> -        pg[i].u.inuse.type_info = 0;
-> +        pg[i].u.inuse.type_info = PGT_TYPE_INFO_INITIALIZER;
->             page_set_owner(&pg[i], NULL);
-> 
->         }
-
-... this one. I agree the page is not accessible at this time. So 
-page_set_xenheap_gfn() should not be used.
-
-The other one is in share_xen_page_with_guest() which I think is still 
-fine because the caller page_set_xenheap_gfn() would need to acquire a 
-reference on the page. This is only possible after the count_info is 
-updated in share_xen_page_with_guest() *and* there a barrier between the 
-type_info and count_info.
-
-I think this behavior should be documented on top of type_info (along 
-with the locking). This would be helpful if type_info gain more use in 
-the future.
-
-Cheers,
-
--- 
-Julien Grall
+Thanks, Roger.
 
