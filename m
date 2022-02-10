@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 459754B1284
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Feb 2022 17:17:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.269917.464062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A65664B1354
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Feb 2022 17:44:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.269926.464073 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIC7R-00061V-NU; Thu, 10 Feb 2022 16:16:29 +0000
+	id 1nICYQ-0000tB-2a; Thu, 10 Feb 2022 16:44:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 269917.464062; Thu, 10 Feb 2022 16:16:29 +0000
+Received: by outflank-mailman (output) from mailman id 269926.464073; Thu, 10 Feb 2022 16:44:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIC7R-0005yh-JT; Thu, 10 Feb 2022 16:16:29 +0000
-Received: by outflank-mailman (input) for mailman id 269917;
- Thu, 10 Feb 2022 16:16:27 +0000
+	id 1nICYP-0000pz-Uu; Thu, 10 Feb 2022 16:44:21 +0000
+Received: by outflank-mailman (input) for mailman id 269926;
+ Thu, 10 Feb 2022 16:44:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=T9Dk=SZ=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nIC7P-0005yb-DV
- for xen-devel@lists.xenproject.org; Thu, 10 Feb 2022 16:16:27 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c98a5bd4-8a8c-11ec-8f75-fffcc8bd4f1a;
- Thu, 10 Feb 2022 17:16:23 +0100 (CET)
+ <SRS0=0WSD=SZ=citrix.com=Jane.Malalane@srs-se1.protection.inumbo.net>)
+ id 1nICYP-0000pt-1F
+ for xen-devel@lists.xenproject.org; Thu, 10 Feb 2022 16:44:21 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b037ec67-8a90-11ec-8f75-fffcc8bd4f1a;
+ Thu, 10 Feb 2022 17:44:19 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,661 +36,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c98a5bd4-8a8c-11ec-8f75-fffcc8bd4f1a
+X-Inumbo-ID: b037ec67-8a90-11ec-8f75-fffcc8bd4f1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1644509783;
-  h=date:from:to:cc:subject:message-id:references:
-   content-transfer-encoding:in-reply-to:mime-version;
-  bh=HpgrniM/GR9flc47TLdhA0mQkK9wxxlQYC2qAjHjRGY=;
-  b=YDU41omWVc9fX6CvsVmAFn+ZZmMAuEUQsxP1vzrv9HbhzdUhxmaHdHWd
-   rwJOYa1kfXdLBGTwimHnmlRMlSO+W8ZPk/Aiy/aeQbDLC7uzR/vSsz17j
-   /KZGE20da3B32yHemB3/KosBlf08bhiICxoAj0WGbSjKzhJGn7DIXehRU
+  d=citrix.com; s=securemail; t=1644511459;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=jnAPNwQQMyD9COZq7rihczUEKGyFhk3h5JAkxSS0Za4=;
+  b=cpcf2xj8PMTEbCT1FgLXR2HLg63Jav/oNLjt7KVG5rzwmpwu3B3ZTeMO
+   Kmspd9B9VE4uZKpe7KmiX3xVT8a7VCcMYFpaHrawCkC583oJd7lSHowaH
+   vmOL8QLAVInRaRhqTCia3DxwahAjOunbB+6agfrAgaZgyjWTIClGJMZSS
    4=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: WpS0jnluU8ig2mjyDh1xJ+0dSMHPG3GBLgP7BsBxZ3uqYJXzLU0DbniAy0qK9QthtJOMHKbxvp
- UqD3l3t6JS2Y/PLHVWSjFJt1I9HQS72ysm1a4l1TSwhRi7aTisqVv8v9TxsMypoZGqsYv8sa4g
- nOWlKnOKV882v1t5sHMRtZrOFUc9tF5Mh3jWVUHuIkynwxu5DqG7JKM74CE3M3T4WLa7MtHRSt
- p3KcLv6Ni0qpJx7cVADZLEsOtiJX1McptKIXjxbCZcDljZSoHmOxXEG1un3muAywN+PcUc2XAs
- 5S0Z5hy0WY4jyUFcODWpPzRu
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: Tyvxnc8Bq5saz9L51uqLhndi0e9jT8Ll3euU3pa6NKQ4xjQw9vx1rIRJWCa0wc1ZuNKAKq3wuo
+ MhypfAJrz2LfDM+tr6iK9r3IhvQgVUNZ0Tr/60AXsOgml+vTWv6EuLpaSy3obQCblFTv2/aPSl
+ GzHKdKeC0hy3JNeB9wzJ7b9lYZOa5sGZKGHlYzbICDC+tm69UZT5Ptz1c7X9a6ME4y6EIGE8Yy
+ J6hUdPk0diDBnuFfJRh1zGKCFzHjlU6Ea8H76aRD7gfW4Tc0UwLxXBRiMhpz6qflPfJd/5u/FE
+ tMeccYntJoaaZS9KMNjYrscS
 X-SBRS: 5.1
-X-MesageID: 63389810
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 63852661
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:vxPFeq5+80Xh7uLy+2aAVAxRtBbBchMFZxGqfqrLsTDasY5as4F+v
- jAZUD2CPamKZmP9f4x+bNnkpkhV6MSDzt81Sgdpryk0Hi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FV8MpBsJ00o5wbZj29Yw27BVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zk
- 4xR7ITrbyESDoaTpNUNbjpaLAVwMvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALNs7kMZlZonh95TrYEewnUdbIRKCiCdpwgmxr1pEeRK62i
- 8wxYz9UdBT7W0J1E15NOJcGnMuE3XL1WmgNwL6SjfVuuDWCpOBr65DkKsbYf+uPVMpcn0uGj
- m/e9mG/CRYfXPSBzj6C/mOpl/X4lyrxU4IPF5W17vdvxlaUwwQ7AhAMSUGyp/X/j0ekQs9eM
- GQd4C9opq83nGSsStT+RBS+rGSztxgQQcdLE+Y65QeOzYLZ+w+cQGMDS1ZpctUmqctwXj0s2
- V+hlsnsQzdotdW9TnaQ9aydqz+oDjQENm8JZSICTgwt7sHqpcc4iRenZsZuFuu5g8P4HRn0w
- iuWt24uirMLl8kJ2q6nu1fdjFqEr57FVFRtvl3/UWes7wc/b4mgD6Sq41XG6fdLLK6CU0KM+
- nMDnqC29/sSBJuAkCiMRuQlH7yz4fuBdjrGjjZHHYQl9jmr026ue8ZX+j4WGatyGp9aI3mzO
- haV4F4Pos8IVJe3UUNpS9noF50ylo7GLuTOCczlfudtYKdVegDSqUmCenWs92zqlUEtl4Q2N
- pGabdugAB4mNEh38Nalb7xDiOF2n0jS0UuWHMmmlEr/jdJycVbIEe9tDbeYUgwuAEpoSi3x+
- s0XCcaFwg43vAbWMniOqt57wbznwBEG6XHKRy5/K7brzulOQjhJ5xrtLVUJINUNc0N9zLmgw
- 51FchUEoGcTfFWeQelwVlhtaan0QbF0pm8hMConMD6AgiZ/Pdr0tv9HLMtoLNHLEdCPK9YvF
- pHpnO3aXJxypsnvoWxBPfERUqQ+HPhUue5+F3X8O2VuF3KRbwfI5sXlbmPSGNomVUKKWT8Fi
- +T4jGvzGMNbLyw7VZq+QK//njuZ4ClG8MovDhSgHzWmUBi1mGScA3eq1aFfzgBlAUir+wZ2I
- C7IXUlG9bOQ/+fYMrDh3Mi5kmtgKMMndmJyFGjH97emcy7c+2uo24hbV+iUOzvaUQvJFG+KP
- I25Ftnwb68KmkhkqY15H+o5xK4y/YK39bRb0h5lDDPAaFHyUuFsJXyP3M9usKxRx+AG5VvqC
- xzXotQKa6+UPM7FEUIKIFZ3ZOq0yvxJyCLZ6u44IRum6XYvrqaHS0hbIzKFlDdZcOluKIogz
- Op44JwW5gWzhwAEKNGDiiwIpW2AImZZC/cst40AAZ+tgQ0ukwkQbZvZAy7wwZeOd9QTbRV6f
- m7K3PLP3u0OyFDDfnw/EWn28dBc3Zle6gpXyFIiJkiSnoaXjPEAwxAMoy88SR5Yz0sb3rsra
- HRrLUB8OY6H4yxs2JpYR2mpFgxMWE+Z90j2xwdbnWHVVRD1BGnELWl7MueR5kEJtWlbe2EDr
- r2fzW/kVxfsfd3wgXRuCRI09aS7QIwj7BDGleCmA9+BTsszbjfSi6OzYXYF9kn8CsQriUyb/
- eRn8Y6cs0Eg2fL8d0HjN7Sn6A==
-IronPort-HdrOrdr: A9a23:kbITY68QTIXOZRnVs1huk+FAdb1zdoMgy1knxilNoENuHfBwxv
- rDoB1E73LJYVYqOU3Jmbi7Sc69qFfnhORICO4qTMqftWjdyRCVxeRZg7cKrAeQeREWmtQtsJ
- uINpIOdOEYbmIK/PoSgjPIaurIqePvmMvD5Za8854ud3ATV0gJ1XYGNu/xKDwReOApP+tcKH
- LKjfA32AZINE5nJfiTNz0gZazuttfLnJXpbVovAAMm0hCHiXeN5KThGxaV8x8CW3cXqI1SvF
- Ttokjc3OGOovu7whjT2yv66IlXosLozp9mCNaXgsYYBz3wgkKDZZhnWZeFoDcpydvfomoCoZ
- 3pmVMNLs5z43TeciWcpgbs4RDp1HIU53rr2Taj8A3eiP28YAh/J9tKhIpffBecwVEnpstA3K
- VC2H/cn4ZLDDvb9R6NqeTgZlVPrA6ZsHAimekcgzh0So0FcoJcqoQZ4Qd8DIoAJiTn84oqed
- MeQ/003MwmMW9yUkqp/VWGmLeXLzYO91a9MwQ/U/WuonlrdCsT9Tpc+CQd9k1wg67VBaM0o9
- gsCZ4Y542mePVmGZ6VNN1xMfdfNVa9My4kEFjiaGgPR5t3c04klfbMkcAIDaeRCds18Kc=
+IronPort-Data: A9a23:kOiid6pgx+yaYXPGnVa6ciQKESVeBmJcYxIvgKrLsJaIsI4StFCzt
+ garIBnSP/7fNjH9e48lYNyy8U5T6p/dmoVlTAE6qysyFiIW85uZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlZT4vE2xbuKU5NTsY0idfic5Dndx4f5fs7Rh2NQw24HhW1nlV
+ e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
+ 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
+ DlCnbKMQyI1eaDoouE6XhxBFHBTZ4lK27CSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
+ 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFKEWvHwm6DjdBPIvR53rSKTW/95Imjw3g6iiGN6AP
+ JpEM2QxNXwsZTVBHGcXCLUbnt2Yg1rcdyNirVbNmq8otj27IAtZj+G2bYu9lsaxbd5Ogk+Sq
+ 2bC/mL4KhIXLtqSzXyC6H3Eru3SmSL2XqoCGbv+8eRl6HWtwWgUBAwTREGMi/CzgU6jWPpSM
+ 0URvCEpqMAa+EW1Q/HnUha/oXrCuQQTM/JPF8Uq5QfLzbDbiy6JC25BQjNfZdgOsM4tWSdsx
+ lKPh8nuBzFkrPuSU3313rWeoC62OCMVBXQffiJCRgwAi/Hhr5s0lQnnVct4Hei+ididJN3r6
+ 2nU9m5k3exV1JNVkfXglbzav96yjrb1RCspoQjzZGeC4wZgY9+IPaikyleOuJ6sM72lZlWGu
+ XEFne2X4+YPEYyBmUSxfQkdIF26z63baWOB2DaDC7Fkrm3woCD7Iei89RkjfB8BDyoSRdP+j
+ KY/Uyt17YQbAnalZLQfj2mZW5VzlviI+TgIu5npgjtyjnpZKVfvEMJGPxf4M4XRfK4EyvhX1
+ XCzK5jEMJriIf47pAdavs9EuVPR+ggwxHnIWbfwxAm93LyVaRa9EOlZbAfVNLhht/Pb8W05F
+ uqz0ePRkn2zt8WkPEHqHXM7dwhWfRDX+7iqwyCoSgJzClU/QzxwYxMg6bggZ5Zkj8xoehTgp
+ RmAtrtj4AOn3xXvcFzSAlg6Me+Hdcsv/BoTYH13VX71iidLXGpaxPpGH3fBVeJ8r7ILID8dZ
+ 6RtRvhs9dwRFmqZq25AMfEQbuVKLXyWuO5HBAL8CBAXdJ98XQ3ZvNjiewrk7i4VCSSr88A5p
+ tWdOsnzG/LvnixuU5TbbuyB1VS0sSRPke5+RRKQcNJSZF/t4M5hLCmo1q07JMQFKBPiwDqG1
+ lnJXUdE9LeV+4JlosPUga2krpuyF7csFERtAGSGv629MjPX/zT/zNYYAvqIZz3USEj95L6mO
+ bdO1/j5PfBexARKvoNwHqxF16U749ez9bZWwh49RCfAbkixC6MmKX6DhJEduqpIz75fmA23R
+ kPQpYUKZeTXYJvoSQdDKhAkY+KP0eAvtgPTtfllcl/n4CJX/aacVRkANRe7lyEAfqB+N5kow
+ Ll9tZdOuRC/kBcjLv2PkjtQqzaXNnUFXqgq6sMaDYvshlZ5w11Oe8WBWCr/4ZXJYNRQKEg6Z
+ DSTgfOa1bhbw0PDdVs1FGTMgrUB1chf5kgSwQ9QPUmNl/rEmuQzjU9Y/jkARwhIyglKjrBoM
+ W9xOkwpfaiD8l+EXiSYs7xAz+2ZOCCkxw==
+IronPort-HdrOrdr: A9a23:A3HMX6m+NAvlpqcq3i4RoEEn1/TpDfODimdD5ihNYBxZY6Wkfp
+ +V8sjzhCWatN9OYh0dcIi7SdW9qXO1z+8Q3WGIVY3SEjUOy1HYU72KirGSggEIeheOudK1sJ
+ 0AT0EQMqyJMbEXt7eZ3OD8Kadc/DDlytHpuQ699QYXcegCUcgJhG0Vanf5LqQ1fng9OXNQLu
+ vH2iMtnUvGRZ1jVLXDOpBzZZmkmzSkruOCXTc2QzocrCWehzKh77D3VzKC2A0Fbj9JybA+tU
+ DYjg3Q/MyYwrKG4y6Z81WWw4VdmdPnxNcGLteLkNIpJjLljRvtTJh9WoeFoCs+rIiUmRQXeZ
+ j30lId1vZImjTsl1KO0F3QMs7boW8TAkrZuBulaL3Y0JTErXwBepF8bMliA2XkAgIbzaBBOe
+ Rwrj+kXtNsfGP9tTW46N7SWx5wkE2o5XIkjO4IlnRaFZATcblLsOUkjQlo+bo7bWrHAbocYa
+ JT5QDnlYJrWELfa2qcsnhkwdSqUHh2FhCaQlIassjQ1zRNhnh2w0YR2cRaxx47hd4AYogB4/
+ 6BPrVjlblIQMNTZaVhBP0ZSc/yDmDWWxrDPG+bPFyiHqAaPHDGrYLx/dwOlayXUY1NyIF3lI
+ XKUVteu2J3c0XyCdeW1JkO6RzJSHXVZ0Wl9iif3ekOhlTRfsuYDcSzciFYryL7mYRtPiTyYY
+ fHBK5r
 X-IronPort-AV: E=Sophos;i="5.88,359,1635220800"; 
-   d="scan'208";a="63389810"
+   d="scan'208";a="63852661"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l25MdkKBl+IF0x1CXeVuLIFa4eHS9qhoT1xEev9L0+qv+K8TyxI8CcW9P2E9l3aiN1wf2Z9sJW/Bik1l+WlEjdmoVI5kByrHjeLuhusawIIfIZV5InpmpR8EqNLsUxS1NcyRiQvzZjbkmOXQGlkX0LieVfp/ldo+Q/EVHaobKMGIZARlCStP4Naq1TzniycDaKfW08bC4JutUszE25dgJ/oz4xuX0WRLaE1ZxIDYyhHwXiyfqoNTWhxXqMdZ15GG5hd99HP5JBd/uf0xxVWmX4tzmKkF6rSGKYGkraCLso5fL8fJwbF9RuNsJGW0mbYr2p9gf1VVfr4Sp/6V7+TU1Q==
+ b=RK6wEUzNKPwO7/AD10QqV7BPeS6CbwGF1bV0GOfL1mWNlnXKa9BvqNJiPT4mmrKA0FabfBdu1VZAkCuWCXWFSeGZxOoE4MtwB+OxtzctkHY6AAlARNRr6+vbyget9DPTeg5AoTeJsE5Uw430EDqV8a7jfrik6jsnTBhmtYoM3gRbWsbtQkUtPz9KKPpsXhb+R2A883PnndwFSyijDuKvQv+7vDYJKZ7hhur+8WNqFPswUmIAT1LoW3kEc7xbgLkZUoXIxZPQMObefOxI2zEGzspqnCq2oy1zHvrbm+3mihRk0ZYc1GCUQQfninyLxPk0S1L8Udq5jcVY1FSwxFi4RA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9sJ+hCBcfx7fBWMzoFN1Gqj03lwJkNNyShDXtGng+tU=;
- b=IZsV0wqSaZcp9BeShQ6B36MQh3LKT8c1vzZf2pDRv1/o4/+JuEF+AvogdTfyN8EbpIje2Nf+LGOdbGM9q6Mw3qTu2JRuFaoJmN3Utco1lRj+GvcJGIJXXHQRGZTHsFcVQ7IWpvJLwtovd4VvbOlYmUgWNxRvAEXGBbN1KhZ+fdgTQ8vxLL054iHq+Z4puDElNbWFdAVnyX+jHOvR7ZwvgnRN2RylPt5HxdN5qVswLOhee1N3j2CwaUUC9lV5ildTNOMpB+JMjCAoO9cAUWn+Xn2gjH1v7GJHQZdKqzTv2ZCPb2l8nGYpLgYTgwSD/sI2MGedF/uxu1pBfnb1na1HLA==
+ bh=jnAPNwQQMyD9COZq7rihczUEKGyFhk3h5JAkxSS0Za4=;
+ b=RT1rHm+1IuoGroVDwObZkBv4vMf1zIVwCWFNXnr185j9Z/3E7dKMyKVdpKWWKgjbaLL/nrLtpKQoqjWsIKfFp0R0B3K8CvFA3dO2yfpu9Vhwv1cHlPVX4affM5Gl5k5xFC2LrJYx4fetWjRF48aLU9gsYZrNCCOJxI1d7/+z0SYmZriq7Ad7gwmXoPN1PYZbyFQqoWHyOZLK0swS0MkV6d0d1+V+M9upKoX3n0jruySC9yzS0Ljo2y2quZijifB17ariTL2LG1XeCgrtrJhoszCzIhHLgwtuTmJYZLnZfAicc9rxyXoZ+GP+NGA7WQVV9NdnHXOSHahiolvmWcHIfg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9sJ+hCBcfx7fBWMzoFN1Gqj03lwJkNNyShDXtGng+tU=;
- b=aLQNhpU/51Z3JWkrt91onywaLvQsoOBER6bJIHaiexdK0qC9yTK2kfk/wFMTsCJgQc9TUKtoImqAAcHnLjEnIO3w5iqhX3aXTsD1sXq6eRrnfzx3e+4NgV3Lr/rbuSr3aP+gXDZrQ0SS0Hf4d7SplyqVMnrkn0NmCR5PNnwItSg=
-Date: Thu, 10 Feb 2022 17:16:10 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Oleksandr Andrushchenko <andr2000@gmail.com>
-CC: <xen-devel@lists.xenproject.org>, <jbeulich@suse.com>, <julien@xen.org>,
-	<sstabellini@kernel.org>, <oleksandr_tyshchenko@epam.com>,
-	<volodymyr_babchuk@epam.com>, <artem_mygaiev@epam.com>,
-	<bertrand.marquis@arm.com>, <rahul.singh@arm.com>, Oleksandr Andrushchenko
-	<oleksandr_andrushchenko@epam.com>
-Subject: Re: [PATCH] vpci: introduce per-domain lock to protect vpci structure
-Message-ID: <YgU6Snk8GTytJXZp@Air-de-Roger>
-References: <20220209133627.959649-1-andr2000@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20220209133627.959649-1-andr2000@gmail.com>
-X-ClientProxiedBy: LO2P123CA0091.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:139::6) To DS7PR03MB5608.namprd03.prod.outlook.com
- (2603:10b6:5:2c9::18)
+ bh=jnAPNwQQMyD9COZq7rihczUEKGyFhk3h5JAkxSS0Za4=;
+ b=Eq9fP9fcqc2CDm6isPH/hG4xmCSyDkQMnpa4Rii7cSrG631pGpXsj5FA1fxdo4zpPq9ymlNul9vOr7RPGeNny0dwJSs6nSS9mnj2fpGwrLgFS8grm9UlpyIKA/MJMuhrChi3WW22jXZ9CRcuEmfd4SEyJotIomAUjigi15KXvD0=
+From: Jane Malalane <Jane.Malalane@citrix.com>
+To: Roger Pau Monne <roger.pau@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, "Anthony
+ Perard" <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>, "Andrew
+ Cooper" <Andrew.Cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, "Christian
+ Lindig" <christian.lindig@citrix.com>, David Scott <dave@recoil.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2 2/2] x86/xen: Allow per-domain usage of hardware
+ virtualized APIC
+Thread-Topic: [PATCH v2 2/2] x86/xen: Allow per-domain usage of hardware
+ virtualized APIC
+Thread-Index: AQHYHE+bJUKmznundkO+jjEyYTnVA6yMk94AgABuRQA=
+Date: Thu, 10 Feb 2022 16:44:13 +0000
+Message-ID: <be53fdb6-aa5d-ef6c-aedf-64a8fc1c3d11@citrix.com>
+References: <20220207182101.31941-1-jane.malalane@citrix.com>
+ <20220207182101.31941-3-jane.malalane@citrix.com>
+ <YgTkRtwqmZsLZIXo@Air-de-Roger>
+In-Reply-To: <YgTkRtwqmZsLZIXo@Air-de-Roger>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: b22dce0d-316e-4078-d58b-08d9ecb491f8
+x-ms-traffictypediagnostic: MWHPR03MB2782:EE_
+x-microsoft-antispam-prvs: <MWHPR03MB2782029C669A5ED60BA6DF3A812F9@MWHPR03MB2782.namprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2733;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 2aYaHtRSVF8nzxYX98IqffVK3hyLcb9MdX5hLyKCW14x5oE4N12bvuB/jZTlquPVQbxS2jr+EWvVgbTf7UhBmi5woj/Uwkq0wa+QqQOUYAWkYYPR+Ta9yFq7IpLSc/StOdqCarQcnC3cmMNzeC3yeplto43+vfMv38BWPoFmuCoUXTkWu5qzHJQSsGpIHemMMFhi/CmqyHWXwAZEoJoiikRrHGdPRM5JMrPq5lmP0Wkk7ZMijY/gwpTmDOieaDTm1WGrv9ntDFZ6d1rvR5dt8stfx1yRBhDRFjJOeTtXnZn0LZJUHvkL0NpRiBLy0QGp1cJXYKn26smv8US2nMjKURljhSzOC2XoWfuiibdJOVsdlQ2hGezuCQhKUxEeg8nxLWN+jsUDAVuvDLv+IQGz404kH51E8riFiEVJKarBVT8SbGzyiB1JRYMaTHWaoG86+bGi+wAIuM9D+hfBBVMaiiLysN7nnEdpREFsVSemooooxzTJgUFwF2FMX8fd0eXflheUUp7DT4dwKh7wywSJInNRJUVbFGOFoqApnve3peEVUah2rMRbBfCPRgMbaoTDp8d+agyyR02PE8djrQ7MmFaH6YO0Qp5U4JhZ5yx+oIxKTFj34TiUg2vrRVm2xmAZOUvKPgBk7k96r8q7VuRqxiBEAkrpX4/yKe1YsU7Orutn4OZ/tAIFRqZXHRMBYbxN/J+ZPq+/Z9LrA6D2gaFr3pdjD3TmdqecL1E5FEh0yT4+D7i8SuUNYPGPdVNNQl6E
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM5PR03MB3386.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(6486002)(2906002)(37006003)(54906003)(71200400001)(316002)(26005)(186003)(2616005)(5660300002)(31696002)(6636002)(8936002)(66556008)(66476007)(64756008)(66446008)(66946007)(8676002)(6862004)(91956017)(4326008)(86362001)(76116006)(36756003)(6506007)(122000001)(6512007)(508600001)(82960400001)(38070700005)(31686004)(38100700002)(53546011)(83380400001)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?emY5MG5Rd1hoQUYrWDBQWmJ1KzVVOFBoUjJLUlY1TjQxb0xsT3JHWURkZ1hC?=
+ =?utf-8?B?bDVRd1laQXNRb2grdHh5M2RJV0YxVFhkR1QweG9TcTl0Z1lvSVRZVkU1UDJN?=
+ =?utf-8?B?YjdjZ3NURFdoR2NORGJkdUNybWVxVXM4VmNjQVBZZXVEL3pndWhMaFhBandY?=
+ =?utf-8?B?dzZCblR0dGlCeWlJVnh4ZlpmdExZVkFsNExqazZGTTNEWExlSVgzc1ZFSExU?=
+ =?utf-8?B?NE5GazFURmdVQldGTFA2Mk50UjJXbnhGODFhTExNc0NzaHJnaHFMbWlGT3Rr?=
+ =?utf-8?B?Qkg4cVRINEJ1M2wxbnNzdzA3eXNPYkQ5WHJFb1pkUnFBR1hmcFhFN3FGWEtD?=
+ =?utf-8?B?WDcvWE5MREh6STl6MGpPUHlONnA4YWpiT2c2R25BSGsrOFhkRVFkT3dLck13?=
+ =?utf-8?B?RHFTd3FxS084Q29kWnMyUUZuNUxrdFFOOWN4V3IzRXE0RlhCcGxUU2FHa0k1?=
+ =?utf-8?B?Z2szRHAvVTl4MnpaeWlHRXUxaWRobEtVNGFMQmkvL3pNaG9IUnQwTXo4bHRJ?=
+ =?utf-8?B?dTBmVVJWd3lpeGlVdEJyUjN4UUJveEE5SUx3TCtBNkpaNmQveENWWVhwREI2?=
+ =?utf-8?B?NFZJcFpjN3hWdys0UHNIMFdpL3JwVGpHVWcrTjBjWG00SjdaR0NrdWhnNC9R?=
+ =?utf-8?B?YnFkWkdtdlpPaGs4NjZadDJlb0lad1l6dVlRMHhMTWNHd3hqYU1WblZxdERw?=
+ =?utf-8?B?M0NveGUrMUQ3MVh0K2NmdjJLTnBQZldaSHhLVEl5cXpmOVUvSFJmOGlEL1hz?=
+ =?utf-8?B?eWp5MkdSK3l0K3EzUXYrU2RVY215ZTR3N2gwRTkzR05mMjVHaWlvaUFLRll3?=
+ =?utf-8?B?UHdJQ0dMQ1d2UTNQZzZBSUxiSHhPQnMxMS92OWJ6RWdONHdQaTlUSWp5Uitq?=
+ =?utf-8?B?eGE5VnlCVTJSeTh1R05McDYrZ3M1VkR2Z0Y3QU9ZeEVUQlZ6NzFuWUxMMWNo?=
+ =?utf-8?B?RTVUeFZiSjY3bVBrZVAyUUo0THdKSnN4b1dySEE1QkVvMXE4R0pkcnlRSGRu?=
+ =?utf-8?B?MytCZXU0ekNRdkIyM3NJTXdYcEYzWFZJT2pyZ09kMjZEQWorYUx6WkQrakRO?=
+ =?utf-8?B?KzkrYXZ5dTJrV1VIWHVSNk9pR25Ja0dHZ3pjUzZtV0NOUFNtTEJGeG9EWFd6?=
+ =?utf-8?B?UjhiMW5BcGVBUzVOMEliRGlBejd3MDB3RXQyR3dlVGxtT2xEa3NMdDhhd05M?=
+ =?utf-8?B?d3pmMm5jalZaMm1hV1NCcVRJUjVKV0VnQndWbWd4MXZ2cFl6RjhQdE9MZ0xn?=
+ =?utf-8?B?K2hsN0NkaXlHOGR1b2xSd3B4aDk4bERxR3RCbmVTWGMxQm9pUWFSTisra29T?=
+ =?utf-8?B?cm8zanI2L2t6N0hYNnVqOTNhZy95WWExNzQvOGoxRjltcm1HNEhjSExnLzg3?=
+ =?utf-8?B?U2FRUUtZMUZJdjZPZHo1WmM2czNCcXQ4czlaZ3F6MHlLc2YrZnNkL1U5OHhU?=
+ =?utf-8?B?a04rUTZzbmpNMmNHYXJiUmdJQTBTVFdWeWFFZVJJRlFlcnJ4M2tqbmc3UFpV?=
+ =?utf-8?B?d1U5QXZWVk01R202eWdhaEp6TFd1NFpka013dUt6K2xoVVpnSks3WVVCSnJW?=
+ =?utf-8?B?S3MxWmd6V0RUZk8rZlRsR3ZHVkxiRUxnSVdRc0tjTmkwTWFvTlMyTGwrOFBq?=
+ =?utf-8?B?LzhjeityTWx5V29ubUV3d1hmWGQ5QkR0VmVHOFFJcGJmVGlNcEFnNVZqNTI2?=
+ =?utf-8?B?aUdsVXJnS0V6OHV0bko2N1lZLzA4ajR2MW5BbmkraW9GdEVuUTlXMmdZd0lD?=
+ =?utf-8?B?c3BndnkyZ3FON0FxOVdVREtsR0RLbFdlM0owYVpYZkk2ZkVvVjRPZXRmb3pj?=
+ =?utf-8?B?eWpiOXk1TzRva01HUWl2S0pGaW85NlAwWXNvUXlHdU1zNjFWUGZLUWtaNWlM?=
+ =?utf-8?B?eGh6UVd5VFFqT3RDTWc2ZlgvOVlVWHZ4RENSVFhGdFNNcm9UcGE0VEZUQnlR?=
+ =?utf-8?B?NFI2QllNMHg2dWIwdW1vOVhBcG1FT29Zc1ljSVVQQ3lKR1RzSGlFTCtHOVNp?=
+ =?utf-8?B?TkZSQmdrWUJsYkJ5SjJHbzdBUWtkRUpUdGwySFl2cEM2elRVa2JkVGVZdmVY?=
+ =?utf-8?B?ODgveVY0M3UyZ0orM0hnNjhtNFZBZWdEbGxVK2RxcGl2c2tVdlh5N2FZQ280?=
+ =?utf-8?B?cnhkUUZSSy82T2xVUGg2WGNGSmNSUTBjdnBJb2Z6YlNGWThxMDBjc0kvWmJ5?=
+ =?utf-8?B?MGkyc09DODlpaDA2Y1NvSE1NbEtnbFhkbk55cUdJWmxaYzVnVDhyenBWVWlv?=
+ =?utf-8?Q?+B8lVnOW+PzLFRcXB86ZxFPzm0srx+qRGuieT7oz+8=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <2FA8776A79097B4F9C5BAB149B0163E9@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a6f76b0a-0e7e-4711-f30e-08d9ecb0a965
-X-MS-TrafficTypeDiagnostic: MWHPR03MB2957:EE_
-X-Microsoft-Antispam-PRVS: <MWHPR03MB2957F56BA94B2CB481D3BF868F2F9@MWHPR03MB2957.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JDIe1OO7hQ40Yb0IJOdvWkWQbX4Mzf6aO9AVLVVNexy9JytBA/c3YMxgrOuWzAwKzi4uH5sgBY/33tarPSjUBNzxcihWa/R0PioJysxBsuB3cfDyLp00giCJkBlBdD61gR+5F1eNKmc0KEaQX+bwxHwIfH+ZnNC9x6BLflryskpajuFpZrttu3RKuyen7V5DK1s0JDpBtjQBkEfts1FpXhLzgszZQLYAJNgxXPm7kWJY5CoUiQm4n7oiTYHHwZ6CX4Zm1+nZesmn5kF/1njkMsi2WECvtOOx5tIIvb5IuamfytqwVmUhZdyKyNiIqZnX9HBd2muTbkcFhICfqwApKHgMSV6PJTOIVKtZZXK/Uu3+dD3k9lVgbrGjANnDZ7QT+9znXtof1dZUb484InP/Ez+PM2N5OeqXySM6yO8cr8rdom6cu1NHaq8WXSjNVf4L4nqsAsrmuioBNAxhlAIlaDjCGFObVroSd48YnQxEr9TCqnJpyFK6KL1hHXx9MSWI6CNWJ8rPOOj4iPbOSR+IXF1+eSnX7RkXih8Gb8/DJ/Xd3lDKOtEOC/huK23WfoP+Rwe+YSxvrwS7DcxtKtEoad8FeNBhqqVmjX5hfP76vP+baEBhzSRCFlKGJ/zkxtv/zUFA/NzGXcL0WotAjoasYrsAky0hIrn/M5A2NyyfeiY/0/vc8yTQZn7RfysGV4U1cVRNxz0ae96Zaute2hcWlyH2lS13zfLHQ3c01NsEsMBZMgrmKSrxHfUejxHgLnyIt9QA/qsV/EeZIR1Jmvv0l0PMkL9FOAH4wbCr5QxFnuE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR03MB5608.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(7916004)(4636009)(366004)(6666004)(9686003)(966005)(6486002)(86362001)(85182001)(6916009)(33716001)(316002)(508600001)(38100700002)(6512007)(66946007)(6506007)(2906002)(66476007)(66556008)(4326008)(30864003)(8936002)(7416002)(83380400001)(8676002)(82960400001)(5660300002)(186003)(26005)(309714004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bm9LVmpUYURxN3pkcEdzaFBuSUVhaGtseEYzcXR4MDd4NzVyRkZIT1kwb2x4?=
- =?utf-8?B?bDZqOSsxK2RyYitvWGRhdWs4MEJ1ZDRsUDAwNDR5a2hINGoyK2hEa1hQUXBz?=
- =?utf-8?B?NFNpNDg0NmNxSnBPSmJMS1lkTmwrdnlhenR1UW9qNzZlWFRlZTJwbFlIKzVN?=
- =?utf-8?B?TDMrNXd5NWY1OVp1em9aeUVhZUZ4TTRXSlo5dlZnWDViNjZSM2FEU1p3ZUwz?=
- =?utf-8?B?RURkUHJvRlN0ZXp3a3BKUVFQbXNtQXRQRXNQNU9yYW9DS0lNYkY3VytiaVpP?=
- =?utf-8?B?NE5vRHJUU2Zpcjl2Zkt5c1FuTkpEN0YxVDhrbVZRNG5qSlBaZUNvNURjSlhz?=
- =?utf-8?B?TVhCYTE4VDlBNWFMb0dmbjhNbklOdmJieTRCMDh5MURRT1pCQkVQeTZweFVs?=
- =?utf-8?B?dzJCNy84bHdqQXVxU2hoc1UwRFA1UlpMWFRYQ0Z5cy8yRVErdGh3RVlseWdH?=
- =?utf-8?B?ZkZJUC96bTJReWlkSUxKR2wyM3lvSTNjMklXai85SDBWc3hjdlprVUd5ODZx?=
- =?utf-8?B?SDJRRFJLMElxTlJ1UUlWaklkdlVoYThZM1R1U29kTTVHRnBMMGhhaXdINmFq?=
- =?utf-8?B?VHNzNUUydFpaMGk2OWZZQVpldHhjUTV0WDljbFNoa201K1BManBXanA1dVh5?=
- =?utf-8?B?ZlpNampVa0RTdmY4SVBhS3pHS3c1ZVljNHl0Nlo1dUp4b21EZS9jYUI2R1pv?=
- =?utf-8?B?dEFmaUZwckYwTUhSUDU3QjZnVmVrUHh3YzRVZGF1Lzk3eEtjN1cwWmFjNER3?=
- =?utf-8?B?RWxJTldOUXpTOUtlUDJramI0RklUWlgvVHR0MVVabWlnUzhpTU1MdUdDUXFw?=
- =?utf-8?B?NFVsNm1Ba0M5V0t1ajkxQitpc1lQOGVDRFFLMWo1dU1ERjJ1eFRqcnJIc2hn?=
- =?utf-8?B?enJOU01Zc2xBNUlDVTE0bDBUaGg1cGYvL3RTM3VQT1Q3a05nNTFIMGZLSyta?=
- =?utf-8?B?bHJIcWM1U1VIZWN2b2E0aHZYV2thU2x1Z1RkamRhbmFtWjJwdytNTmwyeGhu?=
- =?utf-8?B?cFFRdnowTTFraDhtRDdTV0VTSGgvK3FvdmtManF2U3ZFTG16MnlDa2phTXAw?=
- =?utf-8?B?K2RSOVJRTGdmQkdSamxQRVJwRXJYMVQzQSsrSzVwR1hIczc3VGNpeWVlYzhJ?=
- =?utf-8?B?MzZxSEpwYXBHbFQyejRCR3VSQ2o1K2l0Z3RHazlHUDJpSzJYWVlUaDlpN2pF?=
- =?utf-8?B?b09vUmZwcW04WVpadld6R0NuMmZpckpOVGJpTVZnUXBveTZYSWdxdkRwa01I?=
- =?utf-8?B?UWNjZ3c1VEN4N2dGeEJraWtBbmxNVTF3Mkd4VWV0d1Q3TXoyTjVXRkVVWmFs?=
- =?utf-8?B?ajNPdnN6Y3BpNHpiM3doeTMzNmI3M2prOWdiRFdQRGo3eUtLdTFBaXA2dHpD?=
- =?utf-8?B?SDZITUNvS2I2YzIyTFdieUVEVDNPU1hjYUJYOE1SMWI5a2NUTkFUSVpZa1po?=
- =?utf-8?B?Q3dQQjJPNTRFb1RZa0lVYWVRUkZsc0pFekU4dDBxazcxWmpzbHVwQTN4SGF4?=
- =?utf-8?B?Wi8weGl3N3JFOTNJZWE2YVFRMmFVejZ3bjFZc0QvYkZyQWdIMlNzSXEwWUUz?=
- =?utf-8?B?azVEM09ZUkx4dFlJeWsxUVV2akNwSFFSWmxpWkRxaDl3Ym9CQnNoTXZHVVZE?=
- =?utf-8?B?bGhBM0RXSVI4eVlKREJmY0kwQ04wQ0ZaTHQ5TEpZOEcwSTlld0wvM3RnT0lh?=
- =?utf-8?B?anlDb21KUHZNQkhOL0ZUbmRRT2FGMnFWaHRYRW5hcThmWDFJcm9HOVhhR25r?=
- =?utf-8?B?ZVZCRCtucDJRWTlNeWtEODg2NUc3VkpYODV4b1hTWUYvMlRNeDdseE9MaXlL?=
- =?utf-8?B?RHh0RlBBR0FSQzZqa2EzcDB3RlV3emovTDRoSzRERjlqSnpRMUFYc2tDSzAy?=
- =?utf-8?B?dGVybDNCZnNDeFJ1dGprRlhnNlI3TlJPMENjVzNmdjVlb25JMVNkN3ZySzRT?=
- =?utf-8?B?WGxWNmh2M3Vma0xEcmxiYXFtT2V3WURzTHBadENFbk5qR2ZpOHVBTjhaY3RQ?=
- =?utf-8?B?aE15N3pWSHNEVytReHNJQ0p5ZW03eEdsaHMrRWJsTklzUFU4em8wZU9VWGpS?=
- =?utf-8?B?b2dlRU5CYlVOdi9TUEFqemJlbTZyR0ZUUWRKOVV4WnBGRjRGUjZCSW1MdXEw?=
- =?utf-8?B?blc4eTZNUFAzWG9JcXMzTVRIeVN4L213aEwwRndDYUthMnFNWVlhN1lmbFNN?=
- =?utf-8?Q?ey1qTQlOYLPPciCk6HlJxXo=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6f76b0a-0e7e-4711-f30e-08d9ecb0a965
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR03MB5608.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2022 16:16:15.3335
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR03MB3386.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b22dce0d-316e-4078-d58b-08d9ecb491f8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Feb 2022 16:44:13.5970
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8+/J3xYy5NiWNyflu8OxMG3wyjyEzRt998NIdvMFWMzjKhYi3adBn8xQmCS4JDg6+vkTcYhFtPdOhNmt+xU6FA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR03MB2957
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ZeVPCpp42OPXI0ByYw/xdOx/lPo8MwLfL7biQO7+6BS1qBzkrmkATPSkdswthbmB1QsyiJ0+zwdhNP70g1PKO1z5QyB3TtGgZ+UrfLpgeuM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR03MB2782
 X-OriginatorOrg: citrix.com
 
-On Wed, Feb 09, 2022 at 03:36:27PM +0200, Oleksandr Andrushchenko wrote:
-> From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> Introduce a per-domain read/write lock to check whether vpci is present,
-> so we are sure there are no accesses to the contents of the vpci struct
-> if not. This lock can be used (and in a few cases is used right away)
-> so that vpci removal can be performed while holding the lock in write
-> mode. Previously such removal could race with vpci_read for example.
-
-Sadly there's still a race in the usage of pci_get_pdev_by_domain wrt
-pci_remove_device, and likely when vPCI gets also used in
-{de}assign_device I think.
-
-> 1. Per-domain's vpci_rwlock is used to protect pdev->vpci structure
-> from being removed.
-> 
-> 2. Writing the command register and ROM BAR register may trigger
-> modify_bars to run, which in turn may access multiple pdevs while
-> checking for the existing BAR's overlap. The overlapping check, if done
-> under the read lock, requires vpci->lock to be acquired on both devices
-> being compared, which may produce a deadlock. It is not possible to
-> upgrade read lock to write lock in such a case. So, in order to prevent
-> the deadlock, check which registers are going to be written and acquire
-> the lock in the appropriate mode from the beginning.
-> 
-> All other code, which doesn't lead to pdev->vpci destruction and does not
-> access multiple pdevs at the same time, can still use a combination of the
-> read lock and pdev->vpci->lock.
-> 
-> 3. Optimize if ROM BAR write lock required detection by caching offset
-> of the ROM BAR register in vpci->header->rom_reg which depends on
-> header's type.
-> 
-> 4. Reduce locked region in vpci_remove_device as it is now possible
-> to set pdev->vpci to NULL early right after the write lock is acquired.
-> 
-> 5. Reduce locked region in vpci_add_handlers as it is possible to
-> initialize many more fields of the struct vpci before assigning it to
-> pdev->vpci.
-> 
-> 6. vpci_{add|remove}_register are required to be called with the write lock
-> held, but it is not feasible to add an assert there as it requires
-> struct domain to be passed for that. So, add a comment about this requirement
-> to these and other functions with the equivalent constraints.
-> 
-> 7. Drop const qualifier where the new rwlock is used and this is appropriate.
-> 
-> 8. This is based on the discussion at [1].
-> 
-> [1] https://lore.kernel.org/all/20220204063459.680961-4-andr2000@gmail.com/
-> 
-> Suggested-by: Roger Pau Monné <roger.pau@citrix.com>
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> 
-> ---
-> This was checked on x86: with and without PVH Dom0.
-> ---
->  xen/arch/x86/hvm/vmsi.c   |   2 +
->  xen/common/domain.c       |   3 +
->  xen/drivers/vpci/header.c |   8 +++
->  xen/drivers/vpci/msi.c    |   8 ++-
->  xen/drivers/vpci/msix.c   |  40 +++++++++++--
->  xen/drivers/vpci/vpci.c   | 114 ++++++++++++++++++++++++++++----------
->  xen/include/xen/sched.h   |   3 +
->  xen/include/xen/vpci.h    |   2 +
->  8 files changed, 146 insertions(+), 34 deletions(-)
-> 
-> diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
-> index 13e2a190b439..351cb968a423 100644
-> --- a/xen/arch/x86/hvm/vmsi.c
-> +++ b/xen/arch/x86/hvm/vmsi.c
-> @@ -893,6 +893,8 @@ int vpci_msix_arch_print(const struct vpci_msix *msix)
->  {
->      unsigned int i;
->  
-> +    ASSERT(!!rw_is_locked(&msix->pdev->domain->vpci_rwlock));
-              ^ no need for the double negation.
-
-Also this asserts that the lock is taken, but could be by a different
-pCPU.  I guess it's better than nothing.
-
-> +
->      for ( i = 0; i < msix->max_entries; i++ )
->      {
->          const struct vpci_msix_entry *entry = &msix->entries[i];
-
-Since this function is now called with the per-domain rwlock read
-locked it's likely not appropriate to call process_pending_softirqs
-while holding such lock (check below).
-
-We will likely need to re-iterate over the list of pdevs assigned to
-the domain and assert that the pdev is still assigned to the same
-domain.
-
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index 2048ebad86ff..10558c22285d 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -616,6 +616,9 @@ struct domain *domain_create(domid_t domid,
->  
->  #ifdef CONFIG_HAS_PCI
->      INIT_LIST_HEAD(&d->pdev_list);
-> +#ifdef CONFIG_HAS_VPCI
-> +    rwlock_init(&d->vpci_rwlock);
-> +#endif
->  #endif
->  
->      /* All error paths can depend on the above setup. */
-> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.c
-> index 40ff79c33f8f..9e2aeb2055c9 100644
-> --- a/xen/drivers/vpci/header.c
-> +++ b/xen/drivers/vpci/header.c
-> @@ -142,12 +142,14 @@ bool vpci_process_pending(struct vcpu *v)
->          if ( rc == -ERESTART )
->              return true;
->  
-> +        read_lock(&v->domain->vpci_rwlock);
->          spin_lock(&v->vpci.pdev->vpci->lock);
->          /* Disable memory decoding unconditionally on failure. */
->          modify_decoding(v->vpci.pdev,
->                          rc ? v->vpci.cmd & ~PCI_COMMAND_MEMORY : v->vpci.cmd,
->                          !rc && v->vpci.rom_only);
->          spin_unlock(&v->vpci.pdev->vpci->lock);
-> +        read_unlock(&v->domain->vpci_rwlock);
->  
->          rangeset_destroy(v->vpci.mem);
->          v->vpci.mem = NULL;
-> @@ -203,6 +205,7 @@ static void defer_map(struct domain *d, struct pci_dev *pdev,
->      raise_softirq(SCHEDULE_SOFTIRQ);
->  }
->  
-> +/* This must hold domain's vpci_rwlock in write mode. */
->  static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
->  {
->      struct vpci_header *header = &pdev->vpci->header;
-> @@ -454,6 +457,8 @@ static int init_bars(struct pci_dev *pdev)
->      struct vpci_bar *bars = header->bars;
->      int rc;
->  
-> +    ASSERT(!!rw_is_write_locked(&pdev->domain->vpci_rwlock));
-> +
->      switch ( pci_conf_read8(pdev->sbdf, PCI_HEADER_TYPE) & 0x7f )
->      {
->      case PCI_HEADER_TYPE_NORMAL:
-> @@ -548,6 +553,7 @@ static int init_bars(struct pci_dev *pdev)
->      {
->          struct vpci_bar *rom = &header->bars[num_bars];
->  
-> +        header->rom_reg = rom_reg;
->          rom->type = VPCI_BAR_ROM;
->          rom->size = size;
->          rom->addr = addr;
-> @@ -559,6 +565,8 @@ static int init_bars(struct pci_dev *pdev)
->          if ( rc )
->              rom->type = VPCI_BAR_EMPTY;
-
-You can also set 'rom_reg = ~0' here. Or move the setting of rom_reg
-after the handler has been successfully installed.
-
-I think it would be easier to just signal no ROM BAR with rom_reg ==
-0.  There's no header where the ROM BAR is at offset 0.  That way you
-will only have to set rom_reg on the successful path, but you don't
-need to care about the case where there's no ROM BAR.
-
->      }
-> +    else
-> +        header->rom_reg = ~(unsigned int)0;
-
-No need for the cast.
-
->  
->      return (cmd & PCI_COMMAND_MEMORY) ? modify_bars(pdev, cmd, false) : 0;
->  }
-> diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
-> index 5757a7aed20f..5df3dfa8243c 100644
-> --- a/xen/drivers/vpci/msi.c
-> +++ b/xen/drivers/vpci/msi.c
-> @@ -190,6 +190,8 @@ static int init_msi(struct pci_dev *pdev)
->      uint16_t control;
->      int ret;
->  
-> +    ASSERT(!!rw_is_write_locked(&pdev->domain->vpci_rwlock));
-> +
->      if ( !pos )
->          return 0;
->  
-> @@ -265,7 +267,7 @@ REGISTER_VPCI_INIT(init_msi, VPCI_PRIORITY_LOW);
->  
->  void vpci_dump_msi(void)
->  {
-> -    const struct domain *d;
-> +    struct domain *d;
->  
->      rcu_read_lock(&domlist_read_lock);
->      for_each_domain ( d )
-> @@ -277,6 +279,9 @@ void vpci_dump_msi(void)
->  
->          printk("vPCI MSI/MSI-X d%d\n", d->domain_id);
->  
-> +        if ( !read_trylock(&d->vpci_rwlock) )
-> +            continue;
-> +
->          for_each_pdev ( d, pdev )
->          {
->              const struct vpci_msi *msi;
-> @@ -326,6 +331,7 @@ void vpci_dump_msi(void)
->              spin_unlock(&pdev->vpci->lock);
->              process_pending_softirqs();
->          }
-> +        read_unlock(&d->vpci_rwlock);
-
-Same here, you are calling process_pending_softirqs while holding
-vpci_rwlock.
-
->      }
->      rcu_read_unlock(&domlist_read_lock);
->  }
-> diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-> index 846f1b8d7038..5296d6025d8e 100644
-> --- a/xen/drivers/vpci/msix.c
-> +++ b/xen/drivers/vpci/msix.c
-> @@ -138,6 +138,7 @@ static void control_write(const struct pci_dev *pdev, unsigned int reg,
->          pci_conf_write16(pdev->sbdf, reg, val);
->  }
->  
-> +/* This must hold domain's vpci_rwlock in write mode. */
->  static struct vpci_msix *msix_find(const struct domain *d, unsigned long addr)
->  {
->      struct vpci_msix *msix;
-> @@ -158,7 +159,12 @@ static struct vpci_msix *msix_find(const struct domain *d, unsigned long addr)
->  
->  static int msix_accept(struct vcpu *v, unsigned long addr)
->  {
-> -    return !!msix_find(v->domain, addr);
-> +    int rc;
-> +
-> +    read_lock(&v->domain->vpci_rwlock);
-> +    rc = !!msix_find(v->domain, addr);
-> +    read_unlock(&v->domain->vpci_rwlock);
-
-Newline before return.
-
-> +    return rc;
->  }
->  
->  static bool access_allowed(const struct pci_dev *pdev, unsigned long addr,
-> index fb0947179b79..16bb3b832e6a 100644
-> --- a/xen/drivers/vpci/vpci.c
-> +++ b/xen/drivers/vpci/vpci.c
-> @@ -89,22 +104,28 @@ int vpci_add_handlers(struct pci_dev *pdev)
->  }
->  #endif /* __XEN__ */
->  
-> -static int vpci_register_cmp(const struct vpci_register *r1,
-> -                             const struct vpci_register *r2)
-> +static int vpci_offset_cmp(unsigned int r1_offset, unsigned int r1_size,
-> +                           unsigned int r2_offset, unsigned int r2_size)
->  {
->      /* Return 0 if registers overlap. */
-> -    if ( r1->offset < r2->offset + r2->size &&
-> -         r2->offset < r1->offset + r1->size )
-> +    if ( r1_offset < r2_offset + r2_size &&
-> +         r2_offset < r1_offset + r1_size )
->          return 0;
-> -    if ( r1->offset < r2->offset )
-> +    if ( r1_offset < r2_offset )
->          return -1;
-> -    if ( r1->offset > r2->offset )
-> +    if ( r1_offset > r2_offset )
->          return 1;
->  
->      ASSERT_UNREACHABLE();
->      return 0;
->  }
->  
-> +static int vpci_register_cmp(const struct vpci_register *r1,
-> +                             const struct vpci_register *r2)
-> +{
-> +    return vpci_offset_cmp(r1->offset, r1->size, r2->offset, r2->size);
-> +}
-
-Seeing how this gets used below I'm not sure it's very helpful to
-reuse vpci_register_cmp, see my comment below.
-
-> +
->  /* Dummy hooks, writes are ignored, reads return 1's */
->  static uint32_t vpci_ignored_read(const struct pci_dev *pdev, unsigned int reg,
->                                    void *data)
-> @@ -129,6 +150,7 @@ uint32_t vpci_hw_read32(const struct pci_dev *pdev, unsigned int reg,
->      return pci_conf_read32(pdev->sbdf, reg);
->  }
->  
-> +/* This must hold domain's vpci_rwlock in write mode. */
->  int vpci_add_register(struct vpci *vpci, vpci_read_t *read_handler,
->                        vpci_write_t *write_handler, unsigned int offset,
->                        unsigned int size, void *data)
-> @@ -152,8 +174,6 @@ int vpci_add_register(struct vpci *vpci, vpci_read_t *read_handler,
->      r->offset = offset;
->      r->private = data;
->  
-> -    spin_lock(&vpci->lock);
-> -
->      /* The list of handlers must be kept sorted at all times. */
->      list_for_each ( prev, &vpci->handlers )
->      {
-> @@ -165,25 +185,23 @@ int vpci_add_register(struct vpci *vpci, vpci_read_t *read_handler,
->              break;
->          if ( cmp == 0 )
->          {
-> -            spin_unlock(&vpci->lock);
->              xfree(r);
->              return -EEXIST;
->          }
->      }
->  
->      list_add_tail(&r->node, prev);
-> -    spin_unlock(&vpci->lock);
->  
->      return 0;
->  }
->  
-> +/* This must hold domain's vpci_rwlock in write mode. */
->  int vpci_remove_register(struct vpci *vpci, unsigned int offset,
->                           unsigned int size)
->  {
->      const struct vpci_register r = { .offset = offset, .size = size };
->      struct vpci_register *rm;
->  
-> -    spin_lock(&vpci->lock);
->      list_for_each_entry ( rm, &vpci->handlers, node )
->      {
->          int cmp = vpci_register_cmp(&r, rm);
-> @@ -195,14 +213,12 @@ int vpci_remove_register(struct vpci *vpci, unsigned int offset,
->          if ( !cmp && rm->offset == offset && rm->size == size )
->          {
->              list_del(&rm->node);
-> -            spin_unlock(&vpci->lock);
->              xfree(rm);
->              return 0;
->          }
->          if ( cmp <= 0 )
->              break;
->      }
-> -    spin_unlock(&vpci->lock);
->  
->      return -ENOENT;
->  }
-> @@ -310,7 +326,7 @@ static uint32_t merge_result(uint32_t data, uint32_t new, unsigned int size,
->  
->  uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
->  {
-> -    const struct domain *d = current->domain;
-> +    struct domain *d = current->domain;
->      const struct pci_dev *pdev;
->      const struct vpci_register *r;
->      unsigned int data_offset = 0;
-> @@ -327,6 +343,7 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
->      if ( !pdev )
->          return vpci_read_hw(sbdf, reg, size);
->  
-> +    read_lock(&d->vpci_rwlock);
-
-After taking the domain lock you need to check that pdev->vpci !=
-NULL, as vpci_remove_device will set pdev->vpci == NULL before
-removing the device from the domain. Same applies to vpci_add_handlers
-which will be called with the device already added to the domain, but
-with pdev->vpci == NULL.
-
-We would also need some kind of protection arround
-pci_get_pdev_by_domain so that devices are not removed (from the
-domain) while we are iterating over it.
-
->      spin_lock(&pdev->vpci->lock);
->  
->      /* Read from the hardware or the emulated register handlers. */
-> @@ -371,6 +388,7 @@ uint32_t vpci_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int size)
->          ASSERT(data_offset < size);
->      }
->      spin_unlock(&pdev->vpci->lock);
-> +    read_unlock(&d->vpci_rwlock);
->  
->      if ( data_offset < size )
->      {
-> @@ -410,14 +428,37 @@ static void vpci_write_helper(const struct pci_dev *pdev,
->               r->private);
->  }
->  
-> +static bool vpci_header_write_lock(const struct pci_dev *pdev,
-> +                                   unsigned int start, unsigned int size)
-
-I think this should live in header.c, for consistency.
-
-I'm also not sure it's worth adding vpci_offset_cmp: you just need to
-do a range overlap check, and that can be easily open coded. It's just
-the first 'if' in vpci_register_cmp that you want, the rest of the
-code is just adding overhead.
-
-> +{
-> +    /*
-> +     * Writing the command register and ROM BAR register may trigger
-> +     * modify_bars to run which in turn may access multiple pdevs while
-> +     * checking for the existing BAR's overlap. The overlapping check, if done
-> +     * under the read lock, requires vpci->lock to be acquired on both devices
-> +     * being compared, which may produce a deadlock. It is not possible to
-> +     * upgrade read lock to write lock in such a case. So, in order to prevent
-> +     * the deadlock, check which registers are going to be written and acquire
-> +     * the lock in the appropriate mode from the beginning.
-> +     */
-> +    if ( !vpci_offset_cmp(start, size, PCI_COMMAND, 2) )
-> +        return true;
-> +
-> +    if ( !vpci_offset_cmp(start, size, pdev->vpci->header.rom_reg, 4) )
-
-No need for the comparison if rom_reg is unset. Also you can OR both
-conditions into a single if.
-
-> +        return true;
-> +
-> +    return false;
-> +}
-> +
->  void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
->                  uint32_t data)
->  {
-> -    const struct domain *d = current->domain;
-> +    struct domain *d = current->domain;
->      const struct pci_dev *pdev;
->      const struct vpci_register *r;
->      unsigned int data_offset = 0;
->      const unsigned long *ro_map = pci_get_ro_map(sbdf.seg);
-> +    bool write_locked = false;
->  
->      if ( !size )
->      {
-> @@ -440,7 +481,17 @@ void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
->          return;
->      }
->  
-> -    spin_lock(&pdev->vpci->lock);
-> +    if ( vpci_header_write_lock(pdev, reg, size) )
-> +    {
-> +        /* Gain exclusive access to all of the domain pdevs vpci. */
-> +        write_lock(&d->vpci_rwlock);
-> +        write_locked = true;
-
-Here you need to check that pdev->vpci != NULL...
-
-> +    }
-> +    else
-> +    {
-> +        read_lock(&d->vpci_rwlock);
-
-...and also here.
-
-> +        spin_lock(&pdev->vpci->lock);
-> +    }
->  
->      /* Write the value to the hardware or emulated registers. */
->      list_for_each_entry ( r, &pdev->vpci->handlers, node )
-> @@ -475,7 +526,14 @@ void vpci_write(pci_sbdf_t sbdf, unsigned int reg, unsigned int size,
->              break;
->          ASSERT(data_offset < size);
->      }
-> -    spin_unlock(&pdev->vpci->lock);
-> +
-> +    if ( write_locked )
-> +        write_unlock(&d->vpci_rwlock);
-> +    else
-> +    {
-> +        spin_unlock(&pdev->vpci->lock);
-> +        read_unlock(&d->vpci_rwlock);
-> +    }
->  
->      if ( data_offset < size )
->          /* Tailing gap, write the remaining. */
-> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> index 37f78cc4c4c9..ecd34481a7af 100644
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -444,6 +444,9 @@ struct domain
->  
->  #ifdef CONFIG_HAS_PCI
->      struct list_head pdev_list;
-> +#ifdef CONFIG_HAS_VPCI
-> +    rwlock_t vpci_rwlock;
-> +#endif
->  #endif
->  
->  #ifdef CONFIG_HAS_PASSTHROUGH
-> diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-> index e8ac1eb39513..e19e462ee5cb 100644
-> --- a/xen/include/xen/vpci.h
-> +++ b/xen/include/xen/vpci.h
-> @@ -88,6 +88,8 @@ struct vpci {
->           * is mapped into guest p2m) if there's a ROM BAR on the device.
->           */
->          bool rom_enabled      : 1;
-> +        /* Offset to the ROM BAR register if any. */
-> +        unsigned int rom_reg;
-
-Could you please place this field after 'type'? That will avoid some
-padding in the structure.
-
-Thanks, Roger.
+T24gMTAvMDIvMjAyMiAxMDowOSwgUm9nZXIgUGF1IE1vbm7DqSB3cm90ZToNCj4gT24gTW9uLCBG
+ZWIgMDcsIDIwMjIgYXQgMDY6MjE6MDFQTSArMDAwMCwgSmFuZSBNYWxhbGFuZSB3cm90ZToNCj4+
+IEludHJvZHVjZSBhIG5ldyBwZXItZG9tYWluIGNyZWF0aW9uIHg4NiBzcGVjaWZpYyBmbGFnIHRv
+DQo+PiBzZWxlY3Qgd2hldGhlciBoYXJkd2FyZSBhc3Npc3RlZCB2aXJ0dWFsaXphdGlvbiBzaG91
+bGQgYmUgdXNlZCBmb3INCj4+IHh7Mn1BUElDLg0KPj4NCj4+IEEgcGVyLWRvbWFpbiBvcHRpb24g
+aXMgYWRkZWQgdG8geGwgaW4gb3JkZXIgdG8gc2VsZWN0IHRoZSB1c2FnZSBvZg0KPj4geHsyfUFQ
+SUMgaGFyZHdhcmUgYXNzaXN0ZWQgdml0dWFsaXphdGlvbiwgYXMgd2VsbCBhcyBhIGdsb2JhbA0K
+Pj4gY29uZmlndXJhdGlvbiBvcHRpb24uDQo+Pg0KPj4gSGF2aW5nIGFsbCBBUElDIGludGVyYWN0
+aW9uIGV4aXQgdG8gWGVuIGZvciBlbXVsYXRpb24gaXMgc2xvdyBhbmQgY2FuDQo+PiBpbmR1Y2Ug
+bXVjaCBvdmVyaGVhZC4gSGFyZHdhcmUgY2FuIHNwZWVkIHVwIHh7Mn1BUElDIGJ5IHJ1bm5pbmcg
+QVBJQw0KPj4gcmVhZC93cml0ZSBhY2Nlc3NlcyB3aXRob3V0IHRha2luZyBhIFZNIGV4aXQuDQo+
+Pg0KPj4gQmVpbmcgYWJsZSB0byBkaXNhYmxlIHh7Mn1BUElDIGhhcmR3YXJlIGFzc2lzdGVkIHZp
+dHVhbGl6YXRpb24gY2FuIGJlDQo+PiB1c2VmdWwgZm9yIHRlc3RpbmcgYW5kIGRlYnVnZ2luZyBw
+dXJwb3Nlcy4NCj4gDQo+IE1pZ2h0IGJlIHdvcnRoIGFkZGluZyBhIG5vdGUgdG8gdGhlIGNvbW1p
+dCBsb2cgaW4gb3JkZXIgdG8gbm90ZSB0aGF0DQo+IHZteF9pbnN0YWxsX3ZsYXBpY19tYXBwaW5n
+IGRvZXNuJ3QgcmVxdWlyZSBtb2RpZmljYXRpb25zIHJlZ2FyZGxlc3Mgb2YNCj4gd2hldGhlciB0
+aGUgZ3Vlc3QgaGFzIHZpcnR1YWxpemVfYXBpY19hY2Nlc3NlcyBlbmFibGVkIG9yIG5vdC4NCj4g
+DQo+IFNldHRpbmcgdGhlIEFQSUNfQUNDRVNTX0FERFIgVk1DUyBmaWVsZCBpcyBmaW5lIGV2ZW4g
+aWYNCj4gdmlydHVhbGl6ZV9hcGljX2FjY2Vzc2VzIGlzIG5vdCBlbmFibGVkIGZvciB0aGUgZ3Vl
+c3Q6IGFzIGxvbmcgYXMgdGhlDQo+IGZlYXR1cmUgaXMgc3VwcG9ydGVkIGJ5IHRoZSBDUFUgdGhl
+IGZpZWxkIHdpbGwgZXhpc3QuDQpPaCByaWdodC4gV2lsbCBhZGQgdGhlc2UgdHdvIHBvaW50cy4N
+Cg0KVGhhbmtzLA0KDQpKYW5lLg==
 
