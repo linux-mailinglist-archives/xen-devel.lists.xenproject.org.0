@@ -2,44 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A1364B09A9
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Feb 2022 10:38:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.269723.463808 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D21A04B09CE
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Feb 2022 10:45:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.269737.463819 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nI5tw-00080n-Ej; Thu, 10 Feb 2022 09:38:08 +0000
+	id 1nI60J-00013B-3j; Thu, 10 Feb 2022 09:44:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 269723.463808; Thu, 10 Feb 2022 09:38:08 +0000
+Received: by outflank-mailman (output) from mailman id 269737.463819; Thu, 10 Feb 2022 09:44:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nI5tw-0007yy-AD; Thu, 10 Feb 2022 09:38:08 +0000
-Received: by outflank-mailman (input) for mailman id 269723;
- Thu, 10 Feb 2022 09:38:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4tMu=SZ=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nI5tu-0007MQ-WC
- for xen-devel@lists.xenproject.org; Thu, 10 Feb 2022 09:38:07 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2625d32f-8a55-11ec-8eb8-a37418f5ba1a;
- Thu, 10 Feb 2022 10:38:06 +0100 (CET)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2168.outbound.protection.outlook.com [104.47.17.168]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-32-UqynWL_zOJyxg0VGlgjb0A-1; Thu, 10 Feb 2022 10:38:04 +0100
-Received: from AM0PR04MB5587.eurprd04.prod.outlook.com (2603:10a6:208:125::12)
- by AM9PR04MB8226.eurprd04.prod.outlook.com (2603:10a6:20b:3ea::20)
+	id 1nI60J-00010u-0h; Thu, 10 Feb 2022 09:44:43 +0000
+Received: by outflank-mailman (input) for mailman id 269737;
+ Thu, 10 Feb 2022 09:44:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=227Y=SZ=epam.com=prvs=404006422a=oleksii_moisieiev@srs-se1.protection.inumbo.net>)
+ id 1nI60H-00010o-U6
+ for xen-devel@lists.xenproject.org; Thu, 10 Feb 2022 09:44:41 +0000
+Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
+ [148.163.137.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 10962d61-8a56-11ec-8f75-fffcc8bd4f1a;
+ Thu, 10 Feb 2022 10:44:40 +0100 (CET)
+Received: from pps.filterd (m0174680.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21A9gnBb024521;
+ Thu, 10 Feb 2022 09:44:35 GMT
+Received: from eur01-ve1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01lp2059.outbound.protection.outlook.com [104.47.1.59])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3e4yy882r3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 10 Feb 2022 09:44:35 +0000
+Received: from PA4PR03MB7136.eurprd03.prod.outlook.com (2603:10a6:102:ea::23)
+ by AM0PR0302MB3393.eurprd03.prod.outlook.com (2603:10a6:208:11::26)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.19; Thu, 10 Feb
- 2022 09:38:03 +0000
-Received: from AM0PR04MB5587.eurprd04.prod.outlook.com
- ([fe80::54e:e7d:545a:da84]) by AM0PR04MB5587.eurprd04.prod.outlook.com
- ([fe80::54e:e7d:545a:da84%3]) with mapi id 15.20.4951.019; Thu, 10 Feb 2022
- 09:38:02 +0000
+ 2022 09:38:55 +0000
+Received: from PA4PR03MB7136.eurprd03.prod.outlook.com
+ ([fe80::c1c:f98:9dd:86e0]) by PA4PR03MB7136.eurprd03.prod.outlook.com
+ ([fe80::c1c:f98:9dd:86e0%6]) with mapi id 15.20.4975.011; Thu, 10 Feb 2022
+ 09:38:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,203 +53,199 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2625d32f-8a55-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1644485885;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m5q6dxP/k7rShSl19FkBcKcwKdpKKn40N5IXShciDLY=;
-	b=OaBB7SGRrWeJbCn94GUJ1+eQLLayG0Prwbhelx6lgXFZhDm07qvAOOUGPHNwYa+HPJ9KHQ
-	4mZeiB5JM7KDSk+g3Np4dACgOpIEfwGOINkMQdaET8v+VyWPR1AxvmMq7jd7COaSBf0FnH
-	l8dAvT48GvZ2ByxuafzmTsoQ2S40tgw=
-X-MC-Unique: UqynWL_zOJyxg0VGlgjb0A-1
+X-Inumbo-ID: 10962d61-8a56-11ec-8f75-fffcc8bd4f1a
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G7pVBWX9mXBzlqpTeBGTHWjikGptsKKgsJjVWa/zSRwgGiEOzmZScAGXpQruA/lmQv2u2tV9gkYmarkuOO0AY++9OTJwKLrRqIVfmBVrsiFrPAYCVHkqlOyWI7I2qKN0Hqdjhaf2QOqA8UgdStQhCg+fnKeJHy8SrnTXF6w3LW4P1Gjb1PXkySlfMNT0GIWdnMLxJFyXtWaRznWYCPi96EpU9bwhnZ2GF3rJGaKa98DZ5H8BsGVmivDjBJfK6NCFPkCoUPBzSO7YGhf8yYMdHgEyC3t1Y2l76Zs7XfcGEP3/rmCvKgjOlDfXB3nkpdMoEpneswJlMnqXTGxodjLnbA==
+ b=dEnuQopIOWEqKnp1FruWnO14TdNe8VjX49wOO4x+6MbDnmHGEGjuFAyPQzfyKaZj2IBAwpv8S59HlyqSNbWtoChYIVCYZdI0mZZsjqfsdRyJOSz/oFRhri6iwPaaL9+5ZqS7hUKvPpl4uw7JkvVa96v/NVCVCfa16kxtrcku2EbuLPZJjNebY9RIDjHum5uKH5Fq5dxutZ7GMKRpmfL9lrLDS+GurcaorNK7ITQnUP071TAFp72cBzd+7VmgSQYl9R2LaWuWs8QHkusG6g6ZvzbLcgPGDHeif2gqACkeF/Hlf3RsiX+vfA0Ag+5lJaCJwRM4VZiMU88w3tBBDBWrpA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m5q6dxP/k7rShSl19FkBcKcwKdpKKn40N5IXShciDLY=;
- b=EnGshvLDUeTX2UY2Dv8rt60HESmQI7MyY1uqYWOo2LoKDpp+hWq0ifq+oqaSB5dl4vojEm2d/dETMmJQKOxtjEE/QeXVwRjxfGVUlSZ1njydib6ls28U4nsCRu8+rb3wASGiMEm61qE3sv3rJZRyk/IArFa76AZ1FU3gO/vDku635Y4c0JH/XsV5OrIol48SMOBUZ8b8VMYWjFIVqAVww/BSyk0WrOqCCV0k3tcS/hXOBUYQ3uXbQ/PhRlhFMu5KIm0IhyOQKUW+SapP323hppp83mqGcsGbhl8Ri+1M0iI7DR5QwqbHe8DPyZb3MAVTTPF4BTMK924iW2p+lU+mpw==
+ bh=uEqkvuJ5/4V8NnvZAKxYIs6jlIia3JW/ziM1jfYuOUA=;
+ b=lCPaHpjzIWUk75jGCHgrX1UPegRKr4Y2HIlDRmXC83px35SYjt7LInSWs5XEnXUeLYhmZl5ZcY3lC3HlVdJeFpWxJCyv8jKC0yZBFyJc4r1Y+s9uc7BnXLfIwzgVFAlVz0TRTtKXbwEztA4A0dsf+jKf4GZAo+21KORRbrqSggCXtg/DCU1Obai8tzNx3b6z/8j8GiBo1L4De1V9HPdsCxqHsyP/RkhYZwMmswxyYYO2kJOjXLr9r79ARFGYn9H20LgEH/WG3lwtrvuEpamrrfbjpiiHdLfboUfTF3NW7V8nf3Ui2h8+YCJBIgf550iHKv5Y+sHFRz6bNEhf/JXxVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a88f2f3a-5a6e-5f4f-dfa9-ce1f7121868e@suse.com>
-Date: Thu, 10 Feb 2022 10:38:01 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.0
-Subject: Re: [PATCH v3] x86: Prioritize low memory size from Multiboot
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uEqkvuJ5/4V8NnvZAKxYIs6jlIia3JW/ziM1jfYuOUA=;
+ b=XcLDnHpuxCZFdc+s2oIfmdOizqNlhPTzjP+ZGyb11V+f36URjSc9WhCi3vldd52c+V/CqjwJ2hnMhDOTZx1c3dPSezsqC2m78MVF5vDwtY4If3UzYW9HjCGRIFTe56DQr6Agb6eECDuRpoxjLLFDWSi8go5mFZZl1A/RN3lF3E8Qtv8lB26DoMYkv4TLKX++TCqwGnrt2Bhur/7CS65fJihCpKpg/sOWE4AIcmvaeSRPf51nmWF1wjNihddztOi1hm3VF8kIMynKx3dZ2HDo9zGB/2RcptMThfkKD3LC7O1NZXV1UfIPDFwBsG7aefRrVNJshSW4+NMdTlgxblSF7w==
+From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+To: Julien Grall <julien@xen.org>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Stefano
+ Stabellini <sstabellini@kernel.org>,
+        Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>,
+        Bertrand Marquis <bertrand.marquis@arm.com>,
+        Juergen Gross <jgross@suse.com>
+Subject: Re: [RFC v2 3/8] xen/arm: Export host device-tree to hypfs
+Thread-Topic: [RFC v2 3/8] xen/arm: Export host device-tree to hypfs
+Thread-Index: 
+ AQHYHRW1S717SraA0Ui+K6wc2/TNAKyJ+LkAgAEKd4CAACCZgIAAbkMAgAAMBYCAAOvKAA==
+Date: Thu, 10 Feb 2022 09:38:53 +0000
+Message-ID: <20220210093852.GA1700852@EPUAKYIW015D>
+References: <cover.1644341635.git.oleksii_moisieiev@epam.com>
+ <e440e4f16a506ecc87078635dbb3fda2ebd45346.1644341635.git.oleksii_moisieiev@epam.com>
+ <b88f6a50-6e9e-5679-8d25-89e26031e88e@xen.org>
+ <20220209102037.GA1025795@EPUAKYIW015D>
+ <316bd101-af8b-d2f0-1db5-ea6c583acd59@xen.org>
+ <20220209185156.GA1475048@EPUAKYIW015D>
+ <6fcf1e16-0c9d-c871-76b7-59d9311e9db4@xen.org>
+In-Reply-To: <6fcf1e16-0c9d-c871-76b7-59d9311e9db4@xen.org>
+Accept-Language: en-US
 Content-Language: en-US
-To: Tu Dinh Ngoc <dinhngoc.tu@irit.fr>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <000c01d81dcae25e6f0irit.fr>
- <20220210084436.84-1-dinhngoc.tu@irit.fr>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220210084436.84-1-dinhngoc.tu@irit.fr>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0041.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::17) To AM0PR04MB5587.eurprd04.prod.outlook.com
- (2603:10a6:208:125::12)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 2fbd6a43-28b2-4621-5436-08d9ec7926b9
+x-ms-traffictypediagnostic: AM0PR0302MB3393:EE_
+x-ld-processed: b41b72d0-4e9f-4c26-8a69-f949f367c91d,ExtAddr
+x-microsoft-antispam-prvs: 
+ <AM0PR0302MB3393E840FD5D04DB28DB1873E32F9@AM0PR0302MB3393.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ FQikJ/3zTqfAmH0LrwPp3ZlXHtYGUidujtZ+4sDuqYmlN8Pss8wWSKlt3ZXTUGt0KDeOSZJQZkoCBpjroKsWOYCNMLrya1as1PX8Z21noTIu8YXZ/NWGDuXKWomsdOe0FC4Ufvm0w9yRNzxsFox+N7lVVz+m0aRrfneEJKG3AHTIqjcgzwRdjospzyYxBBKtAJt98RQxYpQz3hkG2tZotEpPk+mWDnS75p+O8xzeKbkCHN4pO1o9ia7Eanpb8GuqyLZhQR0Zp/54q+PoqhRxu/Rv2MU6lBmYdPj1wyFelQpYniuBGDF0zzt9WaotP/Gw9cRP6RMIHHLqvuCB3cYRnnD4tnhUO2Qhwd5VY25KT0vHnALmQEnrtxRIMvfarrqVPRQ5JZAjQUWZ3mfqXAoEllnSTtjxP3bH0riBXXMQERWBI71IiJEipn5P+yDyT2kbSLrWgbnb8b3BvNWrFto5zzDc0qdPgFd+OHkS5jpxu5fn4AFb1ahNpJNX0CipzEqB8zltoe0eDcOgEnnC3lhrKC6IlgwI02EAsvw02kNp3at0ao1k12Avu75dDfY/nUL9Y73IVmFAqdSiy7xxyevwqaRaD55xo608JfDGU2pXh2kRtigmD5kaA+OADPxjMfrakRKNnd8Clc/qMLsQhjy9UlueOmlhKJAl0sU+64rAOK9P2A2kz7eqZaGT/1NUJlKOHKR+BlhIER2htPMpiDuPJQ==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7136.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(5660300002)(33656002)(8936002)(71200400001)(53546011)(186003)(83380400001)(2906002)(38070700005)(66446008)(54906003)(38100700002)(26005)(86362001)(508600001)(66476007)(6486002)(6512007)(91956017)(122000001)(9686003)(66946007)(76116006)(6916009)(64756008)(8676002)(6506007)(316002)(1076003)(33716001)(66556008)(4326008);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?gO+PdyjdI4r0FMMjljk6FvwzLYP3RB4/ntn3YzMIwCHg6Rr9QyMctJlocTw4?=
+ =?us-ascii?Q?55xmAiQ9jzp52LiMC7UOUcEL452SHHra7EYW6MStg7LUbuEGkTjvrdAOV/E5?=
+ =?us-ascii?Q?tPV5rE9Rgob9lkWgeSYX8F3kdrJbnOzzn3pKs161mKMDeuDJ16feTadVBb6Z?=
+ =?us-ascii?Q?V1D89eFCcjtPosPFMjEEE/pkusmS/iFNJY1XkF/XGVl8l2Xpfja6b2PqdIRw?=
+ =?us-ascii?Q?mgtlmnEK185YTiPDG5uBnHh+OnE1fo8sVH9gOg4wF6PkVysE/qDamwgdeK90?=
+ =?us-ascii?Q?HEZUr8O9tk9e6tgAlQZmUAxCO0dLGS9t879J9FJymqphKtBuFtsejNW5iF30?=
+ =?us-ascii?Q?7KPrVGeyBHjwqzjVxvpGA/CnIXKmdPATbfKVHLsEZxdkkuSK7f20vrGY9XPt?=
+ =?us-ascii?Q?BzYgV4WD5WIbRDmLpXweexFzMFNzjOFsrDcIBrvZKwXbLc7RkNLh/koP83gZ?=
+ =?us-ascii?Q?f/zfaNJemm49EHpZGBi+NwgFLZA7m7hhhAL/Ae2uEKOpSe/jqv4QFS99Hzq1?=
+ =?us-ascii?Q?mmTBaIw34bzC9C1sMTHM74APjETFSVG0t1pb8wPWBEfIpwCcOTlwTWw8p+25?=
+ =?us-ascii?Q?8JeqLKsjbFPlVwdfzU2AJI9hErG8r4znfZdOmNP5qR5zu5bOBD30A9DiKchg?=
+ =?us-ascii?Q?vpKcLuvElUa4eLCKcEs7AgKvBz74/R7zfVE+3RydVKX0TXybm1afyolIkdKf?=
+ =?us-ascii?Q?VepPm0PyNcU03tUDtZmrncqI2PI217AzSA+0rUsrL7mzFN8n+sHKf7lck6El?=
+ =?us-ascii?Q?mEaEI9yQVhceveEjZJ1zw5fYv5tDc7trHKqFthpZG71erpPczRIxIPRvxoX4?=
+ =?us-ascii?Q?9+lta71oNAMxmT5eU39oEWuBRb+YFFy6L/N1LB6F2ba56Nx/5Y1IYSGrFQ9h?=
+ =?us-ascii?Q?goj5F1/LT/e3aACU5JIsTLMJud96jf32UU5aBfHlRspaxzHtwmZVIwq8hQsJ?=
+ =?us-ascii?Q?Ej8rWtKhPHTKo3g97dFnInyQYksnZpN4fJc7MeR+TQCpMep1VDETczL8we5a?=
+ =?us-ascii?Q?BIPz/nJvPEoaxnCnx4YgDDIA8/eOw+Vi3Nhfdy4PUcClvJSRp2+0g8rueNPF?=
+ =?us-ascii?Q?uhxuMeGMnu2jgWZpg7MqVa3ELjW78hC00eXtNQ2NDF5cGx1PUvaVHbgjlOB1?=
+ =?us-ascii?Q?dI6QOxHvXkwOSvNst5JHp+batT9ZNmk8a9K/vvfUcMJV8+nv8zkmayaPrhKy?=
+ =?us-ascii?Q?I1zHly7iRtASB3kvQOq3i4i5Gxl9CxrVBLlUkkxMPptf6QQPO7ELdevSBxkh?=
+ =?us-ascii?Q?dOqcXyADXTOkCnbJo1ANwIBorSyBk8sPKNOLOO8TcYGDmvioyWgOMHQkt1fy?=
+ =?us-ascii?Q?oCu/NIaXqouvQ6gSxOpPGOVxy5dNDIu43ztL8ukXWCaV7U1q/pPhscmJioh+?=
+ =?us-ascii?Q?oIXDKq9wxfuK7BnYGqFTFiK4AHA3WRowTxqs2PL69XK+WgiDlzAftWjaOTg0?=
+ =?us-ascii?Q?iG+2mlalVeq0APyDBtldGmAhV72bVOZurd64/32yR940ZVIZ5cZBiLqmGFGX?=
+ =?us-ascii?Q?uPUZ2NTUzElYtkuoz8aJS7viUOS0Uz42jV0dz7GO6ivkpbvkVkB2wCuqt0JW?=
+ =?us-ascii?Q?p6EmhBovqpz/9Mbs6A+aQTBZPpP92OiDPsxLtZZkZ32HVrtP/ytr5qgf2V86?=
+ =?us-ascii?Q?XqeSVm33OO7LAM5N8yMEqqnavW4mhWuUyLCnVjN2G5oli5HN4Tt8okFVxNvi?=
+ =?us-ascii?Q?6l9k7m0IfqSURanhcMORnHlWJFU=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <66310011DCA2F742B83C58314735CEB3@eurprd03.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bd3dc8bf-39e4-49e0-b965-08d9ec790886
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8226:EE_
-X-Microsoft-Antispam-PRVS:
-	<AM9PR04MB82269F09A836F14628A58B23B32F9@AM9PR04MB8226.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	3BEYmEL1AXumc9CIeC5kV8L0hqlguNC1UWW/+eniXpC9xo9DUpaeWTUoA8nKcxQzD8AvZMLb7jfus2aTKCSVGqrAUb9cSsq2n7Mgdaae/ooa7WjQc6YJsIPM+ygCrRDOBgYku6AxAtExNBxILh3SXKwYo8L0oKETbS2koSeJo14kExNTTvktWRkgPK9sg3Ye3oB4Ao1k7iEDOn6QBZtsfINusV2ib/wj3OFhbSIFwDurXRKGHpjB5erw0+Ka06riCa/E+9RbsDOHC00Lv5PmK9W6p1SwQsjY6BTzIgwfB0KtzfO6WQJkFlrWLYkYAbhkqnCJY4yhp1q8UMOrX6iBcTqse2JHbBCO3k2TZO5RoTGtP/vpb8iLaJse4Jm6ujGmNh/f2F+H8n9Qct790vT6uO/+rgvfemwJ63alL6by7vF9tpTTF1nlDRz6LQF/u05vir/Xx41gWS3q+FPDTkx4LLbCYjDAXzSuU1A61vUPqokXD2Vrok9gtYHDAal+2Pzuxp6L6Acy2ZtEaPvDe8FBoZvI9rZTPQXQMhR665VP7+bxs5aobqXrQ0Q01m5GITQTiR5cUwlsxZWlt3tffkWBu/b3vycXaJByQ1TULm1T+Iy5Ckn4+9Hh4sf4BmtAAO//txSSXlYwfs3I9ECi/wNPHzHBouT1z91cawAkzeo1T5svsO/FDKHwgJZzcjFSKQ7pdmMAHJQppxhIfZ38+RUzUyJ4h+clj2q3do1+o2AphbU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5587.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(6512007)(2906002)(54906003)(6916009)(6486002)(38100700002)(36756003)(186003)(26005)(5660300002)(316002)(2616005)(66476007)(8676002)(31686004)(86362001)(508600001)(66556008)(4326008)(66946007)(83380400001)(8936002)(31696002)(53546011)(6506007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ME1tb0VLS3ZvYjdQK1lybDFjSnBxenpHTndicFR6Z093NVZoUlIxdktQRUl6?=
- =?utf-8?B?RHROa0NqaUVaa09IMUE2MGNOWGFrekRtVFF3WGpudW5oeEV5Q3RXVXAzZ1ZQ?=
- =?utf-8?B?TGk2eE1JMVpmUS9VTHBoa1gzbFF3SXF0ejhEOVE5QndjOVB4S0tlNmtidDlk?=
- =?utf-8?B?MHYwNzVhcXVOOVgrbU1HM0pCRVhad1JwTnExc2RnWk9WdSs4RXYxWFhWSkp5?=
- =?utf-8?B?MHBud0RYdkF4NlNnRE9OWUVPbWdNRDlEaTZiOVVmK3RpeDRDczZZdGFLdEI1?=
- =?utf-8?B?dzE0d2MyZ3ZGZkRaYzlvbWo3V0lOcE5KNmFsRSs2VFlmZWFYU2I1aDBZT3FB?=
- =?utf-8?B?ZlN5cllteG5YeThoMnY2YmZoSmpWNmk1ekw0RFE5N2w4MlB5YWJJQmwySU1D?=
- =?utf-8?B?azkzNUFBL2F1ekRPS21nZ21jMnVKMnVKK0RYemduaitiWDlOSFNTZ2NQamlI?=
- =?utf-8?B?ejZQVkNVaEZ4RzVsV1o5d0ZPNmFuLzVwdll1NURjQzhEanp1Rm5WeTRUTlpD?=
- =?utf-8?B?MjUzZTE1bmZoNGg5RzREMDZTQ2VTcmRta2NaUENxRHM5L29kcENWWGVJU2lI?=
- =?utf-8?B?dlE5NGxMQU5VSnlJcXhNRDV1eTA1WDZ0Ty80TVRLZU9JOGxiT0FjNHpRS0Yy?=
- =?utf-8?B?NXZaTzQ5NWFIbXZNR3FvTkRmcndqWGR5cWtpckxmbjQweVJiRjVob2tDUlgr?=
- =?utf-8?B?d3ZMcTZpWnlYR2tsYVBlV1NDNVBtVEFRNnVXVVJuTXdaZE03dyt2Q1Q1N2p0?=
- =?utf-8?B?NGxJY0pLU1VwdnRjeCt6RTNENEtidE1mQmNUZG44MHVFemNNU0F5YjdOb2ZF?=
- =?utf-8?B?QW9GVDFmZXNROXIyZ1dvNVo2SjVqK041QXZTVTZiY2V5a1Zwb2RZbW40L29U?=
- =?utf-8?B?MVoxdGVNYkN6OHB4MXVXa0c3UEtmKzdDWmdHWm5rU3dXR09qUFZnWHJDYUc0?=
- =?utf-8?B?bWpCenFON3E0Z21DNm1INmYvMC8zbzZxeER0b3g0T1NWNmRRZzhraGpycDlE?=
- =?utf-8?B?K1ZLNWMzamFVQVdYN25vSEJNOWFwbkxsVXN3UzByYmlxVFFzMVcweVM3dWxi?=
- =?utf-8?B?RlF5TU5vclZPbEVLRk5zdmpuTElORTVIL3pXV1FIcTVXMlRqME5udXZEcGNo?=
- =?utf-8?B?akhhUE9DRVpTL0lING9zZEtXb21PMGtYa0xGRUZIajVaUGwzdHp1aUp5VWxn?=
- =?utf-8?B?aVRVZ2ZjNlVlaklBUzR6azJBVmdCOVFMTlBrS0pqZUlkRjIxWXR5RDhaS0FR?=
- =?utf-8?B?N2NQQ3U1d1NUUnRqU3hiTElZeEsrVU1WaTQwN2Y1NDVINVNHdWkxSGlzM0FL?=
- =?utf-8?B?a1owaEdJL0ZWc2xSM2QwbUV5bzQ5MTM2VlZYajBIQjlZR1JCRlBuejdBQlZE?=
- =?utf-8?B?YXQxU2l4TkUzNWVTS3o5bndGaTdqZW1KbE5oSnVGbkVscFNoOW5YdG8vejN4?=
- =?utf-8?B?Kzd0QUJvZGdDMXk2K3UySU93SWxQc2MzTU16S1V3TFkySHQ5d1VUMjkzR2dY?=
- =?utf-8?B?TUZ4RmZ4R2FsMmJkSzBnMFdKNGdYcGVMYzhxYm0zYTBZMm1jcHpzRUNuQlJ4?=
- =?utf-8?B?dDRGb0paSHRsWTZtVzNYdnAzZTNoVzJjRURSYWhGNGVXSldJbGJBZ0pFVFRN?=
- =?utf-8?B?RjJOb09aL014Y1Voc3FCMTBrZXBCY1hwZU9WODhiZkU0ai9lRXVsZ0dXcjJL?=
- =?utf-8?B?c0U0SWxZUmd4SzdvZ2o5bSs4OEI0cEt0SFc2ZWNQVzIyZ1hKY3ZRV1J4NzZs?=
- =?utf-8?B?QUVjMWt1ZWZxUFVzUzZTcDZaZ2ZwWXl4OHp3cDIyUXpmY0Fqak9VUVpmTVI4?=
- =?utf-8?B?Y3VIRnFVV2cwZ2JjV0lLUEFhV2p3N1N4MjcveWJyU0FyNXRqTHp0SW1ZUGxq?=
- =?utf-8?B?Qk1QVzV2YmZGV1JVNnl1Z0FUUmc3VG9QQXFGZHRSNk5HK21NWXNuWVAxNUx4?=
- =?utf-8?B?TncvaXkxekRTNEtyRWw3S1N3SGFtcEJNaVYrdktFbzFyVndUS1JldEtkeUZG?=
- =?utf-8?B?UkJyZDU3bVhkM1VGSDIrNmR5eCtrZE9BWjZCRTFOZERHL1RHbWVPQ1dNQ3RL?=
- =?utf-8?B?Q20xY0lUaUtvSE5MVmtqQ1N5L09zSlorUjBOYXRmQnM3Y0lFVnYwQTVNSHhy?=
- =?utf-8?B?eUZYMzdtZklDTGN4eHZYb1A4MXlLY0krUkwxU0NrQU5pbTRueTNhQ1BENzBj?=
- =?utf-8?Q?M+Ua77naaeQg4NmNrMvLBhg=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd3dc8bf-39e4-49e0-b965-08d9ec790886
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5587.eurprd04.prod.outlook.com
+X-OriginatorOrg: epam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2022 09:38:02.8505
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7136.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2fbd6a43-28b2-4621-5436-08d9ec7926b9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Feb 2022 09:38:53.3419
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IKl8FqXye+HnENXCwLxLaJwHudYTI7C2pUttFcgvdJnOr/15nn/d4UEngtdIUvGIanLfIxiG20m90hxoW9oFxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8226
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: bHO3FIyX9lJI9F2GnU9SctvhoPJJxrNh097Wb8Jt4TydsT/lNuSEWNoU1UFTjZZxgYxLk9Jz9KUelncAPgYeEe/Zc9Y49+CyaBVek0cgN6A=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR0302MB3393
+X-Proofpoint-ORIG-GUID: MppZuS-fdiCYsI5JUgNhKk4toNc11nF9
+X-Proofpoint-GUID: MppZuS-fdiCYsI5JUgNhKk4toNc11nF9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-02-10_03,2022-02-09_01,2021-12-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 phishscore=0 adultscore=0
+ lowpriorityscore=0 clxscore=1015 mlxscore=0 mlxlogscore=999
+ priorityscore=1501 suspectscore=0 bulkscore=0 impostorscore=0 spamscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2201110000 definitions=main-2202100053
 
-On 10.02.2022 09:44, Tu Dinh Ngoc wrote:
-> Previously, Xen used information from the BDA to detect the amount of
-> available low memory. This does not work on some scenarios such as
-> Coreboot, or when booting from Kexec on a UEFI system without CSM.
-> 
-> Prioritize the information supplied by Multiboot instead. If this is not
-> available, fall back to the old BDA method.
+On Wed, Feb 09, 2022 at 07:34:57PM +0000, Julien Grall wrote:
+> Hi,
+>=20
+> On 09/02/2022 18:51, Oleksii Moisieiev wrote:
+> > On Wed, Feb 09, 2022 at 12:17:17PM +0000, Julien Grall wrote:
+> > > > > > +static HYPFS_DIR_INIT_FUNC(host_dt_dir, HOST_DT_DIR, &host_dt_=
+dir_funcs);
+> > > > > > +
+> > > > > > +static int __init host_dtb_export_init(void)
+> > > > > > +{
+> > > > > > +    ASSERT(dt_host && (dt_host->sibling =3D=3D NULL));
+> > > > >=20
+> > > > > dt_host can be NULL when booting on ACPI platform. So I think thi=
+s wants to
+> > > > > be turned to a normal check and return directly.
+> > > > >=20
+> > > >=20
+> > > > I will replace if with
+> > > > if ( !acpi_disabled )
+> > > >       return -ENODEV;
+> > > >=20
+> > > > > Also could you explain why you need to check dt_host->sibling?
+> > > > >=20
+> > > >=20
+> > > > This is my way to check if dt_host points to the top of the device-=
+tree.
+> > > > In any case I will replace it with !acpi_disabled as I mentioned
+> > > > earlier.
+> > >=20
+> > > dt_host will always points to the root of the host device-tree. I don=
+'t
+> > > think it is the job of hypfs to enforce it unless you expect the code=
+ to be
+> > > buggy if this happens. But then I would argue the code should be hard=
+ened.
+> > >=20
+> >=20
+> > Hi Julien,
+> >=20
+> > Unfortunatelly I can't use acpi_disabled in host_dtb_export_init becaus=
+e
+> > I've already moved host_dtb_export.c to the common folder.
+>=20
+> I am sorry, but I don't understand why moving the code to common code
+> prevents you to use !acpi_disabled. Can you clarify?
+>=20
+Sorry, my bad. I thought that acpi_disabled is defined only for arm. Now
+I've rechecked and see I was wrong.
 
-You're still failing to provide information on why this would be a safe
-thing to do. In the absence of such, prior behavior has to be retained,
-and only the special case you're after wants adjusting for. This is
-first and foremost (but not limited to) you moving to ...
+> >=20
+> > As for the host->sibling - I took the whole assert:
+> > ASSERT(dt_host && (dt_host->sibling =3D=3D NULL));
+> > from the prepare_dtb_hwdom function. And this assertion was added by th=
+e
+> > commit b8f1c5e7039efbe1103ed3fe4caedf8c34affe13 authored by you.
+>=20
+> I am not sure what's your point... Yes I wrote the same ASSERT() 9 years
+> time. But people view evolves over the time.
+>=20
+> There are some code I wished I had written differently (How about you? ;)=
+).
+> However, I don't have the time to rewrite everything I ever wrote. That
+> said, I can at least make sure they are not spread.
+>=20
 
-> --- a/xen/arch/x86/boot/head.S
-> +++ b/xen/arch/x86/boot/head.S
-> @@ -524,27 +524,41 @@ trampoline_bios_setup:
->          mov     %ecx,%fs
->          mov     %ecx,%gs
->  
-> -        /* Set up trampoline segment 64k below EBDA */
-> -        movzwl  0x40e,%ecx          /* EBDA segment */
-> -        cmp     $0xa000,%ecx        /* sanity check (high) */
-> -        jae     0f
-> -        cmp     $0x4000,%ecx        /* sanity check (low) */
-> -        jae     1f
-> +        /* Check if Multiboot provides us with low memory size. */
-> +        mov     %edx,%ecx
-> +        test    %ecx,%ecx
-> +        jz      1f
+I'm sorry, I didn't mean to be rude. I've just tried to tell where I
+took this assertion from.
 
-... checking for just zero, when originally ...
+> >=20
+> > What do you think if I omit dt_host->sibling check and make it:
+> >=20
+> > if ( !dt_host )
+> >      return -ENODEV;
+>=20
+> We used to set dt_host even when booting with ACPI but that shouldn't be =
+the
+> case anymore. So I think this check should be fine.
+>=20
 
-> +        /*
-> +         * Old Kexec used to report memory sizes in bytes instead of kilobytes
-> +         * like it's supposed to.
-> +         *
-> +         * If Multiboot reports more than 640 KB of low memory, assume we have
-> +         * this problem.
-> +         */
-> +        cmp     $640,%ecx
-> +        jbe     0f
-> +        shr     $10,%ecx
->  0:
-> -        movzwl  0x413,%ecx          /* use base memory size on failure */
-> +        /* %ecx now contains the low memory size in kilobytes. */
->          shl     $10-4,%ecx
-> +        jmp     3f
-> +
->  1:
->          /*
-> -         * Compare the value in the BDA with the information from the
-> -         * multiboot structure (if available) and use the smallest.
-> +         * Multiboot doesn't provide us with memory info. Set up trampoline
-> +         * segment 64k below EBDA as fallback.
->           */
-> -        cmp     $0x100,%edx         /* is the multiboot value too small? */
-> -        jb      2f                  /* if so, do not use it */
+Ok, thank you. I'll do the change.
 
-... the boundary was 0x100.
-
-It was for this reason why in reply to v1 I did ask "Is the kexec case
-recognizable by any means (including [...]), such that we could skip
-using the BDA value in that case?" If it wasn't clear, I did mean
-_just_ in this case.
-
-> -        shl     $10-4,%edx
-> -        cmp     %ecx,%edx           /* compare with BDA value */
-> -        cmovb   %edx,%ecx           /* and use the smaller */
-> -
-> +        movzwl  0x40e,%ecx          /* EBDA segment */
-> +        cmp     $0xa000,%ecx        /* sanity check (high) */
-> +        jae     2f
-> +        cmp     $0x4000,%ecx        /* sanity check (low) */
-> +        jae     3f
->  2:
-> +        movzwl  0x413,%ecx          /* use base memory size on failure */
-> +        shl     $10-4,%ecx
-
-I don't see why this shift can't be folded with the other one, by
-moving it ...
-
-> +
-> +3:
-
-... below here (and removing the one further up).
-
-Jan
-
->          /* Reserve memory for the trampoline and the low-memory stack. */
->          sub     $((TRAMPOLINE_SPACE+TRAMPOLINE_STACK_SPACE)>>4),%ecx
->  
-
+Best regards,
+Oleksii.=
 
