@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22EB04B1933
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Feb 2022 00:14:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.269989.464149 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A3594B19E9
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Feb 2022 00:57:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.269995.464160 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIIcR-0006My-Q8; Thu, 10 Feb 2022 23:12:55 +0000
+	id 1nIJJH-00029j-99; Thu, 10 Feb 2022 23:57:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 269989.464149; Thu, 10 Feb 2022 23:12:55 +0000
+Received: by outflank-mailman (output) from mailman id 269995.464160; Thu, 10 Feb 2022 23:57:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIIcR-0006Ki-N8; Thu, 10 Feb 2022 23:12:55 +0000
-Received: by outflank-mailman (input) for mailman id 269989;
- Thu, 10 Feb 2022 23:12:54 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nIIcQ-0006Kc-Kw
- for xen-devel@lists.xenproject.org; Thu, 10 Feb 2022 23:12:54 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nIIcL-0005wI-SV; Thu, 10 Feb 2022 23:12:49 +0000
-Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nIIcL-0006wk-Ml; Thu, 10 Feb 2022 23:12:49 +0000
+	id 1nIJJH-00027e-65; Thu, 10 Feb 2022 23:57:11 +0000
+Received: by outflank-mailman (input) for mailman id 269995;
+ Thu, 10 Feb 2022 23:57:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=j1Ip=SZ=kernel.org=helgaas@srs-se1.protection.inumbo.net>)
+ id 1nIJJF-00027Y-5m
+ for xen-devel@lists.xenproject.org; Thu, 10 Feb 2022 23:57:09 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 27118a48-8acd-11ec-8eb8-a37418f5ba1a;
+ Fri, 11 Feb 2022 00:57:08 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 94E6A61DAD;
+ Thu, 10 Feb 2022 23:57:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A71C8C004E1;
+ Thu, 10 Feb 2022 23:57:05 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,58 +43,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=kQqTnLFxFmKrCvWR9XjNNihl5HPUUt9G/cRtNMEYEuA=; b=noJNi8LiOl0gux67Z3K2pPOZr7
-	bC8/C8XarxUr5aN3MuIeS25w4mvvC8nUM3z3Eca9PDBqOJwUDnWE7u0AhqNLjE97MA7owEwqn2PbX
-	ffMZLgO7SciLoX6Pg2eQb9FYgVd+9cmaYSWKSWh0L//nR4SL1KI9EGt0xgEM0x9G/hdE=;
-Message-ID: <8706c283-80c0-5fea-2834-1bf574e75470@xen.org>
-Date: Thu, 10 Feb 2022 23:12:47 +0000
+X-Inumbo-ID: 27118a48-8acd-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1644537426;
+	bh=r005aX85VIhDDr1Vqtro622BMgk7L0dZNprygCBXBaw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:From;
+	b=ieJwcqB/SocXJkHqDl6ii25zQfJdPS1CH6V0MJRmm5a7EtPbpR/iwICaNqH7yoB5J
+	 kjxIfWDDzZ3526HKJV/BztmIQYGRVJf05AbLJA0YNR9o5Swxth8bsRNlGFkBHNTAOB
+	 et653UQpCnGnmAHvGDVnSkaujlx/ickOWgmtVKJlC6i4VUp1SNJtPlyEKIboPy1Kan
+	 ro3nuRE4zTWHDfvDY9yntUt5hmY3TWk66+grZkOsgCJJVNyzT4XEn+HICXpoyqtuMo
+	 eoEJrI0OicU/PeSMGEvp+9IOBVFICoVyGtxfhgiraKyc1W2Rv0ydHEsvab04RO7t9H
+	 C90CwbjvFzNug==
+Date: Thu, 10 Feb 2022 17:55:32 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Josef Johansson <josef@oderland.se>
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+	Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH] PCI/MSI: msix_setup_msi_descs: Restore logic for
+ msi_attrib.can_mask
+Message-ID: <20220210235532.GA663996@bhelgaas>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.5.1
-Subject: Re: PCI passthrough support for PVH mode
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- tosher 1 <akm2tosher@yahoo.com>
-Cc: Jan Beulich <jbeulich@suse.com>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>,
- "xadimgnik@gmail.com" <xadimgnik@gmail.com>,
- "oleksandr_andrushchenko@epam.com" <oleksandr_andrushchenko@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <709142925.628001.1644127197288.ref@mail.yahoo.com>
- <709142925.628001.1644127197288@mail.yahoo.com>
- <0e64c52c-1e9c-e89b-abb8-50171d885926@suse.com>
- <303292590.682317.1644477758255@mail.yahoo.com>
- <2CDAD7A1-A628-4491-9DE0-1F4D5D9FF1A7@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <2CDAD7A1-A628-4491-9DE0-1F4D5D9FF1A7@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f5a224ee-b72f-7053-6030-b6c4d8a29be9@oderland.se>
 
-Hi Bertrand,
+[+cc Jason, since you reviewed the original commit]
 
-On 10/02/2022 08:32, Bertrand Marquis wrote:
->> On 10 Feb 2022, at 07:22, tosher 1 <akm2tosher@yahoo.com> wrote:
->>
->> Hi Jan,
->>
->> Thanks for letting me know this status.
->>
->> I am wondering if PCI passthrough is at least available in Arm for other virtualization modes like PV, HVM, or PVHVM. For example, is it possible for someone to attach a PCI device to a guest domain on an Arm machine and use that domain as a driver domain, like we can do with the Xen on x86?
+On Sat, Jan 22, 2022 at 02:10:01AM +0100, Josef Johansson wrote:
+> From: Josef Johansson <josef@oderland.se>
 > 
-> On arm there is only one virtualization mode which is equivalent to x86 HVM.
+> PCI/MSI: msix_setup_msi_descs: Restore logic for msi_attrib.can_mask
 
-I would like to correct this. Arm guests are more equivalent to x86 PVH 
-than HVM. For more details, see:
+Please match the form and style of previous subject lines (in
+particular, omit "msix_setup_msi_descs:").
 
-https://wiki.xenproject.org/wiki/Understanding_the_Virtualization_Spectrum#PVH:
+> Commit 71020a3c0dff4 ("PCI/MSI: Use msi_add_msi_desc()") modifies
+> the logic of checking msi_attrib.can_mask, without any reason.
+>     
+> This commits restores that logic.
 
-This is also why we need a brand new solution for PCI passthrough rather 
-than piggying back on what was done on HVM in QEMU :).
+I agree, this looks like a typo in 71020a3c0dff4, but I might be
+missing something, so Thomas should take a look, and I added Jason
+since he reviewed it.
 
-Cheers,
+Since it was merged by Thomas, I'll let him take care of this, too.
+If it *is* a typo, the fix looks like v5.17 material.
 
--- 
-Julien Grall
+Before: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/pci/msi/msi.c?id=71020a3c0dff4%5E#n522
+After:  https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/pci/msi/msi.c?id=71020a3c0dff4#n520
+
+> Fixes: 71020a3c0dff4 ("PCI/MSI: Use msi_add_msi_desc()")
+> Signed-off-by: Josef Johansson <josef@oderland.se>
+> 
+> ---
+> Trying to fix a NULL BUG in the NVMe MSIX implementation I stumbled upon this code,
+> which ironically was what my last MSI patch resulted into.
+> 
+> I don't see any reason why this logic was change, nor do I have the possibility
+> to see if anything works with my patch or without, since the kernel crashes
+> in other places.
+> 
+> As such this is still untested, but as far as I can tell it should restore
+> functionality.
+> 
+> Re-sending since it was rejected by linux-pci@vger.kernel.org due to HTML contents.
+> Sorry about that.
+> 
+> CC xen-devel since it very much relates to Xen kernel (via pci_msi_ignore_mask).
+> ---
+> 
+> diff --git a/drivers/pci/msi/msi.c b/drivers/pci/msi/msi.c
+> index c19c7ca58186..146e7b9a01cc 100644
+> --- a/drivers/pci/msi/msi.c
+> +++ b/drivers/pci/msi/msi.c
+> @@ -526,7 +526,7 @@ static int msix_setup_msi_descs(struct pci_dev *dev, void __iomem *base,
+>  		desc.pci.msi_attrib.can_mask = !pci_msi_ignore_mask &&
+>  					       !desc.pci.msi_attrib.is_virtual;
+>  
+> -		if (!desc.pci.msi_attrib.can_mask) {
+> +		if (desc.pci.msi_attrib.can_mask) {
+>  			addr = pci_msix_desc_addr(&desc);
+>  			desc.pci.msix_ctrl = readl(addr + PCI_MSIX_ENTRY_VECTOR_CTRL);
+>  		}
+> 
+> --
+> 2.31.1
+> 
 
