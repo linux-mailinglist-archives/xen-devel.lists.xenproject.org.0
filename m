@@ -2,44 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D1884B2718
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Feb 2022 14:30:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.270508.464820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82D204B2738
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Feb 2022 14:33:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.270515.464832 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIVyo-0005MY-3J; Fri, 11 Feb 2022 13:28:54 +0000
+	id 1nIW39-0006ku-Lo; Fri, 11 Feb 2022 13:33:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 270508.464820; Fri, 11 Feb 2022 13:28:54 +0000
+Received: by outflank-mailman (output) from mailman id 270515.464832; Fri, 11 Feb 2022 13:33:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIVyn-0005Kj-WA; Fri, 11 Feb 2022 13:28:53 +0000
-Received: by outflank-mailman (input) for mailman id 270508;
- Fri, 11 Feb 2022 13:28:52 +0000
+	id 1nIW39-0006hw-Hq; Fri, 11 Feb 2022 13:33:23 +0000
+Received: by outflank-mailman (input) for mailman id 270515;
+ Fri, 11 Feb 2022 13:33:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hiEx=S2=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nIVym-0005Kd-3P
- for xen-devel@lists.xenproject.org; Fri, 11 Feb 2022 13:28:52 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8c66c3f2-8b3e-11ec-8f75-fffcc8bd4f1a;
- Fri, 11 Feb 2022 14:28:50 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BE59921138;
- Fri, 11 Feb 2022 13:28:49 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A676913C29;
- Fri, 11 Feb 2022 13:28:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id RgpAJ5FkBmKXDwAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 11 Feb 2022 13:28:49 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=17AN=S2=epam.com=prvs=4041139d62=oleksii_moisieiev@srs-se1.protection.inumbo.net>)
+ id 1nIW37-0006hk-Co
+ for xen-devel@lists.xenproject.org; Fri, 11 Feb 2022 13:33:21 +0000
+Received: from mx0a-0039f301.pphosted.com (mx0a-0039f301.pphosted.com
+ [148.163.133.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2c1cc74b-8b3f-11ec-8f75-fffcc8bd4f1a;
+ Fri, 11 Feb 2022 14:33:19 +0100 (CET)
+Received: from pps.filterd (m0174679.ppops.net [127.0.0.1])
+ by mx0a-0039f301.pphosted.com (8.16.1.2/8.16.1.2) with ESMTP id 21BDXHH5013770;
+ Fri, 11 Feb 2022 13:33:17 GMT
+Received: from eur03-db5-obe.outbound.protection.outlook.com
+ (mail-db5eur03lp2050.outbound.protection.outlook.com [104.47.10.50])
+ by mx0a-0039f301.pphosted.com (PPS) with ESMTPS id 3e5re2837x-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 11 Feb 2022 13:33:17 +0000
+Received: from PA4PR03MB7136.eurprd03.prod.outlook.com (2603:10a6:102:ea::23)
+ by VI1PR03MB6543.eurprd03.prod.outlook.com (2603:10a6:800:17d::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.15; Fri, 11 Feb
+ 2022 13:32:56 +0000
+Received: from PA4PR03MB7136.eurprd03.prod.outlook.com
+ ([fe80::c1c:f98:9dd:86e0]) by PA4PR03MB7136.eurprd03.prod.outlook.com
+ ([fe80::c1c:f98:9dd:86e0%6]) with mapi id 15.20.4975.015; Fri, 11 Feb 2022
+ 13:32:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,208 +53,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c66c3f2-8b3e-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1644586129; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hNFq6vRhRpF6zkQHoyRWrc1mAdIaUde+DZLA4+kxNJg=;
-	b=lnIpUUGIB6hV68imzazz6jkJsB6XqtrYE8Nxq5IQ/LdVneGqZsfqTZmoSN/1rXt5FFXrDo
-	jK64JXeE+5biqnTAWMJSDRYVJ9PN5xrgkjSkzm+IKRLbbVNnLXGQVIfpH4zu3Lcr4MUCoY
-	SU7+KDj8itG4cVY7vXOaQGsRYw1zpVw=
-Message-ID: <342456bd-9138-fd6c-3c5c-2384bbf5d98b@suse.com>
-Date: Fri, 11 Feb 2022 14:28:49 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
+X-Inumbo-ID: 2c1cc74b-8b3f-11ec-8f75-fffcc8bd4f1a
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YbXx/mdvPJ3gyIjLImoP8clYqZReC9YyLiXY1s2Xrx537W2NcIhiRFWE7x6dc+RMBkGiH04l7ADlqcI0X41QCCn47nGCnaeeGdoTFtRdy939v5TvZvi2NCTgqAQOqk4PQWyMSn2tbd8eAkecoOKBhDazN3qq9IQZfgK96O6qSYRwIVs7J8ydZ411PnTdbU+XKY8x8/Cpqmre5+Xjs8WsiT8+ztbyBkyh6xC3mD7rHZhtvjINX6ox/UUyJkWp1vlOVhir2InYyviKd4hjLPIeffoAaB87HKvyQgbcQC2+c3/m0YTg4D55YhE5i1WQdfPCs8KYJogwrA52APPgkLryig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8bomLOGTWhU73lBEobhu7KCXWLNL+7knZzPF9tfwpRg=;
+ b=MtqG4p2jj3frsnEEEwSkSg9y5D2uviRbJySuoCqtF9CkCMMoWPEYOljhs2P36w9d+tkSjeRuZxzfi1z4kPbIcM22HaEYOTlh/bHKspwh3eFzDc6MdoJH2wvtx4oCBsTcpzWaDkPG6CuWx+h4yvQRxq2m6T0vp6hEnU1sh+OYDeGUsmy0SlUF8Ebnh+XYDObiaxoR5G4DK2q4XsMoJMbSsQCOaj4D7qYWsW2LUVvW57err58AeWRzdjLZZ5Of7IG7NRXX7CVYbipVznAetH4cv1zX4yis2+rlvKDDT+vAQR7Ac27lkxyoWIAKh7RSZKopQkWZl6vnTK7IzOUr91R+LA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8bomLOGTWhU73lBEobhu7KCXWLNL+7knZzPF9tfwpRg=;
+ b=IFF5UehHMHK1p/4RDle2dvKRd4YxuyQ+/f2kC4av5BdZCNHm7xZC70Ox3pEaSvNoDvEKH4nHMh1Fk3ZSJftxV0EHERlgWxkiEae3uaWJlwuGO6WOYntFYzrDfdnY1AFqJUtq3xUfWx/HkdT/8YR4NbeDyCoolLq7G2zs9Sgqylm5s5PGkfFVRsT9Y+4SxKsn1+amJGPJLUz0xoc8av53+mxgimn9X3qL11iVGiF5r+Ypi/hi82Na4yIyUXCn6y9S3o65bEVJ1esZSS2ruMOhsj0pmf6AyZwTdwyQt8eygMl+wxWkXHpEwNzEXsFFPjMjuPmdm6wKbqH8uyCHqy1i5A==
+From: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+To: Juergen Gross <jgross@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Subject: Re: [RFC v2 1/8] xen/hypfs: support fo nested dynamic hypfs nodes
+Thread-Topic: [RFC v2 1/8] xen/hypfs: support fo nested dynamic hypfs nodes
+Thread-Index: AQHYHRW07SkrMxyT/k6/hhSCHW7RmqyMZwEAgAGeF4CAAFdXgIAAASWA
+Date: Fri, 11 Feb 2022 13:32:56 +0000
+Message-ID: <20220211133255.GA2391443@EPUAKYIW015D>
+References: <cover.1644341635.git.oleksii_moisieiev@epam.com>
+ <8ab7e9ffd5f041c2631f754c7c596874cf6a99c1.1644341635.git.oleksii_moisieiev@epam.com>
+ <74e4635d-10ad-86c4-71b1-6e46bc76a89a@suse.com>
+ <20220211081613.GA2274024@EPUAKYIW015D>
+ <342456bd-9138-fd6c-3c5c-2384bbf5d98b@suse.com>
+In-Reply-To: <342456bd-9138-fd6c-3c5c-2384bbf5d98b@suse.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <cover.1644341635.git.oleksii_moisieiev@epam.com>
- <8ab7e9ffd5f041c2631f754c7c596874cf6a99c1.1644341635.git.oleksii_moisieiev@epam.com>
- <74e4635d-10ad-86c4-71b1-6e46bc76a89a@suse.com>
- <20220211081613.GA2274024@EPUAKYIW015D>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20220211081613.GA2274024@EPUAKYIW015D>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------0mMCKmwjSgsalR0qPwrO1Et4"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0mMCKmwjSgsalR0qPwrO1Et4
-Content-Type: multipart/mixed; boundary="------------WyFgZlxqbrrgS0VOeL2DGMXM";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <342456bd-9138-fd6c-3c5c-2384bbf5d98b@suse.com>
-Subject: Re: [RFC v2 1/8] xen/hypfs: support fo nested dynamic hypfs nodes
-References: <cover.1644341635.git.oleksii_moisieiev@epam.com>
- <8ab7e9ffd5f041c2631f754c7c596874cf6a99c1.1644341635.git.oleksii_moisieiev@epam.com>
- <74e4635d-10ad-86c4-71b1-6e46bc76a89a@suse.com>
- <20220211081613.GA2274024@EPUAKYIW015D>
-In-Reply-To: <20220211081613.GA2274024@EPUAKYIW015D>
-
---------------WyFgZlxqbrrgS0VOeL2DGMXM
-Content-Type: multipart/mixed; boundary="------------Nhkl2v46yIaYBTycFiWOldcO"
-
---------------Nhkl2v46yIaYBTycFiWOldcO
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTEuMDIuMjIgMDk6MTYsIE9sZWtzaWkgTW9pc2llaWV2IHdyb3RlOg0KPiBIaSBKdWVy
-Z2VuLA0KPiANCj4gT24gVGh1LCBGZWIgMTAsIDIwMjIgYXQgMDg6MzQ6MDhBTSArMDEwMCwg
-SnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+IE9uIDA4LjAyLjIyIDE5OjAwLCBPbGVrc2lpIE1v
-aXNpZWlldiB3cm90ZToNCj4+DQo+IA0KPj4+IEFkZCBuZXcgYXBpOg0KPj4+IC0gaHlwZnNf
-cmVhZF9keW5kaXJfZW50cnkNCj4+PiAtIGh5cGZzX2dlbl9keW5kaXJfZW50cnkNCj4+PiB3
-aGljaCBhcmUgdGhlIGV4dGVuc2lvbiBvZiB0aGUgZHluYW1pYyBoeXBmcyBub2RlcyBzdXBw
-b3J0LCBwcmVzZW50ZWQgaW4NCj4+PiAwYjNiNTNiZThjZjIyNmQ5NDdhNzljMjUzNWE5ZWZi
-YjJkZDdiYzM4Lg0KPj4+IFRoaXMgYWxsb3dzIG5lc3RlZCBkeW5hbWljIG5vZGVzIHRvIGJl
-IGFkZGVkLiBBbHNvIGlucHV0IHBhcmFtZXRlciBpcw0KPj4+IGh5cGZzX2VudHJ5LCBzbyBw
-cm9wZXJ0aWVzIGNhbiBhbHNvIGJlIGdlbmVyYXRlZCBkeW5hbWljYWxseS4NCj4+Pg0KPj4+
-IEdlbmVyYXRpbmcgbWl4ZWQgbGlzdCBvZiBkaXJzIGFuZCBwcm9wZXJ0aWVzIGlzIGFsc28g
-c3VwcG9ydGVkLg0KPj4+IFNhbWUgYXMgdG8gdGhlIGR5bmFtaWMgaHlwZnMgbm9kZXMsIHRo
-aXMgaXMgYW5jaG9yZWQgaW4gcGVyY3B1IHBvaW50ZXIsDQo+Pj4gd2hpY2ggY2FuIGJlIHJl
-dHJpZXdlZCBvbiBhbnkgbGV2ZWwgb2YgdGhlIGR5bmFtaWMgZW50cmllcy4NCj4+PiBUaGlz
-IGhhbmRsZSBzaG91bGQgYmUgYWxsb2NhdGVkIG9uIGVudGVyKCkgY2FsbGJhY2sgYW5kIHJl
-bGVhc2VkIG9uDQo+Pj4gZXhpdCgpIGNhbGxiYWNrLiBXaGVuIHVzaW5nIG5lc3RlZCBkeW5h
-bWljIGRpcnMgYW5kIHByb3BlcnRpZXMgaGFuZGxlDQo+Pj4gc2hvdWxkIGJlIGFsbG9jYXRl
-ZCBvbiB0aGUgZmlyc3QgZW50ZXIoKSBjYWxsIGFuZCByZWxlYXNlZCBvbiB0aGUgbGFzdA0K
-Pj4+IGV4aXQoKSBjYWxsLg0KPj4+DQo+Pj4gU2lnbmVkLW9mZi1ieTogT2xla3NpaSBNb2lz
-aWVpZXYgPG9sZWtzaWlfbW9pc2llaWV2QGVwYW0uY29tPg0KDQouLi4NCg0KPj4+IGRpZmYg
-LS1naXQgYS94ZW4vaW5jbHVkZS94ZW4vaHlwZnMuaCBiL3hlbi9pbmNsdWRlL3hlbi9oeXBm
-cy5oDQo+Pj4gaW5kZXggZTlkNGMyNTU1Yi4uNWQyNzI4Yjk2MyAxMDA2NDQNCj4+PiAtLS0g
-YS94ZW4vaW5jbHVkZS94ZW4vaHlwZnMuaA0KPj4+ICsrKyBiL3hlbi9pbmNsdWRlL3hlbi9o
-eXBmcy5oDQo+Pj4gQEAgLTc5LDggKzc5LDggQEAgc3RydWN0IGh5cGZzX2VudHJ5X2RpciB7
-DQo+Pj4gICAgc3RydWN0IGh5cGZzX2R5bmRpcl9pZCB7DQo+Pg0KPj4gUGxlYXNlIHJlbmFt
-ZSB0byBzdHJ1Y3QgaHlwZnNfZHluZGlyLg0KPiANCj4gT2ssIHRoYW5rcy4NCj4gDQo+Pg0K
-Pj4+ICAgICAgICBzdHJ1Y3QgaHlwZnNfZW50cnlfZGlyIGRpcjsgICAgICAgICAgICAgLyog
-TW9kaWZpZWQgY29weSBvZiB0ZW1wbGF0ZS4gKi8NCj4+PiAgICAgICAgc3RydWN0IGh5cGZz
-X2Z1bmNzIGZ1bmNzOyAgICAgICAgICAgICAgIC8qIER5bmFtaWMgZnVuY3Rpb25zLiAqLw0K
-Pj4+IC0gICAgY29uc3Qgc3RydWN0IGh5cGZzX2VudHJ5X2RpciAqdGVtcGxhdGU7IC8qIFRl
-bXBsYXRlIHVzZWQuICovDQo+Pj4gLSNkZWZpbmUgSFlQRlNfRFlORElSX0lEX05BTUVMRU4g
-MTINCj4+PiArICAgIGNvbnN0IHN0cnVjdCBoeXBmc19lbnRyeSAqdGVtcGxhdGU7IC8qIFRl
-bXBsYXRlIHVzZWQuICovDQo+Pj4gKyNkZWZpbmUgSFlQRlNfRFlORElSX0lEX05BTUVMRU4g
-MzINCj4+PiAgICAgICAgY2hhciBuYW1lW0hZUEZTX0RZTkRJUl9JRF9OQU1FTEVOXTsgICAg
-IC8qIE5hbWUgb2YgaHlwZnMgZW50cnkuICovDQo+Pj4gICAgICAgIHVuc2lnbmVkIGludCBp
-ZDsgICAgICAgICAgICAgICAgICAgICAgICAvKiBOdW1lcmljYWwgaWQuICovDQo+Pg0KPj4g
-V2hhdCBhYm91dCB0aGUgZm9sbG93aW5nIGNoYW5nZSBpbnN0ZWFkOg0KPj4NCj4+IC0gICAg
-Y29uc3Qgc3RydWN0IGh5cGZzX2VudHJ5X2RpciAqdGVtcGxhdGU7IC8qIFRlbXBsYXRlIHVz
-ZWQuICovDQo+PiAtI2RlZmluZSBIWVBGU19EWU5ESVJfSURfTkFNRUxFTiAxMg0KPj4gLSAg
-ICBjaGFyIG5hbWVbSFlQRlNfRFlORElSX0lEX05BTUVMRU5dOyAgICAgLyogTmFtZSBvZiBo
-eXBmcyBlbnRyeS4gKi8NCj4+IC0NCj4+IC0gICAgdW5zaWduZWQgaW50IGlkOyAgICAgICAg
-ICAgICAgICAgICAgICAgIC8qIE51bWVyaWNhbCBpZC4gKi8NCj4+IC0gICAgdm9pZCAqZGF0
-YTsgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8qIERhdGEgYXNzb2NpYXRlZCB3aXRo
-IGlkLiAqLw0KPj4gKyAgICBjb25zdCBzdHJ1Y3QgaHlwZnNfZW50cnkgKnRlbXBsYXRlOyAg
-LyogVGVtcGxhdGUgdXNlZC4gKi8NCj4+ICsgICAgdW5pb24gew0KPj4gKyNkZWZpbmUgSFlQ
-RlNfRFlORElSX05BTUVMRU4gICAgMzINCj4+ICsgICAgICAgIGNoYXIgbmFtZVtIWVBGU19E
-WU5ESVJfTkFNRUxFTl07IC8qIE5hbWUgb2YgaHlwZnMgZW50cnkuICovDQo+PiArICAgICAg
-ICBzdHJ1Y3Qgew0KPj4gKyNkZWZpbmUgSFlQRlNfRFlORElSX0lEX05BTUVMRU4gMTINCj4+
-ICsgICAgICAgICAgICBjaGFyIG5hbWVbSFlQRlNfRFlORElSX0lEX05BTUVMRU5dOyAvKiBO
-YW1lIG9mIGlkIGVudHJ5LiAqLw0KPj4gKyAgICAgICAgICAgIHVuc2lnbmVkIGludCBpZDsg
-ICAgICAgICAgICAgICAgICAgIC8qIE51bWVyaWNhbCBpZC4gKi8NCj4+ICsgICAgICAgIH0g
-aWQ7DQo+PiArICAgIH07DQo+PiArICAgIHZvaWQqZGF0YTsgICAgICAgICAgICAgICAgICAg
-ICAgICAgIC8qIERhdGEgYXNzb2NpYXRlZCB3aXRoIGVudHJ5LiAqLw0KPj4NCj4gDQo+IEkn
-bSBub3Qgc3VyZSBJIHNlZSB0aGUgYmVuZWZpdCBmcm9tIHRoaXMgdW5pb24uIFRoZSBvbmx5
-IG9uZSBJIHNlZSBpcw0KPiB0aGF0IHN0cnVjdCBoeXBkc19keW5kaXIgd2lsbCBiZSBzbWFs
-bGVyIGJ5IHNpemVvZih1bnNpZ25lZCBpbnQpLg0KPiBDb3VsZCB5b3UgZXhwbGFpbiBwbGVh
-c2U/DQoNCk15IG1haW4gY29uY2VybiBpcyB0aGF0IGl0IGlzIG5vdCBvYnZpb3VzIHRvIGEg
-dXNlciB0aGF0IHRoZQ0KbnVtZXJpY2FsIGlkIGlzIG5lZWRlZCBvbmx5IGZvciBhIHNwZWNp
-YWwgY2FzZS4gUHV0dGluZyBpdCBpbnRvDQp0aGUgdW5pb24gbWFrZXMgdGhpcyBtdWNoIG1v
-cmUgY2xlYXIuDQoNCj4gDQo+IEFsc28gd2hhdCBkbyB5b3UgdGhpbmsgYWJvdXQgdGhlIGZv
-bGxvd2luZyBjaGFuZ2U6DQo+IC0gICAgY2hhciBuYW1lW0hZUEZTX0RZTkRJUl9JRF9OQU1F
-TEVOXTsgICAgIC8qIE5hbWUgb2YgaHlwZnMgZW50cnkuICovDQo+IC0NCj4gLSAgICB1bnNp
-Z25lZCBpbnQgaWQ7ICAgICAgICAgICAgICAgICAgICAgICAgLyogTnVtZXJpY2FsIGlkLiAq
-Lw0KPiAtICAgIHZvaWQgKmRhdGE7ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAvKiBE
-YXRhIGFzc29jaWF0ZWQgd2l0aCBpZC4gKi8NCj4gKyAgICBjaGFyIG5hbWVbSFlQRlNfRFlO
-RElSX0lEX05BTUVMRU5dOyAgICAgLyogTmFtZSBvZiBoeXBmcyBlbnRyeS4gKi8NCj4gKw0K
-PiArICAgIHVuc2lnbmVkIGludCBpZDsgICAgICAgICAgICAgICAgICAgICAgICAvKiBOdW1l
-cmljYWwgaWQuICovDQo+ICsgICAgdW5pb24gew0KPiArICAgICAgIGNvbnN0IHZvaWQgKmNv
-bnRlbnQ7DQo+ICsgICAgICAgdm9pZCAqZGF0YTsgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIC8qIERhdGEgYXNzb2NpYXRlZCB3aXRoIGlkLiAqLw0KPiArICAgIH0NCj4gVGhpcyBj
-aGFuZ2UgaXMgc2ltaWxhciB0byB0aGUgaHlwZnNfZW50cnlfbGVhZi4gSW4gdGhpcyBjYXNl
-IHdlIGNhbg0KPiBzdG9yZSBjb25zdCBwb2ludGVyIGZvciByZWFkLW9ubHkgZW50cmllcyBh
-bmQgdXNlIGRhdGEgd2hlbiB3cml0ZSBhY2Nlc3MNCj4gaXMgbmVlZGVkPw0KDQpTdXJlLCBp
-ZiB5b3UgbmVlZCB0aGF0Lg0KDQo+IA0KPiBQUzogSSB3aWxsIGFkZHJlc3MgYWxsIHlvdXIg
-Y29tbWVudHMgaW4gdjMuDQoNClRoYW5rcywNCg0KDQpKdWVyZ2VuDQo=
---------------Nhkl2v46yIaYBTycFiWOldcO
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 7c8a30ef-58ef-40fc-abbf-08d9ed63035c
+x-ms-traffictypediagnostic: VI1PR03MB6543:EE_
+x-microsoft-antispam-prvs: 
+ <VI1PR03MB6543B5D53A74A18267609508E3309@VI1PR03MB6543.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ Qv4AN/PsAQ1uHJemKkju+vD2meOAxNv38/xpkkrzqEbXhkTGZPOBbFtlBVM/19X6GJBFOYIzwTjcUCNw9DQIasuvwS8FjdZ1VDGrLzZWPWzymoLZR1fsFu4L/q5koF3AXNbAyCHI1p5SD/A/PzGfBOsF8R8c4cGJiG6oW3pf3tni7jDZ8KOlNFSKC7F3wu7+GgqdmLVsF6iV85htSsy4z9/GhXqSv65jW1P+6+92RCezswe7L3Uzdl7rDdN7GbJze4Y6BKQsv52WDvU2LSfDIHdDilnIh1mw3jpaf22H8AQSksLV641fzUEvpbo9/9aGcyiByivyH40oai6fNxtQ2arvJHm5NlI0F35LoKcqVcdErNcf7MRF9DTCVUG4z+pHDl2Vzgdo7PuJMa1XI4SDZQXNI3zWPwpMN2TLce51dyg7kk0mfayvGYWphlcXaPqyt39xnPItbyKJUX10VymPrQXGE1R/fYljNq2IpMBCSps88cXCVvIzHlxjkmjsccNFmKqHYAdyGdmpGXostO4KSKSFQCewLESO3L6k7X/oie8B2OL9bZ3K5B5hcZ18BM2aBK2T6AmueZJ/wbzftqUK8qc709wx6lcHIoGkKwDnqhGBiECiVbVTUZhKrEm/pZ8qZ6rIEG9bR3dJzxWPwI3DcVAhvD7erJgV8P30gVwsCfdQPR2/GYRVOWn4L3ujuVD7X895ngFwJXgRiMXcpcE9Qw==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR03MB7136.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(7916004)(366004)(71200400001)(86362001)(38100700002)(1076003)(38070700005)(83380400001)(6486002)(122000001)(33716001)(508600001)(33656002)(316002)(6506007)(6916009)(66476007)(186003)(2906002)(26005)(53546011)(6512007)(91956017)(9686003)(8936002)(5660300002)(8676002)(76116006)(66946007)(64756008)(66446008)(66556008)(4326008);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?us-ascii?Q?stzdXVS9BuMiS+J0YLe+VQXCsym1jGdNWewzxyCeAFs+Wx6hUznziN1z+3/D?=
+ =?us-ascii?Q?5fyX3VpMzdASgtnv4ATirxVZdtExw87qQcwXH2dvW0HImZIQrgeWYkbi/5Zk?=
+ =?us-ascii?Q?P07sBrCI7fvjCWHd3XScWXcNKCgdK447qXg36llBGohddtuiDziamuG9DN/2?=
+ =?us-ascii?Q?T842Qo3GHf0Y8KoritaywQT8460YaPx0niMKDnEvBZ5QJd3h3i0I43LSYvsM?=
+ =?us-ascii?Q?dMaRTB62f12h+I67zYMUrxs2cl1s6/FiFLrDYzKBRVuh7+rH/xong+bYqArA?=
+ =?us-ascii?Q?X+9IW7Xg8juev+0Y7HC3jHIwjM3PTcHsMuIyaLPzmWtym19X/UIjVWl3GPQl?=
+ =?us-ascii?Q?FRl4HkmQHzkexNNw681UdtaRFd5qaYrJbOBB/qkmcxyHp8HBS9ECEzEqN7m5?=
+ =?us-ascii?Q?VZ3C6r4JQSsnmezi8HLw0Y5d9LgCHsNDS28O46bHZ3kQjPXDFmq6ZL/gOBDG?=
+ =?us-ascii?Q?dRcgCZiOb30mC0B2bffMIv4PF+v87W7MezF1EePrxUq7UwAZjbp+2tEuhDTY?=
+ =?us-ascii?Q?YKOElqcgEBoUMuc6IQSE6/KCuN2rQulzdB7JhATMcuQCEb+XmpNzZ9+iXxyR?=
+ =?us-ascii?Q?IZ/qTjtBQLZ8wkw1XuPPH6a+YX92YAnbDRfFq038SXaugHPRxdyrvSL69vrV?=
+ =?us-ascii?Q?l1c+Vpu8/CF0Q5CItuizhVhF87be/HEgXIOGbb9h+QSuC2zvDJKdy4sRPJB4?=
+ =?us-ascii?Q?+lvlafvyov0UDDXOnjmjWpWBEPXDQrk0DOsLFgP6zVCqzGpW7JepQZjbgjJ8?=
+ =?us-ascii?Q?9zi3vKlP9fhDhZgbQSpzX3QcKsYonwLO74yj969UV9eq6PE4BCjibXM32VgD?=
+ =?us-ascii?Q?rrrDVCTZqWvBAGUvpnDSIQ9mORxrK0e07JPxaJC8KexSpUhTwYBpg+zVI5y5?=
+ =?us-ascii?Q?2kmL64XlHxEGQ7s7y+mlZWQhGK3de/++3qkcBYLOjJk+U6qT1VFkpoMNy1Ys?=
+ =?us-ascii?Q?g+ZL9ybnXWrI7j9fLE/K/GTfG9fVlXKUGGiZDY6c/JUsFJAMLFujTo/+1GoM?=
+ =?us-ascii?Q?3m4su9ZZ8HDfFZcukPcpXhstkFAbf8p+LZjcZiBLzrZbpzjCgyUgg+VEP8Tx?=
+ =?us-ascii?Q?/Qv7erwIyewqgwnvu53oK2z6zb829kuJv3CI4W8Q0mcM/0+IXuMhsEdsmCEm?=
+ =?us-ascii?Q?1B/WCojNXoALjp5gcRdwkfcnccy9aoJIWFQq8h/N+dJB3cnqGt3Tx2DXC/P6?=
+ =?us-ascii?Q?jf6jWor2Hn9Ov/itQIrL96e4c8hdWIEO3tMVth9vjcJqWiaJWc+N/Qlb4IUW?=
+ =?us-ascii?Q?UA79eQGEmplxL0u1uo+quTUF/0I5m0LcK7GJOW03ID9f0I31qvhRSP99tHV6?=
+ =?us-ascii?Q?oOQvNiVlVyswkc+VNyoWywDS8HFsCDRuaZPfE3PSNQQoZTqErnjp3n31WlYf?=
+ =?us-ascii?Q?hkN/AC9AxQSmEtTrigz5TR6+ZKWJ/qcb+RFyFXl8X4Eo1hxF6SJ1Qwz6VZag?=
+ =?us-ascii?Q?FOqw7sOSOFSfe516nzfv8pG9aGo54apSmKeA8gxQsYFNXmUP7JEzkz3i8f7F?=
+ =?us-ascii?Q?X+Jw6u+oZ1qGgjQZkSU6uI9YKUXDR8WjwGXXCJZqoK+f9bvmzMretFf54EBn?=
+ =?us-ascii?Q?Y1LcNLCVqmH8zvq6JFSShBTGfSKYXTYbVtv1xnoSh++rpoD9xGTEEF4VWqUu?=
+ =?us-ascii?Q?99tRS8NKSbPxMrsqV3yT8wqG1Vfg3SLbFxza0CZYLPBNVmx1oPSAr6g5T6KR?=
+ =?us-ascii?Q?lbv+Umgajpd1LvLKPvLUwB3imvI=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <2DDFFFC342B06F439F7DAD4B0BB37DD4@eurprd03.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR03MB7136.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c8a30ef-58ef-40fc-abbf-08d9ed63035c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2022 13:32:56.2961
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: z6AJUOXLvpUamu6uIzrYTbxF2RzSlJ/0Sw4VqISvJQbkdSniWhmSRrpwehatUGlEkLE28PHh2VqV7fvzwLJY7M9omSAkqV9eFnAezHFDneQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR03MB6543
+X-Proofpoint-GUID: 6JYfY-NxFT2vHv541C0IP_5VCiKL3CQ4
+X-Proofpoint-ORIG-GUID: 6JYfY-NxFT2vHv541C0IP_5VCiKL3CQ4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.816,Hydra:6.0.425,FMLib:17.11.62.513
+ definitions=2022-02-11_04,2022-02-11_01,2021-12-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 bulkscore=0 spamscore=0
+ priorityscore=1501 mlxlogscore=999 mlxscore=0 suspectscore=0
+ malwarescore=0 phishscore=0 impostorscore=0 clxscore=1015 adultscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2201110000 definitions=main-2202110076
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+On Fri, Feb 11, 2022 at 02:28:49PM +0100, Juergen Gross wrote:
+> On 11.02.22 09:16, Oleksii Moisieiev wrote:
+> > Hi Juergen,
+> >=20
+> > On Thu, Feb 10, 2022 at 08:34:08AM +0100, Juergen Gross wrote:
+> > > On 08.02.22 19:00, Oleksii Moisieiev wrote:
+> > >=20
+> >=20
+> > > > Add new api:
+> > > > - hypfs_read_dyndir_entry
+> > > > - hypfs_gen_dyndir_entry
+> > > > which are the extension of the dynamic hypfs nodes support, present=
+ed in
+> > > > 0b3b53be8cf226d947a79c2535a9efbb2dd7bc38.
+> > > > This allows nested dynamic nodes to be added. Also input parameter =
+is
+> > > > hypfs_entry, so properties can also be generated dynamically.
+> > > >=20
+> > > > Generating mixed list of dirs and properties is also supported.
+> > > > Same as to the dynamic hypfs nodes, this is anchored in percpu poin=
+ter,
+> > > > which can be retriewed on any level of the dynamic entries.
+> > > > This handle should be allocated on enter() callback and released on
+> > > > exit() callback. When using nested dynamic dirs and properties hand=
+le
+> > > > should be allocated on the first enter() call and released on the l=
+ast
+> > > > exit() call.
+> > > >=20
+> > > > Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+>=20
+> ...
+>=20
+> > > > diff --git a/xen/include/xen/hypfs.h b/xen/include/xen/hypfs.h
+> > > > index e9d4c2555b..5d2728b963 100644
+> > > > --- a/xen/include/xen/hypfs.h
+> > > > +++ b/xen/include/xen/hypfs.h
+> > > > @@ -79,8 +79,8 @@ struct hypfs_entry_dir {
+> > > >    struct hypfs_dyndir_id {
+> > >=20
+> > > Please rename to struct hypfs_dyndir.
+> >=20
+> > Ok, thanks.
+> >=20
+> > >=20
+> > > >        struct hypfs_entry_dir dir;             /* Modified copy of =
+template. */
+> > > >        struct hypfs_funcs funcs;               /* Dynamic functions=
+. */
+> > > > -    const struct hypfs_entry_dir *template; /* Template used. */
+> > > > -#define HYPFS_DYNDIR_ID_NAMELEN 12
+> > > > +    const struct hypfs_entry *template; /* Template used. */
+> > > > +#define HYPFS_DYNDIR_ID_NAMELEN 32
+> > > >        char name[HYPFS_DYNDIR_ID_NAMELEN];     /* Name of hypfs ent=
+ry. */
+> > > >        unsigned int id;                        /* Numerical id. */
+> > >=20
+> > > What about the following change instead:
+> > >=20
+> > > -    const struct hypfs_entry_dir *template; /* Template used. */
+> > > -#define HYPFS_DYNDIR_ID_NAMELEN 12
+> > > -    char name[HYPFS_DYNDIR_ID_NAMELEN];     /* Name of hypfs entry. =
+*/
+> > > -
+> > > -    unsigned int id;                        /* Numerical id. */
+> > > -    void *data;                             /* Data associated with =
+id. */
+> > > +    const struct hypfs_entry *template;  /* Template used. */
+> > > +    union {
+> > > +#define HYPFS_DYNDIR_NAMELEN    32
+> > > +        char name[HYPFS_DYNDIR_NAMELEN]; /* Name of hypfs entry. */
+> > > +        struct {
+> > > +#define HYPFS_DYNDIR_ID_NAMELEN 12
+> > > +            char name[HYPFS_DYNDIR_ID_NAMELEN]; /* Name of id entry.=
+ */
+> > > +            unsigned int id;                    /* Numerical id. */
+> > > +        } id;
+> > > +    };
+> > > +    void*data;                          /* Data associated with entr=
+y. */
+> > >=20
+> >=20
+> > I'm not sure I see the benefit from this union. The only one I see is
+> > that struct hypds_dyndir will be smaller by sizeof(unsigned int).
+> > Could you explain please?
+>=20
+> My main concern is that it is not obvious to a user that the
+> numerical id is needed only for a special case. Putting it into
+> the union makes this much more clear.
+>=20
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+This make sense. I'll make this union. Thanks.
 
---------------Nhkl2v46yIaYBTycFiWOldcO--
+> >=20
+> > Also what do you think about the following change:
+> > -    char name[HYPFS_DYNDIR_ID_NAMELEN];     /* Name of hypfs entry. */
+> > -
+> > -    unsigned int id;                        /* Numerical id. */
+> > -    void *data;                             /* Data associated with id=
+. */
+> > +    char name[HYPFS_DYNDIR_ID_NAMELEN];     /* Name of hypfs entry. */
+> > +
+> > +    unsigned int id;                        /* Numerical id. */
+> > +    union {
+> > +       const void *content;
+> > +       void *data;                             /* Data associated with=
+ id. */
+> > +    }
+> > This change is similar to the hypfs_entry_leaf. In this case we can
+> > store const pointer for read-only entries and use data when write acces=
+s
+> > is needed?
+>=20
+> Sure, if you need that.
 
---------------WyFgZlxqbrrgS0VOeL2DGMXM--
+Thanks I will do this as well.
 
---------------0mMCKmwjSgsalR0qPwrO1Et4
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+Best regards,
+Oleksii
+>=20
+> >=20
+> > PS: I will address all your comments in v3.
+>=20
+> Thanks,
+>=20
+>=20
+> Juergen
 
------BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIGZJEFAwAAAAAACgkQsN6d1ii/Ey8P
-GQf/YKOwH6a1yORXioBDg9Mk2TKzmaNUsZBX/m2346CvU6beJRnNWSn9PIKN0it2BepaqMEArs/M
-43e+v3D2OSTIgjMjLSaQge/epwGkM4WPOfaYv1j4zPwL2yQQtg12NqBNh9/dwV/Q3CyJ1GbQhLMq
-QPLrZMIkKon3Wp4q4PL2mcUGwWAT+POLIVeKKg3wdpbaLtCfLWrwrRE5evvQ44rSumbfpxFncIrj
-uJvnFCWo6jHw0LE+XsdJkfzPhISLFurKS6qIATml38VE8nV7r8WDAj5TsNcmt9jaKDPlYgK9jdaW
-fpIgSYJbFHebwxdvP0jxtoGlx16mjCoINRaNwE3lhw==
-=iDRQ
------END PGP SIGNATURE-----
 
---------------0mMCKmwjSgsalR0qPwrO1Et4--
+
 
