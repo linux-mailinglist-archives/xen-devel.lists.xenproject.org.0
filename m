@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDF374B1CA6
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Feb 2022 03:37:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.270089.464320 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24E854B1DFC
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Feb 2022 06:49:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.270146.464347 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nILo5-0001Cv-Fw; Fri, 11 Feb 2022 02:37:09 +0000
+	id 1nIOmn-0004yu-O8; Fri, 11 Feb 2022 05:48:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 270089.464320; Fri, 11 Feb 2022 02:37:09 +0000
+Received: by outflank-mailman (output) from mailman id 270146.464347; Fri, 11 Feb 2022 05:48:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nILo5-00016l-2k; Fri, 11 Feb 2022 02:37:09 +0000
-Received: by outflank-mailman (input) for mailman id 270089;
- Fri, 11 Feb 2022 02:37:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+l4G=S2=vivo.com=wangqing@srs-se1.protection.inumbo.net>)
- id 1nILkJ-00046f-6T
- for xen-devel@lists.xenproject.org; Fri, 11 Feb 2022 02:33:15 +0000
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01on2072b.outbound.protection.outlook.com
- [2a01:111:f400:feab::72b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f57e3d0c-8ae2-11ec-8f75-fffcc8bd4f1a;
- Fri, 11 Feb 2022 03:33:14 +0100 (CET)
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
- by PS1PR0601MB3705.apcprd06.prod.outlook.com (2603:1096:300:80::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Fri, 11 Feb
- 2022 02:33:11 +0000
-Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
- ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.014; Fri, 11 Feb 2022
- 02:33:10 +0000
+	id 1nIOmn-0004wo-L9; Fri, 11 Feb 2022 05:48:01 +0000
+Received: by outflank-mailman (input) for mailman id 270146;
+ Fri, 11 Feb 2022 05:48:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=r224=S2=yahoo.com=akm2tosher@srs-se1.protection.inumbo.net>)
+ id 1nIOmm-0004wi-3S
+ for xen-devel@lists.xenproject.org; Fri, 11 Feb 2022 05:48:00 +0000
+Received: from sonic301-57.consmr.mail.ne1.yahoo.com
+ (sonic301-57.consmr.mail.ne1.yahoo.com [66.163.184.226])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 29e8efed-8afe-11ec-8eb8-a37418f5ba1a;
+ Fri, 11 Feb 2022 06:47:58 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic301.consmr.mail.ne1.yahoo.com with HTTP; Fri, 11 Feb 2022 05:47:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,220 +39,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f57e3d0c-8ae2-11ec-8f75-fffcc8bd4f1a
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EzfWLT+EzT+znwPSOPxqYdnBY7QKPKT6xxh7031m/bF047AkYSygyMImdSlJl7Xk1sxpnvkh6zhz7seT2CW96QhxMJVhCqD5LV9WGERMvsE0Gna7L5M2WzS0yXlAPR7duJYN4jTiwVUSsJRlWarXn6MDRZvsxk+C9MBlJdH7vBkECxUkfAgU9ypBlSnYDUa2Swk62MZLXf1oK9+yXkxAJTP2LzqepyjlwULEKvvJFTItqrGP8TVa3Bycl+1ArBaczrzGr2vNhVM+ku2hIYZJFZ/Vg65twefXMjvVUo+OErYjB24sIvIjv4GlqtmlF5scHx/AhB1fV43+Mgfe4EMbsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZCGsYVl1Rk2DP391pMDtEyG1sAbTFMqpUMsjQddFGaQ=;
- b=OqMFox67bITNfWyykhjVy4MY+GlnCKsJQHprufDn+2ft5A0WfXVSxd0miXUo+2hqaWTv1OyjH3Yc9wCeTS4evaUftK7N1P2ytElqJHNqBPMzjo/rs9FcBL7XUFpvQoAPYytVsBHlBY/YzqtAX3j3Zfexkin7PIHh+bx4yV0dqfywBE8bBNTZVjcbSl0eIauXfGeP06P6Cj6oyySWn1iiHMbsBLngH5GdjevH+7ZUiF4qfx19fHmbNom3z0efZ5JtUHudRakEKABRCXelIUpeBbU6g48AjqhrrqreAMPceSd9/BsmryGKiH/bGcUJJ8jE5rmT67dyAoq6OeIqzoQ3mQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com;
- s=selector2-vivo0-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZCGsYVl1Rk2DP391pMDtEyG1sAbTFMqpUMsjQddFGaQ=;
- b=DqJJpqg7B6IBOs5Ucw6n44AN6YSysS3ZJS7oPEefh9yBrmUMJsgFMHhtxGGK/+tJRaE4cZBJVBz+RnUZf9pyt39no9qp39jdOhQXTJHvLEwh/SUQt/bMDEIcTE1zmQOFE0fVDdaTF7YddltOn0vCidp4vW/EEAeXfvTrSAEwJsk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-From: Qing Wang <wangqing@vivo.com>
-To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Jens Axboe <axboe@kernel.dk>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	David Airlie <airlied@linux.ie>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	"Pan, Xinhui" <Xinhui.Pan@amd.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@redhat.com>,
-	dm-devel@redhat.com,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@xs4all.nl>,
-	xen-devel@lists.xenproject.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	intel-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	amd-gfx@lists.freedesktop.org,
-	linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org
-Cc: Wang Qing <wangqing@vivo.com>
-Subject: [PATCH V2 13/13] media: vivid: use time_is_after_jiffies() instead of jiffies judgment
-Date: Thu, 10 Feb 2022 18:30:36 -0800
-Message-Id: <1644546640-23283-14-git-send-email-wangqing@vivo.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
-References: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
-Content-Type: text/plain
-X-ClientProxiedBy: HK2PR02CA0178.apcprd02.prod.outlook.com
- (2603:1096:201:21::14) To SL2PR06MB3082.apcprd06.prod.outlook.com
- (2603:1096:100:37::17)
+X-Inumbo-ID: 29e8efed-8afe-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1644558476; bh=NJUsUfy1KsoFeXHdLDpt06Pj9Ne6C/vdf87oFv7YGys=; h=Date:From:To:Cc:In-Reply-To:References:Subject:From:Subject:Reply-To; b=gOP2E5nqruk3uVj2VwEtnJt3KygDm/SJgt1ZiwAUMTrDT/4r1Ar9qIuTy5fum6elW9amPycYKfT58V6Zax0jIA14cag4Gv8+udDU2U0760sZnNFRHuw7tmCH141kjtWMReuZ/EBDw2SWB98NP62BUxBemfr8rlw/EGEyeRJ8WuxuFZrDpWaEqg3csi/qFJ3GzMnTwGJGCqsdeIKm+HDe+j5UZdlLW6dSRRnb00qSMI7jjpRTvPHMKGDfgmdpB1Zy40Mr/Pyr/J37xxgKFCyWA0XmBl8NreqMJ12oOoPQBwVBS7neg/5LZ2zGfmuYnvC3Fzy7yzUl0T/940ue7gkRGg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1644558476; bh=DKo1hy9Kzmup31vQEJ8THfXnIQUNSLLt07GgSVPRMxO=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=HR+t9pgFCzrY/VaAJALzNzBPIA8VTSp43MHLTdyA9+BzWCEQxwIe+GWNctIXUPt9/AlGzu9A62ts+4pXKsjjy3I6SgbZDNoybdNy9UOW2qgxZOTj52Y8qrVY7B3WcvVUaiOsFQAmVkpOwNVvgbyhbyK1VqtYa0BdEqZ00oNAZry0HgS0H0saOGY1BuluCpZoP/ng/Rs4WVdT9Z8vTlv87ANFPbvOVRhEV3dBWlXajlrUI3YgAUue8QOIYdE+b+YGM2Ke7YRdd+piN/xnfcFJhCi4daALomb/yndZBMj0ICH7BSDii6tFp4CvbGdAMCBG0hrkG4IHAXJqKkdlVuwQBg==
+X-YMail-OSG: XZwBRokVM1mz1CW9dEJH5.UZsx2gipk3lw9Nd_KfBiexxJk9NN7GtUsdIgeblS3
+ LKgTTQISh7RKFmM20y.cddZUtSCgTS0MopU7IizU_WuyfeKN2xELwXnvI7ubcNKMvUGdy1yWbhtp
+ NoPfxLrNFJayvXPYAGDNQXz95zkDcrIYyMbD8fsFGaBSHeLsifC30kO4c5qrDL9Jk5z9A8UxKqNM
+ FcZbFGmuXvsGmjU.q1NtPWPWhrqVGUwOpWWqt3I.x30TEZJzBVjkvPo95Ac61faCqDGqRtaE9CFe
+ Tl0_px5SHhdamH4pPOoxpR2Op_SwIg5t_CIUYi5EkGTDTxAaAX8Iz6DQF1heWeKjfAVXBqOBsrvN
+ I8W4Z5hrteUwQLX1C3j9F44dGW44aCsKblKAPW9QLMeZkdad1g11_3IFWDHLCbgwDAaq2BWH2rO_
+ YGvkn0LFTKkxhbEFdgG9981rg_eB91TQr4u27rf.hpM5SH86vEJe7XPWrVgEtkxTWW3r7.b9oW6Y
+ Zz8Ema.Uz_rMV8aCl7O0CEL15WXm6OPgWST2JjXIEIKJOQdoQf3x6dZRVP1rfjnOfWoGhNcOkJwD
+ iWBfPON9UD1BWohbMCuCXHP052Kdhf4_p.gXSLlRHXjfpdkeDIfi1nxtM4whqYDIHVWLBmL9SjKu
+ 2eJyy.afrzlheUE2yBs7PSPq_o5goF3QbaSx5beiurpG59gEGYnd1LTC22ch32SAjJ0Gb3kOrDaH
+ sDTMuAy2cZ6gbp5CSNACn0vPHi6BOyV5LbOKrFtZ1qxXebq40Jx15LA.Dmi.8uN4Ur5DFfWW.YZO
+ B0gn9MUJaDcO4L.N5g98YGUXfZ.Z9nEufFNbG0N0eODSL2HE3wo8wJ_nixTzLYWh66najArnm7DG
+ WH323maAJXk2wR10STP960FmOcMiFIQnl99pabtYDpFcVyCq1khKP2bUnXG4RqjaII_7MKlVrNdv
+ PQRbK_wkeIYHCB6VLdWDROhf0258BWbaJUvuAnm5MamqkSbI.d6cQqmh3Mh4IAYcdevbTj3Ghyeh
+ rTfQSYtwR2LKHZo1WJ8PewbVIOCSZA5fBxtDeqMm3qXKfFKnu.gaAMbpyyv7brR9L7olDIt19Fg2
+ MMWJFMTuwobd3QoOniknxkvKLcR7v9QFQ_VUk8aq.5a1rCtdPJZW0OBntNkRHblDcaksRuEXEhFo
+ ZE09Pz4Iv_lMx_aZzNR68sdcJpASZT_Bg4RXDq8XPgL7ywS4nj0sSP0bLhMpWedMjQd.sClcYlK0
+ RrwMOY7QNBICmZLMr9yDIen9VBHjsu_CnXrWLXRVXvIvDYQV8q1PVWOByhn6jxmHDxmQQbGQKPxv
+ GHuvgE8IKCVAzRyLW.tOm90R52DenGctJvnR1FmgRuIYWRnOVUT21sY0HHxhFqRIKdnMEJS9.l3x
+ 6snsuEH7yfOwQCT4e6HzShrANmQGpn3_eBXxTaJmAkUu8Yeb_6dmgE.tK_eDzPeodjj_3Z3WJH1M
+ 6IlM7k9GA2.i3ZTzldxNUr3ELHAuoqV8PYeO7clC.Ju_6eKuOJVwmu14HqK6lf0GlH.sQBdxkmHh
+ ZAYUP.0ivpJb1XaQZfwjp9zK6aCzd63jU.vyjOhlDhylFWt_i91.sOlicfNJcKkdhL3j_MTdknm8
+ LbQjUES6nPWy1SzdQR74Sn28VFBVuIhvhiIyeIdkWp2k1swe1kpcCYGfUC4SNHHNqvFZuS3FiPRi
+ Jq7SD6d7GBR5n92X_JbuXHwI.UwtpQiuvvC1U6yZA6wvmHkuqv1x.Eb9UCHOyGE0OOu0uVDgs5Ng
+ 1YqpeUu1A29UXbNbJSp_Bc_bTSzREULPUckUlqz1pGTbNkfU4E07Pd_uAODCcP2qoTjeCfR8Kq1F
+ Vv5mZGbXeDGPJUAyp7ms54gdu9Hxz7wkCyy47vmwcH1WEMnWiAsGg.1TK6qQgL02c4NEwQOKXTc9
+ 8KbJC.Nm06UAobbQSEPoMjKhoSOfBIAJ0uenQwrbK_4RmVyC9UH_Au8X0PITHeo7FGCiTn54UuTY
+ ICYE5yu7Ai_0m3gCgo5g_sT4B2.MSiXs.1hqiEfSOJO4g_zDCzGWJjAelUiDH073TJI9t8eTURgg
+ 3G7TbZkYM68Ctq9I6kgvNVc2FTYav5hhVJVv7VjPTK.8y0EQ1umPdN3b17PimGr7Eu2nHSAhgcV7
+ USEmhsivHFbrbt83hNHDYO1T9enZwybRvl3DuHeDi3mZxUS8ELWfAnb4AA1EnIuDymVzeXosDRpf
+ kNDoero_x6hp_9LrTioRmaX33gok7vjyrQYvPVa0HYQeg
+X-Sonic-MF: <akm2tosher@yahoo.com>
+Date: Fri, 11 Feb 2022 05:45:55 +0000 (UTC)
+From: tosher 1 <akm2tosher@yahoo.com>
+To: Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Julien Grall <julien@xen.org>
+Cc: Jan Beulich <jbeulich@suse.com>, 
+	"roger.pau@citrix.com" <roger.pau@citrix.com>, 
+	"xadimgnik@gmail.com" <xadimgnik@gmail.com>, 
+	"oleksandr_andrushchenko@epam.com" <oleksandr_andrushchenko@epam.com>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <181735623.1079390.1644558355560@mail.yahoo.com>
+In-Reply-To: <8706c283-80c0-5fea-2834-1bf574e75470@xen.org>
+References: <709142925.628001.1644127197288.ref@mail.yahoo.com> <709142925.628001.1644127197288@mail.yahoo.com> <0e64c52c-1e9c-e89b-abb8-50171d885926@suse.com> <303292590.682317.1644477758255@mail.yahoo.com> <2CDAD7A1-A628-4491-9DE0-1F4D5D9FF1A7@arm.com> <8706c283-80c0-5fea-2834-1bf574e75470@xen.org>
+Subject: Re: PCI passthrough support for PVH mode
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6ecfda2a-ef55-44e3-464c-08d9ed06d858
-X-MS-TrafficTypeDiagnostic: PS1PR0601MB3705:EE_
-X-Microsoft-Antispam-PRVS:
-	<PS1PR0601MB37053AFD614E2C1FEAFBD6BABD309@PS1PR0601MB3705.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1107;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	gET8Awy8O3rfEJ2KEFZxWC/slmqXyDgtNj99XlkJW1GWzk84hR/TRK5gKO+GMjL72JwFI6j44TQUDhyT7fJawFzngVXOjZNW+FCCe3vSeBoo9xJOKgQxhSWjwsNyPnsN5QtAphPEQowiinJNUfJGXO4YlIGTyoyPK47tqB7e1ELN/au+VZg2KiVmmdlujxOKh/svgY0Btkt3E1EU9XAaEB/fDl1iFeRBWsyOehLabAOAzB+QTpaJiwz7tTdFl1zm2hEOus6Fm0fQfZvqk7e0K3FB0ES4SOOasvK/MidWtWFzOusgZm2g8OODEW2qChgbIg2e82TJhCANYnYxOzi8e9bEKklSRDc45QifSPZODJHCPBiccXPEwJBMtlg27FzB4C/7N9kSCGDwpu8iJx+Azt+wOrawMWlEco+uFtBmgGZCXWpereILX4Rc2jc7V2AGuLNNTs+gOjMB0zGeJEI9X4q4Qq2u181f0/uja1Bfc4bWCt2sagAz/YMuFQU0PyrnOEIrjC+Dip5zndrETRa7qjBq9QY0yRNQrCZX/j8PyOMfxzDS+WLZNHCFxbFearaLwLx0F0UZUycs9wkTmVmTzZPKD3zwVN6eFYLH3eo+zHNWxp5IEa8sxVkNxTP5j1EaArvagxtVMxLVnAleAObs8ibPNXRtibSSfBbfbrNrXK+43VI5q+1mUQsllCh8Oyviqwm46moiYKGuo49/PM7F2RgyY1Echn1GhCN32kJi9/4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2PR06MB3082.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(186003)(2906002)(7416002)(66946007)(316002)(36756003)(2616005)(107886003)(26005)(921005)(7406005)(110136005)(5660300002)(83380400001)(6486002)(6512007)(6506007)(66556008)(86362001)(6666004)(508600001)(4326008)(52116002)(8676002)(8936002)(66476007)(38100700002)(38350700002)(21314003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?anxVmQzQteJnVybznqZkGfIiz7nVC4C/C1I0BoUPZOiTIogrlkXJQfPjamKT?=
- =?us-ascii?Q?oJ/GBiaYBt42qmKppqJRYlI6K8e8oDSseJKFoNBR04iv6/fm+Lx7GWQvRPd2?=
- =?us-ascii?Q?oa1twpXDMI4qvuvmPwZAkhoKDxF0B174B/eCGvcrZb7MuG3t4wRSryhy++4e?=
- =?us-ascii?Q?x1neH6Wqoj90ulCVvy5lZyrMXkQgTs3QUhg3tOd5nh+d/+3M0Ry0g23wvfNp?=
- =?us-ascii?Q?XjL+GSbFdHDYkdh8FY8WD+0jdtn5kt+zr6DoklFBlihTRmOPDsmAV5lF7ysL?=
- =?us-ascii?Q?7Ot3qkCxkgN6pm8DFreYAQqEpBVcHa9nG/CgeRF7kuwCG4Qp5zSCWpkvAilj?=
- =?us-ascii?Q?+BRyPmamsXHVBCD8KgKSCNvrjxsPNqNfqIOuYlhdCcma00ieIvNk0ZZrkVhg?=
- =?us-ascii?Q?1i6VM7n+qZA599hn/GshE8jQdY3SQ476lJakG6ATJeBo8ph1RCyYfr5vtgx+?=
- =?us-ascii?Q?DuYyutc5Cl7ZbdkYiK0/YjkgOrS6Q91fRSA9ffUTob6enZ3DAwORawFIBL5t?=
- =?us-ascii?Q?CEOPBiHPL4rCujB6wstavCGEUdUniEda70+r8aqtK5YaTkpMa3f/VGGjqYhO?=
- =?us-ascii?Q?RqXiFumiP4zSdqZJULVM5uUUXbVs3ezbCsUaJioSKn0ebUP3bUDyGqPscVKs?=
- =?us-ascii?Q?6SPTJAgp3JhddiZzHFnHbyYlEKO+tPqeIOtQpu/N+JJP+mSJK2CfocrN5A9C?=
- =?us-ascii?Q?H7W35Ydlo5Y7iBCSUa+YM5eGX2PovUV/g5+TJbrVyS1O1VS11FZgsI1ooqiN?=
- =?us-ascii?Q?eY5fqBMZ3IgzHqvBoueLUSCZpUWkoulRF40IN9THC9O2FL4yTz7kJmH6u8DB?=
- =?us-ascii?Q?p4ueZ8ZPfFfUfaser2NE4V2AvtLieom2/4HHb/esIgPzqSNcHy1SMH6Yqu9T?=
- =?us-ascii?Q?ij/kDCVsMQa5ahFGZJicU5qFtwtSDpUMyNkPvUbdMMZkzihwrke1FXD0O1CL?=
- =?us-ascii?Q?LYKOaHRAOc6DGdNZYRTpoNLq047VAMxzRkOHIUUoE5Jq3J9kmtbV+Kk4CVcR?=
- =?us-ascii?Q?/3gPFKfERJ7n2uREHPAqYxq3sjDcxmdPW44xPZKbTq3uE4N4/Z49lO1lzrOE?=
- =?us-ascii?Q?v2a8odAA5+otNk+qAlk0ccQsoMkk3BcwFDNFk7QlIT1UoIrbNhOG3VtEm7hl?=
- =?us-ascii?Q?zI39hCe8/Ebnw4vX6HLRt3KMgLqyCGknQn29QpQgZ/ARx6BCJ19zTEqGeH1F?=
- =?us-ascii?Q?5ocRmCkZMyI8Ke+F6qMylorIcRz6b7721btXextPwLRRMozloFGWmLc5aIb+?=
- =?us-ascii?Q?tMEY/1vMG+D9DmH+eZtYThlQbHn4BQKkZma7/miULWcqc63kQT+hLwhUnj7j?=
- =?us-ascii?Q?v6zcGFy4bbaInAjgb6eoy+3rBMdrA2zJ4VFYdL0zd3z3WxD2sJLfKF35kjEq?=
- =?us-ascii?Q?7wHXFUNq+jRihuVEe2vuTsqTtBwuCDKQW7XklkcaKQ9CZSWh9mt3h7a/jtOu?=
- =?us-ascii?Q?Kg3nYMr0455m7f3VUWVteWlS9A0gtaublibFTjEYc3sGv+xoITeJoQ7Uw+Kw?=
- =?us-ascii?Q?2lWQAREqiQ9wixIO7ywDetYMx7LpB1JoZnJb4gGVHx2QqQPp3bPkXezFKtUq?=
- =?us-ascii?Q?x8GzjbGPH9PpYHBeIIpgbkb8mAtjfKBVfNE8KrxHotMy2YXr+er6qy9SCFw8?=
- =?us-ascii?Q?zXNvEoji+nBbytiph8ID4VM=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ecfda2a-ef55-44e3-464c-08d9ed06d858
-X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 02:33:10.8323
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +8mJtO29nBoysTeez6egaCcwz1EVAAOfzUIKKBW62z5C2FaTL3wFUrZi2JsNpYWrBJ5be6JEHEfDI/DMXA3DLw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PR0601MB3705
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: WebService/1.1.19724 YMailNorrin
 
-From: Wang Qing <wangqing@vivo.com>
+Hi Julien,
 
-It is better to use time_xxx() directly instead of jiffies judgment
-for understanding.
+Thanks for the clarification!
 
-Signed-off-by: Wang Qing <wangqing@vivo.com>
----
- drivers/media/test-drivers/vivid/vivid-kthread-cap.c   | 3 ++-
- drivers/media/test-drivers/vivid/vivid-kthread-out.c   | 3 ++-
- drivers/media/test-drivers/vivid/vivid-kthread-touch.c | 3 ++-
- drivers/media/test-drivers/vivid/vivid-sdr-cap.c       | 3 ++-
- 4 files changed, 8 insertions(+), 4 deletions(-)
+Regrads,
+Mehrab
 
-diff --git a/drivers/media/test-drivers/vivid/vivid-kthread-cap.c b/drivers/media/test-drivers/vivid/vivid-kthread-cap.c
-index 6baa046..295f4a3
---- a/drivers/media/test-drivers/vivid/vivid-kthread-cap.c
-+++ b/drivers/media/test-drivers/vivid/vivid-kthread-cap.c
-@@ -18,6 +18,7 @@
- #include <linux/freezer.h>
- #include <linux/random.h>
- #include <linux/v4l2-dv-timings.h>
-+#include <linux/jiffies.h>
- #include <asm/div64.h>
- #include <media/videobuf2-vmalloc.h>
- #include <media/v4l2-dv-timings.h>
-@@ -893,7 +894,7 @@ static int vivid_thread_vid_cap(void *data)
- 			next_jiffies_since_start = jiffies_since_start;
- 
- 		wait_jiffies = next_jiffies_since_start - jiffies_since_start;
--		while (jiffies - cur_jiffies < wait_jiffies &&
-+		while (time_is_after_jiffies(cur_jiffies + wait_jiffies) &&
- 		       !kthread_should_stop())
- 			schedule();
- 	}
-diff --git a/drivers/media/test-drivers/vivid/vivid-kthread-out.c b/drivers/media/test-drivers/vivid/vivid-kthread-out.c
-index b6d4316..13f737e
---- a/drivers/media/test-drivers/vivid/vivid-kthread-out.c
-+++ b/drivers/media/test-drivers/vivid/vivid-kthread-out.c
-@@ -18,6 +18,7 @@
- #include <linux/freezer.h>
- #include <linux/random.h>
- #include <linux/v4l2-dv-timings.h>
-+#include <linux/jiffies.h>
- #include <asm/div64.h>
- #include <media/videobuf2-vmalloc.h>
- #include <media/v4l2-dv-timings.h>
-@@ -234,7 +235,7 @@ static int vivid_thread_vid_out(void *data)
- 			next_jiffies_since_start = jiffies_since_start;
- 
- 		wait_jiffies = next_jiffies_since_start - jiffies_since_start;
--		while (jiffies - cur_jiffies < wait_jiffies &&
-+		while (time_is_after_jiffies(cur_jiffies + wait_jiffies) &&
- 		       !kthread_should_stop())
- 			schedule();
- 	}
-diff --git a/drivers/media/test-drivers/vivid/vivid-kthread-touch.c b/drivers/media/test-drivers/vivid/vivid-kthread-touch.c
-index f065faae..8828243
---- a/drivers/media/test-drivers/vivid/vivid-kthread-touch.c
-+++ b/drivers/media/test-drivers/vivid/vivid-kthread-touch.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include <linux/freezer.h>
-+#include <linux/jiffies.h>
- #include "vivid-core.h"
- #include "vivid-kthread-touch.h"
- #include "vivid-touch-cap.h"
-@@ -134,7 +135,7 @@ static int vivid_thread_touch_cap(void *data)
- 			next_jiffies_since_start = jiffies_since_start;
- 
- 		wait_jiffies = next_jiffies_since_start - jiffies_since_start;
--		while (jiffies - cur_jiffies < wait_jiffies &&
-+		while (time_is_after_jiffies(cur_jiffies + wait_jiffies) &&
- 		       !kthread_should_stop())
- 			schedule();
- 	}
-diff --git a/drivers/media/test-drivers/vivid/vivid-sdr-cap.c b/drivers/media/test-drivers/vivid/vivid-sdr-cap.c
-index 59fd508..f82856b
---- a/drivers/media/test-drivers/vivid/vivid-sdr-cap.c
-+++ b/drivers/media/test-drivers/vivid/vivid-sdr-cap.c
-@@ -17,6 +17,7 @@
- #include <media/v4l2-event.h>
- #include <media/v4l2-dv-timings.h>
- #include <linux/fixp-arith.h>
-+#include <linux/jiffies.h>
- 
- #include "vivid-core.h"
- #include "vivid-ctrls.h"
-@@ -205,7 +206,7 @@ static int vivid_thread_sdr_cap(void *data)
- 			next_jiffies_since_start = jiffies_since_start;
- 
- 		wait_jiffies = next_jiffies_since_start - jiffies_since_start;
--		while (jiffies - cur_jiffies < wait_jiffies &&
-+		while (time_is_after_jiffies(cur_jiffies + wait_jiffies) &&
- 		       !kthread_should_stop())
- 			schedule();
- 	}
+
+
+
+
+
+On Thursday, February 10, 2022, 06:12:53 PM EST, Julien Grall <julien@xen.org> wrote: 
+
+
+
+
+
+Hi Bertrand,
+
+On 10/02/2022 08:32, Bertrand Marquis wrote:
+>> On 10 Feb 2022, at 07:22, tosher 1 <akm2tosher@yahoo.com> wrote:
+>>
+>> Hi Jan,
+>>
+>> Thanks for letting me know this status.
+>>
+>> I am wondering if PCI passthrough is at least available in Arm for other virtualization modes like PV, HVM, or PVHVM. For example, is it possible for someone to attach a PCI device to a guest domain on an Arm machine and use that domain as a driver domain, like we can do with the Xen on x86?
+> 
+> On arm there is only one virtualization mode which is equivalent to x86 HVM.
+
+
+I would like to correct this. Arm guests are more equivalent to x86 PVH 
+than HVM. For more details, see:
+
+https://wiki.xenproject.org/wiki/Understanding_the_Virtualization_Spectrum#PVH:
+
+This is also why we need a brand new solution for PCI passthrough rather 
+than piggying back on what was done on HVM in QEMU :).
+
+Cheers,
+
 -- 
-2.7.4
+Julien Grall
 
 
