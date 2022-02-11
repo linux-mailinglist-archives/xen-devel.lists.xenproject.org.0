@@ -2,35 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21EB34B312C
-	for <lists+xen-devel@lfdr.de>; Sat, 12 Feb 2022 00:17:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.270665.464989 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62FAD4B314F
+	for <lists+xen-devel@lfdr.de>; Sat, 12 Feb 2022 00:35:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.270678.465000 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIf8a-0007YJ-7c; Fri, 11 Feb 2022 23:15:36 +0000
+	id 1nIfRG-0001XL-1N; Fri, 11 Feb 2022 23:34:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 270665.464989; Fri, 11 Feb 2022 23:15:36 +0000
+Received: by outflank-mailman (output) from mailman id 270678.465000; Fri, 11 Feb 2022 23:34:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIf8a-0007WT-3l; Fri, 11 Feb 2022 23:15:36 +0000
-Received: by outflank-mailman (input) for mailman id 270665;
- Fri, 11 Feb 2022 23:15:34 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nIf8Y-0007WJ-0l; Fri, 11 Feb 2022 23:15:34 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nIf8X-0002lU-Th; Fri, 11 Feb 2022 23:15:33 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nIf8X-0007vk-Cd; Fri, 11 Feb 2022 23:15:33 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nIf8X-000652-B1; Fri, 11 Feb 2022 23:15:33 +0000
+	id 1nIfRF-0001UJ-UL; Fri, 11 Feb 2022 23:34:53 +0000
+Received: by outflank-mailman (input) for mailman id 270678;
+ Fri, 11 Feb 2022 23:34:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=u2lR=S2=xilinx.com=stefanos@srs-se1.protection.inumbo.net>)
+ id 1nIfRE-0001UC-7L
+ for xen-devel@lists.xenproject.org; Fri, 11 Feb 2022 23:34:52 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20603.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::603])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 349f76e6-8b93-11ec-8eb8-a37418f5ba1a;
+ Sat, 12 Feb 2022 00:34:50 +0100 (CET)
+Received: from SA0PR11CA0028.namprd11.prod.outlook.com (2603:10b6:806:d3::33)
+ by PH0PR02MB8763.namprd02.prod.outlook.com (2603:10b6:510:f0::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Fri, 11 Feb
+ 2022 23:34:45 +0000
+Received: from SN1NAM02FT0042.eop-nam02.prod.protection.outlook.com
+ (2603:10b6:806:d3:cafe::45) by SA0PR11CA0028.outlook.office365.com
+ (2603:10b6:806:d3::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.15 via Frontend
+ Transport; Fri, 11 Feb 2022 23:34:45 +0000
+Received: from xsj-pvapexch02.xlnx.xilinx.com (149.199.62.198) by
+ SN1NAM02FT0042.mail.protection.outlook.com (10.97.4.129) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 23:34:44 +0000
+Received: from xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) by
+ xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2176.14; Fri, 11 Feb 2022 15:34:43 -0800
+Received: from smtp.xilinx.com (172.19.127.95) by
+ xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server id
+ 15.1.2176.14 via Frontend Transport; Fri, 11 Feb 2022 15:34:43 -0800
+Received: from [10.23.120.145] (port=64944 helo=ubuntu-20.04.2-arm64.shared)
+ by smtp.xilinx.com with esmtp (Exim 4.90)
+ (envelope-from <stefano.stabellini@xilinx.com>)
+ id 1nIfR5-0006V2-Oj; Fri, 11 Feb 2022 15:34:43 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,394 +63,209 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=XyIEuoNYzh9Gc+rMZWeTGgv4VhHMuOkJkpATNIX7NFM=; b=1GmE6DbVXtu97OjZPBzalY7TJ7
-	StrO2Zy/X5tNAVxcBk4WDeQ9ePbVgzvDoIee0CIL97uyUbct04knMPFw9LwMpaA8UbC9yRuSp/YsY
-	wdNIbJidBwktEPP/MG9tXWAUCHLilh0ksWKqq8orU9O17kemjLKYUaqE8PIYs8kNhPQc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168085-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 349f76e6-8b93-11ec-8eb8-a37418f5ba1a
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JNmrGS0gijoKvcXHFqQjw2hZ117r0PVLPNBQJKSrfORbHYLlc+n7FfVhVVzPBTFBpvrsdS9qbmayY4/V49At/HCPDkFBqWysebSAtysYWUOofqUeGTf4NEYTLv1QFIOQHd//BRIAj+MOA9hGucSd8dpNTTv7uQwhsBnDgPRDxNyAjj0xaRQjfUiE6qVEmMaTy6aFSNHYLAtolUXN61Unz0LHuZXY7vLXc1PfWSSmkaV1vwubXP6mbkh3bU74qevVWlTa20SaA1VkGFEIdR9MlbHHDT9Q4krdHKVKrABl/8hK5SnVOw7czmjuFybBhBKVzQXx+HiuBH9mM3MQJFGz/g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cvFQN9JienQG+muiB2OfHI1+NPX3aY65DQpnak25QD0=;
+ b=F5WT0h5+K4/nxbtw+/aTdszAZKjDdeA+FggSPVdBrijXbEeEpbyKRDnlhehpT+SB/DbjqDIjIATVInc2DlQxETNzq11g/fnGfqW/5m9aK5tjKP1kam1F1dE5Uo2koIR/es9AFNW5vFclSvP4bzN/UDUaHP1UWB87ykNm8fIiL/bef52LxfznbhuFyuEsGXKiKNiNsip8nrH78oFTDEymGSBDW+c6e/c8SVOPSDyo5BuQ4gZYo7N5ej+a6bIa3vyogAuNv57o4cz593iARl2S/1LYiRzgOY6tlC9SXM8WIMxlB9IBtcVp9jVYJnZRbZpEJ+0cgWoqzXGg7TYQnkQAjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 149.199.62.198) smtp.rcpttodomain=linaro.org smtp.mailfrom=xilinx.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=xilinx.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cvFQN9JienQG+muiB2OfHI1+NPX3aY65DQpnak25QD0=;
+ b=sGiuY9Wx0b5jlZ+7uo6vmActZ004eUv3LiRMHdXVf6iDhjdd0eO/XZZ/f9ZcILikGmoS0KyqWTpJSHpNXFshVqSfBpCgsQY7NvjYHo7J6Qm8GaWObgU9+qDhnoV+XC/HLJvYPVmiNy6TLLEPIlkqHAgaaA5mRN27+165bPsG3eA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.62.198)
+ smtp.mailfrom=xilinx.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=xilinx.com;
+Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
+ 149.199.62.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=149.199.62.198; helo=xsj-pvapexch02.xlnx.xilinx.com;
+Date: Fri, 11 Feb 2022 15:34:43 -0800
+From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+CC: Stefano Stabellini <stefano.stabellini@xilinx.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>, <stratos-dev@op-lists.linaro.org>,
+	<xen-devel@lists.xenproject.org>, AKASHI Takahiro
+	<takahiro.akashi@linaro.org>, Arnd Bergmann <arnd.bergmann@linaro.org>,
+	Christopher Clark <christopher.w.clark@gmail.com>, Dmytro Firsov
+	<dmytro_firsov@epam.com>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, <Oleksandr_Tyshchenko@epam.com>,
+	<Artem_Mygaiev@epam.com>, <bertrand.marquis@arm.com>, <Wei.Chen@arm.com>,
+	<Ed.Doxat@arm.com>, <Oleksii_Moisieiev@epam.com>
+Subject: Re: Metadata and signalling channels for Zephyr virtio-backends on
+ Xen
+In-Reply-To: <87k0e1cl9z.fsf@linaro.org>
+Message-ID: <alpine.DEB.2.22.394.2202111445290.2091381@ubuntu-linux-20-04-desktop>
+References: <87h79bgd1m.fsf@linaro.org> <alpine.DEB.2.22.394.2202071419270.2091381@ubuntu-linux-20-04-desktop> <87k0e1cl9z.fsf@linaro.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 168085: trouble: blocked/broken/fail/pass
-X-Osstest-Failures:
-    linux-5.4:build-arm64:<job status>:broken:regression
-    linux-5.4:build-arm64-pvops:<job status>:broken:regression
-    linux-5.4:build-arm64-xsm:<job status>:broken:regression
-    linux-5.4:build-arm64-pvops:host-install(4):broken:regression
-    linux-5.4:build-arm64-xsm:host-install(4):broken:regression
-    linux-5.4:build-arm64:host-install(4):broken:regression
-    linux-5.4:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:heisenbug
-    linux-5.4:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    linux-5.4:build-arm64-libvirt:build-check(1):blocked:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=52871671099d1bb3fca5ed076029e4b937bfc053
-X-Osstest-Versions-That:
-    linux=76fd334f07cc11e047c2237a19b2cf8b1f653ba2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 11 Feb 2022 23:15:33 +0000
+Content-Type: multipart/mixed;
+	boundary="8323329-1747806176-1644620554=:2091381"
+Content-ID: <alpine.DEB.2.22.394.2202111502360.2091381@ubuntu-linux-20-04-desktop>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 72b68da3-503f-4211-6362-08d9edb715b7
+X-MS-TrafficTypeDiagnostic: PH0PR02MB8763:EE_
+X-Microsoft-Antispam-PRVS:
+	<PH0PR02MB8763FCACB86D7A36F79FBB74A0309@PH0PR02MB8763.namprd02.prod.outlook.com>
+X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	si7BCVIg49xhfZRZO/pWSSF4QJdwyHvHR+690P1YfEAqp6bjPKYjiuEyzI9OjgsAVl1/82NqnB17XCrpPOm++qrqAdn3WkVy8l4KYkQjXFB8clg57BEFed7gMsehQ1RsWlI06nlU+Azs9nzbuosWW4kN5QwsNc1lXrPkQUp1WQDLq1pfv+xZEhosEP3rOrxosiWm60r4s/8vEXa9Cw2RQy3HEGvUZn1tBIKtloCQSIjvdmgpNe1ckUNgKiO45DH3IbbB6+xnvgUGwkGp+Rl8Fc5ny+ckG+aIkAaGvd6FwIdHFeuLCumz4y7FpipMlvMoOqoSnlDauX8f42+8Jn5GaOiExbxDXR/2hBeoTYDl0YTgSd+3+DDH04yrFpG+Wu6TYKUZFpFmgxSrQkGKy30/8kPlKy6oJXaIjc9L83Sgm2ASOEw2mQ2y4Madami1wDvCLqrqfkchLgt65RmZjCu/xWOC4XPEjIVyQ4qoNfHtINU6Kk+rlsThQYZsIUKB0i9wSC8Xf17+Wx+YQqs4o69v30y7SeUm6tzXqdjc+E6CLjGOpjU9zJqZlQAKY+w2pWQsM4mJRlY20YhoaL8i5rXE5DcExCvIc/GhkCiFzhMu1IlTR3THvyDWjwfPXQXEplhqj+YgNI3jjlFLIcBp3llOLe7zjpdIU31+nJknr0q8rw+N/vOE6+D1kFsyAoVVQD0nXUOykSIXMUSqhXkJvspyrzLKUokw6b/BISKLzgfLiCqgbGZt88BVJrKmjZixyzciEP17ZK/XZBQKE3To67jJ5vP+U7TW4apXiO3x7ozEk+I=
+X-Forefront-Antispam-Report:
+	CIP:149.199.62.198;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapexch02.xlnx.xilinx.com;PTR:unknown-62-198.xilinx.com;CAT:NONE;SFS:(13230001)(7916004)(4636009)(36840700001)(40470700004)(46966006)(66574015)(356005)(26005)(186003)(40460700003)(47076005)(5660300002)(2906002)(33716001)(9786002)(44832011)(7416002)(33964004)(8936002)(4326008)(82310400004)(6916009)(70206006)(316002)(54906003)(966005)(9686003)(508600001)(8676002)(83380400001)(426003)(336012)(7636003)(36860700001)(70586007);DIR:OUT;SFP:1101;
+X-OriginatorOrg: xilinx.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 23:34:44.7992
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72b68da3-503f-4211-6362-08d9edb715b7
+X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.62.198];Helo=[xsj-pvapexch02.xlnx.xilinx.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1NAM02FT0042.eop-nam02.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR02MB8763
 
-flight 168085 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168085/
+--8323329-1747806176-1644620554=:2091381
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2202111502361.2091381@ubuntu-linux-20-04-desktop>
 
-Failures and problems with tests :-(
+On Fri, 11 Feb 2022, Alex Bennée wrote:
+> > FYI, a good and promising approach to handle both SCMI and SCPI is the
+> > series recently submitted by EPAM to mediate SCMI and SCPI requests in
+> > Xen: https://marc.info/?l=xen-devel&m=163947444032590
+> >
+> > (Another "special" virtio backend is virtio-iommu for similar reasons:
+> > the guest p2m address mappings and also the IOMMU drivers are in Xen.
+> > It is not immediately clear whether a virtio-iommu backend would need to
+> > be in Xen or run as a process in dom0/domU.)
+> >
+> > On the other hand, for all the other "normal" protocols (e.g.
+> > virtio-net, virtio-block, etc.) the backend would naturally run as a
+> > process in dom0 or domU (e.g. QEMU in Dom0) as one would expect.
+> 
+> Can domU's not be given particular access to HW they might want to
+> tweak? I assume at some point a block device backend needs to actually
+> talk to real HW to store the blocks (even if in most cases it would be a
+> kernel doing the HW access on it's behalf).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64                     <job status>                 broken
- build-arm64-pvops               <job status>                 broken
- build-arm64-xsm                 <job status>                 broken
- build-arm64-pvops             4 host-install(4)        broken REGR. vs. 168060
- build-arm64-xsm               4 host-install(4)        broken REGR. vs. 168060
- build-arm64                   4 host-install(4)        broken REGR. vs. 168060
+Yes, it would. Block and network are subsystems with limited visibility,
+access, and harmful capabilities (assuming IOMMU).
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 168084
- test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat  fail pass in 168084
+If the block device goes down or is misused, block might not work but
+everything else is expected to work. Block only requires visibility of
+the block device for it to work. The same is true for network, GPU, USB,
+etc.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- build-arm64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 168060
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 168060
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 168060
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 168060
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 168060
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 168060
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 168060
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 168060
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 168060
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 168060
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 168060
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 168060
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+SCMI is different. If SCMI is misused the whole platform is affected.
+SCMI implies visibility of everything in the system. It is not much
+about emulating SCMI but more about mediating SCMI calls.
 
-version targeted for testing:
- linux                52871671099d1bb3fca5ed076029e4b937bfc053
-baseline version:
- linux                76fd334f07cc11e047c2237a19b2cf8b1f653ba2
+In other words, SCMI is not a device, it is a core interface. In a Xen
+model, Xen virtualizes CPU and memory and other core features/interfaces
+(timers, interrupt controller, IOMMU, etc). The PCI root complex is
+handled by Xen too. Individual (PCI and non-PCI) devices are assigned to
+guests.
 
-Last test of basis   168060  2022-02-08 17:43:16 Z    3 days
-Testing same since   168084  2022-02-11 08:43:38 Z    0 days    2 attempts
+These are the reasons why I think the best way to enable SCMI in
+upstream Xen is with a mediator in the hypervisor as it is currently in
+development. Any chances you could combine your efforts with EPAM's
+outstanding series? You might be able to spot gaps if any, and might
+even have already code to fill those gaps. It would be fantastic to have
+your reviews and/or contributions on xen-devel.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Florian Fainelli <f.fainelli@gmail.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Jon Hunter <jonathanh@nvidia.com>
-  Jon Maloy <jmaloy@redhat.com>
-  Linus Torvalds <torvalds@linux-foundation.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Slade Watkins <slade@sladewatkins.com>
-  Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-  Ulf Hansson <ulf.hansson@linaro.org>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              broken  
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  broken  
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          blocked 
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            broken  
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  blocked 
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  blocked 
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     blocked 
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 blocked 
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      blocked 
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+Otherwise, if you have to run the virtio-scmi backend in userspace, why
+not try to get it to work on Xen :-) It might not be the ideal solution,
+but it could be a good learning experience and pave the way for the
+other virtio backends which definitely will be in userspace
+(virtio-block, virtio-gpu, etc).
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> >> Currently the demo setup
+> >> is intermediated by a double-ended vhost-user daemon running on the
+> >> devbox acting as a go between a number of QEMU instances representing
+> >> the front and back-ends. You can view the architecture with Vincents
+> >> diagram here:
+> >> 
+> >>   https://docs.google.com/drawings/d/1YSuJUSjEdTi2oEUq4oG4A9pBKSEJTAp6hhcHKKhmYHs/edit?usp=sharing
+> >> 
+> >> The key virtq handling is done over the special carve outs of shared
+> >> memory between the front end and guest. However the signalling is
+> >> currently over a virtio device on the backend. This is useful for the
+> >> PoC but obviously in a real system we don't have a hidden POSIX system
+> >> acting as a go between not to mention the additional latency it causes
+> >> with all those context switches.
+> >> 
+> >> I was hoping we could get some more of the Xen experts to the next
+> >> Stratos sync (17th Feb) to go over approaches for a properly hosted on
+> >> Xen approach. From my recollection (Vincent please correct me if I'm
+> >> wrong) of last week the issues that need solving are:
+> >
+> > Unfortunately I have a regular conflict which prevents me from being
+> > able to join the Stratos calls. However, I can certainly make myself
+> > available for one call (unless something unexpected comes up).
+> >
+> >
+> >>  * How to handle configuration steps as FE guests come up
+> >> 
+> >> The SCMI server will be a long running persistent backend because it is
+> >> managing real HW resources. However the guests may be ephemeral (or just
+> >> restarted) so we can't just hard-code everything in a DTB. While the
+> >> virtio-negotiation in the config space covers most things we still need
+> >> information like where in the guests address space the shared memory
+> >> lives and at what offset into that the queues are created. As far as I'm
+> >> aware the canonical source of domain information is XenStore
+> >> (https://wiki.xenproject.org/wiki/XenStore) but this relies on a Dom0
+> >> type approach. Is there an alternative for dom0less systems or do we
+> >> need a dom0-light approach, for example using STR-21 (Ensure Zephyr can
+> >> run cleanly as a Dom0 guest) providing just enough services for FE's to
+> >> register metadata and BE's to read it?
+> >
+> > I'll try to answer the question for a generic virtio frontend and
+> > backend instead (not SCMI because SCMI is unique due to the reasons
+> > above.)
+> >
+> > Yes, xenstore is the easiest way to exchange configuration information
+> > between domains. I think EPAM used xenstore to exchange the
+> > configuration information in their virtio-block demo. There is a way to
+> > use xenstore even between dom0less VMs:
+> > https://marc.info/?l=xen-devel&m=164340547602391 Not just xenstore but
+> > full PV drivers too. However, in the dom0less case xenstore is going to
+> > become available some time after boot, not immediately at startup time.
+> > That's because you need to wait until xenstored is up and running.
+> >
+> > There are other ways to send data from one VM to another which are
+> > available immediately at boot, such as Argo and static shared memory.
+> >
+> > But dom0less is all about static partitioning, so it makes sense to
+> > exploit the build-time tools to the fullest. In the dom0less case, we
+> > already know what is going to run on the target before it is even turned
+> > on. As an example, we might have already prepared an environment with 3
+> > VMs using Yocto and ImageBuilder. We could also generate all
+> > configurations needed and place them inside each VMs using Yocto's
+> > standard tools and ImageBuilder. So for dom0less, I recommend to go via
+> > a different route and pre-generate the configuration directly where
+> > needed instead of doing dynamic discovery.
+> 
+> Even in a full dom0less setup you still need to manage lifetimes somehow
+> if a guest reboots.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Sure but that's not a problem: all the info and configuration related to
+rebooting the guest can also be pre-generated in Yocto or ImageBuilder.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-arm64 broken
-broken-job build-arm64-pvops broken
-broken-job build-arm64-xsm broken
-broken-step build-arm64-pvops host-install(4)
-broken-step build-arm64-xsm host-install(4)
-broken-step build-arm64 host-install(4)
-broken-job build-arm64-xsm broken
-broken-job build-arm64-pvops broken
-broken-job build-arm64 broken
-
-Not pushing.
-
-------------------------------------------------------------
-commit 52871671099d1bb3fca5ed076029e4b937bfc053
-Author: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date:   Fri Feb 11 09:07:52 2022 +0100
-
-    Linux 5.4.179
-    
-    Link: https://lore.kernel.org/r/20220209191248.688351316@linuxfoundation.org
-    Tested-by: Shuah Khan <skhan@linuxfoundation.org>
-    Tested-by: Florian Fainelli <f.fainelli@gmail.com>
-    Tested-by: Jon Hunter <jonathanh@nvidia.com>
-    Tested-by: Linux Kernel Functional Testing <lkft@linaro.org>
-    Tested-by: Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-    Tested-by: Slade Watkins <slade@sladewatkins.com>
-    Tested-by: Guenter Roeck <linux@roeck-us.net>
-    Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-commit d692e3406e052dbf9f6d9da0cba36cb763272529
-Author: Jon Maloy <jmaloy@redhat.com>
-Date:   Sat Feb 5 14:11:18 2022 -0500
-
-    tipc: improve size validations for received domain records
-    
-    commit 9aa422ad326634b76309e8ff342c246800621216 upstream.
-    
-    The function tipc_mon_rcv() allows a node to receive and process
-    domain_record structs from peer nodes to track their views of the
-    network topology.
-    
-    This patch verifies that the number of members in a received domain
-    record does not exceed the limit defined by MAX_MON_DOMAIN, something
-    that may otherwise lead to a stack overflow.
-    
-    tipc_mon_rcv() is called from the function tipc_link_proto_rcv(), where
-    we are reading a 32 bit message data length field into a uint16.  To
-    avert any risk of bit overflow, we add an extra sanity check for this in
-    that function.  We cannot see that happen with the current code, but
-    future designers being unaware of this risk, may introduce it by
-    allowing delivery of very large (> 64k) sk buffers from the bearer
-    layer.  This potential problem was identified by Eric Dumazet.
-    
-    This fixes CVE-2022-0435
-    
-    Reported-by: Samuel Page <samuel.page@appgate.com>
-    Reported-by: Eric Dumazet <edumazet@google.com>
-    Fixes: 35c55c9877f8 ("tipc: add neighbor monitoring framework")
-    Signed-off-by: Jon Maloy <jmaloy@redhat.com>
-    Reviewed-by: Xin Long <lucien.xin@gmail.com>
-    Reviewed-by: Samuel Page <samuel.page@appgate.com>
-    Reviewed-by: Eric Dumazet <edumazet@google.com>
-    Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-    Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-commit 3a0a7ec5574b510b067cfc734b8bdb6564b31d4e
-Author: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date:   Thu Jan 27 08:16:38 2022 +0100
-
-    moxart: fix potential use-after-free on remove path
-    
-    commit bd2db32e7c3e35bd4d9b8bbff689434a50893546 upstream.
-    
-    It was reported that the mmc host structure could be accessed after it
-    was freed in moxart_remove(), so fix this by saving the base register of
-    the device and using it instead of the pointer dereference.
-    
-    Cc: Ulf Hansson <ulf.hansson@linaro.org>
-    Cc: Xiyu Yang <xiyuyang19@fudan.edu.cn>
-    Cc: Xin Xiong <xiongx18@fudan.edu.cn>
-    Cc: Xin Tan <tanxin.ctf@gmail.com>
-    Cc: Tony Lindgren <tony@atomide.com>
-    Cc: Yang Li <yang.lee@linux.alibaba.com>
-    Cc: linux-mmc@vger.kernel.org
-    Cc: stable <stable@vger.kernel.org>
-    Reported-by: whitehat002 <hackyzh002@gmail.com>
-    Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-    Link: https://lore.kernel.org/r/20220127071638.4057899-1-gregkh@linuxfoundation.org
-    Signed-off-by: Ulf Hansson <ulf.hansson@linaro.org>
-    Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+As an example, it is already possible (although rudimental) in
+ImageBuilder to generate the dom0less configuration and also the domU xl
+config file for the same domU with passthrough devices.
+--8323329-1747806176-1644620554=:2091381--
 
