@@ -2,56 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62FAD4B314F
-	for <lists+xen-devel@lfdr.de>; Sat, 12 Feb 2022 00:35:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.270678.465000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11C794B314E
+	for <lists+xen-devel@lfdr.de>; Sat, 12 Feb 2022 00:35:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.270679.465011 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIfRG-0001XL-1N; Fri, 11 Feb 2022 23:34:54 +0000
+	id 1nIfRZ-0001us-Aa; Fri, 11 Feb 2022 23:35:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 270678.465000; Fri, 11 Feb 2022 23:34:54 +0000
+Received: by outflank-mailman (output) from mailman id 270679.465011; Fri, 11 Feb 2022 23:35:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIfRF-0001UJ-UL; Fri, 11 Feb 2022 23:34:53 +0000
-Received: by outflank-mailman (input) for mailman id 270678;
- Fri, 11 Feb 2022 23:34:52 +0000
+	id 1nIfRZ-0001s7-7B; Fri, 11 Feb 2022 23:35:13 +0000
+Received: by outflank-mailman (input) for mailman id 270679;
+ Fri, 11 Feb 2022 23:35:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=u2lR=S2=xilinx.com=stefanos@srs-se1.protection.inumbo.net>)
- id 1nIfRE-0001UC-7L
- for xen-devel@lists.xenproject.org; Fri, 11 Feb 2022 23:34:52 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on20603.outbound.protection.outlook.com
- [2a01:111:f400:7e88::603])
+ <SRS0=kHth=S2=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1nIfRX-0001UC-14
+ for xen-devel@lists.xenproject.org; Fri, 11 Feb 2022 23:35:11 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 349f76e6-8b93-11ec-8eb8-a37418f5ba1a;
- Sat, 12 Feb 2022 00:34:50 +0100 (CET)
-Received: from SA0PR11CA0028.namprd11.prod.outlook.com (2603:10b6:806:d3::33)
- by PH0PR02MB8763.namprd02.prod.outlook.com (2603:10b6:510:f0::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12; Fri, 11 Feb
- 2022 23:34:45 +0000
-Received: from SN1NAM02FT0042.eop-nam02.prod.protection.outlook.com
- (2603:10b6:806:d3:cafe::45) by SA0PR11CA0028.outlook.office365.com
- (2603:10b6:806:d3::33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.15 via Frontend
- Transport; Fri, 11 Feb 2022 23:34:45 +0000
-Received: from xsj-pvapexch02.xlnx.xilinx.com (149.199.62.198) by
- SN1NAM02FT0042.mail.protection.outlook.com (10.97.4.129) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.4975.11 via Frontend Transport; Fri, 11 Feb 2022 23:34:44 +0000
-Received: from xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) by
- xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2176.14; Fri, 11 Feb 2022 15:34:43 -0800
-Received: from smtp.xilinx.com (172.19.127.95) by
- xsj-pvapexch02.xlnx.xilinx.com (172.19.86.41) with Microsoft SMTP Server id
- 15.1.2176.14 via Frontend Transport; Fri, 11 Feb 2022 15:34:43 -0800
-Received: from [10.23.120.145] (port=64944 helo=ubuntu-20.04.2-arm64.shared)
- by smtp.xilinx.com with esmtp (Exim 4.90)
- (envelope-from <stefano.stabellini@xilinx.com>)
- id 1nIfR5-0006V2-Oj; Fri, 11 Feb 2022 15:34:43 -0800
+ id 3fa18ec3-8b93-11ec-8eb8-a37418f5ba1a;
+ Sat, 12 Feb 2022 00:35:08 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 82247B80D57;
+ Fri, 11 Feb 2022 23:35:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08953C340E9;
+ Fri, 11 Feb 2022 23:35:06 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,209 +43,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 349f76e6-8b93-11ec-8eb8-a37418f5ba1a
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JNmrGS0gijoKvcXHFqQjw2hZ117r0PVLPNBQJKSrfORbHYLlc+n7FfVhVVzPBTFBpvrsdS9qbmayY4/V49At/HCPDkFBqWysebSAtysYWUOofqUeGTf4NEYTLv1QFIOQHd//BRIAj+MOA9hGucSd8dpNTTv7uQwhsBnDgPRDxNyAjj0xaRQjfUiE6qVEmMaTy6aFSNHYLAtolUXN61Unz0LHuZXY7vLXc1PfWSSmkaV1vwubXP6mbkh3bU74qevVWlTa20SaA1VkGFEIdR9MlbHHDT9Q4krdHKVKrABl/8hK5SnVOw7czmjuFybBhBKVzQXx+HiuBH9mM3MQJFGz/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cvFQN9JienQG+muiB2OfHI1+NPX3aY65DQpnak25QD0=;
- b=F5WT0h5+K4/nxbtw+/aTdszAZKjDdeA+FggSPVdBrijXbEeEpbyKRDnlhehpT+SB/DbjqDIjIATVInc2DlQxETNzq11g/fnGfqW/5m9aK5tjKP1kam1F1dE5Uo2koIR/es9AFNW5vFclSvP4bzN/UDUaHP1UWB87ykNm8fIiL/bef52LxfznbhuFyuEsGXKiKNiNsip8nrH78oFTDEymGSBDW+c6e/c8SVOPSDyo5BuQ4gZYo7N5ej+a6bIa3vyogAuNv57o4cz593iARl2S/1LYiRzgOY6tlC9SXM8WIMxlB9IBtcVp9jVYJnZRbZpEJ+0cgWoqzXGg7TYQnkQAjw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 149.199.62.198) smtp.rcpttodomain=linaro.org smtp.mailfrom=xilinx.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=xilinx.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=xilinx.onmicrosoft.com; s=selector2-xilinx-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cvFQN9JienQG+muiB2OfHI1+NPX3aY65DQpnak25QD0=;
- b=sGiuY9Wx0b5jlZ+7uo6vmActZ004eUv3LiRMHdXVf6iDhjdd0eO/XZZ/f9ZcILikGmoS0KyqWTpJSHpNXFshVqSfBpCgsQY7NvjYHo7J6Qm8GaWObgU9+qDhnoV+XC/HLJvYPVmiNy6TLLEPIlkqHAgaaA5mRN27+165bPsG3eA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 149.199.62.198)
- smtp.mailfrom=xilinx.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=xilinx.com;
-Received-SPF: Pass (protection.outlook.com: domain of xilinx.com designates
- 149.199.62.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=149.199.62.198; helo=xsj-pvapexch02.xlnx.xilinx.com;
-Date: Fri, 11 Feb 2022 15:34:43 -0800
-From: Stefano Stabellini <stefano.stabellini@xilinx.com>
+X-Inumbo-ID: 3fa18ec3-8b93-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1644622507;
+	bh=APsCFhU/hEwebhCwGfM+/31CQoeUD9aRNkoMeanb6JI=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=gP+kYQqNIQ9mL+lMlxiPq7bvppZpYj/ayOZTrNco9L+CFM5mcYIS9hJ8jKC2RNai+
+	 hTljWBCiFtffvUzl5M+d/1lE2jBKCEawnhvIe2/6xYqwHnPiCKFvyJfBaunbguWRGE
+	 6fqw3430qBRLJz3dRXIp/LCWbcJCNaaKkXhC4+idXqbeHp5tQ4U7ewDUIAuKpwRpDr
+	 HDCYwg3klENpuGQ2JBEHuNwUD10G3VC0wcOmmSwLpuAf6l/yemEEo+pxpfa2qvKtxS
+	 bbLMeWsPFoQtks1Cp7Pj+6WzKoUgGaCOzfU9Xbiav6K+QQKyVpS0BBH3kVpIOlxrBi
+	 7W3WKTZMBYr9Q==
+Date: Fri, 11 Feb 2022 15:35:06 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
-CC: Stefano Stabellini <stefano.stabellini@xilinx.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>, <stratos-dev@op-lists.linaro.org>,
-	<xen-devel@lists.xenproject.org>, AKASHI Takahiro
-	<takahiro.akashi@linaro.org>, Arnd Bergmann <arnd.bergmann@linaro.org>,
-	Christopher Clark <christopher.w.clark@gmail.com>, Dmytro Firsov
-	<dmytro_firsov@epam.com>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, <Oleksandr_Tyshchenko@epam.com>,
-	<Artem_Mygaiev@epam.com>, <bertrand.marquis@arm.com>, <Wei.Chen@arm.com>,
-	<Ed.Doxat@arm.com>, <Oleksii_Moisieiev@epam.com>
-Subject: Re: Metadata and signalling channels for Zephyr virtio-backends on
- Xen
-In-Reply-To: <87k0e1cl9z.fsf@linaro.org>
-Message-ID: <alpine.DEB.2.22.394.2202111445290.2091381@ubuntu-linux-20-04-desktop>
-References: <87h79bgd1m.fsf@linaro.org> <alpine.DEB.2.22.394.2202071419270.2091381@ubuntu-linux-20-04-desktop> <87k0e1cl9z.fsf@linaro.org>
+To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>
+cc: Bertrand Marquis <bertrand.marquis@arm.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [RFC v2 5/8] xen/arm: introduce SCMI-SMC mediator driver
+In-Reply-To: <20220211115516.GA2356906@EPUAKYIW015D>
+Message-ID: <alpine.DEB.2.22.394.2202111428290.2091381@ubuntu-linux-20-04-desktop>
+References: <cover.1644341635.git.oleksii_moisieiev@epam.com> <cb1493f5d9b5c3437268054b4a8e345cb35c8708.1644341635.git.oleksii_moisieiev@epam.com> <F9811680-C6EC-4372-A451-5C1DA279E35E@arm.com> <20220211104403.GA2291814@EPUAKYIW015D>
+ <A9FF3FBC-C29D-4A17-8737-EBABEF240BA2@arm.com> <20220211115516.GA2356906@EPUAKYIW015D>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed;
-	boundary="8323329-1747806176-1644620554=:2091381"
-Content-ID: <alpine.DEB.2.22.394.2202111502360.2091381@ubuntu-linux-20-04-desktop>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 72b68da3-503f-4211-6362-08d9edb715b7
-X-MS-TrafficTypeDiagnostic: PH0PR02MB8763:EE_
-X-Microsoft-Antispam-PRVS:
-	<PH0PR02MB8763FCACB86D7A36F79FBB74A0309@PH0PR02MB8763.namprd02.prod.outlook.com>
-X-Auto-Response-Suppress: DR, RN, NRN, OOF, AutoReply
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	si7BCVIg49xhfZRZO/pWSSF4QJdwyHvHR+690P1YfEAqp6bjPKYjiuEyzI9OjgsAVl1/82NqnB17XCrpPOm++qrqAdn3WkVy8l4KYkQjXFB8clg57BEFed7gMsehQ1RsWlI06nlU+Azs9nzbuosWW4kN5QwsNc1lXrPkQUp1WQDLq1pfv+xZEhosEP3rOrxosiWm60r4s/8vEXa9Cw2RQy3HEGvUZn1tBIKtloCQSIjvdmgpNe1ckUNgKiO45DH3IbbB6+xnvgUGwkGp+Rl8Fc5ny+ckG+aIkAaGvd6FwIdHFeuLCumz4y7FpipMlvMoOqoSnlDauX8f42+8Jn5GaOiExbxDXR/2hBeoTYDl0YTgSd+3+DDH04yrFpG+Wu6TYKUZFpFmgxSrQkGKy30/8kPlKy6oJXaIjc9L83Sgm2ASOEw2mQ2y4Madami1wDvCLqrqfkchLgt65RmZjCu/xWOC4XPEjIVyQ4qoNfHtINU6Kk+rlsThQYZsIUKB0i9wSC8Xf17+Wx+YQqs4o69v30y7SeUm6tzXqdjc+E6CLjGOpjU9zJqZlQAKY+w2pWQsM4mJRlY20YhoaL8i5rXE5DcExCvIc/GhkCiFzhMu1IlTR3THvyDWjwfPXQXEplhqj+YgNI3jjlFLIcBp3llOLe7zjpdIU31+nJknr0q8rw+N/vOE6+D1kFsyAoVVQD0nXUOykSIXMUSqhXkJvspyrzLKUokw6b/BISKLzgfLiCqgbGZt88BVJrKmjZixyzciEP17ZK/XZBQKE3To67jJ5vP+U7TW4apXiO3x7ozEk+I=
-X-Forefront-Antispam-Report:
-	CIP:149.199.62.198;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:xsj-pvapexch02.xlnx.xilinx.com;PTR:unknown-62-198.xilinx.com;CAT:NONE;SFS:(13230001)(7916004)(4636009)(36840700001)(40470700004)(46966006)(66574015)(356005)(26005)(186003)(40460700003)(47076005)(5660300002)(2906002)(33716001)(9786002)(44832011)(7416002)(33964004)(8936002)(4326008)(82310400004)(6916009)(70206006)(316002)(54906003)(966005)(9686003)(508600001)(8676002)(83380400001)(426003)(336012)(7636003)(36860700001)(70586007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: xilinx.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 23:34:44.7992
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 72b68da3-503f-4211-6362-08d9edb715b7
-X-MS-Exchange-CrossTenant-Id: 657af505-d5df-48d0-8300-c31994686c5c
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=657af505-d5df-48d0-8300-c31994686c5c;Ip=[149.199.62.198];Helo=[xsj-pvapexch02.xlnx.xilinx.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1NAM02FT0042.eop-nam02.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR02MB8763
+Content-Type: multipart/mixed; BOUNDARY="8323329-665559561-1644618992=:2091381"
+Content-ID: <alpine.DEB.2.22.394.2202111516170.2091381@ubuntu-linux-20-04-desktop>
 
---8323329-1747806176-1644620554=:2091381
-Content-Type: text/plain; charset="UTF-8"
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-665559561-1644618992=:2091381
+Content-Type: text/plain; CHARSET=UTF-8
 Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2202111502361.2091381@ubuntu-linux-20-04-desktop>
+Content-ID: <alpine.DEB.2.22.394.2202111516171.2091381@ubuntu-linux-20-04-desktop>
 
-On Fri, 11 Feb 2022, Alex Bennée wrote:
-> > FYI, a good and promising approach to handle both SCMI and SCPI is the
-> > series recently submitted by EPAM to mediate SCMI and SCPI requests in
-> > Xen: https://marc.info/?l=xen-devel&m=163947444032590
-> >
-> > (Another "special" virtio backend is virtio-iommu for similar reasons:
-> > the guest p2m address mappings and also the IOMMU drivers are in Xen.
-> > It is not immediately clear whether a virtio-iommu backend would need to
-> > be in Xen or run as a process in dom0/domU.)
-> >
-> > On the other hand, for all the other "normal" protocols (e.g.
-> > virtio-net, virtio-block, etc.) the backend would naturally run as a
-> > process in dom0 or domU (e.g. QEMU in Dom0) as one would expect.
+On Fri, 11 Feb 2022, Oleksii Moisieiev wrote:
+> On Fri, Feb 11, 2022 at 11:18:47AM +0000, Bertrand Marquis wrote:
+> > Hi Oleksii,
+> > 
+> > 
+> > > On 11 Feb 2022, at 10:44, Oleksii Moisieiev <Oleksii_Moisieiev@epam.com> wrote:
+> > > 
+> > > Hi Bertrand,
+> > > 
+> > > On Fri, Feb 11, 2022 at 08:46:05AM +0000, Bertrand Marquis wrote:
+> > >> Hi Oleksii,
+> > >> 
+> > >> 
+> > >>> On 8 Feb 2022, at 18:00, Oleksii Moisieiev <Oleksii_Moisieiev@epam.com> wrote:
+> > >>> 
+> > >>> This is the implementation of SCI interface, called SCMI-SMC driver,
+> > >>> which works as the mediator between XEN Domains and Firmware (SCP, ATF etc).
+> > >>> This allows devices from the Domains to work with clocks, resets and
+> > >>> power-domains without access to CPG.
+> > >>> 
+> > >>> Originally, cpg should be passed to the domain so it can work with
+> > >>> power-domains/clocks/resets etc. Considering that cpg can't be split between
+> > >>> the Domains, we get the limitation that the devices, which are using
+> > >>> power-domains/clocks/resets etc, couldn't be split between the domains.
+> > >>> The solution is to move the power-domain/clock/resets etc to the
+> > >>> Firmware (such as SCP firmware or ATF) and provide interface for the
+> > >>> Domains. XEN should have an entity, caled SCI-Mediator, which is
+> > >>> responsible for messages redirection between Domains and Firmware and
+> > >>> for permission handling.
+> > >>> 
+> > >>> The following features are implemented:
+> > >>> - request SCMI channels from ATF and pass channels to Domains;
+> > >>> - set device permissions for Domains based on the Domain partial
+> > >>> device-tree. Devices with permissions are able to work with clocks,
+> > >>> resets and power-domains via SCMI;
+> > >>> - redirect scmi messages from Domains to ATF.
+> > >> 
+> > >> Before going more deeply in the code I would like to discuss the general
+> > >> design here and ask some questions to prevent to rework the code before
+> > >> we all agree that this is the right solution and that we want this in Xen.
+> > >> 
+> > >> First I want to point out that clock/reset/power virtualization is a problem
+> > >> on most applications using device pass-through and I am very glad that
+> > >> someone is looking into it.
+> > >> Also SCMI is the current standard existing for this so relying on it is a very
+> > >> good idea.
+> > >> 
+> > >> Latest version SCMI standard (DEN0056D v3.1) is defining some means
+> > >> to use SCMI on a virtualised system. In chapter 4.2.1, the standard
+> > >> recommends to set permissions per agent in the hypervisor so that a VM
+> > >> could later use the discovery protocol to detect the resources and use them.
+> > >> Using this kind of scenario the mediator in Xen would just configure the
+> > >> Permissions in the SCMI and would then rely on it to limit what is possible
+> > >> by who just by just assigning a channel to a VM.
+> > > 
+> > >> 
+> > >> In your current design (please correct me if I am wrong) you seem to fully
+> > >> rely on Xen and the FDT for discovery and permission.
+> > > 
+> > > In current implementation Xen is the trusted agent. And it's responsible
+> > > for permissions setting. During initialization it discovers agent and
+> > > set permissions by using BASE_SET_DEVICE_PERMISSIONS to the Dom0. When
+> > > new domain is created, Xen assigns agent id for this domain and request
+> > > resources, that are passed-through to this Domain.
+> > 
+> > Ok
+> > 
+> > > 
+> > > I'm getting the follwing information from FDT:
+> > > 1) Shared memory addressed, which should be used for agents. During
+> > > initialization I send BASE_DISCOVER_AGENT to each of this addresses and
+> > > receive agent_id. Xen is responsible for assigning agent_id for the
+> > > Domain. Then Xen intercept smc calls from the domain, set agent_id and
+> > > redirects it to the Firmware.
+> > 
+> > So Xen is setting the agent ID, no way for a guest to get access to something it
+> > should with more check, am I right ?
+> > 
 > 
-> Can domU's not be given particular access to HW they might want to
-> tweak? I assume at some point a block device backend needs to actually
-> talk to real HW to store the blocks (even if in most cases it would be a
-> kernel doing the HW access on it's behalf).
-
-Yes, it would. Block and network are subsystems with limited visibility,
-access, and harmful capabilities (assuming IOMMU).
-
-If the block device goes down or is misused, block might not work but
-everything else is expected to work. Block only requires visibility of
-the block device for it to work. The same is true for network, GPU, USB,
-etc.
-
-SCMI is different. If SCMI is misused the whole platform is affected.
-SCMI implies visibility of everything in the system. It is not much
-about emulating SCMI but more about mediating SCMI calls.
-
-In other words, SCMI is not a device, it is a core interface. In a Xen
-model, Xen virtualizes CPU and memory and other core features/interfaces
-(timers, interrupt controller, IOMMU, etc). The PCI root complex is
-handled by Xen too. Individual (PCI and non-PCI) devices are assigned to
-guests.
-
-These are the reasons why I think the best way to enable SCMI in
-upstream Xen is with a mediator in the hypervisor as it is currently in
-development. Any chances you could combine your efforts with EPAM's
-outstanding series? You might be able to spot gaps if any, and might
-even have already code to fill those gaps. It would be fantastic to have
-your reviews and/or contributions on xen-devel.
-
-Otherwise, if you have to run the virtio-scmi backend in userspace, why
-not try to get it to work on Xen :-) It might not be the ideal solution,
-but it could be a good learning experience and pave the way for the
-other virtio backends which definitely will be in userspace
-(virtio-block, virtio-gpu, etc).
-
-
-> >> Currently the demo setup
-> >> is intermediated by a double-ended vhost-user daemon running on the
-> >> devbox acting as a go between a number of QEMU instances representing
-> >> the front and back-ends. You can view the architecture with Vincents
-> >> diagram here:
-> >> 
-> >>   https://docs.google.com/drawings/d/1YSuJUSjEdTi2oEUq4oG4A9pBKSEJTAp6hhcHKKhmYHs/edit?usp=sharing
-> >> 
-> >> The key virtq handling is done over the special carve outs of shared
-> >> memory between the front end and guest. However the signalling is
-> >> currently over a virtio device on the backend. This is useful for the
-> >> PoC but obviously in a real system we don't have a hidden POSIX system
-> >> acting as a go between not to mention the additional latency it causes
-> >> with all those context switches.
-> >> 
-> >> I was hoping we could get some more of the Xen experts to the next
-> >> Stratos sync (17th Feb) to go over approaches for a properly hosted on
-> >> Xen approach. From my recollection (Vincent please correct me if I'm
-> >> wrong) of last week the issues that need solving are:
-> >
-> > Unfortunately I have a regular conflict which prevents me from being
-> > able to join the Stratos calls. However, I can certainly make myself
-> > available for one call (unless something unexpected comes up).
-> >
-> >
-> >>  * How to handle configuration steps as FE guests come up
-> >> 
-> >> The SCMI server will be a long running persistent backend because it is
-> >> managing real HW resources. However the guests may be ephemeral (or just
-> >> restarted) so we can't just hard-code everything in a DTB. While the
-> >> virtio-negotiation in the config space covers most things we still need
-> >> information like where in the guests address space the shared memory
-> >> lives and at what offset into that the queues are created. As far as I'm
-> >> aware the canonical source of domain information is XenStore
-> >> (https://wiki.xenproject.org/wiki/XenStore) but this relies on a Dom0
-> >> type approach. Is there an alternative for dom0less systems or do we
-> >> need a dom0-light approach, for example using STR-21 (Ensure Zephyr can
-> >> run cleanly as a Dom0 guest) providing just enough services for FE's to
-> >> register metadata and BE's to read it?
-> >
-> > I'll try to answer the question for a generic virtio frontend and
-> > backend instead (not SCMI because SCMI is unique due to the reasons
-> > above.)
-> >
-> > Yes, xenstore is the easiest way to exchange configuration information
-> > between domains. I think EPAM used xenstore to exchange the
-> > configuration information in their virtio-block demo. There is a way to
-> > use xenstore even between dom0less VMs:
-> > https://marc.info/?l=xen-devel&m=164340547602391 Not just xenstore but
-> > full PV drivers too. However, in the dom0less case xenstore is going to
-> > become available some time after boot, not immediately at startup time.
-> > That's because you need to wait until xenstored is up and running.
-> >
-> > There are other ways to send data from one VM to another which are
-> > available immediately at boot, such as Argo and static shared memory.
-> >
-> > But dom0less is all about static partitioning, so it makes sense to
-> > exploit the build-time tools to the fullest. In the dom0less case, we
-> > already know what is going to run on the target before it is even turned
-> > on. As an example, we might have already prepared an environment with 3
-> > VMs using Yocto and ImageBuilder. We could also generate all
-> > configurations needed and place them inside each VMs using Yocto's
-> > standard tools and ImageBuilder. So for dom0less, I recommend to go via
-> > a different route and pre-generate the configuration directly where
-> > needed instead of doing dynamic discovery.
+> Yes. Xen is the only entity, which is trusted. So it's responsible for
+> setting permissions and assigning agent_id. Guest get's an access only
+> for the devices it's allowed to.
 > 
-> Even in a full dom0less setup you still need to manage lifetimes somehow
-> if a guest reboots.
+> > > 
+> > > 2) Devices, that are using SCMI. Those devices has clock/power/resets
+> > > etc related to scmi protocol (as it is done in Linux kernel)
+> > > and scmi_devid should be set. I'm currently preparing to send patch,
+> > > updating kernel bindings with this parameter to Linux kernel.
+> > > scmi_devid value should match device id, set in the Firmware.
+> > > dt example:
+> > > &usb0 {
+> > >    scmi_devid = <1>; // usb0 device id
+> > >    clocks = <&scmi_clock 1> // relays on clock with id 1
+> > > }
+> > > 
+> > > Xen requests permission for the device when device is attached to the
+> > > Domain during creation.
+> > 
+> > Without this, how is (if it is) the linux kernel using SCMI for power management ?
+> 
+> Here is how it should be desribed in FDT: 
+> /
+> {
+>     firmware {
+>         scmi {
+>             arm,smc-id = <0x82000002>;
+>             scmi_power: protocol@11 {
+>                 reg = <0x11>;
+>                 #power-domain-cells = <1>;
+>             };
+>             ...
+>             scmi_clock: protocol@14 {
+>             ...
+>             scmi_reset: protocol@16 {
+>             ...
+>         };
+>     };
+> };
+> 
+> &avb {
+>     scmi_devid = <0>; // Matches Etherned device_id in Firmware
+>     clocks = <&scmi_clock 0>;
+>     power-domains = <&scmi_power 0>;
+>     resets = <&scmi_reset 0>;
+> };
+> 
+> In the provided case devid equals to reset, clock and power-domain id,
+> but this is conicidence. Each clock/power-domain/reset parameter can
+> have more than one entity.
+> Also - no changes was done to linux kernel scmi drivers.
+> 
+> > 
+> > > 
+> > >> Wouldn’t it be a better idea to use the protocol fully ?
+> > > 
+> > > Hm, I was thinking I am using the protocol fully. Did I miss something?
+> > 
+> > Sorry you seem to be, my understanding of your design was not right.
+> > 
+> > > 
+> > >> Could we get rid of some of the FDT dependencies by using the discovery
+> > >> system of SCMI ?
+> > > 
+> > > I'm using FDT to get shmem regions for the channels. Then I send
+> > > BASE_DISCOVER_AGENT to each region and getting agent data. Did I use the
+> > > discovery system wrong?
+> > 
+> > After more digging it seems you are. The link between scmi resource and device
+> > is not possible to get automatically.
+> > 
+> > > 
+> > >> How is Linux doing this currently ? Is it relying on device tree to discover
+> > >> the SCMI resources ?
+> > > 
+> > > Yes. Linux kernel has 2 nodes in the device-tree: arm,scmi-shmem, which
+> > > includes memory region for the communication and arm,scmi-smc node,
+> > > which describes all data related to scmi ( func_id, protocols etc)
+> > > Then the device nodes refer to the protocols by setting
+> > > clock/resets/power-domains etc. Please see the example above.
+> > > BASE_DISCOVER_AGENT is not used in Linux kernel.
+> > > The main idea was that scmi related changes to the device-tree are
+> > > common for virtualized and non virtualized systems. So the same FDT
+> > > configuration should work with of without Xen.
+> > 
+> > So at this stage this is not supported in Linux and you plan to add support for it to.
+> > 
+> 
+> Yes. That's correct. I've already prepared patch which should update
+> linux kernel device-tree bindings.
+> 
+> > > 
+> > >> 
+> > >> Also I understand that you rely on some entries to be declared in the device
+> > >> tree and also some support to be implemented in ATF or SCP. I checked in
+> > >> The boards I have access to and the device trees but none of this seem to
+> > >> be supported there. Could you tell which board/configuration/ATF you are
+> > >> using so that the implementation could be tested/validated ?
+> > >> 
+> > > 
+> > > We're currently have POC made for r8a77951-ulcb-kf and
+> > > r8a77961-salvator-xs boards. It's based on:
+> > > Linux-bsp kernel: 
+> > > git@github.com:renesas-rcar/linux-bsp.git
+> > > based on tag <rcar-5.0.0.rc4>
+> > > 
+> > > ATF: 
+> > > git@github.com:renesas-rcar/arm-trusted-firmware.git
+> > > based on branch <rcar_gen3_v2.5>
+> > > 
+> > > I can push those changes to Github, so you can review them
+> > 
+> > Do you plan to add support for other boards ?
+> > 
+> 
+> Right now we're working only with r8a77951 and r8a77961 boards.
+> 
+> > Did you discuss more in general with the linux kernel guys to see if this
+> > approach was agreed and will be adopted by other manufacturers ?
+> 
+> I didn't. I've contacted Sudeep Holla <sudeep.holla@arm.com>, who is the
+> maintainer of the SCMI protocol drivers. Waiting for the response.
+> 
+> Also we proposed to add Pinctl support to SCMI specification. It was
+> agreed and should be added to SCMI protocol in SCMIv3.2 (due end-2022/early 2023).
+> 
+> > 
+> > All in all I think this is a good idea but I fear that all this will actually only
+> > be used by one board or one manufacturer and other might use a different
+> > strategy, I would like to unrisk this before merging this in Xen.
+> 
+> The main idea was to make Xen SCMI mediator completely transparent from
+> the Domain point of view. So there is no Xen specific changes should be
+> done to OS pinctrl drivers to work through SCMI.
+> 
+> This means that all platforms, that already using SCMI can work with it
+> in virtualized system.
 
-Sure but that's not a problem: all the info and configuration related to
-rebooting the guest can also be pre-generated in Yocto or ImageBuilder.
+I like this statement. The aim of this series should not be just one
+board, but it should be able to easily support any board with an SCMI
+interface. For it to work, any changes to device tree interfaces should
+be done in upstream device tree
+(linux.git/Documentation/devicetree/bindings and/or devicetree.org).
 
-As an example, it is already possible (although rudimental) in
-ImageBuilder to generate the dom0less configuration and also the domU xl
-config file for the same domU with passthrough devices.
---8323329-1747806176-1644620554=:2091381--
+Xilinx doesn't make use of SCMI yet. We are currently using an older
+firmware interface called EEMI. EEMI and SCMI are not the same but they
+are somewhat similar.
+
+From my experience with this kind of interfaces, I think Oleksii's
+design is the right way to go. There are some important details to
+review, like the device tree interfaces at the host level and domU
+level, and the memory mapping of the channels; we need to be very
+careful about those details. But overall I think it is the right
+design.
+--8323329-665559561-1644618992=:2091381--
 
