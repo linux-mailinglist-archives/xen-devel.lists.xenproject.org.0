@@ -2,32 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24E854B1DFC
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Feb 2022 06:49:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.270146.464347 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CF104B1F45
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Feb 2022 08:25:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.270153.464358 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIOmn-0004yu-O8; Fri, 11 Feb 2022 05:48:01 +0000
+	id 1nIQHf-0006Hg-PL; Fri, 11 Feb 2022 07:23:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 270146.464347; Fri, 11 Feb 2022 05:48:01 +0000
+Received: by outflank-mailman (output) from mailman id 270153.464358; Fri, 11 Feb 2022 07:23:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIOmn-0004wo-L9; Fri, 11 Feb 2022 05:48:01 +0000
-Received: by outflank-mailman (input) for mailman id 270146;
- Fri, 11 Feb 2022 05:48:00 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nIQHf-0006Fc-MG; Fri, 11 Feb 2022 07:23:59 +0000
+Received: by outflank-mailman (input) for mailman id 270153;
+ Fri, 11 Feb 2022 07:23:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=r224=S2=yahoo.com=akm2tosher@srs-se1.protection.inumbo.net>)
- id 1nIOmm-0004wi-3S
- for xen-devel@lists.xenproject.org; Fri, 11 Feb 2022 05:48:00 +0000
-Received: from sonic301-57.consmr.mail.ne1.yahoo.com
- (sonic301-57.consmr.mail.ne1.yahoo.com [66.163.184.226])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 29e8efed-8afe-11ec-8eb8-a37418f5ba1a;
- Fri, 11 Feb 2022 06:47:58 +0100 (CET)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic301.consmr.mail.ne1.yahoo.com with HTTP; Fri, 11 Feb 2022 05:47:56 +0000
+ <SRS0=WJSo=S2=amazon.de=prvs=034f27e45=nmanthey@srs-se1.protection.inumbo.net>)
+ id 1nIQHe-0006FW-64
+ for xen-devel@lists.xenproject.org; Fri, 11 Feb 2022 07:23:58 +0000
+Received: from smtp-fw-33001.amazon.com (smtp-fw-33001.amazon.com
+ [207.171.190.10]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 90f0f512-8b0b-11ec-8f75-fffcc8bd4f1a;
+ Fri, 11 Feb 2022 08:23:56 +0100 (CET)
+Received: from iad12-co-svc-p1-lb1-vlan2.amazon.com (HELO
+ email-inbound-relay-iad-1d-28e6dbd8.us-east-1.amazon.com) ([10.43.8.2])
+ by smtp-border-fw-33001.sea14.amazon.com with ESMTP; 11 Feb 2022 07:23:38 +0000
+Received: from EX13D02EUC001.ant.amazon.com
+ (iad12-ws-svc-p26-lb9-vlan3.iad.amazon.com [10.40.163.38])
+ by email-inbound-relay-iad-1d-28e6dbd8.us-east-1.amazon.com (Postfix) with
+ ESMTPS id 8CA8C85CF3; Fri, 11 Feb 2022 07:23:36 +0000 (UTC)
+Received: from EX13MTAUWB001.ant.amazon.com (10.43.161.207) by
+ EX13D02EUC001.ant.amazon.com (10.43.164.92) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.28; Fri, 11 Feb 2022 07:23:35 +0000
+Received: from u6fc700a6f3c650.ant.amazon.com (10.1.212.14) by
+ mail-relay.amazon.com (10.43.161.249) with Microsoft SMTP Server id
+ 15.0.1497.28 via Frontend Transport; Fri, 11 Feb 2022 07:23:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -37,104 +47,98 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
-Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 29e8efed-8afe-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1644558476; bh=NJUsUfy1KsoFeXHdLDpt06Pj9Ne6C/vdf87oFv7YGys=; h=Date:From:To:Cc:In-Reply-To:References:Subject:From:Subject:Reply-To; b=gOP2E5nqruk3uVj2VwEtnJt3KygDm/SJgt1ZiwAUMTrDT/4r1Ar9qIuTy5fum6elW9amPycYKfT58V6Zax0jIA14cag4Gv8+udDU2U0760sZnNFRHuw7tmCH141kjtWMReuZ/EBDw2SWB98NP62BUxBemfr8rlw/EGEyeRJ8WuxuFZrDpWaEqg3csi/qFJ3GzMnTwGJGCqsdeIKm+HDe+j5UZdlLW6dSRRnb00qSMI7jjpRTvPHMKGDfgmdpB1Zy40Mr/Pyr/J37xxgKFCyWA0XmBl8NreqMJ12oOoPQBwVBS7neg/5LZ2zGfmuYnvC3Fzy7yzUl0T/940ue7gkRGg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1644558476; bh=DKo1hy9Kzmup31vQEJ8THfXnIQUNSLLt07GgSVPRMxO=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=HR+t9pgFCzrY/VaAJALzNzBPIA8VTSp43MHLTdyA9+BzWCEQxwIe+GWNctIXUPt9/AlGzu9A62ts+4pXKsjjy3I6SgbZDNoybdNy9UOW2qgxZOTj52Y8qrVY7B3WcvVUaiOsFQAmVkpOwNVvgbyhbyK1VqtYa0BdEqZ00oNAZry0HgS0H0saOGY1BuluCpZoP/ng/Rs4WVdT9Z8vTlv87ANFPbvOVRhEV3dBWlXajlrUI3YgAUue8QOIYdE+b+YGM2Ke7YRdd+piN/xnfcFJhCi4daALomb/yndZBMj0ICH7BSDii6tFp4CvbGdAMCBG0hrkG4IHAXJqKkdlVuwQBg==
-X-YMail-OSG: XZwBRokVM1mz1CW9dEJH5.UZsx2gipk3lw9Nd_KfBiexxJk9NN7GtUsdIgeblS3
- LKgTTQISh7RKFmM20y.cddZUtSCgTS0MopU7IizU_WuyfeKN2xELwXnvI7ubcNKMvUGdy1yWbhtp
- NoPfxLrNFJayvXPYAGDNQXz95zkDcrIYyMbD8fsFGaBSHeLsifC30kO4c5qrDL9Jk5z9A8UxKqNM
- FcZbFGmuXvsGmjU.q1NtPWPWhrqVGUwOpWWqt3I.x30TEZJzBVjkvPo95Ac61faCqDGqRtaE9CFe
- Tl0_px5SHhdamH4pPOoxpR2Op_SwIg5t_CIUYi5EkGTDTxAaAX8Iz6DQF1heWeKjfAVXBqOBsrvN
- I8W4Z5hrteUwQLX1C3j9F44dGW44aCsKblKAPW9QLMeZkdad1g11_3IFWDHLCbgwDAaq2BWH2rO_
- YGvkn0LFTKkxhbEFdgG9981rg_eB91TQr4u27rf.hpM5SH86vEJe7XPWrVgEtkxTWW3r7.b9oW6Y
- Zz8Ema.Uz_rMV8aCl7O0CEL15WXm6OPgWST2JjXIEIKJOQdoQf3x6dZRVP1rfjnOfWoGhNcOkJwD
- iWBfPON9UD1BWohbMCuCXHP052Kdhf4_p.gXSLlRHXjfpdkeDIfi1nxtM4whqYDIHVWLBmL9SjKu
- 2eJyy.afrzlheUE2yBs7PSPq_o5goF3QbaSx5beiurpG59gEGYnd1LTC22ch32SAjJ0Gb3kOrDaH
- sDTMuAy2cZ6gbp5CSNACn0vPHi6BOyV5LbOKrFtZ1qxXebq40Jx15LA.Dmi.8uN4Ur5DFfWW.YZO
- B0gn9MUJaDcO4L.N5g98YGUXfZ.Z9nEufFNbG0N0eODSL2HE3wo8wJ_nixTzLYWh66najArnm7DG
- WH323maAJXk2wR10STP960FmOcMiFIQnl99pabtYDpFcVyCq1khKP2bUnXG4RqjaII_7MKlVrNdv
- PQRbK_wkeIYHCB6VLdWDROhf0258BWbaJUvuAnm5MamqkSbI.d6cQqmh3Mh4IAYcdevbTj3Ghyeh
- rTfQSYtwR2LKHZo1WJ8PewbVIOCSZA5fBxtDeqMm3qXKfFKnu.gaAMbpyyv7brR9L7olDIt19Fg2
- MMWJFMTuwobd3QoOniknxkvKLcR7v9QFQ_VUk8aq.5a1rCtdPJZW0OBntNkRHblDcaksRuEXEhFo
- ZE09Pz4Iv_lMx_aZzNR68sdcJpASZT_Bg4RXDq8XPgL7ywS4nj0sSP0bLhMpWedMjQd.sClcYlK0
- RrwMOY7QNBICmZLMr9yDIen9VBHjsu_CnXrWLXRVXvIvDYQV8q1PVWOByhn6jxmHDxmQQbGQKPxv
- GHuvgE8IKCVAzRyLW.tOm90R52DenGctJvnR1FmgRuIYWRnOVUT21sY0HHxhFqRIKdnMEJS9.l3x
- 6snsuEH7yfOwQCT4e6HzShrANmQGpn3_eBXxTaJmAkUu8Yeb_6dmgE.tK_eDzPeodjj_3Z3WJH1M
- 6IlM7k9GA2.i3ZTzldxNUr3ELHAuoqV8PYeO7clC.Ju_6eKuOJVwmu14HqK6lf0GlH.sQBdxkmHh
- ZAYUP.0ivpJb1XaQZfwjp9zK6aCzd63jU.vyjOhlDhylFWt_i91.sOlicfNJcKkdhL3j_MTdknm8
- LbQjUES6nPWy1SzdQR74Sn28VFBVuIhvhiIyeIdkWp2k1swe1kpcCYGfUC4SNHHNqvFZuS3FiPRi
- Jq7SD6d7GBR5n92X_JbuXHwI.UwtpQiuvvC1U6yZA6wvmHkuqv1x.Eb9UCHOyGE0OOu0uVDgs5Ng
- 1YqpeUu1A29UXbNbJSp_Bc_bTSzREULPUckUlqz1pGTbNkfU4E07Pd_uAODCcP2qoTjeCfR8Kq1F
- Vv5mZGbXeDGPJUAyp7ms54gdu9Hxz7wkCyy47vmwcH1WEMnWiAsGg.1TK6qQgL02c4NEwQOKXTc9
- 8KbJC.Nm06UAobbQSEPoMjKhoSOfBIAJ0uenQwrbK_4RmVyC9UH_Au8X0PITHeo7FGCiTn54UuTY
- ICYE5yu7Ai_0m3gCgo5g_sT4B2.MSiXs.1hqiEfSOJO4g_zDCzGWJjAelUiDH073TJI9t8eTURgg
- 3G7TbZkYM68Ctq9I6kgvNVc2FTYav5hhVJVv7VjPTK.8y0EQ1umPdN3b17PimGr7Eu2nHSAhgcV7
- USEmhsivHFbrbt83hNHDYO1T9enZwybRvl3DuHeDi3mZxUS8ELWfAnb4AA1EnIuDymVzeXosDRpf
- kNDoero_x6hp_9LrTioRmaX33gok7vjyrQYvPVa0HYQeg
-X-Sonic-MF: <akm2tosher@yahoo.com>
-Date: Fri, 11 Feb 2022 05:45:55 +0000 (UTC)
-From: tosher 1 <akm2tosher@yahoo.com>
-To: Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Julien Grall <julien@xen.org>
-Cc: Jan Beulich <jbeulich@suse.com>, 
-	"roger.pau@citrix.com" <roger.pau@citrix.com>, 
-	"xadimgnik@gmail.com" <xadimgnik@gmail.com>, 
-	"oleksandr_andrushchenko@epam.com" <oleksandr_andrushchenko@epam.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <181735623.1079390.1644558355560@mail.yahoo.com>
-In-Reply-To: <8706c283-80c0-5fea-2834-1bf574e75470@xen.org>
-References: <709142925.628001.1644127197288.ref@mail.yahoo.com> <709142925.628001.1644127197288@mail.yahoo.com> <0e64c52c-1e9c-e89b-abb8-50171d885926@suse.com> <303292590.682317.1644477758255@mail.yahoo.com> <2CDAD7A1-A628-4491-9DE0-1F4D5D9FF1A7@arm.com> <8706c283-80c0-5fea-2834-1bf574e75470@xen.org>
-Subject: Re: PCI passthrough support for PVH mode
+X-Inumbo-ID: 90f0f512-8b0b-11ec-8f75-fffcc8bd4f1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
+  t=1644564237; x=1676100237;
+  h=from:to:cc:subject:date:message-id:mime-version;
+  bh=zl2hAijnvF/MJAtZnQoIh1zN4LcKIlxC/r+GBagwz5g=;
+  b=kjGB1t6gJSb4sF0WTJbT3IxbhOHmhXPVGKliaREZHDNamIAmHWehpHvg
+   YevS1aYWA54UBPra+k4FhvUTcnC2/xCun+2+tAfrX74iDGiAxAK+OaWX1
+   +pfTpJDW4Nl0E+MeoaBFtUggWRUTYPkW/JUNavJ7Hni/M8WaK1PvzzxKY
+   M=;
+X-IronPort-AV: E=Sophos;i="5.88,359,1635206400"; 
+   d="scan'208";a="175404920"
+From: Norbert Manthey <nmanthey@amazon.de>
+To: <xen-devel@lists.xenproject.org>
+CC: Norbert Manthey <nmanthey@amazon.de>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>
+Subject: [PATCH CPU v1] cpuid: initialize cpuinfo with boot_cpu_data
+Date: Fri, 11 Feb 2022 08:23:27 +0100
+Message-ID: <20220211072327.1213-1-nmanthey@amazon.de>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.19724 YMailNorrin
+Content-Type: text/plain
+Precedence: Bulk
 
-Hi Julien,
+When re-identifying CPU data, we might use uninitialized data when
+checking for the cache line property to adapt the cache
+alignment. The data that depends on this uninitialized read is
+currently not forwarded.
 
-Thanks for the clarification!
+To avoid problems in the future, initialize the data cpuinfo
+structure before re-identifying the CPU again.
 
-Regrads,
-Mehrab
+The trace to hit the uninitialized read reported by Coverity is:
 
+bool recheck_cpu_features(unsigned int cpu)
+...
+    struct cpuinfo_x86 c;
+    ...
+    identify_cpu(&c);
 
+void identify_cpu(struct cpuinfo_x86 *c)
+...
+    generic_identify(c)
 
+static void generic_identify(struct cpuinfo_x86 *c)
+...
+        if (this_cpu->c_early_init)
+                this_cpu->c_early_init(c); // which is early_init_intel
 
+static void early_init_intel(struct cpuinfo_x86 *c)
+...
+    if (c->x86 == 15 && c->x86_cache_alignment == 64)
+        c->x86_cache_alignment = 128;
 
+This bug was discovered and resolved using Coverity Static Analysis
+Security Testing (SAST) by Synopsys, Inc.
 
-On Thursday, February 10, 2022, 06:12:53 PM EST, Julien Grall <julien@xen.org> wrote: 
+Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
 
+---
+ xen/arch/x86/cpuid.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
-
-
-Hi Bertrand,
-
-On 10/02/2022 08:32, Bertrand Marquis wrote:
->> On 10 Feb 2022, at 07:22, tosher 1 <akm2tosher@yahoo.com> wrote:
->>
->> Hi Jan,
->>
->> Thanks for letting me know this status.
->>
->> I am wondering if PCI passthrough is at least available in Arm for other virtualization modes like PV, HVM, or PVHVM. For example, is it possible for someone to attach a PCI device to a guest domain on an Arm machine and use that domain as a driver domain, like we can do with the Xen on x86?
-> 
-> On arm there is only one virtualization mode which is equivalent to x86 HVM.
-
-
-I would like to correct this. Arm guests are more equivalent to x86 PVH 
-than HVM. For more details, see:
-
-https://wiki.xenproject.org/wiki/Understanding_the_Virtualization_Spectrum#PVH:
-
-This is also why we need a brand new solution for PCI passthrough rather 
-than piggying back on what was done on HVM in QEMU :).
-
-Cheers,
-
+diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
+--- a/xen/arch/x86/cpuid.c
++++ b/xen/arch/x86/cpuid.c
+@@ -609,7 +609,7 @@ void __init init_guest_cpuid(void)
+ bool recheck_cpu_features(unsigned int cpu)
+ {
+     bool okay = true;
+-    struct cpuinfo_x86 c;
++    struct cpuinfo_x86 c = boot_cpu_data;
+     const struct cpuinfo_x86 *bsp = &boot_cpu_data;
+     unsigned int i;
+ 
 -- 
-Julien Grall
+2.17.1
+
+
+
+
+Amazon Development Center Germany GmbH
+Krausenstr. 38
+10117 Berlin
+Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
+Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+Sitz: Berlin
+Ust-ID: DE 289 237 879
+
+
 
 
