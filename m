@@ -2,42 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB7714B2910
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Feb 2022 16:26:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.270550.464875 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E55CC4B2911
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Feb 2022 16:26:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.270549.464870 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIXof-0001pX-PO; Fri, 11 Feb 2022 15:26:33 +0000
+	id 1nIXof-0001iB-Fw; Fri, 11 Feb 2022 15:26:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 270550.464875; Fri, 11 Feb 2022 15:26:33 +0000
+Received: by outflank-mailman (output) from mailman id 270549.464870; Fri, 11 Feb 2022 15:26:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIXof-0001hm-LW; Fri, 11 Feb 2022 15:26:33 +0000
-Received: by outflank-mailman (input) for mailman id 270550;
+	id 1nIXof-0001g0-AB; Fri, 11 Feb 2022 15:26:33 +0000
+Received: by outflank-mailman (input) for mailman id 270549;
  Fri, 11 Feb 2022 15:26:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WJSo=S2=amazon.de=prvs=034f27e45=nmanthey@srs-se1.protection.inumbo.net>)
- id 1nIXoc-0001fo-WA
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1nIXod-0001fp-DO
  for xen-devel@lists.xenproject.org; Fri, 11 Feb 2022 15:26:31 +0000
-Received: from smtp-fw-9103.amazon.com (smtp-fw-9103.amazon.com
- [207.171.188.200]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id faa00943-8b4e-11ec-8f75-fffcc8bd4f1a;
- Fri, 11 Feb 2022 16:26:29 +0100 (CET)
-Received: from pdx4-co-svc-p1-lb2-vlan2.amazon.com (HELO
- email-inbound-relay-pdx-2a-92ba9394.us-west-2.amazon.com) ([10.25.36.210])
- by smtp-border-fw-9103.sea19.amazon.com with ESMTP; 11 Feb 2022 15:26:12 +0000
-Received: from EX13D02EUB001.ant.amazon.com
- (pdx1-ws-svc-p6-lb9-vlan3.pdx.amazon.com [10.236.137.198])
- by email-inbound-relay-pdx-2a-92ba9394.us-west-2.amazon.com (Postfix) with
- ESMTPS id 1811141887; Fri, 11 Feb 2022 15:26:12 +0000 (UTC)
-Received: from EX13MTAUEE002.ant.amazon.com (10.43.62.24) by
- EX13D02EUB001.ant.amazon.com (10.43.166.150) with Microsoft SMTP Server (TLS)
- id 15.0.1497.28; Fri, 11 Feb 2022 15:26:09 +0000
-Received: from u6fc700a6f3c650.ant.amazon.com (10.1.212.14) by
- mail-relay.amazon.com (10.43.62.224) with Microsoft SMTP Server id
- 15.0.1497.28 via Frontend Transport; Fri, 11 Feb 2022 15:26:08 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nIXoc-0002Eq-Vh; Fri, 11 Feb 2022 15:26:30 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=[192.168.30.126]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1nIXoc-0001eR-Pr; Fri, 11 Feb 2022 15:26:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,98 +37,67 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
+Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: faa00943-8b4e-11ec-8f75-fffcc8bd4f1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
-  t=1644593189; x=1676129189;
-  h=from:to:cc:subject:date:message-id:mime-version;
-  bh=TT+qw2jJTN+YB51Wk3Q538yOVcAVuWNCzpcJJfEh1m0=;
-  b=ft1j6k2N2FSCn8qZVPC5uxad4fk713vSA1IWAp5hhEhjQZCCgsAdNp9I
-   GYcASWFiFgLu/1pjR5hHSma5JKtQtyxnCfnAFMfsEX/g3L1kXPUqbVNlg
-   pij95dQt4HyGJy4orQ7fUHmtg1qIP4xDc29EMAcgiRGAkuTqrVPzWV/PZ
-   g=;
-X-IronPort-AV: E=Sophos;i="5.88,361,1635206400"; 
-   d="scan'208";a="991414143"
-From: Norbert Manthey <nmanthey@amazon.de>
-To: <xen-devel@lists.xenproject.org>
-CC: Norbert Manthey <nmanthey@amazon.de>, Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>
-Subject: [PATCH CPU v2] cpuid: initialize cpuinfo with boot_cpu_data
-Date: Fri, 11 Feb 2022 16:25:59 +0100
-Message-ID: <20220211152559.27862-1-nmanthey@amazon.de>
-X-Mailer: git-send-email 2.17.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=KTSoUtgjwSy7gl6uk/Mujrv4cOe4EP/gFFPDHqVbYj0=; b=cEMn2gtqhXpzWVySrQJURQiovT
+	Ozr1I5dupZhL6jadjnIAuj9XxFWip5nnZOqtqXV/IonXlRCYeRsyskFD7SeXXYQKEBFlaALypnMVW
+	8UccRuIjgZ2aHHxtukuhJP4aadW3z9Cy9/BPKDqSE0trd94ae69xrPXXAIZEpU7esumU=;
+Message-ID: <81a2f978-9337-2e58-c8b2-86dc7defc2ec@xen.org>
+Date: Fri, 11 Feb 2022 15:26:28 +0000
 MIME-Version: 1.0
-Content-Type: text/plain
-Precedence: Bulk
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.5.1
+Subject: Re: [RFC PATCH] arm/vgic-v3: provide custom callbacks for
+ pend_lpi_tree radix tree
+To: Luca Fancellu <luca.fancellu@arm.com>, xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <20220211150042.11972-1-luca.fancellu@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20220211150042.11972-1-luca.fancellu@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When re-identifying CPU data, we might use uninitialized data when
-checking for the cache line property to adapt the cache
-alignment. The data that depends on this uninitialized read is
-currently not forwarded.
+Hi Luca,
 
-To avoid problems in the future, initialize the data cpuinfo
-structure before re-identifying the CPU again.
+On 11/02/2022 15:00, Luca Fancellu wrote:
+> pend_lpi_tree is a radix tree used to store pending irqs, the tree is
+> protected by a lock for read/write operations.
+> 
+> Currently the radix tree default function to free items uses the
+> RCU mechanism, calling call_rcu and deferring the operation.
+> 
+> However every access to the structure is protected by the lock so we
+> can avoid using the default free function that, by using RCU,
+> increases memory usage and impacts the predictability of the system.
 
-The trace to hit the uninitialized read reported by Coverity is:
+I understand goal but looking at the implementation of 
+vgic_v3_lpi_to_pending() (Copied below for convenience). We would 
+release the lock as soon as the look-up finish, yet the element is returned.
 
-bool recheck_cpu_features(unsigned int cpu)
-...
-    struct cpuinfo_x86 c;
-    ...
-    identify_cpu(&c);
+static struct pending_irq *vgic_v3_lpi_to_pending(struct domain *d,
+                                                   unsigned int lpi)
+{
+     struct pending_irq *pirq;
 
-void identify_cpu(struct cpuinfo_x86 *c)
-...
-    generic_identify(c)
+     read_lock(&d->arch.vgic.pend_lpi_tree_lock);
+     pirq = radix_tree_lookup(&d->arch.vgic.pend_lpi_tree, lpi);
+     read_unlock(&d->arch.vgic.pend_lpi_tree_lock);
 
-static void generic_identify(struct cpuinfo_x86 *c)
-...
-        if (this_cpu->c_early_init)
-                this_cpu->c_early_init(c); // which is early_init_intel
+     return pirq;
+}
 
-static void early_init_intel(struct cpuinfo_x86 *c)
-...
-    if (c->x86 == 15 && c->x86_cache_alignment == 64)
-        c->x86_cache_alignment = 128;
+So the lock will not protect us against removal. If you want to drop the 
+RCU, you will need to ensure the structure pending_irq is suitably 
+protected. I haven't check whether there are other locks that may suit 
+us here.
 
-This bug was discovered and resolved using Coverity Static Analysis
-Security Testing (SAST) by Synopsys, Inc.
+Cheers,
 
-Signed-off-by: Norbert Manthey <nmanthey@amazon.de>
-
----
- xen/arch/x86/cpuid.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/xen/arch/x86/cpuid.c b/xen/arch/x86/cpuid.c
---- a/xen/arch/x86/cpuid.c
-+++ b/xen/arch/x86/cpuid.c
-@@ -609,7 +609,7 @@ void __init init_guest_cpuid(void)
- bool recheck_cpu_features(unsigned int cpu)
- {
-     bool okay = true;
--    struct cpuinfo_x86 c;
-+    struct cpuinfo_x86 c = {0};
-     const struct cpuinfo_x86 *bsp = &boot_cpu_data;
-     unsigned int i;
- 
 -- 
-2.17.1
-
-
-
-
-Amazon Development Center Germany GmbH
-Krausenstr. 38
-10117 Berlin
-Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
-Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
-Sitz: Berlin
-Ust-ID: DE 289 237 879
-
-
-
+Julien Grall
 
