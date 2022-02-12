@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CC2E4B36C4
-	for <lists+xen-devel@lfdr.de>; Sat, 12 Feb 2022 18:17:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.270818.465144 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 392DB4B3713
+	for <lists+xen-devel@lfdr.de>; Sat, 12 Feb 2022 19:21:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.270825.465154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIw1N-0006PV-Rx; Sat, 12 Feb 2022 17:17:17 +0000
+	id 1nIx0V-0004c9-KR; Sat, 12 Feb 2022 18:20:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 270818.465144; Sat, 12 Feb 2022 17:17:17 +0000
+Received: by outflank-mailman (output) from mailman id 270825.465154; Sat, 12 Feb 2022 18:20:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nIw1N-0006MQ-OY; Sat, 12 Feb 2022 17:17:17 +0000
-Received: by outflank-mailman (input) for mailman id 270818;
- Sat, 12 Feb 2022 17:17:16 +0000
+	id 1nIx0V-0004aN-HP; Sat, 12 Feb 2022 18:20:27 +0000
+Received: by outflank-mailman (input) for mailman id 270825;
+ Sat, 12 Feb 2022 18:20:26 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4/jW=S3=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
- id 1nIw1M-0006MK-Ok
- for xen-devel@lists.xenproject.org; Sat, 12 Feb 2022 17:17:16 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/1S/=S3=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1nIx0T-0004aH-UQ
+ for xen-devel@lists.xenproject.org; Sat, 12 Feb 2022 18:20:26 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9ec34492-8c27-11ec-b215-9bbe72dcb22c;
- Sat, 12 Feb 2022 18:17:14 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2F1476112D;
- Sat, 12 Feb 2022 17:17:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8AAD6C340ED;
- Sat, 12 Feb 2022 17:17:12 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 75161E6BB38; Sat, 12 Feb 2022 17:17:12 +0000 (UTC)
+ id 7118b3af-8c30-11ec-b215-9bbe72dcb22c;
+ Sat, 12 Feb 2022 19:20:23 +0100 (CET)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 21CIK8eh030897
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Sat, 12 Feb 2022 13:20:14 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.16.1/8.15.2/Submit) id 21CIK7Fr030896;
+ Sat, 12 Feb 2022 10:20:07 -0800 (PST) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,43 +43,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ec34492-8c27-11ec-b215-9bbe72dcb22c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1644686232;
-	bh=K9FxhrDSiUEfPIdtyrZQqRS7/xd1SjAvYu9qrqtjRFM=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
-	b=IwQPEdhOPywW3Jsg6ZA196lwmukcmkusvnsvjebABmWwagXViKLE5j71nVcECbJjH
-	 7kPKWGUlGawJbySO2qemnX8zHyBVK0THD/NjyUeDjq6w5wagB4xdHjTALUxIWKpM5t
-	 erKG2HG9gx2YQghwcJz4zfm9WmWiaArk+9CTUHSSjZ8NeJ0u7x4zO0BPzgX/Tj0nYO
-	 /gYlYz3oq/Bhf7+YsB4Z8aBTdeOoV4Ul8E5tPtYzAZYMh/LfppOxqpz943hNFulzfn
-	 sPP6QBYnX4da6ykk9Vb2XU1YLFC2Eh9skY5Kv1hVAA6qk3Z/6LAfLjEBKHQMGA14SA
-	 cxZ0spG0HWoWA==
-Subject: Re: [GIT PULL] xen: branch for v5.17-rc4
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20220212102509.24629-1-jgross@suse.com>
-References: <20220212102509.24629-1-jgross@suse.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20220212102509.24629-1-jgross@suse.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.17a-rc4-tag
-X-PR-Tracked-Commit-Id: f66edf684edcb85c1db0b0aa8cf1a9392ba68a9d
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 4a387c98b3abc7cf9a2281f01f9b4dd7dbc48f65
-Message-Id: <164468623247.20961.11131810270936389812.pr-tracker-bot@kernel.org>
-Date: Sat, 12 Feb 2022 17:17:12 +0000
-To: Juergen Gross <jgross@suse.com>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com
+X-Inumbo-ID: 7118b3af-8c30-11ec-b215-9bbe72dcb22c
+Date: Sat, 12 Feb 2022 10:20:07 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Julien Grall <julien@xen.org>
+Cc: Jan Beulich <jbeulich@suse.com>, Julien Grall <jgrall@amazon.com>,
+        xen-devel@lists.xenproject.org, Daniel Kiper <daniel.kiper@oracle.com>
+Subject: Re: [PATCH RFC 1/3] xen/efi: Always query the console information
+ and get GOP
+Message-ID: <Ygf6VznolUhlpAzp@mattapan.m5p.com>
+References: <20220206192839.75711-1-julien@xen.org>
+ <20220206192839.75711-2-julien@xen.org>
+ <88741681-929f-4cda-e841-023bdbf8f772@suse.com>
+ <26cdd9cf-15d6-a463-b1bb-28964005f618@xen.org>
+ <YgcOg6p8D+6hWWsE@mattapan.m5p.com>
+ <d2a2f715-9eab-aeb1-8099-4db614eb26a8@xen.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d2a2f715-9eab-aeb1-8099-4db614eb26a8@xen.org>
+X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=3.4.5
+X-Spam-Checker-Version: SpamAssassin 3.4.5 (2021-03-20) on mattapan.m5p.com
 
-The pull request you sent on Sat, 12 Feb 2022 11:25:09 +0100:
+On Sat, Feb 12, 2022 at 01:10:52PM +0000, Julien Grall wrote:
+> 
+> On 12/02/2022 01:33, Elliott Mitchell wrote:
+> > On Mon, Feb 07, 2022 at 06:52:57PM +0000, Julien Grall wrote:
+> >> On 07/02/2022 08:46, Jan Beulich wrote:
+> >>> On 06.02.2022 20:28, Julien Grall wrote:
+> >>>>
+> >>>> It is not entirely clear to me why the GOP was only fetched when
+> >>>> the configuration file is used.
+> >>>>
+> >>>> I have tested this on RPI4 and it seems to work. Any chance this
+> >>>> was done to workaround an x86 platform?
+> >>>
+> >>> This was done so in the context of making the code work for Arm. See
+> >>> commit c38cf865ec82 ("EFI: ignore EFI commandline, skip console setup
+> >>> when booted from GRUB"), the description of which explicitly says
+> >>>
+> >>> "Don't do EFI console or video configuration when booted by GRUB.  The EFI boot
+> >>>    code does some console and video initialization to support native EFI boot from
+> >>>    the EFI boot manager or EFI shell.  This initlization should not be done when
+> >>>    booted using GRUB."
+> >>
+> >> I read that and still couldn't figure out why this was done like that.
+> > 
+> > The most likely motivation was simply "Eww!  ACPI/UEFI use gobs of
+> > memory!  Purge the abomination!"
+> > 
+> > Unfortunately ACPI/UEFI are large an complex due to trying to solve a
+> > large and complex problem.  ACPI/UEFI attempt to provide an OS agnostic
+> > presentation of the hardware layout.  Whereas device-trees are a common
+> > *format* for presenting hardware to *an* OS (similar to how JSON is a
+> > common format).
+> > 
+> > Due to the size and complexity, most developers have preferred the
+> > simpler device-tree format even though that severely limits OS choice.
+> > As such, nuking ACPI/UEFI's presence is common in the ARM world.  Versus > the x86 world where Intel dragged everyone onto ACPI/UEFI.
+> > 
+> > One can see this in patches like Roman Shaposhnik's "Making full 2G of
+> > memory available to Xen on HiKey" which simply tosses EFI into the
+> > garbage bin as useless overhead.
+> 
+> I couldn't find a series with this name in my archives. By any chance, 
+> are you referring to [1]?
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.17a-rc4-tag
+The patch may have appeared under more than one title.  The raw content
+is publically visible at:
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/4a387c98b3abc7cf9a2281f01f9b4dd7dbc48f65
+https://github.com/lf-edge/eve/blob/master/pkg/xen/arch/aarch64/0002-arm-efi-mem-detection.patch
 
-Thank you!
+The issue is few ARM projects are really trying to support enough
+different devices for ACPI/UEFI to hit their forte.  At which point
+ACPI/UEFI get treated as worthless overhead.
+
+
+
+> > You stated your patch was for 5.17-rc2.  How much backporting would you
+> > expect this patch to be viable for?  (I'm unsure how much churn is
+> > occuring in the relevant portions of Linux) The long-term branches of
+> > Linux include 5.4.179, 5.10.100 and 5.15.23.  `patch` indicated it could
+> > apply to 5.10.92 source with fuzz (hmm).  This suggests 5.15 is likely
+> > viable, but 5.10 is risky and 5.4 is a very long shot.
+
+> I haven't looked at backports, so I don't know. But this is not a patch 
+> I would consider to request for backport myself because IHMO this is 
+> adding device support.
+
+People who need this feature are likely to backport it themselves.
+
+Looking at the 5.10.92 source I've got handy, it appears reasonable.  The
+fuzz appears to have be a missed newline when I attempted to grab the
+patch from the site you used.
+
+You want test reports yet?
+
 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
+
 
