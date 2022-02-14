@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA3134B5166
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:17:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.271957.466733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F88B4B5164
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:17:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.271941.466701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJbDu-0005OA-Dx; Mon, 14 Feb 2022 13:16:58 +0000
+	id 1nJbDk-00042L-35; Mon, 14 Feb 2022 13:16:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 271957.466733; Mon, 14 Feb 2022 13:16:58 +0000
+Received: by outflank-mailman (output) from mailman id 271941.466701; Mon, 14 Feb 2022 13:16:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJbDu-0005L3-94; Mon, 14 Feb 2022 13:16:58 +0000
-Received: by outflank-mailman (input) for mailman id 271957;
- Mon, 14 Feb 2022 13:16:57 +0000
+	id 1nJbDj-0003zG-VC; Mon, 14 Feb 2022 13:16:47 +0000
+Received: by outflank-mailman (input) for mailman id 271941;
+ Mon, 14 Feb 2022 13:16:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HcNt=S5=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nJb3b-0008IH-7q
- for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:06:19 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e5622eb6-8d96-11ec-8eb8-a37418f5ba1a;
- Mon, 14 Feb 2022 14:06:17 +0100 (CET)
+ id 1nJb4F-0008IH-Cc
+ for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:06:59 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fb8b33b2-8d96-11ec-8eb8-a37418f5ba1a;
+ Mon, 14 Feb 2022 14:06:57 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,60 +36,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e5622eb6-8d96-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: fb8b33b2-8d96-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1644843977;
+  d=citrix.com; s=securemail; t=1644844017;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version;
-  bh=lw78qzzzuiYAtb4DaXkKqrMnrmW0OepdLJjLyhv/BGI=;
-  b=W9n8TYnjPjjYwOzqjane4XyVrnSWiI/J32ZALF4kLtTR4fno/J6EzjxR
-   L5wXZQ76dYH1hv22eqrDnZof/g2b8nN8KUqgd7TlZAMRag05o0GRjGNtG
-   7SHbhu2EaK6k7f4SlQnCine7MTFP00nEI5hjLH2n5QXbkscNXlEXBnroV
-   Y=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: GiZ73pqCSnaQswr4ErlANhPRz8vWxZokQs4C0FBQcFZXfCidf60HFdYdTd2usiV/4U3k7KkZj0
- ZgqndL5rtOQOTlLuIhZY2QgsYcO5ZKhsO+7sAoXzTqD8M+AiC05Nb1xzhjaNqL9sLm6F613k5p
- EutSoSYZ0Jn6/SJNiwdLvkFPKhywz3hQ0iQbUeaXNzQimGc7Z0oO9fFNmqYfIjGokplOGfNcgZ
- E7snI3yZJ3Atgy0EZf1Z+uL61s1RG2QibSY94225E2N1x369piJQhUsORPDztGDywMupsc9WXH
- U+db3yoTiU8ThmrKHa8ySRA1
+  bh=Mej6N2PECBXwwElk/AVZTwxR6YCdehxfIEnvABetLnE=;
+  b=ddeI0GA2NG5fEWunYEzgTst/T8YrJGF9ORjC6WsJgcnZRIHmGnk1bsYf
+   nX++QGlZTrF7JHs4C7gm0m7BNAOqiXX4R+hLJsWqLG+ZlCYJ8TS5hIqwN
+   dL5jN2YgI/MCGUlAklebq7fl6ZWZ7s4ofnlzU10VNmK8KIIRBQagStXHq
+   8=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 4xuPf0XVUbXgWG0v6rS7g0s9+dMqxffyXCBK0hrLTCa9u6ylaVMULtaJR697DxZ6PVle1cTTxw
+ TvPZ0va8h/gcdAZVeV0Xrf9VMKnAHJJ1pmGwIN1Gj1H3fMDV0XyP6XUqeqVaWOuVPHr/3qr4mM
+ veLJ/OBXAePlVJQsIaSPCTBUUEmCxz2/Li/xfaJJnPv2fUAOdr/uNL0UMr1S4mEyMX4urIR/vT
+ e4iESUp8TmMacNBHMQcSsLPUhTz0kX/LDFR8wPt+ktMnXRB4kU4aRR/f8IXzXf9ZITLFfIVrIY
+ +beXpwySc4UuVvYd3FHWPpI7
 X-SBRS: 5.1
-X-MesageID: 64149893
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 64554298
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:fa50kqLNV0ODhaYOFE+Rz5IlxSXFcZb7ZxGr2PjKsXjdYENS1jcOz
- jQeXW7UO/aMajf0LdBxbo6+pxsPvsXWyIBgGgdlqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUakideSc+EH170Ug6x7Zg6mJVqYPR7z2l6
- IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
- QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2th45q8
- 8xGtKfsEyYQY7H2t/QBaANXRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
- LpBdW5LPkvra+GemdpXTsFFgMg5IdatF4QYonx6lhnSDOo8QICFSKLPjTNd9Gls35wfTaeFD
- yYfQX00LwrHSg9qAAgwOoswk9+ZjHXjShQN/Tp5ooJoujOOnWSdyoPFINfTP9CHW8hRtkKZv
- X7duXT0BAkAM96SwibD9Wij7tIjhguiBthUTufhsKc33hvDnQT/FSH6S3OfuaeisVe1WukDc
- W0tpzYUgrguz1akG4yVswKDnFaIuRsVWtx1GuI86R2Qxqe83zt1FlToXRYaNoV46ZZeqSgCk
- wbQwoi3XWAHXKi9FCrFnop4uw9eLsT8wYUqQSYfBTUI7ND4yG3YpkKeF40zeEJZYzCcJN0R/
- 9xohHVk71nwpZRSv0lewbwgq2jyzqUltiZvum3qspuNt2uVnrKNaY2y8kT85v1dNoufRVTpl
- CFax5TBvLBTUMnUz3blrAAx8FaBvajtDdEhqQQ3Q8lJG8qFpxZPgry8EBkhfRw0Y67oiBfiY
- VPJuBM52XOgFCDCUEODWKroU55C5fG5TbzND6mIBvITMskZXFLWp0lGOB/Pt10BZWBxyMnTz
- 7/AKp3yZZvbYIw6pAeLqxA1j+N6mHBmnTmLLX05pjz+uYejiLeuYe9tGDOzgioRsctoeS3Zr
- IRSMdWk0RJaXLGsayXb69dLf1sLMWI6Fdb9rMkOLryPJQ9vGWcADf7NwOx+J9w5zvoNzuqYr
- GugXkJ4yUbkgSGVIwu9dX0+OqjkWoxyrCxnMHV0b0qowXUqfa2m8LwbK8ksZbAi+eE6lax0Q
- vAJdt+uGPNKTjibqT0RYYOk9N5pdQixhBLINC2gOWBtc5llTg3P29nlYgqwq3VeUnvp7ZMz+
- uTy2BnaTJwPQxVZIPzXMP//nUmsuXU9mf5pWxeaKNdkZ0ixopNhLDb8j6FrLphUewnD3DaTy
- y2fHQwc+bvWu4Yw/dTE2fKEooOuH7csF0ZWBTCGv7O/NC2c9Wu/245QFu2PeGmFBm/z/ayjY
- 8RTzu39b6JbzAob7dIkHuY517866vvuu6Ren1ZtE3j8Zli2Dq9tfyud1s5Vu6wRnrJUtGNag
- K5UFgW27VlRBP7YLQ==
-IronPort-HdrOrdr: A9a23:Qef3WKgwrG4UduGeoQJ/ya/4nnBQXtgji2hC6mlwRA09TySZ//
- rBoB17726MtN9/YhEdcLy7VJVoBEmskKKdgrNhW4tKPjOW21dARbsKheCJrgEIWReOktK1vZ
- 0QFJSWY+eQMbEVt6nHCXGDYrQd/OU=
+IronPort-Data: A9a23:qTxo7qpaha/Fuq7jhrFlBmk6T4leBmIAYhIvgKrLsJaIsI4StFCzt
+ garIBmHO6yJZmunLtBxOY+zpBgFu8TXxoQyHlNprC03RntBp5uZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlZT4vE2xbuKU5NTsY0idfic5Dndx4f5fs7Rh2NQw24HlW1rlV
+ e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
+ 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
+ DlCnbbqRw15FKeVoedDTisHOSVAPu5/qZaSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
+ 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFKoZtmtt0nfyCvE+TIqYa67L+cVZzHE7gcUm8fP2O
+ ZZENGY1PUSojxtnPVgGGI0UwvmTi0b5UQZF+WOJvvMNyj2GpOB2+Oe0a4eEEjCQfu1Fk0Ddq
+ m/Y8mDRBhABKMfZ2TeD6mirhOLEgWX8Qo16KVGj3qc02hvJnDVVUUBIEwvgyRWktqKgc/gFJ
+ UZE0CB3lKts6X70ZN3DXF6B8VfR63bwROFsO+E97QiMzI/d7ACYGnUIQ1Z9VTA2iCMlbWd0j
+ wHUxrsFERQq6eTIEizFqt94uBvvYXB9EIMUWcMToeLpCfHHqZp7sB/AR80L/EWd3oysQmGYL
+ 9xnQUEDa1QvYSwjiv/TEbPv2WvESn31oukdvFu/Y45dxlklDLNJnqTxgbQh0d5OLZyCUn6Kt
+ 2Uels6V4YgmVM/RyHPdELhQROjyvZ5p1QEwZnY1QfEcG8mFoSb/Lei8HhkiTKuWDir0UWCwO
+ xKC0e+gzJRSIGGrfcdKj3GZUKwXIVzbPY29DJj8N4MWCrAoLVPv1Hw+NCa4gjG2+GBxwP5XB
+ HtuWZv1ZZrsIf88l2TeqiZ0+eJD+x3SMkuNGcGln0z/i+L2ibz8Ye5tDWZip9sRtMusyDg5O
+ f4FbJPiJ8x3XLKsby/J35QUKFxWf3E3CYqv855cd/KZIxogE2YkUqeDzbQkco1jvqJUiuaXo
+ S3tBh4GkALy1S/dNAGHSnF/c7ezD5xxmm02YH43NlGy1nl9PYv2tPUDd4E6dKUM/fB4yaImV
+ OEMfsiNW6wdSjnO9zkHQ4P6qYhuKEaiiQ6UZnL3azkjZZ9wAQfO/4a8LAfo8SAPCAuxtNc//
+ OL8hl+KH8JbSl07XsjMaf+pw1eghlQnmbp/DxnSP91eWETw64w2eSb/ueA6fpMXIhLZyzrEi
+ wvPWUUEpfPAqpMe+cXSgfzWtJ+gFuZzExYIH2Tf6rrqZyDW8nD6nN1FWeeMOzvcSHn16OOpY
+ uAMl6PwN/gOnVBrtYtgEuk0kfJitoW3/7IKnB55GHjrbkiwDuIyK3aL6sBDq6lRy+ILogCxQ
+ E+OpoFXNLjh1BkJy7LNyN7Jtti+6Mw=
+IronPort-HdrOrdr: A9a23:9CJNna6Vyk/F5eKSygPXwMrXdLJyesId70hD6qhwISY6TiX4rb
+ HWoB1173/JYVoqNE3I3OrwXZVoIkmsk6Kdg7NhXotKNTOO0ADDQb2Kr7GSpwEIcxeOkdK1vp
+ 0AT0ERMrLN5CBB/KTH3DU=
 X-IronPort-AV: E=Sophos;i="5.88,367,1635220800"; 
-   d="scan'208";a="64149893"
+   d="scan'208";a="64554298"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2 29/70] xen/console: CFI hardening
-Date: Mon, 14 Feb 2022 12:50:46 +0000
-Message-ID: <20220214125127.17985-30-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 30/70] xen/misc: CFI hardening
+Date: Mon, 14 Feb 2022 12:50:47 +0000
+Message-ID: <20220214125127.17985-31-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220214125127.17985-1-andrew.cooper3@citrix.com>
 References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
@@ -104,250 +104,270 @@ Use cf_check to annotate function pointer targets for the toolchain.
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/drivers/char/console.c   |  4 ++--
- xen/drivers/char/ehci-dbgp.c | 24 +++++++++++++-----------
- xen/drivers/char/ns16550.c   | 26 +++++++++++++-------------
- 3 files changed, 28 insertions(+), 26 deletions(-)
+ xen/arch/x86/mm.c                        | 6 ++++--
+ xen/arch/x86/setup.c                     | 4 ++--
+ xen/common/domain.c                      | 2 +-
+ xen/common/gdbstub.c                     | 5 ++---
+ xen/common/livepatch.c                   | 7 +++----
+ xen/common/memory.c                      | 4 ++--
+ xen/common/page_alloc.c                  | 2 +-
+ xen/common/radix-tree.c                  | 4 ++--
+ xen/common/rangeset.c                    | 2 +-
+ xen/common/spinlock.c                    | 6 +++---
+ xen/common/vm_event.c                    | 6 +++---
+ xen/common/xmalloc_tlsf.c                | 4 ++--
+ xen/drivers/passthrough/amd/iommu_init.c | 2 +-
+ 13 files changed, 27 insertions(+), 27 deletions(-)
 
-diff --git a/xen/drivers/char/console.c b/xen/drivers/char/console.c
-index 380765ab02fd..d9d6556c2293 100644
---- a/xen/drivers/char/console.c
-+++ b/xen/drivers/char/console.c
-@@ -552,7 +552,7 @@ static void __serial_rx(char c, struct cpu_user_regs *regs)
- #endif
- }
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index 3b8bc3dda977..4b6956c5be78 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -835,7 +835,8 @@ struct mmio_emul_range_ctxt {
+     unsigned long mfn;
+ };
  
--static void serial_rx(char c, struct cpu_user_regs *regs)
-+static void cf_check serial_rx(char c, struct cpu_user_regs *regs)
+-static int print_mmio_emul_range(unsigned long s, unsigned long e, void *arg)
++static int cf_check print_mmio_emul_range(
++    unsigned long s, unsigned long e, void *arg)
  {
-     static int switch_code_count = 0;
+     const struct mmio_emul_range_ctxt *ctxt = arg;
  
-@@ -1286,7 +1286,7 @@ void panic(const char *fmt, ...)
-  * **************************************************************
-  */
- 
--static void suspend_steal_fn(const char *str, size_t nr) { }
-+static void cf_check suspend_steal_fn(const char *str, size_t nr) { }
- static int suspend_steal_id;
- 
- int console_suspend(void)
-diff --git a/xen/drivers/char/ehci-dbgp.c b/xen/drivers/char/ehci-dbgp.c
-index a6b57fdf2d19..e205c0da6a61 100644
---- a/xen/drivers/char/ehci-dbgp.c
-+++ b/xen/drivers/char/ehci-dbgp.c
-@@ -1000,13 +1000,15 @@ static int ehci_dbgp_external_startup(struct ehci_dbgp *dbgp)
- 
- typedef void (*set_debug_port_t)(struct ehci_dbgp *, unsigned int);
- 
--static void default_set_debug_port(struct ehci_dbgp *dbgp, unsigned int port)
-+static void cf_check default_set_debug_port(
-+    struct ehci_dbgp *dbgp, unsigned int port)
- {
- }
- 
- static set_debug_port_t __read_mostly set_debug_port = default_set_debug_port;
- 
--static void nvidia_set_debug_port(struct ehci_dbgp *dbgp, unsigned int port)
-+static void cf_check nvidia_set_debug_port(
-+    struct ehci_dbgp *dbgp, unsigned int port)
- {
-     uint32_t dword = pci_conf_read32(PCI_SBDF(0, dbgp->bus, dbgp->slot,
-                                               dbgp->func), 0x74);
-@@ -1167,7 +1169,7 @@ static inline void _ehci_dbgp_flush(struct ehci_dbgp *dbgp)
-     dbgp->out.chunk = 0;
- }
- 
--static void ehci_dbgp_flush(struct serial_port *port)
-+static void cf_check ehci_dbgp_flush(struct serial_port *port)
- {
-     struct ehci_dbgp *dbgp = port->uart;
-     s_time_t goal;
-@@ -1196,7 +1198,7 @@ static void ehci_dbgp_flush(struct serial_port *port)
-        set_timer(&dbgp->timer, goal);
- }
- 
--static void ehci_dbgp_putc(struct serial_port *port, char c)
-+static void cf_check ehci_dbgp_putc(struct serial_port *port, char c)
- {
-     struct ehci_dbgp *dbgp = port->uart;
- 
-@@ -1209,7 +1211,7 @@ static void ehci_dbgp_putc(struct serial_port *port, char c)
-         ehci_dbgp_flush(port);
- }
- 
--static int ehci_dbgp_tx_ready(struct serial_port *port)
-+static int cf_check ehci_dbgp_tx_ready(struct serial_port *port)
- {
-     struct ehci_dbgp *dbgp = port->uart;
- 
-@@ -1228,7 +1230,7 @@ static int ehci_dbgp_tx_ready(struct serial_port *port)
-            (dbgp->state == dbgp_idle) * DBGP_MAX_PACKET;
- }
- 
--static int ehci_dbgp_getc(struct serial_port *port, char *pc)
-+static int cf_check ehci_dbgp_getc(struct serial_port *port, char *pc)
- {
-     struct ehci_dbgp *dbgp = port->uart;
- 
-@@ -1309,7 +1311,7 @@ static bool_t ehci_dbgp_setup_preirq(struct ehci_dbgp *dbgp)
+@@ -4606,7 +4607,8 @@ static int _handle_iomem_range(unsigned long s, unsigned long e,
      return 0;
  }
  
--static void __init ehci_dbgp_init_preirq(struct serial_port *port)
-+static void __init cf_check ehci_dbgp_init_preirq(struct serial_port *port)
+-static int handle_iomem_range(unsigned long s, unsigned long e, void *p)
++static int cf_check handle_iomem_range(
++    unsigned long s, unsigned long e, void *p)
  {
-     struct ehci_dbgp *dbgp = port->uart;
-     u32 debug_port, offset;
-@@ -1358,7 +1360,7 @@ static void ehci_dbgp_setup_postirq(struct ehci_dbgp *dbgp)
-     set_timer(&dbgp->timer, NOW() + MILLISECS(1));
- }
+     int err = 0;
  
--static void __init ehci_dbgp_init_postirq(struct serial_port *port)
-+static void __init cf_check ehci_dbgp_init_postirq(struct serial_port *port)
- {
-     struct ehci_dbgp *dbgp = port->uart;
- 
-@@ -1409,12 +1411,12 @@ static int ehci_dbgp_check_release(struct ehci_dbgp *dbgp)
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index eceff0a4e2b4..735f69d2cae8 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -2023,8 +2023,8 @@ int __hwdom_init xen_in_range(unsigned long mfn)
      return 0;
  }
  
--static void __init ehci_dbgp_endboot(struct serial_port *port)
-+static void __init cf_check ehci_dbgp_endboot(struct serial_port *port)
+-static int __hwdom_init io_bitmap_cb(unsigned long s, unsigned long e,
+-                                     void *ctx)
++static int __hwdom_init cf_check io_bitmap_cb(
++    unsigned long s, unsigned long e, void *ctx)
  {
-     ehci_dbgp_check_release(port->uart);
+     struct domain *d = ctx;
+     unsigned int i;
+diff --git a/xen/common/domain.c b/xen/common/domain.c
+index a49c26064601..a3614539e472 100644
+--- a/xen/common/domain.c
++++ b/xen/common/domain.c
+@@ -370,7 +370,7 @@ static void cf_check _free_pirq_struct(struct rcu_head *head)
+     xfree(container_of(head, struct pirq, rcu_head));
  }
  
--static void ehci_dbgp_suspend(struct serial_port *port)
-+static void cf_check ehci_dbgp_suspend(struct serial_port *port)
+-static void free_pirq_struct(void *ptr)
++static void cf_check free_pirq_struct(void *ptr)
  {
-     struct ehci_dbgp *dbgp = port->uart;
+     struct pirq *pirq = ptr;
  
-@@ -1431,7 +1433,7 @@ static void ehci_dbgp_suspend(struct serial_port *port)
-     dbgp->state = dbgp_unsafe;
+diff --git a/xen/common/gdbstub.c b/xen/common/gdbstub.c
+index 079c3ca9616a..d6872721dc0d 100644
+--- a/xen/common/gdbstub.c
++++ b/xen/common/gdbstub.c
+@@ -69,7 +69,7 @@ static void gdb_smp_resume(void);
+ static char __initdata opt_gdb[30];
+ string_param("gdb", opt_gdb);
+ 
+-static void gdbstub_console_puts(const char *str, size_t nr);
++static void cf_check gdbstub_console_puts(const char *str, size_t nr);
+ 
+ /* value <-> char (de)serialzers */
+ static char
+@@ -546,8 +546,7 @@ __gdb_ctx = {
+ };
+ static struct gdb_context *gdb_ctx = &__gdb_ctx;
+ 
+-static void
+-gdbstub_console_puts(const char *str, size_t nr)
++static void cf_check gdbstub_console_puts(const char *str, size_t nr)
+ {
+     const char *p;
+ 
+diff --git a/xen/common/livepatch.c b/xen/common/livepatch.c
+index e8714920dc8f..ec301a9f120c 100644
+--- a/xen/common/livepatch.c
++++ b/xen/common/livepatch.c
+@@ -157,10 +157,9 @@ unsigned long livepatch_symbols_lookup_by_name(const char *symname)
+     return 0;
  }
  
--static void ehci_dbgp_resume(struct serial_port *port)
-+static void cf_check ehci_dbgp_resume(struct serial_port *port)
+-static const char *livepatch_symbols_lookup(unsigned long addr,
+-                                            unsigned long *symbolsize,
+-                                            unsigned long *offset,
+-                                            char *namebuf)
++static const char *cf_check livepatch_symbols_lookup(
++    unsigned long addr, unsigned long *symbolsize, unsigned long *offset,
++    char *namebuf)
  {
-     struct ehci_dbgp *dbgp = port->uart;
+     const struct payload *data;
+     unsigned int i, best;
+diff --git a/xen/common/memory.c b/xen/common/memory.c
+index ede45c4af9db..69b0cd1e50de 100644
+--- a/xen/common/memory.c
++++ b/xen/common/memory.c
+@@ -1051,8 +1051,8 @@ struct get_reserved_device_memory {
+     unsigned int used_entries;
+ };
  
-diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index 990cad39fe85..8df1ee4d5c2c 100644
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -174,7 +174,7 @@ static void handle_dw_usr_busy_quirk(struct ns16550 *uart)
-     }
+-static int get_reserved_device_memory(xen_pfn_t start, xen_ulong_t nr,
+-                                      u32 id, void *ctxt)
++static int cf_check get_reserved_device_memory(
++    xen_pfn_t start, xen_ulong_t nr, u32 id, void *ctxt)
+ {
+     struct get_reserved_device_memory *grdm = ctxt;
+     uint32_t sbdf = PCI_SBDF3(grdm->map.dev.pci.seg, grdm->map.dev.pci.bus,
+diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+index 3caf5c954b24..46357182375a 100644
+--- a/xen/common/page_alloc.c
++++ b/xen/common/page_alloc.c
+@@ -1238,7 +1238,7 @@ struct scrub_wait_state {
+     bool drop;
+ };
+ 
+-static void scrub_continue(void *data)
++static void cf_check scrub_continue(void *data)
+ {
+     struct scrub_wait_state *st = data;
+ 
+diff --git a/xen/common/radix-tree.c b/xen/common/radix-tree.c
+index 33b47748ae49..adc3034222dc 100644
+--- a/xen/common/radix-tree.c
++++ b/xen/common/radix-tree.c
+@@ -52,7 +52,7 @@ struct rcu_node {
+ 	struct rcu_head rcu_head;
+ };
+ 
+-static struct radix_tree_node *rcu_node_alloc(void *arg)
++static struct radix_tree_node *cf_check rcu_node_alloc(void *arg)
+ {
+ 	struct rcu_node *rcu_node = xmalloc(struct rcu_node);
+ 	return rcu_node ? &rcu_node->node : NULL;
+@@ -65,7 +65,7 @@ static void cf_check _rcu_node_free(struct rcu_head *head)
+ 	xfree(rcu_node);
  }
  
--static void ns16550_interrupt(
-+static void cf_check ns16550_interrupt(
-     int irq, void *dev_id, struct cpu_user_regs *regs)
+-static void rcu_node_free(struct radix_tree_node *node, void *arg)
++static void cf_check rcu_node_free(struct radix_tree_node *node, void *arg)
  {
-     struct serial_port *port = dev_id;
-@@ -239,7 +239,7 @@ static void cf_check ns16550_poll(void *data)
+ 	struct rcu_node *rcu_node = container_of(node, struct rcu_node, node);
+ 	call_rcu(&rcu_node->rcu_head, _rcu_node_free);
+diff --git a/xen/common/rangeset.c b/xen/common/rangeset.c
+index 885b6b15c229..a6ef2640462a 100644
+--- a/xen/common/rangeset.c
++++ b/xen/common/rangeset.c
+@@ -384,7 +384,7 @@ int rangeset_consume_ranges(struct rangeset *r,
+     return rc;
+ }
+ 
+-static int merge(unsigned long s, unsigned long e, void *data)
++static int cf_check merge(unsigned long s, unsigned long e, void *data)
+ {
+     struct rangeset *r = data;
+ 
+diff --git a/xen/common/spinlock.c b/xen/common/spinlock.c
+index 25bfbf3c47f7..62c83aaa6a73 100644
+--- a/xen/common/spinlock.c
++++ b/xen/common/spinlock.c
+@@ -375,7 +375,7 @@ static void spinlock_profile_iterate(lock_profile_subfunc *sub, void *par)
+     spin_unlock(&lock_profile_lock);
+ }
+ 
+-static void spinlock_profile_print_elem(struct lock_profile *data,
++static void cf_check spinlock_profile_print_elem(struct lock_profile *data,
+     int32_t type, int32_t idx, void *par)
+ {
+     struct spinlock *lock = data->lock;
+@@ -404,7 +404,7 @@ void cf_check spinlock_profile_printall(unsigned char key)
+     spinlock_profile_iterate(spinlock_profile_print_elem, NULL);
+ }
+ 
+-static void spinlock_profile_reset_elem(struct lock_profile *data,
++static void cf_check spinlock_profile_reset_elem(struct lock_profile *data,
+     int32_t type, int32_t idx, void *par)
+ {
+     data->lock_cnt = 0;
+@@ -428,7 +428,7 @@ typedef struct {
+     int                      rc;
+ } spinlock_profile_ucopy_t;
+ 
+-static void spinlock_profile_ucopy_elem(struct lock_profile *data,
++static void cf_check spinlock_profile_ucopy_elem(struct lock_profile *data,
+     int32_t type, int32_t idx, void *par)
+ {
+     spinlock_profile_ucopy_t *p = par;
+diff --git a/xen/common/vm_event.c b/xen/common/vm_event.c
+index 70ab3ba406ff..84cf52636bc4 100644
+--- a/xen/common/vm_event.c
++++ b/xen/common/vm_event.c
+@@ -523,21 +523,21 @@ int __vm_event_claim_slot(struct domain *d, struct vm_event_domain *ved,
+ 
+ #ifdef CONFIG_MEM_PAGING
+ /* Registered with Xen-bound event channel for incoming notifications. */
+-static void mem_paging_notification(struct vcpu *v, unsigned int port)
++static void cf_check mem_paging_notification(struct vcpu *v, unsigned int port)
+ {
+     vm_event_resume(v->domain, v->domain->vm_event_paging);
+ }
  #endif
+ 
+ /* Registered with Xen-bound event channel for incoming notifications. */
+-static void monitor_notification(struct vcpu *v, unsigned int port)
++static void cf_check monitor_notification(struct vcpu *v, unsigned int port)
+ {
+     vm_event_resume(v->domain, v->domain->vm_event_monitor);
  }
  
--static int ns16550_tx_ready(struct serial_port *port)
-+static int cf_check ns16550_tx_ready(struct serial_port *port)
+ #ifdef CONFIG_MEM_SHARING
+ /* Registered with Xen-bound event channel for incoming notifications. */
+-static void mem_sharing_notification(struct vcpu *v, unsigned int port)
++static void cf_check mem_sharing_notification(struct vcpu *v, unsigned int port)
  {
-     struct ns16550 *uart = port->uart;
+     vm_event_resume(v->domain, v->domain->vm_event_share);
+ }
+diff --git a/xen/common/xmalloc_tlsf.c b/xen/common/xmalloc_tlsf.c
+index e3f6886e6b62..d2ad909502d0 100644
+--- a/xen/common/xmalloc_tlsf.c
++++ b/xen/common/xmalloc_tlsf.c
+@@ -512,13 +512,13 @@ int xmem_pool_maxalloc(struct xmem_pool *pool)
  
-@@ -250,13 +250,13 @@ static int ns16550_tx_ready(struct serial_port *port)
-               uart->lsr_mask ) == uart->lsr_mask ) ? uart->fifo_size : 0;
+ static struct xmem_pool *xenpool;
+ 
+-static void *xmalloc_pool_get(unsigned long size)
++static void *cf_check xmalloc_pool_get(unsigned long size)
+ {
+     ASSERT(size == PAGE_SIZE);
+     return alloc_xenheap_page();
  }
  
--static void ns16550_putc(struct serial_port *port, char c)
-+static void cf_check ns16550_putc(struct serial_port *port, char c)
+-static void xmalloc_pool_put(void *p)
++static void cf_check xmalloc_pool_put(void *p)
  {
-     struct ns16550 *uart = port->uart;
-     ns_write_reg(uart, UART_THR, c);
+     free_xenheap_page(p);
  }
+diff --git a/xen/drivers/passthrough/amd/iommu_init.c b/xen/drivers/passthrough/amd/iommu_init.c
+index 06b4d2b1fea0..cebcd68a6c04 100644
+--- a/xen/drivers/passthrough/amd/iommu_init.c
++++ b/xen/drivers/passthrough/amd/iommu_init.c
+@@ -1073,7 +1073,7 @@ static void * __init allocate_ppr_log(struct amd_iommu *iommu)
+ #define IVRS_MAPPINGS_DEVTAB(m) (m)[ivrs_bdf_entries].intremap_table
  
--static int ns16550_getc(struct serial_port *port, char *pc)
-+static int cf_check ns16550_getc(struct serial_port *port, char *pc)
+ /* Gets passed to radix_tree_destroy(), so its param needs to be void *. */
+-static void __init free_ivrs_mapping_callback(void *ptr)
++static void __init cf_check free_ivrs_mapping_callback(void *ptr)
  {
-     struct ns16550 *uart = port->uart;
+     const struct ivrs_mappings *ivrs_mappings = ptr;
  
-@@ -344,7 +344,7 @@ static void ns16550_setup_preirq(struct ns16550 *uart)
-                  UART_FCR_ENABLE | UART_FCR_CLRX | UART_FCR_CLTX | UART_FCR_TRG14);
- }
- 
--static void __init ns16550_init_preirq(struct serial_port *port)
-+static void __init cf_check ns16550_init_preirq(struct serial_port *port)
- {
-     struct ns16550 *uart = port->uart;
- 
-@@ -373,7 +373,7 @@ static void __init ns16550_init_preirq(struct serial_port *port)
-         uart->fifo_size = 16;
- }
- 
--static void __init ns16550_init_irq(struct serial_port *port)
-+static void __init cf_check ns16550_init_irq(struct serial_port *port)
- {
- #ifdef NS16550_PCI
-     struct ns16550 *uart = port->uart;
-@@ -399,7 +399,7 @@ static void ns16550_setup_postirq(struct ns16550 *uart)
-         set_timer(&uart->timer, NOW() + MILLISECS(uart->timeout_ms));
- }
- 
--static void __init ns16550_init_postirq(struct serial_port *port)
-+static void __init cf_check ns16550_init_postirq(struct serial_port *port)
- {
-     struct ns16550 *uart = port->uart;
-     int rc, bits;
-@@ -491,7 +491,7 @@ static void __init ns16550_init_postirq(struct serial_port *port)
-     ns16550_setup_postirq(uart);
- }
- 
--static void ns16550_suspend(struct serial_port *port)
-+static void cf_check ns16550_suspend(struct serial_port *port)
- {
-     struct ns16550 *uart = port->uart;
- 
-@@ -543,7 +543,7 @@ static void cf_check ns16550_delayed_resume(void *data)
-         _ns16550_resume(port);
- }
- 
--static void ns16550_resume(struct serial_port *port)
-+static void cf_check ns16550_resume(struct serial_port *port)
- {
-     struct ns16550 *uart = port->uart;
- 
-@@ -569,7 +569,7 @@ static void ns16550_resume(struct serial_port *port)
-         _ns16550_resume(port);
- }
- 
--static void __init ns16550_endboot(struct serial_port *port)
-+static void __init cf_check ns16550_endboot(struct serial_port *port)
- {
- #ifdef CONFIG_HAS_IOPORTS
-     struct ns16550 *uart = port->uart;
-@@ -583,13 +583,13 @@ static void __init ns16550_endboot(struct serial_port *port)
- #endif
- }
- 
--static int __init ns16550_irq(struct serial_port *port)
-+static int __init cf_check ns16550_irq(struct serial_port *port)
- {
-     struct ns16550 *uart = port->uart;
-     return ((uart->irq > 0) ? uart->irq : -1);
- }
- 
--static void ns16550_start_tx(struct serial_port *port)
-+static void cf_check ns16550_start_tx(struct serial_port *port)
- {
-     struct ns16550 *uart = port->uart;
-     u8 ier = ns_read_reg(uart, UART_IER);
-@@ -599,7 +599,7 @@ static void ns16550_start_tx(struct serial_port *port)
-         ns_write_reg(uart, UART_IER, ier | UART_IER_ETHREI);
- }
- 
--static void ns16550_stop_tx(struct serial_port *port)
-+static void cf_check ns16550_stop_tx(struct serial_port *port)
- {
-     struct ns16550 *uart = port->uart;
-     u8 ier = ns_read_reg(uart, UART_IER);
 -- 
 2.11.0
 
