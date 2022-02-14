@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B64594B50CE
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 13:57:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.271579.466074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6F294B50D5
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 13:57:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.271584.466128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJauX-0001p1-6v; Mon, 14 Feb 2022 12:56:57 +0000
+	id 1nJauc-0003Hj-PM; Mon, 14 Feb 2022 12:57:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 271579.466074; Mon, 14 Feb 2022 12:56:57 +0000
+Received: by outflank-mailman (output) from mailman id 271584.466128; Mon, 14 Feb 2022 12:57:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJauX-0001mO-1c; Mon, 14 Feb 2022 12:56:57 +0000
-Received: by outflank-mailman (input) for mailman id 271579;
- Mon, 14 Feb 2022 12:56:55 +0000
+	id 1nJauc-00039K-Fv; Mon, 14 Feb 2022 12:57:02 +0000
+Received: by outflank-mailman (input) for mailman id 271584;
+ Mon, 14 Feb 2022 12:57:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HcNt=S5=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nJauU-0001Wb-T7
- for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 12:56:55 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 937cf4b1-8d95-11ec-b215-9bbe72dcb22c;
- Mon, 14 Feb 2022 13:56:52 +0100 (CET)
+ id 1nJauZ-0001Wb-Tq
+ for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 12:57:00 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9606d693-8d95-11ec-b215-9bbe72dcb22c;
+ Mon, 14 Feb 2022 13:56:55 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,62 +36,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 937cf4b1-8d95-11ec-b215-9bbe72dcb22c
+X-Inumbo-ID: 9606d693-8d95-11ec-b215-9bbe72dcb22c
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1644843412;
+  d=citrix.com; s=securemail; t=1644843415;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=1CKl1xVTrEiSTs3I4IXapDMOKGH0W00+m3pdXMEQ9Q4=;
-  b=SW39No1f+WAJGY8o3q2fanQ1l0mIvM83jDXYDrIhxKJiDSj4Znl2hmxT
-   voCljibNd9Eu4nYoHLAbwrBOxV9Hoz5q5Nj/4ysPNg+ygXlyQkHyiFT+B
-   e9Zm3rJ8wxu6HWdgyfou999UCiiKK8zGvrB95erV69Lp3rwCdXCrS7DAW
-   4=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: yiPOqDVw2uctAGuI2F6hqobxrJFB39GaQS3Gr4BUngEVXC8oBY5Lh1AqovGOM0unhmWINmJEf2
- UAabnTPv4oC+vZGTp02PDmTfz3gmUSjTQ6JYkDIN1xGnW25qRC0huXnPoY5O9an8arj5SJNn2H
- sADA2f3HsQzhNcPhLkGhz32UIl6zd0Ta5FFkm1q1z0HD6I/2tfaYR2e4BTnfTG0JOrTlBPSwwk
- ykMnc8wUoS6GJD7jk7PwyD8zphewqoQFy3ifaP8+H0uKozUGjtbRUCgTiGofefShypP9IGqQa1
- /UlTK/FNGIMJhalFMgorY/et
+  bh=Sj4Jt6Qi86GvIWajmlKXBFXybjwDfP/78ikZXyhmmlU=;
+  b=Y7kW5HibSl3KdYRQF/fSbJxPwlnAR7oxkFMSUdmTK8B2Tj1b90hRNk5x
+   H1g8Oxw3Tv/pljALuFGVhKewwFSVpgUukBMaB/a43dILMV+XSTSiRXc4Z
+   eCXmKK2sTj8AUrCqGMig77MbXI57qtYu9xzdSCR0ISj1/RZaaRUzVz5Sz
+   U=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: T3ZvleISg0fcIDCNoPBSn4fFdiIE5ZN1Of8msHm4HwP9rjDGw3/8kUwHCoppwYbF0NXPTuFYq5
+ XhJkEsnmFEEGYNO9VyI7mcZ4v48ItQLf5iusNSmTPTL1/M9swOtapgq5sD8oESsc00fWmN9b8u
+ MdC1uWcrcR+NdSFVRh/pXuBxNsxtTaXpr/sBhtMu68CglmfhBurzF9Hf9kKE0xpL/nb0EBEUtK
+ 5UG8yvsCXqBwupfJTPD+5LuCu60Lrm7AcXxP3pe7e2yBKwC8Qo3bEFt9YCNrBK+uNux9bQozCt
+ elKK8j9wMOPYhhewDF00XAxn
 X-SBRS: 5.1
-X-MesageID: 63591330
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 64148581
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:Xf0rk6xvglxnJ/pLb3t6t+cLwSrEfRIJ4+MujC+fZmUNrF6WrkVRz
- 2tOCmDUMquCYWfyLosiPYnipEgA7Z7czIBnHFRsqiAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAhLeNYYH1500g7wbdl2tcAbeWRWGthh
- /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
- wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt9wy6
- tZ2tsKAc14sMaTzoMARUgl5CS4raMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
- 6ZBbmlQMFbT3Ipaw5riIgVoru0lINPmI8U0vXZ4wCuCJf0nXYrCU+PB4towMDIY2JsTTK+FP
- JJxhTxHfSXYUw9/Gw0rB5s1n8q3rWvGUTh7kQfAzUYwyzeKl1EguFT3C/LKfvSaSMMTmVyXz
- krk1WnkBhARNPSE1CGItHmrg4fnjS79HY4fCrC83vprm0GIgHweDgUMUlm2quX/jVSxM++zM
- GRNpHBo9/JrshX2EJ+tBHVUvUJooDYQGPhTKO5k2DvUz6Xd3D69CmkUbyROPYlOWNANeRQm0
- VqAntXMDDNpsaGIRX/1yop4vQ9eKgBOczZcOHZsoR8tpoC6/dpt1k6nosNLTfbt5uAZDw0c1
- NxjQMIWo7wIxfAG2Kyglbwsq2L9/8OZJuLZC+i+Y45E0u+bTNP/D2BLwQKChRqlEGp+ZgPf1
- EXoY+DEsIgz4WilzURhutklErCz/OqiOzbBm1NpFJRJ323zpyL8LdANvWknfx0B3iM4ldjBO
- hG7hO+szMULYCvCgVFfP+pd9PjGPYC/TI+4B5g4n/JFY4RrdR/vwc2dTRX44owZq2B1yftXE
- c7CKa6EVC9GYYw6nGveb7pMitcDm3FhrV4/sLimlnxLJ5LFPyXLIVrEWXPTBt0EAFSs/lmLr
- YYFapfiJtc2eLSWXxQ7OLU7dTgiRUXXz7iswyCOXuLccAdgBk87DPrdneEod4B/xvwHnebU5
- HCtHERfzQOn13HALAyLbFFlaa/uAskj/S5qY3R0MAb6wWUnbKau8LwbK8k9c444+bEx1vVzV
- fQEJZmNW6wdVjTd9j0BRpDht4g+Jg+zjAeDMnP9MjgydpJtXSLT/drgcle9/SUCFHPv58A/v
- 6ehxkXQRp9aH1ZuC8PfafSOyVKtvCdCxLIuDhWQetQKIRfi6olnLSD1n8QbGcBUJEWR3Cae2
- iaXHQwc+bvHrbgq/YSbnquDtYqoTbdzRxIIA2nB4L+qHiDG5W7/k5RYWeOFcD2BBmP5/KKuO
- bdcw/3maaBVmV9Lt8x3EqpxzLJ47Nzq/ucIwgNhFXTNTlKqFrI/fSXWgZgR7vVAlu1DpA+7e
- kOT4d0La7yGNfTsHEMVOAd4PP+I0usZm2WK4Pk4SKkgCPSbIFZTvZ1uAiSx
-IronPort-HdrOrdr: A9a23:FrYif6Dvp+uPM8/lHemU55DYdb4zR+YMi2TC1yhKJyC9Ffbo7v
- xG/c5rsyMc5wxwZJhNo7y90ey7MBbhHP1OkO4s1NWZLWrbUQKTRekIh+bfKn/baknDH4ZmpN
- 9dmsNFaeEYY2IUsS+D2njbL+od
+IronPort-Data: A9a23:WiQv1Kthah/KGO5iXfWROpuHPufnVGlZMUV32f8akzHdYApBsoF/q
+ tZmKT2COaqNN2LzeN5yaY+3oxlTvsSAyoAwS1Fk/igwQXtD+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHdJZS5LwbZj2NYy2IThWmthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ NplmKybGClqEYT3t6c9XgYDNz4lZJIX5+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6AO
+ 5NFOWc/NXwsZTVKKgdQE4hkp9uNhyX0WGR3uUqlr684tj27IAtZj+G2bYu9lsaxbdpRtlaVo
+ CTB5WuRKjMwOcGbyDGF2mmxneKJliT+MKoCGbv9+vN0jVm7wm0IFAZQRVa9ueO+iEO1R5RYM
+ UN8x8Y1hfFsrgrxFIC7BkDm5i7f1vIBZzZOO8AKw1CjiYX92CnaJmUbFRpeM4UZ5dBjEFTGy
+ WS1t9/uADVutpicRnSc6qqYoFuOBMQFEYMRTXRaFFVYurEPtKl210uSFYg7TMZZm/WoQWmY/
+ tyckMQpa1z/Z+Yv3r7zw13IiinESnPhHl9svVW/so5IA2pEiG+Zi26AtAKzARVodt/xory9U
+ J8swZb20Qz2JcvR/BFhuc1UdF1T296LMSfHnXlkFIQ7+jKm9haLJN4MvG4udBo0ap9fI1cFh
+ XM/XisLuvdu0IaCN/crM+pd9ex2pUQfKTgVfq+NNYcfCnSAXASG4DtvdSatM5PFyyARfVUEE
+ c7DK66EVC9CYYw+lWbeb7pNgNcDm3FlrUuOFM+T8vhS+efHDJJjYexeawXmgyFQxP7snTg5B
+ P4Ba5rUm00HCrWWj+u+2dd7EG3m5EMTXfjew/G7vMbaSua/MG1+WfLX3507fIlpw/ZcmuvSp
+ ynvUU5E0lvvw3bALFzSOHxkbbruW7d5rG46YnNwbQr5hSB7bNb99robers2YaIjqL5pw8lrQ
+ qRXYM6HGPlOFGjKomxPcZnnoYV+Xx23ngbSbTG9aT0ycsc4FQzE89PpZCX18ywKAnblvMcyu
+ eT4hAjaXYACV0JpC8OPMKCjyFa4vH48nuNuXhSXfokPKRu0qIUzcn7/lP46Jc0IOC7v/DrC2
+ lbEGwocqMnMv5QxrIvDi5ebotr7COB5BEdbQTXWtO7kKSnA82O/6oZcS+LULyvFXWb59aj+N
+ +VYy/bwbK8OkFpQ6tcuFr9qyeQ15sf1pq8cxQNhRS2ZY1OuA7JmA3+HwcgQ6fEdmu4H4VO7C
+ hCV591XGbSVI8e0QlceKT0sYvmHyfxJyCLZ6u44IRmi6SJ6lFZdvZ6+4/VYZPRhEYZI
+IronPort-HdrOrdr: A9a23:0zFgi6rR0SBIdGgg/dQHZPYaV5opeYIsimQD101hICG8cqSj+f
+ xG/c5rrCMc5wxwZJhNo7y90ey7MBbhHP1OkO8s1NWZLWrbUQKTRekIh+bfKn/baknDH4ZmpM
+ BdmsNFaeEYY2IUsS+D2njbL+od
 X-IronPort-AV: E=Sophos;i="5.88,367,1635220800"; 
-   d="scan'208";a="63591330"
+   d="scan'208";a="64148581"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 2/7] x86/altcall: Check and optimise altcall targets
-Date: Mon, 14 Feb 2022 12:56:27 +0000
-Message-ID: <20220214125632.24563-3-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 3/7] x86/altcall: Optimise away endbr64 instruction where possible
+Date: Mon, 14 Feb 2022 12:56:28 +0000
+Message-ID: <20220214125632.24563-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220214125632.24563-1-andrew.cooper3@citrix.com>
 References: <20220214125632.24563-1-andrew.cooper3@citrix.com>
@@ -99,61 +99,125 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-When converting indirect to direct calls, there is no need to execute endbr64
-instructions.  Detect and optimise this case, leaving a warning in the case
-that no endbr64 was found, as it likely indicates a build error.
+With altcall, we convert indirect branches into direct ones.  With that
+complete, none of the potential targets need an endbr64 instruction.
+
+Furthermore, removing the endbr64 instructions is a security defence-in-depth
+improvement, because it limits the options available to an attacker who has
+managed to hijack a function pointer.
+
+Introduce new .init.{ro,}data.cf_clobber sections.  Have _apply_alternatives()
+walk over this, looking for any pointers into .text, and clobber an endbr64
+instruction if found.  This is some minor structure (ab)use but it works
+alarmingly well.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
+
+It would be nice for the printk() to say "optimised away %u of %u", but the
+latter number can only feasibly come from post-processing of xen-syms during
+the build.
+
+v2:
+ * Drop hard tabs
+ * Add __initconst_cf_clobber too
+ * Change types to reduce casting
 ---
- xen/arch/x86/alternative.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ xen/arch/x86/alternative.c | 38 ++++++++++++++++++++++++++++++++++++++
+ xen/arch/x86/xen.lds.S     |  6 ++++++
+ xen/include/xen/init.h     |  3 +++
+ 3 files changed, 47 insertions(+)
 
 diff --git a/xen/arch/x86/alternative.c b/xen/arch/x86/alternative.c
-index ec24692e9595..65537fe1f0bd 100644
+index 65537fe1f0bd..dd4609070001 100644
 --- a/xen/arch/x86/alternative.c
 +++ b/xen/arch/x86/alternative.c
-@@ -18,6 +18,7 @@
- #include <xen/delay.h>
- #include <xen/types.h>
- #include <asm/apic.h>
-+#include <asm/endbr.h>
- #include <asm/processor.h>
- #include <asm/alternative.h>
- #include <xen/init.h>
-@@ -279,6 +280,28 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
+@@ -173,6 +173,9 @@ text_poke(void *addr, const void *opcode, size_t len)
+     return memcpy(addr, opcode, len);
+ }
  
-                 if ( dest )
-                 {
-+                    /*
-+                     * When building for CET-IBT, all function pointer targets
-+                     * should have an endbr64 instruction.
-+                     *
-+                     * If this is not the case, leave a warning because
-+                     * something is probably wrong with the build.  A CET-IBT
-+                     * enabled system might have exploded already.
-+                     *
-+                     * Otherwise, skip the endbr64 instruction.  This is a
-+                     * marginal perf improvement which saves on instruction
-+                     * decode bandwidth.
-+                     */
-+                    if ( IS_ENABLED(CONFIG_HAS_CC_CET_IBT) )
-+                    {
-+                        if ( is_endbr64(dest) )
-+                            dest += 4;
-+                        else
-+                            printk(XENLOG_WARNING
-+                                   "altcall %ps dest %ps has no endbr64\n",
-+                                   orig, dest);
-+                    }
++extern void *const __initdata_cf_clobber_start[];
++extern void *const __initdata_cf_clobber_end[];
 +
-                     disp = dest - (orig + 5);
-                     ASSERT(disp == (int32_t)disp);
-                     *(int32_t *)(buf + 1) = disp;
+ /*
+  * Replace instructions with better alternatives for this CPU type.
+  * This runs before SMP is initialized to avoid SMP problems with
+@@ -330,6 +333,41 @@ static void init_or_livepatch _apply_alternatives(struct alt_instr *start,
+         add_nops(buf + a->repl_len, total_len - a->repl_len);
+         text_poke(orig, buf, total_len);
+     }
++
++    /*
++     * Clobber endbr64 instructions now that altcall has finished optimising
++     * all indirect branches to direct ones.
++     */
++    if ( force && cpu_has_xen_ibt )
++    {
++        void *const *val;
++        unsigned int clobbered = 0;
++
++        /*
++         * This is some minor structure (ab)use.  We walk the entire contents
++         * of .init.{ro,}data.cf_clobber as if it were an array of pointers.
++         *
++         * If the pointer points into .text, and at an endbr64 instruction,
++         * nop out the endbr64.  This causes the pointer to no longer be a
++         * legal indirect branch target under CET-IBT.  This is a
++         * defence-in-depth measure, to reduce the options available to an
++         * adversary who has managed to hijack a function pointer.
++         */
++        for ( val = __initdata_cf_clobber_start;
++              val < __initdata_cf_clobber_end;
++              val++ )
++        {
++            void *ptr = *val;
++
++            if ( !is_kernel_text(ptr) || !is_endbr64(ptr) )
++                continue;
++
++            add_nops(ptr, 4);
++            clobbered++;
++        }
++
++        printk("altcall: Optimised away %u endbr64 instructions\n", clobbered);
++    }
+ }
+ 
+ void init_or_livepatch apply_alternatives(struct alt_instr *start,
+diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+index ca22e984f807..c399178ac123 100644
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -221,6 +221,12 @@ SECTIONS
+        *(.initcall1.init)
+        __initcall_end = .;
+ 
++       . = ALIGN(POINTER_ALIGN);
++       __initdata_cf_clobber_start = .;
++       *(.init.data.cf_clobber)
++       *(.init.rodata.cf_clobber)
++       __initdata_cf_clobber_end = .;
++
+        *(.init.data)
+        *(.init.data.rel)
+        *(.init.data.rel.*)
+diff --git a/xen/include/xen/init.h b/xen/include/xen/init.h
+index bfe789e93f6b..0af0e234ec80 100644
+--- a/xen/include/xen/init.h
++++ b/xen/include/xen/init.h
+@@ -18,6 +18,9 @@
+ #define __init_call(lvl)  __used_section(".initcall" lvl ".init")
+ #define __exit_call       __used_section(".exitcall.exit")
+ 
++#define __initdata_cf_clobber  __section(".init.data.cf_clobber")
++#define __initconst_cf_clobber __section(".init.rodata.cf_clobber")
++
+ /* These macros are used to mark some functions or 
+  * initialized data (doesn't apply to uninitialized data)
+  * as `initialization' functions. The kernel can take this
 -- 
 2.11.0
 
