@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E55944B50D1
+	by mail.lfdr.de (Postfix) with ESMTPS id B18D14B50D0
 	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 13:57:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.271585.466134 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.271583.466112 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJaud-0003Pz-9p; Mon, 14 Feb 2022 12:57:03 +0000
+	id 1nJaua-0002kG-Rb; Mon, 14 Feb 2022 12:57:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 271585.466134; Mon, 14 Feb 2022 12:57:03 +0000
+Received: by outflank-mailman (output) from mailman id 271583.466112; Mon, 14 Feb 2022 12:57:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJaud-0003Fg-2l; Mon, 14 Feb 2022 12:57:03 +0000
-Received: by outflank-mailman (input) for mailman id 271585;
- Mon, 14 Feb 2022 12:57:01 +0000
+	id 1nJaua-0002ck-H3; Mon, 14 Feb 2022 12:57:00 +0000
+Received: by outflank-mailman (input) for mailman id 271583;
+ Mon, 14 Feb 2022 12:56:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HcNt=S5=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nJaua-0001Wb-Tu
- for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 12:57:01 +0000
+ id 1nJauY-0001Wb-Tg
+ for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 12:56:59 +0000
 Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
  [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95738935-8d95-11ec-b215-9bbe72dcb22c;
- Mon, 14 Feb 2022 13:56:55 +0100 (CET)
+ id 955ad2c9-8d95-11ec-b215-9bbe72dcb22c;
+ Mon, 14 Feb 2022 13:56:54 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,122 +36,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95738935-8d95-11ec-b215-9bbe72dcb22c
+X-Inumbo-ID: 955ad2c9-8d95-11ec-b215-9bbe72dcb22c
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1644843416;
+  d=citrix.com; s=securemail; t=1644843414;
   h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version;
-  bh=bS6U6dpS0uCHmyTfyvV11KW0uKIoo2qJ/wueBOXPivk=;
-  b=A6REouaRBDkRyFwQwIO95HTAALUcEYrhICbPBWWG0Jlfg09Swj3zmvoC
-   1VABM/sahF7VlpufIgpj/XrCneTchZoZJX4E40TNf2v7UykdVAtBZcq8o
-   KQHi0Rqy373+oz0131T+8hiB5qby075h++3Dkfy/ml07lVlmzdCEWzR61
-   w=;
+   references:mime-version:content-transfer-encoding;
+  bh=mNfie2MP8cG2OgPaZ9Su1HgYG5WuL0YllF2ieG0fnJE=;
+  b=BJW87xX7vA4vhnS5jjLLg60j6+WVq5cK3/EIdz3u3Vm6Nw2sfakxl5f5
+   qON0BYKghu8nsIv0vpL3RMzglz8g/CsncEyVDtJtPo6hdTqfYJDGS9TRk
+   Taw1p5UrXV17Y3hdYCao/cGKHRzwWiSWXq4LKm3wo+eQTP7utpHPVadiZ
+   o=;
 Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: DcILunBeCx6JLSKYMAN5Ejn1W6HEpA9UXxQC/kfaq2+bBy5/w2+cDsBLAX4KkGwAkMX0o9PKAR
- Bzf0W+y7J2bdy8v4TnIcTtrANOJceFf0MiXi8rxTIF/CO5wwSp7XlplHnpvd2P2oGBWbixXBwY
- paRC12Nqk103A5rHrfBv+ZxZ3CBzCVp2P8waxCfBA87xT6WYWrkREZcFOVigvSiz1ECi+1BFJt
- vgCd6GO4HmSfFFoI4q70yDuOG55chiPxTDq7Sj4lQSpxVsuFbf+0IltD6EaQpfazFFYhxMnpGV
- nhJTXpPc+fLmHwSpaAsw1U6h
+IronPort-SDR: 5fwCK46QNMINHaSODo3dbe9bwNd34zbkmByn1roMykKdwEluZshOOOzrf+BHQL8W3mmgOHjo02
+ WFPM7Qm/4We8QH2wMprEhZAnGVIE3gfoQ8qBPcbYTnFyM/yUU5CMeHEz72CmpTndMojnReikJU
+ 3XjDzQbFmKvPNoLYlCNnNYBncfOsXSpb4cWCCaK7b2JwHXMUfuCmsj0EooIS3y9JQpAKtgbp+A
+ uesMuQi+HOUeybjNLxqYjEV20VeuCfJ6y/fqqe23QasiL6y+QCTl9lyn3XXl6l82w83e9qUiM7
+ n2vmTys8IA+M5cCki/Q+iw5A
 X-SBRS: 5.1
-X-MesageID: 64148583
+X-MesageID: 64148580
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:XWXNLatFYQLeei+KE2WuiZmVb+fnVEhZMUV32f8akzHdYApBsoF/q
- tZmKWjUaP2CamLxeIx1bdu+9ksCvZbUxtI3TQpory9nFHlH+JbJXdiXEBz9bniYRiHhoOOLz
+IronPort-Data: A9a23:lGd3sKtnr8WgXqPMkLJOvq260ufnVGlZMUV32f8akzHdYApBsoF/q
+ tZmKWDXOvzYY2b2KdggaojnoE4E6sDUx9RgHgVtqi43ES1H+JbJXdiXEBz9bniYRiHhoOOLz
  Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHdJZS5LwbZj2NYy2IThWmthh
  PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
  gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
- NplmKybGClqEYT3t6c9XgYDNz4lZJIX5+qSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ Nplur+gSDktBpT1x6cPX0lZQw5DPq9DweqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
  aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6AO
- 5NFOWc/N3wsZTVsMU0rLp95md6ToUD6fAEDgwq3/LcOtj27IAtZj+G2bYu9lsaxbdVYmAOUq
- 3zL+0z9AwoGL5qPxDyd6HWui+TT2yThV+ov+KaQr6AwxgfJnypKVUNQBQDTTeSFZlCWduJ0e
- mJX1QMVgusS+VPwasamBiLpvyvR1vIDYOZ4H+o/4QCL76Pb5QeFG2QJJgJ8hMwaWNweHmJzi
- ALQ9z/9LXk26eDOFyrBnluBhW7qYUAowXk+iTjopOfvy/3qu8kNgx3GVb6P+4bl34SuSVkcL
- 91nxRXSZon/b+ZWjc1XHnid2lpAQ6QlqSZvuG3qspqNtF8RWWJcT9XABaLnxfhBNp2FaVKKo
- WIJncOThMhXU83Ry3zdHbhVRerzjxpgDNE7qQQxd6TNChz3oyLzFWyuyG0WyLhV3jYsJmayP
- R67VfJ5755PJnq6BZKbkKrqY/nGOZPITIy/PtiNN4ImSsEoKGevoXE/DWbNjjuFuBV9zskC1
- WKzLJ/E4YAyUv88klJbho41jNcW+8zJ7T2PFM6rl0z9idJzphe9EN84DbdHVchhhIvsnekf2
- 4w32xKix0oNXevgTDPQ9IJPf1kGIWJiXcL9qtBNd/7FKQ1jQTlzB/jUyLInWopkg6UKybuYo
- iDjAhdVmAjlmHnKCQSWcXQ/Ornhaoly8CAgNis2MFf2h3V6OdSz7L0SfoccdKU88LAx1uZ9S
- vQIIp3SAvlGRjnd1S4aaJ3x8N5reBix3FrcNCu5ejkvOZVnQlWRqNPjewLu8ggIDza26pRi8
- +HxiFuDTMNaFQp4DcvQZPa+9H+LvCAQyLBoQk/FAthPY0GwooJkHDP8060sKMYWJBSdmjbDj
- 1SKAQ0VrPXmqpMu9IWbnriNqoqkHrcsHkdeGGWHv7+6OTODozimyI5EFu2JYSrcRCX//6D7P
- bdZyPT1MfsmmldWstUjT+Y3nPxmv9a/9aVHyglEHWnQawX5A7xtFXCKwM1Tu/Af3bReowa3B
- hqC99Qy1W9l4y85/Ir9/DYYU9k=
-IronPort-HdrOrdr: A9a23:8a+lVqnTUB7VIruLicTU/0ogkSXpDfIo3DAbv31ZSRFFG/Fxl6
- iV/cjztCWE8Ar5N0tQ+uxoVJPufZqYz+8Q3WBzB8baYOCFghrLEGgK1+KLqFeMdxEWtNQtsp
- uIG5IObuEYZmIbsS+V2meF+q4bsby6zJw=
+ 5NFOWc/NHwsZTVRZngNCqpls92yj0HiQwVVkV6Qlbsetj27IAtZj+G2bYu9lsaxbdpRtlaVo
+ CTB5WuRKjMwOcGbyDGF2mmxneKJliT+MKoCGbv9+vN0jVm7wm0IFAZQRVa9ueO+iEO1R5RYM
+ UN8x8Y1hfFsrgrxFIC7BkDm5i7f1vIBZzZOO+IZ+ACzzpLt2lnaFGRUT25uVd8ksfZjEFTGy
+ WS1t9/uADVutpicRnSc6qqYoFuOBMQFEYMRTXRaFFVYurEPtKl210uSFYg7TMZZm/WoQWmY/
+ tyckMQpa1z/Z+Yv3r7zw13IiinESnPhHl9svVW/so5IA2pEiG+Zi26AtAKzARVodt/xory9U
+ J8swZb20Qz2JcvR/BFhuc1UdF1T296LMSfHnXlkFIQ7+jKm9haLJN4MvG4udBo0ap9fI1cFh
+ XM/XisLuvdu0IaCN/crM+pd9ex2pUQfKTgVfq+NNYcfCnSAXASG4DtvdSatM5PFyyARfVUEE
+ c7DK66EVC9CYYw+lWbeb7pNgNcDm3FlrUuOFM+T8vhS+efHDJJjYexeawXmgyFQxP7snTg5B
+ P4Ba5rUm00HCrWWj+u+2dd7EG3m5EMTXfjew/G7vMbaSua/MG1+WfLX3507fIlpw/ZcmuvSp
+ ynvUU5E0lvvw3bALFzSOHxkbbruW7d5rG46YnNwbQr5hSB7bNb99robers2YaIjqL5pw8lrQ
+ qRXYM6HGPlOFGjKomxPcZnnoYV+Xx23ngbSbTG9aT0ycsc4FQzE89PpZCX18ywKAnblvMcyu
+ eT4hAjaXYACV0JpC8OPMKCjyFa4vH48nuNuXhSXfokPKRu0qIUzcn7/lP46Jc0IOC7v/DrC2
+ lbEGwocqMnMv5QxrIvDi5ebotr7COB5BEdbQTXWtO7kKSnA82O/6oZcS+LULyvFXWb59aj+N
+ +VYy/bwbK8OkFpQ6tcuFr9qyeQ15sf1pq8cxQNhRS2ZY1OuA7JmA3+HwcgQ6fEdmu4H4VO7C
+ hCV591XGbSVI8e0QlceKT0sYvmHyfxJyCLZ6u44IRmi6SJ6lFZdvZ6+4/VYZPRhEYZI
+IronPort-HdrOrdr: A9a23:anNxi6A1HdEPhzrlHemu55DYdb4zR+YMi2TC1yhKJyC9E/bo7v
+ xG88566faZslossTQb6LW90cq7MBXhHPxOkOos1N6ZNWGM0gaVxcNZnO/fKlXbakrDH4VmtJ
+ uIHZIQNDSJNykZsfrH
 X-IronPort-AV: E=Sophos;i="5.88,367,1635220800"; 
-   d="scan'208";a="64148583"
+   d="scan'208";a="64148580"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2 4/7] xsm: Use __initconst_cf_clobber for xsm_ops
-Date: Mon, 14 Feb 2022 12:56:29 +0000
-Message-ID: <20220214125632.24563-5-andrew.cooper3@citrix.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v2 5/7] x86/hvm: Use __initdata_cf_clobber for hvm_funcs
+Date: Mon, 14 Feb 2022 12:56:30 +0000
+Message-ID: <20220214125632.24563-6-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220214125632.24563-1-andrew.cooper3@citrix.com>
 References: <20220214125632.24563-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-All calls through xsm_ops are fully altcall'd.  Harden all fnptr targets.
+All calls through hvm_funcs are fully altcall'd.  Harden all function pointer
+targets.
 
-This yields:
-
-  (XEN) altcall: Optimised away 197 endbr64 instructions
-
-of 1655 on an everything-enabled build of Xen, which is ~12%.
+This optimises away 106 targets.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 ---
- xen/xsm/dummy.c       | 2 +-
- xen/xsm/flask/hooks.c | 2 +-
- xen/xsm/silo.c        | 2 +-
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+---
+ xen/arch/x86/hvm/hvm.c     | 2 +-
+ xen/arch/x86/hvm/svm/svm.c | 2 +-
+ xen/arch/x86/hvm/vmx/vmx.c | 2 +-
  3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/xen/xsm/dummy.c b/xen/xsm/dummy.c
-index 4d29a9aa5b9f..8c044ef61500 100644
---- a/xen/xsm/dummy.c
-+++ b/xen/xsm/dummy.c
-@@ -13,7 +13,7 @@
- #define XSM_NO_WRAPPERS
- #include <xsm/dummy.h>
- 
--static const struct xsm_ops __initconstrel dummy_ops = {
-+static const struct xsm_ops __initconst_cf_clobber dummy_ops = {
-     .security_domaininfo           = xsm_security_domaininfo,
-     .domain_create                 = xsm_domain_create,
-     .getdomaininfo                 = xsm_getdomaininfo,
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index 63484e323c09..0bf63ffa84c4 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -1765,7 +1765,7 @@ static int cf_check flask_argo_send(
- 
+diff --git a/xen/arch/x86/hvm/hvm.c b/xen/arch/x86/hvm/hvm.c
+index cdd1529014f2..709a4191efe8 100644
+--- a/xen/arch/x86/hvm/hvm.c
++++ b/xen/arch/x86/hvm/hvm.c
+@@ -88,7 +88,7 @@ unsigned int opt_hvm_debug_level __read_mostly;
+ integer_param("hvm_debug", opt_hvm_debug_level);
  #endif
  
--static const struct xsm_ops __initconstrel flask_ops = {
-+static const struct xsm_ops __initconst_cf_clobber flask_ops = {
-     .security_domaininfo = flask_security_domaininfo,
-     .domain_create = flask_domain_create,
-     .getdomaininfo = flask_getdomaininfo,
-diff --git a/xen/xsm/silo.c b/xen/xsm/silo.c
-index 4d5fc98e7e54..b89b36428784 100644
---- a/xen/xsm/silo.c
-+++ b/xen/xsm/silo.c
-@@ -102,7 +102,7 @@ static int cf_check silo_argo_send(
+-struct hvm_function_table hvm_funcs __read_mostly;
++struct hvm_function_table __ro_after_init hvm_funcs;
  
- #endif
+ /*
+  * The I/O permission bitmap is globally shared by all HVM guests except
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index 63535a74b504..b80d4af6cb90 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -2513,7 +2513,7 @@ static void cf_check svm_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
+     }
+ }
  
--static const struct xsm_ops __initconstrel silo_xsm_ops = {
-+static const struct xsm_ops __initconst_cf_clobber silo_xsm_ops = {
-     .evtchn_unbound = silo_evtchn_unbound,
-     .evtchn_interdomain = silo_evtchn_interdomain,
-     .grant_mapref = silo_grant_mapref,
+-static struct hvm_function_table __initdata svm_function_table = {
++static struct hvm_function_table __initdata_cf_clobber svm_function_table = {
+     .name                 = "SVM",
+     .cpu_up_prepare       = svm_cpu_up_prepare,
+     .cpu_dead             = svm_cpu_dead,
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index 41db538a9e3d..758df3321884 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -2473,7 +2473,7 @@ static void cf_check vmx_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
+     vmx_vmcs_exit(v);
+ }
+ 
+-static struct hvm_function_table __initdata vmx_function_table = {
++static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
+     .name                 = "VMX",
+     .cpu_up_prepare       = vmx_cpu_up_prepare,
+     .cpu_dead             = vmx_cpu_dead,
 -- 
 2.11.0
 
