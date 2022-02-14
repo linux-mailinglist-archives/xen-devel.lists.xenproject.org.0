@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF2484B517E
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:18:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.272097.466921 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E4F84B5101
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:05:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.271648.466250 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJbFH-0007Pn-Fi; Mon, 14 Feb 2022 13:18:23 +0000
+	id 1nJb2K-0002AI-Ok; Mon, 14 Feb 2022 13:05:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 272097.466921; Mon, 14 Feb 2022 13:18:23 +0000
+Received: by outflank-mailman (output) from mailman id 271648.466250; Mon, 14 Feb 2022 13:05:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJbFH-0007MB-8Y; Mon, 14 Feb 2022 13:18:23 +0000
-Received: by outflank-mailman (input) for mailman id 272097;
- Mon, 14 Feb 2022 13:18:21 +0000
+	id 1nJb2K-00027M-Dv; Mon, 14 Feb 2022 13:05:00 +0000
+Received: by outflank-mailman (input) for mailman id 271648;
+ Mon, 14 Feb 2022 13:04:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HcNt=S5=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nJb4j-0008IH-Sa
- for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:07:30 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0e18c045-8d97-11ec-8eb8-a37418f5ba1a;
- Mon, 14 Feb 2022 14:07:26 +0100 (CET)
+ id 1nJb2I-0008IH-Kj
+ for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:04:58 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b3f624cb-8d96-11ec-8eb8-a37418f5ba1a;
+ Mon, 14 Feb 2022 14:04:56 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,60 +36,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0e18c045-8d97-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: b3f624cb-8d96-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1644844046;
+  d=citrix.com; s=securemail; t=1644843895;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version;
-  bh=LtJo+RP7waNzs+O/em8BrBScnR7VYL3LyvaDnkUSQHU=;
-  b=Rjh25R4g4/Hjy+5YLDHBsHixUq159uEw6MR5EXTMVs7ME+P9qIKRskPb
-   3HGdReXkf4jbM+PS7YeBb+mb/Z2FNcNsVS1e8bywpNO2OKYdVy3ITpJql
-   +SDXUcWN7J15CdXNkHSjFT9k0iUtwXnwwKJpCFDJgyEHT3kPTybiMbgEu
-   k=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: JHmOLz3WTCcCK+Mlkx2/1s5a3W5ucwAGtEWS1O9nHaWkHNCnIuYmX04uzbDGFzFM+oSUl+IBV+
- txitSnxsmxLAkc++0xAhyeG7qGWdfRNkCxoUbL/KT25zgQurtKtmL1EHdm1XMa6O36iI1NwgBG
- fG+p8uKee+Fdfk5oI/zbno8Bxa6ezpGNodrfLe9Dubviye3BPZiXhq9NrxX7RsJNR420tYysIE
- /densTuIjbJnkkbUTxRaBEqP1e6hergHhP9Jt5UHFuyf/pdxpvLuJ1mte4KUGpMM+SB4BMmrQy
- EW0DmMu7AvwQ1x2Cr9hJiFLK
+  bh=pfhdXVvCWz6Fs6X++wjrTNrqVSs3wjv7wmnK/81GecM=;
+  b=ZDay2MKrjN+Mh8oZQyInZNgPP/fl07hSAFxn3vaKgcXWLdoobN5cgFos
+   NSW4Pk6sHvcsQ1yJhiEOUmk8o/EBXoHBA6E5KpspR6+ZyBgX6VGHsDrp7
+   js1nKcEy4deYJLsarswwXYO1xxClfZ5vUkkcQ6oegMD5BqLI39eqEY0r0
+   M=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 5qzbJEgkWLQuuZ6suPdPbZ5i9qx84NCPrBpyP+ktyWo5TRk6cxC2kKzBxd4F3fonV1/HbnAg4+
+ b3a9QZ3hIdKh4rMBvhq0LbJtxDVueOsQXNGE3i8ZY0oefJK7/eimJfDA5VaVDJXuYmIv4pRoeV
+ Zs8Rt5QcOwWEhaCg+zfMT+XqgN04O59X90HD29y2giLls1bd/FlzyKwkmm9FdgDhkT3fLoE4BX
+ X/dQbuaxdcXVsyaTcGqrcfXcoRUTv6N4M2dzkryVWSmdMHTBz2RjfrCdDkQmvM+mGFNPAow96j
+ aa0ejekdB6HgglrhV+trZVYK
 X-SBRS: 5.1
-X-MesageID: 64554482
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 64149320
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:UjAjEaLg3RfVaszbFE+RyZIlxSXFcZb7ZxGr2PjKsXjdYENS3zUBm
- mBKX2vVO/iMZjf3KNgiPoSxoRxQusCAz4NhTQplqX01Q3x08seUXt7xwmUcns+xwm8vaGo9s
- q3yv/GZdJhcokcxIn5BC5C5xZVG/fjgqoHUVaiUakideSc+EH170Ug6x7Zg6mJVqYPR7z2l6
- IuaT/L3YDdJ6xYsWo7Dw/vewP/HlK2aVAIw5jTSV9gS1LPtvyB94KYkDbOwNxPFrrx8RYZWc
- QphIIaRpQs19z91Yj+sfy2SnkciGtY+NiDW4pZatjTLbrGvaUXe345iXMfwZ3u7hB2yxdB32
- PRvmqW2SAULMbzTwbsyYyZXRnQW0a1uoNcrIFC6uM2XiUbHb2Ht07NlC0Re0Y8wo7gtRzsUr
- LpBdW5LPkvra+GemdpXTsFFgMg5IdatF4QYonx6lhnSDOo8QICFSKLPjTNd9Gls250SQaaED
- yYfQX1BXDjBPzRgA1dNV8MGwOeImVjYbjIN/Tp5ooJoujOOnWSdyoPFINfTP9CHW8hRtkKZv
- X7duXT0BAkAM96SwibD9Wij7tIjhguiBthUTufhsKc33hvDnQT/FSH6S3OA+/m/mm+cdOtZK
- k429Tsx9PcdxHOkG4yVswKDnFaIuRsVWtx1GuI86R2Qxqe83zt1FlToXRYaNoV46ZZeqSgCk
- wbQwoi3XWAHXKi9FCrFnop4uw9eLsT8wYUqQSYfBTUI7ND4yG3YpkKeF40zeEJZYzCcJN0R/
- 9xohHVk71nwpZRSv0lewbwgq2jyzqUltiZvum3qspuNt2uVnrKNaY2y8kT85v1dNoufRVTpl
- CFax5TBvLBTUMnUz3blrAAx8FaBvajtDdEhqQQ3Q8lJG8qFpxZPgry8EBkhfRw0Y67oiBfiY
- VPJuBM52XOgFCDCUEODWKroU55C5fG5TbzND6mIBvITMskZXFLWp0lGOB/Pt10BZWBxyMnTz
- 7/AKp3yZZvbYIw6pAeLqxA1j+N6mHBmnTmLLX05pjz+uYejiLeuYe9tGDOzgioRtfnayOkM2
- 9oAZcaM1TtFV+jyPnve/YIJdAhYJnknH5Hm7cdQc7fbcAZhHWggDd7XwK8gJNM5z/gEyL+Q8
- yHvQFJcxXr+mWbDdVeAZEd8Ze69Rp14t386Y3AhZA76x3g5bI+zx64DbJ9rL6I//eluwKcsH
- fkIcsmNGNpVTTHD92hPZJXxttU6Jh+qmRiPL2yuZz1mJ8xsQAnA+9nFeArz9XZRUnrr5JVm+
- 7D5j1HVW5sOQQhmHf36UvP3wgPjp2UZlcJzQ1DMfotZdnLz/dU4MCf2lPI2fZ0BcE2R2juA2
- g+KKh4Evu2R8ZQt+dzEiK3Y/YekF+xyQhhTE2XBtOvkMCDb+iyowJNaUfbOdjfYDTum9KKnb
- ORT7vf9LPxYwwoa79siS+5mnfAk+t/ih75G1QA1TnzEYmOiBq5kPnTbj9JEsbdAx+MBtAa7M
- q5VFgK25Vld1BvZLWMs
-IronPort-HdrOrdr: A9a23:9JZrPanj0MRPGmbv4hoe/P0odXXpDfIu3DAbv31ZSRFFG/Fxl6
- iV8sjztCWE8Qr5N0tBpTntAsW9qDbnhPtICOoqTNGftWvdyQiVxehZhOOIqVDd8m/Fh4pgPM
- 9bAs9D4bbLbGSS4/yU3ODBKadD/OW6
+IronPort-Data: A9a23:ZwFvuqx2U3I+ix/11EZ6t+cowSrEfRIJ4+MujC+fZmUNrF6WrkUBm
+ GsZCGvSP6zfY2ujKYp/bIiw/UJQvJXSy9EyHQdtqiAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
+ 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAhLeNYYH1500g7wbdl2tcAbeWRWGthh
+ /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
+ wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt4937
+ 4tOiMXvcyMsIKnPqOMsUh9RSy4raMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
+ 6ZBbmlQMFbT3Ipaw5riIgVoru0lINPmI8U0vXZ4wCuCJf0nXYrCU+PB4towMDIY2JwXQaeFP
+ ZJxhTxHZRf4PQZMC34sFb0avuD2jHXETABGtwfAzUYwyzeKl1EguFT3C/LFd9rPSchLk0Kwo
+ mPd43+/EhwcLMaYyzeO7jSrnOCnoM/gcNtMTvvirKcs2QDNgDxIYPELabeliaa/rRC9ZosAE
+ WgR5C4tna8D9UqiFtaoCnVUv0W4lhIbXtNRFcgz5weM1rfY7m6lO4QUctJSQId47ZFrHFTGw
+ nfMxoq0XmI37NV5XFrAru/8kN+kBcQCwYbujwcgRBBN3dTsqZpbYvnnHoc6S/7dYjEY9FjNL
+ 9G2QMoW2u97YS0jjfzTEbX7b9WE/Mahc+LNzl+LNl9JFysgDGJfW6Sm6ELA8dFLJ5uDQ1+Ks
+ RAswpbCsL9eXczQzHXWGo3h+Y1FAN7fblXhbaNHRcF9p1xBBVb/FWyv3N2ODBgwaZtVEdMYS
+ ETSpRlQ9Pdu0IiCNsdKj3aKI51yl8DITI29PtiNN4YmSsUhJWevoXA1DWbNjj+FraTZufxmU
+ XttWZ33Vihy5GUO5GfeetrxJpd1mn5glTmOGfgWDX2PiNKjWZJccp9dWHPmUwzzxPrsTNz9/
+ 4kNOs2U5Q9YVeGiMCDb/ZRKdQIBLGQhBICwoMtSL7bRLg1jEWAnKvnQ3bJ+JNA1w/ULzr/Fr
+ iOnR0tV6Fvjnnmbew+EXW9uNeH0VpFloHNlYSF1ZQS022IuaJqE5bsEc8dlZqEu8eFulKYmT
+ /QMd8iaLO5ITzDLp2YUYZXn9dQwfxW3nwOeeSGiZWFnLZJnQgXI/P7ifxfuq3ZSXnbm65Nmr
+ uT5hA3BQJcFSwBzN+rsaaqinwGroHwQuONuRE+UcNNdT1rhrdpxICvrg/5pf8xVcUffxiGX3
+ hq9CAsDobWfuJc89dTEiPzWr4qtFOciTENWE3OCsOSzPCjeuGGi3ZVBQKCDejWEDDH4/6CrZ
+ ON0yfDgMaJYwAYW4tQkS7s7n7gj49bPpqNBylU2FXrGWF2nF7d8LyTUxsJIrKBMmudUtAbet
+ phjITWG1WFl4P/YLWM=
+IronPort-HdrOrdr: A9a23:uR7z8KPttWKn9MBcTsOjsMiBIKoaSvp037Eqv3oedfU1SL3gqy
+ nAppQmPHPP5Ar5HUtQ/OxoW5PwJ080l6QFgrX5VI3KNGKN1VdAbrsSibcKqweQfBEWndQ96U
+ 4PScdD4aXLfDpHsfo=
 X-IronPort-AV: E=Sophos;i="5.88,367,1635220800"; 
-   d="scan'208";a="64554482"
+   d="scan'208";a="64149320"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2 19/70] xsm: CFI hardening
-Date: Mon, 14 Feb 2022 12:50:36 +0000
-Message-ID: <20220214125127.17985-20-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 20/70] xen/sched: CFI hardening
+Date: Mon, 14 Feb 2022 12:50:37 +0000
+Message-ID: <20220214125127.17985-21-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220214125127.17985-1-andrew.cooper3@citrix.com>
 References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
@@ -102,1675 +102,965 @@ to help protect against call/jump/return oriented programming attacks.
 Use cf_check to annotate function pointer targets for the toolchain.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Daniel P. Smith <dpsmith@apertussolutions.com>
+Acked-by: Dario Faggioli <dfaggioli@suse.com>
 ---
- xen/include/xsm/dummy.h  | 211 ++++++++++++++++++++++--------------------
- xen/xsm/flask/flask_op.c |   2 +-
- xen/xsm/flask/hooks.c    | 232 ++++++++++++++++++++++++++---------------------
- xen/xsm/flask/private.h  |   4 +-
- xen/xsm/silo.c           |  24 ++---
- 5 files changed, 257 insertions(+), 216 deletions(-)
+ xen/common/sched/arinc653.c | 20 +++++++--------
+ xen/common/sched/core.c     |  8 +++---
+ xen/common/sched/credit.c   | 49 ++++++++++++++++++------------------
+ xen/common/sched/credit2.c  | 51 +++++++++++++++++++-------------------
+ xen/common/sched/null.c     | 60 +++++++++++++++++++++++----------------------
+ xen/common/sched/rt.c       | 42 +++++++++++++++----------------
+ 6 files changed, 115 insertions(+), 115 deletions(-)
 
-diff --git a/xen/include/xsm/dummy.h b/xen/include/xsm/dummy.h
-index b024119896e6..58afc1d58973 100644
---- a/xen/include/xsm/dummy.h
-+++ b/xen/include/xsm/dummy.h
-@@ -101,46 +101,48 @@ static always_inline int xsm_default_action(
+diff --git a/xen/common/sched/arinc653.c b/xen/common/sched/arinc653.c
+index 542191822192..a82c0d7314a1 100644
+--- a/xen/common/sched/arinc653.c
++++ b/xen/common/sched/arinc653.c
+@@ -343,7 +343,7 @@ arinc653_sched_get(
+  *                  <li> !0 = error
+  *                  </ul>
+  */
+-static int
++static int cf_check
+ a653sched_init(struct scheduler *ops)
+ {
+     a653sched_priv_t *prv;
+@@ -366,7 +366,7 @@ a653sched_init(struct scheduler *ops)
+  *
+  * @param ops       Pointer to this instance of the scheduler structure
+  */
+-static void
++static void cf_check
+ a653sched_deinit(struct scheduler *ops)
+ {
+     xfree(SCHED_PRIV(ops));
+@@ -381,7 +381,7 @@ a653sched_deinit(struct scheduler *ops)
+  *
+  * @return          Pointer to the allocated data
+  */
+-static void *
++static void *cf_check
+ a653sched_alloc_udata(const struct scheduler *ops, struct sched_unit *unit,
+                       void *dd)
+ {
+@@ -442,7 +442,7 @@ a653sched_alloc_udata(const struct scheduler *ops, struct sched_unit *unit,
+  *
+  * @param ops       Pointer to this instance of the scheduler structure
+  */
+-static void
++static void cf_check
+ a653sched_free_udata(const struct scheduler *ops, void *priv)
+ {
+     a653sched_priv_t *sched_priv = SCHED_PRIV(ops);
+@@ -469,7 +469,7 @@ a653sched_free_udata(const struct scheduler *ops, void *priv)
+  * @param ops       Pointer to this instance of the scheduler structure
+  * @param unit      Pointer to struct sched_unit
+  */
+-static void
++static void cf_check
+ a653sched_unit_sleep(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     if ( AUNIT(unit) != NULL )
+@@ -489,7 +489,7 @@ a653sched_unit_sleep(const struct scheduler *ops, struct sched_unit *unit)
+  * @param ops       Pointer to this instance of the scheduler structure
+  * @param unit      Pointer to struct sched_unit
+  */
+-static void
++static void cf_check
+ a653sched_unit_wake(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     if ( AUNIT(unit) != NULL )
+@@ -505,7 +505,7 @@ a653sched_unit_wake(const struct scheduler *ops, struct sched_unit *unit)
+  * @param ops       Pointer to this instance of the scheduler structure
+  * @param now       Current time
+  */
+-static void
++static void cf_check
+ a653sched_do_schedule(
+     const struct scheduler *ops,
+     struct sched_unit *prev,
+@@ -604,7 +604,7 @@ a653sched_do_schedule(
+  *
+  * @return          Scheduler resource to run on
+  */
+-static struct sched_resource *
++static struct sched_resource *cf_check
+ a653sched_pick_resource(const struct scheduler *ops,
+                         const struct sched_unit *unit)
+ {
+@@ -634,7 +634,7 @@ a653sched_pick_resource(const struct scheduler *ops,
+  * @param pdata     scheduler specific PCPU data (we don't have any)
+  * @param vdata     scheduler specific UNIT data of the idle unit
+  */
+-static spinlock_t *
++static spinlock_t *cf_check
+ a653_switch_sched(struct scheduler *new_ops, unsigned int cpu,
+                   void *pdata, void *vdata)
+ {
+@@ -656,7 +656,7 @@ a653_switch_sched(struct scheduler *new_ops, unsigned int cpu,
+  * @param ops       Pointer to this instance of the scheduler structure
+  * @param sc        Pointer to the scheduler operation specified by Domain 0
+  */
+-static int
++static int cf_check
+ a653sched_adjust_global(const struct scheduler *ops,
+                         struct xen_sysctl_scheduler_op *sc)
+ {
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index b1836b591c0a..9e09d9befa23 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -98,13 +98,13 @@ static bool scheduler_active;
+ static void sched_set_affinity(
+     struct sched_unit *unit, const cpumask_t *hard, const cpumask_t *soft);
+ 
+-static struct sched_resource *
++static struct sched_resource *cf_check
+ sched_idle_res_pick(const struct scheduler *ops, const struct sched_unit *unit)
+ {
+     return unit->res;
+ }
+ 
+-static void *
++static void *cf_check
+ sched_idle_alloc_udata(const struct scheduler *ops, struct sched_unit *unit,
+                        void *dd)
+ {
+@@ -112,12 +112,12 @@ sched_idle_alloc_udata(const struct scheduler *ops, struct sched_unit *unit,
+     return ZERO_BLOCK_PTR;
+ }
+ 
+-static void
++static void cf_check
+ sched_idle_free_udata(const struct scheduler *ops, void *priv)
+ {
+ }
+ 
+-static void sched_idle_schedule(
++static void cf_check sched_idle_schedule(
+     const struct scheduler *ops, struct sched_unit *unit, s_time_t now,
+     bool tasklet_work_scheduled)
+ {
+diff --git a/xen/common/sched/credit.c b/xen/common/sched/credit.c
+index 5635271f6fea..4d3bd8cba6fc 100644
+--- a/xen/common/sched/credit.c
++++ b/xen/common/sched/credit.c
+@@ -507,7 +507,7 @@ static inline void __runq_tickle(const struct csched_unit *new)
+         SCHED_STAT_CRANK(tickled_no_cpu);
+ }
+ 
+-static void
++static void cf_check
+ csched_free_pdata(const struct scheduler *ops, void *pcpu, int cpu)
+ {
+     const struct csched_private *prv = CSCHED_PRIV(ops);
+@@ -524,7 +524,7 @@ csched_free_pdata(const struct scheduler *ops, void *pcpu, int cpu)
+     xfree(pcpu);
+ }
+ 
+-static void
++static void cf_check
+ csched_deinit_pdata(const struct scheduler *ops, void *pcpu, int cpu)
+ {
+     struct csched_private *prv = CSCHED_PRIV(ops);
+@@ -566,7 +566,7 @@ csched_deinit_pdata(const struct scheduler *ops, void *pcpu, int cpu)
+     spin_unlock_irqrestore(&prv->lock, flags);
+ }
+ 
+-static void *
++static void *cf_check
+ csched_alloc_pdata(const struct scheduler *ops, int cpu)
+ {
+     struct csched_pcpu *spc;
+@@ -615,7 +615,7 @@ init_pdata(struct csched_private *prv, struct csched_pcpu *spc, int cpu)
+ }
+ 
+ /* Change the scheduler of cpu to us (Credit). */
+-static spinlock_t *
++static spinlock_t *cf_check
+ csched_switch_sched(struct scheduler *new_ops, unsigned int cpu,
+                     void *pdata, void *vdata)
+ {
+@@ -848,7 +848,7 @@ _csched_cpu_pick(const struct scheduler *ops, const struct sched_unit *unit,
+     return cpu;
+ }
+ 
+-static struct sched_resource *
++static struct sched_resource *cf_check
+ csched_res_pick(const struct scheduler *ops, const struct sched_unit *unit)
+ {
+     struct csched_unit *svc = CSCHED_UNIT(unit);
+@@ -985,9 +985,8 @@ csched_unit_acct(struct csched_private *prv, unsigned int cpu)
      }
  }
  
--static XSM_INLINE void xsm_security_domaininfo(
-+static XSM_INLINE void cf_check xsm_security_domaininfo(
-     struct domain *d, struct xen_domctl_getdomaininfo *info)
+-static void *
+-csched_alloc_udata(const struct scheduler *ops, struct sched_unit *unit,
+-                   void *dd)
++static void *cf_check csched_alloc_udata(
++    const struct scheduler *ops, struct sched_unit *unit, void *dd)
  {
+     struct csched_unit *svc;
+ 
+@@ -1007,7 +1006,7 @@ csched_alloc_udata(const struct scheduler *ops, struct sched_unit *unit,
+     return svc;
+ }
+ 
+-static void
++static void cf_check
+ csched_unit_insert(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct csched_unit *svc = unit->priv;
+@@ -1032,7 +1031,7 @@ csched_unit_insert(const struct scheduler *ops, struct sched_unit *unit)
+     SCHED_STAT_CRANK(unit_insert);
+ }
+ 
+-static void
++static void cf_check
+ csched_free_udata(const struct scheduler *ops, void *priv)
+ {
+     struct csched_unit *svc = priv;
+@@ -1042,7 +1041,7 @@ csched_free_udata(const struct scheduler *ops, void *priv)
+     xfree(svc);
+ }
+ 
+-static void
++static void cf_check
+ csched_unit_remove(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct csched_private *prv = CSCHED_PRIV(ops);
+@@ -1069,7 +1068,7 @@ csched_unit_remove(const struct scheduler *ops, struct sched_unit *unit)
+     BUG_ON( sdom == NULL );
+ }
+ 
+-static void
++static void cf_check
+ csched_unit_sleep(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct csched_unit * const svc = CSCHED_UNIT(unit);
+@@ -1094,7 +1093,7 @@ csched_unit_sleep(const struct scheduler *ops, struct sched_unit *unit)
+         runq_remove(svc);
+ }
+ 
+-static void
++static void cf_check
+ csched_unit_wake(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct csched_unit * const svc = CSCHED_UNIT(unit);
+@@ -1156,7 +1155,7 @@ csched_unit_wake(const struct scheduler *ops, struct sched_unit *unit)
+     __runq_tickle(svc);
+ }
+ 
+-static void
++static void cf_check
+ csched_unit_yield(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct csched_unit * const svc = CSCHED_UNIT(unit);
+@@ -1165,7 +1164,7 @@ csched_unit_yield(const struct scheduler *ops, struct sched_unit *unit)
+     set_bit(CSCHED_FLAG_UNIT_YIELD, &svc->flags);
+ }
+ 
+-static int
++static int cf_check
+ csched_dom_cntl(
+     const struct scheduler *ops,
+     struct domain *d,
+@@ -1210,7 +1209,7 @@ csched_dom_cntl(
+     return rc;
+ }
+ 
+-static void
++static void cf_check
+ csched_aff_cntl(const struct scheduler *ops, struct sched_unit *unit,
+                 const cpumask_t *hard, const cpumask_t *soft)
+ {
+@@ -1238,7 +1237,7 @@ __csched_set_tslice(struct csched_private *prv, unsigned int timeslice_ms)
+     prv->credit = prv->credits_per_tslice * prv->ncpus;
+ }
+ 
+-static int
++static int cf_check
+ csched_sys_cntl(const struct scheduler *ops,
+                         struct xen_sysctl_scheduler_op *sc)
+ {
+@@ -1281,7 +1280,7 @@ csched_sys_cntl(const struct scheduler *ops,
+     return rc;
+ }
+ 
+-static void *
++static void *cf_check
+ csched_alloc_domdata(const struct scheduler *ops, struct domain *dom)
+ {
+     struct csched_dom *sdom;
+@@ -1299,7 +1298,7 @@ csched_alloc_domdata(const struct scheduler *ops, struct domain *dom)
+     return sdom;
+ }
+ 
+-static void
++static void cf_check
+ csched_free_domdata(const struct scheduler *ops, void *data)
+ {
+     xfree(data);
+@@ -1809,7 +1808,7 @@ csched_load_balance(struct csched_private *prv, int cpu,
+  * This function is in the critical path. It is designed to be simple and
+  * fast for the common case.
+  */
+-static void csched_schedule(
++static void cf_check csched_schedule(
+     const struct scheduler *ops, struct sched_unit *unit, s_time_t now,
+     bool tasklet_work_scheduled)
+ {
+@@ -2026,7 +2025,7 @@ csched_dump_unit(const struct csched_unit *svc)
+     printk("\n");
+ }
+ 
+-static void
++static void cf_check
+ csched_dump_pcpu(const struct scheduler *ops, int cpu)
+ {
+     const struct list_head *runq;
+@@ -2079,7 +2078,7 @@ csched_dump_pcpu(const struct scheduler *ops, int cpu)
+     spin_unlock_irqrestore(&prv->lock, flags);
+ }
+ 
+-static void
++static void cf_check
+ csched_dump(const struct scheduler *ops)
+ {
+     struct list_head *iter_sdom, *iter_svc;
+@@ -2143,7 +2142,7 @@ csched_dump(const struct scheduler *ops)
+     spin_unlock_irqrestore(&prv->lock, flags);
+ }
+ 
+-static int __init
++static int __init cf_check
+ csched_global_init(void)
+ {
+     if ( sched_credit_tslice_ms > XEN_SYSCTL_CSCHED_TSLICE_MAX ||
+@@ -2173,7 +2172,7 @@ csched_global_init(void)
+     return 0;
+ }
+ 
+-static int
++static int cf_check
+ csched_init(struct scheduler *ops)
+ {
+     struct csched_private *prv;
+@@ -2215,7 +2214,7 @@ csched_init(struct scheduler *ops)
+     return 0;
+ }
+ 
+-static void
++static void cf_check
+ csched_deinit(struct scheduler *ops)
+ {
+     struct csched_private *prv;
+diff --git a/xen/common/sched/credit2.c b/xen/common/sched/credit2.c
+index d96e2749ddfb..0e3f89e5378e 100644
+--- a/xen/common/sched/credit2.c
++++ b/xen/common/sched/credit2.c
+@@ -2164,7 +2164,7 @@ csched2_unit_check(const struct sched_unit *unit)
+ #define CSCHED2_UNIT_CHECK(unit)
+ #endif
+ 
+-static void *
++static void *cf_check
+ csched2_alloc_udata(const struct scheduler *ops, struct sched_unit *unit,
+                     void *dd)
+ {
+@@ -2208,7 +2208,7 @@ csched2_alloc_udata(const struct scheduler *ops, struct sched_unit *unit,
+     return svc;
+ }
+ 
+-static void
++static void cf_check
+ csched2_unit_sleep(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct csched2_unit * const svc = csched2_unit(unit);
+@@ -2230,7 +2230,7 @@ csched2_unit_sleep(const struct scheduler *ops, struct sched_unit *unit)
+         __clear_bit(__CSFLAG_delayed_runq_add, &svc->flags);
+ }
+ 
+-static void
++static void cf_check
+ csched2_unit_wake(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct csched2_unit * const svc = csched2_unit(unit);
+@@ -2285,7 +2285,7 @@ csched2_unit_wake(const struct scheduler *ops, struct sched_unit *unit)
      return;
  }
  
--static XSM_INLINE int xsm_domain_create(
-+static XSM_INLINE int cf_check xsm_domain_create(
-     XSM_DEFAULT_ARG struct domain *d, uint32_t ssidref)
+-static void
++static void cf_check
+ csched2_unit_yield(const struct scheduler *ops, struct sched_unit *unit)
  {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
+     struct csched2_unit * const svc = csched2_unit(unit);
+@@ -2293,7 +2293,7 @@ csched2_unit_yield(const struct scheduler *ops, struct sched_unit *unit)
+     __set_bit(__CSFLAG_unit_yield, &svc->flags);
  }
  
--static XSM_INLINE int xsm_getdomaininfo(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_getdomaininfo(
-+    XSM_DEFAULT_ARG struct domain *d)
+-static void
++static void cf_check
+ csched2_context_saved(const struct scheduler *ops, struct sched_unit *unit)
  {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
+     struct csched2_unit * const svc = csched2_unit(unit);
+@@ -2335,7 +2335,7 @@ csched2_context_saved(const struct scheduler *ops, struct sched_unit *unit)
  }
  
--static XSM_INLINE int xsm_domctl_scheduler_op(
-+static XSM_INLINE int cf_check xsm_domctl_scheduler_op(
-     XSM_DEFAULT_ARG struct domain *d, int cmd)
+ #define MAX_LOAD (STIME_MAX)
+-static struct sched_resource *
++static struct sched_resource *cf_check
+ csched2_res_pick(const struct scheduler *ops, const struct sched_unit *unit)
  {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_sysctl_scheduler_op(XSM_DEFAULT_ARG int cmd)
-+static XSM_INLINE int cf_check xsm_sysctl_scheduler_op(XSM_DEFAULT_ARG int cmd)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_set_target(
-+static XSM_INLINE int cf_check xsm_set_target(
-     XSM_DEFAULT_ARG struct domain *d, struct domain *e)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_domctl(XSM_DEFAULT_ARG struct domain *d, int cmd)
-+static XSM_INLINE int cf_check xsm_domctl(
-+    XSM_DEFAULT_ARG struct domain *d, int cmd)
- {
-     XSM_ASSERT_ACTION(XSM_OTHER);
-     switch ( cmd )
-@@ -157,91 +159,93 @@ static XSM_INLINE int xsm_domctl(XSM_DEFAULT_ARG struct domain *d, int cmd)
-     }
- }
- 
--static XSM_INLINE int xsm_sysctl(XSM_DEFAULT_ARG int cmd)
-+static XSM_INLINE int cf_check xsm_sysctl(XSM_DEFAULT_ARG int cmd)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_readconsole(XSM_DEFAULT_ARG uint32_t clear)
-+static XSM_INLINE int cf_check xsm_readconsole(XSM_DEFAULT_ARG uint32_t clear)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_alloc_security_domain(struct domain *d)
-+static XSM_INLINE int cf_check xsm_alloc_security_domain(struct domain *d)
- {
-     return 0;
- }
- 
--static XSM_INLINE void xsm_free_security_domain(struct domain *d)
-+static XSM_INLINE void cf_check xsm_free_security_domain(struct domain *d)
- {
+     struct csched2_private *prv = csched2_priv(ops);
+@@ -2867,8 +2867,7 @@ static void balance_load(const struct scheduler *ops, int cpu, s_time_t now)
      return;
  }
  
--static XSM_INLINE int xsm_grant_mapref(
-+static XSM_INLINE int cf_check xsm_grant_mapref(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2, uint32_t flags)
+-static void
+-csched2_unit_migrate(
++static void cf_check csched2_unit_migrate(
+     const struct scheduler *ops, struct sched_unit *unit, unsigned int new_cpu)
  {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, d1, d2);
+     struct csched2_unit * const svc = csched2_unit(unit);
+@@ -2894,7 +2893,7 @@ csched2_unit_migrate(
+         sched_set_res(unit, get_sched_res(new_cpu));
  }
  
--static XSM_INLINE int xsm_grant_unmapref(
-+static XSM_INLINE int cf_check xsm_grant_unmapref(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, d1, d2);
+-static int
++static int cf_check
+ csched2_dom_cntl(
+     const struct scheduler *ops,
+     struct domain *d,
+@@ -3100,7 +3099,7 @@ csched2_dom_cntl(
+     return rc;
  }
  
--static XSM_INLINE int xsm_grant_setup(
-+static XSM_INLINE int cf_check xsm_grant_setup(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2)
+-static void
++static void cf_check
+ csched2_aff_cntl(const struct scheduler *ops, struct sched_unit *unit,
+                  const cpumask_t *hard, const cpumask_t *soft)
  {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, d1, d2);
+@@ -3116,8 +3115,8 @@ csched2_aff_cntl(const struct scheduler *ops, struct sched_unit *unit,
+         __clear_bit(__CSFLAG_pinned, &svc->flags);
  }
  
--static XSM_INLINE int xsm_grant_transfer(
-+static XSM_INLINE int cf_check xsm_grant_transfer(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2)
+-static int csched2_sys_cntl(const struct scheduler *ops,
+-                            struct xen_sysctl_scheduler_op *sc)
++static int cf_check csched2_sys_cntl(
++    const struct scheduler *ops, struct xen_sysctl_scheduler_op *sc)
  {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, d1, d2);
+     struct xen_sysctl_credit2_schedule *params = &sc->u.sched_credit2;
+     struct csched2_private *prv = csched2_priv(ops);
+@@ -3148,7 +3147,7 @@ static int csched2_sys_cntl(const struct scheduler *ops,
+     return 0;
  }
  
--static XSM_INLINE int xsm_grant_copy(
-+static XSM_INLINE int cf_check xsm_grant_copy(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2)
+-static void *
++static void *cf_check
+ csched2_alloc_domdata(const struct scheduler *ops, struct domain *dom)
  {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, d1, d2);
+     struct csched2_private *prv = csched2_priv(ops);
+@@ -3180,7 +3179,7 @@ csched2_alloc_domdata(const struct scheduler *ops, struct domain *dom)
+     return sdom;
  }
  
--static XSM_INLINE int xsm_grant_query_size(
-+static XSM_INLINE int cf_check xsm_grant_query_size(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2)
+-static void
++static void cf_check
+ csched2_free_domdata(const struct scheduler *ops, void *data)
  {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, d1, d2);
+     struct csched2_dom *sdom = data;
+@@ -3200,7 +3199,7 @@ csched2_free_domdata(const struct scheduler *ops, void *data)
+     }
  }
  
--static XSM_INLINE int xsm_memory_exchange(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_memory_exchange(
-+    XSM_DEFAULT_ARG struct domain *d)
+-static void
++static void cf_check
+ csched2_unit_insert(const struct scheduler *ops, struct sched_unit *unit)
  {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, current->domain, d);
+     const struct csched2_unit *svc = unit->priv;
+@@ -3231,7 +3230,7 @@ csched2_unit_insert(const struct scheduler *ops, struct sched_unit *unit)
+     CSCHED2_UNIT_CHECK(unit);
  }
  
--static XSM_INLINE int xsm_memory_adjust_reservation(
-+static XSM_INLINE int cf_check xsm_memory_adjust_reservation(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2)
+-static void
++static void cf_check
+ csched2_free_udata(const struct scheduler *ops, void *priv)
  {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, d1, d2);
+     struct csched2_unit *svc = priv;
+@@ -3239,7 +3238,7 @@ csched2_free_udata(const struct scheduler *ops, void *priv)
+     xfree(svc);
  }
  
--static XSM_INLINE int xsm_memory_stat_reservation(
-+static XSM_INLINE int cf_check xsm_memory_stat_reservation(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2)
+-static void
++static void cf_check
+ csched2_unit_remove(const struct scheduler *ops, struct sched_unit *unit)
  {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, d1, d2);
+     struct csched2_unit * const svc = csched2_unit(unit);
+@@ -3558,7 +3557,7 @@ runq_candidate(struct csched2_runqueue_data *rqd,
+  * This function is in the critical path. It is designed to be simple and
+  * fast for the common case.
+  */
+-static void csched2_schedule(
++static void cf_check csched2_schedule(
+     const struct scheduler *ops, struct sched_unit *currunit, s_time_t now,
+     bool tasklet_work_scheduled)
+ {
+@@ -3790,7 +3789,7 @@ dump_pcpu(const struct scheduler *ops, int cpu)
+     }
  }
  
--static XSM_INLINE int xsm_console_io(XSM_DEFAULT_ARG struct domain *d, int cmd)
-+static XSM_INLINE int cf_check xsm_console_io(
-+    XSM_DEFAULT_ARG struct domain *d, int cmd)
+-static void
++static void cf_check
+ csched2_dump(const struct scheduler *ops)
  {
-     XSM_ASSERT_ACTION(XSM_OTHER);
-     if ( d->is_console )
-@@ -253,26 +257,27 @@ static XSM_INLINE int xsm_console_io(XSM_DEFAULT_ARG struct domain *d, int cmd)
-     return xsm_default_action(XSM_PRIV, d, NULL);
+     struct list_head *iter_sdom;
+@@ -3898,7 +3897,7 @@ csched2_dump(const struct scheduler *ops)
+     read_unlock_irqrestore(&prv->lock, flags);
  }
  
--static XSM_INLINE int xsm_profile(XSM_DEFAULT_ARG struct domain *d, int op)
-+static XSM_INLINE int cf_check xsm_profile(
-+    XSM_DEFAULT_ARG struct domain *d, int op)
+-static void *
++static void *cf_check
+ csched2_alloc_pdata(const struct scheduler *ops, int cpu)
  {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, d, NULL);
+     struct csched2_pcpu *spc;
+@@ -3988,7 +3987,7 @@ init_pdata(struct csched2_private *prv, struct csched2_pcpu *spc,
  }
  
--static XSM_INLINE int xsm_kexec(XSM_DEFAULT_VOID)
-+static XSM_INLINE int cf_check xsm_kexec(XSM_DEFAULT_VOID)
+ /* Change the scheduler of cpu to us (Credit2). */
+-static spinlock_t *
++static spinlock_t *cf_check
+ csched2_switch_sched(struct scheduler *new_ops, unsigned int cpu,
+                      void *pdata, void *vdata)
  {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, NULL);
+@@ -4026,7 +4025,7 @@ csched2_switch_sched(struct scheduler *new_ops, unsigned int cpu,
+     return &rqd->lock;
  }
  
--static XSM_INLINE int xsm_schedop_shutdown(
-+static XSM_INLINE int cf_check xsm_schedop_shutdown(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2)
+-static void
++static void cf_check
+ csched2_deinit_pdata(const struct scheduler *ops, void *pcpu, int cpu)
  {
-     XSM_ASSERT_ACTION(XSM_DM_PRIV);
-     return xsm_default_action(action, d1, d2);
- }
- 
--static XSM_INLINE int xsm_memory_pin_page(
-+static XSM_INLINE int cf_check xsm_memory_pin_page(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2,
-     struct page_info *page)
- {
-@@ -280,20 +285,20 @@ static XSM_INLINE int xsm_memory_pin_page(
-     return xsm_default_action(action, d1, d2);
- }
- 
--static XSM_INLINE int xsm_claim_pages(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_claim_pages(XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_evtchn_unbound(
-+static XSM_INLINE int cf_check xsm_evtchn_unbound(
-     XSM_DEFAULT_ARG struct domain *d, struct evtchn *chn, domid_t id2)
- {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_evtchn_interdomain(
-+static XSM_INLINE int cf_check xsm_evtchn_interdomain(
-     XSM_DEFAULT_ARG struct domain *d1, struct evtchn *chan1, struct domain *d2,
-     struct evtchn *chan2)
- {
-@@ -301,89 +306,94 @@ static XSM_INLINE int xsm_evtchn_interdomain(
-     return xsm_default_action(action, d1, d2);
- }
- 
--static XSM_INLINE void xsm_evtchn_close_post(struct evtchn *chn)
-+static XSM_INLINE void cf_check xsm_evtchn_close_post(struct evtchn *chn)
- {
+     unsigned long flags;
+@@ -4086,7 +4085,7 @@ csched2_deinit_pdata(const struct scheduler *ops, void *pcpu, int cpu)
      return;
  }
  
--static XSM_INLINE int xsm_evtchn_send(
-+static XSM_INLINE int cf_check xsm_evtchn_send(
-     XSM_DEFAULT_ARG struct domain *d, struct evtchn *chn)
+-static void
++static void cf_check
+ csched2_free_pdata(const struct scheduler *ops, void *pcpu, int cpu)
  {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, d, NULL);
+     struct csched2_private *prv = csched2_priv(ops);
+@@ -4115,7 +4114,7 @@ csched2_free_pdata(const struct scheduler *ops, void *pcpu, int cpu)
+     xfree(pcpu);
  }
  
--static XSM_INLINE int xsm_evtchn_status(
-+static XSM_INLINE int cf_check xsm_evtchn_status(
-     XSM_DEFAULT_ARG struct domain *d, struct evtchn *chn)
+-static int __init
++static int __init cf_check
+ csched2_global_init(void)
  {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_evtchn_reset(
-+static XSM_INLINE int cf_check xsm_evtchn_reset(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2)
- {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, d1, d2);
- }
- 
--static XSM_INLINE int xsm_alloc_security_evtchns(
-+static XSM_INLINE int cf_check xsm_alloc_security_evtchns(
-     struct evtchn chn[], unsigned int nr)
- {
+     if ( opt_load_precision_shift < LOADAVG_PRECISION_SHIFT_MIN )
+@@ -4142,7 +4141,7 @@ csched2_global_init(void)
      return 0;
  }
  
--static XSM_INLINE void xsm_free_security_evtchns(
-+static XSM_INLINE void cf_check xsm_free_security_evtchns(
-     struct evtchn chn[], unsigned int nr)
+-static int
++static int cf_check
+ csched2_init(struct scheduler *ops)
  {
-     return;
- }
- 
--static XSM_INLINE char *xsm_show_security_evtchn(
-+static XSM_INLINE char *cf_check xsm_show_security_evtchn(
-     struct domain *d, const struct evtchn *chn)
- {
-     return NULL;
- }
- 
--static XSM_INLINE int xsm_init_hardware_domain(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_init_hardware_domain(
-+    XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_get_pod_target(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_get_pod_target(
-+    XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_set_pod_target(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_set_pod_target(
-+    XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_get_vnumainfo(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_get_vnumainfo(
-+    XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, current->domain, d);
- }
- 
- #if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_PCI)
--static XSM_INLINE int xsm_get_device_group(XSM_DEFAULT_ARG uint32_t machine_bdf)
-+static XSM_INLINE int cf_check xsm_get_device_group(
-+    XSM_DEFAULT_ARG uint32_t machine_bdf)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_assign_device(
-+static XSM_INLINE int cf_check xsm_assign_device(
-     XSM_DEFAULT_ARG struct domain *d, uint32_t machine_bdf)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_deassign_device(
-+static XSM_INLINE int cf_check xsm_deassign_device(
-     XSM_DEFAULT_ARG struct domain *d, uint32_t machine_bdf)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-@@ -393,14 +403,14 @@ static XSM_INLINE int xsm_deassign_device(
- #endif /* HAS_PASSTHROUGH && HAS_PCI */
- 
- #if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_DEVICE_TREE)
--static XSM_INLINE int xsm_assign_dtdevice(
-+static XSM_INLINE int cf_check xsm_assign_dtdevice(
-     XSM_DEFAULT_ARG struct domain *d, const char *dtpath)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_deassign_dtdevice(
-+static XSM_INLINE int cf_check xsm_deassign_dtdevice(
-     XSM_DEFAULT_ARG struct domain *d, const char *dtpath)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-@@ -409,142 +419,144 @@ static XSM_INLINE int xsm_deassign_dtdevice(
- 
- #endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
- 
--static XSM_INLINE int xsm_resource_plug_core(XSM_DEFAULT_VOID)
-+static XSM_INLINE int cf_check xsm_resource_plug_core(XSM_DEFAULT_VOID)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_resource_unplug_core(XSM_DEFAULT_VOID)
-+static XSM_INLINE int cf_check xsm_resource_unplug_core(XSM_DEFAULT_VOID)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_resource_plug_pci(
-+static XSM_INLINE int cf_check xsm_resource_plug_pci(
-     XSM_DEFAULT_ARG uint32_t machine_bdf)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_resource_unplug_pci(
-+static XSM_INLINE int cf_check xsm_resource_unplug_pci(
-     XSM_DEFAULT_ARG uint32_t machine_bdf)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_resource_setup_pci(
-+static XSM_INLINE int cf_check xsm_resource_setup_pci(
-     XSM_DEFAULT_ARG uint32_t machine_bdf)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_resource_setup_gsi(XSM_DEFAULT_ARG int gsi)
-+static XSM_INLINE int cf_check xsm_resource_setup_gsi(XSM_DEFAULT_ARG int gsi)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_resource_setup_misc(XSM_DEFAULT_VOID)
-+static XSM_INLINE int cf_check xsm_resource_setup_misc(XSM_DEFAULT_VOID)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_page_offline(XSM_DEFAULT_ARG uint32_t cmd)
-+static XSM_INLINE int cf_check xsm_page_offline(XSM_DEFAULT_ARG uint32_t cmd)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_hypfs_op(XSM_DEFAULT_VOID)
-+static XSM_INLINE int cf_check xsm_hypfs_op(XSM_DEFAULT_VOID)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE long xsm_do_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
-+static XSM_INLINE long cf_check xsm_do_xsm_op(XEN_GUEST_HANDLE_PARAM(void) op)
- {
-     return -ENOSYS;
- }
- 
- #ifdef CONFIG_COMPAT
--static XSM_INLINE int xsm_do_compat_op(XEN_GUEST_HANDLE_PARAM(void) op)
-+static XSM_INLINE int cf_check xsm_do_compat_op(XEN_GUEST_HANDLE_PARAM(void) op)
- {
-     return -ENOSYS;
- }
- #endif
- 
--static XSM_INLINE char *xsm_show_irq_sid(int irq)
-+static XSM_INLINE char *cf_check xsm_show_irq_sid(int irq)
- {
-     return NULL;
- }
- 
--static XSM_INLINE int xsm_map_domain_pirq(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_map_domain_pirq(
-+    XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_DM_PRIV);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_map_domain_irq(
-+static XSM_INLINE int cf_check xsm_map_domain_irq(
-     XSM_DEFAULT_ARG struct domain *d, int irq, const void *data)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_unmap_domain_pirq(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_unmap_domain_pirq(
-+    XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_DM_PRIV);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_bind_pt_irq(
-+static XSM_INLINE int cf_check xsm_bind_pt_irq(
-     XSM_DEFAULT_ARG struct domain *d, struct xen_domctl_bind_pt_irq *bind)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_unbind_pt_irq(
-+static XSM_INLINE int cf_check xsm_unbind_pt_irq(
-     XSM_DEFAULT_ARG struct domain *d, struct xen_domctl_bind_pt_irq *bind)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_unmap_domain_irq(
-+static XSM_INLINE int cf_check xsm_unmap_domain_irq(
-     XSM_DEFAULT_ARG struct domain *d, int irq, const void *data)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_irq_permission(
-+static XSM_INLINE int cf_check xsm_irq_permission(
-     XSM_DEFAULT_ARG struct domain *d, int pirq, uint8_t allow)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_iomem_permission(
-+static XSM_INLINE int cf_check xsm_iomem_permission(
-     XSM_DEFAULT_ARG struct domain *d, uint64_t s, uint64_t e, uint8_t allow)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_iomem_mapping(
-+static XSM_INLINE int cf_check xsm_iomem_mapping(
-     XSM_DEFAULT_ARG struct domain *d, uint64_t s, uint64_t e, uint8_t allow)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_pci_config_permission(
-+static XSM_INLINE int cf_check xsm_pci_config_permission(
-     XSM_DEFAULT_ARG struct domain *d, uint32_t machine_bdf, uint16_t start,
-     uint16_t end, uint8_t access)
- {
-@@ -552,41 +564,42 @@ static XSM_INLINE int xsm_pci_config_permission(
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_add_to_physmap(
-+static XSM_INLINE int cf_check xsm_add_to_physmap(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2)
- {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, d1, d2);
- }
- 
--static XSM_INLINE int xsm_remove_from_physmap(
-+static XSM_INLINE int cf_check xsm_remove_from_physmap(
-     XSM_DEFAULT_ARG struct domain *d1, struct domain *d2)
- {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, d1, d2);
- }
- 
--static XSM_INLINE int xsm_map_gmfn_foreign(
-+static XSM_INLINE int cf_check xsm_map_gmfn_foreign(
-     XSM_DEFAULT_ARG struct domain *d, struct domain *t)
- {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, d, t);
- }
- 
--static XSM_INLINE int xsm_hvm_param(
-+static XSM_INLINE int cf_check xsm_hvm_param(
-     XSM_DEFAULT_ARG struct domain *d, unsigned long op)
- {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_hvm_param_altp2mhvm(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_hvm_param_altp2mhvm(
-+    XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_hvm_altp2mhvm_op(
-+static XSM_INLINE int cf_check xsm_hvm_altp2mhvm_op(
-     XSM_DEFAULT_ARG struct domain *d, uint64_t mode, uint32_t op)
- {
-     XSM_ASSERT_ACTION(XSM_OTHER);
-@@ -606,7 +619,7 @@ static XSM_INLINE int xsm_hvm_altp2mhvm_op(
-     }
- }
- 
--static XSM_INLINE int xsm_vm_event_control(
-+static XSM_INLINE int cf_check xsm_vm_event_control(
-     XSM_DEFAULT_ARG struct domain *d, int mode, int op)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-@@ -614,7 +627,7 @@ static XSM_INLINE int xsm_vm_event_control(
- }
- 
- #ifdef CONFIG_MEM_ACCESS
--static XSM_INLINE int xsm_mem_access(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_mem_access(XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_DM_PRIV);
-     return xsm_default_action(action, current->domain, d);
-@@ -622,7 +635,7 @@ static XSM_INLINE int xsm_mem_access(XSM_DEFAULT_ARG struct domain *d)
- #endif
- 
- #ifdef CONFIG_MEM_PAGING
--static XSM_INLINE int xsm_mem_paging(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_mem_paging(XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_DM_PRIV);
-     return xsm_default_action(action, current->domain, d);
-@@ -630,59 +643,61 @@ static XSM_INLINE int xsm_mem_paging(XSM_DEFAULT_ARG struct domain *d)
- #endif
- 
- #ifdef CONFIG_MEM_SHARING
--static XSM_INLINE int xsm_mem_sharing(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_mem_sharing(XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_DM_PRIV);
-     return xsm_default_action(action, current->domain, d);
- }
- #endif
- 
--static XSM_INLINE int xsm_platform_op(XSM_DEFAULT_ARG uint32_t op)
-+static XSM_INLINE int cf_check xsm_platform_op(XSM_DEFAULT_ARG uint32_t op)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
- #ifdef CONFIG_X86
--static XSM_INLINE int xsm_do_mca(XSM_DEFAULT_VOID)
-+static XSM_INLINE int cf_check xsm_do_mca(XSM_DEFAULT_VOID)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_shadow_control(
-+static XSM_INLINE int cf_check xsm_shadow_control(
-     XSM_DEFAULT_ARG struct domain *d, uint32_t op)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_mem_sharing_op(
-+static XSM_INLINE int cf_check xsm_mem_sharing_op(
-     XSM_DEFAULT_ARG struct domain *d, struct domain *cd, int op)
- {
-     XSM_ASSERT_ACTION(XSM_DM_PRIV);
-     return xsm_default_action(action, current->domain, cd);
- }
- 
--static XSM_INLINE int xsm_apic(XSM_DEFAULT_ARG struct domain *d, int cmd)
-+static XSM_INLINE int cf_check xsm_apic(
-+    XSM_DEFAULT_ARG struct domain *d, int cmd)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, d, NULL);
- }
- 
--static XSM_INLINE int xsm_machine_memory_map(XSM_DEFAULT_VOID)
-+static XSM_INLINE int cf_check xsm_machine_memory_map(XSM_DEFAULT_VOID)
- {
-     XSM_ASSERT_ACTION(XSM_PRIV);
-     return xsm_default_action(action, current->domain, NULL);
- }
- 
--static XSM_INLINE int xsm_domain_memory_map(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_domain_memory_map(
-+    XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_mmu_update(
-+static XSM_INLINE int cf_check xsm_mmu_update(
-     XSM_DEFAULT_ARG struct domain *d, struct domain *t, struct domain *f,
-     uint32_t flags)
- {
-@@ -695,42 +710,42 @@ static XSM_INLINE int xsm_mmu_update(
-     return rc;
- }
- 
--static XSM_INLINE int xsm_mmuext_op(
-+static XSM_INLINE int cf_check xsm_mmuext_op(
-     XSM_DEFAULT_ARG struct domain *d, struct domain *f)
- {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, d, f);
- }
- 
--static XSM_INLINE int xsm_update_va_mapping(
-+static XSM_INLINE int cf_check xsm_update_va_mapping(
-     XSM_DEFAULT_ARG struct domain *d, struct domain *f, l1_pgentry_t pte)
- {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, d, f);
- }
- 
--static XSM_INLINE int xsm_priv_mapping(
-+static XSM_INLINE int cf_check xsm_priv_mapping(
-     XSM_DEFAULT_ARG struct domain *d, struct domain *t)
- {
-     XSM_ASSERT_ACTION(XSM_TARGET);
-     return xsm_default_action(action, d, t);
- }
- 
--static XSM_INLINE int xsm_ioport_permission(
-+static XSM_INLINE int cf_check xsm_ioport_permission(
-     XSM_DEFAULT_ARG struct domain *d, uint32_t s, uint32_t e, uint8_t allow)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_ioport_mapping(
-+static XSM_INLINE int cf_check xsm_ioport_mapping(
-     XSM_DEFAULT_ARG struct domain *d, uint32_t s, uint32_t e, uint8_t allow)
- {
-     XSM_ASSERT_ACTION(XSM_HOOK);
-     return xsm_default_action(action, current->domain, d);
- }
- 
--static XSM_INLINE int xsm_pmu_op(
-+static XSM_INLINE int cf_check xsm_pmu_op(
-     XSM_DEFAULT_ARG struct domain *d, unsigned int op)
- {
-     XSM_ASSERT_ACTION(XSM_OTHER);
-@@ -748,30 +763,31 @@ static XSM_INLINE int xsm_pmu_op(
- 
- #endif /* CONFIG_X86 */
- 
--static XSM_INLINE int xsm_dm_op(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_dm_op(XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_DM_PRIV);
-     return xsm_default_action(action, current->domain, d);
- }
- 
- #ifdef CONFIG_ARGO
--static XSM_INLINE int xsm_argo_enable(const struct domain *d)
-+static XSM_INLINE int cf_check xsm_argo_enable(const struct domain *d)
- {
+     struct csched2_private *prv;
+@@ -4190,7 +4189,7 @@ csched2_init(struct scheduler *ops)
      return 0;
  }
  
--static XSM_INLINE int xsm_argo_register_single_source(
-+static XSM_INLINE int cf_check xsm_argo_register_single_source(
-     const struct domain *d, const struct domain *t)
+-static void
++static void cf_check
+ csched2_deinit(struct scheduler *ops)
  {
+     struct csched2_private *prv;
+diff --git a/xen/common/sched/null.c b/xen/common/sched/null.c
+index 82d5d1baab85..65a0a6c5312d 100644
+--- a/xen/common/sched/null.c
++++ b/xen/common/sched/null.c
+@@ -130,7 +130,7 @@ static inline bool unit_check_affinity(struct sched_unit *unit,
+     return cpumask_test_cpu(cpu, cpumask_scratch_cpu(cpu));
+ }
+ 
+-static int null_init(struct scheduler *ops)
++static int cf_check null_init(struct scheduler *ops)
+ {
+     struct null_private *prv;
+ 
+@@ -152,7 +152,7 @@ static int null_init(struct scheduler *ops)
      return 0;
  }
  
--static XSM_INLINE int xsm_argo_register_any_source(const struct domain *d)
-+static XSM_INLINE int cf_check xsm_argo_register_any_source(
-+    const struct domain *d)
+-static void null_deinit(struct scheduler *ops)
++static void cf_check null_deinit(struct scheduler *ops)
  {
-     return 0;
+     xfree(ops->sched_data);
+     ops->sched_data = NULL;
+@@ -166,7 +166,8 @@ static void init_pdata(struct null_private *prv, struct null_pcpu *npc,
+     npc->unit = NULL;
  }
  
--static XSM_INLINE int xsm_argo_send(
-+static XSM_INLINE int cf_check xsm_argo_send(
-     const struct domain *d, const struct domain *t)
+-static void null_deinit_pdata(const struct scheduler *ops, void *pcpu, int cpu)
++static void cf_check null_deinit_pdata(
++    const struct scheduler *ops, void *pcpu, int cpu)
  {
-     return 0;
-@@ -780,7 +796,7 @@ static XSM_INLINE int xsm_argo_send(
- #endif /* CONFIG_ARGO */
+     struct null_private *prv = null_priv(ops);
+     struct null_pcpu *npc = pcpu;
+@@ -177,7 +178,7 @@ static void null_deinit_pdata(const struct scheduler *ops, void *pcpu, int cpu)
+     npc->unit = NULL;
+ }
  
- #include <public/version.h>
--static XSM_INLINE int xsm_xen_version(XSM_DEFAULT_ARG uint32_t op)
-+static XSM_INLINE int cf_check xsm_xen_version(XSM_DEFAULT_ARG uint32_t op)
+-static void *null_alloc_pdata(const struct scheduler *ops, int cpu)
++static void *cf_check null_alloc_pdata(const struct scheduler *ops, int cpu)
  {
-     XSM_ASSERT_ACTION(XSM_OTHER);
-     switch ( op )
-@@ -804,7 +820,8 @@ static XSM_INLINE int xsm_xen_version(XSM_DEFAULT_ARG uint32_t op)
+     struct null_pcpu *npc;
+ 
+@@ -188,13 +189,14 @@ static void *null_alloc_pdata(const struct scheduler *ops, int cpu)
+     return npc;
+ }
+ 
+-static void null_free_pdata(const struct scheduler *ops, void *pcpu, int cpu)
++static void cf_check null_free_pdata(
++    const struct scheduler *ops, void *pcpu, int cpu)
+ {
+     xfree(pcpu);
+ }
+ 
+-static void *null_alloc_udata(const struct scheduler *ops,
+-                              struct sched_unit *unit, void *dd)
++static void *cf_check null_alloc_udata(
++    const struct scheduler *ops, struct sched_unit *unit, void *dd)
+ {
+     struct null_unit *nvc;
+ 
+@@ -210,15 +212,15 @@ static void *null_alloc_udata(const struct scheduler *ops,
+     return nvc;
+ }
+ 
+-static void null_free_udata(const struct scheduler *ops, void *priv)
++static void cf_check null_free_udata(const struct scheduler *ops, void *priv)
+ {
+     struct null_unit *nvc = priv;
+ 
+     xfree(nvc);
+ }
+ 
+-static void * null_alloc_domdata(const struct scheduler *ops,
+-                                 struct domain *d)
++static void *cf_check null_alloc_domdata(
++    const struct scheduler *ops, struct domain *d)
+ {
+     struct null_private *prv = null_priv(ops);
+     struct null_dom *ndom;
+@@ -237,7 +239,7 @@ static void * null_alloc_domdata(const struct scheduler *ops,
+     return ndom;
+ }
+ 
+-static void null_free_domdata(const struct scheduler *ops, void *data)
++static void cf_check null_free_domdata(const struct scheduler *ops, void *data)
+ {
+     struct null_dom *ndom = data;
+     struct null_private *prv = null_priv(ops);
+@@ -426,9 +428,8 @@ static bool unit_deassign(struct null_private *prv, const struct sched_unit *uni
+ }
+ 
+ /* Change the scheduler of cpu to us (null). */
+-static spinlock_t *null_switch_sched(struct scheduler *new_ops,
+-                                     unsigned int cpu,
+-                                     void *pdata, void *vdata)
++static spinlock_t *cf_check null_switch_sched(
++    struct scheduler *new_ops, unsigned int cpu, void *pdata, void *vdata)
+ {
+     struct sched_resource *sr = get_sched_res(cpu);
+     struct null_private *prv = null_priv(new_ops);
+@@ -450,8 +451,8 @@ static spinlock_t *null_switch_sched(struct scheduler *new_ops,
+     return &sr->_lock;
+ }
+ 
+-static void null_unit_insert(const struct scheduler *ops,
+-                             struct sched_unit *unit)
++static void cf_check null_unit_insert(
++    const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct null_private *prv = null_priv(ops);
+     struct null_unit *nvc = null_unit(unit);
+@@ -516,8 +517,8 @@ static void null_unit_insert(const struct scheduler *ops,
+     SCHED_STAT_CRANK(unit_insert);
+ }
+ 
+-static void null_unit_remove(const struct scheduler *ops,
+-                             struct sched_unit *unit)
++static void cf_check null_unit_remove(
++    const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct null_private *prv = null_priv(ops);
+     struct null_unit *nvc = null_unit(unit);
+@@ -556,8 +557,8 @@ static void null_unit_remove(const struct scheduler *ops,
+     SCHED_STAT_CRANK(unit_remove);
+ }
+ 
+-static void null_unit_wake(const struct scheduler *ops,
+-                           struct sched_unit *unit)
++static void cf_check null_unit_wake(
++    const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct null_private *prv = null_priv(ops);
+     struct null_unit *nvc = null_unit(unit);
+@@ -632,8 +633,8 @@ static void null_unit_wake(const struct scheduler *ops,
+         cpumask_raise_softirq(cpumask_scratch_cpu(cpu), SCHEDULE_SOFTIRQ);
+ }
+ 
+-static void null_unit_sleep(const struct scheduler *ops,
+-                            struct sched_unit *unit)
++static void cf_check null_unit_sleep(
++    const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct null_private *prv = null_priv(ops);
+     unsigned int cpu = sched_unit_master(unit);
+@@ -667,15 +668,15 @@ static void null_unit_sleep(const struct scheduler *ops,
+     SCHED_STAT_CRANK(unit_sleep);
+ }
+ 
+-static struct sched_resource *
++static struct sched_resource *cf_check
+ null_res_pick(const struct scheduler *ops, const struct sched_unit *unit)
+ {
+     ASSERT(!is_idle_unit(unit));
+     return pick_res(null_priv(ops), unit);
+ }
+ 
+-static void null_unit_migrate(const struct scheduler *ops,
+-                              struct sched_unit *unit, unsigned int new_cpu)
++static void cf_check null_unit_migrate(
++    const struct scheduler *ops, struct sched_unit *unit, unsigned int new_cpu)
+ {
+     struct null_private *prv = null_priv(ops);
+     struct null_unit *nvc = null_unit(unit);
+@@ -801,8 +802,9 @@ static inline void null_unit_check(struct sched_unit *unit)
+  *  - the unit assigned to the pCPU, if there's one and it can run;
+  *  - the idle unit, otherwise.
+  */
+-static void null_schedule(const struct scheduler *ops, struct sched_unit *prev,
+-                          s_time_t now, bool tasklet_work_scheduled)
++static void cf_check null_schedule(
++    const struct scheduler *ops, struct sched_unit *prev, s_time_t now,
++    bool tasklet_work_scheduled)
+ {
+     unsigned int bs;
+     const unsigned int cur_cpu = smp_processor_id();
+@@ -939,7 +941,7 @@ static inline void dump_unit(const struct null_private *prv,
+                                 sched_unit_master(nvc->unit) : -1);
+ }
+ 
+-static void null_dump_pcpu(const struct scheduler *ops, int cpu)
++static void cf_check null_dump_pcpu(const struct scheduler *ops, int cpu)
+ {
+     struct null_private *prv = null_priv(ops);
+     const struct null_pcpu *npc = get_sched_res(cpu)->sched_priv;
+@@ -968,7 +970,7 @@ static void null_dump_pcpu(const struct scheduler *ops, int cpu)
+     pcpu_schedule_unlock_irqrestore(lock, flags, cpu);
+ }
+ 
+-static void null_dump(const struct scheduler *ops)
++static void cf_check null_dump(const struct scheduler *ops)
+ {
+     struct null_private *prv = null_priv(ops);
+     struct list_head *iter;
+diff --git a/xen/common/sched/rt.c b/xen/common/sched/rt.c
+index 5ea6f01f263c..d6de25531b3c 100644
+--- a/xen/common/sched/rt.c
++++ b/xen/common/sched/rt.c
+@@ -269,13 +269,13 @@ unit_on_q(const struct rt_unit *svc)
+    return !list_empty(&svc->q_elem);
+ }
+ 
+-static struct rt_unit *
++static struct rt_unit *cf_check
+ q_elem(struct list_head *elem)
+ {
+     return list_entry(elem, struct rt_unit, q_elem);
+ }
+ 
+-static struct rt_unit *
++static struct rt_unit *cf_check
+ replq_elem(struct list_head *elem)
+ {
+     return list_entry(elem, struct rt_unit, replq_elem);
+@@ -348,7 +348,7 @@ rt_dump_unit(const struct scheduler *ops, const struct rt_unit *svc)
+             svc->flags, CPUMASK_PR(mask));
+ }
+ 
+-static void
++static void cf_check
+ rt_dump_pcpu(const struct scheduler *ops, int cpu)
+ {
+     struct rt_private *prv = rt_priv(ops);
+@@ -366,7 +366,7 @@ rt_dump_pcpu(const struct scheduler *ops, int cpu)
+     spin_unlock_irqrestore(&prv->lock, flags);
+ }
+ 
+-static void
++static void cf_check
+ rt_dump(const struct scheduler *ops)
+ {
+     struct list_head *runq, *depletedq, *replq, *iter;
+@@ -636,7 +636,7 @@ replq_reinsert(const struct scheduler *ops, struct rt_unit *svc)
+  * Valid resource of an unit is intesection of unit's affinity
+  * and available resources
+  */
+-static struct sched_resource *
++static struct sched_resource *cf_check
+ rt_res_pick_locked(const struct sched_unit *unit, unsigned int locked_cpu)
+ {
+     cpumask_t *cpus = cpumask_scratch_cpu(locked_cpu);
+@@ -659,7 +659,7 @@ rt_res_pick_locked(const struct sched_unit *unit, unsigned int locked_cpu)
+  * Valid resource of an unit is intesection of unit's affinity
+  * and available resources
+  */
+-static struct sched_resource *
++static struct sched_resource *cf_check
+ rt_res_pick(const struct scheduler *ops, const struct sched_unit *unit)
+ {
+     struct sched_resource *res;
+@@ -672,7 +672,7 @@ rt_res_pick(const struct scheduler *ops, const struct sched_unit *unit)
+ /*
+  * Init/Free related code
+  */
+-static int
++static int cf_check
+ rt_init(struct scheduler *ops)
+ {
+     int rc = -ENOMEM;
+@@ -701,7 +701,7 @@ rt_init(struct scheduler *ops)
+     return rc;
+ }
+ 
+-static void
++static void cf_check
+ rt_deinit(struct scheduler *ops)
+ {
+     struct rt_private *prv = rt_priv(ops);
+@@ -714,7 +714,7 @@ rt_deinit(struct scheduler *ops)
+ }
+ 
+ /* Change the scheduler of cpu to us (RTDS). */
+-static spinlock_t *
++static spinlock_t *cf_check
+ rt_switch_sched(struct scheduler *new_ops, unsigned int cpu,
+                 void *pdata, void *vdata)
+ {
+@@ -750,7 +750,7 @@ rt_switch_sched(struct scheduler *new_ops, unsigned int cpu,
+     return &prv->lock;
+ }
+ 
+-static void
++static void cf_check
+ rt_deinit_pdata(const struct scheduler *ops, void *pcpu, int cpu)
+ {
+     unsigned long flags;
+@@ -782,7 +782,7 @@ rt_deinit_pdata(const struct scheduler *ops, void *pcpu, int cpu)
+     spin_unlock_irqrestore(&prv->lock, flags);
+ }
+ 
+-static void *
++static void *cf_check
+ rt_alloc_domdata(const struct scheduler *ops, struct domain *dom)
+ {
+     unsigned long flags;
+@@ -804,7 +804,7 @@ rt_alloc_domdata(const struct scheduler *ops, struct domain *dom)
+     return sdom;
+ }
+ 
+-static void
++static void cf_check
+ rt_free_domdata(const struct scheduler *ops, void *data)
+ {
+     struct rt_dom *sdom = data;
+@@ -822,7 +822,7 @@ rt_free_domdata(const struct scheduler *ops, void *data)
      }
  }
  
--static XSM_INLINE int xsm_domain_resource_map(XSM_DEFAULT_ARG struct domain *d)
-+static XSM_INLINE int cf_check xsm_domain_resource_map(
-+    XSM_DEFAULT_ARG struct domain *d)
- {
-     XSM_ASSERT_ACTION(XSM_DM_PRIV);
-     return xsm_default_action(action, current->domain, d);
-diff --git a/xen/xsm/flask/flask_op.c b/xen/xsm/flask/flask_op.c
-index 2d7ca3abaecd..707be72a3b96 100644
---- a/xen/xsm/flask/flask_op.c
-+++ b/xen/xsm/flask/flask_op.c
-@@ -607,7 +607,7 @@ static int flask_relabel_domain(struct xen_flask_relabel *arg)
- 
- #endif /* !COMPAT */
- 
--ret_t do_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op)
-+ret_t cf_check do_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op)
- {
-     xen_flask_op_t op;
-     int rv;
-diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-index 6ff1be28e4a4..63484e323c09 100644
---- a/xen/xsm/flask/hooks.c
-+++ b/xen/xsm/flask/hooks.c
-@@ -157,7 +157,7 @@ static int avc_unknown_permission(const char *name, int id)
-     return rc;
- }
- 
--static int flask_domain_alloc_security(struct domain *d)
-+static int cf_check flask_domain_alloc_security(struct domain *d)
- {
-     struct domain_security_struct *dsec;
- 
-@@ -186,7 +186,7 @@ static int flask_domain_alloc_security(struct domain *d)
-     return 0;
- }
- 
--static void flask_domain_free_security(struct domain *d)
-+static void cf_check flask_domain_free_security(struct domain *d)
- {
-     struct domain_security_struct *dsec = d->ssid;
- 
-@@ -197,8 +197,8 @@ static void flask_domain_free_security(struct domain *d)
-     xfree(dsec);
- }
- 
--static int flask_evtchn_unbound(struct domain *d1, struct evtchn *chn, 
--                                domid_t id2)
-+static int cf_check flask_evtchn_unbound(
-+    struct domain *d1, struct evtchn *chn, domid_t id2)
- {
-     u32 sid1, sid2, newsid;
-     int rc;
-@@ -230,8 +230,9 @@ static int flask_evtchn_unbound(struct domain *d1, struct evtchn *chn,
-     return rc;
- }
- 
--static int flask_evtchn_interdomain(struct domain *d1, struct evtchn *chn1, 
--                                    struct domain *d2, struct evtchn *chn2)
-+static int cf_check flask_evtchn_interdomain(
-+    struct domain *d1, struct evtchn *chn1,
-+    struct domain *d2, struct evtchn *chn2)
- {
-     u32 sid1, sid2, newsid, reverse_sid;
-     int rc;
-@@ -273,12 +274,12 @@ static int flask_evtchn_interdomain(struct domain *d1, struct evtchn *chn1,
-     return rc;
- }
- 
--static void flask_evtchn_close_post(struct evtchn *chn)
-+static void cf_check flask_evtchn_close_post(struct evtchn *chn)
- {
-     chn->ssid.flask_sid = SECINITSID_UNLABELED;
- }
- 
--static int flask_evtchn_send(struct domain *d, struct evtchn *chn)
-+static int cf_check flask_evtchn_send(struct domain *d, struct evtchn *chn)
- {
-     int rc;
- 
-@@ -298,17 +299,18 @@ static int flask_evtchn_send(struct domain *d, struct evtchn *chn)
-     return rc;
- }
- 
--static int flask_evtchn_status(struct domain *d, struct evtchn *chn)
-+static int cf_check flask_evtchn_status(struct domain *d, struct evtchn *chn)
- {
-     return domain_has_evtchn(d, chn, EVENT__STATUS);
- }
- 
--static int flask_evtchn_reset(struct domain *d1, struct domain *d2)
-+static int cf_check flask_evtchn_reset(struct domain *d1, struct domain *d2)
- {
-     return domain_has_perm(d1, d2, SECCLASS_EVENT, EVENT__RESET);
- }
- 
--static int flask_alloc_security_evtchns(struct evtchn chn[], unsigned int nr)
-+static int cf_check flask_alloc_security_evtchns(
-+    struct evtchn chn[], unsigned int nr)
- {
-     unsigned int i;
- 
-@@ -318,7 +320,8 @@ static int flask_alloc_security_evtchns(struct evtchn chn[], unsigned int nr)
-     return 0;
- }
- 
--static void flask_free_security_evtchns(struct evtchn chn[], unsigned int nr)
-+static void cf_check flask_free_security_evtchns(
-+    struct evtchn chn[], unsigned int nr)
- {
-     unsigned int i;
- 
-@@ -329,7 +332,8 @@ static void flask_free_security_evtchns(struct evtchn chn[], unsigned int nr)
-         chn[i].ssid.flask_sid = SECINITSID_UNLABELED;
- }
- 
--static char *flask_show_security_evtchn(struct domain *d, const struct evtchn *chn)
-+static char *cf_check flask_show_security_evtchn(
-+    struct domain *d, const struct evtchn *chn)
- {
-     int irq;
-     u32 sid = 0;
-@@ -355,13 +359,13 @@ static char *flask_show_security_evtchn(struct domain *d, const struct evtchn *c
-     return ctx;
- }
- 
--static int flask_init_hardware_domain(struct domain *d)
-+static int cf_check flask_init_hardware_domain(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__CREATE_HARDWARE_DOMAIN);
- }
- 
--static int flask_grant_mapref(struct domain *d1, struct domain *d2, 
--                              uint32_t flags)
-+static int cf_check flask_grant_mapref(
-+    struct domain *d1, struct domain *d2, uint32_t flags)
- {
-     u32 perms = GRANT__MAP_READ;
- 
-@@ -371,73 +375,75 @@ static int flask_grant_mapref(struct domain *d1, struct domain *d2,
-     return domain_has_perm(d1, d2, SECCLASS_GRANT, perms);
- }
- 
--static int flask_grant_unmapref(struct domain *d1, struct domain *d2)
-+static int cf_check flask_grant_unmapref(struct domain *d1, struct domain *d2)
- {
-     return domain_has_perm(d1, d2, SECCLASS_GRANT, GRANT__UNMAP);
- }
- 
--static int flask_grant_setup(struct domain *d1, struct domain *d2)
-+static int cf_check flask_grant_setup(struct domain *d1, struct domain *d2)
- {
-     return domain_has_perm(d1, d2, SECCLASS_GRANT, GRANT__SETUP);
- }
- 
--static int flask_grant_transfer(struct domain *d1, struct domain *d2)
-+static int cf_check flask_grant_transfer(struct domain *d1, struct domain *d2)
- {
-     return domain_has_perm(d1, d2, SECCLASS_GRANT, GRANT__TRANSFER);
- }
- 
--static int flask_grant_copy(struct domain *d1, struct domain *d2)
-+static int cf_check flask_grant_copy(struct domain *d1, struct domain *d2)
- {
-     return domain_has_perm(d1, d2, SECCLASS_GRANT, GRANT__COPY);
- }
- 
--static int flask_grant_query_size(struct domain *d1, struct domain *d2)
-+static int cf_check flask_grant_query_size(struct domain *d1, struct domain *d2)
- {
-     return domain_has_perm(d1, d2, SECCLASS_GRANT, GRANT__QUERY);
- }
- 
--static int flask_get_pod_target(struct domain *d)
-+static int cf_check flask_get_pod_target(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN, DOMAIN__GETPODTARGET);
- }
- 
--static int flask_set_pod_target(struct domain *d)
-+static int cf_check flask_set_pod_target(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN, DOMAIN__SETPODTARGET);
- }
- 
--static int flask_memory_exchange(struct domain *d)
-+static int cf_check flask_memory_exchange(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_MMU, MMU__EXCHANGE);
- }
- 
--static int flask_memory_adjust_reservation(struct domain *d1, struct domain *d2)
-+static int cf_check flask_memory_adjust_reservation(
-+    struct domain *d1, struct domain *d2)
- {
-     return domain_has_perm(d1, d2, SECCLASS_MMU, MMU__ADJUST);
- }
- 
--static int flask_memory_stat_reservation(struct domain *d1, struct domain *d2)
-+static int cf_check flask_memory_stat_reservation(
-+    struct domain *d1, struct domain *d2)
- {
-     return domain_has_perm(d1, d2, SECCLASS_MMU, MMU__STAT);
- }
- 
--static int flask_memory_pin_page(struct domain *d1, struct domain *d2,
--                                 struct page_info *page)
-+static int cf_check flask_memory_pin_page(
-+    struct domain *d1, struct domain *d2, struct page_info *page)
- {
-     return domain_has_perm(d1, d2, SECCLASS_MMU, MMU__PINPAGE);
- }
- 
--static int flask_claim_pages(struct domain *d)
-+static int cf_check flask_claim_pages(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__SETCLAIM);
- }
- 
--static int flask_get_vnumainfo(struct domain *d)
-+static int cf_check flask_get_vnumainfo(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__GET_VNUMAINFO);
- }
- 
--static int flask_console_io(struct domain *d, int cmd)
-+static int cf_check flask_console_io(struct domain *d, int cmd)
- {
-     u32 perm;
- 
-@@ -456,7 +462,7 @@ static int flask_console_io(struct domain *d, int cmd)
-     return domain_has_xen(d, perm);
- }
- 
--static int flask_profile(struct domain *d, int op)
-+static int cf_check flask_profile(struct domain *d, int op)
- {
-     u32 perm;
- 
-@@ -488,23 +494,23 @@ static int flask_profile(struct domain *d, int op)
-     return domain_has_xen(d, perm);
- }
- 
--static int flask_kexec(void)
-+static int cf_check flask_kexec(void)
- {
-     return domain_has_xen(current->domain, XEN__KEXEC);
- }
- 
--static int flask_schedop_shutdown(struct domain *d1, struct domain *d2)
-+static int cf_check flask_schedop_shutdown(struct domain *d1, struct domain *d2)
- {
-     return domain_has_perm(d1, d2, SECCLASS_DOMAIN, DOMAIN__SHUTDOWN);
- }
- 
--static void flask_security_domaininfo(struct domain *d, 
--                                      struct xen_domctl_getdomaininfo *info)
-+static void cf_check flask_security_domaininfo(
-+    struct domain *d, struct xen_domctl_getdomaininfo *info)
- {
-     info->ssidref = domain_sid(d);
- }
- 
--static int flask_domain_create(struct domain *d, u32 ssidref)
-+static int cf_check flask_domain_create(struct domain *d, u32 ssidref)
- {
-     int rc;
-     struct domain_security_struct *dsec = d->ssid;
-@@ -532,12 +538,12 @@ static int flask_domain_create(struct domain *d, u32 ssidref)
-     return rc;
- }
- 
--static int flask_getdomaininfo(struct domain *d)
-+static int cf_check flask_getdomaininfo(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN, DOMAIN__GETDOMAININFO);
- }
- 
--static int flask_domctl_scheduler_op(struct domain *d, int op)
-+static int cf_check flask_domctl_scheduler_op(struct domain *d, int op)
- {
-     switch ( op )
-     {
-@@ -554,7 +560,7 @@ static int flask_domctl_scheduler_op(struct domain *d, int op)
-     }
- }
- 
--static int flask_sysctl_scheduler_op(int op)
-+static int cf_check flask_sysctl_scheduler_op(int op)
- {
-     switch ( op )
-     {
-@@ -569,7 +575,7 @@ static int flask_sysctl_scheduler_op(int op)
-     }
- }
- 
--static int flask_set_target(struct domain *d, struct domain *t)
-+static int cf_check flask_set_target(struct domain *d, struct domain *t)
- {
-     int rc;
-     struct domain_security_struct *dsec, *tsec;
-@@ -593,7 +599,7 @@ static int flask_set_target(struct domain *d, struct domain *t)
-     return rc;
- }
- 
--static int flask_domctl(struct domain *d, int cmd)
-+static int cf_check flask_domctl(struct domain *d, int cmd)
- {
-     switch ( cmd )
-     {
-@@ -757,7 +763,7 @@ static int flask_domctl(struct domain *d, int cmd)
-     }
- }
- 
--static int flask_sysctl(int cmd)
-+static int cf_check flask_sysctl(int cmd)
- {
-     switch ( cmd )
-     {
-@@ -835,7 +841,7 @@ static int flask_sysctl(int cmd)
-     }
- }
- 
--static int flask_readconsole(uint32_t clear)
-+static int cf_check flask_readconsole(uint32_t clear)
- {
-     u32 perms = XEN__READCONSOLE;
- 
-@@ -853,7 +859,7 @@ static inline u32 resource_to_perm(uint8_t access)
-         return RESOURCE__REMOVE;
- }
- 
--static char *flask_show_irq_sid (int irq)
-+static char *cf_check flask_show_irq_sid(int irq)
- {
-     u32 sid, ctx_len;
-     char *ctx;
-@@ -867,7 +873,7 @@ static char *flask_show_irq_sid (int irq)
-     return ctx;
- }
- 
--static int flask_map_domain_pirq (struct domain *d)
-+static int cf_check flask_map_domain_pirq(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_RESOURCE, RESOURCE__ADD);
- }
-@@ -907,7 +913,7 @@ static u32 flask_iommu_resource_use_perm(const struct domain *d)
-     return perm;
- }
- 
--static int flask_map_domain_irq (struct domain *d, int irq, const void *data)
-+static int cf_check flask_map_domain_irq(struct domain *d, int irq, const void *data)
- {
-     u32 sid, dsid;
-     int rc = -EPERM;
-@@ -933,7 +939,7 @@ static int flask_map_domain_irq (struct domain *d, int irq, const void *data)
-     return rc;
- }
- 
--static int flask_unmap_domain_pirq (struct domain *d)
-+static int cf_check flask_unmap_domain_pirq(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_RESOURCE, RESOURCE__REMOVE);
- }
-@@ -954,7 +960,8 @@ static int flask_unmap_domain_msi (struct domain *d, int irq, const void *data,
- #endif
- }
- 
--static int flask_unmap_domain_irq (struct domain *d, int irq, const void *data)
-+static int cf_check flask_unmap_domain_irq(
-+    struct domain *d, int irq, const void *data)
- {
-     u32 sid;
-     int rc = -EPERM;
-@@ -972,7 +979,8 @@ static int flask_unmap_domain_irq (struct domain *d, int irq, const void *data)
-     return rc;
- }
- 
--static int flask_bind_pt_irq (struct domain *d, struct xen_domctl_bind_pt_irq *bind)
-+static int cf_check flask_bind_pt_irq(
-+    struct domain *d, struct xen_domctl_bind_pt_irq *bind)
- {
-     u32 dsid, rsid;
-     int rc = -EPERM;
-@@ -998,12 +1006,14 @@ static int flask_bind_pt_irq (struct domain *d, struct xen_domctl_bind_pt_irq *b
-     return avc_has_perm(dsid, rsid, SECCLASS_RESOURCE, dperm, &ad);
- }
- 
--static int flask_unbind_pt_irq (struct domain *d, struct xen_domctl_bind_pt_irq *bind)
-+static int cf_check flask_unbind_pt_irq(
-+    struct domain *d, struct xen_domctl_bind_pt_irq *bind)
- {
-     return current_has_perm(d, SECCLASS_RESOURCE, RESOURCE__REMOVE);
- }
- 
--static int flask_irq_permission (struct domain *d, int pirq, uint8_t access)
-+static int cf_check flask_irq_permission(
-+    struct domain *d, int pirq, uint8_t access)
- {
-     /* the PIRQ number is not useful; real IRQ is checked during mapping */
-     return current_has_perm(d, SECCLASS_RESOURCE, resource_to_perm(access));
-@@ -1016,7 +1026,8 @@ struct iomem_has_perm_data {
-     u32 use_perm;
- };
- 
--static int _iomem_has_perm(void *v, u32 sid, unsigned long start, unsigned long end)
-+static int cf_check _iomem_has_perm(
-+    void *v, u32 sid, unsigned long start, unsigned long end)
- {
-     struct iomem_has_perm_data *data = v;
-     struct avc_audit_data ad;
-@@ -1034,7 +1045,8 @@ static int _iomem_has_perm(void *v, u32 sid, unsigned long start, unsigned long
-     return avc_has_perm(data->dsid, sid, SECCLASS_RESOURCE, data->use_perm, &ad);
- }
- 
--static int flask_iomem_permission(struct domain *d, uint64_t start, uint64_t end, uint8_t access)
-+static int cf_check flask_iomem_permission(
-+    struct domain *d, uint64_t start, uint64_t end, uint8_t access)
- {
-     struct iomem_has_perm_data data;
-     int rc;
-@@ -1056,12 +1068,14 @@ static int flask_iomem_permission(struct domain *d, uint64_t start, uint64_t end
-     return security_iterate_iomem_sids(start, end, _iomem_has_perm, &data);
- }
- 
--static int flask_iomem_mapping(struct domain *d, uint64_t start, uint64_t end, uint8_t access)
-+static int cf_check flask_iomem_mapping(struct domain *d, uint64_t start, uint64_t end, uint8_t access)
- {
-     return flask_iomem_permission(d, start, end, access);
- }
- 
--static int flask_pci_config_permission(struct domain *d, uint32_t machine_bdf, uint16_t start, uint16_t end, uint8_t access)
-+static int cf_check flask_pci_config_permission(
-+    struct domain *d, uint32_t machine_bdf, uint16_t start, uint16_t end,
-+    uint8_t access)
- {
-     u32 dsid, rsid;
-     int rc = -EPERM;
-@@ -1085,12 +1099,12 @@ static int flask_pci_config_permission(struct domain *d, uint32_t machine_bdf, u
- 
- }
- 
--static int flask_resource_plug_core(void)
-+static int cf_check flask_resource_plug_core(void)
- {
-     return avc_current_has_perm(SECINITSID_DOMXEN, SECCLASS_RESOURCE, RESOURCE__PLUG, NULL);
- }
- 
--static int flask_resource_unplug_core(void)
-+static int cf_check flask_resource_unplug_core(void)
- {
-     return avc_current_has_perm(SECINITSID_DOMXEN, SECCLASS_RESOURCE, RESOURCE__UNPLUG, NULL);
- }
-@@ -1100,7 +1114,7 @@ static int flask_resource_use_core(void)
-     return avc_current_has_perm(SECINITSID_DOMXEN, SECCLASS_RESOURCE, RESOURCE__USE, NULL);
- }
- 
--static int flask_resource_plug_pci(uint32_t machine_bdf)
-+static int cf_check flask_resource_plug_pci(uint32_t machine_bdf)
- {
-     u32 rsid;
-     int rc = -EPERM;
-@@ -1115,7 +1129,7 @@ static int flask_resource_plug_pci(uint32_t machine_bdf)
-     return avc_current_has_perm(rsid, SECCLASS_RESOURCE, RESOURCE__PLUG, &ad);
- }
- 
--static int flask_resource_unplug_pci(uint32_t machine_bdf)
-+static int cf_check flask_resource_unplug_pci(uint32_t machine_bdf)
- {
-     u32 rsid;
-     int rc = -EPERM;
-@@ -1130,7 +1144,7 @@ static int flask_resource_unplug_pci(uint32_t machine_bdf)
-     return avc_current_has_perm(rsid, SECCLASS_RESOURCE, RESOURCE__UNPLUG, &ad);
- }
- 
--static int flask_resource_setup_pci(uint32_t machine_bdf)
-+static int cf_check flask_resource_setup_pci(uint32_t machine_bdf)
- {
-     u32 rsid;
-     int rc = -EPERM;
-@@ -1145,7 +1159,7 @@ static int flask_resource_setup_pci(uint32_t machine_bdf)
-     return avc_current_has_perm(rsid, SECCLASS_RESOURCE, RESOURCE__SETUP, &ad);
- }
- 
--static int flask_resource_setup_gsi(int gsi)
-+static int cf_check flask_resource_setup_gsi(int gsi)
- {
-     u32 rsid;
-     int rc = -EPERM;
-@@ -1158,12 +1172,12 @@ static int flask_resource_setup_gsi(int gsi)
-     return avc_current_has_perm(rsid, SECCLASS_RESOURCE, RESOURCE__SETUP, &ad);
- }
- 
--static int flask_resource_setup_misc(void)
-+static int cf_check flask_resource_setup_misc(void)
- {
-     return avc_current_has_perm(SECINITSID_XEN, SECCLASS_RESOURCE, RESOURCE__SETUP, NULL);
- }
- 
--static inline int flask_page_offline(uint32_t cmd)
-+static inline int cf_check flask_page_offline(uint32_t cmd)
- {
-     switch (cmd) {
-     case sysctl_page_offline:
-@@ -1177,27 +1191,28 @@ static inline int flask_page_offline(uint32_t cmd)
-     }
- }
- 
--static inline int flask_hypfs_op(void)
-+static inline int cf_check flask_hypfs_op(void)
- {
-     return domain_has_xen(current->domain, XEN__HYPFS_OP);
- }
- 
--static int flask_add_to_physmap(struct domain *d1, struct domain *d2)
-+static int cf_check flask_add_to_physmap(struct domain *d1, struct domain *d2)
- {
-     return domain_has_perm(d1, d2, SECCLASS_MMU, MMU__PHYSMAP);
- }
- 
--static int flask_remove_from_physmap(struct domain *d1, struct domain *d2)
-+static int cf_check flask_remove_from_physmap(
-+    struct domain *d1, struct domain *d2)
- {
-     return domain_has_perm(d1, d2, SECCLASS_MMU, MMU__PHYSMAP);
- }
- 
--static int flask_map_gmfn_foreign(struct domain *d, struct domain *t)
-+static int cf_check flask_map_gmfn_foreign(struct domain *d, struct domain *t)
- {
-     return domain_has_perm(d, t, SECCLASS_MMU, MMU__MAP_READ | MMU__MAP_WRITE);
- }
- 
--static int flask_hvm_param(struct domain *d, unsigned long op)
-+static int cf_check flask_hvm_param(struct domain *d, unsigned long op)
- {
-     u32 perm;
- 
-@@ -1216,12 +1231,12 @@ static int flask_hvm_param(struct domain *d, unsigned long op)
-     return current_has_perm(d, SECCLASS_HVM, perm);
- }
- 
--static int flask_hvm_param_altp2mhvm(struct domain *d)
-+static int cf_check flask_hvm_param_altp2mhvm(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_HVM, HVM__ALTP2MHVM);
- }
- 
--static int flask_hvm_altp2mhvm_op(struct domain *d, uint64_t mode, uint32_t op)
-+static int cf_check flask_hvm_altp2mhvm_op(struct domain *d, uint64_t mode, uint32_t op)
- {
-     /*
-      * Require both mode and XSM to allow the operation. Assume XSM rules
-@@ -1245,34 +1260,34 @@ static int flask_hvm_altp2mhvm_op(struct domain *d, uint64_t mode, uint32_t op)
-     return current_has_perm(d, SECCLASS_HVM, HVM__ALTP2MHVM_OP);
- }
- 
--static int flask_vm_event_control(struct domain *d, int mode, int op)
-+static int cf_check flask_vm_event_control(struct domain *d, int mode, int op)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__VM_EVENT);
- }
- 
- #ifdef CONFIG_MEM_ACCESS
--static int flask_mem_access(struct domain *d)
-+static int cf_check flask_mem_access(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__MEM_ACCESS);
- }
- #endif
- 
- #ifdef CONFIG_MEM_PAGING
--static int flask_mem_paging(struct domain *d)
-+static int cf_check flask_mem_paging(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__MEM_PAGING);
- }
- #endif
- 
- #ifdef CONFIG_MEM_SHARING
--static int flask_mem_sharing(struct domain *d)
-+static int cf_check flask_mem_sharing(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__MEM_SHARING);
- }
- #endif
- 
- #if defined(CONFIG_HAS_PASSTHROUGH) && defined(CONFIG_HAS_PCI)
--static int flask_get_device_group(uint32_t machine_bdf)
-+static int cf_check flask_get_device_group(uint32_t machine_bdf)
- {
-     u32 rsid;
-     int rc = -EPERM;
-@@ -1296,7 +1311,7 @@ static int flask_test_assign_device(uint32_t machine_bdf)
-     return avc_current_has_perm(rsid, SECCLASS_RESOURCE, RESOURCE__STAT_DEVICE, NULL);
- }
- 
--static int flask_assign_device(struct domain *d, uint32_t machine_bdf)
-+static int cf_check flask_assign_device(struct domain *d, uint32_t machine_bdf)
- {
-     u32 dsid, rsid;
-     int rc = -EPERM;
-@@ -1326,7 +1341,8 @@ static int flask_assign_device(struct domain *d, uint32_t machine_bdf)
-     return avc_has_perm(dsid, rsid, SECCLASS_RESOURCE, dperm, &ad);
- }
- 
--static int flask_deassign_device(struct domain *d, uint32_t machine_bdf)
-+static int cf_check flask_deassign_device(
-+    struct domain *d, uint32_t machine_bdf)
- {
-     u32 rsid;
-     int rc = -EPERM;
-@@ -1357,7 +1373,7 @@ static int flask_test_assign_dtdevice(const char *dtpath)
-                                 NULL);
- }
- 
--static int flask_assign_dtdevice(struct domain *d, const char *dtpath)
-+static int cf_check flask_assign_dtdevice(struct domain *d, const char *dtpath)
- {
-     u32 dsid, rsid;
-     int rc = -EPERM;
-@@ -1387,7 +1403,8 @@ static int flask_assign_dtdevice(struct domain *d, const char *dtpath)
-     return avc_has_perm(dsid, rsid, SECCLASS_RESOURCE, dperm, &ad);
- }
- 
--static int flask_deassign_dtdevice(struct domain *d, const char *dtpath)
-+static int cf_check flask_deassign_dtdevice(
-+    struct domain *d, const char *dtpath)
- {
-     u32 rsid;
-     int rc = -EPERM;
-@@ -1405,7 +1422,7 @@ static int flask_deassign_dtdevice(struct domain *d, const char *dtpath)
- }
- #endif /* HAS_PASSTHROUGH && HAS_DEVICE_TREE */
- 
--static int flask_platform_op(uint32_t op)
-+static int cf_check flask_platform_op(uint32_t op)
- {
-     switch ( op )
-     {
-@@ -1474,12 +1491,12 @@ static int flask_platform_op(uint32_t op)
- }
- 
- #ifdef CONFIG_X86
--static int flask_do_mca(void)
-+static int cf_check flask_do_mca(void)
- {
-     return domain_has_xen(current->domain, XEN__MCA_OP);
- }
- 
--static int flask_shadow_control(struct domain *d, uint32_t op)
-+static int cf_check flask_shadow_control(struct domain *d, uint32_t op)
- {
-     u32 perm;
- 
-@@ -1513,7 +1530,8 @@ struct ioport_has_perm_data {
-     u32 use_perm;
- };
- 
--static int _ioport_has_perm(void *v, u32 sid, unsigned long start, unsigned long end)
-+static int cf_check _ioport_has_perm(
-+    void *v, u32 sid, unsigned long start, unsigned long end)
- {
-     struct ioport_has_perm_data *data = v;
-     struct avc_audit_data ad;
-@@ -1531,7 +1549,8 @@ static int _ioport_has_perm(void *v, u32 sid, unsigned long start, unsigned long
-     return avc_has_perm(data->dsid, sid, SECCLASS_RESOURCE, data->use_perm, &ad);
- }
- 
--static int flask_ioport_permission(struct domain *d, uint32_t start, uint32_t end, uint8_t access)
-+static int cf_check flask_ioport_permission(
-+    struct domain *d, uint32_t start, uint32_t end, uint8_t access)
- {
-     int rc;
-     struct ioport_has_perm_data data;
-@@ -1554,12 +1573,14 @@ static int flask_ioport_permission(struct domain *d, uint32_t start, uint32_t en
-     return security_iterate_ioport_sids(start, end, _ioport_has_perm, &data);
- }
- 
--static int flask_ioport_mapping(struct domain *d, uint32_t start, uint32_t end, uint8_t access)
-+static int cf_check flask_ioport_mapping(
-+    struct domain *d, uint32_t start, uint32_t end, uint8_t access)
- {
-     return flask_ioport_permission(d, start, end, access);
- }
- 
--static int flask_mem_sharing_op(struct domain *d, struct domain *cd, int op)
-+static int cf_check flask_mem_sharing_op(
-+    struct domain *d, struct domain *cd, int op)
- {
-     int rc = current_has_perm(cd, SECCLASS_HVM, HVM__MEM_SHARING);
-     if ( rc )
-@@ -1567,7 +1588,7 @@ static int flask_mem_sharing_op(struct domain *d, struct domain *cd, int op)
-     return domain_has_perm(d, cd, SECCLASS_HVM, HVM__SHARE_MEM);
- }
- 
--static int flask_apic(struct domain *d, int cmd)
-+static int cf_check flask_apic(struct domain *d, int cmd)
- {
-     u32 perm;
- 
-@@ -1587,18 +1608,18 @@ static int flask_apic(struct domain *d, int cmd)
-     return domain_has_xen(d, perm);
- }
- 
--static int flask_machine_memory_map(void)
-+static int cf_check flask_machine_memory_map(void)
- {
-     return avc_current_has_perm(SECINITSID_XEN, SECCLASS_MMU, MMU__MEMORYMAP, NULL);
- }
- 
--static int flask_domain_memory_map(struct domain *d)
-+static int cf_check flask_domain_memory_map(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_MMU, MMU__MEMORYMAP);
- }
- 
--static int flask_mmu_update(struct domain *d, struct domain *t,
--                            struct domain *f, uint32_t flags)
-+static int cf_check flask_mmu_update(
-+    struct domain *d, struct domain *t, struct domain *f, uint32_t flags)
- {
-     int rc = 0;
-     u32 map_perms = 0;
-@@ -1620,13 +1641,13 @@ static int flask_mmu_update(struct domain *d, struct domain *t,
-     return rc;
- }
- 
--static int flask_mmuext_op(struct domain *d, struct domain *f)
-+static int cf_check flask_mmuext_op(struct domain *d, struct domain *f)
- {
-     return domain_has_perm(d, f, SECCLASS_MMU, MMU__MMUEXT_OP);
- }
- 
--static int flask_update_va_mapping(struct domain *d, struct domain *f,
--                                   l1_pgentry_t pte)
-+static int cf_check flask_update_va_mapping(
-+    struct domain *d, struct domain *f, l1_pgentry_t pte)
- {
-     u32 map_perms = MMU__MAP_READ;
-     if ( !(l1e_get_flags(pte) & _PAGE_PRESENT) )
-@@ -1637,12 +1658,12 @@ static int flask_update_va_mapping(struct domain *d, struct domain *f,
-     return domain_has_perm(d, f, SECCLASS_MMU, map_perms);
- }
- 
--static int flask_priv_mapping(struct domain *d, struct domain *t)
-+static int cf_check flask_priv_mapping(struct domain *d, struct domain *t)
- {
-     return domain_has_perm(d, t, SECCLASS_MMU, MMU__TARGET_HACK);
- }
- 
--static int flask_pmu_op (struct domain *d, unsigned int op)
-+static int cf_check flask_pmu_op(struct domain *d, unsigned int op)
- {
-     u32 dsid = domain_sid(d);
- 
-@@ -1666,12 +1687,12 @@ static int flask_pmu_op (struct domain *d, unsigned int op)
- }
- #endif /* CONFIG_X86 */
- 
--static int flask_dm_op(struct domain *d)
-+static int cf_check flask_dm_op(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_HVM, HVM__DM);
- }
- 
--static int flask_xen_version (uint32_t op)
-+static int cf_check flask_xen_version(uint32_t op)
- {
-     u32 dsid = domain_sid(current->domain);
- 
-@@ -1711,32 +1732,33 @@ static int flask_xen_version (uint32_t op)
-     }
- }
- 
--static int flask_domain_resource_map(struct domain *d)
-+static int cf_check flask_domain_resource_map(struct domain *d)
- {
-     return current_has_perm(d, SECCLASS_DOMAIN2, DOMAIN2__RESOURCE_MAP);
- }
- 
- #ifdef CONFIG_ARGO
--static int flask_argo_enable(const struct domain *d)
-+static int cf_check flask_argo_enable(const struct domain *d)
- {
-     return avc_has_perm(domain_sid(d), SECINITSID_XEN, SECCLASS_ARGO,
-                         ARGO__ENABLE, NULL);
- }
- 
--static int flask_argo_register_single_source(const struct domain *d,
--                                             const struct domain *t)
-+static int cf_check flask_argo_register_single_source(
-+    const struct domain *d, const struct domain *t)
- {
-     return domain_has_perm(d, t, SECCLASS_ARGO,
-                            ARGO__REGISTER_SINGLE_SOURCE);
- }
- 
--static int flask_argo_register_any_source(const struct domain *d)
-+static int cf_check flask_argo_register_any_source(const struct domain *d)
- {
-     return avc_has_perm(domain_sid(d), SECINITSID_XEN, SECCLASS_ARGO,
-                         ARGO__REGISTER_ANY_SOURCE, NULL);
- }
- 
--static int flask_argo_send(const struct domain *d, const struct domain *t)
-+static int cf_check flask_argo_send(
-+    const struct domain *d, const struct domain *t)
- {
-     return domain_has_perm(d, t, SECCLASS_ARGO, ARGO__SEND);
- }
-diff --git a/xen/xsm/flask/private.h b/xen/xsm/flask/private.h
-index 73b0de87245a..429f213cce74 100644
---- a/xen/xsm/flask/private.h
-+++ b/xen/xsm/flask/private.h
-@@ -3,7 +3,7 @@
- 
- #include <public/xen.h>
- 
--long do_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op);
--int compat_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op);
-+long cf_check do_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op);
-+int cf_check compat_flask_op(XEN_GUEST_HANDLE_PARAM(void) u_flask_op);
- 
- #endif /* XSM_FLASK_PRIVATE */
-diff --git a/xen/xsm/silo.c b/xen/xsm/silo.c
-index 3550dded7b4e..4d5fc98e7e54 100644
---- a/xen/xsm/silo.c
-+++ b/xen/xsm/silo.c
-@@ -33,8 +33,8 @@ static bool silo_mode_dom_check(const struct domain *ldom,
-             is_control_domain(rdom) || ldom == rdom);
- }
- 
--static int silo_evtchn_unbound(struct domain *d1, struct evtchn *chn,
--                               domid_t id2)
-+static int cf_check silo_evtchn_unbound(
-+    struct domain *d1, struct evtchn *chn, domid_t id2)
- {
-     int rc = -EPERM;
-     struct domain *d2 = rcu_lock_domain_by_any_id(id2);
-@@ -51,30 +51,31 @@ static int silo_evtchn_unbound(struct domain *d1, struct evtchn *chn,
-     return rc;
- }
- 
--static int silo_evtchn_interdomain(struct domain *d1, struct evtchn *chan1,
--                                   struct domain *d2, struct evtchn *chan2)
-+static int cf_check silo_evtchn_interdomain(
-+    struct domain *d1, struct evtchn *chan1,
-+    struct domain *d2, struct evtchn *chan2)
- {
-     if ( silo_mode_dom_check(d1, d2) )
-         return xsm_evtchn_interdomain(d1, chan1, d2, chan2);
-     return -EPERM;
- }
- 
--static int silo_grant_mapref(struct domain *d1, struct domain *d2,
--                             uint32_t flags)
-+static int cf_check silo_grant_mapref(
-+    struct domain *d1, struct domain *d2, uint32_t flags)
- {
-     if ( silo_mode_dom_check(d1, d2) )
-         return xsm_grant_mapref(d1, d2, flags);
-     return -EPERM;
- }
- 
--static int silo_grant_transfer(struct domain *d1, struct domain *d2)
-+static int cf_check silo_grant_transfer(struct domain *d1, struct domain *d2)
- {
-     if ( silo_mode_dom_check(d1, d2) )
-         return xsm_grant_transfer(d1, d2);
-     return -EPERM;
- }
- 
--static int silo_grant_copy(struct domain *d1, struct domain *d2)
-+static int cf_check silo_grant_copy(struct domain *d1, struct domain *d2)
- {
-     if ( silo_mode_dom_check(d1, d2) )
-         return xsm_grant_copy(d1, d2);
-@@ -83,15 +84,16 @@ static int silo_grant_copy(struct domain *d1, struct domain *d2)
- 
- #ifdef CONFIG_ARGO
- 
--static int silo_argo_register_single_source(const struct domain *d1,
--                                            const struct domain *d2)
-+static int cf_check silo_argo_register_single_source(
-+    const struct domain *d1, const struct domain *d2)
- {
-     if ( silo_mode_dom_check(d1, d2) )
-         return xsm_argo_register_single_source(d1, d2);
-     return -EPERM;
- }
- 
--static int silo_argo_send(const struct domain *d1, const struct domain *d2)
-+static int cf_check silo_argo_send(
-+    const struct domain *d1, const struct domain *d2)
- {
-     if ( silo_mode_dom_check(d1, d2) )
-         return xsm_argo_send(d1, d2);
+-static void *
++static void * cf_check
+ rt_alloc_udata(const struct scheduler *ops, struct sched_unit *unit, void *dd)
+ {
+     struct rt_unit *svc;
+@@ -850,7 +850,7 @@ rt_alloc_udata(const struct scheduler *ops, struct sched_unit *unit, void *dd)
+     return svc;
+ }
+ 
+-static void
++static void cf_check
+ rt_free_udata(const struct scheduler *ops, void *priv)
+ {
+     struct rt_unit *svc = priv;
+@@ -865,7 +865,7 @@ rt_free_udata(const struct scheduler *ops, void *priv)
+  * It inserts units of moving domain to the scheduler's RunQ in
+  * dest. cpupool.
+  */
+-static void
++static void cf_check
+ rt_unit_insert(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct rt_unit *svc = rt_unit(unit);
+@@ -901,7 +901,7 @@ rt_unit_insert(const struct scheduler *ops, struct sched_unit *unit)
+ /*
+  * Remove rt_unit svc from the old scheduler in source cpupool.
+  */
+-static void
++static void cf_check
+ rt_unit_remove(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct rt_unit * const svc = rt_unit(unit);
+@@ -1042,7 +1042,7 @@ runq_pick(const struct scheduler *ops, const cpumask_t *mask, unsigned int cpu)
+  * schedule function for rt scheduler.
+  * The lock is already grabbed in schedule.c, no need to lock here
+  */
+-static void
++static void cf_check
+ rt_schedule(const struct scheduler *ops, struct sched_unit *currunit,
+             s_time_t now, bool tasklet_work_scheduled)
+ {
+@@ -1129,7 +1129,7 @@ rt_schedule(const struct scheduler *ops, struct sched_unit *currunit,
+  * Remove UNIT from RunQ
+  * The lock is already grabbed in schedule.c, no need to lock here
+  */
+-static void
++static void cf_check
+ rt_unit_sleep(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct rt_unit * const svc = rt_unit(unit);
+@@ -1244,7 +1244,7 @@ runq_tickle(const struct scheduler *ops, const struct rt_unit *new)
+  * The lock is already grabbed in schedule.c, no need to lock here
+  * TODO: what if these two units belongs to the same domain?
+  */
+-static void
++static void cf_check
+ rt_unit_wake(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct rt_unit * const svc = rt_unit(unit);
+@@ -1314,7 +1314,7 @@ rt_unit_wake(const struct scheduler *ops, struct sched_unit *unit)
+  * scurr has finished context switch, insert it back to the RunQ,
+  * and then pick the highest priority unit from runq to run
+  */
+-static void
++static void cf_check
+ rt_context_saved(const struct scheduler *ops, struct sched_unit *unit)
+ {
+     struct rt_unit *svc = rt_unit(unit);
+@@ -1341,7 +1341,7 @@ rt_context_saved(const struct scheduler *ops, struct sched_unit *unit)
+ /*
+  * set/get each unit info of each domain
+  */
+-static int
++static int cf_check
+ rt_dom_cntl(
+     const struct scheduler *ops,
+     struct domain *d,
 -- 
 2.11.0
 
