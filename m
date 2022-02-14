@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B12DC4B5121
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:06:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.271778.466506 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD0194B5173
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:18:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.272059.466877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJb46-0007Ce-Dr; Mon, 14 Feb 2022 13:06:50 +0000
+	id 1nJbEw-0004QR-MG; Mon, 14 Feb 2022 13:18:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 271778.466506; Mon, 14 Feb 2022 13:06:50 +0000
+Received: by outflank-mailman (output) from mailman id 272059.466877; Mon, 14 Feb 2022 13:18:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJb45-00073a-Jj; Mon, 14 Feb 2022 13:06:49 +0000
-Received: by outflank-mailman (input) for mailman id 271778;
- Mon, 14 Feb 2022 13:06:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nJbEw-0004Iw-Ef; Mon, 14 Feb 2022 13:18:02 +0000
+Received: by outflank-mailman (input) for mailman id 272059;
+ Mon, 14 Feb 2022 13:17:59 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HcNt=S5=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nJb2m-00023t-1B
- for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:05:28 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c68bdee8-8d96-11ec-b215-9bbe72dcb22c;
- Mon, 14 Feb 2022 14:05:26 +0100 (CET)
+ id 1nJb4b-0008IH-4e
+ for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:07:21 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 09de4c78-8d97-11ec-8eb8-a37418f5ba1a;
+ Mon, 14 Feb 2022 14:07:19 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,99 +36,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c68bdee8-8d96-11ec-b215-9bbe72dcb22c
+X-Inumbo-ID: 09de4c78-8d97-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1644843926;
+  d=citrix.com; s=securemail; t=1644844039;
   h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=lbPgCP8QoZ01MqJuej5y09QKl0+j0oj0HAV2tSG7L3Y=;
-  b=B85S8KRwksAn8Txd/WPly7ZCG5YItRUYEyuEDyrYT4APvJttNcS2Puev
-   Ru3qJETC+7kYim03NOmOhr6bUI2UJioA5p4xbaeE5SPwdoR1ewM1pZxtu
-   KC4ASGFU60GtShG2PLUBpLBxNkU38P7mizqNxmhlmcHt/te4t826TSq6d
-   8=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: C5OFwtAmVeQx/l/W1+zxTCPYzAL33kpFmtq11yYcexwEXk3WumaJv4/kPNy+y+vXMcehNRqhSI
- vNMYItHP8XV5HCyQtSPXghpiniZ9SdWrrh9HotU79Ab/WM7GjsklA3LFPiuCvgZuIc6eUlNo1t
- SbRA4o6837H8grJxLmLRD8XWvGp8TChY+EvJC8nRMD33q0ljspBdAeUTZGcWNPNm+/SYvIhZPT
- 1u22/KG3Mgi29pjznTtBGzB/oHkCDWg53epH9OthCbXNCXhTM3oTTv2KWqW/mXVpeyq6nt0LtS
- senlb8Z1rOZQZg5/l6bNP2CJ
+   references:mime-version;
+  bh=xssEdp0Svf1EAcyTm/CHU0ZkwIg2XP7+KI+3Pd9nxnc=;
+  b=KpAQox58+qUhBW8s71bMVh0l4Ht1/xi8M2uGMBAcitomB4tTxR9wQSd7
+   LMEfh1eOPwclnoP0m5PcwzUE44UcYCApLIQG93ma7GRG+cranoRRSs2kQ
+   fdRvWpi2sWgd2qTThLn4VyjwXgVuNWuYP+e5b9fJud2VqFtp+xfXVniaM
+   Q=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: qBoBnxQsU/3wdIOrqcmHNTR2j7JT7U1nrwwDNZuIrcxUm5kZaXWcX7/Pa8fyCZ1/Yey2y/C2PL
+ P1F4aMLpN8iHj21GnmFWozEAB8Z9l2+kmf6iYRfN+0gtH/+SzeYhw1ZUmrl1moOcBrbFG5abKF
+ z1gkwk1wldHbb862h7fzqbguRmS4dL56QAVqI3Ag3Ph+9nhVUlBkpqd99ibROi9ALSkyUYQDHs
+ Hdeo7RFBiZzp84r94QoQWEWlOKutwoocVOGki8CPVpoUd2mDbPva9qVdI7YkMxTuhGts8F/EHp
+ 1bkFOjiaHiSsm7PngOHBwukl
 X-SBRS: 5.1
-X-MesageID: 64149405
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 64554412
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:I3aBJawKCesvIw+J3Px6t+cIwSrEfRIJ4+MujC+fZmUNrF6WrkVVz
- WsbXm3XMvnbYjP9ftt3Pd6zpElUsMLXm4A3SAtuqiAxQypGp/SeCIXCJC8cHc8zwu4v7q5Dx
- 59DAjUVBJlsFhcwnvopW1TYhSEUOZugH9IQM8aZfHAhLeNYYH1500g7wbdl2tcAbeWRWGthh
- /uj+6UzB3f9s9JEGjp8B3Wr8U4HUFza4Vv0j3RmDRx5lAa2e0o9VfrzEZqZPXrgKrS4K8bhL
- wr1IBNVyUuCl/slIovNfr8W6STmSJaKVeSFoiI+t6RPHnGuD8H9u0o2HKN0VKtZt9mGt41Wz
- 49jsre8dScOHerLtPszCUBUKAgraMWq+JefSZS+mcmazkmAeHrw2fR+SkoxOOX0+M4uXzsIr
- 6ZBbmlQMFbT3Ipaw5riIgVoru0lINPmI8U0vXZ4wCuCJf0nXYrCU+PB4towMDIY2JwXQaeCP
- 5dxhTxHUA/7Yz51fUksDZswgqCRu0PWaCRcpwfAzUYwyzeKl1EguFT3C/LKfvSaSMMTmVyXz
- krk1WnkBhARNPSE1CGItHmrg4fnjS79HY4fCrC83vprm0GIgHweDgUMUlm2quX/jVSxM++zM
- GRNpHBo9/JrshX2EJ+tBHVUvUJooDZBfN0KPeoR5D2t7YmT5CqGKDJdQgVoPYlOWNANeRQm0
- VqAntXMDDNpsaGIRX/1yop4vQ9eKgBOczZcOHZsoR8tpoC6/dpt1k6nosNLTfbt5uAZDw0c1
- NxjQMIWo7wIxfAG2Kyglbwsq2L9/8OZJuLZC+i+Y45E0u+bTNP/D2BLwQKChRqlEGp+ZgPf1
- EXoY+DEsIgz4WilzURhutklErCz/OqiOzbBm1NpFJRJ323zpyL8LdANvWknfx0B3iM4ldjBO
- hG7hO+szMULYCvCgVFfP+pd9PjGPYC/TI+4B5g4n/JFY4RrdR/vwc2dTRX44owZq2B1yftXE
- c7CKa6EVC9GYYw6nGveb7pMitcDm3FhrV4/sLimlnxLJ5LFPyXLIVrEWXPTBt0EAFSs/lmEr
- YYHb5HSo/idOcWnChTqHUcoBQhiBRAG6Vre8aS7r8aPfVhrHn8PEfjUze9zcoBphf0NxOzJ4
- mu8SglTz1+m3S/LLgCDa3ZCbrLzXMkg8SJnbHJ0ZVv4iWI+ZYuP7bsEc8dld7cQ6+E+n+V/S
- OMIepvcD60XGCjH4TkUcbL0sJdmKEawnQuLMif8OGo/cpdsShbn4NjhegezpiACAjDu7Zk1o
- qG61xOdSp0GHlwwAMHTYfOp7lWwoXlCx74iAxqWeoFeIRy+/pJrJir9iu4MD/sNcRiTlCGH0
- wu2AAsDobWfqYEC79SU17uPqJ2kErUiExMCTXXb97u/KQLT4nGnnd1bSO+NcD3QCDH09aGla
- bkHxv3wKqRazlNDso46GLd316MuodDoouYCnAhjGXzKaXWtC69hfSbajZUe6PUVy+8LoxayV
- 2KO5sJeaOeAN87SGVIMIBYoM7aY3vYOlziOtfk4LS0WPsOsEGZrhamKAySxtQ==
-IronPort-HdrOrdr: A9a23:yWBmNqMTrwcGn8BcTsWjsMiBIKoaSvp037Eqv3oRdfU1SL3hqy
- nApoV56faZslkssTQb6LS90cq7MArhHPxOkOss1N6ZNWGM0gbFEGgh1/qE/9SJIVyZygc378
- ddmsZFZuEYdWIK6PrH3A==
+IronPort-Data: A9a23:8ISm1KCyz/lBqxVW/zHkw5YqxClBgxIJ4kV8jS/XYbTApD9whGcEm
+ zcdUGiEaavYM2PzeNB+bIW19U5TuJ+GyYRjQQY4rX1jcSlH+JHPbTi7wuYcHM8wwunrFh8PA
+ xA2M4GYRCwMo/u1Si6FatANl1ElvU2zbue6WL6s1hxZH1c+En970E47wobVv6Yz6TSHK1LV0
+ T/Ni5W31G+Ng1aY5UpNtspvADs21BjDkGtwUm4WPJinj3eH/5UhN7oNJLnZEpfNatI88thW5
+ Qr05OrREmvxp3/BAz4++1rxWhVirrX6ZWBihpfKMkQLb9crSiEai84G2PQghUh/rzjVk9Eu8
+ uR0noGKeC50EbyTie0kakwNe81+FfUuFL7vJHG+tYqYzlHccmuqyPJrZK00FdRGoKAtWzgIr
+ KFGbmBWBvyAr7veLLaTY+9gnMk8auLsO5sSoCpIxjDFF/c2B5vERs0m4PcGgGpt2pwXR54yY
+ eIZYxBiUjflSiFEAXYNVaMjxeaV3lvgJmgwRFW9+vNsvjm7IBZK+KjgNp/Zd8KHQe1Rn12Ev
+ STW8mLhGBYYOdeDjz2f/RqRavTnxH2hHthITfvhq6As0Ab7KnEv5AM+cVbnrfjmsH+HcM9lG
+ mVJ1TtxvKELzRn+JjXiZCGQrHmBtx8aftNfFewm9Q2AopbpDxal6nssFWAYNoF/3CMibXlzj
+ wLSwYu1bdB6mODNERqgGqGoQSRe0MT/BUsLfmc6QAQM+LEPS6lj30uUHr6P/ENY5+AZ+A0cI
+ RjX9kDSZJ1J1KbnMplXGnid3VqRSmDhFFJd2+kudjvNAvlFTICkfZe0zlPQ8OxNKo2UJnHY4
+ iRYxJjOsb1WVMrX/MBofAnqNOv3j8tpzRWG2QI/d3Xf32jFF4GfkXB4v2gleRYB3jcscj71e
+ k7D0T69F7cIVEZGmZRfOtrrY+xzlPCIPY28Cpj8M4ofCrAsJVTv1Hw/OiatM5XFzRFEfVcXY
+ szAL65BzB8yVMxa8dZBb7lBgOF7nnhknQs+h/nTlnya7FZXX1bNIZ9tDbdERrlksstoeS3Zr
+ IRSMdWk0RJaXLGsayXb69dLf1sLMWI6Fdb9rMkOLryPJQ9vGWcADf7NwOx+J9w5zvoNzuqYr
+ GugXkJ4yUbkgSGVIwu9dX0+OqjkWoxyrCxnMHV0b0qowXUqfa2m8LwbK8ksZbAi+eE6lax0Q
+ vAJdt+uGPNKTjibqT0RYYOk9N5pdQixhBLINC2gOWBtc5llTg3P29nlYgqwq3VeUnvp7ZMz+
+ uTy2BnaTJwPQxVZIPzXMP//nUmsuXU9mf5pWxeaKNdkZ0ixopNhLDb8j6FrLphUewnD3DaTy
+ y2fHQwc+bvWu4Yw/dTE2fKEooOuH7csF0ZWBTCGv7O/NC2c9Wu/245QFu2PeGmFBm/z/ayjY
+ 8RTzu39b6JbzAob7dIkHuY517866vvuu6Ren1ZtE3j8Zli2Dq9tfyud1s5Vu6wRnrJUtGNag
+ K5UFgW27VlRBP7YLQ==
+IronPort-HdrOrdr: A9a23:9/AWbKlf9L53ofy0ilBXyWESM3jpDfIu3DAbv31ZSRFFG/Fxl6
+ iV8sjztCWE8Qr5N0tBpTntAsW9qDbnhPtICOoqTNGftWvdyQiVxehZhOOIqVDd8m/Fh4pgPM
+ 9bAs9D4bbLbGSS4/yU3ODBKadD/OW6
 X-IronPort-AV: E=Sophos;i="5.88,367,1635220800"; 
-   d="scan'208";a="64149405"
+   d="scan'208";a="64554412"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 60/70] x86: Use control flow typechecking where possible
-Date: Mon, 14 Feb 2022 12:51:17 +0000
-Message-ID: <20220214125127.17985-61-andrew.cooper3@citrix.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: [PATCH v2 61/70] x86/setup: Read CR4 earlier in __start_xen()
+Date: Mon, 14 Feb 2022 12:51:18 +0000
+Message-ID: <20220214125127.17985-62-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220214125127.17985-1-andrew.cooper3@citrix.com>
 References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Now all callees have been annotated, turn on typechecking to catch issues in
-the future.
+This is necessary for read_cr4() to function correctly.  Move the EFER caching
+at the same time.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
+ xen/arch/x86/setup.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-RFC.  This is still an experimental compiler extention
-https://gcc.gnu.org/bugzilla/show_bug.cgi?id=102953
-
-However, it is also the entire basis of being able to sanely use
--mmanual-endbr in the first place, so is very important.
----
- xen/arch/x86/arch.mk | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/xen/arch/x86/arch.mk b/xen/arch/x86/arch.mk
-index 8b88f0240e85..1710d056af3f 100644
---- a/xen/arch/x86/arch.mk
-+++ b/xen/arch/x86/arch.mk
-@@ -49,6 +49,7 @@ CFLAGS-$(CONFIG_INDIRECT_THUNK) += -fno-jump-tables
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 735f69d2cae8..2b1192d85b77 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -888,6 +888,9 @@ void __init noreturn __start_xen(unsigned long mbi_p)
  
- ifdef CONFIG_XEN_IBT
- CFLAGS += -fcf-protection=branch -mmanual-endbr
-+$(call cc-option-add,CFLAGS,CC,-fcf-check-attribute=no)
- else
- $(call cc-option-add,CFLAGS,CC,-fcf-protection=none)
- endif
+     /* Full exception support from here on in. */
+ 
++    rdmsrl(MSR_EFER, this_cpu(efer));
++    asm volatile ( "mov %%cr4,%0" : "=r" (get_cpu_info()->cr4) );
++
+     /* Enable NMIs.  Our loader (e.g. Tboot) may have left them disabled. */
+     enable_nmis();
+ 
+@@ -934,9 +937,6 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+ 
+     parse_video_info();
+ 
+-    rdmsrl(MSR_EFER, this_cpu(efer));
+-    asm volatile ( "mov %%cr4,%0" : "=r" (get_cpu_info()->cr4) );
+-
+     /* We initialise the serial devices very early so we can get debugging. */
+     ns16550.io_base = 0x3f8;
+     ns16550.irq     = 4;
 -- 
 2.11.0
 
