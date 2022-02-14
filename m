@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21B454B5106
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:05:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.271653.466281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DF6F4B5103
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:05:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.271647.466239 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJb2Q-0003Sj-Ch; Mon, 14 Feb 2022 13:05:06 +0000
+	id 1nJb2H-0001jc-4R; Mon, 14 Feb 2022 13:04:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 271653.466281; Mon, 14 Feb 2022 13:05:06 +0000
+Received: by outflank-mailman (output) from mailman id 271647.466239; Mon, 14 Feb 2022 13:04:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJb2P-0003LQ-UR; Mon, 14 Feb 2022 13:05:05 +0000
-Received: by outflank-mailman (input) for mailman id 271653;
- Mon, 14 Feb 2022 13:05:03 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nJb2G-0001d3-T7; Mon, 14 Feb 2022 13:04:56 +0000
+Received: by outflank-mailman (input) for mailman id 271647;
+ Mon, 14 Feb 2022 13:04:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HcNt=S5=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nJb2N-00023t-C1
- for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:05:03 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b699f3dd-8d96-11ec-b215-9bbe72dcb22c;
- Mon, 14 Feb 2022 14:05:00 +0100 (CET)
+ id 1nJb2E-0008IH-EI
+ for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:04:54 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b253348c-8d96-11ec-8eb8-a37418f5ba1a;
+ Mon, 14 Feb 2022 14:04:53 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,60 +36,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b699f3dd-8d96-11ec-b215-9bbe72dcb22c
+X-Inumbo-ID: b253348c-8d96-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1644843901;
+  d=citrix.com; s=securemail; t=1644843893;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version;
-  bh=Vmf+grYE8bKtbE+rcnkJIH/kZo6uatD1f3oilVOV1Mo=;
-  b=dLJwZ9ACtIntA7zQuw9g97zLzcXOs8P1itm25ptg//lLPEE8Cru6NLZh
-   MJA7ASW2pQ8L9gAt2dsAX3BLhKZwrv11JBSwneMPnqEbt9NSbooawiJBM
-   iTQH4Yl6r+MHh12nvMW7XXJg39M0kAjrZQHkVC6Ifj1URpqCdPNz0mDLY
-   g=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: H91983OJySle/XwUPf9C7ClRnyUt40HvBbr2gDnpRR7yQONQvm90NE4gklDMhWGB0bZEeUOBBI
- P9PXFmw5C2dhAChTv2st6OJ0gAL9nt1zq6RRV/CJW/Oe+5pCgK+qEjj5EhuIM0vD2gOpbRNzzH
- bwoJ+gIIsAXKPwrHlYDjJAQBFbCt6KeVJO2fqeTINuU+WOLrgaCHMUGjGzchIYPKifidrH+VC5
- X+Go0idnmudpB804gW1e0E7fQwYTASSOoMgMNeED6UEYdbZCjFsW3zWQxBEFY26vCJ3z/bKudP
- waVTpe3ebicex2b7Oy7eFN5d
+  bh=ipAxHYrAKEzK9SFgAkUSAhz6N1h8OI0W6ZrwtK0U1gA=;
+  b=P/DyMK0yomKaNBSVSgfoXEmDe9eUlGZu91PE+aKcc78M15aIAsqQDBA/
+   DlbUifezqwFpzAPX8/ek2DeM2PCPTjy1cvUfi2lGspnhdLIBOAvdMuujL
+   pir86Gz2ZBZnepTpgVF4J3YdKFjW2ZpLa52u7qqACDEa8BR7k8AME43Y4
+   0=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: spdufPN7QL5caJcmVWTXNMp5zXVwJqXGVqJ8c49c8TGoa49DhSj9cthVBz2xX32eXHySfnrz3h
+ 8RbwRuDOI6g/4sXW7ADlK5rW4F1/N77aJOmQtKUgEe30Lprf6UMQODg/E/qb5BgffjialJrY7J
+ hLV+9dkO2+iMpGnqOvODt2WsIcpklG/TwJrkO5YeZ3O1VNyOiP0AmK7QLyvInylX762a3CDeL3
+ BtzBMrYI4xOP04RfM2mcM/9vDtLqabCKNw9PNbH04IhSo2BxgFpkL+yPI79Iu3qOyzwCmoP6Ya
+ RSENZGY+W2QttGzQ38y4sf5K
 X-SBRS: 5.1
-X-MesageID: 63592493
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 66374750
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:Dmg5K6jnt8cAp/aTP24tSKe0X161eRcKZh0ujC45NGQN5FlHY01je
- htvD2uEb/uPZTP9KI0kPtnj908DsJTRm9NgGgo5/CA2Riwb9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0GE/NtTo5w7Rj2tQx3YDga++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /1NiYK5cywFApbundkgbTR7KTlkBLxJreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
- KJCbmpXN1ba2rzwkOnTpupE36zPKOHCOo8Ft24m5jbeFfs8GrjIQrnQ5M8e1zA17ixLNaiFO
- ptDNWs0BPjGSxNUIAw1AY86p8brikL4XWRVsAvLjpNitgA/yyQuieOwYbI5YOeiVchT20qVu
- G/C12D4GQ0BcsySzyKf9XChjfOJmjn0ML/+D5XhqKQs2gfKgDVOVltGDjNXvMVVlGa+Z8xWE
- Wc4xhEMqJUPymGIdMHnZgy39SvsUgEnZ/JcFOgz6Qeow6XS4hqECmVscgOteODKp+dtG2V0i
- wbhc8fBQGU27ebLES71GqK88GvqURX5O1PucsPtoeEtx9D46L8+gRvUJjqIOP7k14alcd0cL
- t3jkcTfu1nxpZNRv0lY1Qqe695JmnQuZlRrjjg7pkr/smtEiHeNPuREE2Tz4/daN5q+RVKcp
- nUCkMX2xLlQUc3SxHzQHb1UR+vBCxO53Nr02wAHInXc3271py7LkX54vFmS23uFwu5bIGS0M
- Sc/SCta5YNJPWvCUEOES9nZNije9oC5TY6NfqmNNrJmO8EtHCfarHAGTRPBhAjFzRlz+ZzTz
- L/GKK5A+15BUv85pNd3Ls9AuYIWKtcWmz+CG8Cjl07/uVdcDVbMIYo43JK1RrhRxMu5TM/9q
- oY32xKix0oNXevgTDPQ9IJPf1kGIWJiXcL9qtBNd/7FKQ1jQTlzB/jUyLInWopkg6UKybuYo
- iDjAhdVmAjlmHnKCQSWcXQ/Ornhaoly8CAgNis2MFf2h3V6OdSz7L0SfoccdKU88LAx1uZ9S
- vQIIp3SAvlGRjnd1S4aaJ3x8N5reBix3FrcNCu5ejkvOZVnQlWRqNPjewLu8ggIDza26pRi8
- +HxiFuDTMNaFQp4DcvQZPa+9H+LvCAQyLBoQk/FAthPY0GwooJkHDP8060sKMYWJBSdmjbDj
- 1SKAQ0VrPXmqpMu9IWbnriNqoqkHrcsHkdeGGWHv7+6OTODozimyI5EFu2JYSrcRCX//6D7P
- bdZyPT1MfsmmldWstUjT+Y3nPxmv9a/9aVHyglEHWnQawX5A7xtFXCKwM1Tu/Af3bReowa3B
- hqC99Qy1W9l4y85/Ir9/DYYU9k=
-IronPort-HdrOrdr: A9a23:9wn6f69jvBhkISSWOupuk+DcI+orL9Y04lQ7vn2YSXRuE/Bw9v
- re5MjzuiWE6wr5NEtOpTnEAtjlfZq+z+8N3WByB8bBYOCOggLBR+sOgbcKgQeQfBEWntQts5
- uIGJIfNDSfNzZHZL7BkWyFL+o=
+IronPort-Data: A9a23:9VU2t6v7QXDun761HSGkfdk2dOfnVElZMUV32f8akzHdYApBsoF/q
+ tZmKTuAPaqCYWXyedknOtm/pEsFusDdmNdhHARk+3owHyMb+JbJXdiXEBz9bniYRiHhoOOLz
+ Cm8hv3odp1coqr0/0/1WlTZQP0VOZigHtIQMsadUsxKbVIiGHdJZS5LwbZj2NYy2IThWmthh
+ PupyyHhEA79s9JLGjp8B5Kr8HuDa9yr5Vv0FnRnDRx6lAe2e0s9VfrzFonoR5fMeaFGH/bSe
+ gr25OrRElU1XfsaIojNfr7TKiXmS1NJVOSEoiI+t6OK2nCuqsGuu0qS2TV1hUp/0l20c95NJ
+ Npl6MObaT5yAqHw27oef0hDSChDDPd80eqSSZS/mZT7I0zudnLtx7NlDV0sPJ1e8eFyaY1M3
+ aVGcnZXNEnF3r/ohuLgIgVvrp1LwM3DFYUToHx/ixreCu4rW8vrSKTW/95Imjw3g6iiGN6AO
+ ZFGNWUyNHwsZTVxOwYPFLISs9v53HelWhlk81Ks/Kk4tj27IAtZj+G2bYu9lsaxbdVYmAOUq
+ 3zL+0z9AwoGL5qPxDyd6HWui+TT2yThV+ov+KaQr6AwxgfJnypKVUNQBQDTTeSFZlCWBo10C
+ 3VPxiYS7vYx2B2wFdDAbkeCiSvR1vIDYOZ4H+o/4QCL76Pb5QeFG2QJJgJ8hMwaWNweHmJzi
+ ALQ9z/9LXk26eDOFyrBnluBhW7qYUAowXk+iTjopOfvy/3qu8kNgx3GVb6P+4bl34SuSVkcL
+ 91nxRXSZon/b+ZWjc1XHnid2lpAQ6QlqSZvuG3qspqNtF8RWWJcT9XABaLnxfhBNp2FaVKKo
+ WIJncOThMhXU83Ry3zdHbhVRerzjxpgDNE7qQQxd6TNChz3oyLzFWyuyG0WyLhV3jYsJmayP
+ R67VfJ5755PJnq6BZKbkKrqY/nGOZPITIy/PtiNN4ImSsEoKGevoXE/DWbNjjuFuBV9zskC1
+ WKzLJ/E4YAyUv88klJbho41jNcW+8zJ7T2PG86rlUn7uVdcDVbMIYo43JK1RrhRxMu5TM/9q
+ r6z7uOGlEdSVvPQeC7S/dJBJFwGNyFjV5v3t9ZWZqiIJQ8/QDMtDPrYwLUAfY15nvsKyreUr
+ y/lAkIImkDigXDnKBmRbiwxYr3YQpsi/2kwOjYhPAj01iF7M5qv9qoWa7A+YaIjqL541fdxQ
+ vRcI5eAD/1DRy7p4TMYaZWh/oVueA7y3VCFPja/YSh5dJllHlSb9tjhdwrp1S8PEivo6pdu/
+ +z+jlvWGMNRSR5jAcDabOOU42mw5XVNyvhvW0boI8VIfBm++oZdNCGs3OQ8JNsBKEufy2LCh
+ RqWGxoRucLEv5QxrIvSnamBooqkT7l+E05dEzWJ5Lq6L3CHrG+qwIsGW+eUZzHNEmjz/fz6N
+ +lSyvj9NtwBnUpL7NUgQ+o6k/pm6ou9vaJewyRlAG7PPgaiBb5XK3Wb2dVC6/9WzbhDtArqA
+ k+C97G241lS1B8JxLLJGDcYUw==
+IronPort-HdrOrdr: A9a23:fRCDYa8SRoZtE6D/+hBuk+DaI+orL9Y04lQ7vn2YSXRuHPBw9v
+ re5cjzuiWVtN98Yh0dcJW7Scy9qBDnhPhICOsqTNSftWDd0QPCRuxfBMnZslnd8kXFh4lgPM
+ xbEpSWZueeMbEDt7eZ3DWF
 X-IronPort-AV: E=Sophos;i="5.88,367,1635220800"; 
-   d="scan'208";a="63592493"
+   d="scan'208";a="66374750"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: [PATCH v2 44/70] x86/pmu: CFI hardening
-Date: Mon, 14 Feb 2022 12:51:01 +0000
-Message-ID: <20220214125127.17985-45-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 45/70] x86/cpu: CFI hardening
+Date: Mon, 14 Feb 2022 12:51:02 +0000
+Message-ID: <20220214125127.17985-46-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220214125127.17985-1-andrew.cooper3@citrix.com>
 References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
@@ -104,380 +104,142 @@ Use cf_check to annotate function pointer targets for the toolchain.
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/arch/x86/cpu/vpmu_amd.c             | 16 ++++++++--------
- xen/arch/x86/cpu/vpmu_intel.c           | 16 ++++++++--------
- xen/arch/x86/oprofile/op_model_athlon.c | 16 ++++++++--------
- xen/arch/x86/oprofile/op_model_p4.c     | 14 +++++++-------
- xen/arch/x86/oprofile/op_model_ppro.c   | 26 ++++++++++++++------------
- 5 files changed, 45 insertions(+), 43 deletions(-)
+ xen/arch/x86/cpu/amd.c      | 6 +++---
+ xen/arch/x86/cpu/centaur.c  | 2 +-
+ xen/arch/x86/cpu/common.c   | 2 +-
+ xen/arch/x86/cpu/cpu.h      | 2 +-
+ xen/arch/x86/cpu/hygon.c    | 2 +-
+ xen/arch/x86/cpu/intel.c    | 6 +++---
+ xen/arch/x86/cpu/shanghai.c | 2 +-
+ 7 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/vpmu_amd.c b/xen/arch/x86/cpu/vpmu_amd.c
-index 25ad4ecf48a4..5963ce90150a 100644
---- a/xen/arch/x86/cpu/vpmu_amd.c
-+++ b/xen/arch/x86/cpu/vpmu_amd.c
-@@ -186,7 +186,7 @@ static void amd_vpmu_unset_msr_bitmap(struct vcpu *v)
-     msr_bitmap_off(vpmu);
+diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
+index 2d18223f20ef..4999f8be2b11 100644
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -208,7 +208,7 @@ static void __init noinline probe_masking_msrs(void)
+  * parameter of NULL is used to context switch to the default host state (by
+  * the cpu bringup-code, crash path, etc).
+  */
+-static void amd_ctxt_switch_masking(const struct vcpu *next)
++static void cf_check amd_ctxt_switch_masking(const struct vcpu *next)
+ {
+ 	struct cpuidmasks *these_masks = &this_cpu(cpuidmasks);
+ 	const struct domain *nextd = next ? next->domain : NULL;
+@@ -634,7 +634,7 @@ void amd_log_freq(const struct cpuinfo_x86 *c)
+ #undef FREQ
  }
  
--static int amd_vpmu_do_interrupt(struct cpu_user_regs *regs)
-+static int cf_check amd_vpmu_do_interrupt(struct cpu_user_regs *regs)
+-void early_init_amd(struct cpuinfo_x86 *c)
++void cf_check early_init_amd(struct cpuinfo_x86 *c)
  {
-     return 1;
+ 	if (c == &boot_cpu_data)
+ 		amd_init_levelling();
+@@ -744,7 +744,7 @@ void __init detect_zen2_null_seg_behaviour(void)
+ 
  }
-@@ -206,7 +206,7 @@ static inline void context_load(struct vcpu *v)
+ 
+-static void init_amd(struct cpuinfo_x86 *c)
++static void cf_check init_amd(struct cpuinfo_x86 *c)
+ {
+ 	u32 l, h;
+ 
+diff --git a/xen/arch/x86/cpu/centaur.c b/xen/arch/x86/cpu/centaur.c
+index 34a5bfcaeef2..eac49d78db62 100644
+--- a/xen/arch/x86/cpu/centaur.c
++++ b/xen/arch/x86/cpu/centaur.c
+@@ -48,7 +48,7 @@ static void init_c3(struct cpuinfo_x86 *c)
+ 	display_cacheinfo(c);
+ }
+ 
+-static void init_centaur(struct cpuinfo_x86 *c)
++static void cf_check init_centaur(struct cpuinfo_x86 *c)
+ {
+ 	if (c->x86 == 6)
+ 		init_c3(c);
+diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+index c4f07f2d1da4..6b674bf15e8b 100644
+--- a/xen/arch/x86/cpu/common.c
++++ b/xen/arch/x86/cpu/common.c
+@@ -104,7 +104,7 @@ bool __init is_forced_cpu_cap(unsigned int cap)
+ 	return test_bit(cap, forced_caps);
+ }
+ 
+-static void default_init(struct cpuinfo_x86 * c)
++static void cf_check default_init(struct cpuinfo_x86 * c)
+ {
+ 	/* Not much we can do here... */
+ 	/* Check if at least it has cpuid */
+diff --git a/xen/arch/x86/cpu/cpu.h b/xen/arch/x86/cpu/cpu.h
+index b593bd85f04f..a228087f9157 100644
+--- a/xen/arch/x86/cpu/cpu.h
++++ b/xen/arch/x86/cpu/cpu.h
+@@ -18,7 +18,7 @@ extern void display_cacheinfo(struct cpuinfo_x86 *c);
+ extern void detect_ht(struct cpuinfo_x86 *c);
+ extern bool detect_extended_topology(struct cpuinfo_x86 *c);
+ 
+-void early_init_amd(struct cpuinfo_x86 *c);
++void cf_check early_init_amd(struct cpuinfo_x86 *c);
+ void amd_log_freq(const struct cpuinfo_x86 *c);
+ void amd_init_lfence(struct cpuinfo_x86 *c);
+ void amd_init_ssbd(const struct cpuinfo_x86 *c);
+diff --git a/xen/arch/x86/cpu/hygon.c b/xen/arch/x86/cpu/hygon.c
+index cdc94130dd2e..3c8516e014c3 100644
+--- a/xen/arch/x86/cpu/hygon.c
++++ b/xen/arch/x86/cpu/hygon.c
+@@ -28,7 +28,7 @@ static void hygon_get_topology(struct cpuinfo_x86 *c)
+ 	                        c->phys_proc_id, c->cpu_core_id);
+ }
+ 
+-static void init_hygon(struct cpuinfo_x86 *c)
++static void cf_check init_hygon(struct cpuinfo_x86 *c)
+ {
+ 	unsigned long long value;
+ 
+diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
+index 06b0e552cc8f..ff7c02223687 100644
+--- a/xen/arch/x86/cpu/intel.c
++++ b/xen/arch/x86/cpu/intel.c
+@@ -176,7 +176,7 @@ static void __init probe_masking_msrs(void)
+  * parameter of NULL is used to context switch to the default host state (by
+  * the cpu bringup-code, crash path, etc).
+  */
+-static void intel_ctxt_switch_masking(const struct vcpu *next)
++static void cf_check intel_ctxt_switch_masking(const struct vcpu *next)
+ {
+ 	struct cpuidmasks *these_masks = &this_cpu(cpuidmasks);
+ 	const struct domain *nextd = next ? next->domain : NULL;
+@@ -286,7 +286,7 @@ static void __init noinline intel_init_levelling(void)
+ 		ctxt_switch_masking = intel_ctxt_switch_masking;
+ }
+ 
+-static void early_init_intel(struct cpuinfo_x86 *c)
++static void cf_check early_init_intel(struct cpuinfo_x86 *c)
+ {
+ 	u64 misc_enable, disable;
+ 
+@@ -500,7 +500,7 @@ static void intel_log_freq(const struct cpuinfo_x86 *c)
      }
  }
  
--static int amd_vpmu_load(struct vcpu *v, bool_t from_guest)
-+static int cf_check amd_vpmu_load(struct vcpu *v, bool from_guest)
+-static void init_intel(struct cpuinfo_x86 *c)
++static void cf_check init_intel(struct cpuinfo_x86 *c)
  {
-     struct vpmu_struct *vpmu = vcpu_vpmu(v);
-     struct xen_pmu_amd_ctxt *ctxt;
-@@ -280,7 +280,7 @@ static inline void context_save(struct vcpu *v)
-         rdmsrl(counters[i], counter_regs[i]);
- }
+ 	/* Detect the extended topology information if available */
+ 	detect_extended_topology(c);
+diff --git a/xen/arch/x86/cpu/shanghai.c b/xen/arch/x86/cpu/shanghai.c
+index 08a81f0f0c8e..95ae544f8c54 100644
+--- a/xen/arch/x86/cpu/shanghai.c
++++ b/xen/arch/x86/cpu/shanghai.c
+@@ -3,7 +3,7 @@
+ #include <asm/processor.h>
+ #include "cpu.h"
  
--static int amd_vpmu_save(struct vcpu *v,  bool_t to_guest)
-+static int cf_check amd_vpmu_save(struct vcpu *v,  bool to_guest)
+-static void init_shanghai(struct cpuinfo_x86 *c)
++static void cf_check init_shanghai(struct cpuinfo_x86 *c)
  {
-     struct vpmu_struct *vpmu = vcpu_vpmu(v);
-     unsigned int i;
-@@ -348,7 +348,7 @@ static void context_update(unsigned int msr, u64 msr_content)
-     }
- }
- 
--static int amd_vpmu_do_wrmsr(unsigned int msr, uint64_t msr_content)
-+static int cf_check amd_vpmu_do_wrmsr(unsigned int msr, uint64_t msr_content)
- {
-     struct vcpu *v = current;
-     struct vpmu_struct *vpmu = vcpu_vpmu(v);
-@@ -404,7 +404,7 @@ static int amd_vpmu_do_wrmsr(unsigned int msr, uint64_t msr_content)
-     return 0;
- }
- 
--static int amd_vpmu_do_rdmsr(unsigned int msr, uint64_t *msr_content)
-+static int cf_check amd_vpmu_do_rdmsr(unsigned int msr, uint64_t *msr_content)
- {
-     struct vcpu *v = current;
-     struct vpmu_struct *vpmu = vcpu_vpmu(v);
-@@ -422,7 +422,7 @@ static int amd_vpmu_do_rdmsr(unsigned int msr, uint64_t *msr_content)
-     return 0;
- }
- 
--static void amd_vpmu_destroy(struct vcpu *v)
-+static void cf_check amd_vpmu_destroy(struct vcpu *v)
- {
-     struct vpmu_struct *vpmu = vcpu_vpmu(v);
- 
-@@ -440,7 +440,7 @@ static void amd_vpmu_destroy(struct vcpu *v)
- }
- 
- /* VPMU part of the 'q' keyhandler */
--static void amd_vpmu_dump(const struct vcpu *v)
-+static void cf_check amd_vpmu_dump(const struct vcpu *v)
- {
-     const struct vpmu_struct *vpmu = vcpu_vpmu(v);
-     const struct xen_pmu_amd_ctxt *ctxt = vpmu->context;
-@@ -480,7 +480,7 @@ static void amd_vpmu_dump(const struct vcpu *v)
-     }
- }
- 
--static int svm_vpmu_initialise(struct vcpu *v)
-+static int cf_check svm_vpmu_initialise(struct vcpu *v)
- {
-     struct xen_pmu_amd_ctxt *ctxt;
-     struct vpmu_struct *vpmu = vcpu_vpmu(v);
-diff --git a/xen/arch/x86/cpu/vpmu_intel.c b/xen/arch/x86/cpu/vpmu_intel.c
-index 22dd4469d920..48b81ab6f018 100644
---- a/xen/arch/x86/cpu/vpmu_intel.c
-+++ b/xen/arch/x86/cpu/vpmu_intel.c
-@@ -288,7 +288,7 @@ static inline void __core2_vpmu_save(struct vcpu *v)
-         rdmsrl(MSR_CORE_PERF_GLOBAL_STATUS, core2_vpmu_cxt->global_status);
- }
- 
--static int core2_vpmu_save(struct vcpu *v, bool_t to_guest)
-+static int cf_check core2_vpmu_save(struct vcpu *v, bool to_guest)
- {
-     struct vpmu_struct *vpmu = vcpu_vpmu(v);
- 
-@@ -407,7 +407,7 @@ static int core2_vpmu_verify(struct vcpu *v)
-     return 0;
- }
- 
--static int core2_vpmu_load(struct vcpu *v, bool_t from_guest)
-+static int cf_check core2_vpmu_load(struct vcpu *v, bool from_guest)
- {
-     struct vpmu_struct *vpmu = vcpu_vpmu(v);
- 
-@@ -522,7 +522,7 @@ static int core2_vpmu_msr_common_check(u32 msr_index, int *type, int *index)
-     return 1;
- }
- 
--static int core2_vpmu_do_wrmsr(unsigned int msr, uint64_t msr_content)
-+static int cf_check core2_vpmu_do_wrmsr(unsigned int msr, uint64_t msr_content)
- {
-     int i, tmp;
-     int type = -1, index = -1;
-@@ -690,7 +690,7 @@ static int core2_vpmu_do_wrmsr(unsigned int msr, uint64_t msr_content)
-     return 0;
- }
- 
--static int core2_vpmu_do_rdmsr(unsigned int msr, uint64_t *msr_content)
-+static int cf_check core2_vpmu_do_rdmsr(unsigned int msr, uint64_t *msr_content)
- {
-     int type = -1, index = -1;
-     struct vcpu *v = current;
-@@ -730,7 +730,7 @@ static int core2_vpmu_do_rdmsr(unsigned int msr, uint64_t *msr_content)
- }
- 
- /* Dump vpmu info on console, called in the context of keyhandler 'q'. */
--static void core2_vpmu_dump(const struct vcpu *v)
-+static void cf_check core2_vpmu_dump(const struct vcpu *v)
- {
-     const struct vpmu_struct *vpmu = vcpu_vpmu(v);
-     unsigned int i;
-@@ -775,7 +775,7 @@ static void core2_vpmu_dump(const struct vcpu *v)
-     }
- }
- 
--static int core2_vpmu_do_interrupt(struct cpu_user_regs *regs)
-+static int cf_check core2_vpmu_do_interrupt(struct cpu_user_regs *regs)
- {
-     struct vcpu *v = current;
-     u64 msr_content;
-@@ -802,7 +802,7 @@ static int core2_vpmu_do_interrupt(struct cpu_user_regs *regs)
-     return 1;
- }
- 
--static void core2_vpmu_destroy(struct vcpu *v)
-+static void cf_check core2_vpmu_destroy(struct vcpu *v)
- {
-     struct vpmu_struct *vpmu = vcpu_vpmu(v);
- 
-@@ -816,7 +816,7 @@ static void core2_vpmu_destroy(struct vcpu *v)
-     vpmu_clear(vpmu);
- }
- 
--static int vmx_vpmu_initialise(struct vcpu *v)
-+static int cf_check vmx_vpmu_initialise(struct vcpu *v)
- {
-     struct vpmu_struct *vpmu = vcpu_vpmu(v);
-     u64 msr_content;
-diff --git a/xen/arch/x86/oprofile/op_model_athlon.c b/xen/arch/x86/oprofile/op_model_athlon.c
-index 2177f02946e2..7bc5853a6c23 100644
---- a/xen/arch/x86/oprofile/op_model_athlon.c
-+++ b/xen/arch/x86/oprofile/op_model_athlon.c
-@@ -164,7 +164,7 @@ static inline u64 op_amd_randomize_ibs_op(u64 val)
-     return val;
- }
- 
--static void athlon_fill_in_addresses(struct op_msrs * const msrs)
-+static void cf_check athlon_fill_in_addresses(struct op_msrs * const msrs)
- {
- 	msrs->counters[0].addr = MSR_K7_PERFCTR0;
- 	msrs->counters[1].addr = MSR_K7_PERFCTR1;
-@@ -177,7 +177,7 @@ static void athlon_fill_in_addresses(struct op_msrs * const msrs)
- 	msrs->controls[3].addr = MSR_K7_EVNTSEL3;
- }
- 
--static void fam15h_fill_in_addresses(struct op_msrs * const msrs)
-+static void cf_check fam15h_fill_in_addresses(struct op_msrs * const msrs)
- {
- 	msrs->counters[0].addr = MSR_AMD_FAM15H_PERFCTR0;
- 	msrs->counters[1].addr = MSR_AMD_FAM15H_PERFCTR1;
-@@ -194,7 +194,7 @@ static void fam15h_fill_in_addresses(struct op_msrs * const msrs)
- 	msrs->controls[5].addr = MSR_AMD_FAM15H_EVNTSEL5;
- }
- 
--static void athlon_setup_ctrs(struct op_msrs const * const msrs)
-+static void cf_check athlon_setup_ctrs(struct op_msrs const * const msrs)
- {
- 	uint64_t msr_content;
- 	int i;
-@@ -308,9 +308,9 @@ static inline int handle_ibs(int mode, struct cpu_user_regs const * const regs)
-     return 1;
- }
- 
--static int athlon_check_ctrs(unsigned int const cpu,
--			     struct op_msrs const * const msrs,
--			     struct cpu_user_regs const * const regs)
-+static int cf_check athlon_check_ctrs(
-+	unsigned int const cpu, struct op_msrs const * const msrs,
-+	struct cpu_user_regs const * const regs)
- 
- {
- 	uint64_t msr_content;
-@@ -386,7 +386,7 @@ static inline void start_ibs(void)
- 	}
- }
-  
--static void athlon_start(struct op_msrs const * const msrs)
-+static void cf_check athlon_start(struct op_msrs const * const msrs)
- {
- 	uint64_t msr_content;
- 	int i;
-@@ -415,7 +415,7 @@ static void stop_ibs(void)
- 		wrmsrl(MSR_AMD64_IBSOPCTL, 0);
- }
- 
--static void athlon_stop(struct op_msrs const * const msrs)
-+static void cf_check athlon_stop(struct op_msrs const * const msrs)
- {
- 	uint64_t msr_content;
- 	int i;
-diff --git a/xen/arch/x86/oprofile/op_model_p4.c b/xen/arch/x86/oprofile/op_model_p4.c
-index b08ba53cbd39..d047258644db 100644
---- a/xen/arch/x86/oprofile/op_model_p4.c
-+++ b/xen/arch/x86/oprofile/op_model_p4.c
-@@ -390,7 +390,7 @@ static unsigned int get_stagger(void)
- static unsigned long reset_value[NUM_COUNTERS_NON_HT];
- 
- 
--static void p4_fill_in_addresses(struct op_msrs * const msrs)
-+static void cf_check p4_fill_in_addresses(struct op_msrs * const msrs)
- {
- 	unsigned int i;
- 	unsigned int addr, stag;
-@@ -530,7 +530,7 @@ static void pmc_setup_one_p4_counter(unsigned int ctr)
- }
- 
- 
--static void p4_setup_ctrs(struct op_msrs const * const msrs)
-+static void cf_check p4_setup_ctrs(struct op_msrs const * const msrs)
- {
- 	unsigned int i;
- 	uint64_t msr_content;
-@@ -609,9 +609,9 @@ static void p4_setup_ctrs(struct op_msrs const * const msrs)
- 	}
- }
- 
--static int p4_check_ctrs(unsigned int const cpu,
--                         struct op_msrs const * const msrs,
--                         struct cpu_user_regs const * const regs)
-+static int cf_check p4_check_ctrs(
-+	unsigned int const cpu, struct op_msrs const * const msrs,
-+	struct cpu_user_regs const * const regs)
- {
- 	unsigned long ctr, stag, real;
- 	uint64_t msr_content;
-@@ -665,7 +665,7 @@ static int p4_check_ctrs(unsigned int const cpu,
- }
- 
- 
--static void p4_start(struct op_msrs const * const msrs)
-+static void cf_check p4_start(struct op_msrs const * const msrs)
- {
- 	unsigned int stag;
- 	uint64_t msr_content;
-@@ -683,7 +683,7 @@ static void p4_start(struct op_msrs const * const msrs)
- }
- 
- 
--static void p4_stop(struct op_msrs const * const msrs)
-+static void cf_check p4_stop(struct op_msrs const * const msrs)
- {
- 	unsigned int stag;
- 	uint64_t msr_content;
-diff --git a/xen/arch/x86/oprofile/op_model_ppro.c b/xen/arch/x86/oprofile/op_model_ppro.c
-index 72c504a10216..8d7e13ea8777 100644
---- a/xen/arch/x86/oprofile/op_model_ppro.c
-+++ b/xen/arch/x86/oprofile/op_model_ppro.c
-@@ -63,7 +63,7 @@ static int counter_width = 32;
- static unsigned long reset_value[OP_MAX_COUNTER];
- int ppro_has_global_ctrl = 0;
- 
--static void ppro_fill_in_addresses(struct op_msrs * const msrs)
-+static void cf_check ppro_fill_in_addresses(struct op_msrs * const msrs)
- {
- 	int i;
- 
-@@ -74,7 +74,7 @@ static void ppro_fill_in_addresses(struct op_msrs * const msrs)
- }
- 
- 
--static void ppro_setup_ctrs(struct op_msrs const * const msrs)
-+static void cf_check ppro_setup_ctrs(struct op_msrs const * const msrs)
- {
- 	uint64_t msr_content;
- 	int i;
-@@ -128,9 +128,9 @@ static void ppro_setup_ctrs(struct op_msrs const * const msrs)
- 	}
- }
- 
--static int ppro_check_ctrs(unsigned int const cpu,
--                           struct op_msrs const * const msrs,
--                           struct cpu_user_regs const * const regs)
-+static int cf_check ppro_check_ctrs(
-+	unsigned int const cpu, struct op_msrs const * const msrs,
-+	struct cpu_user_regs const * const regs)
- {
- 	u64 val;
- 	int i;
-@@ -170,7 +170,7 @@ static int ppro_check_ctrs(unsigned int const cpu,
- }
- 
- 
--static void ppro_start(struct op_msrs const * const msrs)
-+static void cf_check ppro_start(struct op_msrs const * const msrs)
- {
- 	uint64_t msr_content;
- 	int i;
-@@ -190,7 +190,7 @@ static void ppro_start(struct op_msrs const * const msrs)
- }
- 
- 
--static void ppro_stop(struct op_msrs const * const msrs)
-+static void cf_check ppro_stop(struct op_msrs const * const msrs)
- {
- 	uint64_t msr_content;
- 	int i;
-@@ -206,7 +206,7 @@ static void ppro_stop(struct op_msrs const * const msrs)
-         wrmsrl(MSR_CORE_PERF_GLOBAL_CTRL, 0x0ULL);
- }
- 
--static int ppro_is_arch_pmu_msr(u64 msr_index, int *type, int *index)
-+static int cf_check ppro_is_arch_pmu_msr(u64 msr_index, int *type, int *index)
- {
- 	if ( (msr_index >= MSR_IA32_PERFCTR0) &&
-             (msr_index < (MSR_IA32_PERFCTR0 + num_counters)) )
-@@ -226,7 +226,7 @@ static int ppro_is_arch_pmu_msr(u64 msr_index, int *type, int *index)
-         return 0;
- }
- 
--static int ppro_allocate_msr(struct vcpu *v)
-+static int cf_check ppro_allocate_msr(struct vcpu *v)
- {
- 	struct vpmu_struct *vpmu = vcpu_vpmu(v);
- 	struct arch_msr_pair *msr_content;
-@@ -245,7 +245,7 @@ static int ppro_allocate_msr(struct vcpu *v)
- 	return 0;
- }
- 
--static void ppro_free_msr(struct vcpu *v)
-+static void cf_check ppro_free_msr(struct vcpu *v)
- {
- 	struct vpmu_struct *vpmu = vcpu_vpmu(v);
- 
-@@ -255,7 +255,8 @@ static void ppro_free_msr(struct vcpu *v)
- 	vpmu_reset(vpmu, VPMU_PASSIVE_DOMAIN_ALLOCATED);
- }
- 
--static void ppro_load_msr(struct vcpu *v, int type, int index, u64 *msr_content)
-+static void cf_check ppro_load_msr(
-+	struct vcpu *v, int type, int index, u64 *msr_content)
- {
- 	struct arch_msr_pair *msrs = vcpu_vpmu(v)->context;
- 	switch ( type )
-@@ -269,7 +270,8 @@ static void ppro_load_msr(struct vcpu *v, int type, int index, u64 *msr_content)
- 	}
- }
- 
--static void ppro_save_msr(struct vcpu *v, int type, int index, u64 msr_content)
-+static void cf_check ppro_save_msr(
-+	struct vcpu *v, int type, int index, u64 msr_content)
- {
- 	struct arch_msr_pair *msrs = vcpu_vpmu(v)->context;
- 
+     if ( cpu_has(c, X86_FEATURE_ITSC) )
+     {
 -- 
 2.11.0
 
