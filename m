@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64E854B5163
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:16:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.271946.466711 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A3A24B5171
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:18:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.272043.466839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJbDm-0004O3-DZ; Mon, 14 Feb 2022 13:16:50 +0000
+	id 1nJbEm-0002m9-WF; Mon, 14 Feb 2022 13:17:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 271946.466711; Mon, 14 Feb 2022 13:16:50 +0000
+Received: by outflank-mailman (output) from mailman id 272043.466839; Mon, 14 Feb 2022 13:17:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJbDm-0004Kv-9h; Mon, 14 Feb 2022 13:16:50 +0000
-Received: by outflank-mailman (input) for mailman id 271946;
- Mon, 14 Feb 2022 13:16:49 +0000
+	id 1nJbEm-0002hL-IC; Mon, 14 Feb 2022 13:17:52 +0000
+Received: by outflank-mailman (input) for mailman id 272043;
+ Mon, 14 Feb 2022 13:17:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HcNt=S5=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nJb4Y-0008IH-5d
- for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:07:18 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 07a6f83c-8d97-11ec-8eb8-a37418f5ba1a;
- Mon, 14 Feb 2022 14:07:16 +0100 (CET)
+ id 1nJb3Q-0008IH-DZ
+ for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:06:08 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id de5ceaad-8d96-11ec-8eb8-a37418f5ba1a;
+ Mon, 14 Feb 2022 14:06:07 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,62 +36,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 07a6f83c-8d97-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: de5ceaad-8d96-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1644844036;
+  d=citrix.com; s=securemail; t=1644843967;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=k8U/gxV+rj8X4mP8GQMoApxTfQmXJsHdNzSIbDiqWyI=;
-  b=AuwxoD3Wf/wJWz+/9VAN+EUQc86BWO44hzhGsqyYjxLKI0NMcgDpj6f3
-   VmKLT+C2+R99F9OKY3RYsIfGlh3Bl67dxM/uf5A/FPE0MYHSqIN9VLtV/
-   RJd4RoN+I/BTsLmMtANgO3ycOo28j3KLzFEKU2zLOW3FEsuyW/NugIkiu
-   I=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: h7a1MSeXC3XEmwgZ4ZAxmHOIfpWElDoESvzTEb5rO0ehdcGjxnQX1xouB/k5GmGjcJ2aN1gGSY
- pq42uQ9LcVOW6eUdpU/wN92HJqDb+3rD9sv/IgPIgtlEll7+4dc8qGv6lNw9RD9N1tke2cOO5d
- 1mmF1T3Bqr04MCzFAZnyFhCT4Uy2f3daSV8spMgFgjbZKs/ql4Zp+ZMocfkt/QqC8ze4zK8T/+
- V59Asfpy2b57KzGWwnIWVEdl0mccn+WHAPmCUOOszRgR/LXLSjqauA2M3r7z3Bts4pcjVKHjJS
- YPV72dFa6E4S3rdr6t2FGpR7
+  bh=skVgVxLknOxv+80SVwWA5GN8E1fXIaaRgPjclkqsHNc=;
+  b=dBDRWjBxD/GZz1XwKIHDYZLG1yUVtOSvRfIDuPkLZF8IA7aau5s7Mcpg
+   CPjoJxhNVN7uK4sWVijJ8qTU3iRBuDZEjlaCxYEJOIp/RKtC5arHN2XL8
+   WsBosF1Uv3Xt73fY8gI15wlpHeSGfZFbznQIoTSKpe6YofyXoPsCAHfLq
+   k=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: NEp8paYwyA+te02yyWc1DX2MXpcq6Tifjfqu7zoJPEbMHXhfEW7a9tUwfSOgQKyPiqnAPD3sOM
+ Yooc66J92E2/d3q0uF8CWYclirm25+Q1cghSJkLll13ysMNmjZapAXPLE9oy5QT/MKvpR0n/Lw
+ kuUkBT61uexAaBvJ8KUaBVFVisFCFSILQpQtbu6vBrGK4ltZ+zcZZE5LiLktUHiPcWaCeZcO0O
+ mCVFtuzPkQeeSia1mpPL2b+ZPKVPLcw4IMzUelyg6wmi99LeYSmxfmMqdB/cYRcqRH6/4zR0a5
+ AbyHphPXe+ld+rS4SecsIa9y
 X-SBRS: 5.1
-X-MesageID: 64554396
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 64149440
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:xpfeua5lPQ20LX0YavtzrQxRtAHAchMFZxGqfqrLsTDasY5as4F+v
- mobWj2Ga//eZGH3fdAkOouypkgD6pPUn9U1SAY+qygxHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FV8MpBsJ00o5wbZj29Iw2LBVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Z5
- NNfmbm2UV8TY4LHiuISfzR5TSZTIvgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALBc/nJo4A/FpnyinUF60OSpHfWaTao9Rf2V/cg+gQQauDO
- 5FIN1KDajzjMz5LZVVGNKs+nbeWoGPnVCF9rm+K8P9fD2/7k1UqjemF3MDuUsOObdVYmACfv
- G2u10bTDwweNdef4SGY6X/qjejK9QvrVYRXGLCm+/pChFyI2ndVGBAQTUG8o/Sylgi5Qd03F
- qAP0nNw9+5orhXtF4SjGU3jyJKZgvICc/ZWAcEf7hnV8Pf76BSfCUQpb2BGRcNz4afaWgcW/
- lOOmtroAxlmv7uUVW+R+9+okN+iBcQGBTRcPHFZFGPp9/Gm+dhu1UyXEr6PBYbo1oWdJN3m/
- 9ydQMHSbZ03hNVD6ai09Euvb9mE9smQFV5dCuk6swuYAuJFiGyNOtbABbvzt68owGOlor6p5
- iZspiRmxLpSZaxhbQTUKAn3IJmn5uyeLBrXikN1Ep8q+lyFoiD/Id8AsGwjfB4yaK7onAMFh
- 2eJ52tsCGJ7ZiP2PcebnartYyjV8UQQPYu8Da2FBja/SpNwaBWG7ElTib24hAjQfLwXufhnY
- /+zKJ/0ZV5DUPgP5GfmFo81jO5wrghjlDy7eHwO50n+uVZoTCXOEult3ZrnRr1R0Z5oVy2Lr
- 4cBZ5PSkU03vS+XSnC/zLP/5GsidRATba0aYeQOKL/rztNOFD5zBvnP76kmfoA5za1Zmv2Rp
- iO2W1NCyUq5jnrCcF3YZndmYbLpfJB+sXNkYnB8YQf2gyAuMdS18aMSV5orZr17puZt+uF5E
- qsecMKaD/URFjmeo2YBbYPwpZBJfQiwgV7cJDKsZTUyJsYyRwHA9tL+UBHo8S0CUni+ucck+
- uXy3QLHW5sTAQ9lCZ+OOv6oylqwu1kbmf5zABSUcoUCJh20/dEzeSLrj/IxL8UdEjn5x2OXh
- 1SMHBMVhejRuItpotPHsr+J8tWyGOxkE0sEQ2SCteSqNTPX93aIyJNbVLraZijUUW759fnwZ
- ehRyP2gYvQLkEwT7th5Grdvi6k/+8Hut/lRyQE9RCfHaFGiC7VBJHia3JYQ6v0Rl+EB4QbmC
- FiS/tR6OKmSPJK3GVEcEwMpc+Cf2KxGgTLV9/k0fB336SIfEGBriqmO081gUBBgEYY=
-IronPort-HdrOrdr: A9a23:PNCfPaysgKPtZIQE1C9cKrPwLr1zdoMgy1knxilNoRw8SKKlfq
- GV7Y0mPHDP6Ar5NEtNpTnEAtjkfZq+z+8S3WByB8bAYOCOggLBR+sO0WKh+UyFJ8SXzJ876U
- 4KSclD4bPLYmSS9fyKgjWFLw==
+IronPort-Data: A9a23:MmuzEqnTwao9Eb2wHeTxu5To5gy+IURdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIfXWiBP63ZNmWjLt10PY21909T6sCAytQxHQI+/CAxECMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA180IMsdoUg7wbRh2Nc02YHR7z6l4
+ rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
+ s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
+ M9Pp67uVTcJAqTzmsEFXjVjPwEiFoQTrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
+ 6ZecmpUKEne2aTmm9pXScE17ignBODtMJkSpTdLyjbBAOx9aZvCX7/L9ZlT2zJYasVmQ6qHO
+ 5tFNWIHgBLoOURzI00pEa4EjdyOnWWuVwJGk1XIuv9ii4TU5FMoi+W8WDbPQfSVQe1Fk0Deo
+ XjJl0zbKBwHMN2UyRKe72mhwOTImEvTSI8UUbG16PNuqFmS3XAITg0bU0Ohpvu0gVL4XMhQQ
+ 3H44QJ38/J0rhbyCICgAVvo+xZooyLwRfJKEf8Ith296pbd3AS8HmUodRJhNPcP4ZpeqSMR6
+ neFmNbgBDpKubKTSG6A+rr8kQ5eKRT5PkdZO3ZaEFJtD83L5dhq00mRFooL/Lud04WtcQwc1
+ Qxmu8TXa187qccQn5u28lnc695HjsiYF1Vljuk7s4/M0++YWGJHT9HygbQ4xawZRGp8crVml
+ CJa8/VyFMhUUfmweNWlGY3h5o2B6fefKyH7ilVyBZQn/DnF0yf9IdwPsGEjeR8waZxsldrVj
+ Kj741052XOuFCHyMf8fj3yZV6zGMpQM5fy6D6uJP7Kik7B6dROd/TEGWKJj9zuFraTYqolmY
+ c3zWZ/1VR4yUP07pBLrF7Z1+eJ6nUgWmDKMLa0XOjz6iNJyklbOEuxbWLZPB8hkhJ65TPL9r
+ YoOaZvSk08HOAA8CwGOmbMuwZkxBSBTLfjLRwZ/L4Zv+yJqRzMsDeH/27Qkd9A3lqhZjL6Qr
+ Hq8RlVZ2Bz0gniecVeGbXVqabXOW5djrC1kYXxwbAjwg3VzM5yy6Ko/docseeV1/uJU0vMpH
+ eIOfN+NA6oTR22fqSgdd5T0sKdraA+v2VCVJyOgbTVmJ8xgSgXF98XKZAzq8CVSXCO7udFn+
+ ++r1x/BQIpFTANnVZ6EZPWqxlK3nH4chOMtABeYfogNIB3hqdE4JTbwg/k7J9A3BS/CnjbKh
+ RyLBRo4pPXWp9Nn+tf+mq3Z/ZyiFPFzHxQGEjCDv6q2LyTT4kGq3ZREDLSTZTnYWW75pPeia
+ OFSw62uOfELhg8X4Y91ErItxqMi/dr/4bRdy108TnnMal2qDJJmI2WHgpYT5vEcmOcBtFvkQ
+ F+L9/lbJa6NaZHsH1MmLQY4aviOiKMPkT7I4PVpeEj36UebJlZcvZm+6/VUtBFgEQ==
+IronPort-HdrOrdr: A9a23:GBdeXanfJnC84FfjKRr5d5fvhcPpDfIo3DAbv31ZSRFFG/Fxl6
+ iV/cjztCWE8Ar5N0tQ+uxoVJPufZqYz+8Q3WBzB8baYOCFghrLEGgK1+KLqFeMdxEWtNQtsp
+ uIG5IObuEYZmIbsS+V2meF+q4bsby6zJw=
 X-IronPort-AV: E=Sophos;i="5.88,367,1635220800"; 
-   d="scan'208";a="64554396"
+   d="scan'208";a="64149440"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 66/70] x86/entry: Make syscall/sysenter entrypoints CET-IBT compatible
-Date: Mon, 14 Feb 2022 12:51:23 +0000
-Message-ID: <20220214125127.17985-67-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 67/70] x86/entry: Make IDT entrypoints CET-IBT compatible
+Date: Mon, 14 Feb 2022 12:51:24 +0000
+Message-ID: <20220214125127.17985-68-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220214125127.17985-1-andrew.cooper3@citrix.com>
 References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
@@ -99,16 +99,9 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Each of MSR_{L,C}STAR and MSR_SYSENTER_EIP need to land on an endbr64
-instruction.  For sysenter, this is easy.
-
-Unfortunately for syscall, the stubs are already 29 byte long with a limit of
-32.  endbr64 is 4 bytes.  Luckily, there is a 1 byte instruction which can
-move from the stubs into the main handlers.
-
-Move the push %rax out of the stub and into {l,c}star_entry(), allowing room
-for the endbr64 instruction when appropriate.  Update the comment describing
-the entry state.
+Each IDT vector needs to land on an endbr64 instruction.  This is especially
+important for the #CP handler, which will recurse indefinitely if the endbr64
+is missing, eventually escalating to #DF if guard pages are active.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
@@ -117,98 +110,191 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 
-v1.1:
- * Update to use endbr helpers.
+v2:
+ * Extra newlines in asm
+ * Reword commit message
 ---
- xen/arch/x86/x86_64/entry.S | 18 +++++++++---------
- xen/arch/x86/x86_64/traps.c | 11 +++++++----
- 2 files changed, 16 insertions(+), 13 deletions(-)
+ xen/arch/x86/x86_64/compat/entry.S |  1 +
+ xen/arch/x86/x86_64/entry.S        | 30 ++++++++++++++++++++++++++++--
+ 2 files changed, 29 insertions(+), 2 deletions(-)
 
+diff --git a/xen/arch/x86/x86_64/compat/entry.S b/xen/arch/x86/x86_64/compat/entry.S
+index c84ff7ea6476..5fd6dbbd4513 100644
+--- a/xen/arch/x86/x86_64/compat/entry.S
++++ b/xen/arch/x86/x86_64/compat/entry.S
+@@ -12,6 +12,7 @@
+ #include <irq_vectors.h>
+ 
+ ENTRY(entry_int82)
++        ENDBR64
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+         pushq $0
+         movl  $HYPERCALL_VECTOR, 4(%rsp)
 diff --git a/xen/arch/x86/x86_64/entry.S b/xen/arch/x86/x86_64/entry.S
-index 8494b97a54a2..9abcf95bd010 100644
+index 9abcf95bd010..ea6f0afbc2b4 100644
 --- a/xen/arch/x86/x86_64/entry.S
 +++ b/xen/arch/x86/x86_64/entry.S
-@@ -241,18 +241,17 @@ iret_exit_to_guest:
-  * When entering SYSCALL from user mode:
-  *  Vector directly to the registered arch.syscall_addr.
-  *
-- * Initial work is done by per-CPU trampolines. At this point %rsp has been
-- * initialised to point at the correct Xen stack, %rsp has been saved, and
-- * %rax needs to be restored from the %ss save slot. All other registers are
-- * still to be saved onto the stack, starting with RFLAGS, and an appropriate
-- * %ss must be saved into the space left by the trampoline.
-+ * Initial work is done by per-CPU trampolines.
-+ *  - Guest %rax stored in the %ss slot
-+ *  - Guest %rsp stored in %rax
-+ *  - Xen stack loaded, pointing at the %ss slot
-  */
- ENTRY(lstar_enter)
- #ifdef CONFIG_XEN_SHSTK
-         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
- #endif
--        /* sti could live here when we don't switch page tables below. */
--        movq  8(%rsp),%rax /* Restore %rax. */
-+        push  %rax          /* Guest %rsp */
-+        movq  8(%rsp), %rax /* Restore guest %rax */
-         movq  $FLAT_KERNEL_SS,8(%rsp)
-         pushq %r11
-         pushq $FLAT_KERNEL_CS64
-@@ -288,9 +287,9 @@ ENTRY(cstar_enter)
- #ifdef CONFIG_XEN_SHSTK
-         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
- #endif
--        /* sti could live here when we don't switch page tables below. */
-+        push  %rax          /* Guest %rsp */
-         CR4_PV32_RESTORE
--        movq  8(%rsp), %rax /* Restore %rax. */
-+        movq  8(%rsp), %rax /* Restore guest %rax. */
-         movq  $FLAT_USER_SS32, 8(%rsp) /* Assume a 64bit domain.  Compat handled lower. */
-         pushq %r11
-         pushq $FLAT_USER_CS32
-@@ -323,6 +322,7 @@ ENTRY(cstar_enter)
-         jmp   switch_to_kernel
+@@ -386,6 +386,7 @@ UNLIKELY_END(sysenter_gpf)
+         jmp   .Lbounce_exception
  
- ENTRY(sysenter_entry)
+ ENTRY(int80_direct_trap)
 +        ENDBR64
- #ifdef CONFIG_XEN_SHSTK
-         ALTERNATIVE "", "setssbsy", X86_FEATURE_XEN_SHSTK
+         ALTERNATIVE "", clac, X86_FEATURE_XEN_SMAP
+         pushq $0
+         movl  $0x80, 4(%rsp)
+@@ -698,6 +699,7 @@ ENTRY(common_interrupt)
+         jmp ret_from_intr
+ 
+ ENTRY(page_fault)
++        ENDBR64
+         movl  $TRAP_page_fault,4(%rsp)
+ /* No special register assumptions. */
+ GLOBAL(handle_exception)
+@@ -872,75 +874,91 @@ FATAL_exception_with_ints_disabled:
+         BUG   /* fatal_trap() shouldn't return. */
+ 
+ ENTRY(divide_error)
++        ENDBR64
+         pushq $0
+         movl  $TRAP_divide_error,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(coprocessor_error)
++        ENDBR64
+         pushq $0
+         movl  $TRAP_copro_error,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(simd_coprocessor_error)
++        ENDBR64
+         pushq $0
+         movl  $TRAP_simd_error,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(device_not_available)
++        ENDBR64
+         pushq $0
+         movl  $TRAP_no_device,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(debug)
++        ENDBR64
+         pushq $0
+         movl  $TRAP_debug,4(%rsp)
+         jmp   handle_ist_exception
+ 
+ ENTRY(int3)
++        ENDBR64
+         pushq $0
+         movl  $TRAP_int3,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(overflow)
++        ENDBR64
+         pushq $0
+         movl  $TRAP_overflow,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(bounds)
++        ENDBR64
+         pushq $0
+         movl  $TRAP_bounds,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(invalid_op)
++        ENDBR64
+         pushq $0
+         movl  $TRAP_invalid_op,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(invalid_TSS)
++        ENDBR64
+         movl  $TRAP_invalid_tss,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(segment_not_present)
++        ENDBR64
+         movl  $TRAP_no_segment,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(stack_segment)
++        ENDBR64
+         movl  $TRAP_stack_error,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(general_protection)
++        ENDBR64
+         movl  $TRAP_gp_fault,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(alignment_check)
++        ENDBR64
+         movl  $TRAP_alignment_check,4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(entry_CP)
++        ENDBR64
+         movl  $X86_EXC_CP, 4(%rsp)
+         jmp   handle_exception
+ 
+ ENTRY(double_fault)
++        ENDBR64
+         movl  $TRAP_double_fault,4(%rsp)
+         /* Set AC to reduce chance of further SMAP faults */
+         ALTERNATIVE "", stac, X86_FEATURE_XEN_SMAP
+@@ -966,6 +984,7 @@ ENTRY(double_fault)
+ 
+         .pushsection .init.text, "ax", @progbits
+ ENTRY(early_page_fault)
++        ENDBR64
+         movl  $TRAP_page_fault,4(%rsp)
+         SAVE_ALL
+         movq  %rsp,%rdi
+@@ -974,6 +993,7 @@ ENTRY(early_page_fault)
+         .popsection
+ 
+ ENTRY(nmi)
++        ENDBR64
+         pushq $0
+         movl  $TRAP_nmi,4(%rsp)
+ handle_ist_exception:
+@@ -1102,12 +1122,14 @@ handle_ist_exception:
  #endif
-diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
-index edc6820b85c7..fccfb7c17283 100644
---- a/xen/arch/x86/x86_64/traps.c
-+++ b/xen/arch/x86/x86_64/traps.c
-@@ -16,6 +16,7 @@
- #include <asm/current.h>
- #include <asm/flushtlb.h>
- #include <asm/traps.h>
-+#include <asm/endbr.h>
- #include <asm/event.h>
- #include <asm/nmi.h>
- #include <asm/msr.h>
-@@ -295,6 +296,12 @@ static unsigned int write_stub_trampoline(
- {
-     unsigned char *p = stub;
  
-+    if ( cpu_has_xen_ibt )
-+    {
-+        place_endbr64(p);
-+        p += 4;
-+    }
-+
-     /* Store guest %rax into %ss slot */
-     /* movabsq %rax, stack_bottom - 8 */
-     *p++ = 0x48;
-@@ -315,10 +322,6 @@ static unsigned int write_stub_trampoline(
-     *(uint64_t *)p = stack_bottom - 8;
-     p += 8;
+ ENTRY(machine_check)
++        ENDBR64
+         pushq $0
+         movl  $TRAP_machine_check,4(%rsp)
+         jmp   handle_ist_exception
  
--    /* Store guest %rsp into %rsp slot */
--    /* pushq %rax */
--    *p++ = 0x50;
--
-     /* jmp target_va */
-     *p++ = 0xe9;
-     *(int32_t *)p = target_va - (stub_va + (p - stub) + 4);
+ /* No op trap handler.  Required for kexec crash path. */
+ GLOBAL(trap_nop)
++        ENDBR64
+         iretq
+ 
+ /* Table of automatically generated entry points.  One per vector. */
+@@ -1136,7 +1158,9 @@ autogen_stubs: /* Automatically generated stubs. */
+ #endif
+ 
+         ALIGN
+-1:      pushq $0
++1:
++        ENDBR64
++        pushq $0
+         movb  $vec,4(%rsp)
+         jmp   common_interrupt
+ 
+@@ -1146,7 +1170,9 @@ autogen_stubs: /* Automatically generated stubs. */
+         .elseif vec == X86_EXC_CSO || vec == X86_EXC_SPV || \
+                 vec == X86_EXC_VE  || (vec > X86_EXC_CP && vec < TRAP_nr)
+ 
+-1:      test  $8,%spl        /* 64bit exception frames are 16 byte aligned, but the word */
++1:
++        ENDBR64
++        test  $8,%spl        /* 64bit exception frames are 16 byte aligned, but the word */
+         jz    2f             /* size is 8 bytes.  Check whether the processor gave us an */
+         pushq $0             /* error code, and insert an empty one if not.              */
+ 2:      movb  $vec,4(%rsp)
 -- 
 2.11.0
 
