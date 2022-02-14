@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 556864B516C
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:17:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.271981.466769 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B14604B5122
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:06:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.271773.466491 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJbE5-0006wI-1O; Mon, 14 Feb 2022 13:17:09 +0000
+	id 1nJb43-0006eL-Gi; Mon, 14 Feb 2022 13:06:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 271981.466769; Mon, 14 Feb 2022 13:17:08 +0000
+Received: by outflank-mailman (output) from mailman id 271773.466491; Mon, 14 Feb 2022 13:06:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJbE4-0006ra-GZ; Mon, 14 Feb 2022 13:17:08 +0000
-Received: by outflank-mailman (input) for mailman id 271981;
- Mon, 14 Feb 2022 13:17:06 +0000
+	id 1nJb43-0006WT-7E; Mon, 14 Feb 2022 13:06:47 +0000
+Received: by outflank-mailman (input) for mailman id 271773;
+ Mon, 14 Feb 2022 13:06:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=HcNt=S5=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1nJb3j-0008IH-HO
- for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:06:27 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e97f508c-8d96-11ec-8eb8-a37418f5ba1a;
- Mon, 14 Feb 2022 14:06:26 +0100 (CET)
+ id 1nJb2Y-0008IH-01
+ for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:05:14 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id bcf89745-8d96-11ec-8eb8-a37418f5ba1a;
+ Mon, 14 Feb 2022 14:05:11 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,62 +36,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e97f508c-8d96-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: bcf89745-8d96-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1644843986;
+  d=citrix.com; s=securemail; t=1644843911;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=nFVbC/4CTKrt9ePns4OmTby9fRX+JlbtvMjTI8nUB74=;
-  b=G1ndp5xIyBMM1jx8qgAdJciOCeLvyMC7DK0peGismD3YL5hCMS35Eut3
-   rq2x4xnJpHaKDkc1bcoC9WOV9ptsTBTYxqmckTH8qxynddPnIB6LC9QzO
-   m5rjk/py9GlateWSD2xyMvtekAptnnpN+HqnNXPPlRVwsz1RqylRzY8Nc
+  bh=Cb4WkVIG42hm90giM2dEHS2eAP2rQxieWFvRijYUUxU=;
+  b=FbrFc222LRIEcWeBZM7QgWdF4h0S6ZQVQtuphCeLtlitzZLzfoVVfjHA
+   KjbaoxaeReZay+dPj422rQS8o1bEvzKxsR/FEcxfO2BUjjP1o6YTh6cha
+   T42i+8bus38bYOGN8UWTsrd5hQ6rMjppIUeyzJ+0Eo63vlBqriLVXMghx
    U=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: p1VJNay5+0TErJJlwhNVrDKyw911DBe46SFZfny+G1zGNcpra+QSgvbh3R4TpIu/E4DsDN95Fx
- nigN90rokMgW7BknA+b15rBCsGQsU4Cz2gCvzlq6s1PYwXtseCtQgH3kuspus9x2f/iMMUB7hF
- FQDtydm69u0mVPire4SFMveSYHRrwnJyEu+7IjDWtS4Thp3v8kW6OQja9FanHNmDbaWfluBkfa
- AoevsD/u/GXiq7iLu72VKJKIeF/sbQhT0XngIghxOGHmm3sS6A8uxwoxzELDvrV2tGLZh/muSR
- 6w5kwkW8KO1Gfdh5I4YEw5Nd
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: wvcz5bMK2UNc6Djov4mmUECl6mDnGKEv3tUrl94xvEahsrs/JatFGMdXPJrvx3ZJIxG52eQLWL
+ k346EmRYivTwBnIVonTvBAkUgmhtzIjl8qmx6/YaXC9Bd04SXSJYP7X5NLTbuKbddu3QxWO0G0
+ ZKIDsqMN0LShsRLQZ1DN7aq4kWmhkQe3wLWZTYNoOTe7ovMOecYEjL5t2lE3krlE8+7C2HStlv
+ 2XYtdgGErsv1R4kRhxkq0/0vYqNEZe1szKr8V3fsAl3QTt9/aYrFJ9KMO8k4x4UHWVMTdIAzJO
+ iQYnyMPtW5KKlSwzull1mLKp
 X-SBRS: 5.1
-X-MesageID: 64050671
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 64149369
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:T9o8dKj3gPBK031rkfVcT9nyX161XxcKZh0ujC45NGQN5FlHY01je
- htvWW6DOaqPZGanc91yb4nn8x5Q7MTTzoNhG1Y/pX1jFisb9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0GE/NtTo5w7Rj2tQx3YDga++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /0RqsaCGAZuApfhhcgbbBgADjhfLfFZreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
- KJCbmpXN1ba2rzwkOnTpupE36zPKOHCOo8Ft24m5jbeFfs8GrjIQrnQ5M8e1zA17ixLNaiCP
- 5dBN2U2BPjGSxNTI3ASIrgApt3rqVjOSgIGmWCepZNitgA/yyQuieOwYbI5YOeiWsF9jkue4
- GXc8AzRIDsXKdiewjqt6W+3i6nEmiaTcJIfEvi0++BnhHWXx3cPE1sGWF2ju/67h0WiHdVFJ
- CQpFjEG9PZoshbxF5+kAkP+8CXsUgMgt8R4T/Jg2lCMjZbuzhu1AFcFFiNYScx6q5pjLdA17
- WOhk9TsDD1plbSaT3OB67uZxQ+P1TgpwXwqPnFdE1ZcizX3iMRq10+UEI4/eEKgpoCtQVnNL
- ya2QD/Sbln5peoCzO2F8F/OmFpATbCZH1dutm07so9Ihz6VhbJJhaT1szA3Dt4ade51q2VtW
- 1BexaCjABgmV83lqcB0aLxl8EuVz/iEKibAplVkAoMs8T+gk1b6I9wMv2EueRoxa51eEdMMX
- KM0kVkPjKK/wVPwNfMnC25PI5hCIVfc+STNCamPM4smjmlZfw6b5iB+DXN8LEi2+HXAZZoXY
- M/BGe71VC5yIf0+kFKeGrdMuZd2l3tW7T6CGvjGI+GPjOP2iIi9EuxebjNjr4kRscu5neki2
- 4gDaZXakUgDOAA8CwGOmbMuwZkxBSBTLfjLRwZ/L7DrztNOFD5zBvnP76kmfoA5za1Zmv2Rp
- iO2W1NCyUq5jnrCcF3YZndmYbLpfJB+sXNkYnB8YQf2gyAuMdS18aMSV5orZr17puZt+uF5E
- qsecMKaD/URFjmeo2YBbYPwpZBJfQiwgV7cJDKsZTUyJsYyRwHA9tL+UBHo8S0CUni+ucck+
- uXy3QLHW5sTAQ9lCZ+OOv6oylqwu1kbmf5zABSUcoUCJh20/dEzeSLrj/IxL8UdEjn5x2OXh
- 1SMHBMVhejRuItpotPHsr+J8tWyGOxkE0sEQ2SCteSqNTPX93aIyJNbVLraZijUUW759fnwZ
- ehRyP2gYvQLkEwT7th5Grdvi6k/+8Hut/lRyQE9RCfHaFGiC7VBJHia3JYQ6v0Rl+EB4QbmC
- FiS/tR6OKmSPJK3GVEcEwMpc+Cf2KxGgTLV9/k0fB336SIfEGBriqmO081gUBBgEYY=
-IronPort-HdrOrdr: A9a23:fKjZt6H6mGE1OkcApLqE0MeALOsnbusQ8zAXP0AYc3Jom6uj5r
- mTdZUgpHnJYVkqOE3I9ertBEDEewK4yXcX2/h3AV7BZniEhILAFugLhuGO/9SjIVybygc079
- YZT0EUMrzN5DZB4voSmDPIceod/A==
+IronPort-Data: A9a23:MBRlNapPvE+CF00xvMzhsXynCJ5eBmIkYhIvgKrLsJaIsI4StFCzt
+ garIBnQPfzcYmX2KNxwOY22oxhU6peDy9AwQQo4+H00Qy9Bo5uZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlZT4vE2xbuKU5NTsY0idfic5Dndx4f5fs7Rh2NQw24HlW1rlV
+ e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
+ 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
+ DlCnY2BUQF3IKHDo+8MAwlzQygjbIFA3aCSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
+ 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFKoZtmtt0nfyCvE+TIqYa67L+cVZzHE7gcUm8fP2O
+ ZZANWs0MkWojxtnJ0w3Grslg8uS33TDKjBVuQqRjLBuyj2GpOB2+Oe0a4eEEjCQfu1Kmm6Iq
+ 2SA+H72ajk4HtGCzTuO8lq3m/TC2yj8Xeo6BLC+s/JnnlCX7mgSEwENE0u2p+GjjUyzUM4ZL
+ FYbkhfCtoBrqhbtFIOkGUTl/jjU5XbwRua8DcUr2RmLlLTY7D2SFzgUZW5INY0KsuopEGlCO
+ kCyo/vlAjlmsbuwQH2b96uJoT7aBRX5PVPudgdfE1JbvoCLTJUby0uWE409SPLdYsjdRGmoq
+ w1muhTSkFn6YSQj86ygtW7KjDu3znQiZl5kv16HNo5JA+4QWWJEW2BKwQWBhRqjBNzAJrVkg
+ JTjs5LAhN3i9bnXyESwrBwlRdlFHcqtPjzGmkJIFJI87Tmr8HPLVdkOvG0hdBc0b55dImWBj
+ KrvVeR5vsE7AZdXRfUvP9LZ5zoCkcAM6ugJptiLN4ETM/CdhSeM/T10ZF744oweuBNErE3LA
+ r/CKZzEJS9DUcxPlWPqL89Age5D7n1vngv7GMGkpylLJJLDPRZ5v59eawDQBg34hYvZyDjoH
+ yF3aZfUlUUFDbGWj+u+2dd7EG3m5EMTXfjew/G7vMbZSua/MG1+WfLX3507fIlpw/ZcmuvSp
+ ynvUU5E0lvvw3bALFzSOHxkbbruW7d5rG46YnNwbQr5hSB7bNb99robers2YaIjqL5pw8lrQ
+ qRXYM6HGPlOFGjKomxPcZnnoYV+Xx23ngbSbTG9aT0ycsc4FQzE89PpZCX18ywKAnblvMcyu
+ eT4hAjaXYACV0JpC8OPMKCjyFa4vH48nuNuXhSXfokPKRu0qIUzcn7/lP46Jc0IOC7v/DrC2
+ lbEGwocqMnMv5QxrIvDi5ebotr7COB5BEdbQTXWtO7kKSnA82O/6oZcS+LULyvFXWb59aj+N
+ +VYy/bwbK8OkFpQ6tcuFr9qyeQ15sf1pq8cxQNhRS2ZY1OuA7JmA3+HwcgQ6fEdmu4H4VO7C
+ hCV591XGbSVI8e0QlceKT0sYvmHyfxJyCLZ6u44IRmi6SJ6lFZdvZ6+4/VYZPRhEYZI
+IronPort-HdrOrdr: A9a23:MNCOx62XGtYMj2syZTLDUgqjBLAkLtp133Aq2lEZdPRUGvb3qy
+ nOpoVj6faaslYssR0b9exofZPwJE80lqQFh7X5X43SPzUO0VHAROoJgLcKgQeQfxEWntQtsp
+ uIGJIeNDSfNzdHZL7BkWuFL+o=
 X-IronPort-AV: E=Sophos;i="5.88,367,1635220800"; 
-   d="scan'208";a="64050671"
+   d="scan'208";a="64149369"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH v2 63/70] x86/traps: Rework write_stub_trampoline() to not hardcode the jmp
-Date: Mon, 14 Feb 2022 12:51:20 +0000
-Message-ID: <20220214125127.17985-64-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 64/70] x86: Introduce helpers/checks for endbr64 instructions
+Date: Mon, 14 Feb 2022 12:51:21 +0000
+Message-ID: <20220214125127.17985-65-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20220214125127.17985-1-andrew.cooper3@citrix.com>
 References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
@@ -99,83 +99,84 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-For CET-IBT, we will need to optionally insert an endbr64 instruction at the
-start of the stub.  Don't hardcode the jmp displacement assuming that it
-starts at byte 24 of the stub.
-
-Also add extra comments describing what is going on.  The mix of %rax and %rsp
-is far from trivial to follow.
+... to prevent the optimiser creating unsafe code.  See the code comment for
+full details.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 CC: Wei Liu <wl@xen.org>
 
 v2:
- * Retain the rounding up to 16 bytes.
+ * Fix include to let the header be standalone
+ * Add earlyclobber to asm
+v1.1:
+ * New
 ---
- xen/arch/x86/x86_64/traps.c | 35 ++++++++++++++++++++++-------------
- 1 file changed, 22 insertions(+), 13 deletions(-)
+ xen/arch/x86/include/asm/endbr.h | 53 ++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
+ create mode 100644 xen/arch/x86/include/asm/endbr.h
 
-diff --git a/xen/arch/x86/x86_64/traps.c b/xen/arch/x86/x86_64/traps.c
-index d661d7ffcaaf..edc6820b85c7 100644
---- a/xen/arch/x86/x86_64/traps.c
-+++ b/xen/arch/x86/x86_64/traps.c
-@@ -293,30 +293,39 @@ static unsigned int write_stub_trampoline(
-     unsigned char *stub, unsigned long stub_va,
-     unsigned long stack_bottom, unsigned long target_va)
- {
-+    unsigned char *p = stub;
+diff --git a/xen/arch/x86/include/asm/endbr.h b/xen/arch/x86/include/asm/endbr.h
+new file mode 100644
+index 000000000000..6b6f46afaf29
+--- /dev/null
++++ b/xen/arch/x86/include/asm/endbr.h
+@@ -0,0 +1,53 @@
++/******************************************************************************
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or
++ * (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; If not, see <http://www.gnu.org/licenses/>.
++ *
++ * Copyright (c) 2021-2022 Citrix Systems Ltd.
++ */
++#ifndef XEN_ASM_ENDBR_H
++#define XEN_ASM_ENDBR_H
 +
-+    /* Store guest %rax into %ss slot */
-     /* movabsq %rax, stack_bottom - 8 */
--    stub[0] = 0x48;
--    stub[1] = 0xa3;
--    *(uint64_t *)&stub[2] = stack_bottom - 8;
-+    *p++ = 0x48;
-+    *p++ = 0xa3;
-+    *(uint64_t *)p = stack_bottom - 8;
-+    p += 8;
- 
-+    /* Store guest %rsp in %rax */
-     /* movq %rsp, %rax */
--    stub[10] = 0x48;
--    stub[11] = 0x89;
--    stub[12] = 0xe0;
-+    *p++ = 0x48;
-+    *p++ = 0x89;
-+    *p++ = 0xe0;
- 
-+    /* Switch to Xen stack */
-     /* movabsq $stack_bottom - 8, %rsp */
--    stub[13] = 0x48;
--    stub[14] = 0xbc;
--    *(uint64_t *)&stub[15] = stack_bottom - 8;
-+    *p++ = 0x48;
-+    *p++ = 0xbc;
-+    *(uint64_t *)p = stack_bottom - 8;
-+    p += 8;
- 
-+    /* Store guest %rsp into %rsp slot */
-     /* pushq %rax */
--    stub[23] = 0x50;
-+    *p++ = 0x50;
- 
-     /* jmp target_va */
--    stub[24] = 0xe9;
--    *(int32_t *)&stub[25] = target_va - (stub_va + 29);
-+    *p++ = 0xe9;
-+    *(int32_t *)p = target_va - (stub_va + (p - stub) + 4);
-+    p += 4;
- 
-     /* Round up to a multiple of 16 bytes. */
--    return 32;
-+    return ROUNDUP(p - stub, 16);
- }
- 
- DEFINE_PER_CPU(struct stubs, stubs);
++#include <xen/types.h>
++
++/*
++ * In some cases we need to inspect/insert endbr64 instructions.
++ *
++ * The naive way, mem{cmp,cpy}(ptr, "\xf3\x0f\x1e\xfa", 4), optimises unsafely
++ * by placing 0xfa1e0ff3 in an imm32 operand, and marks a legal indirect
++ * branch target as far as the CPU is concerned.
++ *
++ * gen_endbr64() is written deliberately to avoid the problematic operand, and
++ * marked __const__ as it is safe for the optimiser to hoist/merge/etc.
++ */
++static inline uint32_t __attribute_const__ gen_endbr64(void)
++{
++    uint32_t res;
++
++    asm ( "mov $~0xfa1e0ff3, %[res]\n\t"
++          "not %[res]\n\t"
++          : [res] "=&r" (res) );
++
++    return res;
++}
++
++static inline bool is_endbr64(const void *ptr)
++{
++    return *(const uint32_t *)ptr == gen_endbr64();
++}
++
++static inline void place_endbr64(void *ptr)
++{
++    *(uint32_t *)ptr = gen_endbr64();
++}
++
++#endif /* XEN_ASM_ENDBR_H */
 -- 
 2.11.0
 
