@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BC174B5422
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 16:03:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.272393.467217 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9C624B542C
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 16:07:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.272402.467229 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJcsW-0001xf-Q2; Mon, 14 Feb 2022 15:03:00 +0000
+	id 1nJcwf-0002hE-Ib; Mon, 14 Feb 2022 15:07:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 272393.467217; Mon, 14 Feb 2022 15:03:00 +0000
+Received: by outflank-mailman (output) from mailman id 272402.467229; Mon, 14 Feb 2022 15:07:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJcsW-0001vt-Mk; Mon, 14 Feb 2022 15:03:00 +0000
-Received: by outflank-mailman (input) for mailman id 272393;
- Mon, 14 Feb 2022 15:02:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fX6a=S5=suse.com=dfaggioli@srs-se1.protection.inumbo.net>)
- id 1nJcsV-0001vn-7s
- for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 15:02:59 +0000
+	id 1nJcwf-0002fP-Dp; Mon, 14 Feb 2022 15:07:17 +0000
+Received: by outflank-mailman (input) for mailman id 272402;
+ Mon, 14 Feb 2022 15:07:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=KkXt=S5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nJcwd-0002fJ-OC
+ for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 15:07:15 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 31cbfbfa-8da7-11ec-8eb8-a37418f5ba1a;
- Mon, 14 Feb 2022 16:02:58 +0100 (CET)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2059.outbound.protection.outlook.com [104.47.12.59]) by
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cac7cc50-8da7-11ec-b215-9bbe72dcb22c;
+ Mon, 14 Feb 2022 16:07:14 +0100 (CET)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2177.outbound.protection.outlook.com [104.47.17.177]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-26-qdJexCgBN8eI4Ui_ZKo7ag-1; Mon, 14 Feb 2022 16:02:56 +0100
-Received: from AM0PR04MB5826.eurprd04.prod.outlook.com (2603:10a6:208:134::22)
- by AM0PR04MB6435.eurprd04.prod.outlook.com (2603:10a6:208:176::30)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.19; Mon, 14 Feb
- 2022 15:02:54 +0000
-Received: from AM0PR04MB5826.eurprd04.prod.outlook.com
- ([fe80::ccff:6c4a:d6fc:3b74]) by AM0PR04MB5826.eurprd04.prod.outlook.com
- ([fe80::ccff:6c4a:d6fc:3b74%7]) with mapi id 15.20.4975.018; Mon, 14 Feb 2022
- 15:02:54 +0000
+ de-mta-9-GreIISL0OCKkiCRpqOyasg-1; Mon, 14 Feb 2022 16:07:13 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by DBBPR04MB6042.eurprd04.prod.outlook.com (2603:10a6:10:c2::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.15; Mon, 14 Feb
+ 2022 15:07:11 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65%5]) with mapi id 15.20.4975.015; Mon, 14 Feb 2022
+ 15:07:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,219 +51,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 31cbfbfa-8da7-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: cac7cc50-8da7-11ec-b215-9bbe72dcb22c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1644850977;
+	t=1644851234;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=UIox7dkw3kSLbAPAwaqHJJZcACHo1M82BL2Dud1K1n4=;
-	b=KJsv23xI6afBbp5Nl7qmqbmPnlC/Kg5RKnEBmy6cqQmQ00VubhDGjVf9kLlYO4pDxgtADB
-	0RUptty7Eu5EUJclGFn0VXGAWedDlCEeLWRdl/F7W0wvY3c0Pt6boFeqRPSPcMrbemin0P
-	pWMPhadiBipVOqt4zY1CCEtWnAzNKAw=
-X-MC-Unique: qdJexCgBN8eI4Ui_ZKo7ag-1
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Pzk0tjXrAVW6CIJLvTgm+wl5lvjKLf+2s1odUlMiRco=;
+	b=DwKqu1M12CI9AK/ZhBuwNbIcthtJGzeYiW8YoCS0hetXPzRiDMufRPlqC0j7/iQYImc0on
+	l9e3wggpyWcCr4t4O2AAFy3jUGAqaE8Tn4W9EbPqq64cQBrbd2lNy0kTSDdZgonhsn5wTt
+	GFYRNk5qgs9Sddka6VpUPxw1AHbbKC8=
+X-MC-Unique: GreIISL0OCKkiCRpqOyasg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ELWah6MMQO05hJg4BPah9Vzzwb4Mr1gW1V36pAXONDKqGL7kP/GMyWLljz0/vsrZ7j2Y5c3mJhjJESov1z7SYL7M6vtIeLYCqYTQSEuPkJIPOo7pmPi+jttF2NNYVrZaLBPxdWtvPSV+lnLELkjK289roeK6+NRbfql05gud6jmspv5GWrU6H0q3EOXCwWvgNIwkHlMW9ZyxY7A9tAdRhFvZuSGRjmy5i+HTYf2RZN3jgUjzuaM3HejeAJWK3my7SCvkWiiU6CSyxiARrMKacGd+PRorz2ordHwkj5v0yU7tKPAVa8XliDrJk+Akn54IKRio6I5CJFwtRfeASuQxNg==
+ b=dLcOncue5CbWmESgicSnWAtTv2M7TzBMANERfAMWdreYavzXkkXMn36MIYZ7k4ff6vjRnrlXu0jHUliHk1Tb5/GTRNtelildo1KGx0/Pike22pzAOGxaXdGjDGYHSvo/wjc1IphrWDNNzNBhOJIMP20IcqXmynqczkSYlkciZ8u82Gn7GTEtsuZT1iuPrVNMrnU8JQItwYWSk5E+cfna95zS6OPt6hrItIN5+GEs6VfS6ZJ7Mj6MtSApio01JpUxbOEAbkLWrWzyKrm7m6f5h/xXyrT3GPt7cjQcKj+/9GfKnVA/9O4iKM2Qb5tdIVN7zW0zh84CK4pIpLmMOHImkg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UIox7dkw3kSLbAPAwaqHJJZcACHo1M82BL2Dud1K1n4=;
- b=ZOABoM9oti8ypj0hBANedlglXHOIuT24uxPKz9W17FWtZwpoqsSaZ8hRtcJJTEmrVBmhSuc1KhiFXp0PqRPlOczN5qPazH5n8+xvGWA+TVZ5E7EnqTC2u4Xfhlo/GIkkzUDXdctxo2laYIQ5UMgIiHZaUGLoUSo8VX36WGyNmsPPOgQgNELxyDH4x5D1nCGIKfYXoHk4e1yE9G9FSl/1vtd1WqDJFSd8MWFJ/P9sd5/rdmjjr9lHlNj0/v/Uc7E8KPpXVkhhsSrnrPhi4QLtXr8KJd1YbQh5dHeOhnzDq5BOYvwvPVyTUtjITPGt72lEXgpoVVeVXJ+6zjuYmDhjIA==
+ bh=Pzk0tjXrAVW6CIJLvTgm+wl5lvjKLf+2s1odUlMiRco=;
+ b=fkFb8lMGqNNBo6LdoXdQ6BiL/AKKQGE3giUnukEyHCSGIrNDUUSJQl1U/Hsu8/WqFNWBQeMgSmNeqyqrFGVcqakawu6SlafitUhQpDvW1J7G9UyRSL9py5i9OBPPzWoGdBm6LWrJMTTyaRqigqK2xDe3KHbKTSneCiWRoxnXxzrBXwsKtHSWCe45CoyrlaSQYcT6eEXIdfCXrB8enG21FqVjB/+hgK+PJxGWqFWwbHI20bqwVutDxhz4gY5PPrw+C+wIwNi7Jhds+VqUcluqvltxnUmwXuRH+qIyaDOhdBj60Wn6vXlpOcTT7qBbAMQ7jTdG6bEHIFsQ4ZU6jFzj0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
-From: Dario Faggioli <dfaggioli@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: "sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"marmarek@invisiblethingslab.com" <marmarek@invisiblethingslab.com>,
-	"qemu-devel@nongnu.org" <qemu-devel@nongnu.org>, "anthony.perard@citrix.com"
-	<anthony.perard@citrix.com>
-Subject: SecureBoot and PCI passthrough with kernel lockdown in place (on Xen)
-Thread-Topic: SecureBoot and PCI passthrough with kernel lockdown in place (on
- Xen)
-Thread-Index: AQHYIbPxFY5Kj3bRXE6t4z/dbeVrRw==
-Date: Mon, 14 Feb 2022 15:02:53 +0000
-Message-ID: <8daad0f6c623a57bc0b047fc2388e8b698135624.camel@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.42.4 (by Flathub.org)) 
-authentication-results: dkim=none (message not signed)
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 5409a396-1777-485a-04c6-08d9efcb13db
-x-ms-traffictypediagnostic: AM0PR04MB6435:EE_
-x-microsoft-antispam-prvs:
- <AM0PR04MB6435DCEA2D691C8CA4A27B19C5339@AM0PR04MB6435.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- IgTYsvdWuAncSEEELugARCzz9/oLkxNzCo4JsB/TAsvTGgWgqk+qUw+wa2mZwVSjuWDCxYmJjULHpTt7mkGkEaawxZ8gOeKZ1p1xOYqwQswU5qhZMNrDmFOPpzuhfjb4duJoInPU9LY6yLkqVC5bVqZspYtoeYXYuS6jPqhemlOwtfaIQBDaxlsNhLiuKQjmeWUiK5MEPuzE/2XymQJ9KCS8/oeKKO0flTBEiLN+UTUx0sifO+O7iuibwGFHIgjg+M2IIsSNN3VvG81okqFpxjuGknuEUZmT3Jsl00Xc6F+jm16PGSy3FwF+NrShkYmFbFwWm1Ph7Amv/kfOpHMzFKsWtDqKYj0FYipneY5Ge7oz5zvzJ/M5OrORTg720cZN1D/H7/86bpdY1n2xdRlzYtF2o3epUDhIe9bUyIO2DAD8FR8Z4fHks9PQ75xRe+kUaRIGmgDbi41KeIXOTN1fBOlaE/ZUYjT3rO0yRN1rrEb9eJAxdtJHOfubzdrRlnu3COhBdPIUSDoPofeiADN3gDkZ1TZ+PEk8+uw1PaLLmM4/Za+utZzgS0l9NNLjAreNJ9dY8LOBqKXydbvXU3ysK3QgsyUIjEthZ++Cp1juwfY7XOh5LnYbafJzCGWggYgC46cFcSrthJscKeSZ8Uk9y+mO3X74JwvRb2Zo5p4NNQipLvCzyUpL9CsuXXCuRcSu2uby/eNSSuaMk4RBow7vczUHj/9FKZpL3pl9NdAipgIq7y6VW7vmmW8dlmWKJB19fOgul1WxuM4SFIquDLhsXyJcZv1Cu0lDMzzTRIS4pI4H55uVCGggWWARTuj6czN+5XnHBR4WfSWkhmllS3UzIw==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB5826.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(83380400001)(316002)(6512007)(91956017)(38070700005)(86362001)(54906003)(66946007)(64756008)(122000001)(66476007)(66556008)(66446008)(6506007)(8936002)(71200400001)(8676002)(4326008)(36756003)(6916009)(38100700002)(966005)(76116006)(26005)(5660300002)(2616005)(508600001)(99936003)(2906002)(186003)(6486002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?aDJwSUZUU2dXelBBdDBDaGhOYi9DMTlUaTVPVG1vV3IvdndpZWl2MzFKLys2?=
- =?utf-8?B?WmhyZ05oME1RRG9vT3FSMFVRUG5EdkNmU3lhY0h0N1NqcUluK29OV0N2N1R1?=
- =?utf-8?B?aTZZMG1iVnVZdjVJcDU0S0ROMnlScndEY0xqdFA3ZjVXTHdyUEdSRlVwR3Jk?=
- =?utf-8?B?VUdyazk2c3o1blM5eVBaaGxuTHUraklrL24xOVlhbDAvVEdIWlVGR0Y3VEYv?=
- =?utf-8?B?eHZNa09KZzkwTHZSZ1ZDN0JZb0lLNGZaMG9LTUlnRUNwN0Q4VER0ZTFEZUFS?=
- =?utf-8?B?cU5IUEVYa1hQUHFTTm02L3FpaUluZGN0NktZRE05VEY0UWlsek53b2d3dVFD?=
- =?utf-8?B?N2dvU1pXVERQWm9MQTl6aXJ2S0E2RmlGQ3BCUlF2dnpGVnBWR2p4alIreTB6?=
- =?utf-8?B?eUd3L0RtODJoT0UzVXp4SjJDYmRDaysyMVRRUm1SbXhRNTZOaklaSE85Q2tE?=
- =?utf-8?B?S1liSDE3ekVIbzQ5azJUeTlqMWJkQmt1a1JqSjFBSVpDa1JDTmpxQjFJcm5y?=
- =?utf-8?B?dXROQUxmdi9PdU9LQS9kN3Q1Uk55SUpkREhUK24zbERzY3JXSnZDRDJGMGZr?=
- =?utf-8?B?YlBlMmYyVVRPQjV2RTA3OFg3U0hoRFFBZVI4UFFXRjg2YUJwRWk0UjlHNXBW?=
- =?utf-8?B?bzRsSFpoZEJKbmlYSERGVmJTdGc3cWRXcUljQWlCN2tBTVkyOW1pekk3eFlw?=
- =?utf-8?B?MHBBcU1LNVRmbDZJZDdJWXlidk9MbTIxZzVqNlZtSWNVNVhwa3RUSmRLYlBX?=
- =?utf-8?B?MG1wRHpkWGhnRlNNY0xKTFgvNTNCQlZTbVBlVGFPek9yZjNjYllmK24yRHZj?=
- =?utf-8?B?WVhmN3VHaCtnL0JPZDNKK29QZWViU1NDRHRjZXNRaEVwd0Y1ZXJnR2Q4QjBK?=
- =?utf-8?B?ZVc0MEtTUzFMVkdFczk1TVJBSzNwSDFQaU1VNEFlZTZUbVI4ay9UcEp3WnBw?=
- =?utf-8?B?bncvT3BWcW1KMDYxR1gxalEvcU83NDlEQ29NbytvbjRSVDMxSENRbWNORjFS?=
- =?utf-8?B?am1qLzRvL016UWdOYUJoa3NiclVqU0VLVjlnbWg4NXNPOFFsZ0UvdTJvWmZD?=
- =?utf-8?B?ZmtsYlBxbldLU1IrY3dSYTFmTWh6RlJMTlVMQVUvWWpoeEMrR2NXc043aTJm?=
- =?utf-8?B?ZlRNRVRKdU82aTkrK2ZkbXU1SDRvZk5aa0FmRHhReFFNL3FHTHZ6MS8rSlJm?=
- =?utf-8?B?WmpORzVlZDNoZXdST2ZwWjk5blFrSVBTOWd1ekRLQkc3dkJQclRsUXBoVS92?=
- =?utf-8?B?U0dnMHZLdlR0M1F4TkYvTXRpdnM3SUsySmU3YkZTNUw1WDNQNzdwSWVGSTFW?=
- =?utf-8?B?NGViTERQME4rQ29XNWpNZjRGbklKMnl5ZEN2YkY0ckIrQXlwbDZ0UGVYdjlQ?=
- =?utf-8?B?UlBVbVZMVFh1NzI2Y0NRbmxuWUwzQmoySlgrZmMyR2FoWHlOZFhWbTZsRXlQ?=
- =?utf-8?B?bnE4NDcvbEV4TGhyeHd4bVZ2VXpFbU1uYm8yd3lYcnZVcmNwQUVGVy9JaUI3?=
- =?utf-8?B?UnVTcSt1RVROc1l4bnlhcXdCTFJDakdBdHVZT2tmUzR3YlNaTzg5S1BXOW13?=
- =?utf-8?B?SFQwUjdyQytxWmJWc2hJRkluN1dtUmpHbWcwRyt4Y0RwWWJ3eitRZHhnOS83?=
- =?utf-8?B?cVpoRnFma3FhaXg1WUVUZXNiOCt1SlY3WVd2VUx4bG9zOVFCaVcxTlZQWHJL?=
- =?utf-8?B?ek5nVnVvNS82UjQ2akZkNVdFNmxYUGdCUWw5cnRMeVFHMEFDVzA5a3VYOVY3?=
- =?utf-8?B?cUtSMzg5bFFKT05YNXdaZUVKa0xpT0d4SVJaWGYwTjh1cE0weUwvaXM3Mnda?=
- =?utf-8?B?a0dwSGVSWkFxUTBwTklCdDRyNU1tcVRJREFFZmgxWG1NOEJOMDd6R21hNG1B?=
- =?utf-8?B?N0Z2eDlpY0pSdVN0NGRhRjErSTExc1EyMzQvYXFKaVFsVzFRWFdFQmNDei9X?=
- =?utf-8?B?aFU2ckRaZmJleERib1hNOXY1L1p6VDdQdDdVcXowVHlPd3FOOGZPY3dEMC9W?=
- =?utf-8?B?YStkaWlmN1k5QTdzczJiM1JIOWVKanhJY3NvY1RXcUJDTVozZ1grcXd6eWtL?=
- =?utf-8?B?MlZUbWZPSnJVeHA1ekVzZi9ENjdXSDdmWW4zL3YvZzd5V0hTZzYzbENpOFdU?=
- =?utf-8?B?bWI5bk84WXB2VkN6NjVXaXhwVzltMkFBNEU4d21IcFNRU3FOSFV0cnZIbi8z?=
- =?utf-8?Q?WWc1yflUz8mJ6Yhqu7tdv84=3D?=
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-o0+UXT5YZwxmdHu4aySw"
+Message-ID: <8e7f3193-dee6-1ff4-0c68-081032e240d2@suse.com>
+Date: Mon, 14 Feb 2022 16:07:09 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.0
+Subject: Re: [PATCH 1/3] amd/msr: implement VIRT_SPEC_CTRL for HVM guests on
+ top of SPEC_CTRL
+Content-Language: en-US
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20220201164651.6369-1-roger.pau@citrix.com>
+ <20220201164651.6369-2-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20220201164651.6369-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9PR06CA0244.eurprd06.prod.outlook.com
+ (2603:10a6:20b:45f::35) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4fd5d33f-2d09-490a-2593-08d9efcbad25
+X-MS-TrafficTypeDiagnostic: DBBPR04MB6042:EE_
+X-Microsoft-Antispam-PRVS:
+	<DBBPR04MB604203D3D7C3FCBEA34C5594B3339@DBBPR04MB6042.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	fXI5wgQQHHxkOIx5ZlM7zJn3ucj68XrgBhJbhaoEXyoXil9XUUQzsb6amBS9NYiPuIv04cWWUh+eyDd3Fflm9Z89gubtcCEPPOLcRUM7WmkOByf44bTmHOkgdfQ7TQ5Yzl0M0xhF605bssCgkbwEa8vKCjDd7oSi0SvwOEWE/gpCM3I6hJDIl0xjuhvfl5STwnx7IUfExcMmOvYim9Yr/87d9RmBvjjlj+hdQjof9OuR87iidshFIY1U1t51kxFvoOf5z8p90MyrYUT++7Yu1JBmiG1UR9novQwnSAlSWXUvFcedfJul9fFx4JSjYdiyKRrYh/vK9iOVHT0roMPTmE1F+uHxC+dblBQE0eeh/aZjJI5zMSQ3Y/jEQc66WB6PImPeygOhtCgRYVsb5+4bWrBSIwlAntdxaQpyrSo8qwA3ObduIbnXIOi6fR3u6o9fzFwxuEw4lB7643nB6rBOHwYbJh5P5rAZ0Rz1+QiuPIsndLcCh99fRZydQXy+UT6gfBrPkVRkGhhwRR0BgJyn3fDN7hWveiIz5nTfMsMgKcMqJjla3wNCcUTZEuQOrKfkev9q2VOnoEwVLzTk3eiHrOaJ4xqdpo+Fp5WxDEFirwgfYvcmaQXGNH1X84q+TioUgcuKHHMjrWnRC3jDsz2MCJImr96TXoOsLi58VknBLVYIrhaaPY3yGo2UACMKc37F1HhGlEfWr1kvPWl34cqGrp/kWY3r4ccvaQZVpMz7ni4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(53546011)(5660300002)(38100700002)(6506007)(6916009)(54906003)(316002)(36756003)(31686004)(6486002)(8676002)(66556008)(2616005)(8936002)(4326008)(31696002)(6512007)(508600001)(66946007)(186003)(26005)(2906002)(66476007)(86362001)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?K1JNaUYvYlJEOGI2MGovVkZXb2tZMER6ckFHSFlra0s4dnF1N29yZllpRk9L?=
+ =?utf-8?B?YkQxYWx3N2svVG9LS0V3OG4reDZsM0VrbEZvaVlmS1VlTGJUQzRmeGFHSEJ2?=
+ =?utf-8?B?QnR0cWFrNFg0aTl3R29IaHMvdkFuSnVYWWVLSE9PSmp3bFlrWmk0SHE3QkJI?=
+ =?utf-8?B?czZQN0k1QzhEK21ZcWdTQWEwRzh4Um9qWmUwUWR1OXNaZmpndWlZS2JwQVRU?=
+ =?utf-8?B?TXNXMGxwVGFyV1NUTTRNMVVaRXZmdHU4dWxsUWY5YXNIZWlnZUE4Yy9NZ3hL?=
+ =?utf-8?B?RWtTWTU1SmtISlhtaG0zV0ZpV0dLbG51WG5TSXhDUytxeWFacG0zNndiTHpI?=
+ =?utf-8?B?MVJWTk1iTTUyREF1YVdkVHE5b0ErTTFhUEdmRit4eGx2aVM4MER4cVZDZE14?=
+ =?utf-8?B?cEVNTEZYdmtRcFlxMFJ1azBYNVZPTDFnMXM5REZrakFjNVh3a1NJQzlDcEc2?=
+ =?utf-8?B?TjdXa3diRDMvMjJzNTJtRGJQeis2bEVaeFBYWnJIRWN5c2FFbnk1UHBIeWpz?=
+ =?utf-8?B?Qy9EUW5IckpvNlJyZDZtUHJkaGFzSmQ0NWF2T096cGg3bVZreC9Ha1hyUytC?=
+ =?utf-8?B?dS9qekxoRWtCcVR2SmxrZzdhS2l0QVFvT0JmOERpNDV3VndHajh1bVdBeCt4?=
+ =?utf-8?B?dS91UWdoOVh4TkxqWVREdlNBYlYxc0VPVUp1OFlIWkMyTDd6U3djLzhEZWps?=
+ =?utf-8?B?QnlrOGRxR0MreVBBSFJURzRZRDFXd3E0SmIvbmNsMEM5cmwxdTNadGRVcTMx?=
+ =?utf-8?B?K2o4c1EzQlptK1c5RnQveUpwT2Y5NU41M0RDclRsQ3V2OWkxVzEzdzhkTHd0?=
+ =?utf-8?B?S1lWNWdzVENkV0t2ZFdBMmlCTGRaMEJpb2pkYWNqV3ZZQUQySzJJL1ovajU2?=
+ =?utf-8?B?MG4ycDZOZ1BTbGRSR0tpRkdaRmQ3MGhBVUZMbjZYMTNQVWZLajd6NGdQQU9I?=
+ =?utf-8?B?VEZ4eEVsT0VPZ1JYc0ZCMGRoQnBUblJaMFFZdHRXSG5qdXFrS0s2bkt6akFs?=
+ =?utf-8?B?RGp5Ky92bVRYeFBuR3AxaEVrNnl1K3RnUE5VdlpoWGRKWFB4dlVBMGtrc3VY?=
+ =?utf-8?B?TWdwci83Q1pibWN0RUZjcHh1alV3Uk5XU0hjU2FVUXBBT3JaVG1jQVAxUXNw?=
+ =?utf-8?B?bVJWanQ2ZFlzaE1sRDFhN004aGt5ZWpVSmtFd2xheUJBNVhicDVRcUFBMnBY?=
+ =?utf-8?B?aGxKSEh6dEdmUDVqenJvZElVcGdIYVR2TWNaNlZpQVViRW9VbEd1aitpK2F1?=
+ =?utf-8?B?c003b2ppM3E1VGxKd1BybzF5cDdoN1Nvd0xkSERoV2NTeWxhamNlMGdPUFVU?=
+ =?utf-8?B?aHRHSVRjOWNNS01MaVVsUFB3RUR4RkpxUFJWMVQ4UFJSUkM5U3A3WElRaFJo?=
+ =?utf-8?B?NzBQVm1ZUlYyQi9zenlqSGVoNDVqeGRnVldTZWVZR3Z0cVZES0E3cTA0Y0hN?=
+ =?utf-8?B?cmdPWXFWejhDTElnTkF1bm5lc3FrVVRnekdBaUsyNEFPTkdaWHo1TXplaWtr?=
+ =?utf-8?B?bi9WZjFKcE00ekVKQklZZUlvOTZoSWJVa1dWZVB4SExBYngrbTVkUGp3UXU5?=
+ =?utf-8?B?bEx6TUVOMmpoL3RNRW1sUVR3WnFucmpuZlhuQ1NKd0hYWStJSDhDQ0diWElD?=
+ =?utf-8?B?NWZFTG04Wmg0QklCcE5pQTlIL0xQV2xiWVpjdVVGdWQ4R0NIN2NQUEdLZnV2?=
+ =?utf-8?B?Yi82Uk8xQTBZRE53TnY4UE1KV28zSy9pY3pEWDArL0YxMFVaZDRqSDVoQmRY?=
+ =?utf-8?B?cmVtNE9rK1NKMVlzZU9Cc3dJU3lvR3NGVXJoN3piNENXQkZlZ3lzeDZkRHAz?=
+ =?utf-8?B?UmhMU0xraEhKZFljVXl3MmxQWFRERVQ3d3J4bHlhWUdzTHMxT2ZLSEs5NXg1?=
+ =?utf-8?B?N0FyRVdtNXFMS3ZaTW9DaFNoSGhnQ2RsRzdrN2FBVkduVGJ5Z0E3Qi9yZnpH?=
+ =?utf-8?B?TzQ0NDN6dllscGhvMzY2ZGg5U283aVFhK3VSM3ZVUXFnU0dSTUtrbEFjb3lP?=
+ =?utf-8?B?Mm8rKzJsV0JsVE1FT0FudnZsOVNrYkFXL1lCcVA2SG52eWdzQytsUWdwNjl0?=
+ =?utf-8?B?ZVFXZFduaFpxL2p6RFZnV2hiMWF0VTFha3pxUnJyNjdsckZneUw2TFhMdkxW?=
+ =?utf-8?B?bHBmdzBtcElUL1AwRndXbk13V1JjTThGRDdrQkhickNybjEvVGMrVjdJWE1r?=
+ =?utf-8?Q?/p152F+otJ4r0LT86ZFdyVQ=3D?=
 X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4fd5d33f-2d09-490a-2593-08d9efcbad25
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB5826.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5409a396-1777-485a-04c6-08d9efcb13db
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Feb 2022 15:02:53.9218
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2022 15:07:11.3646
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: c9fkIKhhkbRIvl+q8guT5FYD5LcOp0+dKlHgkRWTbuJdLeOa4d+osEfmp1+QVGzsuknxSUGUcdFUM12Bz/NRqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6435
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VSMsEROMOly1nPImCCbwTRd5DwTqyDKNUh/bNbAnleDcUicRlmdtBQoEYwaYpPjOPUq56MzI6+rAVouLbdGiMw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB6042
 
---=-o0+UXT5YZwxmdHu4aySw
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 01.02.2022 17:46, Roger Pau Monne wrote:
+> Use the logic to set shadow SPEC_CTRL values in order to implement
+> support for VIRT_SPEC_CTRL (signaled by VIRT_SSBD CPUID flag) for HVM
+> guests. This includes using the spec_ctrl vCPU MSR variable to store
+> the guest set value of VIRT_SPEC_CTRL.SSBD.
 
-Hello,
+This leverages the guest running on the OR of host and guest values,
+aiui. If so, this could do with spelling out.
 
-We have run into an issue when trying to use PCI passthrough for a Xen
-VM running on an host where dom0 kernel is 5.14.21 (but we think it
-could be any kernel > 5.4) and SecureBoot is enabled.
+> Note that VIRT_SSBD is only set in the HVM max CPUID policy, as the
+> default should be to expose SPEC_CTRL only and support VIRT_SPEC_CTRL
+> for migration compatibility.
 
-The error we get, when (for instance) trying to attach a device to an
-(HVM) VM, on such system is:
+I'm afraid I don't understand this last statement: How would this be
+about migration compatibility? No guest so far can use VIRT_SPEC_CTRL,
+and a future guest using it is unlikely to be able to cope with the
+MSR "disappearing" during migration.
 
-# xl pci-attach 2-fv-sles15sp4beta2 0000:58:03.0=20
-libxl: error: libxl_qmp.c:1838:qmp_ev_parse_error_messages: Domain 12:Faile=
-d to initialize 12/15, type =3D 0x1, rc: -1
-libxl: error: libxl_pci.c:1777:device_pci_add_done: Domain 12:libxl__device=
-_pci_add failed for PCI device 0:58:3.0 (rc -28)
-libxl: error: libxl_device.c:1420:device_addrm_aocomplete: unable to add de=
-vice
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -2273,8 +2273,9 @@ to use.
+>  * `pv=` and `hvm=` offer control over all suboptions for PV and HVM guests
+>    respectively.
+>  * `msr-sc=` offers control over Xen's support for manipulating `MSR_SPEC_CTRL`
+> -  on entry and exit.  These blocks are necessary to virtualise support for
+> -  guests and if disabled, guests will be unable to use IBRS/STIBP/SSBD/etc.
+> +  and/or `MSR_VIRT_SPEC_CTRL` on entry and exit.  These blocks are necessary to
 
-QEMU, is telling us the following:
+Why would Xen be manipulating an MSR it only brings into existence for its
+guests?
 
-[00:04.0] xen_pt_msix_init: Error: Can't open /dev/mem: Operation not permi=
-tted
-[00:04.0] xen_pt_msix_size_init: Error: Internal error: Invalid xen_pt_msix=
-_init.
+> --- a/xen/arch/x86/cpuid.c
+> +++ b/xen/arch/x86/cpuid.c
+> @@ -543,6 +543,13 @@ static void __init calculate_hvm_max_policy(void)
+>          __clear_bit(X86_FEATURE_IBRSB, hvm_featureset);
+>          __clear_bit(X86_FEATURE_IBRS, hvm_featureset);
+>      }
+> +    else
+> +        /*
+> +         * If SPEC_CTRL is available VIRT_SPEC_CTRL can also be implemented as
+> +         * it's a subset of the controls exposed in SPEC_CTRL (SSBD only).
+> +         * Expose in the max policy for compatibility migration.
+> +         */
+> +        __set_bit(X86_FEATURE_VIRT_SSBD, hvm_featureset);
 
-And the kernel reports this:
+This means even Intel guests can use the feature then? I thought it was
+meanwhile deemed bad to offer such cross-vendor features?
 
-Jan 27 16:20:53 narvi-sr860v2-bps-sles15sp4b2 kernel: Lockdown: qemu-system=
--i38: /dev/mem,kmem,port is restricted; see man kernel_lockdown.7
+Additionally, is SPEC_CTRL (i.e. IBRS) availability enough? Don't you
+need AMD_SSBD as a prereq (which may want expressing in gen-cpuid.py)?
 
-So, it's related to lockdown. Which AFAIUI it's consistent with the
-fact that the problem only shows up when SecureBoot is enabled, as
-that's implies lockdown. It's also consistent with the fact that we
-don't seem to have any problems doing the same with a 5.3.x dom0
-kernel... As there's no lockdown there!
+> --- a/xen/arch/x86/include/asm/msr.h
+> +++ b/xen/arch/x86/include/asm/msr.h
+> @@ -291,6 +291,7 @@ struct vcpu_msrs
+>  {
+>      /*
+>       * 0x00000048 - MSR_SPEC_CTRL
+> +     * 0xc001011f - MSR_VIRT_SPEC_CTRL
+>       *
+>       * For PV guests, this holds the guest kernel value.  It is accessed on
+>       * every entry/exit path.
+> @@ -301,7 +302,10 @@ struct vcpu_msrs
+>       * For SVM, the guest value lives in the VMCB, and hardware saves/restores
+>       * the host value automatically.  However, guests run with the OR of the
+>       * host and guest value, which allows Xen to set protections behind the
+> -     * guest's back.
+> +     * guest's back.  Use such functionality in order to implement support for
+> +     * VIRT_SPEC_CTRL as a shadow value of SPEC_CTRL and thus store the value
+> +     * of VIRT_SPEC_CTRL in this field, taking advantage of both MSRs having
+> +     * compatible layouts.
 
-Some digging revealed that QEMU tries to open /dev/mem in
-xen_pt_msix_init():
+I guess "shadow value" means more like an alternative value, but
+(see above) this is about setting for now just one bit behind the
+guest's back.
 
-    fd =3D open("/dev/mem", O_RDWR);
-    ...
-    msix->phys_iomem_base =3D
-            mmap(NULL,
-                 total_entries * PCI_MSIX_ENTRY_SIZE + msix->table_offset_a=
-djust,
-                 PROT_READ,
-                 MAP_SHARED | MAP_LOCKED,
-                 fd,
-                 msix->table_base + table_off - msix->table_offset_adjust);
-    close(fd);
+> --- a/xen/arch/x86/spec_ctrl.c
+> +++ b/xen/arch/x86/spec_ctrl.c
+> @@ -395,12 +395,13 @@ static void __init print_details(enum ind_thunk thunk, uint64_t caps)
+>       * mitigation support for guests.
+>       */
+>  #ifdef CONFIG_HVM
+> -    printk("  Support for HVM VMs:%s%s%s%s%s\n",
+> +    printk("  Support for HVM VMs:%s%s%s%s%s%s\n",
+>             (boot_cpu_has(X86_FEATURE_SC_MSR_HVM) ||
+>              boot_cpu_has(X86_FEATURE_SC_RSB_HVM) ||
+>              boot_cpu_has(X86_FEATURE_MD_CLEAR)   ||
+>              opt_eager_fpu)                           ? ""               : " None",
+>             boot_cpu_has(X86_FEATURE_SC_MSR_HVM)      ? " MSR_SPEC_CTRL" : "",
+> +           boot_cpu_has(X86_FEATURE_SC_MSR_HVM)      ? " MSR_VIRT_SPEC_CTRL" : "",
+>             boot_cpu_has(X86_FEATURE_SC_RSB_HVM)      ? " RSB"           : "",
+>             opt_eager_fpu                             ? " EAGER_FPU"     : "",
+>             boot_cpu_has(X86_FEATURE_MD_CLEAR)        ? " MD_CLEAR"      : "");
 
-This comes from commit:
+The output getting longish, can the two SC_MSR_HVM dependent items
+perhaps be folded, e.g. by making it "MSR_{,VIRT_}SPEC_CTRL"?
 
-commit 3854ca577dad92c4fe97b4a6ebce360e25407af7
-Author: Jiang Yunhong <yunhong.jiang@intel.com>
-Date:   Thu Jun 21 15:42:35 2012 +0000
+> --- a/xen/include/public/arch-x86/cpufeatureset.h
+> +++ b/xen/include/public/arch-x86/cpufeatureset.h
+> @@ -265,7 +265,7 @@ XEN_CPUFEATURE(IBRS_SAME_MODE, 8*32+19) /*S  IBRS provides same-mode protection
+>  XEN_CPUFEATURE(NO_LMSL,       8*32+20) /*S  EFER.LMSLE no longer supported. */
+>  XEN_CPUFEATURE(AMD_PPIN,      8*32+23) /*   Protected Processor Inventory Number */
+>  XEN_CPUFEATURE(AMD_SSBD,      8*32+24) /*S  MSR_SPEC_CTRL.SSBD available */
+> -XEN_CPUFEATURE(VIRT_SSBD,     8*32+25) /*   MSR_VIRT_SPEC_CTRL.SSBD */
+> +XEN_CPUFEATURE(VIRT_SSBD,     8*32+25) /*!s MSR_VIRT_SPEC_CTRL.SSBD */
 
-    Introduce Xen PCI Passthrough, MSI
-   =20
-    A more complete history can be found here:
-    git://xenbits.xensource.com/qemu-xen-unstable.git
-   =20
-    Signed-off-by: Jiang Yunhong <yunhong.jiang@intel.com>
-    Signed-off-by: Shan Haitao <haitao.shan@intel.com>
-    Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-    Acked-by: Stefano Stabellini <stefano.stabellini@eu.citrix.com>
+What is the ! intended to cover here? From guest perspective the
+MSR acts entirely normally afaict.
 
-Now, the questions:
-- is this (i.e., PCI-Passthrough with a locked-down dom0 kernel)=C2=A0
-  working=C2=A0for=C2=A0anyone? I've Cc-ed Marek, because I think I've read=
- that=C2=A0
-  QubesOS that it does on QubesOS, but I'm not sure if the situation=C2=A0
-  is=C2=A0the=C2=A0same...
-- if it's working, how?
-
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
---=-o0+UXT5YZwxmdHu4aySw
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAmIKbx0ACgkQFkJ4iaW4
-c+4xDQ/+Lh9dkdFd5qg1dtn5INAZFK+0azmUPs/RVBrl1hrLRNlWZ80BvgLBDBIc
-D8dhgC8m1ZW53XVLfETnlBWSut2EMNbwxMN2f8qL4PmrdCJiFcMVZcojzLTNfvqW
-5KMQeB0VN4Up8ul/Ad7ESpjMBcKKgahOg1YwkAr8F2oNbH1pIIYq+FAwu+mVAlD+
-WYsP/TfEkBbb0Pv8TxfJq/ai0AyNgVH0Ww/TfXRN6PGCg7LAWzIMtwDDaNy7JZk0
-HQFVG7Qdxr8IVzKULcb166eCh62y5HRXcRGLijGgUCny/yHuZpA7CIp+uzSwqAoU
-cBOttrh41TC8WdE7P6tMWWgWvqF+W5x+6EFpQKjxHOgT3ybYIvn5FvRxvP6Xa/TM
-Nf9bJPXP8q4EDAshzUGlAvnVigZflN3L4OjtqlXcEsWXo9bRCtLpJNac5Mp3jn9s
-pGL9r+y9hH8cvFeCvfoEecvu1kVnIeilyoiVSvO3Z6YRyAdci187tpTnOCa24ADr
-awq5vq1FpKLI7zpIlWJ++2oK5yxo6wfEuxo/WSNGM00w2a/mqjFaZpFJbkZjn0rf
-/CffPzmeDKnXR97Bcz1ghVCS5BsvVyuE6d3DbHa0uLvLIhR31uBsT/cw9edwEUTu
-HIt+nQxbd8cr58MHJeIn8VdAXH9TfDAGaqNW/x73JcEKIH6/ANI=
-=J9gk
------END PGP SIGNATURE-----
-
---=-o0+UXT5YZwxmdHu4aySw--
+Jan
 
 
