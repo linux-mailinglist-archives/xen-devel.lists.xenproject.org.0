@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21A904B4246
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 08:00:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.271197.465550 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F6F14B41E5
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 07:20:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.271177.465529 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJVLE-0002A3-4p; Mon, 14 Feb 2022 07:00:08 +0000
+	id 1nJUhw-00050i-KS; Mon, 14 Feb 2022 06:19:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 271197.465550; Mon, 14 Feb 2022 07:00:08 +0000
+Received: by outflank-mailman (output) from mailman id 271177.465529; Mon, 14 Feb 2022 06:19:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJVLE-00027Q-1o; Mon, 14 Feb 2022 07:00:08 +0000
-Received: by outflank-mailman (input) for mailman id 271197;
- Mon, 14 Feb 2022 07:00:06 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ur5s=S5=wind.enjellic.com=greg@srs-se1.protection.inumbo.net>)
- id 1nJVLC-00023A-U8
- for xen-devel@lists.xen.org; Mon, 14 Feb 2022 07:00:06 +0000
-Received: from wind.enjellic.com (wind.enjellic.com [76.10.64.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id bc1ea17d-8d63-11ec-b215-9bbe72dcb22c;
- Mon, 14 Feb 2022 08:00:04 +0100 (CET)
-Received: from wind.enjellic.com (localhost [127.0.0.1])
- by wind.enjellic.com (8.15.2/8.15.2) with ESMTP id 21E60CFD024972
- for <xen-devel@lists.xen.org>; Mon, 14 Feb 2022 00:00:12 -0600
-Received: (from greg@localhost)
- by wind.enjellic.com (8.15.2/8.15.2/Submit) id 21E60BjV024971
- for xen-devel@lists.xen.org; Mon, 14 Feb 2022 00:00:11 -0600
+	id 1nJUhw-0004yB-GD; Mon, 14 Feb 2022 06:19:32 +0000
+Received: by outflank-mailman (input) for mailman id 271177;
+ Mon, 14 Feb 2022 06:19:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nJUhv-0004y1-0Y; Mon, 14 Feb 2022 06:19:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nJUhu-0006Pf-Ss; Mon, 14 Feb 2022 06:19:30 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nJUhu-00041a-Br; Mon, 14 Feb 2022 06:19:30 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nJUhu-000433-BA; Mon, 14 Feb 2022 06:19:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,107 +42,459 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc1ea17d-8d63-11ec-b215-9bbe72dcb22c
-Date: Mon, 14 Feb 2022 00:00:11 -0600
-From: "Dr. Greg" <greg@enjellic.com>
-To: xen-devel@lists.xen.org
-Subject: IGD pass-through failures since 4.10.
-Message-ID: <20220214060011.GA24404@wind.enjellic.com>
-Reply-To: "Dr. Greg" <greg@enjellic.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.4i
-X-Greylist: Sender passed SPF test, not delayed by milter-greylist-4.2.3 (wind.enjellic.com [127.0.0.1]); Mon, 14 Feb 2022 00:00:12 -0600 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=WRpb0hoTESmNGbxcdlyRC7YP+krbTn9x2XDMRpc68n4=; b=ZvPA54L9IN65fVWWmCuXiieq/A
+	MOtXHzYtwxN1xL3dhD7BetFU4/H3L7SEiXdi/53aamJLovp3JKUnqWEw/k9Zip1zNE+bNdeCZqeSx
+	VUUY4gjZ6SjlgojDB5W2iBRd6sbZdwoL1z/gMbLaqqoSDJz5wWNWoRKSWVlrYTXZ+iI4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168103-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 168103: trouble: blocked/broken/fail/pass
+X-Osstest-Failures:
+    linux-linus:build-arm64:<job status>:broken:regression
+    linux-linus:build-arm64-pvops:<job status>:broken:regression
+    linux-linus:build-arm64-xsm:<job status>:broken:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:<job status>:broken:regression
+    linux-linus:build-arm64-xsm:host-install(4):broken:regression
+    linux-linus:build-arm64:host-install(4):broken:regression
+    linux-linus:build-arm64-pvops:host-install(4):broken:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:host-install(5):broken:regression
+    linux-linus:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:allowable
+    linux-linus:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:allowable
+    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
+    linux-linus:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=754e0b0e35608ed5206d6a67a791563c631cec07
+X-Osstest-Versions-That:
+    linux=f1baf68e1383f6ed93eb9cff2866d46562607a43
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 14 Feb 2022 06:19:30 +0000
 
-Good morning, I hope the week is starting well for everyone.
+flight 168103 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168103/
 
-We've made extensive use of PCI based graphics pass through for many
-years, since around Xen 4.2.  In fact, we maintained a set of patches
-for ATI cards against qemu-traditional that have seen a lot of
-downloads from our FTP site.
+Failures and problems with tests :-(
 
-We ended up switching to IGD based graphics a couple of years ago and
-built a stack on top of Xen 4.10 using qemu-traditional.  That
-coincided with our transition from Windows 7 to Windows 10.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64                     <job status>                 broken
+ build-arm64-pvops               <job status>                 broken
+ build-arm64-xsm                 <job status>                 broken
+ test-armhf-armhf-libvirt-qcow2    <job status>                 broken
+ build-arm64-xsm               4 host-install(4)        broken REGR. vs. 168080
+ build-arm64                   4 host-install(4)        broken REGR. vs. 168080
+ build-arm64-pvops             4 host-install(4)        broken REGR. vs. 168080
+ test-armhf-armhf-libvirt-qcow2  5 host-install(5)      broken REGR. vs. 168080
 
-We've never enjoyed anywhere near the stability with IGD/Windows-10
-that we had with the ATI/Windows-7 desktops, ie. we see fairly
-frequent crashes, lockups, reduced performance etc.  The ATI/Windows-y
-desktops were almost astonishingly reliable, ie. hundreds of
-consecutive Windows VM boot/passthrough cycles.
+Regressions which are regarded as allowable (not blocking):
+ test-amd64-amd64-xl-rtds     20 guest-localmigrate/x10   fail REGR. vs. 168080
+ test-armhf-armhf-xl-rtds    18 guest-start/debian.repeat fail REGR. vs. 168080
 
-In order to try and address this issue we set out to upgrade our
-workstation infrastructure.  Unfortunately we haven't found anything
-that has worked post 4.10.
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 168080
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 168080
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 168080
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 168080
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 168080
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 168080
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 168080
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
 
-To be precise, 4.11 with qemu-traditional works, but upon exit from
-the virtual machine, to which the graphics adapter and USB controller
-are passed through to, both the USB controller and the graphics
-controller cannot be re-initialized and re-attached to the Dom0
-instance.
+version targeted for testing:
+ linux                754e0b0e35608ed5206d6a67a791563c631cec07
+baseline version:
+ linux                f1baf68e1383f6ed93eb9cff2866d46562607a43
 
-It appears to be a problem with mapping interrupts back to dom0 given
-that we see the following:
+Last test of basis   168080  2022-02-11 00:09:22 Z    3 days
+Failing since        168086  2022-02-11 20:11:19 Z    2 days    6 attempts
+Testing same since   168103  2022-02-13 21:41:20 Z    0 days    1 attempts
 
-Feb 10 08:16:05 hostname kernel: xhci_hcd 0000:00:14.0: xen map irq failed -19 for 32752 domain
+------------------------------------------------------------
+People who touched revisions under test:
+  Aaron Liu <aaron.liu@amd.com>
+  Adam Ford <aford173@gmail.com>
+  Al Cooper <alcooperx@gmail.com>
+  Alex Deucher <alexander.deucher@amd.com>
+  Alexander Egorenkov <egorenar@linux.ibm.com>
+  Alexander Gordeev <agordeev@linux.ibm.com>
+  Alexander Stein <alexander.stein@ew.tq-group.com>
+  Alexandre Ghiti <alexandre.ghiti@canonical.com>
+  Alim Akhtar <alim.akhtar@samsung.com>
+  Alviro Iskandar Setiawan <alviro.iskandar@gmail.com>
+  Ammar Faizi <ammarfaizi2@gnuweeb.org>
+  Andreas Gruenbacher <agruenba@redhat.com>
+  Andrew Morton <akpm@linux-foundation.org>
+  Andrey Konovalov <andreyknvl@gmail.com>
+  Andrzej Pietrasiewicz <andrzej.p@collabora.com>
+  Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+  Arnd Bergmann <arnd@arndb.de>
+  Aswath Govindraju <a-govindraju@ti.com>
+  Aurelien Jarno <aurelien@aurel32.net>
+  Bartosz Golaszewski <brgl@bgdev.pl>
+  Bean Huo <beanhuo@micron.com>
+  Benjamin Gaignard <benjamin.gaignard@collabora.com>
+  Bjorn Helgaas <bhelgaas@google.com>
+  Bob Peterson <rpeterso@redhat.com>
+  Brenda Streiff <brenda.streiff@ni.com>
+  Brian Johannesmeyer <bjohannesmeyer@gmail.com>
+  Brian Norris <briannorris@chromium.org>
+  Cai Huoqing <cai.huoqing@linux.dev>
+  Cameron Williams <cang1@live.co.uk>
+  Catalin Marinas <catalin.marinas@arm.com>
+  Changbin Du <changbin.du@gmail.com>
+  Chia-Wei Wang <chiawei_wang@aspeedtech.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Borntraeger <borntraeger@linux.ibm.com>
+  Christian Hewitt <christianshewitt@gmail.com>
+  Christian König <christian.koenig@amd.com>
+  Christoph Hellwig <hch@lst.de>
+  Christoph Niedermaier <cniedermaier@dh-electronics.com>
+  Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+  Chunfeng Yun <chunfeng.yun@mediatek.com>
+  Damien Le Moal <damien.lemoal@opensource.wdc.com>
+  Dan Carpenter <dan.carpenter@oracle.com>
+  Daniel Bristot de Oliveira <bristot@kernel.org>
+  Daniel Stone <daniels@collabora.com>
+  Daniel Vetter <daniel.vetter@ffwll.ch>
+  Daniel Vetter <daniel.vetter@intel.com>
+  Daniel Wheeler <daniel.wheeler@amd.com>
+  Dave Airlie <airlied@redhat.com>
+  Dave Hansen <dave.hansen@linux.intel.com>
+  Dave Stevenson <dave.stevenson@raspberrypi.com>
+  David Hildenbrand <david@redhat.com>
+  David Rientjes <rientjes@google.com>
+  Dinh Nguyen <dinguyen@kernel.org>
+  Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+  Dongjin Kim <tobetter@gmail.com>
+  Fabio Estevam <festevam@gmail.com>
+  Fabio M. De Francesco <fmdefrancesco@gmail.com>
+  Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+  Florian Fainelli <f.fainelli@gmail.com>
+  Geert Uytterhoeven <geert+renesas@glider.be>
+  Geert Uytterhoeven <geert@linux-m68k.org>
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org>Cc: Dave Airlie <airlied@gmail.com>
+  Guido Günther <agx@sigxcpu.org> # Librem 5 (imx8mq) with it's rather picky panel
+  Guo Ren <guoren@linux.alibaba.com>
+  Hans de Goede <hdegoede@redhat.com>
+  Hector Martin <marcan@marcan.st>
+  Heiko Carstens <hca@linux.ibm.com>
+  Heiko Stuebner <heiko@sntech.de>
+  Helge Deller <deller@gmx.de>
+  Ilya Leoshkevich <iii@linux.ibm.com>
+  Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+  JaeSang Yoo <js.yoo.5b@gmail.com>
+  JaeSang Yoo <jsyoo5b@gmail.com>
+  Jakob Koschel <jakobkoschel@gmail.com>
+  James Smart <jsmart2021@gmail.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jan Kara <jack@suse.cz>
+  Jani Nikula <jani.nikula@intel.com>
+  Jann Horn <jannh@google.com>
+  Jarkko Nikula <jarkko.nikula@bitmer.com>
+  Jarkko Sakkinen <jarkko@kernel.org>  (kselftest as sanity check)
+  Jasdeep Dhillon <jdhillon@amd.com>
+  Jayesh Choudhary <j-choudhary@ti.com>
+  Jens Axboe <axboe@kernel.dk>
+  Jens Wiklander <jens.wiklander@linaro.org>
+  Jeremy Linton <jeremy.linton@arm.com>
+  Jerome Forissier <jerome@forissier.org>
+  Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+  Jing Leng <jleng@ambarella.com>
+  Jisheng Zhang <jszhang@kernel.org>
+  Joel Stanley <joel@jms.id.au>
+  Johan Hovold <johan@kernel.org>
+  Jonas Malaco <jonas@protocubo.io>
+  Josh Poimboeuf <jpoimboe@redhat.com>
+  Juergen Gross <jgross@suse.com>
+  Kai-Heng Feng <kai.heng.feng@canonical.com>
+  Kees Cook <keescook@chromium.org>
+  Kishon Vijay Abraham I <kishon@ti.com>
+  Kosuke Tatsukawa <tatsu-ab1@nec.com>
+  Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Linus Walleij <linus.walleij@linaro.org>
+  Liu Ying <victor.liu@nxp.com>
+  Liu Ying <victor.liu@nxp.com> # RM67191 DSI panel on i.MX8mq EVK
+  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
+  Lucas De Marchi <lucas.demarchi@intel.com>
+  Lutz Koschorreck <theleks@ko-hh.de>
+  Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+  Marc Zyngier <maz@kernel.org>
+  Marek Vasut <marex@denx.de>
+  Mario Limonciello <mario.limonciello@amd.com>
+  Mark Brown <broonie@kernel.org>
+  Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+  Martin K. Petersen <martin.petersen@oracle.com>
+  Martin Kepplinger <martin.kepplinger@puri.sm>
+  Masahiro Yamada <masahiroy@kernel.org>
+  Mathias Krause <minipli@grsecurity.net>
+  Maxime Ripard <maxime@cerno.tech>
+  Mel Gorman <mgorman@suse.de>
+  Michael Walle <michael@walle.cc>
+  Michal Hocko <mhocko@suse.com>
+  Michal Simek <michal.simek@xilinx.com>
+  Mike Rapoport <rppt@linux.ibm.com>
+  Minas Harutyunyan <Minas.Harutyunyan@synopsys.com>
+  Myrtle Shah <gatecat@ds0.me>
+  Nathan Chancellor <nathan@kernel.org>
+  Neil Armstrong <narmstrong@baylibre.com>
+  Neil Armstrong <narmstrong@baylibre.com> # for phy-meson-axg-mipi-dphy.c
+  Nick Desaulniers <ndesaulniers@google.com>
+  Niklas Cassel <niklas.cassel@wdc.com>
+  Nishanth Menon <nm@ti.com>
+  Padmanabha Srinivasaiah <treasure4paddy@gmail.com>
+  Palmer Dabbelt <palmer@rivosinc.com>
+  Pavel Hofman <pavel.hofman@ivitera.com>
+  Pawel Dembicki <paweldembicki@gmail.com>
+  Peng Liu <liupeng256@huawei.com>
+  Peter Zijlstra (Intel) <peterz@infradead.org>
+  Philippe Cornu <philippe.cornu@foss.st.com>
+  Pingfan Liu <kernelfans@gmail.com>
+  Pratham Pratap <quic_ppratap@quicinc.com>
+  Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+  Rafał Miłecki <rafal@milecki.pl>
+  Reinette Chatre <reinette.chatre@intel.com>
+  Rob Herring <robh@kernel.org>
+  Robert Hancock <robert.hancock@calian.com>
+  Robin Murphy <robin.murphy@arm.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Roman Gushchin <guro@fb.com>
+  Roman Li <Roman.Li@amd.com>
+  Rui Salvaterra <rsalvaterra@gmail.com>
+  Sagi Grimberg <sagi@grimberg.me>
+  Sam Protsenko <semen.protsenko@linaro.org>
+  Sam Ravnborg <sam@ravnborg.org>
+  Samuel Holland <samuel@sholland.org>
+  Samuel Thibault <samuel.thibault@ens-lyon.org>
+  Sascha Hauer <s.hauer@pengutronix.de>
+  Sean Anderson <sean.anderson@seco.com>
+  Shakeel Butt <shakeelb@google.com>
+  Shawn Guo <shawnguo@kernel.org>
+  Shyam Prasad N <sprasad@microsoft.com>
+  Slark Xiao <slark_xiao@163.com>
+  Song Liu <song@kernel.org>
+  Steev Klimaszewski <steev@kali.org>
+  Stefan Wahren <stefan.wahren@i2se.com>
+  Stephan Brunner <s.brunner@stephan-brunner.net>
+  Steve French <stfrench@microsoft.com>
+  Steven Rostedt (Google) <rostedt@goodmis.org>
+  Sven Peter <sven@svenpeter.dev>
+  Sven Schnelle <svens@linux.ibm.com>
+  Sylwester Nawrocki <s.nawrocki@samsung.com>
+  Szymon Heidrich <szymon.heidrich@gmail.com>
+  Tadeusz Struk <tadeusz.struk@linaro.org>
+  TATSUKAWA KOSUKE (立川 江介) <tatsu-ab1@nec.com>
+  Tejun Heo <tj@kernel.org>
+  Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+  Thomas Gleixner <tglx@linutronix.de>
+  Thomas Hellström <thomas.hellstrom@linux.intel.com>
+  Thomas Zimmermann <tzimmermann@suse.de>
+  Tim Harvey <tharvey@gateworks.com>
+  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+  Tommaso Merciai <tomm.merciai@gmail.com>
+  Tony Lindgren <tony@atomide.com>
+  Tvrtko Ursulin <tvrtko.ursulin@intel.com>
+  Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
+  Udipto Goswami <quic_ugoswami@quicinc.com>
+  Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+  Vasily Gorbik <gor@linux.ibm.com>
+  Vignesh Raghavendra <vigneshr@ti.com>
+  Ville Syrjälä <ville.syrjala@linux.intel.com>
+  Vineeth Vijayan <vneethv@linux.ibm.com>
+  Vinod Koul <vkoul@kernel.org>
+  Vlastimil Babka <vbabka@suse.cz>
+  Wan Jiabing <wanjiabing@vivo.com>
+  Yang Shi <shy828301@gmail.com>
+  Yang Wang <KevinYang.Wang@amd.com>
+  Ye Guojin <ye.guojin@zte.com.cn>
+  Yizhuo Zhai <yzhai003@ucr.edu>
+  Zhan Liu <Zhan.Liu@amd.com>
+  Zoltán Böszörményi <zboszor@gmail.com>
 
-Feb 10 08:16:05 hostname kernel: i915 0000:00:02.0: xen map irq failed -19 for 32752 domain
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              broken  
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  broken  
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            broken  
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     blocked 
+ test-armhf-armhf-examine                                     pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               broken  
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      pass    
 
-Feb 10 08:16:12 hostname kernel: xhci_hcd 0000:00:14.0: Error while assigning device slot ID
 
-At which point the monitor has green and block bars on it and the USB
-controller doesn't function.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Upstream QEMU doesn't work at all, the qemu-system-i386 process fails
-and is caught by xl and then tries to re-start the domain, which
-remains dead to the world and has to be destroyed.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-We revved up to the most current 4.14.x release, but that acts exactly
-the same way that 4.11.x does.  We've built up the most recent 4.15.x
-release, so that we would be testing the most current release that
-still supports qemu-traditional, but haven't been able to get the
-testing done yet.  Given our current experiences, I would be surpised
-if it would work.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-We've tentatively tracked the poor Windows 10 performance down to the
-hypervisor emitting hundreds of thousands of IOMMU/DMA violations.  We
-made those go away by disabling the IGD IOMMU but that doesn't fix the
-problem with upstream QEMU being able to boot the Windows instance,
-nor does it fix the problem with remapping the device interrupts back
-to Dom0 on domain exit.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-The 4.10 based stack had been running with 16 GIG of memory in the
-DomU Windows instances.  Based on some online comments, we tested
-guests with 4 GIG of RAM but that doesn't impact the issues we are
-seeing.
+broken-job build-arm64 broken
+broken-job build-arm64-pvops broken
+broken-job build-arm64-xsm broken
+broken-job test-armhf-armhf-libvirt-qcow2 broken
+broken-step build-arm64-xsm host-install(4)
+broken-step build-arm64 host-install(4)
+broken-step build-arm64-pvops host-install(4)
+broken-step test-armhf-armhf-libvirt-qcow2 host-install(5)
 
-We've tested with the most recent 5.4 and 5.10 Linux kernels but the
-Dom0 kernel version doesn't seem to have any impact on the issues we
-are seeing.
+Not pushing.
 
-We'd be interested in any comments/suggestions the group may have.  We
-have the in-house skills to do fairly significant investigations and
-would like to improve the performance of IGD pass-through for other
-users of what is fairly useful and ubiquitious (IGD) technology.
-
-Have a good day.
-
-Dr. Greg
-
-As always,
-Dr. Greg Wettstein, Ph.D, Worker      Autonomously self-defensive
-Enjellic Systems Development, LLC     IOT platforms and edge devices.
-4206 N. 19th Ave.
-Fargo, ND  58102
-PH: 701-281-1686                      EMAIL: dg@enjellic.com
-------------------------------------------------------------------------------
-"My thoughts on the composition and effectiveness of the advisory
- committee?
-
- I think they are destined to accomplish about the same thing as what
- you would get from locking 9 chimpanzees in a room with an armed
- thermonuclear weapon and a can opener with orders to disarm it."
-                                -- Dr. Greg Wettstein
-                                   Resurrection
+(No revision log; it would be 5152 lines long.)
 
