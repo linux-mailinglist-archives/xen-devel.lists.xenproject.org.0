@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C94D4B5206
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:43:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.272261.467031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12FF84B5217
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Feb 2022 14:48:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.272270.467042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJbdI-00010d-Ad; Mon, 14 Feb 2022 13:43:12 +0000
+	id 1nJbiJ-0001mk-1t; Mon, 14 Feb 2022 13:48:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 272261.467031; Mon, 14 Feb 2022 13:43:12 +0000
+Received: by outflank-mailman (output) from mailman id 272270.467042; Mon, 14 Feb 2022 13:48:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJbdI-0000xu-6r; Mon, 14 Feb 2022 13:43:12 +0000
-Received: by outflank-mailman (input) for mailman id 272261;
- Mon, 14 Feb 2022 13:43:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nJbiI-0001kc-UM; Mon, 14 Feb 2022 13:48:22 +0000
+Received: by outflank-mailman (input) for mailman id 272270;
+ Mon, 14 Feb 2022 13:48:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=KkXt=S5=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nJbdG-0000xo-JL
- for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:43:10 +0000
+ id 1nJbiI-0001kW-1Q
+ for xen-devel@lists.xenproject.org; Mon, 14 Feb 2022 13:48:22 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0bc4ce9e-8d9c-11ec-8eb8-a37418f5ba1a;
- Mon, 14 Feb 2022 14:43:09 +0100 (CET)
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c534d657-8d9c-11ec-b215-9bbe72dcb22c;
+ Mon, 14 Feb 2022 14:48:20 +0100 (CET)
 Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2054.outbound.protection.outlook.com [104.47.14.54]) by
+ (mail-vi1eur04lp2051.outbound.protection.outlook.com [104.47.14.51]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-2-SkjtdDXyOgi9PC3ifHHKbQ-1; Mon, 14 Feb 2022 14:43:08 +0100
+ de-mta-7-oqUv4supMeKZBijkJ5DqSg-1; Mon, 14 Feb 2022 14:48:19 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by DB7PR04MB4892.eurprd04.prod.outlook.com (2603:10a6:10:14::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.16; Mon, 14 Feb
- 2022 13:43:05 +0000
+ by PAXPR04MB8459.eurprd04.prod.outlook.com (2603:10a6:102:1da::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.18; Mon, 14 Feb
+ 2022 13:48:17 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65%5]) with mapi id 15.20.4975.015; Mon, 14 Feb 2022
- 13:43:05 +0000
+ 13:48:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,150 +51,362 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0bc4ce9e-8d9c-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: c534d657-8d9c-11ec-b215-9bbe72dcb22c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1644846189;
+	t=1644846500;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rpjvohe7/2DY3uLEpHfm43hJQI2ASb+gesXx34lCGsQ=;
-	b=fcblCHBS2FQG9ZIrP3grdHrMe0uyBec1Y91nL3CbaWbZk9QkgbX9uXqxGs8esTAqGFo8IX
-	QzDXjxxPporfaZ6SW/ysysN+1cvDWft09jtpdbuvbb+ylK/N3cGVJDdAl7AJAy6ikXzMJv
-	LrAOyyadLFOT47JBp+arL//KgPuv3Fw=
-X-MC-Unique: SkjtdDXyOgi9PC3ifHHKbQ-1
+	bh=F6JqSrWHMZvMDTzPmP/hOjpW6NL1qzExNrtnIz5p0gw=;
+	b=lQzUzHrJTDKI2MqGQpvasycnTEnjDiaH2Gt8IgOzvXUoj1C0N57wJ0u3KePMcULRBxLV/Z
+	yXuUO9EgBvYhjMXMz/B8gDaNPo/1LSGIPJhZHox1h4dqvMiFeP9VcZC8SWg9w0jo7qfUTw
+	fNsPLjxA+6kc5aAtJ2GFxBsOU/gafGo=
+X-MC-Unique: oqUv4supMeKZBijkJ5DqSg-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gHKefa2c73GIXz3YHpSEJaDMFQMga/B8t1IxV9jFkM4R1ll/nUK3gsrrVAsI8NSKfvy27rog+SEixqjfuuWHiKu6AvLKMn10JKKcGldhpDKUV6y2HxUBctYi8C9Uk7cfQsX2Q4HdjXkGhofgHRiw6D6rM7VZwmfrUCp6ZCd8+doB+fWiAkpqZcOS2I79Mc6P0UJ/vr5DWMtKD44VJ8eNGpShLCwPY1EaTashdyAzMc9YxI+CCXYH4jgoQVngKn3oGXbzwQIy94fvkRVFxIpC2EsbnbZxF57prkXk4mraEM9mFg/fxu5FUqvPOmUgpTrmzSFhzdxcbyNLFjdAKAXGsw==
+ b=AWWLu25iB15bE2sdGy1YpSyvsUfuOqx3OKr4QuZIvtbYQwc5+oAxWtwBYgGuxIcsSGFqlmulmqm15DQ6SNW3AR7gCyIbE9yoJwcBTsTwE0XvUxTOuc9nIjRoBAJwtDSE0Y4GAuAhLKo2nEwnOqYzA7K6BRzqNSr/BEX8uG/CXo2fmi4S3pKB8kqjKLw72rTHVKvEgiJMusEPwmsgPqkW4gcuJ7mfNQ/D1F9TheXIKouhvw9/VY3CU2aYAk5ezgOlCqOG6be6duhzlKw6RsSLpL10UtJPyRCO2vBHJ9ILZFshdSYGZmIBh7uPP8pYjgTkzNmfLoqmx5DU99MaUyEiaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rpjvohe7/2DY3uLEpHfm43hJQI2ASb+gesXx34lCGsQ=;
- b=D5x1aM7o34ZpCF73SMpXPoX48SuD23XrE6GTJjP9TkqEt/p5yk2HS6qbKa5j3iNFmG6bsiJB4a++SruYZZZY29MebrsVuaFhenwJNqBJkOEZToamtQUFV/1RTVkVInfGe4IVJo8gqWJeDxroTcsQKe11hxNzK4tZY8uHLKbgIlEajJ9B2UzkJv2FeziixLRBGDkB46+YBRaDu6QWmGo7HYQsa2tePTiiF/u+KtqAIrwUaozRvuI2Uc8sv9hwWqvPuorSOSG0FhgolWUjAFILVS0Yhl1KzNoSW7GoIRKlUvTkUrWLLV/Wtc2Vf/ArA0NSH1gOdAp9TTb9tIRFeGgE4w==
+ bh=VQELOwE604JH34St9WSsVguW3L6k1ASB43q/zFgHawo=;
+ b=GBLywyztdPMQrGzSBy8//xZ3poJ+8EVgebP645/VTRi59BHX06UZ7zrkr6a2a0pv5ryWkGSjC/WuSFTrnaRZLc6274DXmLBM1OX8BKzGoDMZbbTVDI/O457GcsgdKdyVFuA5Tq68NHAn0Gs0fL3erxPTpb67Ve8lto0I0sVGyKGsO+usml5LH/RJajXGjXohLzTzmarhBvxyvHOuoW/0k5HMOq2NgiBuwxyXwL05sSOMr0I/k4q6QOhUl7SSN/majymmL9K92NVAfqIr+Ib9/T3csedR8Lfat8ePy3ywpOC/C1AG6HecKd91oqvqpGbsT8Lq7p3VSKYUs2QHTWEiJg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <218de2dc-6dd8-4e13-3288-36448e47de7f@suse.com>
-Date: Mon, 14 Feb 2022 14:43:03 +0100
+Message-ID: <3538350c-0a63-59fb-7bba-fe460c0f1607@suse.com>
+Date: Mon, 14 Feb 2022 14:48:15 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.0
-Subject: Re: [PATCH v2 00/70] x86: Support for CET Indirect Branch Tracking
+Subject: Re: [PATCH] vpci: introduce per-domain lock to protect vpci structure
 Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, Roger Pau Monne <roger.pau@citrix.com>,
- Juergen Gross <jgross@suse.com>, Daniel Smith
- <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
- <c471dcc2-8a91-60b8-ba5d-58874752e4d7@citrix.com>
+To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "julien@xen.org" <julien@xen.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Rahul Singh <rahul.singh@arm.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
+References: <20220209133627.959649-1-andr2000@gmail.com>
+ <YgU6Snk8GTytJXZp@Air-de-Roger>
+ <c4666570-666e-6680-5ec2-adf1da51ad06@epam.com>
+ <YgZLEMW9US9QjjYG@Air-de-Roger>
+ <33fb1095-64ed-29ef-ba6b-cbde21d941f8@epam.com>
+ <YgowIg5MvTaf2zsR@Air-de-Roger>
+ <d8389a90-00c8-b34a-8488-b0f3fc5bde1b@epam.com>
+ <Ygo40L4dMPJjZKRF@Air-de-Roger>
+ <746860aa-c403-1eca-0a75-587c5d10c8c2@epam.com>
+ <Ygo8M3Y6BLzljn15@Air-de-Roger>
+ <114b8578-ee13-b67d-e282-d060187ef509@epam.com>
+ <06baf0c8-d7d2-50b8-ea8f-1d422ceac728@suse.com>
+ <6ccc7add-c13e-555f-b341-ce37118746e5@epam.com>
+ <f0e202dd-1f6e-4aac-1381-a64a7fd12270@suse.com>
+ <ba901778-ce63-12f2-0a54-d56998090200@epam.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <c471dcc2-8a91-60b8-ba5d-58874752e4d7@citrix.com>
+In-Reply-To: <ba901778-ce63-12f2-0a54-d56998090200@epam.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0075.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e::10) To VI1PR04MB5600.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM5PR0502CA0006.eurprd05.prod.outlook.com
+ (2603:10a6:203:91::16) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 5bd81eed-92c7-4ade-cec6-08d9efbfed53
-X-MS-TrafficTypeDiagnostic: DB7PR04MB4892:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Office365-Filtering-Correlation-Id: f5c66667-11c0-4b68-dc7c-08d9efc0a7c1
+X-MS-TrafficTypeDiagnostic: PAXPR04MB8459:EE_
 X-Microsoft-Antispam-PRVS:
-	<DB7PR04MB48922BB0ADCC29862E0E1AEDB3339@DB7PR04MB4892.eurprd04.prod.outlook.com>
+	<PAXPR04MB8459876604080F3CF95BB0EDB3339@PAXPR04MB8459.eurprd04.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	3b9UxjHBqKs5s+lo/Um7Ap+MLM5uVVEpN8Aor3or2CW7l8gbGMxgvlcfqpFQpxg4FtjIMKHeYiKnI5T3XfSgQg9IXXqCkd0JnqlrYmtov895LUKeeNFf/t/YBTctf+NHdtIoPREgBHhuZ2kAuNApjFfGEcAoP+9nzc+LkLJadLdt8DQEliGMzxe010GUfsgkuza5mBoMpHP3MsNZCGDEqnio/Qxn2771EIB9x+eyBfi/L/wBf2PIIhQdInjsx2gPnnQgVmpjtwcN3fZ1EGxtxThKN5VWlnPLHcYh/yuCqjbDv6dsV21DFy3x+zgiFb0cWgGwIm6m91QyhBN9skliyXK56EzzWQGCy07MvbAMenh6eBmnLDW9xsP2FXFiGPpaXM/LpyCunZQgBDX7qaFqTOkmOfVcOsl60L3M0CGdUkYXPWTkx2E/VtVnmtRap/yNA0vnpXT8rm4D91Vvxa74evuzo799GHyCC2c6krkMWEduoosO47i7SYPcifwT3PpK24mTrqc+8gRHmfNlKTWGBtGsAjbsH8cwtjPym9Q6ZSFk4waVV/5SRMl2WY6IMUVKp6otQ83gi2s5oJgLFby7yTehNhFm4h4a0+xzRYCrwopCm8LeK48mYtUE7EPHowlrIji/vOVLYO+jx+65bUCBdvCkwslJ1n6VrHgfeLfnpLi+Xp7zDdAR51cU+G8MkdMXc2aPrQsH/TGmy3TDtla7zEb2352nZ7T+Qrris650xsua5VXuPbcCzSafK9JEqCCQoGdSkOB/yqyoTUXcvcWYib3wWpruXzPu9ubV4dtEwuHQ9VNJsLJCVlipk4JkSNMZ
+	dAtBs1dxVH52VchkUW+ZogAYLyBpWsVoaWYYUPiy/R1BqkIYhx27rVPRIpzH9NdJJNwbdE79gUTigZemfoXZRzsJvyj2PRGQZfrfKhqeQim6/ucQEBB6IecZWhYANH90drfeLjW70oLaQpgxtb63e8umKh1XftFi6w2i4pvdvBNrh+snuyKd8AJwRc7oVtHUq7Ga1VJPKlTC+0Dv7LuoInyMs/8aLTtRSflnIQKUf1CkbwGDGJvO32MQ42avZsZyBTMzCB8J3Y+0Zn9faw+d2UWG2FRJ5cihtrXhFXqQOnGN3bqkln7E5Q/c55O5hGhF7G/FQluSHAPXWkb3UMlJrH+ab9Qm8TAS2eXXfPpHF/5+ROU6STAL2kGliit/Mfda/9cdnf+PwU/KE5klwzLXXzkXDvx+R1P0+mRI6PJOFmQgK+yqO/2V3uoz3Zn92ePl+D7VZF5aVDRdq9yuBV4QAHffVCt8AKBcK3RJ1Fux1dk1igaxVrJiAtYLN4XKKp88T5RIy5UrO8+Dz6+gj/5mKPgLodL3pzH0oie2mmC7IlgeGh9hEsH+726bYwMaaCZcTUeoAHGIW97Rb6XvwCnCH2P5yIPsozSR3Ro+Fqiu8p54vh4ETT0Xq6DwddSWlvmtLG63K+gFEXTzQksb8IHvdzTGMlRtI6vbaBRRHr4hZYQydiSyl/3nyay+bO1/21+ixojR2DUB3q6xDcxBKi8KqLcJzqy0+utAZKvFA1vl9L0=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(38100700002)(5660300002)(8936002)(316002)(66476007)(66556008)(2906002)(8676002)(66946007)(4326008)(36756003)(6486002)(31696002)(31686004)(86362001)(26005)(186003)(6512007)(6506007)(53546011)(2616005)(966005)(508600001)(6916009)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(8676002)(6486002)(38100700002)(7416002)(83380400001)(5660300002)(508600001)(26005)(186003)(2616005)(8936002)(6512007)(2906002)(6506007)(54906003)(316002)(86362001)(31686004)(66946007)(36756003)(6916009)(4326008)(53546011)(66556008)(66476007)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V3NWS0d5VjlOM0pFR1lKTTRLNWdBQVdLZDNQSXg3UllyalFmUXBOZjlUaXlK?=
- =?utf-8?B?WitmMXFCT2gvdlhJai9tLzB2VGpxOHJCcU5PRDJNZGNhU0JTMDlEdzhXNzJJ?=
- =?utf-8?B?N1hLMEpTV2hON0RHTFhMS1dseEp0c1JCVkRWRGpOUWtWS2JOWDBkOG14dndT?=
- =?utf-8?B?WDFQMTJFYzhHRjJpb203L0ZObmZYT3RCdlpTY3pNcko1clUrUGxHZFkwTER1?=
- =?utf-8?B?Sm9PWXNuN1dRSW9naEVKeWFHeWpUcjI4d2lVbnorUldBaVBFempTQmt4UlhN?=
- =?utf-8?B?V2tmQmNjclNOOG9pTHIxY0ZZSzQrOEJ2TUxiU0puTHhHNVFqd05BTGJZUmdT?=
- =?utf-8?B?WlJldUw1YTBmTWltdFRlVE9yR2lEZ2VtTGI1Y255cUxTL3FKUmNBNVcwWldM?=
- =?utf-8?B?Zmx3eDV5N21vVmdhQlJRakpUNjVVUFc2anoyS2sxZFBjYkQ3c2hGelFDKzlv?=
- =?utf-8?B?bFNuUEo2TGluTzJxNjFsNHljMkFMSHBvYWhvZEVxVUVGR0xxaWR0MDVSbG9U?=
- =?utf-8?B?aWtNQVhGWGJHYmE0clQ5blc2ZWdkb1RiWWF2dkdUZ0lLZkkxTnJFRzlRSytn?=
- =?utf-8?B?UU9nMjNpYmZyY00xcHdlTFlNaHducVBmOEVHRVZsbFpUNlFtVWdXL1UzN2lH?=
- =?utf-8?B?RjdLKzQvTTZhMEVtRmRFZzJ0SWpxUjBsaEdKemVYOExWTTFJUC8vSm1vQmdr?=
- =?utf-8?B?RG0yUjNla1hFWUtaSytGM3NOY0R0UTFOZ2RrV2xxVk1YK3VIVHhUODU1TTlQ?=
- =?utf-8?B?bWRKL0FBV1VKbGdhRktrK1NwczAvNGhBbDBMMDlyWkVDUjFzZVYrbXUyUVFJ?=
- =?utf-8?B?RkVqd2RKSFV1SldvdEJWbzc5UUtDMWVaVWZRRXZKNTBrR3FlbytKTEg4a2E5?=
- =?utf-8?B?V0dieFJyZjkvS282QnduaVNlMjJRcTJNSGVoZWFrRFVEZVQ0b1oyRGlJeWFJ?=
- =?utf-8?B?eEltZkZjcExqaTlXQ2dBUksrNnZNNHZ4M09CbFVweW84S3dqVHBpSWlNTzJ3?=
- =?utf-8?B?ZWQzdVM4VENJYk4wekVuckN5NmlyYmZveGVkTVJlR3I1cFhESTd3T0l6NThh?=
- =?utf-8?B?U1dVVGVtNVZieFlZQ3piS01tSjc1SUMvL3ZsNnlrbERsVUxyZFRqODk3UUhQ?=
- =?utf-8?B?di9nYWxXRFNqSzhTV0JFd0NlaFBjRFR5SVgvZTN3S0JoR3BjVjVkWnV0MFo2?=
- =?utf-8?B?VzgvZW4zcVpiOVF6Sk9sSXpteWQwbk5URDh1T2RER0VOYm5GWjVhYmdwN0Fj?=
- =?utf-8?B?cXJ2K2xTZFc2SXI4V1k2b1B3QnpzOHFTcTlYbjBuTVh4VE9XcEhtTVFXQkY5?=
- =?utf-8?B?SGxtYzAzajZBVTN1ak1GQVBkOWZjMXNJUEd2STZJdkJxQ0xCdVI2eEgvNGJ6?=
- =?utf-8?B?NkpsdGJxU0xValpSS0FyOXpVY3c2THFPV1NOZnJUaElkS0xtZGlyN1FtaUZj?=
- =?utf-8?B?aGdNWkRoOUhZcFVRNEtuUC90eEp1RTBNeVl1cVZ5R0taNm9uRVJvTnhEL0h1?=
- =?utf-8?B?YWJtRTZkbWdsT00zZUtQRGRDWTh1T0JKeEtMdStaUjNOR2hweGh6NWUzMXY4?=
- =?utf-8?B?NzVJeDJsKzhSQmFUZkpqNjF2OW8rZ0tWbHVIeDdzYkJURzgrRXRvclErQnk1?=
- =?utf-8?B?K3I5SVNSU3N6U3F4U2dNcW5LL2tGdnRNelNyd2QxYkZRQ25HOWdWV1k0QTE5?=
- =?utf-8?B?bkUzc3F2QjRiNHZHYlVFOFBxRVArUS9ydURxSEVHNHFWMmNzNTE0WnFqaVds?=
- =?utf-8?B?UUVTZ0tvTHoyWFpXYzBZVnFJb3hPb2l5Y0pJQm43YzFEU2hZSDQyTjhGcGRL?=
- =?utf-8?B?K1VSQzNlRzE2UHRFNHFzK0wwTDhXN1ZxQTM4dmZyakt1UXd4TzErTlU2TTk5?=
- =?utf-8?B?YWpVMU8xQW9BTzQrWGU1L2l0bGtrWmUwQTQ1emlZNEM5RHluTVZkdS9PbUwy?=
- =?utf-8?B?UWZjZTUrekxMb0VjYTc1OFFKcDlOdDNXanJNVEhSWkpvblZJMFRibS9Ccitr?=
- =?utf-8?B?SzZVdFhOM0xMY1U3ZDAxako5Y3JSRGFlYm9neUtvVytaTmJOVTFYWUszUXVz?=
- =?utf-8?B?RkgvcHM3Skk3SnpTVnZDVUFKVXJ6dXFsUUpEZ2IwUE1vb2RKU29RWm9ERkpO?=
- =?utf-8?B?OGZ2ZUdWQ09MR1dVeXJyNXR6SFFzTEFzcnVkMXVkckJNQ29CdUVHOXhmUlZ0?=
- =?utf-8?Q?AwKOLBlwT2gnL89Y1xnqLmw=3D?=
+	=?us-ascii?Q?1rs8740IjyWQ/0ZS1vKqqyIJg16DlFYwekML7mmaz9u2euBYCkMNh37BZFWq?=
+ =?us-ascii?Q?QNwPs2l9bkzLFhGvkIN6rrNE62w6jNAFrLg0xMV293oT9UhgnHOqwAOpCRvK?=
+ =?us-ascii?Q?JhrnQUhYrFkLyiOiTByG4zILEjwjJDy0yY33pAUuIjN1EWn0mCBtPVXjLYVG?=
+ =?us-ascii?Q?10xuUMG4Bd11jvIuXrC2sAaBv+Gp4ZPKjH+F4ogppHvfQx8umnAUcNcWfk80?=
+ =?us-ascii?Q?IhTnivbDhofwttQW4cKz4Q6lSAUet3K/D1qSTsEBzSdoD20i8Uji7MU/8FLE?=
+ =?us-ascii?Q?wPUiih7BCGLa8ID0VQ1Qo5vhLwzBxJr01JXn4YceLrPtDCGCdsr82e+MPC9s?=
+ =?us-ascii?Q?YDJmqoudsW6inTi6m7QTM4YJp2INWl2GbXEw+Mq2GWBQ1JBx1hDx2erKFd8+?=
+ =?us-ascii?Q?6VBouCO7i1StYoz6tF3aFAkVB7t5BFbWb3wpXnIwMS9oatjZReb6+BzdRij0?=
+ =?us-ascii?Q?L+O4drjaRL9kOlWDmap98R3afJr+2A3DDUuW70/lv37j1qtYYaVjVTiIglTu?=
+ =?us-ascii?Q?lzEXoAOQF0Aym+1F2SGq5k6kk3NDoaN1BadIcmvz5Z3WP6oZ9w8P4vRRElGc?=
+ =?us-ascii?Q?/VWVPPqbNkMJzEf+5TymmjMafpN002K/IU1vCVmDBdkGwHh9rUKBplpZLLg/?=
+ =?us-ascii?Q?C30HbI3y7IzUv4rUdC7Z/rm7SNTdSDaYv6MwUi+XZWV3cl/dq9n1MOAVY9QQ?=
+ =?us-ascii?Q?GZtAnoOfjTCDst4p612bsKewJ8QJxWkvD9x7Ek2TbJCyVgfb8FiYM3gWtYVT?=
+ =?us-ascii?Q?WGobXhLGtXjw+eL1gMOcnPtUeiXnscSZKluCd8vmOcxFs6TGm6Q5eQ+H/AOI?=
+ =?us-ascii?Q?R3FtAk0ojQvSdM/YGgSnfNg10tUGXoz34g2OF3Ea+20ZiEHsszZybtNoSHKJ?=
+ =?us-ascii?Q?gMbhhHXkjBhSJV918/C4XEXUZnscjx5oeO6LCS5+fV5KxLMX6aGQ9d/KQpu4?=
+ =?us-ascii?Q?VdmgbzFqeChr/lhKpY270XxaOZn86OzXQvrjiQzR2HRyXK0g5GoPFz3mZspk?=
+ =?us-ascii?Q?65cETHol+w6yPDpflmvRGa4+KalqfLtiXQ9qvWfwFMxWeMV6ftucDp7PAmgN?=
+ =?us-ascii?Q?MWnVWxv7GaQcfAIky9cW9QOChaoxmJu3Pi0PT5z8sykad04zZoF9gdf78S7k?=
+ =?us-ascii?Q?HsOk/XWam4LhOnTqyDHs5zKbQnDiGUR0Eg3riLUZxV8bQC3BKTOU938OSQGy?=
+ =?us-ascii?Q?vfKRF/jI6SjtzH8U+ABX51Qy2IigTzUnUHphqq5HKQKpbnmgbh+ycx6kIcpr?=
+ =?us-ascii?Q?8eZ/KF9nBhT37WPa6QNyocRU/NqgyFWgcrH7i40KvnJzF0LM+kk6RR2me4ch?=
+ =?us-ascii?Q?4jG+o2HG3xuMu+91/pI+FEkXPNWPQzWij/J1AubCIs/1GM8hYZWLeCgkX7tJ?=
+ =?us-ascii?Q?EPWDHd4rUebQezWWGFEC+DPF6V1Q5qvVjt48DczXpdUKeuNhmDqEQLtcxrUv?=
+ =?us-ascii?Q?dZ9MfqZz6wqKmC/jPatIdgVAkYBsPuWsxwSCrXHY3I5BeX46TNEllDPhErFg?=
+ =?us-ascii?Q?tqv8yoDw1RankGMfwGCHeOMu8Uvvvb50qRtZt1nHwncHW9zNyxvybkhgH10C?=
+ =?us-ascii?Q?smfOapEabfV27lfaPtzHZRv2ifM/rFANBV9XINXVE1V7Z4JjegK4dF5mwrPN?=
+ =?us-ascii?Q?m/aSuKy3tVD+7T/AvHu/Dt0=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5bd81eed-92c7-4ade-cec6-08d9efbfed53
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5c66667-11c0-4b68-dc7c-08d9efc0a7c1
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2022 13:43:05.0526
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2022 13:48:17.8301
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wPNLTwYwyiSf2N8TnjySIuVK9VYASxWm6PeWL13pA8XSi5I7a7k3zWjWRw1y69pJ/Ko0fzDCFisyTi/U+MBGGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR04MB4892
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4ZMHcb/UxL7YIiDxz4z5/9R4X72EDvPUIgJh1+/R0oHFbT5nJfQKuS6I+3V2+6as4DcnxCm3xm445WrUfenyCw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8459
 
-On 14.02.2022 14:10, Andrew Cooper wrote:
-> On 14/02/2022 12:50, Andrew Cooper wrote:
->> CET Indirect Branch Tracking is a hardware feature designed to protect against
->> forward-edge control flow hijacking (Call/Jump oriented programming), and is a
->> companion feature to CET Shadow Stacks added in Xen 4.14.
->>
->> Patches 1 thru 5 are prerequisites.  Patches 6 thru 60 are fairly mechanical
->> annotations of function pointer targets.  Patches 61 thru 70 are the final
->> enablement of CET-IBT.
->>
->> This series functions correctly with GCC 9 and later, although an experimental
->> GCC patch is required to get more helpful typechecking at build time.
->>
->> Tested on a TigerLake NUC.
->>
->> CI pipelines:
->>   https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/470453652
->>   https://cirrus-ci.com/build/4962308362338304
->>
->> Major changes from v1:
->>  * Boilerplate for mechanical commits
->>  * UEFI runtime services unconditionally disable IBT
->>  * Comprehensive build time check for embedded endbr's
-> 
-> There's one thing I considered, and wanted to discuss.
-> 
-> I'm tempted to rename cf_check to cfi for the function annotation, as
-> it's shorter without reducing clarity.
+On 14.02.2022 14:27, Oleksandr Andrushchenko wrote:
+>=20
+>=20
+> On 14.02.22 15:22, Jan Beulich wrote:
+>> On 14.02.2022 14:13, Oleksandr Andrushchenko wrote:
+>>>
+>>> On 14.02.22 14:57, Jan Beulich wrote:
+>>>> On 14.02.2022 12:37, Oleksandr Andrushchenko wrote:
+>>>>> On 14.02.22 13:25, Roger Pau Monn=C3=A9 wrote:
+>>>>>> On Mon, Feb 14, 2022 at 11:15:27AM +0000, Oleksandr Andrushchenko wr=
+ote:
+>>>>>>> On 14.02.22 13:11, Roger Pau Monn=C3=A9 wrote:
+>>>>>>>> On Mon, Feb 14, 2022 at 10:53:43AM +0000, Oleksandr Andrushchenko =
+wrote:
+>>>>>>>>> On 14.02.22 12:34, Roger Pau Monn=C3=A9 wrote:
+>>>>>>>>>> On Mon, Feb 14, 2022 at 09:36:39AM +0000, Oleksandr Andrushchenk=
+o wrote:
+>>>>>>>>>>> On 11.02.22 13:40, Roger Pau Monn=C3=A9 wrote:
+>>>>>>>>>>>> +
+>>>>>>>>>>>>>>>             for ( i =3D 0; i < msix->max_entries; i++ )
+>>>>>>>>>>>>>>>             {
+>>>>>>>>>>>>>>>                 const struct vpci_msix_entry *entry =3D &ms=
+ix->entries[i];
+>>>>>>>>>>>>>> Since this function is now called with the per-domain rwlock=
+ read
+>>>>>>>>>>>>>> locked it's likely not appropriate to call process_pending_s=
+oftirqs
+>>>>>>>>>>>>>> while holding such lock (check below).
+>>>>>>>>>>>>> You are right, as it is possible that:
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> process_pending_softirqs -> vpci_process_pending -> read_lock
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> Even more, vpci_process_pending may also
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> read_unlock -> vpci_remove_device -> write_lock
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> in its error path. So, any invocation of process_pending_soft=
+irqs
+>>>>>>>>>>>>> must not hold d->vpci_rwlock at least.
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> And also we need to check that pdev->vpci was not removed
+>>>>>>>>>>>>> in between or *re-created*
+>>>>>>>>>>>>>> We will likely need to re-iterate over the list of pdevs ass=
+igned to
+>>>>>>>>>>>>>> the domain and assert that the pdev is still assigned to the=
+ same
+>>>>>>>>>>>>>> domain.
+>>>>>>>>>>>>> So, do you mean a pattern like the below should be used at al=
+l
+>>>>>>>>>>>>> places where we need to call process_pending_softirqs?
+>>>>>>>>>>>>>
+>>>>>>>>>>>>> read_unlock
+>>>>>>>>>>>>> process_pending_softirqs
+>>>>>>>>>>>>> read_lock
+>>>>>>>>>>>>> pdev =3D pci_get_pdev_by_domain(d, sbdf.seg, sbdf.bus, sbdf.d=
+evfn);
+>>>>>>>>>>>>> if ( pdev && pdev->vpci && is_the_same_vpci(pdev->vpci) )
+>>>>>>>>>>>>> <continue processing>
+>>>>>>>>>>>> Something along those lines. You likely need to continue itera=
+te using
+>>>>>>>>>>>> for_each_pdev.
+>>>>>>>>>>> How do we tell if pdev->vpci is the same? Jan has already broug=
+ht
+>>>>>>>>>>> this question before [1] and I was about to use some ID for tha=
+t purpose:
+>>>>>>>>>>> pdev->vpci->id =3D d->vpci_id++ and then we use pdev->vpci->id=
+=C2=A0 for checks
+>>>>>>>>>> Given this is a debug message I would be OK with just doing the
+>>>>>>>>>> minimal checks to prevent Xen from crashing (ie: pdev->vpci exis=
+ts)
+>>>>>>>>>> and that the resume MSI entry is not past the current limit. Oth=
+erwise
+>>>>>>>>>> just print a message and move on to the next device.
+>>>>>>>>> Agree, I see no big issue (probably) if we are not able to print
+>>>>>>>>>
+>>>>>>>>> How about this one:
+>>>>>>>>>
+>>>>>>>>> diff --git a/xen/drivers/vpci/header.c b/xen/drivers/vpci/header.=
+c
+>>>>>>>>> index 809a6b4773e1..50373f04da82 100644
+>>>>>>>>> --- a/xen/drivers/vpci/header.c
+>>>>>>>>> +++ b/xen/drivers/vpci/header.c
+>>>>>>>>> @@ -171,10 +171,31 @@ static int __init apply_map(struct domain *=
+d, const struct pci_dev *pdev,
+>>>>>>>>>      =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct rangeset *mem, uint16_t cmd)
+>>>>>>>>>      =C2=A0{
+>>>>>>>>>      =C2=A0=C2=A0=C2=A0=C2=A0 struct map_data data =3D { .d =3D d=
+, .map =3D true };
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0 pci_sbdf_t sbdf =3D pdev->sbdf;
+>>>>>>>>>      =C2=A0=C2=A0=C2=A0=C2=A0 int rc;
+>>>>>>>>>
+>>>>>>>>> + ASSERT(rw_is_write_locked(&pdev->domain->vpci_rwlock));
+>>>>>>>>> +
+>>>>>>>>>      =C2=A0=C2=A0=C2=A0=C2=A0 while ( (rc =3D rangeset_consume_ra=
+nges(mem, map_range, &data)) =3D=3D -ERESTART )
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0 {
+>>>>>>>>> +
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * process_pendi=
+ng_softirqs may trigger vpci_process_pending which
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * may need to a=
+cquire pdev->domain->vpci_rwlock in read mode.
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 write_unlock(&pdev->d=
+omain->vpci_rwlock);
+>>>>>>>>>      =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 process_pen=
+ding_softirqs();
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 write_lock(&pdev->dom=
+ain->vpci_rwlock);
+>>>>>>>>> +
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Check if pdev stil=
+l exists and vPCI was not removed or re-created. */
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (pci_get_pdev_by_d=
+omain(d, sbdf.seg, sbdf.bus, sbdf.devfn) !=3D pdev)
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 if ( vpci is NOT the same )
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 {
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 rc =3D 0;
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 break;
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 }
+>>>>>>>>> +=C2=A0=C2=A0=C2=A0 }
+>>>>>>>>> +
+>>>>>>>>>      =C2=A0=C2=A0=C2=A0=C2=A0 rangeset_destroy(mem);
+>>>>>>>>>      =C2=A0=C2=A0=C2=A0=C2=A0 if ( !rc )
+>>>>>>>>>      =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 modify_deco=
+ding(pdev, cmd, false);
+>>>>>>>>>
+>>>>>>>>> This one also wants process_pending_softirqs to run so it *might*
+>>>>>>>>> want pdev and vpci checks. But at the same time apply_map runs
+>>>>>>>>> at ( system_state < SYS_STATE_active ), so defer_map won't be
+>>>>>>>>> running yet, thus no vpci_process_pending is possible yet (in ter=
+ms
+>>>>>>>>> it has something to do yet). So, I think we just need:
+>>>>>>>>>
+>>>>>>>>>      =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 write_unlock(&pde=
+v->domain->vpci_rwlock);
+>>>>>>>>>      =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 process_pending_s=
+oftirqs();
+>>>>>>>>>      =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 write_lock(&pdev-=
+>domain->vpci_rwlock);
+>>>>>>>>>
+>>>>>>>>> and this should be enough
+>>>>>>>> Given the context apply_map is called from (dom0 specific init cod=
+e),
+>>>>>>>> there's no need to check for the pdev to still exits, or whether v=
+pci
+>>>>>>>> has been recreated, as it's not possible. Just add a comment to
+>>>>>>>> explicitly note that the context of the function is special, and t=
+hus
+>>>>>>>> there's no possibility of either the device or vpci going away.
+>>>>>>> Does it really need write_unlock/write_lock given the context?...
+>>>>>> I think it's bad practice to call process_pending_softirqs while
+>>>>>> holding any locks. This is a very specific context so it's likely fi=
+ne
+>>>>>> to not drop the lock, but would still seem incorrect to me.
+>>>>> Ok
+>>>>>>> I think it doesn't as there is no chance defer_map is called, thus
+>>>>>>> process_pending_softirqs -> vpci_process_pending -> read_lock
+>>>>>> Indeed, there's no chance of that because process_pending_softirqs
+>>>>>> will never try to do a scheduling operation that would result in our
+>>>>>> context being scheduled out.
+>>>>>    =C2=A0=C2=A0=C2=A0 while ( (rc =3D rangeset_consume_ranges(mem, ma=
+p_range, &data)) =3D=3D -ERESTART )
+>>>>>    =C2=A0=C2=A0=C2=A0 {
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /*
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * FIXME: Given th=
+e context apply_map is called from (dom0 specific
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * init code at sy=
+stem_state < SYS_STATE_active) it is not strictly
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * required that p=
+dev->domain->vpci_rwlock is unlocked before calling
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * process_pending=
+_softirqs as there is no contention possible between
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * this code and v=
+pci_process_pending trying to acquire the lock in
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * read mode. But =
+running process_pending_softirqs with any lock held
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * doesn't seem to=
+ be a good practice, so drop the lock and re-acquire
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * it right again.
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 write_unlock(&pdev->dom=
+ain->vpci_rwlock);
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 process_pending_softirq=
+s();
+>>>>>    =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 write_lock(&pdev->domai=
+n->vpci_rwlock);
+>>>>>    =C2=A0=C2=A0=C2=A0 }
+>>>> I'm afraid that's misleading at best. apply_map() is merely a specific
+>>>> example where you know the lock is going to be taken. But really any
+>>>> softirq handler could be acquiring any lock, so requesting to process
+>>>> softirqs cannot ever be done with any lock held.
+>>>>
+>>>> What you instead want to explain is why, after re-acquiring the lock,
+>>>> no further checking is needed for potentially changed state.
+>>> How about:
+>>>
+>>> /*
+>>>   =C2=A0* FIXME: Given the context apply_map is called from (dom0 speci=
+fic
+>>>   =C2=A0* init code at system_state < SYS_STATE_active) there is no con=
+tention
+>>>   =C2=A0* possible between this code and vpci_process_pending trying to=
+ acquire
+>>>   =C2=A0* the lock in read mode and destroy pdev->vpci in its error pat=
+h.
+>>>   =C2=A0* Neither pdev may be disposed yet, so it is not required to ch=
+eck if the
+>>>   =C2=A0* relevant pdev still exists after re-acquiring the lock.
+>>>   =C2=A0*/
+>> I'm not sure I follow the first sentence; I guess a comma or two may hel=
+p,
+>> and or using "as well as" in place of one of the two "and". I also don't
+>> think you mean contention, but rather a race between the named entities?
+>  =C2=A0/*
+>  =C2=A0 * FIXME: Given the context from which apply_map is called (dom0 s=
+pecific
+>  =C2=A0 * init code at system_state < SYS_STATE_active) there is no race =
+condition
+>  =C2=A0 * possible between this code and vpci_process_pending which may t=
+ry to acquire
+>  =C2=A0 * the lock in read mode and also try to destroy pdev->vpci in its=
+ error path.
+>  =C2=A0 * Neither pdev may be disposed yet, so it is not required to chec=
+k if the
+>  =C2=A0 * relevant pdev still exists after re-acquiring the lock.
+>  =C2=A0 */
 
-What would the 'i' stand for in this acronym? Irrespective of the answer
-I'd like to point out the name collision with the CFI directives at
-assembler level. This isn't necessarily an objection (I'm certainly for
-shortening), but we want to avoid introducing confusion.
+I'm still struggling with the language, sorry. You look to only have replac=
+ed
+"contention"? Reading it again I'd also like to mention that to me (not a
+native speaker) "Neither pdev may be ..." expresses "None of the pdev-s may
+be ...", when I think you mean "Nor may pdev be ..."
 
 Jan
 
