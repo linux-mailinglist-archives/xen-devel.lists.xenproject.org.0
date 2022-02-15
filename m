@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A07854B7009
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Feb 2022 17:13:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.273389.468555 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C17004B700A
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Feb 2022 17:14:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.273394.468566 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nK0SJ-0003ET-9a; Tue, 15 Feb 2022 16:13:31 +0000
+	id 1nK0Sw-0003hj-ID; Tue, 15 Feb 2022 16:14:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 273389.468555; Tue, 15 Feb 2022 16:13:31 +0000
+Received: by outflank-mailman (output) from mailman id 273394.468566; Tue, 15 Feb 2022 16:14:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nK0SJ-0003BH-67; Tue, 15 Feb 2022 16:13:31 +0000
-Received: by outflank-mailman (input) for mailman id 273389;
- Tue, 15 Feb 2022 16:13:29 +0000
+	id 1nK0Sw-0003fr-FC; Tue, 15 Feb 2022 16:14:10 +0000
+Received: by outflank-mailman (input) for mailman id 273394;
+ Tue, 15 Feb 2022 16:14:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tLD3=S6=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nK0SH-0003BB-Qj
- for xen-devel@lists.xenproject.org; Tue, 15 Feb 2022 16:13:29 +0000
+ id 1nK0Su-0003BB-3p
+ for xen-devel@lists.xenproject.org; Tue, 15 Feb 2022 16:14:08 +0000
 Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
  [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 34b5809c-8e7a-11ec-8eb8-a37418f5ba1a;
- Tue, 15 Feb 2022 17:13:28 +0100 (CET)
+ id 4c28c028-8e7a-11ec-8eb8-a37418f5ba1a;
+ Tue, 15 Feb 2022 17:14:07 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,85 +36,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34b5809c-8e7a-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 4c28c028-8e7a-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1644941607;
+  d=citrix.com; s=securemail; t=1644941646;
   h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ovKE4XIz8gE4XZcO9a9G34fbK7KOG2SOPsUDCGOpP5o=;
-  b=H5U1c+dC30Fap2g5gDgVDSidqG20fIbJ+5Zlu+BMZIFpE9GYbBZcKB/C
-   3pvwXFQyt7/RNWSDl9Q8925ud4EAhupfXkqZe6uBrevfFbvQc36idQQpQ
-   K2y6ebpq5We2wpsVRpSwk3JmQjktZKDgi+2yF2VJSRTFieyWa2sS/aROx
-   M=;
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=Y/jaHwtNL/OjbjUcd0ZP5dRh8I3SPFyPOoEntw5YDac=;
+  b=HFTq1Pa/cFChtTaa3r1gjRHGBxcLpHXqjMSTmqkQ/IO5kzwZbdILsZgj
+   bVTeGS51iuLJ3PcZ1nvY5VgBxjNhReTMo1b7+1vgIRHd7efQjftmOeJUX
+   PIBmOvWaZEZWYD/YdgqhLdiIobW2e0w/VAv8iR51JApOy+MziYF0yuSXh
+   Y=;
 Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: HlZlE89tZQ1DGqZo6cQ2qZWp5fAscMbhlk7cgFRug8sb6D7UlMgNmnHpCUm+gboYmWYRY9AdZj
- UlzplqMLjuNfZ6kaHZ0MQ/b5QtMoKRdyzBfdzsXsV9Kh/vLCseMwNSNDoCEmgMH8/EDZ8+rjN4
- Z1tGHakLDyErwFwqKe2w1P91eixmvePSbyJxixs9p8RPQzVw8j7/+W9T9krMPSxxmbjeXf1cH9
- ZH/r4O4AniExz746ZIj0FZHGlY/nd/9T32EvNHq5F7WGhh+67O8btSWasMa2xwUYHMGa8TBm6o
- IWWwO/iHLjXel7SDRKseR0SR
+IronPort-SDR: 2w+Q22UDzKXMDI+Rpo8rpp3yWfiGdtl0y4JyFgyZ+LF8LG/CBA7Y77kG8Q/OAdzN6lHWbAFRWd
+ T5jjj5bjGMC1MyqJ79q+G1h/XU8jfBRva/+lY2uu3EtP8kyUJVAg06F1mCCUJOgn5cm53SvajX
+ nq4jYyMQWeqY8gRI1KL/pbegDnzWyN91BfdbBU0BNmArdmlvZVeNsIkCqus/Uq+GNoWbZByKmn
+ cT0gHe9R6Fd6d1M//A3Uf41oOTF8N1rNGUFF2XR7hmqBXmQw9cbGLwsySGtWuk/6pX3bvklt22
+ TnkLI2hkY18EYlb0tE6xSvZV
 X-SBRS: 5.1
-X-MesageID: 64260135
+X-MesageID: 64260215
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:KFtb6a4pjJ+2dJt/Dv2PwgxRtBLAchMFZxGqfqrLsTDasY5as4F+v
- mQYDG3SMvyCZjDweNsgYdy/pxxQvpTRzNJqS1ds/y5hHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
- +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FV8MpBsJ00o5wbZj29Mw2rBVPivW0
- T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
- 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zx
- uhA6aCXFSsVIqDBpdQxWBd+SB5nFPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
- 7pCcmlLN03dwbLtqF64YrAEasALJc/3PIQZqzd4wCvQF/oOSpHfWaTao9Rf2V/cg+gQQayAP
- 5NCNFKDajyRbiYUEGcmB6hvs8GJhkj1Imdl+VaK8P9fD2/7k1UqjemF3MDuUsyHQ4BZk1iVo
- krC/n/lGVcKOdqH0z2H/3mwwOjVkkvTWogfCbm5/f5Cm0CIyyoYDxh+aLegiaDn0AjkAYsZc
- hFKvHp1xUQvyKC1ZtfAUkGEhyKoggIRVudgP+Y0zlqy04OBtm51GVM4ZjJGbdUnsuo/Sjory
- kKFkrvVONB/jFGGYSnDr+nJ9FteLQBQdDZfPnFcEWPp9vG++Nlbs/7Zcjp0/EdZZPXRECq4/
- T2FpTNWa1473Z9SjPXTEbwqbluRSnn1ouwdu1+/soGNtFoRiGuZi2uAswaz0Bq4BNzFJmRtR
- VBd8yRk0MgADIuWiAuGS/gXEbei6p6taWOA3QE/T8R8r232oRZPmLy8Bxkkei9U3jssI2e1M
- Cc/RysNjHOsAJdaRfAuON/gYyjb5aPhCc7kRpjpgilmOfBMmPu81Hg2Pya4hjm1+GB1yP1XE
- crLIK6EUCdBYYw6nWXeegvo+eJyrszI7TiIHs6TItXO+ef2WUN5vp9cawXQN7hgtvvbyOgXm
- v4GX/a3J9xkeLWWSkHqHUQ7djjm9FA3WsL7rdJ5bOmGLlY0EW0tEaaJk7ggZ5Zkj+JekeKRp
- iOxXUpRyVzeg3zbKFrVNiA/Oe23BZsv/2gmOSEMPEqz3yRxa4iY86pCJYA8eqMq9bI/wKcsH
- eUFYciJHt9GVi/Dp2YGdZD4oYE7LEariAuCMjCLej86e5I8FQXF9sW9Jlnk9TUUDzrxvsw7+
- uXy2gTeSJsFZgJjEMeJN67/kwLv5SAQwbsgUVHJL99ffFTX3LJrcyGh3OUqJ8wsKAnYwmfI3
- QihHhpF9/LGpJU48YeViPnc/ZupCeZ3AmFTA3LfseStLSDf82eund1AXeKPcWyPXW/44vz/N
- +BczvW6O/wbhlda9YF7Fu8zn6454tLuoZ5czxhlQyqXPwj6VOs4LynUx9RLu41M2qRd6Fm/V
- U+489VHPamEZZH+G1kLKQt5NumO2Jn4QNUJASjZ9Kki2BJKwQ==
-IronPort-HdrOrdr: A9a23:ek4CqqudMiPMRsR2SAJhCF+O7skDjNV00zEX/kB9WHVpm6yj+v
- xGUs566faUskd0ZJhEo7q90ca7Lk80maQa3WBzB8bGYOCFghrKEGgK1+KLrwEIcxeUygc379
- YDT0ERMrzN5VgRt7eG3OG7eexQvOVuJsqT9JjjJ3QGd3AVV0l5hT0JbTpyiidNNXJ77ZxSLu
- v72uN34wCOVF4wdcqBCnwMT4H41qf2fMKPW29+O/Y/gjP+9Q+V1A==
+IronPort-Data: A9a23:1Fy6lqNQ5atS2zPvrR2PkMFynXyQoLVcMsEvi/4bfWQNrUol12dSm
+ jcYWGGHOarfNmGjLdknb4vj8UNSvZHQnNcwSAto+SlhQUwRpJueD7x1DKtR0wB+jCHnZBg6h
+ ynLQoCYdKjYdpJYz/uUGuCJQUNUjMlkfZKhTr6UUsxNbVU8En1500s+w7VRbrNA2rBVPSvc4
+ bsenOWHULOV82Yc3rU8sv/rRLtH5ZweiRtA1rAMTakjUGz2zhH5OKk3N6CpR0YUd6EPdgKMq
+ 0Qv+5nilo/R109F5tpICd8XeGVSKlLZFVDmZna7x8FOK/WNz8A/+v9TCRYSVatYozyKm9Bu+
+ NhPjJ+1VVoXB7PmssEEDBYNRkmSPYUekFPGCX22sMjVxEzaaXr8hf5pCSnaP6VBpLwxWzsXs
+ 6VFdnZdNXhvhMrvqF6/YuBqmsQkKtitJI4Fs2ts5TrYEewnUdbIRKCiCdpwgmtq2JgURKu2i
+ 8wxUzRINEzvOEN2Mw1NFI9muKCyiX/QSmgNwL6SjfVuuDWCpOBr65D9PdyQdtGUSMF9mkeDu
+ nmA72n/GgsdNtGU1XyC6H3Eru3FkD7/WYkSPKal7fMsi1qWrlH/EzVPCwH9+6PgzBfjBZQPc
+ CT45xbCs4A790irUenwXSS7pWLZgCcCcfB1CrI1vVTlJrXv3y6VAW0NTzhkYdMgtdMrSTFC6
+ mJlj+8FFhQ07uTLFCv1GqO86GrrZHNLdTNqiTosEFNdi+QPtr3fmf4mojxLNKeuxuP4Fjjrq
+ 9xhhHhv3u5D5SLnOkjSwLwmv95OjsWTJuLWzl+ONo5A0u+eTNT7D7FEEXCBsZ59wH+xFzFtR
+ kQslcmE9/wpBpqQjiGLS+hlNOj3u6raYG2B3AY2RMNJG9GRF5mLJ9443d2DDB0xbpZslcHBP
+ Cc/Rj+9FLcMZSD3PMebkqq6CtgwzLiIKDgWfqu8Uza6WbAoLFXv1Hg3PSa4hjmx+GBxwfBXE
+ crKKq6EUCdFYZmLORLrHo/xJ5dwnXtgrY4SLLimpymaPU22PSXLF+5daQHWMYjULsqs+W3oz
+ jqWDOPSoz03bQE0SnK/HVc7IQ9YIH4lK4rxrsALJOePLhA/QDMqCuPLwKNncItgxvwHmuDN9
+ 3C7e0lZ1Fug2iGXdVTUMihuOOH1QJJyjXMnJihwb1ym7GcuPNS056AFepppIbR+rL5/zeR5R
+ uUuctmbBqgdUSzO/jkQNMGvrIFreBmxqxiJOi6pPGo2c5J6HlSb8d74ZAr/siIJC3Pv58c5p
+ rSh0CLdQIYCGFs+XJqHNqr3wgro73YHme90U0/ZGfVpeR3hoNpwNij8rv4rOMVQex/N8SSXi
+ lSNChACqOiT/4JsqIvVhbqJppuCGvdlGhYIBHHS6Lu7OHWI/menxoMcAu+EcSqECTHx8aSmI
+ +5U0+v9ILsMm1MT69hwFLNizKQf4drzpuAFklQ4TSuTN1n7WKl9JnSm3NVUsvwfz7BUjgK6R
+ 0aT94QIIr6OIs7kTAYcKQdNgj5vDh3Idu0+NcgIHXg=
+IronPort-HdrOrdr: A9a23:2PIcVK4+U4y7jruZhAPXwM7XdLJyesId70hD6qhwISY6TiW9rb
+ HLoB19726StN9xYgBEpTnuAsS9qB/nmaKdpLNhW4tKPzOW2ldATrsD0WKK+VSJcEfDH6xmpM
+ RdmsBFeaTN5DNB7PoSjjPWL+od
 X-IronPort-AV: E=Sophos;i="5.88,371,1635220800"; 
-   d="scan'208";a="64260135"
-Date: Tue, 15 Feb 2022 16:13:22 +0000
+   d="scan'208";a="64260215"
+Date: Tue, 15 Feb 2022 16:14:01 +0000
 From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
 Subject: Re: tools backports
-Message-ID: <YgvRIszzjM/UB3Hh@perard.uk.xensource.com>
+Message-ID: <YgvRSZnDqO1CAWzV@perard.uk.xensource.com>
 References: <710fd687-16d5-c088-d3be-749851e6eab3@suse.com>
+ <Ygo1Hh8RoZfmPOjo@Air-de-Roger>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Disposition: inline
-In-Reply-To: <710fd687-16d5-c088-d3be-749851e6eab3@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Ygo1Hh8RoZfmPOjo@Air-de-Roger>
 
-On Mon, Feb 14, 2022 at 11:18:44AM +0100, Jan Beulich wrote:
-> I have a couple of simple tool stack backports queued, which - with your
-> agreement - I would want to put onto the stable tree whenever I get
-> around to applying the next batch of backports:
+On Mon, Feb 14, 2022 at 11:55:26AM +0100, Roger Pau Monné wrote:
+> On Mon, Feb 14, 2022 at 11:18:44AM +0100, Jan Beulich wrote:
+> > Anthony,
+> > 
+> > I have a couple of simple tool stack backports queued, which - with your
+> > agreement - I would want to put onto the stable tree whenever I get
+> > around to applying the next batch of backports:
+> > 
+> > d9d3496e817a tools/libs/light: don't touch nr_vcpus_out if listing vcpus and returning NULL
+> > e62cc29f9b6c tools/libs: Fix build dependencies
 > 
-> d9d3496e817a tools/libs/light: don't touch nr_vcpus_out if listing vcpus and returning NULL
-> e62cc29f9b6c tools/libs: Fix build dependencies
+> I would also like to request:
 > 
-> For 4.15 additionally
-> 
-> dd6c062a7a4a tools/libxl: Correctly align the ACPI tables
-> 
-> Please let me know if that's okay with you.
+> 0bdc43c8de libxl: force netback to wait for hotplug execution before connecting
 
-All looks good to go.
+Looks good to be backported as well.
 
 Thanks,
-
 
 -- 
 Anthony PERARD
