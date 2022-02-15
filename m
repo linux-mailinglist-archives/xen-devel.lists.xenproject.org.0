@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECE284B7A23
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Feb 2022 23:01:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.273579.468823 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F22C64B7AF5
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 00:00:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.273586.468833 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nK5sG-0006VO-0j; Tue, 15 Feb 2022 22:00:40 +0000
+	id 1nK6nF-0003GU-E1; Tue, 15 Feb 2022 22:59:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 273579.468823; Tue, 15 Feb 2022 22:00:39 +0000
+Received: by outflank-mailman (output) from mailman id 273586.468833; Tue, 15 Feb 2022 22:59:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nK5sF-0006SV-U1; Tue, 15 Feb 2022 22:00:39 +0000
-Received: by outflank-mailman (input) for mailman id 273579;
- Tue, 15 Feb 2022 22:00:38 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Y6yl=S6=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1nK5sE-0006SP-B3
- for xen-devel@lists.xenproject.org; Tue, 15 Feb 2022 22:00:38 +0000
-Received: from mail-lf1-x133.google.com (mail-lf1-x133.google.com
- [2a00:1450:4864:20::133])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b44a69d5-8eaa-11ec-b215-9bbe72dcb22c;
- Tue, 15 Feb 2022 23:00:36 +0100 (CET)
-Received: by mail-lf1-x133.google.com with SMTP id o2so255905lfd.1
- for <xen-devel@lists.xenproject.org>; Tue, 15 Feb 2022 14:00:36 -0800 (PST)
-Received: from [192.168.2.145] (109-252-138-165.dynamic.spd-mgts.ru.
- [109.252.138.165])
- by smtp.googlemail.com with ESMTPSA id k3sm66075lfo.10.2022.02.15.14.00.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Feb 2022 14:00:35 -0800 (PST)
+	id 1nK6nF-0003Dd-B0; Tue, 15 Feb 2022 22:59:33 +0000
+Received: by outflank-mailman (input) for mailman id 273586;
+ Tue, 15 Feb 2022 22:59:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=a0FC=S6=gmail.com=dmitry.torokhov@srs-se1.protection.inumbo.net>)
+ id 1nK6nD-0003DX-CX
+ for xen-devel@lists.xenproject.org; Tue, 15 Feb 2022 22:59:31 +0000
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [2607:f8b0:4864:20::1029])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ee3fb26e-8eb2-11ec-8eb8-a37418f5ba1a;
+ Tue, 15 Feb 2022 23:59:30 +0100 (CET)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ v13-20020a17090ac90d00b001b87bc106bdso4654740pjt.4
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Feb 2022 14:59:30 -0800 (PST)
+Received: from google.com ([2620:15c:202:201:4e4a:b0ff:e926:40e2])
+ by smtp.gmail.com with ESMTPSA id n85sm10430319pfd.142.2022.02.15.14.59.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Feb 2022 14:59:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,119 +44,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b44a69d5-8eaa-11ec-b215-9bbe72dcb22c
+X-Inumbo-ID: ee3fb26e-8eb2-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language
-         :from:cc:references:to:in-reply-to:content-transfer-encoding;
-        bh=DVulEGE2JpmKCAwv+Z9nIfk2u5ZwvRtSEnvF0++tohE=;
-        b=eAbTUd8SWrkduWMDvYSL9PCIMvTyx1/PDNq+g34U5a6HTO/JfyDazuc/276Sm7ld7f
-         RQAUjz9KnJpaex/eozKDcsnVqqRwA5Fj5CSlNJHiQfzBkJVLCc7y3vw02lxihPY3TExU
-         lYcUYoYFkQWAG/XD2qnNsvTl5P4zqH6pcaasqRB1LojAt2IN4Q9BVX82FHrNStE8wYB4
-         mmhCvKeDI7YjVSy4dXfgCBsx8WWHAoaLNoouUIXdBuim6buHAqSq3/5veKqw8hxrEwEf
-         aYlaoKh86/GFDdT8ghhsvoX3tr735feUL8boUX68tZ9vbfpFMdKPrE/wFw8zC0NNEmPZ
-         ssKw==
+        h=date:from:to:cc:subject:message-id:references:mime-version
+         :content-disposition:in-reply-to;
+        bh=Ydg/QaEHk+YtzGHqWPzjDmBjfyy2f1JmjiAxPzP8crc=;
+        b=neA8UZ+ztvqI+c9Y0GhuINKiFZbH9bwEKDbDdCj/aBEOg8Je4KJR2FY7wqhQqcBAYk
+         3Wy+WGL8h5hMZhHiRrJnELKEzNVne+rWwRiNSK+LaaB40t3gKAMZ5iPl6SH4z0sCF1sK
+         WeebZKAyrtHxpGEBt52RHDKoImWcRYibqiE5YdJSrERCh5ErepkYhiOc7Yw8VRa7JtSJ
+         adEHSUdt8ZETIXkSrLoXpm9wbvKFejNQ1Fv3M/q0bRnt69wRrVeApz/eynGg7QDAnCzT
+         uJF8lE/RahbG4H9xVfC7Tm4Wgh1nT1vyrj+ukgd4F45LFSngNGYO0nz3bd1+0RfzB/uo
+         Q/xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:from:cc:references:to:in-reply-to
-         :content-transfer-encoding;
-        bh=DVulEGE2JpmKCAwv+Z9nIfk2u5ZwvRtSEnvF0++tohE=;
-        b=7DA+cuQ11pWy8B6Cwrc/8KUbiHzMRGSHtlnL/3yd3RPPkRzJd+RndJMQvHEZllmQsa
-         mu3gh76WMmQdwFpKfz+WyunVC43N3jTVZ2KHefgJMUmguwC/xmsa3wwj5zweYmPIOtDw
-         BweTxUWsnC2TwYBjAJiCBskYoOFP9VQTEJeWk7JlLr/sF0Obtqbw1niSrYPmG357BYC/
-         j1EQqoO8O4L9Qio2QBGuoVg/m4e/aAcsmnsAjICet/cHM3qQ84LWSvo08025rwnBaDLu
-         wocfpNtgBeflhE7iBIorF3o1EjWKRR18ZJt8JhCB7DGS//7/6yax4BImoskApEGPPmN0
-         0JIw==
-X-Gm-Message-State: AOAM531mUeGjWh0zBpmPLJEeAqbzvc4p0NETKSkwD1stMN6saudt6U7S
-	/vrovyyle7JZAmrIXgkuHUo=
-X-Google-Smtp-Source: ABdhPJyJtWqeT1e2wzvijosINOm/qc6wwzWUL/FDa9uqhHR32CJOoO1KF1UaVLhHtHEQQhQBEaQuLQ==
-X-Received: by 2002:a05:6512:96d:: with SMTP id v13mr790998lft.343.1644962435902;
-        Tue, 15 Feb 2022 14:00:35 -0800 (PST)
-Message-ID: <635e8121-fca4-580c-6af5-d9317a2eee1b@gmail.com>
-Date: Wed, 16 Feb 2022 01:00:33 +0300
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=Ydg/QaEHk+YtzGHqWPzjDmBjfyy2f1JmjiAxPzP8crc=;
+        b=rrX/9m/dUA0gBgIKTuOucjai8w6p5rggoP7MYJfHADccd+N4s4gq2yFPZdcJyiP0Zh
+         jDwY2/DQYDyu249fBUgazXKL5zmpHheIOH+CY7lr0Qbxia06ptVRMCLflf4v/uvGi3P5
+         HkC4nZCHb4OfyQ3w/zxjyD2etSwX1tjQRzww0MRFHkPip+dBdOppRHfXUjlD5m/KlLRK
+         jQAv5/k//myEXhM2/vfj98d4FkGuqWTmvzH3f6yXlnJvql++38/PBaijy2jqU/WdTWHD
+         unVa/WYQIoBA+SSMWavNsikW5NMPXDvvykO3WHWV8LYNX6qBNjZ2mdrq34/T6NoJ23R6
+         nTXg==
+X-Gm-Message-State: AOAM531WR028QUfcOtyG7tf+m1vlagtQXwOR7N8oFfg3fQKidhE+W7Lb
+	MR6NA00Eu9+AZE/SSJ3zoZ0=
+X-Google-Smtp-Source: ABdhPJzD5VTWuMUJjUi6d0x1rXiN3okRfTcvfy3+tsDIIsH6bfb6SZ+FiyUr2n1wCBp6WTu5fGOOUA==
+X-Received: by 2002:a17:902:f686:: with SMTP id l6mr1079179plg.7.1644965965923;
+        Tue, 15 Feb 2022 14:59:25 -0800 (PST)
+Date: Tue, 15 Feb 2022 14:59:21 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Qing Wang <wangqing@vivo.com>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Jens Axboe <axboe@kernel.dk>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	"Pan, Xinhui" <Xinhui.Pan@amd.com>,
+	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
+	dm-devel@redhat.com, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@xs4all.nl>, xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+	linux-input@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH V3 6/13] input: serio: use time_is_before_jiffies()
+ instead of open coding it
+Message-ID: <YgwwSUlZVakiYF8j@google.com>
+References: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
+ <1644890154-64915-7-git-send-email-wangqing@vivo.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v6 00/21] Introduce power-off+restart call chain API
-Content-Language: en-US
-From: Dmitry Osipenko <digetx@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org,
- linux-ia64@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-sh@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-acpi@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-tegra@vger.kernel.org,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Russell King
- <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Greg Ungerer
- <gerg@linux-m68k.org>, Joshua Thompson <funaho@jurai.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Sebastian Reichel <sre@kernel.org>, Linus Walleij
- <linus.walleij@linaro.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Michael Ellerman <mpe@ellerman.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Len Brown <lenb@kernel.org>, Santosh Shilimkar <ssantosh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Pavel Machek <pavel@ucw.cz>, Lee Jones <lee.jones@linaro.org>,
- Andrew Morton <akpm@linux-foundation.org>, Guenter Roeck
- <linux@roeck-us.net>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, alankao@andestech.com,
- "K . C . Kuen-Chern Lin" <kclin@andestech.com>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
-References: <20220130233718.21544-1-digetx@gmail.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-In-Reply-To: <20220130233718.21544-1-digetx@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1644890154-64915-7-git-send-email-wangqing@vivo.com>
 
-31.01.2022 02:36, Dmitry Osipenko пишет:
-> Problem
-> -------
-> 
-> SoC devices require power-off call chaining functionality from kernel.
-> We have a widely used restart chaining provided by restart notifier API,
-> but nothing for power-off.
-> 
-> Solution
-> --------
-> 
-> Introduce new API that provides both restart and power-off call chains.
-> 
-> Why combine restart with power-off? Because drivers often do both.
-> More practical to have API that provides both under the same roof.
-> 
-> The new API is designed with simplicity and extensibility in mind.
-> It's built upon the existing restart and reboot APIs. The simplicity
-> is in new helper functions that are convenient for drivers. The
-> extensibility is in the design that doesn't hardcode callback
-> arguments, making easy to add new parameters and remove old.
-> 
-> This is a third attempt to introduce the new API. First was made by
-> Guenter Roeck back in 2014, second was made by Thierry Reding in 2017.
-> In fact the work didn't stop and recently arm_pm_restart() was removed
-> from v5.14 kernel, which was a part of preparatory work started by
-> Guenter Roeck. I took into account experience and ideas from the
-> previous attempts, extended and polished them.
+Hi Wang,
 
+On Mon, Feb 14, 2022 at 05:55:43PM -0800, Qing Wang wrote:
+> From: Wang Qing <wangqing@vivo.com>
+> 
+> Use the helper function time_is_{before,after}_jiffies() to improve
+> code readability.
 
-Rafael and all, do you see anything critical that needs to be improved
-in this v6?
+I applied changes by Danilo Krummrich converting the driver to use
+ktime_t (see https://lore.kernel.org/r/20220215160208.34826-3-danilokrummrich@dk-develop.de)
+which makes this change not applicable.
 
-Will be great if you could take this patchset via the power tree if it
-looks okay, or give an ack.
+Thanks.
+
+-- 
+Dmitry
 
