@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E1AF4B68FC
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Feb 2022 11:15:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.272904.467905 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2B7C4B6901
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Feb 2022 11:16:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.272921.467927 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJurV-00029e-PE; Tue, 15 Feb 2022 10:15:09 +0000
+	id 1nJusR-0003BA-DK; Tue, 15 Feb 2022 10:16:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 272904.467905; Tue, 15 Feb 2022 10:15:09 +0000
+Received: by outflank-mailman (output) from mailman id 272921.467927; Tue, 15 Feb 2022 10:16:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJurV-00027K-MA; Tue, 15 Feb 2022 10:15:09 +0000
-Received: by outflank-mailman (input) for mailman id 272904;
- Tue, 15 Feb 2022 10:15:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nJurT-00025Y-HH; Tue, 15 Feb 2022 10:15:07 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nJurT-0006VO-Ez; Tue, 15 Feb 2022 10:15:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nJurT-0006la-3b; Tue, 15 Feb 2022 10:15:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nJurT-0006ba-3B; Tue, 15 Feb 2022 10:15:07 +0000
+	id 1nJusR-00038H-AF; Tue, 15 Feb 2022 10:16:07 +0000
+Received: by outflank-mailman (input) for mailman id 272921;
+ Tue, 15 Feb 2022 10:16:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=h622=S6=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1nJusP-0002aj-JW
+ for xen-devel@lists.xenproject.org; Tue, 15 Feb 2022 10:16:05 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 47180bb0-8e48-11ec-b215-9bbe72dcb22c;
+ Tue, 15 Feb 2022 11:16:03 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F10141063;
+ Tue, 15 Feb 2022 02:16:01 -0800 (PST)
+Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
+ [10.1.195.16])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2FF323F66F;
+ Tue, 15 Feb 2022 02:16:00 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +43,162 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=xeKMV1vCVCCmM84bzkMS6dW9oZWc2+QVAsgQLCt5tRk=; b=XtWE+HYEWaDm0RFijCcVRFCvgh
-	oLwnMGCCXCnTB9osffOYDt79b6o0dFPRUMQ+BJ4EvZhgCaWU+rOEApUui55S1N8tMt17O/8sni3jc
-	Wky6pIUPPcS6Iu4qDyn/byue9Vk5xZBC+GB2tT91f1Zh808+0QNvnSCuNRrUxUE48wRA=;
+X-Inumbo-ID: 47180bb0-8e48-11ec-b215-9bbe72dcb22c
+From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168115-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 168115: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=1193aa2dfbbd11fa7191d000a0cc166d03a249d2
-X-Osstest-Versions-That:
-    ovmf=c9b7c6e0cc7da76b74bcdd8c90cef956d5ae971c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 15 Feb 2022 10:15:07 +0000
+Cc: wei.chen@arm.com,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
+	Dario Faggioli <dfaggioli@suse.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH 0/5] Boot time cpupools
+Date: Tue, 15 Feb 2022 10:15:46 +0000
+Message-Id: <20220215101551.23101-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-flight 168115 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168115/
+This serie introduces a feature for Xen to create cpu pools at boot time, the
+feature is enabled using a configurable that is disabled by default.
+The boot time cpupool feature relies on the device tree to describe the cpu
+pools.
+Another feature is introduced by the serie, the possibility to assign a
+dom0less guest to a cpupool at boot time.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 1193aa2dfbbd11fa7191d000a0cc166d03a249d2
-baseline version:
- ovmf                 c9b7c6e0cc7da76b74bcdd8c90cef956d5ae971c
+Here follows an example, Xen is built with CONFIG_BOOT_TIME_CPUPOOLS=y.
 
-Last test of basis   168074  2022-02-10 02:10:25 Z    5 days
-Testing same since   168115  2022-02-15 02:41:41 Z    0 days    1 attempts
+From the DT:
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Bob Feng <bob.c.feng@intel.com>
+  [...]
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+  a72_0: cpu@0 {
+    compatible = "arm,cortex-a72";
+    reg = <0x0 0x0>;
+    device_type = "cpu";
+    [...]
+  };
 
+  a72_1: cpu@1 {
+    compatible = "arm,cortex-a72";
+    reg = <0x0 0x1>;
+    device_type = "cpu";
+    [...]
+  };
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+  a53_0: cpu@100 {
+    compatible = "arm,cortex-a53";
+    reg = <0x0 0x100>;
+    device_type = "cpu";
+    [...]
+  };
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+  a53_1: cpu@101 {
+    compatible = "arm,cortex-a53";
+    reg = <0x0 0x101>;
+    device_type = "cpu";
+    [...]
+  };
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+  a53_2: cpu@102 {
+    compatible = "arm,cortex-a53";
+    reg = <0x0 0x102>;
+    device_type = "cpu";
+    [...]
+  };
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+  a53_3: cpu@103 {
+    compatible = "arm,cortex-a53";
+    reg = <0x0 0x103>;
+    device_type = "cpu";
+    [...]
+  };
 
+  chosen {
+    #size-cells = <0x1>;
+    #address-cells = <0x1>;
+    xen,dom0-bootargs = "...";
+    xen,xen-bootargs = "...";
 
-Pushing revision :
+    cpupool0 {
+      compatible = "xen,cpupool";
+      cpupool-id = <0>;
+      cpupool-cpus = <&a72_0 &a72_1>;
+    };
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   c9b7c6e0cc..1193aa2dfb  1193aa2dfbbd11fa7191d000a0cc166d03a249d2 -> xen-tested-master
+    cp1: cpupool1 {
+      compatible = "xen,cpupool";
+      cpupool-id = <1>;
+      cpupool-cpus = <&a53_0 &a53_1 &a53_2 &a53_3>;
+      cpupool-sched = "null";
+    };
+
+    module@0 {
+      reg = <0x80080000 0x1300000>;
+      compatible = "multiboot,module";
+    };
+
+    domU1 {
+      #size-cells = <0x1>;
+      #address-cells = <0x1>;
+      compatible = "xen,domain";
+      cpus = <1>;
+      memory = <0 0xC0000>;
+      vpl011;
+      domain-cpupool = <&cp1>;
+
+      module@92000000 {
+        compatible = "multiboot,kernel", "multiboot,module";
+        reg = <0x92000000 0x1ffffff>;
+        bootargs = "...";
+      };
+    };
+  };
+
+  [...]
+
+The example DT is instructing Xen to have two cpu pools, the one with id 0
+having two phisical cpus and the one with id 1 having 4 phisical cpu, the
+second cpu pool uses the null scheduler and from the /chosen node we can see
+that a dom0less guest will be started on that cpu pool.
+
+In this particular case Xen must boot with different type of cpus, so the
+boot argument hmp_unsafe must be enabled.
+
+Luca Fancellu (5):
+  tools/cpupools: Give a name to unnamed cpupools
+  xen/sched: create public function for cpupools creation
+  xen/sched: retrieve scheduler id by name
+  xen/cpupool: Create different cpupools at boot time
+  arm/dom0less: assign dom0less guests to cpupools
+
+ docs/misc/arm/device-tree/booting.txt  |   5 ++
+ docs/misc/arm/device-tree/cpupools.txt | 118 +++++++++++++++++++++++++
+ tools/helpers/xen-init-dom0.c          |  26 +++++-
+ tools/libs/light/libxl_utils.c         |   3 +-
+ xen/arch/arm/Kconfig                   |   9 ++
+ xen/arch/arm/Makefile                  |   1 +
+ xen/arch/arm/cpupool.c                 | 118 +++++++++++++++++++++++++
+ xen/arch/arm/domain.c                  |   6 ++
+ xen/arch/arm/domain_build.c            |   9 +-
+ xen/arch/x86/domain.c                  |   6 ++
+ xen/common/domain.c                    |   5 +-
+ xen/common/sched/core.c                |  11 +++
+ xen/common/sched/cpupool.c             |  30 ++++++-
+ xen/include/public/arch-arm.h          |   2 +
+ xen/include/public/domctl.h            |   2 +-
+ xen/include/xen/domain.h               |   3 +
+ xen/include/xen/sched.h                |  39 ++++++++
+ 17 files changed, 386 insertions(+), 7 deletions(-)
+ create mode 100644 docs/misc/arm/device-tree/cpupools.txt
+ create mode 100644 xen/arch/arm/cpupool.c
+
+-- 
+2.17.1
+
 
