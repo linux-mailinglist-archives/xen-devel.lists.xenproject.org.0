@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70E0B4B7006
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Feb 2022 17:10:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.273378.468543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A07854B7009
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Feb 2022 17:13:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.273389.468555 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nK0OK-0001pb-NZ; Tue, 15 Feb 2022 16:09:24 +0000
+	id 1nK0SJ-0003ET-9a; Tue, 15 Feb 2022 16:13:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 273378.468543; Tue, 15 Feb 2022 16:09:24 +0000
+Received: by outflank-mailman (output) from mailman id 273389.468555; Tue, 15 Feb 2022 16:13:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nK0OK-0001nJ-KL; Tue, 15 Feb 2022 16:09:24 +0000
-Received: by outflank-mailman (input) for mailman id 273378;
- Tue, 15 Feb 2022 16:09:23 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nK0OJ-0001mt-5D; Tue, 15 Feb 2022 16:09:23 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nK0OJ-0005Bn-2d; Tue, 15 Feb 2022 16:09:23 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1nK0OI-0007Li-Gm; Tue, 15 Feb 2022 16:09:22 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1nK0OI-0003dg-Fu; Tue, 15 Feb 2022 16:09:22 +0000
+	id 1nK0SJ-0003BH-67; Tue, 15 Feb 2022 16:13:31 +0000
+Received: by outflank-mailman (input) for mailman id 273389;
+ Tue, 15 Feb 2022 16:13:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tLD3=S6=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nK0SH-0003BB-Qj
+ for xen-devel@lists.xenproject.org; Tue, 15 Feb 2022 16:13:29 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 34b5809c-8e7a-11ec-8eb8-a37418f5ba1a;
+ Tue, 15 Feb 2022 17:13:28 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +36,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=AC3Ze8mf98BvSZkva9eN0UymUnZ3yBmmMzEaHGRMyV0=; b=42859O3LFNUutvMnOzEMBqRLQF
-	fHkGVctt/hejMGBbPM4238NuYMWdSnvpDUGfIPFXwRyV4rIFSXraT1yKxrUWNdYua4uN42+TgQ4t0
-	bTuWHm9VQjOUJLVYzd6bCrchiHbTuA5h/bU22NTIIWTFhSiVRI4q/ZIvmPQ25tR1SJyI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-168119-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 34b5809c-8e7a-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1644941607;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ovKE4XIz8gE4XZcO9a9G34fbK7KOG2SOPsUDCGOpP5o=;
+  b=H5U1c+dC30Fap2g5gDgVDSidqG20fIbJ+5Zlu+BMZIFpE9GYbBZcKB/C
+   3pvwXFQyt7/RNWSDl9Q8925ud4EAhupfXkqZe6uBrevfFbvQc36idQQpQ
+   K2y6ebpq5We2wpsVRpSwk3JmQjktZKDgi+2yF2VJSRTFieyWa2sS/aROx
+   M=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: HlZlE89tZQ1DGqZo6cQ2qZWp5fAscMbhlk7cgFRug8sb6D7UlMgNmnHpCUm+gboYmWYRY9AdZj
+ UlzplqMLjuNfZ6kaHZ0MQ/b5QtMoKRdyzBfdzsXsV9Kh/vLCseMwNSNDoCEmgMH8/EDZ8+rjN4
+ Z1tGHakLDyErwFwqKe2w1P91eixmvePSbyJxixs9p8RPQzVw8j7/+W9T9krMPSxxmbjeXf1cH9
+ ZH/r4O4AniExz746ZIj0FZHGlY/nd/9T32EvNHq5F7WGhh+67O8btSWasMa2xwUYHMGa8TBm6o
+ IWWwO/iHLjXel7SDRKseR0SR
+X-SBRS: 5.1
+X-MesageID: 64260135
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:KFtb6a4pjJ+2dJt/Dv2PwgxRtBLAchMFZxGqfqrLsTDasY5as4F+v
+ mQYDG3SMvyCZjDweNsgYdy/pxxQvpTRzNJqS1ds/y5hHi5G8cbLO4+Ufxz6V8+wwmwvb67FA
+ +E2MISowBUcFyeEzvuV3zyIQUBUjclkfJKlYAL/En03FV8MpBsJ00o5wbZj29Mw2rBVPivW0
+ T/Mi5yHULOa82Yc3lI8s8pvfzs24ZweEBtB1rAPTagjUG32zhH5P7pGTU2FFFPqQ5E8IwKPb
+ 72rIIdVXI/u10xF5tuNyt4Xe6CRK1LYFVDmZnF+A8BOjvXez8CbP2lS2Pc0MC9qZzu1c99Zx
+ uhA6aCXFSsVIqDBpdQxWBd+SB5nFPgTkFPHCSDXXc27ykTHdz3nwul0DVFwNoodkgp1KTgQr
+ 7pCcmlLN03dwbLtqF64YrAEasALJc/3PIQZqzd4wCvQF/oOSpHfWaTao9Rf2V/cg+gQQayAP
+ 5NCNFKDajyRbiYUEGcmB6hvs8GJhkj1Imdl+VaK8P9fD2/7k1UqjemF3MDuUsyHQ4BZk1iVo
+ krC/n/lGVcKOdqH0z2H/3mwwOjVkkvTWogfCbm5/f5Cm0CIyyoYDxh+aLegiaDn0AjkAYsZc
+ hFKvHp1xUQvyKC1ZtfAUkGEhyKoggIRVudgP+Y0zlqy04OBtm51GVM4ZjJGbdUnsuo/Sjory
+ kKFkrvVONB/jFGGYSnDr+nJ9FteLQBQdDZfPnFcEWPp9vG++Nlbs/7Zcjp0/EdZZPXRECq4/
+ T2FpTNWa1473Z9SjPXTEbwqbluRSnn1ouwdu1+/soGNtFoRiGuZi2uAswaz0Bq4BNzFJmRtR
+ VBd8yRk0MgADIuWiAuGS/gXEbei6p6taWOA3QE/T8R8r232oRZPmLy8Bxkkei9U3jssI2e1M
+ Cc/RysNjHOsAJdaRfAuON/gYyjb5aPhCc7kRpjpgilmOfBMmPu81Hg2Pya4hjm1+GB1yP1XE
+ crLIK6EUCdBYYw6nWXeegvo+eJyrszI7TiIHs6TItXO+ef2WUN5vp9cawXQN7hgtvvbyOgXm
+ v4GX/a3J9xkeLWWSkHqHUQ7djjm9FA3WsL7rdJ5bOmGLlY0EW0tEaaJk7ggZ5Zkj+JekeKRp
+ iOxXUpRyVzeg3zbKFrVNiA/Oe23BZsv/2gmOSEMPEqz3yRxa4iY86pCJYA8eqMq9bI/wKcsH
+ eUFYciJHt9GVi/Dp2YGdZD4oYE7LEariAuCMjCLej86e5I8FQXF9sW9Jlnk9TUUDzrxvsw7+
+ uXy2gTeSJsFZgJjEMeJN67/kwLv5SAQwbsgUVHJL99ffFTX3LJrcyGh3OUqJ8wsKAnYwmfI3
+ QihHhpF9/LGpJU48YeViPnc/ZupCeZ3AmFTA3LfseStLSDf82eund1AXeKPcWyPXW/44vz/N
+ +BczvW6O/wbhlda9YF7Fu8zn6454tLuoZ5czxhlQyqXPwj6VOs4LynUx9RLu41M2qRd6Fm/V
+ U+489VHPamEZZH+G1kLKQt5NumO2Jn4QNUJASjZ9Kki2BJKwQ==
+IronPort-HdrOrdr: A9a23:ek4CqqudMiPMRsR2SAJhCF+O7skDjNV00zEX/kB9WHVpm6yj+v
+ xGUs566faUskd0ZJhEo7q90ca7Lk80maQa3WBzB8bGYOCFghrKEGgK1+KLrwEIcxeUygc379
+ YDT0ERMrzN5VgRt7eG3OG7eexQvOVuJsqT9JjjJ3QGd3AVV0l5hT0JbTpyiidNNXJ77ZxSLu
+ v72uN34wCOVF4wdcqBCnwMT4H41qf2fMKPW29+O/Y/gjP+9Q+V1A==
+X-IronPort-AV: E=Sophos;i="5.88,371,1635220800"; 
+   d="scan'208";a="64260135"
+Date: Tue, 15 Feb 2022 16:13:22 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: tools backports
+Message-ID: <YgvRIszzjM/UB3Hh@perard.uk.xensource.com>
+References: <710fd687-16d5-c088-d3be-749851e6eab3@suse.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 168119: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=85589ddbf6f8c6dc75f73aa32e484e3cfd439e7a
-X-Osstest-Versions-That:
-    ovmf=1193aa2dfbbd11fa7191d000a0cc166d03a249d2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 15 Feb 2022 16:09:22 +0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <710fd687-16d5-c088-d3be-749851e6eab3@suse.com>
 
-flight 168119 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/168119/
+On Mon, Feb 14, 2022 at 11:18:44AM +0100, Jan Beulich wrote:
+> I have a couple of simple tool stack backports queued, which - with your
+> agreement - I would want to put onto the stable tree whenever I get
+> around to applying the next batch of backports:
+> 
+> d9d3496e817a tools/libs/light: don't touch nr_vcpus_out if listing vcpus and returning NULL
+> e62cc29f9b6c tools/libs: Fix build dependencies
+> 
+> For 4.15 additionally
+> 
+> dd6c062a7a4a tools/libxl: Correctly align the ACPI tables
+> 
+> Please let me know if that's okay with you.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 85589ddbf6f8c6dc75f73aa32e484e3cfd439e7a
-baseline version:
- ovmf                 1193aa2dfbbd11fa7191d000a0cc166d03a249d2
+All looks good to go.
 
-Last test of basis   168115  2022-02-15 02:41:41 Z    0 days
-Testing same since   168119  2022-02-15 10:43:01 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Rebecca Cran <quic_rcran@quicinc.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+Thanks,
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   1193aa2dfb..85589ddbf6  85589ddbf6f8c6dc75f73aa32e484e3cfd439e7a -> xen-tested-master
+-- 
+Anthony PERARD
 
