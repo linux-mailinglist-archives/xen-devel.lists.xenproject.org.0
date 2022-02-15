@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ED744B6FB3
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Feb 2022 16:27:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.273323.468467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B9F84B6FB5
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Feb 2022 16:27:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.273328.468477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJzjS-0001sg-RO; Tue, 15 Feb 2022 15:27:10 +0000
+	id 1nJzjq-0002S0-4j; Tue, 15 Feb 2022 15:27:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 273323.468467; Tue, 15 Feb 2022 15:27:10 +0000
+Received: by outflank-mailman (output) from mailman id 273328.468477; Tue, 15 Feb 2022 15:27:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJzjS-0001qa-OK; Tue, 15 Feb 2022 15:27:10 +0000
-Received: by outflank-mailman (input) for mailman id 273323;
- Tue, 15 Feb 2022 15:27:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nJzjq-0002PQ-1C; Tue, 15 Feb 2022 15:27:34 +0000
+Received: by outflank-mailman (input) for mailman id 273328;
+ Tue, 15 Feb 2022 15:27:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FJ8a=S6=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
- id 1nJzjR-0001qG-67
- for xen-devel@lists.xenproject.org; Tue, 15 Feb 2022 15:27:09 +0000
+ id 1nJzjo-0002Eg-UI
+ for xen-devel@lists.xenproject.org; Tue, 15 Feb 2022 15:27:33 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id bc8d6a1d-8e73-11ec-b215-9bbe72dcb22c;
- Tue, 15 Feb 2022 16:27:08 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id cabc574d-8e73-11ec-8eb8-a37418f5ba1a;
+ Tue, 15 Feb 2022 16:27:31 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 545621396;
- Tue, 15 Feb 2022 07:27:07 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2450A1396;
+ Tue, 15 Feb 2022 07:27:31 -0800 (PST)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 609393F66F;
- Tue, 15 Feb 2022 07:27:06 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2FD3A3F66F;
+ Tue, 15 Feb 2022 07:27:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bc8d6a1d-8e73-11ec-b215-9bbe72dcb22c
+X-Inumbo-ID: cabc574d-8e73-11ec-8eb8-a37418f5ba1a
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
@@ -52,162 +52,167 @@ Cc: bertrand.marquis@arm.com,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH v2 2/3] xen/vpci: msix: change return value of vpci_msix_{read,write}
-Date: Tue, 15 Feb 2022 15:25:17 +0000
-Message-Id: <a17cd73b221aaeaf6ab449f83aa7918d83642e54.1644937405.git.rahul.singh@arm.com>
+Subject: [PATCH v2 3/3] xen/vpci: msix: move read/write call to MSI-X PBA entry to arch file
+Date: Tue, 15 Feb 2022 15:25:18 +0000
+Message-Id: <3e47316052dce3c85bde04ab6b72ba4f48fa0bb8.1644937405.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1644937405.git.rahul.singh@arm.com>
 References: <cover.1644937405.git.rahul.singh@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Return value is different for the MMIO handler on ARM and x86
-architecture.
+{read,write}{l,q} function argument is different for ARM and x86.
+ARM {read,wrie}(l,q} function argument is pointer whereas X86
+{read,wrie}(l,q} function argument is address itself.
 
-To make the code common for both architectures change the return value
-of vpci_msix_{read, write} to bool. Architecture-specific return value
-will be handled in arch code.
+{read,write}{l,q} is only used in common file to access the MSI-X PBA
+structure. To avoid impacting other x86 code and to make the code common
+move the read/write call to MSI-X PBA to arch specific file.
 
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 ---
 Changes since v1:
  - Added in this version
 ---
- xen/arch/x86/hvm/vmsi.c | 10 ++++++++--
- xen/drivers/vpci/msix.c | 24 ++++++++++++------------
- xen/include/xen/vpci.h  |  8 ++++----
- 3 files changed, 24 insertions(+), 18 deletions(-)
+ xen/arch/x86/hvm/vmsi.c | 47 +++++++++++++++++++++++++++++++++++++++++
+ xen/drivers/vpci/msix.c | 43 ++-----------------------------------
+ xen/include/xen/vpci.h  |  6 ++++++
+ 3 files changed, 55 insertions(+), 41 deletions(-)
 
 diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
-index 17426f238c..761ce674d7 100644
+index 761ce674d7..f124a1d07d 100644
 --- a/xen/arch/x86/hvm/vmsi.c
 +++ b/xen/arch/x86/hvm/vmsi.c
-@@ -1002,7 +1002,10 @@ static int x86_msix_write(struct vcpu *v, unsigned long addr, unsigned int len,
-     const struct domain *d = v->domain;
-     struct vpci_msix *msix = vpci_msix_find(d, addr);
+@@ -1033,4 +1033,51 @@ void vpci_msix_arch_register(struct vpci_msix *msix, struct domain *d)
  
--    return vpci_msix_write(msix, addr, len, data);
-+    if( !vpci_msix_write(msix, addr, len, data) )
-+        return X86EMUL_RETRY;
-+
-+    return X86EMUL_OKAY;
+     list_add(&msix->next, &d->arch.hvm.msix_tables);
  }
- 
- static int x86_msix_read(struct vcpu *v, unsigned long addr, unsigned int len,
-@@ -1011,7 +1014,10 @@ static int x86_msix_read(struct vcpu *v, unsigned long addr, unsigned int len,
-     const struct domain *d = v->domain;
-     struct vpci_msix *msix = vpci_msix_find(d, addr);
- 
--    return vpci_msix_read(msix, addr, len, data);
-+    if ( !vpci_msix_read(msix, addr, len, data) )
-+        return X86EMUL_RETRY;
 +
-+    return X86EMUL_OKAY;
- }
- 
- static const struct hvm_mmio_ops vpci_msix_table_ops = {
++bool vpci_msix_arch_pba_read(unsigned long addr, unsigned int len,
++                             unsigned long *data)
++{
++    /*
++     * Access to PBA.
++     *
++     * TODO: note that this relies on having the PBA identity mapped to the
++     * guest address space. If this changes the address will need to be
++     * translated.
++     */
++    switch ( len )
++    {
++    case 4:
++        *data = readl(addr);
++        break;
++
++    case 8:
++        *data = readq(addr);
++        break;
++
++    default:
++        ASSERT_UNREACHABLE();
++        break;
++    }
++
++    return true;
++}
++
++void vpci_msix_arch_pba_write(unsigned long addr, unsigned int len,
++                              unsigned long data)
++{
++    switch ( len )
++    {
++    case 4:
++        writel(data, addr);
++        break;
++
++    case 8:
++        writeq(data, addr);
++        break;
++
++    default:
++        ASSERT_UNREACHABLE();
++        break;
++    }
++}
+ #endif /* CONFIG_HAS_VPCI */
 diff --git a/xen/drivers/vpci/msix.c b/xen/drivers/vpci/msix.c
-index d89396a3b4..5b315757ef 100644
+index 5b315757ef..b6720f1a1a 100644
 --- a/xen/drivers/vpci/msix.c
 +++ b/xen/drivers/vpci/msix.c
-@@ -155,8 +155,8 @@ static struct vpci_msix_entry *get_entry(struct vpci_msix *msix,
-     return &msix->entries[(addr - start) / PCI_MSIX_ENTRY_SIZE];
- }
- 
--int vpci_msix_read(struct vpci_msix *msix, unsigned long addr,
--                   unsigned int len, unsigned long *data)
-+bool vpci_msix_read(struct vpci_msix *msix, unsigned long addr,
-+                    unsigned int len, unsigned long *data)
- {
-     const struct vpci_msix_entry *entry;
-     unsigned int offset;
-@@ -164,10 +164,10 @@ int vpci_msix_read(struct vpci_msix *msix, unsigned long addr,
-     *data = ~0ul;
- 
-     if ( !msix )
--        return X86EMUL_RETRY;
-+        return false;
- 
-     if ( !access_allowed(msix->pdev, addr, len) )
--        return X86EMUL_OKAY;
-+        return true;
+@@ -170,31 +170,7 @@ bool vpci_msix_read(struct vpci_msix *msix, unsigned long addr,
+         return true;
  
      if ( VMSIX_ADDR_IN_RANGE(addr, msix->pdev->vpci, VPCI_MSIX_PBA) )
-     {
-@@ -193,7 +193,7 @@ int vpci_msix_read(struct vpci_msix *msix, unsigned long addr,
-             break;
-         }
- 
--        return X86EMUL_OKAY;
-+        return true;
-     }
- 
-     spin_lock(&msix->pdev->vpci->lock);
-@@ -227,21 +227,21 @@ int vpci_msix_read(struct vpci_msix *msix, unsigned long addr,
-     }
-     spin_unlock(&msix->pdev->vpci->lock);
- 
--    return X86EMUL_OKAY;
-+    return true;
- }
- 
--int vpci_msix_write(struct vpci_msix *msix, unsigned long addr,
--                    unsigned int len, unsigned long data)
-+bool vpci_msix_write(struct vpci_msix *msix, unsigned long addr,
-+                     unsigned int len, unsigned long data)
- {
-     const struct domain *d = msix->pdev->domain;
-     struct vpci_msix_entry *entry;
-     unsigned int offset;
- 
-     if ( !msix )
--        return X86EMUL_RETRY;
-+        return false;
- 
-     if ( !access_allowed(msix->pdev, addr, len) )
--        return X86EMUL_OKAY;
-+        return true;
- 
-     if ( VMSIX_ADDR_IN_RANGE(addr, msix->pdev->vpci, VPCI_MSIX_PBA) )
-     {
-@@ -264,7 +264,7 @@ int vpci_msix_write(struct vpci_msix *msix, unsigned long addr,
-             }
-         }
- 
--        return X86EMUL_OKAY;
-+        return true;
-     }
+-    {
+-        /*
+-         * Access to PBA.
+-         *
+-         * TODO: note that this relies on having the PBA identity mapped to the
+-         * guest address space. If this changes the address will need to be
+-         * translated.
+-         */
+-        switch ( len )
+-        {
+-        case 4:
+-            *data = readl(addr);
+-            break;
+-
+-        case 8:
+-            *data = readq(addr);
+-            break;
+-
+-        default:
+-            ASSERT_UNREACHABLE();
+-            break;
+-        }
+-
+-        return true;
+-    }
++        return vpci_msix_arch_pba_read(addr, len, data);
  
      spin_lock(&msix->pdev->vpci->lock);
-@@ -342,7 +342,7 @@ int vpci_msix_write(struct vpci_msix *msix, unsigned long addr,
+     entry = get_entry(msix, addr);
+@@ -247,22 +223,7 @@ bool vpci_msix_write(struct vpci_msix *msix, unsigned long addr,
+     {
+         /* Ignore writes to PBA for DomUs, it's behavior is undefined. */
+         if ( is_hardware_domain(d) )
+-        {
+-            switch ( len )
+-            {
+-            case 4:
+-                writel(data, addr);
+-                break;
+-
+-            case 8:
+-                writeq(data, addr);
+-                break;
+-
+-            default:
+-                ASSERT_UNREACHABLE();
+-                break;
+-            }
+-        }
++            vpci_msix_arch_pba_write(addr, len, data);
+ 
+         return true;
      }
-     spin_unlock(&msix->pdev->vpci->lock);
- 
--    return X86EMUL_OKAY;
-+    return true;
- }
- 
- static int init_msix(struct pci_dev *pdev)
 diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
-index 0381a2c911..1c36845abf 100644
+index 1c36845abf..a61daf9d53 100644
 --- a/xen/include/xen/vpci.h
 +++ b/xen/include/xen/vpci.h
-@@ -225,11 +225,11 @@ bool vpci_ecam_read(pci_sbdf_t sbdf, unsigned int reg, unsigned int len,
+@@ -231,6 +231,12 @@ bool vpci_msix_write(struct vpci_msix *msix, unsigned long addr,
+ bool vpci_msix_read(struct vpci_msix *msix, unsigned long addr,
+                     unsigned int len, unsigned long *data);
  
- void vpci_msix_arch_register(struct vpci_msix *msix, struct domain *d);
- 
--int vpci_msix_write(struct vpci_msix *msix, unsigned long addr,
--                    unsigned int len, unsigned long data);
-+bool vpci_msix_write(struct vpci_msix *msix, unsigned long addr,
-+                     unsigned int len, unsigned long data);
- 
--int vpci_msix_read(struct vpci_msix *msix, unsigned long addr,
--                   unsigned int len, unsigned long *data);
-+bool vpci_msix_read(struct vpci_msix *msix, unsigned long addr,
-+                    unsigned int len, unsigned long *data);
- 
++bool vpci_msix_arch_pba_read(unsigned long addr, unsigned int len,
++                             unsigned long *data);
++
++void vpci_msix_arch_pba_write(unsigned long addr, unsigned int len,
++                              unsigned long data);
++
  #endif /* __XEN__ */
  
+ #else /* !CONFIG_HAS_VPCI */
 -- 
 2.25.1
 
