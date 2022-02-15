@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78E384B6686
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Feb 2022 09:48:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.272855.467839 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5424B66E7
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Feb 2022 10:04:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.272865.467851 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJtVr-0007Hr-OT; Tue, 15 Feb 2022 08:48:43 +0000
+	id 1nJtkR-0001G1-3D; Tue, 15 Feb 2022 09:03:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 272855.467839; Tue, 15 Feb 2022 08:48:43 +0000
+Received: by outflank-mailman (output) from mailman id 272865.467851; Tue, 15 Feb 2022 09:03:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nJtVr-0007Ev-LB; Tue, 15 Feb 2022 08:48:43 +0000
-Received: by outflank-mailman (input) for mailman id 272855;
- Tue, 15 Feb 2022 08:48:42 +0000
+	id 1nJtkQ-0001DL-VY; Tue, 15 Feb 2022 09:03:46 +0000
+Received: by outflank-mailman (input) for mailman id 272865;
+ Tue, 15 Feb 2022 09:03:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=svD9=S6=redhat.com=btissoir@srs-se1.protection.inumbo.net>)
- id 1nJtVq-0006jJ-JW
- for xen-devel@lists.xenproject.org; Tue, 15 Feb 2022 08:48:42 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=A2Di=S6=vivo.com=wangqing@srs-se1.protection.inumbo.net>)
+ id 1nJtkP-0001DE-Di
+ for xen-devel@lists.xenproject.org; Tue, 15 Feb 2022 09:03:45 +0000
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-sgaapc01on20708.outbound.protection.outlook.com
+ [2a01:111:f400:feab::708])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 124e367b-8e3c-11ec-b215-9bbe72dcb22c;
- Tue, 15 Feb 2022 09:48:41 +0100 (CET)
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-147-ldGX96ePNJqNM7dk4ItkEw-1; Tue, 15 Feb 2022 03:48:36 -0500
-Received: by mail-pj1-f71.google.com with SMTP id
- fh23-20020a17090b035700b001b9a9045bceso1358641pjb.8
- for <xen-devel@lists.xenproject.org>; Tue, 15 Feb 2022 00:48:36 -0800 (PST)
+ id 2b5e6184-8e3e-11ec-b215-9bbe72dcb22c;
+ Tue, 15 Feb 2022 10:03:42 +0100 (CET)
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
+ by HK0PR06MB2482.apcprd06.prod.outlook.com (2603:1096:203:6c::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.15; Tue, 15 Feb
+ 2022 09:03:36 +0000
+Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb]) by SL2PR06MB3082.apcprd06.prod.outlook.com
+ ([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.019; Tue, 15 Feb 2022
+ 09:03:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,108 +47,157 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 124e367b-8e3c-11ec-b215-9bbe72dcb22c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1644914919;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cAghCw6nMXIP8DbPC2ZTmMjVdzgtfdV0Q4rDuIo9NkY=;
-	b=DSqmbLSAwCAJVngxiscPK3AI83fBvtKyU1g0AilU1+5l1HWqSms+MFHSUGa0sZO/SfGwjz
-	MTARKord6OnXu1SikYooOuoDXp45WeVwP+NSyH7Y/dELylzZWdS76PxZnMHKfa6/B5mtm0
-	Kk9NNo2FFnT7z/6lrYWi3bCEQd9gsF4=
-X-MC-Unique: ldGX96ePNJqNM7dk4ItkEw-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=cAghCw6nMXIP8DbPC2ZTmMjVdzgtfdV0Q4rDuIo9NkY=;
-        b=WCWacFNw/pagzl4A2W37lrdS2tBc/clMPTDFakB84VXYJX/JucOa9MzMVXqPvAB0Au
-         mAlETX1BkYqnfzKK6cevLzKHWev/xDb3VG6C8OtUgXZ/BWb0pqNRRGsWHeoff8LlFYJl
-         /e2+zUjqAsU9VDynxur4HtRswzeKZXh1XXch+8P9a7+QDOHyjvUXcBV/A2tg1vR1o8yh
-         S1qHULWUu/Dh2Zo6LAPhuxjfToi4eL6dBs4Z/qn99uxqVSpwm7nRkRMHiQFIhoa9mGML
-         CcIfaFW7BFwP94SSlPYBtqDRIamx0veyDYTcvxIhwDSQO8iLz9YwtFRzUncbsYAKjixS
-         NCfA==
-X-Gm-Message-State: AOAM530fTKAIttB/SediBRmH3KBWEaI0+WZfK7PWN6hlU21E/btsMfdG
-	whKXAdkP2yiKGjEpXacnFR9qb2UbtV4dOkIuEK1wn2shmHz1C2pjUpopofubFQByBlz7kHmBqWj
-	HBfdvZyhl6+ts26wzCbYvOVgQgCCVgizhXKQk/AX8RTE=
-X-Received: by 2002:a63:2bc5:: with SMTP id r188mr2644616pgr.363.1644914915615;
-        Tue, 15 Feb 2022 00:48:35 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxNykZwzg4bf+5n8EbXDkY7JRsdOTnLNDPgNJlOcTDejNQ8sWs8DiYpM4W3ztHYleOanIdgFMhO3Rj6Rj63QAs=
-X-Received: by 2002:a63:2bc5:: with SMTP id r188mr2644575pgr.363.1644914915393;
- Tue, 15 Feb 2022 00:48:35 -0800 (PST)
+X-Inumbo-ID: 2b5e6184-8e3e-11ec-b215-9bbe72dcb22c
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZPpPmNNC0M3vPAJnM3PxwLd3sSup3c704w/t6rAZG9tY1fy4ORCIl0rzGjO3jqBzM3jcwzHUFSyLBTvfXOQMI4r7Jm8JSRWbC3g1uISbR1RFdMUkww4ZK37+Fvpqv/7/51x0NGSAvPVw9BdYEt0Psw7OrY+4mxoHUxEEEL5zj+zf5UUu9S3h4J8VEd7PWSYKpdOvTlOSiYL/CiUy+7tvKaitzl22zZHQd+jEcrAemS6z0Xf09mmauziiilzdR+PCPm9WaY1jwLadrRFrym5RadF7rSKofjWIQhSlPNqiZsEurieyTFV7b0HhyeSKSg++K3YquRHnIfZNoUZYhzW2wA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pGZ8vVYEdGEeFqa/5tb4dZHPb8IWs83sz1PdBYLJQ9M=;
+ b=eWoc+VgYrgtPL2eSRSh0Nxu84taTPW2q2g8+501S/gENFvlFjTCRY4tg29JReY+01Kp1mpJJ13N7lUG3iuvhWK7rlhr8OuvPyfRZMWi/5ZqtgfuSl7vyA2pT8PSofU9FfVYJ1t+zTxIH4KthMTD0cZ2fqqOqpaRAMiXmw2CnMeKSHA2mZL4C8EM+2JofJlbbvI8s1YI/KdqIwf2PSKFdkkxHFi/EXD7Cg6XcQgr5ktP2DSwVujn9zUz0PBD0A44qvBan/IS5SjpTwwf/50wJ2rZrJSmznbG9HlGDF/5xzVmL52nLKmFon03pArFkYU9MhXf+Gu1brAjptpllpLxccg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo0.onmicrosoft.com;
+ s=selector2-vivo0-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pGZ8vVYEdGEeFqa/5tb4dZHPb8IWs83sz1PdBYLJQ9M=;
+ b=Hl5XTdSAOM4j48RCB6XexixtVR3prG5OpcU6+u0kam9wdxe3BLwYvln4Nq4MLsUI8NhiiCCMxAZBINv4GTbGiEPA8fe850k3F2BFRT3tz4zqOUE3xPNhhcdUEI0yAIBeGPzaRBwWoVeAit8+fKYOrSh0EgXG9wUENlrse+waD3Y=
+From: =?utf-8?B?546L5pOO?= <wangqing@vivo.com>
+To: Benjamin Tissoires <benjamin.tissoires@redhat.com>
+CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Jens Axboe
+	<axboe@kernel.dk>, Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+	<sboyd@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>, Joonas
+ Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+	<rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>, Daniel Vetter
+	<daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+	=?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, "Pan,
+ Xinhui" <Xinhui.Pan@amd.com>, Srinivas Pandruvada
+	<srinivas.pandruvada@linux.intel.com>, Jiri Kosina <jikos@kernel.org>, Dmitry
+ Torokhov <dmitry.torokhov@gmail.com>, Alasdair Kergon <agk@redhat.com>, Mike
+ Snitzer <snitzer@redhat.com>, "dm-devel@redhat.com" <dm-devel@redhat.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil
+	<hverkuil@xs4all.nl>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, "linux-block@vger.kernel.org"
+	<linux-block@vger.kernel.org>, lkml <linux-kernel@vger.kernel.org>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "open
+ list:HID CORE LAYER" <linux-input@vger.kernel.org>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Subject: RE: [PATCH V3 5/13] hid: use time_is_after_jiffies() instead of open
+ coding it
+Thread-Topic: [PATCH V3 5/13] hid: use time_is_after_jiffies() instead of open
+ coding it
+Thread-Index: AQHYIg9EnfxyFxjNWkWg98nJO/5UWayUTUWAgAABLl4=
+Date: Tue, 15 Feb 2022 09:03:35 +0000
+Message-ID:
+ <SL2PR06MB30825E9679FD33F7F8E71075BD349@SL2PR06MB3082.apcprd06.prod.outlook.com>
+References: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
+ <1644890154-64915-6-git-send-email-wangqing@vivo.com>
+ <AFkA4QAPE2Ol9ndmGVhdHKpl.9.1644914882392.Hmail.wangqing@vivo.com.@PENBTy1od0pKSzV5ZVcrS192THBXVjl0M1RzRWRrMHhDTy1FVHhlSnNYTTJjMTE3SnpOd0BtYWlsLmdtYWlsLmNvbT4=>
+In-Reply-To:
+ <AFkA4QAPE2Ol9ndmGVhdHKpl.9.1644914882392.Hmail.wangqing@vivo.com.@PENBTy1od0pKSzV5ZVcrS192THBXVjl0M1RzRWRrMHhDTy1FVHhlSnNYTTJjMTE3SnpOd0BtYWlsLmdtYWlsLmNvbT4=>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+suggested_attachment_session_id: cadb0166-f93d-29f7-b7a3-f209084af4ce
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vivo.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: f91fe3ab-97fa-44c3-d80b-08d9f0620cae
+x-ms-traffictypediagnostic: HK0PR06MB2482:EE_
+x-microsoft-antispam-prvs:
+ <HK0PR06MB2482905E315D173D3EB3B34CBD349@HK0PR06MB2482.apcprd06.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ WHJdenequLjlJ752zdjZ57L24J0fYp70RJhGS6PyM5/LMoiNwh9lxJ9kxEXf/LUdeaKfHDBXETTClt7rLr/HAdF3HuY/yi5jbGex4RQf/9KWY9cxbvYSxORL9O/pau4Z9kGl40/NrJTCdp9YWJGEq07BlLzoVnkCQWNHSSPYlzhjrguv67pkq27f6TPcGGkqyaPnHpd8dVgEPI+0U1Xh1RPfL/KZ9HLmopk0kHHa2wl3QaqlnDqEDmLd1WkWyuCPYJAMK1lLNVgcfE8WthJaDZCq6z7DOql9XGWkQqUTsiinu53ljXbLALCPWgd855h7DcK8bopKfn1UoVlMHp+pEsCQReREZGanD1RjpjFyl4NN1ejwYU890Cg7Q54pBc6IxrmiKNKzzoGxA4pST/XZaSoMsannqj8YDA7bdRf486qAIEOeRb0KaSOYUwf5kHTjff8E09Bpk3+1Zh0xRrdassPDY5SAjUcyFFHuFVRA5dVGlND6rwYB6DmT+FpewRctdmkFls8xQcoo7jlSBcYPxYYqeUP9AeoAFSeX2v6XRPiJFnrcN5rTEV8GORU18O4i0RvcB7hoY/wYMn9Eu+uFCoK5W0zOAHaBwVuQJ9bzotdZCv9XnzEnBfZ9hRd0q0WtZNxndSVnChMZHnRhfF4FCW+pH0pt9EJqrWnVlyhPBbrzbGxKWITqDPtELRRREkSW87wBXVZ5mV0HVAIVyHbAQA==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2PR06MB3082.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(4326008)(122000001)(64756008)(66946007)(7696005)(7406005)(55016003)(508600001)(6506007)(91956017)(5660300002)(9686003)(76116006)(66556008)(66446008)(83380400001)(7416002)(66476007)(86362001)(52536014)(71200400001)(8676002)(8936002)(2906002)(38100700002)(6916009)(85182001)(316002)(33656002)(38070700005)(54906003)(186003)(26005);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?SU50dlArcGdlOEc4OXFINDRpdDlGdTVVYkg4RlVtWkJoYUxZNW5IL3FNUVNP?=
+ =?utf-8?B?cmVQb3c0WXU2UkpqeGhJdjNjYTV3RHJOTDFJQjRCSEt5MjdjWHVKV1V5TUVE?=
+ =?utf-8?B?K1BjdzNCUzhxdnBCVkZYRE9KSnY5Q0ZzeGdwTTljeEpwb3NMNTZXRE0rZGRD?=
+ =?utf-8?B?Ungxa2VUR3UyTUNSdHFueXlyMXFYemRkakhraFl0am5IaHAzd1VhQnlkbnA5?=
+ =?utf-8?B?QnRlTy91R081QzVRd0ZEcTczcXpDbmpiL21vM3NWOXl1NVU1bDR2aFNWdlVS?=
+ =?utf-8?B?UDBxV0VhbG5lenV2ZEpuT205K3ZOOUFVL2JKNlI0OUo5SzVuOHpONExEd2x1?=
+ =?utf-8?B?NWRMNys4ZkxQQ005bXI1dEtESEZiUGs0dk5hOExpRXF6NkYyVkdxTFJWZ3J1?=
+ =?utf-8?B?WXowS2pxdlYwNzU0YXl0bHVFWjhqZDVSS3psclgwdXljRnR0MDFRL2k5Z25C?=
+ =?utf-8?B?dmJweGc5aFZSRTVORzBtNUc3Q1hMYnRXSXFxWnMwSndIVWpYRDJvelJPWGNS?=
+ =?utf-8?B?cC9yTUVUVzFaODVocXRzNElIVnlsVUdPZmVySUh5Sk5TVVV0eG5oY2dVdi8x?=
+ =?utf-8?B?THFuTVpWVWJuNkZ0dStjYmRDdWFWNWh3TVlFRDdveFByc0graWVpNklwRFl6?=
+ =?utf-8?B?TGhuTnhRcHR3TmhPY0Yvem5aSFRwZHl5T3NCZnkwZndjTUI1cW9MVThwZ296?=
+ =?utf-8?B?bmdoV0FqQ0ZZMVg2MkFGZGZFODdqQXhSU3c5TXRUZVg2VmpBOThaYytpeG5G?=
+ =?utf-8?B?OUVFL3NXMXp2UjROV1lINUsyV1VmZDhlbjNFZU1jaFJ3bWJ4c3hISS9UMXZx?=
+ =?utf-8?B?c1JyNWFPbWZ1YXNXQnpxbVJ6NVRGZzVrL0Jrb0dlblZOTE1HbENMNU44ZFN5?=
+ =?utf-8?B?WUJMRDBHakVQUVAvMHQvQXdSR3YrcU9YYUJXR1RhR1dLV1hPUHQxS2pSVVdC?=
+ =?utf-8?B?N0V5R0h5QTRvbWtSQTdRanF1YjlQekt2R1NPVTg1TGlYSCtDMW16QzM5OGdk?=
+ =?utf-8?B?aHNJenoxbkp3V0NvS28yenV6cmUzU2hmdkVvQ3NRS1V2OTZHQUhKYk85dTBw?=
+ =?utf-8?B?YXA5aFJwcGtLVEVnQ2x6TUNLVTJDdDZJRWlsZWF6RW1wV3cvSGZnQzUxbzdR?=
+ =?utf-8?B?b3ZRSXpIcGozUExEWGVlYTYweFE0a3dPdGNlS0MrK2xjL1VTcW5CMU9ndDNw?=
+ =?utf-8?B?QzlXNHdTVXVzRjEzWTJkTDZiMDZadjVCVmNkU3dMS0RKZlppeWJ6QjdOSCt0?=
+ =?utf-8?B?K1kxRUJkYUlYczY3Q2g3UHJINk5RTG5sOVpFTURoRi9FSmxKL0FiYzBCTmx6?=
+ =?utf-8?B?QlpIMlBOVXhzVDIvWnVxUXoxS1hnTzVadVg1ZUFhd2lFUThJQ056R0RCbHJj?=
+ =?utf-8?B?ekNicElla0N0enFKWTFVeTJnTnVWMkR2OUxHRmFrTUdsQi9sbnBiSU4wZEJZ?=
+ =?utf-8?B?YTZjKy93RWlMY1JZRzBwaHZubzJ1OTI0VUNKTk9ZNHR2TU95aTBuN3FhZ3Ux?=
+ =?utf-8?B?Y21CZGNobHFUNE5LdlJleUduMGZxRHRORUp3SG5yalNWSkpDWjFzNWs3NHBx?=
+ =?utf-8?B?Y3B0eU1jYUtCdkMxWVdncGZpemx4MnMrT20xd2I4ZzcwY3M3THJMQnpBZmQ3?=
+ =?utf-8?B?dncwNDA4ZmVLdmR3ZWIxRHBlQWJ6Y25BcDlEWm9yMmQ3YWFCOU9lVmZaeEcz?=
+ =?utf-8?B?cjBoSi91d1hoUUxBSVZ3cTNCRko2MGk5SVkwcDd4MWI2Z3V6ZDVwMkVNNHBn?=
+ =?utf-8?B?MDJteGxwSDdEMEE4c2I5czNyd2FsNis3RCtTRnNIWHBxaHhyQnAxY29OWVZE?=
+ =?utf-8?B?ODJMb3ZENXNZeHc5UXh5OFpTVmplSG0wbDllVHJHTFgzSExPcjEwRWR3WXNj?=
+ =?utf-8?B?V2wxOEZZZjJ5VmlSanZSMWV4MnVNYnBEWGd3T3hTMmNhL2ErRldHSEx1bkQw?=
+ =?utf-8?B?NXlPaXlPR0pHdVRjVk5LS01mdmZPaTBSNXBFMzVRTjNKWmhxQ2dXdEF3dFRC?=
+ =?utf-8?B?UnY1ZXVWdng0YVhhTk9CYzJIb0tGNmExRGhzTC9zV1lXc0dBN0NyQUFaTHMv?=
+ =?utf-8?B?K3JRSUQ5ZUhqNVBQUUtrTWR0RkFpaU5ybU9kUWhqc1dkOXVxOEpzdUJQMmRv?=
+ =?utf-8?B?WVJJZEdDdnFDSHBjQmg0NWVXNXVzdHZhS01POWdaYnpYcmFtRmdwRzZvRllr?=
+ =?utf-8?B?dmc9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <1644890154-64915-1-git-send-email-wangqing@vivo.com> <1644890154-64915-7-git-send-email-wangqing@vivo.com>
-In-Reply-To: <1644890154-64915-7-git-send-email-wangqing@vivo.com>
-From: Benjamin Tissoires <benjamin.tissoires@redhat.com>
-Date: Tue, 15 Feb 2022 09:48:24 +0100
-Message-ID: <CAO-hwJLwomyHyjza8x3cEhR97HkK7Z7yPWVXwA4-1jmM=WKqeQ@mail.gmail.com>
-Subject: Re: [PATCH V3 6/13] input: serio: use time_is_before_jiffies()
- instead of open coding it
-To: Qing Wang <wangqing@vivo.com>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Jens Axboe <axboe@kernel.dk>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, 
-	Alex Deucher <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	"Pan, Xinhui" <Xinhui.Pan@amd.com>, 
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>, Jiri Kosina <jikos@kernel.org>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Alasdair Kergon <agk@redhat.com>, 
-	Mike Snitzer <snitzer@redhat.com>, dm-devel@redhat.com, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@xs4all.nl>, xen-devel@lists.xenproject.org, 
-	linux-block@vger.kernel.org, lkml <linux-kernel@vger.kernel.org>, 
-	linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org, 
-	"open list:HID CORE LAYER" <linux-input@vger.kernel.org>, linux-media@vger.kernel.org
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=btissoir@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f91fe3ab-97fa-44c3-d80b-08d9f0620cae
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Feb 2022 09:03:35.8007
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9wH0npR8CluoPGqmP2HJeFXUqq67lGSukIp+nLBWT0mWvc3/bUKXy4rkOv2bNsLCCOZBvjtIrs5GYJoR0Ftwaw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK0PR06MB2482
 
-On Tue, Feb 15, 2022 at 2:57 AM Qing Wang <wangqing@vivo.com> wrote:
->
-> From: Wang Qing <wangqing@vivo.com>
->
-> Use the helper function time_is_{before,after}_jiffies() to improve
-> code readability.
->
-> Signed-off-by: Wang Qing <wangqing@vivo.com>
-> ---
-
-Reviewed-by: Benjamin Tissoires <benjamin.tissoires@redhat.com>
-
-Cheers,
-Benjamin
-
->  drivers/input/serio/ps2-gpio.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/input/serio/ps2-gpio.c b/drivers/input/serio/ps2-gpio.c
-> index 8970b49..7834296
-> --- a/drivers/input/serio/ps2-gpio.c
-> +++ b/drivers/input/serio/ps2-gpio.c
-> @@ -136,7 +136,7 @@ static irqreturn_t ps2_gpio_irq_rx(struct ps2_gpio_data *drvdata)
->         if (old_jiffies == 0)
->                 old_jiffies = jiffies;
->
-> -       if ((jiffies - old_jiffies) > usecs_to_jiffies(100)) {
-> +       if (time_is_before_jiffies(old_jiffies + usecs_to_jiffies(100))) {
->                 dev_err(drvdata->dev,
->                         "RX: timeout, probably we missed an interrupt\n");
->                 goto err;
-> @@ -237,7 +237,7 @@ static irqreturn_t ps2_gpio_irq_tx(struct ps2_gpio_data *drvdata)
->         if (old_jiffies == 0)
->                 old_jiffies = jiffies;
->
-> -       if ((jiffies - old_jiffies) > usecs_to_jiffies(100)) {
-> +       if (time_is_before_jiffies(old_jiffies + usecs_to_jiffies(100))) {
->                 dev_err(drvdata->dev,
->                         "TX: timeout, probably we missed an interrupt\n");
->                 goto err;
-> --
-> 2.7.4
->
-
+wqAKPj5PbiBUdWUsIEZlYiAxNSwgMjAyMiBhdCAyOjU2IEFNIFFpbmcgV2FuZyA8d2FuZ3FpbmdA
+dml2by5jb20+IHdyb3RlOgo+Pgo+PiBGcm9tOiBXYW5nIFFpbmcgPHdhbmdxaW5nQHZpdm8uY29t
+Pgo+Pgo+PiBVc2UgdGhlIGhlbHBlciBmdW5jdGlvbiB0aW1lX2lzX3tiZWZvcmUsYWZ0ZXJ9X2pp
+ZmZpZXMoKSB0byBpbXByb3ZlCj4+IGNvZGUgcmVhZGFiaWxpdHkuCj4+Cj4+IFNpZ25lZC1vZmYt
+Ynk6IFdhbmcgUWluZyA8d2FuZ3FpbmdAdml2by5jb20+Cj4+IEFja2VkLWJ5OiBTcmluaXZhcyBQ
+YW5kcnV2YWRhIDxzcmluaXZhcy5wYW5kcnV2YWRhQGxpbnV4LmludGVsLmNvbT4KPgo+RldJVywg
+dGhpcyBvbmUgaXMKPkFja2VkLWJ5OiBCZW5qYW1pbiBUaXNzb2lyZXMgPGJlbmphbWluLnRpc3Nv
+aXJlc0ByZWRoYXQuY29tPgo+Cj5XYW5nLCBpcyB0aGVyZSBhbnkgcGxhbiB0byB0YWtlIHRoaXMg
+c2VyaWVzIHRocm91Z2ggdGhlIHRyaXZpYWwgdHJlZQoKVGhhdCdzIHdoeSBJIGJhdGNoIHRoZW0g
+aW4gYSBzZXJpZXMsIGJ1dCBJIGRvbid0IGtub3cgaG93IHRvIHRha2UgCnRoaXMgc2VyaWVzIHRo
+cm91Z2ggdGhlIHRyaXZpYWwgdHJlZSBkaXJlY3RseS4KCkkgd291bGQgYXBwcmVjaWF0ZSBpZiB5
+b3UgY291bGQgaGVscC4KClRoYW5rcywKV2FuZwoKPm9yIHNob3VsZCBlYWNoIG1haW50YWluZXIg
+dGFrZSB0aGUgbWF0Y2hpbmcgcGF0Y2hlcz8KPgo+Q2hlZXJzLAo+QmVuamFtaW4KPgo+PiAtLS0K
+Pj7CoCBkcml2ZXJzL2hpZC9pbnRlbC1pc2gtaGlkL2lwYy9pcGMuYyB8IDIgKy0KPj7CoCAxIGZp
+bGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPj4KPj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvaGlkL2ludGVsLWlzaC1oaWQvaXBjL2lwYy5jIGIvZHJpdmVycy9oaWQvaW50
+ZWwtaXNoLWhpZC9pcGMvaXBjLmMKPj4gaW5kZXggOGNjYjI0Ni4uMTVlMTQyMwo+PiAtLS0gYS9k
+cml2ZXJzL2hpZC9pbnRlbC1pc2gtaGlkL2lwYy9pcGMuYwo+PiArKysgYi9kcml2ZXJzL2hpZC9p
+bnRlbC1pc2gtaGlkL2lwYy9pcGMuYwo+PiBAQCAtNTc4LDcgKzU3OCw3IEBAIHN0YXRpYyB2b2lk
+IF9pc2hfc3luY19md19jbG9jayhzdHJ1Y3QgaXNodHBfZGV2aWNlICpkZXYpCj4+wqDCoMKgwqDC
+oMKgwqDCoCBzdGF0aWMgdW5zaWduZWQgbG9uZ8KgwqDCoCBwcmV2X3N5bmM7Cj4+wqDCoMKgwqDC
+oMKgwqDCoCB1aW50NjRfdMKgwqDCoMKgwqDCoMKgIHVzZWM7Cj4+Cj4+IC3CoMKgwqDCoMKgwqAg
+aWYgKHByZXZfc3luYyAmJiBqaWZmaWVzIC0gcHJldl9zeW5jIDwgMjAgKiBIWikKPj4gK8KgwqDC
+oMKgwqDCoCBpZiAocHJldl9zeW5jICYmIHRpbWVfaXNfYWZ0ZXJfamlmZmllcyhwcmV2X3N5bmMg
+KyAyMCAqIEhaKSkKPj7CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm47Cj4+
+Cj4+wqDCoMKgwqDCoMKgwqDCoCBwcmV2X3N5bmMgPSBqaWZmaWVzOwo+PiAtLQo+PiAyLjcuNAo+
+Pgo=
 
