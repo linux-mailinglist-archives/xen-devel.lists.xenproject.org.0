@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 991D74B85CB
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 11:31:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.273928.469239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6651E4B85C8
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 11:31:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.273929.469258 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKHaZ-0006cd-EH; Wed, 16 Feb 2022 10:31:11 +0000
+	id 1nKHad-0007Gr-R7; Wed, 16 Feb 2022 10:31:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 273928.469239; Wed, 16 Feb 2022 10:31:11 +0000
+Received: by outflank-mailman (output) from mailman id 273929.469258; Wed, 16 Feb 2022 10:31:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKHaZ-0006WF-5p; Wed, 16 Feb 2022 10:31:11 +0000
-Received: by outflank-mailman (input) for mailman id 273928;
- Wed, 16 Feb 2022 10:31:10 +0000
+	id 1nKHad-0007Ed-N3; Wed, 16 Feb 2022 10:31:15 +0000
+Received: by outflank-mailman (input) for mailman id 273929;
+ Wed, 16 Feb 2022 10:31:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=oYE0=S7=citrix.com=roger.pau@srs-se1.protection.inumbo.net>)
- id 1nKHaX-0006Q9-Nb
- for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 10:31:09 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8be89e14-8f13-11ec-8eb8-a37418f5ba1a;
- Wed, 16 Feb 2022 11:31:07 +0100 (CET)
+ id 1nKHac-0006Q9-FD
+ for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 10:31:14 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8e511560-8f13-11ec-8eb8-a37418f5ba1a;
+ Wed, 16 Feb 2022 11:31:12 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,427 +36,447 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8be89e14-8f13-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 8e511560-8f13-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1645007467;
+  d=citrix.com; s=securemail; t=1645007472;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:content-transfer-encoding:mime-version;
-  bh=5wpWq0tN4xgsFJ1RqLxQToz/62F/R49dfWtSuwedAS8=;
-  b=bzGDrsmZ3xV7Bv0VNz4RvJjbwfupD86ilWjxlhOFM4SX7zqvZMLJNDhP
-   kLSgxR9vIPI10uUkBE9zzjGLCgckHCAp7z5nUK1JDlvGHsxA1rWDyyCbN
-   R5ZZgFE+bXd4UYDlK34JmABp5Dz5I/ZvStrF42sGGSsb8chqwzheWaFAn
-   s=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
-IronPort-SDR: l9s/CC/67+Z/Ak4p6MqD2jRDxR9fIcFd+rrjm4ovNnX2CEqrU3XCTVQUA1uwUKyHfVAxTjtysX
- 8hxjiVEr7eDNhSYaqLpnck90BasA8lGzNcrllV4v8r7fK0XP2/jE0fwdPQFJyiHmEYcrTUHya7
- AwEs9KSSy+qX12eSjWkSN7URZN5qLn5e0UIceCUX1TnNlzM0cqR+qUQkyee30jN7QrSjfeBTyU
- +sFvqnNyoCPGqE5blDUrSK2F6fiKPG8fsienlqeEPvEl9uHVmSdWbT8+wd6rWdbiyOdl5ijhbv
- NvNGDsCubsvR5fW+/Kd4agXU
+  bh=qxuQethwfQpd/T7pRowavpDI1K+1cW3pPru2nYffN4w=;
+  b=M6sHPKZlDaNeNu3A0KUjstX4UJr0fTttHj4+oM6OZTUaAt71+1Kc9ZCG
+   11RT6Vb6ly2od0RqLp1eshprAPd7I5c3pWXBBzKtuOttGiED29pcnqN5f
+   tkDymR9wcchVCMLmzkqrNA6P7EAkvRHiQL8kP84moVnb3LlSl58o+modT
+   k=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=pass (signature verified) header.i=@citrix.onmicrosoft.com
+IronPort-SDR: 5UUH/pGaBEsRVlYbTpZCdYq6JNxUhg8Jt/SXXMhMVSgSoqglBWAJscGkv0uGKOQOFztYHdrrYv
+ xGcOlsA7kB6/GVZwjDCVbtPsVHNVauQ6+rU04S5JS3yES5dHiYNdMzGvohyhE8okxyxlGqmqK5
+ A2iWXKU+8LrtT8U/tdYJQiKe+52+ObI70WQkanmKNjINxndjlq4Jvdch6+M4ogb01XApOYyiAG
+ NSu2IDAMyoShcwUlLPmi4KLaigulYY+/F+sg8JpdIxdMCXaFrA4TGh/denCGHtpQrTX+R42KN2
+ dPib3g8d3oQuQf7B451t44ZE
 X-SBRS: 5.1
-X-MesageID: 64324541
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 63768772
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:tKQDfa05+wtRyT7PM/bD5XF2kn2cJEfYwER7XKvMYLTBsI5bpzYGz
- DRNXTvQOvbcamrwc91wPd/k9xsE68LWn9JjSAs+pC1hF35El5HIVI+TRqvS04J+DSFhoGZPt
- Zh2hgzodZhsJpPkS5PE3oHJ9RGQ74nRLlbHILOCanAZqTNMEn9700o5wrBh2+aEvPDia++zk
- YKqyyHgEAfNNw5cagr4PIra9XuDFNyr0N8plgRWicJj5TcypFFMZH4rHomjLmOQf2VhNrXSq
- 9Avbl2O1jixEx8FUrtJm1tgG6EAaua60QOm0hK6V0U+6/TrS+NbPqsTbZIhhUlrZzqhlv5/7
- OVn8tuMWQINNa7HmfYWQwd5DHQrVUFG0OevzXmXtMWSywvNcmf2wuUoB0YzVWEa0r8pWycUr
- 6VecW1TKEDY7w616OvTpu1EnMMsIdOtJIoCknph0SvYHbAtRpWrr6Diu4MDhmtt2pkm8fD2T
- ZcyUyZ2ZwT8aj5fCAgnT8kxtfyuvyyqG9FfgA3M/vdmi4TJ9yRzzbzsPdz9atGMA8JPkS6wv
- Xna9m70BhUbMt23yjef9H+owOjVkkvTWo0IE6aj3uV3m1DVzWsWYDUUX1ampfiyimalRslSb
- UcT/0IGvaU0sUCmUNT5dxm5u2Kf+A4RXcJKFO834x3LzbDbiy6VGW0bFBZAbtI8vcM7TDBs0
- UWG9/v2ARR/vbvTTmiSnop4thvrZ3JTdzVbI3ZZE01VuLEPvb3fkDrGYNhHIITyyeHlHBX7w
- DuLviMumZQM2JtjO7qAwXjLhDelp57sRwEz5xnKUm/N0j6VdLJJdKTztwGFsK8owJKxCwDY4
- SNaw5T2APUmUMnV/BFhVtnhC11ACxytFDTHyWBiEJA6n9hG0y7yJNsAiN2SyaoADyrlRdMLS
- BKL0e+yzMUKVJdPUUORS9jsYyjN5fK9fekJrtiOMrJzjmFZLWdrBh1Ga0+KxHzKm0Mxi6w5M
- przWZ/yUSpLVP09nWvnHr11PVoXKsYWnz67qXfTlUrP7FZjTCTNFedt3KWmMojVE59oUC2Kq
- o0CZqNmOj1UUfHkYzm/zGLgBQtiEJTPPriv85Y/XrfaemJOQTh9Y9eMkeJJU9E0xMx9y7aXl
- kxRr2cFkTITc1Wccl7UAp2iAZuyNatCQYUTZ3x8Zw35hCJ6PO5CLs43LvMKQFXuz8Q6pdZcR
- PgZYcSQRPNJTzXM4TMGapfh6odlcXyWacimZkJJuRAzIMxtQRLn4Njhcle9/SUCFHPv58A/v
- 6ehxkXQRp9aH1ZuC8PfafSOyVKtvCdCxLIuDhWQetQDKl/x9IVKKjDqiqNlKc87NhielCCR0
- BybAElEqLCV8ZM16tTAmYuNs5ytT7llBkNfEmSCteS2OCDW83CN24hFVOrULznRWHmtoPepZ
- PlPzuG6O/oCxQ4Yv415Grdt7KQ/+9qw+OMKklU6RC3GNg35BKlhL3+K2dh0mpdMnrIJ6xGrX
- k+v+8VBPenbMs3SD1NMdhEuaf6O1K9Il2CKv+g1Okjz+AR+4KGDDRdJJxCJhSFQcOl1PYciz
- btzscIa8VXi2B8jM9LAhSFI7WWcaHcHVvx/5J0dBYbqjCsty01DPsOAWnOnvsnXZoUeKFQuL
- x+VmLHG1uZVyUf1enYuEWTAgLhGjpMUtREWlFIPKjxlQDYeaiPbCPGJzQkKcw==
-IronPort-HdrOrdr: A9a23:q0wYWap41C8zy9zz5TexIyIaV5rReYIsimQD101hICG9Evb0qy
- lhppQmPH7P+VIssRQb8+xoV5PufZqxz/BICOoqTNKftWvdyQiVxehZhOOP/9SJIUbDH4VmpM
- VdmsZFaeEZDTJB/LvHCAvTKadd/DFQmprY+ts3zB1WPH9Xg7kL1XYfNu4CeHcGPzWvA/ACZf
- yhz/sCnRWMU1INYP+2A3EUNtKz3eEixPrdEGc77wdM0nj3sQ+V
+IronPort-Data: A9a23:eMcmuqlMvDGQ5msBefar5s/o5gwgIURdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJKD2yEOvfbYzekeNAkaYrg9RsA7MTdnd9rQARvrCo3RSMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA180IMsdoUg7wbRh2Nc22YHR7z6l4
+ rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
+ s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
+ PF9i5DheCMYAqvFwtw7CERVOANfNpQTrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
+ 6ZecmpUKEne2aTmm9pXScE17ignBNPsM44F/Glp0BnSDOo8QICFSKLPjTNd9Glr2Z4eQqmED
+ yYfQQFLNS2bRSUUAQZUWZQ8rueqgH3zejIN/Tp5ooJoujOOnWSdyoPFMsfRe9GMbdVYmACfv
+ G2u13/iHhgQOdibyDyE2nGhnOnCmWX8Qo16PKWx6/pCkFCVgGsJB3U+Sl+TsfS/zEmkVLp3O
+ 0ESvyYjs6U23EiqVcXmGQ21pmaeuRwRUMYWFPc1gCmB1a/LuS6YAGYeRzJMYdBgs9U5LRQo3
+ FKUm9LiBRR0raaYD3ma89+pQSiaYHZPazVYPGldEFVDs4KLTJwPYgznauZdHP+EquzJHziq+
+ xbR8SUVpZQYtJtev0mkxmzvjzWpr5nPawc64ATLQ26ohj9EiJ6Zi5+AsgaCs6sZRGqNZhzY5
+ SVfxZDChAwbJczVzESwrPMx8KZFDhpvGBnVmhZREpYo7FxBEFbzLNkLsFmSyKqEW/vomAMFg
+ meO4Wu9B7cJZRNGiJObharrVqzGKoC6SLzYugj8NIYmX3SIXFbvENtSTUCRxXvxt0MnjLsyP
+ 5yWGe71UypGWPk+lmvnFr5HuVPO+szY7TmOLXwc5075uYdymVbPEetVWLdwRrxRAFy4TPX9r
+ I8EapriJ+R3W+zieCjHmbP/3nhRRUXX8ave8pQNHsbae1IOMDh4V5f5nONwE6Q4zv89vrqZo
+ RmAtrpwlQOXaYvvcl7RNBiOqdrHAP5CkJ7MFXZ8bQzziid5ONvHAWV2X8JfQITLPddLlJZcZ
+ /IEZ9+BErJITDHG8C4adp7zsMppcxHDuO5EF3PNjOEXc8EySgrX1MXjewezpiACAjDu7Zk1o
+ qG61xOdSp0GHlwwAMHTYfOp7lWwoXlCx74iAxqWeoFeKBf27YxnCy3tlftrccsCHgrOm2mB3
+ AGMDBZG+eSU+90p8MPEjLyvppuyF7csBVJTGmTWtO7kNSTT8me575VHVeKEIWLUWG/uof3wb
+ uRJ1fDsdvYAmQ8S4YZ7Fr9qy4M45sfu+OAGnlg1Qi2TYg3yWL16I3SA0c1ejYF3x+dU6VmsR
+ 0aC2thGIrHVasnrJ0EceVg+ZeOZ2PBKxjSLtaYpIF/37TNc9aacVRkAJAGFjSFQIecnMI4hx
+ ut96sca5xbm10gvO9eCyCtV636NPjoLVKB+7sMWB4riiwwKzFBeYMODVn+qsc/XM9gcYFM3J
+ jK0hbbZg+UOz0XPRHM/CHzR0LcPnp8Joh1LkAcPKlnhdgApXRPrMMm9KQgKczk=
+IronPort-HdrOrdr: A9a23:zw2NzaCBFdlHGiHlHelW55DYdb4zR+YMi2TDt3oddfWaSKylfq
+ GV7ZAmPHrP4gr5N0tOpTntAse9qBDnhPtICOsqTNSftWDd0QPFEGgL1+DfKlbbak/DH4BmtJ
+ uJc8JFeaDN5VoRt7eH3OFveexQv+Vu88qT9JnjJ28Gd3AMV0n5hT0JcTpyFCdNNW97LKt8Lr
+ WwzOxdqQGtfHwGB/7LfEXsD4D41qT2fIuNW29/OyIa
 X-IronPort-AV: E=Sophos;i="5.88,373,1635220800"; 
-   d="scan'208";a="64324541"
+   d="scan'208";a="63768772"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bsIM4EBCg7e5qfHeW0KF51iSlKyOnSlD8wJ9TO8+ub19wN7+/VrlUHHA7VSWhBd37EVBE6tK81mC+fBbZDYk24zf+dm4R81Us82i6vlItZNyDjLbkBDvwGAUEIP5A9YSvo47/Q92xsWtvCV5GWI4sNAjAdKAqTWk6mnO3iKel5Zela9icxS3PEgYzbiaP54Qs4ZAnAgUC7KDxNsmZFfpTv42SHY3UN+opRFuw5fL2lcVIPMkKkP0wdbGrUjEaBP3EvsNBxdeywJB7JR437FIH73zdecO5iVxo/sA0V1yj1/awpReGhg0WrF+g94BPs/HKSk/eZIzF2eFwOB8wc8waQ==
+ b=cIfh7YMa0TpVXz1blYI4bBZwY2rlL5JrXyB35aPVYn6p2JQ+uU5fJZA7IsHcxQCx9GMKi2hz46oU/cUXOuuwoQV90q3LRPQ+tlznnfLfTlgVcDjxWKH0s9+KIyKt+n3tjfoPWFyIrGmp4e2BLI/D4ZvfAV60T95NoQbfqK+lVPXzSBKJtcSpMhFI/heTzFS69cxKLa7ctkueA/1lBZVgtP3RwQBlp7czllOiU7oHZDNM7LcAoYgX7eq+dkS0Xp6rWQiAz0iGccJ3VUHJbGUOdodujc5uZ2RkZdSykW2/8bdV6+UxTcFhfaESNBKl760IH81aAYrqWGwy7CeiIeomhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FFQhQkphMi6Ap1Mi8N3n2KqtwVj5MU8P14jt20/cQvs=;
- b=Nxa7TfdIU2IVKfv0n2dfuFWNv3F72kb+IQEfB4DKBRU7AEDjta9wpsHSAo/4AjZePdXCUwWQzwpSFvEHWDgUrDmGyYD963o5T1e2TYgZaQNerg9JLGS8jeAc6fnLXltkAh0sOiU3kThDNpWp+ErHdaZCCCN0lho1+YBxJHhFutFyy6DxpfRf4jL2J20ZUyyUEK3qLBG5Reh933/WT9QrlI8QMSv0ZpPXy5SPE1b/klmiN4cwVOw1Wzl4wsQuW0Qr8sKLJr9wXvW4YOp/wIoRGjnKaBwMx1e4A7keHFcY0J2sZ2ygjqV0lFY1l8ai7y4xadEiOJI6PUTR1n4kZQzD7A==
+ bh=SBfiZgeoEobC8xSnV92kybukGWhlimNIsfw/oOQii3E=;
+ b=AJCQ4he8iuQZaTnHzpCeZVNvdQxouBB6WDyCohKOh4UG7sBpr842JLfao0w5qlIDSLTqD+VeeU59e3LZWWoUfB5/nFvg8sDV6qg8NvC6Ng7cW3OoFN5fUPtsr47JIyr1oM3vEtjcvV7fU71kDXleIbbnWhBKhEq+ctLlpY/wkrAHTT1b6A+jtLX8gNAPzYO70+ipJHW0TvYkzwhM/FuNq6P1iAORKWVeUiD0ke38fKgY3ZNF5zZ2sZG8ay4JDYAxFtHEZ04qgi5vY5bzjEMngzJtMq1Q2paleZ0Yrsx9Ui79Vxz3zTevei8OVeTNvAt3qknVoQrpyS2w7EoR5F/4Ew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FFQhQkphMi6Ap1Mi8N3n2KqtwVj5MU8P14jt20/cQvs=;
- b=GSaHanj6KPwiXs4RuhFvwcczj4ifcnb/qt3SIFUJbUeIxrlcePvuxAqTC3NpXwEhterlc/y0HkQYxts/rH3NhmVPqZlxyVKKLzvcdS2HnL4HBsQ6uCGcTDrZO9J7VbDgFwiQPfIcV5NCUNON5LYnRMuFIjJ+idW/wGUAHLjBR2Q=
+ bh=SBfiZgeoEobC8xSnV92kybukGWhlimNIsfw/oOQii3E=;
+ b=U18ys0vn/HVPNPrPBFEy6ER7io1JgTzdWTT82u/42wGcpfcwbaCFRlMikwNxwMr+WaPh6bCrLYbv/c1ap8ZLOtLbDjiY6iN0mHv4JJnFBI+MygcaBbCCVKodfVKKqD0C3r2nD/u1o9WxowYj1wgOjWGJvL6VGAJ4PZOJZUX4fIY=
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: <dwmw2@infradead.org>, Roger Pau Monne <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
- Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Juergen Gross <jgross@suse.com>
-Subject: [PATCH v2 2/5] xen/vioapic: add support for the extended destination ID field
-Date: Wed, 16 Feb 2022 11:30:23 +0100
-Message-ID: <20220216103026.11533-3-roger.pau@citrix.com>
+CC: <dwmw2@infradead.org>, Roger Pau Monne <roger.pau@citrix.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu
+	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant
+	<paul@xen.org>
+Subject: [PATCH v2 3/5] x86/vmsi: add support for extended destination ID in address field
+Date: Wed, 16 Feb 2022 11:30:24 +0100
+Message-ID: <20220216103026.11533-4-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20220216103026.11533-1-roger.pau@citrix.com>
 References: <20220216103026.11533-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0303.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:196::20) To SA0PR03MB5610.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO4P123CA0347.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18d::10) To SA0PR03MB5610.namprd03.prod.outlook.com
  (2603:10b6:806:b2::9)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: fd3498a2-37f4-4737-ece1-08d9f1376d63
+X-MS-Office365-Filtering-Correlation-Id: 4795dab4-8efd-449e-e579-08d9f137702c
 X-MS-TrafficTypeDiagnostic: SJ0PR03MB6256:EE_
-X-Microsoft-Antispam-PRVS: <SJ0PR03MB625660E309D2BF0D289B1D378F359@SJ0PR03MB6256.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <SJ0PR03MB6256CD733284D03796847FA88F359@SJ0PR03MB6256.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FkqpVYHhUxSDYLy3rTJyukU8sNMWcddPAhRN4TKmVE2Y7h9sDtA6UN/242WcyANkQXea5WM1JV3tO6LULh7qGL+SVYfn0bVEIHDjB60NGBL+Z/9Z9nCAIkvWAu9ye034UA/WEDyJShG4UsFlrEgX7+kKIOvxwynwVYAic1iRm7mIt7rDtivJqHeuPspMUkbtRkeyD5kOVwD/3/6d982sSO8OLmWsZkg1/x/7hh2lP58vWJHJRqFb6jY31WNlBKg1iwLYXXEmOyswcuVb5t5Mpw8nah/VTJx67OWPChzEbTWOFuvpGl1Dsz18uYQp/C3cDXw/XF1BesjdSl/q1EDjL9ywWn9fX9LwCE8yazyvIp3ZbJOGpv/4sNvDkYX5DQXKUyrvzpOZIOywzbmyRrezS4ksd9YyMVdhycr0bUEgFooy8X2M9ph+bMZ8wQ0imxpGMERjQ0ZZ/+ZCliEwCipvm26hb+Gz+KFhAqaODJxsnKMPyhRGAo34iEeHyrSGlmPo9w4ZHCqHgyELNO59EqcK+16Qi+qCve2NBSyR/MM5uIAqs/m9etBeIik7gKHj2qmFF5lowMOPg/c6j5pnFRBBIOATd5FlfFFUzM1S2P+mMrf9utof+afnkk1GgW9otOEMEab3aRVyQiDzmLtVnuD41cK58DmZ1626Z9dfH+SGW0geYbx1Wi4ti81/DK9JrATJJt6EkrQNYuCZqF1SrAGVmQPc5QyHjPy8ORoOHzi5Zpk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR03MB5610.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(8676002)(2616005)(66946007)(6506007)(6512007)(316002)(26005)(1076003)(66556008)(508600001)(86362001)(6486002)(6916009)(6666004)(54906003)(966005)(82960400001)(66476007)(83380400001)(4326008)(38100700002)(36756003)(5660300002)(2906002)(8936002)(186003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: YVWifTXL7IE5EOwo4WPERPxbr8F6V+r4qnEwt0ktehPM69LQQxvijuPy3EuoNXRHnFOYOyJ2oq9jlN4/Rq/Vbtxd+ktcWaFJTivvi6YtVhindWGjSRR4b+/2Z4ryZlfwfi8on9KBGqq12XiH/eFviikGwnflnr/fg6VTE573HbBBq6OS37upnliEo3OvxSONVaeCjrODS5DdJpoyuPjElkeIn+sEPeseyHYe7x/xBhufxRwRJ42oVTFrA/Wd6fsvDafhL8G8YyoD5vqWktVyx1PKzVMRX+AkxKyIbLkEI0oqegRGxdeGA2/2QCGJighOABIJNxI9WL9jf8gtozbYhocfGUJb8A0w/Up24/tgVYI3sPQvvKY77ntq5XyEppaamfzbNiAhxJA8MAulmhNgkGHx+qsGw6u1w206nMEV66087Rb2v0RqpVND0f/kgtk8FB/4fuKibXqG3I0cNt7bc0zOMwzr2WPo0nR8XLRwn1GYDhIZDIWTbTe9qA870pEnskgjB36zjaFiiaQaPIvFVHBXVhqocETYF8LnpONxGjiCzurUNDGIC9NoyZ/xE2686113roM2D+r5yj0xnBdiR7JCAKw/OzBX2T+E2LpaDsJSFADYGafmQZAyWbQHJVUoZNsos2j0Jj2pom0c9FC27A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA0PR03MB5610.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(8676002)(2616005)(66946007)(6506007)(6512007)(316002)(26005)(1076003)(66556008)(508600001)(86362001)(6486002)(6916009)(6666004)(54906003)(82960400001)(66476007)(83380400001)(4326008)(38100700002)(36756003)(5660300002)(2906002)(8936002)(30864003)(186003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?a09EbUhYSFU5MnE3MTAyU3pPbG9KUVdFUUpybjVLSk1BS3IyU010NXdUaDFi?=
- =?utf-8?B?VktnTWQrZ2hCNzN1azkyWW9WK01ROG1pSFdwOGpuRjRIdTRCQ3NGSW92NUV3?=
- =?utf-8?B?V2FiWWNHZlJabFhJbGE5My9sbXJCYlF1dDFSWFR0WXVQNDg1N1prTnFpaHMr?=
- =?utf-8?B?b01WbllGQ2FkMDluQ0p0NlVaa1NValNZbUxMb3hPRVhvRU9lc1JiK0ZBTEow?=
- =?utf-8?B?WU9rZnpnT29LL0J1WExmbWpabWt3K2RxWmFwR001UVpDNXh2K0t3WnltTlRu?=
- =?utf-8?B?ZGVPOG90aUlSMy9neVI5K2pFNVVTNzBQRkZDZEZkTTJ0NG5KMGduWmRBV01Q?=
- =?utf-8?B?MEdDTUdRYURVRUdQaG1GTUNrSlhZRDIyS1M2dW02UVFsQzJTaTJubzYyN0xl?=
- =?utf-8?B?Rmd6OHp5YkZLcDQyS255Y1pJMHhIQ3JrL1VjMzFBOFNya3RPZ2xrYm1vV1BR?=
- =?utf-8?B?a1pLU1FBdDJSQ3poR2loTHNnNDFPL2RKRzBlSlRSNmFHSFBZM1Jod0dGaXRF?=
- =?utf-8?B?NlBhT0xqTXUwajlVMk5QK3JQcjFFTzZkd211eENqdmNsTkRWemVlSWdzWEsw?=
- =?utf-8?B?QThHNnRPc1hlcTE1S1Z6citWWEJjTkk0Tkt4eXh1MHBLVHhJcmdsLzNFaG8v?=
- =?utf-8?B?a0dNNEJFU3pZdjhodlpTQlFQbFpUNlVLZERSSHRKSWdxd2tiRmZSS3VtQ3FU?=
- =?utf-8?B?bWhaeG9pZ0kwVzZzTTY0N3lZa29uTGozNEpZVjgxOG15ZGxOWWwxVXJIWDhw?=
- =?utf-8?B?QkxIVzBzckVvdnRNbStqVTJQTzJlUDN2cW11RFFDWXJzKzJBYnhWRndIelFC?=
- =?utf-8?B?UVRrZFNrU1Rxd2NRMFpPMUxGQ2VFNXVIcmpLNmFxZWtpN3RITGZBNVo0aytR?=
- =?utf-8?B?eVBRaURyZkdQSVNWMHZpTEtDSWVieUw2Q3YvR0piVEhpNWcvWnkzN1lEcjRy?=
- =?utf-8?B?clJ3ajliZjI3bGxYOHZXczBLRHA0SG5XMnJ3QTlXYzlndXo0NTh6eU42RU9u?=
- =?utf-8?B?Vm1heEROdHpMb3pmK0RudkR3RFRtNXJsVEtpWXpnaXpIMWJVVUUwa1Q2RHcy?=
- =?utf-8?B?Nyt4bUFvZ085WnhQQ3llcURvSXI2eDV6NExvaTQ5Y2VHUHo5YVoxYU5tTnFw?=
- =?utf-8?B?cXpjZloySzVoOGE4TXBSdmcyMHlacTJJZGZzeEJ6NzJWbXV6NXMyOWhWbith?=
- =?utf-8?B?b1JhMXgrOUdEd3EzdDA4V2N5VlNtSk9MT0U5eERITjEvbkwwZ3F0cFV4K1lM?=
- =?utf-8?B?aCt2QW00MkNGTjByTUJ4NDZjLzBvamFBNURqbnR6SEN6U0NUNSt3VlY3UEM0?=
- =?utf-8?B?b1MwbDJRQXpQaFFzU292Z3grSFFnaU1rR1lQM3NWdGdrcUlwOERiMVV5TnB0?=
- =?utf-8?B?dUVjWG1yeFUxVXRHcmkrV2tqamc2eHMwdUY2TjhUWFpCRkM3TGlQNUtkOTZ4?=
- =?utf-8?B?VzJRRWM0VHVKWTQ0SEdEbGMyVEt6L2hRZGdrVXNyVDZhL0ZJdldMUEg1c2Jm?=
- =?utf-8?B?cFltemRjM3YrZ0trZ2QyN0gwMTVEbkVzbWVuQi92ZFRhVHB4M0pEQkROUFpO?=
- =?utf-8?B?RXl2c2FHb29mdFhVSnBPL25rcUdBOS9JRGJycXNHQ0dyRkZ4U1hFL0Yvb0Zh?=
- =?utf-8?B?YVArZFg5Q3lGK0gvcnBWci9oRm1xUGlwNUo4cHVCUFlLeTVFNVl4UXI4bVVJ?=
- =?utf-8?B?emFFeklxSE0zVnFtVEI0Nk9IWGNzOXd6bFVWVFB5elowMTNDNHFEQ0tqcGZV?=
- =?utf-8?B?VGtsZy9ObnVBQy9kd0VEeUZPaWxLbzg0WmJuV0dtWDd0NEYxTmIyQkJYbm5j?=
- =?utf-8?B?dGYvd1lhSEE0eUc3SUVxdHFMZjdjRjNqQWJ5V0FuYjJsT1l0VmgrcFlsdnRH?=
- =?utf-8?B?WFFybk9HUFNoNVlJYzlBa3JaVEFFMWVnSWNxZ1FXeDhMWndCT1JDWE5Qell5?=
- =?utf-8?B?MzlSZkdtSDVzWlRneW1LV1MzVjNhb0wzcU55ejlTWDZQNXVnay8vb3J6eFBj?=
- =?utf-8?B?bG8wWHg3ZldjQUlkeU5mWDV1UlhOeU9xSGdiQ1luS2d3K3BnSm11L1BzTUJN?=
- =?utf-8?B?eWlBTFpXWUdkOW1GUnlFWU9JV0FFb2JtTWhRbW0yMXQ3MkNpYzNCdVZxS3pN?=
- =?utf-8?B?U2tIdG1Fbk96NVN0dFNvamhzNUI3eTRJdmFTd0RNVEh0TUx3c0hCaUlzZ0NI?=
- =?utf-8?Q?JTDlnVkPJxNjIxjscZVTYao=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd3498a2-37f4-4737-ece1-08d9f1376d63
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WXRUbzlud0Nob2pLTDhOZmJNaE9Ld3lKVTVWOGQ2L3MraHJObFZ3eGhGSjlG?=
+ =?utf-8?B?enhJZWlFMXN1NVRyYzNsWCs3MDhJalVxVjJvV1lVVTdLUy9WYldvTXBnWGJP?=
+ =?utf-8?B?VEVGVjVIM1lYRi9pVkZtRExjWEEwclE1aVdjcStBb2hKZzNsVFM0bzhYMC9M?=
+ =?utf-8?B?dm9SVWtINStDbEVZQXMrUU05dEsvaDB5UEFkZjJUSzRIVm80MW9KcS8xVkdp?=
+ =?utf-8?B?TmxMVTJ0N2ozWXd4akZXT2hwbW1YMDhRRDR0MHNUL2hhZFFBc2hGZExoTEUr?=
+ =?utf-8?B?QXdUMGNiVnA1RzNhN3pwOTYzVkVuWWRHSXNtTnozd3E5V2dPb0dHOWxHcm80?=
+ =?utf-8?B?V2NMckN5LzBKeTF0MUJ5T3VYdU9DR2xPOXRKTk10dVdiVVIrbjdEQlcyZ093?=
+ =?utf-8?B?aUFKaFBzWCtUMWQ1WXp2d3ZuSHJOTGRtZDVjUVRGai8rWHRMMU1McUo2S0lW?=
+ =?utf-8?B?bWFXWG42aVlRKzdGYWRvMklnYkNKOXBqUi8zUldGa0tPK3FyaVA1OThPRENS?=
+ =?utf-8?B?OFRFR0hpdUhrazR2eUdQZkltOGJOdG43TDdFcEJkb2ttaHF5T0FoellNQlRM?=
+ =?utf-8?B?MkVURFhrUHNobnRGa0pjcGlHVWJxVWlxb093M09LdDNBZ0ZTZUxIUG9OdzVL?=
+ =?utf-8?B?bDlVMU5iYitCN0Q0UnFud1pyczV2WlhJdWlhbmZwZWhDRlhwRlhOYWQyK1B5?=
+ =?utf-8?B?NnFweU5aTWxhUlVlMSsvQ3AxUDBTVGtMcmg0bGVZanFoWUVpaTFXV0RYRXdX?=
+ =?utf-8?B?R1dqSTdkUjRKS3dXc0VjVUNVTUlJSm9ocDE3ZmZDOE5GYzlMaE5OeTZlRHI2?=
+ =?utf-8?B?U2ZxQWVLK3VtUHBkY3J2TFkzZE9adnNSM2tadEFjbmtra1NCWWN3d2VFZjVj?=
+ =?utf-8?B?RnNnclhFWUtxZEJkZWNPem1kUjNJSWk3VUJ0a2dmN2RVTWd1aHVNMmhMdFFn?=
+ =?utf-8?B?VW1JY3c4MUdvYlFIN1JvazI5dFhGdklkaTVBUEQ3S1BlNmRrRXZSc0kxZEU0?=
+ =?utf-8?B?TlpHVEtCaDFiUEVwUWpTTDgrWGxqUzV1VEZwNXNJVVpNTVNFZHh6OFRiVGJJ?=
+ =?utf-8?B?T043UUxyZjl1ZkdVUmtYKytiWTB4djAxYittY25HZjl5VUZWMWczRUxBaTg5?=
+ =?utf-8?B?SEsvWWMvZ0JPak9HZjFicDNQUHR3eHhnYlJnUUVyWVBFYmhJb1JlanlGYm16?=
+ =?utf-8?B?T21Ya0J6UGg5RDc5MXQ1TFpLNDdCRXBGNkhRSjhxZnlJWDlMVjk5a2dLUVdM?=
+ =?utf-8?B?SkUyb3I0dDJWQUx4Zm5uWVRFMm05Zkxwc0taeFFMaDBJczExRkJ3MThudHhM?=
+ =?utf-8?B?eHlmN3RvV1kzdUFFbEVnV3EzcnVvT054bkRyWTRhYUhyS241WEJHcTVaZEtx?=
+ =?utf-8?B?QnI0bXlpUWFBQ2duZUpyejczZzhod2pVa2t6ZDZ2cGZNSzMzZmZWdWR4cHlI?=
+ =?utf-8?B?ZUZwSHBxTk5hTDhTVjdYRWV2MFFUZFNoTWZmY2RwYWRsZ3E3TGRZWlYzM2ps?=
+ =?utf-8?B?ZmhzOTdURDNyY0tGenRSWVFGVVJSeE1Nd1RvWkd6Ni9KUVlNUlRUa3RjRlNO?=
+ =?utf-8?B?VHlHL0EzbCtKOXc2Z2JVcWQ3UUVwbFJhUFhCb2wzYnB3TUtURWFyYkcvcHVK?=
+ =?utf-8?B?eXlYV0hrZXBqc0t2Z3dDS3dzUlZqV1dYcGw2bGs3VllVRTUzaVhoN3RhZFFX?=
+ =?utf-8?B?SHEreGY4YkEzVEVML0dwV2NkZVFTNFM5aDRxWFQ2R3ZDTWZGUTYzK1NVbjV1?=
+ =?utf-8?B?dkN1a1lVQWNpVCtlVGZiZ3pjWjVRYTFqWk14RVV5U2QzaDRKUXc4b29ZWUpD?=
+ =?utf-8?B?K2hjL1RMbnhkN0FxMFg4QlVXVXdpTnNLM2V3WnVhQnNBTmFIT2d3RVU4M29z?=
+ =?utf-8?B?eVJOcjBocDZjdSswbGlIK2dVVjFya3pZd29icWRyRW9kYmhWMmkzWk1XNW9I?=
+ =?utf-8?B?SHk1ZHJnMnlMNXk3ck82RzVyVThoelRuNUJCeWk5aTRvT1p3dWhRWEtUeDM0?=
+ =?utf-8?B?dHFEd0lxNUI3dTBacWlHZlpBbE9xUExlMjRwSHZwUTQ1TnczdzgvV3N4K0Iv?=
+ =?utf-8?B?a2ZpbXNxeU43eS9PWEY0Qjg1eWFzbFlwajVHOTBCS3ZaeW9Wd085aXZkSlVM?=
+ =?utf-8?B?eXB2VGdRenh1SHEwM1BKbXNxVVdYd1Z4Unpnbjc3WGY0WFEzbW43YlBkUnpW?=
+ =?utf-8?Q?WTr+eeFBfTMua+s9ujd3QAI=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4795dab4-8efd-449e-e579-08d9f137702c
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR03MB5610.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2022 10:31:01.2115
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2022 10:31:05.9008
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b2uxp29TvFaZ0eFye0mvPOHQV0+JON70DgKdeQ6AVypuzaaoTc2y/Rk4Zq3Lbot9FNGaj4JOnNV7iwsGBFOs+g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1oofrVM9duc4RJd50aJ4155qdwSeyM6/PzwtMT3n2sxyegzuqHF8Uiwq1ihL9hQ2v4Fw7qz5mK7ygWm5MPGgkQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6256
 X-OriginatorOrg: citrix.com
 
-Such field uses bits 55:48, but for the purposes the register will be
-used use bits 55:49 instead. Bit 48 is used to signal an RTE entry is
-in remappable format which is not supported by the vIO-APIC.
+Both QEMU/KVM and HyperV support using bits 11:5 from the MSI address
+field in order to store the high part of the target APIC ID. This
+allows expanding the maximum APIC ID usable without interrupt
+remapping support from 255 to 32768.
 
-Use the extended destination ID to store the high bits from the
-destination ID, thus expanding the size of the destination ID field to
-15 bits, allowing an IO-APIC to target APIC IDs up to 32768. A
-description of the feature can be found at:
+Note the interface used by QEMU for emulated devices (via the
+XEN_DMOP_inject_msi hypercall) already passes both the address and
+data fields into Xen for processing, so there's no need for any change
+to QEMU there.
 
-http://david.woodhou.se/15-bit-msi.pdf
+However for PCI passthrough devices QEMU uses the
+XEN_DOMCTL_bind_pt_irq hypercall which does need a modification to the
+gflags field in order to pass an APIC destination ID greater than
+255.
 
-Note this is already supported by QEMU/KVM and HyperV.
-
-Introduce an option in xl.cfg to allow switching off the feature.
+Take the opportunity to make the domain parameter of
+hvm_girq_dest_2_vcpu_id const while modifying the other function
+parameters. Also adjust dest_mode when touching related code to make
+it bool.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v1:
- - Expand commit message, add reference document.
- - Add xl option to disable the feature.
+ - Do not expose extended destination ID support.
+ - Use d->arch.ext_dest_id.
+ - Add comment clarifying the usage of MSI_ADDR_VIRT_EXT_DEST_ID_MASK.
 ---
- docs/man/xl.cfg.5.pod.in               | 10 ++++++++++
- tools/include/libxl.h                  |  8 ++++++++
- tools/libs/light/libxl_create.c        |  6 ++++++
- tools/libs/light/libxl_types.idl       |  1 +
- tools/libs/light/libxl_x86.c           | 12 ++++++++++++
- tools/xl/xl_parse.c                    |  3 +++
- xen/arch/x86/domain.c                  | 10 +++++++++-
- xen/arch/x86/hvm/vioapic.c             |  3 +++
- xen/arch/x86/include/asm/domain.h      |  3 +++
- xen/arch/x86/setup.c                   |  1 +
- xen/include/public/arch-x86/hvm/save.h |  4 +++-
- xen/include/public/arch-x86/xen.h      |  2 ++
- xen/include/public/domctl.h            |  2 +-
- 13 files changed, 62 insertions(+), 3 deletions(-)
+ xen/arch/x86/hvm/irq.c             |  5 +++-
+ xen/arch/x86/hvm/vmsi.c            | 43 +++++++++++++++++++++---------
+ xen/arch/x86/include/asm/hvm/hvm.h |  5 ++--
+ xen/arch/x86/include/asm/msi.h     |  7 +++++
+ xen/drivers/passthrough/x86/hvm.c  | 11 +++++++-
+ xen/drivers/vpci/msi.c             |  2 +-
+ xen/include/public/domctl.h        |  1 +
+ xen/include/xen/vpci.h             |  2 +-
+ 8 files changed, 58 insertions(+), 18 deletions(-)
 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index b98d161398..349e0b432a 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -2901,6 +2901,16 @@ option.
- 
- If using this option is necessary to fix an issue, please report a bug.
- 
-+=item B<ext_dest_id=BOOLEAN>
-+
-+(HVM/PVH only) Signal the hypervisor whether the guest should be allowed to use
-+extended destination ID for interrupt messages. Such feature allow expanding
-+the target APIC ID from 8 to 15bits without requiring the usage of an emulated
-+IOMMU with interrupt remapping. Note this requires guest support and might not
-+be exposed to the guest even if explicitly set due to other constrains.
-+
-+Default: enabled
-+
- =back
- 
- =head1 SEE ALSO
-diff --git a/tools/include/libxl.h b/tools/include/libxl.h
-index 51a9b6cfac..35329bca50 100644
---- a/tools/include/libxl.h
-+++ b/tools/include/libxl.h
-@@ -527,6 +527,14 @@
-  */
- #define LIBXL_HAVE_MAX_GRANT_VERSION 1
- 
-+/*
-+ * LIBXL_HAVE_X86_EXT_DEST_ID indicates the toolstack can signal to the
-+ * hypervisor whether the domain wants to use the extended destination ID mode
-+ * for interrupt messages. This is done by setting the libxl_domain_build_info
-+ * arch_x86.ext_dest_id field.
-+ */
-+#define LIBXL_HAVE_X86_EST_DEST_ID 1
-+
- /*
-  * libxl ABI compatibility
-  *
-diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-index 7499922088..66ecfbdf4d 100644
---- a/tools/libs/light/libxl_create.c
-+++ b/tools/libs/light/libxl_create.c
-@@ -2330,6 +2330,12 @@ int libxl_domain_create_restore(libxl_ctx *ctx, libxl_domain_config *d_config,
-      */
-     libxl_defbool_setdefault(&d_config->b_info.arch_x86.msr_relaxed, true);
- 
-+    /*
-+     * Do not enable the extended destination ID for restored domains unless
-+     * explicitly set.
-+     */
-+    libxl_defbool_setdefault(&d_config->b_info.arch_x86.ext_dest_id, false);
-+
-     return do_domain_create(ctx, d_config, domid, restore_fd, send_back_fd,
-                             params, ao_how, aop_console_how);
- }
-diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-index 2a42da2f7d..bbfe218c48 100644
---- a/tools/libs/light/libxl_types.idl
-+++ b/tools/libs/light/libxl_types.idl
-@@ -648,6 +648,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
-                                ("vuart", libxl_vuart_type),
-                               ])),
-     ("arch_x86", Struct(None, [("msr_relaxed", libxl_defbool),
-+                               ("ext_dest_id", libxl_defbool),
-                               ])),
-     # Alternate p2m is not bound to any architecture or guest type, as it is
-     # supported by x86 HVM and ARM support is planned.
-diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
-index 1feadebb18..68f4de7ea9 100644
---- a/tools/libs/light/libxl_x86.c
-+++ b/tools/libs/light/libxl_x86.c
-@@ -14,6 +14,11 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-         break;
-     case LIBXL_DOMAIN_TYPE_PV:
-         config->arch.emulation_flags = 0;
-+        if (libxl_defbool_val(d_config->b_info.arch_x86.ext_dest_id))
-+        {
-+            LOG(ERROR, "Extended Destination ID not supported for PV guests");
-+            return ERROR_INVAL;
-+        }
-         break;
-     default:
-         abort();
-@@ -22,6 +27,8 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
-     config->arch.misc_flags = 0;
-     if (libxl_defbool_val(d_config->b_info.arch_x86.msr_relaxed))
-         config->arch.misc_flags |= XEN_X86_MSR_RELAXED;
-+    if (libxl_defbool_val(d_config->b_info.arch_x86.ext_dest_id))
-+        config->arch.misc_flags |= XEN_X86_EXT_DEST_ID;
- 
-     return 0;
- }
-@@ -824,6 +831,8 @@ void libxl__arch_domain_build_info_setdefault(libxl__gc *gc,
+diff --git a/xen/arch/x86/hvm/irq.c b/xen/arch/x86/hvm/irq.c
+index 52aae4565f..e10e085a55 100644
+--- a/xen/arch/x86/hvm/irq.c
++++ b/xen/arch/x86/hvm/irq.c
+@@ -383,7 +383,7 @@ int hvm_set_pci_link_route(struct domain *d, u8 link, u8 isa_irq)
+ int hvm_inject_msi(struct domain *d, uint64_t addr, uint32_t data)
  {
-     libxl_defbool_setdefault(&b_info->acpi, true);
-     libxl_defbool_setdefault(&b_info->arch_x86.msr_relaxed, false);
-+    libxl_defbool_setdefault(&b_info->arch_x86.ext_dest_id,
-+                             b_info->type != LIBXL_DOMAIN_TYPE_PV);
- }
+     uint32_t tmp = (uint32_t) addr;
+-    uint8_t  dest = (tmp & MSI_ADDR_DEST_ID_MASK) >> MSI_ADDR_DEST_ID_SHIFT;
++    unsigned int dest = MASK_EXTR(tmp, MSI_ADDR_DEST_ID_MASK);
+     uint8_t  dest_mode = !!(tmp & MSI_ADDR_DESTMODE_MASK);
+     uint8_t  delivery_mode = (data & MSI_DATA_DELIVERY_MODE_MASK)
+         >> MSI_DATA_DELIVERY_MODE_SHIFT;
+@@ -391,6 +391,9 @@ int hvm_inject_msi(struct domain *d, uint64_t addr, uint32_t data)
+         >> MSI_DATA_TRIGGER_SHIFT;
+     uint8_t vector = data & MSI_DATA_VECTOR_MASK;
  
- int libxl__arch_passthrough_mode_setdefault(libxl__gc *gc,
-@@ -880,6 +889,9 @@ void libxl__arch_update_domain_config(libxl__gc *gc,
-      */
-     libxl_defbool_setdefault(&dst->b_info.arch_x86.msr_relaxed,
-                     libxl_defbool_val(src->b_info.arch_x86.msr_relaxed));
-+    /* Force Extended Destination ID so it's part of the migration data. */
-+    libxl_defbool_setdefault(&dst->b_info.arch_x86.ext_dest_id,
-+                    libxl_defbool_val(src->b_info.arch_x86.ext_dest_id));
- }
- 
- /*
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 117fcdcb2b..b609b76779 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -2761,6 +2761,9 @@ skip_usbdev:
- 
-     xlu_cfg_get_defbool(config, "vpmu", &b_info->vpmu, 0);
- 
-+    xlu_cfg_get_defbool(config, "ext_dest_id", &b_info->arch_x86.ext_dest_id,
-+                        0);
++    if ( vector && d->arch.ext_dest_id )
++        dest |= MASK_EXTR(tmp, MSI_ADDR_VIRT_EXT_DEST_ID_MASK) << 8;
 +
-     xlu_cfg_destroy(config);
- }
- 
-diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
-index ef1812dc14..9764f42878 100644
---- a/xen/arch/x86/domain.c
-+++ b/xen/arch/x86/domain.c
-@@ -685,12 +685,19 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-         }
-     }
- 
--    if ( config->arch.misc_flags & ~XEN_X86_MSR_RELAXED )
-+    if ( config->arch.misc_flags &
-+         ~(XEN_X86_MSR_RELAXED | XEN_X86_EXT_DEST_ID) )
+     if ( !vector )
      {
-         dprintk(XENLOG_INFO, "Invalid arch misc flags %#x\n",
-                 config->arch.misc_flags);
-         return -EINVAL;
-     }
-+    if ( !hvm && (config->arch.misc_flags & XEN_X86_EXT_DEST_ID) )
-+    {
-+        dprintk(XENLOG_INFO,
-+                "Extended Destination ID only supported for HVM\n");
-+        return -EINVAL;
-+    }
+         int pirq = ((addr >> 32) & 0xffffff00) | dest;
+diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
+index 13e2a190b4..4af550cc2a 100644
+--- a/xen/arch/x86/hvm/vmsi.c
++++ b/xen/arch/x86/hvm/vmsi.c
+@@ -66,7 +66,7 @@ static void vmsi_inj_irq(
  
-     return 0;
- }
-@@ -862,6 +869,7 @@ int arch_domain_create(struct domain *d,
-     domain_cpu_policy_changed(d);
- 
-     d->arch.msr_relaxed = config->arch.misc_flags & XEN_X86_MSR_RELAXED;
-+    d->arch.ext_dest_id = config->arch.misc_flags & XEN_X86_EXT_DEST_ID;
- 
-     return 0;
- 
-diff --git a/xen/arch/x86/hvm/vioapic.c b/xen/arch/x86/hvm/vioapic.c
-index 553c0f76ef..a02bd16b4b 100644
---- a/xen/arch/x86/hvm/vioapic.c
-+++ b/xen/arch/x86/hvm/vioapic.c
-@@ -424,6 +424,9 @@ static void vioapic_deliver(struct hvm_vioapic *vioapic, unsigned int pin)
- 
-     ASSERT(spin_is_locked(&d->arch.hvm.irq_lock));
+ int vmsi_deliver(
+     struct domain *d, int vector,
+-    uint8_t dest, uint8_t dest_mode,
++    unsigned int dest, bool dest_mode,
+     uint8_t delivery_mode, uint8_t trig_mode)
+ {
+     struct vlapic *target;
+@@ -107,11 +107,14 @@ void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci)
+ {
+     uint32_t flags = pirq_dpci->gmsi.gflags;
+     int vector = pirq_dpci->gmsi.gvec;
+-    uint8_t dest = (uint8_t)flags;
++    unsigned int dest = MASK_EXTR(flags, XEN_DOMCTL_VMSI_X86_DEST_ID_MASK);
+     bool dest_mode = flags & XEN_DOMCTL_VMSI_X86_DM_MASK;
+     uint8_t delivery_mode = MASK_EXTR(flags, XEN_DOMCTL_VMSI_X86_DELIV_MASK);
+     bool trig_mode = flags & XEN_DOMCTL_VMSI_X86_TRIG_MASK;
  
 +    if ( d->arch.ext_dest_id )
-+        dest |= vioapic->redirtbl[pin].fields.virt_ext_dest_id << 8;
++        dest |= MASK_EXTR(flags, XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK);
 +
      HVM_DBG_LOG(DBG_LEVEL_IOAPIC,
-                 "dest=%x dest_mode=%x delivery_mode=%x "
-                 "vector=%x trig_mode=%x",
-diff --git a/xen/arch/x86/include/asm/domain.h b/xen/arch/x86/include/asm/domain.h
-index e62e109598..83a1608212 100644
---- a/xen/arch/x86/include/asm/domain.h
-+++ b/xen/arch/x86/include/asm/domain.h
-@@ -440,6 +440,9 @@ struct arch_domain
-     /* Don't unconditionally inject #GP for unhandled MSRs. */
-     bool msr_relaxed;
+                 "msi: dest=%x dest_mode=%x delivery_mode=%x "
+                 "vector=%x trig_mode=%x\n",
+@@ -123,7 +126,8 @@ void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *pirq_dpci)
+ }
  
-+    /* Use the Extended Destination ID to expand APIC ID. */
-+    bool ext_dest_id;
+ /* Return value, -1 : multi-dests, non-negative value: dest_vcpu_id */
+-int hvm_girq_dest_2_vcpu_id(struct domain *d, uint8_t dest, uint8_t dest_mode)
++int hvm_girq_dest_2_vcpu_id(const struct domain *d, unsigned int dest,
++                            bool dest_mode)
+ {
+     int dest_vcpu_id = -1, w = 0;
+     struct vcpu *v;
+@@ -636,15 +640,21 @@ void msix_write_completion(struct vcpu *v)
+ }
+ 
+ #ifdef CONFIG_HAS_VPCI
+-static unsigned int msi_gflags(uint16_t data, uint64_t addr, bool masked)
++static unsigned int msi_gflags(uint16_t data, uint64_t addr, bool masked,
++                               bool ext_dest_id)
+ {
++    unsigned int dest = MASK_EXTR(addr, MSI_ADDR_DEST_ID_MASK);
 +
-     /* Emulated devices enabled bitmap. */
-     uint32_t emulation_flags;
- } __cacheline_aligned;
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 115f8f6517..4aaa6ebc07 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -782,6 +782,7 @@ static struct domain *__init create_dom0(const module_t *image,
++    if ( ext_dest_id )
++        dest |= MASK_EXTR(addr, MSI_ADDR_VIRT_EXT_DEST_ID_MASK) << 8;
++
+     /*
+      * We need to use the DOMCTL constants here because the output of this
+      * function is used as input to pt_irq_create_bind, which also takes the
+      * input from the DOMCTL itself.
+      */
+-    return MASK_INSR(MASK_EXTR(addr, MSI_ADDR_DEST_ID_MASK),
+-                     XEN_DOMCTL_VMSI_X86_DEST_ID_MASK) |
++    return MASK_INSR(dest, XEN_DOMCTL_VMSI_X86_DEST_ID_MASK) |
++           MASK_INSR(dest, XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK) |
+            MASK_INSR(MASK_EXTR(addr, MSI_ADDR_REDIRECTION_MASK),
+                      XEN_DOMCTL_VMSI_X86_RH_MASK) |
+            MASK_INSR(MASK_EXTR(addr, MSI_ADDR_DESTMODE_MASK),
+@@ -698,7 +708,8 @@ static int vpci_msi_update(const struct pci_dev *pdev, uint32_t data,
+             .irq_type = PT_IRQ_TYPE_MSI,
+             .u.msi.gvec = (vector & ~vector_mask) |
+                           ((vector + i) & vector_mask),
+-            .u.msi.gflags = msi_gflags(data, address, (mask >> i) & 1),
++            .u.msi.gflags = msi_gflags(data, address, (mask >> i) & 1,
++                                       pdev->domain->arch.ext_dest_id),
+         };
+         int rc = pt_irq_create_bind(pdev->domain, &bind);
  
-         dom0_cfg.arch.emulation_flags |=
-             XEN_X86_EMU_LAPIC | XEN_X86_EMU_IOAPIC | XEN_X86_EMU_VPCI;
-+        dom0_cfg.arch.misc_flags |= XEN_X86_EXT_DEST_ID;
-     }
+@@ -826,8 +837,13 @@ void vpci_msi_arch_init(struct vpci_msi *msi)
+     msi->arch.pirq = INVALID_PIRQ;
+ }
  
-     if ( iommu_enabled )
-diff --git a/xen/include/public/arch-x86/hvm/save.h b/xen/include/public/arch-x86/hvm/save.h
-index 773a380bc2..253dc89a04 100644
---- a/xen/include/public/arch-x86/hvm/save.h
-+++ b/xen/include/public/arch-x86/hvm/save.h
-@@ -376,7 +376,9 @@ union vioapic_redir_entry
-         uint8_t trig_mode:1;
-         uint8_t mask:1;
-         uint8_t reserve:7;
--        uint8_t reserved[4];
-+        uint8_t reserved[3];
-+        uint8_t :1;
-+        uint8_t virt_ext_dest_id:7;
-         uint8_t dest_id;
-     } fields;
- };
-diff --git a/xen/include/public/arch-x86/xen.h b/xen/include/public/arch-x86/xen.h
-index 7acd94c8eb..06d64a309f 100644
---- a/xen/include/public/arch-x86/xen.h
-+++ b/xen/include/public/arch-x86/xen.h
-@@ -317,6 +317,8 @@ struct xen_arch_domainconfig {
-  * doesn't allow the guest to read or write to the underlying MSR.
-  */
- #define XEN_X86_MSR_RELAXED (1u << 0)
-+/* Select whether to use Extended Destination ID for interrupt messages. */
-+#define XEN_X86_EXT_DEST_ID (1u << 1)
-     uint32_t misc_flags;
- };
+-void vpci_msi_arch_print(const struct vpci_msi *msi)
++void vpci_msi_arch_print(const struct vpci_msi *msi, const struct domain *d)
+ {
++    unsigned long dest = MASK_EXTR(msi->address, MSI_ADDR_DEST_ID_MASK);
++
++    if ( d->arch.ext_dest_id )
++        dest |= MASK_EXTR(msi->address, MSI_ADDR_VIRT_EXT_DEST_ID_MASK) << 8;
++
+     printk("vec=%#02x%7s%6s%3sassert%5s%7s dest_id=%lu pirq: %d\n",
+            MASK_EXTR(msi->data, MSI_DATA_VECTOR_MASK),
+            msi->data & MSI_DATA_DELIVERY_LOWPRI ? "lowest" : "fixed",
+@@ -835,8 +851,7 @@ void vpci_msi_arch_print(const struct vpci_msi *msi)
+            msi->data & MSI_DATA_LEVEL_ASSERT ? "" : "de",
+            msi->address & MSI_ADDR_DESTMODE_LOGIC ? "log" : "phys",
+            msi->address & MSI_ADDR_REDIRECTION_LOWPRI ? "lowest" : "fixed",
+-           MASK_EXTR(msi->address, MSI_ADDR_DEST_ID_MASK),
+-           msi->arch.pirq);
++           dest, msi->arch.pirq);
+ }
  
+ void vpci_msix_arch_mask_entry(struct vpci_msix_entry *entry,
+@@ -891,11 +906,16 @@ void vpci_msix_arch_init_entry(struct vpci_msix_entry *entry)
+ 
+ int vpci_msix_arch_print(const struct vpci_msix *msix)
+ {
++    const struct domain *d = msix->pdev->domain;
+     unsigned int i;
+ 
+     for ( i = 0; i < msix->max_entries; i++ )
+     {
+         const struct vpci_msix_entry *entry = &msix->entries[i];
++        unsigned long dest = MASK_EXTR(entry->addr, MSI_ADDR_DEST_ID_MASK);
++
++        if ( d->arch.ext_dest_id )
++            dest |= MASK_EXTR(entry->addr, MSI_ADDR_VIRT_EXT_DEST_ID_MASK) << 8;
+ 
+         printk("%6u vec=%02x%7s%6s%3sassert%5s%7s dest_id=%lu mask=%u pirq: %d\n",
+                i, MASK_EXTR(entry->data, MSI_DATA_VECTOR_MASK),
+@@ -904,8 +924,7 @@ int vpci_msix_arch_print(const struct vpci_msix *msix)
+                entry->data & MSI_DATA_LEVEL_ASSERT ? "" : "de",
+                entry->addr & MSI_ADDR_DESTMODE_LOGIC ? "log" : "phys",
+                entry->addr & MSI_ADDR_REDIRECTION_LOWPRI ? "lowest" : "fixed",
+-               MASK_EXTR(entry->addr, MSI_ADDR_DEST_ID_MASK),
+-               entry->masked, entry->arch.pirq);
++               dest, entry->masked, entry->arch.pirq);
+         if ( i && !(i % 64) )
+         {
+             struct pci_dev *pdev = msix->pdev;
+diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
+index b44bbdeb21..37e9d4c0fc 100644
+--- a/xen/arch/x86/include/asm/hvm/hvm.h
++++ b/xen/arch/x86/include/asm/hvm/hvm.h
+@@ -270,11 +270,12 @@ uint64_t hvm_get_guest_time_fixed(const struct vcpu *v, uint64_t at_tsc);
+ 
+ int vmsi_deliver(
+     struct domain *d, int vector,
+-    uint8_t dest, uint8_t dest_mode,
++    unsigned int dest, bool dest_mode,
+     uint8_t delivery_mode, uint8_t trig_mode);
+ struct hvm_pirq_dpci;
+ void vmsi_deliver_pirq(struct domain *d, const struct hvm_pirq_dpci *);
+-int hvm_girq_dest_2_vcpu_id(struct domain *d, uint8_t dest, uint8_t dest_mode);
++int hvm_girq_dest_2_vcpu_id(const struct domain *d, unsigned int dest,
++                            bool dest_mode);
+ 
+ enum hvm_intblk
+ hvm_interrupt_blocked(struct vcpu *v, struct hvm_intack intack);
+diff --git a/xen/arch/x86/include/asm/msi.h b/xen/arch/x86/include/asm/msi.h
+index e228b0f3f3..9d9509a368 100644
+--- a/xen/arch/x86/include/asm/msi.h
++++ b/xen/arch/x86/include/asm/msi.h
+@@ -54,6 +54,13 @@
+ #define MSI_ADDR_DEST_ID_SHIFT		12
+ #define	 MSI_ADDR_DEST_ID_MASK		0x00ff000
+ #define  MSI_ADDR_DEST_ID(dest)		(((dest) << MSI_ADDR_DEST_ID_SHIFT) & MSI_ADDR_DEST_ID_MASK)
++/*
++ * Use the reserved bits 11:5 to store the high part of the APIC ID, that
++ * allows expanding the destination field from 8 to 15 bits. Note this is a
++ * feature only present in virtualized hardware and currently only exposed to
++ * guests but not used by the hypervisor itself.
++ */
++#define	 MSI_ADDR_VIRT_EXT_DEST_ID_MASK	0x0000fe0
+ 
+ /* MAX fixed pages reserved for mapping MSIX tables. */
+ #define FIX_MSIX_MAX_PAGES              512
+diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x86/hvm.c
+index 0b37cd145b..9c42ebe17a 100644
+--- a/xen/drivers/passthrough/x86/hvm.c
++++ b/xen/drivers/passthrough/x86/hvm.c
+@@ -269,7 +269,8 @@ int pt_irq_create_bind(
+     {
+     case PT_IRQ_TYPE_MSI:
+     {
+-        uint8_t dest, delivery_mode;
++        unsigned int dest;
++        bool delivery_mode;
+         bool dest_mode;
+         int dest_vcpu_id;
+         const struct vcpu *vcpu;
+@@ -346,6 +347,10 @@ int pt_irq_create_bind(
+         /* Calculate dest_vcpu_id for MSI-type pirq migration. */
+         dest = MASK_EXTR(pirq_dpci->gmsi.gflags,
+                          XEN_DOMCTL_VMSI_X86_DEST_ID_MASK);
++        if ( d->arch.ext_dest_id )
++            dest |= MASK_EXTR(pirq_dpci->gmsi.gflags,
++                              XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK);
++
+         dest_mode = pirq_dpci->gmsi.gflags & XEN_DOMCTL_VMSI_X86_DM_MASK;
+         delivery_mode = MASK_EXTR(pirq_dpci->gmsi.gflags,
+                                   XEN_DOMCTL_VMSI_X86_DELIV_MASK);
+@@ -789,6 +794,10 @@ static int _hvm_dpci_msi_eoi(struct domain *d,
+                                       XEN_DOMCTL_VMSI_X86_DEST_ID_MASK);
+         bool dest_mode = pirq_dpci->gmsi.gflags & XEN_DOMCTL_VMSI_X86_DM_MASK;
+ 
++        if ( d->arch.ext_dest_id )
++            dest |= MASK_EXTR(pirq_dpci->gmsi.gflags,
++                              XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK);
++
+         if ( vlapic_match_dest(vcpu_vlapic(current), NULL, 0, dest,
+                                dest_mode) )
+         {
+diff --git a/xen/drivers/vpci/msi.c b/xen/drivers/vpci/msi.c
+index 5757a7aed2..e1d8c1d6f2 100644
+--- a/xen/drivers/vpci/msi.c
++++ b/xen/drivers/vpci/msi.c
+@@ -297,7 +297,7 @@ void vpci_dump_msi(void)
+                 printk(" vectors max: %u enabled: %u\n",
+                        pdev->msi_maxvec, msi->vectors);
+ 
+-                vpci_msi_arch_print(msi);
++                vpci_msi_arch_print(msi, d);
+             }
+ 
+             msix = pdev->vpci->msix;
 diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index b85e6170b0..31ec083cb0 100644
+index 31ec083cb0..ba71ce1148 100644
 --- a/xen/include/public/domctl.h
 +++ b/xen/include/public/domctl.h
-@@ -38,7 +38,7 @@
- #include "hvm/save.h"
- #include "memory.h"
+@@ -588,6 +588,7 @@ struct xen_domctl_bind_pt_irq {
+ #define XEN_DOMCTL_VMSI_X86_DELIV_MASK   0x007000
+ #define XEN_DOMCTL_VMSI_X86_TRIG_MASK    0x008000
+ #define XEN_DOMCTL_VMSI_X86_UNMASKED     0x010000
++#define XEN_DOMCTL_VMSI_X86_EXT_DEST_ID_MASK 0xfe0000
  
--#define XEN_DOMCTL_INTERFACE_VERSION 0x00000014
-+#define XEN_DOMCTL_INTERFACE_VERSION 0x00000015
+             uint64_aligned_t gtable;
+         } msi;
+diff --git a/xen/include/xen/vpci.h b/xen/include/xen/vpci.h
+index e8ac1eb395..354b37ef9c 100644
+--- a/xen/include/xen/vpci.h
++++ b/xen/include/xen/vpci.h
+@@ -162,7 +162,7 @@ int __must_check vpci_msi_arch_enable(struct vpci_msi *msi,
+ void vpci_msi_arch_disable(struct vpci_msi *msi, const struct pci_dev *pdev);
+ void vpci_msi_arch_update(struct vpci_msi *msi, const struct pci_dev *pdev);
+ void vpci_msi_arch_init(struct vpci_msi *msi);
+-void vpci_msi_arch_print(const struct vpci_msi *msi);
++void vpci_msi_arch_print(const struct vpci_msi *msi, const struct domain *d);
  
- /*
-  * NB. xen_domctl.domain is an IN/OUT parameter for this operation.
+ /* Arch-specific vPCI MSI-X helpers. */
+ void vpci_msix_arch_mask_entry(struct vpci_msix_entry *entry,
 -- 
 2.34.1
 
