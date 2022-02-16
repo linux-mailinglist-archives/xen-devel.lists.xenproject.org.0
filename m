@@ -2,65 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67CF24B83FB
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 10:25:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.273831.469112 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C801A4B8440
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 10:29:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.273841.469123 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKGYs-0002Sx-P3; Wed, 16 Feb 2022 09:25:22 +0000
+	id 1nKGck-0003B5-DW; Wed, 16 Feb 2022 09:29:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 273831.469112; Wed, 16 Feb 2022 09:25:22 +0000
+Received: by outflank-mailman (output) from mailman id 273841.469123; Wed, 16 Feb 2022 09:29:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKGYs-0002R4-LH; Wed, 16 Feb 2022 09:25:22 +0000
-Received: by outflank-mailman (input) for mailman id 273831;
- Wed, 16 Feb 2022 09:25:21 +0000
+	id 1nKGck-00038V-A8; Wed, 16 Feb 2022 09:29:22 +0000
+Received: by outflank-mailman (input) for mailman id 273841;
+ Wed, 16 Feb 2022 09:29:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bXi8=S7=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1nKGYr-0002Qy-9P
- for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 09:25:21 +0000
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur02on061f.outbound.protection.outlook.com
- [2a01:111:f400:fe05::61f])
+ id 1nKGci-00038J-5r
+ for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 09:29:20 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on0624.outbound.protection.outlook.com
+ [2a01:111:f400:fe0c::624])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5bad6778-8f0a-11ec-b215-9bbe72dcb22c;
- Wed, 16 Feb 2022 10:25:19 +0100 (CET)
-Received: from DU2PR04CA0087.eurprd04.prod.outlook.com (2603:10a6:10:232::32)
- by DB9PR08MB7115.eurprd08.prod.outlook.com (2603:10a6:10:2c8::5) with
- Microsoft SMTP Server (version=TLS1_2,
+ id eae009f2-8f0a-11ec-b215-9bbe72dcb22c;
+ Wed, 16 Feb 2022 10:29:19 +0100 (CET)
+Received: from AM5PR0601CA0038.eurprd06.prod.outlook.com
+ (2603:10a6:203:68::24) by AM6PR08MB3991.eurprd08.prod.outlook.com
+ (2603:10a6:20b:a8::30) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.15; Wed, 16 Feb
- 2022 09:25:16 +0000
-Received: from DB5EUR03FT029.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:232:cafe::65) by DU2PR04CA0087.outlook.office365.com
- (2603:10a6:10:232::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16 via Frontend
- Transport; Wed, 16 Feb 2022 09:25:16 +0000
+ 2022 09:29:16 +0000
+Received: from AM5EUR03FT058.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:203:68:cafe::6d) by AM5PR0601CA0038.outlook.office365.com
+ (2603:10a6:203:68::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.15 via Frontend
+ Transport; Wed, 16 Feb 2022 09:29:16 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT029.mail.protection.outlook.com (10.152.20.131) with
+ AM5EUR03FT058.mail.protection.outlook.com (10.152.17.48) with
  Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4975.11 via Frontend Transport; Wed, 16 Feb 2022 09:25:16 +0000
-Received: ("Tessian outbound 1f399c739551:v113");
- Wed, 16 Feb 2022 09:25:16 +0000
-Received: from a015a75e0a35.1
+ 15.20.4975.11 via Frontend Transport; Wed, 16 Feb 2022 09:29:14 +0000
+Received: ("Tessian outbound 341d209a0e52:v113");
+ Wed, 16 Feb 2022 09:29:14 +0000
+Received: from 47de483b1682.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 4CE8AF34-3DB5-492C-A371-7600F14D041A.1; 
- Wed, 16 Feb 2022 09:25:09 +0000
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id a015a75e0a35.1
+ E9F54DA6-1FEA-4409-8D0E-7C64C5B76903.1; 
+ Wed, 16 Feb 2022 09:29:08 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 47de483b1682.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 16 Feb 2022 09:25:09 +0000
+ Wed, 16 Feb 2022 09:29:08 +0000
 Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by AM6PR08MB5240.eurprd08.prod.outlook.com (2603:10a6:20b:ec::28)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.14; Wed, 16 Feb
- 2022 09:25:07 +0000
+ by AM4PR08MB2754.eurprd08.prod.outlook.com (2603:10a6:205:e::28) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.18; Wed, 16 Feb
+ 2022 09:29:05 +0000
 Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
  ([fe80::aca7:79c4:fa65:dac6]) by AM6PR08MB3784.eurprd08.prod.outlook.com
  ([fe80::aca7:79c4:fa65:dac6%5]) with mapi id 15.20.4995.014; Wed, 16 Feb 2022
- 09:25:07 +0000
+ 09:29:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,51 +72,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bad6778-8f0a-11ec-b215-9bbe72dcb22c
+X-Inumbo-ID: eae009f2-8f0a-11ec-b215-9bbe72dcb22c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ERvVUvPQYrt93/XLk61uDEFALhwDIgk3XgZP011Jyg0=;
- b=PnQSdPg+1TOWC8dBTZaSMbVJXZ7B4el/G6FAGbes1VYXD9/uPiOc0vH6NgHisMD/IoD/gI98UZQlLIiZkO0p2QNkmazen0Jw3eXIXL5Jz3R2zly2Xybm92ntm8iXnz9Zu8I90bgVWnMtoXdmDesGMcVG348i2vaCsMpc6gemL9w=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ bh=/83OOk9cZSV+Xozs8gMrc20TUYybIpGLhJIs50cxDIo=;
+ b=17xQ3RhQ4iGyvqXweJXAm4PIM0zhFtIbaApDpSdErQq9ncMl5gpCDTB4TyH1bKpt1bOR0W6Fp/OGr7zHdvs5krVpz/oIL1ZG7z5BQUeSnvSM6UrfBnQTngdOaWEJrJUVCrnfKedyMo6dveKcLjNaM/UNiTQ2/0oHhDkBKDlIhGA=
+X-MS-Exchange-Authentication-Results: spf=temperror (sender IP is
+ 63.35.35.123) smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=temperror action=none
+ header.from=arm.com;
+Received-SPF: TempError (protection.outlook.com: error in processing during
+ lookup of arm.com: DNS Timeout)
 X-CheckRecipientChecked: true
-X-CR-MTA-CID: a65327a62a2ce8a6
+X-CR-MTA-CID: f9cab02b8da4d342
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iMn3EojuW8uCH99oY/OIY0SKPYE5hTXyaZLzoVwHida1iWPUIwlI+T1nlLSYoZ015rBdUlV98Py8hAgwgThzU6H7peta4LOYZp3xxXAVuLzYddyuZyWTaeyAl70npnLySuwudwZMbQSdeLhK26BdzurY4jP2lHJr9eQ2O0IVk22sSsVqCKJQxGnLZxQqmITrY5P0ZbGknKo4xPz0atkCENCr04IL2w7iRXH3a8KIaZfNvFooPqtV2500hhwv0uY3HFkfHl7wr/4nCCGAAFzIJkYB/gGSSGCI5/n438GlrsEjmdqBRXfUC3ihpoLfvPAi12Om9ypa0YyFrZ+d611lqQ==
+ b=VBLWlYC7qJ7pDIo0a63aXt5oxvusQP20tQtlZS1KkP6DWh9rRPFvj4FtcOqrm9Ki4gyntIcYWMhnclkSW2J1C2VPxPcWfA+fgGWy29LiCIkGP9GImBl+QGGAX0kHEek+cpENGCHUUY+K4Cn8PsOyN4036reebIioZdjHrWYwfuMl0X7bvqI6gkV1bhxUAuS99SwRLb7WzIxmiJZVLUwspCUGikovB/8TeoOuh8ayPORlYk5GJ2DRHdEhxHa6Qd3YulgW9pTrFg+FBMDotG9Q28DjmObUol87uCEe6C0N/LRmWJPS1LAekS9zmK6a9DJvNppyWdzzIPumeKd9qreLXw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ERvVUvPQYrt93/XLk61uDEFALhwDIgk3XgZP011Jyg0=;
- b=WbJxZ3ME2ZzE2CXQh3hgWo+Gv5WDlcBQ3T9x6hf8/MDtfo2pB0GAUxEQ9/IyoS9FcC0GpVHqtf8q8rhK3BxGYqbXzaB2uznF0Mv/hVXFR29anBdJS0X5bHwCTflHWXR/vcerBV0J1S1GUvqrCerlkRmkbHdKaqIg528U2Q9NrYdNOIg7zN1QvdHqBiLVfeXJ2s/qKHgpS/rGZoToJWPMPvQ71qIHOTrtSL0msk1nC7AvBQFsrhqvrkFmeHKcGfkv9jFHeZmPiXMqKlLcKqo3PPC6uXxmfgDJZ1mLS7//mvN9Sg7Qdw2EQQwsFcwAbyNKOyt/GjdZ+DThfs5y4Sm9yA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
+ bh=/83OOk9cZSV+Xozs8gMrc20TUYybIpGLhJIs50cxDIo=;
+ b=doVqEuFHFrs9Y1p0lHqeO8avYf9MSiAEDXrrxyTZYuOH2yRak2tt2w57zJcpqzZ3EoFz93w0a+On9y9IbPBuua5CgDmuiXnJyjvK7mbvkBNEWjeSsjkgZKqTRbZF/MbFApJSIGjE1q4IIgMD1kvdLfLvAjUqVdAIWyA0W4NMdmD/wmAMplTJ9nl7wcDWtC3NJ3Ubho6jr5w42HO1RSJp2IYyHHM3RTpkXVRdX9Zmz8zgIqwyi/8cEDPDdPBp7mEHI8X6vOfnpMb3CJeX2pWvbn+Kxh4UvMZTVW/Sqi21KE6MQUygsZeqcMGhquG1J+RpWf5UuOVXNfbmI3JZiMpFPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ERvVUvPQYrt93/XLk61uDEFALhwDIgk3XgZP011Jyg0=;
- b=PnQSdPg+1TOWC8dBTZaSMbVJXZ7B4el/G6FAGbes1VYXD9/uPiOc0vH6NgHisMD/IoD/gI98UZQlLIiZkO0p2QNkmazen0Jw3eXIXL5Jz3R2zly2Xybm92ntm8iXnz9Zu8I90bgVWnMtoXdmDesGMcVG348i2vaCsMpc6gemL9w=
+ bh=/83OOk9cZSV+Xozs8gMrc20TUYybIpGLhJIs50cxDIo=;
+ b=17xQ3RhQ4iGyvqXweJXAm4PIM0zhFtIbaApDpSdErQq9ncMl5gpCDTB4TyH1bKpt1bOR0W6Fp/OGr7zHdvs5krVpz/oIL1ZG7z5BQUeSnvSM6UrfBnQTngdOaWEJrJUVCrnfKedyMo6dveKcLjNaM/UNiTQ2/0oHhDkBKDlIhGA=
 From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	=?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-Subject: Re: [PATCH v2] lib: extend ASSERT()
-Thread-Topic: [PATCH v2] lib: extend ASSERT()
-Thread-Index: AQHYE4sUwaOwwc8tCU249z99fRIDqqyVNw0AgADQBoA=
-Date: Wed, 16 Feb 2022 09:25:07 +0000
-Message-ID: <3F58400B-5151-42F2-8F39-109DDF50EE1E@arm.com>
-References: <75125344-b0e1-9663-4c1a-84bb35870fef@suse.com>
- <35d82770-66cf-e030-5bcc-3c030e4463d7@xen.org>
-In-Reply-To: <35d82770-66cf-e030-5bcc-3c030e4463d7@xen.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	Xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <JBeulich@suse.com>,
+	=?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v2 02/70] xen/sort: Switch to an extern inline
+ implementation
+Thread-Topic: [PATCH v2 02/70] xen/sort: Switch to an extern inline
+ implementation
+Thread-Index: AQHYIaGnBAePJgt7y0O7PyvIWQlKrKyTBxsAgAKFHwCAAF/KgA==
+Date: Wed, 16 Feb 2022 09:29:05 +0000
+Message-ID: <24099D77-07E6-4110-B988-309C917D89F1@arm.com>
+References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
+ <20220214125127.17985-3-andrew.cooper3@citrix.com>
+ <70824a0c-cc48-b064-695c-35c2d06c0ad1@xen.org>
+ <alpine.DEB.2.22.394.2202151800230.43738@ubuntu-linux-20-04-desktop>
+In-Reply-To:
+ <alpine.DEB.2.22.394.2202151800230.43738@ubuntu-linux-20-04-desktop>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -124,123 +127,336 @@ X-MS-TNEF-Correlator:
 x-mailer: Apple Mail (2.3693.60.0.1.1)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
-X-MS-Office365-Filtering-Correlation-Id: aa437432-4161-4266-651c-08d9f12e3dfe
+X-MS-Office365-Filtering-Correlation-Id: 8076549e-bf8b-41d8-c791-08d9f12ecc5a
 x-ms-traffictypediagnostic:
-	AM6PR08MB5240:EE_|DB5EUR03FT029:EE_|DB9PR08MB7115:EE_
+	AM4PR08MB2754:EE_|AM5EUR03FT058:EE_|AM6PR08MB3991:EE_
 X-Microsoft-Antispam-PRVS:
-	<DB9PR08MB7115F6ACD4AFAF22A0AE9CD29D359@DB9PR08MB7115.eurprd08.prod.outlook.com>
+	<AM6PR08MB3991B77005CE8807357736789D359@AM6PR08MB3991.eurprd08.prod.outlook.com>
 x-checkrecipientrouted: true
 nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
+x-ms-oob-tlc-oobclassifiers: OLM:9508;OLM:9508;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- TP+lNWot5ZJTyVuDq+aNL1smdPwITR5WC1DBQEEObXY0GtIfPurpDbAF/7f+V8ygG3pW7RgMbEMiL1ib2P/0UHE1aAjM8XfVvre0qxXJsNFI/VvSbLJiyJU14oJZOcP/COCeKa+5yHTTjbxcgPuwM03Q/N8HNjBtpMuxwQ7iuITmOzZFnfZHSmPL3e9kOS/8YU8qssN5UH1db16Dyet0U4Rt/wkobJ172+UTWZk6WkTDhrF7Dg3cv52gJs33faDuPqT15zVfmb5IzdeYF0Mbr19D2z6KMW6BQ9Lh3xLfFZiAjHU7NZiOde4MmmYIk4s5MOTGdqQXX6QZKbK/F/LkST7GNWPcs3xrZeOnw506MrL9GMLIK2OaFlJXr/8m7IWJyMU+COdh1IkQZqSh3SvqvtmnQaBQfNTU+fqGN8q5ZP/FBUQ6bCjcXDkXRsSwg/wCWxqNAFWqCPkkWWdO03KXqpqoCubodpUl6hkwo189fBGTnOC9jhPNg/fdyzss/w1fTdeo4sYbVkLQgCGDl2FjVVtIVTD9A89Hs6Ijfj3foa/J/yekUvcn3Q0GWncEOkNz2gZkGPXZQyu/RyBaJ6kONRq+vgDCE90blK02kP1AA7UTrq6sjtspwc+/nRFnblM6knggBBbn76yNecLS0dHGM73q5kyZrDpIW6XQ9JjpGXggkjaDKfWAhvjtX8rxmhuhtTXPsEeAcm/r5z8ep4PKWrgw1iDN+Kvd4qT4otVOzIebVzLjJ2eGOwa1wW7GKo68
+ 80LNKtPtz2GI5DD4QEX+q7f0OOeynJkj2LLG1mNcRv0PlW4e84E6kAvdm8pQcXrSC8KV72fL56eMsS1ER1ggEdLg20zjVhWVqwdkD5NvApijJAik5dgc9ULr14I1JBcQ+9pgbrVkVzq9n4I2HZwONPODUoNt3Ntn5rNFONCOg8mbfSQLYsT6P0gsj6h861LNgOvbFENN6jcfpcALqziXnSvQnqlXzlSdu8L/oXOm4CuLTmtM5I6K8pai1bZhfbKylb5WUvnWjfgXi2cdKy/Pfya6ClTz2jWd7WDB4kjJkaLM+3bYn3/VGQH95u6XkG1dad3NnVVZkHB4Mmh9kfA15zjy8VrYUo69N+CQQmu70oUpVh1KIB/bhVMNeDeT4Z1+Dqn4u4EADWQdAF7OSGjlEwOFHjeWNUnWAOW879eRgEIiBDtSqqb+r6rBnzbU+2t0Ht9EV+71MTr4piA4nUp2UdUg9xbRauSOAunj/tYuvoB+MwYqfJ2Rm/zmM/QZDcivn7EIxnf1BrBTr6M7PXv6SuzFTtjESnWHuYNNkciiE+aCLjBZ2yV1HwqnfitZ2KRBkizwl9PCtXWb7SjlX9AI0jCA0SeJ8cqOeAMHfulA5C8kX72bmXG1JIAIdFa2KF6MYhejLsi9pO49y+C/NWH888pvQHPZv0iIBdFfSv5sNeJijnmi948lLyRu8zHnOwPRx5bA+tRmpQIGfDDef0efl/e8ZVSpW40j9uhPK6YOLJrRBtGJrt9qak30QgSaRUje
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(6486002)(6506007)(66446008)(4326008)(8936002)(76116006)(53546011)(6512007)(26005)(2616005)(83380400001)(186003)(2906002)(508600001)(71200400001)(91956017)(38100700002)(66946007)(66556008)(54906003)(6916009)(33656002)(122000001)(38070700005)(8676002)(66476007)(86362001)(64756008)(316002)(36756003)(5660300002)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <8D5AE8AA7A8A7B46BEED08BCE5324284@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(508600001)(71200400001)(26005)(6512007)(53546011)(2616005)(91956017)(83380400001)(316002)(6506007)(36756003)(6486002)(64756008)(5660300002)(38070700005)(54906003)(6916009)(186003)(4326008)(38100700002)(122000001)(33656002)(66556008)(66446008)(2906002)(86362001)(66476007)(66946007)(76116006)(8676002)(8936002)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <C2683ED7D01CB54A90517525831830C6@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB5240
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM4PR08MB2754
 Original-Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT029.eop-EUR03.prod.protection.outlook.com
+ AM5EUR03FT058.eop-EUR03.prod.protection.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	d34d5492-80ad-4403-6572-08d9f12e38b1
+	b06eb978-76da-4480-b118-08d9f12ec707
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	u+B47gOEDbTZ1E08XwMDK0Redpu/sQrxLLqwBtfRPOl0/X57h/49145YjgtLtn/4ZJijfnJUu3iXzcNtRWPgYRff0H7qbUgVg9DZZ2siB21WIh8gcMu0l752A+wC0XOMS1BgZwNNPKEtsEJE0TxfC6VshPwij0qfsemH/9jQ8eJDYveRwX5MBKS1fvxmOk6jCqa4ec40Plf4DLnxP2vXPFKRnYwsjY3RL5plTqRo0hxAL4mEEs1GJRBuhdYNWCY8H3/DO2TvZ8+i7Bd+/8wUMBnrFMhpSF5ouvNzD+oUgQ2DuH9jiDkd8an10bq6AI9VWMkrewa6LI1xnLG84081h2/c0fT4fIt26yD+Zg6K5YDp7tQNsQ+APZOlU9EL62oCVfYA8OkLs05LVpnOWrpL7pNcl+OyrHYE1bLNLgn+OWjwEXLF09RyJh1geDkF9aJXUnbB1DydaG8faMJJT3A+0UOQRTk57dlQtOdbrXWX5l8um4k8FJAPP168dLvKgz3XBXs3o7+lf1zr83jZ0CCBsEbjiSsvXevO/MYjuZcBl/madahwq3aHh5QD2PmlDAJKLGhd6ztKg0Mrd2sj/tx+NzGolSOSBfna4P7PS2jeNjm2pG1ALCXjW4CNp2atKCcHr/hDVs3Ukpo2443RkPmbwEuAi3qvLESIc5a3d46JrthhzdX2qS9Jm0pllcguj4HV
+	PH4Ed0DDv+QTohKGiApisrk3J467FC10YdG8vH6jrhtm+jYwO8vSKHytQ5NZKlrcq2USJWYm7s0rXQprmwtwkOvORoddjuWEpnIHLufTCgu++CldfEhLICyDaiPscBuqj5jq2M3PbBMxtu8XkPWHwPg14wlFC0EqIqlpLPF5pLkh0Z0H+BcGedHAG7ajohMrb8345r4j0rQmYs4NOgM1KEHe58xf2ig4SxAdmawrbUTWIaBEg5ip9ua/hhC63/vv6x2cRrzpkj8cpxgVIOr5HQnYt35RY1S5aQW8y9Z1LsbBOsQGKMDb/BGpV0lq7tJLmlzzjTxVb2AAanOKi0PguccdADhFfnBYmcf/v4kxRugc5BU2leGbiwMRfFYjZnSnaeH1JlAgVFr5p7OyG+QrdMW8Z12++gIG8BZcjh7k3r7yiaMvUCsLJpyO9jI7gvG5BOwwZTZlsBm35wgmD4qbjTbbxJtzPUsSeJB0cdu/PwsZV+fTfHMhkO8vSW+pCQzbd7njlZArY/A2+o+Xup0CqnG5ILJBgMLeteEh0/gXl0nk6WyzO5PwVIX15krZBS2/F6OgyI0T+U9LPTC9ohdxCPpxNdAUL9zFf+CAbL6+GyFtIinyT4flZzm0NQ3JTSI0rchKgQixh88wfy1LdPIsBLeHrghSkTxi01aj+Af+dStz14oHFUhPaW49ZzuZM55CwSM1Nslx8srIGBnqqbbvFQ==
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(36840700001)(40470700004)(46966006)(36756003)(6862004)(2616005)(316002)(356005)(81166007)(6486002)(107886003)(4326008)(26005)(70206006)(70586007)(186003)(336012)(33656002)(2906002)(86362001)(53546011)(8676002)(6512007)(54906003)(36860700001)(40460700003)(508600001)(82310400004)(8936002)(83380400001)(6506007)(5660300002)(47076005);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(6862004)(2616005)(8676002)(508600001)(4326008)(6512007)(53546011)(8936002)(33656002)(6486002)(36756003)(5660300002)(107886003)(6506007)(2906002)(54906003)(81166007)(316002)(47076005)(63370400001)(336012)(26005)(356005)(83380400001)(40460700003)(70586007)(86362001)(70206006)(63350400001)(82310400004)(36860700001)(186003)(45980500001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2022 09:25:16.0507
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2022 09:29:14.8145
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa437432-4161-4266-651c-08d9f12e3dfe
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8076549e-bf8b-41d8-c791-08d9f12ecc5a
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT029.eop-EUR03.prod.protection.outlook.com
+	AM5EUR03FT058.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB7115
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3991
 
-SGkgSmFuLCBKdWxpZW4sDQoNCj4gT24gMTUgRmViIDIwMjIsIGF0IDIxOjAwLCBKdWxpZW4gR3Jh
-bGwgPGp1bGllbkB4ZW4ub3JnPiB3cm90ZToNCj4gDQo+ICgrIEJlcnRyYW5kKQ0KPiANCj4gSGkg
-SmFuLA0KPiANCj4gT24gMjcvMDEvMjAyMiAxNDozNCwgSmFuIEJldWxpY2ggd3JvdGU6DQo+PiBU
-aGUgaW5jcmVhc2luZyBhbW91bnQgb2YgY29uc3RydWN0cyBhbG9uZyB0aGUgbGluZXMgb2YNCj4+
-ICAgICBpZiAoICFjb25kaXRpb24gKQ0KPj4gICAgIHsNCj4+ICAgICAgICAgQVNTRVJUX1VOUkVB
-Q0hBQkxFKCk7DQo+PiAgICAgICAgIHJldHVybjsNCj4+ICAgICB9DQo+PiBpcyBub3Qgb25seSBs
-b25nZXIgdGhhbiBuZWNlc3NhcnksIGJ1dCBhbHNvIGRvZXNuJ3QgcHJvZHVjZSBpbmNpZGVudA0K
-Pj4gc3BlY2lmaWMgY29uc29sZSBvdXRwdXQgKGV4Y2VwdCBmb3IgZmlsZSBuYW1lIGFuZCBsaW5l
-IG51bWJlcikuDQo+IA0KPiBTbyBJIGFncmVlIHRoYXQgdGhpcyBjb25zdHJ1Y3Qgd2lsbCBhbHdh
-eXMgcmVzdWx0IHRvIGEgbWluaW11bSA1IGxpbmVzLiBXaGljaCBpcyBub3QgbmljZS4gQnV0IHRo
-ZSBwcm9wb3NlZCBjaGFuZ2UgaXMuLi4NCj4gDQo+PiBBbGxvdw0KPj4gdGhlIGludGVuZGVkIGVm
-ZmVjdCB0byBiZSBhY2hpZXZlZCB3aXRoIEFTU0VSVCgpLCBieSBnaXZpbmcgaXQgYSBzZWNvbmQN
-Cj4+IHBhcmFtZXRlciBhbGxvd2luZyBzcGVjaWZpY2F0aW9uIG9mIHRoZSBhY3Rpb24gdG8gdGFr
-ZSBpbiByZWxlYXNlIGJ1aWxkcw0KPj4gaW4gY2FzZSBhbiBhc3NlcnRpb24gd291bGQgaGF2ZSB0
-cmlnZ2VyZWQgaW4gYSBkZWJ1ZyBvbmUuIFRoZSBleGFtcGxlDQo+PiBhYm92ZSB0aGVuIGJlY29t
-ZXMNCj4+ICAgICBBU1NFUlQoY29uZGl0aW9uLCByZXR1cm4pOw0KPj4gTWFrZSBzdXJlIHRoZSBj
-b25kaXRpb24gd2lsbCBjb250aW51ZSB0byBub3QgZ2V0IGV2YWx1YXRlZCB3aGVuIGp1c3QgYQ0K
-Pj4gc2luZ2xlIGFyZ3VtZW50IGdldHMgcGFzc2VkIHRvIEFTU0VSVCgpLg0KPj4gU2lnbmVkLW9m
-Zi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KPj4gLS0tDQo+PiB2MjogUmVu
-YW1lIG5ldyBtYWNybyBwYXJhbWV0ZXIuDQo+PiAtLS0NCj4+IFJGQzogVGhlIHVzZSBvZiBhIGNv
-bnRyb2wgZmxvdyBjb25zdHJ1Y3QgYXMgYSBtYWNybyBhcmd1bWVudCBtYXkgYmUNCj4+ICAgICAg
-Y29udHJvdmVyc2lhbC4NCj4gDQo+IGluZGVlZCBjb250cm92ZXJzaWFsLiBJIGZpbmQgdGhpcyBx
-dWl0ZSBjb25mdXNpbmcgYW5kIG5vdCBzb21ldGhpbmcgSSB3b3VsZCByZXF1ZXN0IGEgdXNlciB0
-byBzd2l0Y2ggdG8gaWYgdGhleSB1c2UgdGhlIGxvbmdlciB2ZXJzaW9uLg0KPiANCj4gVGhhdCBz
-YWlkLCB0aGlzIGlzIG1haW5seSBhIG1hdHRlciBvZiB0YXN0ZS4gU28gSSBhbSBpbnRlcmVzdGVk
-IHRvIGhlYXIgb3RoZXJzIHZpZXcuDQo+IA0KPiBJIGhhdmUgYWxzbyBDQ2VkIEJlcnRyYW5kIHRv
-IGhhdmUgYW4gb3BpbmlvbnMgZnJvbSB0aGUgRnVzYSBHcm91cCAoSSBzdXNwZWN0IHRoaXMgd2ls
-bCBnbyBiYWNrd2FyZCBmb3IgdGhlbSkuDQoNClRoYW5rcyBhbmQgaGVyZSBpcyBteSBmZWVkYmFj
-ayBpbiByZWdhcmRzIHRvIEZ1c2EgaGVyZS4NCg0KTW9zdCBjZXJ0aWZpY2F0aW9uIHN0YW5kYXJk
-cyBhcmUgZm9yYmlkZGluZyBjb21wbGV0ZWx5IG1hY3JvcyBpbmNsdWRpbmcNCmNvbmRpdGlvbnMg
-KGFuZCBxdWl0ZSBhIG51bWJlciBhcmUgZm9yYmlkZGluZyBzdGF0aWMgaW5saW5lIHdpdGggY29u
-ZGl0aW9ucykuDQpUaGUgbWFpbiByZWFzb24gZm9yIHRoYXQgaXMgTUNEQyBjb3ZlcmFnZSAoY29u
-ZGl0aW9uL2RlY2lzaW9ucyBhbmQgbm90IG9ubHkNCmNvZGUgbGluZSkgaXMgbm90IHBvc3NpYmxl
-IHRvIGRvIGFueW1vcmUgZG93biB0byB0aGUgc291cmNlIGNvZGUgYW5kIGhhcyB0byBiZQ0KZG9u
-ZSBkb3duIHRvIHRoZSBwcmUtcHJvY2Vzc2VkIGNvZGUuDQoNCk91dCBvZiBGdXNhIGNvbnNpZGVy
-YXRpb25zLCBvbmUgdGhpbmcgSSBkbyBub3QgbGlrZSBpbiB0aGlzIHNvbHV0aW9uIGlzIHRoZSBm
-YWN0IHRoYXQNCnlvdSBwdXQgc29tZSBjb2RlIGFzIHBhcmFtZXRlciBvZiB0aGUgbWFjcm8gKHRo
-ZSByZXR1cm4pLg0KDQpUbyBtYWtlIHRoaXMgYSBiaXQgYmV0dGVyIHlvdSBjb3VsZCBwdXQgdGhl
-IHJldHVybiBjb2RlIGFzIHBhcmFtZXRlcg0KaW5zdGVhZCBvZiBoYXZpbmcg4oCccmV0dXJuIENP
-REXigJ0gYXMgcGFyYW1ldGVyLg0KDQpBbiBvdGhlciB0aGluZyBpcyB0aGF0IFhlbiBBU1NFUlQg
-YWZ0ZXIgdGhpcyBjaGFuZ2Ugd2lsbCBiZSBxdWl0ZSBkaWZmZXJlbnQgZnJvbQ0KYW55IEFTU0VS
-VCBmb3VuZCBpbiBvdGhlciBwcm9qZWN0cyB3aGljaCBjb3VsZCBtYWtlIGl0IG1pc2xlYWRpbmcg
-Zm9yIGRldmVsb3BlcnMuDQpNYXliZSB3ZSBjb3VsZCBpbnRyb2R1Y2UgYW4gQVNTRVJUX1JFVFVS
-TiBtYWNyb3MgaW5zdGVhZCBvZiBtb2RpZnlpbmcgdGhlDQpiZWhhdmlvdXIgb2YgdGhlIHN0YW5k
-YXJkIEFTU0VSVCA/DQoNClJlZ2FyZHMNCkJlcnRyYW5kDQoNCj4gDQo+PiAtLS0gYS94ZW4vY29t
-bW9uL21lbW9yeS5jDQo+PiArKysgYi94ZW4vY29tbW9uL21lbW9yeS5jDQo+PiBAQCAtODI2LDEx
-ICs4MjYsNyBAQCBpbnQgeGVubWVtX2FkZF90b19waHlzbWFwKHN0cnVjdCBkb21haW4NCj4+ICAg
-ICAgdW5pb24gYWRkX3RvX3BoeXNtYXBfZXh0cmEgZXh0cmEgPSB7fTsNCj4+ICAgICAgc3RydWN0
-IHBhZ2VfaW5mbyAqcGFnZXNbMTZdOw0KPj4gIC0gICAgaWYgKCAhcGFnaW5nX21vZGVfdHJhbnNs
-YXRlKGQpICkNCj4+IC0gICAgew0KPj4gLSAgICAgICAgQVNTRVJUX1VOUkVBQ0hBQkxFKCk7DQo+
-PiAtICAgICAgICByZXR1cm4gLUVBQ0NFUzsNCj4+IC0gICAgfQ0KPj4gKyAgICBBU1NFUlQocGFn
-aW5nX21vZGVfdHJhbnNsYXRlKGQpLCByZXR1cm4gLUVBQ0NFUyk7DQo+PiAgICAgICAgaWYgKCB4
-YXRwLT5zcGFjZSA9PSBYRU5NQVBTUEFDRV9nbWZuX2ZvcmVpZ24gKQ0KPj4gICAgICAgICAgZXh0
-cmEuZm9yZWlnbl9kb21pZCA9IERPTUlEX0lOVkFMSUQ7DQo+PiBAQCAtOTIwLDExICs5MTYsNyBA
-QCBzdGF0aWMgaW50IHhlbm1lbV9hZGRfdG9fcGh5c21hcF9iYXRjaChzDQo+PiAgICAgICAqIGNh
-bGwgZG9lc24ndCBzdWNjdW1iIHRvIGRlYWQtY29kZS1lbGltaW5hdGlvbi4gRHVwbGljYXRlIHRo
-ZSBzaG9ydC1jaXJjdXQNCj4+ICAgICAgICogZnJvbSB4YXRwX3Blcm1pc3Npb25fY2hlY2soKSB0
-byB0cnkgYW5kIGhlbHAgdGhlIGNvbXBpbGVyIG91dC4NCj4+ICAgICAgICovDQo+PiAtICAgIGlm
-ICggIXBhZ2luZ19tb2RlX3RyYW5zbGF0ZShkKSApDQo+PiAtICAgIHsNCj4+IC0gICAgICAgIEFT
-U0VSVF9VTlJFQUNIQUJMRSgpOw0KPj4gLSAgICAgICAgcmV0dXJuIC1FQUNDRVM7DQo+PiAtICAg
-IH0NCj4+ICsgICAgQVNTRVJUKHBhZ2luZ19tb2RlX3RyYW5zbGF0ZShkKSwgcmV0dXJuIC1FQUND
-RVMpOw0KPj4gICAgICAgIGlmICggdW5saWtlbHkoeGF0cGItPnNpemUgPCBleHRlbnQpICkNCj4+
-ICAgICAgICAgIHJldHVybiAtRUlMU0VROw0KPj4gLS0tIGEveGVuL2luY2x1ZGUveGVuL2xpYi5o
-DQo+PiArKysgYi94ZW4vaW5jbHVkZS94ZW4vbGliLmgNCj4+IEBAIC00OSwxMSArNDksMTMgQEAN
-Cj4+ICAjZW5kaWYNCj4+ICAgICNpZm5kZWYgTkRFQlVHDQo+PiAtI2RlZmluZSBBU1NFUlQocCkg
-XA0KPj4gKyNkZWZpbmUgQVNTRVJUKHAsIC4uLikgXA0KPj4gICAgICBkbyB7IGlmICggdW5saWtl
-bHkoIShwKSkgKSBhc3NlcnRfZmFpbGVkKCNwKTsgfSB3aGlsZSAoMCkNCj4+ICAjZGVmaW5lIEFT
-U0VSVF9VTlJFQUNIQUJMRSgpIGFzc2VydF9mYWlsZWQoInVucmVhY2hhYmxlIikNCj4+ICAjZWxz
-ZQ0KPj4gLSNkZWZpbmUgQVNTRVJUKHApIGRvIHsgaWYgKCAwICYmIChwKSApIHt9IH0gd2hpbGUg
-KDApDQo+PiArI2RlZmluZSBBU1NFUlQocCwgZmFpbHNhZmUuLi4pIGRvIHsgXA0KPj4gKyAgICAg
-ICAgaWYgKCAhY291bnRfYXJncyhmYWlsc2FmZSkgfHwgdW5saWtlbHkoIShwKSkgKSB7IGZhaWxz
-YWZlOyB9IFwNCj4+ICsgICAgfSB3aGlsZSAoIDAgKQ0KPj4gICNkZWZpbmUgQVNTRVJUX1VOUkVB
-Q0hBQkxFKCkgZG8geyB9IHdoaWxlICgwKQ0KPj4gICNlbmRpZg0KPj4gIA0KPiANCj4gQ2hlZXJz
-LA0KPiANCj4gLS0gDQo+IEp1bGllbiBHcmFsbA0KDQo=
+Hi Stefano,
+
+> On 16 Feb 2022, at 03:46, Stefano Stabellini <sstabellini@kernel.org> wro=
+te:
+>=20
+> On Mon, 14 Feb 2022, Julien Grall wrote:
+>> On 14/02/2022 12:50, Andrew Cooper wrote:
+>>> There are exactly 3 callers of sort() in the hypervisor.  Callbacks in =
+a
+>>> tight
+>>> loop like this are problematic for performance, especially with Spectre=
+ v2
+>>> protections, which is why extern inline is used commonly by libraries.
+>>>=20
+>>> Both ARM callers pass in NULL for the swap function, and while this mig=
+ht
+>>> seem
+>>> like an attractive option at first, it causes generic_swap() to be used=
+,
+>>> which
+>>> forced a byte-wise copy.  Provide real swap functions so the compiler c=
+an
+>>> optimise properly, which is very important for ARM downstreams where
+>>> milliseconds until the system is up matters.
+>>=20
+>> Did you actually benchmark it? Both those lists will have < 128 elements=
+ in
+>> them. So I would be extremely surprised if you save more than a few hund=
+reds
+>> microseconds with this approach.
+>>=20
+>> So, my opinion on this approach hasn't changed. On v1, we discussed an
+>> approach that would suit both Stefano and I. Jan seemed to confirm that =
+would
+>> also suit x86.
+>=20
+>=20
+> This patch series has become 70 patches and for the sake of helping
+> Andrew move forward in the quickest and most painless way possible, I
+> append the following using generic_swap as static inline.
+>=20
+> Julien, Bertrand, is that acceptable to you?
+
+Any reason why we cannot in this case keep the NULL parameter in the
+existing code and do the if swap =3D=3D NULL handling in the sort code ?
+
+Other then that this is acceptable for me but I will let Julien say if he i=
+s
+ok or not as I had no objections before.
+
+Regards
+Bertrand
+
+>=20
+> Andrew, I know this is not your favorite approach but you have quite a
+> lot of changes to handle -- probably not worth focussing on one detail
+> which is pretty minor?
+>=20
+>=20
+> ---
+> xen/sort: Switch to an extern inline implementation
+>=20
+> There are exactly 3 callers of sort() in the hypervisor.  Callbacks in a =
+tight
+> loop like this are problematic for performance, especially with Spectre v=
+2
+> protections, which is why extern inline is used commonly by libraries.
+>=20
+> Make generic_swap() a static inline and used it at the two ARM call
+> sites.
+>=20
+> No functional change.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> xen/arch/arm/bootfdt.c |  2 +-
+> xen/arch/arm/io.c      |  2 +-
+> xen/include/xen/sort.h | 67 ++++++++++++++++++++++++++++++++++-
+> xen/lib/sort.c         | 80 ++----------------------------------------
+> 4 files changed, 70 insertions(+), 81 deletions(-)
+>=20
+> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+> index afaa0e249b..0d62945d56 100644
+> --- a/xen/arch/arm/bootfdt.c
+> +++ b/xen/arch/arm/bootfdt.c
+> @@ -472,7 +472,7 @@ size_t __init boot_fdt_info(const void *fdt, paddr_t =
+paddr)
+>      * the banks sorted in ascending order. So sort them through.
+>      */
+>     sort(bootinfo.mem.bank, bootinfo.mem.nr_banks, sizeof(struct membank)=
+,
+> -         cmp_memory_node, NULL);
+> +         cmp_memory_node, generic_swap);
+>=20
+>     early_print_info();
+>=20
+> diff --git a/xen/arch/arm/io.c b/xen/arch/arm/io.c
+> index 729287e37c..1f35aaeea6 100644
+> --- a/xen/arch/arm/io.c
+> +++ b/xen/arch/arm/io.c
+> @@ -170,7 +170,7 @@ void register_mmio_handler(struct domain *d,
+>=20
+>     /* Sort mmio handlers in ascending order based on base address */
+>     sort(vmmio->handlers, vmmio->num_entries, sizeof(struct mmio_handler)=
+,
+> -         cmp_mmio_handler, NULL);
+> +         cmp_mmio_handler, generic_swap);
+>=20
+>     write_unlock(&vmmio->lock);
+> }
+> diff --git a/xen/include/xen/sort.h b/xen/include/xen/sort.h
+> index a403652948..f6065eda58 100644
+> --- a/xen/include/xen/sort.h
+> +++ b/xen/include/xen/sort.h
+> @@ -3,8 +3,73 @@
+>=20
+> #include <xen/types.h>
+>=20
+> +extern gnu_inline
+> +void generic_swap(void *a, void *b, size_t size)
+> +{
+> +    char t;
+> +
+> +    do {
+> +        t =3D *(char *)a;
+> +        *(char *)a++ =3D *(char *)b;
+> +        *(char *)b++ =3D t;
+> +    } while ( --size > 0 );
+> +}
+> +
+> +/*
+> + * sort - sort an array of elements
+> + * @base: pointer to data to sort
+> + * @num: number of elements
+> + * @size: size of each element
+> + * @cmp: pointer to comparison function
+> + * @swap: pointer to swap function or NULL
+> + *
+> + * This function does a heapsort on the given array. You may provide a
+> + * swap function optimized to your element type.
+> + *
+> + * Sorting time is O(n log n) both on average and worst-case. While
+> + * qsort is about 20% faster on average, it suffers from exploitable
+> + * O(n*n) worst-case behavior and extra memory requirements that make
+> + * it less suitable for kernel use.
+> + */
+> +#ifndef SORT_IMPLEMENTATION
+> +extern gnu_inline
+> +#endif
+> void sort(void *base, size_t num, size_t size,
+>           int (*cmp)(const void *, const void *),
+> -          void (*swap)(void *, void *, size_t));
+> +          void (*swap)(void *, void *, size_t))
+> +{
+> +    /* pre-scale counters for performance */
+> +    size_t i =3D (num / 2) * size, n =3D num * size, c, r;
+> +
+> +    /* heapify */
+> +    while ( i > 0 )
+> +    {
+> +        for ( r =3D i -=3D size; r * 2 + size < n; r =3D c )
+> +        {
+> +            c =3D r * 2 + size;
+> +            if ( (c < n - size) && (cmp(base + c, base + c + size) < 0) =
+)
+> +                c +=3D size;
+> +            if ( cmp(base + r, base + c) >=3D 0 )
+> +                break;
+> +            swap(base + r, base + c, size);
+> +        }
+> +    }
+> +
+> +    /* sort */
+> +    for ( i =3D n; i > 0; )
+> +    {
+> +        i -=3D size;
+> +        swap(base, base + i, size);
+> +        for ( r =3D 0; r * 2 + size < i; r =3D c )
+> +        {
+> +            c =3D r * 2 + size;
+> +            if ( (c < i - size) && (cmp(base + c, base + c + size) < 0) =
+)
+> +                c +=3D size;
+> +            if ( cmp(base + r, base + c) >=3D 0 )
+> +                break;
+> +            swap(base + r, base + c, size);
+> +        }
+> +    }
+> +}
+>=20
+> #endif /* __XEN_SORT_H__ */
+> diff --git a/xen/lib/sort.c b/xen/lib/sort.c
+> index 35ce0d7abd..b7e78cc0e8 100644
+> --- a/xen/lib/sort.c
+> +++ b/xen/lib/sort.c
+> @@ -4,81 +4,5 @@
+>  * Jan 23 2005  Matt Mackall <mpm@selenic.com>
+>  */
+>=20
+> -#include <xen/types.h>
+> -
+> -static void u32_swap(void *a, void *b, size_t size)
+> -{
+> -    uint32_t t =3D *(uint32_t *)a;
+> -
+> -    *(uint32_t *)a =3D *(uint32_t *)b;
+> -    *(uint32_t *)b =3D t;
+> -}
+> -
+> -static void generic_swap(void *a, void *b, size_t size)
+> -{
+> -    char t;
+> -
+> -    do {
+> -        t =3D *(char *)a;
+> -        *(char *)a++ =3D *(char *)b;
+> -        *(char *)b++ =3D t;
+> -    } while ( --size > 0 );
+> -}
+> -
+> -/*
+> - * sort - sort an array of elements
+> - * @base: pointer to data to sort
+> - * @num: number of elements
+> - * @size: size of each element
+> - * @cmp: pointer to comparison function
+> - * @swap: pointer to swap function or NULL
+> - *
+> - * This function does a heapsort on the given array. You may provide a
+> - * swap function optimized to your element type.
+> - *
+> - * Sorting time is O(n log n) both on average and worst-case. While
+> - * qsort is about 20% faster on average, it suffers from exploitable
+> - * O(n*n) worst-case behavior and extra memory requirements that make
+> - * it less suitable for kernel use.
+> - */
+> -
+> -void sort(void *base, size_t num, size_t size,
+> -          int (*cmp)(const void *, const void *),
+> -          void (*swap)(void *, void *, size_t size))
+> -{
+> -    /* pre-scale counters for performance */
+> -    size_t i =3D (num / 2) * size, n =3D num * size, c, r;
+> -
+> -    if ( !swap )
+> -        swap =3D (size =3D=3D 4 ? u32_swap : generic_swap);
+> -
+> -    /* heapify */
+> -    while ( i > 0 )
+> -    {
+> -        for ( r =3D i -=3D size; r * 2 + size < n; r =3D c )
+> -        {
+> -            c =3D r * 2 + size;
+> -            if ( (c < n - size) && (cmp(base + c, base + c + size) < 0) =
+)
+> -                c +=3D size;
+> -            if ( cmp(base + r, base + c) >=3D 0 )
+> -                break;
+> -            swap(base + r, base + c, size);
+> -        }
+> -    }
+> -
+> -    /* sort */
+> -    for ( i =3D n; i > 0; )
+> -    {
+> -        i -=3D size;
+> -        swap(base, base + i, size);
+> -        for ( r =3D 0; r * 2 + size < i; r =3D c )
+> -        {
+> -            c =3D r * 2 + size;
+> -            if ( (c < i - size) && (cmp(base + c, base + c + size) < 0) =
+)
+> -                c +=3D size;
+> -            if ( cmp(base + r, base + c) >=3D 0 )
+> -                break;
+> -            swap(base + r, base + c, size);
+> -        }
+> -    }
+> -}
+> +#define SORT_IMPLEMENTATION
+> +#include <xen/sort.h>
+> --=20
+> 2.25.1
+>=20
+
 
