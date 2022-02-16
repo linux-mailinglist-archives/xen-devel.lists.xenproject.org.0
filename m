@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F6AE4B806E
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 07:16:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.273682.468936 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5A3E4B8072
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 07:18:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.273688.468948 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKDbi-0000UU-DN; Wed, 16 Feb 2022 06:16:06 +0000
+	id 1nKDde-00016s-Rl; Wed, 16 Feb 2022 06:18:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 273682.468936; Wed, 16 Feb 2022 06:16:06 +0000
+Received: by outflank-mailman (output) from mailman id 273688.468948; Wed, 16 Feb 2022 06:18:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKDbi-0000Rq-9X; Wed, 16 Feb 2022 06:16:06 +0000
-Received: by outflank-mailman (input) for mailman id 273682;
- Wed, 16 Feb 2022 06:16:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nKDde-00013J-N6; Wed, 16 Feb 2022 06:18:06 +0000
+Received: by outflank-mailman (input) for mailman id 273688;
+ Wed, 16 Feb 2022 06:18:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BoLq=S7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nKDbh-0000Ri-AP
- for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 06:16:05 +0000
+ id 1nKDdd-00013B-Ai
+ for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 06:18:05 +0000
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id eb869da7-8eef-11ec-8eb8-a37418f5ba1a;
- Wed, 16 Feb 2022 07:16:04 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3308c8ce-8ef0-11ec-b215-9bbe72dcb22c;
+ Wed, 16 Feb 2022 07:18:04 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0B0721F37D;
- Wed, 16 Feb 2022 06:16:04 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 09F151F37D;
+ Wed, 16 Feb 2022 06:18:04 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B137113A3E;
- Wed, 16 Feb 2022 06:16:03 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AC43913A3E;
+ Wed, 16 Feb 2022 06:18:03 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id VpkTKaOWDGJgHAAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 16 Feb 2022 06:16:03 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id eATMKBuXDGLvHAAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 16 Feb 2022 06:18:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,89 +51,94 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eb869da7-8eef-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 3308c8ce-8ef0-11ec-b215-9bbe72dcb22c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1644992164; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1644992284; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=nFkZWLYCBmOpifjImb/h0YhbHGDEqjtB1FTk8XnPyIo=;
-	b=aRgSZDaZ3ZczqM3+RrpPxnhgHV83eecGGbx2WJ7nsJbimHmsnDpKjAvZoG9O+NPmv8W7Bs
-	NLt7HUe2tnukvYgUQZhZMmmJERNXGA0v/lXVP7V2HOH81gXNgsIG0QYNoi9DO0o+WT+VrQ
-	Nm4/LD8bfE/mG+j6T5J6C0mU1f/arp8=
-Message-ID: <de879504-7779-5f4a-4dea-4be61f4da167@suse.com>
-Date: Wed, 16 Feb 2022 07:16:03 +0100
+	bh=5bvR+cQM7kV3vvOlHMfT04Bu7E+So7C7IqAwG4VLIwk=;
+	b=HG60knYSaJ8Bu4MJJmZhbIq1qFdmwucRgKon//DxRsRgGBJDGC32h7nnRLzT5qj2XljJcn
+	y99ZTUaFxE35fXM4RwDqocIu2AQS7GF8U8nLDj19rGa9GKvJTnOqjoWkyqvRuMy4BfUI/B
+	Y6KiNN3KFBJKRRrcuxmitQVuIKp7oGQ=
+Message-ID: <779968b4-5985-06bc-be35-ce5b0b719930@suse.com>
+Date: Wed, 16 Feb 2022 07:18:03 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.4.1
-Subject: Re: [PATCH 2/5] xen/sched: create public function for cpupools
- creation
+Subject: Re: [PATCH 4/5] xen/cpupool: Create different cpupools at boot time
 Content-Language: en-US
 To: Luca Fancellu <luca.fancellu@arm.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <wei.chen@arm.com>,
- Dario Faggioli <dfaggioli@suse.com>, George Dunlap
- <george.dunlap@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>
 References: <20220215101551.23101-1-luca.fancellu@arm.com>
- <20220215101551.23101-3-luca.fancellu@arm.com>
- <50ad5e74-c8b6-bdb3-2a9b-fa118610d07d@suse.com>
- <3E27F91F-F97A-443D-BBA8-8400FA3FF377@arm.com>
+ <20220215101551.23101-5-luca.fancellu@arm.com>
+ <d6f36774-ecb5-15f4-b0c0-6114724060e6@suse.com>
+ <AC1B6659-FDCF-49A0-AB6E-EF2196C46D8C@arm.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <3E27F91F-F97A-443D-BBA8-8400FA3FF377@arm.com>
+In-Reply-To: <AC1B6659-FDCF-49A0-AB6E-EF2196C46D8C@arm.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------h8p9Lxr5j94PYC3iIMzfpSl3"
+ boundary="------------ovTIL74uuOjogk659WmZWxj3"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------h8p9Lxr5j94PYC3iIMzfpSl3
-Content-Type: multipart/mixed; boundary="------------XGB80665lt2LZVxDxLXd8o2U";
+--------------ovTIL74uuOjogk659WmZWxj3
+Content-Type: multipart/mixed; boundary="------------H6jlegWSQ5SX3fL7M84qUChf";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Luca Fancellu <luca.fancellu@arm.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <wei.chen@arm.com>,
- Dario Faggioli <dfaggioli@suse.com>, George Dunlap
- <george.dunlap@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Message-ID: <de879504-7779-5f4a-4dea-4be61f4da167@suse.com>
-Subject: Re: [PATCH 2/5] xen/sched: create public function for cpupools
- creation
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>
+Message-ID: <779968b4-5985-06bc-be35-ce5b0b719930@suse.com>
+Subject: Re: [PATCH 4/5] xen/cpupool: Create different cpupools at boot time
 References: <20220215101551.23101-1-luca.fancellu@arm.com>
- <20220215101551.23101-3-luca.fancellu@arm.com>
- <50ad5e74-c8b6-bdb3-2a9b-fa118610d07d@suse.com>
- <3E27F91F-F97A-443D-BBA8-8400FA3FF377@arm.com>
-In-Reply-To: <3E27F91F-F97A-443D-BBA8-8400FA3FF377@arm.com>
+ <20220215101551.23101-5-luca.fancellu@arm.com>
+ <d6f36774-ecb5-15f4-b0c0-6114724060e6@suse.com>
+ <AC1B6659-FDCF-49A0-AB6E-EF2196C46D8C@arm.com>
+In-Reply-To: <AC1B6659-FDCF-49A0-AB6E-EF2196C46D8C@arm.com>
 
---------------XGB80665lt2LZVxDxLXd8o2U
-Content-Type: multipart/mixed; boundary="------------qdy0Hqr2fuNf2pk0bcGCYF6Y"
+--------------H6jlegWSQ5SX3fL7M84qUChf
+Content-Type: multipart/mixed; boundary="------------yzPp4c76nno0cq0RsKiSyjO6"
 
---------------qdy0Hqr2fuNf2pk0bcGCYF6Y
+--------------yzPp4c76nno0cq0RsKiSyjO6
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMTUuMDIuMjIgMTg6NTAsIEx1Y2EgRmFuY2VsbHUgd3JvdGU6DQo+IA0KPiANCj4+IE9u
-IDE1IEZlYiAyMDIyLCBhdCAxMDozOCwgSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29t
+T24gMTUuMDIuMjIgMTg6NTYsIEx1Y2EgRmFuY2VsbHUgd3JvdGU6DQo+IA0KPiANCj4+IE9u
+IDE1IEZlYiAyMDIyLCBhdCAxMDo0OCwgSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29t
 PiB3cm90ZToNCj4+DQo+PiBPbiAxNS4wMi4yMiAxMToxNSwgTHVjYSBGYW5jZWxsdSB3cm90
-ZToNCj4+PiBDcmVhdGUgbmV3IHB1YmxpYyBmdW5jdGlvbiB0byBjcmVhdGUgY3B1cG9vbHMs
-IGl0IGNoZWNrcyBmb3IgcG9vbCBpZA0KPj4+IHVuaXF1ZW5lc3MgYmVmb3JlIGNyZWF0aW5n
-IHRoZSBwb29sIGFuZCBjYW4gdGFrZSBhIHNjaGVkdWxlciBpZCBvcg0KPj4+IGEgbmVnYXRp
-dmUgdmFsdWUgdGhhdCBtZWFucyB0aGUgZGVmYXVsdCBYZW4gc2NoZWR1bGVyIHdpbGwgYmUg
-dXNlZC4NCj4+PiBTaWduZWQtb2ZmLWJ5OiBMdWNhIEZhbmNlbGx1IDxsdWNhLmZhbmNlbGx1
-QGFybS5jb20+DQo+Pg0KPj4gUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0Bz
-dXNlLmNvbT4NCj4+DQo+PiB3aXRoIG9uZSBmdXJ0aGVyIHF1ZXN0aW9uOiB5b3UgYXJlIGFs
-bG93aW5nIHRvIHVzZSBhbm90aGVyIHNjaGVkdWxlciwNCj4+IGJ1dCB3aGF0IGlmIHNvbWVv
-bmUgd2FudHMgdG8gc2V0IG5vbi1zdGFuZGFyZCBzY2hlZHVsaW5nIHBhcmFtZXRlcnMNCj4+
-IChlLmcuIGFub3RoZXIgdGltZSBzbGljZSk/DQo+IA0KPiBJIGd1ZXNzIGZvciBub3cgcGFy
-YW1ldGVycyBjYW4gYmUgdHVuZWQgb25seSBieSB4bCB0b29sLCBob3dldmVyIGl0IHdvdWxk
-DQo+IGJlIHBvc3NpYmxlIGFzIGZ1dHVyZSB3b3JrIHRvIGFsbG93IHBhcmFtZXRlcnMgaW4g
-dGhlIGRldmljZSB0cmVlIGZvciBlYWNoDQo+IHNjaGVkdWxlci4NCg0KVGhhdCBpcyBiYXNp
-Y2FsbHkgbXkgY29uY2VybiBoZXJlOiBBIHRydWUgZG9tMGxlc3Mgc2V0dXAgd29uJ3QgaGF2
-ZSB0aGUNCnBvc3NpYmlsaXR5IHRvIHVzZSB4bC4uLg0KDQpJIGRvbid0IG1pbmQgdGhpcyBz
-ZXJpZXMgbm90IHN1cHBvcnRpbmcgdGhhdCBzY2hlbWUsIGJ1dCB0aGUgY2hvc2VuDQpzeW50
-YXggZm9yIHRoZSBkZXZpY2UgdHJlZSBzaG91bGQgc3VwcG9ydCB0aGF0IGV4dGVuc2lvbiAo
-SSBoYXZlIG5vdA0KbG9va2VkIGludG8gdGhhdCwgYXMgSSBoYXZlIG5vIGRldGFpbGVkIGtu
-b3dsZWRnZSBhYm91dCB0aGF0IHRvcGljKS4NCg0KDQpKdWVyZ2VuDQo=
---------------qdy0Hqr2fuNf2pk0bcGCYF6Y
+ZToNCj4+PiBJbnRyb2R1Y2UgYW4gYXJjaGl0ZWN0dXJlIHNwZWNpZmljIHdheSB0byBjcmVh
+dGUgZGlmZmVyZW50IGNwdXBvb2xzDQo+Pj4gYXQgYm9vdCB0aW1lLCB0aGlzIGlzIHBhcnRp
+Y3VsYXJseSB1c2VmdWwgb24gQVJNIGJpZy5MSVRUTEUgc3lzdGVtDQo+Pj4gd2hlcmUgdGhl
+cmUgbWlnaHQgYmUgdGhlIG5lZWQgdG8gaGF2ZSBkaWZmZXJlbnQgY3B1cG9vbHMgZm9yIGVh
+Y2ggdHlwZQ0KPj4+IG9mIGNvcmUsIGJ1dCBhbHNvIHN5c3RlbXMgdXNpbmcgTlVNQSBjYW4g
+aGF2ZSBkaWZmZXJlbnQgY3B1IHBvb2xzIGZvcg0KPj4+IGVhY2ggbm9kZS4NCj4+PiBUaGUg
+ZmVhdHVyZSBvbiBhcm0gcmVsaWVzIG9uIGEgc3BlY2lmaWNhdGlvbiBvZiB0aGUgY3B1cG9v
+bHMgZnJvbSB0aGUNCj4+PiBkZXZpY2UgdHJlZSB0byBidWlsZCBwb29scyBhbmQgYXNzaWdu
+IGNwdXMgdG8gdGhlbS4NCj4+PiBEb2N1bWVudGF0aW9uIGlzIGNyZWF0ZWQgdG8gZXhwbGFp
+biB0aGUgZmVhdHVyZS4NCj4+PiBTaWduZWQtb2ZmLWJ5OiBMdWNhIEZhbmNlbGx1IDxsdWNh
+LmZhbmNlbGx1QGFybS5jb20+DQo+Pg0KPj4gSUlSQyBJIHN1Z2dlc3RlZCB0byBoYXZlIHRo
+ZSBjb3JlIGZ1bmN0aW9uYWxpdHkgaW4gY29tbW9uIGNvZGUgaW4gb3JkZXINCj4+IHRvIGFs
+bG93IHVzaW5nIGJvb3QgdGltZSBjcHVwb29sIGNyZWF0aW9uIGUuZy4gdmlhIGNvbW1hbmRs
+aW5lIGZvciB4ODYsDQo+PiB0b28uDQo+IA0KPiBZZXMsIGhvd2V2ZXIgSSB0aGluayB0aGUg
+cGFyc2VyIHRvIGhhbmRsZSBldmVyeXRoaW5nIGJ5IGNvbW1hbmQgbGluZSB3b3VsZA0KPiBi
+ZSBodWdlIGR1ZSB0byBpbnB1dCBzYW5pdGlzYXRpb24gYW5kIG5vdCBlYXN5IGVub3VnaCBh
+cyB0aGUgRFQsIGhvd2V2ZXINCj4gSSBzZWUgSHlwZXJsYXVuY2ggaGFzIHBsYW5zIHRvIHVz
+ZSBEVCBvbiB4ODYgc28gSSBndWVzcyBpdCB3b3VsZCBiZSBvayB0byBtYWtlDQo+IHRoaXMg
+ZmVhdHVyZSBjb21tb24gb25jZSB0aGUgRFQgaXMgYXZhaWxhYmxlIGFsc28gb24geDg2Lg0K
+DQpFdmVyeXRoaW5nIG5vdCBiZWluZyBleHBsaWNpdGx5IHNwZWNpZmljIHRvIEFybSBzaG91
+bGQgYmUgaW4gY29tbW9uDQpjb2RlLiBUaGluayBvZiB0aGUgd29yayBpbiBwcm9ncmVzcyBm
+b3IgUmlzYy1WLg0KDQoNCkp1ZXJnZW4NCg==
+--------------yzPp4c76nno0cq0RsKiSyjO6
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -191,25 +196,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------qdy0Hqr2fuNf2pk0bcGCYF6Y--
+--------------yzPp4c76nno0cq0RsKiSyjO6--
 
---------------XGB80665lt2LZVxDxLXd8o2U--
+--------------H6jlegWSQ5SX3fL7M84qUChf--
 
---------------h8p9Lxr5j94PYC3iIMzfpSl3
+--------------ovTIL74uuOjogk659WmZWxj3
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIMlqMFAwAAAAAACgkQsN6d1ii/Ey9C
-uAf9FJYmfkpv2IP5F+ajIe8tcx5qttSXtvkO0/H4pVDkESX9Wi5qQAepw6kON2ViPc30o/gYhsHQ
-JhCEKKTo5363lUWFvi4woHg+1nngfRiQYyCEF2Uvk7wA/NcIX1mmC95cVSvqEJnU36whQUOZizsG
-JEBxkIu++hkXsNlo8NO0WL++XMIOq1LhwHlY0yk+Kw45TK20G42wSBPiAPWHXQqzFk7cbpCMZvcc
-p7CMj+hXEpQkQNZQjA/qpXlkbGfVQ3Axw73Hd42Q96IdHxrGC7oARN7MZdVQr9lQSJhiulh+leBO
-vtGc6nYl6N7glJ5KyrW+/sGf/ajH/VVK+WR1zJVY/Q==
-=6KaN
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIMlxsFAwAAAAAACgkQsN6d1ii/Ey9A
+0Qf9FStUv1v/JKdYReG22mCGvkekmgzJGFf1hPFJf92Ne9KGm1/tyvZHXDD/aSfy1pFr4YBZVzYC
+vyMFwFBd491/aUpqsSbkX/8D7ApdlEVPaqbXfPEQyDP85JBHDOTaJivH9e02nePu+bx4I08Go387
+ZwcG6jJiyO8rT9deEVSST0uU/QByYnUM8ZeLVLHlWVPN/53rtIsOKVwR8LjOWEP3NvVLqbgI+YQl
+EwvKGpq2BOPPvB52Ppw/oJC7X+/NxZD4Qi2hGFEIjgoG1WpMD8Eosa/fFOB21j5oEvcdwGSf707n
+ZN3aCRIStaOnpepeOzGDYoYO388A35ofbsQX+ijmNQ==
+=UAC2
 -----END PGP SIGNATURE-----
 
---------------h8p9Lxr5j94PYC3iIMzfpSl3--
+--------------ovTIL74uuOjogk659WmZWxj3--
 
