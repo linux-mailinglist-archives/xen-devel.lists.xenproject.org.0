@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CCD34B8AF8
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 15:03:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.274145.469504 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CA744B8B0C
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 15:08:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.274151.469516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKKtg-0007E1-OM; Wed, 16 Feb 2022 14:03:08 +0000
+	id 1nKKyN-0007sS-Bg; Wed, 16 Feb 2022 14:07:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 274145.469504; Wed, 16 Feb 2022 14:03:08 +0000
+Received: by outflank-mailman (output) from mailman id 274151.469516; Wed, 16 Feb 2022 14:07:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKKtg-0007BO-LH; Wed, 16 Feb 2022 14:03:08 +0000
-Received: by outflank-mailman (input) for mailman id 274145;
- Wed, 16 Feb 2022 14:03:08 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nKKyN-0007pf-82; Wed, 16 Feb 2022 14:07:59 +0000
+Received: by outflank-mailman (input) for mailman id 274151;
+ Wed, 16 Feb 2022 14:07:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Gpsw=S7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nKKtf-0007BI-Sc
- for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 14:03:07 +0000
+ id 1nKKyM-0007pZ-D7
+ for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 14:07:58 +0000
 Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 29e853c1-8f31-11ec-b215-9bbe72dcb22c;
- Wed, 16 Feb 2022 15:03:06 +0100 (CET)
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04lp2053.outbound.protection.outlook.com [104.47.14.53]) by
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d71f3e15-8f31-11ec-8eb8-a37418f5ba1a;
+ Wed, 16 Feb 2022 15:07:57 +0100 (CET)
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04lp2050.outbound.protection.outlook.com [104.47.12.50]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-23-MuHevETQOF2XxfwW6GW_Ow-1; Wed, 16 Feb 2022 15:03:04 +0100
+ de-mta-16-JK-5HfZ6MmO7c7aXa1U--A-1; Wed, 16 Feb 2022 15:07:55 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by DU2PR04MB8919.eurprd04.prod.outlook.com (2603:10a6:10:2e2::17)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DBBPR04MB6075.eurprd04.prod.outlook.com (2603:10a6:10:c4::11) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.18; Wed, 16 Feb
- 2022 14:03:03 +0000
+ 2022 14:07:53 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65%5]) with mapi id 15.20.4995.016; Wed, 16 Feb 2022
- 14:03:03 +0000
+ 14:07:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,193 +51,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 29e853c1-8f31-11ec-b215-9bbe72dcb22c
+X-Inumbo-ID: d71f3e15-8f31-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1645020186;
+	t=1645020476;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=rBYt9WVboXPyNYp43Pn9hYZWYs4NHFJ2Q/3A7YZQ3Ms=;
-	b=bNKj5hG8YhiOFGEp8UGcdN/lVRfVslfYhmq6lc66J483l/EhyRyrM5XGAge3SKWyfcbs/q
-	/Af+Ybvnm02rC+6W8hQOhle/PpUNKfJxmMcH/T1b+Ug/PXzE6N+/64DGgSt+Gwi/tyNm0o
-	W4K5p3pvK9PPReWb+B74o+z8m3JvPhQ=
-X-MC-Unique: MuHevETQOF2XxfwW6GW_Ow-1
+	bh=nJJn8F/jiv93/xBblC5frLONhzdSY4epWGtoae2cyoQ=;
+	b=a7l4cV8ovIB4yKNC5gBXgJgBfiXd0Og5nWuQZUP2YTmTWBHVSf4yeX2WJ2gIPxNeW4VvIb
+	rmD2jRzcVoFvOLXdJrvd1emD85UJtUnNgB3P4wxXz0iIul5NGX0zTgHjRRfMmNs6YZseft
+	E3NwzybbqnIUx/8urv2HihsvA+T5rZ0=
+X-MC-Unique: JK-5HfZ6MmO7c7aXa1U--A-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LEbcTjyCBgs045LwF/kxSh8ZXgPqWxbbPsDSxz+PT1uAwssYOrZJ+2a9Aij2Q7eHENLWgokrEX+zfQjGuS+J7TpfuXmi0SDp6u1SihCLo+vJWR4Dhb5OddJfEOHQP9TpEpp9bnHIztxlahQOEYVjHMWJGcSijFLKOJ6D57P11Zop3EVE9TwZas6OwznvaV+ekxSJdsUGjlD44enHwwFVCbA3Wh66bKPFZtRKpEY4cq/kwkwUHPDlqB8GDpWIVVg6xWug4e6ll2MQuO6noFtRS/nATrZCJ0BwMbNx4Pv4Ff9xrMfy4aAPfrD1UPvZ79aIWDsn1vdjSa2sGbFbiYEWlw==
+ b=bqAk/LoloeXzVVP6lc1VNlFZb37vXR0wFssgh90X3dTeG5MCRrcoc9srSlFRKH2FDMnlU0yHDe02JO69bnHQhAkliS0Py+0k4QZ/FzyKZcvBg9EVaGLEjw9jD2MUOZdkLgVIMsWSuXusDDKoEHMMQXUFJ5ZaLFQh2wpb9ZIm29rwJgX6OaH516PsOXsaPjFdVOCZWslOZDnLbfcjBDM7/8qdK9t+nw83KbEqbQp3CR/xxke6/kQM1DyFMfTo7bz0idvXOcUN+0XXf0tYfK+ARLdnsrs0fso1SkNJDDMRej7XmNnlfMxn/cLTRIUa0bRlKYXde4Ar2CPWrF4J3LD2bQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fbHJh9+VpQt+jxKRi6sRQbJmhe/uEsMO9RV0NKUOEqY=;
- b=NLamZC88l6BYl2n4kbMzoR1vlhq4dvGMB2ZqsQv7KSufRloG9jUJy+Hu6i9Crkja71x2dWm5VsuyZfByWwK0dD7/ov7ByDood4nhby5H/BK8evJFS0MROwL3jyAdjKazMN4vl+5f9xn9iM8F5wwOHffinmiyy2jvehKxTRQwkXD3wov6FhWTkZvSQ+U4HCHu4/Dx1oYFg5C9akMkMdUbTrLz0weByVz7Eu+FLzVjsxRGqlm2P8TSL4IBLiLsW+0vamsAhVOH8mMpJ6lVF7oHQYhGDevdOZlTppMuQEnlcTI1Ays5O/hnDbMAWXLHu8jpNpdU+C7cKa2ENfaKqqt6uA==
+ bh=TxFF7yzodAj2dLHF+8uPBkHqQBl/XIXwrFeV8H6HRgI=;
+ b=i1VMKEiS8sTYXBCCF9wKz575Uf6ojFVcmWSS0kX29L+CnwHHsi0JD2LrGorGGEsctta3sjEOsXGlxz0P541sGjpbjkqPbIUHZyePpTYy/yGuv8NjZj6L++IboPyy7Pd3NTMZoTbarrVNLwfiUVsX9AKTIMSM2PIQSdJ6H8p8lKGXLa0EHcugi2oLHf85s7sDrRwIVA6jJ3UdH3pH+cGA9qoy6Zz5qvtK7C3nzNB0ZpiqU7AZaZSI+OtZ1NPGUBlCPBCn4xp400pBY2NdbayFsF6z0EE8fRT8VXn6UxmVkDkmuHHCwb+vp7jffePHJ7+JdTIjzPXk8TkQnZBquXokLw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
  dkim=none; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <63811bb5-cce4-d542-461e-a24926f01b34@suse.com>
-Date: Wed, 16 Feb 2022 15:03:01 +0100
+Message-ID: <f35a7003-6ecd-bf33-0f1f-873b96e967b2@suse.com>
+Date: Wed, 16 Feb 2022 15:07:51 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.1
-Subject: Re: [PATCH v2] lib: extend ASSERT()
+Subject: Re: [PATCH 2/3] x86/clang: add retpoline support
 Content-Language: en-US
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Roger Pau Monne <roger.pau@citrix.com>, Julien Grall <julien@xen.org>,
- George Dunlap <George.Dunlap@citrix.com>
-References: <75125344-b0e1-9663-4c1a-84bb35870fef@suse.com>
- <35d82770-66cf-e030-5bcc-3c030e4463d7@xen.org>
- <3F58400B-5151-42F2-8F39-109DDF50EE1E@arm.com>
- <a89223c8-f59a-24cc-96a7-e40feb28813f@suse.com>
- <DB014136-7797-4A61-9681-33A7D85403AA@citrix.com>
- <732e8e39-36c4-1651-61f3-9b55caf29fe8@suse.com>
- <46408EAE-5EA4-4B22-B685-BA6D313B5D3A@citrix.com>
- <FEF187A8-0A09-4D50-A0E5-F46E014DB3E1@arm.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20220216090300.9424-1-roger.pau@citrix.com>
+ <20220216090300.9424-3-roger.pau@citrix.com>
+ <c5657f85-e3c4-9c39-1a67-b5162b1f86ef@suse.com>
+ <Ygzfcop5TrpeXfG1@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <FEF187A8-0A09-4D50-A0E5-F46E014DB3E1@arm.com>
+In-Reply-To: <Ygzfcop5TrpeXfG1@Air-de-Roger>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AM6P192CA0027.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:209:83::40) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9PR05CA0050.eurprd05.prod.outlook.com
+ (2603:10a6:20b:489::24) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 2c394fda-4f32-4999-bee8-08d9f1550c51
-X-MS-TrafficTypeDiagnostic: DU2PR04MB8919:EE_
+X-MS-Office365-Filtering-Correlation-Id: ed5d9b51-883d-4722-6697-08d9f155b954
+X-MS-TrafficTypeDiagnostic: DBBPR04MB6075:EE_
 X-Microsoft-Antispam-PRVS:
-	<DU2PR04MB8919402687DB5996C152FD49B3359@DU2PR04MB8919.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+	<DBBPR04MB6075D43978BDFB13F6F70E54B3359@DBBPR04MB6075.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Dl4RY35k7DE/GRhquLsaA6h8ilvUxbSHB6SUyIcrcb5HnvcQKskv0P4d94QzK1vnjJVgBndVNJxra/8GIFqbc2i/88e4pMP6BeMTOOP2l+J/mS26ylgPTowynI51e2V8fhEoLWWkSHjSpgne/WPB9pJjy85oseE0FLkvdADvZhNsReCS5FDlnnVDZPV4lKfmVBb9qjL/Ld9AJ8pnucl8NuzgMWsa7DjEIVqcr4vFzI3cXDo5S0u+RiPRCM6/EAp8r02AlXj9U4wJzqDlYdwYdjid87R8ZpSpvzA+xVbsHbSK7ZifDrX2Cn9fDCVzW8EonPRHN64NIGx7I3SzvlPyK0QZ+jxqv3LQnRgocjB5yNeUdzv5xsQNP4M1Cu5epNUvCS1coLA9aT5s09oqMU6vtbyADZOl9yTeDZnvJvEtRd/BncGbmB2qOTOz78HIWesjX/gaUlwWMj2szMvsI5QU6OUP2hsCPoLZFyjjttAKUuHeAp58j7PXtgI4m3VR6g0Joxy57BM/GGrj6ovCeu4MpCCJiKHGk9B+X5Bjw8VPKHwQIfGgVlaQoicyOid+zcc7ul/Nq6i8jCJV3XGBczZoEnymHN+IvoyIA6UlZYzDkB7aa54avMQlmBMmoxeoVF1cJWb+zCbAfP35qD3V7gfJ0THHsw5nAjIO2vMBKO+n7Mnnx+fIpUQg0pGLyQA9wFydok3ZGVG4Az0V/BTT8nPWaeD02nWq0IO1ECpfzMcFhG+qUAjsD6G3hYqhIJ0gvYwF
+	tjN7fqeasK3+4q9nAhZEW/Vun/LMqwAG3uNwYjh42ezRfz8BOrmBw3cDVnbkAcKTD369uoe3VzMp6K4sxKqSHbf5tvN8PrxR66oShLpjzNQF88crOtJhFoSWDnrSwgTEtID2JIiHE3IsWDJXvptS7FBXK0JPok54moSfc7FiIVi6qckAhCggcBtVgP1iRRgssaXqIubpzLWOQkhqK+4o29cj3fE3RPFY8RsPl8EI+C5YUsiWlNbl34WbhqVhpQcpa9r/N1CypOTVa0OXOId/Sq/5yxTArFVbUVt1xt5cd08heIFbp8jjWaSLsltV65410hxamtAT3Yddqaxm6jAcLtYkPwVf7C6+oc5Am65MtUyfUB0P1PyHzaKBlLdoJcEMO8u6KNnbR9Xb3umAW2f5LhCtl6Cc+36TOL0Wv5KybqKZgY70ZNPyKt78Q8Dt5Zz3OUW71aO7Z1WDkVEaR2yKMd5kFxdwBW/QxpAeqr0aYDCHFSbioBnA1qTc3Zdol7rKqiwJVhQ2/zUxY9p3gnHzhbJ4SFFfXTbQcp9MpGnrSbvwC448C4wJOoxvK3bkzj9Yu2v/dt5plZhsBt2lyrirZghSLEVfMZEwko66aDv/DIEcfZv0w6lxGoYaz2cRGJvTuPz+D14U3PTjKfPymwan4883IbVr0ab32CiPxcGamb0yueA+izYP0gR/u7avXTCb6xmYcsx/a2i5WdIE/7VPghzdWiIln/UEIvd8JUxYRBM=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(5660300002)(8936002)(508600001)(31696002)(2906002)(38100700002)(66556008)(6512007)(6486002)(86362001)(66946007)(36756003)(54906003)(8676002)(66476007)(6916009)(31686004)(4326008)(26005)(2616005)(6506007)(83380400001)(53546011)(316002)(186003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2906002)(83380400001)(4744005)(6512007)(8676002)(186003)(26005)(4326008)(2616005)(66556008)(54906003)(66476007)(31686004)(66946007)(31696002)(86362001)(316002)(6916009)(5660300002)(36756003)(8936002)(508600001)(53546011)(6506007)(38100700002)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?it4qhPEh1tZ1n8L5Sq45sTgm30d+bB3NQkrVm+TGAQsZVfDrzFivjwPN5Lpz?=
- =?us-ascii?Q?VyWqwW1QfyVNWsZODqil6wLTKP9FnEbfs98fF+9ygP+0Cf/71M1g9qPTw17y?=
- =?us-ascii?Q?chAioHTdTHObQtf0Q+24kDBilOm5cAAo5b99vqrX6v5pSRJ57ttvRw3Y797R?=
- =?us-ascii?Q?0DEQpZLIX2iwQJ4O0O9AYg8tO9EannG6n4PqPLi/2Bvx9AXCCl+jPrtOTAor?=
- =?us-ascii?Q?3yH4FciFLwV0uLiubaS1DRd4YgcOx1PJY2qrHETG8kMmjveNImXGv3AW99b+?=
- =?us-ascii?Q?GV2RQUl5RFDEJHRWsqcJEOi3+GNI7krJMexy6xzveTdXtpVP59DwtMXhJBIv?=
- =?us-ascii?Q?JANJUTl0DzIiwgrUQ+XrPeUpidiK6hKJSnEYtIHriW9B6/Td+Ah5BLdo48lL?=
- =?us-ascii?Q?2fDdb3ie7jkEa1feSAboYGlhmsFlzTZAW6Uzi/WsiMOAVFOkQz3pX5bqTv0f?=
- =?us-ascii?Q?8qnnE7Ck0Bc3TeiXfYiiU8Wkbt0s/38QvcVXoWIJj/Thyk5JAraz7yfy+X3w?=
- =?us-ascii?Q?qGExbh6s+226Q6zAGAQLYpWSnfeHaMYvMoR9nswO+XwLiwYjaONXdzTnk6B0?=
- =?us-ascii?Q?DcDEictJL/DGBoBJBGdbeQYDxN+KEeGDhcKiZZMPlvnWf/wsDzfl4OH3Q2C8?=
- =?us-ascii?Q?jZYgCsvWXRQhhvyCLnA+gEtNKzk4RP7IjRf692xe9jZza0cilhGHlCNjkSqh?=
- =?us-ascii?Q?zR/fdYReEFZ/F0P+zOl1FNllpEyvXcyjmIqaxM7qwCrfk2paJ73DQlV7WvvU?=
- =?us-ascii?Q?I4sFMVGikiBt9IyQtFAy662pOFiIS2JzHVOhzl/Zzhgf+V/NJzD8zVu8ye20?=
- =?us-ascii?Q?IiJk9Y4ZBqljZkLU3T3UWdi5UYJmlHwI3bjRexhbEe8E97/vcqaF50NVuFg+?=
- =?us-ascii?Q?dKgb6nobORmpve14uOnmJCz0slRU/hlKuKh0XznD1F73VAYfI7MwyEP7ZjAs?=
- =?us-ascii?Q?elad7ZocnHF8Ue3XtN6ZGqDaGFynNWPo92tilIf4Du8wF7T/FWsAfvJ2SuBm?=
- =?us-ascii?Q?XMrgKJs3gAH0y4fIiOZcwMGgHzrORwSuRGB+bjbBBtRxgoTG01SVXK+KvbGK?=
- =?us-ascii?Q?fBm8fFH9940f7uBtqRqCzD0ZGiIdmNgYQbRmoYivgYWfaocCX7lKaSQZSI66?=
- =?us-ascii?Q?Bkkput+AAPd2wlKY11/FQhuV6pLQvK3gfFdAD3kxIjaACThqAQGR7pQvY5MY?=
- =?us-ascii?Q?EmF9l/0pRWhTUqGW5HEBcnIBJ4UAiWQg3NByCzaEs92xEX6vKL+Dsz889Wgw?=
- =?us-ascii?Q?YSFStKwVdBe+hku63GP0LQZ8QdFtICkczZF4RKuyLQtCDKirvlk+xODChrds?=
- =?us-ascii?Q?BCjlpJo0LWTU1NlQgks/WM6xocyYbWOXdv2PTYRMyciNLWuRW6QEtaKe7UGI?=
- =?us-ascii?Q?oRw3c1aZb6Za0D7M78oON+o6Ddd/FxmCT92I7KmPM05oz8hqSvy3ohxcgvLy?=
- =?us-ascii?Q?9KNvM0CN0XHn74afmm2UPHBLyDokipJGue7vYN16Ia8NP9g81zpn+0NkAGvk?=
- =?us-ascii?Q?5yvMCBTgESFWgd4DMNNl3i2itJweCNOL67uNO1NdV3kxS29kYBxhNjK5t7qD?=
- =?us-ascii?Q?oUNIMAqVXikDZeIa5SU/F4bhJ0Qo18KRbnyJcAjUmzn+KHXDwDKRDP3z3llK?=
- =?us-ascii?Q?rtDtpNgswdQe25aqylTQC6U=3D?=
+	=?us-ascii?Q?g5NmsQDNp7qQ/ddx3C0Y6ACPgCUHsTKj1mPn1rOH0XqTcxuyWLq/GXlUvjQm?=
+ =?us-ascii?Q?HcD/04Se02r5SwfMnc0zBcm/xJ0Bekv7d+ZCPtnDV/EKD9SkDkB+CFo2CNHW?=
+ =?us-ascii?Q?u36vnhuzbc/vmL8aj+1gCNyCAlE0+6pPRh8ePyAfQ3uotPL2x4HEfnK7eGdq?=
+ =?us-ascii?Q?Jbx3DbV//SNRb+9DFRSr3cGcKkyuOz1rwPC+LJjCQF3Ral6d14PU8QUY7nnj?=
+ =?us-ascii?Q?EPVVWQu3BNH3HkI3zkYhSYwQlZ4D6ydObmGAc/5dPslcvnRrLYJbHmIV/42d?=
+ =?us-ascii?Q?p+q5epVWqBept4oWpczSNA0rQcVCdHDtqn/QDdYGYf5pOfQKtxp1aqbMVfhx?=
+ =?us-ascii?Q?WfMlhqICBcIMpv5XUCqNmnqk17hQ0X907eXgRr4KezMZR82WZmVwWaQovDpt?=
+ =?us-ascii?Q?sgiJvpvsiclLFuUC4aPH01cbboez3xZSTGjVUorqROxc72JV0kLueXTz8lN7?=
+ =?us-ascii?Q?ijmrpuu3kgxDulOSXL9vyOAU2MqkUdfo9UoweLKXOHW7HqPmekxiUH+qJgpH?=
+ =?us-ascii?Q?TIVqkx4hgWg0xcZvWOuxnD1gJvTwc9G1SXzouihDQycO1lfPtb4q4CRgcrlI?=
+ =?us-ascii?Q?BWi6bTxMBzmlR/lOLKPLb4A++32j/6i51gDlwt1xEV51fl1t2IS1A6I5QNwn?=
+ =?us-ascii?Q?ApJiaqGiyruFTht2tr0HzI3BVC9UpK1q+YH8DkilSmyISVBwJB58Bc2DRl9E?=
+ =?us-ascii?Q?2ib1M/4nIb5s0yRdKtNwcrEUmaJukXbmlN1CIQUhTpQUvnHgko1jNXtUoKNY?=
+ =?us-ascii?Q?bYViu2cCH/Ga/09WEYDt8MURmbdckENUKUgDWpmGD1ILi/1vQf/cGRcevVif?=
+ =?us-ascii?Q?2o+d6wBvKDA1IRpjjD3RBBgpmVoDUvr2Z7+RxX3PwfTvTojCX39b1qVkf85k?=
+ =?us-ascii?Q?em9X94rM5iQIbIPxP0zZiG55zVbl65nzGs42ArXzqvGqU6oFx+JlGSmFd6RK?=
+ =?us-ascii?Q?CgCYfcSamdbN+zBc0qjEbBIqfm7WUxFi6P+79i9k+NiW+MMO+nyvH/WsNnvU?=
+ =?us-ascii?Q?NkFR+FExpuMROBt2NFPBeiGuMeh1ta/zqL/I/Dmt0DKg8UB2nScN2VhIQYft?=
+ =?us-ascii?Q?oGU1daXNzinVt9BMQGRTrZ1Ewr2AANselSX9vI73PYIxpgfBmM6aoxNZFunZ?=
+ =?us-ascii?Q?1B/CvhI87KIfmIWxEmzKHQDXB8fekjCDOQpSz8wsTC4y4XiOxT90jRKbwx15?=
+ =?us-ascii?Q?euuThDP7Y4ZDyt9SgfX3bdJ62v1gRiVEHZhyYcwu816YugT0BzX+X187KSev?=
+ =?us-ascii?Q?3n5ut0axzuTUNmxPg6pfV5mfx6l7heKpbRT0fOJPPBLtv8PFI72s6LOKMEJB?=
+ =?us-ascii?Q?YWaIc5t3HBYrl1yQYpMccT98njbFw8vGVVWtUS82uAcLh5sBOyS0JiAsEku3?=
+ =?us-ascii?Q?WvWtapO0AcGjbCBdLkECT84Q+0lTDoqH/orM+nTD13bY6wiN+54E2p6hNSHi?=
+ =?us-ascii?Q?aSZwOXoQkvoxxKf9AEB6II9JpbxA796f1z+AUiygC4LQI5Jpm95FLisjCoq9?=
+ =?us-ascii?Q?nVE6fUAhMDBqonXpz1MepEOxzCekCV5yI5q3Zhn61NVJ+Lg0KJ+0LR8BUHmD?=
+ =?us-ascii?Q?Plw3ivWlvRoceAtcImLZtlsxp1VzAKPMc3E/bRKLAr5FxEur1PV3wkyq7Y6w?=
+ =?us-ascii?Q?9y8gr6JK8gRY1Z+ijv5rejE=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2c394fda-4f32-4999-bee8-08d9f1550c51
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed5d9b51-883d-4722-6697-08d9f155b954
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2022 14:03:03.1927
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2022 14:07:53.4559
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z+UvfIGnAi12Y1eEKxHnnZ2K1cEqdWbVIJEa/v/VR5gU7qjBh0O5bd2ZQJkGKmsVVqxYQy/EBrumQRHqAQ4LHg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8919
+X-MS-Exchange-CrossTenant-UserPrincipalName: vUPSi5ImwvI4szYDxrcM4G5RoRpWKlr/4IC7cblQ7riRGn8Ka1UswCaLGyBn6lpWVvEWNRvSyU4IBGCJgU2hrQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB6075
 
-On 16.02.2022 14:57, Bertrand Marquis wrote:
->> On 16 Feb 2022, at 12:23, George Dunlap <George.Dunlap@citrix.com> wrote=
-:
->>> On Feb 16, 2022, at 11:42 AM, Jan Beulich <jbeulich@suse.com> wrote:
->>> On 16.02.2022 12:34, George Dunlap wrote:
->>>> I am opposed to overloading =E2=80=9CASSERT=E2=80=9D for this new kind=
- of macro; I think it would not only be unnecessarily confusing to people n=
-ot familiar with our codebase, but it would be too easy for people to fail =
-to notice which macro was being used.
->>>>
->>>> ASSERT_ACTION(condition, code) (or even ASSERT_OR_ACTION()) would be a=
- bare minimum for me.
->>>>
->>>> But I can=E2=80=99t imagine that there are more than a handful of acti=
-ons we might want to take, so defining a macro for each one shouldn=E2=80=
-=99t be too burdensome.
->>>>
->>>> Furthermore, the very flexibility seems dangerous; you=E2=80=99re not =
-seeing what actual code is generated, so it=E2=80=99s to easy to be =E2=80=
-=9Cclever=E2=80=9D, and/or write code that ends up doing something differen=
-t than you expect.
->>>>
->>>> At the moment I think ASSERT_OR_RETURN(condition, code), plus other ne=
-w macros for the other behavior is needed, would be better.
+On 16.02.2022 12:26, Roger Pau Monn=C3=A9 wrote:
+> On Wed, Feb 16, 2022 at 10:47:52AM +0100, Jan Beulich wrote:
+>> On 16.02.2022 10:02, Roger Pau Monne wrote:
+>>> Detect whether the compiler supports clang retpoline option and enable
+>>> by default if available, just like it's done for gcc.
 >>>
->>> Hmm, while I see your point of things possibly looking confusing or
->>> unexpected, something like ASSERT_OR_RETURN() (shouldn't it be
->>> ASSERT_AND_RETURN()?) is imo less readable. In particular I dislike
->>> the larger amount of uppercase text. But yes, I could accept this
->>> as a compromise as it still seems better to me than the multi-line
->>> constructs we currently use.
+>>> Note clang already disables jump tables when retpoline is enabled, so
+>>> there's no need to also pass the fno-jump-tables parameter.
 >>
->> I see what you=E2=80=99re saying with AND/OR; I personally still prefer =
-OR but wouldn=E2=80=99t argue to hard against AND if others preferred it.
->>
->> As far as I=E2=80=99m concerned, the fact that we=E2=80=99re reducing li=
-nes of code isn=E2=80=99t a reason to use this at all.  As our CODING_STYLE=
- says, ASSERT() is just a louder printk.  We would never consider writing P=
-RINTK_AND_RETURN(), and we would never consider writing a macro like CONDRE=
-T(condition, retval) to replace
->>
->> if (condition)
->>    return retval;
->>
->> The only justification for this kind of macro, in my opinion, is to avoi=
-d duplication errors; i.e. replacing your code segment with the following:
->>
->> if (condition) {
->>    ASSERT(!condition);
->>    return foo;
->> }
->>
->> is undesirable because there=E2=80=99s too much risk that the conditions=
- will drift or be inverted incorrectly. But having control statements like =
-=E2=80=98return=E2=80=99 and =E2=80=98continue=E2=80=99 in a macro is also =
-undesirable in my opinion; I=E2=80=99m personally not sure which I find mos=
-t undesirable.
->>
->> I guess one advantage of something like ASSERT_OR(condition, return foo)=
-; or ASSERT_OR(condition, continue); is that searching for =E2=80=9Creturn=
-=E2=80=9D or =E2=80=9Ccontinue=E2=80=9D will come up even if you=E2=80=99re=
- doing a case-sensitive search.  But I=E2=80=99m still wary of unintended s=
-ide effects.
->>
->> Bertrand / Julien, any more thoughts?
+>> That's one of the secondary gcc side arrangements. What about the other
+>> (-mindirect-branch-register)?
 >=20
-> I think that having macros which are magic like that one which includes a=
- possible return and the fact that the macro is taking code as argument is =
-making the code really hard to read and understand for someone not knowing =
-this.
-> Even the code is longer right now, it is more readable and easy to unders=
-tand which means less chance for errors so I do not think the macro will av=
-oid errors but might in fact introduce some in the future.
+> clang already passes the return address on a register always on amd64
+> so that's not needed either. I can add a comment like I've done for
+> no-jump-tables.
 >=20
-> So I am voting to keep the current macro as it is.
+>>> Reported-by: Jan Beulich <JBeulich@suse.com>
+>>
+>> That's Andrew, not me?
+>=20
+> Ops, sorry, I got that mixed up then.
 
-But you recall that there were two aspects to me wanting the switch?
-(Source) code size was only one. The other was that ASSERT_UNREACHABLE()
-doesn't show the original expression which has triggered the failure,
-unlike ASSERT() does.
-
-Jan
+With the adjustments then
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
 
