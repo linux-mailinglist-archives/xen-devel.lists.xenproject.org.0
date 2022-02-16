@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D91A34B8C3B
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 16:16:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.274217.469614 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9A994B8C39
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 16:16:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.274218.469626 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKM2k-0000kh-0k; Wed, 16 Feb 2022 15:16:34 +0000
+	id 1nKM2l-00011I-B2; Wed, 16 Feb 2022 15:16:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 274217.469614; Wed, 16 Feb 2022 15:16:33 +0000
+Received: by outflank-mailman (output) from mailman id 274218.469626; Wed, 16 Feb 2022 15:16:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKM2j-0000is-Ta; Wed, 16 Feb 2022 15:16:33 +0000
-Received: by outflank-mailman (input) for mailman id 274217;
- Wed, 16 Feb 2022 15:16:32 +0000
+	id 1nKM2l-0000yQ-5E; Wed, 16 Feb 2022 15:16:35 +0000
+Received: by outflank-mailman (input) for mailman id 274218;
+ Wed, 16 Feb 2022 15:16:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=miT7=S7=gmail.com=andr2000@srs-se1.protection.inumbo.net>)
- id 1nKM2i-0000ia-IA
- for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 15:16:32 +0000
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [2a00:1450:4864:20::132])
+ id 1nKM2j-0000ia-Gd
+ for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 15:16:33 +0000
+Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
+ [2a00:1450:4864:20::134])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6bc47f17-8f3b-11ec-8eb8-a37418f5ba1a;
- Wed, 16 Feb 2022 16:16:31 +0100 (CET)
-Received: by mail-lf1-x132.google.com with SMTP id g39so4399766lfv.10
- for <xen-devel@lists.xenproject.org>; Wed, 16 Feb 2022 07:16:31 -0800 (PST)
+ id 6c6fe179-8f3b-11ec-8eb8-a37418f5ba1a;
+ Wed, 16 Feb 2022 16:16:32 +0100 (CET)
+Received: by mail-lf1-x134.google.com with SMTP id f37so4414142lfv.8
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Feb 2022 07:16:32 -0800 (PST)
 Received: from a2klaptop.localdomain ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id bt2sm3082357lfb.93.2022.02.16.07.16.29
+ by smtp.gmail.com with ESMTPSA id bt2sm3082357lfb.93.2022.02.16.07.16.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Feb 2022 07:16:30 -0800 (PST)
+ Wed, 16 Feb 2022 07:16:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,34 +43,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6bc47f17-8f3b-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 6c6fe179-8f3b-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=MXnLYo9xw7ZM5aZsNEA3HWbbU8vuMQcB/bLy8UKaVuQ=;
-        b=ARmfTXWxdhS34dRh/av2rd2PbcIWokFO9C10alyy0EkcIfQLbfwIJVwng3jn6Ne/wS
-         ZvcxSz9NkT0ftRdsmFXd3QkTMjvSHqqcbDHtAXt3HJ6Z9lPiBquJMz0uy4oaRoUgB6mz
-         F9c90x1+1Se+pPmlksq9xfH6fEKalLXzR6re5ngimNIDhS3eeJxka6b6FKlmF9Z/jH0O
-         266FPoja2tHluKwWu7bIGqEB0m1KpNCIwTJp+KsrPjzlfWFCox1WraIrg6MVMVxSWL/r
-         j2U02Xg87Jaj6p6fmqDXpWFhz3lUdgvfbAo/WoU6q2bUYmBPPEnjRUfu2GDQw8SlPOjS
-         U1fw==
+        h=from:to:cc:subject:date:message-id:in-reply-to:references
+         :mime-version:content-transfer-encoding;
+        bh=ZBCrQj2lwFzNomdp2NiauAmt+Mty9vunRDBJMAz0cCY=;
+        b=Ai0VY8bkdyCx673J/QNboO6zC0ztb8oEypvUaqAWMKiHZpZ9kZHNhnNoBv8K9GhR0b
+         u2CHNI0W5hTY44LcHYvRb2l+jxZdUI6Dcn4lpThT+katfuO2R5yhvO/npS0hdM3MaTrM
+         zq62uqAs1yET2T44+O5Q/vdV1oCdyv3RF4XlHnlZKeP6SxWxiKTJgV6l7HmfgMpmNhJe
+         bu1+i+0JJ/g1CQHaOIbj4fTVGndgvOSIcpqmn3L2o3qyI+cwZWoDO1W4R0WsWb1SLLKh
+         Ot2DbmXAWjtWXXyf5u/+3GKuMEhkY1pPAMR6S6QHGOD34qkgMC2xwfzoEQ6N4lTLQsLy
+         TU9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=MXnLYo9xw7ZM5aZsNEA3HWbbU8vuMQcB/bLy8UKaVuQ=;
-        b=pYcBFROdBUhfSPIo/+3GoNspEOSPPIpfUS1k7knezIljIJ+1tLa/zBGl0KSkBrG/nX
-         jdjAhhs8YzFhU5T7rdUYX8hxCD1z3qt8hOy/xdiD6neXpQH0imh8ZP5JxG6NYWqiJKMg
-         16h2Obe2Qtw/rKEiwlRMMoCrIYb6BqVqkEzpAkVXT+Nj8RRSW97LXT+cU8uXhnFstVL0
-         hDJI2Qokc4OPtpyoFJ1wueSrH8komVFl2h/py8JV/jlARuJUPZnNgiqajiHKi/vXtNbl
-         BXfwMWyj/qe2G/SB2/n1uteQbtUgkjx3ha8DvS6rwuIvNPiuXjlMU+Ev8TI1fnMp0qtk
-         DSZA==
-X-Gm-Message-State: AOAM5331pHiNc9/dV3ER+OFALxsxE3+iUjEC7IpN1SVo68bRpGRRxbh7
-	SWEi1ilRy88ApdjojDFMAHMrNOjg08Q=
-X-Google-Smtp-Source: ABdhPJwthWqJXtZl14ZghIYODOBpHT6wWzje4495Bm9dc+pJoerUNbnUhdeElbQLAHfMELC+WhlT5A==
-X-Received: by 2002:a05:6512:3b0f:b0:42d:1ebb:dcbf with SMTP id f15-20020a0565123b0f00b0042d1ebbdcbfmr2261329lfv.275.1645024590841;
-        Wed, 16 Feb 2022 07:16:30 -0800 (PST)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=ZBCrQj2lwFzNomdp2NiauAmt+Mty9vunRDBJMAz0cCY=;
+        b=GjfqcMNYVq1EE0k5rJBFKupfxph1QQiz1fv0vL1xO5jIjXvI0n0MOYbGRbSDissCLb
+         nM3FVyXLM6LZ6NEkya6Hl6ZTl/ukCY2fhnayc/xrWTiNjNTCcCLxkbO81HT0f0TZt5L1
+         ip9XG9E8BXkz4sbXUb6PD3zmwKCByOlauYdsVDQcHVu67vAjrRpogU3NoQvlrw7gBoCo
+         0Pd7JPBsPHBCI0EiWRObJBi2IOmOGEhBoDse8I5DgYfI/YqCQ9miaHtLDB9RMLwyOicc
+         2otBUKZvEiGoWqN2X6APNjEvmP/p9MG4V1eqIYukcrDjDzhkWLgvyil9BlMB3AUUo1LD
+         R1lg==
+X-Gm-Message-State: AOAM533Qv1+gqwonshQZD6p3h5pKYoJe/TK4+kjtngnAZ57kIAtqv8F7
+	qfdswxQmOrN9Rh6xEV+szmEGKFPfdTg=
+X-Google-Smtp-Source: ABdhPJwS/eNqTVLggc40y8HHbv3uipeAY422byje3hbaUB099wArdAJ5Hix4jdXxi9QwZIcucwHrgw==
+X-Received: by 2002:a05:6512:220e:b0:439:cb39:cb83 with SMTP id h14-20020a056512220e00b00439cb39cb83mr2258047lfu.551.1645024591977;
+        Wed, 16 Feb 2022 07:16:31 -0800 (PST)
 From: Oleksandr Andrushchenko <andr2000@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: roger.pau@citrix.com,
@@ -83,70 +83,186 @@ Cc: roger.pau@citrix.com,
 	bertrand.marquis@arm.com,
 	rahul.singh@arm.com,
 	Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-Subject: [PATCH 0/4] Yet another pci/vpci locking re-work
-Date: Wed, 16 Feb 2022 17:16:24 +0200
-Message-Id: <20220216151628.1610777-1-andr2000@gmail.com>
+Subject: [PATCH 1/4] pci: add rwlock to pcidevs_lock machinery
+Date: Wed, 16 Feb 2022 17:16:25 +0200
+Message-Id: <20220216151628.1610777-2-andr2000@gmail.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20220216151628.1610777-1-andr2000@gmail.com>
+References: <20220216151628.1610777-1-andr2000@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Hello, all!
+Currently pcidevs lock is a global recursive spinlock which is fine for
+the existing use cases. It is used to both protect pdev instances
+themselves from being removed while in use and to make sure the update
+of the relevant pdev properties is synchronized.
 
-This is a yet another attempt to re-work the existing pci/vpci locking
-scheme towards vPCI is going to be used for guests.
-For more details on the previous attempts and their flaws please see [1], [2].
+Moving towards vPCI is used for guests this becomes problematic in terms
+of lock contention. For example, during vpci_{read|write} the access to
+pdev must be protected to prevent pdev disappearing under our feet.
+This needs to be done with the help of pcidevs_{lock|unlock}.
+On the other hand it is highly undesirable to lock all other pdev accesses
+which only use pdevs in read mode, e.g. those which do not remove or
+add pdevs.
 
-This work is based on the idea that it is possible to extend the
-existing locking scheme by additionally providing a global read/write lock:
+For the above reasons introduce a read/write lock which will help
+preventing locking contentions between pdev readers and writers:
+- make pci_{add|remove}_device and setup_hwdom_pci_devices use the
+  new write lock
+- keep all the rest using the existing API (pcidevs_{lock|unlock},
+  but extend the later to also acquire the rwlock in read mode.
 
-This way most of the code continues to use pcidevs_{lock|unlock}, so
-only minor changes are required which do not lead to functional changes
-seen by the users: these become readers with respect to the new rwlock
-and they acquire _pcidevs_lock as before.
+This is in preparation for vPCI to be used for guests.
 
-As to the writers (those which can add/remove pci devices and their
-respective pdev) we need to make them use the new rwlock in write mode.
-For that we introduce pcidevs_write_{un}lock helpers.
+Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+---
+ xen/drivers/passthrough/pci.c | 45 ++++++++++++++++++++++++++---------
+ xen/include/xen/pci.h         |  4 ++++
+ 2 files changed, 38 insertions(+), 11 deletions(-)
 
-Those users, which do not add/remove pdevs and are only interested in
-pdev->vpci or simple pdev's list traversal, will use
-pcidevs_read_{lock|unlock} which only acquires the rwlock in read mode
-without acquiring _pcidevs_lock. This is to make sure there is no
-unnecessary contention for the later. For the cases when it is required
-to make sure that no other CPU can access critical sections under the
-read lock (modify_bars for example) it is possible to upgrade it to a
-normal pcidevs_lock due to both read lock and _pcidevs_lock allow
-recursion.
-
-The series was tested on:
- - x86 PVH Dom0 and doesn't break it.
- - x86 HVM with PCI passthrough to DomU and doesn't break it.
-
-Thank you,
-Oleksandr
-
-[1] https://lore.kernel.org/xen-devel/20180717094830.54806-2-roger.pau@citrix.com/
-[2] https://lore.kernel.org/all/20220204063459.680961-4-andr2000@gmail.com/
-
-Oleksandr Andrushchenko (4):
-  pci: add rwlock to pcidevs_lock machinery
-  vpci: restrict unhandled read/write operations for guests
-  vpci: use pcidevs locking to protect MMIO handlers
-  vpci: resolve possible clash while removing BAR overlaps
-
- xen/arch/x86/hvm/vmsi.c       | 24 +++++++++++--
- xen/drivers/passthrough/pci.c | 65 +++++++++++++++++++++++++++++------
- xen/drivers/vpci/header.c     | 30 ++++++++++++++--
- xen/drivers/vpci/msi.c        | 21 +++++++----
- xen/drivers/vpci/msix.c       | 55 +++++++++++++++++++++++++----
- xen/drivers/vpci/vpci.c       | 34 +++++++++++++++---
- xen/include/xen/pci.h         |  9 +++++
- xen/include/xen/vpci.h        |  2 +-
- 8 files changed, 205 insertions(+), 35 deletions(-)
-
+diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+index e8b09d77d880..2a0d3d37a69f 100644
+--- a/xen/drivers/passthrough/pci.c
++++ b/xen/drivers/passthrough/pci.c
+@@ -51,20 +51,38 @@ struct pci_seg {
+ };
+ 
+ static spinlock_t _pcidevs_lock = SPIN_LOCK_UNLOCKED;
++static DEFINE_RWLOCK(_pcidevs_rwlock);
+ 
+ void pcidevs_lock(void)
+ {
++    read_lock(&_pcidevs_rwlock);
+     spin_lock_recursive(&_pcidevs_lock);
+ }
+ 
+ void pcidevs_unlock(void)
+ {
+     spin_unlock_recursive(&_pcidevs_lock);
++    read_unlock(&_pcidevs_rwlock);
+ }
+ 
+ bool_t pcidevs_locked(void)
+ {
+-    return !!spin_is_locked(&_pcidevs_lock);
++    return !!spin_is_locked(&_pcidevs_lock) || pcidevs_write_locked();
++}
++
++void pcidevs_write_lock(void)
++{
++    write_lock(&_pcidevs_rwlock);
++}
++
++void pcidevs_write_unlock(void)
++{
++    write_unlock(&_pcidevs_rwlock);
++}
++
++bool pcidevs_write_locked(void)
++{
++    return !!rw_is_write_locked(&_pcidevs_rwlock);
+ }
+ 
+ static struct radix_tree_root pci_segments;
+@@ -758,7 +776,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+ 
+     ret = -ENOMEM;
+ 
+-    pcidevs_lock();
++    pcidevs_write_lock();
+     pseg = alloc_pseg(seg);
+     if ( !pseg )
+         goto out;
+@@ -854,7 +872,7 @@ int pci_add_device(u16 seg, u8 bus, u8 devfn,
+     pci_enable_acs(pdev);
+ 
+ out:
+-    pcidevs_unlock();
++    pcidevs_write_unlock();
+     if ( !ret )
+     {
+         printk(XENLOG_DEBUG "PCI add %s %pp\n", pdev_type,  &pdev->sbdf);
+@@ -885,7 +903,7 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
+     if ( !pseg )
+         return -ENODEV;
+ 
+-    pcidevs_lock();
++    pcidevs_write_lock();
+     list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
+         if ( pdev->bus == bus && pdev->devfn == devfn )
+         {
+@@ -899,7 +917,7 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
+             break;
+         }
+ 
+-    pcidevs_unlock();
++    pcidevs_write_unlock();
+     return ret;
+ }
+ 
+@@ -1176,6 +1194,11 @@ static void __hwdom_init setup_one_hwdom_device(const struct setup_hwdom *ctxt,
+                ctxt->d->domain_id, err);
+ }
+ 
++/*
++ * It's safe to drop and re-acquire the write lock in this context without
++ * risking pdev disappearing because devices cannot be removed until the
++ * initial domain has been started.
++ */
+ static int __hwdom_init _setup_hwdom_pci_devices(struct pci_seg *pseg, void *arg)
+ {
+     struct setup_hwdom *ctxt = arg;
+@@ -1208,17 +1231,17 @@ static int __hwdom_init _setup_hwdom_pci_devices(struct pci_seg *pseg, void *arg
+ 
+             if ( iommu_verbose )
+             {
+-                pcidevs_unlock();
++                pcidevs_write_unlock();
+                 process_pending_softirqs();
+-                pcidevs_lock();
++                pcidevs_write_lock();
+             }
+         }
+ 
+         if ( !iommu_verbose )
+         {
+-            pcidevs_unlock();
++            pcidevs_write_unlock();
+             process_pending_softirqs();
+-            pcidevs_lock();
++            pcidevs_write_lock();
+         }
+     }
+ 
+@@ -1230,9 +1253,9 @@ void __hwdom_init setup_hwdom_pci_devices(
+ {
+     struct setup_hwdom ctxt = { .d = d, .handler = handler };
+ 
+-    pcidevs_lock();
++    pcidevs_write_lock();
+     pci_segments_iterate(_setup_hwdom_pci_devices, &ctxt);
+-    pcidevs_unlock();
++    pcidevs_write_unlock();
+ }
+ 
+ /* APEI not supported on ARM yet. */
+diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+index b6d7e454f814..e814d9542bfc 100644
+--- a/xen/include/xen/pci.h
++++ b/xen/include/xen/pci.h
+@@ -152,6 +152,10 @@ void pcidevs_lock(void);
+ void pcidevs_unlock(void);
+ bool_t __must_check pcidevs_locked(void);
+ 
++void pcidevs_write_lock(void);
++void pcidevs_write_unlock(void);
++bool __must_check pcidevs_write_locked(void);
++
+ bool_t pci_known_segment(u16 seg);
+ bool_t pci_device_detect(u16 seg, u8 bus, u8 dev, u8 func);
+ int scan_pci_devices(void);
 -- 
 2.25.1
 
