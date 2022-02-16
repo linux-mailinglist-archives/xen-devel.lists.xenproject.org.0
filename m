@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 915734B8324
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 09:43:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.273771.469024 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2A214B8355
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 09:50:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.273778.469034 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKFsn-0002VH-CZ; Wed, 16 Feb 2022 08:41:53 +0000
+	id 1nKG0V-0003Bk-6b; Wed, 16 Feb 2022 08:49:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 273771.469024; Wed, 16 Feb 2022 08:41:53 +0000
+Received: by outflank-mailman (output) from mailman id 273778.469034; Wed, 16 Feb 2022 08:49:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKFsn-0002SS-90; Wed, 16 Feb 2022 08:41:53 +0000
-Received: by outflank-mailman (input) for mailman id 273771;
- Wed, 16 Feb 2022 08:41:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1nKG0V-00038u-3O; Wed, 16 Feb 2022 08:49:51 +0000
+Received: by outflank-mailman (input) for mailman id 273778;
+ Wed, 16 Feb 2022 08:49:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Gpsw=S7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nKFsm-0002SM-8B
- for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 08:41:52 +0000
+ id 1nKG0U-00038o-1R
+ for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 08:49:50 +0000
 Received: from de-smtp-delivery-102.mimecast.com
  (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 485c9b1d-8f04-11ec-8eb8-a37418f5ba1a;
- Wed, 16 Feb 2022 09:41:50 +0100 (CET)
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05lp2174.outbound.protection.outlook.com [104.47.17.174]) by
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6550103d-8f05-11ec-b215-9bbe72dcb22c;
+ Wed, 16 Feb 2022 09:49:49 +0100 (CET)
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04lp2056.outbound.protection.outlook.com [104.47.14.56]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-28-88pdkn36O6y8ZFF5rGNB8w-1; Wed, 16 Feb 2022 09:41:48 +0100
+ de-mta-28-_VrOifNbOEiZc1aBBO5g0g-1; Wed, 16 Feb 2022 09:49:46 +0100
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by DB6PR0402MB2837.eurprd04.prod.outlook.com (2603:10a6:4:98::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Wed, 16 Feb
- 2022 08:41:46 +0000
+ by AM8PR04MB7985.eurprd04.prod.outlook.com (2603:10a6:20b:234::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.14; Wed, 16 Feb
+ 2022 08:49:45 +0000
 Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
  ([fe80::d479:b728:345c:bd65%5]) with mapi id 15.20.4995.016; Wed, 16 Feb 2022
- 08:41:46 +0000
+ 08:49:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,236 +51,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 485c9b1d-8f04-11ec-8eb8-a37418f5ba1a
+X-Inumbo-ID: 6550103d-8f05-11ec-b215-9bbe72dcb22c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1645000909;
+	t=1645001387;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=3C9KLmoWGgH3dVrkp1s13qieYY2/tIcI6qYtHjWt9pw=;
-	b=WqEEy28whNjEFV4r8mGpz7gVfmwDgQLZgMaqLMXShe+G/6lAex1yOeCQcYF8EY62bBO3sR
-	04QwcM9DO1lVJHYvIOHZVFBp8Q3dLuLUMVTQhbPGey/FUdNBcBGocdRWr+k1vSENNV55+n
-	6bNXy2kTGq5EHxDfWUZXDX16j1QwnXQ=
-X-MC-Unique: 88pdkn36O6y8ZFF5rGNB8w-1
+	bh=ZUXdphll59OTG+Uy4/FRwf9KSE+cmbXLeSYJ6dESNVI=;
+	b=C/Yk6BC1idBgiGxC+T9daPpRLZ9m5cmuQOVBLPL30xeec5A0Cn+Z7zov5OfaZrNukdgMR9
+	+ZhW+DLbVVKZzJKJeX2Q8uZbqbxmHOLyihya8KvPzC/iq/2UkzUZoQr71+9oGsbeuI3kP5
+	CtnHv/Z7t/dsdFRuljOyQTmI1aYl/Y0=
+X-MC-Unique: _VrOifNbOEiZc1aBBO5g0g-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fA1wyMFb7YHy2hihRgLHS/tZW5/Maim9PfZAJgT/cA7Atv+oBxiG04H/tbgz0WfvI2ueEObgdnCxe1ce/HgibAy2Ok236Zqb8YKIKf30dndOgyVeovf2TlKX2j42r9V34U4++rPbHJU0OZz33Z/DoQpS+FA5Wu68qzmSioztfJgdG0iN0hQHiLwt3wMxZmI13jQ/uGDQHHak1LwxerTxUsmIL68lqvFxq5gTKveEouLqL0aZnBx8X2C1cDtHI7sgVj3h/M47nlFSMnUZRSCALH27qs5ahf0ojBtDpAMwRHVHIjeI/FCHhV2AByJ3lTIP/sEc+IqzKdlp9sIyS9BKFw==
+ b=EL0cm5otvBhqpspECtvM0YKjnPmoBslj0Es6Cj+Og3Bsb7F2/Kq/x56UzsN7sIiE1Q0B83ItEY+2YOV4KP/dWsv8B3E/uC1zlZTAj9Yu4cgfcB3QeGwTtNkvve4WMAsEalM3vLSMEra2hnNCnLkCWelF0XjwJIzs2uwbW8DwPqmrZzHf3RezcVNu+96erl2+3+b3aPO1+Oq8ayRU76l8naZd/SsKjfdeJpEn1Da47iMWpgTFTy+F6w0ZyT06eg/QMdDZ4f8KOyWjS6dPbrdNutLzp7+XJUkiG0Mi6RXscAzYDusEn12ifAvf21QW1I48A/Qn2euhja5A2rYdlS8WDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Alk9KMejPJ+5ydPZltrpBZ3oRaO32Id6ixGtBB0nXbU=;
- b=YQWwi3LY91YvKXF4MkfotNccA32etA85midRNUHGJP27RUF7O+JOTop/YhMGTDTxSmhqotp+k73yrQ3QA0QyAiGCBefXiIy5aZU9uYGL/yD3VWhFeTgpr/sLXa28zp4iuBCWyuwRrjNetoBP3V/S5fUhdjQMC+7cg8iO9vv67PeShwr5NEWsaGad/BdQu8BeI9AwjJZRgcdtke6ysLFdvLp2uLACtYQK5cUkmtrM/klPLTBaUmlG9enYQGdpTojS+WgfsK4Qiu4XtqBLqq88cMcQamy7jLaAa3Oi64mI3gvVCAdXfYCAadGLk1lcHg5N6fDvX6amzDnExreMK4GByQ==
+ bh=lt0WqcjgodoNc9JCiCyXPdsLIcJAN19KQjqt4nQGX5Y=;
+ b=IHDw4g60vu+hM8qwO1J/pl8F9uIuVQNAhnne3GC7bhWT57oP8zTBxgwNlb4k4jWPSsVxOJkW1SdehMTXdNtAJZfWxeVemU5amnOK+CzS7FtcDsu8Tsu0OYYvoiXw6e7tS6IlAk6pt6TjF9S1jBcOCPJNV1uhQSJXgbOh2tExqZIPAo9vaQHyRtr1pULYY2YUKHTxVhUDn2N4CjPaV6ZB+IloTrwwo4im+4m/CubGrrOBZl4ExibMKYJfeSC9nNku7HubaXbG69AdalvvK7wKYyPloriV8eIVYqC95qvTg1JfQgT3UWdd3ahHj8Al2JHd3Y3bL6EY1iD4f3UenAlQFQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <7c5ff089-780b-9965-4765-be3ef210a913@suse.com>
-Date: Wed, 16 Feb 2022 09:41:44 +0100
+Message-ID: <41b56a02-fbd4-bb43-3e94-329dda5785f0@suse.com>
+Date: Wed, 16 Feb 2022 09:49:43 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.0
-Subject: Re: [PATCH v2 07/70] x86: Build check for embedded endbr64
- instructions
+Subject: Re: [PATCH v2 68/70] x86/setup: Rework MSR_S_CET handling for CET-IBT
 Content-Language: en-US
-To: Andrew Cooper <amc96@srcf.net>, Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
- <20220214125127.17985-8-andrew.cooper3@citrix.com>
- <95c29039-302c-256b-d381-2b5b8b9c1a4a@suse.com>
- <8c6d9714-7e45-1603-a5ad-d49fc060304e@srcf.net>
+ <20220214125127.17985-69-andrew.cooper3@citrix.com>
+ <79617697-307e-b19b-71a9-7c8554aec481@suse.com>
+ <029ee818-6cdd-6027-59f9-6ddf07ed01d0@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <8c6d9714-7e45-1603-a5ad-d49fc060304e@srcf.net>
+In-Reply-To: <029ee818-6cdd-6027-59f9-6ddf07ed01d0@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS9PR06CA0351.eurprd06.prod.outlook.com
- (2603:10a6:20b:466::17) To VI1PR04MB5600.eurprd04.prod.outlook.com
+X-ClientProxiedBy: AS9P194CA0021.EURP194.PROD.OUTLOOK.COM
+ (2603:10a6:20b:46d::11) To VI1PR04MB5600.eurprd04.prod.outlook.com
  (2603:10a6:803:e7::16)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 330de225-4ec7-41d0-0cf1-08d9f1282a67
-X-MS-TrafficTypeDiagnostic: DB6PR0402MB2837:EE_
+X-MS-Office365-Filtering-Correlation-Id: c19b57de-e0b2-42eb-b9b7-08d9f1294800
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7985:EE_
 X-Microsoft-Antispam-PRVS:
-	<DB6PR0402MB2837DF761AF3992F530703B9B3359@DB6PR0402MB2837.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+	<AM8PR04MB798540DE505CB5BF0426CC9BB3359@AM8PR04MB7985.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	I48/Dh98dpQkEeLlcW/L+y5TbUua8g+mrhP+/D/zIHeDlRnb9NSeOuEpZMC27PkAN2LYdyR/kndj5AmqvHFo7Yyw1141hmrLi3VeQx9HjGvu9B6r2W6YV/0k/JYMPNp4UyI3Di6alHhRDMXWqVUhek+E4yJ5JMPnBq5yryRHhVUuWKcYAhUQvJG9Kduf0CtXlANnn2nqSNzV3PsJudiL/KsWSTMPetqZ5NsZ3/ycvid0Ci6ChyBP3pPUxrdJG8ZaQoWislqGFwY0owZiEt2uojQoIh3pItowIG/F58Pm/IUH7E0G61X/fiL9Envd7wYIZ7yljU7hKfwybLsJ8Uq7op0gITB5qj1Wd7Yf9gjgvNL6xwWLyoMVic/4D3PJH7l4mgFInpkliCoaxq2a2FgHDPk2VHbsuuylKEx1KvZHa8zyY3frSVdHiwzQ14/yB3CHQDJql5O1jp+AM+grPnN0UYC3AZ+Yu/ExuD/SYLc85K4pP3gOWZIfmnYRXMhg50W7Oru601Bw/U6dIe324DeFdwBf4a6ZlmaFivkE3+zAzr1HM2tSu7IVxbgFLiDwE0Is9TOjb4GPvw1cmrep0ejrmhLIu4CUW/rXvNStllxEBJPljZm99g4nsPDwRU7oJaVLDKdfdpcavuY33nIXZX7jKkIwM5pCPNtMVlygygThkYScIE8AANHyeuF01PC5JfN8Win1Q3VNFzz9drUPRGQbyGZJHz9wI3vrZZyeeov3mL4=
+	suy12AGPerUSbd61MQ0IN7ZwEKyOMmHwqM4FX6aKi0dU9Q9iwk18HQ+/hSJc5mON405vvmDwmGhr20A6uH00tDOL3ORKZjhmOniqtko7coLAJVFHjNVEaCQY+ZpKr0va4L81izq6yyNBJasi/XA6YE66y5ErS41vbWpRSi2QsgYI4MHWPzt4vim2Fu6JJvRLZWhUu8vT+F78O5DuRhQUvkwZuVuo3Y9YDQQziduvxQXPel8m9A+u2ZcYz4B91Ryng0kMmapoR85R48RPxQudkR0iCKoNZmiWs1uaAIU/onsf18EoLkQGY8VluCKBx2/t9pWdh988esuNalbwJihuXyvrRS9jYC/X8xy60w6Ap5b8TpMeMazisb195CX+8TyBxGHZo7puOl/zEpVzEN95X34C6tzX0fpt/6VLm14FKdIxfPaTjgY2J4yO8/rFj+CM9zzo+ND9rC5pa3pRsN0vNX7Ebe4ET99m1wRg0AWw0G4YH8tK8/nFDAVwOFZ78wlRnOBWDuuFwvWmsGt3jUiez5ULik/kt7gVLmfTfGdTGpAMid/ngyUGWib1AjgrONBOdHUJYvay7UlaVswNtgjEDyLQ9sDZnH0BBiOpsM3nQTodnXgzyo6tpb+H+otkT5cu6UA3PmuX1QkRlDrxyA+xVCh8lPYvd9eR5ccFkWwjfv9mM7nIBd0k7/oCWwe5bZPvLGY1a9dJQMSosGPQb1Ip4mDSo3AVZ1MLa61Mv8GshtJXhJpK1Sn7j3zHAvkpOXsj
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66556008)(66476007)(4326008)(8676002)(8936002)(38100700002)(53546011)(66946007)(6506007)(26005)(186003)(5660300002)(2906002)(6512007)(2616005)(6486002)(31686004)(31696002)(54906003)(110136005)(36756003)(83380400001)(86362001)(316002)(508600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(2906002)(53546011)(26005)(54906003)(186003)(6512007)(6506007)(2616005)(316002)(83380400001)(38100700002)(31696002)(6916009)(6486002)(86362001)(508600001)(36756003)(5660300002)(66556008)(66946007)(66476007)(8936002)(31686004)(4326008)(8676002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9yKzi6P894kw0UDtRHjc0jvgSwm3kIDc1+MUt5qyO6foexNe32daH5I6+s1Q?=
- =?us-ascii?Q?Ke49O1sikUucyNw6N/dui6elCWQ/cW4PEMBwEevWu+TVHGD2KPeWyhSHqTNp?=
- =?us-ascii?Q?v16Rbcpwm6OhhSuWYwnRohTqneBoc2oqQrREElNxwW+MWC82+/lIcsz0aOgE?=
- =?us-ascii?Q?w2x90+Kfj+OYbHgIPT7ONQDHETV6J0EYF5Rlpo3LvmaCkQ0p3vA9q4P+EZ2b?=
- =?us-ascii?Q?GH1Mk+y0rX8xLE78vHF+/bUqTjG/ZSzgUMCAO35VGeHCm/pSPbwUgys/cFt/?=
- =?us-ascii?Q?Og7Md45Y4lEdxyZrhDfsHCUfi8wwDAUCA/HUJz1Z+1O7RzFvvckUuJLG5YFr?=
- =?us-ascii?Q?3ZItubQFDcsC8fz48KaUQ5qQKlkHmJv+JM2pMlQvkRz7UIxghbcUcqC9HPph?=
- =?us-ascii?Q?z9dZpKLOAEsrpwWJgGFVSUNeiJ7CWmuP6tENVcP6rGGMmg76FFgXnKOlMmG9?=
- =?us-ascii?Q?1AxQ+sn6u2XS0tbfRP35gmzD/hl7aHagrKoKTjntDamPuuX9ZJpwAivKRM55?=
- =?us-ascii?Q?4Hx/+2BrJQLke1LrP8UZjLj9ZmMM6we1w63GKygmBVecpmM5HsLeLbMI4puv?=
- =?us-ascii?Q?7OXgn3kq73UdxoyxeEGvfL4si4exV1u2IiUEjPEn/0/hZw4KukUCFLXYaDJu?=
- =?us-ascii?Q?2gAWnUqwpj858qwZxqRwQWqSgL8cP+amEL/pTxrvjgt69MMvqtD9DUvmngsQ?=
- =?us-ascii?Q?S5Kjs65A68Cid8OvfYrMbWw27/D2dJgDL+BYnxKIFxgyeIBVeJHgyWh65rNl?=
- =?us-ascii?Q?td3FSb3+F+3mpR0gCE+Sl1ye+3Y07i8Z2NWVyNyq80pA2DAIvZenNytOmhq4?=
- =?us-ascii?Q?g8ZVmAnyO7kImM8rtxU17uSI+0LvLZNkt8qnuZp7BK61QlTWMhVtMFHO4xDJ?=
- =?us-ascii?Q?t4uKJGmKH8+CXnec8IZ+aGGViML3CAnZ5HnlngR+LxX9/eW+C5UiQQIO0zp7?=
- =?us-ascii?Q?nYlsnXvXZ9OpkL4tGAw1z2ai8HBo1qFxo7Yg6PysYnLjP5TjGSXATUg9JfEf?=
- =?us-ascii?Q?qIEyq3io7XUM7IIfvrMeP8vjMcJ7b3G6At6TJRif3R/ntspz0a/QwZTuUtwD?=
- =?us-ascii?Q?61yWly4t8bC8vuppLQ5aRK8BjDqigYhZYAier9H0yJSVY5Z9X55MwBu5yP+1?=
- =?us-ascii?Q?SWu7fxVtdPcNnCOCKJraCtanKmkYvuzRmOVVrCeUDfP/i7QHodPJBrE5Cap8?=
- =?us-ascii?Q?5eBNDMaG51Qt7I1pxULbAQFgtIb118LIPzD/BAhrPmHCtBepwlvClAPgniGs?=
- =?us-ascii?Q?Qnac/molIedlVx1F7d82W6zdUcGx1PFG4E6ws/4YSysegquj9ocXwUUwzdlz?=
- =?us-ascii?Q?Kl1Ci4TmPfFiTclAuewEg27PGYlbGoiNUGLseNc+J8elNljtlFsD5CbB0ucX?=
- =?us-ascii?Q?KpIJUuN/rjPTJ+rJw+huAXqpCratb2dj3+mQi+tQBo5qE7rNPXU6XaKrnVVs?=
- =?us-ascii?Q?dTdoxGm5eUXMw6Vdbga2OdZuHxAiFsHy2N8zQkqhknAaNsi6iFBGVg9l4ri5?=
- =?us-ascii?Q?Iae9bGDf5MlXv4XwBgY47unX05HU45u9rgzurKozPURTDVaBW34ZTKgrUB7g?=
- =?us-ascii?Q?QvglUJFH4R5blBv6ay7Vi8yn75jlJI+yjlTdNdB2nbrrMaMKdh8ezG5kmJog?=
- =?us-ascii?Q?fftVnH5QO14JfG0WCda247Q=3D?=
+	=?us-ascii?Q?b+wn36gU3nNtzJJ7BboevuPFe99yG/ElDdJ2FII20Berd3/vTvzReSk5A5I3?=
+ =?us-ascii?Q?fm0Nc6aY92KvIs1BsVGLVTHSdb1Hl3bGiVconhNVQB2RpmptIbv/qmLmJcPR?=
+ =?us-ascii?Q?FUgJT0+j6uiIg/nMrMEhuE2IovI7rHsj0c/UU6y32cJYtaqzxjo90YKVKrOZ?=
+ =?us-ascii?Q?a8greXKgJCX0UkZC2SL4fZ/tqX84UYpmJWsgB3NYHduWQw6QKCV5vbvDkKSz?=
+ =?us-ascii?Q?iVqSDe7sl4tDVVxCzKT2K04a/uKjAtmJUscPYsckelIZJrBEFKOgBat2/KhU?=
+ =?us-ascii?Q?w/s+zzwA1QgiMBC7Xq0o0HSW1Be3KQkWBx/VVcaVNftodTmI34mfJW7M4Bs3?=
+ =?us-ascii?Q?ujRPK796r5lzmG5HvVQGGkNGV3UpPd4BKOp5SBnYNQQH+xIlw1/JSCwLtbGj?=
+ =?us-ascii?Q?5kFPi6Q5YxqqwfanNDCCJFwfBduLF+M1dEg+ZKAcCMLUi3WqkAsX/575r2Ij?=
+ =?us-ascii?Q?8I8sM33RrF//Q8BSihjbI2dE+G9iU2PR3hYJ9LqJfz0gZG/9lWYROavWkGIk?=
+ =?us-ascii?Q?HsaxbvrtPyZDPD9Q7jESEt2ec71DlnsEXs3ovO6y8k9/B0N0KHEG4ICv93nm?=
+ =?us-ascii?Q?vSzjXbEOgP2h+9GHDAwyRFYhFAdziBT2G8TqufibXn01Cq6E2Wx1XOlXOySu?=
+ =?us-ascii?Q?mCA1kOaIryylwKJFWNV8AE0jCsfG9S2d1GDAKKgC5AdCAqzccPA73+Xie4+B?=
+ =?us-ascii?Q?O6vZcz3ZkvucDYpxOPvMZXhPpi8felgHD7l5guzkK3+PPa+2mIzQ4mLxaxtF?=
+ =?us-ascii?Q?5YcW2+MvuCGuE8fFiab69LPpQmOOWScsJWB8kqyKirTvmx9kY0OrGBhEOmgI?=
+ =?us-ascii?Q?7srfwlLLiUdfvHCbr6CZE26zZAOV3gow8aHMazY3OEUfVt1JUgPnv9KHb0u2?=
+ =?us-ascii?Q?6PB0gaOxpG6iz6whBWlzACMntZLfXeLLh2ZELyZRCStP46QOegaCH6J90W5Q?=
+ =?us-ascii?Q?Rw94aamviZfPZWNkViAmpN0YePfrOy3nqzqUlSHeU/w4GEEJ9e1ZG4+R7RB1?=
+ =?us-ascii?Q?hllKGXIUa0ilabwCNBB5v/706ZqFgk3iEbSDp5o+JSeomtw/4o9favJ6QH3y?=
+ =?us-ascii?Q?XmhUuLg2BMQcYtb2te4Oc1dNG0hkJ4VSkwJph9WIUmTF3GHPN7xoQu4QxRCs?=
+ =?us-ascii?Q?6pw90xatzXezWv3lTCvtdP346qZI4/VWKF3gz9dxml2BUESnTtbjDRje2cyi?=
+ =?us-ascii?Q?NRZNAPcxgg1wAC5tucl5GL/2ymYkaW0j9nfy0PSSlcv3+nQ/yynSUKf2ExQV?=
+ =?us-ascii?Q?eoaJhXSD6GkVXSkTj6UFJqCkdH4vDWnELzZJIC+mt0Ow3dlgMwbOALMqPOWA?=
+ =?us-ascii?Q?SM4MmNi2b0jS/PKZm6+/5c81S5aB2grnpfpYLWu9zEDNyf/DLZRrnIzZBGhQ?=
+ =?us-ascii?Q?9FlFgQE4eR7J1+JwYiFRhNhirwU26DKrCnkqZQrAD3LOjCdtJQjH4RzL0whE?=
+ =?us-ascii?Q?8nruITA2LfONqE+5rT0B9O7Hw/YR1TDjNuzMJDruEbLHZEmRDYhuCy3Ez88p?=
+ =?us-ascii?Q?QSi9E7oiPyUOretGqkbWRF7myiVtM7ZhcvEeRqOWIj3KwdZGdU2UTo4SW8u1?=
+ =?us-ascii?Q?lh3Nd50msP4DmHE0214T82R7BAqH0M25YXKR7AzwxBD6UB13qoQ9m8H0pK2E?=
+ =?us-ascii?Q?DTuCxpfqZI1L91v261Yj9gU=3D?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 330de225-4ec7-41d0-0cf1-08d9f1282a67
+X-MS-Exchange-CrossTenant-Network-Message-Id: c19b57de-e0b2-42eb-b9b7-08d9f1294800
 X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2022 08:41:46.3424
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2022 08:49:45.5314
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JnRr/hS6XoTQX7GLUZie7i+i7vPFMMDYEdt+6B8yw2/S36pi8Ub7ZYKLVKl3Y7foWDnOy/XylLGe43ZYiwfFbA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0402MB2837
+X-MS-Exchange-CrossTenant-UserPrincipalName: pd/ASjmbiMEWxRjIxszlhQChUWNuNlGLQT9IXVdXYT+m2EQ74g98xjCAoBWdL7DJc/QdvIuKOej4JU8CXIv3EQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7985
 
-On 15.02.2022 18:52, Andrew Cooper wrote:
-> On 15/02/2022 15:12, Jan Beulich wrote:
->> On 14.02.2022 13:50, Andrew Cooper wrote:
->>> --- /dev/null
->>> +++ b/xen/tools/check-endbr.sh
->>> @@ -0,0 +1,76 @@
->>> +#!/bin/sh
->>> +
->>> +#
->>> +# Usage ./$0 xen-syms
->>> +#
->>> +
->>> +set -e
->>> +
->>> +OBJCOPY=3D"${OBJCOPY:-objcopy} -j .text $1"
->>> +OBJDUMP=3D"${OBJDUMP:-objdump} -j .text $1"
->>> +
->>> +D=3D$(mktemp -d)
->>> +trap "rm -rf $D" EXIT
->>> +
->>> +TEXT_BIN=3D$D/xen-syms.text
->>> +VALID=3D$D/valid-addrs
->>> +ALL=3D$D/all-addrs
->>> +BAD=3D$D/bad-addrs
->>> +
->>> +#
->>> +# First, look for all the valid endbr64 instructions.
->>> +# A worst-case disassembly, viewed through cat -A, may look like:
->>> +#
->>> +# ffff82d040337bd4 <endbr64>:$
->>> +# ffff82d040337bd4:^If3 0f 1e fa          ^Iendbr64 $
->>> +# ffff82d040337bd8:^Ieb fe                ^Ijmp    ffff82d040337bd8 <e=
-ndbr64+0x4>$
->>> +# ffff82d040337bda:^Ib8 f3 0f 1e fa       ^Imov    $0xfa1e0ff3,%eax$
->>> +#
->>> +# Want to grab the address of endbr64 instructions only, ignoring func=
-tion
->>> +# names/jump labels/etc, so look for 'endbr64' preceeded by a tab and =
-with any
->>> +# number of trailing spaces before the end of the line.
->>> +#
->>> +${OBJDUMP} -d | grep '	endbr64 *$' | cut -f 1 -d ':' > $VALID &
->> Since you look at only .text the risk of the disassembler coming
->> out of sync with the actual instruction stream is lower than when
->> 32- and 16-bit code was also part of what is disassembled, but it's
->> not zero.
+On 15.02.2022 21:58, Andrew Cooper wrote:
+> On 15/02/2022 16:46, Jan Beulich wrote:
+>> On 14.02.2022 13:51, Andrew Cooper wrote:
+>>> CET-SS and CET-IBT can be independently controlled, so the configuratio=
+n of
+>>> MSR_S_CET can't be constant any more.
+>>>
+>>> Introduce xen_msr_s_cet_value(), mostly because I don't fancy
+>>> writing/maintaining that logic in assembly.  Use this in the 3 paths wh=
+ich
+>>> alter MSR_S_CET when both features are potentially active.
+>>>
+>>> To active CET-IBT, we only need CR4.CET and MSR_S_CET.ENDBR_EN.  This i=
+s
+>>> common with the CET-SS setup, so reorder the operations to set up CR4 a=
+nd
+>>> MSR_S_CET for any nonzero result from xen_msr_s_cet_value(), and set up
+>>> MSR_PL0_SSP and SSP if SHSTK_EN was also set.
+>>>
+>>> Adjust the crash path to disable CET-IBT too.
+>>>
+>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 >=20
-> I'm not sure that we have any interesting non-64bit code at all in .text.
+> Thanks,
 >=20
-> _start is technically 32bit but is mode-invariant as far as decoding goes=
-.
+>> albeit with a nit and a remark:
+>>
+>>> --- a/xen/arch/x86/acpi/wakeup_prot.S
+>>> +++ b/xen/arch/x86/acpi/wakeup_prot.S
+>>> @@ -63,7 +63,26 @@ ENTRY(s3_resume)
+>>>          pushq   %rax
+>>>          lretq
+>>>  1:
+>>> -#ifdef CONFIG_XEN_SHSTK
+>>> +#if defined(CONFIG_XEN_SHSTK) || defined(CONFIG_XEN_IBT)
+>>> +        call    xen_msr_s_cet_value
+>>> +        test    %eax, %eax
+>>> +        jz      .L_cet_done
+>>> +
+>>> +        /* Set up MSR_S_CET. */
+>>> +        mov     $MSR_S_CET, %ecx
+>>> +        xor     %edx, %edx
+>>> +        wrmsr
+>>> +
+>>> +        /* Enable CR4.CET. */
+>>> +        mov     $XEN_MINIMAL_CR4 | X86_CR4_CET, %ecx
+>>> +        mov     %rcx, %cr4
+>>> +
+>>> +        /* WARNING! call/ret now fatal (iff SHSTK) until SETSSBSY load=
+s SSP */
+>>> +
+>>> +#if defined(CONFIG_XEN_SHSTK)
+>> Just #ifdef, as it was before?
 >=20
-> The kexec trampoline is here too, but when I dust off my cleanup patch,
-> there will no longer be data or mode-dependent things to disassemble.
->=20
-> Everything else I can think of is in .init.text.
->=20
->> Any zero-padding inserted anywhere by the linker can
->> result in an immediately following ENDBR to be missed (because
->> sequences of zeros resemble 2-byte insns).
->=20
-> I'm not sure this is a problem.=C2=A0 This pass is looking for everything
-> that objdump thinks is a legal endbr64 instruction, and it splits at labe=
-ls.
+> I can if you insist, but that's breaking consistency with the other
+> ifdefary.
 
-Oh, right - I did miss the splitting at labels aspect. Hopefully
-objdump is really consistent with this.
+I guess consistent of not depends on the way you look at it. I
+generally think simple conditionals should just use #ifdef. As
+soon as there's an #elif or a more complex condition, #if
+defined() is of course more consistent. But one #ifdef nested
+inside another #if imo isn't a reason to use #if in both places.
 
-> Only the hand-written stubs can legitimately have an endbr64 without a
-> symbol pointing at it.
->=20
-> We also don't have any 0 padding.=C2=A0 It's specified as 0x90 in the lin=
-ker
-> file, although I've been debating switching this to 0xcc for a while now
-> already.
+Nevertheless, ftaod - I'm not going to insist, as I can see this
+being a matter of personal preference.
 
-The linker script comes into play only in the final linking step.
-Prior "ld -r" could easily have inserted other padding.
+>>> @@ -90,10 +101,6 @@ ENTRY(s3_resume)
+>>>          mov     %edi, %eax
+>>>          wrmsr
+>>> =20
+>>> -        /* Enable CET.  MSR_INTERRUPT_SSP_TABLE is set up later in loa=
+d_system_tables(). */
+>>> -        mov     $XEN_MINIMAL_CR4 | X86_CR4_CET, %ebx
+>>> -        mov     %rbx, %cr4
+>> The latter part of this comment could do with retaining.
+>=20
+> So I tried that in v1, and concluded not for v2.
+>=20
+> There is nowhere appropriate for it to live, anywhere in this block.=C2=
+=A0
+> And it is an artefact of me bootstrapping SHSTK to start with.
+>=20
+> The truth is that nothing about MSR_ISST_TABLE matters until
+> load_system_table sets up both this and the TSS IST fields together.=C2=
+=A0
+> IST exceptions are already fatal at this point for non-SHSTK reasons.
 
->>> +#
->>> +# Second, look for any endbr64 byte sequence
->>> +# This has a couple of complications:
->>> +#
->>> +# 1) Grep binary search isn't VMA aware.  Copy .text out as binary, ca=
-using
->>> +#    the grep offset to be from the start of .text.
->>> +#
->>> +# 2) AWK can't add 64bit integers, because internally all numbers are =
-doubles.
->>> +#    When the upper bits are set, the exponents worth of precision is =
-lost in
->>> +#    the lower bits, rounding integers to the nearest 4k.
->>> +#
->>> +#    Instead, use the fact that Xen's .text is within a 1G aligned reg=
-ion, and
->>> +#    split the VMA in half so AWK's numeric addition is only working o=
-n 32 bit
->>> +#    numbers, which don't lose precision.
->>> +#
->>> +eval $(${OBJDUMP} -h | awk '$2 =3D=3D ".text" {printf "vma_hi=3D%s\nvm=
-a_lo=3D%s\n", substr($4, 1, 8), substr($4, 9, 16)}')
->>> +
->>> +${OBJCOPY} -O binary $TEXT_BIN
->>> +grep -aob "$(printf '\363\17\36\372')" $TEXT_BIN |
->>> +    awk -F':' '{printf "%s%x\n", "'$vma_hi'", strtonum(0x'$vma_lo') + =
-$1}' > $ALL
->> None of the three options passed to grep look to be standardized.
->> Is this going to cause problems on non-Linux systems? Should this
->> checking perhaps be put behind a separate Kconfig option?
->=20
-> CI says that FreeBSD is entirely happy, while Alpine Linux isn't.=C2=A0 T=
-his
-> is because Alpine has busybox's grep unless you install the GNU grep
-> package, and I'm doing a fix to our container.
->=20
-> My plan to fix this is to just declare a "grep capable of binary
-> searching" a conditional build requirement for Xen.=C2=A0 I don't think t=
-his
-> is onerous, and there no other plausible alternatives here.
->=20
-> The other option is to detect the absence of support an skip the check.=
-=C2=A0
-> It is after all a defence in depth scheme, and anything liable to cause
-> a problem would be caught in CI anyway.
-
-I'd favor the latter approach (but I wouldn't mind the conditional build
-requirement, if you and others deem that better), with a warning issued
-when the check can't be performed. I have to admit that I didn't expect
-there would be no simple and standardized binary search tool on Unix-es.
+Well, okay. To me, not being as familiar with this code as you
+are, the comments was quite helpful ...
 
 Jan
 
