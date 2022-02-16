@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5A3E4B8072
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 07:18:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.273688.468948 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 765534B80B8
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 07:32:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.273699.468958 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKDde-00016s-Rl; Wed, 16 Feb 2022 06:18:06 +0000
+	id 1nKDre-0003VS-6p; Wed, 16 Feb 2022 06:32:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 273688.468948; Wed, 16 Feb 2022 06:18:06 +0000
+Received: by outflank-mailman (output) from mailman id 273699.468958; Wed, 16 Feb 2022 06:32:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKDde-00013J-N6; Wed, 16 Feb 2022 06:18:06 +0000
-Received: by outflank-mailman (input) for mailman id 273688;
- Wed, 16 Feb 2022 06:18:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1nKDre-0003ST-3K; Wed, 16 Feb 2022 06:32:34 +0000
+Received: by outflank-mailman (input) for mailman id 273699;
+ Wed, 16 Feb 2022 06:32:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BoLq=S7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nKDdd-00013B-Ai
- for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 06:18:05 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3308c8ce-8ef0-11ec-b215-9bbe72dcb22c;
- Wed, 16 Feb 2022 07:18:04 +0100 (CET)
+ id 1nKDrc-0003S4-0c
+ for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 06:32:32 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 37816dcb-8ef2-11ec-8eb8-a37418f5ba1a;
+ Wed, 16 Feb 2022 07:32:30 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 09F151F37D;
- Wed, 16 Feb 2022 06:18:04 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6081A212C3;
+ Wed, 16 Feb 2022 06:32:30 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AC43913A3E;
- Wed, 16 Feb 2022 06:18:03 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2439413A3E;
+ Wed, 16 Feb 2022 06:32:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id eATMKBuXDGLvHAAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 16 Feb 2022 06:18:03 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id izAFB36aDGJ7IQAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 16 Feb 2022 06:32:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,94 +51,83 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3308c8ce-8ef0-11ec-b215-9bbe72dcb22c
+X-Inumbo-ID: 37816dcb-8ef2-11ec-8eb8-a37418f5ba1a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1644992284; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1644993150; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5bvR+cQM7kV3vvOlHMfT04Bu7E+So7C7IqAwG4VLIwk=;
-	b=HG60knYSaJ8Bu4MJJmZhbIq1qFdmwucRgKon//DxRsRgGBJDGC32h7nnRLzT5qj2XljJcn
-	y99ZTUaFxE35fXM4RwDqocIu2AQS7GF8U8nLDj19rGa9GKvJTnOqjoWkyqvRuMy4BfUI/B
-	Y6KiNN3KFBJKRRrcuxmitQVuIKp7oGQ=
-Message-ID: <779968b4-5985-06bc-be35-ce5b0b719930@suse.com>
-Date: Wed, 16 Feb 2022 07:18:03 +0100
+	bh=GwxMg2UkWH0rNV1uqw/Ax9X7A7CDk4lDSvqL8KM86I0=;
+	b=Fx66wrg18CIFMlgkEP6I3zF8IyMd2uoo/xMvaoVgNzPT1bKSlHSitOPNSLyVHTTDRMp53w
+	t4eLVIJGcl8b5EwKgDrFNvuRK3+qDQoq6RJBez2mFASQEAhcZ+IE2wX7+zrJdi6AOLC63k
+	WhBtxklU1T39yT5DuELrsAG7Jp5neLY=
+Message-ID: <aa39b1ee-feb7-b9b0-9d14-01a5356f7129@suse.com>
+Date: Wed, 16 Feb 2022 07:32:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.4.1
-Subject: Re: [PATCH 4/5] xen/cpupool: Create different cpupools at boot time
+Subject: Re: [PATCH] docs: add some clarification to xenstore-migration.md
 Content-Language: en-US
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <wei.chen@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>
-References: <20220215101551.23101-1-luca.fancellu@arm.com>
- <20220215101551.23101-5-luca.fancellu@arm.com>
- <d6f36774-ecb5-15f4-b0c0-6114724060e6@suse.com>
- <AC1B6659-FDCF-49A0-AB6E-EF2196C46D8C@arm.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+References: <20220210112652.6237-1-jgross@suse.com>
+ <6dd022ea-192b-3a5b-e02c-2368e769339f@xen.org>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <AC1B6659-FDCF-49A0-AB6E-EF2196C46D8C@arm.com>
+In-Reply-To: <6dd022ea-192b-3a5b-e02c-2368e769339f@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------ovTIL74uuOjogk659WmZWxj3"
+ boundary="------------kbhIom36OKq4KruNfQlrbTp0"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ovTIL74uuOjogk659WmZWxj3
-Content-Type: multipart/mixed; boundary="------------H6jlegWSQ5SX3fL7M84qUChf";
+--------------kbhIom36OKq4KruNfQlrbTp0
+Content-Type: multipart/mixed; boundary="------------RQrnluHG3x0zIzYCJQ8vA7Sh";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <wei.chen@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>
-Message-ID: <779968b4-5985-06bc-be35-ce5b0b719930@suse.com>
-Subject: Re: [PATCH 4/5] xen/cpupool: Create different cpupools at boot time
-References: <20220215101551.23101-1-luca.fancellu@arm.com>
- <20220215101551.23101-5-luca.fancellu@arm.com>
- <d6f36774-ecb5-15f4-b0c0-6114724060e6@suse.com>
- <AC1B6659-FDCF-49A0-AB6E-EF2196C46D8C@arm.com>
-In-Reply-To: <AC1B6659-FDCF-49A0-AB6E-EF2196C46D8C@arm.com>
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Message-ID: <aa39b1ee-feb7-b9b0-9d14-01a5356f7129@suse.com>
+Subject: Re: [PATCH] docs: add some clarification to xenstore-migration.md
+References: <20220210112652.6237-1-jgross@suse.com>
+ <6dd022ea-192b-3a5b-e02c-2368e769339f@xen.org>
+In-Reply-To: <6dd022ea-192b-3a5b-e02c-2368e769339f@xen.org>
 
---------------H6jlegWSQ5SX3fL7M84qUChf
-Content-Type: multipart/mixed; boundary="------------yzPp4c76nno0cq0RsKiSyjO6"
+--------------RQrnluHG3x0zIzYCJQ8vA7Sh
+Content-Type: multipart/mixed; boundary="------------0vibqX66EMfA1rmGDQ49Vlyi"
 
---------------yzPp4c76nno0cq0RsKiSyjO6
+--------------0vibqX66EMfA1rmGDQ49Vlyi
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMTUuMDIuMjIgMTg6NTYsIEx1Y2EgRmFuY2VsbHUgd3JvdGU6DQo+IA0KPiANCj4+IE9u
-IDE1IEZlYiAyMDIyLCBhdCAxMDo0OCwgSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29t
-PiB3cm90ZToNCj4+DQo+PiBPbiAxNS4wMi4yMiAxMToxNSwgTHVjYSBGYW5jZWxsdSB3cm90
-ZToNCj4+PiBJbnRyb2R1Y2UgYW4gYXJjaGl0ZWN0dXJlIHNwZWNpZmljIHdheSB0byBjcmVh
-dGUgZGlmZmVyZW50IGNwdXBvb2xzDQo+Pj4gYXQgYm9vdCB0aW1lLCB0aGlzIGlzIHBhcnRp
-Y3VsYXJseSB1c2VmdWwgb24gQVJNIGJpZy5MSVRUTEUgc3lzdGVtDQo+Pj4gd2hlcmUgdGhl
-cmUgbWlnaHQgYmUgdGhlIG5lZWQgdG8gaGF2ZSBkaWZmZXJlbnQgY3B1cG9vbHMgZm9yIGVh
-Y2ggdHlwZQ0KPj4+IG9mIGNvcmUsIGJ1dCBhbHNvIHN5c3RlbXMgdXNpbmcgTlVNQSBjYW4g
-aGF2ZSBkaWZmZXJlbnQgY3B1IHBvb2xzIGZvcg0KPj4+IGVhY2ggbm9kZS4NCj4+PiBUaGUg
-ZmVhdHVyZSBvbiBhcm0gcmVsaWVzIG9uIGEgc3BlY2lmaWNhdGlvbiBvZiB0aGUgY3B1cG9v
-bHMgZnJvbSB0aGUNCj4+PiBkZXZpY2UgdHJlZSB0byBidWlsZCBwb29scyBhbmQgYXNzaWdu
-IGNwdXMgdG8gdGhlbS4NCj4+PiBEb2N1bWVudGF0aW9uIGlzIGNyZWF0ZWQgdG8gZXhwbGFp
-biB0aGUgZmVhdHVyZS4NCj4+PiBTaWduZWQtb2ZmLWJ5OiBMdWNhIEZhbmNlbGx1IDxsdWNh
-LmZhbmNlbGx1QGFybS5jb20+DQo+Pg0KPj4gSUlSQyBJIHN1Z2dlc3RlZCB0byBoYXZlIHRo
-ZSBjb3JlIGZ1bmN0aW9uYWxpdHkgaW4gY29tbW9uIGNvZGUgaW4gb3JkZXINCj4+IHRvIGFs
-bG93IHVzaW5nIGJvb3QgdGltZSBjcHVwb29sIGNyZWF0aW9uIGUuZy4gdmlhIGNvbW1hbmRs
-aW5lIGZvciB4ODYsDQo+PiB0b28uDQo+IA0KPiBZZXMsIGhvd2V2ZXIgSSB0aGluayB0aGUg
-cGFyc2VyIHRvIGhhbmRsZSBldmVyeXRoaW5nIGJ5IGNvbW1hbmQgbGluZSB3b3VsZA0KPiBi
-ZSBodWdlIGR1ZSB0byBpbnB1dCBzYW5pdGlzYXRpb24gYW5kIG5vdCBlYXN5IGVub3VnaCBh
-cyB0aGUgRFQsIGhvd2V2ZXINCj4gSSBzZWUgSHlwZXJsYXVuY2ggaGFzIHBsYW5zIHRvIHVz
-ZSBEVCBvbiB4ODYgc28gSSBndWVzcyBpdCB3b3VsZCBiZSBvayB0byBtYWtlDQo+IHRoaXMg
-ZmVhdHVyZSBjb21tb24gb25jZSB0aGUgRFQgaXMgYXZhaWxhYmxlIGFsc28gb24geDg2Lg0K
-DQpFdmVyeXRoaW5nIG5vdCBiZWluZyBleHBsaWNpdGx5IHNwZWNpZmljIHRvIEFybSBzaG91
-bGQgYmUgaW4gY29tbW9uDQpjb2RlLiBUaGluayBvZiB0aGUgd29yayBpbiBwcm9ncmVzcyBm
-b3IgUmlzYy1WLg0KDQoNCkp1ZXJnZW4NCg==
---------------yzPp4c76nno0cq0RsKiSyjO6
+T24gMTUuMDIuMjIgMjE6NDAsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
+Cj4gDQo+IE9uIDEwLzAyLzIwMjIgMTE6MjYsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBU
+aGUgWGVuc3RvcmUgbWlncmF0aW9uIGRvY3VtZW50IGlzIG1pc3NpbmcgdGhlIHNwZWNpZmlj
+YXRpb24gdGhhdCBhDQo+PiBub2RlIHJlY29yZCBtdXN0IGJlIHByZWNlZGVkIGJ5IHRoZSBy
+ZWNvcmQgb2YgaXRzIHBhcmVudCBub2RlIGluIGNhc2UNCj4+IG9mIGxpdmUgdXBkYXRlLg0K
+Pj4NCj4+IEFkZCB0aGF0IG1pc3NpbmcgcGFydC4NCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBK
+dWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQo+PiAtLS0NCj4+IMKgIGRvY3MvZGVz
+aWducy94ZW5zdG9yZS1taWdyYXRpb24ubWQgfCA0ICsrKysNCj4+IMKgIDEgZmlsZSBjaGFu
+Z2VkLCA0IGluc2VydGlvbnMoKykNCj4+DQo+PiBkaWZmIC0tZ2l0IGEvZG9jcy9kZXNpZ25z
+L3hlbnN0b3JlLW1pZ3JhdGlvbi5tZCANCj4+IGIvZG9jcy9kZXNpZ25zL3hlbnN0b3JlLW1p
+Z3JhdGlvbi5tZA0KPj4gaW5kZXggNWYxMTU1MjczZS4uMzllMzFjOTg0YiAxMDA2NDQNCj4+
+IC0tLSBhL2RvY3MvZGVzaWducy94ZW5zdG9yZS1taWdyYXRpb24ubWQNCj4+ICsrKyBiL2Rv
+Y3MvZGVzaWducy94ZW5zdG9yZS1taWdyYXRpb24ubWQNCj4+IEBAIC0zMTYsNiArMzE2LDEw
+IEBAIGEgX2NvbW1pdHRlZF8gbm9kZSAoZ2xvYmFsbHkgdmlzaWJsZSBpbiANCj4+IHhlbnN0
+b3JlZCkgb3IgYSBfcGVuZGluZ18gbm9kZSAoY3JlYXRlZA0KPj4gwqAgb3IgbW9kaWZpZWQg
+YnkgYSB0cmFuc2FjdGlvbiBmb3Igd2hpY2ggdGhlcmUgaXMgYWxzbyBhIA0KPj4gYFRSQU5T
+QUNUSU9OX0RBVEFgDQo+PiDCoCByZWNvcmQgcHJldmlvdXNseSBwcmVzZW50KS4NCj4+ICtJ
+biB0aGUgbGl2ZSB1cGRhdGUgY2FzZSB0aGUgX2NvbW1pdHRlZF8gbm9kZXMgbXVzdCBiZSBp
+biBhIHRvcC1kb3duIA0KPj4gc2VxdWVuY2UsDQo+PiAraS5lLiB0aGUgZmlyc3Qgbm9kZSBu
+ZWVkcyB0byBiZSBgL2AsIGFuZCBlYWNoIG90aGVyIG5vZGUgaW4gdGhlIA0KPj4gc3RyZWFt
+IG11c3QNCj4+ICtjb21lIF9hZnRlcl8gaXRzIHBhcmVudCBub2RlLg0KPiANCj4gSSB3b3Vs
+ZCBhY3R1YWxseSBleHBlY3QgdGhlIHNhbWUgcmVzdHJpY3Rpb24gdG8gYXBwbHkgZm9yIHRo
+ZSANCj4gbm9uLWxpdmV1cGRhdGUgY2FzZS4gSS5lLiB3ZSB3YW50IHRoZSBwYXJlbnQgdG8g
+ZWl0aGVyIGV4aXN0IGluIHRoZSB0cmVlIA0KPiBvciB0aGUgcmVjb3JkIGZvciB0aGUgcGFy
+ZW50IHRvIGJlIGJlZm9yZSBpbiB0aGUgc3RyZWFtLg0KDQpIbW0sIHRydWUuIEknbGwgcmVw
+aHJhc2UgdGhhdC4NCg0KDQpKdWVyZ2VuDQo=
+--------------0vibqX66EMfA1rmGDQ49Vlyi
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -196,25 +185,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------yzPp4c76nno0cq0RsKiSyjO6--
+--------------0vibqX66EMfA1rmGDQ49Vlyi--
 
---------------H6jlegWSQ5SX3fL7M84qUChf--
+--------------RQrnluHG3x0zIzYCJQ8vA7Sh--
 
---------------ovTIL74uuOjogk659WmZWxj3
+--------------kbhIom36OKq4KruNfQlrbTp0
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIMlxsFAwAAAAAACgkQsN6d1ii/Ey9A
-0Qf9FStUv1v/JKdYReG22mCGvkekmgzJGFf1hPFJf92Ne9KGm1/tyvZHXDD/aSfy1pFr4YBZVzYC
-vyMFwFBd491/aUpqsSbkX/8D7ApdlEVPaqbXfPEQyDP85JBHDOTaJivH9e02nePu+bx4I08Go387
-ZwcG6jJiyO8rT9deEVSST0uU/QByYnUM8ZeLVLHlWVPN/53rtIsOKVwR8LjOWEP3NvVLqbgI+YQl
-EwvKGpq2BOPPvB52Ppw/oJC7X+/NxZD4Qi2hGFEIjgoG1WpMD8Eosa/fFOB21j5oEvcdwGSf707n
-ZN3aCRIStaOnpepeOzGDYoYO388A35ofbsQX+ijmNQ==
-=UAC2
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIMmn0FAwAAAAAACgkQsN6d1ii/Ey8v
+BQgAh6uhnweQpWcOFm+/PYzuQShcmbdpAcBZlZIHklaYhwickt1YNM5KOsOnoo/2IM4QsuuSvcWj
+1NaFmC5jwjX1F3d5jNIwJSfuHwfii3bLlZdOogAHIPYzmxn+39/MW9qjCTrwr+K/oOQFvynolMm2
+sh6Abw9RJc4Qbncbeqh3ysdfBSMD2F9VczZwWaWTDsF32f63W8yvcsSZ5vNOXR6cfY26+melTjlQ
+Mb7TfdEfoQH87ledYKqvTN01zfTmC4z6/LkkLADgqbkGDD5NA+sitS/LU4a/JPiwBtZr2wBcHbHw
+5adBGA+stxwrJXd+VUjpp0CGkdv2abLCCh1K+hZVig==
+=+N1n
 -----END PGP SIGNATURE-----
 
---------------ovTIL74uuOjogk659WmZWxj3--
+--------------kbhIom36OKq4KruNfQlrbTp0--
 
