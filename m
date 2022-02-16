@@ -2,65 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0DC44B82C7
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 09:17:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.273762.469012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 915734B8324
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 09:43:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.273771.469024 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKFV1-0007hS-7o; Wed, 16 Feb 2022 08:17:19 +0000
+	id 1nKFsn-0002VH-CZ; Wed, 16 Feb 2022 08:41:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 273762.469012; Wed, 16 Feb 2022 08:17:19 +0000
+Received: by outflank-mailman (output) from mailman id 273771.469024; Wed, 16 Feb 2022 08:41:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKFV1-0007eO-4O; Wed, 16 Feb 2022 08:17:19 +0000
-Received: by outflank-mailman (input) for mailman id 273762;
- Wed, 16 Feb 2022 08:17:17 +0000
+	id 1nKFsn-0002SS-90; Wed, 16 Feb 2022 08:41:53 +0000
+Received: by outflank-mailman (input) for mailman id 273771;
+ Wed, 16 Feb 2022 08:41:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wbM1=S7=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1nKFUz-0007eI-77
- for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 08:17:17 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20613.outbound.protection.outlook.com
- [2a01:111:f400:7d00::613])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Gpsw=S7=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nKFsm-0002SM-8B
+ for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 08:41:52 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.111.102])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d9cc0f39-8f00-11ec-8eb8-a37418f5ba1a;
- Wed, 16 Feb 2022 09:17:16 +0100 (CET)
-Received: from DB7PR05CA0047.eurprd05.prod.outlook.com (2603:10a6:10:2e::24)
- by AM5PR0802MB2564.eurprd08.prod.outlook.com (2603:10a6:203:a0::21) with
+ id 485c9b1d-8f04-11ec-8eb8-a37418f5ba1a;
+ Wed, 16 Feb 2022 09:41:50 +0100 (CET)
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05lp2174.outbound.protection.outlook.com [104.47.17.174]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-28-88pdkn36O6y8ZFF5rGNB8w-1; Wed, 16 Feb 2022 09:41:48 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by DB6PR0402MB2837.eurprd04.prod.outlook.com (2603:10a6:4:98::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.14; Wed, 16 Feb
- 2022 08:17:12 +0000
-Received: from DB5EUR03FT044.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:2e:cafe::3c) by DB7PR05CA0047.outlook.office365.com
- (2603:10a6:10:2e::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16 via Frontend
- Transport; Wed, 16 Feb 2022 08:17:12 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DB5EUR03FT044.mail.protection.outlook.com (10.152.21.167) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4975.11 via Frontend Transport; Wed, 16 Feb 2022 08:17:12 +0000
-Received: ("Tessian outbound 63bb5eb69ee8:v113");
- Wed, 16 Feb 2022 08:17:12 +0000
-Received: from ff3db04f4d7b.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 36C475AF-8C97-4753-BFB6-4FADCB9816A3.1; 
- Wed, 16 Feb 2022 08:17:11 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id ff3db04f4d7b.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 16 Feb 2022 08:17:11 +0000
-Received: from VI1PR0801MB2125.eurprd08.prod.outlook.com
- (2603:10a6:800:5b::23) by AM7PR08MB5336.eurprd08.prod.outlook.com
- (2603:10a6:20b:105::9) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Wed, 16 Feb
- 2022 08:17:01 +0000
-Received: from VI1PR0801MB2125.eurprd08.prod.outlook.com
- ([fe80::5531:4c33:a50c:ea0e]) by VI1PR0801MB2125.eurprd08.prod.outlook.com
- ([fe80::5531:4c33:a50c:ea0e%9]) with mapi id 15.20.4995.016; Wed, 16 Feb 2022
- 08:16:59 +0000
+ 2022 08:41:46 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65%5]) with mapi id 15.20.4995.016; Wed, 16 Feb 2022
+ 08:41:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -72,236 +51,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d9cc0f39-8f00-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PCsX5TWiQRdbBLDv8OYYrtYQkhBsOjbWFA2Z2jFtW/A=;
- b=jkVTlKEeBHUSW9fOJQHzswXjVZ7ONqzxwbp/3o7HW5IiZrZT3eP7E06f+QNN7n8ZRTC0GnjQtXW9uc/Cr+p1eDGBESewN2fTFtlOPO82lvZoNKOeY83k/Wg6SEM2MfQhKFzBdw6ixDoJQkSUXEz70eQxqdHT+fht7OVfx7BXR4g=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: fc015dd556840793
-X-CR-MTA-TID: 64aa7808
+X-Inumbo-ID: 485c9b1d-8f04-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1645000909;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3C9KLmoWGgH3dVrkp1s13qieYY2/tIcI6qYtHjWt9pw=;
+	b=WqEEy28whNjEFV4r8mGpz7gVfmwDgQLZgMaqLMXShe+G/6lAex1yOeCQcYF8EY62bBO3sR
+	04QwcM9DO1lVJHYvIOHZVFBp8Q3dLuLUMVTQhbPGey/FUdNBcBGocdRWr+k1vSENNV55+n
+	6bNXy2kTGq5EHxDfWUZXDX16j1QwnXQ=
+X-MC-Unique: 88pdkn36O6y8ZFF5rGNB8w-1
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZC/Qy3r8ksPghizDKY37BrfjrEq5i8WU0mXEoL7UQR3oMpikZVcxinXf7KsJmswgLcwxRzldunwTOwLnCwEeUwPq6D0VHPNFB5M33wdf12BT7K1ujwAIv8b4MsYL5ev1LlNHR6+Z1cs9VokZYzRHNVD5PVeyWa9xQdi0nhdpdX3k3KpchfaSYu6vN63eGWuTxJ7vIqyDVg6xQymL5fjPMjNB2MXoWY52DMBpewHq7a2wVU1ejWvQZuwHWlgvFB4g0kVwY709Oyz6LxTATBtjkD/wBbOR2EOjDbkcdy6JPYukFhZeAg+XyPFmDK02qXRtlr9/SkhFeTgdqF9M80bNzg==
+ b=fA1wyMFb7YHy2hihRgLHS/tZW5/Maim9PfZAJgT/cA7Atv+oBxiG04H/tbgz0WfvI2ueEObgdnCxe1ce/HgibAy2Ok236Zqb8YKIKf30dndOgyVeovf2TlKX2j42r9V34U4++rPbHJU0OZz33Z/DoQpS+FA5Wu68qzmSioztfJgdG0iN0hQHiLwt3wMxZmI13jQ/uGDQHHak1LwxerTxUsmIL68lqvFxq5gTKveEouLqL0aZnBx8X2C1cDtHI7sgVj3h/M47nlFSMnUZRSCALH27qs5ahf0ojBtDpAMwRHVHIjeI/FCHhV2AByJ3lTIP/sEc+IqzKdlp9sIyS9BKFw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PCsX5TWiQRdbBLDv8OYYrtYQkhBsOjbWFA2Z2jFtW/A=;
- b=UcKfIR80TLCVwdQ/uwIZIX+QQa8EYWaSACxsPBrEoRCUPFI8sChv06oloWFPOzGyDFNGpdz+lxHcvksvHB2gbynhMnHLuuY7ntTtVtCd75tk3RY2Hh5erO08LbWhlDwk59VkFOMutQg9TUXCBZxo8DAo1wj79vZGHNRP4ULIYnMUSYoE6+r51dgVE7jLb3jVdTVT2Emt9Yb8L7e2Gx6mJi4mWKjgXtQuO44i909eWMb4xV0j+JR7zaAWrDms61+ESKfIGTBmdWtUyPLMuzSdsdYCWbjaXnNwwb+RFwpXyWrpdj8DSz1r2Dx4382ROlIcVb+TCI3hrrThtPVXBSZTbQ==
+ bh=Alk9KMejPJ+5ydPZltrpBZ3oRaO32Id6ixGtBB0nXbU=;
+ b=YQWwi3LY91YvKXF4MkfotNccA32etA85midRNUHGJP27RUF7O+JOTop/YhMGTDTxSmhqotp+k73yrQ3QA0QyAiGCBefXiIy5aZU9uYGL/yD3VWhFeTgpr/sLXa28zp4iuBCWyuwRrjNetoBP3V/S5fUhdjQMC+7cg8iO9vv67PeShwr5NEWsaGad/BdQu8BeI9AwjJZRgcdtke6ysLFdvLp2uLACtYQK5cUkmtrM/klPLTBaUmlG9enYQGdpTojS+WgfsK4Qiu4XtqBLqq88cMcQamy7jLaAa3Oi64mI3gvVCAdXfYCAadGLk1lcHg5N6fDvX6amzDnExreMK4GByQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PCsX5TWiQRdbBLDv8OYYrtYQkhBsOjbWFA2Z2jFtW/A=;
- b=jkVTlKEeBHUSW9fOJQHzswXjVZ7ONqzxwbp/3o7HW5IiZrZT3eP7E06f+QNN7n8ZRTC0GnjQtXW9uc/Cr+p1eDGBESewN2fTFtlOPO82lvZoNKOeY83k/Wg6SEM2MfQhKFzBdw6ixDoJQkSUXEz70eQxqdHT+fht7OVfx7BXR4g=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Content-Type: text/plain;
-	charset=utf-8
-Subject: Re: [PATCH 1/5] tools/cpupools: Give a name to unnamed cpupools
-From: Luca Fancellu <luca.fancellu@arm.com>
-In-Reply-To: <8763ed2b-ce5d-12eb-1ea2-542e8024764b@suse.com>
-Date: Wed, 16 Feb 2022 08:16:55 +0000
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- wei.chen@arm.com,
- Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <7c5ff089-780b-9965-4765-be3ef210a913@suse.com>
+Date: Wed, 16 Feb 2022 09:41:44 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.0
+Subject: Re: [PATCH v2 07/70] x86: Build check for embedded endbr64
+ instructions
+Content-Language: en-US
+To: Andrew Cooper <amc96@srcf.net>, Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
+References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
+ <20220214125127.17985-8-andrew.cooper3@citrix.com>
+ <95c29039-302c-256b-d381-2b5b8b9c1a4a@suse.com>
+ <8c6d9714-7e45-1603-a5ad-d49fc060304e@srcf.net>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <8c6d9714-7e45-1603-a5ad-d49fc060304e@srcf.net>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <994A7B5F-DC53-411A-ABB2-4D7E8B77EF63@arm.com>
-References: <20220215101551.23101-1-luca.fancellu@arm.com>
- <20220215101551.23101-2-luca.fancellu@arm.com>
- <efd968bb-e3f6-9e16-3826-4cab25127718@suse.com>
- <71460E15-5D09-4CE6-99ED-4858147BB0D0@arm.com>
- <8763ed2b-ce5d-12eb-1ea2-542e8024764b@suse.com>
-To: Juergen Gross <jgross@suse.com>
-X-Mailer: Apple Mail (2.3693.60.0.1.1)
-X-ClientProxiedBy: LO2P123CA0076.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:138::9) To VI1PR0801MB2125.eurprd08.prod.outlook.com
- (2603:10a6:800:5b::23)
+X-ClientProxiedBy: AS9PR06CA0351.eurprd06.prod.outlook.com
+ (2603:10a6:20b:466::17) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-X-MS-Office365-Filtering-Correlation-Id: 99e0bd87-56ab-4fd6-a0e9-08d9f124bbb8
-X-MS-TrafficTypeDiagnostic:
-	AM7PR08MB5336:EE_|DB5EUR03FT044:EE_|AM5PR0802MB2564:EE_
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 330de225-4ec7-41d0-0cf1-08d9f1282a67
+X-MS-TrafficTypeDiagnostic: DB6PR0402MB2837:EE_
 X-Microsoft-Antispam-PRVS:
-	<AM5PR0802MB25640163176EAAC337E51ACFE4359@AM5PR0802MB2564.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
+	<DB6PR0402MB2837DF761AF3992F530703B9B3359@DB6PR0402MB2837.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- Z5J9RW+wx8FiQWqumtigq8kYXvGbXJxnjR2AIOj7TGrOtd6nak5kgPhoS/zYItF2N6BoTw4EveKo5jr9zarfurEc90/vH35tdS3l86D0dsl9qbhk2OLrD4DAYhPOiWCvpzd6hRJgUdqogBC3YF/cqStL2N8zcp87RjMu28pSiGFXw2v46OzyaAHfiutz6ArWBYgPBIscjNkXYMaW1BFyMG7M8wzfiDwVqU0uI67w4OmWE0fJzlaGsC98mxWIXQRnDKez/0rv5HaiXxD5YcosewVbBHi5IwOfp/pQPIIC4o0UyLZjAzaDDyYXL4micYVOeR1WIyFbyYhphqr3MM5fEWw/31PgA+J6a2f+CdtIki4Tuu8+X3mSdZujcDJN1O1qNjcCO5oDK0SmaA9wqLjtfQ/k88VyLSMMlYjw3yyJvjePz0m+m7ce0knPQBwGeb03X3Tklg1m4bVpMddDfrNrX9kGTg9giOzNs9eR2f2PwGpRi8Y68mZOp6VOk1oqiQHC6dV3tdkVHjSOcHmTxTHGTdo9P8FdvWU01uqG2au3UDjpOzkxQa23GwEReXVSfX3VMSzUahOj0i33FgmJLG3CR5KFG2RXydewJqZmkomZUcR+ZDXKgwbthtcOVPUakH8BxASdkbQwt/fVYV5qylHxHiY9f3B0uiZOdSCk5GM5xIppQ2HE3g2VbnlOkpP3+hJcZLsfwPdCjxVn/YcZjwfDcVyQjaVKA5S0242qi2iRUOY=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR0801MB2125.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(36756003)(52116002)(33656002)(5660300002)(53546011)(316002)(508600001)(6916009)(54906003)(6486002)(38100700002)(38350700002)(8676002)(66946007)(66556008)(86362001)(66476007)(83380400001)(4326008)(6506007)(8936002)(6666004)(6512007)(186003)(44832011)(26005)(2616005)(2906002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR08MB5336
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DB5EUR03FT044.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	7ade7d57-d749-4008-bc6f-08d9f124b382
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	gjUXQXJ77vZTQj1HmYYdTzasBhna3Mob1f/aE5Av8D5UDy/Sp6bO6jmCYc2as2PFUsaBd0W0c4sCZ2cMjDxJLYkMyafMCwUwIa0fUdit4P1VkLvi1Nkj+lp7Vi2CUSrFMRLB62c+jo+qVXdVpYYyC0qTHaj1Mleiqe697NqrzgLNdNZ9T626fZb1PLrxpLhT5/nfFnT4axM6p5KnAUqTgLwoWUeNjrvQQx10ecqoWIAYlqPRe4fVZi3ND54W2PBWkA+G+t3Ni8fsMrAB1meY+wbBVeQDbDKYytfEZjGTurjGZCNUfsL0l5HP+SpZiHY5PLWwqy85+z7jtrzY6hzbfgSielnXZjZQrkKrJD6E27ey/y4jkDw5TnwH8sH04L8x5NmSOpUKtMZxJJk/mB/XCNAkV96NivhWrPDOpGxqk1A594ko6hKtm1flDwZVQhALYGF2NWr9hFOH0ZtKS0YZoHLXRsxXzsdh4uTi7WtHG8+mm2cjNPCKEh5WhK3u2ay/fe51QaMGn4U59PWN/75cl/9bNPc4jMxN5X9leRW8TcYgJEzb/Y87xJ2OXZsah2d1eGH+q/t5q4p0dZOcNO/KO5X/63p1cmH9rAwlB6DMMQEvbZvgfJ1Q1qMPy/ixjLUTIOHAqMjQ8llhSvLddQAfBfgd9JikZN3l20yjOmYMY5RsBRov8qZErtyiy4Y3+YxV
+	I48/Dh98dpQkEeLlcW/L+y5TbUua8g+mrhP+/D/zIHeDlRnb9NSeOuEpZMC27PkAN2LYdyR/kndj5AmqvHFo7Yyw1141hmrLi3VeQx9HjGvu9B6r2W6YV/0k/JYMPNp4UyI3Di6alHhRDMXWqVUhek+E4yJ5JMPnBq5yryRHhVUuWKcYAhUQvJG9Kduf0CtXlANnn2nqSNzV3PsJudiL/KsWSTMPetqZ5NsZ3/ycvid0Ci6ChyBP3pPUxrdJG8ZaQoWislqGFwY0owZiEt2uojQoIh3pItowIG/F58Pm/IUH7E0G61X/fiL9Envd7wYIZ7yljU7hKfwybLsJ8Uq7op0gITB5qj1Wd7Yf9gjgvNL6xwWLyoMVic/4D3PJH7l4mgFInpkliCoaxq2a2FgHDPk2VHbsuuylKEx1KvZHa8zyY3frSVdHiwzQ14/yB3CHQDJql5O1jp+AM+grPnN0UYC3AZ+Yu/ExuD/SYLc85K4pP3gOWZIfmnYRXMhg50W7Oru601Bw/U6dIe324DeFdwBf4a6ZlmaFivkE3+zAzr1HM2tSu7IVxbgFLiDwE0Is9TOjb4GPvw1cmrep0ejrmhLIu4CUW/rXvNStllxEBJPljZm99g4nsPDwRU7oJaVLDKdfdpcavuY33nIXZX7jKkIwM5pCPNtMVlygygThkYScIE8AANHyeuF01PC5JfN8Win1Q3VNFzz9drUPRGQbyGZJHz9wI3vrZZyeeov3mL4=
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(46966006)(40470700004)(36840700001)(316002)(2906002)(5660300002)(508600001)(47076005)(82310400004)(6486002)(8936002)(54906003)(36756003)(8676002)(356005)(44832011)(70586007)(70206006)(81166007)(6862004)(40460700003)(4326008)(36860700001)(6512007)(83380400001)(2616005)(186003)(53546011)(86362001)(33656002)(336012)(107886003)(26005)(6666004)(6506007);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2022 08:17:12.0035
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66556008)(66476007)(4326008)(8676002)(8936002)(38100700002)(53546011)(66946007)(6506007)(26005)(186003)(5660300002)(2906002)(6512007)(2616005)(6486002)(31686004)(31696002)(54906003)(110136005)(36756003)(83380400001)(86362001)(316002)(508600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?9yKzi6P894kw0UDtRHjc0jvgSwm3kIDc1+MUt5qyO6foexNe32daH5I6+s1Q?=
+ =?us-ascii?Q?Ke49O1sikUucyNw6N/dui6elCWQ/cW4PEMBwEevWu+TVHGD2KPeWyhSHqTNp?=
+ =?us-ascii?Q?v16Rbcpwm6OhhSuWYwnRohTqneBoc2oqQrREElNxwW+MWC82+/lIcsz0aOgE?=
+ =?us-ascii?Q?w2x90+Kfj+OYbHgIPT7ONQDHETV6J0EYF5Rlpo3LvmaCkQ0p3vA9q4P+EZ2b?=
+ =?us-ascii?Q?GH1Mk+y0rX8xLE78vHF+/bUqTjG/ZSzgUMCAO35VGeHCm/pSPbwUgys/cFt/?=
+ =?us-ascii?Q?Og7Md45Y4lEdxyZrhDfsHCUfi8wwDAUCA/HUJz1Z+1O7RzFvvckUuJLG5YFr?=
+ =?us-ascii?Q?3ZItubQFDcsC8fz48KaUQ5qQKlkHmJv+JM2pMlQvkRz7UIxghbcUcqC9HPph?=
+ =?us-ascii?Q?z9dZpKLOAEsrpwWJgGFVSUNeiJ7CWmuP6tENVcP6rGGMmg76FFgXnKOlMmG9?=
+ =?us-ascii?Q?1AxQ+sn6u2XS0tbfRP35gmzD/hl7aHagrKoKTjntDamPuuX9ZJpwAivKRM55?=
+ =?us-ascii?Q?4Hx/+2BrJQLke1LrP8UZjLj9ZmMM6we1w63GKygmBVecpmM5HsLeLbMI4puv?=
+ =?us-ascii?Q?7OXgn3kq73UdxoyxeEGvfL4si4exV1u2IiUEjPEn/0/hZw4KukUCFLXYaDJu?=
+ =?us-ascii?Q?2gAWnUqwpj858qwZxqRwQWqSgL8cP+amEL/pTxrvjgt69MMvqtD9DUvmngsQ?=
+ =?us-ascii?Q?S5Kjs65A68Cid8OvfYrMbWw27/D2dJgDL+BYnxKIFxgyeIBVeJHgyWh65rNl?=
+ =?us-ascii?Q?td3FSb3+F+3mpR0gCE+Sl1ye+3Y07i8Z2NWVyNyq80pA2DAIvZenNytOmhq4?=
+ =?us-ascii?Q?g8ZVmAnyO7kImM8rtxU17uSI+0LvLZNkt8qnuZp7BK61QlTWMhVtMFHO4xDJ?=
+ =?us-ascii?Q?t4uKJGmKH8+CXnec8IZ+aGGViML3CAnZ5HnlngR+LxX9/eW+C5UiQQIO0zp7?=
+ =?us-ascii?Q?nYlsnXvXZ9OpkL4tGAw1z2ai8HBo1qFxo7Yg6PysYnLjP5TjGSXATUg9JfEf?=
+ =?us-ascii?Q?qIEyq3io7XUM7IIfvrMeP8vjMcJ7b3G6At6TJRif3R/ntspz0a/QwZTuUtwD?=
+ =?us-ascii?Q?61yWly4t8bC8vuppLQ5aRK8BjDqigYhZYAier9H0yJSVY5Z9X55MwBu5yP+1?=
+ =?us-ascii?Q?SWu7fxVtdPcNnCOCKJraCtanKmkYvuzRmOVVrCeUDfP/i7QHodPJBrE5Cap8?=
+ =?us-ascii?Q?5eBNDMaG51Qt7I1pxULbAQFgtIb118LIPzD/BAhrPmHCtBepwlvClAPgniGs?=
+ =?us-ascii?Q?Qnac/molIedlVx1F7d82W6zdUcGx1PFG4E6ws/4YSysegquj9ocXwUUwzdlz?=
+ =?us-ascii?Q?Kl1Ci4TmPfFiTclAuewEg27PGYlbGoiNUGLseNc+J8elNljtlFsD5CbB0ucX?=
+ =?us-ascii?Q?KpIJUuN/rjPTJ+rJw+huAXqpCratb2dj3+mQi+tQBo5qE7rNPXU6XaKrnVVs?=
+ =?us-ascii?Q?dTdoxGm5eUXMw6Vdbga2OdZuHxAiFsHy2N8zQkqhknAaNsi6iFBGVg9l4ri5?=
+ =?us-ascii?Q?Iae9bGDf5MlXv4XwBgY47unX05HU45u9rgzurKozPURTDVaBW34ZTKgrUB7g?=
+ =?us-ascii?Q?QvglUJFH4R5blBv6ay7Vi8yn75jlJI+yjlTdNdB2nbrrMaMKdh8ezG5kmJog?=
+ =?us-ascii?Q?fftVnH5QO14JfG0WCda247Q=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 330de225-4ec7-41d0-0cf1-08d9f1282a67
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2022 08:41:46.3424
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99e0bd87-56ab-4fd6-a0e9-08d9f124bbb8
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5EUR03FT044.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR0802MB2564
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JnRr/hS6XoTQX7GLUZie7i+i7vPFMMDYEdt+6B8yw2/S36pi8Ub7ZYKLVKl3Y7foWDnOy/XylLGe43ZYiwfFbA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB6PR0402MB2837
 
+On 15.02.2022 18:52, Andrew Cooper wrote:
+> On 15/02/2022 15:12, Jan Beulich wrote:
+>> On 14.02.2022 13:50, Andrew Cooper wrote:
+>>> --- /dev/null
+>>> +++ b/xen/tools/check-endbr.sh
+>>> @@ -0,0 +1,76 @@
+>>> +#!/bin/sh
+>>> +
+>>> +#
+>>> +# Usage ./$0 xen-syms
+>>> +#
+>>> +
+>>> +set -e
+>>> +
+>>> +OBJCOPY=3D"${OBJCOPY:-objcopy} -j .text $1"
+>>> +OBJDUMP=3D"${OBJDUMP:-objdump} -j .text $1"
+>>> +
+>>> +D=3D$(mktemp -d)
+>>> +trap "rm -rf $D" EXIT
+>>> +
+>>> +TEXT_BIN=3D$D/xen-syms.text
+>>> +VALID=3D$D/valid-addrs
+>>> +ALL=3D$D/all-addrs
+>>> +BAD=3D$D/bad-addrs
+>>> +
+>>> +#
+>>> +# First, look for all the valid endbr64 instructions.
+>>> +# A worst-case disassembly, viewed through cat -A, may look like:
+>>> +#
+>>> +# ffff82d040337bd4 <endbr64>:$
+>>> +# ffff82d040337bd4:^If3 0f 1e fa          ^Iendbr64 $
+>>> +# ffff82d040337bd8:^Ieb fe                ^Ijmp    ffff82d040337bd8 <e=
+ndbr64+0x4>$
+>>> +# ffff82d040337bda:^Ib8 f3 0f 1e fa       ^Imov    $0xfa1e0ff3,%eax$
+>>> +#
+>>> +# Want to grab the address of endbr64 instructions only, ignoring func=
+tion
+>>> +# names/jump labels/etc, so look for 'endbr64' preceeded by a tab and =
+with any
+>>> +# number of trailing spaces before the end of the line.
+>>> +#
+>>> +${OBJDUMP} -d | grep '	endbr64 *$' | cut -f 1 -d ':' > $VALID &
+>> Since you look at only .text the risk of the disassembler coming
+>> out of sync with the actual instruction stream is lower than when
+>> 32- and 16-bit code was also part of what is disassembled, but it's
+>> not zero.
+>=20
+> I'm not sure that we have any interesting non-64bit code at all in .text.
+>=20
+> _start is technically 32bit but is mode-invariant as far as decoding goes=
+.
+>=20
+> The kexec trampoline is here too, but when I dust off my cleanup patch,
+> there will no longer be data or mode-dependent things to disassemble.
+>=20
+> Everything else I can think of is in .init.text.
+>=20
+>> Any zero-padding inserted anywhere by the linker can
+>> result in an immediately following ENDBR to be missed (because
+>> sequences of zeros resemble 2-byte insns).
+>=20
+> I'm not sure this is a problem.=C2=A0 This pass is looking for everything
+> that objdump thinks is a legal endbr64 instruction, and it splits at labe=
+ls.
 
+Oh, right - I did miss the splitting at labels aspect. Hopefully
+objdump is really consistent with this.
 
-> On 16 Feb 2022, at 06:13, Juergen Gross <jgross@suse.com> wrote:
+> Only the hand-written stubs can legitimately have an endbr64 without a
+> symbol pointing at it.
 >=20
-> On 15.02.22 18:48, Luca Fancellu wrote:
->>> On 15 Feb 2022, at 10:33, Juergen Gross <jgross@suse.com> wrote:
->>>=20
->>> On 15.02.22 11:15, Luca Fancellu wrote:
->>>> With the introduction of boot time cpupools, Xen can create many
->>>> different cpupools at boot time other than cpupool with id 0.
->>>> Since these newly created cpupools can't have an
->>>> entry in Xenstore, create the entry using xen-init-dom0
->>>> helper with the usual convention: Pool-<cpupool id>.
->>>> Given the change, remove the check for poolid =3D=3D 0 from
->>>> libxl_cpupoolid_to_name(...).
->>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
->>>> ---
->>>>  tools/helpers/xen-init-dom0.c  | 26 +++++++++++++++++++++++++-
->>>>  tools/libs/light/libxl_utils.c |  3 +--
->>>>  2 files changed, 26 insertions(+), 3 deletions(-)
->>>> diff --git a/tools/helpers/xen-init-dom0.c b/tools/helpers/xen-init-do=
-m0.c
->>>> index c99224a4b607..3539f56faeb0 100644
->>>> --- a/tools/helpers/xen-init-dom0.c
->>>> +++ b/tools/helpers/xen-init-dom0.c
->>>> @@ -43,7 +43,10 @@ int main(int argc, char **argv)
->>>>      int rc;
->>>>      struct xs_handle *xsh =3D NULL;
->>>>      xc_interface *xch =3D NULL;
->>>> -    char *domname_string =3D NULL, *domid_string =3D NULL;
->>>> +    char *domname_string =3D NULL, *domid_string =3D NULL, *pool_stri=
-ng =3D NULL;
->> Hi Juergen,
->>>=20
->>> pool_string seems to be unused.
->> I will remove it
->>>=20
->>>> +    char pool_path[strlen("/local/pool") + 12], pool_name[strlen("Poo=
-l-") + 5];
->>>=20
->>> I don't like that. Why don't you use pointers and ...
->>>=20
->>>> +    xc_cpupoolinfo_t *xcinfo;
->>>> +    unsigned int pool_id =3D 0;
->>>>      libxl_uuid uuid;
->>>>        /* Accept 0 or 1 argument */
->>>> @@ -114,6 +117,27 @@ int main(int argc, char **argv)
->>>>          goto out;
->>>>      }
->>>>  +    /* Create an entry in xenstore for each cpupool on the system */
->>>> +    do {
->>>> +        xcinfo =3D xc_cpupool_getinfo(xch, pool_id);
->>>> +        if (xcinfo !=3D NULL) {
->>>> +            if (xcinfo->cpupool_id !=3D pool_id)
->>>> +                pool_id =3D xcinfo->cpupool_id;
->>>> +            snprintf(pool_path, sizeof(pool_path), "/local/pool/%d/na=
-me",
->>>> +                     pool_id);
->>>> +            snprintf(pool_name, sizeof(pool_name), "Pool-%d", pool_id=
-);
->>>=20
->>> ... use asprintf() here for allocating the strings in the needed size?
->> Why would you like more this approach? I was trying to avoid allocation/=
-free
->> operations in a loop that would need also more code to check cases in wh=
-ich
->> memory is not allocated. Instead with the buffers in the stack we don=E2=
-=80=99t have problems.
->=20
-> My main concerns are the usage of strlen() for sizing an on-stack array,
-> the duplication of the format strings (once in the arrays definition and
-> once in the snprintf()), and the mixture of strlen() and constants for
-> sizing the arrays.
->=20
-> There are actually some errors in your approach for sizing the arrays,
-> showing how fragile your solution is: you are allowing a "positive
-> integer number" for a cpupool-id, which could easily need 10 digits,
-> while your arrays allow only for 5 or 4 digits, depending on the array.
->=20
-> And doing the two asprintf() calls and then checking that both arrays
-> are not NULL isn't that much code. BTW, your approach is missing the
-> test that the arrays have been large enough.
->=20
-> The performance of that loop shouldn't be that critical that a few
-> additional microseconds really hurt, especially as I don't think any
-> use case will exceed single digit loop iterations.
+> We also don't have any 0 padding.=C2=A0 It's specified as 0x90 in the lin=
+ker
+> file, although I've been debating switching this to 0xcc for a while now
+> already.
 
-Hi Juergen,
+The linker script comes into play only in the final linking step.
+Prior "ld -r" could easily have inserted other padding.
 
-Thank you for your explanation, totally makes sense. I took inspiration fro=
-m
-libxl_cpupoolid_to_name in libxl_utils.c writing this code but I see the li=
-mitation
-now.
+>>> +#
+>>> +# Second, look for any endbr64 byte sequence
+>>> +# This has a couple of complications:
+>>> +#
+>>> +# 1) Grep binary search isn't VMA aware.  Copy .text out as binary, ca=
+using
+>>> +#    the grep offset to be from the start of .text.
+>>> +#
+>>> +# 2) AWK can't add 64bit integers, because internally all numbers are =
+doubles.
+>>> +#    When the upper bits are set, the exponents worth of precision is =
+lost in
+>>> +#    the lower bits, rounding integers to the nearest 4k.
+>>> +#
+>>> +#    Instead, use the fact that Xen's .text is within a 1G aligned reg=
+ion, and
+>>> +#    split the VMA in half so AWK's numeric addition is only working o=
+n 32 bit
+>>> +#    numbers, which don't lose precision.
+>>> +#
+>>> +eval $(${OBJDUMP} -h | awk '$2 =3D=3D ".text" {printf "vma_hi=3D%s\nvm=
+a_lo=3D%s\n", substr($4, 1, 8), substr($4, 9, 16)}')
+>>> +
+>>> +${OBJCOPY} -O binary $TEXT_BIN
+>>> +grep -aob "$(printf '\363\17\36\372')" $TEXT_BIN |
+>>> +    awk -F':' '{printf "%s%x\n", "'$vma_hi'", strtonum(0x'$vma_lo') + =
+$1}' > $ALL
+>> None of the three options passed to grep look to be standardized.
+>> Is this going to cause problems on non-Linux systems? Should this
+>> checking perhaps be put behind a separate Kconfig option?
+>=20
+> CI says that FreeBSD is entirely happy, while Alpine Linux isn't.=C2=A0 T=
+his
+> is because Alpine has busybox's grep unless you install the GNU grep
+> package, and I'm doing a fix to our container.
+>=20
+> My plan to fix this is to just declare a "grep capable of binary
+> searching" a conditional build requirement for Xen.=C2=A0 I don't think t=
+his
+> is onerous, and there no other plausible alternatives here.
+>=20
+> The other option is to detect the absence of support an skip the check.=
+=C2=A0
+> It is after all a defence in depth scheme, and anything liable to cause
+> a problem would be caught in CI anyway.
 
-I will change it to use asprintf().
+I'd favor the latter approach (but I wouldn't mind the conditional build
+requirement, if you and others deem that better), with a warning issued
+when the check can't be performed. I have to admit that I didn't expect
+there would be no simple and standardized binary search tool on Unix-es.
 
-Cheers,
-Luca
-
->=20
->>>=20
->>>> +            pool_id++;
->>>> +            if (!xs_write(xsh, XBT_NULL, pool_path, pool_name,
->>>> +                          strlen(pool_name))) {
->>>> +                fprintf(stderr, "cannot set pool name\n");
->>>> +                rc =3D 1;
->>>> +            }
->>>> +            xc_cpupool_infofree(xch, xcinfo);
->>>> +            if (rc)
->>>> +                goto out;
->>>=20
->>> Moving the call of xc_cpupool_infofree() ahead of the call of xs_write(=
-)
->>> would drop the need for this last if statement, as you could add the
->>> goto to the upper if.
->> Yes you are right, it would simplify the code
->>>=20
->>>> +        }
->>>> +    } while(xcinfo !=3D NULL);
->>>> +
->>>=20
->>> With doing all of this for being able to assign other domains created
->>> at boot to cpupools, shouldn't you add names for other domains than dom=
-0
->>> here, too?
->> This serie is more about cpupools, maybe I can do that in another commit=
- out
->> of this serie.
->=20
-> Fine with me.
->=20
->=20
-> Juergen
-> <OpenPGP_0xB0DE9DD628BF132F.asc>
+Jan
 
 
