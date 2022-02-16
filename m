@@ -2,44 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F71D4B8847
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 13:56:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.274108.469461 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC43F4B8863
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Feb 2022 14:02:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.274117.469472 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKJq7-0006zI-LT; Wed, 16 Feb 2022 12:55:23 +0000
+	id 1nKJwc-0008Uk-IU; Wed, 16 Feb 2022 13:02:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 274108.469461; Wed, 16 Feb 2022 12:55:23 +0000
+Received: by outflank-mailman (output) from mailman id 274117.469472; Wed, 16 Feb 2022 13:02:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKJq7-0006wy-I6; Wed, 16 Feb 2022 12:55:23 +0000
-Received: by outflank-mailman (input) for mailman id 274108;
- Wed, 16 Feb 2022 12:55:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BoLq=S7=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1nKJq6-0006ws-5q
- for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 12:55:22 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b27dde24-8f27-11ec-b215-9bbe72dcb22c;
- Wed, 16 Feb 2022 13:55:20 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1227E21763;
- Wed, 16 Feb 2022 12:55:20 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A81E313B0A;
- Wed, 16 Feb 2022 12:55:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id p5VhJzf0DGJdXQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 16 Feb 2022 12:55:19 +0000
+	id 1nKJwc-0008Rt-E6; Wed, 16 Feb 2022 13:02:06 +0000
+Received: by outflank-mailman (input) for mailman id 274117;
+ Wed, 16 Feb 2022 13:02:04 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=wbM1=S7=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1nKJwa-0008Rn-GA
+ for xen-devel@lists.xenproject.org; Wed, 16 Feb 2022 13:02:04 +0000
+Received: from EUR03-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur03on0620.outbound.protection.outlook.com
+ [2a01:111:f400:fe09::620])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a16d9192-8f28-11ec-8eb8-a37418f5ba1a;
+ Wed, 16 Feb 2022 14:02:02 +0100 (CET)
+Received: from DB8PR04CA0021.eurprd04.prod.outlook.com (2603:10a6:10:110::31)
+ by AM6PR08MB4755.eurprd08.prod.outlook.com (2603:10a6:20b:c2::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Wed, 16 Feb
+ 2022 13:01:59 +0000
+Received: from DB5EUR03FT054.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:110:cafe::99) by DB8PR04CA0021.outlook.office365.com
+ (2603:10a6:10:110::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11 via Frontend
+ Transport; Wed, 16 Feb 2022 13:01:58 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DB5EUR03FT054.mail.protection.outlook.com (10.152.20.248) with
+ Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.4975.11 via Frontend Transport; Wed, 16 Feb 2022 13:01:58 +0000
+Received: ("Tessian outbound 341d209a0e52:v113");
+ Wed, 16 Feb 2022 13:01:58 +0000
+Received: from 34074e011fec.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 46AF6948-0894-4B8E-AD2E-772B45101CD3.1; 
+ Wed, 16 Feb 2022 13:01:51 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 34074e011fec.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 16 Feb 2022 13:01:51 +0000
+Received: from VI1PR0801MB2125.eurprd08.prod.outlook.com
+ (2603:10a6:800:5b::23) by DU0PR08MB7487.eurprd08.prod.outlook.com
+ (2603:10a6:10:357::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.16; Wed, 16 Feb
+ 2022 13:01:50 +0000
+Received: from VI1PR0801MB2125.eurprd08.prod.outlook.com
+ ([fe80::5531:4c33:a50c:ea0e]) by VI1PR0801MB2125.eurprd08.prod.outlook.com
+ ([fe80::5531:4c33:a50c:ea0e%9]) with mapi id 15.20.4995.016; Wed, 16 Feb 2022
+ 13:01:50 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,269 +72,297 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b27dde24-8f27-11ec-b215-9bbe72dcb22c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1645016120; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gQJ/FOU/OBDzBQ+DP+YdrS+fYXTN4ezvR/yaqHC6IvA=;
-	b=DFLfUIrclvvPh1dbgiYpo0xcIHCuk5GAaAwP7yrmc3sFYCRSa+iimv7BNbfi2rSPywD387
-	YP7kTbdER7DtQtXjy16OVCAfej3GNtW0Ayh/RAc9Lwx9Hw6LQ1xMCvOEeSKVgCcUhWKmYR
-	mMxvd4yMP9HzfRg0KPH2CnMLBCnJMsU=
-Message-ID: <44d2673b-2450-81cf-5d3e-9afb23ae09c6@suse.com>
-Date: Wed, 16 Feb 2022 13:55:19 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.1
+X-Inumbo-ID: a16d9192-8f28-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UYnuAoGLLD+lAvfFx1UlXOA8KGYr5Gj5bO9LfnifR7M=;
+ b=3GGJyLfhWjc4HjFGq+tNYgvt6h0IIXdtVEkSeWp3+R04hYSwAMDSp8NBRAom0VtrNKGKIuCaH03WgtQztIql3JDtYa+NNVxr4AhkxIgnGTDgBW28d5uV1e4AjpZ13xjiBZRwl4npBHRGFPf1gvVGDT24DQIC1mfkvCV3T+JnnA0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 520dbcdd9541ea34
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bS9oYQIDO8jrUCq1P2fAcGfPAz9YkIf9Rv/9Bpv3W9MhTtn6U9Vdk7kDbF4LkwXPd9XfoIRnN9FujKmJBhfTJKrFlLdVJKJYezPPh+vatT2c02nlVuRnKk+b2IWdieIEnfuuw9aWf6117Bn9nTVsPL06Z8ioLrLnn4iH7HciBFXvLpqWjEhrhkNOdE8gJWumGntJATBaVz+khkPCwcNUiOvAztRm6T/PORQJNqNt6ah7rxpRdD7DfF4XJUBGynZmsa4KiQTXveKGY5mCMYKJm7XFF62FyPyVLzgqbof9zQRg98CfR9R02wZ4IEcKBCLFoNXWel6EBEBwJE17D9/ooQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UYnuAoGLLD+lAvfFx1UlXOA8KGYr5Gj5bO9LfnifR7M=;
+ b=cmbU2vr75/BjWd6CiCSJEJn4CRllO8mum1a4HpBpzQvfsUTHlq3U2JFioJSuwinY3Fb9RuGjrwO69ImJEpCM1zhdq4rJIFSiAZSKs1QdAHPb+N7Xus00lGPTmwtCVCxh+ejE0lckUNHAk6Tzivkt9AAIU/9TsrsvyUzU4ZSApJ4qoH9nTGxwgJVq269wOj9pNXbkDvBJKzNTOba44YVMApi1KHdnwaZ6z4ZpyfoMMLkyOKrcZJ8dFIGW3VuL0AySET9rGa87o/PjAq6X2i1eJ9r7hewjzG0YGFAVd3kRnBcyYpuuOQb+II/TmhmnXWf8ssBaMNoJdOoGw0QpKjsz5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UYnuAoGLLD+lAvfFx1UlXOA8KGYr5Gj5bO9LfnifR7M=;
+ b=3GGJyLfhWjc4HjFGq+tNYgvt6h0IIXdtVEkSeWp3+R04hYSwAMDSp8NBRAom0VtrNKGKIuCaH03WgtQztIql3JDtYa+NNVxr4AhkxIgnGTDgBW28d5uV1e4AjpZ13xjiBZRwl4npBHRGFPf1gvVGDT24DQIC1mfkvCV3T+JnnA0=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Content-Type: text/plain;
+	charset=utf-8
 Subject: Re: [PATCH 4/5] xen/cpupool: Create different cpupools at boot time
-Content-Language: en-US
-To: Luca Fancellu <luca.fancellu@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <wei.chen@arm.com>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
+From: Luca Fancellu <luca.fancellu@arm.com>
+In-Reply-To: <44d2673b-2450-81cf-5d3e-9afb23ae09c6@suse.com>
+Date: Wed, 16 Feb 2022 13:01:44 +0000
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Wei Chen <wei.chen@arm.com>,
+ Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>
-References: <20220215101551.23101-1-luca.fancellu@arm.com>
- <20220215101551.23101-5-luca.fancellu@arm.com>
- <alpine.DEB.2.22.394.2202151827380.43738@ubuntu-linux-20-04-desktop>
- <53747C8B-681A-4474-B1DF-F08702322AB9@arm.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <53747C8B-681A-4474-B1DF-F08702322AB9@arm.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------alQ9vdTNmDSPU8J1MtfNMirk"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------alQ9vdTNmDSPU8J1MtfNMirk
-Content-Type: multipart/mixed; boundary="------------2djNK4009U0uLsNdoMD4Iix4";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Luca Fancellu <luca.fancellu@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <wei.chen@arm.com>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>, Dario Faggioli <dfaggioli@suse.com>
-Message-ID: <44d2673b-2450-81cf-5d3e-9afb23ae09c6@suse.com>
-Subject: Re: [PATCH 4/5] xen/cpupool: Create different cpupools at boot time
-References: <20220215101551.23101-1-luca.fancellu@arm.com>
- <20220215101551.23101-5-luca.fancellu@arm.com>
- <alpine.DEB.2.22.394.2202151827380.43738@ubuntu-linux-20-04-desktop>
- <53747C8B-681A-4474-B1DF-F08702322AB9@arm.com>
-In-Reply-To: <53747C8B-681A-4474-B1DF-F08702322AB9@arm.com>
-
---------------2djNK4009U0uLsNdoMD4Iix4
-Content-Type: multipart/mixed; boundary="------------fUaRchlecyt3jRs9acd9w00e"
-
---------------fUaRchlecyt3jRs9acd9w00e
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMTYuMDIuMjIgMTM6MTAsIEx1Y2EgRmFuY2VsbHUgd3JvdGU6DQo+IA0KPiANCj4+IE9u
-IDE2IEZlYiAyMDIyLCBhdCAwMjo0NSwgU3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGlu
-aUBrZXJuZWwub3JnPiB3cm90ZToNCj4+DQo+PiBPbiBUdWUsIDE1IEZlYiAyMDIyLCBMdWNh
-IEZhbmNlbGx1IHdyb3RlOg0KPj4+IEludHJvZHVjZSBhbiBhcmNoaXRlY3R1cmUgc3BlY2lm
-aWMgd2F5IHRvIGNyZWF0ZSBkaWZmZXJlbnQgY3B1cG9vbHMNCj4+PiBhdCBib290IHRpbWUs
-IHRoaXMgaXMgcGFydGljdWxhcmx5IHVzZWZ1bCBvbiBBUk0gYmlnLkxJVFRMRSBzeXN0ZW0N
-Cj4+PiB3aGVyZSB0aGVyZSBtaWdodCBiZSB0aGUgbmVlZCB0byBoYXZlIGRpZmZlcmVudCBj
-cHVwb29scyBmb3IgZWFjaCB0eXBlDQo+Pj4gb2YgY29yZSwgYnV0IGFsc28gc3lzdGVtcyB1
-c2luZyBOVU1BIGNhbiBoYXZlIGRpZmZlcmVudCBjcHUgcG9vbHMgZm9yDQo+Pj4gZWFjaCBu
-b2RlLg0KPj4+DQo+Pj4gVGhlIGZlYXR1cmUgb24gYXJtIHJlbGllcyBvbiBhIHNwZWNpZmlj
-YXRpb24gb2YgdGhlIGNwdXBvb2xzIGZyb20gdGhlDQo+Pj4gZGV2aWNlIHRyZWUgdG8gYnVp
-bGQgcG9vbHMgYW5kIGFzc2lnbiBjcHVzIHRvIHRoZW0uDQo+Pj4NCj4+PiBEb2N1bWVudGF0
-aW9uIGlzIGNyZWF0ZWQgdG8gZXhwbGFpbiB0aGUgZmVhdHVyZS4NCj4+Pg0KPj4+IFNpZ25l
-ZC1vZmYtYnk6IEx1Y2EgRmFuY2VsbHUgPGx1Y2EuZmFuY2VsbHVAYXJtLmNvbT4NCj4+PiAt
-LS0NCj4+PiBkb2NzL21pc2MvYXJtL2RldmljZS10cmVlL2NwdXBvb2xzLnR4dCB8IDExOCAr
-KysrKysrKysrKysrKysrKysrKysrKysrDQo+Pj4geGVuL2FyY2gvYXJtL0tjb25maWcgICAg
-ICAgICAgICAgICAgICAgfCAgIDkgKysNCj4+PiB4ZW4vYXJjaC9hcm0vTWFrZWZpbGUgICAg
-ICAgICAgICAgICAgICB8ICAgMSArDQo+Pj4geGVuL2FyY2gvYXJtL2NwdXBvb2wuYyAgICAg
-ICAgICAgICAgICAgfCAxMTggKysrKysrKysrKysrKysrKysrKysrKysrKw0KPj4+IHhlbi9j
-b21tb24vc2NoZWQvY3B1cG9vbC5jICAgICAgICAgICAgIHwgICA0ICstDQo+Pj4geGVuL2lu
-Y2x1ZGUveGVuL3NjaGVkLmggICAgICAgICAgICAgICAgfCAgMTEgKysrDQo+Pj4gNiBmaWxl
-cyBjaGFuZ2VkLCAyNjAgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPj4+IGNyZWF0
-ZSBtb2RlIDEwMDY0NCBkb2NzL21pc2MvYXJtL2RldmljZS10cmVlL2NwdXBvb2xzLnR4dA0K
-Pj4+IGNyZWF0ZSBtb2RlIDEwMDY0NCB4ZW4vYXJjaC9hcm0vY3B1cG9vbC5jDQo+Pj4NCj4+
-PiBkaWZmIC0tZ2l0IGEvZG9jcy9taXNjL2FybS9kZXZpY2UtdHJlZS9jcHVwb29scy50eHQg
-Yi9kb2NzL21pc2MvYXJtL2RldmljZS10cmVlL2NwdXBvb2xzLnR4dA0KPj4+IG5ldyBmaWxl
-IG1vZGUgMTAwNjQ0DQo+Pj4gaW5kZXggMDAwMDAwMDAwMDAwLi43Mjk4YjYzOTQzMzINCj4+
-PiAtLS0gL2Rldi9udWxsDQo+Pj4gKysrIGIvZG9jcy9taXNjL2FybS9kZXZpY2UtdHJlZS9j
-cHVwb29scy50eHQNCj4+PiBAQCAtMCwwICsxLDExOCBAQA0KPj4+ICtCb290IHRpbWUgY3B1
-cG9vbHMNCj4+PiArPT09PT09PT09PT09PT09PT09DQo+Pj4gKw0KPj4+ICtPbiBhcm0sIHdo
-ZW4gQk9PVF9USU1FX0NQVVBPT0xTIGlzIGVuYWJsZWQgaW4gdGhlIFhlbiBjb25maWd1cmF0
-aW9uLCBpdCBpcw0KPj4+ICtwb3NzaWJsZSB0byBjcmVhdGUgY3B1cG9vbHMgZHVyaW5nIGJv
-b3QgcGhhc2UgYnkgc3BlY2lmeWluZyB0aGVtIGluIHRoZSBkZXZpY2UNCj4+PiArdHJlZS4N
-Cj4+PiArDQo+Pj4gK0NwdXBvb2xzIHNwZWNpZmljYXRpb24gbm9kZXMgc2hhbGwgYmUgZGly
-ZWN0IGNoaWxkcyBvZiAvY2hvc2VuIG5vZGUuDQo+Pj4gK0VhY2ggY3B1cG9vbCBub2RlIGNv
-bnRhaW5zIHRoZSBmb2xsb3dpbmcgcHJvcGVydGllczoNCj4+PiArDQo+Pj4gKy0gY29tcGF0
-aWJsZSAobWFuZGF0b3J5KQ0KPj4+ICsNCj4+PiArICAgIE11c3QgYWx3YXlzIGluY2x1ZGUg
-dGhlIGNvbXBhdGlibGl0eSBzdHJpbmc6ICJ4ZW4sY3B1cG9vbCIuDQo+Pj4gKw0KPj4+ICst
-IGNwdXBvb2wtaWQgKG1hbmRhdG9yeSkNCj4+PiArDQo+Pj4gKyAgICBNdXN0IGJlIGEgcG9z
-aXRpdmUgaW50ZWdlciBudW1iZXIuDQo+Pg0KPiANCj4gSGkgU3RlZmFubywNCj4gDQo+IFRo
-YW5rIHlvdSBmb3IgeW91ciByZXZpZXcsDQo+IA0KPj4gV2h5IGlzIGNwdXBvb2wtaWQgbWFu
-ZGF0b3J5PyBJdCBsb29rcyBsaWtlIGl0IGNvdWxkIGJlIGdlbmVyYXRlZCBieSBYZW4uDQo+
-PiBPciBpcyBpdCBhY3R1YWxseSBiZXR0ZXIgdG8gaGF2ZSB0aGUgdXNlciBzcGVjaWZ5IGl0
-IGFueXdheT8NCj4+DQo+IA0KPiBZZXMgYXQgZmlyc3QgSSB0aG91Z2h0IHRvIGF1dG9tYXRp
-Y2FsbHkgZ2VuZXJhdGUgdGhhdCwgaG93ZXZlciBJIG5lZWRlZCBhIHN0cnVjdHVyZQ0KPiB0
-byBtYXAgdGhlIGlkIHRvIHRoZSBjcHVwb29sIERUIG5vZGUuIEhlcmUgbXkgZG91YnQgd2Fz
-IGFib3V0IHRoZSBzaXplIG9mIHRoZQ0KPiBzdHJ1Y3R1cmUsIGJlY2F1c2UgdGhlIHVzZXIg
-Y291bGQgZXZlbiBzcGVjaWZ5IGEgY3B1cG9vbCBmb3IgZWFjaCBjcHUuIEkgY291bGQgYWxs
-b2NhdGUNCj4gSXQgZHluYW1pY2FsbHkgYW5kIGZyZWUgaXQgYWZ0ZXIgZG9tVXMgY3JlYXRp
-b24gaW4gc2V0dXBfeGVuLg0KPiBXaGF0IGRvIHlvdSB0aGluayBjb3VsZCBiZSB0aGUgcmln
-aHQgd2F5Pw0KPiBPciB0aGUgZG9tMGxlc3MgZ3Vlc3QgY291bGQgc3BlY2lmeSB0aGUgaWQs
-IGJ1dCBJIGxpa2UgaXQgbW9yZSB3aGVuIHVzaW5nIGEgcGhhbmRsZSB0byB0aGUNCj4gWGVu
-LGNwdXBvb2wgbm9kZS4NCj4gDQo+Pg0KPj4+ICstIGNwdXBvb2wtY3B1cyAobWFuZGF0b3J5
-KQ0KPj4+ICsNCj4+PiArICAgIE11c3QgYmUgYSBsaXN0IG9mIGRldmljZSB0cmVlIHBoYW5k
-bGUgdG8gbm9kZXMgZGVzY3JpYmluZyBjcHVzIChlLmcuIGhhdmluZw0KPj4+ICsgICAgZGV2
-aWNlX3R5cGUgPSAiY3B1IiksIGl0IGNhbid0IGJlIGVtcHR5Lg0KPj4+ICsNCj4+PiArLSBj
-cHVwb29sLXNjaGVkIChvcHRpb25hbCkNCj4+PiArDQo+Pj4gKyAgICBNdXN0IGJlIGEgc3Ry
-aW5nIGhhdmluZyB0aGUgbmFtZSBvZiBhIFhlbiBzY2hlZHVsZXIsIGl0IGhhcyBubyBlZmZl
-Y3Qgd2hlbg0KPj4+ICsgICAgdXNlZCBpbiBjb25qdW5jdGlvbiBvZiBhIGNwdXBvb2wtaWQg
-ZXF1YWwgdG8gemVybywgaW4gdGhhdCBjYXNlIHRoZQ0KPj4+ICsgICAgZGVmYXVsdCBYZW4g
-c2NoZWR1bGVyIGlzIHNlbGVjdGVkIChzY2hlZD08Li4uPiBib290IGFyZ3VtZW50KS4NCj4+
-DQo+PiBJIGRvbid0IGdldCB3aHkgY3B1cG9vbC1pZCA9PSAwIHNob3VsZCB0cmlnZ2VyIGEg
-c3BlY2lhbCBjcHVwb29sLXNjaGVkDQo+PiBiZWhhdmlvci4NCj4gDQo+IENwdXBvb2wgd2l0
-aCBpZCAwIGlzIGVtYmVkZGVkIGluIFhlbiwgaXQgaGFzIGl0cyBvd24gc3BlY2lhbCBjYXNl
-IGhhbmRsaW5nIGluIGNwdXBvb2xfY3JlYXRlDQo+IHRoYXQgaXMgZ2l2aW5nIGl0IHRoZSBk
-ZWZhdWx0IHNjaGVkdWxlci4gSSB0aG91Z2h0IGl0IHdhcyBiZXR0ZXIgdG8gbGVhdmUgaXQg
-YXMgaXQgd2FzLCBob3dldmVyIHRoZQ0KPiBjcHVwb29sMCBzY2hlZHVsZXIgY2FuIGJlIG1v
-ZGlmaWVkIHVzaW5nIHNjaGVkPSBib290IGFyZ3MgYXMgaXQgd2FzIGJlZm9yZS4NCj4gDQo+
-Pg0KPj4NCj4+PiArQ29uc3RyYWludHMNCj4+PiArPT09PT09PT09PT0NCj4+PiArDQo+Pj4g
-K1RoZSBjcHVwb29sIHdpdGggaWQgemVybyBpcyBpbXBsaWNpdGx5IGNyZWF0ZWQgZXZlbiBp
-ZiBub3Qgc3BlY2lmaWVkLCB0aGF0IHBvb2wNCj4+PiArbXVzdCBoYXZlIGF0IGxlYXN0IG9u
-ZSBjcHUgYXNzaWduZWQsIG90aGVyd2lzZSBYZW4gd2lsbCBzdG9wLg0KPj4+ICsNCj4+PiAr
-RXZlcnkgY3B1IGJyb3VnaHQgdXAgYnkgWGVuIHdpbGwgYmUgYXNzaWduZWQgdG8gdGhlIGNw
-dXBvb2wgd2l0aCBpZCB6ZXJvIGlmIGl0J3MNCj4+PiArbm90IGFzc2lnbmVkIHRvIGFueSBv
-dGhlciBjcHVwb29sLg0KPj4+ICsNCj4+PiArSWYgYSBjcHUgaXMgYXNzaWduZWQgdG8gYSBj
-cHVwb29sLCBidXQgaXQncyBub3QgYnJvdWdodCB1cCBjb3JyZWN0bHksIFhlbiB3aWxsDQo+
-Pj4gK3N0b3AuDQo+Pg0KPj4gVGhhbmsgeW91IGZvciBkb2N1bWVudGluZyB0aGUgY29uc3Ry
-YWludHMsIGJ1dCB3aHkgZG8gd2UgaGF2ZSB0aGVtPw0KPj4gSW1hZ2luZSBhIHVzZXIgc3Bl
-Y2lmeWluZyAzIGNwdSBwb29scyBhbmQgaW1hZ2luZSB0aGUgY3B1cG9vbC1pZCBpcw0KPj4g
-b3B0aW9uYWwgYW5kIG1pc3NpbmcuIFdlIGNvdWxkIHRha2UgY2FyZSBvZiB0aGUgY3B1cG9v
-bC1pZCBnZW5lcmF0aW9uIGluDQo+PiBYZW4gYW5kIHdlIGNvdWxkIGFsc28gYXNzaWduIHRo
-ZSBkZWZhdWx0IHNjaGVkdWxlciBldmVyeXdoZXJlDQo+PiBjcHVwb29sLXNjaGVkIGlzIG5v
-dCBzcGVjaWZpZWQuIE1heWJlIEkgYW0gbWlzc2luZyBzb21ldGhpbmc/DQo+IA0KPiBZZXMg
-d2UgY291bGQgbWFrZSB0aGUgY3B1cG9vbC1pZCBvcHRpb25hbCwgbXkgZG91YnRzIGFyZSBp
-biB0aGUgZmlzdCBjb21tZW50IGFib3ZlLg0KPiBXaGVuZXZlciB0aGUgY3B1cG9vbC1zY2hl
-ZCBpcyBub3Qgc3BlY2lmaWVkLCB0aGUgY3VycmVudCBiZWhhdmlvdXIgaXMgdG8gdXNlIHRo
-ZSBkZWZhdWx0IHNjaGVkdWxlci4NCj4gDQo+Pg0KPj4gRG9lcyBjcHVwb29sMCBoYXMgdG8g
-ZXhpc3Q/IEkgZ3Vlc3MgdGhlIGFuc3dlciBjb3VsZCBiZSB5ZXMsIGJ1dCBpZiBpdA0KPj4g
-aXMgc3BlY2lmaWVkIGFzIGlkIG9mIG9uZSBvZiB0aGUgcG9vbHMgd2UgYXJlIGZpbmUsIG90
-aGVyd2lzZSBpdCBjb3VsZA0KPj4gYmUgYXV0b21hdGljYWxseSBnZW5lcmF0ZWQgYnkgWGVu
-Lg0KPiANCj4gWWVzIGNwdXBvb2wwIG5lZWRzIHRvIGV4aXN0cywgaG93ZXZlciBpdCBpcyBz
-dGlsbCBnZW5lcmF0ZWQgYnkgWGVuIHJlZ2FyZGxlc3Mgb2YgdGhlIERUDQo+IHNwZWNpZmlj
-YXRpb25zLiBJbiBmYWN0IHlvdSBjb3VsZCBub3Qgc3BlY2lmeSBpbiB0aGUgRFQgYW55IHhl
-bixjcHVwb29sIGNvbXBhdGlibGUgbm9kZQ0KPiB3aXRoIHRoZSBjcHVwb29sLWlkID09IDAg
-YW5kIFhlbiB3aWxsIGdlbmVyYXRlIHRoZSBjcHVwb29sMCBhbnl3YXkNCj4gKFhlbiBpbnRl
-cm5hbHMgYXJlIHRpZWQgd2l0aCB0aGUgZXhpc3RlbmNlIG9mIGEgY3B1cG9vbDApLg0KPiAN
-Cj4+DQo+PiBJbiBhbnkgY2FzZSwgSSBkb24ndCB0aGluayB0aGF0IGNwdXBvb2wwIGhhcyB0
-byBoYXZlIHRoZSBkZWZhdWx0DQo+PiBzY2hlZHVsZXI/DQo+IA0KPiBPayBJIHRoaW5rIEkg
-Y2FuIGNyZWF0ZSBhIGZ1bmN0aW9uIHRvIGFzc2lnbiBhIHNjaGVkdWxlciB0byB0aGUgY3B1
-cG9vbDAgYWZ0ZXIgaXRzIGNyZWF0aW9uLA0KPiBJIHdvdWxkIG5lZWQgdG8gdGVzdCBpdCB0
-byBiZSBzdXJlIEkgZG9u4oCZdCBmaW5kIHNvbWV0aGluZyBzdHJhbmdlLg0KPiANCj4+DQo+
-PiBNeSBzdWdnZXN0aW9uIHdvdWxkIGJlOg0KPj4NCj4+IC0gbWFrZSBjcHVwb29sLWlkIG9w
-dGlvbmFsDQo+PiAtIGFzc2lnbiBhdXRvbWF0aWNhbGx5IGNwdXBvb2wtaWRzIHN0YXJ0aW5n
-IGZyb20gMA0KPj4gICAgIC0gcmVzcGVjdCBjcHVwb29sLWlkcyBjaG9zZW4gYnkgdGhlIHVz
-ZXINCj4gDQo+IE9rLCBpdCB3b3VsZCBzdGFydCBmcm9tIDEgYmVjYXVzZSBjcHVwb29sMCBh
-bHdheXMgZXhpc3RzDQo+IA0KPj4gLSBpZiBzb21lIENQVXMgYXJlIGxlZnQgb3V0IChub3Qg
-c3BlY2lmaWVkIGluIGFueSBwb29sKSBhZGQgYW4gZXh0cmEgY3B1cG9vbA0KPj4gICAgIC0g
-dGhlIGV4dHJhIGNwdXBvb2wgZG9lc24ndCBoYXZlIHRvIGJlIGNwdXBvb2wtaWQgPT0gMCwg
-aXQgY291bGQgYmUNCj4+ICAgICAgIGNwdXBvb2wtaWQgPT0gbg0KPj4gICAgIC0gdGhlIGV4
-dHJhIGNwdXBvb2wgdXNlcyB0aGUgZGVmYXVsdCBzY2hlZHVsZXINCj4gDQo+IEkgZ2F2ZSBh
-bGwgdGhlIHVuYXNzaWduZWQgY3B1cyB0byBjcHVwb29sMCB0byByZWZsZWN0IHRoZSBjdXJy
-ZW50IGJlaGF2aW91ciwgc28gdGhhdA0KPiBhIHVzZXIgdGhhdCBkb2VzbuKAmXQgc3BlY2lm
-eSBhbnkgeGVuLGNwdXBvb2wgbm9kZSBlbmRzIHVwIGluIGEgc3lzdGVtIHJlZmxlY3Rpbmcg
-dGhlDQo+IGN1cnJlbnQgYmVoYXZpb3VyIGFzIHRoZSBmZWF0dXJlIGlzIG5vdCBlbmFibGVk
-Lg0KPiBIb3dldmVyIEkgY2FuIHNheSwgaWYgbm8geGVuLGNwdXBvb2wgbm9kZXMgYXJlIGZv
-dW5kIHRoZW4gYXNzaWduIGNwdXMgdG8gY3B1cG9vbDAsDQo+IGVsc2UgYXNzaWduIHRoZW0g
-dG8gYSBuZXcgY3B1cG9vbCBhbmQuLi4NCj4gDQo+Pg0KPj4gSWYgdGhlIHVzZXIgY3JlYXRl
-ZCBjcHVwb29scyBpbiBkZXZpY2UgdHJlZSBjb3ZlcmluZyBhbGwgQ1BVcyBhbmQgYWxzbw0K
-Pj4gc3BlY2lmaWVkIGFsbCBjcHVwb29sLWlkcyBldmVyeXdoZXJlLCBhbmQgbm9uZSBvZiB0
-aGVtIGFyZSAwIChubyBjcHVwb29sDQo+PiBpbiB0aGUgc3lzdGVtIGlzIGNwdXBvb2wwKSB0
-aGVuIHBhbmljLiAoQXNzdW1pbmcgdGhhdCBjcHVwb29sMCBpcw0KPj4gcmVxdWlyZWQuKQ0K
-PiANCj4g4oCmIHBhbmljIGlmIGNwdXBvb2wwIGhhcyBubyBjcHVzLg0KDQpUb2RheSBjcHUg
-MCBpcyBhbHdheXMgbWVtYmVyIG9mIGNwdXBvb2wwLCBhbmQgY2hhbmdpbmcgdGhhdCBtaWdo
-dCBiZQ0KaGFyZC4NCg0KDQpKdWVyZ2VuDQo=
---------------fUaRchlecyt3jRs9acd9w00e
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+ George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>,
+ Dario Faggioli <dfaggioli@suse.com>
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <1D92168D-DFD6-4B1A-9079-FBFDDA9F2969@arm.com>
+References: <20220215101551.23101-1-luca.fancellu@arm.com>
+ <20220215101551.23101-5-luca.fancellu@arm.com>
+ <alpine.DEB.2.22.394.2202151827380.43738@ubuntu-linux-20-04-desktop>
+ <53747C8B-681A-4474-B1DF-F08702322AB9@arm.com>
+ <44d2673b-2450-81cf-5d3e-9afb23ae09c6@suse.com>
+To: Juergen Gross <jgross@suse.com>
+X-Mailer: Apple Mail (2.3693.60.0.1.1)
+X-ClientProxiedBy: LO2P265CA0025.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:61::13) To VI1PR0801MB2125.eurprd08.prod.outlook.com
+ (2603:10a6:800:5b::23)
+MIME-Version: 1.0
+X-MS-Office365-Filtering-Correlation-Id: 6bdcef03-6ff2-41bc-710b-08d9f14c8404
+X-MS-TrafficTypeDiagnostic:
+	DU0PR08MB7487:EE_|DB5EUR03FT054:EE_|AM6PR08MB4755:EE_
+X-Microsoft-Antispam-PRVS:
+	<AM6PR08MB4755C6F07EAE4A1B6E0BC4EFE4359@AM6PR08MB4755.eurprd08.prod.outlook.com>
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;OLM:10000;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ KyDMVndrItDtop5fF7UidqJ3KDpeQlAbR+qqK0B0o6E8F0VY7tSFwTN/6lNfSJWbO471M29+XtW+yNDkOpd7JMXjQP7TMEC3mMm6YYvRMoRsygFTFbYumlHBqEz63xUc9j2yR3KtYoYn6iyA0dbksAPv3XjZEBUTcDJ/MjZRe6bcjmlyZ+6EMwgqoHzwJr3q9pypVquv1TxmEWSySeE0r7LjwH/L2JZqc2BNaBFX3zen5UL290i9myR0hi1VAKygzfdawgVs6bdtYuokAOGPIB5kk1rvgwhKZ/cvVByq0e8255FJHNiaZTjmZtvgBs87xJZhRng//u4YSk17TLfh0r38+m5JKtui3ae+eLjt/sroG9Uov4EOx6uGkjIPxDmyaYJMOYsTYh1pTHEj+vuprxJ431A3NoZAplufpL6i1b9BjnRUBwMsWJpRV2m2lRc3tai5uBLp6MWByfm3NeLIYbbEW9GN+NCfX4ufVpJt9VnmRNYfpMMUR+f77eWU/FKfpcRqaF5QO04/WaSR9TjSUt32U9imvZlLSxF8VvnQk1z3uNiVROJbTyzFtgM2heIhH6wXO0lS1j3vdaj8JkR4yNXTX+TYGEyR0V7YqQEepqr7A0xjyXWuxQaVeW63ammnk6ilF68lZN8RU0CpMLU7ye9oSrtMA2lHCyrxLbTaoiaWi9EQkwywEBKYsJFC9V1fu/Me5N9aXpAojNsrYRTTpAurc/JTXrLpMm3Q6JE3idIrdBMzZxJWBidHvFp5HAI8
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR0801MB2125.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(4636009)(366004)(7416002)(5660300002)(8936002)(66476007)(44832011)(2616005)(38350700002)(38100700002)(86362001)(36756003)(2906002)(6512007)(33656002)(26005)(186003)(508600001)(52116002)(6486002)(6506007)(53546011)(6666004)(8676002)(66556008)(4326008)(83380400001)(54906003)(66946007)(6916009)(316002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB7487
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB5EUR03FT054.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	61f719e4-1aa0-402c-0ae9-08d9f14c7ef1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	z0qrsjFs/1OD6BFWC7UJkVOzgLf/2HG4wCjzxUDbERWwBb/uv6Yxr2cKAhVqgl7cUo0sTF7Pa8MX/Ig25aPptv92o6GdccfbfaVzQH/FoBKvxMCq2V86Y6hIA+jLv6S0302I4yZOMvIbmGjpBHKQITvJkT+TiQaqa9dtngel0di2Qpx2piMyNzxzo9KLpZAzwlfOWm1tAukMmAhPcx4ScXUXRDDoCSCEhVY3k6xrgZ8TTfDUM/hQAiEZlbuHsAVq3BDMptymOFFbfyYVxH9Z+tfhESyrbFECEbhbtHmJc52PTYae4DEyVCfU3VCjCrqPFQHYcIUm42asvvgHNDbHlOa7mNS+v0S5ZMGTml6jFvbRZCbgcpL0BVLQles8vOi6T2iAtC7PPWEI263iW6jrtIaInI4lijwvakpZ49kccvYBjAagz2ngkaYHGzi1Yf7VeSSFsxyRpeze5/az4uevFx1M+3nGVqg4gJpSj6+KjvH+92EIv3CCYqf5gK/Gj33Fv/GvQLRa8kLcYFR0a55lCX0xkTRt1FEdhtH5fxFMgqqZRUP3qZkqXtCSHdV2Vjd1jgZkKgJEFxnGPqqD8hSJcOOsXuwCeY1LNI6mjTowMGiKQ5RW801uk57h+5YmaKghkXK6R4cFtQlhpDq33if+HLvLN2YVO2cYbda7OC6BASXHmNteFF3FIBor/tpMjr3T
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230001)(4636009)(46966006)(36840700001)(40470700004)(8676002)(6862004)(4326008)(83380400001)(36756003)(40460700003)(70206006)(70586007)(53546011)(6512007)(6506007)(86362001)(2906002)(6666004)(81166007)(356005)(33656002)(82310400004)(6486002)(5660300002)(44832011)(2616005)(336012)(186003)(26005)(8936002)(508600001)(107886003)(36860700001)(316002)(54906003)(47076005);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2022 13:01:58.4171
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6bdcef03-6ff2-41bc-710b-08d9f14c8404
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5EUR03FT054.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB4755
 
------BEGIN PGP PUBLIC KEY BLOCK-----
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
 
---------------fUaRchlecyt3jRs9acd9w00e--
+> On 16 Feb 2022, at 12:55, Juergen Gross <jgross@suse.com> wrote:
+>=20
+> On 16.02.22 13:10, Luca Fancellu wrote:
+>>> On 16 Feb 2022, at 02:45, Stefano Stabellini <sstabellini@kernel.org> w=
+rote:
+>>>=20
+>>> On Tue, 15 Feb 2022, Luca Fancellu wrote:
+>>>> Introduce an architecture specific way to create different cpupools
+>>>> at boot time, this is particularly useful on ARM big.LITTLE system
+>>>> where there might be the need to have different cpupools for each type
+>>>> of core, but also systems using NUMA can have different cpu pools for
+>>>> each node.
+>>>>=20
+>>>> The feature on arm relies on a specification of the cpupools from the
+>>>> device tree to build pools and assign cpus to them.
+>>>>=20
+>>>> Documentation is created to explain the feature.
+>>>>=20
+>>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>>> ---
+>>>> docs/misc/arm/device-tree/cpupools.txt | 118 +++++++++++++++++++++++++
+>>>> xen/arch/arm/Kconfig                   |   9 ++
+>>>> xen/arch/arm/Makefile                  |   1 +
+>>>> xen/arch/arm/cpupool.c                 | 118 +++++++++++++++++++++++++
+>>>> xen/common/sched/cpupool.c             |   4 +-
+>>>> xen/include/xen/sched.h                |  11 +++
+>>>> 6 files changed, 260 insertions(+), 1 deletion(-)
+>>>> create mode 100644 docs/misc/arm/device-tree/cpupools.txt
+>>>> create mode 100644 xen/arch/arm/cpupool.c
+>>>>=20
+>>>> diff --git a/docs/misc/arm/device-tree/cpupools.txt b/docs/misc/arm/de=
+vice-tree/cpupools.txt
+>>>> new file mode 100644
+>>>> index 000000000000..7298b6394332
+>>>> --- /dev/null
+>>>> +++ b/docs/misc/arm/device-tree/cpupools.txt
+>>>> @@ -0,0 +1,118 @@
+>>>> +Boot time cpupools
+>>>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>>>> +
+>>>> +On arm, when BOOT_TIME_CPUPOOLS is enabled in the Xen configuration, =
+it is
+>>>> +possible to create cpupools during boot phase by specifying them in t=
+he device
+>>>> +tree.
+>>>> +
+>>>> +Cpupools specification nodes shall be direct childs of /chosen node.
+>>>> +Each cpupool node contains the following properties:
+>>>> +
+>>>> +- compatible (mandatory)
+>>>> +
+>>>> +    Must always include the compatiblity string: "xen,cpupool".
+>>>> +
+>>>> +- cpupool-id (mandatory)
+>>>> +
+>>>> +    Must be a positive integer number.
+>>>=20
+>> Hi Stefano,
+>> Thank you for your review,
+>>> Why is cpupool-id mandatory? It looks like it could be generated by Xen=
+.
+>>> Or is it actually better to have the user specify it anyway?
+>>>=20
+>> Yes at first I thought to automatically generate that, however I needed =
+a structure
+>> to map the id to the cpupool DT node. Here my doubt was about the size o=
+f the
+>> structure, because the user could even specify a cpupool for each cpu. I=
+ could allocate
+>> It dynamically and free it after domUs creation in setup_xen.
+>> What do you think could be the right way?
+>> Or the dom0less guest could specify the id, but I like it more when usin=
+g a phandle to the
+>> Xen,cpupool node.
+>>>=20
+>>>> +- cpupool-cpus (mandatory)
+>>>> +
+>>>> +    Must be a list of device tree phandle to nodes describing cpus (e=
+.g. having
+>>>> +    device_type =3D "cpu"), it can't be empty.
+>>>> +
+>>>> +- cpupool-sched (optional)
+>>>> +
+>>>> +    Must be a string having the name of a Xen scheduler, it has no ef=
+fect when
+>>>> +    used in conjunction of a cpupool-id equal to zero, in that case t=
+he
+>>>> +    default Xen scheduler is selected (sched=3D<...> boot argument).
+>>>=20
+>>> I don't get why cpupool-id =3D=3D 0 should trigger a special cpupool-sc=
+hed
+>>> behavior.
+>> Cpupool with id 0 is embedded in Xen, it has its own special case handli=
+ng in cpupool_create
+>> that is giving it the default scheduler. I thought it was better to leav=
+e it as it was, however the
+>> cpupool0 scheduler can be modified using sched=3D boot args as it was be=
+fore.
+>>>=20
+>>>=20
+>>>> +Constraints
+>>>> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+>>>> +
+>>>> +The cpupool with id zero is implicitly created even if not specified,=
+ that pool
+>>>> +must have at least one cpu assigned, otherwise Xen will stop.
+>>>> +
+>>>> +Every cpu brought up by Xen will be assigned to the cpupool with id z=
+ero if it's
+>>>> +not assigned to any other cpupool.
+>>>> +
+>>>> +If a cpu is assigned to a cpupool, but it's not brought up correctly,=
+ Xen will
+>>>> +stop.
+>>>=20
+>>> Thank you for documenting the constraints, but why do we have them?
+>>> Imagine a user specifying 3 cpu pools and imagine the cpupool-id is
+>>> optional and missing. We could take care of the cpupool-id generation i=
+n
+>>> Xen and we could also assign the default scheduler everywhere
+>>> cpupool-sched is not specified. Maybe I am missing something?
+>> Yes we could make the cpupool-id optional, my doubts are in the fist com=
+ment above.
+>> Whenever the cpupool-sched is not specified, the current behaviour is to=
+ use the default scheduler.
+>>>=20
+>>> Does cpupool0 has to exist? I guess the answer could be yes, but if it
+>>> is specified as id of one of the pools we are fine, otherwise it could
+>>> be automatically generated by Xen.
+>> Yes cpupool0 needs to exists, however it is still generated by Xen regar=
+dless of the DT
+>> specifications. In fact you could not specify in the DT any xen,cpupool =
+compatible node
+>> with the cpupool-id =3D=3D 0 and Xen will generate the cpupool0 anyway
+>> (Xen internals are tied with the existence of a cpupool0).
+>>>=20
+>>> In any case, I don't think that cpupool0 has to have the default
+>>> scheduler?
+>> Ok I think I can create a function to assign a scheduler to the cpupool0=
+ after its creation,
+>> I would need to test it to be sure I don=E2=80=99t find something strang=
+e.
+>>>=20
+>>> My suggestion would be:
+>>>=20
+>>> - make cpupool-id optional
+>>> - assign automatically cpupool-ids starting from 0
+>>>    - respect cpupool-ids chosen by the user
+>> Ok, it would start from 1 because cpupool0 always exists
+>>> - if some CPUs are left out (not specified in any pool) add an extra cp=
+upool
+>>>    - the extra cpupool doesn't have to be cpupool-id =3D=3D 0, it could=
+ be
+>>>      cpupool-id =3D=3D n
+>>>    - the extra cpupool uses the default scheduler
+>> I gave all the unassigned cpus to cpupool0 to reflect the current behavi=
+our, so that
+>> a user that doesn=E2=80=99t specify any xen,cpupool node ends up in a sy=
+stem reflecting the
+>> current behaviour as the feature is not enabled.
+>> However I can say, if no xen,cpupool nodes are found then assign cpus to=
+ cpupool0,
+>> else assign them to a new cpupool and...
+>>>=20
+>>> If the user created cpupools in device tree covering all CPUs and also
+>>> specified all cpupool-ids everywhere, and none of them are 0 (no cpupoo=
+l
+>>> in the system is cpupool0) then panic. (Assuming that cpupool0 is
+>>> required.)
+>> =E2=80=A6 panic if cpupool0 has no cpus.
+>=20
+> Today cpu 0 is always member of cpupool0, and changing that might be
+> hard.
 
---------------2djNK4009U0uLsNdoMD4Iix4--
+Oh, are you sure? I did some test in the past for this serie using a Juno b=
+oard,
+giving to cpupool0 only a72 cores and the a53 cores in another cpupool, my =
+Juno
+firmware configuration makes Xen having the boot cpu (cpu 0) to be one of t=
+he a53
+and it was working fine. But it was long time ago so I would need to try it=
+ again.
 
---------------alQ9vdTNmDSPU8J1MtfNMirk
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+>=20
+>=20
+> Juergen
+> <OpenPGP_0xB0DE9DD628BF132F.asc>
 
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmIM9DcFAwAAAAAACgkQsN6d1ii/Ey9U
-RQf9EopFJNLixI3nBdIm4aOSH90VrbR8S4aEzOM2oNJDUEeYEe5pEvM5serMqdMJE4PxFyPwQDr1
-dHL9cwVQFFf5xlFqgVQY7+zCypxJr+9er8cZME9JvLKla637mzfnXbL10kdOwNOBg1bCAOSY/65l
-K3xntPtnynK7byFaMC4TjzOSGUrt9FOHPHZSM4OEKQiS+8S026LIh2SSLTd+KrkMX8+u2+pgGpbK
-UidLDam+VOFy37vHDphSbYCJfF+IaLZ8euELjIDiGFld/AZaHwW5p+MKHnXJptXNi1SXRLPtgSUS
-+3U53XOod4ZmbEDWzcrU4SjwHnpalXXNEEMNPkVLKA==
-=C6Ks
------END PGP SIGNATURE-----
-
---------------alQ9vdTNmDSPU8J1MtfNMirk--
 
