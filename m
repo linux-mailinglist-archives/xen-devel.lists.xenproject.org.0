@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5B2E4B9DD3
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Feb 2022 11:58:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.274634.470172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1F214B9DD8
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Feb 2022 11:59:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.274643.470183 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKeT9-0003qD-Co; Thu, 17 Feb 2022 10:57:03 +0000
+	id 1nKeVZ-0004Ub-T3; Thu, 17 Feb 2022 10:59:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 274634.470172; Thu, 17 Feb 2022 10:57:03 +0000
+Received: by outflank-mailman (output) from mailman id 274643.470183; Thu, 17 Feb 2022 10:59:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKeT9-0003nC-8K; Thu, 17 Feb 2022 10:57:03 +0000
-Received: by outflank-mailman (input) for mailman id 274634;
- Thu, 17 Feb 2022 10:57:02 +0000
+	id 1nKeVZ-0004Rh-P2; Thu, 17 Feb 2022 10:59:33 +0000
+Received: by outflank-mailman (input) for mailman id 274643;
+ Thu, 17 Feb 2022 10:59:32 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mzVd=TA=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1nKeT8-0003n6-AJ
- for xen-devel@lists.xenproject.org; Thu, 17 Feb 2022 10:57:02 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 539eaaf5-8fe0-11ec-b215-9bbe72dcb22c;
- Thu, 17 Feb 2022 11:57:00 +0100 (CET)
+ id 1nKeVY-0004RX-4O
+ for xen-devel@lists.xenproject.org; Thu, 17 Feb 2022 10:59:32 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id add93785-8fe0-11ec-b215-9bbe72dcb22c;
+ Thu, 17 Feb 2022 11:59:30 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,104 +36,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 539eaaf5-8fe0-11ec-b215-9bbe72dcb22c
+X-Inumbo-ID: add93785-8fe0-11ec-b215-9bbe72dcb22c
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1645095420;
+  d=citrix.com; s=securemail; t=1645095570;
   h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ZtW6VisS4ywH8dJriw3Ytb5KVKugn/0fU/ZsU7IJrwg=;
-  b=RZS3u7l+em4yH00niIg3iwB2YfmNK6r3g7Snvuh3fO6IoF9pAEAEsYq5
-   xhgFoDnILhhAZLBqDelK6/OS6EdfWd7UmShNojsLUJyRrXB2uZTA93hFf
-   qMTvp/ZE893AjWlSGBqTNqQSl3zFhZ24vYU4dd2cq6swrvl9/szpeUy94
-   I=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-IronPort-SDR: BUc3DiS6lY9e4LfAqDVql4X4a+3j0ic+7/NPA7neb7JbKsnQnjYkwjetVdIdnJovPqwbiUMSE9
- fwWH4Z9hCRajICV4oAb6gFZtzEGlxbbCk6Z1hFLjYnipky80C1+e275M3L6I9BdpuVKLwmP04d
- 8Sy7fNOvkzfnylFNoyWdw97NMKnlStydWXw/DV3QbaDjMakXyDpVxCR3Vzke6F4IEFMB1JPTHq
- IMS6/MBxktPHjJT+iUQQuNDT1Qjz7p07YH2C8pwCAZvOu7S+dB8eSPL2dMb0DPUvBC6KC2vnUp
- ObizTexrd1sgeLUq/z2gMi9g
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=ZqAs0fk/xAXnllDiy4SxZ+MynxdNz0fhyVsASs+4ueE=;
+  b=WeAfbFhJA/O0eJ2kmz/lK6dR8XpPOGHiRxSDopEvsLzNaSW18WRn0lO5
+   VRSwZQNlhm0D6EvOdJs95nQGOQUe9CBH6q7KGJ+WytqTr+UzieVoqvimv
+   HKS4WHxMK61iu3Xy+HGdbCPwObx8PELx96N/QaByekDVaK+82wo3duGJt
+   E=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: 7qEhOOmzBirL7zEWWSfRAI0CARMbfh9qq72ADa3HIVeBGKnFyg9kcv4zZeIhOejXq4B1Tyi9gN
+ cAMykRcBzIk/VoXFqpvBYRKXMznxLlZeN42izYAiw+6B43+Mq0SpqNc8gwnMUFQzqmCbAkYeUo
+ vFlNJBIuBJJDLwrs08S1Y0vN5yimTstSolWhmxt2YdUgeaiWUBv3bXbAkbrkJBBUSLfGMiwHgY
+ p2fAbHCzGQTWqC0EjxUgNoAuT/Al67Uip5HMOtdi/wH7uWdJlvxw9NUELF+SPUMRBVUtz9qWlS
+ 0/b5lhUnUyciMrl61aNdpnOw
 X-SBRS: 5.1
-X-MesageID: 64316964
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 64421317
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:h3IXdqjmAeoy7ohTO5nYwJ5WX1615RcKZh0ujC45NGQN5FlHY01je
- htvCmmEMq7eMGb9Kdsjbtzn/UJS7Z7Wyt42SQJv+CoyFCkb9cadCdqndUqhZCn6wu8v7a5EA
- 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0GE/NtTo5w7Rj2tQx3oDga++wk
- YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
- 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
- /1TsprqThg2OJeLp/hBeV5+LiYlZp9vreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
- KJCbmpXN1ba2rzwkOnTpupE36zPKOHiOp8fvXdxiynUF/88TbjIQrnQ5M8e1zA17ixLNaiCP
- JNHOGQzBPjGS0QWeXIuN5I+oOahoX2mehEFtWmTiJNitgA/yyQuieOwYbI5YOeiR9hRn0uej
- nLL+SL+GB5yHMeE1TOP/3aoh+nOtSD2QoQfEPu/7PECqEKX7nweDlsRT1TTifu2kEmlQPpEN
- lcZvCEpqMAa5EGtC9XwQRC8iHqFpQIHHcpdFfUg7wOAwbaS5ByWbkAGRDNcbN0ttOctWCcnk
- FSOmrvU6SdH6ePPDyjHr/HN8G30aXN9wXI+iTEsUwwDud78v4cJyS3TEvwkNpOy1YbHMGSlq
- 9yVlxQWi7IWhM8N8qy0+1Hbnj6hzqT0oh4JChb/BTz8sF4gDGKxT8nxsAWAs64cRGqMZgTZ5
- BA5d96iAPfi5H1nvAiEW60zEb6g/J5p2xWM0Ac0T/HNG9lAkkNPnLy8AhkidS+F0e5eIFcFh
- XM/XysLu/e/21PwMMdKj3qZUZhC8EQZPY2NugroRtRPeINtUwSM4TtjY0Wdt0i0zhRxyfpgZ
- 8vGKpnxZZr/NUiB5GDpLwv6+eV2rh3SOEuJHcyrp/hZ+eH2iIGppUctbwLVM7FRAFKsqwTJ6
- ddPX/ZmOD0EONASlhL/qNZJRXhTdCBTLcmv96R/K77SSiI7STpJI6KAntscl3lNwv09ehHgp
- SrmBCe1CTPX2BX6FOl9QisyMuyxA8ck/ClT0O5FFQ/A5kXPqL2HtM83H6bbt5F9nAC65fIrH
- fQDZeuaBfFDFmbO9zgHNMGvp41+bhW7wwmJOnP9MjQ4epdhQS3P+8PlIVSzpHVfUHLvuJtsu
- aCk2yPaXYEHG1ZoAvHJZa/91Fi2p3Ucxr5/BhOaPtlJdUzw24F2MCit3OQvKsQBJEyblDuX3
- gqbGzkCouzJr9Nn+dXFn/nc/YyoD/F/DgxRGGyCteS6MizT/2yCx45cUbnXIWCBBT2soKj7P
- Ldb1fDxNvEDjW1miYskHuY517866vvuu6ReklZuEkLUYgn5EbhnOHSHg5VC7/Uf2r9DtAKqc
- UuT4d0Ga66RMcboHVNNdgooauOPiaMdljXItKlnJUz74Gl8/aadUFUUNB6J0XQPILxwOYIj4
- OEgpM9JtFDv1kt0ao6L3nJO6mCBDn0cSKF25JgVDbjihhcv1lwfM4fXDTX74c3XZthBWqXwz
- uR4WEYWa2xg+3f/
-IronPort-HdrOrdr: A9a23:VUNWfqHHL6MDWhMWpLqE6MeALOsnbusQ8zAXP0AYc3Jom+ij5q
- STdZUgpHrJYVkqNU3I9ertBEDEewK6yXcX2/hyAV7BZmnbUQKTRekIh7cKgQeQeBEWntQts5
- uIGJIeNDSfNzdHsfo=
+IronPort-Data: A9a23:OqRltK9fNOlZNH6C9upEDrUDXXmTJUtcMsCJ2f8bNWPcYEJGY0x3x
+ jFMDW7TPv+KYDCkKIx/bIzlo0lXu8PSz9dhSwFlpCk8E34SpcT7XtnIdU2Y0wF+jyHgoOCLy
+ +1EN7Es+ehtFie0Si9AttENlFEkvU2ybuOU5NXsZ2YhFWeIdA970Ug5w7Rg3dYx6TSEK1jlV
+ e3a8pW31GCNg1aYAkpMg05UgEoy1BhakGpwUm0WPZinjneH/5UmJMt3yZWKB2n5WuFp8tuSH
+ I4v+l0bElTxpH/BAvv9+lryn9ZjrrT6ZWBigVIOM0Sub4QrSoXfHc/XOdJFAXq7hQllkPhO8
+ I8SjZWAbjsPFYnAmcMXaB5GMXtXaPguFL/veRBTsOSWxkzCNXDt3+9vHAc9OohwFuRfWD8Us
+ 6ZCcXZUM07F17neLLGTE4GAguwqKtXrO4UO/Glt1zjDAd4tQIzZQrWM7thdtNs1rp4SQayHP
+ JNGAdZpRDDvXxtFeXg2MbB9jfqGv1zzKB9DlU3A8MLb5ECMlVcsgdABKuH9eNOQQt5Otl2Fv
+ W+A9GP8ajkYPtGCzTuO8lq3m/TC2yj8Xeo6BLC+s/JnnlCX7mgSEwENE0u2p+GjjUyzUM4ZL
+ FYbkgIxqYAi+UrtScPyNyBUu1bd4ERaAYAJVbRntkfdkcI4/jp1GEA7dmQeUNUWk/MQbhgm1
+ 3iDpNT3J2ZG5ej9pW2myp+Yqja7OC4wJGAEZDMZQQZt3+QPsL3fnTqUEI89TffdYsndXGipn
+ mvU9HRWa6A70JZTv5hX62wrlN5FSnLhagcurjvaUWu+hu+STN70Ptf4gbQ3ABspEWp4crVjl
+ CRV8yR9xLpXZX1oqMBraL9SdF1Oz6zYWAAweXY1Q/EcG82FohZPh7x47jBkP1tOOc0ZYzLva
+ 0K7kVoPuMILZyT0MfIsPN/Z5yEWIU7IT4uNuhf8NIcmX3SMXFXfoHEGibC4hAgBb3TAYYlgY
+ MzGIK5A/F4RCLh9zSreegvu+eRD+8zK/kuKHcqT503+idK2PSfJIZ9YYArmRr1ot8us/VSKm
+ +uzwuPXkn2zpsWlOXKJmWPSRHhXRUUG6Wfe8J0NKbDdc1E3QwnMyZb5mNscRmCspIwN/s+gw
+ 513chYwJIPXiSKVJAOURGpkbb+zD59zoWhiZX4nPEqy2mhlaoGqtf9Ne5wydLgh1epi0f8rE
+ KVVJ5TeWqxCGmbd5jAQTZjht4g+Jh6lsh2DYni+az8lcp8+GwGQoo34fhHi/TUlBzassZdsu
+ KWp0w7WGMJRRwlrAMvMRuioyle94SoUlO5oBhOaKdhPYkT8toNtLnWp3PMwJsgNLzTFxyebi
+ FnKUUtJ+7GVrtZsotfThK2Co4O4KMdEHxJXTzvB8LK7FSjG5W7/k4VOZ/mFIGLGX2Tu9aT8O
+ egMl6PgMOcKlUphupZnF+o51ro34tbiquMIzglgG3mXPV2nBqk5fyuD1MhL8KZM2qVYqU29X
+ UfWootWPrCAOcXEFl8NJVV6MrTfhK9MwjSCv+4oJEja5TNs+OvVWEpfCBCAlShBIeYnK4gi2
+ +og5JYb5gHXZsDG6TpaYvS4L1ixE0E=
+IronPort-HdrOrdr: A9a23:be8HHKHOuOmvfmuzpLqE1seALOsnbusQ8zAXPidKOHtom62j5q
+ STdZsgpH3JYVoqOE3I+urgBEDjewK7yXcd2+B4V9rPYOCPghrQEGgI1/qG/9SPIVycygd179
+ YZT0AgY+eaMbEBt6jHCaODYq0dKaK8n5yVuQ==
 X-IronPort-AV: E=Sophos;i="5.88,375,1635220800"; 
-   d="scan'208";a="64316964"
-Date: Thu, 17 Feb 2022 10:56:53 +0000
+   d="scan'208";a="64421317"
+Date: Thu, 17 Feb 2022 10:59:24 +0000
 From: Anthony PERARD <anthony.perard@citrix.com>
-To: Juergen Gross <jgross@suse.com>
-CC: <xen-devel@lists.xenproject.org>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] tools/xenstore: add error indicator to ring page
-Message-ID: <Yg4p9eq4A7b+FimR@perard.uk.xensource.com>
-References: <20220210111620.5256-1-jgross@suse.com>
- <YgvJyt5Jpvsb2Jws@perard.uk.xensource.com>
- <8891ed69-2ad2-2842-e34e-8252860b71d9@suse.com>
+To: Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, Juergen Gross
+	<jgross@suse.com>, Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH v2] tools/libxl: don't allow IOMMU usage with PoD
+Message-ID: <Yg4qjERzoki2Lpi/@perard.uk.xensource.com>
+References: <20220203143211.18967-1-roger.pau@citrix.com>
+ <YgvB5UtyC29m8zbo@perard.uk.xensource.com>
+ <Ygy/4zk8Eo78ECi5@Air-de-Roger>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Disposition: inline
-In-Reply-To: <8891ed69-2ad2-2842-e34e-8252860b71d9@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <Ygy/4zk8Eo78ECi5@Air-de-Roger>
 
-On Tue, Feb 15, 2022 at 04:45:28PM +0100, Juergen Gross wrote:
-> On 15.02.22 16:42, Anthony PERARD wrote:
-> > On Thu, Feb 10, 2022 at 12:16:20PM +0100, Juergen Gross wrote:
-> > > +The "Connection error indicator" is used to let the server indicate it has
-> > > +detected some error that led to deactivation of the connection by the server.
-> > > +If the feature has been advertised then the "Connection error indicator" may
-> > > +take the following values:
-> > > +
-> > > +Value   Description
-> > > +-----------------------------------------------------------------
-> > > +0       No error, connection is valid
-> > > +1       Communication problems (event channel not functional)
-> > > +2       Inconsistent producer or consumer offset
-> > > +3       Protocol violation (client data package too long)
+On Wed, Feb 16, 2022 at 10:12:03AM +0100, Roger Pau Monné wrote:
+> On Tue, Feb 15, 2022 at 03:08:21PM +0000, Anthony PERARD wrote:
+> > On Thu, Feb 03, 2022 at 03:32:11PM +0100, Roger Pau Monne wrote:
+> > >      if (d_config->c_info.type != LIBXL_DOMAIN_TYPE_PV &&
+> > > -        d_config->num_pcidevs && pod_enabled) {
+> > > +        d_config->c_info.passthrough != LIBXL_PASSTHROUGH_DISABLED &&
+> > > +        pod_enabled) {
+> > >          ret = ERROR_INVAL;
+> > > -        LOGD(ERROR, domid,
+> > > -             "PCI device assignment for HVM guest failed due to PoD enabled");
+> > > +        LOGD(ERROR, domid, "IOMMU not supported together with PoD");
 > > 
-> > Is this meant to be the only possible error value? If in the future we
-> > want to add more possible error, does it going to need a new feature
-> > bit and maybe a new error field?
+> > I'm not sure that this new error message is going to be good enough to
+> > point out configuration issue for the guest.
+> > 
+> > One is going to set 'pci=["foo"]' or 'dtdev=["bar"]', which will enable
+> > passthrough. Then they may get en error about IOMMU or PoD.
+> > Should we maybe write something like this instead?
+> > 
+> >    "IOMMU or device passthrough not supported together with PoD"
 > 
-> No, as the guest is not opting into this feature, but just gets it
-> presented, there is no need to have another bit for new error values.
+> The "or" seems weird to me: IOMMU is mandatory for device passthrough.
+> Maybe:
+> 
+> "IOMMU required for device passthrough but not support together with PoD"
 
-This probably needs to be spelled out in the documents that.
+                                                 ^ supported ?
+> Would that be OK?
 
-> Note that this is a purely informational interface. The error value
-> (other than 0) is only for diagnostic purposes, there is no way a
-> guest could react in a sane way to a specific error case.
-
-This could also be spelled out in the document, in the new section "The
-connection error feature", that a value other than 0 is a connection
-error even if the error number isn't known to the client.
+Sound good, with that new error message: Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 
 Thanks,
 
