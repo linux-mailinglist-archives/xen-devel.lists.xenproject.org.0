@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 363524B9CCD
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Feb 2022 11:13:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.274587.470106 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7DD34B9CF3
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Feb 2022 11:21:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.274597.470117 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKdmY-0004zd-KE; Thu, 17 Feb 2022 10:13:02 +0000
+	id 1nKduF-0006W4-H1; Thu, 17 Feb 2022 10:20:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 274587.470106; Thu, 17 Feb 2022 10:13:02 +0000
+Received: by outflank-mailman (output) from mailman id 274597.470117; Thu, 17 Feb 2022 10:20:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKdmY-0004ww-Gr; Thu, 17 Feb 2022 10:13:02 +0000
-Received: by outflank-mailman (input) for mailman id 274587;
- Thu, 17 Feb 2022 10:13:01 +0000
+	id 1nKduF-0006UC-DM; Thu, 17 Feb 2022 10:20:59 +0000
+Received: by outflank-mailman (input) for mailman id 274597;
+ Thu, 17 Feb 2022 10:20:58 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7Axj=TA=gmail.com=digetx@srs-se1.protection.inumbo.net>)
- id 1nKdmX-0004wq-2L
- for xen-devel@lists.xenproject.org; Thu, 17 Feb 2022 10:13:01 +0000
-Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
- [2a00:1450:4864:20::235])
+ (envelope-from <SRS0=xzkl=TA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
+ id 1nKduE-0006U6-8d
+ for xen-devel@lists.xenproject.org; Thu, 17 Feb 2022 10:20:58 +0000
+Received: from de-smtp-delivery-102.mimecast.com
+ (de-smtp-delivery-102.mimecast.com [194.104.109.102])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2de8b409-8fda-11ec-b215-9bbe72dcb22c;
- Thu, 17 Feb 2022 11:12:57 +0100 (CET)
-Received: by mail-lj1-x235.google.com with SMTP id b20so7486186ljf.7
- for <xen-devel@lists.xenproject.org>; Thu, 17 Feb 2022 02:12:59 -0800 (PST)
-Received: from [192.168.2.145] (109-252-138-165.dynamic.spd-mgts.ru.
- [109.252.138.165])
- by smtp.googlemail.com with ESMTPSA id o10sm5079173lfl.116.2022.02.17.02.12.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 17 Feb 2022 02:12:58 -0800 (PST)
+ id 4a1fe71c-8fdb-11ec-b215-9bbe72dcb22c;
+ Thu, 17 Feb 2022 11:20:55 +0100 (CET)
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur04lp2058.outbound.protection.outlook.com [104.47.13.58]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ de-mta-41-NKXEcG0YO8WnpF6p6XQDeQ-2; Thu, 17 Feb 2022 11:20:55 +0100
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
+ by DB8PR04MB6748.eurprd04.prod.outlook.com (2603:10a6:10:10e::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11; Thu, 17 Feb
+ 2022 10:20:51 +0000
+Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
+ ([fe80::d479:b728:345c:bd65%5]) with mapi id 15.20.4995.016; Thu, 17 Feb 2022
+ 10:20:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,153 +51,208 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2de8b409-8fda-11ec-b215-9bbe72dcb22c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=OO8O5AkWPhI/5yGYSTEQp+LjZetKZnyQ+pZ7++XrzEA=;
-        b=X8w7in6JtN9+vwIDY375tbKdJ6/kAXjQzoJEMNX/aRNZ/xldyGjWjXODYmSy5mi1RE
-         IVBvYSJ5Q0hWoh3euDgluS6hajxAwota0SjPBhdLfholDQzq33VHuJfcHHzCkXGyz8tb
-         MDBzs6ibY/EGdDqB/ff2GewtKr6TpYHNqvy5y4L9nhOeKSaVrEEfVSAdHs3oIc8/KGvy
-         BUoC/Ntz4HLIebyoKI3bup9qeurRZrprpsOzzaMBNquRHtxpasWvx6s1xD7yjJ47gW7a
-         aqMUkT2VhDOvjwLmzIlZFje3GuDLrgVXuDJcvjJJbqm/WRU77L4UMZYg+2nxY7fnS64M
-         8wzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=OO8O5AkWPhI/5yGYSTEQp+LjZetKZnyQ+pZ7++XrzEA=;
-        b=jcFazVfVPcyMscwe0jS3hIW3SeYVoaKUDT+xY/t+bMyv/7GdNmNVfG05h5QUkf8jt0
-         edCFFMmbrqPfX8GB+C33CRXIemfEyjt81YIe629tRPFklGZpMiSbyGToXLanCMGpvs1i
-         /WL3qeftCYNmw0nu4/t6Smftr0Cbj9XwsTufOVQAIQtidGlGfHOWQlW0ok7RML/YWNzZ
-         oozfLEvxHbIq1gtdqaRxRkUgGip8+x9crWYJ5NXZ1RqmaHo2aICQF/0s+O4nxaZ0NyaU
-         hBhd+KOhx/t9tiUq7j9p9geps1Xz683jEoVkzAtAVbZAYMILvBJ/wnie4kK0K8DWT8De
-         ZC4g==
-X-Gm-Message-State: AOAM533XKz59swn3imyPdElzH2p5dNWMHK94594fVTlPFAdylxiOhPyK
-	CUFDlnOVjWPphndSdigyP1M=
-X-Google-Smtp-Source: ABdhPJzppLbwPh7ryO4JRMtpJc/4Lz2rbVquaymBUgCgBO2OneSkA3o02raf386TVCaqFDiGA98BPg==
-X-Received: by 2002:a05:651c:1544:b0:246:1887:cf4c with SMTP id y4-20020a05651c154400b002461887cf4cmr917179ljp.118.1645092779295;
-        Thu, 17 Feb 2022 02:12:59 -0800 (PST)
-Message-ID: <4f0d1b50-9f55-dd81-f0c7-f5e0dfd75c2a@gmail.com>
-Date: Thu, 17 Feb 2022 13:12:57 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH v6 00/21] Introduce power-off+restart call chain API
+X-Inumbo-ID: 4a1fe71c-8fdb-11ec-b215-9bbe72dcb22c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
+	t=1645092977;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NCkLUEy2U6STOHaphPPK/NDCiSK/9UshqiogFsCJ9u8=;
+	b=K2ja0xpYL7UEFjrofX0KfZQ+jVtrX3w2lKaABW/NSDZpROb0mUMuCVlRkjSCu2UOIfP+6P
+	gThg+TChJ1ISSlU+leJQEnAdiJd5zA70gXEV31MTWzF0S8kmKQr4QF+ihgSOPm+NR5ra+f
+	28dW/NN7VGeJkvoGYVkOTkd3cGV6dmY=
+X-MC-Unique: NKXEcG0YO8WnpF6p6XQDeQ-2
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AYhyvqieWnlrM+GQLxiRpFeVu7OPFGCGl7Et84oGBlAgcb8MXX3YSDTqtF0IvK38rHZ4Y29gu8HSZZQFbF3in7sDlSM+xwYL/nnv+icY0dur/SBldVDpzmVa8oXhgyNW2rBTFqyx5+zbzIIs9H9Z0hjz5MQ0HVb0kAiXzhJA/Ns6m+Z0Tcm9aFHYPbhuhdADSiFoskmrsW+eaP4pOlp0BOcG4oBoFwY1/WgIMSEfD129sCC6FNhNjp9rppAi3IkTDXj5oN9BbXtW/W2WXT8GAtWiqkXPTatIejkTOIGxoCepc5KoS3z+t/AGw3gVPFO8DNGKwrhct2GPtyr+UV9JWg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hgaWmZ0lcq7FzIcTB3VPyEClczv06jhS9M81h14zoSc=;
+ b=XitLCcnX8O75KKEjALtUl1eN1A+PikeTKGu/42if+VV+eG5GIcruyWl/gpw2cq20ke1Xm1AyBId82c1/KdEepryrVSh2FF/hW5Q/5GlfGk3uBFeTbLSGb/3Q24fOFga4EmEcG8ZJYXUkTJ60CamDTISyRGCKZ72JhJsvd/MmdHOoI3W/YQe/s7iDF9JSE2YLn8dVl1UIppPJXqzOc6K7xg1f0iCYyFx6uJL6cKMtR3LyNmT+YOx8RPZC72K3jxrqwmQlJ4GcLmIuZtlD/fxJWR3aBmw0AZI2ksOyscbiS97/hiSJNA8kqzREOIk6MmSjo6eJ8FBxYqwFJf/i0rCeBw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <44e0ab16-e807-c8f5-deef-7094b7aecdeb@suse.com>
+Date: Thu, 17 Feb 2022 11:20:49 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
+ Thunderbird/91.6.1
+Subject: Re: [PATCH v2 04/70] x86/pv-shim: Don't modify the hypercall table
 Content-Language: en-US
-To: Helge Deller <deller@gmx.de>, "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-csky@vger.kernel.org, linux-ia64@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org,
- "open list:BROADCOM NVRAM DRIVER" <linux-mips@vger.kernel.org>,
- linux-parisc@vger.kernel.org, linux-riscv@lists.infradead.org,
- Linux-sh list <linux-sh@vger.kernel.org>, xen-devel@lists.xenproject.org,
- ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- Linux PM <linux-pm@vger.kernel.org>,
- linux-tegra <linux-tegra@vger.kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Russell King
- <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Guo Ren <guoren@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, Greg Ungerer
- <gerg@linux-m68k.org>, Joshua Thompson <funaho@jurai.org>,
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
- Sebastian Reichel <sre@kernel.org>, Linus Walleij
- <linus.walleij@linaro.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Greentime Hu <green.hu@gmail.com>, Vincent Chen <deanbo422@gmail.com>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Michael Ellerman <mpe@ellerman.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Paul Mackerras <paulus@samba.org>, Paul Walmsley <paul.walmsley@sifive.com>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- the arch/x86 maintainers <x86@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Juergen Gross
- <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Len Brown <lenb@kernel.org>, Santosh Shilimkar <ssantosh@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Pavel Machek <pavel@ucw.cz>, Lee Jones <lee.jones@linaro.org>,
- Andrew Morton <akpm@linux-foundation.org>, Guenter Roeck
- <linux@roeck-us.net>, Daniel Lezcano <daniel.lezcano@linaro.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Ulf Hansson <ulf.hansson@linaro.org>, alankao@andestech.com,
- "K . C . Kuen-Chern Lin" <kclin@andestech.com>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
-References: <20220130233718.21544-1-digetx@gmail.com>
- <635e8121-fca4-580c-6af5-d9317a2eee1b@gmail.com>
- <CAJZ5v0g0MrBm2+GwctkB7kUyBEt6HTAexRCFFRmTF1UKDrVQ-g@mail.gmail.com>
- <de2cbd2a-8d0d-8678-e514-b153d04546cc@gmx.de>
-From: Dmitry Osipenko <digetx@gmail.com>
-In-Reply-To: <de2cbd2a-8d0d-8678-e514-b153d04546cc@gmx.de>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+CC: Juergen Gross <jgross@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
+ <20220214125127.17985-5-andrew.cooper3@citrix.com>
+ <4d8ab414-caf4-5a12-4cb7-a88c633cfd66@suse.com>
+ <e18c0c5a-d00b-adf9-d4b0-28e702a18241@srcf.net>
+ <6566bf52-58da-f804-f5c2-fca64c1f150c@suse.com>
+ <f0889e93-aec0-443e-b3fc-081892edaf2b@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <f0889e93-aec0-443e-b3fc-081892edaf2b@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-ClientProxiedBy: AM6PR08CA0047.eurprd08.prod.outlook.com
+ (2603:10a6:20b:c0::35) To VI1PR04MB5600.eurprd04.prod.outlook.com
+ (2603:10a6:803:e7::16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7d79aebf-8883-4afa-22a6-08d9f1ff2c36
+X-MS-TrafficTypeDiagnostic: DB8PR04MB6748:EE_
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-Microsoft-Antispam-PRVS:
+	<DB8PR04MB6748104038F6F065A131C69BB3369@DB8PR04MB6748.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	DMKCms0Y8V1uTSqwlURtgVvYmRo/+Ok+lNjBtW4oh7E2xZBUvZP0R9s+fG4rpHWoQYaNeJ7rmfIlLQPkKQ9RjcNH2fjdLV/5Wcmr4giTS9BMrcbIxDK9kwrEDSJo+q/zNG57PFyp8PsEw6TJbNgoC14KnJ+cjiXA4zNgxpOkAFnx3hssRq6q7CuZqFJzLz0IwyiwaEZQjm8CRuMECW5k1vQn7ajmrZQtbzBwQvpYvvzV/7Z0Ld3JXfntstNk/OIXH2zDSCQiXbYkKO8JZH7+c+9KKJ65VLL+qaICxiJnU8xO8ibe3GFBbqfwXpXcR3jOT3nqhwzNGbZzHW2buRRM6D1b4FvdikfKC9rJdJx7xmIZR2Taszq8wDu4azqp2XMBBfCPVoN6HcUckNfj9ZNtJ9vVM/TwNhFo2V0HX/RUgCd36pTVaZ7/AUEZa0WphUIBoP50eju/k0ZnPyQRD06oqLfGiqCCJSa/+F2Om0e/BffO6q13yPeXzrpWlbTRg8FeqUfuSskgWe8XkShYy0yW+ENuCb8p4OqhJkUH69NQuT+RMz25SYG8W1AvgAV8/4R1kldj4KCo5j+DE26q9Z1BdKIMHvenizWxgBt8c1DuX/I5JBlTLPdODHxDldk5THFgg/mHYzSTQMniTdKVwHys8q/LvhnNoxBoXooQh6GAZeao6AG2NkmT64Egz+jGupgXpImfPbzjP1uhdcBgrH07n8CjjHQOh+/eLSX8Ly4OCCf/Pxa7ot1oN9iqHehJhifB
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(66476007)(6916009)(31686004)(6512007)(316002)(186003)(4326008)(66556008)(5660300002)(2906002)(66946007)(54906003)(36756003)(8936002)(8676002)(508600001)(6486002)(38100700002)(53546011)(83380400001)(31696002)(66574015)(86362001)(26005)(6506007)(2616005)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?oFSpJlTEnRhxlI79Y+WOm7TwDP7XUbIVNn9SrO3xDTcpEhqKom/bi+0Djigu?=
+ =?us-ascii?Q?2o6rh6QlJebbVb7+k5rXU6l+PdAw5PqAugOAFfJRIdOYcaaVl+zjgc0rwwxX?=
+ =?us-ascii?Q?tX7Fe7GOjypIRV8GaobrEeKfLAHbQiChI3HPIikYlq6OrR3/Xqv8dnFvdPTd?=
+ =?us-ascii?Q?jJIp8Xj2/yZVH4uJR7nmKecxSd1qYjKzxebkKUDVSOSwS24nuWNsjCDErNhn?=
+ =?us-ascii?Q?hNx1349xUo/dt1ejfJiWLmHxVtm4tTQdLjXnJFhCgeS2FVMgpX3CBVIMJZQc?=
+ =?us-ascii?Q?lnhVxdR2xZD8I8vYK3MsBDxXgWvfzkgWrTBgHSs7qBViYzPZ0R2iRSEBpFzN?=
+ =?us-ascii?Q?hZKJDMrtB8ea2rLt3TKs2w54nS/622nPC+OhRM0Jenx1XbKM+bwctGVcu8yy?=
+ =?us-ascii?Q?vuSxHY5wa2MpPpf92nTJBmVKPKt1VtI2uGA0dOO2iNEg9brMhXLHv2glRUyP?=
+ =?us-ascii?Q?4FZj9xQadXY5+/o7FdMOIO1/FNIt+C7oLq3wxj9uTd8IhH5u0KnI+J/xBCMV?=
+ =?us-ascii?Q?VQLKz2JRpTC8kjs6Izdx53Q/Dr9edaQkk2rkvVx/Jh40/4zof9//jMuQ/+2f?=
+ =?us-ascii?Q?y4fGAJh61AZjJURORTZLI6LmMKueWmeIcegnBe5h4B8DSZbgOnOwEVNstxW4?=
+ =?us-ascii?Q?TQjZZEcceOpBV4ICf8BtV5qN0MqqUNgz9nXLznoV3ENGODBKjfQfjSv0H0EY?=
+ =?us-ascii?Q?Ky7jrLRHwabHLvOLyJJXq07kldGzKJCBxnHbm4d4NaxromJqwOGiLsZV8Jbj?=
+ =?us-ascii?Q?btKrSUZVaxy+vA6iVaKiyV6vPFL8PXiEUTfeXMoT1W53aknyCJLZ7ewbg/7U?=
+ =?us-ascii?Q?aDtU6J8+laBpIHL3z3gXvBLtlMOZhq+IB1jdAqsqFt2Y+yIQUTBPj69e6A9u?=
+ =?us-ascii?Q?/jjGoBdGRbIlngiYn8EoXaOS19eV+k+2dz7YW/CwmsvxHTjjvNBVr0hu/0gX?=
+ =?us-ascii?Q?nQp0vute1W79YIfeNdlmFSsbLImZySXTDnqyo+mt+FBfci1DpSLuj0onfOf9?=
+ =?us-ascii?Q?66lYuU+0ZEuoiz/MSmBUgXbBTukRnlm82FlQ6Kf+kNfGD9hAeeL9qy4ubRWx?=
+ =?us-ascii?Q?e+6UaPtTuzxq8Xcm2Ls9JEtcKUkLuSMbx4eBp1TZ+djVtMJC3yEFyTeHTIko?=
+ =?us-ascii?Q?vhWFGjd+QzAHeiC7BVcZDa1At/lbTwfVloG6NRV935u47q1TAJHfqXCfotMY?=
+ =?us-ascii?Q?tIGU44hhRBph2z33eyAfGaK3B/k0mpmjQgyBuvs6qv0y0PaOEcGaGsAd0SGu?=
+ =?us-ascii?Q?Bh54k134wgl7PAUzHhuGU0tI6bF0g9kVMbA7sO2CrfhKhMFkyv6dYyDIO/pE?=
+ =?us-ascii?Q?Yfqmh6eIoIO9C3K2Djuxi+3t9ehv4ze9Dh+EVuScT3Va3RlisT3GFpwc0his?=
+ =?us-ascii?Q?B+xflu+ZHBeiFnF+1uqvQmTAZ0lywGEtgNZN25POlEmy3oVCQY1GCoCW040n?=
+ =?us-ascii?Q?x7TrbJJk64cqH2P3PZkJQa2p6r8JxwXjZ7HUk844NFhrHVU2HApbPAQbWbZ2?=
+ =?us-ascii?Q?aWykLFa70XDKhLwQnG9l/NTqbk3wgh34WmxYRajZ8ekRszU0+Upxaa8OMLTx?=
+ =?us-ascii?Q?4kDASMm4f/nF066UD0kaIMLKoS+R5qZUCx+hTp5JtTprj0Z8CnciryOsb3RF?=
+ =?us-ascii?Q?//t7Ys6VbAbCIe/lq610B/w=3D?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d79aebf-8883-4afa-22a6-08d9f1ff2c36
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 10:20:51.2366
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HTjC5erxGQDtEJMSVcfTR3MOeEa6i9TnJl0VPTNcUEirYKEf5kPZBndw5KhAF3zugxdr2FkzntsltbXyrp3Ykg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6748
 
-16.02.2022 23:30, Helge Deller пишет:
-> On 2/16/22 13:25, Rafael J. Wysocki wrote:
->> On Tue, Feb 15, 2022 at 11:00 PM Dmitry Osipenko <digetx@gmail.com> wrote:
+On 16.02.2022 23:17, Andrew Cooper wrote:
+> On 14/02/2022 13:56, Jan Beulich wrote:
+>> On 14.02.2022 14:50, Andrew Cooper wrote:
+>>> On 14/02/2022 13:33, Jan Beulich wrote:
+>>>> On 14.02.2022 13:50, Andrew Cooper wrote:
+>>>>> From: Juergen Gross <jgross@suse.com>
+>>>>>
+>>>>> When running as pv-shim the hypercall is modified today in order to
+>>>>> replace the functions for __HYPERVISOR_event_channel_op and
+>>>>> __HYPERVISOR_grant_table_op hypercalls.
+>>>>>
+>>>>> Change this to call the related functions from the normal handlers
+>>>>> instead when running as shim. The performance implications are not
+>>>>> really relevant, as a normal production hypervisor will not be
+>>>>> configured to support shim mode, so the related calls will be dropped
+>>>>> due to optimization of the compiler.
+>>>>>
+>>>>> Note that for the CONFIG_PV_SHIM_EXCLUSIVE case there is a dummy
+>>>>> wrapper do_grant_table_op() needed, as in this case grant_table.c
+>>>>> isn't being built.
+>>>>>
+>>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+>>>> I don't think you sync-ed this with J=C3=BCrgen's v3. There were only =
+minor
+>>>> changes but having a stale version sent two months later isn't very
+>>>> nice.
+>>> I did resync.=C2=A0 What do you think is missing?
+>> A few likely() / unlikely() as far as I could see.
+>=20
+> Oh those two.=C2=A0 I appear to have forgot to email.
+>=20
+> They're wrong - observe they're in an ifndef block, not an ifdef block.=
+=C2=A0
+
+I don't see how the (unrelated) #ifndef matters here: The #ifndef
+is about grant table availability. The two likely() are about
+running as shim. I'm of the firm opinion that a binary built
+without PV_SHIM_EXCLUSIVE is far more likely to be used as a bare
+metal hypervisor. And for a PV_SHIM_EXCLUSIVE hypervisor the
+conditions are constant anyway, and hence the unlikely() has no
+effect.
+
+And if your way should really be followed, why did you deem the two
+unlikely() in do_event_channel_op() and do_grant_table_op() okay?
+
+>>>>> --- a/xen/common/compat/multicall.c
+>>>>> +++ b/xen/common/compat/multicall.c
+>>>>> @@ -5,7 +5,7 @@
+>>>>>  EMIT_FILE;
+>>>>> =20
+>>>>>  #include <xen/types.h>
+>>>>> -#include <xen/multicall.h>
+>>>>> +#include <xen/hypercall.h>
+>>>>>  #include <xen/trace.h>
+>>>>> =20
+>>>>>  #define COMPAT
+>>>>> @@ -19,7 +19,6 @@ static inline void xlat_multicall_entry(struct mc_s=
+tate *mcs)
+>>>>>          mcs->compat_call.args[i] =3D mcs->call.args[i];
+>>>>>  }
+>>>>> =20
+>>>>> -DEFINE_XEN_GUEST_HANDLE(multicall_entry_compat_t);
+>>>>>  #define multicall_entry      compat_multicall_entry
+>>>>>  #define multicall_entry_t    multicall_entry_compat_t
+>>>>>  #define do_multicall_call    compat_multicall_call
+>>>> J=C3=BCrgen's patch doesn't have any change to this file, and I'm afra=
+id I
+>>>> also don't see how these adjustments are related here. The commit
+>>>> message sadly also doesn't help ...
+>>> The changes are very necessary to split it out of Juergen's series.
 >>>
->>> 31.01.2022 02:36, Dmitry Osipenko пишет:
->>>> Problem
->>>> -------
->>>>
->>>> SoC devices require power-off call chaining functionality from kernel.
->>>> We have a widely used restart chaining provided by restart notifier API,
->>>> but nothing for power-off.
->>>>
->>>> Solution
->>>> --------
->>>>
->>>> Introduce new API that provides both restart and power-off call chains.
->>>>
->>>> Why combine restart with power-off? Because drivers often do both.
->>>> More practical to have API that provides both under the same roof.
->>>>
->>>> The new API is designed with simplicity and extensibility in mind.
->>>> It's built upon the existing restart and reboot APIs. The simplicity
->>>> is in new helper functions that are convenient for drivers. The
->>>> extensibility is in the design that doesn't hardcode callback
->>>> arguments, making easy to add new parameters and remove old.
->>>>
->>>> This is a third attempt to introduce the new API. First was made by
->>>> Guenter Roeck back in 2014, second was made by Thierry Reding in 2017.
->>>> In fact the work didn't stop and recently arm_pm_restart() was removed
->>>> from v5.14 kernel, which was a part of preparatory work started by
->>>> Guenter Roeck. I took into account experience and ideas from the
->>>> previous attempts, extended and polished them.
->>>
->>>
->>> Rafael and all, do you see anything critical that needs to be improved
->>> in this v6?
->>>
->>> Will be great if you could take this patchset via the power tree if it
->>> looks okay, or give an ack.
+>>> Without the adjustment, the correction of compat_platform_op()'s guest
+>>> handle type from void to compat_platform_op_t doesn't compile.
+>> Interesting. That's quite far from obvious in this context, so clarifyin=
+g
+>> the purpose in the description would seem helpful.
 >>
->> I need some more time for this, sorry.
+>> Coming back to the syncing with v3: Was this change the reason then why
+>> you did drop my R-b?
+>=20
+> My porting of this patch is a non-trivial modification from Juergen's
+> version, and not eligible to retain any tags.
+>=20
+> I thought I'd discussed this, but I appear to have missed it from both
+> versions of the series.=C2=A0 Sorry.
+>=20
+> Either way.=C2=A0 It's exactly the same purpose as before, but modified t=
+o
+> compile in isolation.
 
-No worries, we're not in a rush.
+I see. I'm under the impression though that parts were effectively
+present elsewhere in J=C3=BCrgen's series. Perhaps it would have been easie=
+r
+if his series (at least up to the point to which you need it here)
+would (long) have gone in already. What it looks to be blocked on are
+two or three Arm acks and an x86 ack on patch 1 (which I've expressed
+I'm not entirely happy about, and hence I'm not going to either ack or
+nack it).
 
->> I'm a bit concerned about seeing no response to this set from anyone.
->>
->> It looks like multiple platforms may be affected by it in principle,
->> so doesn't anyone care?
+Jan
 
-The platforms that didn't provide ack so far are: SH, x86, IA64, MIPS
-and NDS32. At least x86 and MIPS are alive, not sure why maintainers
-didn't bother to answer yet.
-
-> I did looked into the whole patch set after applying it locally.
-> 
-> While I agree a new combined API is good, and the beginning looked promising,
-> after some time I started to ask myself if the whole infrastructure might
-> be a little overdesigned.
-> 
-> Anyway, I tested it and it works for me on parisc.
-> And it's probably better than what we have today.
-
-Thank you!
 
