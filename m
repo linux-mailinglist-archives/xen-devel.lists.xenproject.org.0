@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E33A4B9C91
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Feb 2022 10:56:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.274573.470083 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D6B34B9CAA
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Feb 2022 11:02:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.274580.470095 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKdWW-00023M-Uw; Thu, 17 Feb 2022 09:56:28 +0000
+	id 1nKdc8-0003Vp-JU; Thu, 17 Feb 2022 10:02:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 274573.470083; Thu, 17 Feb 2022 09:56:28 +0000
+Received: by outflank-mailman (output) from mailman id 274580.470095; Thu, 17 Feb 2022 10:02:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKdWW-000213-Rl; Thu, 17 Feb 2022 09:56:28 +0000
-Received: by outflank-mailman (input) for mailman id 274573;
- Thu, 17 Feb 2022 09:56:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xzkl=TA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nKdWU-00020x-RH
- for xen-devel@lists.xenproject.org; Thu, 17 Feb 2022 09:56:26 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de779bdf-8fd7-11ec-8eb8-a37418f5ba1a;
- Thu, 17 Feb 2022 10:56:25 +0100 (CET)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2056.outbound.protection.outlook.com [104.47.12.56]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-4-3eJVzCu3PzG-0gDMCGJo_A-1; Thu, 17 Feb 2022 10:56:24 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by AM6PR04MB5336.eurprd04.prod.outlook.com (2603:10a6:209:4f::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.15; Thu, 17 Feb
- 2022 09:56:22 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65%5]) with mapi id 15.20.4995.016; Thu, 17 Feb 2022
- 09:56:22 +0000
+	id 1nKdc8-0003Tp-Fr; Thu, 17 Feb 2022 10:02:16 +0000
+Received: by outflank-mailman (input) for mailman id 274580;
+ Thu, 17 Feb 2022 10:02:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=W+1Z=TA=citrix.com=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1nKdc6-0003Tj-Cx
+ for xen-devel@lists.xenproject.org; Thu, 17 Feb 2022 10:02:14 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ab32a6cb-8fd8-11ec-b215-9bbe72dcb22c;
+ Thu, 17 Feb 2022 11:02:10 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,175 +36,256 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de779bdf-8fd7-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1645091785;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=65MJJRs7UlTXYknN+AoWyVdia8q/yC54n+4Kph5kFC4=;
-	b=KuaW5IXuK4tgJNk+kbmN86Qrbbv4/eME0dZXpjKE6/fYSFyzHuasaMRDpp4g0L8sXBnXXl
-	zxrkjx1YCkaD3bw3DzD5KrNZJkmtNadr2Jrn+SrudhON+dQiOKB8OjytBo+56w+IKuNI/P
-	ck1Pt91mwLYhqF5xpBzxj1TjALpRlnU=
-X-MC-Unique: 3eJVzCu3PzG-0gDMCGJo_A-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MWrGjO52+3uC5JELaXbpamcvAmBqVT3CZxB+ulO0qxaLJ7UH9z2BWroxQZY7OrvXq33ooeWPUUxnVHevQQGKinJf/M/w+r7KRbBL32fPAV+17FoX3dt5MsZp3oXHqSVHsk6AnXAWlpDQ7Y2ueBIlP47oDj/jXwWj3yZey86VSUqVDt8q7Uf5PC4pDPIKe7FzikOwLhl2f8zRdce40X5AlQlPMUCBLThPNYvC6TfxTOsHCIqVndmpkBNXmYszra+S/31258GGs20acYdFlP23pkcFWiIS+2hS7Sc85yIL6gkXM+IYTlofkDRNQ0EApaGe04B86M3AaBnYlgPdjIOODA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gekqWGqOBjPGU1p+uQpZXjt//QFLg7yP/cvraATeqBs=;
- b=e4miC+LMli3S9BIUbNjGmPBJwMrdcRiwghT6pKViohNSxydwuRVIXiyg0MiUveF5teT2k0rlDuPXb/yzMxJED3orLvIb72CAxZrzVUxn+Azx4e3cIFQ5u6+1STqJ/s8QRiBF56qXwokxXMeoBhf8GLDW0U7kKwNULugKkoB0FyEgdCtCKA7AijC8xEiVLy0HXCkkMAb5ahsLfNbrZm57l5ZOUZFTX+2434Gv+iqWL3PHakhfBeNb9nDRJiaZq0ocjKlxWWjTbleE6f8BCj2xkHT9aYcAVfZPAHTtFA0fplI9r5RuGK/49+i/JapOYoB/1KRIfMSEo4GW3GuGPRZ83w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <53c10ff6-ca7d-e332-72b5-593203a5303d@suse.com>
-Date: Thu, 17 Feb 2022 10:56:20 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH v2 00/70] x86: Support for CET Indirect Branch Tracking
-Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Juergen Gross <jgross@suse.com>,
- Daniel Smith <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Xen-devel
- <xen-devel@lists.xenproject.org>, Roger Pau Monne <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>
+X-Inumbo-ID: ab32a6cb-8fd8-11ec-b215-9bbe72dcb22c
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1645092132;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=GMU8LsN/3Pxq78qL9996Dptilzd5w89xVJXi9VTdYfI=;
+  b=YxpzR8+mSemDdtYBt7arL6HzL/pNR3TCnRr1hDIJGv7E7yu7H9HwS0Gv
+   5YC6mvHj17LaCiZACvy/8Dk0cYadTISUUwr47nVjKRyUlaGRkQkFDxNnx
+   H7mZrAelOLUc5ZGq+il1jAoaDiqRFtR02NUwc2NW12ZjgVgOJqWbJT0sz
+   s=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: e3tKdMLDgMD4cmrSo3bQqbb3IOiAmvd8tP/z/S7DAulTflI0ai1izY773zlo3el5TudJqz6d/H
+ CJx3ZdBBA0BDOKNlJlQQcYEcTiAl1Rnd4oDbRVP7espBbt10ggmQSyfffwUQO3lHwER+Q16Gl6
+ nns0lVWbMFDFfvAviL5kGs8AzpOs7M109sCU6IwtpMur+h1eHj6+4IjtPgJxiMOoxthZ+hnTT8
+ 9Cyo4wOgs8bEYnZns0tcxVsZi0YkBZ4Cvt3maYHe1bOslCyzsTWi/oaFKdP1q4yZYWksNaLkvM
+ M3LKDwacXvRdzCyz3rN2FPkF
+X-SBRS: 5.1
+X-MesageID: 64418586
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:/POyTannM4d2Ue3RgAX1ySvo5gxDIURdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJJDTqGP6rba2KhetFwaNi29EhT75TQy95lQVZuqHo0QyMWpZLJC+rCIxarNUt+DCFioGGLT
+ Sk6QoOdRCzhZiaE/n9BClVlxJVF/fngqoDUUYYoAQgsA180IMsdoUg7wbRh2Nc32YHR7z6l4
+ rseneWOYDdJ5BYsWo4kw/rrRMRH5amaVJsw5zTSVNgT1LPsvyB94KE3fMldG0DQUIhMdtNWc
+ s6YpF2PEsE1yD92Yj+tuu6TnkTn2dc+NyDW4pZdc/DKbhSvOkXee0v0XRYRQR4/ttmHozx+4
+ NtLi5eUbQYjB5+PiP05bjhxOTNuMrITrdcrIVDn2SCS50jPcn+qyPRyFkAme4Yf/46bA0kXq
+ 6ZecmpUKEne2aTmm9pXScE17ignBODtMJkSpTdLyjbBAOx9aZvCX7/L9ZlT2zJYasVmQ6qCP
+ ppEOWQHgBLoM0ISNF48V5UFvKSDoUOubm17qwuPjP9ii4TU5FMoi+W8WDbPQfSVQe1Fk0Deo
+ XjJl0zbKBwHMN2UyRKe72mhwOTImEvTSI8UUbG16PNuqFmS3XAITg0bU0Ohpvu0gVL4XMhQQ
+ 3H44QJ38/J0rhbyCICgAVvo+xZooyLwRfJeFdMxzCWMwJPmoBaAIlUlZxRTeNM54ZpeqSMR6
+ neFmNbgBDpKubKTSG6A+rr8kQ5eKRT5PkdZO3ZaEFJtD83L5dhq00mRFooL/Lud04WtcQwc1
+ Qxmu8TXa187qccQn5u28lnc695HjsiYF1Vljuk7s4/M0++YWGJHT9D5gbQ4xawZRGp8crVnl
+ CJb8yR5xLpTZaxhbATXHI0w8EiBvp5pygH0j191BIUG/D+w4XOldo04yGggeBoxaZlaJWKyP
+ xK7VeZtCHl7ZiTCgUhfOd/ZNijX5fK4SYSNug78NbKinaSdhCfYpXozNCZ8LkjmkVQ2kLFXB
+ HtoWZ3EMJruMow+lGDeb75EidcDn3lirUuOFcGT50n2itK2OS/KIYrpxXPTN4jVGovf+16Lm
+ zueXuPXoyhivBrWOXiNrtBNfAtbdhDWx/ne8qRqSwJKGSI+cElJNhMb6epJl1VNk/sHm+HW0
+ Gu6X0MEmlPziWeecVeBa2x5aaOpVpF69CppMSspNFeu+n4ifYfws/tPK8ppJeEqpL550Pp5b
+ /gZYMHcUP5BfSvKpmYGZp7noY08KBny3VCSPzCoaSQUdoJ7Q1Cb4cftewbirXFcDie+ucYkj
+ aen0wfXHcgKSwh4VZ6EY/Oz1VKh+3ManbsqDUfPJ9BSfmTq8ZRrdHOt3qNmfZlUJEyalDWA1
+ guQDRMJnsX3otc4oIvTmKSJj4a1CO8iTEBUKHbWsOStPi7A82v9nYIZCLSUfSrQXX/f8bm5Y
+ bkH1On1NfAKkQoYs4d4FLo3n6sy68G2+u1fxwVgWn7Kc06qGvVrJXzfhZtDsahEx7l4vwqqW
+ x3QpokGaOvRYM61QkQMIAcFb/iY0aBGkzbf2v05PUHm6XIl57GAS0hTY0GBhSE1wGGZ62/5L
+ TPNYPIr1jE=
+IronPort-HdrOrdr: A9a23:p/YIyqnsH8XT7LvMsb09wNSdvIvpDfIU3DAbv31ZSRFFG/Fxl6
+ iV8sjzsiWE8Qr5OUtQ/+xoV5PhfZqxz/JICMwqTNKftWrdyQyVxeNZnOjfKlTbckWUnINgPO
+ VbAsxD4bXLfCBHZK3BgTVQfexO/DD+ytHLudvj
+X-IronPort-AV: E=Sophos;i="5.88,375,1635220800"; 
+   d="scan'208";a="64418586"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH v2.1 6.5/70] x86/kexec: Annotate embedded data with ELF metadata
+Date: Thu, 17 Feb 2022 10:01:58 +0000
+Message-ID: <20220217100158.22402-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20220214125127.17985-1-andrew.cooper3@citrix.com>
 References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
- <c471dcc2-8a91-60b8-ba5d-58874752e4d7@citrix.com>
- <218de2dc-6dd8-4e13-3288-36448e47de7f@suse.com>
- <8c6dd7d0-11e6-9b8a-66fc-f1a4998c074b@citrix.com>
- <83e15c5d-f48b-a6f2-ebca-e416bdef1093@suse.com>
- <9bcbd2f9-f713-cb56-abdd-baef5180a964@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <9bcbd2f9-f713-cb56-abdd-baef5180a964@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS8PR04CA0053.eurprd04.prod.outlook.com
- (2603:10a6:20b:312::28) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 685c0fde-0dfd-4b93-3066-08d9f1fbc0fd
-X-MS-TrafficTypeDiagnostic: AM6PR04MB5336:EE_
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-Microsoft-Antispam-PRVS:
-	<AM6PR04MB5336B8E18FFFC9047B0C3065B3369@AM6PR04MB5336.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Y8w2fHGvo3YKIKdUd7VOos16GYb459Fx2Tv4c6FeYzeQD2cxOn6f/CiB1cEwksOF30wkrbj7HOoeh8cyqOLJiaUvbSEJrNRrld4uAgpAgmiGlyRzPLWNUTJiWQ48L9piX6tT3c5YL1CsqVDa88axrcme6ItEGcbdAixnrY6kLrd/r6OyCctqVly5qrWvly78XBj10F6imMHHtVp+0jvMyApR8t82iJncMFO77xKrsJ6Tz4hHu7Z3s9US7tDl1bW2y+kpo32sRGnc0NDeJd3IolNpX98KTyMx26F/N/ymz3o0qchdWS1NED8+9CVgkgRYdj5hgGewnkTizoULkypw97rRlAOQELXxNsyC1BBpxr/D7cY8dgjKuM3sphK0Gy4z8r3ewrWxpDLYZT/k6vF0a4sxnx+2FRK52OEgKKvzJIAen6F43uIPbV41on9G5rm+ht8b8bUvMY7y+gssCxk1139eiBui9dCI/CPxJt4o5ScWL7FcFXXbcFioH/o8IZ5JCGOzbglxuvVizKMpcwW2HVEifssqeG0487JtDA4fBekhX9vyFAhmlUIpJ1wotf4aBnIH+CpxkxgBlJlEmCrJiR/YlNFl17TcfS6co6jGgbhq1CUc9YM92EedIPUOxJc9gtkTpGR6j1Cmxa5XHIu+JyD7xaPGG6U6iAo5v45b1myqAYV6mUja8COkfIltIRsjC6Y1Cv9hXFUbV/LzYOix11H1wlxQxglflQz2QT1B1pAgpRNG/OZX6RFzCp2OhxgTLENWhtpy7nn2cR5l7RFGZfdaV5IakkZOqivAOTsSPK3FJfsdGZQK/L7LZ2OOd5hSS19Pp7R58svhOB5QP1wT0A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(31696002)(508600001)(6486002)(186003)(26005)(966005)(6916009)(86362001)(6512007)(6506007)(53546011)(2616005)(31686004)(4326008)(36756003)(316002)(5660300002)(8936002)(2906002)(66946007)(66556008)(66476007)(8676002)(38100700002)(54906003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?YxkYVgluruXAmbTm4TCX4xoPfyiVYfwypG8HcmZH0Ss1DJxjfOgjzlJCP3+t?=
- =?us-ascii?Q?aA8oWvanUwwA9AC+EWSM5shVIyZcFkvt9vxI/JU8ZnapLasiMvudml+8eBwq?=
- =?us-ascii?Q?3w0NSJqG5+Py8PorCjDS0PTWYRAnlX+2ILk+iYE6cNFzhFE16aR3g/Slrf7d?=
- =?us-ascii?Q?Aki6j2Z1A2MMWd4//9MIeXhLKJPblE8+UMdpesFwDnF8NMyh2sZA2OtX+IJ4?=
- =?us-ascii?Q?sKWnEiRDLXlNEzCsk+zuflef8IJoT4fq6OaY7+ASLz1dDSaA1sIDs8aH7mug?=
- =?us-ascii?Q?ulg2GQlypxqsktO6GD2h3HsM9jkzApgRBz/7b/uJzSQnTlJTg+FdnkwFvlLV?=
- =?us-ascii?Q?GdKSUsxbnSuTbpTjY3GiM9sTyYeWF0RzrpK2gjRFBY7J/SCw72OvI1F+Zf71?=
- =?us-ascii?Q?QUnvpkL6UzV4HDu2B3RlNDHkFHMkOvHYtpaDh9cENLqmV9ZtLGZpDcQwEGrm?=
- =?us-ascii?Q?ClydQPlLeGPKFu72EsSGxvQ0S9va6A6YFGScAXhhH26dwB/j+7ff1+UDLzPF?=
- =?us-ascii?Q?QsU/CNQyz/rIO6Gul4pWubYSxqkwDreWObM9whuNhj6LeflWbsIT2H1mTbRA?=
- =?us-ascii?Q?9s0QNqakpLmMtGz5zHC2iDLKCrYo29XLy7D/DqPW2e1KTQmsZRQAC7dsHy09?=
- =?us-ascii?Q?tcn3WCnDEcb2T4Y+SwSNl+3t70phtcaXqIpfcyQ4KmyG1+7yzz22v7XYEJai?=
- =?us-ascii?Q?YUPNm6ksDZ8bcMybfPMlfixUlYD9FIrBxFKoGVXMlu4j1VC7THZC/48ZXjLU?=
- =?us-ascii?Q?M0xroUt65hqwlBxR8efdovcdMadKPm/Ryb61k0fjGnJwUvunIvNC5AoqqQ8Y?=
- =?us-ascii?Q?HXHh4k3tjmsJFl8EXc6jtcHB0apra9mxF2SaNX59FII7OLK0chvsFAGuXkxG?=
- =?us-ascii?Q?OEoa9nqgxPu9yCtFxTW8M3n7v05spbvbfTxdZipeN31CtskMbvQ/hJSxSis2?=
- =?us-ascii?Q?iwppEk/dKFKE+YQSyqLl+AhZPmhZkezyEpjI576ROIvmCdsRuJmognpqpx2N?=
- =?us-ascii?Q?Vw1VXMPTRXGkKHlUDgaaKDoy1eEoXkf5KUfZBfXwnAiP9y3KK/rU/9XlEffo?=
- =?us-ascii?Q?UMwvGfdBP2iBRby7vVnDpQwbdYu8gFoMjZ49H96lGNGlqdU+uPBCNfsr/V5V?=
- =?us-ascii?Q?hCcaAC0ut4Arx1o1O+VTkWoBxiSt4lDENlzDBQNLnAwy3eLV7OHeh8YCfr3d?=
- =?us-ascii?Q?abWjyRTgG+C7aoC0+udwhYlPmg8AuJSwNoiUssb6G4JcqTbyNcE4M+yGlfN/?=
- =?us-ascii?Q?CJSsqe+Au7EoyGzAOTlXwICx8+CxjM0og2RaNvtjtyjS/9A8gkD4tx8Vqfw6?=
- =?us-ascii?Q?THvKgtgMqBLDjVRDVpewf0VsZlD4aCrqAa28aPuymhPdEy3+33Kwwm+aL18Y?=
- =?us-ascii?Q?Z1B8R0yiwgT29/myO0T0ziP1LzG2vGZ1kb4+OhUNLeKcjbAw/wpJM6Lhxt1d?=
- =?us-ascii?Q?aOi3kkQPgJ32/uOEUljhxHxyO7FMkpj7R/Hn0Vv6+6bWPwUP7sQOddJ3ouxr?=
- =?us-ascii?Q?0+L56A/UFqrX+LcPHmLKXnCGcwuQeXmTqK2LUI/qLUS/TXvAMswD5WFMPXqJ?=
- =?us-ascii?Q?4FXQFRO3h9afHzUj7x5gNfimoZ1o5UV/uZvW9RevK3VlAU6tNLdXUv9stZrW?=
- =?us-ascii?Q?NzuA5y1Mvfa0JJ30FX2zwIw=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 685c0fde-0dfd-4b93-3066-08d9f1fbc0fd
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 09:56:22.8102
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Q6dt6YzTJWbwo2qj/yixmbS+4W9lMrcqNprD3LnhGsgEixwxyPEyRZ8JldiAPXjFVw9mX6fopukK8P2cBAf0BA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB5336
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On 16.02.2022 22:59, Andrew Cooper wrote:
-> On 14/02/2022 14:38, Jan Beulich wrote:
->> On 14.02.2022 15:15, Andrew Cooper wrote:
->>> On 14/02/2022 13:43, Jan Beulich wrote:
->>>> On 14.02.2022 14:10, Andrew Cooper wrote:
->>>>> On 14/02/2022 12:50, Andrew Cooper wrote:
->>>>>> CET Indirect Branch Tracking is a hardware feature designed to prote=
-ct against
->>>>>> forward-edge control flow hijacking (Call/Jump oriented programming)=
-, and is a
->>>>>> companion feature to CET Shadow Stacks added in Xen 4.14.
->>>>>>
->>>>>> Patches 1 thru 5 are prerequisites.  Patches 6 thru 60 are fairly me=
-chanical
->>>>>> annotations of function pointer targets.  Patches 61 thru 70 are the=
- final
->>>>>> enablement of CET-IBT.
->>>>>>
->>>>>> This series functions correctly with GCC 9 and later, although an ex=
-perimental
->>>>>> GCC patch is required to get more helpful typechecking at build time=
-.
->>>>>>
->>>>>> Tested on a TigerLake NUC.
->>>>>>
->>>>>> CI pipelines:
->>>>>>   https://gitlab.com/xen-project/people/andyhhp/xen/-/pipelines/4704=
-53652
->>>>>>   https://cirrus-ci.com/build/4962308362338304
->>>>>>
->>>>>> Major changes from v1:
->>>>>>  * Boilerplate for mechanical commits
->>>>>>  * UEFI runtime services unconditionally disable IBT
->>>>>>  * Comprehensive build time check for embedded endbr's
->>>>> There's one thing I considered, and wanted to discuss.
->>>>>
->>>>> I'm tempted to rename cf_check to cfi for the function annotation, as
->>>>> it's shorter without reducing clarity.
->>>> What would the 'i' stand for in this acronym?
->>> The class of techniques is called Control Flow Integrity.
->>>
->>>>  Irrespective of the answer
->>>> I'd like to point out the name collision with the CFI directives at
->>>> assembler level. This isn't necessarily an objection (I'm certainly fo=
-r
->>>> shortening), but we want to avoid introducing confusion.
->>> I doubt there is confusion to be had here.=C2=A0 One is entirely a comp=
-iler
->>> construct which turns into ENDBR64 instructions in the assembler, and
->>> one is a general toolchain construct we explicitly disable.
->> Hmm. I'm still at best half convinced. Plus we generally have been
->> naming our shorthands after the actual attribute names. By using
->> "cfi" such a connection would also be largely lost. Roger, Wei,
->> others - do you opinions either way?
->=20
-> My point is this.=C2=A0 Doing nothing is my easiest option.
->=20
-> But if anyone has length/alternative suggestions, dealing with them now
-> is going to be infinitely easier than once this series is committed.
+Scanning for embedded endbranch instructions involves parsing the .text
+disassembly.  Data in the kexec trampoline has no ELF metadata, so objdump
+treats it as instructions and tries to disassemble.  Convert:
 
-Understood. My personal preference then is to stick with cf_check.
+  ffff82d040396108 <compatibility_mode_far>:
+  ffff82d040396108:       00 00                   add    %al,(%rax)
+  ffff82d04039610a:       00 00                   add    %al,(%rax)
+  ffff82d04039610c:       10 00                   adc    %al,(%rax)
 
-Jan
+  ffff82d04039610e <compat_mode_gdt_desc>:
+  ffff82d04039610e:       17                      (bad)
+          ...
+
+  ffff82d040396118 <compat_mode_gdt>:
+          ...
+  ffff82d040396120:       ff                      (bad)
+  ffff82d040396121:       ff 00                   incl   (%rax)
+  ffff82d040396123:       00 00                   add    %al,(%rax)
+  ffff82d040396125:       93                      xchg   %eax,%ebx
+  ffff82d040396126:       cf                      iret
+  ffff82d040396127:       00 ff                   add    %bh,%bh
+  ffff82d040396129:       ff 00                   incl   (%rax)
+  ffff82d04039612b:       00 00                   add    %al,(%rax)
+  ffff82d04039612d:       9b                      fwait
+  ffff82d04039612e:       cf                      iret
+          ...
+
+  ffff82d040396130 <compat_mode_idt>:
+          ...
+
+  ffff82d0403961b6 <kexec_reloc_size>:
+  ffff82d0403961b6:       b6 01                   mov    $0x1,%dh
+          ...
+
+to:
+
+  ffff82d040396108 <compatibility_mode_far>:
+  ffff82d040396108:       00 00 00 00 10 00                               ......
+
+  ffff82d04039610e <compat_mode_gdt_desc>:
+  ffff82d04039610e:       17 00 00 00 00 00 00 00 00 00                   ..........
+
+  ffff82d040396118 <compat_mode_gdt>:
+          ...
+  ffff82d040396120:       ff ff 00 00 00 93 cf 00 ff ff 00 00 00 9b cf 00 ................
+
+  ffff82d040396130 <compat_mode_idt>:
+  ffff82d040396130:       00 00 00 00 00 00                               ......
+
+  ffff82d040396136 <reloc_stack>:
+          ...
+
+Most data just gains type and size metadata.  The reloc_stack label is the
+wrong end of the data block to have a size, so move it to the lowest address
+and introduce .Lreloc_stack_base as a replacement.
+
+While kexec_reloc_size could gain metadata, it's use in the linker
+assertion (while correct) is deeply confusing to follow.  Drop it entirely,
+using a linker symbol instead to denote the end of the trampoline.
+
+No functional change.
+
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
+
+The remainder of the 32bit code has mode-invariant lengths, so disassembles
+safely as 64bit.  The only differences come from 32/64bit implicit register
+sizes.
+
+v2.1:
+ * New
+---
+ xen/arch/x86/include/asm/machine_kexec.h |  2 +-
+ xen/arch/x86/machine_kexec.c             |  2 +-
+ xen/arch/x86/x86_64/kexec_reloc.S        | 22 +++++++++++++++++-----
+ xen/arch/x86/xen.lds.S                   |  3 ++-
+ 4 files changed, 21 insertions(+), 8 deletions(-)
+
+diff --git a/xen/arch/x86/include/asm/machine_kexec.h b/xen/arch/x86/include/asm/machine_kexec.h
+index ba0d469d077b..d4880818c1d9 100644
+--- a/xen/arch/x86/include/asm/machine_kexec.h
++++ b/xen/arch/x86/include/asm/machine_kexec.h
+@@ -9,7 +9,7 @@ extern void kexec_reloc(unsigned long reloc_code, unsigned long reloc_pt,
+                         unsigned long ind_maddr, unsigned long entry_maddr,
+                         unsigned long flags);
+ 
+-extern unsigned int kexec_reloc_size;
++extern const char kexec_reloc_end[];
+ 
+ #endif
+ 
+diff --git a/xen/arch/x86/machine_kexec.c b/xen/arch/x86/machine_kexec.c
+index 08ec9fd43b1d..751a9efcaf6a 100644
+--- a/xen/arch/x86/machine_kexec.c
++++ b/xen/arch/x86/machine_kexec.c
+@@ -117,7 +117,7 @@ int machine_kexec_load(struct kexec_image *image)
+     }
+ 
+     code_page = __map_domain_page(image->control_code_page);
+-    memcpy(code_page, kexec_reloc, kexec_reloc_size);
++    memcpy(code_page, kexec_reloc, kexec_reloc_end - (char *)kexec_reloc);
+     unmap_domain_page(code_page);
+ 
+     /*
+diff --git a/xen/arch/x86/x86_64/kexec_reloc.S b/xen/arch/x86/x86_64/kexec_reloc.S
+index d488d127cfb9..05bf8810cee6 100644
+--- a/xen/arch/x86/x86_64/kexec_reloc.S
++++ b/xen/arch/x86/x86_64/kexec_reloc.S
+@@ -34,7 +34,7 @@ ENTRY(kexec_reloc)
+         movq    %rcx, %rbp
+ 
+         /* Setup stack. */
+-        leaq    (reloc_stack - kexec_reloc)(%rdi), %rsp
++        leaq    (.Lreloc_stack_base - kexec_reloc)(%rdi), %rsp
+ 
+         /* Load reloc page table. */
+         movq    %rsi, %cr3
+@@ -175,10 +175,16 @@ compatibility_mode_far:
+         .long 0x00000000             /* set in call_32_bit above */
+         .word 0x0010
+ 
++        .type compatibility_mode_far, @object
++        .size compatibility_mode_far, . - compatibility_mode_far
++
+ compat_mode_gdt_desc:
+         .word .Lcompat_mode_gdt_end - compat_mode_gdt -1
+         .quad 0x0000000000000000     /* set in call_32_bit above */
+ 
++        .type compat_mode_gdt_desc, @object
++        .size compat_mode_gdt_desc, . - compat_mode_gdt_desc
++
+         .align 8
+ compat_mode_gdt:
+         .quad 0x0000000000000000     /* null                              */
+@@ -186,16 +192,22 @@ compat_mode_gdt:
+         .quad 0x00cf9b000000ffff     /* 0x0010 ring 0 code, compatibility */
+ .Lcompat_mode_gdt_end:
+ 
++        .type compat_mode_gdt, @object
++        .size compat_mode_gdt, . - compat_mode_gdt
++
+ compat_mode_idt:
+         .word 0                      /* limit */
+         .long 0                      /* base */
+ 
++        .type compat_mode_idt, @object
++        .size compat_mode_idt, . - compat_mode_idt
++
+         /*
+          * 16 words of stack are more than enough.
+          */
+-        .fill 16,8,0
+ reloc_stack:
++        .fill 16,8,0
++.Lreloc_stack_base:
+ 
+-        .globl kexec_reloc_size
+-kexec_reloc_size:
+-        .long . - kexec_reloc
++        .type reloc_stack, @object
++        .size reloc_stack, . - reloc_stack
+diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
+index c399178ac123..13fc7ee008c1 100644
+--- a/xen/arch/x86/xen.lds.S
++++ b/xen/arch/x86/xen.lds.S
+@@ -87,6 +87,7 @@ SECTIONS
+        *(.text.unlikely)
+        *(.fixup)
+        *(.text.kexec)
++       kexec_reloc_end = .;
+        *(.gnu.warning)
+        _etext = .;             /* End of text section */
+   } PHDR(text) = 0x9090
+@@ -433,7 +434,7 @@ ASSERT(__2M_rwdata_end <= XEN_VIRT_END - XEN_VIRT_START + __XEN_VIRT_START -
+        "Xen image overlaps stubs area")
+ 
+ #ifdef CONFIG_KEXEC
+-ASSERT(kexec_reloc_size - kexec_reloc <= PAGE_SIZE, "kexec_reloc is too large")
++ASSERT(kexec_reloc_end - kexec_reloc <= PAGE_SIZE, "kexec_reloc is too large")
+ #endif
+ 
+ /* The Multiboot setup paths relies on this to simplify superpage PTE creation. */
+-- 
+2.11.0
 
 
