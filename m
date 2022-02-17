@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A9EE4B9E5A
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Feb 2022 12:11:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.274680.470238 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E27AF4B9E91
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Feb 2022 12:30:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.274687.470248 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKegV-0000ky-0B; Thu, 17 Feb 2022 11:10:51 +0000
+	id 1nKezN-00038z-K1; Thu, 17 Feb 2022 11:30:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 274680.470238; Thu, 17 Feb 2022 11:10:50 +0000
+Received: by outflank-mailman (output) from mailman id 274687.470248; Thu, 17 Feb 2022 11:30:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKegU-0000iT-Sd; Thu, 17 Feb 2022 11:10:50 +0000
-Received: by outflank-mailman (input) for mailman id 274680;
- Thu, 17 Feb 2022 11:10:49 +0000
+	id 1nKezN-00035t-Gt; Thu, 17 Feb 2022 11:30:21 +0000
+Received: by outflank-mailman (input) for mailman id 274687;
+ Thu, 17 Feb 2022 11:30:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xzkl=TA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nKegT-0000iN-8C
- for xen-devel@lists.xenproject.org; Thu, 17 Feb 2022 11:10:49 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.111.102])
+ (envelope-from <SRS0=9h7v=TA=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1nKezM-00035n-PY
+ for xen-devel@lists.xenproject.org; Thu, 17 Feb 2022 11:30:20 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4254715a-8fe2-11ec-b215-9bbe72dcb22c;
- Thu, 17 Feb 2022 12:10:48 +0100 (CET)
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-am5eur03lp2050.outbound.protection.outlook.com [104.47.8.50]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-24-lAeUG71uPhSUUFpIzCS97A-1; Thu, 17 Feb 2022 12:10:46 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by AS8PR04MB8295.eurprd04.prod.outlook.com (2603:10a6:20b:3b0::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.19; Thu, 17 Feb
- 2022 11:10:46 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65%5]) with mapi id 15.20.4995.016; Thu, 17 Feb 2022
- 11:10:46 +0000
+ id fc1f8a24-8fe4-11ec-b215-9bbe72dcb22c;
+ Thu, 17 Feb 2022 12:30:19 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 75DE41F37D;
+ Thu, 17 Feb 2022 11:30:18 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 25A4213BBF;
+ Thu, 17 Feb 2022 11:30:18 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id emn0B8oxDmLCXQAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 17 Feb 2022 11:30:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,158 +51,324 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4254715a-8fe2-11ec-b215-9bbe72dcb22c
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1645096247;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Kti0RY/8Y7Xjs1ngXd4Mmv7UV0LLB6b9gpzST5i0JYw=;
-	b=YHg+qAZhh+7Fp8UUcERh8Nf1kVufi17MXEsbCEo2i9hAt+sJ4emP3Lx1XJ2hPw5lE6pjCE
-	suYVnPC+kxe98Wl2BX9IeWXE3ua7RpcTSTB5CRWrHSsdmcQ8gtYELdIrsYLMDsRTWu/8CB
-	EZEoUo8FAr1ki/Jr8Iu2hQy6UueZHm8=
-X-MC-Unique: lAeUG71uPhSUUFpIzCS97A-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nx5FNRxcAVndwj14fIeqzw5Ujs6FWuWQVyhx/aJcWaJHpYQhq3tfw6s9YI5a8iJOTWsCg7uO11NFqgM33Rc5yxhSxQ6OYBg0UK+FJkjU00R2Nb13RU3jcezAK1YYj5QLeUp81demjNibTcIZ9jM26ExSgulsSKNOuKD8xsge7Q7/dR421ol4GIg6rNgFx5/7BFx+02+lp88dC8kRuFXYCRQ8OnnJ64iQfom6lC4RWuvOBQrtQ5w5aJpqT6t+TNgBnFf6KRaNS6zRQexFUPEPGlFGyyxzSgjkBaLghrEw9tZ6NguJL2JkNVrCHIYXUsdk62cmhdur5WHpfqYSEi9fxw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nXodBuNaQM7i9evwYxPWnSfdDvuz6QkNlqIFHPxIVng=;
- b=hL+FcOzRTHiHzc5Kx9CVGrhDhhn9+MLLCa41tyL2uEir4eJJhQ4E4YI5zduo0zZV9e57yqT+p/ZPRmSBtCyFt73MY24XyKojnpZaJ09tV/e3hq52jB450kJRcK7cp+NOgiL6QaxMtQr5jFJFojxIgCqHks8NnSeJghEj4+WFtg03G2s9USS19qIFTZyWcMIeAodd+aA62Wvupv/YrXiHl47YVPSS2Cs0O8LKAvNs6JpV4xyaKp2Bcjsji98CG6zXhfuMzHJHcvEgiyz2jtStIt3ag33Yr3fn9G5deRt4HFseK840TIuE4IS/WycNXM9zGnEFmPQ0fCjPC3dqaW7Lgg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <8d9c1694-402f-9bb7-f221-5201baa39326@suse.com>
-Date: Thu, 17 Feb 2022 12:10:44 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH v2 3/3] x86/Kconfig: introduce option to select retpoline
- usage
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-CC: Julien Grall <julien@xen.org>, Stefano Stabellini
- <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
-References: <20220216162142.15384-1-roger.pau@citrix.com>
- <20220216162142.15384-4-roger.pau@citrix.com>
- <b6dc1214-4f1d-f7df-50c4-d357a2380b30@suse.com>
- <Yg4kwK7XJJPNXUD7@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <Yg4kwK7XJJPNXUD7@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-ClientProxiedBy: AS8PR04CA0155.eurprd04.prod.outlook.com
- (2603:10a6:20b:331::10) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: fc1f8a24-8fe4-11ec-b215-9bbe72dcb22c
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1645097418; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=BERprfVQLlUU2/0r8f0rOy+5qxqLqk3fnm/xGVBRun4=;
+	b=O1Y0TMtwIkx/68laJyAF3k1ebX172iok7RuvJtJM+mfoUz5ss9R6T2d9x2aox1Fgb7+NVO
+	cHe2A+23FHigp29E5hOKQhBH4n6yEWclO97GWHsFgMcNWxuSYXN3G9KC6Svn9Om9MKESBv
+	djA4EXKFLpt0mLVafUoB0FNpdi6UbGU=
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2] tools/xenstore: add error indicator to ring page
+Date: Thu, 17 Feb 2022 12:30:16 +0100
+Message-Id: <20220217113016.8260-1-jgross@suse.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 33e480a3-2c45-41f3-7c62-08d9f2062535
-X-MS-TrafficTypeDiagnostic: AS8PR04MB8295:EE_
-X-Microsoft-Antispam-PRVS:
-	<AS8PR04MB8295D407205D7158219E4B09B3369@AS8PR04MB8295.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Rs4Ga+Z22w9cehFJBaf6mpE09+KI1GqdJgOrsw/r/esyzl9zFQbO0xsNC8xcw+XglPXDOfc+/FX/1cNwnEbHCAUrpJ+po4CqDR9oCiE9NMJHXUTLpITjqDZy4jnPj/JIiAU8HG5KQ4QePLimDmHThfh10TzEF00XvuYA0f98bSSWXtlOUXbyyxFMr2SENGBIl+yAjkoiSHNT86CxaDMT/a0R1wL9yDSictrkM1cuU/3zD69MDOLd9xr4lBrHEZkX7BJv/YRdXloMnNPZP1qSzIUhUUbl7xdjbBdtIuCBLlvSoECbslwfMia4gEyFRCNJikjAN15tBS7J0mF9Fd0rC8/RbBInsfcl115a5LiZXagkZUOrOSj5TpSe6KtIPhuBwLF5F4ZIErrRt8M5/7VVJJbsa903TwVin9K6SbNBsCJ1vNY+1+AxLkiRi42Yte6fHRjO76/CoFAPwbI//puEAXfXTLstsVITAHXR9/G+Q4zQsLuRc29TQe8JpUN7mxyxvUhT50x3RBHEJsTKkUg5mwfzkAgex3KWxveHnDhMuFaoEz44XLOqt2fVVLXJUSHuaGKgvhRN/lqG3Kh8a56GnfgNCw0voc8o7sf2Jss5Jnp9Dmx0F3EaBBpQhBcMu07jO/702KaHy58EhVmA1zcRtSfpaakF0jOedwqQItit9ATnS6gf9Xn3RS9OZh4tisD9n3J1wCPIlOaPhAFI6w3OF6tftuXD3K5Y7xox/+K74mmG5h4X8NgwAmCCVBG877ap
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(53546011)(6506007)(2616005)(31686004)(5660300002)(8676002)(6916009)(31696002)(66556008)(6512007)(2906002)(8936002)(54906003)(186003)(6486002)(508600001)(4326008)(36756003)(26005)(316002)(83380400001)(38100700002)(86362001)(66946007)(66476007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Q4bzJuWF9TpY8rgbKgAfmQ3EAW55p9r8Ya18x/28JK3HtGcbFhJu4jRoSJX/?=
- =?us-ascii?Q?5uy/90gu0rpApRaNmObsKRKplnExMPgXV6jLq3nqhqsrftGHq1C7Rx9fJUyP?=
- =?us-ascii?Q?DClfNxK1XoUsUI4X1qKMApZzVYE95aAUoEdcD1TGVDeU7d1AhXmuDs1o44bx?=
- =?us-ascii?Q?w+rI8e/qpxF8RoTUKLqS8V7dEse9mahoFwdjIyDZmPI3y4zVpLtnme5Wida1?=
- =?us-ascii?Q?qSOHTbyvJmti/+dDqZ5aqZaJF4mU9eip7n49yEQd/owiKdyRy03WGO5lUOJ6?=
- =?us-ascii?Q?cLVROMgWWksMdv47hfS668s7eky9tFG0lrZNF7nWyHBNW/p+cUBne+myQUNI?=
- =?us-ascii?Q?aW3RhT5v6HIe820QVLMGIVq30JANebA8I6pQhItR3RiGNMlkfB0yws6pLpN2?=
- =?us-ascii?Q?2VhhBx6FDV3G84yeILk4aTopgxd7NoQAGQi9afcEh8jOx1lM3gZqCLnUrkKd?=
- =?us-ascii?Q?hVQudZosfTE983NjE+Zwo6d2irjQFXIASjpxnMUdzC4CLdxURt2fzkOOHYGz?=
- =?us-ascii?Q?Tlc1sqasA2Z5AUq0iQFDDNLveY/+rwwu8t92z+jb6pyCksWA/TeCG9Zmp5EI?=
- =?us-ascii?Q?WpuDBDsDs7pSOCtiU5EmkTb7swTc7jMraWfNOojPuJdX5Ucq2M3X59GVeygV?=
- =?us-ascii?Q?DsFzp4i6me+xXtnpkGJTTKjhIWnVQ55MP0md4xcWbM5b4lj3d7L32fQpWubx?=
- =?us-ascii?Q?u46l34NojJqedjIolw84bJ2S1A5CyZl1T3vxD7UxkNnrRIg5wUySW//4ooU0?=
- =?us-ascii?Q?l6nh9nGeFTvdujHOD0TTHWodfe05AvuKiN4wpR1SlXWa7sMtsf1Wp8EBrngu?=
- =?us-ascii?Q?omY5MDKeARj4XJpvMAlYJLLpv+V2WbqUf7Bl6oPL6S/z6YVwhPCqrD8uW87X?=
- =?us-ascii?Q?rrRPunTcfW1M+GcDq/tAqXsOJ/o2Qg5VF7qzh6gHeoSKcvjeUXT1y64/EB16?=
- =?us-ascii?Q?sCQ+sjzjKzvJ5YTv9Oj/hQXR1rZUIEA1w9X2rJjeCj+BjGNvT5fqCO43DAO1?=
- =?us-ascii?Q?yDJZA2NAJaXF0WeIDhCe9c64R6kDL+wHVKp6iuC4ec6smnmhZS2iBWPE28Op?=
- =?us-ascii?Q?runbCKFOUGVE8MFZXPBJU/1IBMpNh28L4lhrChjk0+WF3KbQHmR/+iPeQcGT?=
- =?us-ascii?Q?f/AqGNOWrJdzFdiNKKKzxvMeLwcXtnvuSIkIgHEYLmA9bPP0T178szWrU3p2?=
- =?us-ascii?Q?NuhlhfJirRcvsOvDSjT4wvcDjAY1MYuV14ouF1jX95/BHFwgKrmfU1Emnnhn?=
- =?us-ascii?Q?nGLbljwj/HdQucyeaP4aTohxZBUDt+ng+Mb10CuV9gCI43wslXvcP0SQgpOH?=
- =?us-ascii?Q?t6d+ketovVv3bJcyCPpIF4drtl4/cDQZcsqptqNnHz6ebvicnxph/NFxguWB?=
- =?us-ascii?Q?k4iNYZATttBRE2amzmC1ukHXbFJ/PI/Kgp/h9y+0t07YQhEz7FZx7yjJvQul?=
- =?us-ascii?Q?qJpn5v7OwNlLKkFHxkBh4+5B8b25gBp9dLUWFKzgYeGH6CdXtZqSG6kpHqkG?=
- =?us-ascii?Q?TjbP/qy/didfefy0Hg+4SWEJyrCteaV1AgxKnmLjHOv0QRYMwVhVeZcJ925t?=
- =?us-ascii?Q?nc/tM1F84JcemgO4OHuhWvtP6G1v/c+cdvHX4fe9OwgzaNCiz8f3caIonHdG?=
- =?us-ascii?Q?WnA4Rj49lFKKMD2pVx1T6lE=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33e480a3-2c45-41f3-7c62-08d9f2062535
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 11:10:45.9029
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +sWq7qII1jweyLj7TIiBQbcA2/ej32AvNGiq9s6KtcZiXVQ4Rth8zSYt2S9rpc7X0JvN5HpUvL7kxt6TvhX23Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8295
+Content-Transfer-Encoding: 8bit
 
-On 17.02.2022 11:34, Roger Pau Monn=C3=A9 wrote:
-> On Thu, Feb 17, 2022 at 10:07:32AM +0100, Jan Beulich wrote:
->> On 16.02.2022 17:21, Roger Pau Monne wrote:
->>> Add a new Kconfig option under the "Speculative hardening" section
->>> that allows selecting whether to enable retpoline. This depends on the
->>> underlying compiler having retpoline support.
->>>
->>> Requested-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->>
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>
->> There's one aspect though which I would like to see Arm maintainer
->> input on:
->>
->>> --- a/xen/arch/x86/Kconfig
->>> +++ b/xen/arch/x86/Kconfig
->>> @@ -38,10 +38,6 @@ config GCC_INDIRECT_THUNK
->>>  config CLANG_INDIRECT_THUNK
->>>  	def_bool $(cc-option,-mretpoline-external-thunk)
->>> =20
->>> -config INDIRECT_THUNK
->>> -	def_bool y
->>> -	depends on GCC_INDIRECT_THUNK || CLANG_INDIRECT_THUNK
->>
->> Moving this ...
->>
->>> --- a/xen/common/Kconfig
->>> +++ b/xen/common/Kconfig
->>> @@ -146,6 +146,22 @@ config SPECULATIVE_HARDEN_GUEST_ACCESS
->>> =20
->>>  	  If unsure, say Y.
->>> =20
->>> +config INDIRECT_THUNK
->>> +	bool "Speculative Branch Target Injection Protection"
->>> +	depends on X86 && (GCC_INDIRECT_THUNK || CLANG_INDIRECT_THUNK)
->>
->> ... here despite being explicitly marked x86-specific looks a
->> little odd. Since the dependencies are x86-specific, dropping
->> X86 from here would make my slight concern go away.
->=20
-> Right - I've added the X86 because I was concerned about GCC or CLANG
-> also exposing the repoline options on Arm, but that's not an issue
-> because the compiler tests are only done for x86 anyway.
->=20
-> Feel free to drop the 'X86 &&' and the parentheses if you wish.
-> Otherwise I can resend if you prefer.
+In case Xenstore is detecting a malicious ring page modification (e.g.
+an invalid producer or consumer index set by a guest) it will ignore
+the connection of that guest in future.
 
-No need to resend just for this.
+Add a new error field to the ring page indicating that case. Add a new
+feature bit in order to signal the presence of that error field.
 
-Jan
+Move the ignore_connection() function to xenstored_domain.c in order
+to be able to access the ring page for setting the error indicator.
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+V2:
+- add some clarifications (Anthony PERARD)
+---
+ docs/misc/xenstore-ring.txt       | 35 +++++++++++++++++++++++++
+ tools/xenstore/xenstored_core.c   | 43 +++++++------------------------
+ tools/xenstore/xenstored_core.h   |  1 -
+ tools/xenstore/xenstored_domain.c | 34 +++++++++++++++++++++++-
+ tools/xenstore/xenstored_domain.h |  1 +
+ xen/include/public/io/xs_wire.h   |  9 +++++++
+ 6 files changed, 88 insertions(+), 35 deletions(-)
+
+diff --git a/docs/misc/xenstore-ring.txt b/docs/misc/xenstore-ring.txt
+index 16b4d0f5ac..b338b21b19 100644
+--- a/docs/misc/xenstore-ring.txt
++++ b/docs/misc/xenstore-ring.txt
+@@ -22,6 +22,7 @@ Offset  Length  Description
+ 2060    4       Output producer offset
+ 2064    4       Server feature bitmap
+ 2068    4       Connection state
++2072    4       Connection error indicator
+ 
+ The Input data and Output data are circular buffers. Each buffer is
+ associated with a pair of free-running offsets labelled "consumer" and
+@@ -66,6 +67,7 @@ The following features are defined:
+ Mask    Description
+ -----------------------------------------------------------------
+ 1       Ring reconnection (see the ring reconnection feature below)
++2       Connection error indicator (see connection error feature below)
+ 
+ The "Connection state" field is used to request a ring close and reconnect.
+ The "Connection state" field only contains valid data if the server has
+@@ -78,6 +80,19 @@ Value   Description
+ 1       Ring close and reconnect is in progress (see the "ring
+         reconnection feature" described below)
+ 
++The "Connection error indicator" is used to let the server indicate it has
++detected some error that led to deactivation of the connection by the server.
++If the feature has been advertised then the "Connection error indicator" may
++take the following values (new values might be added in future without them
++being advertised as a new feature):
++
++Value   Description
++-----------------------------------------------------------------
++0       No error, connection is valid
++1       Communication problems (event channel not functional)
++2       Inconsistent producer or consumer offset
++3       Protocol violation (client data package too long)
++
+ The ring reconnection feature
+ =============================
+ 
+@@ -114,3 +129,23 @@ packet boundary.
+ 
+ Note that only the guest may set the Connection state to 1 and only the
+ server may set it back to 0.
++
++The connection error feature
++============================
++
++The connection error feature allows the server to signal error conditions
++leading to a stop of the communication with the client. In case such an error
++condition has occurred, the server will set the appropriate error condition in
++the Connection error indicator and will stop communication with the client.
++
++Any value different from 0 is indicating an error. The value used is meant
++just for diagnostic purposes. A client reading the error value should be
++prepared to see values not described here, as new error cases might be added
++in future.
++
++The server will discard any already read or written packets, in-flight
++requests, watches and transactions associated with the connection.
++
++Depending on the error cause it might be possible that a reconnect via the
++ring reconnection feature (if present) can be performed. There is no guarantee
++this will succeed.
+diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+index 91d3adccb1..6e4022e5da 100644
+--- a/tools/xenstore/xenstored_core.c
++++ b/tools/xenstore/xenstored_core.c
+@@ -1455,35 +1455,6 @@ static struct {
+ 	[XS_DIRECTORY_PART]    = { "DIRECTORY_PART",    send_directory_part },
+ };
+ 
+-/*
+- * Keep the connection alive but stop processing any new request or sending
+- * reponse. This is to allow sending @releaseDomain watch event at the correct
+- * moment and/or to allow the connection to restart (not yet implemented).
+- *
+- * All watches, transactions, buffers will be freed.
+- */
+-void ignore_connection(struct connection *conn)
+-{
+-	struct buffered_data *out, *tmp;
+-
+-	trace("CONN %p ignored\n", conn);
+-
+-	conn->is_ignored = true;
+-	conn_delete_all_watches(conn);
+-	conn_delete_all_transactions(conn);
+-
+-	list_for_each_entry_safe(out, tmp, &conn->out_list, list) {
+-		list_del(&out->list);
+-		talloc_free(out);
+-	}
+-
+-	talloc_free(conn->in);
+-	conn->in = NULL;
+-	/* if this is a socket connection, drop it now */
+-	if (conn->fd >= 0)
+-		talloc_free(conn);
+-}
+-
+ static const char *sockmsg_string(enum xsd_sockmsg_type type)
+ {
+ 	if ((unsigned int)type < ARRAY_SIZE(wire_funcs) && wire_funcs[type].str)
+@@ -1598,6 +1569,7 @@ static void handle_input(struct connection *conn)
+ {
+ 	int bytes;
+ 	struct buffered_data *in;
++	unsigned int err;
+ 
+ 	if (!conn->in) {
+ 		conn->in = new_buffer(conn);
+@@ -1612,8 +1584,10 @@ static void handle_input(struct connection *conn)
+ 		if (in->used != sizeof(in->hdr)) {
+ 			bytes = conn->funcs->read(conn, in->hdr.raw + in->used,
+ 						  sizeof(in->hdr) - in->used);
+-			if (bytes < 0)
++			if (bytes < 0) {
++				err = XENSTORE_ERROR_RINGIDX;
+ 				goto bad_client;
++			}
+ 			in->used += bytes;
+ 			if (in->used != sizeof(in->hdr))
+ 				return;
+@@ -1621,6 +1595,7 @@ static void handle_input(struct connection *conn)
+ 			if (in->hdr.msg.len > XENSTORE_PAYLOAD_MAX) {
+ 				syslog(LOG_ERR, "Client tried to feed us %i",
+ 				       in->hdr.msg.len);
++				err = XENSTORE_ERROR_PROTO;
+ 				goto bad_client;
+ 			}
+ 		}
+@@ -1638,8 +1613,10 @@ static void handle_input(struct connection *conn)
+ 
+ 	bytes = conn->funcs->read(conn, in->buffer + in->used,
+ 				  in->hdr.msg.len - in->used);
+-	if (bytes < 0)
++	if (bytes < 0) {
++		err = XENSTORE_ERROR_RINGIDX;
+ 		goto bad_client;
++	}
+ 
+ 	in->used += bytes;
+ 	if (in->used != in->hdr.msg.len)
+@@ -1649,14 +1626,14 @@ static void handle_input(struct connection *conn)
+ 	return;
+ 
+ bad_client:
+-	ignore_connection(conn);
++	ignore_connection(conn, err);
+ }
+ 
+ static void handle_output(struct connection *conn)
+ {
+ 	/* Ignore the connection if an error occured */
+ 	if (!write_messages(conn))
+-		ignore_connection(conn);
++		ignore_connection(conn, XENSTORE_ERROR_RINGIDX);
+ }
+ 
+ struct connection *new_connection(const struct interface_funcs *funcs)
+diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
+index 190d2447cd..742812a974 100644
+--- a/tools/xenstore/xenstored_core.h
++++ b/tools/xenstore/xenstored_core.h
+@@ -206,7 +206,6 @@ struct node *read_node(struct connection *conn, const void *ctx,
+ 
+ struct connection *new_connection(const struct interface_funcs *funcs);
+ struct connection *get_connection_by_id(unsigned int conn_id);
+-void ignore_connection(struct connection *conn);
+ void check_store(void);
+ void corrupt(struct connection *conn, const char *fmt, ...);
+ 
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index d03c7d93a9..ae065fcbee 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -427,6 +427,38 @@ static void domain_conn_reset(struct domain *domain)
+ 	domain->interface->rsp_cons = domain->interface->rsp_prod = 0;
+ }
+ 
++/*
++ * Keep the connection alive but stop processing any new request or sending
++ * reponse. This is to allow sending @releaseDomain watch event at the correct
++ * moment and/or to allow the connection to restart (not yet implemented).
++ *
++ * All watches, transactions, buffers will be freed.
++ */
++void ignore_connection(struct connection *conn, unsigned int err)
++{
++	struct buffered_data *out, *tmp;
++
++	trace("CONN %p ignored, reason %u\n", conn, err);
++
++	if (conn->domain && conn->domain->interface)
++		conn->domain->interface->error = err;
++
++	conn->is_ignored = true;
++	conn_delete_all_watches(conn);
++	conn_delete_all_transactions(conn);
++
++	list_for_each_entry_safe(out, tmp, &conn->out_list, list) {
++		list_del(&out->list);
++		talloc_free(out);
++	}
++
++	talloc_free(conn->in);
++	conn->in = NULL;
++	/* if this is a socket connection, drop it now */
++	if (conn->fd >= 0)
++		talloc_free(conn);
++}
++
+ static struct domain *introduce_domain(const void *ctx,
+ 				       unsigned int domid,
+ 				       evtchn_port_t port, bool restore)
+@@ -1305,7 +1337,7 @@ void read_state_connection(const void *ctx, const void *state)
+ 		 * dead. So mark it as ignored.
+ 		 */
+ 		if (!domain->port || !domain->interface)
+-			ignore_connection(conn);
++			ignore_connection(conn, XENSTORE_ERROR_COMM);
+ 
+ 		if (sc->spec.ring.tdomid != DOMID_INVALID) {
+ 			tdomain = find_or_alloc_domain(ctx,
+diff --git a/tools/xenstore/xenstored_domain.h b/tools/xenstore/xenstored_domain.h
+index 1e929b8f8c..4a37de67a0 100644
+--- a/tools/xenstore/xenstored_domain.h
++++ b/tools/xenstore/xenstored_domain.h
+@@ -47,6 +47,7 @@ int do_reset_watches(struct connection *conn, struct buffered_data *in);
+ void domain_init(int evtfd);
+ void dom0_init(void);
+ void domain_deinit(void);
++void ignore_connection(struct connection *conn, unsigned int err);
+ 
+ /* Returns the implicit path of a connection (only domains have this) */
+ const char *get_implicit_path(const struct connection *conn);
+diff --git a/xen/include/public/io/xs_wire.h b/xen/include/public/io/xs_wire.h
+index 4dd6632669..953a0050a3 100644
+--- a/xen/include/public/io/xs_wire.h
++++ b/xen/include/public/io/xs_wire.h
+@@ -124,6 +124,7 @@ struct xenstore_domain_interface {
+     XENSTORE_RING_IDX rsp_cons, rsp_prod;
+     uint32_t server_features; /* Bitmap of features supported by the server */
+     uint32_t connection;
++    uint32_t error;
+ };
+ 
+ /* Violating this is very bad.  See docs/misc/xenstore.txt. */
+@@ -135,11 +136,19 @@ struct xenstore_domain_interface {
+ 
+ /* The ability to reconnect a ring */
+ #define XENSTORE_SERVER_FEATURE_RECONNECTION 1
++/* The presence of the "error" field in the ring page */
++#define XENSTORE_SERVER_FEATURE_ERROR        2
+ 
+ /* Valid values for the connection field */
+ #define XENSTORE_CONNECTED 0 /* the steady-state */
+ #define XENSTORE_RECONNECT 1 /* guest has initiated a reconnect */
+ 
++/* Valid values for the error field */
++#define XENSTORE_ERROR_NONE    0 /* No error */
++#define XENSTORE_ERROR_COMM    1 /* Communication problem */
++#define XENSTORE_ERROR_RINGIDX 2 /* Invalid ring index */
++#define XENSTORE_ERROR_PROTO   3 /* Protocol violation (payload too long) */
++
+ #endif /* _XS_WIRE_H */
+ 
+ /*
+-- 
+2.34.1
 
 
