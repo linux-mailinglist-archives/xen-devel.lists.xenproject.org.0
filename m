@@ -2,44 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 652804B9D66
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Feb 2022 11:42:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.274627.470161 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5B2E4B9DD3
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Feb 2022 11:58:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.274634.470172 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKeEk-0002G6-6J; Thu, 17 Feb 2022 10:42:10 +0000
+	id 1nKeT9-0003qD-Co; Thu, 17 Feb 2022 10:57:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 274627.470161; Thu, 17 Feb 2022 10:42:10 +0000
+Received: by outflank-mailman (output) from mailman id 274634.470172; Thu, 17 Feb 2022 10:57:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKeEk-0002EG-2u; Thu, 17 Feb 2022 10:42:10 +0000
-Received: by outflank-mailman (input) for mailman id 274627;
- Thu, 17 Feb 2022 10:42:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=xzkl=TA=suse.com=jbeulich@srs-se1.protection.inumbo.net>)
- id 1nKeEi-0002EA-Ue
- for xen-devel@lists.xenproject.org; Thu, 17 Feb 2022 10:42:08 +0000
-Received: from de-smtp-delivery-102.mimecast.com
- (de-smtp-delivery-102.mimecast.com [194.104.109.102])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 40d13035-8fde-11ec-8eb8-a37418f5ba1a;
- Thu, 17 Feb 2022 11:42:07 +0100 (CET)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04lp2055.outbound.protection.outlook.com [104.47.12.55]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- de-mta-5-Dk8FM5SJOG-VT4-BZPZNpQ-1; Thu, 17 Feb 2022 11:42:06 +0100
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com (2603:10a6:803:e7::16)
- by AM8PR04MB7395.eurprd04.prod.outlook.com (2603:10a6:20b:1c4::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.17; Thu, 17 Feb
- 2022 10:42:05 +0000
-Received: from VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65]) by VI1PR04MB5600.eurprd04.prod.outlook.com
- ([fe80::d479:b728:345c:bd65%5]) with mapi id 15.20.4995.016; Thu, 17 Feb 2022
- 10:42:05 +0000
+	id 1nKeT9-0003nC-8K; Thu, 17 Feb 2022 10:57:03 +0000
+Received: by outflank-mailman (input) for mailman id 274634;
+ Thu, 17 Feb 2022 10:57:02 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mzVd=TA=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nKeT8-0003n6-AJ
+ for xen-devel@lists.xenproject.org; Thu, 17 Feb 2022 10:57:02 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 539eaaf5-8fe0-11ec-b215-9bbe72dcb22c;
+ Thu, 17 Feb 2022 11:57:00 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,213 +36,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 40d13035-8fde-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=mimecast20200619;
-	t=1645094248;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LsNLX9HKlarzxpykQvdNVa6gyEF5+GjGf0wJ34RvpBg=;
-	b=jw9Rlr/7xH71UYhIfEhEimo7amGBV+Rpd8srI8n5sMNfr2b5mtGGK5xbN07hfmANJQ5jMd
-	2zphufQsL6CemTUNBNAZmsIgc3tBShwUlIs3FBX80zspP+86CMCeuDYQr/xbVQgAOGtYZR
-	bIKO8r46kqZppm5MUE7lEmC1kAD6cdU=
-X-MC-Unique: Dk8FM5SJOG-VT4-BZPZNpQ-1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Pb3GF/sl3TsQ9+hGlNgBRxILL86YSemhdMR37UVTtYWQ8UFZSgUXvKb0J56w6ZaSODT9heJ4C5sbFCNrBbLuQQz+bKahREuT5v4SRSg6J1KFKm++gg/0Cu/4pEEQ3r+/LNd+FR2BcUC/9m5Q1wVceKbBiOj5A6kS1YEyxu3w0bAqUgOAgAwv0/OS5cH9A59gHAb2KOzlMpK8lDUZFR2P62XlkEtSm8I5kAOXLHKxS9T1R7lWLW3LHrPSknYGy3gCWMt6C4Z5XphlCfgy7Te+Jgv08lSr3A+iL6M75qZhEFkNlkzt78HVd1xR3D5nd4tirXvH49l+Zg/Hq6y38cZ/6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LsNLX9HKlarzxpykQvdNVa6gyEF5+GjGf0wJ34RvpBg=;
- b=DYq8KP4ntnvHr61lLEmcYGn7qry63wq2VPVwQVYUWoCocULbxwPgAs40COkiZ76XNvwbP4fXJSNXjGuseFnkEg7YfDeDKPhF9ibJq9atVzY1o0l1+GaAGGaQZ1IeJHAE9SA/PqSkfHdRwxUN7p7dw9yK7AgXXDT0EIOMwriF85bfhtpcC3FpurZCZnGAX0bYHzdVpyBG883ZqhPDvidUZKDmpeGHCQLTAMsym4WFpAU9ADv36KpAxyjbON5RfaoqAu8SphzgimACYz4xVu1RHSLZNwmyR83bJ3UZ1ALGb9TViIrUA4q06G3ESh9Y0ep77V6MPjYksI4BYJeAY9F2wA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <4e9924f7-fdfa-c3c3-7b6c-e5cbe77ff9ac@suse.com>
-Date: Thu, 17 Feb 2022 11:42:03 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.1
-Subject: Re: [PATCH v2.1 6.5/70] x86/kexec: Annotate embedded data with ELF
- metadata
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20220214125127.17985-1-andrew.cooper3@citrix.com>
- <20220217100158.22402-1-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20220217100158.22402-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9PR06CA0231.eurprd06.prod.outlook.com
- (2603:10a6:20b:45e::28) To VI1PR04MB5600.eurprd04.prod.outlook.com
- (2603:10a6:803:e7::16)
+X-Inumbo-ID: 539eaaf5-8fe0-11ec-b215-9bbe72dcb22c
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1645095420;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ZtW6VisS4ywH8dJriw3Ytb5KVKugn/0fU/ZsU7IJrwg=;
+  b=RZS3u7l+em4yH00niIg3iwB2YfmNK6r3g7Snvuh3fO6IoF9pAEAEsYq5
+   xhgFoDnILhhAZLBqDelK6/OS6EdfWd7UmShNojsLUJyRrXB2uZTA93hFf
+   qMTvp/ZE893AjWlSGBqTNqQSl3zFhZ24vYU4dd2cq6swrvl9/szpeUy94
+   I=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: BUc3DiS6lY9e4LfAqDVql4X4a+3j0ic+7/NPA7neb7JbKsnQnjYkwjetVdIdnJovPqwbiUMSE9
+ fwWH4Z9hCRajICV4oAb6gFZtzEGlxbbCk6Z1hFLjYnipky80C1+e275M3L6I9BdpuVKLwmP04d
+ 8Sy7fNOvkzfnylFNoyWdw97NMKnlStydWXw/DV3QbaDjMakXyDpVxCR3Vzke6F4IEFMB1JPTHq
+ IMS6/MBxktPHjJT+iUQQuNDT1Qjz7p07YH2C8pwCAZvOu7S+dB8eSPL2dMb0DPUvBC6KC2vnUp
+ ObizTexrd1sgeLUq/z2gMi9g
+X-SBRS: 5.1
+X-MesageID: 64316964
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:h3IXdqjmAeoy7ohTO5nYwJ5WX1615RcKZh0ujC45NGQN5FlHY01je
+ htvCmmEMq7eMGb9Kdsjbtzn/UJS7Z7Wyt42SQJv+CoyFCkb9cadCdqndUqhZCn6wu8v7a5EA
+ 2fyTvGacajYm1eF/k/F3oAMKRCQ7InQLlbGILes1htZGEk0GE/NtTo5w7Rj2tQx3oDga++wk
+ YiaT/P3aQfNNwFcagr424rbwP+4lK2v0N+wlgVWicFj5DcypVFMZH4sDfjZw0/DaptVBoaHq
+ 9Prl9lVyI97EyAFUbtJmp6jGqEDryW70QKm0hK6UID66vROS7BbPg/W+5PwZG8O4whlkeydx
+ /1TsprqThg2OJeLp/hBeV5+LiYlZp9vreqvzXiX6aR/zmXDenrohf5vEFs3LcsT/eMf7WNmr
+ KJCbmpXN1ba2rzwkOnTpupE36zPKOHiOp8fvXdxiynUF/88TbjIQrnQ5M8e1zA17ixLNaiCP
+ JNHOGQzBPjGS0QWeXIuN5I+oOahoX2mehEFtWmTiJNitgA/yyQuieOwYbI5YOeiR9hRn0uej
+ nLL+SL+GB5yHMeE1TOP/3aoh+nOtSD2QoQfEPu/7PECqEKX7nweDlsRT1TTifu2kEmlQPpEN
+ lcZvCEpqMAa5EGtC9XwQRC8iHqFpQIHHcpdFfUg7wOAwbaS5ByWbkAGRDNcbN0ttOctWCcnk
+ FSOmrvU6SdH6ePPDyjHr/HN8G30aXN9wXI+iTEsUwwDud78v4cJyS3TEvwkNpOy1YbHMGSlq
+ 9yVlxQWi7IWhM8N8qy0+1Hbnj6hzqT0oh4JChb/BTz8sF4gDGKxT8nxsAWAs64cRGqMZgTZ5
+ BA5d96iAPfi5H1nvAiEW60zEb6g/J5p2xWM0Ac0T/HNG9lAkkNPnLy8AhkidS+F0e5eIFcFh
+ XM/XysLu/e/21PwMMdKj3qZUZhC8EQZPY2NugroRtRPeINtUwSM4TtjY0Wdt0i0zhRxyfpgZ
+ 8vGKpnxZZr/NUiB5GDpLwv6+eV2rh3SOEuJHcyrp/hZ+eH2iIGppUctbwLVM7FRAFKsqwTJ6
+ ddPX/ZmOD0EONASlhL/qNZJRXhTdCBTLcmv96R/K77SSiI7STpJI6KAntscl3lNwv09ehHgp
+ SrmBCe1CTPX2BX6FOl9QisyMuyxA8ck/ClT0O5FFQ/A5kXPqL2HtM83H6bbt5F9nAC65fIrH
+ fQDZeuaBfFDFmbO9zgHNMGvp41+bhW7wwmJOnP9MjQ4epdhQS3P+8PlIVSzpHVfUHLvuJtsu
+ aCk2yPaXYEHG1ZoAvHJZa/91Fi2p3Ucxr5/BhOaPtlJdUzw24F2MCit3OQvKsQBJEyblDuX3
+ gqbGzkCouzJr9Nn+dXFn/nc/YyoD/F/DgxRGGyCteS6MizT/2yCx45cUbnXIWCBBT2soKj7P
+ Ldb1fDxNvEDjW1miYskHuY517866vvuu6ReklZuEkLUYgn5EbhnOHSHg5VC7/Uf2r9DtAKqc
+ UuT4d0Ga66RMcboHVNNdgooauOPiaMdljXItKlnJUz74Gl8/aadUFUUNB6J0XQPILxwOYIj4
+ OEgpM9JtFDv1kt0ao6L3nJO6mCBDn0cSKF25JgVDbjihhcv1lwfM4fXDTX74c3XZthBWqXwz
+ uR4WEYWa2xg+3f/
+IronPort-HdrOrdr: A9a23:VUNWfqHHL6MDWhMWpLqE6MeALOsnbusQ8zAXP0AYc3Jom+ij5q
+ STdZUgpHrJYVkqNU3I9ertBEDEewK6yXcX2/hyAV7BZmnbUQKTRekIh7cKgQeQeBEWntQts5
+ uIGJIeNDSfNzdHsfo=
+X-IronPort-AV: E=Sophos;i="5.88,375,1635220800"; 
+   d="scan'208";a="64316964"
+Date: Thu, 17 Feb 2022 10:56:53 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Juergen Gross <jgross@suse.com>
+CC: <xen-devel@lists.xenproject.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] tools/xenstore: add error indicator to ring page
+Message-ID: <Yg4p9eq4A7b+FimR@perard.uk.xensource.com>
+References: <20220210111620.5256-1-jgross@suse.com>
+ <YgvJyt5Jpvsb2Jws@perard.uk.xensource.com>
+ <8891ed69-2ad2-2842-e34e-8252860b71d9@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eff7a023-f55a-4f72-364d-08d9f2022390
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7395:EE_
-X-Microsoft-Antispam-PRVS:
-	<AM8PR04MB73959070E2676F254E966A41B3369@AM8PR04MB7395.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	AXHQhYffjL+0D7jDOQuRTFHxQxrafGm9D7CzCKub8Bpzxw5MkGOBzwoLsMF4crBqWK9gHo1M7pxhOdEEZPaLtadmhtq/LaFo6XLT2TBo21LoyAaYgVTaYPo5ZHy35jd7r5VAJpA4TRf8qmUVH7fAW0432SQbvz/X5oJRreTXAxHYoOP+XikPpeSASwHOrh8EffmCZj82KQATsX/LasO/iwP9KUOi4r0nFZ7jjbbb7rKnnCYCmBby8g5FBC5uFvLf3mwoOFgfijOdZjgdNxD5egtQkxRWZ4LpqBoOjG0xU4GY1LllXBHBFTzdTkDBpC3OdUEsNqQoo/35jPSEuPVclIrlMILKlRMVH8qofnPruZb7MkdbgpD9CJDCaCo9qLvJ/QRZ4dFnQNtm6Vac+gSzKmt8kTQ31z0+y18DV5L9GNkd8CT8K9vYlFDVCMD4a4FbSIIN9ZpaXP6QkL5OgEShn+tWd5x0eESVMkAoxgi1VFwgiXAe51pd5veuFH6jAxuLoEOqK596KISVoG8IH6MD/0XI266bDe1JiQ0U/uwDxRrTsQ85Y/7Yu7VuGyNb2IwU6iZSDrz7RZretx91BjtVKk9mqxS5ONhgjnU/XCG1kfMdpxsJEpZbYWwdN22ny6RaZLJs9vJZI5pe16eQvC0uHI3Glfv3b2CTEiuVN5acJMeuKFUaO58NPH4XgfsgRh6yJTPeUxMYdCrwVu5GlbFa2x7aP6ibr1AkW+m2d54IIOcmmkBDqI+S/XyWpauNG7At
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR04MB5600.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230001)(366004)(38100700002)(83380400001)(54906003)(5660300002)(6916009)(316002)(66476007)(66556008)(66946007)(4326008)(8676002)(2616005)(8936002)(6486002)(186003)(26005)(2906002)(508600001)(6512007)(53546011)(6506007)(31696002)(86362001)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SDlxaVdkZ0d6SHVmcWZZT0NjVVhFN0UzQXkrSU40Rjd4c2VYM3pDZXluN0VS?=
- =?utf-8?B?SHpCY0tFdjkyT2I3V3ZyOFYzY0Q5R3plRWNBa3R4TXJHRVJMT01BdVlBUGFj?=
- =?utf-8?B?RGxKY3JkeitWbW9BRWtyS09lQVFaTWUzUlU2QWJYRlhqeG44aHZwdWRDa0p3?=
- =?utf-8?B?SU1OT3JTeldCc2tIdndRc2c2cks5U21CZmEyYzU3L3ZpRjlyb0JRK1p0VERC?=
- =?utf-8?B?eG9uSUhHZlQ5RDl1TUVEYTAyejBtNkh6dGI4NGRDZ1J3R0FvTHZFY2NacHV5?=
- =?utf-8?B?cFJxdHEvaE9NaE94aFVidHNaNncwVlFGV25nNldsbUdKYllHcmJMdGw4RGpr?=
- =?utf-8?B?RTJpU1dDZ2xEMklvN1JqSURubE1KSkg4VnpYZzMwVGpwOG82TGZBYkU3NXlm?=
- =?utf-8?B?VzlMYVdVQklzYUNaVjlpQWlQVjlORzMrN0lLdjkxRFhZL0ViQ0VsekVrS3Js?=
- =?utf-8?B?TDlyVXZqYXhrZzZCK0dHWlhjZGg4MnA4cHJXVGRmMmJPV3BKMmRxdDRxNkNN?=
- =?utf-8?B?U2JqOVNLQ2FpME05TUxBcUJVRVZ0L2ltOWFNNmRFN2JZcDM2L1dFRHlaOXQ5?=
- =?utf-8?B?Tk5XTUEvQ05rKzV2MW9jbkVUK1NJZTNWdTROY01VcHpwQ2k5QTMvRTd1NEVE?=
- =?utf-8?B?cG9nNVJFWTRHQ3lFK05ZSkMrYnk1M0tIbnJ4SEJJRmxmbXJZUnp3UkV1TG0y?=
- =?utf-8?B?dWhKY1VyM25pQ0t2WEYvUFJRNnRQb2pFUTZMb3BLTURramlhNm45QXFKem8z?=
- =?utf-8?B?WjN0bWlsR0pmZW5WeWNiazg5QTRGRVJrNlprTVdGemlnajgvbFJ1Q2xTaTNH?=
- =?utf-8?B?U1JLcFFvUjRqU21NSDdDWTNjbDZpNVI2MnNTVjB6Q1R3cnBrMnZhUHpaNDJO?=
- =?utf-8?B?cWl2ZEo4QTkwekhkbHkyblBOVGNFS1ZvcnUxaXFFZXlOWmsweEExcTdISmMv?=
- =?utf-8?B?TEZVL2JMcG83UmxsYnF6cmRZQnRTbyt4aEtFVmhFSGxBVVkxaVFSY0ZqR3pZ?=
- =?utf-8?B?emp0T1RmSUh4YXpRRWJ2L010eHozN3dENTZZcmtHRERHdFN5Q0hFdG1NeHdq?=
- =?utf-8?B?Qlh2b0c4OHE0NzFnY2tFemR1MUM4dS9PNFdpV1hXODhvLzBxbVJ0VVV6MFZR?=
- =?utf-8?B?VXp2UkhLS0NydE5PZ0trWjJnNFU1dm53Vi9DaHZmbTB5aXVJY2tzWmt5eGsv?=
- =?utf-8?B?M2FoVlM4TmMyblRSUXpEUXJGcTVqWnozNS9aamtseHVIa1ZsSUNPbEJoNmN3?=
- =?utf-8?B?Y2RyZUdrVll2NlUxMERWeFF3a0NXNXpuUTYvam5rNk0xYXNQRW1QbUtORnJQ?=
- =?utf-8?B?czFMdUY1Vmt5ZW1KeGg4UVpka0NWbXMzQ0k1aXJOZTJtOU8xZHI4cWxxcXJB?=
- =?utf-8?B?d3pqdlQ5TUxmdlF3RzJIVlVuOC9vdE04TnhyWFF6bjFzZ3d3UkwyUjdPeElm?=
- =?utf-8?B?NjRkT3hySkRnQXdvbG5mUmE3bk5MczBqTEpCL0VESndqQmgrUU1rSzB5T1dv?=
- =?utf-8?B?dlhqQW92Z0NzaGpYVkt6Ym1ib0FDdmRwRExjWXZBUU5TNk5tbTk3eXR1UUpj?=
- =?utf-8?B?UXVGai83ZU1hT01rWms5RzY0aEJmdkVMWjVLa1lEMTRFdUg5U3RTUFg2R05U?=
- =?utf-8?B?NnNYVmkzNnVvZXZHV3hJTGZTN3pEZmdBMmlBL0s2TjZieTZKc2Z3Q2J2RDI5?=
- =?utf-8?B?dUpHQWpKYVNrSm1pcFQ3bThxa3ZZOGZJMk5nKzdhZTdVM3NFbWdVUG8yV1hu?=
- =?utf-8?B?aEtKRGJjY050M2QxQ3E3MW9kTzlYNTQvS0Flc3QwSW5VMnczTGNESUJYWFI3?=
- =?utf-8?B?bzhjcGlNN0YyRERJV1lFaUxOWUtHUEpWU0x0TlNFWG8ycTdEcDVwSDgreStw?=
- =?utf-8?B?dTZ4S2FUWXdSZjM5RDdwVEtET2dRMVYzaXAzSTRpbjVOZFFEeFB0MVZCQnQ3?=
- =?utf-8?B?eXFzbXA2U3RUQUZLSzBqWURMMjRwWDBxQW01cmxFSmhuL1d1RExYSXlnR0Vq?=
- =?utf-8?B?VS8rQit4S293Nkg4elBsQTZ3dm8vMk5qOGxKZzlIS1kySGFYcE44dytkZTJC?=
- =?utf-8?B?bVRZSXRaeTZ3d3BIYkFGb3FxTEMzN0NqbDZMakF0bWVZaHBXa3pzNFRoVmhk?=
- =?utf-8?B?NjIrbGhyWVRPRS9rKzY0b2ZhNWVpWi9LMmdjNllwakRpZ0pQTHA5TVVqcTY2?=
- =?utf-8?Q?1t4ViUVv1iStxShX5z/dihI=3D?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eff7a023-f55a-4f72-364d-08d9f2022390
-X-MS-Exchange-CrossTenant-AuthSource: VI1PR04MB5600.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2022 10:42:05.1395
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: t4L+d+jq5A+r3LyqCn7LXA3EhuM6uu82hpj6b+LbR9OI1X6zs2/rj7QMtAiybtAe+cWCmcMD1lhtr5QiCLPSzg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7395
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <8891ed69-2ad2-2842-e34e-8252860b71d9@suse.com>
 
-On 17.02.2022 11:01, Andrew Cooper wrote:
-> Scanning for embedded endbranch instructions involves parsing the .text
-> disassembly.  Data in the kexec trampoline has no ELF metadata, so objdump
-> treats it as instructions and tries to disassemble.  Convert:
+On Tue, Feb 15, 2022 at 04:45:28PM +0100, Juergen Gross wrote:
+> On 15.02.22 16:42, Anthony PERARD wrote:
+> > On Thu, Feb 10, 2022 at 12:16:20PM +0100, Juergen Gross wrote:
+> > > +The "Connection error indicator" is used to let the server indicate it has
+> > > +detected some error that led to deactivation of the connection by the server.
+> > > +If the feature has been advertised then the "Connection error indicator" may
+> > > +take the following values:
+> > > +
+> > > +Value   Description
+> > > +-----------------------------------------------------------------
+> > > +0       No error, connection is valid
+> > > +1       Communication problems (event channel not functional)
+> > > +2       Inconsistent producer or consumer offset
+> > > +3       Protocol violation (client data package too long)
+> > 
+> > Is this meant to be the only possible error value? If in the future we
+> > want to add more possible error, does it going to need a new feature
+> > bit and maybe a new error field?
 > 
->   ffff82d040396108 <compatibility_mode_far>:
+> No, as the guest is not opting into this feature, but just gets it
+> presented, there is no need to have another bit for new error values.
 
-What about the (possible) padding ahead of this? Should the .align
-there perhaps specify a filler character?
+This probably needs to be spelled out in the documents that.
 
->   ffff82d040396108:       00 00                   add    %al,(%rax)
->   ffff82d04039610a:       00 00                   add    %al,(%rax)
->   ffff82d04039610c:       10 00                   adc    %al,(%rax)
-> 
->   ffff82d04039610e <compat_mode_gdt_desc>:
->   ffff82d04039610e:       17                      (bad)
->           ...
-> 
->   ffff82d040396118 <compat_mode_gdt>:
->           ...
->   ffff82d040396120:       ff                      (bad)
->   ffff82d040396121:       ff 00                   incl   (%rax)
->   ffff82d040396123:       00 00                   add    %al,(%rax)
->   ffff82d040396125:       93                      xchg   %eax,%ebx
->   ffff82d040396126:       cf                      iret
->   ffff82d040396127:       00 ff                   add    %bh,%bh
->   ffff82d040396129:       ff 00                   incl   (%rax)
->   ffff82d04039612b:       00 00                   add    %al,(%rax)
->   ffff82d04039612d:       9b                      fwait
->   ffff82d04039612e:       cf                      iret
->           ...
-> 
->   ffff82d040396130 <compat_mode_idt>:
->           ...
-> 
->   ffff82d0403961b6 <kexec_reloc_size>:
->   ffff82d0403961b6:       b6 01                   mov    $0x1,%dh
->           ...
-> 
-> to:
-> 
->   ffff82d040396108 <compatibility_mode_far>:
->   ffff82d040396108:       00 00 00 00 10 00                               ......
-> 
->   ffff82d04039610e <compat_mode_gdt_desc>:
->   ffff82d04039610e:       17 00 00 00 00 00 00 00 00 00                   ..........
-> 
->   ffff82d040396118 <compat_mode_gdt>:
->           ...
->   ffff82d040396120:       ff ff 00 00 00 93 cf 00 ff ff 00 00 00 9b cf 00 ................
-> 
->   ffff82d040396130 <compat_mode_idt>:
->   ffff82d040396130:       00 00 00 00 00 00                               ......
+> Note that this is a purely informational interface. The error value
+> (other than 0) is only for diagnostic purposes, there is no way a
+> guest could react in a sane way to a specific error case.
 
-With the .size directives added, can we rely on consistent (past,
-present, and future) objcopy behavior for padding gaps? It just so
-happens that there's no 4-byte gap between compat_mode_gdt_desc and
-compat_mode_gdt. Changing the .align ahead of compatibility_mode_far
-would eliminate the risk of padding appearing if the code further up
-changed.
+This could also be spelled out in the document, in the new section "The
+connection error feature", that a value other than 0 is a connection
+error even if the error number isn't known to the client.
 
->   ffff82d040396136 <reloc_stack>:
->           ...
+Thanks,
 
-Now this is particularly puzzling: Us setting %rsp to an unaligned
-address is clearly not ABI-conforming. Since you're fiddling with
-all of this already anyway, how about fixing this at the same time?
-Of course there would then appear padding ahead of the stack, unless
-the stack was moved up some.
-
-> @@ -175,10 +175,16 @@ compatibility_mode_far:
->          .long 0x00000000             /* set in call_32_bit above */
->          .word 0x0010
->  
-> +        .type compatibility_mode_far, @object
-> +        .size compatibility_mode_far, . - compatibility_mode_far
-> +
->  compat_mode_gdt_desc:
->          .word .Lcompat_mode_gdt_end - compat_mode_gdt -1
->          .quad 0x0000000000000000     /* set in call_32_bit above */
->  
-> +        .type compat_mode_gdt_desc, @object
-> +        .size compat_mode_gdt_desc, . - compat_mode_gdt_desc
-
-Side note: We really ought to gain something like OBJECT(name) to avoid
-c'n'p mistakes not updating correctly all three symbol name instances.
-
-> --- a/xen/arch/x86/xen.lds.S
-> +++ b/xen/arch/x86/xen.lds.S
-> @@ -87,6 +87,7 @@ SECTIONS
->         *(.text.unlikely)
->         *(.fixup)
->         *(.text.kexec)
-> +       kexec_reloc_end = .;
-
-Does this maybe want aligning on a 4- or even 8-byte boundary? If
-so, imo preferably not here, but by adding a trailing .align in the
-.S file.
-
-Jan
-
+-- 
+Anthony PERARD
 
