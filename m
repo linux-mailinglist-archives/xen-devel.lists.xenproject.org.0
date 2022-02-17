@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 990094BA42D
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Feb 2022 16:21:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.274851.470457 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE2A34BA4B3
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Feb 2022 16:43:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.274858.470468 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKiaI-00027S-MM; Thu, 17 Feb 2022 15:20:42 +0000
+	id 1nKiw1-0004Xy-I9; Thu, 17 Feb 2022 15:43:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 274851.470457; Thu, 17 Feb 2022 15:20:42 +0000
+Received: by outflank-mailman (output) from mailman id 274858.470468; Thu, 17 Feb 2022 15:43:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nKiaI-00025X-J1; Thu, 17 Feb 2022 15:20:42 +0000
-Received: by outflank-mailman (input) for mailman id 274851;
- Thu, 17 Feb 2022 15:20:40 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1nKiaG-00025R-BC
- for xen-devel@lists.xenproject.org; Thu, 17 Feb 2022 15:20:40 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nKiaF-0007mN-6X; Thu, 17 Feb 2022 15:20:39 +0000
-Received: from 54-240-197-231.amazon.com ([54.240.197.231] helo=[10.7.236.18])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1nKiaE-0007EM-Vy; Thu, 17 Feb 2022 15:20:39 +0000
+	id 1nKiw1-0004W8-Ep; Thu, 17 Feb 2022 15:43:09 +0000
+Received: by outflank-mailman (input) for mailman id 274858;
+ Thu, 17 Feb 2022 15:43:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mzVd=TA=citrix.com=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1nKiw0-0004W2-9G
+ for xen-devel@lists.xenproject.org; Thu, 17 Feb 2022 15:43:08 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4bb00712-9008-11ec-8eb8-a37418f5ba1a;
+ Thu, 17 Feb 2022 16:43:06 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,241 +36,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=nDE20JAHrHiHzPhpUoZuugFZT0dSKEMJ/mHl8bG2ZnA=; b=O6/Q03THa/2sLXjmobKPbz6yrr
-	ETDUYeEHncfrq3B/pPs/cdCScgKRbDmHQINB3ojS5KsKG2qwiYZtfSSDYHuIdyP57tQgH3/aIS6XK
-	fLBPA/MgZsfNzyrPsK6GVrfuVO8nVmoCLoOM+hp9wD/CWnGyI1qNf7Uo+kl9RN/q5tMU=;
-Message-ID: <ab6d8d13-30cf-d322-668e-f3f5aaa56824@xen.org>
-Date: Thu, 17 Feb 2022 15:20:36 +0000
+X-Inumbo-ID: 4bb00712-9008-11ec-8eb8-a37418f5ba1a
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1645112586;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WYsCC30DTUis/FmKE5Z3+CVmrp7owvRWbCtgXBB4CUo=;
+  b=OxZTSZd3y0rJdVqwH/fqqkBNdUXxe8166mhwMJWQ5ez47bx1z4i3zmm+
+   DYnRZ0dMbyW0WnnfpVBxFWtnx5PYRpFpK33mpDP74XB65hYVQi3i1wAPV
+   HkI984EciwixVQIcMyDiiUrlIeFLYsKtTS9f5/7uRkGHpMlRCn4EUp7MJ
+   g=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+IronPort-SDR: h5TZCVeTNVrbpo6vVZiDcuYdf/lR1n4JHnqFrBEprHWFVqy6s/NmzY4nS+tibumMYi9EEeCI1e
+ d//OpfXOPN98EL3umtIqUtbOkWiQGWzb0vrPoCqX+jxt89T2hjjXRQ8V8ydpB9yTWKhaAvLZUV
+ kfvxg4cCmKLyHiylQBmQltCWffRWS2xOqCrlxB46Mhm7vhh3DPpcEmsTQ5FsRr2kpqO1o07sAh
+ vzjozyzZJ4F6QRSOd1IGbd/hPYfL8mG3IxVfs7bM6EF+i9oQy3eTAJk42Xj0eVYcYhUvSfJJNo
+ rGDcmH2/EFOujeU7K/Ia4moP
+X-SBRS: 5.1
+X-MesageID: 63883320
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:YWWTm6pH9xZAK5F4jKLbmb3n4AdeBmKaYhIvgKrLsJaIsI4StFCzt
+ garIBnVaPjcYzTzetgkOozlpk4Ov8Pdm9AxSVc/rHpnQi0Q9ZuZCYyVIHmrMnLJJKUvbq7GA
+ +byyDXkBJppJpMJjk71atANlZT4vE2xbuKU5NTsY0idfic5Dndx4f5fs7Rh2NQw24HmW1nlV
+ e7a+KUzBnf0g1aYDUpMg06zgEsHUCPa4W5wUvQWPJinjXeG/5UnJMt3yZKZdhMUdrJ8DO+iL
+ 9sv+Znilo/vE7XBPfv++lrzWhVirrc/pmFigFIOM0SpqkAqSiDfTs/XnRfTAKtao2zhojx/9
+ DlCnaS/ExY7OoqSpORHSRdXIhNQHPFioaCSdBBTseTLp6HHW37lwvEoB0AqJ4wIvO1wBAmi9
+ 9RBdmpLNErawbvrnvTrEYGAhex6RCXvFIoZpnFnyyCfFfs8SIrPa67L+cVZzHE7gcUm8fP2O
+ ZFJOWE0NkyojxtnAk03LrYgufyTviPQdxdJmmqwqY0Y7D2GpOB2+Oe0a4eEEjCQfu1Xg0KZq
+ 2Tu72n/RBYAO7S30iGZ+3ihguvOmyLTW48IErC8sPlwjzW72Wg7GBAQE1yhrpGRmkO4Ht5SN
+ UEQ0i4vtrQpslymSMHnWB+1q2LCuQQTM/JTFOsg4Q3L1avQ4C6eHGEPSjMHY9sj3Oc0TzE30
+ l6Cn/vyGCdi9raSTBqgGqy89G3of3JPdClbOHFCHVBtD8TfTJ8bth2VX8RnN/CJjofvFz7B8
+ R6r8AxnmOBG5SIU7JmT8VfCijOqg5HGSA8p+wnaNl6YAhNFiJ2NPNLxtwWChRpUBMPAFwTa4
+ iBY8ySLxL1WVfmweDqxrPLh9V1Dz9KMK3XijFFmBPHNHBz9qif4Lei8DNyTTXqF0/romxe1M
+ Sc/WisLvfe/2UdGi4ctPOpd7OxwkMDd+SzNDKy8Uza3SsEZmPW71C9vf1WM+GvmjVIhl6oyU
+ b/CL5rxVS1FV/g6l2XrLwv47VPN7nphrY80bcqmpylLLJLEPCLFIVv7GADmgh8FAFOs/1yOr
+ oc32zqiwBRDSuzuChQ7AqZIRW3m2UMTXMisw+QOL7brClM/RAkJVq+AqZt8KtcNt/kEyY/1E
+ oSVBxYwJKzX3iacd21nqxlLNdvSYHqIhSlqZ3NyYwfziiNLjETGxP53SqbbtIIPrIRLpcOYh
+ dFcEylZKvgQGDnB5RoHapzx8N5reBix3FrcNCu5ejkvOZVnQlWRqNPjewLu8ggIDza26pRi8
+ +HxiFuDTMpRXRlmAebXdOmrkwG7s08Clb8gREDPONRSJhnhqdA4Nyzrg/YrCMgQMhGflCCC3
+ gObDE5A9+nAqoM46vfTgqWAo9v7GudyBBMCTWLa8ay3JW/R+W/6md1MV+OBfDb8UmLo+fr9O
+ bUJnq+kaPBexQREqYtxFbpv3JkS3dq3qu8I1BlgEVXKc0+vVuFqLE6Z0JQdraZK3LJY51e7A
+ xrd5tlANLyVE8r5C1pNdhE9Z+GO2PxIyDnf6fM5fBfz6CNtpefVVExTO1+HiTBHLaszO4Qgm
+ L9ztMkT4g25qxwrLtfZ0XwEqzXSdiQNA/c9q5UXII73kQ56mFhNbKvVBjLy/JzSOc5HNVMnI
+ 2PMiafP71iGKpEur5bn+aDx4Ndg
+IronPort-HdrOrdr: A9a23:PhVje623qOmOFEbfk4HHDwqjBLYkLtp133Aq2lEZdPUzSL3+qy
+ nOpoV+6faQsl0ssR4b9exoVJPufZq+z/5ICOsqU4tKNTOO0AHEEGgI1+rf6gylNyri9vNMkY
+ dMGpIObeEY1GIK7voSNjPIceod/A==
+X-IronPort-AV: E=Sophos;i="5.88,376,1635220800"; 
+   d="scan'208";a="63883320"
+Date: Thu, 17 Feb 2022 15:42:58 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>, Konrad Rzeszutek Wilk
+	<konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	"Julien Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: Ping: [XEN PATCH v9 06/30] build: rework test/livepatch/Makefile
+Message-ID: <Yg5tArVkT2JUyM91@perard.uk.xensource.com>
+References: <20220125110103.3527686-1-anthony.perard@citrix.com>
+ <20220125110103.3527686-7-anthony.perard@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.6.1
-Subject: Re: [RFC v2 6/8] tools/arm: Introduce force_assign_without_iommu
- option to xl.cfg
-To: Oleksii Moisieiev <Oleksii_Moisieiev@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Nick Rosbrook <rosbrookn@ainfosec.com>,
- Anthony PERARD <anthony.perard@citrix.com>, Juergen Gross <jgross@suse.com>,
- Paul Durrant <paul@xen.org>
-References: <cover.1644341635.git.oleksii_moisieiev@epam.com>
- <d333126d12f2281f8df92e66cfba1c9eb2425dca.1644341635.git.oleksii_moisieiev@epam.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <d333126d12f2281f8df92e66cfba1c9eb2425dca.1644341635.git.oleksii_moisieiev@epam.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20220125110103.3527686-7-anthony.perard@citrix.com>
 
-Hi,
+Hi Ross, Konrad,
 
-On 08/02/2022 18:00, Oleksii Moisieiev wrote:
-> If set, Xen is allowed to assign the devices even if they are not under
-> IOMMU.
+Could you ack or review this patch?
 
-I think you mean "not protected by an IOMMU".
+There is also a few other patches in this series that make some changes
+to "xen/test/livepatch/Makefile", an ack for those would be nice as
+well:
 
-> Can be confugired from dom.cfg in the following format:
+- 09/30 build: build everything from the root dir, use obj=$subdir
+- 19/30 build: clean-up "clean" rules of duplication
+- 20/30 build: rework "clean" to clean from the root dir
+- 25/30 build: replace $(BASEDIR) by $(objtree)
+- 30/30 build: adding out-of-tree support to the xen build
 
-s/confugired/configured/
+Cheers.
 
-> force_assign_without_iommu = 1
+On Tue, Jan 25, 2022 at 11:00:39AM +0000, Anthony PERARD wrote:
+> This rework the livepatch/Makefile to make it less repetitive and make
+> use of the facilities. All the targets to be built are now listed in
+> $(extra-y) which will allow Rules.mk to build them without the need of
+> a local target in a future patch.
 > 
-> This parameter has the same purpose as xen,force-assign-without-iommu
-> property in dom0less archtecture.
-
-s/archtecture/architecture/
-
+> There are some changes/fixes in this patch:
+> - when "xen-syms" is used for a target, it is added to the dependency
+>   list of the target, which allow to rebuild the target when xen-syms
+>   changes. But if "xen-syms" is missing, make simply fails.
+> - modinfo.o wasn't removing it's $@.bin file like the other targets,
+>   this is now done.
+> - The command to build *.livepatch targets as been fixed to use
+>   $(XEN_LDFLAGS) rather than just $(LDFLAGS) which is a fallout from
+>   2740d96efdd3 ("xen/build: have the root Makefile generates the
+>   CFLAGS")
 > 
-> Signed-off-by: Oleksii Moisieiev <oleksii_moisieiev@epam.com>
+> make will findout the dependencies of the *.livepatch files and thus
+> what to built by "looking" at the objects listed in the *-objs
+> variables. The actual dependencies is generated by the new
+> "multi-depend" macro.
+> 
+> "$(targets)" needs to be updated with the objects listed in the
+> different *-objs variables to allow make to load the .*.cmd dependency
+> files.
+> 
+> This patch copies the macro "multi_depend" from Linux 5.12, and rename
+> it to "multi-depend".
+> 
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> Acked-by: Jan Beulich <jbeulich@suse.com>
 > ---
->   docs/man/xl.cfg.5.pod.in              |  9 +++++++++
->   tools/golang/xenlight/helpers.gen.go  |  5 +++++
->   tools/golang/xenlight/types.gen.go    |  1 +
->   tools/libs/light/libxl_arm.c          |  3 +++
->   tools/libs/light/libxl_types.idl      |  1 +
->   tools/xl/xl_parse.c                   |  3 +++
->   xen/common/domain.c                   |  2 +-
->   xen/drivers/passthrough/device_tree.c | 19 +++++++++++++++++--
->   xen/drivers/passthrough/iommu.c       |  5 ++++-
->   xen/include/public/domctl.h           |  5 ++++-
->   xen/include/xen/iommu.h               |  3 +++
->   11 files changed, 51 insertions(+), 5 deletions(-)
 > 
-> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-> index b98d161398..ddf82cb3bc 100644
-> --- a/docs/man/xl.cfg.5.pod.in
-> +++ b/docs/man/xl.cfg.5.pod.in
-> @@ -1614,6 +1614,15 @@ This feature is a B<technology preview>.
->   
->   =back
->   
-> +=over 4
-> +
-> +=item B<force_assign_without_iommu=BOOLEAN>
-> +
-> +If set, Xen allows to assign a devices even if it is not behind an IOMMU.
-> +This renders your platform *unsafe* if the device is DMA-capable.
-
-I agree this is going to be unsafe. But the more important bit here is 
-this is not going to work because the guest has no way to translate a 
-GFN to an MFN.
-
-Your guest will need to be direct map to make it usable. So I would add 
-that this will *not* work with DMA-capable devices.
-
-Also, can you explain in the commit message why you want to allow this 
-setup?
-
->       xlu_cfg_get_defbool(config, "xend_suspend_evtchn_compat",
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index 093bb4403f..f1f19bf711 100644
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -512,7 +512,7 @@ static int sanitise_domain_config(struct xen_domctl_createdomain *config)
->   
->       if ( iommu )
->       {
-> -        if ( config->iommu_opts & ~XEN_DOMCTL_IOMMU_no_sharept )
-> +        if ( config->iommu_opts >> XEN_DOMCTL_IOMMU_MAX )
-
-XEN_DOMCTL_IOMMU_MAX will be defined as:
-
-(1U << _XEN_DOMCTL_IOMMU_force_iommu)
-
-This means the shift will do the wrong thing. However, AFAICT, this new 
-option will only be supported by Arm and likely only for platform device 
-for the time being.
-
-That said, I am not convinced this flag should be per-domain in Xen. 
-Instead, I think it would be better to pass the flag via the device 
-assign domctl.
-
->           {
->               dprintk(XENLOG_INFO, "Unknown IOMMU options %#x\n",
->                       config->iommu_opts);
-> diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
-> index 98f2aa0dad..103608dec1 100644
-> --- a/xen/drivers/passthrough/device_tree.c
-> +++ b/xen/drivers/passthrough/device_tree.c
-> @@ -198,6 +198,7 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
->   {
->       int ret;
->       struct dt_device_node *dev;
-> +    struct domain_iommu *hd = dom_iommu(d);
->   
->       switch ( domctl->cmd )
->       {
-> @@ -238,6 +239,16 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
->               return -EINVAL;
->   
->           ret = iommu_add_dt_device(dev);
-> +
-> +        /*
-> +         * iommu_add_dt_device returns 1 if iommu is disabled or device don't
-> +         * have iommus property
-> +         */
-> +        if ( (ret == 1) && (hd->force_assign_iommu) ) {
-> +            ret = -ENOSYS;
-> +            break;
-> +        }
-> +
->           if ( ret < 0 )
->           {
->               printk(XENLOG_G_ERR "Failed to add %s to the IOMMU\n",
-> @@ -275,10 +286,14 @@ int iommu_do_dt_domctl(struct xen_domctl *domctl, struct domain *d,
->   
->           ret = iommu_deassign_dt_device(d, dev);
->   
-> -        if ( ret )
-> -            printk(XENLOG_G_ERR "XEN_DOMCTL_assign_dt_device: assign \"%s\""
-> +        if ( ret ) {
-> +            if ( hd->force_assign_iommu )
-> +                ret = -ENOSYS;
-> +            else
-> +                printk(XENLOG_G_ERR "XEN_DOMCTL_assign_dt_device: assign \"%s\""
->                      " to dom%u failed (%d)\n",
->                      dt_node_full_name(dev), d->domain_id, ret);
-> +        }
->           break;
->   
->       default:
-> diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
-> index 6334370109..216a9058c0 100644
-> --- a/xen/drivers/passthrough/iommu.c
-> +++ b/xen/drivers/passthrough/iommu.c
-> @@ -193,6 +193,8 @@ int iommu_domain_init(struct domain *d, unsigned int opts)
->       hd->node = NUMA_NO_NODE;
->   #endif
->   
-> +    hd->force_assign_iommu = opts & XEN_DOMCTL_IOMMU_force_iommu;
-> +
->       ret = arch_iommu_domain_init(d);
->       if ( ret )
->           return ret;
-> @@ -534,6 +536,7 @@ int iommu_do_domctl(
->   {
->       int ret = -ENODEV;
->   
-> +
-
-Spurious change.
-
->       if ( !is_iommu_enabled(d) )
-
-Should not this check be updated to check force_assign?
-
->           return -EOPNOTSUPP;
->   
-> @@ -542,7 +545,7 @@ int iommu_do_domctl(
->   #endif
->   
->   #ifdef CONFIG_HAS_DEVICE_TREE
-> -    if ( ret == -ENODEV )
-> +    if ( ret == -ENOSYS )
-
-AFAICT, none of the code (including callee) before ret have been 
-modified. So why are you modifying the check here?
-
->           ret = iommu_do_dt_domctl(domctl, d, u_domctl);
->   #endif
->   
-> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-> index b85e6170b0..bf5f8c5b6b 100644
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -81,8 +81,11 @@ struct xen_domctl_createdomain {
->   #define _XEN_DOMCTL_IOMMU_no_sharept  0
->   #define XEN_DOMCTL_IOMMU_no_sharept   (1U << _XEN_DOMCTL_IOMMU_no_sharept)
->   
-> +#define _XEN_DOMCTL_IOMMU_force_iommu 1
-> +#define XEN_DOMCTL_IOMMU_force_iommu  (1U << _XEN_DOMCTL_IOMMU_force_iommu)
-> +
->   /* Max XEN_DOMCTL_IOMMU_* constant.  Used for ABI checking. */
-> -#define XEN_DOMCTL_IOMMU_MAX XEN_DOMCTL_IOMMU_no_sharept
-> +#define XEN_DOMCTL_IOMMU_MAX XEN_DOMCTL_IOMMU_force_iommu
->   
->       uint32_t iommu_opts;
->   
-> diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-> index 6b2cdffa4a..a9cf2334af 100644
-> --- a/xen/include/xen/iommu.h
-> +++ b/xen/include/xen/iommu.h
-> @@ -330,6 +330,9 @@ struct domain_iommu {
->        * necessarily imply this is true.
->        */
->       bool need_sync;
-> +
-> +    /* Do not return error if the device without iommu is assigned */
-> +    bool force_assign_iommu;
->   };
->   
->   #define dom_iommu(d)              (&(d)->iommu)
-
-Cheers,
+> Notes:
+>     v9:
+>     - half acked, still need "livepatch" maintainer ack.
+>     
+>     v8:
+>     - rename multi_depend to multi-depend
+>     - use $() for single-letter make variable
+>     - re-indent one line
+> 
+>  xen/scripts/Kbuild.include  |   9 ++
+>  xen/test/livepatch/Makefile | 213 ++++++++++++++----------------------
+>  2 files changed, 91 insertions(+), 131 deletions(-)
 
 -- 
-Julien Grall
+Anthony PERARD
 
