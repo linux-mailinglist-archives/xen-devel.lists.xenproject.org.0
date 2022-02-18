@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38BE14BBA31
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Feb 2022 14:39:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.275451.471323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E39774BBA53
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Feb 2022 14:52:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.275458.471334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nL3TR-0007Wf-Mg; Fri, 18 Feb 2022 13:39:01 +0000
+	id 1nL3fn-0001NF-RH; Fri, 18 Feb 2022 13:51:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 275451.471323; Fri, 18 Feb 2022 13:39:01 +0000
+Received: by outflank-mailman (output) from mailman id 275458.471334; Fri, 18 Feb 2022 13:51:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nL3TR-0007Un-Iz; Fri, 18 Feb 2022 13:39:01 +0000
-Received: by outflank-mailman (input) for mailman id 275451;
- Fri, 18 Feb 2022 13:39:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/ZS3=TB=gmail.com=bjolson1278@srs-se1.protection.inumbo.net>)
- id 1nL3TQ-0007Uf-V7
- for xen-devel@lists.xenproject.org; Fri, 18 Feb 2022 13:39:01 +0000
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [2607:f8b0:4864:20::d2a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 20628dfd-90c0-11ec-8eb8-a37418f5ba1a;
- Fri, 18 Feb 2022 14:39:00 +0100 (CET)
-Received: by mail-io1-xd2a.google.com with SMTP id q20so5251271ioi.0
- for <xen-devel@lists.xenproject.org>; Fri, 18 Feb 2022 05:38:59 -0800 (PST)
-Received: from [192.168.122.77] (68-168-187-203.fttp.usinternet.com.
- [68.168.187.203])
- by smtp.gmail.com with ESMTPSA id x14sm3375799ill.88.2022.02.18.05.38.57
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Feb 2022 05:38:58 -0800 (PST)
+	id 1nL3fn-0001LL-O5; Fri, 18 Feb 2022 13:51:47 +0000
+Received: by outflank-mailman (input) for mailman id 275458;
+ Fri, 18 Feb 2022 13:51:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nL3fm-0001LB-N3; Fri, 18 Feb 2022 13:51:46 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nL3fm-0002bk-G3; Fri, 18 Feb 2022 13:51:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nL3fl-000826-UY; Fri, 18 Feb 2022 13:51:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nL3fl-0001pA-U4; Fri, 18 Feb 2022 13:51:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,126 +42,346 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20628dfd-90c0-11ec-8eb8-a37418f5ba1a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :references:from:in-reply-to:content-transfer-encoding;
-        bh=ftto2S0yErh3khVzh/U/wtVZFfGeIHj49Z7MrFjrxt0=;
-        b=JQwWMF1YZSEqQf7hF8AxFg3xREm5jy2QXfGg9NExYaW7v9qNlTqABPsI72wwViIDg+
-         96NtdAWV4ZOxiV3efoQ3qUNmX2iJlt5TYcess7BO2qYZ12Eqimfp1iTyFwCzrIJ7Tk6b
-         aJMji3eTzxLLUZlZeNcI/pLbVNzhNHwQwuJ4SbQRGjeCKrEVYeGPbqkSChy2bv3yJhiz
-         asyQ1mV2qr2gDgx+XN1mmEy8p/NvhiyjihETxY/iPwCErUY/jyC6q+a+i0ZJoph3hmr2
-         8zbNEk3E3LFtzHU5xAchGhwmOM4KVHp6nhD7ElsERoRzw9fQf3yy2FbkDv9zs99A+vPS
-         f8IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:from:in-reply-to
-         :content-transfer-encoding;
-        bh=ftto2S0yErh3khVzh/U/wtVZFfGeIHj49Z7MrFjrxt0=;
-        b=oOfYAdcBMIdDmMddaylqpDR+HSsAyYN7e9f9guSGRQQEzj2zZ/YLj2EBi5z6njLFBy
-         A/unmFt85bagrxoeOQvXHwDUZ7k8N57ABrBK5F+0BwgLR2x73t1cUzPGYnfIP/zlAk7m
-         XCUKAJ3L3SRSBpitBYH57WIOIQJ9cjxXefdc495db2O9DLu7yxpzBxmB4bxQVfn8pFgp
-         fRC3ao8S1uYomDSqtiguZnWvYMQYV6s57MC9e1DtXIZcFCXRNUGOhvZIhLqgsnaxBALQ
-         zmGMTNtpAlUyljefIxdYntD0HTuVx34Z0y2okPFn01D6p0MaBa5MvmJ8u8u4XlrkTEYM
-         3JOg==
-X-Gm-Message-State: AOAM530QDyxbUXbEdtEpXKNDFWpr7xsKLE4TafaiPUydB7OpJ0cJIWNC
-	Q1BiSW8aMqlX74/nBbKPJ4irzDJt9xZww6Ux
-X-Google-Smtp-Source: ABdhPJya2nL/hIYyr9wKq1X1YFV0zBCXIMGj/SKq9ukrWmvyeh+CoSYC+9V5wsoWMPW+k0AMZ0XvbA==
-X-Received: by 2002:a05:6638:d87:b0:30f:6208:19fa with SMTP id l7-20020a0566380d8700b0030f620819famr5434995jaj.204.1645191538632;
-        Fri, 18 Feb 2022 05:38:58 -0800 (PST)
-Message-ID: <a44ed8cb-0bdc-0f6f-fc6e-7f831605a71c@gmail.com>
-Date: Fri, 18 Feb 2022 07:38:57 -0600
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Subject: Re: [PATCH 1/2] github: add workflow to run Coverity scans
-Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=TMvv6NIRZKQlc8W1N/QkGzGTJyfcqXmdB0Im8f7H4fY=; b=jFsPAtuwJEzAtLKTBI2ddWDJfh
+	TtA+1RctxVVKeRaEjuGbwS3ijWYv/cB8eufesTOL7/jYuJBF5xbFrGUBy88kp6M4Ovg9s7Ld96uwN
+	P0i+sf4DwzSlT5Ba+npCmu5C1KAjCSbrykffOl1rtgmrKzGxuJwiJC4FRR/MknzxC/xs=;
 To: xen-devel@lists.xenproject.org
-References: <20220218120042.32102-1-roger.pau@citrix.com>
- <20220218120042.32102-2-roger.pau@citrix.com>
- <0eeb8f5f-d049-8a8e-9e65-d1966c21a781@srcf.net>
- <34ebc66c-e55f-3f98-b769-0e73bdf3c2fe@srcf.net>
- <Yg+gwfRqetYoT4Th@Air-de-Roger>
-From: Brian Olson <bjolson1278@gmail.com>
-In-Reply-To: <Yg+gwfRqetYoT4Th@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Message-ID: <osstest-168159-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 168159: regressions - FAIL
+X-Osstest-Failures:
+    libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+    libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+    libvirt:build-i386-libvirt:libvirt-build:fail:regression
+    libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+    libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    libvirt=d2bc5a04c098057b09ceed7b4cf10b8726c9361f
+X-Osstest-Versions-That:
+    libvirt=2c846fa6bcc11929c9fb857a22430fb9945654ad
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 18 Feb 2022 13:51:45 +0000
 
-Can someone please tell me how to remove my email account from this 
-list? Thank you.
+flight 168159 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168159/
 
-On 2/18/22 07:36, Roger Pau Monné wrote:
-> On Fri, Feb 18, 2022 at 12:23:47PM +0000, Andrew Cooper wrote:
->> On 18/02/2022 12:21, Andrew Cooper wrote:
->>> On 18/02/2022 12:00, Roger Pau Monne wrote:
->>>> Add a workflow that performs a build like it's done by osstest
->>>> Coverity flight and uploads the result to Coverity for analysis. The
->>>> build process is exactly the same as the one currently used in
->>>> osstest, and it's also run at the same time (bi-weekly).
->>>>
->>>> This has one big benefit over using osstest: we no longer have to care
->>>> about keeping the Coverity tools up to date in osstest.
->>>>
->>>> Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
->>>> ---
->>>>   .github/workflows/coverity.yml | 35 ++++++++++++++++++++++++++++++++++
->>>>   1 file changed, 35 insertions(+)
->>>>   create mode 100644 .github/workflows/coverity.yml
->>>>
->>>> diff --git a/.github/workflows/coverity.yml b/.github/workflows/coverity.yml
->>>> new file mode 100644
->>>> index 0000000000..12fc9c782b
->>>> --- /dev/null
->>>> +++ b/.github/workflows/coverity.yml
->>>> @@ -0,0 +1,35 @@
->>>> +name: Coverity Scan
->>>> +
->>>> +# We only want to test official release code, not every pull request.
->>>> +on:
->>>> +  schedule:
->>>> +    - cron: '18 9 * * WED,SUN' # Bi-weekly at 9:18 UTC
->>>> +
->>>> +jobs:
->>>> +  coverity:
->>>> +    runs-on: ubuntu-latest
->>>> +    steps:
->>>> +    - name: Install build dependencies
->>>> +      run: |
->>>> +        sudo apt-get install -y wget git bcc bin86 gawk bridge-utils \
->>>> +          iproute2 libcurl4-openssl-dev bzip2 libpci-dev build-essential \
->>>> +          make gcc libc6-dev libc6-dev-i386 linux-libc-dev zlib1g-dev \
->>>> +          libncurses5-dev patch libvncserver-dev libssl-dev libsdl-dev iasl \
->>>> +          libbz2-dev e2fslibs-dev git-core uuid-dev ocaml libx11-dev \
->>>> +          ocaml-findlib xz-utils gettext libyajl-dev libpixman-1-dev \
->>>> +          libaio-dev libfdt-dev cabextract libglib2.0-dev autoconf automake \
->>>> +          libtool libfuse-dev liblzma-dev ninja-build \
->>>> +          kpartx python3-dev python3-pip golang python-dev libsystemd-dev
->>> We dropped gettext as a dependency a few releases ago, and we don't need
->>> python3-pip either.  Can fix on commit.
->>>
->>>> +    - uses: actions/checkout@v2
->>> I think we want
->>>
->>> - uses: actions/checkout@v2
->>>    with:
->>>      ref: staging
->>>
->>> Can also fix on commit.
->>>
->>> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com> (mainly because I
->>> can see that Coverity has done the right thing with this.)
->>>
->>>> +    - name: Configure Xen
->>>> +      run: |
->>>> +        ./configure
->> On second thoughts, we can probably --disable-docs here, because it's
->> just wasted processing time when all we care about is the C.
-> We do not build the docs already, because the build command is `make
-> xen tools`.
->
-> Thanks, Roger.
->
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 151777
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 151777
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+
+version targeted for testing:
+ libvirt              d2bc5a04c098057b09ceed7b4cf10b8726c9361f
+baseline version:
+ libvirt              2c846fa6bcc11929c9fb857a22430fb9945654ad
+
+Last test of basis   151777  2020-07-10 04:19:19 Z  588 days
+Failing since        151818  2020-07-11 04:18:52 Z  587 days  569 attempts
+Testing same since   168159  2022-02-18 04:20:19 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+    Adolfo Jayme Barrientos <fitoschido@gmail.com>
+  Aleksandr Alekseev <alexander.alekseev@virtuozzo.com>
+  Aleksei Zakharov <zaharov@selectel.ru>
+  Andika Triwidada <andika@gmail.com>
+  Andrea Bolognani <abologna@redhat.com>
+  Ani Sinha <ani@anisinha.ca>
+  Balázs Meskó <meskobalazs@mailbox.org>
+  Barrett Schonefeld <bschoney@utexas.edu>
+  Bastian Germann <bastiangermann@fishpost.de>
+  Bastien Orivel <bastien.orivel@diateam.net>
+  BiaoXiang Ye <yebiaoxiang@huawei.com>
+  Bihong Yu <yubihong@huawei.com>
+  Binfeng Wu <wubinfeng@huawei.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Brad Laue <brad@brad-x.com>
+  Brian Turek <brian.turek@gmail.com>
+  Bruno Haible <bruno@clisp.org>
+  Chris Mayo <aklhfex@gmail.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Kirbach <christian.kirbach@gmail.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Christophe Fergeau <cfergeau@redhat.com>
+  Cole Robinson <crobinso@redhat.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Cédric Bosdonnat <cbosdonnat@suse.com>
+  Côme Borsoi <fedora@borsoi.fr>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel Letai <dani@letai.org.il>
+  Daniel P. Berrange <berrange@redhat.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Didik Supriadi <didiksupriadi41@gmail.com>
+  dinglimin <dinglimin@cmss.chinamobile.com>
+  Divya Garg <divya.garg@nutanix.com>
+  Dmitrii Shcherbakov <dmitrii.shcherbakov@canonical.com>
+  Dmytro Linkin <dlinkin@nvidia.com>
+  Eiichi Tsukata <eiichi.tsukata@nutanix.com>
+  Emilio Herrera <ehespinosa57@gmail.com>
+  Eric Farman <farman@linux.ibm.com>
+  Erik Skultety <eskultet@redhat.com>
+  Fabian Affolter <mail@fabian-affolter.ch>
+  Fabian Freyer <fabian.freyer@physik.tu-berlin.de>
+  Fabiano Fidêncio <fabiano@fidencio.org>
+  Fangge Jin <fjin@redhat.com>
+  Farhan Ali <alifm@linux.ibm.com>
+  Fedora Weblate Translation <i18n@lists.fedoraproject.org>
+  Franck Ridel <fridel@protonmail.com>
+  Gavi Teitz <gavi@nvidia.com>
+  gongwei <gongwei@smartx.com>
+  Guoyi Tu<tu.guoyi@h3c.com>
+  Göran Uddeborg <goeran@uddeborg.se>
+  Halil Pasic <pasic@linux.ibm.com>
+  Han Han <hhan@redhat.com>
+  Hao Wang <wanghao232@huawei.com>
+  Hela Basa <r45xveza@pm.me>
+  Helmut Grohne <helmut@subdivi.de>
+  Hiroki Narukawa <hnarukaw@yahoo-corp.jp>
+  Hyman Huang(黄勇) <huangy81@chinatelecom.cn>
+  Ian Wienand <iwienand@redhat.com>
+  Ioanna Alifieraki <ioanna-maria.alifieraki@canonical.com>
+  Ivan Teterevkov <ivan.teterevkov@nutanix.com>
+  Jakob Meng <jakobmeng@web.de>
+  Jamie Strandboge <jamie@canonical.com>
+  Jamie Strandboge <jamie@ubuntu.com>
+  Jan Kuparinen <copper_fin@hotmail.com>
+  jason lee <ppark5237@gmail.com>
+  Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>
+  Jia Zhou <zhou.jia2@zte.com.cn>
+  Jianan Gao <jgao@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jin Yan <jinyan12@huawei.com>
+  Jing Qi <jinqi@redhat.com>
+  Jinsheng Zhang <zhangjl02@inspur.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Joachim Falk <joachim.falk@gmx.de>
+  John Ferlan <jferlan@redhat.com>
+  Jonathan Watt <jwatt@jwatt.org>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Justin Gatzen <justin.gatzen@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kashyap Chamarthy <kchamart@redhat.com>
+  Kevin Locke <kevin@kevinlocke.name>
+  Koichi Murase <myoga.murase@gmail.com>
+  Kristina Hanicova <khanicov@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lee Yarwood <lyarwood@redhat.com>
+  Lei Yang <yanglei209@huawei.com>
+  Liao Pingfang <liao.pingfang@zte.com.cn>
+  Lin Ma <lma@suse.com>
+  Lin Ma <lma@suse.de>
+  Lin Ma <morecache@gmail.com>
+  Liu Yiding <liuyd.fnst@fujitsu.com>
+  Lubomir Rintel <lkundrak@v3.sk>
+  Luke Yue <lukedyue@gmail.com>
+  Luyao Zhong <luyao.zhong@intel.com>
+  Marc Hartmayer <mhartmay@linux.ibm.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Markus Schade <markus.schade@hetzner.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Masayoshi Mizuma <m.mizuma@jp.fujitsu.com>
+  Matej Cepl <mcepl@cepl.eu>
+  Matt Coleman <matt@datto.com>
+  Matt Coleman <mcoleman@datto.com>
+  Mauro Matteo Cascella <mcascell@redhat.com>
+  Meina Li <meili@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Michał Smyk <fedora@smyk.it>
+  Milo Casagrande <milo@milo.name>
+  Moshe Levi <moshele@nvidia.com>
+  Muha Aliss <muhaaliss@gmail.com>
+  Nathan <nathan95@live.it>
+  Neal Gompa <ngompa13@gmail.com>
+  Nick Chevsky <nchevsky@gmail.com>
+  Nick Shyrokovskiy <nshyrokovskiy@gmail.com>
+  Nickys Music Group <nickys.music.group@gmail.com>
+  Nico Pache <npache@redhat.com>
+  Nicolas Lécureuil <neoclust@mageia.org>
+  Nicolas Lécureuil <nicolas.lecureuil@siveo.net>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Olaf Hering <olaf@aepfle.de>
+  Olesya Gerasimenko <gammaray@basealt.ru>
+  Or Ozeri <oro@il.ibm.com>
+  Orion Poplawski <orion@nwra.com>
+  Pany <geekpany@gmail.com>
+  Patrick Magauran <patmagauran.j@gmail.com>
+  Paulo de Rezende Pinatti <ppinatti@linux.ibm.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Peng Liang <liangpeng10@huawei.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Pino Toscano <toscano.pino@tiscali.it>
+  Piotr Drąg <piotrdrag@gmail.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Praveen K Paladugu <prapal@linux.microsoft.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Ricky Tigg <ricky.tigg@gmail.com>
+  Robin Lee <cheeselee@fedoraproject.org>
+  Rohit Kumar <rohit.kumar3@nutanix.com>
+  Roman Bogorodskiy <bogorodskiy@gmail.com>
+  Roman Bolshakov <r.bolshakov@yadro.com>
+  Ryan Gahagan <rgahagan@cs.utexas.edu>
+  Ryan Schmidt <git@ryandesign.com>
+  Sam Hartman <hartmans@debian.org>
+  Scott Shambarger <scott-libvirt@shambarger.net>
+  Sebastian Mitterle <smitterl@redhat.com>
+  SeongHyun Jo <caelus9536@gmail.com>
+  Shalini Chellathurai Saroja <shalini@linux.ibm.com>
+  Shaojun Yang <yangshaojun@phytium.com.cn>
+  shenjiatong <yshxxsjt715@gmail.com>
+  Shi Lei <shi_lei@massclouds.com>
+  simmon <simmon@nplob.com>
+  Simon Chopin <chopin.simon@gmail.com>
+  Simon Gaiser <simon@invisiblethingslab.com>
+  Simon Rowe <simon.rowe@nutanix.com>
+  Stefan Bader <stefan.bader@canonical.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@gmail.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Szymon Scholz <szymonscholz@gmail.com>
+  Thomas Huth <thuth@redhat.com>
+  Tim Wiederhake <twiederh@redhat.com>
+  Tomáš Golembiovský <tgolembi@redhat.com>
+  Tomáš Janoušek <tomi@nomi.cz>
+  Tu Qiang <tu.qiang35@zte.com.cn>
+  Tuguoyi <tu.guoyi@h3c.com>
+  tuqiang <tu.qiang35@zte.com.cn>
+  Vasiliy Ulyanov <vulyanov@suse.de>
+  Victor Toso <victortoso@redhat.com>
+  Ville Skyttä <ville.skytta@iki.fi>
+  Vinayak Kale <vkale@nvidia.com>
+  Vineeth Pillai <viremana@linux.microsoft.com>
+  Wang Xin <wangxinxin.wang@huawei.com>
+  WangJian <wangjian161@huawei.com>
+  Weblate <noreply@weblate.org>
+  Wei Liu <liuwe@microsoft.com>
+  Wei Liu <wei.liu@kernel.org>
+  Wei-Chen Chen <weicche@microsoft.com>
+  William Douglas <william.douglas@intel.com>
+  Xu Chao <xu.chao6@zte.com.cn>
+  Yalei Li <274268859@qq.com>
+  Yalei Li <liyl43@chinatelecom.cn>
+  Yang Fei <yangfei85@huawei.com>
+  Yang Hang <yanghang44@huawei.com>
+  Yanqiu Zhang <yanqzhan@redhat.com>
+  Yaroslav Kargin <ykargin@virtuozzo.com>
+  Yasuhiko Kamata <belphegor@belbel.or.jp>
+  Yi Li <yili@winhong.com>
+  Yi Wang <wang.yi59@zte.com.cn>
+  Yuri Chornoivan <yurchor@ukr.net>
+  Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl>
+  zhangjl02 <zhangjl02@inspur.com>
+  zhanglei <zhanglei@smartx.com>
+  Zheng Chuan <zhengchuan@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhenyu Ye <yezhenyu2@huawei.com>
+  Zhenyu Zheng <zheng.zhenyu@outlook.com>
+  Zhenzhong Duan <zhenzhong.duan@intel.com>
+  Дамјан Георгиевски <gdamjan@gmail.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 98463 lines long.)
 
