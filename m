@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 412B44BC2C7
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Feb 2022 00:14:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.275637.471597 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B63AD4BC2C8
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Feb 2022 00:14:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.275643.471609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nLCQl-0006ao-Cu; Fri, 18 Feb 2022 23:12:51 +0000
+	id 1nLCRz-00078Z-P7; Fri, 18 Feb 2022 23:14:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 275637.471597; Fri, 18 Feb 2022 23:12:51 +0000
+Received: by outflank-mailman (output) from mailman id 275643.471609; Fri, 18 Feb 2022 23:14:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1nLCQl-0006Z1-9x; Fri, 18 Feb 2022 23:12:51 +0000
-Received: by outflank-mailman (input) for mailman id 275637;
- Fri, 18 Feb 2022 23:12:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=z0EK=TB=wind.enjellic.com=greg@srs-se1.protection.inumbo.net>)
- id 1nLCQj-0006Yv-BD
- for xen-devel@lists.xen.org; Fri, 18 Feb 2022 23:12:49 +0000
-Received: from wind.enjellic.com (wind.enjellic.com [76.10.64.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 482eeb5c-9110-11ec-8723-dd0c611c5f35;
- Sat, 19 Feb 2022 00:12:46 +0100 (CET)
-Received: from wind.enjellic.com (localhost [127.0.0.1])
- by wind.enjellic.com (8.15.2/8.15.2) with ESMTP id 21INCgMR006709;
- Fri, 18 Feb 2022 17:12:42 -0600
-Received: (from greg@localhost)
- by wind.enjellic.com (8.15.2/8.15.2/Submit) id 21INCg7Y006708;
- Fri, 18 Feb 2022 17:12:42 -0600
+	id 1nLCRz-00076h-Kh; Fri, 18 Feb 2022 23:14:07 +0000
+Received: by outflank-mailman (input) for mailman id 275643;
+ Fri, 18 Feb 2022 23:14:05 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nLCRx-00076P-Gm; Fri, 18 Feb 2022 23:14:05 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nLCRx-0005Ev-DC; Fri, 18 Feb 2022 23:14:05 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1nLCRx-0005Fq-1n; Fri, 18 Feb 2022 23:14:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1nLCRx-0006Fs-1O; Fri, 18 Feb 2022 23:14:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,80 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 482eeb5c-9110-11ec-8723-dd0c611c5f35
-Date: Fri, 18 Feb 2022 17:12:42 -0600
-From: "Dr. Greg" <greg@enjellic.com>
-To: Roger Pau Monn?? <roger.pau@citrix.com>
-Cc: xen-devel@lists.xen.org
-Subject: Re: IGD pass-through failures since 4.10.
-Message-ID: <20220218231242.GA6668@wind.enjellic.com>
-Reply-To: "Dr. Greg" <greg@enjellic.com>
-References: <20220214060011.GA24404@wind.enjellic.com> <Ygoe/e+UzAtHe3Ac@Air-de-Roger>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Ygoe/e+UzAtHe3Ac@Air-de-Roger>
-User-Agent: Mutt/1.4i
-X-Greylist: Sender passed SPF test, not delayed by milter-greylist-4.2.3 (wind.enjellic.com [127.0.0.1]); Fri, 18 Feb 2022 17:12:42 -0600 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=oQ4AIvcwHtf1bcyXVJRLc8vewHr37A9dRVE5cMbJQwo=; b=vOAnIIAzJ/De7e/1muPFYT2fmN
+	WDSmMDKhZczXtTxiEIe/FTtSIjEMcV6Wb0aLH4VsBymPySDBYJpvEn4Q0wzjvrNjznuHhwocTKmVU
+	HP/1zNJBNnqhgAzIht2UU69q05SOZTbTyPVKZP73Aw/DY53AOZpXx8clRphasePARK4g=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-168167-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 168167: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=686f13cfce1d95464ff39fb59ac1f85163cea03b
+X-Osstest-Versions-That:
+    xen=8dc44294806c83456794ba9488b4b440aa6193c2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 18 Feb 2022 23:14:05 +0000
 
-On Mon, Feb 14, 2022 at 10:21:01AM +0100, Roger Pau Monn?? wrote:
+flight 168167 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/168167/
 
-Good afternoon, I hope the week has gone well for everyone.
+Failures :-/ but no regressions.
 
-> On Mon, Feb 14, 2022 at 12:00:11AM -0600, Dr. Greg wrote:
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-> >
-> > [ Material removed ]
-> >
-> > It appears to be a problem with mapping interrupts back to dom0 given
-> > that we see the following:
-> > 
-> > Feb 10 08:16:05 hostname kernel: xhci_hcd 0000:00:14.0: xen map irq failed -19 for 32752 domain
-> > 
-> > Feb 10 08:16:05 hostname kernel: i915 0000:00:02.0: xen map irq failed -19 for 32752 domain
-> > 
-> > Feb 10 08:16:12 hostname kernel: xhci_hcd 0000:00:14.0: Error while assigning device slot ID
+version targeted for testing:
+ xen                  686f13cfce1d95464ff39fb59ac1f85163cea03b
+baseline version:
+ xen                  8dc44294806c83456794ba9488b4b440aa6193c2
 
-> Are you testing with an hypervisor with debug enabled? If not,
-> please build one and see if there are any messages in Xen dmesg also
-> as a result of the error (uisng `xl dmesg` if you don't have a
-> serial attached to the box). Posting full Linux and Xen dmesgs (Xen
-> build with debug=y) could also help.
+Last test of basis   168165  2022-02-18 14:03:03 Z    0 days
+Testing same since   168167  2022-02-18 19:01:37 Z    0 days    1 attempts
 
-It was just a stock build out of the GIT tree.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
 
-We will get a debug hypervisors built and get traces out of the test
-machine and post them to this thread.  I don't believe that dom0
-kernel was talking very much about what was going on but we will
-verify that.
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-> PHYSDEVOP_map_pirq is failing but without further information it's
-> impossible to limit the scope of the issue (and whether the issue is
-> with PHYSDEVOP_map_pirq or some previous operation).
 
-Very useful piece of information to have.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-From the log messages above, I assume the kernel is getting ENODEV
-from the hypervisor call.  We will see if we can get some targeted
-debug statements into the hypervisor to figure out what is going on.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> Thanks, Roger.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Thank you for the follow-up, have a good weekend.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Dr. Greg
 
-As always,
-Dr. Greg Wettstein, Ph.D    Worker / Principal Engineer
-IDfusion, LLC
-4206 19th Ave N.            Specialists in SGX secured infrastructure.
-Fargo, ND  58102
-PH: 701-281-1686            CELL: 701-361-2319
-EMAIL: gw@idfusion.org
-------------------------------------------------------------------------------
-"Real Programmers consider "what you see is what you get" to be just as
- bad a concept in Text Editors as it is in women.  No, the Real
- Programmer wants a "you asked for it, you got it" text editor --
- complicated, cryptic, powerful, unforgiving, dangerous."
-                                -- Matthias Schniedermeyer
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   8dc4429480..686f13cfce  686f13cfce1d95464ff39fb59ac1f85163cea03b -> smoke
 
